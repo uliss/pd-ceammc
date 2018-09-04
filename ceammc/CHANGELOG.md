@@ -5,6 +5,7 @@
 - \[print\] now supports Data types
 - tl.timeline added
 - msg.onload added
+- clear message added to fx.sdelay~
 
 ### Changed:
 - data type generation support for list.gen and list.each

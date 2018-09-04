@@ -443,7 +443,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -736,6 +737,11 @@ static t_class* sdelay_faust_class;
 #define FAUST_EXT_CLASS sdelay_faust_class
 // clang-format on
 
+template <class T>
+class _sdelay_UI : public UI {
+};
+typedef _sdelay_UI<sdelay> sdelay_UI;
+
 struct t_faust_sdelay {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -744,7 +750,7 @@ struct t_faust_sdelay {
     int fence; /* dummy field (not used) */
 #endif
     sdelay* dsp;
-    PdUI<UI>* ui;
+    PdUI<sdelay_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -827,7 +833,7 @@ static void sdelay_faust_dsp(t_faust_sdelay* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<sdelay_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -882,7 +888,7 @@ static void sdelay_faust_any(t_faust_sdelay* x, t_symbol* s, int argc, t_atom* a
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<sdelay_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -1042,7 +1048,7 @@ static bool faust_new_internal(t_faust_sdelay* x, const std::string& objId = "",
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new sdelay();
-    x->ui = new PdUI<UI>(sym(sdelay), objId);
+    x->ui = new PdUI<sdelay_UI>(sym(sdelay), objId);
 
     if (!faust_init_inputs(x)) {
         sdelay_faust_free(x);
@@ -1186,8 +1192,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1280,6 +1286,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(sdelay_faust_class, reinterpret_cast<t_method>(sdelay_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(sdelay_faust_class, reinterpret_cast<t_method>(sdelay_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(sdelay_faust_class, sdelay_faust_any);
+    ceammc::register_faust_external(sdelay_faust_class);
 }
 
 #define EXTERNAL_NEW void* sdelay_faust_new(t_symbol*, int argc, t_atom* argv)

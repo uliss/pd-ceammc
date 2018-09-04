@@ -41,6 +41,9 @@
             <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
             'effected' signal.</property>
         </properties>
+        <methods>
+            <method name="clear">clears delay line</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
