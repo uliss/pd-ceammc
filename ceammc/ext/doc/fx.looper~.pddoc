@@ -33,7 +33,7 @@
         <methods>
             <method name="record">start loop record</method>
             <method name="rec">same as record</method>
-            <method name="adjust">increase loop length
+            <method name="adjust">increase loop length 
             <param type="float" name="DELTA" units="sample">loop length delta</param></method>
             <method name="play">play recorded or stopped loop</method>
             <method name="overdub">start loop overdubbing while keeping it playing</method>

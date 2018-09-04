@@ -29,7 +29,8 @@
             <method name="dump">dump internal object state to Pd console window</method>
         </methods>
         <properties>
-            <property name="@count" type="int" minvalue="1" maxvalue="1024">length for generated list</property>
+            <property name="@count" type="int" minvalue="1" maxvalue="1024">length for generated
+            list</property>
         </properties>
         <inlets>
             <inlet>
