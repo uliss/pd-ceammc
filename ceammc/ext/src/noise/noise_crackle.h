@@ -439,7 +439,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -682,6 +683,11 @@ static t_class* crackle_faust_class;
 #define FAUST_EXT_CLASS crackle_faust_class
 // clang-format on
 
+template <class T>
+class _crackle_UI : public UI {
+};
+typedef _crackle_UI<crackle> crackle_UI;
+
 struct t_faust_crackle {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -690,7 +696,7 @@ struct t_faust_crackle {
     int fence; /* dummy field (not used) */
 #endif
     crackle* dsp;
-    PdUI<UI>* ui;
+    PdUI<crackle_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -773,7 +779,7 @@ static void crackle_faust_dsp(t_faust_crackle* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<crackle_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -828,7 +834,7 @@ static void crackle_faust_any(t_faust_crackle* x, t_symbol* s, int argc, t_atom*
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<crackle_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -988,7 +994,7 @@ static bool faust_new_internal(t_faust_crackle* x, const std::string& objId = ""
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new crackle();
-    x->ui = new PdUI<UI>(sym(crackle), objId);
+    x->ui = new PdUI<crackle_UI>(sym(crackle), objId);
 
     if (!faust_init_inputs(x)) {
         crackle_faust_free(x);
@@ -1132,8 +1138,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1226,6 +1232,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(crackle_faust_class, reinterpret_cast<t_method>(crackle_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(crackle_faust_class, reinterpret_cast<t_method>(crackle_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(crackle_faust_class, crackle_faust_any);
+    ceammc::register_faust_external(crackle_faust_class);
 }
 
 #define EXTERNAL_NEW void* crackle_faust_new(t_symbol*, int argc, t_atom* argv)

@@ -439,7 +439,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -614,7 +615,7 @@ class pink : public dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec1[0] = ((1103515245 * iRec1[1]) + 12345);
-			fRec0[0] = (((0.522189379f * fRec0[3]) + ((4.65661287e-10f * float(iRec1[0])) + (2.49495602f * fRec0[1]))) - (2.0172658f * fRec0[2]));
+			fRec0[0] = ((((2.49495602f * fRec0[1]) + (4.65661287e-10f * float(iRec1[0]))) + (0.522189379f * fRec0[3])) - (2.0172658f * fRec0[2]));
 			output0[i] = FAUSTFLOAT((((0.0499220341f * fRec0[0]) + (0.0506126992f * fRec0[2])) - ((0.0959935337f * fRec0[1]) + (0.00440878607f * fRec0[3]))));
 			iRec1[1] = iRec1[0];
 			for (int j0 = 3; (j0 > 0); j0 = (j0 - 1)) {
@@ -641,6 +642,11 @@ static t_class* pink_faust_class;
 #define FAUST_EXT_CLASS pink_faust_class
 // clang-format on
 
+template <class T>
+class _pink_UI : public UI {
+};
+typedef _pink_UI<pink> pink_UI;
+
 struct t_faust_pink {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -649,7 +655,7 @@ struct t_faust_pink {
     int fence; /* dummy field (not used) */
 #endif
     pink* dsp;
-    PdUI<UI>* ui;
+    PdUI<pink_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -732,7 +738,7 @@ static void pink_faust_dsp(t_faust_pink* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<pink_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -787,7 +793,7 @@ static void pink_faust_any(t_faust_pink* x, t_symbol* s, int argc, t_atom* argv)
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<pink_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -947,7 +953,7 @@ static bool faust_new_internal(t_faust_pink* x, const std::string& objId = "", b
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new pink();
-    x->ui = new PdUI<UI>(sym(pink), objId);
+    x->ui = new PdUI<pink_UI>(sym(pink), objId);
 
     if (!faust_init_inputs(x)) {
         pink_faust_free(x);
@@ -1091,8 +1097,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1185,6 +1191,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(pink_faust_class, reinterpret_cast<t_method>(pink_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(pink_faust_class, reinterpret_cast<t_method>(pink_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(pink_faust_class, pink_faust_any);
+    ceammc::register_faust_external(pink_faust_class);
 }
 
 #define EXTERNAL_NEW void* pink_faust_new(t_symbol*, int argc, t_atom* argv)
