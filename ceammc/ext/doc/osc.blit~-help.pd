@@ -25,10 +25,10 @@
 #X obj 20 408 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 413 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 418 freq;
+#X msg 120 418 @freq;
 #X text 240 418 Get/Set default frequency. Type: float. Units: Hz. Min
 value: 0;
-#X msg 120 455 harmonics;
+#X msg 120 455 @harmonics;
 #X text 240 455 Get/Set number of harmonics. 0 means all available
 hamonics untile SR/2\. Type: int. Min value: 0;
 #X obj 20 502 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;

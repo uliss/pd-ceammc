@@ -22,9 +22,9 @@
             frequency</argument>
         </arguments>
         <properties>
-            <property name="freq" type="float" units="herz" minvalue="0">default
+            <property name="@freq" type="float" units="herz" minvalue="0">default
             frequency</property>
-            <property name="harmonics" type="int" minvalue="0">number of harmonics. 0 means all
+            <property name="@harmonics" type="int" minvalue="0">number of harmonics. 0 means all
             available hamonics untile SR/2</property>
         </properties>
         <inlets>
