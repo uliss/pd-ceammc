@@ -257,5 +257,165 @@ namespace faust {
         return res;
     }
 
+    FaustExternalBase::FaustExternalBase(const PdArgs& args)
+        : SoundExternal(args)
+        , faust_bs_(0)
+        , active_(true)
+        , rate_(44100)
+        , xfade_(0)
+        , n_xfade_(static_cast<int>(rate_ * xfadeTime() / 64))
+    {
+        createCbProperty("@active", &FaustExternalBase::propActive, &FaustExternalBase::propSetActive);
+    }
+
+    FaustExternalBase::~FaustExternalBase()
+    {
+        for (auto& b : faust_buf_)
+            delete[] b;
+    }
+
+    void FaustExternalBase::setupDSP(t_signal** sp)
+    {
+        SoundExternal::setupDSP(sp);
+
+        const size_t BS = blockSize();
+
+        if (faust_bs_ != BS) {
+            for (auto& buf_block : faust_buf_) {
+                if (buf_block)
+                    delete[] buf_block;
+
+                buf_block = new t_sample[BS];
+            }
+
+            faust_bs_ = BS;
+        }
+    }
+
+    void FaustExternalBase::processInactive(const t_sample** in, t_sample** out)
+    {
+        const size_t N_IN = numInputChannels();
+        const size_t N_OUT = numOutputChannels();
+        const size_t BS = blockSize();
+
+        if (N_IN == N_OUT) {
+            // in non-active state - just pass thru samples
+            copy_samples(N_IN, BS, in, faust_buf_.data());
+            copy_samples(N_OUT, BS, (const t_sample**)faust_buf_.data(), out);
+        } else {
+            // if state is non-active and different inputs and outputs count
+            // fill outs with zero
+            zero_samples(N_OUT, BS, out);
+        }
+    }
+
+    void FaustExternalBase::processXfade(const t_sample** in, t_sample** out)
+    {
+        const size_t N_IN = numInputChannels();
+        const size_t N_OUT = numOutputChannels();
+
+        if (active_) {
+            if (N_IN == N_OUT) {
+                /* xfade inputs -> buf */
+                bufFadeIn(in, out, 1);
+            } else {
+                /* xfade 0 -> buf */
+                bufFadeIn(in, out, 0);
+            }
+        } else if (N_IN == N_OUT) {
+            /* xfade buf -> inputs */
+            bufFadeOut(in, out, 1);
+        } else {
+            /* xfade buf -> 0 */
+            bufFadeOut(in, out, 0);
+        }
+    }
+
+    void FaustExternalBase::initSignalInputs(size_t n)
+    {
+        for (int i = 1; i < n; i++)
+            createSignalInlet();
+    }
+
+    void FaustExternalBase::initSignalOutputs(size_t n)
+    {
+        for (int i = 0; i < n; i++)
+            createSignalOutlet();
+
+        faust_buf_.assign(n, nullptr);
+    }
+
+    float FaustExternalBase::xfadeTime() const
+    {
+        return 0.1f;
+    }
+
+    void FaustExternalBase::propSetActive(const AtomList& lst)
+    {
+        active_ = atomlistToValue<bool>(lst, false);
+    }
+
+    AtomList FaustExternalBase::propActive() const
+    {
+        return Atom(active_ ? 1 : 0);
+    }
+
+    void FaustExternalBase::bufFadeIn(const t_sample** in, t_sample** out, float k0)
+    {
+        const size_t BS = blockSize();
+        const size_t N_OUT = numOutputChannels();
+
+        float d = 1.0f / n_xfade_;
+        float f = (xfade_--) * d;
+        d = d / BS;
+
+        for (int j = 0; j < BS; j++, f -= d) {
+            for (int i = 0; i < N_OUT; i++)
+                out[i][j] = k0 * f * in[i][j] + (1.0f - f) * faust_buf_[i][j];
+        }
+    }
+
+    void FaustExternalBase::bufFadeOut(const t_sample** in, t_sample** out, float k0)
+    {
+        const size_t BS = blockSize();
+        const size_t N_OUT = numOutputChannels();
+
+        float d = 1.0f / n_xfade_;
+        float f = (xfade_--) * d;
+        d = d / BS;
+
+        for (int j = 0; j < BS; j++, f -= d) {
+            for (int i = 0; i < N_OUT; i++)
+                out[i][j] = f * faust_buf_[i][j] + k0 * (1.0f - f) * in[i][j];
+        }
+    }
+
+    UIProperty::UIProperty(UIElement* el)
+        : Property(PropertyInfo(std::string("@") + el->label(), PropertyInfoType::FLOAT))
+        , el_(el)
+    {
+    }
+
+    bool UIProperty::set(const AtomList& lst)
+    {
+        if (!readonlyCheck())
+            return false;
+
+        if (!emptyValueCheck(lst))
+            return false;
+
+        if (!lst[0].isFloat())
+            return false;
+
+        t_float v = lst[0].asFloat();
+        el_->setValue(v, true);
+        return true;
+    }
+
+    AtomList UIProperty::get() const
+    {
+        return Atom(el_->value());
+    }
+
 }
 }
