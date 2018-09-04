@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "wahwah"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -66,6 +66,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -229,6 +230,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -395,6 +399,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -417,7 +422,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -490,6 +495,7 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 #include <math.h>
 
@@ -554,7 +560,7 @@ class wahwahSIG0 {
 wahwahSIG0* newwahwahSIG0() { return (wahwahSIG0*)new wahwahSIG0(); }
 void deletewahwahSIG0(wahwahSIG0* dsp) { delete dsp; }
 
-float wahwah_faustpower2_f(float value) {
+static float wahwah_faustpower2_f(float value) {
 	return (value * value);
 	
 }
@@ -668,7 +674,7 @@ class wahwah : public dsp {
 		wahwahSIG0* sig0 = newwahwahSIG0();
 		sig0->instanceInitwahwahSIG0(samplingFreq);
 		sig0->fillwahwahSIG0(16, ftbl0);
-		fConst0 = min(192000.0f, max(1.0f, float(fSamplingFreq)));
+		fConst0 = std::min(192000.0f, std::max(1.0f, float(fSamplingFreq)));
 		fConst1 = (60.0f * fConst0);
 		fConst2 = (1413.71667f / fConst0);
 		fConst3 = (2827.43335f / fConst0);
@@ -774,26 +780,26 @@ class wahwah : public dsp {
 		float fSlow3 = float(fHslider2);
 		int iSlow4 = (fSlow3 <= 0.0f);
 		for (int i = 0; (i < count); i = (i + 1)) {
-			iVec0[0] = 1;
-			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0?0.0f:fTemp0);
+			iVec0[0] = 1;
+			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
 			fRec4[0] = (fSlow2 + (0.999000013f * fRec4[1]));
 			iRec3[0] = ((iVec0[1] + iRec3[1]) % int((fConst1 / float(int(fRec4[0])))));
 			int iTemp2 = (iRec3[0] == 0);
 			iVec1[0] = iTemp2;
 			fVec2[0] = fSlow3;
-			fRec5[0] = (iVec1[1]?0.0f:(fabsf((fSlow3 - fVec2[1])) + fRec5[1]));
+			fRec5[0] = (iVec1[1]?0.0f:(std::fabs((fSlow3 - fVec2[1])) + fRec5[1]));
 			iRec6[0] = ((iTemp2 + iRec6[1]) % 15);
 			ftbl0[((iTemp2 & ((fRec5[0] > 0.0f) | iSlow4))?iRec6[0]:15)] = fSlow3;
 			float fTemp3 = ftbl0[iRec6[0]];
-			fRec2[0] = ((0.999000013f * fRec2[1]) + (9.99999975e-05f * powf(4.0f, fTemp3)));
-			float fTemp4 = powf(2.0f, (2.29999995f * fTemp3));
-			float fTemp5 = (1.0f - (fConst2 * (fTemp4 / powf(2.0f, ((2.0f * (1.0f - fTemp3)) + 1.0f)))));
-			fRec7[0] = ((0.999000013f * fRec7[1]) + (0.00100000005f * (0.0f - (2.0f * (fTemp5 * cosf((fConst3 * fTemp4)))))));
+			fRec2[0] = ((0.999000013f * fRec2[1]) + (9.99999975e-05f * std::pow(4.0f, fTemp3)));
+			float fTemp4 = std::pow(2.0f, (2.29999995f * fTemp3));
+			float fTemp5 = (1.0f - (fConst2 * (fTemp4 / std::pow(2.0f, ((2.0f * (1.0f - fTemp3)) + 1.0f)))));
+			fRec7[0] = ((0.999000013f * fRec7[1]) + (0.00100000005f * (0.0f - (2.0f * (fTemp5 * std::cos((fConst3 * fTemp4)))))));
 			fRec8[0] = ((0.999000013f * fRec8[1]) + (0.00100000005f * wahwah_faustpower2_f(fTemp5)));
-			fRec1[0] = ((fRec2[0] * fTemp1) - ((fRec7[0] * fRec1[1]) + (fRec8[0] * fRec1[2])));
-			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:(((1.0f - fRec0[0]) * fTemp1) + (fRec0[0] * (fRec1[0] - fRec1[1])))));
+			fRec1[0] = ((fTemp1 * fRec2[0]) - ((fRec1[1] * fRec7[0]) + (fRec1[2] * fRec8[0])));
+			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:((fTemp1 * (1.0f - fRec0[0])) + (fRec0[0] * (fRec1[0] - fRec1[1])))));
 			iVec0[1] = iVec0[0];
 			fRec0[1] = fRec0[0];
 			fRec4[1] = fRec4[0];
