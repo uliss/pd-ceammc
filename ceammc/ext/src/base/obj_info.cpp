@@ -28,59 +28,54 @@ ObjectInfo::ObjectInfo(const PdArgs& args)
 
 void ObjectInfo::onBang()
 {
-    t_object* obj = owner();
+    m_props(gensym("props"), AtomList());
+}
 
-    t_outlet* outlet;
-    auto conn = obj_starttraverseoutlet(obj, &outlet, 1);
-    if (!conn) {
-        OBJ_ERR << "can't connect";
-        return;
+void ObjectInfo::m_props(t_symbol* s, const AtomList& l)
+{
+    AtomList res;
+    for (t_object* o : connected()) {
+        if (!is_ceammc(o))
+            continue;
+
+        std::vector<PropertyInfo> props;
+
+        if (is_ceammc_base(o))
+            props = ceammc_base_properties(o);
+        if (is_ceammc_ui(o))
+            props = ceammc_ui_properties(o);
+        if (is_ceammc_faust(o))
+            props = ceammc_faust_properties(o);
+
+        for (const PropertyInfo& p : props)
+            res.append(gensym(p.name().c_str()));
     }
 
+    listTo(0, res);
+}
+
+std::vector<t_object*> ObjectInfo::connected()
+{
+    t_object* obj = owner();
+    t_outlet* outlet = nullptr;
+    auto conn = obj_starttraverseoutlet(obj, &outlet, 1);
+    if (!conn)
+        return {};
+
+    std::vector<t_object*> res;
     while (conn) {
         t_object* dest;
         t_inlet* inletp;
         int whichp;
         conn = obj_nexttraverseoutlet(conn, &dest, &inletp, &whichp);
-
-        t_class* c = dest->te_g.g_pd;
-        t_symbol* name = c->c_name;
-        OBJ_DBG << "class name: " << name;
-
-        auto it = base_external_set().find(c);
-        if (it != base_external_set().end()) {
-            OBJ_DBG << "BaseObject";
-            typedef ObjectFactory<ObjectInfo>::ObjectProxy Proxy;
-            Proxy* p = (Proxy*)dest;
-            for (auto& prop : p->impl->properties())
-                OBJ_DBG << prop.second->name();
-
-            return;
-        }
-
-        it = ui_external_set().find(c);
-        if (it != ui_external_set().end()) {
-            OBJ_DBG << "UIObject";
-            for (int i = 0; i < c->c_nmethod; i++) {
-                t_methodentry m = c->c_methods[i];
-                t_symbol* s = m.me_name;
-                if (s->s_name[0] != '@')
-                    continue;
-
-                size_t len = strlen(s->s_name);
-                if (len < 1)
-                    continue;
-
-                if (s->s_name[len - 1] == '?')
-                    continue;
-
-                OBJ_DBG << s;
-            }
-        }
+        res.push_back(dest);
     }
+
+    return res;
 }
 
 void setup_obj_info()
 {
     ObjectFactory<ObjectInfo> obj("obj.info");
+    obj.addMethod("properties", &ObjectInfo::m_props);
 }

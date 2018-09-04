@@ -22,6 +22,11 @@ class ObjectInfo : public BaseObject {
 public:
     ObjectInfo(const PdArgs& args);
     void onBang() override;
+
+    void m_props(t_symbol* s, const AtomList& l);
+
+private:
+    std::vector<t_object*> connected();
 };
 
 void setup_obj_info();
