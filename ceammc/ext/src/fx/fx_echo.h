@@ -439,7 +439,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -674,12 +675,12 @@ class echo : public dsp {
 		float fSlow9 = (fSlow3 - fSlow5);
 		int iSlow10 = (min(iConst7, max(0, (iSlow7 + 1))) + 1);
 		for (int i = 0; (i < count); i = (i + 1)) {
-			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0?0.0f:fTemp0);
+			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
 			fRec2[0] = (fSlow2 + (0.999000013f * fRec2[1]));
-			fRec1[(IOTA & 2097151)] = ((fRec2[0] * ((fSlow6 * fRec1[((IOTA - iSlow8) & 2097151)]) + (fSlow9 * fRec1[((IOTA - iSlow10) & 2097151)]))) + fTemp1);
-			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:(((1.0f - fRec0[0]) * fTemp1) + (fRec0[0] * fRec1[((IOTA - 0) & 2097151)]))));
+			fRec1[(IOTA & 2097151)] = (fTemp1 + (fRec2[0] * ((fSlow6 * fRec1[((IOTA - iSlow8) & 2097151)]) + (fSlow9 * fRec1[((IOTA - iSlow10) & 2097151)]))));
+			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:((fTemp1 * (1.0f - fRec0[0])) + (fRec0[0] * fRec1[((IOTA - 0) & 2097151)]))));
 			fRec0[1] = fRec0[0];
 			fRec2[1] = fRec2[0];
 			IOTA = (IOTA + 1);
@@ -703,8 +704,9 @@ static t_class* echo_faust_class;
 #define FAUST_EXT_CLASS echo_faust_class
 // clang-format on
 
-template<class T>
-class _echo_UI : public UI {};
+template <class T>
+class _echo_UI : public UI {
+};
 typedef _echo_UI<echo> echo_UI;
 
 struct t_faust_echo {
@@ -1157,8 +1159,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1251,6 +1253,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(echo_faust_class, reinterpret_cast<t_method>(echo_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(echo_faust_class, reinterpret_cast<t_method>(echo_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(echo_faust_class, echo_faust_any);
+    ceammc::register_faust_external(echo_faust_class);
 }
 
 #define EXTERNAL_NEW void* echo_faust_new(t_symbol*, int argc, t_atom* argv)
