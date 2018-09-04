@@ -439,7 +439,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -773,10 +774,10 @@ class wahwah : public dsp {
 		float fSlow3 = float(fHslider2);
 		int iSlow4 = (fSlow3 <= 0.0f);
 		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = float(input0[i]);
-			float fTemp1 = (iSlow0?0.0f:fTemp0);
 			iVec0[0] = 1;
 			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
+			float fTemp0 = float(input0[i]);
+			float fTemp1 = (iSlow0?0.0f:fTemp0);
 			fRec4[0] = (fSlow2 + (0.999000013f * fRec4[1]));
 			iRec3[0] = ((iVec0[1] + iRec3[1]) % int((fConst1 / float(int(fRec4[0])))));
 			int iTemp2 = (iRec3[0] == 0);
@@ -791,8 +792,8 @@ class wahwah : public dsp {
 			float fTemp5 = (1.0f - (fConst2 * (fTemp4 / powf(2.0f, ((2.0f * (1.0f - fTemp3)) + 1.0f)))));
 			fRec7[0] = ((0.999000013f * fRec7[1]) + (0.00100000005f * (0.0f - (2.0f * (fTemp5 * cosf((fConst3 * fTemp4)))))));
 			fRec8[0] = ((0.999000013f * fRec8[1]) + (0.00100000005f * wahwah_faustpower2_f(fTemp5)));
-			fRec1[0] = ((fTemp1 * fRec2[0]) - ((fRec7[0] * fRec1[1]) + (fRec8[0] * fRec1[2])));
-			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:((fTemp1 * (1.0f - fRec0[0])) + (fRec0[0] * (fRec1[0] - fRec1[1])))));
+			fRec1[0] = ((fRec2[0] * fTemp1) - ((fRec7[0] * fRec1[1]) + (fRec8[0] * fRec1[2])));
+			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:(((1.0f - fRec0[0]) * fTemp1) + (fRec0[0] * (fRec1[0] - fRec1[1])))));
 			iVec0[1] = iVec0[0];
 			fRec0[1] = fRec0[0];
 			fRec4[1] = fRec4[0];
@@ -826,6 +827,11 @@ static t_class* wahwah_faust_class;
 #define FAUST_EXT_CLASS wahwah_faust_class
 // clang-format on
 
+template <class T>
+class _wahwah_UI : public UI {
+};
+typedef _wahwah_UI<wahwah> wahwah_UI;
+
 struct t_faust_wahwah {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -834,7 +840,7 @@ struct t_faust_wahwah {
     int fence; /* dummy field (not used) */
 #endif
     wahwah* dsp;
-    PdUI<UI>* ui;
+    PdUI<wahwah_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -917,7 +923,7 @@ static void wahwah_faust_dsp(t_faust_wahwah* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<wahwah_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -972,7 +978,7 @@ static void wahwah_faust_any(t_faust_wahwah* x, t_symbol* s, int argc, t_atom* a
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<wahwah_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -1132,7 +1138,7 @@ static bool faust_new_internal(t_faust_wahwah* x, const std::string& objId = "",
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new wahwah();
-    x->ui = new PdUI<UI>(sym(wahwah), objId);
+    x->ui = new PdUI<wahwah_UI>(sym(wahwah), objId);
 
     if (!faust_init_inputs(x)) {
         wahwah_faust_free(x);
@@ -1276,8 +1282,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1370,6 +1376,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(wahwah_faust_class, reinterpret_cast<t_method>(wahwah_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(wahwah_faust_class, reinterpret_cast<t_method>(wahwah_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(wahwah_faust_class, wahwah_faust_any);
+    ceammc::register_faust_external(wahwah_faust_class);
 }
 
 #define EXTERNAL_NEW void* wahwah_faust_new(t_symbol*, int argc, t_atom* argv)
