@@ -299,6 +299,8 @@ public:
 
     friend DataTypeEnv operator+(const DataTypeEnv& env0, const DataTypeEnv& env1);
 
+    bool isAR(bool checkVal = false) const;
+
 public:
     static DataType dataType;
 };
