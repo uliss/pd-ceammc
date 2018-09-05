@@ -15,6 +15,8 @@ extern "C" void setup_env0x2ear_tilde();
 extern "C" void setup_env0x2efollow_tilde();
 extern "C" void setup_env0x2esmooth_tilde();
 
+void setup_env_ar2();
+
 void ceammc_env_setup()
 {
     setup_env0x2eadsr_tilde();
@@ -32,4 +34,5 @@ void ceammc_env_setup()
     setup_env_concat();
 
     setup_vline_to_env();
+    setup_env_ar2();
 }

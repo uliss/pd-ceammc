@@ -15,9 +15,15 @@ macro(ceammc_env_external name)
     ceammc_faust_gen(env ${name})
 endmacro()
 
+macro(ceammc_env_obj_external name)
+    list(APPEND ENV_SOURCES "env_${name}.cpp")
+    ceammc_faust_gen_obj(env ${name})
+endmacro()
+
 ceammc_env_external(adsr)
 ceammc_env_external(asr)
 ceammc_env_external(ar)
+ceammc_env_obj_external(ar2)
 ceammc_env_external(follow)
 ceammc_env_external(smooth)
 
