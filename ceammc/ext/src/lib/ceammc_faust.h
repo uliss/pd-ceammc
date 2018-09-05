@@ -18,6 +18,7 @@
 #include <cassert>
 #include <cctype>
 #include <cstring>
+#include <initializer_list>
 #include <string>
 #include <vector>
 
@@ -76,6 +77,8 @@ namespace faust {
     public:
         FaustExternalBase(const PdArgs& args);
         ~FaustExternalBase();
+
+        void bindPositionalArgsToProps(std::initializer_list<t_symbol*> lst);
 
         void setupDSP(t_signal** sp) override;
 
@@ -315,6 +318,16 @@ namespace faust {
                 copy_samples(N_OUT, BS, (const t_sample**)faust_buf_.data(), out);
             } else
                 processInactive(in, out);
+        }
+
+        void resetUI()
+        {
+            ui_->instanceResetUserInterface();
+        }
+
+        void clear()
+        {
+            ui_->instanceClear();
         }
     };
 

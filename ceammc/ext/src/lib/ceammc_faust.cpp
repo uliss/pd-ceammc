@@ -274,6 +274,25 @@ namespace faust {
             delete[] b;
     }
 
+    void FaustExternalBase::bindPositionalArgsToProps(std::initializer_list<t_symbol*> lst)
+    {
+        size_t n = std::min(lst.size(), positionalArguments().size());
+        for (size_t i = 0; i < n; i++) {
+            t_symbol* p = lst.begin()[i];
+            const Atom& a = positionalArguments()[i];
+
+            if (!hasProperty(p)) {
+                OBJ_ERR << "invalid property name: " << p;
+                continue;
+            }
+
+            if (!property(p)->set(a)) {
+                OBJ_ERR << "can't set " << p << " from positional argument " << a;
+                continue;
+            }
+        }
+    }
+
     void FaustExternalBase::setupDSP(t_signal** sp)
     {
         SoundExternal::setupDSP(sp);
