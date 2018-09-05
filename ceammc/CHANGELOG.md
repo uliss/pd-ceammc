@@ -12,6 +12,8 @@
 - flow.demultiplex - second inlet added and @noprops flag added
 - ui.matrix @current_col and @current_row are made unsaved properties
 - \[ceammc\] object prints all library objects to Pd window
+- you can request several properties in one message, line [@prop1? @prop2?(,
+    the output is: [@prop1 values... @prop2 values...]
 
 ## [0.6]
 ### Added:

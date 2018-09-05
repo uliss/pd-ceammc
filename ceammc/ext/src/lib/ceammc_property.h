@@ -18,11 +18,16 @@
 #include "ceammc_log.h"
 #include "ceammc_property_info.h"
 
+#include <initializer_list>
 #include <iterator>
 #include <string>
 #include <type_traits>
 
 namespace ceammc {
+
+t_symbol* SYM_DUMP();
+t_symbol* SYM_PROPS_ALL();
+t_symbol* SYM_PROPS_ALL_Q();
 
 class Property {
     PropertyInfo info_;
@@ -62,6 +67,15 @@ public:
 
     Atom value() const { return v_; }
     void setValue(const Atom& v) { v_ = v; }
+};
+
+class CombinedProperty : public Property {
+    std::vector<Property*> props_;
+
+public:
+    CombinedProperty(const std::string& name, std::initializer_list<Property*> props);
+    bool set(const AtomList&);
+    AtomList get() const;
 };
 
 class ListProperty : public Property {

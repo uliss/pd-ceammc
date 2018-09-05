@@ -20,6 +20,26 @@
 
 namespace ceammc {
 
+// using singleton to prevent problems with static objects
+// intializations in different modules
+t_symbol* SYM_DUMP()
+{
+    static t_symbol* s = gensym("dump");
+    return s;
+}
+
+t_symbol* SYM_PROPS_ALL()
+{
+    static t_symbol* s = gensym("@*");
+    return s;
+}
+
+t_symbol* SYM_PROPS_ALL_Q()
+{
+    static t_symbol* s = gensym("@*?");
+    return s;
+}
+
 Property::Property(const PropertyInfo& info, bool readonly)
     : info_(info)
     , readonly_(readonly)
@@ -310,4 +330,28 @@ std::string SymbolProperty::str() const
 SymbolEnumProperty::~SymbolEnumProperty()
 {
 }
+
+CombinedProperty::CombinedProperty(const std::string& name, std::initializer_list<Property*> props)
+    : Property(PropertyInfo(name, PropertyInfoType::LIST), true)
+    , props_(props)
+{
+}
+
+bool CombinedProperty::set(const AtomList&)
+{
+    return false;
+}
+
+AtomList CombinedProperty::get() const
+{
+    AtomList res;
+
+    for (auto p : props_) {
+        if (p)
+            res.append(p->get());
+    }
+
+    return res;
+}
+
 }

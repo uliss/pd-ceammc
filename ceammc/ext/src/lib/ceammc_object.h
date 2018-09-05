@@ -138,6 +138,12 @@ public:
     virtual void dump() const;
 
     /**
+     * Outputs all properties name
+     * @example on message [@*?( outputs message [@* @prop1 @prop2 etc..(
+     */
+    void queryPropNames();
+
+    /**
      * You should override this functions to react upon arrived messages.
      */
     virtual void onBang();
@@ -320,6 +326,11 @@ public:
     std::string findInStdPaths(const char* fname) const;
 
 public:
+    /**
+     * @brief tryGetPropKey - return property name for property query name: @prop? -> @prop
+     * @param sel - property query, like @prop?
+     * @return @prop or nullptr on error
+     */
     static t_symbol* tryGetPropKey(t_symbol* sel);
 
     /**
@@ -334,10 +345,10 @@ protected:
     void freeProps();
     AtomList propNumInlets();
     AtomList propNumOutlets();
-    AtomList listAllProps() const;
     const AtomList& args() const { return pd_.args; }
     void appendInlet(t_inlet* in);
     void appendOutlet(t_outlet* out);
+    bool queryProperty(t_symbol* key, AtomList& res) const;
 
 private:
     void extractPositionalArguments();

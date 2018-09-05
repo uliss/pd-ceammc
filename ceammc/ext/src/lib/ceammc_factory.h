@@ -112,7 +112,8 @@ public:
         if (!(flags & OBJECT_FACTORY_NO_ANY))
             setAnyFn(processAny);
 
-        class_addmethod(c, reinterpret_cast<t_method>(dumpMethodList), gensym("dump"), A_NULL);
+        class_addmethod(c, reinterpret_cast<t_method>(dumpMethodList), SYM_DUMP(), A_NULL);
+        class_addmethod(c, reinterpret_cast<t_method>(queryPropNames), SYM_PROPS_ALL_Q(), A_NULL);
 
         class_name_ = s_name;
         register_base_external(class_);
@@ -284,17 +285,21 @@ public:
 
     static void dumpMethodList(ObjectProxy* x)
     {
-        typename MethodListMap::iterator it;
-        for (it = methods_.begin(); it != methods_.end(); ++it) {
+        for (auto it = methods_.begin(); it != methods_.end(); ++it) {
             post("[%s] method: %s", class_name_->s_name, it->first->s_name);
         }
 
         x->impl->dump();
     }
 
+    static void queryPropNames(ObjectProxy* x)
+    {
+        x->impl->queryPropNames();
+    }
+
     static void defaultListMethod(ObjectProxy* x, t_symbol* sel, int argc, t_atom* argv)
     {
-        typename MethodListMap::iterator it = methods_.find(sel);
+        auto it = methods_.find(sel);
         if (it == methods_.end()) {
             pd_error(x, "unknown method: %s", sel->s_name);
             return;
