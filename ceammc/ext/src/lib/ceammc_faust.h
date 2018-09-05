@@ -54,7 +54,7 @@ namespace faust {
         for (int i = 0; i < n_ch; i++)
 #ifdef __STDC_IEC_559__
             /* IEC 559 a.k.a. IEEE 754 floats can be initialized faster like this */
-            memset(out[i], 0, n * sizeof(t_sample));
+            memset(out[i], 0, bs * sizeof(t_sample));
 #else
             for (size_t j = 0; j < bs; j++)
                 out[i][j] = 0.0f;
