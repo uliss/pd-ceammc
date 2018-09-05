@@ -15,6 +15,8 @@
 #include "eobj.h"
 #include "epopup.h"
 
+#include <vector>
+
 #define _(msg) msg
 
 static t_symbol* SYM_DUMP = gensym("dump");
@@ -741,22 +743,16 @@ void eclass_attr_getter(t_object* x, t_symbol* s, int* argc, t_atom** argv)
     }
 }
 
-void eclass_attr_ceammc_getter(t_object* x, t_symbol* s, int a, t_atom* l)
+static bool request_property(t_object* x, t_symbol* s, std::vector<t_atom>& res)
 {
-    int argc_ = 0;
-    t_atom* argv_ = NULL;
-    t_ebox* z = (t_ebox*)x;
-    if (!z->b_obj.o_obj.te_outlet) {
-        pd_error(x, "[%s] can't get property: class has no outlets.", class_getname(x->te_pd));
-        return;
-    }
-
     const size_t len = strlen(s->s_name);
     if (len < 3 || len > MAXPDSTRING) {
         pd_error(x, "[%s] invalid property name", class_getname(x->te_pd));
-        return;
+        return false;
     }
 
+    int argc_ = 0;
+    t_atom* argv_ = NULL;
     char buf[MAXPDSTRING];
     // copy property name without leading '@' char and ending '?' char
     memcpy(buf, s->s_name + 1, len - 2);
@@ -769,14 +765,57 @@ void eclass_attr_ceammc_getter(t_object* x, t_symbol* s, int a, t_atom* l)
         // copy property name without ending '?' char
         memcpy(buf, s->s_name, len - 1);
         buf[len - 1] = '\0';
-        t_symbol* prop_at_name = gensym(buf);
-        outlet_anything(z->b_obj.o_obj.te_outlet, prop_at_name, argc_, argv_);
+        t_atom at_name;
+        atom_setsym(&at_name, gensym(buf));
+        res.push_back(at_name);
+        for (int i = 0; i < argc_; i++)
+            res.push_back(argv_[i]);
+
         // free memory allocated in eclass_attr_getter()
         freebytes(argv_, 0);
+        return true;
     } else {
         memcpy(buf, s->s_name, len - 1);
         buf[len - 1] = '\0';
         pd_error(x, "[%s] unknown property: %s", class_getname(x->te_pd), buf);
+        return false;
+    }
+}
+
+void eclass_attr_ceammc_getter(t_object* x, t_symbol* s, int argc, t_atom* argv)
+{
+    int argc_ = 0;
+    t_atom* argv_ = NULL;
+    t_ebox* z = (t_ebox*)x;
+    if (!z->b_obj.o_obj.te_outlet) {
+        pd_error(x, "[%s] can't get property: class has no outlets.", class_getname(x->te_pd));
+        return;
+    }
+
+    // single request
+    if (argc < 1) {
+        std::vector<t_atom> res;
+        if (!request_property(x, s, res))
+            return;
+
+        outlet_anything(z->b_obj.o_obj.te_outlet, res[0].a_w.w_symbol, res.size() - 1, res.data() + 1);
+    } else {
+        // multiple request
+        std::vector<t_atom> res;
+        request_property(x, s, res);
+        for (int i = 0; i < argc; i++) {
+            t_atom* a = &argv[i];
+            if(atom_gettype(a) != A_SYMBOL)
+                continue;
+
+            if (!request_property(x, atom_getsymbol(a), res))
+                continue;
+        }
+
+        if(res.empty())
+            return;
+
+        outlet_anything(z->b_obj.o_obj.te_outlet, res[0].a_w.w_symbol, res.size() - 1, res.data() + 1);
     }
 }
 

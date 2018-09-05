@@ -251,7 +251,11 @@ bool BaseObject::processAnyProps(t_symbol* sel, const AtomList& lst)
                 if (!pname.getSymbol(&s))
                     continue;
 
-                queryProperty(tryGetPropKey(s), res);
+                t_symbol* k = tryGetPropKey(s);
+                if (!k)
+                    continue;
+
+                queryProperty(k, res);
             }
 
             if (res.empty())

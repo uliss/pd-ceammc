@@ -139,7 +139,7 @@ TEST_CASE("list.at", "[externals]")
         REQUIRE(t.outputAnyAt(0) == LA("@clip", 0.f, "@rel", 1, "@wrap", 0.f));
 
         // multiple test with invalid
-        t.call("@clip?", LA("@rel?", "@xxx?"));
+        t.call("@clip?", LA("", "@norequest", "non-prop", "@rel?", "@xxx?", 100));
         REQUIRE(t.hasOutput());
         REQUIRE(t.outputAnyAt(0) == LA("@clip", 0.f, "@rel", 1));
     }
