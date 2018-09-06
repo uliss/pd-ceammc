@@ -124,6 +124,7 @@ set_target_properties(ceammc_sound PROPERTIES
     COMPILE_FLAGS "${LIBCEAMMC_COMPILE_FLAGS} ${CEAMMC_LOAD_DEFS}"
     LINK_FLAGS    "${LIBCEAMMC_LINK_FLAGS}")
 target_link_libraries(ceammc_sound ${CEAMMC_LOAD_LIBS})
+target_link_libraries(ceammc_core ceammc_ui)
 
 # install
 if(WIN32)
