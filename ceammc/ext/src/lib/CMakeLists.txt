@@ -64,6 +64,28 @@ set(CEAMMC_LIB_SOURCES ceammc.h
 
     ${UTF8REWIND_SOURCES})
 
+#
+# UI library
+#
+include_directories(cicm/Sources)
+
+set(CEAMMC_UI_SRC
+    cicm/Sources/ebox.cpp
+    cicm/Sources/eclass.cpp
+    cicm/Sources/ecommon.cpp
+    cicm/Sources/egraphics.cpp
+    cicm/Sources/eobj.cpp
+    cicm/Sources/epopup.cpp
+    ceammc_cicm.h
+    ceammc_cicm.cpp
+    ceammc_ui.h
+    ceammc_dsp_ui.h
+    ceammc_ui_object.h
+    ceammc_ui_object.cpp
+    ceammc_ui_dsp_object.h
+    ceammc_ui_dsp_object.cpp
+    image_detect.cpp)
+
 if(UNIX)
     list(APPEND CEAMMC_LIB_SOURCES ceammc_platform_unix.cpp)
 elseif(WIN32)
@@ -71,7 +93,7 @@ elseif(WIN32)
 endif()
 
 # main shared library
-add_library(ceammc_core SHARED ${CEAMMC_LIB_SOURCES})
+add_library(ceammc_core SHARED ${CEAMMC_LIB_SOURCES} ${CEAMMC_UI_SRC})
 target_link_libraries(ceammc_core puredata-core)
 
 set_target_properties(ceammc_core PROPERTIES
@@ -124,7 +146,6 @@ set_target_properties(ceammc_sound PROPERTIES
     COMPILE_FLAGS "${LIBCEAMMC_COMPILE_FLAGS} ${CEAMMC_LOAD_DEFS}"
     LINK_FLAGS    "${LIBCEAMMC_LINK_FLAGS}")
 target_link_libraries(ceammc_sound ${CEAMMC_LOAD_LIBS})
-target_link_libraries(ceammc_core ceammc_ui)
 
 # install
 if(WIN32)

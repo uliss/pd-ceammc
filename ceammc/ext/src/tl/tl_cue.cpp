@@ -11,8 +11,7 @@
 #include "ceammc_externals.h"
 #include "ceammc_gui.h"
 #include "ceammc_timeline.h"
-
-#include "../ui/ceammc_ui_object.h"
+#include "ceammc_ui_object.h"
 
 using namespace ceammc_gui;
 using namespace ceammc::tl;

@@ -12,10 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_externals.h"
-#include "../ui/ceammc_ui_object.h"
 #include "ceammc_factory.h"
 #include "ceammc_faust.h"
 #include "ceammc_object.h"
+#include "ceammc_ui_object.h"
 
 struct mockUI {
 };
