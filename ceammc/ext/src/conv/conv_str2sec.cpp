@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_str2sec.h"
-#include "../string/datatype_string.h"
+#include "datatype_string.h"
 
 #include "ceammc_convert.h"
 

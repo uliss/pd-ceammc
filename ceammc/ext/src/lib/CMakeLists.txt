@@ -21,6 +21,9 @@ set(UTF8REWIND_SOURCES
     utf8rewind/internal/seeking.c
     utf8rewind/internal/streaming.c)
 
+set(CEAMMC_DATATYPE_SRC
+    datatype_string.cpp)
+
 set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc.hpp
     ceammc.c
@@ -62,7 +65,8 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_timeline.cpp
     ceammc_window.cpp
 
-    ${UTF8REWIND_SOURCES})
+    ${UTF8REWIND_SOURCES}
+    ${CEAMMC_DATATYPE_SRC})
 
 #
 # UI library

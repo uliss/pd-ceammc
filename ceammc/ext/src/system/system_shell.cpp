@@ -14,6 +14,7 @@
 #include "system_shell.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "datatype_string.h"
 #include "process.hpp"
 
 #include <array>
@@ -130,7 +131,8 @@ void SystemShell::readSubprocesOutput(int fd)
             line_buf_ += s[i];
         } else {
             line_buf_ += '\0';
-            symbolTo(0, gensym(line_buf_.c_str()));
+            DataTypeString str(line_buf_);
+            dataTo(0, DataPtr(str.clone()));
             line_buf_.clear();
         }
     }

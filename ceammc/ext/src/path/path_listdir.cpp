@@ -1,5 +1,5 @@
 #include "path_listdir.h"
-#include "../string/datatype_string.h"
+#include "datatype_string.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_platform.h"

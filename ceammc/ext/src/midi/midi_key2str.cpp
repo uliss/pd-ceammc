@@ -1,5 +1,5 @@
 #include "midi_key2str.h"
-#include "../string/datatype_string.h"
+#include "datatype_string.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "midi_common.h"
