@@ -6,6 +6,7 @@
 
 #include "dict_parser_impl.h"
 #include "dict_parser.tab.h"
+#include "m_pd.h"
 
 #define YY_DECL int yylex(t_dict* dict)
 //#define MSG(s) printf("%s ", s)
@@ -20,12 +21,14 @@ word       [^:"\[\] ]+
 
 %%
 
-<INITIAL>\[      { BEGIN(KEYVAL);  return TOK_BEGIN; }
-<KEYVAL>\]       { BEGIN(INITIAL); return TOK_END; }
+\[               { return TOK_PAIR_BEGIN; }
+\]               { return TOK_PAIR_END; }
+\(               { return TOK_DICT_BEGIN; }
+\)               { return TOK_DICT_END; }
 
-:                {  return TOK_ASSOC; }
-{word}           {  dict_lexer_push(dict, yytext); return TOK_WORD; }
-{qstring}        {  dict_lexer_push(dict, yytext); return TOK_QSTR; }
+:                { return TOK_ASSOC; }
+{word}           { dict_parser_lval.txt = yytext; return TOK_WORD; }
+{qstring}        { dict_parser_lval.txt = yytext; return TOK_QSTR; }
 
 {space}          {}
 %%

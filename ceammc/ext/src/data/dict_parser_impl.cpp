@@ -16,26 +16,25 @@
 #include "datatype_dict.h"
 #include "m_pd.h"
 
+#include <boost/variant.hpp>
 #include <iostream>
+#include <string>
+#include <vector>
 
 using namespace ceammc;
 
 static const char QUOTES = '"';
 
+typedef std::vector<t_symbol*> SymbolList;
+typedef std::pair<t_symbol*, DictValue> Pair;
+typedef std::vector<Pair> PairList;
+
+#define DICT_DEBUG 0
+
 struct _dict {
-    DataTypeDict* dict;
-    std::vector<std::string> values;
-
-    _dict()
-        : dict(new DataTypeDict)
-    {
-    }
-
-    ~_dict()
-    {
-        delete dict;
-        dict = nullptr;
-    }
+    SymbolList list;
+    DataTypeDict dict;
+    PairList pair_list;
 };
 
 t_dict* dict_new()
@@ -61,33 +60,14 @@ static std::string unquote(const std::string& txt)
     return std::string(&txt[1], len - 2);
 }
 
-void dict_insert(t_dict* dict, const char* key, const char* value)
-{
-    auto k = unquote(key);
-    auto v = unquote(value);
-    std::cerr << "insert: " << k << " -> " << v << "\n";
-    dict->dict->insert(Atom(gensym(k.c_str())), Atom(gensym(v.c_str())));
-}
-
 void dict_dump(t_dict* dict)
 {
-    std::cout << "Dict: \n"
-              << dict->dict->toString() << "\n";
+    std::cout << "Dict: \n" << dict->dict.toString() << "\n";
 }
 
 void dict_clear(t_dict* dict)
 {
-    dict->dict->clear();
-}
-
-void dict_lexer_push(t_dict* dict, const char* value)
-{
-    dict->values.push_back(value);
-}
-
-void dict_lexer_clear(t_dict* dict)
-{
-    dict->values.clear();
+    dict->dict.clear();
 }
 
 static bool is_quoted_string(const std::string& str)
@@ -124,36 +104,68 @@ static Atom atom_from_string(const std::string& str)
     return res;
 }
 
-void dict_lexer_insert_pair(t_dict* dict)
-{
-    if (dict->values.empty()) {
-        pd_error(0, "[dict] lexer error: no data");
-        return;
-    }
-
-    const size_t N = dict->values.size();
-    if (N < 1)
-        return;
-
-    auto key = dict->values.front();
-
-    if (N == 1) {
-        dict->dict->insert(unquote(key), Atom());
-    } else if (N == 2) {
-        auto& str = dict->values[1];
-        dict->dict->insert(atom_from_string(key), atom_from_string(str));
-    } else { //    N > 1
-        AtomList args;
-        for (size_t i = 1; i < N; i++)
-            args.append(atom_from_string(dict->values[i]));
-
-        dict->dict->insert(atom_from_string(key), args);
-    }
-
-    dict->values.clear();
-}
-
 DataTypeDict& ceammc::dict_get(t_dict* dict)
 {
-    return *dict->dict;
+    return dict->dict;
+}
+
+void dict_push_to_list(t_dict* d, t_symbol* s)
+{
+    d->list.push_back(s);
+}
+
+void dict_insert_pair_list(t_dict* d, t_symbol* key)
+{
+    auto& lst = d->list;
+
+    if (lst.size() == 1) {
+        d->pair_list.emplace_back(key, DictValue(atom_from_string(lst.front()->s_name)));
+
+#if DICT_DEBUG
+        std::cerr << "insert list: " << key->s_name << " <- " << lst.front()->s_name << "\n";
+#endif
+
+    } else {
+        AtomList args;
+        for (auto s : d->list)
+            args.append(atom_from_string(s->s_name));
+
+        d->pair_list.emplace_back(key, DictValue(args));
+#if DICT_DEBUG
+        std::cerr << "insert list: " << key->s_name << " <- " << args << "\n";
+#endif
+    }
+
+    lst.clear();
+}
+
+void dict_insert_pair_dict(t_dict* d, t_symbol* key)
+{
+#if DICT_DEBUG
+    std::cerr << "insert dict: " << key->s_name << " <- " << d->dict.toString() << "\n";
+#endif
+
+    DataPtr ptr(d->dict.clone());
+    d->pair_list.emplace_back(key, DictValue(DataAtom(ptr)));
+}
+
+void dict_store(t_dict* d, int n)
+{
+#if DICT_DEBUG
+    std::cerr << "store dict with elements: " << n << "\n";
+#endif
+
+    d->dict.clear();
+
+    for (int i = 0; i < n; i++) {
+        auto p = d->pair_list.back();
+        if (p.second.type() == typeid(Atom))
+            d->dict.insert(atom_from_string(p.first->s_name), boost::get<Atom>(p.second));
+        else if (p.second.type() == typeid(AtomList))
+            d->dict.insert(atom_from_string(p.first->s_name), boost::get<AtomList>(p.second));
+        else if (p.second.type() == typeid(DataAtom))
+            d->dict.insert(atom_from_string(p.first->s_name), boost::get<DataAtom>(p.second));
+
+        d->pair_list.pop_back();
+    }
 }

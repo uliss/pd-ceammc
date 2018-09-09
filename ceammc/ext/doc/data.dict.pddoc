@@ -21,7 +21,8 @@
             </aliases>
         </meta>
         <info>
-            <par>Syntax: [key: value] or [key : "the value"]</par>
+            <par>Syntax: ([key1: value] [key2 : "with space"]). Parenthesis can be ommitted if you are
+            not using nested dictionaries. Nested dictionaries are supported: ([a: ([A:1][B:2])]).</par>
         </info>
         <properties>
             <property name="@keys" readonly="true" type="list">keys of dictionary</property>
@@ -73,7 +74,7 @@
 |  |  |  [list a b c d(  |       | |
 |  |  |  |               |       | [read $1(
 |  |  |  |               |       | |
-[data.dict \[tempo: 120\]\[title: "New Masterpiece"\] ]
+[data.dict (\[tempo: 120\]\[title: "New Masterpiece"\]) ]
 |
 [ui.display @display_type=1]
 ]]>

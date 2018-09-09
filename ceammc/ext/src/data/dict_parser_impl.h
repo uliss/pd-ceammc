@@ -14,6 +14,8 @@
 #ifndef DICT_PARSER_IMPL_H
 #define DICT_PARSER_IMPL_H
 
+#include "m_pd.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -24,13 +26,13 @@ typedef struct _dict t_dict;
 t_dict* dict_new();
 void dict_free(t_dict* dict);
 
-void dict_insert(t_dict* dict, const char* key, const char* value);
 void dict_dump(t_dict* dict);
 void dict_clear(t_dict* dict);
 
-void dict_lexer_push(t_dict* dict, const char* value);
-void dict_lexer_clear(t_dict* dict);
-void dict_lexer_insert_pair(t_dict* dict);
+void dict_push_to_list(t_dict* d, t_symbol* s);
+void dict_store(t_dict* d, int n);
+void dict_insert_pair_list(t_dict* d, t_symbol* key);
+void dict_insert_pair_dict(t_dict* d, t_symbol* key);
 
 #ifdef __cplusplus
 }

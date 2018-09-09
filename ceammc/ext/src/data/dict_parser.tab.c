@@ -1,8 +1,8 @@
-/* A Bison parser, made by GNU Bison 3.0.4.  */
+/* A Bison parser, made by GNU Bison 3.1.  */
 
 /* Bison implementation for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@
 #define YYBISON 1
 
 /* Bison version.  */
-#define YYBISON_VERSION "3.0.4"
+#define YYBISON_VERSION "3.1"
 
 /* Skeleton name.  */
 #define YYSKELETON_NAME "yacc.c"
@@ -121,12 +121,28 @@ int dict_parse_string(t_dict* dict, const char* s);
 #   define DICT_PARSER_DEBUG 0
 #  endif
 # else /* ! defined YYDEBUG */
-#  define DICT_PARSER_DEBUG 0
+#  define DICT_PARSER_DEBUG 1
 # endif /* ! defined YYDEBUG */
 #endif  /* ! defined DICT_PARSER_DEBUG */
 #if DICT_PARSER_DEBUG
 extern int dict_parser_debug;
 #endif
+/* "%code requires" blocks.  */
+#line 20 "dict_parser.y" /* yacc.c:355  */
+
+#include "m_pd.h"
+enum ValueType {
+    VTYPE_LIST = 0,
+    VTYPE_DICT = 1
+};
+
+typedef struct dict_token {
+    void* sym;
+    enum ValueType type;
+    int npairs;
+} t_dict_token;
+
+#line 146 "dict_parser.tab.c" /* yacc.c:355  */
 
 /* Token type.  */
 #ifndef DICT_PARSER_TOKENTYPE
@@ -136,8 +152,10 @@ extern int dict_parser_debug;
     TOK_ASSOC = 258,
     TOK_WORD = 259,
     TOK_QSTR = 260,
-    TOK_BEGIN = 261,
-    TOK_END = 262
+    TOK_PAIR_BEGIN = 261,
+    TOK_PAIR_END = 262,
+    TOK_DICT_BEGIN = 263,
+    TOK_DICT_END = 264
   };
 #endif
 
@@ -146,11 +164,12 @@ extern int dict_parser_debug;
 
 union DICT_PARSER_STYPE
 {
-#line 25 "dict_parser.y" /* yacc.c:355  */
+#line 40 "dict_parser.y" /* yacc.c:355  */
 
     const char* txt;
+    t_dict_token tok;
 
-#line 154 "dict_parser.tab.c" /* yacc.c:355  */
+#line 173 "dict_parser.tab.c" /* yacc.c:355  */
 };
 
 typedef union DICT_PARSER_STYPE DICT_PARSER_STYPE;
@@ -167,7 +186,7 @@ int dict_parser_parse (t_dict *dict);
 
 /* Copy the second part of user declarations.  */
 
-#line 171 "dict_parser.tab.c" /* yacc.c:358  */
+#line 190 "dict_parser.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -188,13 +207,13 @@ typedef signed char yytype_int8;
 #ifdef YYTYPE_UINT16
 typedef YYTYPE_UINT16 yytype_uint16;
 #else
-typedef unsigned short int yytype_uint16;
+typedef unsigned short yytype_uint16;
 #endif
 
 #ifdef YYTYPE_INT16
 typedef YYTYPE_INT16 yytype_int16;
 #else
-typedef short int yytype_int16;
+typedef short yytype_int16;
 #endif
 
 #ifndef YYSIZE_T
@@ -206,7 +225,7 @@ typedef short int yytype_int16;
 #  include <stddef.h> /* INFRINGES ON USER NAME SPACE */
 #  define YYSIZE_T size_t
 # else
-#  define YYSIZE_T unsigned int
+#  define YYSIZE_T unsigned
 # endif
 #endif
 
@@ -258,7 +277,7 @@ typedef short int yytype_int16;
 # define YYUSE(E) /* empty */
 #endif
 
-#if defined __GNUC__ && 407 <= __GNUC__ * 100 + __GNUC_MINOR__
+#if defined __GNUC__ && ! defined __ICC && 407 <= __GNUC__ * 100 + __GNUC_MINOR__
 /* Suppress an incorrect diagnostic about yylval being uninitialized.  */
 # define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN \
     _Pragma ("GCC diagnostic push") \
@@ -407,26 +426,26 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  9
+#define YYFINAL  13
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   12
+#define YYLAST   24
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  8
+#define YYNTOKENS  10
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  6
+#define YYNNTS  9
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  10
+#define YYNRULES  15
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  16
+#define YYNSTATES  25
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   262
+#define YYMAXUTOK   264
 
 #define YYTRANSLATE(YYX)                                                \
-  ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
+  ((unsigned) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
 
 /* YYTRANSLATE[TOKEN-NUM] -- Symbol number corresponding to TOKEN-NUM
    as returned by yylex, without out-of-bounds checking.  */
@@ -458,15 +477,15 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7
+       5,     6,     7,     8,     9
 };
 
 #if DICT_PARSER_DEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    37,    37,    38,    39,    42,    43,    46,    47,    50,
-      53
+       0,    58,    58,    59,    60,    63,    64,    66,    73,    81,
+      82,    84,    87,    88,    91,    92
 };
 #endif
 
@@ -476,8 +495,9 @@ static const yytype_uint8 yyrline[] =
 static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "TOK_ASSOC", "TOK_WORD", "TOK_QSTR",
-  "TOK_BEGIN", "TOK_END", "$accept", "dict", "kv", "list", "mpair",
-  "spair", YY_NULLPTR
+  "TOK_PAIR_BEGIN", "TOK_PAIR_END", "TOK_DICT_BEGIN", "TOK_DICT_END",
+  "$accept", "dict", "pair_list", "pair", "spair", "word", "key", "value",
+  "list", YY_NULLPTR
 };
 #endif
 
@@ -486,16 +506,16 @@ static const char *const yytname[] =
    (internal) symbol number NUM (which must be that of a token).  */
 static const yytype_uint16 yytoknum[] =
 {
-       0,   256,   257,   258,   259,   260,   261,   262
+       0,   256,   257,   258,   259,   260,   261,   262,   263,   264
 };
 # endif
 
-#define YYPACT_NINF -11
+#define YYPACT_NINF -16
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-11)))
+  (!!((Yystate) == (-16)))
 
-#define YYTABLE_NINF -1
+#define YYTABLE_NINF -12
 
 #define yytable_value_is_error(Yytable_value) \
   0
@@ -504,8 +524,9 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       3,   -11,   -11,    -2,     0,     2,   -11,   -11,     4,   -11,
-     -11,    -2,   -11,   -11,    -2,   -11
+      -1,   -16,   -16,     6,     7,    14,     7,   -16,   -16,   -16,
+      12,    13,     3,   -16,   -16,    -1,    -1,   -16,   -16,    15,
+     -16,     6,    10,   -16,   -16
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -513,57 +534,61 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     5,     6,     0,     0,     0,     3,     2,     0,     1,
-       4,     0,     9,     7,    10,     8
+       0,     9,    10,     0,     0,     0,     3,     5,     2,    11,
+       0,     0,     0,     1,     6,     0,     0,     4,    13,    14,
+       8,    12,     0,    15,     7
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -11,   -11,   -10,   -11,     6,     9
+     -16,    19,    16,    -4,   -16,   -15,    18,     8,   -16
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     4,     5,    14,     6,     7
+      -1,    18,     6,     7,     8,     9,    10,    20,    21
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
      positive, shift that token.  If negative, reduce the rule whose
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
-static const yytype_uint8 yytable[] =
+static const yytype_int8 yytable[] =
 {
-       9,    13,     1,     2,    15,    11,     3,     1,     2,     3,
-      10,    12,     8
+      19,    19,    14,     1,     2,     3,    23,     4,    14,     3,
+       1,     2,    17,     3,    13,    15,    16,    24,   -11,     5,
+      12,    11,     0,     0,    22
 };
 
-static const yytype_uint8 yycheck[] =
+static const yytype_int8 yycheck[] =
 {
-       0,    11,     4,     5,    14,     3,     6,     4,     5,     6,
-       4,     7,     3
+      15,    16,     6,     4,     5,     6,    21,     8,    12,     6,
+       4,     5,     9,     6,     0,     3,     3,     7,     3,     0,
+       4,     3,    -1,    -1,    16
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     4,     5,     6,     9,    10,    12,    13,    13,     0,
-      12,     3,     7,    10,    11,    10
+       0,     4,     5,     6,     8,    11,    12,    13,    14,    15,
+      16,    16,    12,     0,    13,     3,     3,     9,    11,    15,
+      17,    18,    17,    15,     7
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,     8,     9,     9,     9,    10,    10,    11,    11,    12,
-      13
+       0,    10,    11,    11,    11,    12,    12,    13,    14,    15,
+      15,    16,    17,    17,    18,    18
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     1,     1,     2,     1,     1,     1,     2,     3,
-       3
+       0,     2,     1,     1,     3,     1,     2,     5,     3,     1,
+       1,     1,     1,     1,     1,     2
 };
 
 
@@ -699,7 +724,7 @@ do {                                                            \
 static void
 yy_reduce_print (yytype_int16 *yyssp, YYSTYPE *yyvsp, int yyrule, t_dict *dict)
 {
-  unsigned long int yylno = yyrline[yyrule];
+  unsigned long yylno = yyrline[yyrule];
   int yynrhs = yyr2[yyrule];
   int yyi;
   YYFPRINTF (stderr, "Reducing stack by rule %d (line %lu):\n",
@@ -925,6 +950,7 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
       case N:                               \
         yyformat = S;                       \
       break
+    default: /* Avoid compiler warnings. */
       YYCASE_(0, YY_("syntax error"));
       YYCASE_(1, YY_("syntax error, unexpected %s"));
       YYCASE_(2, YY_("syntax error, unexpected %s, expecting %s"));
@@ -1131,7 +1157,7 @@ yyparse (t_dict *dict)
       yyvsp = yyvs + yysize - 1;
 
       YYDPRINTF ((stderr, "Stack size increased to %lu\n",
-                  (unsigned long int) yystacksize));
+                  (unsigned long) yystacksize));
 
       if (yyss + yystacksize - 1 <= yyssp)
         YYABORT;
@@ -1241,14 +1267,96 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 10:
-#line 53 "dict_parser.y" /* yacc.c:1661  */
-    { dict_lexer_insert_pair(dict); }
-#line 1248 "dict_parser.tab.c" /* yacc.c:1661  */
+        case 2:
+#line 58 "dict_parser.y" /* yacc.c:1666  */
+    { dict_store(dict, 1); }
+#line 1274 "dict_parser.tab.c" /* yacc.c:1666  */
+    break;
+
+  case 3:
+#line 59 "dict_parser.y" /* yacc.c:1666  */
+    { dict_store(dict, (yyvsp[0].tok.npairs)); }
+#line 1280 "dict_parser.tab.c" /* yacc.c:1666  */
+    break;
+
+  case 4:
+#line 60 "dict_parser.y" /* yacc.c:1666  */
+    { dict_store(dict, (yyvsp[-1].tok.npairs)); }
+#line 1286 "dict_parser.tab.c" /* yacc.c:1666  */
+    break;
+
+  case 5:
+#line 63 "dict_parser.y" /* yacc.c:1666  */
+    { (yyval.tok.npairs) = 1; }
+#line 1292 "dict_parser.tab.c" /* yacc.c:1666  */
+    break;
+
+  case 6:
+#line 64 "dict_parser.y" /* yacc.c:1666  */
+    { (yyval.tok.npairs) = (yyvsp[-1].tok.npairs) + 1; }
+#line 1298 "dict_parser.tab.c" /* yacc.c:1666  */
+    break;
+
+  case 7:
+#line 66 "dict_parser.y" /* yacc.c:1666  */
+    {
+       if((yyvsp[-1].tok.type) == VTYPE_LIST)
+           dict_insert_pair_list(dict, (yyvsp[-3].tok.sym));
+       else if((yyvsp[-1].tok.type) == VTYPE_DICT)
+           dict_insert_pair_dict(dict, (yyvsp[-3].tok.sym));
+   }
+#line 1309 "dict_parser.tab.c" /* yacc.c:1666  */
+    break;
+
+  case 8:
+#line 73 "dict_parser.y" /* yacc.c:1666  */
+    {
+       if((yyvsp[0].tok.type) == VTYPE_LIST)
+           dict_insert_pair_list(dict, (yyvsp[-2].tok.sym));
+       else if((yyvsp[0].tok.type) == VTYPE_DICT)
+           dict_insert_pair_dict(dict, (yyvsp[-2].tok.sym));
+}
+#line 1320 "dict_parser.tab.c" /* yacc.c:1666  */
+    break;
+
+  case 9:
+#line 81 "dict_parser.y" /* yacc.c:1666  */
+    { (yyval.tok.sym) = gensym((yyvsp[0].txt)); }
+#line 1326 "dict_parser.tab.c" /* yacc.c:1666  */
+    break;
+
+  case 10:
+#line 82 "dict_parser.y" /* yacc.c:1666  */
+    { (yyval.tok.sym) = gensym((yyvsp[0].txt)); }
+#line 1332 "dict_parser.tab.c" /* yacc.c:1666  */
+    break;
+
+  case 12:
+#line 87 "dict_parser.y" /* yacc.c:1666  */
+    { (yyval.tok.type) = VTYPE_LIST; }
+#line 1338 "dict_parser.tab.c" /* yacc.c:1666  */
+    break;
+
+  case 13:
+#line 88 "dict_parser.y" /* yacc.c:1666  */
+    { (yyval.tok.type) = VTYPE_DICT; }
+#line 1344 "dict_parser.tab.c" /* yacc.c:1666  */
+    break;
+
+  case 14:
+#line 91 "dict_parser.y" /* yacc.c:1666  */
+    { dict_push_to_list(dict, (yyvsp[0].tok.sym)); }
+#line 1350 "dict_parser.tab.c" /* yacc.c:1666  */
+    break;
+
+  case 15:
+#line 92 "dict_parser.y" /* yacc.c:1666  */
+    { dict_push_to_list(dict, (yyvsp[0].tok.sym)); }
+#line 1356 "dict_parser.tab.c" /* yacc.c:1666  */
     break;
 
 
-#line 1252 "dict_parser.tab.c" /* yacc.c:1661  */
+#line 1360 "dict_parser.tab.c" /* yacc.c:1666  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1476,7 +1584,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 56 "dict_parser.y" /* yacc.c:1906  */
+#line 95 "dict_parser.y" /* yacc.c:1910  */
 
 
 void yyerror(t_dict* dict, const char* s)

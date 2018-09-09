@@ -704,7 +704,7 @@ extern int yylex (void);
 #undef yyTABLES_NAME
 #endif
 
-#line 31 "dict_parser.lex"
+#line 34 "dict_parser.lex"
 
 
 #line 710 "lex.dict_parser.h"

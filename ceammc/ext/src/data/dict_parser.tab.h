@@ -1,8 +1,8 @@
-/* A Bison parser, made by GNU Bison 3.0.4.  */
+/* A Bison parser, made by GNU Bison 3.1.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -41,12 +41,28 @@
 #   define DICT_PARSER_DEBUG 0
 #  endif
 # else /* ! defined YYDEBUG */
-#  define DICT_PARSER_DEBUG 0
+#  define DICT_PARSER_DEBUG 1
 # endif /* ! defined YYDEBUG */
 #endif  /* ! defined DICT_PARSER_DEBUG */
 #if DICT_PARSER_DEBUG
 extern int dict_parser_debug;
 #endif
+/* "%code requires" blocks.  */
+#line 20 "dict_parser.y" /* yacc.c:1919  */
+
+#include "m_pd.h"
+enum ValueType {
+    VTYPE_LIST = 0,
+    VTYPE_DICT = 1
+};
+
+typedef struct dict_token {
+    void* sym;
+    enum ValueType type;
+    int npairs;
+} t_dict_token;
+
+#line 66 "dict_parser.tab.h" /* yacc.c:1919  */
 
 /* Token type.  */
 #ifndef DICT_PARSER_TOKENTYPE
@@ -56,8 +72,10 @@ extern int dict_parser_debug;
     TOK_ASSOC = 258,
     TOK_WORD = 259,
     TOK_QSTR = 260,
-    TOK_BEGIN = 261,
-    TOK_END = 262
+    TOK_PAIR_BEGIN = 261,
+    TOK_PAIR_END = 262,
+    TOK_DICT_BEGIN = 263,
+    TOK_DICT_END = 264
   };
 #endif
 
@@ -66,11 +84,12 @@ extern int dict_parser_debug;
 
 union DICT_PARSER_STYPE
 {
-#line 25 "dict_parser.y" /* yacc.c:1915  */
+#line 40 "dict_parser.y" /* yacc.c:1919  */
 
     const char* txt;
+    t_dict_token tok;
 
-#line 74 "dict_parser.tab.h" /* yacc.c:1915  */
+#line 93 "dict_parser.tab.h" /* yacc.c:1919  */
 };
 
 typedef union DICT_PARSER_STYPE DICT_PARSER_STYPE;

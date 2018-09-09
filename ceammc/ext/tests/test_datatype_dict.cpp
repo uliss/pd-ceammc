@@ -44,7 +44,7 @@ TEST_CASE("DataTypeDict", "[ceammc::DataTypeDict]")
         REQUIRE(d.size() == 0);
 
         REQUIRE(d.isEqual(&d));
-        REQUIRE(d.toString() == "");
+        REQUIRE(d.toString() == "()");
 
         REQUIRE(d.valueT<Atom>(A("key-not-exists")) == boost::none);
         REQUIRE(d.valueT<AtomList>(A("key-not-exists")) == boost::none);
@@ -139,7 +139,7 @@ TEST_CASE("DataTypeDict", "[ceammc::DataTypeDict]")
         REQUIRE(d0.value(A("atom data2")).type() == typeid(DataAtom));
 
 #ifdef __APPLE__
-        REQUIRE(d0.toString() == "[123: numeric] "
+        REQUIRE(d0.toString() == "([123: numeric] "
                                  "[atom: NONE] "
                                  "[\"atom data2\": \"string with spaces\"] "
                                  "[atom_atom: ABC] "
@@ -149,7 +149,7 @@ TEST_CASE("DataTypeDict", "[ceammc::DataTypeDict]")
                                  "[atom_list: 1 2 3 4] "
                                  "[float: 123] "
                                  "[float1: 10] "
-                                 "[string: string]");
+                                 "[string: string])");
 #endif
     }
 
@@ -290,6 +290,39 @@ TEST_CASE("DataTypeDict", "[ceammc::DataTypeDict]")
         REQUIRE(res.size() == 1);
         REQUIRE(res.contains(A("a")));
         REQUIRE(res.valueT<AtomList>(A("a")) == LA(1, 2, "a test"));
+
+        // full syntax
+        dict_parse_string(d, "([a: b ] )");
+        res = dict_get(d);
+        REQUIRE(res.size() == 1);
+        REQUIRE(res.toString() == "([a: b])");
+        REQUIRE(res.contains(A("a")));
+
+        dict_parse_string(d, "([a:b][c:d])");
+        res = dict_get(d);
+        REQUIRE(res.size() == 2);
+        REQUIRE(res.toString() == "([a: b] [c: d])");
+
+        dict_parse_string(d, "([a : ([A: 100])])");
+        res = dict_get(d);
+        REQUIRE(res.size() == 1);
+        REQUIRE(res.toString() == "([a: ([A: 100])])");
+
+        dict_parse_string(d, "([a : [A: 100]])");
+        res = dict_get(d);
+        REQUIRE(res.toString() == "([a: ([A: 100])])");
+
+        dict_parse_string(d, "b: [A: 100]");
+        res = dict_get(d);
+        REQUIRE(res.toString() == "([b: ([A: 100])])");
+
+        dict_parse_string(d, "a: ([A: 100][B: 1 2 3])");
+        res = dict_get(d);
+        REQUIRE(res.toString() == "([a: ([A: 100] [B: 1 2 3])])");
+
+        dict_parse_string(d, "([a: ([a': 1] [b': 2] [c': ([d'': 344])])])");
+        res = dict_get(d);
+        REQUIRE(res.toString() == "([a: ([a': 1] [b': 2] [c': ([d'': 344])])])");
 
         dict_free(d);
     }
