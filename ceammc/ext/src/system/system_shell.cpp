@@ -131,8 +131,7 @@ void SystemShell::readSubprocesOutput(int fd)
             line_buf_ += s[i];
         } else {
             line_buf_ += '\0';
-            DataTypeString str(line_buf_);
-            dataTo(0, DataPtr(str.clone()));
+            dataTo(0, DataPtr(new DataTypeString(line_buf_)));
             line_buf_.clear();
         }
     }
