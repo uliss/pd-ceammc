@@ -28,12 +28,11 @@ enum ThreadProto {
 ThreadExternal::ThreadExternal(const PdArgs& args, thread::Task* task)
     : BaseObject(args)
     , task_(task)
+    , poll_fn_(this, &ThreadExternal::handleThreadCode)
+    , err_poll_fn_(this, &ThreadExternal::handleErrors)
 {
-    if (pipe(from_thread_pipe_fd_) == 0) {
-        poll_fn_.reset(new PollFn(from_thread_pipe_fd_[0], this, &ThreadExternal::handleThreadCode));
-    } else {
-        OBJ_ERR << "can't open pipe: " << strerror(errno);
-    }
+    task_->setControlFd(&poll_fn_.fd[1]);
+    task_->setErrorFd(&err_poll_fn_.fd[1]);
 }
 
 ThreadExternal::~ThreadExternal()
@@ -57,12 +56,11 @@ void ThreadExternal::start()
         try {
             rc = task_->run();
         } catch (std::exception& e) {
-            task_->pushException(e.what());
+            task_->writeError(e.what());
             rc = -1;
         }
 
-        char code = GET_RESULT_CODE;
-        write(from_thread_pipe_fd_[1], &code, 1);
+        task_->writeCommand(GET_RESULT_CODE);
         return rc;
     });
 }
@@ -96,14 +94,27 @@ void ThreadExternal::handleThreadCode(int fd)
     }
 }
 
+void ThreadExternal::handleErrors(int fd)
+{
+    std::array<char, MAXPDSTRING> buf;
+
+    ssize_t n = read(fd, buf.data(), buf.size());
+    if (n < 1)
+        return;
+
+    OBJ_ERR << std::string(buf.data(), n);
+}
+
 thread::Task::Task()
     : future_obj_(exit_signal_.get_future())
+    , err_fd_(nullptr)
 {
 }
 
 thread::Task::Task(thread::Task&& obj)
     : exit_signal_(std::move(obj.exit_signal_))
     , future_obj_(std::move(obj.future_obj_))
+    , err_fd_(obj.err_fd_)
 {
 }
 
@@ -111,7 +122,18 @@ thread::Task& thread::Task::operator=(thread::Task&& obj)
 {
     exit_signal_ = std::move(obj.exit_signal_);
     future_obj_ = std::move(obj.future_obj_);
+    err_fd_ = obj.err_fd_;
     return *this;
+}
+
+void thread::Task::setControlFd(int* ctl_fd)
+{
+    ctl_fd_ = ctl_fd;
+}
+
+void thread::Task::setErrorFd(int* err_fd)
+{
+    err_fd_ = err_fd;
 }
 
 bool thread::Task::stopRequested()
@@ -127,7 +149,14 @@ void thread::Task::stop()
     exit_signal_.set_value();
 }
 
-void thread::Task::pushException(const char* msg)
+void thread::Task::writeError(const char* msg)
 {
-    exceptions_.push_back(msg);
+    if (err_fd_)
+        write(*err_fd_, msg, strlen(msg));
+}
+
+void thread::Task::writeCommand(char cmd)
+{
+    if (ctl_fd_)
+        write(*ctl_fd_, &cmd, 1);
 }

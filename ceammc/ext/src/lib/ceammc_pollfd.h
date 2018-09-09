@@ -16,6 +16,8 @@
 
 #include "m_pd.h"
 
+#include <cstdio>
+
 extern "C" {
 typedef void (*t_fdpollfn)(void* ptr, int fd);
 EXTERN void sys_addpollfn(int fd, t_fdpollfn fn, void* ptr);
@@ -32,17 +34,38 @@ public:
     typedef void (T::*MemberFunPtr)(int);
 
 public:
-    PollMemberFunction(int fd, T* this__, MemberFunPtr fn)
-        : fd_(fd)
+    PollMemberFunction(T* this__, MemberFunPtr fn, int fd = -1)
+        : mem_fn_(fn)
         , this_(this__)
-        , mem_fn_(fn)
+        , fd_(fd)
     {
-        sys_addpollfn(fd_, (t_fdpollfn)callback, this);
+        poll(fd);
     }
 
     ~PollMemberFunction()
     {
+        unpoll();
+    }
+
+    void poll(int fd)
+    {
+        if (fd < 0)
+            return;
+
+        if (fd_ >= 0)
+            unpoll();
+
+        fd_ = fd;
+        sys_addpollfn(fd_, (t_fdpollfn)callback, this);
+    }
+
+    void unpoll()
+    {
+        if (fd_ < 0)
+            return;
+
         sys_rmpollfn(fd_);
+        fd_ = -1;
     }
 
 private:
@@ -57,6 +80,21 @@ private:
     MemberFunPtr mem_fn_;
     T* this_;
     int fd_;
+};
+
+template <class T>
+class PollPipeMemberFunction : public PollMemberFunction<T> {
+public:
+    int fd[2];
+
+    PollPipeMemberFunction(T* this__, typename PollMemberFunction<T>::MemberFunPtr fn)
+        : PollMemberFunction<T>(this__, fn)
+    {
+        if (pipe(fd) == 0)
+            this->poll(fd[0]);
+        else
+            perror("[ceammc]");
+    }
 };
 
 }

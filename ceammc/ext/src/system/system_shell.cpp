@@ -23,27 +23,36 @@
 #include <list>
 #include <memory>
 
-#include <sys/ioctl.h>
-
 extern "C" {
 #include "s_stuff.h"
 }
 
+enum TerminateMethod {
+    METHOD_NONE = 0,
+    METHOD_TERM,
+    METHOD_KILL
+};
+
 typedef int pipe_fd[2];
 
 class ShellTask : public thread::Task {
-    pipe_fd* fd_;
+    pipe_fd* stdout_fd_;
     std::string cmd_;
 
 public:
-    bool kill_;
+    TerminateMethod kill_;
 
 public:
-    ShellTask(pipe_fd* fd)
+    ShellTask()
         : thread::Task()
-        , fd_(fd)
-        , kill_(false)
+        , stdout_fd_(nullptr)
+        , kill_(METHOD_NONE)
     {
+    }
+
+    void setFd(pipe_fd* fd)
+    {
+        stdout_fd_ = fd;
     }
 
     void setCommand(const std::string& str)
@@ -55,40 +64,43 @@ public:
     {
         using namespace TinyProcessLib;
 
-        kill_ = false;
+        kill_ = METHOD_NONE;
 
-        Process p(cmd_, {}, [&](const char* bytes, size_t n) {
-            write((*fd_)[1], bytes, n);
-        });
+        Process p(cmd_, {},
+            [&](const char* bytes, size_t n) { write((*stdout_fd_)[1], bytes, n); },
+            [&](const char* bytes, size_t n) { writeError(std::string(bytes, n).c_str()); });
 
         int rc = 0;
         while (!p.try_get_exit_status(rc)) {
-            if (kill_)
-                p.kill();
+            switch (kill_) {
+            case METHOD_KILL:
+                p.kill(true);
+                break;
+            case METHOD_TERM:
+                p.kill(false);
+                break;
+            default:
+                break;
+            }
         }
 
         return rc;
     }
 };
 
-static void sh_poll_fn(SystemShell* ptr, int fd)
-{
-    ptr->readData();
-}
-
 SystemShell::SystemShell(const PdArgs& args)
-    : ThreadExternal(args, new ShellTask(&fd_))
+    : ThreadExternal(args, new ShellTask())
+    , poll_stdout_(this, &SystemShell::readSubprocesOutput)
 {
-    pipe(fd_);
-    createOutlet();
-    createOutlet();
+    task()->setFd(&poll_stdout_.fd);
 
-    sys_addpollfn(fd_[0], (t_fdpollfn)sh_poll_fn, this);
+    createOutlet();
+    createOutlet();
 }
 
 SystemShell::~SystemShell()
 {
-    sys_rmpollfn(fd_[0]);
+    terminate(true);
 }
 
 void SystemShell::onList(const AtomList& lst)
@@ -103,11 +115,11 @@ void SystemShell::onThreadExit(int rc)
     floatTo(1, rc);
 }
 
-void SystemShell::readData()
+void SystemShell::readSubprocesOutput(int fd)
 {
     std::array<char, 1024> buf;
 
-    ssize_t n = read(fd_[0], buf.data(), buf.size());
+    ssize_t n = read(fd, buf.data(), buf.size());
     if (n < 1)
         return;
 
@@ -126,7 +138,17 @@ void SystemShell::readData()
 
 void SystemShell::m_terminate(t_symbol*, const AtomList&)
 {
-    ((ShellTask*)task_)->kill_ = true;
+    terminate();
+}
+
+ShellTask* SystemShell::task()
+{
+    return static_cast<ShellTask*>(task_);
+}
+
+void SystemShell::terminate(bool force)
+{
+    ((ShellTask*)task_)->kill_ = force ? METHOD_KILL : METHOD_TERM;
 }
 
 void setup_system_shell()

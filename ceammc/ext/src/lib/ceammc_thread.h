@@ -4,9 +4,9 @@
 #include <chrono>
 #include <future>
 #include <list>
-#include <memory>
-#include <pthread.h>
 #include <thread>
+
+#include <pthread.h>
 
 #include "ceammc_object.h"
 #include "ceammc_pollfd.h"
@@ -26,12 +26,16 @@ namespace thread {
     class Task {
         std::promise<void> exit_signal_;
         std::future<void> future_obj_;
-        std::list<std::string> exceptions_;
+        int* ctl_fd_;
+        int* err_fd_;
 
     public:
         Task();
         Task(Task&& obj);
         Task& operator=(Task&& obj);
+
+        void setControlFd(int* ctl_fd);
+        void setErrorFd(int* err_fd);
 
         /**
          * Should return 0 on success. Use positive error codes!
@@ -48,19 +52,18 @@ namespace thread {
          */
         void stop();
 
-        void pushException(const char* msg);
+        void writeError(const char* msg);
+        void writeCommand(char cmd);
     };
 
 }
 
 class ThreadExternal : public BaseObject {
-    typedef PollMemberFunction<ThreadExternal> PollFn;
-    std::unique_ptr<PollFn> poll_fn_;
-
 protected:
     thread::Task* task_;
     std::future<int> finished_;
-    int from_thread_pipe_fd_[2];
+    PollPipeMemberFunction<ThreadExternal> poll_fn_;
+    PollPipeMemberFunction<ThreadExternal> err_poll_fn_;
 
 public:
     ThreadExternal(const PdArgs& args, thread::Task* task);
@@ -73,6 +76,7 @@ public:
 
 private:
     void handleThreadCode(int fd);
+    void handleErrors(int fd);
 };
 
 }

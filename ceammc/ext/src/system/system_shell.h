@@ -18,9 +18,11 @@
 
 using namespace ceammc;
 
+class ShellTask;
+
 class SystemShell : public ThreadExternal {
-    int fd_[2];
     std::string line_buf_;
+    PollPipeMemberFunction<SystemShell> poll_stdout_;
 
 public:
     SystemShell(const PdArgs& args);
@@ -29,9 +31,13 @@ public:
     void onList(const AtomList& lst) override;
     void onThreadExit(int rc) override;
 
-    void readData();
+    void readSubprocesOutput(int fd);
 
     void m_terminate(t_symbol*, const AtomList&);
+
+private:
+    ShellTask* task();
+    void terminate(bool force = false);
 };
 
 void setup_system_shell();
