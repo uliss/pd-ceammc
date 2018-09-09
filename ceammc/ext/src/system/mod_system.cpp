@@ -6,6 +6,8 @@ extern "C" void setup_system0x2ememsize();
 extern "C" void setup_system0x2ememused();
 extern "C" void setup_system0x2escreen_size();
 
+void setup_system_shell();
+
 void ceammc_system_setup()
 {
     setup_system0x2egetenv();
@@ -13,4 +15,6 @@ void ceammc_system_setup()
     setup_system0x2ememsize();
     setup_system0x2ememused();
     setup_system0x2escreen_size();
+
+    setup_system_shell();
 }

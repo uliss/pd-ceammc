@@ -14,6 +14,7 @@ add_subdirectory(sf2)
 add_subdirectory(SoundTouch)
 add_subdirectory(speech)
 add_subdirectory(stk)
+add_subdirectory(subprocess)
 
 if(WITH_EXPERIMENTAL)
     add_subdirectory(libusb)
