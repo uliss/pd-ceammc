@@ -1,6 +1,9 @@
 #include "ceammc_thread.h"
+#include "ceammc_pollfd.h"
 
+#include <cerrno>
 #include <chrono>
+#include <cstring>
 #include <future>
 #include <thread>
 
@@ -18,10 +21,19 @@ ceammc::thread::Lock::~Lock()
         pthread_mutex_unlock(&m_);
 }
 
+enum ThreadProto {
+    GET_RESULT_CODE = 1
+};
+
 ThreadExternal::ThreadExternal(const PdArgs& args, thread::Task* task)
     : BaseObject(args)
     , task_(task)
 {
+    if (pipe(from_thread_pipe_fd_) == 0) {
+        poll_fn_.reset(new PollFn(from_thread_pipe_fd_[0], this, &ThreadExternal::handleThreadCode));
+    } else {
+        OBJ_ERR << "can't open pipe: " << strerror(errno);
+    }
 }
 
 ThreadExternal::~ThreadExternal()
@@ -41,12 +53,17 @@ void ThreadExternal::start()
     }
 
     finished_ = std::async(std::launch::async, [&] {
+        int rc = 0;
         try {
-            return task_->run();
+            rc = task_->run();
         } catch (std::exception& e) {
             task_->pushException(e.what());
-            return -1;
+            rc = -1;
         }
+
+        char code = GET_RESULT_CODE;
+        write(from_thread_pipe_fd_[1], &code, 1);
+        return rc;
     });
 }
 
@@ -58,6 +75,25 @@ void ThreadExternal::quit()
     }
 
     task_->stop();
+}
+
+void ThreadExternal::handleThreadCode(int fd)
+{
+    char code = 0;
+    if (read(fd, &code, 1) != 1) {
+        OBJ_ERR << "thread communication error";
+        return;
+    }
+
+    switch (code) {
+    case GET_RESULT_CODE:
+        if (finished_.valid())
+            onThreadExit(finished_.get());
+        break;
+    default:
+        OBJ_ERR << "unknown thread code: " << code;
+        break;
+    }
 }
 
 thread::Task::Task()

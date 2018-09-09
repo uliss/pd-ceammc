@@ -81,6 +81,7 @@ SystemShell::SystemShell(const PdArgs& args)
 {
     pipe(fd_);
     createOutlet();
+    createOutlet();
 
     sys_addpollfn(fd_[0], (t_fdpollfn)sh_poll_fn, this);
 }
@@ -95,6 +96,11 @@ void SystemShell::onList(const AtomList& lst)
     ShellTask* t = static_cast<ShellTask*>(task_);
     t->setCommand(to_string(lst));
     start();
+}
+
+void SystemShell::onThreadExit(int rc)
+{
+    floatTo(1, rc);
 }
 
 void SystemShell::readData()

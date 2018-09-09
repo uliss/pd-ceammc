@@ -4,12 +4,15 @@
 #include <chrono>
 #include <future>
 #include <list>
+#include <memory>
 #include <pthread.h>
 #include <thread>
 
 #include "ceammc_object.h"
+#include "ceammc_pollfd.h"
 
 namespace ceammc {
+
 namespace thread {
     class Lock {
         pthread_mutex_t& m_;
@@ -51,16 +54,25 @@ namespace thread {
 }
 
 class ThreadExternal : public BaseObject {
+    typedef PollMemberFunction<ThreadExternal> PollFn;
+    std::unique_ptr<PollFn> poll_fn_;
+
 protected:
     thread::Task* task_;
     std::future<int> finished_;
+    int from_thread_pipe_fd_[2];
 
 public:
     ThreadExternal(const PdArgs& args, thread::Task* task);
     ~ThreadExternal();
 
+    virtual void onThreadExit(int rc) = 0;
+
     void start();
     void quit();
+
+private:
+    void handleThreadCode(int fd);
 };
 
 }

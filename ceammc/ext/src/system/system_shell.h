@@ -27,6 +27,7 @@ public:
     ~SystemShell();
 
     void onList(const AtomList& lst) override;
+    void onThreadExit(int rc) override;
 
     void readData();
 
