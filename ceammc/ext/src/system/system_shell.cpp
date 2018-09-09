@@ -40,7 +40,7 @@ class ShellTask : public thread::Task {
     std::string cmd_;
 
 public:
-    TerminateMethod kill_;
+    volatile TerminateMethod kill_;
 
 public:
     ShellTask()
