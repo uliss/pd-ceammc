@@ -130,8 +130,8 @@ void SystemShell::readSubprocesOutput(int fd)
         if (s[i] != '\n') {
             line_buf_ += s[i];
         } else {
-            line_buf_ += '\0';
-            dataTo(0, DataPtr(new DataTypeString(line_buf_)));
+            DataPtr dptr(new DataTypeString(line_buf_));
+            dataTo(0, dptr);
             line_buf_.clear();
         }
     }
