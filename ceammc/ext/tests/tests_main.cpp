@@ -14,10 +14,20 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
+#include <chrono>
+#include <future>
+#include <thread>
+
 #include "test_base.h"
 
 extern "C" {
 #include "s_stuff.h"
+
+int m_mainloop();
+int m_batchmain(void);
+void sys_exit();
+void sched_reopenmeplease(void);
+int sys_nogui;
 }
 
 namespace test {
@@ -29,5 +39,22 @@ void pdPrintToStdError(bool value)
 void pdSetPrintFunction(pdPrintFunction fn)
 {
     sys_printhook = fn;
+}
+
+void pdRunMainLoopMs(int ms)
+{
+    sched_reopenmeplease();
+
+    auto f = std::async(std::launch::async, [&]() {
+        std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+        sys_exit();
+        return 1;
+    });
+
+    sys_nogui = 1;
+    setTestSampleRate(44100);
+    m_mainloop();
+
+    f.wait();
 }
 }

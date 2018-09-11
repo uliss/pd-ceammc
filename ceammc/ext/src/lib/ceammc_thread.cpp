@@ -37,21 +37,34 @@ ThreadExternal::ThreadExternal(const PdArgs& args, thread::Task* task)
 
 ThreadExternal::~ThreadExternal()
 {
-    if (!task_->stopRequested())
-        task_->stop();
+    if (isRunning()) {
+        if (!task_->stopRequested())
+            task_->stop();
+
+        bool ok = false;
+        for (int i = 0; i < 10; i++) {
+            auto st = thread_result_.wait_for(std::chrono::milliseconds(500));
+            if (st == std::future_status::ready) {
+                ok = true;
+                break;
+            }
+
+            OBJ_DBG << "waiting worker thread to finish...";
+        }
+
+        if (!ok)
+            OBJ_ERR << "worker thread is not stopped...";
+    }
 }
 
 void ThreadExternal::start()
 {
-    if (finished_.valid()) {
-        auto status = finished_.wait_for(std::chrono::milliseconds(0));
-        if (status == std::future_status::timeout) {
-            OBJ_ERR << "thread is running";
-            return;
-        }
+    if (isRunning()) {
+        OBJ_ERR << "thread is running";
+        return;
     }
 
-    finished_ = std::async(std::launch::async, [&] {
+    thread_result_ = std::async(std::launch::async, [&] {
         int rc = 0;
         try {
             rc = task_->run();
@@ -85,8 +98,8 @@ void ThreadExternal::handleThreadCode(int fd)
 
     switch (code) {
     case GET_RESULT_CODE:
-        if (finished_.valid())
-            onThreadExit(finished_.get());
+        if (thread_result_.valid())
+            onThreadExit(thread_result_.get());
         break;
     default:
         OBJ_ERR << "unknown thread code: " << code;
@@ -103,6 +116,15 @@ void ThreadExternal::handleErrors(int fd)
         return;
 
     OBJ_ERR << std::string(buf.data(), n);
+}
+
+bool ThreadExternal::isRunning() const
+{
+    if (!thread_result_.valid())
+        return false;
+
+    auto st = thread_result_.wait_for(std::chrono::milliseconds(0));
+    return st != std::future_status::timeout;
 }
 
 thread::Task::Task()
@@ -151,12 +173,16 @@ void thread::Task::stop()
 
 void thread::Task::writeError(const char* msg)
 {
-    if (err_fd_)
-        write(*err_fd_, msg, strlen(msg));
+    if (err_fd_) {
+        if (write(*err_fd_, msg, strlen(msg)) == -1)
+            perror("[ceammc] writeError:");
+    }
 }
 
 void thread::Task::writeCommand(char cmd)
 {
-    if (ctl_fd_)
-        write(*ctl_fd_, &cmd, 1);
+    if (ctl_fd_) {
+        if (write(*ctl_fd_, &cmd, 1) == -1)
+            perror("[ceammc] writeCommand:");
+    }
 }

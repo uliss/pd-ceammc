@@ -93,7 +93,16 @@ public:
         if (pipe(fd) == 0)
             this->poll(fd[0]);
         else
-            perror("[ceammc]");
+            perror("[ceammc] can't init pipe");
+    }
+
+    ~PollPipeMemberFunction()
+    {
+        if (close(fd[0]) == -1)
+            perror("[ceammc] pipe closing error");
+
+        if (close(fd[1]) == -1)
+            perror("[ceammc] pipe closing error");
     }
 };
 

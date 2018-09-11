@@ -61,7 +61,7 @@ namespace thread {
 class ThreadExternal : public BaseObject {
 protected:
     thread::Task* task_;
-    std::future<int> finished_;
+    std::future<int> thread_result_;
     PollPipeMemberFunction<ThreadExternal> poll_fn_;
     PollPipeMemberFunction<ThreadExternal> err_poll_fn_;
 
@@ -73,6 +73,8 @@ public:
 
     void start();
     void quit();
+
+    bool isRunning() const;
 
 private:
     void handleThreadCode(int fd);

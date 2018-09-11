@@ -68,7 +68,10 @@ public:
         kill_ = METHOD_NONE;
 
         Process p(cmd_, {},
-            [&](const char* bytes, size_t n) { write((*stdout_fd_)[1], bytes, n); },
+            [&](const char* bytes, size_t n) {
+                if (write((*stdout_fd_)[1], bytes, n) == -1)
+                    perror("[system.shell] write to pipe error");
+            },
             [&](const char* bytes, size_t n) { writeError(std::string(bytes, n).c_str()); });
 
         int rc = 0;
@@ -76,15 +79,22 @@ public:
             switch (kill_) {
             case METHOD_KILL:
                 p.kill(true);
+                goto end;
                 break;
             case METHOD_TERM:
                 p.kill(false);
+                goto end;
                 break;
             default:
                 break;
             }
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
 
+    end:
+
+        kill_ = METHOD_NONE;
         return rc;
     }
 };
@@ -93,8 +103,6 @@ SystemShell::SystemShell(const PdArgs& args)
     : ThreadExternal(args, new ShellTask())
     , poll_stdout_(this, &SystemShell::readSubprocesOutput)
 {
-    task()->setFd(&poll_stdout_.fd);
-
     createOutlet();
     createOutlet();
 }
@@ -104,10 +112,27 @@ SystemShell::~SystemShell()
     terminate(true);
 }
 
+void SystemShell::onSymbol(t_symbol* s)
+{
+    task()->setFd(&poll_stdout_.fd);
+    task()->setCommand(s->s_name);
+    start();
+}
+
 void SystemShell::onList(const AtomList& lst)
 {
-    ShellTask* t = static_cast<ShellTask*>(task_);
-    t->setCommand(to_string(lst));
+    task()->setFd(&poll_stdout_.fd);
+    task()->setCommand(to_string(lst));
+    start();
+}
+
+void SystemShell::onAny(t_symbol* s, const AtomList& lst)
+{
+    task()->setFd(&poll_stdout_.fd);
+    std::string cmd(s->s_name);
+    cmd += ' ';
+    cmd += to_string(lst);
+    task()->setCommand(cmd);
     start();
 }
 

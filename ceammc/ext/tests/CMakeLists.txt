@@ -213,6 +213,9 @@ ceammc_external_test(string ends_with)
 ceammc_external_test(string starts_with)
 ceammc_external_test(string length)
 
+ceammc_external_test(system getenv)
+ceammc_external_test(system shell)
+
 ceammc_external_test(path lsdir)
 
 ceammc_external_test(spat pan_lin)
@@ -235,7 +238,6 @@ ceammc_add_extension_test("list_walk2" "../src/list/list_walk.cpp")
 ceammc_add_extension_test("ext_list_seq" "../src/list/list_seq.cpp")
 ceammc_add_extension_test("ext_symbol_equal" "../src/symbol/symbol_equal.cpp")
 ceammc_add_extension_test("ext_symbol_num_compare" "../src/symbol/symbol_num_compare.cpp")
-ceammc_add_extension_test("ext_system_getenv" "../src/system/system_getenv.cpp")
 
 ceammc_add_test_linked(TITLE "tl::parser" NAME test_tl_parser LINK ceammc_tl)
 ceammc_add_test_linked(TITLE "ceammc::preset" NAME test_preset LINK ceammc_preset ceammc_core puredata-core ceammc_core)
