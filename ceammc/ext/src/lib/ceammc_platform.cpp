@@ -25,6 +25,11 @@ extern "C" {
 #include <cstdlib>
 #include <cstring>
 
+#include <arpa/inet.h>
+#include <netdb.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
@@ -205,7 +210,7 @@ namespace platform {
 
     bool remove(const char* path)
     {
-        if(is_dir(path))
+        if (is_dir(path))
             return rmdir(path);
         else
             return ::remove(path) == 0;
@@ -298,5 +303,45 @@ namespace platform {
     {
         return home_directory() + "/Documents/Pd";
     }
+
+    Either<NetAddressList> hostnametoip(const char* name, NetAddressType type)
+    {
+        struct addrinfo* result = NULL;
+        struct addrinfo hints;
+        char address[INET6_ADDRSTRLEN];
+
+        memset(&hints, 0, sizeof(hints));
+        hints.ai_family = (type == ADDR_IPV4) ? PF_INET : PF_INET6;
+        hints.ai_protocol = IPPROTO_TCP;
+
+        int error = getaddrinfo(name, NULL, &hints, &result);
+
+        if (error)
+            return PlatformError(error, gai_strerror(error));
+
+        NetAddressList res;
+
+        struct addrinfo* ptr = result;
+        for (; ptr != NULL; ptr = ptr->ai_next) {
+            int error = getnameinfo(ptr->ai_addr,
+                ptr->ai_addrlen,
+                address, sizeof(address), NULL, 0, NI_NUMERICHOST);
+
+            if (error)
+                return PlatformError(error, gai_strerror(error));
+
+            res.push_back(address);
+        }
+
+        freeaddrinfo(result);
+        return res;
+    }
+
+    PlatformError::PlatformError(int c, const char* s)
+        : code(c)
+        , msg(s)
+    {
+    }
+
 }
 }

@@ -15,6 +15,7 @@
 #define CEAMMC_PLATFORM_H
 
 #include <boost/optional.hpp>
+#include <boost/variant.hpp>
 #include <string>
 #include <vector>
 
@@ -26,6 +27,43 @@
 
 namespace ceammc {
 namespace platform {
+    struct PlatformError {
+        PlatformError(int c = 0, const char* s = "");
+        int code;
+        std::string msg;
+    };
+
+    template <class T>
+    struct Either : public boost::variant<T, PlatformError> {
+        Either(const PlatformError& err)
+            : boost::variant<T, PlatformError>(err)
+        {
+        }
+
+        Either(const T& value)
+            : boost::variant<T, PlatformError>(value)
+        {
+        }
+
+        bool matchError(PlatformError& err) const
+        {
+            if (boost::variant<T, PlatformError>::which() != 1)
+                return false;
+
+            err = boost::get<PlatformError>(*this);
+            return true;
+        }
+
+        bool matchValue(T& value) const
+        {
+            if (boost::variant<T, PlatformError>::which() != 0)
+                return false;
+
+            value = boost::get<T>(*this);
+            return true;
+        }
+    };
+
     const char* platform_name();
     bool is_path_relative(const char* path);
 
@@ -122,6 +160,18 @@ namespace platform {
      * @return true on sucess
      */
     bool is_dir(const char* path);
+
+    enum NetAddressType {
+        ADDR_IPV4 = 0,
+        ADDR_IPV6
+    };
+
+    typedef std::vector<std::string> NetAddressList;
+
+    /**
+     * Returns list of addresses
+     */
+    Either<NetAddressList> hostnametoip(const char* name, NetAddressType type);
 }
 }
 
