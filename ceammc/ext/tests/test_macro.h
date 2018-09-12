@@ -63,6 +63,10 @@
 #define TEST_DATA_DIR "."
 #endif
 
+#ifndef TEST_BIN_DIR
+#define TEST_BIN_DIR "."
+#endif
+
 // simple wrappers
 #define S(v) Atom(gensym(v))
 #define F(v) Atom(float(v))
