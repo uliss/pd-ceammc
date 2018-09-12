@@ -321,8 +321,7 @@ namespace platform {
 
         NetAddressList res;
 
-        struct addrinfo* ptr = result;
-        for (; ptr != NULL; ptr = ptr->ai_next) {
+        for (auto ptr = result; ptr != NULL; ptr = ptr->ai_next) {
             int error = getnameinfo(ptr->ai_addr,
                 ptr->ai_addrlen,
                 address, sizeof(address), NULL, 0, NI_NUMERICHOST);
