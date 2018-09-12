@@ -4,6 +4,7 @@ include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${CMAKE_BINARY_DIR}) # for config.h
 include(tests.cmake)
 add_definitions("-DTEST_DATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}\"")
+add_definitions("-DTEST_BIN_DIR=\"${CMAKE_CURRENT_BINARY_DIR}\"")
 #remove_definitions(-DPD_INTERNAL)
 
 add_library(tests_main_lib STATIC tests_main.cpp test_external test_datatypes.cpp
@@ -359,6 +360,8 @@ ceammc_add_test_linked(TITLE "[env->to_array]"
 ceammc_add_test_linked(TITLE "[speech.flite]"
     NAME test_ext_misc_speech_flite
     LINK ceammc_core ceammc_misc ceammc_string puredata-core ${FLUIDSYNTH_LIBRARIES})
+
+add_executable(test_exec test_exec.cpp)
 
 
 add_custom_target(test_src SOURCES gen_test_wav.py)
