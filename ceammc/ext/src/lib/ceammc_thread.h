@@ -1,10 +1,9 @@
 #ifndef CEAMMC_THREAD_H
 #define CEAMMC_THREAD_H
 
-#include <chrono>
+#include <atomic>
 #include <future>
-#include <list>
-#include <thread>
+#include <memory>
 
 #include <pthread.h>
 
@@ -28,14 +27,19 @@ namespace thread {
         std::future<void> future_obj_;
         int* ctl_fd_;
         int* err_fd_;
+        std::atomic_bool running_;
+
+        Task(const Task&);
+        Task& operator=(const Task&);
 
     public:
         Task();
-        Task(Task&& obj);
-        Task& operator=(Task&& obj);
+        virtual ~Task();
 
         void setControlFd(int* ctl_fd);
         void setErrorFd(int* err_fd);
+
+        int schedule();
 
         /**
          * Should return 0 on success. Use positive error codes!
@@ -60,7 +64,7 @@ namespace thread {
 
 class ThreadExternal : public BaseObject {
 protected:
-    thread::Task* task_;
+    std::unique_ptr<thread::Task> task_;
     std::future<int> thread_result_;
     PollPipeMemberFunction<ThreadExternal> poll_fn_;
     PollPipeMemberFunction<ThreadExternal> err_poll_fn_;

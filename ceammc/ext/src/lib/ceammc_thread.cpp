@@ -4,6 +4,7 @@
 #include <cerrno>
 #include <chrono>
 #include <cstring>
+#include <fcntl.h>
 #include <future>
 #include <thread>
 
@@ -33,6 +34,11 @@ ThreadExternal::ThreadExternal(const PdArgs& args, thread::Task* task)
 {
     task_->setControlFd(&poll_fn_.fd[1]);
     task_->setErrorFd(&err_poll_fn_.fd[1]);
+
+    if (fcntl(poll_fn_.fd[0], F_SETFL, O_NONBLOCK) < 0
+        || fcntl(err_poll_fn_.fd[0], F_SETFL, O_NONBLOCK) < 0) {
+        OBJ_ERR << "can't set non-blocking mode: " << strerror(errno);
+    }
 }
 
 ThreadExternal::~ThreadExternal()
@@ -64,18 +70,14 @@ void ThreadExternal::start()
         return;
     }
 
-    thread_result_ = std::async(std::launch::async, [&] {
-        int rc = 0;
-        try {
-            rc = task_->run();
-        } catch (std::exception& e) {
-            task_->writeError(e.what());
-            rc = -1;
-        }
-
-        task_->writeCommand(GET_RESULT_CODE);
-        return rc;
-    });
+    try {
+        thread_result_ = std::async(std::launch::async, [&] {
+            return task_->schedule();
+        });
+    } catch (std::exception& e) {
+        OBJ_ERR << "can't start worker thread: " << e.what();
+        return;
+    }
 }
 
 void ThreadExternal::quit()
@@ -90,12 +92,20 @@ void ThreadExternal::quit()
 
 void ThreadExternal::handleThreadCode(int fd)
 {
-    char code = 0;
-    if (read(fd, &code, 1) != 1) {
+    std::array<char, 64> buf;
+
+    ssize_t n = 0;
+    ssize_t last_n = 0;
+    while ((n = read(fd, buf.data(), buf.size())) > 0) {
+        last_n = n;
+    }
+
+    if (last_n < 1) {
         OBJ_ERR << "thread communication error";
         return;
     }
 
+    char code = buf[last_n - 1];
     switch (code) {
     case GET_RESULT_CODE:
         if (thread_result_.valid())
@@ -111,11 +121,10 @@ void ThreadExternal::handleErrors(int fd)
 {
     std::array<char, MAXPDSTRING> buf;
 
-    ssize_t n = read(fd, buf.data(), buf.size());
-    if (n < 1)
-        return;
-
-    OBJ_ERR << std::string(buf.data(), n);
+    ssize_t n = 0;
+    while ((n = read(fd, buf.data(), buf.size())) > 0) {
+        OBJ_ERR << std::string(buf.data(), n);
+    }
 }
 
 bool ThreadExternal::isRunning() const
@@ -124,28 +133,18 @@ bool ThreadExternal::isRunning() const
         return false;
 
     auto st = thread_result_.wait_for(std::chrono::milliseconds(0));
-    return st != std::future_status::timeout;
+    return st != std::future_status::ready;
 }
 
 thread::Task::Task()
     : future_obj_(exit_signal_.get_future())
     , err_fd_(nullptr)
+    , running_(false)
 {
 }
 
-thread::Task::Task(thread::Task&& obj)
-    : exit_signal_(std::move(obj.exit_signal_))
-    , future_obj_(std::move(obj.future_obj_))
-    , err_fd_(obj.err_fd_)
+thread::Task::~Task()
 {
-}
-
-thread::Task& thread::Task::operator=(thread::Task&& obj)
-{
-    exit_signal_ = std::move(obj.exit_signal_);
-    future_obj_ = std::move(obj.future_obj_);
-    err_fd_ = obj.err_fd_;
-    return *this;
 }
 
 void thread::Task::setControlFd(int* ctl_fd)
@@ -185,4 +184,26 @@ void thread::Task::writeCommand(char cmd)
         if (write(*ctl_fd_, &cmd, 1) == -1)
             perror("[ceammc] writeCommand:");
     }
+}
+
+int thread::Task::schedule()
+{
+    if (running_.load()) {
+        writeError("already running");
+        return -2;
+    }
+
+    running_.store(true);
+
+    int rc = 0;
+    try {
+        rc = run();
+    } catch (std::exception& e) {
+        writeError(e.what());
+        rc = -1;
+    }
+
+    writeCommand(GET_RESULT_CODE);
+    running_.store(false);
+    return rc;
 }

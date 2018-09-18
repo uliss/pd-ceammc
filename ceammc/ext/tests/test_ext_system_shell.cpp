@@ -22,11 +22,49 @@ TEST_CASE("system.getenv", "[externals]")
 
     SECTION("create")
     {
-        test::pdPrintToStdError();
+        //        test::pdPrintToStdError();
 
         TestSystemShell t("system.shell");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 2);
+    }
+
+    SECTION("test bin")
+    {
+        TestExtSystemShell t("system.shell");
+        REQUIRE(t.object());
+
+        t << TEST_BIN_DIR "/test_exec 0";
+        test::pdRunMainLoopMs(50);
+        REQUIRE(t.outputFloatAt(1) == 0);
+
+        t << TEST_BIN_DIR "/test_exec 1";
+        test::pdRunMainLoopMs(50);
+        REQUIRE(t.outputFloatAt(1) == 100);
+
+//        t << TEST_BIN_DIR "/test_exec 2";
+//        test::pdRunMainLoopMs(50);
+//        REQUIRE(!t.hasOutput());
+//        t.call("terminate");
+//        test::pdRunMainLoopMs(5);
+//        REQUIRE(t.outputFloatAt(1) == 0);
+
+//        t << TEST_BIN_DIR "/test_exec 3";
+//        test::pdRunMainLoopMs(50);
+//        t.call("terminate");
+//        test::pdRunMainLoopMs(5);
+//        REQUIRE(t.outputFloatAt(1) == 0);
+
+        t << TEST_BIN_DIR "/test_exec 5";
+        test::pdRunMainLoopMs(100);
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputFloatAt(1) == 0);
+        REQUIRE(t.outputDataAt(0)->toString() == "test");
+
+        t << TEST_BIN_DIR "/test_exec 6";
+        test::pdRunMainLoopMs(100);
+        REQUIRE(!t.hasOutputAt(0));
+        REQUIRE(t.outputFloatAt(1) == 0);
     }
 
     SECTION("invalid input")
@@ -68,18 +106,26 @@ TEST_CASE("system.getenv", "[externals]")
         REQUIRE(t.hasOutput());
         REQUIRE(t.outputFloatAt(1) == 0);
         REQUIRE(t.outputDataAt(0)->toString() == fname);
+
+        // not exists
+        t << "not-exists";
+        test::pdRunMainLoopMs(600);
+
+        REQUIRE(!t.hasOutputAt(0));
+        REQUIRE(t.hasOutputAt(1));
+        REQUIRE(t.outputFloatAt(1) != 0);
     }
 
-    SECTION("loop process")
+    SECTION("background process &")
     {
         TestExtSystemShell t("system.shell");
         REQUIRE(t.object());
 
-        t.sendSymbol(gensym("top"));
+        t << "echo test &";
         test::pdRunMainLoopMs(500);
 
         REQUIRE(t.hasOutput());
         REQUIRE(t.outputFloatAt(1) == 0);
-        REQUIRE(t.outputDataAt(0)->toString() != "");
+        REQUIRE(t.outputDataAt(0)->toString() == "test");
     }
 }

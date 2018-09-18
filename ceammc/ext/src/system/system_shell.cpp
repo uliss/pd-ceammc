@@ -18,6 +18,7 @@
 #include "process.hpp"
 
 #include <array>
+#include <csignal>
 #include <cstdio>
 #include <exception>
 #include <iostream>
@@ -31,7 +32,8 @@ extern "C" {
 enum TerminateMethod {
     METHOD_NONE = 0,
     METHOD_TERM,
-    METHOD_KILL
+    METHOD_KILL,
+    METHOD_INT
 };
 
 typedef int pipe_fd[2];
@@ -41,7 +43,7 @@ class ShellTask : public thread::Task {
     std::string cmd_;
 
 public:
-    volatile TerminateMethod kill_;
+    std::atomic_char kill_;
 
 public:
     ShellTask()
@@ -65,7 +67,7 @@ public:
     {
         using namespace TinyProcessLib;
 
-        kill_ = METHOD_NONE;
+        kill_.store(METHOD_NONE);
 
         Process p(cmd_, {},
             [&](const char* bytes, size_t n) {
@@ -76,14 +78,18 @@ public:
 
         int rc = 0;
         while (!p.try_get_exit_status(rc)) {
-            switch (kill_) {
-            case METHOD_KILL:
+            switch (kill_.load()) {
+            case METHOD_TERM:
                 p.kill(true);
                 goto end;
                 break;
-            case METHOD_TERM:
+            case METHOD_INT:
                 p.kill(false);
                 goto end;
+                break;
+            case METHOD_KILL:
+                if (p.get_id() > 0)
+                    ::kill(p.get_id(), SIGKILL);
                 break;
             default:
                 break;
@@ -94,7 +100,7 @@ public:
 
     end:
 
-        kill_ = METHOD_NONE;
+        kill_.store(METHOD_NONE);
         return rc;
     }
 };
@@ -103,6 +109,7 @@ SystemShell::SystemShell(const PdArgs& args)
     : ThreadExternal(args, new ShellTask())
     , poll_stdout_(this, &SystemShell::readSubprocesOutput)
 {
+    task()->setFd(&poll_stdout_.fd);
     createOutlet();
     createOutlet();
 }
@@ -114,21 +121,18 @@ SystemShell::~SystemShell()
 
 void SystemShell::onSymbol(t_symbol* s)
 {
-    task()->setFd(&poll_stdout_.fd);
     task()->setCommand(s->s_name);
     start();
 }
 
 void SystemShell::onList(const AtomList& lst)
 {
-    task()->setFd(&poll_stdout_.fd);
     task()->setCommand(to_string(lst));
     start();
 }
 
 void SystemShell::onAny(t_symbol* s, const AtomList& lst)
 {
-    task()->setFd(&poll_stdout_.fd);
     std::string cmd(s->s_name);
     cmd += ' ';
     cmd += to_string(lst);
@@ -169,12 +173,12 @@ void SystemShell::m_terminate(t_symbol*, const AtomList&)
 
 ShellTask* SystemShell::task()
 {
-    return static_cast<ShellTask*>(task_);
+    return static_cast<ShellTask*>(task_.get());
 }
 
 void SystemShell::terminate(bool force)
 {
-    ((ShellTask*)task_)->kill_ = force ? METHOD_KILL : METHOD_TERM;
+    task()->kill_.store(force ? METHOD_KILL : METHOD_TERM);
 }
 
 void setup_system_shell()
