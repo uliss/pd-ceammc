@@ -30,6 +30,7 @@
 #include "math/mod_math.h"
 #include "midi/mod_midi.h"
 #include "misc/mod_misc.h"
+#include "net/mod_net.h"
 #include "noise/mod_noise.h"
 #include "osc/mod_osc.h"
 #include "path/mod_path.h"
@@ -108,6 +109,7 @@ void ceammc_init()
     ceammc_math_setup();
     ceammc_midi_setup();
     ceammc_misc_setup();
+    ceammc_net_setup();
     ceammc_noise_setup();
     ceammc_preset_setup();
     ceammc_path_setup();
