@@ -69,6 +69,9 @@ protected:
     PollPipeMemberFunction<ThreadExternal> poll_fn_;
     PollPipeMemberFunction<ThreadExternal> err_poll_fn_;
 
+private:
+    double last_start_;
+
 public:
     ThreadExternal(const PdArgs& args, thread::Task* task);
     ~ThreadExternal();

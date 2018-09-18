@@ -31,6 +31,7 @@ ThreadExternal::ThreadExternal(const PdArgs& args, thread::Task* task)
     , task_(task)
     , poll_fn_(this, &ThreadExternal::handleThreadCode)
     , err_poll_fn_(this, &ThreadExternal::handleErrors)
+    , last_start_(0)
 {
     task_->setControlFd(&poll_fn_.fd[1]);
     task_->setErrorFd(&err_poll_fn_.fd[1]);
@@ -65,6 +66,14 @@ ThreadExternal::~ThreadExternal()
 
 void ThreadExternal::start()
 {
+    auto ms = clock_gettimesince(last_start_);
+    if (ms < 10) {
+        OBJ_ERR << "too short time since last call: " << ms;
+        return;
+    }
+
+    last_start_ = clock_getlogicaltime();
+
     if (isRunning()) {
         OBJ_ERR << "thread is running";
         return;
