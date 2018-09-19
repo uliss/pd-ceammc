@@ -39,7 +39,7 @@ accessible even from subpatch.;
 #X msg 120 465 +;
 #X text 240 465 add to float \, no output.;
 #X msg 120 497 -;
-#X text 240 497 subtruct from float \, no output.;
+#X text 240 497 subtract from float \, no output.;
 #X msg 120 529 *;
 #X text 240 529 multiply to \, no output.;
 #X msg 120 561 /;

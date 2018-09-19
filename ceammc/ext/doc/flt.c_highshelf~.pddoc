@@ -7,7 +7,7 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Highshelf filter coefficent calculator for biquad</description>
+            <description>Highshelf filter coefficient calculator for biquad</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>flt</category>

@@ -7,7 +7,7 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>LPF coefficent calculator for biquad filter</description>
+            <description>LPF coefficient calculator for biquad filter</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>flt</category>

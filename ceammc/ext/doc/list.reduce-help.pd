@@ -11,7 +11,7 @@ list;
 #X text 210 80 Apply function of two arguments cumulatively to the
 list \, from left to right \, so as to reduce the list to a single
 value.;
-#X text 210 131 You can imaging this process as a space replacement
+#X text 210 131 You can imagine this process as a space replacement
 between elements with binary function \, for example: 1 2 3 4 5
 becames ((((1+2)+3)+4)+5) after reducing with "+".;
 #X msg 50 220 1 2 3 4;

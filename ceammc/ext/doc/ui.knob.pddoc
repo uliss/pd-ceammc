@@ -46,7 +46,7 @@
             <method name="--">decrement knob value without output</method>
             <method name="+">add value to knob without output 
             <param name="V" type="float" required="true">added value</param></method>
-            <method name="-">subtract value from knob without output
+            <method name="-">subtract value from knob without output 
             <param name="V" type="float" required="true">subtracted value</param></method>
             <method name="*">multiply knob value without output 
             <param name="V" type="float" required="true">multiplied value</param></method>

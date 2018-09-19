@@ -1,7 +1,7 @@
 #N canvas 0 0 715 555 12;
 #X declare -lib ceammc;
-#X obj 309 50 cnv 1 386 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 309 50 Lowshelf filter coefficent calculator for biquad;
+#X obj 301 50 cnv 1 394 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 301 50 Lowshelf filter coefficient calculator for biquad;
 #X obj 1 1 cnv 5 712 40 empty empty flt.c_lowshelf~ 20 20 0 20 -104026
 -4096 0;
 #X obj 578 11 flt.c_lowshelf~;

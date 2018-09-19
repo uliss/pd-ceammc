@@ -50,7 +50,7 @@
             <method name="--">decrement all sliders without output</method>
             <method name="+">add value to every slider without output 
             <param name="V" type="float" required="true">added value</param></method>
-            <method name="-">subtract value from every slider without output
+            <method name="-">subtract value from every slider without output 
             <param name="V" type="float" required="true">subtracted value</param></method>
             <method name="*">multiply each slider without output 
             <param name="V" type="float" required="true">multiplied value</param></method>

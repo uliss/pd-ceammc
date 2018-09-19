@@ -33,7 +33,7 @@
 #X text 240 465 Get/Set gain amplitude values. Type: list. Min value:
 0;
 #X msg 120 492 @db;
-#X text 240 492 Get/Set gain decibell (dbfs) values. Type: list. Min
+#X text 240 492 Get/Set gain decibel (dbfs) values. Type: list. Min
 value: -144;
 #X obj 20 539 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 544 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144

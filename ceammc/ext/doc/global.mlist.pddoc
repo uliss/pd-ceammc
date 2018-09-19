@@ -40,7 +40,7 @@
             <method name="fill">fills with specified value 
             <param name="VAL" type="atom" required="true">fill value</param></method>
             <method name="reverse">reverses list</method>
-            <method name="shuffle">put elemtns in random order</method>
+            <method name="shuffle">put elements in random order</method>
             <method name="sort">sorts list</method>
             <method name="clear">removes all list elements</method>
             <method name="pop">removes last list element</method>

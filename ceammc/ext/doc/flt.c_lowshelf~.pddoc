@@ -7,7 +7,7 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Lowshelf filter coefficent calculator for biquad</description>
+            <description>Lowshelf filter coefficient calculator for biquad</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>flt</category>

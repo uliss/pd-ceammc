@@ -36,7 +36,7 @@
 #X msg 120 428 +;
 #X text 240 428 add to int \, no output.;
 #X msg 120 460 -;
-#X text 240 460 substruct from int \, no output.;
+#X text 240 460 subtract from int \, no output.;
 #X msg 120 492 *;
 #X text 240 492 multiply to \, no output.;
 #X msg 120 524 /;

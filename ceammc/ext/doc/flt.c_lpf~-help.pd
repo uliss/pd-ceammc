@@ -1,7 +1,7 @@
 #N canvas 0 0 715 555 12;
 #X declare -lib ceammc;
-#X obj 348 50 cnv 1 347 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 348 50 LPF coefficent calculator for biquad filter;
+#X obj 340 50 cnv 1 355 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 340 50 LPF coefficient calculator for biquad filter;
 #X obj 1 1 cnv 5 712 40 empty empty flt.c_lpf~ 20 20 0 20 -104026
 -4096 0;
 #X obj 614 11 flt.c_lpf~;

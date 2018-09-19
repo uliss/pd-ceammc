@@ -26,7 +26,7 @@
 #X text 240 352 Input mlist.;
 #X text 120 370 2\.;
 #X text 150 370 *float*;
-#X text 240 370 input value from predicate. "1" means accepped. "0"
+#X text 240 370 input value from predicate. "1" means accepted. "0"
 means reject.. Range: 0\...1;
 #X obj 20 412 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 417 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144

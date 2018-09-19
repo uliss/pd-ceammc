@@ -18,8 +18,8 @@
             </also>
         </meta>
         <info>
-            <par>Symmetric difference, of two sets is the set of elements which are in either of the
-            sets and not in their intersection</par>
+            <par>Symmetric difference, of two sets is the set of elements which are in either of
+            the sets and not in their intersection</par>
         </info>
         <arguments>
             <argument name="ARGS" type="any">right set elements</argument>
