@@ -10,7 +10,7 @@
             <license>GPL3</license>
             <library>ceammc</library>
             <category view="link">ui</category>
-            <keywords>ui incremenet decrement</keywords>
+            <keywords>ui increment decrement</keywords>
             <since>0.1</since>
             <also>
                 <see view="link">ui.number</see>

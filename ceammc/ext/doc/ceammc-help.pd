@@ -34,7 +34,7 @@ purposes in centre of electroacoustic music of Moscow Conservatory
 #X obj 30 525 matrix~;
 #X text 175 525 signal routing matrix;
 #X obj 30 552 metro.pattern;
-#X text 175 552 metro with rythmic patterns;
+#X text 175 552 metro with rhythmic patterns;
 #X obj 30 579 metro.seq;
 #X text 175 579 metro sequencer;
 #X obj 30 606 mix~;
@@ -55,7 +55,7 @@ purposes in centre of electroacoustic music of Moscow Conservatory
 #X text 175 820 convert array sample position to relative phase
 position [0\..1];
 #X obj 30 857 conv.amp2dbfs;
-#X text 175 857 convert from amplitude to decibell full scale;
+#X text 175 857 convert from amplitude to decibel full scale;
 #X obj 30 884 conv.bpm2hz;
 #X text 175 884 converts BPM to frequency in herz;
 #X obj 30 911 conv.bpm2ms;
@@ -65,7 +65,7 @@ position [0\..1];
 #X obj 30 965 conv.cc2amp;
 #X text 175 965 convert from MIDI Control Change range;
 #X obj 30 992 conv.dbfs2amp;
-#X text 175 992 convert decibell full scale to amplitude;
+#X text 175 992 convert decibel full scale to amplitude;
 #X obj 30 1019 conv.lin2curve;
 #X text 175 1019 map linear to exponential range with 0 allowed.;
 #X obj 30 1046 conv.lin2exp;
@@ -73,7 +73,7 @@ position [0\..1];
 #X obj 30 1073 conv.lin2lin;
 #X text 175 1073 convert from one linear range to another;
 #X obj 30 1100 conv.midi2freq;
-#X text 175 1100 convert from midi pitch to freqency in hz (with
+#X text 175 1100 convert from midi pitch to frequency in hz (with
 various base A and temperament);
 #X obj 30 1137 conv.pitch2midi;
 #X text 175 1137 converts symbol pitch name to MIDI note number;
@@ -231,7 +231,7 @@ equal number of segments;
 #X obj 30 3204 flow.route;
 #X text 175 3204 advanced message router;
 #X obj 30 3231 flow.speedlim;
-#X text 175 3231 control stream speed limitier;
+#X text 175 3231 control stream speed limiter;
 #X obj 30 3258 flow.split;
 #X text 175 3258 split data flow by external side-chain predicate;
 #X obj 30 3285 flow.sync;
@@ -929,7 +929,7 @@ ui.colorpanel-help.pd;
 #X obj 30 12658 ui.link @title [ui.radio] @url ui.radio-help.pd;
 #X text 175 12655 counterpart of the vanilla radio toggle;
 #X obj 30 12681 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
-#X text 175 12678 rangle slider;
+#X text 175 12678 range slider;
 #X obj 30 12704 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
 #X text 175 12701 Scope GUI object;
 #X obj 30 12727 ui.link @title [ui.slider] @url ui.slider-help.pd;

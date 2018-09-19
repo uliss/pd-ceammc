@@ -76,7 +76,7 @@ value: 0;
 #X text 240 1135 (readonly) Get array size in seconds. Type: float.
 Units: sec. Min value: 0;
 #X msg 120 1172 @size_ms;
-#X text 240 1172 (readonly) Get array size in milleseconds. Type:
+#X text 240 1172 (readonly) Get array size in milliseconds. Type:
 float. Units: ms. Min value: 0;
 #X msg 120 1209 @send;
 #X text 240 1209 Get/Set send destination. Type: symbol;

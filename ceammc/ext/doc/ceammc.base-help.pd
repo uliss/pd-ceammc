@@ -11,7 +11,7 @@
 #X obj 30 193 matrix~;
 #X text 175 193 signal routing matrix;
 #X obj 30 220 metro.pattern;
-#X text 175 220 metro with rythmic patterns;
+#X text 175 220 metro with rhythmic patterns;
 #X obj 30 247 metro.seq;
 #X text 175 247 metro sequencer;
 #X obj 30 274 mix~;

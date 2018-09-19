@@ -40,10 +40,10 @@
             <method name="--">decrement slider value without output</method>
             <method name="+">add value to slider without output 
             <param name="V" type="float" required="true">added value</param></method>
-            <method name="-">substruct value from slider without output 
-            <param name="V" type="float" required="true">substructed value</param></method>
+            <method name="-">subtract value from slider without output
+            <param name="V" type="float" required="true">subtracted value</param></method>
             <method name="*">multiply slider value without output 
-            <param name="V" type="float" required="true">mutiplied value</param></method>
+            <param name="V" type="float" required="true">multiplied value</param></method>
             <method name="/">divide slider value without output 
             <param name="V" type="float" required="true">denominator value</param></method>
         </methods>

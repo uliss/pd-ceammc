@@ -6,11 +6,11 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>metro with rythmic patterns</description>
+            <description>metro with rhythmic patterns</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>base</category>
-            <keywords>metro pattern rythm</keywords>
+            <keywords>metro pattern rhythm</keywords>
             <also>
                 <see>metro</see>
                 <see>metro.seq</see>

@@ -39,7 +39,7 @@ name.;
 #X msg 120 437 +;
 #X text 240 437 add to float \, no output.;
 #X msg 120 469 -;
-#X text 240 469 substruct from float \, no output.;
+#X text 240 469 subtract from float \, no output.;
 #X msg 120 501 *;
 #X text 240 501 multiply to \, no output.;
 #X msg 120 533 /;

@@ -1,7 +1,7 @@
 #N canvas 0 0 715 555 12;
 #X declare -lib ceammc;
-#X obj 475 50 cnv 1 220 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 475 50 metro with rythmic patterns;
+#X obj 467 50 cnv 1 228 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 467 50 metro with rhythmic patterns;
 #X obj 1 1 cnv 5 712 40 empty empty metro.pattern 20 20 0 20 -104026
 -4096 0;
 #X obj 593 11 metro.pattern;
@@ -76,7 +76,7 @@ Type: int. Default value: 0\. Allowed values: 0 \, 1;
 #X text 10 142 license:;
 #X text 120 142 GPL3;
 #X text 10 164 keywords:;
-#X text 120 164 metro \, pattern \, rythm;
+#X text 120 164 metro \, pattern \, rhythm;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;

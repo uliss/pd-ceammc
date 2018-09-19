@@ -7,7 +7,7 @@
                 <author>Pierre Guillot</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>rangle slider</description>
+            <description>range slider</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category view="link">ui</category>

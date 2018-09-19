@@ -39,7 +39,7 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="float">intput value</xinfo>
+                <xinfo on="float">input value</xinfo>
             </inlet>
         </inlets>
         <outlets>

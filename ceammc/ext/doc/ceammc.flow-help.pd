@@ -45,7 +45,7 @@
 #X obj 30 656 flow.route;
 #X text 175 656 advanced message router;
 #X obj 30 683 flow.speedlim;
-#X text 175 683 control stream speed limitier;
+#X text 175 683 control stream speed limiter;
 #X obj 30 710 flow.split;
 #X text 175 710 split data flow by external side-chain predicate;
 #X obj 30 737 flow.sync;

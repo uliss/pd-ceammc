@@ -31,7 +31,7 @@
 incoming message. Type: int. Default value: 1\. Allowed values: 0 \,
 1;
 #X msg 120 429 @display_type;
-#X text 240 429 Get/Set flag for displaying incomming message type.
+#X text 240 429 Get/Set flag for displaying incoming message type.
 Type: int. Default value: 0\. Allowed values: 0 \, 1;
 #X msg 120 466 @display_events;
 #X text 240 466 Get/Set flag for blinking on incoming messages. Type:

@@ -1,7 +1,7 @@
 #N canvas 0 0 715 555 12;
 #X declare -lib ceammc;
-#X obj 587 50 cnv 1 108 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 587 50 rangle slider;
+#X obj 595 50 cnv 1 100 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 595 50 range slider;
 #X obj 1 1 cnv 5 712 40 empty empty ui.rslider 20 20 0 20 -104026
 -4096 0;
 #X obj 541 13 ui.link @background_color 0.39216 0.39216 0.39216 @title

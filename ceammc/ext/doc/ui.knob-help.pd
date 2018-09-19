@@ -70,14 +70,14 @@ Default value: 0\. Allowed values: 0 \, 1;
 #X obj 250 924 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 924 V: added value. Type: float.;
 #X msg 120 952 -;
-#X text 240 952 substruct value from knob without output. Arguments
+#X text 240 952 subtract value from knob without output. Arguments
 are:;
 #X obj 250 980 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 980 V: substructed value. Type: float.;
+#X text 250 980 V: subtracted value. Type: float.;
 #X msg 120 1008 *;
 #X text 240 1008 multiply knob value without output. Arguments are:;
 #X obj 250 1036 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1036 V: mutiplied value. Type: float.;
+#X text 250 1036 V: multiplied value. Type: float.;
 #X msg 120 1064 /;
 #X text 240 1064 divide knob value without output. Arguments are:;
 #X obj 250 1092 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;

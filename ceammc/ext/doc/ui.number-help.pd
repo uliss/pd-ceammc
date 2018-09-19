@@ -57,14 +57,14 @@ input \, BACKSPACE removes last character.;
 #X obj 250 759 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 759 V: added value. Type: float.;
 #X msg 120 787 -;
-#X text 240 787 substruct value from slider without output. Arguments
+#X text 240 787 subtract value from slider without output. Arguments
 are:;
 #X obj 250 815 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 815 V: substructed value. Type: float.;
+#X text 250 815 V: subtracted value. Type: float.;
 #X msg 120 843 *;
 #X text 240 843 multiply slider value without output. Arguments are:;
 #X obj 250 871 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 871 V: mutiplied value. Type: float.;
+#X text 250 871 V: multiplied value. Type: float.;
 #X msg 120 899 /;
 #X text 240 899 divide slider value without output. Arguments are:;
 #X obj 250 927 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;

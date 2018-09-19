@@ -46,7 +46,7 @@
             <property name="@size_sec" type="float" minvalue="0" readonly="true" units="second">
             array size in seconds</property>
             <property name="@size_ms" type="float" minvalue="0" readonly="true"
-            units="millisecond">array size in milleseconds</property>
+            units="millisecond">array size in milliseconds</property>
             <!-- common -->
             <property name="@send" type="symbol">send destination</property>
             <property name="@receive" type="symbol">receive source</property>

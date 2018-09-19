@@ -42,7 +42,7 @@
     <entry descr="signal routing matrix" name="matrix~" ref_view="object">
       <xi:include href="matrix~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="metro with rythmic patterns" name="metro.pattern" ref_view="object">
+    <entry descr="metro with rhythmic patterns" name="metro.pattern" ref_view="object">
       <xi:include href="metro.pattern.pddoc" parse="xml"/>
     </entry>
     <entry descr="metro sequencer" name="metro.seq" ref_view="object">
@@ -71,7 +71,7 @@
     <entry descr="convert array sample position to relative phase position [0..1]" name="array.s2p" ref_view="object">
       <xi:include href="array.s2p.pddoc" parse="xml"/>
     </entry>
-    <entry descr="convert from amplitude to decibell full scale" name="conv.amp2dbfs" ref_view="object">
+    <entry descr="convert from amplitude to decibel full scale" name="conv.amp2dbfs" ref_view="object">
       <xi:include href="conv.amp2dbfs.pddoc" parse="xml"/>
     </entry>
     <entry descr="converts BPM to frequency in herz" name="conv.bpm2hz" ref_view="object">
@@ -86,7 +86,7 @@
     <entry descr="convert from MIDI Control Change range" name="conv.cc2amp" ref_view="object">
       <xi:include href="conv.cc2amp.pddoc" parse="xml"/>
     </entry>
-    <entry descr="convert decibell full scale to amplitude" name="conv.dbfs2amp" ref_view="object">
+    <entry descr="convert decibel full scale to amplitude" name="conv.dbfs2amp" ref_view="object">
       <xi:include href="conv.dbfs2amp.pddoc" parse="xml"/>
     </entry>
     <entry descr="map linear to exponential range with 0 allowed." name="conv.lin2curve" ref_view="object">
@@ -98,7 +98,7 @@
     <entry descr="convert from one linear range to another" name="conv.lin2lin" ref_view="object">
       <xi:include href="conv.lin2lin.pddoc" parse="xml"/>
     </entry>
-    <entry descr="convert from midi pitch to freqency in hz (with various base A and temperament)" name="conv.midi2freq" ref_view="object">
+    <entry descr="convert from midi pitch to frequency in hz (with various base A and temperament)" name="conv.midi2freq" ref_view="object">
       <xi:include href="conv.midi2freq.pddoc" parse="xml"/>
     </entry>
     <entry descr="converts symbol pitch name to MIDI note number" name="conv.pitch2midi" ref_view="object">
@@ -313,7 +313,7 @@
     <entry descr="advanced message router" name="flow.route" ref_view="object">
       <xi:include href="flow.route.pddoc" parse="xml"/>
     </entry>
-    <entry descr="control stream speed limitier" name="flow.speedlim" ref_view="object">
+    <entry descr="control stream speed limiter" name="flow.speedlim" ref_view="object">
       <xi:include href="flow.speedlim.pddoc" parse="xml"/>
     </entry>
     <entry descr="split data flow by external side-chain predicate" name="flow.split" ref_view="object">
@@ -1242,7 +1242,7 @@
     <entry descr="counterpart of the vanilla radio toggle" name="ui.radio" ref_view="link">
       <xi:include href="ui.radio.pddoc" parse="xml"/>
     </entry>
-    <entry descr="rangle slider" name="ui.rslider" ref_view="link">
+    <entry descr="range slider" name="ui.rslider" ref_view="link">
       <xi:include href="ui.rslider.pddoc" parse="xml"/>
     </entry>
     <entry descr="Scope GUI object" name="ui.scope~" ref_view="link">

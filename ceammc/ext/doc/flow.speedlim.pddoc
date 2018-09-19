@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>control stream speed limitier</description>
+            <description>control stream speed limiter</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>flow</category>

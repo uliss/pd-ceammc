@@ -10,7 +10,7 @@
             <license>GPL3</license>
             <library>ceammc</library>
             <category>base</category>
-            <keywords>mix amplitude decibell</keywords>
+            <keywords>mix amplitude decibel</keywords>
             <since>0.6</since>
         </meta>
         <arguments>

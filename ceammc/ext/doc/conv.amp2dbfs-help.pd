@@ -1,7 +1,7 @@
 #N canvas 0 0 715 555 12;
 #X declare -lib ceammc;
-#X obj 332 50 cnv 1 363 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 332 50 convert from amplitude to decibell full scale;
+#X obj 340 50 cnv 1 355 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 340 50 convert from amplitude to decibel full scale;
 #X obj 1 1 cnv 5 712 40 empty empty conv.amp2dbfs 20 20 0 20 -104026
 -4096 0;
 #X obj 503 11 amp->dbfs;
@@ -56,7 +56,7 @@ range);
 #X text 10 142 license:;
 #X text 120 142 GPL3;
 #X text 10 164 keywords:;
-#X text 120 164 conv \, amp \, dbfs \, decibell;
+#X text 120 164 conv \, amp \, dbfs \, decibel;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;

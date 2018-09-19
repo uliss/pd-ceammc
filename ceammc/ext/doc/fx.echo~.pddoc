@@ -27,7 +27,7 @@
             <property name="@time" type="float" minvalue="10" maxvalue="10000" units="millisecond"
             default="500">echo time</property>
             <property name="@feedback" type="float" minvalue="0" maxvalue="0.8" default="0.3">
-            feedback coefficent</property>
+            feedback coefficient</property>
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
             of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
             wet</property>

@@ -106,7 +106,7 @@ step \, line \, exp \, sin2 \, sigmoid.;
 (concave \, negatively curved) >0 (convex \, positively curved). Type:
 float.;
 #X msg 120 1241 remove_point;
-#X text 240 1241 remove envelope point byt specified time. Arguments
+#X text 240 1241 remove envelope point by specified time. Arguments
 are:;
 #X obj 250 1269 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 1269 IDX: point index. Type: int. Min value: 0;

@@ -10,7 +10,7 @@
             <license>GPL3</license>
             <library>ceammc</library>
             <category>base</category>
-            <keywords>gain amplitude decibell</keywords>
+            <keywords>gain amplitude decibel</keywords>
             <since>0.6</since>
         </meta>
         <arguments>

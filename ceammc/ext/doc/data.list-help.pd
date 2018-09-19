@@ -58,7 +58,7 @@ are:;
 #X msg 120 695 reverse;
 #X text 240 695 reverses list.;
 #X msg 120 727 shuffle;
-#X text 240 727 put elemtns in random order.;
+#X text 240 727 put elements in random order.;
 #X msg 120 759 sort;
 #X text 240 759 sorts list.;
 #X msg 120 791 clear;

@@ -83,14 +83,14 @@ are:;
 #X obj 250 1107 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 1107 V: added value. Type: float.;
 #X msg 120 1135 -;
-#X text 240 1135 substruct value from every slider without output.
+#X text 240 1135 subtract value from every slider without output.
 Arguments are:;
 #X obj 250 1177 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1177 V: substructed value. Type: float.;
+#X text 250 1177 V: subtracted value. Type: float.;
 #X msg 120 1205 *;
 #X text 240 1205 multiply each slider without output. Arguments are:;
 #X obj 250 1233 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1233 V: mutiplied value. Type: float.;
+#X text 250 1233 V: multiplied value. Type: float.;
 #X msg 120 1261 /;
 #X text 240 1261 divide each slider without output. Arguments are:;
 #X obj 250 1289 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;

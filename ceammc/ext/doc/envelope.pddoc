@@ -42,7 +42,7 @@
             <param name="CURVE" type="float" default="1">exponential curve degree: 0 (linear) &lt;0
             (concave, negatively curved) &gt;0 (convex, positively curved)</param></method>
             <!-- remove point -->
-            <method name="remove_point">remove envelope point byt specified time 
+            <method name="remove_point">remove envelope point by specified time
             <param name="IDX" type="int" required="true" minvalue="0">point index</param></method>
             <!-- set point -->
             <method name="set_point">set point time and value 

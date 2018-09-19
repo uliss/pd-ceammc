@@ -83,14 +83,14 @@ Default value: 0\. Allowed values: 0 \, 1;
 #X obj 250 1089 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 1089 V: added value. Type: float.;
 #X msg 120 1117 -;
-#X text 240 1117 substruct value from slider without output. Arguments
+#X text 240 1117 subtract value from slider without output. Arguments
 are:;
 #X obj 250 1145 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1145 V: substructed value. Type: float.;
+#X text 250 1145 V: subtracted value. Type: float.;
 #X msg 120 1173 *;
 #X text 240 1173 multiply slider value without output. Arguments are:;
 #X obj 250 1201 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1201 V: mutiplied value. Type: float.;
+#X text 250 1201 V: multiplied value. Type: float.;
 #X msg 120 1229 /;
 #X text 240 1229 divide slider value without output. Arguments are:;
 #X obj 250 1257 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;

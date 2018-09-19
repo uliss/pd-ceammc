@@ -44,7 +44,7 @@ ui.colorpanel-help.pd;
 #X obj 30 556 ui.link @title [ui.radio] @url ui.radio-help.pd;
 #X text 175 553 counterpart of the vanilla radio toggle;
 #X obj 30 579 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
-#X text 175 576 rangle slider;
+#X text 175 576 range slider;
 #X obj 30 602 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
 #X text 175 599 Scope GUI object;
 #X obj 30 625 ui.link @title [ui.slider] @url ui.slider-help.pd;

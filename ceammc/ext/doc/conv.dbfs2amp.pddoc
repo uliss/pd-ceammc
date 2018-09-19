@@ -6,11 +6,11 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>convert decibell full scale to amplitude</description>
+            <description>convert decibel full scale to amplitude</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>conv</category>
-            <keywords>conv amp dbfs decibell</keywords>
+            <keywords>conv amp dbfs decibel</keywords>
             <since>0.6</since>
             <also>
                 <see>amp-&gt;dbfs</see>

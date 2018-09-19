@@ -62,7 +62,7 @@ Allowed values: noclip \, min \, max \, minmax;
 0;
 #X text 120 643 1\.;
 #X text 150 643 *float*;
-#X text 240 643 intput value.;
+#X text 240 643 input value.;
 #X obj 20 671 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 676 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
