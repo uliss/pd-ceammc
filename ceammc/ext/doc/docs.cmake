@@ -275,6 +275,7 @@ set(DOC_FILES
     modplug~
     msg
     msg.onload
+    net.host2ip
     noise.crackle~
     noise.pink~
     noise.white~

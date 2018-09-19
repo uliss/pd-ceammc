@@ -871,6 +871,11 @@
       <xi:include href="msg.onload.pddoc" parse="xml"/>
     </entry>
   </category>
+  <category name="net">
+    <entry descr="returns IP addresss by DNS name" name="net.host2ip" ref_view="object">
+      <xi:include href="net.host2ip.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="noise">
     <entry descr="sparse noise generator" name="noise.crackle~" ref_view="object">
       <xi:include href="noise.crackle~.pddoc" parse="xml"/>

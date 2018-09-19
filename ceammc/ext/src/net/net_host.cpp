@@ -122,5 +122,6 @@ HostTask* NetHost::task()
 
 void setup_net_host()
 {
-    ObjectFactory<NetHost> obj("net.host->ip");
+    ObjectFactory<NetHost> obj("net.host2ip");
+    obj.addAlias("net.host->ip");
 }

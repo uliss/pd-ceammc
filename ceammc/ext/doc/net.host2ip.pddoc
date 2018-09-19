@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="net.host2ip">
+        <title>net.host2ip</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>returns IP addresss by DNS name</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>net</category>
+            <keywords>net dns ip</keywords>
+            <since>0.7</since>
+            <aliases>
+                <alias>net.host-&gt;ip</alias>
+            </aliases>
+        </meta>
+        <methods>
+            <method name="mute">mute specified channel 
+            <param name="CH" type="int" minvalue="0" required="true">channel index (from 0)</param>
+            <param name="VAL" type="int" enum="0 1" required="true">1 - mute, 0 -
+            unmute</param></method>
+            <method name="solo">solo (mute all others that not solo) specified channel 
+            <param name="CH" type="int" minvalue="0" required="true">channel index (from 0)</param>
+            <param name="VAL" type="int" enum="0 1">1 - enable solo, 0 - disable
+            solo</param></method>
+        </methods>
+        <properties>
+            <property name="@type" type="symbol" enum="ipv4 ipv6" default="ipv4">result IP type</property>
+            <property name="@ipv4" type="alias">shortcut for @type ipv4</property>
+            <property name="@ipv6" type="alias">shortcut for @type ipv6</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">DNS name</xinfo>
+                <xinfo on="any">DNS namel</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list of resolved IP's</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[localhost(
+|
+| [symbol bbc.com(
+| |
+| |
+[net.host->ip]
+|
+[ui.d]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
