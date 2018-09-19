@@ -5,6 +5,7 @@
 - \[print\] now supports Data types
 - tl.timeline added
 - msg.onload added
+- net.host->ip added
 - clear message added to fx.sdelay~
 
 ### Changed:

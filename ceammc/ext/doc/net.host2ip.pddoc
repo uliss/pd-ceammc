@@ -16,18 +16,9 @@
                 <alias>net.host-&gt;ip</alias>
             </aliases>
         </meta>
-        <methods>
-            <method name="mute">mute specified channel 
-            <param name="CH" type="int" minvalue="0" required="true">channel index (from 0)</param>
-            <param name="VAL" type="int" enum="0 1" required="true">1 - mute, 0 -
-            unmute</param></method>
-            <method name="solo">solo (mute all others that not solo) specified channel 
-            <param name="CH" type="int" minvalue="0" required="true">channel index (from 0)</param>
-            <param name="VAL" type="int" enum="0 1">1 - enable solo, 0 - disable
-            solo</param></method>
-        </methods>
         <properties>
-            <property name="@type" type="symbol" enum="ipv4 ipv6" default="ipv4">result IP type</property>
+            <property name="@type" type="symbol" enum="ipv4 ipv6" default="ipv4">result IP
+            type</property>
             <property name="@ipv4" type="alias">shortcut for @type ipv4</property>
             <property name="@ipv6" type="alias">shortcut for @type ipv6</property>
         </properties>
