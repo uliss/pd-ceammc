@@ -345,7 +345,7 @@ section.;
 #X text 175 4838 Unit-amplitude nonnegative low frequency pulse train
 \,;
 #X obj 30 4865 lfo.square~;
-#X text 175 4865 Positive low frequence square wave;
+#X text 175 4865 Positive low frequency square wave;
 #X obj 30 4892 lfo.tri~;
 #X text 175 4892 Positive unit-amplitude low frequency triangle wave;
 #X obj 20 4919 cnv 5 47 31 empty empty list 4 13 0 17 -262144 -49933
@@ -401,7 +401,7 @@ floats and the previous one.;
 #X text 175 5524 generates list of specified length via external
 generator;
 #X obj 30 5551 list.histogram;
-#X text 175 5551 outputs distibution histogram;
+#X text 175 5551 outputs distribution histogram;
 #X obj 30 5578 list.insert;
 #X text 175 5578 insert atom or list to the specified position of
 input list;
@@ -854,7 +854,7 @@ instrument;
 #X obj 30 11695 synth.shakers~;
 #X text 175 11695 various percussion sounds from STK library;
 #X obj 30 11722 synth.wurley~;
-#X text 175 11722 Wurlitzer electric piano FM synthesis instrumentr;
+#X text 175 11722 Wurlitzer electric piano FM synthesis instrument;
 #X obj 20 11749 cnv 5 68 31 empty empty system 4 13 0 17 -262144
 -49933 0;
 #X obj 20 11790 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;

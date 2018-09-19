@@ -54,7 +54,7 @@ floats and the previous one.;
 #X text 175 669 generates list of specified length via external
 generator;
 #X obj 30 696 list.histogram;
-#X text 175 696 outputs distibution histogram;
+#X text 175 696 outputs distribution histogram;
 #X obj 30 723 list.insert;
 #X text 175 723 insert atom or list to the specified position of input
 list;

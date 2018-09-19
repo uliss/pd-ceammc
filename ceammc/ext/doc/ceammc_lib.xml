@@ -473,7 +473,7 @@
     <entry descr="Unit-amplitude nonnegative low frequency pulse train," name="lfo.pulse~" ref_view="object">
       <xi:include href="lfo.pulse~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Positive low frequence square wave" name="lfo.square~" ref_view="object">
+    <entry descr="Positive low frequency square wave" name="lfo.square~" ref_view="object">
       <xi:include href="lfo.square~.pddoc" parse="xml"/>
     </entry>
     <entry descr="Positive unit-amplitude low frequency triangle wave" name="lfo.tri~" ref_view="object">
@@ -541,7 +541,7 @@
     <entry descr="generates list of specified length via external generator" name="list.gen" ref_view="object">
       <xi:include href="list.gen.pddoc" parse="xml"/>
     </entry>
-    <entry descr="outputs distibution histogram" name="list.histogram" ref_view="object">
+    <entry descr="outputs distribution histogram" name="list.histogram" ref_view="object">
       <xi:include href="list.histogram.pddoc" parse="xml"/>
     </entry>
     <entry descr="insert atom or list to the specified position of input list" name="list.insert" ref_view="object">
@@ -1140,7 +1140,7 @@
     <entry descr="various percussion sounds from STK library" name="synth.shakers~" ref_view="object">
       <xi:include href="synth.shakers~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Wurlitzer electric piano FM synthesis instrumentr" name="synth.wurley~" ref_view="object">
+    <entry descr="Wurlitzer electric piano FM synthesis instrument" name="synth.wurley~" ref_view="object">
       <xi:include href="synth.wurley~.pddoc" parse="xml"/>
     </entry>
   </category>

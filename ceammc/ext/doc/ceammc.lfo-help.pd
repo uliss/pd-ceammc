@@ -8,7 +8,7 @@
 #X text 175 143 Unit-amplitude nonnegative low frequency pulse train
 \,;
 #X obj 30 170 lfo.square~;
-#X text 175 170 Positive low frequence square wave;
+#X text 175 170 Positive low frequency square wave;
 #X obj 30 197 lfo.tri~;
 #X text 175 197 Positive unit-amplitude low frequency triangle wave;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::lfo 20 20 0 20 -104026
