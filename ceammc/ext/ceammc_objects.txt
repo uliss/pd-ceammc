@@ -74,6 +74,7 @@ env
 env->array
 env->vline
 env.adsr~
+env.ar2~
 env.ar~
 env.asr~
 env.concat
@@ -170,6 +171,7 @@ global.mlist
 global.set
 group
 hw.arduino
+hw.serial
 hw.usb
 is_any
 is_bang
@@ -345,6 +347,8 @@ msg
 msg.onload
 mux2~
 mux~
+net.host->ip
+net.host2ip
 noise.baker
 noise.clifford
 noise.collatz
@@ -369,6 +373,7 @@ noise.stein
 noise.torus
 noise.verhulst
 noise.white~
+obj.info
 once
 or
 osc.blit~
@@ -481,6 +486,7 @@ system.hostname
 system.memsize
 system.memused
 system.screen_size
+system.shell
 tee~
 test.data
 test.expect
