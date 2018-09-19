@@ -70,6 +70,7 @@ TEST_CASE("net.host->ip", "[externals]")
 
     SECTION("ipv6")
     {
+#ifdef __MACH__
         TestExtNetHost t("net.host->ip", LA("@ipv6"));
         REQUIRE(t.object());
 
@@ -78,5 +79,6 @@ TEST_CASE("net.host->ip", "[externals]")
         test::pdRunMainLoopMs(20);
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.outputSymbolAt(0)->s_name == std::string("::1"));
+#endif
     }
 }
