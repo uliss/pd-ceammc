@@ -81,6 +81,7 @@ UIDisplay::UIDisplay()
     , txt_type_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
     , msg_type_(gensym("..."))
     , timer_(this, &UIDisplay::onClock)
+    , last_update_(clock_getlogicaltime())
 {
 }
 
@@ -251,6 +252,11 @@ void UIDisplay::onClock()
 
 void UIDisplay::update()
 {
+    if (clock_gettimesince(last_update_) < 30)
+        return;
+
+    last_update_ = clock_getlogicaltime();
+
     if (prop_display_type) {
         const bool calc_type_wd = (msg_type_ != &s_float
             && msg_type_ != &s_bang
