@@ -19,9 +19,11 @@
 #include "ceammc_property_info.h"
 
 #include <initializer_list>
+#include <iosfwd>
 #include <iterator>
 #include <string>
 #include <type_traits>
+#include <vector>
 
 namespace ceammc {
 
@@ -153,7 +155,7 @@ public:
         T v = atomlistToValue<T>(lst, def_);
         long idx = enumIndex(v);
         if (idx < 0) {
-            LIB_ERR << "invalid property value: " << v << ". valid values are: " << allowed_;
+            ::operator<<(LIB_ERR << "invalid property value: " << v << ". valid values are: ", allowed_);
             return false;
         }
 

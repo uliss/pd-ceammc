@@ -58,12 +58,18 @@ TEST_CASE("ceammc_log", "[ceammc_log]")
 
     SECTION("operator<< std::vector<std::string>")
     {
-        using namespace ceammc;
-
         std::vector<std::string> v({ "A", "B", "C" });
         std::ostringstream ss;
         ss << v;
         REQUIRE(ss.str() == "[A, B, C]");
+    }
+
+    SECTION("operator<< std::vector<t_symbol*>")
+    {
+        std::vector<t_symbol*> v({ gensym("A") });
+        std::ostringstream ss;
+        ss << v;
+        REQUIRE(ss.str() == "[\"A\"]");
     }
 }
 
