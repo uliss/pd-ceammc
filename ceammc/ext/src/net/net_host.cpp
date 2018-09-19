@@ -90,7 +90,7 @@ void NetHost::onAny(t_symbol* s, const AtomList&)
     onSymbol(s);
 }
 
-void NetHost::onThreadExit(int rc)
+void NetHost::onThreadDone(int rc)
 {
     if (rc == 0)
         to_outlet(outletAt(0), task()->result(), true);

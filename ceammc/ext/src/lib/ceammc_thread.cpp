@@ -22,24 +22,31 @@ ceammc::thread::Lock::~Lock()
         pthread_mutex_unlock(&m_);
 }
 
-enum ThreadProto {
-    GET_RESULT_CODE = 1
-};
+bool ThreadExternal::setNonBlocking(int fd)
+{
+    if (fcntl(fd, F_SETFL, O_NONBLOCK) < 0) {
+        OBJ_ERR << "can't set non-blocking mode: " << strerror(errno) << " fd " << fd;
+        return false;
+    }
+
+    return true;
+}
 
 ThreadExternal::ThreadExternal(const PdArgs& args, thread::Task* task)
     : BaseObject(args)
     , task_(task)
-    , poll_fn_(this, &ThreadExternal::handleThreadCode)
-    , err_poll_fn_(this, &ThreadExternal::handleErrors)
+    , ctl_poll_fn_(this, &ThreadExternal::handleThreadControl)
+    , err_poll_fn_(this, &ThreadExternal::handleThreadErrors)
+    , dbg_poll_fn_(this, &ThreadExternal::handleThreadDebug)
     , last_start_(0)
 {
-    task_->setControlFd(&poll_fn_.fd[1]);
+    task_->setControlFd(&ctl_poll_fn_.fd[1]);
     task_->setErrorFd(&err_poll_fn_.fd[1]);
+    task_->setDebugFd(&dbg_poll_fn_.fd[1]);
 
-    if (fcntl(poll_fn_.fd[0], F_SETFL, O_NONBLOCK) < 0
-        || fcntl(err_poll_fn_.fd[0], F_SETFL, O_NONBLOCK) < 0) {
-        OBJ_ERR << "can't set non-blocking mode: " << strerror(errno);
-    }
+    setNonBlocking(ctl_poll_fn_.fd[0]);
+    setNonBlocking(err_poll_fn_.fd[0]);
+    setNonBlocking(dbg_poll_fn_.fd[0]);
 }
 
 ThreadExternal::~ThreadExternal()
@@ -64,6 +71,11 @@ ThreadExternal::~ThreadExternal()
     }
 }
 
+bool ThreadExternal::onThreadCommand(int code)
+{
+    return false;
+}
+
 void ThreadExternal::start()
 {
     auto ms = clock_gettimesince(last_start_);
@@ -81,6 +93,7 @@ void ThreadExternal::start()
 
     try {
         thread_result_ = std::async(std::launch::async, [&] {
+            task_->restart();
             return task_->schedule();
         });
     } catch (std::exception& e) {
@@ -99,7 +112,7 @@ void ThreadExternal::quit()
     task_->stop();
 }
 
-void ThreadExternal::handleThreadCode(int fd)
+void ThreadExternal::handleThreadControl(int fd)
 {
     std::array<char, 64> buf;
 
@@ -116,24 +129,33 @@ void ThreadExternal::handleThreadCode(int fd)
 
     char code = buf[last_n - 1];
     switch (code) {
-    case GET_RESULT_CODE:
+    case TASK_DONE:
         if (thread_result_.valid())
-            onThreadExit(thread_result_.get());
+            onThreadDone(thread_result_.get());
         break;
     default:
-        OBJ_ERR << "unknown thread code: " << code;
+        if (!onThreadCommand(code))
+            OBJ_ERR << "unknown thread code: " << code;
         break;
     }
 }
 
-void ThreadExternal::handleErrors(int fd)
+void ThreadExternal::handleThreadErrors(int fd)
 {
     std::array<char, MAXPDSTRING> buf;
 
     ssize_t n = 0;
-    while ((n = read(fd, buf.data(), buf.size())) > 0) {
+    while ((n = read(fd, buf.data(), buf.size())) > 0)
         OBJ_ERR << std::string(buf.data(), n);
-    }
+}
+
+void ThreadExternal::handleThreadDebug(int fd)
+{
+    std::array<char, MAXPDSTRING> buf;
+
+    ssize_t n = 0;
+    while ((n = read(fd, buf.data(), buf.size())) > 0)
+        OBJ_DBG << std::string(buf.data(), n);
 }
 
 bool ThreadExternal::isRunning() const
@@ -146,8 +168,10 @@ bool ThreadExternal::isRunning() const
 }
 
 thread::Task::Task()
-    : future_obj_(exit_signal_.get_future())
+    : stopped_(exit_signal_.get_future())
+    , ctl_fd_(nullptr)
     , err_fd_(nullptr)
+    , dbg_fd_(nullptr)
     , running_(false)
 {
 }
@@ -161,6 +185,11 @@ void thread::Task::setControlFd(int* ctl_fd)
     ctl_fd_ = ctl_fd;
 }
 
+void thread::Task::setDebugFd(int* fd)
+{
+    dbg_fd_ = fd;
+}
+
 void thread::Task::setErrorFd(int* err_fd)
 {
     err_fd_ = err_fd;
@@ -168,7 +197,7 @@ void thread::Task::setErrorFd(int* err_fd)
 
 bool thread::Task::stopRequested()
 {
-    if (future_obj_.wait_for(std::chrono::milliseconds(0)) == std::future_status::timeout)
+    if (stopped_.wait_for(std::chrono::milliseconds(0)) == std::future_status::timeout)
         return false;
 
     return true;
@@ -177,6 +206,20 @@ bool thread::Task::stopRequested()
 void thread::Task::stop()
 {
     exit_signal_.set_value();
+}
+
+void thread::Task::restart()
+{
+    exit_signal_ = std::promise<void>();
+    stopped_ = exit_signal_.get_future();
+}
+
+void thread::Task::writeDebug(const char* msg)
+{
+    if (dbg_fd_) {
+        if (write(*dbg_fd_, msg, strlen(msg)) == -1)
+            perror("[ceammc] writeDebug:");
+    }
 }
 
 void thread::Task::writeError(const char* msg)
@@ -212,7 +255,7 @@ int thread::Task::schedule()
         rc = -1;
     }
 
-    writeCommand(GET_RESULT_CODE);
+    writeCommand(TASK_DONE);
     running_.store(false);
     return rc;
 }

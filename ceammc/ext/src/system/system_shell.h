@@ -31,7 +31,7 @@ public:
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
     void onAny(t_symbol* s, const AtomList& lst) override;
-    void onThreadExit(int rc) override;
+    void onThreadDone(int rc) override;
 
     void readSubprocesOutput(int fd);
 

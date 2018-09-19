@@ -12,6 +12,11 @@
 
 namespace ceammc {
 
+enum ThreadProto {
+    TASK_DONE = 1,
+    TASK_UPDATE = 2
+};
+
 namespace thread {
     class Lock {
         pthread_mutex_t& m_;
@@ -24,9 +29,10 @@ namespace thread {
 
     class Task {
         std::promise<void> exit_signal_;
-        std::future<void> future_obj_;
+        std::future<void> stopped_;
         int* ctl_fd_;
         int* err_fd_;
+        int* dbg_fd_;
         std::atomic_bool running_;
 
         Task(const Task&);
@@ -36,8 +42,9 @@ namespace thread {
         Task();
         virtual ~Task();
 
-        void setControlFd(int* ctl_fd);
-        void setErrorFd(int* err_fd);
+        void setControlFd(int* fd);
+        void setDebugFd(int* fd);
+        void setErrorFd(int* fd);
 
         int schedule();
 
@@ -55,7 +62,9 @@ namespace thread {
          * request the thread to stop
          */
         void stop();
+        void restart();
 
+        void writeDebug(const char* msg);
         void writeError(const char* msg);
         void writeCommand(char cmd);
     };
@@ -66,8 +75,12 @@ class ThreadExternal : public BaseObject {
 protected:
     std::unique_ptr<thread::Task> task_;
     std::future<int> thread_result_;
-    PollPipeMemberFunction<ThreadExternal> poll_fn_;
+
+    PollPipeMemberFunction<ThreadExternal> ctl_poll_fn_;
     PollPipeMemberFunction<ThreadExternal> err_poll_fn_;
+    PollPipeMemberFunction<ThreadExternal> dbg_poll_fn_;
+
+    bool setNonBlocking(int fd);
 
 private:
     double last_start_;
@@ -76,7 +89,8 @@ public:
     ThreadExternal(const PdArgs& args, thread::Task* task);
     ~ThreadExternal();
 
-    virtual void onThreadExit(int rc) = 0;
+    virtual void onThreadDone(int rc) = 0;
+    virtual bool onThreadCommand(int code);
 
     void start();
     void quit();
@@ -84,8 +98,9 @@ public:
     bool isRunning() const;
 
 private:
-    void handleThreadCode(int fd);
-    void handleErrors(int fd);
+    void handleThreadControl(int fd);
+    void handleThreadDebug(int fd);
+    void handleThreadErrors(int fd);
 };
 
 }

@@ -140,7 +140,7 @@ void SystemShell::onAny(t_symbol* s, const AtomList& lst)
     start();
 }
 
-void SystemShell::onThreadExit(int rc)
+void SystemShell::onThreadDone(int rc)
 {
     floatTo(1, rc);
 }
