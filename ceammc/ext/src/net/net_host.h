@@ -21,6 +21,7 @@ using namespace ceammc;
 class HostTask;
 
 class NetHost : public ThreadExternal {
+    SymbolEnumProperty* addr_type_;
 
 public:
     NetHost(const PdArgs& args);

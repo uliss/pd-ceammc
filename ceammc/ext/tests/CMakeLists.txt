@@ -198,6 +198,8 @@ ceammc_external_test(midi ctl_to_str)
 ceammc_external_test(midi key_to_str)
 ceammc_external_test(midi prg_to_str)
 
+ceammc_external_test(net host)
+
 ceammc_external_test(random discrete)
 ceammc_external_test(random linear)
 ceammc_external_test(random pw_lin)

@@ -23,11 +23,18 @@ class HostTask : public thread::Task {
     mutable std::mutex lock_;
     t_symbol* name_;
     AtomList result_;
+    platform::NetAddressType type_;
 
 public:
     HostTask()
         : name_(&s_)
+        , type_(platform::ADDR_IPV4)
     {
+    }
+
+    void setType(platform::NetAddressType t)
+    {
+        type_ = t;
     }
 
     void setName(t_symbol* n)
@@ -52,7 +59,7 @@ public:
         platform::NetAddressList res;
         platform::PlatformError err;
 
-        auto either = platform::hostnametoip(name_->s_name, platform::ADDR_IPV4);
+        auto either = platform::hostnametoip(name_->s_name, type_);
         if (either.matchValue(res)) {
             std::lock_guard<std::mutex> lock(lock_);
             result_.clear();
@@ -72,16 +79,28 @@ public:
     }
 };
 
+static t_symbol* SYM_IPV4 = gensym("ipv4");
+static t_symbol* SYM_IPV6 = gensym("ipv6");
+
 NetHost::NetHost(const PdArgs& args)
     : ThreadExternal(args, new HostTask())
+    , addr_type_(nullptr)
 {
     task()->setName(positionalSymbolArgument(0, &s_));
     createOutlet();
+
+    addr_type_ = new SymbolEnumProperty("@type", SYM_IPV4);
+    addr_type_->appendEnum(SYM_IPV6);
+    createProperty(addr_type_);
+
+    createProperty(new SymbolEnumAlias("@ipv4", addr_type_, SYM_IPV4));
+    createProperty(new SymbolEnumAlias("@ipv6", addr_type_, SYM_IPV6));
 }
 
 void NetHost::onSymbol(t_symbol* s)
 {
     task()->setName(s);
+    task()->setType(addr_type_->value() == SYM_IPV4 ? platform::ADDR_IPV4 : platform::ADDR_IPV6);
     start();
 }
 
