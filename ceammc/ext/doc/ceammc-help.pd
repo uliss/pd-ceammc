@@ -649,7 +649,7 @@ symbol);
 #X obj 20 8762 cnv 5 37 31 empty empty net 4 13 0 17 -262144 -49933 0;
 #X obj 20 8803 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 8814 net.host2ip;
-#X text 175 8814 returns IP addresss by DNS name;
+#X text 175 8814 returns IP address by DNS name;
 #X obj 20 8841 cnv 5 58 31 empty empty noise 4 13 0 17 -262144 -49933
 0;
 #X obj 20 8882 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;

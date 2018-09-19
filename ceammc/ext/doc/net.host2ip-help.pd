@@ -1,7 +1,7 @@
 #N canvas 0 0 715 555 12;
 #X declare -lib ceammc;
-#X obj 444 50 cnv 1 251 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 444 50 returns IP addresss by DNS name;
+#X obj 452 50 cnv 1 243 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 452 50 returns IP address by DNS name;
 #X obj 1 1 cnv 5 712 40 empty empty net.host2ip 20 20 0 20 -104026
 -4096 0;
 #X obj 495 11 net.host->ip;
@@ -27,7 +27,7 @@ ipv4\. Allowed values: ipv4 \, ipv6;
 #X text 150 379 *symbol*;
 #X text 240 379 DNS name.;
 #X text 150 397 *any*;
-#X text 240 397 DNS namel.;
+#X text 240 397 DNS name.;
 #X obj 20 425 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 430 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

@@ -872,7 +872,7 @@
     </entry>
   </category>
   <category name="net">
-    <entry descr="returns IP addresss by DNS name" name="net.host2ip" ref_view="object">
+    <entry descr="returns IP address by DNS name" name="net.host2ip" ref_view="object">
       <xi:include href="net.host2ip.pddoc" parse="xml"/>
     </entry>
   </category>

@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>returns IP addresss by DNS name</description>
+            <description>returns IP address by DNS name</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>net</category>
@@ -25,7 +25,7 @@
         <inlets>
             <inlet>
                 <xinfo on="symbol">DNS name</xinfo>
-                <xinfo on="any">DNS namel</xinfo>
+                <xinfo on="any">DNS name</xinfo>
             </inlet>
         </inlets>
         <outlets>
