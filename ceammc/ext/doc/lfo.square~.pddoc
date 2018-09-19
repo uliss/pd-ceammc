@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Positive low frequence square wave</description>
+            <description>Positive low frequency square wave</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>lfo</category>

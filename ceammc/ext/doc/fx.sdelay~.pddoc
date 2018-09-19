@@ -34,7 +34,7 @@
             <property name="@feedback" type="float" minvalue="0" maxvalue="1" default="0">feedback
             coefficent</property>
             <property name="@interpolation" type="float" minvalue="1" maxvalue="200" default="20"
-            units="millisecond">interpoltation time</property>
+            units="millisecond">interpolation time</property>
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
             of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
             wet.</property>

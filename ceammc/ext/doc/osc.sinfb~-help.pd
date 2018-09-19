@@ -21,11 +21,11 @@
 #X text 120 311 1\.;
 #X text 150 311 float;
 #X obj 241 312 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 311 freq(Hz): initial frequence. Range: 0\...20000;
+#X text 240 311 freq(Hz): initial frequency. Range: 0\...20000;
 #X text 120 329 2\.;
 #X text 150 329 float;
 #X obj 241 330 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 329 feedback: oscillator feedback coefficent in range
+#X text 240 329 feedback: oscillator feedback coefficient in range
 0\..2pi. Range: 0\...6.283185;
 #X text 120 361 3\.;
 #X text 150 361 symbol;
@@ -37,8 +37,8 @@
 #X msg 120 399 feedback;
 #X text 240 399 Arguments are:;
 #X obj 250 427 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 427 [anonym]: oscillator feedback coefficent. Type: float.
-Range: 0\...16;
+#X text 250 427 [anonym]: oscillator feedback coefficient. Type:
+float. Range: 0\...16;
 #X obj 20 479 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 484 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

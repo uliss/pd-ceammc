@@ -22,7 +22,7 @@
 #X text 120 329 2\.;
 #X text 150 329 float;
 #X obj 241 330 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 329 feedback: feedback coefficent. Range: 0\...0.8;
+#X text 240 329 feedback: feedback coefficient. Range: 0\...0.8;
 #X text 120 347 3\.;
 #X text 150 347 symbol;
 #X obj 241 348 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;

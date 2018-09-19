@@ -15,15 +15,15 @@
         </meta>
         <arguments>
             <argument name="freq" type="float" minvalue="0" maxvalue="20000" units="herz">initial
-            frequence</argument>
+            frequency</argument>
             <argument name="feedback" type="float" minvalue="0" maxvalue="6.283185">oscillator
-            feedback coefficent in range 0..2pi</argument>
+            feedback coefficient in range 0..2pi</argument>
             <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
         <methods>
             <method name="feedback">
                 <param type="float" minvalue="0" maxvalue="16">oscillator feedback
-                coefficent</param>
+                coefficient</param>
             </method>
         </methods>
         <inlets>

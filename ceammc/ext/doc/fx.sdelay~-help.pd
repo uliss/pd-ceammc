@@ -43,7 +43,7 @@ value: 500\. Value range: 10-10000;
 #X text 240 502 Get/Set feedback coefficent. Type: float. Default
 value: 0\. Value range: 0-1;
 #X msg 120 539 @interpolation;
-#X text 240 539 Get/Set interpoltation time. Type: float. Units: ms.
+#X text 240 539 Get/Set interpolation time. Type: float. Units: ms.
 Default value: 20\. Value range: 1-200;
 #X msg 120 576 @drywet;
 #X text 240 576 Get/Set proportion of mix between the original (dry)

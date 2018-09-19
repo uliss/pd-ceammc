@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>outputs distibution histogram</description>
+            <description>outputs distribution histogram</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>list</category>

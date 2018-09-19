@@ -36,7 +36,7 @@
         </methods>
         <outlets>
             <outlet type="audio">left channel and property output</outlet>
-            <outlet type="audio">rigth channel</outlet>
+            <outlet type="audio">right channel</outlet>
         </outlets>
         <example>
             <pdascii>

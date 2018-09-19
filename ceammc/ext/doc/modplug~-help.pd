@@ -59,7 +59,7 @@ file.;
 #X text 120 696 1\.;
 #X text 240 696 left channel and property output;
 #X text 120 714 2\.;
-#X text 240 714 rigth channel;
+#X text 240 714 right channel;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -71,7 +71,7 @@ release phase). Arguments are:;
 #X text 120 1018 1\.;
 #X text 240 1018 left channel and property output;
 #X text 120 1036 2\.;
-#X text 240 1036 rigth channel;
+#X text 240 1036 right channel;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

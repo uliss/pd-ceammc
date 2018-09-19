@@ -20,7 +20,7 @@
             <argument name="time" type="float" minvalue="10" maxvalue="10000" units="millisecond">
             echo time</argument>
             <argument name="feedback" type="float" minvalue="0" maxvalue="0.8">feedback
-            coefficent</argument>
+            coefficient</argument>
             <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
         <properties>
