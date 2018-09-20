@@ -139,12 +139,6 @@ namespace platform {
       */
     std::string find_in_exernal_dir(t_object* obj, const char* path);
 
-    /**
-     * suspend thread execution for an interval measured in milliseconds
-     * @param ms
-     */
-    void sleep_ms(unsigned int ms);
-
     typedef std::vector<std::string> StringList;
     typedef boost::optional<StringList> DirList;
     /**

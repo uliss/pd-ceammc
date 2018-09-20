@@ -6,16 +6,22 @@
 #include "serial/serial.h"
 
 #include "test_base.h"
-#include "catch.hpp"
 
 #include <boost/bind.hpp>
 #include <boost/typeof/typeof.hpp>
+#include <chrono>
 #include <iostream>
 #include <pthread.h>
 #include <sstream>
+#include <thread>
 
 using namespace ceammc::hw;
 using namespace ceammc::platform;
+
+inline void sleep_ms(int ms)
+{
+    std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+}
 
 #define CHECK_ARDUINO_CONNECTION()                                              \
     {                                                                           \

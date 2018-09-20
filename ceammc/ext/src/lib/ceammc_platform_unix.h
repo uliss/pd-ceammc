@@ -28,7 +28,6 @@ namespace platform {
     bool unix_mkdir(const char* path, int flags = -1);
     bool unix_rmdir(const char* path);
     std::string unix_home_directory();
-    void unix_sleep_ms(unsigned int ms);
     bool unix_is_dir(const char* path);
     Either<NetAddressList> unix_hostnametoip(const char* name, NetAddressType type);
 }

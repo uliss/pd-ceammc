@@ -216,11 +216,6 @@ namespace platform {
         return NS(is_dir(path));
     }
 
-    void sleep_ms(unsigned int ms)
-    {
-        NS(sleep_ms(ms));
-    }
-
     DirList list_directory(const char* path, const char* pattern)
     {
         std::vector<std::string> res;

@@ -111,11 +111,6 @@ namespace platform {
         return false;
     }
 
-    void unix_sleep_ms(unsigned int ms)
-    {
-        ::usleep(ms * 1000);
-    }
-
     Either<NetAddressList> unix_hostnametoip(const char* name, NetAddressType type)
     {
         struct addrinfo* result = NULL;
