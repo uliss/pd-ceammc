@@ -10,11 +10,16 @@
 #include "ceammc_object.h"
 #include "ceammc_pollfd.h"
 
+#include "../../../extra/readerwriterqueue/readerwriterqueue.h"
+
 namespace ceammc {
 
 enum ThreadProto {
     TASK_DONE = 1,
-    TASK_UPDATE = 2
+    TASK_UPDATE = 2,
+    TASK_MSG_ERR,
+    TASK_MSG_DBG,
+    TASK_LAST_ENUM
 };
 
 namespace thread {
@@ -27,13 +32,16 @@ namespace thread {
         ~Lock();
     };
 
+    typedef moodycamel::ReaderWriterQueue<char> Pipe;
+
     class Task {
         std::promise<void> exit_signal_;
         std::future<void> stopped_;
         int* ctl_fd_;
-        int* err_fd_;
-        int* dbg_fd_;
         std::atomic_bool running_;
+
+        Pipe* pipe_err_;
+        Pipe* pipe_dbg_;
 
         Task(const Task&);
         Task& operator=(const Task&);
@@ -43,8 +51,8 @@ namespace thread {
         virtual ~Task();
 
         void setControlFd(int* fd);
-        void setDebugFd(int* fd);
-        void setErrorFd(int* fd);
+        void setPipeErr(Pipe* p);
+        void setPipeDebug(Pipe* p);
 
         int schedule();
 
@@ -77,10 +85,8 @@ protected:
     std::future<int> thread_result_;
 
     PollPipeMemberFunction<ThreadExternal> ctl_poll_fn_;
-    PollPipeMemberFunction<ThreadExternal> err_poll_fn_;
-    PollPipeMemberFunction<ThreadExternal> dbg_poll_fn_;
-
-    bool setNonBlocking(int fd);
+    std::unique_ptr<thread::Pipe> pipe_err_;
+    std::unique_ptr<thread::Pipe> pipe_dbg_;
 
 private:
     double last_start_;

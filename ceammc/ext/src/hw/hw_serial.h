@@ -24,13 +24,13 @@ namespace ceammc {
 class SerialPort;
 class SerialTask;
 
-typedef PollPipeMemberFunction<SerialPort> SerialPoll;
 typedef std::vector<std::string> DeviceList;
 
 class SerialPort : public ThreadExternal {
     SymbolProperty* port_;
     IntEnumProperty* baud_rate_;
-    SerialPoll serial_out_;
+    std::unique_ptr<thread::Pipe> pipe_in_;
+    std::unique_ptr<thread::Pipe> pipe_out_;
 
 public:
     SerialPort(const PdArgs& args);
@@ -47,7 +47,6 @@ public:
     AtomList propDevices() const;
 
 private:
-    void handleSerialOutput(int fd);
     SerialTask* serial();
 };
 

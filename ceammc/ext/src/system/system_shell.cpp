@@ -40,7 +40,7 @@ enum TerminateMethod {
 typedef int pipe_fd[2];
 
 class ShellTask : public thread::Task {
-    pipe_fd* stdout_fd_;
+    thread::Pipe* pipe_stdout_;
     std::string cmd_;
 
 public:
@@ -49,14 +49,14 @@ public:
 public:
     ShellTask()
         : thread::Task()
-        , stdout_fd_(nullptr)
+        , pipe_stdout_(nullptr)
         , kill_(METHOD_NONE)
     {
     }
 
-    void setFd(pipe_fd* fd)
+    void setPipeStdout(thread::Pipe* p)
     {
-        stdout_fd_ = fd;
+        pipe_stdout_ = p;
     }
 
     void setCommand(const std::string& str)
@@ -72,10 +72,13 @@ public:
 
         Process p(cmd_, {},
             [&](const char* bytes, size_t n) {
-                if (write((*stdout_fd_)[1], bytes, n) == -1) {
-                    writeError(strerror(errno));
-                    perror("[system.shell] write to pipe error");
-                }
+                if (!pipe_stdout_)
+                    return;
+
+                for (size_t i = 0; i < n; i++)
+                    pipe_stdout_->enqueue(bytes[i]);
+
+                writeCommand(TASK_UPDATE);
             },
             [&](const char* bytes, size_t n) { writeError(std::string(bytes, n).c_str()); });
 
@@ -118,14 +121,13 @@ public:
 
 SystemShell::SystemShell(const PdArgs& args)
     : ThreadExternal(args, new ShellTask())
-    , poll_stdout_(this, &SystemShell::readSubprocesOutput)
     , no_split_(nullptr)
+    , pipe_stdout_(new thread::Pipe(1024))
 {
-    task()->setFd(&poll_stdout_.fd);
-    createOutlet();
-    createOutlet();
+    task()->setPipeStdout(pipe_stdout_.get());
 
-    setNonBlocking(poll_stdout_.fd[0]);
+    createOutlet();
+    createOutlet();
 
     no_split_ = new FlagProperty("@nosplit");
     createProperty(no_split_);
@@ -162,24 +164,26 @@ void SystemShell::onThreadDone(int rc)
     floatTo(1, rc);
 }
 
-void SystemShell::readSubprocesOutput(int fd)
+bool SystemShell::onThreadCommand(int code)
 {
-    std::string res;
-    std::array<char, 64> buf;
-    ssize_t n = 0;
+    if (code != TASK_UPDATE)
+        return false;
 
-    while ((n = read(fd, buf.data(), buf.size())) > 0)
-        res.append(buf.data(), n);
-
-    // do not split lines
     if (no_split_->value()) {
-        DataPtr dptr(new DataTypeString(res));
+        std::string str;
+        char ch;
+
+        while (pipe_stdout_->try_dequeue(ch))
+            str += ch;
+
+        DataPtr dptr(new DataTypeString(str));
         dataTo(0, dptr);
-        line_buf_.clear();
     } else {
-        for (size_t i = 0; i < res.size(); i++) {
-            if (res[i] != '\n') {
-                line_buf_ += res[i];
+        char ch;
+
+        while (pipe_stdout_->try_dequeue(ch)) {
+            if (ch != '\n') {
+                line_buf_ += ch;
             } else {
                 DataPtr dptr(new DataTypeString(line_buf_));
                 dataTo(0, dptr);
@@ -187,6 +191,8 @@ void SystemShell::readSubprocesOutput(int fd)
             }
         }
     }
+
+    return true;
 }
 
 void SystemShell::m_terminate(t_symbol*, const AtomList&)

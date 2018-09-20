@@ -1,5 +1,4 @@
 #include "ceammc_thread.h"
-#include "ceammc_platform.h"
 #include "ceammc_pollfd.h"
 
 #include <cerrno>
@@ -22,36 +21,18 @@ ceammc::thread::Lock::~Lock()
         pthread_mutex_unlock(&m_);
 }
 
-bool ThreadExternal::setNonBlocking(int fd)
-{
-    platform::Either<int> res = platform::fd_set_non_blocking(fd);
-
-    int val;
-    platform::PlatformError err;
-
-    if (res.matchValue(val))
-        return true;
-    else if (res.matchError(err))
-        OBJ_ERR << "can't set non-blocking mode: " << err.msg << " fd " << fd;
-
-    return false;
-}
-
 ThreadExternal::ThreadExternal(const PdArgs& args, thread::Task* task)
     : BaseObject(args)
     , task_(task)
     , ctl_poll_fn_(this, &ThreadExternal::handleThreadControl)
-    , err_poll_fn_(this, &ThreadExternal::handleThreadErrors)
-    , dbg_poll_fn_(this, &ThreadExternal::handleThreadDebug)
     , last_start_(0)
+    , pipe_dbg_(new thread::Pipe(64))
+    , pipe_err_(new thread::Pipe(64))
 {
     task_->setControlFd(&ctl_poll_fn_.fd[1]);
-    task_->setErrorFd(&err_poll_fn_.fd[1]);
-    task_->setDebugFd(&dbg_poll_fn_.fd[1]);
 
-    setNonBlocking(ctl_poll_fn_.fd[0]);
-    setNonBlocking(err_poll_fn_.fd[0]);
-    setNonBlocking(dbg_poll_fn_.fd[0]);
+    task_->setPipeErr(pipe_err_.get());
+    task_->setPipeDebug(pipe_dbg_.get());
 }
 
 ThreadExternal::~ThreadExternal()
@@ -119,48 +100,37 @@ void ThreadExternal::quit()
 
 void ThreadExternal::handleThreadControl(int fd)
 {
-    std::array<char, 64> buf;
+    char code;
+    read(fd, &code, 1);
 
-    ssize_t n = 0;
-    ssize_t last_n = 0;
-    while ((n = read(fd, buf.data(), buf.size())) > 0) {
-        last_n = n;
-    }
-
-    if (last_n < 1) {
-        OBJ_ERR << "thread communication error";
-        return;
-    }
-
-    char code = buf[last_n - 1];
     switch (code) {
     case TASK_DONE:
         if (thread_result_.valid())
             onThreadDone(thread_result_.get());
         break;
-    default:
-        if (!onThreadCommand(code))
-            OBJ_ERR << "unknown thread code: " << code;
+    case TASK_MSG_ERR: {
+        std::string res;
+        char ch;
+        while (pipe_err_->try_dequeue(ch))
+            res += ch;
+
+        OBJ_ERR << res;
         break;
     }
-}
+    case TASK_MSG_DBG: {
+        std::string res;
+        char ch;
+        while (pipe_dbg_->try_dequeue(ch))
+            res += ch;
 
-void ThreadExternal::handleThreadErrors(int fd)
-{
-    std::array<char, MAXPDSTRING> buf;
-
-    ssize_t n = 0;
-    while ((n = read(fd, buf.data(), buf.size())) > 0)
-        OBJ_ERR << std::string(buf.data(), n);
-}
-
-void ThreadExternal::handleThreadDebug(int fd)
-{
-    std::array<char, MAXPDSTRING> buf;
-
-    ssize_t n = 0;
-    while ((n = read(fd, buf.data(), buf.size())) > 0)
-        OBJ_DBG << std::string(buf.data(), n);
+        OBJ_DBG << res;
+        break;
+    }
+    default:
+        if (!onThreadCommand(code))
+            OBJ_ERR << "unknown thread code: " << int(code);
+        break;
+    }
 }
 
 bool ThreadExternal::isRunning() const
@@ -175,9 +145,9 @@ bool ThreadExternal::isRunning() const
 thread::Task::Task()
     : stopped_(exit_signal_.get_future())
     , ctl_fd_(nullptr)
-    , err_fd_(nullptr)
-    , dbg_fd_(nullptr)
     , running_(false)
+    , pipe_err_(nullptr)
+    , pipe_dbg_(nullptr)
 {
 }
 
@@ -190,14 +160,14 @@ void thread::Task::setControlFd(int* ctl_fd)
     ctl_fd_ = ctl_fd;
 }
 
-void thread::Task::setDebugFd(int* fd)
+void thread::Task::setPipeErr(thread::Pipe* p)
 {
-    dbg_fd_ = fd;
+    pipe_err_ = p;
 }
 
-void thread::Task::setErrorFd(int* err_fd)
+void thread::Task::setPipeDebug(thread::Pipe* p)
 {
-    err_fd_ = err_fd;
+    pipe_dbg_ = p;
 }
 
 bool thread::Task::stopRequested()
@@ -221,17 +191,31 @@ void thread::Task::restart()
 
 void thread::Task::writeDebug(const char* msg)
 {
-    if (dbg_fd_) {
-        if (write(*dbg_fd_, msg, strlen(msg)) == -1)
-            perror("[ceammc] writeDebug:");
+    if (pipe_dbg_) {
+        const char* pc = msg;
+        while (*pc != '\0') {
+            if (!pipe_dbg_->enqueue(*(pc++))) {
+                std::cerr << "writeDebug failed" << std::endl;
+                return;
+            }
+        }
+
+        writeCommand(TASK_MSG_DBG);
     }
 }
 
 void thread::Task::writeError(const char* msg)
 {
-    if (err_fd_) {
-        if (write(*err_fd_, msg, strlen(msg)) == -1)
-            perror("[ceammc] writeError:");
+    if (pipe_err_) {
+        const char* pc = msg;
+        while (*pc != '\0') {
+            if (!pipe_err_->enqueue(*(pc++))) {
+                std::cerr << "writeError failed" << std::endl;
+                return;
+            }
+        }
+
+        writeCommand(TASK_MSG_ERR);
     }
 }
 

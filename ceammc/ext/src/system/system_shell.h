@@ -22,8 +22,8 @@ class ShellTask;
 
 class SystemShell : public ThreadExternal {
     std::string line_buf_;
-    PollPipeMemberFunction<SystemShell> poll_stdout_;
     FlagProperty* no_split_;
+    std::unique_ptr<thread::Pipe> pipe_stdout_;
 
 public:
     SystemShell(const PdArgs& args);
@@ -33,8 +33,7 @@ public:
     void onList(const AtomList& lst) override;
     void onAny(t_symbol* s, const AtomList& lst) override;
     void onThreadDone(int rc) override;
-
-    void readSubprocesOutput(int fd);
+    bool onThreadCommand(int code) override;
 
     void m_terminate(t_symbol*, const AtomList&);
     void m_kill(t_symbol*, const AtomList&);

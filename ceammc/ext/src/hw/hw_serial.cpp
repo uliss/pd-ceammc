@@ -35,21 +35,32 @@ enum SerialTaskError {
     ERR_WRITE
 };
 
+enum SerialTaskCommand {
+    TASK_READ_FROM_SERIAL = TASK_LAST_ENUM + 1,
+    TASK_UPDATE_PORT_NAME
+};
+
 class SerialTask : public thread::Task {
     t_symbol* port_;
     int baud_rate_;
-    int to_pd_;
-    typedef std::vector<uint8_t> SerialQueue;
+    thread::Pipe* pipe_in_;
+    thread::Pipe* pipe_out_;
     typedef std::lock_guard<std::mutex> Lock;
-    SerialQueue from_pd_;
     std::mutex mutex_;
 
 public:
     SerialTask(t_symbol* port = &s_, int rate = 57600)
         : port_(port)
         , baud_rate_(rate)
-        , to_pd_(-1)
+        , pipe_in_(nullptr)
+        , pipe_out_(nullptr)
     {
+    }
+
+    void setPipeInOut(thread::Pipe* in, thread::Pipe* out)
+    {
+        pipe_in_ = in;
+        pipe_out_ = out;
     }
 
     boost::optional<serial::PortInfo> findPort() const
@@ -68,19 +79,6 @@ public:
 
             return boost::none;
         }
-    }
-
-    void pushByte(uint8_t b)
-    {
-        Lock lock(mutex_);
-        from_pd_.push_back(b);
-    }
-
-    void pushBytes(const AtomList& l)
-    {
-        Lock lock(mutex_);
-        for (auto& a : l)
-            from_pd_.push_back(a.asFloat());
     }
 
     int run() override
@@ -114,7 +112,7 @@ public:
             {
                 Lock lock(mutex_);
                 port_ = gensym(pinfo->port.c_str());
-                writeCommand(TASK_UPDATE);
+                writeCommand(TASK_UPDATE_PORT_NAME);
 
                 std::string msg("connected to ");
                 msg += port_->s_name;
@@ -127,26 +125,25 @@ public:
 
             // main read/write cycle
             try {
+                std::string in_buf;
+                const size_t BLOCK = 16;
+
                 while (!stopRequested()) {
-                    // read one byte from serial port
-                    uint8_t chr;
-                    if (serial.read(&chr, 1) == 1) {
-                        // write to PureData fd
-                        if (write(to_pd_, &chr, 1) == -1) {
-                            writeError("write error");
-                            return ERR_WRITE;
-                        }
+                    in_buf = serial.read(BLOCK);
+                    if (!in_buf.empty()) {
+                        for (size_t i = 0; i < in_buf.size(); i++)
+                            pipe_out_->enqueue(in_buf[i]);
+
+                        writeCommand(TASK_READ_FROM_SERIAL);
                     }
 
                     // write to serial
-                    {
-                        Lock lock(mutex_);
-                        size_t n = from_pd_.size();
+                    for (size_t i = 0; i < BLOCK; i++) {
+                        uint8_t out_ch;
+                        if (!pipe_in_->try_dequeue(out_ch))
+                            break;
 
-                        if (n > 0) {
-                            serial.write(from_pd_.data(), n);
-                            from_pd_.clear();
-                        }
+                        serial.write(&out_ch, 1);
                     }
                 }
             } catch (std::exception& e) {
@@ -177,18 +174,14 @@ public:
     {
         baud_rate_ = r;
     }
-
-    void setOutFd(int fd)
-    {
-        to_pd_ = fd;
-    }
 };
 
 SerialPort::SerialPort(const PdArgs& args)
     : ThreadExternal(args, new SerialTask())
     , port_(nullptr)
     , baud_rate_(nullptr)
-    , serial_out_(this, &SerialPort::handleSerialOutput)
+    , pipe_in_(new thread::Pipe(256))
+    , pipe_out_(new thread::Pipe(256))
 {
     createOutlet();
 
@@ -217,17 +210,20 @@ SerialPort::SerialPort(const PdArgs& args)
 
     createCbProperty("@devices", &SerialPort::propDevices);
 
-    setNonBlocking(serial_out_.fd[0]);
+    serial()->setPipeInOut(pipe_in_.get(), pipe_out_.get());
 }
 
 void SerialPort::onFloat(t_float f)
 {
-    serial()->pushByte(static_cast<uint8_t>(f));
+    // TODO check for connected
+    pipe_in_->enqueue(static_cast<uint8_t>(f));
 }
 
 void SerialPort::onList(const AtomList& l)
 {
-    serial()->pushBytes(l);
+    // TODO check for connected
+    for (auto& a : l)
+        pipe_in_->enqueue(a.asFloat());
 }
 
 void SerialPort::onThreadDone(int rc)
@@ -236,9 +232,17 @@ void SerialPort::onThreadDone(int rc)
 
 bool SerialPort::onThreadCommand(int code)
 {
-    if (code == TASK_UPDATE) {
+    switch (code) {
+    case TASK_UPDATE_PORT_NAME:
         port_->setValue(serial()->port());
         return true;
+    case TASK_READ_FROM_SERIAL: {
+        char ch;
+        while (pipe_out_->try_dequeue(ch))
+            floatTo(0, static_cast<unsigned char>(ch));
+
+        return true;
+    } break;
     }
 
     return ThreadExternal::onThreadCommand(code);
@@ -262,7 +266,6 @@ void SerialPort::m_open(t_symbol* s, const AtomList& l)
 
     serial()->setPort(port_->value());
     serial()->setBaudRate(baud_rate_->value());
-    serial()->setOutFd(serial_out_.fd[1]);
     start();
 }
 
@@ -286,16 +289,6 @@ AtomList SerialPort::propDevices() const
         res.append(gensym(p.port.c_str()));
 
     return res;
-}
-
-void SerialPort::handleSerialOutput(int fd)
-{
-    std::array<uint8_t, 64> buf;
-    ssize_t n = 0;
-    while ((n = read(fd, buf.data(), buf.size())) > 0) {
-        for (ssize_t i = 0; i < n; i++)
-            floatTo(0, buf[i]);
-    }
 }
 
 SerialTask* SerialPort::serial()
