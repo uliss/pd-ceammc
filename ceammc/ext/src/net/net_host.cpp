@@ -14,6 +14,7 @@
 #include "net_host.h"
 #include "ceammc_factory.h"
 #include "ceammc_platform.h"
+#include "ceammc_fn_list.h"
 
 #include <mutex>
 
@@ -66,6 +67,8 @@ public:
 
             for (auto& addr : res)
                 result_.append(gensym(addr.c_str()));
+
+            result_ = list::uniqueStable(result_);
 
             return 0;
 
