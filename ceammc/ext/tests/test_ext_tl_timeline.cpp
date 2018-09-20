@@ -403,6 +403,7 @@ TEST_CASE("tl.timeline", "[externals]")
         t.call("add", LAX(30_ticks, "ms"));
         t.call("add", LAX(50_ticks, "ms"));
         REQUIRE_PROPERTY_FLOAT(t, @size, 4);
+        REQUIRE_PROPERTY_LIST(t, @events, LAX("event2", "event3", "event1", "end"));
 
         t.call("to_event", 1);
         REQUIRE_PROPERTY_FLOAT(t, @current, 50_ticks);
@@ -436,8 +437,8 @@ TEST_CASE("tl.timeline", "[externals]")
         REQUIRE(!t.hasOutput());
 
         t.call("start");
-        REQUIRE(t.outputListAt(0) == LX(3, 100_ticks));
-        t.schedTicks(1);
+        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
+        t.schedTicks(2);
         REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
     }
 

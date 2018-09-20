@@ -22,6 +22,7 @@
 #include <functional>
 #include <numeric>
 #include <vector>
+#include <limits>
 
 namespace ceammc {
 namespace tl {
@@ -466,18 +467,21 @@ namespace tl {
             if (it != events_.end()) {
                 // now *it >= ms
 
+                event_idx_ = std::distance(events_.begin(), it);
+
                 // if exact match found
-                if (it->abs_time == goto_time_ms_) {
-                    event_idx_ = std::distance(events_.begin(), it);
+                if (std::fabs(it->abs_time - goto_time_ms_) < std::numeric_limits<float>::epsilon()) {
                     // output current event
-                    owner_->event(event_idx_, events_[event_idx_].abs_time);
-                    // add to exec next
-                    if (event_idx_ < events_.size())
+                    if(event_idx_ == (events_.size() - 1)) {
+                        owner_->eventEnd();
+                    } else {
+                        owner_->event(event_idx_, events_[event_idx_].abs_time);
                         clock_.delay(events_[++event_idx_].next_time);
+                    }
                 } else {
                     // *it > ms
-                    event_idx_ = std::distance(events_.begin(), it);
-                    clock_.delay(events_[event_idx_].abs_time - goto_time_ms_);
+                    auto del_ms = events_[event_idx_].abs_time - goto_time_ms_;
+                    clock_.delay(del_ms);
                 }
             } else {
                 TL_ERR << "all events are expired";
