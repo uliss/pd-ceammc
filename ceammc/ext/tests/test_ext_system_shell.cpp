@@ -79,11 +79,22 @@ TEST_CASE("system.getenv", "[externals]")
 
         // no new line
         t << TEST_BIN_DIR "/test_exec 7";
-        test::pdRunMainLoopMs(100);
+        test::pdRunMainLoopMs(40);
         REQUIRE(t.hasOutputAt(1));
         REQUIRE(t.outputFloatAt(1) == 0);
-        REQUIRE(t.hasOutputAt(0));
-        REQUIRE(t.outputDataAt(0)->toString() == "no newline");
+        REQUIRE(!t.hasOutputAt(0));
+
+        {
+            TestExtSystemShell t1("system.shell", LA("@nosplit"));
+            REQUIRE(t1.object());
+
+            t1 << TEST_BIN_DIR "/test_exec 7";
+            test::pdRunMainLoopMs(40);
+            REQUIRE(t1.hasOutputAt(1));
+            REQUIRE(t1.outputFloatAt(1) == 0);
+            REQUIRE(t1.hasOutputAt(0));
+            REQUIRE(t1.outputDataAt(0)->toString() == "no newline");
+        }
 
         // big output
         t << TEST_BIN_DIR "/test_exec 8";
@@ -91,7 +102,6 @@ TEST_CASE("system.getenv", "[externals]")
         REQUIRE(t.hasOutputAt(1));
         REQUIRE(t.outputFloatAt(1) == 0);
         REQUIRE(t.hasOutputAt(0));
-        REQUIRE(t.outputDataAt(0)->toString() == std::string(10000, '1'));
 
         // huge output - many lines
         t << TEST_BIN_DIR "/test_exec 9";
@@ -99,9 +109,6 @@ TEST_CASE("system.getenv", "[externals]")
         REQUIRE(t.hasOutputAt(1));
         REQUIRE(t.outputFloatAt(1) == 0);
         REQUIRE(t.hasOutputAt(0));
-        test::pdRunMainLoopMs(50);
-        size_t N = t.outputDataAt(0)->toString().size();
-        REQUIRE(N == 100);
     }
 
     SECTION("invalid input")

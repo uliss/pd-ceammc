@@ -103,7 +103,8 @@ int main(int argc, char* argv[])
         return 0;
     }
     case BIG_OUTPUT: {
-        cout << std::string(10000, '1');
+        for (int i = 0; i < 100; i++)
+            cout << std::string(100, '1') << endl;
         return 0;
     }
     case HUGE_OUTPUT: {

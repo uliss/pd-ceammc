@@ -23,6 +23,7 @@ class ShellTask;
 class SystemShell : public ThreadExternal {
     std::string line_buf_;
     PollPipeMemberFunction<SystemShell> poll_stdout_;
+    FlagProperty* no_split_;
 
 public:
     SystemShell(const PdArgs& args);

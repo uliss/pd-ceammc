@@ -119,12 +119,16 @@ public:
 SystemShell::SystemShell(const PdArgs& args)
     : ThreadExternal(args, new ShellTask())
     , poll_stdout_(this, &SystemShell::readSubprocesOutput)
+    , no_split_(nullptr)
 {
     task()->setFd(&poll_stdout_.fd);
     createOutlet();
     createOutlet();
 
     setNonBlocking(poll_stdout_.fd[0]);
+
+    no_split_ = new FlagProperty("@nosplit");
+    createProperty(no_split_);
 }
 
 SystemShell::~SystemShell()
@@ -167,23 +171,21 @@ void SystemShell::readSubprocesOutput(int fd)
     while ((n = read(fd, buf.data(), buf.size())) > 0)
         res.append(buf.data(), n);
 
-    const char* s = res.c_str();
-
-    for (size_t i = 0; i < res.size(); i++) {
-        if (s[i] != '\n') {
-            line_buf_ += s[i];
-        } else {
-            DataPtr dptr(new DataTypeString(line_buf_));
-            dataTo(0, dptr);
-            line_buf_.clear();
-        }
-    }
-
-    // flush last line without linebreak
-    if (!line_buf_.empty()) {
-        DataPtr dptr(new DataTypeString(line_buf_));
+    // do not split lines
+    if (no_split_->value()) {
+        DataPtr dptr(new DataTypeString(res));
         dataTo(0, dptr);
         line_buf_.clear();
+    } else {
+        for (size_t i = 0; i < res.size(); i++) {
+            if (res[i] != '\n') {
+                line_buf_ += res[i];
+            } else {
+                DataPtr dptr(new DataTypeString(line_buf_));
+                dataTo(0, dptr);
+                line_buf_.clear();
+            }
+        }
     }
 }
 
