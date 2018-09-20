@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
 
+import sys
+import signal
+
+def signal_handler(sig, frame):
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
+
 import argparse
 import subprocess
-import sys
 import os.path
 from lxml import etree
 from termcolor import colored, cprint
