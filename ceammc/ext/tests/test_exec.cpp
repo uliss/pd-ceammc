@@ -21,12 +21,15 @@ using namespace std;
 
 enum Cmd {
     OK = 0,
-    ERR,
-    INF,
-    INF_NO_INT,
-    INF_NO_TERM,
-    STDOUT,
-    STDERR
+    ERR = 1,
+    INF = 2,
+    INF_NO_INT = 3,
+    INF_NO_TERM = 4,
+    STDOUT = 5,
+    STDERR = 6,
+    NO_NEWLINE = 7,
+    BIG_OUTPUT = 8,
+    HUGE_OUTPUT = 9
 };
 
 typedef map<Cmd, string> CmdMap;
@@ -37,7 +40,10 @@ static CmdMap cmd_list = {
     { INF_NO_INT, "infinite loop, no interrupt" },
     { INF_NO_TERM, "infinite loop, no terminate" },
     { STDOUT, "output test to stdout" },
-    { STDERR, "output test to stderr" }
+    { STDERR, "output test to stderr" },
+    { NO_NEWLINE, "stdout no new line" },
+    { BIG_OUTPUT, "stdout big output" },
+    { HUGE_OUTPUT, "stdout huge output" }
 };
 
 static void usage(const char* name)
@@ -85,11 +91,24 @@ int main(int argc, char* argv[])
         return INF_NO_TERM;
     }
     case STDOUT: {
-        cout << "test\n";
+        cout << "stdout test\n";
         return 0;
     }
     case STDERR: {
-        cerr << "test\n";
+        cerr << "stderr test\n";
+        return 0;
+    }
+    case NO_NEWLINE: {
+        cout << "no newline";
+        return 0;
+    }
+    case BIG_OUTPUT: {
+        cout << std::string(10000, '1');
+        return 0;
+    }
+    case HUGE_OUTPUT: {
+        for (int i = 0; i < 1000; i++)
+            cout << std::string(100, '2') << endl;
         return 0;
     }
     default:

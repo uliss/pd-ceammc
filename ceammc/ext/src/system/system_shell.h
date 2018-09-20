@@ -36,10 +36,11 @@ public:
     void readSubprocesOutput(int fd);
 
     void m_terminate(t_symbol*, const AtomList&);
+    void m_kill(t_symbol*, const AtomList&);
 
 private:
     ShellTask* task();
-    void terminate(bool force = false);
+    void sendSignal(int sig);
 };
 
 void setup_system_shell();

@@ -42,29 +42,66 @@ TEST_CASE("system.getenv", "[externals]")
         test::pdRunMainLoopMs(50);
         REQUIRE(t.outputFloatAt(1) == 100);
 
-//        t << TEST_BIN_DIR "/test_exec 2";
-//        test::pdRunMainLoopMs(50);
-//        REQUIRE(!t.hasOutput());
-//        t.call("terminate");
-//        test::pdRunMainLoopMs(5);
-//        REQUIRE(t.outputFloatAt(1) == 0);
+        // infinite loop
+        t << TEST_BIN_DIR "/test_exec 2";
+        test::pdRunMainLoopMs(50);
+        REQUIRE(!t.hasOutput());
+        t.call("terminate");
+        test::pdRunMainLoopMs(5);
+        REQUIRE(t.outputFloatAt(1) == 0);
 
-//        t << TEST_BIN_DIR "/test_exec 3";
-//        test::pdRunMainLoopMs(50);
-//        t.call("terminate");
-//        test::pdRunMainLoopMs(5);
-//        REQUIRE(t.outputFloatAt(1) == 0);
+        // no interrupt
+        t << TEST_BIN_DIR "/test_exec 3";
+        test::pdRunMainLoopMs(100);
+        t.call("terminate");
+        test::pdRunMainLoopMs(100);
 
+        // no terminate
+        t << TEST_BIN_DIR "/test_exec 4";
+        test::pdRunMainLoopMs(100);
+        t.call("kill");
+        test::pdRunMainLoopMs(100);
+
+        // stdout test
         t << TEST_BIN_DIR "/test_exec 5";
-        test::pdRunMainLoopMs(100);
-        REQUIRE(t.hasOutput());
+        test::pdRunMainLoopMs(50);
+        REQUIRE(t.hasOutputAt(1));
         REQUIRE(t.outputFloatAt(1) == 0);
-        REQUIRE(t.outputDataAt(0)->toString() == "test");
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.outputDataAt(0)->toString() == "stdout test");
 
+        // stderr test
         t << TEST_BIN_DIR "/test_exec 6";
-        test::pdRunMainLoopMs(100);
+        test::pdRunMainLoopMs(50);
         REQUIRE(!t.hasOutputAt(0));
+        REQUIRE(t.hasOutputAt(1));
         REQUIRE(t.outputFloatAt(1) == 0);
+
+        // no new line
+        t << TEST_BIN_DIR "/test_exec 7";
+        test::pdRunMainLoopMs(100);
+        REQUIRE(t.hasOutputAt(1));
+        REQUIRE(t.outputFloatAt(1) == 0);
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.outputDataAt(0)->toString() == "no newline");
+
+        // big output
+        t << TEST_BIN_DIR "/test_exec 8";
+        test::pdRunMainLoopMs(100);
+        REQUIRE(t.hasOutputAt(1));
+        REQUIRE(t.outputFloatAt(1) == 0);
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.outputDataAt(0)->toString() == std::string(10000, '1'));
+
+        // huge output - many lines
+        t << TEST_BIN_DIR "/test_exec 9";
+        test::pdRunMainLoopMs(200);
+        REQUIRE(t.hasOutputAt(1));
+        REQUIRE(t.outputFloatAt(1) == 0);
+        REQUIRE(t.hasOutputAt(0));
+        test::pdRunMainLoopMs(50);
+        size_t N = t.outputDataAt(0)->toString().size();
+        REQUIRE(N == 100);
     }
 
     SECTION("invalid input")

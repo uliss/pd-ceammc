@@ -71,26 +71,38 @@ public:
 
         Process p(cmd_, {},
             [&](const char* bytes, size_t n) {
-                if (write((*stdout_fd_)[1], bytes, n) == -1)
+                if (write((*stdout_fd_)[1], bytes, n) == -1) {
+                    writeError(strerror(errno));
                     perror("[system.shell] write to pipe error");
+                }
             },
             [&](const char* bytes, size_t n) { writeError(std::string(bytes, n).c_str()); });
 
         int rc = 0;
         while (!p.try_get_exit_status(rc)) {
-            switch (kill_.load()) {
+            char cmd = kill_.load();
+            switch (cmd) {
             case METHOD_TERM:
                 p.kill(true);
-                goto end;
                 break;
             case METHOD_INT:
                 p.kill(false);
                 goto end;
                 break;
-            case METHOD_KILL:
-                if (p.get_id() > 0)
-                    ::kill(p.get_id(), SIGKILL);
+            case METHOD_KILL: {
+#ifdef __WIN32__
+                p.kill(false);
+#else
+                int pid = p.get_id();
+                if (pid > 0) {
+                    if (::kill(-pid, SIGKILL) == -1) {
+                        writeError(strerror(errno));
+                        perror("[system.shell] kill error:");
+                    }
+                }
+#endif
                 break;
+            }
             default:
                 break;
             }
@@ -99,8 +111,6 @@ public:
         }
 
     end:
-
-        kill_.store(METHOD_NONE);
         return rc;
     }
 };
@@ -112,11 +122,13 @@ SystemShell::SystemShell(const PdArgs& args)
     task()->setFd(&poll_stdout_.fd);
     createOutlet();
     createOutlet();
+
+    setNonBlocking(poll_stdout_.fd[0]);
 }
 
 SystemShell::~SystemShell()
 {
-    terminate(true);
+    sendSignal(METHOD_KILL);
 }
 
 void SystemShell::onSymbol(t_symbol* s)
@@ -147,15 +159,16 @@ void SystemShell::onThreadDone(int rc)
 
 void SystemShell::readSubprocesOutput(int fd)
 {
-    std::array<char, 1024> buf;
+    std::string res;
+    std::array<char, 64> buf;
+    ssize_t n = 0;
 
-    ssize_t n = read(fd, buf.data(), buf.size());
-    if (n < 1)
-        return;
+    while ((n = read(fd, buf.data(), buf.size())) > 0)
+        res.append(buf.data(), n);
 
-    char* s = buf.data();
+    const char* s = res.c_str();
 
-    for (size_t i = 0; i < n; i++) {
+    for (size_t i = 0; i < res.size(); i++) {
         if (s[i] != '\n') {
             line_buf_ += s[i];
         } else {
@@ -164,11 +177,23 @@ void SystemShell::readSubprocesOutput(int fd)
             line_buf_.clear();
         }
     }
+
+    // flush last line without linebreak
+    if (!line_buf_.empty()) {
+        DataPtr dptr(new DataTypeString(line_buf_));
+        dataTo(0, dptr);
+        line_buf_.clear();
+    }
 }
 
 void SystemShell::m_terminate(t_symbol*, const AtomList&)
 {
-    terminate();
+    sendSignal(METHOD_TERM);
+}
+
+void SystemShell::m_kill(t_symbol*, const AtomList&)
+{
+    sendSignal(METHOD_KILL);
 }
 
 ShellTask* SystemShell::task()
@@ -176,13 +201,14 @@ ShellTask* SystemShell::task()
     return static_cast<ShellTask*>(task_.get());
 }
 
-void SystemShell::terminate(bool force)
+void SystemShell::sendSignal(int sig)
 {
-    task()->kill_.store(force ? METHOD_KILL : METHOD_TERM);
+    task()->kill_.store(sig);
 }
 
 void setup_system_shell()
 {
     ObjectFactory<SystemShell> obj("system.shell");
     obj.addMethod("terminate", &SystemShell::m_terminate);
+    obj.addMethod("kill", &SystemShell::m_kill);
 }
