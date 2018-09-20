@@ -20,6 +20,7 @@
 #include <array>
 #include <csignal>
 #include <cstdio>
+#include <cstring>
 #include <exception>
 #include <iostream>
 #include <list>
