@@ -13,6 +13,9 @@
             <keywords>system shell</keywords>
             <since>0.7</since>
         </meta>
+        <properties>
+            <property name="@nosplit" type="flag">do not split process output to lines</property>
+        </properties>
         <methods>
             <method name="terminate">terminate running process</method>
             <method name="kill">kill running process</method>
