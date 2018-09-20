@@ -37,9 +37,9 @@
 /*click me!*/
 
 [loadmsg load message]
-|   |
-|   |
-[B] [print]
+|   |       |
+|   |       |
+[B] [print] [ui.d]
 ]]>
             </pdascii>
         </example>
