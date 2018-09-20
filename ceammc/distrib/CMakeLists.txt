@@ -48,3 +48,6 @@ if(DEKEN)
         DEPENDS ceammc_lib
         SOURCES deken_make_package.sh)
 endif()
+
+# documentation check
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/list_all_doc_externals.sh ${PROJECT_BINARY_DIR} @ONLY)
