@@ -1163,6 +1163,9 @@
     <entry descr="returns current screen size in pixels" name="system.screen_size" ref_view="object">
       <xi:include href="system.screen_size.pddoc" parse="xml"/>
     </entry>
+    <entry descr="run external command in separate process" name="system.shell" ref_view="object">
+      <xi:include href="system.shell.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="tl">
     <entry descr="Timeline bang (with possible delay)" name="tl.bang" ref_view="object">

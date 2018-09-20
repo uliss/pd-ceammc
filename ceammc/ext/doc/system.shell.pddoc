@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="system.shell">
+        <title>system.shell</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>run external command in separate process</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>system</category>
+            <keywords>system shell</keywords>
+            <since>0.7</since>
+        </meta>
+        <methods>
+            <method name="terminate">terminate running process</method>
+            <method name="kill">kill running process</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">run specified program</xinfo>
+                <xinfo on="any">run specified program with arguments</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output list of strings</outlet>
+            <outlet>output process exit code</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ls( [ls -l(
+|    |
+|    | [top(
+|    | |
+|    | |  [terminate(
+|    | |  |
+[system.shell]
+|           ^|
+[str->sym]  [F]
+|
+[print]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

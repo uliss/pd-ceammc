@@ -6,6 +6,7 @@
 - tl.timeline added
 - msg.onload added
 - net.host->ip added
+- system.shell added
 - clear message added to fx.sdelay~
 
 ### Changed:

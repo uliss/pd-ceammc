@@ -360,6 +360,7 @@ set(DOC_FILES
     system.memsize
     system.memused
     system.screen_size
+    system.shell
     tl.bang
     tl.cue
     tl.timeline
