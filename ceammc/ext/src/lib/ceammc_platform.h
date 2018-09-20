@@ -166,6 +166,9 @@ namespace platform {
      * Returns list of addresses
      */
     Either<NetAddressList> hostnametoip(const char* name, NetAddressType type);
+
+    Either<int> fd_set_non_blocking(int fd);
+    Either<bool> init_pipe(int fd[]);
 }
 }
 

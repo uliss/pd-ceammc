@@ -15,19 +15,19 @@
 
 #include <cstdlib>
 #include <cstring>
+
+#include <arpa/inet.h>
 #include <errno.h>
+#include <fcntl.h>
 #include <fnmatch.h>
+#include <iostream>
 #include <libgen.h>
+#include <netdb.h>
 #include <pwd.h>
+#include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
-
-#include <arpa/inet.h>
-#include <iostream>
-#include <netdb.h>
-#include <sys/socket.h>
-#include <sys/types.h>
 
 namespace ceammc {
 namespace platform {
@@ -142,5 +142,24 @@ namespace platform {
         freeaddrinfo(result);
         return res;
     }
+
+    Either<int> unix_fd_set_non_blocking(int fd)
+    {
+        int rc = fcntl(fd, F_SETFL, O_NONBLOCK);
+        if (rc == -1)
+            return PlatformError(errno, strerror(errno));
+
+        return rc;
+    }
+
+    Either<bool> unix_init_pipe(int fd[])
+    {
+        int rc = ::pipe(fd);
+        if (rc == -1)
+            return PlatformError(errno, strerror(errno));
+        else
+            return true;
+    }
+
 }
 }

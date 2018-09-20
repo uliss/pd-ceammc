@@ -30,6 +30,8 @@ namespace platform {
     std::string unix_home_directory();
     bool unix_is_dir(const char* path);
     Either<NetAddressList> unix_hostnametoip(const char* name, NetAddressType type);
+    Either<int> unix_fd_set_non_blocking(int fd);
+    Either<bool> unix_init_pipe(int fd[]);
 }
 }
 

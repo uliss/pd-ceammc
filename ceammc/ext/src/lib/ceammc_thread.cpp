@@ -1,10 +1,10 @@
 #include "ceammc_thread.h"
+#include "ceammc_platform.h"
 #include "ceammc_pollfd.h"
 
 #include <cerrno>
 #include <chrono>
 #include <cstring>
-#include <fcntl.h>
 #include <future>
 #include <thread>
 
@@ -24,12 +24,17 @@ ceammc::thread::Lock::~Lock()
 
 bool ThreadExternal::setNonBlocking(int fd)
 {
-    if (fcntl(fd, F_SETFL, O_NONBLOCK) < 0) {
-        OBJ_ERR << "can't set non-blocking mode: " << strerror(errno) << " fd " << fd;
-        return false;
-    }
+    platform::Either<int> res = platform::fd_set_non_blocking(fd);
 
-    return true;
+    int val;
+    platform::PlatformError err;
+
+    if (res.matchValue(val))
+        return true;
+    else if (res.matchError(err))
+        OBJ_ERR << "can't set non-blocking mode: " << err.msg << " fd " << fd;
+
+    return false;
 }
 
 ThreadExternal::ThreadExternal(const PdArgs& args, thread::Task* task)

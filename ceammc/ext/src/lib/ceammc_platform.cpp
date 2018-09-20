@@ -305,5 +305,15 @@ namespace platform {
     {
     }
 
+    Either<int> fd_set_non_blocking(int fd)
+    {
+        return NS(fd_set_non_blocking(fd));
+    }
+
+    Either<bool> init_pipe(int fd[])
+    {
+        return NS(init_pipe(fd));
+    }
+
 }
 }

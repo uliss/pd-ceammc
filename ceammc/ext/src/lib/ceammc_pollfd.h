@@ -14,9 +14,11 @@
 #ifndef CEAMMC_POLLFD_H
 #define CEAMMC_POLLFD_H
 
+#include "ceammc_platform.h"
 #include "m_pd.h"
 
 #include <cstdio>
+#include <iostream>
 
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
@@ -94,10 +96,15 @@ public:
     PollPipeMemberFunction(T* this__, typename PollMemberFunction<T>::MemberFunPtr fn)
         : PollMemberFunction<T>(this__, fn)
     {
-        if (pipe(fd) == 0)
+        using namespace platform;
+        Either<bool> res = init_pipe(fd);
+        PlatformError err;
+        bool val;
+        if (res.matchError(err))
+            std::cerr << "can't init pipe: " << err.msg << std::endl;
+        else if (res.matchValue(val)) {
             this->poll(fd[0]);
-        else
-            perror("[ceammc] can't init pipe");
+        }
     }
 
     ~PollPipeMemberFunction()

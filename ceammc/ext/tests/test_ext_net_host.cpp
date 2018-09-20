@@ -63,7 +63,7 @@ TEST_CASE("net.host->ip", "[externals]")
 
         test::pdRunMainLoopMs(10);
         t.sendSymbol(gensym("localhost"));
-        test::pdRunMainLoopMs(20);
+        test::pdRunMainLoopMs(100);
         REQUIRE(t.hasOutputAt(0));
         if(t.isOutputSymbolAt(0)) {
             REQUIRE(t.outputSymbolAt(0)->s_name == std::string("127.0.0.1"));
@@ -80,7 +80,7 @@ TEST_CASE("net.host->ip", "[externals]")
 
         test::pdRunMainLoopMs(10);
         t.sendSymbol(gensym("localhost"));
-        test::pdRunMainLoopMs(20);
+        test::pdRunMainLoopMs(100);
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.outputSymbolAt(0)->s_name == std::string("::1"));
 #endif
