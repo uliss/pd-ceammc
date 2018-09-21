@@ -4,7 +4,7 @@ macro(ceammc_lfo_external name)
 endmacro()
 
 macro(ceammc_lfo_obj_external name)
-    list(APPEND OSC_SOURCES "lfo_${name}.cpp")
+    list(APPEND LFO_SOURCES "lfo_${name}.cpp")
     ceammc_faust_gen_obj(lfo ${name})
 endmacro()
 
