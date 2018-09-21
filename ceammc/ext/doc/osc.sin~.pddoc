@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="osc.sin~">
+        <title>osc.sin~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Sine wave oscillator</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>osc</category>
+            <keywords>oscillator band-limited</keywords>
+            <since>0.1</since>
+            <also>
+                <see>osc.saw~</see>
+                <see>osc.tri~</see>
+                <see>osc.square~</see>
+                <see>lfo.impulse~</see>
+            </also>
+        </meta>
+        <info>
+            <par>included for library comprehension</par>
+        </info>
+        <arguments>
+            <argument name="freq" type="float" units="herz" minvalue="20">frequency</argument>
+        </arguments>
+        <properties>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>frequency in Hz</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">reset phase</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[osc.sin~ 440]
+|
+[ui.gain~ @size 120 16] [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

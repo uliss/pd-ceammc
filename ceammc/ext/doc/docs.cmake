@@ -286,6 +286,7 @@ set(DOC_FILES
     osc.pulse~
     osc.saw~
     osc.saw4~
+    osc.sin~
     osc.sinfb~
     osc.square~
     osc.tri~

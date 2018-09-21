@@ -104,7 +104,7 @@ void OscBlit::propSetHarm(const AtomList& lst)
     num_harmonics_ = lst[0].asInt();
 }
 
-void setup_osc_blit()
+void setup_osc_blit_tilde()
 {
     SoundExternalFactory<OscBlit> obj("osc.blit~");
 }

@@ -10,6 +10,7 @@
 - clear message added to fx.sdelay~
 - osc.saw~ algo changed to Faust os.sawtooth
 - osc.saw4~ added (Faust os.saw4~)
+- osc.sin~ added for library completeness
 - osc.tri~ added inlet for phase reset
 - osc.saw~ added inlet for phase reset
 - osc.square~ added inlet for phase reset
