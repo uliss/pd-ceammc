@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="pan.linsig~">
+        <title>pan.linsig~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>two channel linear panner with signal control</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>pan span</keywords>
+            <since>0.7</since>
+            <also>
+                <see>pan.sqrt~</see>
+                <see>pan.cos~</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo minvalue="-1" maxvalue="1">pan position</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">left output channel</outlet>
+            <outlet type="audio">right output channel</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[osc.pulse~ 100]
+|
+[ui.gain~ @size 120 14]  [ui.dsp~]
+|
+|         [osc~ 1]
+|         |.
+[pan.linsig~]
+|  ^|.
+[dac~ ]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
