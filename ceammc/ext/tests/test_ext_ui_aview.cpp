@@ -22,7 +22,9 @@ extern "C" void garray_init(void);
 
 TEST_CASE("ui.aview", "[ui.aview]")
 {
-    ui_test_init();
+    UIArrayView::setup();
+    ExternalOutput::setup();
+    ListenerExternal::setup();
     test::pdPrintToStdError();
     setTestSampleRate(10000);
 
