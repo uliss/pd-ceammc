@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Zero-mean low frequency square wave</description>
+            <description>Zero-mean unit-amplitude low frequency square wave</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>lfo</category>
@@ -21,9 +21,16 @@
         <arguments>
             <argument name="freq" type="float" units="herz">frequency</argument>
         </arguments>
+        <properties>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>frequency in Hz</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">reset phase</xinfo>
             </inlet>
         </inlets>
         <outlets>

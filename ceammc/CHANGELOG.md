@@ -9,6 +9,8 @@
 - system.shell added
 - osc.saw4~ added (Faust os.saw4~)
 - osc.sin~ added for library completeness
+- lfo.+tri~ added
+- lfo.+square~ added
 - pan.linsig~ added
 - clear message added to fx.sdelay~
 - osc.saw~ algo changed to Faust os.sawtooth
@@ -25,6 +27,8 @@
 - \[ceammc\] object prints all library objects to Pd window
 - you can request several properties in one message, line [@prop1? @prop2?(,
     the output is: [@prop1 values... @prop2 values...]
+- lfo.tri~ now is zero-mean in \[-1, 1\] range
+- lfo.square~ now is zero-mean in \[-1, 1\] range
 
 ## [0.6]
 ### Added:

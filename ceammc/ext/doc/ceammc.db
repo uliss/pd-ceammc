@@ -142,10 +142,11 @@ is_list		.		..
 is_odd		.		..
 is_pointer		.		..
 is_symbol		.		..
+lfo.+square~		~.		~
 lfo.+tri~		~.		~
 lfo.impulse~		~		~
 lfo.pulse~		~		~
-lfo.square~		~		~
+lfo.square~		~.		~
 lfo.tri~		~.		~
 list.^at		..		.
 list.^contains		..		.
