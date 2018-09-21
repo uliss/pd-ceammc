@@ -183,6 +183,7 @@ is_list
 is_odd
 is_pointer
 is_symbol
+lfo.+tri~
 lfo.impulse~
 lfo.pulse~
 lfo.square~
@@ -382,9 +383,11 @@ osc.pulse~
 osc.saw4~
 osc.saw~
 osc.sinfb~
+osc.sin~
 osc.square~
 osc.tri~
 pan.cos~
+pan.linsig~
 pan.lin~
 pan.spread~
 pan.sqrt~

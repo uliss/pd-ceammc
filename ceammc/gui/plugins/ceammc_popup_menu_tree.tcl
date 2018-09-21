@@ -88,7 +88,7 @@
         hw.arduino
     }}
     {lfo {
-        lfo.impulse~ lfo.pulse~ lfo.square~ lfo.tri~
+        lfo.+tri~ lfo.impulse~ lfo.pulse~ lfo.square~ lfo.tri~
     }}
     {list {
         list.^at list.^contains list.^search list.all_of list.any_of
@@ -137,7 +137,7 @@
     }}
     {osc {
         osc.blit~ osc.impulse~ osc.pulse~ osc.saw4~ osc.saw~ osc.sinfb~
-        osc.square~ osc.tri~
+        osc.sin~ osc.square~ osc.tri~
     }}
     {patch {
         canvas.current canvas.top patch.args
@@ -166,7 +166,8 @@
         snd.file
     }}
     {spat {
-        pan.cos~ pan.lin~ pan.spread~ pan.sqrt~ spat.pan4~ spat.pan8~
+        pan.cos~ pan.linsig~ pan.lin~ pan.spread~ pan.sqrt~ spat.pan4~
+        spat.pan8~
     }}
     {string {
         string string.contains string.ends_with string.equal string.format
