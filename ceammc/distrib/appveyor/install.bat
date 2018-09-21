@@ -20,7 +20,7 @@ REM Update
 bash -lc "pacman -Syu --noconfirm"
 
 REM build tools
-bash -lc "pacman -S --needed --noconfirm mingw-w64-x86_64-toolchain cmake make patch mingw-w64-x86_64-libtool"
+bash -lc "pacman -S --needed --noconfirm mingw-w64-${MSYS2_ARCH}-toolchain mingw-w64-${MSYS2_ARCH}-cmake make patch mingw-w64-${MSYS2_ARCH}-libtool"
 bash -lc "mkdir build"
 bash -lc "cd build"
 bash -lc "which cmake"
