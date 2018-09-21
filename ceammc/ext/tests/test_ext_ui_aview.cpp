@@ -22,8 +22,8 @@ extern "C" void garray_init(void);
 
 TEST_CASE("ui.aview", "[ui.aview]")
 {
+    ui_test_init();
     test::pdPrintToStdError();
-    UIArrayView::setup();
     setTestSampleRate(10000);
 
     SECTION("construct")
@@ -56,6 +56,7 @@ TEST_CASE("ui.aview", "[ui.aview]")
 
     SECTION("@cursor...")
     {
+        test::pdPrintToStdError();
         REQUIRE(cnv);
         ArrayPtr aptr = cnv->createArray("array1", 101);
         Array a("array1");
