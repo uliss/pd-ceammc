@@ -7,9 +7,9 @@
 #X obj 30 143 osc.impulse~;
 #X text 175 143 Bandlimited impulse train generator;
 #X obj 30 170 osc.pulse~;
-#X text 175 170 Bandlimited pulse train oscillator.;
+#X text 175 170 Bandlimited pulse train oscillator;
 #X obj 30 197 osc.saw4~;
-#X text 175 197 Band-limited sawtooth wave;
+#X text 175 197 Bandlimited sawtooth wave;
 #X obj 30 224 osc.saw~;
 #X text 175 224 Alias-free sawtooth wave;
 #X obj 30 251 osc.sinfb~;

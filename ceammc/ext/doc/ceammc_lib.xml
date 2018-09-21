@@ -900,10 +900,10 @@
     <entry descr="Bandlimited impulse train generator" name="osc.impulse~" ref_view="object">
       <xi:include href="osc.impulse~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Bandlimited pulse train oscillator." name="osc.pulse~" ref_view="object">
+    <entry descr="Bandlimited pulse train oscillator" name="osc.pulse~" ref_view="object">
       <xi:include href="osc.pulse~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Band-limited sawtooth wave" name="osc.saw4~" ref_view="object">
+    <entry descr="Bandlimited sawtooth wave" name="osc.saw4~" ref_view="object">
       <xi:include href="osc.saw4~.pddoc" parse="xml"/>
     </entry>
     <entry descr="Alias-free sawtooth wave" name="osc.saw~" ref_view="object">

@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Bandlimited pulse train oscillator.</description>
+            <description>Bandlimited pulse train oscillator</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>osc</category>
@@ -19,32 +19,44 @@
         <arguments>
             <argument name="freq" type="float" units="herz" minvalue="20">frequency</argument>
             <argument name="duty" type="float" minvalue="0" maxvalue="1">duty cycle</argument>
-            <argument name="ID" type="symbol">object ID for OSC control</argument>
         </arguments>
+        <properties>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+            <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">
+            duty cycle</property>
+        </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo minvalue="20" on="float">frequency in Hz</xinfo>
-                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
+                <xinfo on="float">frequency in Hz</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">reset phase</xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">output signal</outlet>
-            <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[F]    [F]
-|      |
-|  [B] [duty $1(
-|  |   |
-[osc.pulse~ 220 0.5 id]
-|               ^|
-|   [_]         [print]
-|  ./
-[*~]
-|\
-[dac~]
+[F]      [ui.knob]   [ui.dsp~]
+|        |
+|        |
+|        |
+|        [duty $1(
+|        |
+[osc.pulse~ 220 0.5]
+|
+[ui.gain~ @size 120 14]
+|\     |
+[dac~] [ui.scope~]
+
+
+
+
+
+
 ]]>
             </pdascii>
         </example>

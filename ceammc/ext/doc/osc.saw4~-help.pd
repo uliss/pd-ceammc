@@ -1,7 +1,7 @@
 #N canvas 0 0 715 555 12;
 #X declare -lib ceammc;
-#X obj 483 50 cnv 1 212 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 483 50 Band-limited sawtooth wave;
+#X obj 491 50 cnv 1 204 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 491 50 Bandlimited sawtooth wave;
 #X obj 1 1 cnv 5 712 40 empty empty osc.saw4~ 20 20 0 20 -104026 -4096
 0;
 #X obj 621 11 osc.saw4~;

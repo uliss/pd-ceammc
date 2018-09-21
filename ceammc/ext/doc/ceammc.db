@@ -280,8 +280,8 @@ noise.lfreq~		~		~
 noise.pink~		-		~
 noise.white~		-		~
 osc.blit~		~.		~
-osc.impulse~		~		~
-osc.pulse~		~		~.
+osc.impulse~		~.		~
+osc.pulse~		~.		~
 osc.saw4~		~.		~
 osc.saw~		~.		~
 osc.sinfb~		~.		~
