@@ -4,16 +4,18 @@
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 116 pan.cos~;
 #X text 175 116 two channel equal power sine/cosine panner;
-#X obj 30 143 pan.lin~;
-#X text 175 143 two channel linear panner;
-#X obj 30 170 pan.spread~;
-#X text 175 170 spreads input channels across the stereo field;
-#X obj 30 197 pan.sqrt~;
-#X text 175 197 two channel equal power square root panner;
-#X obj 30 224 spat.pan4~;
-#X text 175 224 GMEM SPAT: 4-outputs spatializer;
-#X obj 30 251 spat.pan8~;
-#X text 175 251 GMEM SPAT: 8-outputs spatializer;
+#X obj 30 143 pan.linsig~;
+#X text 175 143 two channel linear panner with signal control;
+#X obj 30 170 pan.lin~;
+#X text 175 170 two channel linear panner;
+#X obj 30 197 pan.spread~;
+#X text 175 197 spreads input channels across the stereo field;
+#X obj 30 224 pan.sqrt~;
+#X text 175 224 two channel equal power square root panner;
+#X obj 30 251 spat.pan4~;
+#X text 175 251 GMEM SPAT: 4-outputs spatializer;
+#X obj 30 278 spat.pan8~;
+#X text 175 278 GMEM SPAT: 8-outputs spatializer;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::spat 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

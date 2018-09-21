@@ -144,6 +144,7 @@ set(DOC_FILES
     is_odd
     is_pointer
     is_symbol
+    lfo.+tri~
     lfo.impulse~
     lfo.square~
     lfo.tri~
@@ -292,6 +293,7 @@ set(DOC_FILES
     osc.tri~
     pan.cos~
     pan.lin~
+    pan.linsig~
     pan.spread~
     pan.sqrt~
     patch.args

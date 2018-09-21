@@ -5,6 +5,7 @@ extern "C" void setup_lfo0x2esquare_tilde();
 extern "C" void setup_lfo0x2epulse_tilde();
 
 extern void setup_lfo_tri_tilde();
+extern void setup_lfo_tri_pos_tilde();
 
 void ceammc_lfo_setup()
 {
@@ -13,4 +14,5 @@ void ceammc_lfo_setup()
     setup_lfo0x2epulse_tilde();
 
     setup_lfo_tri_tilde();
+    setup_lfo_tri_pos_tilde();
 }

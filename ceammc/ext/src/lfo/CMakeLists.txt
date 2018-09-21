@@ -13,6 +13,7 @@ ceammc_lfo_external(square)
 ceammc_lfo_external(pulse)
 
 ceammc_lfo_obj_external(tri)
+ceammc_lfo_obj_external(tri_pos)
 
 add_library(ceammc_lfo STATIC mod_lfo.cpp ${LFO_SOURCES})
 set_target_properties(ceammc_lfo PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="lfo.tri~">
-        <title>lfo.tri~</title>
+    <object name="lfo.+tri~">
+        <title>lfo.+tri~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Full-range unit-amplitude low frequency triangle wave</description>
+            <description>Positive unit-amplitude low frequency triangle wave</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>lfo</category>
             <keywords>lfo oscillator triangle</keywords>
-            <since>0.1</since>
+            <since>0.7</since>
             <also>
-                <see>lfo.+tri~</see>
+                <see>lfo.tri~</see>
                 <see>lfo.square~</see>
                 <see>lfo.impulse~</see>
             </also>
@@ -34,22 +34,20 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">triangle wave in [1,-1] range</outlet>
+            <outlet type="audio">triangle wave in [0-1] range</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[osc.saw~ 40]             [ui.dsp~]
+[osc~ 200] [F]
+|          |
+|          [lfo.+tri~ 10]
+|  ._______/
+[*~]
 |
-[ui.gain~ @size 120 14]
-|
-|        [F]
-|        |
-|        [lfo.tri~ 0.5]
-|        |.
-[pan.linsig~]
-|  ^|.
-[dac~ ]
+[ui.gain~ @size 120 14]  [ui.dsp~]
+|\
+[dac~]
 ]]>
             </pdascii>
         </example>

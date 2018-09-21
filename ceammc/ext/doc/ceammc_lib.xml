@@ -467,6 +467,9 @@
     </entry>
   </category>
   <category name="lfo">
+    <entry descr="Positive unit-amplitude low frequency triangle wave" name="lfo.+tri~" ref_view="object">
+      <xi:include href="lfo.%2Btri~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Unit-amplitude low-frequency impulse train" name="lfo.impulse~" ref_view="object">
       <xi:include href="lfo.impulse~.pddoc" parse="xml"/>
     </entry>
@@ -476,7 +479,7 @@
     <entry descr="Positive low frequency square wave" name="lfo.square~" ref_view="object">
       <xi:include href="lfo.square~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Positive unit-amplitude low frequency triangle wave" name="lfo.tri~" ref_view="object">
+    <entry descr="Full-range unit-amplitude low frequency triangle wave" name="lfo.tri~" ref_view="object">
       <xi:include href="lfo.tri~.pddoc" parse="xml"/>
     </entry>
   </category>
@@ -909,7 +912,7 @@
     <entry descr="Alias-free sawtooth wave" name="osc.saw~" ref_view="object">
       <xi:include href="osc.saw~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="sine oscilator with feedback" name="osc.sinfb~" ref_view="object">
+    <entry descr="Sine oscilator with feedback" name="osc.sinfb~" ref_view="object">
       <xi:include href="osc.sinfb~.pddoc" parse="xml"/>
     </entry>
     <entry descr="Sine wave oscillator" name="osc.sin~" ref_view="object">
@@ -1040,6 +1043,9 @@
   <category name="spat">
     <entry descr="two channel equal power sine/cosine panner" name="pan.cos~" ref_view="object">
       <xi:include href="pan.cos~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="two channel linear panner with signal control" name="pan.linsig~" ref_view="object">
+      <xi:include href="pan.linsig~.pddoc" parse="xml"/>
     </entry>
     <entry descr="two channel linear panner" name="pan.lin~" ref_view="object">
       <xi:include href="pan.lin~.pddoc" parse="xml"/>
