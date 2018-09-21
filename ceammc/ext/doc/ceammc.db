@@ -285,7 +285,7 @@ osc.pulse~		~		~.
 osc.saw4~		~.		~
 osc.saw~		~.		~
 osc.sinfb~		~		~.
-osc.square~		~		~
+osc.square~		~.		~
 osc.tri~		~.		~
 pan.cos~,pan~		~.		~~
 pan.lin~		~.		~~
