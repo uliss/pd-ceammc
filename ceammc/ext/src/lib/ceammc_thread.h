@@ -7,6 +7,7 @@
 
 #include <pthread.h>
 
+#include "ceammc_clock.h"
 #include "ceammc_object.h"
 #include "ceammc_pollfd.h"
 
@@ -79,35 +80,57 @@ namespace thread {
 
 }
 
-class ThreadExternal : public BaseObject {
+class ThreadExternalBase : public BaseObject {
 protected:
     std::unique_ptr<thread::Task> task_;
     std::future<int> thread_result_;
 
-    PollPipeMemberFunction<ThreadExternal> ctl_poll_fn_;
     std::unique_ptr<thread::Pipe> pipe_err_;
     std::unique_ptr<thread::Pipe> pipe_dbg_;
 
-private:
+    void processCommand(int code);
+
+public:
+    ThreadExternalBase(const PdArgs& args, thread::Task* task);
+    ~ThreadExternalBase();
+
+    virtual void onThreadDone(int rc) = 0;
+
+    virtual bool onThreadCommand(int code);
+    virtual void start();
+    virtual void quit();
+
+    bool isRunning() const;
+};
+
+class ThreadPollPipeExternal : public ThreadExternalBase {
+    PollPipeMemberFunction<ThreadPollPipeExternal> ctl_poll_fn_;
     double last_start_;
 
 public:
-    ThreadExternal(const PdArgs& args, thread::Task* task);
-    ~ThreadExternal();
+    ThreadPollPipeExternal(const PdArgs& args, thread::Task* task);
 
-    virtual void onThreadDone(int rc) = 0;
-    virtual bool onThreadCommand(int code);
-
-    void start();
-    void quit();
-
-    bool isRunning() const;
+    void start() override;
 
 private:
     void handleThreadControl(int fd);
-    void handleThreadDebug(int fd);
-    void handleThreadErrors(int fd);
 };
+
+class ThreadPollClockExternal : public ThreadExternalBase {
+    ClockMemberFunction<ThreadPollClockExternal> clock_;
+
+public:
+    ThreadPollClockExternal(const PdArgs& args, thread::Task* task);
+
+private:
+    void pollClockTick();
+};
+
+#ifdef __WIN32
+
+#else
+typedef ThreadPollPipeExternal ThreadExternal;
+#endif
 
 }
 

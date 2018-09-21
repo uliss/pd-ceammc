@@ -21,88 +21,8 @@ ceammc::thread::Lock::~Lock()
         pthread_mutex_unlock(&m_);
 }
 
-ThreadExternal::ThreadExternal(const PdArgs& args, thread::Task* task)
-    : BaseObject(args)
-    , task_(task)
-    , ctl_poll_fn_(this, &ThreadExternal::handleThreadControl)
-    , last_start_(0)
-    , pipe_dbg_(new thread::Pipe(64))
-    , pipe_err_(new thread::Pipe(64))
+void ThreadExternalBase::processCommand(int code)
 {
-    task_->setControlFd(&ctl_poll_fn_.fd[1]);
-
-    task_->setPipeErr(pipe_err_.get());
-    task_->setPipeDebug(pipe_dbg_.get());
-}
-
-ThreadExternal::~ThreadExternal()
-{
-    if (isRunning()) {
-        if (!task_->stopRequested())
-            task_->stop();
-
-        bool ok = false;
-        for (int i = 0; i < 10; i++) {
-            auto st = thread_result_.wait_for(std::chrono::milliseconds(500));
-            if (st == std::future_status::ready) {
-                ok = true;
-                break;
-            }
-
-            OBJ_DBG << "waiting worker thread to finish...";
-        }
-
-        if (!ok)
-            OBJ_ERR << "worker thread is not stopped...";
-    }
-}
-
-bool ThreadExternal::onThreadCommand(int code)
-{
-    return false;
-}
-
-void ThreadExternal::start()
-{
-    auto ms = clock_gettimesince(last_start_);
-    if (ms < 10) {
-        OBJ_ERR << "too short time since last call: " << ms;
-        return;
-    }
-
-    last_start_ = clock_getlogicaltime();
-
-    if (isRunning()) {
-        OBJ_ERR << "thread is running";
-        return;
-    }
-
-    try {
-        thread_result_ = std::async(std::launch::async, [&] {
-            task_->restart();
-            return task_->schedule();
-        });
-    } catch (std::exception& e) {
-        OBJ_ERR << "can't start worker thread: " << e.what();
-        return;
-    }
-}
-
-void ThreadExternal::quit()
-{
-    if (task_->stopRequested()) {
-        OBJ_ERR << "already stopping....";
-        return;
-    }
-
-    task_->stop();
-}
-
-void ThreadExternal::handleThreadControl(int fd)
-{
-    char code;
-    read(fd, &code, 1);
-
     switch (code) {
     case TASK_DONE:
         if (thread_result_.valid())
@@ -133,7 +53,72 @@ void ThreadExternal::handleThreadControl(int fd)
     }
 }
 
-bool ThreadExternal::isRunning() const
+ThreadExternalBase::ThreadExternalBase(const PdArgs& args, thread::Task* task)
+    : BaseObject(args)
+    , task_(task)
+    , pipe_dbg_(new thread::Pipe(64))
+    , pipe_err_(new thread::Pipe(64))
+{
+    task_->setPipeErr(pipe_err_.get());
+    task_->setPipeDebug(pipe_dbg_.get());
+}
+
+ThreadExternalBase::~ThreadExternalBase()
+{
+    if (isRunning()) {
+        if (!task_->stopRequested())
+            task_->stop();
+
+        bool ok = false;
+        for (int i = 0; i < 10; i++) {
+            auto st = thread_result_.wait_for(std::chrono::milliseconds(500));
+            if (st == std::future_status::ready) {
+                ok = true;
+                break;
+            }
+
+            OBJ_DBG << "waiting worker thread to finish...";
+        }
+
+        if (!ok)
+            OBJ_ERR << "worker thread is not stopped...";
+    }
+}
+
+bool ThreadExternalBase::onThreadCommand(int code)
+{
+    return false;
+}
+
+void ThreadExternalBase::start()
+{
+    if (isRunning()) {
+        OBJ_ERR << "thread is running";
+        return;
+    }
+
+    try {
+        thread_result_ = std::async(std::launch::async, [&] {
+            task_->restart();
+            return task_->schedule();
+        });
+    } catch (std::exception& e) {
+        OBJ_ERR << "can't start worker thread: " << e.what();
+        return;
+    }
+}
+
+void ThreadExternalBase::quit()
+{
+    if (task_->stopRequested()) {
+        OBJ_ERR << "already stopping....";
+        return;
+    }
+
+    task_->stop();
+}
+
+bool ThreadExternalBase::isRunning() const
 {
     if (!thread_result_.valid())
         return false;
@@ -247,4 +232,42 @@ int thread::Task::schedule()
     writeCommand(TASK_DONE);
     running_.store(false);
     return rc;
+}
+
+ThreadPollClockExternal::ThreadPollClockExternal(const PdArgs& args, thread::Task* task)
+    : ThreadExternalBase(args, task)
+    , clock_(this, &ThreadPollClockExternal::pollClockTick)
+{
+}
+
+void ThreadPollClockExternal::pollClockTick()
+{
+}
+
+ThreadPollPipeExternal::ThreadPollPipeExternal(const PdArgs& args, thread::Task* task)
+    : ThreadExternalBase(args, task)
+    , ctl_poll_fn_(this, &ThreadPollPipeExternal::handleThreadControl)
+    , last_start_(0)
+{
+    task_->setControlFd(&ctl_poll_fn_.fd[1]);
+}
+
+void ThreadPollPipeExternal::start()
+{
+    auto ms = clock_gettimesince(last_start_);
+    if (ms < 10) {
+        OBJ_ERR << "too short time since last call: " << ms;
+        return;
+    }
+
+    last_start_ = clock_getlogicaltime();
+    // call parent
+    ThreadExternalBase::start();
+}
+
+void ThreadPollPipeExternal::handleThreadControl(int fd)
+{
+    char code;
+    read(fd, &code, 1);
+    processCommand(code);
 }
