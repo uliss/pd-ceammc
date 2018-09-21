@@ -11,8 +11,8 @@ macro(ceammc_osc_obj_external name)
 endmacro()
 
 ceammc_osc_external(impulse)
-ceammc_osc_external(pulse)
 
+ceammc_osc_obj_external(pulse)
 ceammc_osc_obj_external(saw)
 ceammc_osc_obj_external(saw4)
 ceammc_osc_obj_external(sinfb)
