@@ -228,12 +228,38 @@ int thread::Task::schedule()
 
 ThreadPollClockExternal::ThreadPollClockExternal(const PdArgs& args, thread::Task* task)
     : ThreadExternalBase(args, task)
+    , pipe_cmd_(new thread::Pipe(16))
     , clock_(this, &ThreadPollClockExternal::pollClockTick)
+    , poll_time_(nullptr)
 {
+    poll_time_ = new IntPropertyMin("@poll_time", 5, 2);
+    createProperty(poll_time_);
+}
+
+void ThreadPollClockExternal::start()
+{
+    clock_.delay(poll_time_->value());
+    ThreadExternalBase::start();
+}
+
+void ThreadPollClockExternal::quit()
+{
+    clock_.unset();
+    ThreadExternalBase::quit();
+}
+
+void ThreadPollClockExternal::writeCommand(char code)
+{
+    pipe_cmd_->enqueue(code);
 }
 
 void ThreadPollClockExternal::pollClockTick()
 {
+    char cmd;
+    while (pipe_cmd_->try_dequeue(cmd))
+        processCommand(cmd);
+
+    clock_.delay(poll_time_->value());
 }
 
 ThreadPollPipeExternal::ThreadPollPipeExternal(const PdArgs& args, thread::Task* task)

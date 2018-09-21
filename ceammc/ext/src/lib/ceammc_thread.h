@@ -120,17 +120,23 @@ private:
 };
 
 class ThreadPollClockExternal : public ThreadExternalBase {
+    std::unique_ptr<thread::Pipe> pipe_cmd_;
     ClockMemberFunction<ThreadPollClockExternal> clock_;
+    IntPropertyMin* poll_time_;
 
 public:
     ThreadPollClockExternal(const PdArgs& args, thread::Task* task);
+
+    void start() override;
+    void quit() override;
+    void writeCommand(char code) override;
 
 private:
     void pollClockTick();
 };
 
 #ifdef __WIN32
-
+typedef ThreadPollClockExternal ThreadExternal;
 #else
 typedef ThreadPollPipeExternal ThreadExternal;
 #endif
