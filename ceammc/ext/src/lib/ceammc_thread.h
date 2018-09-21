@@ -96,7 +96,7 @@ public:
     ~ThreadExternalBase();
 
     virtual void onThreadDone(int rc) = 0;
-    virtual void writeCommand(char code) = 0;
+    virtual void writeCommand(char);
 
     virtual bool onThreadCommand(int code);
     virtual void start();
@@ -126,6 +126,7 @@ class ThreadPollClockExternal : public ThreadExternalBase {
 
 public:
     ThreadPollClockExternal(const PdArgs& args, thread::Task* task);
+    ~ThreadPollClockExternal();
 
     void start() override;
     void quit() override;

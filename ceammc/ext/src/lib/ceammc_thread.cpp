@@ -85,6 +85,11 @@ ThreadExternalBase::~ThreadExternalBase()
     }
 }
 
+void ThreadExternalBase::writeCommand(char)
+{
+    // NOTE: do not make pure-virtual
+}
+
 bool ThreadExternalBase::onThreadCommand(int code)
 {
     return false;
@@ -234,6 +239,11 @@ ThreadPollClockExternal::ThreadPollClockExternal(const PdArgs& args, thread::Tas
 {
     poll_time_ = new IntPropertyMin("@poll_time", 5, 2);
     createProperty(poll_time_);
+}
+
+ThreadPollClockExternal::~ThreadPollClockExternal()
+{
+    clock_.unset();
 }
 
 void ThreadPollClockExternal::start()
