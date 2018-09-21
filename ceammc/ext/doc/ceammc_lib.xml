@@ -476,10 +476,10 @@
     <entry descr="Unit-amplitude nonnegative low frequency pulse train," name="lfo.pulse~" ref_view="object">
       <xi:include href="lfo.pulse~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Positive low frequency square wave" name="lfo.square~" ref_view="object">
+    <entry descr="Zero-mean low frequency square wave" name="lfo.square~" ref_view="object">
       <xi:include href="lfo.square~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Full-range unit-amplitude low frequency triangle wave" name="lfo.tri~" ref_view="object">
+    <entry descr="Zero-mean unit-amplitude low frequency triangle wave" name="lfo.tri~" ref_view="object">
       <xi:include href="lfo.tri~.pddoc" parse="xml"/>
     </entry>
   </category>

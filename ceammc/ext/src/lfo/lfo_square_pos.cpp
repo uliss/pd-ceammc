@@ -1,11 +1,11 @@
-#include "lfo_square.h"
+#include "lfo_square_pos.h"
 #include "ceammc_factory.h"
 using namespace ceammc;
 
-class LfoSquare : public faust_lfo_square_tilde {
+class LfoSquarePos : public faust_lfo_square_pos_tilde {
 public:
-    LfoSquare(const PdArgs& args)
-        : faust_lfo_square_tilde(args)
+    LfoSquarePos(const PdArgs& args)
+        : faust_lfo_square_pos_tilde(args)
     {
         createInlet();
         setInitSignalValue(positionalFloatArgument(0, 0));
@@ -17,7 +17,7 @@ public:
     }
 };
 
-void setup_lfo_square_tilde()
+void setup_lfo_square_pos_tilde()
 {
-    SoundExternalFactory<LfoSquare> obj("lfo.square~");
+    SoundExternalFactory<LfoSquarePos> obj("lfo.+square~");
 }

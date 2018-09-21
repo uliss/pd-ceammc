@@ -1,3 +1,3 @@
 os = library("oscillators.lib");
 
-process = os.lf_squarewave;
+process = os.lf_squarewavepos;

@@ -1,11 +1,11 @@
 /* ------------------------------------------------------------
-name: "lfo_square"
+name: "lfo_square_pos"
 Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
-#ifndef  __lfo_square_H__
-#define  __lfo_square_H__
+#ifndef  __lfo_square_pos_H__
+#define  __lfo_square_pos_H__
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
@@ -432,7 +432,7 @@ using namespace ceammc::faust;
 
 // clang-format off
 #ifndef FAUST_MACRO
-struct lfo_square : public dsp {
+struct lfo_square_pos : public dsp {
 };
 #endif
 // clang-format on
@@ -449,14 +449,14 @@ struct lfo_square : public dsp {
 
 
 #ifndef FAUSTCLASS 
-#define FAUSTCLASS lfo_square
+#define FAUSTCLASS lfo_square_pos
 #endif
 #ifdef __APPLE__ 
 #define exp10f __exp10f
 #define exp10 __exp10
 #endif
 
-class lfo_square : public dsp {
+class lfo_square_pos : public dsp {
 	
  private:
 	
@@ -468,13 +468,13 @@ class lfo_square : public dsp {
  public:
 	
 	void metadata(Meta* m) { 
-		m->declare("filename", "lfo_square");
+		m->declare("filename", "lfo_square_pos");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
 		m->declare("maths.lib/version", "2.1");
-		m->declare("name", "lfo_square");
+		m->declare("name", "lfo_square_pos");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
 		m->declare("oscillators.lib/version", "0.0");
 	}
@@ -556,8 +556,8 @@ class lfo_square : public dsp {
 		instanceClear();
 	}
 	
-	virtual lfo_square* clone() {
-		return new lfo_square();
+	virtual lfo_square_pos* clone() {
+		return new lfo_square_pos();
 	}
 	virtual int getSampleRate() {
 		return fSamplingFreq;
@@ -565,7 +565,7 @@ class lfo_square : public dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("lfo_square");
+		ui_interface->openVerticalBox("lfo_square_pos");
 		ui_interface->closeBox();
 		
 	}
@@ -577,7 +577,7 @@ class lfo_square : public dsp {
 			fVec0[0] = float(input0[i]);
 			float fTemp0 = ((fConst0 * fVec0[1]) + fRec0[1]);
 			fRec0[0] = (fTemp0 - std::floor(fTemp0));
-			output0[i] = FAUSTFLOAT(((2.0f * float((fRec0[0] <= 0.5f))) + -1.0f));
+			output0[i] = FAUSTFLOAT(float((fRec0[0] <= 0.5f)));
 			fVec0[1] = fVec0[0];
 			fRec0[1] = fRec0[0];
 			
@@ -591,18 +591,18 @@ class lfo_square : public dsp {
 #endif
 
     template <class T>
-    struct _lfo_square_UI : public UI {
+    struct _lfo_square_pos_UI : public UI {
     static std::string name;
 };
 
 template <class T>
-std::string _lfo_square_UI<T>::name(sym(lfo_square));
+std::string _lfo_square_pos_UI<T>::name(sym(lfo_square_pos));
 
-typedef _lfo_square_UI<lfo_square> lfo_square_UI;
+typedef _lfo_square_pos_UI<lfo_square_pos> lfo_square_pos_UI;
 
-class faust_lfo_square_tilde : public FaustExternal<lfo_square, lfo_square_UI> {
+class faust_lfo_square_pos_tilde : public FaustExternal<lfo_square_pos, lfo_square_pos_UI> {
 public:
-    faust_lfo_square_tilde(const ceammc::PdArgs& args)
+    faust_lfo_square_pos_tilde(const ceammc::PdArgs& args)
         : FaustExternal(args)
     {
     }
