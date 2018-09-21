@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>sine oscilator with feedback</description>
+            <description>Sine oscilator with feedback</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>osc</category>

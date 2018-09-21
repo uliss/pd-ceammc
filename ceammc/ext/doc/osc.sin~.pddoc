@@ -11,7 +11,7 @@
             <library>ceammc</library>
             <category>osc</category>
             <keywords>oscillator band-limited</keywords>
-            <since>0.1</since>
+            <since>0.7</since>
             <also>
                 <see>osc.saw~</see>
                 <see>osc.tri~</see>
