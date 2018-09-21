@@ -329,6 +329,11 @@ namespace faust {
         {
             ui_->instanceClear();
         }
+
+        void setInitSignalValue(t_float f)
+        {
+            pd_float(reinterpret_cast<t_pd*>(owner()), f);
+        }
     };
 
     template <typename T>

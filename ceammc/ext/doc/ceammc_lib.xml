@@ -903,7 +903,7 @@
     <entry descr="Bandlimited pulse train oscillator." name="osc.pulse~" ref_view="object">
       <xi:include href="osc.pulse~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Bandlimited saw wave oscillator" name="osc.saw~" ref_view="object">
+    <entry descr="Alias-free sawtooth wave" name="osc.saw~" ref_view="object">
       <xi:include href="osc.saw~.pddoc" parse="xml"/>
     </entry>
     <entry descr="sine oscilator with feedback" name="osc.sinfb~" ref_view="object">

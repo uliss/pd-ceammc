@@ -1,12 +1,24 @@
 #include "osc_saw.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
+using namespace ceammc;
+
+class OscSaw : public faust_saw_tilde {
+public:
+    OscSaw(const PdArgs& args)
+        : faust_saw_tilde(args)
+    {
+        createInlet();
+        setInitSignalValue(positionalFloatArgument(0, 0));
+    }
+
+    void onInlet(size_t n, const AtomList&) override
+    {
+        dsp_->instanceClear();
+    }
+};
+
+void setup_osc_saw_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-
-    PdArgParser p(x, argc, argv, false);
-    p.signalFloatArg("freq", 1);
-    return p.pd_obj();
+    SoundExternalFactory<OscSaw> obj("osc.saw~");
 }
-
-EXTERNAL_SETUP(osc);

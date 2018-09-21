@@ -672,7 +672,7 @@ symbol);
 #X obj 30 9134 osc.pulse~;
 #X text 175 9134 Bandlimited pulse train oscillator.;
 #X obj 30 9161 osc.saw~;
-#X text 175 9161 Bandlimited saw wave oscillator;
+#X text 175 9161 Alias-free sawtooth wave;
 #X obj 30 9188 osc.sinfb~;
 #X text 175 9188 sine oscilator with feedback;
 #X obj 30 9215 osc.square~;
