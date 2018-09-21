@@ -23,5 +23,6 @@ REM build tools
 bash -lc "pacman -S --needed --noconfirm mingw-w64-x86_64-toolchain cmake make patch mingw-w64-x86_64-libtool"
 bash -lc "mkdir build"
 bash -lc "cd build"
-bash -lc "C:\%MSYS2_DIR%\%MSYSTEM%\bin\cmake -G 'MSYS Makefiles' .."
+bash -lc "which cmake"
+bash -lc "/mingw32/bin/cmake -G 'MSYS Makefiles' .."
 
