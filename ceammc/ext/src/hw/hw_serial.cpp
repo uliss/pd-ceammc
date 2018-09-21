@@ -214,6 +214,11 @@ SerialPort::SerialPort(const PdArgs& args)
     serial()->setPipeInOut(pipe_in_.get(), pipe_out_.get());
 }
 
+SerialPort::~SerialPort()
+{
+    waitStop();
+}
+
 void SerialPort::onFloat(t_float f)
 {
     // TODO check for connected
@@ -238,6 +243,9 @@ bool SerialPort::onThreadCommand(int code)
         port_->setValue(serial()->port());
         return true;
     case TASK_READ_FROM_SERIAL: {
+        if (!pipe_out_)
+            return false;
+
         char ch;
         while (pipe_out_->try_dequeue(ch))
             floatTo(0, static_cast<unsigned char>(ch));
@@ -277,7 +285,7 @@ void SerialPort::m_close(t_symbol* s, const AtomList&)
         return;
     }
 
-    quit();
+    stop();
 }
 
 AtomList SerialPort::propDevices() const

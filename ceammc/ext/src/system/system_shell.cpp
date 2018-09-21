@@ -136,6 +136,7 @@ SystemShell::SystemShell(const PdArgs& args)
 SystemShell::~SystemShell()
 {
     sendSignal(METHOD_KILL);
+    waitStop();
 }
 
 void SystemShell::onSymbol(t_symbol* s)

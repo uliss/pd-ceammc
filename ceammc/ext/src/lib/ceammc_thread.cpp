@@ -65,29 +65,7 @@ ThreadExternalBase::ThreadExternalBase(const PdArgs& args, thread::Task* task)
 
 ThreadExternalBase::~ThreadExternalBase()
 {
-    if (isRunning()) {
-        if (!task_->stopRequested())
-            task_->stop();
-
-        bool ok = false;
-        for (int i = 0; i < 10; i++) {
-            auto st = thread_result_.wait_for(std::chrono::milliseconds(500));
-            if (st == std::future_status::ready) {
-                ok = true;
-                break;
-            }
-
-            OBJ_DBG << "waiting worker thread to finish...";
-        }
-
-        if (!ok)
-            OBJ_ERR << "worker thread is not stopped...";
-    }
-}
-
-void ThreadExternalBase::writeCommand(char)
-{
-    // NOTE: do not make pure-virtual
+    waitStop();
 }
 
 bool ThreadExternalBase::onThreadCommand(int code)
@@ -113,7 +91,7 @@ void ThreadExternalBase::start()
     }
 }
 
-void ThreadExternalBase::quit()
+void ThreadExternalBase::stop()
 {
     if (task_->stopRequested()) {
         OBJ_ERR << "already stopping....";
@@ -130,6 +108,26 @@ bool ThreadExternalBase::isRunning() const
 
     auto st = thread_result_.wait_for(std::chrono::milliseconds(0));
     return st != std::future_status::ready;
+}
+
+void ThreadExternalBase::wait()
+{
+    if (!thread_result_.valid())
+        return;
+
+    while (true) {
+        auto st = thread_result_.wait_for(std::chrono::milliseconds(1000));
+        if (st == std::future_status::ready)
+            break;
+
+        OBJ_ERR << "waiting worker thread to stop ...";
+    }
+}
+
+void ThreadExternalBase::waitStop()
+{
+    stop();
+    wait();
 }
 
 thread::Task::Task(ThreadExternalBase* caller)
@@ -176,36 +174,41 @@ void thread::Task::restart()
 
 void thread::Task::writeDebug(const char* msg)
 {
-    if (pipe_dbg_) {
-        const char* pc = msg;
-        while (*pc != '\0') {
-            if (!pipe_dbg_->enqueue(*(pc++))) {
-                std::cerr << "writeDebug failed" << std::endl;
-                return;
-            }
-        }
+    if (!pipe_dbg_ || stopRequested())
+        return;
 
-        writeCommand(TASK_MSG_DBG);
+    const char* pc = msg;
+    while (*pc != '\0') {
+        if (!pipe_dbg_->enqueue(*(pc++))) {
+            std::cerr << "writeDebug failed" << std::endl;
+            return;
+        }
     }
+
+    writeCommand(TASK_MSG_DBG);
 }
 
 void thread::Task::writeError(const char* msg)
 {
-    if (pipe_err_) {
-        const char* pc = msg;
-        while (*pc != '\0') {
-            if (!pipe_err_->enqueue(*(pc++))) {
-                std::cerr << "writeError failed" << std::endl;
-                return;
-            }
-        }
+    if (!pipe_err_ || stopRequested())
+        return;
 
-        writeCommand(TASK_MSG_ERR);
+    const char* pc = msg;
+    while (*pc != '\0') {
+        if (!pipe_err_->enqueue(*(pc++))) {
+            std::cerr << "writeError failed" << std::endl;
+            return;
+        }
     }
+
+    writeCommand(TASK_MSG_ERR);
 }
 
 void thread::Task::writeCommand(char cmd)
 {
+    if (stopRequested())
+        return;
+
     caller_->writeCommand(cmd);
 }
 
@@ -244,6 +247,7 @@ ThreadPollClockExternal::ThreadPollClockExternal(const PdArgs& args, thread::Tas
 ThreadPollClockExternal::~ThreadPollClockExternal()
 {
     clock_.unset();
+    waitStop();
 }
 
 void ThreadPollClockExternal::start()
@@ -252,10 +256,10 @@ void ThreadPollClockExternal::start()
     ThreadExternalBase::start();
 }
 
-void ThreadPollClockExternal::quit()
+void ThreadPollClockExternal::stop()
 {
     clock_.unset();
-    ThreadExternalBase::quit();
+    ThreadExternalBase::stop();
 }
 
 void ThreadPollClockExternal::writeCommand(char code)
@@ -277,6 +281,11 @@ ThreadPollPipeExternal::ThreadPollPipeExternal(const PdArgs& args, thread::Task*
     , ctl_poll_fn_(this, &ThreadPollPipeExternal::handleThreadControl)
     , last_start_(0)
 {
+}
+
+ThreadPollPipeExternal::~ThreadPollPipeExternal()
+{
+    waitStop();
 }
 
 void ThreadPollPipeExternal::start()

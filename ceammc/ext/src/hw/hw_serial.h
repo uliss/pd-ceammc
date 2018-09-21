@@ -34,6 +34,7 @@ class SerialPort : public ThreadExternal {
 
 public:
     SerialPort(const PdArgs& args);
+    ~SerialPort();
 
     void onFloat(t_float f) override;
     void onList(const AtomList& l) override;

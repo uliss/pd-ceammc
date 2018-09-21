@@ -96,13 +96,15 @@ public:
     ~ThreadExternalBase();
 
     virtual void onThreadDone(int rc) = 0;
-    virtual void writeCommand(char);
+    virtual void writeCommand(char) = 0;
 
     virtual bool onThreadCommand(int code);
     virtual void start();
-    virtual void quit();
+    virtual void stop();
 
     bool isRunning() const;
+    void wait();
+    void waitStop();
 };
 
 class ThreadPollPipeExternal : public ThreadExternalBase {
@@ -111,6 +113,7 @@ class ThreadPollPipeExternal : public ThreadExternalBase {
 
 public:
     ThreadPollPipeExternal(const PdArgs& args, thread::Task* task);
+    ~ThreadPollPipeExternal();
 
     void start() override;
     void writeCommand(char code) override;
@@ -129,7 +132,7 @@ public:
     ~ThreadPollClockExternal();
 
     void start() override;
-    void quit() override;
+    void stop() override;
     void writeCommand(char code) override;
 
 private:
