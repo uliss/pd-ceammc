@@ -127,9 +127,9 @@ bool ThreadExternalBase::isRunning() const
     return st != std::future_status::ready;
 }
 
-thread::Task::Task()
-    : stopped_(exit_signal_.get_future())
-    , ctl_fd_(nullptr)
+thread::Task::Task(ThreadExternalBase* caller)
+    : caller_(caller)
+    , stopped_(exit_signal_.get_future())
     , running_(false)
     , pipe_err_(nullptr)
     , pipe_dbg_(nullptr)
@@ -138,11 +138,6 @@ thread::Task::Task()
 
 thread::Task::~Task()
 {
-}
-
-void thread::Task::setControlFd(int* ctl_fd)
-{
-    ctl_fd_ = ctl_fd;
 }
 
 void thread::Task::setPipeErr(thread::Pipe* p)
@@ -206,10 +201,7 @@ void thread::Task::writeError(const char* msg)
 
 void thread::Task::writeCommand(char cmd)
 {
-    if (ctl_fd_) {
-        if (write(*ctl_fd_, &cmd, 1) == -1)
-            perror("[ceammc] writeCommand:");
-    }
+    caller_->writeCommand(cmd);
 }
 
 int thread::Task::schedule()
@@ -249,7 +241,6 @@ ThreadPollPipeExternal::ThreadPollPipeExternal(const PdArgs& args, thread::Task*
     , ctl_poll_fn_(this, &ThreadPollPipeExternal::handleThreadControl)
     , last_start_(0)
 {
-    task_->setControlFd(&ctl_poll_fn_.fd[1]);
 }
 
 void ThreadPollPipeExternal::start()
@@ -263,6 +254,12 @@ void ThreadPollPipeExternal::start()
     last_start_ = clock_getlogicaltime();
     // call parent
     ThreadExternalBase::start();
+}
+
+void ThreadPollPipeExternal::writeCommand(char code)
+{
+    if (write(ctl_poll_fn_.fd[1], &code, 1) == -1)
+        OBJ_ERR << "error writing to pipe";
 }
 
 void ThreadPollPipeExternal::handleThreadControl(int fd)

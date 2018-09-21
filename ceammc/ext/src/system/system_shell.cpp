@@ -47,8 +47,8 @@ public:
     std::atomic_char kill_;
 
 public:
-    ShellTask()
-        : thread::Task()
+    ShellTask(SystemShell* caller)
+        : thread::Task(caller)
         , pipe_stdout_(nullptr)
         , kill_(METHOD_NONE)
     {
@@ -120,7 +120,7 @@ public:
 };
 
 SystemShell::SystemShell(const PdArgs& args)
-    : ThreadExternal(args, new ShellTask())
+    : ThreadExternal(args, new ShellTask(this))
     , no_split_(nullptr)
     , pipe_stdout_(new thread::Pipe(1024))
 {

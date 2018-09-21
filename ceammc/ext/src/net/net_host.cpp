@@ -13,8 +13,8 @@
  *****************************************************************************/
 #include "net_host.h"
 #include "ceammc_factory.h"
-#include "ceammc_platform.h"
 #include "ceammc_fn_list.h"
+#include "ceammc_platform.h"
 
 #include <mutex>
 
@@ -27,8 +27,9 @@ class HostTask : public thread::Task {
     platform::NetAddressType type_;
 
 public:
-    HostTask()
-        : name_(&s_)
+    HostTask(NetHost* caller)
+        : Task(caller)
+        , name_(&s_)
         , type_(platform::ADDR_IPV4)
     {
     }
@@ -86,7 +87,7 @@ static t_symbol* SYM_IPV4 = gensym("ipv4");
 static t_symbol* SYM_IPV6 = gensym("ipv6");
 
 NetHost::NetHost(const PdArgs& args)
-    : ThreadExternal(args, new HostTask())
+    : ThreadExternal(args, new HostTask(this))
     , addr_type_(nullptr)
 {
     task()->setName(positionalSymbolArgument(0, &s_));

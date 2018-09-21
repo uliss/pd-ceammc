@@ -49,8 +49,9 @@ class SerialTask : public thread::Task {
     std::mutex mutex_;
 
 public:
-    SerialTask(t_symbol* port = &s_, int rate = 57600)
-        : port_(port)
+    SerialTask(SerialPort* caller, t_symbol* port = &s_, int rate = 57600)
+        : Task(caller)
+        , port_(port)
         , baud_rate_(rate)
         , pipe_in_(nullptr)
         , pipe_out_(nullptr)
@@ -177,7 +178,7 @@ public:
 };
 
 SerialPort::SerialPort(const PdArgs& args)
-    : ThreadExternal(args, new SerialTask())
+    : ThreadExternal(args, new SerialTask(this))
     , port_(nullptr)
     , baud_rate_(nullptr)
     , pipe_in_(new thread::Pipe(256))

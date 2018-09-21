@@ -23,6 +23,8 @@ enum ThreadProto {
     TASK_LAST_ENUM
 };
 
+class ThreadExternalBase;
+
 namespace thread {
     class Lock {
         pthread_mutex_t& m_;
@@ -36,9 +38,9 @@ namespace thread {
     typedef moodycamel::ReaderWriterQueue<char> Pipe;
 
     class Task {
+        ThreadExternalBase* caller_;
         std::promise<void> exit_signal_;
         std::future<void> stopped_;
-        int* ctl_fd_;
         std::atomic_bool running_;
 
         Pipe* pipe_err_;
@@ -48,10 +50,9 @@ namespace thread {
         Task& operator=(const Task&);
 
     public:
-        Task();
+        Task(ThreadExternalBase* caller);
         virtual ~Task();
 
-        void setControlFd(int* fd);
         void setPipeErr(Pipe* p);
         void setPipeDebug(Pipe* p);
 
@@ -95,6 +96,7 @@ public:
     ~ThreadExternalBase();
 
     virtual void onThreadDone(int rc) = 0;
+    virtual void writeCommand(char code) = 0;
 
     virtual bool onThreadCommand(int code);
     virtual void start();
@@ -111,6 +113,7 @@ public:
     ThreadPollPipeExternal(const PdArgs& args, thread::Task* task);
 
     void start() override;
+    void writeCommand(char code) override;
 
 private:
     void handleThreadControl(int fd);
