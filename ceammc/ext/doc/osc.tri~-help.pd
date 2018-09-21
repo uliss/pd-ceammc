@@ -9,6 +9,7 @@
 #X obj 146 118 ui.dsp~;
 #X msg 50 147 \$1 50;
 #X obj 50 176 line~;
+#X msg 165 176 bang;
 #X obj 50 205 osc.tri~ 200;
 #X obj 50 234 ui.gain~ @size 120 14;
 #X obj 50 262 dac~;
@@ -19,7 +20,7 @@
 #X text 120 394 1\.;
 #X text 150 394 float;
 #X obj 241 395 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 394 freq(Hz): frequency. Min value: 20;
+#X text 240 394 freq(Hz): frequency.;
 #X obj 20 422 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 427 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -30,8 +31,7 @@ value: 1\. Allowed values: 0 \, 1;
 #X obj 20 484 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 489 1\.;
-#X text 150 489 *float*;
-#X text 240 489 frequency in Hz. Min value: 20;
+#X text 240 489 frequency in Hz.;
 #X text 120 507 2\.;
 #X text 150 507 *bang*;
 #X text 240 507 reset phase.;
@@ -39,7 +39,7 @@ value: 1\. Allowed values: 0 \, 1;
 #X obj 20 540 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 545 1\.;
-#X text 240 545 output signal;
+#X text 240 545 output signal in [1 \, -1] range;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -78,8 +78,9 @@ https://github.com/uliss/pure-data;
 #X restore 10 615 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;
-#X connect 7 0 8 0;
-#X connect 8 0 9 0;
+#X connect 7 0 9 0;
+#X connect 8 0 9 1;
 #X connect 9 0 10 0;
-#X connect 9 0 10 1;
-#X connect 9 0 11 0;
+#X connect 10 0 11 0;
+#X connect 10 0 11 1;
+#X connect 10 0 12 0;

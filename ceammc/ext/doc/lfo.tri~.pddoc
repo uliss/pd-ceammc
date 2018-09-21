@@ -20,9 +20,15 @@
         <arguments>
             <argument name="freq" type="float" units="herz">frequency</argument>
         </arguments>
+        <properties>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp processing</property>
+        </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>frequency in Hz</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">reset phase</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -31,13 +37,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[osc~ 200] [floatatom]
+[osc~ 200] [F]
 |          |
 |          [lfo.tri~ 10]
 |  ._______/
-[*~]   [_]
-|  .___/
 [*~]
+|
+[ui.gain~ @size 120 14]  [ui.dsp~]
 |\
 [dac~]
 ]]>
