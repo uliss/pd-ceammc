@@ -7,6 +7,7 @@ extern "C" void setup_osc0x2esquare_tilde();
 extern "C" void setup_osc0x2etri_tilde();
 extern void setup_osc_blit();
 extern void setup_osc_saw_tilde();
+extern void setup_osc_saw4_tilde();
 
 void ceammc_osc_setup() {
      setup_osc0x2etri_tilde();
@@ -16,5 +17,6 @@ void ceammc_osc_setup() {
      setup_osc0x2esquare_tilde();
 
      setup_osc_saw_tilde();
+     setup_osc_saw4_tilde();
      setup_osc_blit();
 }

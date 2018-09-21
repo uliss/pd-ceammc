@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="osc.saw~">
-        <title>osc.saw~</title>
+    <object name="osc.saw4~">
+        <title>osc.saw4~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Alias-free sawtooth wave</description>
+            <description>Band-limited sawtooth wave</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>osc</category>
             <keywords>oscillator band-limited</keywords>
-            <since>0.1</since>
+            <since>0.7</since>
             <also>
-                <see>osc.saw4~</see>
+                <see>osc.saw~</see>
                 <see>osc.tri~</see>
                 <see>osc.square~</see>
                 <see>lfo.tri~</see>
             </also>
         </meta>
         <info>
-            <par>Polynomial Transition Regions (PTR) used for aliasing suppression. 2nd order
+            <par>Differentiated Polynomial Waves (DPW) used for aliasing suppression. 4nd order
             interpolation.</par>
         </info>
         <arguments>
@@ -46,7 +46,7 @@
 |
 [line~]      [bang(
 |            |.
-[osc.saw~ 200 ]
+[osc.saw4~ 200 ]
 |
 [ui.gain~ @size 120 14]
 |\      |

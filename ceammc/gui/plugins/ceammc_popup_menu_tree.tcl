@@ -129,12 +129,15 @@
     {msg {
         msg msg.onload
     }}
+    {net {
+        net.host2ip
+    }}
     {noise {
         noise.crackle~ noise.lfreq0~ noise.lfreq~ noise.pink~ noise.white~
     }}
     {osc {
-        osc.blit~ osc.impulse~ osc.pulse~ osc.saw~ osc.sinfb~ osc.square~
-        osc.tri~
+        osc.blit~ osc.impulse~ osc.pulse~ osc.saw4~ osc.saw~ osc.sinfb~
+        osc.square~ osc.tri~
     }}
     {patch {
         canvas.current canvas.top patch.args
@@ -180,7 +183,7 @@
     }}
     {system {
         system.cursor system.getenv system.hostname system.memsize
-        system.memused system.screen_size
+        system.memused system.screen_size system.shell
     }}
     {tl {
         tl.bang tl.cue tl.timeline tl.toggle tl.transport

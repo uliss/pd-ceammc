@@ -282,6 +282,7 @@ noise.white~		-		~
 osc.blit~		~.		~
 osc.impulse~		~		~
 osc.pulse~		~		~.
+osc.saw4~		~.		~
 osc.saw~		~.		~
 osc.sinfb~		~		~.
 osc.square~		~		~

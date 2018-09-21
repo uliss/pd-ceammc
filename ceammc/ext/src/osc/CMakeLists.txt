@@ -17,6 +17,7 @@ ceammc_osc_external(square)
 ceammc_osc_external(tri)
 
 ceammc_osc_obj_external(saw)
+ceammc_osc_obj_external(saw4)
 
 include_directories(${CMAKE_SOURCE_DIR}/ceammc/extra/stk/stk/include)
 

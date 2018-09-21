@@ -285,6 +285,7 @@ set(DOC_FILES
     osc.impulse~
     osc.pulse~
     osc.saw~
+    osc.saw4~
     osc.sinfb~
     osc.square~
     osc.tri~

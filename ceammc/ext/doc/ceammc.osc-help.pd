@@ -8,14 +8,16 @@
 #X text 175 143 Bandlimited impulse train generator;
 #X obj 30 170 osc.pulse~;
 #X text 175 170 Bandlimited pulse train oscillator.;
-#X obj 30 197 osc.saw~;
-#X text 175 197 Alias-free sawtooth wave;
-#X obj 30 224 osc.sinfb~;
-#X text 175 224 sine oscilator with feedback;
-#X obj 30 251 osc.square~;
-#X text 175 251 Bandlimited square wave oscillator;
-#X obj 30 278 osc.tri~;
-#X text 175 278 Bandlimited triangle wave oscillator;
+#X obj 30 197 osc.saw4~;
+#X text 175 197 Band-limited sawtooth wave;
+#X obj 30 224 osc.saw~;
+#X text 175 224 Alias-free sawtooth wave;
+#X obj 30 251 osc.sinfb~;
+#X text 175 251 sine oscilator with feedback;
+#X obj 30 278 osc.square~;
+#X text 175 278 Bandlimited square wave oscillator;
+#X obj 30 305 osc.tri~;
+#X text 175 305 Bandlimited triangle wave oscillator;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::osc 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

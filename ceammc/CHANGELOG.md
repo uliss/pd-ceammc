@@ -8,6 +8,9 @@
 - net.host->ip added
 - system.shell added
 - clear message added to fx.sdelay~
+- osc.saw~ added inlet for phase reset
+- osc.saw~ algo changed to Faust os.sawtooth
+- osc.saw4~ added (Faust os.saw4~)
 
 ### Changed:
 - data type generation support for list.gen and list.each
