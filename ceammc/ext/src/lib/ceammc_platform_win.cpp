@@ -19,7 +19,9 @@
 #include <cstdlib>
 #include <cstring>
 #include <io.h>
+#include <fcntl.h>
 #include <Windows.h>
+#include <winsock2.h>
 #include <iostream>
 
 #include "config.h"
@@ -29,6 +31,7 @@
 #endif
 
 namespace ceammc {
+namespace platform {
 
 bool win_is_path_relative(const char* path)
 {
@@ -193,5 +196,33 @@ bool wch_to_mb(const wchar_t* wstr, char** res)
 void win_sleep_ms(unsigned int ms)
 {
     Sleep(ms);
+}
+
+Either<NetAddressList> win_hostnametoip(const char* name, NetAddressType type)
+{
+    return NetAddressList();
+}
+
+Either<int> win_fd_set_non_blocking(int fd)
+{
+    return 0;
+
+    u_long arg = 1;
+    int rc = ioctlsocket(fd, FIONBIO, &arg);
+    if(rc != NO_ERROR)
+        return PlatformError(rc, "fcntl failed");
+
+    return rc;
+}
+
+Either<bool> win_init_pipe(int fd[])
+{
+    int rc = _pipe(fd, 256, O_BINARY);
+    if(rc == -1)
+        return PlatformError(rc, "asd");
+
+    return true;
+}
+
 }
 }

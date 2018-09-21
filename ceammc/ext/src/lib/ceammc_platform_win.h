@@ -16,19 +16,26 @@
 
 #include <string>
 
+#include "ceammc_platform.h"
+
 namespace ceammc {
-bool win_is_path_relative(const char* path);
-std::string win_basename(const char* path);
-std::string win_dirname(const char* path);
-bool win_fnmatch(const char* pattern, const char* str);
-bool win_path_exists(const char* path);
-bool mb_to_wch(const char* str, wchar_t** res);
-bool wch_to_mb(const wchar_t* str, char** res);
-bool win_mkdir(const char* path, int flags = -1);
-bool win_rmdir(const char* path);
-std::string win_home_directory();
-void win_sleep_ms(unsigned int ms);
-bool win_is_dir(const char* path);
+namespace platform {
+    bool win_is_path_relative(const char* path);
+    std::string win_basename(const char* path);
+    std::string win_dirname(const char* path);
+    bool win_fnmatch(const char* pattern, const char* str);
+    bool win_path_exists(const char* path);
+    bool mb_to_wch(const char* str, wchar_t** res);
+    bool wch_to_mb(const wchar_t* str, char** res);
+    bool win_mkdir(const char* path, int flags = -1);
+    bool win_rmdir(const char* path);
+    std::string win_home_directory();
+    void win_sleep_ms(unsigned int ms);
+    bool win_is_dir(const char* path);
+    Either<NetAddressList> win_hostnametoip(const char* name, NetAddressType type);
+    Either<int> win_fd_set_non_blocking(int fd);
+    Either<bool> win_init_pipe(int fd[]);
+}
 }
 
 #endif // CEAMMC_PLATFORM_WIN_H
