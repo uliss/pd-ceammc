@@ -67,6 +67,10 @@ void pdRunMainLoopMs(int ms)
     static bool ws = initWinSock();
 #endif
 
+#if defined(__linux__) || defined(__FreeBSD__)
+    sys_hipriority = 0;
+#endif
+
     sched_reopenmeplease();
 
     auto f = std::async(std::launch::async, [&]() {
