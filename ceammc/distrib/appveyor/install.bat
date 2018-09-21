@@ -19,7 +19,7 @@ REM Update
 bash -lc "pacman -Syu --noconfirm"
 
 REM build tools
-bash -lc "pacman -S --needed --noconfirm mingw-w64-${MSYS2_ARCH}-toolchain make patch mingw-w64-${MSYS2_ARCH}-libtool"
+bash -lc "pacman -S --needed --noconfirm mingw-w64-${MSYS2_ARCH}-toolchain make patch"
 REM dependencies
 bash -lc "pacman -S --needed --noconfirm mingw-w64-${MSYS2_ARCH}-{cmake,glib2,libmodplug,tcllib,tklib,portaudio,fftw}"
 
