@@ -25,4 +25,4 @@ bash -lc "pacman -S --needed --noconfirm mingw-w64-${MSYS2_ARCH}-{cmake,glib2,li
 
 cd %APPVEYOR_BUILD_FOLDER%
 bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && cmake -G 'MSYS Makefiles' -DCMAKE_BUILD_TYPE=Release -DWITH_FFTW=ON -DCMAKE_INSTALL_PREFIX=/opt/local/release/pd .."
-bash -lc "bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && make -j2 install"
+bash -lc "bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && ls && make -j2 && make install"
