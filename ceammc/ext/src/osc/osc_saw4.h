@@ -4,8 +4,8 @@ Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
-#ifndef  __saw4_H__
-#define  __saw4_H__
+#ifndef  __osc_saw4_H__
+#define  __osc_saw4_H__
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
@@ -432,7 +432,7 @@ using namespace ceammc::faust;
 
 // clang-format off
 #ifndef FAUST_MACRO
-struct saw4 : public dsp {
+struct osc_saw4 : public dsp {
 };
 #endif
 // clang-format on
@@ -447,24 +447,24 @@ struct saw4 : public dsp {
 #include <cmath>
 #include <math.h>
 
-static float saw4_faustpower3_f(float value) {
+static float osc_saw4_faustpower3_f(float value) {
 	return ((value * value) * value);
 	
 }
-static float saw4_faustpower2_f(float value) {
+static float osc_saw4_faustpower2_f(float value) {
 	return (value * value);
 	
 }
 
 #ifndef FAUSTCLASS 
-#define FAUSTCLASS saw4
+#define FAUSTCLASS osc_saw4
 #endif
 #ifdef __APPLE__ 
 #define exp10f __exp10f
 #define exp10 __exp10
 #endif
 
-class saw4 : public dsp {
+class osc_saw4 : public dsp {
 	
  private:
 	
@@ -549,7 +549,7 @@ class saw4 : public dsp {
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
 		fConst0 = std::min(192000.0f, std::max(1.0f, float(fSamplingFreq)));
-		fConst1 = (0.00520833349f * saw4_faustpower3_f(fConst0));
+		fConst1 = (0.00520833349f * osc_saw4_faustpower3_f(fConst0));
 		fConst2 = (1.0f / fConst0);
 		
 	}
@@ -606,8 +606,8 @@ class saw4 : public dsp {
 		instanceClear();
 	}
 	
-	virtual saw4* clone() {
-		return new saw4();
+	virtual osc_saw4* clone() {
+		return new osc_saw4();
 	}
 	virtual int getSampleRate() {
 		return fSamplingFreq;
@@ -630,16 +630,16 @@ class saw4 : public dsp {
 			iVec0[0] = 1;
 			float fTemp1 = std::max(20.0f, std::fabs(fTemp0));
 			fVec1[0] = fTemp1;
-			float fTemp2 = ((fConst2 * fVec1[1]) + fRec0[1]);
+			float fTemp2 = (fRec0[1] + (fConst2 * fVec1[1]));
 			fRec0[0] = (fTemp2 - std::floor(fTemp2));
-			float fTemp3 = saw4_faustpower2_f(((2.0f * fRec0[0]) + -1.0f));
+			float fTemp3 = osc_saw4_faustpower2_f(((2.0f * fRec0[0]) + -1.0f));
 			float fTemp4 = (fTemp3 * (fTemp3 + -2.0f));
 			fVec2[0] = fTemp4;
 			float fTemp5 = ((fTemp4 - fVec2[1]) / fTemp1);
 			fVec3[0] = fTemp5;
 			float fTemp6 = ((fTemp5 - fVec3[1]) / fTemp1);
 			fVec4[0] = fTemp6;
-			fVec5[(IOTA & 8191)] = ((float(iVec0[3]) * (fTemp6 - fVec4[1])) / fTemp1);
+			fVec5[(IOTA & 8191)] = (((fTemp6 - fVec4[1]) * float(iVec0[3])) / fTemp1);
 			fRec1[0] = (fSlow0 + (0.999000013f * fRec1[1]));
 			output0[i] = FAUSTFLOAT(((fTemp0 == 0.0f)?0.0f:(fConst1 * fVec5[((IOTA - std::max(0, std::min(8191, int((fConst0 * (fRec1[0] / fTemp0)))))) & 8191)])));
 			for (int j0 = 3; (j0 > 0); j0 = (j0 - 1)) {
@@ -664,18 +664,18 @@ class saw4 : public dsp {
 #endif
 
     template <class T>
-    struct _saw4_UI : public UI {
+    struct _osc_saw4_UI : public UI {
     static std::string name;
 };
 
 template <class T>
-std::string _saw4_UI<T>::name(sym(saw4));
+std::string _osc_saw4_UI<T>::name(sym(osc_saw4));
 
-typedef _saw4_UI<saw4> saw4_UI;
+typedef _osc_saw4_UI<osc_saw4> osc_saw4_UI;
 
-class faust_saw4_tilde : public FaustExternal<saw4, saw4_UI> {
+class faust_osc_saw4_tilde : public FaustExternal<osc_saw4, osc_saw4_UI> {
 public:
-    faust_saw4_tilde(const ceammc::PdArgs& args)
+    faust_osc_saw4_tilde(const ceammc::PdArgs& args)
         : FaustExternal(args)
     {
     }

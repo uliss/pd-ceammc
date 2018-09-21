@@ -1,13 +1,18 @@
-set(LFO_SOURCES "")
-macro(ceammc_lfo_extension name)
+macro(ceammc_lfo_external name)
     list(APPEND LFO_SOURCES "lfo_${name}.cpp")
     ceammc_faust_gen(lfo ${name})
 endmacro()
 
-ceammc_lfo_extension(impulse)
-ceammc_lfo_extension(tri)
-ceammc_lfo_extension(square)
-ceammc_lfo_extension(pulse)
+macro(ceammc_lfo_obj_external name)
+    list(APPEND OSC_SOURCES "lfo_${name}.cpp")
+    ceammc_faust_gen_obj(lfo ${name})
+endmacro()
+
+ceammc_lfo_external(impulse)
+ceammc_lfo_external(square)
+ceammc_lfo_external(pulse)
+
+ceammc_lfo_obj_external(tri)
 
 add_library(ceammc_lfo STATIC mod_lfo.cpp ${LFO_SOURCES})
 set_target_properties(ceammc_lfo PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")

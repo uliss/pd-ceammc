@@ -4,8 +4,8 @@ Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
-#ifndef  __saw_H__
-#define  __saw_H__
+#ifndef  __osc_saw_H__
+#define  __osc_saw_H__
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
@@ -432,7 +432,7 @@ using namespace ceammc::faust;
 
 // clang-format off
 #ifndef FAUST_MACRO
-struct saw : public dsp {
+struct osc_saw : public dsp {
 };
 #endif
 // clang-format on
@@ -449,14 +449,14 @@ struct saw : public dsp {
 
 
 #ifndef FAUSTCLASS 
-#define FAUSTCLASS saw
+#define FAUSTCLASS osc_saw
 #endif
 #ifdef __APPLE__ 
 #define exp10f __exp10f
 #define exp10 __exp10
 #endif
 
-class saw : public dsp {
+class osc_saw : public dsp {
 	
  private:
 	
@@ -555,8 +555,8 @@ class saw : public dsp {
 		instanceClear();
 	}
 	
-	virtual saw* clone() {
-		return new saw();
+	virtual osc_saw* clone() {
+		return new osc_saw();
 	}
 	virtual int getSampleRate() {
 		return fSamplingFreq;
@@ -575,11 +575,12 @@ class saw : public dsp {
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = std::max(1.00000001e-07f, std::fabs(fTemp0));
-			float fTemp2 = ((fConst1 * fTemp1) + fRec0[1]);
-			float fTemp3 = (fTemp2 + -1.0f);
-			int iTemp4 = (fTemp3 < 0.0f);
-			fRec0[0] = (iTemp4?fTemp2:fTemp3);
-			float fRec1 = (iTemp4?fTemp2:(fTemp2 + ((1.0f - (fConst0 / fTemp1)) * fTemp3)));
+			float fTemp2 = (fConst1 * fTemp1);
+			float fTemp3 = (fRec0[1] + fTemp2);
+			float fTemp4 = (fTemp3 + -1.0f);
+			int iTemp5 = (fTemp4 < 0.0f);
+			fRec0[0] = (iTemp5?fTemp3:fTemp4);
+			float fRec1 = (iTemp5?fTemp3:((fRec0[1] + (fTemp4 * (1.0f - (fConst0 / fTemp1)))) + fTemp2));
 			output0[i] = FAUSTFLOAT(((fTemp0 == 0.0f)?0.0f:((2.0f * fRec1) + -1.0f)));
 			fRec0[1] = fRec0[0];
 			
@@ -593,18 +594,18 @@ class saw : public dsp {
 #endif
 
     template <class T>
-    struct _saw_UI : public UI {
+    struct _osc_saw_UI : public UI {
     static std::string name;
 };
 
 template <class T>
-std::string _saw_UI<T>::name(sym(saw));
+std::string _osc_saw_UI<T>::name(sym(osc_saw));
 
-typedef _saw_UI<saw> saw_UI;
+typedef _osc_saw_UI<osc_saw> osc_saw_UI;
 
-class faust_saw_tilde : public FaustExternal<saw, saw_UI> {
+class faust_osc_saw_tilde : public FaustExternal<osc_saw, osc_saw_UI> {
 public:
-    faust_saw_tilde(const ceammc::PdArgs& args)
+    faust_osc_saw_tilde(const ceammc::PdArgs& args)
         : FaustExternal(args)
     {
     }

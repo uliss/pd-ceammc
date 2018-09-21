@@ -78,10 +78,10 @@ macro(ceammc_faust_gen_obj module name)
     add_custom_target("faust_${module}_${name}"
         COMMAND ${FAUST_BIN} -i
             -a ${CMAKE_SOURCE_DIR}/ceammc/faust/ceammc_dsp_ext.cpp
-            --class-name ${name} ${_args}
+            --class-name "${module}_${name}" ${_args}
             "${CMAKE_SOURCE_DIR}/ceammc/faust/${module}_${name}.dsp"
             -o ${CMAKE_CURRENT_SOURCE_DIR}/${module}_${name}.h
-        COMMAND gsed -i 's/mydsp/${name}/g' ${CMAKE_CURRENT_SOURCE_DIR}/${module}_${name}.h)
+        COMMAND gsed -i 's/mydsp/${module}_${name}/g' ${CMAKE_CURRENT_SOURCE_DIR}/${module}_${name}.h)
 endmacro()
 
 # adds target "faust_MODULE_NAME" for updating faust DSP extension.

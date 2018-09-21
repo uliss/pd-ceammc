@@ -3,10 +3,10 @@
 
 using namespace ceammc;
 
-class OscSaw4 : public faust_saw4_tilde {
+class OscSaw4 : public faust_osc_saw4_tilde {
 public:
     OscSaw4(const PdArgs& args)
-        : faust_saw4_tilde(args)
+        : faust_osc_saw4_tilde(args)
     {
         createInlet();
         setInitSignalValue(positionalFloatArgument(0, 0));
