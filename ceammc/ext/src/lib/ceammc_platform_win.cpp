@@ -13,6 +13,8 @@
  *****************************************************************************/
 #include "ceammc_platform_win.h"
 
+#include <Winsock2.h>
+#include <ws2tcpip.h>
 #include <Shlwapi.h>
 #include <Stringapiset.h>
 #include <Userenv.h>
@@ -21,7 +23,6 @@
 #include <io.h>
 #include <fcntl.h>
 #include <Windows.h>
-#include <winsock2.h>
 #include <iostream>
 
 #include "config.h"
@@ -200,7 +201,34 @@ void win_sleep_ms(unsigned int ms)
 
 Either<NetAddressList> win_hostnametoip(const char* name, NetAddressType type)
 {
-    return NetAddressList();
+    struct addrinfo* result = NULL;
+    struct addrinfo hints;
+    char address[INET6_ADDRSTRLEN];
+
+    memset(&hints, 0, sizeof(hints));
+    hints.ai_family = (type == ADDR_IPV4) ? PF_INET : PF_INET6;
+    hints.ai_protocol = IPPROTO_TCP;
+
+    int error = getaddrinfo(name, NULL, &hints, &result);
+
+    if (error)
+        return PlatformError(error, gai_strerror(error));
+
+    NetAddressList res;
+
+    for (auto ptr = result; ptr != NULL; ptr = ptr->ai_next) {
+        int error = getnameinfo(ptr->ai_addr,
+            ptr->ai_addrlen,
+            address, sizeof(address), NULL, 0, NI_NUMERICHOST);
+
+        if (error)
+            return PlatformError(error, gai_strerror(error));
+
+        res.push_back(address);
+    }
+
+    freeaddrinfo(result);
+    return res;
 }
 
 Either<int> win_fd_set_non_blocking(int fd)

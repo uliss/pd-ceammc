@@ -12,6 +12,11 @@
  * this file belongs to.
  *****************************************************************************/
 #define CATCH_CONFIG_MAIN
+
+#ifdef __WIN32
+#include <Winsock2.h>
+#endif
+
 #include "catch.hpp"
 
 #include <chrono>
@@ -23,12 +28,27 @@
 extern "C" {
 #include "s_stuff.h"
 
+void sys_bail(int n);
 int m_mainloop();
 int m_batchmain(void);
 void sys_exit();
+void sys_stopgui();
 void sched_reopenmeplease(void);
-int sys_nogui;
 }
+
+#ifdef __WIN32
+static bool initWinSock()
+{
+    WSADATA wsaData;
+    int iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
+    if (iResult != 0) {
+        printf("WSAStartup failed: %d\n", iResult);
+        return false;
+    }
+
+    return true;
+}
+#endif
 
 namespace test {
 void pdPrintToStdError(bool value)
@@ -43,6 +63,10 @@ void pdSetPrintFunction(pdPrintFunction fn)
 
 void pdRunMainLoopMs(int ms)
 {
+#ifdef __WIN32
+    static bool ws = initWinSock();
+#endif
+
     sched_reopenmeplease();
 
     auto f = std::async(std::launch::async, [&]() {
@@ -51,7 +75,7 @@ void pdRunMainLoopMs(int ms)
         return 1;
     });
 
-    sys_nogui = 1;
+    sys_stopgui();
     setTestSampleRate(44100);
     m_mainloop();
 
