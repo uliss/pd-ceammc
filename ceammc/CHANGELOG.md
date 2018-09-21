@@ -11,6 +11,7 @@
 - osc.saw~ added inlet for phase reset
 - osc.saw~ algo changed to Faust os.sawtooth
 - osc.saw4~ added (Faust os.saw4~)
+- osc.tri~ added inlet for phase reset
 
 ### Changed:
 - data type generation support for list.gen and list.each

@@ -286,7 +286,7 @@ osc.saw4~		~.		~
 osc.saw~		~.		~
 osc.sinfb~		~		~.
 osc.square~		~		~
-osc.tri~		~		~
+osc.tri~		~.		~
 pan.cos~,pan~		~.		~~
 pan.lin~		~.		~~
 pan.spread~		?		~~
