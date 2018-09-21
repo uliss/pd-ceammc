@@ -47,9 +47,9 @@
 |
 [$1 50(
 |
-[line~]      [bang(
-|            |.
-[osc.saw~ 200 ]
+[line~]  [bang(
+|        |.
+[osc.saw~ ]
 |
 [ui.gain~ @size 120 14]
 |\      |

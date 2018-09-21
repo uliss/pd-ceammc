@@ -9,8 +9,8 @@
 #X obj 155 118 ui.dsp~;
 #X msg 50 147 \$1 50;
 #X obj 50 176 line~;
-#X msg 194 176 bang;
-#X obj 50 205 osc.square~ 200;
+#X msg 165 176 bang;
+#X obj 50 205 osc.square~;
 #X obj 50 234 ui.gain~ @size 120 14;
 #X obj 50 262 dac~;
 #X obj 136 262 ui.scope~ @size 150 100;

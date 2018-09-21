@@ -42,9 +42,9 @@
 |
 [$1 50(
 |
-[line~]        [bang(
-|              |.
-[osc.square~ 200]
+[line~]     [bang(
+|           |.
+[osc.square~]
 |
 [ui.gain~ @size 120 14]
 |\       |

@@ -50,7 +50,7 @@
 |
 [line~]      [bang(
 |            |.
-[osc.saw4~ 200 ]
+[osc.saw4~    ]
 |
 [ui.gain~ @size 120 14]
 |\      |
