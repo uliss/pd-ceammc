@@ -21,8 +21,5 @@ bash -lc "pacman -Syu --noconfirm"
 
 REM build tools
 bash -lc "pacman -S --needed --noconfirm mingw-w64-${MSYS2_ARCH}-toolchain mingw-w64-${MSYS2_ARCH}-cmake make patch mingw-w64-${MSYS2_ARCH}-libtool"
-bash -lc "mkdir build"
-bash -lc "cd build"
-bash -lc "which cmake"
-bash -lc "/mingw32/bin/cmake -G 'MSYS Makefiles' .."
+bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && cmake -G 'MSYS Makefiles' .."
 
