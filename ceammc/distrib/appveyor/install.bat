@@ -15,7 +15,7 @@ set TMPDIR=%APPVEYOR_BUILD_FOLDER%\build
 dir
 
 @echo on
-\msys64\mingw32.exe
+\msys64\msys2_shell.cmd -mingw%BIT%
 
 pacman -S --needed --noconfirm pacman-mirrors
 pacman -S --needed --noconfirm git
