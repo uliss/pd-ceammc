@@ -274,22 +274,30 @@ namespace faust {
             delete[] b;
     }
 
+    void FaustExternalBase::bindPositionalArgToProperty(size_t idx, t_symbol* propName)
+    {
+        if (idx >= positionalArguments().size())
+            return;
+
+        const Atom& a = positionalArguments()[idx];
+
+        if (!hasProperty(propName)) {
+            OBJ_ERR << "invalid property name: " << propName;
+            return;
+        }
+
+        if (!property(propName)->set(a)) {
+            OBJ_ERR << "can't set " << propName << " from positional argument " << a;
+            return;
+        }
+    }
+
     void FaustExternalBase::bindPositionalArgsToProps(std::initializer_list<t_symbol*> lst)
     {
         size_t n = std::min(lst.size(), positionalArguments().size());
         for (size_t i = 0; i < n; i++) {
             t_symbol* p = lst.begin()[i];
-            const Atom& a = positionalArguments()[i];
-
-            if (!hasProperty(p)) {
-                OBJ_ERR << "invalid property name: " << p;
-                continue;
-            }
-
-            if (!property(p)->set(a)) {
-                OBJ_ERR << "can't set " << p << " from positional argument " << a;
-                continue;
-            }
+            bindPositionalArgToProperty(i, p);
         }
     }
 

@@ -12,10 +12,10 @@ endmacro()
 
 ceammc_osc_external(impulse)
 ceammc_osc_external(pulse)
-ceammc_osc_external(sinfb)
 
 ceammc_osc_obj_external(saw)
 ceammc_osc_obj_external(saw4)
+ceammc_osc_obj_external(sinfb)
 ceammc_osc_obj_external(square)
 ceammc_osc_obj_external(tri)
 

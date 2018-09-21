@@ -78,6 +78,7 @@ namespace faust {
         FaustExternalBase(const PdArgs& args);
         ~FaustExternalBase();
 
+        void bindPositionalArgToProperty(size_t idx, t_symbol* propName);
         void bindPositionalArgsToProps(std::initializer_list<t_symbol*> lst);
 
         void setupDSP(t_signal** sp) override;

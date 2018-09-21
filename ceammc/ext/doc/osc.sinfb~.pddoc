@@ -29,29 +29,35 @@
         <inlets>
             <inlet type="audio">
                 <xinfo>frequency</xinfo>
-                <xinfo on="float">frequency</xinfo>
-                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">reset phase</xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">output signal</outlet>
-            <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[F]     [F]
+[F]     [ui.knob @min=0 @max=6.28]
 |       |
-| [B]   [feedback $1(
-| |     |
+|       |
+|       |
+|       [@feedback $1(
+|       |
 [osc.sinfb~ 440 2]
-|               ^|
-|  [T]          [print]
-|  |.
-[*~ ]
-|  |.
-[dac~]
-                ]]>
+|
+[ui.gain~ @size 120 14]  [ui.dsp~]
+|\      |
+[dac~]  [ui.scope~]
+
+
+
+
+
+
+]]>
             </pdascii>
         </example>
     </object>
