@@ -16,14 +16,10 @@ environment:
       BIT: 32
       BUILDTOOL: cmake
 
-
-install:
-  - echo "Install"
-  - '%APPVEYOR_BUILD_FOLDER%\ceammc\distrib\appveyor\install.bat'
-
 before_build:
   - git submodule init
   - git submodule update
 
 build_script:
   - set VERBOSE=1
+  - '%APPVEYOR_BUILD_FOLDER%\ceammc\distrib\appveyor\install.bat'

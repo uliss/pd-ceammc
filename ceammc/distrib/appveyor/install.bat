@@ -14,8 +14,15 @@ set TMPDIR=%APPVEYOR_BUILD_FOLDER%\build
 
 dir
 
+@echo on
 \msys64\mingw32.exe
+
+pacman -S --needed --noconfirm pacman-mirrors
+pacman -S --needed --noconfirm git
+pacman -Syu --noconfirm
+pacman -S --needed --noconfirm cmake make patch
+
 pwd
-echo "Test"
 ls -l
+cmake ..
 
