@@ -11,18 +11,15 @@ echo Bits: %BIT%
 
 mkdir %APPVEYOR_BUILD_FOLDER%\build
 set TMPDIR=%APPVEYOR_BUILD_FOLDER%\build
-
-dir
+set PATH=C:\msys64\usr\bin;%PATH%
 
 @echo on
-\msys64\msys2_shell.cmd -mingw%BIT%
+SET "PATH=C:\%MSYS2_DIR%\%MSYSTEM%\bin;C:\%MSYS2_DIR%\usr\bin;%PATH%"
+bash -lc "pacman -S --needed --noconfirm pacman-mirrors"
+bash -lc "pacman -S --needed --noconfirm git"
+REM Update
+bash -lc "pacman -Syu --noconfirm"
 
-pacman -S --needed --noconfirm pacman-mirrors
-pacman -S --needed --noconfirm git
-pacman -Syu --noconfirm
-pacman -S --needed --noconfirm cmake make patch
-
-pwd
-ls -l
-cmake ..
+REM build tools
+bash -lc "pacman -S --needed --noconfirm mingw-w64-x86_64-toolchain autoconf automake libtool make patch mingw-w64-x86_64-libtool"
 
