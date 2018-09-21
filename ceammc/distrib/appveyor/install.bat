@@ -21,8 +21,9 @@ bash -lc "pacman -S --needed --noconfirm mingw-w64-${MSYS2_ARCH}-toolchain make 
 REM dependencies
 bash -lc "pacman -S --needed --noconfirm mingw-w64-${MSYS2_ARCH}-{cmake,glib2,libmodplug,tcllib,tcl,tk,tklib,portaudio,fftw,libsndfile,boost}"
 
-cd %APPVEYOR_BUILD_FOLDER%
-bash -lc "cd build && cmake -G 'MSYS Makefiles' -DCMAKE_BUILD_TYPE=Release -DWITH_FFTW=ON -DCMAKE_INSTALL_PREFIX=/opt/local/release/pd .."
-mkdir %APPVEYOR_BUILD_FOLDER%\build
-cd %APPVEYOR_BUILD_FOLDER%/build
-bash -lc "bash -lc "pwd & cd build && ls && make -j2 && make install"
+bash -lc "echo ${APPVEYOR_BUILD_FOLDER}"
+bash -lc "ls ${APPVEYOR_BUILD_FOLDER}"
+bash -lc "mkdir ${APPVEYOR_BUILD_FOLDER}/build"
+bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && cmake -G 'MSYS Makefiles' -DCMAKE_BUILD_TYPE=Release -DWITH_FFTW=ON -DCMAKE_INSTALL_PREFIX=/opt/local/release/pd ${APPVEYOR_BUILD_FOLDER}"
+bash -lc "ls ${APPVEYOR_BUILD_FOLDER}/build"
+bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && && make -j2 && make install"
