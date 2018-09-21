@@ -20,5 +20,5 @@ public:
 
 void setup_osc_square_tilde()
 {
-    SoundExternalFactory<OscSquare> obj("osc.square~", OBJECT_FACTORY_DEFAULT | OBJECT_FACTORY_MAIN_SIGNAL_INLET);
+    SoundExternalFactory<OscSquare> obj("osc.square~");
 }
