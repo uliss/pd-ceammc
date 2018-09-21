@@ -3,7 +3,7 @@ os: Visual Studio 2015
 
 version: 2018.08.{build}
 
-# clone_depth: 5
+clone_depth: 5
 
 environment:
   CTEST_OUTPUT_ON_FAILURE: 1
@@ -18,14 +18,12 @@ environment:
 
 
 install:
-  - echo "Intall"
-
-before_build:
-  - dir
-  - git submodule init
-  - git submodule update
+  - echo "Install"
   - '%APPVEYOR_BUILD_FOLDER%\ceammc\distrib\appveyor\install.bat'
 
+before_build:
+  - git submodule init
+  - git submodule update
 
 build_script:
   - set VERBOSE=1

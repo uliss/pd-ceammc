@@ -15,4 +15,7 @@ set TMPDIR=%APPVEYOR_BUILD_FOLDER%\build
 dir
 
 \msys64\mingw32.exe
+pwd
+echo "Test"
+ls -l
 
