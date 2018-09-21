@@ -7,10 +7,11 @@
 - msg.onload added
 - net.host->ip added
 - system.shell added
-- clear message added to fx.sdelay~
-- osc.saw~ algo changed to Faust os.sawtooth
 - osc.saw4~ added (Faust os.saw4~)
 - osc.sin~ added for library completeness
+- pan.linsig~ added
+- clear message added to fx.sdelay~
+- osc.saw~ algo changed to Faust os.sawtooth
 - osc.tri~ added inlet for phase reset
 - osc.saw~ added inlet for phase reset
 - osc.square~ added inlet for phase reset

@@ -1,4 +1,11 @@
-set(SPAT_SOURCES pan_base.cpp pan_linear.cpp pan_cosine.cpp pan_sqrt.cpp pan_spread.cpp)
+set(SPAT_SOURCES
+    pan_base.cpp
+    pan_linear.cpp
+    pan_cosine.cpp
+    pan_sqrt.cpp
+    pan_spread.cpp
+    pan_linsig.cpp
+)
 
 macro(ceammc_spat_extension name)
     list(APPEND SPAT_SOURCES "spat_${name}.cpp")
