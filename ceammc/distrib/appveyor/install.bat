@@ -24,5 +24,5 @@ REM dependencies
 bash -lc "pacman -S --needed --noconfirm mingw-w64-${MSYS2_ARCH}-{cmake,glib2,libmodplug,tcllib,tcl,tk,tklib,portaudio,fftw,libsndfile,boost}"
 
 cd %APPVEYOR_BUILD_FOLDER%
-bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && cmake -G 'MSYS Makefiles' -DCMAKE_BUILD_TYPE=Release -DWITH_FFTW=ON .."
-
+bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && cmake -G 'MSYS Makefiles' -DCMAKE_BUILD_TYPE=Release -DWITH_FFTW=ON -DCMAKE_INSTALL_PREFIX=/opt/local/release/pd .."
+bash -lc "bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && make -j2 install"
