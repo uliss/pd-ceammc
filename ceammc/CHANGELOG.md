@@ -13,6 +13,8 @@
 - osc.tri~ added inlet for phase reset
 - osc.saw~ added inlet for phase reset
 - osc.square~ added inlet for phase reset
+- osc.pulse~ added inlet for phase reset
+- osc.impulse~ added inlet for phase reset
 
 ### Changed:
 - data type generation support for list.gen and list.each

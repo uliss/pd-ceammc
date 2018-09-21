@@ -1,24 +1,22 @@
 #include "mod_osc.h"
 
-extern "C" void setup_osc0x2eimpulse_tilde();
-
 extern void setup_osc_blit();
+extern void setup_osc_impulse_tilde();
 extern void setup_osc_pulse_tilde();
-extern void setup_osc_saw_tilde();
 extern void setup_osc_saw4_tilde();
+extern void setup_osc_saw_tilde();
 extern void setup_osc_sinfb_tilde();
 extern void setup_osc_square_tilde();
 extern void setup_osc_tri_tilde();
 
 void ceammc_osc_setup()
 {
-    setup_osc0x2eimpulse_tilde();
-
+    setup_osc_blit();
+    setup_osc_impulse_tilde();
     setup_osc_pulse_tilde();
-    setup_osc_saw_tilde();
     setup_osc_saw4_tilde();
+    setup_osc_saw_tilde();
     setup_osc_sinfb_tilde();
     setup_osc_square_tilde();
     setup_osc_tri_tilde();
-    setup_osc_blit();
 }

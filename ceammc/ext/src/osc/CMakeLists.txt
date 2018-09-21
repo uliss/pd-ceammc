@@ -1,17 +1,11 @@
 set(OSC_SOURCES osc_blit.cpp)
 
-macro(ceammc_osc_external name)
-    list(APPEND OSC_SOURCES "osc_${name}.cpp")
-    ceammc_faust_gen(osc ${name} simple_pd_control_ext)
-endmacro()
-
 macro(ceammc_osc_obj_external name)
     list(APPEND OSC_SOURCES "osc_${name}.cpp")
     ceammc_faust_gen_obj(osc ${name})
 endmacro()
 
-ceammc_osc_external(impulse)
-
+ceammc_osc_obj_external(impulse)
 ceammc_osc_obj_external(pulse)
 ceammc_osc_obj_external(saw)
 ceammc_osc_obj_external(saw4)

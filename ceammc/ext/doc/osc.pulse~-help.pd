@@ -8,7 +8,7 @@
 #X floatatom 50 118 5 0 0 0 - - -;
 #X obj 136 118 ui.knob @size 40 40;
 #X obj 251 118 ui.dsp~;
-#X msg 136 176 duty \$1;
+#X msg 136 176 @duty \$1;
 #X obj 50 205 osc.pulse~ 220 0.5;
 #X obj 50 234 ui.gain~ @size 120 14;
 #X obj 50 262 dac~;
