@@ -21,5 +21,8 @@ REM Update
 bash -lc "pacman -Syu --noconfirm"
 
 REM build tools
-bash -lc "pacman -S --needed --noconfirm mingw-w64-x86_64-toolchain autoconf automake libtool make patch mingw-w64-x86_64-libtool"
+bash -lc "pacman -S --needed --noconfirm mingw-w64-x86_64-toolchain cmake make patch mingw-w64-x86_64-libtool"
+bash -lc "mkdir build"
+bash -lc "cd build"
+bash -lc "cmake -G 'MSYS Makefiles' .."
 
