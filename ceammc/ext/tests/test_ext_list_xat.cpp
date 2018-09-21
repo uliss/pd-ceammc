@@ -21,7 +21,7 @@ typedef TestExternal<ListXAt> ListXAtTest;
 
 TEST_CASE("list.^at", "[externals]")
 {
-    pd_test_mod_init_list_xat();
+    pd_test_init();
 
     SECTION("test create with:")
     {
