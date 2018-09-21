@@ -114,6 +114,10 @@ public:
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
 
+#ifdef __WIN32
+        std::cerr << "process exit: " << rc << "\n";
+#endif
+
     end:
         return rc;
     }
@@ -186,6 +190,12 @@ bool SystemShell::onThreadCommand(int code)
             if (ch != '\n') {
                 line_buf_ += ch;
             } else {
+
+#ifdef __WIN32
+                if(!line_buf_.empty() && line_buf_.back() == '\r')
+                    line_buf_.pop_back();
+#endif
+
                 DataPtr dptr(new DataTypeString(line_buf_));
                 dataTo(0, dptr);
                 line_buf_.clear();

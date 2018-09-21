@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
     case OK:
         return 0;
     case ERR:
-        return 100;
+        exit(100);
     case INF:
         while (true)
             ;

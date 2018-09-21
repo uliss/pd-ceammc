@@ -31,55 +31,66 @@ TEST_CASE("system.getenv", "[externals]")
 
     SECTION("test bin")
     {
+#ifdef __WIN32
+// creating process takes more time in Windows (under Msys shell), so
+// prevent tests fail - increase that time
+#define MS(n) n * 3
+#else
+#define MS(n) n
+#endif
+
         TestExtSystemShell t("system.shell");
         REQUIRE(t.object());
 
         t << TEST_BIN_DIR "/test_exec 0";
-        test::pdRunMainLoopMs(50);
+        test::pdRunMainLoopMs(MS(50));
         REQUIRE(t.outputFloatAt(1) == 0);
 
         t << TEST_BIN_DIR "/test_exec 1";
-        test::pdRunMainLoopMs(50);
+        test::pdRunMainLoopMs(MS(50));
         REQUIRE(t.outputFloatAt(1) == 100);
 
         // infinite loop
         t << TEST_BIN_DIR "/test_exec 2";
-        test::pdRunMainLoopMs(50);
+        test::pdRunMainLoopMs(MS(50));
         REQUIRE(!t.hasOutput());
         t.call("terminate");
-        test::pdRunMainLoopMs(5);
+        test::pdRunMainLoopMs(MS(5));
         REQUIRE(t.outputFloatAt(1) == 0);
 
         // no interrupt
         t << TEST_BIN_DIR "/test_exec 3";
-        test::pdRunMainLoopMs(100);
+        test::pdRunMainLoopMs(MS(100));
         t.call("terminate");
-        test::pdRunMainLoopMs(100);
+        test::pdRunMainLoopMs(MS(100));
 
         // no terminate
         t << TEST_BIN_DIR "/test_exec 4";
-        test::pdRunMainLoopMs(100);
+        test::pdRunMainLoopMs(MS(100));
         t.call("kill");
-        test::pdRunMainLoopMs(100);
+        test::pdRunMainLoopMs(MS(100));
 
         // stdout test
         t << TEST_BIN_DIR "/test_exec 5";
-        test::pdRunMainLoopMs(50);
+        test::pdRunMainLoopMs(MS(100));
         REQUIRE(t.hasOutputAt(1));
         REQUIRE(t.outputFloatAt(1) == 0);
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.outputDataAt(0)->toString() == "stdout test");
 
+        // no stderr on windows
+#ifndef __WIN32
         // stderr test
         t << TEST_BIN_DIR "/test_exec 6";
         test::pdRunMainLoopMs(50);
         REQUIRE(!t.hasOutputAt(0));
         REQUIRE(t.hasOutputAt(1));
         REQUIRE(t.outputFloatAt(1) == 0);
+#endif
 
         // no new line
         t << TEST_BIN_DIR "/test_exec 7";
-        test::pdRunMainLoopMs(40);
+        test::pdRunMainLoopMs(MS(40));
         REQUIRE(t.hasOutputAt(1));
         REQUIRE(t.outputFloatAt(1) == 0);
         REQUIRE(!t.hasOutputAt(0));
@@ -89,7 +100,7 @@ TEST_CASE("system.getenv", "[externals]")
             REQUIRE(t1.object());
 
             t1 << TEST_BIN_DIR "/test_exec 7";
-            test::pdRunMainLoopMs(40);
+            test::pdRunMainLoopMs(MS(40));
             REQUIRE(t1.hasOutputAt(1));
             REQUIRE(t1.outputFloatAt(1) == 0);
             REQUIRE(t1.hasOutputAt(0));
@@ -98,14 +109,14 @@ TEST_CASE("system.getenv", "[externals]")
 
         // big output
         t << TEST_BIN_DIR "/test_exec 8";
-        test::pdRunMainLoopMs(100);
+        test::pdRunMainLoopMs(MS(100));
         REQUIRE(t.hasOutputAt(1));
         REQUIRE(t.outputFloatAt(1) == 0);
         REQUIRE(t.hasOutputAt(0));
 
         // huge output - many lines
         t << TEST_BIN_DIR "/test_exec 9";
-        test::pdRunMainLoopMs(200);
+        test::pdRunMainLoopMs(MS(200));
         REQUIRE(t.hasOutputAt(1));
         REQUIRE(t.outputFloatAt(1) == 0);
         REQUIRE(t.hasOutputAt(0));
@@ -127,7 +138,7 @@ TEST_CASE("system.getenv", "[externals]")
 
         // symbol
         t << "ls";
-        test::pdRunMainLoopMs(500);
+        test::pdRunMainLoopMs(MS(500));
 
         REQUIRE(t.hasOutput());
         REQUIRE(t.outputFloatAt(1) == 0);
@@ -137,7 +148,7 @@ TEST_CASE("system.getenv", "[externals]")
 
         // list
         t << LA("echo", "test", "test", "test");
-        test::pdRunMainLoopMs(500);
+        test::pdRunMainLoopMs(MS(500));
 
         REQUIRE(t.hasOutput());
         REQUIRE(t.outputFloatAt(1) == 0);
@@ -145,7 +156,7 @@ TEST_CASE("system.getenv", "[externals]")
 
         // message
         t.call("ls");
-        test::pdRunMainLoopMs(600);
+        test::pdRunMainLoopMs(MS(600));
 
         REQUIRE(t.hasOutput());
         REQUIRE(t.outputFloatAt(1) == 0);
@@ -153,7 +164,7 @@ TEST_CASE("system.getenv", "[externals]")
 
         // not exists
         t << "not-exists";
-        test::pdRunMainLoopMs(600);
+        test::pdRunMainLoopMs(MS(600));
 
         REQUIRE(!t.hasOutputAt(0));
         REQUIRE(t.hasOutputAt(1));
@@ -166,7 +177,7 @@ TEST_CASE("system.getenv", "[externals]")
         REQUIRE(t.object());
 
         t << "echo test &";
-        test::pdRunMainLoopMs(500);
+        test::pdRunMainLoopMs(MS(500));
 
         REQUIRE(t.hasOutput());
         REQUIRE(t.outputFloatAt(1) == 0);
