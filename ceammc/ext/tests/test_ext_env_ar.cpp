@@ -111,4 +111,17 @@ TEST_CASE("env.ar~", "[externals]")
         t.sendList(LX(100000, 100000));
         PROPERTY_REQUEST(t, "@ar", 100000, 100000);
     }
+
+    SECTION("@gate")
+    {
+        TestExtEnvAr t("env.ar~", LA(10, 20));
+
+        t.sendMessage(SYM("@gate"), LA(1));
+        t.schedTicks(10);
+        REQUIRE(!t.hasOutputAt(1));
+        t.sendMessage(SYM("@gate"), LX(0));
+        t.schedTicks(40);
+        REQUIRE(t.hasOutputAt(1));
+        REQUIRE(t.isOutputBangAt(1));
+    }
 }

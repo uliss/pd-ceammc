@@ -33,6 +33,14 @@ public:
         createOutlet();
     }
 
+    bool processAnyProps(t_symbol* sel, const AtomList& lst) override
+    {
+        if (sel == SYM_PROP_GATE && atomlistToValue<bool>(lst, false))
+            done_.delay(length());
+
+        return faust_env_ar_tilde::processAnyProps(sel, lst);
+    }
+
     void onBang() override
     {
         done_.unset();

@@ -624,7 +624,7 @@ class env_ar : public dsp {
 			float fTemp0 = (fRec1[0] + fRec2[0]);
 			fVec1[0] = fTemp0;
 			float fTemp1 = (fConst0 * fTemp0);
-			fRec0[0] = ((((fSlow0 - fVec0[1]) > 0.0f) > 0)?0.0f:std::min(fTemp1, (fRec0[1] + (1.0f - (fConst0 * (fVec1[1] - fTemp0))))));
+			fRec0[0] = ((((fSlow0 - fVec0[1]) > 0.0f) > 0)?0.0f:std::min(fTemp1, ((fRec0[1] + (fConst0 * (fTemp0 - fVec1[1]))) + 1.0f)));
 			float fTemp2 = (fConst0 * fRec1[0]);
 			int iTemp3 = (fRec0[0] < fTemp2);
 			output0[i] = FAUSTFLOAT((float(input0[i]) * (iTemp3?((fRec0[0] < 0.0f)?0.0f:(iTemp3?(fConst1 * (fRec0[0] / fRec1[0])):1.0f)):((fRec0[0] < fTemp1)?(((fTemp2 - fRec0[0]) / (0.0f - (fConst0 * (0.0f - fRec2[0])))) + 1.0f):0.0f))));
