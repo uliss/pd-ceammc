@@ -158,8 +158,7 @@ generator;
 #X obj 30 2231 env.ar~;
 #X text 175 2231 Attack/Release envelope generator;
 #X obj 30 2258 env.asr~;
-#X text 175 2258 ASR (Attack \, Sustain \, Release) envelope
-generator;
+#X text 175 2258 Attack/Sustain/Release envelope generator;
 #X obj 30 2285 env.concat;
 #X text 175 2285 Envelope concatenation;
 #X obj 30 2312 env.follow~;

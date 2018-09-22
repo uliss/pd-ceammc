@@ -36,6 +36,21 @@ public:
         createOutlet();
     }
 
+    bool processAnyProps(t_symbol* sel, const AtomList& lst) override
+    {
+        if (sel == SYM_PROP_GATE) {
+            if (atomlistToValue<bool>(lst, false)) {
+                attack_done_.delay(prop_attack_->value());
+                release_done_.unset();
+            } else {
+                attack_done_.unset();
+                release_done_.delay(prop_release_->value());
+            }
+        }
+
+        return faust_env_asr_tilde::processAnyProps(sel, lst);
+    }
+
     void onList(const AtomList& l) override
     {
         if (!checkArgs(l, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT)) {
@@ -72,10 +87,12 @@ public:
 private:
     void attackDone()
     {
+        floatTo(1, 1);
     }
 
     void releaseDone()
     {
+        floatTo(1, 0);
     }
 
     bool checkValues(float a, float s, float r)

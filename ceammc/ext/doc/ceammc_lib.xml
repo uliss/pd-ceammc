@@ -212,7 +212,7 @@
     <entry descr="Attack/Release envelope generator" name="env.ar~" ref_view="object">
       <xi:include href="env.ar~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="ASR (Attack, Sustain, Release) envelope generator" name="env.asr~" ref_view="object">
+    <entry descr="Attack/Sustain/Release envelope generator" name="env.asr~" ref_view="object">
       <xi:include href="env.asr~.pddoc" parse="xml"/>
     </entry>
     <entry descr="Envelope concatenation" name="env.concat" ref_view="object">
