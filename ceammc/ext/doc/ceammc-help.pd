@@ -346,8 +346,7 @@ section.;
 #X obj 30 4865 lfo.impulse~;
 #X text 175 4865 Unit-amplitude low-frequency impulse train;
 #X obj 30 4892 lfo.pulse~;
-#X text 175 4892 Unit-amplitude nonnegative low frequency pulse train
-\,;
+#X text 175 4892 Full-range unit-amplitude low frequency pulse train;
 #X obj 30 4919 lfo.square~;
 #X text 175 4919 Zero-mean unit-amplitude low frequency square wave;
 #X obj 30 4946 lfo.tri~;

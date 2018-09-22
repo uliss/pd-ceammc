@@ -145,7 +145,7 @@ is_symbol		.		..
 lfo.+square~		~.		~
 lfo.+tri~		~.		~
 lfo.impulse~		~		~
-lfo.pulse~		~		~
+lfo.pulse~		~.		~
 lfo.square~		~.		~
 lfo.tri~		~.		~
 list.^at		..		.

@@ -29,6 +29,7 @@
     the output is: [@prop1 values... @prop2 values...]
 - lfo.tri~ now is zero-mean in \[-1, 1\] range
 - lfo.square~ now is zero-mean in \[-1, 1\] range
+- lfo.pulse~ now is in \[-1, 1\] range
 
 ## [0.6]
 ### Added:

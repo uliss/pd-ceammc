@@ -476,7 +476,7 @@
     <entry descr="Unit-amplitude low-frequency impulse train" name="lfo.impulse~" ref_view="object">
       <xi:include href="lfo.impulse~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="Unit-amplitude nonnegative low frequency pulse train," name="lfo.pulse~" ref_view="object">
+    <entry descr="Full-range unit-amplitude low frequency pulse train" name="lfo.pulse~" ref_view="object">
       <xi:include href="lfo.pulse~.pddoc" parse="xml"/>
     </entry>
     <entry descr="Zero-mean unit-amplitude low frequency square wave" name="lfo.square~" ref_view="object">
