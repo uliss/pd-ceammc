@@ -69,6 +69,7 @@ public:
     void m_reset(t_symbol*, const AtomList&)
     {
         dsp_->instanceClear();
+        auto_release_.unset();
     }
 
     void m_click(t_symbol*, const AtomList& l)
