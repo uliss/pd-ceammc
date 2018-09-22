@@ -13,6 +13,7 @@ using namespace ceammc;
 class EnvAsr : public faust_env_asr_tilde {
     ClockMemberFunction<EnvAsr> attack_done_;
     ClockMemberFunction<EnvAsr> release_done_;
+    ClockMemberFunction<EnvAsr> duration_done_;
 
     UIProperty* prop_attack_;
     UIProperty* prop_sustain_;
@@ -24,6 +25,7 @@ public:
         : faust_env_asr_tilde(args)
         , attack_done_(this, &EnvAsr::attackDone)
         , release_done_(this, &EnvAsr::releaseDone)
+        , duration_done_(this, &EnvAsr::durationDone)
         , prop_attack_((UIProperty*)property(SYM_PROP_ATTACK))
         , prop_sustain_((UIProperty*)property(SYM_PROP_SUSTAIN))
         , prop_release_((UIProperty*)property(SYM_PROP_RELEASE))
@@ -40,10 +42,10 @@ public:
     {
         if (sel == SYM_PROP_GATE) {
             if (atomlistToValue<bool>(lst, false)) {
+                clockReset();
                 attack_done_.delay(prop_attack_->value());
-                release_done_.unset();
             } else {
-                attack_done_.unset();
+                clockReset();
                 release_done_.delay(prop_release_->value());
             }
         }
@@ -70,7 +72,7 @@ public:
         }
 
         float attack = env.pointAt(1).timeMs() - env.pointAt(0).timeMs();
-        float sustain = env.pointAt(1).value;
+        float sustain = env.pointAt(1).value * 100;
         float release = env.pointAt(2).timeMs() - env.pointAt(1).timeMs();
 
         if (!set(attack, sustain, release))
@@ -80,8 +82,19 @@ public:
     void m_reset(t_symbol*, const AtomList&)
     {
         dsp_->instanceClear();
-        attack_done_.unset();
-        release_done_.unset();
+        clockReset();
+    }
+
+    void m_duration(t_symbol* sel, const AtomList& l)
+    {
+        bool ok = (l.size() == 1) && (l[0].isFloat()) && (l[0].asFloat() >= 0);
+        if (!ok) {
+            OBJ_ERR << "duration TIME_MS expected: " << l;
+            return;
+        }
+
+        processAnyProps(SYM_PROP_GATE, Atom(1));
+        duration_done_.delay(l[0].asFloat());
     }
 
 private:
@@ -93,6 +106,18 @@ private:
     void releaseDone()
     {
         floatTo(1, 0);
+    }
+
+    void durationDone()
+    {
+        processAnyProps(SYM_PROP_GATE, Atom(0.f));
+    }
+
+    void clockReset()
+    {
+        attack_done_.unset();
+        release_done_.unset();
+        duration_done_.unset();
     }
 
     bool checkValues(float a, float s, float r)
@@ -119,4 +144,5 @@ void setup_env_asr_tilde()
     SoundExternalFactory<EnvAsr> obj("env.asr~");
     obj.processData<DataTypeEnv>();
     obj.addMethod("reset", &EnvAsr::m_reset);
+    obj.addMethod("duration", &EnvAsr::m_duration);
 }
