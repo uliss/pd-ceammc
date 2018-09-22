@@ -460,16 +460,17 @@ class env_ar : public dsp {
 	
  private:
 	
-	FAUSTFLOAT fButton0;
+	FAUSTFLOAT fCheckbox0;
 	float fVec0[2];
 	int fSamplingFreq;
 	float fConst0;
-	float fConst1;
 	FAUSTFLOAT fHslider0;
+	float fRec1[2];
 	FAUSTFLOAT fHslider1;
+	float fRec2[2];
 	float fVec1[2];
 	float fRec0[2];
-	float fConst2;
+	float fConst1;
 	
  public:
 	
@@ -478,6 +479,8 @@ class env_ar : public dsp {
 		m->declare("basics.lib/version", "0.0");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.1");
+		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
+		m->declare("ceammc_ui.lib/version", "0.1.1");
 		m->declare("envelopes.lib/author", "GRAME");
 		m->declare("envelopes.lib/copyright", "GRAME");
 		m->declare("envelopes.lib/license", "LGPL with exception");
@@ -490,6 +493,8 @@ class env_ar : public dsp {
 		m->declare("maths.lib/name", "Faust Math Library");
 		m->declare("maths.lib/version", "2.1");
 		m->declare("name", "env_ar");
+		m->declare("signals.lib/name", "Faust Signal Routing Library");
+		m->declare("signals.lib/version", "0.0");
 	}
 
 	virtual int getNumInputs() {
@@ -540,13 +545,12 @@ class env_ar : public dsp {
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
 		fConst0 = std::min(192000.0f, std::max(1.0f, float(fSamplingFreq)));
-		fConst1 = (0.00100000005f * fConst0);
-		fConst2 = (1000.0f / fConst0);
+		fConst1 = (1.0f / fConst0);
 		
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fButton0 = FAUSTFLOAT(0.0f);
+		fCheckbox0 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(10.0f);
 		fHslider1 = FAUSTFLOAT(300.0f);
 		
@@ -558,11 +562,19 @@ class env_ar : public dsp {
 			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
-			fVec1[l1] = 0.0f;
+			fRec1[l1] = 0.0f;
 			
 		}
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
-			fRec0[l2] = 0.0f;
+			fRec2[l2] = 0.0f;
+			
+		}
+		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
+			fVec1[l3] = 0.0f;
+			
+		}
+		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
+			fRec0[l4] = 0.0f;
 			
 		}
 		
@@ -588,8 +600,12 @@ class env_ar : public dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("env_ar");
+		ui_interface->declare(&fHslider0, "style", "knob");
+		ui_interface->declare(&fHslider0, "unit", "ms");
 		ui_interface->addHorizontalSlider("attack", &fHslider0, 10.0f, 0.0f, 100000.0f, 1.0f);
-		ui_interface->addButton("gate", &fButton0);
+		ui_interface->addCheckButton("gate", &fCheckbox0);
+		ui_interface->declare(&fHslider1, "style", "knob");
+		ui_interface->declare(&fHslider1, "unit", "ms");
 		ui_interface->addHorizontalSlider("release", &fHslider1, 300.0f, 0.0f, 100000.0f, 1.0f);
 		ui_interface->closeBox();
 		
@@ -598,21 +614,23 @@ class env_ar : public dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = float(fButton0);
-		float fSlow1 = float(fHslider0);
-		float fSlow2 = float(fHslider1);
-		float fSlow3 = (fSlow1 + fSlow2);
-		float fSlow4 = (fConst1 * fSlow3);
-		float fSlow5 = (fConst1 * fSlow1);
-		float fSlow6 = (1.0f / (0.0f - (fConst1 * (0.0f - fSlow2))));
-		float fSlow7 = (fConst2 / fSlow1);
+		float fSlow0 = float(fCheckbox0);
+		float fSlow1 = (9.99999997e-07f * float(fHslider0));
+		float fSlow2 = (9.99999997e-07f * float(fHslider1));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fVec0[0] = fSlow0;
-			fVec1[0] = fSlow3;
-			fRec0[0] = ((((fSlow0 - fVec0[1]) > 0.0f) > 0)?0.0f:std::min(fSlow4, ((fRec0[1] + (fConst1 * (fSlow3 - fVec1[1]))) + 1.0f)));
-			int iTemp0 = (fRec0[0] < fSlow5);
-			output0[i] = FAUSTFLOAT(((iTemp0?((fRec0[0] < 0.0f)?0.0f:(iTemp0?(fSlow7 * fRec0[0]):1.0f)):((fRec0[0] < fSlow4)?((fSlow6 * (fSlow5 - fRec0[0])) + 1.0f):0.0f)) * float(input0[i])));
+			fRec1[0] = (fSlow1 + (0.999000013f * fRec1[1]));
+			fRec2[0] = (fSlow2 + (0.999000013f * fRec2[1]));
+			float fTemp0 = (fRec1[0] + fRec2[0]);
+			fVec1[0] = fTemp0;
+			float fTemp1 = (fConst0 * fTemp0);
+			fRec0[0] = ((((fSlow0 - fVec0[1]) > 0.0f) > 0)?0.0f:std::min(fTemp1, (fRec0[1] + (1.0f - (fConst0 * (fVec1[1] - fTemp0))))));
+			float fTemp2 = (fConst0 * fRec1[0]);
+			int iTemp3 = (fRec0[0] < fTemp2);
+			output0[i] = FAUSTFLOAT((float(input0[i]) * (iTemp3?((fRec0[0] < 0.0f)?0.0f:(iTemp3?(fConst1 * (fRec0[0] / fRec1[0])):1.0f)):((fRec0[0] < fTemp1)?(((fTemp2 - fRec0[0]) / (0.0f - (fConst0 * (0.0f - fRec2[0])))) + 1.0f):0.0f))));
 			fVec0[1] = fVec0[0];
+			fRec1[1] = fRec1[0];
+			fRec2[1] = fRec2[0];
 			fVec1[1] = fVec1[0];
 			fRec0[1] = fRec0[0];
 			

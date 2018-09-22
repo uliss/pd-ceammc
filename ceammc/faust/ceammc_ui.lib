@@ -14,3 +14,4 @@ attack(t) = hslider("attack [unit:ms] [style:knob]", t, 0, 100000, 1) : cm.time_
 decay(t) = hslider("decay [unit:ms] [style:knob]", t, 0, 100000, 1) : cm.time_pd2faust : si.smoo;
 sustain(p) = hslider("sustain [unit:percent] [style:knob]", p, 0, 100, 0.001) * 0.01 : si.smoo;
 release(t) = hslider("release [unit:ms] [style:knob]", t, 0, 100000, 1) : cm.time_pd2faust : si.smoo;
+gate = checkbox("gate");
