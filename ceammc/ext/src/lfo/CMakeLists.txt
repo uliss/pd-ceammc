@@ -1,15 +1,9 @@
-macro(ceammc_lfo_external name)
-    list(APPEND LFO_SOURCES "lfo_${name}.cpp")
-    ceammc_faust_gen(lfo ${name})
-endmacro()
-
 macro(ceammc_lfo_obj_external name)
     list(APPEND LFO_SOURCES "lfo_${name}.cpp")
     ceammc_faust_gen_obj(lfo ${name})
 endmacro()
 
-ceammc_lfo_external(impulse)
-
+ceammc_lfo_obj_external(impulse)
 ceammc_lfo_obj_external(pulse)
 ceammc_lfo_obj_external(pulse_pos)
 ceammc_lfo_obj_external(square)
