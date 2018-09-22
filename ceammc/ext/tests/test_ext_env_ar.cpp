@@ -44,8 +44,10 @@ TEST_CASE("env.ar~", "[externals]")
         setTestSampleRate(44100);
         test::pdPrintToStdError();
 
-        TestExtEnvAr t("env.ar~");
+        TestExtEnvAr t("env.ar~", LA(4, 5));
         REQUIRE(t.object());
+        PROPERTY_REQUEST(t, "@ar", 4, 5);
+        t.clearAll();
 
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 2);

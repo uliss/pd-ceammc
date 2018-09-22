@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "env_asr"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -66,6 +66,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -229,6 +230,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -395,6 +399,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -417,7 +422,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -439,7 +444,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -489,6 +495,7 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 #include <math.h>
 
@@ -505,16 +512,16 @@ class asr : public dsp {
 	
  private:
 	
-	FAUSTFLOAT fHslider0;
+	FAUSTFLOAT fCheckbox0;
 	int fSamplingFreq;
 	float fConst0;
-	FAUSTFLOAT fHslider1;
+	FAUSTFLOAT fHslider0;
 	float fRec1[2];
 	float fRec0[2];
-	FAUSTFLOAT fHslider2;
+	FAUSTFLOAT fHslider1;
 	float fRec4[2];
 	float fRec3[2];
-	FAUSTFLOAT fHslider3;
+	FAUSTFLOAT fHslider2;
 	float fRec5[2];
 	float fConst1;
 	float fRec2[2];
@@ -591,16 +598,16 @@ class asr : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = min(192000.0f, max(1.0f, float(fSamplingFreq)));
+		fConst0 = std::min(192000.0f, std::max(1.0f, float(fSamplingFreq)));
 		fConst1 = (1.0f / fConst0);
 		
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fHslider0 = FAUSTFLOAT(0.0f);
+		fCheckbox0 = FAUSTFLOAT(0.0f);
+		fHslider0 = FAUSTFLOAT(300.0f);
 		fHslider1 = FAUSTFLOAT(10.0f);
-		fHslider2 = FAUSTFLOAT(10.0f);
-		fHslider3 = FAUSTFLOAT(100.0f);
+		fHslider2 = FAUSTFLOAT(100.0f);
 		
 	}
 	
@@ -652,16 +659,16 @@ class asr : public dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("env_asr");
-		ui_interface->declare(&fHslider2, "style", "knob");
-		ui_interface->declare(&fHslider2, "unit", "ms");
-		ui_interface->addHorizontalSlider("attack", &fHslider2, 10.0f, 0.0f, 100000.0f, 1.0f);
 		ui_interface->declare(&fHslider1, "style", "knob");
 		ui_interface->declare(&fHslider1, "unit", "ms");
-		ui_interface->addHorizontalSlider("release", &fHslider1, 10.0f, 0.0f, 100000.0f, 1.0f);
-		ui_interface->declare(&fHslider3, "style", "knob");
-		ui_interface->declare(&fHslider3, "unit", "percent");
-		ui_interface->addHorizontalSlider("sustain", &fHslider3, 100.0f, 0.0f, 100.0f, 0.00100000005f);
-		ui_interface->addHorizontalSlider("trigger", &fHslider0, 0.0f, 0.0f, 1.0f, 0.00100000005f);
+		ui_interface->addHorizontalSlider("attack", &fHslider1, 10.0f, 0.0f, 100000.0f, 1.0f);
+		ui_interface->addCheckButton("gate", &fCheckbox0);
+		ui_interface->declare(&fHslider0, "style", "knob");
+		ui_interface->declare(&fHslider0, "unit", "ms");
+		ui_interface->addHorizontalSlider("release", &fHslider0, 300.0f, 0.0f, 100000.0f, 1.0f);
+		ui_interface->declare(&fHslider2, "style", "knob");
+		ui_interface->declare(&fHslider2, "unit", "percent");
+		ui_interface->addHorizontalSlider("sustain", &fHslider2, 100.0f, 0.0f, 100.0f, 0.00100000005f);
 		ui_interface->closeBox();
 		
 	}
@@ -669,21 +676,21 @@ class asr : public dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = float(fHslider0);
+		float fSlow0 = float(fCheckbox0);
 		int iSlow1 = (fSlow0 > 0.0f);
 		int iSlow2 = (iSlow1 > 0);
-		float fSlow3 = (9.99999997e-07f * float(fHslider1));
+		float fSlow3 = (9.99999997e-07f * float(fHslider0));
 		int iSlow4 = ((fSlow0 == 0.0f) > 0);
-		float fSlow5 = (9.99999997e-07f * float(fHslider2));
-		float fSlow6 = (9.99999975e-06f * float(fHslider3));
+		float fSlow5 = (9.99999997e-07f * float(fHslider1));
+		float fSlow6 = (9.99999975e-06f * float(fHslider2));
 		float fSlow7 = (fConst1 * fSlow0);
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec1[0] = (fSlow3 + (0.999000013f * fRec1[1]));
 			float fTemp0 = (fConst0 * fRec1[0]);
-			fRec0[0] = (iSlow2?0.0f:min(fTemp0, (fRec0[1] + 1.0f)));
+			fRec0[0] = (iSlow2?0.0f:std::min(fTemp0, (fRec0[1] + 1.0f)));
 			fRec4[0] = (fSlow5 + (0.999000013f * fRec4[1]));
 			float fTemp1 = (fConst0 * fRec4[0]);
-			fRec3[0] = (iSlow4?0.0f:min(fTemp1, (fRec3[1] + 1.0f)));
+			fRec3[0] = (iSlow4?0.0f:std::min(fTemp1, (fRec3[1] + 1.0f)));
 			fRec5[0] = (fSlow6 + (0.999000013f * fRec5[1]));
 			fRec2[0] = (iSlow1?(float(iSlow1) * ((fRec3[0] < 0.0f)?0.0f:((fRec3[0] < fTemp1)?(fSlow7 * ((fRec3[0] * fRec5[0]) / fRec4[0])):(fSlow0 * fRec5[0])))):fRec2[1]);
 			output0[i] = FAUSTFLOAT((float(input0[i]) * ((fRec0[0] < 0.0f)?fRec2[0]:((fRec0[0] < fTemp0)?(fRec2[0] + (fConst1 * ((fRec0[0] * (0.0f - fRec2[0])) / fRec1[0]))):0.0f))));
@@ -713,6 +720,11 @@ static t_class* asr_faust_class;
 #define FAUST_EXT_CLASS asr_faust_class
 // clang-format on
 
+template <class T>
+class _asr_UI : public UI {
+};
+typedef _asr_UI<asr> asr_UI;
+
 struct t_faust_asr {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -721,7 +733,7 @@ struct t_faust_asr {
     int fence; /* dummy field (not used) */
 #endif
     asr* dsp;
-    PdUI<UI>* ui;
+    PdUI<asr_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -804,7 +816,7 @@ static void asr_faust_dsp(t_faust_asr* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<asr_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -859,7 +871,7 @@ static void asr_faust_any(t_faust_asr* x, t_symbol* s, int argc, t_atom* argv)
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<asr_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -1019,7 +1031,7 @@ static bool faust_new_internal(t_faust_asr* x, const std::string& objId = "", bo
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new asr();
-    x->ui = new PdUI<UI>(sym(asr), objId);
+    x->ui = new PdUI<asr_UI>(sym(asr), objId);
 
     if (!faust_init_inputs(x)) {
         asr_faust_free(x);
@@ -1163,8 +1175,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1257,6 +1269,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(asr_faust_class, reinterpret_cast<t_method>(asr_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(asr_faust_class, reinterpret_cast<t_method>(asr_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(asr_faust_class, asr_faust_any);
+    ceammc::register_faust_external(asr_faust_class);
 }
 
 #define EXTERNAL_NEW void* asr_faust_new(t_symbol*, int argc, t_atom* argv)

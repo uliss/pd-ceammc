@@ -21,11 +21,11 @@ macro(ceammc_env_obj_external name)
 endmacro()
 
 ceammc_env_external(adsr)
-ceammc_env_external(asr)
 ceammc_env_external(follow)
 ceammc_env_external(smooth)
 
 ceammc_env_obj_external(ar)
+ceammc_env_obj_external(asr)
 
 add_library(ceammc_env STATIC mod_env.cpp ${ENV_SOURCES})
 set_target_properties(ceammc_env PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
