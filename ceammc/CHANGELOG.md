@@ -33,6 +33,7 @@
 - lfo.tri~ now is zero-mean in \[-1, 1\] range
 - lfo.square~ now is zero-mean in \[-1, 1\] range
 - lfo.pulse~ now is in \[-1, 1\] range
+- env.ar~ now supports Envelope data type, run on bang, bang on done added
 
 ## [0.6]
 ### Added:

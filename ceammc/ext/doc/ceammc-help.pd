@@ -157,7 +157,7 @@ elements);
 generator;
 #X obj 30 2231 env.ar~;
 #X text 175 2231 AR (Attack \, Release) envelope generator (useful to
-create percussion envelopes).;
+create percussion envelopes);
 #X obj 30 2268 env.asr~;
 #X text 175 2268 ASR (Attack \, Sustain \, Release) envelope
 generator;

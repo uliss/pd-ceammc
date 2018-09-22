@@ -73,11 +73,11 @@ public:
 public:
     ObjectFactory(const char* name, int flags = OBJECT_FACTORY_DEFAULT)
         : name_(name)
-        , fn_bang_(0)
-        , fn_float_(0)
-        , fn_symbol_(0)
-        , fn_list_(0)
-        , fn_any_(0)
+        , fn_bang_(nullptr)
+        , fn_float_(nullptr)
+        , fn_symbol_(nullptr)
+        , fn_list_(nullptr)
+        , fn_any_(nullptr)
     {
         int pd_flags = CLASS_PATCHABLE;
         if (flags & OBJECT_FACTORY_NO_DEFAULT_INLET) {
@@ -178,6 +178,13 @@ public:
         class_addcreator(reinterpret_cast<t_newmethod>(createObject), gensym(name), A_GIMME, A_NULL);
     }
 
+    void addClick(MethodPtrList fn)
+    {
+        fn_click_ = fn;
+        class_addmethod(class_, reinterpret_cast<t_method>(processClick), gensym("click"),
+            A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_NULL);
+    }
+
     void processData()
     {
         setListFn(processDataFn);
@@ -248,6 +255,12 @@ public:
     static void processAny(ObjectProxy* x, t_symbol* s, int argc, t_atom* argv)
     {
         x->impl->anyDispatch(s, AtomList(argc, argv));
+    }
+
+    static void processClick(ObjectProxy* x, t_symbol* sel,
+        t_floatarg a, t_floatarg b, t_floatarg c, t_floatarg d, t_floatarg e)
+    {
+        (x->impl->*(fn_click_))(sel, AtomList({ a, b, c, d, e }));
     }
 
     static void processDataFn(ObjectProxy* x, t_symbol*, int argc, t_atom* argv)
@@ -326,6 +339,7 @@ private:
     static t_symbol* class_name_;
     static MethodListMap methods_;
     static int flags_;
+    static MethodPtrList fn_click_;
 
 private:
     const char* name_;
@@ -372,6 +386,9 @@ typename ObjectFactory<T>::MethodListMap ObjectFactory<T>::methods_;
 
 template <typename T>
 int ObjectFactory<T>::flags_ = 0;
+
+template <typename T>
+typename ObjectFactory<T>::MethodPtrList ObjectFactory<T>::fn_click_ = 0;
 
 #define CLASS_ADD_METHOD()
 

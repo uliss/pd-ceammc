@@ -548,7 +548,7 @@ class env_ar : public dsp {
 	virtual void instanceResetUserInterface() {
 		fButton0 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(10.0f);
-		fHslider1 = FAUSTFLOAT(100.0f);
+		fHslider1 = FAUSTFLOAT(300.0f);
 		
 	}
 	
@@ -590,7 +590,7 @@ class env_ar : public dsp {
 		ui_interface->openVerticalBox("env_ar");
 		ui_interface->addHorizontalSlider("attack", &fHslider0, 10.0f, 0.0f, 100000.0f, 1.0f);
 		ui_interface->addButton("gate", &fButton0);
-		ui_interface->addHorizontalSlider("release", &fHslider1, 100.0f, 0.0f, 100000.0f, 1.0f);
+		ui_interface->addHorizontalSlider("release", &fHslider1, 300.0f, 0.0f, 100000.0f, 1.0f);
 		ui_interface->closeBox();
 		
 	}
@@ -609,9 +609,9 @@ class env_ar : public dsp {
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fVec0[0] = fSlow0;
 			fVec1[0] = fSlow3;
-			fRec0[0] = ((((fSlow0 - fVec0[1]) > 0.0f) > 0)?0.0f:std::min(fSlow4, (((fConst1 * (fSlow3 - fVec1[1])) + fRec0[1]) + 1.0f)));
+			fRec0[0] = ((((fSlow0 - fVec0[1]) > 0.0f) > 0)?0.0f:std::min(fSlow4, ((fRec0[1] + (fConst1 * (fSlow3 - fVec1[1]))) + 1.0f)));
 			int iTemp0 = (fRec0[0] < fSlow5);
-			output0[i] = FAUSTFLOAT((float(input0[i]) * (iTemp0?((fRec0[0] < 0.0f)?0.0f:(iTemp0?(fSlow7 * fRec0[0]):1.0f)):((fRec0[0] < fSlow4)?((fSlow6 * (fSlow5 - fRec0[0])) + 1.0f):0.0f))));
+			output0[i] = FAUSTFLOAT(((iTemp0?((fRec0[0] < 0.0f)?0.0f:(iTemp0?(fSlow7 * fRec0[0]):1.0f)):((fRec0[0] < fSlow4)?((fSlow6 * (fSlow5 - fRec0[0])) + 1.0f):0.0f)) * float(input0[i])));
 			fVec0[1] = fVec0[0];
 			fVec1[1] = fVec1[0];
 			fRec0[1] = fRec0[0];
