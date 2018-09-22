@@ -444,5 +444,15 @@ namespace faust {
         return Atom(el_->value());
     }
 
+    float UIProperty::value() const
+    {
+        return el_->value(el_->init());
+    }
+
+    void UIProperty::setValue(float v, bool clip) const
+    {
+        el_->setValue(v, clip);
+    }
+
 }
 }

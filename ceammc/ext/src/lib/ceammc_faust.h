@@ -47,6 +47,8 @@ namespace faust {
 
         bool set(const AtomList& lst) override;
         AtomList get() const override;
+        float value() const;
+        void setValue(float v, bool clip = false) const;
     };
 
     static inline void zero_samples(int n_ch, size_t bs, t_sample** out)

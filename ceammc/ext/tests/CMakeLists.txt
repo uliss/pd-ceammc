@@ -81,6 +81,7 @@ ceammc_external_test(env env)
 ceammc_external_test(env to_vline)
 ceammc_external_test(env tscale)
 ceammc_external_test(env tshift)
+ceammc_external_test(env ar)
 
 ceammc_external_test(flow count)
 ceammc_external_test(flow gate)
