@@ -88,8 +88,8 @@
         hw.arduino
     }}
     {lfo {
-        lfo.+pulse~ lfo.+square~ lfo.+tri~ lfo.impulse~ lfo.pulse~ lfo.square~
-        lfo.tri~
+        lfo.+pulse~ lfo.+saw~ lfo.+square~ lfo.+tri~ lfo.impulse~ lfo.pulse~
+        lfo.saw~ lfo.square~ lfo.tri~
     }}
     {list {
         list.^at list.^contains list.^search list.all_of list.any_of

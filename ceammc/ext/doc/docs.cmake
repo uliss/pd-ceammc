@@ -149,6 +149,7 @@ set(DOC_FILES
     lfo.+square~
     lfo.+tri~
     lfo.impulse~
+    lfo.saw~
     lfo.square~
     lfo.tri~
     lfo.pulse~

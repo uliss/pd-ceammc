@@ -485,6 +485,9 @@
     <entry descr="Full-range unit-amplitude low frequency pulse train" name="lfo.pulse~" ref_view="object">
       <xi:include href="lfo.pulse~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Full-range unit-amplitude low frequency saw" name="lfo.saw~" ref_view="object">
+      <xi:include href="lfo.saw~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Zero-mean unit-amplitude low frequency square wave" name="lfo.square~" ref_view="object">
       <xi:include href="lfo.square~.pddoc" parse="xml"/>
     </entry>

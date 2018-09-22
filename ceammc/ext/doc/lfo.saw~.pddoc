@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="lfo.+saw~">
-        <title>lfo.+saw~</title>
+    <object name="lfo.saw~">
+        <title>lfo.saw~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Positive unit-amplitude low frequency saw wave</description>
+            <description>Full-range unit-amplitude low frequency saw</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>lfo</category>
-            <keywords>lfo oscillator saw</keywords>
+            <keywords>lfo oscillator saw phasor</keywords>
             <since>0.7</since>
             <also>
-                <see>lfo.saw~</see>
-                <see>lfo.+square~</see>
+                <see>lfo.+saw~</see>
+                <see>lfo.square~</see>
                 <see>lfo.impulse~</see>
             </also>
         </meta>
         <arguments>
             <argument name="freq" type="float" units="herz">frequency</argument>
-            <argument name="invert" type="int" minvalue="0" maxvalue="1">invert saw</argument>
+            <argument name="invert" type="float" minvalue="0" maxvalue="1">duty cycle</argument>
         </arguments>
         <properties>
             <property name="@invert" type="int" enum="0 1" default="0">wave inversion</property>
@@ -36,25 +36,21 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">pulsetrain wave in [0-1] range</outlet>
+            <outlet type="audio">saw wave in [-1, +1] range</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[F]    [T]
-|      |
-|      [@invert $1(
-|      |
-[lfo.+saw~ 1]
+[osc.saw~ 100]
 |
-[*~ 3000]
-|
-[+~ 100]
-|
-[osc~]
-|
-[ui.gain~ @size 120 14]  [ui.dsp~]
-|\
+[ui.gain~ @size 120 14] [T]
+|                       |
+|              [F]      [@invert $1(
+|              |        |
+|              [lfo.saw~ 1]
+|          .___/
+[pan.linsig~]    [ui.dsp~]
+|  ^|.
 [dac~]
 ]]>
             </pdascii>

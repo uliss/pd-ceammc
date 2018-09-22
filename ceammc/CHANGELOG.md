@@ -12,6 +12,8 @@
 - lfo.+tri~ added
 - lfo.+square~ added
 - lfo.+pulse~ added
+- lfo.+saw~ added
+- lfo.saw~ added
 - pan.linsig~ added
 - clear message added to fx.sdelay~
 - osc.saw~ algo changed to Faust os.sawtooth

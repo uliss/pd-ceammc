@@ -148,6 +148,7 @@ lfo.+square~		~.		~
 lfo.+tri~		~.		~
 lfo.impulse~		~		~
 lfo.pulse~		~.		~
+lfo.saw~		~.		~
 lfo.square~		~.		~
 lfo.tri~		~.		~
 list.^at		..		.
