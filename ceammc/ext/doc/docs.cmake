@@ -145,6 +145,7 @@ set(DOC_FILES
     is_pointer
     is_symbol
     lfo.+pulse~
+    lfo.+saw~
     lfo.+square~
     lfo.+tri~
     lfo.impulse~

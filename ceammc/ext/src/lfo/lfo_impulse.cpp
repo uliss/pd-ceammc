@@ -18,7 +18,7 @@ public:
     }
 };
 
-void setup_lfo_tri_tilde()
+void setup_lfo_impulse_tilde()
 {
     SoundExternalFactory<LfoImpulse> obj("lfo.impulse~");
 }
