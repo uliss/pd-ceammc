@@ -11,6 +11,7 @@ endmacro()
 ceammc_lfo_external(impulse)
 
 ceammc_lfo_obj_external(pulse)
+ceammc_lfo_obj_external(pulse_pos)
 ceammc_lfo_obj_external(square)
 ceammc_lfo_obj_external(square_pos)
 ceammc_lfo_obj_external(tri)

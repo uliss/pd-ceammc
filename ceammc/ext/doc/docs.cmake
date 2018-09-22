@@ -144,6 +144,7 @@ set(DOC_FILES
     is_odd
     is_pointer
     is_symbol
+    lfo.+pulse~
     lfo.+square~
     lfo.+tri~
     lfo.impulse~

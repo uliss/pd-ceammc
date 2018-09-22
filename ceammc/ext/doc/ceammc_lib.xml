@@ -467,6 +467,9 @@
     </entry>
   </category>
   <category name="lfo">
+    <entry descr="Unit-amplitude nonnegative low frequency pulse train" name="lfo.+pulse~" ref_view="object">
+      <xi:include href="lfo.%2Bpulse~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Positive low frequency square wave" name="lfo.+square~" ref_view="object">
       <xi:include href="lfo.%2Bsquare~.pddoc" parse="xml"/>
     </entry>

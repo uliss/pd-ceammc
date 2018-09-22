@@ -11,6 +11,7 @@
 - osc.sin~ added for library completeness
 - lfo.+tri~ added
 - lfo.+square~ added
+- lfo.+pulse~ added
 - pan.linsig~ added
 - clear message added to fx.sdelay~
 - osc.saw~ algo changed to Faust os.sawtooth
