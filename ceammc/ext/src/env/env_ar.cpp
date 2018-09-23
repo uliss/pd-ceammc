@@ -35,15 +35,16 @@ public:
 
     bool processAnyProps(t_symbol* sel, const AtomList& lst) override
     {
-        if (sel == SYM_PROP_GATE && atomlistToValue<bool>(lst, false))
+        if (sel == SYM_PROP_GATE && atomlistToValue<bool>(lst, false)) {
+            auto_release_.unset();
             done_.delay(length());
+        }
 
         return faust_env_ar_tilde::processAnyProps(sel, lst);
     }
 
     void onBang() override
     {
-        done_.unset();
         prop_gate_->setValue(1);
         auto_release_.delay(10);
         done_.delay(length());
@@ -76,8 +77,9 @@ public:
 
     void m_reset(t_symbol*, const AtomList&)
     {
+        prop_gate_->setValue(0);
         dsp_->instanceClear();
-        auto_release_.unset();
+        unsetClocks();
     }
 
     void m_click(t_symbol*, const AtomList& l)
@@ -104,6 +106,12 @@ private:
     bool checkValues(float a, float r)
     {
         return a >= 0 && r >= 0;
+    }
+
+    void unsetClocks()
+    {
+        done_.unset();
+        auto_release_.unset();
     }
 
     bool set(float a, float r)

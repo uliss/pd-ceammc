@@ -27,6 +27,7 @@ PD_COMPLETE_TEST_SETUP(EnvAr, env, ar_tilde);
         REQUIRE(obj.hasOutputAt(0));                        \
         REQUIRE(obj.isOutputAnyAt(0));                      \
         REQUIRE(obj.outputAnyAt(0) == LAX(n, __VA_ARGS__)); \
+        obj.clearAll();                                     \
     }
 
 #define SEND_ENV(t, env)           \
@@ -123,5 +124,19 @@ TEST_CASE("env.ar~", "[externals]")
         t.schedTicks(40);
         REQUIRE(t.hasOutputAt(1));
         REQUIRE(t.isOutputBangAt(1));
+    }
+
+    SECTION("reset")
+    {
+        TestExtEnvAr t("env.ar~");
+        PROPERTY_REQUEST(t, "@ar", 10, 300);
+
+        t.sendMessage(SYM("@gate"), LA(1));
+        t.schedTicks(100);
+        REQUIRE(!t.hasOutputAt(1));
+        t.sendMessage(SYM("reset"));
+        REQUIRE(!t.hasOutputAt(1));
+        t.schedTicks(400);
+        REQUIRE(!t.hasOutputAt(1));
     }
 }
