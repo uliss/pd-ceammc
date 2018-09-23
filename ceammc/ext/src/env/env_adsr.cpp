@@ -87,6 +87,7 @@ public:
 
     void m_reset(t_symbol*, const AtomList&)
     {
+        prop_gate_->setValue(0);
         dsp_->instanceClear();
         clockReset();
     }
@@ -128,7 +129,7 @@ private:
 
     bool checkValues(float a, float d, float s, float r)
     {
-        return a >= 0 && d >= 0 && r >= 0 && s >= 0 && s <= 100;
+        return a >= 0 && d >= 0 && r >= 0 && s >= 0 && s <= 100 && (a + d + r) > 0;
     }
 
     bool set(float a, float d, float s, float r)
@@ -139,7 +140,7 @@ private:
         }
 
         prop_attack_->setValue(a);
-        prop_decay_->setValue(a);
+        prop_decay_->setValue(d);
         prop_sustain_->setValue(s);
         prop_release_->setValue(r);
         return true;

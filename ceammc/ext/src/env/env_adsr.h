@@ -555,7 +555,7 @@ class env_adsr : public dsp {
 	
 	virtual void instanceResetUserInterface() {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
-		fHslider0 = FAUSTFLOAT(10.0f);
+		fHslider0 = FAUSTFLOAT(300.0f);
 		fHslider1 = FAUSTFLOAT(10.0f);
 		fHslider2 = FAUSTFLOAT(10.0f);
 		fHslider3 = FAUSTFLOAT(50.0f);
@@ -623,7 +623,7 @@ class env_adsr : public dsp {
 		ui_interface->addCheckButton("gate", &fCheckbox0);
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->declare(&fHslider0, "unit", "ms");
-		ui_interface->addHorizontalSlider("release", &fHslider0, 10.0f, 0.0f, 100000.0f, 1.0f);
+		ui_interface->addHorizontalSlider("release", &fHslider0, 300.0f, 0.0f, 100000.0f, 1.0f);
 		ui_interface->declare(&fHslider3, "style", "knob");
 		ui_interface->declare(&fHslider3, "unit", "percent");
 		ui_interface->addHorizontalSlider("sustain", &fHslider3, 50.0f, 0.0f, 100.0f, 0.00100000005f);

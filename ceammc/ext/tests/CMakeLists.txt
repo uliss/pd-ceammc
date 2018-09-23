@@ -82,6 +82,7 @@ ceammc_external_test(env to_vline)
 ceammc_external_test(env tscale)
 ceammc_external_test(env tshift)
 ceammc_external_test(env ar)
+ceammc_external_test(env adsr)
 ceammc_external_test(env asr)
 
 ceammc_external_test(flow count)
