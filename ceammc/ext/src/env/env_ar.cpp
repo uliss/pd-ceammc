@@ -87,6 +87,11 @@ public:
         onBang();
     }
 
+    void m_play(t_symbol*, const AtomList&)
+    {
+        onBang();
+    }
+
     AtomList propLength() const
     {
         return Atom(length());
@@ -136,6 +141,7 @@ void setup_env_ar_tilde()
 {
     SoundExternalFactory<EnvAr> obj("env.ar~");
     obj.processData<DataTypeEnv>();
+    obj.addMethod("play", &EnvAr::m_play);
     obj.addMethod("reset", &EnvAr::m_reset);
     obj.addClick(&EnvAr::m_click);
 }
