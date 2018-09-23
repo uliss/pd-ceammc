@@ -82,6 +82,7 @@ public:
     void m_reset(t_symbol*, const AtomList&)
     {
         dsp_->instanceClear();
+        prop_gate_->setValue(0);
         clockReset();
     }
 
