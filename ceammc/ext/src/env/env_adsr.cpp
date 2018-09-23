@@ -78,7 +78,7 @@ public:
 
         float attack = env.pointAt(1).timeMs() - env.pointAt(0).timeMs();
         float decay = env.pointAt(2).timeMs() - env.pointAt(1).timeMs();
-        float sustain = env.pointAt(1).value * 100;
+        float sustain = env.pointAt(2).value * 100;
         float release = env.pointAt(3).timeMs() - env.pointAt(2).timeMs();
 
         if (!set(attack, decay, sustain, release))
