@@ -23,7 +23,7 @@
 - osc.impulse~ added inlet for phase reset
 - fx.flanger~ @drywet property added
 - fx.greyhole~ @drywet property added
-- fx.sdelay~ clear message added
+- fx.sdelay~ clear and reset messages added
 - fx.greyhole~ reset message added
 - fx.echo~ reset message added
 

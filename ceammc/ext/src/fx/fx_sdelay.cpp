@@ -24,4 +24,5 @@ void setup_fx_sdelay_tilde()
 {
     SoundExternalFactory<FxSmoothDelay> obj("fx.sdelay~");
     obj.addMethod("clear", &FxSmoothDelay::m_clear);
+    obj.addMethod("reset", &FxSmoothDelay::m_clear);
 }

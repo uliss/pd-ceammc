@@ -44,6 +44,7 @@
         </properties>
         <methods>
             <method name="clear">clears delay line</method>
+            <method name="reset">same as reset</method>
         </methods>
         <inlets>
             <inlet type="audio">
