@@ -20,6 +20,7 @@
 #X obj 50 234 snd.file;
 #X msg 50 277 bang;
 #X obj 50 305 tabplay~ array1;
+#X obj 309 305 ui.dsp~;
 #X floatatom 194 334 5 0 0 0 - - -;
 #X obj 69 363 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 194 363 @delay \$1;
@@ -29,74 +30,80 @@
 #X msg 213 392 dump;
 #X msg 309 392 @decay_mid \$1;
 #X msg 462 392 @decay_low \$1;
-#X obj 50 464 fx.zita_rev1~;
+#X obj 50 464 fx.zita_rev1~ 3 4;
 #X obj 50 493 dac~;
 #X obj 20 532 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 537 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 542 1\.;
 #X text 150 542 float;
-#X obj 241 543 cnv 1 48 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 542 DELAY: same as @delay property. Range: 20\...100;
-#X obj 20 570 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 575 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 241 543 cnv 1 120 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 542 decay_low(sec): time (in seconds) to decay 60dB in
+low-frequency band. Range: 1\...8;
+#X text 120 574 2\.;
+#X text 150 574 float;
+#X obj 241 575 cnv 1 120 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 574 decay_mid(sec): time (in seconds) to decay 60dB in
+mid-frequency band. Range: 1\...8;
+#X obj 20 616 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 621 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 580 @delay;
-#X text 240 580 Get/Set A delay of 20 to 100 ms operating on the 'wet'
-signal. Large values will provide the impression of a larger room.
-Type: float. Units: ms. Default value: 60\. Value range: 20-100;
-#X msg 120 645 @freq_low;
-#X text 240 645 Get/Set Crossover frequency (Hz) separating low and
-middle frequencies. Type: float. Units: Hz. Default value: 200\. Value
-range: 50-1000;
-#X msg 120 696 @dump_hf;
-#X text 240 696 Get/Set Frequency (Hz) at which the high-frequency T60
-is half the middle-band's T60\. Type: float. Units: Hz. Default value:
-6000\. Value range: 1500-20000;
-#X msg 120 747 @decay_low;
-#X text 240 747 Get/Set time (in seconds) to decay 60dB in low-
+#X msg 120 626 @decay_low;
+#X text 240 626 Get/Set time (in seconds) to decay 60dB in low-
 frequency band. Type: float. Units: sec. Default value: 3\. Value
 range: 1-8;
-#X msg 120 798 @decay_mid;
-#X text 240 798 Get/Set time (in seconds) to decay 60dB in low-
+#X msg 120 677 @decay_mid;
+#X text 240 677 Get/Set time (in seconds) to decay 60dB in mid-
 frequency band. Type: float. Units: sec. Default value: 2\. Value
 range: 1-8;
-#X msg 120 849 @drywet;
-#X text 240 849 Get/Set Ratio between processed signal (wet) and
+#X msg 120 728 @delay;
+#X text 240 728 Get/Set A delay of 20 to 100 ms operating on the 'wet'
+signal. Large values will provide the impression of a larger room.
+Type: float. Units: ms. Default value: 60\. Value range: 20-100;
+#X msg 120 793 @freq_low;
+#X text 240 793 Get/Set Crossover frequency (Hz) separating low and
+middle frequencies. Type: float. Units: Hz. Default value: 200\. Value
+range: 50-1000;
+#X msg 120 844 @dump_hf;
+#X text 240 844 Get/Set Frequency (Hz) at which the high-frequency T60
+is half the middle-band's T60\. Type: float. Units: Hz. Default value:
+6000\. Value range: 1500-20000;
+#X msg 120 895 @drywet;
+#X text 240 895 Get/Set Ratio between processed signal (wet) and
 source signal. Type: float. Default value: 1\. Value range: 0-1;
-#X msg 120 886 @bypass;
-#X text 240 886 Get/Set if set to 1 - bypass 'effected' signal. Type:
+#X msg 120 932 @bypass;
+#X text 240 932 Get/Set if set to 1 - bypass 'effected' signal. Type:
 int. Default value: 0\. Allowed values: 0 \, 1;
-#X msg 120 923 @active;
-#X text 240 923 Get/Set on/off dsp processing. Type: int. Default
+#X msg 120 969 @active;
+#X text 240 969 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
-#X obj 20 970 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 975 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1016 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1021 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 980 reset;
-#X text 240 980 same as reset.;
-#X obj 20 1022 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1027 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 120 1026 reset;
+#X text 240 1026 same as reset.;
+#X obj 20 1068 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1073 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 1032 1\.;
-#X text 240 1032 left channel.;
-#X text 120 1050 2\.;
-#X text 240 1050 right channel.;
-#X obj 20 1078 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1083 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 120 1078 1\.;
+#X text 240 1078 left channel.;
+#X text 120 1096 2\.;
+#X text 240 1096 right channel.;
+#X obj 20 1124 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1129 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 1088 1\.;
-#X text 240 1088 output left;
-#X text 120 1106 2\.;
-#X text 240 1106 output right;
+#X text 120 1134 1\.;
+#X text 240 1134 output left;
+#X text 120 1152 2\.;
+#X text 240 1152 output right;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1154 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1157 library: ceammc v0.6;
-#N canvas 10 1176 400 290 info 0;
+#X obj 1 1200 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1203 library: ceammc v0.6;
+#N canvas 10 1222 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -120,22 +127,22 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1176 pd info;
+#X restore 10 1222 pd info;
 #X connect 4 0 7 0;
 #X connect 5 0 7 0;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;
 #X connect 9 0 10 0;
 #X connect 11 0 12 0;
-#X connect 13 0 15 0;
-#X connect 14 0 18 0;
-#X connect 16 0 20 0;
+#X connect 14 0 16 0;
+#X connect 15 0 19 0;
 #X connect 17 0 21 0;
-#X connect 12 0 22 0;
 #X connect 18 0 22 0;
-#X connect 15 0 22 0;
-#X connect 19 0 22 0;
-#X connect 20 0 22 0;
-#X connect 21 0 22 0;
+#X connect 12 0 23 0;
+#X connect 19 0 23 0;
+#X connect 16 0 23 0;
+#X connect 20 0 23 0;
+#X connect 21 0 23 0;
 #X connect 22 0 23 0;
-#X connect 22 1 23 1;
+#X connect 23 0 24 0;
+#X connect 23 1 24 1;

@@ -3,14 +3,15 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_DELAY = gensym("@delay");
+static t_symbol* SYM_PROP_DECAY_LOW = gensym("@decay_low");
+static t_symbol* SYM_PROP_DECAY_MID = gensym("@decay_mid");
 
 class FxZitaRev1 : public faust_fx_zita_rev1_tilde {
 public:
     FxZitaRev1(const PdArgs& args)
         : faust_fx_zita_rev1_tilde(args)
     {
-        bindPositionalArgsToProps({ SYM_PROP_DELAY });
+        bindPositionalArgsToProps({ SYM_PROP_DECAY_LOW, SYM_PROP_DECAY_MID });
     }
 
     void m_reset(t_symbol*, const AtomList&)

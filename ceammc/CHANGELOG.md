@@ -26,7 +26,8 @@
 - fx.sdelay~ clear and reset messages added
 - fx.greyhole~ reset message added
 - fx.echo~ reset message added
-- fx.zita_rev1~ reset message added and init argument delay
+- fx.zita_rev1~ reset message added
+- fx.zita_rev1~ arguments mapped to @decay_low, @decay_mid
 
 ### Changed:
 - data type generation support for list.gen and list.each
