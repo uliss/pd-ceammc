@@ -29,25 +29,32 @@
             <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
         <properties>
-            <property name="feedback" type="float" minvalue="0" maxvalue="1" default="0.9">amount
+            <property name="@feedback" type="float" minvalue="0" maxvalue="1" default="0.9">amount
             of feedback for the delay line</property>
-            <property name="damping" type="float" minvalue="0" maxvalue="0.99" default="0">controls
+            <property name="@damping" type="float" minvalue="0" maxvalue="0.99" default="0">controls
             damping of high-frequencies as the delay decays. 0 is no damping, 1 is very strong
             damping</property>
-            <property name="delaytime" units="second" type="float" minvalue="0.001" maxvalue="1.45"
+            <property name="@delaytime" units="second" type="float" minvalue="0.001" maxvalue="1.45"
             default="0.2">approximate delay time in seconds</property>
-            <property name="diffusion" type="float" minvalue="0" maxvalue="0.99" default="0.5">
+            <property name="@diffusion" type="float" minvalue="0" maxvalue="0.99" default="0.5">
             shape of the diffusion unit. Values greater than 0.707 produce smooth exponential
             decay. Lower values produce a slower build-up of echoes</property>
-            <property name="moddepth" type="float" minvalue="0" maxvalue="1" default="0.1">depth of
+            <property name="@moddepth" type="float" minvalue="0" maxvalue="1" default="0.1">depth of
             delay-line modulation. Use in combination with *@modfreq* to set amount of chorusing
             within the structure</property>
-            <property name="modfreq" type="float" minvalue="0" maxvalue="10" default="2">frequency
+            <property name="@modfreq" type="float" minvalue="0" maxvalue="10" default="2">frequency
             of delay-line modulation. Use in combination with *@moddepth* to set amount of
             chorusing within the structure</property>
-            <property name="size" type="float" minvalue="0.5" maxvalue="3" default="1">size of
+            <property name="@size" type="float" minvalue="0.5" maxvalue="3" default="1">size of
             delay-lines within the diffusion unit, producing the impression of a larger or smaller
             space. Values below 1 can sound quite metallic.</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
+            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
+            wet.</property>
+            <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
+            'effected' signal.</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
         </properties>
         <inlets>
             <inlet type="audio">

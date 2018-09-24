@@ -11,15 +11,26 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include "fx_greyhole.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
+using namespace ceammc;
+
+class FxGreyhole : public faust_fx_greyhole_tilde {
+public:
+    FxGreyhole(const PdArgs& args)
+        : faust_fx_greyhole_tilde(args)
+    {
+    }
+
+    void m_reset(t_symbol*, const AtomList&)
+    {
+        dsp_->instanceClear();
+    }
+};
+
+void setup_fx_greyhole_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-    PdArgParser p(x, argc, argv);
-    return p.pd_obj();
+    SoundExternalFactory<FxGreyhole> obj("fx.greyhole~");
+    obj.addMethod("reset", &FxGreyhole::m_reset);
 }
-
-
-EXTERNAL_SETUP(fx)
