@@ -2,6 +2,7 @@
 #include "ceammc_clock.h"
 #include "ceammc_factory.h"
 #include "datatype_env.h"
+#include "env_faust_play.h"
 
 static t_symbol* SYM_PROP_ATTACK = gensym("@attack");
 static t_symbol* SYM_PROP_SUSTAIN = gensym("@sustain");
@@ -13,7 +14,6 @@ using namespace ceammc;
 class EnvAsr : public faust_env_asr_tilde {
     ClockMemberFunction<EnvAsr> attack_done_;
     ClockMemberFunction<EnvAsr> release_done_;
-    ClockMemberFunction<EnvAsr> duration_done_;
 
     UIProperty* prop_attack_;
     UIProperty* prop_sustain_;
@@ -25,7 +25,6 @@ public:
         : faust_env_asr_tilde(args)
         , attack_done_(this, &EnvAsr::attackDone)
         , release_done_(this, &EnvAsr::releaseDone)
-        , duration_done_(this, &EnvAsr::durationDone)
         , prop_attack_((UIProperty*)property(SYM_PROP_ATTACK))
         , prop_sustain_((UIProperty*)property(SYM_PROP_SUSTAIN))
         , prop_release_((UIProperty*)property(SYM_PROP_RELEASE))
@@ -86,18 +85,6 @@ public:
         clockReset();
     }
 
-    void m_duration(t_symbol* sel, const AtomList& l)
-    {
-        bool ok = (l.size() == 1) && (l[0].isFloat()) && (l[0].asFloat() >= 0);
-        if (!ok) {
-            OBJ_ERR << "duration TIME_MS expected: " << l;
-            return;
-        }
-
-        processAnyProps(SYM_PROP_GATE, Atom(1));
-        duration_done_.delay(l[0].asFloat());
-    }
-
 private:
     void attackDone()
     {
@@ -109,16 +96,10 @@ private:
         floatTo(1, 0);
     }
 
-    void durationDone()
-    {
-        processAnyProps(SYM_PROP_GATE, Atom(0.f));
-    }
-
     void clockReset()
     {
         attack_done_.unset();
         release_done_.unset();
-        duration_done_.unset();
     }
 
     bool checkValues(float a, float s, float r)
@@ -140,10 +121,12 @@ private:
     }
 };
 
+typedef EnvAutoplay<EnvAsr> EnvAsrP;
+
 void setup_env_asr_tilde()
 {
-    SoundExternalFactory<EnvAsr> obj("env.asr~");
+    SoundExternalFactory<EnvAsrP> obj("env.asr~");
     obj.processData<DataTypeEnv>();
-    obj.addMethod("reset", &EnvAsr::m_reset);
-    obj.addMethod("duration", &EnvAsr::m_duration);
+    obj.addMethod("play", &EnvAsrP::m_play);
+    obj.addMethod("reset", &EnvAsrP::m_reset);
 }

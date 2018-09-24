@@ -2,6 +2,7 @@
 #include "ceammc_clock.h"
 #include "ceammc_factory.h"
 #include "datatype_env.h"
+#include "env_faust_play.h"
 
 static t_symbol* SYM_PROP_ATTACK = gensym("@attack");
 static t_symbol* SYM_PROP_DECAY = gensym("@decay");
@@ -14,7 +15,6 @@ using namespace ceammc;
 class EnvAdsr : public faust_env_adsr_tilde {
     ClockMemberFunction<EnvAdsr> ad_done_;
     ClockMemberFunction<EnvAdsr> release_done_;
-    ClockMemberFunction<EnvAdsr> duration_done_;
 
     UIProperty* prop_attack_;
     UIProperty* prop_decay_;
@@ -27,7 +27,6 @@ public:
         : faust_env_adsr_tilde(args)
         , ad_done_(this, &EnvAdsr::attackDecayDone)
         , release_done_(this, &EnvAdsr::releaseDone)
-        , duration_done_(this, &EnvAdsr::durationDone)
         , prop_attack_((UIProperty*)property(SYM_PROP_ATTACK))
         , prop_decay_((UIProperty*)property(SYM_PROP_DECAY))
         , prop_sustain_((UIProperty*)property(SYM_PROP_SUSTAIN))
@@ -92,18 +91,6 @@ public:
         clockReset();
     }
 
-    void m_duration(t_symbol* sel, const AtomList& l)
-    {
-        bool ok = (l.size() == 1) && (l[0].isFloat()) && (l[0].asFloat() >= 0);
-        if (!ok) {
-            OBJ_ERR << "duration TIME_MS expected: " << l;
-            return;
-        }
-
-        processAnyProps(SYM_PROP_GATE, Atom(1));
-        duration_done_.delay(l[0].asFloat());
-    }
-
 private:
     void attackDecayDone()
     {
@@ -124,7 +111,6 @@ private:
     {
         ad_done_.unset();
         release_done_.unset();
-        duration_done_.unset();
     }
 
     bool checkValues(float a, float d, float s, float r)
@@ -147,10 +133,12 @@ private:
     }
 };
 
+typedef EnvAutoplay<EnvAdsr> EnvADSR2;
+
 void setup_env_adsr_tilde()
 {
-    SoundExternalFactory<EnvAdsr> obj("env.adsr~");
+    SoundExternalFactory<EnvADSR2> obj("env.adsr~");
     obj.processData<DataTypeEnv>();
-    obj.addMethod("reset", &EnvAdsr::m_reset);
-    obj.addMethod("duration", &EnvAdsr::m_duration);
+    obj.addMethod("reset", &EnvADSR2::m_reset);
+    obj.addMethod("play", &EnvADSR2::m_play);
 }
