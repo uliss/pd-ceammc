@@ -26,7 +26,6 @@
             delay time</argument>
             <argument name="feedback" type="float" minvalue="0" maxvalue="1">feedback
             coefficient</argument>
-            <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
         <properties>
             <property name="@delay" type="float" minvalue="10" maxvalue="10000" units="millisecond"
@@ -40,6 +39,8 @@
             wet.</property>
             <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
             'effected' signal.</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
         </properties>
         <methods>
             <method name="clear">clears delay line</method>
@@ -51,7 +52,6 @@
         </inlets>
         <outlets>
             <outlet type="audio">output signal</outlet>
-            <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>

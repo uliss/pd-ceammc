@@ -15,7 +15,6 @@
 - lfo.+saw~ added
 - lfo.saw~ added
 - pan.linsig~ added
-- clear message added to fx.sdelay~
 - osc.saw~ algo changed to Faust os.sawtooth
 - osc.tri~ added inlet for phase reset
 - osc.saw~ added inlet for phase reset
@@ -25,6 +24,7 @@
 - fx.flanger~ @drywet property added
 - fx.greyhole~ @drywet property added
 - fx.greyhole~ reset message added
+- fx.sdelay~ clear message added
 
 ### Changed:
 - data type generation support for list.gen and list.each

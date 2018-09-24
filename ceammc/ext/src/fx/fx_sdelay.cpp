@@ -1,21 +1,23 @@
 #include "fx_sdelay.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
-{
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-    PdArgParser p(x, argc, argv);
-    p.initFloatArg("delay", 1);
-    p.initFloatArg("feedback", 2);
-    return p.pd_obj();
-}
+using namespace ceammc;
 
-static void sdelay_clear(FAUST_EXT* x)
-{
-    x->dsp->instanceClear();
-}
+class FxSmoothDelay : public faust_fx_sdelay_tilde {
+public:
+    FxSmoothDelay(const PdArgs& args)
+        : faust_fx_sdelay_tilde(args)
+    {
+    }
 
-extern "C" void setup_fx0x2esdelay_tilde()
+    void m_clear(t_symbol*, const AtomList&)
+    {
+        dsp_->instanceClear();
+    }
+};
+
+void setup_fx_sdelay_tilde()
 {
-    internal_setup(gensym("fx.sdelay~"));
-    class_addmethod(FAUST_EXT_CLASS, (t_method)sdelay_clear, gensym("clear"), A_NULL);
+    SoundExternalFactory<FxSmoothDelay> obj("fx.sdelay~");
+    obj.addMethod("clear", &FxSmoothDelay::m_clear);
 }

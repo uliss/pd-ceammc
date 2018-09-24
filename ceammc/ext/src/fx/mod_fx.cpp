@@ -11,10 +11,10 @@ extern "C" void setup_fx0x2egranulator_tilde();
 extern "C" void setup_fx0x2epitchshift_tilde();
 extern "C" void setup_fx0x2ewahwah_tilde();
 extern "C" void setup_fx0x2ezita_rev1_tilde();
-extern "C" void setup_fx0x2esdelay_tilde();
 
 extern void setup_fx_flanger_tilde();
 extern void setup_fx_greyhole_tilde();
+extern void setup_fx_sdelay_tilde();
 
 void ceammc_fx_setup()
 {
@@ -28,9 +28,9 @@ void ceammc_fx_setup()
     setup_fx0x2epitchshift_tilde();
     setup_fx0x2ewahwah_tilde();
     setup_fx0x2ezita_rev1_tilde();
-    setup_fx0x2esdelay_tilde();
 
     setup_fx_flanger_tilde();
     setup_fx_greyhole_tilde();
     setup_fx_looper();
+    setup_fx_sdelay_tilde();
 }
