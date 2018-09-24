@@ -23,6 +23,8 @@
 - osc.pulse~ added inlet for phase reset
 - osc.impulse~ added inlet for phase reset
 - fx.flanger~ @drywet property added
+- fx.greyhole~ @drywet property added
+- fx.greyhole~ reset message added
 
 ### Changed:
 - data type generation support for list.gen and list.each
@@ -35,6 +37,10 @@
 - lfo.square~ now is zero-mean in \[-1, 1\] range
 - lfo.pulse~ now is in \[-1, 1\] range
 - env.ar~ now supports Envelope data type, run on bang, bang on done added
+
+### Removed:
+- fx.greyhole~ 3rd information outlet removed
+
 
 ## [0.6]
 ### Added:

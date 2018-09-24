@@ -25,9 +25,9 @@
             delay-line. Excels at producing spacey washes of sound.</par>
             <par>Developed as part of the DEIND project.</par>
         </info>
-        <arguments>
-            <argument name="ID" type="symbol">object ID for OSC control path</argument>
-        </arguments>
+        <methods>
+            <method name="reset">reset to initial state</method>
+        </methods>
         <properties>
             <property name="@feedback" type="float" minvalue="0" maxvalue="1" default="0.9">amount
             of feedback for the delay line</property>
@@ -67,7 +67,6 @@
         <outlets>
             <outlet type="audio">output signal</outlet>
             <outlet type="audio">output signal</outlet>
-            <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>
