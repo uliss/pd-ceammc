@@ -123,7 +123,7 @@ fx.looper~		~		~
 fx.pitchshift~		~~		~.
 fx.sdelay~		~		~
 fx.wahwah~		~		~
-fx.zita_rev1~		~~		~~.
+fx.zita_rev1~		~~		~~
 gain~		?		?
 global.dict,global.json		.		.
 global.float		.		.

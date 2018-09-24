@@ -1,42 +1,17 @@
 /* ------------------------------------------------------------
 name: "fx_zita_rev1"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
-#ifndef  __zita_rev1_H__
-#define  __zita_rev1_H__
+#ifndef  __fx_zita_rev1_H__
+#define  __fx_zita_rev1_H__
 
-/************************************************************************
- ************************************************************************
-    FAUST Architecture File
-    Copyright (C) 2006-2011 Albert Graef <Dr.Graef@t-online.de>
-    ---------------------------------------------------------------------
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as
-    published by the Free Software Foundation; either version 2.1 of the
-    License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
-
-    You should have received a copy of the GNU Lesser General Public
-    License along with the GNU C Library; if not, write to the Free
-    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
-    02111-1307 USA.
- ************************************************************************
- ************************************************************************/
-
-/* Pd architecture file, written by Albert Graef <Dr.Graef@t-online.de>.
-   This was derived from minimal.cpp included in the Faust distribution.
-   Please note that this is to be compiled as a shared library, which is
-   then loaded dynamically by Pd as an external. */
-
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
+// FAUST Architecture File for ceammc::SoundExternal class
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <memory>
 #include <string>
 
 /************************************************************************
@@ -66,6 +41,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -229,6 +205,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -395,6 +374,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -417,7 +397,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -438,16 +418,9 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 #endif
 
 
-#include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_faust.h"
 
-/******************************************************************************
-*******************************************************************************
-
-                                   VECTOR INTRINSICS
-
-*******************************************************************************
-*******************************************************************************/
+using namespace ceammc::faust;
 
 #ifdef FAUST_MACRO
 // clang-format off
@@ -457,31 +430,12 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 #define sym(name) xsym(name)
 #define xsym(name) #name
 
-/***************************************************************************
-   Pd UI interface
-***************************************************************************/
-
 // clang-format off
 #ifndef FAUST_MACRO
-struct zita_rev1 : public dsp {
+struct fx_zita_rev1 : public dsp {
 };
 #endif
 // clang-format on
-
-#include "ceammc_faust.h"
-using namespace ceammc::faust;
-
-/******************************************************************************
-*******************************************************************************
-
-                FAUST DSP
-
-*******************************************************************************
-*******************************************************************************/
-
-//----------------------------------------------------------------------------
-//  FAUST generated signal processor
-//----------------------------------------------------------------------------
 
 #ifdef FAUST_MACRO
 // clang-format off
@@ -489,23 +443,24 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 #include <math.h>
 
-float zita_rev1_faustpower2_f(float value) {
+static float fx_zita_rev1_faustpower2_f(float value) {
 	return (value * value);
 	
 }
 
 #ifndef FAUSTCLASS 
-#define FAUSTCLASS zita_rev1
+#define FAUSTCLASS fx_zita_rev1
 #endif
 #ifdef __APPLE__ 
 #define exp10f __exp10f
 #define exp10 __exp10
 #endif
 
-class zita_rev1 : public dsp {
+class fx_zita_rev1 : public dsp {
 	
  private:
 	
@@ -539,17 +494,17 @@ class zita_rev1 : public dsp {
 	float fConst10;
 	float fRec16[2];
 	float fRec15[2];
-	float fVec4[32768];
+	float fVec4[16384];
 	float fConst11;
 	int iConst12;
-	float fVec5[4096];
+	float fVec5[2048];
 	int iConst13;
 	float fRec13[2];
 	float fConst14;
 	float fConst15;
 	float fRec20[2];
 	float fRec19[2];
-	float fVec6[16384];
+	float fVec6[32768];
 	float fConst16;
 	int iConst17;
 	float fVec7[4096];
@@ -559,7 +514,7 @@ class zita_rev1 : public dsp {
 	float fConst20;
 	float fRec24[2];
 	float fRec23[2];
-	float fVec8[32768];
+	float fVec8[16384];
 	float fConst21;
 	int iConst22;
 	float fVec9[4096];
@@ -569,10 +524,10 @@ class zita_rev1 : public dsp {
 	float fConst25;
 	float fRec28[2];
 	float fRec27[2];
-	float fVec10[16384];
+	float fVec10[32768];
 	float fConst26;
 	int iConst27;
-	float fVec11[2048];
+	float fVec11[4096];
 	int iConst28;
 	float fRec25[2];
 	float fConst29;
@@ -582,7 +537,7 @@ class zita_rev1 : public dsp {
 	float fVec12[16384];
 	float fConst31;
 	int iConst32;
-	float fVec13[4096];
+	float fVec13[2048];
 	int iConst33;
 	float fRec29[2];
 	float fConst34;
@@ -602,7 +557,7 @@ class zita_rev1 : public dsp {
 	float fVec16[16384];
 	float fConst41;
 	int iConst42;
-	float fVec17[2048];
+	float fVec17[4096];
 	int iConst43;
 	float fRec37[2];
 	float fRec1[3];
@@ -697,50 +652,50 @@ class zita_rev1 : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = min(192000.0f, max(1.0f, float(fSamplingFreq)));
-		fConst1 = floorf(((0.219990999f * fConst0) + 0.5f));
+		fConst0 = std::min(192000.0f, std::max(1.0f, float(fSamplingFreq)));
+		fConst1 = std::floor(((0.219990999f * fConst0) + 0.5f));
 		fConst2 = ((0.0f - (6.90775537f * fConst1)) / fConst0);
 		fConst3 = (6.28318548f / fConst0);
 		fConst4 = (3.14159274f / fConst0);
-		fConst5 = floorf(((0.0191229992f * fConst0) + 0.5f));
-		iConst6 = int(min(16384.0f, max(0.0f, (fConst1 - fConst5))));
+		fConst5 = std::floor(((0.0191229992f * fConst0) + 0.5f));
+		iConst6 = int(std::min(16384.0f, std::max(0.0f, (fConst1 - fConst5))));
 		fConst7 = (0.00100000005f * fConst0);
-		iConst8 = int(min(1024.0f, max(0.0f, (fConst5 + -1.0f))));
-		fConst9 = floorf(((0.256891012f * fConst0) + 0.5f));
+		iConst8 = int(std::min(1024.0f, std::max(0.0f, (fConst5 + -1.0f))));
+		fConst9 = std::floor(((0.125f * fConst0) + 0.5f));
 		fConst10 = ((0.0f - (6.90775537f * fConst9)) / fConst0);
-		fConst11 = floorf(((0.0273330007f * fConst0) + 0.5f));
-		iConst12 = int(min(16384.0f, max(0.0f, (fConst9 - fConst11))));
-		iConst13 = int(min(2048.0f, max(0.0f, (fConst11 + -1.0f))));
-		fConst14 = floorf(((0.192303002f * fConst0) + 0.5f));
+		fConst11 = std::floor(((0.0134579996f * fConst0) + 0.5f));
+		iConst12 = int(std::min(8192.0f, std::max(0.0f, (fConst9 - fConst11))));
+		iConst13 = int(std::min(1024.0f, std::max(0.0f, (fConst11 + -1.0f))));
+		fConst14 = std::floor(((0.256891012f * fConst0) + 0.5f));
 		fConst15 = ((0.0f - (6.90775537f * fConst14)) / fConst0);
-		fConst16 = floorf(((0.0292910002f * fConst0) + 0.5f));
-		iConst17 = int(min(8192.0f, max(0.0f, (fConst14 - fConst16))));
-		iConst18 = int(min(2048.0f, max(0.0f, (fConst16 + -1.0f))));
-		fConst19 = floorf(((0.210389003f * fConst0) + 0.5f));
+		fConst16 = std::floor(((0.0273330007f * fConst0) + 0.5f));
+		iConst17 = int(std::min(16384.0f, std::max(0.0f, (fConst14 - fConst16))));
+		iConst18 = int(std::min(2048.0f, std::max(0.0f, (fConst16 + -1.0f))));
+		fConst19 = std::floor(((0.127837002f * fConst0) + 0.5f));
 		fConst20 = ((0.0f - (6.90775537f * fConst19)) / fConst0);
-		fConst21 = floorf(((0.0244210009f * fConst0) + 0.5f));
-		iConst22 = int(min(16384.0f, max(0.0f, (fConst19 - fConst21))));
-		iConst23 = int(min(2048.0f, max(0.0f, (fConst21 + -1.0f))));
-		fConst24 = floorf(((0.125f * fConst0) + 0.5f));
+		fConst21 = std::floor(((0.0316039994f * fConst0) + 0.5f));
+		iConst22 = int(std::min(8192.0f, std::max(0.0f, (fConst19 - fConst21))));
+		iConst23 = int(std::min(2048.0f, std::max(0.0f, (fConst21 + -1.0f))));
+		fConst24 = std::floor(((0.210389003f * fConst0) + 0.5f));
 		fConst25 = ((0.0f - (6.90775537f * fConst24)) / fConst0);
-		fConst26 = floorf(((0.0134579996f * fConst0) + 0.5f));
-		iConst27 = int(min(8192.0f, max(0.0f, (fConst24 - fConst26))));
-		iConst28 = int(min(1024.0f, max(0.0f, (fConst26 + -1.0f))));
-		fConst29 = floorf(((0.127837002f * fConst0) + 0.5f));
+		fConst26 = std::floor(((0.0244210009f * fConst0) + 0.5f));
+		iConst27 = int(std::min(16384.0f, std::max(0.0f, (fConst24 - fConst26))));
+		iConst28 = int(std::min(2048.0f, std::max(0.0f, (fConst26 + -1.0f))));
+		fConst29 = std::floor(((0.153128996f * fConst0) + 0.5f));
 		fConst30 = ((0.0f - (6.90775537f * fConst29)) / fConst0);
-		fConst31 = floorf(((0.0316039994f * fConst0) + 0.5f));
-		iConst32 = int(min(8192.0f, max(0.0f, (fConst29 - fConst31))));
-		iConst33 = int(min(2048.0f, max(0.0f, (fConst31 + -1.0f))));
-		fConst34 = floorf(((0.174713001f * fConst0) + 0.5f));
+		fConst31 = std::floor(((0.0203460008f * fConst0) + 0.5f));
+		iConst32 = int(std::min(8192.0f, std::max(0.0f, (fConst29 - fConst31))));
+		iConst33 = int(std::min(1024.0f, std::max(0.0f, (fConst31 + -1.0f))));
+		fConst34 = std::floor(((0.174713001f * fConst0) + 0.5f));
 		fConst35 = ((0.0f - (6.90775537f * fConst34)) / fConst0);
-		fConst36 = floorf(((0.0229039993f * fConst0) + 0.5f));
-		iConst37 = int(min(8192.0f, max(0.0f, (fConst34 - fConst36))));
-		iConst38 = int(min(2048.0f, max(0.0f, (fConst36 + -1.0f))));
-		fConst39 = floorf(((0.153128996f * fConst0) + 0.5f));
+		fConst36 = std::floor(((0.0229039993f * fConst0) + 0.5f));
+		iConst37 = int(std::min(8192.0f, std::max(0.0f, (fConst34 - fConst36))));
+		iConst38 = int(std::min(2048.0f, std::max(0.0f, (fConst36 + -1.0f))));
+		fConst39 = std::floor(((0.192303002f * fConst0) + 0.5f));
 		fConst40 = ((0.0f - (6.90775537f * fConst39)) / fConst0);
-		fConst41 = floorf(((0.0203460008f * fConst0) + 0.5f));
-		iConst42 = int(min(8192.0f, max(0.0f, (fConst39 - fConst41))));
-		iConst43 = int(min(1024.0f, max(0.0f, (fConst41 + -1.0f))));
+		fConst41 = std::floor(((0.0292910002f * fConst0) + 0.5f));
+		iConst42 = int(std::min(8192.0f, std::max(0.0f, (fConst39 - fConst41))));
+		iConst43 = int(std::min(2048.0f, std::max(0.0f, (fConst41 + -1.0f))));
 		
 	}
 	
@@ -797,11 +752,11 @@ class zita_rev1 : public dsp {
 			fRec15[l9] = 0.0f;
 			
 		}
-		for (int l10 = 0; (l10 < 32768); l10 = (l10 + 1)) {
+		for (int l10 = 0; (l10 < 16384); l10 = (l10 + 1)) {
 			fVec4[l10] = 0.0f;
 			
 		}
-		for (int l11 = 0; (l11 < 4096); l11 = (l11 + 1)) {
+		for (int l11 = 0; (l11 < 2048); l11 = (l11 + 1)) {
 			fVec5[l11] = 0.0f;
 			
 		}
@@ -817,7 +772,7 @@ class zita_rev1 : public dsp {
 			fRec19[l14] = 0.0f;
 			
 		}
-		for (int l15 = 0; (l15 < 16384); l15 = (l15 + 1)) {
+		for (int l15 = 0; (l15 < 32768); l15 = (l15 + 1)) {
 			fVec6[l15] = 0.0f;
 			
 		}
@@ -837,7 +792,7 @@ class zita_rev1 : public dsp {
 			fRec23[l19] = 0.0f;
 			
 		}
-		for (int l20 = 0; (l20 < 32768); l20 = (l20 + 1)) {
+		for (int l20 = 0; (l20 < 16384); l20 = (l20 + 1)) {
 			fVec8[l20] = 0.0f;
 			
 		}
@@ -857,11 +812,11 @@ class zita_rev1 : public dsp {
 			fRec27[l24] = 0.0f;
 			
 		}
-		for (int l25 = 0; (l25 < 16384); l25 = (l25 + 1)) {
+		for (int l25 = 0; (l25 < 32768); l25 = (l25 + 1)) {
 			fVec10[l25] = 0.0f;
 			
 		}
-		for (int l26 = 0; (l26 < 2048); l26 = (l26 + 1)) {
+		for (int l26 = 0; (l26 < 4096); l26 = (l26 + 1)) {
 			fVec11[l26] = 0.0f;
 			
 		}
@@ -881,7 +836,7 @@ class zita_rev1 : public dsp {
 			fVec12[l30] = 0.0f;
 			
 		}
-		for (int l31 = 0; (l31 < 4096); l31 = (l31 + 1)) {
+		for (int l31 = 0; (l31 < 2048); l31 = (l31 + 1)) {
 			fVec13[l31] = 0.0f;
 			
 		}
@@ -921,7 +876,7 @@ class zita_rev1 : public dsp {
 			fVec16[l40] = 0.0f;
 			
 		}
-		for (int l41 = 0; (l41 < 2048); l41 = (l41 + 1)) {
+		for (int l41 = 0; (l41 < 4096); l41 = (l41 + 1)) {
 			fVec17[l41] = 0.0f;
 			
 		}
@@ -974,8 +929,8 @@ class zita_rev1 : public dsp {
 		instanceClear();
 	}
 	
-	virtual zita_rev1* clone() {
-		return new zita_rev1();
+	virtual fx_zita_rev1* clone() {
+		return new fx_zita_rev1();
 	}
 	virtual int getSampleRate() {
 		return fSamplingFreq;
@@ -1018,92 +973,92 @@ class zita_rev1 : public dsp {
 		int iSlow0 = int(float(fCheckbox0));
 		float fSlow1 = (0.00100000005f * float(fHslider0));
 		float fSlow2 = float(fVslider0);
-		float fSlow3 = expf((fConst2 / fSlow2));
-		float fSlow4 = zita_rev1_faustpower2_f(fSlow3);
-		float fSlow5 = cosf((fConst3 * float(fVslider1)));
+		float fSlow3 = std::exp((fConst2 / fSlow2));
+		float fSlow4 = fx_zita_rev1_faustpower2_f(fSlow3);
+		float fSlow5 = std::cos((fConst3 * float(fVslider1)));
 		float fSlow6 = (1.0f - (fSlow4 * fSlow5));
 		float fSlow7 = (1.0f - fSlow4);
 		float fSlow8 = (fSlow6 / fSlow7);
-		float fSlow9 = sqrtf(max(0.0f, ((zita_rev1_faustpower2_f(fSlow6) / zita_rev1_faustpower2_f(fSlow7)) + -1.0f)));
+		float fSlow9 = std::sqrt(std::max(0.0f, ((fx_zita_rev1_faustpower2_f(fSlow6) / fx_zita_rev1_faustpower2_f(fSlow7)) + -1.0f)));
 		float fSlow10 = (fSlow8 - fSlow9);
 		float fSlow11 = (fSlow3 * (fSlow9 + (1.0f - fSlow8)));
 		float fSlow12 = float(fVslider2);
-		float fSlow13 = ((expf((fConst2 / fSlow12)) / fSlow3) + -1.0f);
-		float fSlow14 = (1.0f / tanf((fConst4 * float(fVslider3))));
+		float fSlow13 = ((std::exp((fConst2 / fSlow12)) / fSlow3) + -1.0f);
+		float fSlow14 = (1.0f / std::tan((fConst4 * float(fVslider3))));
 		float fSlow15 = (fSlow14 + 1.0f);
-		float fSlow16 = (0.0f - ((1.0f - fSlow14) / fSlow15));
-		float fSlow17 = (1.0f / fSlow15);
-		int iSlow18 = int(min(8192.0f, max(0.0f, (fConst7 * float(fVslider4)))));
-		float fSlow19 = expf((fConst10 / fSlow2));
-		float fSlow20 = zita_rev1_faustpower2_f(fSlow19);
+		float fSlow16 = (1.0f / fSlow15);
+		float fSlow17 = (0.0f - ((1.0f - fSlow14) / fSlow15));
+		int iSlow18 = int(std::min(8192.0f, std::max(0.0f, (fConst7 * float(fVslider4)))));
+		float fSlow19 = std::exp((fConst10 / fSlow2));
+		float fSlow20 = fx_zita_rev1_faustpower2_f(fSlow19);
 		float fSlow21 = (1.0f - (fSlow5 * fSlow20));
 		float fSlow22 = (1.0f - fSlow20);
 		float fSlow23 = (fSlow21 / fSlow22);
-		float fSlow24 = sqrtf(max(0.0f, ((zita_rev1_faustpower2_f(fSlow21) / zita_rev1_faustpower2_f(fSlow22)) + -1.0f)));
+		float fSlow24 = std::sqrt(std::max(0.0f, ((fx_zita_rev1_faustpower2_f(fSlow21) / fx_zita_rev1_faustpower2_f(fSlow22)) + -1.0f)));
 		float fSlow25 = (fSlow23 - fSlow24);
 		float fSlow26 = (fSlow19 * (fSlow24 + (1.0f - fSlow23)));
-		float fSlow27 = ((expf((fConst10 / fSlow12)) / fSlow19) + -1.0f);
-		float fSlow28 = expf((fConst15 / fSlow2));
-		float fSlow29 = zita_rev1_faustpower2_f(fSlow28);
+		float fSlow27 = ((std::exp((fConst10 / fSlow12)) / fSlow19) + -1.0f);
+		float fSlow28 = std::exp((fConst15 / fSlow2));
+		float fSlow29 = fx_zita_rev1_faustpower2_f(fSlow28);
 		float fSlow30 = (1.0f - (fSlow5 * fSlow29));
 		float fSlow31 = (1.0f - fSlow29);
 		float fSlow32 = (fSlow30 / fSlow31);
-		float fSlow33 = sqrtf(max(0.0f, ((zita_rev1_faustpower2_f(fSlow30) / zita_rev1_faustpower2_f(fSlow31)) + -1.0f)));
+		float fSlow33 = std::sqrt(std::max(0.0f, ((fx_zita_rev1_faustpower2_f(fSlow30) / fx_zita_rev1_faustpower2_f(fSlow31)) + -1.0f)));
 		float fSlow34 = (fSlow32 - fSlow33);
 		float fSlow35 = (fSlow28 * (fSlow33 + (1.0f - fSlow32)));
-		float fSlow36 = ((expf((fConst15 / fSlow12)) / fSlow28) + -1.0f);
-		float fSlow37 = expf((fConst20 / fSlow2));
-		float fSlow38 = zita_rev1_faustpower2_f(fSlow37);
+		float fSlow36 = ((std::exp((fConst15 / fSlow12)) / fSlow28) + -1.0f);
+		float fSlow37 = std::exp((fConst20 / fSlow2));
+		float fSlow38 = fx_zita_rev1_faustpower2_f(fSlow37);
 		float fSlow39 = (1.0f - (fSlow5 * fSlow38));
 		float fSlow40 = (1.0f - fSlow38);
 		float fSlow41 = (fSlow39 / fSlow40);
-		float fSlow42 = sqrtf(max(0.0f, ((zita_rev1_faustpower2_f(fSlow39) / zita_rev1_faustpower2_f(fSlow40)) + -1.0f)));
+		float fSlow42 = std::sqrt(std::max(0.0f, ((fx_zita_rev1_faustpower2_f(fSlow39) / fx_zita_rev1_faustpower2_f(fSlow40)) + -1.0f)));
 		float fSlow43 = (fSlow41 - fSlow42);
 		float fSlow44 = (fSlow37 * (fSlow42 + (1.0f - fSlow41)));
-		float fSlow45 = ((expf((fConst20 / fSlow12)) / fSlow37) + -1.0f);
-		float fSlow46 = expf((fConst25 / fSlow2));
-		float fSlow47 = zita_rev1_faustpower2_f(fSlow46);
-		float fSlow48 = (1.0f - (fSlow47 * fSlow5));
+		float fSlow45 = ((std::exp((fConst20 / fSlow12)) / fSlow37) + -1.0f);
+		float fSlow46 = std::exp((fConst25 / fSlow2));
+		float fSlow47 = fx_zita_rev1_faustpower2_f(fSlow46);
+		float fSlow48 = (1.0f - (fSlow5 * fSlow47));
 		float fSlow49 = (1.0f - fSlow47);
-		float fSlow50 = (fSlow48 / fSlow49);
-		float fSlow51 = sqrtf(max(0.0f, ((zita_rev1_faustpower2_f(fSlow48) / zita_rev1_faustpower2_f(fSlow49)) + -1.0f)));
-		float fSlow52 = (fSlow50 - fSlow51);
-		float fSlow53 = (fSlow46 * (fSlow51 + (1.0f - fSlow50)));
-		float fSlow54 = ((expf((fConst25 / fSlow12)) / fSlow46) + -1.0f);
-		float fSlow55 = expf((fConst30 / fSlow2));
-		float fSlow56 = zita_rev1_faustpower2_f(fSlow55);
+		float fSlow50 = std::sqrt(std::max(0.0f, ((fx_zita_rev1_faustpower2_f(fSlow48) / fx_zita_rev1_faustpower2_f(fSlow49)) + -1.0f)));
+		float fSlow51 = (fSlow48 / fSlow49);
+		float fSlow52 = (fSlow46 * (fSlow50 + (1.0f - fSlow51)));
+		float fSlow53 = ((std::exp((fConst25 / fSlow12)) / fSlow46) + -1.0f);
+		float fSlow54 = (fSlow51 - fSlow50);
+		float fSlow55 = std::exp((fConst30 / fSlow2));
+		float fSlow56 = fx_zita_rev1_faustpower2_f(fSlow55);
 		float fSlow57 = (1.0f - (fSlow5 * fSlow56));
 		float fSlow58 = (1.0f - fSlow56);
-		float fSlow59 = (fSlow57 / fSlow58);
-		float fSlow60 = sqrtf(max(0.0f, ((zita_rev1_faustpower2_f(fSlow57) / zita_rev1_faustpower2_f(fSlow58)) + -1.0f)));
-		float fSlow61 = (fSlow59 - fSlow60);
-		float fSlow62 = (fSlow55 * (fSlow60 + (1.0f - fSlow59)));
-		float fSlow63 = ((expf((fConst30 / fSlow12)) / fSlow55) + -1.0f);
-		float fSlow64 = expf((fConst35 / fSlow2));
-		float fSlow65 = zita_rev1_faustpower2_f(fSlow64);
-		float fSlow66 = (1.0f - (fSlow65 * fSlow5));
+		float fSlow59 = std::sqrt(std::max(0.0f, ((fx_zita_rev1_faustpower2_f(fSlow57) / fx_zita_rev1_faustpower2_f(fSlow58)) + -1.0f)));
+		float fSlow60 = (fSlow57 / fSlow58);
+		float fSlow61 = (fSlow55 * (fSlow59 + (1.0f - fSlow60)));
+		float fSlow62 = ((std::exp((fConst30 / fSlow12)) / fSlow55) + -1.0f);
+		float fSlow63 = (fSlow60 - fSlow59);
+		float fSlow64 = std::exp((fConst35 / fSlow2));
+		float fSlow65 = fx_zita_rev1_faustpower2_f(fSlow64);
+		float fSlow66 = (1.0f - (fSlow5 * fSlow65));
 		float fSlow67 = (1.0f - fSlow65);
 		float fSlow68 = (fSlow66 / fSlow67);
-		float fSlow69 = sqrtf(max(0.0f, ((zita_rev1_faustpower2_f(fSlow66) / zita_rev1_faustpower2_f(fSlow67)) + -1.0f)));
+		float fSlow69 = std::sqrt(std::max(0.0f, ((fx_zita_rev1_faustpower2_f(fSlow66) / fx_zita_rev1_faustpower2_f(fSlow67)) + -1.0f)));
 		float fSlow70 = (fSlow68 - fSlow69);
 		float fSlow71 = (fSlow64 * (fSlow69 + (1.0f - fSlow68)));
-		float fSlow72 = ((expf((fConst35 / fSlow12)) / fSlow64) + -1.0f);
-		float fSlow73 = expf((fConst40 / fSlow2));
-		float fSlow74 = zita_rev1_faustpower2_f(fSlow73);
+		float fSlow72 = ((std::exp((fConst35 / fSlow12)) / fSlow64) + -1.0f);
+		float fSlow73 = std::exp((fConst40 / fSlow2));
+		float fSlow74 = fx_zita_rev1_faustpower2_f(fSlow73);
 		float fSlow75 = (1.0f - (fSlow5 * fSlow74));
 		float fSlow76 = (1.0f - fSlow74);
 		float fSlow77 = (fSlow75 / fSlow76);
-		float fSlow78 = sqrtf(max(0.0f, ((zita_rev1_faustpower2_f(fSlow75) / zita_rev1_faustpower2_f(fSlow76)) + -1.0f)));
+		float fSlow78 = std::sqrt(std::max(0.0f, ((fx_zita_rev1_faustpower2_f(fSlow75) / fx_zita_rev1_faustpower2_f(fSlow76)) + -1.0f)));
 		float fSlow79 = (fSlow77 - fSlow78);
 		float fSlow80 = (fSlow73 * (fSlow78 + (1.0f - fSlow77)));
-		float fSlow81 = ((expf((fConst40 / fSlow12)) / fSlow73) + -1.0f);
+		float fSlow81 = ((std::exp((fConst40 / fSlow12)) / fSlow73) + -1.0f);
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0?0.0f:fTemp0);
 			fVec0[(IOTA & 16383)] = fTemp1;
 			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
 			float fTemp2 = (1.0f - fRec0[0]);
-			fRec12[0] = ((fSlow16 * fRec12[1]) + (fSlow17 * (fRec8[1] + fRec8[2])));
+			fRec12[0] = ((fSlow16 * (fRec8[1] + fRec8[2])) + (fSlow17 * fRec12[1]));
 			fRec11[0] = ((fSlow10 * fRec11[1]) + (fSlow11 * (fRec8[1] + (fSlow13 * fRec12[0]))));
 			fVec1[(IOTA & 32767)] = ((0.353553385f * fRec11[0]) + 9.99999968e-21f);
 			float fTemp3 = float(input1[i]);
@@ -1114,71 +1069,73 @@ class zita_rev1 : public dsp {
 			fVec3[(IOTA & 2047)] = fTemp6;
 			fRec9[0] = fVec3[((IOTA - iConst8) & 2047)];
 			float fRec10 = (0.0f - (0.600000024f * fTemp6));
-			fRec16[0] = ((fSlow16 * fRec16[1]) + (fSlow17 * (fRec4[1] + fRec4[2])));
-			fRec15[0] = ((fSlow25 * fRec15[1]) + (fSlow26 * (fRec4[1] + (fSlow27 * fRec16[0]))));
-			fVec4[(IOTA & 32767)] = ((0.353553385f * fRec15[0]) + 9.99999968e-21f);
-			float fTemp7 = (((0.600000024f * fRec13[1]) + fVec4[((IOTA - iConst12) & 32767)]) - fTemp5);
-			fVec5[(IOTA & 4095)] = fTemp7;
-			fRec13[0] = fVec5[((IOTA - iConst13) & 4095)];
-			float fRec14 = (0.0f - (0.600000024f * fTemp7));
-			fRec20[0] = ((fSlow16 * fRec20[1]) + (fSlow17 * (fRec6[1] + fRec6[2])));
-			fRec19[0] = ((fSlow34 * fRec19[1]) + (fSlow35 * (fRec6[1] + (fSlow36 * fRec20[0]))));
-			fVec6[(IOTA & 16383)] = ((0.353553385f * fRec19[0]) + 9.99999968e-21f);
-			float fTemp8 = (fVec6[((IOTA - iConst17) & 16383)] + (fTemp5 + (0.600000024f * fRec17[1])));
-			fVec7[(IOTA & 4095)] = fTemp8;
+			float fTemp7 = (fRec9[1] + fRec10);
+			fRec16[0] = ((fSlow16 * (fRec7[1] + fRec7[2])) + (fSlow17 * fRec16[1]));
+			fRec15[0] = ((fSlow25 * fRec15[1]) + (fSlow26 * (fRec7[1] + (fSlow27 * fRec16[0]))));
+			fVec4[(IOTA & 16383)] = ((0.353553385f * fRec15[0]) + 9.99999968e-21f);
+			float fTemp8 = (0.300000012f * fVec0[((IOTA - iSlow18) & 16383)]);
+			float fTemp9 = (fVec4[((IOTA - iConst12) & 16383)] - (fTemp8 + (0.600000024f * fRec13[1])));
+			fVec5[(IOTA & 2047)] = fTemp9;
+			fRec13[0] = fVec5[((IOTA - iConst13) & 2047)];
+			float fRec14 = (0.600000024f * fTemp9);
+			float fTemp10 = ((fTemp7 + fRec13[1]) + fRec14);
+			fRec20[0] = ((fSlow16 * (fRec4[1] + fRec4[2])) + (fSlow17 * fRec20[1]));
+			fRec19[0] = ((fSlow34 * fRec19[1]) + (fSlow35 * (fRec4[1] + (fSlow36 * fRec20[0]))));
+			fVec6[(IOTA & 32767)] = ((0.353553385f * fRec19[0]) + 9.99999968e-21f);
+			float fTemp11 = (((0.600000024f * fRec17[1]) + fVec6[((IOTA - iConst17) & 32767)]) - fTemp5);
+			fVec7[(IOTA & 4095)] = fTemp11;
 			fRec17[0] = fVec7[((IOTA - iConst18) & 4095)];
-			float fRec18 = (0.0f - (0.600000024f * fTemp8));
-			fRec24[0] = ((fSlow16 * fRec24[1]) + (fSlow17 * (fRec2[1] + fRec2[2])));
-			fRec23[0] = ((fSlow43 * fRec23[1]) + (fSlow44 * (fRec2[1] + (fSlow45 * fRec24[0]))));
-			fVec8[(IOTA & 32767)] = ((0.353553385f * fRec23[0]) + 9.99999968e-21f);
-			float fTemp9 = (fTemp5 + ((0.600000024f * fRec21[1]) + fVec8[((IOTA - iConst22) & 32767)]));
-			fVec9[(IOTA & 4095)] = fTemp9;
+			float fRec18 = (0.0f - (0.600000024f * fTemp11));
+			fRec24[0] = ((fSlow16 * (fRec3[1] + fRec3[2])) + (fSlow17 * fRec24[1]));
+			fRec23[0] = ((fSlow43 * fRec23[1]) + (fSlow44 * (fRec3[1] + (fSlow45 * fRec24[0]))));
+			fVec8[(IOTA & 16383)] = ((0.353553385f * fRec23[0]) + 9.99999968e-21f);
+			float fTemp12 = (fVec8[((IOTA - iConst22) & 16383)] - (fTemp8 + (0.600000024f * fRec21[1])));
+			fVec9[(IOTA & 4095)] = fTemp12;
 			fRec21[0] = fVec9[((IOTA - iConst23) & 4095)];
-			float fRec22 = (0.0f - (0.600000024f * fTemp9));
-			fRec28[0] = ((fSlow16 * fRec28[1]) + (fSlow17 * (fRec7[1] + fRec7[2])));
-			fRec27[0] = ((fSlow52 * fRec27[1]) + (fSlow53 * (fRec7[1] + (fSlow54 * fRec28[0]))));
-			fVec10[(IOTA & 16383)] = ((0.353553385f * fRec27[0]) + 9.99999968e-21f);
-			float fTemp10 = (0.300000012f * fVec0[((IOTA - iSlow18) & 16383)]);
-			float fTemp11 = (fVec10[((IOTA - iConst27) & 16383)] - (fTemp10 + (0.600000024f * fRec25[1])));
-			fVec11[(IOTA & 2047)] = fTemp11;
-			fRec25[0] = fVec11[((IOTA - iConst28) & 2047)];
-			float fRec26 = (0.600000024f * fTemp11);
-			fRec32[0] = ((fSlow16 * fRec32[1]) + (fSlow17 * (fRec3[1] + fRec3[2])));
-			fRec31[0] = ((fSlow61 * fRec31[1]) + (fSlow62 * (fRec3[1] + (fSlow63 * fRec32[0]))));
+			float fRec22 = (0.600000024f * fTemp12);
+			float fTemp13 = ((((fTemp10 + fRec17[1]) + fRec18) + fRec21[1]) + fRec22);
+			fRec28[0] = ((fSlow16 * (fRec2[1] + fRec2[2])) + (fSlow17 * fRec28[1]));
+			fRec27[0] = ((fSlow52 * (fRec2[1] + (fSlow53 * fRec28[0]))) + (fSlow54 * fRec27[1]));
+			fVec10[(IOTA & 32767)] = ((0.353553385f * fRec27[0]) + 9.99999968e-21f);
+			float fTemp14 = ((fTemp5 + (0.600000024f * fRec25[1])) + fVec10[((IOTA - iConst27) & 32767)]);
+			fVec11[(IOTA & 4095)] = fTemp14;
+			fRec25[0] = fVec11[((IOTA - iConst28) & 4095)];
+			float fRec26 = (0.0f - (0.600000024f * fTemp14));
+			fRec32[0] = ((fSlow16 * (fRec1[1] + fRec1[2])) + (fSlow17 * fRec32[1]));
+			fRec31[0] = ((fSlow61 * (fRec1[1] + (fSlow62 * fRec32[0]))) + (fSlow63 * fRec31[1]));
 			fVec12[(IOTA & 16383)] = ((0.353553385f * fRec31[0]) + 9.99999968e-21f);
-			float fTemp12 = (fVec12[((IOTA - iConst32) & 16383)] - (fTemp10 + (0.600000024f * fRec29[1])));
-			fVec13[(IOTA & 4095)] = fTemp12;
-			fRec29[0] = fVec13[((IOTA - iConst33) & 4095)];
-			float fRec30 = (0.600000024f * fTemp12);
-			fRec36[0] = ((fSlow16 * fRec36[1]) + (fSlow17 * (fRec5[1] + fRec5[2])));
+			float fTemp15 = ((fTemp8 + fVec12[((IOTA - iConst32) & 16383)]) - (0.600000024f * fRec29[1]));
+			fVec13[(IOTA & 2047)] = fTemp15;
+			fRec29[0] = fVec13[((IOTA - iConst33) & 2047)];
+			float fRec30 = (0.600000024f * fTemp15);
+			fRec36[0] = ((fSlow16 * (fRec5[1] + fRec5[2])) + (fSlow17 * fRec36[1]));
 			fRec35[0] = ((fSlow70 * fRec35[1]) + (fSlow71 * (fRec5[1] + (fSlow72 * fRec36[0]))));
 			fVec14[(IOTA & 16383)] = ((0.353553385f * fRec35[0]) + 9.99999968e-21f);
-			float fTemp13 = ((fTemp10 + fVec14[((IOTA - iConst37) & 16383)]) - (0.600000024f * fRec33[1]));
-			fVec15[(IOTA & 4095)] = fTemp13;
+			float fTemp16 = ((fTemp8 + fVec14[((IOTA - iConst37) & 16383)]) - (0.600000024f * fRec33[1]));
+			fVec15[(IOTA & 4095)] = fTemp16;
 			fRec33[0] = fVec15[((IOTA - iConst38) & 4095)];
-			float fRec34 = (0.600000024f * fTemp13);
-			fRec40[0] = ((fSlow16 * fRec40[1]) + (fSlow17 * (fRec1[1] + fRec1[2])));
-			fRec39[0] = ((fSlow79 * fRec39[1]) + (fSlow80 * (fRec1[1] + (fSlow81 * fRec40[0]))));
+			float fRec34 = (0.600000024f * fTemp16);
+			fRec40[0] = ((fSlow16 * (fRec6[1] + fRec6[2])) + (fSlow17 * fRec40[1]));
+			fRec39[0] = ((fSlow79 * fRec39[1]) + (fSlow80 * (fRec6[1] + (fSlow81 * fRec40[0]))));
 			fVec16[(IOTA & 16383)] = ((0.353553385f * fRec39[0]) + 9.99999968e-21f);
-			float fTemp14 = ((fVec16[((IOTA - iConst42) & 16383)] + fTemp10) - (0.600000024f * fRec37[1]));
-			fVec17[(IOTA & 2047)] = fTemp14;
-			fRec37[0] = fVec17[((IOTA - iConst43) & 2047)];
-			float fRec38 = (0.600000024f * fTemp14);
-			float fTemp15 = (fRec38 + fRec34);
-			float fTemp16 = (fRec26 + (fRec30 + fTemp15));
-			fRec1[0] = (fRec9[1] + (fRec13[1] + (fRec17[1] + (fRec21[1] + (fRec25[1] + (fRec29[1] + (fRec33[1] + (fRec37[1] + (fRec10 + (fRec14 + (fRec18 + (fRec22 + fTemp16))))))))))));
-			fRec2[0] = ((fRec25[1] + (fRec29[1] + (fRec33[1] + (fRec37[1] + fTemp16)))) - (fRec9[1] + (fRec13[1] + (fRec17[1] + (fRec21[1] + (fRec10 + (fRec14 + (fRec22 + fRec18))))))));
-			float fTemp17 = (fRec30 + fRec26);
-			fRec3[0] = ((fRec17[1] + (fRec21[1] + (fRec33[1] + (fRec37[1] + (fRec18 + (fRec22 + fTemp15)))))) - (fRec9[1] + (fRec13[1] + (fRec25[1] + (fRec29[1] + (fRec10 + (fRec14 + fTemp17)))))));
-			fRec4[0] = ((fRec9[1] + (fRec13[1] + (fRec33[1] + (fRec37[1] + (fRec10 + (fRec14 + fTemp15)))))) - (fRec17[1] + (fRec21[1] + (fRec25[1] + (fRec29[1] + (fRec18 + (fRec22 + fTemp17)))))));
-			float fTemp18 = (fRec38 + fRec30);
-			float fTemp19 = (fRec34 + fRec26);
-			fRec5[0] = ((fRec13[1] + (fRec21[1] + (fRec29[1] + (fRec37[1] + (fRec14 + (fRec22 + fTemp18)))))) - (fRec9[1] + (fRec17[1] + (fRec25[1] + (fRec33[1] + (fRec10 + (fRec18 + fTemp19)))))));
-			fRec6[0] = ((fRec9[1] + (fRec17[1] + (fRec29[1] + (fRec37[1] + (fRec10 + (fRec18 + fTemp18)))))) - (fRec13[1] + (fRec21[1] + (fRec25[1] + (fRec33[1] + (fRec14 + (fRec22 + fTemp19)))))));
-			float fTemp20 = (fRec38 + fRec26);
-			float fTemp21 = (fRec34 + fRec30);
-			fRec7[0] = ((fRec9[1] + (fRec21[1] + (fRec25[1] + (fRec37[1] + (fRec10 + (fRec22 + fTemp20)))))) - (fRec13[1] + (fRec17[1] + (fRec29[1] + (fRec33[1] + (fRec14 + (fRec18 + fTemp21)))))));
-			fRec8[0] = ((fRec13[1] + (fRec17[1] + (fRec25[1] + (fRec37[1] + (fRec14 + (fRec18 + fTemp20)))))) - (fRec9[1] + (fRec21[1] + (fRec29[1] + (fRec33[1] + (fRec10 + (fRec22 + fTemp21)))))));
+			float fTemp17 = ((fTemp5 + (0.600000024f * fRec37[1])) + fVec16[((IOTA - iConst42) & 16383)]);
+			fVec17[(IOTA & 4095)] = fTemp17;
+			fRec37[0] = fVec17[((IOTA - iConst43) & 4095)];
+			float fRec38 = (0.0f - (0.600000024f * fTemp17));
+			fRec1[0] = ((((((((fTemp13 + fRec25[1]) + fRec29[1]) + fRec30) + fRec26) + fRec33[1]) + fRec34) + fRec37[1]) + fRec38);
+			float fTemp18 = (fRec13[1] + fRec14);
+			float fTemp19 = ((fTemp18 + fRec21[1]) + fRec22);
+			float fTemp20 = ((fTemp7 + fRec17[1]) + fRec18);
+			fRec2[0] = (((((fTemp19 + fRec29[1]) + fRec30) + fRec33[1]) + fRec34) - ((((fTemp20 + fRec25[1]) + fRec26) + fRec37[1]) + fRec38));
+			fRec3[0] = ((fRec38 + (fRec37[1] + (fRec34 + ((((fRec25[1] + fRec29[1]) + fRec30) + fRec26) + fRec33[1])))) - fTemp13);
+			fRec4[0] = (((fRec33[1] + (fRec30 + (fTemp20 + fRec29[1]))) + fRec34) - ((((fTemp19 + fRec25[1]) + fRec26) + fRec37[1]) + fRec38));
+			float fTemp21 = (((fRec17[1] + fRec18) + fRec21[1]) + fRec22);
+			fRec5[0] = (((((fTemp21 + fRec25[1]) + fRec29[1]) + fRec30) + fRec26) - ((((fTemp10 + fRec33[1]) + fRec34) + fRec37[1]) + fRec38));
+			float fTemp22 = ((fTemp7 + fRec21[1]) + fRec22);
+			float fTemp23 = ((fTemp18 + fRec17[1]) + fRec18);
+			fRec6[0] = (((((fTemp22 + fRec29[1]) + fRec30) + fRec37[1]) + fRec38) - ((((fTemp23 + fRec25[1]) + fRec26) + fRec33[1]) + fRec34));
+			fRec7[0] = (((((fTemp10 + fRec25[1]) + fRec29[1]) + fRec30) + fRec26) - ((((fTemp21 + fRec33[1]) + fRec34) + fRec37[1]) + fRec38));
+			fRec8[0] = ((fRec38 + (fRec37[1] + (fRec30 + (fTemp23 + fRec29[1])))) - (fRec34 + (fRec33[1] + (fRec26 + (fTemp22 + fRec25[1])))));
 			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:((fTemp1 * fTemp2) + (0.370000005f * (fRec0[0] * (fRec2[0] + fRec3[0]))))));
 			output1[i] = FAUSTFLOAT((iSlow0?fTemp3:((fTemp4 * fTemp2) + (0.370000005f * (fRec0[0] * (fRec2[0] - fRec3[0]))))));
 			IOTA = (IOTA + 1);
@@ -1233,586 +1190,22 @@ class zita_rev1 : public dsp {
 // clang-format on
 #endif
 
-// clang-format off
-#define faust_setup(name) xfaust_setup(name)
-#define xfaust_setup(name) name##_tilde_setup(void)
-// time for "active" toggle xfades in secs
-#define XFADE_TIME 0.1f
-static t_class* zita_rev1_faust_class;
-#define FAUST_EXT t_faust_zita_rev1
-#define FAUST_EXT_CLASS zita_rev1_faust_class
-// clang-format on
-
-struct t_faust_zita_rev1 {
-    t_object x_obj;
-#ifdef __MINGW32__
-    /* This seems to be necessary as some as yet undetermined Pd routine seems
-     to write past the end of x_obj on Windows. */
-    int fence; /* dummy field (not used) */
-#endif
-    zita_rev1* dsp;
-    PdUI<UI>* ui;
-    int active, xfade, n_xfade, rate, n_in, n_out;
-    t_sample **inputs, **outputs, **buf;
-    t_outlet* out;
-    t_sample f;
+    template <class T>
+    struct _fx_zita_rev1_UI : public UI {
+    static std::string name;
 };
 
-static inline void zero_samples(int k, int n, t_sample** out)
-{
-    for (int i = 0; i < k; i++)
-#ifdef __STDC_IEC_559__
-        /* IEC 559 a.k.a. IEEE 754 floats can be initialized faster like this */
-        memset(out[i], 0, n * sizeof(t_sample));
-#else
-        for (int j = 0; j < n; j++)
-            out[i][j] = 0.0f;
-#endif
-}
+template <class T>
+std::string _fx_zita_rev1_UI<T>::name(sym(fx_zita_rev1));
 
-static inline void copy_samples(int k, int n, t_sample** out, t_sample** in)
-{
-    for (int i = 0; i < k; i++)
-        memcpy(out[i], in[i], n * sizeof(t_sample));
-}
+typedef _fx_zita_rev1_UI<fx_zita_rev1> fx_zita_rev1_UI;
 
-static t_int* faust_perform(t_int* w)
-{
-    t_faust_zita_rev1* x = reinterpret_cast<t_faust_zita_rev1*>(w[1]);
-    int n = static_cast<int>(w[2]);
-    if (!x->dsp || !x->buf)
-        return (w + 3);
-
-    AVOIDDENORMALS;
-    if (x->xfade > 0) {
-        float d = 1.0f / x->n_xfade, f = (x->xfade--) * d;
-        d = d / n;
-        x->dsp->compute(n, x->inputs, x->buf);
-        if (x->active) {
-            if (x->n_in == x->n_out) {
-                /* xfade inputs -> buf */
-                for (int j = 0; j < n; j++, f -= d) {
-                    for (int i = 0; i < x->n_out; i++)
-                        x->outputs[i][j] = f * x->inputs[i][j] + (1.0f - f) * x->buf[i][j];
-                }
-            } else {
-                /* xfade 0 -> buf */
-                for (int j = 0; j < n; j++, f -= d) {
-                    for (int i = 0; i < x->n_out; i++)
-                        x->outputs[i][j] = (1.0f - f) * x->buf[i][j];
-                }
-            }
-        } else if (x->n_in == x->n_out) {
-            /* xfade buf -> inputs */
-            for (int j = 0; j < n; j++, f -= d) {
-                for (int i = 0; i < x->n_out; i++)
-                    x->outputs[i][j] = f * x->buf[i][j] + (1.0f - f) * x->inputs[i][j];
-            }
-        } else {
-            /* xfade buf -> 0 */
-            for (int j = 0; j < n; j++, f -= d) {
-                for (int i = 0; i < x->n_out; i++)
-                    x->outputs[i][j] = f * x->buf[i][j];
-            }
-        }
-    } else if (x->active) {
-        x->dsp->compute(n, x->inputs, x->buf);
-        copy_samples(x->n_out, n, x->outputs, x->buf);
-    } else if (x->n_in == x->n_out) {
-        copy_samples(x->n_out, n, x->buf, x->inputs);
-        copy_samples(x->n_out, n, x->outputs, x->buf);
-    } else
-        zero_samples(x->n_out, n, x->outputs);
-
-    return (w + 3);
-}
-
-static void zita_rev1_faust_dsp(t_faust_zita_rev1* x, t_signal** sp)
-{
-    const int n = sp[0]->s_n;
-    const int sr = static_cast<int>(sp[0]->s_sr);
-
-    if (x->rate <= 0) {
-        /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
-        std::vector<FAUSTFLOAT> z = ui->uiValues();
-        /* set the proper sample rate; this requires reinitializing the dsp */
-        x->rate = sr;
-        x->dsp->init(sr);
-        ui->setUIValues(z);
-    }
-    if (n > 0)
-        x->n_xfade = static_cast<int>(x->rate * XFADE_TIME / n);
-
-    dsp_add(faust_perform, 2, x, n);
-
-    for (int i = 0; i < x->n_in; i++)
-        x->inputs[i] = sp[i]->s_vec;
-
-    for (int i = 0; i < x->n_out; i++)
-        x->outputs[i] = sp[x->n_in + i]->s_vec;
-
-    if (x->buf != NULL) {
-        for (int i = 0; i < x->n_out; i++) {
-            x->buf[i] = static_cast<t_sample*>(malloc(n * sizeof(t_sample)));
-            if (x->buf[i] == NULL) {
-                for (int j = 0; j < i; j++)
-                    free(x->buf[j]);
-                free(x->buf);
-                x->buf = NULL;
-                break;
-            }
-        }
-    }
-}
-
-static void zita_rev1_dump_to_console(t_faust_zita_rev1* x)
-{
-    t_object* xobj = &x->x_obj;
-    t_class* xc = xobj->te_pd;
-    const char* name = class_getname(xc);
-
-    // print xlets
-    post("[%s] inlets: %i", name, x->dsp->getNumInputs());
-    int info_outlet = (x->out == 0) ? 0 : 1;
-    post("[%s] outlets: %i", name, x->dsp->getNumOutputs() + info_outlet);
-
-    // print properties
-    for (size_t i = 0; i < x->ui->uiCount(); i++) {
-        UIElement* el = x->ui->uiAt(i);
-        post("[%s] property: %s = %g", name, el->setPropertySym()->s_name, static_cast<double>(el->value()));
-    }
-}
-
-static void zita_rev1_faust_any(t_faust_zita_rev1* x, t_symbol* s, int argc, t_atom* argv)
-{
-    if (!x->dsp)
-        return;
-
-    PdUI<UI>* ui = x->ui;
-    if (s == &s_bang) {
-        ui->dumpUI(x->out);
-    } else if (isGetAllProperties(s)) {
-        ui->outputAllProperties(x->out);
-    } else if (isGetProperty(s)) {
-        ui->outputProperty(s, x->out);
-    } else if (isSetProperty(s)) {
-        ui->setProperty(s, argc, argv);
-    } else {
-        const char* label = s->s_name;
-        int count = 0;
-        for (size_t i = 0; i < ui->uiCount(); i++) {
-            if (ui->uiAt(i)->pathcmp(label)) {
-                if (argc == 0) {
-                    ui->uiAt(i)->outputValue(x->out);
-                    ++count;
-                } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT)) {
-                    float f = atom_getfloat(argv);
-                    UIElement* el = ui->uiAt(i);
-                    el->setValue(f);
-                    ++count;
-                } else
-                    pd_error(x, "[ceammc] %s: bad control argument: %s", ui->fullName().c_str(), label);
-            }
-        }
-
-        if (count == 0 && strcmp(label, "active") == 0) {
-            if (argc == 0) {
-                t_atom arg;
-                SETFLOAT(&arg, (float)x->active);
-                if (x->out) {
-                    outlet_anything(x->out, gensym("active"), 1, &arg);
-                }
-            } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT)) {
-                float f = atom_getfloat(argv);
-                x->active = (int)f;
-                x->xfade = x->n_xfade;
-            }
-        }
-    }
-}
-
-static void faust_free_dsp(t_faust_zita_rev1* x)
-{
-    delete x->dsp;
-    x->dsp = NULL;
-}
-
-static void faust_free_ui(t_faust_zita_rev1* x)
-{
-    delete x->ui;
-    x->ui = NULL;
-}
-
-static void faust_free_inputs(t_faust_zita_rev1* x)
-{
-    if (x->inputs)
-        free(x->inputs);
-    x->inputs = NULL;
-}
-
-static void faust_free_outputs(t_faust_zita_rev1* x)
-{
-    if (x->outputs)
-        free(x->outputs);
-    x->outputs = NULL;
-}
-
-static void faust_free_buf(t_faust_zita_rev1* x)
-{
-    if (x->buf) {
-        for (int i = 0; i < x->n_out; i++) {
-            if (x->buf[i])
-                free(x->buf[i]);
-        }
-
-        free(x->buf);
-    }
-}
-
-static void zita_rev1_faust_free(t_faust_zita_rev1* x)
-{
-    faust_free_dsp(x);
-    faust_free_ui(x);
-    faust_free_inputs(x);
-    faust_free_outputs(x);
-    faust_free_buf(x);
-}
-
-static bool faust_init_inputs(t_faust_zita_rev1* x)
-{
-    x->inputs = NULL;
-    x->n_in = x->dsp->getNumInputs();
-
-    if (x->n_in > 0) {
-        x->inputs = static_cast<t_sample**>(calloc(x->n_in, sizeof(t_sample*)));
-
-        if (x->inputs == NULL) {
-            error("[%s] faust_init_inputs failed", sym(zita_rev1));
-            return false;
-        }
-    }
-
-    // creating sound inlets (except the first one!)
-    for (int i = 0; i < (x->n_in - 1); i++) {
-        inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_signal, &s_signal);
-    }
-
-    return true;
-}
-
-static bool faust_init_outputs(t_faust_zita_rev1* x, bool info_outlet)
-{
-    x->outputs = NULL;
-    x->buf = NULL;
-
-    x->n_out = x->dsp->getNumOutputs();
-
-    if (x->n_out > 0) {
-        x->outputs = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
-        if (x->outputs == NULL) {
-            error("[%s] faust_init_outputs failed", sym(zita_rev1));
-            return false;
-        }
-
-        x->buf = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
-        if (x->buf == NULL) {
-            error("[%s] faust_init_outputs failed", sym(zita_rev1));
-            faust_free_outputs(x);
-            return false;
-        }
-
-        for (int i = 0; i < x->n_out; i++)
-            x->buf[i] = NULL;
-    }
-
-    // creating sound outlets
-    for (int i = 0; i < x->n_out; i++) {
-        outlet_new(&x->x_obj, &s_signal);
-    }
-
-    // control outlet
-    if (info_outlet)
-        x->out = outlet_new(&x->x_obj, 0);
-    else
-        x->out = 0;
-
-    return true;
-}
-
-static bool faust_new_internal(t_faust_zita_rev1* x, const std::string& objId = "", bool info_outlet = true)
-{
-    int sr = 44100;
-    x->active = 1;
-    x->xfade = 0;
-    x->rate = sr;
-    x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
-
-    x->dsp = new zita_rev1();
-    x->ui = new PdUI<UI>(sym(zita_rev1), objId);
-
-    if (!faust_init_inputs(x)) {
-        zita_rev1_faust_free(x);
-        return false;
-    }
-
-    if (!faust_init_outputs(x, info_outlet)) {
-        zita_rev1_faust_free(x);
-        return false;
-    }
-
-    x->dsp->init(sr);
-    x->dsp->buildUserInterface(x->ui);
-
-    return true;
-}
-
-/**
- * find nth element that satisfies given predicate
- * @param first - first element of sequence
- * @param last - pointer behind last element of sequence
- * @param Nth - searched element index
- * @param pred - predicate
- * @return pointer to found element or pointer to last, if not found
- */
-template <class InputIterator, class NthOccurence, class UnaryPredicate>
-InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
-{
-    if (Nth > 0) {
-        while (first != last) {
-            if (pred(*first))
-                if (!--Nth)
-                    return first;
-            ++first;
-        }
-    }
-    return last;
-}
-
-/**
- * @return true if given atom is a float
- */
-static bool atom_is_float(const t_atom& a)
-{
-    switch (a.a_type) {
-    case A_FLOAT:
-    case A_DEFFLOAT:
-        return true;
-    default:
-        return false;
-    }
-}
-
-/**
- * @return true if given atom is a symbol
- */
-static bool atom_is_symbol(const t_atom& a)
-{
-    switch (a.a_type) {
-    case A_DEFSYMBOL:
-    case A_SYMBOL:
-        return true;
-    default:
-        return false;
-    }
-}
-
-/**
- * @return true if given atom is a property
- */
-static bool atom_is_property(const t_atom& a)
-{
-    switch (a.a_type) {
-    case A_DEFSYMBOL:
-    case A_SYMBOL:
-        return a.a_w.w_symbol->s_name[0] == '@';
-    default:
-        return false;
-    }
-}
-
-/**
- * @brief find nth float in argument list. (arguments can be mixed)
- * @param argc argument count
- * @param argv pointer to argument vector
- * @param nth find position. nth should be > 0!
- * @param dest destination to write value
- * @return true if argument at given position was found, otherwise false
- */
-static bool get_nth_float_arg(int argc, t_atom* argv, int nth, t_float* dest)
-{
-    t_atom* last = argv + argc;
-    t_atom* res = find_nth_if(argv, last, nth, atom_is_float);
-    if (last == res)
-        return false;
-
-    *dest = atom_getfloat(res);
-    return true;
-}
-
-/**
- * @brief find nth symbol in argument list. (arguments can be mixed)
- * @param argc argument count
- * @param argv pointer to argument vector
- * @param nth find position. nth should be > 0!
- * @param dest destination to write found argument value
- * @return true if argument at given position was found, otherwise false
- */
-static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** dest)
-{
-    t_atom* last = argv + argc;
-    t_atom* res = find_nth_if(argv, last, nth, atom_is_symbol);
-    if (last == res)
-        return false;
-
-    t_symbol* s = atom_getsymbol(res);
-    *dest = s->s_name;
-    return true;
-}
-
-class PdArgParser {
-    t_faust_zita_rev1* x_;
-    int argc_;
-    t_atom* argv_;
-    bool control_outlet_;
-
+class faust_fx_zita_rev1_tilde : public FaustExternal<fx_zita_rev1, fx_zita_rev1_UI> {
 public:
-    /**
-     * @brief FaustArgParser
-     * @param x pointer to faust class
-     * @param argc arguments count
-     * @param argv pointer to argument vector
-     */
-    PdArgParser(t_faust_zita_rev1* x, int argc, t_atom* argv, bool info_outlet = true)
-        : x_(x)
-        , argc_(0)
-        , argv_(argv)
-        , control_outlet_(info_outlet)
+    faust_fx_zita_rev1_tilde(const ceammc::PdArgs& args)
+        : FaustExternal(args)
     {
-        const char* id = NULL;
-        std::string objId;
-
-        int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
-                first_prop_idx = i;
-        }
-
-        // store argument count (without properties)
-        argc_ = first_prop_idx;
-
-        if (get_nth_symbol_arg(argc_, argv_, 1, &id))
-            objId = id;
-
-        // init error
-        if (!faust_new_internal(x, objId, control_outlet_)) {
-            this->x_ = NULL;
-        }
-
-        // process properties
-        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc, argv).properties();
-        for (size_t i = 0; i < props.size(); i++) {
-            ceammc::AtomList& p = props[i];
-            // skip empty property
-            if (p.size() < 2)
-                continue;
-
-            t_atom* data = p.toPdData() + 1;
-            this->x_->ui->setProperty(p[0].asSymbol(), p.size() - 1, data);
-        }
-    }
-
-    /**
-     * @brief initFloatArg
-     * @param name argument name
-     * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
-     * to select first argument - pass 1.
-     */
-    void initFloatArg(const char* name, int pos)
-    {
-        // object was not created
-        if (!this->x_)
-            return;
-
-        t_float v = 0.0;
-        if (get_nth_float_arg(this->argc_, this->argv_, pos, &v)) {
-            UIElement* el = this->x_->ui->findElementByLabel(name);
-            if (!el) {
-                post("invalid UI element name: %s", name);
-                return;
-            }
-
-            el->setValue(v, true);
-        }
-    }
-
-    /**
-     * @brief send creation argument to first signal inlet
-     * @param name argument name
-     * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
-     * to select first argument - pass 1.
-     */
-    void signalFloatArg(const char* /*name*/, int pos)
-    {
-        // object was not created
-        if (!this->x_)
-            return;
-
-        t_float arg = 0;
-        if (get_nth_float_arg(this->argc_, this->argv_, pos, &arg))
-            pd_float(reinterpret_cast<t_pd*>(this->x_), arg);
-    }
-
-    t_faust_zita_rev1* pd_obj()
-    {
-        return this->x_;
     }
 };
-
-static void* zita_rev1_faust_new(t_symbol* s, int argc, t_atom* argv);
-
-static void internal_setup(t_symbol* s, bool soundIn = true)
-{
-    zita_rev1_faust_class = class_new(s, reinterpret_cast<t_newmethod>(zita_rev1_faust_new),
-        reinterpret_cast<t_method>(zita_rev1_faust_free),
-        sizeof(t_faust_zita_rev1),
-        CLASS_DEFAULT,
-        A_GIMME, A_NULL);
-
-    if (soundIn) {
-        class_addmethod(zita_rev1_faust_class, nullfn, &s_signal, A_NULL);
-        CLASS_MAINSIGNALIN(zita_rev1_faust_class, t_faust_zita_rev1, f);
-    }
-
-    class_addmethod(zita_rev1_faust_class, reinterpret_cast<t_method>(zita_rev1_faust_dsp), gensym("dsp"), A_NULL);
-    class_addmethod(zita_rev1_faust_class, reinterpret_cast<t_method>(zita_rev1_dump_to_console), gensym("dump"), A_NULL);
-    class_addanything(zita_rev1_faust_class, zita_rev1_faust_any);
-}
-
-#define EXTERNAL_NEW void* zita_rev1_faust_new(t_symbol*, int argc, t_atom* argv)
-
-#define EXTERNAL_SIMPLE_NEW()                                                           \
-    static void* zita_rev1_faust_new(t_symbol*, int argc, t_atom* argv)                     \
-    {                                                                                   \
-        t_faust_zita_rev1* x = reinterpret_cast<t_faust_zita_rev1*>(pd_new(zita_rev1_faust_class)); \
-        PdArgParser p(x, argc, argv, false);                                            \
-        return p.pd_obj();                                                              \
-    }
-
-#define EXTERNAL_SETUP(MOD)                        \
-    extern "C" void setup_##MOD##0x2ezita_rev1_tilde() \
-    {                                              \
-        internal_setup(gensym(#MOD ".zita_rev1~"));    \
-    }
-
-#define EXTERNAL_SETUP_NO_IN(MOD)                      \
-    extern "C" void setup_##MOD##0x2ezita_rev1_tilde()     \
-    {                                                  \
-        internal_setup(gensym(#MOD ".zita_rev1~"), false); \
-    }
-
-#define SIMPLE_EXTERNAL(MOD) \
-    EXTERNAL_SIMPLE_NEW();   \
-    EXTERNAL_SETUP(MOD);
 
 #endif

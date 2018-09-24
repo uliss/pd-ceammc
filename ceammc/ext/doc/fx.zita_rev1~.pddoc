@@ -14,39 +14,32 @@
             <since>0.2</since>
         </meta>
         <arguments>
-            <argument name="ID" type="symbol">object ID for OSC control path</argument>
+            <argument name="DELAY" type="float" minvalue="20" maxvalue="100">same as @delay
+            property</argument>
         </arguments>
         <methods>
-            <method name="delay">
-                <param type="float" minvalue="20" maxvalue="100" required="true"
-                units="millisecond">A delay of 20 to 100 ms operating on the 'wet' signal. Large
-                values will provide the impression of a larger room.</param>
-            </method>
-            <method name="freq_low">
-                <param type="float" minvalue="50" maxvalue="1000" required="true" units="herz">
-                Crossover frequency (Hz) separating low and middle frequencies</param>
-            </method>
-            <method name="dump_hf">
-                <param type="float" minvalue="1500" maxvalue="20000" required="true" units="herz">
-                Frequency (Hz) at which the high-frequency T60 is half the middle-band's
-                T60</param>
-            </method>
-            <method name="decay_low">
-                <param type="float" minvalue="1" maxvalue="8" required="true" units="second">time
-                (in seconds) to decay 60dB in low-frequency band</param>
-            </method>
-            <method name="decay_mid">
-                <param type="float" minvalue="1" maxvalue="8" required="true" units="second">time
-                (in seconds) to decay 60dB in low-frequency band</param>
-            </method>
-            <method name="drywet">
-                <param type="float" minvalue="0" maxvalue="1" required="true" name="X">Ratio
-                between processed signal (wet) and source signal</param>
-            </method>
-            <method name="bypass">bypass effect 
-            <param name="X" type="int" enum="0 1" required="true">if set to 1 - bypass 'effected'
-            signal.</param></method>
+            <method name="reset">same as reset</method>
         </methods>
+        <properties>
+            <property name="@delay" type="float" minvalue="20" maxvalue="100" default="60"
+            units="millisecond">A delay of 20 to 100 ms operating on the 'wet' signal. Large values
+            will provide the impression of a larger room</property>
+            <property name="@freq_low" type="float" minvalue="50" maxvalue="1000" default="200"
+            units="herz">Crossover frequency (Hz) separating low and middle frequencies</property>
+            <property name="@dump_hf" type="float" minvalue="1500" maxvalue="20000" default="6000"
+            units="herz">Frequency (Hz) at which the high-frequency T60 is half the middle-band's
+            T60</property>
+            <property name="@decay_low" type="float" minvalue="1" maxvalue="8" default="3"
+            units="second">time (in seconds) to decay 60dB in low-frequency band</property>
+            <property name="@decay_mid" type="float" minvalue="1" maxvalue="8" default="2"
+            units="second">time (in seconds) to decay 60dB in low-frequency band</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">Ratio
+            between processed signal (wet) and source signal</property>
+            <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
+            'effected' signal.</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>left channel</xinfo>
@@ -58,7 +51,6 @@
         <outlets>
             <outlet type="audio">output left</outlet>
             <outlet type="audio">output right</outlet>
-            <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -77,18 +69,19 @@
 [bang(
 |
 [tabplay~ array1]
+|
 |              [F]
 |              |
-| [T]          [delay $1( [F]            [F]
-| |            |          |              |
-| [bypass $1(  | [dump(   [decay_mid $1( [decay_low $1(
-| |            | |        |              |
-| |            | |        |              |
-| |  [B]       | |        |              |
-| |  |         | |        |              |
-[fx.zita_rev1~                         id]
-|  ^|.     ^^|
-[dac~]      [print]
+| [T]          [@delay $1( [F]             [F]
+| |            |           |               |
+| [@bypass $1( | [dump(    [@decay_mid $1( [@decay_low $1(
+| |            | |         |               |
+| |            | |         |               |
+| |            | |         |               |
+| |            | |         |               |
+[fx.zita_rev1~                             ]
+|  ^|.
+[dac~]
 
 ]]>
             </pdascii>

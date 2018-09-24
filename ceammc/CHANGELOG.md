@@ -26,6 +26,7 @@
 - fx.sdelay~ clear and reset messages added
 - fx.greyhole~ reset message added
 - fx.echo~ reset message added
+- fx.zita_rev1~ reset message added and init argument delay
 
 ### Changed:
 - data type generation support for list.gen and list.each
@@ -38,6 +39,7 @@
 - lfo.square~ now is zero-mean in \[-1, 1\] range
 - lfo.pulse~ now is in \[-1, 1\] range
 - env.ar~ now supports Envelope data type, run on bang, bang on done added
+- fx.echo~ @time property renamed to @delay
 
 ### Removed:
 - fx.greyhole~ 3rd information outlet removed
