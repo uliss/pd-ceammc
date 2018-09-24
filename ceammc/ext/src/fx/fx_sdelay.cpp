@@ -3,11 +3,15 @@
 
 using namespace ceammc;
 
+static t_symbol* SYM_PROP_DELAY = gensym("@delay");
+static t_symbol* SYM_PROP_FEEDBACK = gensym("@feedback");
+
 class FxSmoothDelay : public faust_fx_sdelay_tilde {
 public:
     FxSmoothDelay(const PdArgs& args)
         : faust_fx_sdelay_tilde(args)
     {
+        bindPositionalArgsToProps({ SYM_PROP_DELAY, SYM_PROP_FEEDBACK });
     }
 
     void m_clear(t_symbol*, const AtomList&)
