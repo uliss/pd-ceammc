@@ -18,4 +18,4 @@ effect = _ : pf.flanger_mono(dmax, curdel, depth, fb, invert) : _ with {
     curdel = odflange + dflange * (1 + lfol(freq)) / 2 : si.smoo;
 };
 
-process = _ : ba.bypass1(ui.bypass, effect) : _;
+process = _ : cm.fx_wrap_mono(ui.bypass, ui.drywet(1), effect) : _;

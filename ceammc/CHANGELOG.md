@@ -22,6 +22,7 @@
 - osc.square~ added inlet for phase reset
 - osc.pulse~ added inlet for phase reset
 - osc.impulse~ added inlet for phase reset
+- fx.flanger~ @drywet property added
 
 ### Changed:
 - data type generation support for list.gen and list.each

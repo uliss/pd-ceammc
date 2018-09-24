@@ -114,7 +114,7 @@ function.call,func.call		..		.
 fx.distortion~		~		~.
 fx.drone_box~		~		~.
 fx.echo~		~		~.
-fx.flanger~		~		~.
+fx.flanger~		~		~
 fx.freeverb2~		~~		~~.
 fx.freeverb~		~		~.
 fx.freqshift~		~~		~~

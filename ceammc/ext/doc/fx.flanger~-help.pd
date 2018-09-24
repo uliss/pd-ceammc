@@ -5,112 +5,77 @@
 #X obj 1 1 cnv 5 712 40 empty empty fx.flanger~ 20 20 0 20 -104026
 -4096 0;
 #X obj 607 11 fx.flanger~;
-#X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
-#X obj 50 147 expand_env;
-#X obj 50 176 readsf~;
-#X floatatom 117 205 5 0 0 0 - - -;
-#X floatatom 222 205 5 0 0 0 - - -;
-#X floatatom 328 205 5 0 0 0 - - -;
-#X obj 462 205 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 117 234 speed \$1;
-#X msg 222 234 delay \$1;
-#X msg 328 234 offset \$1;
-#X msg 462 234 bypass \$1;
-#X obj 347 262 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X floatatom 482 262 5 0 0 0 - - -;
-#X msg 347 291 invert \$1;
-#X msg 482 291 feedback \$1;
-#X obj 50 320 fx.flanger~ id;
-#X obj 50 349 ui.gain~ @size 120 16;
-#X obj 299 349 ui.dsp~;
-#X obj 50 378 dac~;
-#X obj 20 417 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 422 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 147 metro 5000;
+#X msg 50 176 open %CEAMMC%/guitar1.wav \, 1;
+#X obj 50 205 expand_env;
+#X floatatom 174 205 5 0 0 0 - - -;
+#X floatatom 290 205 5 0 0 0 - - -;
+#X floatatom 405 205 5 0 0 0 - - -;
+#X floatatom 530 205 5 0 0 0 - - -;
+#X obj 50 234 readsf~;
+#X msg 174 234 @speed \$1;
+#X msg 290 234 @delay \$1;
+#X msg 405 234 @offset \$1;
+#X msg 530 234 @feedback \$1;
+#X obj 174 262 s flng;
+#X obj 434 291 ui.knob @size 40 40;
+#X obj 78 320 r flng;
+#X obj 184 320 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 309 320 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 184 349 @invert \$1;
+#X msg 309 349 @bypass \$1;
+#X msg 434 349 @drywet \$1;
+#X obj 50 378 fx.flanger~;
+#X obj 50 406 ui.gain~ @size 120 16;
+#X obj 299 406 ui.dsp~;
+#X obj 50 435 dac~;
+#X obj 20 474 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 479 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X text 120 427 1\.;
-#X text 150 427 symbol;
-#X obj 241 428 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 427 ID: object ID for OSC control path.;
-#X obj 20 455 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 460 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
--49933 0;
-#X msg 120 465 @delay;
-#X text 240 465 Get/Set flange delay. Type: float. Units: ms. Default
+#X msg 120 484 @delay;
+#X text 240 484 Get/Set flange delay. Type: float. Units: ms. Default
 value: 10\. Value range: 0-20;
-#X msg 120 502 @offset;
-#X text 240 502 Get/Set flange delay offset. Type: float. Units: ms.
+#X msg 120 521 @offset;
+#X text 240 521 Get/Set flange delay offset. Type: float. Units: ms.
 Default value: 1\. Value range: 0-20;
-#X msg 120 539 @speed;
-#X text 240 539 Get/Set flanger frequency. Type: float. Units: Hz.
+#X msg 120 558 @speed;
+#X text 240 558 Get/Set flanger frequency. Type: float. Units: Hz.
 Default value: 0.5\. Value range: 0-10;
-#X msg 120 576 @feedback;
-#X text 240 576 Get/Set feedback gain. Type: float. Default value: 0\.
+#X msg 120 595 @feedback;
+#X text 240 595 Get/Set feedback gain. Type: float. Default value: 0\.
 Value range: 0-1;
-#X msg 120 613 @invert;
-#X text 240 613 Get/Set 0 for normal \, 1 to invert sign of flanging
+#X msg 120 632 @invert;
+#X text 240 632 Get/Set 0 for normal \, 1 to invert sign of flanging
 sum. Type: int. Default value: 0\. Allowed values: 0 \, 1;
-#X msg 120 650 @drywet;
-#X text 240 650 Get/Set proportion of mix between the original (dry)
+#X msg 120 669 @drywet;
+#X text 240 669 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 1\. Value range: 0-1;
-#X msg 120 701 @bypass;
-#X text 240 701 Get/Set if set to 1 - bypass 'effected' signal. Type:
+#X msg 120 720 @bypass;
+#X text 240 720 Get/Set if set to 1 - bypass 'effected' signal. Type:
 int. Default value: 0\. Allowed values: 0 \, 1;
-#X obj 20 748 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 753 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 120 757 @active;
+#X text 240 757 Get/Set on/off dsp processing. Type: int. Default
+value: 1\. Allowed values: 0 \, 1;
+#X obj 20 804 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 809 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+0;
+#X text 120 814 1\.;
+#X text 240 814 input signal.;
+#X obj 20 842 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 847 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 758 delay;
-#X text 240 758 set flange delay. Arguments are:;
-#X obj 250 786 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 786 MS. Type: float. Range: 0\...20;
-#X msg 120 814 offset;
-#X text 240 814 set flange delay offset. Arguments are:;
-#X obj 250 842 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 842 MS. Type: float. Range: 0\...20;
-#X msg 120 870 speed;
-#X text 240 870 set flanger frequency. Arguments are:;
-#X obj 250 898 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 898 HZ. Type: float. Range: 0\...10;
-#X msg 120 926 feedback;
-#X text 240 926 set feedback gain. Arguments are:;
-#X obj 250 954 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 954 X. Type: float. Range: 0\...1;
-#X msg 120 982 invert;
-#X text 240 982 set sign of flanging sum. Arguments are:;
-#X obj 250 1010 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1010 X: 0 for normal \, 1 to invert sign of flanging sum.
-Type: int. Allowed values: 0 \, 1\.;
-#X msg 120 1052 drywet;
-#X text 240 1052 set proportion of mix between the original (dry) and
-'effected' (wet) signals. Arguments are:;
-#X obj 250 1094 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1094 X: 0 - dry signal \, 1 - wet. Type: float. Range:
-0\...1;
-#X msg 120 1122 bypass;
-#X text 240 1122 bypass effect. Arguments are:;
-#X obj 250 1150 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1150 X: if set to 1 - bypass 'effected' signal. Type: int.
-Allowed values: 0 \, 1\.;
-#X obj 20 1202 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1207 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
--49933 0;
-#X text 120 1212 1\.;
-#X text 240 1212 input signal.;
-#X obj 20 1240 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1245 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
--49933 0;
-#X text 120 1250 1\.;
-#X text 240 1250 output signal;
-#X text 120 1268 2\.;
-#X text 240 1268 information output;
+#X text 120 852 1\.;
+#X text 240 852 output signal;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1316 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1319 library: ceammc v0.6;
-#N canvas 10 1338 400 290 info 0;
+#X obj 1 900 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 903 library: ceammc v0.6;
+#N canvas 10 922 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -134,22 +99,27 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1338 pd info;
+#X restore 10 922 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
-#X connect 7 0 11 0;
-#X connect 8 0 12 0;
-#X connect 9 0 13 0;
-#X connect 10 0 14 0;
+#X connect 6 0 7 0;
+#X connect 7 0 12 0;
+#X connect 8 0 13 0;
+#X connect 9 0 14 0;
+#X connect 10 0 15 0;
+#X connect 11 0 16 0;
+#X connect 13 0 17 0;
+#X connect 14 0 17 0;
 #X connect 15 0 17 0;
-#X connect 16 0 18 0;
-#X connect 6 0 19 0;
-#X connect 11 0 19 0;
-#X connect 12 0 19 0;
-#X connect 13 0 19 0;
-#X connect 17 0 19 0;
-#X connect 14 0 19 0;
-#X connect 18 0 19 0;
-#X connect 19 0 20 0;
+#X connect 16 0 17 0;
 #X connect 20 0 22 0;
-#X connect 20 0 22 1;
+#X connect 21 0 23 0;
+#X connect 18 0 24 0;
+#X connect 12 0 25 0;
+#X connect 19 0 25 0;
+#X connect 22 0 25 0;
+#X connect 23 0 25 0;
+#X connect 24 0 25 0;
+#X connect 25 0 26 0;
+#X connect 26 0 28 0;
+#X connect 26 0 28 1;
