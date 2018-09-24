@@ -139,4 +139,13 @@ TEST_CASE("env.ar~", "[externals]")
         t.schedTicks(400);
         REQUIRE(!t.hasOutputAt(1));
     }
+
+    SECTION("play")
+    {
+        TestExtEnvAr t("env.ar~", LA(10, 20));
+        t.sendMessage(SYM("play"), LX(500));
+        t.schedTicks(40);
+        REQUIRE(t.hasOutputAt(1));
+        REQUIRE(t.isOutputBangAt(1));
+    }
 }

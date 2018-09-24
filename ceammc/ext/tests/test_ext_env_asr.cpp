@@ -151,4 +151,21 @@ TEST_CASE("env.asr~", "[externals]")
         REQUIRE(!t.hasOutputAt(1));
         PROPERTY_REQUEST(t, "@gate", 0.f);
     }
+
+    SECTION("play")
+    {
+        TestExtEnvAsr t("env.asr~", LA(10, 100, 20));
+        t.sendMessage(SYM("play"), LX(100));
+        t.schedTicks(5);
+        REQUIRE(!t.hasOutputAt(1));
+        t.schedTicks(10);
+        REQUIRE(t.hasOutputAt(1));
+        REQUIRE(t.outputFloatAt(1) == 1);
+        t.clearAll();
+        t.schedTicks(40);
+        REQUIRE(!t.hasOutputAt(1));
+        t.schedTicks(60);
+        REQUIRE(t.hasOutputAt(1));
+        REQUIRE(t.outputFloatAt(1) == 0);
+    }
 }
