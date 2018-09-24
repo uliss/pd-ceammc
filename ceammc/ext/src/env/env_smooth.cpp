@@ -1,6 +1,7 @@
 #include "env_smooth.h"
 #include "ceammc_clock.h"
 #include "ceammc_factory.h"
+#include "env_faust_play.h"
 
 static t_symbol* SYM_PROP_DURATION = gensym("@duration");
 static t_symbol* SYM_PROP_GATE = gensym("@gate");
@@ -54,6 +55,7 @@ private:
 
 void setup_env_smooth_tilde()
 {
-    SoundExternalFactory<EnvSmooth> obj("env.smooth~");
-    obj.addMethod("reset", &EnvSmooth::m_reset);
+    typedef EnvAutoplay<EnvSmooth> EnvSmooth2;
+    SoundExternalFactory<EnvSmooth2> obj("env.smooth~");
+    obj.addMethod("reset", &EnvSmooth2::m_reset);
 }
