@@ -26,11 +26,18 @@ public:
 
     bool processAnyProps(t_symbol* sel, const AtomList& lst) override
     {
-        if (sel == SYM_PROP_GATE && atomlistToValue<bool>(lst, false)) {
+        if (sel == SYM_PROP_GATE && !atomlistToValue<bool>(lst, false)) {
             done_.delay(prop_duration_->value());
         }
 
         return faust_env_smooth_tilde::processAnyProps(sel, lst);
+    }
+
+    void m_reset(t_symbol*, const AtomList&)
+    {
+        prop_gate_->setValue(0);
+        dsp_->instanceClear();
+        resetClocks();
     }
 
 private:
@@ -38,9 +45,15 @@ private:
     {
         bangTo(1);
     }
+
+    void resetClocks()
+    {
+        done_.unset();
+    }
 };
 
 void setup_env_smooth_tilde()
 {
     SoundExternalFactory<EnvSmooth> obj("env.smooth~");
+    obj.addMethod("reset", &EnvSmooth::m_reset);
 }

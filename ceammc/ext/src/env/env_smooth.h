@@ -538,7 +538,7 @@ class env_smooth : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = (1000.0f / std::min(192000.0f, std::max(1.0f, float(fSamplingFreq))));
+		fConst0 = (6910.0f / std::min(192000.0f, std::max(1.0f, float(fSamplingFreq))));
 		
 	}
 	
