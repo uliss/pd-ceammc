@@ -23,8 +23,9 @@
 - osc.impulse~ added inlet for phase reset
 - fx.flanger~ @drywet property added
 - fx.greyhole~ @drywet property added
-- fx.greyhole~ reset message added
 - fx.sdelay~ clear message added
+- fx.greyhole~ reset message added
+- fx.echo~ reset message added
 
 ### Changed:
 - data type generation support for list.gen and list.each

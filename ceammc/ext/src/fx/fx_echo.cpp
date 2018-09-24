@@ -1,12 +1,28 @@
 #include "fx_echo.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
+using namespace ceammc;
+
+static t_symbol* SYM_PROP_DELAY = gensym("@delay");
+static t_symbol* SYM_PROP_FEEDBACK = gensym("@feedback");
+
+class FxEcho : public faust_fx_echo_tilde {
+public:
+    FxEcho(const PdArgs& args)
+        : faust_fx_echo_tilde(args)
+    {
+        bindPositionalArgsToProps({ SYM_PROP_DELAY, SYM_PROP_FEEDBACK });
+    }
+
+    void m_reset(t_symbol*, const AtomList&)
+    {
+        dsp_->instanceClear();
+    }
+};
+
+void setup_fx_echo_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-    PdArgParser p(x, argc, argv);
-    p.initFloatArg("time", 1);
-    p.initFloatArg("feedback", 2);
-    return p.pd_obj();
+    SoundExternalFactory<FxEcho> obj("fx.echo~");
+    obj.addMethod("reset", &FxEcho::m_reset);
 }
 
-EXTERNAL_SETUP(fx);
