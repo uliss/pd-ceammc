@@ -15,44 +15,54 @@
             <since>0.1</since>
         </meta>
         <arguments>
-            <argument name="window" type="float" units="millisecond" minvalue="10" maxvalue="2000">
-            the window size</argument>
-            <argument name="fade" type="float" units="millisecond" minvalue="0" maxvalue="1000">
-            crossfade duration</argument>
-            <argument name="ID" type="symbol">object ID for OSC control path</argument>
+            <argument name="PITCH" type="float" minvalue="-38" maxvalue="60">pitch shift in
+            semitones</argument>
         </arguments>
-        <methods>
-            <method name="window">
-                <param type="float" units="millisecond" minvalue="10" maxvalue="2000">the window
-                size</param>
-            </method>
-            <method name="fade">
-                <param type="float" units="millisecond" minvalue="0" maxvalue="1000">crossfade
-                duration</param>
-            </method>
-        </methods>
+        <properties>
+            <property name="@pitch" type="float" minvalue="-38" maxvalue="60" default="0">
+            pitchshift in semitones</property>
+            <property name="@window" type="float" units="millisecond" minvalue="10" maxvalue="2000"
+            default="200">the window size</property>
+            <property name="@fade" type="float" units="millisecond" minvalue="0" maxvalue="1000"
+            default="100">crossfade duration</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
+            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
+            wet.</property>
+            <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
+            'effected' signal.</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
             </inlet>
-            <inlet type="audio">
-                <xinfo minvalue="-38" maxvalue="60">pitch shift in semitones</xinfo>
+            <inlet>
+                <xinfo minvalue="-38" maxvalue="60" on="float">pitch shift in semitones</xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">output signal</outlet>
-            <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[F]
+[open %CEAMMC%/guitar1.wav, 1(
 |
-[phasor~ 300] [B]   [F]   /* transposition */
-|             |     |.
-[fx.pitchshift~ 200 100 id]
-|\                  ^|
-[dac~]              [print]
+[expand_env #a] [ui.knob]    [ui.knob]
+|               |            |
+|               |            |          [ui.knob]
+|               |            |          |
+[readsf~]       [* 2000]     [* 1000]   |
+|               |            |          |
+|               [@window $1( [@fade $1( [@drywet $1( [F]
+|               |            |          |            |
+|               |            |          |            |.
+[fx.pitchshift~                         -12 @drywet 0.5]
+|
+[ui.gain~ @size 120 14] [ui.dsp~]
+|\
+[dac~]
 ]]>
             </pdascii>
         </example>
