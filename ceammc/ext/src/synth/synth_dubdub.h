@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "dubdub"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -66,6 +66,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -229,6 +230,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -395,6 +399,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -417,7 +422,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -439,7 +444,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -489,10 +495,11 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 #include <math.h>
 
-float dubdub_faustpower2_f(float value) {
+static float dubdub_faustpower2_f(float value) {
 	return (value * value);
 	
 }
@@ -512,12 +519,12 @@ class dubdub : public dsp {
 	int fSamplingFreq;
 	float fConst0;
 	float fConst1;
-	float fConst2;
-	FAUSTFLOAT fButton0;
-	float fRec1[2];
-	float fConst3;
 	FAUSTFLOAT fHslider0;
-	float fRec2[2];
+	float fRec1[2];
+	float fConst2;
+	float fConst3;
+	FAUSTFLOAT fButton0;
+	float fRec3[2];
 	float fConst4;
 	FAUSTFLOAT fHslider1;
 	FAUSTFLOAT fVslider0;
@@ -598,17 +605,17 @@ class dubdub : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = min(192000.0f, max(1.0f, float(fSamplingFreq)));
-		fConst1 = expf((0.0f - (100.0f / fConst0)));
-		fConst2 = (1.0f - fConst1);
-		fConst3 = (1.0f / fConst0);
+		fConst0 = std::min(192000.0f, std::max(1.0f, float(fSamplingFreq)));
+		fConst1 = (1.0f / fConst0);
+		fConst2 = std::exp((0.0f - (100.0f / fConst0)));
+		fConst3 = (1.0f - fConst2);
 		fConst4 = (3.14159274f / fConst0);
 		
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fButton0 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(48.0f);
+		fButton0 = FAUSTFLOAT(0.0f);
 		fHslider1 = FAUSTFLOAT(3000.0f);
 		fVslider0 = FAUSTFLOAT(0.10000000000000001f);
 		
@@ -620,7 +627,7 @@ class dubdub : public dsp {
 			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
-			fRec2[l1] = 0.0f;
+			fRec3[l1] = 0.0f;
 			
 		}
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
@@ -664,28 +671,28 @@ class dubdub : public dsp {
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = (fConst2 * float(fButton0));
-		float fSlow1 = max(1.00000001e-07f, fabsf((440.0f * powf(2.0f, (0.0833333358f * (float(fHslider0) + -69.0f))))));
-		float fSlow2 = (fConst3 * fSlow1);
-		float fSlow3 = (1.0f - (fConst0 / fSlow1));
-		float fSlow4 = tanf((fConst4 * float(fHslider1)));
-		float fSlow5 = (1.0f / fSlow4);
-		float fSlow6 = (0.00100000005f * float(fVslider0));
-		float fSlow7 = (2.0f * (1.0f - (1.0f / dubdub_faustpower2_f(fSlow4))));
+		float fSlow0 = std::max(1.00000001e-07f, std::fabs((440.0f * std::pow(2.0f, (0.0833333358f * (float(fHslider0) + -69.0f))))));
+		float fSlow1 = (fConst1 * fSlow0);
+		float fSlow2 = (1.0f - (fConst0 / fSlow0));
+		float fSlow3 = (fConst3 * float(fButton0));
+		float fSlow4 = std::tan((fConst4 * float(fHslider1)));
+		float fSlow5 = (2.0f * (1.0f - (1.0f / dubdub_faustpower2_f(fSlow4))));
+		float fSlow6 = (1.0f / fSlow4);
+		float fSlow7 = (0.00100000005f * float(fVslider0));
 		for (int i = 0; (i < count); i = (i + 1)) {
-			fRec1[0] = (fSlow0 + (fConst1 * fRec1[1]));
-			float fTemp0 = (fSlow2 + (fRec2[1] + -1.0f));
+			float fTemp0 = (fSlow1 + (fRec1[1] + -1.0f));
 			int iTemp1 = (fTemp0 < 0.0f);
-			float fTemp2 = (fSlow2 + fRec2[1]);
-			fRec2[0] = (iTemp1?fTemp2:fTemp0);
-			float fRec3 = (iTemp1?fTemp2:(fSlow2 + (fRec2[1] + (fSlow3 * fTemp0))));
-			fRec4[0] = (fSlow6 + (0.999000013f * fRec4[1]));
+			float fTemp2 = (fSlow1 + fRec1[1]);
+			fRec1[0] = (iTemp1?fTemp2:fTemp0);
+			float fRec2 = (iTemp1?fTemp2:(fSlow1 + (fRec1[1] + (fSlow2 * fTemp0))));
+			fRec3[0] = (fSlow3 + (fConst2 * fRec3[1]));
+			fRec4[0] = (fSlow7 + (0.999000013f * fRec4[1]));
 			float fTemp3 = (1.0f / fRec4[0]);
-			float fTemp4 = ((fSlow5 * (fSlow5 + fTemp3)) + 1.0f);
-			fRec0[0] = ((0.5f * (fRec1[0] * ((2.0f * fRec3) + -1.0f))) - (((fRec0[2] * ((fSlow5 * (fSlow5 - fTemp3)) + 1.0f)) + (fSlow7 * fRec0[1])) / fTemp4));
+			float fTemp4 = ((fSlow6 * (fSlow6 + fTemp3)) + 1.0f);
+			fRec0[0] = ((0.5f * (((2.0f * fRec2) + -1.0f) * fRec3[0])) - (((fSlow5 * fRec0[1]) + (fRec0[2] * ((fSlow6 * (fSlow6 - fTemp3)) + 1.0f))) / fTemp4));
 			output0[i] = FAUSTFLOAT(((fRec0[2] + (fRec0[0] + (2.0f * fRec0[1]))) / fTemp4));
 			fRec1[1] = fRec1[0];
-			fRec2[1] = fRec2[0];
+			fRec3[1] = fRec3[0];
 			fRec4[1] = fRec4[0];
 			fRec0[2] = fRec0[1];
 			fRec0[1] = fRec0[0];
@@ -709,6 +716,11 @@ static t_class* dubdub_faust_class;
 #define FAUST_EXT_CLASS dubdub_faust_class
 // clang-format on
 
+template <class T>
+class _dubdub_UI : public UI {
+};
+typedef _dubdub_UI<dubdub> dubdub_UI;
+
 struct t_faust_dubdub {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -717,7 +729,7 @@ struct t_faust_dubdub {
     int fence; /* dummy field (not used) */
 #endif
     dubdub* dsp;
-    PdUI<UI>* ui;
+    PdUI<dubdub_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -800,7 +812,7 @@ static void dubdub_faust_dsp(t_faust_dubdub* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<dubdub_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -855,7 +867,7 @@ static void dubdub_faust_any(t_faust_dubdub* x, t_symbol* s, int argc, t_atom* a
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<dubdub_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -1015,7 +1027,7 @@ static bool faust_new_internal(t_faust_dubdub* x, const std::string& objId = "",
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new dubdub();
-    x->ui = new PdUI<UI>(sym(dubdub), objId);
+    x->ui = new PdUI<dubdub_UI>(sym(dubdub), objId);
 
     if (!faust_init_inputs(x)) {
         dubdub_faust_free(x);
@@ -1159,8 +1171,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1253,6 +1265,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(dubdub_faust_class, reinterpret_cast<t_method>(dubdub_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(dubdub_faust_class, reinterpret_cast<t_method>(dubdub_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(dubdub_faust_class, dubdub_faust_any);
+    ceammc::register_faust_external(dubdub_faust_class);
 }
 
 #define EXTERNAL_NEW void* dubdub_faust_new(t_symbol*, int argc, t_atom* argv)

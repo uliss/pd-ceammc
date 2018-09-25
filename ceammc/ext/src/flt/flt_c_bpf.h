@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt_c_bpf"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -66,6 +66,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -229,6 +230,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -395,6 +399,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -417,7 +422,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -439,7 +444,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -489,6 +495,7 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 #include <math.h>
 
@@ -596,7 +603,7 @@ class c_bpf : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = (6.28318548f / min(192000.0f, max(1.0f, float(fSamplingFreq))));
+		fConst0 = (6.28318548f / std::min(192000.0f, std::max(1.0f, float(fSamplingFreq))));
 		
 	}
 	
@@ -656,16 +663,16 @@ class c_bpf : public dsp {
 		float fSlow1 = (0.00100000005f * float(fVslider1));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec0[0] = (fSlow0 + (0.999000013f * fRec0[1]));
-			float fTemp0 = (fConst0 * max(0.0f, fRec0[0]));
-			float fTemp1 = sinf(fTemp0);
+			float fTemp0 = (fConst0 * std::max(0.0f, fRec0[0]));
+			float fTemp1 = std::sin(fTemp0);
 			fRec1[0] = (fSlow1 + (0.999000013f * fRec1[1]));
-			float fTemp2 = max(0.00100000005f, fRec1[0]);
+			float fTemp2 = std::max(0.00100000005f, fRec1[0]);
 			float fTemp3 = (0.5f * (fTemp1 / fTemp2));
 			float fTemp4 = (fTemp3 + 1.0f);
 			output0[i] = FAUSTFLOAT((0.5f * (fTemp1 / (fTemp2 * fTemp4))));
 			output1[i] = FAUSTFLOAT(0);
 			output2[i] = FAUSTFLOAT(((0.0f - fTemp3) / fTemp4));
-			output3[i] = FAUSTFLOAT(((0.0f - (2.0f * cosf(fTemp0))) / fTemp4));
+			output3[i] = FAUSTFLOAT(((0.0f - (2.0f * std::cos(fTemp0))) / fTemp4));
 			output4[i] = FAUSTFLOAT(((1.0f - fTemp3) / fTemp4));
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];
@@ -689,6 +696,11 @@ static t_class* c_bpf_faust_class;
 #define FAUST_EXT_CLASS c_bpf_faust_class
 // clang-format on
 
+template <class T>
+class _c_bpf_UI : public UI {
+};
+typedef _c_bpf_UI<c_bpf> c_bpf_UI;
+
 struct t_faust_c_bpf {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -697,7 +709,7 @@ struct t_faust_c_bpf {
     int fence; /* dummy field (not used) */
 #endif
     c_bpf* dsp;
-    PdUI<UI>* ui;
+    PdUI<c_bpf_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -780,7 +792,7 @@ static void c_bpf_faust_dsp(t_faust_c_bpf* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<c_bpf_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -835,7 +847,7 @@ static void c_bpf_faust_any(t_faust_c_bpf* x, t_symbol* s, int argc, t_atom* arg
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<c_bpf_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -995,7 +1007,7 @@ static bool faust_new_internal(t_faust_c_bpf* x, const std::string& objId = "", 
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new c_bpf();
-    x->ui = new PdUI<UI>(sym(c_bpf), objId);
+    x->ui = new PdUI<c_bpf_UI>(sym(c_bpf), objId);
 
     if (!faust_init_inputs(x)) {
         c_bpf_faust_free(x);
@@ -1139,8 +1151,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1233,6 +1245,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(c_bpf_faust_class, reinterpret_cast<t_method>(c_bpf_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(c_bpf_faust_class, reinterpret_cast<t_method>(c_bpf_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(c_bpf_faust_class, c_bpf_faust_any);
+    ceammc::register_faust_external(c_bpf_faust_class);
 }
 
 #define EXTERNAL_NEW void* c_bpf_faust_new(t_symbol*, int argc, t_atom* argv)

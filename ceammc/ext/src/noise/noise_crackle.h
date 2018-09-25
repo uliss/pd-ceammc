@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "noise_crackle"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -66,6 +66,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -229,6 +230,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -395,6 +399,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -417,7 +422,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -490,6 +495,7 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 #include <math.h>
 
@@ -577,7 +583,7 @@ class crackle : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = (1.0f / min(192000.0f, max(1.0f, float(fSamplingFreq))));
+		fConst0 = (1.0f / std::min(192000.0f, std::max(1.0f, float(fSamplingFreq))));
 		
 	}
 	
@@ -649,14 +655,14 @@ class crackle : public dsp {
 			float fTemp0 = (4.65661287e-10f * float(iRec0[0]));
 			fVec0[0] = fTemp0;
 			fVec1[0] = fSlow0;
-			float fTemp1 = ((fConst0 * fVec1[1]) + fRec1[1]);
-			fRec1[0] = (fTemp1 - floorf(fTemp1));
+			float fTemp1 = (fRec1[1] + (fConst0 * fVec1[1]));
+			fRec1[0] = (fTemp1 - std::floor(fTemp1));
 			float fTemp2 = (fRec1[0] - fRec1[1]);
 			fVec2[0] = fTemp2;
 			int iTemp3 = ((fVec2[1] <= 0.0f) & (fTemp2 > 0.0f));
-			fRec2[0] = ((fRec2[1] * float((1 - iTemp3))) + (fTemp0 * float(iTemp3)));
+			fRec2[0] = ((fTemp0 * float(iTemp3)) + (fRec2[1] * float((1 - iTemp3))));
 			float fTemp4 = (0.5f * (fRec2[0] + 1.0f));
-			output0[i] = FAUSTFLOAT((fVec0[1] * float(((fRec1[1] < fTemp4) * (fRec1[0] >= fTemp4)))));
+			output0[i] = FAUSTFLOAT((fVec0[1] * float(((fRec1[0] >= fTemp4) * (fRec1[1] < fTemp4)))));
 			iRec0[1] = iRec0[0];
 			fVec0[1] = fVec0[0];
 			fVec1[1] = fVec1[0];

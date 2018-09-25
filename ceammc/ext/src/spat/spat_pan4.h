@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "spat_pan4"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -66,6 +66,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -229,6 +230,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -395,6 +399,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -417,7 +422,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -490,6 +495,7 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 
 
@@ -652,10 +658,10 @@ class pan4 : public dsp {
 		float fSlow0 = float(fVslider0);
 		float fSlow1 = (fSlow0 + 1.0f);
 		float fSlow2 = (0.159154937f * float(fVslider1));
-		float fSlow3 = (4.99999987e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (4.0f * (fabsf((fmodf((fSlow2 + 1.5f), 1.0f) + -0.5f)) * fSlow0)))))));
-		float fSlow4 = (4.99999987e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (4.0f * (fabsf((fmodf((fSlow2 + 1.25f), 1.0f) + -0.5f)) * fSlow0)))))));
-		float fSlow5 = (4.99999987e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (4.0f * (fabsf((fmodf((fSlow2 + 1.0f), 1.0f) + -0.5f)) * fSlow0)))))));
-		float fSlow6 = (4.99999987e-05f * (fSlow1 * sqrtf(max(0.0f, (1.0f - (4.0f * (fabsf((fmodf((fSlow2 + 0.75f), 1.0f) + -0.5f)) * fSlow0)))))));
+		float fSlow3 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max(0.0f, (1.0f - (4.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.5f), 1.0f) + -0.5f)))))))));
+		float fSlow4 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max(0.0f, (1.0f - (4.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.25f), 1.0f) + -0.5f)))))))));
+		float fSlow5 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max(0.0f, (1.0f - (4.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.0f), 1.0f) + -0.5f)))))))));
+		float fSlow6 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max(0.0f, (1.0f - (4.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 0.75f), 1.0f) + -0.5f)))))))));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			fRec0[0] = (fSlow3 + (0.999899983f * fRec0[1]));

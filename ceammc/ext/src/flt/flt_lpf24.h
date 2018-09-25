@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt_lpf24"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -66,6 +66,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -229,6 +230,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -395,6 +399,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -417,7 +422,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -439,7 +444,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -489,10 +495,11 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 #include <math.h>
 
-float lpf24_faustpower2_f(float value) {
+static float lpf24_faustpower2_f(float value) {
 	return (value * value);
 	
 }
@@ -581,7 +588,7 @@ class lpf24 : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = (3.14159274f / min(192000.0f, max(1.0f, float(fSamplingFreq))));
+		fConst0 = (3.14159274f / std::min(192000.0f, std::max(1.0f, float(fSamplingFreq))));
 		
 	}
 	
@@ -638,13 +645,13 @@ class lpf24 : public dsp {
 		float fSlow0 = (0.00100000005f * float(fVslider0));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec2[0] = (fSlow0 + (0.999000013f * fRec2[1]));
-			float fTemp0 = tanf((fConst0 * fRec2[0]));
+			float fTemp0 = std::tan((fConst0 * fRec2[0]));
 			float fTemp1 = (1.0f / fTemp0);
 			float fTemp2 = (1.0f - (1.0f / lpf24_faustpower2_f(fTemp0)));
 			float fTemp3 = (((fTemp1 + 1.84775901f) / fTemp0) + 1.0f);
 			fRec1[0] = (float(input0[i]) - (((fRec1[2] * (((fTemp1 + -1.84775901f) / fTemp0) + 1.0f)) + (2.0f * (fRec1[1] * fTemp2))) / fTemp3));
 			float fTemp4 = (((fTemp1 + 0.765366852f) / fTemp0) + 1.0f);
-			fRec0[0] = (((fRec1[2] + (fRec1[0] + (2.0f * fRec1[1]))) / fTemp3) - (((fRec0[2] * (((fTemp1 + -0.765366852f) / fTemp0) + 1.0f)) + (2.0f * (fTemp2 * fRec0[1]))) / fTemp4));
+			fRec0[0] = (((fRec1[0] + (fRec1[2] + (2.0f * fRec1[1]))) / fTemp3) - (((2.0f * (fRec0[1] * fTemp2)) + (fRec0[2] * (((fTemp1 + -0.765366852f) / fTemp0) + 1.0f))) / fTemp4));
 			output0[i] = FAUSTFLOAT(((fRec0[2] + (fRec0[0] + (2.0f * fRec0[1]))) / fTemp4));
 			fRec2[1] = fRec2[0];
 			fRec1[2] = fRec1[1];
@@ -671,6 +678,11 @@ static t_class* lpf24_faust_class;
 #define FAUST_EXT_CLASS lpf24_faust_class
 // clang-format on
 
+template <class T>
+class _lpf24_UI : public UI {
+};
+typedef _lpf24_UI<lpf24> lpf24_UI;
+
 struct t_faust_lpf24 {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -679,7 +691,7 @@ struct t_faust_lpf24 {
     int fence; /* dummy field (not used) */
 #endif
     lpf24* dsp;
-    PdUI<UI>* ui;
+    PdUI<lpf24_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -762,7 +774,7 @@ static void lpf24_faust_dsp(t_faust_lpf24* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<lpf24_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -817,7 +829,7 @@ static void lpf24_faust_any(t_faust_lpf24* x, t_symbol* s, int argc, t_atom* arg
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<lpf24_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -977,7 +989,7 @@ static bool faust_new_internal(t_faust_lpf24* x, const std::string& objId = "", 
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new lpf24();
-    x->ui = new PdUI<UI>(sym(lpf24), objId);
+    x->ui = new PdUI<lpf24_UI>(sym(lpf24), objId);
 
     if (!faust_init_inputs(x)) {
         lpf24_faust_free(x);
@@ -1121,8 +1133,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1215,6 +1227,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(lpf24_faust_class, reinterpret_cast<t_method>(lpf24_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(lpf24_faust_class, reinterpret_cast<t_method>(lpf24_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(lpf24_faust_class, lpf24_faust_any);
+    ceammc::register_faust_external(lpf24_faust_class);
 }
 
 #define EXTERNAL_NEW void* lpf24_faust_new(t_symbol*, int argc, t_atom* argv)

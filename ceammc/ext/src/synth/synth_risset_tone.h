@@ -3,7 +3,7 @@ author: "Oli Larkin (contact@olilarkin.co.uk)"
 copyright: "Oliver Larkin"
 name: "Risset Tone"
 version: "0.1"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -69,6 +69,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -232,6 +233,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -398,6 +402,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -420,7 +425,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -442,7 +447,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -492,6 +498,7 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 #include <math.h>
 
@@ -552,7 +559,7 @@ class risset_toneSIG0 {
 	void fillrisset_toneSIG0(int count, float* output) {
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec4[0] = (iRec4[1] + 1);
-			output[i] = expf((0.0f - (4.8283f * (1.0f - cosf((9.58738019e-05f * (float((iRec4[0] + -1)) + -32768.0f)))))));
+			output[i] = std::exp((0.0f - (4.8283f * (1.0f - std::cos((9.58738019e-05f * (float((iRec4[0] + -1)) + -32768.0f)))))));
 			iRec4[1] = iRec4[0];
 			
 		}
@@ -585,8 +592,8 @@ class risset_tone : public dsp {
 	FAUSTFLOAT fHslider1;
 	float fConst2;
 	FAUSTFLOAT fHslider2;
-	float fRec3[2];
 	float fRec2[2];
+	float fRec3[2];
 	float fRec1[2];
 	float fRec0[2];
 	float fRec7[2];
@@ -687,7 +694,7 @@ class risset_tone : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = min(192000.0f, max(1.0f, float(fSamplingFreq)));
+		fConst0 = std::min(192000.0f, std::max(1.0f, float(fSamplingFreq)));
 		fConst1 = (2764.60156f / fConst0);
 		fConst2 = (1.0f / fConst0);
 		
@@ -706,11 +713,11 @@ class risset_tone : public dsp {
 			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
-			fRec3[l1] = 0.0f;
+			fRec2[l1] = 0.0f;
 			
 		}
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
-			fRec2[l2] = 0.0f;
+			fRec3[l2] = 0.0f;
 			
 		}
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
@@ -866,92 +873,92 @@ class risset_tone : public dsp {
 		float fSlow2 = (fConst2 * float(fHslider2));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iVec0[0] = 1;
-			fRec3[0] = (fSlow2 + (fRec3[1] - floorf((fSlow2 + fRec3[1]))));
-			float fTemp0 = fmodf(fRec3[0], 1.0f);
-			float fTemp1 = powf(2.0f, (0.0833333358f * (min(120.0f, max(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp0) + -1.0f)) + 7.0f)))) + -69.0f)));
-			fRec2[0] = (fRec2[1] + (fConst1 * ((0.0f - fRec0[1]) * fTemp1)));
+			fRec2[0] = (fSlow2 + (fRec2[1] - std::floor((fSlow2 + fRec2[1]))));
+			float fTemp0 = std::fmod((fRec2[0] + 0.400000006f), 1.0f);
+			float fTemp1 = std::pow(2.0f, (0.0833333358f * (std::min(120.0f, std::max(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp0) + -1.0f)) + 7.0f)))) + -69.0f)));
+			fRec3[0] = (fRec3[1] + (fConst1 * ((0.0f - fRec0[1]) * fTemp1)));
 			int iTemp2 = (1 - iVec0[1]);
-			fRec1[0] = ((fRec1[1] + (fConst1 * (fRec2[0] * fTemp1))) + float(iTemp2));
+			fRec1[0] = ((fRec1[1] + (fConst1 * (fTemp1 * fRec3[0]))) + float(iTemp2));
 			fRec0[0] = fRec1[0];
 			float fTemp3 = (65536.0f * fTemp0);
 			int iTemp4 = int(fTemp3);
 			float fTemp5 = ftbl0risset_toneSIG0[iTemp4];
-			float fTemp6 = fmodf((fRec3[0] + 0.100000001f), 1.0f);
-			float fTemp7 = powf(2.0f, (0.0833333358f * (min(120.0f, max(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp6) + -1.0f)) + 7.0f)))) + -69.0f)));
+			float fTemp6 = std::fmod((fRec2[0] + 0.300000012f), 1.0f);
+			float fTemp7 = std::pow(2.0f, (0.0833333358f * (std::min(120.0f, std::max(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp6) + -1.0f)) + 7.0f)))) + -69.0f)));
 			fRec7[0] = (fRec7[1] + (fConst1 * ((0.0f - fRec5[1]) * fTemp7)));
-			fRec6[0] = ((fRec6[1] + (fConst1 * (fRec7[0] * fTemp7))) + float(iTemp2));
+			fRec6[0] = ((fRec6[1] + (fConst1 * (fTemp7 * fRec7[0]))) + float(iTemp2));
 			fRec5[0] = fRec6[0];
 			float fTemp8 = (65536.0f * fTemp6);
 			int iTemp9 = int(fTemp8);
 			float fTemp10 = ftbl0risset_toneSIG0[iTemp9];
-			float fTemp11 = fmodf((fRec3[0] + 0.200000003f), 1.0f);
-			float fTemp12 = powf(2.0f, (0.0833333358f * (min(120.0f, max(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp11) + -1.0f)) + 7.0f)))) + -69.0f)));
+			float fTemp11 = std::fmod((fRec2[0] + 0.200000003f), 1.0f);
+			float fTemp12 = std::pow(2.0f, (0.0833333358f * (std::min(120.0f, std::max(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp11) + -1.0f)) + 7.0f)))) + -69.0f)));
 			fRec10[0] = (fRec10[1] + (fConst1 * ((0.0f - fRec8[1]) * fTemp12)));
-			fRec9[0] = ((fRec9[1] + (fConst1 * (fRec10[0] * fTemp12))) + float(iTemp2));
+			fRec9[0] = ((fRec9[1] + (fConst1 * (fTemp12 * fRec10[0]))) + float(iTemp2));
 			fRec8[0] = fRec9[0];
 			float fTemp13 = (65536.0f * fTemp11);
 			int iTemp14 = int(fTemp13);
 			float fTemp15 = ftbl0risset_toneSIG0[iTemp14];
-			float fTemp16 = fmodf((fRec3[0] + 0.300000012f), 1.0f);
-			float fTemp17 = powf(2.0f, (0.0833333358f * (min(120.0f, max(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp16) + -1.0f)) + 7.0f)))) + -69.0f)));
+			float fTemp16 = std::fmod((fRec2[0] + 0.100000001f), 1.0f);
+			float fTemp17 = std::pow(2.0f, (0.0833333358f * (std::min(120.0f, std::max(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp16) + -1.0f)) + 7.0f)))) + -69.0f)));
 			fRec13[0] = (fRec13[1] + (fConst1 * ((0.0f - fRec11[1]) * fTemp17)));
-			fRec12[0] = ((fRec12[1] + (fConst1 * (fRec13[0] * fTemp17))) + float(iTemp2));
+			fRec12[0] = ((fRec12[1] + (fConst1 * (fTemp17 * fRec13[0]))) + float(iTemp2));
 			fRec11[0] = fRec12[0];
 			float fTemp18 = (65536.0f * fTemp16);
 			int iTemp19 = int(fTemp18);
 			float fTemp20 = ftbl0risset_toneSIG0[iTemp19];
-			float fTemp21 = fmodf((fRec3[0] + 0.400000006f), 1.0f);
-			float fTemp22 = powf(2.0f, (0.0833333358f * (min(120.0f, max(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp21) + -1.0f)) + 7.0f)))) + -69.0f)));
+			float fTemp21 = std::fmod(fRec2[0], 1.0f);
+			float fTemp22 = std::pow(2.0f, (0.0833333358f * (std::min(120.0f, std::max(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp21) + -1.0f)) + 7.0f)))) + -69.0f)));
 			fRec16[0] = (fRec16[1] + (fConst1 * ((0.0f - fRec14[1]) * fTemp22)));
-			fRec15[0] = ((fRec15[1] + (fConst1 * (fRec16[0] * fTemp22))) + float(iTemp2));
+			fRec15[0] = ((fRec15[1] + (fConst1 * (fTemp22 * fRec16[0]))) + float(iTemp2));
 			fRec14[0] = fRec15[0];
 			float fTemp23 = (65536.0f * fTemp21);
 			int iTemp24 = int(fTemp23);
 			float fTemp25 = ftbl0risset_toneSIG0[iTemp24];
-			float fTemp26 = fmodf((fRec3[0] + 0.5f), 1.0f);
-			float fTemp27 = powf(2.0f, (0.0833333358f * (min(120.0f, max(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp26) + -1.0f)) + 7.0f)))) + -69.0f)));
+			float fTemp26 = std::fmod((fRec2[0] + 0.600000024f), 1.0f);
+			float fTemp27 = std::pow(2.0f, (0.0833333358f * (std::min(120.0f, std::max(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp26) + -1.0f)) + 7.0f)))) + -69.0f)));
 			fRec19[0] = (fRec19[1] + (fConst1 * ((0.0f - fRec17[1]) * fTemp27)));
-			fRec18[0] = ((fRec18[1] + (fConst1 * (fRec19[0] * fTemp27))) + float(iTemp2));
+			fRec18[0] = ((fRec18[1] + (fConst1 * (fTemp27 * fRec19[0]))) + float(iTemp2));
 			fRec17[0] = fRec18[0];
 			float fTemp28 = (65536.0f * fTemp26);
 			int iTemp29 = int(fTemp28);
 			float fTemp30 = ftbl0risset_toneSIG0[iTemp29];
-			float fTemp31 = fmodf((fRec3[0] + 0.600000024f), 1.0f);
-			float fTemp32 = powf(2.0f, (0.0833333358f * (min(120.0f, max(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp31) + -1.0f)) + 7.0f)))) + -69.0f)));
+			float fTemp31 = std::fmod((fRec2[0] + 0.5f), 1.0f);
+			float fTemp32 = std::pow(2.0f, (0.0833333358f * (std::min(120.0f, std::max(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp31) + -1.0f)) + 7.0f)))) + -69.0f)));
 			fRec22[0] = (fRec22[1] + (fConst1 * ((0.0f - fRec20[1]) * fTemp32)));
-			fRec21[0] = ((fRec21[1] + (fConst1 * (fRec22[0] * fTemp32))) + float(iTemp2));
+			fRec21[0] = ((fRec21[1] + (fConst1 * (fTemp32 * fRec22[0]))) + float(iTemp2));
 			fRec20[0] = fRec21[0];
 			float fTemp33 = (65536.0f * fTemp31);
 			int iTemp34 = int(fTemp33);
 			float fTemp35 = ftbl0risset_toneSIG0[iTemp34];
-			float fTemp36 = fmodf((fRec3[0] + 0.699999988f), 1.0f);
-			float fTemp37 = powf(2.0f, (0.0833333358f * (min(120.0f, max(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp36) + -1.0f)) + 7.0f)))) + -69.0f)));
+			float fTemp36 = std::fmod((fRec2[0] + 0.699999988f), 1.0f);
+			float fTemp37 = std::pow(2.0f, (0.0833333358f * (std::min(120.0f, std::max(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp36) + -1.0f)) + 7.0f)))) + -69.0f)));
 			fRec25[0] = (fRec25[1] + (fConst1 * ((0.0f - fRec23[1]) * fTemp37)));
-			fRec24[0] = ((fRec24[1] + (fConst1 * (fRec25[0] * fTemp37))) + float(iTemp2));
+			fRec24[0] = ((fRec24[1] + (fConst1 * (fTemp37 * fRec25[0]))) + float(iTemp2));
 			fRec23[0] = fRec24[0];
 			float fTemp38 = (65536.0f * fTemp36);
 			int iTemp39 = int(fTemp38);
 			float fTemp40 = ftbl0risset_toneSIG0[iTemp39];
-			float fTemp41 = fmodf((fRec3[0] + 0.800000012f), 1.0f);
-			float fTemp42 = powf(2.0f, (0.0833333358f * (min(120.0f, max(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp41) + -1.0f)) + 7.0f)))) + -69.0f)));
+			float fTemp41 = std::fmod((fRec2[0] + 0.899999976f), 1.0f);
+			float fTemp42 = std::pow(2.0f, (0.0833333358f * (std::min(120.0f, std::max(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp41) + -1.0f)) + 7.0f)))) + -69.0f)));
 			fRec28[0] = (fRec28[1] + (fConst1 * ((0.0f - fRec26[1]) * fTemp42)));
-			fRec27[0] = ((fRec27[1] + (fConst1 * (fRec28[0] * fTemp42))) + float(iTemp2));
+			fRec27[0] = ((fRec27[1] + (fConst1 * (fTemp42 * fRec28[0]))) + float(iTemp2));
 			fRec26[0] = fRec27[0];
 			float fTemp43 = (65536.0f * fTemp41);
 			int iTemp44 = int(fTemp43);
 			float fTemp45 = ftbl0risset_toneSIG0[iTemp44];
-			float fTemp46 = fmodf((fRec3[0] + 0.899999976f), 1.0f);
-			float fTemp47 = powf(2.0f, (0.0833333358f * (min(120.0f, max(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp46) + -1.0f)) + 7.0f)))) + -69.0f)));
+			float fTemp46 = std::fmod((fRec2[0] + 0.800000012f), 1.0f);
+			float fTemp47 = std::pow(2.0f, (0.0833333358f * (std::min(120.0f, std::max(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp46) + -1.0f)) + 7.0f)))) + -69.0f)));
 			fRec31[0] = (fRec31[1] + (fConst1 * ((0.0f - fRec29[1]) * fTemp47)));
-			fRec30[0] = ((fRec30[1] + (fConst1 * (fRec31[0] * fTemp47))) + float(iTemp2));
+			fRec30[0] = ((fRec30[1] + (fConst1 * (fTemp47 * fRec31[0]))) + float(iTemp2));
 			fRec29[0] = fRec30[0];
 			float fTemp48 = (65536.0f * fTemp46);
 			int iTemp49 = int(fTemp48);
 			float fTemp50 = ftbl0risset_toneSIG0[iTemp49];
-			output0[i] = FAUSTFLOAT((0.100000001f * ((((((((((fRec0[0] * (fTemp5 + ((fTemp3 - floorf(fTemp3)) * (ftbl0risset_toneSIG0[(iTemp4 + 1)] - fTemp5)))) + (fRec5[0] * (fTemp10 + ((fTemp8 - floorf(fTemp8)) * (ftbl0risset_toneSIG0[(iTemp9 + 1)] - fTemp10))))) + (fRec8[0] * (fTemp15 + ((fTemp13 - floorf(fTemp13)) * (ftbl0risset_toneSIG0[(iTemp14 + 1)] - fTemp15))))) + (fRec11[0] * (fTemp20 + ((fTemp18 - floorf(fTemp18)) * (ftbl0risset_toneSIG0[(iTemp19 + 1)] - fTemp20))))) + (fRec14[0] * (fTemp25 + ((fTemp23 - floorf(fTemp23)) * (ftbl0risset_toneSIG0[(iTemp24 + 1)] - fTemp25))))) + (fRec17[0] * (fTemp30 + ((fTemp28 - floorf(fTemp28)) * (ftbl0risset_toneSIG0[(iTemp29 + 1)] - fTemp30))))) + (fRec20[0] * (fTemp35 + ((fTemp33 - floorf(fTemp33)) * (ftbl0risset_toneSIG0[(iTemp34 + 1)] - fTemp35))))) + (fRec23[0] * (fTemp40 + ((fTemp38 - floorf(fTemp38)) * (ftbl0risset_toneSIG0[(iTemp39 + 1)] - fTemp40))))) + (fRec26[0] * (fTemp45 + ((fTemp43 - floorf(fTemp43)) * (ftbl0risset_toneSIG0[(iTemp44 + 1)] - fTemp45))))) + (fRec29[0] * (fTemp50 + ((fTemp48 - floorf(fTemp48)) * (ftbl0risset_toneSIG0[(iTemp49 + 1)] - fTemp50)))))));
+			output0[i] = FAUSTFLOAT((0.100000001f * ((fRec0[0] * (fTemp5 + ((fTemp3 - std::floor(fTemp3)) * (ftbl0risset_toneSIG0[(iTemp4 + 1)] - fTemp5)))) + ((fRec5[0] * (fTemp10 + ((fTemp8 - std::floor(fTemp8)) * (ftbl0risset_toneSIG0[(iTemp9 + 1)] - fTemp10)))) + ((fRec8[0] * (fTemp15 + ((fTemp13 - std::floor(fTemp13)) * (ftbl0risset_toneSIG0[(iTemp14 + 1)] - fTemp15)))) + ((fRec11[0] * (fTemp20 + ((fTemp18 - std::floor(fTemp18)) * (ftbl0risset_toneSIG0[(iTemp19 + 1)] - fTemp20)))) + ((fRec14[0] * (fTemp25 + ((fTemp23 - std::floor(fTemp23)) * (ftbl0risset_toneSIG0[(iTemp24 + 1)] - fTemp25)))) + ((fRec17[0] * (fTemp30 + ((fTemp28 - std::floor(fTemp28)) * (ftbl0risset_toneSIG0[(iTemp29 + 1)] - fTemp30)))) + ((fRec20[0] * (fTemp35 + ((fTemp33 - std::floor(fTemp33)) * (ftbl0risset_toneSIG0[(iTemp34 + 1)] - fTemp35)))) + ((fRec23[0] * (fTemp40 + ((fTemp38 - std::floor(fTemp38)) * (ftbl0risset_toneSIG0[(iTemp39 + 1)] - fTemp40)))) + ((fRec26[0] * (fTemp45 + ((fTemp43 - std::floor(fTemp43)) * (ftbl0risset_toneSIG0[(iTemp44 + 1)] - fTemp45)))) + (fRec29[0] * (fTemp50 + ((fTemp48 - std::floor(fTemp48)) * (ftbl0risset_toneSIG0[(iTemp49 + 1)] - fTemp50)))))))))))))));
 			iVec0[1] = iVec0[0];
-			fRec3[1] = fRec3[0];
 			fRec2[1] = fRec2[0];
+			fRec3[1] = fRec3[0];
 			fRec1[1] = fRec1[0];
 			fRec0[1] = fRec0[0];
 			fRec7[1] = fRec7[0];
@@ -1001,6 +1008,11 @@ static t_class* risset_tone_faust_class;
 #define FAUST_EXT_CLASS risset_tone_faust_class
 // clang-format on
 
+template <class T>
+class _risset_tone_UI : public UI {
+};
+typedef _risset_tone_UI<risset_tone> risset_tone_UI;
+
 struct t_faust_risset_tone {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -1009,7 +1021,7 @@ struct t_faust_risset_tone {
     int fence; /* dummy field (not used) */
 #endif
     risset_tone* dsp;
-    PdUI<UI>* ui;
+    PdUI<risset_tone_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -1092,7 +1104,7 @@ static void risset_tone_faust_dsp(t_faust_risset_tone* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<risset_tone_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -1147,7 +1159,7 @@ static void risset_tone_faust_any(t_faust_risset_tone* x, t_symbol* s, int argc,
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<risset_tone_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -1307,7 +1319,7 @@ static bool faust_new_internal(t_faust_risset_tone* x, const std::string& objId 
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new risset_tone();
-    x->ui = new PdUI<UI>(sym(risset_tone), objId);
+    x->ui = new PdUI<risset_tone_UI>(sym(risset_tone), objId);
 
     if (!faust_init_inputs(x)) {
         risset_tone_faust_free(x);
@@ -1451,8 +1463,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1545,6 +1557,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(risset_tone_faust_class, reinterpret_cast<t_method>(risset_tone_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(risset_tone_faust_class, reinterpret_cast<t_method>(risset_tone_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(risset_tone_faust_class, risset_tone_faust_any);
+    ceammc::register_faust_external(risset_tone_faust_class);
 }
 
 #define EXTERNAL_NEW void* risset_tone_faust_new(t_symbol*, int argc, t_atom* argv)

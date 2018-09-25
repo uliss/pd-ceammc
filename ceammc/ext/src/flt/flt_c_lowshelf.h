@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt_c_lowshelf"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -66,6 +66,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -229,6 +230,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -395,6 +399,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -417,7 +422,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -490,6 +495,7 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 #include <math.h>
 
@@ -599,7 +605,7 @@ class c_lowshelf : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = (6.28318548f / min(192000.0f, max(1.0f, float(fSamplingFreq))));
+		fConst0 = (6.28318548f / std::min(192000.0f, std::max(1.0f, float(fSamplingFreq))));
 		
 	}
 	
@@ -667,21 +673,21 @@ class c_lowshelf : public dsp {
 		float fSlow2 = (0.00100000005f * float(fHslider0));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec0[0] = (fSlow0 + (0.999000013f * fRec0[1]));
-			float fTemp0 = powf(10.0f, (0.0250000004f * fRec0[0]));
+			float fTemp0 = std::pow(10.0f, (0.0250000004f * fRec0[0]));
 			fRec1[0] = (fSlow1 + (0.999000013f * fRec1[1]));
-			float fTemp1 = (fConst0 * max(0.0f, fRec1[0]));
+			float fTemp1 = (fConst0 * std::max(0.0f, fRec1[0]));
 			fRec2[0] = (fSlow2 + (0.999000013f * fRec2[1]));
-			float fTemp2 = ((sqrtf(fTemp0) * sinf(fTemp1)) / max(0.00100000005f, fRec2[0]));
-			float fTemp3 = cosf(fTemp1);
-			float fTemp4 = ((fTemp0 + -1.0f) * fTemp3);
-			float fTemp5 = (fTemp0 + fTemp4);
-			float fTemp6 = ((fTemp2 + fTemp5) + 1.0f);
-			output0[i] = FAUSTFLOAT(((fTemp0 * ((fTemp0 + fTemp2) + (1.0f - fTemp4))) / fTemp6));
-			float fTemp7 = ((fTemp0 + 1.0f) * fTemp3);
+			float fTemp2 = ((std::sqrt(fTemp0) * std::sin(fTemp1)) / std::max(0.00100000005f, fRec2[0]));
+			float fTemp3 = (fTemp0 + fTemp2);
+			float fTemp4 = std::cos(fTemp1);
+			float fTemp5 = ((fTemp0 + -1.0f) * fTemp4);
+			float fTemp6 = ((fTemp3 + fTemp5) + 1.0f);
+			output0[i] = FAUSTFLOAT(((fTemp0 * (fTemp3 + (1.0f - fTemp5))) / fTemp6));
+			float fTemp7 = (fTemp4 * (fTemp0 + 1.0f));
 			output1[i] = FAUSTFLOAT((2.0f * ((fTemp0 * (fTemp0 + (-1.0f - fTemp7))) / fTemp6)));
-			output2[i] = FAUSTFLOAT(((fTemp0 * (fTemp0 + (1.0f - (fTemp4 + fTemp2)))) / fTemp6));
+			output2[i] = FAUSTFLOAT(((fTemp0 * (fTemp0 + (1.0f - (fTemp2 + fTemp5)))) / fTemp6));
 			output3[i] = FAUSTFLOAT(((0.0f - (2.0f * ((fTemp0 + fTemp7) + -1.0f))) / fTemp6));
-			output4[i] = FAUSTFLOAT(((fTemp5 + (1.0f - fTemp2)) / fTemp6));
+			output4[i] = FAUSTFLOAT((((fTemp0 + fTemp5) + (1.0f - fTemp2)) / fTemp6));
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];

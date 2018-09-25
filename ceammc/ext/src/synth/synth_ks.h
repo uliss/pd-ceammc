@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "ks"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -66,6 +66,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -229,6 +230,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -395,6 +399,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -417,7 +422,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -439,7 +444,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -489,10 +495,11 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 #include <math.h>
 
-float ks_faustpower2_f(float value) {
+static float ks_faustpower2_f(float value) {
 	return (value * value);
 	
 }
@@ -521,22 +528,22 @@ class ks : public dsp {
 	FAUSTFLOAT fHslider3;
 	float fConst3;
 	FAUSTFLOAT fHslider4;
-	int iRec12[2];
-	float fRec11[3];
 	FAUSTFLOAT fButton0;
 	float fVec0[2];
 	float fConst4;
 	FAUSTFLOAT fHslider5;
 	float fVec1[2];
 	float fVec2[2];
-	float fRec13[2];
+	float fRec11[2];
 	float fConst5;
 	float fConst6;
+	int iRec13[2];
+	float fRec12[3];
 	float fConst7;
 	FAUSTFLOAT fHslider6;
+	float fRec14[2];
+	float fRec16[3];
 	float fRec15[3];
-	float fRec14[3];
-	float fRec16[2];
 	float fVec3[2048];
 	float fRec3[2];
 	float fRec0[3];
@@ -616,7 +623,7 @@ class ks : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = min(192000.0f, max(1.0f, float(fSamplingFreq)));
+		fConst0 = std::min(192000.0f, std::max(1.0f, float(fSamplingFreq)));
 		fConst1 = (0.00147058826f * fConst0);
 		fConst2 = (0.00882352982f * fConst0);
 		fConst3 = (6911.50391f / fConst0);
@@ -646,39 +653,39 @@ class ks : public dsp {
 			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
-			iRec12[l1] = 0;
+			fVec0[l1] = 0.0f;
 			
 		}
-		for (int l2 = 0; (l2 < 3); l2 = (l2 + 1)) {
-			fRec11[l2] = 0.0f;
+		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
+			fVec1[l2] = 0.0f;
 			
 		}
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
-			fVec0[l3] = 0.0f;
+			fVec2[l3] = 0.0f;
 			
 		}
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
-			fVec1[l4] = 0.0f;
+			fRec11[l4] = 0.0f;
 			
 		}
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
-			fVec2[l5] = 0.0f;
+			iRec13[l5] = 0;
 			
 		}
-		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
-			fRec13[l6] = 0.0f;
+		for (int l6 = 0; (l6 < 3); l6 = (l6 + 1)) {
+			fRec12[l6] = 0.0f;
 			
 		}
-		for (int l7 = 0; (l7 < 3); l7 = (l7 + 1)) {
-			fRec15[l7] = 0.0f;
+		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
+			fRec14[l7] = 0.0f;
 			
 		}
 		for (int l8 = 0; (l8 < 3); l8 = (l8 + 1)) {
-			fRec14[l8] = 0.0f;
+			fRec16[l8] = 0.0f;
 			
 		}
-		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
-			fRec16[l9] = 0.0f;
+		for (int l9 = 0; (l9 < 3); l9 = (l9 + 1)) {
+			fRec15[l9] = 0.0f;
 			
 		}
 		for (int l10 = 0; (l10 < 2048); l10 = (l10 + 1)) {
@@ -735,83 +742,87 @@ class ks : public dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = (0.5f * ((0.200000003f * (1.0f - float(fHslider0))) + 0.800000012f));
-		float fSlow1 = powf(2.0f, (0.0833333358f * (float(fHslider1) + -69.0f)));
+		float fSlow1 = std::pow(2.0f, (0.0833333358f * (float(fHslider1) + -69.0f)));
 		float fSlow2 = (fConst1 * ((0.772727251f / fSlow1) + -0.0500000007f));
 		float fSlow3 = (fSlow2 + -1.49999499f);
-		float fSlow4 = floorf(fSlow3);
-		float fSlow5 = (fSlow2 + (-1.0f - fSlow4));
-		float fSlow6 = (fSlow2 + (-2.0f - fSlow4));
-		float fSlow7 = (fSlow2 + (-3.0f - fSlow4));
-		float fSlow8 = (fSlow2 + (-4.0f - fSlow4));
-		float fSlow9 = ((((0.0f - fSlow5) * (0.0f - (0.5f * fSlow6))) * (0.0f - (0.333333343f * fSlow7))) * (0.0f - (0.25f * fSlow8)));
+		float fSlow4 = std::floor(fSlow3);
+		float fSlow5 = (fSlow2 - fSlow4);
+		float fSlow6 = (fSlow2 + (-1.0f - fSlow4));
+		float fSlow7 = (fSlow2 + (-2.0f - fSlow4));
+		float fSlow8 = (fSlow2 + (-3.0f - fSlow4));
+		float fSlow9 = (0.0416666679f * (fSlow7 * fSlow8));
 		int iSlow10 = int(fSlow3);
-		int iSlow11 = (int(min(fConst2, float(max(0, iSlow10)))) + 1);
-		float fSlow12 = (fSlow2 - fSlow4);
-		float fSlow13 = (((0.0f - fSlow6) * (0.0f - (0.5f * fSlow7))) * (0.0f - (0.333333343f * fSlow8)));
-		int iSlow14 = (int(min(fConst2, float(max(0, (iSlow10 + 1))))) + 1);
-		float fSlow15 = (0.5f * ((fSlow5 * (0.0f - fSlow7)) * (0.0f - (0.5f * fSlow8))));
-		int iSlow16 = (int(min(fConst2, float(max(0, (iSlow10 + 2))))) + 1);
-		float fSlow17 = (fSlow5 * fSlow6);
-		float fSlow18 = (0.166666672f * (fSlow17 * (0.0f - fSlow8)));
-		int iSlow19 = (int(min(fConst2, float(max(0, (iSlow10 + 3))))) + 1);
-		float fSlow20 = (0.0416666679f * (fSlow17 * fSlow7));
-		int iSlow21 = (int(min(fConst2, float(max(0, (iSlow10 + 4))))) + 1);
+		int iSlow11 = (int(std::min(fConst2, float(std::max(0, (iSlow10 + 4))))) + 1);
+		float fSlow12 = (fSlow2 + (-4.0f - fSlow4));
+		float fSlow13 = (0.5f * ((0.0f - (0.5f * fSlow12)) * (fSlow4 + (3.0f - fSlow2))));
+		int iSlow14 = (int(std::min(fConst2, float(std::max(0, (iSlow10 + 2))))) + 1);
+		float fSlow15 = (fSlow4 + (4.0f - fSlow2));
+		float fSlow16 = (0.166666672f * (fSlow15 * fSlow7));
+		int iSlow17 = (int(std::min(fConst2, float(std::max(0, (iSlow10 + 3))))) + 1);
+		float fSlow18 = (((0.0f - (0.5f * fSlow8)) * (fSlow4 + (2.0f - fSlow2))) * (0.0f - (0.333333343f * fSlow12)));
+		int iSlow19 = (int(std::min(fConst2, float(std::max(0, (iSlow10 + 1))))) + 1);
+		float fSlow20 = ((((0.0f - (0.5f * fSlow7)) * (fSlow4 + (1.0f - fSlow2))) * (0.0f - (0.333333343f * fSlow8))) * (0.0f - (0.25f * fSlow12)));
+		int iSlow21 = (int(std::min(fConst2, float(std::max(0, iSlow10)))) + 1);
 		int iSlow22 = (int(float(fHslider2)) >= 1);
 		float fSlow23 = float(fHslider3);
-		float fSlow24 = tanf((fConst3 * (fSlow1 * float(fHslider4))));
+		float fSlow24 = std::tan((fConst3 * (fSlow1 * float(fHslider4))));
 		float fSlow25 = (1.0f / fSlow24);
 		float fSlow26 = (((fSlow25 + 1.41421354f) / fSlow24) + 1.0f);
 		float fSlow27 = (fSlow23 / fSlow26);
-		float fSlow28 = (1.0f / fSlow26);
-		float fSlow29 = (2.0f * (1.0f - (1.0f / ks_faustpower2_f(fSlow24))));
-		float fSlow30 = (((fSlow25 + -1.41421354f) / fSlow24) + 1.0f);
-		float fSlow31 = float(fButton0);
-		float fSlow32 = float(fHslider5);
-		float fSlow33 = (ks_faustpower2_f((1.0f - (0.219999999f * fSlow1))) * fSlow32);
-		float fSlow34 = (fConst4 * fSlow33);
-		float fSlow35 = (fConst5 * fSlow33);
-		float fSlow36 = (fConst6 / fSlow33);
+		float fSlow28 = float(fButton0);
+		float fSlow29 = float(fHslider5);
+		float fSlow30 = (fSlow29 * ks_faustpower2_f((1.0f - (0.219999999f * fSlow1))));
+		float fSlow31 = (fConst4 * fSlow30);
+		float fSlow32 = (fConst5 * fSlow30);
+		float fSlow33 = (fConst6 / fSlow30);
+		float fSlow34 = (1.0f / fSlow26);
+		float fSlow35 = (((fSlow25 + -1.41421354f) / fSlow24) + 1.0f);
+		float fSlow36 = (2.0f * (1.0f - (1.0f / ks_faustpower2_f(fSlow24))));
 		float fSlow37 = float(fHslider6);
-		float fSlow38 = tanf((fConst7 * ((15000.0f * fSlow37) + 500.0f)));
+		float fSlow38 = std::tan((fConst7 * ((15000.0f * fSlow37) + 500.0f)));
 		float fSlow39 = (1.0f / fSlow38);
 		float fSlow40 = (((fSlow39 + 1.41421354f) / fSlow38) + 1.0f);
 		float fSlow41 = (fSlow23 / fSlow40);
-		float fSlow42 = tanf((fConst7 * ((500.0f * fSlow37) + 40.0f)));
-		float fSlow43 = (1.0f / fSlow42);
-		float fSlow44 = (1.0f / (((fSlow43 + 1.41421354f) / fSlow42) + 1.0f));
-		float fSlow45 = (1.0f / ks_faustpower2_f(fSlow42));
-		float fSlow46 = (2.0f * (0.0f - fSlow45));
-		float fSlow47 = (2.0f * (1.0f - fSlow45));
-		float fSlow48 = (((fSlow43 + -1.41421354f) / fSlow42) + 1.0f);
-		float fSlow49 = (1.0f / fSlow40);
-		float fSlow50 = (2.0f * (1.0f - (1.0f / ks_faustpower2_f(fSlow38))));
-		float fSlow51 = (((fSlow39 + -1.41421354f) / fSlow38) + 1.0f);
-		float fSlow52 = (fConst4 * fSlow32);
-		float fSlow53 = (fConst5 * fSlow32);
-		float fSlow54 = (fConst6 / fSlow32);
+		float fSlow42 = (fConst4 * fSlow29);
+		float fSlow43 = (fConst5 * fSlow29);
+		float fSlow44 = (fConst6 / fSlow29);
+		float fSlow45 = std::tan((fConst7 * ((500.0f * fSlow37) + 40.0f)));
+		float fSlow46 = (1.0f / fSlow45);
+		float fSlow47 = (1.0f / (((fSlow46 + 1.41421354f) / fSlow45) + 1.0f));
+		float fSlow48 = (1.0f / ks_faustpower2_f(fSlow45));
+		float fSlow49 = (2.0f * (0.0f - fSlow48));
+		float fSlow50 = (((fSlow46 + -1.41421354f) / fSlow45) + 1.0f);
+		float fSlow51 = (2.0f * (1.0f - fSlow48));
+		float fSlow52 = (1.0f / fSlow40);
+		float fSlow53 = (((fSlow39 + -1.41421354f) / fSlow38) + 1.0f);
+		float fSlow54 = (2.0f * (1.0f - (1.0f / ks_faustpower2_f(fSlow38))));
+		float fSlow55 = (0.166666672f * fSlow15);
+		float fSlow56 = (0.0416666679f * fSlow8);
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = (fSlow0 * (fRec1[1] + fRec1[2]));
 			fRec7[(IOTA & 2047)] = fTemp0;
-			float fRec8 = ((fSlow9 * fRec7[((IOTA - iSlow11) & 2047)]) + (fSlow12 * ((((fSlow13 * fRec7[((IOTA - iSlow14) & 2047)]) + (fSlow15 * fRec7[((IOTA - iSlow16) & 2047)])) + (fSlow18 * fRec7[((IOTA - iSlow19) & 2047)])) + (fSlow20 * fRec7[((IOTA - iSlow21) & 2047)]))));
-			iRec12[0] = ((1103515245 * iRec12[1]) + 12345);
-			float fTemp1 = (4.65661287e-10f * float(iRec12[0]));
-			fRec11[0] = (fTemp1 - (fSlow28 * ((fSlow29 * fRec11[1]) + (fSlow30 * fRec11[2]))));
-			fVec0[0] = fSlow31;
-			int iTemp2 = (((fSlow31 - fVec0[1]) > 0.0f) > 0);
-			fVec1[0] = fSlow32;
-			fVec2[0] = fSlow33;
-			fRec13[0] = (iTemp2?0.0f:min(fSlow34, (((fConst4 * (fSlow33 - fVec2[1])) + fRec13[1]) + 1.0f)));
-			int iTemp3 = (fRec13[0] < fSlow35);
-			fRec15[0] = (fTemp1 - (fSlow44 * ((fSlow47 * fRec15[1]) + (fSlow48 * fRec15[2]))));
-			fRec14[0] = ((fSlow44 * (((fSlow46 * fRec15[1]) + (fSlow45 * fRec15[0])) + (fSlow45 * fRec15[2]))) - (fSlow49 * ((fSlow50 * fRec14[1]) + (fSlow51 * fRec14[2]))));
-			fRec16[0] = (iTemp2?0.0f:min(fSlow52, (((fConst4 * (fSlow32 - fVec1[1])) + fRec16[1]) + 1.0f)));
-			int iTemp4 = (fRec16[0] < fSlow53);
-			float fTemp5 = (iSlow22?(fSlow41 * ((fRec14[2] + ((2.0f * fRec14[1]) + fRec14[0])) * (iTemp4?((fRec16[0] < 0.0f)?0.0f:(iTemp4?(fSlow54 * fRec16[0]):1.0f)):((fRec16[0] < fSlow52)?((fSlow54 * (0.0f - (fRec16[0] - fSlow53))) + 1.0f):0.0f)))):(fSlow27 * ((fRec11[2] + (fRec11[0] + (2.0f * fRec11[1]))) * (iTemp3?((fRec13[0] < 0.0f)?0.0f:(iTemp3?(fSlow36 * fRec13[0]):1.0f)):((fRec13[0] < fSlow34)?((fSlow36 * (0.0f - (fRec13[0] - fSlow35))) + 1.0f):0.0f)))));
+			float fRec8 = ((fSlow5 * ((fSlow6 * ((fSlow9 * fRec7[((IOTA - iSlow11) & 2047)]) + ((fSlow13 * fRec7[((IOTA - iSlow14) & 2047)]) + (fSlow16 * fRec7[((IOTA - iSlow17) & 2047)])))) + (fSlow18 * fRec7[((IOTA - iSlow19) & 2047)]))) + (fSlow20 * fRec7[((IOTA - iSlow21) & 2047)]));
+			fVec0[0] = fSlow28;
+			int iTemp1 = (((fSlow28 - fVec0[1]) > 0.0f) > 0);
+			fVec1[0] = fSlow29;
+			fVec2[0] = fSlow30;
+			fRec11[0] = (iTemp1?0.0f:std::min(fSlow31, (((fConst4 * (fSlow30 - fVec2[1])) + fRec11[1]) + 1.0f)));
+			int iTemp2 = (fRec11[0] < fSlow32);
+			iRec13[0] = ((1103515245 * iRec13[1]) + 12345);
+			float fTemp3 = (4.65661287e-10f * float(iRec13[0]));
+			fRec12[0] = (fTemp3 - (fSlow34 * ((fSlow35 * fRec12[2]) + (fSlow36 * fRec12[1]))));
+			fRec14[0] = (iTemp1?0.0f:std::min(fSlow42, (((fConst4 * (fSlow29 - fVec1[1])) + fRec14[1]) + 1.0f)));
+			int iTemp4 = (fRec14[0] < fSlow43);
+			fRec16[0] = (fTemp3 - (fSlow47 * ((fSlow50 * fRec16[2]) + (fSlow51 * fRec16[1]))));
+			fRec15[0] = ((fSlow47 * ((fSlow49 * fRec16[1]) + (fSlow48 * (fRec16[2] + fRec16[0])))) - (fSlow52 * ((fSlow53 * fRec15[2]) + (fSlow54 * fRec15[1]))));
+			float fTemp5 = (iSlow22?(fSlow41 * ((iTemp4?((fRec14[0] < 0.0f)?0.0f:(iTemp4?(fSlow44 * fRec14[0]):1.0f)):((fRec14[0] < fSlow42)?((fSlow44 * (fSlow43 - fRec14[0])) + 1.0f):0.0f)) * (fRec15[0] + (fRec15[2] + (2.0f * fRec15[1]))))):(fSlow27 * ((iTemp2?((fRec11[0] < 0.0f)?0.0f:(iTemp2?(fSlow33 * fRec11[0]):1.0f)):((fRec11[0] < fSlow31)?((fSlow33 * (fSlow32 - fRec11[0])) + 1.0f):0.0f)) * (fRec12[0] + (fRec12[2] + (2.0f * fRec12[1]))))));
 			float fTemp6 = (fTemp5 + fRec0[2]);
 			fVec3[(IOTA & 2047)] = fTemp6;
-			float fTemp7 = ((fSlow9 * fVec3[((IOTA - iSlow11) & 2047)]) + (fSlow12 * (((fSlow18 * fVec3[((IOTA - iSlow19) & 2047)]) + ((fSlow13 * fVec3[((IOTA - iSlow14) & 2047)]) + (fSlow15 * fVec3[((IOTA - iSlow16) & 2047)]))) + (fSlow20 * fVec3[((IOTA - iSlow21) & 2047)]))));
-			float fRec9 = fTemp7;
-			float fRec10 = (fTemp7 + fTemp0);
+			float fTemp7 = (fSlow20 * fVec3[((IOTA - iSlow21) & 2047)]);
+			float fTemp8 = (fSlow18 * fVec3[((IOTA - iSlow19) & 2047)]);
+			float fTemp9 = (fSlow13 * fVec3[((IOTA - iSlow14) & 2047)]);
+			float fRec9 = (fTemp7 + (fSlow5 * (fTemp8 + (fSlow6 * (((fSlow16 * fVec3[((IOTA - iSlow17) & 2047)]) + fTemp9) + (fSlow9 * fVec3[((IOTA - iSlow11) & 2047)]))))));
+			float fRec10 = ((fTemp7 + fTemp0) + (fSlow5 * (fTemp8 + (fSlow6 * (fTemp9 + (fSlow7 * ((fSlow55 * fVec3[((IOTA - iSlow17) & 2047)]) + (fSlow56 * fVec3[((IOTA - iSlow11) & 2047)]))))))));
 			fRec3[0] = fRec8;
 			float fRec4 = (fTemp5 + fRec3[1]);
 			float fRec5 = fRec9;
@@ -821,18 +832,18 @@ class ks : public dsp {
 			float fRec2 = fRec6;
 			output0[i] = FAUSTFLOAT(fRec2);
 			IOTA = (IOTA + 1);
-			iRec12[1] = iRec12[0];
-			fRec11[2] = fRec11[1];
-			fRec11[1] = fRec11[0];
 			fVec0[1] = fVec0[0];
 			fVec1[1] = fVec1[0];
 			fVec2[1] = fVec2[0];
-			fRec13[1] = fRec13[0];
+			fRec11[1] = fRec11[0];
+			iRec13[1] = iRec13[0];
+			fRec12[2] = fRec12[1];
+			fRec12[1] = fRec12[0];
+			fRec14[1] = fRec14[0];
+			fRec16[2] = fRec16[1];
+			fRec16[1] = fRec16[0];
 			fRec15[2] = fRec15[1];
 			fRec15[1] = fRec15[0];
-			fRec14[2] = fRec14[1];
-			fRec14[1] = fRec14[0];
-			fRec16[1] = fRec16[0];
 			fRec3[1] = fRec3[0];
 			fRec0[2] = fRec0[1];
 			fRec0[1] = fRec0[0];
@@ -858,6 +869,11 @@ static t_class* ks_faust_class;
 #define FAUST_EXT_CLASS ks_faust_class
 // clang-format on
 
+template <class T>
+class _ks_UI : public UI {
+};
+typedef _ks_UI<ks> ks_UI;
+
 struct t_faust_ks {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -866,7 +882,7 @@ struct t_faust_ks {
     int fence; /* dummy field (not used) */
 #endif
     ks* dsp;
-    PdUI<UI>* ui;
+    PdUI<ks_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -949,7 +965,7 @@ static void ks_faust_dsp(t_faust_ks* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<ks_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -1004,7 +1020,7 @@ static void ks_faust_any(t_faust_ks* x, t_symbol* s, int argc, t_atom* argv)
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<ks_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -1164,7 +1180,7 @@ static bool faust_new_internal(t_faust_ks* x, const std::string& objId = "", boo
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new ks();
-    x->ui = new PdUI<UI>(sym(ks), objId);
+    x->ui = new PdUI<ks_UI>(sym(ks), objId);
 
     if (!faust_init_inputs(x)) {
         ks_faust_free(x);
@@ -1308,8 +1324,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1402,6 +1418,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(ks_faust_class, reinterpret_cast<t_method>(ks_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(ks_faust_class, reinterpret_cast<t_method>(ks_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(ks_faust_class, ks_faust_any);
+    ceammc::register_faust_external(ks_faust_class);
 }
 
 #define EXTERNAL_NEW void* ks_faust_new(t_symbol*, int argc, t_atom* argv)

@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "fx_pitchshift"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -66,6 +66,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -229,6 +230,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -395,6 +399,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -417,7 +422,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -439,7 +444,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -489,6 +495,7 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 #include <math.h>
 
@@ -584,7 +591,7 @@ class pitchshift : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = min(192000.0f, max(1.0f, float(fSamplingFreq)));
+		fConst0 = std::min(192000.0f, std::max(1.0f, float(fSamplingFreq)));
 		fConst1 = (0.00100000005f * fConst0);
 		fConst2 = (1000.0f / fConst0);
 		
@@ -644,15 +651,15 @@ class pitchshift : public dsp {
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			fVec0[(IOTA & 131071)] = fTemp0;
-			fRec0[0] = fmodf((fSlow0 + (fRec0[1] + (1.0f - powf(2.0f, (0.0833333358f * min(60.0f, max(-38.0f, float(input1[i])))))))), fSlow0);
+			fRec0[0] = std::fmod((fSlow0 + (fRec0[1] + (1.0f - std::pow(2.0f, (0.0833333358f * std::min(60.0f, std::max(-38.0f, float(input1[i])))))))), fSlow0);
 			int iTemp1 = int(fRec0[0]);
-			float fTemp2 = floorf(fRec0[0]);
+			float fTemp2 = std::floor(fRec0[0]);
 			float fTemp3 = (1.0f - fRec0[0]);
-			float fTemp4 = min((fSlow1 * fRec0[0]), 1.0f);
+			float fTemp4 = std::min((fSlow1 * fRec0[0]), 1.0f);
 			float fTemp5 = (fSlow0 + fRec0[0]);
 			int iTemp6 = int(fTemp5);
-			float fTemp7 = floorf(fTemp5);
-			output0[i] = FAUSTFLOAT(((((fVec0[((IOTA - min(65537, max(0, iTemp1))) & 131071)] * (fTemp2 + fTemp3)) + ((fRec0[0] - fTemp2) * fVec0[((IOTA - min(65537, max(0, (iTemp1 + 1)))) & 131071)])) * fTemp4) + (((fVec0[((IOTA - min(65537, max(0, iTemp6))) & 131071)] * ((fTemp7 + fTemp3) - fSlow0)) + ((fSlow0 + (fRec0[0] - fTemp7)) * fVec0[((IOTA - min(65537, max(0, (iTemp6 + 1)))) & 131071)])) * (1.0f - fTemp4))));
+			float fTemp7 = std::floor(fTemp5);
+			output0[i] = FAUSTFLOAT(((((fVec0[((IOTA - std::min(65537, std::max(0, iTemp1))) & 131071)] * (fTemp2 + fTemp3)) + ((fRec0[0] - fTemp2) * fVec0[((IOTA - std::min(65537, std::max(0, (iTemp1 + 1)))) & 131071)])) * fTemp4) + (((fVec0[((IOTA - std::min(65537, std::max(0, iTemp6))) & 131071)] * ((fTemp7 + fTemp3) - fSlow0)) + ((fSlow0 + (fRec0[0] - fTemp7)) * fVec0[((IOTA - std::min(65537, std::max(0, (iTemp6 + 1)))) & 131071)])) * (1.0f - fTemp4))));
 			IOTA = (IOTA + 1);
 			fRec0[1] = fRec0[0];
 			
@@ -675,6 +682,11 @@ static t_class* pitchshift_faust_class;
 #define FAUST_EXT_CLASS pitchshift_faust_class
 // clang-format on
 
+template <class T>
+class _pitchshift_UI : public UI {
+};
+typedef _pitchshift_UI<pitchshift> pitchshift_UI;
+
 struct t_faust_pitchshift {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -683,7 +695,7 @@ struct t_faust_pitchshift {
     int fence; /* dummy field (not used) */
 #endif
     pitchshift* dsp;
-    PdUI<UI>* ui;
+    PdUI<pitchshift_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -766,7 +778,7 @@ static void pitchshift_faust_dsp(t_faust_pitchshift* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<pitchshift_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -821,7 +833,7 @@ static void pitchshift_faust_any(t_faust_pitchshift* x, t_symbol* s, int argc, t
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<pitchshift_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -981,7 +993,7 @@ static bool faust_new_internal(t_faust_pitchshift* x, const std::string& objId =
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new pitchshift();
-    x->ui = new PdUI<UI>(sym(pitchshift), objId);
+    x->ui = new PdUI<pitchshift_UI>(sym(pitchshift), objId);
 
     if (!faust_init_inputs(x)) {
         pitchshift_faust_free(x);
@@ -1125,8 +1137,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1219,6 +1231,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(pitchshift_faust_class, reinterpret_cast<t_method>(pitchshift_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(pitchshift_faust_class, reinterpret_cast<t_method>(pitchshift_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(pitchshift_faust_class, pitchshift_faust_any);
+    ceammc::register_faust_external(pitchshift_faust_class);
 }
 
 #define EXTERNAL_NEW void* pitchshift_faust_new(t_symbol*, int argc, t_atom* argv)

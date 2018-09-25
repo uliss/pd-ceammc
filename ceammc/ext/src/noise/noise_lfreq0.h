@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "noise_lfreq0"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -66,6 +66,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -229,6 +230,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -395,6 +399,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -417,7 +422,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -490,6 +495,7 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 #include <math.h>
 
@@ -507,12 +513,12 @@ class lfreq0 : public dsp {
  private:
 	
 	int iVec0[2];
+	int iRec1[2];
 	int fSamplingFreq;
 	float fConst0;
 	FAUSTFLOAT fHslider0;
-	float fRec1[2];
 	float fRec2[2];
-	int iRec3[2];
+	float fRec3[2];
 	float fRec0[2];
 	
  public:
@@ -578,7 +584,7 @@ class lfreq0 : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = (6.28318548f / min(192000.0f, max(1.0f, float(fSamplingFreq))));
+		fConst0 = (6.28318548f / std::min(192000.0f, std::max(1.0f, float(fSamplingFreq))));
 		
 	}
 	
@@ -593,7 +599,7 @@ class lfreq0 : public dsp {
 			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
-			fRec1[l1] = 0.0f;
+			iRec1[l1] = 0;
 			
 		}
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
@@ -601,7 +607,7 @@ class lfreq0 : public dsp {
 			
 		}
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
-			iRec3[l3] = 0;
+			fRec3[l3] = 0.0f;
 			
 		}
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
@@ -639,21 +645,21 @@ class lfreq0 : public dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = (fConst0 * float(fHslider0));
-		float fSlow1 = sinf(fSlow0);
-		float fSlow2 = cosf(fSlow0);
+		float fSlow1 = std::sin(fSlow0);
+		float fSlow2 = std::cos(fSlow0);
 		float fSlow3 = (0.0f - fSlow1);
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iVec0[0] = 1;
-			fRec1[0] = ((fSlow1 * fRec2[1]) + (fSlow2 * fRec1[1]));
-			fRec2[0] = (((fSlow2 * fRec2[1]) + (fSlow3 * fRec1[1])) + float((1 - iVec0[1])));
-			int iTemp0 = ((fRec1[1] <= 0.0f) & (fRec1[0] > 0.0f));
-			iRec3[0] = ((1103515245 * iRec3[1]) + 12345);
-			fRec0[0] = ((fRec0[1] * float((1 - iTemp0))) + (4.65661287e-10f * float((iRec3[0] * iTemp0))));
+			iRec1[0] = ((1103515245 * iRec1[1]) + 12345);
+			fRec2[0] = ((fSlow1 * fRec3[1]) + (fSlow2 * fRec2[1]));
+			fRec3[0] = (((fSlow2 * fRec3[1]) + (fSlow3 * fRec2[1])) + float((1 - iVec0[1])));
+			int iTemp0 = ((fRec2[1] <= 0.0f) & (fRec2[0] > 0.0f));
+			fRec0[0] = ((4.65661287e-10f * float((iRec1[0] * iTemp0))) + (fRec0[1] * float((1 - iTemp0))));
 			output0[i] = FAUSTFLOAT(fRec0[0]);
 			iVec0[1] = iVec0[0];
-			fRec1[1] = fRec1[0];
+			iRec1[1] = iRec1[0];
 			fRec2[1] = fRec2[0];
-			iRec3[1] = iRec3[0];
+			fRec3[1] = fRec3[0];
 			fRec0[1] = fRec0[0];
 			
 		}

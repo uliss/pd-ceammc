@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt_bpf24"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -66,6 +66,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -229,6 +230,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -395,6 +399,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -417,7 +422,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -439,7 +444,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -489,19 +495,16 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 #include <math.h>
 
-float bpf24_faustpower2_f(float value) {
+static float bpf24_faustpower2_f(float value) {
 	return (value * value);
 	
 }
-float bpf24_faustpower3_f(float value) {
+static float bpf24_faustpower3_f(float value) {
 	return ((value * value) * value);
-	
-}
-float bpf24_faustpower4_f(float value) {
-	return (((value * value) * value) * value);
 	
 }
 
@@ -602,17 +605,17 @@ class bpf24 : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = min(192000.0f, max(1.0f, float(fSamplingFreq)));
+		fConst0 = std::min(192000.0f, std::max(1.0f, float(fSamplingFreq)));
 		fConst1 = (1.0f / fConst0);
 		fConst2 = bpf24_faustpower2_f(fConst1);
-		fConst3 = (22.6274166f / fConst0);
-		fConst4 = (2.0f * fConst0);
+		fConst3 = bpf24_faustpower3_f(fConst1);
+		fConst4 = (4.0f * bpf24_faustpower2_f(fConst0));
 		fConst5 = (3.14159274f / fConst0);
 		fConst6 = (0.5f * fConst0);
-		fConst7 = (0.5f / fConst0);
-		fConst8 = (4.0f * bpf24_faustpower2_f(fConst0));
-		fConst9 = bpf24_faustpower3_f(fConst1);
-		fConst10 = (4.0f * fConst1);
+		fConst7 = (4.0f / fConst0);
+		fConst8 = (2.0f * fConst0);
+		fConst9 = (0.5f / fConst0);
+		fConst10 = (22.6274166f / fConst0);
 		fConst11 = (6.0f * fConst2);
 		fConst12 = (11.3137083f / fConst0);
 		
@@ -676,22 +679,21 @@ class bpf24 : public dsp {
 			fRec1[0] = (fSlow0 + (0.999000013f * fRec1[1]));
 			fRec2[0] = (fSlow1 + (0.999000013f * fRec2[1]));
 			float fTemp0 = (0.5f / fRec2[0]);
-			float fTemp1 = tanf((fConst5 * min((fRec1[0] * (fTemp0 + 1.0f)), fConst6)));
-			float fTemp2 = sqrtf((fConst8 * (tanf((fConst5 * max((fRec1[0] * (1.0f - fTemp0)), 0.0f))) * fTemp1)));
-			float fTemp3 = bpf24_faustpower2_f(fTemp2);
-			float fTemp4 = ((fConst4 * fTemp1) - (fConst7 * (fTemp3 / fTemp1)));
-			float fTemp5 = (fConst3 * fTemp4);
-			float fTemp6 = (fConst10 * fTemp3);
-			float fTemp7 = (5.65685415f * fTemp4);
-			float fTemp8 = bpf24_faustpower2_f(fTemp4);
-			float fTemp9 = (8.0f * fTemp8);
-			float fTemp10 = ((4.0f * fTemp8) + (8.0f * fTemp3));
-			float fTemp11 = (fConst1 * fTemp3);
-			float fTemp12 = (2.82842708f * fTemp4);
-			float fTemp13 = (fConst12 * fTemp4);
-			float fTemp14 = (((fConst2 * (fTemp10 + (fConst1 * (fTemp3 * (fTemp11 + fTemp12))))) + fTemp13) + 16.0f);
-			fRec0[0] = (float(input0[i]) - ((((fRec0[3] * ((fTemp5 + (fConst9 * (fTemp3 * (fTemp6 - fTemp7)))) + -64.0f)) + ((fRec0[1] * ((fConst9 * (fTemp3 * (fTemp7 + fTemp6))) + (-64.0f - fTemp5))) + (fRec0[2] * ((fConst2 * ((0.0f - (fTemp9 + (16.0f * fTemp3))) + (fConst11 * bpf24_faustpower4_f(fTemp2)))) + 96.0f)))) + (fRec0[4] * ((fConst2 * (fTemp10 + (fConst1 * (fTemp3 * (fTemp11 - fTemp12))))) + (16.0f - fTemp13)))) / fTemp14));
-			output0[i] = FAUSTFLOAT((fConst2 * ((((fRec0[2] * (0.0f - fTemp9)) + (4.0f * (fRec0[0] * fTemp8))) + (4.0f * (fTemp8 * fRec0[4]))) / fTemp14)));
+			float fTemp1 = std::tan((fConst5 * std::min((fRec1[0] * (fTemp0 + 1.0f)), fConst6)));
+			float fTemp2 = bpf24_faustpower2_f(std::sqrt((fConst4 * (fTemp1 * std::tan((fConst5 * std::max((fRec1[0] * (1.0f - fTemp0)), 0.0f)))))));
+			float fTemp3 = (fConst7 * fTemp2);
+			float fTemp4 = ((fConst8 * fTemp1) - (fConst9 * (fTemp2 / fTemp1)));
+			float fTemp5 = (5.65685415f * fTemp4);
+			float fTemp6 = (fConst10 * fTemp4);
+			float fTemp7 = bpf24_faustpower2_f(fTemp4);
+			float fTemp8 = (8.0f * fTemp7);
+			float fTemp9 = (4.0f * fTemp7);
+			float fTemp10 = (fConst1 * fTemp2);
+			float fTemp11 = (2.82842708f * fTemp4);
+			float fTemp12 = (fConst12 * fTemp4);
+			float fTemp13 = ((fTemp12 + (fConst2 * (fTemp9 + (fTemp2 * ((fConst1 * (fTemp10 + fTemp11)) + 8.0f))))) + 16.0f);
+			fRec0[0] = (float(input0[i]) - (((fRec0[1] * ((fConst3 * (fTemp2 * (fTemp3 + fTemp5))) + (-64.0f - fTemp6))) + ((fRec0[2] * ((fConst2 * ((fTemp2 * ((fConst11 * fTemp2) + -16.0f)) - fTemp8)) + 96.0f)) + ((fRec0[4] * ((fConst2 * (fTemp9 + (fTemp2 * ((fConst1 * (fTemp10 - fTemp11)) + 8.0f)))) + (16.0f - fTemp12))) + (fRec0[3] * ((fTemp6 + (fConst3 * (fTemp2 * (fTemp3 - fTemp5)))) + -64.0f))))) / fTemp13));
+			output0[i] = FAUSTFLOAT((fConst2 * ((((fRec0[2] * (0.0f - fTemp8)) + (4.0f * (fTemp7 * fRec0[0]))) + (4.0f * (fTemp7 * fRec0[4]))) / fTemp13)));
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
 			for (int j0 = 4; (j0 > 0); j0 = (j0 - 1)) {
@@ -718,6 +720,11 @@ static t_class* bpf24_faust_class;
 #define FAUST_EXT_CLASS bpf24_faust_class
 // clang-format on
 
+template <class T>
+class _bpf24_UI : public UI {
+};
+typedef _bpf24_UI<bpf24> bpf24_UI;
+
 struct t_faust_bpf24 {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -726,7 +733,7 @@ struct t_faust_bpf24 {
     int fence; /* dummy field (not used) */
 #endif
     bpf24* dsp;
-    PdUI<UI>* ui;
+    PdUI<bpf24_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -809,7 +816,7 @@ static void bpf24_faust_dsp(t_faust_bpf24* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<bpf24_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -864,7 +871,7 @@ static void bpf24_faust_any(t_faust_bpf24* x, t_symbol* s, int argc, t_atom* arg
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<bpf24_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -1024,7 +1031,7 @@ static bool faust_new_internal(t_faust_bpf24* x, const std::string& objId = "", 
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new bpf24();
-    x->ui = new PdUI<UI>(sym(bpf24), objId);
+    x->ui = new PdUI<bpf24_UI>(sym(bpf24), objId);
 
     if (!faust_init_inputs(x)) {
         bpf24_faust_free(x);
@@ -1168,8 +1175,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1262,6 +1269,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(bpf24_faust_class, reinterpret_cast<t_method>(bpf24_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(bpf24_faust_class, reinterpret_cast<t_method>(bpf24_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(bpf24_faust_class, bpf24_faust_any);
+    ceammc::register_faust_external(bpf24_faust_class);
 }
 
 #define EXTERNAL_NEW void* bpf24_faust_new(t_symbol*, int argc, t_atom* argv)

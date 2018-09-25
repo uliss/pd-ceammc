@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt_moog_vcf"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -66,6 +66,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -229,6 +230,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -395,6 +399,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -417,7 +422,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -439,7 +444,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -489,10 +495,11 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 #include <math.h>
 
-float moog_vcf_faustpower2_f(float value) {
+static float moog_vcf_faustpower2_f(float value) {
 	return (value * value);
 	
 }
@@ -587,7 +594,7 @@ class moog_vcf : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = (3.14159274f / min(192000.0f, max(1.0f, float(fSamplingFreq))));
+		fConst0 = (3.14159274f / std::min(192000.0f, std::max(1.0f, float(fSamplingFreq))));
 		
 	}
 	
@@ -659,49 +666,45 @@ class moog_vcf : public dsp {
 		float fSlow1 = (0.00100000005f * float(fVslider1));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec0[0] = (fSlow0 + (0.999000013f * fRec0[1]));
-			float fTemp0 = moog_vcf_faustpower2_f((1.41419947f * fRec0[0]));
-			float fTemp1 = (1.99997997f * fRec0[0]);
+			float fTemp0 = (1.99997997f * fRec0[0]);
+			float fTemp1 = moog_vcf_faustpower2_f((1.41419947f * fRec0[0]));
 			float fTemp2 = (fTemp0 + fTemp1);
-			float fTemp3 = (fTemp1 + 2.0f);
 			fRec1[0] = (fSlow1 + (0.999000013f * fRec1[1]));
-			float fTemp4 = tanf((fConst0 * max(fRec1[0], 20.0f)));
-			float fTemp5 = (1.0f / fTemp4);
-			float fTemp6 = ((fTemp2 + ((fTemp3 + fTemp5) / fTemp4)) + 1.0f);
-			float fTemp7 = ((fTemp2 + (1.0f - ((fTemp3 - fTemp5) / fTemp4))) / fTemp6);
-			float fTemp8 = max(-0.999899983f, min(0.999899983f, fTemp7));
-			float fTemp9 = float(input0[i]);
-			float fTemp10 = (1.0f - moog_vcf_faustpower2_f(fTemp8));
-			float fTemp11 = sqrtf(max(0.0f, fTemp10));
-			float fTemp12 = ((fRec2[1] * (0.0f - fTemp8)) + (fTemp11 * fTemp9));
-			float fTemp13 = (1.0f / moog_vcf_faustpower2_f(fTemp4));
-			float fTemp14 = (fTemp2 + (1.0f - fTemp13));
-			float fTemp15 = max(-0.999899983f, min(0.999899983f, (2.0f * (fTemp14 / (fTemp6 * (fTemp7 + 1.0f))))));
-			float fTemp16 = (1.0f - moog_vcf_faustpower2_f(fTemp15));
-			float fTemp17 = sqrtf(max(0.0f, fTemp16));
-			fRec4[0] = ((fRec4[1] * (0.0f - fTemp15)) + (fTemp12 * fTemp17));
-			fRec2[0] = ((fTemp12 * fTemp15) + (fRec4[1] * fTemp17));
+			float fTemp3 = std::tan((fConst0 * std::max(fRec1[0], 20.0f)));
+			float fTemp4 = (1.0f / moog_vcf_faustpower2_f(fTemp3));
+			float fTemp5 = (fTemp2 + (1.0f - fTemp4));
+			float fTemp6 = (1.0f / fTemp3);
+			float fTemp7 = (fTemp0 + fTemp6);
+			float fTemp8 = ((fTemp2 + ((fTemp7 + 2.0f) / fTemp3)) + 1.0f);
+			float fTemp9 = (0.0f - (2.0f * (((fTemp5 / fTemp8) + -1.0f) / fTemp8)));
+			float fTemp10 = (((fTemp2 + ((fTemp6 + (-2.0f - fTemp0)) / fTemp3)) + 1.0f) / fTemp8);
+			float fTemp11 = std::max(-0.999899983f, std::min(0.999899983f, (2.0f * (fTemp5 / (fTemp8 * (fTemp10 + 1.0f))))));
+			float fTemp12 = float(input0[i]);
+			float fTemp13 = std::max(-0.999899983f, std::min(0.999899983f, fTemp10));
+			float fTemp14 = (1.0f - moog_vcf_faustpower2_f(fTemp13));
+			float fTemp15 = std::sqrt(std::max(0.0f, fTemp14));
+			float fTemp16 = ((fTemp12 * fTemp15) + (fRec2[1] * (0.0f - fTemp13)));
+			float fTemp17 = (1.0f - moog_vcf_faustpower2_f(fTemp11));
+			float fTemp18 = std::sqrt(std::max(0.0f, fTemp17));
+			fRec4[0] = ((fRec4[1] * (0.0f - fTemp11)) + (fTemp16 * fTemp18));
+			fRec2[0] = ((fTemp16 * fTemp11) + (fRec4[1] * fTemp18));
 			float fRec3 = fRec4[0];
-			float fTemp18 = (1.0f - (fTemp14 / fTemp6));
-			float fTemp19 = sqrtf(fTemp10);
-			float fTemp20 = ((((fTemp8 * fTemp9) + (fRec2[1] * fTemp11)) + (2.0f * ((fRec2[0] * fTemp18) / fTemp19))) + ((fRec3 * ((1.0f - fTemp7) - (2.0f * (fTemp15 * fTemp18)))) / (fTemp19 * sqrtf(fTemp16))));
-			float fTemp21 = (2.0f - fTemp1);
-			float fTemp22 = (1.0f - fTemp1);
-			float fTemp23 = ((fTemp0 + ((fTemp5 + fTemp21) / fTemp4)) + fTemp22);
-			float fTemp24 = (((fTemp0 + ((fTemp5 - fTemp21) / fTemp4)) + fTemp22) / fTemp23);
-			float fTemp25 = max(-0.999899983f, min(0.999899983f, fTemp24));
-			float fTemp26 = (1.0f - moog_vcf_faustpower2_f(fTemp25));
-			float fTemp27 = sqrtf(max(0.0f, fTemp26));
-			float fTemp28 = ((fRec5[1] * (0.0f - fTemp25)) + ((fTemp20 * fTemp27) / fTemp6));
-			float fTemp29 = (fTemp0 + (1.0f - (fTemp1 + fTemp13)));
-			float fTemp30 = max(-0.999899983f, min(0.999899983f, (2.0f * (fTemp29 / (fTemp23 * (fTemp24 + 1.0f))))));
-			float fTemp31 = (1.0f - moog_vcf_faustpower2_f(fTemp30));
-			float fTemp32 = sqrtf(max(0.0f, fTemp31));
-			fRec7[0] = ((fRec7[1] * (0.0f - fTemp30)) + (fTemp28 * fTemp32));
-			fRec5[0] = ((fTemp28 * fTemp30) + (fRec7[1] * fTemp32));
+			float fTemp19 = ((((((0.0f - ((fTemp9 * fTemp11) + ((fTemp10 + -1.0f) / fTemp8))) * fRec3) / std::sqrt(fTemp17)) + (fRec2[0] * fTemp9)) / std::sqrt(fTemp14)) + (((fTemp12 * fTemp13) + (fTemp15 * fRec2[1])) / fTemp8));
+			float fTemp20 = ((fTemp1 + ((fTemp6 + (2.0f - fTemp0)) / fTemp3)) + (1.0f - fTemp0));
+			float fTemp21 = ((fTemp1 + (1.0f - (fTemp0 + ((2.0f - fTemp7) / fTemp3)))) / fTemp20);
+			float fTemp22 = std::max(-0.999899983f, std::min(0.999899983f, fTemp21));
+			float fTemp23 = (1.0f - moog_vcf_faustpower2_f(fTemp22));
+			float fTemp24 = std::sqrt(std::max(0.0f, fTemp23));
+			float fTemp25 = ((fTemp19 * fTemp24) + ((0.0f - fTemp22) * fRec5[1]));
+			float fTemp26 = (fTemp1 + (1.0f - (fTemp0 + fTemp4)));
+			float fTemp27 = std::max(-0.999899983f, std::min(0.999899983f, (2.0f * (fTemp26 / (fTemp20 * (fTemp21 + 1.0f))))));
+			float fTemp28 = (1.0f - moog_vcf_faustpower2_f(fTemp27));
+			float fTemp29 = std::sqrt(std::max(0.0f, fTemp28));
+			fRec7[0] = (((0.0f - fTemp27) * fRec7[1]) + (fTemp25 * fTemp29));
+			fRec5[0] = ((fTemp25 * fTemp27) + (fTemp29 * fRec7[1]));
 			float fRec6 = fRec7[0];
-			float fTemp33 = (1.0f - (fTemp29 / fTemp23));
-			float fTemp34 = sqrtf(fTemp26);
-			output0[i] = FAUSTFLOAT(((((((fTemp20 * fTemp25) / fTemp6) + (fRec5[1] * fTemp27)) + (2.0f * ((fRec5[0] * fTemp33) / fTemp34))) + ((fRec6 * ((1.0f - fTemp24) - (2.0f * (fTemp30 * fTemp33)))) / (fTemp34 * sqrtf(fTemp31)))) / fTemp23));
+			float fTemp30 = (1.0f - (fTemp26 / fTemp20));
+			output0[i] = FAUSTFLOAT(((((fTemp19 * fTemp22) + (fTemp24 * fRec5[1])) + (((((1.0f - (fTemp21 + (2.0f * (fTemp27 * fTemp30)))) * fRec6) / std::sqrt(fTemp28)) + (2.0f * (fTemp30 * fRec5[0]))) / std::sqrt(fTemp23))) / fTemp20));
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];
 			fRec4[1] = fRec4[0];
@@ -728,6 +731,11 @@ static t_class* moog_vcf_faust_class;
 #define FAUST_EXT_CLASS moog_vcf_faust_class
 // clang-format on
 
+template <class T>
+class _moog_vcf_UI : public UI {
+};
+typedef _moog_vcf_UI<moog_vcf> moog_vcf_UI;
+
 struct t_faust_moog_vcf {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -736,7 +744,7 @@ struct t_faust_moog_vcf {
     int fence; /* dummy field (not used) */
 #endif
     moog_vcf* dsp;
-    PdUI<UI>* ui;
+    PdUI<moog_vcf_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -819,7 +827,7 @@ static void moog_vcf_faust_dsp(t_faust_moog_vcf* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<moog_vcf_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -874,7 +882,7 @@ static void moog_vcf_faust_any(t_faust_moog_vcf* x, t_symbol* s, int argc, t_ato
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<moog_vcf_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -1034,7 +1042,7 @@ static bool faust_new_internal(t_faust_moog_vcf* x, const std::string& objId = "
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new moog_vcf();
-    x->ui = new PdUI<UI>(sym(moog_vcf), objId);
+    x->ui = new PdUI<moog_vcf_UI>(sym(moog_vcf), objId);
 
     if (!faust_init_inputs(x)) {
         moog_vcf_faust_free(x);
@@ -1178,8 +1186,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1272,6 +1280,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(moog_vcf_faust_class, reinterpret_cast<t_method>(moog_vcf_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(moog_vcf_faust_class, reinterpret_cast<t_method>(moog_vcf_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(moog_vcf_faust_class, moog_vcf_faust_any);
+    ceammc::register_faust_external(moog_vcf_faust_class);
 }
 
 #define EXTERNAL_NEW void* moog_vcf_faust_new(t_symbol*, int argc, t_atom* argv)

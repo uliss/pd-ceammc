@@ -2,7 +2,7 @@
 author: "Mayank Sanganeria"
 name: "Granulator"
 version: "1.0"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -68,6 +68,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -231,6 +232,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -397,6 +401,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -419,7 +424,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -441,7 +446,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -491,6 +497,7 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 #include <math.h>
 
@@ -575,24 +582,24 @@ class granulator : public dsp {
 	FAUSTFLOAT fHslider1;
 	int iRec0[2];
 	FAUSTFLOAT fHslider2;
+	int iRec1[2];
 	int iRec3[2];
 	int iRec2[2];
 	int iRec67[2];
-	int iRec1[2];
 	int iRec68[2];
 	int iRec69[2];
-	int iRec71[2];
 	int iRec70[2];
-	int iRec73[2];
+	int iRec71[2];
 	int iRec72[2];
+	int iRec73[2];
 	int iRec74[2];
 	int iRec75[2];
-	int iRec77[2];
 	int iRec76[2];
-	int iRec79[2];
+	int iRec77[2];
 	int iRec78[2];
-	int iRec81[2];
+	int iRec79[2];
 	int iRec80[2];
+	int iRec81[2];
 	int iRec82[2];
 	int iRec83[2];
 	int iRec84[2];
@@ -605,106 +612,106 @@ class granulator : public dsp {
 	int iRec91[2];
 	int iRec92[2];
 	int iRec93[2];
-	int iRec95[2];
 	int iRec94[2];
-	int iRec97[2];
+	int iRec95[2];
 	int iRec96[2];
-	int iRec99[2];
+	int iRec97[2];
 	int iRec98[2];
-	int iRec101[2];
+	int iRec99[2];
 	int iRec100[2];
-	int iRec103[2];
+	int iRec101[2];
 	int iRec102[2];
-	int iRec105[2];
+	int iRec103[2];
 	int iRec104[2];
-	int iRec107[2];
+	int iRec105[2];
 	int iRec106[2];
-	int iRec109[2];
+	int iRec107[2];
 	int iRec108[2];
-	int iRec111[2];
+	int iRec109[2];
 	int iRec110[2];
-	int iRec113[2];
+	int iRec111[2];
 	int iRec112[2];
-	int iRec115[2];
+	int iRec113[2];
 	int iRec114[2];
-	int iRec117[2];
+	int iRec115[2];
 	int iRec116[2];
-	int iRec119[2];
+	int iRec117[2];
 	int iRec118[2];
-	int iRec121[2];
+	int iRec119[2];
 	int iRec120[2];
-	int iRec123[2];
+	int iRec121[2];
 	int iRec122[2];
-	int iRec125[2];
+	int iRec123[2];
 	int iRec124[2];
-	int iRec127[2];
+	int iRec125[2];
 	int iRec126[2];
-	int iRec129[2];
+	int iRec127[2];
 	int iRec128[2];
-	int iRec131[2];
+	int iRec129[2];
 	int iRec130[2];
-	int iRec133[2];
+	int iRec131[2];
 	int iRec132[2];
-	int iRec135[2];
+	int iRec133[2];
 	int iRec134[2];
-	int iRec137[2];
+	int iRec135[2];
 	int iRec136[2];
-	int iRec139[2];
+	int iRec137[2];
 	int iRec138[2];
-	int iRec141[2];
+	int iRec139[2];
 	int iRec140[2];
-	int iRec143[2];
+	int iRec141[2];
 	int iRec142[2];
-	int iRec145[2];
+	int iRec143[2];
 	int iRec144[2];
-	int iRec147[2];
+	int iRec145[2];
 	int iRec146[2];
-	int iRec149[2];
+	int iRec147[2];
 	int iRec148[2];
-	int iRec151[2];
+	int iRec149[2];
 	int iRec150[2];
-	int iRec153[2];
+	int iRec151[2];
 	int iRec152[2];
-	int iRec155[2];
+	int iRec153[2];
 	int iRec154[2];
-	int iRec157[2];
+	int iRec155[2];
 	int iRec156[2];
-	int iRec159[2];
+	int iRec157[2];
 	int iRec158[2];
-	int iRec161[2];
+	int iRec159[2];
 	int iRec160[2];
-	int iRec163[2];
+	int iRec161[2];
 	int iRec162[2];
-	int iRec165[2];
+	int iRec163[2];
 	int iRec164[2];
-	int iRec167[2];
+	int iRec165[2];
 	int iRec166[2];
-	int iRec169[2];
+	int iRec167[2];
 	int iRec168[2];
-	int iRec171[2];
+	int iRec169[2];
 	int iRec170[2];
-	int iRec173[2];
+	int iRec171[2];
 	int iRec172[2];
-	int iRec175[2];
+	int iRec173[2];
 	int iRec174[2];
+	int iRec175[2];
 	int iRec177[2];
 	int iRec176[2];
 	int iRec179[2];
 	int iRec178[2];
 	int iRec181[2];
 	int iRec180[2];
-	int iRec183[2];
 	int iRec182[2];
-	int iRec185[2];
+	int iRec183[2];
 	int iRec184[2];
-	int iRec187[2];
+	int iRec185[2];
 	int iRec186[2];
-	int iRec189[2];
+	int iRec187[2];
 	int iRec188[2];
-	int iRec191[2];
+	int iRec189[2];
 	int iRec190[2];
-	int iRec193[2];
+	int iRec191[2];
 	int iRec192[2];
+	int iRec193[2];
 	
  public:
 	
@@ -790,19 +797,19 @@ class granulator : public dsp {
 			
 		}
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
-			iRec3[l2] = 0;
+			iRec1[l2] = 0;
 			
 		}
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
-			iRec2[l3] = 0;
+			iRec3[l3] = 0;
 			
 		}
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
-			iRec67[l4] = 0;
+			iRec2[l4] = 0;
 			
 		}
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
-			iRec1[l5] = 0;
+			iRec67[l5] = 0;
 			
 		}
 		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
@@ -814,19 +821,19 @@ class granulator : public dsp {
 			
 		}
 		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
-			iRec71[l8] = 0;
+			iRec70[l8] = 0;
 			
 		}
 		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
-			iRec70[l9] = 0;
+			iRec71[l9] = 0;
 			
 		}
 		for (int l10 = 0; (l10 < 2); l10 = (l10 + 1)) {
-			iRec73[l10] = 0;
+			iRec72[l10] = 0;
 			
 		}
 		for (int l11 = 0; (l11 < 2); l11 = (l11 + 1)) {
-			iRec72[l11] = 0;
+			iRec73[l11] = 0;
 			
 		}
 		for (int l12 = 0; (l12 < 2); l12 = (l12 + 1)) {
@@ -838,27 +845,27 @@ class granulator : public dsp {
 			
 		}
 		for (int l14 = 0; (l14 < 2); l14 = (l14 + 1)) {
-			iRec77[l14] = 0;
+			iRec76[l14] = 0;
 			
 		}
 		for (int l15 = 0; (l15 < 2); l15 = (l15 + 1)) {
-			iRec76[l15] = 0;
+			iRec77[l15] = 0;
 			
 		}
 		for (int l16 = 0; (l16 < 2); l16 = (l16 + 1)) {
-			iRec79[l16] = 0;
+			iRec78[l16] = 0;
 			
 		}
 		for (int l17 = 0; (l17 < 2); l17 = (l17 + 1)) {
-			iRec78[l17] = 0;
+			iRec79[l17] = 0;
 			
 		}
 		for (int l18 = 0; (l18 < 2); l18 = (l18 + 1)) {
-			iRec81[l18] = 0;
+			iRec80[l18] = 0;
 			
 		}
 		for (int l19 = 0; (l19 < 2); l19 = (l19 + 1)) {
-			iRec80[l19] = 0;
+			iRec81[l19] = 0;
 			
 		}
 		for (int l20 = 0; (l20 < 2); l20 = (l20 + 1)) {
@@ -910,331 +917,331 @@ class granulator : public dsp {
 			
 		}
 		for (int l32 = 0; (l32 < 2); l32 = (l32 + 1)) {
-			iRec95[l32] = 0;
+			iRec94[l32] = 0;
 			
 		}
 		for (int l33 = 0; (l33 < 2); l33 = (l33 + 1)) {
-			iRec94[l33] = 0;
+			iRec95[l33] = 0;
 			
 		}
 		for (int l34 = 0; (l34 < 2); l34 = (l34 + 1)) {
-			iRec97[l34] = 0;
+			iRec96[l34] = 0;
 			
 		}
 		for (int l35 = 0; (l35 < 2); l35 = (l35 + 1)) {
-			iRec96[l35] = 0;
+			iRec97[l35] = 0;
 			
 		}
 		for (int l36 = 0; (l36 < 2); l36 = (l36 + 1)) {
-			iRec99[l36] = 0;
+			iRec98[l36] = 0;
 			
 		}
 		for (int l37 = 0; (l37 < 2); l37 = (l37 + 1)) {
-			iRec98[l37] = 0;
+			iRec99[l37] = 0;
 			
 		}
 		for (int l38 = 0; (l38 < 2); l38 = (l38 + 1)) {
-			iRec101[l38] = 0;
+			iRec100[l38] = 0;
 			
 		}
 		for (int l39 = 0; (l39 < 2); l39 = (l39 + 1)) {
-			iRec100[l39] = 0;
+			iRec101[l39] = 0;
 			
 		}
 		for (int l40 = 0; (l40 < 2); l40 = (l40 + 1)) {
-			iRec103[l40] = 0;
+			iRec102[l40] = 0;
 			
 		}
 		for (int l41 = 0; (l41 < 2); l41 = (l41 + 1)) {
-			iRec102[l41] = 0;
+			iRec103[l41] = 0;
 			
 		}
 		for (int l42 = 0; (l42 < 2); l42 = (l42 + 1)) {
-			iRec105[l42] = 0;
+			iRec104[l42] = 0;
 			
 		}
 		for (int l43 = 0; (l43 < 2); l43 = (l43 + 1)) {
-			iRec104[l43] = 0;
+			iRec105[l43] = 0;
 			
 		}
 		for (int l44 = 0; (l44 < 2); l44 = (l44 + 1)) {
-			iRec107[l44] = 0;
+			iRec106[l44] = 0;
 			
 		}
 		for (int l45 = 0; (l45 < 2); l45 = (l45 + 1)) {
-			iRec106[l45] = 0;
+			iRec107[l45] = 0;
 			
 		}
 		for (int l46 = 0; (l46 < 2); l46 = (l46 + 1)) {
-			iRec109[l46] = 0;
+			iRec108[l46] = 0;
 			
 		}
 		for (int l47 = 0; (l47 < 2); l47 = (l47 + 1)) {
-			iRec108[l47] = 0;
+			iRec109[l47] = 0;
 			
 		}
 		for (int l48 = 0; (l48 < 2); l48 = (l48 + 1)) {
-			iRec111[l48] = 0;
+			iRec110[l48] = 0;
 			
 		}
 		for (int l49 = 0; (l49 < 2); l49 = (l49 + 1)) {
-			iRec110[l49] = 0;
+			iRec111[l49] = 0;
 			
 		}
 		for (int l50 = 0; (l50 < 2); l50 = (l50 + 1)) {
-			iRec113[l50] = 0;
+			iRec112[l50] = 0;
 			
 		}
 		for (int l51 = 0; (l51 < 2); l51 = (l51 + 1)) {
-			iRec112[l51] = 0;
+			iRec113[l51] = 0;
 			
 		}
 		for (int l52 = 0; (l52 < 2); l52 = (l52 + 1)) {
-			iRec115[l52] = 0;
+			iRec114[l52] = 0;
 			
 		}
 		for (int l53 = 0; (l53 < 2); l53 = (l53 + 1)) {
-			iRec114[l53] = 0;
+			iRec115[l53] = 0;
 			
 		}
 		for (int l54 = 0; (l54 < 2); l54 = (l54 + 1)) {
-			iRec117[l54] = 0;
+			iRec116[l54] = 0;
 			
 		}
 		for (int l55 = 0; (l55 < 2); l55 = (l55 + 1)) {
-			iRec116[l55] = 0;
+			iRec117[l55] = 0;
 			
 		}
 		for (int l56 = 0; (l56 < 2); l56 = (l56 + 1)) {
-			iRec119[l56] = 0;
+			iRec118[l56] = 0;
 			
 		}
 		for (int l57 = 0; (l57 < 2); l57 = (l57 + 1)) {
-			iRec118[l57] = 0;
+			iRec119[l57] = 0;
 			
 		}
 		for (int l58 = 0; (l58 < 2); l58 = (l58 + 1)) {
-			iRec121[l58] = 0;
+			iRec120[l58] = 0;
 			
 		}
 		for (int l59 = 0; (l59 < 2); l59 = (l59 + 1)) {
-			iRec120[l59] = 0;
+			iRec121[l59] = 0;
 			
 		}
 		for (int l60 = 0; (l60 < 2); l60 = (l60 + 1)) {
-			iRec123[l60] = 0;
+			iRec122[l60] = 0;
 			
 		}
 		for (int l61 = 0; (l61 < 2); l61 = (l61 + 1)) {
-			iRec122[l61] = 0;
+			iRec123[l61] = 0;
 			
 		}
 		for (int l62 = 0; (l62 < 2); l62 = (l62 + 1)) {
-			iRec125[l62] = 0;
+			iRec124[l62] = 0;
 			
 		}
 		for (int l63 = 0; (l63 < 2); l63 = (l63 + 1)) {
-			iRec124[l63] = 0;
+			iRec125[l63] = 0;
 			
 		}
 		for (int l64 = 0; (l64 < 2); l64 = (l64 + 1)) {
-			iRec127[l64] = 0;
+			iRec126[l64] = 0;
 			
 		}
 		for (int l65 = 0; (l65 < 2); l65 = (l65 + 1)) {
-			iRec126[l65] = 0;
+			iRec127[l65] = 0;
 			
 		}
 		for (int l66 = 0; (l66 < 2); l66 = (l66 + 1)) {
-			iRec129[l66] = 0;
+			iRec128[l66] = 0;
 			
 		}
 		for (int l67 = 0; (l67 < 2); l67 = (l67 + 1)) {
-			iRec128[l67] = 0;
+			iRec129[l67] = 0;
 			
 		}
 		for (int l68 = 0; (l68 < 2); l68 = (l68 + 1)) {
-			iRec131[l68] = 0;
+			iRec130[l68] = 0;
 			
 		}
 		for (int l69 = 0; (l69 < 2); l69 = (l69 + 1)) {
-			iRec130[l69] = 0;
+			iRec131[l69] = 0;
 			
 		}
 		for (int l70 = 0; (l70 < 2); l70 = (l70 + 1)) {
-			iRec133[l70] = 0;
+			iRec132[l70] = 0;
 			
 		}
 		for (int l71 = 0; (l71 < 2); l71 = (l71 + 1)) {
-			iRec132[l71] = 0;
+			iRec133[l71] = 0;
 			
 		}
 		for (int l72 = 0; (l72 < 2); l72 = (l72 + 1)) {
-			iRec135[l72] = 0;
+			iRec134[l72] = 0;
 			
 		}
 		for (int l73 = 0; (l73 < 2); l73 = (l73 + 1)) {
-			iRec134[l73] = 0;
+			iRec135[l73] = 0;
 			
 		}
 		for (int l74 = 0; (l74 < 2); l74 = (l74 + 1)) {
-			iRec137[l74] = 0;
+			iRec136[l74] = 0;
 			
 		}
 		for (int l75 = 0; (l75 < 2); l75 = (l75 + 1)) {
-			iRec136[l75] = 0;
+			iRec137[l75] = 0;
 			
 		}
 		for (int l76 = 0; (l76 < 2); l76 = (l76 + 1)) {
-			iRec139[l76] = 0;
+			iRec138[l76] = 0;
 			
 		}
 		for (int l77 = 0; (l77 < 2); l77 = (l77 + 1)) {
-			iRec138[l77] = 0;
+			iRec139[l77] = 0;
 			
 		}
 		for (int l78 = 0; (l78 < 2); l78 = (l78 + 1)) {
-			iRec141[l78] = 0;
+			iRec140[l78] = 0;
 			
 		}
 		for (int l79 = 0; (l79 < 2); l79 = (l79 + 1)) {
-			iRec140[l79] = 0;
+			iRec141[l79] = 0;
 			
 		}
 		for (int l80 = 0; (l80 < 2); l80 = (l80 + 1)) {
-			iRec143[l80] = 0;
+			iRec142[l80] = 0;
 			
 		}
 		for (int l81 = 0; (l81 < 2); l81 = (l81 + 1)) {
-			iRec142[l81] = 0;
+			iRec143[l81] = 0;
 			
 		}
 		for (int l82 = 0; (l82 < 2); l82 = (l82 + 1)) {
-			iRec145[l82] = 0;
+			iRec144[l82] = 0;
 			
 		}
 		for (int l83 = 0; (l83 < 2); l83 = (l83 + 1)) {
-			iRec144[l83] = 0;
+			iRec145[l83] = 0;
 			
 		}
 		for (int l84 = 0; (l84 < 2); l84 = (l84 + 1)) {
-			iRec147[l84] = 0;
+			iRec146[l84] = 0;
 			
 		}
 		for (int l85 = 0; (l85 < 2); l85 = (l85 + 1)) {
-			iRec146[l85] = 0;
+			iRec147[l85] = 0;
 			
 		}
 		for (int l86 = 0; (l86 < 2); l86 = (l86 + 1)) {
-			iRec149[l86] = 0;
+			iRec148[l86] = 0;
 			
 		}
 		for (int l87 = 0; (l87 < 2); l87 = (l87 + 1)) {
-			iRec148[l87] = 0;
+			iRec149[l87] = 0;
 			
 		}
 		for (int l88 = 0; (l88 < 2); l88 = (l88 + 1)) {
-			iRec151[l88] = 0;
+			iRec150[l88] = 0;
 			
 		}
 		for (int l89 = 0; (l89 < 2); l89 = (l89 + 1)) {
-			iRec150[l89] = 0;
+			iRec151[l89] = 0;
 			
 		}
 		for (int l90 = 0; (l90 < 2); l90 = (l90 + 1)) {
-			iRec153[l90] = 0;
+			iRec152[l90] = 0;
 			
 		}
 		for (int l91 = 0; (l91 < 2); l91 = (l91 + 1)) {
-			iRec152[l91] = 0;
+			iRec153[l91] = 0;
 			
 		}
 		for (int l92 = 0; (l92 < 2); l92 = (l92 + 1)) {
-			iRec155[l92] = 0;
+			iRec154[l92] = 0;
 			
 		}
 		for (int l93 = 0; (l93 < 2); l93 = (l93 + 1)) {
-			iRec154[l93] = 0;
+			iRec155[l93] = 0;
 			
 		}
 		for (int l94 = 0; (l94 < 2); l94 = (l94 + 1)) {
-			iRec157[l94] = 0;
+			iRec156[l94] = 0;
 			
 		}
 		for (int l95 = 0; (l95 < 2); l95 = (l95 + 1)) {
-			iRec156[l95] = 0;
+			iRec157[l95] = 0;
 			
 		}
 		for (int l96 = 0; (l96 < 2); l96 = (l96 + 1)) {
-			iRec159[l96] = 0;
+			iRec158[l96] = 0;
 			
 		}
 		for (int l97 = 0; (l97 < 2); l97 = (l97 + 1)) {
-			iRec158[l97] = 0;
+			iRec159[l97] = 0;
 			
 		}
 		for (int l98 = 0; (l98 < 2); l98 = (l98 + 1)) {
-			iRec161[l98] = 0;
+			iRec160[l98] = 0;
 			
 		}
 		for (int l99 = 0; (l99 < 2); l99 = (l99 + 1)) {
-			iRec160[l99] = 0;
+			iRec161[l99] = 0;
 			
 		}
 		for (int l100 = 0; (l100 < 2); l100 = (l100 + 1)) {
-			iRec163[l100] = 0;
+			iRec162[l100] = 0;
 			
 		}
 		for (int l101 = 0; (l101 < 2); l101 = (l101 + 1)) {
-			iRec162[l101] = 0;
+			iRec163[l101] = 0;
 			
 		}
 		for (int l102 = 0; (l102 < 2); l102 = (l102 + 1)) {
-			iRec165[l102] = 0;
+			iRec164[l102] = 0;
 			
 		}
 		for (int l103 = 0; (l103 < 2); l103 = (l103 + 1)) {
-			iRec164[l103] = 0;
+			iRec165[l103] = 0;
 			
 		}
 		for (int l104 = 0; (l104 < 2); l104 = (l104 + 1)) {
-			iRec167[l104] = 0;
+			iRec166[l104] = 0;
 			
 		}
 		for (int l105 = 0; (l105 < 2); l105 = (l105 + 1)) {
-			iRec166[l105] = 0;
+			iRec167[l105] = 0;
 			
 		}
 		for (int l106 = 0; (l106 < 2); l106 = (l106 + 1)) {
-			iRec169[l106] = 0;
+			iRec168[l106] = 0;
 			
 		}
 		for (int l107 = 0; (l107 < 2); l107 = (l107 + 1)) {
-			iRec168[l107] = 0;
+			iRec169[l107] = 0;
 			
 		}
 		for (int l108 = 0; (l108 < 2); l108 = (l108 + 1)) {
-			iRec171[l108] = 0;
+			iRec170[l108] = 0;
 			
 		}
 		for (int l109 = 0; (l109 < 2); l109 = (l109 + 1)) {
-			iRec170[l109] = 0;
+			iRec171[l109] = 0;
 			
 		}
 		for (int l110 = 0; (l110 < 2); l110 = (l110 + 1)) {
-			iRec173[l110] = 0;
+			iRec172[l110] = 0;
 			
 		}
 		for (int l111 = 0; (l111 < 2); l111 = (l111 + 1)) {
-			iRec172[l111] = 0;
+			iRec173[l111] = 0;
 			
 		}
 		for (int l112 = 0; (l112 < 2); l112 = (l112 + 1)) {
-			iRec175[l112] = 0;
+			iRec174[l112] = 0;
 			
 		}
 		for (int l113 = 0; (l113 < 2); l113 = (l113 + 1)) {
-			iRec174[l113] = 0;
+			iRec175[l113] = 0;
 			
 		}
 		for (int l114 = 0; (l114 < 2); l114 = (l114 + 1)) {
@@ -1262,51 +1269,51 @@ class granulator : public dsp {
 			
 		}
 		for (int l120 = 0; (l120 < 2); l120 = (l120 + 1)) {
-			iRec183[l120] = 0;
+			iRec182[l120] = 0;
 			
 		}
 		for (int l121 = 0; (l121 < 2); l121 = (l121 + 1)) {
-			iRec182[l121] = 0;
+			iRec183[l121] = 0;
 			
 		}
 		for (int l122 = 0; (l122 < 2); l122 = (l122 + 1)) {
-			iRec185[l122] = 0;
+			iRec184[l122] = 0;
 			
 		}
 		for (int l123 = 0; (l123 < 2); l123 = (l123 + 1)) {
-			iRec184[l123] = 0;
+			iRec185[l123] = 0;
 			
 		}
 		for (int l124 = 0; (l124 < 2); l124 = (l124 + 1)) {
-			iRec187[l124] = 0;
+			iRec186[l124] = 0;
 			
 		}
 		for (int l125 = 0; (l125 < 2); l125 = (l125 + 1)) {
-			iRec186[l125] = 0;
+			iRec187[l125] = 0;
 			
 		}
 		for (int l126 = 0; (l126 < 2); l126 = (l126 + 1)) {
-			iRec189[l126] = 0;
+			iRec188[l126] = 0;
 			
 		}
 		for (int l127 = 0; (l127 < 2); l127 = (l127 + 1)) {
-			iRec188[l127] = 0;
+			iRec189[l127] = 0;
 			
 		}
 		for (int l128 = 0; (l128 < 2); l128 = (l128 + 1)) {
-			iRec191[l128] = 0;
+			iRec190[l128] = 0;
 			
 		}
 		for (int l129 = 0; (l129 < 2); l129 = (l129 + 1)) {
-			iRec190[l129] = 0;
+			iRec191[l129] = 0;
 			
 		}
 		for (int l130 = 0; (l130 < 2); l130 = (l130 + 1)) {
-			iRec193[l130] = 0;
+			iRec192[l130] = 0;
 			
 		}
 		for (int l131 = 0; (l131 < 2); l131 = (l131 + 1)) {
-			iRec192[l131] = 0;
+			iRec193[l131] = 0;
 			
 		}
 		
@@ -1345,43 +1352,43 @@ class granulator : public dsp {
 		FAUSTFLOAT* output1 = outputs[1];
 		float fSlow0 = float(fHslider0);
 		float fSlow1 = (1.0f / fSlow0);
-		int iSlow2 = (60.0f < fSlow0);
+		int iSlow2 = (18.0f < fSlow0);
 		int iSlow3 = int((float(fSamplingFreq) * float(fHslider1)));
 		int iSlow4 = int((float(fSamplingFreq) * float(fHslider2)));
-		int iSlow5 = (iSlow4 + -1);
-		float fSlow6 = (1.0f / float(iSlow5));
-		float fSlow7 = (0.5f * float(iSlow3));
-		float fSlow8 = (6.28318024f / float(iSlow5));
-		int iSlow9 = (20.0f < fSlow0);
-		int iSlow10 = (0.0f < fSlow0);
-		int iSlow11 = (2.0f < fSlow0);
-		int iSlow12 = (4.0f < fSlow0);
-		int iSlow13 = (6.0f < fSlow0);
-		int iSlow14 = (8.0f < fSlow0);
-		int iSlow15 = (10.0f < fSlow0);
-		int iSlow16 = (12.0f < fSlow0);
-		int iSlow17 = (14.0f < fSlow0);
-		int iSlow18 = (16.0f < fSlow0);
-		int iSlow19 = (18.0f < fSlow0);
-		int iSlow20 = (22.0f < fSlow0);
-		int iSlow21 = (24.0f < fSlow0);
-		int iSlow22 = (26.0f < fSlow0);
-		int iSlow23 = (28.0f < fSlow0);
-		int iSlow24 = (30.0f < fSlow0);
-		int iSlow25 = (32.0f < fSlow0);
-		int iSlow26 = (34.0f < fSlow0);
-		int iSlow27 = (36.0f < fSlow0);
-		int iSlow28 = (38.0f < fSlow0);
-		int iSlow29 = (40.0f < fSlow0);
-		int iSlow30 = (42.0f < fSlow0);
-		int iSlow31 = (44.0f < fSlow0);
-		int iSlow32 = (46.0f < fSlow0);
-		int iSlow33 = (48.0f < fSlow0);
-		int iSlow34 = (50.0f < fSlow0);
-		int iSlow35 = (52.0f < fSlow0);
-		int iSlow36 = (54.0f < fSlow0);
-		int iSlow37 = (56.0f < fSlow0);
-		int iSlow38 = (58.0f < fSlow0);
+		float fSlow5 = (0.5f * float(iSlow3));
+		int iSlow6 = (iSlow4 + -1);
+		float fSlow7 = (1.0f / float(iSlow6));
+		float fSlow8 = (6.28318024f / float(iSlow6));
+		int iSlow9 = (0.0f < fSlow0);
+		int iSlow10 = (2.0f < fSlow0);
+		int iSlow11 = (4.0f < fSlow0);
+		int iSlow12 = (6.0f < fSlow0);
+		int iSlow13 = (8.0f < fSlow0);
+		int iSlow14 = (10.0f < fSlow0);
+		int iSlow15 = (12.0f < fSlow0);
+		int iSlow16 = (14.0f < fSlow0);
+		int iSlow17 = (16.0f < fSlow0);
+		int iSlow18 = (20.0f < fSlow0);
+		int iSlow19 = (22.0f < fSlow0);
+		int iSlow20 = (24.0f < fSlow0);
+		int iSlow21 = (26.0f < fSlow0);
+		int iSlow22 = (28.0f < fSlow0);
+		int iSlow23 = (30.0f < fSlow0);
+		int iSlow24 = (32.0f < fSlow0);
+		int iSlow25 = (34.0f < fSlow0);
+		int iSlow26 = (36.0f < fSlow0);
+		int iSlow27 = (38.0f < fSlow0);
+		int iSlow28 = (40.0f < fSlow0);
+		int iSlow29 = (42.0f < fSlow0);
+		int iSlow30 = (44.0f < fSlow0);
+		int iSlow31 = (46.0f < fSlow0);
+		int iSlow32 = (48.0f < fSlow0);
+		int iSlow33 = (50.0f < fSlow0);
+		int iSlow34 = (52.0f < fSlow0);
+		int iSlow35 = (54.0f < fSlow0);
+		int iSlow36 = (56.0f < fSlow0);
+		int iSlow37 = (58.0f < fSlow0);
+		int iSlow38 = (60.0f < fSlow0);
 		int iSlow39 = (62.0f < fSlow0);
 		int iSlow40 = (1.0f < fSlow0);
 		int iSlow41 = (3.0f < fSlow0);
@@ -1419,6 +1426,7 @@ class granulator : public dsp {
 			iVec0[0] = 1;
 			iRec0[0] = ((iRec0[1] + 1) % iSlow3);
 			ftbl0[(iRec0[0] % iSlow3)] = float(input0[i]);
+			iRec1[0] = ((iRec1[1] + 1) % iSlow4);
 			int iTemp0 = (1 - iVec0[1]);
 			int iTemp1 = (1103515245 * (iRec3[1] + 12345));
 			int iTemp2 = (1103515245 * (iTemp1 + 12345));
@@ -1548,349 +1556,348 @@ class granulator : public dsp {
 			int iRec64 = iTemp4;
 			int iRec65 = iTemp3;
 			int iRec66 = iTemp2;
-			int iTemp65 = int((fSlow7 * ((2.32830644e-10f * float(iRec63)) + 1.0f)));
-			iRec2[0] = ((iVec0[1] * iRec2[1]) + (iTemp0 * iTemp65));
-			iRec67[0] = ((iRec67[1] + 1) % iSlow4);
-			int iTemp66 = ((iRec2[0] + iRec67[0]) % iSlow4);
-			int iTemp67 = int((fSlow6 * float(iTemp66)));
-			iRec1[0] = ((iRec1[1] * (1 - iTemp67)) + (iTemp67 * iTemp65));
-			int iTemp68 = int((fSlow7 * ((2.32830644e-10f * float(iRec23)) + 1.0f)));
+			int iTemp65 = int((fSlow5 * ((2.32830644e-10f * float(iRec21)) + 1.0f)));
+			iRec2[0] = ((iTemp0 * iTemp65) + (iVec0[1] * iRec2[1]));
+			int iTemp66 = ((iRec1[0] + iRec2[0]) % iSlow4);
+			int iTemp67 = int((fSlow7 * float(iTemp66)));
+			iRec67[0] = ((iTemp65 * iTemp67) + (iRec67[1] * (1 - iTemp67)));
+			int iTemp68 = int((fSlow5 * ((2.32830644e-10f * float(iRec3[0])) + 1.0f)));
 			iRec68[0] = ((iTemp0 * iTemp68) + (iVec0[1] * iRec68[1]));
-			int iTemp69 = ((iRec67[0] + iRec68[0]) % iSlow4);
-			int iTemp70 = int((fSlow6 * float(iTemp69)));
+			int iTemp69 = ((iRec1[0] + iRec68[0]) % iSlow4);
+			int iTemp70 = int((fSlow7 * float(iTemp69)));
 			iRec69[0] = ((iRec69[1] * (1 - iTemp70)) + (iTemp68 * iTemp70));
-			int iTemp71 = int((fSlow7 * ((2.32830644e-10f * float(iRec3[0])) + 1.0f)));
-			iRec71[0] = ((iVec0[1] * iRec71[1]) + (iTemp0 * iTemp71));
-			int iTemp72 = ((iRec71[0] + iRec67[0]) % iSlow4);
-			int iTemp73 = int((fSlow6 * float(iTemp72)));
-			iRec70[0] = ((iRec70[1] * (1 - iTemp73)) + (iTemp71 * iTemp73));
-			int iTemp74 = int((fSlow7 * ((2.32830644e-10f * float(iRec5)) + 1.0f)));
-			iRec73[0] = ((iVec0[1] * iRec73[1]) + (iTemp0 * iTemp74));
-			int iTemp75 = ((iRec73[0] + iRec67[0]) % iSlow4);
-			int iTemp76 = int((fSlow6 * float(iTemp75)));
-			iRec72[0] = ((iRec72[1] * (1 - iTemp76)) + (iTemp74 * iTemp76));
-			int iTemp77 = int((fSlow7 * ((2.32830644e-10f * float(iRec7)) + 1.0f)));
+			int iTemp71 = int((fSlow5 * ((2.32830644e-10f * float(iRec5)) + 1.0f)));
+			iRec70[0] = ((iVec0[1] * iRec70[1]) + (iTemp0 * iTemp71));
+			int iTemp72 = ((iRec1[0] + iRec70[0]) % iSlow4);
+			int iTemp73 = int((fSlow7 * float(iTemp72)));
+			iRec71[0] = ((iTemp71 * iTemp73) + (iRec71[1] * (1 - iTemp73)));
+			int iTemp74 = int((fSlow5 * ((2.32830644e-10f * float(iRec7)) + 1.0f)));
+			iRec72[0] = ((iVec0[1] * iRec72[1]) + (iTemp0 * iTemp74));
+			int iTemp75 = ((iRec1[0] + iRec72[0]) % iSlow4);
+			int iTemp76 = int((fSlow7 * float(iTemp75)));
+			iRec73[0] = ((iRec73[1] * (1 - iTemp76)) + (iTemp74 * iTemp76));
+			int iTemp77 = int((fSlow5 * ((2.32830644e-10f * float(iRec9)) + 1.0f)));
 			iRec74[0] = ((iVec0[1] * iRec74[1]) + (iTemp0 * iTemp77));
-			int iTemp78 = ((iRec67[0] + iRec74[0]) % iSlow4);
-			int iTemp79 = int((fSlow6 * float(iTemp78)));
-			iRec75[0] = ((iRec75[1] * (1 - iTemp79)) + (iTemp77 * iTemp79));
-			int iTemp80 = int((fSlow7 * ((2.32830644e-10f * float(iRec9)) + 1.0f)));
-			iRec77[0] = ((iVec0[1] * iRec77[1]) + (iTemp0 * iTemp80));
-			int iTemp81 = ((iRec67[0] + iRec77[0]) % iSlow4);
-			int iTemp82 = int((fSlow6 * float(iTemp81)));
-			iRec76[0] = ((iRec76[1] * (1 - iTemp82)) + (iTemp80 * iTemp82));
-			int iTemp83 = int((fSlow7 * ((2.32830644e-10f * float(iRec11)) + 1.0f)));
-			iRec79[0] = ((iVec0[1] * iRec79[1]) + (iTemp0 * iTemp83));
-			int iTemp84 = ((iRec79[0] + iRec67[0]) % iSlow4);
-			int iTemp85 = int((fSlow6 * float(iTemp84)));
-			iRec78[0] = ((iRec78[1] * (1 - iTemp85)) + (iTemp83 * iTemp85));
-			int iTemp86 = int((fSlow7 * ((2.32830644e-10f * float(iRec13)) + 1.0f)));
-			iRec81[0] = ((iVec0[1] * iRec81[1]) + (iTemp0 * iTemp86));
-			int iTemp87 = ((iRec81[0] + iRec67[0]) % iSlow4);
-			int iTemp88 = int((fSlow6 * float(iTemp87)));
-			iRec80[0] = ((iRec80[1] * (1 - iTemp88)) + (iTemp86 * iTemp88));
-			int iTemp89 = int((fSlow7 * ((2.32830644e-10f * float(iRec15)) + 1.0f)));
+			int iTemp78 = ((iRec1[0] + iRec74[0]) % iSlow4);
+			int iTemp79 = int((fSlow7 * float(iTemp78)));
+			iRec75[0] = ((iTemp77 * iTemp79) + (iRec75[1] * (1 - iTemp79)));
+			int iTemp80 = int((fSlow5 * ((2.32830644e-10f * float(iRec11)) + 1.0f)));
+			iRec76[0] = ((iVec0[1] * iRec76[1]) + (iTemp0 * iTemp80));
+			int iTemp81 = ((iRec1[0] + iRec76[0]) % iSlow4);
+			int iTemp82 = int((fSlow7 * float(iTemp81)));
+			iRec77[0] = ((iTemp80 * iTemp82) + (iRec77[1] * (1 - iTemp82)));
+			int iTemp83 = int((fSlow5 * ((2.32830644e-10f * float(iRec13)) + 1.0f)));
+			iRec78[0] = ((iVec0[1] * iRec78[1]) + (iTemp0 * iTemp83));
+			int iTemp84 = ((iRec1[0] + iRec78[0]) % iSlow4);
+			int iTemp85 = int((fSlow7 * float(iTemp84)));
+			iRec79[0] = ((iRec79[1] * (1 - iTemp85)) + (iTemp83 * iTemp85));
+			int iTemp86 = int((fSlow5 * ((2.32830644e-10f * float(iRec15)) + 1.0f)));
+			iRec80[0] = ((iVec0[1] * iRec80[1]) + (iTemp0 * iTemp86));
+			int iTemp87 = ((iRec1[0] + iRec80[0]) % iSlow4);
+			int iTemp88 = int((fSlow7 * float(iTemp87)));
+			iRec81[0] = ((iRec81[1] * (1 - iTemp88)) + (iTemp86 * iTemp88));
+			int iTemp89 = int((fSlow5 * ((2.32830644e-10f * float(iRec17)) + 1.0f)));
 			iRec82[0] = ((iVec0[1] * iRec82[1]) + (iTemp0 * iTemp89));
-			int iTemp90 = ((iRec67[0] + iRec82[0]) % iSlow4);
-			int iTemp91 = int((fSlow6 * float(iTemp90)));
+			int iTemp90 = ((iRec1[0] + iRec82[0]) % iSlow4);
+			int iTemp91 = int((fSlow7 * float(iTemp90)));
 			iRec83[0] = ((iRec83[1] * (1 - iTemp91)) + (iTemp89 * iTemp91));
-			int iTemp92 = int((fSlow7 * ((2.32830644e-10f * float(iRec17)) + 1.0f)));
+			int iTemp92 = int((fSlow5 * ((2.32830644e-10f * float(iRec19)) + 1.0f)));
 			iRec84[0] = ((iVec0[1] * iRec84[1]) + (iTemp0 * iTemp92));
-			int iTemp93 = ((iRec67[0] + iRec84[0]) % iSlow4);
-			int iTemp94 = int((fSlow6 * float(iTemp93)));
+			int iTemp93 = ((iRec1[0] + iRec84[0]) % iSlow4);
+			int iTemp94 = int((fSlow7 * float(iTemp93)));
 			iRec85[0] = ((iRec85[1] * (1 - iTemp94)) + (iTemp92 * iTemp94));
-			int iTemp95 = int((fSlow7 * ((2.32830644e-10f * float(iRec19)) + 1.0f)));
+			int iTemp95 = int((fSlow5 * ((2.32830644e-10f * float(iRec23)) + 1.0f)));
 			iRec86[0] = ((iVec0[1] * iRec86[1]) + (iTemp0 * iTemp95));
-			int iTemp96 = ((iRec67[0] + iRec86[0]) % iSlow4);
-			int iTemp97 = int((fSlow6 * float(iTemp96)));
+			int iTemp96 = ((iRec1[0] + iRec86[0]) % iSlow4);
+			int iTemp97 = int((fSlow7 * float(iTemp96)));
 			iRec87[0] = ((iRec87[1] * (1 - iTemp97)) + (iTemp95 * iTemp97));
-			int iTemp98 = int((fSlow7 * ((2.32830644e-10f * float(iRec21)) + 1.0f)));
+			int iTemp98 = int((fSlow5 * ((2.32830644e-10f * float(iRec25)) + 1.0f)));
 			iRec88[0] = ((iVec0[1] * iRec88[1]) + (iTemp0 * iTemp98));
-			int iTemp99 = ((iRec67[0] + iRec88[0]) % iSlow4);
-			int iTemp100 = int((fSlow6 * float(iTemp99)));
+			int iTemp99 = ((iRec1[0] + iRec88[0]) % iSlow4);
+			int iTemp100 = int((fSlow7 * float(iTemp99)));
 			iRec89[0] = ((iRec89[1] * (1 - iTemp100)) + (iTemp98 * iTemp100));
-			int iTemp101 = int((fSlow7 * ((2.32830644e-10f * float(iRec25)) + 1.0f)));
+			int iTemp101 = int((fSlow5 * ((2.32830644e-10f * float(iRec27)) + 1.0f)));
 			iRec90[0] = ((iVec0[1] * iRec90[1]) + (iTemp0 * iTemp101));
-			int iTemp102 = ((iRec67[0] + iRec90[0]) % iSlow4);
-			int iTemp103 = int((fSlow6 * float(iTemp102)));
+			int iTemp102 = ((iRec1[0] + iRec90[0]) % iSlow4);
+			int iTemp103 = int((fSlow7 * float(iTemp102)));
 			iRec91[0] = ((iRec91[1] * (1 - iTemp103)) + (iTemp101 * iTemp103));
-			int iTemp104 = int((fSlow7 * ((2.32830644e-10f * float(iRec27)) + 1.0f)));
+			int iTemp104 = int((fSlow5 * ((2.32830644e-10f * float(iRec29)) + 1.0f)));
 			iRec92[0] = ((iVec0[1] * iRec92[1]) + (iTemp0 * iTemp104));
-			int iTemp105 = ((iRec67[0] + iRec92[0]) % iSlow4);
-			int iTemp106 = int((fSlow6 * float(iTemp105)));
-			iRec93[0] = ((iRec93[1] * (1 - iTemp106)) + (iTemp104 * iTemp106));
-			int iTemp107 = int((fSlow7 * ((2.32830644e-10f * float(iRec29)) + 1.0f)));
-			iRec95[0] = ((iVec0[1] * iRec95[1]) + (iTemp0 * iTemp107));
-			int iTemp108 = ((iRec95[0] + iRec67[0]) % iSlow4);
-			int iTemp109 = int((fSlow6 * float(iTemp108)));
-			iRec94[0] = ((iRec94[1] * (1 - iTemp109)) + (iTemp107 * iTemp109));
-			int iTemp110 = int((fSlow7 * ((2.32830644e-10f * float(iRec31)) + 1.0f)));
-			iRec97[0] = ((iVec0[1] * iRec97[1]) + (iTemp0 * iTemp110));
-			int iTemp111 = ((iRec97[0] + iRec67[0]) % iSlow4);
-			int iTemp112 = int((fSlow6 * float(iTemp111)));
-			iRec96[0] = ((iRec96[1] * (1 - iTemp112)) + (iTemp110 * iTemp112));
-			int iTemp113 = int((fSlow7 * ((2.32830644e-10f * float(iRec33)) + 1.0f)));
-			iRec99[0] = ((iVec0[1] * iRec99[1]) + (iTemp0 * iTemp113));
-			int iTemp114 = ((iRec99[0] + iRec67[0]) % iSlow4);
-			int iTemp115 = int((fSlow6 * float(iTemp114)));
-			iRec98[0] = ((iRec98[1] * (1 - iTemp115)) + (iTemp113 * iTemp115));
-			int iTemp116 = int((fSlow7 * ((2.32830644e-10f * float(iRec35)) + 1.0f)));
-			iRec101[0] = ((iVec0[1] * iRec101[1]) + (iTemp0 * iTemp116));
-			int iTemp117 = ((iRec101[0] + iRec67[0]) % iSlow4);
-			int iTemp118 = int((fSlow6 * float(iTemp117)));
-			iRec100[0] = ((iRec100[1] * (1 - iTemp118)) + (iTemp116 * iTemp118));
-			int iTemp119 = int((fSlow7 * ((2.32830644e-10f * float(iRec37)) + 1.0f)));
-			iRec103[0] = ((iVec0[1] * iRec103[1]) + (iTemp0 * iTemp119));
-			int iTemp120 = ((iRec103[0] + iRec67[0]) % iSlow4);
-			int iTemp121 = int((fSlow6 * float(iTemp120)));
-			iRec102[0] = ((iRec102[1] * (1 - iTemp121)) + (iTemp119 * iTemp121));
-			int iTemp122 = int((fSlow7 * ((2.32830644e-10f * float(iRec39)) + 1.0f)));
-			iRec105[0] = ((iVec0[1] * iRec105[1]) + (iTemp0 * iTemp122));
-			int iTemp123 = ((iRec105[0] + iRec67[0]) % iSlow4);
-			int iTemp124 = int((fSlow6 * float(iTemp123)));
-			iRec104[0] = ((iRec104[1] * (1 - iTemp124)) + (iTemp122 * iTemp124));
-			int iTemp125 = int((fSlow7 * ((2.32830644e-10f * float(iRec41)) + 1.0f)));
-			iRec107[0] = ((iVec0[1] * iRec107[1]) + (iTemp0 * iTemp125));
-			int iTemp126 = ((iRec107[0] + iRec67[0]) % iSlow4);
-			int iTemp127 = int((fSlow6 * float(iTemp126)));
-			iRec106[0] = ((iRec106[1] * (1 - iTemp127)) + (iTemp125 * iTemp127));
-			int iTemp128 = int((fSlow7 * ((2.32830644e-10f * float(iRec43)) + 1.0f)));
-			iRec109[0] = ((iVec0[1] * iRec109[1]) + (iTemp0 * iTemp128));
-			int iTemp129 = ((iRec109[0] + iRec67[0]) % iSlow4);
-			int iTemp130 = int((fSlow6 * float(iTemp129)));
-			iRec108[0] = ((iRec108[1] * (1 - iTemp130)) + (iTemp128 * iTemp130));
-			int iTemp131 = int((fSlow7 * ((2.32830644e-10f * float(iRec45)) + 1.0f)));
-			iRec111[0] = ((iVec0[1] * iRec111[1]) + (iTemp0 * iTemp131));
-			int iTemp132 = ((iRec111[0] + iRec67[0]) % iSlow4);
-			int iTemp133 = int((fSlow6 * float(iTemp132)));
-			iRec110[0] = ((iRec110[1] * (1 - iTemp133)) + (iTemp131 * iTemp133));
-			int iTemp134 = int((fSlow7 * ((2.32830644e-10f * float(iRec47)) + 1.0f)));
-			iRec113[0] = ((iVec0[1] * iRec113[1]) + (iTemp0 * iTemp134));
-			int iTemp135 = ((iRec113[0] + iRec67[0]) % iSlow4);
-			int iTemp136 = int((fSlow6 * float(iTemp135)));
-			iRec112[0] = ((iRec112[1] * (1 - iTemp136)) + (iTemp134 * iTemp136));
-			int iTemp137 = int((fSlow7 * ((2.32830644e-10f * float(iRec49)) + 1.0f)));
-			iRec115[0] = ((iVec0[1] * iRec115[1]) + (iTemp0 * iTemp137));
-			int iTemp138 = ((iRec115[0] + iRec67[0]) % iSlow4);
-			int iTemp139 = int((fSlow6 * float(iTemp138)));
-			iRec114[0] = ((iRec114[1] * (1 - iTemp139)) + (iTemp137 * iTemp139));
-			int iTemp140 = int((fSlow7 * ((2.32830644e-10f * float(iRec51)) + 1.0f)));
-			iRec117[0] = ((iVec0[1] * iRec117[1]) + (iTemp0 * iTemp140));
-			int iTemp141 = ((iRec117[0] + iRec67[0]) % iSlow4);
-			int iTemp142 = int((fSlow6 * float(iTemp141)));
-			iRec116[0] = ((iRec116[1] * (1 - iTemp142)) + (iTemp140 * iTemp142));
-			int iTemp143 = int((fSlow7 * ((2.32830644e-10f * float(iRec53)) + 1.0f)));
-			iRec119[0] = ((iVec0[1] * iRec119[1]) + (iTemp0 * iTemp143));
-			int iTemp144 = ((iRec119[0] + iRec67[0]) % iSlow4);
-			int iTemp145 = int((fSlow6 * float(iTemp144)));
-			iRec118[0] = ((iRec118[1] * (1 - iTemp145)) + (iTemp143 * iTemp145));
-			int iTemp146 = int((fSlow7 * ((2.32830644e-10f * float(iRec55)) + 1.0f)));
-			iRec121[0] = ((iVec0[1] * iRec121[1]) + (iTemp0 * iTemp146));
-			int iTemp147 = ((iRec121[0] + iRec67[0]) % iSlow4);
-			int iTemp148 = int((fSlow6 * float(iTemp147)));
-			iRec120[0] = ((iRec120[1] * (1 - iTemp148)) + (iTemp146 * iTemp148));
-			int iTemp149 = int((fSlow7 * ((2.32830644e-10f * float(iRec57)) + 1.0f)));
-			iRec123[0] = ((iVec0[1] * iRec123[1]) + (iTemp0 * iTemp149));
-			int iTemp150 = ((iRec123[0] + iRec67[0]) % iSlow4);
-			int iTemp151 = int((fSlow6 * float(iTemp150)));
-			iRec122[0] = ((iRec122[1] * (1 - iTemp151)) + (iTemp149 * iTemp151));
-			int iTemp152 = int((fSlow7 * ((2.32830644e-10f * float(iRec59)) + 1.0f)));
-			iRec125[0] = ((iVec0[1] * iRec125[1]) + (iTemp0 * iTemp152));
-			int iTemp153 = ((iRec125[0] + iRec67[0]) % iSlow4);
-			int iTemp154 = int((fSlow6 * float(iTemp153)));
-			iRec124[0] = ((iRec124[1] * (1 - iTemp154)) + (iTemp152 * iTemp154));
-			int iTemp155 = int((fSlow7 * ((2.32830644e-10f * float(iRec61)) + 1.0f)));
-			iRec127[0] = ((iVec0[1] * iRec127[1]) + (iTemp0 * iTemp155));
-			int iTemp156 = ((iRec127[0] + iRec67[0]) % iSlow4);
-			int iTemp157 = int((fSlow6 * float(iTemp156)));
-			iRec126[0] = ((iRec126[1] * (1 - iTemp157)) + (iTemp155 * iTemp157));
-			int iTemp158 = int((fSlow7 * ((2.32830644e-10f * float(iRec65)) + 1.0f)));
-			iRec129[0] = ((iVec0[1] * iRec129[1]) + (iTemp0 * iTemp158));
-			int iTemp159 = ((iRec129[0] + iRec67[0]) % iSlow4);
-			int iTemp160 = int((fSlow6 * float(iTemp159)));
-			iRec128[0] = ((iRec128[1] * (1 - iTemp160)) + (iTemp158 * iTemp160));
-			output0[i] = FAUSTFLOAT((fSlow1 * (((float(iSlow2) * (ftbl0[((iRec1[0] + iTemp66) % iSlow3)] * sinf((fSlow8 * float(iTemp66))))) + (((((((((((((((((((((float(iSlow9) * (sinf((fSlow8 * float(iTemp69))) * ftbl0[((iTemp69 + iRec69[0]) % iSlow3)])) + ((((((((((float(iSlow10) * (ftbl0[((iRec70[0] + iTemp72) % iSlow3)] * sinf((fSlow8 * float(iTemp72))))) + (float(iSlow11) * (ftbl0[((iRec72[0] + iTemp75) % iSlow3)] * sinf((fSlow8 * float(iTemp75)))))) + (float(iSlow12) * (ftbl0[((iTemp78 + iRec75[0]) % iSlow3)] * sinf((fSlow8 * float(iTemp78)))))) + (float(iSlow13) * (ftbl0[((iRec76[0] + iTemp81) % iSlow3)] * sinf((fSlow8 * float(iTemp81)))))) + (float(iSlow14) * (ftbl0[((iRec78[0] + iTemp84) % iSlow3)] * sinf((fSlow8 * float(iTemp84)))))) + (float(iSlow15) * (ftbl0[((iRec80[0] + iTemp87) % iSlow3)] * sinf((fSlow8 * float(iTemp87)))))) + (float(iSlow16) * (ftbl0[((iTemp90 + iRec83[0]) % iSlow3)] * sinf((fSlow8 * float(iTemp90)))))) + (float(iSlow17) * (ftbl0[((iTemp93 + iRec85[0]) % iSlow3)] * sinf((fSlow8 * float(iTemp93)))))) + (float(iSlow18) * (ftbl0[((iTemp96 + iRec87[0]) % iSlow3)] * sinf((fSlow8 * float(iTemp96)))))) + (float(iSlow19) * (ftbl0[((iTemp99 + iRec89[0]) % iSlow3)] * sinf((fSlow8 * float(iTemp99))))))) + (float(iSlow20) * (ftbl0[((iTemp102 + iRec91[0]) % iSlow3)] * sinf((fSlow8 * float(iTemp102)))))) + (float(iSlow21) * (ftbl0[((iTemp105 + iRec93[0]) % iSlow3)] * sinf((fSlow8 * float(iTemp105)))))) + (float(iSlow22) * (ftbl0[((iRec94[0] + iTemp108) % iSlow3)] * sinf((fSlow8 * float(iTemp108)))))) + (float(iSlow23) * (ftbl0[((iRec96[0] + iTemp111) % iSlow3)] * sinf((fSlow8 * float(iTemp111)))))) + (float(iSlow24) * (ftbl0[((iRec98[0] + iTemp114) % iSlow3)] * sinf((fSlow8 * float(iTemp114)))))) + (float(iSlow25) * (ftbl0[((iRec100[0] + iTemp117) % iSlow3)] * sinf((fSlow8 * float(iTemp117)))))) + (float(iSlow26) * (ftbl0[((iRec102[0] + iTemp120) % iSlow3)] * sinf((fSlow8 * float(iTemp120)))))) + (float(iSlow27) * (ftbl0[((iRec104[0] + iTemp123) % iSlow3)] * sinf((fSlow8 * float(iTemp123)))))) + (float(iSlow28) * (ftbl0[((iRec106[0] + iTemp126) % iSlow3)] * sinf((fSlow8 * float(iTemp126)))))) + (float(iSlow29) * (ftbl0[((iRec108[0] + iTemp129) % iSlow3)] * sinf((fSlow8 * float(iTemp129)))))) + (float(iSlow30) * (ftbl0[((iRec110[0] + iTemp132) % iSlow3)] * sinf((fSlow8 * float(iTemp132)))))) + (float(iSlow31) * (ftbl0[((iRec112[0] + iTemp135) % iSlow3)] * sinf((fSlow8 * float(iTemp135)))))) + (float(iSlow32) * (ftbl0[((iRec114[0] + iTemp138) % iSlow3)] * sinf((fSlow8 * float(iTemp138)))))) + (float(iSlow33) * (ftbl0[((iRec116[0] + iTemp141) % iSlow3)] * sinf((fSlow8 * float(iTemp141)))))) + (float(iSlow34) * (ftbl0[((iRec118[0] + iTemp144) % iSlow3)] * sinf((fSlow8 * float(iTemp144)))))) + (float(iSlow35) * (ftbl0[((iRec120[0] + iTemp147) % iSlow3)] * sinf((fSlow8 * float(iTemp147)))))) + (float(iSlow36) * (ftbl0[((iRec122[0] + iTemp150) % iSlow3)] * sinf((fSlow8 * float(iTemp150)))))) + (float(iSlow37) * (ftbl0[((iRec124[0] + iTemp153) % iSlow3)] * sinf((fSlow8 * float(iTemp153)))))) + (float(iSlow38) * (ftbl0[((iRec126[0] + iTemp156) % iSlow3)] * sinf((fSlow8 * float(iTemp156))))))) + (float(iSlow39) * (ftbl0[((iRec128[0] + iTemp159) % iSlow3)] * sinf((fSlow8 * float(iTemp159))))))));
-			int iTemp161 = int((fSlow7 * ((2.32830644e-10f * float(iRec4)) + 1.0f)));
-			iRec131[0] = ((iVec0[1] * iRec131[1]) + (iTemp0 * iTemp161));
-			int iTemp162 = ((iRec131[0] + iRec67[0]) % iSlow4);
-			int iTemp163 = int((fSlow6 * float(iTemp162)));
-			iRec130[0] = ((iRec130[1] * (1 - iTemp163)) + (iTemp161 * iTemp163));
-			int iTemp164 = int((fSlow7 * ((2.32830644e-10f * float(iRec6)) + 1.0f)));
-			iRec133[0] = ((iVec0[1] * iRec133[1]) + (iTemp0 * iTemp164));
-			int iTemp165 = ((iRec133[0] + iRec67[0]) % iSlow4);
-			int iTemp166 = int((fSlow6 * float(iTemp165)));
-			iRec132[0] = ((iRec132[1] * (1 - iTemp166)) + (iTemp164 * iTemp166));
-			int iTemp167 = int((fSlow7 * ((2.32830644e-10f * float(iRec8)) + 1.0f)));
-			iRec135[0] = ((iVec0[1] * iRec135[1]) + (iTemp0 * iTemp167));
-			int iTemp168 = ((iRec135[0] + iRec67[0]) % iSlow4);
-			int iTemp169 = int((fSlow6 * float(iTemp168)));
-			iRec134[0] = ((iRec134[1] * (1 - iTemp169)) + (iTemp167 * iTemp169));
-			int iTemp170 = int((fSlow7 * ((2.32830644e-10f * float(iRec10)) + 1.0f)));
-			iRec137[0] = ((iVec0[1] * iRec137[1]) + (iTemp0 * iTemp170));
-			int iTemp171 = ((iRec137[0] + iRec67[0]) % iSlow4);
-			int iTemp172 = int((fSlow6 * float(iTemp171)));
-			iRec136[0] = ((iRec136[1] * (1 - iTemp172)) + (iTemp170 * iTemp172));
-			int iTemp173 = int((fSlow7 * ((2.32830644e-10f * float(iRec12)) + 1.0f)));
-			iRec139[0] = ((iVec0[1] * iRec139[1]) + (iTemp0 * iTemp173));
-			int iTemp174 = ((iRec139[0] + iRec67[0]) % iSlow4);
-			int iTemp175 = int((fSlow6 * float(iTemp174)));
-			iRec138[0] = ((iRec138[1] * (1 - iTemp175)) + (iTemp173 * iTemp175));
-			int iTemp176 = int((fSlow7 * ((2.32830644e-10f * float(iRec14)) + 1.0f)));
-			iRec141[0] = ((iVec0[1] * iRec141[1]) + (iTemp0 * iTemp176));
-			int iTemp177 = ((iRec141[0] + iRec67[0]) % iSlow4);
-			int iTemp178 = int((fSlow6 * float(iTemp177)));
-			iRec140[0] = ((iRec140[1] * (1 - iTemp178)) + (iTemp176 * iTemp178));
-			int iTemp179 = int((fSlow7 * ((2.32830644e-10f * float(iRec16)) + 1.0f)));
-			iRec143[0] = ((iVec0[1] * iRec143[1]) + (iTemp0 * iTemp179));
-			int iTemp180 = ((iRec143[0] + iRec67[0]) % iSlow4);
-			int iTemp181 = int((fSlow6 * float(iTemp180)));
-			iRec142[0] = ((iRec142[1] * (1 - iTemp181)) + (iTemp179 * iTemp181));
-			int iTemp182 = int((fSlow7 * ((2.32830644e-10f * float(iRec18)) + 1.0f)));
-			iRec145[0] = ((iVec0[1] * iRec145[1]) + (iTemp0 * iTemp182));
-			int iTemp183 = ((iRec145[0] + iRec67[0]) % iSlow4);
-			int iTemp184 = int((fSlow6 * float(iTemp183)));
-			iRec144[0] = ((iRec144[1] * (1 - iTemp184)) + (iTemp182 * iTemp184));
-			int iTemp185 = int((fSlow7 * ((2.32830644e-10f * float(iRec20)) + 1.0f)));
-			iRec147[0] = ((iVec0[1] * iRec147[1]) + (iTemp0 * iTemp185));
-			int iTemp186 = ((iRec147[0] + iRec67[0]) % iSlow4);
-			int iTemp187 = int((fSlow6 * float(iTemp186)));
-			iRec146[0] = ((iRec146[1] * (1 - iTemp187)) + (iTemp185 * iTemp187));
-			int iTemp188 = int((fSlow7 * ((2.32830644e-10f * float(iRec22)) + 1.0f)));
-			iRec149[0] = ((iVec0[1] * iRec149[1]) + (iTemp0 * iTemp188));
-			int iTemp189 = ((iRec149[0] + iRec67[0]) % iSlow4);
-			int iTemp190 = int((fSlow6 * float(iTemp189)));
-			iRec148[0] = ((iRec148[1] * (1 - iTemp190)) + (iTemp188 * iTemp190));
-			int iTemp191 = int((fSlow7 * ((2.32830644e-10f * float(iRec24)) + 1.0f)));
-			iRec151[0] = ((iVec0[1] * iRec151[1]) + (iTemp0 * iTemp191));
-			int iTemp192 = ((iRec151[0] + iRec67[0]) % iSlow4);
-			int iTemp193 = int((fSlow6 * float(iTemp192)));
-			iRec150[0] = ((iRec150[1] * (1 - iTemp193)) + (iTemp191 * iTemp193));
-			int iTemp194 = int((fSlow7 * ((2.32830644e-10f * float(iRec26)) + 1.0f)));
-			iRec153[0] = ((iVec0[1] * iRec153[1]) + (iTemp0 * iTemp194));
-			int iTemp195 = ((iRec153[0] + iRec67[0]) % iSlow4);
-			int iTemp196 = int((fSlow6 * float(iTemp195)));
-			iRec152[0] = ((iRec152[1] * (1 - iTemp196)) + (iTemp194 * iTemp196));
-			int iTemp197 = int((fSlow7 * ((2.32830644e-10f * float(iRec28)) + 1.0f)));
-			iRec155[0] = ((iVec0[1] * iRec155[1]) + (iTemp0 * iTemp197));
-			int iTemp198 = ((iRec155[0] + iRec67[0]) % iSlow4);
-			int iTemp199 = int((fSlow6 * float(iTemp198)));
-			iRec154[0] = ((iRec154[1] * (1 - iTemp199)) + (iTemp197 * iTemp199));
-			int iTemp200 = int((fSlow7 * ((2.32830644e-10f * float(iRec30)) + 1.0f)));
-			iRec157[0] = ((iVec0[1] * iRec157[1]) + (iTemp0 * iTemp200));
-			int iTemp201 = ((iRec157[0] + iRec67[0]) % iSlow4);
-			int iTemp202 = int((fSlow6 * float(iTemp201)));
-			iRec156[0] = ((iRec156[1] * (1 - iTemp202)) + (iTemp200 * iTemp202));
-			int iTemp203 = int((fSlow7 * ((2.32830644e-10f * float(iRec32)) + 1.0f)));
-			iRec159[0] = ((iVec0[1] * iRec159[1]) + (iTemp0 * iTemp203));
-			int iTemp204 = ((iRec159[0] + iRec67[0]) % iSlow4);
-			int iTemp205 = int((fSlow6 * float(iTemp204)));
-			iRec158[0] = ((iRec158[1] * (1 - iTemp205)) + (iTemp203 * iTemp205));
-			int iTemp206 = int((fSlow7 * ((2.32830644e-10f * float(iRec34)) + 1.0f)));
-			iRec161[0] = ((iVec0[1] * iRec161[1]) + (iTemp0 * iTemp206));
-			int iTemp207 = ((iRec161[0] + iRec67[0]) % iSlow4);
-			int iTemp208 = int((fSlow6 * float(iTemp207)));
-			iRec160[0] = ((iRec160[1] * (1 - iTemp208)) + (iTemp206 * iTemp208));
-			int iTemp209 = int((fSlow7 * ((2.32830644e-10f * float(iRec36)) + 1.0f)));
-			iRec163[0] = ((iVec0[1] * iRec163[1]) + (iTemp0 * iTemp209));
-			int iTemp210 = ((iRec163[0] + iRec67[0]) % iSlow4);
-			int iTemp211 = int((fSlow6 * float(iTemp210)));
-			iRec162[0] = ((iRec162[1] * (1 - iTemp211)) + (iTemp209 * iTemp211));
-			int iTemp212 = int((fSlow7 * ((2.32830644e-10f * float(iRec38)) + 1.0f)));
-			iRec165[0] = ((iVec0[1] * iRec165[1]) + (iTemp0 * iTemp212));
-			int iTemp213 = ((iRec165[0] + iRec67[0]) % iSlow4);
-			int iTemp214 = int((fSlow6 * float(iTemp213)));
-			iRec164[0] = ((iRec164[1] * (1 - iTemp214)) + (iTemp212 * iTemp214));
-			int iTemp215 = int((fSlow7 * ((2.32830644e-10f * float(iRec40)) + 1.0f)));
-			iRec167[0] = ((iVec0[1] * iRec167[1]) + (iTemp0 * iTemp215));
-			int iTemp216 = ((iRec167[0] + iRec67[0]) % iSlow4);
-			int iTemp217 = int((fSlow6 * float(iTemp216)));
-			iRec166[0] = ((iRec166[1] * (1 - iTemp217)) + (iTemp215 * iTemp217));
-			int iTemp218 = int((fSlow7 * ((2.32830644e-10f * float(iRec42)) + 1.0f)));
-			iRec169[0] = ((iVec0[1] * iRec169[1]) + (iTemp0 * iTemp218));
-			int iTemp219 = ((iRec169[0] + iRec67[0]) % iSlow4);
-			int iTemp220 = int((fSlow6 * float(iTemp219)));
-			iRec168[0] = ((iRec168[1] * (1 - iTemp220)) + (iTemp218 * iTemp220));
-			int iTemp221 = int((fSlow7 * ((2.32830644e-10f * float(iRec44)) + 1.0f)));
-			iRec171[0] = ((iVec0[1] * iRec171[1]) + (iTemp0 * iTemp221));
-			int iTemp222 = ((iRec171[0] + iRec67[0]) % iSlow4);
-			int iTemp223 = int((fSlow6 * float(iTemp222)));
-			iRec170[0] = ((iRec170[1] * (1 - iTemp223)) + (iTemp221 * iTemp223));
-			int iTemp224 = int((fSlow7 * ((2.32830644e-10f * float(iRec46)) + 1.0f)));
-			iRec173[0] = ((iVec0[1] * iRec173[1]) + (iTemp0 * iTemp224));
-			int iTemp225 = ((iRec173[0] + iRec67[0]) % iSlow4);
-			int iTemp226 = int((fSlow6 * float(iTemp225)));
-			iRec172[0] = ((iRec172[1] * (1 - iTemp226)) + (iTemp224 * iTemp226));
-			int iTemp227 = int((fSlow7 * ((2.32830644e-10f * float(iRec48)) + 1.0f)));
-			iRec175[0] = ((iVec0[1] * iRec175[1]) + (iTemp0 * iTemp227));
-			int iTemp228 = ((iRec175[0] + iRec67[0]) % iSlow4);
-			int iTemp229 = int((fSlow6 * float(iTemp228)));
-			iRec174[0] = ((iRec174[1] * (1 - iTemp229)) + (iTemp227 * iTemp229));
-			int iTemp230 = int((fSlow7 * ((2.32830644e-10f * float(iRec50)) + 1.0f)));
-			iRec177[0] = ((iVec0[1] * iRec177[1]) + (iTemp0 * iTemp230));
-			int iTemp231 = ((iRec177[0] + iRec67[0]) % iSlow4);
-			int iTemp232 = int((fSlow6 * float(iTemp231)));
+			int iTemp105 = ((iRec1[0] + iRec92[0]) % iSlow4);
+			int iTemp106 = int((fSlow7 * float(iTemp105)));
+			iRec93[0] = ((iTemp104 * iTemp106) + (iRec93[1] * (1 - iTemp106)));
+			int iTemp107 = int((fSlow5 * ((2.32830644e-10f * float(iRec31)) + 1.0f)));
+			iRec94[0] = ((iVec0[1] * iRec94[1]) + (iTemp0 * iTemp107));
+			int iTemp108 = ((iRec1[0] + iRec94[0]) % iSlow4);
+			int iTemp109 = int((fSlow7 * float(iTemp108)));
+			iRec95[0] = ((iTemp107 * iTemp109) + (iRec95[1] * (1 - iTemp109)));
+			int iTemp110 = int((fSlow5 * ((2.32830644e-10f * float(iRec33)) + 1.0f)));
+			iRec96[0] = ((iVec0[1] * iRec96[1]) + (iTemp0 * iTemp110));
+			int iTemp111 = ((iRec1[0] + iRec96[0]) % iSlow4);
+			int iTemp112 = int((fSlow7 * float(iTemp111)));
+			iRec97[0] = ((iRec97[1] * (1 - iTemp112)) + (iTemp110 * iTemp112));
+			int iTemp113 = int((fSlow5 * ((2.32830644e-10f * float(iRec35)) + 1.0f)));
+			iRec98[0] = ((iVec0[1] * iRec98[1]) + (iTemp0 * iTemp113));
+			int iTemp114 = ((iRec1[0] + iRec98[0]) % iSlow4);
+			int iTemp115 = int((fSlow7 * float(iTemp114)));
+			iRec99[0] = ((iRec99[1] * (1 - iTemp115)) + (iTemp113 * iTemp115));
+			int iTemp116 = int((fSlow5 * ((2.32830644e-10f * float(iRec37)) + 1.0f)));
+			iRec100[0] = ((iVec0[1] * iRec100[1]) + (iTemp0 * iTemp116));
+			int iTemp117 = ((iRec1[0] + iRec100[0]) % iSlow4);
+			int iTemp118 = int((fSlow7 * float(iTemp117)));
+			iRec101[0] = ((iRec101[1] * (1 - iTemp118)) + (iTemp116 * iTemp118));
+			int iTemp119 = int((fSlow5 * ((2.32830644e-10f * float(iRec39)) + 1.0f)));
+			iRec102[0] = ((iVec0[1] * iRec102[1]) + (iTemp0 * iTemp119));
+			int iTemp120 = ((iRec1[0] + iRec102[0]) % iSlow4);
+			int iTemp121 = int((fSlow7 * float(iTemp120)));
+			iRec103[0] = ((iRec103[1] * (1 - iTemp121)) + (iTemp119 * iTemp121));
+			int iTemp122 = int((fSlow5 * ((2.32830644e-10f * float(iRec41)) + 1.0f)));
+			iRec104[0] = ((iVec0[1] * iRec104[1]) + (iTemp0 * iTemp122));
+			int iTemp123 = ((iRec1[0] + iRec104[0]) % iSlow4);
+			int iTemp124 = int((fSlow7 * float(iTemp123)));
+			iRec105[0] = ((iTemp122 * iTemp124) + (iRec105[1] * (1 - iTemp124)));
+			int iTemp125 = int((fSlow5 * ((2.32830644e-10f * float(iRec43)) + 1.0f)));
+			iRec106[0] = ((iVec0[1] * iRec106[1]) + (iTemp0 * iTemp125));
+			int iTemp126 = ((iRec1[0] + iRec106[0]) % iSlow4);
+			int iTemp127 = int((fSlow7 * float(iTemp126)));
+			iRec107[0] = ((iRec107[1] * (1 - iTemp127)) + (iTemp125 * iTemp127));
+			int iTemp128 = int((fSlow5 * ((2.32830644e-10f * float(iRec45)) + 1.0f)));
+			iRec108[0] = ((iTemp0 * iTemp128) + (iVec0[1] * iRec108[1]));
+			int iTemp129 = ((iRec1[0] + iRec108[0]) % iSlow4);
+			int iTemp130 = int((fSlow7 * float(iTemp129)));
+			iRec109[0] = ((iRec109[1] * (1 - iTemp130)) + (iTemp128 * iTemp130));
+			int iTemp131 = int((fSlow5 * ((2.32830644e-10f * float(iRec47)) + 1.0f)));
+			iRec110[0] = ((iTemp0 * iTemp131) + (iVec0[1] * iRec110[1]));
+			int iTemp132 = ((iRec1[0] + iRec110[0]) % iSlow4);
+			int iTemp133 = int((fSlow7 * float(iTemp132)));
+			iRec111[0] = ((iRec111[1] * (1 - iTemp133)) + (iTemp131 * iTemp133));
+			int iTemp134 = int((fSlow5 * ((2.32830644e-10f * float(iRec49)) + 1.0f)));
+			iRec112[0] = ((iTemp0 * iTemp134) + (iVec0[1] * iRec112[1]));
+			int iTemp135 = ((iRec1[0] + iRec112[0]) % iSlow4);
+			int iTemp136 = int((fSlow7 * float(iTemp135)));
+			iRec113[0] = ((iRec113[1] * (1 - iTemp136)) + (iTemp134 * iTemp136));
+			int iTemp137 = int((fSlow5 * ((2.32830644e-10f * float(iRec51)) + 1.0f)));
+			iRec114[0] = ((iTemp0 * iTemp137) + (iVec0[1] * iRec114[1]));
+			int iTemp138 = ((iRec1[0] + iRec114[0]) % iSlow4);
+			int iTemp139 = int((fSlow7 * float(iTemp138)));
+			iRec115[0] = ((iRec115[1] * (1 - iTemp139)) + (iTemp137 * iTemp139));
+			int iTemp140 = int((fSlow5 * ((2.32830644e-10f * float(iRec53)) + 1.0f)));
+			iRec116[0] = ((iTemp0 * iTemp140) + (iVec0[1] * iRec116[1]));
+			int iTemp141 = ((iRec1[0] + iRec116[0]) % iSlow4);
+			int iTemp142 = int((fSlow7 * float(iTemp141)));
+			iRec117[0] = ((iRec117[1] * (1 - iTemp142)) + (iTemp140 * iTemp142));
+			int iTemp143 = int((fSlow5 * ((2.32830644e-10f * float(iRec55)) + 1.0f)));
+			iRec118[0] = ((iTemp0 * iTemp143) + (iVec0[1] * iRec118[1]));
+			int iTemp144 = ((iRec1[0] + iRec118[0]) % iSlow4);
+			int iTemp145 = int((fSlow7 * float(iTemp144)));
+			iRec119[0] = ((iRec119[1] * (1 - iTemp145)) + (iTemp143 * iTemp145));
+			int iTemp146 = int((fSlow5 * ((2.32830644e-10f * float(iRec57)) + 1.0f)));
+			iRec120[0] = ((iTemp0 * iTemp146) + (iVec0[1] * iRec120[1]));
+			int iTemp147 = ((iRec1[0] + iRec120[0]) % iSlow4);
+			int iTemp148 = int((fSlow7 * float(iTemp147)));
+			iRec121[0] = ((iRec121[1] * (1 - iTemp148)) + (iTemp146 * iTemp148));
+			int iTemp149 = int((fSlow5 * ((2.32830644e-10f * float(iRec59)) + 1.0f)));
+			iRec122[0] = ((iTemp0 * iTemp149) + (iVec0[1] * iRec122[1]));
+			int iTemp150 = ((iRec1[0] + iRec122[0]) % iSlow4);
+			int iTemp151 = int((fSlow7 * float(iTemp150)));
+			iRec123[0] = ((iRec123[1] * (1 - iTemp151)) + (iTemp149 * iTemp151));
+			int iTemp152 = int((fSlow5 * ((2.32830644e-10f * float(iRec61)) + 1.0f)));
+			iRec124[0] = ((iVec0[1] * iRec124[1]) + (iTemp0 * iTemp152));
+			int iTemp153 = ((iRec1[0] + iRec124[0]) % iSlow4);
+			int iTemp154 = int((fSlow7 * float(iTemp153)));
+			iRec125[0] = ((iTemp152 * iTemp154) + (iRec125[1] * (1 - iTemp154)));
+			int iTemp155 = int((fSlow5 * ((2.32830644e-10f * float(iRec63)) + 1.0f)));
+			iRec126[0] = ((iVec0[1] * iRec126[1]) + (iTemp0 * iTemp155));
+			int iTemp156 = ((iRec1[0] + iRec126[0]) % iSlow4);
+			int iTemp157 = int((fSlow7 * float(iTemp156)));
+			iRec127[0] = ((iRec127[1] * (1 - iTemp157)) + (iTemp155 * iTemp157));
+			int iTemp158 = int((fSlow5 * ((2.32830644e-10f * float(iRec65)) + 1.0f)));
+			iRec128[0] = ((iTemp0 * iTemp158) + (iVec0[1] * iRec128[1]));
+			int iTemp159 = ((iRec1[0] + iRec128[0]) % iSlow4);
+			int iTemp160 = int((fSlow7 * float(iTemp159)));
+			iRec129[0] = ((iRec129[1] * (1 - iTemp160)) + (iTemp158 * iTemp160));
+			output0[i] = FAUSTFLOAT((fSlow1 * ((((((((((((((((((((((((float(iSlow2) * (ftbl0[((iTemp66 + iRec67[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp66))))) + (((((((((float(iSlow9) * (ftbl0[((iTemp69 + iRec69[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp69))))) + (float(iSlow10) * (ftbl0[((iTemp72 + iRec71[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp72)))))) + (float(iSlow11) * (ftbl0[((iTemp75 + iRec73[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp75)))))) + (float(iSlow12) * (ftbl0[((iTemp78 + iRec75[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp78)))))) + (float(iSlow13) * (ftbl0[((iTemp81 + iRec77[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp81)))))) + (float(iSlow14) * (ftbl0[((iTemp84 + iRec79[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp84)))))) + (float(iSlow15) * (ftbl0[((iTemp87 + iRec81[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp87)))))) + (float(iSlow16) * (ftbl0[((iTemp90 + iRec83[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp90)))))) + (float(iSlow17) * (ftbl0[((iTemp93 + iRec85[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp93))))))) + (float(iSlow18) * (ftbl0[((iTemp96 + iRec87[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp96)))))) + (float(iSlow19) * (ftbl0[((iTemp99 + iRec89[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp99)))))) + (float(iSlow20) * (ftbl0[((iTemp102 + iRec91[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp102)))))) + (float(iSlow21) * (ftbl0[((iTemp105 + iRec93[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp105)))))) + (float(iSlow22) * (ftbl0[((iTemp108 + iRec95[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp108)))))) + (float(iSlow23) * (ftbl0[((iTemp111 + iRec97[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp111)))))) + (float(iSlow24) * (ftbl0[((iTemp114 + iRec99[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp114)))))) + (float(iSlow25) * (ftbl0[((iTemp117 + iRec101[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp117)))))) + (float(iSlow26) * (ftbl0[((iTemp120 + iRec103[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp120)))))) + (float(iSlow27) * (ftbl0[((iTemp123 + iRec105[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp123)))))) + (float(iSlow28) * (ftbl0[((iTemp126 + iRec107[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp126)))))) + (float(iSlow29) * (std::sin((fSlow8 * float(iTemp129))) * ftbl0[((iTemp129 + iRec109[0]) % iSlow3)]))) + (float(iSlow30) * (ftbl0[((iTemp132 + iRec111[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp132)))))) + (float(iSlow31) * (std::sin((fSlow8 * float(iTemp135))) * ftbl0[((iTemp135 + iRec113[0]) % iSlow3)]))) + (float(iSlow32) * (ftbl0[((iTemp138 + iRec115[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp138)))))) + (float(iSlow33) * (ftbl0[((iTemp141 + iRec117[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp141)))))) + (float(iSlow34) * (ftbl0[((iTemp144 + iRec119[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp144)))))) + (float(iSlow35) * (ftbl0[((iTemp147 + iRec121[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp147)))))) + (float(iSlow36) * (ftbl0[((iTemp150 + iRec123[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp150)))))) + (float(iSlow37) * (ftbl0[((iTemp153 + iRec125[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp153)))))) + (float(iSlow38) * (std::sin((fSlow8 * float(iTemp156))) * ftbl0[((iTemp156 + iRec127[0]) % iSlow3)]))) + (float(iSlow39) * (ftbl0[((iTemp159 + iRec129[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp159))))))));
+			int iTemp161 = int((fSlow5 * ((2.32830644e-10f * float(iRec4)) + 1.0f)));
+			iRec130[0] = ((iTemp0 * iTemp161) + (iVec0[1] * iRec130[1]));
+			int iTemp162 = ((iRec1[0] + iRec130[0]) % iSlow4);
+			int iTemp163 = int((fSlow7 * float(iTemp162)));
+			iRec131[0] = ((iRec131[1] * (1 - iTemp163)) + (iTemp161 * iTemp163));
+			int iTemp164 = int((fSlow5 * ((2.32830644e-10f * float(iRec6)) + 1.0f)));
+			iRec132[0] = ((iTemp0 * iTemp164) + (iVec0[1] * iRec132[1]));
+			int iTemp165 = ((iRec1[0] + iRec132[0]) % iSlow4);
+			int iTemp166 = int((fSlow7 * float(iTemp165)));
+			iRec133[0] = ((iRec133[1] * (1 - iTemp166)) + (iTemp164 * iTemp166));
+			int iTemp167 = int((fSlow5 * ((2.32830644e-10f * float(iRec8)) + 1.0f)));
+			iRec134[0] = ((iTemp0 * iTemp167) + (iVec0[1] * iRec134[1]));
+			int iTemp168 = ((iRec1[0] + iRec134[0]) % iSlow4);
+			int iTemp169 = int((fSlow7 * float(iTemp168)));
+			iRec135[0] = ((iRec135[1] * (1 - iTemp169)) + (iTemp167 * iTemp169));
+			int iTemp170 = int((fSlow5 * ((2.32830644e-10f * float(iRec10)) + 1.0f)));
+			iRec136[0] = ((iTemp0 * iTemp170) + (iVec0[1] * iRec136[1]));
+			int iTemp171 = ((iRec1[0] + iRec136[0]) % iSlow4);
+			int iTemp172 = int((fSlow7 * float(iTemp171)));
+			iRec137[0] = ((iRec137[1] * (1 - iTemp172)) + (iTemp170 * iTemp172));
+			int iTemp173 = int((fSlow5 * ((2.32830644e-10f * float(iRec12)) + 1.0f)));
+			iRec138[0] = ((iTemp0 * iTemp173) + (iVec0[1] * iRec138[1]));
+			int iTemp174 = ((iRec1[0] + iRec138[0]) % iSlow4);
+			int iTemp175 = int((fSlow7 * float(iTemp174)));
+			iRec139[0] = ((iRec139[1] * (1 - iTemp175)) + (iTemp173 * iTemp175));
+			int iTemp176 = int((fSlow5 * ((2.32830644e-10f * float(iRec14)) + 1.0f)));
+			iRec140[0] = ((iTemp0 * iTemp176) + (iVec0[1] * iRec140[1]));
+			int iTemp177 = ((iRec1[0] + iRec140[0]) % iSlow4);
+			int iTemp178 = int((fSlow7 * float(iTemp177)));
+			iRec141[0] = ((iRec141[1] * (1 - iTemp178)) + (iTemp176 * iTemp178));
+			int iTemp179 = int((fSlow5 * ((2.32830644e-10f * float(iRec16)) + 1.0f)));
+			iRec142[0] = ((iTemp0 * iTemp179) + (iVec0[1] * iRec142[1]));
+			int iTemp180 = ((iRec1[0] + iRec142[0]) % iSlow4);
+			int iTemp181 = int((fSlow7 * float(iTemp180)));
+			iRec143[0] = ((iRec143[1] * (1 - iTemp181)) + (iTemp179 * iTemp181));
+			int iTemp182 = int((fSlow5 * ((2.32830644e-10f * float(iRec18)) + 1.0f)));
+			iRec144[0] = ((iTemp0 * iTemp182) + (iVec0[1] * iRec144[1]));
+			int iTemp183 = ((iRec1[0] + iRec144[0]) % iSlow4);
+			int iTemp184 = int((fSlow7 * float(iTemp183)));
+			iRec145[0] = ((iRec145[1] * (1 - iTemp184)) + (iTemp182 * iTemp184));
+			int iTemp185 = int((fSlow5 * ((2.32830644e-10f * float(iRec20)) + 1.0f)));
+			iRec146[0] = ((iTemp0 * iTemp185) + (iVec0[1] * iRec146[1]));
+			int iTemp186 = ((iRec1[0] + iRec146[0]) % iSlow4);
+			int iTemp187 = int((fSlow7 * float(iTemp186)));
+			iRec147[0] = ((iRec147[1] * (1 - iTemp187)) + (iTemp185 * iTemp187));
+			int iTemp188 = int((fSlow5 * ((2.32830644e-10f * float(iRec22)) + 1.0f)));
+			iRec148[0] = ((iTemp0 * iTemp188) + (iVec0[1] * iRec148[1]));
+			int iTemp189 = ((iRec1[0] + iRec148[0]) % iSlow4);
+			int iTemp190 = int((fSlow7 * float(iTemp189)));
+			iRec149[0] = ((iRec149[1] * (1 - iTemp190)) + (iTemp188 * iTemp190));
+			int iTemp191 = int((fSlow5 * ((2.32830644e-10f * float(iRec24)) + 1.0f)));
+			iRec150[0] = ((iTemp0 * iTemp191) + (iVec0[1] * iRec150[1]));
+			int iTemp192 = ((iRec1[0] + iRec150[0]) % iSlow4);
+			int iTemp193 = int((fSlow7 * float(iTemp192)));
+			iRec151[0] = ((iRec151[1] * (1 - iTemp193)) + (iTemp191 * iTemp193));
+			int iTemp194 = int((fSlow5 * ((2.32830644e-10f * float(iRec26)) + 1.0f)));
+			iRec152[0] = ((iTemp0 * iTemp194) + (iVec0[1] * iRec152[1]));
+			int iTemp195 = ((iRec1[0] + iRec152[0]) % iSlow4);
+			int iTemp196 = int((fSlow7 * float(iTemp195)));
+			iRec153[0] = ((iRec153[1] * (1 - iTemp196)) + (iTemp194 * iTemp196));
+			int iTemp197 = int((fSlow5 * ((2.32830644e-10f * float(iRec28)) + 1.0f)));
+			iRec154[0] = ((iTemp0 * iTemp197) + (iVec0[1] * iRec154[1]));
+			int iTemp198 = ((iRec1[0] + iRec154[0]) % iSlow4);
+			int iTemp199 = int((fSlow7 * float(iTemp198)));
+			iRec155[0] = ((iRec155[1] * (1 - iTemp199)) + (iTemp197 * iTemp199));
+			int iTemp200 = int((fSlow5 * ((2.32830644e-10f * float(iRec30)) + 1.0f)));
+			iRec156[0] = ((iTemp0 * iTemp200) + (iVec0[1] * iRec156[1]));
+			int iTemp201 = ((iRec1[0] + iRec156[0]) % iSlow4);
+			int iTemp202 = int((fSlow7 * float(iTemp201)));
+			iRec157[0] = ((iRec157[1] * (1 - iTemp202)) + (iTemp200 * iTemp202));
+			int iTemp203 = int((fSlow5 * ((2.32830644e-10f * float(iRec32)) + 1.0f)));
+			iRec158[0] = ((iTemp0 * iTemp203) + (iVec0[1] * iRec158[1]));
+			int iTemp204 = ((iRec1[0] + iRec158[0]) % iSlow4);
+			int iTemp205 = int((fSlow7 * float(iTemp204)));
+			iRec159[0] = ((iRec159[1] * (1 - iTemp205)) + (iTemp203 * iTemp205));
+			int iTemp206 = int((fSlow5 * ((2.32830644e-10f * float(iRec34)) + 1.0f)));
+			iRec160[0] = ((iTemp0 * iTemp206) + (iVec0[1] * iRec160[1]));
+			int iTemp207 = ((iRec1[0] + iRec160[0]) % iSlow4);
+			int iTemp208 = int((fSlow7 * float(iTemp207)));
+			iRec161[0] = ((iRec161[1] * (1 - iTemp208)) + (iTemp206 * iTemp208));
+			int iTemp209 = int((fSlow5 * ((2.32830644e-10f * float(iRec36)) + 1.0f)));
+			iRec162[0] = ((iTemp0 * iTemp209) + (iVec0[1] * iRec162[1]));
+			int iTemp210 = ((iRec1[0] + iRec162[0]) % iSlow4);
+			int iTemp211 = int((fSlow7 * float(iTemp210)));
+			iRec163[0] = ((iRec163[1] * (1 - iTemp211)) + (iTemp209 * iTemp211));
+			int iTemp212 = int((fSlow5 * ((2.32830644e-10f * float(iRec38)) + 1.0f)));
+			iRec164[0] = ((iTemp0 * iTemp212) + (iVec0[1] * iRec164[1]));
+			int iTemp213 = ((iRec1[0] + iRec164[0]) % iSlow4);
+			int iTemp214 = int((fSlow7 * float(iTemp213)));
+			iRec165[0] = ((iRec165[1] * (1 - iTemp214)) + (iTemp212 * iTemp214));
+			int iTemp215 = int((fSlow5 * ((2.32830644e-10f * float(iRec40)) + 1.0f)));
+			iRec166[0] = ((iTemp0 * iTemp215) + (iVec0[1] * iRec166[1]));
+			int iTemp216 = ((iRec1[0] + iRec166[0]) % iSlow4);
+			int iTemp217 = int((fSlow7 * float(iTemp216)));
+			iRec167[0] = ((iRec167[1] * (1 - iTemp217)) + (iTemp215 * iTemp217));
+			int iTemp218 = int((fSlow5 * ((2.32830644e-10f * float(iRec42)) + 1.0f)));
+			iRec168[0] = ((iTemp0 * iTemp218) + (iVec0[1] * iRec168[1]));
+			int iTemp219 = ((iRec1[0] + iRec168[0]) % iSlow4);
+			int iTemp220 = int((fSlow7 * float(iTemp219)));
+			iRec169[0] = ((iRec169[1] * (1 - iTemp220)) + (iTemp218 * iTemp220));
+			int iTemp221 = int((fSlow5 * ((2.32830644e-10f * float(iRec44)) + 1.0f)));
+			iRec170[0] = ((iTemp0 * iTemp221) + (iVec0[1] * iRec170[1]));
+			int iTemp222 = ((iRec1[0] + iRec170[0]) % iSlow4);
+			int iTemp223 = int((fSlow7 * float(iTemp222)));
+			iRec171[0] = ((iRec171[1] * (1 - iTemp223)) + (iTemp221 * iTemp223));
+			int iTemp224 = int((fSlow5 * ((2.32830644e-10f * float(iRec46)) + 1.0f)));
+			iRec172[0] = ((iTemp0 * iTemp224) + (iVec0[1] * iRec172[1]));
+			int iTemp225 = ((iRec1[0] + iRec172[0]) % iSlow4);
+			int iTemp226 = int((fSlow7 * float(iTemp225)));
+			iRec173[0] = ((iRec173[1] * (1 - iTemp226)) + (iTemp224 * iTemp226));
+			int iTemp227 = int((fSlow5 * ((2.32830644e-10f * float(iRec48)) + 1.0f)));
+			iRec174[0] = ((iTemp0 * iTemp227) + (iVec0[1] * iRec174[1]));
+			int iTemp228 = ((iRec1[0] + iRec174[0]) % iSlow4);
+			int iTemp229 = int((fSlow7 * float(iTemp228)));
+			iRec175[0] = (((1 - iTemp229) * iRec175[1]) + (iTemp229 * iTemp227));
+			int iTemp230 = int((fSlow5 * ((2.32830644e-10f * float(iRec50)) + 1.0f)));
+			iRec177[0] = ((iTemp0 * iTemp230) + (iVec0[1] * iRec177[1]));
+			int iTemp231 = ((iRec177[0] + iRec1[0]) % iSlow4);
+			int iTemp232 = int((fSlow7 * float(iTemp231)));
 			iRec176[0] = ((iRec176[1] * (1 - iTemp232)) + (iTemp230 * iTemp232));
-			int iTemp233 = int((fSlow7 * ((2.32830644e-10f * float(iRec52)) + 1.0f)));
-			iRec179[0] = ((iVec0[1] * iRec179[1]) + (iTemp0 * iTemp233));
-			int iTemp234 = ((iRec179[0] + iRec67[0]) % iSlow4);
-			int iTemp235 = int((fSlow6 * float(iTemp234)));
+			int iTemp233 = int((fSlow5 * ((2.32830644e-10f * float(iRec52)) + 1.0f)));
+			iRec179[0] = ((iTemp0 * iTemp233) + (iVec0[1] * iRec179[1]));
+			int iTemp234 = ((iRec179[0] + iRec1[0]) % iSlow4);
+			int iTemp235 = int((fSlow7 * float(iTemp234)));
 			iRec178[0] = ((iRec178[1] * (1 - iTemp235)) + (iTemp233 * iTemp235));
-			int iTemp236 = int((fSlow7 * ((2.32830644e-10f * float(iRec54)) + 1.0f)));
-			iRec181[0] = ((iVec0[1] * iRec181[1]) + (iTemp0 * iTemp236));
-			int iTemp237 = ((iRec181[0] + iRec67[0]) % iSlow4);
-			int iTemp238 = int((fSlow6 * float(iTemp237)));
+			int iTemp236 = int((fSlow5 * ((2.32830644e-10f * float(iRec54)) + 1.0f)));
+			iRec181[0] = ((iTemp0 * iTemp236) + (iVec0[1] * iRec181[1]));
+			int iTemp237 = ((iRec181[0] + iRec1[0]) % iSlow4);
+			int iTemp238 = int((fSlow7 * float(iTemp237)));
 			iRec180[0] = ((iRec180[1] * (1 - iTemp238)) + (iTemp236 * iTemp238));
-			int iTemp239 = int((fSlow7 * ((2.32830644e-10f * float(iRec56)) + 1.0f)));
-			iRec183[0] = ((iVec0[1] * iRec183[1]) + (iTemp0 * iTemp239));
-			int iTemp240 = ((iRec183[0] + iRec67[0]) % iSlow4);
-			int iTemp241 = int((fSlow6 * float(iTemp240)));
-			iRec182[0] = ((iRec182[1] * (1 - iTemp241)) + (iTemp239 * iTemp241));
-			int iTemp242 = int((fSlow7 * ((2.32830644e-10f * float(iRec58)) + 1.0f)));
-			iRec185[0] = ((iVec0[1] * iRec185[1]) + (iTemp0 * iTemp242));
-			int iTemp243 = ((iRec185[0] + iRec67[0]) % iSlow4);
-			int iTemp244 = int((fSlow6 * float(iTemp243)));
-			iRec184[0] = ((iRec184[1] * (1 - iTemp244)) + (iTemp242 * iTemp244));
-			int iTemp245 = int((fSlow7 * ((2.32830644e-10f * float(iRec60)) + 1.0f)));
-			iRec187[0] = ((iVec0[1] * iRec187[1]) + (iTemp0 * iTemp245));
-			int iTemp246 = ((iRec187[0] + iRec67[0]) % iSlow4);
-			int iTemp247 = int((fSlow6 * float(iTemp246)));
-			iRec186[0] = ((iRec186[1] * (1 - iTemp247)) + (iTemp245 * iTemp247));
-			int iTemp248 = int((fSlow7 * ((2.32830644e-10f * float(iRec62)) + 1.0f)));
-			iRec189[0] = ((iVec0[1] * iRec189[1]) + (iTemp0 * iTemp248));
-			int iTemp249 = ((iRec189[0] + iRec67[0]) % iSlow4);
-			int iTemp250 = int((fSlow6 * float(iTemp249)));
-			iRec188[0] = ((iRec188[1] * (1 - iTemp250)) + (iTemp248 * iTemp250));
-			int iTemp251 = int((fSlow7 * ((2.32830644e-10f * float(iRec64)) + 1.0f)));
-			iRec191[0] = ((iVec0[1] * iRec191[1]) + (iTemp0 * iTemp251));
-			int iTemp252 = ((iRec191[0] + iRec67[0]) % iSlow4);
-			int iTemp253 = int((fSlow6 * float(iTemp252)));
-			iRec190[0] = ((iRec190[1] * (1 - iTemp253)) + (iTemp251 * iTemp253));
-			int iTemp254 = int((fSlow7 * ((2.32830644e-10f * float(iRec66)) + 1.0f)));
-			iRec193[0] = ((iVec0[1] * iRec193[1]) + (iTemp0 * iTemp254));
-			int iTemp255 = ((iRec193[0] + iRec67[0]) % iSlow4);
-			int iTemp256 = int((fSlow6 * float(iTemp255)));
-			iRec192[0] = ((iRec192[1] * (1 - iTemp256)) + (iTemp254 * iTemp256));
-			output1[i] = FAUSTFLOAT((fSlow1 * ((((((((((((((((((((((((((((((((float(iSlow40) * (ftbl0[((iRec130[0] + iTemp162) % iSlow3)] * sinf((fSlow8 * float(iTemp162))))) + (float(iSlow41) * (ftbl0[((iRec132[0] + iTemp165) % iSlow3)] * sinf((fSlow8 * float(iTemp165)))))) + (float(iSlow42) * (ftbl0[((iRec134[0] + iTemp168) % iSlow3)] * sinf((fSlow8 * float(iTemp168)))))) + (float(iSlow43) * (ftbl0[((iRec136[0] + iTemp171) % iSlow3)] * sinf((fSlow8 * float(iTemp171)))))) + (float(iSlow44) * (ftbl0[((iRec138[0] + iTemp174) % iSlow3)] * sinf((fSlow8 * float(iTemp174)))))) + (float(iSlow45) * (ftbl0[((iRec140[0] + iTemp177) % iSlow3)] * sinf((fSlow8 * float(iTemp177)))))) + (float(iSlow46) * (ftbl0[((iRec142[0] + iTemp180) % iSlow3)] * sinf((fSlow8 * float(iTemp180)))))) + (float(iSlow47) * (ftbl0[((iRec144[0] + iTemp183) % iSlow3)] * sinf((fSlow8 * float(iTemp183)))))) + (float(iSlow48) * (ftbl0[((iRec146[0] + iTemp186) % iSlow3)] * sinf((fSlow8 * float(iTemp186)))))) + (float(iSlow49) * (ftbl0[((iRec148[0] + iTemp189) % iSlow3)] * sinf((fSlow8 * float(iTemp189)))))) + (float(iSlow50) * (ftbl0[((iRec150[0] + iTemp192) % iSlow3)] * sinf((fSlow8 * float(iTemp192)))))) + (float(iSlow51) * (ftbl0[((iRec152[0] + iTemp195) % iSlow3)] * sinf((fSlow8 * float(iTemp195)))))) + (float(iSlow52) * (ftbl0[((iRec154[0] + iTemp198) % iSlow3)] * sinf((fSlow8 * float(iTemp198)))))) + (float(iSlow53) * (ftbl0[((iRec156[0] + iTemp201) % iSlow3)] * sinf((fSlow8 * float(iTemp201)))))) + (float(iSlow54) * (ftbl0[((iRec158[0] + iTemp204) % iSlow3)] * sinf((fSlow8 * float(iTemp204)))))) + (float(iSlow55) * (ftbl0[((iRec160[0] + iTemp207) % iSlow3)] * sinf((fSlow8 * float(iTemp207)))))) + (float(iSlow56) * (ftbl0[((iRec162[0] + iTemp210) % iSlow3)] * sinf((fSlow8 * float(iTemp210)))))) + (float(iSlow57) * (ftbl0[((iRec164[0] + iTemp213) % iSlow3)] * sinf((fSlow8 * float(iTemp213)))))) + (float(iSlow58) * (ftbl0[((iRec166[0] + iTemp216) % iSlow3)] * sinf((fSlow8 * float(iTemp216)))))) + (float(iSlow59) * (ftbl0[((iRec168[0] + iTemp219) % iSlow3)] * sinf((fSlow8 * float(iTemp219)))))) + (float(iSlow60) * (ftbl0[((iRec170[0] + iTemp222) % iSlow3)] * sinf((fSlow8 * float(iTemp222)))))) + (float(iSlow61) * (ftbl0[((iRec172[0] + iTemp225) % iSlow3)] * sinf((fSlow8 * float(iTemp225)))))) + (float(iSlow62) * (ftbl0[((iRec174[0] + iTemp228) % iSlow3)] * sinf((fSlow8 * float(iTemp228)))))) + (float(iSlow63) * (ftbl0[((iRec176[0] + iTemp231) % iSlow3)] * sinf((fSlow8 * float(iTemp231)))))) + (float(iSlow64) * (ftbl0[((iRec178[0] + iTemp234) % iSlow3)] * sinf((fSlow8 * float(iTemp234)))))) + (float(iSlow65) * (ftbl0[((iRec180[0] + iTemp237) % iSlow3)] * sinf((fSlow8 * float(iTemp237)))))) + (float(iSlow66) * (ftbl0[((iRec182[0] + iTemp240) % iSlow3)] * sinf((fSlow8 * float(iTemp240)))))) + (float(iSlow67) * (ftbl0[((iRec184[0] + iTemp243) % iSlow3)] * sinf((fSlow8 * float(iTemp243)))))) + (float(iSlow68) * (ftbl0[((iRec186[0] + iTemp246) % iSlow3)] * sinf((fSlow8 * float(iTemp246)))))) + (float(iSlow69) * (ftbl0[((iRec188[0] + iTemp249) % iSlow3)] * sinf((fSlow8 * float(iTemp249)))))) + (float(iSlow70) * (ftbl0[((iRec190[0] + iTemp252) % iSlow3)] * sinf((fSlow8 * float(iTemp252)))))) + (float(iSlow71) * (ftbl0[((iRec192[0] + iTemp255) % iSlow3)] * sinf((fSlow8 * float(iTemp255))))))));
+			int iTemp239 = int((fSlow5 * ((2.32830644e-10f * float(iRec56)) + 1.0f)));
+			iRec182[0] = ((iTemp0 * iTemp239) + (iVec0[1] * iRec182[1]));
+			int iTemp240 = ((iRec1[0] + iRec182[0]) % iSlow4);
+			int iTemp241 = int((fSlow7 * float(iTemp240)));
+			iRec183[0] = ((iRec183[1] * (1 - iTemp241)) + (iTemp239 * iTemp241));
+			int iTemp242 = int((fSlow5 * ((2.32830644e-10f * float(iRec58)) + 1.0f)));
+			iRec184[0] = ((iTemp0 * iTemp242) + (iVec0[1] * iRec184[1]));
+			int iTemp243 = ((iRec1[0] + iRec184[0]) % iSlow4);
+			int iTemp244 = int((fSlow7 * float(iTemp243)));
+			iRec185[0] = ((iRec185[1] * (1 - iTemp244)) + (iTemp242 * iTemp244));
+			int iTemp245 = int((fSlow5 * ((2.32830644e-10f * float(iRec60)) + 1.0f)));
+			iRec186[0] = ((iTemp0 * iTemp245) + (iVec0[1] * iRec186[1]));
+			int iTemp246 = ((iRec1[0] + iRec186[0]) % iSlow4);
+			int iTemp247 = int((fSlow7 * float(iTemp246)));
+			iRec187[0] = ((iRec187[1] * (1 - iTemp247)) + (iTemp245 * iTemp247));
+			int iTemp248 = int((fSlow5 * ((2.32830644e-10f * float(iRec62)) + 1.0f)));
+			iRec188[0] = ((iTemp0 * iTemp248) + (iVec0[1] * iRec188[1]));
+			int iTemp249 = ((iRec1[0] + iRec188[0]) % iSlow4);
+			int iTemp250 = int((fSlow7 * float(iTemp249)));
+			iRec189[0] = ((iRec189[1] * (1 - iTemp250)) + (iTemp248 * iTemp250));
+			int iTemp251 = int((fSlow5 * ((2.32830644e-10f * float(iRec64)) + 1.0f)));
+			iRec190[0] = ((iTemp0 * iTemp251) + (iVec0[1] * iRec190[1]));
+			int iTemp252 = ((iRec1[0] + iRec190[0]) % iSlow4);
+			int iTemp253 = int((fSlow7 * float(iTemp252)));
+			iRec191[0] = ((iRec191[1] * (1 - iTemp253)) + (iTemp251 * iTemp253));
+			int iTemp254 = int((fSlow5 * ((2.32830644e-10f * float(iRec66)) + 1.0f)));
+			iRec192[0] = ((iTemp0 * iTemp254) + (iVec0[1] * iRec192[1]));
+			int iTemp255 = ((iRec1[0] + iRec192[0]) % iSlow4);
+			int iTemp256 = int((fSlow7 * float(iTemp255)));
+			iRec193[0] = ((iRec193[1] * (1 - iTemp256)) + (iTemp254 * iTemp256));
+			output1[i] = FAUSTFLOAT((fSlow1 * ((((((((((((((((((((((((((((((((float(iSlow40) * (ftbl0[((iTemp162 + iRec131[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp162))))) + (float(iSlow41) * (ftbl0[((iTemp165 + iRec133[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp165)))))) + (float(iSlow42) * (ftbl0[((iTemp168 + iRec135[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp168)))))) + (float(iSlow43) * (ftbl0[((iTemp171 + iRec137[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp171)))))) + (float(iSlow44) * (ftbl0[((iTemp174 + iRec139[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp174)))))) + (float(iSlow45) * (ftbl0[((iTemp177 + iRec141[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp177)))))) + (float(iSlow46) * (ftbl0[((iTemp180 + iRec143[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp180)))))) + (float(iSlow47) * (ftbl0[((iTemp183 + iRec145[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp183)))))) + (float(iSlow48) * (std::sin((fSlow8 * float(iTemp186))) * ftbl0[((iTemp186 + iRec147[0]) % iSlow3)]))) + (float(iSlow49) * (ftbl0[((iTemp189 + iRec149[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp189)))))) + (float(iSlow50) * (ftbl0[((iTemp192 + iRec151[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp192)))))) + (float(iSlow51) * (ftbl0[((iTemp195 + iRec153[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp195)))))) + (float(iSlow52) * (ftbl0[((iTemp198 + iRec155[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp198)))))) + (float(iSlow53) * (ftbl0[((iTemp201 + iRec157[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp201)))))) + (float(iSlow54) * (ftbl0[((iTemp204 + iRec159[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp204)))))) + (float(iSlow55) * (std::sin((fSlow8 * float(iTemp207))) * ftbl0[((iTemp207 + iRec161[0]) % iSlow3)]))) + (float(iSlow56) * (std::sin((fSlow8 * float(iTemp210))) * ftbl0[((iTemp210 + iRec163[0]) % iSlow3)]))) + (float(iSlow57) * (ftbl0[((iTemp213 + iRec165[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp213)))))) + (float(iSlow58) * (ftbl0[((iTemp216 + iRec167[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp216)))))) + (float(iSlow59) * (std::sin((fSlow8 * float(iTemp219))) * ftbl0[((iTemp219 + iRec169[0]) % iSlow3)]))) + (float(iSlow60) * (ftbl0[((iTemp222 + iRec171[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp222)))))) + (float(iSlow61) * (std::sin((fSlow8 * float(iTemp225))) * ftbl0[((iTemp225 + iRec173[0]) % iSlow3)]))) + (float(iSlow62) * (std::sin((fSlow8 * float(iTemp228))) * ftbl0[((iRec175[0] + iTemp228) % iSlow3)]))) + (float(iSlow63) * (ftbl0[((iRec176[0] + iTemp231) % iSlow3)] * std::sin((fSlow8 * float(iTemp231)))))) + (float(iSlow64) * (ftbl0[((iRec178[0] + iTemp234) % iSlow3)] * std::sin((fSlow8 * float(iTemp234)))))) + (float(iSlow65) * (ftbl0[((iRec180[0] + iTemp237) % iSlow3)] * std::sin((fSlow8 * float(iTemp237)))))) + (float(iSlow66) * (std::sin((fSlow8 * float(iTemp240))) * ftbl0[((iTemp240 + iRec183[0]) % iSlow3)]))) + (float(iSlow67) * (ftbl0[((iTemp243 + iRec185[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp243)))))) + (float(iSlow68) * (ftbl0[((iTemp246 + iRec187[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp246)))))) + (float(iSlow69) * (ftbl0[((iTemp249 + iRec189[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp249)))))) + (float(iSlow70) * (ftbl0[((iTemp252 + iRec191[0]) % iSlow3)] * std::sin((fSlow8 * float(iTemp252)))))) + (float(iSlow71) * (std::sin((fSlow8 * float(iTemp255))) * ftbl0[((iTemp255 + iRec193[0]) % iSlow3)])))));
 			iVec0[1] = iVec0[0];
 			iRec0[1] = iRec0[0];
+			iRec1[1] = iRec1[0];
 			iRec3[1] = iRec3[0];
 			iRec2[1] = iRec2[0];
 			iRec67[1] = iRec67[0];
-			iRec1[1] = iRec1[0];
 			iRec68[1] = iRec68[0];
 			iRec69[1] = iRec69[0];
-			iRec71[1] = iRec71[0];
 			iRec70[1] = iRec70[0];
-			iRec73[1] = iRec73[0];
+			iRec71[1] = iRec71[0];
 			iRec72[1] = iRec72[0];
+			iRec73[1] = iRec73[0];
 			iRec74[1] = iRec74[0];
 			iRec75[1] = iRec75[0];
-			iRec77[1] = iRec77[0];
 			iRec76[1] = iRec76[0];
-			iRec79[1] = iRec79[0];
+			iRec77[1] = iRec77[0];
 			iRec78[1] = iRec78[0];
-			iRec81[1] = iRec81[0];
+			iRec79[1] = iRec79[0];
 			iRec80[1] = iRec80[0];
+			iRec81[1] = iRec81[0];
 			iRec82[1] = iRec82[0];
 			iRec83[1] = iRec83[0];
 			iRec84[1] = iRec84[0];
@@ -1903,106 +1910,106 @@ class granulator : public dsp {
 			iRec91[1] = iRec91[0];
 			iRec92[1] = iRec92[0];
 			iRec93[1] = iRec93[0];
-			iRec95[1] = iRec95[0];
 			iRec94[1] = iRec94[0];
-			iRec97[1] = iRec97[0];
+			iRec95[1] = iRec95[0];
 			iRec96[1] = iRec96[0];
-			iRec99[1] = iRec99[0];
+			iRec97[1] = iRec97[0];
 			iRec98[1] = iRec98[0];
-			iRec101[1] = iRec101[0];
+			iRec99[1] = iRec99[0];
 			iRec100[1] = iRec100[0];
-			iRec103[1] = iRec103[0];
+			iRec101[1] = iRec101[0];
 			iRec102[1] = iRec102[0];
-			iRec105[1] = iRec105[0];
+			iRec103[1] = iRec103[0];
 			iRec104[1] = iRec104[0];
-			iRec107[1] = iRec107[0];
+			iRec105[1] = iRec105[0];
 			iRec106[1] = iRec106[0];
-			iRec109[1] = iRec109[0];
+			iRec107[1] = iRec107[0];
 			iRec108[1] = iRec108[0];
-			iRec111[1] = iRec111[0];
+			iRec109[1] = iRec109[0];
 			iRec110[1] = iRec110[0];
-			iRec113[1] = iRec113[0];
+			iRec111[1] = iRec111[0];
 			iRec112[1] = iRec112[0];
-			iRec115[1] = iRec115[0];
+			iRec113[1] = iRec113[0];
 			iRec114[1] = iRec114[0];
-			iRec117[1] = iRec117[0];
+			iRec115[1] = iRec115[0];
 			iRec116[1] = iRec116[0];
-			iRec119[1] = iRec119[0];
+			iRec117[1] = iRec117[0];
 			iRec118[1] = iRec118[0];
-			iRec121[1] = iRec121[0];
+			iRec119[1] = iRec119[0];
 			iRec120[1] = iRec120[0];
-			iRec123[1] = iRec123[0];
+			iRec121[1] = iRec121[0];
 			iRec122[1] = iRec122[0];
-			iRec125[1] = iRec125[0];
+			iRec123[1] = iRec123[0];
 			iRec124[1] = iRec124[0];
-			iRec127[1] = iRec127[0];
+			iRec125[1] = iRec125[0];
 			iRec126[1] = iRec126[0];
-			iRec129[1] = iRec129[0];
+			iRec127[1] = iRec127[0];
 			iRec128[1] = iRec128[0];
-			iRec131[1] = iRec131[0];
+			iRec129[1] = iRec129[0];
 			iRec130[1] = iRec130[0];
-			iRec133[1] = iRec133[0];
+			iRec131[1] = iRec131[0];
 			iRec132[1] = iRec132[0];
-			iRec135[1] = iRec135[0];
+			iRec133[1] = iRec133[0];
 			iRec134[1] = iRec134[0];
-			iRec137[1] = iRec137[0];
+			iRec135[1] = iRec135[0];
 			iRec136[1] = iRec136[0];
-			iRec139[1] = iRec139[0];
+			iRec137[1] = iRec137[0];
 			iRec138[1] = iRec138[0];
-			iRec141[1] = iRec141[0];
+			iRec139[1] = iRec139[0];
 			iRec140[1] = iRec140[0];
-			iRec143[1] = iRec143[0];
+			iRec141[1] = iRec141[0];
 			iRec142[1] = iRec142[0];
-			iRec145[1] = iRec145[0];
+			iRec143[1] = iRec143[0];
 			iRec144[1] = iRec144[0];
-			iRec147[1] = iRec147[0];
+			iRec145[1] = iRec145[0];
 			iRec146[1] = iRec146[0];
-			iRec149[1] = iRec149[0];
+			iRec147[1] = iRec147[0];
 			iRec148[1] = iRec148[0];
-			iRec151[1] = iRec151[0];
+			iRec149[1] = iRec149[0];
 			iRec150[1] = iRec150[0];
-			iRec153[1] = iRec153[0];
+			iRec151[1] = iRec151[0];
 			iRec152[1] = iRec152[0];
-			iRec155[1] = iRec155[0];
+			iRec153[1] = iRec153[0];
 			iRec154[1] = iRec154[0];
-			iRec157[1] = iRec157[0];
+			iRec155[1] = iRec155[0];
 			iRec156[1] = iRec156[0];
-			iRec159[1] = iRec159[0];
+			iRec157[1] = iRec157[0];
 			iRec158[1] = iRec158[0];
-			iRec161[1] = iRec161[0];
+			iRec159[1] = iRec159[0];
 			iRec160[1] = iRec160[0];
-			iRec163[1] = iRec163[0];
+			iRec161[1] = iRec161[0];
 			iRec162[1] = iRec162[0];
-			iRec165[1] = iRec165[0];
+			iRec163[1] = iRec163[0];
 			iRec164[1] = iRec164[0];
-			iRec167[1] = iRec167[0];
+			iRec165[1] = iRec165[0];
 			iRec166[1] = iRec166[0];
-			iRec169[1] = iRec169[0];
+			iRec167[1] = iRec167[0];
 			iRec168[1] = iRec168[0];
-			iRec171[1] = iRec171[0];
+			iRec169[1] = iRec169[0];
 			iRec170[1] = iRec170[0];
-			iRec173[1] = iRec173[0];
+			iRec171[1] = iRec171[0];
 			iRec172[1] = iRec172[0];
-			iRec175[1] = iRec175[0];
+			iRec173[1] = iRec173[0];
 			iRec174[1] = iRec174[0];
+			iRec175[1] = iRec175[0];
 			iRec177[1] = iRec177[0];
 			iRec176[1] = iRec176[0];
 			iRec179[1] = iRec179[0];
 			iRec178[1] = iRec178[0];
 			iRec181[1] = iRec181[0];
 			iRec180[1] = iRec180[0];
-			iRec183[1] = iRec183[0];
 			iRec182[1] = iRec182[0];
-			iRec185[1] = iRec185[0];
+			iRec183[1] = iRec183[0];
 			iRec184[1] = iRec184[0];
-			iRec187[1] = iRec187[0];
+			iRec185[1] = iRec185[0];
 			iRec186[1] = iRec186[0];
-			iRec189[1] = iRec189[0];
+			iRec187[1] = iRec187[0];
 			iRec188[1] = iRec188[0];
-			iRec191[1] = iRec191[0];
+			iRec189[1] = iRec189[0];
 			iRec190[1] = iRec190[0];
-			iRec193[1] = iRec193[0];
+			iRec191[1] = iRec191[0];
 			iRec192[1] = iRec192[0];
+			iRec193[1] = iRec193[0];
 			
 		}
 		
@@ -2023,6 +2030,11 @@ static t_class* granulator_faust_class;
 #define FAUST_EXT_CLASS granulator_faust_class
 // clang-format on
 
+template <class T>
+class _granulator_UI : public UI {
+};
+typedef _granulator_UI<granulator> granulator_UI;
+
 struct t_faust_granulator {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -2031,7 +2043,7 @@ struct t_faust_granulator {
     int fence; /* dummy field (not used) */
 #endif
     granulator* dsp;
-    PdUI<UI>* ui;
+    PdUI<granulator_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -2114,7 +2126,7 @@ static void granulator_faust_dsp(t_faust_granulator* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<granulator_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -2169,7 +2181,7 @@ static void granulator_faust_any(t_faust_granulator* x, t_symbol* s, int argc, t
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<granulator_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -2329,7 +2341,7 @@ static bool faust_new_internal(t_faust_granulator* x, const std::string& objId =
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new granulator();
-    x->ui = new PdUI<UI>(sym(granulator), objId);
+    x->ui = new PdUI<granulator_UI>(sym(granulator), objId);
 
     if (!faust_init_inputs(x)) {
         granulator_faust_free(x);
@@ -2473,8 +2485,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -2567,6 +2579,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(granulator_faust_class, reinterpret_cast<t_method>(granulator_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(granulator_faust_class, reinterpret_cast<t_method>(granulator_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(granulator_faust_class, granulator_faust_any);
+    ceammc::register_faust_external(granulator_faust_class);
 }
 
 #define EXTERNAL_NEW void* granulator_faust_new(t_symbol*, int argc, t_atom* argv)
