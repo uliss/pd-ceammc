@@ -39,4 +39,5 @@ extern "C" void setup_conv0x2elin2lin()
 {
     ObjectFactory<Lin2Lin> obj("conv.lin2lin");
     obj.addAlias("lin->lin");
+    obj.addAlias("l->l");
 }
