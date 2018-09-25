@@ -45,6 +45,7 @@
 - fx.echo~ @time property renamed to @delay
 - live.capture~ record message only starts record process, use stop to stop it
 - fx.freeverb~ @roomsize renamed to @room
+- fx.freeverb2~ @roomsize renamed to @room
 
 ### Removed:
 - fx.greyhole~ 3rd information outlet removed

@@ -24,7 +24,7 @@ Schroeder-Moorer filtered-feedback comb-filters for each audio channel
 #X msg 232 327 @room \$1;
 #X msg 338 327 @damp \$1;
 #X msg 443 327 @drywet \$1;
-#X obj 50 384 fx.freeverb~ 0.95 0.33;
+#X obj 50 384 fx.freeverb~ 0.95 0.125;
 #X obj 50 413 ui.gain~ @size 120 16;
 #X obj 280 413 ui.dsp~;
 #X obj 50 442 dac~;
