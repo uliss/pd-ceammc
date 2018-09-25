@@ -46,6 +46,5 @@ void setup_live_capture_tilde()
     SoundExternalFactory<LiveCapture> obj("live.capture~");
     obj.addMethod("reset", &LiveCapture::m_reset);
     obj.addMethod("record", &LiveCapture::m_record);
-    obj.addMethod("rec", &LiveCapture::m_record);
     obj.addMethod("stop", &LiveCapture::m_stop);
 }

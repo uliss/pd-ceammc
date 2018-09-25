@@ -17,7 +17,7 @@
         <methods>
             <method name="record">start record</method>
             <method name="stop">stop record</method>
-            <method name="reset">reset recorded</method>
+            <method name="reset">reset recorded data</method>
         </methods>
         <properties>
             <property name="@gate" type="int" enum="0 1" default="0">start/stop recording</property>
@@ -38,13 +38,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[adc~]  [T]
-|       |
-|       [@gate $1(
-|       |
-|       |     [T]
-|       |     |.
-[live.capture~ id]
+[adc~]     [reset(
+|          |
+| [record( | [T]
+| |        | |
+| | [stop( | [@gate $1( [T]
+| | |      | |          |.
+[live.capture~             ]
 |
 [ui.gain~ @size 120 14] [ui.dsp~]
 |\

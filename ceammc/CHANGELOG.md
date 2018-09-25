@@ -29,6 +29,7 @@
 - fx.zita_rev1~ reset message added
 - fx.zita_rev1~ arguments mapped to @decay_low, @decay_mid
 - fx.chorus~ added
+- live.capture~ @gate property added, reset method added
 
 ### Changed:
 - data type generation support for list.gen and list.each
@@ -42,6 +43,7 @@
 - lfo.pulse~ now is in \[-1, 1\] range
 - env.ar~ now supports Envelope data type, run on bang, bang on done added
 - fx.echo~ @time property renamed to @delay
+- live.capture~ record message only starts record process, use stop to stop it
 
 ### Removed:
 - fx.greyhole~ 3rd information outlet removed
