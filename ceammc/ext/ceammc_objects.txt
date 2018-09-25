@@ -145,6 +145,7 @@ func
 func.call
 function
 function.call
+fx.chorus~
 fx.distortion~
 fx.drone_box~
 fx.echo~

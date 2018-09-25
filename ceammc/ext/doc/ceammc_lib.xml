@@ -401,6 +401,9 @@
     </entry>
   </category>
   <category name="fx">
+    <entry descr="Chorus effect" name="fx.chorus~" ref_view="object">
+      <xi:include href="fx.chorus~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="cubic nonlinearity distortion" name="fx.distortion~" ref_view="object">
       <xi:include href="fx.distortion~.pddoc" parse="xml"/>
     </entry>
@@ -1311,6 +1314,7 @@
   <meta>
     <version>0.6</version>
     <authors>
+      <author>Albert Graef</author>
       <author>Alex Nadzharov</author>
       <author>Hans-Christoph Steiner</author>
       <author>Julian Parker</author>

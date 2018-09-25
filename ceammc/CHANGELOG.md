@@ -28,6 +28,7 @@
 - fx.echo~ reset message added
 - fx.zita_rev1~ reset message added
 - fx.zita_rev1~ arguments mapped to @decay_low, @decay_mid
+- fx.chorus~ added
 
 ### Changed:
 - data type generation support for list.gen and list.each

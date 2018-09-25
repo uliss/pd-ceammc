@@ -113,6 +113,7 @@ set(DOC_FILES
     fluid~
     function
     function.call
+    fx.chorus~
     fx.distortion~
     fx.echo~
     fx.flanger~

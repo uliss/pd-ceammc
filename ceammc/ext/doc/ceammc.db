@@ -111,6 +111,7 @@ flt.resonbp~		~		~.
 fluid~		.		~~
 function,func		..		..
 function.call,func.call		..		.
+fx.chorus~		~		~
 fx.distortion~		~		~.
 fx.drone_box~		~		~.
 fx.echo~		~		~
