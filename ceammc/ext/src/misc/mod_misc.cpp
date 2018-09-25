@@ -8,11 +8,11 @@
 
 #include "fluid.h"
 
-extern "C" void setup_live0x2ecapture_tilde();
+extern void setup_live_capture_tilde();
 
 void ceammc_misc_setup()
 {
-    setup_live0x2ecapture_tilde();
+    setup_live_capture_tilde();
     setup_misc_speech_flite();
 
 #ifdef CEAMMC_HAVE_MODPLUG

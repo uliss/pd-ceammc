@@ -214,7 +214,7 @@ list.unpack		.		?
 list.unzip,list.deinterleave		.		?
 list.walk		.		.
 list.zip,list.interleave		?		.
-live.capture~		~		~.
+live.capture~		~.		~
 local.dict,local.json		.		.
 local.float		.		.
 local.int		.		.
