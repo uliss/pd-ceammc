@@ -508,7 +508,7 @@ list2-2 etc.).;
 0;
 #X obj 20 6932 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 6943 live.capture~;
-#X text 175 6943 record up to 8s of sound and playback the recorded
+#X text 175 6943 record up to 32s of sound and playback the recorded
 sound in loop;
 #X obj 20 6980 cnv 5 58 31 empty empty local 4 13 0 17 -262144 -49933
 0;

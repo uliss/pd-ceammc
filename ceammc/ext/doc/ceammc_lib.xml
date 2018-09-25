@@ -688,7 +688,7 @@
     <xi:include href="ceammc_category_list.xml" parse="xml"/>
   </category>
   <category name="live">
-    <entry descr="record up to 8s of sound and playback the recorded sound in loop" name="live.capture~" ref_view="object">
+    <entry descr="record up to 32s of sound and playback the recorded sound in loop" name="live.capture~" ref_view="object">
       <xi:include href="live.capture~.pddoc" parse="xml"/>
     </entry>
   </category>
