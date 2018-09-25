@@ -44,6 +44,7 @@
 - env.ar~ now supports Envelope data type, run on bang, bang on done added
 - fx.echo~ @time property renamed to @delay
 - live.capture~ record message only starts record process, use stop to stop it
+- fx.freeverb~ @roomsize renamed to @room
 
 ### Removed:
 - fx.greyhole~ 3rd information outlet removed
