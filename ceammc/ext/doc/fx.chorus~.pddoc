@@ -14,7 +14,6 @@
             <keywords>fx chorus</keywords>
             <since>0.7</since>
         </meta>
-        <arguments></arguments>
         <methods>
             <method name="reset">same as reset</method>
         </methods>
