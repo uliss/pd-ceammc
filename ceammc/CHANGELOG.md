@@ -31,6 +31,7 @@
 - fx.chorus~ added
 - live.capture~ @gate property added, reset method added
 - l->l alias added for lin->lin
+- soundtouch~ pitch argument added
 
 ### Changed:
 - data type generation support for list.gen and list.each
