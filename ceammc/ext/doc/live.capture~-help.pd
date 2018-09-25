@@ -1,7 +1,7 @@
 #N canvas 0 0 715 555 12;
 #X declare -lib ceammc;
-#X obj 222 50 cnv 1 473 35 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 222 50 record up to 8s of sound and playback the recorded
+#X obj 238 50 cnv 1 457 35 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 238 50 record up to 32s of sound and playback the recorded
 sound in loop;
 #X obj 1 1 cnv 5 712 40 empty empty live.capture~ 20 20 0 20 -104026
 -4096 0;

@@ -449,6 +449,7 @@ struct live_capture : public dsp {
 
 #include <algorithm>
 #include <cmath>
+#include <math.h>
 
 
 #ifndef FAUSTCLASS 
@@ -465,11 +466,12 @@ class live_capture : public dsp {
 	
 	FAUSTFLOAT fCheckbox0;
 	int IOTA;
-	float fVec0[1048576];
+	float fVec0[8388608];
+	int fSamplingFreq;
+	float fConst0;
 	int iVec1[2];
 	int iRec1[2];
 	float fRec0[2];
-	int fSamplingFreq;
 	
  public:
 	
@@ -480,6 +482,11 @@ class live_capture : public dsp {
 		m->declare("delays.lib/version", "0.0");
 		m->declare("filename", "live_capture");
 		m->declare("license", "BSD");
+		m->declare("maths.lib/author", "GRAME");
+		m->declare("maths.lib/copyright", "GRAME");
+		m->declare("maths.lib/license", "LGPL with exception");
+		m->declare("maths.lib/name", "Faust Math Library");
+		m->declare("maths.lib/version", "2.1");
 		m->declare("name", "capture");
 		m->declare("version", "1.0");
 	}
@@ -531,6 +538,7 @@ class live_capture : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
+		fConst0 = (32.0f * std::min(192000.0f, std::max(1.0f, float(fSamplingFreq))));
 		
 	}
 	
@@ -541,7 +549,7 @@ class live_capture : public dsp {
 	
 	virtual void instanceClear() {
 		IOTA = 0;
-		for (int l0 = 0; (l0 < 1048576); l0 = (l0 + 1)) {
+		for (int l0 = 0; (l0 < 8388608); l0 = (l0 + 1)) {
 			fVec0[l0] = 0.0f;
 			
 		}
@@ -592,10 +600,10 @@ class live_capture : public dsp {
 		float fSlow1 = (1.0f - fSlow0);
 		int iSlow2 = int(fSlow0);
 		for (int i = 0; (i < count); i = (i + 1)) {
-			fVec0[(IOTA & 1048575)] = ((fSlow0 * float(input0[i])) + (fSlow1 * fRec0[1]));
+			fVec0[(IOTA & 8388607)] = ((fSlow0 * float(input0[i])) + (fSlow1 * fRec0[1]));
 			iVec1[0] = iSlow2;
 			iRec1[0] = (((iSlow2 - iVec1[1]) <= 0) * (iSlow2 + iRec1[1]));
-			fRec0[0] = fVec0[((IOTA - std::min(524288, int(std::max(0, int((iRec1[0] + -1)))))) & 1048575)];
+			fRec0[0] = fVec0[((IOTA - int(std::min(fConst0, float(std::max(0, int((iRec1[0] + -1))))))) & 8388607)];
 			output0[i] = FAUSTFLOAT(fRec0[0]);
 			IOTA = (IOTA + 1);
 			iVec1[1] = iVec1[0];

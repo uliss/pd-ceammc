@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>record up to 8s of sound and playback the recorded sound in
+            <description>record up to 32s of sound and playback the recorded sound in
             loop</description>
             <license>GPL3</license>
             <library>ceammc</library>
