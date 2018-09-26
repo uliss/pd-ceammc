@@ -26,31 +26,33 @@
 #X text 175 386 stereo DC blocker;
 #X obj 30 413 flt.dcblock~;
 #X text 175 413 mono DC blocker;
-#X obj 30 440 flt.eq_peak_cq~;
-#X text 175 440 constant-Q second order peaking equalizer section;
-#X obj 30 467 flt.eq_peak~;
-#X text 175 467 second order "peaking equalizer" section (gain boost
+#X obj 30 440 flt.eq10~;
+#X text 175 440 graphic 10 band equalizer;
+#X obj 30 467 flt.eq_peak_cq~;
+#X text 175 467 constant-Q second order peaking equalizer section;
+#X obj 30 494 flt.eq_peak~;
+#X text 175 494 second order "peaking equalizer" section (gain boost
 or cut near some frequency). Also called a "parametric equalizer"
 section.;
-#X obj 30 518 flt.highshelf~;
-#X text 175 518 gain boost|cut above some frequency;
-#X obj 30 545 flt.hpf12~;
-#X text 175 545 High-pass filter with 12/db per octave slope;
-#X obj 30 572 flt.hpf24~;
-#X text 175 572 High-pass filter with 24/db per octave slope;
-#X obj 30 599 flt.lowshelf~;
-#X text 175 599 gain boost|cut below some frequency;
-#X obj 30 626 flt.lpf12~;
-#X text 175 626 Low-pass filter with 12/db per octave slope;
-#X obj 30 653 flt.lpf24~;
-#X text 175 653 Low-pass filter with 24/db per octave slope;
-#X obj 30 680 flt.moog_vcf~;
-#X text 175 680 Moog Voltage Controlled Filter;
-#X obj 30 707 flt.notch~;
-#X text 175 707 band-rejection filter;
-#X obj 30 734 flt.resonbp~;
-#X text 175 734 Simple resonant bandpass filter;
+#X obj 30 545 flt.highshelf~;
+#X text 175 545 gain boost|cut above some frequency;
+#X obj 30 572 flt.hpf12~;
+#X text 175 572 High-pass filter with 12/db per octave slope;
+#X obj 30 599 flt.hpf24~;
+#X text 175 599 High-pass filter with 24/db per octave slope;
+#X obj 30 626 flt.lowshelf~;
+#X text 175 626 gain boost|cut below some frequency;
+#X obj 30 653 flt.lpf12~;
+#X text 175 653 Low-pass filter with 12/db per octave slope;
+#X obj 30 680 flt.lpf24~;
+#X text 175 680 Low-pass filter with 24/db per octave slope;
+#X obj 30 707 flt.moog_vcf~;
+#X text 175 707 Moog Voltage Controlled Filter;
+#X obj 30 734 flt.notch~;
+#X text 175 734 band-rejection filter;
+#X obj 30 761 flt.resonbp~;
+#X text 175 761 Simple resonant bandpass filter;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::flt 20 20 0 20 -104026
 -4096 0;
-#X obj 1 761 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 771 library: ceammc;
+#X obj 1 788 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 798 library: ceammc;

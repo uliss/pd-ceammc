@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.eq10~">
+        <title>flt.eq10~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>graphic 10 band equalizer</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>graphic filter equalizer</keywords>
+            <since>0.1</since>
+            <also>
+                <see>flt.eq_peak~</see>
+            </also>
+        </meta>
+        <info>
+            <par>One band per octave. 5th-order Butterworth filters</par>
+        </info>
+        <properties>
+            <property name="@f31" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
+            gain at 31.25Hz</property>
+            <property name="@f62" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
+            gain at 62.5Hz</property>
+            <property name="@f125" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
+            gain at 125Hz</property>
+            <property name="@f250" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
+            gain at 250Hz</property>
+            <property name="@f500" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
+            gain at 500Hz</property>
+            <property name="@f1000" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
+            gain at 1000Hz</property>
+            <property name="@f2000" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
+            gain at 2000Hz</property>
+            <property name="@f4000" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
+            gain at 4000Hz</property>
+            <property name="@f8000" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
+            gain at 8000Hz</property>
+            <property name="@f16000" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
+            gain at 16000Hz</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+                <xinfo on="list">sets equalizer coefficients</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[fill 0.5, bang(        [r~ ssc #a]
+|                       |
+[ui.sliders @count=10]  [ui.spectroscope~ @size=300x100 @log_scale=1]
+|
+|
+|
+|
+|
+|
+|
+[list.each]X[l->l 0 1 -10 10]
+|
+|
+|                 [F]
+|                 |
+|  [noise.white~] [@f8000 $1(
+|  |              |
+[flt.eq10~        ]
+|
+[ui.gain~ @size 120 14]  [ui.dsp~]
+|\     |
+[dac~] [s~ ssc]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -39,9 +39,9 @@
     {flt {
         flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_bpf~ flt.c_highshelf~
         flt.c_hpf~ flt.c_lowshelf~ flt.c_lpf~ flt.c_notch~ flt.c_peak~
-        flt.dcblock2~ flt.dcblock~ flt.eq_peak_cq~ flt.eq_peak~ flt.highshelf~
-        flt.hpf12~ flt.hpf24~ flt.lowshelf~ flt.lpf12~ flt.lpf24~
-        flt.moog_vcf~ flt.notch~ flt.resonbp~
+        flt.dcblock2~ flt.dcblock~ flt.eq10~ flt.eq_peak_cq~ flt.eq_peak~
+        flt.highshelf~ flt.hpf12~ flt.hpf24~ flt.lowshelf~ flt.lpf12~
+        flt.lpf24~ flt.moog_vcf~ flt.notch~ flt.resonbp~
     }}
     {fx {
         fx.chorus~ fx.distortion~ fx.drone_box~ fx.echo~ fx.flanger~

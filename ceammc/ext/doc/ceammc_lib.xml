@@ -366,6 +366,9 @@
     <entry descr="mono DC blocker" name="flt.dcblock~" ref_view="object">
       <xi:include href="flt.dcblock~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="graphic 10 band equalizer" name="flt.eq10~" ref_view="object">
+      <xi:include href="flt.eq10~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="constant-Q second order peaking equalizer section" name="flt.eq_peak_cq~" ref_view="object">
       <xi:include href="flt.eq_peak_cq~.pddoc" parse="xml"/>
     </entry>

@@ -32,6 +32,7 @@
 - live.capture~ @gate property added, reset method added
 - l->l alias added for lin->lin
 - soundtouch~ pitch argument added
+- flt.eq10~ graphic 10-band (1 octave) equalizer added
 
 ### Changed:
 - data type generation support for list.gen and list.each

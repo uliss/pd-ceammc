@@ -6,6 +6,11 @@ macro(ceammc_flt_extension name)
     ceammc_faust_gen(flt ${name})
 endmacro()
 
+macro(ceammc_flt_obj_ext name)
+    list(APPEND FLT_SOURCES "flt_${name}.h" "flt_${name}.cpp")
+    ceammc_faust_gen_obj(flt ${name})
+endmacro()
+
 ceammc_flt_extension(dcblock)
 ceammc_flt_extension(dcblock2)
 ceammc_flt_extension(highshelf)
@@ -29,6 +34,8 @@ ceammc_flt_extension(c_peak)
 ceammc_flt_extension(c_lowshelf)
 ceammc_flt_extension(c_highshelf)
 ceammc_flt_extension(c_notch)
+
+ceammc_flt_obj_ext(eq10)
 
 add_library(ceammc_flt STATIC mod_flt.h mod_flt.cpp ${FLT_SOURCES})
 set_target_properties(ceammc_flt PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")

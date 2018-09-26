@@ -99,6 +99,7 @@ set(DOC_FILES
     flt.c_peak~
     flt.dcblock2~
     flt.dcblock~
+    flt.eq10~
     flt.eq_peak~
     flt.eq_peak_cq~
     flt.highshelf~
