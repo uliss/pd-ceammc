@@ -462,6 +462,7 @@ class fx_bitdown : public dsp {
 	
  private:
 	
+	FAUSTFLOAT fCheckbox0;
 	FAUSTFLOAT fVslider0;
 	FAUSTFLOAT fVslider1;
 	int iRec1[2];
@@ -472,29 +473,14 @@ class fx_bitdown : public dsp {
 	
 	void metadata(Meta* m) { 
 		m->declare("author", "Viacheslav Lotsmanov (unclechu)");
+		m->declare("basics.lib/name", "Faust Basic Element Library");
+		m->declare("basics.lib/version", "0.0");
 		m->declare("category", "Distortion");
+		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
+		m->declare("ceammc_ui.lib/version", "0.1.1");
 		m->declare("copyright", "(c) Viacheslav Lotsmanov, 2015");
 		m->declare("filename", "fx_bitdown");
-		m->declare("filter.lib/author", "Julius O. Smith (jos at ccrma.stanford.edu)");
-		m->declare("filter.lib/copyright", "Julius O. Smith III");
-		m->declare("filter.lib/deprecated", "This library is deprecated and is not maintained anymore. It will be removed in August 2017.");
-		m->declare("filter.lib/license", "STK-4.3");
-		m->declare("filter.lib/name", "Faust Filter Library");
-		m->declare("filter.lib/reference", "https://ccrma.stanford.edu/~jos/filters/");
-		m->declare("filter.lib/version", "1.29");
 		m->declare("license", "BSD");
-		m->declare("math.lib/author", "GRAME");
-		m->declare("math.lib/copyright", "GRAME");
-		m->declare("math.lib/deprecated", "This library is deprecated and is not maintained anymore. It will be removed in August 2017.");
-		m->declare("math.lib/license", "LGPL with exception");
-		m->declare("math.lib/name", "Math Library");
-		m->declare("math.lib/version", "1.0");
-		m->declare("music.lib/author", "GRAME");
-		m->declare("music.lib/copyright", "GRAME");
-		m->declare("music.lib/deprecated", "This library is deprecated and is not maintained anymore. It will be removed in August 2017.");
-		m->declare("music.lib/license", "LGPL with exception");
-		m->declare("music.lib/name", "Music Library");
-		m->declare("music.lib/version", "1.0");
 		m->declare("name", "BitDowner");
 	}
 
@@ -549,6 +535,7 @@ class fx_bitdown : public dsp {
 	}
 	
 	virtual void instanceResetUserInterface() {
+		fCheckbox0 = FAUSTFLOAT(0.0f);
 		fVslider0 = FAUSTFLOAT(1.0f);
 		fVslider1 = FAUSTFLOAT(16.0f);
 		
@@ -587,6 +574,7 @@ class fx_bitdown : public dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("BitDowner");
 		ui_interface->addVerticalSlider("bits", &fVslider1, 16.0f, 1.0f, 16.0f, 0.100000001f);
+		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->addVerticalSlider("downsamp", &fVslider0, 1.0f, 1.0f, 200.0f, 1.0f);
 		ui_interface->closeBox();
 		
@@ -595,17 +583,19 @@ class fx_bitdown : public dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		int iSlow0 = int(float(fVslider0));
-		int iSlow1 = (iSlow0 > 1);
-		float fSlow2 = std::pow(2.0f, (float(fVslider1) + -1.0f));
-		float fSlow3 = (1.0f / fSlow2);
-		int iSlow4 = (iSlow0 + -1);
+		int iSlow0 = int(float(fCheckbox0));
+		int iSlow1 = int(float(fVslider0));
+		int iSlow2 = (iSlow1 > 1);
+		float fSlow3 = std::pow(2.0f, (float(fVslider1) + -1.0f));
+		float fSlow4 = (1.0f / fSlow3);
+		int iSlow5 = (iSlow1 + -1);
 		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = (fSlow3 * std::floor((fSlow2 * float(input0[i]))));
-			float fTemp1 = ((fTemp0 > 1.0f)?1.0f:((fTemp0 < -1.0f)?-1.0f:fTemp0));
-			iRec1[0] = ((iRec1[1] < iSlow4)?(iRec1[1] + 1):0);
-			fRec0[0] = ((iRec1[0] == 0)?fTemp1:fRec0[1]);
-			output0[i] = FAUSTFLOAT((iSlow1?fRec0[0]:fTemp1));
+			float fTemp0 = float(input0[i]);
+			float fTemp1 = (fSlow4 * std::floor((fSlow3 * (iSlow0?0.0f:fTemp0))));
+			float fTemp2 = ((fTemp1 > 1.0f)?1.0f:((fTemp1 < -1.0f)?-1.0f:fTemp1));
+			iRec1[0] = ((iRec1[1] < iSlow5)?(iRec1[1] + 1):0);
+			fRec0[0] = ((iRec1[0] == 0)?fTemp2:fRec0[1]);
+			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:(iSlow2?fRec0[0]:fTemp2)));
 			iRec1[1] = iRec1[0];
 			fRec0[1] = fRec0[0];
 			

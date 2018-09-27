@@ -114,6 +114,7 @@ set(DOC_FILES
     fluid~
     function
     function.call
+    fx.bitdown~
     fx.chorus~
     fx.distortion~
     fx.echo~

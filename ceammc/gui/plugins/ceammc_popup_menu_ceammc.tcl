@@ -44,9 +44,9 @@
         flt.lpf24~ flt.moog_vcf~ flt.notch~ flt.resonbp~
     }}
     {fx {
-        fx.chorus~ fx.distortion~ fx.drone_box~ fx.echo~ fx.flanger~
-        fx.freeverb2~ fx.freeverb~ fx.freqshift~ fx.greyhole~ fx.looper~
-        fx.pitchshift~ fx.sdelay~ fx.wahwah~ fx.zita_rev1~
+        fx.bitdown~ fx.chorus~ fx.distortion~ fx.drone_box~ fx.echo~
+        fx.flanger~ fx.freeverb2~ fx.freeverb~ fx.freqshift~ fx.greyhole~
+        fx.looper~ fx.pitchshift~ fx.sdelay~ fx.wahwah~ fx.zita_rev1~
     }}
     {global {
         global.dict global.float global.int global.list global.mlist

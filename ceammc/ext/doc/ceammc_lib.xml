@@ -404,6 +404,9 @@
     </entry>
   </category>
   <category name="fx">
+    <entry descr="bit downer and downsampler effect" name="fx.bitdown~" ref_view="object">
+      <xi:include href="fx.bitdown~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Chorus effect" name="fx.chorus~" ref_view="object">
       <xi:include href="fx.chorus~.pddoc" parse="xml"/>
     </entry>
@@ -1328,6 +1331,7 @@
       <author>Serge Poltavsky</author>
       <author>Serge Potlavsky</author>
       <author>Till Bovermann</author>
+      <author>Viacheslav Lotsmanov</author>
       <author>Yann Orlarey</author>
     </authors>
     <xi:include href="ceammc_meta.xml" parse="xml"/>

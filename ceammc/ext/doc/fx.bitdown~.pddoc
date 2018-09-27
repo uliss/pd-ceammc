@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.bitdown~">
+        <title>fx.bitdown~</title>
+        <meta>
+            <authors>
+                <author>Viacheslav Lotsmanov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>bit downer and downsampler effect</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx bits downsample</keywords>
+            <since>0.7</since>
+        </meta>
+        <arguments>
+            <argument name="bits" type="int" minvalue="1" maxvalue="16">number of bits</argument>
+            <argument name="downsamp" type="int" minvalue="1" maxvalue="200" units="sample">number
+            of samples to skip</argument>
+        </arguments>
+        <properties>
+            <property name="@bits" type="int" minvalue="1" maxvalue="16" default="16">output
+            bits</property>
+            <property name="@downsamp" type="int" minvalue="1" maxvalue="200" default="1"
+            units="sample">number samples to skip</property>
+            <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
+            'effected' signal.</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>left channel</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1(
+|
+[expand_env] [F]        [F]
+|            |          |
+[readsf~]    [@bits $1( [@downsamp $1(
+|            |          |
+|            |          |
+|            |          |
+[fx.bitdown~  4 16      ]
+|
+[ui.gain~ @size 120 14] [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

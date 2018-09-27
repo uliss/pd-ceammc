@@ -146,6 +146,7 @@ func
 func.call
 function
 function.call
+fx.bitdown~
 fx.chorus~
 fx.distortion~
 fx.drone_box~
