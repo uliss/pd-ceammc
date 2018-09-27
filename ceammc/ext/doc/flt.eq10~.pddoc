@@ -20,26 +20,26 @@
             <par>One band per octave. 5th-order Butterworth filters</par>
         </info>
         <properties>
-            <property name="@f31" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
-            gain at 31.25Hz</property>
-            <property name="@f62" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
-            gain at 62.5Hz</property>
-            <property name="@f125" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
-            gain at 125Hz</property>
-            <property name="@f250" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
-            gain at 250Hz</property>
-            <property name="@f500" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
-            gain at 500Hz</property>
-            <property name="@f1000" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
-            gain at 1000Hz</property>
-            <property name="@f2000" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
-            gain at 2000Hz</property>
-            <property name="@f4000" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
-            gain at 4000Hz</property>
-            <property name="@f8000" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
-            gain at 8000Hz</property>
-            <property name="@f16000" type="float" minvalue="-70" maxvalue="10" default="0" units="decibel">
-            gain at 16000Hz</property>
+            <property name="@f31" type="float" minvalue="-70" maxvalue="10" default="0"
+            units="decibel">gain at 31.25Hz</property>
+            <property name="@f62" type="float" minvalue="-70" maxvalue="10" default="0"
+            units="decibel">gain at 62.5Hz</property>
+            <property name="@f125" type="float" minvalue="-70" maxvalue="10" default="0"
+            units="decibel">gain at 125Hz</property>
+            <property name="@f250" type="float" minvalue="-70" maxvalue="10" default="0"
+            units="decibel">gain at 250Hz</property>
+            <property name="@f500" type="float" minvalue="-70" maxvalue="10" default="0"
+            units="decibel">gain at 500Hz</property>
+            <property name="@f1000" type="float" minvalue="-70" maxvalue="10" default="0"
+            units="decibel">gain at 1000Hz</property>
+            <property name="@f2000" type="float" minvalue="-70" maxvalue="10" default="0"
+            units="decibel">gain at 2000Hz</property>
+            <property name="@f4000" type="float" minvalue="-70" maxvalue="10" default="0"
+            units="decibel">gain at 4000Hz</property>
+            <property name="@f8000" type="float" minvalue="-70" maxvalue="10" default="0"
+            units="decibel">gain at 8000Hz</property>
+            <property name="@f16000" type="float" minvalue="-70" maxvalue="10" default="0"
+            units="decibel">gain at 16000Hz</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
         </properties>
