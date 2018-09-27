@@ -16,6 +16,7 @@ ceammc_fx_external(freqshift)
 ceammc_fx_external(granulator)
 ceammc_fx_external(wahwah)
 
+ceammc_fx_obj_external(bitdown)
 ceammc_fx_obj_external(chorus)
 ceammc_fx_obj_external(echo)
 ceammc_fx_obj_external(flanger)

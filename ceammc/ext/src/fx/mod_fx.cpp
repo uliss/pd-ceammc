@@ -7,6 +7,7 @@ extern "C" void setup_fx0x2efreqshift_tilde();
 extern "C" void setup_fx0x2egranulator_tilde();
 extern "C" void setup_fx0x2ewahwah_tilde();
 
+extern void setup_fx_bitdown_tilde();
 extern void setup_fx_chorus_tilde();
 extern void setup_fx_echo_tilde();
 extern void setup_fx_flanger_tilde();
@@ -25,6 +26,7 @@ void ceammc_fx_setup()
     setup_fx0x2egranulator_tilde();
     setup_fx0x2ewahwah_tilde();
 
+    setup_fx_bitdown_tilde();
     setup_fx_chorus_tilde();
     setup_fx_echo_tilde();
     setup_fx_flanger_tilde();
