@@ -48,7 +48,7 @@
 |            |          |
 |            |          |
 |            |          |
-[fx.bitdown~  4 16      ]
+[fx.bitdown~  8 12      ]
 |
 [ui.gain~ @size 120 14] [ui.dsp~]
 |\

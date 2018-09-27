@@ -12,7 +12,7 @@
 #X obj 50 176 readsf~;
 #X msg 174 176 @bits \$1;
 #X msg 280 176 @downsamp \$1;
-#X obj 50 234 fx.bitdown~ 4 16;
+#X obj 50 234 fx.bitdown~ 8 12;
 #X obj 50 262 ui.gain~ @size 120 14;
 #X obj 280 262 ui.dsp~;
 #X obj 50 291 dac~;
