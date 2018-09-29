@@ -1,0 +1,9 @@
+gflt.eq_peak~
+gfx.bitdown~
+gfx.chorus~
+gfx.distortion1~
+gfx.distortion~
+gfx.echo~
+gfx.flanger~
+gfx.pitchshift~
+gfx.zita_rev1~

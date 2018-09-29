@@ -266,6 +266,9 @@ echo $CMAKE_DIR
 mkdir -p $CMAKE_DIR
 cp $SRC_DIR/cmake/PdExternal.cmake $CMAKE_DIR
 
+echo "Copying abstractions..."
+cp $SRC_DIR/ceammc/ext/abstractions/*.pd $PD_CEAMMC
+
 echo "Sound fonts..."
 mkdir -p $PD_SF2
 cp $SRC_CEAMMC/extra/sf2/* $PD_SF2

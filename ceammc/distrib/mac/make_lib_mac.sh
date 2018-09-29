@@ -83,6 +83,12 @@ do
     echo "+ Copy: '$help'"
 done
 
+echo "+ Copying abstractions:"
+for abs in ${SRCDIR}/abstractions/*.pd
+do
+    echo "    $(basename $abs)"
+    cp "${abs}" "${OUTDIR}"
+done
 
 echo "+ Copying misc files:"
 echo "    stargazing.mod"
