@@ -486,7 +486,7 @@ public:
 
     void setPropertySave(const char* name, bool value = true)
     {
-        eclass_attr_save(pd_class, name, value);
+        eclass_attr_save(pd_class, name, 0, value);
     }
 
     void setPropertyRedirect(const char* name)

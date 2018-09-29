@@ -450,7 +450,6 @@ void UISliders::setup()
     obj.addProperty("count", _("Sliders count"), 8, &UISliders::prop_count);
     obj.setPropertyRange("count", 1, MAX_SLIDERS_NUM);
     obj.setPropertyAccessor("count", &UISliders::propCount, &UISliders::setPropCount);
-    obj.setPropertySave("count", true);
 
     obj.addProperty("min", _("Minimum Value"), 0, &UISliders::prop_min, "Bounds");
     obj.addProperty("max", _("Maximum Value"), 1, &UISliders::prop_max, "Bounds");

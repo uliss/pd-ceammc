@@ -228,7 +228,7 @@ void eclass_attr_step(t_eclass* c, const char* attrname, float value);
  * \param attrname  The attribute name
  * \param value     The save or not save
  */
-void eclass_attr_save(t_eclass* c, const char* attrname, bool value = true);
+void eclass_attr_save(t_eclass* c, const char* attrname, long flags, bool value = true);
 
 /*!
  * \fn          void eclass_attr_paint(t_eclass* c, const char* attrname, long flags)

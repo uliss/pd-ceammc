@@ -625,7 +625,7 @@ void eclass_attr_step(t_eclass* c, const char* attrname, float value)
     }
 }
 
-void eclass_attr_save(t_eclass* c, const char* attrname, bool value)
+void eclass_attr_save(t_eclass* c, const char* attrname, long flags, bool value)
 {
     t_symbol* s_attrname = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
