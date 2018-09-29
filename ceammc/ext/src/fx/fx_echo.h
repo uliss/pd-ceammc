@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------
-name: "echo"
+name: "fx.echo"
 Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
@@ -497,7 +497,7 @@ class fx_echo : public dsp {
 		m->declare("maths.lib/version", "2.1");
 		m->declare("misceffects.lib/name", "Faust Math Library");
 		m->declare("misceffects.lib/version", "2.0");
-		m->declare("name", "echo");
+		m->declare("name", "fx.echo");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
 	}
@@ -604,11 +604,12 @@ class fx_echo : public dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("echo");
+		ui_interface->openVerticalBox("fx.echo");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("drywet", &fHslider0, 1.0f, 0.0f, 1.0f, 0.00999999978f);
 		ui_interface->addHorizontalSlider("feedback", &fHslider2, 0.300000012f, 0.0f, 0.800000012f, 0.00100000005f);
+		ui_interface->declare(&fHslider1, "unit", "ms");
 		ui_interface->addHorizontalSlider("time", &fHslider1, 500.0f, 10.0f, 10000.0f, 1.0f);
 		ui_interface->closeBox();
 		
