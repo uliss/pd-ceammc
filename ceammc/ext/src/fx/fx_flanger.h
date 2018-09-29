@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------
-name: "fx_flanger"
+name: "fx.flanger"
 Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
@@ -464,24 +464,22 @@ class fx_flanger : public dsp {
 	int iVec0[2];
 	FAUSTFLOAT fHslider0;
 	float fRec0[2];
+	FAUSTFLOAT fCheckbox1;
+	FAUSTFLOAT fHslider1;
+	float fRec2[2];
+	int IOTA;
+	float fVec1[4096];
 	int fSamplingFreq;
 	float fConst0;
 	float fConst1;
-	FAUSTFLOAT fHslider1;
 	FAUSTFLOAT fHslider2;
-	float fConst2;
 	FAUSTFLOAT fHslider3;
-	float fRec3[2];
-	float fRec4[2];
-	float fRec2[2];
+	float fConst2;
 	FAUSTFLOAT fHslider4;
+	float fRec4[2];
 	float fRec5[2];
-	int IOTA;
-	float fVec1[4096];
+	float fRec3[2];
 	float fRec1[2];
-	FAUSTFLOAT fCheckbox1;
-	FAUSTFLOAT fHslider5;
-	float fRec6[2];
 	
  public:
 	
@@ -502,7 +500,7 @@ class fx_flanger : public dsp {
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
 		m->declare("maths.lib/version", "2.1");
-		m->declare("name", "fx_flanger");
+		m->declare("name", "fx.flanger");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
 		m->declare("oscillators.lib/version", "0.0");
 		m->declare("phaflangers.lib/name", "Faust Phaser and Flanger Library");
@@ -567,12 +565,11 @@ class fx_flanger : public dsp {
 	virtual void instanceResetUserInterface() {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(1.0f);
-		fHslider1 = FAUSTFLOAT(1.0f);
-		fHslider2 = FAUSTFLOAT(10.0f);
-		fHslider3 = FAUSTFLOAT(0.5f);
-		fHslider4 = FAUSTFLOAT(0.0f);
 		fCheckbox1 = FAUSTFLOAT(0.0f);
-		fHslider5 = FAUSTFLOAT(1.0f);
+		fHslider1 = FAUSTFLOAT(0.0f);
+		fHslider2 = FAUSTFLOAT(1.0f);
+		fHslider3 = FAUSTFLOAT(10.0f);
+		fHslider4 = FAUSTFLOAT(0.5f);
 		
 	}
 	
@@ -586,32 +583,28 @@ class fx_flanger : public dsp {
 			
 		}
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
-			fRec3[l2] = 0.0f;
+			fRec2[l2] = 0.0f;
 			
 		}
-		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
-			fRec4[l3] = 0.0f;
+		IOTA = 0;
+		for (int l3 = 0; (l3 < 4096); l3 = (l3 + 1)) {
+			fVec1[l3] = 0.0f;
 			
 		}
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
-			fRec2[l4] = 0.0f;
+			fRec4[l4] = 0.0f;
 			
 		}
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
 			fRec5[l5] = 0.0f;
 			
 		}
-		IOTA = 0;
-		for (int l6 = 0; (l6 < 4096); l6 = (l6 + 1)) {
-			fVec1[l6] = 0.0f;
+		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
+			fRec3[l6] = 0.0f;
 			
 		}
 		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
 			fRec1[l7] = 0.0f;
-			
-		}
-		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
-			fRec6[l8] = 0.0f;
 			
 		}
 		
@@ -636,24 +629,22 @@ class fx_flanger : public dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("fx_flanger");
+		ui_interface->openVerticalBox("fx.flanger");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
-		ui_interface->declare(&fHslider2, "style", "knob");
-		ui_interface->declare(&fHslider2, "unit", "ms");
-		ui_interface->addHorizontalSlider("delay", &fHslider2, 10.0f, 0.0f, 20.0f, 0.00100000005f);
+		ui_interface->declare(&fHslider3, "style", "knob");
+		ui_interface->declare(&fHslider3, "unit", "ms");
+		ui_interface->addHorizontalSlider("delay", &fHslider3, 10.0f, 0.0f, 20.0f, 0.00100000005f);
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("drywet", &fHslider0, 1.0f, 0.0f, 1.0f, 0.00999999978f);
-		ui_interface->declare(&fHslider5, "style", "knob");
-		ui_interface->addHorizontalSlider("drywet", &fHslider5, 1.0f, 0.0f, 1.0f, 0.00100000005f);
-		ui_interface->declare(&fHslider4, "style", "knob");
-		ui_interface->addHorizontalSlider("feedback", &fHslider4, 0.0f, -0.999000013f, 0.999000013f, 0.00100000005f);
-		ui_interface->addCheckButton("invert", &fCheckbox1);
 		ui_interface->declare(&fHslider1, "style", "knob");
-		ui_interface->declare(&fHslider1, "unit", "ms");
-		ui_interface->addHorizontalSlider("offset", &fHslider1, 1.0f, 0.0f, 20.0f, 0.00100000005f);
-		ui_interface->declare(&fHslider3, "style", "knob");
-		ui_interface->declare(&fHslider3, "unit", "Hz");
-		ui_interface->addHorizontalSlider("speed", &fHslider3, 0.5f, 0.0f, 10.0f, 0.00999999978f);
+		ui_interface->addHorizontalSlider("feedback", &fHslider1, 0.0f, -0.999000013f, 0.999000013f, 0.00100000005f);
+		ui_interface->addCheckButton("invert", &fCheckbox1);
+		ui_interface->declare(&fHslider2, "style", "knob");
+		ui_interface->declare(&fHslider2, "unit", "ms");
+		ui_interface->addHorizontalSlider("offset", &fHslider2, 1.0f, 0.0f, 20.0f, 0.00100000005f);
+		ui_interface->declare(&fHslider4, "style", "knob");
+		ui_interface->declare(&fHslider4, "unit", "Hz");
+		ui_interface->addHorizontalSlider("speed", &fHslider4, 0.5f, 0.0f, 10.0f, 0.00999999978f);
 		ui_interface->closeBox();
 		
 	}
@@ -663,40 +654,37 @@ class fx_flanger : public dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		int iSlow0 = int(float(fCheckbox0));
 		float fSlow1 = (0.00100000005f * float(fHslider0));
-		float fSlow2 = (0.00100000005f * float(fHslider1));
-		float fSlow3 = (0.000500000024f * float(fHslider2));
-		float fSlow4 = (fConst2 * float(fHslider3));
-		float fSlow5 = std::sin(fSlow4);
-		float fSlow6 = std::cos(fSlow4);
-		float fSlow7 = (0.0f - fSlow5);
-		float fSlow8 = (0.00100000005f * float(fHslider4));
-		int iSlow9 = int(float(fCheckbox1));
-		float fSlow10 = (0.00100000005f * float(fHslider5));
+		int iSlow2 = (int(float(fCheckbox1))?-1:1);
+		float fSlow3 = (0.00100000005f * float(fHslider1));
+		float fSlow4 = (0.00100000005f * float(fHslider2));
+		float fSlow5 = (0.000500000024f * float(fHslider3));
+		float fSlow6 = (fConst2 * float(fHslider4));
+		float fSlow7 = std::sin(fSlow6);
+		float fSlow8 = std::cos(fSlow6);
+		float fSlow9 = (0.0f - fSlow7);
 		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = float(input0[i]);
-			float fTemp1 = (iSlow0?0.0f:fTemp0);
 			iVec0[0] = 1;
 			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
-			fRec3[0] = ((fSlow5 * fRec4[1]) + (fSlow6 * fRec3[1]));
-			fRec4[0] = (((fSlow6 * fRec4[1]) + (fSlow7 * fRec3[1])) + float((1 - iVec0[1])));
-			fRec2[0] = ((0.999000013f * fRec2[1]) + (fConst1 * (fSlow2 + (fSlow3 * (fRec3[0] + 1.0f)))));
-			float fTemp2 = std::floor(fRec2[0]);
-			fRec5[0] = (fSlow8 + (0.999000013f * fRec5[1]));
-			float fTemp3 = ((fRec1[1] * fRec5[0]) - fTemp1);
-			fVec1[(IOTA & 4095)] = fTemp3;
-			int iTemp4 = int(fRec2[0]);
-			fRec1[0] = (((fTemp2 + (1.0f - fRec2[0])) * fVec1[((IOTA - std::min(2049, std::max(0, iTemp4))) & 4095)]) + ((fRec2[0] - fTemp2) * fVec1[((IOTA - std::min(2049, std::max(0, (iTemp4 + 1)))) & 4095)]));
-			fRec6[0] = (fSlow10 + (0.999000013f * fRec6[1]));
-			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:((fTemp1 * (1.0f - fRec0[0])) + (0.5f * (fRec0[0] * (fTemp1 + (fRec1[0] * (iSlow9?(0.0f - fRec6[0]):fRec6[0]))))))));
+			float fTemp0 = float(input0[i]);
+			float fTemp1 = (iSlow0?0.0f:fTemp0);
+			fRec2[0] = (fSlow3 + (0.999000013f * fRec2[1]));
+			float fTemp2 = ((fRec1[1] * fRec2[0]) - fTemp1);
+			fVec1[(IOTA & 4095)] = fTemp2;
+			fRec4[0] = ((fSlow7 * fRec5[1]) + (fSlow8 * fRec4[1]));
+			fRec5[0] = (((fSlow8 * fRec5[1]) + (fSlow9 * fRec4[1])) + float((1 - iVec0[1])));
+			fRec3[0] = ((0.999000013f * fRec3[1]) + (fConst1 * (fSlow4 + (fSlow5 * (fRec4[0] + 1.0f)))));
+			int iTemp3 = int(fRec3[0]);
+			float fTemp4 = std::floor(fRec3[0]);
+			fRec1[0] = ((fVec1[((IOTA - std::min(2049, std::max(0, iTemp3))) & 4095)] * (fTemp4 + (1.0f - fRec3[0]))) + ((fRec3[0] - fTemp4) * fVec1[((IOTA - std::min(2049, std::max(0, (iTemp3 + 1)))) & 4095)]));
+			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:(((1.0f - fRec0[0]) * fTemp1) + (0.5f * (fRec0[0] * ((float(iSlow2) * fRec1[0]) + fTemp1))))));
 			iVec0[1] = iVec0[0];
 			fRec0[1] = fRec0[0];
-			fRec3[1] = fRec3[0];
-			fRec4[1] = fRec4[0];
 			fRec2[1] = fRec2[0];
-			fRec5[1] = fRec5[0];
 			IOTA = (IOTA + 1);
+			fRec4[1] = fRec4[0];
+			fRec5[1] = fRec5[0];
+			fRec3[1] = fRec3[0];
 			fRec1[1] = fRec1[0];
-			fRec6[1] = fRec6[0];
 			
 		}
 		
