@@ -1,0 +1,187 @@
+{
+	"name": "fx.distortion2",
+	"filename": "fx_distortion2",
+	"version": "2.8.5",
+	"compile_options": "cpp, -scal -ftz 0",
+	"library_list": ["/Users/serj/work/music/pd-exp/pure-data/ceammc/faust/guitarix.lib","/usr/local/share/faust/filter.lib","/usr/local/share/faust/music.lib","/usr/local/share/faust/math.lib","/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/misceffects.lib","/Users/serj/work/music/pd-exp/pure-data/ceammc/faust/HighShelf.dsp","/usr/local/share/faust/maxmsp.lib","/usr/local/share/faust/signals.lib"],
+	"include_pathnames": ["/Users/serj/work/music/pd-exp/pure-data/ceammc/faust","/usr/local/share/faust","/usr/share/faust"],
+	"inputs": "1",
+	"outputs": "1",
+	"meta": [ 
+		{ "HighShelf.dsp/id": "HighShelf" },
+		{ "author": "brummer" },
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/version": "0.0" },
+		{ "copyright": "(c)brummer 2008" },
+		{ "filename": "fx_distortion2" },
+		{ "filter.lib/author": "Julius O. Smith (jos at ccrma.stanford.edu)" },
+		{ "filter.lib/copyright": "Julius O. Smith III" },
+		{ "filter.lib/deprecated": "This library is deprecated and is not maintained anymore. It will be removed in August 2017." },
+		{ "filter.lib/license": "STK-4.3" },
+		{ "filter.lib/name": "Faust Filter Library" },
+		{ "filter.lib/reference": "https://ccrma.stanford.edu/~jos/filters/" },
+		{ "filter.lib/version": "1.29" },
+		{ "filters.lib/name": "Faust Filters Library" },
+		{ "filters.lib/version": "0.0" },
+		{ "license": "BSD" },
+		{ "math.lib/author": "GRAME" },
+		{ "math.lib/copyright": "GRAME" },
+		{ "math.lib/deprecated": "This library is deprecated and is not maintained anymore. It will be removed in August 2017." },
+		{ "math.lib/license": "LGPL with exception" },
+		{ "math.lib/name": "Math Library" },
+		{ "math.lib/version": "1.0" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.1" },
+		{ "maxmsp.lib/author": "GRAME" },
+		{ "maxmsp.lib/copyright": "GRAME" },
+		{ "maxmsp.lib/license": "LGPL" },
+		{ "maxmsp.lib/name": "MaxMSP compatibility Library" },
+		{ "maxmsp.lib/version": "1.1" },
+		{ "misceffects.lib/name": "Faust Math Library" },
+		{ "misceffects.lib/version": "2.0" },
+		{ "music.lib/author": "GRAME" },
+		{ "music.lib/copyright": "GRAME" },
+		{ "music.lib/deprecated": "This library is deprecated and is not maintained anymore. It will be removed in August 2017." },
+		{ "music.lib/license": "LGPL with exception" },
+		{ "music.lib/name": "Music Library" },
+		{ "music.lib/version": "1.0" },
+		{ "name": "fx.distortion2" },
+		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/version": "0.0" },
+		{ "version": "0.01" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "fx.distortion2",
+			"items": [ 
+				{
+					"type": "vslider",
+					"label": "drive",
+					"address": "/fx.distortion2/drive",
+					"init": "0.64",
+					"min": "0",
+					"max": "1",
+					"step": "0.01"
+				},
+				{
+					"type": "vslider",
+					"label": "gain",
+					"address": "/fx.distortion2/gain",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"init": "2",
+					"min": "-10",
+					"max": "10",
+					"step": "0.1"
+				},
+				{
+					"type": "vslider",
+					"label": "level",
+					"address": "/fx.distortion2/level",
+					"init": "0.01",
+					"min": "0",
+					"max": "0.5",
+					"step": "0.01"
+				},
+				{
+					"type": "hgroup",
+					"label": "low_highcutoff",
+					"items": [ 
+						{
+							"type": "vslider",
+							"label": "sp_high_freq",
+							"address": "/fx.distortion2/low_highcutoff/sp_high_freq",
+							"meta": [
+								{ "unit": "Hz" }
+							],
+							"init": "5000",
+							"min": "1000",
+							"max": "12000",
+							"step": "10"
+						},
+						{
+							"type": "vslider",
+							"label": "sp_low_freq",
+							"address": "/fx.distortion2/low_highcutoff/sp_low_freq",
+							"meta": [
+								{ "unit": "Hz" }
+							],
+							"init": "130",
+							"min": "20",
+							"max": "1000",
+							"step": "10"
+						},
+						{
+							"type": "checkbox",
+							"label": "sp_on_off",
+							"address": "/fx.distortion2/low_highcutoff/sp_on_off"
+						}
+					]
+				},
+				{
+					"type": "hgroup",
+					"label": "low_highpass",
+					"items": [ 
+						{
+							"type": "nentry",
+							"label": "lh_high_freq",
+							"address": "/fx.distortion2/low_highpass/lh_high_freq",
+							"meta": [
+								{ "unit": "Hz" }
+							],
+							"init": "130",
+							"min": "20",
+							"max": "7040",
+							"step": "10"
+						},
+						{
+							"type": "nentry",
+							"label": "lh_low_freq",
+							"address": "/fx.distortion2/low_highpass/lh_low_freq",
+							"meta": [
+								{ "unit": "Hz" }
+							],
+							"init": "5000",
+							"min": "20",
+							"max": "12000",
+							"step": "10"
+						},
+						{
+							"type": "checkbox",
+							"label": "lh_on_off",
+							"address": "/fx.distortion2/low_highpass/lh_on_off"
+						}
+					]
+				},
+				{
+					"type": "checkbox",
+					"label": "res_on_off",
+					"address": "/fx.distortion2/res_on_off"
+				},
+				{
+					"type": "vslider",
+					"label": "trigger",
+					"address": "/fx.distortion2/trigger",
+					"init": "0.12",
+					"min": "0",
+					"max": "1",
+					"step": "0.01"
+				},
+				{
+					"type": "vslider",
+					"label": "vibrato",
+					"address": "/fx.distortion2/vibrato",
+					"init": "1",
+					"min": "0",
+					"max": "1",
+					"step": "0.01"
+				}
+			]
+		}
+	]
+}
