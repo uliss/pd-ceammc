@@ -12,7 +12,6 @@ extern "C" void setup_flt0x2ec_notch_tilde();
 extern "C" void setup_flt0x2ec_peak_tilde();
 extern "C" void setup_flt0x2edcblock2_tilde();
 extern "C" void setup_flt0x2edcblock_tilde();
-extern "C" void setup_flt0x2eeq_peak_tilde();
 extern "C" void setup_flt0x2eeq_peak_cq_tilde();
 extern "C" void setup_flt0x2ehighshelf_tilde();
 extern "C" void setup_flt0x2ehpf12_tilde();
@@ -25,6 +24,7 @@ extern "C" void setup_flt0x2eresonbp_tilde();
 extern "C" void setup_flt0x2emoog_vcf_tilde();
 
 extern void setup_flt_eq10_tilde();
+extern void setup_flt_eq_peak_tilde();
 
 void ceammc_flt_setup()
 {
@@ -40,7 +40,6 @@ void ceammc_flt_setup()
     setup_flt0x2ec_peak_tilde();
     setup_flt0x2edcblock2_tilde();
     setup_flt0x2edcblock_tilde();
-    setup_flt0x2eeq_peak_tilde();
     setup_flt0x2eeq_peak_cq_tilde();
     setup_flt0x2ehighshelf_tilde();
     setup_flt0x2ehpf12_tilde();
@@ -53,4 +52,5 @@ void ceammc_flt_setup()
     setup_flt0x2emoog_vcf_tilde();
 
     setup_flt_eq10_tilde();
+    setup_flt_eq_peak_tilde();
 }

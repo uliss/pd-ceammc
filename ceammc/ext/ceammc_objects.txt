@@ -148,6 +148,7 @@ function
 function.call
 fx.bitdown~
 fx.chorus~
+fx.distortion1~
 fx.distortion~
 fx.drone_box~
 fx.echo~
