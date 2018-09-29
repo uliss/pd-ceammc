@@ -1,4 +1,4 @@
-declare name "chorus -- chorus effect";
+declare name "fx.chorus";
 declare author "Albert Graef";
 declare version "1.0";
 

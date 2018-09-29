@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 author: "Albert Graef"
-name: "chorus -- chorus effect"
+name: "fx.chorus"
 version: "1.0"
 Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
@@ -566,7 +566,7 @@ class fx_chorus : public dsp {
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
 		m->declare("maths.lib/version", "2.1");
-		m->declare("name", "chorus -- chorus effect");
+		m->declare("name", "fx.chorus");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
 		m->declare("version", "1.0");
@@ -686,7 +686,7 @@ class fx_chorus : public dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("chorus -- chorus effect");
+		ui_interface->openVerticalBox("fx.chorus");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->declare(&fHslider1, "unit", "ms");
 		ui_interface->addHorizontalSlider("delay", &fHslider1, 25.0f, 0.0f, 200.0f, 0.00100000005f);
