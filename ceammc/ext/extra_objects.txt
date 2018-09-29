@@ -191,3 +191,12 @@ zconf.domains
 zconf.meta
 zconf.resolve
 zconf.service
+gflt.eq_peak~.pd
+gfx.bitdown~.pd
+gfx.chorus~.pd
+gfx.distortion1~.pd
+gfx.distortion~.pd
+gfx.echo~.pd
+gfx.flanger~.pd
+gfx.pitchshift~.pd
+gfx.zita_rev1~.pd
