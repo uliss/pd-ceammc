@@ -1,12 +1,21 @@
 #include "fx_distortion.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
+using namespace ceammc;
+
+static t_symbol* SYM_PROP_DRIVE = gensym("drive");
+static t_symbol* SYM_PROP_OFFSET = gensym("offset");
+
+class FxDistortion : public faust_fx_distortion_tilde {
+public:
+    FxDistortion(const PdArgs& args)
+        : faust_fx_distortion_tilde(args)
+    {
+        bindPositionalArgsToProps({ SYM_PROP_DRIVE, SYM_PROP_OFFSET });
+    }
+};
+
+void setup_fx_distortion_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-    PdArgParser p(x, argc, argv);
-    p.initFloatArg("drive", 1);
-    p.initFloatArg("offset", 2);
-    return p.pd_obj();
+    SoundExternalFactory<FxDistortion> obj("fx.distortion~");
 }
-
-EXTERNAL_SETUP(fx);
