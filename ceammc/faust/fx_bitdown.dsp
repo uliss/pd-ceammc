@@ -1,4 +1,4 @@
-declare name      "BitDowner";
+declare name      "fx.bitdown";
 declare category  "Distortion";
 declare author    "Viacheslav Lotsmanov (unclechu)";
 declare license   "BSD";

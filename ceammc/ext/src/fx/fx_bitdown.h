@@ -2,7 +2,7 @@
 author: "Viacheslav Lotsmanov (unclechu)"
 copyright: "(c) Viacheslav Lotsmanov, 2015"
 license: "BSD"
-name: "BitDowner"
+name: "fx.bitdown"
 Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
@@ -481,7 +481,7 @@ class fx_bitdown : public dsp {
 		m->declare("copyright", "(c) Viacheslav Lotsmanov, 2015");
 		m->declare("filename", "fx_bitdown");
 		m->declare("license", "BSD");
-		m->declare("name", "BitDowner");
+		m->declare("name", "fx.bitdown");
 	}
 
 	virtual int getNumInputs() {
@@ -572,7 +572,7 @@ class fx_bitdown : public dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("BitDowner");
+		ui_interface->openVerticalBox("fx.bitdown");
 		ui_interface->addVerticalSlider("bits", &fVslider1, 16.0f, 1.0f, 16.0f, 0.100000001f);
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->addVerticalSlider("downsamp", &fVslider0, 1.0f, 1.0f, 200.0f, 1.0f);
