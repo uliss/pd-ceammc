@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------
-name: "fx_pitchshift"
+name: "fx.pitchshift"
 Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
@@ -494,7 +494,7 @@ class fx_pitchshift : public dsp {
 		m->declare("maths.lib/version", "2.1");
 		m->declare("misceffects.lib/name", "Faust Math Library");
 		m->declare("misceffects.lib/version", "2.0");
-		m->declare("name", "fx_pitchshift");
+		m->declare("name", "fx.pitchshift");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
 	}
@@ -601,12 +601,14 @@ class fx_pitchshift : public dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("fx_pitchshift");
+		ui_interface->openVerticalBox("fx.pitchshift");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("drywet", &fHslider0, 1.0f, 0.0f, 1.0f, 0.00999999978f);
+		ui_interface->declare(&fVslider2, "unit", "ms");
 		ui_interface->addVerticalSlider("fade", &fVslider2, 100.0f, 0.0f, 1000.0f, 0.100000001f);
 		ui_interface->addVerticalSlider("pitch", &fVslider1, 0.0f, -38.0f, 60.0f, 0.00100000005f);
+		ui_interface->declare(&fVslider0, "unit", "ms");
 		ui_interface->addVerticalSlider("window", &fVslider0, 200.0f, 10.0f, 2000.0f, 0.100000001f);
 		ui_interface->closeBox();
 		
