@@ -8,7 +8,6 @@ BP(block) = bypass(checkbox("ON"), block);
 copysign = ffunction(float copysign(float,float), <math.h>, "");
 
 anti_denormal = pow(10,-20);
-//add_dc = +(anti_denormal);
 add_dc = +(anti_denormal);
 anti_denormal_ac = 1 - 1' : *(anti_denormal) : + ~ *(-1);
 
@@ -130,39 +129,7 @@ eqfilter(Q,F,G)	= TF2(  (1 +  K/Q + K*K) 	/ D,
 
 ifilter(Q,F,G) = eqfilter(Q,F,1/G);
 
-
-/****************************************************************
-** backward compatible faust library definitions, may removed when
-** the good versions in wafscript where updated
-*/
-
-
-//----- Flanging effect renamed in faust-0.9.27 from
-//----- flangermono -> flanger_mono
-//----- flangerstereo -> flanger_stereo
-
-flangermonoN(dmax,curdel,depth,fb,invert)
-  = _ <: _, (-:fdelay(dmax,curdel)) ~ *(fb) : _, 
-  *(select2(invert,depth,0-depth)) 
-  : + : *(0.5);
-
-flangerstereoN(dmax,curdel1,curdel2,depth,fb,invert)
-  =  flangermonoN(dmax,curdel1,depth,fb,invert),
-     flangermonoN(dmax,curdel2,depth,fb,invert);
-
-//----- Moog "Voltage Controlled Filter" (VCF)
-//----- filter renamed in faust-0.9.27 from
-//----- moogvcf -> moog_vcf
-
-import("filter.lib");
-
-moogvcfN(Q,fr)  = (+ : pole(p) : pole(p) 
-                   : pole(p) : pole(p) : *(scale(p))) ~ *(mk)
-with {
-     p = 1.0 - fr * 2.0 * PI / SR; // approx for fr << SR
-     scale(p) = pow(1-p,4);
-     mk = 0-Q;
-};
+//fi = library("filters.lib");
 
 
 /****************************************************************
