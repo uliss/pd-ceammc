@@ -6,6 +6,7 @@ set(BASE_SOURCES
     function_call.cpp
     load_msg.cpp
     msg.cpp
+    msg_after.cpp
     obj_info.cpp
     prop.get.cpp
     prop.set.cpp
