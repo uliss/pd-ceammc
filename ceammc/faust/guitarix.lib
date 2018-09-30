@@ -1,4 +1,6 @@
 /* -*- faust -*- */
+ma = library("maths.lib");
+
 /****************************************************************
 ** helper definitions
 */
@@ -18,7 +20,6 @@ sym_clip(thr) = clip(-thr,thr);
 
 balance(b) = *(1 - max(0, b)), *(1 - max(0, -b));
 wet_dry_mix(w, Fx) = _ <: _, Fx : balance(w) : +;
-
 
 /****************************************************************
 ** nonlinear functions
@@ -122,7 +123,7 @@ eqfilter(Q,F,G)	= TF2(  (1 +  K/Q + K*K) 	/ D,
 						(1 - G*K/Q + K*K) 	/ D
 					 )
 		with {
-				K = tan(PI*F/SR);
+                K = tan(ma.PI*F/SR);
 				D = 1 + G*K/Q + K*K;
 		};
 
@@ -168,7 +169,7 @@ balance_ctrl = environment {
 
 vibe_lfo_ctrl = environment {
     freq = vslider(".univibe.freq[name:Tempo][tooltip:LFO frequency (Hz)][alias]", 4.4, 0.1, 10, 0.1) * 16;
-    phase = vslider(".univibe.stereo[name:St.df][tooltip:LFO phase shift between left and right channels][alias]", 0.11, -0.5, 0.5, 0.01) * 2 * PI;
+    phase = vslider(".univibe.stereo[name:St.df][tooltip:LFO phase shift between left and right channels][alias]", 0.11, -0.5, 0.5, 0.01) * 2 * ma.PI;
 };
 
 vibe_mono_lfo_ctrl = environment {

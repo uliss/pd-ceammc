@@ -491,8 +491,7 @@ class fx_distortion2 : public dsp {
 	float fRec12[2];
 	FAUSTFLOAT fCheckbox2;
 	FAUSTFLOAT fVslider4;
-	int IOTA;
-	float fVec1[4096];
+	float fVec1[2];
 	FAUSTFLOAT fVslider5;
 	float fRec13[2];
 	float fVec2[2];
@@ -527,23 +526,12 @@ class fx_distortion2 : public dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.0");
 		m->declare("copyright", "(c)brummer 2008");
+		m->declare("delays.lib/name", "Faust Delay Library");
+		m->declare("delays.lib/version", "0.0");
 		m->declare("filename", "fx_distortion2");
-		m->declare("filter.lib/author", "Julius O. Smith (jos at ccrma.stanford.edu)");
-		m->declare("filter.lib/copyright", "Julius O. Smith III");
-		m->declare("filter.lib/deprecated", "This library is deprecated and is not maintained anymore. It will be removed in August 2017.");
-		m->declare("filter.lib/license", "STK-4.3");
-		m->declare("filter.lib/name", "Faust Filter Library");
-		m->declare("filter.lib/reference", "https://ccrma.stanford.edu/~jos/filters/");
-		m->declare("filter.lib/version", "1.29");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/version", "0.0");
 		m->declare("license", "BSD");
-		m->declare("math.lib/author", "GRAME");
-		m->declare("math.lib/copyright", "GRAME");
-		m->declare("math.lib/deprecated", "This library is deprecated and is not maintained anymore. It will be removed in August 2017.");
-		m->declare("math.lib/license", "LGPL with exception");
-		m->declare("math.lib/name", "Math Library");
-		m->declare("math.lib/version", "1.0");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
@@ -556,12 +544,6 @@ class fx_distortion2 : public dsp {
 		m->declare("maxmsp.lib/version", "1.1");
 		m->declare("misceffects.lib/name", "Faust Math Library");
 		m->declare("misceffects.lib/version", "2.0");
-		m->declare("music.lib/author", "GRAME");
-		m->declare("music.lib/copyright", "GRAME");
-		m->declare("music.lib/deprecated", "This library is deprecated and is not maintained anymore. It will be removed in August 2017.");
-		m->declare("music.lib/license", "LGPL with exception");
-		m->declare("music.lib/name", "Music Library");
-		m->declare("music.lib/version", "1.0");
 		m->declare("name", "fx.distortion2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
@@ -657,8 +639,7 @@ class fx_distortion2 : public dsp {
 			fRec12[l1] = 0.0f;
 			
 		}
-		IOTA = 0;
-		for (int l2 = 0; (l2 < 4096); l2 = (l2 + 1)) {
+		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fVec1[l2] = 0.0f;
 			
 		}
@@ -811,8 +792,8 @@ class fx_distortion2 : public dsp {
 		int iSlow19 = int(float(fCheckbox2));
 		float fSlow20 = (1.0f - float(fVslider4));
 		float fSlow21 = float(fVslider5);
-		int iSlow22 = (int((fSlow21 + -1.0f)) & 4095);
-		int iSlow23 = (int(fSlow21) & 4095);
+		int iSlow22 = int(std::min(4096.0f, std::max(0.0f, (fSlow21 + -1.0f))));
+		int iSlow23 = int(std::min(4096.0f, std::max(0.0f, fSlow21)));
 		float fSlow24 = (0.0f - fSlow11);
 		float fSlow25 = (((fSlow2 + -1.84775901f) / fSlow1) + 1.0f);
 		float fSlow26 = (2.0f * (1.0f - (1.0f / fx_distortion2_faustpower2_f(fSlow1))));
@@ -823,21 +804,21 @@ class fx_distortion2 : public dsp {
 			fRec12[0] = ((9.99999968e-21f * float((1 - iVec0[1]))) - fRec12[1]);
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (fTemp0 + (fSlow20 * fRec13[1]));
-			fVec1[(IOTA & 4095)] = fTemp1;
-			fRec13[0] = (0.5f * (fVec1[((IOTA - iSlow22) & 4095)] + fVec1[((IOTA - iSlow23) & 4095)]));
+			fVec1[0] = fTemp1;
+			fRec13[0] = (0.5f * (fVec1[iSlow22] + fVec1[iSlow23]));
 			float fTemp2 = (fRec12[0] + (iSlow19?fRec13[0]:fTemp0));
 			float fTemp3 = (fRec12[0] + (iSlow10?0.0f:fTemp2));
 			fVec2[0] = fTemp3;
 			fRec11[0] = ((fSlow17 * fRec11[1]) + (fSlow18 * (fTemp3 + fVec2[1])));
 			fRec10[0] = ((fSlow13 * fRec10[1]) + (fSlow14 * ((fSlow11 * fRec11[0]) + (fSlow24 * fRec11[1]))));
 			float fTemp4 = ((iSlow10?fTemp2:fRec10[0]) + 9.99999968e-21f);
-			float fTemp5 = (iSlow0?0.0f:fTemp4);
-			fVec3[0] = (fSlow6 * (fRec12[0] + fTemp5));
-			fRec9[0] = ((fSlow6 * (fTemp5 + ((fSlow7 * fRec9[1]) + fRec12[0]))) - fVec3[1]);
+			float fTemp5 = ((iSlow0?0.0f:fTemp4) + fRec12[0]);
+			fVec3[0] = (fSlow6 * fTemp5);
+			fRec9[0] = ((fSlow6 * (fTemp5 + (fSlow7 * fRec9[1]))) - fVec3[1]);
 			fVec4[0] = (fSlow6 * fRec9[0]);
 			fRec8[0] = ((fSlow6 * ((fSlow7 * fRec8[1]) + fRec9[0])) - fVec4[1]);
 			fRec7[0] = (fRec8[0] - (fSlow4 * ((fSlow25 * fRec7[2]) + (fSlow26 * fRec7[1]))));
-			fRec6[0] = ((fSlow4 * (fRec7[0] + (fRec7[2] + (2.0f * fRec7[1])))) - (fSlow3 * ((fSlow26 * fRec6[1]) + (fSlow27 * fRec6[2]))));
+			fRec6[0] = ((fSlow4 * ((fRec7[2] + (2.0f * fRec7[1])) + fRec7[0])) - (fSlow3 * ((fSlow27 * fRec6[2]) + (fSlow26 * fRec6[1]))));
 			fRec5[0] = ((iSlow0?fTemp4:(fSlow3 * (fRec6[0] + (fRec6[2] + (2.0f * fRec6[1]))))) - (fConst7 * ((fConst10 * fRec5[2]) + (fConst11 * fRec5[1]))));
 			float fTemp6 = std::max(-1.0f, std::min(1.0f, (fSlow8 + (fSlow9 * ((fConst9 * fRec5[1]) + (0.316227764f * ((fConst12 * fRec5[0]) + (fConst13 * fRec5[2]))))))));
 			fRec14[0] = (fSlow28 + (0.999000013f * fRec14[1]));
@@ -849,11 +830,11 @@ class fx_distortion2 : public dsp {
 			fVec6[0] = (fSlow6 * fRec3[0]);
 			fRec2[0] = ((fSlow6 * ((fSlow7 * fRec2[1]) + fRec3[0])) - fVec6[1]);
 			fRec1[0] = (fRec2[0] - (fSlow4 * ((fSlow25 * fRec1[2]) + (fSlow26 * fRec1[1]))));
-			fRec0[0] = ((fSlow4 * (fRec1[0] + (fRec1[2] + (2.0f * fRec1[1])))) - (fSlow3 * ((fSlow26 * fRec0[1]) + (fSlow27 * fRec0[2]))));
+			fRec0[0] = ((fSlow4 * (fRec1[0] + (fRec1[2] + (2.0f * fRec1[1])))) - (fSlow3 * ((fSlow27 * fRec0[2]) + (fSlow26 * fRec0[1]))));
 			output0[i] = FAUSTFLOAT((iSlow0?fTemp7:(fSlow3 * (fRec0[2] + (fRec0[0] + (2.0f * fRec0[1]))))));
 			iVec0[1] = iVec0[0];
 			fRec12[1] = fRec12[0];
-			IOTA = (IOTA + 1);
+			fVec1[1] = fVec1[0];
 			fRec13[1] = fRec13[0];
 			fVec2[1] = fVec2[0];
 			fRec11[1] = fRec11[0];

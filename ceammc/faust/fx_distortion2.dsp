@@ -24,13 +24,13 @@ pass         = hgroup("low_highpass", ba.bypass1(switch, passo));
 
 //-distortion
 drivelevel   = vslider("level", 0.01, 0, 0.5, 0.01);
-drivegain1   = vslider("gain [unit:db]", 2, -10, 10, 0.1)-10 : db2linear : si.smoo;
+drivegain1   = vslider("gain [unit:db]", 2, -10, 10, 0.1)-10 : ba.db2linear : si.smoo;
 drive        = vslider("drive", 0.64, 0, 1, 0.01);
 distortion   = ef.cubicnl(drive, drivelevel);
 
 //-resonator
 switch2      = checkbox("res_on_off");
-resonator = (+ <: (delay(4096, d-1) + delay(4096, d)) / 2) ~ *(1.0-a)
+resonator = (+ <: (de.delay(4096, d-1) + de.delay(4096, d)) / 2) ~ *(1.0-a)
 with {
     d = vslider("vibrato", 1, 0, 1, 0.01);
     a = vslider("trigger", 0.12, 0, 1, 0.01);
