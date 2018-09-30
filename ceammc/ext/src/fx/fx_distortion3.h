@@ -465,8 +465,6 @@ class fx_distortion3 : public dsp {
  private:
 	
 	FAUSTFLOAT fCheckbox0;
-	FAUSTFLOAT fHslider0;
-	float fRec0[2];
 	int fSamplingFreq;
 	float fConst0;
 	float fConst1;
@@ -476,15 +474,17 @@ class fx_distortion3 : public dsp {
 	float fConst4;
 	float fConst5;
 	FAUSTFLOAT fVslider1;
-	float fRec4[3];
+	float fRec3[3];
 	float fVec0[2];
-	float fRec3[2];
+	float fRec2[2];
 	FAUSTFLOAT fVslider2;
-	float fRec5[2];
+	float fRec4[2];
 	FAUSTFLOAT fVslider3;
+	float fRec5[2];
+	float fRec1[4];
+	float fRec0[3];
+	FAUSTFLOAT fHslider0;
 	float fRec6[2];
-	float fRec2[4];
-	float fRec1[3];
 	
  public:
 	
@@ -498,26 +498,14 @@ class fx_distortion3 : public dsp {
 		m->declare("ceammc_ui.lib/version", "0.1.1");
 		m->declare("description", "A simple Wavesharper distortion");
 		m->declare("filename", "fx_distortion3");
-		m->declare("filter.lib/author", "Julius O. Smith (jos at ccrma.stanford.edu)");
-		m->declare("filter.lib/copyright", "Julius O. Smith III");
-		m->declare("filter.lib/deprecated", "This library is deprecated and is not maintained anymore. It will be removed in August 2017.");
-		m->declare("filter.lib/license", "STK-4.3");
-		m->declare("filter.lib/name", "Faust Filter Library");
-		m->declare("filter.lib/reference", "https://ccrma.stanford.edu/~jos/filters/");
-		m->declare("filter.lib/version", "1.29");
+		m->declare("filters.lib/name", "Faust Filters Library");
+		m->declare("filters.lib/version", "0.0");
 		m->declare("id", "distortion3");
-		m->declare("math.lib/author", "GRAME");
-		m->declare("math.lib/copyright", "GRAME");
-		m->declare("math.lib/deprecated", "This library is deprecated and is not maintained anymore. It will be removed in August 2017.");
-		m->declare("math.lib/license", "LGPL with exception");
-		m->declare("math.lib/name", "Math Library");
-		m->declare("math.lib/version", "1.0");
-		m->declare("music.lib/author", "GRAME");
-		m->declare("music.lib/copyright", "GRAME");
-		m->declare("music.lib/deprecated", "This library is deprecated and is not maintained anymore. It will be removed in August 2017.");
-		m->declare("music.lib/license", "LGPL with exception");
-		m->declare("music.lib/name", "Music Library");
-		m->declare("music.lib/version", "1.0");
+		m->declare("maths.lib/author", "GRAME");
+		m->declare("maths.lib/copyright", "GRAME");
+		m->declare("maths.lib/license", "LGPL with exception");
+		m->declare("maths.lib/name", "Faust Math Library");
+		m->declare("maths.lib/version", "2.1");
 		m->declare("name", "fx.distortion3");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
@@ -581,45 +569,45 @@ class fx_distortion3 : public dsp {
 	
 	virtual void instanceResetUserInterface() {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
-		fHslider0 = FAUSTFLOAT(1.0f);
 		fVslider0 = FAUSTFLOAT(10000.0f);
 		fVslider1 = FAUSTFLOAT(30.0f);
 		fVslider2 = FAUSTFLOAT(0.0f);
 		fVslider3 = FAUSTFLOAT(50.0f);
+		fHslider0 = FAUSTFLOAT(1.0f);
 		
 	}
 	
 	virtual void instanceClear() {
-		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
-			fRec0[l0] = 0.0f;
+		for (int l0 = 0; (l0 < 3); l0 = (l0 + 1)) {
+			fRec3[l0] = 0.0f;
 			
 		}
-		for (int l1 = 0; (l1 < 3); l1 = (l1 + 1)) {
-			fRec4[l1] = 0.0f;
+		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
+			fVec0[l1] = 0.0f;
 			
 		}
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
-			fVec0[l2] = 0.0f;
+			fRec2[l2] = 0.0f;
 			
 		}
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
-			fRec3[l3] = 0.0f;
+			fRec4[l3] = 0.0f;
 			
 		}
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fRec5[l4] = 0.0f;
 			
 		}
-		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
-			fRec6[l5] = 0.0f;
+		for (int l5 = 0; (l5 < 4); l5 = (l5 + 1)) {
+			fRec1[l5] = 0.0f;
 			
 		}
-		for (int l6 = 0; (l6 < 4); l6 = (l6 + 1)) {
-			fRec2[l6] = 0.0f;
+		for (int l6 = 0; (l6 < 3); l6 = (l6 + 1)) {
+			fRec0[l6] = 0.0f;
 			
 		}
-		for (int l7 = 0; (l7 < 3); l7 = (l7 + 1)) {
-			fRec1[l7] = 0.0f;
+		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
+			fRec6[l7] = 0.0f;
 			
 		}
 		
@@ -664,50 +652,50 @@ class fx_distortion3 : public dsp {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
 		int iSlow0 = int(float(fCheckbox0));
-		float fSlow1 = (0.00100000005f * float(fHslider0));
-		float fSlow2 = std::tan((fConst1 * float(fVslider0)));
-		float fSlow3 = (1.0f / fSlow2);
-		float fSlow4 = (1.0f / (((fSlow3 + 1.41421354f) / fSlow2) + 1.0f));
-		float fSlow5 = std::tan((fConst1 * float(fVslider1)));
-		float fSlow6 = (1.0f / fSlow5);
-		float fSlow7 = (1.0f / (((fSlow6 + 1.41421354f) / fSlow5) + 1.0f));
-		float fSlow8 = (1.0f / fx_distortion3_faustpower2_f(fSlow5));
-		float fSlow9 = (2.0f * (0.0f - fSlow8));
-		float fSlow10 = (((fSlow6 + -1.41421354f) / fSlow5) + 1.0f);
-		float fSlow11 = (2.0f * (1.0f - fSlow8));
-		float fSlow12 = (0.00100000005f * std::pow(10.0f, (0.0500000007f * float(fVslider2))));
-		float fSlow13 = (0.00100000005f * float(fVslider3));
-		float fSlow14 = (2.0f * (1.0f - (1.0f / fx_distortion3_faustpower2_f(fSlow2))));
-		float fSlow15 = (((fSlow3 + -1.41421354f) / fSlow2) + 1.0f);
+		float fSlow1 = std::tan((fConst1 * float(fVslider0)));
+		float fSlow2 = (1.0f / fSlow1);
+		float fSlow3 = (1.0f / (((fSlow2 + 1.41421354f) / fSlow1) + 1.0f));
+		float fSlow4 = std::tan((fConst1 * float(fVslider1)));
+		float fSlow5 = (1.0f / fSlow4);
+		float fSlow6 = (1.0f / (((fSlow5 + 1.41421354f) / fSlow4) + 1.0f));
+		float fSlow7 = (1.0f / fx_distortion3_faustpower2_f(fSlow4));
+		float fSlow8 = (2.0f * (0.0f - fSlow7));
+		float fSlow9 = (((fSlow5 + -1.41421354f) / fSlow4) + 1.0f);
+		float fSlow10 = (2.0f * (1.0f - fSlow7));
+		float fSlow11 = (0.00100000005f * std::pow(10.0f, (0.0500000007f * float(fVslider2))));
+		float fSlow12 = (0.00100000005f * float(fVslider3));
+		float fSlow13 = (((fSlow2 + -1.41421354f) / fSlow1) + 1.0f);
+		float fSlow14 = (2.0f * (1.0f - (1.0f / fx_distortion3_faustpower2_f(fSlow1))));
+		float fSlow15 = (0.00100000005f * float(fHslider0));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0?0.0f:fTemp0);
-			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
-			fRec4[0] = (fTemp1 - (fSlow7 * ((fSlow10 * fRec4[2]) + (fSlow11 * fRec4[1]))));
-			float fTemp2 = (fSlow7 * ((fSlow9 * fRec4[1]) + (fSlow8 * (fRec4[2] + fRec4[0]))));
+			fRec3[0] = (fTemp1 - (fSlow6 * ((fSlow9 * fRec3[2]) + (fSlow10 * fRec3[1]))));
+			float fTemp2 = (fSlow6 * ((fSlow8 * fRec3[1]) + (fSlow7 * (fRec3[2] + fRec3[0]))));
 			fVec0[0] = fTemp2;
-			fRec3[0] = ((fConst4 * fRec3[1]) + (fConst5 * (fTemp2 + fVec0[1])));
+			fRec2[0] = ((fConst4 * fRec2[1]) + (fConst5 * (fTemp2 + fVec0[1])));
+			fRec4[0] = (fSlow11 + (0.999000013f * fRec4[1]));
+			float fTemp3 = (fRec2[0] * fRec4[0]);
 			fRec5[0] = (fSlow12 + (0.999000013f * fRec5[1]));
-			float fTemp3 = (fRec3[0] * fRec5[0]);
-			fRec6[0] = (fSlow13 + (0.999000013f * fRec6[1]));
-			float fTemp4 = std::sin((0.0153999636f * (fRec6[0] + 1.0f)));
+			float fTemp4 = std::sin((0.0153999636f * (fRec5[0] + 1.0f)));
 			float fTemp5 = (1.0f - fTemp4);
-			fRec2[0] = ((0.5f * fRec2[3]) + ((fTemp3 * ((2.0f * (fTemp4 / fTemp5)) + 1.0f)) / ((2.0f * ((fTemp4 * std::fabs(fTemp3)) / fTemp5)) + 1.0f)));
-			fRec1[0] = (fRec2[0] - (fSlow4 * ((fSlow14 * fRec1[1]) + (fSlow15 * fRec1[2]))));
-			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:((fTemp1 * (1.0f - fRec0[0])) + (fSlow4 * (fRec0[0] * (fRec1[0] + (fRec1[2] + (2.0f * fRec1[1]))))))));
-			fRec0[1] = fRec0[0];
-			fRec4[2] = fRec4[1];
-			fRec4[1] = fRec4[0];
-			fVec0[1] = fVec0[0];
+			fRec1[0] = ((0.5f * fRec1[3]) + ((fTemp3 * ((2.0f * (fTemp4 / fTemp5)) + 1.0f)) / ((2.0f * ((fTemp4 * std::fabs(fTemp3)) / fTemp5)) + 1.0f)));
+			fRec0[0] = (fRec1[0] - (fSlow3 * ((fSlow13 * fRec0[2]) + (fSlow14 * fRec0[1]))));
+			fRec6[0] = (fSlow15 + (0.999000013f * fRec6[1]));
+			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:((fSlow3 * ((fRec0[0] + (fRec0[2] + (2.0f * fRec0[1]))) * fRec6[0])) + (fTemp1 * (1.0f - fRec6[0])))));
+			fRec3[2] = fRec3[1];
 			fRec3[1] = fRec3[0];
+			fVec0[1] = fVec0[0];
+			fRec2[1] = fRec2[0];
+			fRec4[1] = fRec4[0];
 			fRec5[1] = fRec5[0];
-			fRec6[1] = fRec6[0];
 			for (int j0 = 3; (j0 > 0); j0 = (j0 - 1)) {
-				fRec2[j0] = fRec2[(j0 - 1)];
+				fRec1[j0] = fRec1[(j0 - 1)];
 				
 			}
-			fRec1[2] = fRec1[1];
-			fRec1[1] = fRec1[0];
+			fRec0[2] = fRec0[1];
+			fRec0[1] = fRec0[0];
+			fRec6[1] = fRec6[0];
 			
 		}
 		
