@@ -3,7 +3,9 @@ gfx.bitdown~
 gfx.chorus~
 gfx.distortion1~
 gfx.distortion2~
+gfx.distortion3~
 gfx.distortion~
+gfx.drive~
 gfx.echo~
 gfx.flanger~
 gfx.pitchshift~

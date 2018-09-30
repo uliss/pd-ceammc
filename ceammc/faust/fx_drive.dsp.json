@@ -1,0 +1,61 @@
+{
+	"name": "fx.drive",
+	"filename": "fx_drive",
+	"version": "2.8.5",
+	"compile_options": "cpp, -scal -ftz 0",
+	"library_list": ["/Users/serj/work/music/pd-exp/pure-data/ceammc/faust/guitarix.lib","/usr/local/share/faust/filter.lib","/usr/local/share/faust/music.lib","/usr/local/share/faust/math.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/signals.lib","/Users/serj/work/music/pd-exp/pure-data/ceammc/faust/ceammc_ui.lib"],
+	"include_pathnames": ["/Users/serj/work/music/pd-exp/pure-data/ceammc/faust","/usr/local/share/faust","/usr/share/faust"],
+	"inputs": "1",
+	"outputs": "1",
+	"meta": [ 
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/version": "0.0" },
+		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
+		{ "ceammc_ui.lib/version": "0.1.1" },
+		{ "filename": "fx_drive" },
+		{ "filter.lib/author": "Julius O. Smith (jos at ccrma.stanford.edu)" },
+		{ "filter.lib/copyright": "Julius O. Smith III" },
+		{ "filter.lib/deprecated": "This library is deprecated and is not maintained anymore. It will be removed in August 2017." },
+		{ "filter.lib/license": "STK-4.3" },
+		{ "filter.lib/name": "Faust Filter Library" },
+		{ "filter.lib/reference": "https://ccrma.stanford.edu/~jos/filters/" },
+		{ "filter.lib/version": "1.29" },
+		{ "math.lib/author": "GRAME" },
+		{ "math.lib/copyright": "GRAME" },
+		{ "math.lib/deprecated": "This library is deprecated and is not maintained anymore. It will be removed in August 2017." },
+		{ "math.lib/license": "LGPL with exception" },
+		{ "math.lib/name": "Math Library" },
+		{ "math.lib/version": "1.0" },
+		{ "music.lib/author": "GRAME" },
+		{ "music.lib/copyright": "GRAME" },
+		{ "music.lib/deprecated": "This library is deprecated and is not maintained anymore. It will be removed in August 2017." },
+		{ "music.lib/license": "LGPL with exception" },
+		{ "music.lib/name": "Music Library" },
+		{ "music.lib/version": "1.0" },
+		{ "name": "fx.drive" },
+		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/version": "0.0" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "fx.drive",
+			"items": [ 
+				{
+					"type": "checkbox",
+					"label": "bypass",
+					"address": "/fx.drive/bypass"
+				},
+				{
+					"type": "vslider",
+					"label": "drive",
+					"address": "/fx.drive/drive",
+					"init": "1",
+					"min": "1",
+					"max": "10",
+					"step": "1"
+				}
+			]
+		}
+	]
+}
