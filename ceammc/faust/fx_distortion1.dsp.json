@@ -52,6 +52,9 @@
 					"type": "vslider",
 					"label": "gain",
 					"address": "/fx.distortion1/gain",
+					"meta": [
+						{ "unit": "db" }
+					],
 					"init": "2",
 					"min": "-10",
 					"max": "10",
@@ -70,6 +73,9 @@
 					"type": "vslider",
 					"label": "high_gain",
 					"address": "/fx.distortion1/high_gain",
+					"meta": [
+						{ "unit": "db" }
+					],
 					"init": "10",
 					"min": "-10",
 					"max": "20",
@@ -97,6 +103,9 @@
 					"type": "vslider",
 					"label": "low_gain",
 					"address": "/fx.distortion1/low_gain",
+					"meta": [
+						{ "unit": "db" }
+					],
 					"init": "10",
 					"min": "-10",
 					"max": "20",
@@ -111,8 +120,7 @@
 							"label": "sp_high_freq",
 							"address": "/fx.distortion1/low_highcutoff/sp_high_freq",
 							"meta": [
-								{ "name": "high freq" },
-								{ "tooltip": "high-freq cutoff Hz" }
+								{ "unit": "Hz" }
 							],
 							"init": "5000",
 							"min": "1000",
@@ -124,8 +132,7 @@
 							"label": "sp_low_freq",
 							"address": "/fx.distortion1/low_highcutoff/sp_low_freq",
 							"meta": [
-								{ "name": "low freq" },
-								{ "tooltip": "low-freq cutoff Hz" }
+								{ "unit": "Hz" }
 							],
 							"init": "130",
 							"min": "20",
@@ -148,7 +155,7 @@
 							"label": "high_freq",
 							"address": "/fx.distortion1/low_highpass/high_freq",
 							"meta": [
-								{ "name": "high freq" }
+								{ "unit": "Hz" }
 							],
 							"init": "130",
 							"min": "20",
@@ -160,7 +167,7 @@
 							"label": "low_freq",
 							"address": "/fx.distortion1/low_highpass/low_freq",
 							"meta": [
-								{ "name": "low freq" }
+								{ "unit": "Hz" }
 							],
 							"init": "5000",
 							"min": "20",
@@ -170,10 +177,7 @@
 						{
 							"type": "checkbox",
 							"label": "on_off",
-							"address": "/fx.distortion1/low_highpass/on_off",
-							"meta": [
-								{ "name": "low highpass" }
-							]
+							"address": "/fx.distortion1/low_highpass/on_off"
 						}
 					]
 				},
@@ -190,6 +194,9 @@
 					"type": "vslider",
 					"label": "middle_h_gain",
 					"address": "/fx.distortion1/middle_h_gain",
+					"meta": [
+						{ "unit": "db" }
+					],
 					"init": "10",
 					"min": "-10",
 					"max": "20",
@@ -208,6 +215,9 @@
 					"type": "vslider",
 					"label": "middle_l_gain",
 					"address": "/fx.distortion1/middle_l_gain",
+					"meta": [
+						{ "unit": "db" }
+					],
 					"init": "10",
 					"min": "-10",
 					"max": "20",
@@ -216,15 +226,15 @@
 				{
 					"type": "checkbox",
 					"label": "resonator",
-					"address": "/fx.distortion1/resonator",
-					"meta": [
-						{ "name": "resonat" }
-					]
+					"address": "/fx.distortion1/resonator"
 				},
 				{
 					"type": "nentry",
 					"label": "split_high_freq",
 					"address": "/fx.distortion1/split_high_freq",
+					"meta": [
+						{ "unit": "Hz" }
+					],
 					"init": "1250",
 					"min": "1250",
 					"max": "12000",
@@ -234,6 +244,9 @@
 					"type": "nentry",
 					"label": "split_low_freq",
 					"address": "/fx.distortion1/split_low_freq",
+					"meta": [
+						{ "unit": "Hz" }
+					],
 					"init": "250",
 					"min": "20",
 					"max": "600",
@@ -243,6 +256,9 @@
 					"type": "nentry",
 					"label": "split_middle_freq",
 					"address": "/fx.distortion1/split_middle_freq",
+					"meta": [
+						{ "unit": "Hz" }
+					],
 					"init": "650",
 					"min": "600",
 					"max": "1250",
