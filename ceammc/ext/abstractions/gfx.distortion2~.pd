@@ -14,54 +14,64 @@
 #X obj 3 202 cnv 8 198 18 empty empty [fx.distortion2~] 3 9 0 12
 -104026 -262144 0;
 #X text 10 218 drive:;
-#X obj 12 237 ui.slider @size 120 12 @active_scale 1 @min 0 @max 1;
+#X obj 12 237 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion2~/slider0 @min 0 @max 1;
 #X obj 140 237 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 237 msg set;
 #X msg 260 237 @drive \$1;
 #X text 10 251 gain(db):;
-#X obj 12 270 ui.slider @size 120 12 @active_scale 1 @min -10 @max 10;
+#X obj 12 270 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion2~/slider1 @min -10 @max 10;
 #X obj 140 270 ui.number @size 40 12 @digits 3 @min -10 @max 10;
 #X obj 190 270 msg set;
 #X msg 260 270 @gain \$1;
 #X text 10 284 level:;
-#X obj 12 303 ui.slider @size 120 12 @active_scale 1 @min 0 @max 0.5;
+#X obj 12 303 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion2~/slider2 @min 0 @max 0.5;
 #X obj 140 303 ui.number @size 40 12 @digits 3 @min 0 @max 0.5;
 #X obj 190 303 msg set;
 #X msg 260 303 @level \$1;
 #X text 10 317 sp_high_freq(Hz):;
-#X obj 12 336 ui.slider @size 120 12 @active_scale 1 @min 1000 @max
-12000;
+#X obj 12 336 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion2~/slider3 @min 1000 @max 12000;
 #X obj 140 336 ui.number @size 40 12 @digits 3 @min 1000 @max 12000;
 #X obj 190 336 msg set;
 #X msg 260 336 @sp_high_freq \$1;
 #X text 10 350 sp_low_freq(Hz):;
-#X obj 12 369 ui.slider @size 120 12 @active_scale 1 @min 20 @max
-1000;
+#X obj 12 369 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion2~/slider4 @min 20 @max 1000;
 #X obj 140 369 ui.number @size 40 12 @digits 3 @min 20 @max 1000;
 #X obj 190 369 msg set;
 #X msg 260 369 @sp_low_freq \$1;
-#X obj 12 391 ui.toggle @size 12 12;
+#X obj 12 391 ui.toggle @size 12 12 @presetname
+/gui/fx.distortion2~/checkbox5;
 #X text 26 386 sp_on_off;
 #X msg 260 383 @sp_on_off \$1;
 #X text 10 403 lh_high_freq:;
-#X obj 12 422 ui.number @size 60 12 @min 20 @max 7040 @step 10;
+#X obj 12 422 ui.number @size 60 12 @presetname
+/gui/fx.distortion2~/numbox6 @min 20 @max 7040 @step 10;
 #X msg 260 422 @lh_high_freq \$1;
 #X text 10 436 lh_low_freq:;
-#X obj 12 455 ui.number @size 60 12 @min 20 @max 12000 @step 10;
+#X obj 12 455 ui.number @size 60 12 @presetname
+/gui/fx.distortion2~/numbox7 @min 20 @max 12000 @step 10;
 #X msg 260 455 @lh_low_freq \$1;
-#X obj 12 477 ui.toggle @size 12 12;
+#X obj 12 477 ui.toggle @size 12 12 @presetname
+/gui/fx.distortion2~/checkbox8;
 #X text 26 472 lh_on_off;
 #X msg 260 469 @lh_on_off \$1;
-#X obj 12 497 ui.toggle @size 12 12;
+#X obj 12 497 ui.toggle @size 12 12 @presetname
+/gui/fx.distortion2~/checkbox9;
 #X text 26 492 res_on_off;
 #X msg 260 489 @res_on_off \$1;
 #X text 10 509 trigger:;
-#X obj 12 528 ui.slider @size 120 12 @active_scale 1 @min 0 @max 1;
+#X obj 12 528 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion2~/slider10 @min 0 @max 1;
 #X obj 140 528 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 528 msg set;
 #X msg 260 528 @trigger \$1;
 #X text 10 542 vibrato:;
-#X obj 12 561 ui.slider @size 120 12 @active_scale 1 @min 0 @max 1;
+#X obj 12 561 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion2~/slider11 @min 0 @max 1;
 #X obj 140 561 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 561 msg set;
 #X msg 260 561 @vibrato \$1;
