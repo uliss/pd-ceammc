@@ -448,6 +448,9 @@ void UIArrayView::renderTick()
 
     const size_t LEN = array_.size();
 
+    if (LEN == 0)
+        return;
+
     if (render_index_ + RENDER_CHUNK < LEN) {
         renderRange(render_index_, RENDER_CHUNK);
         render_index_ += RENDER_CHUNK;
@@ -477,7 +480,7 @@ float rms(ForwardIter first, ForwardIter last)
 
 void UIArrayView::renderRange(size_t pos, size_t len)
 {
-    if (!len)
+    if (!len || buffer_.empty())
         return;
 
     const size_t T = pos + len;
@@ -491,7 +494,8 @@ void UIArrayView::renderRange(size_t pos, size_t len)
     const size_t PIXEL_TO = ((pos + len) * (W - 1)) / (N - 1);
     const size_t SAMPLES_IN_PIXEL = ceilf(N / float(W));
 
-    assert(PIXEL_TO < W);
+    if (PIXEL_TO >= W)
+        return;
 
     for (size_t i = PIXEL_FROM; i < PIXEL_TO; i++) {
         size_t samp_from = (i * (N - 1)) / (W - 1);
