@@ -21,7 +21,6 @@ extern void setup_fx_granulator_tilde();
 extern void setup_fx_greyhole_tilde();
 extern void setup_fx_pitchshift_tilde();
 extern void setup_fx_sdelay_tilde();
-extern void setup_fx_sustain_tilde();
 extern void setup_fx_zita_rev1_tilde();
 
 void ceammc_fx_setup()
@@ -46,6 +45,5 @@ void ceammc_fx_setup()
     setup_fx_looper();
     setup_fx_pitchshift_tilde();
     setup_fx_sdelay_tilde();
-    setup_fx_sustain_tilde();
     setup_fx_zita_rev1_tilde();
 }

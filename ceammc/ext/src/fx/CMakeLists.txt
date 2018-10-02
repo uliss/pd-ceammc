@@ -1,4 +1,4 @@
-set(FX_SOURCES fx_looper.cpp fx_sustain.cpp)
+set(FX_SOURCES fx_looper.cpp)
 
 macro(ceammc_fx_external name)
     list(APPEND FX_SOURCES "fx_${name}.cpp")
