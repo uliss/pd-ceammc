@@ -21,10 +21,10 @@ extern "C" void setup_flt0x2elpf12_tilde();
 extern "C" void setup_flt0x2elpf24_tilde();
 extern "C" void setup_flt0x2enotch_tilde();
 extern "C" void setup_flt0x2eresonbp_tilde();
-extern "C" void setup_flt0x2emoog_vcf_tilde();
 
 extern void setup_flt_eq10_tilde();
 extern void setup_flt_eq_peak_tilde();
+extern void setup_flt_moog_vcf_tilde();
 
 void ceammc_flt_setup()
 {
@@ -49,8 +49,8 @@ void ceammc_flt_setup()
     setup_flt0x2elpf24_tilde();
     setup_flt0x2enotch_tilde();
     setup_flt0x2eresonbp_tilde();
-    setup_flt0x2emoog_vcf_tilde();
 
     setup_flt_eq10_tilde();
     setup_flt_eq_peak_tilde();
+    setup_flt_moog_vcf_tilde();
 }

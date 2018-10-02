@@ -1,0 +1,44 @@
+{
+	"name": "flt_moog_vcf",
+	"filename": "flt_moog_vcf",
+	"version": "2.8.5",
+	"compile_options": "cpp, -scal -ftz 0",
+	"library_list": ["/usr/local/share/faust/vaeffects.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/basics.lib"],
+	"include_pathnames": ["/Users/serj/work/music/pd-exp/pure-data/ceammc/faust","/usr/local/share/faust","/usr/share/faust"],
+	"inputs": "2",
+	"outputs": "1",
+	"meta": [ 
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/version": "0.0" },
+		{ "filename": "flt_moog_vcf" },
+		{ "filters.lib/name": "Faust Filters Library" },
+		{ "filters.lib/version": "0.0" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.1" },
+		{ "name": "flt_moog_vcf" },
+		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/version": "0.0" },
+		{ "vaeffects.lib/name": "Faust Virtual Analog Filter Effect Library" },
+		{ "vaeffects.lib/version": "0.0" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "flt_moog_vcf",
+			"items": [ 
+				{
+					"type": "vslider",
+					"label": "res",
+					"address": "/flt_moog_vcf/res",
+					"init": "0.4",
+					"min": "0",
+					"max": "1",
+					"step": "0.001"
+				}
+			]
+		}
+	]
+}

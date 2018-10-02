@@ -13,24 +13,11 @@
             <keywords>moog vcf</keywords>
             <since>0.6</since>
         </meta>
-        <methods>
-            <method name="freq">
-                <param type="float" units="herz" minvalue="20" maxvalue="20000" default="2000">
-                corner-resonance frequency</param>
-            </method>
-            <method name="res">
-                <param type="float" minvalue="0" maxvalue="1" default="0.4">normalized amount of
-                corner-resonance</param>
-            </method>
-        </methods>
         <arguments>
-            <argument name="freq" type="float" units="herz">corner-resonance frequency</argument>
             <argument name="res" type="float" minvalue="0" maxvalue="1">normalized amount of
             corner-resonance</argument>
-            <argument name="ID" type="symbol">object ID for OSC control</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" units="herz">center frequency</property>
             <property name="@res" type="float" minvalue="0" maxvalue="1" default="0.4">normalized
             amount of corner-resonance</property>
         </properties>
@@ -38,32 +25,27 @@
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
             </inlet>
+            <inlet type="audio">
+                <xinfo>filter center frequency in Hz</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">filtered signal</outlet>
-            <outlet>information output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-              [T]
-              |
-              [metro 100]
-              |
-              [100 200 300 500 600 1600(
-              |
-[F]           [list.choice] [ui.knob @size=32x32]
-|             |             |
-[phasor~ 50]  [@freq $1(    |
-|             |             [@res $1(
-|             |             |
-[flt.moog_vcf~ 1000 0.9     ]
+[F]                          [ui.knob @size=32x32]
+|                            |
+[phasor~ 50] [lfo.+tri~ 1]   |
+|            |               |
+|            [*~ 5000]       [@res $1(
+|            |.              |
+[flt.moog_vcf~      0.6      ]
 |
-[ui.gain~ @size 120 16]
+[ui.gain~ @size 120 16] [ui.dsp~]
 |\
 [dac~]
-
-[ui.dsp~]
 ]]>
             </pdascii>
         </example>

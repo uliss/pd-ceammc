@@ -52,6 +52,7 @@
 - fx.freeverb~ @roomsize renamed to @room
 - fx.freeverb2~ @roomsize renamed to @room
 - fx.echo~ @time property renamed to @delay
+- flt.moog_vcf~ signal inlet used for center frequency
 
 ### Removed:
 - fx.greyhole~ 3rd information outlet removed
