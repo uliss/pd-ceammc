@@ -30,6 +30,7 @@
 - fx.zita_rev1~ arguments mapped to @decay_low, @decay_mid
 - fx.chorus~ added
 - fx.bitdown~ added
+- msg.after added
 - live.capture~ @gate property added, reset method added
 - l->l alias added for lin->lin
 - soundtouch~ pitch argument added

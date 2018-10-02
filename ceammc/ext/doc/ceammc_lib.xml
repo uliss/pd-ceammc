@@ -891,6 +891,9 @@
     <entry descr="message constructor" name="msg" ref_view="object">
       <xi:include href="msg.pddoc" parse="xml"/>
     </entry>
+    <entry descr="send specified message after incoming message" name="msg.after" ref_view="object">
+      <xi:include href="msg.after.pddoc" parse="xml"/>
+    </entry>
     <entry descr="send message when patch loads" name="msg.onload" ref_view="object">
       <xi:include href="msg.onload.pddoc" parse="xml"/>
     </entry>

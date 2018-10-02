@@ -32,6 +32,7 @@ public:
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
     void onAny(t_symbol* s, const AtomList& lst) override;
+    void dump() const override;
 
     void parseProperties() override;
     bool processAnyProps(t_symbol* sel, const AtomList& lst) override;

@@ -282,6 +282,7 @@ set(DOC_FILES
     mlist.flatten
     modplug~
     msg
+    msg.after
     msg.onload
     net.host2ip
     noise.crackle~

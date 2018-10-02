@@ -59,6 +59,12 @@ void MessageAfter::onAny(t_symbol* s, const AtomList& lst)
     run();
 }
 
+void MessageAfter::dump() const
+{
+    OBJ_DBG << "delay: " << delay_;
+    BaseObject::dump();
+}
+
 void MessageAfter::parseProperties()
 {
 }
