@@ -1,4 +1,4 @@
-set(FX_SOURCES fx_looper.cpp)
+set(FX_SOURCES fx_looper.cpp fx_sustain.cpp)
 
 macro(ceammc_fx_external name)
     list(APPEND FX_SOURCES "fx_${name}.cpp")
@@ -12,7 +12,6 @@ endmacro()
 
 ceammc_fx_external(drone_box)
 ceammc_fx_external(freqshift)
-ceammc_fx_external(granulator)
 ceammc_fx_external(wahwah)
 
 ceammc_fx_obj_external(bitdown)
@@ -26,6 +25,7 @@ ceammc_fx_obj_external(echo)
 ceammc_fx_obj_external(flanger)
 ceammc_fx_obj_external(freeverb)
 ceammc_fx_obj_external(freeverb2)
+ceammc_fx_obj_external(granulator)
 ceammc_fx_obj_external(greyhole)
 ceammc_fx_obj_external(pitchshift)
 ceammc_fx_obj_external(sdelay)

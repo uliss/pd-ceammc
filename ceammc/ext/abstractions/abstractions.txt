@@ -8,5 +8,6 @@ gfx.distortion~
 gfx.drive~
 gfx.echo~
 gfx.flanger~
+gfx.granulator~
 gfx.pitchshift~
 gfx.zita_rev1~
