@@ -40,6 +40,18 @@
 				},
 				{
 					"type": "hslider",
+					"label": "delay",
+					"address": "/fx.echo/delay",
+					"meta": [
+						{ "unit": "ms" }
+					],
+					"init": "500",
+					"min": "10",
+					"max": "10000",
+					"step": "1"
+				},
+				{
+					"type": "hslider",
 					"label": "drywet",
 					"address": "/fx.echo/drywet",
 					"meta": [
@@ -56,20 +68,8 @@
 					"address": "/fx.echo/feedback",
 					"init": "0.3",
 					"min": "0",
-					"max": "0.8",
+					"max": "0.99",
 					"step": "0.001"
-				},
-				{
-					"type": "hslider",
-					"label": "time",
-					"address": "/fx.echo/time",
-					"meta": [
-						{ "unit": "ms" }
-					],
-					"init": "500",
-					"min": "10",
-					"max": "10000",
-					"step": "1"
 				}
 			]
 		}

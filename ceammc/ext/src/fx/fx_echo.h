@@ -606,11 +606,11 @@ class fx_echo : public dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("fx.echo");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
+		ui_interface->declare(&fHslider1, "unit", "ms");
+		ui_interface->addHorizontalSlider("delay", &fHslider1, 500.0f, 10.0f, 10000.0f, 1.0f);
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("drywet", &fHslider0, 1.0f, 0.0f, 1.0f, 0.00999999978f);
-		ui_interface->addHorizontalSlider("feedback", &fHslider2, 0.300000012f, 0.0f, 0.800000012f, 0.00100000005f);
-		ui_interface->declare(&fHslider1, "unit", "ms");
-		ui_interface->addHorizontalSlider("time", &fHslider1, 500.0f, 10.0f, 10000.0f, 1.0f);
+		ui_interface->addHorizontalSlider("feedback", &fHslider2, 0.300000012f, 0.0f, 0.99000001f, 0.00100000005f);
 		ui_interface->closeBox();
 		
 	}
@@ -623,19 +623,19 @@ class fx_echo : public dsp {
 		float fSlow2 = (fConst1 * std::min(10000.0f, std::max(10.0f, float(fHslider1))));
 		float fSlow3 = (fSlow2 + 4.99999987e-06f);
 		float fSlow4 = std::floor(fSlow3);
-		float fSlow5 = (fSlow4 + (1.0f - fSlow2));
+		float fSlow5 = (fSlow2 - fSlow4);
 		int iSlow6 = int(fSlow3);
-		int iSlow7 = (std::min(iConst7, std::max(0, iSlow6)) + 1);
-		float fSlow8 = (fSlow2 - fSlow4);
-		int iSlow9 = (std::min(iConst7, std::max(0, (iSlow6 + 1))) + 1);
+		int iSlow7 = (std::min(iConst7, std::max(0, (iSlow6 + 1))) + 1);
+		float fSlow8 = (fSlow4 + (1.0f - fSlow2));
+		int iSlow9 = (std::min(iConst7, std::max(0, iSlow6)) + 1);
 		float fSlow10 = (0.00100000005f * float(fHslider2));
 		for (int i = 0; (i < count); i = (i + 1)) {
-			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
-			fRec2[0] = (fSlow10 + (0.999000013f * fRec2[1]));
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0?0.0f:fTemp0);
-			fRec1[(IOTA & 2097151)] = ((((fSlow5 * fRec1[((IOTA - iSlow7) & 2097151)]) + (fSlow8 * fRec1[((IOTA - iSlow9) & 2097151)])) * fRec2[0]) + fTemp1);
-			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:((fRec0[0] * fRec1[((IOTA - 0) & 2097151)]) + ((1.0f - fRec0[0]) * fTemp1))));
+			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
+			fRec2[0] = (fSlow10 + (0.999000013f * fRec2[1]));
+			fRec1[(IOTA & 2097151)] = (fTemp1 + (((fSlow5 * fRec1[((IOTA - iSlow7) & 2097151)]) + (fSlow8 * fRec1[((IOTA - iSlow9) & 2097151)])) * fRec2[0]));
+			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:((fTemp1 * (1.0f - fRec0[0])) + (fRec0[0] * fRec1[((IOTA - 0) & 2097151)]))));
 			fRec0[1] = fRec0[0];
 			fRec2[1] = fRec2[0];
 			IOTA = (IOTA + 1);
