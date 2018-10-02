@@ -117,6 +117,7 @@ set(DOC_FILES
     fx.bitdown~
     fx.chorus~
     fx.distortion~
+    fx.drive~
     fx.echo~
     fx.flanger~
     fx.freeverb2~
