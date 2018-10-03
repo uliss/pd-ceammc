@@ -81,10 +81,10 @@
     }}
     {math {
         math.abs math.acos math.acosh math.and math.approx math.asin
-        math.asinh math.atan math.atanh math.cbrt math.ceil math.cmul~
-        math.cos math.cosh math.div math.e math.exp math.exp2 math.expr
-        math.floor math.gcd math.inf math.lcm math.log math.log10 math.log2
-        math.mul math.nan math.neg math.or math.pi math.polyeval
+        math.asinh math.atan math.atanh math.cbrt math.cdiv~ math.ceil
+        math.cmul~ math.cos math.cosh math.div math.e math.exp math.exp2
+        math.expr math.floor math.gcd math.inf math.lcm math.log math.log10
+        math.log2 math.mul math.nan math.neg math.or math.pi math.polyeval
         math.reciprocal math.round math.round~ math.sign math.sin math.sinh
         math.sqrt math.squared math.tan math.tanh math.trunc
     }}

@@ -32,6 +32,7 @@
 - fx.bitdown~ added
 - msg.after added (send delayed message after passed input message)
 - math.cmul~ added (multiplication of complex signals)
+- math.cdiv~ added (division of complex signals)
 - live.capture~ @gate property added, reset method added
 - l->l alias added for lin->lin
 - soundtouch~ pitch argument added

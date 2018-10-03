@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../math/math_cmul_tilde.h"
+#include "../math/math_cdiv_tilde.h"
 #include "test_base.h"
 #include "test_external.h"
 #include "test_sound.h"
@@ -29,9 +29,9 @@
             REQUIRE(dsp.out(1, i) == Approx(ival)); \
     }
 
-PD_COMPLETE_SND_TEST_SETUP(MathComplexMulTilde, math, cmul_tilde)
+PD_COMPLETE_SND_TEST_SETUP(MathComplexDivTilde, math, cdiv_tilde)
 
-struct CMulSignal : public TestSignal<4, 2> {
+struct CDivSignal : public TestSignal<4, 2> {
     typedef std::pair<std::array<t_sample, 64>, std::array<t_sample, 64>> ComplexBuf;
 
     void clear()
@@ -60,7 +60,7 @@ struct CMulSignal : public TestSignal<4, 2> {
     }
 };
 
-typedef DSP<CMulSignal, TestExtMathComplexMulTilde> CMulDSP;
+typedef DSP<CDivSignal, TestExtMathComplexDivTilde> CDivDSP;
 
 TEST_CASE("math.cmul~", "[externals]")
 {
@@ -68,52 +68,28 @@ TEST_CASE("math.cmul~", "[externals]")
 
     SECTION("process")
     {
-        TestExtMathComplexMulTilde t("math.cmul~");
+        TestExtMathComplexDivTilde t("math.cdiv~");
         REQUIRE(t.blockSize() == 64);
         REQUIRE(t.numInlets() == 4);
         REQUIRE(t.numOutlets() == 2);
-        //        REQUIRE(t.numInputChannels() == 4);
         REQUIRE(t.numOutputChannels() == 2);
 
-        CMulSignal sig;
-        CMulDSP dsp(sig, t);
+        CDivSignal sig;
+        CDivDSP dsp(sig, t);
         REQUIRE_OUTPUT_EQUAL(dsp, 0, 0);
 
-        sig.setComplex0(1, 0);
-        sig.setComplex1(1, 0);
-        REQUIRE_OUTPUT_EQUAL(dsp, 1, 0);
+        sig.setComplex0(144, 2);
+        sig.setComplex1(3, 2);
+        REQUIRE_OUTPUT_EQUAL(dsp, ((144 * 3 + 2 * 2) / 13.0), ((2 * 3 - 144 * 2) / 13.0));
 
-        sig.setComplex0(0, 1);
-        sig.setComplex1(0, 1);
-        REQUIRE_OUTPUT_EQUAL(dsp, -1, 0);
-    }
-
-    SECTION("commut")
-    {
-        TestExtMathComplexMulTilde t("math.cmul~");
-
-        CMulSignal sig;
-        CMulDSP dsp(sig, t);
-
-        sig.setComplex0(123, -2);
-        sig.setComplex1(-3, 1);
-        dsp.processBlock();
-
-        auto res0 = sig.result();
-
-        sig.setComplex1(123, -2);
-        sig.setComplex0(-3, 1);
-        dsp.processBlock();
-
-        auto res1 = sig.result();
-        REQUIRE(res0 == res1);
-
-        REQUIRE_OUTPUT_EQUAL(dsp, (123 * -3 - (-2 * 1)), (-2 * -3 + 123 * 1));
+        // division by zero
+        sig.setComplex1(0, 0);
+        REQUIRE_OUTPUT_EQUAL(dsp, 0, 0);
     }
 
     SECTION("alias")
     {
-        TestPdExternal<MathComplexMulTilde> t("cmul~");
+        TestPdExternal<MathComplexDivTilde> t("cdiv~");
         REQUIRE(t.object());
     }
 }
