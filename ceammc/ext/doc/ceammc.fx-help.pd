@@ -23,7 +23,7 @@
 #X obj 30 359 fx.freqshift~;
 #X text 175 359 frequency shifter or single-sideband ring modulation;
 #X obj 30 386 fx.granulator~;
-#X text 175 386 simple granulator;
+#X text 175 386 simple input stream granulator;
 #X obj 30 413 fx.greyhole~;
 #X text 175 413 A complex echo-like effect;
 #X obj 30 440 fx.looper~;
