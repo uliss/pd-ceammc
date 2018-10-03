@@ -15,6 +15,9 @@
                 <alias>cmul~</alias>
             </aliases>
             <since>0.7</since>
+            <also>
+                <see>math.cdiv~</see>
+            </also>
         </meta>
         <info>
             <par>Calculates for signals (a + bi) * (c + di) = (ac - bd) + (ad + bc)i</par>
