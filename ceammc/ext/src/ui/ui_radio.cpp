@@ -378,14 +378,19 @@ void UIRadio::okSize(t_rect* newrect)
 {
     assert(prop_nitems_ > 0);
 
-    if (isVertical()) {
-        const float box_size = pd_clip_min(static_cast<int>(newrect->height / prop_nitems_), 8);
-        newrect->height = prop_nitems_ * (box_size + 1) - 1;
-        newrect->width = box_size;
+    if (isPatchLoading()) {
+        newrect->height = pd_clip_min(newrect->height, 8);
+        newrect->width = pd_clip_min(newrect->width, 8);
     } else {
-        const float box_size = pd_clip_min(static_cast<int>(newrect->width / prop_nitems_), 8);
-        newrect->width = prop_nitems_ * (box_size + 1) - 1;
-        newrect->height = box_size;
+        if (isVertical()) {
+            const float box_size = pd_clip_min(static_cast<int>(newrect->height / prop_nitems_), 8);
+            newrect->height = prop_nitems_ * (box_size + 1) - 1;
+            newrect->width = box_size;
+        } else {
+            const float box_size = pd_clip_min(static_cast<int>(newrect->width / prop_nitems_), 8);
+            newrect->width = prop_nitems_ * (box_size + 1) - 1;
+            newrect->height = box_size;
+        }
     }
 }
 
