@@ -1251,6 +1251,9 @@
     <entry descr="envelope editor widget" name="ui.env" ref_view="link">
       <xi:include href="ui.env.pddoc" parse="xml"/>
     </entry>
+    <entry descr="UI stereo gain control" name="ui.gain2~" ref_view="link">
+      <xi:include href="ui.gain2~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="UI gain control" name="ui.gain~" ref_view="link">
       <xi:include href="ui.gain~.pddoc" parse="xml"/>
     </entry>

@@ -30,6 +30,7 @@
 - fx.zita_rev1~ arguments mapped to @decay_low, @decay_mid
 - fx.chorus~ added
 - fx.bitdown~ added
+- ui.gain2~ added (stereo gain)
 - msg.after added (send delayed message after passed input message)
 - math.cmul~ added (multiplication of complex signals)
 - math.cdiv~ added (division of complex signals)

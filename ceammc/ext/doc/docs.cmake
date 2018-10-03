@@ -389,6 +389,7 @@ set(DOC_FILES
     ui.dsp~
     ui.env
     ui.gain~
+    ui.gain2~
     ui.icon
     ui.incdec
     ui.keyboard

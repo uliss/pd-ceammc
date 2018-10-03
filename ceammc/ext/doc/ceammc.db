@@ -386,6 +386,7 @@ ui.colorpanel		.		.
 ui.display,ui.d		.		-
 ui.dsp~		.		-
 ui.env		.		.
+ui.gain2~		~~		~~
 ui.gain~		~		~
 ui.icon		.		.
 ui.incdec		.		.

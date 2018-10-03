@@ -192,6 +192,7 @@ zconf.meta
 zconf.resolve
 zconf.service
 gflt.eq_peak~
+gflt_moog_vcf~
 gfx.bitdown~
 gfx.chorus~
 gfx.distortion1~

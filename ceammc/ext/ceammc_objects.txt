@@ -524,6 +524,7 @@ ui.d
 ui.display
 ui.dsp~
 ui.env
+ui.gain2~
 ui.gain~
 ui.hsl
 ui.icon

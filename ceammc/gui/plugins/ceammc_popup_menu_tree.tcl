@@ -77,8 +77,9 @@
     }}
     {fx {
         fx.bitdown~ fx.chorus~ fx.distortion~ fx.drive~ fx.drone_box~ fx.echo~
-        fx.flanger~ fx.freeverb2~ fx.freeverb~ fx.freqshift~ fx.greyhole~
-        fx.looper~ fx.pitchshift~ fx.sdelay~ fx.wahwah~ fx.zita_rev1~
+        fx.flanger~ fx.freeverb2~ fx.freeverb~ fx.freqshift~ fx.granulator~
+        fx.greyhole~ fx.looper~ fx.pitchshift~ fx.sdelay~ fx.wahwah~
+        fx.zita_rev1~
     }}
     {global {
         global.dict global.float global.int global.list global.mlist
@@ -191,11 +192,11 @@
         tl.bang tl.cue tl.timeline tl.toggle tl.transport
     }}
     {ui {
-        ui.aview ui.bang ui.colorpanel ui.display ui.dsp~ ui.env ui.gain~
-        ui.icon ui.incdec ui.keyboard ui.knob ui.label ui.link ui.matrix
-        ui.menu ui.meter~ ui.number ui.number~ ui.preset ui.radio ui.rslider
-        ui.scope~ ui.slider ui.slider2d ui.sliders ui.spectroscope~ ui.tab
-        ui.toggle
+        ui.aview ui.bang ui.colorpanel ui.display ui.dsp~ ui.env ui.gain2~
+        ui.gain~ ui.icon ui.incdec ui.keyboard ui.knob ui.label ui.link
+        ui.matrix ui.menu ui.meter~ ui.number ui.number~ ui.preset ui.radio
+        ui.rslider ui.scope~ ui.slider ui.slider2d ui.sliders ui.spectroscope~
+        ui.tab ui.toggle
     }}
     {vector {
         vector.distance vector.dot vector.length vector.normalize

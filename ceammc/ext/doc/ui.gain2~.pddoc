@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.gain2~" type="gui">
+        <title>ui.gain2~</title>
+        <meta>
+            <authors>
+                <author>Serge Potlavsky</author>
+            </authors>
+            <description>UI stereo gain control</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui gain</keywords>
+            <since>0.7</since>
+        </meta>
+        <properties>
+            <property name="@max" type="int" minvalue="-6" maxvalue="6" default="0"
+            units="decibel">maximum gain value</property>
+            <property name="@min" type="int" minvalue="-90" maxvalue="-50" default="-60"
+            units="decibel">minimal gain value</property>
+            <property name="@db" type="float" units="decibel">gain in dbfs scale</property>
+            <property name="@amp" type="float">gain as amplitude ratio</property>
+            <property name="@output_value" type="int" enum="0 1" default="0">flag to output @db
+            property after each knob move</property>
+        </properties>
+        <methods>
+            <method name="+ N">increase current gain by N db</method>
+            <method name="- N">decrease current gain by N db</method>
+            <method name="++">decrease current gain by 1 db</method>
+            <method name="--">decrease current gain by 1 db</method>
+            <method name="set N">set current gain to N db</method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>left input signal</xinfo>
+                <xinfo on="bang">output current gain @db property</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>right input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">left output signal</outlet>
+            <outlet type="audio">right output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1(
+|
+[expand_env]
+|
+[readsf~]
+|
+[fx.zita_rev1~]
+| ^|.
+[ui.gain2~ @size 120 14]
+| ^|.
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
