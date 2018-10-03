@@ -434,6 +434,9 @@
     <entry descr="frequency shifter or single-sideband ring modulation" name="fx.freqshift~" ref_view="object">
       <xi:include href="fx.freqshift~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="simple input stream granulator" name="fx.granulator~" ref_view="object">
+      <xi:include href="fx.granulator~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="A complex echo-like effect" name="fx.greyhole~" ref_view="object">
       <xi:include href="fx.greyhole~.pddoc" parse="xml"/>
     </entry>
@@ -1336,6 +1339,7 @@
       <author>Alex Nadzharov</author>
       <author>Hans-Christoph Steiner</author>
       <author>Julian Parker</author>
+      <author>Mayank Sanganeria</author>
       <author>Oliver Larkin</author>
       <author>Olli Parviainen</author>
       <author>Pierre Cochard</author>

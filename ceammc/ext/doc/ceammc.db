@@ -122,6 +122,7 @@ fx.flanger~		~		~
 fx.freeverb2~		~~		~~
 fx.freeverb~		~		~
 fx.freqshift~		~~		~~
+fx.granulator~		~		~~
 fx.greyhole~		~~		~~
 fx.looper~		~		~
 fx.pitchshift~		~.		~

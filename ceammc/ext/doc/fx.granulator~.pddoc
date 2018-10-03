@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.granulator~">
+        <title>fx.granulator~</title>
+        <meta>
+            <authors>
+                <author>Mayank Sanganeria</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>simple input stream granulator</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx bits granulator</keywords>
+            <since>0.7</since>
+        </meta>
+        <properties>
+            <property name="@density" type="int" minvalue="1" maxvalue="64" default="10">number of grains</property>
+            <property name="@length" type="float" minvalue="10" maxvalue="500" default="1000"
+            units="millisecond">grain length</property>
+            <property name="@delay" type="float" minvalue="0.5" maxvalue="10" default="10"
+            units="second">grain total area length</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>left channel</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output</outlet>
+            <outlet type="audio">output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1(
+|
+[expand_env] [F]         [F]          [F]
+|            |           |            |
+[readsf~]    [@delay $1( [@length $1( [@density $1(
+|            |           |            |
+|            |           |            |
+|            |           |            |
+[fx.granulator~                       ]
+|
+[ui.gain~ @size 120 14] [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

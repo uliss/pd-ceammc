@@ -8,7 +8,7 @@ cm = library("ceammc.lib");
 // Controls
 N = hslider("density", 10, 1, maxN, 1);
 gLength = hslider("length [unit:ms]", 100, 10, 500, 0.01) : cm.time_pd2faust : si.smoo;
-dLength = hslider("delay [unit:sec]", 10, 0.5, 10, 0.1);
+dLength = hslider("delay [unit:sec]", 10, 0.5, 10, 0.1) : si.smoo;
 
 // Globals
 counter = +(1) % delayLength ~ _; // to iterate through the delay line
@@ -48,7 +48,7 @@ grainRandomStartPos(i) = int(SH(int(grainCounter(i)/(grainLength-1)),int(delayLe
 grainPosition(i) = grainCounter(i) + grainRandomStartPos(i);
 
 //Delay Line
-buffer(write,read,x) = rwtable(delayBufferSize, 0.0, write % delayLength, x, read % delayLength);
+buffer(write, read, x) = rwtable(delayBufferSize, 0.0, write % delayLength, x, read % delayLength);
 
 //sin wave for windowing
 
@@ -61,4 +61,4 @@ WIN_SIZE = 1024;
 window2(i) = rdtable(WIN_SIZE, hann_window(WIN_SIZE), int((grainCounter(i) / (grainLength-1)) * WIN_SIZE));
 window1(i) = sin(2 * ma.PI * grainCounter(i)/(grainLength-1));
 
-process = _<: par(i, maxN, buffer(counter, grainPosition(i)) * window2(i) * (i<N) / N) :> _,_;
+process = _<: par(i, maxN, buffer(counter, grainPosition(i)) * window2(i) * (i<N) / (N/2)) :> _,_;
