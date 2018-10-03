@@ -17,10 +17,10 @@
 -49933 0;
 #X msg 120 311 @max;
 #X text 240 311 Get/Set maximum gain value. Type: int. Units: db.
-Default value: 0\. Value range: -6-6;
+Default value: 0\. Value range: -12-12;
 #X msg 120 348 @min;
 #X text 240 348 Get/Set minimal gain value. Type: int. Units: db.
-Default value: -60\. Value range: -90--50;
+Default value: -60\. Value range: -90--30;
 #X msg 120 385 @db;
 #X text 240 385 Get/Set gain in dbfs scale. Type: float. Units: db;
 #X msg 120 412 @amp;

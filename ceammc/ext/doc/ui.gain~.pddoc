@@ -14,9 +14,9 @@
             <since>0.5</since>
         </meta>
         <properties>
-            <property name="@max" type="int" minvalue="-6" maxvalue="6" default="0"
+            <property name="@max" type="int" minvalue="-12" maxvalue="12" default="0"
             units="decibel">maximum gain value</property>
-            <property name="@min" type="int" minvalue="-90" maxvalue="-50" default="-60"
+            <property name="@min" type="int" minvalue="-90" maxvalue="-30" default="-60"
             units="decibel">minimal gain value</property>
             <property name="@db" type="float" units="decibel">gain in dbfs scale</property>
             <property name="@amp" type="float">gain as amplitude ratio</property>

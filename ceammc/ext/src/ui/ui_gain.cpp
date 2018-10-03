@@ -224,8 +224,8 @@ void UIGain::setup()
     obj.addProperty("amp", &UIGain::ampValue, &UIGain::setAmpValue);
     obj.addIntProperty("max", _("Maximum value"), 0, &UIGain::prop_max);
     obj.addIntProperty("min", _("Minimum value"), -60, &UIGain::prop_min);
-    obj.setPropertyRange("max", -6, 6);
-    obj.setPropertyRange("min", -90, -50);
+    obj.setPropertyRange("max", -12, 12);
+    obj.setPropertyRange("min", -90, -30);
     obj.addBoolProperty("output_value", _("Output value"), false, &UIGain::prop_output_value);
 
     obj.setDefaultSize(15, 120);

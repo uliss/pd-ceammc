@@ -56,6 +56,7 @@
 - fx.freeverb2~ @roomsize renamed to @room
 - fx.echo~ @time property renamed to @delay
 - flt.moog_vcf~ signal inlet used for center frequency
+- ui.gain~ range cnahges from [-90,30] till [-12,12] now
 
 ### Removed:
 - fx.greyhole~ 3rd information outlet removed
