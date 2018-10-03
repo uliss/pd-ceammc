@@ -196,24 +196,28 @@ AtomList UIMatrix::asList() const
 
 void UIMatrix::okSize(t_rect* newrect)
 {
-    float ratio;
-    newrect->width = pd_clip_min(newrect->width, prop_cols_ * 6);
-    newrect->height = pd_clip_min(newrect->height, prop_rows_ * 6);
+    if (!isPatchLoading()) {
+        newrect->width = pd_clip_min(newrect->width, prop_cols_ * 6);
+        newrect->height = pd_clip_min(newrect->height, prop_rows_ * 6);
 
-    ratio = (newrect->width - 1.f) / prop_cols_;
-    if (ratio - (int)ratio != 0) {
-        ratio = floorf(ratio);
-        newrect->width = ratio * prop_cols_ + 1.f;
+        float ratio = (newrect->width - 1.f) / prop_cols_;
+        if (ratio - (int)ratio != 0) {
+            ratio = floorf(ratio);
+            newrect->width = ratio * prop_cols_ + 1.f;
+        }
+
+        ratio = (newrect->height - 1.f) / prop_rows_;
+        if (ratio - (int)ratio != 0) {
+            ratio = floorf(ratio);
+            newrect->height = ratio * prop_rows_ + 1.f;
+        }
+
+        newrect->width = pd_clip_min(newrect->width, 30.);
+        newrect->height = pd_clip_min(newrect->height, 10.);
+    } else {
+        newrect->width = pd_clip_min(newrect->width, 30.);
+        newrect->height = pd_clip_min(newrect->height, 10.);
     }
-
-    ratio = (newrect->height - 1.f) / prop_rows_;
-    if (ratio - (int)ratio != 0) {
-        ratio = floorf(ratio);
-        newrect->height = ratio * prop_rows_ + 1.f;
-    }
-
-    newrect->width = pd_clip_min(newrect->width, 30.);
-    newrect->height = pd_clip_min(newrect->height, 10.);
 }
 
 void UIMatrix::paint(t_object* view)
