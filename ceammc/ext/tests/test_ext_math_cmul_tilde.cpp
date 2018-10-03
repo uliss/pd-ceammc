@@ -31,7 +31,35 @@
 
 PD_COMPLETE_SND_TEST_SETUP(MathComplexMulTilde, math, cmul_tilde)
 
-typedef TestSignal<4, 2> CMulSignal;
+struct CMulSignal : public TestSignal<4, 2> {
+    typedef std::pair<std::array<t_sample, 64>, std::array<t_sample, 64>> ComplexBuf;
+
+    void clear()
+    {
+        fillInput(0.f);
+    }
+
+    void setComplex0(float r, float i)
+    {
+        fillInputN(0, r);
+        fillInputN(1, i);
+    }
+
+    void setComplex1(float r, float i)
+    {
+        fillInputN(2, r);
+        fillInputN(3, i);
+    }
+
+    ComplexBuf result() const
+    {
+        ComplexBuf buf;
+        std::copy(std::begin(buf_out[0]), std::end(buf_out[0]), buf.first.begin());
+        std::copy(std::begin(buf_out[1]), std::end(buf_out[1]), buf.second.begin());
+        return buf;
+    }
+};
+
 typedef DSP<CMulSignal, TestExtMathComplexMulTilde> CMulDSP;
 
 TEST_CASE("math.cmul~", "[externals]")
@@ -51,14 +79,34 @@ TEST_CASE("math.cmul~", "[externals]")
         CMulDSP dsp(sig, t);
         REQUIRE_OUTPUT_EQUAL(dsp, 0, 0);
 
-        sig.fillInputN(0, 1);
-        sig.fillInputN(2, 1);
+        sig.setComplex0(1, 0);
+        sig.setComplex1(1, 0);
         REQUIRE_OUTPUT_EQUAL(dsp, 1, 0);
 
-        sig.fillInput(0.f);
-        sig.fillInputN(1, 1);
-        sig.fillInputN(3, 1);
+        sig.setComplex0(0, 1);
+        sig.setComplex1(0, 1);
         REQUIRE_OUTPUT_EQUAL(dsp, -1, 0);
+    }
+
+    SECTION("commut")
+    {
+        TestExtMathComplexMulTilde t("math.cmul~");
+
+        CMulSignal sig;
+        CMulDSP dsp(sig, t);
+
+        sig.setComplex0(123, -2);
+        sig.setComplex1(-3, 1);
+        dsp.processBlock();
+
+        auto res0 = sig.result();
+
+        sig.setComplex1(123, -2);
+        sig.setComplex0(-3, 1);
+        dsp.processBlock();
+
+        auto res1 = sig.result();
+        REQUIRE(res0 == res1);
     }
 
     SECTION("alias")
