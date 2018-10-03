@@ -53,6 +53,7 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_music_theory.cpp
     ceammc_music_theory_names.cpp
     ceammc_music_theory_pitch_class.cpp
+    ceammc_node_external.cpp
     ceammc_object.cpp
     ceammc_pd.cpp
     ceammc_platform.cpp

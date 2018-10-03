@@ -8,6 +8,7 @@ set(BASE_SOURCES
     msg.cpp
     msg_after.cpp
     obj_info.cpp
+    obj_props.cpp
     prop.get.cpp
     prop.set.cpp
     prop.get_tilde.cpp

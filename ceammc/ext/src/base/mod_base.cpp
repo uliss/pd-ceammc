@@ -12,6 +12,7 @@
 #include "mix.h"
 #include "msg_after.h"
 #include "obj_info.h"
+#include "obj_props.h"
 #include "patch_args.h"
 #include "radio.h"
 #include "xfade2_tilde.h"
@@ -63,6 +64,7 @@ void ceammc_base_setup()
     setup_metro_seq();
     setup_msg_after();
     setup_obj_info();
+    setup_obj_props();
 
     setup_prop0x2eget();
     setup_prop0x2eset();
