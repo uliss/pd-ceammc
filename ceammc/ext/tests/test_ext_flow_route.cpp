@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/data_mlist.h"
-#include "../data/datatype_dict.h"
+#include "datatype_mlist.h"
+#include "datatype_dict.h"
 #include "../data/datatype_set.h"
 #include "../flow/flow_route.h"
 #include "test_external.h"

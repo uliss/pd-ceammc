@@ -20,7 +20,7 @@
 #include <nonius/nonius.h++>
 #include <random>
 
-#include "data/datatype_mlist.h"
+#include "datatype_mlist.h"
 #include "list/mod_list.h"
 
 using namespace ceammc;

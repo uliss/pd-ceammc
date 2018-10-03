@@ -11,12 +11,12 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/datatype_dict.h"
-#include "../data/datatype_mlist.h"
-#include "../data/dict_parser_impl.h"
-#include "../lib/ceammc_datatypes.h"
+#include "ceammc_datatypes.h"
+#include "datatype_dict.h"
+#include "datatype_mlist.h"
+#include "dict_parser_impl.h"
 
-#include "../data/dict_parser.tab.h"
+#include "dict_parser.tab.h"
 
 #include "test_common.h"
 

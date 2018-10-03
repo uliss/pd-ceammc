@@ -1,5 +1,5 @@
 #include "list_max.h"
-#include "../data/datatype_mlist.h"
+#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 
 static t_symbol* SYM_FLOAT = gensym("float");

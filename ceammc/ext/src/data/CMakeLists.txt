@@ -1,7 +1,4 @@
-set(DATA_SOURCES
-    datatype_dict.cpp
-    datatype_set.cpp
-)
+set(DATA_SOURCES datatype_set.cpp)
 
 macro(ceammc_data_extension mod name)
     list(APPEND DATA_SOURCES "${mod}_${name}.cpp")
@@ -45,38 +42,6 @@ ceammc_data_extension(local int)
 ceammc_data_extension(local list)
 ceammc_data_extension(local mlist)
 ceammc_data_extension(local set)
-
-set(MLIST_SOURCES
-    datatype_mlist.cpp
-    mlist_parser.lex
-    mlist_parser.y
-    mlist_parser.tab.c
-    lex.mlist_parser.c
-    mlist_parser_impl.cpp)
-
-set(DICT_PARSER_SOURCES
-    dict_parser.lex
-    dict_parser.y
-    dict_parser.tab.c
-    lex.dict_parser.c
-    dict_parser_impl.cpp
-    )
-
-if(BISON_FOUND AND FLEX_FOUND)
-    add_custom_target(data_mlist_parser_gen
-        COMMAND ${FLEX_EXECUTABLE} --header-file=lex.mlist_parser.h mlist_parser.lex
-        COMMAND ${BISON_EXECUTABLE} -d mlist_parser.y
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    )
-
-    add_custom_target(data_dict_parser_gen
-        COMMAND ${FLEX_EXECUTABLE} --header-file=lex.dict_parser.h dict_parser.lex
-        COMMAND ${BISON_EXECUTABLE} -d dict_parser.y
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    )
-endif()
-
-list(APPEND DATA_SOURCES ${MLIST_SOURCES} ${DICT_PARSER_SOURCES})
 
 add_library(ceammc_data STATIC mod_data.h mod_data.cpp ${DATA_SOURCES})
 if(UNIX)

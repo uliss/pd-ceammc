@@ -97,8 +97,44 @@ elseif(WIN32)
     list(APPEND CEAMMC_LIB_SOURCES ceammc_platform_win.cpp)
 endif()
 
+# builtin datatypes: mlist and dict
+set(CEAMMC_MLIST_SRC
+    datatype_mlist.cpp
+    mlist_parser.lex
+    mlist_parser.y
+    mlist_parser.tab.c
+    lex.mlist_parser.c
+    mlist_parser_impl.cpp)
+
+set(CEAMMC_DICT_SRC
+    datatype_dict.cpp
+    dict_parser.lex
+    dict_parser.y
+    dict_parser.tab.c
+    lex.dict_parser.c
+    dict_parser_impl.cpp
+    )
+
+if(BISON_FOUND AND FLEX_FOUND)
+    add_custom_target(data_mlist_parser_gen
+        COMMAND ${FLEX_EXECUTABLE} --header-file=lex.mlist_parser.h mlist_parser.lex
+        COMMAND ${BISON_EXECUTABLE} -d mlist_parser.y
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+
+    add_custom_target(data_dict_parser_gen
+        COMMAND ${FLEX_EXECUTABLE} --header-file=lex.dict_parser.h dict_parser.lex
+        COMMAND ${BISON_EXECUTABLE} -d dict_parser.y
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+endif()
+
 # main shared library
-add_library(ceammc_core SHARED ${CEAMMC_LIB_SOURCES} ${CEAMMC_UI_SRC})
+add_library(ceammc_core SHARED
+    ${CEAMMC_LIB_SOURCES}
+    ${CEAMMC_MLIST_SRC}
+    ${CEAMMC_DICT_SRC}
+    ${CEAMMC_UI_SRC})
 target_link_libraries(ceammc_core puredata-core)
 
 set_target_properties(ceammc_core PROPERTIES
