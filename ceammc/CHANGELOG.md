@@ -30,7 +30,8 @@
 - fx.zita_rev1~ arguments mapped to @decay_low, @decay_mid
 - fx.chorus~ added
 - fx.bitdown~ added
-- msg.after added
+- msg.after added (send delayed message after passed input message)
+- math.cmul~ added (multiplication of complex signals)
 - live.capture~ @gate property added, reset method added
 - l->l alias added for lin->lin
 - soundtouch~ pitch argument added

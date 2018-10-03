@@ -76,7 +76,7 @@
         flt.lpf24~ flt.moog_vcf~ flt.notch~ flt.resonbp~
     }}
     {fx {
-        fx.bitdown~ fx.chorus~ fx.distortion~ fx.drone_box~ fx.echo~
+        fx.bitdown~ fx.chorus~ fx.distortion~ fx.drive~ fx.drone_box~ fx.echo~
         fx.flanger~ fx.freeverb2~ fx.freeverb~ fx.freqshift~ fx.greyhole~
         fx.looper~ fx.pitchshift~ fx.sdelay~ fx.wahwah~ fx.zita_rev1~
     }}
@@ -113,12 +113,12 @@
     }}
     {math {
         math.abs math.acos math.acosh math.and math.approx math.asin
-        math.asinh math.atan math.atanh math.cbrt math.ceil math.cos math.cosh
-        math.div math.e math.exp math.exp2 math.expr math.floor math.gcd
-        math.inf math.lcm math.log math.log10 math.log2 math.mul math.nan
-        math.neg math.or math.pi math.polyeval math.reciprocal math.round
-        math.round~ math.sign math.sin math.sinh math.sqrt math.squared
-        math.tan math.tanh math.trunc
+        math.asinh math.atan math.atanh math.cbrt math.ceil math.cmul~
+        math.cos math.cosh math.div math.e math.exp math.exp2 math.expr
+        math.floor math.gcd math.inf math.lcm math.log math.log10 math.log2
+        math.mul math.nan math.neg math.or math.pi math.polyeval
+        math.reciprocal math.round math.round~ math.sign math.sin math.sinh
+        math.sqrt math.squared math.tan math.tanh math.trunc
     }}
     {midi {
         midi.ctl2str midi.event2ctl midi.event2note midi.event2prg midi.file
@@ -128,7 +128,7 @@
         click~ fluid~ modplug~ speech.flite
     }}
     {msg {
-        msg msg.onload
+        msg msg.after msg.onload
     }}
     {net {
         net.host2ip

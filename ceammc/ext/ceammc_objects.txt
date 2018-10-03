@@ -31,6 +31,7 @@ canvas.current
 canvas.top
 cc->amp
 click~
+cmul~
 conv.amp2dbfs
 conv.bpm2hz
 conv.bpm2ms
@@ -301,6 +302,7 @@ math.atan
 math.atanh
 math.cbrt
 math.ceil
+math.cmul~
 math.cos
 math.cosh
 math.div

@@ -755,6 +755,9 @@
     <entry descr="round to smallest integral value not less than input value" name="math.ceil" ref_view="object">
       <xi:include href="math.ceil.pddoc" parse="xml"/>
     </entry>
+    <entry descr="multiplication of complex signals" name="math.cmul~" ref_view="object">
+      <xi:include href="math.cmul~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="cosine function" name="math.cos" ref_view="object">
       <xi:include href="math.cos.pddoc" parse="xml"/>
     </entry>

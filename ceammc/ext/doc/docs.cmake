@@ -237,6 +237,7 @@ set(DOC_FILES
     math.atanh
     math.cbrt
     math.ceil
+    math.cmul~
     math.cos
     math.cosh
     math.div

@@ -235,6 +235,7 @@ math.atan		.		.
 math.atanh		.		.
 math.cbrt		.		.
 math.ceil		.		.
+math.cmul~,cmul~		~~~~		~~
 math.cos		.		.
 math.cosh		.		.
 math.div,math./		..		.
