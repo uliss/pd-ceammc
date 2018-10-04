@@ -295,6 +295,7 @@ noise.lfreq0~		~		~
 noise.lfreq~		~		~
 noise.pink~		-		~
 noise.white~		-		~
+obj.props		.		..
 osc.blit~		~.		~
 osc.impulse~		~.		~
 osc.pulse~		~.		~

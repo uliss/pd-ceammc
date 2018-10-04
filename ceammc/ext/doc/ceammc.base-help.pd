@@ -16,14 +16,16 @@
 #X text 175 247 metro sequencer;
 #X obj 30 274 mix~;
 #X text 175 274 multislot signal mixer;
-#X obj 30 301 radio;
-#X text 175 301 float index to outlet values as radio switch;
-#X obj 30 328 window;
-#X text 175 328 returns window value by given window position;
-#X obj 30 355 xfade2~;
-#X text 175 355 multi stereo-signal crossfade;
-#X obj 30 382 xfade~;
-#X text 175 382 multi signal crossfade;
+#X obj 30 301 obj.props;
+#X text 175 301 property extractor;
+#X obj 30 328 radio;
+#X text 175 328 float index to outlet values as radio switch;
+#X obj 30 355 window;
+#X text 175 355 returns window value by given window position;
+#X obj 30 382 xfade2~;
+#X text 175 382 multi stereo-signal crossfade;
+#X obj 30 409 xfade~;
+#X text 175 409 multi signal crossfade;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc::base 20 20 0 20 -104026
 -4096 0;
 #X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;

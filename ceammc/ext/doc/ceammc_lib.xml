@@ -51,6 +51,9 @@
     <entry descr="multislot signal mixer" name="mix~" ref_view="object">
       <xi:include href="mix~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="property extractor" name="obj.props" ref_view="object">
+      <xi:include href="obj.props.pddoc" parse="xml"/>
+    </entry>
     <entry descr="float index to outlet values as radio switch" name="radio" ref_view="object">
       <xi:include href="radio.pddoc" parse="xml"/>
     </entry>

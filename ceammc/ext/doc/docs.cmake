@@ -297,6 +297,7 @@ set(DOC_FILES
     noise.white~
     noise.lfreq~
     noise.lfreq0~
+    obj.props
     osc.blit~
     osc.impulse~
     osc.pulse~
