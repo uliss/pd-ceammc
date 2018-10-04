@@ -37,7 +37,7 @@
     }}
     {base {
         function function.call gain~ matrix~ metro.pattern metro.seq mix~
-        radio window xfade2~ xfade~
+        obj.props radio window xfade2~ xfade~
     }}
     {conv {
         array.p2s array.s2p conv.amp2dbfs conv.bpm2hz conv.bpm2ms conv.bpm2sec
@@ -47,9 +47,9 @@
     }}
     {data {
         data.dict data.fifo data.float data.int data.list data.mlist data.set
-        data.set2list dict.contains dict.get dict.keys dict.size dict.values
-        mlist.flatten set.contains set.diff set.equal set.intersect set.size
-        set.symdiff set.union
+        data.set2list dict.contains dict.each dict.get dict.keys dict.pass
+        dict.size dict.values mlist.flatten set.contains set.diff set.equal
+        set.intersect set.size set.symdiff set.union
     }}
     {dyn {
         dyn.comp2~ dyn.comp~ dyn.gate2~ dyn.gate~ dyn.limit2~ dyn.limit~
@@ -148,7 +148,7 @@
         path.basename path.dirname path.exists path.lsdir
     }}
     {predicates {
-        is_any is_bang is_data is_even is_file is_float is_list is_odd
+        is_any is_bang is_data is_dict is_even is_file is_float is_list is_odd
         is_pointer is_symbol
     }}
     {preset {
