@@ -151,6 +151,9 @@
     <entry descr="get list of dict keys" name="dict.keys" ref_view="object">
       <xi:include href="dict.keys.pddoc" parse="xml"/>
     </entry>
+    <entry descr="passes specified keys in dict" name="dict.pass" ref_view="object">
+      <xi:include href="dict.pass.pddoc" parse="xml"/>
+    </entry>
     <entry descr="dictionary size" name="dict.size" ref_view="object">
       <xi:include href="dict.size.pddoc" parse="xml"/>
     </entry>
