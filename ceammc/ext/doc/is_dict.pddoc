@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="is_dict">
+        <title>is_dict</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>checks if input data has *dict* type</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>predicates</category>
+            <keywords>dictionary</keywords>
+            <since>0.7</since>
+            <also>
+                <see>data.dict</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo>input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>0 or 1</outlet>
+            <outlet>passes *dict*</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[\[a: b\] \[@prop: val\] \[1: 100\], bang(
+|
+[data.dict] [list 1 2 3( [F]
+|           |            |
+[is_dict                 ]
+|     ^|
+[T]   [ui.d]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

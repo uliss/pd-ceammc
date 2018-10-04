@@ -996,6 +996,9 @@
     <entry descr="checks if input data has *data* type" name="is_data" ref_view="object">
       <xi:include href="is_data.pddoc" parse="xml"/>
     </entry>
+    <entry descr="checks if input data has *dict* type" name="is_dict" ref_view="object">
+      <xi:include href="is_dict.pddoc" parse="xml"/>
+    </entry>
     <entry descr="checks if input number is even" name="is_even" ref_view="object">
       <xi:include href="is_even.pddoc" parse="xml"/>
     </entry>

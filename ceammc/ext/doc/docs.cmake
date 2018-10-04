@@ -142,6 +142,7 @@ set(DOC_FILES
     is_any
     is_bang
     is_data
+    is_dict
     is_even
     is_file
     is_float
