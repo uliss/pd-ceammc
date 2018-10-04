@@ -36,6 +36,7 @@ data.mlist,mlist,ml		.		.
 data.set		.		.
 data.set2list,set->list		.		.
 dict.contains		..		.
+dict.each		..		..
 dict.get		.		?
 dict.keys		.		.
 dict.pass		..		.

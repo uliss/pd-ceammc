@@ -37,6 +37,7 @@ set(DOC_FILES
     data.set
     data.set2list
     dict.contains
+    dict.each
     dict.get
     dict.keys
     dict.pass
