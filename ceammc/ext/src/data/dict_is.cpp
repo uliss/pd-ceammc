@@ -22,6 +22,26 @@ IsDict::IsDict(const PdArgs& args)
     createOutlet();
 }
 
+void IsDict::onFloat(t_float)
+{
+    floatTo(0, 0);
+}
+
+void IsDict::onSymbol(t_symbol*)
+{
+    floatTo(0, 0);
+}
+
+void IsDict::onList(const AtomList&)
+{
+    floatTo(0, 0);
+}
+
+void IsDict::onAny(t_symbol*, const AtomList&)
+{
+    floatTo(0, 0);
+}
+
 void IsDict::onData(const DataPtr& ptr)
 {
     if (ptr.isValid() && ptr->type() == data::DATA_DICT) {

@@ -21,6 +21,10 @@ using namespace ceammc;
 class IsDict : public BaseObject {
 public:
     IsDict(const PdArgs& args);
+    void onFloat(t_float) override;
+    void onSymbol(t_symbol*) override;
+    void onList(const AtomList&) override;
+    void onAny(t_symbol*, const AtomList&) override;
     void onData(const DataPtr& ptr);
 };
 
