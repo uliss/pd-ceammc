@@ -188,16 +188,6 @@ namespace faust {
         *value_ = init_;
     }
 
-    inline void UIElement::setContraints(FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
-    {
-        assert(min <= init && init <= max);
-
-        init_ = init;
-        min_ = min;
-        max_ = max;
-        step_ = step;
-    }
-
     bool isGetAllProperties(t_symbol* s);
     bool isGetProperty(t_symbol* s);
     bool isSetProperty(t_symbol* s);

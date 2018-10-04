@@ -76,6 +76,12 @@ public:
     void insert(const std::string& key, const std::string& value);
     void insert(const std::string& key, t_float value);
     void insert(const std::string& key, const Atom& value);
+    void insert(const std::string& key, const AtomList& lst);
+    /**
+     * @note - takes pointer ownership
+     */
+    void insert(const std::string& key, AbstractData* data);
+
     void insert(const Atom& key, t_float value);
     void insert(const Atom& key, const Atom& value);
     void insert(const Atom& key, const AtomList& value);

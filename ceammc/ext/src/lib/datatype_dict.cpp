@@ -150,6 +150,17 @@ void DataTypeDict::insert(const std::string& key, const Atom& value)
     insert(Atom(gensym(key.c_str())), value);
 }
 
+void DataTypeDict::insert(const std::string& key, const AtomList& lst)
+{
+    insert(Atom(gensym(key.c_str())), lst);
+}
+
+void DataTypeDict::insert(const std::string& key, AbstractData* data)
+{
+    DataPtr ptr(data);
+    insert(Atom(gensym(key.c_str())), ptr.asAtom());
+}
+
 void DataTypeDict::insert(const Atom& key, t_float value)
 {
     insert(key, Atom(value));

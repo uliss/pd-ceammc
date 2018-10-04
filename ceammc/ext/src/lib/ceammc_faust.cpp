@@ -266,6 +266,7 @@ namespace faust {
         , n_xfade_(static_cast<int>(rate_ * xfadeTime() / 64))
     {
         createCbProperty("@active", &FaustExternalBase::propActive, &FaustExternalBase::propSetActive);
+        property("@active")->info().setType(PropertyInfoType::BOOLEAN);
     }
 
     FaustExternalBase::~FaustExternalBase()
@@ -418,7 +419,7 @@ namespace faust {
     }
 
     UIProperty::UIProperty(UIElement* el)
-        : Property(PropertyInfo(std::string("@") + el->label(), PropertyInfoType::FLOAT))
+        : Property(el->propInfo())
         , el_(el)
     {
     }
@@ -452,6 +453,20 @@ namespace faust {
     void UIProperty::setValue(float v, bool clip) const
     {
         el_->setValue(v, clip);
+    }
+
+    void UIElement::setContraints(float init, float min, float max, float step)
+    {
+        assert(min <= init && init <= max);
+
+        init_ = init;
+        min_ = min;
+        max_ = max;
+        step_ = step;
+        pinfo_.setDefault(init_);
+        pinfo_.setMin(min_);
+        pinfo_.setMax(max_);
+        pinfo_.setStep(step_);
     }
 
 }
