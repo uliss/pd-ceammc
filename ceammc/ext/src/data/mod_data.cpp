@@ -6,8 +6,11 @@
 #include "data_mlist.h"
 #include "data_set.h"
 #include "dict_contains.h"
+#include "dict_each.h"
 #include "dict_get.h"
+#include "dict_is.h"
 #include "dict_keys.h"
+#include "dict_pass.h"
 #include "dict_size.h"
 #include "dict_values.h"
 #include "global_dict.h"
@@ -55,10 +58,13 @@ void ceammc_data_setup()
     setup_data_set();
 
     setup_dict_contains();
+    setup_dict_each();
     setup_dict_get();
     setup_dict_keys();
+    setup_dict_pass();
     setup_dict_size();
     setup_dict_values();
+    setup_is_dict();
 
     setup_local_dict();
     setup_local_float();

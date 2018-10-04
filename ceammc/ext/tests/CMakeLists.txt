@@ -113,6 +113,7 @@ ceammc_external_test(conv lin2lin)
 
 ceammc_external_test(data dict)
 ceammc_external_test(data dict_contains)
+ceammc_external_test(data dict_each)
 ceammc_external_test(data dict_get)
 ceammc_external_test(data global_list)
 ceammc_external_test(data global_mlist)

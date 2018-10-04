@@ -61,8 +61,10 @@ demux2~
 demux~
 dict
 dict.contains
+dict.each
 dict.get
 dict.keys
+dict.pass
 dict.size
 dict.values
 dyn.comp2~
@@ -184,6 +186,7 @@ hw.usb
 is_any
 is_bang
 is_data
+is_dict
 is_even
 is_file
 is_float
@@ -391,6 +394,7 @@ noise.torus
 noise.verhulst
 noise.white~
 obj.info
+obj.props
 once
 or
 osc.blit~

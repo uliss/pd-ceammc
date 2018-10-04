@@ -34,6 +34,9 @@
 - msg.after added (send delayed message after passed input message)
 - math.cmul~ added (multiplication of complex signals)
 - math.cdiv~ added (division of complex signals)
+- dict.each added for mapping all dict values
+- is_dict predicate object added
+- dict.pass added for passing only specified keys
 - live.capture~ @gate property added, reset method added
 - l->l alias added for lin->lin
 - soundtouch~ pitch argument added

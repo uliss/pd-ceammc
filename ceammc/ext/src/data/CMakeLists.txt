@@ -13,8 +13,11 @@ ceammc_data_extension(data mlist)
 ceammc_data_extension(data set)
 
 ceammc_data_extension(dict contains)
+ceammc_data_extension(dict each)
 ceammc_data_extension(dict get)
+ceammc_data_extension(dict is)
 ceammc_data_extension(dict keys)
+ceammc_data_extension(dict pass)
 ceammc_data_extension(dict size)
 ceammc_data_extension(dict values)
 
