@@ -1,12 +1,21 @@
 #include "flt_lowshelf.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
+using namespace ceammc;
+
+static t_symbol* SYM_PROP_FREQ = gensym("@freq");
+static t_symbol* SYM_PROP_GAIN = gensym("@gain");
+
+class FltLowShelf : public faust_flt_lowshelf_tilde {
+public:
+    FltLowShelf(const PdArgs& args)
+        : faust_flt_lowshelf_tilde(args)
+    {
+        bindPositionalArgsToProps({ SYM_PROP_FREQ, SYM_PROP_GAIN });
+    }
+};
+
+void setup_flt_lowshelf_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-    PdArgParser p(x, argc, argv);
-    p.initFloatArg("freq", 1);
-    p.initFloatArg("gain", 2);
-    return p.pd_obj();
+    SoundExternalFactory<FltLowShelf> obj("flt.lowshelf~");
 }
-
-EXTERNAL_SETUP(flt);

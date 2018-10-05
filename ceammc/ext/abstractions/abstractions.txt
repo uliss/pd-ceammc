@@ -3,6 +3,8 @@ gdyn.comp~
 gdyn.gate2~
 gdyn.gate~
 gflt.eq_peak~
+gflt.highshelf~
+gflt.lowshelf~
 gflt.moog_vcf~
 gflt.resonbp~
 gfx.bitdown~

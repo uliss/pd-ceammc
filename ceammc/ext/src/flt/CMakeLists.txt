@@ -13,8 +13,6 @@ endmacro()
 
 ceammc_flt_extension(dcblock)
 ceammc_flt_extension(dcblock2)
-ceammc_flt_extension(highshelf)
-ceammc_flt_extension(lowshelf)
 ceammc_flt_extension(eq_peak_cq)
 ceammc_flt_extension(lpf12)
 ceammc_flt_extension(lpf24)
@@ -34,6 +32,8 @@ ceammc_flt_extension(c_notch)
 
 ceammc_flt_obj_ext(eq10)
 ceammc_flt_obj_ext(eq_peak)
+ceammc_flt_obj_ext(highshelf)
+ceammc_flt_obj_ext(lowshelf)
 ceammc_flt_obj_ext(moog_vcf)
 ceammc_flt_obj_ext(resonbp)
 
