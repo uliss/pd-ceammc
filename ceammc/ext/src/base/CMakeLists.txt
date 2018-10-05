@@ -1,22 +1,25 @@
 include_directories(${CMAKE_BINARY_DIR}) # for config.h
 
 set(BASE_SOURCES
+    canvas_current.cpp
+    canvas_prop.cpp
+    prop_declare.cpp
+    canvas_top.cpp
+    datatype_property.cpp
     expand_env.cpp
     function.cpp
     function_call.cpp
     load_msg.cpp
+    metro_pattern.cpp
+    metro_seq.cpp
     msg.cpp
     msg_after.cpp
     obj_info.cpp
     obj_props.cpp
-    prop.get.cpp
-    prop.set.cpp
-    prop.get_tilde.cpp
     patch_args.cpp
-    canvas_current.cpp
-    canvas_top.cpp
-    metro_pattern.cpp
-    metro_seq.cpp
+    prop.get.cpp
+    prop.get_tilde.cpp
+    prop.set.cpp
     radio.cpp
     replace.cpp)
 
@@ -26,8 +29,8 @@ list(APPEND BASE_SOURCES
     is_bang.cpp
     is_data.cpp
     is_even.cpp
-    is_float.cpp
     is_file.cpp
+    is_float.cpp
     is_list.cpp
     is_odd.cpp
     is_pointer.cpp
