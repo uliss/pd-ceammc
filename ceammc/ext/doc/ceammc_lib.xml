@@ -163,6 +163,9 @@
     <entry descr="passes specified keys in dict" name="dict.pass" ref_view="object">
       <xi:include href="dict.pass.pddoc" parse="xml"/>
     </entry>
+    <entry descr="rejects specified keys from dict" name="dict.reject" ref_view="object">
+      <xi:include href="dict.reject.pddoc" parse="xml"/>
+    </entry>
     <entry descr="dictionary size" name="dict.size" ref_view="object">
       <xi:include href="dict.size.pddoc" parse="xml"/>
     </entry>

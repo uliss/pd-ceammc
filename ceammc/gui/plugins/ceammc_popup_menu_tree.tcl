@@ -48,8 +48,9 @@
     {data {
         data.dict data.fifo data.float data.int data.list data.mlist data.set
         data.set2list dict.contains dict.each dict.from_list dict.get
-        dict.keys dict.pass dict.size dict.values mlist.flatten set.contains
-        set.diff set.equal set.intersect set.size set.symdiff set.union
+        dict.keys dict.pass dict.reject dict.size dict.values mlist.flatten
+        set.contains set.diff set.equal set.intersect set.size set.symdiff
+        set.union
     }}
     {dyn {
         dyn.comp2~ dyn.comp~ dyn.gate2~ dyn.gate~ dyn.limit2~ dyn.limit~

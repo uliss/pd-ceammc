@@ -66,6 +66,7 @@ dict.from_list
 dict.get
 dict.keys
 dict.pass
+dict.reject
 dict.size
 dict.values
 dyn.comp2~
