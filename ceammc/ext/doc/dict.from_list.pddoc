@@ -42,13 +42,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[list a b c d e f g h j k (
-|                        |
-|                        |
-|                        |
-[list->dict]             [list->dict 3]
-|                        |
-[ui.d]                   [ui.d]
+[list a b c d e f g h j k  (
+|                          |
+|                          |
+|                          |
+[list->dict]               [list->dict 3]
+|                          |
+[ui.d]                     [ui.d]
 ]]>
             </pdascii>
         </example>

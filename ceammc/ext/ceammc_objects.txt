@@ -62,6 +62,7 @@ demux~
 dict
 dict.contains
 dict.each
+dict.from_list
 dict.get
 dict.keys
 dict.pass
@@ -208,6 +209,7 @@ lin->curve
 lin->exp
 lin->lin
 list->array
+list->dict
 list.<<
 list.>>
 list.^at
