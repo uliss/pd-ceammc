@@ -12,6 +12,7 @@
 #include "dict_is.h"
 #include "dict_keys.h"
 #include "dict_pass.h"
+#include "dict_reject.h"
 #include "dict_size.h"
 #include "dict_values.h"
 #include "global_dict.h"
@@ -64,6 +65,7 @@ void ceammc_data_setup()
     setup_dict_get();
     setup_dict_keys();
     setup_dict_pass();
+    setup_dict_reject();
     setup_dict_size();
     setup_dict_values();
     setup_is_dict();
