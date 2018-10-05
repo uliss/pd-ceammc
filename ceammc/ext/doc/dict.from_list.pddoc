@@ -21,15 +21,14 @@
         </meta>
         <info>
             <par>Convertion depends on property @step, which means a length of key/value pair.
-            First element of the pair becames a key, and other elements becames value.
-            </par>
+            First element of the pair becames a key, and other elements becames value.</par>
         </info>
         <arguments>
             <argument name="STEP" type="int" minvalue="2">key/value length in input list</argument>
         </arguments>
         <properties>
-            <property name="@step" type="int" minvalue="2" default="2">
-            key/value length in input list</property>
+            <property name="@step" type="int" minvalue="2" default="2">key/value length in input
+            list</property>
         </properties>
         <inlets>
             <inlet>
