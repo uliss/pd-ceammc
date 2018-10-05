@@ -1,3 +1,4 @@
+gdyn.comp2~
 gdyn.comp~
 gflt.eq_peak~
 gflt.moog_vcf~
