@@ -197,6 +197,7 @@ gdyn.gate2~
 gdyn.gate~
 gflt.eq_peak~
 gflt.moog_vcf~
+gflt.resonbp~
 gfx.bitdown~
 gfx.chorus~
 gfx.distortion1~

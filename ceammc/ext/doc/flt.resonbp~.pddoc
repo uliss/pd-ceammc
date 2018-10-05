@@ -16,28 +16,26 @@
                 <see>flt.bpf12~</see>
             </also>
         </meta>
-        <methods>
-            <method name="freq">
-                <param type="float" units="herz">center frequency</param>
-            </method>
-            <method name="q">
-                <param type="float">Q</param>
-            </method>
-        </methods>
         <arguments>
-            <argument name="freq" type="float" units="herz">center frequency</argument>
-            <argument name="q" type="float">Q</argument>
-            <argument name="ID" type="symbol">object ID for OSC control</argument>
+            <argument name="freq" type="float" units="herz" minvalue="20" maxvalue="20000">center
+            frequency</argument>
+            <argument name="q" type="float" minvalue="0.1" maxvalue="300">Q</argument>
         </arguments>
+        <properties>
+            <property name="@freq" type="float" units="herz" minvalue="20" maxvalue="20000"
+            default="1000">center frequency</property>
+            <property name="@q" type="float" minvalue="0.1" maxvalue="300" default="80">
+            Q</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
-                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">filtered signal</outlet>
-            <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -46,11 +44,13 @@
 |
 |  [F]        [F]
 |  |          |
-|  [freq $1(  [q $1(  [@freq?(
-|  |          |       |
-[flt.resonbp~ 1000 100 id ]
-|\                      ^|
-[dac~]                 [ui.display]
+|  [@freq $1( [@q $1(
+|  |          |
+[flt.resonbp~ 1000 100]
+|
+[ui.gain~ @size 120 14] [ui.dsp~]
+|\
+[dac~]
 ]]>
             </pdascii>
         </example>

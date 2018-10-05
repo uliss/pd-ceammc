@@ -1,0 +1,52 @@
+{
+	"name": "flt.resonbp",
+	"filename": "flt_resonbp",
+	"version": "2.8.5",
+	"compile_options": "cpp, -scal -ftz 0",
+	"library_list": ["/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib"],
+	"include_pathnames": ["/Users/serj/work/music/pd-exp/pure-data/ceammc/faust","/usr/local/share/faust","/usr/share/faust"],
+	"inputs": "1",
+	"outputs": "1",
+	"meta": [ 
+		{ "filename": "flt_resonbp" },
+		{ "filters.lib/name": "Faust Filters Library" },
+		{ "filters.lib/version": "0.0" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.1" },
+		{ "name": "flt.resonbp" },
+		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/version": "0.0" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "flt.resonbp",
+			"items": [ 
+				{
+					"type": "vslider",
+					"label": "freq",
+					"address": "/flt.resonbp/freq",
+					"meta": [
+						{ "unit": "Hz" }
+					],
+					"init": "1000",
+					"min": "20",
+					"max": "20000",
+					"step": "0.1"
+				},
+				{
+					"type": "vslider",
+					"label": "q",
+					"address": "/flt.resonbp/q",
+					"init": "80",
+					"min": "0.1",
+					"max": "300",
+					"step": "0.1"
+				}
+			]
+		}
+	]
+}
