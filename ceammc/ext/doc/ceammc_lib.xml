@@ -169,6 +169,9 @@
     <entry descr="dictionary size" name="dict.size" ref_view="object">
       <xi:include href="dict.size.pddoc" parse="xml"/>
     </entry>
+    <entry descr="converts dictionary to plain list" name="dict.to_list" ref_view="object">
+      <xi:include href="dict.to_list.pddoc" parse="xml"/>
+    </entry>
     <entry descr="dictionary values as mlist" name="dict.values" ref_view="object">
       <xi:include href="dict.values.pddoc" parse="xml"/>
     </entry>

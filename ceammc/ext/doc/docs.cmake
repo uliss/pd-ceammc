@@ -44,6 +44,7 @@ set(DOC_FILES
     dict.pass
     dict.reject
     dict.size
+    dict.to_list
     dict.values
     dyn.comp2~
     dyn.comp~

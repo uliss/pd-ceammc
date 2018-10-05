@@ -21,6 +21,7 @@ ceammc_data_extension(dict keys)
 ceammc_data_extension(dict pass)
 ceammc_data_extension(dict reject)
 ceammc_data_extension(dict size)
+ceammc_data_extension(dict to_list)
 ceammc_data_extension(dict values)
 
 ceammc_data_extension(mlist flatten)

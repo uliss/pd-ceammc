@@ -37,8 +37,9 @@
 - dict.each added for mapping all dict values
 - is_dict predicate object added
 - dict.pass added for passing only specified keys
-- dict.from_list added (with list->dict alias)
 - dict.reject added for rejecting specified keys
+- dict.from_list added (with list->dict alias)
+- dict.to_list added (with dict->list alias)
 - live.capture~ @gate property added, reset method added
 - l->l alias added for lin->lin
 - soundtouch~ pitch argument added
