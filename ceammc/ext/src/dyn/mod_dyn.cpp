@@ -7,7 +7,7 @@ extern "C" void setup_dyn0x2elimit_tilde();
 extern "C" void setup_dyn0x2esoftclip_tilde();
 
 extern "C" void setup_dyn0x2ecomp2_tilde();
-extern "C" void setup_dyn_comp_tilde();
+extern void setup_dyn_comp_tilde();
 
 void ceammc_dyn_setup()
 {
