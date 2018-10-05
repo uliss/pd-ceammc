@@ -14,6 +14,7 @@ ceammc_data_extension(data set)
 
 ceammc_data_extension(dict contains)
 ceammc_data_extension(dict each)
+ceammc_data_extension(dict from_list)
 ceammc_data_extension(dict get)
 ceammc_data_extension(dict is)
 ceammc_data_extension(dict keys)

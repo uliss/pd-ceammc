@@ -7,6 +7,7 @@
 #include "data_set.h"
 #include "dict_contains.h"
 #include "dict_each.h"
+#include "dict_from_list.h"
 #include "dict_get.h"
 #include "dict_is.h"
 #include "dict_keys.h"
@@ -59,6 +60,7 @@ void ceammc_data_setup()
 
     setup_dict_contains();
     setup_dict_each();
+    setup_dict_from_list();
     setup_dict_get();
     setup_dict_keys();
     setup_dict_pass();

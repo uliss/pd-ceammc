@@ -151,6 +151,9 @@
     <entry descr="map each value in dict" name="dict.each" ref_view="object">
       <xi:include href="dict.each.pddoc" parse="xml"/>
     </entry>
+    <entry descr="creates dictionary from list" name="dict.from_list" ref_view="object">
+      <xi:include href="dict.from_list.pddoc" parse="xml"/>
+    </entry>
     <entry descr="on input dict outputs value to corresponding key outlet" name="dict.get" ref_view="object">
       <xi:include href="dict.get.pddoc" parse="xml"/>
     </entry>
