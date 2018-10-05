@@ -193,6 +193,8 @@ zconf.resolve
 zconf.service
 gdyn.comp2~
 gdyn.comp~
+gdyn.gate2~
+gdyn.gate~
 gflt.eq_peak~
 gflt.moog_vcf~
 gfx.bitdown~
