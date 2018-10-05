@@ -12,6 +12,12 @@
             <category>spat</category>
             <keywords>spat pan</keywords>
             <since>0.6</since>
+            <aliases>
+                <alias>pan8~</alias>
+            </aliases>
+            <also>
+                <see>pan4~</see>
+            </also>
         </meta>
         <arguments>
             <argument name="ANGLE" type="float" minvalue="0">circle panning position in
@@ -37,7 +43,6 @@
             <outlet type="audio">6th output channel</outlet>
             <outlet type="audio">7th output channel</outlet>
             <outlet type="audio">8th output channel</outlet>
-            <outlet>control output</outlet>
         </outlets>
         <example>
             <pdascii>
