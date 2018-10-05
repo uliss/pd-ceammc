@@ -23,31 +23,36 @@
             <property name="@size" readonly="true" type="list">window size</property>
             <property name="@width" readonly="true" type="int">window width</property>
             <property name="@height" readonly="true" type="int">window height</property>
+            <property name="@font" readonly="true" type="int">window font</property>
+            <property name="@paths" readonly="true" type="list">search paths</property>
             <property name="@x" readonly="true" type="int">window x-pos</property>
             <property name="@y" readonly="true" type="int">window y-pos</property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo>property request</xinfo>
+                <xinfo on="bang">output as dict</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>property output</outlet>
+            <outlet>dict/property output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[@name?( [@dir?( [@width?(
-|        |       |
-|        |       | [@height?(
-|        |       | |
-| [@x?(  | [@y?( | |
-| |      | |     | |
-[canvas.top       ]
+[@name?(    [@dir?( [@width?(
+|           |       |
+|           |       | [@height?(
+|           |       | |
+| [@x?( [B] | [@y?( | |
+| |     |   | |     | |
+[canvas.top           ]
 |
-[msg set]
-|
-[ (
+[ui.display @display_type=1]
+
+
+
+
 ]]>
             </pdascii>
         </example>

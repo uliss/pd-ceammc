@@ -9,6 +9,8 @@ class CanvasTop : public BaseObject {
 public:
     CanvasTop(const PdArgs& a);
 
+    void onBang() override;
+
     AtomList p_name() const;
     AtomList p_dir() const;
     AtomList p_font() const;
