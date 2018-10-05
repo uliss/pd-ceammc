@@ -191,6 +191,7 @@ zconf.domains
 zconf.meta
 zconf.resolve
 zconf.service
+gdyn.comp~
 gflt.eq_peak~
 gflt_moog_vcf~
 gfx.bitdown~
