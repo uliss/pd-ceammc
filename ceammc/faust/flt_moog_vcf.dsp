@@ -1,3 +1,5 @@
+declare name "flt.moog_vcf";
+
 si = library("signals.lib");
 ve = library("vaeffects.lib");
 

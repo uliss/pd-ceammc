@@ -1,6 +1,6 @@
 gdyn.comp~
 gflt.eq_peak~
-gflt_moog_vcf~
+gflt.moog_vcf~
 gfx.bitdown~
 gfx.chorus~
 gfx.distortion1~

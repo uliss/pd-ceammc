@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------
-name: "flt_moog_vcf"
+name: "flt.moog_vcf"
 Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
@@ -486,7 +486,7 @@ class flt_moog_vcf : public dsp {
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
 		m->declare("maths.lib/version", "2.1");
-		m->declare("name", "flt_moog_vcf");
+		m->declare("name", "flt.moog_vcf");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
 		m->declare("vaeffects.lib/name", "Faust Virtual Analog Filter Effect Library");
@@ -596,7 +596,7 @@ class flt_moog_vcf : public dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("flt_moog_vcf");
+		ui_interface->openVerticalBox("flt.moog_vcf");
 		ui_interface->addVerticalSlider("res", &fVslider0, 0.400000006f, 0.0f, 1.0f, 0.00100000005f);
 		ui_interface->closeBox();
 		
