@@ -416,6 +416,8 @@ pan.linsig~
 pan.lin~
 pan.spread~
 pan.sqrt~
+pan4~
+pan8~
 pan~
 pass
 pass_if

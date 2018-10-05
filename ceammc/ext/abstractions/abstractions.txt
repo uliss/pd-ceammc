@@ -16,3 +16,5 @@ gfx.flanger~
 gfx.granulator~
 gfx.pitchshift~
 gfx.zita_rev1~
+gspat.pan4~
+gspat.pan8~
