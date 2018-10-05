@@ -25,7 +25,7 @@ public:
     void onSymbol(t_symbol*) override;
     void onList(const AtomList&) override;
     void onAny(t_symbol*, const AtomList&) override;
-    void onData(const DataPtr& ptr);
+    void onData(const DataPtr& ptr) override;
 };
 
 void setup_is_dict();
