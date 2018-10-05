@@ -1,6 +1,7 @@
 #include "canvas_current.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
+#include "datatype_dict.h"
 
 CanvasCurrent::CanvasCurrent(const PdArgs& a)
     : BaseObject(a)
@@ -19,6 +20,26 @@ CanvasCurrent::CanvasCurrent(const PdArgs& a)
     createCbProperty("@y", &CanvasCurrent::p_y);
     createCbProperty("@width", &CanvasCurrent::p_width);
     createCbProperty("@height", &CanvasCurrent::p_height);
+}
+
+void CanvasCurrent::onBang()
+{
+    DataTypeDict* dict = new DataTypeDict;
+
+    dict->insert("name", p_name());
+    dict->insert("dir", p_dir());
+    dict->insert("root", p_root());
+    dict->insert("abstraction", p_abstraction());
+    dict->insert("args", p_args());
+    dict->insert("font", p_font());
+    dict->insert("paths", p_paths());
+    dict->insert("size", p_size());
+    dict->insert("x", p_x());
+    dict->insert("y", p_y());
+    dict->insert("width", p_width());
+    dict->insert("height", p_height());
+
+    dataTo(0, DataPtr(dict));
 }
 
 AtomList CanvasCurrent::p_name() const

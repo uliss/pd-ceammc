@@ -38,10 +38,11 @@
         <inlets>
             <inlet>
                 <xinfo>property request</xinfo>
+                <xinfo on="bang">output dict with all properties</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>property output</outlet>
+            <outlet>dict or property output</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -52,11 +53,11 @@
 | |        | |        | |
 | |  [@x?( | | [@y?(  | | [@height?(
 | |  |     | | |      | | |
+| |  | [B] | | |      | | |
+| |  | |   | | |      | | |
 [canvas.current           ]
 |
-[msg set]
-|
-[ (
+[ui.display @display_type=1]
 ]]>
             </pdascii>
         </example>
