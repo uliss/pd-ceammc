@@ -8,6 +8,7 @@
 _tcl.version
 amp->dbfs
 and
+any->props
 approx
 array.bpm
 array.copy
@@ -42,6 +43,7 @@ conv.dbfs2amp
 conv.lin2curve
 conv.lin2exp
 conv.lin2lin
+conv.list2props
 conv.midi2freq
 conv.pitch2midi
 conv.samp2sec
@@ -213,6 +215,7 @@ lin->exp
 lin->lin
 list->array
 list->dict
+list->props
 list.<<
 list.>>
 list.^at

@@ -22,6 +22,7 @@ set(DOC_FILES
     conv.lin2curve
     conv.lin2exp
     conv.lin2lin
+    conv.list2props
     conv.midi2freq
     conv.pitch2midi
     conv.samp2sec

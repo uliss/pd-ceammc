@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.list2props">
+        <title>conv.list2props</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>converts list to series of property messages</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv properties</keywords>
+            <since>0.7</since>
+            <aliases>
+                <alias>list-&gt;props</alias>
+                <alias>any-&gt;props</alias>
+            </aliases>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">list of properties</xinfo>
+                <xinfo on="any">list of properties</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>sequence of @prop messages</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[@prop1 100 @prop2 A B C @prop3(
+|
+[list->props    ]
+|               |
+[route @prop1]  [print]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -40,6 +40,7 @@
 - dict.reject added for rejecting specified keys
 - dict.from_list added (with list->dict alias)
 - dict.to_list added (with dict->list alias)
+- conv.list2props (with aliases: list->props, any->props) added
 - live.capture~ @gate property added, reset method added
 - l->l alias added for lin->lin
 - soundtouch~ pitch argument added

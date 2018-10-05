@@ -110,6 +110,7 @@ ceammc_external_test(conv cc2amp)
 ceammc_external_test(conv dbfs2amp)
 ceammc_external_test(conv lin2exp)
 ceammc_external_test(conv lin2lin)
+ceammc_external_test(conv list2props)
 
 ceammc_external_test(data dict)
 ceammc_external_test(data dict_contains)
