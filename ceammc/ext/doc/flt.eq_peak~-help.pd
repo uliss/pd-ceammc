@@ -9,12 +9,12 @@ section.;
 #X obj 600 11 flt.eq_peak~;
 #X obj 50 118 noise~;
 #X floatatom 136 118 5 0 0 0 - - -;
-#X floatatom 232 118 5 0 0 0 - - -;
-#X floatatom 328 118 5 0 0 0 - - -;
-#X msg 136 147 freq \$1;
-#X msg 232 147 gain \$1;
-#X msg 328 147 bandwidth \$1;
-#X obj 50 176 flt.eq_peak~ 3000 20 400 id;
+#X floatatom 242 118 5 0 0 0 - - -;
+#X floatatom 347 118 5 0 0 0 - - -;
+#X msg 136 147 @freq \$1;
+#X msg 242 147 @gain \$1;
+#X msg 347 147 @bandwidth \$1;
+#X obj 50 176 flt.eq_peak~ 3000 20 400;
 #X obj 50 205 ui.ssc~ @size 500 120;
 #X obj 50 334 ui.dsp~;
 #X obj 20 373 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -23,61 +23,53 @@ section.;
 #X text 120 383 1\.;
 #X text 150 383 float;
 #X obj 241 384 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 383 freq(Hz): peak frequency.;
+#X text 240 383 freq(Hz): peak frequency. Range: 20\...20000;
 #X text 120 401 2\.;
 #X text 150 401 float;
 #X obj 241 402 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 401 gain(db): level at fx (boost if >0 or cut if <0).;
-#X text 120 419 3\.;
-#X text 150 419 float;
-#X obj 241 420 cnv 1 111 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 419 bandwidth(Hz): bandwidth of peak.;
-#X text 120 437 4\.;
-#X text 150 437 symbol;
-#X obj 241 438 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 437 ID: object ID for OSC control.;
-#X obj 20 465 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 470 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X text 240 401 gain(db): level at fx (boost if >0 or cut if <0).
+Range: -15\...15;
+#X text 120 433 3\.;
+#X text 150 433 float;
+#X obj 241 434 cnv 1 111 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 433 bandwidth(Hz): bandwidth of peak. Range: 1\...5000;
+#X obj 20 461 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 466 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 475 freq;
-#X text 240 475 Arguments are:;
-#X obj 250 503 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 503 HZ: peak frequency. Type: float.;
-#X msg 120 531 gain;
-#X text 240 531 Arguments are:;
-#X obj 250 559 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 559 DB: level at fx (boost if >0 or cut if <0). Type:
-float.;
-#X msg 120 587 bandwidth;
-#X text 240 587 Arguments are:;
-#X obj 250 615 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 615 HZ: bandwidth of peak. Type: float.;
-#X obj 20 653 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 658 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 120 471 @freq;
+#X text 240 471 Get/Set peak frequency. Type: float. Units: Hz.
+Default value: 1000\. Value range: 20-20000;
+#X msg 120 508 @gain;
+#X text 240 508 Get/Set level at fx (boost if >0 or cut if <0). Type:
+float. Units: db. Default value: 0\. Value range: -15-15;
+#X msg 120 545 @bandwidth;
+#X text 240 545 Get/Set bandwidth of peak. Type: float. Units: Hz.
+Default value: 100\. Value range: 1-5000;
+#X msg 120 582 @active;
+#X text 240 582 Get/Set on/off dsp processing. Type: int. Default
+value: 1\. Allowed values: 0 \, 1;
+#X obj 20 629 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 634 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 663 1\.;
-#X text 240 663 input signal.;
-#X text 150 681 *bang*;
-#X text 240 681 outputs object internal state to rightmost outlet.;
-#X obj 20 709 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 714 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 120 639 1\.;
+#X text 240 639 input signal.;
+#X obj 20 667 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 672 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 719 1\.;
-#X text 240 719 filtered signal;
-#X text 120 737 2\.;
-#X text 240 737 information output;
+#X text 120 677 1\.;
+#X text 240 677 filtered signal;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 785 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 788 library: ceammc v0.6;
-#X text 278 800 see also:;
-#X obj 354 800 flt.eq_peak_cq~;
-#X obj 478 800 flt.lowshelf~;
-#X obj 588 800 flt.highshelf~;
-#N canvas 10 807 400 290 info 0;
+#X obj 1 725 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 728 library: ceammc v0.6;
+#X text 278 740 see also:;
+#X obj 354 740 flt.eq_peak_cq~;
+#X obj 478 740 flt.lowshelf~;
+#X obj 588 740 flt.highshelf~;
+#N canvas 10 747 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -101,7 +93,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 807 pd info;
+#X restore 10 747 pd info;
 #X connect 5 0 8 0;
 #X connect 6 0 9 0;
 #X connect 7 0 10 0;

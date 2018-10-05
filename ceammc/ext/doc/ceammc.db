@@ -104,7 +104,7 @@ flt.dcblock2~		~~		~~
 flt.dcblock~		~		~
 flt.eq10~		~		~
 flt.eq_peak_cq~		~		~.
-flt.eq_peak~		~		~.
+flt.eq_peak~		~		~
 flt.highshelf~		~		~
 flt.hpf12~		~		~.
 flt.hpf24~		~		~.
