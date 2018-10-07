@@ -156,7 +156,7 @@
         preset.float preset.list preset.storage preset.symbol
     }}
     {property {
-        prop.get prop.get~ prop.set
+        patch.props prop prop.declare prop.get prop.get~ prop.set
     }}
     {proto {
         proto.firmata

@@ -315,6 +315,7 @@ pan.lin~		~.		~~
 pan.spread~		?		~~
 pan.sqrt~		~.		~~
 patch.args		.		.
+patch.props		.		.
 path.basename		.		.
 path.dirname		.		.
 path.exists		.		.

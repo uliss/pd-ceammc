@@ -14,7 +14,7 @@
             <since>0.7</since>
             <also>
                 <see>prop</see>
-                <see>canvas.props</see>
+                <see>patch.props</see>
             </also>
         </meta>
         <arguments>

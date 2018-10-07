@@ -1057,6 +1057,9 @@
     </entry>
   </category>
   <category name="property">
+    <entry descr="patch properties manager" name="patch.props" ref_view="object">
+      <xi:include href="patch.props.pddoc" parse="xml"/>
+    </entry>
     <entry descr="get/set named property value for subpatch or abstraction" name="prop" ref_view="object">
       <xi:include href="prop.pddoc" parse="xml"/>
     </entry>

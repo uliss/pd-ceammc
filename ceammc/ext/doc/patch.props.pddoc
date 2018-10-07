@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="prop">
-        <title>prop</title>
+    <object name="patch.props">
+        <title>patch.props</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>get/set named property value for subpatch or abstraction</description>
+            <description>patch properties manager</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>property</category>
@@ -14,22 +14,20 @@
             <since>0.7</since>
             <also>
                 <see>prop.declare</see>
-                <see>patch.props</see>
+                <see>prop</see>
             </also>
         </meta>
         <info>
-            <par>Property should be declared with [prop.declare]. Min/max limits can be set to property</par>
+            <par>Property should be declared with [prop.declare]</par>
         </info>
-        <arguments>
-            <argument name="@NAME" type="symbol">property name</argument>
-        </arguments>
         <methods>
-            <method name="default">reset to default value and output</method>
+            <method name="default">reset all props to default value and output</method>
+            <method name="@*?">output all patch properties as list</method>
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">output property value</xinfo>
-                <xinfo on="any">set property value and output it</xinfo>
+                <xinfo on="bang">output all properties in [prop] objects</xinfo>
+                <xinfo on="any">get/set property value and output it</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -42,17 +40,17 @@
 
 [prop.declare gain @min -60 @max 12 @default -3]
 
-[F]
+[@*?( [@freq 100( [@freq?( [default(
+|     |           |        |
+[patch.props               ]
 |
+[ui.display @display_type=1]
+
+[F]          [F]
+|            |
 [prop @freq] [prop @gain]
 |            |
 [F]          [F]
-
-[default(
-|
-[prop @freq]
-|
-[F]
 ]]>
             </pdascii>
         </example>

@@ -317,6 +317,7 @@ set(DOC_FILES
     pan.spread~
     pan.sqrt~
     patch.args
+    patch.props
     path.basename
     path.dirname
     path.exists
