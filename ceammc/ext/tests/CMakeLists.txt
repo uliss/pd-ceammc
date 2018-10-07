@@ -73,7 +73,7 @@ ceammc_external_test(base radio)
 ceammc_external_test(base xfade)
 ceammc_external_test(base xfade2)
 
-ceammc_add_test("[canvas.args]" test_ext_canvas_args)
+ceammc_add_test("[patch.args]" test_ext_patch_args)
 ceammc_add_test("[canvas.current]" test_ext_canvas_current)
 ceammc_add_test("[canvas.top]" test_ext_canvas_top)
 ceammc_add_test("[metro.pattern]" test_ext_metro_pattern)
