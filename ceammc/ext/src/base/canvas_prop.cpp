@@ -12,7 +12,40 @@
  * this file belongs to.
  *****************************************************************************/
 #include "canvas_prop.h"
+#include "ceammc_canvas.h"
 #include "ceammc_factory.h"
+
+extern "C" {
+#include "g_canvas.h"
+}
+
+class PropertyPtr {
+    std::string name_;
+    DataTypeProperty* prop_;
+
+public:
+    PropertyPtr(const std::string& name)
+        : name_(name)
+        , prop_(PropertyStorage::storage().acquire(name_))
+    {
+    }
+
+    DataTypeProperty* operator->()
+    {
+        return prop_;
+    }
+
+    operator bool() const
+    {
+        return prop_ != nullptr;
+    }
+
+    ~PropertyPtr()
+    {
+        if (prop_)
+            PropertyStorage::storage().release(name_);
+    }
+};
 
 static t_symbol* SYM_INVALID = gensym("@invalid");
 
@@ -30,6 +63,7 @@ CanvasProp::CanvasProp(const PdArgs& args)
     , full_name_(PropertyStorage::makeFullName(name_->s_name, canvas()))
 {
     createOutlet();
+    bindReceive(gensym(full_name_.c_str()));
 }
 
 void CanvasProp::parseProperties()
@@ -38,7 +72,7 @@ void CanvasProp::parseProperties()
 
 void CanvasProp::onBang()
 {
-    DataTypeProperty* prop = PropertyStorage::storage().acquire(full_name_);
+    PropertyPtr prop(full_name_);
 
     if (!prop) {
         OBJ_ERR << "property is not found: " << name_;
@@ -60,13 +94,11 @@ void CanvasProp::onBang()
     } else {
         OBJ_ERR << "unknown property type";
     }
-
-    PropertyStorage::storage().release(full_name_);
 }
 
 void CanvasProp::onFloat(t_float v)
 {
-    DataTypeProperty* prop = PropertyStorage::storage().acquire(full_name_);
+    PropertyPtr prop(full_name_);
 
     if (!prop) {
         OBJ_ERR << "property is not found: " << name_;
@@ -75,33 +107,70 @@ void CanvasProp::onFloat(t_float v)
 
     if (prop->isFloat()) {
         prop->setFloat(v);
-
-        t_float f;
-        if (prop->getFloat(f))
-            floatTo(0, f);
     } else if (prop->isInt()) {
         prop->setInt(v);
-        long i;
-        if (prop->getInt(i))
-            floatTo(0, i);
     } else if (prop->isBool()) {
         if (v != 0.0 && v != 1.0) {
             OBJ_ERR << "1 or 0 expected for bool property";
-        } else {
+        } else
             prop->setBool(v);
-
-            bool b;
-            if (prop->getBool(b))
-                floatTo(0, b ? 1 : 0);
-        }
     } else {
         OBJ_ERR << "unknown property type";
     }
+}
+
+void CanvasProp::onSymbol(t_symbol* s)
+{
+    PropertyPtr prop(full_name_);
+
+    if (!prop) {
+        OBJ_ERR << "property is not found: " << name_;
+        return;
+    }
+
+    if (prop->isSymbol()) {
+        OBJ_ERR << "not a symbol property";
+        return;
+    }
+
+    if (!prop->setSymbol(s))
+        OBJ_ERR << "can't set property to " << s;
+}
+
+void CanvasProp::onList(const AtomList& l)
+{
+    PropertyPtr prop(full_name_);
+
+    if (!prop) {
+        OBJ_ERR << "property is not found: " << name_;
+        return;
+    }
+
+    if (prop->isList()) {
+        OBJ_ERR << "not a list property";
+        return;
+    }
+
+    if (!prop->setList(l))
+        OBJ_ERR << "can't set property to " << l;
+}
+
+void CanvasProp::m_default(t_symbol*, const AtomList&)
+{
+    DataTypeProperty* prop = PropertyStorage::storage().acquire(full_name_);
+
+    if (!prop) {
+        OBJ_ERR << "property is not found: " << name_;
+        return;
+    }
+
+    prop->restoreDefault();
 
     PropertyStorage::storage().release(full_name_);
 }
 
 void setup_canvas_prop()
 {
-    ObjectFactory<CanvasProp> obj("canvas.prop");
+    ObjectFactory<CanvasProp> obj("prop");
+    obj.addMethod("default", &CanvasProp::m_default);
 }

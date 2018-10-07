@@ -85,12 +85,27 @@ void DataTypeProperty::setTypeBool(bool def)
     value_ = default_;
 }
 
+void DataTypeProperty::setTypeSymbol(t_symbol* def)
+{
+    type_ = T_SYMBOL;
+    default_ = def;
+    value_ = default_;
+}
+
+void DataTypeProperty::setTypeList(const AtomList& def)
+{
+    type_ = T_LIST;
+    default_ = def;
+    value_ = default_;
+}
+
 bool DataTypeProperty::setBool(bool v)
 {
     if (type_ != T_BOOL)
         return false;
 
     value_ = v;
+    updateAll();
     return true;
 }
 
@@ -100,6 +115,7 @@ bool DataTypeProperty::setFloat(t_float f)
         return false;
 
     value_ = clip<t_float>(f, fmin_, fmax_);
+    updateAll();
     return true;
 }
 
@@ -109,6 +125,7 @@ bool DataTypeProperty::setInt(long v)
         return false;
 
     value_ = clip<long>(v, lmin_, lmax_);
+    updateAll();
     return true;
 }
 
@@ -121,6 +138,7 @@ bool DataTypeProperty::setSymbol(t_symbol* s)
         return false;
 
     value_ = s;
+    updateAll();
     return true;
 }
 
@@ -130,7 +148,14 @@ bool DataTypeProperty::setList(const AtomList& lst)
         return false;
 
     value_ = lst;
+    updateAll();
     return true;
+}
+
+void DataTypeProperty::restoreDefault()
+{
+    value_ = default_;
+    updateAll();
 }
 
 bool DataTypeProperty::getFloat(t_float& out) const
@@ -160,15 +185,32 @@ bool DataTypeProperty::getBool(bool& out) const
     return true;
 }
 
+bool DataTypeProperty::getSymbol(t_symbol** s) const
+{
+    if (type_ != T_SYMBOL)
+        return false;
+
+    *s = boost::get<t_symbol*>(value_);
+    return true;
+}
+
+bool DataTypeProperty::getList(AtomList& out) const
+{
+    if (type_ != T_LIST)
+        return false;
+
+    out = boost::get<AtomList>(value_);
+    return true;
+}
+
 bool DataTypeProperty::setFloatRange(t_float min, t_float max)
 {
     if (type_ != T_FLOAT)
         return false;
 
-    LIB_DBG << "fmin: " << min << ",  fmax: " << max;
-
-    fmin_ = min;
-    fmax_ = max;
+    auto p = std::minmax(min, max);
+    fmin_ = p.first;
+    fmax_ = p.second;
     default_ = clip<t_float>(boost::get<t_float>(default_), fmin_, fmax_);
     return true;
 }
@@ -178,10 +220,28 @@ bool DataTypeProperty::setIntRange(long min, long max)
     if (type_ != T_INT)
         return false;
 
-    lmax_ = max;
-    lmin_ = min;
+    auto p = std::minmax(min, max);
+    lmin_ = p.first;
+    lmax_ = p.second;
     default_ = clip<long>(boost::get<long>(default_), lmin_, lmax_);
     return true;
+}
+
+bool DataTypeProperty::setEnumValues(const AtomList& lst)
+{
+    if (type_ != T_SYMBOL)
+        return false;
+
+    enum_.clear();
+    enum_.append(boost::get<t_symbol*>(default_));
+    enum_.append(lst.filter(ceammc::isSymbol));
+    return true;
+}
+
+void DataTypeProperty::updateAll()
+{
+    if (name_->s_thing)
+        pd_bang(name_->s_thing);
 }
 
 PropertyStorage::Dict& PropertyStorage::storage()

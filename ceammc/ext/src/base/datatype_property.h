@@ -45,6 +45,8 @@ public:
     void setTypeFloat(t_float def = 0);
     void setTypeInt(long def = 0);
     void setTypeBool(bool def);
+    void setTypeSymbol(t_symbol* def);
+    void setTypeList(const AtomList& def);
 
     bool setBool(bool v);
     bool setFloat(t_float f);
@@ -52,19 +54,35 @@ public:
     bool setSymbol(t_symbol* s);
     bool setList(const AtomList& lst);
 
+    void restoreDefault();
+
     bool getFloat(t_float& out) const;
     bool getInt(long& out) const;
     bool getBool(bool& out) const;
+    bool getSymbol(t_symbol** s) const;
+    bool getList(AtomList& out) const;
 
     bool setFloatRange(t_float min, t_float max);
     bool setIntRange(long min, long max);
+    bool setEnumValues(const AtomList& lst);
 
     bool isFloat() const { return type_ == T_FLOAT; }
     bool isInt() const { return type_ == T_INT; }
     bool isBool() const { return type_ == T_BOOL; }
+    bool isSymbol() const { return type_ == T_SYMBOL; }
+    bool isList() const { return type_ == T_LIST; }
+
+    t_symbol* name() const { return name_; }
+    Type propertyType() const { return type_; }
+    std::pair<t_float, t_float> floatRange() const { return { fmin_, fmax_ }; }
+    std::pair<long, long> intRange() const { return { lmin_, lmax_ }; }
+    const AtomList& enumValues() const { return enum_; }
 
 public:
     static const DataType dataType;
+
+private:
+    void updateAll();
 
 private:
     t_symbol* name_;

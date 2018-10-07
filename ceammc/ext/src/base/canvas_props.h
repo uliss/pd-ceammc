@@ -11,46 +11,30 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef PROP_DECLARE_H
-#define PROP_DECLARE_H
+#ifndef CANVAS_PROPS_H
+#define CANVAS_PROPS_H
 
 #include "ceammc_object.h"
-#include "datatype_property.h"
-
 using namespace ceammc;
 
-class PropDeclare : public BaseObject {
-    t_symbol* sym_name_;
-    t_symbol* sym_full_name_;
-    std::string full_name_;
-    SymbolEnumProperty* type_;
-    FloatProperty* min_;
-    FloatProperty* max_;
-    ListProperty* enum_;
-    ListProperty* default_;
-    DataTypeProperty* pprop_;
-
+class CanvasProps : public BaseObject {
 public:
-    PropDeclare(const PdArgs& args);
-    ~PropDeclare();
+    CanvasProps(const PdArgs& args);
+    bool processAnyProps(t_symbol* sel, const AtomList& lst) override;
+    void onBang() override;
+    void onAny(t_symbol* s, const AtomList& l) override;
+    void onLoadBang();
 
-    void parseProperties() override;
-    t_symbol* name() const;
-    t_symbol* fullName() const;
-
-public:
-    static t_symbol* className;
+    void m_all_props(t_symbol* s, const AtomList& args);
+    void m_default(t_symbol*, const AtomList&);
+    void dump() const override;
 
 private:
-    bool isFloat() const;
-    bool isInt() const;
-    bool isBool() const;
-    bool isSymbol() const;
-    bool isList() const;
-
-    void initName();
+    void outputProp(const std::string& name, t_float f);
+    void outputProp(const std::string& name, t_symbol* s);
+    void outputProp(const std::string& name, const AtomList& l);
 };
 
-void setup_prop_declare();
+void setup_canvas_props();
 
-#endif // PROP_DECLARE_H
+#endif // CANVAS_PROPS_H

@@ -29,6 +29,10 @@ public:
 
     void onBang() override;
     void onFloat(t_float v) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& l) override;
+
+    void m_default(t_symbol*, const AtomList&);
 };
 
 void setup_canvas_prop();

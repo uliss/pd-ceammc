@@ -293,6 +293,11 @@ ceammc_add_test_linked(TITLE "ceammc::DataTypeDict"
     SRC test_datatype_dict.cpp
     LINK ceammc_data ceammc_core puredata-core)
 
+ceammc_add_test_linked(TITLE "ceammc::DataTypeProperty"
+    NAME test_datatype_property
+    SRC test_datatype_property.cpp
+    LINK ceammc_base ceammc_core puredata-core)
+
 if(WITH_LIBSNDFILE)
     include(FindLibSndFile)
 endif()

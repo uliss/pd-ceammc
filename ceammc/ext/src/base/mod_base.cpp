@@ -3,6 +3,7 @@
 #include "base_click.h"
 #include "canvas_current.h"
 #include "canvas_prop.h"
+#include "canvas_props.h"
 #include "canvas_top.h"
 #include "function.h"
 #include "function_call.h"
@@ -62,6 +63,7 @@ void ceammc_base_setup()
     replace_setup();
     setup_prop_declare();
     setup_canvas_prop();
+    setup_canvas_props();
     setup_is_data();
     setup_load_msg();
     setup_metro_pattern();

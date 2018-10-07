@@ -30,8 +30,12 @@ static const t_float FMAX = std::numeric_limits<t_float>::max();
 static const long IMIN = std::numeric_limits<long>::min();
 static const long IMAX = std::numeric_limits<long>::max();
 
+t_symbol* PropDeclare::className = gensym("prop.declare");
+
 PropDeclare::PropDeclare(const PdArgs& args)
     : BaseObject(args)
+    , sym_name_(&s_)
+    , sym_full_name_(&s_)
     , type_(nullptr)
     , min_(nullptr)
     , max_(nullptr)
@@ -43,7 +47,7 @@ PropDeclare::PropDeclare(const PdArgs& args)
     if (PropertyStorage::storage().contains(full_name_))
         throw std::runtime_error("property already declared");
 
-    auto pprop = new DataTypeProperty(name_);
+    auto pprop = new DataTypeProperty(gensym(full_name_.c_str()));
     if (!PropertyStorage::storage().create(full_name_, pprop)) {
         delete pprop;
         throw std::runtime_error("can't create property");
@@ -121,9 +125,21 @@ void PropDeclare::parseProperties()
         }
     } else if (isBool()) {
         pprop_->setTypeBool(atomlistToValue<int>(default_->value(), false));
+    } else if (isList()) {
+        pprop_->setTypeList(default_->value());
+    } else if (isSymbol()) {
+        pprop_->setTypeSymbol(atomlistToValue<t_symbol*>(default_->value(), &s_));
     }
+}
 
-    OBJ_DBG << pprop_->toString();
+t_symbol* PropDeclare::name() const
+{
+    return sym_name_;
+}
+
+t_symbol* PropDeclare::fullName() const
+{
+    return sym_full_name_;
 }
 
 bool PropDeclare::isFloat() const
@@ -141,17 +157,31 @@ bool PropDeclare::isBool() const
     return type_->value() == SYM_BOOL;
 }
 
+bool PropDeclare::isSymbol() const
+{
+    return type_->value() == &s_symbol;
+}
+
+bool PropDeclare::isList() const
+{
+    return type_->value() == &s_list;
+}
+
 void PropDeclare::initName()
 {
-    if (args().empty())
-        name_ = gensym("default");
-    else
-        name_ = args().symbolAt(0, gensym("default"));
+    if (args().empty() || !args()[0].isSymbol())
+        sym_name_ = gensym("@default");
+    else {
+        char buf[64] = "@";
+        strncat(buf, args()[0].asSymbol()->s_name, sizeof(buf) - 2);
+        sym_name_ = gensym(buf);
+    }
 
-    full_name_ = PropertyStorage::makeFullName(std::string("@") + name_->s_name, canvas());
+    full_name_ = PropertyStorage::makeFullName(sym_name_->s_name, canvas());
+    sym_full_name_ = gensym(full_name_.c_str());
 }
 
 void setup_prop_declare()
 {
-    ObjectFactory<PropDeclare> obj("prop.declare", OBJECT_FACTORY_NO_DEFAULT_INLET);
+    ObjectFactory<PropDeclare> obj(PropDeclare::className->s_name, OBJECT_FACTORY_NO_DEFAULT_INLET);
 }
