@@ -2,7 +2,6 @@
 
 #include "base_click.h"
 #include "canvas_current.h"
-#include "canvas_props.h"
 #include "canvas_top.h"
 #include "function.h"
 #include "function_call.h"
@@ -15,6 +14,7 @@
 #include "obj_info.h"
 #include "obj_props.h"
 #include "patch_args.h"
+#include "patch_props.h"
 #include "prop.h"
 #include "prop_declare.h"
 #include "radio.h"
@@ -61,9 +61,7 @@ void ceammc_base_setup()
     is_symbol_setup();
     msg_setup();
     replace_setup();
-    setup_prop_declare();
     setup_base_prop();
-    setup_canvas_props();
     setup_is_data();
     setup_load_msg();
     setup_metro_pattern();
@@ -71,6 +69,8 @@ void ceammc_base_setup()
     setup_msg_after();
     setup_obj_info();
     setup_obj_props();
+    setup_patch_props();
+    setup_prop_declare();
 
     setup_prop0x2eget();
     setup_prop0x2eset();

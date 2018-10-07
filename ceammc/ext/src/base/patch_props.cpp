@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "canvas_props.h"
+#include "patch_props.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
 #include "datatype_property.h"
@@ -24,18 +24,18 @@ extern "C" {
 #include "m_imp.h"
 }
 
-CanvasProps::CanvasProps(const PdArgs& args)
+PatchProps::PatchProps(const PdArgs& args)
     : BaseObject(args)
 {
     createOutlet();
 }
 
-bool CanvasProps::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool PatchProps::processAnyProps(t_symbol* sel, const AtomList& lst)
 {
     return false;
 }
 
-void CanvasProps::onBang()
+void PatchProps::onBang()
 {
     t_canvas* x = canvas();
     if (!x)
@@ -52,7 +52,7 @@ void CanvasProps::onBang()
     }
 }
 
-void CanvasProps::onAny(t_symbol* s, const AtomList& l)
+void PatchProps::onAny(t_symbol* s, const AtomList& l)
 {
     if (s->s_name[0] != '@')
         return;
@@ -109,7 +109,7 @@ void CanvasProps::onAny(t_symbol* s, const AtomList& l)
     }
 }
 
-void CanvasProps::m_all_props(t_symbol* s, const AtomList& args)
+void PatchProps::m_all_props(t_symbol* s, const AtomList& args)
 {
     t_canvas* x = canvas();
     if (!x)
@@ -129,7 +129,7 @@ void CanvasProps::m_all_props(t_symbol* s, const AtomList& args)
     anyTo(0, SYM_PROPS_ALL(), res);
 }
 
-void CanvasProps::m_default(t_symbol*, const AtomList&)
+void PatchProps::m_default(t_symbol*, const AtomList&)
 {
     t_canvas* cnv = canvas();
     if (!cnv)
@@ -146,7 +146,7 @@ void CanvasProps::m_default(t_symbol*, const AtomList&)
     }
 }
 
-void CanvasProps::dump() const
+void PatchProps::dump() const
 {
     BaseObject::dump();
 
@@ -159,29 +159,31 @@ void CanvasProps::dump() const
             continue;
 
         PropDeclare* prop = reinterpret_cast<PdObject<PropDeclare>*>(x)->impl;
-        t_symbol* prop_name = prop->name();
-        OBJ_DBG << prop_name->s_name;
+        PropertyPtr pprop(prop->fullName()->s_name);
+        if (pprop) {
+            OBJ_DBG << pprop->name();
+        }
     }
 }
 
-void CanvasProps::outputProp(const std::string& name, t_float f)
+void PatchProps::outputProp(const std::string& name, t_float f)
 {
     anyTo(0, gensym(name.c_str()), Atom(f));
 }
 
-void CanvasProps::outputProp(const std::string& name, t_symbol* s)
+void PatchProps::outputProp(const std::string& name, t_symbol* s)
 {
     anyTo(0, gensym(name.c_str()), Atom(s));
 }
 
-void CanvasProps::outputProp(const std::string& name, const AtomList& l)
+void PatchProps::outputProp(const std::string& name, const AtomList& l)
 {
     anyTo(0, gensym(name.c_str()), l);
 }
 
-void setup_canvas_props()
+void setup_patch_props()
 {
-    ObjectFactory<CanvasProps> obj("canvas.props");
-    obj.addMethod("@*?", &CanvasProps::m_all_props);
-    obj.addMethod("default", &CanvasProps::m_default);
+    ObjectFactory<PatchProps> obj("patch.props");
+    obj.addMethod("@*?", &PatchProps::m_all_props);
+    obj.addMethod("default", &PatchProps::m_default);
 }

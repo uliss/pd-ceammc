@@ -11,15 +11,15 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CANVAS_PROPS_H
-#define CANVAS_PROPS_H
+#ifndef PATCH_PROPS_H
+#define PATCH_PROPS_H
 
 #include "ceammc_object.h"
 using namespace ceammc;
 
-class CanvasProps : public BaseObject {
+class PatchProps : public BaseObject {
 public:
-    CanvasProps(const PdArgs& args);
+    PatchProps(const PdArgs& args);
     bool processAnyProps(t_symbol* sel, const AtomList& lst) override;
     void onBang() override;
     void onAny(t_symbol* s, const AtomList& l) override;
@@ -34,6 +34,6 @@ private:
     void outputProp(const std::string& name, const AtomList& l);
 };
 
-void setup_canvas_props();
+void setup_patch_props();
 
-#endif // CANVAS_PROPS_H
+#endif // PATCH_PROPS_H

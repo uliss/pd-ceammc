@@ -2,9 +2,6 @@ include_directories(${CMAKE_BINARY_DIR}) # for config.h
 
 set(BASE_SOURCES
     canvas_current.cpp
-    prop.cpp
-    canvas_props.cpp
-    prop_declare.cpp
     canvas_top.cpp
     datatype_property.cpp
     expand_env.cpp
@@ -18,9 +15,12 @@ set(BASE_SOURCES
     obj_info.cpp
     obj_props.cpp
     patch_args.cpp
+    patch_props.cpp
+    prop.cpp
     prop.get.cpp
     prop.get_tilde.cpp
     prop.set.cpp
+    prop_declare.cpp
     radio.cpp
     replace.cpp)
 
