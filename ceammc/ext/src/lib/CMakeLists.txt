@@ -66,6 +66,8 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_timeline.cpp
     ceammc_window.cpp
 
+    datatype_property.cpp
+
     ${UTF8REWIND_SOURCES}
     ${CEAMMC_DATATYPE_SRC})
 

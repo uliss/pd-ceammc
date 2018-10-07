@@ -16,6 +16,7 @@
 #include "ceammc_faust.h"
 #include "ceammc_object.h"
 #include "ceammc_ui_object.h"
+#include "datatype_property.h"
 
 struct mockUI {
 };
@@ -80,7 +81,8 @@ bool is_ceammc(t_object* x)
     if (is_ceammc_base(x)
         || is_ceammc_ui(x)
         || is_ceammc_faust(x)
-        || is_ceammc_flext(x))
+        || is_ceammc_flext(x)
+        || is_ceammc_abstraction(x))
         return true;
 
     return false;
@@ -116,6 +118,26 @@ bool is_ceammc_flext(t_object* x)
         return false;
 
     return flext_external_set().find(x->te_g.g_pd) != flext_external_set().end();
+}
+
+bool is_ceammc_abstraction(t_object* x)
+{
+    static t_symbol* SYM_PROP_DECL = gensym("prop.declare");
+    static t_symbol* SYM_CANVAS = gensym("canvas");
+
+    if (!x)
+        return false;
+
+    if (x->te_g.g_pd->c_name != SYM_CANVAS)
+        return false;
+
+    t_canvas* cnv = reinterpret_cast<t_canvas*>(x);
+    for (t_gobj* y = cnv->gl_list; y; y = y->g_next) {
+        if (y->g_pd->c_name == SYM_PROP_DECL)
+            return true;
+    }
+
+    return false;
 }
 
 const BaseObject* ceammc_to_base_object(t_object* x)
@@ -181,6 +203,46 @@ std::vector<PropertyInfo> ceammc_faust_properties(t_object* x)
 
     for (size_t i = 0; i < n; i++)
         res.push_back(ext->ui->uiAt(i)->propInfo());
+
+    return res;
+}
+
+std::vector<PropertyInfo> ceammc_abstraction_properties(t_object* x)
+{
+    static t_symbol* SYM_PROP_DECL = gensym("prop.declare");
+
+    if (!is_ceammc_abstraction(x))
+        return {};
+
+    std::vector<PropertyInfo> res;
+    t_canvas* cnv = reinterpret_cast<t_canvas*>(x);
+    for (t_gobj* y = cnv->gl_list; y; y = y->g_next) {
+        // skipping non [prop.declare]
+        if (y->g_pd->c_name != SYM_PROP_DECL)
+            continue;
+
+        t_object* prop_declare = (t_object*)y;
+        int argc = binbuf_getnatom(prop_declare->te_binbuf);
+        t_atom* argv = binbuf_getvec(prop_declare->te_binbuf);
+
+        AtomList args(argc, argv);
+        if (args.size() < 2 || !args[1].isSymbol()) {
+            LIB_ERR << "empty args";
+            continue;
+        }
+
+        std::string prop_name = "@";
+        prop_name += args[1].asSymbol()->s_name;
+
+        auto fn = PropertyStorage::makeFullName(prop_name, cnv);
+        PropertyPtr pprop(fn);
+        if (!pprop) {
+            LIB_ERR << "can't find property: " << fn;
+            continue;
+        }
+
+        res.push_back(pprop->info());
+    }
 
     return res;
 }

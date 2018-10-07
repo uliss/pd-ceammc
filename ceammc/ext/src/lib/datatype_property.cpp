@@ -296,11 +296,21 @@ static PropertyInfoType type2type(DataTypeProperty::Type t)
 
 PropertyInfo DataTypeProperty::info() const
 {
-    PropertyInfo res(name()->s_name, type2type(type_));
+    char* name = strchr(name_->s_name, '@');
+    PropertyInfo res(name, type2type(type_));
 
     if (isFloat()) {
-        res.setMin(fmin_);
-        res.setMax(fmax_);
+        res.setRange(fmin_, fmax_);
+        res.setDefault(boost::get<t_float>(default_));
+    } else if (isInt()) {
+        res.setDefault((int)boost::get<long>(default_));
+    } else if (isBool()) {
+        res.setRange(0, 1);
+        res.setDefault(boost::get<bool>(default_) ? 1 : 0);
+    } else if (isSymbol()) {
+        res.setDefault(boost::get<t_symbol*>(default_));
+    } else if (isList()) {
+        res.setDefault(boost::get<AtomList>(default_));
     }
 
     return res;

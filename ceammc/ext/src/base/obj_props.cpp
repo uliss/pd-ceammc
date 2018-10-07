@@ -78,6 +78,8 @@ void ObjProps::onBang()
             props = ceammc_ui_properties(o);
         if (is_ceammc_faust(o))
             props = ceammc_faust_properties(o);
+        if (is_ceammc_abstraction(o))
+            props = ceammc_abstraction_properties(o);
 
         for (PropertyInfo& p : props) {
 

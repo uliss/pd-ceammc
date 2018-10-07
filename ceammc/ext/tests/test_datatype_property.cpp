@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../base/datatype_property.h"
+#include "datatype_property.h"
 #include "ceammc_datatypes.h"
 #include "test_common.h"
 
