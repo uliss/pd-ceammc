@@ -12,10 +12,11 @@
  * this file belongs to.
  *****************************************************************************/
 #include "prop_declare.h"
+#include "../string/tinyformat.h"
+#include "../string/vformatlist.h"
 #include "ceammc_canvas.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
-#include "ceammc_format.h"
 #include "ceammc_globaldata.h"
 #include "datatype_property.h"
 
@@ -44,8 +45,10 @@ PropDeclare::PropDeclare(const PdArgs& args)
 {
     initName();
 
-    if (PropertyStorage::storage().contains(full_name_))
-        throw std::runtime_error("property already declared");
+    if (PropertyStorage::storage().contains(full_name_)) {
+        auto msg = tfm::format("\"%s\" is already declared", sym_name_->s_name);
+        throw std::runtime_error(msg.c_str());
+    }
 
     auto pprop = new DataTypeProperty(gensym(full_name_.c_str()));
     if (!PropertyStorage::storage().create(full_name_, pprop)) {
@@ -129,6 +132,7 @@ void PropDeclare::parseProperties()
         pprop_->setTypeList(default_->value());
     } else if (isSymbol()) {
         pprop_->setTypeSymbol(atomlistToValue<t_symbol*>(default_->value(), &s_));
+        pprop_->setEnumValues(enum_->get());
     }
 }
 

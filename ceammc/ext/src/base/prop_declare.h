@@ -38,16 +38,16 @@ public:
     t_symbol* name() const;
     t_symbol* fullName() const;
 
-public:
-    static t_symbol* className;
-
-private:
     bool isFloat() const;
     bool isInt() const;
     bool isBool() const;
     bool isSymbol() const;
     bool isList() const;
 
+public:
+    static t_symbol* className;
+
+private:
     void initName();
 };
 
