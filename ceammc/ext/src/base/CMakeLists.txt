@@ -2,7 +2,7 @@ include_directories(${CMAKE_BINARY_DIR}) # for config.h
 
 set(BASE_SOURCES
     canvas_current.cpp
-    canvas_prop.cpp
+    prop.cpp
     canvas_props.cpp
     prop_declare.cpp
     canvas_top.cpp

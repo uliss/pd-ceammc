@@ -2,7 +2,6 @@
 
 #include "base_click.h"
 #include "canvas_current.h"
-#include "canvas_prop.h"
 #include "canvas_props.h"
 #include "canvas_top.h"
 #include "function.h"
@@ -16,6 +15,7 @@
 #include "obj_info.h"
 #include "obj_props.h"
 #include "patch_args.h"
+#include "prop.h"
 #include "prop_declare.h"
 #include "radio.h"
 #include "xfade2_tilde.h"
@@ -62,7 +62,7 @@ void ceammc_base_setup()
     msg_setup();
     replace_setup();
     setup_prop_declare();
-    setup_canvas_prop();
+    setup_base_prop();
     setup_canvas_props();
     setup_is_data();
     setup_load_msg();

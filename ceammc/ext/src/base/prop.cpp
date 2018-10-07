@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "canvas_prop.h"
+#include "prop.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
 
@@ -57,7 +57,7 @@ static t_symbol* makePropName(const AtomList& l)
         return SYM_INVALID;
 }
 
-CanvasProp::CanvasProp(const PdArgs& args)
+BaseProp::BaseProp(const PdArgs& args)
     : BaseObject(args)
     , name_(makePropName(args.args))
     , full_name_(PropertyStorage::makeFullName(name_->s_name, canvas()))
@@ -66,11 +66,11 @@ CanvasProp::CanvasProp(const PdArgs& args)
     bindReceive(gensym(full_name_.c_str()));
 }
 
-void CanvasProp::parseProperties()
+void BaseProp::parseProperties()
 {
 }
 
-void CanvasProp::onBang()
+void BaseProp::onBang()
 {
     PropertyPtr prop(full_name_);
 
@@ -96,7 +96,7 @@ void CanvasProp::onBang()
     }
 }
 
-void CanvasProp::onFloat(t_float v)
+void BaseProp::onFloat(t_float v)
 {
     PropertyPtr prop(full_name_);
 
@@ -119,7 +119,7 @@ void CanvasProp::onFloat(t_float v)
     }
 }
 
-void CanvasProp::onSymbol(t_symbol* s)
+void BaseProp::onSymbol(t_symbol* s)
 {
     PropertyPtr prop(full_name_);
 
@@ -137,7 +137,7 @@ void CanvasProp::onSymbol(t_symbol* s)
         OBJ_ERR << "can't set property to " << s;
 }
 
-void CanvasProp::onList(const AtomList& l)
+void BaseProp::onList(const AtomList& l)
 {
     PropertyPtr prop(full_name_);
 
@@ -155,7 +155,7 @@ void CanvasProp::onList(const AtomList& l)
         OBJ_ERR << "can't set property to " << l;
 }
 
-void CanvasProp::m_default(t_symbol*, const AtomList&)
+void BaseProp::m_default(t_symbol*, const AtomList&)
 {
     DataTypeProperty* prop = PropertyStorage::storage().acquire(full_name_);
 
@@ -169,8 +169,8 @@ void CanvasProp::m_default(t_symbol*, const AtomList&)
     PropertyStorage::storage().release(full_name_);
 }
 
-void setup_canvas_prop()
+void setup_base_prop()
 {
-    ObjectFactory<CanvasProp> obj("prop");
-    obj.addMethod("default", &CanvasProp::m_default);
+    ObjectFactory<BaseProp> obj("prop");
+    obj.addMethod("default", &BaseProp::m_default);
 }

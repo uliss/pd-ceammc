@@ -11,20 +11,20 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CANVAS_PROP_H
-#define CANVAS_PROP_H
+#ifndef BASE_PROP_H
+#define BASE_PROP_H
 
 #include "ceammc_object.h"
 #include "datatype_property.h"
 
 using namespace ceammc;
 
-class CanvasProp : public BaseObject {
+class BaseProp : public BaseObject {
     t_symbol* name_;
     std::string full_name_;
 
 public:
-    CanvasProp(const PdArgs& args);
+    BaseProp(const PdArgs& args);
     void parseProperties() override;
 
     void onBang() override;
@@ -35,6 +35,6 @@ public:
     void m_default(t_symbol*, const AtomList&);
 };
 
-void setup_canvas_prop();
+void setup_base_prop();
 
-#endif // CANVAS_PROP_H
+#endif // BASE_PROP_H
