@@ -19,8 +19,8 @@ set(BASE_SOURCES
     prop.cpp
     prop.get.cpp
     prop.get_tilde.cpp
-    prop.set.cpp
     prop_declare.cpp
+    prop_set.cpp
     radio.cpp
     replace.cpp)
 
