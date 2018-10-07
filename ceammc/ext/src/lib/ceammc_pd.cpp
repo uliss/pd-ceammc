@@ -323,7 +323,7 @@ PureData::PureData()
     pd_init();
 }
 
-CanvasPtr PureData::createTopCanvas(const char* name)
+CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)
 {
     CanvasPtr ptr;
 
@@ -345,6 +345,9 @@ CanvasPtr PureData::createTopCanvas(const char* name)
         std::string fname = platform::basename(name);
         glob_setfilename(0, gensym(fname.c_str()), gensym(dir.c_str()));
     }
+
+    if (!args.empty())
+        canvas_setargs(args.size(), args.toPdData());
 
     t_canvas* cnv = canvas_new(0, gensym(name), l.size(), l.toPdData());
 

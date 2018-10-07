@@ -21,6 +21,12 @@
 #include "datatype_property.h"
 
 #include <limits>
+#include <unordered_map>
+
+extern "C" {
+#include "g_canvas.h"
+#include "m_imp.h"
+}
 
 static t_symbol* SYM_BOOL = gensym("bool");
 static t_symbol* SYM_INT = gensym("int");
@@ -32,6 +38,46 @@ static const long IMIN = std::numeric_limits<long>::min();
 static const long IMAX = std::numeric_limits<long>::max();
 
 t_symbol* PropDeclare::className = gensym("prop.declare");
+
+class CanvasEditCallback {
+    std::unordered_map<t_canvas*, t_glistkeyfn> map_;
+    CanvasEditCallback() {}
+
+public:
+    static CanvasEditCallback& instance()
+    {
+        static CanvasEditCallback c;
+        return c;
+    }
+
+    bool contains(t_canvas* c) const
+    {
+        return map_.find(c) == map_.end();
+    }
+
+    void insert(t_canvas* c, t_glistkeyfn fn)
+    {
+        map_.insert({ c, fn });
+    }
+
+    void remove(t_canvas* c)
+    {
+        map_.erase(c);
+    }
+
+    t_glistkeyfn get(t_canvas* c)
+    {
+        return map_.at(c);
+    }
+};
+
+static void prop_declare_loadbang(t_object* x, t_floatarg action)
+{
+    if (action == LB_LOAD) {
+        PropDeclare* prop = reinterpret_cast<PdObject<PropDeclare>*>(x)->impl;
+        prop->onLoadBang();
+    }
+}
 
 PropDeclare::PropDeclare(const PdArgs& args)
     : BaseObject(args)
@@ -146,6 +192,29 @@ t_symbol* PropDeclare::fullName() const
     return sym_full_name_;
 }
 
+void PropDeclare::onLoadBang()
+{
+    t_canvas* cnv = canvas();
+    if (!cnv)
+        return;
+
+    AtomList pv;
+    if (!canvas_info_args(cnv).property(sym_name_->s_name, &pv)) {
+        // output default values
+        if (sym_full_name_->s_thing)
+            pd_bang(sym_full_name_->s_thing);
+
+        return;
+    }
+
+    PropertyPtr pptr(full_name_);
+    if (!pptr)
+        return;
+
+    if (!pptr->setFromPdArgs(pv))
+        OBJ_ERR << "error setting property: " << sym_name_;
+}
+
 bool PropDeclare::isFloat() const
 {
     return type_->value() == &s_float;
@@ -188,4 +257,5 @@ void PropDeclare::initName()
 void setup_prop_declare()
 {
     ObjectFactory<PropDeclare> obj(PropDeclare::className->s_name, OBJECT_FACTORY_NO_DEFAULT_INLET);
+    class_addmethod(obj.classPointer(), (t_method)prop_declare_loadbang, gensym("loadbang"), A_DEFFLOAT, 0);
 }

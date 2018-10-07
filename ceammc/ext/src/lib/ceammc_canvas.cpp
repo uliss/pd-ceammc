@@ -168,16 +168,20 @@ AtomList ceammc::canvas_info_args(const _glist* c)
     if (!c)
         return res;
 
-    t_binbuf* b = c->gl_obj.te_binbuf;
-    if (b) {
-        int argc = binbuf_getnatom(b);
-        t_atom* argv = binbuf_getvec(b);
+    if (!c->gl_env) {
+        t_binbuf* b = c->gl_obj.te_binbuf;
+        if (b) {
+            int argc = binbuf_getnatom(b);
+            t_atom* argv = binbuf_getvec(b);
 
-        for (int i = 1; i < argc; i++)
-            res.append(Atom(argv[i]));
+            for (int i = 1; i < argc; i++)
+                res.append(Atom(argv[i]));
+        }
+
+        return res;
     }
 
-    return res;
+    return AtomList(c->gl_env->ce_argc, c->gl_env->ce_argv);
 }
 
 const _glist* ceammc::canvas_root(const _glist* c)

@@ -13,32 +13,42 @@
  *****************************************************************************/
 #include "../base/patch_args.h"
 #include "test_base.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
+#include "test_external.h"
 
-#include <stdio.h>
-
-typedef TestExternal<PatchArgs> PatchArgsTest;
+PD_COMPLETE_TEST_SETUP(PatchArgs, patch, args)
 
 TEST_CASE("patch.args", "[externals]")
 {
+    pd_test_init();
+
     SECTION("init")
     {
-        setup_patch_args();
-
-        PatchArgsTest t("patch.args");
+        TestPatchArgs t("patch.args");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_LIST_AT_OUTLET(0, t, L());
 
-        CanvasPtr cnv = PureData::instance().createTopCanvas("patch");
+        CanvasPtr cnv = PureData::instance().createTopCanvas(TEST_DATA_DIR "/patch");
 
         {
-            PatchArgsTest t("patch.args");
-            WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_LIST_AT_OUTLET(0, t, L());
+            TestExtPatchArgs t("patch.args");
+            t.sendBang();
+            REQUIRE(t.hasOutput());
+            REQUIRE(t.isOutputListAt(0));
+            REQUIRE(t.outputListAt(0) == L());
         }
+    }
+
+    SECTION("init")
+    {
+        CanvasPtr cnv = PureData::instance().createTopCanvas(TEST_DATA_DIR "/patch1", LX(1, 2, 3));
+
+        TestExtPatchArgs t("patch.args");
+        t.sendBang();
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.isOutputListAt(0));
+        REQUIRE(t.outputListAt(0) == LX(1, 2, 3));
     }
 }

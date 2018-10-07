@@ -11,6 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "../base/prop.h"
 #include "../base/prop_declare.h"
 #include "test_external.h"
 
@@ -21,9 +22,67 @@ static const t_float FMAX = std::numeric_limits<t_float>::max();
 static const long IMIN = std::numeric_limits<long>::lowest();
 static const long IMAX = std::numeric_limits<long>::max();
 
+class TestPdAbstraction : public pd::External {
+    typedef std::map<t_symbol*, ListenerExternal*> ListenerMap;
+
+    std::vector<ExternalOutput*> outs_;
+    ListenerMap listeners_;
+
+public:
+    TestPdAbstraction(const char* name, const AtomList& args = L())
+        : pd::External(name, args)
+    {
+        REQUIRE(object());
+
+        for (size_t i = 0; i < numOutlets(); i++) {
+            ExternalOutput* e = new ExternalOutput;
+            connectTo(i, e->object(), 0);
+            outs_.push_back(e);
+        }
+
+        loadbang();
+    }
+
+    t_object* pdObject()
+    {
+        return object();
+    }
+
+    void loadbang()
+    {
+        pd_vmess(&object()->te_g.g_pd, gensym("loadbang"), "f", 0);
+    }
+
+    void call(const char* method, const AtomList& l = L())
+    {
+        clearAll();
+        sendMessage(gensym(method), l);
+    }
+
+    void clearAll()
+    {
+        for (size_t i = 0; i < outs_.size(); i++)
+            outs_[i]->reset();
+    }
+
+    bool hasOutputAt(size_t n)
+    {
+        if (n >= outs_.size())
+            return false;
+
+        return !outs_[n]->isNull();
+    }
+
+    Message outputAt(size_t n) const
+    {
+        return outs_[n]->msg();
+    }
+};
+
 TEST_CASE("radio", "[externals]")
 {
     pd_test_init();
+    setup_base_prop();
     test::pdPrintToStdError(true);
 
     SECTION("construct")
@@ -240,6 +299,45 @@ TEST_CASE("radio", "[externals]")
             auto p = PropertyStorage::storage().acquire(t->fullName()->s_name);
             REQUIRE(p->intRange() == std::make_pair(long(-2), long(20)));
             PropertyStorage::storage().release(t->fullName()->s_name);
+        }
+    }
+
+    SECTION("external")
+    {
+#define REQUIRE_ABSTRACTION_OUTPUT(t, v0, v1, v2, v3, v4)             \
+    {                                                                 \
+        REQUIRE(obj.hasOutputAt(0));                                  \
+        REQUIRE(obj.outputAt(0).isFloat());                           \
+        REQUIRE(obj.outputAt(0).atomValue().asFloat() == Approx(v0)); \
+        REQUIRE(obj.hasOutputAt(1));                                  \
+        REQUIRE(obj.outputAt(1).isFloat());                           \
+        REQUIRE(obj.outputAt(1).atomValue().asFloat() == Approx(v1)); \
+        REQUIRE(obj.hasOutputAt(2));                                  \
+        REQUIRE(obj.outputAt(2).isFloat());                           \
+        REQUIRE(obj.outputAt(2).atomValue().asFloat() == Approx(v2)); \
+        REQUIRE(obj.hasOutputAt(3));                                  \
+        REQUIRE(obj.outputAt(3).isSymbol());                          \
+        REQUIRE(obj.outputAt(3).atomValue() == S(v3));                \
+        REQUIRE(obj.hasOutputAt(4));                                  \
+        REQUIRE(obj.outputAt(4).isList());                            \
+        REQUIRE(obj.outputAt(4).listValue() == v4);                   \
+    }
+
+        PureData::instance().createTopCanvas(TEST_DATA_DIR "/test_props.pd");
+
+        {
+            TestPdAbstraction obj("prop_declare_test1");
+            REQUIRE(obj.object());
+            REQUIRE(obj.numOutlets() == 5);
+
+            REQUIRE_ABSTRACTION_OUTPUT(t, 1000, 4, 1, "defaultName", LX(1, 2, 3));
+        }
+
+        {
+            TestPdAbstraction obj("prop_declare_test1", LA("@freq", 250));
+            obj.loadbang();
+
+            REQUIRE_ABSTRACTION_OUTPUT(t, 250, 4, 1, "defaultName", LX(1, 2, 3));
         }
     }
 }

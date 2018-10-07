@@ -24,14 +24,6 @@ extern "C" {
 #include "m_imp.h"
 }
 
-static void props_loadbang(t_object* x, t_floatarg action)
-{
-    if (action == LB_LOAD) {
-        CanvasProps* props = reinterpret_cast<PdObject<CanvasProps>*>(x)->impl;
-        props->onLoadBang();
-    }
-}
-
 CanvasProps::CanvasProps(const PdArgs& args)
     : BaseObject(args)
 {
@@ -73,7 +65,8 @@ void CanvasProps::onAny(t_symbol* s, const AtomList& l)
     if (sel.back() == '?') {
         std::string name = sel.substr(0, sel.size() - 1);
         auto full_name = PropertyStorage::makeFullName(name, canvas());
-        DataTypeProperty* pprop = PropertyStorage::storage().acquire(full_name);
+        PropertyPtr pprop(full_name);
+
         if (!pprop) {
             OBJ_ERR << "property is not found: " << name;
             return;
@@ -103,85 +96,16 @@ void CanvasProps::onAny(t_symbol* s, const AtomList& l)
             OBJ_ERR << "unhandled property type: " << name;
         }
 
-        PropertyStorage::storage().release(full_name);
     } else {
         auto full_name = PropertyStorage::makeFullName(sel, canvas());
+        PropertyPtr pprop(full_name);
 
-        DataTypeProperty* pprop = PropertyStorage::storage().acquire(full_name);
         if (!pprop) {
             OBJ_ERR << "property is not found: " << sel;
             return;
         }
 
-        if (pprop->isFloat()) {
-            if (l.isFloat())
-                pprop->setFloat(l[0].asFloat());
-            else
-                OBJ_ERR << sel << " float argument is expected: " << l;
-        } else if (pprop->isInt()) {
-            if (l.isFloat())
-                pprop->setInt(l[0].asFloat());
-            else
-                OBJ_ERR << sel << "int argument is expected: " << l;
-        } else if (pprop->isBool()) {
-            if (l.isFloat() && (l[0].asFloat() == 0.0 || l[0].asFloat() == 1.0)) {
-                pprop->setBool(l[0].asFloat());
-            } else
-                OBJ_ERR << sel << "1 or 0 is expected: " << l;
-        } else if (pprop->isSymbol()) {
-            if (l.isSymbol()) {
-                pprop->setSymbol(l[0].asSymbol());
-            } else
-                OBJ_ERR << sel << "symbol is expected: " << l;
-        } else if (pprop->isList()) {
-            pprop->setList(l);
-        } else {
-            OBJ_ERR << "unhandled property type: " << sel;
-        }
-
-        PropertyStorage::storage().release(full_name);
-    }
-}
-
-void CanvasProps::onLoadBang()
-{
-    t_canvas* cnv = canvas();
-    if (!cnv)
-        return;
-
-    typedef std::unordered_map<t_symbol*, AtomList> PropMap;
-    PropMap props_map;
-    auto cnv_args = canvas_info_args(cnv);
-    PropMap::iterator last_prop = props_map.end();
-    int nprops = 0;
-    for (Atom& a : cnv_args) {
-        if (a.isProperty()) {
-            nprops++;
-            last_prop = props_map.insert(std::make_pair(a.asSymbol(), AtomList())).first;
-        } else {
-            if (nprops == 0)
-                continue;
-
-            last_prop->second.append(a);
-        }
-    }
-
-    for (t_gobj* x = cnv->gl_list; x; x = x->g_next) {
-        if (x->g_pd->c_name != PropDeclare::className)
-            continue;
-
-        PropDeclare* prop = reinterpret_cast<PdObject<PropDeclare>*>(x)->impl;
-        t_symbol* prop_name = prop->name();
-        auto it = props_map.find(prop_name);
-        // using default property value
-        if (it == props_map.end()) {
-            auto full_name = prop->fullName();
-            if (full_name->s_thing)
-                pd_bang(full_name->s_thing);
-
-            continue;
-        } else
-            onAny(prop_name, it->second);
+        pprop->setFromPdArgs(l);
     }
 }
 
@@ -226,7 +150,7 @@ void CanvasProps::dump() const
 {
     BaseObject::dump();
 
-    t_canvas* cnv = (t_canvas*) canvas();
+    t_canvas* cnv = (t_canvas*)canvas();
     if (!cnv)
         return;
 
@@ -260,5 +184,4 @@ void setup_canvas_props()
     ObjectFactory<CanvasProps> obj("canvas.props");
     obj.addMethod("@*?", &CanvasProps::m_all_props);
     obj.addMethod("default", &CanvasProps::m_default);
-    class_addmethod(obj.classPointer(), (t_method)props_loadbang, gensym("loadbang"), A_DEFFLOAT, 0);
 }

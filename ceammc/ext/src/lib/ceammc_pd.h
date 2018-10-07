@@ -89,7 +89,7 @@ class PureData {
 
 public:
     static PureData& instance();
-    CanvasPtr createTopCanvas(const char* name);
+    CanvasPtr createTopCanvas(const char* name, const AtomList& args = AtomList());
     CanvasPtr createSubpatch(_glist* parent, const char* name);
 
 private:

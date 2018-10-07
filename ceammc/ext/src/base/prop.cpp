@@ -19,34 +19,6 @@ extern "C" {
 #include "g_canvas.h"
 }
 
-class PropertyPtr {
-    std::string name_;
-    DataTypeProperty* prop_;
-
-public:
-    PropertyPtr(const std::string& name)
-        : name_(name)
-        , prop_(PropertyStorage::storage().acquire(name_))
-    {
-    }
-
-    DataTypeProperty* operator->()
-    {
-        return prop_;
-    }
-
-    operator bool() const
-    {
-        return prop_ != nullptr;
-    }
-
-    ~PropertyPtr()
-    {
-        if (prop_)
-            PropertyStorage::storage().release(name_);
-    }
-};
-
 static t_symbol* SYM_INVALID = gensym("@invalid");
 
 static t_symbol* makePropName(const AtomList& l)
@@ -91,6 +63,14 @@ void BaseProp::onBang()
         bool b = false;
         if (prop->getBool(b))
             floatTo(0, b ? 1 : 0);
+    } else if (prop->isSymbol()) {
+        t_symbol* s;
+        if (prop->getSymbol(&s))
+            symbolTo(0, s);
+    } else if (prop->isList()) {
+        AtomList l;
+        if (prop->getList(l))
+            listTo(0, l);
     } else {
         OBJ_ERR << "unknown property type";
     }

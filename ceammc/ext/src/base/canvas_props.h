@@ -23,7 +23,6 @@ public:
     bool processAnyProps(t_symbol* sel, const AtomList& lst) override;
     void onBang() override;
     void onAny(t_symbol* s, const AtomList& l) override;
-    void onLoadBang();
 
     void m_all_props(t_symbol* s, const AtomList& args);
     void m_default(t_symbol*, const AtomList&);

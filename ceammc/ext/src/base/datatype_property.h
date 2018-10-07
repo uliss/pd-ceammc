@@ -53,6 +53,7 @@ public:
     bool setInt(long v);
     bool setSymbol(t_symbol* s);
     bool setList(const AtomList& lst);
+    bool setFromPdArgs(const AtomList& lst);
 
     void restoreDefault();
 
@@ -103,6 +104,25 @@ public:
 public:
     static Dict& storage();
     static std::string makeFullName(const std::string& name, t_canvas* cnv);
+};
+
+class PropertyPtr {
+    std::string name_;
+    DataTypeProperty* prop_;
+
+public:
+    PropertyPtr(const std::string& name);
+    ~PropertyPtr();
+
+    DataTypeProperty* operator->()
+    {
+        return prop_;
+    }
+
+    operator bool() const
+    {
+        return prop_ != nullptr;
+    }
 };
 
 #endif // DATATYPE_PROPERTY_H

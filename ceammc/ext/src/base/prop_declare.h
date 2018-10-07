@@ -38,6 +38,8 @@ public:
     t_symbol* name() const;
     t_symbol* fullName() const;
 
+    void onLoadBang();
+
     bool isFloat() const;
     bool isInt() const;
     bool isBool() const;

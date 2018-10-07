@@ -152,6 +152,46 @@ bool DataTypeProperty::setList(const AtomList& lst)
     return true;
 }
 
+bool DataTypeProperty::setFromPdArgs(const AtomList& lst)
+{
+    if (isFloat()) {
+        if (lst.isFloat())
+            setFloat(lst[0].asFloat());
+        else {
+            LIB_ERR << name_ << " float argument is expected: " << lst;
+            return false;
+        }
+    } else if (isInt()) {
+        if (lst.isFloat())
+            setInt(lst[0].asFloat());
+        else {
+            LIB_ERR << name_ << "int argument is expected: " << lst;
+            return false;
+        }
+    } else if (isBool()) {
+        if (lst.isFloat() && (lst[0].asFloat() == 0.0 || lst[0].asFloat() == 1.0)) {
+            setBool(lst[0].asFloat());
+        } else {
+            LIB_ERR << name_ << "1 or 0 is expected: " << lst;
+            return false;
+        }
+    } else if (isSymbol()) {
+        if (lst.isSymbol())
+            setSymbol(lst[0].asSymbol());
+        else {
+            LIB_ERR << name_ << "symbol is expected: " << lst;
+            return false;
+        }
+    } else if (isList()) {
+        setList(lst);
+    } else {
+        LIB_ERR << "unhandled property type: " << propertyType();
+        return false;
+    }
+
+    return true;
+}
+
 void DataTypeProperty::restoreDefault()
 {
     value_ = default_;
@@ -258,4 +298,16 @@ std::string PropertyStorage::makeFullName(const std::string& name, _glist* cnv)
     res += buf;
     res += name;
     return res;
+}
+
+PropertyPtr::PropertyPtr(const std::string& name)
+    : name_(name)
+    , prop_(PropertyStorage::storage().acquire(name_))
+{
+}
+
+PropertyPtr::~PropertyPtr()
+{
+    if (prop_)
+        PropertyStorage::storage().release(name_);
 }
