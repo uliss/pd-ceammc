@@ -17,6 +17,7 @@
 #include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_globaldata.h"
+#include "ceammc_property_info.h"
 
 #include <boost/variant.hpp>
 
@@ -78,6 +79,8 @@ public:
     std::pair<t_float, t_float> floatRange() const { return { fmin_, fmax_ }; }
     std::pair<long, long> intRange() const { return { lmin_, lmax_ }; }
     const AtomList& enumValues() const { return enum_; }
+
+    PropertyInfo info() const;
 
 public:
     static const DataType dataType;

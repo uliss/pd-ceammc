@@ -278,6 +278,34 @@ bool DataTypeProperty::setEnumValues(const AtomList& lst)
     return true;
 }
 
+static PropertyInfoType type2type(DataTypeProperty::Type t)
+{
+    switch (t) {
+    case DataTypeProperty::T_FLOAT:
+        return PropertyInfoType::FLOAT;
+    case DataTypeProperty::T_INT:
+        return PropertyInfoType::INTEGER;
+    case DataTypeProperty::T_BOOL:
+        return PropertyInfoType::BOOLEAN;
+    case DataTypeProperty::T_SYMBOL:
+        return PropertyInfoType::SYMBOL;
+    case DataTypeProperty::T_LIST:
+        return PropertyInfoType::LIST;
+    }
+}
+
+PropertyInfo DataTypeProperty::info() const
+{
+    PropertyInfo res(name()->s_name, type2type(type_));
+
+    if (isFloat()) {
+        res.setMin(fmin_);
+        res.setMax(fmax_);
+    }
+
+    return res;
+}
+
 void DataTypeProperty::updateAll()
 {
     if (name_->s_thing)
