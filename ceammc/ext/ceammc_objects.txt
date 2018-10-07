@@ -425,6 +425,7 @@ pan~
 pass
 pass_if
 patch.args
+patch.props
 path.basename
 path.dirname
 path.exists
@@ -436,7 +437,9 @@ preset.float
 preset.list
 preset.storage
 preset.symbol
+prop
 prop->
+prop.declare
 prop.get
 prop.get~
 prop.set

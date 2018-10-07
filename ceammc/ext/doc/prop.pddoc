@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="prop">
+        <title>prop</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>get/set named property value for subpatch or abstraction</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>property</category>
+            <keywords>property</keywords>
+            <since>0.7</since>
+            <also>
+                <see>prop.declare</see>
+                <see>canvas.props</see>
+            </also>
+        </meta>
+        <info>
+            <par>Property should be declared with [prop.declare]</par>
+        </info>
+        <arguments>
+            <argument name="@NAME" type="symbol">property name</argument>
+        </arguments>
+        <methods>
+            <method name="default">reset to default value and output</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output property value</xinfo>
+                <xinfo on="any">set property value and output it</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[prop.declare freq @min 20 @max 20000 @default 1000]
+
+[prop.declare gain @min -60 @max 12 @default -3]
+
+[prop @freq] [prop @gain]
+|            |
+[F]          [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

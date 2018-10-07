@@ -326,6 +326,8 @@ set(DOC_FILES
     preset.storage
     preset.symbol
     proto.firmata
+    prop
+    prop.declare
     prop.get
     prop.get~
     prop.set

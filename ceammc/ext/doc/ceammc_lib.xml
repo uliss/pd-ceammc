@@ -1057,6 +1057,12 @@
     </entry>
   </category>
   <category name="property">
+    <entry descr="get/set named property value for subpatch or abstraction" name="prop" ref_view="object">
+      <xi:include href="prop.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="declare named property for subpatch or abstraction" name="prop.declare" ref_view="object">
+      <xi:include href="prop.declare.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Property extractor" name="prop.get" ref_view="object">
       <xi:include href="prop.get.pddoc" parse="xml"/>
     </entry>
