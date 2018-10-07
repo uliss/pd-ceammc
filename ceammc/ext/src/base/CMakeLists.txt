@@ -17,8 +17,8 @@ set(BASE_SOURCES
     patch_args.cpp
     patch_props.cpp
     prop.cpp
-    prop.get.cpp
-    prop.get_tilde.cpp
+    prop_get.cpp
+    prop_get_tilde.cpp
     prop_declare.cpp
     prop_set.cpp
     radio.cpp
