@@ -20,6 +20,7 @@
 #include "ceammc_globaldata.h"
 #include "datatype_property.h"
 
+#include <cstring>
 #include <limits>
 #include <unordered_map>
 
