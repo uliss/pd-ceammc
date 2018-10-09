@@ -16,6 +16,7 @@
 #include "ceammc_datatypes.h"
 #include "ceammc_log.h"
 
+#include <cstring>
 #include <limits>
 #include <sstream>
 
