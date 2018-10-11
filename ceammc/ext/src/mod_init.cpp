@@ -15,6 +15,7 @@
 #include "lib/ceammc.hpp"
 #include "s_stuff.h"
 
+#include "an/mod_analyze.h"
 #include "array/mod_array.h"
 #include "base/mod_base.h"
 #include "conv/mod_conv.h"
@@ -94,6 +95,7 @@ void ceammc_init()
     set<string> vanilla_set(l.begin(), l.end());
 #endif
 
+    ceammc_analyze_setup();
     ceammc_array_setup();
     ceammc_base_setup();
     ceammc_conv_setup();

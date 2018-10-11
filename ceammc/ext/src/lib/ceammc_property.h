@@ -18,6 +18,7 @@
 #include "ceammc_log.h"
 #include "ceammc_property_info.h"
 
+#include <functional>
 #include <initializer_list>
 #include <iosfwd>
 #include <iterator>
@@ -363,6 +364,39 @@ private:
     B* bobj_;
     TGetterFn tgetter_;
     SGetterFn tsetter_;
+};
+
+template <typename T, typename Prop>
+class CallbackMemFnProperty : public Property {
+    std::unique_ptr<Prop> prop_;
+    std::function<void(T*, Prop*)> fn_;
+    T* this_;
+
+public:
+    CallbackMemFnProperty(Prop* prop, T* t, void fn(T*, Prop*))
+        : Property(prop->info(), prop->readonly())
+        , prop_(prop)
+        , fn_(fn)
+        , this_(t)
+    {
+        setVisible(prop->visible());
+        fn_(this_, prop_.get());
+    }
+
+    AtomList get() const override
+    {
+        return prop_->get();
+    }
+
+    bool set(const AtomList& l) override
+    {
+        bool ok = prop_->set(l);
+
+        if (ok)
+            fn_(this_, prop_.get());
+
+        return ok;
+    }
 };
 
 template <typename T>
