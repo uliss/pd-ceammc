@@ -100,7 +100,7 @@ bool Result::error(std::string* msg, int* code) const
         return false;
 
     if (msg)
-        *msg = boost::optional<std::string>::value();
+        *msg = boost::get(*this);
 
     if (code)
         *code = rc_;
