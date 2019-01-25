@@ -22,6 +22,7 @@
 #include <initializer_list>
 #include <iosfwd>
 #include <iterator>
+#include <memory>
 #include <string>
 #include <type_traits>
 #include <vector>
