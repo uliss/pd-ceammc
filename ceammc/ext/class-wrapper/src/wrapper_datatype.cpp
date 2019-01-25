@@ -72,6 +72,42 @@ bool AbstractDataId::hasEqualType(const AbstractData* d) const
 
 }
 
+Result::Result(const std::string& errMsg, int code)
+    : boost::optional<std::string>(errMsg)
+    , rc_(code)
+{
+}
+
+Result::Result()
+    : boost::optional<std::string>(boost::none)
+    , rc_(0)
+{
+}
+
+bool Result::isOk() const
+{
+    return rc_ == 0;
+}
+
+int Result::code() const
+{
+    return rc_;
+}
+
+bool Result::error(std::string* msg, int* code) const
+{
+    if (rc_ == 0)
+        return false;
+
+    if (msg)
+        *msg = boost::optional<std::string>::value();
+
+    if (code)
+        *code = rc_;
+
+    return true;
+}
+
 std::string DataIFace::makeNewFileName(const std::string& path)
 {
     std::string path2 = ceammc::platform::expandenv(ceammc::platform::expand_tilde_path(path).c_str());
@@ -164,4 +200,14 @@ DataIFace::DataIFace()
 
 DataIFace::~DataIFace()
 {
+}
+
+Result DataIFace::ok()
+{
+    return Result();
+}
+
+Result DataIFace::error(const std::string& msg)
+{
+    return Result(msg, ERROR);
 }
