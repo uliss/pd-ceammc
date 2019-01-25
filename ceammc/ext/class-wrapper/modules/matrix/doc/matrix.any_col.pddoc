@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.any_col">
+        <title>matrix.any_col</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>row with each element (0 or 1) indicating whether the corresponding column has any non-zero elements</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <version>0.1</version>
+            <since>0.1</since>
+            <also>
+                <see>matrix.any</see>
+                <see>matrix.any_row</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Matrix data constructor: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">Matrix data</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output row vector (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[2 2 1 2 3 4( [2 2 1 2 0 3( [2 2 1 0 0 0(
+|             |             |
+|             |             |
+|             |             |
+[matrix.any_col             ]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

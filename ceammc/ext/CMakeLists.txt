@@ -4,6 +4,7 @@ add_subdirectory(src)
 add_subdirectory(doc)
 add_subdirectory(tests)
 add_subdirectory(abstractions)
+add_subdirectory(class-wrapper)
 
 if(WITH_BENCHMARK)
     if(WITH_COVERAGE)

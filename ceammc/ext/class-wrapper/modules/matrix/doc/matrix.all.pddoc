@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.all">
+        <title>matrix.all</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>check if all elements of the matrix are non-zero</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <version>0.1</version>
+            <since>0.1</since>
+            <also>
+                <see>matrix.any</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Matrix data constructor: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">Matrix data</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output 1 or 0 (bool)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[2 2(         [3 3(          [4(
+|             |              |
+[matrix.ones] [matrix.zeros] [matrix.id]
+|             |              |
+|             |              |
+|             |              |
+[matrix.all                  ]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

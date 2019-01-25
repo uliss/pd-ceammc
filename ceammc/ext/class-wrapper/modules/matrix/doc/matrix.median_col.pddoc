@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.median_col">
+        <title>matrix.median_col</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>median matrix value for each column</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <version>0.1</version>
+            <since>0.1</since>
+            <also>
+                <see>matrix.median_row</see>
+                <see>matrix.median</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Matrix data constructor: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">Matrix data</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output median value row (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[3 3 1 2 3 4 5 6 7 8 9(
+|
+[matrix.median_col]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

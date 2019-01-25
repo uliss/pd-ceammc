@@ -1,0 +1,12 @@
+#N canvas 0 0 190 158 12;
+#X declare -lib numeric;
+#X obj 20 48 declare -lib numeric;
+#X msg 20 92 1 2;
+#X msg 77 92 3 4;
+#X msg 135 92 5 6;
+#X obj 20 120 complex.imag;
+#X floatatom 20 149 5 0 0 0 - - -;
+#X connect 1 0 4 0;
+#X connect 2 0 4 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;

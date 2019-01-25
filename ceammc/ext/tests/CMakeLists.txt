@@ -50,6 +50,8 @@ ceammc_add_test("ceammc::signal" test_signal)
 ceammc_add_test("ceammc::string" test_string)
 ceammc_add_test("ceammc::window" test_window)
 ceammc_add_test("ceammc::proxy" test_proxy)
+ceammc_add_test("class_wrapper::tuple" test_wrapper_tuple)
+ceammc_add_test("class_wrapper::fn_traits" test_wrapper_fn_traits)
 
 ceammc_external_test(array bpm)
 ceammc_external_test(array copy)
@@ -381,6 +383,10 @@ ceammc_add_test_linked(TITLE "[env->to_array]"
 ceammc_add_test_linked(TITLE "[speech.flite]"
     NAME test_ext_misc_speech_flite
     LINK ceammc_core ceammc_misc ceammc_string puredata-core ${FLUIDSYNTH_LIBRARIES})
+
+ceammc_add_test_linked(TITLE "class_wrapper::class" NAME test_wrapper_class LINK wrapper_lib)
+ceammc_add_test_linked(TITLE "class_wrapper::method" NAME test_wrapper_method LINK wrapper_lib)
+ceammc_add_test_linked(TITLE "class_wrapper::static_method" NAME test_wrapper_static_method LINK wrapper_lib)
 
 add_executable(test_exec test_exec.cpp)
 

@@ -213,6 +213,9 @@ chmod 0444 $PD_EXTRA/index-help.pd
 cp $SRC_DIR/ceammc/ext/ceammc_objects.txt $PD_TCL/ceammc
 cp $SRC_DIR/ceammc/ext/extra_objects.txt $PD_TCL/ceammc
 
+mkdir -p $PD_TCL/ceammc/user_objects
+cp $(find $SRC_DIR/ceammc/ext/class-wrapper/modules -name 'completion_*.txt') $PD_TCL/ceammc/user_objects
+
 echo "Copy about file..."
 cat $BUILD_DIR/ceammc/ext/doc/about.pd | sed "s/%GIT_BRANCH%/$GIT_BRANCH/g" | \
    sed "s/%GIT_COMMIT%/$GIT_COMMIT/g" | \
@@ -268,6 +271,19 @@ cp $SRC_DIR/cmake/PdExternal.cmake $CMAKE_DIR
 
 echo "Copying abstractions..."
 cp $SRC_DIR/ceammc/ext/abstractions/*.pd $PD_CEAMMC
+
+echo "Copying class wrapper objects..."
+for wrapper in $BUILD_DIR/ceammc/ext/class-wrapper/*.d_fat
+do
+    fname=$(basename $wrapper)
+    mod_name=$(echo $fname | cut -d. -f1)
+    mod_path=$PD_CEAMMC
+    mkdir $mod_path
+    cp $wrapper $mod_path
+    dylib_external_fix $mod_path/$fname $PD_CEAMMC
+    cp -R $SRC_DIR/ceammc/ext/class-wrapper/modules/$mod_name/help/*.pd $mod_path
+done
+
 
 echo "Sound fonts..."
 mkdir -p $PD_SF2

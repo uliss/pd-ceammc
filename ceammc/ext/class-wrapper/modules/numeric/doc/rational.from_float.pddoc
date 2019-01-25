@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="rational.from_float">
+        <title>rational.from_float</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>converts input float to rational with specified precision</description>
+            <license>GPL3</license>
+            <library>numeric</library>
+            <category>rational</category>
+            <version>0.1</version>
+            <since>0.1</since>
+            <aliases>
+                <alias>float-&gt;rational</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument type="float" name="F">input float</argument>
+            <argument type="int" name="MAX_DEN">max denominator value</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input float</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">max denominator value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output rational number (Rational)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib numeric]
+
+
+[3.14159265(
+|
+|   [1( [16( [256( [4096(
+|   |.  |.   |.    |.
+[float->rational   1]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

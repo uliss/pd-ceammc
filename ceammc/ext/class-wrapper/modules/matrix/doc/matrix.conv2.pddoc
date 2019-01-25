@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.conv2">
+        <title>matrix.conv2</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>2D matrix convolution</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <keywords>convolution</keywords>
+            <version>0.1</version>
+            <since>0.1</since>
+        </meta>
+        <arguments>
+            <argument type="list" name="B">convolution kernel</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Matrix data constructor: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">Matrix data</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">convolution kernel: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">convolution kernel</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output new matrix of same size (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[T]
+|
+[metro 200]
+|
+[get list(
+|
+[ui.matrix @size=100x100 @cols=10 @rows=10 #d]
+|
+|
+|
+|                    [loadbang]
+|                    |
+|                    [10 10(
+|                    |
+[route list]         [matrix.randu]
+|                    |
+[msg 10 10]          [matrix.> 0.6]
+|                    |
+[matrix.new        #a]
+|
+[t a a]
+|  ^|
+|  [matrix.conv2 3 3 1 1 1 1 0 1 1 1 1]
+|  |
+|  [t a a         ]
+|  |             ^|
+|  [matrix.== 2] [matrix.== 3]
+|  |.            |
+[matrix.*]       |
+|                |.
+[matrix.+          ]
+|              |
+[matrix->list] [msg set #b]
+|
+[msg set list #c]
+
+[X b->a]
+[X c->d]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

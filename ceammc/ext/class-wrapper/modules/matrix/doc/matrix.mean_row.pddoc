@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.mean_row">
+        <title>matrix.mean_row</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>mean value for each matrix row</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <version>0.1</version>
+            <since>0.1</since>
+            <also>
+                <see>matrix.mean</see>
+                <see>matrix.mean_col</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Matrix data constructor: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">Matrix data</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output column vector with mean value for each row (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[3 4(
+|
+[matrix.randu]
+|
+[matrix.mean_row]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

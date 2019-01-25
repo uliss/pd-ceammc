@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="rational.unpack">
+        <title>rational.unpack</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>unpacks rational number to numerator and denominator parts</description>
+            <license>GPL3</license>
+            <library>numeric</library>
+            <category>rational</category>
+            <version>0.1</version>
+            <since>0.1</since>
+            <aliases>
+                <alias>rational-&gt;tuple</alias>
+            </aliases>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Rational data constructor: NUM DEN</xinfo>
+                <xinfo on="data">Rational data</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output numerator part (float)</outlet>
+            <outlet>output demonimator part (float)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib numeric]
+
+
+[0 0( [1 0( [2 2(
+|     |     |
+[rational->tuple]
+|       ^|
+[F]     [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.from_list">
+        <title>matrix.from_list</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>create Matrix from list values</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <version>0.1</version>
+            <since>0.1</since>
+            <aliases>
+                <alias>list-&gt;matrix</alias>
+            </aliases>
+            <also>
+                <see>matrix.to_list</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="list" name="V">element values</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">element values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output new matrix (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[2 2 10 20 30 40(
+|
+[matrix.from_list]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

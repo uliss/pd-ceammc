@@ -1,0 +1,12 @@
+#N canvas 0 0 401 188 12;
+#X declare -lib numeric;
+#X obj 20 48 declare -lib numeric;
+#X msg 20 92 1/2;
+#X obj 20 120 rational.reciprocal;
+#X obj 20 149 rational.reciprocal;
+#X obj 231 149 ui.display @display_type 1 @size 150 18;
+#X obj 20 178 ui.display @display_type 1 @size 150 18;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 2 0 4 0;
+#X connect 3 0 5 0;

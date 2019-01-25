@@ -84,7 +84,7 @@ do
 done
 
 echo "+ Copying abstractions:"
-for abs in ${SRCDIR}/abstractions/*.pd
+for abs in ${SRCDIR}/ext/abstractions/*.pd
 do
     echo "    $(basename $abs)"
     cp "${abs}" "${OUTDIR}"
@@ -97,6 +97,7 @@ echo "    prs.txt"
 cp "${SRCDIR}/ext/doc/prs.txt" "${OUTDIR}"
 echo "    soundtouch~.d_fat"
 cp "${BINDIR}/../extra/SoundTouch/pd/soundtouch~.d_fat" "${OUTDIR}"
+${DYLIBBUNDLER} -x ${OUTDIR}/soundtouch~.d_fat -b -d ${OUTDIR} -p @loader_path/ -of
 echo "    soundtouch~-help.pd"
 cp "${BINDIR}/../extra/SoundTouch/pd/soundtouch~-help.pd" "${OUTDIR}"
 echo "    soundtouch-help.pd"

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.identity">
+        <title>matrix.identity</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>create identity Matrix</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <keywords>fill indentity</keywords>
+            <version>0.1</version>
+            <since>0.1</since>
+            <aliases>
+                <alias>matrix.id</alias>
+            </aliases>
+            <also>
+                <see>matrix.zeros</see>
+                <see>matrix.ones</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="int" name="N" minvalue="0">number of rows and columns</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="int">number of rows and columns</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output identity matrix (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[B] [3( [F]
+|   |   |
+[matrix.identity 2]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

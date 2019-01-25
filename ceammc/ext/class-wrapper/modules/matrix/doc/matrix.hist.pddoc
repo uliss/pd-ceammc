@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.hist">
+        <title>matrix.hist</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>produce a matrix containing column histogram counts</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <version>0.1</version>
+            <since>0.1</since>
+        </meta>
+        <arguments>
+            <argument type="int" name="N_BINS" minvalue="0">number of bins</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Matrix data constructor: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">Matrix data</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">number of bins</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output hist matrix (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[100 1( [1 100000(  [A A_HIST0 size=20 yr=0..1]
+|       |
+|       |
+|       |
+[matrix.randn]
+|
+|
+|
+|
+[matrix.hist 30]
+|
+[matrix->list]
+|
+[array.set A_HIST0 @normalize]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

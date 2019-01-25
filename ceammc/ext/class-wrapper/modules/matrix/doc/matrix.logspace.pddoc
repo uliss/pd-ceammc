@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.logspace">
+        <title>matrix.logspace</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>generate row with N elements spaced logarithmically</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <keywords>logspace</keywords>
+            <version>0.1</version>
+            <since>0.1</since>
+            <also>
+                <see>matrix.linspace</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="float" name="A">start from 10^A</argument>
+            <argument type="float" name="B">end and including 10^B</argument>
+            <argument type="int" name="N" minvalue="0">number of element, if 0, means default value 50 elements</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="float">start from 10^A</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">end and including 10^B</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">number of element, if 0, means default value 50 elements</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output matrix row (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[B] [1 3 5( [1 3 20(
+|   |       |
+[matrix.logspace 1 2 10]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.nrows">
+        <title>matrix.nrows</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>return number of rows in Matrix</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <keywords>size</keywords>
+            <version>0.1</version>
+            <since>0.1</since>
+            <also>
+                <see>matrix.ncols</see>
+                <see>matrix.size</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Matrix data constructor: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">Matrix data</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output number of rows (int)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[bang( [10 16(
+|      |
+[matrix.new 3 8]
+|
+[matrix.nrows]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
