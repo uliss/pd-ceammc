@@ -66,5 +66,8 @@ if(ARMADILLO_FOUND)
 
     wrapper_add(matrix)
     target_compile_definitions(matrix PUBLIC -DARMA_DONT_USE_WRAPPER -DARMA_DONT_USE_HDF5)
+    if(WIN32)
+        target_compile_definitions(matrix PUBLIC -DARMA_DONT_USE_BLAS -DARMA_DONT_USE_LAPACK)
+    endif()
 endif()
 
