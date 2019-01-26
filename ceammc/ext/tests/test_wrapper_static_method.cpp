@@ -67,7 +67,7 @@ public:
 
     static std::tuple<int, std::string> intstr(int v)
     {
-        return { v, std::to_string(v) };
+        return std::make_tuple(v, std::to_string(v));
     }
 
     static std::vector<std::string> str(const std::vector<int>& v)
