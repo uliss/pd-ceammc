@@ -58,7 +58,7 @@ TEST_CASE("wrapper template", "[class-wrapper]")
         SECTION("for_each")
         {
             using Arg = std::tuple<float, int, std::string>;
-            Arg t = { 1.5f, -100, "test" };
+            Arg t(1.5f, -100, "test");
 
             // rvalue
             for_each(t, CallbackMultiply(2));
@@ -79,7 +79,7 @@ TEST_CASE("wrapper template", "[class-wrapper]")
         SECTION("rfor_each")
         {
             using Arg = std::tuple<float, int, std::string>;
-            Arg t = { 1.5f, -100, "test" };
+            Arg t(1.5f, -100, "test");
 
             // rvalue
             rfor_each(t, CallbackMultiply(2));
@@ -164,7 +164,7 @@ TEST_CASE("wrapper template", "[class-wrapper]")
                 }
             };
 
-            std::tuple<float, float, float, float> t = { 1, 2, 3, 4 };
+            std::tuple<float, float, float, float> t(1, 2, 3, 4);
             REQUIRE(find_first(t, Less3()) == 0);
             t = { 4, 3, 2, 1 };
             REQUIRE(find_first(t, Less3()) == 2);
@@ -175,8 +175,8 @@ TEST_CASE("wrapper template", "[class-wrapper]")
         SECTION("2 tuples")
         {
             using Tuple = std::tuple<int, bool, float>;
-            Tuple t0 = { 3, true, 1.5 };
-            Tuple t1 = { 4, false, 4 };
+            Tuple t0(3, true, 1.5);
+            Tuple t1(4, false, 4);
 
             struct FloatMul {
                 int call_count;
