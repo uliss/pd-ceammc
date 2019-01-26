@@ -413,7 +413,7 @@ public:
      */
     std::tuple<float, float> toTuple() const
     {
-        return { v_.real(), v_.imag() };
+        return std::make_tuple(v_.real(), v_.imag());
     }
 
     /**
@@ -1189,7 +1189,7 @@ Rational Rational::div(int v) const
 
 std::tuple<float, float> Rational::toTuple() const
 {
-    return { float(r_.numerator()), float(r_.denominator()) };
+    return std::make_tuple(float(r_.numerator()), float(r_.denominator()));
 }
 
 std::vector<float> Rational::toList() const
