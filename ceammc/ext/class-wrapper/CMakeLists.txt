@@ -27,6 +27,13 @@ include_directories(${PROJECT_SOURCE_DIR}/ceammc/ext/src/lib)
 add_library(wrapper_lib SHARED ${CLASS_WRAPPER_SOURCES})
 target_link_libraries(wrapper_lib ceammc_core ceammc_data)
 
+# install
+if(WIN32)
+    install(TARGETS wrapper_lib  RUNTIME DESTINATION ${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc)
+else()
+    install(TARGETS wrapper_lib  LIBRARY DESTINATION ${PDCORE_LIB_INSTALL_PATH})
+endif()
+
 function(wrapper_add NAME)
     add_custom_target(
         gen_${NAME}
