@@ -114,6 +114,9 @@ public:
         if (l.size() != 2)
             return error("v0 v1 expected");
 
+        if (!(l[0].isFloat() && l[1].isFloat()))
+            return error("float arguments required");
+
         v_.first = l[0].asFloat();
         v_.second = l[1].asFloat();
 
