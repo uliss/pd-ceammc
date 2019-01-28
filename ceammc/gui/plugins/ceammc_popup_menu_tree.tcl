@@ -31,6 +31,9 @@
         {rev1~ rev2~ rev3~}}
 }
 {ceammc
+    {an {
+        an.pitchtrack~
+    }}
     {array {
         array.bpm array.copy array.do array.each array.fill array.minmax
         array.set array.stretch array.vplay
@@ -198,9 +201,6 @@
         ui.matrix ui.menu ui.meter~ ui.number ui.number~ ui.preset ui.radio
         ui.rslider ui.scope~ ui.slider ui.slider2d ui.sliders ui.spectroscope~
         ui.tab ui.toggle
-    }}
-    {vector {
-        vector.distance vector.dot vector.length vector.normalize
     }}
 }
 {extra
