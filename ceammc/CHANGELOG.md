@@ -48,6 +48,72 @@
 - l->l alias added for lin->lin
 - soundtouch~ pitch argument added
 - flt.eq10~ graphic 10-band (1 octave) equalizer added
+- numeric external added with bunch of objects:
+  - rational, for working with rational numbers:
+    - rational.!=
+    - rational.==
+    - rational.abs
+    - rational.add
+    - rational.div
+    - rational.from_float
+    - rational.ge
+    - rational.gt
+    - rational.le
+    - rational.lt
+    - rational.mul
+    - rational.new
+    - rational.pow
+    - rational.reciprocal
+    - rational.sub
+    - rational.to_float
+    - rational.to_list
+    - rational.unpack
+  - complex, for working with complex numbers:
+    - complex.!=
+    - complex.==
+    - complex.abs
+    - complex.add
+    - complex.arg
+    - complex.conj
+    - complex.cos
+    - complex.div
+    - complex.exp
+    - complex.imag
+    - complex.log
+    - complex.log10
+    - complex.mul
+    - complex.new
+    - complex.norm
+    - complex.polar
+    - complex.pow
+    - complex.real
+    - complex.sin
+    - complex.sqrt
+    - complex.sub
+    - complex.tan
+    - complex.to_list
+    - complex.unpack
+- matrix external added, for working with matrices: matrix.!=,
+    matrix.<, matrix.<=, matrix.==, matrix.>, matrix.>=,
+    matrix.abs, matrix.accu, matrix.acos, matrix.acosh, matrix.add,
+    matrix.all, matrix.all_col, matrix.all_row, matrix.any, matrix.any_col,
+    matrix.any_row, matrix.asin, matrix.asinh, matrix.at, matrix.atan,
+    matrix.atanh, matrix.clip, matrix.col, matrix.col_at, matrix.conv2, matrix.cos,
+    matrix.cosh, matrix.det, matrix.diag, matrix.div, matrix.exp, matrix.exp10,
+    matrix.exp2, matrix.fill, matrix.from_list, matrix.full, matrix.hist,
+    matrix.identity, matrix.insert_col, matrix.insert_row, matrix.inverse,
+    matrix.linspace, matrix.load, matrix.logspace, matrix.matmul, matrix.matrix,
+    matrix.max, matrix.mean, matrix.mean_col, matrix.mean_row, matrix.median,
+    matrix.median_col, matrix.median_row, matrix.min, matrix.mul, matrix.ncols,
+    matrix.new, matrix.nrows, matrix.ones, matrix.ones_like, matrix.randn,
+    matrix.randu, matrix.range, matrix.range_col, matrix.range_row, matrix.rank,
+    matrix.remove_col, matrix.remove_row, matrix.replace, matrix.reshape,
+    matrix.resize, matrix.row, matrix.row_at, matrix.save, matrix.shift_col,
+    matrix.shift_row, matrix.sign, matrix.sin, matrix.sinh, matrix.size, matrix.solve,
+    matrix.stddev, matrix.stddev_col, matrix.stddev_row, matrix.sub, matrix.swap_cols,
+    matrix.swap_rows, matrix.tan, matrix.tanh, matrix.to_list, matrix.transpose,
+    matrix.trunc_exp, matrix.vectorise, matrix.zeros, matrix.zeros_like
+
 
 ### Changed:
 - data type generation support for list.gen and list.each
