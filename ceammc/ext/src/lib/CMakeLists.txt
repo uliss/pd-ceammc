@@ -44,7 +44,6 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_factory.h
     ceammc_faust.cpp
     ceammc_fn_list.cpp
-    ceammc_fn_vector.cpp
     ceammc_format.cpp
     ceammc_impl.cpp
     ceammc_log.cpp

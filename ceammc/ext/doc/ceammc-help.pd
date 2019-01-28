@@ -1005,22 +1005,8 @@ ui.spectroscope~-help.pd;
 #X text 175 13664 displays a list of text buttons or text toggles;
 #X obj 30 13690 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
 #X text 175 13687 modern toggle widget;
-#X obj 20 13710 cnv 5 69 31 empty empty vector 4 13 0 17 -262144
--49933 0;
-#X obj 20 13751 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 30 13762 vector.distance;
-#X text 175 13762 returns euclidean distance between two points;
-#X obj 30 13789 vector.dot;
-#X text 175 13789 treats list of floats as vector \, returns the dot
-product (sum of the elements of two lists with same indexes
-multiplied).;
-#X obj 30 13840 vector.length;
-#X text 175 13840 treats list of floats as vector \, returns vector
-length: sqrt(element(1)^2 + ...element(n)^2).;
-#X obj 30 13877 vector.normalize;
-#X text 175 13877 returns normalized vector;
 #X obj 1 1 cnv 5 712 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 13904 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 13904 version: v0.6 \, license: GPL3;
-#X obj 20 13923 ui.link @title https://github.com/uliss/pure-data @url
+#X obj 1 13710 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 13710 version: v0.6 \, license: GPL3;
+#X obj 20 13729 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;

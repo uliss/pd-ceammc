@@ -574,10 +574,6 @@ ui.t
 ui.tab
 ui.toggle
 ui.vsl
-vector.distance
-vector.dot
-vector.length
-vector.normalize
 vline->env
 vline2env
 win

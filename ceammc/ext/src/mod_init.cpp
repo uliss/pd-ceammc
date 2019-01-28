@@ -45,7 +45,6 @@
 #include "system/mod_system.h"
 #include "tl/mod_tl.h"
 #include "ui/mod_ui.h"
-#include "vector/mod_vector.h"
 #include "window/mod_window.h"
 
 #include <algorithm>
@@ -125,7 +124,6 @@ void ceammc_init()
     ceammc_system_setup();
     ceammc_tl_setup();
     ceammc_ui_setup();
-    ceammc_vector_setup();
     ceammc_window_setup();
 
 #ifndef __WIN32

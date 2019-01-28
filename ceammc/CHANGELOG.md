@@ -70,6 +70,7 @@
 
 ### Removed:
 - fx.greyhole~ 3rd information outlet removed
+- vector.* objects removed, use matrix externals
 
 
 ## [0.6]

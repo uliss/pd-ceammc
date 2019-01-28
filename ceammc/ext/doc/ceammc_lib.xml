@@ -1359,20 +1359,6 @@
       <xi:include href="ui.toggle.pddoc" parse="xml"/>
     </entry>
   </category>
-  <category name="vector">
-    <entry descr="returns euclidean distance between two points" name="vector.distance" ref_view="object">
-      <xi:include href="vector.distance.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="treats list of floats as vector, returns the dot product (sum of the elements of two lists with same indexes multiplied)." name="vector.dot" ref_view="object">
-      <xi:include href="vector.dot.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="treats list of floats as vector, returns vector length: sqrt(element(1)^2 + ...element(n)^2)." name="vector.length" ref_view="object">
-      <xi:include href="vector.length.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="returns normalized vector" name="vector.normalize" ref_view="object">
-      <xi:include href="vector.normalize.pddoc" parse="xml"/>
-    </entry>
-  </category>
   <meta>
     <version>0.6</version>
     <authors>

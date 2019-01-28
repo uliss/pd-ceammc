@@ -423,10 +423,6 @@ set(DOC_FILES
     ui.spectroscope~
     ui.toggle
     ui.meter~
-    vector.distance
-    vector.dot
-    vector.length
-    vector.normalize
     window
     xfade~
     xfade2~
