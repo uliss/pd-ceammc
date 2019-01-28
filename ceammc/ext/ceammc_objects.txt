@@ -7,6 +7,7 @@
 @~>
 _tcl.version
 amp->dbfs
+an.pitchtrack~
 and
 any->props
 approx
@@ -186,6 +187,7 @@ global.list
 global.mlist
 global.set
 group
+helmholtz~
 hw.arduino
 hw.serial
 hw.usb

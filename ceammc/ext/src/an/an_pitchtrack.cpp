@@ -2,7 +2,7 @@
 #include "ceammc_factory.h"
 
 #define DEFFIDELITY 0.95 // default fidelity threshold for reporting pitch result
-#define DEFMAXFREQ 1000. // default maximum frequency for reporting pitch result
+#define DEFMAXFREQ 1500. // default maximum frequency for reporting pitch result
 
 PitchTrack::PitchTrack(const PdArgs& args)
     : SoundExternal(args)
@@ -12,6 +12,7 @@ PitchTrack::PitchTrack(const PdArgs& args)
     , overlap_(nullptr)
     , bias_(nullptr)
     , maxfreq_(nullptr)
+    , fidelity_threshold_(nullptr)
     , helmholtz_(new Helmholtz)
     , clock_(this, &PitchTrack::tick)
 {
@@ -49,14 +50,17 @@ void PitchTrack::initProperties()
     });
     createProperty(overlap_);
 
-    bias_ = new PitchTrackFloatProperty(new FloatPropertyClosedRange("@bias", 0, 0, 1), this, [](PitchTrack* this_, FloatPropertyClosedRange* p) {
+    bias_ = new PitchTrackFloatProperty(new FloatPropertyClosedRange("@bias", 0.2, 0, 1), this, [](PitchTrack* this_, FloatPropertyClosedRange* p) {
         LIB_DBG << "setting bias to: " << p->value();
         this_->helmholtz_->setbias(p->value());
     });
     createProperty(bias_);
 
-    maxfreq_ = new FloatPropertyClosedRange("@maxfreq", DEFMAXFREQ, 0, 2000);
+    maxfreq_ = new FloatPropertyClosedRange("@maxfreq", DEFMAXFREQ, 10, 10000);
     createProperty(maxfreq_);
+
+    fidelity_threshold_ = new FloatPropertyClosedRange("@fidthr", DEFFIDELITY, 0, 1);
+    createProperty(fidelity_threshold_);
 }
 
 void PitchTrack::processBlock(const t_sample** in, t_sample** out)
@@ -73,9 +77,10 @@ void PitchTrack::processBlock(const t_sample** in, t_sample** out)
 
     // if there is new pitch info, send messages to outlets
     if ((freq_ != freq)
-        && (fidelity > fidelity_)
+        && (fidelity > fidelity_threshold_->value())
         && (freq < maxfreq_->value())) {
         freq_ = freq;
+        fidelity_ = fidelity;
         clock_.delay(0);
     }
 }

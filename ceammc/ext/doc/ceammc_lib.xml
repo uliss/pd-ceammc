@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library xmlns:xi="http://www.w3.org/2001/XInclude" name="ceammc" version="1.0">
+  <category name="an">
+    <entry descr="pitch tracker" name="an.pitchtrack~" ref_view="object">
+      <xi:include href="an.pitchtrack~.pddoc" parse="xml"/>
+    </entry>
+  </category>
   <category name="array">
     <entry descr="BPM calculator" name="array.bpm" ref_view="object">
       <xi:include href="array.bpm.pddoc" parse="xml"/>
@@ -1375,6 +1380,7 @@
       <author>Alex Nadzharov</author>
       <author>Hans-Christoph Steiner</author>
       <author>Julian Parker</author>
+      <author>Katja Vetter</author>
       <author>Mayank Sanganeria</author>
       <author>Oliver Larkin</author>
       <author>Olli Parviainen</author>

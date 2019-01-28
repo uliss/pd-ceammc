@@ -19,6 +19,7 @@ class PitchTrack : public SoundExternal {
     PitchTrackEnumProperty* overlap_;
     PitchTrackFloatProperty* bias_;
     FloatPropertyClosedRange* maxfreq_;
+    FloatPropertyClosedRange* fidelity_threshold_;
 
     std::unique_ptr<Helmholtz> helmholtz_;
     ClockMemberFunction<PitchTrack> clock_;

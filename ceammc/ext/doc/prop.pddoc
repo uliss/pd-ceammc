@@ -18,7 +18,8 @@
             </also>
         </meta>
         <info>
-            <par>Property should be declared with [prop.declare]. Min/max limits can be set to property</par>
+            <par>Property should be declared with [prop.declare]. Min/max limits can be set to
+            property</par>
         </info>
         <arguments>
             <argument name="@NAME" type="symbol">property name</argument>
