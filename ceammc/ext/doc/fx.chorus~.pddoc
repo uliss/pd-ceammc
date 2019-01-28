@@ -33,7 +33,7 @@
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo>left channel</xinfo>
+                <xinfo>input signal</xinfo>
             </inlet>
         </inlets>
         <outlets>
