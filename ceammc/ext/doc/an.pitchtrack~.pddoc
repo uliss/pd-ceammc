@@ -32,8 +32,8 @@
             frames</argument>
         </arguments>
         <properties>
-            <property name="@framesize" type="int" enum="126 256 512 1024 2048" default="1024">
-            frame size in samples</property>
+            <property name="@framesize" type="int" enum="126 256 512 1024 2048" default="1024"
+            units="sample">frame size in samples</property>
             <property name="@overlap" type="int" enum="1 2 3 4 8" default="1">overlap of analysis
             frames</property>
             <property name="@bias" type="int" minvalue="0" maxvalue="1" default="0.2">bias which
@@ -41,8 +41,8 @@
             jumps</property>
             <property name="@fidthr" type="float" minvalue="0" maxvalue="1" default="0.95">min
             fidelity threshold to report the pitch</property>
-            <property name="@maxfreq" type="float" minvalue="20" maxvalue="10000" default="1500">
-            max tracked frequency</property>
+            <property name="@maxfreq" type="float" minvalue="20" maxvalue="10000" default="1500"
+            units="herz">max tracked frequency</property>
         </properties>
         <inlets>
             <inlet type="audio">
