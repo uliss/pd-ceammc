@@ -62,6 +62,7 @@ ceammc_external_test(array p2s)
 ceammc_external_test(array s2p)
 ceammc_external_test(array stretch)
 ceammc_external_test(array vplay)
+ceammc_external_test(array window)
 
 ceammc_external_test(base function)
 ceammc_external_test(base gain)

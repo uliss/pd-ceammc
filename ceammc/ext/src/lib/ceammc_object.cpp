@@ -80,7 +80,11 @@ bool BaseObject::setProperty(t_symbol* key, const AtomList& v)
     if (p == nullptr || p->readonly())
         return false;
 
-    return p->set(v);
+    bool rc = p->set(v);
+    if (rc && prop_set_callback_)
+        prop_set_callback_(this, key);
+
+    return rc;
 }
 
 bool BaseObject::setProperty(const char* key, const AtomList& v)
@@ -96,7 +100,11 @@ bool BaseObject::setPropertyFromPositionalArg(Property* p, size_t n)
     if (positional_args_.size() <= n)
         return false;
 
-    return p->set(AtomList(positional_args_.at(n)));
+    bool rc = p->set(AtomList(positional_args_.at(n)));
+    if (rc && prop_set_callback_)
+        prop_set_callback_(this, gensym(p->name().c_str()));
+
+    return rc;
 }
 
 const BaseObject::Properties& BaseObject::properties() const
@@ -270,7 +278,11 @@ bool BaseObject::processAnyProps(t_symbol* sel, const AtomList& lst)
             return false;
         }
 
-        it->second->set(lst);
+        bool rc = it->second->set(lst);
+        if (rc && prop_set_callback_)
+            prop_set_callback_(this, sel);
+
+        return rc;
     }
 
     return true;
@@ -316,6 +328,11 @@ bool BaseObject::queryProperty(t_symbol* key, AtomList& res) const
     res.append(key);
     res.append(it->second->get());
     return true;
+}
+
+void BaseObject::setPropertyCallback(BaseObject::PropCallback cb)
+{
+    prop_set_callback_ = cb;
 }
 
 void BaseObject::extractPositionalArguments()
@@ -384,6 +401,7 @@ BaseObject::BaseObject(const PdArgs& args)
     : pd_(args)
     , receive_from_(0)
     , cnv_(canvas_getcurrent())
+    , prop_set_callback_(nullptr)
 {
     extractPositionalArguments();
 }
@@ -432,7 +450,9 @@ void BaseObject::parseProperties()
         if (props_[pname]->readonly())
             continue;
 
-        props_[pname]->set(p[i].slice(1));
+        bool rc = props_[pname]->set(p[i].slice(1));
+        if (rc && prop_set_callback_)
+            prop_set_callback_(this, pname);
     }
 }
 

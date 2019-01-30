@@ -39,14 +39,20 @@ public:
     }
 };
 
+static void propCallback(BaseObject* b, t_symbol* prop);
+
 class EXT_C : public BaseObject {
 public:
     EXT_C(const PdArgs& a)
         : BaseObject(a)
+        , last_prop(nullptr)
     {
         createProperty(new FloatProperty("@c", 101));
+        createProperty(new SizeTProperty("@d", 101));
         createInlet();
         createOutlet();
+
+        setPropertyCallback(propCallback);
     }
 
     void onInlet(size_t n, const AtomList& l)
@@ -58,7 +64,14 @@ public:
 public:
     size_t last_inlet;
     AtomList last_inlet_data;
+    t_symbol* last_prop;
 };
+
+void propCallback(BaseObject* b, t_symbol* prop)
+{
+    EXT_C* c = static_cast<EXT_C*>(b);
+    c->last_prop = prop;
+}
 
 static void setup_test_extc()
 {
@@ -534,5 +547,24 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             REQUIRE(t.hasOutput());
             REQUIRE(t.outputAnyAt(0) == LA("@c", 200));
         }
+    }
+
+    SECTION("set prop callback")
+    {
+        TestExtEXT_C t("ext.c");
+        REQUIRE(!t.isNull());
+        REQUIRE(t->last_prop == nullptr);
+
+        t.sendMessage(gensym("@unknown"), LF(100));
+        REQUIRE(t->last_prop == nullptr);
+
+        t.sendMessage(gensym("@c"), LF(100));
+        REQUIRE(t->last_prop == gensym("@c"));
+
+        t.sendMessage(gensym("@d"), LF(-100));
+        REQUIRE(t->last_prop == gensym("@c"));
+
+        t.sendMessage(gensym("@d"), LF(100));
+        REQUIRE(t->last_prop == gensym("@d"));
     }
 }

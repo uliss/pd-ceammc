@@ -26,6 +26,7 @@ array.sample->phase
 array.set
 array.stretch
 array.vplay
+array.window
 bpm->hz
 bpm->ms
 bpm->sec
