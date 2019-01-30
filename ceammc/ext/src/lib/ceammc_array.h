@@ -132,6 +132,8 @@ public:
     void fillWith(float v);
     void fillWith(FloatValueGenerator gen);
 
+    bool setYBounds(float yBottom, float yTop);
+
 public:
     struct Exception : public std::runtime_error {
         Exception(const char* what);

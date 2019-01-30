@@ -95,6 +95,42 @@ void ArrayWindow::updateGenFn()
     fill();
 }
 
+void ArrayWindow::m_resize(t_symbol* s, const AtomList& l)
+{
+    if (!checkArgs(l, ARG_NATURAL, s))
+        return;
+
+    size_t N = l[0].asSizeT();
+    if (N == 0) {
+        OBJ_ERR << "invalid size: " << l;
+        return;
+    }
+
+    if (!array_.update()) {
+        OBJ_ERR << "can't access array: " << array_.name();
+        return;
+    }
+
+    if (!array_.resize(N))
+        OBJ_ERR << "can't resize array: " << array_.name();
+}
+
+void ArrayWindow::m_fit(t_symbol* s, const AtomList& l)
+{
+    if (!array_.isValid()) {
+        OBJ_ERR << "invalid array: " << array_.name();
+        return;
+    }
+
+    t_symbol* name = gensym(array_.name().c_str());
+    t_atom args[4];
+    SETFLOAT(&args[0], 0);
+    SETFLOAT(&args[1], 1);
+    SETFLOAT(&args[2], t_float(array_.size()));
+    SETFLOAT(&args[3], 0);
+    pd_typedmess(name->s_thing, gensym("bounds"), 4, args);
+}
+
 void ArrayWindow::fill()
 {
     if (!array_.update())
@@ -114,4 +150,6 @@ void ArrayWindow::fill()
 void setup_array_window()
 {
     ObjectFactory<ArrayWindow> obj("array.window");
+    obj.addMethod("resize", &ArrayWindow::m_resize);
+    obj.addMethod("fit", &ArrayWindow::m_fit);
 }

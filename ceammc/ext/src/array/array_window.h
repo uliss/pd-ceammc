@@ -30,6 +30,9 @@ public:
 
     void updateGenFn();
 
+    void m_resize(t_symbol* s, const AtomList& l);
+    void m_fit(t_symbol* s, const AtomList& l);
+
 private:
     void fill();
 };

@@ -3,6 +3,7 @@
 ## [Unreleased]
 ### Added:
 - \[print\] now supports Data types
+- array.window added
 - tl.timeline added
 - msg.onload added
 - net.host->ip added

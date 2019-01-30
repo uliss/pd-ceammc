@@ -205,11 +205,6 @@ TEST_CASE("math.expr", "[externals]")
         REQUIRE_EXPR(t, "arr1[12]", 1, Approx(0));
 
         REQUIRE(cnv);
-        ArrayPtr aptr = cnv->createArray("array1", 101);
-        Array a("array1");
-        REQUIRE(a.isValid());
-        REQUIRE(a.size() == 101);
-
         ArrayPtr aptr = cnv->createArray("arr1", 10);
         (*aptr)[0] = 100;
         (*aptr)[1] = -3;
