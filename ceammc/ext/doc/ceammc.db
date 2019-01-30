@@ -10,6 +10,7 @@ array.s2p,array.s->p,array.sample->phase		.		.
 array.set,list->array		.		-
 array.stretch		.		.
 array.vplay		.		..
+array.window		.		.
 canvas.current		.		.
 canvas.top		.		.
 click~		.		~

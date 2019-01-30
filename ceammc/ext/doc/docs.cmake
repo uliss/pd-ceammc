@@ -11,6 +11,7 @@ set(DOC_FILES
     array.set
     array.stretch
     array.vplay
+    array.window
     canvas.current
     canvas.top
     click~

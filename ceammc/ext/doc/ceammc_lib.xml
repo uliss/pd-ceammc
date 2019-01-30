@@ -33,6 +33,9 @@
     <entry descr="simple array player for using with vline~" name="array.vplay" ref_view="object">
       <xi:include href="array.vplay.pddoc" parse="xml"/>
     </entry>
+    <entry descr="fill array with window" name="array.window" ref_view="object">
+      <xi:include href="array.window.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="base">
     <entry descr="named function" name="function" ref_view="link">
