@@ -49,6 +49,7 @@
 - l->l alias added for lin->lin
 - soundtouch~ pitch argument added
 - flt.eq10~ graphic 10-band (1 octave) equalizer added
+- flt.median added
 - numeric external added with bunch of objects:
   - rational, for working with rational numbers:
     - rational.!=
