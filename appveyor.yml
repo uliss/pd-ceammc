@@ -1,7 +1,7 @@
 ---
 os: Visual Studio 2015
 
-version: 2018.08.{build}
+version: 2019.02.{build}
 
 clone_depth: 5
 

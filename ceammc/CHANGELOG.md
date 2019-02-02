@@ -1,8 +1,7 @@
 # CEAMMC external library changelog
 
-## [Unreleased]
+## [0.7]
 ### Added:
-- \[print\] now supports Data types
 - array.window added
 - tl.timeline added
 - msg.onload added

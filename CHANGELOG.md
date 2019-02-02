@@ -1,8 +1,9 @@
 # CEAMMC Pd distribution changelog
 
-## [Unrelease]
+## [2019.02]
 ### Added:
-- metro.pattern @sync property added, to change pattern after full cycle only
+- **CEAMMC** external library v0.7 - [ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)
+- \[print\] object supports datatypes
 
 ## [2018.08]
 ### Added:
