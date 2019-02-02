@@ -9,6 +9,7 @@ array.p2s,array.p->s,array.phase->sample		.		.
 array.s2p,array.s->p,array.sample->phase		.		.
 array.set,list->array		.		-
 array.stretch		.		.
+array.vline_play		.		.
 array.vplay		.		..
 array.window		.		.
 canvas.current		.		.
@@ -315,6 +316,7 @@ osc.tri~		~.		~
 pan.cos~,pan~		~.		~~
 pan.linsig~		~~		~~
 pan.lin~		~.		~~
+pan.pan4~		~		~~~~
 pan.spread~		?		~~
 pan.sqrt~		~.		~~
 patch.args		.		.
@@ -381,6 +383,7 @@ synth.rhodey~		.		~
 synth.risset_arp~		.		~~
 synth.risset_tone~		.		~
 synth.shakers~		.		~
+synth.tambura~		.		~
 synth.wurley~		.		~
 system.cursor		.		.
 system.getenv		.		.
