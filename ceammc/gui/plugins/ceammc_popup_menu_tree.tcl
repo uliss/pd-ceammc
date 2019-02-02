@@ -36,7 +36,7 @@
     }}
     {array {
         array.bpm array.copy array.do array.each array.fill array.minmax
-        array.set array.stretch array.vplay
+        array.set array.stretch array.vplay array.window
     }}
     {base {
         function function.call gain~ matrix~ metro.pattern metro.seq mix~
@@ -77,7 +77,7 @@
         flt.c_hpf~ flt.c_lowshelf~ flt.c_lpf~ flt.c_notch~ flt.c_peak~
         flt.dcblock2~ flt.dcblock~ flt.eq10~ flt.eq_peak_cq~ flt.eq_peak~
         flt.highshelf~ flt.hpf12~ flt.hpf24~ flt.lowshelf~ flt.lpf12~
-        flt.lpf24~ flt.moog_vcf~ flt.notch~ flt.resonbp~
+        flt.lpf24~ flt.median flt.moog_vcf~ flt.notch~ flt.resonbp~
     }}
     {fx {
         fx.bitdown~ fx.chorus~ fx.distortion~ fx.drive~ fx.drone_box~ fx.echo~
