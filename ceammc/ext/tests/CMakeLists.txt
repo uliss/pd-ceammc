@@ -106,6 +106,8 @@ ceammc_external_test(flow route)
 ceammc_external_test(flow split)
 ceammc_external_test(flow speedlim)
 
+ceammc_external_test(flt median)
+
 ceammc_external_test(fx looper)
 
 ceammc_external_test(conv amp2dbfs)

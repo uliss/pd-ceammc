@@ -28,7 +28,7 @@ static void updatePropSize(BaseObject* b, t_symbol* prop)
 FltMedian::FltMedian(const PdArgs& args)
     : BaseObject(args)
     , window_size_(nullptr)
-    , window_idx_(0)
+    , window_idx_(-1)
 {
     window_size_ = new IntPropertyClosedRange("@size", 9, 1, 128);
     createProperty(window_size_);
@@ -40,22 +40,28 @@ FltMedian::FltMedian(const PdArgs& args)
 
 void FltMedian::onFloat(t_float v)
 {
-    // encrease if not full window
-    if (window_.size() < window_size_->value())
-        window_.push_back(v);
+    const bool FULL_WINDOW = window_idx_ < window_.size();
 
-    // remove oldest value from the pool.
-    auto last = window_[window_idx_];
-    auto last_pos = std::lower_bound(pool_.begin(), pool_.end(), last);
-    if (last_pos != pool_.end())
-        pool_.erase(last_pos);
+    // if full window
+    if (FULL_WINDOW) {
+        // remove oldest value from the pool.
+        auto last = window_[window_idx_];
+        auto last_pos = std::lower_bound(pool_.begin(), pool_.end(), last);
+        if (last_pos != pool_.end()) {
+            pool_.erase(last_pos);
+        }
+    }
 
     // insert into pool
     auto insert_pos = std::lower_bound(pool_.begin(), pool_.end(), v);
     pool_.insert(insert_pos, v);
 
     // write to buffer
-    window_[window_idx_] = v;
+    if (FULL_WINDOW)
+        window_[window_idx_] = v;
+    else
+        window_.push_back(v);
+
     // increment circular index
     window_idx_ = (window_idx_ + 1) % window_size_->value();
 
