@@ -21,7 +21,7 @@
         </meta>
         <info>
             <par>Calculates coefficients for transfer function:
-            H(z)=(b0+b1*z^-1+b2*z^-2)/(1+a1*z-1+a2*z^-2)</par>
+            H(z)=(b0+b1*z^-1+b2*z^-2)/(1+a1*z^-1+a2*z^-2)</par>
         </info>
         <arguments>
             <argument name="freq" type="float" units="herz" minvalue="20" maxvalue="20000">center
