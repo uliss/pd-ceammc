@@ -52,7 +52,6 @@
         <example>
             <pdascii>
 <![CDATA[
-
 [osc~ 300    ] [T] [F]        [F]
 |        ._____/   |          |
 [*~      ]         [@freq $1( [@q $1(

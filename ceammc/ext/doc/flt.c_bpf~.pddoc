@@ -52,7 +52,6 @@
         <example>
             <pdascii>
 <![CDATA[
-
 [noise.pink~] [T] [F]        [F]
 |        .____/   |          |
 [*~      ]        [@freq $1( [@q $1(

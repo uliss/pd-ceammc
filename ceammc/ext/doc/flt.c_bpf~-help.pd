@@ -8,18 +8,18 @@
 #X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Calculates coefficients for transfer function:
 H(z)=(b0+b1*z^-1+b2*z^-2)/(1+a1*z^-1+a2*z^-2);
-#X obj 50 170 noise.pink~;
-#X obj 184 170 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X floatatom 222 170 5 0 0 0 - - -;
-#X floatatom 328 170 5 0 0 0 - - -;
-#X obj 50 199 *~;
-#X msg 222 199 @freq \$1;
-#X msg 328 199 @q \$1;
-#X obj 222 227 flt.c_bpf~ 1000 100;
-#X obj 50 299 flt.biquad~;
-#X obj 50 328 ui.gain~ @size 120 16;
-#X obj 50 357 dac~;
-#X obj 50 386 ui.dsp~;
+#X obj 50 155 noise.pink~;
+#X obj 184 155 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X floatatom 222 155 5 0 0 0 - - -;
+#X floatatom 328 155 5 0 0 0 - - -;
+#X obj 50 184 *~;
+#X msg 222 184 @freq \$1;
+#X msg 328 184 @q \$1;
+#X obj 222 213 flt.c_bpf~ 1000 100;
+#X obj 50 285 flt.biquad~;
+#X obj 50 314 ui.gain~ @size 120 16;
+#X obj 50 342 dac~;
+#X obj 50 371 ui.dsp~;
 #X obj 20 410 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 415 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
