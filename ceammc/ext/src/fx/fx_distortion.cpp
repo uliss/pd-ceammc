@@ -3,8 +3,8 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_DRIVE = gensym("drive");
-static t_symbol* SYM_PROP_OFFSET = gensym("offset");
+static t_symbol* SYM_PROP_DRIVE = gensym("@drive");
+static t_symbol* SYM_PROP_OFFSET = gensym("@offset");
 
 class FxDistortion : public faust_fx_distortion_tilde {
 public:

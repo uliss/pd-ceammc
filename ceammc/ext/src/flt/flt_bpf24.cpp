@@ -5,8 +5,8 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_FREQ = gensym("freq");
-static t_symbol* SYM_PROP_Q = gensym("q");
+static t_symbol* SYM_PROP_FREQ = gensym("@freq");
+static t_symbol* SYM_PROP_Q = gensym("@q");
 
 class FltBpf24 : public faust_flt_bpf24_tilde {
 public:

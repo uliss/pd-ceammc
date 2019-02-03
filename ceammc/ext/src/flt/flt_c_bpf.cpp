@@ -3,8 +3,8 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_FREQ = gensym("freq");
-static t_symbol* SYM_PROP_Q = gensym("q");
+static t_symbol* SYM_PROP_FREQ = gensym("@freq");
+static t_symbol* SYM_PROP_Q = gensym("@q");
 
 class FltCBpf : public faust_flt_c_bpf_tilde {
 public:
@@ -17,5 +17,5 @@ public:
 
 void setup_flt_c_bpf_tilde()
 {
-    SoundExternalFactory<FltCBpf> obj("flt.c_bpf~");
+    SoundExternalFactory<FltCBpf> obj("flt.c_bpf~", OBJECT_FACTORY_DEFAULT);
 }
