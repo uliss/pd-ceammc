@@ -55,17 +55,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[osc.pulse~ 200]
+[noise.pink~]
 |
-|  [T]
-|  |.
-[*~ ]
-|
-[*~ 0.1] [F]        [F]
+|        [F]        [F]
 |        |          |
 |        [@freq $1( [@gain $1(
 |        |          |
-|        [flt.c_peak~  200 -15 1]
+|        [flt.c_peak~      200 15 100]
 |        |  ^|   ^^|    ^^^|     ^^^^|
 |        |.  |..   |...    |....     |.....
 [flt.biquad~                               ]
