@@ -28,6 +28,8 @@
             radians</property>
             <property name="@dist" type="float" minvalue="0" maxvalue="1" default="1">distance from
             circle center</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
         </properties>
         <inlets>
             <inlet type="audio">
