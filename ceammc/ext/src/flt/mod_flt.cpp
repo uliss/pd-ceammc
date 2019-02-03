@@ -1,7 +1,6 @@
 #include "mod_flt.h"
 
 extern "C" void setup_flt0x2ebiquad_tilde();
-extern "C" void setup_flt0x2ebpf12_tilde();
 extern "C" void setup_flt0x2ebpf24_tilde();
 extern "C" void setup_flt0x2ec_bpf_tilde();
 extern "C" void setup_flt0x2ec_highshelf_tilde();
@@ -19,6 +18,7 @@ extern "C" void setup_flt0x2elpf12_tilde();
 extern "C" void setup_flt0x2elpf24_tilde();
 extern "C" void setup_flt0x2enotch_tilde();
 
+extern void setup_flt_bpf12_tilde();
 extern void setup_flt_eq10_tilde();
 extern void setup_flt_eq_peak_tilde();
 extern void setup_flt_highshelf_tilde();
@@ -30,7 +30,6 @@ extern void setup_flt_median();
 void ceammc_flt_setup()
 {
     setup_flt0x2ebiquad_tilde();
-    setup_flt0x2ebpf12_tilde();
     setup_flt0x2ebpf24_tilde();
     setup_flt0x2ec_bpf_tilde();
     setup_flt0x2ec_highshelf_tilde();
@@ -48,6 +47,7 @@ void ceammc_flt_setup()
     setup_flt0x2elpf24_tilde();
     setup_flt0x2enotch_tilde();
 
+    setup_flt_bpf12_tilde();
     setup_flt_eq10_tilde();
     setup_flt_eq_peak_tilde();
     setup_flt_highshelf_tilde();
