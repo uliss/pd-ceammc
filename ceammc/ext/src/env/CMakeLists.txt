@@ -20,11 +20,10 @@ macro(ceammc_env_obj_external name)
     ceammc_faust_gen_obj(env ${name})
 endmacro()
 
-ceammc_env_external(follow)
-
 ceammc_env_obj_external(adsr)
 ceammc_env_obj_external(ar)
 ceammc_env_obj_external(asr)
+ceammc_env_obj_external(follow)
 ceammc_env_obj_external(smooth)
 
 add_library(ceammc_env STATIC mod_env.cpp ${ENV_SOURCES})
