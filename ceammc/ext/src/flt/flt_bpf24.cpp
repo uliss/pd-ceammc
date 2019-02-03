@@ -1,13 +1,24 @@
 #include "flt_bpf24.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
+#include "ceammc_factory.h"
+
+using namespace ceammc;
+
+static t_symbol* SYM_PROP_FREQ = gensym("freq");
+static t_symbol* SYM_PROP_Q = gensym("q");
+
+class FltBpf24 : public faust_flt_bpf24_tilde {
+public:
+    FltBpf24(const PdArgs& args)
+        : faust_flt_bpf24_tilde(args)
+    {
+        bindPositionalArgsToProps({ SYM_PROP_FREQ, SYM_PROP_Q });
+    }
+};
+
+void setup_flt_bpf24_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-    PdArgParser p(x, argc, argv);
-    p.initFloatArg("freq", 1);
-    p.initFloatArg("q", 2);
-    return p.pd_obj();
+    SoundExternalFactory<FltBpf24> obj("flt.bpf24~");
 }
-
-EXTERNAL_SETUP(flt);
 

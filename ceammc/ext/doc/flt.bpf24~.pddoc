@@ -21,20 +21,13 @@
             <par>Band-pass filter passes frequencies within a certain range and rejects frequencies
             outside that range.</par>
         </info>
-        <methods>
-            <method name="freq">
-                <param type="float" units="herz">center frequency</param>
-            </method>
-            <method name="q">
-                <param type="float" name="Q" minvalue="0.01" maxvalue="100" default="2">quality
-                factor</param>
-            </method>
-        </methods>
         <properties>
-            <property name="@freq" type="float" units="herz" default="1000">cutoff
-            frequency</property>
+            <property name="@freq" type="float" units="herz" default="1000" minvalue="20"
+            maxvalue="20000">cutoff frequency</property>
             <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="2">quality
-            factory: @freq/BANDWIDTH</property>
+            factor: @freq/BANDWIDTH</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
         </properties>
         <arguments>
             <argument name="freq" type="float" units="herz">center frequency</argument>
@@ -49,7 +42,6 @@
         </inlets>
         <outlets>
             <outlet type="audio">filtered signal</outlet>
-            <outlet>information output</outlet>
         </outlets>
         <example>
             <pdascii>
