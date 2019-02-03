@@ -22,10 +22,10 @@
             <par>Some special variables defined: %DOC% - path to PureData doc directory, %CEAMMC% -
             path to ceammc library directory</par>
         </info>
-        <arguments>
-            <argument name="@any" type="property">if specified - also do substitution in message
-            selector</argument>
-        </arguments>
+        <properties>
+            <property name="@any" type="flag">if specified - also do substitution in message
+            selector</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">passed</xinfo>
