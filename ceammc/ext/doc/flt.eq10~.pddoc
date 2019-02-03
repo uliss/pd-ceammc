@@ -43,6 +43,9 @@
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
         </properties>
+        <methods>
+            <method name="reset">reset filter state to default</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
