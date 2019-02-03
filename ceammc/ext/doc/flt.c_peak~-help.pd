@@ -13,7 +13,7 @@ H(z)=(b0+b1*z^-1+b2*z^-2)/(1+a1*z^-1+a2*z^-2);
 #X floatatom 242 184 5 0 0 0 - - -;
 #X msg 136 213 @freq \$1;
 #X msg 242 213 @gain \$1;
-#X obj 136 242 flt.c_peak~ 200 15 100;
+#X obj 136 242 flt.c_peak~ 200 15 10;
 #X obj 50 285 flt.biquad~;
 #X obj 50 314 ui.gain~ @size 120 16;
 #X obj 50 342 dac~;
