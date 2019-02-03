@@ -1,13 +1,22 @@
 #include "flt_c_peak.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
+using namespace ceammc;
+
+static t_symbol* SYM_PROP_FREQ = gensym("@freq");
+static t_symbol* SYM_PROP_GAIN = gensym("@gain");
+static t_symbol* SYM_PROP_Q = gensym("@q");
+
+class FltCPeak : public faust_flt_c_peak_tilde {
+public:
+    FltCPeak(const PdArgs& args)
+        : faust_flt_c_peak_tilde(args)
+    {
+        bindPositionalArgsToProps({ SYM_PROP_FREQ, SYM_PROP_GAIN, SYM_PROP_Q });
+    }
+};
+
+void setup_flt_c_peak_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-    PdArgParser p(x, argc, argv);
-    p.initFloatArg("freq", 1);
-    p.initFloatArg("gain", 2);
-    p.initFloatArg("q", 3);
-    return p.pd_obj();
+    SoundExternalFactory<FltCPeak> obj("flt.c_peak~", OBJECT_FACTORY_DEFAULT);
 }
-
-EXTERNAL_SETUP(flt);

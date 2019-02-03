@@ -1,5 +1,4 @@
 #include "flt_c_lowshelf.h"
-
 #include "ceammc_factory.h"
 
 using namespace ceammc;

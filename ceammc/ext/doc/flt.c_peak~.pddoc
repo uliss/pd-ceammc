@@ -18,29 +18,31 @@
                 <see>flt.biquad~</see>
             </also>
         </meta>
-        <methods>
-            <method name="freq">
-                <param type="float" units="herz">peak frequency</param>
-            </method>
-            <method name="gain">
-                <param type="float" units="decibel" minvalue="-15" maxvalue="+15">level at fx
-                (boost if &gt;0 or cut if &lt;0)</param>
-            </method>
-            <method name="q">
-                <param type="float">quality factor</param>
-            </method>
-        </methods>
+        <info>
+            <par>Calculates coefficients for transfer function:
+            H(z)=(b0+b1*z^-1+b2*z^-2)/(1+a1*z^-1+a2*z^-2)</par>
+        </info>
         <arguments>
-            <argument name="freq" type="float" units="herz">peak frequency</argument>
-            <argument name="gain" type="float" units="decibel" minvalue="-15" maxvalue="+15">level
-            at fx (boost if &gt;0 or cut if &lt;0)</argument>
-            <argument name="q" type="float">quality factory</argument>
-            <argument name="ID" type="symbol">object ID for OSC control</argument>
+            <argument name="freq" type="float" units="herz" minvalue="20" maxvalue="20000">center
+            frequency</argument>
+            <argument name="gain" type="float" minvalue="-15" maxvalue="+15" units="decibel">filter
+            gain</argument>
+            <argument name="q" type="float" minvalue="0.01" maxvalue="100">quality
+            factory</argument>
         </arguments>
+        <properties>
+            <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
+            units="herz">center frequency</property>
+            <property name="@gain" type="float" minvalue="-15" maxvalue="+15" default="0"
+            units="decibel">filter gain</property>
+            <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="2">quality
+            factor: @freq/BANDWIDTH</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
         <inlets>
-            <inlet type="audio">
-                <xinfo>input signal</xinfo>
-                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
+            <inlet>
+                <xinfo>control signal</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -49,28 +51,30 @@
             <outlet type="audio">b2</outlet>
             <outlet type="audio">a1</outlet>
             <outlet type="audio">a2</outlet>
-            <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-
 [osc.pulse~ 200]
 |
 |  [T]
 |  |.
 [*~ ]
 |
-[*~ 0.1] [F]       [F]
-|        |         |
-|        [freq $1( [gain $1(
-|        |         |
+[*~ 0.1] [F]        [F]
+|        |          |
+|        [@freq $1( [@gain $1(
+|        |          |
 |        [flt.c_peak~  200 -15 1]
 |        |  ^|   ^^|    ^^^|     ^^^^|
 |        |.  |..   |...    |....     |.....
 [flt.biquad~                               ]
+|
+[ui.gain~ @size 120 16]
 |\
 [dac~]
+
+[ui.dsp~]
 
 ]]>
             </pdascii>
