@@ -38,8 +38,8 @@
             processing</property>
         </properties>
         <inlets>
-            <inlet type="audio">
-                <xinfo>input signal</xinfo>
+            <inlet>
+                <xinfo>control signal</xinfo>
             </inlet>
         </inlets>
         <outlets>
