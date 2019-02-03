@@ -5,71 +5,74 @@
 #X obj 1 1 cnv 5 712 40 empty empty flt.c_bpf~ 20 20 0 20 -104026
 -4096 0;
 #X obj 614 11 flt.c_bpf~;
-#X obj 50 133 noise.pink~;
-#X obj 184 133 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X floatatom 222 133 5 0 0 0 - - -;
-#X floatatom 328 133 5 0 0 0 - - -;
-#X obj 50 162 *~;
-#X msg 222 162 @freq \$1;
-#X msg 328 162 @q \$1;
-#X obj 222 190 flt.c_bpf~ 1000 100;
-#X obj 50 262 flt.biquad~;
-#X obj 50 291 ui.gain~;
-#X obj 50 320 dac~;
-#X obj 50 363 ui.dsp~;
-#X obj 20 387 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 392 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 Calculates coefficients for transfer function:
+H(z)=(b0+b1*z^-1+b2*z^-2)(1+a1*z-1+a2*z^-2);
+#X obj 50 170 noise.pink~;
+#X obj 184 170 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X floatatom 222 170 5 0 0 0 - - -;
+#X floatatom 328 170 5 0 0 0 - - -;
+#X obj 50 199 *~;
+#X msg 222 199 @freq \$1;
+#X msg 328 199 @q \$1;
+#X obj 222 227 flt.c_bpf~ 1000 100;
+#X obj 50 299 flt.biquad~;
+#X obj 50 328 ui.gain~;
+#X obj 50 357 dac~;
+#X obj 50 400 ui.dsp~;
+#X obj 20 424 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 429 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 397 1\.;
-#X text 150 397 float;
-#X obj 241 398 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 397 freq(Hz): center frequency. Range: 20\...20000;
-#X text 120 415 2\.;
-#X text 150 415 float;
-#X obj 241 416 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 415 q: quality factory. Range: 0.01\...100;
-#X obj 20 443 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 448 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 120 434 1\.;
+#X text 150 434 float;
+#X obj 241 435 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 434 freq(Hz): center frequency. Range: 20\...20000;
+#X text 120 452 2\.;
+#X text 150 452 float;
+#X obj 241 453 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 452 q: quality factory. Range: 0.01\...100;
+#X obj 20 480 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 485 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 453 @freq;
-#X text 240 453 Get/Set center frequency. Type: float. Units: Hz.
+#X msg 120 490 @freq;
+#X text 240 490 Get/Set center frequency. Type: float. Units: Hz.
 Default value: 1000\. Value range: 20-20000;
-#X msg 120 490 @q;
-#X text 240 490 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
+#X msg 120 527 @q;
+#X text 240 527 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
 Default value: 2\. Value range: 0.01-100;
-#X msg 120 527 @active;
-#X text 240 527 Get/Set on/off dsp processing. Type: int. Default
+#X msg 120 564 @active;
+#X text 240 564 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
-#X obj 20 574 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 579 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 611 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 616 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 584 1\.;
-#X text 240 584 input signal.;
-#X obj 20 612 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 617 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 120 621 1\.;
+#X text 240 621 input signal.;
+#X obj 20 649 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 654 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 622 1\.;
-#X text 240 622 b0;
-#X text 120 640 2\.;
-#X text 240 640 b1;
-#X text 120 658 3\.;
-#X text 240 658 b2;
-#X text 120 676 4\.;
-#X text 240 676 a1;
-#X text 120 694 5\.;
-#X text 240 694 a2;
+#X text 120 659 1\.;
+#X text 240 659 b0;
+#X text 120 677 2\.;
+#X text 240 677 b1;
+#X text 120 695 3\.;
+#X text 240 695 b2;
+#X text 120 713 4\.;
+#X text 240 713 a1;
+#X text 120 731 5\.;
+#X text 240 731 a2;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 742 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 745 library: ceammc v0.7;
-#X text 344 757 see also:;
-#X obj 420 757 flt.biquad~;
-#X obj 515 757 flt.bpf12~;
-#X obj 603 757 flt.c_notch~;
-#N canvas 10 764 400 290 info 0;
+#X obj 1 779 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 782 library: ceammc v0.7;
+#X text 344 794 see also:;
+#X obj 420 794 flt.biquad~;
+#X obj 515 794 flt.bpf12~;
+#X obj 603 794 flt.c_notch~;
+#N canvas 10 801 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -93,19 +96,19 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 764 pd info;
-#X connect 4 0 8 0;
-#X connect 5 0 8 1;
-#X connect 6 0 9 0;
-#X connect 7 0 10 0;
-#X connect 9 0 11 0;
-#X connect 10 0 11 0;
-#X connect 8 0 12 0;
-#X connect 11 0 12 1;
-#X connect 11 1 12 2;
-#X connect 11 2 12 3;
-#X connect 11 3 12 4;
-#X connect 11 4 12 5;
+#X restore 10 801 pd info;
+#X connect 6 0 10 0;
+#X connect 7 0 10 1;
+#X connect 8 0 11 0;
+#X connect 9 0 12 0;
+#X connect 11 0 13 0;
 #X connect 12 0 13 0;
-#X connect 13 0 14 0;
+#X connect 10 0 14 0;
 #X connect 13 0 14 1;
+#X connect 13 1 14 2;
+#X connect 13 2 14 3;
+#X connect 13 3 14 4;
+#X connect 13 4 14 5;
+#X connect 14 0 15 0;
+#X connect 15 0 16 0;
+#X connect 15 0 16 1;
