@@ -42,6 +42,8 @@
         <properties>
             <property name="@value" type="list" minvalue="0">gain amplitude values</property>
             <property name="@db" type="list" minvalue="-144">gain decibel (dbfs) values</property>
+            <property name="@smooth_time" type="float" minvalue="1" default="20"
+            units="millisecond">gain change smooth time</property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1" type="audio">
