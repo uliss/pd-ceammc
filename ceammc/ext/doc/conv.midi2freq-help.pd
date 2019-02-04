@@ -33,7 +33,7 @@ pythagorean rameau valotti zarlino;
 -49933 0;
 #X msg 120 479 @a;
 #X text 240 479 Get/Set A pitch frequency. Type: float. Default value:
-440\. Value range: 200-400;
+440\. Value range: 200-600;
 #X msg 120 516 @t;
 #X text 240 516 Get/Set temperament. Type: symbol. Default value: eq.
 Allowed values: eq \, just \, ganassi \, meantone \, kirnberger3 \,
