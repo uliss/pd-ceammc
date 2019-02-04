@@ -14,6 +14,9 @@
             <keywords>fx bits granulator</keywords>
             <since>0.7</since>
         </meta>
+        <methods>
+            <method name="reset">reset object state</method>
+        </methods>
         <properties>
             <property name="@density" type="int" minvalue="1" maxvalue="64" default="10">number of
             grains</property>
