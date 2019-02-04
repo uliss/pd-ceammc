@@ -101,7 +101,9 @@ ArrayStretch::ArrayStretch(const PdArgs& a)
         dest_array_.open(dest_array_name_);
 
     createCbProperty("@src", &ArrayStretch::propSrcArray, &ArrayStretch::propSetSrcArray);
+    property("@src")->info().setType(PropertyInfoType::SYMBOL);
     createCbProperty("@dest", &ArrayStretch::propDestArray, &ArrayStretch::propSetDestArray);
+    property("@dest")->info().setType(PropertyInfoType::SYMBOL);
 
     // time-stretch params
     // @sequence
