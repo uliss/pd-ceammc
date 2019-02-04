@@ -172,8 +172,11 @@ if __name__ == '__main__':
             if "readonly" in p1 and p1["readonly"] == "true":
                 continue
 
-            if p0["type"] == "bool" and p1["type"] != "flag":
-                if p1["type"] != "flag" and "enum" not in p1:
+            if p0["type"] == "bool":
+                if p1["type"] == "flag":
+                    continue
+
+                if "enum" not in p1:
                     cprint(f"[{ext_name}] missing attribute enum for bool in \"{p}\"", 'magenta')
 
                 # no default bool value
