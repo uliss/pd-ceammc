@@ -23,22 +23,22 @@ default gate is closed.;
 -49933 0;
 #X msg 120 277 @state;
 #X text 240 277 Get/Set gate state. 1 means open \, 0 - closed. Type:
-int;
-#X obj 20 314 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 319 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+int. Default value: 0\. Allowed values: 0 \, 1;
+#X obj 20 324 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 329 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 324 1\.;
-#X text 150 324 *any*;
-#X text 240 324 input flow.;
-#X text 120 342 2\.;
-#X text 150 342 *float*;
-#X text 240 342 gate control inlet. Sending *1* opens gate \, *0* -
+#X text 120 334 1\.;
+#X text 150 334 *any*;
+#X text 240 334 input flow.;
+#X text 120 352 2\.;
+#X text 150 352 *float*;
+#X text 240 352 gate control inlet. Sending *1* opens gate \, *0* -
 closes.;
-#X obj 20 370 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 380 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 385 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 380 1\.;
-#X text 240 380 output flow;
+#X text 120 390 1\.;
+#X text 240 390 output flow;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

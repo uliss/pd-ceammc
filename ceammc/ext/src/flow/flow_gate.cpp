@@ -7,7 +7,7 @@ static t_symbol* PROP_GET_STATE = gensym("@state?");
 FlowGate::FlowGate(const PdArgs& args)
     : BaseObject(args)
 {
-    state_ = new IntProperty("@state", positionalFloatArgument(0, 0));
+    state_ = new BoolProperty("@state", positionalFloatArgument(0, 0) != 0);
     createProperty(state_);
 
     createInlet();

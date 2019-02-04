@@ -6,7 +6,7 @@
 using namespace ceammc;
 
 class FlowGate : public BaseObject {
-    IntProperty* state_;
+    BoolProperty* state_;
 
 public:
     FlowGate(const PdArgs& args);
