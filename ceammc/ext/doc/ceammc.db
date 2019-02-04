@@ -117,7 +117,7 @@ flt.lpf12~		~		~
 flt.lpf24~		~		~
 flt.median		.		.
 flt.moog_vcf~		~~		~
-flt.notch~		~		~.
+flt.notch~		~		~
 flt.resonbp~		~		~
 fluid~		.		~~
 function,func		..		..

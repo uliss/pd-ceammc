@@ -13,7 +13,6 @@ endmacro()
 
 ceammc_flt_extension(dcblock)
 ceammc_flt_extension(dcblock2)
-ceammc_flt_extension(notch)
 ceammc_flt_extension(biquad)
 
 ceammc_flt_obj_ext(bpf12)
@@ -35,6 +34,7 @@ ceammc_flt_obj_ext(lowshelf)
 ceammc_flt_obj_ext(lpf12)
 ceammc_flt_obj_ext(lpf24)
 ceammc_flt_obj_ext(moog_vcf)
+ceammc_flt_obj_ext(notch)
 ceammc_flt_obj_ext(resonbp)
 
 list(APPEND FLT_SOURCES "flt_median.h" "flt_median.cpp")

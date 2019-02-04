@@ -3,7 +3,6 @@
 extern "C" void setup_flt0x2ebiquad_tilde();
 extern "C" void setup_flt0x2edcblock2_tilde();
 extern "C" void setup_flt0x2edcblock_tilde();
-extern "C" void setup_flt0x2enotch_tilde();
 
 extern void setup_flt_bpf12_tilde();
 extern void setup_flt_bpf24_tilde();
@@ -24,6 +23,7 @@ extern void setup_flt_lowshelf_tilde();
 extern void setup_flt_lpf12_tilde();
 extern void setup_flt_lpf24_tilde();
 extern void setup_flt_moog_vcf_tilde();
+extern void setup_flt_notch_tilde();
 extern void setup_flt_resonbp_tilde();
 extern void setup_flt_median();
 
@@ -32,7 +32,6 @@ void ceammc_flt_setup()
     setup_flt0x2ebiquad_tilde();
     setup_flt0x2edcblock2_tilde();
     setup_flt0x2edcblock_tilde();
-    setup_flt0x2enotch_tilde();
 
     setup_flt_bpf12_tilde();
     setup_flt_bpf24_tilde();
@@ -53,6 +52,7 @@ void ceammc_flt_setup()
     setup_flt_lpf12_tilde();
     setup_flt_lpf24_tilde();
     setup_flt_moog_vcf_tilde();
+    setup_flt_notch_tilde();
     setup_flt_resonbp_tilde();
     setup_flt_median();
 }
