@@ -112,7 +112,8 @@ artifact that sounds as if a constant frequency was drifting around \,
 try reducing this setting. Increasing this value increases
 computational burden & vice versa. Giving *0* value for the seek
 window length sets automatic parameter value according to tempo
-setting (recommended). Type: int. Units: ms. Value range: 0-100;
+setting (recommended). Type: int. Units: ms. Default value: 0\. Value
+range: 0-100;
 #X msg 120 1395 @overlap;
 #X text 240 1395 Get/Set Overlap length in milliseconds. When the
 chopped sound sequences are mixed back together \, to form a

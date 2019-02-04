@@ -116,6 +116,9 @@ ArrayStretch::ArrayStretch(const PdArgs& a)
     createCbProperty(PROP_SEEK_WINDOW->s_name,
         &ArrayStretch::propSeekWindow,
         &ArrayStretch::propSetSeekWindow);
+    property(PROP_SEEK_WINDOW)->info().setType(PropertyInfoType::INTEGER);
+    property(PROP_SEEK_WINDOW)->info().setDefault(0);
+    property(PROP_SEEK_WINDOW)->info().setRange(0, 100);
 
     // @overlap
     createCbProperty(PROP_OVERLAP->s_name,
