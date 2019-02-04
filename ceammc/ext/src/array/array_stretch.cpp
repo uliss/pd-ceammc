@@ -124,6 +124,8 @@ ArrayStretch::ArrayStretch(const PdArgs& a)
     createCbProperty(PROP_ANTIALIAS->s_name,
         &ArrayStretch::propAnitAlias,
         &ArrayStretch::propSetAntiAlias);
+    property(PROP_ANTIALIAS)->info().setType(PropertyInfoType::BOOLEAN);
+    property(PROP_ANTIALIAS)->info().setDefault(true);
 
     // antialias length
     createCbProperty(PROP_ANTIALIAS_LENGTH->s_name,

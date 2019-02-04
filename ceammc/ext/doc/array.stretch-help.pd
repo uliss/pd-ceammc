@@ -83,7 +83,7 @@ float. Default value: 1\. Value range: 0.1-2;
 #X msg 120 897 @antialias;
 #X text 240 897 Get/Set use of anti-alias filter. Anti-alias filter is
 used to prevent folding of high frequencies when transposing the
-sample rate with interpolation. Type: int. Default value: 0\. Allowed
+sample rate with interpolation. Type: int. Default value: 1\. Allowed
 values: 0 \, 1;
 #X msg 120 962 @aalength;
 #X text 240 962 Get/Set pitch transposer anti-alias filter length.
