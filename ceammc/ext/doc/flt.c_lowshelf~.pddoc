@@ -33,7 +33,7 @@
         </properties>
         <arguments>
             <argument name="freq" type="float" units="herz">cutoff frequency</argument>
-            <argument name="gain" type="float" minvalue="-15" maxvalue="+15" units="decibel">filter
+            <argument name="gain" type="float" minvalue="-15" maxvalue="15" units="decibel">filter
             gain</argument>
         </arguments>
         <inlets>

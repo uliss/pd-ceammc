@@ -25,13 +25,14 @@
             than the cutoff frequency.</par>
         </info>
         <properties>
-            <property name="@freq" type="float" units="herz" default="10000">cutoff
-            frequency</property>
+            <property name="@freq" type="float" units="herz" minvalue="20" maxvalue="20000"
+            default="10000">cutoff frequency</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
         </properties>
         <arguments>
-            <argument name="freq" type="float" units="herz">cutoff frequency</argument>
+            <argument name="freq" type="float" minvalue="20" maxvalue="20000" units="herz">cutoff
+            frequency</argument>
         </arguments>
         <inlets>
             <inlet type="audio">

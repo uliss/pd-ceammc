@@ -25,13 +25,13 @@ attenuates signals with frequencies lower than the cutoff frequency.;
 #X text 120 520 1\.;
 #X text 150 520 float;
 #X obj 241 521 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 520 freq(Hz): cutoff frequency.;
+#X text 240 520 freq(Hz): cutoff frequency. Range: 20\...20000;
 #X obj 20 548 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 553 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 558 @freq;
 #X text 240 558 Get/Set cutoff frequency. Type: float. Units: Hz.
-Default value: 10000;
+Default value: 10000\. Value range: 20-20000;
 #X msg 120 595 @active;
 #X text 240 595 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;

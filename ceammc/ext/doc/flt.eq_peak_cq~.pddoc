@@ -27,9 +27,9 @@
         <properties>
             <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
             units="herz">center frequency</property>
-            <property name="@gain" type="float" minvalue="-15" maxvalue="+15" default="0"
+            <property name="@gain" type="float" minvalue="-15" maxvalue="15" default="0"
             units="decibel">filter gain</property>
-            <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="2">quality
+            <property name="@q" type="float" minvalue="0.1" maxvalue="100" default="3">quality
             factor: @freq/BANDWIDTH</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>

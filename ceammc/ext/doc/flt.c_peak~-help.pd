@@ -41,10 +41,10 @@ H(z)=(b0+b1*z^-1+b2*z^-2)/(1+a1*z^-1+a2*z^-2);
 Default value: 1000\. Value range: 20-20000;
 #X msg 120 531 @gain;
 #X text 240 531 Get/Set filter gain. Type: float. Units: db. Default
-value: 0\. Value range: -15-+15;
+value: 0\. Value range: -15-15;
 #X msg 120 568 @q;
 #X text 240 568 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
-Default value: 2\. Value range: 0.01-100;
+Default value: 1\. Value range: 0.01-100;
 #X msg 120 605 @active;
 #X text 240 605 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;

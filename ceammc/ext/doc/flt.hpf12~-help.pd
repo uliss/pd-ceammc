@@ -31,7 +31,7 @@ attenuates signals with frequencies lower than the cutoff frequency.;
 -49933 0;
 #X msg 120 558 @freq;
 #X text 240 558 Get/Set cutoff frequency. Type: float. Units: Hz.
-Default value: 10000;
+Default value: 10000\. Value range: 20-20000;
 #X msg 120 595 @active;
 #X text 240 595 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
