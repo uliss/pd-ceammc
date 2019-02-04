@@ -19,6 +19,11 @@ MetroSeq::MetroSeq(const PdArgs& a)
     createProperty(interval_);
 
     createCbProperty("@current", &MetroSeq::p_current, &MetroSeq::p_set_current);
+    auto& curinfo = property("@current")->info();
+    curinfo.setType(PropertyInfoType::INTEGER);
+    curinfo.setMin(0);
+    curinfo.setDefault(0);
+
     createCbProperty("@pattern", &MetroSeq::p_pattern, &MetroSeq::p_set_pattern);
 }
 
