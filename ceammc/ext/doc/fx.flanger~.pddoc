@@ -49,7 +49,9 @@
 |
 [open %CEAMMC%/guitar1.wav, 1(
 |
-[expand_env] [F]         [F]         [F]          [F]
+[expand_env] [F]         [F]         [F]          [ui.knob]
+|            |           |           |            |
+|            |           |           |            |
 |            |           |           |            |
 [readsf~]    [@speed $1( [@delay $1( [@offset $1( [@feedback $1(
 |            |           |           |            |

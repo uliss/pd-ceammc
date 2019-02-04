@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "fx.flanger"
-Code generated with Faust 2.8.5 (https://faust.grame.fr)
+Code generated with Faust 2.15.0 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -372,9 +372,8 @@ struct Meta
 
 #include <algorithm>
 #include <map>
-#include <string.h>
-#include <stdlib.h>
 #include <cstdlib>
+#include <string.h>
 
 
 using std::max;
@@ -382,33 +381,33 @@ using std::min;
 
 struct XXXX_Meta : std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
-inline int lsr(int x, int n)	{ return int(((unsigned int)x) >> n); }
+static int lsr(int x, int n) { return int(((unsigned int)x) >> n); }
 
-inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
+static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
-inline long lopt(char* argv[], const char* name, long def)
+static long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
     for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
-inline bool isopt(char* argv[], const char* name)
+static bool isopt(char* argv[], const char* name)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
 	return false;
 }
 
-inline const char* lopts(char* argv[], const char* name, const char* def)
+static const char* lopts(char* argv[], const char* name, const char* def)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
@@ -461,8 +460,8 @@ class fx_flanger : public dsp {
  private:
 	
 	FAUSTFLOAT fCheckbox0;
-	int iVec0[2];
 	FAUSTFLOAT fHslider0;
+	int iVec0[2];
 	float fRec0[2];
 	FAUSTFLOAT fCheckbox1;
 	FAUSTFLOAT fHslider1;
@@ -556,7 +555,7 @@ class fx_flanger : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = std::min(192000.0f, std::max(1.0f, float(fSamplingFreq)));
+		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSamplingFreq)));
 		fConst1 = (0.00100000005f * fConst0);
 		fConst2 = (6.28318548f / fConst0);
 		
@@ -637,7 +636,7 @@ class fx_flanger : public dsp {
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("drywet", &fHslider0, 1.0f, 0.0f, 1.0f, 0.00999999978f);
 		ui_interface->declare(&fHslider1, "style", "knob");
-		ui_interface->addHorizontalSlider("feedback", &fHslider1, 0.0f, -0.999000013f, 0.999000013f, 0.00100000005f);
+		ui_interface->addHorizontalSlider("feedback", &fHslider1, 0.0f, 0.0f, 1.0f, 0.00100000005f);
 		ui_interface->addCheckButton("invert", &fCheckbox1);
 		ui_interface->declare(&fHslider2, "style", "knob");
 		ui_interface->declare(&fHslider2, "unit", "ms");
@@ -654,29 +653,28 @@ class fx_flanger : public dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		int iSlow0 = int(float(fCheckbox0));
 		float fSlow1 = (0.00100000005f * float(fHslider0));
-		int iSlow2 = (int(float(fCheckbox1))?-1:1);
+		float fSlow2 = float((int(float(fCheckbox1))?-1:1));
 		float fSlow3 = (0.00100000005f * float(fHslider1));
 		float fSlow4 = (0.00100000005f * float(fHslider2));
 		float fSlow5 = (0.000500000024f * float(fHslider3));
 		float fSlow6 = (fConst2 * float(fHslider4));
 		float fSlow7 = std::sin(fSlow6);
 		float fSlow8 = std::cos(fSlow6);
-		float fSlow9 = (0.0f - fSlow7);
 		for (int i = 0; (i < count); i = (i + 1)) {
-			iVec0[0] = 1;
-			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = (iSlow0?0.0f:fTemp0);
+			iVec0[0] = 1;
+			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
 			fRec2[0] = (fSlow3 + (0.999000013f * fRec2[1]));
 			float fTemp2 = ((fRec1[1] * fRec2[0]) - fTemp1);
 			fVec1[(IOTA & 4095)] = fTemp2;
 			fRec4[0] = ((fSlow7 * fRec5[1]) + (fSlow8 * fRec4[1]));
-			fRec5[0] = (((fSlow8 * fRec5[1]) + (fSlow9 * fRec4[1])) + float((1 - iVec0[1])));
+			fRec5[0] = ((float((1 - iVec0[1])) + (fSlow8 * fRec5[1])) - (fSlow7 * fRec4[1]));
 			fRec3[0] = ((0.999000013f * fRec3[1]) + (fConst1 * (fSlow4 + (fSlow5 * (fRec4[0] + 1.0f)))));
 			int iTemp3 = int(fRec3[0]);
 			float fTemp4 = std::floor(fRec3[0]);
-			fRec1[0] = ((fVec1[((IOTA - std::min(2049, std::max(0, iTemp3))) & 4095)] * (fTemp4 + (1.0f - fRec3[0]))) + ((fRec3[0] - fTemp4) * fVec1[((IOTA - std::min(2049, std::max(0, (iTemp3 + 1)))) & 4095)]));
-			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:(((1.0f - fRec0[0]) * fTemp1) + (0.5f * (fRec0[0] * ((float(iSlow2) * fRec1[0]) + fTemp1))))));
+			fRec1[0] = ((fVec1[((IOTA - std::min<int>(2049, std::max<int>(0, iTemp3))) & 4095)] * (fTemp4 + (1.0f - fRec3[0]))) + (fVec1[((IOTA - std::min<int>(2049, std::max<int>(0, (iTemp3 + 1)))) & 4095)] * (fRec3[0] - fTemp4)));
+			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:((fTemp1 * (1.0f - fRec0[0])) + (0.5f * ((fTemp1 + (fSlow2 * fRec1[0])) * fRec0[0])))));
 			iVec0[1] = iVec0[0];
 			fRec0[1] = fRec0[0];
 			fRec2[1] = fRec2[0];

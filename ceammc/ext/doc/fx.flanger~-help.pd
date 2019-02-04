@@ -12,70 +12,70 @@
 #X floatatom 174 205 5 0 0 0 - - -;
 #X floatatom 290 205 5 0 0 0 - - -;
 #X floatatom 405 205 5 0 0 0 - - -;
-#X floatatom 530 205 5 0 0 0 - - -;
-#X obj 50 234 readsf~;
-#X msg 174 234 @speed \$1;
-#X msg 290 234 @delay \$1;
-#X msg 405 234 @offset \$1;
-#X msg 530 234 @feedback \$1;
-#X obj 174 262 s flng;
-#X obj 434 291 ui.knob @size 40 40;
-#X obj 78 320 r flng;
-#X obj 184 320 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 309 320 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 184 349 @invert \$1;
-#X msg 309 349 @bypass \$1;
-#X msg 434 349 @drywet \$1;
-#X obj 50 378 fx.flanger~;
-#X obj 50 406 ui.gain~ @size 120 16;
-#X obj 299 406 ui.dsp~;
-#X obj 50 435 dac~;
-#X obj 20 474 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 479 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 530 205 ui.knob @size 40 40;
+#X obj 50 262 readsf~;
+#X msg 174 262 @speed \$1;
+#X msg 290 262 @delay \$1;
+#X msg 405 262 @offset \$1;
+#X msg 530 262 @feedback \$1;
+#X obj 174 291 s flng;
+#X obj 434 320 ui.knob @size 40 40;
+#X obj 78 349 r flng;
+#X obj 184 349 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 309 349 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 184 378 @invert \$1;
+#X msg 309 378 @bypass \$1;
+#X msg 434 378 @drywet \$1;
+#X obj 50 406 fx.flanger~;
+#X obj 50 435 ui.gain~ @size 120 16;
+#X obj 299 435 ui.dsp~;
+#X obj 50 464 dac~;
+#X obj 20 503 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 508 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 484 @delay;
-#X text 240 484 Get/Set flange delay. Type: float. Units: ms. Default
+#X msg 120 513 @delay;
+#X text 240 513 Get/Set flange delay. Type: float. Units: ms. Default
 value: 10\. Value range: 0-20;
-#X msg 120 521 @offset;
-#X text 240 521 Get/Set flange delay offset. Type: float. Units: ms.
+#X msg 120 550 @offset;
+#X text 240 550 Get/Set flange delay offset. Type: float. Units: ms.
 Default value: 1\. Value range: 0-20;
-#X msg 120 558 @speed;
-#X text 240 558 Get/Set flanger frequency. Type: float. Units: Hz.
+#X msg 120 587 @speed;
+#X text 240 587 Get/Set flanger frequency. Type: float. Units: Hz.
 Default value: 0.5\. Value range: 0-10;
-#X msg 120 595 @feedback;
-#X text 240 595 Get/Set feedback gain. Type: float. Default value: 0\.
+#X msg 120 624 @feedback;
+#X text 240 624 Get/Set feedback gain. Type: float. Default value: 0\.
 Value range: 0-1;
-#X msg 120 632 @invert;
-#X text 240 632 Get/Set 0 for normal \, 1 to invert sign of flanging
+#X msg 120 661 @invert;
+#X text 240 661 Get/Set 0 for normal \, 1 to invert sign of flanging
 sum. Type: int. Default value: 0\. Allowed values: 0 \, 1;
-#X msg 120 669 @drywet;
-#X text 240 669 Get/Set proportion of mix between the original (dry)
+#X msg 120 698 @drywet;
+#X text 240 698 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 1\. Value range: 0-1;
-#X msg 120 720 @bypass;
-#X text 240 720 Get/Set if set to 1 - bypass 'effected' signal. Type:
+#X msg 120 749 @bypass;
+#X text 240 749 Get/Set if set to 1 - bypass 'effected' signal. Type:
 int. Default value: 0\. Allowed values: 0 \, 1;
-#X msg 120 757 @active;
-#X text 240 757 Get/Set on/off dsp processing. Type: int. Default
+#X msg 120 786 @active;
+#X text 240 786 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
-#X obj 20 804 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 809 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 833 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 838 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 814 1\.;
-#X text 240 814 input signal.;
-#X obj 20 842 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 847 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 120 843 1\.;
+#X text 240 843 input signal.;
+#X obj 20 871 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 876 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 852 1\.;
-#X text 240 852 output signal;
+#X text 120 881 1\.;
+#X text 240 881 output signal;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 900 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 903 library: ceammc v0.7;
-#N canvas 10 922 400 290 info 0;
+#X obj 1 929 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 932 library: ceammc v0.7;
+#N canvas 10 951 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -99,7 +99,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 922 pd info;
+#X restore 10 951 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;
