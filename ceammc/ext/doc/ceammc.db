@@ -111,7 +111,7 @@ flt.eq_peak_cq~		.		~
 flt.eq_peak~		~		~
 flt.highshelf~		~		~
 flt.hpf12~		~		~
-flt.hpf24~		~		~.
+flt.hpf24~		~		~
 flt.lowshelf~		~		~
 flt.lpf12~		~		~.
 flt.lpf24~		~		~.
