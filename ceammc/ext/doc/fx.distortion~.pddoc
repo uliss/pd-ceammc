@@ -33,22 +33,6 @@
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
         </properties>
-        <methods>
-            <method name="drive">
-                <param type="float" minvalue="0" maxvalue="1">distortion amount</param>
-            </method>
-            <method name="offset">
-                <param type="float" minvalue="0" maxvalue="1">constant added before nonlinearity to
-                give even harmonics</param>
-            </method>
-            <method name="drywet">
-                <param type="float" minvalue="0" maxvalue="1">proportion of mix between the
-                original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 - wet.</param>
-            </method>
-            <method name="bypass">
-                <param name="BOOL" type="int" enum="0 1">bypass effect</param>
-            </method>
-        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
@@ -56,7 +40,6 @@
         </inlets>
         <outlets>
             <outlet type="audio">output signal</outlet>
-            <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -67,14 +50,14 @@
 |
 [readsf~]
 |
-| [ui.knob]  [ui.knob]   [ui.knob]   [T]
-| |          |           |           |
-| |          |           |           |
-| |          |           |           |
-| [drive $1( [offset $1( [drywet $1( [bypass $1(
-| |          |           |           |
-| |          |           |           |
-[fx.distortion~ id                   ]
+| [ui.knob]   [ui.knob]    [ui.knob]    [T]
+| |           |            |            |
+| |           |            |            |
+| |           |            |            |
+| [@drive $1( [@offset $1( [@drywet $1( [@bypass $1(
+| |           |            |            |
+| |           |            |            |
+[fx.distortion~                         ]
 |
 [ui.gain~ @size 120 16]           [ui.dsp~]
 |\

@@ -124,7 +124,7 @@ function,func		..		..
 function.call,func.call		..		.
 fx.bitdown~		~		~
 fx.chorus~		~		~
-fx.distortion~		~		~.
+fx.distortion~		~		~
 fx.drive~		~		~
 fx.drone_box~		~		~.
 fx.echo~		~		~
