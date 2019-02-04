@@ -51,7 +51,7 @@ int. Default value: 0.2\. Value range: 0-1;
 Type: float. Default value: 0.95\. Value range: 0-1;
 #X msg 120 580 @maxfreq;
 #X text 240 580 Get/Set max tracked frequency. Type: float. Units: Hz.
-Default value: 1500\. Value range: 20-10000;
+Default value: 1500\. Value range: 10-10000;
 #X obj 20 627 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 632 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
