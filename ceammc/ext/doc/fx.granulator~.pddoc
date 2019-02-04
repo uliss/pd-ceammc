@@ -17,7 +17,7 @@
         <properties>
             <property name="@density" type="int" minvalue="1" maxvalue="64" default="10">number of
             grains</property>
-            <property name="@length" type="float" minvalue="10" maxvalue="500" default="1000"
+            <property name="@length" type="float" minvalue="10" maxvalue="500" default="100"
             units="millisecond">grain length</property>
             <property name="@delay" type="float" minvalue="0.5" maxvalue="10" default="10"
             units="second">grain total area length</property>

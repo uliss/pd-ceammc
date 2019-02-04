@@ -26,7 +26,7 @@
 10\. Value range: 1-64;
 #X msg 120 377 @length;
 #X text 240 377 Get/Set grain length. Type: float. Units: ms. Default
-value: 1000\. Value range: 10-500;
+value: 100\. Value range: 10-500;
 #X msg 120 414 @delay;
 #X text 240 414 Get/Set grain total area length. Type: float. Units:
 sec. Default value: 10\. Value range: 0.5-10;
