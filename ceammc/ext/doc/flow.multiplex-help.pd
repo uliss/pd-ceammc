@@ -25,20 +25,20 @@
 #X obj 20 330 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 335 @index;
-#X text 240 335 Get/Set current multiplexer index. Type: int. Min
-value: 0;
-#X obj 20 372 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 377 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 240 335 Get/Set current multiplexer index. Type: int. Default
+value: 0\. Min value: 0;
+#X obj 20 382 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 387 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 382 1\.;
-#X text 240 382 multiplexer first inlet.;
-#X text 120 400 n.;
-#X text 240 400 multiplexer N-th inlet.;
-#X obj 20 428 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 433 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 120 392 1\.;
+#X text 240 392 multiplexer first inlet.;
+#X text 120 410 n.;
+#X text 240 410 multiplexer N-th inlet.;
+#X obj 20 438 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 443 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 438 1\.;
-#X text 240 438 output;
+#X text 120 448 1\.;
+#X text 240 448 output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
