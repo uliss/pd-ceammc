@@ -118,6 +118,9 @@ ArrayStretch::ArrayStretch(const PdArgs& a)
     createCbProperty(PROP_OVERLAP->s_name,
         &ArrayStretch::propOverlap,
         &ArrayStretch::propSetOverlap);
+    property(PROP_OVERLAP)->info().setType(PropertyInfoType::INTEGER);
+    property(PROP_OVERLAP)->info().setDefault(8);
+    property(PROP_OVERLAP)->info().setRange(1, 100);
 
     // pitch-shift params
     // antialias

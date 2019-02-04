@@ -118,7 +118,7 @@ chopped sound sequences are mixed back together \, to form a
 continuous sound stream \, this parameter defines over how long period
 the two consecutive sequences are let to overlap each other.
 Increasing this value increases computational burden & vice versa.
-Type: int. Units: ms. Value range: 1-100;
+Type: int. Units: ms. Default value: 8\. Value range: 1-100;
 #X obj 20 1512 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1517 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
