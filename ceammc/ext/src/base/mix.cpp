@@ -16,6 +16,7 @@
 #include "ceammc_factory.h"
 
 static const int DEFAULT_INLETS = 2;
+static const t_float DEFAULT_XFADE = 20;
 static const int MIN_INLETS = 2;
 static const int MAX_INLETS = 16;
 
@@ -36,7 +37,7 @@ Mix::Mix(const PdArgs& args)
     : SoundExternal(args)
     , is_solo_(false)
     , n_(clip<int>(positionalFloatArgument(0, DEFAULT_INLETS), MIN_INLETS, MAX_INLETS))
-    , xfade_time_(20)
+    , xfade_time_(DEFAULT_XFADE)
 {
     for (size_t i = 1; i < n_; i++)
         createSignalInlet();
@@ -49,6 +50,9 @@ Mix::Mix(const PdArgs& args)
     solo_values_.assign(n_, 0);
 
     createCbProperty("@xfade_time", &Mix::propXFadeTime, &Mix::setPropXFadeTime);
+    property("@xfade_time")->info().setType(PropertyInfoType::FLOAT);
+    property("@xfade_time")->info().setDefault(DEFAULT_XFADE);
+
     createCbProperty("@value", &Mix::propValue, &Mix::setPropValue);
     createCbProperty("@db", &Mix::propDb, &Mix::setPropDb);
     createCbProperty("@mute", &Mix::propMute, &Mix::setPropMute);
@@ -101,7 +105,7 @@ AtomList Mix::propXFadeTime() const
 
 void Mix::setPropXFadeTime(const AtomList& ms)
 {
-    xfade_time_ = std::max<t_float>(1, ms.floatAt(0, 10));
+    xfade_time_ = std::max<t_float>(1, ms.floatAt(0, DEFAULT_XFADE));
 }
 
 AtomList Mix::propValue() const
