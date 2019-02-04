@@ -22,7 +22,8 @@
         </arguments>
         <properties>
             <property name="@pattern" type="list">time intervals performed in a loop</property>
-            <property name="@current" type="int" minvalue="0">current pattern index</property>
+            <property name="@current" type="int" minvalue="0" default="0">current pattern
+            index</property>
             <property name="@sync" type="int" enum="0 1" default="0">sync mode - change pattern
             after full cycle</property>
         </properties>
