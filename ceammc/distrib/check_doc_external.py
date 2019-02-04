@@ -172,13 +172,39 @@ if __name__ == '__main__':
             if "readonly" in p1 and p1["readonly"] == "true":
                 continue
 
-            if p0["type"] == "bool":
-                if "enum" not in p1:
+            if p0["type"] == "bool" and p1["type"] != "flag":
+                if p1["type"] != "flag" and "enum" not in p1:
                     cprint(f"[{ext_name}] missing attribute enum for bool in \"{p}\"", 'magenta')
+
+                # no default bool value
+                if "default" in p0 and "default" not in p1:
+                    cprint(f"[{ext_name}] missing attribute default in \"{p}\"", 'magenta')
+
+                # invalid default bool value
+                if "default" in p0 and "default" in p1:
+                    v0 = str(p0["default"])
+                    v1 = str(p1["default"])
+                    if v0 != v1:
+                        cprint(f"[{ext_name}] invalid value for default attribute \"{p}\": {v0} != {v1}", 'magenta')
+
                 continue
 
             if p0["type"] not in ("float", "int"):
+                if p0["type"] == "bool" and p1["type"] != "int":
+                    cprint(f"[{ext_name}] invalid bool type (not int) in \"{p}\"", 'magenta')
+
+                if p0["type"] == "symbol" and p1["type"] != "symbol":
+                    cprint(f"[{ext_name}] invalid symbol type in \"{p}\"", 'magenta')
+
+                if p0["type"] == "list" and p1["type"] != "list":
+                    cprint(f"[{ext_name}] invalid list type in \"{p}\"", 'magenta')
+
                 continue
+
+            if p0["type"] != p1["type"]:
+                t0 = p0["type"]
+                t1 = p1["type"]
+                cprint(f"[{ext_name}] different attr types: {t0} != {t1} in \"{p}\"", 'magenta')
 
             if "min" in p0 and "minvalue" not in p1:
                 cprint(f"[{ext_name}] missing attribute minvalue in \"{p}\"", 'magenta')
