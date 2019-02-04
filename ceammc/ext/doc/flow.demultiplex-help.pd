@@ -25,7 +25,7 @@
 -49933 0;
 #X msg 120 306 @index;
 #X text 240 306 Get/Set current demultiplexer output index. Type: int.
-Min value: 0;
+Default value: 0\. Min value: 0;
 #X msg 120 343 @noprops;
 #X text 240 343 pass all properties requests. When this flag is
 specified you can't get @index property of current object;
