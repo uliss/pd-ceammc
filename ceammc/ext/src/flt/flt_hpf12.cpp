@@ -1,8 +1,6 @@
 #include "flt_hpf12.h"
 #include "ceammc_factory.h"
 
-#include "ceammc_factory.h"
-
 using namespace ceammc;
 
 static t_symbol* SYM_PROP_FREQ = gensym("@freq");
