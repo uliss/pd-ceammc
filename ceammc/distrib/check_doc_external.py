@@ -40,10 +40,10 @@ def read_props(name):
     try:
         s = subprocess.check_output([EXT_PROPS, name], stderr=subprocess.DEVNULL).decode()
         js = json.loads(s)
-        return set(js.keys())
+        return set(js.keys()), js
     except(subprocess.CalledProcessError):
         cprint(f"[{name}] can't get properties", "red")
-        return set()
+        return set(), dict()
 
 def check_spell(obj):
     if obj.text:
@@ -100,8 +100,9 @@ if __name__ == '__main__':
 
     root = etree.fromstring(xml.encode())
 
-    doc_methods = set()
-    doc_props = set()
+    doc_methods_set = set()
+    doc_props_set = set()
+    doc_props_dict = dict()
 
     # parse methods
     for appt in root:
@@ -110,26 +111,42 @@ if __name__ == '__main__':
                 for m in x:
                     if m.tag != "method" or m.get("example", False) or m.get("internal", False):
                         continue
-                    doc_methods.add(m.attrib["name"].split(' ')[0])
+                    doc_methods_set.add(m.attrib["name"].split(' ')[0])
 
             if x.tag == "properties":
                 for p in x:
                     if p.tag != "property":
                         continue
 
-                    doc_props.add(p.attrib["name"])
+                    name = p.attrib["name"]
+                    doc_props_set.add(name)
+                    doc_props_dict[name] = dict()
+                    if "units" in p.attrib:
+                        doc_props_dict[name]["units"] = p.attrib["units"]
+                    if "minvalue" in p.attrib:
+                        doc_props_dict[name]["minvalue"] = p.attrib["minvalue"]
+                    if "maxvalue" in p.attrib:
+                        doc_props_dict[name]["maxvalue"] = p.attrib["maxvalue"]
+                    if "default" in p.attrib:
+                        doc_props_dict[name]["default"] = p.attrib["default"]
+                    if "enum" in p.attrib:
+                        doc_props_dict[name]["enum"] = p.attrib["enum"]
+                    if "readonly" in p.attrib:
+                        doc_props_dict[name]["readonly"] = p.attrib["readonly"]
+
+                    doc_props_dict[name]["type"] = p.attrib["type"]
 
     if args.methods:
         ext_methods = read_methods(ext_name)
-        # print(doc_methods)
+        # print(doc_methods_set)
         # print(ext_methods)
         ignored_methods = {'dump', 'dsp', 'signal', 'mouseup', 'mouseenter', 'dialog', 'iscicm',
         'zoom', 'mousewheel', 'mousemove', 'mousedown', 'mouseleave',
         'symbol', 'float', 'bang', 'dblclick', 'list', 'dsp_add', 'loadbang', 'click'}
-        undoc_methods = ext_methods - doc_methods - ignored_methods
-        unknown_methods = doc_methods - ext_methods
-        if len(undoc_methods):
-            cprint(f"[{ext_name}] undocumented methods: {undoc_methods}", 'magenta')
+        undoc_methods_set = ext_methods - doc_methods_set - ignored_methods
+        unknown_methods = doc_methods_set - ext_methods
+        if len(undoc_methods_set):
+            cprint(f"[{ext_name}] undocumented methods: {undoc_methods_set}", 'magenta')
 
         if len(unknown_methods):
             cprint(f"[{ext_name}] unknown methods in doc: {unknown_methods}", 'yellow')
@@ -137,15 +154,59 @@ if __name__ == '__main__':
     if args.props:
         ignored_props = {'@*'}
 
-        ext_props = read_props(ext_name)
-        undoc_props = ext_props - doc_props - ignored_props
-        unknown_props = doc_props - ext_props
+        ext_props_set, ext_props_dict = read_props(ext_name)
+        undoc_props_set = ext_props_set - doc_props_set - ignored_props
+        unknown_props = doc_props_set - ext_props_set
+        exists_props = ext_props_set & doc_props_set
 
-        if len(undoc_props):
-            cprint(f"[{ext_name}] undocumented properties: {undoc_props}", 'magenta')
+        if len(undoc_props_set):
+            cprint(f"[{ext_name}] undocumented properties: {undoc_props_set}", 'magenta')
 
         if len(unknown_props):
             cprint(f"[{ext_name}] unknown properties in doc: {unknown_props}", 'yellow')
+
+        for p in exists_props:
+            p0 = ext_props_dict[p]
+            p1 = doc_props_dict[p]
+
+            if "readonly" in p1 and p1["readonly"] == "true":
+                continue
+
+            if p0["type"] == "bool":
+                if "enum" not in p1:
+                    cprint(f"[{ext_name}] missing attribute enum for bool in \"{p}\"", 'magenta')
+                continue
+
+            if p0["type"] not in ("float", "int"):
+                continue
+
+            if "min" in p0 and "minvalue" not in p1:
+                cprint(f"[{ext_name}] missing attribute minvalue in \"{p}\"", 'magenta')
+
+            if "max" in p0 and "maxvalue" not in p1:
+                cprint(f"[{ext_name}] missing attribute maxvalue in \"{p}\"", 'magenta')
+
+            if "default" in p0 and "default" not in p1:
+                cprint(f"[{ext_name}] missing attribute default in \"{p}\"", 'magenta')
+
+            if "default" in p0 and "default" in p1:
+                v0 = str(p0["default"])
+                v1 = str(p1["default"])
+                if v0 != v1:
+                    cprint(f"[{ext_name}] invalid value for default attribute \"{p}\": {v0} != {v1}", 'magenta')
+
+            if "min" in p0 and "minvalue" in p1:
+                v0 = str(p0["min"])
+                v1 = str(p1["minvalue"])
+                if v0 != v1:
+                    cprint(f"[{ext_name}] invalid value for minvalue attribute \"{p}\": {v0} != {v1}", 'magenta')
+
+            if "max" in p0 and "maxvalue" in p1:
+                v0 = str(p0["max"])
+                v1 = str(p1["maxvalue"])
+                if v0 != v1:
+                    cprint(f"[{ext_name}] invalid value for maxvalue attribute \"{p}\": {v0} != {v1}", 'magenta')
+
 
     if args.spell:
         corrector.LoadLangModel('ceammc.bin')
