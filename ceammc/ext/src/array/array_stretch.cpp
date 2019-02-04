@@ -131,6 +131,9 @@ ArrayStretch::ArrayStretch(const PdArgs& a)
     createCbProperty(PROP_ANTIALIAS_LENGTH->s_name,
         &ArrayStretch::propAnitAliasLength,
         &ArrayStretch::propSetAntiAliasLength);
+    property(PROP_ANTIALIAS_LENGTH)->info().setType(PropertyInfoType::INTEGER);
+    property(PROP_ANTIALIAS_LENGTH)->info().setDefault(64);
+    property(PROP_ANTIALIAS_LENGTH)->info().setRange(8, 128);
 
     // optimise for speech
     createCbProperty("@speech",
