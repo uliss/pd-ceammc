@@ -10,7 +10,7 @@ with{
     fc(n) = ftop * 2^(float(n-N+1)/float(M));
     chan = fi.mth_octave_filterbank5(M, ftop, N) : sum(i,N,(*(ba.db2linear(ffader(N-(i+1))))));
     ffader(i) = fader(fc(i));
-    fader(i) = vslider("f%i [unit:dB]", -10, -70, 10, 0.1) : si.smoo;
+    fader(i) = vslider("f%i [unit:dB]", 0, -70, 10, 0.1) : si.smoo;
 };
 
 process = eq10_filterbank(1); // octave-bands = default
