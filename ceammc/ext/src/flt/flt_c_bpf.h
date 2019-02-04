@@ -556,7 +556,7 @@ class flt_c_bpf : public dsp {
 	
 	virtual void instanceResetUserInterface() {
 		fVslider0 = FAUSTFLOAT(1000.0f);
-		fVslider1 = FAUSTFLOAT(0.01f);
+		fVslider1 = FAUSTFLOAT(0.10000000000000001f);
 		
 	}
 	
@@ -594,7 +594,7 @@ class flt_c_bpf : public dsp {
 		ui_interface->openVerticalBox("flt_c_bpf");
 		ui_interface->declare(&fVslider0, "unit", "Hz");
 		ui_interface->addVerticalSlider("freq", &fVslider0, 1000.0f, 20.0f, 20000.0f, 0.100000001f);
-		ui_interface->addVerticalSlider("q", &fVslider1, 0.00999999978f, 0.00999999978f, 100.0f, 0.100000001f);
+		ui_interface->addVerticalSlider("q", &fVslider1, 0.100000001f, 0.00999999978f, 100.0f, 0.100000001f);
 		ui_interface->closeBox();
 		
 	}
