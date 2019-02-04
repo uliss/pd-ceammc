@@ -26,8 +26,8 @@
             <argument name="TIME" type="int" units="millisecond">limit time</argument>
         </arguments>
         <properties>
-            <property name="@limit" type="int" minvalue="0" units="millisecond">speed limit. If set
-            to zero there is no flow limitations</property>
+            <property name="@limit" type="int" minvalue="0" units="millisecond" default="0">speed
+            limit. If set to zero there is no flow limitations</property>
         </properties>
         <methods>
             <method name="reset">reset internal timer and goes to opened state</method>
