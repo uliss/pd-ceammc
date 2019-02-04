@@ -196,7 +196,7 @@ if __name__ == '__main__':
                 if p0["type"] == "bool" and p1["type"] != "int":
                     cprint(f"[{ext_name}] invalid bool type (not int) in \"{p}\"", 'magenta')
 
-                if p0["type"] == "symbol" and p1["type"] != "symbol":
+                if p0["type"] == "symbol" and p1["type"] not in ("symbol", "alias"):
                     cprint(f"[{ext_name}] invalid symbol type in \"{p}\"", 'magenta')
 
                 if p0["type"] == "list" and p1["type"] != "list":
