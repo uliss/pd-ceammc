@@ -266,7 +266,9 @@ namespace faust {
         , n_xfade_(static_cast<int>(rate_ * xfadeTime() / 64))
     {
         createCbProperty("@active", &FaustExternalBase::propActive, &FaustExternalBase::propSetActive);
-        property("@active")->info().setType(PropertyInfoType::BOOLEAN);
+        auto& info = property("@active")->info();
+        info.setDefault(true);
+        info.setType(PropertyInfoType::BOOLEAN);
     }
 
     FaustExternalBase::~FaustExternalBase()
