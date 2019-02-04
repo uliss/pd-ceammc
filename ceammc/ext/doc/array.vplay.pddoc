@@ -24,8 +24,14 @@
             <property name="@state" type="symbol" enum="play stop" readonly="true">player
             state</property>
             <property name="@speed" type="float" minvalue="0.1" default="1">play speed</property>
-            <property name="@begin" type="int">begin position in samples</property>
-            <property name="@end" type="int">end position in samples</property>
+            <property name="@begin" type="int" default="0" units="sample">begin position in
+            samples</property>
+            <property name="@end" type="int" default="0" units="sample">end position in
+            samples</property>
+            <property name="@abs_begin" type="int" units="sample" readonly="true">absolute start
+            position in samples</property>
+            <property name="@abs_end" type="int" units="sample" readonly="true">absolute stop
+            position in samples</property>
             <property name="@reversed" type="int" enum="0 1" default="0">playing backwards (if set
             to 1)</property>
         </properties>
