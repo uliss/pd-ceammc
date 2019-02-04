@@ -26,8 +26,8 @@
             <property name="@speed" type="float" minvalue="0.1" default="1">play speed</property>
             <property name="@begin" type="int">begin position in samples</property>
             <property name="@end" type="int">end position in samples</property>
-            <property name="@reversed" type="int" enum="0 1">playing backwards (if set to
-            1)</property>
+            <property name="@reversed" type="int" enum="0 1" default="0">playing backwards (if set
+            to 1)</property>
         </properties>
         <methods>
             <method name="play">start playing</method>

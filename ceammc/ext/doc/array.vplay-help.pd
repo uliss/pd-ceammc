@@ -63,7 +63,7 @@ Min value: 0.1;
 #X text 240 607 Get/Set end position in samples. Type: int;
 #X msg 120 634 @reversed;
 #X text 240 634 Get/Set playing backwards (if set to 1). Type: int.
-Allowed values: 0 \, 1;
+Default value: 0\. Allowed values: 0 \, 1;
 #X obj 20 681 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 686 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
