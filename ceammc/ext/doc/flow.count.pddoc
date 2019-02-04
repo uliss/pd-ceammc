@@ -19,7 +19,8 @@
             </inlet>
         </inlets>
         <properties>
-            <property name="@value" type="int" minvalue="0">current counter state</property>
+            <property name="@value" type="int" minvalue="0" default="0">current counter
+            state</property>
         </properties>
         <methods>
             <method name="reset">reset counter</method>
