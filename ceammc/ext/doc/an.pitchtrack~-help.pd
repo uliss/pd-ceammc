@@ -45,7 +45,7 @@ value: 1\. Allowed values: 1 \, 2 \, 3 \, 4 \, 8;
 #X msg 120 492 @bias;
 #X text 240 492 Get/Set bias which favours small lags over large lags
 in the period detection \, thereby avoiding low-octave jumps. Type:
-int. Default value: 0.2\. Value range: 0-1;
+float. Default value: 0.2\. Value range: 0-1;
 #X msg 120 543 @fidthr;
 #X text 240 543 Get/Set min fidelity threshold to report the pitch.
 Type: float. Default value: 0.95\. Value range: 0-1;
