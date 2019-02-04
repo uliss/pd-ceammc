@@ -24,9 +24,9 @@
             H(z)=(b0+b1*z^-1+b2*z^-2)/(1+a1*z^-1+a2*z^-2)</par>
         </info>
         <properties>
-            <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
+            <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="10000"
             units="herz">center frequency</property>
-            <property name="@gain" type="float" minvalue="-15" maxvalue="+15" default="0"
+            <property name="@gain" type="float" minvalue="-15" maxvalue="15" default="0"
             units="decibel">filter gain</property>
             <property name="@active" type="int" enum="0 1" default="1">on/off dsp
             processing</property>
