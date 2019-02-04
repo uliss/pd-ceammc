@@ -9,6 +9,7 @@ static t_symbol* PROP_SEEK_WINDOW = gensym("@seekwindow");
 static t_symbol* PROP_OVERLAP = gensym("@overlap");
 static t_symbol* PROP_ANTIALIAS = gensym("@antialias");
 static t_symbol* PROP_ANTIALIAS_LENGTH = gensym("@aalength");
+static t_symbol* PROP_SPEECH = gensym("@speech");
 
 class PdSoundTouch : public soundtouch::SoundTouch {
 public:
@@ -147,9 +148,11 @@ ArrayStretch::ArrayStretch(const PdArgs& a)
     property(PROP_ANTIALIAS_LENGTH)->info().setRange(8, 128);
 
     // optimise for speech
-    createCbProperty("@speech",
+    createCbProperty(PROP_SPEECH->s_name,
         &ArrayStretch::propSpeech,
         &ArrayStretch::propSetSpeech);
+    property(PROP_SPEECH)->info().setType(PropertyInfoType::BOOLEAN);
+    property(PROP_SPEECH)->info().setDefault(false);
 }
 
 void ArrayStretch::onBang()
