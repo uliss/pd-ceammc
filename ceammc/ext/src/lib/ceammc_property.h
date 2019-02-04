@@ -280,7 +280,14 @@ public:
 
 typedef AliasProperty<SymbolEnumProperty, t_symbol*> SymbolEnumAlias;
 
-typedef EnumProperty<int> IntEnumProperty;
+class IntEnumProperty : public EnumProperty<int> {
+public:
+    IntEnumProperty(const std::string& name, int def, bool readonly = false)
+        : EnumProperty<int>(name, def, readonly)
+    {
+        info().setType(PropertyInfoType::INTEGER);
+    }
+};
 
 class BoolProperty : public Property {
     bool v_;
