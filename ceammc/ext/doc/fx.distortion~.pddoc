@@ -18,7 +18,6 @@
             amount</argument>
             <argument name="offset" type="float" minvalue="0" maxvalue="1">constant added before
             nonlinearity to give even harmonics</argument>
-            <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
         <properties>
             <property name="@drive" type="float" minvalue="0" maxvalue="1" default="0.5">distortion
