@@ -466,8 +466,7 @@ namespace faust {
         max_ = max;
         step_ = step;
         pinfo_.setDefault(init_);
-        pinfo_.setMin(min_);
-        pinfo_.setMax(max_);
+        pinfo_.setRange(min_, max_);
         pinfo_.setStep(step_);
     }
 
