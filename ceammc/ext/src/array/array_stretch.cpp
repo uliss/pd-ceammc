@@ -108,6 +108,9 @@ ArrayStretch::ArrayStretch(const PdArgs& a)
     createCbProperty(PROP_SEQUENCE->s_name,
         &ArrayStretch::propSequence,
         &ArrayStretch::propSetSequence);
+    property(PROP_SEQUENCE)->info().setType(PropertyInfoType::INTEGER);
+    property(PROP_SEQUENCE)->info().setDefault(0);
+    property(PROP_SEQUENCE)->info().setRange(0, 100);
 
     // @seekwindow
     createCbProperty(PROP_SEEK_WINDOW->s_name,

@@ -97,7 +97,8 @@ bigger value sounds better when slowing down tempo \, but worse when
 increasing tempo and vice versa. Increasing this value reduces
 computational burden & vice versa. Giving *0* value for the sequence
 length sets automatic parameter value according to tempo setting
-(recommended). Type: int. Units: ms. Default value: 0;
+(recommended). Type: int. Units: ms. Default value: 0\. Value range:
+0-100;
 #X msg 120 1162 @seekwindow;
 #X text 240 1162 Get/Set Seeking window default length in milliseconds
 for algorithm that finds the best possible overlapping location. This

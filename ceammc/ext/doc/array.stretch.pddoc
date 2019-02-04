@@ -38,14 +38,14 @@
             sample rate with interpolation.</property>
             <property name="@aalength" type="int" minvalue="8" maxvalue="128" default="64">pitch
             transposer anti-alias filter length</property>
-            <property name="@sequence" type="int" units="millisecond" default="0">Default length of
-            a single processing sequence, in milliseconds. This determines to how long sequences
-            the original sound is chopped in the time-stretch algorithm. The larger this value is,
-            the lesser sequences are used in processing. In principle a bigger value sounds better
-            when slowing down tempo, but worse when increasing tempo and vice versa. Increasing
-            this value reduces computational burden &amp; vice versa. Giving *0* value for the
-            sequence length sets automatic parameter value according to tempo setting
-            (recommended).</property>
+            <property name="@sequence" type="int" units="millisecond" default="0" minvalue="0"
+            maxvalue="100">Default length of a single processing sequence, in milliseconds. This
+            determines to how long sequences the original sound is chopped in the time-stretch
+            algorithm. The larger this value is, the lesser sequences are used in processing. In
+            principle a bigger value sounds better when slowing down tempo, but worse when
+            increasing tempo and vice versa. Increasing this value reduces computational burden
+            &amp; vice versa. Giving *0* value for the sequence length sets automatic parameter
+            value according to tempo setting (recommended).</property>
             <property name="@seekwindow" type="int" units="millisecond" minvalue="0"
             maxvalue="100">Seeking window default length in milliseconds for algorithm that finds
             the best possible overlapping location. This determines from how wide window the
