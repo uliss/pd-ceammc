@@ -1010,6 +1010,7 @@ XFadeProperty::XFadeProperty(const std::string& name, float ms)
     , length_(0)
     , phase_(0)
 {
+    info().setMin(0);
 }
 
 void XFadeProperty::calc(size_t sr, size_t bs)
