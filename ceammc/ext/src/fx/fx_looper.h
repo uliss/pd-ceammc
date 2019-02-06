@@ -71,6 +71,7 @@ class FxLooper : public SoundExternal {
     LinFadeinProperty* x_rec_to_dub_;
     LinFadeinProperty* x_play_to_dub_;
     LinFadeoutProperty* x_dub_to_play_;
+    LinFadeoutProperty* x_dub_to_stop_;
     FloatPropertyMinEq* smooth_ms_;
     size_t max_samples_;
     size_t loop_len_;
@@ -86,11 +87,11 @@ public:
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** sp) override;
 
-    void stateStop(t_sample** out);
-    void statePlay(t_sample** out);
-    void statePlayToStop(t_sample** out);
+    void statePlay(const t_sample** in, t_sample** out);
+    void statePlayToStop(const t_sample** in, t_sample** out);
     void statePlayToDub(const t_sample** in, t_sample** out);
-    void stateStopToPlay(t_sample** out);
+    void stateStop(t_sample** out);
+    void stateStopToPlay(const t_sample** in, t_sample** out);
     void stateRecord(const t_sample** in, t_sample** out);
     void stateRecordToPlay(const t_sample** in, t_sample** out);
     void stateRecordToStop(const t_sample** in, t_sample** out);
@@ -122,6 +123,44 @@ public:
 public:
     void loopCycleFinish();
     void clockTick();
+
+private:
+    template <typename Fn>
+    void processPlayLoop(const t_sample** in, t_sample** out, Fn fn)
+    {
+        const size_t BS = blockSize();
+        const size_t LEFT = loop_len_ - play_phase_;
+
+        // enough samples until loop end
+        if (LEFT >= BS) {
+            // manual loop unrolling
+            for (size_t i = 0; i < BS; i += 8) {
+                fn(in[0][i], out[0][i], buffer_[play_phase_++]);
+                fn(in[0][i + 1], out[0][i + 1], buffer_[play_phase_++]);
+                fn(in[0][i + 2], out[0][i + 2], buffer_[play_phase_++]);
+                fn(in[0][i + 3], out[0][i + 3], buffer_[play_phase_++]);
+                fn(in[0][i + 4], out[0][i + 4], buffer_[play_phase_++]);
+                fn(in[0][i + 5], out[0][i + 5], buffer_[play_phase_++]);
+                fn(in[0][i + 6], out[0][i + 6], buffer_[play_phase_++]);
+                fn(in[0][i + 7], out[0][i + 7], buffer_[play_phase_++]);
+            }
+
+            // loop_len - play_phase >= bs
+            // loop_len >= play_phase + bs
+        } else {
+            // LEFT < BS
+            // process till loop end
+            for (size_t i = 0; i < LEFT; i++)
+                fn(in[0][i], out[0][i], buffer_[play_phase_++]);
+
+            play_phase_ = 0;
+            loopCycleFinish();
+
+            // process from loop start
+            for (size_t i = LEFT; i < BS; i++)
+                fn(in[0][i], out[0][i], buffer_[play_phase_++]);
+        }
+    }
 };
 
 void setup_fx_looper();

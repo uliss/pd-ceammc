@@ -99,6 +99,7 @@ FxLooper::FxLooper(const PdArgs& args)
     , x_rec_to_dub_(nullptr)
     , x_play_to_dub_(nullptr)
     , x_dub_to_play_(nullptr)
+    , x_dub_to_stop_(nullptr)
     , smooth_ms_(nullptr)
     , max_samples_(0)
     , loop_len_(0)
@@ -135,6 +136,9 @@ FxLooper::FxLooper(const PdArgs& args)
 
     x_dub_to_play_ = new LinFadeoutProperty("@dub_to_play_time", 20);
     createProperty(x_dub_to_play_);
+
+    x_dub_to_stop_ = new LinFadeoutProperty("@dub_to_stop_time", 20);
+    createProperty(x_dub_to_stop_);
 
     round_ = new IntProperty("@round", 0);
     createProperty(round_);
@@ -182,16 +186,16 @@ void FxLooper::processBlock(const t_sample** in, t_sample** out)
         stateStop(out);
         break;
     case STATE_STOP_XFADE_PLAY:
-        stateStopToPlay(out);
+        stateStopToPlay(in, out);
         break;
     case STATE_INIT:
         fillZero8(out, bs);
         break;
     case STATE_PLAY_XFADE_STOP:
-        statePlayToStop(out);
+        statePlayToStop(in, out);
         break;
     case STATE_PLAY:
-        statePlay(out);
+        statePlay(in, out);
         break;
     case STATE_PLAY_XFADE_DUB:
         statePlayToDub(in, out);
@@ -222,115 +226,53 @@ void FxLooper::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
+void FxLooper::setupDSP(t_signal** sp)
+{
+    SoundExternal::setupDSP(sp);
+
+    max_samples_ = capacity_sec_->value() * sys_getsr();
+    buffer_.resize(max_samples_);
+
+    const auto BS = blockSize();
+    const auto SR = samplerate();
+
+    x_play_to_stop_->calc(SR, BS);
+    x_play_to_dub_->calc(SR, BS);
+
+    x_stop_to_play_->calc(SR, BS);
+
+    x_rec_to_play_->calc(SR, BS);
+    x_rec_to_dub_->calc(SR, BS);
+    x_rec_to_stop_->calc(SR, BS);
+
+    x_dub_to_play_->calc(SR, BS);
+    x_dub_to_stop_->calc(SR, BS);
+}
+
 void FxLooper::stateDub(const t_sample** in, t_sample** out)
 {
-    const size_t bs = blockSize();
-    const size_t samples_left = loop_len_ - play_phase_;
-
-    // enough samples until loop end
-    if (samples_left >= bs) {
-        CHECK_PHASE(play_phase_ + bs - 1, buffer_);
-
-        for (size_t i = 0; i < bs; i++) {
-            // copy input
-            t_sample tmp = in[0][i];
-            // output current
-            out[0][i] = buffer_[play_phase_ + i];
-            // overdub
-            buffer_[play_phase_ + i] += tmp;
-        }
-
-        play_phase_ += bs;
-
-    } else {
-        CHECK_PHASE(play_phase_ + samples_left - 1, buffer_);
-
-        for (size_t i = 0; i < samples_left; i++) {
-            // copy input
-            t_sample tmp = in[0][i];
-            // output current
-            out[0][i] = buffer_[play_phase_ + i];
-            // overdub
-            buffer_[play_phase_ + i] += tmp;
-        }
-
-        // reset phase
-        play_phase_ = 0;
-        loopCycleFinish();
-
-        for (size_t i = samples_left; i < bs; i++) {
-            // copy input
-            t_sample tmp = in[0][i];
-            // output current
-            out[0][i] = buffer_[play_phase_ + i];
-            // overdub
-            buffer_[play_phase_ + i] += tmp;
-        }
-
-        // move phase
-        play_phase_ += (bs - samples_left);
-    }
+    processPlayLoop(in, out, [](t_sample samp_in, t_sample& samp_out, t_sample& samp_rec) {
+        // output current
+        samp_out = samp_rec;
+        // add new record value
+        samp_rec += samp_in;
+    });
 }
 
 void FxLooper::stateDubToStop(const t_sample** in, t_sample** out)
 {
-    if (x_rec_to_stop_->isRunning()) {
-        const size_t bs = blockSize();
-        const size_t samples_left = loop_len_ - play_phase_;
+    if (x_dub_to_stop_->isRunning()) {
+        processPlayLoop(in, out, [this](t_sample samp_in, t_sample& samp_out, t_sample& samp_rec) {
+            // fadeout value
+            auto amp = this->x_dub_to_stop_->amp();
+            // fadeout output current
+            samp_out = amp * samp_rec;
+            // fadeout overdub
+            samp_rec += amp * samp_in;
 
-        // enough samples until loop end
-        if (samples_left >= bs) {
-            CHECK_PHASE(play_phase_ + bs - 1, buffer_);
-
-            for (size_t i = 0; i < bs; i++) {
-                auto amp = x_rec_to_stop_->amp() * 0.5;
-                // copy input
-                t_sample tmp = amp * in[0][i];
-                // output current
-                out[0][i] = amp * buffer_[play_phase_ + i];
-                // overdub
-                buffer_[play_phase_ + i] += tmp;
-
-                // move fader phase
-                x_rec_to_stop_->next();
-            }
-
-            play_phase_ += bs;
-
-        } else {
-            CHECK_PHASE(play_phase_ + samples_left - 1, buffer_);
-
-            for (size_t i = 0; i < samples_left; i++) {
-                auto amp = x_rec_to_stop_->amp() * 0.5;
-                // copy input
-                t_sample tmp = amp * in[0][i];
-                // output current
-                out[0][i] = amp * buffer_[play_phase_ + i];
-                // overdub
-                buffer_[play_phase_ + i] += tmp;
-                // move fader phase
-                x_rec_to_stop_->next();
-            }
-
-            // reset phase
-            play_phase_ = 0;
-            loopCycleFinish();
-
-            for (size_t i = samples_left; i < bs; i++) {
-                auto amp = x_rec_to_stop_->amp() * 0.5;
-                // copy input
-                t_sample tmp = amp * in[0][i];
-                // output current
-                out[0][i] = amp * buffer_[play_phase_ + i];
-                // overdub
-                buffer_[play_phase_ + i] += tmp;
-                // move fader phase
-                x_rec_to_stop_->next();
-            }
-
-            // move phase
-            play_phase_ += (bs - samples_left);
-        }
+            // move fader phase
+            x_dub_to_stop_->next();
+        });
     } else {
         state_ = STATE_STOP;
         stateStop(out);
@@ -340,83 +282,20 @@ void FxLooper::stateDubToStop(const t_sample** in, t_sample** out)
 void FxLooper::stateDubToPlay(const t_sample** in, t_sample** out)
 {
     if (x_dub_to_play_->isRunning()) {
-        const size_t bs = blockSize();
-        const size_t samples_left = loop_len_ - play_phase_;
+        processPlayLoop(in, out, [this](t_sample samp_in, t_sample& samp_out, t_sample& samp_rec) {
+            auto amp = x_dub_to_play_->amp();
+            // play current
+            samp_out = samp_rec;
+            // overdub fadeout
+            samp_rec += amp * samp_in;
 
-        // enough samples until loop end
-        if (samples_left >= bs) {
-            CHECK_PHASE(play_phase_ + bs - 1, buffer_);
-
-            for (size_t i = 0; i < bs; i++) {
-                auto amp = x_dub_to_play_->amp();
-                // copy input
-                t_sample tmp = amp * in[0][i];
-                // output current
-                out[0][i] = amp * buffer_[play_phase_ + i];
-                // overdub
-                buffer_[play_phase_ + i] += tmp;
-
-                // move fader phase
-                x_dub_to_play_->next();
-            }
-
-            play_phase_ += bs;
-
-        } else {
-            CHECK_PHASE(play_phase_ + samples_left - 1, buffer_);
-
-            for (size_t i = 0; i < samples_left; i++) {
-                auto amp = x_dub_to_play_->amp();
-                // copy input
-                t_sample tmp = amp * in[0][i];
-                // output current
-                out[0][i] = amp * buffer_[play_phase_ + i];
-                // overdub
-                buffer_[play_phase_ + i] += tmp;
-                // move fader phase
-                x_dub_to_play_->next();
-            }
-
-            // reset phase
-            play_phase_ = 0;
-            loopCycleFinish();
-
-            for (size_t i = samples_left; i < bs; i++) {
-                auto amp = x_dub_to_play_->amp();
-                // copy input
-                t_sample tmp = amp * in[0][i];
-                // output current
-                out[0][i] = amp * buffer_[play_phase_ + i];
-                // overdub
-                buffer_[play_phase_ + i] += tmp;
-                // move fader phase
-                x_dub_to_play_->next();
-            }
-
-            // move phase
-            play_phase_ += (bs - samples_left);
-        }
+            // move fader phase
+            x_dub_to_play_->next();
+        });
     } else {
         state_ = STATE_PLAY;
-        statePlay(out);
+        statePlay(in, out);
     }
-}
-
-void FxLooper::setupDSP(t_signal** sp)
-{
-    SoundExternal::setupDSP(sp);
-
-    max_samples_ = capacity_sec_->value() * sys_getsr();
-    buffer_.resize(max_samples_);
-
-    x_play_to_stop_->calc(samplerate(), blockSize());
-    x_stop_to_play_->calc(samplerate(), blockSize());
-    x_rec_to_play_->calc(samplerate(), blockSize());
-    x_rec_to_stop_->calc(samplerate(), blockSize());
-
-    x_rec_to_dub_->calc(samplerate(), blockSize());
-    x_play_to_dub_->calc(samplerate(), blockSize());
-    x_dub_to_play_->calc(samplerate(), blockSize());
 }
 
 void FxLooper::stateStop(t_sample** out)
@@ -424,219 +303,63 @@ void FxLooper::stateStop(t_sample** out)
     fillZero8(out, blockSize());
 }
 
-void FxLooper::statePlay(t_sample** out)
+void FxLooper::statePlay(const t_sample** in, t_sample** out)
 {
-    const size_t bs = blockSize();
-    const size_t samples_left = loop_len_ - play_phase_;
-
-    // enough samples until loop end
-    if (samples_left >= bs) {
-        CHECK_PHASE(play_phase_ + bs - 1, buffer_);
-
-        // manual loop unrolling
-        for (size_t i = 0; i < bs; i += 8) {
-            out[0][i + 0] = buffer_[play_phase_ + i + 0];
-            out[0][i + 1] = buffer_[play_phase_ + i + 1];
-            out[0][i + 2] = buffer_[play_phase_ + i + 2];
-            out[0][i + 3] = buffer_[play_phase_ + i + 3];
-            out[0][i + 4] = buffer_[play_phase_ + i + 4];
-            out[0][i + 5] = buffer_[play_phase_ + i + 5];
-            out[0][i + 6] = buffer_[play_phase_ + i + 6];
-            out[0][i + 7] = buffer_[play_phase_ + i + 7];
-        }
-
-        play_phase_ += bs;
-    } else {
-        CHECK_PHASE((play_phase_ + samples_left) - 1, buffer_);
-
-        for (size_t i = 0; i < samples_left; i++)
-            out[0][i] = buffer_[play_phase_ + i];
-
-        loopCycleFinish();
-
-        CHECK_PHASE(play_phase_ + bs - 1, buffer_);
-
-        for (size_t i = samples_left; i < bs; i++)
-            out[0][i] = buffer_[play_phase_ + i];
-
-        play_phase_ += (bs - samples_left);
-    }
+    processPlayLoop(in, out, [this](t_sample, t_sample& samp_out, t_sample& samp_rec) {
+        samp_out = samp_rec;
+    });
 }
 
-void FxLooper::statePlayToStop(t_sample** out)
+void FxLooper::statePlayToStop(const t_sample** in, t_sample** out)
 {
-    const size_t bs = blockSize();
-
     if (x_play_to_stop_->isRunning()) {
-        const size_t samples_left = loop_len_ - play_phase_;
-
-        // enough samples until loop end
-        // loop in the middle
-        if (samples_left >= bs) {
-            CHECK_PHASE(play_phase_ + bs - 1, buffer_);
-
-            for (size_t i = 0; i < bs; i++) {
-                auto amp = x_play_to_stop_->amp();
-                // move phase
-                x_play_to_stop_->next();
-
-                out[0][i] = amp * buffer_[play_phase_ + i];
-            }
-
-            play_phase_ += bs;
-
-        } else {
-            CHECK_PHASE(play_phase_ + samples_left - 1, buffer_);
-
-            // perform loop crossing
-            for (size_t i = 0; i < samples_left; i++) {
-                auto amp = x_play_to_stop_->amp();
-                // move phase
-                x_play_to_stop_->next();
-
-                out[0][i] = amp * buffer_[play_phase_ + i];
-            }
-
-            loopCycleFinish();
-
-            CHECK_PHASE(play_phase_ + bs - 1, buffer_);
-
-            for (size_t i = samples_left; i < bs; i++) {
-                auto amp = x_play_to_stop_->amp();
-                // move phase
-                x_play_to_stop_->next();
-
-                out[0][i] = amp * buffer_[play_phase_ + i];
-            }
-
-            play_phase_ += (bs - samples_left);
-        }
+        processPlayLoop(in, out, [this](t_sample, t_sample& samp_out, t_sample& samp_rec) {
+            // fadeout value
+            auto amp = this->x_play_to_stop_->amp();
+            // play fadeout
+            samp_out = amp * samp_rec;
+            // move fader phase
+            x_play_to_stop_->next();
+        });
     } else {
         state_ = STATE_STOP;
-        fillZero8(out, bs);
+        stateStop(out);
     }
 }
 
 void FxLooper::statePlayToDub(const t_sample** in, t_sample** out)
 {
-    const size_t bs = blockSize();
-    const size_t samples_left = loop_len_ - play_phase_;
-
-    // overdub fadein
     if (x_play_to_dub_->isRunning()) {
-        // enough samples until loop end
-        if (samples_left >= bs) {
-            CHECK_PHASE(play_phase_ + bs - 1, buffer_);
-
-            for (size_t i = 0; i < bs; i++) {
-                // get amp
-                auto amp = x_play_to_dub_->amp();
-                // move phase
-                x_play_to_dub_->next();
-
-                // copy input
-                t_sample tmp = in[0][i] * amp;
-                // output current
-                out[0][i] = buffer_[play_phase_ + i];
-                // overdub
-                buffer_[play_phase_ + i] += tmp;
-            }
-
-            play_phase_ += bs;
-
-        } else {
-            CHECK_PHASE(play_phase_ + samples_left - 1, buffer_);
-
-            for (size_t i = 0; i < samples_left; i++) {
-                // linear fadein
-                auto amp = x_play_to_dub_->amp();
-                // move phase
-                x_play_to_dub_->next();
-                // copy input
-                t_sample tmp = in[0][i] * amp;
-                // output current
-                out[0][i] = buffer_[play_phase_ + i];
-                // overdub
-                buffer_[play_phase_ + i] += tmp;
-            }
-
-            // reset phase
-            play_phase_ = 0;
-            loopCycleFinish();
-
-            for (size_t i = samples_left; i < bs; i++) {
-                // linear fadein
-                auto amp = x_play_to_dub_->amp();
-                // move phase
-                x_play_to_dub_->next();
-                // copy input
-                t_sample tmp = in[0][i] * amp;
-                // output current
-                out[0][i] = buffer_[play_phase_ + i];
-                // overdub
-                buffer_[play_phase_ + i] += tmp;
-            }
-
+        processPlayLoop(in, out, [this](t_sample samp_in, t_sample& samp_out, t_sample& samp_rec) {
+            // get rec [0->1]
+            auto amp = x_play_to_dub_->amp();
+            // play current
+            samp_out = samp_rec;
+            // overdub
+            samp_rec += amp * samp_in;
             // move phase
-            play_phase_ += (bs - samples_left);
-        }
+            x_play_to_dub_->next();
+        });
     } else {
         state_ = STATE_DUB;
         stateDub(in, out);
     }
 }
 
-void FxLooper::stateStopToPlay(t_sample** out)
+void FxLooper::stateStopToPlay(const t_sample** in, t_sample** out)
 {
-    const size_t bs = blockSize();
-
     if (x_stop_to_play_->isRunning()) {
-        const size_t samples_left = loop_len_ - play_phase_;
-
-        // enough samples until loop end
-        // loop in the middle
-        if (samples_left >= bs) {
-            CHECK_PHASE(play_phase_ + bs - 1, buffer_);
-
-            for (size_t i = 0; i < bs; i++) {
-                auto amp = x_stop_to_play_->amp();
-                // move phase
-                x_stop_to_play_->next();
-
-                out[0][i] = amp * buffer_[play_phase_ + i];
-            }
-
-            play_phase_ += bs;
-
-        } else {
-            CHECK_PHASE((play_phase_ + samples_left) - 1, buffer_);
-
-            // perform loop crossing
-            for (size_t i = 0; i < samples_left; i++) {
-                auto amp = x_stop_to_play_->amp();
-                // move phase
-                x_stop_to_play_->next();
-
-                out[0][i] = amp * buffer_[play_phase_ + i];
-            }
-
-            loopCycleFinish();
-
-            CHECK_PHASE(play_phase_ + bs - 1, buffer_);
-
-            for (size_t i = samples_left; i < bs; i++) {
-                auto amp = x_stop_to_play_->amp();
-                // move phase
-                x_stop_to_play_->next();
-
-                out[0][i] = amp * buffer_[play_phase_ + i];
-            }
-
-            play_phase_ += (bs - samples_left);
-        }
+        processPlayLoop(in, out, [this](t_sample, t_sample& samp_out, t_sample& samp_rec) {
+            // get play fadein [0->1]
+            auto amp = x_stop_to_play_->amp();
+            // play current
+            samp_out = amp * samp_rec;
+            // move phase
+            x_stop_to_play_->next();
+        });
     } else {
         state_ = STATE_PLAY;
-        statePlay(out);
+        statePlay(in, out);
     }
 }
 
@@ -711,7 +434,7 @@ void FxLooper::stateRecordToPlay(const t_sample** in, t_sample** out)
     } else {
         // move to PLAY state
         state_ = STATE_PLAY;
-        statePlay(out);
+        statePlay(in, out);
     }
 }
 
@@ -857,6 +580,8 @@ void FxLooper::m_play(t_symbol*, const AtomList& lst)
     case STATE_REC: {
         state_ = STATE_REC_XFADE_PLAY;
         x_rec_to_play_->calc(samplerate(), blockSize());
+        x_rec_to_stop_->calc(samplerate(), blockSize());
+        x_rec_to_dub_->calc(samplerate(), blockSize());
         x_stop_to_play_->calc(samplerate(), blockSize());
 
         loop_len_ = rec_phase_;
@@ -890,6 +615,7 @@ void FxLooper::m_play(t_symbol*, const AtomList& lst)
     case STATE_DUB:
         state_ = STATE_DUB_XFADE_PLAY;
         x_dub_to_play_->calc(samplerate(), blockSize());
+        x_dub_to_stop_->calc(samplerate(), blockSize());
         break;
     case STATE_INIT:
         OBJ_DBG << "no loop recorded";
@@ -992,19 +718,6 @@ void FxLooper::clockTick()
     bangTo(1);
 }
 
-void setup_fx_looper()
-{
-    SoundExternalFactory<FxLooper> obj("fx.looper~");
-    obj.addMethod("record", &FxLooper::m_record);
-    obj.addMethod("rec", &FxLooper::m_record);
-    obj.addMethod("stop", &FxLooper::m_stop);
-    obj.addMethod("play", &FxLooper::m_play);
-    obj.addMethod("overdub", &FxLooper::m_overdub);
-    obj.addMethod("clear", &FxLooper::m_clear);
-    obj.addMethod("adjust", &FxLooper::m_adjust);
-    obj.addMethod("pause", &FxLooper::m_pause);
-}
-
 XFadeProperty::XFadeProperty(const std::string& name, float ms)
     : FloatProperty(name, ms)
     , length_(0)
@@ -1062,4 +775,17 @@ t_float PowXFadeProperty::amp2() const
 {
     auto p = length_ - phase_;
     return (-1 * double(p * p) / double(length_ * length_)) + 1;
+}
+
+void setup_fx_looper()
+{
+    SoundExternalFactory<FxLooper> obj("fx.looper~");
+    obj.addMethod("record", &FxLooper::m_record);
+    obj.addMethod("rec", &FxLooper::m_record);
+    obj.addMethod("stop", &FxLooper::m_stop);
+    obj.addMethod("play", &FxLooper::m_play);
+    obj.addMethod("overdub", &FxLooper::m_overdub);
+    obj.addMethod("clear", &FxLooper::m_clear);
+    obj.addMethod("adjust", &FxLooper::m_adjust);
+    obj.addMethod("pause", &FxLooper::m_pause);
 }
