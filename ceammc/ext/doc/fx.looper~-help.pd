@@ -43,7 +43,7 @@ float. Value range: 0-1;
 values: init \, stop \, record \, play \, overdub;
 #X msg 120 563 @loop_bang;
 #X text 240 563 Get/Set output bang on each loop start. Type: int.
-Allowed values: 0 \, 1;
+Default value: 0\. Allowed values: 0 \, 1;
 #X obj 20 610 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 615 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

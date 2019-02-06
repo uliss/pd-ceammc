@@ -27,7 +27,7 @@
             current playing phase position</property>
             <property name="@state" type="symbol" enum="init stop record play overdub"
             readonly="true">current state</property>
-            <property name="@loop_bang" type="int" enum="0 1">output bang on each loop
+            <property name="@loop_bang" type="int" enum="0 1" default="0">output bang on each loop
             start</property>
         </properties>
         <methods>
