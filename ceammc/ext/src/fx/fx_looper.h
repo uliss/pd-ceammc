@@ -128,6 +128,8 @@ private:
     template <typename Fn>
     void processPlayLoop(const t_sample** in, t_sample** out, Fn fn)
     {
+        assert(play_phase_ < loop_len_);
+
         const size_t BS = blockSize();
         const size_t LEFT = loop_len_ - play_phase_;
 
@@ -159,6 +161,46 @@ private:
             // process from loop start
             for (size_t i = LEFT; i < BS; i++)
                 fn(in[0][i], out[0][i], buffer_[play_phase_++]);
+        }
+    }
+
+    template <typename Fn>
+    bool processRecLoop(const t_sample** in, t_sample** out, Fn fn)
+    {
+        assert(rec_phase_ < max_samples_);
+
+        const size_t BS = blockSize();
+        const size_t LEFT = max_samples_ - rec_phase_;
+
+        // enough samples until loop end
+        if (LEFT >= BS) {
+            // manual loop unrolling
+            for (size_t i = 0; i < BS; i += 8) {
+                fn(in[0][i + 0], out[0][i + 0], buffer_[rec_phase_++]);
+                fn(in[0][i + 1], out[0][i + 1], buffer_[rec_phase_++]);
+                fn(in[0][i + 2], out[0][i + 2], buffer_[rec_phase_++]);
+                fn(in[0][i + 3], out[0][i + 3], buffer_[rec_phase_++]);
+                fn(in[0][i + 4], out[0][i + 4], buffer_[rec_phase_++]);
+                fn(in[0][i + 5], out[0][i + 5], buffer_[rec_phase_++]);
+                fn(in[0][i + 6], out[0][i + 6], buffer_[rec_phase_++]);
+                fn(in[0][i + 7], out[0][i + 7], buffer_[rec_phase_++]);
+            }
+
+            return false;
+
+            // max_samples_ - rec_phase_ >= bs
+            // max_samples_ >= rec_phase_ + bs
+        } else {
+            // LEFT <= BS
+            // process till loop end
+            for (size_t i = 0; i < LEFT; i++)
+                fn(in[0][i], out[0][i], buffer_[rec_phase_++]);
+
+            state_ = STATE_STOP;
+            loop_len_ = rec_phase_;
+            rec_phase_ = 0;
+            play_phase_ = 0;
+            return true;
         }
     }
 };

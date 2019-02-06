@@ -41,8 +41,7 @@ static bool applyLinFadeIn(C& containter, size_t samples)
         return true;
 
     auto b = std::begin(containter);
-    auto e = std::end(containter);
-    size_t N = e - b;
+    size_t N = std::distance(b, std::end(containter));
 
     if (samples >= N)
         return false;
@@ -365,50 +364,58 @@ void FxLooper::stateStopToPlay(const t_sample** in, t_sample** out)
 
 void FxLooper::stateRecord(const t_sample** in, t_sample** out)
 {
-    const size_t bs = blockSize();
-    const size_t samples_left = max_samples_ - rec_phase_;
+    auto done = processRecLoop(in, out, [this](t_sample samp_in, t_sample& samp_out, t_sample& samp_rec) {
+        samp_rec = samp_in;
+        samp_out = 0;
+    });
 
-    if (samples_left >= bs) {
-        CHECK_PHASE(rec_phase_ + bs - 1, buffer_);
+    const size_t BS = blockSize();
+    //    const size_t LEFT = max_samples_ - rec_phase_;
 
-        for (size_t i = 0; i < bs; i += 8) {
-            // record
-            buffer_[rec_phase_ + i + 0] = in[0][i + 0];
-            buffer_[rec_phase_ + i + 1] = in[0][i + 1];
-            buffer_[rec_phase_ + i + 2] = in[0][i + 2];
-            buffer_[rec_phase_ + i + 3] = in[0][i + 3];
-            buffer_[rec_phase_ + i + 4] = in[0][i + 4];
-            buffer_[rec_phase_ + i + 5] = in[0][i + 5];
-            buffer_[rec_phase_ + i + 6] = in[0][i + 6];
-            buffer_[rec_phase_ + i + 7] = in[0][i + 7];
+    //    if (LEFT >= BS) {
+    //        CHECK_PHASE(rec_phase_ + BS - 1, buffer_);
 
-            // output zero
-            out[0][i + 0] = 0;
-            out[0][i + 1] = 0;
-            out[0][i + 2] = 0;
-            out[0][i + 3] = 0;
-            out[0][i + 4] = 0;
-            out[0][i + 5] = 0;
-            out[0][i + 6] = 0;
-            out[0][i + 7] = 0;
-        }
+    //        for (size_t i = 0; i < BS; i += 8) {
+    //            // record
+    //            buffer_[rec_phase_ + i + 0] = in[0][i + 0];
+    //            buffer_[rec_phase_ + i + 1] = in[0][i + 1];
+    //            buffer_[rec_phase_ + i + 2] = in[0][i + 2];
+    //            buffer_[rec_phase_ + i + 3] = in[0][i + 3];
+    //            buffer_[rec_phase_ + i + 4] = in[0][i + 4];
+    //            buffer_[rec_phase_ + i + 5] = in[0][i + 5];
+    //            buffer_[rec_phase_ + i + 6] = in[0][i + 6];
+    //            buffer_[rec_phase_ + i + 7] = in[0][i + 7];
 
-        rec_phase_ += bs;
+    //            // output zero
+    //            out[0][i + 0] = 0;
+    //            out[0][i + 1] = 0;
+    //            out[0][i + 2] = 0;
+    //            out[0][i + 3] = 0;
+    //            out[0][i + 4] = 0;
+    //            out[0][i + 5] = 0;
+    //            out[0][i + 6] = 0;
+    //            out[0][i + 7] = 0;
+    //        }
 
-    } else {
-        // reach max loop length
-        state_ = STATE_STOP;
-        loop_len_ = rec_phase_;
-        rec_phase_ = 0;
-        play_phase_ = 0;
+    //        rec_phase_ += BS;
+
+    //    } else {
+    // reach max loop length
+
+    if (done) {
+//        state_ = STATE_STOP;
+//        loop_len_ = rec_phase_;
+//        rec_phase_ = 0;
+//        play_phase_ = 0;
 
         const size_t N = std::abs(smooth_ms_->value() * samplerate() * 0.001f);
         applyLinFadeIn(buffer_, N);
         applyLinFadeOut(buffer_, loop_len_, N);
 
-        fillZero8(out, bs);
+        fillZero8(out, BS);
         loopCycleFinish();
     }
+    //    }
 }
 
 void FxLooper::stateRecordToPlay(const t_sample** in, t_sample** out)
