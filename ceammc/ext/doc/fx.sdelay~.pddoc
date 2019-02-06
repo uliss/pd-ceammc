@@ -28,8 +28,8 @@
             coefficient</argument>
         </arguments>
         <properties>
-            <property name="@delay" type="float" minvalue="10" maxvalue="10000" units="millisecond"
-            default="500">echo time</property>
+            <property name="@delay" type="float" minvalue="0" maxvalue="6000" units="millisecond"
+            default="1">echo time</property>
             <property name="@feedback" type="float" minvalue="0" maxvalue="1" default="0">feedback
             coefficient</property>
             <property name="@interpolation" type="float" minvalue="1" maxvalue="200" default="20"
