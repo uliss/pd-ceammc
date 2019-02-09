@@ -4,6 +4,9 @@
 #include "ceammc_clock.h"
 #include "ceammc_sound_external.h"
 
+#include <array>
+#include <functional>
+
 using namespace ceammc;
 
 enum FxLooperState {
@@ -20,13 +23,16 @@ enum FxLooperState {
     STATE_PLAY_XFADE_STOP,
     STATE_PLAY_XFADE_DUB,
     STATE_STOP,
-    STATE_STOP_XFADE_PLAY
+    STATE_STOP_XFADE_PLAY,
+    STATE_COUNT_
 };
 
 class XFadeProperty : public FloatProperty {
 protected:
     size_t length_;
     size_t phase_;
+    size_t sr_;
+    size_t bs_;
 
 public:
     XFadeProperty(const std::string& name, float ms = 0);
@@ -38,6 +44,7 @@ public:
     size_t samples() const { return length_; }
     void next() { phase_ += (phase_ < length_); }
     virtual t_float amp() const = 0;
+    bool set(const AtomList& lst) override;
 };
 
 class LinFadeoutProperty : public XFadeProperty {
@@ -81,6 +88,11 @@ class FxLooper : public SoundExternal {
     std::vector<t_sample> buffer_;
     ClockMemberFunction<FxLooper> clock_;
 
+    typedef std::function<bool()> TransitionFn;
+    typedef std::array<TransitionFn, STATE_COUNT_> StateTransition;
+    typedef std::array<StateTransition, STATE_COUNT_> StateTable;
+    StateTable state_table_;
+
 public:
     FxLooper(const PdArgs& args);
 
@@ -102,9 +114,9 @@ public:
     void stateDubToPlay(const t_sample** in, t_sample** out);
 
     void m_record(t_symbol*, const AtomList& lst);
-    void m_stop(t_symbol*, const AtomList& lst);
-    void m_pause(t_symbol*, const AtomList& lst);
-    void m_play(t_symbol*, const AtomList& lst);
+    void m_stop(t_symbol*, const AtomList&);
+    void m_pause(t_symbol*, const AtomList&);
+    void m_play(t_symbol*, const AtomList&);
     void m_overdub(t_symbol*, const AtomList& lst);
     void m_clear(t_symbol*, const AtomList& lst);
     void m_adjust(t_symbol*, const AtomList& lst);
@@ -124,6 +136,7 @@ public:
 public:
     void loopCycleFinish();
     void clockTick();
+    void calcXFades();
 
 private:
     template <typename Fn>
@@ -204,6 +217,10 @@ private:
             return true;
         }
     }
+
+private:
+    void initTansitionTable();
+    void toState(FxLooperState st);
 };
 
 void setup_fx_looper();

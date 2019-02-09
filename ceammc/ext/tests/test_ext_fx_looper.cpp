@@ -78,6 +78,7 @@ public:
         FxLooper::setBlockSize(BS);
         FxLooper::setSamplerate(SR);
         setTestSampleRate(SR);
+        FxLooper::calcXFades();
     }
 
     void operator<<(const Signal& v)
@@ -148,6 +149,7 @@ static void fill_block(t_sample* b, F f)
 TEST_CASE("fx.looper~", "[externals]")
 {
     setTestSampleRate(512);
+    test::pdPrintToStdError();
 
     SECTION("init")
     {

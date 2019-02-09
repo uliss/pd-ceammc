@@ -2,7 +2,9 @@
 #include "ceammc_factory.h"
 
 #include <algorithm>
-#include <boost/static_assert.hpp>
+#include <array>
+#include <functional>
+#include <unordered_map>
 
 static const float DEFAULT_CAPACITY_SEC = 5;
 static const float MAX_CAPACITY_SEC = 120;
@@ -24,7 +26,7 @@ static t_symbol* states[] = {
     &s_
 };
 
-BOOST_STATIC_ASSERT((sizeof(states) / sizeof(states[0])) == (STATE_STOP_XFADE_PLAY + 1));
+static_assert((sizeof(states) / sizeof(states[0])) == (STATE_COUNT_), "invalid state count");
 
 #define CHECK_PHASE(p, b)                                                          \
     {                                                                              \
@@ -106,6 +108,8 @@ FxLooper::FxLooper(const PdArgs& args)
     , rec_phase_(0)
     , clock_(this, &FxLooper::clockTick)
 {
+    initTansitionTable();
+
     capacity_sec_ = new FloatProperty("@capacity", positionalFloatArgument(0, DEFAULT_CAPACITY_SEC));
     createProperty(capacity_sec_);
 
@@ -232,20 +236,7 @@ void FxLooper::setupDSP(t_signal** sp)
     max_samples_ = capacity_sec_->value() * sys_getsr();
     buffer_.resize(max_samples_);
 
-    const auto BS = blockSize();
-    const auto SR = samplerate();
-
-    x_play_to_stop_->calc(SR, BS);
-    x_play_to_dub_->calc(SR, BS);
-
-    x_stop_to_play_->calc(SR, BS);
-
-    x_rec_to_play_->calc(SR, BS);
-    x_rec_to_dub_->calc(SR, BS);
-    x_rec_to_stop_->calc(SR, BS);
-
-    x_dub_to_play_->calc(SR, BS);
-    x_dub_to_stop_->calc(SR, BS);
+    calcXFades();
 }
 
 void FxLooper::stateDub(const t_sample** in, t_sample** out)
@@ -431,144 +422,27 @@ void FxLooper::stateRecordToDub(const t_sample** in, t_sample** out)
 
 void FxLooper::m_record(t_symbol*, const AtomList& lst)
 {
-    OBJ_DBG << "starting loop record: max " << max_samples_ << " samples ("
-            << float(max_samples_) / samplerate() << " sec)";
-
-    state_ = STATE_REC;
-    rec_phase_ = 0;
-    play_phase_ = 0;
+    toState(STATE_REC);
 }
 
-void FxLooper::m_stop(t_symbol*, const AtomList& lst)
+void FxLooper::m_stop(t_symbol*, const AtomList&)
 {
-    switch (state_) {
-    case STATE_PLAY:
-        state_ = STATE_PLAY_XFADE_STOP;
-        x_play_to_stop_->calc(samplerate(), blockSize());
-        break;
-    case STATE_REC: {
-        state_ = STATE_REC_XFADE_STOP;
-        x_rec_to_stop_->calc(samplerate(), blockSize());
-        loop_len_ = rec_phase_;
-
-        OBJ_DBG << "recorded loop (" << float(loop_len_) / samplerate() << " sec)";
-
-    } break;
-    case STATE_DUB:
-        state_ = STATE_DUB_XFADE_STOP;
-        play_phase_ = 0;
-        rec_phase_ = 0;
-        x_rec_to_stop_->calc(samplerate(), blockSize());
-        break;
-    case STATE_PAUSE:
-    default:
-        state_ = STATE_STOP;
-        play_phase_ = 0;
-        rec_phase_ = 0;
-        break;
-    }
+    toState(STATE_STOP);
 }
 
-void FxLooper::m_pause(t_symbol* s, const AtomList& lst)
+void FxLooper::m_pause(t_symbol* s, const AtomList&)
 {
-    switch (state_) {
-    case STATE_PAUSE:
-        METHOD_ERR(s) << "already paused";
-        break;
-    case STATE_INIT:
-    case STATE_STOP:
-        METHOD_ERR(s) << "is not running";
-        break;
-    case STATE_REC:
-        state_ = STATE_PAUSE;
-        loop_len_ = rec_phase_;
-        break;
-    default:
-        state_ = STATE_PAUSE;
-        break;
-    }
+    toState(STATE_PAUSE);
 }
 
-void FxLooper::m_play(t_symbol*, const AtomList& lst)
+void FxLooper::m_play(t_symbol*, const AtomList&)
 {
-    switch (state_) {
-    case STATE_PLAY:
-        OBJ_ERR << "already playing";
-        break;
-    case STATE_REC: {
-        state_ = STATE_REC_XFADE_PLAY;
-        x_rec_to_play_->calc(samplerate(), blockSize());
-        x_rec_to_stop_->calc(samplerate(), blockSize());
-        x_rec_to_dub_->calc(samplerate(), blockSize());
-        x_stop_to_play_->calc(samplerate(), blockSize());
-
-        loop_len_ = rec_phase_;
-        // loop align
-        if (round_->value() > 0) {
-            const size_t ALIGN = round_->value();
-            size_t div = loop_len_ % ALIGN;
-
-            if (div < ALIGN / 2) {
-                // round to minimal align
-                OBJ_DBG << "shorten loop by " << div << "samples";
-                loop_len_ = (loop_len_ / ALIGN) * ALIGN;
-            }
-        }
-
-        rec_phase_ = 0;
-        play_phase_ = 0;
-
-        OBJ_DBG << "playing recorded loop: " << loop_len_ << " samples ("
-                << float(loop_len_) / samplerate() << " sec)";
-
-    } break;
-    case STATE_STOP:
-        state_ = STATE_STOP_XFADE_PLAY;
-        x_stop_to_play_->calc(samplerate(), blockSize());
-        play_phase_ = 0;
-        break;
-    case STATE_PAUSE:
-        state_ = STATE_PLAY;
-        break;
-    case STATE_DUB:
-        state_ = STATE_DUB_XFADE_PLAY;
-        x_dub_to_play_->calc(samplerate(), blockSize());
-        x_dub_to_stop_->calc(samplerate(), blockSize());
-        break;
-    case STATE_INIT:
-        OBJ_DBG << "no loop recorded";
-        break;
-    default:
-        OBJ_DBG << "unhandled state: " << state_;
-        break;
-    }
+    toState(STATE_PLAY);
 }
 
 void FxLooper::m_overdub(t_symbol*, const AtomList& lst)
 {
-    switch (state_) {
-    case STATE_INIT:
-    case STATE_STOP:
-        OBJ_ERR << "loop is not running...";
-        break;
-    case STATE_DUB:
-        OBJ_ERR << "already overdubbing...";
-        break;
-    case STATE_PLAY:
-        state_ = STATE_PLAY_XFADE_DUB;
-        x_play_to_dub_->calc(samplerate(), blockSize());
-        break;
-    case STATE_REC:
-        state_ = STATE_DUB;
-        rec_phase_ = 0;
-        play_phase_ = 0;
-        x_rec_to_dub_->calc(samplerate(), blockSize());
-        OBJ_DBG << "start loop dub: " << loop_len_ << " samples";
-        break;
-    default:
-        OBJ_DBG << "unhandled state: " << state_;
-        break;
-    }
+    toState(STATE_DUB);
 }
 
 void FxLooper::m_clear(t_symbol*, const AtomList& lst)
@@ -636,10 +510,266 @@ void FxLooper::clockTick()
     bangTo(1);
 }
 
+void FxLooper::calcXFades()
+{
+    const auto BS = blockSize();
+    const auto SR = samplerate();
+
+    x_play_to_stop_->calc(SR, BS);
+    x_play_to_dub_->calc(SR, BS);
+
+    x_stop_to_play_->calc(SR, BS);
+
+    x_rec_to_play_->calc(SR, BS);
+    x_rec_to_dub_->calc(SR, BS);
+    x_rec_to_stop_->calc(SR, BS);
+
+    x_dub_to_play_->calc(SR, BS);
+    x_dub_to_stop_->calc(SR, BS);
+}
+
+void FxLooper::initTansitionTable()
+{
+    state_table_.fill(StateTransition());
+
+    // INIT
+    state_table_[STATE_INIT][STATE_REC] = [this]() {
+        OBJ_DBG << "write loop record: max " << max_samples_ << " samples ("
+                << float(max_samples_) / samplerate() << " sec)";
+
+        state_ = STATE_REC;
+        rec_phase_ = 0;
+        play_phase_ = 0;
+        return true;
+    };
+
+    // init->play
+    state_table_[STATE_INIT][STATE_PLAY] = [this]() {
+        OBJ_ERR << "loop is not recorded yet...";
+        return false;
+    };
+
+    // PLAY
+    // play->play
+    state_table_[STATE_PLAY][STATE_PLAY] = [this]() {
+        OBJ_ERR << "already playing...";
+        return false;
+    };
+
+    // play->rec
+    state_table_[STATE_PLAY][STATE_REC] = [this]() {
+        OBJ_DBG << "overwrite loop record: max " << max_samples_ << " samples ("
+                << float(max_samples_) / samplerate() << " sec)";
+
+        state_ = STATE_REC;
+        rec_phase_ = 0;
+        play_phase_ = 0;
+        return true;
+    };
+
+    // play->stop
+    state_table_[STATE_PLAY][STATE_STOP] = [this]() {
+        state_ = STATE_PLAY_XFADE_STOP;
+        x_play_to_stop_->reset();
+        return true;
+    };
+
+    // play->pause
+    state_table_[STATE_PLAY][STATE_PAUSE] = [this]() {
+        state_ = STATE_PAUSE;
+        return true;
+    };
+
+    // play->dub
+    state_table_[STATE_PLAY][STATE_DUB] = [this]() {
+        state_ = STATE_PLAY_XFADE_DUB;
+        x_play_to_dub_->reset();
+        return true;
+    };
+
+    // STOP
+    // stop->stop
+    state_table_[STATE_STOP][STATE_STOP] = [this]() {
+        OBJ_ERR << "already stopped...";
+        return false;
+    };
+
+    // stop->play
+    state_table_[STATE_STOP][STATE_PLAY] = [this]() {
+        if (loop_len_ == 0) {
+            OBJ_ERR << "loop is not recorded yet...";
+            return false;
+        }
+
+        state_ = STATE_STOP_XFADE_PLAY;
+        x_stop_to_play_->reset();
+        play_phase_ = 0;
+        return true;
+    };
+
+    // stop->rec
+    state_table_[STATE_STOP][STATE_REC] = [this]() {
+        OBJ_DBG << "starting loop record: max " << max_samples_ << " samples ("
+                << float(max_samples_) / samplerate() << " sec)";
+
+        state_ = STATE_REC;
+        rec_phase_ = 0;
+        play_phase_ = 0;
+        return true;
+    };
+
+    // stop->pause
+    state_table_[STATE_STOP][STATE_PAUSE] = [this]() {
+        OBJ_ERR << "is not playing...";
+        return false;
+    };
+
+    // PAUSE
+    // pause->pause
+    state_table_[STATE_PAUSE][STATE_PAUSE] = [this]() {
+        OBJ_ERR << "already paused...";
+        return false;
+    };
+
+    // pause->stop
+    state_table_[STATE_PAUSE][STATE_STOP] = [this]() {
+        state_ = STATE_STOP;
+        play_phase_ = 0;
+        rec_phase_ = 0;
+        return true;
+    };
+
+    // pause->play
+    state_table_[STATE_PAUSE][STATE_PLAY] = [this]() {
+        state_ = STATE_PLAY;
+        return true;
+    };
+
+    // pause->dub
+    state_table_[STATE_PAUSE][STATE_DUB] = [this]() {
+        OBJ_ERR << "can't overdub from pause...";
+        return false;
+    };
+
+    // pause->rec
+    state_table_[STATE_PAUSE][STATE_REC] = [this]() {
+        OBJ_ERR << "can't record from pause...";
+        return false;
+    };
+
+    // RECORD
+    // rec->rec
+    state_table_[STATE_REC][STATE_REC] = [this]() {
+        OBJ_ERR << "already recording...";
+        return false;
+    };
+
+    // rec->stop
+    state_table_[STATE_REC][STATE_STOP] = [this]() {
+        state_ = STATE_REC_XFADE_STOP;
+        x_rec_to_stop_->reset();
+        // TODO check! adjust loop length
+        loop_len_ = rec_phase_;
+
+        OBJ_DBG << "recorded loop (" << float(loop_len_) / samplerate() << " sec)";
+        return true;
+    };
+
+    // rec->pause
+    state_table_[STATE_REC][STATE_PAUSE] = [this]() {
+        state_ = STATE_PAUSE;
+        loop_len_ = rec_phase_;
+        return true;
+    };
+
+    // rec->play
+    state_table_[STATE_REC][STATE_PLAY] = [this]() {
+        state_ = STATE_REC_XFADE_PLAY;
+        x_rec_to_play_->reset();
+
+        loop_len_ = rec_phase_;
+        // loop align
+        if (round_->value() > 0) {
+            const size_t ALIGN = round_->value();
+            size_t div = loop_len_ % ALIGN;
+
+            if (div < ALIGN / 2) {
+                // round to minimal align
+                OBJ_DBG << "shorten loop by " << div << "samples";
+                loop_len_ = (loop_len_ / ALIGN) * ALIGN;
+            }
+        }
+
+        rec_phase_ = 0;
+        play_phase_ = 0;
+
+        OBJ_DBG << "playing recorded loop: " << loop_len_ << " samples ("
+                << float(loop_len_) / samplerate() << " sec)";
+
+        return true;
+    };
+
+    // rec->dub
+    state_table_[STATE_REC][STATE_DUB] = [this]() {
+        state_ = STATE_DUB;
+        rec_phase_ = 0;
+        play_phase_ = 0;
+        x_rec_to_dub_->reset();
+        OBJ_DBG << "start loop dub: " << loop_len_ << " samples";
+        return true;
+    };
+
+    // DUB
+    // dub->play
+    state_table_[STATE_DUB][STATE_PLAY] = [this]() {
+        state_ = STATE_DUB_XFADE_PLAY;
+        x_dub_to_play_->reset();
+        return true;
+    };
+
+    // dub->stop
+    state_table_[STATE_DUB][STATE_STOP] = [this]() {
+        state_ = STATE_DUB_XFADE_STOP;
+        x_rec_to_stop_->reset();
+        return true;
+    };
+
+    // dub->dub
+    state_table_[STATE_DUB][STATE_DUB] = [this]() {
+        OBJ_ERR << "already overdubbing...";
+        return false;
+    };
+
+    // dub->rec
+    state_table_[STATE_DUB][STATE_REC] = [this]() {
+        OBJ_DBG << "starting loop record: max " << max_samples_ << " samples ("
+                << float(max_samples_) / samplerate() << " sec)";
+
+        state_ = STATE_REC;
+        rec_phase_ = 0;
+        play_phase_ = 0;
+        return true;
+    };
+}
+
+void FxLooper::toState(FxLooperState st)
+{
+    auto fn = state_table_[state_][st];
+    if (!fn) {
+        OBJ_ERR << "unhandled transition from state " << state_ << " to " << st;
+        return;
+    }
+
+    if (!fn())
+        OBJ_ERR << "transition error";
+}
+
 XFadeProperty::XFadeProperty(const std::string& name, float ms)
     : FloatProperty(name, ms)
     , length_(0)
     , phase_(0)
+    , sr_(10000)
+    , bs_(32)
 {
     info().setMin(0);
 }
@@ -652,11 +782,22 @@ void XFadeProperty::calc(size_t sr, size_t bs)
     auto samples = std::round(0.001f * sr * std::fabs(value()));
     length_ = (size_t(samples) / bs) * bs;
     phase_ = 0;
+    sr_ = sr;
+    bs_ = bs;
 }
 
 void XFadeProperty::reset()
 {
     phase_ = 0;
+}
+
+bool XFadeProperty::set(const AtomList& lst)
+{
+    auto rc = FloatProperty::set(lst);
+    if (rc)
+        calc(sr_, bs_);
+
+    return rc;
 }
 
 LinFadeoutProperty::LinFadeoutProperty(const std::string& name, float ms)
