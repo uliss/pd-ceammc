@@ -412,58 +412,19 @@ void FxLooper::stateRecordToStop(const t_sample** in, t_sample** out)
 
 void FxLooper::stateRecordToDub(const t_sample** in, t_sample** out)
 {
-    const size_t bs = blockSize();
-    const size_t samples_left = loop_len_ - play_phase_;
+    // one block transition
+    size_t i = 0;
 
-    // enough samples until loop end
-    if (samples_left >= bs) {
-        CHECK_PHASE(play_phase_ + bs - 1, buffer_);
-
-        for (size_t i = 0; i < bs; i++) {
-            // linear fadein
-            auto amp = t_sample(i) / t_sample(bs);
-            // copy input
-            t_sample tmp = in[0][i] * amp;
-            // output current
-            out[0][i] = buffer_[play_phase_ + i];
-            // overdub
-            buffer_[play_phase_ + i] += tmp;
-        }
-
-        play_phase_ += bs;
-
-    } else {
-        CHECK_PHASE(play_phase_ + samples_left - 1, buffer_);
-
-        for (size_t i = 0; i < samples_left; i++) {
-            // linear fadein
-            auto amp = t_sample(i) / t_sample(bs);
-            // copy input
-            t_sample tmp = in[0][i] * amp;
-            // output current
-            out[0][i] = buffer_[play_phase_ + i];
-            // overdub
-            buffer_[play_phase_ + i] += tmp;
-        }
-
-        // reset phase
-        play_phase_ = 0;
-        loopCycleFinish();
-
-        for (size_t i = samples_left; i < bs; i++) {
-            // linear fadein
-            auto amp = t_sample(i) / t_sample(bs);
-            // copy input
-            t_sample tmp = in[0][i] * amp;
-            // output current
-            out[0][i] = buffer_[play_phase_ + i];
-            // overdub
-            buffer_[play_phase_ + i] += tmp;
-        }
-
-        // move phase
-        play_phase_ += (bs - samples_left);
-    }
+    processPlayLoop(in, out, [this, &i](t_sample samp_in, t_sample& samp_out, t_sample& samp_rec) {
+        // linear fadein
+        auto amp = t_sample(i) / t_sample(blockSize());
+        // copy input
+        t_sample tmp = samp_in * amp;
+        // output current
+        samp_out = samp_rec;
+        // overdub
+        samp_rec += tmp;
+    });
 
     state_ = STATE_DUB;
 }
