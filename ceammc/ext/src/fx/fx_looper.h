@@ -56,7 +56,8 @@ class PowXFadeProperty : public XFadeProperty {
 public:
     PowXFadeProperty(const std::string& name, float ms = 0);
     t_float amp() const override;
-    virtual t_float amp2() const;
+    t_float fadeinAmp() const;
+    t_float fadeoutAmp() const;
 };
 
 class FxLooper : public SoundExternal {

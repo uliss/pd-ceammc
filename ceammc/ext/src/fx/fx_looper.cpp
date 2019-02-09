@@ -382,23 +382,12 @@ void FxLooper::stateRecord(const t_sample** in, t_sample** out)
 void FxLooper::stateRecordToPlay(const t_sample** in, t_sample** out)
 {
     if (x_rec_to_play_->isRunning()) {
-        const size_t bs = blockSize();
-
-        CHECK_PHASE(play_phase_ + bs - 1, buffer_);
-
-        for (size_t i = 0; i < bs; i++) {
-            auto& buf = buffer_[play_phase_ + i];
-            // record
-            buf *= x_rec_to_play_->amp2();
-            buf += x_rec_to_play_->amp() * in[0][i];
-            out[0][i] = buf * x_stop_to_play_->amp();
-
-            // move phase
+        processPlayLoop(in, out, [this](t_sample samp_in, t_sample& samp_out, t_sample& samp_rec) {
+            samp_rec *= x_rec_to_play_->fadeinAmp();
+            samp_rec += x_rec_to_play_->fadeoutAmp() * samp_in;
+            samp_out = samp_rec;
             x_rec_to_play_->next();
-            x_stop_to_play_->next();
-        }
-
-        play_phase_ += bs;
+        });
     } else {
         // move to PLAY state
         state_ = STATE_PLAY;
@@ -739,7 +728,12 @@ t_float PowXFadeProperty::amp() const
     return (-1 * double(phase_ * phase_) / double(length_ * length_)) + 1;
 }
 
-t_float PowXFadeProperty::amp2() const
+t_float PowXFadeProperty::fadeinAmp() const
+{
+    return amp();
+}
+
+t_float PowXFadeProperty::fadeoutAmp() const
 {
     auto p = length_ - phase_;
     return (-1 * double(p * p) / double(length_ * length_)) + 1;
