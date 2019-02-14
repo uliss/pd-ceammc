@@ -869,6 +869,7 @@ void FxLooper::doApplyFades(size_t N)
 
         applyLinFadeIn(array_, N);
         applyLinFadeOut(array_, loop_len_, N);
+        array_.redraw();
     } else {
         applyLinFadeIn(buffer_, N);
         applyLinFadeOut(buffer_, loop_len_, N);
