@@ -21,6 +21,8 @@
             units="second">max loop time</property>
             <property name="@length" type="float" units="second" readonly="true">recorded loop
             length</property>
+            <property name="@array" type="symbol" default="">use specified array for record instead
+            of internal buffer</property>
             <property name="@play_pos" type="float" units="second" readonly="true">current playing
             position</property>
             <property name="@play_phase" type="float" minvalue="0" maxvalue="1" readonly="true">
@@ -29,12 +31,22 @@
             readonly="true">current state</property>
             <property name="@loop_bang" type="int" enum="0 1" default="0">output bang on each loop
             start</property>
-            <property name="@play_to_dub_time" type="float" units="millisecond" default="10" minvalue="0">fadein time of overdub input signal while transition from play mode</property>
-            <property name="@rec_to_play_time" type="float" units="millisecond" default="30" minvalue="0">xfade between recorded and input signal while transition from record to play</property>
-            <property name="@stop_to_play_time" type="float" units="millisecond" default="10" minvalue="0">fadein time of play while transition from stop</property>
-            <property name="@round" type="int" units="sample" default="0" minvalue="0">encrease loop length to be multiple of specified value. If *0* - no rounding is performed</property>
-
-</properties>
+            <property name="@play_to_stop_time" type="float" units="millisecond" default="10"
+            minvalue="0">fadeout time while transition from play to stop</property>
+            <property name="@play_to_dub_time" type="float" units="millisecond" default="10"
+            minvalue="0">fadein time of overdub input signal while transition from play
+            mode</property>
+            <property name="@rec_to_play_time" type="float" units="millisecond" default="30"
+            minvalue="0">xfade between recorded and input signal while transition from record to
+            play</property>
+            <property name="@dub_to_stop_time" type="float" units="millisecond" default="20"
+            minvalue="0">fadeout time while transition from overdub to stop</property>
+            <property name="@stop_to_play_time" type="float" units="millisecond" default="10"
+            minvalue="0">fadein time of play while transition from stop</property>
+            <property name="@round" type="int" units="sample" default="0" minvalue="0">encrease
+            loop length to be multiple of specified value. If *0* - no rounding is
+            performed</property>
+        </properties>
         <methods>
             <method name="record">start loop record</method>
             <method name="rec">same as record</method>
@@ -53,7 +65,7 @@
         </inlets>
         <outlets>
             <outlet type="audio">output signal</outlet>
-            <outlet>bang on each loop start if @loop_bang is true</outlet>
+            <outlet>bang on each loop start if @loop_bang property is true</outlet>
         </outlets>
         <example>
             <pdascii>
