@@ -41,6 +41,8 @@
             play</property>
             <property name="@dub_to_stop_time" type="float" units="millisecond" default="20"
             minvalue="0">fadeout time while transition from overdub to stop</property>
+            <property name="@dub_to_play_time" type="float" units="millisecond" default="20"
+            minvalue="0">record fadeout time while transition from overdub to play</property>
             <property name="@stop_to_play_time" type="float" units="millisecond" default="10"
             minvalue="0">fadein time of play while transition from stop</property>
             <property name="@round" type="int" units="sample" default="0" minvalue="0">encrease
