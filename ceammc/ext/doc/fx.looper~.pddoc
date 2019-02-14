@@ -32,7 +32,8 @@
             <property name="@loop_bang" type="int" enum="0 1" default="0">output bang on each loop
             start</property>
             <property name="@loop_smooth" type="float" units="millisecond" default="10"
-            minvalue="0">time of lin fadein/fadeout applied to recorded loop for smooth playing</property>
+            minvalue="0">time of lin fadein/fadeout applied to recorded loop for smooth
+            playing</property>
             <property name="@play_to_stop_time" type="float" units="millisecond" default="10"
             minvalue="0">fadeout time while transition from play to stop</property>
             <property name="@play_to_dub_time" type="float" units="millisecond" default="10"
@@ -61,6 +62,10 @@
             <method name="stop">stop played loop</method>
             <method name="pause">loop pause</method>
             <method name="clear">clear loop data</method>
+            <method name="smooth">
+                <param name="TIME" units="millisecond" type="float">apply linear fadein/fadeout to
+                loop</param>
+            </method>
         </methods>
         <inlets>
             <inlet type="audio">
