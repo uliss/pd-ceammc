@@ -99,7 +99,7 @@ FxLooper::FxLooper(const PdArgs& args)
     , x_play_to_dub_(nullptr)
     , x_dub_to_play_(nullptr)
     , x_dub_to_stop_(nullptr)
-    , smooth_ms_(nullptr)
+    , loop_smooth_ms_(nullptr)
     , max_samples_(0)
     , loop_len_(0)
     , play_phase_(0)
@@ -115,8 +115,8 @@ FxLooper::FxLooper(const PdArgs& args)
     loop_bang_ = new BoolProperty("@loop_bang", false);
     createProperty(loop_bang_);
 
-    smooth_ms_ = new FloatPropertyMinEq("@smooth", 10, 0);
-    createProperty(smooth_ms_);
+    loop_smooth_ms_ = new FloatPropertyMinEq("@loop_smooth", 10, 0);
+    createProperty(loop_smooth_ms_);
 
     x_play_to_stop_ = new LinFadeoutProperty("@play_to_stop_time", 10);
     createProperty(x_play_to_stop_);
@@ -838,7 +838,7 @@ bool FxLooper::arraySpecified() const
 
 void FxLooper::applyFades()
 {
-    const size_t N = std::abs(smooth_ms_->value() * samplerate() * 0.001f);
+    const size_t N = std::abs(loop_smooth_ms_->value() * samplerate() * 0.001f);
 
     // using array
     if (arraySpecified()) {
