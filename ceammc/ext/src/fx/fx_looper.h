@@ -1,6 +1,7 @@
 #ifndef FX_LOOPER_H
 #define FX_LOOPER_H
 
+#include "ceammc_array.h"
 #include "ceammc_clock.h"
 #include "ceammc_sound_external.h"
 
@@ -87,6 +88,8 @@ class FxLooper : public SoundExternal {
     size_t rec_phase_;
     std::vector<t_sample> buffer_;
     ClockMemberFunction<FxLooper> clock_;
+    SymbolProperty* array_name_;
+    Array array_;
 
     typedef std::function<bool()> TransitionFn;
     typedef std::array<TransitionFn, STATE_COUNT_> StateTransition;
@@ -113,12 +116,12 @@ public:
     void stateDubToStop(const t_sample** in, t_sample** out);
     void stateDubToPlay(const t_sample** in, t_sample** out);
 
-    void m_record(t_symbol*, const AtomList& lst);
+    void m_record(t_symbol*, const AtomList&);
     void m_stop(t_symbol*, const AtomList&);
     void m_pause(t_symbol*, const AtomList&);
     void m_play(t_symbol*, const AtomList&);
-    void m_overdub(t_symbol*, const AtomList& lst);
-    void m_clear(t_symbol*, const AtomList& lst);
+    void m_overdub(t_symbol*, const AtomList&);
+    void m_clear(t_symbol*, const AtomList&);
     void m_adjust(t_symbol*, const AtomList& lst);
 
     AtomList p_length() const;
@@ -144,21 +147,24 @@ private:
     {
         assert(play_phase_ < loop_len_);
 
+        const bool USE_ARRAY = arraySpecified();
+
         const size_t BS = blockSize();
         const size_t LEFT = loop_len_ - play_phase_;
 
         // enough samples until loop end
         if (LEFT >= BS) {
-            // manual loop unrolling
-            for (size_t i = 0; i < BS; i += 8) {
-                fn(in[0][i], out[0][i], buffer_[play_phase_++]);
-                fn(in[0][i + 1], out[0][i + 1], buffer_[play_phase_++]);
-                fn(in[0][i + 2], out[0][i + 2], buffer_[play_phase_++]);
-                fn(in[0][i + 3], out[0][i + 3], buffer_[play_phase_++]);
-                fn(in[0][i + 4], out[0][i + 4], buffer_[play_phase_++]);
-                fn(in[0][i + 5], out[0][i + 5], buffer_[play_phase_++]);
-                fn(in[0][i + 6], out[0][i + 6], buffer_[play_phase_++]);
-                fn(in[0][i + 7], out[0][i + 7], buffer_[play_phase_++]);
+            if (USE_ARRAY) {
+                if (array_.isValid() && array_.size() >= loop_len_) {
+                    for (size_t i = 0; i < BS; i++)
+                        fn(in[0][i], out[0][i], array_[play_phase_++]);
+                } else {
+                    stateStop(out);
+                }
+            } else {
+                for (size_t i = 0; i < BS; i++) {
+                    fn(in[0][i], out[0][i], buffer_[play_phase_++]);
+                }
             }
 
             // loop_len - play_phase >= bs
@@ -166,38 +172,68 @@ private:
         } else {
             // LEFT < BS
             // process till loop end
-            for (size_t i = 0; i < LEFT; i++)
-                fn(in[0][i], out[0][i], buffer_[play_phase_++]);
+            if (USE_ARRAY) {
+                if (array_.isValid() && array_.size() >= loop_len_) {
+                    for (size_t i = 0; i < LEFT; i++)
+                        fn(in[0][i], out[0][i], array_[play_phase_++]);
+                } else {
+                    stateStop(out);
+                }
+            } else {
+                for (size_t i = 0; i < LEFT; i++)
+                    fn(in[0][i], out[0][i], buffer_[play_phase_++]);
+            }
 
             play_phase_ = 0;
             loopCycleFinish();
 
             // process from loop start
-            for (size_t i = LEFT; i < BS; i++)
-                fn(in[0][i], out[0][i], buffer_[play_phase_++]);
+            if (USE_ARRAY) {
+                if (array_.isValid() && array_.size() >= loop_len_) {
+                    for (size_t i = LEFT; i < BS; i++)
+                        fn(in[0][i], out[0][i], array_[play_phase_++]);
+                } else {
+                    stateStop(out);
+                }
+            } else {
+                for (size_t i = LEFT; i < BS; i++)
+                    fn(in[0][i], out[0][i], buffer_[play_phase_++]);
+            }
         }
     }
 
+    /**
+     * @return true when max_samples reached
+     */
     template <typename Fn>
     bool processRecLoop(const t_sample** in, t_sample** out, Fn fn)
     {
         assert(rec_phase_ < max_samples_);
+
+        const bool USE_ARRAY = arraySpecified();
 
         const size_t BS = blockSize();
         const size_t LEFT = max_samples_ - rec_phase_;
 
         // enough samples until loop end
         if (LEFT >= BS) {
-            // manual loop unrolling
-            for (size_t i = 0; i < BS; i += 8) {
-                fn(in[0][i + 0], out[0][i + 0], buffer_[rec_phase_++]);
-                fn(in[0][i + 1], out[0][i + 1], buffer_[rec_phase_++]);
-                fn(in[0][i + 2], out[0][i + 2], buffer_[rec_phase_++]);
-                fn(in[0][i + 3], out[0][i + 3], buffer_[rec_phase_++]);
-                fn(in[0][i + 4], out[0][i + 4], buffer_[rec_phase_++]);
-                fn(in[0][i + 5], out[0][i + 5], buffer_[rec_phase_++]);
-                fn(in[0][i + 6], out[0][i + 6], buffer_[rec_phase_++]);
-                fn(in[0][i + 7], out[0][i + 7], buffer_[rec_phase_++]);
+            if (USE_ARRAY) {
+                if (array_.isValid() && array_.size() == max_samples_) {
+                    for (size_t i = 0; i < BS; i++)
+                        fn(in[0][i], out[0][i], array_[rec_phase_++]);
+                }
+            } else {
+                // manual loop unrolling
+                for (size_t i = 0; i < BS; i += 8) {
+                    fn(in[0][i + 0], out[0][i + 0], buffer_[rec_phase_++]);
+                    fn(in[0][i + 1], out[0][i + 1], buffer_[rec_phase_++]);
+                    fn(in[0][i + 2], out[0][i + 2], buffer_[rec_phase_++]);
+                    fn(in[0][i + 3], out[0][i + 3], buffer_[rec_phase_++]);
+                    fn(in[0][i + 4], out[0][i + 4], buffer_[rec_phase_++]);
+                    fn(in[0][i + 5], out[0][i + 5], buffer_[rec_phase_++]);
+                    fn(in[0][i + 6], out[0][i + 6], buffer_[rec_phase_++]);
+                    fn(in[0][i + 7], out[0][i + 7], buffer_[rec_phase_++]);
+                }
             }
 
             return false;
@@ -207,8 +243,15 @@ private:
         } else {
             // LEFT <= BS
             // process till loop end
-            for (size_t i = 0; i < LEFT; i++)
-                fn(in[0][i], out[0][i], buffer_[rec_phase_++]);
+            if (USE_ARRAY) {
+                if (array_.isValid() && array_.size() == max_samples_) {
+                    for (size_t i = 0; i < LEFT; i++)
+                        fn(in[0][i], out[0][i], array_[rec_phase_++]);
+                }
+            } else {
+                for (size_t i = 0; i < LEFT; i++)
+                    fn(in[0][i], out[0][i], buffer_[rec_phase_++]);
+            }
 
             state_ = STATE_STOP;
             loop_len_ = rec_phase_;
@@ -221,6 +264,10 @@ private:
 private:
     void initTansitionTable();
     void toState(FxLooperState st);
+    bool resizeBuffer();
+    void finishRecord();
+    bool arraySpecified() const;
+    void applyFades();
 };
 
 void setup_fx_looper();

@@ -251,7 +251,7 @@ TEST_CASE("fx.looper~", "[externals]")
         REQUIRE(t.state() == STATE_REC_XFADE_STOP);
         REQUIRE(t.loopLengthInSamples() == 16);
         REQUIRE_EQ(t.loop(), sigLin(16, 0, 1));
-        REQUIRE_PROPERTY(t, @state, "");
+        REQUIRE_PROPERTY(t, @state, "rec->stop");
 
         // go to stop
         // no output while stop
@@ -285,7 +285,7 @@ TEST_CASE("fx.looper~", "[externals]")
         REQUIRE(t.state() == STATE_REC_XFADE_STOP);
         REQUIRE(t.loopLengthInSamples() == 24);
         REQUIRE_EQ(t.loop(), Signal(24, 10));
-        REQUIRE_PROPERTY(t, @state, "");
+        REQUIRE_PROPERTY(t, @state, "rec->stop");
 
         t << Signal(24, 1);
         const Signal out = sigLin(8, 0, 8.75) + Signal(8, 10) + sigLin(8, 8.75, 0);
@@ -319,7 +319,7 @@ TEST_CASE("fx.looper~", "[externals]")
         REQUIRE(t.state() == STATE_REC_XFADE_PLAY);
         REQUIRE(t.loopLengthInSamples() == 16);
         REQUIRE_EQ(t.loop(), sigLin(16, 0, 1));
-        REQUIRE_PROPERTY(t, @state, "");
+        REQUIRE_PROPERTY(t, @state, "rec->play");
 
         t << Signal(32, 100);
         REQUIRE(t.state() == STATE_PLAY);
@@ -344,7 +344,7 @@ TEST_CASE("fx.looper~", "[externals]")
         REQUIRE(t.state() == STATE_REC_XFADE_PLAY);
         REQUIRE(t.loopLengthInSamples() == 24);
         REQUIRE_EQ(t.loop(), Signal(24, 10));
-        REQUIRE_PROPERTY(t, @state, "");
+        REQUIRE_PROPERTY(t, @state, "rec->play");
 
         t << Signal(24, 10);
         REQUIRE_PROPERTY(t, @state, "play");
@@ -420,7 +420,7 @@ TEST_CASE("fx.looper~", "[externals]")
         // overdub
         t.overdub();
         REQUIRE(t.state() == STATE_PLAY_XFADE_DUB);
-        REQUIRE_PROPERTY(t, @state, "");
+        REQUIRE_PROPERTY(t, @state, "play->dub");
         t << sigLin(16, 0, 1);
 
         REQUIRE(t.state() == STATE_DUB);
@@ -440,7 +440,7 @@ TEST_CASE("fx.looper~", "[externals]")
         // play
         t.play();
         REQUIRE(t.state() == STATE_DUB_XFADE_PLAY);
-        REQUIRE_PROPERTY(t, @state, "");
+        REQUIRE_PROPERTY(t, @state, "dub->play");
 
         t << Signal(16, 1);
         REQUIRE_EQ(t.output, sigLin(16, 0, 3));
