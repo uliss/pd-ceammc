@@ -77,7 +77,6 @@ class FxLooper : public SoundExternal {
     LinFadeinProperty* x_stop_to_play_;
     PowXFadeProperty* x_rec_to_play_;
     LinFadeoutProperty* x_rec_to_stop_;
-    LinFadeinProperty* x_rec_to_dub_;
     LinFadeinProperty* x_play_to_dub_;
     LinFadeoutProperty* x_dub_to_play_;
     LinFadeoutProperty* x_dub_to_stop_;

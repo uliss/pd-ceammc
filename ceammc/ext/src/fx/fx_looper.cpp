@@ -97,7 +97,6 @@ FxLooper::FxLooper(const PdArgs& args)
     , x_stop_to_play_(nullptr)
     , x_rec_to_play_(nullptr)
     , x_rec_to_stop_(nullptr)
-    , x_rec_to_dub_(nullptr)
     , x_play_to_dub_(nullptr)
     , x_dub_to_play_(nullptr)
     , x_dub_to_stop_(nullptr)
@@ -134,9 +133,6 @@ FxLooper::FxLooper(const PdArgs& args)
 
     x_rec_to_stop_ = new LinFadeoutProperty("@rec_to_stop_time", 10);
     createProperty(x_rec_to_stop_);
-
-    x_rec_to_dub_ = new LinFadeinProperty("@rec_to_dub_time", 10);
-    createProperty(x_rec_to_dub_);
 
     x_dub_to_play_ = new LinFadeoutProperty("@dub_to_play_time", 20);
     createProperty(x_dub_to_play_);
@@ -451,6 +447,7 @@ void FxLooper::m_clear(t_symbol*, const AtomList&)
         }
 
         array_.fillWith(0.f);
+        array_.redraw();
     } else {
         buffer_.assign(buffer_.size(), 0);
     }
@@ -528,7 +525,6 @@ void FxLooper::calcXFades()
     x_stop_to_play_->calc(SR, BS);
 
     x_rec_to_play_->calc(SR, BS);
-    x_rec_to_dub_->calc(SR, BS);
     x_rec_to_stop_->calc(SR, BS);
 
     x_dub_to_play_->calc(SR, BS);
@@ -735,7 +731,6 @@ void FxLooper::initTansitionTable()
         state_ = STATE_DUB;
         rec_phase_ = 0;
         play_phase_ = 0;
-        x_rec_to_dub_->reset();
         OBJ_DBG << "start loop dub: " << loop_len_ << " samples";
         return true;
     };
