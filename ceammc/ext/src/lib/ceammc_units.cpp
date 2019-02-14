@@ -23,7 +23,7 @@
 using namespace ceammc;
 using namespace ceammc::units;
 
-Either<TimeUnitValue> TimeUnitValue::parse(const AtomList& lst)
+Either<TimeValue> TimeValue::parse(const AtomList& lst)
 {
     static t_symbol* SYM_MS = gensym("ms");
     static t_symbol* SYM_SEC = gensym("sec");
@@ -50,17 +50,17 @@ Either<TimeUnitValue> TimeUnitValue::parse(const AtomList& lst)
 
         auto s = lst[1].asSymbol();
         if (s == SYM_MS)
-            return TimeUnitValue(v, TimeUnits::MS);
+            return TimeValue(v, TimeUnits::MS);
         else if (s == SYM_SEC)
-            return TimeUnitValue(v, TimeUnits::SEC);
+            return TimeValue(v, TimeUnits::SEC);
         else if (s == SYM_SEC2)
-            return TimeUnitValue(v, TimeUnits::SEC);
+            return TimeValue(v, TimeUnits::SEC);
         else if (s == SYM_MIN)
-            return TimeUnitValue(v, TimeUnits::MIN);
+            return TimeValue(v, TimeUnits::MIN);
         else if (s == SYM_HOUR)
-            return TimeUnitValue(v, TimeUnits::HOUR);
+            return TimeValue(v, TimeUnits::HOUR);
         else if (s == SYM_DAY)
-            return TimeUnitValue(v, TimeUnits::DAY);
+            return TimeValue(v, TimeUnits::DAY);
         else {
             std::ostringstream ss;
             ss << "unknown unit: " << s << ",  supported values are: ms, sec(s), min, hour, day";
@@ -79,29 +79,29 @@ Either<TimeUnitValue> TimeUnitValue::parse(const AtomList& lst)
 
         //no suffix
         if (last[0] == '\0')
-            return TimeUnitValue(v, TimeUnits::MS);
+            return TimeValue(v, TimeUnits::MS);
 
         t_symbol* suffix = gensym(last);
 
         if (suffix == SYM_MS)
-            return TimeUnitValue(v, TimeUnits::MS);
+            return TimeValue(v, TimeUnits::MS);
         else if (suffix == SYM_SEC)
-            return TimeUnitValue(v, TimeUnits::SEC);
+            return TimeValue(v, TimeUnits::SEC);
         else if (suffix == SYM_SEC2)
-            return TimeUnitValue(v, TimeUnits::SEC);
+            return TimeValue(v, TimeUnits::SEC);
         else if (suffix == SYM_MIN)
-            return TimeUnitValue(v, TimeUnits::MIN);
+            return TimeValue(v, TimeUnits::MIN);
         else if (suffix == SYM_HOUR)
-            return TimeUnitValue(v, TimeUnits::HOUR);
+            return TimeValue(v, TimeUnits::HOUR);
         else if (suffix == SYM_DAY)
-            return TimeUnitValue(v, TimeUnits::DAY);
+            return TimeValue(v, TimeUnits::DAY);
         else {
             std::ostringstream ss;
             ss << "unknown unit: " << suffix << ",  supported values are: ms, sec(s), min, hour, day";
             return UnitParseError(ss.str());
         }
     } else if (lst.isFloat()) {
-        return TimeUnitValue(lst[0].asFloat(), TimeUnits::MS);
+        return TimeValue(lst[0].asFloat(), TimeUnits::MS);
     } else {
         std::ostringstream ss;
         ss << "unexpected time format: " << lst;

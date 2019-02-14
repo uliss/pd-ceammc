@@ -73,13 +73,13 @@ namespace units {
     };
 
     template <typename V, typename U, UnitType T>
-    class UnitValueT {
+    class UnitValue {
     public:
         typedef V value_type;
         value_type value;
         U unit;
 
-        UnitValueT(V v, U u)
+        UnitValue(V v, U u)
             : value(v)
             , unit(u)
         {
@@ -88,10 +88,10 @@ namespace units {
         UnitType type() const { return T; }
     };
 
-    class TimeUnitValue : public UnitValueT<t_float, TimeUnits, UnitType::TIME> {
+    class TimeValue : public UnitValue<t_float, TimeUnits, UnitType::TIME> {
     public:
-        TimeUnitValue(t_float v, TimeUnits u = TimeUnits::MS)
-            : UnitValueT<t_float, TimeUnits, UnitType::TIME>(v, u)
+        TimeValue(t_float v, TimeUnits u = TimeUnits::MS)
+            : UnitValue<t_float, TimeUnits, UnitType::TIME>(v, u)
         {
         }
 
@@ -111,7 +111,7 @@ namespace units {
             }
         }
 
-        bool operator==(const TimeUnitValue& v) const
+        bool operator==(const TimeValue& v) const
         {
             if (unit == v.unit)
                 return value == v.value;
@@ -119,9 +119,9 @@ namespace units {
                 return toMs() == v.toMs();
         }
 
-        bool operator!=(const TimeUnitValue& v) const { return !this->operator==(v); }
+        bool operator!=(const TimeValue& v) const { return !this->operator==(v); }
 
-        bool operator<(const TimeUnitValue& v) const
+        bool operator<(const TimeValue& v) const
         {
             if (unit == v.unit)
                 return value < v.value;
@@ -129,23 +129,23 @@ namespace units {
                 return toMs() < v.toMs();
         }
 
-        bool operator<=(const TimeUnitValue& v) const
+        bool operator<=(const TimeValue& v) const
         {
             return this->operator<(v) || this->operator==(v);
         }
 
-        bool operator>=(const TimeUnitValue& v) const
+        bool operator>=(const TimeValue& v) const
         {
             return !this->operator<(v);
         }
 
-        bool operator>(const TimeUnitValue& v) const
+        bool operator>(const TimeValue& v) const
         {
             return !this->operator<=(v);
         }
 
     public:
-        static Either<TimeUnitValue> parse(const AtomList& lst);
+        static Either<TimeValue> parse(const AtomList& lst);
     };
 }
 }

@@ -25,79 +25,79 @@ TEST_CASE("units", "[ceammc::ceammc_units]")
     SECTION("time")
     {
         UnitParseError err;
-        TimeUnitValue v(0);
+        TimeValue v(0);
         REQUIRE(v.toMs() == 0);
         REQUIRE(v.unit == TimeUnits::MS);
         REQUIRE(v.value == 0);
 
-        REQUIRE(TimeUnitValue::parse(AtomList()).matchError(err));
-        REQUIRE(TimeUnitValue::parse(LA(100, "ms")).matchValue(v));
+        REQUIRE(TimeValue::parse(AtomList()).matchError(err));
+        REQUIRE(TimeValue::parse(LA(100, "ms")).matchValue(v));
         REQUIRE(v.value == 100);
         REQUIRE(v.unit == TimeUnits::MS);
 
-        REQUIRE(TimeUnitValue::parse(LA(15, "sec")).matchValue(v));
+        REQUIRE(TimeValue::parse(LA(15, "sec")).matchValue(v));
         REQUIRE(v.value == 15);
         REQUIRE(v.unit == TimeUnits::SEC);
 
-        REQUIRE(TimeUnitValue::parse(LA(20, "min")).matchValue(v));
+        REQUIRE(TimeValue::parse(LA(20, "min")).matchValue(v));
         REQUIRE(v.value == 20);
         REQUIRE(v.unit == TimeUnits::MIN);
 
-        REQUIRE(TimeUnitValue::parse(LA(200, "hour")).matchValue(v));
+        REQUIRE(TimeValue::parse(LA(200, "hour")).matchValue(v));
         REQUIRE(v.value == 200);
         REQUIRE(v.unit == TimeUnits::HOUR);
 
-        REQUIRE(TimeUnitValue::parse(LA(1.5, "day")).matchValue(v));
+        REQUIRE(TimeValue::parse(LA(1.5, "day")).matchValue(v));
         REQUIRE(v.value == 1.5f);
         REQUIRE(v.unit == TimeUnits::DAY);
 
-        REQUIRE(TimeUnitValue::parse(LA("100ms")).matchValue(v));
+        REQUIRE(TimeValue::parse(LA("100ms")).matchValue(v));
         REQUIRE(v.value == 100);
         REQUIRE(v.unit == TimeUnits::MS);
 
-        REQUIRE(TimeUnitValue::parse(LA("100.1s")).matchValue(v));
+        REQUIRE(TimeValue::parse(LA("100.1s")).matchValue(v));
         REQUIRE(v.value == Approx(100.1f));
         REQUIRE(v.unit == TimeUnits::SEC);
 
-        REQUIRE(TimeUnitValue::parse(LA("30min")).matchValue(v));
+        REQUIRE(TimeValue::parse(LA("30min")).matchValue(v));
         REQUIRE(v.value == Approx(30));
         REQUIRE(v.unit == TimeUnits::MIN);
 
-        REQUIRE(TimeUnitValue::parse(LA("10")).matchValue(v));
+        REQUIRE(TimeValue::parse(LA("10")).matchValue(v));
         REQUIRE(v.value == Approx(10));
         REQUIRE(v.unit == TimeUnits::MS);
 
         // too big value
-        REQUIRE(TimeUnitValue::parse(LA("1000000000000000000000000000000000000000")).matchError(err));
-        REQUIRE(TimeUnitValue::parse(LA("10 nanosec")).matchError(err));
-        REQUIRE(TimeUnitValue::parse(LA(10, "nanosec")).matchError(err));
-        REQUIRE(TimeUnitValue::parse(LA("10", "sec")).matchError(err));
-        REQUIRE(TimeUnitValue::parse(LA(10, 20, 30)).matchError(err));
-        REQUIRE(TimeUnitValue::parse(LA(40)).matchValue(v));
+        REQUIRE(TimeValue::parse(LA("1000000000000000000000000000000000000000")).matchError(err));
+        REQUIRE(TimeValue::parse(LA("10 nanosec")).matchError(err));
+        REQUIRE(TimeValue::parse(LA(10, "nanosec")).matchError(err));
+        REQUIRE(TimeValue::parse(LA("10", "sec")).matchError(err));
+        REQUIRE(TimeValue::parse(LA(10, 20, 30)).matchError(err));
+        REQUIRE(TimeValue::parse(LA(40)).matchValue(v));
         REQUIRE(v.value == Approx(40));
     }
 
     SECTION("compare")
     {
-        REQUIRE(TimeUnitValue(0) == TimeUnitValue(0));
-        REQUIRE(TimeUnitValue(1) == TimeUnitValue(1));
-        REQUIRE(TimeUnitValue(-20) == TimeUnitValue(-20));
-        REQUIRE(TimeUnitValue(10, TimeUnits::SEC) == TimeUnitValue(10000, TimeUnits::MS));
-        REQUIRE(TimeUnitValue(2, TimeUnits::MIN) == TimeUnitValue(120, TimeUnits::SEC));
-        REQUIRE(TimeUnitValue(3, TimeUnits::HOUR) == TimeUnitValue(180, TimeUnits::MIN));
-        REQUIRE(TimeUnitValue(1, TimeUnits::DAY) == TimeUnitValue(24 * 60, TimeUnits::MIN));
+        REQUIRE(TimeValue(0) == TimeValue(0));
+        REQUIRE(TimeValue(1) == TimeValue(1));
+        REQUIRE(TimeValue(-20) == TimeValue(-20));
+        REQUIRE(TimeValue(10, TimeUnits::SEC) == TimeValue(10000, TimeUnits::MS));
+        REQUIRE(TimeValue(2, TimeUnits::MIN) == TimeValue(120, TimeUnits::SEC));
+        REQUIRE(TimeValue(3, TimeUnits::HOUR) == TimeValue(180, TimeUnits::MIN));
+        REQUIRE(TimeValue(1, TimeUnits::DAY) == TimeValue(24 * 60, TimeUnits::MIN));
 
-        REQUIRE(TimeUnitValue(1) != TimeUnitValue(2));
-        REQUIRE(TimeUnitValue(2, TimeUnits::MIN) != TimeUnitValue(121, TimeUnits::SEC));
-        REQUIRE(TimeUnitValue(2, TimeUnits::MIN) != TimeUnitValue(2, TimeUnits::SEC));
+        REQUIRE(TimeValue(1) != TimeValue(2));
+        REQUIRE(TimeValue(2, TimeUnits::MIN) != TimeValue(121, TimeUnits::SEC));
+        REQUIRE(TimeValue(2, TimeUnits::MIN) != TimeValue(2, TimeUnits::SEC));
 
-        REQUIRE(TimeUnitValue(0) < TimeUnitValue(1));
-        REQUIRE(TimeUnitValue(0) <= TimeUnitValue(1));
-        REQUIRE(TimeUnitValue(1) <= TimeUnitValue(1));
-        REQUIRE(TimeUnitValue(59, TimeUnits::SEC) <= TimeUnitValue(1, TimeUnits::MIN));
+        REQUIRE(TimeValue(0) < TimeValue(1));
+        REQUIRE(TimeValue(0) <= TimeValue(1));
+        REQUIRE(TimeValue(1) <= TimeValue(1));
+        REQUIRE(TimeValue(59, TimeUnits::SEC) <= TimeValue(1, TimeUnits::MIN));
 
-        REQUIRE(TimeUnitValue(1) > TimeUnitValue(0));
-        REQUIRE(TimeUnitValue(1) >= TimeUnitValue(0));
-        REQUIRE(TimeUnitValue(1) >= TimeUnitValue(1));
+        REQUIRE(TimeValue(1) > TimeValue(0));
+        REQUIRE(TimeValue(1) >= TimeValue(0));
+        REQUIRE(TimeValue(1) >= TimeValue(1));
     }
 }
