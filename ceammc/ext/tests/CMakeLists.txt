@@ -49,6 +49,7 @@ ceammc_add_test("ceammc::signal" test_signal)
 ceammc_add_test("ceammc::string" test_string)
 ceammc_add_test("ceammc::window" test_window)
 ceammc_add_test("ceammc::proxy" test_proxy)
+ceammc_add_test("ceammc::units" test_units)
 ceammc_add_test("class_wrapper::tuple" test_wrapper_tuple)
 ceammc_add_test("class_wrapper::fn_traits" test_wrapper_fn_traits)
 

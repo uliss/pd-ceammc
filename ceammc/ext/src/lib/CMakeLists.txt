@@ -63,6 +63,7 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_string.cpp
     ceammc_thread.cpp
     ceammc_timeline.cpp
+    ceammc_units.cpp
     ceammc_window.cpp
 
     datatype_property.cpp
