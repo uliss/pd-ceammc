@@ -45,16 +45,17 @@ Type: symbol;
 #X text 240 616 Get/Set serial baud rate. Standard value supported by
 most serial ports: 110 \, 300 \, 600 \, 1200 \, 2400 \, 4800 \, 9600
 \, 14400 \, 19200 \, 28800 \, 38400 \, 56000 \, 57600 \, 115200\.
-Type: int. Default value: 57600;
+Type: int. Default value: 57600\. Min value: 0;
 #X msg 120 681 @vendor_id;
 #X text 240 681 Get/Set USB device vendor id. If specified at creation
 \, tries to connect to devices only with such vendor. Note: vendor id
-is specified in decimal mode \, not in hex. Type: int;
+is specified in decimal mode \, not in hex. Type: int. Default value:
+0;
 #X msg 120 746 @product_id;
 #X text 240 746 Get/Set USB device product id. If vendor and product
 ids are specified at creation \, tries to connect to devices only with
 such properties. Note: product id is specified in decimal mode \, not
-in hex. Type: int;
+in hex. Type: int. Default value: 0;
 #X msg 120 811 @reconnect;
 #X text 240 811 enables hot-pluggin;
 #X msg 120 838 @connected;

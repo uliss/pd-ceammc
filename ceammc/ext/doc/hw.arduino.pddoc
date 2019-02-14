@@ -28,15 +28,15 @@
             to connect to this device only</property>
             <property name="@serial" type="symbol">USB device serial number. If specified at
             creation, tries to connect to devices only with such serial number</property>
-            <property name="@rate" type="int" default="57600">serial baud rate. Standard value
-            supported by most serial ports: 110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200,
-            28800, 38400, 56000, 57600, 115200</property>
-            <property name="@vendor_id" type="int">USB device vendor id. If specified at creation,
-            tries to connect to devices only with such vendor. Note: vendor id is specified in
-            decimal mode, not in hex</property>
-            <property name="@product_id" type="int">USB device product id. If vendor and product
-            ids are specified at creation, tries to connect to devices only with such properties.
-            Note: product id is specified in decimal mode, not in hex</property>
+            <property name="@rate" type="int" default="57600" minvalue="0">serial baud rate.
+            Standard value supported by most serial ports: 110, 300, 600, 1200, 2400, 4800, 9600,
+            14400, 19200, 28800, 38400, 56000, 57600, 115200</property>
+            <property name="@vendor_id" type="int" default="0">USB device vendor id. If specified
+            at creation, tries to connect to devices only with such vendor. Note: vendor id is
+            specified in decimal mode, not in hex</property>
+            <property name="@product_id" type="int" default="0">USB device product id. If vendor
+            and product ids are specified at creation, tries to connect to devices only with such
+            properties. Note: product id is specified in decimal mode, not in hex</property>
             <property name="@reconnect" type="flag">enables hot-pluggin</property>
             <property name="@connected" type="int" readonly="true">state of connection to
             device</property>
