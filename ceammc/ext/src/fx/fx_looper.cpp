@@ -96,7 +96,6 @@ FxLooper::FxLooper(const PdArgs& args)
     , x_play_to_stop_(nullptr)
     , x_stop_to_play_(nullptr)
     , x_rec_to_play_(nullptr)
-    , x_rec_to_stop_(nullptr)
     , x_play_to_dub_(nullptr)
     , x_dub_to_play_(nullptr)
     , x_dub_to_stop_(nullptr)
@@ -130,9 +129,6 @@ FxLooper::FxLooper(const PdArgs& args)
 
     x_rec_to_play_ = new PowXFadeProperty("@rec_to_play_time", 30);
     createProperty(x_rec_to_play_);
-
-    x_rec_to_stop_ = new LinFadeoutProperty("@rec_to_stop_time", 10);
-    createProperty(x_rec_to_stop_);
 
     x_dub_to_play_ = new LinFadeoutProperty("@dub_to_play_time", 20);
     createProperty(x_dub_to_play_);
@@ -525,7 +521,6 @@ void FxLooper::calcXFades()
     x_stop_to_play_->calc(SR, BS);
 
     x_rec_to_play_->calc(SR, BS);
-    x_rec_to_stop_->calc(SR, BS);
 
     x_dub_to_play_->calc(SR, BS);
     x_dub_to_stop_->calc(SR, BS);
@@ -702,7 +697,6 @@ void FxLooper::initTansitionTable()
     // rec->stop
     state_table_[STATE_REC][STATE_STOP] = [this]() {
         state_ = STATE_REC_XFADE_STOP;
-        x_rec_to_stop_->reset();
         finishRecord();
         return true;
     };
@@ -746,7 +740,6 @@ void FxLooper::initTansitionTable()
     // dub->stop
     state_table_[STATE_DUB][STATE_STOP] = [this]() {
         state_ = STATE_DUB_XFADE_STOP;
-        x_rec_to_stop_->reset();
         return true;
     };
 

@@ -168,8 +168,6 @@ TEST_CASE("fx.looper~", "[externals]")
         REQUIRE_PROPERTY(t, @play_to_stop_time, 10);
         REQUIRE_PROPERTY(t, @stop_to_play_time, 10);
         REQUIRE_PROPERTY(t, @rec_to_play_time, 30);
-        REQUIRE_PROPERTY(t, @rec_to_stop_time, 10);
-        REQUIRE_PROPERTY(t, @rec_to_dub_time, 10);
         REQUIRE_PROPERTY(t, @dub_to_play_time, 20);
 
         SECTION("wrong max length")
@@ -234,8 +232,6 @@ TEST_CASE("fx.looper~", "[externals]")
         t.setProperty("@rec_to_stop_time", LF(0.f));
         REQUIRE(t.state() == STATE_INIT);
         REQUIRE(t.prop<FloatPropertyMinEq>("@smooth")->value() == 0);
-        REQUIRE(t.prop<LinFadeinProperty>("@rec_to_stop_time")->value() == 0);
-        REQUIRE(t.prop<LinFadeinProperty>("@rec_to_stop_time")->samples() == 0);
 
         // record loop
         t.record();
