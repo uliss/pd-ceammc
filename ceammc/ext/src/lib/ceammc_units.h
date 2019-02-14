@@ -15,6 +15,7 @@
 #define CEAMMC_UNITS_H
 
 #include <boost/variant.hpp>
+#include <cmath>
 
 #include "ceammc_atomlist.h"
 
@@ -55,6 +56,16 @@ namespace units {
 
             value = boost::get<T>(*this);
             return true;
+        }
+
+        T& value()
+        {
+            return boost::get<T>(*this);
+        }
+
+        const T& value() const
+        {
+            return boost::get<T>(*this);
         }
     };
 
@@ -108,6 +119,22 @@ namespace units {
                 return 1000 * 60 * 60 * value;
             case TimeUnits::DAY:
                 return 1000 * 60 * 60 * 24 * value;
+            }
+        }
+
+        long toSamples(size_t sr) const
+        {
+            switch (unit) {
+            case TimeUnits::MS:
+                return std::round(value * (t_float)sr * 0.001);
+            case TimeUnits::SEC:
+                return std::round(value * t_float(sr));
+            case TimeUnits::MIN:
+                return std::round(value * t_float(60 * sr));
+            case TimeUnits::HOUR:
+                return std::round(value * t_float(60 * 60 * sr));
+            case TimeUnits::DAY:
+                return std::round(value * t_float(24 * 60 * 60 * sr));
             }
         }
 

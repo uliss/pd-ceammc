@@ -228,10 +228,10 @@ TEST_CASE("fx.looper~", "[externals]")
         REQUIRE_PROPERTY(t, @play_pos, 0.f);
         REQUIRE_PROPERTY(t, @length, 0.f);
 
-        t.setProperty("@smooth", LF(0.f));
+        t.setProperty("@loop_smooth", LF(0.f));
         t.setProperty("@rec_to_stop_time", LF(0.f));
         REQUIRE(t.state() == STATE_INIT);
-        REQUIRE(t.prop<FloatPropertyMinEq>("@smooth")->value() == 0);
+        REQUIRE(t.prop<FloatPropertyMinEq>("@loop_smooth")->value() == 0);
 
         // record loop
         t.record();
@@ -265,7 +265,7 @@ TEST_CASE("fx.looper~", "[externals]")
         REQUIRE_EQ(t.output, Signal(24, 0));
 
         // apply fadein/out
-        t.setProperty("@smooth", LA(1000 * 8 / 512.0));
+        t.setProperty("@loop_smooth", LA(1000 * 8 / 512.0));
 
         // record again
         t.record();
@@ -361,7 +361,7 @@ TEST_CASE("fx.looper~", "[externals]")
         REQUIRE_PROPERTY(t, @play_pos, 0.f);
         REQUIRE_PROPERTY(t, @length, 0.f);
 
-        t.setProperty("@smooth", LF(0.f));
+        t.setProperty("@loop_smooth", LF(0.f));
 
         // record loop
         t.record();
@@ -384,7 +384,7 @@ TEST_CASE("fx.looper~", "[externals]")
 
         // clear
         t.clear();
-        t.setProperty("@smooth", LA(1000 * 8 / 512.0));
+        t.setProperty("@loop_smooth", LA(1000 * 8 / 512.0));
 
         // record loop
         t.record();
@@ -446,7 +446,7 @@ TEST_CASE("fx.looper~", "[externals]")
 
     SECTION("bang")
     {
-        FxLooperTest t("fx.looper~", LA(0.25, "@smooth", 0.f, "@rec_to_play_time", 0.f));
+        FxLooperTest t("fx.looper~", LA(0.25, "@loop_smooth", 0.f, "@rec_to_play_time", 0.f));
         REQUIRE(t.maxSamples() == 128);
 
         t.record();
@@ -465,7 +465,7 @@ TEST_CASE("fx.looper~", "[externals]")
 
     SECTION("stop -> play")
     {
-        FxLooperTest t("fx.looper~", LA(0.125, "@smooth", 0.f, "@rec_to_play_time", 0.f));
+        FxLooperTest t("fx.looper~", LA(0.125, "@loop_smooth", 0.f, "@rec_to_play_time", 0.f));
         REQUIRE(t.maxSamples() == 64);
 
         t.record();

@@ -1,5 +1,6 @@
 #include "fx_looper.h"
 #include "ceammc_factory.h"
+#include "ceammc_units.h"
 
 #include <algorithm>
 #include <array>
@@ -468,6 +469,21 @@ void FxLooper::m_adjust(t_symbol* s, const AtomList& lst)
     loop_len_ = long(loop_len_) + samples;
 }
 
+void FxLooper::m_smooth(t_symbol* s, const AtomList& lst)
+{
+    using namespace ceammc::units;
+    auto res = TimeValue::parse(lst);
+    UnitParseError err;
+    if (res.matchError(err)) {
+        METHOD_ERR(s) << err.msg;
+        return;
+    }
+
+    const TimeValue& tm = res.value();
+    const size_t N = std::abs(tm.toSamples(samplerate()));
+    doApplyFades(N);
+}
+
 AtomList FxLooper::p_length() const
 {
     return AtomList(loop_len_ / sys_getsr());
@@ -839,7 +855,11 @@ bool FxLooper::arraySpecified() const
 void FxLooper::applyFades()
 {
     const size_t N = std::abs(loop_smooth_ms_->value() * samplerate() * 0.001f);
+    doApplyFades(N);
+}
 
+void FxLooper::doApplyFades(size_t N)
+{
     // using array
     if (arraySpecified()) {
         if (!array_.isValid()) {
@@ -943,4 +963,5 @@ void setup_fx_looper()
     obj.addMethod("clear", &FxLooper::m_clear);
     obj.addMethod("adjust", &FxLooper::m_adjust);
     obj.addMethod("pause", &FxLooper::m_pause);
+    obj.addMethod("smooth", &FxLooper::m_smooth);
 }

@@ -121,6 +121,7 @@ public:
     void m_overdub(t_symbol*, const AtomList&);
     void m_clear(t_symbol*, const AtomList&);
     void m_adjust(t_symbol*, const AtomList& lst);
+    void m_smooth(t_symbol*, const AtomList& lst);
 
     AtomList p_length() const;
     AtomList p_play_pos() const;
@@ -266,6 +267,7 @@ private:
     void finishRecord();
     bool arraySpecified() const;
     void applyFades();
+    void doApplyFades(size_t N);
 };
 
 void setup_fx_looper();
