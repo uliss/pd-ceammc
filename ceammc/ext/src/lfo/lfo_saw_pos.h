@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "lfo_saw_pos"
-Code generated with Faust 2.8.5 (https://faust.grame.fr)
+Code generated with Faust 2.15.0 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -372,9 +372,8 @@ struct Meta
 
 #include <algorithm>
 #include <map>
-#include <string.h>
-#include <stdlib.h>
 #include <cstdlib>
+#include <string.h>
 
 
 using std::max;
@@ -382,33 +381,33 @@ using std::min;
 
 struct XXXX_Meta : std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
-inline int lsr(int x, int n)	{ return int(((unsigned int)x) >> n); }
+static int lsr(int x, int n) { return int(((unsigned int)x) >> n); }
 
-inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
+static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
-inline long lopt(char* argv[], const char* name, long def)
+static long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
     for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
-inline bool isopt(char* argv[], const char* name)
+static bool isopt(char* argv[], const char* name)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
 	return false;
 }
 
-inline const char* lopts(char* argv[], const char* name, const char* def)
+static const char* lopts(char* argv[], const char* name, const char* def)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
@@ -460,7 +459,7 @@ class lfo_saw_pos : public dsp {
 	
  private:
 	
-	FAUSTFLOAT fHslider0;
+	FAUSTFLOAT fCheckbox0;
 	int fSamplingFreq;
 	float fConst0;
 	float fVec0[2];
@@ -527,12 +526,12 @@ class lfo_saw_pos : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = (1.0f / std::min(192000.0f, std::max(1.0f, float(fSamplingFreq))));
+		fConst0 = (1.0f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSamplingFreq))));
 		
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fHslider0 = FAUSTFLOAT(0.0f);
+		fCheckbox0 = FAUSTFLOAT(0.0f);
 		
 	}
 	
@@ -568,7 +567,7 @@ class lfo_saw_pos : public dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("lfo_saw_pos");
-		ui_interface->addHorizontalSlider("invert", &fHslider0, 0.0f, 0.0f, 1.0f, 0.00100000005f);
+		ui_interface->addCheckButton("invert", &fCheckbox0);
 		ui_interface->closeBox();
 		
 	}
@@ -576,12 +575,12 @@ class lfo_saw_pos : public dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		int iSlow0 = (1 - (2 * (float(fHslider0) > 0.5f)));
+		float fSlow0 = float((1 - (2 * (float(fCheckbox0) > 0.5f))));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fVec0[0] = float(input0[i]);
 			float fTemp0 = (fRec0[1] + (fConst0 * fVec0[1]));
 			fRec0[0] = (fTemp0 - std::floor(fTemp0));
-			output0[i] = FAUSTFLOAT((0.5f * ((float(iSlow0) * ((2.0f * fRec0[0]) + -1.0f)) + 1.0f)));
+			output0[i] = FAUSTFLOAT((0.5f * ((fSlow0 * ((2.0f * fRec0[0]) + -1.0f)) + 1.0f)));
 			fVec0[1] = fVec0[0];
 			fRec0[1] = fRec0[0];
 			
