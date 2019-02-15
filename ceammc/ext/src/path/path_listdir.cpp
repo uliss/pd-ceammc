@@ -1,9 +1,9 @@
 #include "path_listdir.h"
-#include "datatype_string.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_platform.h"
 #include "config.h"
+#include "datatype_string.h"
 
 #include <cerrno>
 #include <cstring>
@@ -16,7 +16,7 @@
 
 PathListDir::PathListDir(const PdArgs& a)
     : BaseObject(a)
-    , match_(0)
+    , match_(&s_)
     , cnv_(canvas_getcurrent())
 {
     createOutlet();
@@ -42,17 +42,6 @@ void PathListDir::onDataT(const DataTypeString& s)
 {
     path_ = s.str();
     onBang();
-}
-
-void PathListDir::m_match(t_symbol*, const AtomList& lst)
-{
-    if (lst.empty()) {
-        match_ = 0;
-        return;
-    }
-
-    if (lst[0].isSymbol())
-        match_ = lst[0].asSymbol();
 }
 
 void PathListDir::readDirList()
@@ -84,7 +73,7 @@ void PathListDir::readDirList()
         if (p_dirent->d_name[0] == '.')
             continue;
 
-        if (match_ != 0) {
+        if (match_->s_name[0] != 0) {
             if (platform::fnmatch(match_->s_name, p_dirent->d_name)) {
                 DataPtr d(new DataTypeString(p_dirent->d_name));
                 ls_.append(d.asAtom());
@@ -102,6 +91,5 @@ extern "C" void setup_path0x2elsdir()
 {
     ObjectFactory<PathListDir> obj("path.lsdir");
     obj.addAlias("path.ls");
-    obj.addMethod("match", &PathListDir::m_match);
     obj.processData<DataTypeString>();
 }

@@ -14,8 +14,8 @@
 #include "catch.hpp"
 
 #include "../path/path_listdir.h"
-#include "test_base.h"
 #include "ceammc_format.h"
+#include "test_base.h"
 
 #include <stdio.h>
 #include <vector>
@@ -49,10 +49,10 @@ TEST_CASE("path.lsdir", "[externals]")
         SECTION("empty arguments")
         {
             ListDirTest t("path.ls", L());
-            REQUIRE_PROPERTY_NONE(t, @match);
+            REQUIRE_PROPERTY(t, @match, "");
 
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_LIST_AT_OUTLET(0, t, L());
+            REQUIRE_LIST_AT_OUTLET(0, t, AtomList());
 
             WHEN_SEND_SYMBOL_TO(0, t, TEST_DATA_DIR);
             REQUIRE(t.hasNewMessages(0));
@@ -62,9 +62,6 @@ TEST_CASE("path.lsdir", "[externals]")
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE(t.hasNewMessages(0));
             REQUIRE(t.lastMessage(0).listValue().size() > 0);
-
-            WHEN_CALL_N(t, match, A("*.wav"));
-            REQUIRE_PROPERTY(t, @match, A("*.wav"));
         }
 
         SECTION("properties")
@@ -79,9 +76,6 @@ TEST_CASE("path.lsdir", "[externals]")
             REQUIRE(t.hasNewMessages(0));
             REQUIRE(t.lastMessage(0).isList());
             REQUIRE(dataToList(t.lastMessage(0)) == files);
-
-            WHEN_CALL(t, match);
-            REQUIRE_PROPERTY_NONE(t, @match);
 
             WHEN_SEND_SYMBOL_TO(0, t, TEST_DATA_DIR "non-exists");
             REQUIRE_LIST_AT_OUTLET(0, t, L());
