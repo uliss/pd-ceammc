@@ -42,6 +42,7 @@
             etc.</property>
             <property name="@wrap" type="alias">alias to @method wrap. In range [0, LIST_SIZE)
             ordinal elements are returned. Other indexes are wrapped by modulo division.</property>
+            <property name="@index" type="list">indexes</property>
         </properties>
         <inlets>
             <inlet>
