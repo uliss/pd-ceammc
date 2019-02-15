@@ -14,9 +14,6 @@
             <keywords>marimba</keywords>
             <since>0.6</since>
         </meta>
-        <methods>
-            <method name="gate">gate signal - 0: off, 1: on</method>
-        </methods>
         <properties>
             <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="48">
             pitch</property>
@@ -24,10 +21,12 @@
             position</property>
             <property name="@cutoff" type="float" minvalue="1000" maxvalue="10000" default="7000">
             cuttoff frequency of the strike generator</property>
-            <property name="@sharp" type="float" minvalue="0" maxvalue="1" default="0.25">sharpness
+            <property name="@sharp" type="float" minvalue="0.01" maxvalue="1" default="0.25">sharpness
             of the strike</property>
-            <property name="@gain" type="float" minvalue="0" maxvalue="1" default="0.25">strike
+            <property name="@gain" type="float" minvalue="0" maxvalue="1" default="1">strike
             gain</property>
+            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
+            - 1: on, 0: off</property>
         </properties>
         <inlets>
             <inlet>
@@ -50,7 +49,7 @@
 |                    |                       |
 [+ 36]               |                       |
 |                    |                       |
-[@pitch $1, gate 1(  [@pos $1 #b(            [@sharp $1 #c(
+[@pitch $1, @gate 1( [@pos $1 #b(            [@sharp $1 #c(
 |
 [flow.append gate 0 @msg @delay 10]
 |
