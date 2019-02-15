@@ -26,7 +26,7 @@
 #X obj 20 367 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 372 @format;
-#X text 240 372 Get/Set format string. Type: symbol;
+#X text 240 372 Get/Set format string. Type: list;
 #X msg 120 399 @int;
 #X text 240 399 flag for integer mode. If specified all floats are
 converted to integers. This usefull for hex and octal formatting;
