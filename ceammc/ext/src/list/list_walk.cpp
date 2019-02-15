@@ -39,6 +39,7 @@ ListWalk::ListWalk(const PdArgs& a)
 
     createCbProperty("@size", &ListWalk::p_size);
     createCbProperty("@index", &ListWalk::p_index, &ListWalk::p_set_index);
+    property("@index")->info().setType(PropertyInfoType::INTEGER);
 
     lst_ = positionalArguments();
 }
