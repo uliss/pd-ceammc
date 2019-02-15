@@ -28,10 +28,10 @@
         <properties>
             <property name="@mode" type="symbol" enum="single clip wrap fold">pass mode. See
             properties below for detailed information.</property>
-            <property name="@clip" type="alias">clipped pass mode. When the list bounds are reached -
-            min/max value repeats perpetually.</property>
-            <property name="@single" type="alias">single pass mode. When the list bounds are reached
-            - no output any more until reset.</property>
+            <property name="@clip" type="alias">clipped pass mode. When the list bounds are reached
+            - min/max value repeats perpetually.</property>
+            <property name="@single" type="alias">single pass mode. When the list bounds are
+            reached - no output any more until reset.</property>
             <property name="@loop" type="alias">@wrap alias</property>
             <property name="@wrap" type="alias">wrap pass mode. List values are repeated in a
             loop</property>
