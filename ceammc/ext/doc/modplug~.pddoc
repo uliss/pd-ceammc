@@ -19,10 +19,11 @@
             <property name="@len" type="float" readonly="true" units="millisecond">length of mod
             file</property>
             <property name="@name" type="symbol" readonly="true">mod name</property>
-            <property name="@pos" type="float" units="millisecond">position in mod file</property>
-            <property name="@rpos" type="float" minvalue="0" maxvalue="1">relative position in mod
+            <property name="@pos" type="float" units="millisecond" default="0">position in mod
             file</property>
-            <property name="@play" type="int" enum="0 1">play state</property>
+            <property name="@rpos" type="float" minvalue="0" maxvalue="1" default="0">relative
+            position in mod file</property>
+            <property name="@play" type="int" enum="0 1" default="0">play state</property>
         </properties>
         <inlets>
             <inlet>

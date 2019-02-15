@@ -38,10 +38,16 @@ ModPlug::ModPlug(const PdArgs& a)
     play_prop_ = new PointerProperty<bool>("@play", &play_);
     createProperty(play_prop_);
     createCbProperty("@pos", &ModPlug::p_pos, &ModPlug::p_set_pos);
+    property("@pos")->info().setType(PropertyInfoType::FLOAT);
+
     createCbProperty("@rpos", &ModPlug::p_rel_pos, &ModPlug::p_set_rel_pos);
+    property("@rpos")->info().setType(PropertyInfoType::FLOAT);
+    property("@rpos")->info().setRange(0, 1);
     createCbProperty("@len", &ModPlug::p_len);
     createCbProperty("@name", &ModPlug::p_name);
+    property("@name")->info().setType(PropertyInfoType::SYMBOL);
     createCbProperty("@done", &ModPlug::p_on_end, &ModPlug::p_set_on_end);
+    property("@done")->info().setType(PropertyInfoType::SYMBOL);
 }
 
 ModPlug::~ModPlug()
