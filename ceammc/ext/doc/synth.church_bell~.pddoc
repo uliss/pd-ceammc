@@ -20,18 +20,17 @@
             <par>This model contains 7 excitation positions going linearly from the bottom to the
             top of the bell</par>
         </info>
-        <methods>
-            <method name="gate">gate signal - 0: off, 1: on</method>
-        </methods>
         <properties>
             <property name="@pos" type="int" minvalue="0" maxvalue="6" default="0">strike position
             (0 is on the bottom)</property>
             <property name="@gain" type="float" minvalue="0" maxvalue="1" default="1">pluck
             gain</property>
-            <property name="@sharp" type="float" minvalue="0" maxvalue="5" default="0.5">strike
+            <property name="@sharp" type="float" minvalue="0.01" maxvalue="5" default="0.5">strike
             sharpness</property>
-            <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="600">
+            <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="6500">
             cutoff coefficent</property>
+            <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
+            - 1: on, 0: off</property>
         </properties>
         <inlets>
             <inlet>
