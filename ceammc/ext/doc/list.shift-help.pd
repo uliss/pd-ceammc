@@ -27,7 +27,7 @@ interpolation. Can be negative..;
 #X obj 20 508 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 513 @shift;
-#X text 240 513 Get/Set shift amount. Type: float;
+#X text 240 513 Get/Set shift amount. Type: float. Default value: 0;
 #X obj 20 550 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 555 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
