@@ -35,7 +35,7 @@
 -49933 0;
 #X msg 120 493 @angle;
 #X text 240 493 Get/Set panning position in radians. Type: float.
-Default value: 0\. Min value: 0;
+Default value: 0\. Value range: 0-6.28319;
 #X msg 120 530 @dist;
 #X text 240 530 Get/Set distance from circle center. Type: float.
 Default value: 1\. Value range: 0-1;
