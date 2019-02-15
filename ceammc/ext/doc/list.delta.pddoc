@@ -20,7 +20,7 @@
         </meta>
         <properties>
             <property name="@oversize" type="symbol" enum="min padz clip wrap fold" default="padz">
-            Specifies behavior, if list have different sizes</property>
+            behavior, if list have different sizes</property>
             <property name="@min" type="alias">alias for "@oversize min" property. Truncates lists
             to minimal common size</property>
             <property name="@clip" type="alias">alias for "@oversize min" property. Truncates lists
