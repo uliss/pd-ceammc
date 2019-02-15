@@ -27,8 +27,8 @@
         <properties>
             <property name="@by" enum="sum range" default="range" type="symbol">normalization
             mode</property>
-            <property name="@sum" type="flag">alias to @by sum</property>
-            <property name="@range" type="flag">alias to @by range</property>
+            <property name="@sum" type="alias">alias to @by sum</property>
+            <property name="@range" type="alias">alias to @by range</property>
         </properties>
         <outlets>
             <outlet>output list</outlet>
