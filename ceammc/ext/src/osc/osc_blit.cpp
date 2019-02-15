@@ -17,14 +17,21 @@
 
 #include "Blit.h"
 
+static const t_float DEFAULT_FREQ = 440;
+
 OscBlit::OscBlit(const PdArgs& args)
     : SoundExternal(args)
     , osc_(nullptr)
-    , freq_(positionalFloatArgument(0, 440))
+    , freq_(positionalFloatArgument(0, DEFAULT_FREQ))
     , num_harmonics_(0)
 {
     createCbProperty("@freq", &OscBlit::propFreq, &OscBlit::propSetFreq);
+    property("@freq")->info().setType(PropertyInfoType::FLOAT);
+    property("@freq")->info().setMin(0);
+    property("@freq")->info().setDefault(DEFAULT_FREQ);
+
     createCbProperty("@harmonics", &OscBlit::propHarm, &OscBlit::propSetHarm);
+    property("@harmonics")->info().setType(PropertyInfoType::INTEGER);
 
     osc_ = new stk::Blit(freq_);
 
