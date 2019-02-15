@@ -29,10 +29,10 @@ means 'till string end'.. Min value: 0;
 -49933 0;
 #X msg 120 367 @from;
 #X text 240 367 Get/Set substring position. Can be negative - to
-address string from the end. Type: int;
+address string from the end. Type: int. Default value: 0;
 #X msg 120 404 @len;
 #X text 240 404 Get/Set substring length. If equal to -1 \, substring
-to the end of strng. Type: int. Default value: -1;
+to the end of string. Type: int. Default value: -1\. Min value: 0;
 #X obj 20 451 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 456 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
