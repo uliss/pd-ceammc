@@ -16,6 +16,7 @@
         <properties>
             <property name="@sf" type="symbol">path to SoundFont</property>
             <property name="@version" type="symbol" readonly="true">FluidSynth version</property>
+            <property name="@soundfonts" type="list" readonly="true">list of found soundfonts</property>
         </properties>
         <inlets>
             <inlet>
