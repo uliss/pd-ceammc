@@ -18,24 +18,23 @@
                 <see>list.integrator</see>
             </also>
         </meta>
-        <arguments>
-            <argument name="@oversize" type="symbol">Specifies behavior, if list have different
-            sizes. Possible values are: min, padz, clip, wrap and fold. Default value:
-            padz.</argument>
-            <argument name="@min" type="symbol">alias for "@oversize min" property. Truncates lists
-            to minimal common size.</argument>
-            <argument name="@clip" type="symbol">alias for "@oversize min" property. Truncates
-            lists to minimal common size.</argument>
-            <argument name="@padz" type="symbol">alias for "@oversize padz" property. Pad shortest
-            list with zeroes.</argument>
-            <argument name="@clip" type="symbol">alias for "@oversize clip" property. Pad shortest
-            list with last element to conform longest list</argument>
-            <argument name="@wrap" type="symbol">alias for "@oversize wrap" property. Pad shortest
-            list with repeated values from the beginning.</argument>
-            <argument name="@fold" type="symbol">alias for "@oversize fold" property. Pad shortest
+        <properties>
+            <property name="@oversize" type="symbol" enum="min padz clip wrap fold" default="padz">
+            Specifies behavior, if list have different sizes</property>
+            <property name="@min" type="alias">alias for "@oversize min" property. Truncates lists
+            to minimal common size</property>
+            <property name="@clip" type="alias">alias for "@oversize min" property. Truncates lists
+            to minimal common size.</property>
+            <property name="@padz" type="alias">alias for "@oversize padz" property. Pad shortest
+            list with zeroes.</property>
+            <property name="@clip" type="alias">alias for "@oversize clip" property. Pad shortest
+            list with last element to conform longest list</property>
+            <property name="@wrap" type="alias">alias for "@oversize wrap" property. Pad shortest
+            list with repeated values from the beginning.</property>
+            <property name="@fold" type="alias">alias for "@oversize fold" property. Pad shortest
             list with repeated values from the end to the beginning, then back and so
-            on.</argument>
-        </arguments>
+            on.</property>
+        </properties>
         <methods>
             <method name="clear">sets to empty list current state</method>
         </methods>
