@@ -30,7 +30,7 @@
 -49933 0;
 #X msg 120 464 @feedback;
 #X text 240 464 Get/Set oscillator feedback coefficient. Type: float.
-Default value: 0\. Value range: 0-16;
+Default value: 0\. Value range: 0-6.28319;
 #X msg 120 501 @active;
 #X text 240 501 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
