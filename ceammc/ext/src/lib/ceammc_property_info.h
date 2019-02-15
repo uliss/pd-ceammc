@@ -123,7 +123,7 @@ public:
 template <>
 inline PropertyInfoType PropertyInfo::toType<bool>()
 {
-    return PropertyInfoType::FLOAT;
+    return PropertyInfoType::BOOLEAN;
 }
 
 template <>
