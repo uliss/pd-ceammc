@@ -1,7 +1,7 @@
 #include "midi_key2str.h"
-#include "datatype_string.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "datatype_string.h"
 #include "midi_common.h"
 
 #include <cstring>
@@ -20,6 +20,7 @@ MidiKey2Str::MidiKey2Str(const PdArgs& args)
     }
 
     createCbProperty("@tonality", &MidiKey2Str::p_tonality, &MidiKey2Str::p_setTonality);
+    property("@tonality")->info().setType(PropertyInfoType::SYMBOL);
     as_symbol_ = new FlagProperty("@symbol");
     createProperty(as_symbol_);
 
