@@ -21,16 +21,16 @@
             property.</par>
             <par>Also you can choose largest symbol from list, using @symbol property.</par>
         </info>
-        <arguments>
-            <argument name="@type" type="property">type of largest element. Possible values are:
-            float (default), symbol, any</argument>
-            <argument name="@float" type="property">alias for @type float. Find max float element
-            in list</argument>
-            <argument name="@symbol" type="property">alias for @type symbol. Find greatest symbol
-            element</argument>
-            <argument name="@any" type="property">alias for @type any. Find greatest atom of any
-            type. Note: symbols are greater then numbers</argument>
-        </arguments>
+        <properties>
+            <property name="@type" type="symbol" enum="float symbol any" default="float">type of
+            largest element</property>
+            <property name="@float" type="alias">alias for @type float. Find max float element in
+            list</property>
+            <property name="@symbol" type="alias">alias for @type symbol. Find greatest symbol
+            element</property>
+            <property name="@any" type="alias">alias for @type any. Find greatest atom of any type.
+            Note: symbols are greater then numbers</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>
