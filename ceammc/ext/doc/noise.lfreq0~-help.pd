@@ -26,8 +26,7 @@
 -49933 0;
 #X msg 120 473 @freq;
 #X text 240 473 Get/Set noise generation freq. New random number every
-int(SR/freq). Type: float. Default value: 1000\. Value range:
-10-22050;
+int(SR/freq). Type: float. Default value: 1000\. Value range: 5-22050;
 #X obj 20 534 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 539 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
