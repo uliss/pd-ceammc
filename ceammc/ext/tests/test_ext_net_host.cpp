@@ -61,7 +61,7 @@ TEST_CASE("net.host->ip", "[externals]")
         TestExtNetHost t("net.host->ip", LA("@ipv4"));
         REQUIRE(t.object());
 
-        test::pdRunMainLoopMs(10);
+        test::pdRunMainLoopMs(120);
         t.sendSymbol(gensym("localhost"));
         test::pdRunMainLoopMs(100);
         REQUIRE(t.hasOutputAt(0));
@@ -78,7 +78,7 @@ TEST_CASE("net.host->ip", "[externals]")
         TestExtNetHost t("net.host->ip", LA("@ipv6"));
         REQUIRE(t.object());
 
-        test::pdRunMainLoopMs(10);
+        test::pdRunMainLoopMs(120);
         t.sendSymbol(gensym("localhost"));
         test::pdRunMainLoopMs(100);
         REQUIRE(t.hasOutputAt(0));
