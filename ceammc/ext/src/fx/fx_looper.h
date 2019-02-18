@@ -144,7 +144,7 @@ private:
     template <typename Fn>
     void processPlayLoop(const t_sample** in, t_sample** out, Fn fn)
     {
-        assert(play_phase_ < loop_len_);
+        assert(play_phase_ < max_samples_);
 
         const bool USE_ARRAY = arraySpecified();
 
@@ -152,7 +152,7 @@ private:
         const size_t LEFT = loop_len_ - play_phase_;
 
         // enough samples until loop end
-        if (LEFT >= BS) {
+        if (LEFT > BS) {
             if (USE_ARRAY) {
                 if (array_.isValid() && array_.size() >= loop_len_) {
                     for (size_t i = 0; i < BS; i++)
@@ -169,7 +169,7 @@ private:
             // loop_len - play_phase >= bs
             // loop_len >= play_phase + bs
         } else {
-            // LEFT < BS
+            // LEFT <= BS
             // process till loop end
             if (USE_ARRAY) {
                 if (array_.isValid() && array_.size() >= loop_len_) {
@@ -215,7 +215,7 @@ private:
         const size_t LEFT = max_samples_ - rec_phase_;
 
         // enough samples until loop end
-        if (LEFT >= BS) {
+        if (LEFT > BS) {
             if (USE_ARRAY) {
                 if (array_.isValid() && array_.size() == max_samples_) {
                     for (size_t i = 0; i < BS; i++)
@@ -240,7 +240,7 @@ private:
             // max_samples_ - rec_phase_ >= bs
             // max_samples_ >= rec_phase_ + bs
         } else {
-            // LEFT <= BS
+            // LEFT < BS
             // process till loop end
             if (USE_ARRAY) {
                 if (array_.isValid() && array_.size() == max_samples_) {
