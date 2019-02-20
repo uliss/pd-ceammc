@@ -41,6 +41,10 @@
             <param type="symbol" name="PATH" required="true">path to preset file</param></method>
             <method name="write">read presets from file 
             <param type="symbol" name="PATH" required="true">path to preset file</param></method>
+            <!-- common-->
+            <method name="pos">set UI element position
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
         </methods>
         <inlets>
             <inlet />

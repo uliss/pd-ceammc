@@ -30,7 +30,7 @@ def read_all_externals():
 
 def read_methods(name):
     try:
-        return set(filter(lambda x: len(x) and x[0] != '@',
+        return set(filter(lambda x: len(x) and x[0] != '@' and x[0] != '.',
             subprocess.check_output([EXT_METHODS, name], stderr=subprocess.DEVNULL).decode().split('\n')))
     except(subprocess.CalledProcessError):
         cprint(f"[{name}] can't get methods", "red")
