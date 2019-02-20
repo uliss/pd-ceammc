@@ -175,7 +175,17 @@ if __name__ == '__main__':
             p0 = ext_props_dict[p]
             p1 = doc_props_dict[p]
 
+            # readonly checks
+            if p0.get("readonly", False):
+                if p1.get("readonly", False):
+                    cprint(f"[{ext_name}] missing readonly attribute in \"{p}\"", 'magenta')
+
+                continue
+
             if "readonly" in p1 and p1["readonly"] == "true":
+                if p0.get("readonly", False):
+                    cprint(f"[{ext_name}] non-readonly attribute in \"{p}\"", 'red')
+
                 continue
 
             if p0["type"] == "bool":
