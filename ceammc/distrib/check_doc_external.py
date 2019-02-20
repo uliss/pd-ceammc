@@ -142,7 +142,7 @@ if __name__ == '__main__':
         # print(ext_methods)
         ignored_methods = {'dump', 'dsp', 'signal', 'mouseup', 'mouseenter', 'dialog', 'iscicm',
         'zoom', 'mousewheel', 'mousemove', 'mousedown', 'mouseleave',
-        'symbol', 'float', 'bang', 'dblclick', 'list', 'dsp_add', 'loadbang', 'click'}
+        'symbol', 'float', 'bang', 'dblclick', 'list', 'dsp_add', 'loadbang', 'click', 'dsp_add_aliased', 'vis'}
         undoc_methods_set = ext_methods - doc_methods_set - ignored_methods
         unknown_methods = doc_methods_set - ext_methods
         if len(undoc_methods_set):
