@@ -56,7 +56,7 @@
             <param type="int" name="IDX" required="true">preset index</param></method>
             <method name="store">stores specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="clear">cleares specified preset
+            <method name="clear">clears specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
             <!-- common-->
             <method name="pos">set UI element position 

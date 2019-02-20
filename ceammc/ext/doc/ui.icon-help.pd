@@ -372,7 +372,7 @@ roman. Allowed values: roman \, italic;
 #X obj 250 4998 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 4998 IDX: preset index. Type: int.;
 #X msg 120 5026 clear;
-#X text 240 5026 cleares specified preset. Arguments are:;
+#X text 240 5026 clears specified preset. Arguments are:;
 #X obj 250 5054 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 5054 IDX: preset index. Type: int.;
 #X msg 120 5082 pos;
