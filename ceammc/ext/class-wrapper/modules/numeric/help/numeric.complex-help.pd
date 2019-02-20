@@ -54,7 +54,7 @@ plane;
 #X text 175 740 real and imaginary part as list;
 #X obj 30 767 complex.unpack;
 #X text 175 767 unpacks complex number to real and imaginary parts;
-#X obj 1 1 cnv 5 712 40 empty empty numeric::complex 20 20 0 20
+#X obj 1 1 cnv 5 695 40 empty empty numeric::complex 20 20 0 20
 -104026 -4096 0;
-#X obj 1 794 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 794 cnv 5 695 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 804 library: numeric;

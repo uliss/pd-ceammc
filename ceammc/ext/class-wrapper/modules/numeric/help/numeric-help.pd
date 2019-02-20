@@ -1,7 +1,7 @@
 #N canvas 0 0 715 500 12;
 #X obj 20 50 cnv 5 79 31 empty empty complex 4 13 0 17 -262144 -49933
 0;
-#X obj 20 91 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 91 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 102 complex.!=;
 #X text 175 102 not equal check;
 #X obj 30 129 complex.==;
@@ -56,7 +56,7 @@ plane;
 #X text 175 753 unpacks complex number to real and imaginary parts;
 #X obj 20 780 cnv 5 87 31 empty empty rational 4 13 0 17 -262144
 -49933 0;
-#X obj 20 821 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 821 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 832 rational.!=;
 #X text 175 832 not equal check;
 #X obj 30 859 rational.==;
@@ -95,7 +95,7 @@ precision;
 #X obj 30 1291 rational.unpack;
 #X text 175 1291 unpacks rational number to numerator and denominator
 parts;
-#X obj 1 1 cnv 5 712 40 empty empty numeric 20 20 0 20 -104026 -4096
+#X obj 1 1 cnv 5 695 40 empty empty numeric 20 20 0 20 -104026 -4096
 0;
-#X obj 1 1318 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 1318 cnv 5 695 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 1318 version: v0.1 \, license:;

@@ -40,7 +40,7 @@ precision;
 #X obj 30 575 rational.unpack;
 #X text 175 575 unpacks rational number to numerator and denominator
 parts;
-#X obj 1 1 cnv 5 712 40 empty empty numeric::rational 20 20 0 20
+#X obj 1 1 cnv 5 695 40 empty empty numeric::rational 20 20 0 20
 -104026 -4096 0;
-#X obj 1 602 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 602 cnv 5 695 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 612 library: numeric;

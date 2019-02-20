@@ -202,7 +202,7 @@ infinity;
 #X obj 30 2714 matrix.zeros_like;
 #X text 175 2714 create Matrix filled with zeros with the same shape
 as input;
-#X obj 1 1 cnv 5 712 40 empty empty matrix::matrix 20 20 0 20 -104026
+#X obj 1 1 cnv 5 695 40 empty empty matrix::matrix 20 20 0 20 -104026
 -4096 0;
-#X obj 1 2751 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 2751 cnv 5 695 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 2761 library: matrix;
