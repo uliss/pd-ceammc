@@ -54,7 +54,7 @@
 #X text 175 764 separate audio and control streams;
 #X obj 30 791 replace;
 #X text 175 791 Replace atoms in data stream;
-#X obj 1 1 cnv 5 712 40 empty empty ceammc::flow 20 20 0 20 -104026
+#X obj 1 1 cnv 5 695 40 empty empty ceammc::flow 20 20 0 20 -104026
 -4096 0;
-#X obj 1 818 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 818 cnv 5 695 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 828 library: ceammc;

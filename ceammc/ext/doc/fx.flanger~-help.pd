@@ -1,10 +1,10 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 531 50 cnv 1 164 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 531 50 mono flanging effect;
-#X obj 1 1 cnv 5 712 40 empty empty fx.flanger~ 20 20 0 20 -104026
+#X obj 576 50 cnv 1 164 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 576 50 mono flanging effect;
+#X obj 1 1 cnv 5 740 40 empty empty fx.flanger~ 20 20 0 20 -104026
 -4096 0;
-#X obj 607 11 fx.flanger~;
+#X obj 635 11 fx.flanger~;
 #X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 147 metro 5000;
 #X msg 50 176 open %CEAMMC%/guitar1.wav \, 1;
@@ -30,50 +30,50 @@
 #X obj 50 435 ui.gain~ @size 120 16;
 #X obj 299 435 ui.dsp~;
 #X obj 50 464 dac~;
-#X obj 20 503 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 503 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 508 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 513 @delay;
-#X text 240 513 Get/Set flange delay. Type: float. Units: ms. Default
+#X text 280 513 Get/Set flange delay. Type: float. Units: ms. Default
 value: 10\. Value range: 0-20;
 #X msg 120 550 @offset;
-#X text 240 550 Get/Set flange delay offset. Type: float. Units: ms.
+#X text 280 550 Get/Set flange delay offset. Type: float. Units: ms.
 Default value: 1\. Value range: 0-20;
 #X msg 120 587 @speed;
-#X text 240 587 Get/Set flanger frequency. Type: float. Units: Hz.
+#X text 280 587 Get/Set flanger frequency. Type: float. Units: Hz.
 Default value: 0.5\. Value range: 0-10;
 #X msg 120 624 @feedback;
-#X text 240 624 Get/Set feedback gain. Type: float. Default value: 0\.
+#X text 280 624 Get/Set feedback gain. Type: float. Default value: 0\.
 Value range: 0-1;
 #X msg 120 661 @invert;
-#X text 240 661 Get/Set 0 for normal \, 1 to invert sign of flanging
+#X text 280 661 Get/Set 0 for normal \, 1 to invert sign of flanging
 sum. Type: int. Default value: 0\. Allowed values: 0 \, 1;
 #X msg 120 698 @drywet;
-#X text 240 698 Get/Set proportion of mix between the original (dry)
+#X text 280 698 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 1\. Value range: 0-1;
 #X msg 120 749 @bypass;
-#X text 240 749 Get/Set if set to 1 - bypass 'effected' signal. Type:
+#X text 280 749 Get/Set if set to 1 - bypass 'effected' signal. Type:
 int. Default value: 0\. Allowed values: 0 \, 1;
 #X msg 120 786 @active;
-#X text 240 786 Get/Set on/off dsp processing. Type: int. Default
+#X text 280 786 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
-#X obj 20 833 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 833 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 838 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 843 1\.;
-#X text 240 843 input signal.;
-#X obj 20 871 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 843 input signal.;
+#X obj 20 871 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 876 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 881 1\.;
-#X text 240 881 output signal;
+#X text 280 881 output signal;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 929 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 929 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 932 library: ceammc v0.7;
 #N canvas 10 951 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

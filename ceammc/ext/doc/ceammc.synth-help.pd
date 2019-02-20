@@ -31,7 +31,7 @@ instrument;
 #X text 175 433 various percussion sounds from STK library;
 #X obj 30 460 synth.wurley~;
 #X text 175 460 Wurlitzer electric piano FM synthesis instrument;
-#X obj 1 1 cnv 5 712 40 empty empty ceammc::synth 20 20 0 20 -104026
+#X obj 1 1 cnv 5 695 40 empty empty ceammc::synth 20 20 0 20 -104026
 -4096 0;
-#X obj 1 487 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 487 cnv 5 695 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 497 library: ceammc;

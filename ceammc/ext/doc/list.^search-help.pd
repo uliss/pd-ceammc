@@ -1,12 +1,12 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 388 50 cnv 1 307 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 388 50 on input atom returns it index in list;
-#X obj 1 1 cnv 5 712 40 empty empty list.^search 20 20 0 20 -104026
+#X obj 433 50 cnv 1 307 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 433 50 on input atom returns it index in list;
+#X obj 1 1 cnv 5 740 40 empty empty list.^search 20 20 0 20 -104026
 -4096 0;
-#X obj 601 11 list.^search;
-#X obj 205 80 cnv 1 490 33 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Outputs index or -1 if not found;
+#X obj 629 11 list.^search;
+#X obj 245 80 cnv 1 495 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 Outputs index or -1 if not found;
 #X floatatom 50 141 5 0 0 0 - - -;
 #X symbolatom 98 141 5 0 0 0 - - -;
 #X msg 165 141 20 30;
@@ -18,46 +18,46 @@
 #X msg 405 257 list a b c d;
 #X obj 50 285 list.^search 10 20 30 40 50 A B C;
 #X floatatom 50 314 5 0 0 0 - - -;
-#X obj 20 353 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 353 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 358 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 363 @start;
-#X text 240 363 Get/Set search start index position. Type: int.
+#X text 280 363 Get/Set search start index position. Type: int.
 Default value: 0\. Min value: 0;
 #X msg 120 400 @end;
-#X text 240 400 Get/Set search end index position (-1 means end of
+#X text 280 400 Get/Set search end index position (-1 means end of
 list). Type: int. Default value: -1\. Min value: -1;
-#X obj 20 447 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 447 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 452 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 457 1\.;
 #X text 150 457 *float*;
-#X text 240 457 output float index in searched list.;
+#X text 280 457 output float index in searched list.;
 #X text 150 475 *symbol*;
-#X text 240 475 output symbol index in searched list.;
+#X text 280 475 output symbol index in searched list.;
 #X text 150 493 *list*;
-#X text 240 493 output position of given list in searched list.;
+#X text 280 493 output position of given list in searched list.;
 #X text 150 511 *data*;
-#X text 240 511 output data index in searched list.;
+#X text 280 511 output data index in searched list.;
 #X text 120 529 2\.;
 #X text 150 529 *list*;
-#X text 240 529 set searched list.;
-#X obj 20 557 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 529 set searched list.;
+#X obj 20 557 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 562 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 567 1\.;
-#X text 240 567 1 on success \, otherwise 0;
+#X text 280 567 1 on success \, otherwise 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 615 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 615 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 618 library: ceammc v0.7;
-#X text 311 630 see also:;
-#X obj 387 630 list.search;
-#X obj 481 630 list.contains;
-#X obj 589 630 list.^contains;
+#X text 341 630 see also:;
+#X obj 417 630 list.search;
+#X obj 511 630 list.contains;
+#X obj 619 630 list.^contains;
 #N canvas 10 637 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

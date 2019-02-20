@@ -1,14 +1,14 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 323 50 cnv 1 372 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 323 50 Substitute enviroment variables in data stream;
-#X obj 1 1 cnv 5 712 40 empty empty expand_env 20 20 0 20 -104026
+#X obj 368 50 cnv 1 372 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 368 50 Substitute enviroment variables in data stream;
+#X obj 1 1 cnv 5 740 40 empty empty expand_env 20 20 0 20 -104026
 -4096 0;
-#X obj 614 11 expand_env;
-#X obj 205 80 cnv 1 490 84 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Environment variable %HOME% will be replaced by home
+#X obj 642 11 expand_env;
+#X obj 245 80 cnv 1 495 84 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 Environment variable %HOME% will be replaced by home
 user directory under UNIX;
-#X text 210 117 Some special variables defined: %DOC% - path to
+#X text 250 117 Some special variables defined: %DOC% - path to
 PureData doc directory \, %CEAMMC% - path to ceammc library directory;
 #X obj 50 192 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -26,41 +26,41 @@ PureData doc directory \, %CEAMMC% - path to ceammc library directory;
 #X obj 50 437 symbol;
 #X symbolatom 50 466 70 0 0 0 - - -;
 #X obj 50 495 print;
-#X obj 20 534 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 534 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 539 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 544 @any;
-#X text 240 544 if specified - also do substitution in message
+#X text 280 544 if specified - also do substitution in message
 selector;
-#X obj 20 581 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 581 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 586 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 591 1\.;
 #X text 150 591 *bang*;
-#X text 240 591 passed.;
+#X text 280 591 passed.;
 #X text 150 609 *float*;
-#X text 240 609 passed.;
+#X text 280 609 passed.;
 #X text 150 627 *symbol*;
-#X text 240 627 expand variable inside symbol string.;
+#X text 280 627 expand variable inside symbol string.;
 #X text 150 645 *list*;
-#X text 240 645 expand variables inside each list symbol.;
+#X text 280 645 expand variables inside each list symbol.;
 #X text 150 663 *any*;
-#X text 240 663 expand variables inside each list symbol \, more over
+#X text 280 663 expand variables inside each list symbol \, more over
 \, if @any argument was used - expand in message selector.;
-#X obj 20 705 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 705 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 710 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 715 1\.;
-#X text 240 715 output data stream;
+#X text 280 715 output data stream;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 763 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 763 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 766 library: ceammc v0.7;
-#X text 564 778 see also:;
-#X obj 640 778 replace;
+#X text 594 778 see also:;
+#X obj 670 778 replace;
 #N canvas 10 785 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

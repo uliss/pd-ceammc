@@ -1,12 +1,12 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 459 50 cnv 1 236 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 459 50 Sound file loader on steroids;
-#X obj 1 1 cnv 5 712 40 empty empty snd.file 20 20 0 20 -104026 -4096
+#X obj 504 50 cnv 1 236 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 504 50 Sound file loader on steroids;
+#X obj 1 1 cnv 5 740 40 empty empty snd.file 20 20 0 20 -104026 -4096
 0;
-#X obj 629 11 snd.file;
-#X obj 205 80 cnv 1 490 61 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Deal with sound files: gets files info and loads them
+#X obj 657 11 snd.file;
+#X obj 245 80 cnv 1 495 61 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 Deal with sound files: gets files info and loads them
 into arrays. Various formats are supported. Supports array name
 patterns.;
 #X obj 50 169 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -39,55 +39,55 @@ patterns.;
 #X obj 50 414 tabplay~ array1;
 #X obj 242 414 tabplay~ array2;
 #X obj 50 443 dac~;
-#X obj 20 482 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 482 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 487 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 492 @formats;
-#X text 240 492 (readonly) Get list of supported formats. Type: list;
-#X obj 20 529 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 492 (readonly) Get list of supported formats. Type: list;
+#X obj 20 529 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 534 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 539 load;
-#X text 240 539 Loads sound file. Outputs info properties and number
+#X text 280 539 Loads sound file. Outputs info properties and number
 of loaded samples after load. Arguments are:;
-#X obj 250 581 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 581 PATH: path to soundfile. Type: symbol.;
-#X obj 250 609 cnv 1 118 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 609 @to ARRAY_NAME: destination array name or pattern.
+#X obj 290 581 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 290 581 PATH: path to soundfile. Type: symbol.;
+#X obj 290 609 cnv 1 118 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 290 609 @to ARRAY_NAME: destination array name or pattern.
 Array patterns specified in square braces: array_[1-4] means - array_1
 \, array_2 \, array_3 \, array_4\. array_[left|right] means array_left
 and array_right. Type: symbol.;
-#X obj 250 679 cnv 1 72 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 679 [@resize]: resize array to feet loaded file. Type:
+#X obj 290 679 cnv 1 72 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 290 679 [@resize]: resize array to feet loaded file. Type:
 property.;
-#X obj 250 721 cnv 1 136 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 721 [@offset SAMPLES]: offset in samples from beginning of
+#X obj 290 721 cnv 1 136 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 290 721 [@offset SAMPLES]: offset in samples from beginning of
 file. Type: property.;
-#X obj 250 763 cnv 1 152 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 763 [@channel N1 N2\..]: channels to load. Type: symbol.;
+#X obj 290 763 cnv 1 152 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 290 763 [@channel N1 N2\..]: channels to load. Type: symbol.;
 #X msg 120 791 info;
-#X text 240 791 Outputs info about sound file as properties: @channels
+#X text 280 791 Outputs info about sound file as properties: @channels
 - number of channels \, @samples - number of samples \, @samplerate -
 sound file samplerate \, @duration - file duration in seconds.
 Arguments are:;
-#X obj 250 861 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 861 PATH: path to soundfile. Type: symbol.;
-#X obj 20 899 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 290 861 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 290 861 PATH: path to soundfile. Type: symbol.;
+#X obj 20 899 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 904 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 909 1\.;
-#X text 240 909 input inlet.;
-#X obj 20 937 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 909 input inlet.;
+#X obj 20 937 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 942 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 947 1\.;
-#X text 240 947 number of loaded samples or file info properties;
+#X text 280 947 number of loaded samples or file info properties;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title snd @url ceammc.snd-help.pd;
-#X obj 1 995 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 995 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 998 library: ceammc v0.7;
 #N canvas 10 1017 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

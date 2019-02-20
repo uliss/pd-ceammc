@@ -1,13 +1,13 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 468 50 cnv 1 227 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 468 50 creates dictionary from list;
-#X obj 1 1 cnv 5 712 40 empty empty dict.from_list 20 20 0 20 -104026
+#X obj 513 50 cnv 1 227 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 513 50 creates dictionary from list;
+#X obj 1 1 cnv 5 740 40 empty empty dict.from_list 20 20 0 20 -104026
 -4096 0;
-#X obj 489 11 list->dict;
-#X obj 586 11 dict.from_list;
-#X obj 205 80 cnv 1 490 61 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Convertion depends on property @step \, which means a
+#X obj 517 11 list->dict;
+#X obj 614 11 dict.from_list;
+#X obj 245 80 cnv 1 495 61 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 Convertion depends on property @step \, which means a
 length of key/value pair. First element of the pair becames a key \,
 and other elements becames value.;
 #X msg 50 169 list a b c d e f g h j k;
@@ -15,38 +15,38 @@ and other elements becames value.;
 #X obj 309 227 list->dict 3;
 #X obj 50 256 ui.d;
 #X obj 309 256 ui.d;
-#X obj 20 295 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 295 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 300 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 305 1\.;
 #X text 150 305 int;
-#X obj 241 306 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 305 STEP: key/value length in input list. Min value: 2;
-#X obj 20 333 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 281 306 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 305 STEP: key/value length in input list. Min value: 2;
+#X obj 20 333 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 338 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 343 @step;
-#X text 240 343 Get/Set key/value length in input list. Type: int.
+#X text 280 343 Get/Set key/value length in input list. Type: int.
 Default value: 2\. Min value: 2;
-#X obj 20 390 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 390 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 395 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 400 1\.;
-#X text 240 400 input.;
-#X obj 20 428 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 400 input.;
+#X obj 20 428 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 433 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 438 1\.;
-#X text 240 438 dict output;
+#X text 280 438 dict output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
-#X text 549 520 see also:;
-#X obj 625 520 data.dict;
+#X text 579 520 see also:;
+#X obj 655 520 data.dict;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

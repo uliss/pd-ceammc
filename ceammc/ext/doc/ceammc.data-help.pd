@@ -55,7 +55,7 @@ outlet;
 #X text 175 764 symmetric difference between two sets;
 #X obj 30 791 set.union;
 #X text 175 791 output union of given sets;
-#X obj 1 1 cnv 5 712 40 empty empty ceammc::data 20 20 0 20 -104026
+#X obj 1 1 cnv 5 695 40 empty empty ceammc::data 20 20 0 20 -104026
 -4096 0;
-#X obj 1 818 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 818 cnv 5 695 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 828 library: ceammc;

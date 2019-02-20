@@ -1,9 +1,9 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 562 50 cnv 1 133 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 562 50 Timeline section;
-#X obj 1 1 cnv 5 712 40 empty empty tl.cue 20 20 0 20 -104026 -4096 0;
-#X obj 641 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+#X obj 607 50 cnv 1 133 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 607 50 Timeline section;
+#X obj 1 1 cnv 5 740 40 empty empty tl.cue 20 20 0 20 -104026 -4096 0;
+#X obj 669 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [tl.cue] @url tl.cue-help.pd;
 #X obj 184 118 tl.cue;
 #X obj 366 118 tl.cue;
@@ -17,10 +17,10 @@
 #X obj 50 205 tl.transport;
 #X obj 453 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 244 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 244 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 249 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X obj 20 274 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 274 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 279 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
@@ -28,10 +28,10 @@
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title tl @url ceammc.tl-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
-#X text 561 520 see also:;
-#X obj 637 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X text 591 520 see also:;
+#X obj 667 523 ui.link @background_color 0.78431 0.78431 0.78431
 @title [tl.bang] @url tl.bang-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

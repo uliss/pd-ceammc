@@ -1,16 +1,16 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 332 50 cnv 1 363 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 332 50 pass values that accepted by predicate object;
-#X obj 1 1 cnv 5 712 40 empty empty flow.pass_if 20 20 0 20 -104026
+#X obj 377 50 cnv 1 363 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 377 50 pass values that accepted by predicate object;
+#X obj 1 1 cnv 5 740 40 empty empty flow.pass_if 20 20 0 20 -104026
 -4096 0;
-#X obj 525 11 pass_if;
-#X obj 600 11 flow.pass_if;
-#X obj 205 80 cnv 1 490 84 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 conditional value pass according to *predicate* side-
+#X obj 553 11 pass_if;
+#X obj 628 11 flow.pass_if;
+#X obj 245 80 cnv 1 495 84 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 conditional value pass according to *predicate* side-
 chain. *predicate* should accept value and ouput 0 or 1 \, for value
 passing.;
-#X text 210 131 [>=] [is_even] [is_list] - examples of predicates.;
+#X text 250 131 [>=] [is_even] [is_list] - examples of predicates.;
 #X floatatom 50 192 5 0 0 0 - - -;
 #X floatatom 251 192 5 0 0 0 - - -;
 #X obj 299 192 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -24,31 +24,31 @@ passing.;
 #X obj 251 264 msg set;
 #X msg 50 293 ;
 #X msg 251 293 ;
-#X obj 20 332 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 332 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 337 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 342 1\.;
-#X text 240 342 input value.;
+#X text 280 342 input value.;
 #X text 120 360 2\.;
 #X text 150 360 *int*;
-#X text 240 360 conditional output from predicate object. '1' means
+#X text 280 360 conditional output from predicate object. '1' means
 pass \, '0' means reject. Range: 0\...1;
-#X obj 20 402 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 402 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 407 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 412 1\.;
-#X text 240 412 passed values;
+#X text 280 412 passed values;
 #X text 120 430 2\.;
-#X text 240 430 output to predicate side-chain;
+#X text 280 430 output to predicate side-chain;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
-#X text 549 520 see also:;
-#X obj 625 520 flow.pass;
+#X text 579 520 see also:;
+#X obj 655 520 flow.pass;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

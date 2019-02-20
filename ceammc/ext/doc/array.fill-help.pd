@@ -1,10 +1,10 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 380 50 cnv 1 315 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 380 50 fill array with single value or pattern;
-#X obj 1 1 cnv 5 712 40 empty empty array.fill 20 20 0 20 -104026
+#X obj 425 50 cnv 1 315 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 425 50 fill array with single value or pattern;
+#X obj 1 1 cnv 5 740 40 empty empty array.fill 20 20 0 20 -104026
 -4096 0;
-#X obj 614 11 array.fill;
+#X obj 642 11 array.fill;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array A1 100 float 0;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -19,51 +19,51 @@
 #X obj 50 320 array.fill A1;
 #X obj 50 349 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 386 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 386 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 391 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 396 @array;
-#X text 240 396 Get/Set array name. Type: symbol;
+#X text 280 396 Get/Set array name. Type: symbol;
 #X msg 120 423 @redraw;
-#X text 240 423 Get/Set redraw after array change. Type: int. Default
+#X text 280 423 Get/Set redraw after array change. Type: int. Default
 value: 1\. Allowed values: 1 \, 0;
-#X obj 20 470 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 470 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 475 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 480 fill;
-#X text 240 480 fill all array with specified value or pattern.
+#X text 280 480 fill all array with specified value or pattern.
 Arguments are:;
-#X obj 250 522 cnv 1 56 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 522 [@from]: fill range begin index. If not specified set
+#X obj 290 522 cnv 1 56 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 290 522 [@from]: fill range begin index. If not specified set
 to 0\. Type: int.;
-#X obj 250 564 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 564 [@to]: fill range end index. Can be negative - to
+#X obj 290 564 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 290 564 [@to]: fill range end index. Can be negative - to
 address from array end. For example: -1 means till last element (not
 including). If not specified set to array length. Type: int.;
-#X obj 250 634 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 634 VAL1: value 1\. Type: float.;
-#X obj 250 662 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 662 [VAL...]: other values.. Type: float.;
-#X obj 20 700 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 290 634 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 290 634 VAL1: value 1\. Type: float.;
+#X obj 290 662 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 290 662 [VAL...]: other values.. Type: float.;
+#X obj 20 700 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 705 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 710 1\.;
 #X text 150 710 *symbol*;
-#X text 240 710 change array name.;
-#X obj 20 738 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 710 change array name.;
+#X obj 20 738 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 743 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 748 1\.;
-#X text 240 748 bang on finish;
+#X text 280 748 bang on finish;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 796 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 796 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 799 library: ceammc v0.7;
-#X text 542 811 see also:;
-#X obj 618 811 array.each;
+#X text 572 811 see also:;
+#X obj 648 811 array.each;
 #N canvas 10 818 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

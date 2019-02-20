@@ -1,10 +1,10 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 467 50 cnv 1 228 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 467 50 metro with rhythmic patterns;
-#X obj 1 1 cnv 5 712 40 empty empty metro.pattern 20 20 0 20 -104026
+#X obj 512 50 cnv 1 228 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 512 50 metro with rhythmic patterns;
+#X obj 1 1 cnv 5 740 40 empty empty metro.pattern 20 20 0 20 -104026
 -4096 0;
-#X obj 593 11 metro.pattern;
+#X obj 621 11 metro.pattern;
 #X msg 50 118 @pattern 100 290 110 70;
 #X obj 69 147 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 126 147 @pattern 500 150;
@@ -17,48 +17,48 @@
 #X obj 50 262 ui.gain~ @size 120 16;
 #X obj 280 262 ui.dsp~;
 #X obj 50 291 dac~;
-#X obj 20 330 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 335 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 340 1\.;
 #X text 150 340 list;
-#X obj 241 341 cnv 1 64 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 340 PATTERN: list of time intervals.;
-#X obj 20 368 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 281 341 cnv 1 64 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 340 PATTERN: list of time intervals.;
+#X obj 20 368 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 373 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 378 @pattern;
-#X text 240 378 Get/Set time intervals performed in a loop. Type:
+#X text 280 378 Get/Set time intervals performed in a loop. Type:
 list;
 #X msg 120 405 @current;
-#X text 240 405 Get/Set current pattern index. Type: int. Default
+#X text 280 405 Get/Set current pattern index. Type: int. Default
 value: 0\. Min value: 0;
 #X msg 120 442 @sync;
-#X text 240 442 Get/Set sync mode - change pattern after full cycle.
+#X text 280 442 Get/Set sync mode - change pattern after full cycle.
 Type: int. Default value: 0\. Allowed values: 0 \, 1;
-#X obj 20 489 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 489 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 494 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 499 1\.;
 #X text 150 499 *float*;
-#X text 240 499 starts (on 1) or stops (on 0) metro.;
-#X obj 20 527 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 499 starts (on 1) or stops (on 0) metro.;
+#X obj 20 527 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 532 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 537 1\.;
-#X text 240 537 outputs *bang*;
+#X text 280 537 outputs *bang*;
 #X text 120 555 2\.;
-#X text 240 555 outputs current pattern index and bang on loop return;
+#X text 280 555 outputs current pattern index and bang on loop return;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 603 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 603 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 606 library: ceammc v0.7;
-#X text 497 618 see also:;
-#X obj 573 618 metro;
-#X obj 625 618 metro.seq;
+#X text 527 618 see also:;
+#X obj 603 618 metro;
+#X obj 655 618 metro.seq;
 #N canvas 10 625 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

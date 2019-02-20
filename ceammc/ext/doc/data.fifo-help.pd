@@ -1,12 +1,12 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 324 50 cnv 1 371 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 324 50 First-In-First-Out (FIFO) queue data container;
-#X obj 1 1 cnv 5 712 40 empty empty data.fifo 20 20 0 20 -104026 -4096
+#X obj 369 50 cnv 1 371 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 369 50 First-In-First-Out (FIFO) queue data container;
+#X obj 1 1 cnv 5 740 40 empty empty data.fifo 20 20 0 20 -104026 -4096
 0;
-#X obj 622 11 data.fifo;
-#X obj 205 80 cnv 1 490 61 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 If size argument specified - creates queue with fixed
+#X obj 650 11 data.fifo;
+#X obj 245 80 cnv 1 495 61 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 If size argument specified - creates queue with fixed
 size. When count of values exceed this limit \, outputs and removes
 first value in queue.;
 #X floatatom 213 169 5 0 0 0 - - -;
@@ -25,63 +25,63 @@ first value in queue.;
 #X obj 50 285 msg set;
 #X obj 213 285 print;
 #X msg 50 313 ;
-#X obj 20 352 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 352 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 357 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 362 1\.;
 #X text 150 362 int;
-#X obj 241 363 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 362 size: if specified \, creates fixed-size queue. Value
+#X obj 281 363 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 362 size: if specified \, creates fixed-size queue. Value
 '0' means default size (1024). Min value: 0;
-#X obj 20 404 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 404 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 409 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 414 @empty;
-#X text 240 414 (readonly) Get if queue is empty. Type: int. Allowed
+#X text 280 414 (readonly) Get if queue is empty. Type: int. Allowed
 values: 0 \, 1;
 #X msg 120 451 @filled;
-#X text 240 451 (readonly) Get current number of elements in queue.
+#X text 280 451 (readonly) Get current number of elements in queue.
 Type: int. Min value: 0;
 #X msg 120 488 @size;
-#X text 240 488 (readonly) Get max number of elements in queue. Type:
+#X text 280 488 (readonly) Get max number of elements in queue. Type:
 int. Min value: 0;
 #X msg 120 525 @free;
-#X text 240 525 (readonly) Get number of elements you can add to queue
+#X text 280 525 (readonly) Get number of elements you can add to queue
 until it full. Type: int. Min value: 0;
-#X obj 20 572 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 572 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 577 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 582 clear;
-#X text 240 582 removes all queue values.;
+#X text 280 582 removes all queue values.;
 #X msg 120 614 flush;
-#X text 240 614 outputs and removes all queue values.;
+#X text 280 614 outputs and removes all queue values.;
 #X msg 120 646 pop;
-#X text 240 646 outputs and removes first values in queue.;
+#X text 280 646 outputs and removes first values in queue.;
 #X msg 120 678 resize;
-#X text 240 678 Arguments are:;
-#X obj 250 706 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 706 [anonym]: changes queue size. All previous values (if
+#X text 280 678 Arguments are:;
+#X obj 290 706 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 290 706 [anonym]: changes queue size. All previous values (if
 any) are silently removed. Type: int. Min value: 0;
-#X obj 20 758 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 758 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 763 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 768 1\.;
 #X text 150 768 *bang*;
-#X text 240 768 same as *flush* message.;
-#X obj 20 796 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 768 same as *flush* message.;
+#X obj 20 796 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 801 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 806 1\.;
-#X text 240 806 output value;
+#X text 280 806 output value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 854 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 854 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 857 library: ceammc v0.7;
-#X text 549 869 see also:;
-#X obj 625 869 data.list;
+#X text 579 869 see also:;
+#X obj 655 869 data.list;
 #N canvas 10 876 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -1,10 +1,10 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 570 50 cnv 1 125 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 570 50 extract sublist;
-#X obj 1 1 cnv 5 712 40 empty empty list.slice 20 20 0 20 -104026
+#X obj 615 50 cnv 1 125 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 615 50 extract sublist;
+#X obj 1 1 cnv 5 740 40 empty empty list.slice 20 20 0 20 -104026
 -4096 0;
-#X obj 615 11 list.slice;
+#X obj 643 11 list.slice;
 #X msg 50 118 list A B C D E;
 #X msg 242 118 list A B C D E;
 #X msg 424 118 list A B C D E;
@@ -25,53 +25,53 @@
 #X obj 242 291 msg set;
 #X msg 50 320 ;
 #X msg 242 320 ;
-#X obj 20 359 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 359 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 364 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 369 1\.;
 #X text 150 369 int;
-#X obj 241 370 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 369 FROM: @from property.;
+#X obj 281 370 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 369 FROM: @from property.;
 #X text 120 387 2\.;
 #X text 150 387 int;
-#X obj 241 388 cnv 1 25 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 387 TO: @to property.;
+#X obj 281 388 cnv 1 25 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 387 TO: @to property.;
 #X text 120 405 3\.;
 #X text 150 405 int;
-#X obj 241 406 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 405 STEP: @step property.;
-#X obj 20 433 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 281 406 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 405 STEP: @step property.;
+#X obj 20 433 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 438 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 443 @from;
-#X text 240 443 Get/Set start slice position. You can use negative
+#X text 280 443 Get/Set start slice position. You can use negative
 index to address elements from the end. Type: int. Default value: 0;
 #X msg 120 480 @to;
-#X text 240 480 Get/Set end slice position. You can use negative index
+#X text 280 480 Get/Set end slice position. You can use negative index
 to address elements from the end. Type: int. Default value: -1;
 #X msg 120 517 @step;
-#X text 240 517 Get/Set slice step. Type: int. Default value: 1\. Min
+#X text 280 517 Get/Set slice step. Type: int. Default value: 1\. Min
 value: 0;
-#X obj 20 564 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 564 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 569 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 574 1\.;
 #X text 150 574 *list*;
-#X text 240 574 input list.;
-#X obj 20 602 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 574 input list.;
+#X obj 20 602 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 607 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 612 1\.;
-#X text 240 612 output sublist;
+#X text 280 612 output sublist;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 660 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 660 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 663 library: ceammc v0.7;
-#X text 564 675 see also:;
-#X obj 640 675 list.at;
+#X text 594 675 see also:;
+#X obj 670 675 list.at;
 #N canvas 10 682 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

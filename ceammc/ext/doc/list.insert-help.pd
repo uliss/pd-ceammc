@@ -1,53 +1,53 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 221 50 cnv 1 474 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 221 50 insert atom or list to the specified position of input
+#X obj 266 50 cnv 1 474 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 266 50 insert atom or list to the specified position of input
 list;
-#X obj 1 1 cnv 5 712 40 empty empty list.insert 20 20 0 20 -104026
+#X obj 1 1 cnv 5 740 40 empty empty list.insert 20 20 0 20 -104026
 -4096 0;
-#X obj 608 11 list.insert;
-#X obj 205 80 cnv 1 490 33 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Works with data atoms;
+#X obj 636 11 list.insert;
+#X obj 245 80 cnv 1 495 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 Works with data atoms;
 #X msg 50 141 1 2 3 4;
 #X msg 78 170 list D E F;
 #X floatatom 213 170 5 0 0 0 - - -;
 #X obj 50 213 list.insert A B C @index 1;
 #X obj 50 242 ui.display @display_type 1 @size 150 18;
-#X obj 20 282 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 282 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 287 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 292 @index;
-#X text 240 292 Get/Set insert element index. Type: int. Default
+#X text 280 292 Get/Set insert element index. Type: int. Default
 value: 0\. Min value: 0;
-#X obj 20 339 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 339 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 344 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 349 1\.;
 #X text 150 349 *list*;
-#X text 240 349 input list.;
+#X text 280 349 input list.;
 #X text 150 367 *data:mlist*;
-#X text 240 367 input mlist.;
+#X text 280 367 input mlist.;
 #X text 120 385 2\.;
 #X text 150 385 *list*;
-#X text 240 385 set inserted atom or list.;
+#X text 280 385 set inserted atom or list.;
 #X text 120 403 3\.;
 #X text 150 403 *float*;
-#X text 240 403 set insert position.;
-#X obj 20 431 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 403 set insert position.;
+#X obj 20 431 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 436 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 441 1\.;
-#X text 240 441 output result list or mlist;
+#X text 280 441 output result list or mlist;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
-#X text 434 520 see also:;
-#X obj 510 520 list.append;
-#X obj 604 520 list.prepend;
+#X text 464 520 see also:;
+#X obj 540 520 list.append;
+#X obj 634 520 list.prepend;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

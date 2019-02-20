@@ -1,12 +1,12 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 348 50 cnv 1 347 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 348 50 Low-pass filter with 24/db per octave slope;
-#X obj 1 1 cnv 5 712 40 empty empty flt.lpf24~ 20 20 0 20 -104026
+#X obj 393 50 cnv 1 347 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 393 50 Low-pass filter with 24/db per octave slope;
+#X obj 1 1 cnv 5 740 40 empty empty flt.lpf24~ 20 20 0 20 -104026
 -4096 0;
-#X obj 614 11 flt.lpf24~;
-#X obj 205 80 cnv 1 490 89 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 A low-pass filter is a filter that passes signals with
+#X obj 642 11 flt.lpf24~;
+#X obj 245 80 cnv 1 495 89 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 A low-pass filter is a filter that passes signals with
 a frequency lower than a certain cutoff frequency and attenuates
 signals with frequencies higher than the cutoff frequency. A low-pass
 filter is the complement of a high-pass filter.;
@@ -20,43 +20,43 @@ filter is the complement of a high-pass filter.;
 #X obj 50 313 flt.lpf24~ 5000;
 #X obj 50 341 ui.spectroscope~ @size 400 120;
 #X obj 50 485 ui.dsp~;
-#X obj 20 524 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 524 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 529 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 534 1\.;
 #X text 150 534 float;
-#X obj 241 535 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 534 freq(Hz): cutoff frequency. Range: 20\...20000;
-#X obj 20 562 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 281 535 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 534 freq(Hz): cutoff frequency. Range: 20\...20000;
+#X obj 20 562 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 567 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 572 @freq;
-#X text 240 572 Get/Set cutoff frequency. Type: float. Units: Hz.
+#X text 280 572 Get/Set cutoff frequency. Type: float. Units: Hz.
 Default value: 1000\. Value range: 20-20000;
 #X msg 120 609 @active;
-#X text 240 609 Get/Set on/off dsp processing. Type: int. Default
+#X text 280 609 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
-#X obj 20 656 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 656 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 661 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 666 1\.;
-#X text 240 666 input signal.;
-#X obj 20 694 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 666 input signal.;
+#X obj 20 694 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 699 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 704 1\.;
-#X text 240 704 filtered signal;
+#X text 280 704 filtered signal;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 752 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 752 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 755 library: ceammc v0.7;
-#X text 365 767 see also:;
-#X obj 441 767 flt.lpf12~;
-#X obj 529 767 flt.hpf12~;
-#X obj 617 767 flt.c_lpf~;
+#X text 395 767 see also:;
+#X obj 471 767 flt.lpf12~;
+#X obj 559 767 flt.hpf12~;
+#X obj 647 767 flt.c_lpf~;
 #N canvas 10 774 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

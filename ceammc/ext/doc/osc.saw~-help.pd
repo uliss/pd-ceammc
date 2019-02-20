@@ -1,12 +1,12 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 498 50 cnv 1 197 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 498 50 Alias-free sawtooth wave;
-#X obj 1 1 cnv 5 712 40 empty empty osc.saw~ 20 20 0 20 -104026 -4096
+#X obj 543 50 cnv 1 197 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 543 50 Alias-free sawtooth wave;
+#X obj 1 1 cnv 5 740 40 empty empty osc.saw~ 20 20 0 20 -104026 -4096
 0;
-#X obj 628 11 osc.saw~;
-#X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Polynomial Transition Regions (PTR) used for aliasing
+#X obj 656 11 osc.saw~;
+#X obj 245 80 cnv 1 495 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 Polynomial Transition Regions (PTR) used for aliasing
 suppression. 2nd order interpolation.;
 #X floatatom 50 155 5 0 0 0 - - -;
 #X obj 136 155 ui.dsp~;
@@ -17,45 +17,45 @@ suppression. 2nd order interpolation.;
 #X obj 50 271 ui.gain~ @size 120 14;
 #X obj 50 299 dac~;
 #X obj 126 299 ui.spectroscope~ @size 150 100;
-#X obj 20 421 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 421 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 426 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 431 1\.;
 #X text 150 431 float;
-#X obj 241 432 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 431 freq(Hz): frequency.;
-#X obj 20 459 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 281 432 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 431 freq(Hz): frequency.;
+#X obj 20 459 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 464 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 469 @active;
-#X text 240 469 Get/Set on/off dsp processing. Type: int. Default
+#X text 280 469 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
-#X obj 20 516 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 516 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 521 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 526 1\.;
 #X text 150 526 *float*;
-#X text 240 526 frequency in Hz.;
+#X text 280 526 frequency in Hz.;
 #X text 120 544 2\.;
 #X text 150 544 *bang*;
-#X text 240 544 reset phase.;
-#X obj 20 572 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 544 reset phase.;
+#X obj 20 572 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 577 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 582 1\.;
-#X text 240 582 output signal;
+#X text 280 582 output signal;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title osc @url ceammc.osc-help.pd;
-#X obj 1 630 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 630 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 633 library: ceammc v0.7;
-#X text 305 645 see also:;
-#X obj 381 645 osc.saw4~;
-#X obj 462 645 osc.tri~;
-#X obj 536 645 osc.square~;
-#X obj 632 645 lfo.tri~;
+#X text 335 645 see also:;
+#X obj 411 645 osc.saw4~;
+#X obj 492 645 osc.tri~;
+#X obj 566 645 osc.square~;
+#X obj 662 645 lfo.tri~;
 #N canvas 10 652 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

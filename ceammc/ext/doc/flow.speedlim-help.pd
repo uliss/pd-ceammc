@@ -1,13 +1,13 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 467 50 cnv 1 228 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 467 50 control stream speed limiter;
-#X obj 1 1 cnv 5 712 40 empty empty flow.speedlim 20 20 0 20 -104026
+#X obj 512 50 cnv 1 228 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 512 50 control stream speed limiter;
+#X obj 1 1 cnv 5 740 40 empty empty flow.speedlim 20 20 0 20 -104026
 -4096 0;
-#X obj 510 11 speedlim;
-#X obj 593 11 flow.speedlim;
-#X obj 205 80 cnv 1 490 103 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Passthru all control data not often then specified
+#X obj 538 11 speedlim;
+#X obj 621 11 flow.speedlim;
+#X obj 245 80 cnv 1 495 103 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 Passthru all control data not often then specified
 limit in ms. Can be used for button debouncing. In initial state is
 opened \, on first message pass it and then became closed within
 specified time interval. All incoming messages in that time are
@@ -22,40 +22,40 @@ dropped. After this interval expiried goes to opened state;
 #X obj 50 355 flow.group @by 100;
 #X obj 50 384 msg set;
 #X msg 50 413 ;
-#X obj 20 452 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 452 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 457 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 462 1\.;
 #X text 150 462 int;
-#X obj 241 463 cnv 1 73 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 462 TIME(ms): limit time.;
-#X obj 20 490 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 281 463 cnv 1 73 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 462 TIME(ms): limit time.;
+#X obj 20 490 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 495 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 500 @limit;
-#X text 240 500 Get/Set speed limit. If set to zero there is no flow
+#X text 280 500 Get/Set speed limit. If set to zero there is no flow
 limitations. Type: int. Units: ms. Default value: 0\. Min value: 0;
-#X obj 20 561 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 561 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 566 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 571 reset;
-#X text 240 571 reset internal timer and goes to opened state.;
-#X obj 20 613 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 571 reset internal timer and goes to opened state.;
+#X obj 20 613 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 618 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 623 1\.;
-#X text 240 623 input flow.;
-#X obj 20 651 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 623 input flow.;
+#X obj 20 651 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 656 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 661 1\.;
-#X text 240 661 output flow;
+#X text 280 661 output flow;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 709 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 709 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 712 library: ceammc v0.7;
 #N canvas 10 731 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

@@ -1,46 +1,46 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 403 50 cnv 1 292 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 403 50 predicate to check dict contains key;
-#X obj 1 1 cnv 5 712 40 empty empty dict.contains 20 20 0 20 -104026
+#X obj 448 50 cnv 1 292 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 448 50 predicate to check dict contains key;
+#X obj 1 1 cnv 5 740 40 empty empty dict.contains 20 20 0 20 -104026
 -4096 0;
-#X obj 593 11 dict.contains;
+#X obj 621 11 dict.contains;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 data.dict \[a: b\] \[c: 200\];
 #X obj 50 176 dict.contains c;
 #X floatatom 50 205 5 0 0 0 - - -;
-#X obj 20 244 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 244 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 249 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 254 1\.;
 #X text 150 254 atom;
-#X obj 241 255 cnv 1 32 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 254 KEY: checked key.;
-#X obj 20 282 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 281 255 cnv 1 32 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 254 KEY: checked key.;
+#X obj 20 282 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 287 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 292 1\.;
 #X text 150 292 *data*;
-#X text 240 292 Data.dict expected.;
+#X text 280 292 Data.dict expected.;
 #X text 120 310 2\.;
 #X text 150 310 *atom*;
-#X text 240 310 change searched key.;
-#X obj 20 338 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 310 change searched key.;
+#X obj 20 338 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 343 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 348 1\.;
-#X text 240 348 output 1 is contains key \, otherwise 0;
+#X text 280 348 output 1 is contains key \, otherwise 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
-#X text 469 520 see also:;
-#X obj 545 520 data.dict;
-#X obj 625 520 dict.keys;
+#X text 499 520 see also:;
+#X obj 575 520 data.dict;
+#X obj 655 520 dict.keys;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

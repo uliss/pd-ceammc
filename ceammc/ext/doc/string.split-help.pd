@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 491 50 cnv 1 204 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 491 50 split string by separator;
-#X obj 1 1 cnv 5 712 40 empty empty string.split 20 20 0 20 -104026
+#X obj 536 50 cnv 1 204 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 536 50 split string by separator;
+#X obj 1 1 cnv 5 740 40 empty empty string.split 20 20 0 20 -104026
 -4096 0;
-#X obj 511 11 str.split;
-#X obj 601 11 string.split;
+#X obj 539 11 str.split;
+#X obj 629 11 string.split;
 #X msg 50 118 symbol A/B/C;
 #X msg 242 118 symbol Sample;
 #X msg 434 118 bang;
@@ -27,38 +27,38 @@
 #X msg 50 291 ;
 #X msg 242 291 ;
 #X msg 434 291 ;
-#X obj 20 330 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 335 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 340 1\.;
 #X text 150 340 atom;
-#X obj 241 341 cnv 1 32 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 340 SEP: separator. If nonspecified - separate by every
+#X obj 281 341 cnv 1 32 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 340 SEP: separator. If nonspecified - separate by every
 char. To separate by space - use ' ' argument.;
-#X obj 20 382 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 382 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 387 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 392 @sep;
-#X text 240 392 Get/Set separator. Type: atom;
-#X obj 20 429 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 392 Get/Set separator. Type: atom;
+#X obj 20 429 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 434 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 439 1\.;
-#X text 240 439 Input string.;
-#X obj 20 467 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 439 Input string.;
+#X obj 20 467 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 472 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 477 1\.;
-#X text 240 477 list of strings;
+#X text 280 477 list of strings;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title string @url ceammc.string-help.pd;
-#X obj 1 525 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 525 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 528 library: ceammc v0.7;
-#X text 535 540 see also:;
-#X obj 611 540 string.join;
+#X text 565 540 see also:;
+#X obj 641 540 string.join;
 #N canvas 10 547 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

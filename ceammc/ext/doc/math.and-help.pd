@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 404 50 cnv 1 291 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 404 50 operation AND for multiple arguments;
-#X obj 1 1 cnv 5 712 40 empty empty math.and 20 20 0 20 -104026 -4096
+#X obj 449 50 cnv 1 291 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 449 50 operation AND for multiple arguments;
+#X obj 1 1 cnv 5 740 40 empty empty math.and 20 20 0 20 -104026 -4096
 0;
-#X obj 582 11 and;
-#X obj 629 11 math.and;
+#X obj 610 11 and;
+#X obj 657 11 math.and;
 #X obj 50 118 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10
 -262144 -1 -1 0 0;
 #X obj 50 147 > 50;
@@ -20,53 +20,53 @@
 #X floatatom 50 262 5 0 0 0 - - -;
 #X obj 50 291 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 328 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 328 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 333 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 338 1\.;
 #X text 150 338 int;
-#X obj 241 339 cnv 1 33 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 338 NUM: number of arguments. Range: 3\...16;
-#X obj 20 366 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 281 339 cnv 1 33 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 338 NUM: number of arguments. Range: 3\...16;
+#X obj 20 366 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 371 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 376 @sync;
-#X text 240 376 Get/Set if specified - all inlets are 'hot'. Type:
+#X text 280 376 Get/Set if specified - all inlets are 'hot'. Type:
 int. Default value: 0\. Allowed values: 0 \, 1;
 #X msg 120 413 @state;
-#X text 240 413 (readonly) Get internal logic state as list of 1 and
+#X text 280 413 (readonly) Get internal logic state as list of 1 and
 0\. Type: list;
-#X obj 20 460 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 460 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 465 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 470 reset;
-#X text 240 470 resets all input states to false.;
-#X obj 20 512 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 470 resets all input states to false.;
+#X obj 20 512 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 517 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 522 1\.;
 #X text 150 522 *float*;
-#X text 240 522 1 or 0\.;
+#X text 280 522 1 or 0\.;
 #X text 120 540 ....;
 #X text 150 540 *float*;
-#X text 240 540 1 or 0\.;
+#X text 280 540 1 or 0\.;
 #X text 120 558 n.;
 #X text 150 558 *float*;
-#X text 240 558 1 or 0\.;
-#X obj 20 586 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 558 1 or 0\.;
+#X obj 20 586 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 591 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 596 1\.;
-#X text 240 596 1 - if all input values are true (1) \, 0 - otherwise;
+#X text 280 596 1 - if all input values are true (1) \, 0 - otherwise;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 644 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 644 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 647 library: ceammc v0.7;
-#X text 563 659 see also:;
-#X obj 639 659 math.or;
+#X text 593 659 see also:;
+#X obj 669 659 math.or;
 #N canvas 10 666 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

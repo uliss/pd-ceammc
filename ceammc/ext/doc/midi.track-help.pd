@@ -1,10 +1,10 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 474 50 cnv 1 221 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 474 50 extract track from MidiFile;
-#X obj 1 1 cnv 5 712 40 empty empty midi.track 20 20 0 20 -104026
+#X obj 519 50 cnv 1 221 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 519 50 extract track from MidiFile;
+#X obj 1 1 cnv 5 740 40 empty empty midi.track 20 20 0 20 -104026
 -4096 0;
-#X obj 614 11 midi.track;
+#X obj 642 11 midi.track;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 openpanel;
@@ -20,47 +20,47 @@
 #X obj 50 378 osc~;
 #X obj 50 406 *~;
 #X obj 50 435 dac~;
-#X obj 20 474 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 474 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 479 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 484 @track;
-#X text 240 484 (readonly) Get track number. Type: float;
+#X text 280 484 (readonly) Get track number. Type: float;
 #X msg 120 511 @join;
-#X text 240 511 join all tracks into one;
+#X text 280 511 join all tracks into one;
 #X msg 120 538 @speed;
-#X text 240 538 Get/Set play speed factor. Type: float. Default value:
+#X text 280 538 Get/Set play speed factor. Type: float. Default value:
 1\. Min value: 0.01;
 #X msg 120 575 @tempo;
-#X text 240 575 (readonly) Get current tempo in TPQ. Type: float;
-#X obj 20 612 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 575 (readonly) Get current tempo in TPQ. Type: float;
+#X obj 20 612 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 617 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 622 play;
-#X text 240 622 start playing.;
+#X text 280 622 start playing.;
 #X msg 120 654 pause;
-#X text 240 654 pause playing.;
+#X text 280 654 pause playing.;
 #X msg 120 686 stop;
-#X text 240 686 stop playing.;
+#X text 280 686 stop playing.;
 #X msg 120 718 next;
-#X text 240 718 moves playing position to next event. No output.;
-#X obj 20 760 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 718 moves playing position to next event. No output.;
+#X obj 20 760 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 765 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 770 1\.;
-#X text 240 770 method inlet.;
-#X obj 20 798 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 770 method inlet.;
+#X obj 20 798 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 803 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 808 1\.;
-#X text 240 808 outputs MidiEvent message;
+#X text 280 808 outputs MidiEvent message;
 #X text 120 826 2\.;
-#X text 240 826 time in milliseconds until next MIDI event;
+#X text 280 826 time in milliseconds until next MIDI event;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 874 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 874 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 877 library: ceammc v0.7;
 #N canvas 10 896 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

@@ -1,9 +1,9 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 459 50 cnv 1 236 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 459 50 FluidSynth SoundFont 2 player;
-#X obj 1 1 cnv 5 712 40 empty empty fluid~ 20 20 0 20 -104026 -4096 0;
-#X obj 643 11 fluid~;
+#X obj 504 50 cnv 1 236 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 504 50 FluidSynth SoundFont 2 player;
+#X obj 1 1 cnv 5 740 40 empty empty fluid~ 20 20 0 20 -104026 -4096 0;
+#X obj 671 11 fluid~;
 #X obj 50 118 ui.keyboard @size 433 60;
 #X obj 174 190 hradio 15 1 0 8 empty empty empty 17 7 0 10 -262144 -1
 -1 0;
@@ -16,70 +16,70 @@
 #X obj 50 334 ui.gain~ @size 120 16;
 #X obj 290 334 ui.dsp~;
 #X obj 50 363 dac~;
-#X obj 20 402 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 402 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 407 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 412 @sf;
-#X text 240 412 Get/Set path to SoundFont. Type: symbol;
+#X text 280 412 Get/Set path to SoundFont. Type: symbol;
 #X msg 120 439 @version;
-#X text 240 439 (readonly) Get FluidSynth version. Type: symbol;
+#X text 280 439 (readonly) Get FluidSynth version. Type: symbol;
 #X msg 120 466 @soundfonts;
-#X text 240 466 (readonly) Get list of found soundfonts. Type: list;
-#X obj 20 503 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 466 (readonly) Get list of found soundfonts. Type: list;
+#X obj 20 503 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 508 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 513 note;
-#X text 240 513 play note (CHANNEL \, KEY \, VELOCITY or KEY \,
+#X text 280 513 play note (CHANNEL \, KEY \, VELOCITY or KEY \,
 VELOCITY expected).;
 #X msg 120 555 cc;
-#X text 240 555 control change (CHANNEL \, KEY \, VALUE or KEY \,
+#X text 280 555 control change (CHANNEL \, KEY \, VALUE or KEY \,
 VALUE expected).;
 #X msg 120 597 prog;
-#X text 240 597 program change (CHANNEL \, PROGRAM expected).;
+#X text 280 597 program change (CHANNEL \, PROGRAM expected).;
 #X msg 120 629 bank;
-#X text 240 629 set instrument bank number on a MIDI channel (CHANNEL
+#X text 280 629 set instrument bank number on a MIDI channel (CHANNEL
 \, BANK expected).;
 #X msg 120 671 bend;
-#X text 240 671 pitchband change (CHANNEL \, VALUE expected).;
+#X text 280 671 pitchband change (CHANNEL \, VALUE expected).;
 #X msg 120 703 gen;
-#X text 240 703 set a SoundFont generator (effect) value on a MIDI
+#X text 280 703 set a SoundFont generator (effect) value on a MIDI
 channel in real-time (CHANNEL \, PARAM \, VALUE or PARAM \, VALUE
 expected).;
 #X msg 120 759 panic;
-#X text 240 759 send MIDI system reset command (big red 'panic'
+#X text 280 759 send MIDI system reset command (big red 'panic'
 button) \, turns off notes \, resets controllers and restores initial
 basic channel configuration.;
 #X msg 120 815 reset;
-#X text 240 815 reset all synth channels.;
+#X text 280 815 reset all synth channels.;
 #X msg 120 847 notes_off;
-#X text 240 847 turn off all notes on a MIDI channel (put them into
+#X text 280 847 turn off all notes on a MIDI channel (put them into
 release phase). Arguments are:;
-#X obj 250 889 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 889 [CHAN=0]: MIDI channel. Type: int.;
+#X obj 290 889 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 290 889 [CHAN=0]: MIDI channel. Type: int.;
 #X msg 120 917 sounds_off;
-#X text 240 917 immediately stop all notes on a MIDI channel (skips
+#X text 280 917 immediately stop all notes on a MIDI channel (skips
 release phase). Arguments are:;
-#X obj 250 959 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 959 [CHAN=0]: MIDI channel. Type: int.;
-#X obj 20 997 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 290 959 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 290 959 [CHAN=0]: MIDI channel. Type: int.;
+#X obj 20 997 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1002 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1007 1\.;
 #X text 150 1007 *symbol*;
-#X text 240 1007 load mod file.;
-#X obj 20 1035 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 1007 load mod file.;
+#X obj 20 1035 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1040 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1045 1\.;
-#X text 240 1045 left channel and property output;
+#X text 280 1045 left channel and property output;
 #X text 120 1063 2\.;
-#X text 240 1063 right channel;
+#X text 280 1063 right channel;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title misc @url ceammc.misc-help.pd;
-#X obj 1 1111 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 1111 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1114 library: ceammc v0.7;
 #N canvas 10 1133 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

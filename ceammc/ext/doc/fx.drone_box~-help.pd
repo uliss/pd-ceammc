@@ -1,10 +1,10 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 403 50 cnv 1 292 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 403 50 mono sympathetic resonance generator;
-#X obj 1 1 cnv 5 712 40 empty empty fx.drone_box~ 20 20 0 20 -104026
+#X obj 448 50 cnv 1 292 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 448 50 mono sympathetic resonance generator;
+#X obj 1 1 cnv 5 740 40 empty empty fx.drone_box~ 20 20 0 20 -104026
 -4096 0;
-#X obj 592 11 fx.drone_box~;
+#X obj 620 11 fx.drone_box~;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 click~;
@@ -17,51 +17,51 @@
 #X obj 50 291 ui.gain~ @size 120 16;
 #X obj 290 291 ui.dsp~;
 #X obj 50 320 dac~;
-#X obj 20 359 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 359 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 364 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 369 1\.;
 #X text 150 369 float;
-#X obj 241 370 cnv 1 48 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 369 pitch: drone MIDI pitch. Range: 36\...60;
+#X obj 281 370 cnv 1 48 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 369 pitch: drone MIDI pitch. Range: 36\...60;
 #X text 120 387 2\.;
 #X text 150 387 symbol;
-#X obj 241 388 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 387 ID: object ID for OSC control path.;
-#X obj 20 415 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 281 388 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 387 ID: object ID for OSC control path.;
+#X obj 20 415 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 420 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 425 @pitch;
-#X text 240 425 Get/Set drone MIDI pitch. Type: float. Default value:
+#X text 280 425 Get/Set drone MIDI pitch. Type: float. Default value:
 48\. Value range: 36-60;
 #X msg 120 462 @decay;
-#X text 240 462 Get/Set drone pluck decay time. Type: float. Units:
+#X text 280 462 Get/Set drone pluck decay time. Type: float. Units:
 ms. Default value: 4000\. Value range: 100-120000;
 #X msg 120 499 @drywet;
-#X text 240 499 Get/Set proportion of mix between the original (dry)
+#X text 280 499 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 0.5\. Value range: 0-1;
 #X msg 120 550 @bypass;
-#X text 240 550 Get/Set if set to 1 - bypass 'effected' signal. Type:
+#X text 280 550 Get/Set if set to 1 - bypass 'effected' signal. Type:
 int. Default value: 0\. Allowed values: 0 \, 1;
-#X obj 20 597 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 597 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 602 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 607 1\.;
-#X text 240 607 input signal.;
-#X obj 20 635 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 607 input signal.;
+#X obj 20 635 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 640 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 645 1\.;
-#X text 240 645 output signal;
+#X text 280 645 output signal;
 #X text 120 663 2\.;
-#X text 240 663 information output;
+#X text 280 663 information output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 711 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 711 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 714 library: ceammc v0.7;
 #N canvas 10 733 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

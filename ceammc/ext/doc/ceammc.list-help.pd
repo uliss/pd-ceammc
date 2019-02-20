@@ -147,7 +147,7 @@ interpolation.;
 #X text 175 1833 takes n lists from n inlets (specified by argument)
 and output their elements sequentially (list1-1 list2-1 list1-2
 list2-2 etc.).;
-#X obj 1 1 cnv 5 712 40 empty empty ceammc::list 20 20 0 20 -104026
+#X obj 1 1 cnv 5 695 40 empty empty ceammc::list 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1884 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 1884 cnv 5 695 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 1894 library: ceammc;

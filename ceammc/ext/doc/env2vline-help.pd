@@ -1,13 +1,13 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 340 50 cnv 1 355 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 340 50 Converts envelope to bunch of vline messages;
-#X obj 1 1 cnv 5 712 40 empty empty env2vline 20 20 0 20 -104026 -4096
+#X obj 385 50 cnv 1 355 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 385 50 Converts envelope to bunch of vline messages;
+#X obj 1 1 cnv 5 740 40 empty empty env2vline 20 20 0 20 -104026 -4096
 0;
-#X obj 523 11 env->vline;
-#X obj 621 11 env2vline;
-#X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Supports stop-points for multisegment envelopes. Note:
+#X obj 551 11 env->vline;
+#X obj 649 11 env2vline;
+#X obj 245 80 cnv 1 495 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 Supports stop-points for multisegment envelopes. Note:
 non-linear envelopes are outputted using linear approximation;
 #X obj 50 155 loadbang;
 #X obj 414 155 r a1;
@@ -48,50 +48,50 @@ non-linear envelopes are outputted using linear approximation;
 #X restore 414 515 graph;
 #X obj 50 544 *~;
 #X obj 50 573 dac~;
-#X obj 20 617 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 617 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 622 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 627 @sync;
-#X text 240 627 Get/Set sync with input data. When set to 1 outputs
+#X text 280 627 Get/Set sync with input data. When set to 1 outputs
 envelope (as fixed) on every input data. Type: int. Default value: 0\.
 Allowed values: 0 \, 1;
-#X obj 20 688 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 688 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 693 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 698 next;
-#X text 240 698 output segment until next stop-point or end of
+#X text 280 698 output segment until next stop-point or end of
 envelope is reached.;
 #X msg 120 740 reset;
-#X text 240 740 reset current segment position for multi-segment
+#X text 280 740 reset current segment position for multi-segment
 envelopes.;
-#X obj 20 782 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 782 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 787 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 792 1\.;
 #X text 150 792 *bang*;
-#X text 240 792 output as envelope of fixed length (no stop-points are
+#X text 280 792 output as envelope of fixed length (no stop-points are
 encountered).;
 #X text 150 824 *float*;
-#X text 240 824 output as attack (on 1) / release (on 0) envelope with
+#X text 280 824 output as attack (on 1) / release (on 0) envelope with
 one stop-point.;
 #X text 150 856 *data*;
-#X text 240 856 output as fixed envelope* data.;
-#X obj 20 884 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 856 output as fixed envelope* data.;
+#X obj 20 884 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 889 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 894 1\.;
-#X text 240 894 bunch of vline-compatible messages: VALUE \, DURATION
+#X text 280 894 bunch of vline-compatible messages: VALUE \, DURATION
 \, OFFSET;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title env @url ceammc.env-help.pd;
-#X obj 1 942 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 942 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 945 library: ceammc v0.7;
-#X text 453 957 see also:;
-#X obj 529 957 vline->env;
-#X obj 617 957 env->array;
+#X text 483 957 see also:;
+#X obj 559 957 vline->env;
+#X obj 647 957 env->array;
 #N canvas 10 964 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -1,13 +1,13 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 340 50 cnv 1 355 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 340 50 convert from amplitude to decibel full scale;
-#X obj 1 1 cnv 5 712 40 empty empty conv.amp2dbfs 20 20 0 20 -104026
+#X obj 385 50 cnv 1 355 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 385 50 convert from amplitude to decibel full scale;
+#X obj 1 1 cnv 5 740 40 empty empty conv.amp2dbfs 20 20 0 20 -104026
 -4096 0;
-#X obj 503 11 amp->dbfs;
-#X obj 593 11 conv.amp2dbfs;
-#X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Note: amplitude value 0 is converted to -144 db (24-bit
+#X obj 531 11 amp->dbfs;
+#X obj 621 11 conv.amp2dbfs;
+#X obj 245 80 cnv 1 495 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 Note: amplitude value 0 is converted to -144 db (24-bit
 range);
 #X obj 50 155 ui.hsl;
 #X floatatom 50 184 5 0 0 0 - - -;
@@ -17,28 +17,28 @@ range);
 #X obj 50 299 amp->dbfs;
 #X obj 50 328 msg set;
 #X msg 50 357 ;
-#X obj 20 396 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 396 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 401 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 406 1\.;
 #X text 150 406 *float*;
-#X text 240 406 input value.;
+#X text 280 406 input value.;
 #X text 150 424 *list*;
-#X text 240 424 input values.;
-#X obj 20 452 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 424 input values.;
+#X obj 20 452 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 457 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 462 1\.;
-#X text 240 462 converted value;
+#X text 280 462 converted value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 510 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 510 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 513 library: ceammc v0.7;
-#X text 548 525 see also:;
-#X obj 624 525 dbfs->amp;
+#X text 578 525 see also:;
+#X obj 654 525 dbfs->amp;
 #N canvas 10 532 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

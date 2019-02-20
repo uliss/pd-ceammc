@@ -1,10 +1,10 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 419 50 cnv 1 276 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 419 50 Positive low frequency square wave;
-#X obj 1 1 cnv 5 712 40 empty empty lfo.+square~ 20 20 0 20 -104026
+#X obj 464 50 cnv 1 276 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 464 50 Positive low frequency square wave;
+#X obj 1 1 cnv 5 740 40 empty empty lfo.+square~ 20 20 0 20 -104026
 -4096 0;
-#X obj 600 11 lfo.+square~;
+#X obj 628 11 lfo.+square~;
 #X obj 50 118 osc.saw~ 100;
 #X floatatom 194 118 5 0 0 0 - - -;
 #X obj 194 147 lfo.+square~ 10;
@@ -12,43 +12,43 @@
 #X obj 50 205 ui.gain~ @size 120 14;
 #X obj 290 205 ui.dsp~;
 #X obj 50 234 dac~;
-#X obj 20 273 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 273 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 278 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 283 1\.;
 #X text 150 283 float;
-#X obj 241 284 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 283 freq(Hz): frequency.;
-#X obj 20 311 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 281 284 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 283 freq(Hz): frequency.;
+#X obj 20 311 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 316 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 321 @active;
-#X text 240 321 Get/Set on/off dsp processing. Type: int. Default
+#X text 280 321 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
-#X obj 20 368 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 368 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 373 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 378 1\.;
-#X text 240 378 frequency in Hz.;
+#X text 280 378 frequency in Hz.;
 #X text 120 396 2\.;
 #X text 150 396 *bang*;
-#X text 240 396 reset phase.;
-#X obj 20 424 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 396 reset phase.;
+#X obj 20 424 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 429 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 434 1\.;
-#X text 240 434 output signal in [0 \, 1] range;
+#X text 280 434 output signal in [0 \, 1] range;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title lfo @url ceammc.lfo-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
-#X text 359 520 see also:;
-#X obj 435 520 lfo.square~;
-#X obj 530 520 lfo.impulse~;
-#X obj 632 520 lfo.tri~;
+#X text 389 520 see also:;
+#X obj 465 520 lfo.square~;
+#X obj 560 520 lfo.impulse~;
+#X obj 662 520 lfo.tri~;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

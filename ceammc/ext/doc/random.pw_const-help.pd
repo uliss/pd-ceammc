@@ -1,15 +1,15 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 388 50 cnv 1 307 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 388 50 piecewise constant random distribution;
-#X obj 1 1 cnv 5 712 40 empty empty random.pw_const 20 20 0 20 -104026
+#X obj 433 50 cnv 1 307 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 433 50 piecewise constant random distribution;
+#X obj 1 1 cnv 5 740 40 empty empty random.pw_const 20 20 0 20 -104026
 -4096 0;
-#X obj 580 11 random.pw_const;
-#X obj 205 80 cnv 1 490 98 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Produces random floating-point numbers \, which are
+#X obj 608 11 random.pw_const;
+#X obj 245 80 cnv 1 495 98 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 Produces random floating-point numbers \, which are
 uniformly distributed within each of the several subintervals [b0 \,
 b1) \, each with its own weight;
-#X text 210 131 Const segments specified as: bound0 \, weight0 \,
+#X text 250 131 Const segments specified as: bound0 \, weight0 \,
 bound1 \, weight0 \, bound2 etc;
 #X obj 50 206 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -27,49 +27,49 @@ bound1 \, weight0 \, bound2 etc;
 #X obj 50 322 list.enumerate @append;
 #X obj 50 350 list.repack 2;
 #X obj 50 379 tabwrite array1;
-#X obj 20 418 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 418 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 423 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 428 1\.;
 #X text 150 428 list;
-#X obj 241 429 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 428 P: interleaved interval boundaries and boundary
+#X obj 281 429 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 428 P: interleaved interval boundaries and boundary
 propabilities. Note: number of arguments should be odd and >=5\.
 Boundaries should be in strictly increasing order and weights should
 be non-negative.;
-#X obj 20 498 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 498 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 503 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 508 @v;
-#X text 240 508 Get/Set interleaved interval boundaries and boundary
+#X text 280 508 Get/Set interleaved interval boundaries and boundary
 propabilities. Type: list;
 #X msg 120 545 @bounds;
-#X text 240 545 (readonly) Get list of boundaries. Type: list;
+#X text 280 545 (readonly) Get list of boundaries. Type: list;
 #X msg 120 572 @weights;
-#X text 240 572 (readonly) Get list of weights. Type: list;
-#X obj 20 609 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 572 (readonly) Get list of weights. Type: list;
+#X obj 20 609 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 614 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 619 1\.;
 #X text 150 619 *bang*;
-#X text 240 619 generates random number.;
+#X text 280 619 generates random number.;
 #X text 150 637 *list*;
-#X text 240 637 set new distribution values.;
-#X obj 20 665 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 637 set new distribution values.;
+#X obj 20 665 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 670 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 675 1\.;
-#X text 240 675 result value;
+#X text 280 675 result value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 723 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 723 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 726 library: ceammc v0.7;
-#X text 413 738 see also:;
-#X obj 489 738 random.linear;
-#X obj 597 738 random.pw_lin;
+#X text 443 738 see also:;
+#X obj 519 738 random.linear;
+#X obj 627 738 random.pw_lin;
 #N canvas 10 745 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

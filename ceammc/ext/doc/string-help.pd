@@ -1,10 +1,10 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 546 50 cnv 1 149 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 546 50 string constructor;
-#X obj 1 1 cnv 5 712 40 empty empty string 20 20 0 20 -104026 -4096 0;
-#X obj 597 11 str;
-#X obj 644 11 string;
+#X obj 591 50 cnv 1 149 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 591 50 string constructor;
+#X obj 1 1 cnv 5 740 40 empty empty string 20 20 0 20 -104026 -4096 0;
+#X obj 625 11 str;
+#X obj 672 11 string;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X floatatom 88 118 5 0 0 0 - - -;
@@ -19,46 +19,46 @@
 #X obj 50 248 str->sym;
 #X obj 50 277 msg set;
 #X msg 50 305 ;
-#X obj 20 344 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 344 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 349 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 354 1\.;
 #X text 150 354 symbol;
-#X obj 241 355 cnv 1 32 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 354 STR: initial string.;
-#X obj 20 382 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 281 355 cnv 1 32 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 354 STR: initial string.;
+#X obj 20 382 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 387 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 392 clear;
-#X text 240 392 clear string without output.;
+#X text 280 392 clear string without output.;
 #X msg 120 424 set;
-#X text 240 424 set string content without output.;
+#X text 280 424 set string content without output.;
 #X msg 120 456 append;
-#X text 240 456 append values to the end of string.;
-#X obj 20 498 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 456 append values to the end of string.;
+#X obj 20 498 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 503 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 508 1\.;
 #X text 150 508 *bang*;
-#X text 240 508 outputs string value.;
+#X text 280 508 outputs string value.;
 #X text 150 526 *float*;
-#X text 240 526 convert float to string and outputs value.;
+#X text 280 526 convert float to string and outputs value.;
 #X text 150 544 *symbol*;
-#X text 240 544 convert symbol to string and outputs value.;
+#X text 280 544 convert symbol to string and outputs value.;
 #X text 150 562 *list*;
-#X text 240 562 convert list to string (separated with spaces) and
+#X text 280 562 convert list to string (separated with spaces) and
 outputs value.;
-#X obj 20 604 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 604 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 609 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 614 1\.;
-#X text 240 614 string data;
+#X text 280 614 string data;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title string @url ceammc.string-help.pd;
-#X obj 1 662 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 662 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 665 library: ceammc v0.7;
 #N canvas 10 684 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

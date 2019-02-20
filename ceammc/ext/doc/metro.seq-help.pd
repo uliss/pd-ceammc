@@ -1,12 +1,12 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 569 50 cnv 1 126 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 569 50 metro sequencer;
-#X obj 1 1 cnv 5 712 40 empty empty metro.seq 20 20 0 20 -104026 -4096
+#X obj 614 50 cnv 1 126 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 614 50 metro sequencer;
+#X obj 1 1 cnv 5 740 40 empty empty metro.seq 20 20 0 20 -104026 -4096
 0;
-#X obj 622 11 metro.seq;
-#X obj 205 80 cnv 1 490 33 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Easy way to build beat machines;
+#X obj 650 11 metro.seq;
+#X obj 245 80 cnv 1 495 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 Easy way to build beat machines;
 #X msg 50 141 1 0 1 1 0 1 0 1;
 #X obj 50 170 ui.radio @mode 1 @size 127 15;
 #X obj 50 199 msg @pattern;
@@ -14,51 +14,51 @@
 #X obj 50 257 metro.seq 100 1 0 0 1;
 #X obj 50 285 click~;
 #X obj 50 314 dac~;
-#X obj 20 353 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 353 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 358 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 363 1\.;
 #X text 150 363 float;
-#X obj 241 364 cnv 1 103 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 363 INTERVAL(ms): metro tempo in ms. Min value: 1;
+#X obj 281 364 cnv 1 103 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 363 INTERVAL(ms): metro tempo in ms. Min value: 1;
 #X text 120 381 2\.;
 #X text 150 381 list;
-#X obj 241 382 cnv 1 64 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 381 PATTERN: list of 1 and 0\. Where 1 means output bang
+#X obj 281 382 cnv 1 64 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 381 PATTERN: list of 1 and 0\. Where 1 means output bang
 on this beat.;
-#X obj 20 423 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 423 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 428 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 433 @pattern;
-#X text 240 433 Get/Set list of 1 and 0\. Where 1 means output bang on
+#X text 280 433 Get/Set list of 1 and 0\. Where 1 means output bang on
 this beat. Type: list;
 #X msg 120 470 @interval;
-#X text 240 470 Get/Set interval between beats. Type: float. Units:
+#X text 280 470 Get/Set interval between beats. Type: float. Units:
 ms. Default value: 0\. Min value: 1;
 #X msg 120 507 @current;
-#X text 240 507 Get/Set current pattern index. Type: int. Default
+#X text 280 507 Get/Set current pattern index. Type: int. Default
 value: 0\. Min value: 0;
-#X obj 20 554 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 554 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 559 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 564 1\.;
 #X text 150 564 *float*;
-#X text 240 564 starts (on 1) or stops (on 0) metro.;
-#X obj 20 592 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 564 starts (on 1) or stops (on 0) metro.;
+#X obj 20 592 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 597 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 602 1\.;
-#X text 240 602 outputs *bang*;
+#X text 280 602 outputs *bang*;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 650 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 650 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 653 library: ceammc v0.7;
-#X text 468 665 see also:;
-#X obj 544 665 metro;
-#X obj 596 665 metro.pattern;
+#X text 498 665 see also:;
+#X obj 574 665 metro;
+#X obj 626 665 metro.pattern;
 #N canvas 10 672 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

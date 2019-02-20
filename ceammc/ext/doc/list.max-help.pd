@@ -1,14 +1,14 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 413 50 cnv 1 282 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 413 50 returns largest element in the list;
-#X obj 1 1 cnv 5 712 40 empty empty list.max 20 20 0 20 -104026 -4096
+#X obj 458 50 cnv 1 282 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 458 50 returns largest element in the list;
+#X obj 1 1 cnv 5 740 40 empty empty list.max 20 20 0 20 -104026 -4096
 0;
-#X obj 629 11 list.max;
-#X obj 205 80 cnv 1 490 84 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 By default returns largest float in list \, this equal
+#X obj 657 11 list.max;
+#X obj 245 80 cnv 1 495 84 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 By default returns largest float in list \, this equal
 to using @float property.;
-#X text 210 117 Also you can choose largest symbol from list \, using
+#X text 250 117 Also you can choose largest symbol from list \, using
 @symbol property.;
 #X msg 50 192 1 2 3 a b;
 #X msg 174 192 list a b c;
@@ -24,45 +24,45 @@ to using @float property.;
 #X obj 50 336 list.max @any;
 #X obj 50 365 msg set;
 #X msg 50 394 ;
-#X obj 20 433 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 433 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 438 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 443 @type;
-#X text 240 443 Get/Set type of largest element. Type: symbol. Default
+#X text 280 443 Get/Set type of largest element. Type: symbol. Default
 value: float. Allowed values: float \, symbol \, any;
 #X msg 120 480 @float;
-#X text 240 480 alias for @type float. Find max float element in list;
+#X text 280 480 alias for @type float. Find max float element in list;
 #X msg 120 507 @symbol;
-#X text 240 507 alias for @type symbol. Find greatest symbol element;
+#X text 280 507 alias for @type symbol. Find greatest symbol element;
 #X msg 120 534 @any;
-#X text 240 534 alias for @type any. Find greatest atom of any type.
+#X text 280 534 alias for @type any. Find greatest atom of any type.
 Note: symbols are greater then numbers;
-#X obj 20 581 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 581 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 586 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 591 1\.;
 #X text 150 591 *list*;
-#X text 240 591 input list.;
+#X text 280 591 input list.;
 #X text 150 609 *data:mlist*;
-#X text 240 609 input mlist.;
+#X text 280 609 input mlist.;
 #X text 150 627 *float*;
-#X text 240 627 passed thru in @float or @any mode.;
+#X text 280 627 passed thru in @float or @any mode.;
 #X text 150 645 *symbol*;
-#X text 240 645 passed thru in @symbol or @any mode.;
-#X obj 20 673 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 645 passed thru in @symbol or @any mode.;
+#X obj 20 673 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 678 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 683 1\.;
-#X text 240 683 largest element;
+#X text 280 683 largest element;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 731 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 731 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 734 library: ceammc v0.7;
-#X text 557 746 see also:;
-#X obj 633 746 list.min;
+#X text 587 746 see also:;
+#X obj 663 746 list.min;
 #N canvas 10 753 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

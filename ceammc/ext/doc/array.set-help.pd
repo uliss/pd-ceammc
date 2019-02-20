@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 476 50 cnv 1 219 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 476 50 set array content from list;
-#X obj 1 1 cnv 5 712 40 empty empty array.set 20 20 0 20 -104026 -4096
+#X obj 521 50 cnv 1 219 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 521 50 set array content from list;
+#X obj 1 1 cnv 5 740 40 empty empty array.set 20 20 0 20 -104026 -4096
 0;
-#X obj 517 11 list->array;
-#X obj 622 11 array.set;
+#X obj 545 11 list->array;
+#X obj 650 11 array.set;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array A1 100 float 0;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -19,40 +19,40 @@
 #X msg 376 248 1 2 1 4 5 6 7 8 9;
 #X obj 50 277 array.set A1;
 #X obj 251 277 array.set A1 @normalize;
-#X obj 20 316 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 316 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 321 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 326 1\.;
 #X text 150 326 symbol;
-#X obj 241 327 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 326 NAME: array name.;
-#X obj 20 354 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 281 327 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 326 NAME: array name.;
+#X obj 20 354 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 359 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 364 @array;
-#X text 240 364 Get/Set array name. Type: symbol;
+#X text 280 364 Get/Set array name. Type: symbol;
 #X msg 120 391 @normalize;
-#X text 240 391 scale input values to fit them in [0 \, 1] range;
+#X text 280 391 scale input values to fit them in [0 \, 1] range;
 #X msg 120 418 @redraw;
-#X text 240 418 Get/Set redraw array view. Type: int. Default value:
+#X text 280 418 Get/Set redraw array view. Type: int. Default value:
 1\. Allowed values: 0 \, 1;
-#X obj 20 465 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 465 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 470 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 475 1\.;
 #X text 150 475 *list*;
-#X text 240 475 resizes array and sets its content.;
+#X text 280 475 resizes array and sets its content.;
 #X text 150 493 *symbol*;
-#X text 240 493 set array name.;
+#X text 280 493 set array name.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 541 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 541 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 544 library: ceammc v0.7;
-#X text 542 556 see also:;
-#X obj 618 556 array.each;
+#X text 572 556 see also:;
+#X obj 648 556 array.each;
 #N canvas 10 563 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

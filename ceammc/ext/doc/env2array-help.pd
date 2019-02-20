@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 411 50 cnv 1 284 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 411 50 Renders envelope to specified array;
-#X obj 1 1 cnv 5 712 40 empty empty env2array 20 20 0 20 -104026 -4096
+#X obj 456 50 cnv 1 284 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 456 50 Renders envelope to specified array;
+#X obj 1 1 cnv 5 740 40 empty empty env2array 20 20 0 20 -104026 -4096
 0;
-#X obj 523 11 env->array;
-#X obj 621 11 env2array;
+#X obj 551 11 env->array;
+#X obj 649 11 env2array;
 #X msg 50 118 ar 50 400 \, bang;
 #X msg 453 118 bang;
 #X msg 69 147 adsr 10 40 20 500 \, bang;
@@ -53,52 +53,52 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #X coords 0 1 1000 0 400 100 1;
 #X restore 50 334 graph;
-#X obj 20 456 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 456 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 461 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 466 1\.;
 #X text 150 466 symbol;
-#X obj 241 467 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 466 ARRAY: array name.;
-#X obj 20 494 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 281 467 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 466 ARRAY: array name.;
+#X obj 20 494 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 499 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 504 @array;
-#X text 240 504 Get/Set target array name. Type: symbol;
+#X text 280 504 Get/Set target array name. Type: symbol;
 #X msg 120 531 @redraw;
-#X text 240 531 Get/Set redraw after array change. Type: int. Default
+#X text 280 531 Get/Set redraw after array change. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
 #X msg 120 568 @mode;
-#X text 240 568 Get/Set rendering mode: *fit* to array size \,
+#X text 280 568 Get/Set rendering mode: *fit* to array size \,
 *resize* array to envelope length or *raw* render while enough space
 in array. Type: symbol. Default value: fit. Allowed values: fit \,
 resize \, raw;
 #X msg 120 633 @fit;
-#X text 240 633 alias to @mode fit property;
+#X text 280 633 alias to @mode fit property;
 #X msg 120 660 @resize;
-#X text 240 660 alias to @mode resize property;
+#X text 280 660 alias to @mode resize property;
 #X msg 120 687 @raw;
-#X text 240 687 alias to @mode raw property;
-#X obj 20 724 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 687 alias to @mode raw property;
+#X obj 20 724 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 729 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 734 1\.;
-#X text 240 734 *envelope* data.;
-#X obj 20 762 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 734 *envelope* data.;
+#X obj 20 762 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 767 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 772 1\.;
-#X text 240 772 output number of samples in destination array. If
+#X text 280 772 output number of samples in destination array. If
 array was resized - output this new size;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title env @url ceammc.env-help.pd;
-#X obj 1 834 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 834 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 837 library: ceammc v0.7;
-#X text 541 849 see also:;
-#X obj 617 849 env->vline;
+#X text 571 849 see also:;
+#X obj 647 849 env->vline;
 #N canvas 10 856 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

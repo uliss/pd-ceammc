@@ -1,12 +1,12 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 349 50 cnv 1 346 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 349 50 maps each list value via external object(s);
-#X obj 1 1 cnv 5 712 40 empty empty list.each 20 20 0 20 -104026 -4096
+#X obj 394 50 cnv 1 346 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 394 50 maps each list value via external object(s);
+#X obj 1 1 cnv 5 740 40 empty empty list.each 20 20 0 20 -104026 -4096
 0;
-#X obj 622 11 list.each;
-#X obj 205 80 cnv 1 490 61 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Each @step elements are passed via righmost outlet to
+#X obj 650 11 list.each;
+#X obj 245 80 cnv 1 495 61 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 Each @step elements are passed via righmost outlet to
 extenal object \, that suppose to return it back to rightmost inlet.
 So various mapping and filtering are possible.;
 #X msg 50 169 1 2 3 4 5 6 7 8 9;
@@ -30,48 +30,48 @@ list;
 #X obj 357 400 *;
 #X obj 50 429 msg set;
 #X msg 50 457 ;
-#X obj 20 496 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 496 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 501 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 506 1\.;
 #X text 150 506 int;
-#X obj 241 507 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 506 step: see @step property. Range: 1\...1024;
-#X obj 20 534 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 281 507 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 506 step: see @step property. Range: 1\...1024;
+#X obj 20 534 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 539 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 544 @step;
-#X text 240 544 Get/Set number of elements outputted to rightmost
+#X text 280 544 Get/Set number of elements outputted to rightmost
 outlet on each iteration. Type: int. Default value: 1\. Value range:
 1-1024;
-#X obj 20 605 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 605 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 610 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 615 1\.;
 #X text 150 615 *list*;
-#X text 240 615 Input list.;
+#X text 280 615 Input list.;
 #X text 150 633 *data:mlist*;
-#X text 240 633 Input mlist.;
+#X text 280 633 Input mlist.;
 #X text 120 651 2\.;
-#X text 240 651 New modified value from applied object..;
-#X obj 20 679 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 651 New modified value from applied object..;
+#X obj 20 679 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 684 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 689 1\.;
-#X text 240 689 New modified list (or mlist);
+#X text 280 689 New modified list (or mlist);
 #X text 120 707 2\.;
-#X text 240 707 single element or list of values (if @step property >
+#X text 280 707 single element or list of values (if @step property >
 1);
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 755 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 755 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 758 library: ceammc v0.7;
-#X text 455 770 see also:;
-#X obj 531 770 list.do;
-#X obj 596 770 list.apply_to;
+#X text 485 770 see also:;
+#X obj 561 770 list.do;
+#X obj 626 770 list.apply_to;
 #N canvas 10 777 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

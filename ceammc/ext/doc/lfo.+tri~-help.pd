@@ -1,10 +1,10 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 284 50 cnv 1 411 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 284 50 Positive unit-amplitude low frequency triangle wave;
-#X obj 1 1 cnv 5 712 40 empty empty lfo.+tri~ 20 20 0 20 -104026 -4096
+#X obj 329 50 cnv 1 411 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 329 50 Positive unit-amplitude low frequency triangle wave;
+#X obj 1 1 cnv 5 740 40 empty empty lfo.+tri~ 20 20 0 20 -104026 -4096
 0;
-#X obj 621 11 lfo.+tri~;
+#X obj 649 11 lfo.+tri~;
 #X obj 50 118 osc~ 200;
 #X floatatom 155 118 5 0 0 0 - - -;
 #X obj 155 147 lfo.+tri~ 10;
@@ -12,43 +12,43 @@
 #X obj 50 205 ui.gain~ @size 120 14;
 #X obj 290 205 ui.dsp~;
 #X obj 50 234 dac~;
-#X obj 20 273 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 273 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 278 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 283 1\.;
 #X text 150 283 float;
-#X obj 241 284 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 283 freq(Hz): frequency.;
-#X obj 20 311 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 281 284 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 283 freq(Hz): frequency.;
+#X obj 20 311 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 316 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 321 @active;
-#X text 240 321 Get/Set on/off dsp processing. Type: int. Default
+#X text 280 321 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
-#X obj 20 368 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 368 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 373 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 378 1\.;
-#X text 240 378 frequency in Hz.;
+#X text 280 378 frequency in Hz.;
 #X text 120 396 2\.;
 #X text 150 396 *bang*;
-#X text 240 396 reset phase.;
-#X obj 20 424 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 396 reset phase.;
+#X obj 20 424 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 429 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 434 1\.;
-#X text 240 434 triangle wave in [0-1] range;
+#X text 280 434 triangle wave in [0-1] range;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title lfo @url ceammc.lfo-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
-#X text 359 520 see also:;
-#X obj 435 520 lfo.tri~;
-#X obj 508 520 lfo.square~;
-#X obj 603 520 lfo.impulse~;
+#X text 389 520 see also:;
+#X obj 465 520 lfo.tri~;
+#X obj 538 520 lfo.square~;
+#X obj 633 520 lfo.impulse~;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -1,47 +1,47 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 427 50 cnv 1 268 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 427 50 calculate greatest common divisor;
-#X obj 1 1 cnv 5 712 40 empty empty math.gcd 20 20 0 20 -104026 -4096
+#X obj 472 50 cnv 1 268 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 472 50 calculate greatest common divisor;
+#X obj 1 1 cnv 5 740 40 empty empty math.gcd 20 20 0 20 -104026 -4096
 0;
-#X obj 629 11 math.gcd;
+#X obj 657 11 math.gcd;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X msg 107 118 14 28;
 #X obj 50 176 math.gcd 12;
 #X floatatom 50 205 5 0 0 0 - - -;
-#X obj 20 244 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 244 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 249 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 254 1\.;
 #X text 150 254 int;
-#X obj 241 255 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 254 ARG2: second argument.;
-#X obj 20 282 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 281 255 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 254 ARG2: second argument.;
+#X obj 20 282 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 287 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 292 1\.;
 #X text 150 292 *int*;
-#X text 240 292 sets first argument and outputs calculated GCD value.;
+#X text 280 292 sets first argument and outputs calculated GCD value.;
 #X text 150 310 *list*;
-#X text 240 310 sets first argument and second arguments \, then
+#X text 280 310 sets first argument and second arguments \, then
 output calculated GCD value.;
 #X text 120 342 2\.;
 #X text 150 342 *int*;
-#X text 240 342 sets second value.;
-#X obj 20 370 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 342 sets second value.;
+#X obj 20 370 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 375 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 380 1\.;
-#X text 240 380 GCD value;
+#X text 280 380 GCD value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
-#X text 555 520 see also:;
-#X obj 631 520 math.lcm;
+#X text 585 520 see also:;
+#X obj 661 520 math.lcm;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -1,15 +1,15 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 482 50 cnv 1 213 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 482 50 Median control flow filter;
-#X obj 1 1 cnv 5 712 40 empty empty flt.median~ 20 20 0 20 -104026
+#X obj 527 50 cnv 1 213 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 527 50 Median control flow filter;
+#X obj 1 1 cnv 5 740 40 empty empty flt.median~ 20 20 0 20 -104026
 -4096 0;
-#X obj 607 11 flt.median~;
-#X obj 205 80 cnv 1 490 98 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 The main idea of the median filter is to run through
+#X obj 635 11 flt.median~;
+#X obj 245 80 cnv 1 495 98 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 The main idea of the median filter is to run through
 the signal entry by entry \, replacing each entry with the median of
 neighboring entries.;
-#X text 210 131 If window size is even: mean between center elements
+#X text 250 131 If window size is even: mean between center elements
 outputed;
 #X obj 50 206 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 235 metro 50;
@@ -19,29 +19,29 @@ outputed;
 #X msg 242 293 @size \$1;
 #X obj 50 322 flt.median;
 #X obj 50 350 ui.hsl;
-#X obj 20 389 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 389 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 394 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 399 @size;
-#X text 240 399 Get/Set filter windows size. Type: int. Units: samp.
+#X text 280 399 Get/Set filter windows size. Type: int. Units: samp.
 Default value: 9\. Value range: 1-128;
-#X obj 20 446 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 446 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 451 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 456 1\.;
 #X text 150 456 *float*;
-#X text 240 456 input control signal.;
-#X obj 20 484 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 456 input control signal.;
+#X obj 20 484 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 489 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 494 1\.;
-#X text 240 494 filtered control stream;
+#X text 280 494 filtered control stream;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 542 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 542 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 545 library: ceammc v0.7;
 #N canvas 10 564 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

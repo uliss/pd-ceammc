@@ -1,12 +1,12 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 569 50 cnv 1 126 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 569 50 mono DC blocker;
-#X obj 1 1 cnv 5 712 40 empty empty flt.dcblock~ 20 20 0 20 -104026
+#X obj 614 50 cnv 1 126 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 614 50 mono DC blocker;
+#X obj 1 1 cnv 5 740 40 empty empty flt.dcblock~ 20 20 0 20 -104026
 -4096 0;
-#X obj 600 11 flt.dcblock~;
-#X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Mono DC blocker. It has -3dB point near 35 Hz (at 44.1
+#X obj 628 11 flt.dcblock~;
+#X obj 245 80 cnv 1 495 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 Mono DC blocker. It has -3dB point near 35 Hz (at 44.1
 kHz) and high-frequency gain near 1.0025 (due to no scaling);
 #X obj 50 155 sig~ 2;
 #X obj 69 184 env~;
@@ -14,25 +14,25 @@ kHz) and high-frequency gain near 1.0025 (due to no scaling);
 #X obj 50 242 flt.dcblock~;
 #X obj 50 271 env~;
 #X floatatom 50 299 5 0 0 0 - - -;
-#X obj 20 338 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 338 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 343 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 348 1\.;
-#X text 240 348 input signal.;
-#X obj 20 376 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 348 input signal.;
+#X obj 20 376 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 381 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 386 1\.;
-#X text 240 386 output signal;
+#X text 280 386 output signal;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
-#X text 519 520 see also:;
-#X obj 595 520 flt.dcblock2~;
+#X text 549 520 see also:;
+#X obj 625 520 flt.dcblock2~;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

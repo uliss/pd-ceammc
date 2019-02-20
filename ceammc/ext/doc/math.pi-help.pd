@@ -1,38 +1,38 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 523 50 cnv 1 172 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 523 50 mathematical constant;
-#X obj 1 1 cnv 5 712 40 empty empty math.pi 20 20 0 20 -104026 -4096
+#X obj 568 50 cnv 1 172 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 568 50 mathematical constant;
+#X obj 1 1 cnv 5 740 40 empty empty math.pi 20 20 0 20 -104026 -4096
 0;
-#X obj 636 11 math.pi;
-#X obj 205 80 cnv 1 490 61 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 The number PI is a mathematical constant \, the ratio
+#X obj 664 11 math.pi;
+#X obj 245 80 cnv 1 495 61 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 The number PI is a mathematical constant \, the ratio
 of a circle's circumference to its diameter \, commonly approximated
 as 3.14159\.;
 #X obj 50 169 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 198 math.pi;
 #X floatatom 50 227 10 0 0 0 - - -;
-#X obj 20 266 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 266 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 271 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 276 1\.;
 #X text 150 276 *bang*;
-#X text 240 276 outputs value.;
-#X obj 20 304 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 276 outputs value.;
+#X obj 20 304 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 309 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 314 1\.;
-#X text 240 314 output value;
+#X text 280 314 output value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
-#X text 570 520 see also:;
-#X obj 646 520 math.e;
+#X text 600 520 see also:;
+#X obj 676 520 math.e;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

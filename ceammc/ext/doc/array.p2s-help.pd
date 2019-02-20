@@ -1,14 +1,14 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 324 50 cnv 1 371 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 324 50 convert array phase [0\..1] to sample position;
-#X obj 1 1 cnv 5 712 40 empty empty array.p2s 20 20 0 20 -104026 -4096
+#X obj 369 50 cnv 1 371 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 369 50 convert array phase [0\..1] to sample position;
+#X obj 1 1 cnv 5 740 40 empty empty array.p2s 20 20 0 20 -104026 -4096
 0;
-#X obj 362 11 array.p->s;
-#X obj 459 11 array.phase->sample;
-#X obj 622 11 array.p2s;
-#X obj 205 80 cnv 1 490 33 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 this object allows to get relative access to array;
+#X obj 390 11 array.p->s;
+#X obj 487 11 array.phase->sample;
+#X obj 650 11 array.p2s;
+#X obj 245 80 cnv 1 495 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 this object allows to get relative access to array;
 #X obj 50 141 hslider 128 15 0.0 1.0 0 0 empty empty empty 17 7 0 10
 -262144 -1 -1 0 0;
 #N canvas 0 22 450 300 (subpatch) 0;
@@ -26,41 +26,41 @@
 #X obj 50 314 loadbang;
 #X msg 50 343 sinesum 100 0.5 0.2 0.1 0.3;
 #X obj 50 372 s array1;
-#X obj 20 411 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 411 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 416 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 421 1\.;
 #X text 150 421 symbol;
-#X obj 241 422 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 421 NAME: array name.;
-#X obj 20 449 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 281 422 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 421 NAME: array name.;
+#X obj 20 449 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 454 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 459 @array;
-#X text 240 459 Get/Set array name. Type: symbol;
-#X obj 20 496 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 459 Get/Set array name. Type: symbol;
+#X obj 20 496 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 501 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 506 1\.;
 #X text 150 506 *float*;
-#X text 240 506 value between 0 and 1 \, where 0 maps to begin of
+#X text 280 506 value between 0 and 1 \, where 0 maps to begin of
 array \, 1 - to end.;
 #X text 150 538 *list*;
-#X text 240 538 list of phases.;
-#X obj 20 566 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 538 list of phases.;
+#X obj 20 566 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 571 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 576 1\.;
-#X text 240 576 sample number;
+#X text 280 576 sample number;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 624 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 624 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 627 library: ceammc v0.7;
-#X text 548 639 see also:;
-#X obj 624 639 array.s2p;
+#X text 578 639 see also:;
+#X obj 654 639 array.s2p;
 #N canvas 10 646 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

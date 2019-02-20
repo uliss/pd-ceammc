@@ -1,43 +1,43 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 483 50 cnv 1 212 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 483 50 control flow event counter;
-#X obj 1 1 cnv 5 712 40 empty empty flow.count 20 20 0 20 -104026
+#X obj 528 50 cnv 1 212 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 528 50 control flow event counter;
+#X obj 1 1 cnv 5 740 40 empty empty flow.count 20 20 0 20 -104026
 -4096 0;
-#X obj 615 11 flow.count;
+#X obj 643 11 flow.count;
 #X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 147 metro 300;
 #X msg 78 176 reset;
 #X obj 50 205 flow.count;
 #X floatatom 50 234 5 0 0 0 - - -;
-#X obj 20 273 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 273 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 278 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 283 @value;
-#X text 240 283 Get/Set current counter state. Type: int. Default
+#X text 280 283 Get/Set current counter state. Type: int. Default
 value: 0\. Min value: 0;
-#X obj 20 330 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 335 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 340 reset;
-#X text 240 340 reset counter.;
-#X obj 20 382 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 340 reset counter.;
+#X obj 20 382 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 387 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 392 1\.;
 #X text 150 392 *any*;
-#X text 240 392 control inlet.;
-#X obj 20 420 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 392 control inlet.;
+#X obj 20 420 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 425 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 430 1\.;
-#X text 240 430 outputs event number;
+#X text 280 430 outputs event number;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

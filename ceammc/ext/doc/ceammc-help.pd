@@ -3,12 +3,12 @@
 purposes in centre of electroacoustic music of Moscow Conservatory
 (CEAMMC) and ZIL-electro studio.;
 #X obj 20 101 cnv 5 27 31 empty empty an 4 13 0 17 -262144 -49933 0;
-#X obj 20 142 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 142 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 153 an.pitchtrack~;
 #X text 175 153 pitch tracker;
 #X obj 20 180 cnv 5 59 31 empty empty array 4 13 0 17 -262144 -49933
 0;
-#X obj 20 221 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 221 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 232 array.bpm;
 #X text 175 232 BPM calculator;
 #X obj 30 259 array.copy;
@@ -30,7 +30,7 @@ purposes in centre of electroacoustic music of Moscow Conservatory
 #X obj 30 475 array.window;
 #X text 175 475 fill array with window;
 #X obj 20 502 cnv 5 48 31 empty empty base 4 13 0 17 -262144 -49933 0;
-#X obj 20 543 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 543 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 557 ui.link @title [function] @url function-help.pd;
 #X text 175 554 named function;
 #X obj 30 577 function.call;
@@ -56,7 +56,7 @@ purposes in centre of electroacoustic music of Moscow Conservatory
 #X obj 30 847 xfade~;
 #X text 175 847 multi signal crossfade;
 #X obj 20 874 cnv 5 48 31 empty empty conv 4 13 0 17 -262144 -49933 0;
-#X obj 20 915 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 915 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 926 array.p2s;
 #X text 175 926 convert array phase [0\..1] to sample position;
 #X obj 30 953 array.s2p;
@@ -99,7 +99,7 @@ string);
 #X text 175 1425 converts formatted time to float value in seconds;
 #X obj 20 1452 cnv 5 48 31 empty empty data 4 13 0 17 -262144 -49933
 0;
-#X obj 20 1493 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1493 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 1504 data.dict;
 #X text 175 1504 dictionary container: store values by key;
 #X obj 30 1531 data.fifo;
@@ -155,7 +155,7 @@ elements);
 #X obj 30 2179 set.union;
 #X text 175 2179 output union of given sets;
 #X obj 20 2206 cnv 5 38 31 empty empty dyn 4 13 0 17 -262144 -49933 0;
-#X obj 20 2247 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2247 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 2258 dyn.comp2~;
 #X text 175 2258 stereo dynamic range compressor;
 #X obj 30 2285 dyn.comp~;
@@ -171,7 +171,7 @@ elements);
 #X obj 30 2420 dyn.softclip~;
 #X text 175 2420 soft signal clip;
 #X obj 20 2447 cnv 5 38 31 empty empty env 4 13 0 17 -262144 -49933 0;
-#X obj 20 2488 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2488 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 2499 env.adsr~;
 #X text 175 2499 ADSR (Attack \, Decay \, Sustain \, Release) envelope
 generator;
@@ -205,7 +205,7 @@ equal number of segments;
 #X text 175 2860 Converts vline messages to env;
 #X obj 20 2887 cnv 5 49 31 empty empty flow 4 13 0 17 -262144 -49933
 0;
-#X obj 20 2928 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2928 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 2939 expand_env;
 #X text 175 2939 Substitute enviroment variables in data stream;
 #X obj 30 2966 flow.append;
@@ -259,7 +259,7 @@ equal number of segments;
 #X obj 30 3614 replace;
 #X text 175 3614 Replace atoms in data stream;
 #X obj 20 3641 cnv 5 37 31 empty empty flt 4 13 0 17 -262144 -49933 0;
-#X obj 20 3682 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3682 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 3693 flt.biquad~;
 #X text 175 3693 second order IIR filter.;
 #X obj 30 3720 flt.bpf12~;
@@ -313,7 +313,7 @@ section.;
 #X obj 30 4365 flt.resonbp~;
 #X text 175 4365 Simple resonant bandpass filter;
 #X obj 20 4392 cnv 5 28 31 empty empty fx 4 13 0 17 -262144 -49933 0;
-#X obj 20 4433 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4433 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 4444 fx.bitdown~;
 #X text 175 4444 bit downer and downsampler effect;
 #X obj 30 4471 fx.chorus~;
@@ -350,7 +350,7 @@ section.;
 #X text 175 4876 Zita stereo reverb;
 #X obj 20 4903 cnv 5 69 31 empty empty global 4 13 0 17 -262144 -49933
 0;
-#X obj 20 4944 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4944 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 4955 global.dict;
 #X text 175 4955 global named dict object;
 #X obj 30 4982 global.float;
@@ -364,11 +364,11 @@ section.;
 #X obj 30 5090 global.set;
 #X text 175 5090 global named set object;
 #X obj 20 5117 cnv 5 28 31 empty empty hw 4 13 0 17 -262144 -49933 0;
-#X obj 20 5158 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 5158 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 5169 hw.arduino;
 #X text 175 5169 Arduino device;
 #X obj 20 5196 cnv 5 37 31 empty empty lfo 4 13 0 17 -262144 -49933 0;
-#X obj 20 5237 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 5237 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 5248 lfo.+pulse~;
 #X text 175 5248 Unit-amplitude nonnegative low frequency pulse train;
 #X obj 30 5275 lfo.+saw~;
@@ -389,7 +389,7 @@ section.;
 #X text 175 5464 Zero-mean unit-amplitude low frequency triangle wave;
 #X obj 20 5491 cnv 5 47 31 empty empty list 4 13 0 17 -262144 -49933
 0;
-#X obj 20 5532 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 5532 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 5543 list.^at;
 #X text 175 5543 on input index(es) outputs list element(s);
 #X obj 30 5570 list.^contains;
@@ -536,13 +536,13 @@ and output their elements sequentially (list1-1 list2-1 list1-2
 list2-2 etc.).;
 #X obj 20 7311 cnv 5 48 31 empty empty live 4 13 0 17 -262144 -49933
 0;
-#X obj 20 7352 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 7352 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 7363 live.capture~;
 #X text 175 7363 record up to 32s of sound and playback the recorded
 sound in loop;
 #X obj 20 7400 cnv 5 58 31 empty empty local 4 13 0 17 -262144 -49933
 0;
-#X obj 20 7441 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 7441 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 7452 local.dict;
 #X text 175 7452 local named dict object;
 #X obj 30 7479 local.float;
@@ -557,7 +557,7 @@ sound in loop;
 #X text 175 7587 local named set object;
 #X obj 20 7614 cnv 5 48 31 empty empty math 4 13 0 17 -262144 -49933
 0;
-#X obj 20 7655 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 7655 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 7666 math.abs;
 #X text 175 7666 absolute value function;
 #X obj 30 7693 math.acos;
@@ -652,7 +652,7 @@ direction;
 #X text 175 8827 truncate to integer value;
 #X obj 20 8854 cnv 5 49 31 empty empty midi 4 13 0 17 -262144 -49933
 0;
-#X obj 20 8895 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 8895 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 8906 midi.ctl2str;
 #X text 175 8906 convert Standard MIDI Controllers number to name;
 #X obj 30 8933 midi.event2ctl;
@@ -674,7 +674,7 @@ symbol);
 #X text 175 9095 extract track from MidiFile;
 #X obj 20 9122 cnv 5 48 31 empty empty misc 4 13 0 17 -262144 -49933
 0;
-#X obj 20 9163 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 9163 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 9174 click~;
 #X text 175 9174 Output single impulse on bang;
 #X obj 30 9201 fluid~;
@@ -684,7 +684,7 @@ symbol);
 #X obj 30 9255 speech.flite;
 #X text 175 9255 render speech to array;
 #X obj 20 9282 cnv 5 38 31 empty empty msg 4 13 0 17 -262144 -49933 0;
-#X obj 20 9323 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 9323 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 9334 msg;
 #X text 175 9334 message constructor;
 #X obj 30 9361 msg.after;
@@ -692,12 +692,12 @@ symbol);
 #X obj 30 9388 msg.onload;
 #X text 175 9388 send message when patch loads;
 #X obj 20 9415 cnv 5 37 31 empty empty net 4 13 0 17 -262144 -49933 0;
-#X obj 20 9456 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 9456 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 9467 net.host2ip;
 #X text 175 9467 returns IP address by DNS name;
 #X obj 20 9494 cnv 5 58 31 empty empty noise 4 13 0 17 -262144 -49933
 0;
-#X obj 20 9535 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 9535 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 9546 noise.crackle~;
 #X text 175 9546 sparse noise generator;
 #X obj 30 9573 noise.lfreq0~;
@@ -709,7 +709,7 @@ symbol);
 #X obj 30 9654 noise.white~;
 #X text 175 9654 White noise generator;
 #X obj 20 9681 cnv 5 38 31 empty empty osc 4 13 0 17 -262144 -49933 0;
-#X obj 20 9722 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 9722 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 9733 osc.blit~;
 #X text 175 9733 Bandlimited impulse train oscillator;
 #X obj 30 9760 osc.impulse~;
@@ -730,7 +730,7 @@ symbol);
 #X text 175 9949 Bandlimited triangle wave oscillator;
 #X obj 20 9976 cnv 5 58 31 empty empty patch 4 13 0 17 -262144 -49933
 0;
-#X obj 20 10017 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 10017 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 10028 canvas.current;
 #X text 175 10028 verbose information about current canvas;
 #X obj 30 10055 canvas.top;
@@ -739,7 +739,7 @@ symbol);
 #X text 175 10082 Get patch or subpatch arguments;
 #X obj 20 10109 cnv 5 47 31 empty empty path 4 13 0 17 -262144 -49933
 0;
-#X obj 20 10150 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 10150 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 10161 path.basename;
 #X text 175 10161 outputs filename portion of pathname;
 #X obj 30 10188 path.dirname;
@@ -750,7 +750,7 @@ symbol);
 #X text 175 10242 list directory contents;
 #X obj 20 10269 cnv 5 109 31 empty empty predicates 4 13 0 17 -262144
 -49933 0;
-#X obj 20 10310 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 10310 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 10321 is_any;
 #X text 175 10321 checks if input data has *any* type;
 #X obj 30 10348 is_bang;
@@ -775,7 +775,7 @@ symbol);
 #X text 175 10591 checks if input data has *symbol* type;
 #X obj 20 10618 cnv 5 68 31 empty empty preset 4 13 0 17 -262144
 -49933 0;
-#X obj 20 10659 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 10659 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 10670 preset.float;
 #X text 175 10670 load/store float preset;
 #X obj 30 10697 preset.list;
@@ -786,7 +786,7 @@ symbol);
 #X text 175 10751 load/store symbol preset;
 #X obj 20 10778 cnv 5 89 31 empty empty property 4 13 0 17 -262144
 -49933 0;
-#X obj 20 10819 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 10819 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 10830 patch.props;
 #X text 175 10830 patch properties manager;
 #X obj 30 10857 prop;
@@ -802,12 +802,12 @@ abstraction;
 #X text 175 10965 Property injector;
 #X obj 20 10992 cnv 5 58 31 empty empty proto 4 13 0 17 -262144 -49933
 0;
-#X obj 20 11033 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 11033 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 11044 proto.firmata;
 #X text 175 11044 Firmata Arduino protocol support;
 #X obj 20 11071 cnv 5 67 31 empty empty random 4 13 0 17 -262144
 -49933 0;
-#X obj 20 11112 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 11112 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 11123 random.discrete;
 #X text 175 11123 random weighted integers on interval [0 \, n);
 #X obj 30 11150 random.float;
@@ -824,12 +824,12 @@ abstraction;
 #X text 175 11285 piecewise linear random distribution;
 #X obj 20 11312 cnv 5 37 31 empty empty snd 4 13 0 17 -262144 -49933
 0;
-#X obj 20 11353 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 11353 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 11364 snd.file;
 #X text 175 11364 Sound file loader on steroids;
 #X obj 20 11391 cnv 5 47 31 empty empty spat 4 13 0 17 -262144 -49933
 0;
-#X obj 20 11432 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 11432 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 11443 pan.cos~;
 #X text 175 11443 two channel equal power sine/cosine panner;
 #X obj 30 11470 pan.linsig~;
@@ -846,7 +846,7 @@ abstraction;
 #X text 175 11605 GMEM SPAT: 8-outputs spatializer;
 #X obj 20 11632 cnv 5 68 31 empty empty string 4 13 0 17 -262144
 -49933 0;
-#X obj 20 11673 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 11673 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 11684 string;
 #X text 175 11684 string constructor;
 #X obj 30 11711 string.contains;
@@ -876,7 +876,7 @@ string;
 #X text 175 12008 converts string to symbol;
 #X obj 20 12035 cnv 5 68 31 empty empty symbol 4 13 0 17 -262144
 -49933 0;
-#X obj 20 12076 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 12076 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 12087 symbol.equal;
 #X text 175 12087 check symbols for equality;
 #X obj 30 12114 symbol.length;
@@ -885,7 +885,7 @@ string;
 #X text 175 12141 numeric symbol compare;
 #X obj 20 12168 cnv 5 57 31 empty empty synth 4 13 0 17 -262144 -49933
 0;
-#X obj 20 12209 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 12209 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 12220 synth.bee3~;
 #X text 175 12220 Hammond-oid organ FM synthesis instrument;
 #X obj 30 12247 synth.birds~;
@@ -917,7 +917,7 @@ instrument;
 #X text 175 12564 Wurlitzer electric piano FM synthesis instrument;
 #X obj 20 12591 cnv 5 68 31 empty empty system 4 13 0 17 -262144
 -49933 0;
-#X obj 20 12632 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 12632 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 12643 system.cursor;
 #X text 175 12643 Get information about cursor motion \, mousewheel
 and buttonclick;
@@ -936,7 +936,7 @@ and peak;
 #X obj 30 12825 system.shell;
 #X text 175 12825 run external command in separate process;
 #X obj 20 12852 cnv 5 28 31 empty empty tl 4 13 0 17 -262144 -49933 0;
-#X obj 20 12893 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 12893 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 12904 tl.bang;
 #X text 175 12904 Timeline bang (with possible delay);
 #X obj 30 12934 ui.link @title [tl.cue] @url tl.cue-help.pd;
@@ -948,7 +948,7 @@ and peak;
 #X obj 30 13008 tl.transport;
 #X text 175 13008 Timeline transport control;
 #X obj 20 13035 cnv 5 28 31 empty empty ui 4 13 0 17 -262144 -49933 0;
-#X obj 20 13076 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 13076 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 13090 ui.link @title [ui.aview] @url ui.aview-help.pd;
 #X text 175 13087 array view with cursor and selection;
 #X obj 30 13113 ui.link @title [ui.bang] @url ui.bang-help.pd;
@@ -1009,8 +1009,8 @@ ui.spectroscope~-help.pd;
 #X text 175 13708 displays a list of text buttons or text toggles;
 #X obj 30 13734 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
 #X text 175 13731 modern toggle widget;
-#X obj 1 1 cnv 5 712 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 13754 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 1 cnv 5 695 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
+#X obj 1 13754 cnv 5 695 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 13754 version: v0.7 \, license: GPL3;
 #X obj 20 13773 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;

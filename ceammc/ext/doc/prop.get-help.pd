@@ -1,14 +1,14 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 546 50 cnv 1 149 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 546 50 Property extractor;
-#X obj 1 1 cnv 5 712 40 empty empty prop.get 20 20 0 20 -104026 -4096
+#X obj 591 50 cnv 1 149 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 591 50 Property extractor;
+#X obj 1 1 cnv 5 740 40 empty empty prop.get 20 20 0 20 -104026 -4096
 0;
-#X obj 512 11 prop->;
-#X obj 581 11 @->;
-#X obj 629 11 prop.get;
-#X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Extracts properties from data stream with matching. Non
+#X obj 540 11 prop->;
+#X obj 609 11 @->;
+#X obj 657 11 prop.get;
+#X obj 245 80 cnv 1 495 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 250 80 Extracts properties from data stream with matching. Non
 property values are passed untouched.;
 #X msg 146 155 any value;
 #X floatatom 50 184 5 0 0 0 - - -;
@@ -21,32 +21,32 @@ property values are passed untouched.;
 #X obj 174 299 ui.display @size 150 18;
 #X obj 98 328 ui.display @size 150 18;
 #X obj 50 357 ui.display @size 150 18;
-#X obj 20 397 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 397 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 402 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 407 1\.;
 #X text 150 407 *any*;
-#X text 240 407 input values.;
-#X obj 20 435 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 407 input values.;
+#X obj 20 435 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 440 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 445 1\.;
-#X text 240 445 passed values;
+#X text 280 445 passed values;
 #X text 120 463 2\.;
-#X text 240 463 first matched property output;
+#X text 280 463 first matched property output;
 #X text 120 481 ....;
-#X text 240 481 others matched property output;
+#X text 280 481 others matched property output;
 #X text 120 499 n.;
-#X text 240 499 unmatched property output;
+#X text 280 499 unmatched property output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title property @url ceammc.property-help.pd;
-#X obj 1 547 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 547 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 550 library: ceammc v0.7;
-#X text 570 562 see also:;
-#X obj 646 562 prop<-;
+#X text 600 562 see also:;
+#X obj 676 562 prop<-;
 #N canvas 10 569 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

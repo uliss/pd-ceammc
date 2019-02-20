@@ -1,51 +1,51 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
-#X obj 508 50 cnv 1 187 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 508 50 division (on lists too);
-#X obj 1 1 cnv 5 712 40 empty empty math.div 20 20 0 20 -104026 -4096
+#X obj 553 50 cnv 1 187 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 553 50 division (on lists too);
+#X obj 1 1 cnv 5 740 40 empty empty math.div 20 20 0 20 -104026 -4096
 0;
-#X obj 559 11 math./;
-#X obj 628 11 math.div;
+#X obj 587 11 math./;
+#X obj 656 11 math.div;
 #X msg 50 118 1 2 3 A B C;
 #X floatatom 184 118 5 0 0 0 - - -;
 #X floatatom 232 118 5 0 0 0 - - -;
 #X obj 50 162 math.div 2;
 #X obj 50 190 msg set;
 #X msg 50 219 ;
-#X obj 20 258 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 258 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 263 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 268 1\.;
 #X text 150 268 float;
-#X obj 241 269 cnv 1 32 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 268 DIV: divisor.;
-#X obj 20 296 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 281 269 cnv 1 32 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 268 DIV: divisor.;
+#X obj 20 296 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 301 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 306 @div;
-#X text 240 306 Get/Set divisor. Type: float. Default value: 1;
-#X obj 20 343 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 306 Get/Set divisor. Type: float. Default value: 1;
+#X obj 20 343 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 348 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 353 1\.;
 #X text 150 353 *float*;
-#X text 240 353 divident.;
+#X text 280 353 divident.;
 #X text 150 371 *list*;
-#X text 240 371 list of divident (non float values are ignored).;
+#X text 280 371 list of divident (non float values are ignored).;
 #X text 120 389 2\.;
 #X text 150 389 *float*;
-#X text 240 389 change divisor.;
-#X obj 20 417 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 389 change divisor.;
+#X obj 20 417 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 422 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 427 1\.;
-#X text 240 427 float or list;
+#X text 280 427 float or list;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

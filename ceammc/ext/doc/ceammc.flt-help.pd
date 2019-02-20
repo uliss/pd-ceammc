@@ -54,7 +54,7 @@ section.;
 #X text 175 761 band-rejection filter;
 #X obj 30 788 flt.resonbp~;
 #X text 175 788 Simple resonant bandpass filter;
-#X obj 1 1 cnv 5 712 40 empty empty ceammc::flt 20 20 0 20 -104026
+#X obj 1 1 cnv 5 695 40 empty empty ceammc::flt 20 20 0 20 -104026
 -4096 0;
-#X obj 1 815 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 815 cnv 5 695 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 825 library: ceammc;
