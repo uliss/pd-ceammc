@@ -34,8 +34,8 @@
             <property name="@size" type="list">element size (width, height pair)</property>
             <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
             to the lowest level</property>
-            <property name="@active_color" type="list">active color (list of red, green, blue values in
-            0-1 range)</property>
+            <property name="@active_color" type="list">active color (list of red, green, blue
+            values in 0-1 range)</property>
             <property name="@background_color" type="list">element background color (list of red,
             green, blue values in 0-1 range)</property>
             <property name="@border_color" type="list">border color (list of red, green, blue
@@ -55,7 +55,7 @@
             <param name="N" type="float" minvalue="0">1 - normal scale, 2 - range from -2..2
             (zoomout), 0.1 - range from -0.1..0.1 (zoomin)</param></method>
             <!-- common-->
-            <method name="pos">set UI element position
+            <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
         </methods>
