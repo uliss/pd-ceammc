@@ -25,6 +25,7 @@
             property after each knob move</property>
             <property name="@presetname" type="symbol">preset name for using with
             [ui.preset]</property>
+            <!-- common -->
             <property name="@send" type="symbol">send destination</property>
             <property name="@receive" type="symbol">receive source</property>
             <property name="@size" type="list">element size (width, height pair)</property>
@@ -54,6 +55,8 @@
             <method name="load">loads specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
             <method name="store">stores specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <method name="clear">cleares specified preset
             <param type="int" name="IDX" required="true">preset index</param></method>
             <!-- common-->
             <method name="pos">set UI element position 
