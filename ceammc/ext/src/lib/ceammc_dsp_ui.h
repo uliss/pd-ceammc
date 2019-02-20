@@ -138,6 +138,7 @@ public:
 
         eclass_addmethod(pd_class, UI_DSP_METHOD_PTR(loadPreset),      "load",          A_GIMME,  0);
         eclass_addmethod(pd_class, UI_DSP_METHOD_PTR(storePreset),     "store",         A_GIMME,  0);
+        eclass_addmethod(pd_class, UI_DSP_METHOD_PTR(clearPreset),     "clear",         A_GIMME,  0);
 
         CLASS_ATTR_SYMBOL   (pd_class, PROP_PRESET_NAME, 0, t_ebox, b_objpreset_id);
         CLASS_ATTR_DEFAULT  (pd_class, PROP_PRESET_NAME, 0, "(null)");
@@ -547,6 +548,16 @@ public:
             return;
 
         z->storePreset(idx);
+    }
+
+    static void clearPreset(UI* z, t_symbol*, int argc, t_atom* argv)
+    {
+        int idx = checkPresetIndex(z, argc, argv);
+
+        if (idx < 0)
+            return;
+
+        z->clearPreset(idx);
     }
 
     static void customMethodList(UI* z, t_symbol* s, int argc, t_atom* argv)

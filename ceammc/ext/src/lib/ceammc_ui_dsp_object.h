@@ -151,6 +151,7 @@ public:
     void handlePresetNameChange();
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
+    void clearPreset(size_t idx);
 
     // outlets
     size_t numInlets() const;

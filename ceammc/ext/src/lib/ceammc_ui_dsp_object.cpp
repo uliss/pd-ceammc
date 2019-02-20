@@ -270,6 +270,11 @@ void UIDspObject::storePreset(size_t idx)
 {
 }
 
+void UIDspObject::clearPreset(size_t idx)
+{
+    PresetStorage::instance().clearValueAt(presetId(), idx);
+}
+
 void UIDspObject::bangTo(size_t n)
 {
     if (n >= outlets_.size())
