@@ -25,13 +25,14 @@
             <property name="@x_min" type="float" default="-1">minimal x-value</property>
             <property name="@x_max" type="float" default="1">maximum x-value</property>
             <property name="@y_min" type="float" default="-1">minimal y-value</property>
-            <property name="@y_max" type="float" default="-1">maximum y-value</property>
+            <property name="@y_max" type="float" default="1">maximum y-value</property>
             <property name="@x_range" type="float" readonly="true">x-value range</property>
             <property name="@y_range" type="float" readonly="true">y-value range</property>
             <property name="@x_value" type="float">slider x-value</property>
             <property name="@y_value" type="float">slider y-value</property>
-            <property name="@show_range" type="int" enum="0 1">if show slider range</property>
-            <property name="@show_grid" type="int" enum="0 1">if show grid</property>
+            <property name="@show_range" type="int" enum="0 1" default="1">if show slider
+            range</property>
+            <property name="@show_grid" type="int" enum="0 1" default="0">if show grid</property>
             <!-- common -->
             <property name="@presetname" type="symbol">preset name for using with
             [ui.preset]</property>
@@ -40,10 +41,6 @@
             <property name="@size" type="list">element size (width, height pair)</property>
             <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
             to the lowest level</property>
-            <property name="@knob_color" type="list">knob color (list of red, green, blue values in
-            0-1 range)</property>
-            <property name="@scale_color" type="list">scale color (list of red, green, blue values
-            in 0-1 range)</property>
             <property name="@background_color" type="list">element background color (list of red,
             green, blue values in 0-1 range)</property>
             <property name="@border_color" type="list">border color (list of red, green, blue
