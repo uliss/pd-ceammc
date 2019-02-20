@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
 #X declare -lib matrix;
-#X obj 538 50 cnv 1 157 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 538 50 element-wise cosine;
-#X obj 1 1 cnv 5 712 40 empty empty matrix.cos 20 20 0 20 -104026
+#X obj 583 50 cnv 1 157 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 583 50 element-wise cosine;
+#X obj 1 1 cnv 5 740 40 empty empty matrix.cos 20 20 0 20 -104026
 -4096 0;
-#X obj 615 11 matrix.cos;
+#X obj 643 11 matrix.cos;
 #X obj 50 118 declare -lib matrix;
 #X msg 50 162 0 6.4 100;
 #N canvas 0 22 450 300 (subpatch) 0;
@@ -19,28 +19,28 @@
 #X obj 50 219 matrix.cos;
 #X obj 50 248 matrix->list;
 #X obj 50 277 array.set ARR_COS;
-#X obj 20 316 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 316 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 321 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 326 1\.;
 #X text 150 326 *list*;
-#X text 240 326 Matrix data constructor: NROWS NCOLS ....;
+#X text 280 326 Matrix data constructor: NROWS NCOLS ....;
 #X text 150 344 *data*;
-#X text 240 344 Matrix data.;
-#X obj 20 372 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 344 Matrix data.;
+#X obj 20 372 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 377 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 382 1\.;
-#X text 240 382 output new matrix (Matrix);
+#X text 280 382 output new matrix (Matrix);
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title matrix @url matrix-help.pd;
 #X text 116 45 ::;
 #X obj 132 48 ui.link @title matrix @url matrix.matrix-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: matrix v0.1;
-#X text 534 520 see also:;
-#X obj 610 520 matrix.acos;
+#X text 564 520 see also:;
+#X obj 640 520 matrix.acos;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

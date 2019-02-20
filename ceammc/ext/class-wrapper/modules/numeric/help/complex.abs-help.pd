@@ -1,40 +1,40 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
 #X declare -lib numeric;
-#X obj 427 50 cnv 1 268 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 427 50 the magnitude of a complex number;
-#X obj 1 1 cnv 5 712 40 empty empty complex.abs 20 20 0 20 -104026
+#X obj 472 50 cnv 1 268 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 472 50 the magnitude of a complex number;
+#X obj 1 1 cnv 5 740 40 empty empty complex.abs 20 20 0 20 -104026
 -4096 0;
-#X obj 608 11 complex.abs;
+#X obj 636 11 complex.abs;
 #X obj 50 118 declare -lib numeric;
 #X msg 50 162 1 1;
 #X msg 107 162 2 6;
 #X msg 165 162 3 4;
 #X obj 50 190 complex.abs;
 #X floatatom 50 219 5 0 0 0 - - -;
-#X obj 20 258 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 258 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 263 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 268 1\.;
 #X text 150 268 *list*;
-#X text 240 268 Complex data constructor: REAL IMAG.;
+#X text 280 268 Complex data constructor: REAL IMAG.;
 #X text 150 286 *data*;
-#X text 240 286 Complex data.;
-#X obj 20 314 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 286 Complex data.;
+#X obj 20 314 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 319 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 324 1\.;
-#X text 240 324 output the magnitude of a complex number (float);
+#X text 280 324 output the magnitude of a complex number (float);
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title numeric @url numeric-help.pd;
 #X text 122 45 ::;
 #X obj 138 48 ui.link @title complex @url numeric.complex-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: numeric v0.1;
-#X text 433 520 see also:;
-#X obj 509 520 complex.norm;
-#X obj 611 520 complex.arg;
+#X text 463 520 see also:;
+#X obj 539 520 complex.norm;
+#X obj 641 520 complex.arg;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

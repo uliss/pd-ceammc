@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
 #X declare -lib matrix;
-#X obj 395 50 cnv 1 300 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 395 50 insert vector at specified matrix row;
-#X obj 1 1 cnv 5 712 40 empty empty matrix.insert_row 20 20 0 20
+#X obj 440 50 cnv 1 300 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 440 50 insert vector at specified matrix row;
+#X obj 1 1 cnv 5 740 40 empty empty matrix.insert_row 20 20 0 20
 -104026 -4096 0;
-#X obj 563 11 matrix.insert_row;
+#X obj 591 11 matrix.insert_row;
 #X obj 50 118 declare -lib matrix;
 #X msg 50 162 3 3;
 #X obj 270 162 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -15,47 +15,47 @@
 #X obj 270 190 matrix.row 10 20 30;
 #X obj 50 219 matrix.insert_row 1 1 3 1 2 3;
 #X obj 50 248 ui.display @display_type 1 @size 150 18;
-#X obj 20 288 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 288 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 293 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 298 1\.;
 #X text 150 298 int;
-#X obj 241 299 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 298 N: row number. Min value: 0;
+#X obj 281 299 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 298 N: row number. Min value: 0;
 #X text 120 316 2\.;
 #X text 150 316 list;
-#X obj 241 317 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 316 R: row to insert.;
-#X obj 20 344 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 281 317 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 316 R: row to insert.;
+#X obj 20 344 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 349 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 354 1\.;
 #X text 150 354 *list*;
-#X text 240 354 Matrix data constructor: NROWS NCOLS ....;
+#X text 280 354 Matrix data constructor: NROWS NCOLS ....;
 #X text 150 372 *data*;
-#X text 240 372 Matrix data.;
+#X text 280 372 Matrix data.;
 #X text 120 390 2\.;
 #X text 150 390 *int*;
-#X text 240 390 row number.;
+#X text 280 390 row number.;
 #X text 120 408 3\.;
 #X text 150 408 *list*;
-#X text 240 408 row to insert: NROWS NCOLS ....;
+#X text 280 408 row to insert: NROWS NCOLS ....;
 #X text 150 426 *data*;
-#X text 240 426 row to insert.;
-#X obj 20 454 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 426 row to insert.;
+#X obj 20 454 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 459 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 464 1\.;
-#X text 240 464 output new matrix (Matrix);
+#X text 280 464 output new matrix (Matrix);
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title matrix @url matrix-help.pd;
 #X text 116 45 ::;
 #X obj 132 48 ui.link @title matrix @url matrix.matrix-help.pd;
-#X obj 1 512 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 512 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 515 library: matrix v0.1;
-#X text 540 527 see also:;
-#X obj 616 527 matrix.row;
+#X text 570 527 see also:;
+#X obj 646 527 matrix.row;
 #N canvas 10 534 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

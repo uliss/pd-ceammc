@@ -1,52 +1,52 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 760 555 12;
 #X declare -lib ceammc;
 #X declare -lib matrix;
-#X obj 364 50 cnv 1 331 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 364 50 element-wise matrix not equal comparasion;
-#X obj 1 1 cnv 5 712 40 empty empty matrix.!= 20 20 0 20 -104026 -4096
+#X obj 409 50 cnv 1 331 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 409 50 element-wise matrix not equal comparasion;
+#X obj 1 1 cnv 5 740 40 empty empty matrix.!= 20 20 0 20 -104026 -4096
 0;
-#X obj 621 11 matrix.!=;
+#X obj 649 11 matrix.!=;
 #X obj 50 118 declare -lib matrix;
 #X msg 50 162 2 2 1 2 3 4;
 #X floatatom 261 162 5 0 0 0 - - -;
 #X msg 318 162 2 2 1 4 3 6;
 #X obj 50 190 matrix.!= Matrix 2 2 1 2 3 4;
 #X obj 50 219 ui.display @display_type 1 @size 150 18;
-#X obj 20 259 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 259 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 264 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 269 1\.;
 #X text 150 269 list;
-#X obj 241 270 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 269 V: float to compare or matrix to compare (Matrix NROWS
+#X obj 281 270 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 280 269 V: float to compare or matrix to compare (Matrix NROWS
 NCOLS ...).;
-#X obj 20 311 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 311 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 316 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 321 1\.;
 #X text 150 321 *list*;
-#X text 240 321 Matrix data constructor: NROWS NCOLS ....;
+#X text 280 321 Matrix data constructor: NROWS NCOLS ....;
 #X text 150 339 *data*;
-#X text 240 339 Matrix data.;
+#X text 280 339 Matrix data.;
 #X text 120 357 2\.;
 #X text 150 357 *float*;
-#X text 240 357 float to compare.;
+#X text 280 357 float to compare.;
 #X text 150 375 *data*;
-#X text 240 375 matrix to compare (NROWS NCOLS ...).;
-#X obj 20 403 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 280 375 matrix to compare (NROWS NCOLS ...).;
+#X obj 20 403 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 408 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 413 1\.;
-#X text 240 413 output compare result - matrix with 1 and 0 (Matrix);
+#X text 280 413 output compare result - matrix with 1 and 0 (Matrix);
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title matrix @url matrix-help.pd;
 #X text 116 45 ::;
 #X obj 132 48 ui.link @title matrix @url matrix.matrix-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: matrix v0.1;
-#X text 548 520 see also:;
-#X obj 624 520 matrix.==;
+#X text 578 520 see also:;
+#X obj 654 520 matrix.==;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
