@@ -64,9 +64,10 @@ class PropertyInfo {
     PropertyValue default_;
     AtomList enum_;
     std::string units_;
+    bool readonly_;
 
 public:
-    PropertyInfo(const std::string& name, PropertyInfoType type);
+    PropertyInfo(const std::string& name, PropertyInfoType type, bool readonly = false);
 
     const std::string& name() const { return name_; }
     PropertyInfoType type() const { return type_; }
@@ -79,6 +80,9 @@ public:
     bool hasMaxLimit() const;
     bool hasEnumLimit() const;
     bool hasStep() const;
+
+    bool readonly() const;
+    void setReadonly(bool v);
 
     const PropertyValue& defaultValue() const { return default_; }
     const AtomList& enumValues() const { return enum_; }

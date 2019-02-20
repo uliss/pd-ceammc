@@ -39,13 +39,14 @@ static PropertyInfoView defaultView(PropertyInfoType type)
     }
 }
 
-PropertyInfo::PropertyInfo(const std::string& name, PropertyInfoType type)
+PropertyInfo::PropertyInfo(const std::string& name, PropertyInfoType type, bool readonly)
     : name_(name)
     , type_(type)
     , view_(defaultView(type))
     , min_(std::numeric_limits<decltype(min_)>::min())
     , max_(std::numeric_limits<decltype(max_)>::max())
     , step_(0)
+    , readonly_(readonly)
 {
 }
 
@@ -67,6 +68,16 @@ bool PropertyInfo::hasEnumLimit() const
 bool PropertyInfo::hasStep() const
 {
     return step_ > 0;
+}
+
+bool PropertyInfo::readonly() const
+{
+    return readonly_;
+}
+
+void PropertyInfo::setReadonly(bool v)
+{
+    readonly_ = v;
 }
 
 void PropertyInfo::setDefault(bool v)

@@ -116,7 +116,8 @@ static void printInfo(std::ostream& os, const PropertyInfo& pi)
             os << "    \"default\": " << pi.defaultAtom() << ",\n";
         break;
     }
-    os << "    \"name\": \"" << pi.name() << "\"\n";
+    os << "    \"name\": \"" << pi.name() << "\",\n";
+    os << "    \"readonly\": " << (pi.readonly() ? 1 : 0) << "\n";
     os << "  }";
 }
 

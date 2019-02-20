@@ -51,7 +51,7 @@ public:
     virtual AtomList get() const = 0;
 
     void setVisible(bool v) { visible_ = v; }
-    void setReadonly(bool v) { readonly_ = v; }
+    void setReadonly(bool v);
 
     PropertyInfo& info() { return info_; }
     const PropertyInfo& info() const { return info_; }

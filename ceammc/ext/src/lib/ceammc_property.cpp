@@ -45,9 +45,16 @@ Property::Property(const PropertyInfo& info, bool readonly)
     , readonly_(readonly)
     , visible_(true)
 {
+    info_.setReadonly(readonly);
 }
 
 Property::~Property() {}
+
+void Property::setReadonly(bool v)
+{
+    info_.setReadonly(v);
+    readonly_ = v;
+}
 
 bool Property::readonlyCheck() const
 {

@@ -633,6 +633,9 @@ static PropertyInfo attr_to_prop(t_eattr* a)
         }
     }
 
+    if (a->getter != 0)
+        res.setReadonly(a->setter == 0);
+
     return res;
 }
 
