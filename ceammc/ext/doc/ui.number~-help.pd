@@ -19,67 +19,73 @@ interval;
 -49933 0;
 #X msg 120 234 @interval;
 #X text 240 234 Get/Set refresh interval. Type: int. Units: ms.
-Default value: 50\. Min value: 20;
+Default value: 50\. Value range: 20-1000;
 #X msg 120 271 @decimal;
 #X text 240 271 Get/Set number of decimals. Type: int. Default value:
 6\. Value range: -1-6;
-#X msg 120 308 @presetname;
-#X text 240 308 Get/Set preset name for using with [ui.preset]. Type:
-symbol;
-#X msg 120 345 @send;
-#X text 240 345 Get/Set send destination. Type: symbol;
-#X msg 120 372 @receive;
-#X text 240 372 Get/Set receive source. Type: symbol;
-#X msg 120 399 @size;
-#X text 240 399 Get/Set element size (width \, height pair). Type:
+#X msg 120 308 @send;
+#X text 240 308 Get/Set send destination. Type: symbol;
+#X msg 120 335 @receive;
+#X text 240 335 Get/Set receive source. Type: symbol;
+#X msg 120 362 @size;
+#X text 240 362 Get/Set element size (width \, height pair). Type:
 list;
-#X msg 120 426 @pinned;
-#X text 240 426 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 120 389 @pinned;
+#X text 240 389 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1;
-#X msg 120 463 @knob_color;
-#X text 240 463 Get/Set knob color (list of red \, green \, blue
+#X msg 120 426 @active_color;
+#X text 240 426 Get/Set active color (list of red \, green \, blue
 values in 0-1 range). Type: list;
-#X msg 120 500 @scale_color;
-#X text 240 500 Get/Set scale color (list of red \, green \, blue
+#X msg 120 463 @text_color;
+#X text 240 463 Get/Set text color (list of red \, green \, blue
 values in 0-1 range). Type: list;
-#X msg 120 537 @background_color;
-#X text 240 537 Get/Set element background color (list of red \, green
+#X msg 120 500 @background_color;
+#X text 240 500 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list;
-#X msg 120 574 @border_color;
-#X text 240 574 Get/Set border color (list of red \, green \, blue
+#X msg 120 537 @border_color;
+#X text 240 537 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list;
-#X msg 120 611 @fontsize;
-#X text 240 611 Get/Set fontsize. Type: int. Default value: 11\. Value
+#X msg 120 574 @fontsize;
+#X text 240 574 Get/Set fontsize. Type: int. Default value: 11\. Value
 range: 4-11;
-#X msg 120 648 @fontname;
-#X text 240 648 Get/Set fontname. Type: symbol;
-#X msg 120 675 @fontweight;
-#X text 240 675 Get/Set font weight. Type: symbol. Default value:
+#X msg 120 611 @fontname;
+#X text 240 611 Get/Set fontname. Type: symbol;
+#X msg 120 638 @fontweight;
+#X text 240 638 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold;
-#X msg 120 712 @fontslant;
-#X text 240 712 Get/Set font slant. Type: symbol. Default value:
+#X msg 120 675 @fontslant;
+#X text 240 675 Get/Set font slant. Type: symbol. Default value:
 roman. Allowed values: roman \, italic;
-#X obj 20 759 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 764 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 120 769 1\.;
-#X text 240 769 input audio signal.;
-#X obj 20 797 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 802 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 722 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 727 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X text 120 807 1\.;
-#X text 240 807 signal pass thru;
+#X msg 120 732 pos;
+#X text 240 732 set UI element position. Arguments are:;
+#X obj 250 760 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 760 X: top left x-coord. Type: float.;
+#X obj 250 788 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 788 Y: top right y-coord. Type: float.;
+#X obj 20 826 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 831 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+0;
+#X text 120 836 1\.;
+#X text 240 836 input audio signal.;
+#X obj 20 864 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 869 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 120 874 1\.;
+#X text 240 874 signal pass thru;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 855 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 858 library: ceammc v0.7;
-#X text 546 870 see also:;
-#X obj 622 873 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 922 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 925 library: ceammc v0.7;
+#X text 546 937 see also:;
+#X obj 622 940 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.number] @url ui.number-help.pd;
-#N canvas 10 877 400 290 info 0;
+#N canvas 10 944 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -103,5 +109,5 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 877 pd info;
+#X restore 10 944 pd info;
 #X connect 7 0 9 0;
