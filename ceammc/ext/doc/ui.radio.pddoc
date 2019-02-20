@@ -60,6 +60,17 @@
             <method name="+ STEP">moves several steps forward on a loop (single mode only)</method>
             <method name="- STEP">moves several step backwards on a loop (single mode
             only)</method>
+            <!-- presets -->
+            <method name="load">loads specified preset
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <method name="store">stores specified preset
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <method name="clear">clears specified preset
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- common-->
+            <method name="pos">set UI element position
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
         </methods>
         <inlets>
             <inlet>

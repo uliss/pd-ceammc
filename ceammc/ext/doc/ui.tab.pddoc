@@ -63,6 +63,17 @@
             <param name="ATOMS" type="list" required="true">item name</param></method>
             <method name="set">silently sets tab state. 
             <param name="IDX" type="int" minvalue="0" required="true">item index</param></method>
+            <!-- presets -->
+            <method name="load">loads specified preset
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <method name="store">stores specified preset
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <method name="clear">clears specified preset
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- common-->
+            <method name="pos">set UI element position
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
         </methods>
         <inlets>
             <inlet>
