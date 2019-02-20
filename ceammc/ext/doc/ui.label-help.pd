@@ -26,61 +26,95 @@ word wrap;
 #X obj 20 445 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 450 @text;
-#X text 240 450 Get/Set label text. Type: list. Default value: Label;
+#X text 240 450 Get/Set label text. Type: symbol. Default value:
+Label;
 #X msg 120 477 @align;
 #X text 240 477 Get/Set text align. Type: symbol. Default value: left.
 Allowed values: left \, center \, right;
-#X msg 120 514 @receive;
-#X text 240 514 Get/Set receive source. Type: symbol;
-#X msg 120 541 @fontname;
-#X text 240 541 Get/Set text font family. Type: symbol. Default value:
-Helvetica;
-#X msg 120 578 @fontweight;
-#X text 240 578 Get/Set font weight. Type: symbol. Default value:
+#X msg 120 514 @margin_top;
+#X text 240 514 Get/Set text top margin. Type: int. Default value: 5;
+#X msg 120 541 @margin_left;
+#X text 240 541 Get/Set text left margin. Type: int. Default value: 5;
+#X msg 120 568 @margin_right;
+#X text 240 568 Get/Set text right margin. Type: int. Default value:
+5;
+#X msg 120 595 @margin_bottom;
+#X text 240 595 Get/Set text bottom margin. Type: int. Default value:
+5;
+#X msg 120 622 @send;
+#X text 240 622 Get/Set send destination. Type: symbol;
+#X msg 120 649 @receive;
+#X text 240 649 Get/Set receive source. Type: symbol;
+#X msg 120 676 @size;
+#X text 240 676 Get/Set element size (width \, height pair). Type:
+list;
+#X msg 120 703 @pinned;
+#X text 240 703 Get/Set pin mode. if 1 - put element to the lowest
+level. Type: int. Default value: 1\. Allowed values: 0 \, 1;
+#X msg 120 740 @text_color;
+#X text 240 740 Get/Set text color (list of red \, green \, blue
+values in 0-1 range). Type: list;
+#X msg 120 777 @background_color;
+#X text 240 777 Get/Set element background color (list of red \, green
+\, blue values in 0-1 range). Type: list;
+#X msg 120 814 @border_color;
+#X text 240 814 Get/Set border color (list of red \, green \, blue
+values in 0-1 range). Type: list;
+#X msg 120 851 @fontsize;
+#X text 240 851 Get/Set fontsize. Type: int. Default value: 32\. Min
+value: 4;
+#X msg 120 888 @fontname;
+#X text 240 888 Get/Set fontname. Type: symbol;
+#X msg 120 915 @fontweight;
+#X text 240 915 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold;
-#X msg 120 615 @fontslant;
-#X text 240 615 Get/Set font slant. Type: symbol. Default value:
-normal. Allowed values: roman \, italic;
-#X msg 120 652 @fontsize;
-#X text 240 652 Get/Set font size. Type: float. Default value: 32;
-#X obj 20 689 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 694 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 120 952 @fontslant;
+#X text 240 952 Get/Set font slant. Type: symbol. Default value:
+roman. Allowed values: roman \, italic;
+#X obj 20 999 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1004 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 699 float;
-#X text 240 699 set label text to given float \, but do not change
+#X msg 120 1009 float;
+#X text 240 1009 set label text to given float \, but do not change
 @text property.;
-#X msg 120 741 symbol;
-#X text 240 741 set label text to given symbol \, but do not change
+#X msg 120 1051 symbol;
+#X text 240 1051 set label text to given symbol \, but do not change
 @text property.;
-#X msg 120 783 list;
-#X text 240 783 set label text to given list separated by spaces \,
+#X msg 120 1093 list;
+#X text 240 1093 set label text to given list separated by spaces \,
 but do not change @text property.;
-#X msg 120 825 any;
-#X text 240 825 set label text to given message separated by spaces \,
-but do not change @text property.;
-#X msg 120 867 clear;
-#X text 240 867 clear label text and clear @text property.;
-#X msg 120 899 append;
-#X text 240 899 appends to @text end.;
-#X msg 120 931 set;
-#X text 240 931 set label text and update @text property \, so it
+#X msg 120 1135 any;
+#X text 240 1135 set label text to given message separated by spaces
+\, but do not change @text property.;
+#X msg 120 1177 clear;
+#X text 240 1177 clear label text and clear @text property.;
+#X msg 120 1209 append;
+#X text 240 1209 appends to @text end.;
+#X msg 120 1241 set;
+#X text 240 1241 set label text and update @text property \, so it
 would be saved in patch.;
-#X msg 120 973 prepend;
-#X text 240 973 insert into beginning of @text.;
-#X obj 20 1015 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1020 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 120 1283 prepend;
+#X text 240 1283 insert into beginning of @text.;
+#X msg 120 1315 pos;
+#X text 240 1315 set UI element position. Arguments are:;
+#X obj 250 1343 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1343 X: top left x-coord. Type: float.;
+#X obj 250 1371 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1371 Y: top right y-coord. Type: float.;
+#X obj 20 1409 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1414 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X obj 20 1045 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1050 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1439 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1444 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1095 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1098 library: ceammc v0.7;
-#N canvas 10 1117 400 290 info 0;
+#X obj 1 1489 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1492 library: ceammc v0.7;
+#N canvas 10 1511 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -104,7 +138,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1117 pd info;
+#X restore 10 1511 pd info;
 #X connect 10 0 16 0;
 #X connect 11 0 16 0;
 #X connect 12 0 16 0;
