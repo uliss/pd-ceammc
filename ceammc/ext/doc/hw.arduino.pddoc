@@ -23,9 +23,9 @@
             /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX</argument>
         </arguments>
         <properties>
-            <property name="@port" type="symbol">name of arduino serial port, eg.: COM3 on Windows,
-            /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX. If specified on creation tries
-            to connect to this device only</property>
+            <property name="@port" type="symbol" readonly="true">name of arduino serial port, eg.:
+            COM3 on Windows, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX. If specified
+            on creation tries to connect to this device only</property>
             <property name="@serial" type="symbol">USB device serial number. If specified at
             creation, tries to connect to devices only with such serial number</property>
             <property name="@rate" type="int" default="57600" minvalue="0">serial baud rate.

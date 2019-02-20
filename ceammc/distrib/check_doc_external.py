@@ -177,7 +177,8 @@ if __name__ == '__main__':
 
             # readonly checks
             if p0.get("readonly", False):
-                if p1.get("readonly", False):
+                # has external readonly but not in doc
+                if not p1.get("readonly", False):
                     cprint(f"[{ext_name}] missing readonly attribute in \"{p}\"", 'magenta')
 
                 continue

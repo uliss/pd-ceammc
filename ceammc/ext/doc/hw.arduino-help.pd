@@ -33,10 +33,10 @@ for device hotplug and reconnects to it.;
 #X obj 20 495 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 500 @port;
-#X text 240 500 Get/Set name of arduino serial port \, eg.: COM3 on
-Windows \, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX. If
-specified on creation tries to connect to this device only. Type:
-symbol;
+#X text 240 500 (readonly) Get name of arduino serial port \, eg.:
+COM3 on Windows \, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on
+MacOSX. If specified on creation tries to connect to this device only.
+Type: symbol;
 #X msg 120 565 @serial;
 #X text 240 565 Get/Set USB device serial number. If specified at
 creation \, tries to connect to devices only with such serial number.
