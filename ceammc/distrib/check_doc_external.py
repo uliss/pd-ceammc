@@ -29,8 +29,14 @@ def read_all_externals():
     return list(filter(lambda x: len(x), subprocess.check_output([EXT_LIST], stderr=subprocess.DEVNULL).decode().split('\n')))
 
 def read_methods(name):
+    # methods starting with @ - properties in UI objects
+    # methods starting with . - internal methods
+    # methods ending with _aliased - overwritten methods
+    def valid_method(x):
+        return (len(x) and x[0] != '@' and x[0] != '.') and (not str(x).endswith("_aliased"))
+
     try:
-        return set(filter(lambda x: len(x) and x[0] != '@' and x[0] != '.',
+        return set(filter(valid_method,
             subprocess.check_output([EXT_METHODS, name], stderr=subprocess.DEVNULL).decode().split('\n')))
     except(subprocess.CalledProcessError):
         cprint(f"[{name}] can't get methods", "red")
