@@ -46,6 +46,7 @@ PropertyInfo::PropertyInfo(const std::string& name, PropertyInfoType type, bool 
     , min_(std::numeric_limits<decltype(min_)>::min())
     , max_(std::numeric_limits<decltype(max_)>::max())
     , step_(0)
+    , units_(PropertyInfoUnits::UNKNOWN)
     , readonly_(readonly)
 {
 }
@@ -238,9 +239,9 @@ void PropertyInfo::setType(PropertyInfoType t)
     view_ = defaultView(t);
 }
 
-void PropertyInfo::setUnits(const std::string& s)
+void PropertyInfo::setUnits(const PropertyInfoUnits& u)
 {
-    units_ = s;
+    units_ = u;
 }
 
 bool PropertyInfo::defaultBool(bool def) const

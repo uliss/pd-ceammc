@@ -64,6 +64,36 @@ static const char* to_string(PropertyInfoView v)
     }
 }
 
+static const char* to_string(PropertyInfoUnits u)
+{
+    switch (u) {
+    case PropertyInfoUnits::MSEC:
+        return "millisecond";
+    case PropertyInfoUnits::SEC:
+        return "second";
+    case PropertyInfoUnits::DB:
+        return "decibel";
+    case PropertyInfoUnits::HZ:
+        return "herz";
+    case PropertyInfoUnits::PERCENT:
+        return "percent";
+    case PropertyInfoUnits::RAD:
+        return "radian";
+    case PropertyInfoUnits::DEG:
+        return "degree";
+    case PropertyInfoUnits::SEMITONE:
+        return "semitone";
+    case PropertyInfoUnits::CENT:
+        return "cent";
+    case PropertyInfoUnits::TONE:
+        return "tone";
+    case PropertyInfoUnits::SAMP:
+        return "sample";
+    default:
+        return "";
+    }
+}
+
 static std::string to_string2(const AtomList& lst)
 {
     std::string res;
@@ -116,6 +146,10 @@ static void printInfo(std::ostream& os, const PropertyInfo& pi)
             os << "    \"default\": " << pi.defaultAtom() << ",\n";
         break;
     }
+
+    if (pi.units() != PropertyInfoUnits::UNKNOWN)
+        os << "    \"units\": \"" << to_string(pi.units()) << "\",\n";
+
     os << "    \"name\": \"" << pi.name() << "\",\n";
     os << "    \"readonly\": " << (pi.readonly() ? 1 : 0) << "\n";
     os << "  }";

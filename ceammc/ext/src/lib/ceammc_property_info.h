@@ -49,10 +49,18 @@ enum class PropertyInfoView {
 };
 
 enum class PropertyInfoUnits {
-    MSEC = 0,
-    SEC,
-    SAMPLES,
-    DB
+    UNKNOWN = 0,
+    MSEC, // milliseconds
+    SEC, // seconds
+    SAMP, // samples
+    DB, // decibels
+    DEG, // degree
+    RAD, // radians
+    HZ, // herz
+    PERCENT, // percents
+    CENT, // cents
+    SEMITONE, //semitone
+    TONE // tone
 };
 
 class PropertyInfo {
@@ -63,7 +71,7 @@ class PropertyInfo {
     float step_;
     PropertyValue default_;
     AtomList enum_;
-    std::string units_;
+    PropertyInfoUnits units_;
     bool readonly_;
 
 public:
@@ -110,8 +118,8 @@ public:
 
     void setType(PropertyInfoType t);
 
-    const std::string& units() const { return units_; }
-    void setUnits(const std::string& s);
+    const PropertyInfoUnits& units() const { return units_; }
+    void setUnits(const PropertyInfoUnits& u);
 
     bool defaultBool(bool def = false) const;
     int defaultInt(int def = 0) const;
