@@ -20,7 +20,8 @@
             <par>Double click in edit mode changes slider orientation</par>
         </info>
         <properties>
-            <property name="@nitems" type="int" default="8" minvalue="1">number of items</property>
+            <property name="@nitems" type="int" default="8" minvalue="2" maxvalue="128">number of
+            items</property>
             <property name="@mode" type="int" enum="0 1" default="0">check list mode. If true acts
             as checklist</property>
             <property name="@value" type="list">widget value (float or list)</property>
@@ -32,10 +33,8 @@
             <property name="@size" type="list">element size (width, height pair)</property>
             <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
             to the lowest level</property>
-            <property name="@knob_color" type="list">knob color (list of red, green, blue values in
-            0-1 range)</property>
-            <property name="@scale_color" type="list">scale color (list of red, green, blue values
-            in 0-1 range)</property>
+            <property name="@active_color" type="list">active color (list of red, green, blue
+            values in 0-1 range)</property>
             <property name="@background_color" type="list">element background color (list of red,
             green, blue values in 0-1 range)</property>
             <property name="@border_color" type="list">border color (list of red, green, blue
