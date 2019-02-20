@@ -88,7 +88,9 @@ ArrayStretch::ArrayStretch(const PdArgs& a)
     createOutlet();
 
     pitch_ = new FloatProperty("@pitch", 0);
+    pitch_->info().setUnits(PropertyInfoUnits::SEMITONE);
     tempo_ = new FloatProperty("@tempo", 0);
+    tempo_->info().setUnits(PropertyInfoUnits::PERCENT);
     rate_ = new FloatProperty("@rate", 1);
 
     createProperty(pitch_);
@@ -114,6 +116,7 @@ ArrayStretch::ArrayStretch(const PdArgs& a)
     property(PROP_SEQUENCE)->info().setType(PropertyInfoType::INTEGER);
     property(PROP_SEQUENCE)->info().setDefault(0);
     property(PROP_SEQUENCE)->info().setRange(0, 100);
+    property(PROP_SEQUENCE)->info().setUnits(PropertyInfoUnits::MSEC);
 
     // @seekwindow
     createCbProperty(PROP_SEEK_WINDOW->s_name,
@@ -122,6 +125,7 @@ ArrayStretch::ArrayStretch(const PdArgs& a)
     property(PROP_SEEK_WINDOW)->info().setType(PropertyInfoType::INTEGER);
     property(PROP_SEEK_WINDOW)->info().setDefault(0);
     property(PROP_SEEK_WINDOW)->info().setRange(0, 100);
+    property(PROP_SEEK_WINDOW)->info().setUnits(PropertyInfoUnits::MSEC);
 
     // @overlap
     createCbProperty(PROP_OVERLAP->s_name,
@@ -130,6 +134,7 @@ ArrayStretch::ArrayStretch(const PdArgs& a)
     property(PROP_OVERLAP)->info().setType(PropertyInfoType::INTEGER);
     property(PROP_OVERLAP)->info().setDefault(8);
     property(PROP_OVERLAP)->info().setRange(1, 100);
+    property(PROP_OVERLAP)->info().setUnits(PropertyInfoUnits::MSEC);
 
     // pitch-shift params
     // antialias

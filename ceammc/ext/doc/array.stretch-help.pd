@@ -75,7 +75,7 @@ sound pitch. Type: float. Units: %. Default value: 0\. Value range:
 #X text 280 782 Get/Set relative pitch change in semitones while
 keeping the original tempo. Type: float. Default value: 0;
 #X msg 120 819 @rate;
-#X text 280 819 Get/Set Playback rate - changes both tempo and pitch
+#X text 280 819 Get/Set playback rate - changes both tempo and pitch
 together as if a vinyl disc was played at different RPM rate. Type:
 float. Default value: 1\. Value range: 0.1-2;
 #X msg 120 870 @speech;

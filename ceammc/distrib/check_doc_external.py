@@ -189,6 +189,15 @@ if __name__ == '__main__':
 
                 continue
 
+            # units checks
+            if p1.get("units", False):
+                if not p0.get("units", False):
+                    cprint(f"[{ext_name}] missing units attribute in external \"{p}\"", 'magenta')
+
+            if p0.get("units", False):
+                if not p1.get("units", False):
+                    cprint(f"[{ext_name}] missing units attribute in pddoc \"{p}\"", 'magenta')
+
             if p0["type"] == "bool":
                 if p1["type"] == "flag":
                     continue
