@@ -31,9 +31,10 @@
             <property name="@sync" type="int" enum="0 1" default="0">mouse sync. If true, outputs
             while mouse dragging, otherwise outputs only on mouse down/up</property>
             <property name="@value" type="list">current slider value</property>
-            <property name="@low" type="float">low (left) selection value</property>
-            <property name="@high" type="float">max (right) selection value</property>
-            <property name="@range" type="float" minvalue="0">selected slider value</property>
+            <property name="@low" type="float" default="0">low (left) selection value</property>
+            <property name="@high" type="float" default="0">max (right) selection value</property>
+            <property name="@range" type="float" minvalue="0" default="0">selected slider
+            value</property>
             <!-- common -->
             <property name="@presetname" type="symbol">preset name for using with
             [ui.preset]</property>
@@ -44,8 +45,6 @@
             to the lowest level</property>
             <property name="@knob_color" type="list">knob color (list of red, green, blue values in
             0-1 range)</property>
-            <property name="@scale_color" type="list">scale color (list of red, green, blue values
-            in 0-1 range)</property>
             <property name="@background_color" type="list">element background color (list of red,
             green, blue values in 0-1 range)</property>
             <property name="@border_color" type="list">border color (list of red, green, blue
