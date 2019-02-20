@@ -23,24 +23,24 @@
 #X obj 20 324 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 329 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 334 @presetname;
-#X text 240 334 Get/Set preset name for using with [ui.preset]. Type:
+#X msg 120 334 @value;
+#X text 240 334 Get/Set widget value. Type: float. Default value: 0\.
+Allowed values: 0 \, 1;
+#X msg 120 371 @presetname;
+#X text 240 371 Get/Set preset name for using with [ui.preset]. Type:
 symbol;
-#X msg 120 371 @send;
-#X text 240 371 Get/Set send destination. Type: symbol;
-#X msg 120 398 @receive;
-#X text 240 398 Get/Set receive source. Type: symbol;
-#X msg 120 425 @size;
-#X text 240 425 Get/Set element size (width \, height pair). Type:
+#X msg 120 408 @send;
+#X text 240 408 Get/Set send destination. Type: symbol;
+#X msg 120 435 @receive;
+#X text 240 435 Get/Set receive source. Type: symbol;
+#X msg 120 462 @size;
+#X text 240 462 Get/Set element size (width \, height pair). Type:
 list;
-#X msg 120 452 @pinned;
-#X text 240 452 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 120 489 @pinned;
+#X text 240 489 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1;
-#X msg 120 489 @knob_color;
-#X text 240 489 Get/Set knob color (list of red \, green \, blue
-values in 0-1 range). Type: list;
-#X msg 120 526 @scale_color;
-#X text 240 526 Get/Set scale color (list of red \, green \, blue
+#X msg 120 526 @active_color;
+#X text 240 526 Get/Set active color (list of red \, green \, blue
 values in 0-1 range). Type: list;
 #X msg 120 563 @background_color;
 #X text 240 563 Get/Set element background color (list of red \, green
