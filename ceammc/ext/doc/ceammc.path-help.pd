@@ -1,16 +1,16 @@
-#N canvas 0 0 715 500 12;
+#N canvas 0 0 760 555 12;
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 116 path.basename;
-#X text 175 116 outputs filename portion of pathname;
+#X text 200 116 outputs filename portion of pathname;
 #X obj 30 143 path.dirname;
-#X text 175 143 outputs directory portion of pathname;
+#X text 200 143 outputs directory portion of pathname;
 #X obj 30 170 path.exists;
-#X text 175 170 checks if given path exists;
+#X text 200 170 checks if given path exists;
 #X obj 30 197 path.lsdir;
-#X text 175 197 list directory contents;
-#X obj 1 1 cnv 5 695 40 empty empty ceammc::path 20 20 0 20 -104026
+#X text 200 197 list directory contents;
+#X obj 1 1 cnv 5 740 40 empty empty ceammc::path 20 20 0 20 -104026
 -4096 0;
-#X obj 1 458 cnv 5 695 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 468 library: ceammc;
+#X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 523 library: ceammc;
