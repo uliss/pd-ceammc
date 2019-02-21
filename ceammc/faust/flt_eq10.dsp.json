@@ -1,7 +1,7 @@
 {
 	"name": "flt_eq10",
 	"filename": "flt_eq10",
-	"version": "2.14.4",
+	"version": "2.15.0",
 	"compile_options": "cpp, -scal -ftz 0",
 	"library_list": ["/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/analyzers.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/signals.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
@@ -34,7 +34,7 @@
 					"label": "f1000",
 					"address": "/flt_eq10/f1000",
 					"meta": [
-						{ "unit": "dB" }
+						{ "unit": "db" }
 					],
 					"init": "0",
 					"min": "-70",
@@ -46,7 +46,7 @@
 					"label": "f125",
 					"address": "/flt_eq10/f125",
 					"meta": [
-						{ "unit": "dB" }
+						{ "unit": "db" }
 					],
 					"init": "0",
 					"min": "-70",
@@ -58,7 +58,7 @@
 					"label": "f16000",
 					"address": "/flt_eq10/f16000",
 					"meta": [
-						{ "unit": "dB" }
+						{ "unit": "db" }
 					],
 					"init": "0",
 					"min": "-70",
@@ -70,7 +70,7 @@
 					"label": "f2000",
 					"address": "/flt_eq10/f2000",
 					"meta": [
-						{ "unit": "dB" }
+						{ "unit": "db" }
 					],
 					"init": "0",
 					"min": "-70",
@@ -82,7 +82,7 @@
 					"label": "f250",
 					"address": "/flt_eq10/f250",
 					"meta": [
-						{ "unit": "dB" }
+						{ "unit": "db" }
 					],
 					"init": "0",
 					"min": "-70",
@@ -94,7 +94,7 @@
 					"label": "f31",
 					"address": "/flt_eq10/f31",
 					"meta": [
-						{ "unit": "dB" }
+						{ "unit": "db" }
 					],
 					"init": "0",
 					"min": "-70",
@@ -106,7 +106,7 @@
 					"label": "f4000",
 					"address": "/flt_eq10/f4000",
 					"meta": [
-						{ "unit": "dB" }
+						{ "unit": "db" }
 					],
 					"init": "0",
 					"min": "-70",
@@ -118,7 +118,7 @@
 					"label": "f500",
 					"address": "/flt_eq10/f500",
 					"meta": [
-						{ "unit": "dB" }
+						{ "unit": "db" }
 					],
 					"init": "0",
 					"min": "-70",
@@ -130,7 +130,7 @@
 					"label": "f62",
 					"address": "/flt_eq10/f62",
 					"meta": [
-						{ "unit": "dB" }
+						{ "unit": "db" }
 					],
 					"init": "0",
 					"min": "-70",
@@ -142,7 +142,7 @@
 					"label": "f8000",
 					"address": "/flt_eq10/f8000",
 					"meta": [
-						{ "unit": "dB" }
+						{ "unit": "db" }
 					],
 					"init": "0",
 					"min": "-70",

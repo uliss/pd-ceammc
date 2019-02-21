@@ -193,6 +193,10 @@ if __name__ == '__main__':
             if p1.get("units", False):
                 if not p0.get("units", False):
                     cprint(f"[{ext_name}] missing units attribute in external \"{p}\"", 'magenta')
+                elif p1["units"] != p0["units"]:
+                    u0 = p0["units"]
+                    u1 = p1["units"]
+                    cprint(f"[{ext_name}] non-equal units in \"{p}\": {u0} != {u1}", 'magenta')
 
             if p0.get("units", False):
                 if not p1.get("units", False):
