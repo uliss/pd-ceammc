@@ -36,6 +36,7 @@ void PitchTrack::initProperties()
         LIB_DBG << "setting frame size to: " << p->value();
         this_->helmholtz_->setframesize(p->value());
     });
+    framesize_->info().setUnits(PropertyInfoUnits::SAMP);
     createProperty(framesize_);
 
     auto p_overlap = new IntEnumProperty("@overlap", 1);
@@ -57,6 +58,7 @@ void PitchTrack::initProperties()
     createProperty(bias_);
 
     maxfreq_ = new FloatPropertyClosedRange("@maxfreq", DEFMAXFREQ, 10, 10000);
+    maxfreq_->info().setUnits(PropertyInfoUnits::HZ);
     createProperty(maxfreq_);
 
     fidelity_threshold_ = new FloatPropertyClosedRange("@fidthr", DEFFIDELITY, 0, 1);
