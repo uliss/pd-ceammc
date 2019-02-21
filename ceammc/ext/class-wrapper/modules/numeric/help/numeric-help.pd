@@ -1,101 +1,101 @@
-#N canvas 0 0 715 500 12;
+#N canvas 0 0 760 555 12;
 #X obj 20 50 cnv 5 79 31 empty empty complex 4 13 0 17 -262144 -49933
 0;
-#X obj 20 91 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 91 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 102 complex.!=;
-#X text 175 102 not equal check;
+#X text 200 102 not equal check;
 #X obj 30 129 complex.==;
-#X text 175 129 equal check;
+#X text 200 129 equal check;
 #X obj 30 156 complex.abs;
-#X text 175 156 the magnitude of a complex number;
+#X text 200 156 the magnitude of a complex number;
 #X obj 30 183 complex.add;
-#X text 175 183 add two complex numbers;
+#X text 200 183 add two complex numbers;
 #X obj 30 210 complex.arg;
-#X text 175 210 the phase angle of the complex number x \, expressed
+#X text 200 210 the phase angle of the complex number x \, expressed
 in radians;
 #X obj 30 247 complex.conj;
-#X text 175 247 the complex conjugate;
+#X text 200 247 the complex conjugate;
 #X obj 30 274 complex.cos;
-#X text 175 274 cosine of complex number;
+#X text 200 274 cosine of complex number;
 #X obj 30 301 complex.div;
-#X text 175 301 divide complex numbers;
+#X text 200 301 divide complex numbers;
 #X obj 30 328 complex.exp;
-#X text 175 328 complex base e exponential;
+#X text 200 328 complex base e exponential;
 #X obj 30 355 complex.imag;
-#X text 175 355 get imaginary part of complex number;
+#X text 200 355 get imaginary part of complex number;
 #X obj 30 382 complex.log;
-#X text 175 382 complex natural logarithm with the branch cuts along
+#X text 200 382 complex natural logarithm with the branch cuts along
 the negative real axis;
 #X obj 30 419 complex.log10;
-#X text 175 419 complex common logarithm with the branch cuts along
+#X text 200 419 complex common logarithm with the branch cuts along
 the negative real axis;
 #X obj 30 456 complex.mul;
-#X text 175 456 multiply complex numbers;
+#X text 200 456 multiply complex numbers;
 #X obj 30 483 complex.new;
-#X text 175 483 Complex data;
+#X text 200 483 Complex data;
 #X obj 30 510 complex.norm;
-#X text 175 510 the squared magnitude;
+#X text 200 510 the squared magnitude;
 #X obj 30 537 complex.polar;
-#X text 175 537 creates Complex number in polar coordinates;
+#X text 200 537 creates Complex number in polar coordinates;
 #X obj 30 564 complex.pow;
-#X text 175 564 complex power;
+#X text 200 564 complex power;
 #X obj 30 591 complex.real;
-#X text 175 591 get real part of complex number;
+#X text 200 591 get real part of complex number;
 #X obj 30 618 complex.sin;
-#X text 175 618 sine of complex number;
+#X text 200 618 sine of complex number;
 #X obj 30 645 complex.sqrt;
-#X text 175 645 complex square root in the range of the right half-
+#X text 200 645 complex square root in the range of the right half-
 plane;
 #X obj 30 672 complex.sub;
-#X text 175 672 substruct complex numbers;
+#X text 200 672 substruct complex numbers;
 #X obj 30 699 complex.tan;
-#X text 175 699 tangent of complex number;
+#X text 200 699 tangent of complex number;
 #X obj 30 726 complex.to_list;
-#X text 175 726 real and imaginary part as list;
+#X text 200 726 real and imaginary part as list;
 #X obj 30 753 complex.unpack;
-#X text 175 753 unpacks complex number to real and imaginary parts;
+#X text 200 753 unpacks complex number to real and imaginary parts;
 #X obj 20 780 cnv 5 87 31 empty empty rational 4 13 0 17 -262144
 -49933 0;
-#X obj 20 821 cnv 1 675 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 821 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 832 rational.!=;
-#X text 175 832 not equal check;
+#X text 200 832 not equal check;
 #X obj 30 859 rational.==;
-#X text 175 859 equal check;
+#X text 200 859 equal check;
 #X obj 30 886 rational.abs;
-#X text 175 886 abs absolute value;
+#X text 200 886 abs absolute value;
 #X obj 30 913 rational.add;
-#X text 175 913 add two rational numbers;
+#X text 200 913 add two rational numbers;
 #X obj 30 940 rational.div;
-#X text 175 940 divide rational numbers;
+#X text 200 940 divide rational numbers;
 #X obj 30 967 rational.from_float;
-#X text 175 967 converts input float to rational with specified
+#X text 200 967 converts input float to rational with specified
 precision;
 #X obj 30 994 rational.ge;
-#X text 175 994 greater equal compare operator;
+#X text 200 994 greater equal compare operator;
 #X obj 30 1021 rational.gt;
-#X text 175 1021 greater than compare operator;
+#X text 200 1021 greater than compare operator;
 #X obj 30 1048 rational.le;
-#X text 175 1048 less equal compare operator;
+#X text 200 1048 less equal compare operator;
 #X obj 30 1075 rational.lt;
-#X text 175 1075 less than compare operator;
+#X text 200 1075 less than compare operator;
 #X obj 30 1102 rational.mul;
-#X text 175 1102 multiply rational numbers;
+#X text 200 1102 multiply rational numbers;
 #X obj 30 1129 rational.new;
-#X text 175 1129 The Rational class;
+#X text 200 1129 The Rational class;
 #X obj 30 1156 rational.pow;
-#X text 175 1156 rational power;
+#X text 200 1156 rational power;
 #X obj 30 1183 rational.reciprocal;
-#X text 175 1183 reciprocal rational number;
+#X text 200 1183 reciprocal rational number;
 #X obj 30 1210 rational.sub;
-#X text 175 1210 substruct rational numbers;
+#X text 200 1210 substruct rational numbers;
 #X obj 30 1237 rational.to_float;
-#X text 175 1237 convert to float value;
+#X text 200 1237 convert to float value;
 #X obj 30 1264 rational.to_list;
-#X text 175 1264 numerator and denominator part as list;
+#X text 200 1264 numerator and denominator part as list;
 #X obj 30 1291 rational.unpack;
-#X text 175 1291 unpacks rational number to numerator and denominator
+#X text 200 1291 unpacks rational number to numerator and denominator
 parts;
-#X obj 1 1 cnv 5 695 40 empty empty numeric 20 20 0 20 -104026 -4096
+#X obj 1 1 cnv 5 740 40 empty empty numeric 20 20 0 20 -104026 -4096
 0;
-#X obj 1 1318 cnv 5 695 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 1318 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 20 1318 version: v0.1 \, license:;
