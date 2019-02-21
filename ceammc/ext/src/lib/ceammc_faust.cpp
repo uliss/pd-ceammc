@@ -12,6 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 
+#include <array>
+
 #include "ceammc_faust.h"
 
 namespace ceammc {
@@ -468,6 +470,23 @@ namespace faust {
         pinfo_.setDefault(init_);
         pinfo_.setRange(min_, max_);
         pinfo_.setStep(step_);
+    }
+
+    PropertyInfoUnits to_units(const char* u)
+    {
+        static std::pair<const char*, PropertyInfoUnits> umap[] = {
+            { "Hz", PropertyInfoUnits::HZ },
+            { "ms", PropertyInfoUnits::MSEC },
+            { "percent", PropertyInfoUnits::PERCENT },
+            { "db", PropertyInfoUnits::DB }
+        };
+
+        for (auto& p : umap) {
+            if (strcmp(u, p.first) == 0)
+                return p.second;
+        }
+
+        return PropertyInfoUnits::UNKNOWN;
     }
 
 }

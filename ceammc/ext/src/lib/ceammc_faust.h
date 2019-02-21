@@ -20,6 +20,7 @@
 #include <cstring>
 #include <initializer_list>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include "ceammc_atom.h"
@@ -38,6 +39,8 @@ namespace ceammc {
 namespace faust {
 
     class UIElement;
+
+    PropertyInfoUnits to_units(const char* u);
 
     class UIProperty : public Property {
         UIElement* el_;
@@ -152,6 +155,7 @@ namespace faust {
         void dump(t_outlet* out);
 
         const PropertyInfo& propInfo() const { return pinfo_; }
+        void setUnits(PropertyInfoUnits u) { pinfo_.setUnits(u); }
 
     private:
         static t_symbol *s_button, *s_checkbox, *s_vslider, *s_hslider, *s_nentry, *s_vbargraph, *s_hbargraph;
@@ -202,6 +206,7 @@ namespace faust {
         std::vector<std::string> osc_path_;
         std::string name_;
         std::string id_;
+        std::unordered_map<FAUSTFLOAT*, const char*> unit_map_;
 
     public:
         PdUI(const std::string& name, const std::string& id);
@@ -233,10 +238,13 @@ namespace faust {
         virtual void openVerticalBox(const char* label);
         virtual void closeBox();
 
+        virtual void declare(FAUSTFLOAT* v, const char* name, const char* value);
+
         virtual void run();
 
     public:
         UIElement* findElementByLabel(const char* label);
+        UIElement* findElementByPtr(FAUSTFLOAT* vptr);
         void setElementValue(const char* label, FAUSTFLOAT v);
         void dumpUI(t_outlet* out);
         void outputAllProperties(t_outlet* out);
@@ -457,6 +465,22 @@ namespace faust {
     void PdUI<T>::closeBox()
     {
         osc_path_.pop_back();
+
+        for (auto el : ui_elements_) {
+            auto it = unit_map_.find(const_cast<FAUSTFLOAT*>(el->valuePtr()));
+            if (it == unit_map_.end())
+                continue;
+
+            el->setUnits(to_units(it->second));
+        }
+    }
+
+    template <typename T>
+    void PdUI<T>::declare(FAUSTFLOAT* v, const char* name, const char* value)
+    {
+        if (strcmp(name, "unit") == 0) {
+            unit_map_[v] = value;
+        }
     }
 
     template <typename T>
@@ -470,7 +494,18 @@ namespace faust {
                 return ui_elements_[i];
         }
 
-        return NULL;
+        return nullptr;
+    }
+
+    template <typename T>
+    UIElement* PdUI<T>::findElementByPtr(FAUSTFLOAT* vptr)
+    {
+        for (auto el : ui_elements_) {
+            if (el->valuePtr() == vptr)
+                return el;
+        }
+
+        return nullptr;
     }
 
     template <typename T>
