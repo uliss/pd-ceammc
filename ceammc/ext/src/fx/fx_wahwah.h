@@ -525,27 +525,27 @@ class fx_wahwah : public dsp {
  private:
 	
 	FAUSTFLOAT fCheckbox0;
-	FAUSTFLOAT fHslider0;
 	int iVec0[2];
-	float fRec0[2];
 	float ftbl0[16];
 	int fSamplingFreq;
 	float fConst0;
 	float fConst1;
-	FAUSTFLOAT fHslider1;
-	float fRec4[2];
-	int iRec3[2];
+	FAUSTFLOAT fHslider0;
+	float fRec3[2];
+	int iRec2[2];
 	int iVec1[2];
-	FAUSTFLOAT fHslider2;
+	FAUSTFLOAT fHslider1;
 	float fVec2[2];
-	float fRec5[2];
-	int iRec6[2];
-	float fRec2[2];
+	float fRec4[2];
+	int iRec5[2];
+	float fRec1[2];
 	float fConst2;
 	float fConst3;
+	float fRec6[2];
 	float fRec7[2];
+	float fRec0[3];
+	FAUSTFLOAT fHslider2;
 	float fRec8[2];
-	float fRec1[3];
 	
  public:
 	
@@ -631,9 +631,9 @@ class fx_wahwah : public dsp {
 	
 	virtual void instanceResetUserInterface() {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
-		fHslider0 = FAUSTFLOAT(1.0f);
-		fHslider1 = FAUSTFLOAT(540.0f);
-		fHslider2 = FAUSTFLOAT(0.59999999999999998f);
+		fHslider0 = FAUSTFLOAT(540.0f);
+		fHslider1 = FAUSTFLOAT(0.59999999999999998f);
+		fHslider2 = FAUSTFLOAT(1.0f);
 		
 	}
 	
@@ -643,47 +643,47 @@ class fx_wahwah : public dsp {
 			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
-			fRec0[l1] = 0.0f;
+			fRec3[l1] = 0.0f;
 			
 		}
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
-			fRec4[l2] = 0.0f;
+			iRec2[l2] = 0;
 			
 		}
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
-			iRec3[l3] = 0;
+			iVec1[l3] = 0;
 			
 		}
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
-			iVec1[l4] = 0;
+			fVec2[l4] = 0.0f;
 			
 		}
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
-			fVec2[l5] = 0.0f;
+			fRec4[l5] = 0.0f;
 			
 		}
 		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
-			fRec5[l6] = 0.0f;
+			iRec5[l6] = 0;
 			
 		}
 		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
-			iRec6[l7] = 0;
+			fRec1[l7] = 0.0f;
 			
 		}
 		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
-			fRec2[l8] = 0.0f;
+			fRec6[l8] = 0.0f;
 			
 		}
 		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
 			fRec7[l9] = 0.0f;
 			
 		}
-		for (int l10 = 0; (l10 < 2); l10 = (l10 + 1)) {
-			fRec8[l10] = 0.0f;
+		for (int l10 = 0; (l10 < 3); l10 = (l10 + 1)) {
+			fRec0[l10] = 0.0f;
 			
 		}
-		for (int l11 = 0; (l11 < 3); l11 = (l11 + 1)) {
-			fRec1[l11] = 0.0f;
+		for (int l11 = 0; (l11 < 2); l11 = (l11 + 1)) {
+			fRec8[l11] = 0.0f;
 			
 		}
 		
@@ -709,11 +709,12 @@ class fx_wahwah : public dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("fx.wahwah");
-		ui_interface->addHorizontalSlider("angle", &fHslider2, 0.600000024f, 0.0f, 1.0f, 0.00999999978f);
+		ui_interface->addHorizontalSlider("angle", &fHslider1, 0.600000024f, 0.0f, 1.0f, 0.00999999978f);
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
-		ui_interface->declare(&fHslider0, "style", "knob");
-		ui_interface->addHorizontalSlider("drywet", &fHslider0, 1.0f, 0.0f, 1.0f, 0.00999999978f);
-		ui_interface->addHorizontalSlider("speed", &fHslider1, 540.0f, 360.0f, 780.0f, 0.100000001f);
+		ui_interface->declare(&fHslider2, "style", "knob");
+		ui_interface->addHorizontalSlider("drywet", &fHslider2, 1.0f, 0.0f, 1.0f, 0.00999999978f);
+		ui_interface->declare(&fHslider0, "unit", "bpm");
+		ui_interface->addHorizontalSlider("speed", &fHslider0, 540.0f, 360.0f, 780.0f, 0.100000001f);
 		ui_interface->closeBox();
 		
 	}
@@ -723,43 +724,43 @@ class fx_wahwah : public dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		int iSlow0 = int(float(fCheckbox0));
 		float fSlow1 = (0.00100000005f * float(fHslider0));
-		float fSlow2 = (0.00100000005f * float(fHslider1));
-		float fSlow3 = float(fHslider2);
-		int iSlow4 = (fSlow3 <= 0.0f);
+		float fSlow2 = float(fHslider1);
+		int iSlow3 = (fSlow2 <= 0.0f);
+		float fSlow4 = (0.00100000005f * float(fHslider2));
 		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = float(input0[i]);
-			float fTemp1 = (iSlow0?0.0f:fTemp0);
 			iVec0[0] = 1;
-			fRec0[0] = (fSlow1 + (0.999000013f * fRec0[1]));
-			fRec4[0] = (fSlow2 + (0.999000013f * fRec4[1]));
-			iRec3[0] = ((iVec0[1] + iRec3[1]) % int((fConst1 / float(int(fRec4[0])))));
-			int iTemp2 = (iRec3[0] == 0);
-			iVec1[0] = iTemp2;
-			fVec2[0] = fSlow3;
-			fRec5[0] = (iVec1[1]?0.0f:(std::fabs((fSlow3 - fVec2[1])) + fRec5[1]));
-			iRec6[0] = ((iTemp2 + iRec6[1]) % 15);
-			ftbl0[((iTemp2 & ((fRec5[0] > 0.0f) | iSlow4))?iRec6[0]:15)] = fSlow3;
-			float fTemp3 = ftbl0[iRec6[0]];
-			fRec2[0] = ((0.999000013f * fRec2[1]) + (9.99999975e-05f * std::pow(4.0f, fTemp3)));
-			float fTemp4 = std::pow(2.0f, (2.29999995f * fTemp3));
-			float fTemp5 = (1.0f - (fConst2 * (fTemp4 / std::pow(2.0f, ((2.0f * (1.0f - fTemp3)) + 1.0f)))));
-			fRec7[0] = ((0.999000013f * fRec7[1]) - (0.00200000009f * (fTemp5 * std::cos((fConst3 * fTemp4)))));
-			fRec8[0] = ((0.999000013f * fRec8[1]) + (0.00100000005f * fx_wahwah_faustpower2_f(fTemp5)));
-			fRec1[0] = ((fRec2[0] * fTemp1) - ((fRec7[0] * fRec1[1]) + (fRec8[0] * fRec1[2])));
-			output0[i] = FAUSTFLOAT((iSlow0?fTemp0:((fTemp1 * (1.0f - fRec0[0])) + (fRec0[0] * (fRec1[0] - fRec1[1])))));
+			fRec3[0] = (fSlow1 + (0.999000013f * fRec3[1]));
+			iRec2[0] = ((iVec0[1] + iRec2[1]) % int((fConst1 / float(int(fRec3[0])))));
+			int iTemp0 = (iRec2[0] == 0);
+			iVec1[0] = iTemp0;
+			fVec2[0] = fSlow2;
+			fRec4[0] = (iVec1[1]?0.0f:(std::fabs((fSlow2 - fVec2[1])) + fRec4[1]));
+			iRec5[0] = ((iTemp0 + iRec5[1]) % 15);
+			ftbl0[((iTemp0 & ((fRec4[0] > 0.0f) | iSlow3))?iRec5[0]:15)] = fSlow2;
+			float fTemp1 = ftbl0[iRec5[0]];
+			fRec1[0] = ((0.999000013f * fRec1[1]) + (9.99999975e-05f * std::pow(4.0f, fTemp1)));
+			float fTemp2 = float(input0[i]);
+			float fTemp3 = (iSlow0?0.0f:fTemp2);
+			float fTemp4 = std::pow(2.0f, (2.29999995f * fTemp1));
+			float fTemp5 = (1.0f - (fConst2 * (fTemp4 / std::pow(2.0f, ((2.0f * (1.0f - fTemp1)) + 1.0f)))));
+			fRec6[0] = ((0.999000013f * fRec6[1]) - (0.00200000009f * (fTemp5 * std::cos((fConst3 * fTemp4)))));
+			fRec7[0] = ((0.999000013f * fRec7[1]) + (0.00100000005f * fx_wahwah_faustpower2_f(fTemp5)));
+			fRec0[0] = ((fRec1[0] * fTemp3) - ((fRec6[0] * fRec0[1]) + (fRec7[0] * fRec0[2])));
+			fRec8[0] = (fSlow4 + (0.999000013f * fRec8[1]));
+			output0[i] = FAUSTFLOAT((iSlow0?fTemp2:(((fRec0[0] - fRec0[1]) * fRec8[0]) + (fTemp3 * (1.0f - fRec8[0])))));
 			iVec0[1] = iVec0[0];
-			fRec0[1] = fRec0[0];
-			fRec4[1] = fRec4[0];
-			iRec3[1] = iRec3[0];
+			fRec3[1] = fRec3[0];
+			iRec2[1] = iRec2[0];
 			iVec1[1] = iVec1[0];
 			fVec2[1] = fVec2[0];
-			fRec5[1] = fRec5[0];
-			iRec6[1] = iRec6[0];
-			fRec2[1] = fRec2[0];
-			fRec7[1] = fRec7[0];
-			fRec8[1] = fRec8[0];
-			fRec1[2] = fRec1[1];
+			fRec4[1] = fRec4[0];
+			iRec5[1] = iRec5[0];
 			fRec1[1] = fRec1[0];
+			fRec6[1] = fRec6[0];
+			fRec7[1] = fRec7[0];
+			fRec0[2] = fRec0[1];
+			fRec0[1] = fRec0[0];
+			fRec8[1] = fRec8[0];
 			
 		}
 		

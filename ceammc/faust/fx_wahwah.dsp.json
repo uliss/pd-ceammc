@@ -63,6 +63,9 @@
 					"type": "hslider",
 					"label": "speed",
 					"address": "/fx.wahwah/speed",
+					"meta": [
+						{ "unit": "bpm" }
+					],
 					"init": "540",
 					"min": "360",
 					"max": "780",
