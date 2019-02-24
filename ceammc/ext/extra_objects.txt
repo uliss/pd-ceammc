@@ -227,5 +227,8 @@ gfx.pitchshift~
 gfx.wahwah~
 gfx.zita_rev1~
 gnoise.crackle~
+gnoise.lfreq0~
+gnoise.lfreq~
 gspat.pan4~
 gspat.pan8~
+gsynth.birds~

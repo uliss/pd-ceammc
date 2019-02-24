@@ -12,7 +12,13 @@ macro(ceammc_synth_extension name)
     ceammc_faust_gen(synth ${name})
 endmacro()
 
-ceammc_synth_extension(birds)
+macro(ceammc_synth_obj name)
+    list(APPEND SYNTH_SOURCES "synth_${name}.cpp")
+    ceammc_faust_gen_obj(synth ${name} JSON)
+endmacro()
+
+ceammc_synth_obj(birds)
+
 ceammc_synth_extension(church_bell)
 #ceammc_synth_extension(dx7)
 ceammc_synth_extension(dubdub)
