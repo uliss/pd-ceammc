@@ -39,5 +39,6 @@ gnoise.lfreq~
 gspat.pan4~
 gspat.pan8~
 gsynth.birds~
+gsynth.dx7~
 gsynth.risset_arp~
 gsynth.risset_tone~

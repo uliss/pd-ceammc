@@ -28,6 +28,9 @@ ceammc_synth_extension(eguitar)
 ceammc_synth_extension(ks)
 ceammc_synth_extension(marimba)
 
+list(APPEND SYNTH_SOURCES "synth_dx7.cpp")
+ceammc_faust_gen_obj(synth dx7 JSON OCPP)
+
 include_directories(${CMAKE_SOURCE_DIR}/ceammc/extra/stk/stk/include)
 
 add_library(ceammc_synth STATIC mod_synth.cpp ${SYNTH_SOURCES} ${SYNTH_STK_SOURCES})

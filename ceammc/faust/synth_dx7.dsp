@@ -1,4 +1,4 @@
-declare name "DX7";
+declare name "synth.dx7";
 
 ui = library("ceammc_ui.lib");
 spn = library("spn.lib");

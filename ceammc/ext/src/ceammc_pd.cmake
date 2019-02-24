@@ -59,7 +59,7 @@ endmacro()
 macro(ceammc_faust_gen_obj module name)
     # since faust 2.8.* mydsp global replacement removed
     # so we are using GNU sed
-    set(options JSON VEC FTZ)
+    set(options JSON VEC FTZ OCPP)
     cmake_parse_arguments(FAUST_OPT "${options}" "" "" ${ARGN})
 
     set(_args "")
@@ -73,6 +73,10 @@ macro(ceammc_faust_gen_obj module name)
 
     if(FAUST_OPT_JSON)
         list(APPEND _args "-json")
+    endif()
+
+    if(FAUST_OPT_OCPP)
+        list(APPEND _args "-lang" "ocpp")
     endif()
 
     add_custom_target("faust_${module}_${name}"
