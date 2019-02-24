@@ -23,6 +23,7 @@ gfx.distortion2~
 gfx.distortion3~
 gfx.distortion~
 gfx.drive~
+gfx.drone_box~
 gfx.echo~
 gfx.flanger~
 gfx.freeverb2~

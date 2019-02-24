@@ -1,8 +1,6 @@
 #include "mod_fx.h"
 #include "fx_looper.h"
 
-
-extern "C" void setup_fx0x2edrone_box_tilde();
 extern "C" void setup_fx0x2efreqshift_tilde();
 extern "C" void setup_fx0x2ewahwah_tilde();
 
@@ -13,6 +11,7 @@ extern void setup_fx_distortion1_tilde();
 extern void setup_fx_distortion2_tilde();
 extern void setup_fx_distortion3_tilde();
 extern void setup_fx_drive_tilde();
+extern void setup_fx_drone_box_tilde();
 extern void setup_fx_echo_tilde();
 extern void setup_fx_flanger_tilde();
 extern void setup_fx_freeverb2_tilde();
@@ -25,7 +24,6 @@ extern void setup_fx_zita_rev1_tilde();
 
 void ceammc_fx_setup()
 {
-    setup_fx0x2edrone_box_tilde();
     setup_fx0x2efreqshift_tilde();
     setup_fx0x2ewahwah_tilde();
 
@@ -36,6 +34,7 @@ void ceammc_fx_setup()
     setup_fx_distortion2_tilde();
     setup_fx_distortion3_tilde();
     setup_fx_drive_tilde();
+    setup_fx_drone_box_tilde();
     setup_fx_echo_tilde();
     setup_fx_flanger_tilde();
     setup_fx_freeverb2_tilde();
