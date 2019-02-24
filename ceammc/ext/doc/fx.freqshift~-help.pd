@@ -11,30 +11,23 @@
 #X text 251 147 frequency shift;
 #X obj 194 176 sig~;
 #X obj 194 205 lop~ 10;
-#X obj 50 234 fx.freqshift~ id;
+#X obj 50 234 fx.freqshift~;
 #X obj 50 262 ui.gain~ @size 120 16;
 #X obj 50 291 dac~;
 #X obj 20 330 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 335 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
--49933 0;
-#X text 120 340 1\.;
-#X text 150 340 symbol;
-#X obj 281 341 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 340 ID: object ID for OSC control path.;
-#X obj 20 368 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 373 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 335 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 378 1\.;
-#X text 280 378 input signal.;
-#X text 120 396 2\.;
-#X text 280 396 frequency shift in Hertz. Range: -10000\...10000;
-#X obj 20 424 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 429 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 120 340 1\.;
+#X text 280 340 input signal.;
+#X text 120 358 2\.;
+#X text 280 358 frequency shift in Hertz. Range: -10000\...10000;
+#X obj 20 386 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 391 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 434 1\.;
-#X text 280 434 output signal (freq + shift);
-#X text 120 452 2\.;
-#X text 280 452 output signal (freq - shift);
+#X text 120 396 1\.;
+#X text 280 396 output signal (freq + shift);
+#X text 120 414 2\.;
+#X text 280 414 output signal (freq - shift);
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
