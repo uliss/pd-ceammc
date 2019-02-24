@@ -1,4 +1,4 @@
-declare name        "GreyholeRaw";
+declare name        "fx.greyhole";
 declare version     "1.0";
 declare author      "Julian Parker, bug fixes by Till Bovermann";
 declare license     "GPL2+";
