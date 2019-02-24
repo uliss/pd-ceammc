@@ -202,12 +202,13 @@ public:
 
     void createProperty(Property* p);
     template <class T>
-    void createCbProperty(const std::string& name,
+    Property* createCbProperty(const std::string& name,
         AtomList (T::*getter)() const,
         void (T::*setter)(const AtomList&) = 0)
     {
         CallbackProperty<T>* p = new CallbackProperty<T>(name, static_cast<T*>(this), getter, setter);
         createProperty(p);
+        return p;
     }
     bool hasProperty(t_symbol* key) const;
     bool hasProperty(const char* key) const;

@@ -25,13 +25,14 @@ OscBlit::OscBlit(const PdArgs& args)
     , freq_(positionalFloatArgument(0, DEFAULT_FREQ))
     , num_harmonics_(0)
 {
-    createCbProperty("@freq", &OscBlit::propFreq, &OscBlit::propSetFreq);
-    property("@freq")->info().setType(PropertyInfoType::FLOAT);
-    property("@freq")->info().setMin(0);
-    property("@freq")->info().setDefault(DEFAULT_FREQ);
+    auto pfreq = createCbProperty("@freq", &OscBlit::propFreq, &OscBlit::propSetFreq);
+    pfreq->info().setType(PropertyInfoType::FLOAT);
+    pfreq->info().setMin(0);
+    pfreq->info().setDefault(DEFAULT_FREQ);
+    pfreq->info().setUnits(PropertyInfoUnits::HZ);
 
-    createCbProperty("@harmonics", &OscBlit::propHarm, &OscBlit::propSetHarm);
-    property("@harmonics")->info().setType(PropertyInfoType::INTEGER);
+    auto pharm = createCbProperty("@harmonics", &OscBlit::propHarm, &OscBlit::propSetHarm);
+    pharm->info().setType(PropertyInfoType::INTEGER);
 
     osc_ = new stk::Blit(freq_);
 
