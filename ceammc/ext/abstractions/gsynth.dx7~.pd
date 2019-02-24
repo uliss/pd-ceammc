@@ -2,7 +2,7 @@
 #X obj 25 125 synth.dx7~;
 #X obj 325 25 inlet;
 #X obj 325 200 route synth.dx7;
-#X obj 325 250 route @algorithm @feedback @freq @gain @op0:egL1
+#X obj 325 250 route @algorithm @feedback @freq @gain @gate @op0:egL1
 @op0:egL2 @op0:egL3 @op0:egL4 @op0:egR1 @op0:egR2 @op0:egR3 @op0:egR4
 @op0:keyVelSens @op0:level @op0:opDetune @op0:opFreq @op0:opMode
 @op0:opRateScale @op1:egL1 @op1:egL2 @op1:egL3 @op1:egL4 @op1:egR1
@@ -45,8 +45,7 @@
 #X obj 140 336 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 336 msg set;
 #X msg 260 336 @gain \$1;
-#X obj 12 358 ui.toggle @size 12 12 @presetname
-/gui/synth.dx7~/checkbox4;
+#X obj 12 358 ui.toggle @size 12 12;
 #X text 26 353 gate;
 #X msg 260 350 @gate \$1;
 #X text 10 370 op0:egL1:;
@@ -387,7 +386,7 @@
 #X msg 260 3128 @op5:opRateScale \$1;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
-#X connect 3 88 4 0;
+#X connect 3 89 4 0;
 #X connect 5 0 3 0;
 #X connect 6 0 5 0;
 #X connect 0 0 7 0;
