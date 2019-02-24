@@ -1,11 +1,20 @@
 #include "noise_crackle.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
+using namespace ceammc;
+
+static t_symbol* SYM_PROP_FREQ = gensym("@freq");
+
+class NoiseCrackle : public faust_noise_crackle_tilde {
+public:
+    NoiseCrackle(const PdArgs& args)
+        : faust_noise_crackle_tilde(args)
+    {
+        bindPositionalArgsToProps({ SYM_PROP_FREQ });
+    }
+};
+
+void setup_noise_crackle_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-    PdArgParser p(x, argc, argv);
-    p.initFloatArg("freq", 1);
-    return p.pd_obj();
+    SoundExternalFactory<NoiseCrackle> obj("noise.crackle~");
 }
-
-EXTERNAL_SETUP_NO_IN(noise);

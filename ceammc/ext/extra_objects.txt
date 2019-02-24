@@ -226,5 +226,6 @@ gfx.greyhole~
 gfx.pitchshift~
 gfx.wahwah~
 gfx.zita_rev1~
+gnoise.crackle~
 gspat.pan4~
 gspat.pan8~
