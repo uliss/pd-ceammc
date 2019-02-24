@@ -39,3 +39,4 @@ gnoise.lfreq~
 gspat.pan4~
 gspat.pan8~
 gsynth.birds~
+gsynth.risset_arp~

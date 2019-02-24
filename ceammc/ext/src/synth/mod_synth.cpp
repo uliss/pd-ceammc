@@ -7,7 +7,6 @@
 #include "synth_wurley.h"
 
 extern "C" void setup_synth0x2erisset_tone_tilde();
-extern "C" void setup_synth0x2erisset_arp_tilde();
 extern "C" void setup_synth0x2emarimba_tilde();
 extern "C" void setup_synth0x2eeguitar_tilde();
 extern "C" void setup_synth0x2eks_tilde();
@@ -15,11 +14,11 @@ extern "C" void setup_synth0x2echurch_bell_tilde();
 extern "C" void setup_synth0x2edubdub_tilde();
 
 extern void setup_synth_birds_tilde();
+extern void setup_synth_risset_arp_tilde();
 
 void ceammc_synth_setup()
 {
     setup_synth0x2erisset_tone_tilde();
-    setup_synth0x2erisset_arp_tilde();
     setup_synth0x2emarimba_tilde();
     setup_synth0x2eks_tilde();
     setup_synth0x2eeguitar_tilde();
@@ -33,4 +32,5 @@ void ceammc_synth_setup()
     setup_synth_wurley();
 
     setup_synth_birds_tilde();
+    setup_synth_risset_arp_tilde();
 }

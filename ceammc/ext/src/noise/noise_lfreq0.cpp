@@ -12,9 +12,14 @@ public:
     {
         bindPositionalArgsToProps({ SYM_PROP_FREQ });
     }
+
+    void onFloat(t_float f) override
+    {
+        setProperty(SYM_PROP_FREQ, AtomList(Atom(f)));
+    }
 };
 
 void setup_noise_lfreq0_tilde()
 {
-    SoundExternalFactory<NoiseLfreq0> obj("noise.lfreq0~");
+    SoundExternalFactory<NoiseLfreq0> obj("noise.lfreq0~", OBJECT_FACTORY_DEFAULT);
 }

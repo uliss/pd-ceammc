@@ -17,5 +17,5 @@ public:
 
 void setup_synth_birds_tilde()
 {
-    SoundExternalFactory<SynthBirds> obj("synth.birds~");
+    SoundExternalFactory<SynthBirds> obj("synth.birds~", OBJECT_FACTORY_DEFAULT);
 }

@@ -27,8 +27,8 @@
             generation freq. New random number every int(SR/freq)</property>
         </properties>
         <inlets>
-            <inlet type="audio">
-                <xinfo>control input</xinfo>
+            <inlet>
+                <xinfo on="float">set average frequency</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -37,8 +37,8 @@
         <example>
             <pdascii>
 <![CDATA[
-[freq 200( [@freq 2000(
-|          |
+[@freq 200( [@freq 2000(
+|           |
 [noise.lfreq0~ 400]
 |  |
 |  [ui.gain~ @size 120 16]
