@@ -485,6 +485,7 @@ class flt_c_hpf : public dsp {
 		m->declare("name", "flt_c_hpf");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
+		m->declare("ui", "disable");
 	}
 
 	virtual int getNumInputs() {

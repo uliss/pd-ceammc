@@ -16,13 +16,6 @@ gflt.lpf24~
 gflt.moog_vcf~
 gflt.notch~
 gflt.resonbp~
-gflt_c_bpf~
-gflt_c_highshelf~
-gflt_c_hpf~
-gflt_c_lowshelf~
-gflt_c_lpf~
-gflt_c_notch~
-gflt_c_peak~
 gfx.bitdown~
 gfx.chorus~
 gfx.distortion1~
