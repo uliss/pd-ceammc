@@ -2,6 +2,7 @@ gdyn.comp2~
 gdyn.comp~
 gdyn.gate2~
 gdyn.gate~
+gflt.bpf12~
 gflt.eq_peak~
 gflt.highshelf~
 gflt.lowshelf~
