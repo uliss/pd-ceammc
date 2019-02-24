@@ -1,8 +1,6 @@
 #include "mod_noise.h"
 #include "m_pd.h"
 
-extern "C" void setup_noise0x2elfreq_tilde();
-extern "C" void setup_noise0x2elfreq0_tilde();
 extern "C" void setup_noise0x2epink_tilde();
 extern "C" void setup_noise0x2ewhite_tilde();
 extern "C" void setup_noise0x2ebaker();
@@ -26,11 +24,11 @@ extern "C" void setup_noise0x2etorus();
 extern "C" void setup_noise0x2everhulst();
 
 extern void setup_noise_crackle_tilde();
+extern void setup_noise_lfreq_tilde();
+extern void setup_noise_lfreq0_tilde();
 
 void ceammc_noise_setup()
 {
-    setup_noise0x2elfreq_tilde();
-    setup_noise0x2elfreq0_tilde();
     setup_noise0x2epink_tilde();
     setup_noise0x2ewhite_tilde();
     setup_noise0x2ebaker();
@@ -54,6 +52,8 @@ void ceammc_noise_setup()
     setup_noise0x2everhulst();
 
     setup_noise_crackle_tilde();
+    setup_noise_lfreq_tilde();
+    setup_noise_lfreq0_tilde();
 
     post("[ceammc] A-Chaos library, (c) 2004 André Sier");
 }

@@ -1,0 +1,49 @@
+{
+	"name": "noise.lfreq",
+	"filename": "noise_lfreq",
+	"version": "2.15.0",
+	"compile_options": "cpp, -scal -ftz 0",
+	"library_list": ["/usr/local/share/faust/noises.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/oscillators.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/maths.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
+	"inputs": "0",
+	"outputs": "1",
+	"meta": [ 
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/version": "0.0" },
+		{ "filename": "noise_lfreq" },
+		{ "filters.lib/name": "Faust Filters Library" },
+		{ "filters.lib/version": "0.0" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.1" },
+		{ "name": "noise.lfreq" },
+		{ "noises.lib/name": "Faust Noise Generator Library" },
+		{ "noises.lib/version": "0.0" },
+		{ "oscillators.lib/name": "Faust Oscillator Library" },
+		{ "oscillators.lib/version": "0.0" },
+		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/version": "0.0" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "noise.lfreq",
+			"items": [ 
+				{
+					"type": "hslider",
+					"label": "freq",
+					"address": "/noise.lfreq/freq",
+					"meta": [
+						{ "unit": "Hz" }
+					],
+					"init": "1000",
+					"min": "5",
+					"max": "22050",
+					"step": "0.1"
+				}
+			]
+		}
+	]
+}

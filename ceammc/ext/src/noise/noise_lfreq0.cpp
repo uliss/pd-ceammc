@@ -1,11 +1,20 @@
 #include "noise_lfreq0.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
+using namespace ceammc;
+
+static t_symbol* SYM_PROP_FREQ = gensym("@freq");
+
+class NoiseLfreq0 : public faust_noise_lfreq0_tilde {
+public:
+    NoiseLfreq0(const PdArgs& args)
+        : faust_noise_lfreq0_tilde(args)
+    {
+        bindPositionalArgsToProps({ SYM_PROP_FREQ });
+    }
+};
+
+void setup_noise_lfreq0_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-    PdArgParser p(x, argc, argv);
-    p.initFloatArg("freq", 1);
-    return p.pd_obj();
+    SoundExternalFactory<NoiseLfreq0> obj("noise.lfreq0~");
 }
-
-EXTERNAL_SETUP_NO_IN(noise);
