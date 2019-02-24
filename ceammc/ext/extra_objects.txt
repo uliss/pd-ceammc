@@ -216,6 +216,7 @@ gfx.distortion2~
 gfx.distortion3~
 gfx.distortion~
 gfx.drive~
+gfx.drone_box~
 gfx.echo~
 gfx.flanger~
 gfx.freeverb2~
@@ -223,6 +224,7 @@ gfx.freeverb~
 gfx.granulator~
 gfx.greyhole~
 gfx.pitchshift~
+gfx.wahwah~
 gfx.zita_rev1~
 gspat.pan4~
 gspat.pan8~

@@ -11,7 +11,6 @@ macro(ceammc_fx_obj_external name)
 endmacro()
 
 ceammc_fx_external(freqshift)
-ceammc_fx_external(wahwah)
 
 ceammc_fx_obj_external(bitdown)
 ceammc_fx_obj_external(chorus)
@@ -29,6 +28,7 @@ ceammc_fx_obj_external(granulator)
 ceammc_fx_obj_external(greyhole)
 ceammc_fx_obj_external(pitchshift)
 ceammc_fx_obj_external(sdelay)
+ceammc_fx_obj_external(wahwah)
 ceammc_fx_obj_external(zita_rev1)
 
 add_library(ceammc_fx STATIC mod_fx.cpp ${FX_SOURCES})

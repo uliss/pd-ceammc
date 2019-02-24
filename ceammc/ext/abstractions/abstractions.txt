@@ -31,6 +31,7 @@ gfx.freeverb~
 gfx.granulator~
 gfx.greyhole~
 gfx.pitchshift~
+gfx.wahwah~
 gfx.zita_rev1~
 gspat.pan4~
 gspat.pan8~

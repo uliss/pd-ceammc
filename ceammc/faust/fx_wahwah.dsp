@@ -1,4 +1,4 @@
-declare name "wahwah";
+declare name "fx.wahwah";
 
 import("stdfaust.lib");
 cm = library("ceammc.lib");
