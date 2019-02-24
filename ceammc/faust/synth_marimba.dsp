@@ -1,4 +1,4 @@
-declare name "marimba";
+declare name "synth.marimba";
 
 ui = library("ceammc_ui.lib");
 spn = library("spn.lib");
