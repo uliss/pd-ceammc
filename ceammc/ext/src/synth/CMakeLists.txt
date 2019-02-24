@@ -19,6 +19,7 @@ endmacro()
 
 ceammc_synth_obj(birds)
 ceammc_synth_obj(risset_arp)
+ceammc_synth_obj(risset_tone)
 
 ceammc_synth_extension(church_bell)
 #ceammc_synth_extension(dx7)
@@ -26,7 +27,6 @@ ceammc_synth_extension(dubdub)
 ceammc_synth_extension(eguitar)
 ceammc_synth_extension(ks)
 ceammc_synth_extension(marimba)
-ceammc_synth_extension(risset_tone)
 
 include_directories(${CMAKE_SOURCE_DIR}/ceammc/extra/stk/stk/include)
 
