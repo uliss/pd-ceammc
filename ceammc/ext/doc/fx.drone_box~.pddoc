@@ -17,7 +17,6 @@
         <arguments>
             <argument name="pitch" type="float" minvalue="36" maxvalue="60">drone MIDI
             pitch</argument>
-            <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
         <properties>
             <property name="@pitch" type="float" minvalue="36" maxvalue="60" default="48">drone
@@ -37,7 +36,6 @@
         </inlets>
         <outlets>
             <outlet type="audio">output signal</outlet>
-            <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -52,7 +50,7 @@
 |            |        |.
 |            [*~      0]
 |            |
-[fx.drone_box~ 48 id]
+[fx.drone_box~ 48]
 |
 [ui.gain~ @size 120 16]  [ui.dsp~]
 |\
