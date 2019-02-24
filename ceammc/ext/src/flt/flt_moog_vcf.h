@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt.moog_vcf"
-Code generated with Faust 2.8.5 (https://faust.grame.fr)
+Code generated with Faust 2.15.0 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -372,9 +372,8 @@ struct Meta
 
 #include <algorithm>
 #include <map>
-#include <string.h>
-#include <stdlib.h>
 #include <cstdlib>
+#include <string.h>
 
 
 using std::max;
@@ -382,33 +381,33 @@ using std::min;
 
 struct XXXX_Meta : std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
-inline int lsr(int x, int n)	{ return int(((unsigned int)x) >> n); }
+static int lsr(int x, int n) { return int(((unsigned int)x) >> n); }
 
-inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
+static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
-inline long lopt(char* argv[], const char* name, long def)
+static long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
     for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
-inline bool isopt(char* argv[], const char* name)
+static bool isopt(char* argv[], const char* name)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
 	return false;
 }
 
-inline const char* lopts(char* argv[], const char* name, const char* def)
+static const char* lopts(char* argv[], const char* name, const char* def)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
@@ -465,13 +464,13 @@ class flt_moog_vcf : public dsp {
  private:
 	
 	FAUSTFLOAT fVslider0;
-	float fRec0[2];
+	float fRec2[2];
 	int fSamplingFreq;
 	float fConst0;
+	float fRec5[2];
 	float fRec3[2];
-	float fRec1[2];
 	float fRec6[2];
-	float fRec4[2];
+	float fRec0[2];
 	
  public:
 	
@@ -544,7 +543,7 @@ class flt_moog_vcf : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = (3.14159274f / std::min(192000.0f, std::max(1.0f, float(fSamplingFreq))));
+		fConst0 = (3.14159274f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSamplingFreq))));
 		
 	}
 	
@@ -555,15 +554,15 @@ class flt_moog_vcf : public dsp {
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
-			fRec0[l0] = 0.0f;
+			fRec2[l0] = 0.0f;
 			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
-			fRec3[l1] = 0.0f;
+			fRec5[l1] = 0.0f;
 			
 		}
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
-			fRec1[l2] = 0.0f;
+			fRec3[l2] = 0.0f;
 			
 		}
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
@@ -571,7 +570,7 @@ class flt_moog_vcf : public dsp {
 			
 		}
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
-			fRec4[l4] = 0.0f;
+			fRec0[l4] = 0.0f;
 			
 		}
 		
@@ -608,51 +607,54 @@ class flt_moog_vcf : public dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = (0.00100000005f * float(fVslider0));
 		for (int i = 0; (i < count); i = (i + 1)) {
-			fRec0[0] = (fSlow0 + (0.999000013f * fRec0[1]));
-			float fTemp0 = flt_moog_vcf_faustpower2_f((1.41419947f * fRec0[0]));
-			float fTemp1 = std::tan((fConst0 * std::max(float(input1[i]), 20.0f)));
-			float fTemp2 = (1.0f / fTemp1);
-			float fTemp3 = (1.99997997f * fRec0[0]);
-			float fTemp4 = (fTemp2 + fTemp3);
-			float fTemp5 = (1.0f - fTemp3);
-			float fTemp6 = ((fTemp0 + ((fTemp2 + (2.0f - fTemp3)) / fTemp1)) + fTemp5);
-			float fTemp7 = (((fTemp0 + ((fTemp4 + -2.0f) / fTemp1)) + fTemp5) / fTemp6);
-			float fTemp8 = std::max(-0.999899983f, std::min(0.999899983f, fTemp7));
-			float fTemp9 = float(input0[i]);
-			float fTemp10 = (fTemp0 + fTemp3);
-			float fTemp11 = ((fTemp10 + ((fTemp4 + 2.0f) / fTemp1)) + 1.0f);
-			float fTemp12 = ((fTemp10 + (1.0f - ((fTemp3 + (2.0f - fTemp2)) / fTemp1))) / fTemp11);
-			float fTemp13 = std::max(-0.999899983f, std::min(0.999899983f, fTemp12));
-			float fTemp14 = (1.0f - flt_moog_vcf_faustpower2_f(fTemp13));
-			float fTemp15 = std::sqrt(std::max(0.0f, fTemp14));
-			float fTemp16 = ((fTemp9 * fTemp15) + (fRec1[1] * (0.0f - fTemp13)));
-			float fTemp17 = (1.0f / flt_moog_vcf_faustpower2_f(fTemp1));
-			float fTemp18 = (fTemp10 + (1.0f - fTemp17));
-			float fTemp19 = std::max(-0.999899983f, std::min(0.999899983f, (2.0f * (fTemp18 / (fTemp11 * (fTemp12 + 1.0f))))));
-			float fTemp20 = (1.0f - flt_moog_vcf_faustpower2_f(fTemp19));
-			float fTemp21 = std::sqrt(std::max(0.0f, fTemp20));
-			fRec3[0] = ((fRec3[1] * (0.0f - fTemp19)) + (fTemp16 * fTemp21));
-			fRec1[0] = ((fTemp16 * fTemp19) + (fRec3[1] * fTemp21));
-			float fRec2 = fRec3[0];
-			float fTemp22 = (1.0f - (fTemp18 / fTemp11));
-			float fTemp23 = (((fTemp9 * fTemp13) + (fRec1[1] * fTemp15)) + ((((fRec2 * (1.0f - (fTemp12 + (2.0f * (fTemp19 * fTemp22))))) / std::sqrt(fTemp20)) + (2.0f * (fRec1[0] * fTemp22))) / std::sqrt(fTemp14)));
-			float fTemp24 = (1.0f - flt_moog_vcf_faustpower2_f(fTemp8));
-			float fTemp25 = std::sqrt(std::max(0.0f, fTemp24));
-			float fTemp26 = (((fTemp23 * fTemp25) / fTemp11) + (fRec4[1] * (0.0f - fTemp8)));
-			float fTemp27 = (fTemp0 + (1.0f - (fTemp17 + fTemp3)));
-			float fTemp28 = std::max(-0.999899983f, std::min(0.999899983f, (2.0f * (fTemp27 / (fTemp6 * (fTemp7 + 1.0f))))));
-			float fTemp29 = (1.0f - flt_moog_vcf_faustpower2_f(fTemp28));
-			float fTemp30 = std::sqrt(std::max(0.0f, fTemp29));
-			fRec6[0] = ((fRec6[1] * (0.0f - fTemp28)) + (fTemp26 * fTemp30));
-			fRec4[0] = ((fTemp26 * fTemp28) + (fRec6[1] * fTemp30));
-			float fRec5 = fRec6[0];
-			float fTemp31 = (1.0f - (fTemp27 / fTemp6));
-			output0[i] = FAUSTFLOAT((((((fTemp8 * fTemp23) / fTemp11) + (fRec4[1] * fTemp25)) + ((((fRec5 * (1.0f - (fTemp7 + (2.0f * (fTemp28 * fTemp31))))) / std::sqrt(fTemp29)) + (2.0f * (fRec4[0] * fTemp31))) / std::sqrt(fTemp24))) / fTemp6));
-			fRec0[1] = fRec0[0];
+			float fTemp0 = float(input0[i]);
+			fRec2[0] = (fSlow0 + (0.999000013f * fRec2[1]));
+			float fTemp1 = flt_moog_vcf_faustpower2_f((1.41419947f * fRec2[0]));
+			float fTemp2 = (1.99997997f * fRec2[0]);
+			float fTemp3 = (fTemp1 + fTemp2);
+			float fTemp4 = (fTemp2 + 2.0f);
+			float fTemp5 = std::tan((fConst0 * std::max<float>(float(input1[i]), 20.0f)));
+			float fTemp6 = (1.0f / fTemp5);
+			float fTemp7 = ((fTemp3 + ((fTemp4 + fTemp6) / fTemp5)) + 1.0f);
+			float fTemp8 = ((fTemp3 + (1.0f - ((fTemp4 - fTemp6) / fTemp5))) / fTemp7);
+			float fTemp9 = std::max<float>(-0.999899983f, std::min<float>(0.999899983f, fTemp8));
+			float fTemp10 = (1.0f - flt_moog_vcf_faustpower2_f(fTemp9));
+			float fTemp11 = std::sqrt(std::max<float>(0.0f, fTemp10));
+			float fTemp12 = ((fTemp0 * fTemp11) - (fTemp9 * fRec3[1]));
+			float fTemp13 = (1.0f / flt_moog_vcf_faustpower2_f(fTemp5));
+			float fTemp14 = (fTemp3 + (1.0f - fTemp13));
+			float fTemp15 = std::max<float>(-0.999899983f, std::min<float>(0.999899983f, (2.0f * (fTemp14 / (fTemp7 * (fTemp8 + 1.0f))))));
+			float fTemp16 = (1.0f - flt_moog_vcf_faustpower2_f(fTemp15));
+			float fTemp17 = std::sqrt(std::max<float>(0.0f, fTemp16));
+			fRec5[0] = ((fTemp12 * fTemp17) - (fTemp15 * fRec5[1]));
+			fRec3[0] = ((fTemp12 * fTemp15) + (fRec5[1] * fTemp17));
+			float fRec4 = fRec5[0];
+			float fTemp18 = (1.0f - (fTemp14 / fTemp7));
+			float fTemp19 = std::sqrt(fTemp10);
+			float fTemp20 = ((((fTemp0 * fTemp9) + (fRec3[1] * fTemp11)) + (2.0f * ((fRec3[0] * fTemp18) / fTemp19))) + ((fRec4 * ((1.0f - fTemp8) - (2.0f * (fTemp15 * fTemp18)))) / (fTemp19 * std::sqrt(fTemp16))));
+			float fTemp21 = (2.0f - fTemp2);
+			float fTemp22 = (1.0f - fTemp2);
+			float fTemp23 = ((fTemp1 + ((fTemp6 + fTemp21) / fTemp5)) + fTemp22);
+			float fTemp24 = (((fTemp1 + ((fTemp6 - fTemp21) / fTemp5)) + fTemp22) / fTemp23);
+			float fTemp25 = std::max<float>(-0.999899983f, std::min<float>(0.999899983f, fTemp24));
+			float fTemp26 = (1.0f - flt_moog_vcf_faustpower2_f(fTemp25));
+			float fTemp27 = std::sqrt(std::max<float>(0.0f, fTemp26));
+			float fTemp28 = (((fTemp20 * fTemp27) / fTemp7) - (fTemp25 * fRec0[1]));
+			float fTemp29 = (fTemp1 + (1.0f - (fTemp2 + fTemp13)));
+			float fTemp30 = std::max<float>(-0.999899983f, std::min<float>(0.999899983f, (2.0f * (fTemp29 / (fTemp23 * (fTemp24 + 1.0f))))));
+			float fTemp31 = (1.0f - flt_moog_vcf_faustpower2_f(fTemp30));
+			float fTemp32 = std::sqrt(std::max<float>(0.0f, fTemp31));
+			fRec6[0] = ((fTemp28 * fTemp32) - (fTemp30 * fRec6[1]));
+			fRec0[0] = ((fTemp28 * fTemp30) + (fRec6[1] * fTemp32));
+			float fRec1 = fRec6[0];
+			float fTemp33 = (1.0f - (fTemp29 / fTemp23));
+			float fTemp34 = std::sqrt(fTemp26);
+			output0[i] = FAUSTFLOAT(((((fRec1 * ((1.0f - fTemp24) - (2.0f * (fTemp30 * fTemp33)))) / (fTemp34 * std::sqrt(fTemp31))) + ((((fTemp20 * fTemp25) / fTemp7) + (fRec0[1] * fTemp27)) + (2.0f * ((fRec0[0] * fTemp33) / fTemp34)))) / fTemp23));
+			fRec2[1] = fRec2[0];
+			fRec5[1] = fRec5[0];
 			fRec3[1] = fRec3[0];
-			fRec1[1] = fRec1[0];
 			fRec6[1] = fRec6[0];
-			fRec4[1] = fRec4[0];
+			fRec0[1] = fRec0[0];
 			
 		}
 		

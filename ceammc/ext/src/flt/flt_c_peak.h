@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt_c_peak"
-Code generated with Faust 2.14.4 (https://faust.grame.fr)
+Code generated with Faust 2.15.0 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 

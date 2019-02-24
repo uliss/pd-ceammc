@@ -1,5 +1,5 @@
 {
-	"name": "flt_eq10",
+	"name": "flt.eq10",
 	"filename": "flt_eq10",
 	"version": "2.15.0",
 	"compile_options": "cpp, -scal -ftz 0",
@@ -20,19 +20,19 @@
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
 		{ "maths.lib/version": "2.1" },
-		{ "name": "flt_eq10" },
+		{ "name": "flt.eq10" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
 		{ "signals.lib/version": "0.0" }
 	],
 	"ui": [ 
 		{
 			"type": "vgroup",
-			"label": "flt_eq10",
+			"label": "flt.eq10",
 			"items": [ 
 				{
 					"type": "vslider",
 					"label": "f1000",
-					"address": "/flt_eq10/f1000",
+					"address": "/flt.eq10/f1000",
 					"meta": [
 						{ "unit": "db" }
 					],
@@ -44,7 +44,7 @@
 				{
 					"type": "vslider",
 					"label": "f125",
-					"address": "/flt_eq10/f125",
+					"address": "/flt.eq10/f125",
 					"meta": [
 						{ "unit": "db" }
 					],
@@ -56,7 +56,7 @@
 				{
 					"type": "vslider",
 					"label": "f16000",
-					"address": "/flt_eq10/f16000",
+					"address": "/flt.eq10/f16000",
 					"meta": [
 						{ "unit": "db" }
 					],
@@ -68,7 +68,7 @@
 				{
 					"type": "vslider",
 					"label": "f2000",
-					"address": "/flt_eq10/f2000",
+					"address": "/flt.eq10/f2000",
 					"meta": [
 						{ "unit": "db" }
 					],
@@ -80,7 +80,7 @@
 				{
 					"type": "vslider",
 					"label": "f250",
-					"address": "/flt_eq10/f250",
+					"address": "/flt.eq10/f250",
 					"meta": [
 						{ "unit": "db" }
 					],
@@ -92,7 +92,7 @@
 				{
 					"type": "vslider",
 					"label": "f31",
-					"address": "/flt_eq10/f31",
+					"address": "/flt.eq10/f31",
 					"meta": [
 						{ "unit": "db" }
 					],
@@ -104,7 +104,7 @@
 				{
 					"type": "vslider",
 					"label": "f4000",
-					"address": "/flt_eq10/f4000",
+					"address": "/flt.eq10/f4000",
 					"meta": [
 						{ "unit": "db" }
 					],
@@ -116,7 +116,7 @@
 				{
 					"type": "vslider",
 					"label": "f500",
-					"address": "/flt_eq10/f500",
+					"address": "/flt.eq10/f500",
 					"meta": [
 						{ "unit": "db" }
 					],
@@ -128,7 +128,7 @@
 				{
 					"type": "vslider",
 					"label": "f62",
-					"address": "/flt_eq10/f62",
+					"address": "/flt.eq10/f62",
 					"meta": [
 						{ "unit": "db" }
 					],
@@ -140,7 +140,7 @@
 				{
 					"type": "vslider",
 					"label": "f8000",
-					"address": "/flt_eq10/f8000",
+					"address": "/flt.eq10/f8000",
 					"meta": [
 						{ "unit": "db" }
 					],

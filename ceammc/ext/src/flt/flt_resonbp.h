@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt.resonbp"
-Code generated with Faust 2.8.5 (https://faust.grame.fr)
+Code generated with Faust 2.15.0 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -372,9 +372,8 @@ struct Meta
 
 #include <algorithm>
 #include <map>
-#include <string.h>
-#include <stdlib.h>
 #include <cstdlib>
+#include <string.h>
 
 
 using std::max;
@@ -382,33 +381,33 @@ using std::min;
 
 struct XXXX_Meta : std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
-inline int lsr(int x, int n)	{ return int(((unsigned int)x) >> n); }
+static int lsr(int x, int n) { return int(((unsigned int)x) >> n); }
 
-inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
+static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
-inline long lopt(char* argv[], const char* name, long def)
+static long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
     for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
-inline bool isopt(char* argv[], const char* name)
+static bool isopt(char* argv[], const char* name)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
 	return false;
 }
 
-inline const char* lopts(char* argv[], const char* name, const char* def)
+static const char* lopts(char* argv[], const char* name, const char* def)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
@@ -535,7 +534,7 @@ class flt_resonbp : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = (3.14159274f / std::min(192000.0f, std::max(1.0f, float(fSamplingFreq))));
+		fConst0 = (3.14159274f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSamplingFreq))));
 		
 	}
 	
@@ -599,9 +598,10 @@ class flt_resonbp : public dsp {
 			float fTemp1 = (1.0f / fTemp0);
 			fRec2[0] = (fSlow1 + (0.999000013f * fRec2[1]));
 			float fTemp2 = (1.0f / fRec2[0]);
-			float fTemp3 = (((fTemp1 + fTemp2) / fTemp0) + 1.0f);
-			fRec0[0] = (float(input0[i]) - (((2.0f * (fRec0[1] * (1.0f - (1.0f / flt_resonbp_faustpower2_f(fTemp0))))) + (fRec0[2] * (((fTemp1 - fTemp2) / fTemp0) + 1.0f))) / fTemp3));
-			output0[i] = FAUSTFLOAT((((fRec0[2] * (0.0f - fTemp1)) + (fRec0[0] / fTemp0)) / fTemp3));
+			float fTemp3 = (((fTemp2 + fTemp1) / fTemp0) + 1.0f);
+			fRec0[0] = (float(input0[i]) - (((fRec0[2] * (((fTemp1 - fTemp2) / fTemp0) + 1.0f)) + (2.0f * (fRec0[1] * (1.0f - (1.0f / flt_resonbp_faustpower2_f(fTemp0)))))) / fTemp3));
+			float fTemp4 = (fTemp0 * fTemp3);
+			output0[i] = FAUSTFLOAT(((fRec0[0] / fTemp4) + (fRec0[2] * (0.0f - (1.0f / fTemp4)))));
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
 			fRec0[2] = fRec0[1];

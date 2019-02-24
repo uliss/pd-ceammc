@@ -8,7 +8,6 @@ gflt.highshelf~
 gflt.lowshelf~
 gflt.moog_vcf~
 gflt.resonbp~
-gflt_bpf12~
 gflt_bpf24~
 gflt_c_bpf~
 gflt_c_highshelf~

@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt.highshelf"
-Code generated with Faust 2.8.5 (https://faust.grame.fr)
+Code generated with Faust 2.15.0 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -372,9 +372,8 @@ struct Meta
 
 #include <algorithm>
 #include <map>
-#include <string.h>
-#include <stdlib.h>
 #include <cstdlib>
+#include <string.h>
 
 
 using std::max;
@@ -382,33 +381,33 @@ using std::min;
 
 struct XXXX_Meta : std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
-inline int lsr(int x, int n)	{ return int(((unsigned int)x) >> n); }
+static int lsr(int x, int n) { return int(((unsigned int)x) >> n); }
 
-inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
+static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
-inline long lopt(char* argv[], const char* name, long def)
+static long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
     for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
-inline bool isopt(char* argv[], const char* name)
+static bool isopt(char* argv[], const char* name)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
 	return false;
 }
 
-inline const char* lopts(char* argv[], const char* name, const char* def)
+static const char* lopts(char* argv[], const char* name, const char* def)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
@@ -536,7 +535,7 @@ class flt_highshelf : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = (6.28318548f / std::min(192000.0f, std::max(1.0f, float(fSamplingFreq))));
+		fConst0 = (6.28318548f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSamplingFreq))));
 		
 	}
 	
@@ -599,15 +598,15 @@ class flt_highshelf : public dsp {
 			fRec1[0] = (fSlow0 + (0.999000013f * fRec1[1]));
 			float fTemp0 = std::pow(10.0f, (0.0250000004f * fRec1[0]));
 			fRec2[0] = (fSlow1 + (0.999000013f * fRec2[1]));
-			float fTemp1 = (fConst0 * std::max(0.0f, fRec2[0]));
-			float fTemp2 = (std::sqrt(fTemp0) * std::sin(fTemp1));
-			float fTemp3 = std::cos(fTemp1);
-			float fTemp4 = ((fTemp0 + -1.0f) * fTemp3);
-			float fTemp5 = (fTemp3 * (fTemp0 + 1.0f));
-			float fTemp6 = (fTemp0 + fTemp2);
-			float fTemp7 = (fTemp6 + (1.0f - fTemp4));
-			fRec0[0] = (float(input0[i]) - (((fRec0[2] * (fTemp0 + (1.0f - (fTemp2 + fTemp4)))) + (2.0f * (fRec0[1] * (fTemp0 + (-1.0f - fTemp5))))) / fTemp7));
-			output0[i] = FAUSTFLOAT(((((fRec0[1] * (0.0f - (2.0f * fTemp0))) * ((fTemp0 + fTemp5) + -1.0f)) + (fTemp0 * ((fRec0[0] * ((fTemp4 + fTemp6) + 1.0f)) + (fRec0[2] * ((fTemp0 + fTemp4) + (1.0f - fTemp2)))))) / fTemp7));
+			float fTemp1 = (fConst0 * std::max<float>(0.0f, fRec2[0]));
+			float fTemp2 = std::cos(fTemp1);
+			float fTemp3 = ((fTemp0 + -1.0f) * fTemp2);
+			float fTemp4 = (std::sqrt(fTemp0) * std::sin(fTemp1));
+			float fTemp5 = ((fTemp0 + 1.0f) * fTemp2);
+			float fTemp6 = ((fTemp0 + fTemp4) + (1.0f - fTemp3));
+			fRec0[0] = (float(input0[i]) - ((((fTemp0 + (1.0f - (fTemp3 + fTemp4))) * fRec0[2]) + (2.0f * ((fTemp0 + (-1.0f - fTemp5)) * fRec0[1]))) / fTemp6));
+			float fTemp7 = (fTemp0 + fTemp3);
+			output0[i] = FAUSTFLOAT((((((fRec0[0] * fTemp0) * ((fTemp7 + fTemp4) + 1.0f)) + ((fRec0[1] * (0.0f - (2.0f * fTemp0))) * ((fTemp0 + fTemp5) + -1.0f))) + ((fTemp0 * fRec0[2]) * (fTemp7 + (1.0f - fTemp4)))) / fTemp6));
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
 			fRec0[2] = fRec0[1];

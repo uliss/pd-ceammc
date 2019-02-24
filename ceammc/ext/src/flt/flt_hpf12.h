@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
-name: "flt_hpf12"
-Code generated with Faust 2.14.4 (https://faust.grame.fr)
+name: "flt.hpf12"
+Code generated with Faust 2.15.0 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -482,7 +482,7 @@ class flt_hpf12 : public dsp {
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
 		m->declare("maths.lib/version", "2.1");
-		m->declare("name", "flt_hpf12");
+		m->declare("name", "flt.hpf12");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
 	}
@@ -574,7 +574,7 @@ class flt_hpf12 : public dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("flt_hpf12");
+		ui_interface->openVerticalBox("flt.hpf12");
 		ui_interface->declare(&fVslider0, "unit", "Hz");
 		ui_interface->addVerticalSlider("freq", &fVslider0, 10000.0f, 20.0f, 20000.0f, 0.100000001f);
 		ui_interface->closeBox();

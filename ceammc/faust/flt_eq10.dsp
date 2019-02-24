@@ -1,3 +1,5 @@
+declare name "flt.eq10";
+
 import("stdfaust.lib");
 cm = library("ceammc.lib");
 ui = library("ceammc_ui.lib");

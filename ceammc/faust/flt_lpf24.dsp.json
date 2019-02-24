@@ -1,7 +1,7 @@
 {
-	"name": "flt_lpf24",
+	"name": "flt.lpf24",
 	"filename": "flt_lpf24",
-	"version": "2.14.4",
+	"version": "2.15.0",
 	"compile_options": "cpp, -scal -ftz 0",
 	"library_list": ["/usr/local/share/faust/filters.lib","/Users/serj/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
@@ -18,19 +18,19 @@
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
 		{ "maths.lib/version": "2.1" },
-		{ "name": "flt_lpf24" },
+		{ "name": "flt.lpf24" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
 		{ "signals.lib/version": "0.0" }
 	],
 	"ui": [ 
 		{
 			"type": "vgroup",
-			"label": "flt_lpf24",
+			"label": "flt.lpf24",
 			"items": [ 
 				{
 					"type": "vslider",
 					"label": "freq",
-					"address": "/flt_lpf24/freq",
+					"address": "/flt.lpf24/freq",
 					"meta": [
 						{ "unit": "Hz" }
 					],

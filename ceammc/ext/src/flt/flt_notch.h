@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------
-name: "flt_notch"
+name: "flt.notch"
 Code generated with Faust 2.15.0 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
@@ -496,7 +496,7 @@ class flt_notch : public dsp {
 		m->declare("music.lib/license", "LGPL with exception");
 		m->declare("music.lib/name", "Music Library");
 		m->declare("music.lib/version", "1.0");
-		m->declare("name", "flt_notch");
+		m->declare("name", "flt.notch");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
 	}
@@ -595,7 +595,7 @@ class flt_notch : public dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("flt_notch");
+		ui_interface->openVerticalBox("flt.notch");
 		ui_interface->declare(&fVslider1, "unit", "Hz");
 		ui_interface->addVerticalSlider("freq", &fVslider1, 1000.0f, 20.0f, 20000.0f, 0.100000001f);
 		ui_interface->declare(&fVslider0, "unit", "Hz");

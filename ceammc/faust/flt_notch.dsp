@@ -1,3 +1,5 @@
+declare name "flt.notch";
+
 si = library("signals.lib");
 // using olg version (without s), because it compiles with 2.14
 fi = library("filter.lib");

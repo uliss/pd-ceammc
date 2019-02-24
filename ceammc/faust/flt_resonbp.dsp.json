@@ -1,10 +1,10 @@
 {
 	"name": "flt.resonbp",
 	"filename": "flt_resonbp",
-	"version": "2.8.5",
+	"version": "2.15.0",
 	"compile_options": "cpp, -scal -ftz 0",
 	"library_list": ["/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib"],
-	"include_pathnames": ["/Users/serj/work/music/pd-exp/pure-data/ceammc/faust","/usr/local/share/faust","/usr/share/faust"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
 	"inputs": "1",
 	"outputs": "1",
 	"meta": [ 

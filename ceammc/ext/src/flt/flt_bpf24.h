@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
-name: "flt_bpf24"
-Code generated with Faust 2.14.4 (https://faust.grame.fr)
+name: "flt.bpf24"
+Code generated with Faust 2.15.0 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -504,7 +504,7 @@ class flt_bpf24 : public dsp {
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
 		m->declare("maths.lib/version", "2.1");
-		m->declare("name", "flt_bpf24");
+		m->declare("name", "flt.bpf24");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
 	}
@@ -613,7 +613,7 @@ class flt_bpf24 : public dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("flt_bpf24");
+		ui_interface->openVerticalBox("flt.bpf24");
 		ui_interface->declare(&fVslider0, "unit", "Hz");
 		ui_interface->addVerticalSlider("freq", &fVslider0, 1000.0f, 20.0f, 20000.0f, 0.100000001f);
 		ui_interface->addVerticalSlider("q", &fVslider1, 2.0f, 0.00999999978f, 100.0f, 0.100000001f);
@@ -639,13 +639,13 @@ class flt_bpf24 : public dsp {
 			float fTemp7 = (fConst10 * fTemp4);
 			float fTemp8 = flt_bpf24_faustpower2_f(fTemp4);
 			float fTemp9 = (8.0f * fTemp8);
-			float fTemp10 = (fConst1 * fTemp3);
-			float fTemp11 = (2.82842708f * fTemp4);
-			float fTemp12 = ((8.0f * fTemp3) + (4.0f * fTemp8));
+			float fTemp10 = ((4.0f * fTemp8) + (8.0f * fTemp3));
+			float fTemp11 = (fConst1 * fTemp3);
+			float fTemp12 = (2.82842708f * fTemp4);
 			float fTemp13 = (fConst12 * fTemp4);
-			float fTemp14 = (((fConst2 * ((fConst1 * (fTemp3 * (fTemp10 + fTemp11))) + fTemp12)) + fTemp13) + 16.0f);
-			fRec0[0] = (float(input0[i]) - (((((fRec0[1] * ((fConst3 * (fTemp3 * (fTemp5 + fTemp6))) + (-64.0f - fTemp7))) + (fRec0[2] * ((fConst2 * ((0.0f - (fTemp9 + (16.0f * fTemp3))) + (fConst11 * flt_bpf24_faustpower4_f(fTemp2)))) + 96.0f))) + (fRec0[3] * (((fConst3 * ((fTemp6 - fTemp5) * fTemp3)) + fTemp7) + -64.0f))) + (fRec0[4] * ((fConst2 * ((fConst1 * ((fTemp10 - fTemp11) * fTemp3)) + fTemp12)) + (16.0f - fTemp13)))) / fTemp14));
-			output0[i] = FAUSTFLOAT((fConst2 * ((((fRec0[2] * (0.0f - fTemp9)) + (4.0f * (fRec0[0] * fTemp8))) + (4.0f * (fRec0[4] * fTemp8))) / fTemp14)));
+			float fTemp14 = ((fTemp13 + (fConst2 * (fTemp10 + (fConst1 * (fTemp3 * (fTemp11 + fTemp12)))))) + 16.0f);
+			fRec0[0] = (float(input0[i]) - (((((fRec0[1] * ((fConst3 * (fTemp3 * (fTemp5 + fTemp6))) + (-64.0f - fTemp7))) + (fRec0[2] * ((fConst2 * ((0.0f - (fTemp9 + (16.0f * fTemp3))) + (fConst11 * flt_bpf24_faustpower4_f(fTemp2)))) + 96.0f))) + (((fTemp7 + (fConst3 * (fTemp3 * (fTemp6 - fTemp5)))) + -64.0f) * fRec0[3])) + (fRec0[4] * ((fConst2 * (fTemp10 + (fConst1 * (fTemp3 * (fTemp11 - fTemp12))))) + (16.0f - fTemp13)))) / fTemp14));
+			output0[i] = FAUSTFLOAT((fConst2 * ((((fRec0[2] * (0.0f - fTemp9)) + (4.0f * (fRec0[0] * fTemp8))) + (4.0f * (fTemp8 * fRec0[4]))) / fTemp14)));
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
 			for (int j0 = 4; (j0 > 0); j0 = (j0 - 1)) {

@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------
-name: "flt_eq10"
+name: "flt.eq10"
 Code generated with Faust 2.15.0 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
@@ -758,7 +758,7 @@ class flt_eq10 : public dsp {
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
 		m->declare("maths.lib/version", "2.1");
-		m->declare("name", "flt_eq10");
+		m->declare("name", "flt.eq10");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
 	}
@@ -1445,7 +1445,7 @@ class flt_eq10 : public dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("flt_eq10");
+		ui_interface->openVerticalBox("flt.eq10");
 		ui_interface->declare(&fVslider4, "unit", "db");
 		ui_interface->addVerticalSlider("f1000", &fVslider4, 0.0f, -70.0f, 10.0f, 0.100000001f);
 		ui_interface->declare(&fVslider7, "unit", "db");
@@ -1599,7 +1599,7 @@ class flt_eq10 : public dsp {
 			float fTemp37 = (fConst28 * fRec63[1]);
 			fRec63[0] = ((fRec64[2] + (fConst17 * (fTemp36 + (fConst18 * fRec64[0])))) - (fConst24 * ((fConst25 * fRec63[2]) + fTemp37)));
 			float fTemp38 = (fConst35 * fRec62[1]);
-			fRec62[0] = (((fConst24 * ((fConst25 * fRec63[0]) + fTemp37)) + fRec63[2]) - (fConst31 * (fTemp38 + (fConst32 * fRec62[2]))));
+			fRec62[0] = ((fRec63[2] + (fConst24 * (fTemp37 + (fConst25 * fRec63[0])))) - (fConst31 * ((fConst32 * fRec62[2]) + fTemp38)));
 			fRec71[0] = (fSlow5 + (0.999000013f * fRec71[1]));
 			fRec79[0] = (0.0f - (fConst129 * ((fConst120 * fRec79[1]) - (fConst103 * (fTemp35 + fVec5[1])))));
 			fRec78[0] = (fRec79[0] - (fConst115 * ((fConst122 * fRec78[2]) + (fConst42 * fRec78[1]))));

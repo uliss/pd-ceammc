@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt.eq_peak"
-Code generated with Faust 2.8.5 (https://faust.grame.fr)
+Code generated with Faust 2.15.0 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -372,9 +372,8 @@ struct Meta
 
 #include <algorithm>
 #include <map>
-#include <string.h>
-#include <stdlib.h>
 #include <cstdlib>
+#include <string.h>
 
 
 using std::max;
@@ -382,33 +381,33 @@ using std::min;
 
 struct XXXX_Meta : std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
-inline int lsr(int x, int n)	{ return int(((unsigned int)x) >> n); }
+static int lsr(int x, int n) { return int(((unsigned int)x) >> n); }
 
-inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
+static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
-inline long lopt(char* argv[], const char* name, long def)
+static long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
     for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
-inline bool isopt(char* argv[], const char* name)
+static bool isopt(char* argv[], const char* name)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
 	return false;
 }
 
-inline const char* lopts(char* argv[], const char* name, const char* def)
+static const char* lopts(char* argv[], const char* name, const char* def)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
@@ -471,11 +470,9 @@ class flt_eq_peak : public dsp {
 	float fRec1[2];
 	FAUSTFLOAT fVslider1;
 	float fRec2[2];
-	float fConst2;
-	float fConst3;
 	FAUSTFLOAT fVslider2;
 	float fRec3[2];
-	float fConst4;
+	float fConst2;
 	float fRec0[3];
 	
  public:
@@ -545,11 +542,9 @@ class flt_eq_peak : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = std::min(192000.0f, std::max(1.0f, float(fSamplingFreq)));
+		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSamplingFreq)));
 		fConst1 = (3.14159274f / fConst0);
-		fConst2 = (1.0f / fConst0);
-		fConst3 = (3.14159274f * fConst2);
-		fConst4 = (6.28318548f * fConst2);
+		fConst2 = (6.28318548f / fConst0);
 		
 	}
 	
@@ -623,15 +618,15 @@ class flt_eq_peak : public dsp {
 			fRec2[0] = (fSlow1 + (0.999000013f * fRec2[1]));
 			int iTemp2 = (fRec2[0] > 0.0f);
 			fRec3[0] = (fSlow2 + (0.999000013f * fRec3[1]));
-			float fTemp3 = std::sin((fConst4 * fRec1[0]));
-			float fTemp4 = (fConst3 * ((fRec3[0] * std::pow(10.0f, (0.0500000007f * std::fabs(fRec2[0])))) / fTemp3));
-			float fTemp5 = (fConst3 * (fRec3[0] / fTemp3));
+			float fTemp3 = std::sin((fConst2 * fRec1[0]));
+			float fTemp4 = (fConst1 * ((fRec3[0] * std::pow(10.0f, (0.0500000007f * std::fabs(fRec2[0])))) / fTemp3));
+			float fTemp5 = (fConst1 * (fRec3[0] / fTemp3));
 			float fTemp6 = (iTemp2?fTemp5:fTemp4);
 			float fTemp7 = (2.0f * (fRec0[1] * (1.0f - (1.0f / flt_eq_peak_faustpower2_f(fTemp0)))));
 			float fTemp8 = (((fTemp1 + fTemp6) / fTemp0) + 1.0f);
 			fRec0[0] = (float(input0[i]) - (((fRec0[2] * (((fTemp1 - fTemp6) / fTemp0) + 1.0f)) + fTemp7) / fTemp8));
 			float fTemp9 = (iTemp2?fTemp4:fTemp5);
-			output0[i] = FAUSTFLOAT((((fRec0[2] * (1.0f - ((fTemp9 - fTemp1) / fTemp0))) + ((fRec0[0] * (((fTemp1 + fTemp9) / fTemp0) + 1.0f)) + fTemp7)) / fTemp8));
+			output0[i] = FAUSTFLOAT((((fTemp7 + (fRec0[0] * (((fTemp1 + fTemp9) / fTemp0) + 1.0f))) + (fRec0[2] * (((fTemp1 - fTemp9) / fTemp0) + 1.0f))) / fTemp8));
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
 			fRec3[1] = fRec3[0];
