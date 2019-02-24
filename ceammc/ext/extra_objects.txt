@@ -195,10 +195,19 @@ gdyn.comp2~
 gdyn.comp~
 gdyn.gate2~
 gdyn.gate~
+gflt.bpf12~
+gflt.bpf24~
+gflt.eq10~
+gflt.eq_peak_cq~
 gflt.eq_peak~
 gflt.highshelf~
+gflt.hpf12~
+gflt.hpf24~
 gflt.lowshelf~
+gflt.lpf12~
+gflt.lpf24~
 gflt.moog_vcf~
+gflt.notch~
 gflt.resonbp~
 gfx.bitdown~
 gfx.chorus~
@@ -210,6 +219,7 @@ gfx.drive~
 gfx.echo~
 gfx.flanger~
 gfx.granulator~
+gfx.greyhole~
 gfx.pitchshift~
 gfx.zita_rev1~
 gspat.pan4~
