@@ -1,3 +1,5 @@
+declare name "fx.freeverb2";
+
 si = library("signals.lib");
 re = library("reverbs.lib");
 cm = library("ceammc.lib");

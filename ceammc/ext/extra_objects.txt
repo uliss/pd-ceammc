@@ -218,6 +218,8 @@ gfx.distortion~
 gfx.drive~
 gfx.echo~
 gfx.flanger~
+gfx.freeverb2~
+gfx.freeverb~
 gfx.granulator~
 gfx.greyhole~
 gfx.pitchshift~
