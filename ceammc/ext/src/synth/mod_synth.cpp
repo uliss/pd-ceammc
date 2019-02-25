@@ -8,9 +8,9 @@
 
 extern "C" void setup_synth0x2eks_tilde();
 extern "C" void setup_synth0x2echurch_bell_tilde();
-extern "C" void setup_synth0x2edubdub_tilde();
 
 extern void setup_synth_birds_tilde();
+extern void setup_synth_dubdub_tilde();
 extern void setup_synth_dx7_tilde();
 extern void setup_synth_eguitar_tilde();
 extern void setup_synth_marimba_tilde();
@@ -21,7 +21,6 @@ void ceammc_synth_setup()
 {
     setup_synth0x2eks_tilde();
     setup_synth0x2echurch_bell_tilde();
-    setup_synth0x2edubdub_tilde();
 
     setup_synth_bthree();
     setup_synth_fgrain();
@@ -30,6 +29,7 @@ void ceammc_synth_setup()
     setup_synth_wurley();
 
     setup_synth_birds_tilde();
+    setup_synth_dubdub_tilde();
     setup_synth_dx7_tilde();
     setup_synth_eguitar_tilde();
     setup_synth_marimba_tilde();

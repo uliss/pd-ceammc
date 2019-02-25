@@ -1,4 +1,9 @@
 #include "synth_dubdub.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_SIMPLE_NEW();
-EXTERNAL_SETUP_NO_IN(synth);
+using namespace ceammc;
+
+void setup_synth_dubdub_tilde()
+{
+    SoundExternalFactory<faust_synth_dubdub_tilde> obj("synth.dubdub~", OBJECT_FACTORY_DEFAULT);
+}

@@ -232,6 +232,7 @@ gnoise.lfreq~
 gspat.pan4~
 gspat.pan8~
 gsynth.birds~
+gsynth.dubdub~
 gsynth.dx7~
 gsynth.eguitar~
 gsynth.marimba~

@@ -18,13 +18,13 @@ macro(ceammc_synth_obj name)
 endmacro()
 
 ceammc_synth_obj(birds)
+ceammc_synth_obj(dubdub)
 ceammc_synth_obj(eguitar)
 ceammc_synth_obj(marimba)
 ceammc_synth_obj(risset_arp)
 ceammc_synth_obj(risset_tone)
 
 ceammc_synth_extension(church_bell)
-ceammc_synth_extension(dubdub)
 ceammc_synth_extension(ks)
 
 list(APPEND SYNTH_SOURCES "synth_dx7.cpp")
