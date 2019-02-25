@@ -1,4 +1,4 @@
-declare name "churchBell";
+declare name "synth.church_bell";
 
 ui = library("ceammc_ui.lib");
 spn = library("spn.lib");
