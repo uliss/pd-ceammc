@@ -1,4 +1,9 @@
 #include "synth_ks.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_SIMPLE_NEW();
-EXTERNAL_SETUP_NO_IN(synth);
+using namespace ceammc;
+
+void setup_synth_ks_tilde()
+{
+    SoundExternalFactory<faust_synth_ks_tilde> obj("synth.ks~", OBJECT_FACTORY_DEFAULT);
+}

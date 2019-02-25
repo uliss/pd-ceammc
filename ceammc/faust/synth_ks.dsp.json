@@ -1,0 +1,114 @@
+{
+	"name": "ks",
+	"filename": "synth_ks",
+	"version": "2.15.0",
+	"compile_options": "cpp, -scal -ftz 0",
+	"library_list": ["/usr/local/share/faust/physmodels.lib","/usr/local/share/faust/stdfaust.lib","/Users/serj/work/music/pure-data/ceammc/faust/spn.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/noises.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/envelopes.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/routes.lib","/usr/local/share/faust/signals.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
+	"inputs": "0",
+	"outputs": "1",
+	"meta": [ 
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/version": "0.0" },
+		{ "delays.lib/name": "Faust Delay Library" },
+		{ "delays.lib/version": "0.0" },
+		{ "envelopes.lib/author": "GRAME" },
+		{ "envelopes.lib/copyright": "GRAME" },
+		{ "envelopes.lib/license": "LGPL with exception" },
+		{ "envelopes.lib/name": "Faust Envelope Library" },
+		{ "envelopes.lib/version": "0.0" },
+		{ "filename": "synth_ks" },
+		{ "filters.lib/name": "Faust Filters Library" },
+		{ "filters.lib/version": "0.0" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.1" },
+		{ "name": "ks" },
+		{ "noises.lib/name": "Faust Noise Generator Library" },
+		{ "noises.lib/version": "0.0" },
+		{ "routes.lib/name": "Faust Signal Routing Library" },
+		{ "routes.lib/version": "0.0" },
+		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/version": "0.0" },
+		{ "spn.lib/name": "Standart Pitch Notation constants" },
+		{ "spn.lib/version": "0.1" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "ks",
+			"items": [ 
+				{
+					"type": "hslider",
+					"label": "cutoff",
+					"address": "/ks/cutoff",
+					"init": "1",
+					"min": "0.1",
+					"max": "1",
+					"step": "0.001"
+				},
+				{
+					"type": "hslider",
+					"label": "gain",
+					"address": "/ks/gain",
+					"init": "1",
+					"min": "0",
+					"max": "1",
+					"step": "0.001"
+				},
+				{
+					"type": "button",
+					"label": "gate",
+					"address": "/ks/gate"
+				},
+				{
+					"type": "hslider",
+					"label": "mode",
+					"address": "/ks/mode",
+					"init": "0",
+					"min": "0",
+					"max": "1",
+					"step": "1"
+				},
+				{
+					"type": "hslider",
+					"label": "mute",
+					"address": "/ks/mute",
+					"init": "0",
+					"min": "0",
+					"max": "1",
+					"step": "0.001"
+				},
+				{
+					"type": "hslider",
+					"label": "pitch",
+					"address": "/ks/pitch",
+					"init": "48",
+					"min": "36",
+					"max": "84",
+					"step": "0.001"
+				},
+				{
+					"type": "hslider",
+					"label": "pos",
+					"address": "/ks/pos",
+					"init": "0.7",
+					"min": "0",
+					"max": "1",
+					"step": "0.01"
+				},
+				{
+					"type": "hslider",
+					"label": "sharp",
+					"address": "/ks/sharp",
+					"init": "0.25",
+					"min": "0.01",
+					"max": "1",
+					"step": "0.001"
+				}
+			]
+		}
+	]
+}
