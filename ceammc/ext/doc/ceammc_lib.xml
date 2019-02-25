@@ -481,6 +481,9 @@
     <entry descr="smooth delay with a feedback control" name="fx.sdelay~" ref_view="object">
       <xi:include href="fx.sdelay~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Very simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank" name="fx.vocoder~" ref_view="object">
+      <xi:include href="fx.vocoder~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="digitized CryBaby wah pedal" name="fx.wahwah~" ref_view="object">
       <xi:include href="fx.wahwah~.pddoc" parse="xml"/>
     </entry>

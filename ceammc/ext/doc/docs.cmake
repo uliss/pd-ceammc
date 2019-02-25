@@ -127,19 +127,20 @@ set(DOC_FILES
     fx.chorus~
     fx.distortion~
     fx.drive~
+    fx.drone_box~
     fx.echo~
     fx.flanger~
     fx.freeverb2~
     fx.freeverb~
     fx.freqshift~
-    fx.drone_box~
     fx.granulator~
     fx.greyhole~
     fx.looper~
     fx.pitchshift~
     fx.sdelay~
-    fx.zita_rev1~
+    fx.vocoder~
     fx.wahwah~
+    fx.zita_rev1~
     gain~
     global.float
     global.dict

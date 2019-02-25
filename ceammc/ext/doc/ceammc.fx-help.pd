@@ -32,11 +32,14 @@
 #X text 200 467 simple pitch shifter based on 2 delay lines;
 #X obj 30 494 fx.sdelay~;
 #X text 200 494 smooth delay with a feedback control;
-#X obj 30 521 fx.wahwah~;
-#X text 200 521 digitized CryBaby wah pedal;
-#X obj 30 548 fx.zita_rev1~;
-#X text 200 548 Zita stereo reverb;
+#X obj 30 521 fx.vocoder~;
+#X text 200 521 Very simple vocoder where the spectrum of the
+modulation signal is analyzed using a 32-band filter bank;
+#X obj 30 558 fx.wahwah~;
+#X text 200 558 digitized CryBaby wah pedal;
+#X obj 30 585 fx.zita_rev1~;
+#X text 200 585 Zita stereo reverb;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::fx 20 20 0 20 -104026
 -4096 0;
-#X obj 1 575 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 585 library: ceammc;
+#X obj 1 612 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 622 library: ceammc;

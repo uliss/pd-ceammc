@@ -137,6 +137,7 @@ fx.greyhole~		~~		~~
 fx.looper~		~		~.
 fx.pitchshift~		~.		~
 fx.sdelay~		~		~
+fx.vocoder~		~~		~
 fx.wahwah~		~		~
 fx.zita_rev1~		~~		~~
 gain~		?		?
