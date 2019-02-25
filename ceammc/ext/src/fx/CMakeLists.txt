@@ -28,6 +28,7 @@ ceammc_fx_obj_external(granulator)
 ceammc_fx_obj_external(greyhole)
 ceammc_fx_obj_external(pitchshift)
 ceammc_fx_obj_external(sdelay)
+ceammc_fx_obj_external(vocoder)
 ceammc_fx_obj_external(wahwah)
 ceammc_fx_obj_external(zita_rev1)
 
