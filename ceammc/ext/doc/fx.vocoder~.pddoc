@@ -40,17 +40,15 @@
 |
 [expand_env @any]
 |
-[readsf~]    [T]      [osc.impulse~ 200]
-|    |       |.       |
-|    [flow.gate 1 #b] |
-|                     |.
-[fx.vocoder~             ]
+[readsf~]         [osc.impulse~ 200]
+|                 |
+|                 |
+|                 |.
+[fx.vocoder~      ]
 |
 [ui.gain~ @size 120 16] [ui.dsp~]
 |\
 [dac~]
-
-[X a->b]
 ]]>
             </pdascii>
         </example>
