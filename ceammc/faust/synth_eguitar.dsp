@@ -1,4 +1,4 @@
-declare name "eguitar";
+declare name "synth.eguitar";
 
 ui = library("ceammc_ui.lib");
 spn = library("spn.lib");

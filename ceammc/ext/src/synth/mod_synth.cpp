@@ -6,21 +6,20 @@
 #include "synth_shakers.h"
 #include "synth_wurley.h"
 
-extern "C" void setup_synth0x2eeguitar_tilde();
 extern "C" void setup_synth0x2eks_tilde();
 extern "C" void setup_synth0x2echurch_bell_tilde();
 extern "C" void setup_synth0x2edubdub_tilde();
 
 extern void setup_synth_birds_tilde();
+extern void setup_synth_dx7_tilde();
+extern void setup_synth_eguitar_tilde();
+extern void setup_synth_marimba_tilde();
 extern void setup_synth_risset_arp_tilde();
 extern void setup_synth_risset_tone_tilde();
-extern void setup_synth_dx7_tilde();
-extern void setup_synth_marimba_tilde();
 
 void ceammc_synth_setup()
 {
     setup_synth0x2eks_tilde();
-    setup_synth0x2eeguitar_tilde();
     setup_synth0x2echurch_bell_tilde();
     setup_synth0x2edubdub_tilde();
 
@@ -31,8 +30,9 @@ void ceammc_synth_setup()
     setup_synth_wurley();
 
     setup_synth_birds_tilde();
+    setup_synth_dx7_tilde();
+    setup_synth_eguitar_tilde();
+    setup_synth_marimba_tilde();
     setup_synth_risset_arp_tilde();
     setup_synth_risset_tone_tilde();
-    setup_synth_dx7_tilde();
-    setup_synth_marimba_tilde();
 }
