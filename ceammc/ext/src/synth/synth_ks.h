@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------
-name: "ks"
+name: "synth.ks"
 Code generated with Faust 2.15.0 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
@@ -516,7 +516,7 @@ class synth_ks : public dsp {
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
 		m->declare("maths.lib/version", "2.1");
-		m->declare("name", "ks");
+		m->declare("name", "synth.ks");
 		m->declare("noises.lib/name", "Faust Noise Generator Library");
 		m->declare("noises.lib/version", "0.0");
 		m->declare("routes.lib/name", "Faust Signal Routing Library");
@@ -673,7 +673,7 @@ class synth_ks : public dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("ks");
+		ui_interface->openVerticalBox("synth.ks");
 		ui_interface->addHorizontalSlider("cutoff", &fHslider4, 1.0f, 0.100000001f, 1.0f, 0.00100000005f);
 		ui_interface->addHorizontalSlider("gain", &fHslider3, 1.0f, 0.0f, 1.0f, 0.00100000005f);
 		ui_interface->addButton("gate", &fButton0);
@@ -739,8 +739,8 @@ class synth_ks : public dsp {
 		float fSlow48 = (((fSlow43 + -1.41421354f) / fSlow42) + 1.0f);
 		float fSlow49 = (0.0f - (2.0f / fSlow45));
 		float fSlow50 = (1.0f / fSlow40);
-		float fSlow51 = (((fSlow39 + -1.41421354f) / fSlow38) + 1.0f);
-		float fSlow52 = (2.0f * (1.0f - (1.0f / synth_ks_faustpower2_f(fSlow38))));
+		float fSlow51 = (2.0f * (1.0f - (1.0f / synth_ks_faustpower2_f(fSlow38))));
+		float fSlow52 = (((fSlow39 + -1.41421354f) / fSlow38) + 1.0f);
 		float fSlow53 = (fConst4 * fSlow32);
 		float fSlow54 = (fConst5 * fSlow32);
 		float fSlow55 = (fConst6 / fSlow32);
@@ -758,15 +758,16 @@ class synth_ks : public dsp {
 			fRec13[0] = (iTemp2?0.0f:std::min<float>(fSlow34, ((fRec13[1] + (fConst4 * (fSlow33 - fVec2[1]))) + 1.0f)));
 			int iTemp3 = (fRec13[0] < fSlow35);
 			fRec15[0] = (fTemp1 - (fSlow44 * ((fSlow47 * fRec15[1]) + (fSlow48 * fRec15[2]))));
-			fRec14[0] = ((fSlow44 * (((fSlow46 * fRec15[0]) + (fSlow49 * fRec15[1])) + (fSlow46 * fRec15[2]))) - (fSlow50 * ((fSlow51 * fRec14[2]) + (fSlow52 * fRec14[1]))));
+			fRec14[0] = ((fSlow44 * (((fSlow46 * fRec15[0]) + (fSlow49 * fRec15[1])) + (fSlow46 * fRec15[2]))) - (fSlow50 * ((fSlow51 * fRec14[1]) + (fSlow52 * fRec14[2]))));
 			fRec16[0] = (iTemp2?0.0f:std::min<float>(fSlow53, (((fConst4 * (fSlow32 - fVec1[1])) + fRec16[1]) + 1.0f)));
 			int iTemp4 = (fRec16[0] < fSlow54);
-			float fTemp5 = (iSlow22?(fSlow41 * ((fRec14[2] + ((2.0f * fRec14[1]) + fRec14[0])) * (iTemp4?((fRec16[0] < 0.0f)?0.0f:(iTemp4?(fSlow55 * fRec16[0]):1.0f)):((fRec16[0] < fSlow53)?((fSlow55 * (0.0f - (fRec16[0] - fSlow54))) + 1.0f):0.0f)))):(fSlow27 * ((fRec11[2] + (fRec11[0] + (2.0f * fRec11[1]))) * (iTemp3?((fRec13[0] < 0.0f)?0.0f:(iTemp3?(fSlow36 * fRec13[0]):1.0f)):((fRec13[0] < fSlow34)?((fSlow36 * (0.0f - (fRec13[0] - fSlow35))) + 1.0f):0.0f)))));
-			float fTemp6 = (fTemp5 + fRec0[2]);
+			float fTemp5 = (iSlow22?(fSlow41 * ((fRec14[2] + ((2.0f * fRec14[1]) + fRec14[0])) * (iTemp4?((fRec16[0] < 0.0f)?0.0f:(iTemp4?(fSlow55 * fRec16[0]):1.0f)):((fRec16[0] < fSlow53)?((fSlow55 * (0.0f - (fRec16[0] - fSlow54))) + 1.0f):0.0f)))):(fSlow27 * ((fRec11[2] + ((2.0f * fRec11[1]) + fRec11[0])) * (iTemp3?((fRec13[0] < 0.0f)?0.0f:(iTemp3?(fSlow36 * fRec13[0]):1.0f)):((fRec13[0] < fSlow34)?((fSlow36 * (0.0f - (fRec13[0] - fSlow35))) + 1.0f):0.0f)))));
+			float fTemp6 = (fRec0[2] + fTemp5);
 			fVec3[(IOTA & 2047)] = fTemp6;
-			float fTemp7 = ((fSlow9 * fVec3[((IOTA - iSlow11) & 2047)]) + (fSlow12 * ((((fSlow13 * fVec3[((IOTA - iSlow14) & 2047)]) + (fSlow15 * fVec3[((IOTA - iSlow16) & 2047)])) + (fSlow18 * fVec3[((IOTA - iSlow19) & 2047)])) + (fSlow20 * fVec3[((IOTA - iSlow21) & 2047)]))));
-			float fRec9 = fTemp7;
-			float fRec10 = (fTemp7 + fTemp0);
+			float fTemp7 = (fSlow9 * fVec3[((IOTA - iSlow11) & 2047)]);
+			float fTemp8 = (fSlow12 * ((((fSlow15 * fVec3[((IOTA - iSlow16) & 2047)]) + (fSlow13 * fVec3[((IOTA - iSlow14) & 2047)])) + (fSlow18 * fVec3[((IOTA - iSlow19) & 2047)])) + (fSlow20 * fVec3[((IOTA - iSlow21) & 2047)])));
+			float fRec9 = (fTemp7 + fTemp8);
+			float fRec10 = ((fTemp0 + fTemp7) + fTemp8);
 			fRec3[0] = fRec8;
 			float fRec4 = (fTemp5 + fRec3[1]);
 			float fRec5 = fRec9;

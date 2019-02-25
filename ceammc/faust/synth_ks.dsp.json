@@ -1,5 +1,5 @@
 {
-	"name": "ks",
+	"name": "synth.ks",
 	"filename": "synth_ks",
 	"version": "2.15.0",
 	"compile_options": "cpp, -scal -ftz 0",
@@ -25,7 +25,7 @@
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
 		{ "maths.lib/version": "2.1" },
-		{ "name": "ks" },
+		{ "name": "synth.ks" },
 		{ "noises.lib/name": "Faust Noise Generator Library" },
 		{ "noises.lib/version": "0.0" },
 		{ "routes.lib/name": "Faust Signal Routing Library" },
@@ -38,12 +38,12 @@
 	"ui": [ 
 		{
 			"type": "vgroup",
-			"label": "ks",
+			"label": "synth.ks",
 			"items": [ 
 				{
 					"type": "hslider",
 					"label": "cutoff",
-					"address": "/ks/cutoff",
+					"address": "/synth.ks/cutoff",
 					"init": "1",
 					"min": "0.1",
 					"max": "1",
@@ -52,7 +52,7 @@
 				{
 					"type": "hslider",
 					"label": "gain",
-					"address": "/ks/gain",
+					"address": "/synth.ks/gain",
 					"init": "1",
 					"min": "0",
 					"max": "1",
@@ -61,12 +61,12 @@
 				{
 					"type": "button",
 					"label": "gate",
-					"address": "/ks/gate"
+					"address": "/synth.ks/gate"
 				},
 				{
 					"type": "hslider",
 					"label": "mode",
-					"address": "/ks/mode",
+					"address": "/synth.ks/mode",
 					"init": "0",
 					"min": "0",
 					"max": "1",
@@ -75,7 +75,7 @@
 				{
 					"type": "hslider",
 					"label": "mute",
-					"address": "/ks/mute",
+					"address": "/synth.ks/mute",
 					"init": "0",
 					"min": "0",
 					"max": "1",
@@ -84,7 +84,7 @@
 				{
 					"type": "hslider",
 					"label": "pitch",
-					"address": "/ks/pitch",
+					"address": "/synth.ks/pitch",
 					"init": "48",
 					"min": "36",
 					"max": "84",
@@ -93,7 +93,7 @@
 				{
 					"type": "hslider",
 					"label": "pos",
-					"address": "/ks/pos",
+					"address": "/synth.ks/pos",
 					"init": "0.7",
 					"min": "0",
 					"max": "1",
@@ -102,7 +102,7 @@
 				{
 					"type": "hslider",
 					"label": "sharp",
-					"address": "/ks/sharp",
+					"address": "/synth.ks/sharp",
 					"init": "0.25",
 					"min": "0.01",
 					"max": "1",

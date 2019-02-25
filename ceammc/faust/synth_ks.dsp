@@ -1,4 +1,4 @@
-declare name "ks";
+declare name "synth.ks";
 
 ui = library("ceammc_ui.lib");
 spn = library("spn.lib");

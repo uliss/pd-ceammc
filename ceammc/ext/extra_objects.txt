@@ -224,6 +224,7 @@ gfx.freeverb~
 gfx.granulator~
 gfx.greyhole~
 gfx.pitchshift~
+gfx.vocoder~
 gfx.wahwah~
 gfx.zita_rev1~
 gnoise.crackle~
@@ -236,6 +237,7 @@ gsynth.church_bell~
 gsynth.dubdub~
 gsynth.dx7~
 gsynth.eguitar~
+gsynth.ks~
 gsynth.marimba~
 gsynth.risset_arp~
 gsynth.risset_tone~
