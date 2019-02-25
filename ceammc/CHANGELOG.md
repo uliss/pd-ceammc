@@ -30,6 +30,7 @@
 - fx.zita_rev1~ arguments mapped to @decay_low, @decay_mid
 - fx.chorus~ added
 - fx.bitdown~ added
+- fx.vocoder~ added
 - prop.declare added
 - prop added
 - patch.props added
