@@ -11,6 +11,7 @@
 #X obj 50 176 readsf~;
 #X obj 50 205 fx.zita_rev1~;
 #X obj 50 234 ui.gain2~ @size 120 14;
+#X obj 290 234 ui.dsp~;
 #X obj 50 262 dac~;
 #X obj 20 301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 306 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
@@ -147,5 +148,5 @@ https://github.com/uliss/pure-data;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
 #X connect 7 1 8 1;
-#X connect 8 0 9 0;
-#X connect 8 1 9 1;
+#X connect 8 0 10 0;
+#X connect 8 1 10 1;

@@ -86,7 +86,7 @@
 |
 [fx.zita_rev1~]
 | ^|.
-[ui.gain2~ @size 120 14]
+[ui.gain2~ @size 120 14] [ui.dsp~]
 | ^|.
 [dac~]
 ]]>
