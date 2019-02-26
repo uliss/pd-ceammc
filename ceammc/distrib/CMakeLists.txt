@@ -36,8 +36,8 @@ if(MAKELIB_SCRIPT)
     elseif(WIN32)
         add_custom_target(ceammc_lib
             COMMAND "${MAKELIB_SCRIPT}"
-                "${CMAKE_CURRENT_SOURCE_DIR}/.."
-                "${INSTALL_PREFIX}"
+                "${CMAKE_SOURCE_DIR}/ceammc"
+                "${CMAKE_INSTALL_PREFIX}"
                 "${CMAKE_BINARY_DIR}/dist"
                 "${CEAMMC_LIB_VERSION}"
             SOURCES win/make_lib_win.sh)
