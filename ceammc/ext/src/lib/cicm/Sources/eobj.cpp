@@ -12,6 +12,8 @@
 #include "ecommon.h"
 #include "egraphics.h"
 
+#include <inttypes.h>
+
 static t_eproxy* eproxy_new(void* owner, t_symbol* s);
 static void eproxy_free(void* owner, t_eproxy* proxy);
 void eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv);
@@ -32,10 +34,10 @@ void* eobj_new(t_eclass* c)
         x->o_nproxy = 0;
         x->o_proxy = NULL;
         x->o_canvas = canvas_getcurrent();
-        sprintf(buffer, "#%s%p", c->c_class.c_name->s_name, (void*)x);
+        sprintf(buffer, "#%s%" PRIxPTR, c->c_class.c_name->s_name, (uintptr_t)x);
         x->o_id = gensym(buffer);
         pd_bind(&x->o_obj.ob_pd, x->o_id);
-        sprintf(buffer, ".x%p.c", (void*)x->o_canvas);
+        sprintf(buffer, ".x%" PRIxPTR ".c", (uintptr_t)x->o_canvas);
         c->c_widget.w_dosave = (t_typ_method)eobj_dosave;
     } else {
         bug("pd_new: apparently called before setup routine");
@@ -298,14 +300,14 @@ void eobj_dspsetup(void* x, long nins, long nouts, t_eproxy** inlets, t_outlet**
         for (int i = obj_nsigoutlets((t_object*)x), outlet_idx = 0; i < nouts; i++, outlet_idx++) {
             t_outlet* o = outlet_new((t_object*)x, &s_signal);
 
-            if(outlets)
+            if (outlets)
                 outlets[outlet_idx] = o;
         }
 
         for (int i = obj_nsiginlets((t_object*)x), inlet_idx = 0; i < nins; i++, inlet_idx++) {
             t_eproxy* p = eproxy_new(x, &s_signal);
 
-            if(inlets)
+            if (inlets)
                 inlets[inlet_idx] = p;
         }
     }

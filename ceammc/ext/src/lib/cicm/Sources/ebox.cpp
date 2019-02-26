@@ -12,6 +12,8 @@
 #include "egraphics.h"
 #include "eobj.h"
 
+#include <inttypes.h>
+
 int egraphics_smooth();
 
 static const char* my_cursorlist[] = {
@@ -385,13 +387,13 @@ static void ebox_tk_ids(t_ebox* x, t_canvas* canvas)
 {
     char buffer[MAXPDSTRING];
     x->b_obj.o_canvas = canvas;
-    sprintf(buffer, ".x%p.c", (void*)canvas);
+    sprintf(buffer, ".x%" PRIxPTR ".c", (uintptr_t)canvas);
     x->b_canvas_id = gensym(buffer);
-    sprintf(buffer, "%s.ecanvas%p", x->b_canvas_id->s_name, (void*)x);
+    sprintf(buffer, "%s.ecanvas%" PRIxPTR, x->b_canvas_id->s_name, (uintptr_t)x);
     x->b_drawing_id = gensym(buffer);
-    sprintf(buffer, "%s.ewindow%p", x->b_canvas_id->s_name, (void*)x);
+    sprintf(buffer, "%s.ewindow%" PRIxPTR, x->b_canvas_id->s_name, (uintptr_t)x);
     x->b_window_id = gensym(buffer);
-    sprintf(buffer, "all%p", (void*)x);
+    sprintf(buffer, "all%" PRIxPTR, (uintptr_t)x);
     x->b_all_id = gensym(buffer);
 }
 
@@ -1254,7 +1256,7 @@ t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
                 graphic->e_new_objects.e_points = NULL;
                 graphic->e_new_objects.e_npoints = 0;
 
-                sprintf(text, "%s%p", name->s_name, (void*)x);
+                sprintf(text, "%s%" PRIdPTR, name->s_name, (intptr_t)x);
                 graphic->e_id = gensym(text);
 
                 graphic->e_new_objects.e_image = NULL;
@@ -1294,7 +1296,7 @@ t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
         graphic->e_objects = NULL;
 
         graphic->e_name = name;
-        sprintf(text, "%s%p", name->s_name, (void*)x);
+        sprintf(text, "%s%" PRIdPTR, name->s_name, (intptr_t)x);
         graphic->e_state = EGRAPHICS_OPEN;
         graphic->e_id = gensym(text);
         return graphic;
