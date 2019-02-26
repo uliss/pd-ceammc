@@ -18,11 +18,13 @@
 
 #include "catch.hpp"
 
-PD_COMPLETE_TEST_SETUP(ArrayWindow, array, window)
+typedef TestExternal<ArrayWindow> TestArrayWindow;
+using namespace ceammc;
+static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("array.window", "[externals]")
 {
-    pd_test_mod_init_array_window();
+    //    pd_test_mod_init_array_window();
 
     SECTION("empty")
     {
@@ -78,7 +80,7 @@ TEST_CASE("array.window", "[externals]")
         REQUIRE(aptr->at(3) == Approx(0));
         REQUIRE(aptr->at(4) == Approx(0));
 
-        TestExtArrayWindow t("array.window", LA("array2"));
+        TestArrayWindow t("array.window", LA("array2"));
 
         // no changes with out specified window
         REQUIRE(aptr->at(0) == Approx(0));
@@ -98,7 +100,7 @@ TEST_CASE("array.window", "[externals]")
         REQUIRE(aptr->at(3) == Approx(0));
         REQUIRE(aptr->at(4) == Approx(0));
 
-        TestExtArrayWindow t("array.window", LA("array3", "@type", "rect"));
+        TestArrayWindow t("array.window", LA("array3", "@type", "rect"));
 
         // explicit window specification
         REQUIRE(aptr->at(0) == Approx(1));
@@ -107,7 +109,6 @@ TEST_CASE("array.window", "[externals]")
         REQUIRE(aptr->at(3) == Approx(1));
         REQUIRE(aptr->at(4) == Approx(1));
     }
-
 
     SECTION("types")
     {
@@ -135,11 +136,11 @@ TEST_CASE("array.window", "[externals]")
 
     SECTION("messages")
     {
-        TestExtArrayWindow t("array.window");
+        TestArrayWindow t("array.window");
 
 #define CHECK_MSG(m)                            \
     {                                           \
-        t.sendMessage(SYM(m));                  \
+        t.anyDispatch(SYM(m), L());             \
         REQUIRE_PROPERTY_LIST(t, @type, LA(m)); \
     }
 
@@ -155,7 +156,7 @@ TEST_CASE("array.window", "[externals]")
         CHECK_MSG("flattop")
         CHECK_MSG("gauss")
 
-        t.sendMessage(SYM("unknown"));
+        t.anyDispatch(SYM("unknown"), L());
         REQUIRE_PROPERTY_LIST(t, @type, LA("gauss"));
     }
 
@@ -169,17 +170,17 @@ TEST_CASE("array.window", "[externals]")
         REQUIRE(aptr->at(3) == Approx(0));
         REQUIRE(aptr->at(4) == Approx(0));
 
-        TestExtArrayWindow t("array.window", LA("array4"));
+        TestArrayWindow t("array.window", LA("array4"));
 
-        t.sendMessage(SYM("tri"));
-        REQUIRE(t.isOutputBangAt(0));
+        t.anyDispatch(SYM("tri"), L());
+        REQUIRE_BANG_AT_OUTLET(0, t);
         REQUIRE(aptr->at(0) == Approx(0));
         REQUIRE(aptr->at(1) == Approx(0.5));
         REQUIRE(aptr->at(2) == Approx(1));
         REQUIRE(aptr->at(3) == Approx(0.5));
         REQUIRE(aptr->at(4) == Approx(0));
 
-        t.sendMessage(SYM("rect"));
+        t.anyDispatch(SYM("rect"), L());
         REQUIRE(aptr->at(0) == Approx(1));
         REQUIRE(aptr->at(1) == Approx(1));
         REQUIRE(aptr->at(2) == Approx(1));
