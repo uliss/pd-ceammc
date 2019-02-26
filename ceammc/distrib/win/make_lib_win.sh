@@ -3,6 +3,7 @@
 if [ $# -ne 4 ]
 then
     echo "Usage: $0 SRCDIR BINDIR OUTDIR VERSION"
+    exit 1
 fi
 
 SRCDIR="$1"
@@ -10,6 +11,12 @@ BINDIR="$2"
 VERSION="$4"
 OUTDIR="$3/ceammc"
 OUTFILE="ceammc-${VERSION}-win-pd-0.47.zip"
+
+echo "    - source dir:  ${SRCDIR}"
+echo "    - binary dir:  ${BINDIR}"
+echo "    - output dir:  ${OUTDIR}"
+echo "    - version:     ${VERSION}"
+echo "    - output file: ${OUTFILE}"
 
 function skip_ext {
     #skip experimental extensions
@@ -64,12 +71,6 @@ echo "    stargazing.mod"
 cp "${SRCDIR}/ext/doc/stargazing.mod" "${OUTDIR}"
 echo "    prs.txt"
 cp "${SRCDIR}/ext/doc/prs.txt" "${OUTDIR}"
-echo "    soundtouch~.d_fat"
-cp "${BINDIR}/../extra/SoundTouch/pd/soundtouch~.d_fat" "${OUTDIR}"
-echo "    soundtouch~-help.pd"
-cp "${BINDIR}/../extra/SoundTouch/pd/soundtouch~-help.pd" "${OUTDIR}"
-echo "    soundtouch-help.pd"
-cp "${BINDIR}/../extra/SoundTouch/pd/soundtouch-help.pd" "${OUTDIR}"
 
 echo "+ Fix soundtouch link in index-help.pd..."
 sed -i "" 's/ceammc\/soundtouch-help\.pd/soundtouch-help.pd/' "${OUTDIR}/index-help.pd"
