@@ -93,6 +93,15 @@ do
     echo "+ Copy: '$help'"
 done
 
+echo "Copying STK rawwaves files to ${OUTDIR}/stk ..."
+mkdir -p "${OUTDIR}/stk"
+find "${SRCDIR}/extra/stk/stk/rawwaves" -name *\\.raw | while read file
+do
+    help=$(basename $file)
+    cp "$file" "${OUTDIR}/stk"
+    echo "+ Copy: '$help'"
+done
+
 echo "+ Copying abstractions:"
 for abs in ${SRCDIR}/ext/abstractions/*.pd
 do
