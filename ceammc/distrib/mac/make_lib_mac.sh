@@ -102,6 +102,14 @@ do
     echo "+ Copy: '$help'"
 done
 
+echo "Copying CEAMMC wav examples to ${OUTDIR} ..."
+find "${SRCDIR}/ext/doc" -name *\\.wav | while read file
+do
+    help=$(basename $file)
+    cp "$file" ${OUTDIR}
+    echo "+ Copy: '$help'"
+done
+
 echo "+ Copying abstractions:"
 for abs in ${SRCDIR}/ext/abstractions/*.pd
 do
