@@ -100,6 +100,7 @@ public:
 TEST_CASE("wrapper static method", "[class-wrapper]")
 {
     test::pdPrintToStdError(true);
+    pd_test_core_init();
 
     SECTION("parse")
     {

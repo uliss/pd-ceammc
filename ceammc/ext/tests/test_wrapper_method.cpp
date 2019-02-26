@@ -175,6 +175,7 @@ public:
 TEST_CASE("wrapper method", "[class-wrapper]")
 {
     test::pdPrintToStdError(true);
+    pd_test_core_init();
 
     SECTION("is_negative")
     {
