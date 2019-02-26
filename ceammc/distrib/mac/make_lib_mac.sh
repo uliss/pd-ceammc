@@ -110,6 +110,9 @@ do
     echo "+ Copy: '$help'"
 done
 
+echo "Copying SF2 fonts to ${OUTDIR}/sf2 ..."
+cp -R "${SRCDIR}/extra/fluidsynth/fluidsynth/sf2" ${OUTDIR}
+
 echo "+ Copying abstractions:"
 for abs in ${SRCDIR}/ext/abstractions/*.pd
 do
