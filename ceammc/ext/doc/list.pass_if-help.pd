@@ -1,13 +1,13 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 409 50 cnv 1 331 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 409 50 leave only elements accepted by predicate;
-#X obj 1 1 cnv 5 740 40 empty empty list.pass_if 20 20 0 20 -104026
+#X obj 434 50 cnv 1 331 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 434 50 leave only elements accepted by predicate;
+#X obj 1 1 cnv 5 765 40 empty empty list.pass_if 20 20 0 20 -104026
 -4096 0;
-#X obj 524 11 list.filter;
-#X obj 629 11 list.pass_if;
-#X obj 245 80 cnv 1 495 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 Predicate object should accept atom and output 0
+#X obj 549 11 list.filter;
+#X obj 654 11 list.pass_if;
+#X obj 205 80 cnv 1 560 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 Predicate object should accept atom and output 0
 (remove element) or 1 (leave element).;
 #X msg 50 155 10;
 #X msg 338 155 10;
@@ -30,33 +30,33 @@
 #X obj 50 415 str->sym;
 #X obj 50 443 msg set;
 #X msg 50 472 ;
-#X obj 20 511 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 511 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 516 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 521 1\.;
 #X text 150 521 *list*;
-#X text 280 521 input list.;
+#X text 240 521 input list.;
 #X text 150 539 *data:mlist*;
-#X text 280 539 input mlist.;
+#X text 240 539 input mlist.;
 #X text 120 557 2\.;
 #X text 150 557 *float*;
-#X text 280 557 value from predicate.;
-#X obj 20 585 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 557 value from predicate.;
+#X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 590 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 595 1\.;
-#X text 280 595 output list with accepted elements;
+#X text 240 595 output list with accepted elements;
 #X text 120 613 2\.;
-#X text 280 613 atom to predicate;
+#X text 240 613 atom to predicate;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 661 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 661 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 664 library: ceammc v0.7;
-#X text 543 676 see also:;
-#X obj 619 676 list.remove_if;
+#X text 583 676 see also:;
+#X obj 659 676 list.remove_if;
 #N canvas 10 683 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

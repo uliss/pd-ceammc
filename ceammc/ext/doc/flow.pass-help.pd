@@ -1,11 +1,11 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 568 50 cnv 1 172 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 568 50 pass specified values;
-#X obj 1 1 cnv 5 740 40 empty empty flow.pass 20 20 0 20 -104026 -4096
+#X obj 593 50 cnv 1 172 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 593 50 pass specified values;
+#X obj 1 1 cnv 5 765 40 empty empty flow.pass 20 20 0 20 -104026 -4096
 0;
-#X obj 596 11 pass;
-#X obj 650 11 flow.pass;
+#X obj 621 11 pass;
+#X obj 675 11 flow.pass;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X symbolatom 117 118 5 0 0 0 - - -;
 #X msg 184 118 list 1 2 9 10;
@@ -14,41 +14,41 @@
 #X obj 50 190 flow.pass 1 10 100 a z;
 #X obj 50 219 msg set;
 #X msg 50 248 ;
-#X obj 20 287 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 287 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 292 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 297 @values;
-#X text 280 297 Get/Set atoms to pass. Type: list;
-#X obj 20 334 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 297 Get/Set atoms to pass. Type: list;
+#X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 339 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 344 1\.;
 #X text 150 344 *bang*;
-#X text 280 344 pass.;
+#X text 240 344 pass.;
 #X text 150 362 *float*;
-#X text 280 362 pass if float is found in pass list.;
+#X text 240 362 pass if float is found in pass list.;
 #X text 150 380 *symbol*;
-#X text 280 380 pass if symbol is found in pass list.;
+#X text 240 380 pass if symbol is found in pass list.;
 #X text 150 398 *list*;
-#X text 280 398 pass. If you want to do conditional list pass \, use
+#X text 240 398 pass. If you want to do conditional list pass \, use
 [flow.pass_if].;
 #X text 150 430 *any*;
-#X text 280 430 pass if message selector is found in pass list.;
-#X obj 20 458 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 430 pass if message selector is found in pass list.;
+#X obj 20 458 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 463 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 468 1\.;
-#X text 280 468 passed values;
+#X text 240 468 passed values;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 516 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 516 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 519 library: ceammc v0.7;
-#X text 463 531 see also:;
-#X obj 539 531 flow.pass_if;
-#X obj 641 531 flow.reject;
+#X text 503 531 see also:;
+#X obj 579 531 flow.pass_if;
+#X obj 681 531 flow.reject;
 #N canvas 10 538 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -1,10 +1,10 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 607 50 cnv 1 133 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 607 50 One track looper;
-#X obj 1 1 cnv 5 740 40 empty empty fx.looper~ 20 20 0 20 -104026
+#X obj 632 50 cnv 1 133 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 632 50 One track looper;
+#X obj 1 1 cnv 5 765 40 empty empty fx.looper~ 20 20 0 20 -104026
 -4096 0;
-#X obj 642 11 fx.looper~;
+#X obj 667 11 fx.looper~;
 #X obj 50 118 adc~ 1;
 #X msg 69 147 record;
 #X msg 155 147 play;
@@ -17,111 +17,111 @@
 -1;
 #X obj 338 234 ui.dsp~;
 #X obj 50 262 dac~;
-#X obj 20 301 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 306 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 311 1\.;
 #X text 150 311 float;
-#X obj 281 312 cnv 1 128 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 311 MAX_LENGTH(sec): max loop time.;
-#X obj 20 339 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 312 cnv 1 128 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 311 MAX_LENGTH(sec): max loop time.;
+#X obj 20 339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 344 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 349 @capacity;
-#X text 280 349 Get/Set max loop time. Type: float. Units: sec.
+#X text 240 349 Get/Set max loop time. Type: float. Units: sec.
 Default value: 5\. Value range: 0-120;
 #X msg 120 386 @length;
-#X text 280 386 (readonly) Get recorded loop length. Type: float.
+#X text 240 386 (readonly) Get recorded loop length. Type: float.
 Units: sec;
 #X msg 120 423 @array;
-#X text 280 423 Get/Set use specified array for record instead of
+#X text 240 423 Get/Set use specified array for record instead of
 internal buffer. Type: symbol;
 #X msg 120 460 @play_pos;
-#X text 280 460 (readonly) Get current playing position. Type: float.
+#X text 240 460 (readonly) Get current playing position. Type: float.
 Units: sec;
 #X msg 120 497 @play_phase;
-#X text 280 497 (readonly) Get current playing phase position. Type:
+#X text 240 497 (readonly) Get current playing phase position. Type:
 float. Value range: 0-1;
 #X msg 120 534 @state;
-#X text 280 534 (readonly) Get current state. Type: symbol. Allowed
+#X text 240 534 (readonly) Get current state. Type: symbol. Allowed
 values: init \, stop \, record \, play \, overdub;
 #X msg 120 571 @loop_bang;
-#X text 280 571 Get/Set output bang on each loop start. Type: int.
+#X text 240 571 Get/Set output bang on each loop start. Type: int.
 Default value: 0\. Allowed values: 0 \, 1;
 #X msg 120 608 @loop_smooth;
-#X text 280 608 Get/Set time of lin fadein/fadeout applied to recorded
+#X text 240 608 Get/Set time of lin fadein/fadeout applied to recorded
 loop for smooth playing. Type: float. Units: ms. Default value: 10\.
 Min value: 0;
 #X msg 120 659 @play_to_stop_time;
-#X text 280 659 Get/Set fadeout time while transition from play to
+#X text 240 659 Get/Set fadeout time while transition from play to
 stop. Type: float. Units: ms. Default value: 10\. Min value: 0;
 #X msg 120 696 @play_to_dub_time;
-#X text 280 696 Get/Set fadein time of overdub input signal while
+#X text 240 696 Get/Set fadein time of overdub input signal while
 transition from play mode. Type: float. Units: ms. Default value: 10\.
 Min value: 0;
 #X msg 120 747 @rec_to_play_time;
-#X text 280 747 Get/Set xfade between recorded and input signal while
+#X text 240 747 Get/Set xfade between recorded and input signal while
 transition from record to play. Type: float. Units: ms. Default value:
 30\. Min value: 0;
 #X msg 120 798 @dub_to_stop_time;
-#X text 280 798 Get/Set fadeout time while transition from overdub to
+#X text 240 798 Get/Set fadeout time while transition from overdub to
 stop. Type: float. Units: ms. Default value: 20\. Min value: 0;
 #X msg 120 835 @dub_to_play_time;
-#X text 280 835 Get/Set record fadeout time while transition from
+#X text 240 835 Get/Set record fadeout time while transition from
 overdub to play. Type: float. Units: ms. Default value: 20\. Min
 value: 0;
 #X msg 120 886 @stop_to_play_time;
-#X text 280 886 Get/Set fadein time of play while transition from
+#X text 240 886 Get/Set fadein time of play while transition from
 stop. Type: float. Units: ms. Default value: 10\. Min value: 0;
 #X msg 120 923 @round;
-#X text 280 923 Get/Set encrease loop length to be multiple of
+#X text 240 923 Get/Set encrease loop length to be multiple of
 specified value. If *0* - no rounding is performed. Type: int. Units:
 samp. Default value: 0\. Min value: 0;
-#X obj 20 984 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 984 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 989 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 994 record;
-#X text 280 994 start loop record.;
+#X text 240 994 start loop record.;
 #X msg 120 1026 rec;
-#X text 280 1026 same as record.;
+#X text 240 1026 same as record.;
 #X msg 120 1058 adjust;
-#X text 280 1058 increase loop length. Arguments are:;
-#X obj 290 1086 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 290 1086 SAMP: loop length delta. Type: float.;
+#X text 240 1058 increase loop length. Arguments are:;
+#X obj 250 1086 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1086 SAMP: loop length delta. Type: float.;
 #X msg 120 1114 play;
-#X text 280 1114 play recorded or stopped loop.;
+#X text 240 1114 play recorded or stopped loop.;
 #X msg 120 1146 overdub;
-#X text 280 1146 start loop overdubbing while keeping it playing.;
+#X text 240 1146 start loop overdubbing while keeping it playing.;
 #X msg 120 1178 stop;
-#X text 280 1178 stop played loop.;
+#X text 240 1178 stop played loop.;
 #X msg 120 1210 pause;
-#X text 280 1210 loop pause.;
+#X text 240 1210 loop pause.;
 #X msg 120 1242 clear;
-#X text 280 1242 clear loop data and stops playing.;
+#X text 240 1242 clear loop data and stops playing.;
 #X msg 120 1274 smooth;
-#X text 280 1274 Arguments are:;
-#X obj 290 1302 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 290 1302 MS: apply linear fadein/fadeout to loop. Type:
+#X text 240 1274 Arguments are:;
+#X obj 250 1302 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1302 MS: apply linear fadein/fadeout to loop. Type:
 float.;
-#X obj 20 1340 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1345 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1350 1\.;
-#X text 280 1350 input signal.;
-#X obj 20 1378 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 1350 input signal.;
+#X obj 20 1378 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1383 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1388 1\.;
-#X text 280 1388 output signal;
+#X text 240 1388 output signal;
 #X text 120 1406 2\.;
-#X text 280 1406 bang on each loop start if @loop_bang property is
+#X text 240 1406 bang on each loop start if @loop_bang property is
 true;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1454 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 1454 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1457 library: ceammc v0.7;
 #N canvas 10 1476 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

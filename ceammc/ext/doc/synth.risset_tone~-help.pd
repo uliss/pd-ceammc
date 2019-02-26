@@ -1,10 +1,10 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 432 50 cnv 1 308 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 432 50 Jean Claude Risset's endless glissando;
-#X obj 1 1 cnv 5 740 40 empty empty synth.risset_tone~ 20 20 0 20
+#X obj 457 50 cnv 1 308 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 457 50 Jean Claude Risset's endless glissando;
+#X obj 1 1 cnv 5 765 40 empty empty synth.risset_tone~ 20 20 0 20
 -104026 -4096 0;
-#X obj 584 11 synth.risset_tone~;
+#X obj 609 11 synth.risset_tone~;
 #X msg 50 118 @rate 0.005;
 #X msg 184 118 @centroid 80;
 #X msg 347 118 @range 70;
@@ -15,34 +15,34 @@
 #X obj 50 234 ui.gain~ @size 120 16;
 #X obj 472 234 ui.dsp~;
 #X obj 50 262 dac~;
-#X obj 20 301 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 306 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 311 @rate;
-#X text 280 311 Get/Set glissanso speed. Type: float. Default value:
+#X text 240 311 Get/Set glissanso speed. Type: float. Default value:
 0.01\. Value range: -2-2;
 #X msg 120 348 @centroid;
-#X text 280 348 Get/Set main frequency. Units: MIDI note. Type: float.
+#X text 240 348 Get/Set main frequency. Units: MIDI note. Type: float.
 Default value: 60\. Value range: 20-120;
 #X msg 120 385 @range;
-#X text 280 385 Get/Set glissando range in MIDI note units. Type:
+#X text 240 385 Get/Set glissando range in MIDI note units. Type:
 float. Default value: 120\. Value range: 1-120;
-#X obj 20 432 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 432 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 437 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 442 1\.;
-#X text 280 442 control inlet.;
-#X obj 20 470 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 442 control inlet.;
+#X obj 20 470 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 475 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 480 1\.;
-#X text 280 480 ;
+#X text 240 480 ;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 528 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 528 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 531 library: ceammc v0.7;
 #N canvas 10 550 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

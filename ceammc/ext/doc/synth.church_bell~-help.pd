@@ -1,15 +1,15 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 488 50 cnv 1 252 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 488 50 generic church bell modal model;
-#X obj 1 1 cnv 5 740 40 empty empty synth.church_bell~ 20 20 0 20
+#X obj 513 50 cnv 1 252 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 513 50 generic church bell modal model;
+#X obj 1 1 cnv 5 765 40 empty empty synth.church_bell~ 20 20 0 20
 -104026 -4096 0;
-#X obj 584 11 synth.church_bell~;
-#X obj 245 80 cnv 1 495 107 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 Modeled after T. Rossing and R. Perrin \, Vibrations of
+#X obj 609 11 synth.church_bell~;
+#X obj 205 80 cnv 1 560 107 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 Modeled after T. Rossing and R. Perrin \, Vibrations of
 Bells \, Applied Acoustics 2 \, 1987;
-#X text 250 117 Model height is 301 mm;
-#X text 250 140 This model contains 7 excitation positions going
+#X text 210 117 Model height is 301 mm;
+#X text 210 140 This model contains 7 excitation positions going
 linearly from the bottom to the top of the bell;
 #X obj 50 215 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 244 metro 200;
@@ -24,40 +24,40 @@ linearly from the bottom to the top of the bell;
 #X obj 50 417 ui.gain~ @size 120 16;
 #X obj 50 446 dac~;
 #X obj 50 475 ui.dsp~;
-#X obj 20 514 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 519 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 524 @pos;
-#X text 280 524 Get/Set strike position (0 is on the bottom). Type:
+#X text 240 524 Get/Set strike position (0 is on the bottom). Type:
 int. Default value: 0\. Value range: 0-6;
 #X msg 120 561 @gain;
-#X text 280 561 Get/Set pluck gain. Type: float. Default value: 1\.
+#X text 240 561 Get/Set pluck gain. Type: float. Default value: 1\.
 Value range: 0-1;
 #X msg 120 598 @sharp;
-#X text 280 598 Get/Set strike sharpness. Type: float. Default value:
+#X text 240 598 Get/Set strike sharpness. Type: float. Default value:
 0.5\. Value range: 0.01-5;
 #X msg 120 635 @cutoff;
-#X text 280 635 Get/Set cutoff coefficent. Type: float. Default value:
+#X text 240 635 Get/Set cutoff coefficent. Type: float. Default value:
 6500\. Value range: 20-20000;
 #X msg 120 672 @gate;
-#X text 280 672 Get/Set play trigger - 1: on \, 0: off. Type: float.
+#X text 240 672 Get/Set play trigger - 1: on \, 0: off. Type: float.
 Default value: 0\. Value range: 0-1;
-#X obj 20 719 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 719 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 724 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 729 1\.;
-#X text 280 729 input signal.;
-#X obj 20 757 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 729 input signal.;
+#X obj 20 757 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 762 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 767 1\.;
-#X text 280 767 ;
+#X text 240 767 ;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 815 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 815 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 818 library: ceammc v0.7;
 #N canvas 10 837 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

@@ -1,37 +1,37 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 632 50 cnv 1 108 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 632 50 sign function;
-#X obj 1 1 cnv 5 740 40 empty empty math.sign 20 20 0 20 -104026 -4096
+#X obj 657 50 cnv 1 108 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 657 50 sign function;
+#X obj 1 1 cnv 5 765 40 empty empty math.sign 20 20 0 20 -104026 -4096
 0;
-#X obj 650 11 math.sign;
-#X obj 245 80 cnv 1 495 33 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 Returns *-1* if x < 0 \, *0* if x == 0 and *1* if x >
+#X obj 675 11 math.sign;
+#X obj 205 80 cnv 1 560 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 Returns *-1* if x < 0 \, *0* if x == 0 and *1* if x >
 0\.;
 #X floatatom 50 141 5 0 0 0 - - -;
 #X msg 98 141 -10 0 100;
 #X obj 50 170 math.sign;
 #X obj 50 199 msg set;
 #X msg 50 228 ;
-#X obj 20 267 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 267 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 272 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 277 1\.;
 #X text 150 277 *float*;
-#X text 280 277 input value.;
+#X text 240 277 input value.;
 #X text 150 295 *list*;
-#X text 280 295 list of numbers.;
-#X obj 20 323 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 295 list of numbers.;
+#X obj 20 323 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 328 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 333 1\.;
-#X text 280 333 result value;
+#X text 240 333 result value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

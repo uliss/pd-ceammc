@@ -1,11 +1,11 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 528 50 cnv 1 212 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 528 50 control flow demultiplexer;
-#X obj 1 1 cnv 5 740 40 empty empty flow.demultiplex 20 20 0 20
+#X obj 553 50 cnv 1 212 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 553 50 control flow demultiplexer;
+#X obj 1 1 cnv 5 765 40 empty empty flow.demultiplex 20 20 0 20
 -104026 -4096 0;
-#X obj 501 11 flow.demux;
-#X obj 599 11 flow.demultiplex;
+#X obj 526 11 flow.demux;
+#X obj 624 11 flow.demultiplex;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X obj 222 147 ui.radio @nitems 4 @size 127 15;
 #X obj 50 190 flow.demultiplex 4;
@@ -13,47 +13,47 @@
 #X floatatom 98 219 5 0 0 0 - - -;
 #X floatatom 155 219 5 0 0 0 - - -;
 #X floatatom 213 219 5 0 0 0 - - -;
-#X obj 20 258 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 258 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 263 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 268 1\.;
 #X text 150 268 int;
-#X obj 281 269 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 268 N: number of outlets. Range: 2\...24;
-#X obj 20 296 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 269 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 268 N: number of outlets. Range: 2\...24;
+#X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 301 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 306 @index;
-#X text 280 306 Get/Set current demultiplexer output index. Type: int.
+#X text 240 306 Get/Set current demultiplexer output index. Type: int.
 Default value: 0\. Min value: 0;
 #X msg 120 343 @noprops;
-#X text 280 343 pass all properties requests. When this flag is
+#X text 240 343 pass all properties requests. When this flag is
 specified you can't get @index property of current object;
-#X obj 20 390 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 390 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 395 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 400 1\.;
 #X text 150 400 *any*;
-#X text 280 400 input flow inlet.;
+#X text 240 400 input flow inlet.;
 #X text 120 418 2\.;
 #X text 150 418 *int*;
-#X text 280 418 output selector.;
-#X obj 20 446 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 418 output selector.;
+#X obj 20 446 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 451 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 456 1\.;
-#X text 280 456 demultiplexer first output;
+#X text 240 456 demultiplexer first output;
 #X text 120 474 n.;
-#X text 280 474 demultiplexer N-th output;
+#X text 240 474 demultiplexer N-th output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 522 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 522 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 525 library: ceammc v0.7;
-#X text 542 537 see also:;
-#X obj 618 537 flow.multiplex;
+#X text 582 537 see also:;
+#X obj 658 537 flow.multiplex;
 #N canvas 10 544 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

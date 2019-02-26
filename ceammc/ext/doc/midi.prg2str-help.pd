@@ -1,12 +1,12 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 299 50 cnv 1 441 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 299 50 convert GM Instrument number to name (string or
+#X obj 324 50 cnv 1 441 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 324 50 convert GM Instrument number to name (string or
 symbol);
-#X obj 1 1 cnv 5 740 40 empty empty midi.prg2str 20 20 0 20 -104026
+#X obj 1 1 cnv 5 765 40 empty empty midi.prg2str 20 20 0 20 -104026
 -4096 0;
-#X obj 507 11 midi.prg->str;
-#X obj 627 11 midi.prg2str;
+#X obj 532 11 midi.prg->str;
+#X obj 652 11 midi.prg2str;
 #X msg 50 118 1;
 #X msg 98 118 9;
 #X floatatom 50 147 5 0 0 0 - - -;
@@ -16,31 +16,31 @@ symbol);
 #X obj 280 205 msg set;
 #X msg 50 234 ;
 #X msg 280 234 ;
-#X obj 20 273 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 278 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 283 @symbol;
-#X text 280 283 output as symbol instead of string by default;
+#X text 240 283 output as symbol instead of string by default;
 #X msg 120 310 @family;
-#X text 280 310 output family name instead of instrument name;
-#X obj 20 347 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 310 output family name instead of instrument name;
+#X obj 20 347 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 352 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 357 1\.;
 #X text 150 357 *float*;
-#X text 280 357 General MIDI instrument number [1-128].;
-#X obj 20 385 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 357 General MIDI instrument number [1-128].;
+#X obj 20 385 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 390 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 395 1\.;
-#X text 280 395 output General MIDI instrument name (string or
+#X text 240 395 output General MIDI instrument name (string or
 symbol);
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

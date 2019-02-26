@@ -1,13 +1,13 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 608 50 cnv 1 132 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 608 50 Hyperlink widget;
-#X obj 1 1 cnv 5 740 40 empty empty ui.link 20 20 0 20 -104026 -4096
+#X obj 633 50 cnv 1 132 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 633 50 Hyperlink widget;
+#X obj 1 1 cnv 5 765 40 empty empty ui.link 20 20 0 20 -104026 -4096
 0;
-#X obj 662 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+#X obj 687 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.link] @url ui.link-help.pd;
-#X obj 245 80 cnv 1 495 75 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 Link allows to open external URLs \, not only pd
+#X obj 205 80 cnv 1 560 75 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 Link allows to open external URLs \, not only pd
 patches but all kind of URL supported by your OS. If relarive file
 path is given \, it searched in current directory \, then PD doc
 directory and PD external directories;
@@ -16,61 +16,61 @@ directory and PD external directories;
 #X text 50 255 [ui.link @url http://puredata.info @title
 puredata.info];
 #X obj 50 284 ui.link @title puredata.info @url http://puredata.info;
-#X obj 20 316 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 316 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 321 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 326 @url;
-#X text 280 326 Get/Set destination url. Type: symbol;
+#X text 240 326 Get/Set destination url. Type: symbol;
 #X msg 120 353 @title;
-#X text 280 353 Get/Set link title. Type: symbol;
+#X text 240 353 Get/Set link title. Type: symbol;
 #X msg 120 380 @send;
-#X text 280 380 Get/Set send destination. Type: symbol;
+#X text 240 380 Get/Set send destination. Type: symbol;
 #X msg 120 407 @receive;
-#X text 280 407 Get/Set receive source. Type: symbol;
+#X text 240 407 Get/Set receive source. Type: symbol;
 #X msg 120 434 @size;
-#X text 280 434 Get/Set element size (width \, height pair). Type:
+#X text 240 434 Get/Set element size (width \, height pair). Type:
 list;
 #X msg 120 461 @pinned;
-#X text 280 461 Get/Set pin mode. if 1 - put element to the lowest
+#X text 240 461 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1;
 #X msg 120 498 @hover_color;
-#X text 280 498 Get/Set color when mouse pointer is over element (list
+#X text 240 498 Get/Set color when mouse pointer is over element (list
 of red \, green \, blue values in 0-1 range). Type: list;
 #X msg 120 535 @link_color;
-#X text 280 535 Get/Set link color (list of red \, green \, blue
+#X text 240 535 Get/Set link color (list of red \, green \, blue
 values in 0-1 range). Type: list;
 #X msg 120 572 @background_color;
-#X text 280 572 Get/Set element background color (list of red \, green
+#X text 240 572 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list;
 #X msg 120 609 @border_color;
-#X text 280 609 Get/Set border color (list of red \, green \, blue
+#X text 240 609 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list;
 #X msg 120 646 @fontsize;
-#X text 280 646 Get/Set fontsize. Type: int. Default value: 11\. Value
+#X text 240 646 Get/Set fontsize. Type: int. Default value: 11\. Value
 range: 4-11;
 #X msg 120 683 @fontname;
-#X text 280 683 Get/Set fontname. Type: symbol;
+#X text 240 683 Get/Set fontname. Type: symbol;
 #X msg 120 710 @fontweight;
-#X text 280 710 Get/Set font weight. Type: symbol. Default value:
+#X text 240 710 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold;
 #X msg 120 747 @fontslant;
-#X text 280 747 Get/Set font slant. Type: symbol. Default value:
+#X text 240 747 Get/Set font slant. Type: symbol. Default value:
 roman. Allowed values: roman \, italic;
-#X obj 20 794 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 794 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 799 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 804 pos;
-#X text 280 804 set UI element position. Arguments are:;
-#X obj 290 832 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 290 832 X: top left x-coord. Type: float.;
-#X obj 290 860 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 290 860 Y: top right y-coord. Type: float.;
+#X text 240 804 set UI element position. Arguments are:;
+#X obj 250 832 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 832 X: top left x-coord. Type: float.;
+#X obj 250 860 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 860 Y: top right y-coord. Type: float.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 918 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 918 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 921 library: ceammc v0.7;
 #N canvas 10 940 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

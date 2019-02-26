@@ -1,12 +1,12 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 551 50 cnv 1 189 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 551 50 advanced message router;
-#X obj 1 1 cnv 5 740 40 empty empty flow.route 20 20 0 20 -104026
+#X obj 576 50 cnv 1 189 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 576 50 advanced message router;
+#X obj 1 1 cnv 5 765 40 empty empty flow.route 20 20 0 20 -104026
 -4096 0;
-#X obj 643 11 flow.route;
-#X obj 245 80 cnv 1 495 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 if no match occured - output original message to last
+#X obj 668 11 flow.route;
+#X obj 205 80 cnv 1 560 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 if no match occured - output original message to last
 outlet;
 #X msg 50 155 a b c;
 #X msg 126 155 unmatched;
@@ -30,48 +30,48 @@ outlet;
 #X obj 50 371 ui.display @display_type 1 @size 150 18;
 #X obj 107 400 ui.display @display_type 1 @size 150 18;
 #X obj 146 429 ui.display @display_type 1 @size 150 18;
-#X obj 20 469 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 474 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 479 1\.;
 #X text 150 479 list;
-#X obj 281 480 cnv 1 65 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 479 MATCHES: list of route matches.;
-#X obj 20 507 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 480 cnv 1 65 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 479 MATCHES: list of route matches.;
+#X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 512 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 517 1\.;
 #X text 150 517 *list*;
-#X text 280 517 match to first list element. On match outputs list
+#X text 240 517 match to first list element. On match outputs list
 without first element to corresponding outlet.;
 #X text 150 549 *any*;
-#X text 280 549 match to message selector. On success outputs message
+#X text 240 549 match to message selector. On success outputs message
 arguments to corresponding outlet.;
 #X text 150 581 *data:set*;
-#X text 280 581 match set elements. On success outputs bangs to
+#X text 240 581 match set elements. On success outputs bangs to
 corresponding outlets.;
 #X text 150 613 *data:mlist*;
-#X text 280 613 same as list.;
+#X text 240 613 same as list.;
 #X text 150 631 *data:dict*;
-#X text 280 631 match dict keys. On success outputs dict values to
+#X text 240 631 match dict keys. On success outputs dict values to
 corresponding outlets.;
-#X obj 20 673 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 678 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 683 1\.;
-#X text 280 683 first pattern match output;
+#X text 240 683 first pattern match output;
 #X text 120 701 ....;
-#X text 280 701 ... pattern match output;
+#X text 240 701 ... pattern match output;
 #X text 120 719 n.;
-#X text 280 719 n-th pattern match output;
+#X text 240 719 n-th pattern match output;
 #X text 120 737 n+1\.;
-#X text 280 737 unmatched output;
+#X text 240 737 unmatched output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 785 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 785 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 788 library: ceammc v0.7;
 #N canvas 10 807 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

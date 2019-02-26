@@ -1,12 +1,12 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 425 50 cnv 1 315 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 425 50 Peaking equalizer calculator for biquad;
-#X obj 1 1 cnv 5 740 40 empty empty flt.c_peak~ 20 20 0 20 -104026
+#X obj 450 50 cnv 1 315 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 450 50 Peaking equalizer calculator for biquad;
+#X obj 1 1 cnv 5 765 40 empty empty flt.c_peak~ 20 20 0 20 -104026
 -4096 0;
-#X obj 635 11 flt.c_peak~;
-#X obj 245 80 cnv 1 495 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 Calculates coefficients for transfer function:
+#X obj 660 11 flt.c_peak~;
+#X obj 205 80 cnv 1 560 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 Calculates coefficients for transfer function:
 H(z)=(b0+b1*z^-1+b2*z^-2)/(1+a1*z^-1+a2*z^-2);
 #X obj 50 155 noise.pink~;
 #X floatatom 136 184 5 0 0 0 - - -;
@@ -18,64 +18,64 @@ H(z)=(b0+b1*z^-1+b2*z^-2)/(1+a1*z^-1+a2*z^-2);
 #X obj 50 314 ui.gain~ @size 120 16;
 #X obj 50 342 dac~;
 #X obj 50 371 ui.dsp~;
-#X obj 20 410 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 410 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 415 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 420 1\.;
 #X text 150 420 float;
-#X obj 281 421 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 420 freq(Hz): center frequency. Range: 20\...20000;
+#X obj 241 421 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 420 freq(Hz): center frequency. Range: 20\...20000;
 #X text 120 438 2\.;
 #X text 150 438 float;
-#X obj 281 439 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 438 gain(db): filter gain. Range: -15\...+15;
+#X obj 241 439 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 438 gain(db): filter gain. Range: -15\...+15;
 #X text 120 456 3\.;
 #X text 150 456 float;
-#X obj 281 457 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 456 q: quality factory. Range: 0.01\...100;
-#X obj 20 484 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 457 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 456 q: quality factory. Range: 0.01\...100;
+#X obj 20 484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 489 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 494 @freq;
-#X text 280 494 Get/Set center frequency. Type: float. Units: Hz.
+#X text 240 494 Get/Set center frequency. Type: float. Units: Hz.
 Default value: 1000\. Value range: 20-20000;
 #X msg 120 531 @gain;
-#X text 280 531 Get/Set filter gain. Type: float. Units: db. Default
+#X text 240 531 Get/Set filter gain. Type: float. Units: db. Default
 value: 0\. Value range: -15-15;
 #X msg 120 568 @q;
-#X text 280 568 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
+#X text 240 568 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
 Default value: 1\. Value range: 0.01-100;
 #X msg 120 605 @active;
-#X text 280 605 Get/Set on/off dsp processing. Type: int. Default
+#X text 240 605 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
-#X obj 20 652 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 657 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 662 1\.;
-#X text 280 662 control signal.;
-#X obj 20 690 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 662 control signal.;
+#X obj 20 690 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 695 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 700 1\.;
-#X text 280 700 b0;
+#X text 240 700 b0;
 #X text 120 718 2\.;
-#X text 280 718 b1;
+#X text 240 718 b1;
 #X text 120 736 3\.;
-#X text 280 736 b2;
+#X text 240 736 b2;
 #X text 120 754 4\.;
-#X text 280 754 a1;
+#X text 240 754 a1;
 #X text 120 772 5\.;
-#X text 280 772 a2;
+#X text 240 772 a2;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 820 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 820 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 823 library: ceammc v0.7;
-#X text 462 835 see also:;
-#X obj 538 835 flt.eq_peak~;
-#X obj 640 835 flt.biquad~;
+#X text 502 835 see also:;
+#X obj 578 835 flt.eq_peak~;
+#X obj 680 835 flt.biquad~;
 #N canvas 10 842 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

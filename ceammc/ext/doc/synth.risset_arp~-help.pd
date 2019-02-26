@@ -1,10 +1,10 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 377 50 cnv 1 363 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 377 50 Jean Claude Risset's harmonic arpeggio effect;
-#X obj 1 1 cnv 5 740 40 empty empty synth.risset_arp~ 20 20 0 20
+#X obj 402 50 cnv 1 363 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 402 50 Jean Claude Risset's harmonic arpeggio effect;
+#X obj 1 1 cnv 5 765 40 empty empty synth.risset_arp~ 20 20 0 20
 -104026 -4096 0;
-#X obj 592 11 synth.risset_arp~;
+#X obj 617 11 synth.risset_arp~;
 #X obj 50 118 r $0s;
 #X floatatom 136 118 5 0 0 0 - - -;
 #X floatatom 242 118 5 0 0 0 - - -;
@@ -20,60 +20,60 @@
 #X obj 50 291 ui.dsp~;
 #X msg 405 291 harmonic\$1 \$2;
 #X obj 405 320 s $0s;
-#X obj 20 359 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 364 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 369 @freq;
-#X text 280 369 Get/Set base frequency. Type: float. Default value:
+#X text 240 369 Get/Set base frequency. Type: float. Default value:
 100\. Value range: 40-500;
 #X msg 120 406 @detune;
-#X text 280 406 Get/Set detune percent. Type: float. Default value:
+#X text 240 406 Get/Set detune percent. Type: float. Default value:
 5\. Value range: 0-1000;
 #X msg 120 443 @spread;
-#X text 280 443 Get/Set stereo spread. Type: float. Default value: 1\.
+#X text 240 443 Get/Set stereo spread. Type: float. Default value: 1\.
 Value range: 0-1;
 #X msg 120 480 @harmonic1;
-#X text 280 480 Get/Set 1st harmonic amplitude. Type: float. Default
+#X text 240 480 Get/Set 1st harmonic amplitude. Type: float. Default
 value: 1\. Value range: 0-1;
 #X msg 120 517 @harmonic2;
-#X text 280 517 Get/Set 2nd harmonic amplitude. Type: float. Default
+#X text 240 517 Get/Set 2nd harmonic amplitude. Type: float. Default
 value: 1\. Value range: 0-1;
 #X msg 120 554 @harmonic3;
-#X text 280 554 Get/Set 3rd harmonic amplitude. Type: float. Default
+#X text 240 554 Get/Set 3rd harmonic amplitude. Type: float. Default
 value: 1\. Value range: 0-1;
 #X msg 120 591 @harmonic4;
-#X text 280 591 Get/Set 4th harmonic amplitude. Type: float. Default
+#X text 240 591 Get/Set 4th harmonic amplitude. Type: float. Default
 value: 1\. Value range: 0-1;
 #X msg 120 628 @harmonic5;
-#X text 280 628 Get/Set 5th harmonic amplitude. Type: float. Default
+#X text 240 628 Get/Set 5th harmonic amplitude. Type: float. Default
 value: 1\. Value range: 0-1;
 #X msg 120 665 @harmonic6;
-#X text 280 665 Get/Set 6th harmonic amplitude. Type: float. Default
+#X text 240 665 Get/Set 6th harmonic amplitude. Type: float. Default
 value: 1\. Value range: 0-1;
 #X msg 120 702 @harmonic7;
-#X text 280 702 Get/Set 7th harmonic amplitude. Type: float. Default
+#X text 240 702 Get/Set 7th harmonic amplitude. Type: float. Default
 value: 1\. Value range: 0-1;
 #X msg 120 739 @harmonic8;
-#X text 280 739 Get/Set 8th harmonic amplitude. Type: float. Default
+#X text 240 739 Get/Set 8th harmonic amplitude. Type: float. Default
 value: 1\. Value range: 0-1;
-#X obj 20 786 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 786 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 791 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 796 1\.;
-#X text 280 796 control inlet.;
-#X obj 20 824 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 796 control inlet.;
+#X obj 20 824 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 829 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 834 1\.;
-#X text 280 834 ;
+#X text 240 834 ;
 #X text 120 852 2\.;
-#X text 280 852 ;
+#X text 240 852 ;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 900 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 900 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 903 library: ceammc v0.7;
 #N canvas 10 922 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

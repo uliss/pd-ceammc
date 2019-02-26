@@ -1,11 +1,11 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 290 50 cnv 1 450 35 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 290 50 simple marimba physical model implementing a single
+#X obj 315 50 cnv 1 450 35 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 315 50 simple marimba physical model implementing a single
 tone bar connected to tube;
-#X obj 1 1 cnv 5 740 40 empty empty synth.marimba~ 20 20 0 20 -104026
+#X obj 1 1 cnv 5 765 40 empty empty synth.marimba~ 20 20 0 20 -104026
 -4096 0;
-#X obj 613 11 synth.marimba~;
+#X obj 638 11 synth.marimba~;
 #X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 147 metro 130;
 #X msg 50 176 0 12 0 36 7 12;
@@ -22,43 +22,43 @@ tone bar connected to tube;
 #X obj 50 406 ui.gain~ @size 120 16;
 #X obj 50 435 dac~;
 #X obj 50 464 ui.dsp~;
-#X obj 20 503 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 503 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 508 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 513 @pitch;
-#X text 280 513 Get/Set pitch. Type: float. Default value: 48\. Value
+#X text 240 513 Get/Set pitch. Type: float. Default value: 48\. Value
 range: 36-84;
 #X msg 120 550 @pos;
-#X text 280 550 Get/Set excitation position. Type: float. Default
+#X text 240 550 Get/Set excitation position. Type: float. Default
 value: 0\. Value range: 0-4;
 #X msg 120 587 @cutoff;
-#X text 280 587 Get/Set cuttoff frequency of the strike generator.
+#X text 240 587 Get/Set cuttoff frequency of the strike generator.
 Type: float. Default value: 7000\. Value range: 1000-10000;
 #X msg 120 624 @sharp;
-#X text 280 624 Get/Set sharpness of the strike. Type: float. Default
+#X text 240 624 Get/Set sharpness of the strike. Type: float. Default
 value: 0.25\. Value range: 0.01-1;
 #X msg 120 661 @gain;
-#X text 280 661 Get/Set strike gain. Type: float. Default value: 1\.
+#X text 240 661 Get/Set strike gain. Type: float. Default value: 1\.
 Value range: 0-1;
 #X msg 120 698 @gate;
-#X text 280 698 Get/Set play trigger - 1: on \, 0: off. Type: float.
+#X text 240 698 Get/Set play trigger - 1: on \, 0: off. Type: float.
 Default value: 0\. Value range: 0-1;
-#X obj 20 745 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 750 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 755 1\.;
-#X text 280 755 input signal.;
-#X obj 20 783 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 755 input signal.;
+#X obj 20 783 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 788 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 793 1\.;
-#X text 280 793 ;
+#X text 240 793 ;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 841 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 841 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 844 library: ceammc v0.7;
 #N canvas 10 863 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

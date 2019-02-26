@@ -1,10 +1,10 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 456 50 cnv 1 284 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 456 50 gain boost|cut below some frequency;
-#X obj 1 1 cnv 5 740 40 empty empty flt.lowshelf~ 20 20 0 20 -104026
+#X obj 481 50 cnv 1 284 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 481 50 gain boost|cut below some frequency;
+#X obj 1 1 cnv 5 765 40 empty empty flt.lowshelf~ 20 20 0 20 -104026
 -4096 0;
-#X obj 620 11 flt.lowshelf~;
+#X obj 645 11 flt.lowshelf~;
 #X obj 50 118 noise~;
 #X floatatom 155 118 5 0 0 0 - - -;
 #X floatatom 270 118 5 0 0 0 - - -;
@@ -14,51 +14,51 @@
 #X obj 50 234 ui.gain~ @size 120 14;
 #X obj 280 234 ui.dsp~;
 #X obj 50 262 dac~;
-#X obj 20 301 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 306 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 311 1\.;
 #X text 150 311 float;
-#X obj 281 312 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 311 freq(Hz): corner frequency for the shelf. Range:
+#X obj 241 312 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 311 freq(Hz): corner frequency for the shelf. Range:
 20\...20000;
 #X text 120 343 2\.;
 #X text 150 343 float;
-#X obj 281 344 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 343 gain(db): amount of boost or cut apply to the signal.
+#X obj 241 344 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 343 gain(db): amount of boost or cut apply to the signal.
 Range: -15\...15;
-#X obj 20 385 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 385 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 390 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 395 @freq;
-#X text 280 395 Get/Set corner frequency for the shelf. Type: float.
+#X text 240 395 Get/Set corner frequency for the shelf. Type: float.
 Units: Hz. Default value: 1000\. Value range: 20-20000;
 #X msg 120 432 @gain;
-#X text 280 432 Get/Set amount of boost or cut apply to the signal.
+#X text 240 432 Get/Set amount of boost or cut apply to the signal.
 Type: float. Units: db. Default value: 0\. Value range: -15-15;
 #X msg 120 469 @active;
-#X text 280 469 Get/Set on/off dsp processing. Type: int. Default
+#X text 240 469 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
-#X obj 20 516 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 516 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 521 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 526 1\.;
-#X text 280 526 input signal.;
-#X obj 20 554 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 526 input signal.;
+#X obj 20 554 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 559 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 564 1\.;
-#X text 280 564 filtered signal;
+#X text 240 564 filtered signal;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 612 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 612 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 615 library: ceammc v0.7;
-#X text 418 627 see also:;
-#X obj 494 627 flt.highshelf~;
-#X obj 611 627 flt.c_lowshelf~;
+#X text 458 627 see also:;
+#X obj 534 627 flt.highshelf~;
+#X obj 651 627 flt.c_lowshelf~;
 #N canvas 10 634 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

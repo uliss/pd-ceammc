@@ -1,55 +1,55 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 575 50 cnv 1 165 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 575 50 Sine wave oscillator;
-#X obj 1 1 cnv 5 740 40 empty empty osc.sin~ 20 20 0 20 -104026 -4096
+#X obj 600 50 cnv 1 165 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 600 50 Sine wave oscillator;
+#X obj 1 1 cnv 5 765 40 empty empty osc.sin~ 20 20 0 20 -104026 -4096
 0;
-#X obj 656 11 osc.sin~;
-#X obj 245 80 cnv 1 495 33 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 included for library comprehension;
+#X obj 681 11 osc.sin~;
+#X obj 205 80 cnv 1 560 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 included for library comprehension;
 #X floatatom 50 141 5 0 0 0 - - -;
 #X obj 50 170 osc.sin~ 440;
 #X obj 50 199 ui.gain~ @size 120 16;
 #X obj 280 199 ui.dsp~;
 #X obj 50 228 dac~;
-#X obj 20 267 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 267 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 272 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 277 1\.;
 #X text 150 277 float;
-#X obj 281 278 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 277 freq(Hz): frequency. Min value: 20;
-#X obj 20 305 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 278 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 277 freq(Hz): frequency. Min value: 20;
+#X obj 20 305 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 310 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 315 @active;
-#X text 280 315 Get/Set on/off dsp processing. Type: int. Default
+#X text 240 315 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
-#X obj 20 362 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 362 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 367 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 372 1\.;
-#X text 280 372 frequency in Hz.;
+#X text 240 372 frequency in Hz.;
 #X text 120 390 2\.;
 #X text 150 390 *bang*;
-#X text 280 390 reset phase.;
-#X obj 20 418 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 390 reset phase.;
+#X obj 20 418 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 423 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 428 1\.;
-#X text 280 428 output signal;
+#X text 240 428 output signal;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title osc @url ceammc.osc-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
-#X text 313 520 see also:;
-#X obj 389 520 osc.saw~;
-#X obj 463 520 osc.tri~;
-#X obj 537 520 osc.square~;
-#X obj 633 520 lfo.impulse~;
+#X text 353 520 see also:;
+#X obj 429 520 osc.saw~;
+#X obj 503 520 osc.tri~;
+#X obj 577 520 osc.square~;
+#X obj 673 520 lfo.impulse~;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

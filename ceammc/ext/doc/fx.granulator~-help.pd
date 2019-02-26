@@ -1,10 +1,10 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 496 50 cnv 1 244 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 496 50 simple input stream granulator;
-#X obj 1 1 cnv 5 740 40 empty empty fx.granulator~ 20 20 0 20 -104026
+#X obj 521 50 cnv 1 244 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 521 50 simple input stream granulator;
+#X obj 1 1 cnv 5 765 40 empty empty fx.granulator~ 20 20 0 20 -104026
 -4096 0;
-#X obj 613 11 fx.granulator~;
+#X obj 638 11 fx.granulator~;
 #X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
 #X obj 50 147 expand_env;
 #X floatatom 174 147 5 0 0 0 - - -;
@@ -18,44 +18,44 @@
 #X obj 50 262 ui.gain~ @size 120 14;
 #X obj 280 262 ui.dsp~;
 #X obj 50 291 dac~;
-#X obj 20 330 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 335 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 340 @density;
-#X text 280 340 Get/Set number of grains. Type: int. Default value:
+#X text 240 340 Get/Set number of grains. Type: int. Default value:
 10\. Value range: 1-64;
 #X msg 120 377 @length;
-#X text 280 377 Get/Set grain length. Type: float. Units: ms. Default
+#X text 240 377 Get/Set grain length. Type: float. Units: ms. Default
 value: 100\. Value range: 10-500;
 #X msg 120 414 @delay;
-#X text 280 414 Get/Set grain total area length. Type: float. Units:
+#X text 240 414 Get/Set grain total area length. Type: float. Units:
 sec. Default value: 10\. Value range: 0.5-10;
 #X msg 120 451 @active;
-#X text 280 451 Get/Set on/off dsp processing. Type: int. Default
+#X text 240 451 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
-#X obj 20 498 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 503 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 508 reset;
-#X text 280 508 reset object state.;
-#X obj 20 550 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 508 reset object state.;
+#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 555 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 560 1\.;
-#X text 280 560 left channel.;
-#X obj 20 588 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 560 left channel.;
+#X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 593 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 598 1\.;
-#X text 280 598 output;
+#X text 240 598 output;
 #X text 120 616 2\.;
-#X text 280 616 output;
+#X text 240 616 output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 664 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 664 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 667 library: ceammc v0.7;
 #N canvas 10 686 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

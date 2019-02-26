@@ -1,51 +1,51 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 266 50 cnv 1 474 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 266 50 evaluates the polynomial described by the coefficients
+#X obj 291 50 cnv 1 474 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 291 50 evaluates the polynomial described by the coefficients
 list;
-#X obj 1 1 cnv 5 740 40 empty empty math.polyeval 20 20 0 20 -104026
+#X obj 1 1 cnv 5 765 40 empty empty math.polyeval 20 20 0 20 -104026
 -4096 0;
-#X obj 620 11 math.polyeval;
+#X obj 645 11 math.polyeval;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X msg 107 118 14 28;
 #X msg 194 147 @coeffs?;
 #X obj 50 176 math.polyeval 2 4 5 6;
 #X text 280 176 calc: y=2*x^3 + 4*x^2 + 5*x + 6;
 #X obj 50 205 ui.display @size 150 18;
-#X obj 20 245 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 245 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 250 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 255 1\.;
 #X text 150 255 float;
-#X obj 281 256 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 255 ARGS: coefficient list.;
-#X obj 20 283 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 256 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 255 ARGS: coefficient list.;
+#X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 288 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 293 @coeffs;
-#X text 280 293 Get/Set coefficient list. Type: list;
-#X obj 20 330 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 293 Get/Set coefficient list. Type: list;
+#X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 335 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 340 1\.;
 #X text 150 340 *float*;
-#X text 280 340 evalute polynomial.;
+#X text 240 340 evalute polynomial.;
 #X text 150 358 *list*;
-#X text 280 358 evalute each value in list.;
+#X text 240 358 evalute each value in list.;
 #X text 120 376 2\.;
 #X text 150 376 *list*;
-#X text 280 376 sets polynomial coefficients.;
-#X obj 20 404 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 376 sets polynomial coefficients.;
+#X obj 20 404 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 409 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 414 1\.;
-#X text 280 414 calculated value;
+#X text 240 414 calculated value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

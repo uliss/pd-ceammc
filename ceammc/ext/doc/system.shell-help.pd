@@ -1,10 +1,10 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 418 50 cnv 1 322 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 418 50 run external command in separate process;
-#X obj 1 1 cnv 5 740 40 empty empty system.shell 20 20 0 20 -104026
+#X obj 443 50 cnv 1 322 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 443 50 run external command in separate process;
+#X obj 1 1 cnv 5 765 40 empty empty system.shell 20 20 0 20 -104026
 -4096 0;
-#X obj 628 11 system.shell;
+#X obj 653 11 system.shell;
 #X msg 50 118 ls;
 #X msg 98 118 ls -l;
 #X msg 117 147 top;
@@ -14,40 +14,40 @@
 #X obj 50 234 str->sym;
 #X floatatom 203 234 5 0 0 0 - - -;
 #X obj 50 262 print;
-#X obj 20 301 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 306 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 311 @nosplit;
-#X text 280 311 do not split process output to lines. Output as single
+#X text 240 311 do not split process output to lines. Output as single
 string;
-#X obj 20 358 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 358 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 363 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 368 terminate;
-#X text 280 368 terminate running process.;
+#X text 240 368 terminate running process.;
 #X msg 120 400 kill;
-#X text 280 400 kill running process.;
-#X obj 20 442 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 400 kill running process.;
+#X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 447 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 452 1\.;
 #X text 150 452 *symbol*;
-#X text 280 452 run specified program.;
+#X text 240 452 run specified program.;
 #X text 150 470 *any*;
-#X text 280 470 run specified program with arguments.;
-#X obj 20 498 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 470 run specified program with arguments.;
+#X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 503 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 508 1\.;
-#X text 280 508 output list of strings;
+#X text 240 508 output list of strings;
 #X text 120 526 2\.;
-#X text 280 526 output process exit code;
+#X text 240 526 output process exit code;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 574 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 574 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 577 library: ceammc v0.7;
 #N canvas 10 596 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

@@ -1,13 +1,13 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 449 50 cnv 1 291 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 449 50 simple icon with button capabilities;
-#X obj 1 1 cnv 5 740 40 empty empty ui.icon 20 20 0 20 -104026 -4096
+#X obj 474 50 cnv 1 291 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 474 50 simple icon with button capabilities;
+#X obj 1 1 cnv 5 765 40 empty empty ui.icon 20 20 0 20 -104026 -4096
 0;
-#X obj 662 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+#X obj 687 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.icon] @url ui.icon-help.pd;
-#X obj 245 80 cnv 1 495 75 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 Alt+Click outputs all possible icon names to Pd window.
+#X obj 205 80 cnv 1 560 75 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 Alt+Click outputs all possible icon names to Pd window.
 Can be in bang \, button and toggle modes. Button mode is default:
 outputs 1 on mouse down \, 0 on mouse up. See @mode property for more
 information.;
@@ -276,30 +276,30 @@ information.;
 #X text 395 3826 zoom_out;
 #X obj 50 3855 ui.icon keyboard;
 #X obj 395 3855 ui.icon zoom_out;
-#X obj 20 3894 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3894 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 3899 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 3904 1\.;
 #X text 150 3904 symbol;
-#X obj 281 3905 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 3904 NAME: icon name from list.;
-#X obj 20 3932 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 3905 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 3904 NAME: icon name from list.;
+#X obj 20 3932 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 3937 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 3942 @mode;
-#X text 280 3942 Get/Set output mode. In bang mode - outputs bang on
+#X text 240 3942 Get/Set output mode. In bang mode - outputs bang on
 mouse down. In button mode outputs 1 on mouse down and 0 on mouse up.
 In toggle mode outputs 1/0 on mouse down \, like vanilla toggle
 object. Type: symbol. Default value: button. Allowed values: bang \,
 button \, toggle;
 #X msg 120 4021 @enabled;
-#X text 280 4021 Get/Set enabled property. Type: int. Allowed values:
+#X text 240 4021 Get/Set enabled property. Type: int. Allowed values:
 0 \, 1;
 #X msg 120 4048 @icon_size;
-#X text 280 4048 Get/Set icons size. Type: int. Default value: 24\.
+#X text 240 4048 Get/Set icons size. Type: int. Default value: 24\.
 Allowed values: 18 \, 24 \, 36 \, 48;
 #X msg 120 4085 @icon;
-#X text 280 4085 Get/Set icon name. Type: symbol. Default value:
+#X text 240 4085 Get/Set icon name. Type: symbol. Default value:
 default. Allowed values: add \, add_circle \, add_circle_outline \,
 add_to_queue \, alarm \, alarm_off \, alarm_on \, album \, arrow_down
 \, arrow_left \, arrow_right \, arrow_up \, audio \, backspace \,
@@ -326,80 +326,80 @@ trending_flat \, undo \, videocam \, visibility \, visibility_off \,
 volume_down \, volume_mute \, volume_off \, volume_up \, zoom_in \,
 zoom_out \, default;
 #X msg 120 4458 @presetname;
-#X text 280 4458 Get/Set preset name for using with [ui.preset]. Type:
+#X text 240 4458 Get/Set preset name for using with [ui.preset]. Type:
 symbol;
 #X msg 120 4495 @send;
-#X text 280 4495 Get/Set send destination. Type: symbol;
+#X text 240 4495 Get/Set send destination. Type: symbol;
 #X msg 120 4522 @receive;
-#X text 280 4522 Get/Set receive source. Type: symbol;
+#X text 240 4522 Get/Set receive source. Type: symbol;
 #X msg 120 4549 @size;
-#X text 280 4549 Get/Set element size (width \, height pair). Type:
+#X text 240 4549 Get/Set element size (width \, height pair). Type:
 list;
 #X msg 120 4576 @pinned;
-#X text 280 4576 Get/Set pin mode. if 1 - put element to the lowest
+#X text 240 4576 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1;
 #X msg 120 4613 @active_color;
-#X text 280 4613 Get/Set active color (list of red \, green \, blue
+#X text 240 4613 Get/Set active color (list of red \, green \, blue
 values in 0-1 range). Type: list;
 #X msg 120 4650 @background_color;
-#X text 280 4650 Get/Set element background color (list of red \,
+#X text 240 4650 Get/Set element background color (list of red \,
 green \, blue values in 0-1 range). Type: list;
 #X msg 120 4687 @border_color;
-#X text 280 4687 Get/Set border color (list of red \, green \, blue
+#X text 240 4687 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list;
 #X msg 120 4724 @fontsize;
-#X text 280 4724 Get/Set fontsize. Type: int. Default value: 11\.
+#X text 240 4724 Get/Set fontsize. Type: int. Default value: 11\.
 Value range: 4-11;
 #X msg 120 4761 @fontname;
-#X text 280 4761 Get/Set fontname. Type: symbol;
+#X text 240 4761 Get/Set fontname. Type: symbol;
 #X msg 120 4788 @fontweight;
-#X text 280 4788 Get/Set font weight. Type: symbol. Default value:
+#X text 240 4788 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold;
 #X msg 120 4825 @fontslant;
-#X text 280 4825 Get/Set font slant. Type: symbol. Default value:
+#X text 240 4825 Get/Set font slant. Type: symbol. Default value:
 roman. Allowed values: roman \, italic;
-#X obj 20 4872 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4872 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 4877 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 4882 set;
-#X text 280 4882 sets icon name.;
+#X text 240 4882 sets icon name.;
 #X msg 120 4914 load;
-#X text 280 4914 loads specified preset. Arguments are:;
-#X obj 290 4942 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 290 4942 IDX: preset index. Type: int.;
+#X text 240 4914 loads specified preset. Arguments are:;
+#X obj 250 4942 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 4942 IDX: preset index. Type: int.;
 #X msg 120 4970 store;
-#X text 280 4970 stores specified preset. Arguments are:;
-#X obj 290 4998 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 290 4998 IDX: preset index. Type: int.;
+#X text 240 4970 stores specified preset. Arguments are:;
+#X obj 250 4998 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 4998 IDX: preset index. Type: int.;
 #X msg 120 5026 clear;
-#X text 280 5026 clears specified preset. Arguments are:;
-#X obj 290 5054 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 290 5054 IDX: preset index. Type: int.;
+#X text 240 5026 clears specified preset. Arguments are:;
+#X obj 250 5054 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 5054 IDX: preset index. Type: int.;
 #X msg 120 5082 pos;
-#X text 280 5082 set UI element position. Arguments are:;
-#X obj 290 5110 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 290 5110 X: top left x-coord. Type: float.;
-#X obj 290 5138 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 290 5138 Y: top right y-coord. Type: float.;
-#X obj 20 5176 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 5082 set UI element position. Arguments are:;
+#X obj 250 5110 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 5110 X: top left x-coord. Type: float.;
+#X obj 250 5138 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 5138 Y: top right y-coord. Type: float.;
+#X obj 20 5176 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 5181 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 5186 1\.;
-#X text 280 5186 (hidden inlet!) see @mode property.;
-#X obj 20 5214 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 5186 (hidden inlet!) see @mode property.;
+#X obj 20 5214 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 5219 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 5224 1\.;
-#X text 280 5224 (hidden outlet!) see @mode property;
+#X text 240 5224 (hidden outlet!) see @mode property;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 5272 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 5272 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 5275 library: ceammc v0.7;
-#X text 591 5287 see also:;
-#X obj 667 5290 ui.link @background_color 0.78431 0.78431 0.78431
+#X text 631 5287 see also:;
+#X obj 707 5290 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.bang] @url ui.bang-help.pd;
 #N canvas 10 5294 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

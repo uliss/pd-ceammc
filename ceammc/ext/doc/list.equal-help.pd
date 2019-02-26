@@ -1,10 +1,10 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 488 50 cnv 1 252 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 488 50 checks if given lists are equal;
-#X obj 1 1 cnv 5 740 40 empty empty list.equal 20 20 0 20 -104026
+#X obj 513 50 cnv 1 252 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 513 50 checks if given lists are equal;
+#X obj 1 1 cnv 5 765 40 empty empty list.equal 20 20 0 20 -104026
 -4096 0;
-#X obj 643 11 list.equal;
+#X obj 668 11 list.equal;
 #X msg 50 118 1 2 3;
 #X msg 136 118 list a b c;
 #X msg 174 147 1 2 3;
@@ -14,45 +14,45 @@
 #X obj 50 219 list.equal a b c;
 #X floatatom 50 248 5 0 0 0 - - -;
 #X obj 107 248 print;
-#X obj 20 287 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 287 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 292 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 297 1\.;
 #X text 150 297 list;
-#X obj 281 298 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 297 LIST: initial value.;
-#X obj 20 325 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 298 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 297 LIST: initial value.;
+#X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 330 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 335 @pattern;
-#X text 280 335 Get/Set current pattern. Type: list;
-#X obj 20 372 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 335 Get/Set current pattern. Type: list;
+#X obj 20 372 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 377 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 382 dump;
-#X text 280 382 dumps object state to PD console window.;
-#X obj 20 424 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 382 dumps object state to PD console window.;
+#X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 429 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 434 1\.;
 #X text 150 434 *list*;
-#X text 280 434 First list.;
+#X text 240 434 First list.;
 #X text 150 452 *data:mlist*;
-#X text 280 452 First list.;
+#X text 240 452 First list.;
 #X text 120 470 2\.;
 #X text 150 470 *list*;
-#X text 280 470 Second list.;
-#X obj 20 498 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 470 Second list.;
+#X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 503 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 508 1\.;
-#X text 280 508 "1" if lists are equal \, "0" otherwise;
+#X text 240 508 "1" if lists are equal \, "0" otherwise;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 556 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 556 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 559 library: ceammc v0.7;
 #N canvas 10 578 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

@@ -1,10 +1,10 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 568 50 cnv 1 172 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 568 50 Karplus-Strong string;
-#X obj 1 1 cnv 5 740 40 empty empty synth.ks~ 20 20 0 20 -104026 -4096
+#X obj 593 50 cnv 1 172 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 593 50 Karplus-Strong string;
+#X obj 1 1 cnv 5 765 40 empty empty synth.ks~ 20 20 0 20 -104026 -4096
 0;
-#X obj 649 11 synth.ks~;
+#X obj 674 11 synth.ks~;
 #X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 147 metro 130;
 #X msg 50 176 0 12 0 36 7 12;
@@ -20,50 +20,50 @@
 #X obj 50 378 ui.gain~ @size 120 16;
 #X obj 50 406 dac~;
 #X obj 50 435 ui.dsp~;
-#X obj 20 474 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 474 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 479 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 484 @pitch;
-#X text 280 484 Get/Set pitch. Type: float. Default value: 48\. Value
+#X text 240 484 Get/Set pitch. Type: float. Default value: 48\. Value
 range: 36-84;
 #X msg 120 521 @pos;
-#X text 280 521 Get/Set pluck position (1 is on the bridge). Type:
+#X text 240 521 Get/Set pluck position (1 is on the bridge). Type:
 float. Default value: 0.7\. Value range: 0-1;
 #X msg 120 558 @mute;
-#X text 280 558 Get/Set mute coefficient (0 for no mute and 1 for
+#X text 240 558 Get/Set mute coefficient (0 for no mute and 1 for
 instant mute). Type: float. Default value: 0\. Value range: 0-1;
 #X msg 120 595 @gain;
-#X text 280 595 Get/Set pluck gain. Type: float. Default value: 1\.
+#X text 240 595 Get/Set pluck gain. Type: float. Default value: 1\.
 Value range: 0-1;
 #X msg 120 632 @sharp;
-#X text 280 632 Get/Set pluck sharpness. Type: float. Default value:
+#X text 240 632 Get/Set pluck sharpness. Type: float. Default value:
 0.25\. Value range: 0.01-1;
 #X msg 120 669 @cutoff;
-#X text 280 669 Get/Set cutoff coefficent (for low pass filter). Type:
+#X text 240 669 Get/Set cutoff coefficent (for low pass filter). Type:
 float. Default value: 1\. Value range: 0.1-1;
 #X msg 120 706 @mode;
-#X text 280 706 Get/Set excitation mode: 0 - pluck \, 1 - strike.
+#X text 240 706 Get/Set excitation mode: 0 - pluck \, 1 - strike.
 Type: int. Default value: 0\. Value range: 0-1\. Allowed values: 0 \,
 1;
 #X msg 120 743 @gate;
-#X text 280 743 Get/Set play trigger - 1: on \, 0: off. Type: float.
+#X text 240 743 Get/Set play trigger - 1: on \, 0: off. Type: float.
 Default value: 0\. Value range: 0-1;
-#X obj 20 790 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 790 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 795 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 800 1\.;
-#X text 280 800 input signal.;
-#X obj 20 828 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 800 input signal.;
+#X obj 20 828 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 833 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 838 1\.;
-#X text 280 838 ;
+#X text 240 838 ;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 886 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 886 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 889 library: ceammc v0.7;
 #N canvas 10 908 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

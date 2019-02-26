@@ -1,43 +1,43 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 584 50 cnv 1 156 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 584 50 logarithm functions;
-#X obj 1 1 cnv 5 740 40 empty empty math.log10 20 20 0 20 -104026
+#X obj 609 50 cnv 1 156 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 609 50 logarithm functions;
+#X obj 1 1 cnv 5 765 40 empty empty math.log10 20 20 0 20 -104026
 -4096 0;
-#X obj 642 11 math.log10;
-#X obj 245 80 cnv 1 495 162 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 The log10() function computes the value of the
+#X obj 667 11 math.log10;
+#X obj 205 80 cnv 1 560 162 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 The log10() function computes the value of the
 logarithm of argument x to base 10\.;
-#X text 250 117 Special values:;
-#X text 250 140 log10(+-0) return -infinity;
-#X text 250 163 log10(1) return +0\.;
-#X text 250 186 log10(x) return a NaN;
-#X text 250 209 log10(+infinity) return +infinity.;
+#X text 210 117 Special values:;
+#X text 210 140 log10(+-0) return -infinity;
+#X text 210 163 log10(1) return +0\.;
+#X text 210 186 log10(x) return a NaN;
+#X text 210 209 log10(+infinity) return +infinity.;
 #X floatatom 50 270 5 0 0 0 - - -;
 #X obj 50 299 math.log10;
 #X floatatom 50 328 5 0 0 0 - - -;
-#X obj 20 367 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 372 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 377 1\.;
 #X text 150 377 *float*;
-#X text 280 377 input value.;
+#X text 240 377 input value.;
 #X text 150 395 *list*;
-#X text 280 395 apply to all numeric values.;
-#X obj 20 423 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 395 apply to all numeric values.;
+#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 428 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 433 1\.;
-#X text 280 433 result value;
+#X text 240 433 result value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
-#X text 586 520 see also:;
-#X obj 662 520 math.exp;
+#X text 626 520 see also:;
+#X obj 702 520 math.exp;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

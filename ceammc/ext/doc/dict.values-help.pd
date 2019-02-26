@@ -1,38 +1,38 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 528 50 cnv 1 212 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 528 50 dictionary values as mlist;
-#X obj 1 1 cnv 5 740 40 empty empty dict.values 20 20 0 20 -104026
+#X obj 553 50 cnv 1 212 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 553 50 dictionary values as mlist;
+#X obj 1 1 cnv 5 765 40 empty empty dict.values 20 20 0 20 -104026
 -4096 0;
-#X obj 635 11 dict.values;
+#X obj 660 11 dict.values;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 data.dict \[bpm: 120\] \[title: "Unknown masterpiece"\]
 \[freqs: 1 2 3 4\];
 #X obj 50 205 dict.values;
 #X obj 50 234 ui.display @display_type 1 @size 150 18;
-#X obj 20 274 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 274 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 279 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 284 1\.;
 #X text 150 284 *data*;
-#X text 280 284 data.dict.;
-#X obj 20 312 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 284 data.dict.;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 322 1\.;
-#X text 280 322 mlist of values;
+#X text 240 322 mlist of values;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
-#X text 412 520 see also:;
-#X obj 488 520 data.dict;
-#X obj 568 520 data.mlist;
-#X obj 655 520 dict.keys;
+#X text 452 520 see also:;
+#X obj 528 520 data.dict;
+#X obj 608 520 data.mlist;
+#X obj 695 520 dict.keys;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

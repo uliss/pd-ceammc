@@ -1,10 +1,10 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 519 50 cnv 1 221 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 519 50 digitized CryBaby wah pedal;
-#X obj 1 1 cnv 5 740 40 empty empty fx.wahwah~ 20 20 0 20 -104026
+#X obj 544 50 cnv 1 221 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 544 50 digitized CryBaby wah pedal;
+#X obj 1 1 cnv 5 765 40 empty empty fx.wahwah~ 20 20 0 20 -104026
 -4096 0;
-#X obj 642 11 fx.wahwah~;
+#X obj 667 11 fx.wahwah~;
 #X obj 50 118 noise.lfreq0~ 10;
 #X obj 50 147 fx.drone_box~;
 #X obj 203 147 ui.hsl;
@@ -13,38 +13,38 @@
 #X obj 50 234 ui.gain~ @size 120 16;
 #X obj 50 262 dac~;
 #X obj 50 291 ui.dsp~;
-#X obj 20 330 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 335 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 340 @angle;
-#X text 280 340 Get/Set pedal angle. Type: float. Default value: 0.6\.
+#X text 240 340 Get/Set pedal angle. Type: float. Default value: 0.6\.
 Value range: 0-1;
 #X msg 120 377 @speed;
-#X text 280 377 Get/Set automatisation speed. Type: float. Units: bpm.
+#X text 240 377 Get/Set automatisation speed. Type: float. Units: bpm.
 Default value: 540\. Value range: 360-780;
 #X msg 120 414 @drywet;
-#X text 280 414 Get/Set proportion of mix between the original (dry)
+#X text 240 414 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 1\. Value range: 0-1;
 #X msg 120 465 @bypass;
-#X text 280 465 Get/Set if set to 1 - bypass 'effected' signal. Type:
+#X text 240 465 Get/Set if set to 1 - bypass 'effected' signal. Type:
 int. Default value: 0\. Allowed values: 0 \, 1;
-#X obj 20 512 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 512 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 517 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 522 1\.;
-#X text 280 522 input signal.;
-#X obj 20 550 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 522 input signal.;
+#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 555 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 560 1\.;
-#X text 280 560 ;
+#X text 240 560 ;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 608 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 608 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 611 library: ceammc v0.7;
 #N canvas 10 630 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

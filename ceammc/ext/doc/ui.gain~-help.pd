@@ -1,10 +1,10 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 615 50 cnv 1 125 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 615 50 UI gain control;
-#X obj 1 1 cnv 5 740 40 empty empty ui.gain~ 20 20 0 20 -104026 -4096
+#X obj 640 50 cnv 1 125 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 640 50 UI gain control;
+#X obj 1 1 cnv 5 765 40 empty empty ui.gain~ 20 20 0 20 -104026 -4096
 0;
-#X obj 655 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+#X obj 680 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.gain~] @url ui.gain~-help.pd;
 #X obj 50 118 osc~ 440;
 #X msg 78 147 @db -30;
@@ -19,106 +19,106 @@
 #X obj 50 334 ~->;
 #X obj 50 363 dac~;
 #X obj 126 363 ui.display @display_type 1 @size 150 18;
-#X obj 20 403 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 403 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 408 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 413 @max;
-#X text 280 413 Get/Set maximum gain value. Type: int. Units: db.
+#X text 240 413 Get/Set maximum gain value. Type: int. Units: db.
 Default value: 0\. Value range: -12-12;
 #X msg 120 450 @min;
-#X text 280 450 Get/Set minimal gain value. Type: int. Units: db.
+#X text 240 450 Get/Set minimal gain value. Type: int. Units: db.
 Default value: -60\. Value range: -90--30;
 #X msg 120 487 @db;
-#X text 280 487 Get/Set gain in dbfs scale. Type: float. Units: db.
+#X text 240 487 Get/Set gain in dbfs scale. Type: float. Units: db.
 Default value: -60;
 #X msg 120 524 @amp;
-#X text 280 524 Get/Set gain as amplitude ratio. Type: float. Default
+#X text 240 524 Get/Set gain as amplitude ratio. Type: float. Default
 value: 0;
 #X msg 120 561 @output_value;
-#X text 280 561 Get/Set flag to output @db property after each knob
+#X text 240 561 Get/Set flag to output @db property after each knob
 move. Type: int. Default value: 0\. Allowed values: 0 \, 1;
 #X msg 120 598 @presetname;
-#X text 280 598 Get/Set preset name for using with [ui.preset]. Type:
+#X text 240 598 Get/Set preset name for using with [ui.preset]. Type:
 symbol;
 #X msg 120 635 @send;
-#X text 280 635 Get/Set send destination. Type: symbol;
+#X text 240 635 Get/Set send destination. Type: symbol;
 #X msg 120 662 @receive;
-#X text 280 662 Get/Set receive source. Type: symbol;
+#X text 240 662 Get/Set receive source. Type: symbol;
 #X msg 120 689 @size;
-#X text 280 689 Get/Set element size (width \, height pair). Type:
+#X text 240 689 Get/Set element size (width \, height pair). Type:
 list;
 #X msg 120 716 @pinned;
-#X text 280 716 Get/Set pin mode. if 1 - put element to the lowest
+#X text 240 716 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1;
 #X msg 120 753 @knob_color;
-#X text 280 753 Get/Set knob color (list of red \, green \, blue
+#X text 240 753 Get/Set knob color (list of red \, green \, blue
 values in 0-1 range). Type: list;
 #X msg 120 790 @background_color;
-#X text 280 790 Get/Set element background color (list of red \, green
+#X text 240 790 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list;
 #X msg 120 827 @border_color;
-#X text 280 827 Get/Set border color (list of red \, green \, blue
+#X text 240 827 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list;
 #X msg 120 864 @fontsize;
-#X text 280 864 Get/Set fontsize. Type: int. Default value: 11\. Value
+#X text 240 864 Get/Set fontsize. Type: int. Default value: 11\. Value
 range: 4-11;
 #X msg 120 901 @fontname;
-#X text 280 901 Get/Set fontname. Type: symbol;
+#X text 240 901 Get/Set fontname. Type: symbol;
 #X msg 120 928 @fontweight;
-#X text 280 928 Get/Set font weight. Type: symbol. Default value:
+#X text 240 928 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold;
 #X msg 120 965 @fontslant;
-#X text 280 965 Get/Set font slant. Type: symbol. Default value:
+#X text 240 965 Get/Set font slant. Type: symbol. Default value:
 roman. Allowed values: roman \, italic;
-#X obj 20 1012 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1012 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1017 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 1022 + N;
-#X text 280 1022 increase current gain by N db.;
+#X text 240 1022 increase current gain by N db.;
 #X msg 120 1054 - N;
-#X text 280 1054 decrease current gain by N db.;
+#X text 240 1054 decrease current gain by N db.;
 #X msg 120 1086 ++;
-#X text 280 1086 decrease current gain by 1 db.;
+#X text 240 1086 decrease current gain by 1 db.;
 #X msg 120 1118 --;
-#X text 280 1118 decrease current gain by 1 db.;
+#X text 240 1118 decrease current gain by 1 db.;
 #X msg 120 1150 set N;
-#X text 280 1150 set current gain to N db.;
+#X text 240 1150 set current gain to N db.;
 #X msg 120 1182 load;
-#X text 280 1182 loads specified preset. Arguments are:;
-#X obj 290 1210 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 290 1210 IDX: preset index. Type: int.;
+#X text 240 1182 loads specified preset. Arguments are:;
+#X obj 250 1210 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1210 IDX: preset index. Type: int.;
 #X msg 120 1238 store;
-#X text 280 1238 stores specified preset. Arguments are:;
-#X obj 290 1266 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 290 1266 IDX: preset index. Type: int.;
+#X text 240 1238 stores specified preset. Arguments are:;
+#X obj 250 1266 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1266 IDX: preset index. Type: int.;
 #X msg 120 1294 clear;
-#X text 280 1294 clears specified preset. Arguments are:;
-#X obj 290 1322 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 290 1322 IDX: preset index. Type: int.;
+#X text 240 1294 clears specified preset. Arguments are:;
+#X obj 250 1322 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1322 IDX: preset index. Type: int.;
 #X msg 120 1350 pos;
-#X text 280 1350 set UI element position. Arguments are:;
-#X obj 290 1378 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 290 1378 X: top left x-coord. Type: float.;
-#X obj 290 1406 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 290 1406 Y: top right y-coord. Type: float.;
-#X obj 20 1444 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 1350 set UI element position. Arguments are:;
+#X obj 250 1378 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1378 X: top left x-coord. Type: float.;
+#X obj 250 1406 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1406 Y: top right y-coord. Type: float.;
+#X obj 20 1444 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1449 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1454 1\.;
-#X text 280 1454 input signal.;
+#X text 240 1454 input signal.;
 #X text 150 1472 *bang*;
-#X text 280 1472 output current gain @db property.;
-#X obj 20 1500 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 1472 output current gain @db property.;
+#X obj 20 1500 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1505 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1510 1\.;
-#X text 280 1510 output signal;
+#X text 240 1510 output signal;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1558 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 1558 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1561 library: ceammc v0.7;
 #N canvas 10 1580 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

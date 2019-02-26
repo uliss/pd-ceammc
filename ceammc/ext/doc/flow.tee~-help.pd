@@ -1,12 +1,12 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 465 50 cnv 1 275 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 465 50 separate audio and control streams;
-#X obj 1 1 cnv 5 740 40 empty empty flow.tee~ 20 20 0 20 -104026 -4096
+#X obj 490 50 cnv 1 275 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 490 50 separate audio and control streams;
+#X obj 1 1 cnv 5 765 40 empty empty flow.tee~ 20 20 0 20 -104026 -4096
 0;
-#X obj 546 11 tee~;
-#X obj 601 11 ~->;
-#X obj 649 11 flow.tee~;
+#X obj 571 11 tee~;
+#X obj 626 11 ~->;
+#X obj 674 11 flow.tee~;
 #X obj 50 118 osc~ 440;
 #X obj 69 147 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -18,24 +18,24 @@
 #X obj 146 205 msg set;
 #X obj 50 234 dac~ 1;
 #X msg 146 234 ;
-#X obj 20 273 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 278 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 283 1\.;
-#X text 280 283 mixed stream.;
-#X obj 20 311 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 283 mixed stream.;
+#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 316 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 321 1\.;
-#X text 280 321 audio stream;
+#X text 240 321 audio stream;
 #X text 120 339 2\.;
-#X text 280 339 control stream;
+#X text 240 339 control stream;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

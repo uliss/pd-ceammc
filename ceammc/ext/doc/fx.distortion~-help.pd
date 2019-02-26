@@ -1,10 +1,10 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 504 50 cnv 1 236 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 504 50 cubic nonlinearity distortion;
-#X obj 1 1 cnv 5 740 40 empty empty fx.distortion~ 20 20 0 20 -104026
+#X obj 529 50 cnv 1 236 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 529 50 cubic nonlinearity distortion;
+#X obj 1 1 cnv 5 765 40 empty empty fx.distortion~ 20 20 0 20 -104026
 -4096 0;
-#X obj 613 11 fx.distortion~;
+#X obj 638 11 fx.distortion~;
 #X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
 #X obj 50 147 expand_env;
 #X obj 50 176 readsf~;
@@ -20,53 +20,53 @@
 #X obj 50 334 ui.gain~ @size 120 16;
 #X obj 376 334 ui.dsp~;
 #X obj 50 363 dac~;
-#X obj 20 402 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 402 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 407 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 412 1\.;
 #X text 150 412 float;
-#X obj 281 413 cnv 1 48 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 412 drive: distortion amount. Range: 0\...1;
+#X obj 241 413 cnv 1 48 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 412 drive: distortion amount. Range: 0\...1;
 #X text 120 430 2\.;
 #X text 150 430 float;
-#X obj 281 431 cnv 1 56 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 430 offset: constant added before nonlinearity to give
+#X obj 241 431 cnv 1 56 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 430 offset: constant added before nonlinearity to give
 even harmonics. Range: 0\...1;
-#X obj 20 472 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 472 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 477 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 482 @drive;
-#X text 280 482 Get/Set distortion amount. Type: float. Default value:
+#X text 240 482 Get/Set distortion amount. Type: float. Default value:
 0.5\. Value range: 0-1;
 #X msg 120 519 @drywet;
-#X text 280 519 Get/Set proportion of mix between the original (dry)
+#X text 240 519 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 1\. Value range: 0-1;
 #X msg 120 570 @offset;
-#X text 280 570 Get/Set constant added before nonlinearity to give
+#X text 240 570 Get/Set constant added before nonlinearity to give
 even harmonics. Type: float. Default value: 0\. Value range: 0-0.5;
 #X msg 120 621 @bypass;
-#X text 280 621 Get/Set if set to 1 - bypass 'effected' signal. Type:
+#X text 240 621 Get/Set if set to 1 - bypass 'effected' signal. Type:
 int. Default value: 0\. Allowed values: 0 \, 1;
 #X msg 120 658 @active;
-#X text 280 658 Get/Set on/off dsp processing. Type: int. Default
+#X text 240 658 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
-#X obj 20 705 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 705 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 710 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 715 1\.;
-#X text 280 715 input signal.;
-#X obj 20 743 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 715 input signal.;
+#X obj 20 743 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 748 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 753 1\.;
-#X text 280 753 output signal;
+#X text 240 753 output signal;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 801 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 801 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 804 library: ceammc v0.7;
 #N canvas 10 823 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

@@ -1,30 +1,30 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 566 50 cnv 1 174 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 566 50 White noise generator;
-#X obj 1 1 cnv 5 740 40 empty empty noise.white~ 20 20 0 20 -104026
+#X obj 591 50 cnv 1 174 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 591 50 White noise generator;
+#X obj 1 1 cnv 5 765 40 empty empty noise.white~ 20 20 0 20 -104026
 -4096 0;
-#X obj 628 11 noise.white~;
-#X obj 245 80 cnv 1 495 33 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 outputs random numbers between -1 and 1 at signal
+#X obj 653 11 noise.white~;
+#X obj 205 80 cnv 1 560 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 outputs random numbers between -1 and 1 at signal
 rate.;
 #X obj 50 141 ui.dsp~;
 #X obj 50 185 noise.white~;
 #X obj 50 242 ui.scope~ @size 150 100;
-#X obj 20 364 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 369 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 374 1\.;
-#X text 280 374 output signal;
+#X text 240 374 output signal;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title noise @url ceammc.noise-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
-#X text 564 520 see also:;
-#X obj 640 520 noise.pink~;
+#X text 604 520 see also:;
+#X obj 680 520 noise.pink~;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

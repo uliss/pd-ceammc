@@ -1,10 +1,10 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 346 50 cnv 1 394 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 346 50 constant-Q second order peaking equalizer section;
-#X obj 1 1 cnv 5 740 40 empty empty flt.eq_peak_cq~ 20 20 0 20 -104026
+#X obj 371 50 cnv 1 394 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 371 50 constant-Q second order peaking equalizer section;
+#X obj 1 1 cnv 5 765 40 empty empty flt.eq_peak_cq~ 20 20 0 20 -104026
 -4096 0;
-#X obj 606 11 flt.eq_peak_cq~;
+#X obj 631 11 flt.eq_peak_cq~;
 #X obj 50 118 noise~;
 #X floatatom 136 118 5 0 0 0 - - -;
 #X floatatom 242 118 5 0 0 0 - - -;
@@ -15,55 +15,55 @@
 #X obj 50 176 flt.eq_peak_cq~ 3000 15 3;
 #X obj 50 205 ui.ssc~ @size 500 120 @log_scale 1;
 #X obj 50 334 ui.dsp~;
-#X obj 20 373 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 373 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 378 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 383 1\.;
 #X text 150 383 float;
-#X obj 281 384 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 383 freq(Hz): center frequency. Range: 20\...20000;
+#X obj 241 384 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 383 freq(Hz): center frequency. Range: 20\...20000;
 #X text 120 401 2\.;
 #X text 150 401 float;
-#X obj 281 402 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 401 gain(db): filter gain. Range: -15\...+15;
+#X obj 241 402 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 401 gain(db): filter gain. Range: -15\...+15;
 #X text 120 419 3\.;
 #X text 150 419 float;
-#X obj 281 420 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 419 q: quality factory. Range: 0.01\...100;
-#X obj 20 447 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 420 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 419 q: quality factory. Range: 0.01\...100;
+#X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 452 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 457 @freq;
-#X text 280 457 Get/Set center frequency. Type: float. Units: Hz.
+#X text 240 457 Get/Set center frequency. Type: float. Units: Hz.
 Default value: 1000\. Value range: 20-20000;
 #X msg 120 494 @gain;
-#X text 280 494 Get/Set filter gain. Type: float. Units: db. Default
+#X text 240 494 Get/Set filter gain. Type: float. Units: db. Default
 value: 0\. Value range: -15-15;
 #X msg 120 531 @q;
-#X text 280 531 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
+#X text 240 531 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
 Default value: 3\. Value range: 0.1-100;
 #X msg 120 568 @active;
-#X text 280 568 Get/Set on/off dsp processing. Type: int. Default
+#X text 240 568 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
-#X obj 20 615 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 615 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 620 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 625 1\.;
-#X text 280 625 input signal.;
-#X obj 20 653 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 625 input signal.;
+#X obj 20 653 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 658 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 663 1\.;
-#X text 280 663 filtered signal;
+#X text 240 663 filtered signal;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 711 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 711 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 714 library: ceammc v0.7;
-#X text 557 726 see also:;
-#X obj 633 726 flt.eq_peak~;
+#X text 597 726 see also:;
+#X obj 673 726 flt.eq_peak~;
 #N canvas 10 733 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

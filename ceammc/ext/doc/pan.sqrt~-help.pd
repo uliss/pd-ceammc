@@ -1,16 +1,16 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 400 50 cnv 1 340 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 400 50 two channel equal power square root panner;
-#X obj 1 1 cnv 5 740 40 empty empty pan.sqrt~ 20 20 0 20 -104026 -4096
+#X obj 425 50 cnv 1 340 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 425 50 two channel equal power square root panner;
+#X obj 1 1 cnv 5 765 40 empty empty pan.sqrt~ 20 20 0 20 -104026 -4096
 0;
-#X obj 649 11 pan.sqrt~;
-#X obj 245 80 cnv 1 495 140 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 Two channel equal power panner. About is about 3dB
+#X obj 674 11 pan.sqrt~;
+#X obj 205 80 cnv 1 560 140 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 Two channel equal power panner. About is about 3dB
 center reduction. With linear panning ([pan.lin~]) the signal is
 lowered as it approaches center using a straight line from (+-)1 (left
 or right) to 0 (center) for a 6dB reduction in the middle.;
-#X text 250 159 A problem inherent to linear panning is that the
+#X text 210 159 A problem inherent to linear panning is that the
 perceived volume of the signal drops in the middle. [pan.sqrt~] solves
 this.;
 #X obj 146 248 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0
@@ -23,48 +23,48 @@ this.;
 #X obj 136 364 env~;
 #X floatatom 50 392 5 0 0 0 - - -;
 #X floatatom 136 392 5 0 0 0 - - -;
-#X obj 20 431 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 431 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 436 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 441 1\.;
 #X text 150 441 float;
-#X obj 281 442 cnv 1 32 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 441 POS: panning position. -1 means left \, 0 - center \,
+#X obj 241 442 cnv 1 32 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 441 POS: panning position. -1 means left \, 0 - center \,
 +1 - right. Range: -1\...1;
-#X obj 20 483 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 483 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 488 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 493 @pos;
-#X text 280 493 Get/Set panning position. -1 means left \, 0 - center
+#X text 240 493 Get/Set panning position. -1 means left \, 0 - center
 \, +1 - right. Type: float. Default value: 0\. Value range: -1-1;
 #X msg 120 530 @smooth;
-#X text 280 530 (readonly) Get smooth control signal to avoid zipping-
+#X text 240 530 (readonly) Get smooth control signal to avoid zipping-
 noise. Type: int. Default value: 20\. Value range: 0-100;
-#X obj 20 577 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 577 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 582 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 587 1\.;
-#X text 280 587 input signal.;
+#X text 240 587 input signal.;
 #X text 120 605 2\.;
 #X text 150 605 *float*;
-#X text 280 605 pan position. Range: -1\...1;
-#X obj 20 633 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 605 pan position. Range: -1\...1;
+#X obj 20 633 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 638 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 643 1\.;
-#X text 280 643 left output channel;
+#X text 240 643 left output channel;
 #X text 120 661 2\.;
-#X text 280 661 right output channel;
+#X text 240 661 right output channel;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 709 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 709 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 712 library: ceammc v0.7;
-#X text 511 724 see also:;
-#X obj 587 724 pan.lin~;
-#X obj 661 724 pan.cos~;
+#X text 551 724 see also:;
+#X obj 627 724 pan.lin~;
+#X obj 701 724 pan.cos~;
 #N canvas 10 731 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

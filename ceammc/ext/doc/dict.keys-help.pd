@@ -1,36 +1,36 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 568 50 cnv 1 172 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 568 50 get list of dict keys;
-#X obj 1 1 cnv 5 740 40 empty empty dict.keys 20 20 0 20 -104026 -4096
+#X obj 593 50 cnv 1 172 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 593 50 get list of dict keys;
+#X obj 1 1 cnv 5 765 40 empty empty dict.keys 20 20 0 20 -104026 -4096
 0;
-#X obj 650 11 dict.keys;
+#X obj 675 11 dict.keys;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 data.dict \[a: b\] \[c: 200\] \[12: 15151\];
 #X obj 50 176 dict.keys;
 #X obj 50 205 ui.display @display_type 1 @size 150 18;
-#X obj 20 245 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 245 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 250 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 255 1\.;
 #X text 150 255 *data*;
-#X text 280 255 data.dict.;
-#X obj 20 283 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 255 data.dict.;
+#X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 288 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 293 1\.;
-#X text 280 293 list of dict keys;
+#X text 240 293 list of dict keys;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
-#X text 484 520 see also:;
-#X obj 560 520 data.dict;
-#X obj 640 520 dict.values;
+#X text 524 520 see also:;
+#X obj 600 520 data.dict;
+#X obj 680 520 dict.values;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

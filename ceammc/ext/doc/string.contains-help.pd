@@ -1,11 +1,11 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 330 50 cnv 1 410 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 330 50 checks if given string contains specified substring;
-#X obj 1 1 cnv 5 740 40 empty empty string.contains 20 20 0 20 -104026
+#X obj 355 50 cnv 1 410 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 355 50 checks if given string contains specified substring;
+#X obj 1 1 cnv 5 765 40 empty empty string.contains 20 20 0 20 -104026
 -4096 0;
-#X obj 496 11 str.contains;
-#X obj 607 11 string.contains;
+#X obj 521 11 str.contains;
+#X obj 632 11 string.contains;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 string test;
@@ -13,35 +13,35 @@
 #X msg 357 147 symbol simple;
 #X obj 50 205 str.contains es;
 #X obj 50 234 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 20 271 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 271 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 276 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 281 1\.;
 #X text 150 281 symbol;
-#X obj 281 282 cnv 1 56 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 281 SUBSTR: searched substring.;
-#X obj 20 309 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 282 cnv 1 56 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 281 SUBSTR: searched substring.;
+#X obj 20 309 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 314 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 319 1\.;
-#X text 280 319 Input string or symbol.;
+#X text 240 319 Input string or symbol.;
 #X text 120 337 2\.;
-#X text 280 337 search substring (string or symbol).;
-#X obj 20 365 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 337 search substring (string or symbol).;
+#X obj 20 365 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 370 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 375 1\.;
-#X text 280 375 output 1 if input string contains specified substring
+#X text 240 375 output 1 if input string contains specified substring
 \, otherwise 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title string @url ceammc.string-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
-#X text 550 520 see also:;
-#X obj 626 520 str.ends_with;
+#X text 590 520 see also:;
+#X obj 666 520 str.ends_with;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

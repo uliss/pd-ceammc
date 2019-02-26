@@ -1,10 +1,10 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 321 50 cnv 1 419 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 321 50 Unit-amplitude nonnegative low frequency pulse train;
-#X obj 1 1 cnv 5 740 40 empty empty lfo.+pulse~ 20 20 0 20 -104026
+#X obj 346 50 cnv 1 419 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 346 50 Unit-amplitude nonnegative low frequency pulse train;
+#X obj 1 1 cnv 5 765 40 empty empty lfo.+pulse~ 20 20 0 20 -104026
 -4096 0;
-#X obj 635 11 lfo.+pulse~;
+#X obj 660 11 lfo.+pulse~;
 #X obj 50 118 osc.saw~ 1200;
 #X floatatom 203 118 5 0 0 0 - - -;
 #X obj 270 118 ui.knob @size 40 40;
@@ -14,50 +14,50 @@
 #X obj 50 219 *~;
 #X obj 50 248 ui.gain~ @size 120 14;
 #X obj 50 277 dac~;
-#X obj 20 316 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 316 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 321 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 326 1\.;
 #X text 150 326 float;
-#X obj 281 327 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 326 freq(Hz): frequency.;
+#X obj 241 327 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 326 freq(Hz): frequency.;
 #X text 120 344 2\.;
 #X text 150 344 float;
-#X obj 281 345 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 344 duty: duty cycle. Range: 0\...1;
-#X obj 20 372 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 345 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 344 duty: duty cycle. Range: 0\...1;
+#X obj 20 372 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 377 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 382 @duty;
-#X text 280 382 Get/Set duty cycle. Type: float. Default value: 0.5\.
+#X text 240 382 Get/Set duty cycle. Type: float. Default value: 0.5\.
 Value range: 0-1;
 #X msg 120 419 @active;
-#X text 280 419 Get/Set on/off dsp processing. Type: int. Default
+#X text 240 419 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
-#X obj 20 466 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 471 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 476 1\.;
-#X text 280 476 frequency in Hz.;
+#X text 240 476 frequency in Hz.;
 #X text 120 494 2\.;
 #X text 150 494 *bang*;
-#X text 280 494 reset phase.;
-#X obj 20 522 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 494 reset phase.;
+#X obj 20 522 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 527 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 532 1\.;
-#X text 280 532 pulsetrain wave in [0-1] range;
+#X text 240 532 pulsetrain wave in [0-1] range;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title lfo @url ceammc.lfo-help.pd;
-#X obj 1 580 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 580 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 583 library: ceammc v0.7;
-#X text 367 595 see also:;
-#X obj 443 595 lfo.pulse~;
-#X obj 531 595 lfo.+square~;
-#X obj 633 595 lfo.impulse~;
+#X text 407 595 see also:;
+#X obj 483 595 lfo.pulse~;
+#X obj 571 595 lfo.+square~;
+#X obj 673 595 lfo.impulse~;
 #N canvas 10 602 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

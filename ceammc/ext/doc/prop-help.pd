@@ -1,12 +1,12 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 289 50 cnv 1 451 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 289 50 get/set named property value for subpatch or
+#X obj 314 50 cnv 1 451 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 314 50 get/set named property value for subpatch or
 abstraction;
-#X obj 1 1 cnv 5 740 40 empty empty prop 20 20 0 20 -104026 -4096 0;
-#X obj 686 11 prop;
-#X obj 245 80 cnv 1 495 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 Property should be declared with [prop.declare].
+#X obj 1 1 cnv 5 765 40 empty empty prop 20 20 0 20 -104026 -4096 0;
+#X obj 711 11 prop;
+#X obj 205 80 cnv 1 560 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 Property should be declared with [prop.declare].
 Min/max limits can be set to property;
 #X obj 50 155 prop.declare freq @min 20 @max 20000 @default 1000;
 #X obj 50 184 prop.declare gain @min -60 @max 12 @default -3;
@@ -18,41 +18,41 @@ Min/max limits can be set to property;
 #X msg 50 299 default;
 #X obj 50 328 prop @freq;
 #X floatatom 50 357 5 0 0 0 - - -;
-#X obj 20 396 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 401 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 406 1\.;
 #X text 150 406 symbol;
-#X obj 281 407 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 406 @NAME: property name.;
-#X obj 20 434 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 407 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 406 @NAME: property name.;
+#X obj 20 434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 439 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 444 default;
-#X text 280 444 reset to default value and output.;
-#X obj 20 486 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 444 reset to default value and output.;
+#X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 491 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 496 1\.;
 #X text 150 496 *bang*;
-#X text 280 496 output property value.;
+#X text 240 496 output property value.;
 #X text 150 514 *any*;
-#X text 280 514 set property value and output it.;
-#X obj 20 542 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 514 set property value and output it.;
+#X obj 20 542 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 547 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 552 1\.;
-#X text 280 552 output value;
+#X text 240 552 output value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title property @url ceammc.property-help.pd;
-#X obj 1 600 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 600 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 603 library: ceammc v0.7;
-#X text 463 615 see also:;
-#X obj 539 615 prop.declare;
-#X obj 641 615 patch.props;
+#X text 503 615 see also:;
+#X obj 579 615 prop.declare;
+#X obj 681 615 patch.props;
 #N canvas 10 622 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -1,12 +1,12 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 377 50 cnv 1 363 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 377 50 send specified message after incoming message;
-#X obj 1 1 cnv 5 740 40 empty empty msg.after 20 20 0 20 -104026 -4096
+#X obj 402 50 cnv 1 363 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 402 50 send specified message after incoming message;
+#X obj 1 1 cnv 5 765 40 empty empty msg.after 20 20 0 20 -104026 -4096
 0;
-#X obj 649 11 msg.after;
-#X obj 245 80 cnv 1 495 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 if new input message received \, while delayed message
+#X obj 674 11 msg.after;
+#X obj 205 80 cnv 1 560 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 if new input message received \, while delayed message
 is not send \, the delayed message is resetted;
 #X msg 165 155 1;
 #X obj 50 184 osc~ 500;
@@ -16,39 +16,39 @@ is not send \, the delayed message is resetted;
 #X obj 50 271 ui.gain~ @size 120 14;
 #X obj 280 271 ui.dsp~;
 #X obj 50 299 dac~;
-#X obj 20 338 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 338 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 343 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 348 1\.;
 #X text 150 348 float;
-#X obj 281 349 cnv 1 80 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 348 DELAY(ms): message delay. Min value: 0;
+#X obj 241 349 cnv 1 80 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 348 DELAY(ms): message delay. Min value: 0;
 #X text 120 366 2\.;
 #X text 150 366 list;
-#X obj 281 367 cnv 1 33 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 366 MSG: message arguments.;
-#X obj 20 394 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 367 cnv 1 33 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 366 MSG: message arguments.;
+#X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 399 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 404 1\.;
-#X text 280 404 any input message.;
+#X text 240 404 any input message.;
 #X text 120 422 2\.;
 #X text 150 422 *float*;
-#X text 280 422 change message delay.;
-#X obj 20 450 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 422 change message delay.;
+#X obj 20 450 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 455 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 460 1\.;
-#X text 280 460 message output;
+#X text 240 460 message output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title msg @url ceammc.msg-help.pd;
-#X obj 1 508 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 508 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 511 library: ceammc v0.7;
-#X text 622 523 see also:;
-#X obj 698 523 msg;
+#X text 662 523 see also:;
+#X obj 738 523 msg;
 #N canvas 10 530 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

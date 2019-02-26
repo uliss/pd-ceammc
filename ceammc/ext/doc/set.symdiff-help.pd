@@ -1,12 +1,12 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 441 50 cnv 1 299 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 441 50 symmetric difference between two sets;
-#X obj 1 1 cnv 5 740 40 empty empty set.symdiff 20 20 0 20 -104026
+#X obj 466 50 cnv 1 299 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 466 50 symmetric difference between two sets;
+#X obj 1 1 cnv 5 765 40 empty empty set.symdiff 20 20 0 20 -104026
 -4096 0;
-#X obj 636 11 set.symdiff;
-#X obj 245 80 cnv 1 495 61 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 Symmetric difference \, of two sets is the set of
+#X obj 661 11 set.symdiff;
+#X obj 205 80 cnv 1 560 61 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 Symmetric difference \, of two sets is the set of
 elements which are in either of the sets and not in their
 intersection;
 #X obj 50 169 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -16,36 +16,36 @@ intersection;
 #X obj 50 256 set->list @sort;
 #X obj 50 285 msg set;
 #X msg 50 313 ;
-#X obj 20 352 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 357 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 362 1\.;
 #X text 150 362 any;
-#X obj 281 363 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 362 ARGS: right set elements.;
-#X obj 20 390 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 363 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 362 ARGS: right set elements.;
+#X obj 20 390 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 395 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 400 1\.;
-#X text 280 400 first set or list (converted to set) \, other values
+#X text 240 400 first set or list (converted to set) \, other values
 are ignored.;
 #X text 120 432 2\.;
-#X text 280 432 second set or list (converted to set).;
-#X obj 20 460 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 432 second set or list (converted to set).;
+#X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 465 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 470 1\.;
-#X text 280 470 output symmetric set difference;
+#X text 240 470 output symmetric set difference;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 518 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 518 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 521 library: ceammc v0.7;
-#X text 513 533 see also:;
-#X obj 589 533 data.set;
-#X obj 662 533 set.diff;
+#X text 553 533 see also:;
+#X obj 629 533 data.set;
+#X obj 702 533 set.diff;
 #N canvas 10 540 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

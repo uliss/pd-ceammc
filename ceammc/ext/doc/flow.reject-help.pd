@@ -1,58 +1,58 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 553 50 cnv 1 187 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 553 50 reject specified values;
-#X obj 1 1 cnv 5 740 40 empty empty flow.reject 20 20 0 20 -104026
+#X obj 578 50 cnv 1 187 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 578 50 reject specified values;
+#X obj 1 1 cnv 5 765 40 empty empty flow.reject 20 20 0 20 -104026
 -4096 0;
-#X obj 569 11 reject;
-#X obj 636 11 flow.reject;
+#X obj 594 11 reject;
+#X obj 661 11 flow.reject;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X obj 50 147 flow.reject 0;
 #X obj 50 176 swap 1;
 #X obj 50 205 /;
 #X floatatom 50 234 12 0 0 0 - - -;
-#X obj 20 273 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 278 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 283 1\.;
 #X text 150 283 list;
-#X obj 281 284 cnv 1 56 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 283 values: list of atoms to reject.;
-#X obj 20 311 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 284 cnv 1 56 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 283 values: list of atoms to reject.;
+#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 316 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 321 @values;
-#X text 280 321 Get/Set atoms to reject. Type: list;
-#X obj 20 358 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 321 Get/Set atoms to reject. Type: list;
+#X obj 20 358 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 363 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 368 1\.;
 #X text 150 368 *bang*;
-#X text 280 368 pass.;
+#X text 240 368 pass.;
 #X text 150 386 *float*;
-#X text 280 386 reject if this float is found in reject list.;
+#X text 240 386 reject if this float is found in reject list.;
 #X text 150 404 *symbol*;
-#X text 280 404 reject if this float is found in reject list.;
+#X text 240 404 reject if this float is found in reject list.;
 #X text 150 422 *list*;
-#X text 280 422 pass any list. If you want to do conditional list
+#X text 240 422 pass any list. If you want to do conditional list
 reject use [flow.reject_if].;
 #X text 150 454 *any*;
-#X text 280 454 reject if message selector is found in reject list.;
-#X obj 20 482 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 454 reject if message selector is found in reject list.;
+#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 487 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 492 1\.;
-#X text 280 492 passed values;
+#X text 240 492 passed values;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 540 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 540 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 543 library: ceammc v0.7;
-#X text 463 555 see also:;
-#X obj 539 555 flow.reject_if;
-#X obj 655 555 flow.pass;
+#X text 503 555 see also:;
+#X obj 579 555 flow.reject_if;
+#X obj 695 555 flow.pass;
 #N canvas 10 562 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -1,53 +1,53 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 377 50 cnv 1 363 35 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 377 50 stretches list - chenges its size with linear
+#X obj 402 50 cnv 1 363 35 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 402 50 stretches list - chenges its size with linear
 interpolation.;
-#X obj 1 1 cnv 5 740 40 empty empty list.stretch 20 20 0 20 -104026
+#X obj 1 1 cnv 5 765 40 empty empty list.stretch 20 20 0 20 -104026
 -4096 0;
-#X obj 629 11 list.stretch;
+#X obj 654 11 list.stretch;
 #X obj 50 118 ui.sliders @size 150 100;
 #X floatatom 174 234 5 0 0 0 - - -;
 #X obj 50 262 list.stretch 32;
 #X obj 50 291 ui.sliders @count 32 @size 150 100;
-#X obj 20 413 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 418 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 423 1\.;
 #X text 150 423 int;
-#X obj 281 424 cnv 1 64 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 423 stretch: New size of output list. Input list will be
+#X obj 241 424 cnv 1 64 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 423 stretch: New size of output list. Input list will be
 stretched to the new size with linear interpolation. Min value: 1;
-#X obj 20 479 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 479 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 484 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 489 @size;
-#X text 280 489 Get/Set new size. Type: int. Default value: 1\. Min
+#X text 240 489 Get/Set new size. Type: int. Default value: 1\. Min
 value: 1;
-#X obj 20 536 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 536 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 541 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 546 1\.;
 #X text 150 546 *list*;
-#X text 280 546 input list..;
+#X text 240 546 input list..;
 #X text 150 564 *data:mlist*;
-#X text 280 564 input mlist.;
+#X text 240 564 input mlist.;
 #X text 120 582 2\.;
-#X text 280 582 new length of output list.;
-#X obj 20 610 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 582 new length of output list.;
+#X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 615 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 620 1\.;
-#X text 280 620 new modified list;
+#X text 240 620 new modified list;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 668 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 668 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 671 library: ceammc v0.7;
-#X text 572 683 see also:;
-#X obj 648 683 list.shift;
+#X text 612 683 see also:;
+#X obj 688 683 list.shift;
 #N canvas 10 690 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

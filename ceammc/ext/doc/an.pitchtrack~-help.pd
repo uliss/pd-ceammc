@@ -1,13 +1,13 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 631 50 cnv 1 109 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 631 50 pitch tracker;
-#X obj 1 1 cnv 5 740 40 empty empty an.pitchtrack~ 20 20 0 20 -104026
+#X obj 656 50 cnv 1 109 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 656 50 pitch tracker;
+#X obj 1 1 cnv 5 765 40 empty empty an.pitchtrack~ 20 20 0 20 -104026
 -4096 0;
-#X obj 515 11 helmholtz~;
-#X obj 613 11 an.pitchtrack~;
-#X obj 245 80 cnv 1 495 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 Period-length detector using Philip McLeod's Specially
+#X obj 540 11 helmholtz~;
+#X obj 638 11 an.pitchtrack~;
+#X obj 205 80 cnv 1 560 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 Period-length detector using Philip McLeod's Specially
 Normalized AutoCorrelation function (SNAC);
 #X obj 50 155 adc~ 1;
 #X obj 174 155 ui.dsp~;
@@ -21,51 +21,51 @@ Normalized AutoCorrelation function (SNAC);
 #X obj 50 271 an.pitchtrack~;
 #X floatatom 50 299 5 0 0 0 - - -;
 #X floatatom 117 299 5 0 0 0 - - -;
-#X obj 20 338 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 338 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 343 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 348 1\.;
 #X text 150 348 int;
-#X obj 281 349 cnv 1 48 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 348 FRAME: frame size in samples.;
+#X obj 241 349 cnv 1 48 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 348 FRAME: frame size in samples.;
 #X text 120 366 2\.;
 #X text 150 366 int;
-#X obj 281 367 cnv 1 64 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 366 OVERLAP: overlap of analysis frames.;
-#X obj 20 394 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 367 cnv 1 64 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 366 OVERLAP: overlap of analysis frames.;
+#X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 399 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 404 @framesize;
-#X text 280 404 Get/Set frame size in samples. Type: int. Units: samp.
+#X text 240 404 Get/Set frame size in samples. Type: int. Units: samp.
 Default value: 1024\. Allowed values: 126 \, 256 \, 512 \, 1024 \,
 2048;
 #X msg 120 455 @overlap;
-#X text 280 455 Get/Set overlap of analysis frames. Type: int. Default
+#X text 240 455 Get/Set overlap of analysis frames. Type: int. Default
 value: 1\. Allowed values: 1 \, 2 \, 3 \, 4 \, 8;
 #X msg 120 492 @bias;
-#X text 280 492 Get/Set bias which favours small lags over large lags
+#X text 240 492 Get/Set bias which favours small lags over large lags
 in the period detection \, thereby avoiding low-octave jumps. Type:
 float. Default value: 0.2\. Value range: 0-1;
 #X msg 120 543 @fidthr;
-#X text 280 543 Get/Set min fidelity threshold to report the pitch.
+#X text 240 543 Get/Set min fidelity threshold to report the pitch.
 Type: float. Default value: 0.95\. Value range: 0-1;
 #X msg 120 580 @maxfreq;
-#X text 280 580 Get/Set max tracked frequency. Type: float. Units: Hz.
+#X text 240 580 Get/Set max tracked frequency. Type: float. Units: Hz.
 Default value: 1500\. Value range: 10-10000;
-#X obj 20 627 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 627 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 632 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 637 1\.;
-#X text 280 637 input signal.;
-#X obj 20 665 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 637 input signal.;
+#X obj 20 665 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 670 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 675 1\.;
-#X text 280 675 output signal;
+#X text 240 675 output signal;
 #X text 120 693 2\.;
-#X text 280 693 output frequency in Hz;
+#X text 240 693 output frequency in Hz;
 #X text 120 711 3\.;
-#X text 280 711 track fidelity: a value between 0 and 1 \, indicating
+#X text 240 711 track fidelity: a value between 0 and 1 \, indicating
 to which extent the input signal is periodic. A fidelity of ~0.95 can
 be considered to indicate a periodic signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
@@ -73,11 +73,11 @@ be considered to indicate a periodic signal.;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title an @url ceammc.an-help.pd;
-#X obj 1 787 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 787 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 790 library: ceammc v0.7;
-#X text 520 802 see also:;
-#X obj 596 802 sigmund~;
-#X obj 669 802 fiddle~;
+#X text 560 802 see also:;
+#X obj 636 802 sigmund~;
+#X obj 709 802 fiddle~;
 #N canvas 10 809 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

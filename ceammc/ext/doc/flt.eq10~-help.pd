@@ -1,12 +1,12 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 535 50 cnv 1 205 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 535 50 graphic 10 band equalizer;
-#X obj 1 1 cnv 5 740 40 empty empty flt.eq10~ 20 20 0 20 -104026 -4096
+#X obj 560 50 cnv 1 205 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 560 50 graphic 10 band equalizer;
+#X obj 1 1 cnv 5 765 40 empty empty flt.eq10~ 20 20 0 20 -104026 -4096
 0;
-#X obj 649 11 flt.eq10~;
-#X obj 245 80 cnv 1 495 33 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 One band per octave. 5th-order Butterworth filters;
+#X obj 674 11 flt.eq10~;
+#X obj 205 80 cnv 1 560 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 One band per octave. 5th-order Butterworth filters;
 #X msg 50 141 fill 0.5 \, bang;
 #X obj 280 141 r~ ssc;
 #X obj 50 170 ui.sliders @count 10 @size 150 100;
@@ -21,68 +21,68 @@
 #X obj 290 415 ui.dsp~;
 #X obj 50 444 dac~;
 #X obj 117 444 s~ ssc;
-#X obj 20 483 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 483 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 488 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 493 @f31;
-#X text 280 493 Get/Set gain at 31.25Hz. Type: float. Units: db.
+#X text 240 493 Get/Set gain at 31.25Hz. Type: float. Units: db.
 Default value: 0\. Value range: -70-10;
 #X msg 120 530 @f62;
-#X text 280 530 Get/Set gain at 62.5Hz. Type: float. Units: db.
+#X text 240 530 Get/Set gain at 62.5Hz. Type: float. Units: db.
 Default value: 0\. Value range: -70-10;
 #X msg 120 567 @f125;
-#X text 280 567 Get/Set gain at 125Hz. Type: float. Units: db. Default
+#X text 240 567 Get/Set gain at 125Hz. Type: float. Units: db. Default
 value: 0\. Value range: -70-10;
 #X msg 120 604 @f250;
-#X text 280 604 Get/Set gain at 250Hz. Type: float. Units: db. Default
+#X text 240 604 Get/Set gain at 250Hz. Type: float. Units: db. Default
 value: 0\. Value range: -70-10;
 #X msg 120 641 @f500;
-#X text 280 641 Get/Set gain at 500Hz. Type: float. Units: db. Default
+#X text 240 641 Get/Set gain at 500Hz. Type: float. Units: db. Default
 value: 0\. Value range: -70-10;
 #X msg 120 678 @f1000;
-#X text 280 678 Get/Set gain at 1000Hz. Type: float. Units: db.
+#X text 240 678 Get/Set gain at 1000Hz. Type: float. Units: db.
 Default value: 0\. Value range: -70-10;
 #X msg 120 715 @f2000;
-#X text 280 715 Get/Set gain at 2000Hz. Type: float. Units: db.
+#X text 240 715 Get/Set gain at 2000Hz. Type: float. Units: db.
 Default value: 0\. Value range: -70-10;
 #X msg 120 752 @f4000;
-#X text 280 752 Get/Set gain at 4000Hz. Type: float. Units: db.
+#X text 240 752 Get/Set gain at 4000Hz. Type: float. Units: db.
 Default value: 0\. Value range: -70-10;
 #X msg 120 789 @f8000;
-#X text 280 789 Get/Set gain at 8000Hz. Type: float. Units: db.
+#X text 240 789 Get/Set gain at 8000Hz. Type: float. Units: db.
 Default value: 0\. Value range: -70-10;
 #X msg 120 826 @f16000;
-#X text 280 826 Get/Set gain at 16000Hz. Type: float. Units: db.
+#X text 240 826 Get/Set gain at 16000Hz. Type: float. Units: db.
 Default value: 0\. Value range: -70-10;
 #X msg 120 863 @active;
-#X text 280 863 Get/Set on/off dsp processing. Type: int. Default
+#X text 240 863 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
-#X obj 20 910 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 910 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 915 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 920 reset;
-#X text 280 920 reset filter state to default.;
-#X obj 20 962 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 920 reset filter state to default.;
+#X obj 20 962 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 967 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 972 1\.;
-#X text 280 972 input signal.;
+#X text 240 972 input signal.;
 #X text 150 990 *list*;
-#X text 280 990 sets equalizer coefficients.;
-#X obj 20 1018 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 990 sets equalizer coefficients.;
+#X obj 20 1018 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1023 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1028 1\.;
-#X text 280 1028 output signal;
+#X text 240 1028 output signal;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1076 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 1076 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1079 library: ceammc v0.7;
-#X text 557 1091 see also:;
-#X obj 633 1091 flt.eq_peak~;
+#X text 597 1091 see also:;
+#X obj 673 1091 flt.eq_peak~;
 #N canvas 10 1098 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

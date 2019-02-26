@@ -1,12 +1,12 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 552 50 cnv 1 188 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 552 50 Spectroscope GUI object;
-#X obj 1 1 cnv 5 740 40 empty empty ui.spectroscope~ 20 20 0 20
+#X obj 577 50 cnv 1 188 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 577 50 Spectroscope GUI object;
+#X obj 1 1 cnv 5 765 40 empty empty ui.spectroscope~ 20 20 0 20
 -104026 -4096 0;
-#X obj 519 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+#X obj 544 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.ssc~] @url ui.spectroscope~-help.pd;
-#X obj 597 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+#X obj 622 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.spectroscope~] @url ui.spectroscope~-help.pd;
 #X obj 50 118 ui.dsp~;
 #X floatatom 136 133 5 0 0 0 - - -;
@@ -23,71 +23,71 @@
 #X obj 290 219 *~;
 #X msg 357 219 @log_scale \$1;
 #X obj 50 262 ui.spectroscope~ @size 500 150;
-#X obj 20 434 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 439 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 444 @refresh;
-#X text 280 444 Get/Set approximate refresh rate. Type: int. Units:
+#X text 240 444 Get/Set approximate refresh rate. Type: int. Units:
 ms. Default value: 100\. Value range: 20-1000;
 #X msg 120 481 @log_scale;
-#X text 280 481 Get/Set display in log scale. Type: int. Default
+#X text 240 481 Get/Set display in log scale. Type: int. Default
 value: 0\. Allowed values: 0 \, 1;
 #X msg 120 518 @send;
-#X text 280 518 Get/Set send destination. Type: symbol;
+#X text 240 518 Get/Set send destination. Type: symbol;
 #X msg 120 545 @receive;
-#X text 280 545 Get/Set receive source. Type: symbol;
+#X text 240 545 Get/Set receive source. Type: symbol;
 #X msg 120 572 @size;
-#X text 280 572 Get/Set element size (width \, height pair). Type:
+#X text 240 572 Get/Set element size (width \, height pair). Type:
 list;
 #X msg 120 599 @pinned;
-#X text 280 599 Get/Set pin mode. if 1 - put element to the lowest
+#X text 240 599 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1;
 #X msg 120 636 @active_color;
-#X text 280 636 Get/Set active color (list of red \, green \, blue
+#X text 240 636 Get/Set active color (list of red \, green \, blue
 values in 0-1 range). Type: list;
 #X msg 120 673 @label_color;
-#X text 280 673 Get/Set label color (list of red \, green \, blue
+#X text 240 673 Get/Set label color (list of red \, green \, blue
 values in 0-1 range). Type: list;
 #X msg 120 710 @background_color;
-#X text 280 710 Get/Set element background color (list of red \, green
+#X text 240 710 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list;
 #X msg 120 747 @border_color;
-#X text 280 747 Get/Set border color (list of red \, green \, blue
+#X text 240 747 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list;
 #X msg 120 784 @fontsize;
-#X text 280 784 Get/Set fontsize. Type: int. Default value: 11\. Value
+#X text 240 784 Get/Set fontsize. Type: int. Default value: 11\. Value
 range: 4-11;
 #X msg 120 821 @fontname;
-#X text 280 821 Get/Set fontname. Type: symbol;
+#X text 240 821 Get/Set fontname. Type: symbol;
 #X msg 120 848 @fontweight;
-#X text 280 848 Get/Set font weight. Type: symbol. Default value:
+#X text 240 848 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold;
 #X msg 120 885 @fontslant;
-#X text 280 885 Get/Set font slant. Type: symbol. Default value:
+#X text 240 885 Get/Set font slant. Type: symbol. Default value:
 roman. Allowed values: roman \, italic;
-#X obj 20 932 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 932 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 937 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 942 pos;
-#X text 280 942 set UI element position. Arguments are:;
-#X obj 290 970 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 290 970 X: top left x-coord. Type: float.;
-#X obj 290 998 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 290 998 Y: top right y-coord. Type: float.;
-#X obj 20 1036 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 942 set UI element position. Arguments are:;
+#X obj 250 970 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 970 X: top left x-coord. Type: float.;
+#X obj 250 998 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 998 Y: top right y-coord. Type: float.;
+#X obj 20 1036 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1041 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1046 1\.;
-#X text 280 1046 signal input.;
+#X text 240 1046 signal input.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1094 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 1094 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1097 library: ceammc v0.7;
-#X text 576 1109 see also:;
-#X obj 652 1112 ui.link @background_color 0.78431 0.78431 0.78431
+#X text 616 1109 see also:;
+#X obj 692 1112 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.scope~] @url ui.scope~-help.pd;
 #N canvas 10 1116 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

@@ -1,42 +1,42 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 576 50 cnv 1 164 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 576 50 square root function;
-#X obj 1 1 cnv 5 740 40 empty empty math.sqrt 20 20 0 20 -104026 -4096
+#X obj 601 50 cnv 1 164 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 601 50 square root function;
+#X obj 1 1 cnv 5 765 40 empty empty math.sqrt 20 20 0 20 -104026 -4096
 0;
-#X obj 650 11 math.sqrt;
-#X obj 245 80 cnv 1 495 130 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 The sqrt() function compute the non-negative square
+#X obj 675 11 math.sqrt;
+#X obj 205 80 cnv 1 560 130 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 The sqrt() function compute the non-negative square
 root of x.;
-#X text 250 117 Special values:;
-#X text 250 140 sqrt(-0) returns -0\.;
-#X text 250 163 sqrt(x) returns a NaN and generates a domain error for
+#X text 210 117 Special values:;
+#X text 210 140 sqrt(-0) returns -0\.;
+#X text 210 163 sqrt(x) returns a NaN and generates a domain error for
 x < 0\.;
 #X floatatom 50 238 5 0 0 0 - - -;
 #X obj 50 267 math.sqrt;
 #X floatatom 50 296 5 0 0 0 - - -;
-#X obj 20 335 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 335 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 340 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 345 1\.;
 #X text 150 345 *float*;
-#X text 280 345 input value.;
+#X text 240 345 input value.;
 #X text 150 363 *list*;
-#X text 280 363 apply to all numeric values.;
-#X obj 20 391 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 363 apply to all numeric values.;
+#X obj 20 391 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 396 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 401 1\.;
-#X text 280 401 result value;
+#X text 240 401 result value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
-#X text 579 520 see also:;
-#X obj 655 520 math.math;
+#X text 619 520 see also:;
+#X obj 695 520 math.math;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -1,47 +1,47 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 529 50 cnv 1 211 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 529 50 reject values by predicate;
-#X obj 1 1 cnv 5 740 40 empty empty flow.reject_if 20 20 0 20 -104026
+#X obj 554 50 cnv 1 211 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 554 50 reject values by predicate;
+#X obj 1 1 cnv 5 765 40 empty empty flow.reject_if 20 20 0 20 -104026
 -4096 0;
-#X obj 525 11 reject_if;
-#X obj 614 11 flow.reject_if;
-#X obj 245 80 cnv 1 495 84 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 conditional value reject according to *predicate*
+#X obj 550 11 reject_if;
+#X obj 639 11 flow.reject_if;
+#X obj 205 80 cnv 1 560 84 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 conditional value reject according to *predicate*
 object. *predicate* should accept value and ouput 0 or 1 \, for value
 passing.;
-#X text 250 131 [<] [is_even] [is_list] - examples of predicates.;
+#X text 210 131 [<] [is_even] [is_list] - examples of predicates.;
 #X floatatom 50 192 5 0 0 0 - - -;
 #X obj 50 221 flow.reject_if;
 #X obj 232 221 < 10;
 #X floatatom 50 250 5 0 0 0 - - -;
-#X obj 20 289 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 289 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 294 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 299 1\.;
-#X text 280 299 input value.;
+#X text 240 299 input value.;
 #X text 120 317 2\.;
 #X text 150 317 *int*;
-#X text 280 317 value from predicate (0 or 1). If *1* reject value \,
+#X text 240 317 value from predicate (0 or 1). If *1* reject value \,
 if *0* - pass..;
-#X obj 20 359 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 364 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 369 1\.;
-#X text 280 369 passed values;
+#X text 240 369 passed values;
 #X text 120 387 2\.;
-#X text 280 387 output value to predicate;
+#X text 240 387 output value to predicate;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
-#X text 398 520 see also:;
-#X obj 474 520 flow.pass_if;
-#X obj 576 520 flow.reject;
-#X obj 670 520 is_even;
+#X text 438 520 see also:;
+#X obj 514 520 flow.pass_if;
+#X obj 616 520 flow.reject;
+#X obj 710 520 is_even;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

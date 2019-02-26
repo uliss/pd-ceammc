@@ -1,11 +1,11 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 426 50 cnv 1 314 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 426 50 returns the number of atoms in the list;
-#X obj 1 1 cnv 5 740 40 empty empty list.length 20 20 0 20 -104026
+#X obj 451 50 cnv 1 314 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 451 50 returns the number of atoms in the list;
+#X obj 1 1 cnv 5 765 40 empty empty list.length 20 20 0 20 -104026
 -4096 0;
-#X obj 546 11 list.size;
-#X obj 636 11 list.length;
+#X obj 571 11 list.size;
+#X obj 661 11 list.length;
 #X msg 107 118 a b c d e;
 #X msg 290 118 ("a list" "of two elements") \, bang;
 #X msg 50 147 1 2;
@@ -14,28 +14,28 @@
 #X obj 290 147 ml;
 #X obj 50 176 list.length;
 #X floatatom 50 205 5 0 0 0 - - -;
-#X obj 20 244 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 244 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 249 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 254 1\.;
 #X text 150 254 *list*;
-#X text 280 254 Input list.;
+#X text 240 254 Input list.;
 #X text 150 272 *data:mlist*;
-#X text 280 272 Input mlist.;
-#X obj 20 300 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 272 Input mlist.;
+#X obj 20 300 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 305 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 310 1\.;
-#X text 280 310 the number of elements in the list;
+#X text 240 310 the number of elements in the list;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
-#X text 594 520 see also:;
-#X obj 670 520 list.at;
+#X text 634 520 see also:;
+#X obj 710 520 list.at;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

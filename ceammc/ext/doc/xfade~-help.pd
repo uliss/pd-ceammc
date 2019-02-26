@@ -1,11 +1,11 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 559 50 cnv 1 181 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 559 50 multi signal crossfade;
-#X obj 1 1 cnv 5 740 40 empty empty xfade~ 20 20 0 20 -104026 -4096 0;
-#X obj 670 11 xfade~;
-#X obj 245 80 cnv 1 495 61 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 control float value in range [0-1) controls xfade
+#X obj 584 50 cnv 1 181 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 584 50 multi signal crossfade;
+#X obj 1 1 cnv 5 765 40 empty empty xfade~ 20 20 0 20 -104026 -4096 0;
+#X obj 695 11 xfade~;
+#X obj 205 80 cnv 1 560 61 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 control float value in range [0-1) controls xfade
 between first and second signals \, [1-2) between second and third
 etc.;
 #X text 50 169 simple 2-channel crossfade;
@@ -25,49 +25,49 @@ etc.;
 #X obj 338 313 ui.gain~ @size 120 16;
 #X obj 50 342 dac~;
 #X obj 338 342 dac~;
-#X obj 20 381 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 386 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 391 1\.;
 #X text 150 391 int;
-#X obj 281 392 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 391 N: number of inputs. Range: 1\...16;
-#X obj 20 419 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 392 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 391 N: number of inputs. Range: 1\...16;
+#X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 424 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 429 @smooth;
-#X text 280 429 Get/Set signal change smooth time. Type: float. Units:
+#X text 240 429 Get/Set signal change smooth time. Type: float. Units:
 ms. Default value: 20\. Min value: 1;
 #X msg 120 466 @type;
-#X text 280 466 Get/Set fade curve type: linear or power. Type:
+#X text 240 466 Get/Set fade curve type: linear or power. Type:
 symbol. Allowed values: lin \, pow;
 #X msg 120 503 @lin;
-#X text 280 503 alias to @type lin;
+#X text 240 503 alias to @type lin;
 #X msg 120 530 @pow;
-#X text 280 530 alias to @type pow;
-#X obj 20 567 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 530 alias to @type pow;
+#X obj 20 567 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 572 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 577 1\.;
-#X text 280 577 input signal.;
+#X text 240 577 input signal.;
 #X text 120 595 ....;
-#X text 280 595 input signal.;
+#X text 240 595 input signal.;
 #X text 120 613 n.;
-#X text 280 613 input signal.;
+#X text 240 613 input signal.;
 #X text 120 631 4\.;
 #X text 150 631 *float*;
-#X text 280 631 set crossfade value.;
-#X obj 20 659 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 631 set crossfade value.;
+#X obj 20 659 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 664 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 669 1\.;
-#X text 280 669 output signal;
+#X text 240 669 output signal;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 717 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 717 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 720 library: ceammc v0.7;
 #N canvas 10 739 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

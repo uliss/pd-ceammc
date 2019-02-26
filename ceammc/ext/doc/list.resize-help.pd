@@ -1,10 +1,10 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 599 50 cnv 1 141 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 599 50 changes list size;
-#X obj 1 1 cnv 5 740 40 empty empty list.resize 20 20 0 20 -104026
+#X obj 624 50 cnv 1 141 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 624 50 changes list size;
+#X obj 1 1 cnv 5 765 40 empty empty list.resize 20 20 0 20 -104026
 -4096 0;
-#X obj 636 11 list.resize;
+#X obj 661 11 list.resize;
 #X msg 50 118 1 2 3 4 5 6 7 8 9 10 11;
 #X msg 69 147 1 2 3;
 #X msg 88 176 @wrap;
@@ -15,52 +15,52 @@
 #X obj 50 234 list.resize 8;
 #X obj 50 262 msg set;
 #X msg 50 291 ;
-#X obj 20 330 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 335 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 340 1\.;
 #X text 150 340 int;
-#X obj 281 341 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 340 SIZE: desired list size. Min value: 0;
-#X obj 20 368 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 341 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 340 SIZE: desired list size. Min value: 0;
+#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 373 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 378 @size;
-#X text 280 378 Get/Set output list size. Type: int. Default value:
+#X text 240 378 Get/Set output list size. Type: int. Default value:
 0\. Min value: 0;
 #X msg 120 415 @method;
-#X text 280 415 Get/Set method of resizing \, if new size is longer
+#X text 240 415 Get/Set method of resizing \, if new size is longer
 then current. Type: symbol. Allowed values: pad \, clip \, wrap \,
 fold;
 #X msg 120 466 @pad;
-#X text 280 466 Get/Set pad value for pad method of resizing. Type:
+#X text 240 466 Get/Set pad value for pad method of resizing. Type:
 atom;
 #X msg 120 493 @clip;
-#X text 280 493 alias for @method clip;
+#X text 240 493 alias for @method clip;
 #X msg 120 520 @wrap;
-#X text 280 520 alias for @method wrap;
+#X text 240 520 alias for @method wrap;
 #X msg 120 547 @fold;
-#X text 280 547 alias for @method fold;
-#X obj 20 584 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 547 alias for @method fold;
+#X obj 20 584 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 589 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 594 1\.;
 #X text 150 594 *list*;
-#X text 280 594 input list.;
-#X obj 20 622 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 594 input list.;
+#X obj 20 622 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 627 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 632 1\.;
-#X text 280 632 resized list;
+#X text 240 632 resized list;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 680 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 680 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 683 library: ceammc v0.7;
-#X text 565 695 see also:;
-#X obj 641 695 list.length;
+#X text 605 695 see also:;
+#X obj 681 695 list.length;
 #N canvas 10 702 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

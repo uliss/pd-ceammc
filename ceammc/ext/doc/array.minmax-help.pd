@@ -1,10 +1,10 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 448 50 cnv 1 292 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 448 50 find array min and max element value;
-#X obj 1 1 cnv 5 740 40 empty empty array.minmax 20 20 0 20 -104026
+#X obj 473 50 cnv 1 292 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 473 50 find array min and max element value;
+#X obj 1 1 cnv 5 765 40 empty empty array.minmax 20 20 0 20 -104026
 -4096 0;
-#X obj 628 11 array.minmax;
+#X obj 653 11 array.minmax;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #N canvas 0 22 450 300 (subpatch) 0;
@@ -22,39 +22,39 @@
 #X obj 50 234 loadbang;
 #X msg 50 262 sinesum 100 0.2 0.3;
 #X obj 50 291 s array1;
-#X obj 20 330 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 335 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 340 1\.;
 #X text 150 340 symbol;
-#X obj 281 341 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 340 NAME: array name.;
-#X obj 20 368 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 341 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 340 NAME: array name.;
+#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 373 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 378 @array;
-#X text 280 378 Get/Set array name. Type: symbol;
-#X obj 20 415 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 378 Get/Set array name. Type: symbol;
+#X obj 20 415 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 420 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 425 1\.;
 #X text 150 425 *bang*;
-#X text 280 425 perform search in current array.;
+#X text 240 425 perform search in current array.;
 #X text 150 443 *symbol*;
-#X text 280 443 set new array and perform search.;
-#X obj 20 471 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 443 set new array and perform search.;
+#X obj 20 471 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 476 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 481 1\.;
-#X text 280 481 list with two elements: minimal and maximum value;
+#X text 240 481 list with two elements: minimal and maximum value;
 #X text 120 499 2\.;
-#X text 280 499 indexes of found values;
+#X text 240 499 indexes of found values;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 547 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 547 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 550 library: ceammc v0.7;
 #N canvas 10 569 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

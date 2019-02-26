@@ -1,10 +1,10 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 631 50 cnv 1 109 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 631 50 Chorus effect;
-#X obj 1 1 cnv 5 740 40 empty empty fx.chorus~ 20 20 0 20 -104026
+#X obj 656 50 cnv 1 109 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 656 50 Chorus effect;
+#X obj 1 1 cnv 5 765 40 empty empty fx.chorus~ 20 20 0 20 -104026
 -4096 0;
-#X obj 642 11 fx.chorus~;
+#X obj 667 11 fx.chorus~;
 #X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
 #X obj 50 147 expand_env;
 #X obj 174 147 ui.knob @size 40 40;
@@ -18,48 +18,48 @@
 #X obj 50 291 ui.gain~ @size 120 14;
 #X obj 280 291 ui.dsp~;
 #X obj 50 320 dac~;
-#X obj 20 359 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 364 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 369 @delay;
-#X text 280 369 Get/Set delay amount. Type: float. Units: ms. Default
+#X text 240 369 Get/Set delay amount. Type: float. Units: ms. Default
 value: 25\. Value range: 0-200;
 #X msg 120 406 @freq;
-#X text 280 406 Get/Set effect freq. Type: float. Units: Hz. Default
+#X text 240 406 Get/Set effect freq. Type: float. Units: Hz. Default
 value: 3\. Value range: 0-10;
 #X msg 120 443 @depth;
-#X text 280 443 Get/Set effect depth. Type: float. Default value:
+#X text 240 443 Get/Set effect depth. Type: float. Default value:
 0.02\. Value range: 0-1;
 #X msg 120 480 @drywet;
-#X text 280 480 Get/Set Ratio between processed signal (wet) and
+#X text 240 480 Get/Set Ratio between processed signal (wet) and
 source signal. Type: float. Default value: 1\. Value range: 0-1;
 #X msg 120 517 @bypass;
-#X text 280 517 Get/Set if set to 1 - bypass 'effected' signal. Type:
+#X text 240 517 Get/Set if set to 1 - bypass 'effected' signal. Type:
 int. Default value: 0\. Allowed values: 0 \, 1;
 #X msg 120 554 @active;
-#X text 280 554 Get/Set on/off dsp processing. Type: int. Default
+#X text 240 554 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
-#X obj 20 601 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 601 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 606 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 611 reset;
-#X text 280 611 same as reset.;
-#X obj 20 653 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 611 same as reset.;
+#X obj 20 653 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 658 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 663 1\.;
-#X text 280 663 input signal.;
-#X obj 20 691 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 663 input signal.;
+#X obj 20 691 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 696 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 701 1\.;
-#X text 280 701 output;
+#X text 240 701 output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 749 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 749 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 752 library: ceammc v0.7;
 #N canvas 10 771 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

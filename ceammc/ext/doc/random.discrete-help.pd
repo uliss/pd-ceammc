@@ -1,12 +1,12 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 396 50 cnv 1 344 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 396 50 random weighted integers on interval [0 \, n);
-#X obj 1 1 cnv 5 740 40 empty empty random.discrete 20 20 0 20 -104026
+#X obj 421 50 cnv 1 344 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 421 50 random weighted integers on interval [0 \, n);
+#X obj 1 1 cnv 5 765 40 empty empty random.discrete 20 20 0 20 -104026
 -4096 0;
-#X obj 607 11 random.discrete;
-#X obj 245 80 cnv 1 495 75 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 Produces random integers on the interval [0 \, N) \,
+#X obj 632 11 random.discrete;
+#X obj 205 80 cnv 1 560 75 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 Produces random integers on the interval [0 \, N) \,
 where the probability of each individual integer *i* defined as W_i/S
 \, that is the weight of the i-th integer divided by the sum of all N
 weights.;
@@ -24,43 +24,43 @@ weights.;
 #X obj 50 299 list.enumerate @append;
 #X obj 50 327 list.repack 2;
 #X obj 50 356 tabwrite array1;
-#X obj 20 395 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 400 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 405 1\.;
 #X text 150 405 list;
-#X obj 281 406 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 405 W: weights (list of non-negative floats).;
-#X obj 20 433 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 406 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 405 W: weights (list of non-negative floats).;
+#X obj 20 433 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 438 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 443 @weights;
-#X text 280 443 Get/Set list of weights (non-negative floats). Type:
+#X text 240 443 Get/Set list of weights (non-negative floats). Type:
 list;
-#X obj 20 480 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 480 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 485 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 490 1\.;
 #X text 150 490 *bang*;
-#X text 280 490 generates random number in interval [0 \, N) \, where
+#X text 240 490 generates random number in interval [0 \, N) \, where
 N is number of weights..;
 #X text 150 522 *list*;
-#X text 280 522 set new weights.;
-#X obj 20 550 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 522 set new weights.;
+#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 555 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 560 1\.;
-#X text 280 560 result value;
+#X text 240 560 result value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 608 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 608 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 611 library: ceammc v0.7;
-#X text 429 623 see also:;
-#X obj 505 623 random.linear;
-#X obj 613 623 random.pw_const;
+#X text 469 623 see also:;
+#X obj 545 623 random.linear;
+#X obj 653 623 random.pw_const;
 #N canvas 10 630 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

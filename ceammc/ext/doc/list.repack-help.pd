@@ -1,45 +1,45 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 457 50 cnv 1 283 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 457 50 repack input list to specified size;
-#X obj 1 1 cnv 5 740 40 empty empty list.repack 20 20 0 20 -104026
+#X obj 482 50 cnv 1 283 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 482 50 repack input list to specified size;
+#X obj 1 1 cnv 5 765 40 empty empty list.repack 20 20 0 20 -104026
 -4096 0;
-#X obj 635 11 list.repack;
+#X obj 660 11 list.repack;
 #X msg 50 118 1 2 3 4 5 6 7 8 9;
 #X obj 50 162 list.repack 4;
 #X obj 50 190 print;
-#X obj 20 229 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 229 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 234 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 239 1\.;
 #X text 150 239 int;
-#X obj 281 240 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 239 SIZE: output list size. Min value: 1;
-#X obj 20 267 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 240 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 239 SIZE: output list size. Min value: 1;
+#X obj 20 267 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 272 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 277 @size;
-#X text 280 277 Get/Set output list size. Type: int. Default value:
+#X text 240 277 Get/Set output list size. Type: int. Default value:
 1\. Value range: 1-1024;
-#X obj 20 324 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 329 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 334 1\.;
 #X text 150 334 *list*;
-#X text 280 334 input list.;
-#X obj 20 362 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 334 input list.;
+#X obj 20 362 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 367 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 372 1\.;
-#X text 280 372 output list;
+#X text 240 372 output list;
 #X text 120 390 2\.;
-#X text 280 390 bang after last element output;
+#X text 240 390 bang after last element output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

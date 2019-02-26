@@ -1,10 +1,10 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 496 50 cnv 1 244 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 496 50 mono dynamic range compressors;
-#X obj 1 1 cnv 5 740 40 empty empty dyn.comp~ 20 20 0 20 -104026 -4096
+#X obj 521 50 cnv 1 244 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 521 50 mono dynamic range compressors;
+#X obj 1 1 cnv 5 765 40 empty empty dyn.comp~ 20 20 0 20 -104026 -4096
 0;
-#X obj 649 11 dyn.comp~;
+#X obj 674 11 dyn.comp~;
 #X obj 50 118 lfo.impulse~ 10;
 #X obj 222 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 147 *~;
@@ -18,76 +18,76 @@
 #X obj 50 234 dyn.comp~ 3 40 10 100 id;
 #X obj 50 262 dac~;
 #X obj 213 262 print;
-#X obj 20 301 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 306 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 311 1\.;
 #X text 150 311 float;
-#X obj 281 312 cnv 1 47 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 311 ratio: compression ratio (1 = no compression \, >1
+#X obj 241 312 cnv 1 47 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 311 ratio: compression ratio (1 = no compression \, >1
 means compression). Min value: 1;
 #X text 120 343 2\.;
 #X text 150 343 float;
-#X obj 281 344 cnv 1 112 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 343 threshold(db): level threshold above which compression
+#X obj 241 344 cnv 1 112 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 343 threshold(db): level threshold above which compression
 kicks in (100 dB = max level). Range: 0\...100;
 #X text 120 375 3\.;
 #X text 150 375 float;
-#X obj 281 376 cnv 1 88 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 375 attack(ms): attack time = time constant when level &
+#X obj 241 376 cnv 1 88 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 375 attack(ms): attack time = time constant when level &
 compression going up.;
 #X text 120 407 4\.;
 #X text 150 407 float;
-#X obj 281 408 cnv 1 94 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 407 release(ms): release time = time constant coming out
+#X obj 241 408 cnv 1 94 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 407 release(ms): release time = time constant coming out
 of compression.;
 #X text 120 439 5\.;
 #X text 150 439 symbol;
-#X obj 281 440 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 439 ID: object ID for OSC control path.;
-#X obj 20 467 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 440 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 439 ID: object ID for OSC control path.;
+#X obj 20 467 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 472 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 477 @ratio;
-#X text 280 477 Get/Set compression ratio (1 = no compression \, >1
+#X text 240 477 Get/Set compression ratio (1 = no compression \, >1
 means compression). Type: float. Default value: 1\. Value range: 1-10;
 #X msg 120 528 @threshold;
-#X text 280 528 Get/Set level threshold above which compression kicks
+#X text 240 528 Get/Set level threshold above which compression kicks
 in (100 dB = max level). Type: float. Units: db. Default value: 100\.
 Value range: 0-100;
 #X msg 120 579 @attack;
-#X text 280 579 Get/Set time constant when level & compression going
+#X text 240 579 Get/Set time constant when level & compression going
 up. Type: float. Units: ms. Default value: 10\. Value range: 1-100;
 #X msg 120 630 @release;
-#X text 280 630 Get/Set release time = time constant coming out of
+#X text 240 630 Get/Set release time = time constant coming out of
 compression. Type: float. Units: ms. Default value: 50\. Value range:
 1-500;
 #X msg 120 681 @active;
-#X text 280 681 Get/Set on/off dsp processing. Type: int. Default
+#X text 240 681 Get/Set on/off dsp processing. Type: int. Default
 value: 1\. Allowed values: 0 \, 1;
-#X obj 20 728 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 728 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 733 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 738 1\.;
-#X text 280 738 input signal.;
+#X text 240 738 input signal.;
 #X text 150 756 *bang*;
-#X text 280 756 outputs object internal state to rightmost outlet.;
-#X obj 20 784 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 756 outputs object internal state to rightmost outlet.;
+#X obj 20 784 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 789 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 794 1\.;
-#X text 280 794 output signal;
+#X text 240 794 output signal;
 #X text 120 812 2\.;
-#X text 280 812 information output;
+#X text 240 812 information output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title dyn @url ceammc.dyn-help.pd;
-#X obj 1 860 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 860 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 863 library: ceammc v0.7;
-#X text 571 875 see also:;
-#X obj 647 875 dyn.comp2~;
+#X text 611 875 see also:;
+#X obj 687 875 dyn.comp2~;
 #N canvas 10 882 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

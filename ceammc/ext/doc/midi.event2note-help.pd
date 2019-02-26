@@ -1,11 +1,11 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 321 50 cnv 1 419 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 321 50 convert MidiEvent message to midi note/velocity pair;
-#X obj 1 1 cnv 5 740 40 empty empty midi.event2note 20 20 0 20 -104026
+#X obj 346 50 cnv 1 419 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 346 50 convert MidiEvent message to midi note/velocity pair;
+#X obj 1 1 cnv 5 765 40 empty empty midi.event2note 20 20 0 20 -104026
 -4096 0;
-#X obj 486 11 midi.ev->note;
-#X obj 606 11 midi.event2note;
+#X obj 511 11 midi.ev->note;
+#X obj 631 11 midi.event2note;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 openpanel;
@@ -17,26 +17,26 @@
 #X obj 50 291 midi.ev->note;
 #X obj 50 320 msg set;
 #X msg 50 349 ;
-#X obj 20 388 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 388 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 393 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 398 1\.;
-#X text 280 398 MidiEvent message.;
-#X obj 20 426 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 398 MidiEvent message.;
+#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 431 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 436 1\.;
-#X text 280 436 output pair: note \, velocity;
+#X text 240 436 output pair: note \, velocity;
 #X text 120 454 2\.;
-#X text 280 454 note duration in milliseconds;
+#X text 240 454 note duration in milliseconds;
 #X text 120 472 3\.;
-#X text 280 472 note track;
+#X text 240 472 note track;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 520 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 520 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 523 library: ceammc v0.7;
 #N canvas 10 542 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

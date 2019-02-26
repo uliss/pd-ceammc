@@ -1,11 +1,11 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 544 50 cnv 1 196 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 544 50 control flow multiplexer;
-#X obj 1 1 cnv 5 740 40 empty empty flow.multiplex 20 20 0 20 -104026
+#X obj 569 50 cnv 1 196 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 569 50 control flow multiplexer;
+#X obj 1 1 cnv 5 765 40 empty empty flow.multiplex 20 20 0 20 -104026
 -4096 0;
-#X obj 530 11 flow.mux;
-#X obj 613 11 flow.multiplex;
+#X obj 555 11 flow.mux;
+#X obj 638 11 flow.multiplex;
 #X obj 50 118 hradio 15 1 0 8 empty empty empty 17 7 0 10 -262144 -1
 -1 0;
 #X msg 50 147 @index \$1;
@@ -14,40 +14,40 @@
 #X floatatom 165 190 5 0 0 0 - - -;
 #X obj 50 219 flow.multiplex 3;
 #X floatatom 50 248 5 0 0 0 - - -;
-#X obj 20 287 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 287 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 292 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 297 1\.;
 #X text 150 297 int;
-#X obj 281 298 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 297 N: number of inlets. Range: 2\...24;
-#X obj 20 325 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 298 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 297 N: number of inlets. Range: 2\...24;
+#X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 330 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 335 @index;
-#X text 280 335 Get/Set current multiplexer index. Type: int. Default
+#X text 240 335 Get/Set current multiplexer index. Type: int. Default
 value: 0\. Min value: 0;
-#X obj 20 382 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 387 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 392 1\.;
-#X text 280 392 multiplexer first inlet.;
+#X text 240 392 multiplexer first inlet.;
 #X text 120 410 n.;
-#X text 280 410 multiplexer N-th inlet.;
-#X obj 20 438 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 410 multiplexer N-th inlet.;
+#X obj 20 438 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 443 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 448 1\.;
-#X text 280 448 output;
+#X text 240 448 output;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 505 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7;
-#X text 528 520 see also:;
-#X obj 604 520 flow.demultiplex;
+#X text 568 520 see also:;
+#X obj 644 520 flow.demultiplex;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -1,13 +1,13 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 290 50 cnv 1 450 35 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 290 50 convert from midi pitch to frequency in hz (with
+#X obj 315 50 cnv 1 450 35 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 315 50 convert from midi pitch to frequency in hz (with
 various base A and temperament);
-#X obj 1 1 cnv 5 740 40 empty empty conv.midi2freq 20 20 0 20 -104026
+#X obj 1 1 cnv 5 765 40 empty empty conv.midi2freq 20 20 0 20 -104026
 -4096 0;
-#X obj 462 11 midi->freq;
-#X obj 560 11 m->f;
-#X obj 614 11 conv.midi2freq;
+#X obj 487 11 midi->freq;
+#X obj 585 11 m->f;
+#X obj 639 11 conv.midi2freq;
 #X obj 50 118 ui.keyboard @size 433 60;
 #X obj 50 190 f;
 #X msg 98 190 @a 415;
@@ -21,45 +21,45 @@ pythagorean rameau valotti zarlino;
 #X obj 50 334 ui.gain~ @size 120 16;
 #X obj 50 363 dac~;
 #X obj 50 392 ui.dsp~;
-#X obj 20 431 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 431 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 436 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 441 1\.;
 #X text 150 441 float;
-#X obj 281 442 cnv 1 57 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 441 APITCH: pitch standard. Range: 200\...600;
-#X obj 20 469 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 442 cnv 1 57 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 441 APITCH: pitch standard. Range: 200\...600;
+#X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 474 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 479 @a;
-#X text 280 479 Get/Set A pitch frequency. Type: float. Default value:
+#X text 240 479 Get/Set A pitch frequency. Type: float. Default value:
 440\. Value range: 200-600;
 #X msg 120 516 @t;
-#X text 280 516 Get/Set temperament. Type: symbol. Default value: eq.
+#X text 240 516 Get/Set temperament. Type: symbol. Default value: eq.
 Allowed values: eq \, just \, ganassi \, meantone \, kirnberger3 \,
 pythagorean \, rameau \, valotti \, zarlino;
-#X obj 20 577 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 577 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 582 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 587 1\.;
 #X text 150 587 *float*;
-#X text 280 587 input MIDI pitch.;
+#X text 240 587 input MIDI pitch.;
 #X text 150 605 *list*;
-#X text 280 605 input MIDI pitches.;
-#X obj 20 633 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 605 input MIDI pitches.;
+#X obj 20 633 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 638 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 643 1\.;
-#X text 280 643 converted value;
+#X text 240 643 converted value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 691 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 691 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 694 library: ceammc v0.7;
-#X text 615 706 see also:;
-#X obj 691 706 mtof;
+#X text 655 706 see also:;
+#X obj 731 706 mtof;
 #N canvas 10 713 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

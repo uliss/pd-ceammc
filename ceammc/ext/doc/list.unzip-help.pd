@@ -1,17 +1,17 @@
-#N canvas 0 0 760 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 362 50 cnv 1 378 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 362 50 splits list to N lists \, each to separate output;
-#X obj 1 1 cnv 5 740 40 empty empty list.unzip 20 20 0 20 -104026
+#X obj 387 50 cnv 1 378 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 387 50 splits list to N lists \, each to separate output;
+#X obj 1 1 cnv 5 765 40 empty empty list.unzip 20 20 0 20 -104026
 -4096 0;
-#X obj 495 11 list.deinterleave;
-#X obj 643 11 list.unzip;
-#X obj 245 80 cnv 1 495 121 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 250 80 For N = 2 and list elements [1 2 3 4] we get [1 3] on
+#X obj 520 11 list.deinterleave;
+#X obj 668 11 list.unzip;
+#X obj 205 80 cnv 1 560 121 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 210 80 For N = 2 and list elements [1 2 3 4] we get [1 3] on
 output 1 and [2 4] on output 2\.;
-#X text 250 117 If input value is [1 2 3 4 5] the output depends on
+#X text 210 117 If input value is [1 2 3 4 5] the output depends on
 split method.;
-#X text 250 154 If @min method used \, output is [1 3 5] and [2 4]. If
+#X text 210 154 If @min method used \, output is [1 3 5] and [2 4]. If
 @pad method used with value X \, output if [1 3 5] and [2 4 X];
 #X msg 50 229 1 2 3 4;
 #X msg 146 229 1 2 3 4 5;
@@ -23,46 +23,46 @@ split method.;
 #X obj 194 359 msg set;
 #X msg 50 388 ;
 #X msg 203 388 ;
-#X obj 20 427 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 432 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 437 1\.;
 #X text 150 437 int;
-#X obj 281 438 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 280 437 N: number of output outlets. Min value: 2;
-#X obj 20 465 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 241 438 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 437 N: number of output outlets. Min value: 2;
+#X obj 20 465 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 470 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 475 @method;
-#X text 280 475 Get/Set split method if number element in the input
+#X text 240 475 Get/Set split method if number element in the input
 list is not multiple of number of outputs. Type: symbol. Default
 value: min. Allowed values: min \, pad;
 #X msg 120 526 @min;
-#X text 280 526 alias to @method min. No padding used;
+#X text 240 526 alias to @method min. No padding used;
 #X msg 120 553 @pad;
-#X text 280 553 Get/Set padding value. Pads result lists with
+#X text 240 553 Get/Set padding value. Pads result lists with
 specified value \, if number of elements in the input list is not
 multiple of number of outputs. Type: list;
-#X obj 20 614 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 614 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 619 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 624 1\.;
 #X text 150 624 *list*;
-#X text 280 624 input list.;
-#X obj 20 652 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 624 input list.;
+#X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 657 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 662 1\.;
-#X text 280 662 unzipped list;
+#X text 240 662 unzipped list;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 710 cnv 5 740 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 1 710 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 713 library: ceammc v0.7;
-#X text 586 725 see also:;
-#X obj 662 725 list.zip;
+#X text 626 725 see also:;
+#X obj 702 725 list.zip;
 #N canvas 10 732 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
