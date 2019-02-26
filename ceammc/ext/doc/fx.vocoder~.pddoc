@@ -46,7 +46,7 @@
 |                 |
 |                 |
 |                 |.
-[fx.vocoder~      ]
+[fx.vocoder~       ]
 |
 [ui.gain~ @size 120 16] [ui.dsp~]
 |\
