@@ -25,13 +25,23 @@ if(WIN32 OR MSYS)
 endif()
 
 if(MAKELIB_SCRIPT)
-    add_custom_target(ceammc_lib
-        COMMAND "${MAKELIB_SCRIPT}"
-            "${CMAKE_CURRENT_SOURCE_DIR}/.."
-            "${CMAKE_CURRENT_BINARY_DIR}/../ext"
-            "${CMAKE_BINARY_DIR}/dist"
-            "${CEAMMC_LIB_VERSION}"
-        SOURCES mac/make_lib_mac.sh)
+    if(APPLE)
+        add_custom_target(ceammc_lib
+            COMMAND "${MAKELIB_SCRIPT}"
+                "${CMAKE_CURRENT_SOURCE_DIR}/.."
+                "${CMAKE_CURRENT_BINARY_DIR}/../ext"
+                "${CMAKE_BINARY_DIR}/dist"
+                "${CEAMMC_LIB_VERSION}"
+            SOURCES mac/make_lib_mac.sh)
+    elseif(WIN32)
+        add_custom_target(ceammc_lib
+            COMMAND "${MAKELIB_SCRIPT}"
+                "${CMAKE_CURRENT_SOURCE_DIR}/.."
+                "${INSTALL_PREFIX}"
+                "${CMAKE_BINARY_DIR}/dist"
+                "${CEAMMC_LIB_VERSION}"
+            SOURCES win/make_lib_win.sh)
+    endif()
 endif()
 
 find_program(DEKEN deken PATH $ENV{HOME}/bin)
