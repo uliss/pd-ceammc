@@ -537,4 +537,24 @@ TEST_CASE("fx.looper~", "[externals]")
         REQUIRE(p.phase() == 0);
         REQUIRE(p.samples() == 90);
     }
+
+    SECTION("clear")
+    {
+        FxLooperTest t("fx.looper~", LA(0.125, "@loop_smooth", 0.f, "@rec_to_play_time", 0.f));
+        REQUIRE(t.maxSamples() == 64);
+
+        t.record();
+        t << Signal(32, 1);
+        t.clear();
+        REQUIRE(t.state() == STATE_STOP);
+        REQUIRE(t.loopLengthInSamples() == 0);
+
+        t.record();
+        t << Signal(64, 1);
+        t.play();
+        t << Signal(256, 0);
+        t.clear();
+        REQUIRE(t.state() == STATE_STOP);
+        t << Signal(256, 0);
+    }
 }
