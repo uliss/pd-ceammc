@@ -15,6 +15,7 @@
 #X obj 50 234 ui.gain~ @size 120 14;
 #X obj 290 234 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
+#X obj 338 234 ui.dsp~;
 #X obj 50 262 dac~;
 #X obj 20 301 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 306 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
@@ -96,7 +97,7 @@ samp. Default value: 0\. Min value: 0;
 #X msg 120 1210 pause;
 #X text 280 1210 loop pause.;
 #X msg 120 1242 clear;
-#X text 280 1242 clear loop data.;
+#X text 280 1242 clear loop data and stops playing.;
 #X msg 120 1274 smooth;
 #X text 280 1274 Arguments are:;
 #X obj 290 1302 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -155,5 +156,5 @@ https://github.com/uliss/pure-data;
 #X connect 9 0 10 0;
 #X connect 10 0 11 0;
 #X connect 10 1 12 0;
-#X connect 11 0 13 0;
-#X connect 11 0 13 1;
+#X connect 11 0 14 0;
+#X connect 11 0 14 1;

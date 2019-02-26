@@ -61,7 +61,7 @@
             <method name="overdub">start loop overdubbing while keeping it playing</method>
             <method name="stop">stop played loop</method>
             <method name="pause">loop pause</method>
-            <method name="clear">clear loop data</method>
+            <method name="clear">clear loop data and stops playing</method>
             <method name="smooth">
                 <param name="TIME" units="millisecond" type="float">apply linear fadein/fadeout to
                 loop</param>
@@ -87,7 +87,7 @@
 | |        |      |         |      |
 [fx.looper~ @loop_bang 1           ]
 |                        ^|
-[ui.gain~ @size 120 14]  [B]
+[ui.gain~ @size 120 14]  [B]  [ui.dsp~]
 |\
 [dac~]
 

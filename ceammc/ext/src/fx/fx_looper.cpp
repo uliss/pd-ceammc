@@ -452,6 +452,7 @@ void FxLooper::m_clear(t_symbol*, const AtomList&)
     loop_len_ = 0;
     rec_phase_ = 0;
     play_phase_ = 0;
+    state_ = STATE_STOP;
 }
 
 void FxLooper::m_adjust(t_symbol* s, const AtomList& lst)
