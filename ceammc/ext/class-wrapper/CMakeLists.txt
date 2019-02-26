@@ -61,7 +61,7 @@ function(wrapper_add NAME)
     #install wrapper_lib
     # install
     if(WIN32)
-        install(TARGETS wrapper_lib  RUNTIME DESTINATION ${PD_GUI_PLUGINS_PATH}/${NAME})
+        install(TARGETS wrapper_lib  RUNTIME DESTINATION ${PDCORE_LIB_INSTALL_PATH})
     else()
         install(TARGETS wrapper_lib  LIBRARY DESTINATION ${PDCORE_LIB_INSTALL_PATH})
     endif()
@@ -79,4 +79,3 @@ if(ARMADILLO_FOUND)
         target_compile_definitions(matrix PUBLIC -DARMA_DONT_USE_BLAS -DARMA_DONT_USE_LAPACK)
     endif()
 endif()
-
