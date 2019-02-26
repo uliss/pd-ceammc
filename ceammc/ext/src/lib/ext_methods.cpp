@@ -24,6 +24,7 @@
 
 static t_symbol* any = &s_anything;
 extern "C" void pd_init();
+t_class* ceammc_class = nullptr;
 
 using namespace std;
 using namespace ceammc;

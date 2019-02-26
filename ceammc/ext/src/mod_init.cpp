@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "mod_init.h"
 #include "lib/ceammc.hpp"
+#include "m_imp.h"
 #include "s_stuff.h"
 
 #include "an/mod_analyze.h"
@@ -52,6 +53,8 @@
 #include <string>
 #include <vector>
 
+extern t_class* ceammc_class;
+
 std::set<std::string>& ceammc_ext_list()
 {
     static std::set<std::string> instance_;
@@ -70,11 +73,12 @@ static void setup_env_doc_path()
 
 static void setup_env_ceammc_doc_path()
 {
-    if (!sys_libdir)
+    if (!ceammc_class || !ceammc_class->c_externdir) {
+        pd_error(nullptr, "[ceammc] library is not initialized");
         return;
+    }
 
-    std::string path(sys_libdir->s_name);
-    path += "/extra/ceammc";
+    std::string path(ceammc_class->c_externdir->s_name);
     ceammc::set_env("CEAMMC", path.c_str());
 }
 

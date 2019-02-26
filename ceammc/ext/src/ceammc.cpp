@@ -17,7 +17,7 @@
 
 #include "m_pd.h"
 
-static t_class* ceammc_class = 0;
+t_class* ceammc_class = 0;
 
 static void ceammc_info_message()
 {
