@@ -32,10 +32,10 @@ void* eobj_new(t_eclass* c)
         x->o_nproxy = 0;
         x->o_proxy = NULL;
         x->o_canvas = canvas_getcurrent();
-        sprintf(buffer, "#%s%lx", c->c_class.c_name->s_name, (long unsigned int)x);
+        sprintf(buffer, "#%s%p", c->c_class.c_name->s_name, (void*)x);
         x->o_id = gensym(buffer);
         pd_bind(&x->o_obj.ob_pd, x->o_id);
-        sprintf(buffer, ".x%lx.c", (long unsigned int)x->o_canvas);
+        sprintf(buffer, ".x%p.c", (void*)x->o_canvas);
         c->c_widget.w_dosave = (t_typ_method)eobj_dosave;
     } else {
         bug("pd_new: apparently called before setup routine");

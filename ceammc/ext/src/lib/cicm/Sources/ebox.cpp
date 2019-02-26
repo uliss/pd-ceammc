@@ -385,13 +385,13 @@ static void ebox_tk_ids(t_ebox* x, t_canvas* canvas)
 {
     char buffer[MAXPDSTRING];
     x->b_obj.o_canvas = canvas;
-    sprintf(buffer, ".x%lx.c", (long unsigned int)canvas);
+    sprintf(buffer, ".x%p.c", (void*)canvas);
     x->b_canvas_id = gensym(buffer);
-    sprintf(buffer, "%s.ecanvas%lx", x->b_canvas_id->s_name, (long unsigned int)x);
+    sprintf(buffer, "%s.ecanvas%p", x->b_canvas_id->s_name, (void*)x);
     x->b_drawing_id = gensym(buffer);
-    sprintf(buffer, "%s.ewindow%lx", x->b_canvas_id->s_name, (long unsigned int)x);
+    sprintf(buffer, "%s.ewindow%p", x->b_canvas_id->s_name, (void*)x);
     x->b_window_id = gensym(buffer);
-    sprintf(buffer, "all%lx", (long unsigned int)x);
+    sprintf(buffer, "all%p", (void*)x);
     x->b_all_id = gensym(buffer);
 }
 
@@ -1254,7 +1254,7 @@ t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
                 graphic->e_new_objects.e_points = NULL;
                 graphic->e_new_objects.e_npoints = 0;
 
-                sprintf(text, "%s%ld", name->s_name, (long)x);
+                sprintf(text, "%s%p", name->s_name, (void*)x);
                 graphic->e_id = gensym(text);
 
                 graphic->e_new_objects.e_image = NULL;
@@ -1294,7 +1294,7 @@ t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
         graphic->e_objects = NULL;
 
         graphic->e_name = name;
-        sprintf(text, "%s%ld", name->s_name, (long)x);
+        sprintf(text, "%s%p", name->s_name, (void*)x);
         graphic->e_state = EGRAPHICS_OPEN;
         graphic->e_id = gensym(text);
         return graphic;
