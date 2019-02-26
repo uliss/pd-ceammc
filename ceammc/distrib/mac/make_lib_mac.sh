@@ -83,6 +83,16 @@ do
     echo "+ Copy: '$help'"
 done
 
+echo "Copying wrapper help files to ${OUTDIR} ..."
+find "${SRCDIR}/ext/class-wrapper/modules" -name *-help\\.pd | while read file
+do
+    help=$(basename $file)
+    cat "$file" |
+        sed 's/ceammc\/ceammc-help\.pd/ceammc-help.pd/' |
+        sed 's/\.\.\/index-help\.pd/index-help.pd/' > "${OUTDIR}/${help}"
+    echo "+ Copy: '$help'"
+done
+
 echo "+ Copying abstractions:"
 for abs in ${SRCDIR}/ext/abstractions/*.pd
 do
