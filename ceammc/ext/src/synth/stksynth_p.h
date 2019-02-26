@@ -43,9 +43,10 @@ public:
 template <class T>
 class StkFMSynth : public T {
 public:
-    StkFMSynth()
-        : T()
-    {
+    StkFMSynth() try : T() {
+    } catch (stk::StkError& e) {
+        LIB_ERR << e.getMessage();
+        throw e;
     }
 
     float getControlChange(int ctlNum) const
@@ -69,7 +70,7 @@ public:
     }
 
 public:
-    typedef ControlChangeProperty<StkFMSynth<T> > CCProperty;
+    typedef ControlChangeProperty<StkFMSynth<T>> CCProperty;
 };
 
 #endif // STKSYNTH_P_H
