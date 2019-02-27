@@ -64,12 +64,34 @@ do
     echo "+ Copy: '$help'"
 done
 
+echo "Copying wav files to ${OUTDIR} ..."
+find "${SRCDIR}/ext/doc" -name *\\.wav | while read file
+do
+    cp "$file" "${OUTDIR}"
+    echo "+ WAV:  $(basename $file)"
+done
+
+echo "Copying STK raw files to ${OUTDIR}/stk ..."
+mkdir "${OUTDIR}/stk"
+find "${SRCDIR}/extra/stk/stk/rawwaves" -name *\\.raw | while read file
+do
+    cp "$file" "${OUTDIR}/stk/"
+    echo "+ STK:  $(basename $file)"
+done
+
+echo "Copying SF2 files to ${OUTDIR}/sf2 ..."
+mkdir -p "${OUTDIR}/sf2"
+find "${SRCDIR}/extra/sf2" -name *\\.sf2 | while read file
+do
+    cp "$file" "${OUTDIR}/sf2"
+    echo "+ SF2:  $(basename $file)"
+done
+
 echo "+ Copying misc files:"
 echo "    stargazing.mod"
 cp "${SRCDIR}/ext/doc/stargazing.mod" "${OUTDIR}"
 echo "    prs.txt"
 cp "${SRCDIR}/ext/doc/prs.txt" "${OUTDIR}"
-
 
 echo "Copying Soundtouch files to ${OUTDIR} ..."
 cp "${SRCDIR}/extra/SoundTouch/pd/soundtouch-help.pd" "${OUTDIR}"
