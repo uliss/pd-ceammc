@@ -47,6 +47,8 @@ do
     echo "+ Dll:  $(basename $file)"
 done
 
+rm -f "${OUTDIR}/debug.gensym.dll" 
+
 echo "Copying TCL files to ${OUTDIR} ..."
 find "${SRCDIR}/extra/hcs" -name *\\.tcl | while read file
 do
