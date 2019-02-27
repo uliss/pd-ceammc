@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/uliss/pure-data.svg?branch=ceammc)](https://travis-ci.org/uliss/pure-data)
 [![Coverage Status](https://coveralls.io/repos/github/uliss/pure-data/badge.svg?branch=ceammc)](https://coveralls.io/github/uliss/pure-data?branch=ceammc)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fuliss%2Fpure-data.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fuliss%2Fpure-data?ref=badge_shield)
 
 CEAMMC Puredata distribution 2018.10
 ------------------------------------
@@ -42,3 +43,6 @@ Alex Nadzharov
 GPL3
 
 [Original README](README_ORIGINAL.md)
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fuliss%2Fpure-data.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fuliss%2Fpure-data?ref=badge_large)
