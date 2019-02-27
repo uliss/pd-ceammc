@@ -87,10 +87,17 @@ do
     echo "+ SF2:  $(basename $file)"
 done
 
-echo "+ Copying misc files:"
-echo "    stargazing.mod"
+echo "Copying UI abstractions files to ${OUTDIR} ..."
+find "${SRCDIR}/ext/abstractions" -name *\\.pd | while read file
+do
+    cp "$file" "${OUTDIR}"
+    echo "+ ABS:  $(basename $file)"
+done
+
+echo "Copying misc files to ${OUTDIR} ..."
+echo "+ MISC: stargazing.mod"
 cp "${SRCDIR}/ext/doc/stargazing.mod" "${OUTDIR}"
-echo "    prs.txt"
+echo "+ MISC: prs.txt"
 cp "${SRCDIR}/ext/doc/prs.txt" "${OUTDIR}"
 
 echo "Copying Soundtouch files to ${OUTDIR} ..."
