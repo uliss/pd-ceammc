@@ -72,7 +72,7 @@ do
 done
 
 echo "Copying STK raw files to ${OUTDIR}/stk ..."
-mkdir "${OUTDIR}/stk"
+mkdir -p "${OUTDIR}/stk"
 find "${SRCDIR}/extra/stk/stk/rawwaves" -name *\\.raw | while read file
 do
     cp "$file" "${OUTDIR}/stk/"
@@ -92,6 +92,18 @@ find "${SRCDIR}/ext/abstractions" -name *\\.pd | while read file
 do
     cp "$file" "${OUTDIR}"
     echo "+ ABS:  $(basename $file)"
+done
+
+echo "Copying wrapper DLL files to ${OUTDIR} ..."
+find ${SRCDIR}/ext/class-wrapper/modules/* -maxdepth 0 -type d | while read mod
+do
+    m=$(basename $mod)
+    echo "    module: $m"
+    find "${BINDIR}/extra/$m" -type f | while read f
+    do
+        echo "+ MOD: $(basename $f)"
+        cp "$f" "${OUTDIR}"
+    done
 done
 
 echo "Copying misc files to ${OUTDIR} ..."
