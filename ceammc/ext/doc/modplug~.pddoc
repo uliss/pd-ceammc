@@ -50,11 +50,11 @@
 | |      |       |       |
 [modplug~   @done on_done #x1]
 |
-[~->        ]             [func on_done]
-|          ^|                         ^|
-|          [route @rpos]              [T]
-|          |
-[dac~ #x2] [F]
+[~->                          ]  [func on_done]
+|                            ^|              ^|
+[ui.gain2~ #x2 @size 120 16] [route @rpos]    [T]
+| ^|.                        |
+[dac~]  [ui.dsp~]            [F]
 
 [X x1:1->x2:1]
 ]]>
