@@ -171,8 +171,9 @@ endif()
 if(WIN32 OR MSYS)
     set(RESOURCE "${CMAKE_CURRENT_BINARY_DIR}/pd.rc")
     configure_file("pd.rc" ${RESOURCE})
-    
+
     add_library(puredata-core SHARED ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
+    set_target_properties(puredata-core PROPERTIES PREFIX "" OUTPUT_NAME pd)
     add_executable(pd WIN32 s_entry.c ${RESOURCE})
 else()
     add_library(puredata-core STATIC ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
