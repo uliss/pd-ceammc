@@ -33,27 +33,25 @@ echo "Making CEAMMC library from build directory: $BINDIR"
 mkdir -p "${OUTDIR}"
 rm -f "${OUTDIR}/*"
 
-echo "Copying libraries to ${OUTDIR} ..."
-find "${BINDIR}" -name *.dll -print0 | while read -r -d '' file
+echo "Copying externals to ${OUTDIR} ..."
+find "${BINDIR}/extra/ceammc" -name *.dll -print0 | while read -r -d '' file
 do
     cp "$file" "${OUTDIR}"
-    echo "+ Lib:  $(basename $file)"
+    echo "+ Ext:  $(basename $file)"
 done
 
-
-echo "Copying [system.serial] extension files to ${OUTDIR} ..."
-find "${BINDIR}/../extra/comport" -name *.dll -print0 | while read -r -d '' file
+echo "Copying Dll's to ${OUTDIR} ..."
+find "${BINDIR}/bin" -name lib*.dll -print0 | while read -r -d '' file
 do
-    ext_name=$(basename $file)
-    skip_ext $file
-    if [ $? -eq 1 ]
-    then
-        echo "- Skip: '$ext_name'"
-        continue
-    fi
+    cp "$file" "${OUTDIR}"
+    echo "+ Dll:  $(basename $file)"
+done
 
-    cp "$file" "${OUTDIR}/${ext_name}"
-    echo "+ Copy: '$ext_name'"
+echo "Copying TCL files to ${OUTDIR} ..."
+find "${SRCDIR}/extra/hcs" -name *\\.tcl | while read file
+do
+    cp "$file" "${OUTDIR}"
+    echo "+ Tcl:  $(basename $file)"
 done
 
 echo "Copying help files to ${OUTDIR} ..."
@@ -66,14 +64,59 @@ do
     echo "+ Copy: '$help'"
 done
 
-echo "+ Copying misc files:"
-echo "    stargazing.mod"
+echo "Copying wav files to ${OUTDIR} ..."
+find "${SRCDIR}/ext/doc" -name *\\.wav | while read file
+do
+    cp "$file" "${OUTDIR}"
+    echo "+ WAV:  $(basename $file)"
+done
+
+echo "Copying STK raw files to ${OUTDIR}/stk ..."
+mkdir -p "${OUTDIR}/stk"
+find "${SRCDIR}/extra/stk/stk/rawwaves" -name *\\.raw | while read file
+do
+    cp "$file" "${OUTDIR}/stk/"
+    echo "+ STK:  $(basename $file)"
+done
+
+echo "Copying SF2 files to ${OUTDIR}/sf2 ..."
+mkdir -p "${OUTDIR}/sf2"
+find "${SRCDIR}/extra/sf2" -name *\\.sf2 | while read file
+do
+    cp "$file" "${OUTDIR}/sf2"
+    echo "+ SF2:  $(basename $file)"
+done
+
+echo "Copying UI abstractions files to ${OUTDIR} ..."
+find "${SRCDIR}/ext/abstractions" -name *\\.pd | while read file
+do
+    cp "$file" "${OUTDIR}"
+    echo "+ ABS:  $(basename $file)"
+done
+
+echo "Copying wrapper DLL files to ${OUTDIR} ..."
+find ${SRCDIR}/ext/class-wrapper/modules/* -maxdepth 0 -type d | while read mod
+do
+    m=$(basename $mod)
+    echo "    module: $m"
+    find "${BINDIR}/extra/$m" -type f | while read f
+    do
+        echo "+ MOD: $(basename $f)"
+        cp "$f" "${OUTDIR}"
+    done
+done
+
+echo "Copying misc files to ${OUTDIR} ..."
+echo "+ MISC: stargazing.mod"
 cp "${SRCDIR}/ext/doc/stargazing.mod" "${OUTDIR}"
-echo "    prs.txt"
+echo "+ MISC: prs.txt"
 cp "${SRCDIR}/ext/doc/prs.txt" "${OUTDIR}"
 
-echo "+ Fix soundtouch link in index-help.pd..."
-sed -i "" 's/ceammc\/soundtouch-help\.pd/soundtouch-help.pd/' "${OUTDIR}/index-help.pd"
+echo "Copying Soundtouch files to ${OUTDIR} ..."
+cp "${SRCDIR}/extra/SoundTouch/pd/soundtouch-help.pd" "${OUTDIR}"
+cp "${SRCDIR}/extra/SoundTouch/pd/soundtouch~-help.pd" "${OUTDIR}"
+cat "${OUTDIR}/index-help.pd" | sed 's/ceammc\/soundtouch-help\.pd/soundtouch-help.pd/' > tmp
+mv tmp "${OUTDIR}/index-help.pd"
 
 cd "$3"
 7z a "${OUTFILE}" $(basename $OUTDIR)
