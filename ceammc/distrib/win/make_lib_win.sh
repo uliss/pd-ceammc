@@ -111,6 +111,8 @@ echo "+ MISC: stargazing.mod"
 cp "${SRCDIR}/ext/doc/stargazing.mod" "${OUTDIR}"
 echo "+ MISC: prs.txt"
 cp "${SRCDIR}/ext/doc/prs.txt" "${OUTDIR}"
+echo "+ MISC: system.serial-help.pd"
+cp "${SRCDIR}/extra/comport/system.serial-help.pd" "${OUTDIR}"
 
 echo "Copying Soundtouch files to ${OUTDIR} ..."
 cp "${SRCDIR}/extra/SoundTouch/pd/soundtouch-help.pd" "${OUTDIR}"
