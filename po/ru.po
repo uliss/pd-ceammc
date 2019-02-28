@@ -1,10 +1,10 @@
 # Serge Poltavski <serge.poltavski@gmail.com>, 2016-2017.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
+"Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2018-03-20 02:51+0300\n"
-"PO-Revision-Date: 2018-03-20 02:55+0300\n"
+"POT-Creation-Date: 2019-03-01 00:28+0300\n"
+"PO-Revision-Date: 2019-03-01 00:42+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Language: ru_RU\n"
 "X-Source-Language: C\n"
 "X-Loco-Parser: loco_parse_po\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: ../tcl/dialog_font.tcl
 #, tcl-format
@@ -182,7 +182,7 @@ msgstr "Свойства Array"
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
 msgid "Array name"
-msgstr ""
+msgstr "Имя массива"
 
 #: ../ceammc/ext/src/ui/ui_incdec.cpp
 msgid "Arrow Color"
@@ -317,6 +317,9 @@ msgid ""
 "%s\n"
 "Into %s..."
 msgstr ""
+"Начало загрузки:\n"
+"%s\n"
+"в %s…"
 
 #: ../tcl/pd_menus.tcl
 msgid "Comment"
@@ -365,7 +368,7 @@ msgstr "Свойства данных"
 
 #: ../ceammc/ext/src/ui/ui_number_tilde.cpp
 msgid "Decimal precision"
-msgstr ""
+msgstr "Десятичная точность"
 
 #: ../tcl/dialog_startup.tcl
 msgid "Defeat real-time scheduling"
@@ -378,6 +381,10 @@ msgstr "Задержка (мкс):"
 #: ../tcl/dialog_array.tcl
 msgid "Delete array"
 msgstr "Удалить array"
+
+#: ../ceammc/ext/src/ui/ui_number.cpp
+msgid "Digits"
+msgstr "Число разрядов"
 
 #: pd_dynamic_strings.tcl
 #, tcl-format
@@ -485,7 +492,7 @@ msgstr "Начертание"
 msgid "Font Weight"
 msgstr "Жирность шрифта"
 
-#: ../tcl/dialog_iemgui.tcl
+#: ../ceammc/ext/src/ui/ui_spectroscope~.cpp ../tcl/dialog_iemgui.tcl
 msgid "Foreground color"
 msgstr "Цвет переднего плана"
 
@@ -547,6 +554,11 @@ msgstr ""
 
 #: ../tcl/wheredoesthisgo.tcl
 #, tcl-format
+msgid "Ignoring '%s': doesn't exist"
+msgstr "Игнорирование \" %s\": не существует"
+
+#: ../tcl/wheredoesthisgo.tcl
+#, tcl-format
 msgid "Ignoring '%s': doesn't look like a Pd-file"
 msgstr "Пропускаю ‘%s’: не формат Pd-файла"
 
@@ -587,8 +599,9 @@ msgstr "Переход при клике"
 msgid "Keys"
 msgstr "Число клавиш"
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
+#: ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "Knob Color"
 msgstr "Цвет ползунка"
 
@@ -646,7 +659,7 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_spectroscope.cpp
 msgid "Log scale"
-msgstr ""
+msgstr "Логарифмическая шкала"
 
 #: ../tcl/pdwindow.tcl
 msgid "Log:"
@@ -746,7 +759,8 @@ msgstr "Максимальное Y-значение"
 msgid "Maximum item length"
 msgstr "Максимальная длина"
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_scope.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Maximum value"
 msgstr "Максимальное значение"
 
@@ -780,7 +794,8 @@ msgstr "Минимальное X-значение"
 msgid "Minimum Y-value"
 msgstr "Минимальное Y-значение"
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_scope.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Minimum value"
 msgstr "Минимальное значение"
 
@@ -889,7 +904,7 @@ msgstr "Диапазон значений"
 msgid "Output on mouse up"
 msgstr "Выводить при отпускании мыши"
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
 msgid "Output value"
 msgstr "Выводить значение"
 
@@ -1069,7 +1084,7 @@ msgstr "Насыщенность"
 msgid "Save"
 msgstr "Сохранить"
 
-#: ../tcl/dialog_audio.tcl ../tcl/pd_menus.tcl
+#: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl ../tcl/pd_menus.tcl
 msgid "Save All Settings"
 msgstr "Сохранить все"
 
@@ -1117,6 +1132,10 @@ msgstr "Выделить все"
 msgid "Select color"
 msgstr "Цвет выделения"
 
+#: ../ceammc/ext/src/ui/ui_arrayview.cpp
+msgid "Selection Color"
+msgstr "Цвет выделения"
+
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Send Symbol"
 msgstr "Отправлять"
@@ -1157,12 +1176,12 @@ msgstr "Показывать диапазон"
 #: ../tcl/dialog_find.tcl
 #, tcl-format
 msgid "Showed last '%s' in %s"
-msgstr ""
+msgstr "Показаны последние ‘%s’ в %s"
 
 #: ../tcl/dialog_find.tcl
 #, tcl-format
 msgid "Showing '%d' out of %d items in %s"
-msgstr ""
+msgstr "Показано ‘%d’ из %d элементов в %s"
 
 #: ../ceammc/ext/src/ui/ui_icon.cpp
 msgid "Size"
@@ -1411,7 +1430,7 @@ msgstr "X-cмещение:"
 
 #: ../tcl/dialog_font.tcl
 msgid "X only"
-msgstr "только X"
+msgstr "Только X"
 
 #: ../tcl/dialog_canvas.tcl
 msgid "X range: from"
@@ -1427,7 +1446,7 @@ msgstr "Y-cмещение:"
 
 #: ../tcl/dialog_font.tcl
 msgid "Y only"
-msgstr "только Y"
+msgstr "Только Y"
 
 #: ../tcl/dialog_canvas.tcl
 msgid "Y range: from"
@@ -1491,7 +1510,7 @@ msgstr ""
 
 #: iemgui_dynamic_strings.tcl
 msgid "left:"
-msgstr ""
+msgstr "слева:"
 
 #: iemgui_dynamic_strings.tcl
 msgid "lin"
@@ -1507,11 +1526,11 @@ msgstr ""
 
 #: iemgui_dynamic_strings.tcl
 msgid "max:"
-msgstr ""
+msgstr "макс:"
 
 #: iemgui_dynamic_strings.tcl
 msgid "min:"
-msgstr ""
+msgstr "мин:"
 
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/pdwindow.tcl
 msgid "normal"
@@ -1519,11 +1538,11 @@ msgstr "обычный"
 
 #: ../tcl/pd_menus.tcl
 msgid "puredata.info"
-msgstr ""
+msgstr "puredata.info"
 
 #: iemgui_dynamic_strings.tcl
 msgid "right:"
-msgstr ""
+msgstr "справа:"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
@@ -1540,7 +1559,7 @@ msgstr "до"
 
 #: iemgui_dynamic_strings.tcl
 msgid "top:"
-msgstr ""
+msgstr "сверху:"
 
 #: iemgui_dynamic_strings.tcl
 msgid "value:"
@@ -1582,9 +1601,6 @@ msgstr "ширина:"
 
 #~ msgid "Selected Button Color"
 #~ msgstr "Цвет выделенной кнопки"
-
-#~ msgid "Selection Color"
-#~ msgstr "Цвет выделения"
 
 #~ msgid "Shift"
 #~ msgstr "Смещение"
