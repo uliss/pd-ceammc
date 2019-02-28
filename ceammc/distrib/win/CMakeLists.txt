@@ -6,9 +6,9 @@ endif()
 
 if(WIN32)
     if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-        set(CEAMMC_DISTRIB_ARCH "(64-bit)")
+        set(CEAMMC_DISTRIB_ARCH "64-bit")
     elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
-        set(CEAMMC_DISTRIB_ARCH "(32-bit)")
+        set(CEAMMC_DISTRIB_ARCH "32-bit")
     endif()
 endif()
 

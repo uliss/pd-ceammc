@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [ $# -ne 4 ]
+if [ $# -ne 5 ]
 then
-    echo "Usage: $0 SRCDIR BINDIR OUTDIR VERSION"
+    echo "Usage: $0 SRCDIR BINDIR OUTDIR VERSION ARCH"
     exit 1
 fi
 
@@ -10,7 +10,8 @@ SRCDIR="$1"
 BINDIR="$2"
 VERSION="$4"
 OUTDIR="$3/ceammc"
-OUTFILE="ceammc-${VERSION}-win-pd-0.47.zip"
+ARCH="$5"
+OUTFILE="ceammc-${VERSION}-win-pd-0.47-${ARCH}.zip"
 
 echo "    - source dir:  ${SRCDIR}"
 echo "    - binary dir:  ${BINDIR}"
@@ -47,7 +48,7 @@ do
     echo "+ Dll:  $(basename $file)"
 done
 
-rm -f "${OUTDIR}/debug.gensym.dll" 
+rm -f "${OUTDIR}/debug.gensym.dll"
 
 echo "Copying TCL files to ${OUTDIR} ..."
 find "${SRCDIR}/extra/hcs" -name *\\.tcl | while read file
