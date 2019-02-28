@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 355 50 cnv 1 340 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 355 50 various percussion sounds from STK library;
-#X obj 1 1 cnv 5 712 40 empty empty synth.shakers~ 20 20 0 20 -104026
+#X obj 425 50 cnv 1 340 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 425 50 various percussion sounds from STK library;
+#X obj 1 1 cnv 5 765 40 empty empty synth.shakers~ 20 20 0 20 -104026
 -4096 0;
-#X obj 585 11 synth.shakers~;
-#X obj 205 80 cnv 1 490 182 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 638 11 synth.shakers~;
+#X obj 205 80 cnv 1 560 182 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 PhISEM (Physically Informed Stochastic Event Modeling)
 is an algorithmic approach for simulating collisions of multiple
 independent sound producing objects. This class is a meta-model that
@@ -31,7 +31,7 @@ sticks \, crunchy snow (or not) \, a wrench \, sandpaper \, and more.;
 #X obj 50 550 ui.gain~ @size 120 16;
 #X obj 290 550 ui.dsp~;
 #X obj 50 578 dac~;
-#X obj 20 617 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 617 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 622 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 627 @gate;
@@ -46,7 +46,7 @@ nickle_mug \, dime_mug \, quarter_mug \, franc_mug \, peso_mug \,
 guiro \, wrench \, water_drops \, tuned_bamboo_chimes;
 #X msg 120 757 @types;
 #X text 240 757 (readonly) Get all instrument types. Type: list;
-#X obj 20 794 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 794 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 799 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 804 cc;
@@ -55,12 +55,12 @@ guiro \, wrench \, water_drops \, tuned_bamboo_chimes;
 #X text 250 832 CTL: control number. Type: int.;
 #X obj 250 860 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 860 VAL: value. Type: float.;
-#X obj 20 898 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 898 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 903 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 908 1\.;
 #X text 240 908 control inlet.;
-#X obj 20 936 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 936 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 941 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 946 1\.;
@@ -70,14 +70,14 @@ guiro \, wrench \, water_drops \, tuned_bamboo_chimes;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 994 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 997 library: ceammc v0.6;
+#X obj 1 994 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 997 library: ceammc v0.7;
 #N canvas 10 1016 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 synth.shakers~;
 #X text 10 76 category:;

@@ -1,12 +1,28 @@
 #include "fx_sdelay.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
+using namespace ceammc;
+
+static t_symbol* SYM_PROP_DELAY = gensym("@delay");
+static t_symbol* SYM_PROP_FEEDBACK = gensym("@feedback");
+
+class FxSmoothDelay : public faust_fx_sdelay_tilde {
+public:
+    FxSmoothDelay(const PdArgs& args)
+        : faust_fx_sdelay_tilde(args)
+    {
+        bindPositionalArgsToProps({ SYM_PROP_DELAY, SYM_PROP_FEEDBACK });
+    }
+
+    void m_clear(t_symbol*, const AtomList&)
+    {
+        dsp_->instanceClear();
+    }
+};
+
+void setup_fx_sdelay_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-    PdArgParser p(x, argc, argv);
-    p.initFloatArg("delay", 1);
-    p.initFloatArg("feedback", 2);
-    return p.pd_obj();
+    SoundExternalFactory<FxSmoothDelay> obj("fx.sdelay~");
+    obj.addMethod("clear", &FxSmoothDelay::m_clear);
+    obj.addMethod("reset", &FxSmoothDelay::m_clear);
 }
-
-EXTERNAL_SETUP(fx);

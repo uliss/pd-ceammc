@@ -128,14 +128,14 @@ namespace tl {
         bool operator()(CueData* c) const { return c->object() == o_; }
     };
 
-    CueData* CueStorage::find(t_canvas* cnv, t_object* obj)
+    CueData* CueStorage::find(const t_canvas* cnv, t_object* obj)
     {
         CueList* lst = cueList(cnv);
         if (lst == 0)
             return 0;
 
         ObjPred pred(obj);
-        CueList::iterator it = std::find_if(lst->begin(), lst->end(), pred);
+        auto it = std::find_if(lst->begin(), lst->end(), pred);
         return it == lst->end() ? 0 : (*it);
     }
 
@@ -148,7 +148,7 @@ namespace tl {
         return std::find(lst->begin(), lst->end(), c) != lst->end();
     }
 
-    bool CueStorage::exists(t_canvas* cnv)
+    bool CueStorage::exists(const t_canvas* cnv)
     {
         return cue_map_.find(cnv) != cue_map_.end();
     }
@@ -180,15 +180,15 @@ namespace tl {
         }
     }
 
-    size_t CueStorage::cueCount(t_canvas* cnv)
+    size_t CueStorage::cueCount(const t_canvas* cnv)
     {
         CueList* lst = cueList(cnv);
         return lst == 0 ? 0 : lst->size();
     }
 
-    CueList* CueStorage::cueList(t_canvas* c)
+    CueList* CueStorage::cueList(const t_canvas* c)
     {
-        CanvasCueMap::iterator it = cue_map_.find(c);
+        auto it = cue_map_.find(c);
         return it == cue_map_.end() ? 0 : &it->second;
     }
 
@@ -218,12 +218,35 @@ namespace tl {
         cb_ = fn;
     }
 
-    void TimelineData::triggerAction()
+    void TimelineData::triggerAction(int in)
     {
         if (!cb_)
             return;
 
-        cb_(this);
+        cb_(this, in);
+    }
+
+    const CueData* TimelineData::findCue() const
+    {
+        CueList* lst = CueStorage::cueList(canvas_);
+        if (!lst)
+            return nullptr;
+
+        const size_t N = lst->size();
+        long idx = -1;
+        for (size_t i = 0; i < N; i++) {
+            auto cue_x = lst->at(i)->xPos();
+            idx = i;
+            if (xpos_ < cue_x) {
+                idx = long(i) - 1;
+                break;
+            }
+        }
+
+        if (idx < 0)
+            return nullptr;
+
+        return lst->at(idx);
     }
 
     UIDataList UIStorage::data_;
@@ -291,9 +314,10 @@ namespace tl {
             int right = (idx < (lst->size() - 1)) ? lst->at(idx + 1)->xPos() : std::numeric_limits<int>::max();
 
             if (left <= d->xPos() && d->xPos() < right) {
-                d->triggerAction();
+                d->triggerAction(1);
                 res++;
-            }
+            } else
+                d->triggerAction(0);
         }
 
         return res;

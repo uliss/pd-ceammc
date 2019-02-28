@@ -1,0 +1,82 @@
+{
+	"name": "fx.freeverb",
+	"filename": "fx_freeverb",
+	"version": "2.15.0",
+	"compile_options": "cpp, -scal -ftz 0",
+	"library_list": ["/Users/serj/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/reverbs.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/delays.lib","/Users/serj/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/basics.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
+	"inputs": "1",
+	"outputs": "1",
+	"meta": [ 
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/version": "0.0" },
+		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
+		{ "ceammc.lib/version": "0.1.1" },
+		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
+		{ "ceammc_ui.lib/version": "0.1.1" },
+		{ "delays.lib/name": "Faust Delay Library" },
+		{ "delays.lib/version": "0.0" },
+		{ "filename": "fx_freeverb" },
+		{ "filters.lib/name": "Faust Filters Library" },
+		{ "filters.lib/version": "0.0" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.1" },
+		{ "name": "fx.freeverb" },
+		{ "reverbs.lib/name": "Faust Reverb Library" },
+		{ "reverbs.lib/version": "0.0" },
+		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/version": "0.0" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "fx.freeverb",
+			"items": [ 
+				{
+					"type": "checkbox",
+					"label": "bypass",
+					"address": "/fx.freeverb/bypass"
+				},
+				{
+					"type": "hslider",
+					"label": "damp",
+					"address": "/fx.freeverb/damp",
+					"meta": [
+						{ "style": "knob" }
+					],
+					"init": "0.5",
+					"min": "0",
+					"max": "1",
+					"step": "0.001"
+				},
+				{
+					"type": "hslider",
+					"label": "drywet",
+					"address": "/fx.freeverb/drywet",
+					"meta": [
+						{ "style": "knob" }
+					],
+					"init": "0.33",
+					"min": "0",
+					"max": "1",
+					"step": "0.01"
+				},
+				{
+					"type": "hslider",
+					"label": "room",
+					"address": "/fx.freeverb/room",
+					"meta": [
+						{ "stye": "knob" }
+					],
+					"init": "0.5",
+					"min": "0",
+					"max": "1",
+					"step": "0.001"
+				}
+			]
+		}
+	]
+}

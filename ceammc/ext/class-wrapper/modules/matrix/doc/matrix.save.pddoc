@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.save">
+        <title>matrix.save</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>save matrix in CSV format</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <version>0.1</version>
+            <since>0.1</since>
+            <also>
+                <see>matrix.load</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="symbol" name="FNAME">filename to save</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Matrix data constructor: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">Matrix data</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="symbol">filename to save</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output original matrix (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[2 4(
+|
+[matrix.randu]         [symbol test_matrix2.csv(
+|                      |.
+[matrix.save test_matrix.csv]
+|
+[ui.display @display_type=1]
+
+
+
+
+
+[test_matrix.csv(      [test_matrix2.csv(
+|                      |
+|                      |
+[symbol                ]
+|
+[matrix.load]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

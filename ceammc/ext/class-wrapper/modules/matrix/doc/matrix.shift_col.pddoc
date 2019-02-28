@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.shift_col">
+        <title>matrix.shift_col</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>shift Matrix elements by N positions in each column</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <keywords>shift</keywords>
+            <version>0.1</version>
+            <since>0.1</since>
+            <also>
+                <see>shift_row</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="int" name="N">shift value (can be negative)</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Matrix data constructor: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">Matrix data</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">shift value (can be negative)</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output new matrix (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[3 3 1 2 3 4 5 6 7 8 9(
+|
+[list->matrix] [F]
+|              |.
+[matrix.shift_col 1]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

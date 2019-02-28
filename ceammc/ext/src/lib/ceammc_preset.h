@@ -3,9 +3,9 @@
 
 #include "ceammc_message.h"
 
-#include <boost/shared_ptr.hpp>
-#include <boost/unordered_map.hpp>
-#include <boost/unordered_set.hpp>
+#include <memory>
+#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 namespace ceammc {
@@ -55,7 +55,7 @@ public:
     int refCount() const { return ref_count_; }
 };
 
-typedef boost::shared_ptr<Preset> PresetPtr;
+typedef std::shared_ptr<Preset> PresetPtr;
 
 class PresetStorage {
     PresetStorage();
@@ -63,8 +63,8 @@ class PresetStorage {
     void operator=(const PresetStorage&);
 
 private:
-    typedef boost::unordered_map<t_symbol*, PresetPtr> PresetMap;
-    typedef boost::unordered_set<t_symbol*> PresetNameSet;
+    typedef std::unordered_map<t_symbol*, PresetPtr> PresetMap;
+    typedef std::unordered_set<t_symbol*> PresetNameSet;
     typedef std::vector<PresetNameSet> IndexMap;
     PresetMap params_;
     IndexMap indexes_;

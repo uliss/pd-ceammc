@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.vocoder~">
+        <title>fx.vocoder~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>very simple vocoder where the spectrum of the modulation signal is
+            analyzed using a 32-band filter bank</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>vocoder</keywords>
+            <since>0.7</since>
+        </meta>
+        <properties>
+            <property name="@attack" type="float" minvalue="0.1" maxvalue="100" default="5"
+            units="millisecond">attack time</property>
+            <property name="@release" type="float" minvalue="0.1" maxvalue="100" default="5"
+            units="millisecond">release time</property>
+            <property name="@bwratio" type="float" minvalue="0.1" maxvalue="2" default="0.5">
+            coefficient to adjust the bandwidth of each band</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>modulation signal</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>excitation/carrier signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio" />
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %DOC%/sound/voice.wav, 1 #a(
+|
+[expand_env @any]
+|
+[readsf~]         [osc.impulse~ 200]
+|                 |
+|                 |
+|                 |.
+[fx.vocoder~       ]
+|
+[ui.gain~ @size 120 16] [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

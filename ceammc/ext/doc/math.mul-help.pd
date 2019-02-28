@@ -1,30 +1,30 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 460 50 cnv 1 235 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 460 50 multiplication (on lists too);
-#X obj 1 1 cnv 5 712 40 empty empty math.mul 20 20 0 20 -104026 -4096
+#X obj 530 50 cnv 1 235 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 530 50 multiplication (on lists too);
+#X obj 1 1 cnv 5 765 40 empty empty math.mul 20 20 0 20 -104026 -4096
 0;
-#X obj 560 11 math.*;
-#X obj 629 11 math.mul;
+#X obj 613 11 math.*;
+#X obj 682 11 math.mul;
 #X msg 50 118 1 2 3 A B C;
 #X floatatom 184 118 5 0 0 0 - - -;
 #X floatatom 232 118 5 0 0 0 - - -;
 #X obj 50 162 math.* 2;
 #X obj 50 190 msg set;
 #X msg 50 219 ;
-#X obj 20 258 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 258 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 263 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 268 1\.;
 #X text 150 268 float;
 #X obj 241 269 cnv 1 33 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 268 MUL: multiplicand.;
-#X obj 20 296 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 301 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 306 @mul;
 #X text 240 306 Get/Set multiplicand. Type: float. Default value: 1;
-#X obj 20 343 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 343 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 348 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 353 1\.;
@@ -35,7 +35,7 @@
 #X text 120 389 2\.;
 #X text 150 389 *float*;
 #X text 240 389 change multiplicand.;
-#X obj 20 417 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 417 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 422 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 427 1\.;
@@ -45,14 +45,14 @@
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.6;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 508 library: ceammc v0.7;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 math.mul;
 #X text 10 76 category:;

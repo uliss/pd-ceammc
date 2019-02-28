@@ -14,7 +14,7 @@
 #ifndef LIBUSB_WRAPPER_H
 #define LIBUSB_WRAPPER_H
 
-#include "../data/datatype_mlist.h"
+#include "datatype_mlist.h"
 #include "ceammc_atomlist.h"
 #include <boost/variant.hpp>
 #include <mutex>

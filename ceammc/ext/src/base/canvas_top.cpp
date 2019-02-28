@@ -1,6 +1,7 @@
 #include "canvas_top.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
+#include "datatype_dict.h"
 
 CanvasTop::CanvasTop(const PdArgs& a)
     : BaseObject(a)
@@ -16,6 +17,23 @@ CanvasTop::CanvasTop(const PdArgs& a)
     createCbProperty("@y", &CanvasTop::p_y);
     createCbProperty("@width", &CanvasTop::p_width);
     createCbProperty("@height", &CanvasTop::p_height);
+}
+
+void CanvasTop::onBang()
+{
+    DataTypeDict* dict = new DataTypeDict;
+
+    dict->insert("name", p_name());
+    dict->insert("dir", p_dir());
+    dict->insert("font", p_font());
+    dict->insert("paths", p_paths());
+    dict->insert("size", p_size());
+    dict->insert("x", p_x());
+    dict->insert("y", p_y());
+    dict->insert("width", p_width());
+    dict->insert("height", p_height());
+
+    dataTo(0, DataPtr(dict));
 }
 
 AtomList CanvasTop::p_name() const

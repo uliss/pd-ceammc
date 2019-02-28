@@ -16,7 +16,8 @@
         <properties>
             <property name="@track" type="float" readonly="true">track number</property>
             <property name="@join" type="flag">join all tracks into one</property>
-            <property name="@speed" type="float" minvalue="0.01">play speed factor</property>
+            <property name="@speed" type="float" minvalue="0.01" default="1">play speed
+            factor</property>
             <property name="@tempo" type="float" readonly="true">current tempo in TPQ</property>
         </properties>
         <methods>

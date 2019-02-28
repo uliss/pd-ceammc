@@ -13,7 +13,8 @@
  *****************************************************************************/
 #include "../math/math_round_tilde.h"
 #include "test_base.h"
-#include "catch.hpp"
+#include "test_external.h"
+#include "test_sound.h"
 
 #include <algorithm>
 #include <cstdlib>
@@ -21,24 +22,7 @@
 
 typedef TestSoundExternal<MathRoundTilde> MathRoundTildeTest;
 
-struct ConstGen {
-    double v;
-    ConstGen(double val)
-        : v(val)
-    {
-    }
-    t_sample operator()(size_t) const { return t_sample(v); }
-};
-
-struct FRandGen {
-    int f, t;
-    FRandGen(int from, int to)
-        : f(from)
-        , t(to)
-    {
-    }
-    t_sample operator()(size_t) const { return t_sample(rand() % (t - f) + f); }
-};
+PD_COMPLETE_SND_TEST_SETUP(MathRoundTilde, math, round_tilde)
 
 template <size_t IN, size_t OUT>
 struct SigVec {
@@ -81,6 +65,7 @@ static void fill_block(t_sample* b, F f)
 
 TEST_CASE("math.round~", "[externals]")
 {
+    pd_test_init();
 
     SECTION("process")
     {

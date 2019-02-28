@@ -21,6 +21,8 @@ ArrayBase::ArrayBase(const PdArgs& a)
         array_.open(array_name_);
 
     createCbProperty("@array", &ArrayBase::propArray, &ArrayBase::propSetArray);
+    auto& pinfo = property("@array")->info();
+    pinfo.setType(PropertyInfoType::SYMBOL);
 }
 
 bool ArrayBase::setArray(t_symbol* s)

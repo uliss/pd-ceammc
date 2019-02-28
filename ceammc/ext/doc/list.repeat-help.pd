@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 245 50 cnv 1 450 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 245 50 creates new list by repeating given list specified
+#X obj 315 50 cnv 1 450 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 315 50 creates new list by repeating given list specified
 times;
-#X obj 1 1 cnv 5 712 40 empty empty list.repeat 20 20 0 20 -104026
+#X obj 1 1 cnv 5 765 40 empty empty list.repeat 20 20 0 20 -104026
 -4096 0;
-#X obj 608 11 list.repeat;
+#X obj 661 11 list.repeat;
 #X msg 50 118 1 2 3 4 *;
 #X msg 174 118 (1 2 3) \, bang;
 #X obj 347 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -17,20 +17,20 @@ times;
 #X floatatom 366 176 5 0 0 0 - - -;
 #X obj 50 205 list.repeat 3;
 #X obj 50 234 ui.display @display_type 1 @size 150 18;
-#X obj 20 274 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 274 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 279 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 284 1\.;
 #X text 150 284 int;
 #X obj 241 285 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 284 N: repeat times. Range: 0\...10000;
-#X obj 20 312 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 322 @times;
 #X text 240 322 Get/Set repeat times. Type: int. Default value: 1\.
 Value range: 0-10000;
-#X obj 20 369 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 374 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 379 1\.;
@@ -51,7 +51,7 @@ n times.;
 #X text 120 511 2\.;
 #X text 150 511 *int*;
 #X text 240 511 repeat count. Range: 0\...10000;
-#X obj 20 539 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 539 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 544 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 549 1\.;
@@ -61,14 +61,14 @@ n times.;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 597 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 600 library: ceammc v0.6;
+#X obj 1 597 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 600 library: ceammc v0.7;
 #N canvas 10 619 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 list.repeat;
 #X text 10 76 category:;

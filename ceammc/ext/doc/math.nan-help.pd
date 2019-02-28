@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 410 50 cnv 1 285 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 410 50 Not a Number \, unrepresentable value;
-#X obj 1 1 cnv 5 712 40 empty empty math.nan 20 20 0 20 -104026 -4096
+#X obj 480 50 cnv 1 285 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 480 50 Not a Number \, unrepresentable value;
+#X obj 1 1 cnv 5 765 40 empty empty math.nan 20 20 0 20 -104026 -4096
 0;
-#X obj 629 11 math.nan;
-#X obj 205 80 cnv 1 490 117 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 682 11 math.nan;
+#X obj 205 80 cnv 1 560 117 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 In computing \, NaN \, standing for not a number \, is
 a numeric data type value representing an undefined or unrepresentable
 value \, especially in floating-point calculations. Systematic use of
@@ -16,13 +16,13 @@ infinities.;
 -1;
 #X obj 50 254 math.nan;
 #X floatatom 50 283 5 0 0 0 - - -;
-#X obj 20 322 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 322 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 327 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 332 1\.;
 #X text 150 332 *bang*;
 #X text 240 332 outputs value.;
-#X obj 20 360 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 360 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 365 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 370 1\.;
@@ -32,16 +32,16 @@ infinities.;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.6;
-#X text 556 520 see also:;
-#X obj 632 520 math.inf;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 508 library: ceammc v0.7;
+#X text 626 520 see also:;
+#X obj 702 520 math.inf;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 math.nan;
 #X text 10 76 category:;

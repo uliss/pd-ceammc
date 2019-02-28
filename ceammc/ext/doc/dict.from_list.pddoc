@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="dict.from_list">
+        <title>dict.from_list</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>creates dictionary from list</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>dictionary</keywords>
+            <since>0.7</since>
+            <also>
+                <see>data.dict</see>
+            </also>
+            <aliases>
+                <alias>list-&gt;dict</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Convertion depends on property @step, which means a length of key/value pair.
+            First element of the pair becames a key, and other elements becames value.</par>
+        </info>
+        <arguments>
+            <argument name="STEP" type="int" minvalue="2">key/value length in input list</argument>
+        </arguments>
+        <properties>
+            <property name="@step" type="int" minvalue="2" default="2">key/value length in input
+            list</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>dict output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[list a b c d e f g h j k  (
+|                          |
+|                          |
+|                          |
+[list->dict]               [list->dict 3]
+|                          |
+[ui.d]                     [ui.d]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -63,6 +63,10 @@
 #define TEST_DATA_DIR "."
 #endif
 
+#ifndef TEST_BIN_DIR
+#define TEST_BIN_DIR "."
+#endif
+
 // simple wrappers
 #define S(v) Atom(gensym(v))
 #define F(v) Atom(float(v))
@@ -89,6 +93,11 @@
  * @brief variadic list of float aprrox compare
  */
 #define LX(...) ListApprox({ __VA_ARGS__ })
+
+/**
+ * @brief variadic list of float aprrox compare
+ */
+#define LAX(...) AtomListApprox(LA(__VA_ARGS__))
 
 /**
  * @brief variadic list of atoms (mixed)

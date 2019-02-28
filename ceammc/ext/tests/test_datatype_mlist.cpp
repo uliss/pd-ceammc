@@ -11,9 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/datatype_mlist.h"
-#include "../data/mlist_parser_impl.h"
-#include "../lib/ceammc_datatypes.h"
+#include "ceammc_datatypes.h"
+#include "datatype_mlist.h"
+#include "mlist_parser_impl.h"
 
 #include "test_base.h"
 

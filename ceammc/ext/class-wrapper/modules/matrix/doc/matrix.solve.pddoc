@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.solve">
+        <title>matrix.solve</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>Solve a system of linear equations, A*X = B, where X is unknown</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <version>0.1</version>
+            <since>0.1</since>
+        </meta>
+        <arguments>
+            <argument type="list" name="B">can be a vector or matrix</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Matrix data constructor: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">Matrix data</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">can be a vector or matrix: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">can be a vector or matrix</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output result X matrix (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[2 2 1 2 3 4(
+|
+[matrix.solve 2 2 1 2 3 4]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

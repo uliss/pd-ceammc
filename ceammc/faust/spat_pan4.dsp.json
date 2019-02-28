@@ -1,0 +1,52 @@
+{
+	"name": "spat.pan4",
+	"filename": "spat_pan4",
+	"version": "2.8.5",
+	"compile_options": "cpp, -scal -ftz 0",
+	"library_list": ["/usr/local/share/faust/spats.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/signals.lib"],
+	"include_pathnames": ["/Users/serj/work/music/pd-exp/pure-data/ceammc/faust","/usr/local/share/faust","/usr/share/faust"],
+	"inputs": "1",
+	"outputs": "4",
+	"meta": [ 
+		{ "filename": "spat_pan4" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.1" },
+		{ "name": "spat.pan4" },
+		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/version": "0.0" },
+		{ "spats.lib/name": "Faust Spatialization Library" },
+		{ "spats.lib/version": "0.0" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "spat.pan4",
+			"items": [ 
+				{
+					"type": "vslider",
+					"label": "angle",
+					"address": "/spat.pan4/angle",
+					"meta": [
+						{ "unit": "rad" }
+					],
+					"init": "0",
+					"min": "0",
+					"max": "6.28319",
+					"step": "0.0001"
+				},
+				{
+					"type": "vslider",
+					"label": "dist",
+					"address": "/spat.pan4/dist",
+					"init": "1",
+					"min": "0",
+					"max": "1",
+					"step": "0.0001"
+				}
+			]
+		}
+	]
+}

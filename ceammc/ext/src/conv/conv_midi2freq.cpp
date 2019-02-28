@@ -3,7 +3,15 @@
 #include "ceammc_factory.h"
 #include "ceammc_music_temperament.h"
 
-static const t_symbol* SYM_EQ12 = gensym("eq");
+static t_symbol* SYM_EQ12 = gensym("eq");
+static t_symbol* SYM_JUST = gensym("just");
+static t_symbol* SYM_GANASSI = gensym("ganassi");
+static t_symbol* SYM_MEANTONE = gensym("meantone");
+static t_symbol* SYM_KIRN3 = gensym("kirnberger3");
+static t_symbol* SYM_PYTH = gensym("pythagorean");
+static t_symbol* SYM_RAMEAU = gensym("rameau");
+static t_symbol* SYM_VALOTTI = gensym("valotti");
+static t_symbol* SYM_ZARLINO = gensym("zarlino");
 
 static music::TemperamentType to_temp(t_symbol* s)
 {
@@ -32,15 +40,15 @@ Midi2Freq::Midi2Freq(const PdArgs& args)
     base_a_ = new FloatPropertyClosedRange("@a", positionalFloatArgument(0, 440.f), 200, 600);
     createProperty(base_a_);
 
-    prop_temperament_ = new SymbolEnumProperty("@t", "eq");
-    prop_temperament_->appendEnum("just");
-    prop_temperament_->appendEnum("ganassi");
-    prop_temperament_->appendEnum("meantone");
-    prop_temperament_->appendEnum("kirnberger3");
-    prop_temperament_->appendEnum("pythagorean");
-    prop_temperament_->appendEnum("rameau");
-    prop_temperament_->appendEnum("valotti");
-    prop_temperament_->appendEnum("zarlino");
+    prop_temperament_ = new SymbolEnumProperty("@t", SYM_EQ12);
+    prop_temperament_->appendEnum(SYM_JUST);
+    prop_temperament_->appendEnum(SYM_GANASSI);
+    prop_temperament_->appendEnum(SYM_MEANTONE);
+    prop_temperament_->appendEnum(SYM_KIRN3);
+    prop_temperament_->appendEnum(SYM_PYTH);
+    prop_temperament_->appendEnum(SYM_PYTH);
+    prop_temperament_->appendEnum(SYM_VALOTTI);
+    prop_temperament_->appendEnum(SYM_ZARLINO);
     createProperty(prop_temperament_);
 
     createOutlet();

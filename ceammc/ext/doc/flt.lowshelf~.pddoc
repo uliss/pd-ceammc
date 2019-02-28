@@ -18,43 +18,42 @@
                 <see>flt.c_lowshelf~</see>
             </also>
         </meta>
-        <methods>
-            <method name="freq">
-                <param type="float" units="herz">corner frequency for the shelf (e.g., 100
-                Hz)</param>
-            </method>
-            <method name="gain">
-                <param type="float" units="decibel">amount of boost or cut apply to the signal
-                (e.g., -10 db)</param>
-            </method>
-        </methods>
         <arguments>
-            <argument name="freq" type="float" units="herz">corner frequency for the
-            shelf</argument>
-            <argument name="gain" type="float" units="decibel">amount of boost or cut apply to the
-            signal</argument>
-            <argument name="ID" type="symbol">object ID for OSC control</argument>
+            <argument name="freq" type="float" units="herz" minvalue="20" maxvalue="20000">corner
+            frequency for the shelf</argument>
+            <argument name="gain" type="float" units="decibel" minvalue="-15" maxvalue="15">amount
+            of boost or cut apply to the signal</argument>
         </arguments>
+        <properties>
+            <property name="@freq" type="float" units="herz" minvalue="20" maxvalue="20000"
+            default="1000">corner frequency for the shelf</property>
+            <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15"
+            default="0">amount of boost or cut apply to the signal</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
-                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">filtered signal</outlet>
-            <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[noise~] [tgl]  [floatatom] [floatatom]
-|  ._____/      |           |
-[*~]      [bng] [freq $1(   [gain $1(
-|         |     |           |
-[flt.lowshelf~ 200 10 id    ]
-|\                      ^|
-[dac~]                 [print]
+[noise~]   [F]         [F]
+|          |           |
+|          [@freq $1(  [@gain $1(
+|          |           |
+|          |           |
+|          |           |
+[flt.lowshelf~ 3000  -15]
+|
+[ui.gain~ @size 120 14] [ui.dsp~]
+|\
+[dac~]
 ]]>
             </pdascii>
         </example>

@@ -210,13 +210,13 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
 #ifdef __WIN32
         wchar_t* wstr = 0;
         // ANSI
-        REQUIRE(ceammc::mb_to_wch("test", &wstr));
+        REQUIRE(mb_to_wch("test", &wstr));
         REQUIRE(wstr != 0);
         REQUIRE(wcscmp(wstr, L"test") == 0);
         free(wstr);
         // UTF-8
         wstr = 0;
-        REQUIRE(ceammc::mb_to_wch("тест", &wstr));
+        REQUIRE(mb_to_wch("тест", &wstr));
         REQUIRE(wstr != 0);
         REQUIRE(wcscmp(wstr, L"тест") == 0);
         free(wstr);
@@ -302,20 +302,6 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         REQUIRE(ceammc::platform::strip_extension(".file.pd") == ".file");
         REQUIRE(ceammc::platform::strip_extension("file.pd") == "file");
         REQUIRE(ceammc::platform::strip_extension("file.1.2.3.4.pd") == "file.1.2.3.4");
-    }
-
-    SECTION("sleep_ms")
-    {
-        time_t t0, t1;
-        time(&t0);
-
-        ceammc::platform::sleep_ms(1001);
-
-        time(&t1);
-
-        double diff = difftime(t1, t0);
-        bool t = (diff == 1 || diff == 2);
-        REQUIRE(t);
     }
 
     SECTION("mkdir/rmdir")

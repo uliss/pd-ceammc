@@ -1,10 +1,10 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 578 50 cnv 1 117 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 578 50 list container;
-#X obj 1 1 cnv 5 712 40 empty empty data.list 20 20 0 20 -104026 -4096
+#X obj 648 50 cnv 1 117 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 648 50 list container;
+#X obj 1 1 cnv 5 765 40 empty empty data.list 20 20 0 20 -104026 -4096
 0;
-#X obj 622 11 data.list;
+#X obj 675 11 data.list;
 #X msg 50 118 dump;
 #X msg 117 118 list a b c;
 #X floatatom 251 118 5 0 0 0 - - -;
@@ -17,14 +17,14 @@
 #X obj 50 205 data.list 1 2 3;
 #X obj 50 234 m set;
 #X msg 50 262 ;
-#X obj 20 301 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 306 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 311 1\.;
 #X text 150 311 any;
 #X obj 241 312 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 311 X: initial list values.;
-#X obj 20 339 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 344 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 349 @empty;
@@ -33,7 +33,7 @@ Type: int. Allowed values: 0 \, 1;
 #X msg 120 386 @size;
 #X text 240 386 (readonly) Get number of elements in list. Type: int.
 Min value: 0;
-#X obj 20 433 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 433 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 438 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 443 append;
@@ -58,7 +58,7 @@ are:;
 #X msg 120 695 reverse;
 #X text 240 695 reverses list.;
 #X msg 120 727 shuffle;
-#X text 240 727 put elemtns in random order.;
+#X text 240 727 put elements in random order.;
 #X msg 120 759 sort;
 #X text 240 759 sorts list.;
 #X msg 120 791 clear;
@@ -75,7 +75,7 @@ are:;
 #X text 250 939 LIST: new list content. Type: list.;
 #X msg 120 967 dump;
 #X text 240 967 dump object info to Pd window.;
-#X obj 20 1009 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1009 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1014 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1019 1\.;
@@ -91,7 +91,7 @@ indexes are supported.;
 #X text 120 1105 2\.;
 #X text 150 1105 *list*;
 #X text 240 1105 sets new list without output.;
-#X obj 20 1133 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1133 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1138 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1143 1\.;
@@ -101,16 +101,16 @@ indexes are supported.;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 1191 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1194 library: ceammc v0.6;
-#X text 549 1206 see also:;
-#X obj 625 1206 data.fifo;
+#X obj 1 1191 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1194 library: ceammc v0.7;
+#X text 619 1206 see also:;
+#X obj 695 1206 data.fifo;
 #N canvas 10 1213 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 data.list;
 #X text 10 76 category:;

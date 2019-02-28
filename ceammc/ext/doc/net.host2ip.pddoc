@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="net.host2ip">
+        <title>net.host2ip</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>returns IP address by DNS name</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>net</category>
+            <keywords>net dns ip</keywords>
+            <since>0.7</since>
+            <aliases>
+                <alias>net.host-&gt;ip</alias>
+            </aliases>
+        </meta>
+        <properties>
+            <property name="@type" type="symbol" enum="ipv4 ipv6" default="ipv4">result IP
+            type</property>
+            <property name="@ipv4" type="alias">shortcut for @type ipv4</property>
+            <property name="@ipv6" type="alias">shortcut for @type ipv6</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">DNS name</xinfo>
+                <xinfo on="any">DNS name</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list of resolved IP's</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[localhost(
+|
+| [symbol bbc.com(
+| |
+| |
+[net.host->ip]
+|
+[ui.d]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

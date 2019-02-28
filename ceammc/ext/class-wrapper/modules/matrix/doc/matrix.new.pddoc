@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.new">
+        <title>matrix.new</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>Matrix data type</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <keywords>algebra linear matrix</keywords>
+            <version>0.1</version>
+            <since>0.1</since>
+        </meta>
+        <arguments>
+            <argument type="int" name="M">number of rows</argument>
+            <argument type="int" name="N">number of columns</argument>
+        </arguments>
+        <methods>
+            <method name="set">set data without output</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output current data</xinfo>
+                <xinfo on="data">(on Matrix) set new data value and output it</xinfo>
+                <xinfo on="list">list: int int (number of rows/number of columns)</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output created data (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[B] [3 4 10 20 30(
+|   |
+|   |     [set 3 2 6 5 4 3 2 1(
+|   |     |
+[matrix.new 2 2 1 2 3 4]
+|  |
+|  [set $1( [B]
+|  |        |
+|  [matrix.new]
+|  |
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

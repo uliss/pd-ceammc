@@ -1,11 +1,20 @@
 #include "fx_drone_box.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
+using namespace ceammc;
+
+static t_symbol* SYM_PROP_PITCH = gensym("@pitch");
+
+class FxDroneBox : public faust_fx_drone_box_tilde {
+public:
+    FxDroneBox(const PdArgs& args)
+        : faust_fx_drone_box_tilde(args)
+    {
+        bindPositionalArgsToProps({ SYM_PROP_PITCH });
+    }
+};
+
+void setup_fx_drone_box_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-    PdArgParser p(x, argc, argv);
-    p.initFloatArg("pitch", 1);
-    return p.pd_obj();
+    SoundExternalFactory<FxDroneBox> obj("fx.drone_box~");
 }
-
-EXTERNAL_SETUP(fx)

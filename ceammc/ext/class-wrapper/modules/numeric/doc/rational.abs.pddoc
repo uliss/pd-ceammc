@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="rational.abs">
+        <title>rational.abs</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>abs absolute value</description>
+            <license>GPL3</license>
+            <library>numeric</library>
+            <category>rational</category>
+            <version>0.1</version>
+            <since>0.1</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Rational data constructor: NUM DEN</xinfo>
+                <xinfo on="data">Rational data</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output result value (Rational)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib numeric]
+
+
+[-11/4( [1/4(
+|       |
+[rational.abs]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

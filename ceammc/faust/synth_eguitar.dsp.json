@@ -1,0 +1,87 @@
+{
+	"name": "synth.eguitar",
+	"filename": "synth_eguitar",
+	"version": "2.15.0",
+	"compile_options": "cpp, -scal -ftz 0",
+	"library_list": ["/usr/local/share/faust/physmodels.lib","/usr/local/share/faust/stdfaust.lib","/Users/serj/work/music/pure-data/ceammc/faust/spn.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/noises.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/envelopes.lib","/usr/local/share/faust/routes.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/delays.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
+	"inputs": "0",
+	"outputs": "1",
+	"meta": [ 
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/version": "0.0" },
+		{ "delays.lib/name": "Faust Delay Library" },
+		{ "delays.lib/version": "0.0" },
+		{ "envelopes.lib/author": "GRAME" },
+		{ "envelopes.lib/copyright": "GRAME" },
+		{ "envelopes.lib/license": "LGPL with exception" },
+		{ "envelopes.lib/name": "Faust Envelope Library" },
+		{ "envelopes.lib/version": "0.0" },
+		{ "filename": "synth_eguitar" },
+		{ "filters.lib/name": "Faust Filters Library" },
+		{ "filters.lib/version": "0.0" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.1" },
+		{ "name": "synth.eguitar" },
+		{ "noises.lib/name": "Faust Noise Generator Library" },
+		{ "noises.lib/version": "0.0" },
+		{ "routes.lib/name": "Faust Signal Routing Library" },
+		{ "routes.lib/version": "0.0" },
+		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/version": "0.0" },
+		{ "spn.lib/name": "Standart Pitch Notation constants" },
+		{ "spn.lib/version": "0.1" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "synth.eguitar",
+			"items": [ 
+				{
+					"type": "hslider",
+					"label": "gain",
+					"address": "/synth.eguitar/gain",
+					"init": "1",
+					"min": "0",
+					"max": "1",
+					"step": "0.001"
+				},
+				{
+					"type": "button",
+					"label": "gate",
+					"address": "/synth.eguitar/gate"
+				},
+				{
+					"type": "hslider",
+					"label": "mute",
+					"address": "/synth.eguitar/mute",
+					"init": "0",
+					"min": "0",
+					"max": "1",
+					"step": "0.001"
+				},
+				{
+					"type": "hslider",
+					"label": "pitch",
+					"address": "/synth.eguitar/pitch",
+					"init": "48",
+					"min": "36",
+					"max": "84",
+					"step": "0.001"
+				},
+				{
+					"type": "hslider",
+					"label": "pos",
+					"address": "/synth.eguitar/pos",
+					"init": "0.5",
+					"min": "0",
+					"max": "1",
+					"step": "0.01"
+				}
+			]
+		}
+	]
+}

@@ -6,13 +6,14 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Positive low frequence square wave</description>
+            <description>Zero-mean unit-amplitude low frequency square wave</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>lfo</category>
             <keywords>lfo oscillator square</keywords>
             <since>0.1</since>
             <also>
+                <see>lfo.+square~</see>
                 <see>lfo.impulse~</see>
                 <see>lfo.tri~</see>
             </also>
@@ -20,9 +21,16 @@
         <arguments>
             <argument name="freq" type="float" units="herz">frequency</argument>
         </arguments>
+        <properties>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>frequency in Hz</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">reset phase</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -31,14 +39,16 @@
         <example>
             <pdascii>
 <![CDATA[
-[phasor~ 200] [floatatom]
-|             |
-|             [lfo.square~ 10]
-|  .__________/
-[*~]   [_]
-|  .___/
-[*~]
-|\
+[osc.saw~ 100]
+|
+[ui.gain~ @size 120 14]
+|
+|              [F]          [bang(
+|              |            |.
+|              [lfo.square~ 6]
+|          .___/
+[pan.linsig~]    [ui.dsp~]
+|  ^|.
 [dac~]
 ]]>
             </pdascii>

@@ -1,12 +1,24 @@
 #include "osc_impulse.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
+using namespace ceammc;
+
+class OscImpulse : public faust_osc_impulse_tilde {
+public:
+    OscImpulse(const PdArgs& args)
+        : faust_osc_impulse_tilde(args)
+    {
+        createInlet();
+        setInitSignalValue(positionalFloatArgument(0, 0));
+    }
+
+    void onInlet(size_t n, const AtomList&) override
+    {
+        dsp_->instanceClear();
+    }
+};
+
+void setup_osc_impulse_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-
-    PdArgParser p(x, argc, argv, false);
-    p.signalFloatArg("freq", 1);
-    return p.pd_obj();
+    SoundExternalFactory<OscImpulse> obj("osc.impulse~");
 }
-
-EXTERNAL_SETUP(osc);

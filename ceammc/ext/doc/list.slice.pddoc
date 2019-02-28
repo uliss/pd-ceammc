@@ -24,9 +24,9 @@
         <properties>
             <property name="@from" type="int" default="0">start slice position. You can use
             negative index to address elements from the end</property>
-            <property name="@to" type="int" default="end">end slice position. You can use negative
+            <property name="@to" type="int" default="-1">end slice position. You can use negative
             index to address elements from the end</property>
-            <property name="@step" type="int" default="1" minvalue="1">slice step</property>
+            <property name="@step" type="int" default="1" minvalue="0">slice step</property>
         </properties>
         <inlets>
             <inlet>

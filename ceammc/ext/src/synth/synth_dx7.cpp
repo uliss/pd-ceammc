@@ -1,4 +1,9 @@
 #include "synth_dx7.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_SIMPLE_NEW();
-EXTERNAL_SETUP_NO_IN(synth);
+using namespace ceammc;
+
+void setup_synth_dx7_tilde()
+{
+    SoundExternalFactory<faust_synth_dx7_tilde> obj("synth.dx7~", OBJECT_FACTORY_DEFAULT);
+}

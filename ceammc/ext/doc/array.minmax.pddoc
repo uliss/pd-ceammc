@@ -16,6 +16,9 @@
         <arguments>
             <argument name="NAME" type="symbol">array name</argument>
         </arguments>
+        <properties>
+            <property name="@array" type="symbol">array name</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">perform search in current array</xinfo>

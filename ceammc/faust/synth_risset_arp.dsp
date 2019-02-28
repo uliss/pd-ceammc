@@ -1,4 +1,4 @@
-declare name "Risset Arpeggio";
+declare name "synth.risset_arp";
 declare description "Jean Claude Risset's Harmonic Arpeggio Effect";
 declare author "Oli Larkin (contact@olilarkin.co.uk)";
 declare copyright "Oliver Larkin";

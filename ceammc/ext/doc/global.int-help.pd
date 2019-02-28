@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 475 50 cnv 1 220 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 475 50 global named integer object;
-#X obj 1 1 cnv 5 712 40 empty empty global.int 20 20 0 20 -104026
+#X obj 545 50 cnv 1 220 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 545 50 global named integer object;
+#X obj 1 1 cnv 5 765 40 empty empty global.int 20 20 0 20 -104026
 -4096 0;
-#X obj 615 11 global.int;
-#X obj 205 80 cnv 1 490 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 668 11 global.int;
+#X obj 205 80 cnv 1 560 33 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Defines global scope integer variable \, accessed by ID
 name.;
 #X floatatom 50 141 5 0 0 0 - - -;
@@ -19,19 +19,19 @@ name.;
 #X obj 395 242 global.int f1;
 #X floatatom 50 271 5 0 0 0 - - -;
 #X floatatom 395 271 5 0 0 0 - - -;
-#X obj 20 310 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 315 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 320 1\.;
 #X text 150 320 symbol;
 #X obj 241 321 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 320 ID: object ID.;
-#X obj 20 348 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 348 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 353 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 358 @value;
 #X text 240 358 (readonly) Get current value. Type: int;
-#X obj 20 395 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 400 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 405 set;
@@ -44,7 +44,7 @@ name.;
 #X text 240 501 multiply to \, no output.;
 #X msg 120 533 /;
 #X text 240 533 divide by \, no output.;
-#X obj 20 575 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 580 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 585 1\.;
@@ -52,7 +52,7 @@ name.;
 #X text 240 585 outputs variable.;
 #X text 150 603 *float*;
 #X text 240 603 set truncated integer and outputs.;
-#X obj 20 631 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 631 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 636 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 641 1\.;
@@ -62,16 +62,16 @@ name.;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title global @url ceammc.global-help.pd;
-#X obj 1 689 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 692 library: ceammc v0.6;
-#X text 527 704 see also:;
-#X obj 603 704 global.float;
+#X obj 1 689 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 692 library: ceammc v0.7;
+#X text 597 704 see also:;
+#X obj 673 704 global.float;
 #N canvas 10 711 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 global.int;
 #X text 10 76 category:;

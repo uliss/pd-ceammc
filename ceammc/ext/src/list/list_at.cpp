@@ -1,5 +1,5 @@
 #include "list_at.h"
-#include "../data/datatype_mlist.h"
+#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_log.h"
 
@@ -20,10 +20,10 @@ ListAt::ListAt(const PdArgs& a)
 
     createProperty(pos_);
 
-    at_method_ = new SymbolEnumProperty("@method", "rel");
-    at_method_->appendEnum("clip");
-    at_method_->appendEnum("wrap");
-    at_method_->appendEnum("fold");
+    at_method_ = new SymbolEnumProperty("@method", SYM_REL);
+    at_method_->appendEnum(SYM_CLIP);
+    at_method_->appendEnum(SYM_WRAP);
+    at_method_->appendEnum(SYM_FOLD);
     createProperty(at_method_);
 
     createProperty(new SymbolEnumAlias("@rel", at_method_, SYM_REL));

@@ -1,3 +1,5 @@
+declare name "flt.eq_peak_cq";
+
 fi = library("filters.lib");
 si = library("signals.lib");
 ui = library("ceammc_ui.lib");

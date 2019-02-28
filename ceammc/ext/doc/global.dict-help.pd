@@ -1,12 +1,12 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 499 50 cnv 1 196 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 499 50 global named dict object;
-#X obj 1 1 cnv 5 712 40 empty empty global.dict 20 20 0 20 -104026
+#X obj 569 50 cnv 1 196 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 569 50 global named dict object;
+#X obj 1 1 cnv 5 765 40 empty empty global.dict 20 20 0 20 -104026
 -4096 0;
-#X obj 502 11 global.json;
-#X obj 607 11 global.dict;
-#X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 555 11 global.json;
+#X obj 660 11 global.dict;
+#X obj 205 80 cnv 1 560 47 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Defines global scope dict variable \, accessed by ID
 name and available fro everywhere;
 #X msg 50 155 [a: abc] [bpm: 100] \, bang;
@@ -15,14 +15,14 @@ name and available fro everywhere;
 #X obj 50 213 global.dict d1;
 #X obj 357 213 ui.display @display_type 1 @size 150 18;
 #X obj 50 242 ui.display @display_type 1 @size 150 18;
-#X obj 20 282 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 282 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 287 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 292 1\.;
 #X text 150 292 symbol;
 #X obj 241 293 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 292 ID: object ID.;
-#X obj 20 320 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 320 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 325 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 330 @keys;
@@ -33,7 +33,7 @@ Type: int. Allowed values: 0 \, 1;
 #X msg 120 394 @size;
 #X text 240 394 (readonly) Get number of entries in dictionary. Type:
 int. Min value: 0;
-#X obj 20 441 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 441 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 446 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 451 add;
@@ -71,7 +71,7 @@ nothing. Arguments are:;
 #X text 240 897 write dict as JSON file. Arguments are:;
 #X obj 250 925 cnv 1 37 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 925 PATH: file path. Type: symbol.;
-#X obj 20 963 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 963 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 968 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 973 1\.;
@@ -82,7 +82,7 @@ nothing. Arguments are:;
 3 4( becames dict with keys: 1 and 3 \, values: 2 and 4\. No output.;
 #X text 150 1037 *data:dict*;
 #X text 240 1037 set and output new dict.;
-#X obj 20 1065 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1065 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1070 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1075 1\.;
@@ -92,17 +92,17 @@ nothing. Arguments are:;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title global @url ceammc.global-help.pd;
-#X obj 1 1123 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1126 library: ceammc v0.6;
-#X text 454 1138 see also:;
-#X obj 530 1138 data.dict;
-#X obj 610 1138 global.dict;
+#X obj 1 1123 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1126 library: ceammc v0.7;
+#X text 524 1138 see also:;
+#X obj 600 1138 data.dict;
+#X obj 680 1138 global.dict;
 #N canvas 10 1145 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 global.dict;
 #X text 10 76 category:;

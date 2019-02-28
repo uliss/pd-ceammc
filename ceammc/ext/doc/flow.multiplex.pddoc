@@ -23,11 +23,9 @@
             <argument name="N" type="int" minvalue="2" maxvalue="24">number of inlets</argument>
         </arguments>
         <properties>
-            <property name="@index" type="int" minvalue="0">current multiplexer index</property>
+            <property name="@index" type="int" minvalue="0" default="0">current multiplexer
+            index</property>
         </properties>
-        <methods>
-            <method name="reset">reset counter</method>
-        </methods>
         <inlets dynamic="true">
             <inlet>
                 <xinfo>multiplexer first inlet</xinfo>

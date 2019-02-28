@@ -19,7 +19,7 @@ PD_COMPLETE_TEST_SETUP(Radio, base, radio);
 
 TEST_CASE("radio", "[externals]")
 {
-    pd_test_mod_init_base_radio();
+    pd_test_init();
 
     SECTION("init")
     {

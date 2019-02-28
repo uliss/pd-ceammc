@@ -138,7 +138,7 @@ bool LibUSB::watch(int vid, int pid, int dev_class)
         libusb_hotplug_event(LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED | LIBUSB_HOTPLUG_EVENT_DEVICE_LEFT),
         LIBUSB_HOTPLUG_NO_FLAGS,
         vid, pid, dev_class,
-        hotplug_callback, this, &callback_handle_);
+        (libusb_hotplug_callback_fn)hotplug_callback, this, &callback_handle_);
 
     if (rc != LIBUSB_SUCCESS) {
         LIB_ERR << "libusb: Error creating a hotplug callback - " << libusb_error_name(rc);

@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 506 50 cnv 1 189 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 506 50 advanced message router;
-#X obj 1 1 cnv 5 712 40 empty empty flow.route 20 20 0 20 -104026
+#X obj 576 50 cnv 1 189 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 576 50 advanced message router;
+#X obj 1 1 cnv 5 765 40 empty empty flow.route 20 20 0 20 -104026
 -4096 0;
-#X obj 615 11 flow.route;
-#X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 668 11 flow.route;
+#X obj 205 80 cnv 1 560 47 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 if no match occured - output original message to last
 outlet;
 #X msg 50 155 a b c;
@@ -30,14 +30,14 @@ outlet;
 #X obj 50 371 ui.display @display_type 1 @size 150 18;
 #X obj 107 400 ui.display @display_type 1 @size 150 18;
 #X obj 146 429 ui.display @display_type 1 @size 150 18;
-#X obj 20 469 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 474 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 479 1\.;
 #X text 150 479 list;
 #X obj 241 480 cnv 1 65 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 479 MATCHES: list of route matches.;
-#X obj 20 507 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 512 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 517 1\.;
@@ -55,7 +55,7 @@ corresponding outlets.;
 #X text 150 631 *data:dict*;
 #X text 240 631 match dict keys. On success outputs dict values to
 corresponding outlets.;
-#X obj 20 673 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 678 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 683 1\.;
@@ -71,14 +71,14 @@ corresponding outlets.;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 785 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 788 library: ceammc v0.6;
+#X obj 1 785 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 788 library: ceammc v0.7;
 #N canvas 10 807 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 flow.route;
 #X text 10 76 category:;

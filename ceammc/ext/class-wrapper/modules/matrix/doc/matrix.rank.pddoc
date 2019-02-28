@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.rank">
+        <title>matrix.rank</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>rank of the matrix</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <version>0.1</version>
+            <since>0.1</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Matrix data constructor: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">Matrix data</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output rank (int)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[2 2 1 1 0 1( [2 2 0 1 0 0( [2 2 0 0 0 0(
+|             |             |
+|             |             |
+|             |             |
+[matrix.new                 ]
+|             |
+[matrix.rank] [ui.display @display_type=1]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

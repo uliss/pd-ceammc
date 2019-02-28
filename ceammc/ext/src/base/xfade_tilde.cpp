@@ -18,6 +18,7 @@
 #include <algorithm>
 
 static const int DEFAULT_INLETS = 2;
+static const t_float DEFAULT_SMOOTH_MS = 20;
 static const int MIN_INLETS = 2;
 static const int MAX_INLETS = 16;
 
@@ -43,7 +44,7 @@ static int maxInlets(const PdArgs& args)
 XFadeTilde::XFadeTilde(const PdArgs& args)
     : SoundExternal(args)
     , n_(clip<int>(positionalFloatArgument(0, DEFAULT_INLETS), MIN_INLETS, maxInlets(args)))
-    , smooth_ms_(20)
+    , smooth_ms_(DEFAULT_SMOOTH_MS)
     , prop_type_(nullptr)
 {
     for (size_t i = 1; i < n_; i++)
@@ -60,14 +61,17 @@ XFadeTilde::XFadeTilde(const PdArgs& args)
     if (args.flags & XFADE_STEREO)
         createSignalOutlet();
 
-    prop_type_ = new SymbolEnumProperty("@type", "pow");
-    prop_type_->appendEnum("lin");
+    prop_type_ = new SymbolEnumProperty("@type", SYM_POW);
+    prop_type_->appendEnum(SYM_LIN);
     createProperty(prop_type_);
 
     createProperty(new SymbolEnumAlias("@pow", prop_type_, SYM_POW));
     createProperty(new SymbolEnumAlias("@lin", prop_type_, SYM_LIN));
 
     createCbProperty("@smooth", &XFadeTilde::propSmooth, &XFadeTilde::propSetSmooth);
+    property("@smooth")->info().setType(PropertyInfoType::FLOAT);
+    property("@smooth")->info().setDefault(DEFAULT_SMOOTH_MS);
+    property("@smooth")->info().setMin(1);
 
     gain_.assign(n_, t_smooth(0));
     gain_[0].setTargetValue(1);
@@ -137,7 +141,7 @@ AtomList XFadeTilde::propSmooth() const
 
 void XFadeTilde::propSetSmooth(const AtomList& ms)
 {
-    smooth_ms_ = std::max<t_float>(1, ms.floatAt(0, 10));
+    smooth_ms_ = std::max<t_float>(1, ms.floatAt(0, DEFAULT_SMOOTH_MS));
 }
 
 std::vector<float> XFadeTilde::gains() const

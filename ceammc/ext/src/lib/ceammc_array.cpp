@@ -196,6 +196,22 @@ void Array::fillWith(FloatValueGenerator gen)
     std::generate(begin(), end(), g);
 }
 
+bool Array::setYBounds(float yBottom, float yTop)
+{
+    static t_symbol* SYM_BOUNDS = gensym("bounds");
+
+    if (!isValid() || !name_->s_thing)
+        return false;
+
+    t_atom args[4];
+    SETFLOAT(&args[0], 0);
+    SETFLOAT(&args[1], yTop);
+    SETFLOAT(&args[2], t_float(size_));
+    SETFLOAT(&args[3], yBottom);
+    pd_typedmess(name_->s_thing, SYM_BOUNDS, 4, args);
+    return true;
+}
+
 Array::Exception::Exception(const char* what)
     : std::runtime_error(what)
 {

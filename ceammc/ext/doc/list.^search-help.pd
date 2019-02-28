@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 388 50 cnv 1 307 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 388 50 on input atom returns it index in list;
-#X obj 1 1 cnv 5 712 40 empty empty list.^search 20 20 0 20 -104026
+#X obj 458 50 cnv 1 307 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 458 50 on input atom returns it index in list;
+#X obj 1 1 cnv 5 765 40 empty empty list.^search 20 20 0 20 -104026
 -4096 0;
-#X obj 601 11 list.^search;
-#X obj 205 80 cnv 1 490 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 654 11 list.^search;
+#X obj 205 80 cnv 1 560 33 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Outputs index or -1 if not found;
 #X floatatom 50 141 5 0 0 0 - - -;
 #X symbolatom 98 141 5 0 0 0 - - -;
@@ -18,7 +18,7 @@
 #X msg 405 257 list a b c d;
 #X obj 50 285 list.^search 10 20 30 40 50 A B C;
 #X floatatom 50 314 5 0 0 0 - - -;
-#X obj 20 353 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 358 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 363 @start;
@@ -27,7 +27,7 @@ Default value: 0\. Min value: 0;
 #X msg 120 400 @end;
 #X text 240 400 Get/Set search end index position (-1 means end of
 list). Type: int. Default value: -1\. Min value: -1;
-#X obj 20 447 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 452 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 457 1\.;
@@ -42,7 +42,7 @@ list). Type: int. Default value: -1\. Min value: -1;
 #X text 120 529 2\.;
 #X text 150 529 *list*;
 #X text 240 529 set searched list.;
-#X obj 20 557 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 557 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 562 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 567 1\.;
@@ -52,18 +52,18 @@ list). Type: int. Default value: -1\. Min value: -1;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 615 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 618 library: ceammc v0.6;
-#X text 311 630 see also:;
-#X obj 387 630 list.search;
-#X obj 481 630 list.contains;
-#X obj 589 630 list.^contains;
+#X obj 1 615 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 618 library: ceammc v0.7;
+#X text 381 630 see also:;
+#X obj 457 630 list.search;
+#X obj 551 630 list.contains;
+#X obj 659 630 list.^contains;
 #N canvas 10 637 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 list.^search;
 #X text 10 76 category:;

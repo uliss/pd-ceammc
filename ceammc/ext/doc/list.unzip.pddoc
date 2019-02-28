@@ -29,14 +29,15 @@
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="2">number of output outlets</argument>
-            <argument name="@method" type="property">Split method if number element in the input
-            list is not multiple of number of outputs. Possible values are: min (default) and
-            pad</argument>
-            <argument name="@pad" type="property">Alias to @method pad. Pads result lists with
-            specified value, if number of elements in the input list is not multiple of number of
-            outputs.</argument>
-            <argument name="@min" type="property">Alias to @method min. No padding used.</argument>
         </arguments>
+        <properties>
+            <property name="@method" type="symbol" enum="min pad" default="min">split method if
+            number element in the input list is not multiple of number of outputs</property>
+            <property name="@min" type="alias">alias to @method min. No padding used</property>
+            <property name="@pad" type="list">padding value. Pads result lists with specified
+            value, if number of elements in the input list is not multiple of number of
+            outputs</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="list">input list</xinfo>

@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 324 50 cnv 1 371 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 324 50 array time-stretch \, pitch-shift or rate-change;
-#X obj 1 1 cnv 5 712 40 empty empty array.stretch 20 20 0 20 -104026
+#X obj 394 50 cnv 1 371 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 394 50 array time-stretch \, pitch-shift or rate-change;
+#X obj 1 1 cnv 5 765 40 empty empty array.stretch 20 20 0 20 -104026
 -4096 0;
-#X obj 593 11 array.stretch;
-#X obj 205 80 cnv 1 490 61 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 646 11 array.stretch;
+#X obj 205 80 cnv 1 560 61 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Based on SoundTouch library for changing the Tempo \,
 Pitch and Playback Rates of arrays. Copies time-stretched data from
 source to destination array;
@@ -49,7 +49,7 @@ source to destination array;
 #X obj 50 544 ui.gain~ @size 120 16;
 #X obj 309 544 ui.dsp~;
 #X obj 50 572 dac~;
-#X obj 20 611 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 611 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 616 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 621 1\.;
@@ -60,7 +60,7 @@ source to destination array;
 #X text 150 639 symbol;
 #X obj 241 640 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 639 DEST: destination array.;
-#X obj 20 667 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 667 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 672 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 677 @src;
@@ -75,7 +75,7 @@ sound pitch. Type: float. Units: %. Default value: 0\. Value range:
 #X text 240 782 Get/Set relative pitch change in semitones while
 keeping the original tempo. Type: float. Default value: 0;
 #X msg 120 819 @rate;
-#X text 240 819 Get/Set Playback rate - changes both tempo and pitch
+#X text 240 819 Get/Set playback rate - changes both tempo and pitch
 together as if a vinyl disc was played at different RPM rate. Type:
 float. Default value: 1\. Value range: 0.1-2;
 #X msg 120 870 @speech;
@@ -83,7 +83,7 @@ float. Default value: 1\. Value range: 0.1-2;
 #X msg 120 897 @antialias;
 #X text 240 897 Get/Set use of anti-alias filter. Anti-alias filter is
 used to prevent folding of high frequencies when transposing the
-sample rate with interpolation. Type: int. Default value: 0\. Allowed
+sample rate with interpolation. Type: int. Default value: 1\. Allowed
 values: 0 \, 1;
 #X msg 120 962 @aalength;
 #X text 240 962 Get/Set pitch transposer anti-alias filter length.
@@ -97,7 +97,8 @@ bigger value sounds better when slowing down tempo \, but worse when
 increasing tempo and vice versa. Increasing this value reduces
 computational burden & vice versa. Giving *0* value for the sequence
 length sets automatic parameter value according to tempo setting
-(recommended). Type: int. Units: ms. Default value: 0;
+(recommended). Type: int. Units: ms. Default value: 0\. Value range:
+0-100;
 #X msg 120 1162 @seekwindow;
 #X text 240 1162 Get/Set Seeking window default length in milliseconds
 for algorithm that finds the best possible overlapping location. This
@@ -111,21 +112,22 @@ artifact that sounds as if a constant frequency was drifting around \,
 try reducing this setting. Increasing this value increases
 computational burden & vice versa. Giving *0* value for the seek
 window length sets automatic parameter value according to tempo
-setting (recommended). Type: int. Units: ms. Value range: 0-100;
+setting (recommended). Type: int. Units: ms. Default value: 0\. Value
+range: 0-100;
 #X msg 120 1395 @overlap;
 #X text 240 1395 Get/Set Overlap length in milliseconds. When the
 chopped sound sequences are mixed back together \, to form a
 continuous sound stream \, this parameter defines over how long period
 the two consecutive sequences are let to overlap each other.
 Increasing this value increases computational burden & vice versa.
-Type: int. Units: ms. Value range: 1-100;
-#X obj 20 1512 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+Type: int. Units: ms. Default value: 8\. Value range: 1-100;
+#X obj 20 1512 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1517 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1522 1\.;
 #X text 150 1522 *bang*;
 #X text 240 1522 starts processing.;
-#X obj 20 1550 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1555 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1560 1\.;
@@ -135,14 +137,14 @@ Type: int. Units: ms. Value range: 1-100;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 1608 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1611 library: ceammc v0.6;
+#X obj 1 1608 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1611 library: ceammc v0.7;
 #N canvas 10 1630 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 array.stretch;
 #X text 10 76 category:;

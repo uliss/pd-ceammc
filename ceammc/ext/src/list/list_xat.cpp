@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_xat.h"
-#include "../data/datatype_mlist.h"
+#include "datatype_mlist.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
@@ -33,10 +33,10 @@ ListXAt::ListXAt(const PdArgs& args)
     def_ = new AtomProperty("@default", Atom());
     createProperty(def_);
 
-    at_method_ = new SymbolEnumProperty("@method", "rel");
-    at_method_->appendEnum("clip");
-    at_method_->appendEnum("wrap");
-    at_method_->appendEnum("fold");
+    at_method_ = new SymbolEnumProperty("@method", SYM_REL);
+    at_method_->appendEnum(SYM_CLIP);
+    at_method_->appendEnum(SYM_WRAP);
+    at_method_->appendEnum(SYM_FOLD);
     createProperty(at_method_);
 
     createProperty(new SymbolEnumAlias("@rel", at_method_, SYM_REL));

@@ -1,12 +1,22 @@
 #include "spat_pan4.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
+using namespace ceammc;
+
+static t_symbol* SYM_PROP_ANGLE = gensym("@angle");
+static t_symbol* SYM_PROP_DIST = gensym("@dist");
+
+class SpatPan4 : public faust_spat_pan4_tilde {
+public:
+    SpatPan4(const PdArgs& args)
+        : faust_spat_pan4_tilde(args)
+    {
+        bindPositionalArgsToProps({ SYM_PROP_ANGLE, SYM_PROP_DIST });
+    }
+};
+
+void setup_spat_pan4_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-    PdArgParser p(x, argc, argv);
-    p.initFloatArg("angle", 1);
-    p.initFloatArg("dist", 2);
-    return p.pd_obj();
+    SoundExternalFactory<SpatPan4> obj("spat.pan4~");
+    obj.addAlias("pan4~");
 }
-
-EXTERNAL_SETUP(spat);

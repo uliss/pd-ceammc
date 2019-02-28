@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "../midi/midi_common.h"
 #include "../midi/midi_key2str.h"
-#include "../string/datatype_string.h"
+#include "datatype_string.h"
 #include "test_base.h"
 #include "catch.hpp"
 

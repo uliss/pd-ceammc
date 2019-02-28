@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 253 50 cnv 1 442 35 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 253 50 splits list into two parts \, the length of first list
+#X obj 323 50 cnv 1 442 35 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 323 50 splits list into two parts \, the length of first list
 is specified by the argument.;
-#X obj 1 1 cnv 5 712 40 empty empty list.split 20 20 0 20 -104026
+#X obj 1 1 cnv 5 765 40 empty empty list.split 20 20 0 20 -104026
 -4096 0;
-#X obj 615 11 list.split;
+#X obj 668 11 list.split;
 #X msg 50 118 1 2 3 4 5;
 #X msg 174 118 @at 3;
 #X obj 50 176 list.split 2;
@@ -13,7 +13,7 @@ is specified by the argument.;
 #X obj 203 205 msg set;
 #X msg 50 234 ;
 #X msg 203 234 ;
-#X obj 20 273 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 278 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 283 1\.;
@@ -21,13 +21,13 @@ is specified by the argument.;
 #X obj 241 284 cnv 1 25 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 283 AT: size of first list. The size of the list on the
 second output is the size of input list - this value.;
-#X obj 20 325 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 330 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 335 @at;
 #X text 240 335 Get/Set split point. Type: int. Default value: 0\. Min
 value: 0;
-#X obj 20 382 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 387 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 392 1\.;
@@ -35,7 +35,7 @@ value: 0;
 #X text 240 392 input list.;
 #X text 150 410 *data:mlist*;
 #X text 240 410 input mlist.;
-#X obj 20 438 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 438 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 443 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 448 1\.;
@@ -47,16 +47,16 @@ value: 0;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 514 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 517 library: ceammc v0.6;
-#X text 564 529 see also:;
-#X obj 640 529 list.at;
+#X obj 1 514 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 517 library: ceammc v0.7;
+#X text 634 529 see also:;
+#X obj 710 529 list.at;
 #N canvas 10 536 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 list.split;
 #X text 10 76 category:;

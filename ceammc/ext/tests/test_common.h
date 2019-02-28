@@ -35,6 +35,8 @@ void pdPrintToStdError(bool value = true);
 
 typedef void(pdPrintFunction)(const char*);
 void pdSetPrintFunction(pdPrintFunction fn);
+
+void pdRunMainLoopMs(int ms);
 }
 
 typedef std::vector<Message> MessageList;

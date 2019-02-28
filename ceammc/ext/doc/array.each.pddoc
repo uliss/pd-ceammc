@@ -19,6 +19,11 @@
         <arguments>
             <argument name="NAME" type="symbol">array name</argument>
         </arguments>
+        <properties>
+            <property name="@array" type="symbol">array name</property>
+            <property name="@redraw" type="int" enum="1 0" default="1">redraw after array
+            change</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">process each element of current array</xinfo>

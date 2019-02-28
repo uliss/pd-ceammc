@@ -1,37 +1,37 @@
-#N canvas 0 0 715 500 12;
+#N canvas 0 0 760 555 12;
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 116 synth.bee3~;
-#X text 175 116 Hammond-oid organ FM synthesis instrument;
+#X text 200 116 Hammond-oid organ FM synthesis instrument;
 #X obj 30 143 synth.birds~;
-#X text 175 143 bird singing generator;
+#X text 200 143 bird singing generator;
 #X obj 30 170 synth.church_bell~;
-#X text 175 170 generic church bell modal model;
+#X text 200 170 generic church bell modal model;
 #X obj 30 197 synth.dubdub~;
-#X text 175 197 simple synth based on a sawtooth wave filtered by a
+#X text 200 197 simple synth based on a sawtooth wave filtered by a
 resonant lowpass;
 #X obj 30 234 synth.eguitar~;
-#X text 175 234 simple electric guitar model with steel strings;
+#X text 200 234 simple electric guitar model with steel strings;
 #X obj 30 261 synth.fgrain~;
-#X text 175 261 file granulator from STK;
+#X text 200 261 file granulator from STK;
 #X obj 30 288 synth.ks~;
-#X text 175 288 Karplus-Strong string;
+#X text 200 288 Karplus-Strong string;
 #X obj 30 315 synth.marimba~;
-#X text 175 315 simple marimba physical model implementing a single
+#X text 200 315 simple marimba physical model implementing a single
 tone bar connected to tube;
 #X obj 30 352 synth.rhodey~;
-#X text 175 352 STK Fender Rhodes electric piano FM synthesis
+#X text 200 352 STK Fender Rhodes electric piano FM synthesis
 instrument;
 #X obj 30 379 synth.risset_arp~;
-#X text 175 379 Jean Claude Risset's harmonic arpeggio effect;
+#X text 200 379 Jean Claude Risset's harmonic arpeggio effect;
 #X obj 30 406 synth.risset_tone~;
-#X text 175 406 Jean Claude Risset's endless glissando;
+#X text 200 406 Jean Claude Risset's endless glissando;
 #X obj 30 433 synth.shakers~;
-#X text 175 433 various percussion sounds from STK library;
+#X text 200 433 various percussion sounds from STK library;
 #X obj 30 460 synth.wurley~;
-#X text 175 460 Wurlitzer electric piano FM synthesis instrumentr;
-#X obj 1 1 cnv 5 712 40 empty empty ceammc::synth 20 20 0 20 -104026
+#X text 200 460 Wurlitzer electric piano FM synthesis instrument;
+#X obj 1 1 cnv 5 740 40 empty empty ceammc::synth 20 20 0 20 -104026
 -4096 0;
-#X obj 1 487 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 497 library: ceammc;
+#X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 523 library: ceammc;

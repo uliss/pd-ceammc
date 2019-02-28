@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 237 50 cnv 1 458 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 237 50 shifts the contents of the list with linear
+#X obj 307 50 cnv 1 458 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 307 50 shifts the contents of the list with linear
 interpolation;
-#X obj 1 1 cnv 5 712 40 empty empty list.shift 20 20 0 20 -104026
+#X obj 1 1 cnv 5 765 40 empty empty list.shift 20 20 0 20 -104026
 -4096 0;
-#X obj 615 11 list.shift;
+#X obj 668 11 list.shift;
 #X text 50 118 change shift;
 #X floatatom 50 147 5 0 0 0 - - -;
 #X msg 98 147 0 \, 30 2000;
@@ -15,7 +15,7 @@ interpolation;
 #X obj 50 234 ui.sliders @count 30 @size 200 80;
 #X obj 50 320 list.shift 10;
 #X obj 50 349 ui.sliders @count 30 @size 200 80;
-#X obj 20 451 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 456 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 461 1\.;
@@ -23,12 +23,12 @@ interpolation;
 #X obj 241 462 cnv 1 48 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 461 shift: shift amount. Float values cause linear
 interpolation. Can be negative..;
-#X obj 20 503 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 503 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 508 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 513 @shift;
-#X text 240 513 Get/Set shift amount. Type: float;
-#X obj 20 550 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 513 Get/Set shift amount. Type: float. Default value: 0;
+#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 555 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 560 1\.;
@@ -38,7 +38,7 @@ interpolation. Can be negative..;
 #X text 240 578 input mlist.;
 #X text 120 596 2\.;
 #X text 240 596 shift value.;
-#X obj 20 624 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 629 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 634 1\.;
@@ -48,16 +48,16 @@ interpolation. Can be negative..;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 682 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 685 library: ceammc v0.6;
-#X text 535 697 see also:;
-#X obj 611 697 list.rotate;
+#X obj 1 682 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 685 library: ceammc v0.7;
+#X text 605 697 see also:;
+#X obj 681 697 list.rotate;
 #N canvas 10 704 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 list.shift;
 #X text 10 76 category:;

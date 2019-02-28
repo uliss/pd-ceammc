@@ -27,10 +27,10 @@
             default), means 'till string end'.</argument>
         </arguments>
         <properties>
-            <property name="@from" type="int">substring position. Can be negative - to address
-            string from the end</property>
-            <property name="@len" type="int" default="-1">substring length. If equal to -1,
-            substring to the end of strng</property>
+            <property name="@from" type="int" default="0">substring position. Can be negative - to
+            address string from the end</property>
+            <property name="@len" type="int" default="-1" minvalue="0">substring length. If equal
+            to -1, substring to the end of string</property>
         </properties>
         <inlets>
             <inlet>

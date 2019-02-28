@@ -13,8 +13,10 @@
  *****************************************************************************/
 #include "mod_init.h"
 #include "lib/ceammc.hpp"
+#include "m_imp.h"
 #include "s_stuff.h"
 
+#include "an/mod_analyze.h"
 #include "array/mod_array.h"
 #include "base/mod_base.h"
 #include "conv/mod_conv.h"
@@ -30,6 +32,7 @@
 #include "math/mod_math.h"
 #include "midi/mod_midi.h"
 #include "misc/mod_misc.h"
+#include "net/mod_net.h"
 #include "noise/mod_noise.h"
 #include "osc/mod_osc.h"
 #include "path/mod_path.h"
@@ -43,13 +46,14 @@
 #include "system/mod_system.h"
 #include "tl/mod_tl.h"
 #include "ui/mod_ui.h"
-#include "vector/mod_vector.h"
 #include "window/mod_window.h"
 
 #include <algorithm>
 #include <set>
 #include <string>
 #include <vector>
+
+extern t_class* ceammc_class;
 
 std::set<std::string>& ceammc_ext_list()
 {
@@ -69,11 +73,12 @@ static void setup_env_doc_path()
 
 static void setup_env_ceammc_doc_path()
 {
-    if (!sys_libdir)
+    if (!ceammc_class || !ceammc_class->c_externdir) {
+        pd_error(nullptr, "[ceammc] library is not initialized");
         return;
+    }
 
-    std::string path(sys_libdir->s_name);
-    path += "/extra/ceammc";
+    std::string path(ceammc_class->c_externdir->s_name);
     ceammc::set_env("CEAMMC", path.c_str());
 }
 
@@ -81,16 +86,19 @@ using namespace std;
 
 void ceammc_init()
 {
+    ceammc::addPdPrintDataSupport();
+
     // setup env variables
     setup_env_doc_path();
     setup_env_ceammc_doc_path();
 
 #ifndef __WIN32
-    // save vanilla extension list
+    // save vanilla external list
     vector<string> l = ceammc::currentExtensionList();
     set<string> vanilla_set(l.begin(), l.end());
 #endif
 
+    ceammc_analyze_setup();
     ceammc_array_setup();
     ceammc_base_setup();
     ceammc_conv_setup();
@@ -106,6 +114,7 @@ void ceammc_init()
     ceammc_math_setup();
     ceammc_midi_setup();
     ceammc_misc_setup();
+    ceammc_net_setup();
     ceammc_noise_setup();
     ceammc_preset_setup();
     ceammc_path_setup();
@@ -119,7 +128,6 @@ void ceammc_init()
     ceammc_system_setup();
     ceammc_tl_setup();
     ceammc_ui_setup();
-    ceammc_vector_setup();
     ceammc_window_setup();
 
 #ifndef __WIN32

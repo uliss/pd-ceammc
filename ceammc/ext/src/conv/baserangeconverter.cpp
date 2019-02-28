@@ -13,6 +13,11 @@
  *****************************************************************************/
 #include "baserangeconverter.h"
 
+static t_symbol* SYM_NOCLIP = gensym("noclip");
+static t_symbol* SYM_MIN = gensym("min");
+static t_symbol* SYM_MAX = gensym("max");
+static t_symbol* SYM_MINMAX = gensym("minmax");
+
 BaseRangeConverter::BaseRangeConverter(const PdArgs& a,
     t_float iMin, t_float iMax, t_float oMin, t_float oMax)
     : BaseObject(a)
@@ -21,20 +26,20 @@ BaseRangeConverter::BaseRangeConverter(const PdArgs& a,
     , output_from_(0)
     , output_to_(0)
     , clip_(0)
-    , no_clip_(gensym("noclip"))
-    , clip_min_(gensym("min"))
-    , clip_max_(gensym("max"))
-    , clip_minmax_(gensym("minmax"))
+    , no_clip_(SYM_NOCLIP)
+    , clip_min_(SYM_MIN)
+    , clip_max_(SYM_MAX)
+    , clip_minmax_(SYM_MINMAX)
 {
     input_from_ = new FloatProperty("@in_from", positionalFloatArgument(0, iMin));
     input_to_ = new FloatProperty("@in_to", positionalFloatArgument(1, iMax));
     output_from_ = new FloatProperty("@out_from", positionalFloatArgument(2, oMin));
     output_to_ = new FloatProperty("@out_to", positionalFloatArgument(3, oMax));
 
-    clip_ = new SymbolEnumProperty("@clip", "minmax");
-    clip_->appendEnum("noclip");
-    clip_->appendEnum("min");
-    clip_->appendEnum("max");
+    clip_ = new SymbolEnumProperty("@clip", SYM_MINMAX);
+    clip_->appendEnum(SYM_NOCLIP);
+    clip_->appendEnum(SYM_MIN);
+    clip_->appendEnum(SYM_MAX);
 
     createProperty(input_from_);
     createProperty(input_to_);

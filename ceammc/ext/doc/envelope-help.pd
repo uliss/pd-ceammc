@@ -1,12 +1,12 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 546 50 cnv 1 149 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 546 50 Envelope data type;
-#X obj 1 1 cnv 5 712 40 empty empty envelope 20 20 0 20 -104026 -4096
+#X obj 616 50 cnv 1 149 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 616 50 Envelope data type;
+#X obj 1 1 cnv 5 765 40 empty empty envelope 20 20 0 20 -104026 -4096
 0;
-#X obj 582 11 env;
-#X obj 629 11 envelope;
-#X obj 205 80 cnv 1 490 177 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 635 11 env;
+#X obj 682 11 envelope;
+#X obj 205 80 cnv 1 560 177 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Data type for sound envelope. Contains points specified
 by time and value. Points could have stop property - to execute oly
 part of envelope and stop on this point. So multisegment envelopes
@@ -34,7 +34,7 @@ curved);
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #X coords 0 1 100 0 400 100 1;
 #X restore 50 472 graph;
-#X obj 20 594 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 594 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 599 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 604 1\.;
@@ -68,7 +68,7 @@ point.;
 #X obj 241 765 cnv 1 32 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 764 ear: exponential ASR envelope: attack(ms) \,
 attack_curve \, release(ms) \, release_curve - no sustain point.;
-#X obj 20 806 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 806 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 811 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 816 @npoints;
@@ -83,7 +83,7 @@ float;
 #X text 240 897 (readonly) Get list of point values. Type: list;
 #X msg 120 924 @stops;
 #X text 240 924 (readonly) Get list of stop points. Type: list;
-#X obj 20 961 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 961 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 966 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 971 clear;
@@ -106,7 +106,7 @@ step \, line \, exp \, sin2 \, sigmoid.;
 (concave \, negatively curved) >0 (convex \, positively curved). Type:
 float.;
 #X msg 120 1241 remove_point;
-#X text 240 1241 remove envelope point byt specified time. Arguments
+#X text 240 1241 remove envelope point by specified time. Arguments
 are:;
 #X obj 250 1269 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 1269 IDX: point index. Type: int. Min value: 0;
@@ -313,7 +313,7 @@ number of segments. Arguments are:;
 #X text 250 3985 [CURVE1]: segment curve. Type: float.;
 #X obj 250 4013 cnv 1 48 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 4013 [VAL2]: value. Type: float.;
-#X obj 20 4051 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4051 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 4056 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 4061 1\.;
@@ -321,7 +321,7 @@ number of segments. Arguments are:;
 #X text 240 4061 outputs current envelope.;
 #X text 150 4079 *data*;
 #X text 240 4079 set new envelope and output it.;
-#X obj 20 4107 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4107 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 4112 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 4117 1\.;
@@ -331,17 +331,17 @@ number of segments. Arguments are:;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title env @url ceammc.env-help.pd;
-#X obj 1 4165 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 4168 library: ceammc v0.6;
-#X text 453 4180 see also:;
-#X obj 529 4180 env->array;
-#X obj 617 4180 env->vline;
+#X obj 1 4165 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 4168 library: ceammc v0.7;
+#X text 523 4180 see also:;
+#X obj 599 4180 env->array;
+#X obj 687 4180 env->vline;
 #N canvas 10 4187 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 envelope;
 #X text 10 76 category:;

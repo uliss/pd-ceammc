@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_append.h"
-#include "../data/datatype_mlist.h"
+#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 
 ListAppend::ListAppend(const PdArgs& args)

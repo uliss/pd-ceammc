@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.col">
+        <title>matrix.col</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>create Matrix column with specified values</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <version>0.1</version>
+            <since>0.1</since>
+            <also>
+                <see>matrix.row</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="list" name="V">column values</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">column values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output column (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[B] [1 2 3 4(
+|   |
+[matrix.col 0.2345 1.2345 3.1415]
+|       |
+[print] [ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

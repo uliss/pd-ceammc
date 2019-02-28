@@ -11,17 +11,32 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include "fx_freeverb.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
+#include "ceammc_factory.h"
+
+using namespace ceammc;
+
+static t_symbol* SYM_PROP_ROOM = gensym("@room");
+static t_symbol* SYM_PROP_DRYWET = gensym("@drywet");
+
+class FxFreeverb : public faust_fx_freeverb_tilde {
+public:
+    FxFreeverb(const PdArgs& args)
+        : faust_fx_freeverb_tilde(args)
+    {
+        bindPositionalArgsToProps({ SYM_PROP_ROOM, SYM_PROP_DRYWET });
+    }
+
+    void m_reset(t_symbol*, const AtomList&)
+    {
+        dsp_->instanceClear();
+    }
+};
+
+void setup_fx_freeverb_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-    PdArgParser p(x, argc, argv);
-    p.initFloatArg("roomsize", 1);
-    p.initFloatArg("damp", 2);
-    p.initFloatArg("drywet", 3);
-    return p.pd_obj();
+    SoundExternalFactory<FxFreeverb> obj("fx.freeverb~");
+    obj.addMethod("reset", &FxFreeverb::m_reset);
 }
-
-EXTERNAL_SETUP(fx);

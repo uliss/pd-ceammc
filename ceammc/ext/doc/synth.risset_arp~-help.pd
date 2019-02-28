@@ -1,10 +1,10 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 332 50 cnv 1 363 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 332 50 Jean Claude Risset's harmonic arpeggio effect;
-#X obj 1 1 cnv 5 712 40 empty empty synth.risset_arp~ 20 20 0 20
+#X obj 402 50 cnv 1 363 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 402 50 Jean Claude Risset's harmonic arpeggio effect;
+#X obj 1 1 cnv 5 765 40 empty empty synth.risset_arp~ 20 20 0 20
 -104026 -4096 0;
-#X obj 564 11 synth.risset_arp~;
+#X obj 617 11 synth.risset_arp~;
 #X obj 50 118 r $0s;
 #X floatatom 136 118 5 0 0 0 - - -;
 #X floatatom 242 118 5 0 0 0 - - -;
@@ -20,7 +20,7 @@
 #X obj 50 291 ui.dsp~;
 #X msg 405 291 harmonic\$1 \$2;
 #X obj 405 320 s $0s;
-#X obj 20 359 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 364 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 369 @freq;
@@ -56,12 +56,12 @@ value: 1\. Value range: 0-1;
 #X msg 120 739 @harmonic8;
 #X text 240 739 Get/Set 8th harmonic amplitude. Type: float. Default
 value: 1\. Value range: 0-1;
-#X obj 20 786 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 786 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 791 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 796 1\.;
 #X text 240 796 control inlet.;
-#X obj 20 824 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 824 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 829 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 834 1\.;
@@ -73,14 +73,14 @@ value: 1\. Value range: 0-1;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 900 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 903 library: ceammc v0.6;
+#X obj 1 900 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 903 library: ceammc v0.7;
 #N canvas 10 922 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 synth.risset_arp~;
 #X text 10 76 category:;

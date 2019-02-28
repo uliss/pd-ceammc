@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 277 50 cnv 1 418 35 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 277 50 returns the number of items that satisfy to external
+#X obj 347 50 cnv 1 418 35 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 347 50 returns the number of items that satisfy to external
 predicate.;
-#X obj 1 1 cnv 5 712 40 empty empty list.count_if 20 20 0 20 -104026
+#X obj 1 1 cnv 5 765 40 empty empty list.count_if 20 20 0 20 -104026
 -4096 0;
-#X obj 593 11 list.count_if;
+#X obj 646 11 list.count_if;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 list.gen 10;
@@ -16,7 +16,7 @@ predicate.;
 #X obj 50 262 list.count_if;
 #X obj 222 262 > 10;
 #X floatatom 50 291 5 0 0 0 - - -;
-#X obj 20 330 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 335 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 340 1\.;
@@ -26,9 +26,9 @@ predicate.;
 #X text 240 358 input mlist.;
 #X text 120 376 2\.;
 #X text 150 376 *float*;
-#X text 240 376 input value from predicate. "1" means accepped. "0"
+#X text 240 376 input value from predicate. "1" means accepted. "0"
 means reject. Range: 0\...1;
-#X obj 20 418 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 418 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 423 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 428 1\.;
@@ -40,16 +40,16 @@ means reject. Range: 0\...1;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.6;
-#X text 542 520 see also:;
-#X obj 618 520 list.count;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 508 library: ceammc v0.7;
+#X text 612 520 see also:;
+#X obj 688 520 list.count;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 list.count_if;
 #X text 10 76 category:;

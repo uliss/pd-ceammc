@@ -1,2 +1,3 @@
-import("stdfaust.lib");
-process = os.lf_squarewavepos;
+os = library("oscillators.lib");
+
+process = os.lf_squarewave;

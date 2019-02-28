@@ -12,16 +12,24 @@
             <category>spat</category>
             <keywords>spat pan</keywords>
             <since>0.6</since>
+            <aliases>
+                <alias>pan8~</alias>
+            </aliases>
+            <also>
+                <see>pan4~</see>
+            </also>
         </meta>
         <arguments>
             <argument name="ANGLE" type="float" minvalue="0">circle panning position in
             radians</argument>
         </arguments>
         <properties>
-            <property name="@angle" type="float" minvalue="0" default="0">panning position in
-            radians</property>
+            <property name="@angle" type="float" minvalue="0" default="0" maxvalue="6.28319">
+            panning position in radians</property>
             <property name="@dist" type="float" minvalue="0" maxvalue="1" default="1">distance from
             circle center</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
         </properties>
         <inlets>
             <inlet type="audio">
@@ -37,7 +45,6 @@
             <outlet type="audio">6th output channel</outlet>
             <outlet type="audio">7th output channel</outlet>
             <outlet type="audio">8th output channel</outlet>
-            <outlet>control output</outlet>
         </outlets>
         <example>
             <pdascii>

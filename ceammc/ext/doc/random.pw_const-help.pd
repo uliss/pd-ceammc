@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 388 50 cnv 1 307 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 388 50 piecewise constant random distribution;
-#X obj 1 1 cnv 5 712 40 empty empty random.pw_const 20 20 0 20 -104026
+#X obj 458 50 cnv 1 307 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 458 50 piecewise constant random distribution;
+#X obj 1 1 cnv 5 765 40 empty empty random.pw_const 20 20 0 20 -104026
 -4096 0;
-#X obj 580 11 random.pw_const;
-#X obj 205 80 cnv 1 490 98 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 633 11 random.pw_const;
+#X obj 205 80 cnv 1 560 98 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Produces random floating-point numbers \, which are
 uniformly distributed within each of the several subintervals [b0 \,
 b1) \, each with its own weight;
@@ -27,7 +27,7 @@ bound1 \, weight0 \, bound2 etc;
 #X obj 50 322 list.enumerate @append;
 #X obj 50 350 list.repack 2;
 #X obj 50 379 tabwrite array1;
-#X obj 20 418 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 418 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 423 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 428 1\.;
@@ -37,7 +37,7 @@ bound1 \, weight0 \, bound2 etc;
 propabilities. Note: number of arguments should be odd and >=5\.
 Boundaries should be in strictly increasing order and weights should
 be non-negative.;
-#X obj 20 498 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 503 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 508 @v;
@@ -47,7 +47,7 @@ propabilities. Type: list;
 #X text 240 545 (readonly) Get list of boundaries. Type: list;
 #X msg 120 572 @weights;
 #X text 240 572 (readonly) Get list of weights. Type: list;
-#X obj 20 609 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 609 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 614 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 619 1\.;
@@ -55,7 +55,7 @@ propabilities. Type: list;
 #X text 240 619 generates random number.;
 #X text 150 637 *list*;
 #X text 240 637 set new distribution values.;
-#X obj 20 665 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 665 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 670 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 675 1\.;
@@ -65,17 +65,17 @@ propabilities. Type: list;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 723 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 726 library: ceammc v0.6;
-#X text 413 738 see also:;
-#X obj 489 738 random.linear;
-#X obj 597 738 random.pw_lin;
+#X obj 1 723 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 726 library: ceammc v0.7;
+#X text 483 738 see also:;
+#X obj 559 738 random.linear;
+#X obj 667 738 random.pw_lin;
 #N canvas 10 745 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 random.pw_const;
 #X text 10 76 category:;

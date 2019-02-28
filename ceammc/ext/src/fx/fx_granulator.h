@@ -1,44 +1,19 @@
 /* ------------------------------------------------------------
 author: "Mayank Sanganeria"
-name: "Granulator"
+name: "fx.granulator"
 version: "1.0"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
-#ifndef  __granulator_H__
-#define  __granulator_H__
+#ifndef  __fx_granulator_H__
+#define  __fx_granulator_H__
 
-/************************************************************************
- ************************************************************************
-    FAUST Architecture File
-    Copyright (C) 2006-2011 Albert Graef <Dr.Graef@t-online.de>
-    ---------------------------------------------------------------------
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as
-    published by the Free Software Foundation; either version 2.1 of the
-    License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
-
-    You should have received a copy of the GNU Lesser General Public
-    License along with the GNU C Library; if not, write to the Free
-    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
-    02111-1307 USA.
- ************************************************************************
- ************************************************************************/
-
-/* Pd architecture file, written by Albert Graef <Dr.Graef@t-online.de>.
-   This was derived from minimal.cpp included in the Faust distribution.
-   Please note that this is to be compiled as a shared library, which is
-   then loaded dynamically by Pd as an external. */
-
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
+// FAUST Architecture File for ceammc::SoundExternal class
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <memory>
 #include <string>
 
 /************************************************************************
@@ -68,6 +43,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -231,6 +207,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -397,6 +376,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -419,7 +399,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -440,16 +420,9 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 #endif
 
 
-#include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_faust.h"
 
-/******************************************************************************
-*******************************************************************************
-
-                                   VECTOR INTRINSICS
-
-*******************************************************************************
-*******************************************************************************/
+using namespace ceammc::faust;
 
 #ifdef FAUST_MACRO
 // clang-format off
@@ -459,31 +432,12 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 #define sym(name) xsym(name)
 #define xsym(name) #name
 
-/***************************************************************************
-   Pd UI interface
-***************************************************************************/
-
 // clang-format off
 #ifndef FAUST_MACRO
-struct granulator : public dsp {
+struct fx_granulator : public dsp {
 };
 #endif
 // clang-format on
-
-#include "ceammc_faust.h"
-using namespace ceammc::faust;
-
-/******************************************************************************
-*******************************************************************************
-
-                FAUST DSP
-
-*******************************************************************************
-*******************************************************************************/
-
-//----------------------------------------------------------------------------
-//  FAUST generated signal processor
-//----------------------------------------------------------------------------
 
 #ifdef FAUST_MACRO
 // clang-format off
@@ -491,26 +445,27 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 #include <math.h>
 
 
-class granulatorSIG0 {
+class fx_granulatorSIG0 {
 	
   private:
 	
 	
   public:
 	
-	int getNumInputsgranulatorSIG0() {
+	int getNumInputsfx_granulatorSIG0() {
 		return 0;
 		
 	}
-	int getNumOutputsgranulatorSIG0() {
+	int getNumOutputsfx_granulatorSIG0() {
 		return 1;
 		
 	}
-	int getInputRategranulatorSIG0(int channel) {
+	int getInputRatefx_granulatorSIG0(int channel) {
 		int rate;
 		switch (channel) {
 			default: {
@@ -522,7 +477,7 @@ class granulatorSIG0 {
 		return rate;
 		
 	}
-	int getOutputRategranulatorSIG0(int channel) {
+	int getOutputRatefx_granulatorSIG0(int channel) {
 		int rate;
 		switch (channel) {
 			case 0: {
@@ -539,11 +494,11 @@ class granulatorSIG0 {
 		
 	}
 	
-	void instanceInitgranulatorSIG0(int samplingFreq) {
+	void instanceInitfx_granulatorSIG0(int samplingFreq) {
 		
 	}
 	
-	void fillgranulatorSIG0(int count, float* output) {
+	void fillfx_granulatorSIG0(int count, float* output) {
 		for (int i = 0; (i < count); i = (i + 1)) {
 			output[i] = 0.0f;
 			
@@ -552,19 +507,88 @@ class granulatorSIG0 {
 	}
 };
 
-granulatorSIG0* newgranulatorSIG0() { return (granulatorSIG0*)new granulatorSIG0(); }
-void deletegranulatorSIG0(granulatorSIG0* dsp) { delete dsp; }
+fx_granulatorSIG0* newfx_granulatorSIG0() { return (fx_granulatorSIG0*)new fx_granulatorSIG0(); }
+void deletefx_granulatorSIG0(fx_granulatorSIG0* dsp) { delete dsp; }
 
+
+class fx_granulatorSIG1 {
+	
+  private:
+	
+	int iRec70[2];
+	
+  public:
+	
+	int getNumInputsfx_granulatorSIG1() {
+		return 0;
+		
+	}
+	int getNumOutputsfx_granulatorSIG1() {
+		return 1;
+		
+	}
+	int getInputRatefx_granulatorSIG1(int channel) {
+		int rate;
+		switch (channel) {
+			default: {
+				rate = -1;
+				break;
+			}
+			
+		}
+		return rate;
+		
+	}
+	int getOutputRatefx_granulatorSIG1(int channel) {
+		int rate;
+		switch (channel) {
+			case 0: {
+				rate = 0;
+				break;
+			}
+			default: {
+				rate = -1;
+				break;
+			}
+			
+		}
+		return rate;
+		
+	}
+	
+	void instanceInitfx_granulatorSIG1(int samplingFreq) {
+		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
+			iRec70[l8] = 0;
+			
+		}
+		
+	}
+	
+	void fillfx_granulatorSIG1(int count, float* output) {
+		for (int i = 0; (i < count); i = (i + 1)) {
+			iRec70[0] = (iRec70[1] + 1);
+			output[i] = (0.5f * (1.0f - std::cos((0.00614192104f * float((iRec70[0] + -1))))));
+			iRec70[1] = iRec70[0];
+			
+		}
+		
+	}
+};
+
+fx_granulatorSIG1* newfx_granulatorSIG1() { return (fx_granulatorSIG1*)new fx_granulatorSIG1(); }
+void deletefx_granulatorSIG1(fx_granulatorSIG1* dsp) { delete dsp; }
+
+static float ftbl1fx_granulatorSIG1[1024];
 
 #ifndef FAUSTCLASS 
-#define FAUSTCLASS granulator
+#define FAUSTCLASS fx_granulator
 #endif
 #ifdef __APPLE__ 
 #define exp10f __exp10f
 #define exp10 __exp10
 #endif
 
-class granulator : public dsp {
+class fx_granulator : public dsp {
 	
  private:
 	
@@ -572,27 +596,27 @@ class granulator : public dsp {
 	float ftbl0[480000];
 	int iVec0[2];
 	int fSamplingFreq;
+	float fConst0;
 	FAUSTFLOAT fHslider1;
+	float fRec1[2];
 	int iRec0[2];
 	FAUSTFLOAT fHslider2;
-	int iRec3[2];
+	float fRec3[2];
 	int iRec2[2];
-	int iRec67[2];
-	int iRec1[2];
-	int iRec68[2];
+	int iRec5[2];
+	int iRec4[2];
 	int iRec69[2];
 	int iRec71[2];
-	int iRec70[2];
-	int iRec73[2];
 	int iRec72[2];
+	int iRec73[2];
 	int iRec74[2];
 	int iRec75[2];
-	int iRec77[2];
 	int iRec76[2];
-	int iRec79[2];
+	int iRec77[2];
 	int iRec78[2];
-	int iRec81[2];
+	int iRec79[2];
 	int iRec80[2];
+	int iRec81[2];
 	int iRec82[2];
 	int iRec83[2];
 	int iRec84[2];
@@ -605,113 +629,127 @@ class granulator : public dsp {
 	int iRec91[2];
 	int iRec92[2];
 	int iRec93[2];
-	int iRec95[2];
 	int iRec94[2];
-	int iRec97[2];
+	int iRec95[2];
 	int iRec96[2];
-	int iRec99[2];
+	int iRec97[2];
 	int iRec98[2];
-	int iRec101[2];
+	int iRec99[2];
 	int iRec100[2];
-	int iRec103[2];
+	int iRec101[2];
 	int iRec102[2];
-	int iRec105[2];
+	int iRec103[2];
 	int iRec104[2];
-	int iRec107[2];
+	int iRec105[2];
 	int iRec106[2];
-	int iRec109[2];
+	int iRec107[2];
 	int iRec108[2];
-	int iRec111[2];
+	int iRec109[2];
 	int iRec110[2];
-	int iRec113[2];
+	int iRec111[2];
 	int iRec112[2];
-	int iRec115[2];
+	int iRec113[2];
 	int iRec114[2];
-	int iRec117[2];
+	int iRec115[2];
 	int iRec116[2];
-	int iRec119[2];
+	int iRec117[2];
 	int iRec118[2];
-	int iRec121[2];
+	int iRec119[2];
 	int iRec120[2];
-	int iRec123[2];
+	int iRec121[2];
 	int iRec122[2];
-	int iRec125[2];
+	int iRec123[2];
 	int iRec124[2];
-	int iRec127[2];
+	int iRec125[2];
 	int iRec126[2];
-	int iRec129[2];
+	int iRec127[2];
 	int iRec128[2];
-	int iRec131[2];
+	int iRec129[2];
 	int iRec130[2];
-	int iRec133[2];
+	int iRec131[2];
 	int iRec132[2];
-	int iRec135[2];
 	int iRec134[2];
-	int iRec137[2];
+	int iRec133[2];
+	int iRec135[2];
 	int iRec136[2];
-	int iRec139[2];
+	int iRec137[2];
 	int iRec138[2];
-	int iRec141[2];
 	int iRec140[2];
-	int iRec143[2];
+	int iRec139[2];
 	int iRec142[2];
-	int iRec145[2];
+	int iRec141[2];
 	int iRec144[2];
-	int iRec147[2];
+	int iRec143[2];
 	int iRec146[2];
-	int iRec149[2];
+	int iRec145[2];
+	int iRec147[2];
 	int iRec148[2];
-	int iRec151[2];
 	int iRec150[2];
-	int iRec153[2];
+	int iRec149[2];
 	int iRec152[2];
-	int iRec155[2];
+	int iRec151[2];
 	int iRec154[2];
-	int iRec157[2];
+	int iRec153[2];
+	int iRec155[2];
 	int iRec156[2];
-	int iRec159[2];
+	int iRec157[2];
 	int iRec158[2];
-	int iRec161[2];
+	int iRec159[2];
 	int iRec160[2];
-	int iRec163[2];
+	int iRec161[2];
 	int iRec162[2];
-	int iRec165[2];
+	int iRec163[2];
 	int iRec164[2];
-	int iRec167[2];
+	int iRec165[2];
 	int iRec166[2];
-	int iRec169[2];
+	int iRec167[2];
 	int iRec168[2];
-	int iRec171[2];
+	int iRec169[2];
 	int iRec170[2];
-	int iRec173[2];
+	int iRec171[2];
 	int iRec172[2];
-	int iRec175[2];
+	int iRec173[2];
 	int iRec174[2];
-	int iRec177[2];
+	int iRec175[2];
 	int iRec176[2];
-	int iRec179[2];
+	int iRec177[2];
 	int iRec178[2];
-	int iRec181[2];
+	int iRec179[2];
 	int iRec180[2];
-	int iRec183[2];
+	int iRec181[2];
 	int iRec182[2];
-	int iRec185[2];
+	int iRec183[2];
 	int iRec184[2];
-	int iRec187[2];
+	int iRec185[2];
 	int iRec186[2];
-	int iRec189[2];
 	int iRec188[2];
-	int iRec191[2];
+	int iRec187[2];
 	int iRec190[2];
-	int iRec193[2];
+	int iRec189[2];
 	int iRec192[2];
+	int iRec191[2];
+	int iRec194[2];
+	int iRec193[2];
+	int iRec195[2];
+	int iRec196[2];
 	
  public:
 	
 	void metadata(Meta* m) { 
 		m->declare("author", "Mayank Sanganeria");
+		m->declare("basics.lib/name", "Faust Basic Element Library");
+		m->declare("basics.lib/version", "0.0");
+		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
+		m->declare("ceammc.lib/version", "0.1.1");
 		m->declare("filename", "fx_granulator");
-		m->declare("name", "Granulator");
+		m->declare("maths.lib/author", "GRAME");
+		m->declare("maths.lib/copyright", "GRAME");
+		m->declare("maths.lib/license", "LGPL with exception");
+		m->declare("maths.lib/name", "Faust Math Library");
+		m->declare("maths.lib/version", "2.1");
+		m->declare("name", "fx.granulator");
+		m->declare("signals.lib/name", "Faust Signal Routing Library");
+		m->declare("signals.lib/version", "0.0");
 		m->declare("version", "1.0");
 	}
 
@@ -761,22 +799,27 @@ class granulator : public dsp {
 	}
 	
 	static void classInit(int samplingFreq) {
+		fx_granulatorSIG1* sig1 = newfx_granulatorSIG1();
+		sig1->instanceInitfx_granulatorSIG1(samplingFreq);
+		sig1->fillfx_granulatorSIG1(1024, ftbl1fx_granulatorSIG1);
+		deletefx_granulatorSIG1(sig1);
 		
 	}
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		granulatorSIG0* sig0 = newgranulatorSIG0();
-		sig0->instanceInitgranulatorSIG0(samplingFreq);
-		sig0->fillgranulatorSIG0(480000, ftbl0);
-		deletegranulatorSIG0(sig0);
+		fx_granulatorSIG0* sig0 = newfx_granulatorSIG0();
+		sig0->instanceInitfx_granulatorSIG0(samplingFreq);
+		sig0->fillfx_granulatorSIG0(480000, ftbl0);
+		fConst0 = std::min(192000.0f, std::max(1.0f, float(fSamplingFreq)));
+		deletefx_granulatorSIG0(sig0);
 		
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fHslider0 = FAUSTFLOAT(1.0f);
+		fHslider0 = FAUSTFLOAT(10.0f);
 		fHslider1 = FAUSTFLOAT(10.0f);
-		fHslider2 = FAUSTFLOAT(0.10000000000000001f);
+		fHslider2 = FAUSTFLOAT(100.0f);
 		
 	}
 	
@@ -786,47 +829,43 @@ class granulator : public dsp {
 			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
-			iRec0[l1] = 0;
+			fRec1[l1] = 0.0f;
 			
 		}
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
-			iRec3[l2] = 0;
+			iRec0[l2] = 0;
 			
 		}
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
-			iRec2[l3] = 0;
+			fRec3[l3] = 0.0f;
 			
 		}
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
-			iRec67[l4] = 0;
+			iRec2[l4] = 0;
 			
 		}
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
-			iRec1[l5] = 0;
+			iRec5[l5] = 0;
 			
 		}
 		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
-			iRec68[l6] = 0;
+			iRec4[l6] = 0;
 			
 		}
 		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
 			iRec69[l7] = 0;
 			
 		}
-		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
-			iRec71[l8] = 0;
-			
-		}
 		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
-			iRec70[l9] = 0;
+			iRec71[l9] = 0;
 			
 		}
 		for (int l10 = 0; (l10 < 2); l10 = (l10 + 1)) {
-			iRec73[l10] = 0;
+			iRec72[l10] = 0;
 			
 		}
 		for (int l11 = 0; (l11 < 2); l11 = (l11 + 1)) {
-			iRec72[l11] = 0;
+			iRec73[l11] = 0;
 			
 		}
 		for (int l12 = 0; (l12 < 2); l12 = (l12 + 1)) {
@@ -838,27 +877,27 @@ class granulator : public dsp {
 			
 		}
 		for (int l14 = 0; (l14 < 2); l14 = (l14 + 1)) {
-			iRec77[l14] = 0;
+			iRec76[l14] = 0;
 			
 		}
 		for (int l15 = 0; (l15 < 2); l15 = (l15 + 1)) {
-			iRec76[l15] = 0;
+			iRec77[l15] = 0;
 			
 		}
 		for (int l16 = 0; (l16 < 2); l16 = (l16 + 1)) {
-			iRec79[l16] = 0;
+			iRec78[l16] = 0;
 			
 		}
 		for (int l17 = 0; (l17 < 2); l17 = (l17 + 1)) {
-			iRec78[l17] = 0;
+			iRec79[l17] = 0;
 			
 		}
 		for (int l18 = 0; (l18 < 2); l18 = (l18 + 1)) {
-			iRec81[l18] = 0;
+			iRec80[l18] = 0;
 			
 		}
 		for (int l19 = 0; (l19 < 2); l19 = (l19 + 1)) {
-			iRec80[l19] = 0;
+			iRec81[l19] = 0;
 			
 		}
 		for (int l20 = 0; (l20 < 2); l20 = (l20 + 1)) {
@@ -910,403 +949,415 @@ class granulator : public dsp {
 			
 		}
 		for (int l32 = 0; (l32 < 2); l32 = (l32 + 1)) {
-			iRec95[l32] = 0;
+			iRec94[l32] = 0;
 			
 		}
 		for (int l33 = 0; (l33 < 2); l33 = (l33 + 1)) {
-			iRec94[l33] = 0;
+			iRec95[l33] = 0;
 			
 		}
 		for (int l34 = 0; (l34 < 2); l34 = (l34 + 1)) {
-			iRec97[l34] = 0;
+			iRec96[l34] = 0;
 			
 		}
 		for (int l35 = 0; (l35 < 2); l35 = (l35 + 1)) {
-			iRec96[l35] = 0;
+			iRec97[l35] = 0;
 			
 		}
 		for (int l36 = 0; (l36 < 2); l36 = (l36 + 1)) {
-			iRec99[l36] = 0;
+			iRec98[l36] = 0;
 			
 		}
 		for (int l37 = 0; (l37 < 2); l37 = (l37 + 1)) {
-			iRec98[l37] = 0;
+			iRec99[l37] = 0;
 			
 		}
 		for (int l38 = 0; (l38 < 2); l38 = (l38 + 1)) {
-			iRec101[l38] = 0;
+			iRec100[l38] = 0;
 			
 		}
 		for (int l39 = 0; (l39 < 2); l39 = (l39 + 1)) {
-			iRec100[l39] = 0;
+			iRec101[l39] = 0;
 			
 		}
 		for (int l40 = 0; (l40 < 2); l40 = (l40 + 1)) {
-			iRec103[l40] = 0;
+			iRec102[l40] = 0;
 			
 		}
 		for (int l41 = 0; (l41 < 2); l41 = (l41 + 1)) {
-			iRec102[l41] = 0;
+			iRec103[l41] = 0;
 			
 		}
 		for (int l42 = 0; (l42 < 2); l42 = (l42 + 1)) {
-			iRec105[l42] = 0;
+			iRec104[l42] = 0;
 			
 		}
 		for (int l43 = 0; (l43 < 2); l43 = (l43 + 1)) {
-			iRec104[l43] = 0;
+			iRec105[l43] = 0;
 			
 		}
 		for (int l44 = 0; (l44 < 2); l44 = (l44 + 1)) {
-			iRec107[l44] = 0;
+			iRec106[l44] = 0;
 			
 		}
 		for (int l45 = 0; (l45 < 2); l45 = (l45 + 1)) {
-			iRec106[l45] = 0;
+			iRec107[l45] = 0;
 			
 		}
 		for (int l46 = 0; (l46 < 2); l46 = (l46 + 1)) {
-			iRec109[l46] = 0;
+			iRec108[l46] = 0;
 			
 		}
 		for (int l47 = 0; (l47 < 2); l47 = (l47 + 1)) {
-			iRec108[l47] = 0;
+			iRec109[l47] = 0;
 			
 		}
 		for (int l48 = 0; (l48 < 2); l48 = (l48 + 1)) {
-			iRec111[l48] = 0;
+			iRec110[l48] = 0;
 			
 		}
 		for (int l49 = 0; (l49 < 2); l49 = (l49 + 1)) {
-			iRec110[l49] = 0;
+			iRec111[l49] = 0;
 			
 		}
 		for (int l50 = 0; (l50 < 2); l50 = (l50 + 1)) {
-			iRec113[l50] = 0;
+			iRec112[l50] = 0;
 			
 		}
 		for (int l51 = 0; (l51 < 2); l51 = (l51 + 1)) {
-			iRec112[l51] = 0;
+			iRec113[l51] = 0;
 			
 		}
 		for (int l52 = 0; (l52 < 2); l52 = (l52 + 1)) {
-			iRec115[l52] = 0;
+			iRec114[l52] = 0;
 			
 		}
 		for (int l53 = 0; (l53 < 2); l53 = (l53 + 1)) {
-			iRec114[l53] = 0;
+			iRec115[l53] = 0;
 			
 		}
 		for (int l54 = 0; (l54 < 2); l54 = (l54 + 1)) {
-			iRec117[l54] = 0;
+			iRec116[l54] = 0;
 			
 		}
 		for (int l55 = 0; (l55 < 2); l55 = (l55 + 1)) {
-			iRec116[l55] = 0;
+			iRec117[l55] = 0;
 			
 		}
 		for (int l56 = 0; (l56 < 2); l56 = (l56 + 1)) {
-			iRec119[l56] = 0;
+			iRec118[l56] = 0;
 			
 		}
 		for (int l57 = 0; (l57 < 2); l57 = (l57 + 1)) {
-			iRec118[l57] = 0;
+			iRec119[l57] = 0;
 			
 		}
 		for (int l58 = 0; (l58 < 2); l58 = (l58 + 1)) {
-			iRec121[l58] = 0;
+			iRec120[l58] = 0;
 			
 		}
 		for (int l59 = 0; (l59 < 2); l59 = (l59 + 1)) {
-			iRec120[l59] = 0;
+			iRec121[l59] = 0;
 			
 		}
 		for (int l60 = 0; (l60 < 2); l60 = (l60 + 1)) {
-			iRec123[l60] = 0;
+			iRec122[l60] = 0;
 			
 		}
 		for (int l61 = 0; (l61 < 2); l61 = (l61 + 1)) {
-			iRec122[l61] = 0;
+			iRec123[l61] = 0;
 			
 		}
 		for (int l62 = 0; (l62 < 2); l62 = (l62 + 1)) {
-			iRec125[l62] = 0;
+			iRec124[l62] = 0;
 			
 		}
 		for (int l63 = 0; (l63 < 2); l63 = (l63 + 1)) {
-			iRec124[l63] = 0;
+			iRec125[l63] = 0;
 			
 		}
 		for (int l64 = 0; (l64 < 2); l64 = (l64 + 1)) {
-			iRec127[l64] = 0;
+			iRec126[l64] = 0;
 			
 		}
 		for (int l65 = 0; (l65 < 2); l65 = (l65 + 1)) {
-			iRec126[l65] = 0;
+			iRec127[l65] = 0;
 			
 		}
 		for (int l66 = 0; (l66 < 2); l66 = (l66 + 1)) {
-			iRec129[l66] = 0;
+			iRec128[l66] = 0;
 			
 		}
 		for (int l67 = 0; (l67 < 2); l67 = (l67 + 1)) {
-			iRec128[l67] = 0;
+			iRec129[l67] = 0;
 			
 		}
 		for (int l68 = 0; (l68 < 2); l68 = (l68 + 1)) {
-			iRec131[l68] = 0;
+			iRec130[l68] = 0;
 			
 		}
 		for (int l69 = 0; (l69 < 2); l69 = (l69 + 1)) {
-			iRec130[l69] = 0;
+			iRec131[l69] = 0;
 			
 		}
 		for (int l70 = 0; (l70 < 2); l70 = (l70 + 1)) {
-			iRec133[l70] = 0;
+			iRec132[l70] = 0;
 			
 		}
 		for (int l71 = 0; (l71 < 2); l71 = (l71 + 1)) {
-			iRec132[l71] = 0;
+			iRec134[l71] = 0;
 			
 		}
 		for (int l72 = 0; (l72 < 2); l72 = (l72 + 1)) {
-			iRec135[l72] = 0;
+			iRec133[l72] = 0;
 			
 		}
 		for (int l73 = 0; (l73 < 2); l73 = (l73 + 1)) {
-			iRec134[l73] = 0;
+			iRec135[l73] = 0;
 			
 		}
 		for (int l74 = 0; (l74 < 2); l74 = (l74 + 1)) {
-			iRec137[l74] = 0;
+			iRec136[l74] = 0;
 			
 		}
 		for (int l75 = 0; (l75 < 2); l75 = (l75 + 1)) {
-			iRec136[l75] = 0;
+			iRec137[l75] = 0;
 			
 		}
 		for (int l76 = 0; (l76 < 2); l76 = (l76 + 1)) {
-			iRec139[l76] = 0;
+			iRec138[l76] = 0;
 			
 		}
 		for (int l77 = 0; (l77 < 2); l77 = (l77 + 1)) {
-			iRec138[l77] = 0;
+			iRec140[l77] = 0;
 			
 		}
 		for (int l78 = 0; (l78 < 2); l78 = (l78 + 1)) {
-			iRec141[l78] = 0;
+			iRec139[l78] = 0;
 			
 		}
 		for (int l79 = 0; (l79 < 2); l79 = (l79 + 1)) {
-			iRec140[l79] = 0;
+			iRec142[l79] = 0;
 			
 		}
 		for (int l80 = 0; (l80 < 2); l80 = (l80 + 1)) {
-			iRec143[l80] = 0;
+			iRec141[l80] = 0;
 			
 		}
 		for (int l81 = 0; (l81 < 2); l81 = (l81 + 1)) {
-			iRec142[l81] = 0;
+			iRec144[l81] = 0;
 			
 		}
 		for (int l82 = 0; (l82 < 2); l82 = (l82 + 1)) {
-			iRec145[l82] = 0;
+			iRec143[l82] = 0;
 			
 		}
 		for (int l83 = 0; (l83 < 2); l83 = (l83 + 1)) {
-			iRec144[l83] = 0;
+			iRec146[l83] = 0;
 			
 		}
 		for (int l84 = 0; (l84 < 2); l84 = (l84 + 1)) {
-			iRec147[l84] = 0;
+			iRec145[l84] = 0;
 			
 		}
 		for (int l85 = 0; (l85 < 2); l85 = (l85 + 1)) {
-			iRec146[l85] = 0;
+			iRec147[l85] = 0;
 			
 		}
 		for (int l86 = 0; (l86 < 2); l86 = (l86 + 1)) {
-			iRec149[l86] = 0;
+			iRec148[l86] = 0;
 			
 		}
 		for (int l87 = 0; (l87 < 2); l87 = (l87 + 1)) {
-			iRec148[l87] = 0;
+			iRec150[l87] = 0;
 			
 		}
 		for (int l88 = 0; (l88 < 2); l88 = (l88 + 1)) {
-			iRec151[l88] = 0;
+			iRec149[l88] = 0;
 			
 		}
 		for (int l89 = 0; (l89 < 2); l89 = (l89 + 1)) {
-			iRec150[l89] = 0;
+			iRec152[l89] = 0;
 			
 		}
 		for (int l90 = 0; (l90 < 2); l90 = (l90 + 1)) {
-			iRec153[l90] = 0;
+			iRec151[l90] = 0;
 			
 		}
 		for (int l91 = 0; (l91 < 2); l91 = (l91 + 1)) {
-			iRec152[l91] = 0;
+			iRec154[l91] = 0;
 			
 		}
 		for (int l92 = 0; (l92 < 2); l92 = (l92 + 1)) {
-			iRec155[l92] = 0;
+			iRec153[l92] = 0;
 			
 		}
 		for (int l93 = 0; (l93 < 2); l93 = (l93 + 1)) {
-			iRec154[l93] = 0;
+			iRec155[l93] = 0;
 			
 		}
 		for (int l94 = 0; (l94 < 2); l94 = (l94 + 1)) {
-			iRec157[l94] = 0;
+			iRec156[l94] = 0;
 			
 		}
 		for (int l95 = 0; (l95 < 2); l95 = (l95 + 1)) {
-			iRec156[l95] = 0;
+			iRec157[l95] = 0;
 			
 		}
 		for (int l96 = 0; (l96 < 2); l96 = (l96 + 1)) {
-			iRec159[l96] = 0;
+			iRec158[l96] = 0;
 			
 		}
 		for (int l97 = 0; (l97 < 2); l97 = (l97 + 1)) {
-			iRec158[l97] = 0;
+			iRec159[l97] = 0;
 			
 		}
 		for (int l98 = 0; (l98 < 2); l98 = (l98 + 1)) {
-			iRec161[l98] = 0;
+			iRec160[l98] = 0;
 			
 		}
 		for (int l99 = 0; (l99 < 2); l99 = (l99 + 1)) {
-			iRec160[l99] = 0;
+			iRec161[l99] = 0;
 			
 		}
 		for (int l100 = 0; (l100 < 2); l100 = (l100 + 1)) {
-			iRec163[l100] = 0;
+			iRec162[l100] = 0;
 			
 		}
 		for (int l101 = 0; (l101 < 2); l101 = (l101 + 1)) {
-			iRec162[l101] = 0;
+			iRec163[l101] = 0;
 			
 		}
 		for (int l102 = 0; (l102 < 2); l102 = (l102 + 1)) {
-			iRec165[l102] = 0;
+			iRec164[l102] = 0;
 			
 		}
 		for (int l103 = 0; (l103 < 2); l103 = (l103 + 1)) {
-			iRec164[l103] = 0;
+			iRec165[l103] = 0;
 			
 		}
 		for (int l104 = 0; (l104 < 2); l104 = (l104 + 1)) {
-			iRec167[l104] = 0;
+			iRec166[l104] = 0;
 			
 		}
 		for (int l105 = 0; (l105 < 2); l105 = (l105 + 1)) {
-			iRec166[l105] = 0;
+			iRec167[l105] = 0;
 			
 		}
 		for (int l106 = 0; (l106 < 2); l106 = (l106 + 1)) {
-			iRec169[l106] = 0;
+			iRec168[l106] = 0;
 			
 		}
 		for (int l107 = 0; (l107 < 2); l107 = (l107 + 1)) {
-			iRec168[l107] = 0;
+			iRec169[l107] = 0;
 			
 		}
 		for (int l108 = 0; (l108 < 2); l108 = (l108 + 1)) {
-			iRec171[l108] = 0;
+			iRec170[l108] = 0;
 			
 		}
 		for (int l109 = 0; (l109 < 2); l109 = (l109 + 1)) {
-			iRec170[l109] = 0;
+			iRec171[l109] = 0;
 			
 		}
 		for (int l110 = 0; (l110 < 2); l110 = (l110 + 1)) {
-			iRec173[l110] = 0;
+			iRec172[l110] = 0;
 			
 		}
 		for (int l111 = 0; (l111 < 2); l111 = (l111 + 1)) {
-			iRec172[l111] = 0;
+			iRec173[l111] = 0;
 			
 		}
 		for (int l112 = 0; (l112 < 2); l112 = (l112 + 1)) {
-			iRec175[l112] = 0;
+			iRec174[l112] = 0;
 			
 		}
 		for (int l113 = 0; (l113 < 2); l113 = (l113 + 1)) {
-			iRec174[l113] = 0;
+			iRec175[l113] = 0;
 			
 		}
 		for (int l114 = 0; (l114 < 2); l114 = (l114 + 1)) {
-			iRec177[l114] = 0;
+			iRec176[l114] = 0;
 			
 		}
 		for (int l115 = 0; (l115 < 2); l115 = (l115 + 1)) {
-			iRec176[l115] = 0;
+			iRec177[l115] = 0;
 			
 		}
 		for (int l116 = 0; (l116 < 2); l116 = (l116 + 1)) {
-			iRec179[l116] = 0;
+			iRec178[l116] = 0;
 			
 		}
 		for (int l117 = 0; (l117 < 2); l117 = (l117 + 1)) {
-			iRec178[l117] = 0;
+			iRec179[l117] = 0;
 			
 		}
 		for (int l118 = 0; (l118 < 2); l118 = (l118 + 1)) {
-			iRec181[l118] = 0;
+			iRec180[l118] = 0;
 			
 		}
 		for (int l119 = 0; (l119 < 2); l119 = (l119 + 1)) {
-			iRec180[l119] = 0;
+			iRec181[l119] = 0;
 			
 		}
 		for (int l120 = 0; (l120 < 2); l120 = (l120 + 1)) {
-			iRec183[l120] = 0;
+			iRec182[l120] = 0;
 			
 		}
 		for (int l121 = 0; (l121 < 2); l121 = (l121 + 1)) {
-			iRec182[l121] = 0;
+			iRec183[l121] = 0;
 			
 		}
 		for (int l122 = 0; (l122 < 2); l122 = (l122 + 1)) {
-			iRec185[l122] = 0;
+			iRec184[l122] = 0;
 			
 		}
 		for (int l123 = 0; (l123 < 2); l123 = (l123 + 1)) {
-			iRec184[l123] = 0;
+			iRec185[l123] = 0;
 			
 		}
 		for (int l124 = 0; (l124 < 2); l124 = (l124 + 1)) {
-			iRec187[l124] = 0;
+			iRec186[l124] = 0;
 			
 		}
 		for (int l125 = 0; (l125 < 2); l125 = (l125 + 1)) {
-			iRec186[l125] = 0;
+			iRec188[l125] = 0;
 			
 		}
 		for (int l126 = 0; (l126 < 2); l126 = (l126 + 1)) {
-			iRec189[l126] = 0;
+			iRec187[l126] = 0;
 			
 		}
 		for (int l127 = 0; (l127 < 2); l127 = (l127 + 1)) {
-			iRec188[l127] = 0;
+			iRec190[l127] = 0;
 			
 		}
 		for (int l128 = 0; (l128 < 2); l128 = (l128 + 1)) {
-			iRec191[l128] = 0;
+			iRec189[l128] = 0;
 			
 		}
 		for (int l129 = 0; (l129 < 2); l129 = (l129 + 1)) {
-			iRec190[l129] = 0;
+			iRec192[l129] = 0;
 			
 		}
 		for (int l130 = 0; (l130 < 2); l130 = (l130 + 1)) {
-			iRec193[l130] = 0;
+			iRec191[l130] = 0;
 			
 		}
 		for (int l131 = 0; (l131 < 2); l131 = (l131 + 1)) {
-			iRec192[l131] = 0;
+			iRec194[l131] = 0;
+			
+		}
+		for (int l132 = 0; (l132 < 2); l132 = (l132 + 1)) {
+			iRec193[l132] = 0;
+			
+		}
+		for (int l133 = 0; (l133 < 2); l133 = (l133 + 1)) {
+			iRec195[l133] = 0;
+			
+		}
+		for (int l134 = 0; (l134 < 2); l134 = (l134 + 1)) {
+			iRec196[l134] = 0;
 			
 		}
 		
@@ -1322,8 +1373,8 @@ class granulator : public dsp {
 		instanceClear();
 	}
 	
-	virtual granulator* clone() {
-		return new granulator();
+	virtual fx_granulator* clone() {
+		return new fx_granulator();
 	}
 	virtual int getSampleRate() {
 		return fSamplingFreq;
@@ -1331,10 +1382,12 @@ class granulator : public dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("Granulator");
+		ui_interface->openVerticalBox("fx.granulator");
+		ui_interface->declare(&fHslider1, "unit", "sec");
 		ui_interface->addHorizontalSlider("delay", &fHslider1, 10.0f, 0.5f, 10.0f, 0.100000001f);
-		ui_interface->addHorizontalSlider("density", &fHslider0, 1.0f, 1.0f, 64.0f, 1.0f);
-		ui_interface->addHorizontalSlider("length", &fHslider2, 0.100000001f, 0.00999999978f, 0.5f, 0.00999999978f);
+		ui_interface->addHorizontalSlider("density", &fHslider0, 10.0f, 1.0f, 64.0f, 1.0f);
+		ui_interface->declare(&fHslider2, "unit", "ms");
+		ui_interface->addHorizontalSlider("length", &fHslider2, 100.0f, 10.0f, 500.0f, 0.00999999978f);
 		ui_interface->closeBox();
 		
 	}
@@ -1344,85 +1397,84 @@ class granulator : public dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		FAUSTFLOAT* output1 = outputs[1];
 		float fSlow0 = float(fHslider0);
-		float fSlow1 = (1.0f / fSlow0);
-		int iSlow2 = (60.0f < fSlow0);
-		int iSlow3 = int((float(fSamplingFreq) * float(fHslider1)));
-		int iSlow4 = int((float(fSamplingFreq) * float(fHslider2)));
-		int iSlow5 = (iSlow4 + -1);
-		float fSlow6 = (1.0f / float(iSlow5));
-		float fSlow7 = (0.5f * float(iSlow3));
-		float fSlow8 = (6.28318024f / float(iSlow5));
-		int iSlow9 = (20.0f < fSlow0);
-		int iSlow10 = (0.0f < fSlow0);
-		int iSlow11 = (2.0f < fSlow0);
-		int iSlow12 = (4.0f < fSlow0);
-		int iSlow13 = (6.0f < fSlow0);
-		int iSlow14 = (8.0f < fSlow0);
-		int iSlow15 = (10.0f < fSlow0);
-		int iSlow16 = (12.0f < fSlow0);
-		int iSlow17 = (14.0f < fSlow0);
-		int iSlow18 = (16.0f < fSlow0);
-		int iSlow19 = (18.0f < fSlow0);
-		int iSlow20 = (22.0f < fSlow0);
-		int iSlow21 = (24.0f < fSlow0);
-		int iSlow22 = (26.0f < fSlow0);
-		int iSlow23 = (28.0f < fSlow0);
-		int iSlow24 = (30.0f < fSlow0);
-		int iSlow25 = (32.0f < fSlow0);
-		int iSlow26 = (34.0f < fSlow0);
-		int iSlow27 = (36.0f < fSlow0);
-		int iSlow28 = (38.0f < fSlow0);
-		int iSlow29 = (40.0f < fSlow0);
-		int iSlow30 = (42.0f < fSlow0);
-		int iSlow31 = (44.0f < fSlow0);
-		int iSlow32 = (46.0f < fSlow0);
-		int iSlow33 = (48.0f < fSlow0);
-		int iSlow34 = (50.0f < fSlow0);
-		int iSlow35 = (52.0f < fSlow0);
-		int iSlow36 = (54.0f < fSlow0);
-		int iSlow37 = (56.0f < fSlow0);
-		int iSlow38 = (58.0f < fSlow0);
-		int iSlow39 = (62.0f < fSlow0);
-		int iSlow40 = (1.0f < fSlow0);
-		int iSlow41 = (3.0f < fSlow0);
-		int iSlow42 = (5.0f < fSlow0);
-		int iSlow43 = (7.0f < fSlow0);
-		int iSlow44 = (9.0f < fSlow0);
-		int iSlow45 = (11.0f < fSlow0);
-		int iSlow46 = (13.0f < fSlow0);
-		int iSlow47 = (15.0f < fSlow0);
-		int iSlow48 = (17.0f < fSlow0);
-		int iSlow49 = (19.0f < fSlow0);
-		int iSlow50 = (21.0f < fSlow0);
-		int iSlow51 = (23.0f < fSlow0);
-		int iSlow52 = (25.0f < fSlow0);
-		int iSlow53 = (27.0f < fSlow0);
-		int iSlow54 = (29.0f < fSlow0);
-		int iSlow55 = (31.0f < fSlow0);
-		int iSlow56 = (33.0f < fSlow0);
-		int iSlow57 = (35.0f < fSlow0);
-		int iSlow58 = (37.0f < fSlow0);
-		int iSlow59 = (39.0f < fSlow0);
-		int iSlow60 = (41.0f < fSlow0);
-		int iSlow61 = (43.0f < fSlow0);
-		int iSlow62 = (45.0f < fSlow0);
-		int iSlow63 = (47.0f < fSlow0);
-		int iSlow64 = (49.0f < fSlow0);
-		int iSlow65 = (51.0f < fSlow0);
-		int iSlow66 = (53.0f < fSlow0);
-		int iSlow67 = (55.0f < fSlow0);
-		int iSlow68 = (57.0f < fSlow0);
-		int iSlow69 = (59.0f < fSlow0);
-		int iSlow70 = (61.0f < fSlow0);
-		int iSlow71 = (63.0f < fSlow0);
+		float fSlow1 = (2.0f / fSlow0);
+		int iSlow2 = (40.0f < fSlow0);
+		float fSlow3 = (0.00100000005f * float(fHslider1));
+		float fSlow4 = (9.99999997e-07f * float(fHslider2));
+		int iSlow5 = (28.0f < fSlow0);
+		int iSlow6 = (2.0f < fSlow0);
+		int iSlow7 = (0.0f < fSlow0);
+		int iSlow8 = (4.0f < fSlow0);
+		int iSlow9 = (6.0f < fSlow0);
+		int iSlow10 = (8.0f < fSlow0);
+		int iSlow11 = (10.0f < fSlow0);
+		int iSlow12 = (12.0f < fSlow0);
+		int iSlow13 = (14.0f < fSlow0);
+		int iSlow14 = (16.0f < fSlow0);
+		int iSlow15 = (18.0f < fSlow0);
+		int iSlow16 = (20.0f < fSlow0);
+		int iSlow17 = (22.0f < fSlow0);
+		int iSlow18 = (24.0f < fSlow0);
+		int iSlow19 = (26.0f < fSlow0);
+		int iSlow20 = (30.0f < fSlow0);
+		int iSlow21 = (32.0f < fSlow0);
+		int iSlow22 = (34.0f < fSlow0);
+		int iSlow23 = (36.0f < fSlow0);
+		int iSlow24 = (38.0f < fSlow0);
+		int iSlow25 = (42.0f < fSlow0);
+		int iSlow26 = (44.0f < fSlow0);
+		int iSlow27 = (46.0f < fSlow0);
+		int iSlow28 = (48.0f < fSlow0);
+		int iSlow29 = (50.0f < fSlow0);
+		int iSlow30 = (52.0f < fSlow0);
+		int iSlow31 = (54.0f < fSlow0);
+		int iSlow32 = (56.0f < fSlow0);
+		int iSlow33 = (58.0f < fSlow0);
+		int iSlow34 = (60.0f < fSlow0);
+		int iSlow35 = (62.0f < fSlow0);
+		int iSlow36 = (59.0f < fSlow0);
+		int iSlow37 = (1.0f < fSlow0);
+		int iSlow38 = (3.0f < fSlow0);
+		int iSlow39 = (5.0f < fSlow0);
+		int iSlow40 = (7.0f < fSlow0);
+		int iSlow41 = (9.0f < fSlow0);
+		int iSlow42 = (11.0f < fSlow0);
+		int iSlow43 = (13.0f < fSlow0);
+		int iSlow44 = (15.0f < fSlow0);
+		int iSlow45 = (17.0f < fSlow0);
+		int iSlow46 = (19.0f < fSlow0);
+		int iSlow47 = (21.0f < fSlow0);
+		int iSlow48 = (23.0f < fSlow0);
+		int iSlow49 = (25.0f < fSlow0);
+		int iSlow50 = (27.0f < fSlow0);
+		int iSlow51 = (29.0f < fSlow0);
+		int iSlow52 = (31.0f < fSlow0);
+		int iSlow53 = (33.0f < fSlow0);
+		int iSlow54 = (35.0f < fSlow0);
+		int iSlow55 = (37.0f < fSlow0);
+		int iSlow56 = (39.0f < fSlow0);
+		int iSlow57 = (41.0f < fSlow0);
+		int iSlow58 = (43.0f < fSlow0);
+		int iSlow59 = (45.0f < fSlow0);
+		int iSlow60 = (47.0f < fSlow0);
+		int iSlow61 = (49.0f < fSlow0);
+		int iSlow62 = (51.0f < fSlow0);
+		int iSlow63 = (53.0f < fSlow0);
+		int iSlow64 = (55.0f < fSlow0);
+		int iSlow65 = (57.0f < fSlow0);
+		int iSlow66 = (61.0f < fSlow0);
+		int iSlow67 = (63.0f < fSlow0);
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iVec0[0] = 1;
-			iRec0[0] = ((iRec0[1] + 1) % iSlow3);
-			ftbl0[(iRec0[0] % iSlow3)] = float(input0[i]);
-			int iTemp0 = (1 - iVec0[1]);
-			int iTemp1 = (1103515245 * (iRec3[1] + 12345));
-			int iTemp2 = (1103515245 * (iTemp1 + 12345));
-			int iTemp3 = (1103515245 * (iTemp2 + 12345));
+			fRec1[0] = (fSlow3 + (0.999000013f * fRec1[1]));
+			int iTemp0 = int((fConst0 * fRec1[0]));
+			iRec0[0] = ((iRec0[1] + 1) % iTemp0);
+			ftbl0[(iRec0[0] % iTemp0)] = float(input0[i]);
+			fRec3[0] = (fSlow4 + (0.999000013f * fRec3[1]));
+			int iTemp1 = int((fConst0 * fRec3[0]));
+			iRec2[0] = ((iRec2[1] + 1) % iTemp1);
+			int iTemp2 = (1 - iVec0[1]);
+			int iTemp3 = (1103515245 * (iRec5[1] + 12345));
 			int iTemp4 = (1103515245 * (iTemp3 + 12345));
 			int iTemp5 = (1103515245 * (iTemp4 + 12345));
 			int iTemp6 = (1103515245 * (iTemp5 + 12345));
@@ -1484,413 +1536,478 @@ class granulator : public dsp {
 			int iTemp62 = (1103515245 * (iTemp61 + 12345));
 			int iTemp63 = (1103515245 * (iTemp62 + 12345));
 			int iTemp64 = (1103515245 * (iTemp63 + 12345));
-			iRec3[0] = (1103515245 * (iTemp64 + 12345));
-			int iRec4 = iTemp64;
-			int iRec5 = iTemp63;
-			int iRec6 = iTemp62;
-			int iRec7 = iTemp61;
-			int iRec8 = iTemp60;
-			int iRec9 = iTemp59;
-			int iRec10 = iTemp58;
-			int iRec11 = iTemp57;
-			int iRec12 = iTemp56;
-			int iRec13 = iTemp55;
-			int iRec14 = iTemp54;
-			int iRec15 = iTemp53;
-			int iRec16 = iTemp52;
-			int iRec17 = iTemp51;
-			int iRec18 = iTemp50;
-			int iRec19 = iTemp49;
-			int iRec20 = iTemp48;
-			int iRec21 = iTemp47;
-			int iRec22 = iTemp46;
-			int iRec23 = iTemp45;
-			int iRec24 = iTemp44;
-			int iRec25 = iTemp43;
-			int iRec26 = iTemp42;
-			int iRec27 = iTemp41;
-			int iRec28 = iTemp40;
-			int iRec29 = iTemp39;
-			int iRec30 = iTemp38;
-			int iRec31 = iTemp37;
-			int iRec32 = iTemp36;
-			int iRec33 = iTemp35;
-			int iRec34 = iTemp34;
-			int iRec35 = iTemp33;
-			int iRec36 = iTemp32;
-			int iRec37 = iTemp31;
-			int iRec38 = iTemp30;
-			int iRec39 = iTemp29;
-			int iRec40 = iTemp28;
-			int iRec41 = iTemp27;
-			int iRec42 = iTemp26;
-			int iRec43 = iTemp25;
-			int iRec44 = iTemp24;
-			int iRec45 = iTemp23;
-			int iRec46 = iTemp22;
-			int iRec47 = iTemp21;
-			int iRec48 = iTemp20;
-			int iRec49 = iTemp19;
-			int iRec50 = iTemp18;
-			int iRec51 = iTemp17;
-			int iRec52 = iTemp16;
-			int iRec53 = iTemp15;
-			int iRec54 = iTemp14;
-			int iRec55 = iTemp13;
-			int iRec56 = iTemp12;
-			int iRec57 = iTemp11;
-			int iRec58 = iTemp10;
-			int iRec59 = iTemp9;
-			int iRec60 = iTemp8;
-			int iRec61 = iTemp7;
-			int iRec62 = iTemp6;
-			int iRec63 = iTemp5;
-			int iRec64 = iTemp4;
-			int iRec65 = iTemp3;
-			int iRec66 = iTemp2;
-			int iTemp65 = int((fSlow7 * ((2.32830644e-10f * float(iRec63)) + 1.0f)));
-			iRec2[0] = ((iVec0[1] * iRec2[1]) + (iTemp0 * iTemp65));
-			iRec67[0] = ((iRec67[1] + 1) % iSlow4);
-			int iTemp66 = ((iRec2[0] + iRec67[0]) % iSlow4);
-			int iTemp67 = int((fSlow6 * float(iTemp66)));
-			iRec1[0] = ((iRec1[1] * (1 - iTemp67)) + (iTemp67 * iTemp65));
-			int iTemp68 = int((fSlow7 * ((2.32830644e-10f * float(iRec23)) + 1.0f)));
-			iRec68[0] = ((iTemp0 * iTemp68) + (iVec0[1] * iRec68[1]));
-			int iTemp69 = ((iRec67[0] + iRec68[0]) % iSlow4);
-			int iTemp70 = int((fSlow6 * float(iTemp69)));
-			iRec69[0] = ((iRec69[1] * (1 - iTemp70)) + (iTemp68 * iTemp70));
-			int iTemp71 = int((fSlow7 * ((2.32830644e-10f * float(iRec3[0])) + 1.0f)));
-			iRec71[0] = ((iVec0[1] * iRec71[1]) + (iTemp0 * iTemp71));
-			int iTemp72 = ((iRec71[0] + iRec67[0]) % iSlow4);
-			int iTemp73 = int((fSlow6 * float(iTemp72)));
-			iRec70[0] = ((iRec70[1] * (1 - iTemp73)) + (iTemp71 * iTemp73));
-			int iTemp74 = int((fSlow7 * ((2.32830644e-10f * float(iRec5)) + 1.0f)));
-			iRec73[0] = ((iVec0[1] * iRec73[1]) + (iTemp0 * iTemp74));
-			int iTemp75 = ((iRec73[0] + iRec67[0]) % iSlow4);
-			int iTemp76 = int((fSlow6 * float(iTemp75)));
-			iRec72[0] = ((iRec72[1] * (1 - iTemp76)) + (iTemp74 * iTemp76));
-			int iTemp77 = int((fSlow7 * ((2.32830644e-10f * float(iRec7)) + 1.0f)));
-			iRec74[0] = ((iVec0[1] * iRec74[1]) + (iTemp0 * iTemp77));
-			int iTemp78 = ((iRec67[0] + iRec74[0]) % iSlow4);
-			int iTemp79 = int((fSlow6 * float(iTemp78)));
-			iRec75[0] = ((iRec75[1] * (1 - iTemp79)) + (iTemp77 * iTemp79));
-			int iTemp80 = int((fSlow7 * ((2.32830644e-10f * float(iRec9)) + 1.0f)));
-			iRec77[0] = ((iVec0[1] * iRec77[1]) + (iTemp0 * iTemp80));
-			int iTemp81 = ((iRec67[0] + iRec77[0]) % iSlow4);
-			int iTemp82 = int((fSlow6 * float(iTemp81)));
-			iRec76[0] = ((iRec76[1] * (1 - iTemp82)) + (iTemp80 * iTemp82));
-			int iTemp83 = int((fSlow7 * ((2.32830644e-10f * float(iRec11)) + 1.0f)));
-			iRec79[0] = ((iVec0[1] * iRec79[1]) + (iTemp0 * iTemp83));
-			int iTemp84 = ((iRec79[0] + iRec67[0]) % iSlow4);
-			int iTemp85 = int((fSlow6 * float(iTemp84)));
-			iRec78[0] = ((iRec78[1] * (1 - iTemp85)) + (iTemp83 * iTemp85));
-			int iTemp86 = int((fSlow7 * ((2.32830644e-10f * float(iRec13)) + 1.0f)));
-			iRec81[0] = ((iVec0[1] * iRec81[1]) + (iTemp0 * iTemp86));
-			int iTemp87 = ((iRec81[0] + iRec67[0]) % iSlow4);
-			int iTemp88 = int((fSlow6 * float(iTemp87)));
-			iRec80[0] = ((iRec80[1] * (1 - iTemp88)) + (iTemp86 * iTemp88));
-			int iTemp89 = int((fSlow7 * ((2.32830644e-10f * float(iRec15)) + 1.0f)));
-			iRec82[0] = ((iVec0[1] * iRec82[1]) + (iTemp0 * iTemp89));
-			int iTemp90 = ((iRec67[0] + iRec82[0]) % iSlow4);
-			int iTemp91 = int((fSlow6 * float(iTemp90)));
-			iRec83[0] = ((iRec83[1] * (1 - iTemp91)) + (iTemp89 * iTemp91));
-			int iTemp92 = int((fSlow7 * ((2.32830644e-10f * float(iRec17)) + 1.0f)));
-			iRec84[0] = ((iVec0[1] * iRec84[1]) + (iTemp0 * iTemp92));
-			int iTemp93 = ((iRec67[0] + iRec84[0]) % iSlow4);
-			int iTemp94 = int((fSlow6 * float(iTemp93)));
-			iRec85[0] = ((iRec85[1] * (1 - iTemp94)) + (iTemp92 * iTemp94));
-			int iTemp95 = int((fSlow7 * ((2.32830644e-10f * float(iRec19)) + 1.0f)));
-			iRec86[0] = ((iVec0[1] * iRec86[1]) + (iTemp0 * iTemp95));
-			int iTemp96 = ((iRec67[0] + iRec86[0]) % iSlow4);
-			int iTemp97 = int((fSlow6 * float(iTemp96)));
-			iRec87[0] = ((iRec87[1] * (1 - iTemp97)) + (iTemp95 * iTemp97));
-			int iTemp98 = int((fSlow7 * ((2.32830644e-10f * float(iRec21)) + 1.0f)));
-			iRec88[0] = ((iVec0[1] * iRec88[1]) + (iTemp0 * iTemp98));
-			int iTemp99 = ((iRec67[0] + iRec88[0]) % iSlow4);
-			int iTemp100 = int((fSlow6 * float(iTemp99)));
-			iRec89[0] = ((iRec89[1] * (1 - iTemp100)) + (iTemp98 * iTemp100));
-			int iTemp101 = int((fSlow7 * ((2.32830644e-10f * float(iRec25)) + 1.0f)));
-			iRec90[0] = ((iVec0[1] * iRec90[1]) + (iTemp0 * iTemp101));
-			int iTemp102 = ((iRec67[0] + iRec90[0]) % iSlow4);
-			int iTemp103 = int((fSlow6 * float(iTemp102)));
-			iRec91[0] = ((iRec91[1] * (1 - iTemp103)) + (iTemp101 * iTemp103));
-			int iTemp104 = int((fSlow7 * ((2.32830644e-10f * float(iRec27)) + 1.0f)));
-			iRec92[0] = ((iVec0[1] * iRec92[1]) + (iTemp0 * iTemp104));
-			int iTemp105 = ((iRec67[0] + iRec92[0]) % iSlow4);
-			int iTemp106 = int((fSlow6 * float(iTemp105)));
-			iRec93[0] = ((iRec93[1] * (1 - iTemp106)) + (iTemp104 * iTemp106));
-			int iTemp107 = int((fSlow7 * ((2.32830644e-10f * float(iRec29)) + 1.0f)));
-			iRec95[0] = ((iVec0[1] * iRec95[1]) + (iTemp0 * iTemp107));
-			int iTemp108 = ((iRec95[0] + iRec67[0]) % iSlow4);
-			int iTemp109 = int((fSlow6 * float(iTemp108)));
-			iRec94[0] = ((iRec94[1] * (1 - iTemp109)) + (iTemp107 * iTemp109));
-			int iTemp110 = int((fSlow7 * ((2.32830644e-10f * float(iRec31)) + 1.0f)));
-			iRec97[0] = ((iVec0[1] * iRec97[1]) + (iTemp0 * iTemp110));
-			int iTemp111 = ((iRec97[0] + iRec67[0]) % iSlow4);
-			int iTemp112 = int((fSlow6 * float(iTemp111)));
-			iRec96[0] = ((iRec96[1] * (1 - iTemp112)) + (iTemp110 * iTemp112));
-			int iTemp113 = int((fSlow7 * ((2.32830644e-10f * float(iRec33)) + 1.0f)));
-			iRec99[0] = ((iVec0[1] * iRec99[1]) + (iTemp0 * iTemp113));
-			int iTemp114 = ((iRec99[0] + iRec67[0]) % iSlow4);
-			int iTemp115 = int((fSlow6 * float(iTemp114)));
-			iRec98[0] = ((iRec98[1] * (1 - iTemp115)) + (iTemp113 * iTemp115));
-			int iTemp116 = int((fSlow7 * ((2.32830644e-10f * float(iRec35)) + 1.0f)));
-			iRec101[0] = ((iVec0[1] * iRec101[1]) + (iTemp0 * iTemp116));
-			int iTemp117 = ((iRec101[0] + iRec67[0]) % iSlow4);
-			int iTemp118 = int((fSlow6 * float(iTemp117)));
-			iRec100[0] = ((iRec100[1] * (1 - iTemp118)) + (iTemp116 * iTemp118));
-			int iTemp119 = int((fSlow7 * ((2.32830644e-10f * float(iRec37)) + 1.0f)));
-			iRec103[0] = ((iVec0[1] * iRec103[1]) + (iTemp0 * iTemp119));
-			int iTemp120 = ((iRec103[0] + iRec67[0]) % iSlow4);
-			int iTemp121 = int((fSlow6 * float(iTemp120)));
-			iRec102[0] = ((iRec102[1] * (1 - iTemp121)) + (iTemp119 * iTemp121));
-			int iTemp122 = int((fSlow7 * ((2.32830644e-10f * float(iRec39)) + 1.0f)));
-			iRec105[0] = ((iVec0[1] * iRec105[1]) + (iTemp0 * iTemp122));
-			int iTemp123 = ((iRec105[0] + iRec67[0]) % iSlow4);
-			int iTemp124 = int((fSlow6 * float(iTemp123)));
-			iRec104[0] = ((iRec104[1] * (1 - iTemp124)) + (iTemp122 * iTemp124));
-			int iTemp125 = int((fSlow7 * ((2.32830644e-10f * float(iRec41)) + 1.0f)));
-			iRec107[0] = ((iVec0[1] * iRec107[1]) + (iTemp0 * iTemp125));
-			int iTemp126 = ((iRec107[0] + iRec67[0]) % iSlow4);
-			int iTemp127 = int((fSlow6 * float(iTemp126)));
-			iRec106[0] = ((iRec106[1] * (1 - iTemp127)) + (iTemp125 * iTemp127));
-			int iTemp128 = int((fSlow7 * ((2.32830644e-10f * float(iRec43)) + 1.0f)));
-			iRec109[0] = ((iVec0[1] * iRec109[1]) + (iTemp0 * iTemp128));
-			int iTemp129 = ((iRec109[0] + iRec67[0]) % iSlow4);
-			int iTemp130 = int((fSlow6 * float(iTemp129)));
-			iRec108[0] = ((iRec108[1] * (1 - iTemp130)) + (iTemp128 * iTemp130));
-			int iTemp131 = int((fSlow7 * ((2.32830644e-10f * float(iRec45)) + 1.0f)));
-			iRec111[0] = ((iVec0[1] * iRec111[1]) + (iTemp0 * iTemp131));
-			int iTemp132 = ((iRec111[0] + iRec67[0]) % iSlow4);
-			int iTemp133 = int((fSlow6 * float(iTemp132)));
-			iRec110[0] = ((iRec110[1] * (1 - iTemp133)) + (iTemp131 * iTemp133));
-			int iTemp134 = int((fSlow7 * ((2.32830644e-10f * float(iRec47)) + 1.0f)));
-			iRec113[0] = ((iVec0[1] * iRec113[1]) + (iTemp0 * iTemp134));
-			int iTemp135 = ((iRec113[0] + iRec67[0]) % iSlow4);
-			int iTemp136 = int((fSlow6 * float(iTemp135)));
-			iRec112[0] = ((iRec112[1] * (1 - iTemp136)) + (iTemp134 * iTemp136));
-			int iTemp137 = int((fSlow7 * ((2.32830644e-10f * float(iRec49)) + 1.0f)));
-			iRec115[0] = ((iVec0[1] * iRec115[1]) + (iTemp0 * iTemp137));
-			int iTemp138 = ((iRec115[0] + iRec67[0]) % iSlow4);
-			int iTemp139 = int((fSlow6 * float(iTemp138)));
-			iRec114[0] = ((iRec114[1] * (1 - iTemp139)) + (iTemp137 * iTemp139));
-			int iTemp140 = int((fSlow7 * ((2.32830644e-10f * float(iRec51)) + 1.0f)));
-			iRec117[0] = ((iVec0[1] * iRec117[1]) + (iTemp0 * iTemp140));
-			int iTemp141 = ((iRec117[0] + iRec67[0]) % iSlow4);
-			int iTemp142 = int((fSlow6 * float(iTemp141)));
-			iRec116[0] = ((iRec116[1] * (1 - iTemp142)) + (iTemp140 * iTemp142));
-			int iTemp143 = int((fSlow7 * ((2.32830644e-10f * float(iRec53)) + 1.0f)));
-			iRec119[0] = ((iVec0[1] * iRec119[1]) + (iTemp0 * iTemp143));
-			int iTemp144 = ((iRec119[0] + iRec67[0]) % iSlow4);
-			int iTemp145 = int((fSlow6 * float(iTemp144)));
-			iRec118[0] = ((iRec118[1] * (1 - iTemp145)) + (iTemp143 * iTemp145));
-			int iTemp146 = int((fSlow7 * ((2.32830644e-10f * float(iRec55)) + 1.0f)));
-			iRec121[0] = ((iVec0[1] * iRec121[1]) + (iTemp0 * iTemp146));
-			int iTemp147 = ((iRec121[0] + iRec67[0]) % iSlow4);
-			int iTemp148 = int((fSlow6 * float(iTemp147)));
-			iRec120[0] = ((iRec120[1] * (1 - iTemp148)) + (iTemp146 * iTemp148));
-			int iTemp149 = int((fSlow7 * ((2.32830644e-10f * float(iRec57)) + 1.0f)));
-			iRec123[0] = ((iVec0[1] * iRec123[1]) + (iTemp0 * iTemp149));
-			int iTemp150 = ((iRec123[0] + iRec67[0]) % iSlow4);
-			int iTemp151 = int((fSlow6 * float(iTemp150)));
-			iRec122[0] = ((iRec122[1] * (1 - iTemp151)) + (iTemp149 * iTemp151));
-			int iTemp152 = int((fSlow7 * ((2.32830644e-10f * float(iRec59)) + 1.0f)));
-			iRec125[0] = ((iVec0[1] * iRec125[1]) + (iTemp0 * iTemp152));
-			int iTemp153 = ((iRec125[0] + iRec67[0]) % iSlow4);
-			int iTemp154 = int((fSlow6 * float(iTemp153)));
-			iRec124[0] = ((iRec124[1] * (1 - iTemp154)) + (iTemp152 * iTemp154));
-			int iTemp155 = int((fSlow7 * ((2.32830644e-10f * float(iRec61)) + 1.0f)));
-			iRec127[0] = ((iVec0[1] * iRec127[1]) + (iTemp0 * iTemp155));
-			int iTemp156 = ((iRec127[0] + iRec67[0]) % iSlow4);
-			int iTemp157 = int((fSlow6 * float(iTemp156)));
-			iRec126[0] = ((iRec126[1] * (1 - iTemp157)) + (iTemp155 * iTemp157));
-			int iTemp158 = int((fSlow7 * ((2.32830644e-10f * float(iRec65)) + 1.0f)));
-			iRec129[0] = ((iVec0[1] * iRec129[1]) + (iTemp0 * iTemp158));
-			int iTemp159 = ((iRec129[0] + iRec67[0]) % iSlow4);
-			int iTemp160 = int((fSlow6 * float(iTemp159)));
-			iRec128[0] = ((iRec128[1] * (1 - iTemp160)) + (iTemp158 * iTemp160));
-			output0[i] = FAUSTFLOAT((fSlow1 * (((float(iSlow2) * (ftbl0[((iRec1[0] + iTemp66) % iSlow3)] * sinf((fSlow8 * float(iTemp66))))) + (((((((((((((((((((((float(iSlow9) * (sinf((fSlow8 * float(iTemp69))) * ftbl0[((iTemp69 + iRec69[0]) % iSlow3)])) + ((((((((((float(iSlow10) * (ftbl0[((iRec70[0] + iTemp72) % iSlow3)] * sinf((fSlow8 * float(iTemp72))))) + (float(iSlow11) * (ftbl0[((iRec72[0] + iTemp75) % iSlow3)] * sinf((fSlow8 * float(iTemp75)))))) + (float(iSlow12) * (ftbl0[((iTemp78 + iRec75[0]) % iSlow3)] * sinf((fSlow8 * float(iTemp78)))))) + (float(iSlow13) * (ftbl0[((iRec76[0] + iTemp81) % iSlow3)] * sinf((fSlow8 * float(iTemp81)))))) + (float(iSlow14) * (ftbl0[((iRec78[0] + iTemp84) % iSlow3)] * sinf((fSlow8 * float(iTemp84)))))) + (float(iSlow15) * (ftbl0[((iRec80[0] + iTemp87) % iSlow3)] * sinf((fSlow8 * float(iTemp87)))))) + (float(iSlow16) * (ftbl0[((iTemp90 + iRec83[0]) % iSlow3)] * sinf((fSlow8 * float(iTemp90)))))) + (float(iSlow17) * (ftbl0[((iTemp93 + iRec85[0]) % iSlow3)] * sinf((fSlow8 * float(iTemp93)))))) + (float(iSlow18) * (ftbl0[((iTemp96 + iRec87[0]) % iSlow3)] * sinf((fSlow8 * float(iTemp96)))))) + (float(iSlow19) * (ftbl0[((iTemp99 + iRec89[0]) % iSlow3)] * sinf((fSlow8 * float(iTemp99))))))) + (float(iSlow20) * (ftbl0[((iTemp102 + iRec91[0]) % iSlow3)] * sinf((fSlow8 * float(iTemp102)))))) + (float(iSlow21) * (ftbl0[((iTemp105 + iRec93[0]) % iSlow3)] * sinf((fSlow8 * float(iTemp105)))))) + (float(iSlow22) * (ftbl0[((iRec94[0] + iTemp108) % iSlow3)] * sinf((fSlow8 * float(iTemp108)))))) + (float(iSlow23) * (ftbl0[((iRec96[0] + iTemp111) % iSlow3)] * sinf((fSlow8 * float(iTemp111)))))) + (float(iSlow24) * (ftbl0[((iRec98[0] + iTemp114) % iSlow3)] * sinf((fSlow8 * float(iTemp114)))))) + (float(iSlow25) * (ftbl0[((iRec100[0] + iTemp117) % iSlow3)] * sinf((fSlow8 * float(iTemp117)))))) + (float(iSlow26) * (ftbl0[((iRec102[0] + iTemp120) % iSlow3)] * sinf((fSlow8 * float(iTemp120)))))) + (float(iSlow27) * (ftbl0[((iRec104[0] + iTemp123) % iSlow3)] * sinf((fSlow8 * float(iTemp123)))))) + (float(iSlow28) * (ftbl0[((iRec106[0] + iTemp126) % iSlow3)] * sinf((fSlow8 * float(iTemp126)))))) + (float(iSlow29) * (ftbl0[((iRec108[0] + iTemp129) % iSlow3)] * sinf((fSlow8 * float(iTemp129)))))) + (float(iSlow30) * (ftbl0[((iRec110[0] + iTemp132) % iSlow3)] * sinf((fSlow8 * float(iTemp132)))))) + (float(iSlow31) * (ftbl0[((iRec112[0] + iTemp135) % iSlow3)] * sinf((fSlow8 * float(iTemp135)))))) + (float(iSlow32) * (ftbl0[((iRec114[0] + iTemp138) % iSlow3)] * sinf((fSlow8 * float(iTemp138)))))) + (float(iSlow33) * (ftbl0[((iRec116[0] + iTemp141) % iSlow3)] * sinf((fSlow8 * float(iTemp141)))))) + (float(iSlow34) * (ftbl0[((iRec118[0] + iTemp144) % iSlow3)] * sinf((fSlow8 * float(iTemp144)))))) + (float(iSlow35) * (ftbl0[((iRec120[0] + iTemp147) % iSlow3)] * sinf((fSlow8 * float(iTemp147)))))) + (float(iSlow36) * (ftbl0[((iRec122[0] + iTemp150) % iSlow3)] * sinf((fSlow8 * float(iTemp150)))))) + (float(iSlow37) * (ftbl0[((iRec124[0] + iTemp153) % iSlow3)] * sinf((fSlow8 * float(iTemp153)))))) + (float(iSlow38) * (ftbl0[((iRec126[0] + iTemp156) % iSlow3)] * sinf((fSlow8 * float(iTemp156))))))) + (float(iSlow39) * (ftbl0[((iRec128[0] + iTemp159) % iSlow3)] * sinf((fSlow8 * float(iTemp159))))))));
-			int iTemp161 = int((fSlow7 * ((2.32830644e-10f * float(iRec4)) + 1.0f)));
-			iRec131[0] = ((iVec0[1] * iRec131[1]) + (iTemp0 * iTemp161));
-			int iTemp162 = ((iRec131[0] + iRec67[0]) % iSlow4);
-			int iTemp163 = int((fSlow6 * float(iTemp162)));
-			iRec130[0] = ((iRec130[1] * (1 - iTemp163)) + (iTemp161 * iTemp163));
-			int iTemp164 = int((fSlow7 * ((2.32830644e-10f * float(iRec6)) + 1.0f)));
-			iRec133[0] = ((iVec0[1] * iRec133[1]) + (iTemp0 * iTemp164));
-			int iTemp165 = ((iRec133[0] + iRec67[0]) % iSlow4);
-			int iTemp166 = int((fSlow6 * float(iTemp165)));
-			iRec132[0] = ((iRec132[1] * (1 - iTemp166)) + (iTemp164 * iTemp166));
-			int iTemp167 = int((fSlow7 * ((2.32830644e-10f * float(iRec8)) + 1.0f)));
-			iRec135[0] = ((iVec0[1] * iRec135[1]) + (iTemp0 * iTemp167));
-			int iTemp168 = ((iRec135[0] + iRec67[0]) % iSlow4);
-			int iTemp169 = int((fSlow6 * float(iTemp168)));
-			iRec134[0] = ((iRec134[1] * (1 - iTemp169)) + (iTemp167 * iTemp169));
-			int iTemp170 = int((fSlow7 * ((2.32830644e-10f * float(iRec10)) + 1.0f)));
-			iRec137[0] = ((iVec0[1] * iRec137[1]) + (iTemp0 * iTemp170));
-			int iTemp171 = ((iRec137[0] + iRec67[0]) % iSlow4);
-			int iTemp172 = int((fSlow6 * float(iTemp171)));
-			iRec136[0] = ((iRec136[1] * (1 - iTemp172)) + (iTemp170 * iTemp172));
-			int iTemp173 = int((fSlow7 * ((2.32830644e-10f * float(iRec12)) + 1.0f)));
-			iRec139[0] = ((iVec0[1] * iRec139[1]) + (iTemp0 * iTemp173));
-			int iTemp174 = ((iRec139[0] + iRec67[0]) % iSlow4);
-			int iTemp175 = int((fSlow6 * float(iTemp174)));
-			iRec138[0] = ((iRec138[1] * (1 - iTemp175)) + (iTemp173 * iTemp175));
-			int iTemp176 = int((fSlow7 * ((2.32830644e-10f * float(iRec14)) + 1.0f)));
-			iRec141[0] = ((iVec0[1] * iRec141[1]) + (iTemp0 * iTemp176));
-			int iTemp177 = ((iRec141[0] + iRec67[0]) % iSlow4);
-			int iTemp178 = int((fSlow6 * float(iTemp177)));
-			iRec140[0] = ((iRec140[1] * (1 - iTemp178)) + (iTemp176 * iTemp178));
-			int iTemp179 = int((fSlow7 * ((2.32830644e-10f * float(iRec16)) + 1.0f)));
-			iRec143[0] = ((iVec0[1] * iRec143[1]) + (iTemp0 * iTemp179));
-			int iTemp180 = ((iRec143[0] + iRec67[0]) % iSlow4);
-			int iTemp181 = int((fSlow6 * float(iTemp180)));
-			iRec142[0] = ((iRec142[1] * (1 - iTemp181)) + (iTemp179 * iTemp181));
-			int iTemp182 = int((fSlow7 * ((2.32830644e-10f * float(iRec18)) + 1.0f)));
-			iRec145[0] = ((iVec0[1] * iRec145[1]) + (iTemp0 * iTemp182));
-			int iTemp183 = ((iRec145[0] + iRec67[0]) % iSlow4);
-			int iTemp184 = int((fSlow6 * float(iTemp183)));
-			iRec144[0] = ((iRec144[1] * (1 - iTemp184)) + (iTemp182 * iTemp184));
-			int iTemp185 = int((fSlow7 * ((2.32830644e-10f * float(iRec20)) + 1.0f)));
-			iRec147[0] = ((iVec0[1] * iRec147[1]) + (iTemp0 * iTemp185));
-			int iTemp186 = ((iRec147[0] + iRec67[0]) % iSlow4);
-			int iTemp187 = int((fSlow6 * float(iTemp186)));
-			iRec146[0] = ((iRec146[1] * (1 - iTemp187)) + (iTemp185 * iTemp187));
-			int iTemp188 = int((fSlow7 * ((2.32830644e-10f * float(iRec22)) + 1.0f)));
-			iRec149[0] = ((iVec0[1] * iRec149[1]) + (iTemp0 * iTemp188));
-			int iTemp189 = ((iRec149[0] + iRec67[0]) % iSlow4);
-			int iTemp190 = int((fSlow6 * float(iTemp189)));
-			iRec148[0] = ((iRec148[1] * (1 - iTemp190)) + (iTemp188 * iTemp190));
-			int iTemp191 = int((fSlow7 * ((2.32830644e-10f * float(iRec24)) + 1.0f)));
-			iRec151[0] = ((iVec0[1] * iRec151[1]) + (iTemp0 * iTemp191));
-			int iTemp192 = ((iRec151[0] + iRec67[0]) % iSlow4);
-			int iTemp193 = int((fSlow6 * float(iTemp192)));
-			iRec150[0] = ((iRec150[1] * (1 - iTemp193)) + (iTemp191 * iTemp193));
-			int iTemp194 = int((fSlow7 * ((2.32830644e-10f * float(iRec26)) + 1.0f)));
-			iRec153[0] = ((iVec0[1] * iRec153[1]) + (iTemp0 * iTemp194));
-			int iTemp195 = ((iRec153[0] + iRec67[0]) % iSlow4);
-			int iTemp196 = int((fSlow6 * float(iTemp195)));
-			iRec152[0] = ((iRec152[1] * (1 - iTemp196)) + (iTemp194 * iTemp196));
-			int iTemp197 = int((fSlow7 * ((2.32830644e-10f * float(iRec28)) + 1.0f)));
-			iRec155[0] = ((iVec0[1] * iRec155[1]) + (iTemp0 * iTemp197));
-			int iTemp198 = ((iRec155[0] + iRec67[0]) % iSlow4);
-			int iTemp199 = int((fSlow6 * float(iTemp198)));
-			iRec154[0] = ((iRec154[1] * (1 - iTemp199)) + (iTemp197 * iTemp199));
-			int iTemp200 = int((fSlow7 * ((2.32830644e-10f * float(iRec30)) + 1.0f)));
-			iRec157[0] = ((iVec0[1] * iRec157[1]) + (iTemp0 * iTemp200));
-			int iTemp201 = ((iRec157[0] + iRec67[0]) % iSlow4);
-			int iTemp202 = int((fSlow6 * float(iTemp201)));
-			iRec156[0] = ((iRec156[1] * (1 - iTemp202)) + (iTemp200 * iTemp202));
-			int iTemp203 = int((fSlow7 * ((2.32830644e-10f * float(iRec32)) + 1.0f)));
-			iRec159[0] = ((iVec0[1] * iRec159[1]) + (iTemp0 * iTemp203));
-			int iTemp204 = ((iRec159[0] + iRec67[0]) % iSlow4);
-			int iTemp205 = int((fSlow6 * float(iTemp204)));
-			iRec158[0] = ((iRec158[1] * (1 - iTemp205)) + (iTemp203 * iTemp205));
-			int iTemp206 = int((fSlow7 * ((2.32830644e-10f * float(iRec34)) + 1.0f)));
-			iRec161[0] = ((iVec0[1] * iRec161[1]) + (iTemp0 * iTemp206));
-			int iTemp207 = ((iRec161[0] + iRec67[0]) % iSlow4);
-			int iTemp208 = int((fSlow6 * float(iTemp207)));
-			iRec160[0] = ((iRec160[1] * (1 - iTemp208)) + (iTemp206 * iTemp208));
-			int iTemp209 = int((fSlow7 * ((2.32830644e-10f * float(iRec36)) + 1.0f)));
-			iRec163[0] = ((iVec0[1] * iRec163[1]) + (iTemp0 * iTemp209));
-			int iTemp210 = ((iRec163[0] + iRec67[0]) % iSlow4);
-			int iTemp211 = int((fSlow6 * float(iTemp210)));
-			iRec162[0] = ((iRec162[1] * (1 - iTemp211)) + (iTemp209 * iTemp211));
-			int iTemp212 = int((fSlow7 * ((2.32830644e-10f * float(iRec38)) + 1.0f)));
-			iRec165[0] = ((iVec0[1] * iRec165[1]) + (iTemp0 * iTemp212));
-			int iTemp213 = ((iRec165[0] + iRec67[0]) % iSlow4);
-			int iTemp214 = int((fSlow6 * float(iTemp213)));
-			iRec164[0] = ((iRec164[1] * (1 - iTemp214)) + (iTemp212 * iTemp214));
-			int iTemp215 = int((fSlow7 * ((2.32830644e-10f * float(iRec40)) + 1.0f)));
-			iRec167[0] = ((iVec0[1] * iRec167[1]) + (iTemp0 * iTemp215));
-			int iTemp216 = ((iRec167[0] + iRec67[0]) % iSlow4);
-			int iTemp217 = int((fSlow6 * float(iTemp216)));
-			iRec166[0] = ((iRec166[1] * (1 - iTemp217)) + (iTemp215 * iTemp217));
-			int iTemp218 = int((fSlow7 * ((2.32830644e-10f * float(iRec42)) + 1.0f)));
-			iRec169[0] = ((iVec0[1] * iRec169[1]) + (iTemp0 * iTemp218));
-			int iTemp219 = ((iRec169[0] + iRec67[0]) % iSlow4);
-			int iTemp220 = int((fSlow6 * float(iTemp219)));
-			iRec168[0] = ((iRec168[1] * (1 - iTemp220)) + (iTemp218 * iTemp220));
-			int iTemp221 = int((fSlow7 * ((2.32830644e-10f * float(iRec44)) + 1.0f)));
-			iRec171[0] = ((iVec0[1] * iRec171[1]) + (iTemp0 * iTemp221));
-			int iTemp222 = ((iRec171[0] + iRec67[0]) % iSlow4);
-			int iTemp223 = int((fSlow6 * float(iTemp222)));
-			iRec170[0] = ((iRec170[1] * (1 - iTemp223)) + (iTemp221 * iTemp223));
-			int iTemp224 = int((fSlow7 * ((2.32830644e-10f * float(iRec46)) + 1.0f)));
-			iRec173[0] = ((iVec0[1] * iRec173[1]) + (iTemp0 * iTemp224));
-			int iTemp225 = ((iRec173[0] + iRec67[0]) % iSlow4);
-			int iTemp226 = int((fSlow6 * float(iTemp225)));
-			iRec172[0] = ((iRec172[1] * (1 - iTemp226)) + (iTemp224 * iTemp226));
-			int iTemp227 = int((fSlow7 * ((2.32830644e-10f * float(iRec48)) + 1.0f)));
-			iRec175[0] = ((iVec0[1] * iRec175[1]) + (iTemp0 * iTemp227));
-			int iTemp228 = ((iRec175[0] + iRec67[0]) % iSlow4);
-			int iTemp229 = int((fSlow6 * float(iTemp228)));
-			iRec174[0] = ((iRec174[1] * (1 - iTemp229)) + (iTemp227 * iTemp229));
-			int iTemp230 = int((fSlow7 * ((2.32830644e-10f * float(iRec50)) + 1.0f)));
-			iRec177[0] = ((iVec0[1] * iRec177[1]) + (iTemp0 * iTemp230));
-			int iTemp231 = ((iRec177[0] + iRec67[0]) % iSlow4);
-			int iTemp232 = int((fSlow6 * float(iTemp231)));
-			iRec176[0] = ((iRec176[1] * (1 - iTemp232)) + (iTemp230 * iTemp232));
-			int iTemp233 = int((fSlow7 * ((2.32830644e-10f * float(iRec52)) + 1.0f)));
-			iRec179[0] = ((iVec0[1] * iRec179[1]) + (iTemp0 * iTemp233));
-			int iTemp234 = ((iRec179[0] + iRec67[0]) % iSlow4);
-			int iTemp235 = int((fSlow6 * float(iTemp234)));
-			iRec178[0] = ((iRec178[1] * (1 - iTemp235)) + (iTemp233 * iTemp235));
-			int iTemp236 = int((fSlow7 * ((2.32830644e-10f * float(iRec54)) + 1.0f)));
-			iRec181[0] = ((iVec0[1] * iRec181[1]) + (iTemp0 * iTemp236));
-			int iTemp237 = ((iRec181[0] + iRec67[0]) % iSlow4);
-			int iTemp238 = int((fSlow6 * float(iTemp237)));
-			iRec180[0] = ((iRec180[1] * (1 - iTemp238)) + (iTemp236 * iTemp238));
-			int iTemp239 = int((fSlow7 * ((2.32830644e-10f * float(iRec56)) + 1.0f)));
-			iRec183[0] = ((iVec0[1] * iRec183[1]) + (iTemp0 * iTemp239));
-			int iTemp240 = ((iRec183[0] + iRec67[0]) % iSlow4);
-			int iTemp241 = int((fSlow6 * float(iTemp240)));
-			iRec182[0] = ((iRec182[1] * (1 - iTemp241)) + (iTemp239 * iTemp241));
-			int iTemp242 = int((fSlow7 * ((2.32830644e-10f * float(iRec58)) + 1.0f)));
-			iRec185[0] = ((iVec0[1] * iRec185[1]) + (iTemp0 * iTemp242));
-			int iTemp243 = ((iRec185[0] + iRec67[0]) % iSlow4);
-			int iTemp244 = int((fSlow6 * float(iTemp243)));
-			iRec184[0] = ((iRec184[1] * (1 - iTemp244)) + (iTemp242 * iTemp244));
-			int iTemp245 = int((fSlow7 * ((2.32830644e-10f * float(iRec60)) + 1.0f)));
-			iRec187[0] = ((iVec0[1] * iRec187[1]) + (iTemp0 * iTemp245));
-			int iTemp246 = ((iRec187[0] + iRec67[0]) % iSlow4);
-			int iTemp247 = int((fSlow6 * float(iTemp246)));
-			iRec186[0] = ((iRec186[1] * (1 - iTemp247)) + (iTemp245 * iTemp247));
-			int iTemp248 = int((fSlow7 * ((2.32830644e-10f * float(iRec62)) + 1.0f)));
-			iRec189[0] = ((iVec0[1] * iRec189[1]) + (iTemp0 * iTemp248));
-			int iTemp249 = ((iRec189[0] + iRec67[0]) % iSlow4);
-			int iTemp250 = int((fSlow6 * float(iTemp249)));
-			iRec188[0] = ((iRec188[1] * (1 - iTemp250)) + (iTemp248 * iTemp250));
-			int iTemp251 = int((fSlow7 * ((2.32830644e-10f * float(iRec64)) + 1.0f)));
-			iRec191[0] = ((iVec0[1] * iRec191[1]) + (iTemp0 * iTemp251));
-			int iTemp252 = ((iRec191[0] + iRec67[0]) % iSlow4);
-			int iTemp253 = int((fSlow6 * float(iTemp252)));
-			iRec190[0] = ((iRec190[1] * (1 - iTemp253)) + (iTemp251 * iTemp253));
-			int iTemp254 = int((fSlow7 * ((2.32830644e-10f * float(iRec66)) + 1.0f)));
-			iRec193[0] = ((iVec0[1] * iRec193[1]) + (iTemp0 * iTemp254));
-			int iTemp255 = ((iRec193[0] + iRec67[0]) % iSlow4);
-			int iTemp256 = int((fSlow6 * float(iTemp255)));
-			iRec192[0] = ((iRec192[1] * (1 - iTemp256)) + (iTemp254 * iTemp256));
-			output1[i] = FAUSTFLOAT((fSlow1 * ((((((((((((((((((((((((((((((((float(iSlow40) * (ftbl0[((iRec130[0] + iTemp162) % iSlow3)] * sinf((fSlow8 * float(iTemp162))))) + (float(iSlow41) * (ftbl0[((iRec132[0] + iTemp165) % iSlow3)] * sinf((fSlow8 * float(iTemp165)))))) + (float(iSlow42) * (ftbl0[((iRec134[0] + iTemp168) % iSlow3)] * sinf((fSlow8 * float(iTemp168)))))) + (float(iSlow43) * (ftbl0[((iRec136[0] + iTemp171) % iSlow3)] * sinf((fSlow8 * float(iTemp171)))))) + (float(iSlow44) * (ftbl0[((iRec138[0] + iTemp174) % iSlow3)] * sinf((fSlow8 * float(iTemp174)))))) + (float(iSlow45) * (ftbl0[((iRec140[0] + iTemp177) % iSlow3)] * sinf((fSlow8 * float(iTemp177)))))) + (float(iSlow46) * (ftbl0[((iRec142[0] + iTemp180) % iSlow3)] * sinf((fSlow8 * float(iTemp180)))))) + (float(iSlow47) * (ftbl0[((iRec144[0] + iTemp183) % iSlow3)] * sinf((fSlow8 * float(iTemp183)))))) + (float(iSlow48) * (ftbl0[((iRec146[0] + iTemp186) % iSlow3)] * sinf((fSlow8 * float(iTemp186)))))) + (float(iSlow49) * (ftbl0[((iRec148[0] + iTemp189) % iSlow3)] * sinf((fSlow8 * float(iTemp189)))))) + (float(iSlow50) * (ftbl0[((iRec150[0] + iTemp192) % iSlow3)] * sinf((fSlow8 * float(iTemp192)))))) + (float(iSlow51) * (ftbl0[((iRec152[0] + iTemp195) % iSlow3)] * sinf((fSlow8 * float(iTemp195)))))) + (float(iSlow52) * (ftbl0[((iRec154[0] + iTemp198) % iSlow3)] * sinf((fSlow8 * float(iTemp198)))))) + (float(iSlow53) * (ftbl0[((iRec156[0] + iTemp201) % iSlow3)] * sinf((fSlow8 * float(iTemp201)))))) + (float(iSlow54) * (ftbl0[((iRec158[0] + iTemp204) % iSlow3)] * sinf((fSlow8 * float(iTemp204)))))) + (float(iSlow55) * (ftbl0[((iRec160[0] + iTemp207) % iSlow3)] * sinf((fSlow8 * float(iTemp207)))))) + (float(iSlow56) * (ftbl0[((iRec162[0] + iTemp210) % iSlow3)] * sinf((fSlow8 * float(iTemp210)))))) + (float(iSlow57) * (ftbl0[((iRec164[0] + iTemp213) % iSlow3)] * sinf((fSlow8 * float(iTemp213)))))) + (float(iSlow58) * (ftbl0[((iRec166[0] + iTemp216) % iSlow3)] * sinf((fSlow8 * float(iTemp216)))))) + (float(iSlow59) * (ftbl0[((iRec168[0] + iTemp219) % iSlow3)] * sinf((fSlow8 * float(iTemp219)))))) + (float(iSlow60) * (ftbl0[((iRec170[0] + iTemp222) % iSlow3)] * sinf((fSlow8 * float(iTemp222)))))) + (float(iSlow61) * (ftbl0[((iRec172[0] + iTemp225) % iSlow3)] * sinf((fSlow8 * float(iTemp225)))))) + (float(iSlow62) * (ftbl0[((iRec174[0] + iTemp228) % iSlow3)] * sinf((fSlow8 * float(iTemp228)))))) + (float(iSlow63) * (ftbl0[((iRec176[0] + iTemp231) % iSlow3)] * sinf((fSlow8 * float(iTemp231)))))) + (float(iSlow64) * (ftbl0[((iRec178[0] + iTemp234) % iSlow3)] * sinf((fSlow8 * float(iTemp234)))))) + (float(iSlow65) * (ftbl0[((iRec180[0] + iTemp237) % iSlow3)] * sinf((fSlow8 * float(iTemp237)))))) + (float(iSlow66) * (ftbl0[((iRec182[0] + iTemp240) % iSlow3)] * sinf((fSlow8 * float(iTemp240)))))) + (float(iSlow67) * (ftbl0[((iRec184[0] + iTemp243) % iSlow3)] * sinf((fSlow8 * float(iTemp243)))))) + (float(iSlow68) * (ftbl0[((iRec186[0] + iTemp246) % iSlow3)] * sinf((fSlow8 * float(iTemp246)))))) + (float(iSlow69) * (ftbl0[((iRec188[0] + iTemp249) % iSlow3)] * sinf((fSlow8 * float(iTemp249)))))) + (float(iSlow70) * (ftbl0[((iRec190[0] + iTemp252) % iSlow3)] * sinf((fSlow8 * float(iTemp252)))))) + (float(iSlow71) * (ftbl0[((iRec192[0] + iTemp255) % iSlow3)] * sinf((fSlow8 * float(iTemp255))))))));
+			int iTemp65 = (1103515245 * (iTemp64 + 12345));
+			int iTemp66 = (1103515245 * (iTemp65 + 12345));
+			iRec5[0] = (1103515245 * (iTemp66 + 12345));
+			int iRec6 = iTemp66;
+			int iRec7 = iTemp65;
+			int iRec8 = iTemp64;
+			int iRec9 = iTemp63;
+			int iRec10 = iTemp62;
+			int iRec11 = iTemp61;
+			int iRec12 = iTemp60;
+			int iRec13 = iTemp59;
+			int iRec14 = iTemp58;
+			int iRec15 = iTemp57;
+			int iRec16 = iTemp56;
+			int iRec17 = iTemp55;
+			int iRec18 = iTemp54;
+			int iRec19 = iTemp53;
+			int iRec20 = iTemp52;
+			int iRec21 = iTemp51;
+			int iRec22 = iTemp50;
+			int iRec23 = iTemp49;
+			int iRec24 = iTemp48;
+			int iRec25 = iTemp47;
+			int iRec26 = iTemp46;
+			int iRec27 = iTemp45;
+			int iRec28 = iTemp44;
+			int iRec29 = iTemp43;
+			int iRec30 = iTemp42;
+			int iRec31 = iTemp41;
+			int iRec32 = iTemp40;
+			int iRec33 = iTemp39;
+			int iRec34 = iTemp38;
+			int iRec35 = iTemp37;
+			int iRec36 = iTemp36;
+			int iRec37 = iTemp35;
+			int iRec38 = iTemp34;
+			int iRec39 = iTemp33;
+			int iRec40 = iTemp32;
+			int iRec41 = iTemp31;
+			int iRec42 = iTemp30;
+			int iRec43 = iTemp29;
+			int iRec44 = iTemp28;
+			int iRec45 = iTemp27;
+			int iRec46 = iTemp26;
+			int iRec47 = iTemp25;
+			int iRec48 = iTemp24;
+			int iRec49 = iTemp23;
+			int iRec50 = iTemp22;
+			int iRec51 = iTemp21;
+			int iRec52 = iTemp20;
+			int iRec53 = iTemp19;
+			int iRec54 = iTemp18;
+			int iRec55 = iTemp17;
+			int iRec56 = iTemp16;
+			int iRec57 = iTemp15;
+			int iRec58 = iTemp14;
+			int iRec59 = iTemp13;
+			int iRec60 = iTemp12;
+			int iRec61 = iTemp11;
+			int iRec62 = iTemp10;
+			int iRec63 = iTemp9;
+			int iRec64 = iTemp8;
+			int iRec65 = iTemp7;
+			int iRec66 = iTemp6;
+			int iRec67 = iTemp5;
+			int iRec68 = iTemp4;
+			int iTemp67 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec45)) + 1.0f))));
+			iRec4[0] = ((iVec0[1] * iRec4[1]) + (iTemp2 * iTemp67));
+			int iTemp68 = ((iRec2[0] + iRec4[0]) % iTemp1);
+			int iTemp69 = (iTemp1 + -1);
+			float fTemp70 = (float(iTemp68) / float(iTemp69));
+			int iTemp71 = int(fTemp70);
+			iRec69[0] = ((iRec69[1] * (1 - iTemp71)) + (iTemp67 * iTemp71));
+			int iTemp72 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec33)) + 1.0f))));
+			iRec71[0] = ((iVec0[1] * iRec71[1]) + (iTemp2 * iTemp72));
+			int iTemp73 = ((iRec2[0] + iRec71[0]) % iTemp1);
+			float fTemp74 = (float(iTemp73) / float(iTemp69));
+			int iTemp75 = int(fTemp74);
+			iRec72[0] = ((iTemp72 * iTemp75) + (iRec72[1] * (1 - iTemp75)));
+			int iTemp76 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec7)) + 1.0f))));
+			iRec73[0] = ((iVec0[1] * iRec73[1]) + (iTemp2 * iTemp76));
+			int iTemp77 = ((iRec2[0] + iRec73[0]) % iTemp1);
+			float fTemp78 = (float(iTemp77) / float(iTemp69));
+			int iTemp79 = int(fTemp78);
+			iRec74[0] = ((iRec74[1] * (1 - iTemp79)) + (iTemp76 * iTemp79));
+			int iTemp80 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec5[0])) + 1.0f))));
+			iRec75[0] = ((iVec0[1] * iRec75[1]) + (iTemp2 * iTemp80));
+			int iTemp81 = ((iRec2[0] + iRec75[0]) % iTemp1);
+			float fTemp82 = (float(iTemp81) / float(iTemp69));
+			int iTemp83 = int(fTemp82);
+			iRec76[0] = ((iRec76[1] * (1 - iTemp83)) + (iTemp80 * iTemp83));
+			int iTemp84 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec9)) + 1.0f))));
+			iRec77[0] = ((iVec0[1] * iRec77[1]) + (iTemp2 * iTemp84));
+			int iTemp85 = ((iRec2[0] + iRec77[0]) % iTemp1);
+			float fTemp86 = (float(iTemp85) / float(iTemp69));
+			int iTemp87 = int(fTemp86);
+			iRec78[0] = ((iRec78[1] * (1 - iTemp87)) + (iTemp84 * iTemp87));
+			int iTemp88 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec11)) + 1.0f))));
+			iRec79[0] = ((iVec0[1] * iRec79[1]) + (iTemp2 * iTemp88));
+			int iTemp89 = ((iRec2[0] + iRec79[0]) % iTemp1);
+			float fTemp90 = (float(iTemp89) / float(iTemp69));
+			int iTemp91 = int(fTemp90);
+			iRec80[0] = ((iRec80[1] * (1 - iTemp91)) + (iTemp88 * iTemp91));
+			int iTemp92 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec13)) + 1.0f))));
+			iRec81[0] = ((iVec0[1] * iRec81[1]) + (iTemp2 * iTemp92));
+			int iTemp93 = ((iRec2[0] + iRec81[0]) % iTemp1);
+			float fTemp94 = (float(iTemp93) / float(iTemp69));
+			int iTemp95 = int(fTemp94);
+			iRec82[0] = ((iRec82[1] * (1 - iTemp95)) + (iTemp92 * iTemp95));
+			int iTemp96 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec15)) + 1.0f))));
+			iRec83[0] = ((iVec0[1] * iRec83[1]) + (iTemp2 * iTemp96));
+			int iTemp97 = ((iRec2[0] + iRec83[0]) % iTemp1);
+			float fTemp98 = (float(iTemp97) / float(iTemp69));
+			int iTemp99 = int(fTemp98);
+			iRec84[0] = ((iRec84[1] * (1 - iTemp99)) + (iTemp96 * iTemp99));
+			int iTemp100 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec17)) + 1.0f))));
+			iRec85[0] = ((iVec0[1] * iRec85[1]) + (iTemp2 * iTemp100));
+			int iTemp101 = ((iRec2[0] + iRec85[0]) % iTemp1);
+			float fTemp102 = (float(iTemp101) / float(iTemp69));
+			int iTemp103 = int(fTemp102);
+			iRec86[0] = ((iRec86[1] * (1 - iTemp103)) + (iTemp100 * iTemp103));
+			int iTemp104 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec19)) + 1.0f))));
+			iRec87[0] = ((iVec0[1] * iRec87[1]) + (iTemp2 * iTemp104));
+			int iTemp105 = ((iRec2[0] + iRec87[0]) % iTemp1);
+			float fTemp106 = (float(iTemp105) / float(iTemp69));
+			int iTemp107 = int(fTemp106);
+			iRec88[0] = ((iRec88[1] * (1 - iTemp107)) + (iTemp104 * iTemp107));
+			int iTemp108 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec21)) + 1.0f))));
+			iRec89[0] = ((iVec0[1] * iRec89[1]) + (iTemp2 * iTemp108));
+			int iTemp109 = ((iRec2[0] + iRec89[0]) % iTemp1);
+			float fTemp110 = (float(iTemp109) / float(iTemp69));
+			int iTemp111 = int(fTemp110);
+			iRec90[0] = ((iRec90[1] * (1 - iTemp111)) + (iTemp108 * iTemp111));
+			int iTemp112 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec23)) + 1.0f))));
+			iRec91[0] = ((iVec0[1] * iRec91[1]) + (iTemp2 * iTemp112));
+			int iTemp113 = ((iRec2[0] + iRec91[0]) % iTemp1);
+			float fTemp114 = (float(iTemp113) / float(iTemp69));
+			int iTemp115 = int(fTemp114);
+			iRec92[0] = ((iRec92[1] * (1 - iTemp115)) + (iTemp112 * iTemp115));
+			int iTemp116 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec25)) + 1.0f))));
+			iRec93[0] = ((iVec0[1] * iRec93[1]) + (iTemp2 * iTemp116));
+			int iTemp117 = ((iRec2[0] + iRec93[0]) % iTemp1);
+			float fTemp118 = (float(iTemp117) / float(iTemp69));
+			int iTemp119 = int(fTemp118);
+			iRec94[0] = ((iRec94[1] * (1 - iTemp119)) + (iTemp116 * iTemp119));
+			int iTemp120 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec27)) + 1.0f))));
+			iRec95[0] = ((iVec0[1] * iRec95[1]) + (iTemp2 * iTemp120));
+			int iTemp121 = ((iRec2[0] + iRec95[0]) % iTemp1);
+			float fTemp122 = (float(iTemp121) / float(iTemp69));
+			int iTemp123 = int(fTemp122);
+			iRec96[0] = ((iRec96[1] * (1 - iTemp123)) + (iTemp120 * iTemp123));
+			int iTemp124 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec29)) + 1.0f))));
+			iRec97[0] = ((iVec0[1] * iRec97[1]) + (iTemp2 * iTemp124));
+			int iTemp125 = ((iRec2[0] + iRec97[0]) % iTemp1);
+			float fTemp126 = (float(iTemp125) / float(iTemp69));
+			int iTemp127 = int(fTemp126);
+			iRec98[0] = ((iRec98[1] * (1 - iTemp127)) + (iTemp124 * iTemp127));
+			int iTemp128 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec31)) + 1.0f))));
+			iRec99[0] = ((iVec0[1] * iRec99[1]) + (iTemp2 * iTemp128));
+			int iTemp129 = ((iRec2[0] + iRec99[0]) % iTemp1);
+			float fTemp130 = (float(iTemp129) / float(iTemp69));
+			int iTemp131 = int(fTemp130);
+			iRec100[0] = ((iRec100[1] * (1 - iTemp131)) + (iTemp128 * iTemp131));
+			int iTemp132 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec35)) + 1.0f))));
+			iRec101[0] = ((iVec0[1] * iRec101[1]) + (iTemp2 * iTemp132));
+			int iTemp133 = ((iRec2[0] + iRec101[0]) % iTemp1);
+			float fTemp134 = (float(iTemp133) / float(iTemp69));
+			int iTemp135 = int(fTemp134);
+			iRec102[0] = ((iRec102[1] * (1 - iTemp135)) + (iTemp132 * iTemp135));
+			int iTemp136 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec37)) + 1.0f))));
+			iRec103[0] = ((iVec0[1] * iRec103[1]) + (iTemp2 * iTemp136));
+			int iTemp137 = ((iRec2[0] + iRec103[0]) % iTemp1);
+			float fTemp138 = (float(iTemp137) / float(iTemp69));
+			int iTemp139 = int(fTemp138);
+			iRec104[0] = ((iTemp136 * iTemp139) + (iRec104[1] * (1 - iTemp139)));
+			int iTemp140 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec39)) + 1.0f))));
+			iRec105[0] = ((iVec0[1] * iRec105[1]) + (iTemp2 * iTemp140));
+			int iTemp141 = ((iRec2[0] + iRec105[0]) % iTemp1);
+			float fTemp142 = (float(iTemp141) / float(iTemp69));
+			int iTemp143 = int(fTemp142);
+			iRec106[0] = ((iRec106[1] * (1 - iTemp143)) + (iTemp140 * iTemp143));
+			int iTemp144 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec41)) + 1.0f))));
+			iRec107[0] = ((iVec0[1] * iRec107[1]) + (iTemp2 * iTemp144));
+			int iTemp145 = ((iRec2[0] + iRec107[0]) % iTemp1);
+			float fTemp146 = (float(iTemp145) / float(iTemp69));
+			int iTemp147 = int(fTemp146);
+			iRec108[0] = ((iRec108[1] * (1 - iTemp147)) + (iTemp144 * iTemp147));
+			int iTemp148 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec43)) + 1.0f))));
+			iRec109[0] = ((iVec0[1] * iRec109[1]) + (iTemp2 * iTemp148));
+			int iTemp149 = ((iRec2[0] + iRec109[0]) % iTemp1);
+			float fTemp150 = (float(iTemp149) / float(iTemp69));
+			int iTemp151 = int(fTemp150);
+			iRec110[0] = ((iRec110[1] * (1 - iTemp151)) + (iTemp148 * iTemp151));
+			int iTemp152 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec47)) + 1.0f))));
+			iRec111[0] = ((iVec0[1] * iRec111[1]) + (iTemp2 * iTemp152));
+			int iTemp153 = ((iRec2[0] + iRec111[0]) % iTemp1);
+			float fTemp154 = (float(iTemp153) / float(iTemp69));
+			int iTemp155 = int(fTemp154);
+			iRec112[0] = ((iTemp152 * iTemp155) + (iRec112[1] * (1 - iTemp155)));
+			int iTemp156 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec49)) + 1.0f))));
+			iRec113[0] = ((iVec0[1] * iRec113[1]) + (iTemp2 * iTemp156));
+			int iTemp157 = ((iRec2[0] + iRec113[0]) % iTemp1);
+			float fTemp158 = (float(iTemp157) / float(iTemp69));
+			int iTemp159 = int(fTemp158);
+			iRec114[0] = ((iRec114[1] * (1 - iTemp159)) + (iTemp156 * iTemp159));
+			int iTemp160 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec51)) + 1.0f))));
+			iRec115[0] = ((iVec0[1] * iRec115[1]) + (iTemp2 * iTemp160));
+			int iTemp161 = ((iRec2[0] + iRec115[0]) % iTemp1);
+			float fTemp162 = (float(iTemp161) / float(iTemp69));
+			int iTemp163 = int(fTemp162);
+			iRec116[0] = ((iRec116[1] * (1 - iTemp163)) + (iTemp160 * iTemp163));
+			int iTemp164 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec53)) + 1.0f))));
+			iRec117[0] = ((iVec0[1] * iRec117[1]) + (iTemp2 * iTemp164));
+			int iTemp165 = ((iRec2[0] + iRec117[0]) % iTemp1);
+			float fTemp166 = (float(iTemp165) / float(iTemp69));
+			int iTemp167 = int(fTemp166);
+			iRec118[0] = ((iTemp164 * iTemp167) + (iRec118[1] * (1 - iTemp167)));
+			int iTemp168 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec55)) + 1.0f))));
+			iRec119[0] = ((iVec0[1] * iRec119[1]) + (iTemp2 * iTemp168));
+			int iTemp169 = ((iRec2[0] + iRec119[0]) % iTemp1);
+			float fTemp170 = (float(iTemp169) / float(iTemp69));
+			int iTemp171 = int(fTemp170);
+			iRec120[0] = ((iRec120[1] * (1 - iTemp171)) + (iTemp168 * iTemp171));
+			int iTemp172 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec57)) + 1.0f))));
+			iRec121[0] = ((iVec0[1] * iRec121[1]) + (iTemp2 * iTemp172));
+			int iTemp173 = ((iRec2[0] + iRec121[0]) % iTemp1);
+			float fTemp174 = (float(iTemp173) / float(iTemp69));
+			int iTemp175 = int(fTemp174);
+			iRec122[0] = ((iRec122[1] * (1 - iTemp175)) + (iTemp172 * iTemp175));
+			int iTemp176 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec59)) + 1.0f))));
+			iRec123[0] = ((iVec0[1] * iRec123[1]) + (iTemp2 * iTemp176));
+			int iTemp177 = ((iRec2[0] + iRec123[0]) % iTemp1);
+			float fTemp178 = (float(iTemp177) / float(iTemp69));
+			int iTemp179 = int(fTemp178);
+			iRec124[0] = ((iRec124[1] * (1 - iTemp179)) + (iTemp176 * iTemp179));
+			int iTemp180 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec61)) + 1.0f))));
+			iRec125[0] = ((iVec0[1] * iRec125[1]) + (iTemp2 * iTemp180));
+			int iTemp181 = ((iRec2[0] + iRec125[0]) % iTemp1);
+			float fTemp182 = (float(iTemp181) / float(iTemp69));
+			int iTemp183 = int(fTemp182);
+			iRec126[0] = ((iTemp180 * iTemp183) + (iRec126[1] * (1 - iTemp183)));
+			int iTemp184 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec63)) + 1.0f))));
+			iRec127[0] = ((iVec0[1] * iRec127[1]) + (iTemp2 * iTemp184));
+			int iTemp185 = ((iRec2[0] + iRec127[0]) % iTemp1);
+			float fTemp186 = (float(iTemp185) / float(iTemp69));
+			int iTemp187 = int(fTemp186);
+			iRec128[0] = ((iRec128[1] * (1 - iTemp187)) + (iTemp184 * iTemp187));
+			int iTemp188 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec65)) + 1.0f))));
+			iRec129[0] = ((iVec0[1] * iRec129[1]) + (iTemp2 * iTemp188));
+			int iTemp189 = ((iRec2[0] + iRec129[0]) % iTemp1);
+			float fTemp190 = (float(iTemp189) / float(iTemp69));
+			int iTemp191 = int(fTemp190);
+			iRec130[0] = (((1 - iTemp191) * iRec130[1]) + (iTemp191 * iTemp188));
+			int iTemp192 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec67)) + 1.0f))));
+			iRec131[0] = ((iVec0[1] * iRec131[1]) + (iTemp2 * iTemp192));
+			int iTemp193 = ((iRec2[0] + iRec131[0]) % iTemp1);
+			float fTemp194 = (float(iTemp193) / float(iTemp69));
+			int iTemp195 = int(fTemp194);
+			iRec132[0] = ((iRec132[1] * (1 - iTemp195)) + (iTemp192 * iTemp195));
+			output0[i] = FAUSTFLOAT((fSlow1 * (((((((((((((float(iSlow2) * (ftbl0[((iTemp68 + iRec69[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp70))])) + (((((((float(iSlow5) * (ftbl0[((iTemp73 + iRec72[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp74))])) + ((((((((((((((float(iSlow6) * (ftbl1fx_granulatorSIG1[int((1024.0f * fTemp78))] * ftbl0[((iTemp77 + iRec74[0]) % iTemp0)])) + (float(iSlow7) * (ftbl0[((iTemp81 + iRec76[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp82))]))) + (float(iSlow8) * (ftbl0[((iTemp85 + iRec78[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp86))]))) + (float(iSlow9) * (ftbl0[((iTemp89 + iRec80[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp90))]))) + (float(iSlow10) * (ftbl1fx_granulatorSIG1[int((1024.0f * fTemp94))] * ftbl0[((iTemp93 + iRec82[0]) % iTemp0)]))) + (float(iSlow11) * (ftbl0[((iTemp97 + iRec84[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp98))]))) + (float(iSlow12) * (ftbl1fx_granulatorSIG1[int((1024.0f * fTemp102))] * ftbl0[((iTemp101 + iRec86[0]) % iTemp0)]))) + (float(iSlow13) * (ftbl0[((iTemp105 + iRec88[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp106))]))) + (float(iSlow14) * (ftbl0[((iTemp109 + iRec90[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp110))]))) + (float(iSlow15) * (ftbl0[((iTemp113 + iRec92[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp114))]))) + (float(iSlow16) * (ftbl0[((iTemp117 + iRec94[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp118))]))) + (float(iSlow17) * (ftbl1fx_granulatorSIG1[int((1024.0f * fTemp122))] * ftbl0[((iTemp121 + iRec96[0]) % iTemp0)]))) + (float(iSlow18) * (ftbl0[((iTemp125 + iRec98[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp126))]))) + (float(iSlow19) * (ftbl1fx_granulatorSIG1[int((1024.0f * fTemp130))] * ftbl0[((iTemp129 + iRec100[0]) % iTemp0)])))) + (float(iSlow20) * (ftbl0[((iTemp133 + iRec102[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp134))]))) + (float(iSlow21) * (ftbl0[((iTemp137 + iRec104[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp138))]))) + (float(iSlow22) * (ftbl0[((iTemp141 + iRec106[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp142))]))) + (float(iSlow23) * (ftbl0[((iTemp145 + iRec108[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp146))]))) + (float(iSlow24) * (ftbl1fx_granulatorSIG1[int((1024.0f * fTemp150))] * ftbl0[((iTemp149 + iRec110[0]) % iTemp0)])))) + (float(iSlow25) * (ftbl0[((iTemp153 + iRec112[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp154))]))) + (float(iSlow26) * (ftbl0[((iTemp157 + iRec114[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp158))]))) + (float(iSlow27) * (ftbl0[((iTemp161 + iRec116[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp162))]))) + (float(iSlow28) * (ftbl0[((iTemp165 + iRec118[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp166))]))) + (float(iSlow29) * (ftbl0[((iTemp169 + iRec120[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp170))]))) + (float(iSlow30) * (ftbl0[((iTemp173 + iRec122[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp174))]))) + (float(iSlow31) * (ftbl0[((iTemp177 + iRec124[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp178))]))) + (float(iSlow32) * (ftbl0[((iTemp181 + iRec126[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp182))]))) + (float(iSlow33) * (ftbl0[((iTemp185 + iRec128[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp186))]))) + (float(iSlow34) * (ftbl0[((iTemp189 + iRec130[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp190))]))) + (float(iSlow35) * (ftbl0[((iTemp193 + iRec132[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp194))])))));
+			int iTemp196 = int((0.5f * (((2.32830644e-10f * float(iRec64)) + 1.0f) * float(iTemp0))));
+			iRec134[0] = ((iVec0[1] * iRec134[1]) + (iTemp2 * iTemp196));
+			int iTemp197 = ((iRec134[0] + iRec2[0]) % iTemp1);
+			float fTemp198 = (float(iTemp197) / float(iTemp69));
+			int iTemp199 = int(fTemp198);
+			iRec133[0] = ((iRec133[1] * (1 - iTemp199)) + (iTemp196 * iTemp199));
+			int iTemp200 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec6)) + 1.0f))));
+			iRec135[0] = ((iVec0[1] * iRec135[1]) + (iTemp2 * iTemp200));
+			int iTemp201 = ((iRec2[0] + iRec135[0]) % iTemp1);
+			float fTemp202 = (float(iTemp201) / float(iTemp69));
+			int iTemp203 = int(fTemp202);
+			iRec136[0] = ((iRec136[1] * (1 - iTemp203)) + (iTemp200 * iTemp203));
+			int iTemp204 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec8)) + 1.0f))));
+			iRec137[0] = ((iVec0[1] * iRec137[1]) + (iTemp2 * iTemp204));
+			int iTemp205 = ((iRec2[0] + iRec137[0]) % iTemp1);
+			float fTemp206 = (float(iTemp205) / float(iTemp69));
+			int iTemp207 = int(fTemp206);
+			iRec138[0] = (((1 - iTemp207) * iRec138[1]) + (iTemp207 * iTemp204));
+			int iTemp208 = int((0.5f * (((2.32830644e-10f * float(iRec10)) + 1.0f) * float(iTemp0))));
+			iRec140[0] = ((iVec0[1] * iRec140[1]) + (iTemp2 * iTemp208));
+			int iTemp209 = ((iRec140[0] + iRec2[0]) % iTemp1);
+			float fTemp210 = (float(iTemp209) / float(iTemp69));
+			int iTemp211 = int(fTemp210);
+			iRec139[0] = ((iRec139[1] * (1 - iTemp211)) + (iTemp208 * iTemp211));
+			int iTemp212 = int((0.5f * (((2.32830644e-10f * float(iRec12)) + 1.0f) * float(iTemp0))));
+			iRec142[0] = ((iVec0[1] * iRec142[1]) + (iTemp2 * iTemp212));
+			int iTemp213 = ((iRec142[0] + iRec2[0]) % iTemp1);
+			float fTemp214 = (float(iTemp213) / float(iTemp69));
+			int iTemp215 = int(fTemp214);
+			iRec141[0] = ((iRec141[1] * (1 - iTemp215)) + (iTemp212 * iTemp215));
+			int iTemp216 = int((0.5f * (((2.32830644e-10f * float(iRec14)) + 1.0f) * float(iTemp0))));
+			iRec144[0] = ((iVec0[1] * iRec144[1]) + (iTemp2 * iTemp216));
+			int iTemp217 = ((iRec144[0] + iRec2[0]) % iTemp1);
+			float fTemp218 = (float(iTemp217) / float(iTemp69));
+			int iTemp219 = int(fTemp218);
+			iRec143[0] = ((iRec143[1] * (1 - iTemp219)) + (iTemp216 * iTemp219));
+			int iTemp220 = int((0.5f * (((2.32830644e-10f * float(iRec16)) + 1.0f) * float(iTemp0))));
+			iRec146[0] = ((iVec0[1] * iRec146[1]) + (iTemp2 * iTemp220));
+			int iTemp221 = ((iRec146[0] + iRec2[0]) % iTemp1);
+			float fTemp222 = (float(iTemp221) / float(iTemp69));
+			int iTemp223 = int(fTemp222);
+			iRec145[0] = ((iRec145[1] * (1 - iTemp223)) + (iTemp220 * iTemp223));
+			int iTemp224 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec18)) + 1.0f))));
+			iRec147[0] = ((iVec0[1] * iRec147[1]) + (iTemp2 * iTemp224));
+			int iTemp225 = ((iRec2[0] + iRec147[0]) % iTemp1);
+			float fTemp226 = (float(iTemp225) / float(iTemp69));
+			int iTemp227 = int(fTemp226);
+			iRec148[0] = ((iRec148[1] * (1 - iTemp227)) + (iTemp227 * iTemp224));
+			int iTemp228 = int((0.5f * (((2.32830644e-10f * float(iRec20)) + 1.0f) * float(iTemp0))));
+			iRec150[0] = ((iVec0[1] * iRec150[1]) + (iTemp2 * iTemp228));
+			int iTemp229 = ((iRec150[0] + iRec2[0]) % iTemp1);
+			float fTemp230 = (float(iTemp229) / float(iTemp69));
+			int iTemp231 = int(fTemp230);
+			iRec149[0] = ((iRec149[1] * (1 - iTemp231)) + (iTemp228 * iTemp231));
+			int iTemp232 = int((0.5f * (((2.32830644e-10f * float(iRec22)) + 1.0f) * float(iTemp0))));
+			iRec152[0] = ((iVec0[1] * iRec152[1]) + (iTemp2 * iTemp232));
+			int iTemp233 = ((iRec152[0] + iRec2[0]) % iTemp1);
+			float fTemp234 = (float(iTemp233) / float(iTemp69));
+			int iTemp235 = int(fTemp234);
+			iRec151[0] = ((iRec151[1] * (1 - iTemp235)) + (iTemp232 * iTemp235));
+			int iTemp236 = int((0.5f * (((2.32830644e-10f * float(iRec24)) + 1.0f) * float(iTemp0))));
+			iRec154[0] = ((iVec0[1] * iRec154[1]) + (iTemp2 * iTemp236));
+			int iTemp237 = ((iRec154[0] + iRec2[0]) % iTemp1);
+			float fTemp238 = (float(iTemp237) / float(iTemp69));
+			int iTemp239 = int(fTemp238);
+			iRec153[0] = ((iRec153[1] * (1 - iTemp239)) + (iTemp236 * iTemp239));
+			int iTemp240 = int((0.5f * (((2.32830644e-10f * float(iRec26)) + 1.0f) * float(iTemp0))));
+			iRec155[0] = ((iVec0[1] * iRec155[1]) + (iTemp2 * iTemp240));
+			int iTemp241 = ((iRec2[0] + iRec155[0]) % iTemp1);
+			float fTemp242 = (float(iTemp241) / float(iTemp69));
+			int iTemp243 = int(fTemp242);
+			iRec156[0] = ((iRec156[1] * (1 - iTemp243)) + (iTemp243 * iTemp240));
+			int iTemp244 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec28)) + 1.0f))));
+			iRec157[0] = ((iVec0[1] * iRec157[1]) + (iTemp2 * iTemp244));
+			int iTemp245 = ((iRec2[0] + iRec157[0]) % iTemp1);
+			float fTemp246 = (float(iTemp245) / float(iTemp69));
+			int iTemp247 = int(fTemp246);
+			iRec158[0] = ((iRec158[1] * (1 - iTemp247)) + (iTemp244 * iTemp247));
+			int iTemp248 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec30)) + 1.0f))));
+			iRec159[0] = ((iVec0[1] * iRec159[1]) + (iTemp2 * iTemp248));
+			int iTemp249 = ((iRec2[0] + iRec159[0]) % iTemp1);
+			float fTemp250 = (float(iTemp249) / float(iTemp69));
+			int iTemp251 = int(fTemp250);
+			iRec160[0] = ((iRec160[1] * (1 - iTemp251)) + (iTemp248 * iTemp251));
+			int iTemp252 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec32)) + 1.0f))));
+			iRec161[0] = ((iVec0[1] * iRec161[1]) + (iTemp2 * iTemp252));
+			int iTemp253 = ((iRec2[0] + iRec161[0]) % iTemp1);
+			float fTemp254 = (float(iTemp253) / float(iTemp69));
+			int iTemp255 = int(fTemp254);
+			iRec162[0] = ((iRec162[1] * (1 - iTemp255)) + (iTemp252 * iTemp255));
+			int iTemp256 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec34)) + 1.0f))));
+			iRec163[0] = ((iVec0[1] * iRec163[1]) + (iTemp2 * iTemp256));
+			int iTemp257 = ((iRec2[0] + iRec163[0]) % iTemp1);
+			float fTemp258 = (float(iTemp257) / float(iTemp69));
+			int iTemp259 = int(fTemp258);
+			iRec164[0] = ((iRec164[1] * (1 - iTemp259)) + (iTemp256 * iTemp259));
+			int iTemp260 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec36)) + 1.0f))));
+			iRec165[0] = ((iVec0[1] * iRec165[1]) + (iTemp2 * iTemp260));
+			int iTemp261 = ((iRec2[0] + iRec165[0]) % iTemp1);
+			float fTemp262 = (float(iTemp261) / float(iTemp69));
+			int iTemp263 = int(fTemp262);
+			iRec166[0] = ((iRec166[1] * (1 - iTemp263)) + (iTemp260 * iTemp263));
+			int iTemp264 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec38)) + 1.0f))));
+			iRec167[0] = ((iVec0[1] * iRec167[1]) + (iTemp2 * iTemp264));
+			int iTemp265 = ((iRec2[0] + iRec167[0]) % iTemp1);
+			float fTemp266 = (float(iTemp265) / float(iTemp69));
+			int iTemp267 = int(fTemp266);
+			iRec168[0] = ((iRec168[1] * (1 - iTemp267)) + (iTemp264 * iTemp267));
+			int iTemp268 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec40)) + 1.0f))));
+			iRec169[0] = ((iVec0[1] * iRec169[1]) + (iTemp2 * iTemp268));
+			int iTemp269 = ((iRec2[0] + iRec169[0]) % iTemp1);
+			float fTemp270 = (float(iTemp269) / float(iTemp69));
+			int iTemp271 = int(fTemp270);
+			iRec170[0] = ((iRec170[1] * (1 - iTemp271)) + (iTemp268 * iTemp271));
+			int iTemp272 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec42)) + 1.0f))));
+			iRec171[0] = ((iVec0[1] * iRec171[1]) + (iTemp2 * iTemp272));
+			int iTemp273 = ((iRec2[0] + iRec171[0]) % iTemp1);
+			float fTemp274 = (float(iTemp273) / float(iTemp69));
+			int iTemp275 = int(fTemp274);
+			iRec172[0] = ((iRec172[1] * (1 - iTemp275)) + (iTemp272 * iTemp275));
+			int iTemp276 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec44)) + 1.0f))));
+			iRec173[0] = ((iVec0[1] * iRec173[1]) + (iTemp2 * iTemp276));
+			int iTemp277 = ((iRec2[0] + iRec173[0]) % iTemp1);
+			float fTemp278 = (float(iTemp277) / float(iTemp69));
+			int iTemp279 = int(fTemp278);
+			iRec174[0] = ((iRec174[1] * (1 - iTemp279)) + (iTemp276 * iTemp279));
+			int iTemp280 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec46)) + 1.0f))));
+			iRec175[0] = ((iVec0[1] * iRec175[1]) + (iTemp2 * iTemp280));
+			int iTemp281 = ((iRec2[0] + iRec175[0]) % iTemp1);
+			float fTemp282 = (float(iTemp281) / float(iTemp69));
+			int iTemp283 = int(fTemp282);
+			iRec176[0] = ((iRec176[1] * (1 - iTemp283)) + (iTemp280 * iTemp283));
+			int iTemp284 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec48)) + 1.0f))));
+			iRec177[0] = ((iVec0[1] * iRec177[1]) + (iTemp2 * iTemp284));
+			int iTemp285 = ((iRec2[0] + iRec177[0]) % iTemp1);
+			float fTemp286 = (float(iTemp285) / float(iTemp69));
+			int iTemp287 = int(fTemp286);
+			iRec178[0] = ((iRec178[1] * (1 - iTemp287)) + (iTemp284 * iTemp287));
+			int iTemp288 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec50)) + 1.0f))));
+			iRec179[0] = ((iVec0[1] * iRec179[1]) + (iTemp2 * iTemp288));
+			int iTemp289 = ((iRec2[0] + iRec179[0]) % iTemp1);
+			float fTemp290 = (float(iTemp289) / float(iTemp69));
+			int iTemp291 = int(fTemp290);
+			iRec180[0] = ((iRec180[1] * (1 - iTemp291)) + (iTemp288 * iTemp291));
+			int iTemp292 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec52)) + 1.0f))));
+			iRec181[0] = ((iVec0[1] * iRec181[1]) + (iTemp2 * iTemp292));
+			int iTemp293 = ((iRec2[0] + iRec181[0]) % iTemp1);
+			float fTemp294 = (float(iTemp293) / float(iTemp69));
+			int iTemp295 = int(fTemp294);
+			iRec182[0] = ((iRec182[1] * (1 - iTemp295)) + (iTemp292 * iTemp295));
+			int iTemp296 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec54)) + 1.0f))));
+			iRec183[0] = ((iVec0[1] * iRec183[1]) + (iTemp2 * iTemp296));
+			int iTemp297 = ((iRec2[0] + iRec183[0]) % iTemp1);
+			float fTemp298 = (float(iTemp297) / float(iTemp69));
+			int iTemp299 = int(fTemp298);
+			iRec184[0] = ((iRec184[1] * (1 - iTemp299)) + (iTemp296 * iTemp299));
+			int iTemp300 = int((0.5f * (float(iTemp0) * ((2.32830644e-10f * float(iRec56)) + 1.0f))));
+			iRec185[0] = ((iVec0[1] * iRec185[1]) + (iTemp2 * iTemp300));
+			int iTemp301 = ((iRec2[0] + iRec185[0]) % iTemp1);
+			float fTemp302 = (float(iTemp301) / float(iTemp69));
+			int iTemp303 = int(fTemp302);
+			iRec186[0] = (((1 - iTemp303) * iRec186[1]) + (iTemp303 * iTemp300));
+			int iTemp304 = int((0.5f * (((2.32830644e-10f * float(iRec58)) + 1.0f) * float(iTemp0))));
+			iRec188[0] = ((iVec0[1] * iRec188[1]) + (iTemp2 * iTemp304));
+			int iTemp305 = ((iRec188[0] + iRec2[0]) % iTemp1);
+			float fTemp306 = (float(iTemp305) / float(iTemp69));
+			int iTemp307 = int(fTemp306);
+			iRec187[0] = ((iRec187[1] * (1 - iTemp307)) + (iTemp304 * iTemp307));
+			int iTemp308 = int((0.5f * (((2.32830644e-10f * float(iRec60)) + 1.0f) * float(iTemp0))));
+			iRec190[0] = ((iVec0[1] * iRec190[1]) + (iTemp2 * iTemp308));
+			int iTemp309 = ((iRec190[0] + iRec2[0]) % iTemp1);
+			float fTemp310 = (float(iTemp309) / float(iTemp69));
+			int iTemp311 = int(fTemp310);
+			iRec189[0] = ((iRec189[1] * (1 - iTemp311)) + (iTemp308 * iTemp311));
+			int iTemp312 = int((0.5f * (((2.32830644e-10f * float(iRec62)) + 1.0f) * float(iTemp0))));
+			iRec192[0] = ((iVec0[1] * iRec192[1]) + (iTemp2 * iTemp312));
+			int iTemp313 = ((iRec192[0] + iRec2[0]) % iTemp1);
+			float fTemp314 = (float(iTemp313) / float(iTemp69));
+			int iTemp315 = int(fTemp314);
+			iRec191[0] = ((iRec191[1] * (1 - iTemp315)) + (iTemp312 * iTemp315));
+			int iTemp316 = int((0.5f * (((2.32830644e-10f * float(iRec66)) + 1.0f) * float(iTemp0))));
+			iRec194[0] = ((iVec0[1] * iRec194[1]) + (iTemp2 * iTemp316));
+			int iTemp317 = ((iRec194[0] + iRec2[0]) % iTemp1);
+			float fTemp318 = (float(iTemp317) / float(iTemp69));
+			int iTemp319 = int(fTemp318);
+			iRec193[0] = ((iRec193[1] * (1 - iTemp319)) + (iTemp316 * iTemp319));
+			int iTemp320 = int((0.5f * (((2.32830644e-10f * float(iRec68)) + 1.0f) * float(iTemp0))));
+			iRec195[0] = ((iVec0[1] * iRec195[1]) + (iTemp2 * iTemp320));
+			int iTemp321 = ((iRec195[0] + iRec2[0]) % iTemp1);
+			float fTemp322 = (float(iTemp321) / float(iTemp69));
+			int iTemp323 = int(fTemp322);
+			iRec196[0] = ((iRec196[1] * (1 - iTemp323)) + (iTemp320 * iTemp323));
+			output1[i] = FAUSTFLOAT((fSlow1 * ((((float(iSlow36) * (ftbl0[((iRec133[0] + iTemp197) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp198))])) + (((((((((((((((((((((((((((((float(iSlow37) * (ftbl1fx_granulatorSIG1[int((1024.0f * fTemp202))] * ftbl0[((iTemp201 + iRec136[0]) % iTemp0)])) + (float(iSlow38) * (ftbl1fx_granulatorSIG1[int((1024.0f * fTemp206))] * ftbl0[((iRec138[0] + iTemp205) % iTemp0)]))) + (float(iSlow39) * (ftbl0[((iRec139[0] + iTemp209) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp210))]))) + (float(iSlow40) * (ftbl0[((iRec141[0] + iTemp213) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp214))]))) + (float(iSlow41) * (ftbl0[((iRec143[0] + iTemp217) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp218))]))) + (float(iSlow42) * (ftbl0[((iRec145[0] + iTemp221) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp222))]))) + (float(iSlow43) * (ftbl0[((iTemp225 + iRec148[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp226))]))) + (float(iSlow44) * (ftbl0[((iRec149[0] + iTemp229) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp230))]))) + (float(iSlow45) * (ftbl0[((iRec151[0] + iTemp233) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp234))]))) + (float(iSlow46) * (ftbl0[((iRec153[0] + iTemp237) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp238))]))) + (float(iSlow47) * (ftbl0[((iTemp241 + iRec156[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp242))]))) + (float(iSlow48) * (ftbl0[((iTemp245 + iRec158[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp246))]))) + (float(iSlow49) * (ftbl0[((iTemp249 + iRec160[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp250))]))) + (float(iSlow50) * (ftbl1fx_granulatorSIG1[int((1024.0f * fTemp254))] * ftbl0[((iTemp253 + iRec162[0]) % iTemp0)]))) + (float(iSlow51) * (ftbl0[((iTemp257 + iRec164[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp258))]))) + (float(iSlow52) * (ftbl1fx_granulatorSIG1[int((1024.0f * fTemp262))] * ftbl0[((iTemp261 + iRec166[0]) % iTemp0)]))) + (float(iSlow53) * (ftbl1fx_granulatorSIG1[int((1024.0f * fTemp266))] * ftbl0[((iTemp265 + iRec168[0]) % iTemp0)]))) + (float(iSlow54) * (ftbl1fx_granulatorSIG1[int((1024.0f * fTemp270))] * ftbl0[((iTemp269 + iRec170[0]) % iTemp0)]))) + (float(iSlow55) * (ftbl0[((iTemp273 + iRec172[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp274))]))) + (float(iSlow56) * (ftbl0[((iTemp277 + iRec174[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp278))]))) + (float(iSlow57) * (ftbl1fx_granulatorSIG1[int((1024.0f * fTemp282))] * ftbl0[((iTemp281 + iRec176[0]) % iTemp0)]))) + (float(iSlow58) * (ftbl0[((iTemp285 + iRec178[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp286))]))) + (float(iSlow59) * (ftbl0[((iTemp289 + iRec180[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp290))]))) + (float(iSlow60) * (ftbl0[((iTemp293 + iRec182[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp294))]))) + (float(iSlow61) * (ftbl1fx_granulatorSIG1[int((1024.0f * fTemp298))] * ftbl0[((iTemp297 + iRec184[0]) % iTemp0)]))) + (float(iSlow62) * (ftbl1fx_granulatorSIG1[int((1024.0f * fTemp302))] * ftbl0[((iRec186[0] + iTemp301) % iTemp0)]))) + (float(iSlow63) * (ftbl0[((iRec187[0] + iTemp305) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp306))]))) + (float(iSlow64) * (ftbl0[((iRec189[0] + iTemp309) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp310))]))) + (float(iSlow65) * (ftbl0[((iRec191[0] + iTemp313) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp314))])))) + (float(iSlow66) * (ftbl0[((iRec193[0] + iTemp317) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp318))]))) + (float(iSlow67) * (ftbl0[((iTemp321 + iRec196[0]) % iTemp0)] * ftbl1fx_granulatorSIG1[int((1024.0f * fTemp322))])))));
 			iVec0[1] = iVec0[0];
+			fRec1[1] = fRec1[0];
 			iRec0[1] = iRec0[0];
-			iRec3[1] = iRec3[0];
+			fRec3[1] = fRec3[0];
 			iRec2[1] = iRec2[0];
-			iRec67[1] = iRec67[0];
-			iRec1[1] = iRec1[0];
-			iRec68[1] = iRec68[0];
+			iRec5[1] = iRec5[0];
+			iRec4[1] = iRec4[0];
 			iRec69[1] = iRec69[0];
 			iRec71[1] = iRec71[0];
-			iRec70[1] = iRec70[0];
-			iRec73[1] = iRec73[0];
 			iRec72[1] = iRec72[0];
+			iRec73[1] = iRec73[0];
 			iRec74[1] = iRec74[0];
 			iRec75[1] = iRec75[0];
-			iRec77[1] = iRec77[0];
 			iRec76[1] = iRec76[0];
-			iRec79[1] = iRec79[0];
+			iRec77[1] = iRec77[0];
 			iRec78[1] = iRec78[0];
-			iRec81[1] = iRec81[0];
+			iRec79[1] = iRec79[0];
 			iRec80[1] = iRec80[0];
+			iRec81[1] = iRec81[0];
 			iRec82[1] = iRec82[0];
 			iRec83[1] = iRec83[0];
 			iRec84[1] = iRec84[0];
@@ -1903,106 +2020,109 @@ class granulator : public dsp {
 			iRec91[1] = iRec91[0];
 			iRec92[1] = iRec92[0];
 			iRec93[1] = iRec93[0];
-			iRec95[1] = iRec95[0];
 			iRec94[1] = iRec94[0];
-			iRec97[1] = iRec97[0];
+			iRec95[1] = iRec95[0];
 			iRec96[1] = iRec96[0];
-			iRec99[1] = iRec99[0];
+			iRec97[1] = iRec97[0];
 			iRec98[1] = iRec98[0];
-			iRec101[1] = iRec101[0];
+			iRec99[1] = iRec99[0];
 			iRec100[1] = iRec100[0];
-			iRec103[1] = iRec103[0];
+			iRec101[1] = iRec101[0];
 			iRec102[1] = iRec102[0];
-			iRec105[1] = iRec105[0];
+			iRec103[1] = iRec103[0];
 			iRec104[1] = iRec104[0];
-			iRec107[1] = iRec107[0];
+			iRec105[1] = iRec105[0];
 			iRec106[1] = iRec106[0];
-			iRec109[1] = iRec109[0];
+			iRec107[1] = iRec107[0];
 			iRec108[1] = iRec108[0];
-			iRec111[1] = iRec111[0];
+			iRec109[1] = iRec109[0];
 			iRec110[1] = iRec110[0];
-			iRec113[1] = iRec113[0];
+			iRec111[1] = iRec111[0];
 			iRec112[1] = iRec112[0];
-			iRec115[1] = iRec115[0];
+			iRec113[1] = iRec113[0];
 			iRec114[1] = iRec114[0];
-			iRec117[1] = iRec117[0];
+			iRec115[1] = iRec115[0];
 			iRec116[1] = iRec116[0];
-			iRec119[1] = iRec119[0];
+			iRec117[1] = iRec117[0];
 			iRec118[1] = iRec118[0];
-			iRec121[1] = iRec121[0];
+			iRec119[1] = iRec119[0];
 			iRec120[1] = iRec120[0];
-			iRec123[1] = iRec123[0];
+			iRec121[1] = iRec121[0];
 			iRec122[1] = iRec122[0];
-			iRec125[1] = iRec125[0];
+			iRec123[1] = iRec123[0];
 			iRec124[1] = iRec124[0];
-			iRec127[1] = iRec127[0];
+			iRec125[1] = iRec125[0];
 			iRec126[1] = iRec126[0];
-			iRec129[1] = iRec129[0];
+			iRec127[1] = iRec127[0];
 			iRec128[1] = iRec128[0];
-			iRec131[1] = iRec131[0];
+			iRec129[1] = iRec129[0];
 			iRec130[1] = iRec130[0];
-			iRec133[1] = iRec133[0];
+			iRec131[1] = iRec131[0];
 			iRec132[1] = iRec132[0];
-			iRec135[1] = iRec135[0];
 			iRec134[1] = iRec134[0];
-			iRec137[1] = iRec137[0];
+			iRec133[1] = iRec133[0];
+			iRec135[1] = iRec135[0];
 			iRec136[1] = iRec136[0];
-			iRec139[1] = iRec139[0];
+			iRec137[1] = iRec137[0];
 			iRec138[1] = iRec138[0];
-			iRec141[1] = iRec141[0];
 			iRec140[1] = iRec140[0];
-			iRec143[1] = iRec143[0];
+			iRec139[1] = iRec139[0];
 			iRec142[1] = iRec142[0];
-			iRec145[1] = iRec145[0];
+			iRec141[1] = iRec141[0];
 			iRec144[1] = iRec144[0];
-			iRec147[1] = iRec147[0];
+			iRec143[1] = iRec143[0];
 			iRec146[1] = iRec146[0];
-			iRec149[1] = iRec149[0];
+			iRec145[1] = iRec145[0];
+			iRec147[1] = iRec147[0];
 			iRec148[1] = iRec148[0];
-			iRec151[1] = iRec151[0];
 			iRec150[1] = iRec150[0];
-			iRec153[1] = iRec153[0];
+			iRec149[1] = iRec149[0];
 			iRec152[1] = iRec152[0];
-			iRec155[1] = iRec155[0];
+			iRec151[1] = iRec151[0];
 			iRec154[1] = iRec154[0];
-			iRec157[1] = iRec157[0];
+			iRec153[1] = iRec153[0];
+			iRec155[1] = iRec155[0];
 			iRec156[1] = iRec156[0];
-			iRec159[1] = iRec159[0];
+			iRec157[1] = iRec157[0];
 			iRec158[1] = iRec158[0];
-			iRec161[1] = iRec161[0];
+			iRec159[1] = iRec159[0];
 			iRec160[1] = iRec160[0];
-			iRec163[1] = iRec163[0];
+			iRec161[1] = iRec161[0];
 			iRec162[1] = iRec162[0];
-			iRec165[1] = iRec165[0];
+			iRec163[1] = iRec163[0];
 			iRec164[1] = iRec164[0];
-			iRec167[1] = iRec167[0];
+			iRec165[1] = iRec165[0];
 			iRec166[1] = iRec166[0];
-			iRec169[1] = iRec169[0];
+			iRec167[1] = iRec167[0];
 			iRec168[1] = iRec168[0];
-			iRec171[1] = iRec171[0];
+			iRec169[1] = iRec169[0];
 			iRec170[1] = iRec170[0];
-			iRec173[1] = iRec173[0];
+			iRec171[1] = iRec171[0];
 			iRec172[1] = iRec172[0];
-			iRec175[1] = iRec175[0];
+			iRec173[1] = iRec173[0];
 			iRec174[1] = iRec174[0];
-			iRec177[1] = iRec177[0];
+			iRec175[1] = iRec175[0];
 			iRec176[1] = iRec176[0];
-			iRec179[1] = iRec179[0];
+			iRec177[1] = iRec177[0];
 			iRec178[1] = iRec178[0];
-			iRec181[1] = iRec181[0];
+			iRec179[1] = iRec179[0];
 			iRec180[1] = iRec180[0];
-			iRec183[1] = iRec183[0];
+			iRec181[1] = iRec181[0];
 			iRec182[1] = iRec182[0];
-			iRec185[1] = iRec185[0];
+			iRec183[1] = iRec183[0];
 			iRec184[1] = iRec184[0];
-			iRec187[1] = iRec187[0];
+			iRec185[1] = iRec185[0];
 			iRec186[1] = iRec186[0];
-			iRec189[1] = iRec189[0];
 			iRec188[1] = iRec188[0];
-			iRec191[1] = iRec191[0];
+			iRec187[1] = iRec187[0];
 			iRec190[1] = iRec190[0];
-			iRec193[1] = iRec193[0];
+			iRec189[1] = iRec189[0];
 			iRec192[1] = iRec192[0];
+			iRec191[1] = iRec191[0];
+			iRec194[1] = iRec194[0];
+			iRec193[1] = iRec193[0];
+			iRec195[1] = iRec195[0];
+			iRec196[1] = iRec196[0];
 			
 		}
 		
@@ -2013,586 +2133,22 @@ class granulator : public dsp {
 // clang-format on
 #endif
 
-// clang-format off
-#define faust_setup(name) xfaust_setup(name)
-#define xfaust_setup(name) name##_tilde_setup(void)
-// time for "active" toggle xfades in secs
-#define XFADE_TIME 0.1f
-static t_class* granulator_faust_class;
-#define FAUST_EXT t_faust_granulator
-#define FAUST_EXT_CLASS granulator_faust_class
-// clang-format on
-
-struct t_faust_granulator {
-    t_object x_obj;
-#ifdef __MINGW32__
-    /* This seems to be necessary as some as yet undetermined Pd routine seems
-     to write past the end of x_obj on Windows. */
-    int fence; /* dummy field (not used) */
-#endif
-    granulator* dsp;
-    PdUI<UI>* ui;
-    int active, xfade, n_xfade, rate, n_in, n_out;
-    t_sample **inputs, **outputs, **buf;
-    t_outlet* out;
-    t_sample f;
+    template <class T>
+    struct _fx_granulator_UI : public UI {
+    static std::string name;
 };
 
-static inline void zero_samples(int k, int n, t_sample** out)
-{
-    for (int i = 0; i < k; i++)
-#ifdef __STDC_IEC_559__
-        /* IEC 559 a.k.a. IEEE 754 floats can be initialized faster like this */
-        memset(out[i], 0, n * sizeof(t_sample));
-#else
-        for (int j = 0; j < n; j++)
-            out[i][j] = 0.0f;
-#endif
-}
+template <class T>
+std::string _fx_granulator_UI<T>::name(sym(fx_granulator));
 
-static inline void copy_samples(int k, int n, t_sample** out, t_sample** in)
-{
-    for (int i = 0; i < k; i++)
-        memcpy(out[i], in[i], n * sizeof(t_sample));
-}
+typedef _fx_granulator_UI<fx_granulator> fx_granulator_UI;
 
-static t_int* faust_perform(t_int* w)
-{
-    t_faust_granulator* x = reinterpret_cast<t_faust_granulator*>(w[1]);
-    int n = static_cast<int>(w[2]);
-    if (!x->dsp || !x->buf)
-        return (w + 3);
-
-    AVOIDDENORMALS;
-    if (x->xfade > 0) {
-        float d = 1.0f / x->n_xfade, f = (x->xfade--) * d;
-        d = d / n;
-        x->dsp->compute(n, x->inputs, x->buf);
-        if (x->active) {
-            if (x->n_in == x->n_out) {
-                /* xfade inputs -> buf */
-                for (int j = 0; j < n; j++, f -= d) {
-                    for (int i = 0; i < x->n_out; i++)
-                        x->outputs[i][j] = f * x->inputs[i][j] + (1.0f - f) * x->buf[i][j];
-                }
-            } else {
-                /* xfade 0 -> buf */
-                for (int j = 0; j < n; j++, f -= d) {
-                    for (int i = 0; i < x->n_out; i++)
-                        x->outputs[i][j] = (1.0f - f) * x->buf[i][j];
-                }
-            }
-        } else if (x->n_in == x->n_out) {
-            /* xfade buf -> inputs */
-            for (int j = 0; j < n; j++, f -= d) {
-                for (int i = 0; i < x->n_out; i++)
-                    x->outputs[i][j] = f * x->buf[i][j] + (1.0f - f) * x->inputs[i][j];
-            }
-        } else {
-            /* xfade buf -> 0 */
-            for (int j = 0; j < n; j++, f -= d) {
-                for (int i = 0; i < x->n_out; i++)
-                    x->outputs[i][j] = f * x->buf[i][j];
-            }
-        }
-    } else if (x->active) {
-        x->dsp->compute(n, x->inputs, x->buf);
-        copy_samples(x->n_out, n, x->outputs, x->buf);
-    } else if (x->n_in == x->n_out) {
-        copy_samples(x->n_out, n, x->buf, x->inputs);
-        copy_samples(x->n_out, n, x->outputs, x->buf);
-    } else
-        zero_samples(x->n_out, n, x->outputs);
-
-    return (w + 3);
-}
-
-static void granulator_faust_dsp(t_faust_granulator* x, t_signal** sp)
-{
-    const int n = sp[0]->s_n;
-    const int sr = static_cast<int>(sp[0]->s_sr);
-
-    if (x->rate <= 0) {
-        /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
-        std::vector<FAUSTFLOAT> z = ui->uiValues();
-        /* set the proper sample rate; this requires reinitializing the dsp */
-        x->rate = sr;
-        x->dsp->init(sr);
-        ui->setUIValues(z);
-    }
-    if (n > 0)
-        x->n_xfade = static_cast<int>(x->rate * XFADE_TIME / n);
-
-    dsp_add(faust_perform, 2, x, n);
-
-    for (int i = 0; i < x->n_in; i++)
-        x->inputs[i] = sp[i]->s_vec;
-
-    for (int i = 0; i < x->n_out; i++)
-        x->outputs[i] = sp[x->n_in + i]->s_vec;
-
-    if (x->buf != NULL) {
-        for (int i = 0; i < x->n_out; i++) {
-            x->buf[i] = static_cast<t_sample*>(malloc(n * sizeof(t_sample)));
-            if (x->buf[i] == NULL) {
-                for (int j = 0; j < i; j++)
-                    free(x->buf[j]);
-                free(x->buf);
-                x->buf = NULL;
-                break;
-            }
-        }
-    }
-}
-
-static void granulator_dump_to_console(t_faust_granulator* x)
-{
-    t_object* xobj = &x->x_obj;
-    t_class* xc = xobj->te_pd;
-    const char* name = class_getname(xc);
-
-    // print xlets
-    post("[%s] inlets: %i", name, x->dsp->getNumInputs());
-    int info_outlet = (x->out == 0) ? 0 : 1;
-    post("[%s] outlets: %i", name, x->dsp->getNumOutputs() + info_outlet);
-
-    // print properties
-    for (size_t i = 0; i < x->ui->uiCount(); i++) {
-        UIElement* el = x->ui->uiAt(i);
-        post("[%s] property: %s = %g", name, el->setPropertySym()->s_name, static_cast<double>(el->value()));
-    }
-}
-
-static void granulator_faust_any(t_faust_granulator* x, t_symbol* s, int argc, t_atom* argv)
-{
-    if (!x->dsp)
-        return;
-
-    PdUI<UI>* ui = x->ui;
-    if (s == &s_bang) {
-        ui->dumpUI(x->out);
-    } else if (isGetAllProperties(s)) {
-        ui->outputAllProperties(x->out);
-    } else if (isGetProperty(s)) {
-        ui->outputProperty(s, x->out);
-    } else if (isSetProperty(s)) {
-        ui->setProperty(s, argc, argv);
-    } else {
-        const char* label = s->s_name;
-        int count = 0;
-        for (size_t i = 0; i < ui->uiCount(); i++) {
-            if (ui->uiAt(i)->pathcmp(label)) {
-                if (argc == 0) {
-                    ui->uiAt(i)->outputValue(x->out);
-                    ++count;
-                } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT)) {
-                    float f = atom_getfloat(argv);
-                    UIElement* el = ui->uiAt(i);
-                    el->setValue(f);
-                    ++count;
-                } else
-                    pd_error(x, "[ceammc] %s: bad control argument: %s", ui->fullName().c_str(), label);
-            }
-        }
-
-        if (count == 0 && strcmp(label, "active") == 0) {
-            if (argc == 0) {
-                t_atom arg;
-                SETFLOAT(&arg, (float)x->active);
-                if (x->out) {
-                    outlet_anything(x->out, gensym("active"), 1, &arg);
-                }
-            } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT)) {
-                float f = atom_getfloat(argv);
-                x->active = (int)f;
-                x->xfade = x->n_xfade;
-            }
-        }
-    }
-}
-
-static void faust_free_dsp(t_faust_granulator* x)
-{
-    delete x->dsp;
-    x->dsp = NULL;
-}
-
-static void faust_free_ui(t_faust_granulator* x)
-{
-    delete x->ui;
-    x->ui = NULL;
-}
-
-static void faust_free_inputs(t_faust_granulator* x)
-{
-    if (x->inputs)
-        free(x->inputs);
-    x->inputs = NULL;
-}
-
-static void faust_free_outputs(t_faust_granulator* x)
-{
-    if (x->outputs)
-        free(x->outputs);
-    x->outputs = NULL;
-}
-
-static void faust_free_buf(t_faust_granulator* x)
-{
-    if (x->buf) {
-        for (int i = 0; i < x->n_out; i++) {
-            if (x->buf[i])
-                free(x->buf[i]);
-        }
-
-        free(x->buf);
-    }
-}
-
-static void granulator_faust_free(t_faust_granulator* x)
-{
-    faust_free_dsp(x);
-    faust_free_ui(x);
-    faust_free_inputs(x);
-    faust_free_outputs(x);
-    faust_free_buf(x);
-}
-
-static bool faust_init_inputs(t_faust_granulator* x)
-{
-    x->inputs = NULL;
-    x->n_in = x->dsp->getNumInputs();
-
-    if (x->n_in > 0) {
-        x->inputs = static_cast<t_sample**>(calloc(x->n_in, sizeof(t_sample*)));
-
-        if (x->inputs == NULL) {
-            error("[%s] faust_init_inputs failed", sym(granulator));
-            return false;
-        }
-    }
-
-    // creating sound inlets (except the first one!)
-    for (int i = 0; i < (x->n_in - 1); i++) {
-        inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_signal, &s_signal);
-    }
-
-    return true;
-}
-
-static bool faust_init_outputs(t_faust_granulator* x, bool info_outlet)
-{
-    x->outputs = NULL;
-    x->buf = NULL;
-
-    x->n_out = x->dsp->getNumOutputs();
-
-    if (x->n_out > 0) {
-        x->outputs = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
-        if (x->outputs == NULL) {
-            error("[%s] faust_init_outputs failed", sym(granulator));
-            return false;
-        }
-
-        x->buf = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
-        if (x->buf == NULL) {
-            error("[%s] faust_init_outputs failed", sym(granulator));
-            faust_free_outputs(x);
-            return false;
-        }
-
-        for (int i = 0; i < x->n_out; i++)
-            x->buf[i] = NULL;
-    }
-
-    // creating sound outlets
-    for (int i = 0; i < x->n_out; i++) {
-        outlet_new(&x->x_obj, &s_signal);
-    }
-
-    // control outlet
-    if (info_outlet)
-        x->out = outlet_new(&x->x_obj, 0);
-    else
-        x->out = 0;
-
-    return true;
-}
-
-static bool faust_new_internal(t_faust_granulator* x, const std::string& objId = "", bool info_outlet = true)
-{
-    int sr = 44100;
-    x->active = 1;
-    x->xfade = 0;
-    x->rate = sr;
-    x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
-
-    x->dsp = new granulator();
-    x->ui = new PdUI<UI>(sym(granulator), objId);
-
-    if (!faust_init_inputs(x)) {
-        granulator_faust_free(x);
-        return false;
-    }
-
-    if (!faust_init_outputs(x, info_outlet)) {
-        granulator_faust_free(x);
-        return false;
-    }
-
-    x->dsp->init(sr);
-    x->dsp->buildUserInterface(x->ui);
-
-    return true;
-}
-
-/**
- * find nth element that satisfies given predicate
- * @param first - first element of sequence
- * @param last - pointer behind last element of sequence
- * @param Nth - searched element index
- * @param pred - predicate
- * @return pointer to found element or pointer to last, if not found
- */
-template <class InputIterator, class NthOccurence, class UnaryPredicate>
-InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
-{
-    if (Nth > 0) {
-        while (first != last) {
-            if (pred(*first))
-                if (!--Nth)
-                    return first;
-            ++first;
-        }
-    }
-    return last;
-}
-
-/**
- * @return true if given atom is a float
- */
-static bool atom_is_float(const t_atom& a)
-{
-    switch (a.a_type) {
-    case A_FLOAT:
-    case A_DEFFLOAT:
-        return true;
-    default:
-        return false;
-    }
-}
-
-/**
- * @return true if given atom is a symbol
- */
-static bool atom_is_symbol(const t_atom& a)
-{
-    switch (a.a_type) {
-    case A_DEFSYMBOL:
-    case A_SYMBOL:
-        return true;
-    default:
-        return false;
-    }
-}
-
-/**
- * @return true if given atom is a property
- */
-static bool atom_is_property(const t_atom& a)
-{
-    switch (a.a_type) {
-    case A_DEFSYMBOL:
-    case A_SYMBOL:
-        return a.a_w.w_symbol->s_name[0] == '@';
-    default:
-        return false;
-    }
-}
-
-/**
- * @brief find nth float in argument list. (arguments can be mixed)
- * @param argc argument count
- * @param argv pointer to argument vector
- * @param nth find position. nth should be > 0!
- * @param dest destination to write value
- * @return true if argument at given position was found, otherwise false
- */
-static bool get_nth_float_arg(int argc, t_atom* argv, int nth, t_float* dest)
-{
-    t_atom* last = argv + argc;
-    t_atom* res = find_nth_if(argv, last, nth, atom_is_float);
-    if (last == res)
-        return false;
-
-    *dest = atom_getfloat(res);
-    return true;
-}
-
-/**
- * @brief find nth symbol in argument list. (arguments can be mixed)
- * @param argc argument count
- * @param argv pointer to argument vector
- * @param nth find position. nth should be > 0!
- * @param dest destination to write found argument value
- * @return true if argument at given position was found, otherwise false
- */
-static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** dest)
-{
-    t_atom* last = argv + argc;
-    t_atom* res = find_nth_if(argv, last, nth, atom_is_symbol);
-    if (last == res)
-        return false;
-
-    t_symbol* s = atom_getsymbol(res);
-    *dest = s->s_name;
-    return true;
-}
-
-class PdArgParser {
-    t_faust_granulator* x_;
-    int argc_;
-    t_atom* argv_;
-    bool control_outlet_;
-
+class faust_fx_granulator_tilde : public FaustExternal<fx_granulator, fx_granulator_UI> {
 public:
-    /**
-     * @brief FaustArgParser
-     * @param x pointer to faust class
-     * @param argc arguments count
-     * @param argv pointer to argument vector
-     */
-    PdArgParser(t_faust_granulator* x, int argc, t_atom* argv, bool info_outlet = true)
-        : x_(x)
-        , argc_(0)
-        , argv_(argv)
-        , control_outlet_(info_outlet)
+    faust_fx_granulator_tilde(const ceammc::PdArgs& args)
+        : FaustExternal(args)
     {
-        const char* id = NULL;
-        std::string objId;
-
-        int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
-                first_prop_idx = i;
-        }
-
-        // store argument count (without properties)
-        argc_ = first_prop_idx;
-
-        if (get_nth_symbol_arg(argc_, argv_, 1, &id))
-            objId = id;
-
-        // init error
-        if (!faust_new_internal(x, objId, control_outlet_)) {
-            this->x_ = NULL;
-        }
-
-        // process properties
-        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc, argv).properties();
-        for (size_t i = 0; i < props.size(); i++) {
-            ceammc::AtomList& p = props[i];
-            // skip empty property
-            if (p.size() < 2)
-                continue;
-
-            t_atom* data = p.toPdData() + 1;
-            this->x_->ui->setProperty(p[0].asSymbol(), p.size() - 1, data);
-        }
-    }
-
-    /**
-     * @brief initFloatArg
-     * @param name argument name
-     * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
-     * to select first argument - pass 1.
-     */
-    void initFloatArg(const char* name, int pos)
-    {
-        // object was not created
-        if (!this->x_)
-            return;
-
-        t_float v = 0.0;
-        if (get_nth_float_arg(this->argc_, this->argv_, pos, &v)) {
-            UIElement* el = this->x_->ui->findElementByLabel(name);
-            if (!el) {
-                post("invalid UI element name: %s", name);
-                return;
-            }
-
-            el->setValue(v, true);
-        }
-    }
-
-    /**
-     * @brief send creation argument to first signal inlet
-     * @param name argument name
-     * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
-     * to select first argument - pass 1.
-     */
-    void signalFloatArg(const char* /*name*/, int pos)
-    {
-        // object was not created
-        if (!this->x_)
-            return;
-
-        t_float arg = 0;
-        if (get_nth_float_arg(this->argc_, this->argv_, pos, &arg))
-            pd_float(reinterpret_cast<t_pd*>(this->x_), arg);
-    }
-
-    t_faust_granulator* pd_obj()
-    {
-        return this->x_;
     }
 };
-
-static void* granulator_faust_new(t_symbol* s, int argc, t_atom* argv);
-
-static void internal_setup(t_symbol* s, bool soundIn = true)
-{
-    granulator_faust_class = class_new(s, reinterpret_cast<t_newmethod>(granulator_faust_new),
-        reinterpret_cast<t_method>(granulator_faust_free),
-        sizeof(t_faust_granulator),
-        CLASS_DEFAULT,
-        A_GIMME, A_NULL);
-
-    if (soundIn) {
-        class_addmethod(granulator_faust_class, nullfn, &s_signal, A_NULL);
-        CLASS_MAINSIGNALIN(granulator_faust_class, t_faust_granulator, f);
-    }
-
-    class_addmethod(granulator_faust_class, reinterpret_cast<t_method>(granulator_faust_dsp), gensym("dsp"), A_NULL);
-    class_addmethod(granulator_faust_class, reinterpret_cast<t_method>(granulator_dump_to_console), gensym("dump"), A_NULL);
-    class_addanything(granulator_faust_class, granulator_faust_any);
-}
-
-#define EXTERNAL_NEW void* granulator_faust_new(t_symbol*, int argc, t_atom* argv)
-
-#define EXTERNAL_SIMPLE_NEW()                                                           \
-    static void* granulator_faust_new(t_symbol*, int argc, t_atom* argv)                     \
-    {                                                                                   \
-        t_faust_granulator* x = reinterpret_cast<t_faust_granulator*>(pd_new(granulator_faust_class)); \
-        PdArgParser p(x, argc, argv, false);                                            \
-        return p.pd_obj();                                                              \
-    }
-
-#define EXTERNAL_SETUP(MOD)                        \
-    extern "C" void setup_##MOD##0x2egranulator_tilde() \
-    {                                              \
-        internal_setup(gensym(#MOD ".granulator~"));    \
-    }
-
-#define EXTERNAL_SETUP_NO_IN(MOD)                      \
-    extern "C" void setup_##MOD##0x2egranulator_tilde()     \
-    {                                                  \
-        internal_setup(gensym(#MOD ".granulator~"), false); \
-    }
-
-#define SIMPLE_EXTERNAL(MOD) \
-    EXTERNAL_SIMPLE_NEW();   \
-    EXTERNAL_SETUP(MOD);
 
 #endif

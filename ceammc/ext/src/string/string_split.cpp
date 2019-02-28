@@ -33,6 +33,7 @@ StringSplit::StringSplit(const PdArgs& a)
     createOutlet();
 
     createCbProperty("@sep", &StringSplit::propGetSeparator, &StringSplit::propSetSeparator);
+    property("@sep")->info().setType(PropertyInfoType::VARIANT);
     parseArgs();
 }
 

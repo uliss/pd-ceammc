@@ -1,23 +1,25 @@
-#N canvas 0 0 715 500 12;
+#N canvas 0 0 760 555 12;
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 116 system.cursor;
-#X text 175 116 Get information about cursor motion \, mousewheel and
+#X text 200 116 Get information about cursor motion \, mousewheel and
 buttonclick;
 #X obj 30 153 system.getenv;
-#X text 175 153 Get system environment variables;
+#X text 200 153 Get system environment variables;
 #X obj 30 180 system.hostname;
-#X text 175 180 outputs system hostname;
+#X text 200 180 outputs system hostname;
 #X obj 30 207 system.memsize;
-#X text 175 207 returns the size of physical memory (RAM) in bytes
+#X text 200 207 returns the size of physical memory (RAM) in bytes
 round to float data type.;
 #X obj 30 244 system.memused;
-#X text 175 244 returns the process physical memory use - current and
+#X text 200 244 returns the process physical memory use - current and
 peak;
 #X obj 30 271 system.screen_size;
-#X text 175 271 returns current screen size in pixels;
-#X obj 1 1 cnv 5 712 40 empty empty ceammc::system 20 20 0 20 -104026
+#X text 200 271 returns current screen size in pixels;
+#X obj 30 298 system.shell;
+#X text 200 298 run external command in separate process;
+#X obj 1 1 cnv 5 740 40 empty empty ceammc::system 20 20 0 20 -104026
 -4096 0;
-#X obj 1 458 cnv 5 712 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 468 library: ceammc;
+#X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 523 library: ceammc;

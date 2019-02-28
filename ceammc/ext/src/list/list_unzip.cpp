@@ -7,7 +7,7 @@
 //
 
 #include "list_unzip.h"
-#include "../data/datatype_mlist.h"
+#include "datatype_mlist.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
@@ -70,8 +70,8 @@ void ListUnzip::initOutlets()
 
 void ListUnzip::initProperties()
 {
-    method_ = new SymbolEnumProperty("@method", "min");
-    method_->appendEnum("pad");
+    method_ = new SymbolEnumProperty("@method", SYM_MIN);
+    method_->appendEnum(SYM_PAD);
     createProperty(method_);
     createProperty(new SymbolEnumAlias("@min", method_, SYM_MIN));
     createCbProperty("@pad", &ListUnzip::getPadValue, &ListUnzip::setPadValue);

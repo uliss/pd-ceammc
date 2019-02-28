@@ -1,10 +1,27 @@
 #include "fx_zita_rev1.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
+using namespace ceammc;
+
+static t_symbol* SYM_PROP_DECAY_LOW = gensym("@decay_low");
+static t_symbol* SYM_PROP_DECAY_MID = gensym("@decay_mid");
+
+class FxZitaRev1 : public faust_fx_zita_rev1_tilde {
+public:
+    FxZitaRev1(const PdArgs& args)
+        : faust_fx_zita_rev1_tilde(args)
+    {
+        bindPositionalArgsToProps({ SYM_PROP_DECAY_LOW, SYM_PROP_DECAY_MID });
+    }
+
+    void m_reset(t_symbol*, const AtomList&)
+    {
+        dsp_->instanceClear();
+    }
+};
+
+void setup_fx_zita_rev1_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-    PdArgParser p(x, argc, argv);
-    return p.pd_obj();
+    SoundExternalFactory<FxZitaRev1> obj("fx.zita_rev1~");
+    obj.addMethod("reset", &FxZitaRev1::m_reset);
 }
-
-EXTERNAL_SETUP(fx);

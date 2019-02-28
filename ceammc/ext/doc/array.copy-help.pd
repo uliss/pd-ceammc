@@ -1,10 +1,10 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 387 50 cnv 1 308 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 387 50 copy samples from one array to another;
-#X obj 1 1 cnv 5 712 40 empty empty array.copy 20 20 0 20 -104026
+#X obj 457 50 cnv 1 308 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 457 50 copy samples from one array to another;
+#X obj 1 1 cnv 5 765 40 empty empty array.copy 20 20 0 20 -104026
 -4096 0;
-#X obj 614 11 array.copy;
+#X obj 667 11 array.copy;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array A1 100 float 0;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -27,13 +27,13 @@
 #X obj 50 349 loadbang;
 #X msg 50 378 sinesum 100 0.5 0.2 0 0.1 0.4;
 #X obj 50 406 s A1;
-#X obj 20 445 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 445 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 450 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 455 @resize;
 #X text 240 455 Get/Set resize of destination array on overflow. Type:
 int. Default value: 0\. Allowed values: 1 \, 0;
-#X obj 20 502 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 502 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 507 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 512 copy;
@@ -75,13 +75,13 @@ specified destination position. Arguments are:;
 #X text 250 988 DEST: name of destination array. Type: symbol.;
 #X obj 250 1016 cnv 1 77 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 1016 DEST_FROM: destination start position. Type: int.;
-#X obj 20 1054 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1054 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1059 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1064 1\.;
 #X text 150 1064 *list*;
 #X text 240 1064 FROM \, TO - copy data from one array to another.;
-#X obj 20 1092 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1092 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1097 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1102 1\.;
@@ -91,16 +91,16 @@ specified destination position. Arguments are:;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 1150 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1153 library: ceammc v0.6;
-#X text 542 1165 see also:;
-#X obj 618 1165 array.each;
+#X obj 1 1150 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1153 library: ceammc v0.7;
+#X text 612 1165 see also:;
+#X obj 688 1165 array.each;
 #N canvas 10 1172 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 array.copy;
 #X text 10 76 category:;

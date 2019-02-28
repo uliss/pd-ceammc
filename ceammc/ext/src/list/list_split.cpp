@@ -1,5 +1,5 @@
 #include "list_split.h"
-#include "../data/datatype_mlist.h"
+#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 
 ListSplit::ListSplit(const ceammc::PdArgs& args)

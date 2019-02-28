@@ -1,0 +1,10 @@
+#N canvas 0 0 183 187 12;
+#X declare -lib matrix;
+#X obj 20 48 declare -lib matrix;
+#X msg 20 92 2 3;
+#X obj 20 120 matrix.randu;
+#X obj 20 149 matrix.max;
+#X floatatom 20 178 8 0 0 0 - - -;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;

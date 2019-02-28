@@ -4,6 +4,7 @@ include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${CMAKE_BINARY_DIR}) # for config.h
 include(tests.cmake)
 add_definitions("-DTEST_DATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}\"")
+add_definitions("-DTEST_BIN_DIR=\"${CMAKE_CURRENT_BINARY_DIR}\"")
 #remove_definitions(-DPD_INTERNAL)
 
 add_library(tests_main_lib STATIC tests_main.cpp test_external test_datatypes.cpp
@@ -34,7 +35,7 @@ ceammc_add_test("ceammc::SoundExternal" test_sound_external)
 ceammc_add_test("ceammc::Factory" test_factory)
 ceammc_add_test("ceammc::list" test_fn_list)
 ceammc_add_test("ceammc::list2" test_fn_list2)
-ceammc_add_test("ceammc::vector" test_fn_vector)
+ceammc_add_test("ceammc::log" test_log)
 ceammc_add_test("ceammc::faust" test_faust)
 ceammc_add_test("ceammc::music_theory" test_music_theory)
 ceammc_add_test("ceammc::music_theory_alteration" test_music_theory_alteration)
@@ -48,6 +49,9 @@ ceammc_add_test("ceammc::signal" test_signal)
 ceammc_add_test("ceammc::string" test_string)
 ceammc_add_test("ceammc::window" test_window)
 ceammc_add_test("ceammc::proxy" test_proxy)
+ceammc_add_test("ceammc::units" test_units)
+ceammc_add_test("class_wrapper::tuple" test_wrapper_tuple)
+ceammc_add_test("class_wrapper::fn_traits" test_wrapper_fn_traits)
 
 ceammc_external_test(array bpm)
 ceammc_external_test(array copy)
@@ -59,16 +63,20 @@ ceammc_external_test(array p2s)
 ceammc_external_test(array s2p)
 ceammc_external_test(array stretch)
 ceammc_external_test(array vplay)
+ceammc_external_test(array window)
 
 ceammc_external_test(base function)
 ceammc_external_test(base gain)
 ceammc_external_test(base matrix)
 ceammc_external_test(base mix)
+ceammc_external_test(base obj_props)
+ceammc_external_test(base prop_declare)
+ceammc_external_test(base prop_get)
 ceammc_external_test(base radio)
 ceammc_external_test(base xfade)
 ceammc_external_test(base xfade2)
 
-ceammc_add_test("[canvas.args]" test_ext_canvas_args)
+ceammc_add_test("[patch.args]" test_ext_patch_args)
 ceammc_add_test("[canvas.current]" test_ext_canvas_current)
 ceammc_add_test("[canvas.top]" test_ext_canvas_top)
 ceammc_add_test("[metro.pattern]" test_ext_metro_pattern)
@@ -78,6 +86,9 @@ ceammc_external_test(env env)
 ceammc_external_test(env to_vline)
 ceammc_external_test(env tscale)
 ceammc_external_test(env tshift)
+ceammc_external_test(env ar)
+ceammc_external_test(env adsr)
+ceammc_external_test(env asr)
 
 ceammc_external_test(flow count)
 ceammc_external_test(flow gate)
@@ -96,6 +107,8 @@ ceammc_external_test(flow route)
 ceammc_external_test(flow split)
 ceammc_external_test(flow speedlim)
 
+ceammc_external_test(flt median)
+
 ceammc_external_test(fx looper)
 
 ceammc_external_test(conv amp2dbfs)
@@ -103,10 +116,16 @@ ceammc_external_test(conv cc2amp)
 ceammc_external_test(conv dbfs2amp)
 ceammc_external_test(conv lin2exp)
 ceammc_external_test(conv lin2lin)
+ceammc_external_test(conv list2props)
 
 ceammc_external_test(data dict)
 ceammc_external_test(data dict_contains)
+ceammc_external_test(data dict_each)
+ceammc_external_test(data dict_from_list)
 ceammc_external_test(data dict_get)
+ceammc_external_test(data dict_pass)
+ceammc_external_test(data dict_reject)
+ceammc_external_test(data dict_to_list)
 ceammc_external_test(data global_list)
 ceammc_external_test(data global_mlist)
 ceammc_external_test(data global_set)
@@ -186,6 +205,8 @@ ceammc_external_test(math lcm)
 ceammc_external_test(math mul)
 ceammc_external_test(math or)
 ceammc_external_test(math polyeval)
+ceammc_external_test(math cdiv_tilde)
+ceammc_external_test(math cmul_tilde)
 ceammc_external_test(math round_tilde)
 
 ceammc_external_test(midi file)
@@ -194,6 +215,8 @@ ceammc_external_test(midi track)
 ceammc_external_test(midi ctl_to_str)
 ceammc_external_test(midi key_to_str)
 ceammc_external_test(midi prg_to_str)
+
+ceammc_external_test(net host)
 
 ceammc_external_test(random discrete)
 ceammc_external_test(random linear)
@@ -212,12 +235,20 @@ ceammc_external_test(string ends_with)
 ceammc_external_test(string starts_with)
 ceammc_external_test(string length)
 
+ceammc_external_test(system getenv)
+ceammc_external_test(system shell)
+
 ceammc_external_test(path lsdir)
 
 ceammc_external_test(spat pan_lin)
 ceammc_external_test(spat pan_sqrt)
 ceammc_external_test(spat pan_cos)
 ceammc_external_test(spat pan_spread)
+
+ceammc_add_test_linked(TITLE "tl.transport"
+    NAME test_ext_tl_transport
+    LINK ceammc_tl ceammc_ui ceammc_core puredata-core ceammc_core)
+ceammc_external_test(tl timeline)
 
 ceammc_add_extension_test("snd_file" "../src/base/snd_file.cpp")
 ceammc_add_extension_test("ext_replace" "../src/base/replace.cpp")
@@ -229,8 +260,8 @@ ceammc_add_extension_test("list_walk2" "../src/list/list_walk.cpp")
 ceammc_add_extension_test("ext_list_seq" "../src/list/list_seq.cpp")
 ceammc_add_extension_test("ext_symbol_equal" "../src/symbol/symbol_equal.cpp")
 ceammc_add_extension_test("ext_symbol_num_compare" "../src/symbol/symbol_num_compare.cpp")
-ceammc_add_extension_test("ext_system_getenv" "../src/system/system_getenv.cpp")
 
+ceammc_add_test_linked(TITLE "tl::parser" NAME test_tl_parser LINK ceammc_tl)
 ceammc_add_test_linked(TITLE "ceammc::preset" NAME test_preset LINK ceammc_preset ceammc_core puredata-core ceammc_core)
 ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../src/base/debug_gensym.cpp" LINK ceammc_core puredata-core)
 ceammc_add_test_linked(TITLE "ceammc::DataString"
@@ -267,6 +298,11 @@ ceammc_add_test_linked(TITLE "ceammc::DataTypeDict"
     NAME test_datatype_dict
     SRC test_datatype_dict.cpp
     LINK ceammc_data ceammc_core puredata-core)
+
+ceammc_add_test_linked(TITLE "ceammc::DataTypeProperty"
+    NAME test_datatype_property
+    SRC test_datatype_property.cpp
+    LINK ceammc_base ceammc_core puredata-core)
 
 if(WITH_LIBSNDFILE)
     include(FindLibSndFile)
@@ -350,6 +386,12 @@ ceammc_add_test_linked(TITLE "[env->to_array]"
 ceammc_add_test_linked(TITLE "[speech.flite]"
     NAME test_ext_misc_speech_flite
     LINK ceammc_core ceammc_misc ceammc_string puredata-core ${FLUIDSYNTH_LIBRARIES})
+
+ceammc_add_test_linked(TITLE "class_wrapper::class" NAME test_wrapper_class LINK wrapper_lib)
+ceammc_add_test_linked(TITLE "class_wrapper::method" NAME test_wrapper_method LINK wrapper_lib)
+ceammc_add_test_linked(TITLE "class_wrapper::static_method" NAME test_wrapper_static_method LINK wrapper_lib)
+
+add_executable(test_exec test_exec.cpp)
 
 
 add_custom_target(test_src SOURCES gen_test_wav.py)

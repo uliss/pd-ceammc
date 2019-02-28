@@ -1,4 +1,9 @@
 #include "synth_church_bell.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_SIMPLE_NEW();
-EXTERNAL_SETUP_NO_IN(synth);
+using namespace ceammc;
+
+void setup_synth_church_bell_tilde()
+{
+    SoundExternalFactory<faust_synth_church_bell_tilde> obj("synth.church_bell~", OBJECT_FACTORY_DEFAULT);
+}

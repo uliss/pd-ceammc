@@ -17,24 +17,19 @@
                 <see>dyn.comp~</see>
             </also>
         </meta>
-        <methods>
-            <method name="ratio">
-                <param type="float">compression ratio (1 = no compression, &gt;1 means
-                compression)</param>
-            </method>
-            <method name="threshold">
-                <param type="float" units="decibel">level threshold above which compression kicks
-                in (100 dB = max level)</param>
-            </method>
-            <method name="attack">
-                <param type="float" units="millisecond">time constant when level &amp; compression
-                going up</param>
-            </method>
-            <method name="release">
-                <param type="float" units="millisecond">release time = time constant coming out of
-                compression</param>
-            </method>
-        </methods>
+        <properties>
+            <property name="@ratio" type="float" default="1" minvalue="1" maxvalue="10">compression
+            ratio (1 = no compression, &gt;1 means compression)</property>
+            <property name="@threshold" type="float" units="decibel" default="100" minvalue="0"
+            maxvalue="100">level threshold above which compression kicks in (100 dB = max
+            level)</property>
+            <property name="@attack" type="float" units="millisecond" default="10" minvalue="1"
+            maxvalue="100">time constant when level &amp; compression going up</property>
+            <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
+            maxvalue="500">release time = time constant coming out of compression</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
         <arguments>
             <argument name="ratio" type="float" minvalue="1">compression ratio (1 = no compression,
             &gt;1 means compression)</argument>

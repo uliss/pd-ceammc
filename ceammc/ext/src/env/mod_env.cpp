@@ -9,27 +9,26 @@
 #include "env_vscale.h"
 #include "vline_to_env.h"
 
-extern "C" void setup_env0x2eadsr_tilde();
-extern "C" void setup_env0x2easr_tilde();
-extern "C" void setup_env0x2ear_tilde();
-extern "C" void setup_env0x2efollow_tilde();
-extern "C" void setup_env0x2esmooth_tilde();
+extern void setup_env_adsr_tilde();
+extern void setup_env_ar_tilde();
+extern void setup_env_asr_tilde();
+extern void setup_env_follow_tilde();
+extern void setup_env_smooth_tilde();
 
 void ceammc_env_setup()
 {
-    setup_env0x2eadsr_tilde();
-    setup_env0x2easr_tilde();
-    setup_env0x2ear_tilde();
-    setup_env0x2efollow_tilde();
-    setup_env0x2esmooth_tilde();
-    setup_envelope();
-    setup_env_to_vline();
+    setup_env_adsr_tilde();
+    setup_env_ar_tilde();
+    setup_env_asr_tilde();
+    setup_env_concat();
+    setup_env_follow_tilde();
+    setup_env_mix();
+    setup_env_smooth_tilde();
     setup_env_to_array();
+    setup_env_to_vline();
     setup_env_tscale();
     setup_env_tshift();
-    setup_env_mix();
     setup_env_vscale();
-    setup_env_concat();
-
+    setup_envelope();
     setup_vline_to_env();
 }

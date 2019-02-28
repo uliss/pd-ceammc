@@ -1,12 +1,12 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 318 50 cnv 1 377 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 318 50 map linear to exponential range with 0 allowed.;
-#X obj 1 1 cnv 5 712 40 empty empty conv.lin2curve 20 20 0 20 -104026
+#X obj 388 50 cnv 1 377 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 388 50 map linear to exponential range with 0 allowed.;
+#X obj 1 1 cnv 5 765 40 empty empty conv.lin2curve 20 20 0 20 -104026
 -4096 0;
-#X obj 489 11 lin->curve;
-#X obj 586 11 conv.lin2curve;
-#X obj 205 80 cnv 1 490 89 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 542 11 lin->curve;
+#X obj 639 11 conv.lin2curve;
+#X obj 205 80 cnv 1 560 89 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 map the receiver from an assumed linear input range to
 an exponential curve output range. Unlike with [conv.lin2exp] \, the
 output range may include zero. If the input exceeds the input range \,
@@ -52,7 +52,7 @@ the following behaviours are specified by the clip property.;
 #X obj 50 284 list.unpack;
 #X obj 50 327 lin->curve 0 1001 0 1;
 #X obj 50 356 tabwrite array1;
-#X obj 20 395 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 400 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 405 1\.;
@@ -75,7 +75,7 @@ the following behaviours are specified by the clip property.;
 #X text 150 477 float;
 #X obj 241 478 cnv 1 48 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 477 CURVE: curve shape.;
-#X obj 20 505 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 510 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 515 @in_from;
@@ -105,13 +105,13 @@ Allowed values: noclip \, min \, max \, minmax;
 #X text 240 775 Get/Set alias to @clip max. Type: symbol;
 #X msg 120 802 @minmax;
 #X text 240 802 Get/Set alias to @clip minmax. Type: symbol;
-#X obj 20 839 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 839 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 844 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 849 1\.;
 #X text 150 849 *float*;
-#X text 240 849 intput value.;
-#X obj 20 877 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 240 849 input value.;
+#X obj 20 877 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 882 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 887 1\.;
@@ -121,16 +121,16 @@ Allowed values: noclip \, min \, max \, minmax;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 935 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 938 library: ceammc v0.6;
-#X text 527 950 see also:;
-#X obj 603 950 conv.lin2exp;
+#X obj 1 935 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 938 library: ceammc v0.7;
+#X text 597 950 see also:;
+#X obj 673 950 conv.lin2exp;
 #N canvas 10 957 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 conv.lin2curve;
 #X text 10 76 category:;

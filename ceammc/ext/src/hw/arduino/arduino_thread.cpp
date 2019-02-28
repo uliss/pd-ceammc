@@ -11,10 +11,12 @@
 #include <pthread.h>
 
 #include <cassert>
+#include <chrono>
 #include <cstdio>
 #include <iostream>
 #include <stdexcept>
 #include <stdint.h>
+#include <thread>
 
 using namespace ceammc::platform;
 
@@ -22,7 +24,7 @@ namespace ceammc {
 namespace hw {
 
     static const int DEFAULT_TIMEOUT = 10;
-    static const int RECONNECT_TIME_MS = 1000;
+    static std::chrono::milliseconds RECONNECT_TIME_MS(1000);
 
     struct usb_info {
         int vid;
@@ -157,7 +159,7 @@ namespace hw {
             if (!arduino->reconnect())
                 break;
 
-            sleep_ms(RECONNECT_TIME_MS);
+            std::this_thread::sleep_for(RECONNECT_TIME_MS);
             arduino->pushDebug("waiting for Arduino: " + descr);
             dev = pred(lsfn());
         }
@@ -306,7 +308,7 @@ namespace hw {
 
                     if (arduino->reconnect()) {
                         std::cerr << "[arduino_thread] reconnecting...\n";
-                        sleep_ms(RECONNECT_TIME_MS);
+                        std::this_thread::sleep_for(RECONNECT_TIME_MS);
                         // try again
                         continue;
                     } else
@@ -338,7 +340,7 @@ namespace hw {
                     // reconnect on error
                     if (arduino->reconnect()) {
                         std::cerr << "[arduino_thread] reconnecting...\n";
-                        sleep_ms(RECONNECT_TIME_MS);
+                        std::this_thread::sleep_for(RECONNECT_TIME_MS);
                         continue;
                     } else
                         return 0;

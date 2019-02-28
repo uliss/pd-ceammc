@@ -9,7 +9,10 @@ using namespace ceammc;
 class MetroPattern : public BaseObject {
     ClockMemberFunction<MetroPattern> clock_;
     AtomList pattern_;
+    AtomList new_pattern_;
     SizeTProperty* current_;
+    BoolProperty* sync_;
+    bool sync_update_;
 
 public:
     MetroPattern(const PdArgs& args);
@@ -21,7 +24,11 @@ public:
 public:
     void tick();
     t_float currentDelay() const;
+    size_t currentIndex() const;
     bool next();
+
+private:
+    void output(bool on_start);
 };
 
 void setup_metro_pattern();

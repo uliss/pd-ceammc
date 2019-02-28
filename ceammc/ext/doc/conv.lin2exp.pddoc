@@ -27,7 +27,7 @@
         <properties>
             <property name="@in_from" type="float" default="0">begin of input range</property>
             <property name="@in_to" type="float" default="127">end of input range</property>
-            <property name="@out_from" type="float" default="0">begin of output range</property>
+            <property name="@out_from" type="float" default="0.01">begin of output range</property>
             <property name="@out_to" type="float" default="1">end of output range</property>
             <property name="@clip" type="symbol" default="minmax" enum="noclip min max minmax">
             noclip (don't clip) max (clip ceiling) min (clip floor) minmax (clip both).</property>
@@ -44,7 +44,7 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="float">intput value</xinfo>
+                <xinfo on="float">input value</xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -1,72 +1,81 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 348 50 cnv 1 347 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 348 50 simple pitch shifter based on 2 delay lines;
-#X obj 1 1 cnv 5 712 40 empty empty fx.pitchshift~ 20 20 0 20 -104026
+#X obj 418 50 cnv 1 347 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 418 50 simple pitch shifter based on 2 delay lines;
+#X obj 1 1 cnv 5 765 40 empty empty fx.pitchshift~ 20 20 0 20 -104026
 -4096 0;
-#X obj 585 11 fx.pitchshift~;
-#X floatatom 50 118 5 0 0 0 - - -;
-#X obj 50 147 phasor~ 300;
-#X obj 184 147 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X floatatom 242 147 5 0 0 0 - - -;
-#X text 299 147 transposition;
-#X obj 50 176 fx.pitchshift~ 200 100 id;
-#X obj 50 205 dac~;
-#X obj 242 205 print;
-#X obj 20 244 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 249 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 638 11 fx.pitchshift~;
+#X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
+#X obj 50 147 expand_env;
+#X obj 203 147 ui.knob @size 40 40;
+#X obj 328 147 ui.knob @size 40 40;
+#X obj 434 176 ui.knob @size 40 40;
+#X obj 50 205 readsf~;
+#X obj 203 205 * 2000;
+#X obj 328 205 * 1000;
+#X msg 203 234 @window \$1;
+#X msg 328 234 @fade \$1;
+#X msg 434 234 @drywet \$1;
+#X floatatom 558 234 5 0 0 0 - - -;
+#X obj 50 277 fx.pitchshift~ -12 @drywet 0.5;
+#X obj 50 305 ui.gain~ @size 120 14;
+#X obj 280 305 ui.dsp~;
+#X obj 50 334 dac~;
+#X obj 20 373 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 378 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 254 1\.;
-#X text 150 254 float;
-#X obj 241 255 cnv 1 89 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 254 window(ms): the window size. Range: 10\...2000;
-#X text 120 272 2\.;
-#X text 150 272 float;
-#X obj 241 273 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 272 fade(ms): crossfade duration. Range: 0\...1000;
-#X text 120 290 3\.;
-#X text 150 290 symbol;
-#X obj 241 291 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 290 ID: object ID for OSC control path.;
-#X obj 20 318 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 323 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X text 120 383 1\.;
+#X text 150 383 float;
+#X obj 241 384 cnv 1 48 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 383 PITCH: pitch shift in semitones. Range: -38\...60;
+#X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 416 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 328 window;
-#X text 240 328 Arguments are:;
-#X obj 250 356 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 356 MS: the window size. Type: float. Range: 10\...2000;
-#X msg 120 384 fade;
-#X text 240 384 Arguments are:;
-#X obj 250 412 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 412 MS: crossfade duration. Type: float. Range: 0\...1000;
-#X obj 20 450 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 455 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 120 421 @pitch;
+#X text 240 421 Get/Set pitchshift in semitones. Type: float. Default
+value: 0\. Value range: -38-60;
+#X msg 120 458 @window;
+#X text 240 458 Get/Set the window size. Type: float. Units: ms.
+Default value: 200\. Value range: 10-2000;
+#X msg 120 495 @fade;
+#X text 240 495 Get/Set crossfade duration. Type: float. Units: ms.
+Default value: 100\. Value range: 0-1000;
+#X msg 120 532 @drywet;
+#X text 240 532 Get/Set proportion of mix between the original (dry)
+and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
+Default value: 1\. Value range: 0-1;
+#X msg 120 583 @bypass;
+#X text 240 583 Get/Set if set to 1 - bypass 'effected' signal. Type:
+int. Default value: 0\. Allowed values: 0 \, 1;
+#X msg 120 620 @active;
+#X text 240 620 Get/Set on/off dsp processing. Type: int. Default
+value: 1\. Allowed values: 0 \, 1;
+#X obj 20 667 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 672 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 460 1\.;
-#X text 240 460 input signal.;
-#X text 120 478 2\.;
-#X text 240 478 pitch shift in semitones. Range: -38\...60;
-#X obj 20 506 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 511 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 120 677 1\.;
+#X text 240 677 input signal.;
+#X text 120 695 2\.;
+#X text 150 695 *float*;
+#X text 240 695 pitch shift in semitones. Range: -38\...60;
+#X obj 20 723 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 728 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 516 1\.;
-#X text 240 516 output signal;
-#X text 120 534 2\.;
-#X text 240 534 information output;
+#X text 120 733 1\.;
+#X text 240 733 output signal;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 582 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 585 library: ceammc v0.6;
-#N canvas 10 604 400 290 info 0;
+#X obj 1 781 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 784 library: ceammc v0.7;
+#N canvas 10 803 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 fx.pitchshift~;
 #X text 10 76 category:;
@@ -85,11 +94,19 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 604 pd info;
+#X restore 10 803 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 9 0;
-#X connect 6 0 9 0;
-#X connect 7 0 9 1;
-#X connect 9 0 10 0;
-#X connect 9 0 10 1;
-#X connect 9 1 11 0;
+#X connect 6 0 10 0;
+#X connect 7 0 11 0;
+#X connect 10 0 12 0;
+#X connect 11 0 13 0;
+#X connect 8 0 14 0;
+#X connect 9 0 16 0;
+#X connect 12 0 16 0;
+#X connect 13 0 16 0;
+#X connect 14 0 16 0;
+#X connect 15 0 16 1;
+#X connect 16 0 17 0;
+#X connect 17 0 19 0;
+#X connect 17 0 19 1;

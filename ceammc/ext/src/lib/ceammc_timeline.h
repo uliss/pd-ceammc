@@ -49,7 +49,7 @@ namespace tl {
     typedef std::vector<CueData*> CueList;
 
     class CueStorage {
-        typedef std::map<t_canvas*, CueList> CanvasCueMap;
+        typedef std::map<const t_canvas*, CueList> CanvasCueMap;
 
         static CanvasCueMap cue_map_;
         CueStorage();
@@ -59,19 +59,19 @@ namespace tl {
         static bool remove(CueData* c);
         static int index(CueData* c);
         static CueData* at(t_canvas* cnv, size_t pos);
-        static CueData* find(t_canvas* cnv, t_object* obj);
+        static CueData* find(const t_canvas* cnv, t_object* obj);
         static bool exists(CueData* c);
-        static bool exists(t_canvas* cnv);
+        static bool exists(const t_canvas* cnv);
         static void sort(t_canvas* cnv);
         static void enumerate(t_canvas* cnv);
-        static size_t cueCount(t_canvas* cnv);
+        static size_t cueCount(const t_canvas* cnv);
 
-        static CueList* cueList(t_canvas* c);
+        static CueList* cueList(const t_canvas* c);
         static CueList* cueList(CueData* c);
     };
 
     class TimelineData;
-    typedef void (*UIAction)(TimelineData*);
+    typedef void (*UIAction)(TimelineData*, int v);
 
     class TimelineData {
         t_canvas* canvas_;
@@ -92,7 +92,9 @@ namespace tl {
 
         UIAction action() { return cb_; }
         void setAction(UIAction fn);
-        void triggerAction();
+        void triggerAction(int in);
+
+        const CueData* findCue() const;
     };
 
     typedef std::vector<TimelineData*> UIDataList;

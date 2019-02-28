@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.swap_cols">
+        <title>matrix.swap_cols</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>swaps specified columns in matrix</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <keywords>swap</keywords>
+            <version>0.1</version>
+            <since>0.1</since>
+            <also>
+                <see>matrix.swap_rows</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="int" name="A" minvalue="0">first column index</argument>
+            <argument type="int" name="B" minvalue="0">second column index</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Matrix data constructor: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">Matrix data</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">first column index</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">second column index</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output new matrix (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[3 3 1 2 3 4 5 6 7 8 9(
+|
+[matrix.swap_cols 0 2]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

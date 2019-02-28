@@ -30,7 +30,7 @@
         <methods>
             <method name="set">sets new value without output</method>
             <method name="+">add to float, no output</method>
-            <method name="-">substruct from float, no output</method>
+            <method name="-">subtract from float, no output</method>
             <method name="*">multiply to, no output</method>
             <method name="/">divide by, no output</method>
         </methods>

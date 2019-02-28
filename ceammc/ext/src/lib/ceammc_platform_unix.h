@@ -16,17 +16,23 @@
 
 #include <string>
 
+#include "ceammc_platform.h"
+
 namespace ceammc {
-bool unix_is_path_relative(const char* path);
-std::string unix_basename(const char* path);
-std::string unix_dirname(const char* path);
-bool unix_fnmatch(const char* pattern, const char* str);
-bool unix_path_exists(const char* path);
-bool unix_mkdir(const char* path, int flags = -1);
-bool unix_rmdir(const char* path);
-std::string unix_home_directory();
-void unix_sleep_ms(unsigned int ms);
-bool unix_is_dir(const char* path);
+namespace platform {
+    bool unix_is_path_relative(const char* path);
+    std::string unix_basename(const char* path);
+    std::string unix_dirname(const char* path);
+    bool unix_fnmatch(const char* pattern, const char* str);
+    bool unix_path_exists(const char* path);
+    bool unix_mkdir(const char* path, int flags = -1);
+    bool unix_rmdir(const char* path);
+    std::string unix_home_directory();
+    bool unix_is_dir(const char* path);
+    Either<NetAddressList> unix_hostnametoip(const char* name, NetAddressType type);
+    Either<int> unix_fd_set_non_blocking(int fd);
+    Either<bool> unix_init_pipe(int fd[]);
+}
 }
 
 #endif // CEAMMC_PLATFORM_UNIX_H

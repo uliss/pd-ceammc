@@ -14,7 +14,7 @@
 #ifndef LIST_XSEARCH_H
 #define LIST_XSEARCH_H
 
-#include "../data/datatype_mlist.h"
+#include "datatype_mlist.h"
 #include "ceammc_dataatomlist.h"
 #include "ceammc_object.h"
 

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="lfo.+pulse~">
+        <title>lfo.+pulse~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Unit-amplitude nonnegative low frequency pulse train</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>lfo</category>
+            <keywords>lfo oscillator pulse train</keywords>
+            <since>0.7</since>
+            <also>
+                <see>lfo.pulse~</see>
+                <see>lfo.+square~</see>
+                <see>lfo.impulse~</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="freq" type="float" units="herz">frequency</argument>
+            <argument name="duty" type="float" minvalue="0" maxvalue="1">duty cycle</argument>
+        </arguments>
+        <properties>
+            <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">duty
+            cycle</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>frequency in Hz</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">reset phase</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">pulsetrain wave in [0-1] range</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[osc.saw~ 1200] [F]    [ui.knob] [ui.dsp~]
+|               |      |
+|               |      |
+|               |      [@duty $1(
+|               |      |
+|               [lfo.+pulse~ 3 0.1]
+|   .___________/
+[*~]
+|
+[ui.gain~ @size 120 14]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

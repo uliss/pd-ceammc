@@ -1,4 +1,5 @@
 set(DOC_FILES
+    an.pitchtrack~
     array.bpm
     array.copy
     array.do
@@ -10,6 +11,7 @@ set(DOC_FILES
     array.set
     array.stretch
     array.vplay
+    array.window
     canvas.current
     canvas.top
     click~
@@ -22,6 +24,7 @@ set(DOC_FILES
     conv.lin2curve
     conv.lin2exp
     conv.lin2lin
+    conv.list2props
     conv.midi2freq
     conv.pitch2midi
     conv.samp2sec
@@ -37,9 +40,14 @@ set(DOC_FILES
     data.set
     data.set2list
     dict.contains
+    dict.each
+    dict.from_list
     dict.get
     dict.keys
+    dict.pass
+    dict.reject
     dict.size
+    dict.to_list
     dict.values
     dyn.comp2~
     dyn.comp~
@@ -99,6 +107,7 @@ set(DOC_FILES
     flt.c_peak~
     flt.dcblock2~
     flt.dcblock~
+    flt.eq10~
     flt.eq_peak~
     flt.eq_peak_cq~
     flt.highshelf~
@@ -107,25 +116,31 @@ set(DOC_FILES
     flt.lowshelf~
     flt.lpf12~
     flt.lpf24~
+    flt.median
     flt.moog_vcf~
     flt.notch~
     flt.resonbp~
     fluid~
     function
     function.call
+    fx.bitdown~
+    fx.chorus~
     fx.distortion~
+    fx.drive~
+    fx.drone_box~
     fx.echo~
     fx.flanger~
     fx.freeverb2~
     fx.freeverb~
     fx.freqshift~
-    fx.drone_box~
+    fx.granulator~
     fx.greyhole~
     fx.looper~
     fx.pitchshift~
     fx.sdelay~
-    fx.zita_rev1~
+    fx.vocoder~
     fx.wahwah~
+    fx.zita_rev1~
     gain~
     global.float
     global.dict
@@ -137,6 +152,7 @@ set(DOC_FILES
     is_any
     is_bang
     is_data
+    is_dict
     is_even
     is_file
     is_float
@@ -144,7 +160,12 @@ set(DOC_FILES
     is_odd
     is_pointer
     is_symbol
+    lfo.+pulse~
+    lfo.+saw~
+    lfo.+square~
+    lfo.+tri~
     lfo.impulse~
+    lfo.saw~
     lfo.square~
     lfo.tri~
     lfo.pulse~
@@ -227,7 +248,9 @@ set(DOC_FILES
     math.atan
     math.atanh
     math.cbrt
+    math.cdiv~
     math.ceil
+    math.cmul~
     math.cos
     math.cosh
     math.div
@@ -274,23 +297,31 @@ set(DOC_FILES
     mlist.flatten
     modplug~
     msg
+    msg.after
+    msg.onload
+    net.host2ip
     noise.crackle~
     noise.pink~
     noise.white~
     noise.lfreq~
     noise.lfreq0~
+    obj.props
     osc.blit~
     osc.impulse~
     osc.pulse~
     osc.saw~
+    osc.saw4~
+    osc.sin~
     osc.sinfb~
     osc.square~
     osc.tri~
     pan.cos~
     pan.lin~
+    pan.linsig~
     pan.spread~
     pan.sqrt~
     patch.args
+    patch.props
     path.basename
     path.dirname
     path.exists
@@ -300,6 +331,8 @@ set(DOC_FILES
     preset.storage
     preset.symbol
     proto.firmata
+    prop
+    prop.declare
     prop.get
     prop.get~
     prop.set
@@ -358,8 +391,11 @@ set(DOC_FILES
     system.memsize
     system.memused
     system.screen_size
+    system.shell
     tl.bang
     tl.cue
+    tl.timeline
+    tl.toggle
     tl.transport
     ui.aview
     ui.bang
@@ -368,6 +404,7 @@ set(DOC_FILES
     ui.dsp~
     ui.env
     ui.gain~
+    ui.gain2~
     ui.icon
     ui.incdec
     ui.keyboard
@@ -389,10 +426,6 @@ set(DOC_FILES
     ui.spectroscope~
     ui.toggle
     ui.meter~
-    vector.distance
-    vector.dot
-    vector.length
-    vector.normalize
     window
     xfade~
     xfade2~

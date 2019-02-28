@@ -24,6 +24,8 @@
 using namespace ceammc;
 
 static t_symbol* SYM_DATA_TYPE = gensym("data");
+static t_symbol* SYM_PROP_SIZE = gensym("@size");
+static t_symbol* SYM_SIZE = gensym("size");
 static t_rgba COLOR_LIST_TYPE = hex_to_rgba("#00A0C0");
 static t_rgba COLOR_FLOAT_TYPE = hex_to_rgba("#E000A0");
 static t_rgba COLOR_SYMBOL_TYPE = hex_to_rgba("#A0E000");
@@ -79,6 +81,7 @@ UIDisplay::UIDisplay()
     , txt_type_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
     , msg_type_(gensym("..."))
     , timer_(this, &UIDisplay::onClock)
+    , last_update_(clock_getlogicaltime())
 {
 }
 
@@ -178,6 +181,11 @@ void UIDisplay::onAny(t_symbol* s, const AtomList& lst)
 
 void UIDisplay::onProperty(t_symbol* s, const AtomList& lst)
 {
+    if (s == SYM_PROP_SIZE && asEBox()->b_resize) {
+        eclass_attr_setter(asPdObject(), SYM_SIZE, lst.size(), lst.toPdData());
+        return;
+    }
+
     onAny(s, lst);
 }
 
@@ -244,6 +252,11 @@ void UIDisplay::onClock()
 
 void UIDisplay::update()
 {
+    if (clock_gettimesince(last_update_) < 30)
+        return;
+
+    last_update_ = clock_getlogicaltime();
+
     if (prop_display_type) {
         const bool calc_type_wd = (msg_type_ != &s_float
             && msg_type_ != &s_bang

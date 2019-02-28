@@ -15,7 +15,11 @@ PanSpread::PanSpread(const PdArgs& args)
     createProperty(channels_);
 
     createCbProperty("@center", &PanSpread::propCenter, &PanSpread::propSetCenter);
+    property("@center")->info().setType(PropertyInfoType::FLOAT);
     createCbProperty("@spread", &PanSpread::propSpread, &PanSpread::propSetSpread);
+    property("@spread")->info().setType(PropertyInfoType::FLOAT);
+    property("@spread")->info().setDefault(1);
+    property("@spread")->info().setRange(0, 1);
 
     compensate_ = new BoolProperty("@compensate", false);
     createProperty(compensate_);
@@ -134,7 +138,7 @@ AtomList PanSpread::propSpread() const
 
 void PanSpread::propSetSpread(const AtomList& lst)
 {
-    t_float v = clip<t_float>(lst.floatAt(0, 0), -0.5, 0.5);
+    t_float v = clip<t_float>(lst.floatAt(0, 0), 0, 1);
     spread_.setTargetValue(v);
 }
 

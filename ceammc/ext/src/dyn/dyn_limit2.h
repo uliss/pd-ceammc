@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "dyn_limit2"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -66,6 +66,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -229,6 +230,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -395,6 +399,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -417,7 +422,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -439,7 +444,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -489,6 +495,7 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 #include <math.h>
 
@@ -590,11 +597,11 @@ class limit2 : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = min(192000.0f, max(1.0f, float(fSamplingFreq)));
-		fConst1 = expf((0.0f - (2500.0f / fConst0)));
+		fConst0 = std::min(192000.0f, std::max(1.0f, float(fSamplingFreq)));
+		fConst1 = std::exp((0.0f - (2500.0f / fConst0)));
 		fConst2 = (1.0f - fConst1);
-		fConst3 = expf((0.0f - (1250.0f / fConst0)));
-		fConst4 = expf((0.0f - (2.0f / fConst0)));
+		fConst3 = std::exp((0.0f - (1250.0f / fConst0)));
+		fConst4 = std::exp((0.0f - (2.0f / fConst0)));
 		
 	}
 	
@@ -650,12 +657,12 @@ class limit2 : public dsp {
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = float(input1[i]);
-			float fTemp2 = fabsf((fabsf(fTemp0) + fabsf(fTemp1)));
+			float fTemp2 = std::fabs((std::fabs(fTemp0) + std::fabs(fTemp1)));
 			float fTemp3 = ((fRec1[1] > fTemp2)?fConst4:fConst3);
-			fRec2[0] = ((fRec2[1] * fTemp3) + (fTemp2 * (1.0f - fTemp3)));
+			fRec2[0] = ((fTemp2 * (1.0f - fTemp3)) + (fTemp3 * fRec2[1]));
 			fRec1[0] = fRec2[0];
-			fRec0[0] = ((fConst1 * fRec0[1]) + (fConst2 * (0.0f - (0.75f * max(((20.0f * log10f(fRec1[0])) + 6.0f), 0.0f)))));
-			float fTemp4 = powf(10.0f, (0.0500000007f * fRec0[0]));
+			fRec0[0] = ((fConst1 * fRec0[1]) + (fConst2 * (0.0f - (0.75f * std::max(((20.0f * std::log10(fRec1[0])) + 6.0f), 0.0f)))));
+			float fTemp4 = std::pow(10.0f, (0.0500000007f * fRec0[0]));
 			output0[i] = FAUSTFLOAT((fTemp0 * fTemp4));
 			output1[i] = FAUSTFLOAT((fTemp1 * fTemp4));
 			fRec2[1] = fRec2[0];
@@ -681,6 +688,11 @@ static t_class* limit2_faust_class;
 #define FAUST_EXT_CLASS limit2_faust_class
 // clang-format on
 
+template <class T>
+class _limit2_UI : public UI {
+};
+typedef _limit2_UI<limit2> limit2_UI;
+
 struct t_faust_limit2 {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -689,7 +701,7 @@ struct t_faust_limit2 {
     int fence; /* dummy field (not used) */
 #endif
     limit2* dsp;
-    PdUI<UI>* ui;
+    PdUI<limit2_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -772,7 +784,7 @@ static void limit2_faust_dsp(t_faust_limit2* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<limit2_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -827,7 +839,7 @@ static void limit2_faust_any(t_faust_limit2* x, t_symbol* s, int argc, t_atom* a
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<limit2_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -987,7 +999,7 @@ static bool faust_new_internal(t_faust_limit2* x, const std::string& objId = "",
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new limit2();
-    x->ui = new PdUI<UI>(sym(limit2), objId);
+    x->ui = new PdUI<limit2_UI>(sym(limit2), objId);
 
     if (!faust_init_inputs(x)) {
         limit2_faust_free(x);
@@ -1131,8 +1143,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1225,6 +1237,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(limit2_faust_class, reinterpret_cast<t_method>(limit2_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(limit2_faust_class, reinterpret_cast<t_method>(limit2_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(limit2_faust_class, limit2_faust_any);
+    ceammc::register_faust_external(limit2_faust_class);
 }
 
 #define EXTERNAL_NEW void* limit2_faust_new(t_symbol*, int argc, t_atom* argv)

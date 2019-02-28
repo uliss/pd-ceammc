@@ -6,13 +6,14 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Unit-amplitude nonnegative low frequency pulse train,</description>
+            <description>Full-range unit-amplitude low frequency pulse train</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>lfo</category>
             <keywords>lfo oscillator pulse train</keywords>
             <since>0.6</since>
             <also>
+                <see>lfo.+pulse~</see>
                 <see>lfo.square~</see>
                 <see>lfo.impulse~</see>
             </also>
@@ -20,35 +21,38 @@
         <arguments>
             <argument name="freq" type="float" units="herz">frequency</argument>
             <argument name="duty" type="float" minvalue="0" maxvalue="1">duty cycle</argument>
-            <argument name="ID" type="symbol">object ID for OSC control</argument>
         </arguments>
         <properties>
             <property name="@duty" type="float" minvalue="0" maxvalue="1" default="0.5">duty
             cycle</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
         </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>frequency in Hz</xinfo>
             </inlet>
+            <inlet>
+                <xinfo on="bang">reset phase</xinfo>
+            </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">pulsetrain wave in [0-1] range</outlet>
+            <outlet type="audio">pulsetrain wave in [-1, +1] range</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[ui.dsp~]
-
-
-[F]  [ui.knob]
-|    |
-|    |
-|    |
-|    [@duty $1(
-|    |
-[lfo.pulse~ 100 0.3]
-|
-[ui.scope~]
+[osc.saw~ 100]          [ui.knob]
+|                       |
+[ui.gain~ @size 120 14] |
+|                       |
+|              [F]      [@duty $1(
+|              |        |
+|              [lfo.pulse~ 6]
+|          .___/
+[pan.linsig~]    [ui.dsp~]
+|  ^|.
+[dac~]
 ]]>
             </pdascii>
         </example>

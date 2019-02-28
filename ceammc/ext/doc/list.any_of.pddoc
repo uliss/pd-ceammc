@@ -27,7 +27,7 @@
             </inlet>
             <inlet>
                 <xinfo on="float" minvalue="0" maxvalue="1">input value from predicate. "1" means
-                accepped. "0" means reject.</xinfo>
+                accepted. "0" means reject.</xinfo>
             </inlet>
         </inlets>
         <outlets>

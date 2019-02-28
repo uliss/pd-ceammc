@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.randn">
+        <title>matrix.randn</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>generates Matrix using Gaussian distribution with zero mean and unit variance</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <keywords>random generate gauss</keywords>
+            <version>0.1</version>
+            <since>0.1</since>
+            <also>
+                <see>matrix.randu</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="int" name="M" minvalue="0">number of rows</argument>
+            <argument type="int" name="N" minvalue="0">number of columns</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="int">number of rows</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">number of columns</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output new matrix (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[B] [3 3( [F]  [F]
+|   |     |    |.
+[matrix.randn 2 2]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

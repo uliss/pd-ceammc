@@ -72,7 +72,7 @@ static PmError pm_errmsg(PmError err)
         prompt_and_exit();
     } else if (err < 0) {
         printf("PortMidi call failed...\n  %s\n", Pm_GetErrorText(err));
-        prompt_and_exit();
+//        prompt_and_exit();
     }
     return err;
 }

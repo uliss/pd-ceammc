@@ -24,4 +24,6 @@ public:
     void processBlock(const t_sample** in, t_sample** out);
 };
 
+void setup_math_round_tilde();
+
 #endif // MATH_ROUND_TILDE_H

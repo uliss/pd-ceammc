@@ -1,12 +1,21 @@
 #include "flt_c_hpf.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
+using namespace ceammc;
+
+static t_symbol* SYM_PROP_FREQ = gensym("@freq");
+static t_symbol* SYM_PROP_Q = gensym("@q");
+
+class FltCHpf : public faust_flt_c_hpf_tilde {
+public:
+    FltCHpf(const PdArgs& args)
+        : faust_flt_c_hpf_tilde(args)
+    {
+        bindPositionalArgsToProps({ SYM_PROP_FREQ, SYM_PROP_Q });
+    }
+};
+
+void setup_flt_c_hpf_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-    PdArgParser p(x, argc, argv);
-    p.initFloatArg("freq", 1);
-    p.initFloatArg("q", 2);
-    return p.pd_obj();
+    SoundExternalFactory<FltCHpf> obj("flt.c_hpf~", OBJECT_FACTORY_DEFAULT);
 }
-
-EXTERNAL_SETUP(flt);

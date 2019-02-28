@@ -1,0 +1,12 @@
+#N canvas 0 0 397 188 12;
+#X declare -lib matrix;
+#X obj 20 48 declare -lib matrix;
+#X msg 20 92 2 2 1 2 3 4;
+#X msg 154 92 2 2 1 2 0 3;
+#X msg 288 92 2 2 1 0 0 0;
+#X obj 20 149 matrix.any_col;
+#X obj 20 178 ui.display @display_type 1 @size 150 18;
+#X connect 1 0 4 0;
+#X connect 2 0 4 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;

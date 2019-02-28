@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library xmlns:xi="http://www.w3.org/2001/XInclude" name="numeric" version="1.0">
+  <category name="complex">
+    <entry descr="not equal check" name="complex.!=" ref_view="object">
+      <xi:include href="complex.%21%3D.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="equal check" name="complex.==" ref_view="object">
+      <xi:include href="complex.%3D%3D.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="the magnitude of a complex number" name="complex.abs" ref_view="object">
+      <xi:include href="complex.abs.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="add two complex numbers" name="complex.add" ref_view="object">
+      <xi:include href="complex.add.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="the phase angle of the complex number x, expressed in radians" name="complex.arg" ref_view="object">
+      <xi:include href="complex.arg.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="the complex conjugate" name="complex.conj" ref_view="object">
+      <xi:include href="complex.conj.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="cosine of complex number" name="complex.cos" ref_view="object">
+      <xi:include href="complex.cos.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="divide complex numbers" name="complex.div" ref_view="object">
+      <xi:include href="complex.div.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="complex base e exponential" name="complex.exp" ref_view="object">
+      <xi:include href="complex.exp.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="get imaginary part of complex number" name="complex.imag" ref_view="object">
+      <xi:include href="complex.imag.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="complex natural logarithm with the branch cuts along the negative real axis" name="complex.log" ref_view="object">
+      <xi:include href="complex.log.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="complex common logarithm with the branch cuts along the negative real axis" name="complex.log10" ref_view="object">
+      <xi:include href="complex.log10.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="multiply complex numbers" name="complex.mul" ref_view="object">
+      <xi:include href="complex.mul.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Complex data" name="complex.new" ref_view="object">
+      <xi:include href="complex.new.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="the squared magnitude" name="complex.norm" ref_view="object">
+      <xi:include href="complex.norm.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="creates Complex number in polar coordinates" name="complex.polar" ref_view="object">
+      <xi:include href="complex.polar.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="complex power" name="complex.pow" ref_view="object">
+      <xi:include href="complex.pow.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="get real part of complex number" name="complex.real" ref_view="object">
+      <xi:include href="complex.real.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sine of complex number" name="complex.sin" ref_view="object">
+      <xi:include href="complex.sin.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="complex square root in the range of the right half-plane" name="complex.sqrt" ref_view="object">
+      <xi:include href="complex.sqrt.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="substruct complex numbers" name="complex.sub" ref_view="object">
+      <xi:include href="complex.sub.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="tangent of complex number" name="complex.tan" ref_view="object">
+      <xi:include href="complex.tan.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="real and imaginary part as list" name="complex.to_list" ref_view="object">
+      <xi:include href="complex.to_list.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="unpacks complex number to real and imaginary parts" name="complex.unpack" ref_view="object">
+      <xi:include href="complex.unpack.pddoc" parse="xml"/>
+    </entry>
+  </category>
+  <category name="rational">
+    <entry descr="not equal check" name="rational.!=" ref_view="object">
+      <xi:include href="rational.%21%3D.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="equal check" name="rational.==" ref_view="object">
+      <xi:include href="rational.%3D%3D.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="abs absolute value" name="rational.abs" ref_view="object">
+      <xi:include href="rational.abs.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="add two rational numbers" name="rational.add" ref_view="object">
+      <xi:include href="rational.add.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="divide rational numbers" name="rational.div" ref_view="object">
+      <xi:include href="rational.div.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="converts input float to rational with specified precision" name="rational.from_float" ref_view="object">
+      <xi:include href="rational.from_float.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="greater equal compare operator" name="rational.ge" ref_view="object">
+      <xi:include href="rational.ge.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="greater than compare operator" name="rational.gt" ref_view="object">
+      <xi:include href="rational.gt.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="less equal compare operator" name="rational.le" ref_view="object">
+      <xi:include href="rational.le.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="less than compare operator" name="rational.lt" ref_view="object">
+      <xi:include href="rational.lt.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="multiply rational numbers" name="rational.mul" ref_view="object">
+      <xi:include href="rational.mul.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="The Rational class" name="rational.new" ref_view="object">
+      <xi:include href="rational.new.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="rational power" name="rational.pow" ref_view="object">
+      <xi:include href="rational.pow.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="reciprocal rational number" name="rational.reciprocal" ref_view="object">
+      <xi:include href="rational.reciprocal.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="substruct rational numbers" name="rational.sub" ref_view="object">
+      <xi:include href="rational.sub.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="convert to float value" name="rational.to_float" ref_view="object">
+      <xi:include href="rational.to_float.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="numerator and denominator part as list" name="rational.to_list" ref_view="object">
+      <xi:include href="rational.to_list.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="unpacks rational number to numerator and denominator parts" name="rational.unpack" ref_view="object">
+      <xi:include href="rational.unpack.pddoc" parse="xml"/>
+    </entry>
+  </category>
+  <meta>
+    <version>0.1</version>
+    <authors>
+      <author>Serge Poltavski</author>
+    </authors>
+  </meta>
+</library>

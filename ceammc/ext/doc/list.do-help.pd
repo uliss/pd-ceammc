@@ -1,16 +1,16 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 317 50 cnv 1 378 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 317 50 iterate and modify list contents via side-chain;
-#X obj 1 1 cnv 5 712 40 empty empty list.do 20 20 0 20 -104026 -4096
+#X obj 387 50 cnv 1 378 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 387 50 iterate and modify list contents via side-chain;
+#X obj 1 1 cnv 5 765 40 empty empty list.do 20 20 0 20 -104026 -4096
 0;
-#X obj 637 11 list.do;
+#X obj 690 11 list.do;
 #X msg 50 118 1 1 1 1 1;
 #X obj 50 147 list.do;
 #X obj 203 147 expr $f1 - ($f2 / $f3);
 #X obj 50 176 msg set;
 #X msg 50 205 ;
-#X obj 20 244 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 244 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 249 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 254 1\.;
@@ -21,7 +21,7 @@
 #X text 120 290 2\.;
 #X text 150 290 *atom*;
 #X text 240 290 processed atom from side-chain.;
-#X obj 20 318 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 318 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 323 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 328 1\.;
@@ -33,16 +33,16 @@
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.6;
-#X text 549 520 see also:;
-#X obj 625 520 list.each;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 508 library: ceammc v0.7;
+#X text 619 520 see also:;
+#X obj 695 520 list.each;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 list.do;
 #X text 10 76 category:;

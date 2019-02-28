@@ -22,20 +22,19 @@
             <par>Band-pass filter passes frequencies within a certain range and rejects frequencies
             outside that range.</par>
         </info>
-        <methods>
-            <method name="freq">
-                <param type="float" units="herz">center frequency</param>
-            </method>
-            <method name="q">
-                <param type="float" name="Q" minvalue="0.01" maxvalue="100" default="2">quality
-                factor</param>
-            </method>
-        </methods>
+        <properties>
+            <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
+            units="herz">center frequency</property>
+            <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="2">quality
+            factor: @freq/BANDWIDTH</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
         <arguments>
-            <argument name="freq" type="float" units="herz">center frequency</argument>
-            <argument name="q" type="float" minvalue="0.01" maxvalue="100">quality
-            factory</argument>
-            <argument name="ID" type="symbol">object ID for OSC control</argument>
+            <argument name="freq" type="float" units="herz" minvalue="20" maxvalue="20000">center
+            frequency</argument>
+            <argument name="q" type="float" minvalue="0.01" maxvalue="100">quality factory:
+            @freq/BANDWIDTH</argument>
         </arguments>
         <inlets>
             <inlet type="audio">
@@ -44,7 +43,6 @@
         </inlets>
         <outlets>
             <outlet type="audio">filtered signal</outlet>
-            <outlet>information output</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -62,6 +60,7 @@
 [F]    [F]
 
 [ui.dsp~]
+
 ]]>
             </pdascii>
         </example>

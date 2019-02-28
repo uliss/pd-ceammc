@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>convert from midi pitch to freqency in hz (with various base A and
+            <description>convert from midi pitch to frequency in hz (with various base A and
             temperament)</description>
             <license>GPL3</license>
             <library>ceammc</library>
@@ -26,7 +26,7 @@
             standard</argument>
         </arguments>
         <properties>
-            <property name="@a" type="float" default="440" minvalue="200" maxvalue="400">A pitch
+            <property name="@a" type="float" default="440" minvalue="200" maxvalue="600">A pitch
             frequency</property>
             <property name="@t" type="symbol" default="eq"
             enum="eq just ganassi meantone kirnberger3 pythagorean rameau valotti zarlino">

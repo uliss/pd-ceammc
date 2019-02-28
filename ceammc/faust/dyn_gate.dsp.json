@@ -1,0 +1,85 @@
+{
+	"name": "dyn.gate",
+	"filename": "dyn_gate",
+	"version": "2.8.5",
+	"compile_options": "cpp, -scal -ftz 0",
+	"library_list": ["/Users/serj/work/music/pd-exp/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/misceffects.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/analyzers.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/maths.lib"],
+	"include_pathnames": ["/Users/serj/work/music/pd-exp/pure-data/ceammc/faust","/usr/local/share/faust","/usr/share/faust"],
+	"inputs": "1",
+	"outputs": "1",
+	"meta": [ 
+		{ "analyzers.lib/name": "Faust Analyzer Library" },
+		{ "analyzers.lib/version": "0.0" },
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/version": "0.0" },
+		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
+		{ "ceammc.lib/version": "0.1.1" },
+		{ "filename": "dyn_gate" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.1" },
+		{ "misceffects.lib/name": "Faust Math Library" },
+		{ "misceffects.lib/version": "2.0" },
+		{ "name": "dyn.gate" },
+		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/version": "0.0" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "dyn.gate",
+			"items": [ 
+				{
+					"type": "vslider",
+					"label": "attack",
+					"address": "/dyn.gate/attack",
+					"meta": [
+						{ "unit": "ms" }
+					],
+					"init": "0.1",
+					"min": "0",
+					"max": "500",
+					"step": "0.1"
+				},
+				{
+					"type": "vslider",
+					"label": "hold",
+					"address": "/dyn.gate/hold",
+					"meta": [
+						{ "unit": "ms" }
+					],
+					"init": "100",
+					"min": "1",
+					"max": "500",
+					"step": "0.1"
+				},
+				{
+					"type": "vslider",
+					"label": "release",
+					"address": "/dyn.gate/release",
+					"meta": [
+						{ "unit": "ms" }
+					],
+					"init": "20",
+					"min": "1",
+					"max": "500",
+					"step": "0.1"
+				},
+				{
+					"type": "vslider",
+					"label": "threshold",
+					"address": "/dyn.gate/threshold",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"init": "40",
+					"min": "0",
+					"max": "100",
+					"step": "0.1"
+				}
+			]
+		}
+	]
+}

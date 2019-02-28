@@ -2,25 +2,6 @@ if(WIN32)
     add_definitions("-D_WINDOWS=1")
 endif()
 
-include_directories(cicm/Sources)
-
-set(UI_SOURCES
-    cicm/Sources/ebox.cpp
-    cicm/Sources/eclass.cpp
-    cicm/Sources/ecommon.cpp
-    cicm/Sources/egraphics.cpp
-    cicm/Sources/eobj.cpp
-    cicm/Sources/epopup.cpp
-    ceammc_cicm.h
-    ceammc_cicm.cpp
-    ceammc_ui.h
-    ceammc_dsp_ui.h
-    ceammc_ui_object.h
-    ceammc_ui_object.cpp
-    ceammc_ui_dsp_object.h
-    ceammc_ui_dsp_object.cpp
-    image_detect.cpp)
-
 set(UILINK_TCL ui_link.tcl)
 
 add_custom_target(uilink_tcl
@@ -40,6 +21,7 @@ ceammc_ui_extension(display)
 ceammc_ui_extension(dsp)
 ceammc_ui_extension(env)
 ceammc_ui_extension(gain)
+ceammc_ui_extension(gain2)
 ceammc_ui_extension(icon)
 ceammc_ui_extension(incdec)
 ceammc_ui_extension(keyboard)

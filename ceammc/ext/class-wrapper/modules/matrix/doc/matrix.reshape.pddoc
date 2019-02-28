@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.reshape">
+        <title>matrix.reshape</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>change size while keeping elements</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <keywords>reshape</keywords>
+            <version>0.1</version>
+            <since>0.1</since>
+        </meta>
+        <arguments>
+            <argument type="int" name="NROWS">new number of rows</argument>
+            <argument type="int" name="NCOLS">new number of columns</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Matrix data constructor: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">Matrix data</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">new number of rows</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">new number of columns</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output new matrix (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[2 3 1 2 3 4 5 6(
+|
+[list->matrix] [F]   [F]
+|              |.    |..
+[matrix.reshape     3 2]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

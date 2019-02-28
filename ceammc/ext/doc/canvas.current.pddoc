@@ -28,6 +28,8 @@
             abstraction</property>
             <property name="@size" readonly="true" type="list">canvas dimensions. If root canvas
             (window) return window size, if subpatch return Graph on Parent size</property>
+            <property name="@font" readonly="true" type="float">canvas font size</property>
+            <property name="@paths" readonly="true" type="list">canvas search paths</property>
             <property name="@width" readonly="true" type="int">canvas width (window or
             GOP)</property>
             <property name="@height" readonly="true" type="int">canvas height (window or
@@ -38,10 +40,11 @@
         <inlets>
             <inlet>
                 <xinfo>property request</xinfo>
+                <xinfo on="bang">output dict with all properties</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>property output</outlet>
+            <outlet>dict or property output</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -52,11 +55,11 @@
 | |        | |        | |
 | |  [@x?( | | [@y?(  | | [@height?(
 | |  |     | | |      | | |
+| |  | [B] | | |      | | |
+| |  | |   | | |      | | |
 [canvas.current           ]
 |
-[msg set]
-|
-[ (
+[ui.display @display_type=1]
 ]]>
             </pdascii>
         </example>

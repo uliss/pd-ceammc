@@ -1,12 +1,24 @@
 #include "osc_tri.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
+using namespace ceammc;
+
+class OscTri : public faust_osc_tri_tilde {
+public:
+    OscTri(const PdArgs& args)
+        : faust_osc_tri_tilde(args)
+    {
+        createInlet();
+        setInitSignalValue(positionalFloatArgument(0, 0));
+    }
+
+    void onInlet(size_t n, const AtomList&) override
+    {
+        dsp_->instanceClear();
+    }
+};
+
+void setup_osc_tri_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-
-    PdArgParser p(x, argc, argv, false);
-    p.signalFloatArg("freq", 1);
-    return p.pd_obj();
+    SoundExternalFactory<OscTri> obj("osc.tri~");
 }
-
-EXTERNAL_SETUP(osc);

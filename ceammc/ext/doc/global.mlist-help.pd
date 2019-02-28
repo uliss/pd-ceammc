@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 491 50 cnv 1 204 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 491 50 global named mlist object;
-#X obj 1 1 cnv 5 712 40 empty empty global.mlist 20 20 0 20 -104026
+#X obj 561 50 cnv 1 204 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 561 50 global named mlist object;
+#X obj 1 1 cnv 5 765 40 empty empty global.mlist 20 20 0 20 -104026
 -4096 0;
-#X obj 600 11 global.mlist;
-#X obj 205 80 cnv 1 490 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 653 11 global.mlist;
+#X obj 205 80 cnv 1 560 33 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Defines global scope mlist variable \, accessed by ID
 name;
 #X msg 50 141 (1 2 3 (a b c)) \, bang;
@@ -15,14 +15,14 @@ name;
 #X obj 50 199 global.mlist l1;
 #X obj 318 199 ui.display @display_type 1 @size 150 18;
 #X obj 50 228 ui.display @display_type 1 @size 150 18;
-#X obj 20 268 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 268 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 273 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 278 1\.;
 #X text 150 278 symbol;
 #X obj 241 279 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 278 ID: object ID.;
-#X obj 20 306 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 306 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 311 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 316 @empty;
@@ -31,7 +31,7 @@ Type: int. Allowed values: 0 \, 1;
 #X msg 120 353 @size;
 #X text 240 353 (readonly) Get number of elements in list. Type: int.
 Min value: 0;
-#X obj 20 400 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 405 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 410 append;
@@ -56,7 +56,7 @@ are:;
 #X msg 120 662 reverse;
 #X text 240 662 reverses list.;
 #X msg 120 694 shuffle;
-#X text 240 694 put elemtns in random order.;
+#X text 240 694 put elements in random order.;
 #X msg 120 726 sort;
 #X text 240 726 sorts list.;
 #X msg 120 758 clear;
@@ -75,7 +75,7 @@ are:;
 #X text 240 934 dump object info to Pd window.;
 #X msg 120 966 (....);
 #X text 240 966 sets new list without output.;
-#X obj 20 1008 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1008 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1013 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1018 1\.;
@@ -89,7 +89,7 @@ are:;
 #X text 240 1072 set new mlist content and output.;
 #X text 150 1090 *list*;
 #X text 240 1090 set new mlist content and output.;
-#X obj 20 1118 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1118 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1123 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1128 1\.;
@@ -99,17 +99,17 @@ are:;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title global @url ceammc.global-help.pd;
-#X obj 1 1176 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1179 library: ceammc v0.6;
-#X text 448 1191 see also:;
-#X obj 524 1191 data.mlist;
-#X obj 611 1191 local.mlist;
+#X obj 1 1176 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1179 library: ceammc v0.7;
+#X text 518 1191 see also:;
+#X obj 594 1191 data.mlist;
+#X obj 681 1191 local.mlist;
 #N canvas 10 1198 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 global.mlist;
 #X text 10 76 category:;

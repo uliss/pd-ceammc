@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.matmul">
+        <title>matrix.matmul</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>matrix product</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <version>0.1</version>
+            <since>0.1</since>
+            <aliases>
+                <alias>matrix.dot</alias>
+            </aliases>
+            <also>
+                <see>matrix.mul</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="list" name="M">Matrix to multiply</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Matrix data constructor: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">Matrix data</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">Matrix to multiply: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">Matrix to multiply</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output result Matrix (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[2 2(              [2 4(
+|                  |
+[matrix.fill 2]    [matrix.randu] [2 3 1 2 3 4 5 6(
+|                  |.             |.
+[matrix.dot Matrix       2 2 1 0 0 1]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -35,6 +35,7 @@ private:
     std::string msg_txt_;
     t_symbol* msg_type_;
     ClockMemberFunction<UIDisplay> timer_;
+    double last_update_;
 
 public:
     UIDisplay();

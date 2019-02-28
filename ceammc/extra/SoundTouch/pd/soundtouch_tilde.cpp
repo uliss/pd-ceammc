@@ -10,9 +10,10 @@ static t_symbol* PROP_ANTIALIAS_LENGTH = gensym("@aalength");
 SoundTouchExt::SoundTouchExt(const PdArgs& a)
     : SoundExternal(a)
     , bypass_(0)
-    , pitch_(0)
+    , pitch_(positionalFloatArgument(0))
 {
     createSignalOutlet();
+    createInlet();
 
     createCbProperty("@pitch", &SoundTouchExt::propPitch, &SoundTouchExt::propSetPitch);
 
@@ -30,6 +31,7 @@ SoundTouchExt::SoundTouchExt(const PdArgs& a)
     createProperty(bypass_);
 
     initSoundTouch();
+    propSetPitch(Atom(pitch_));
 }
 
 void SoundTouchExt::processBlock(const t_sample** in, t_sample** out)
@@ -41,6 +43,11 @@ void SoundTouchExt::processBlock(const t_sample** in, t_sample** out)
 
     stouch_.putSamples(in[0], blockSize());
     stouch_.receiveSamples(out[0], blockSize());
+}
+
+void SoundTouchExt::onInlet(size_t, const AtomList& lst)
+{
+    propSetPitch(lst);
 }
 
 AtomList SoundTouchExt::propAnitAlias() const

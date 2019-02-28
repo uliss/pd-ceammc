@@ -1,3 +1,5 @@
+declare ui "disable";
+
 msp = library("maxmsp.lib");
 si = library("signals.lib");
 ui = library("ceammc_ui.lib");

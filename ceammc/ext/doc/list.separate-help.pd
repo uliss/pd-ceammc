@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 364 50 cnv 1 331 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 364 50 sends list elements one by one separately;
-#X obj 1 1 cnv 5 712 40 empty empty list.separate 20 20 0 20 -104026
+#X obj 434 50 cnv 1 331 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 434 50 sends list elements one by one separately;
+#X obj 1 1 cnv 5 765 40 empty empty list.separate 20 20 0 20 -104026
 -4096 0;
-#X obj 510 11 list.sep;
-#X obj 593 11 list.separate;
+#X obj 563 11 list.sep;
+#X obj 646 11 list.separate;
 #X msg 50 118 1 2 3 4 5;
 #X msg 165 118 (a b c d e) \, bang;
 #X obj 165 147 ml;
@@ -15,7 +15,7 @@
 #X obj 50 234 data.list;
 #X obj 50 262 m set;
 #X msg 50 291 ;
-#X obj 20 330 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 335 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 340 1\.;
@@ -23,7 +23,7 @@
 #X text 240 340 input list.;
 #X text 150 358 *data:mlist*;
 #X text 240 358 input mlist.;
-#X obj 20 386 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 386 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 391 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 396 1\.;
@@ -35,17 +35,17 @@
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.6;
-#X text 439 520 see also:;
-#X obj 515 520 list.repack;
-#X obj 610 520 list.unpack;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 508 library: ceammc v0.7;
+#X text 509 520 see also:;
+#X obj 585 520 list.repack;
+#X obj 680 520 list.unpack;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 list.separate;
 #X text 10 76 category:;

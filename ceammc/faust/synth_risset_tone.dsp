@@ -1,4 +1,4 @@
-declare name "Risset Tone";
+declare name "synth.risset_tone";
 declare description "Jean Claude Risset's endless glissando";
 declare author "Oli Larkin (contact@olilarkin.co.uk)";
 declare copyright "Oliver Larkin";

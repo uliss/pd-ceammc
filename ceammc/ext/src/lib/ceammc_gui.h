@@ -23,7 +23,7 @@
 #include <cassert>
 #include <string>
 
-#include "cicm_wrapper.h"
+#include "../lib/ceammc_cicm.h"
 #include "m_pd.h"
 
 namespace ceammc_gui {

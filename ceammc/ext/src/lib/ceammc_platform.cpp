@@ -205,7 +205,7 @@ namespace platform {
 
     bool remove(const char* path)
     {
-        if(is_dir(path))
+        if (is_dir(path))
             return rmdir(path);
         else
             return ::remove(path) == 0;
@@ -214,11 +214,6 @@ namespace platform {
     bool is_dir(const char* path)
     {
         return NS(is_dir(path));
-    }
-
-    void sleep_ms(unsigned int ms)
-    {
-        NS(sleep_ms(ms));
     }
 
     DirList list_directory(const char* path, const char* pattern)
@@ -298,5 +293,27 @@ namespace platform {
     {
         return home_directory() + "/Documents/Pd";
     }
+
+    Either<NetAddressList> hostnametoip(const char* name, NetAddressType type)
+    {
+        return NS(hostnametoip(name, type));
+    }
+
+    PlatformError::PlatformError(int c, const char* s)
+        : code(c)
+        , msg(s)
+    {
+    }
+
+    Either<int> fd_set_non_blocking(int fd)
+    {
+        return NS(fd_set_non_blocking(fd));
+    }
+
+    Either<bool> init_pipe(int fd[])
+    {
+        return NS(init_pipe(fd));
+    }
+
 }
 }

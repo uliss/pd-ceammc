@@ -15,8 +15,8 @@
 #include "ceammc_factory.h"
 #include "ceammc_platform.h"
 
-#include "fluidsynth.h"
 #include "../src/sfloader/fluid_sfont.h"
+#include "fluidsynth.h"
 
 Fluid::Fluid(const PdArgs& args)
     : SoundExternal(args)
@@ -48,6 +48,7 @@ Fluid::Fluid(const PdArgs& args)
         OBJ_ERR << "couldn't create synth";
 
     createCbProperty("@sf", &Fluid::propSoundFont, &Fluid::propSetSoundFont);
+    property("@sf")->info().setType(PropertyInfoType::SYMBOL);
     createCbProperty("@version", &Fluid::propVersion);
     createCbProperty("@soundfonts", &Fluid::propSoundFonts);
 }

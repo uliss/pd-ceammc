@@ -1,4 +1,4 @@
-declare name "bird";
+declare name "synth.birds";
 declare author "Pierre Cochard";
 
 //Modifications by Grame July 2014, June 2015;

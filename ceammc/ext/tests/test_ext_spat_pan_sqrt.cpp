@@ -13,9 +13,10 @@
  *****************************************************************************/
 #include "../spat/pan_sqrt.h"
 #include "ceammc_pd.h"
+#include "test_external.h"
 #include "test_sound.h"
 
-#include "catch.hpp"
+PD_COMPLETE_SND_TEST_SETUP(PanSqrt, pan, sqrt)
 
 typedef TestSoundExternal<PanSqrt> PanSqrtTest;
 
@@ -23,6 +24,8 @@ using namespace ceammc;
 
 TEST_CASE("pan.sqrt~", "[externals]")
 {
+    pd_test_init();
+
     SECTION("init")
     {
         PanSqrtTest t("pan.sqrt~", L(), true);

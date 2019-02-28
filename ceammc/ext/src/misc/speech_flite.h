@@ -14,7 +14,7 @@
 #ifndef SPEECH_FLITE_H
 #define SPEECH_FLITE_H
 
-#include "../string/datatype_string.h"
+#include "datatype_string.h"
 #include "ceammc_array.h"
 #include "ceammc_clock.h"
 #include "ceammc_object.h"

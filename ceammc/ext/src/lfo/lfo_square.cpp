@@ -1,11 +1,23 @@
 #include "lfo_square.h"
+#include "ceammc_factory.h"
+using namespace ceammc;
 
-EXTERNAL_NEW
+class LfoSquare : public faust_lfo_square_tilde {
+public:
+    LfoSquare(const PdArgs& args)
+        : faust_lfo_square_tilde(args)
+    {
+        createInlet();
+        setInitSignalValue(positionalFloatArgument(0, 0));
+    }
+
+    void onInlet(size_t n, const AtomList&) override
+    {
+        dsp_->instanceClear();
+    }
+};
+
+void setup_lfo_square_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-    PdArgParser p(x, argc, argv, false);
-    p.signalFloatArg("freq", 1);
-    return p.pd_obj();
+    SoundExternalFactory<LfoSquare> obj("lfo.square~");
 }
-
-EXTERNAL_SETUP(lfo);

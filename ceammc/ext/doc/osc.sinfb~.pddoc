@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>sine oscilator with feedback</description>
+            <description>Sine oscilator with feedback</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>osc</category>
@@ -15,43 +15,48 @@
         </meta>
         <arguments>
             <argument name="freq" type="float" minvalue="0" maxvalue="20000" units="herz">initial
-            frequence</argument>
+            frequency</argument>
             <argument name="feedback" type="float" minvalue="0" maxvalue="6.283185">oscillator
-            feedback coefficent in range 0..2pi</argument>
-            <argument name="ID" type="symbol">object ID for OSC control path</argument>
+            feedback coefficient in range 0..2pi</argument>
         </arguments>
-        <methods>
-            <method name="feedback">
-                <param type="float" minvalue="0" maxvalue="16">oscillator feedback
-                coefficent</param>
-            </method>
-        </methods>
+        <properties>
+            <property name="@feedback" type="float" minvalue="0" maxvalue="6.28319" default="0">
+            oscillator feedback coefficient</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>frequency</xinfo>
-                <xinfo on="float">frequency</xinfo>
-                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">reset phase</xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">output signal</outlet>
-            <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[F]     [F]
+[F]     [ui.knob @min=0 @max=6.28]
 |       |
-| [B]   [feedback $1(
-| |     |
+|       |
+|       |
+|       [@feedback $1(
+|       |
 [osc.sinfb~ 440 2]
-|               ^|
-|  [T]          [print]
-|  |.
-[*~ ]
-|  |.
-[dac~]
-                ]]>
+|
+[ui.gain~ @size 120 14]  [ui.dsp~]
+|\      |
+[dac~]  [ui.scope~]
+
+
+
+
+
+
+]]>
             </pdascii>
         </example>
     </object>

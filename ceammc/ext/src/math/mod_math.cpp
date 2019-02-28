@@ -44,7 +44,9 @@ extern "C" void setup_math0x2eand();
 extern "C" void setup_math0x2eor();
 extern "C" void setup_math0x2eaapprox();
 
-extern "C" void setup_math0x2eround_tilde();
+void setup_math_round_tilde();
+void setup_math_cdiv_tilde();
+void setup_math_cmul_tilde();
 
 void ceammc_math_setup()
 {
@@ -87,9 +89,12 @@ void ceammc_math_setup()
 
     setup_math0x2egcd();
     setup_math0x2elcm();
-    setup_math0x2eround_tilde();
-    setup_math_mul();
-    setup_math_expr();
+
+    setup_math_cdiv_tilde();
+    setup_math_cmul_tilde();
     setup_math_div();
+    setup_math_expr();
+    setup_math_mul();
     setup_math_polyeval();
+    setup_math_round_tilde();
 }

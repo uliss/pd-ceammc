@@ -1,9 +1,11 @@
+declare name "dyn.comp";
+
 import("ceammc.lib");
 co = library("compressors.lib");
 
 ratio  = vslider("ratio", 1, 1, 10, 0.001);
-thresh = vslider("threshold", 100, 0, 100, 0.1) : db_pd2faust;
-atk    = vslider("attack", 10, 1, 100, 0.1) : time_pd2faust;
-rel    = vslider("release", 50, 1, 500, 0.1) : time_pd2faust;
+thresh = vslider("threshold [unit:db]", 100, 0, 100, 0.1) : db_pd2faust;
+atk    = vslider("attack [unit:ms]", 10, 1, 100, 0.1) : time_pd2faust;
+rel    = vslider("release [unit:ms]", 50, 1, 500, 0.1) : time_pd2faust;
 
 process = co.compressor_mono(ratio, thresh, atk, rel);

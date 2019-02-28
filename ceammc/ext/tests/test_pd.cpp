@@ -27,18 +27,16 @@ TEST_CASE("PD", "[PureData]")
 {
     SECTION("hash table size")
     {
-        const int OFFSET = 17;
-
         t_ceammc_gensym_info info;
         gensym_info(&info);
 
         REQUIRE(info.table_size == 1024);
 
-        REQUIRE(info.symbol_count == 0 + OFFSET);
+        int sz = info.symbol_count;
 
         gensym("test");
         gensym_info(&info);
-        REQUIRE(info.symbol_count == 1 + OFFSET);
+        REQUIRE(info.symbol_count == sz + 1);
 
 #ifdef __MACOSX_CORE__
         REQUIRE(info.max_chain == 1);
@@ -47,13 +45,17 @@ TEST_CASE("PD", "[PureData]")
 
         char buf[20];
         for (int i = 0; i < 20000; i++) {
-            sprintf(buf, "%d", i + OFFSET);
+            sprintf(buf, "%d", i + sz);
             gensym(buf);
         }
 
         gensym_info(&info);
-        REQUIRE(info.symbol_count == 20001 + OFFSET);
-        REQUIRE(info.max_chain == 38);
+        REQUIRE(info.symbol_count == sz + 20001);
+
+#ifdef __MACOSX_CORE__
+        REQUIRE(info.max_chain == 39);
+        REQUIRE(info.memory_size == 188);
+#endif
     }
 
     SECTION("memrss")

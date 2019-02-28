@@ -27,6 +27,7 @@ ceammc_conv_external(amp2dbfs)
 ceammc_conv_external(dbfs2amp)
 
 ceammc_conv_external(midi2freq)
+ceammc_conv_external(list2props)
 
 add_library(ceammc_conv STATIC mod_conv.h mod_conv.cpp ${CONV_SOURCES})
 if(UNIX)

@@ -10,21 +10,28 @@ MetroPattern::MetroPattern(const PdArgs& args)
     : BaseObject(args)
     , clock_(this, &MetroPattern::tick)
     , pattern_(positionalArguments().filtered(validTime))
-    , current_(0)
+    , current_(nullptr)
+    , sync_(nullptr)
+    , sync_update_(false)
 {
+    createOutlet();
     createOutlet();
 
     current_ = new SizeTProperty("@current", 0);
     createProperty(current_);
+
+    sync_ = new BoolProperty("@sync", false);
+    createProperty(sync_);
 
     createCbProperty("@pattern", &MetroPattern::p_pattern, &MetroPattern::p_set_pattern);
 }
 
 void MetroPattern::onFloat(t_float on)
 {
-    if (on > 0)
-        tick();
-    else
+    if (on > 0) {
+        clock_.delay(currentDelay());
+        output(true);
+    } else
         clock_.unset();
 }
 
@@ -40,16 +47,45 @@ void MetroPattern::p_set_pattern(const AtomList& l)
         return;
     }
 
-    pattern_ = l;
+    if (sync_->value()) {
+        // defer pattern update
+        sync_update_ = true;
+        // save to pattern to temp list
+        new_pattern_ = l;
 
-    if (current_->value() >= l.size())
-        current_->setValue(0);
+        // only set pattern if empty main pattern list
+        if (pattern_.empty())
+            pattern_ = l;
+    } else {
+        pattern_ = l;
+        // keep in sync - to handle @sync property change while running
+        new_pattern_ = l;
+    }
 }
 
 void MetroPattern::tick()
 {
-    if (next())
-        bangTo(0);
+    if (pattern_.empty()) {
+        OBJ_ERR << "empty pattern";
+        return;
+    }
+
+    // on last pattern value
+    if (current_->value() == pattern_.size() - 1) {
+        // update to saved new pattern
+        if (sync_->value() && sync_update_) {
+            sync_update_ = false;
+            pattern_ = new_pattern_;
+        }
+    }
+
+    next();
+
+    auto tm = currentDelay();
+    if (tm > 0)
+        clock_.delay(currentDelay());
+
+    output(false);
 }
 
 t_float MetroPattern::currentDelay() const
@@ -73,22 +109,28 @@ t_float MetroPattern::currentDelay() const
     return res < 1 ? 0 : res;
 }
 
+size_t MetroPattern::currentIndex() const
+{
+    return current_->value();
+}
+
 bool MetroPattern::next()
 {
-    if (pattern_.empty()) {
-        OBJ_ERR << "empty pattern";
+    if (pattern_.empty())
         return false;
-    }
 
     current_->setValue((current_->value() + 1) % pattern_.size());
+    return true;
+}
 
-    t_float tm = currentDelay();
+void MetroPattern::output(bool on_start)
+{
+    // end of cycle output
+    if (!on_start && current_->value() == 0)
+        bangTo(1);
 
-    if (tm > 0) {
-        clock_.delay(tm);
-        return true;
-    } else
-        return false;
+    floatTo(1, current_->value());
+    bangTo(0);
 }
 
 void setup_metro_pattern()

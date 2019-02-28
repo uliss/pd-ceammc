@@ -1,0 +1,60 @@
+#N canvas 0 0 760 555 12;
+#X obj 20 53 ui.link @title index @url ../index-help.pd;
+#X text 62 50 ::;
+#X obj 79 53 ui.link @title numeric @url numeric-help.pd;
+#X obj 30 116 complex.!=;
+#X text 200 116 not equal check;
+#X obj 30 143 complex.==;
+#X text 200 143 equal check;
+#X obj 30 170 complex.abs;
+#X text 200 170 the magnitude of a complex number;
+#X obj 30 197 complex.add;
+#X text 200 197 add two complex numbers;
+#X obj 30 224 complex.arg;
+#X text 200 224 the phase angle of the complex number x \, expressed
+in radians;
+#X obj 30 261 complex.conj;
+#X text 200 261 the complex conjugate;
+#X obj 30 288 complex.cos;
+#X text 200 288 cosine of complex number;
+#X obj 30 315 complex.div;
+#X text 200 315 divide complex numbers;
+#X obj 30 342 complex.exp;
+#X text 200 342 complex base e exponential;
+#X obj 30 369 complex.imag;
+#X text 200 369 get imaginary part of complex number;
+#X obj 30 396 complex.log;
+#X text 200 396 complex natural logarithm with the branch cuts along
+the negative real axis;
+#X obj 30 433 complex.log10;
+#X text 200 433 complex common logarithm with the branch cuts along
+the negative real axis;
+#X obj 30 470 complex.mul;
+#X text 200 470 multiply complex numbers;
+#X obj 30 497 complex.new;
+#X text 200 497 Complex data;
+#X obj 30 524 complex.norm;
+#X text 200 524 the squared magnitude;
+#X obj 30 551 complex.polar;
+#X text 200 551 creates Complex number in polar coordinates;
+#X obj 30 578 complex.pow;
+#X text 200 578 complex power;
+#X obj 30 605 complex.real;
+#X text 200 605 get real part of complex number;
+#X obj 30 632 complex.sin;
+#X text 200 632 sine of complex number;
+#X obj 30 659 complex.sqrt;
+#X text 200 659 complex square root in the range of the right half-
+plane;
+#X obj 30 686 complex.sub;
+#X text 200 686 substruct complex numbers;
+#X obj 30 713 complex.tan;
+#X text 200 713 tangent of complex number;
+#X obj 30 740 complex.to_list;
+#X text 200 740 real and imaginary part as list;
+#X obj 30 767 complex.unpack;
+#X text 200 767 unpacks complex number to real and imaginary parts;
+#X obj 1 1 cnv 5 740 40 empty empty numeric::complex 20 20 0 20
+-104026 -4096 0;
+#X obj 1 794 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 804 library: numeric;

@@ -1,5 +1,6 @@
 include_directories(${CMAKE_BINARY_DIR}) # for config.h
 include_directories(${PROJECT_SOURCE_DIR}/src)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/utf8rewind)
 
 set(LIBCEAMMC_COMPILE_FLAGS "${PD_EXTERNAL_CFLAGS}")
@@ -20,6 +21,9 @@ set(UTF8REWIND_SOURCES
     utf8rewind/internal/seeking.c
     utf8rewind/internal/streaming.c)
 
+set(CEAMMC_DATATYPE_SRC
+    datatype_string.cpp)
+
 set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc.hpp
     ceammc.c
@@ -36,10 +40,10 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_datastorage.cpp
     ceammc_dataatom.cpp
     ceammc_dataatomlist.cpp
+    ceammc_externals.cpp
     ceammc_factory.h
     ceammc_faust.cpp
     ceammc_fn_list.cpp
-    ceammc_fn_vector.cpp
     ceammc_format.cpp
     ceammc_impl.cpp
     ceammc_log.cpp
@@ -48,18 +52,46 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_music_theory.cpp
     ceammc_music_theory_names.cpp
     ceammc_music_theory_pitch_class.cpp
+    ceammc_node_external.cpp
     ceammc_object.cpp
     ceammc_pd.cpp
     ceammc_platform.cpp
     ceammc_preset.cpp
     ceammc_property.cpp
+    ceammc_property_info.cpp
     ceammc_sound_external.cpp
     ceammc_string.cpp
     ceammc_thread.cpp
     ceammc_timeline.cpp
+    ceammc_units.cpp
     ceammc_window.cpp
 
-    ${UTF8REWIND_SOURCES})
+    datatype_property.cpp
+
+    ${UTF8REWIND_SOURCES}
+    ${CEAMMC_DATATYPE_SRC})
+
+#
+# UI library
+#
+include_directories(cicm/Sources)
+
+set(CEAMMC_UI_SRC
+    cicm/Sources/ebox.cpp
+    cicm/Sources/eclass.cpp
+    cicm/Sources/ecommon.cpp
+    cicm/Sources/egraphics.cpp
+    cicm/Sources/eobj.cpp
+    cicm/Sources/epopup.cpp
+    ceammc_cicm.h
+    ceammc_cicm.cpp
+    ceammc_ui.h
+    ceammc_dsp_ui.h
+    ceammc_ui_object.h
+    ceammc_ui_object.cpp
+    ceammc_ui_dsp_object.h
+    ceammc_ui_dsp_object.cpp
+    image_detect.cpp)
 
 if(UNIX)
     list(APPEND CEAMMC_LIB_SOURCES ceammc_platform_unix.cpp)
@@ -67,8 +99,44 @@ elseif(WIN32)
     list(APPEND CEAMMC_LIB_SOURCES ceammc_platform_win.cpp)
 endif()
 
+# builtin datatypes: mlist and dict
+set(CEAMMC_MLIST_SRC
+    datatype_mlist.cpp
+    mlist_parser.lex
+    mlist_parser.y
+    mlist_parser.tab.c
+    lex.mlist_parser.c
+    mlist_parser_impl.cpp)
+
+set(CEAMMC_DICT_SRC
+    datatype_dict.cpp
+    dict_parser.lex
+    dict_parser.y
+    dict_parser.tab.c
+    lex.dict_parser.c
+    dict_parser_impl.cpp
+    )
+
+if(BISON_FOUND AND FLEX_FOUND)
+    add_custom_target(data_mlist_parser_gen
+        COMMAND ${FLEX_EXECUTABLE} --header-file=lex.mlist_parser.h mlist_parser.lex
+        COMMAND ${BISON_EXECUTABLE} -d mlist_parser.y
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+
+    add_custom_target(data_dict_parser_gen
+        COMMAND ${FLEX_EXECUTABLE} --header-file=lex.dict_parser.h dict_parser.lex
+        COMMAND ${BISON_EXECUTABLE} -d dict_parser.y
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+endif()
+
 # main shared library
-add_library(ceammc_core SHARED ${CEAMMC_LIB_SOURCES})
+add_library(ceammc_core SHARED
+    ${CEAMMC_LIB_SOURCES}
+    ${CEAMMC_MLIST_SRC}
+    ${CEAMMC_DICT_SRC}
+    ${CEAMMC_UI_SRC})
 target_link_libraries(ceammc_core puredata-core)
 
 set_target_properties(ceammc_core PROPERTIES
@@ -133,3 +201,9 @@ endif()
 
 add_executable(ext_list ext_list.cpp ../mod_init.cpp)
 target_link_libraries(ext_list puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
+
+add_executable(ext_methods ext_methods.cpp ../mod_init.cpp)
+target_link_libraries(ext_methods puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
+
+add_executable(ext_props ext_props.cpp ../mod_init.cpp)
+target_link_libraries(ext_props puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})

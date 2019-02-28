@@ -3,14 +3,21 @@
 
 #include "ceammc_platform.h"
 
-#include "test_base.h"
 #include "catch.hpp"
+#include "test_base.h"
 
+#include <chrono>
 #include <iostream>
 #include <sstream>
+#include <thread>
 
 using namespace ceammc::hw;
 using namespace ceammc::platform;
+
+inline void sleep_ms(int ms)
+{
+    std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+}
 
 TEST_CASE("hw::Arduino", "[hw]")
 {

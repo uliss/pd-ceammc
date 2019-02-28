@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="dict.each">
+        <title>dict.each</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>map each value in dict</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>each iterate dictionary</keywords>
+            <since>0.7</since>
+            <also>
+                <see>data.dict</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="data:dict">input dictionary</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>new key value from sidechain</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>processed dict</outlet>
+            <outlet>send value to sidechain</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[\[a: 1\] \[c: 2\] \[e: 3\], bang(
+|
+[dict]
+|
+[dict.each] X [* 100]
+|
+[ui.d]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

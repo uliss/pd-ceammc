@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.atanh">
+        <title>matrix.atanh</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>element-wise hyperbolic acrtangent</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <keywords>tangent trigonometric hyperbolic</keywords>
+            <version>0.1</version>
+            <since>0.1</since>
+            <also>
+                <see>matrix.tanh</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Matrix data constructor: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">Matrix data</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output new matrix (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[-1 1 100(         [A ARR_ATANH size=100 w=260 h=130 yr=-3..3]
+|
+[matrix.linspace]
+|
+[matrix.atanh]
+|
+[matrix->list]
+|
+[array.set ARR_TANH]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

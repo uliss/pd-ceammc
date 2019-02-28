@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.full">
+        <title>matrix.full</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>create Matrix filled with specified value</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <keywords>fill</keywords>
+            <version>0.1</version>
+            <since>0.1</since>
+            <also>
+                <see>matrix.fill</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="int" name="M" minvalue="0">number of rows</argument>
+            <argument type="int" name="N" minvalue="0">number of columns</argument>
+            <argument type="float" name="V">fill value</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="int">number of rows</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">number of columns</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">fill value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output new matrix (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[B] [2 2 4(      [F]
+|   |            |..
+[matrix.full 2 3 -5]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

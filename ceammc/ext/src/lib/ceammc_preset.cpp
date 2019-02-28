@@ -7,7 +7,6 @@ extern "C" {
 #include "g_canvas.h"
 }
 
-#include <boost/make_shared.hpp>
 #include <boost/math/special_functions/fpclassify.hpp>
 
 namespace ceammc {
@@ -20,10 +19,10 @@ t_symbol* Preset::SYM_LOAD = gensym("load");
 t_symbol* Preset::SYM_STORE = gensym("store");
 t_symbol* Preset::SYM_UPDATE = gensym("update");
 t_symbol* Preset::SYM_CLEAR = gensym("clear");
-t_symbol* Preset::SYM_PRESET_ALL = gensym("preset update all");
-t_symbol* PresetStorage::SYM_PRESET_UPDATE_INDEX_ADDR = gensym("preset index update addr");
-t_symbol* PresetStorage::SYM_PRESET_INDEX_ADD = gensym("preset index add");
-t_symbol* PresetStorage::SYM_PRESET_INDEX_REMOVE = gensym("preset index remove");
+t_symbol* Preset::SYM_PRESET_ALL = gensym(".preset update all");
+t_symbol* PresetStorage::SYM_PRESET_UPDATE_INDEX_ADDR = gensym(".preset index update addr");
+t_symbol* PresetStorage::SYM_PRESET_INDEX_ADD = gensym(".preset index add");
+t_symbol* PresetStorage::SYM_PRESET_INDEX_REMOVE = gensym(".preset index remove");
 
 PresetStorage::PresetStorage()
     : indexes_(MAX_PRESET_COUNT, PresetNameSet())
@@ -349,7 +348,7 @@ void PresetStorage::bindPreset(t_symbol* name)
 
     // create new preset
     if (it == params_.end()) {
-        PresetPtr ptr = boost::make_shared<Preset>(name);
+        PresetPtr ptr = std::make_shared<Preset>(name);
         std::pair<PresetMap::iterator, bool> res = params_.insert(PresetMap::value_type(name, ptr));
         if (!res.second) {
             LIB_ERR << "can't create preset: " << name;
@@ -451,7 +450,7 @@ PresetPtr PresetStorage::getOrCreate(t_symbol* name)
     if (it != params_.end())
         return it->second;
 
-    PresetPtr new_param = boost::make_shared<Preset>(name);
+    PresetPtr new_param = std::make_shared<Preset>(name);
     params_.insert(PresetMap::value_type(name, new_param));
     return new_param;
 }

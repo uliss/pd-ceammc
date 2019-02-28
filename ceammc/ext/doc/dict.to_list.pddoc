@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="dict.to_list">
+        <title>dict.to_list</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>converts dictionary to plain list</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>dictionary</keywords>
+            <since>0.7</since>
+            <also>
+                <see>data.dict</see>
+            </also>
+            <aliases>
+                <alias>dict-&gt;list</alias>
+            </aliases>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="data:dict">input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[\[a: b\] \[c: d e f\], bang(
+|
+[data.dict]
+|
+[dict->list]
+|
+[ui.d]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

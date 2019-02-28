@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_all_of.h"
-#include "../data/datatype_mlist.h"
+#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 
 ListAllOf::ListAllOf(const PdArgs& a)

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="rational.mul">
+        <title>rational.mul</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>multiply rational numbers</description>
+            <license>GPL3</license>
+            <library>numeric</library>
+            <category>rational</category>
+            <keywords>arithmetic math</keywords>
+            <version>0.1</version>
+            <since>0.1</since>
+            <aliases>
+                <alias>rational.*</alias>
+            </aliases>
+            <also>
+                <see>rational.div</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="list" name="C">rational number multiplier (Rational NUM DEN) or integer muptiplier</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Rational data constructor: NUM DEN</xinfo>
+                <xinfo on="data">Rational data</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">rational number multiplier: NUM DEN</xinfo>
+                <xinfo on="data">rational number multiplier</xinfo>
+                <xinfo on="int">integer muptiplier</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output multiplication result (Rational)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib numeric]
+
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

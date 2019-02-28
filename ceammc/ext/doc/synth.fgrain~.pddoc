@@ -13,6 +13,13 @@
             <keywords>grain</keywords>
             <since>0.6</since>
         </meta>
+        <methods>
+            <method name="open">open a monophonic soundfile to be "granulated". Only WAV and AIFF
+            formats are supported. 
+            <param name="PATH" type="symbol">path to file</param></method>
+            <method name="reset">reset the file pointer and all existing grains to the file
+            start</method>
+        </methods>
         <properties>
             <property name="@file" type="symbol">path file to granulate. Only WAV and AIFF formats
             are supported.</property>

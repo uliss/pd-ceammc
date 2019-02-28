@@ -1,99 +1,47 @@
-//----------------------------------------------------------
-// name: "osc_saw"
-//
-// Code generated with Faust 0.9.96 (http://faust.grame.fr)
-//----------------------------------------------------------
+/* ------------------------------------------------------------
+name: "osc_saw"
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
+Compilation options: cpp, -scal -ftz 0
+------------------------------------------------------------ */
 
-/* link with  */
-#include <math.h>
-#ifndef FAUSTPOWER
-#define FAUSTPOWER
+#ifndef  __osc_saw_H__
+#define  __osc_saw_H__
+
+// FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
-template <int N> inline int faustpower(int x)              { return faustpower<N/2>(x) * faustpower<N-N/2>(x); } 
-template <> 	 inline int faustpower<0>(int x)            { return 1; }
-template <> 	 inline int faustpower<1>(int x)            { return x; }
-template <> 	 inline int faustpower<2>(int x)            { return x*x; }
-template <int N> inline float faustpower(float x)            { return faustpower<N/2>(x) * faustpower<N-N/2>(x); } 
-template <> 	 inline float faustpower<0>(float x)          { return 1; }
-template <> 	 inline float faustpower<1>(float x)          { return x; }
-template <> 	 inline float faustpower<2>(float x)          { return x*x; }
-#endif
-/************************************************************************
- ************************************************************************
-    FAUST Architecture File
-    Copyright (C) 2006-2011 Albert Graef <Dr.Graef@t-online.de>
-    ---------------------------------------------------------------------
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as
-    published by the Free Software Foundation; either version 2.1 of the
-    License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
-
-    You should have received a copy of the GNU Lesser General Public
-    License along with the GNU C Library; if not, write to the Free
-    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
-    02111-1307 USA.
- ************************************************************************
- ************************************************************************/
-
-/* Pd architecture file, written by Albert Graef <Dr.Graef@t-online.de>.
-   This was derived from minimal.cpp included in the Faust distribution.
-   Please note that this is to be compiled as a shared library, which is
-   then loaded dynamically by Pd as an external. */
-
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
+#include <memory>
 #include <string>
 
 /************************************************************************
-    IMPORTANT NOTE : this file contains two clearly delimited sections :
-    the ARCHITECTURE section (in two parts) and the USER section. Each section
-    is governed by its own copyright and license. Please check individually
-    each section for license and copyright information.
-*************************************************************************/
-
-/*******************BEGIN ARCHITECTURE SECTION (part 1/2)****************/
-
-/************************************************************************
-    FAUST Architecture File
-    Copyright (C) 2003-2011 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This Architecture section is free software; you can redistribute it
-    and/or modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 3 of
-    the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; If not, see <http://www.gnu.org/licenses/>.
-
-    EXCEPTION : As a special exception, you may create a larger work
-    that contains this FAUST architecture section and distribute
-    that work under terms of your choice, so long as this FAUST
-    architecture section is not modified.
-
- ************************************************************************
- ************************************************************************/
+ FAUST Architecture File
+ Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This Architecture section is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 3 of
+ the License, or (at your option) any later version.
  
-/******************************************************************************
-*******************************************************************************
-
-								FAUST DSP
-
-*******************************************************************************
-*******************************************************************************/
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program; If not, see <http://www.gnu.org/licenses/>.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
+ ************************************************************************/
 
 #ifndef __dsp__
 #define __dsp__
+
+#include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -101,6 +49,19 @@ template <> 	 inline float faustpower<2>(float x)          { return x*x; }
 
 class UI;
 struct Meta;
+
+/**
+ * DSP memory manager.
+ */
+
+struct dsp_memory_manager {
+    
+    virtual ~dsp_memory_manager() {}
+    
+    virtual void* allocate(size_t size) = 0;
+    virtual void destroy(void* ptr) = 0;
+    
+};
 
 /**
 * Signal processor definition.
@@ -120,33 +81,36 @@ class dsp {
         virtual int getNumOutputs() = 0;
     
         /**
-         * Trigger the UI* parameter with instance specific calls
+         * Trigger the ui_interface parameter with instance specific calls
          * to 'addBtton', 'addVerticalSlider'... in order to build the UI.
          *
-         * @param ui_interface - the UI* user interface builder
+         * @param ui_interface - the user interface builder
          */
         virtual void buildUserInterface(UI* ui_interface) = 0;
     
         /* Returns the sample rate currently used by the instance */
         virtual int getSampleRate() = 0;
     
-        /** Global init, calls the following methods:
-         * - static class 'classInit': static table initialisation
-         * - 'instanceInit': constants and instance table initialisation
+        /**
+         * Global init, calls the following methods:
+         * - static class 'classInit': static tables initialization
+         * - 'instanceInit': constants and instance state initialization
          *
-         * @param samplingRate - the sampling rate in Herz
+         * @param samplingRate - the sampling rate in Hertz
          */
         virtual void init(int samplingRate) = 0;
-    
-        /** Init instance state
+
+        /**
+         * Init instance state
          *
-         * @param samplingRate - the sampling rate in Herz
+         * @param samplingRate - the sampling rate in Hertz
          */
         virtual void instanceInit(int samplingRate) = 0;
-    
-        /** Init instance constant state
+
+        /**
+         * Init instance constant state
          *
-         * @param samplingRate - the sampling rate in Herz
+         * @param samplingRate - the sampling rate in Hertz
          */
         virtual void instanceConstants(int samplingRate) = 0;
     
@@ -155,8 +119,8 @@ class dsp {
     
         /* Init instance state (delay lines...) */
         virtual void instanceClear() = 0;
-    
-        /**  
+ 
+        /**
          * Return a clone of the instance.
          *
          * @return a copy of the instance on success, otherwise a null pointer.
@@ -164,16 +128,16 @@ class dsp {
         virtual dsp* clone() = 0;
     
         /**
-         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value metadata).
+         * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
          *
          * @param m - the Meta* meta user
          */
         virtual void metadata(Meta* m) = 0;
     
         /**
-         * DSP instance computation, to be called with sucessive in/out audio buffers.
+         * DSP instance computation, to be called with successive in/out audio buffers.
          *
-         * @param count - the nomber of frames to compute
+         * @param count - the number of frames to compute
          * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
          * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
          *
@@ -184,12 +148,12 @@ class dsp {
          * DSP instance computation: alternative method to be used by subclasses.
          *
          * @param date_usec - the timestamp in microsec given by audio driver.
-         * @param count - the nomber of frames to compute
+         * @param count - the number of frames to compute
          * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
          * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
          *
          */
-        virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
+        virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
        
 };
 
@@ -218,11 +182,38 @@ class decorator_dsp : public dsp {
         virtual void instanceResetUserInterface() { fDSP->instanceResetUserInterface(); }
         virtual void instanceClear() { fDSP->instanceClear(); }
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
-        virtual void metadata(Meta* m) { return fDSP->metadata(m); }
+        virtual void metadata(Meta* m) { fDSP->metadata(m); }
         // Beware: subclasses usually have to overload the two 'compute' methods
         virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(count, inputs, outputs); }
         virtual void compute(double date_usec, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { fDSP->compute(date_usec, count, inputs, outputs); }
-       
+    
+};
+
+/**
+ * DSP factory class.
+ */
+
+class dsp_factory {
+    
+    protected:
+    
+        // So that to force sub-classes to use deleteDSPFactory(dsp_factory* factory);
+        virtual ~dsp_factory() {}
+    
+    public:
+    
+        virtual std::string getName() = 0;
+        virtual std::string getSHAKey() = 0;
+        virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
+    
+        virtual dsp* createDSPInstance() = 0;
+    
+        virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
+        virtual dsp_memory_manager* getMemoryManager() = 0;
+    
 };
 
 /**
@@ -243,33 +234,30 @@ class decorator_dsp : public dsp {
 
 #endif
 /************************************************************************
-    FAUST Architecture File
-    Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This Architecture section is free software; you can redistribute it
-    and/or modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 3 of
-    the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; If not, see <http://www.gnu.org/licenses/>.
-
-    EXCEPTION : As a special exception, you may create a larger work
-    that contains this FAUST architecture section and distribute
-    that work under terms of your choice, so long as this FAUST
-    architecture section is not modified.
-
-
- ************************************************************************
+ FAUST Architecture File
+ Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This Architecture section is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 3 of
+ the License, or (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program; If not, see <http://www.gnu.org/licenses/>.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
  ************************************************************************/
 
-#ifndef FAUST_UI_H
-#define FAUST_UI_H
+#ifndef __UI_H__
+#define __UI_H__
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -281,6 +269,8 @@ class decorator_dsp : public dsp {
  * This abstract class contains only the method that the Faust compiler can
  * generate to describe a DSP user interface.
  ******************************************************************************/
+
+struct Soundfile;
 
 class UI
 {
@@ -310,6 +300,10 @@ class UI
 
         virtual void addHorizontalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max) = 0;
         virtual void addVerticalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max) = 0;
+    
+        // -- soundfiles
+    
+        virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
 
         // -- metadata declarations
 
@@ -318,26 +312,28 @@ class UI
 
 #endif
 /************************************************************************
- ************************************************************************
-    FAUST Architecture File
-	Copyright (C) 2003-2011 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This Architecture section is free software; you can redistribute it
-    and/or modify it under the terms of the GNU General Public License
-	as published by the Free Software Foundation; either version 3 of
-	the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-	along with this program; If not, see <http://www.gnu.org/licenses/>.
-
- ************************************************************************
- ************************************************************************/
+ FAUST Architecture File
+ Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This Architecture section is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 3 of
+ the License, or (at your option) any later version.
  
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program; If not, see <http://www.gnu.org/licenses/>.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
+ ************************************************************************/
+
 #ifndef __meta__
 #define __meta__
 
@@ -349,24 +345,26 @@ struct Meta
 
 #endif
 /************************************************************************
- ************************************************************************
-    FAUST Architecture File
-	Copyright (C) 2003-2011 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This Architecture section is free software; you can redistribute it
-    and/or modify it under the terms of the GNU General Public License
-	as published by the Free Software Foundation; either version 3 of
-	the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-	along with this program; If not, see <http://www.gnu.org/licenses/>.
-
- ************************************************************************
+ FAUST Architecture File
+ Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This Architecture section is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 3 of
+ the License, or (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program; If not, see <http://www.gnu.org/licenses/>.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
  ************************************************************************/
  
 #ifndef __misc__
@@ -376,6 +374,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -398,7 +397,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -419,16 +418,9 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 #endif
 
 
-#include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_faust.h"
 
-/******************************************************************************
-*******************************************************************************
-
-                                   VECTOR INTRINSICS
-
-*******************************************************************************
-*******************************************************************************/
+using namespace ceammc::faust;
 
 #ifdef FAUST_MACRO
 // clang-format off
@@ -438,88 +430,121 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 #define sym(name) xsym(name)
 #define xsym(name) #name
 
-/***************************************************************************
-   Pd UI interface
-***************************************************************************/
-
 // clang-format off
 #ifndef FAUST_MACRO
-struct saw : public dsp {
+struct osc_saw : public dsp {
 };
 #endif
 // clang-format on
-
-#include "ceammc_faust.h"
-using namespace ceammc::faust;
-
-/******************************************************************************
-*******************************************************************************
-
-                FAUST DSP
-
-*******************************************************************************
-*******************************************************************************/
-
-//----------------------------------------------------------------------------
-//  FAUST generated signal processor
-//----------------------------------------------------------------------------
 
 #ifdef FAUST_MACRO
 // clang-format off
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
-#endif  
+#endif 
+
+#include <algorithm>
+#include <cmath>
+#include <math.h>
 
 
 #ifndef FAUSTCLASS 
-#define FAUSTCLASS saw
+#define FAUSTCLASS osc_saw
+#endif
+#ifdef __APPLE__ 
+#define exp10f __exp10f
+#define exp10 __exp10
 #endif
 
-class saw : public dsp {
-  private:
-	float 	fConst0;
-	float 	fConst1;
-	int 	iVec0[4];
-	float 	fConst2;
-	float 	fRec0[2];
-	float 	fVec1[2];
-	float 	fVec2[2];
-	float 	fVec3[2];
+class osc_saw : public dsp {
+	
+ private:
+	
 	int fSamplingFreq;
-
-  public:
-	virtual void metadata(Meta* m) { 
-		m->declare("name", "osc_saw");
+	float fConst0;
+	float fConst1;
+	float fRec0[2];
+	
+ public:
+	
+	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.0");
-		m->declare("oscillators.lib/name", "Faust Oscillator Library");
-		m->declare("oscillators.lib/version", "0.0");
-		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.0");
+		m->declare("filename", "osc_saw");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
+		m->declare("maths.lib/name", "Faust Math Library");
+		m->declare("maths.lib/version", "2.1");
+		m->declare("name", "osc_saw");
+		m->declare("oscillators.lib/name", "Faust Oscillator Library");
+		m->declare("oscillators.lib/version", "0.0");
 	}
 
-	virtual int getNumInputs() { return 1; }
-	virtual int getNumOutputs() { return 1; }
-	static void classInit(int samplingFreq) {
+	virtual int getNumInputs() {
+		return 1;
+		
 	}
+	virtual int getNumOutputs() {
+		return 1;
+		
+	}
+	virtual int getInputRate(int channel) {
+		int rate;
+		switch (channel) {
+			case 0: {
+				rate = 1;
+				break;
+			}
+			default: {
+				rate = -1;
+				break;
+			}
+			
+		}
+		return rate;
+		
+	}
+	virtual int getOutputRate(int channel) {
+		int rate;
+		switch (channel) {
+			case 0: {
+				rate = 1;
+				break;
+			}
+			default: {
+				rate = -1;
+				break;
+			}
+			
+		}
+		return rate;
+		
+	}
+	
+	static void classInit(int samplingFreq) {
+		
+	}
+	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = min(1.92e+05f, max(1.0f, (float)fSamplingFreq));
-		fConst1 = (0.0052083335f * faustpower<3>(float(fConst0)));
-		fConst2 = (1.0f / fConst0);
+		fConst0 = std::min(192000.0f, std::max(1.0f, float(fSamplingFreq)));
+		fConst1 = (1.0f / fConst0);
+		
 	}
+	
 	virtual void instanceResetUserInterface() {
+		
 	}
+	
 	virtual void instanceClear() {
-		for (int i=0; i<4; i++) iVec0[i] = 0;
-		for (int i=0; i<2; i++) fRec0[i] = 0;
-		for (int i=0; i<2; i++) fVec1[i] = 0;
-		for (int i=0; i<2; i++) fVec2[i] = 0;
-		for (int i=0; i<2; i++) fVec3[i] = 0;
+		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
+			fRec0[l0] = 0.0f;
+			
+		}
+		
 	}
+	
 	virtual void init(int samplingFreq) {
 		classInit(samplingFreq);
 		instanceInit(samplingFreq);
@@ -529,579 +554,61 @@ class saw : public dsp {
 		instanceResetUserInterface();
 		instanceClear();
 	}
-	virtual saw* clone() {
-		return new saw();
+	
+	virtual osc_saw* clone() {
+		return new osc_saw();
 	}
 	virtual int getSampleRate() {
 		return fSamplingFreq;
+		
 	}
+	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("0x00");
+		ui_interface->openVerticalBox("osc_saw");
 		ui_interface->closeBox();
+		
 	}
-	virtual void compute (int count, FAUSTFLOAT** input, FAUSTFLOAT** output) {
-		FAUSTFLOAT* input0 = input[0];
-		FAUSTFLOAT* output0 = output[0];
-		for (int i=0; i<count; i++) {
-			float fTemp0 = (float)input0[i];
-			iVec0[0] = 1;
-			float fTemp1 = max(2e+01f, fabsf(max((float)30, fTemp0)));
-			float fTemp2 = ((fConst2 * fTemp1) + fRec0[1]);
-			fRec0[0] = (fTemp2 - floorf(fTemp2));
-			float fTemp3 = faustpower<2>(((2 * fRec0[0]) + -1));
-			float fTemp4 = (fTemp3 * (fTemp3 + -2.0f));
-			fVec1[0] = fTemp4;
-			float fTemp5 = ((fVec1[0] - fVec1[1]) / fTemp1);
-			fVec2[0] = fTemp5;
-			float fTemp6 = ((fVec2[0] - fVec2[1]) / fTemp1);
-			fVec3[0] = fTemp6;
-			output0[i] = (FAUSTFLOAT)((int((fTemp0 == 0)))?0:(fConst1 * ((iVec0[3] * (fVec3[0] - fVec3[1])) / fTemp1)));
-			// post processing
-			fVec3[1] = fVec3[0];
-			fVec2[1] = fVec2[0];
-			fVec1[1] = fVec1[0];
+	
+	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
+		FAUSTFLOAT* input0 = inputs[0];
+		FAUSTFLOAT* output0 = outputs[0];
+		for (int i = 0; (i < count); i = (i + 1)) {
+			float fTemp0 = float(input0[i]);
+			float fTemp1 = std::max(1.00000001e-07f, std::fabs(fTemp0));
+			float fTemp2 = (fConst1 * fTemp1);
+			float fTemp3 = (fRec0[1] + fTemp2);
+			float fTemp4 = (fTemp3 + -1.0f);
+			int iTemp5 = (fTemp4 < 0.0f);
+			fRec0[0] = (iTemp5?fTemp3:fTemp4);
+			float fRec1 = (iTemp5?fTemp3:((fRec0[1] + (fTemp4 * (1.0f - (fConst0 / fTemp1)))) + fTemp2));
+			output0[i] = FAUSTFLOAT(((fTemp0 == 0.0f)?0.0f:((2.0f * fRec1) + -1.0f)));
 			fRec0[1] = fRec0[0];
-			for (int i=3; i>0; i--) iVec0[i] = iVec0[i-1];
+			
 		}
+		
 	}
+
+	
 };
-
-
 // clang-format on
 #endif
 
-// clang-format off
-#define faust_setup(name) xfaust_setup(name)
-#define xfaust_setup(name) name##_tilde_setup(void)
-// time for "active" toggle xfades in secs
-#define XFADE_TIME 0.1f
-static t_class* saw_faust_class;
-#define FAUST_EXT t_faust_saw
-#define FAUST_EXT_CLASS saw_faust_class
-// clang-format on
-
-struct t_faust_saw {
-    t_object x_obj;
-#ifdef __MINGW32__
-    /* This seems to be necessary as some as yet undetermined Pd routine seems
-     to write past the end of x_obj on Windows. */
-    int fence; /* dummy field (not used) */
-#endif
-    saw* dsp;
-    PdUI<UI>* ui;
-    int active, xfade, n_xfade, rate, n_in, n_out;
-    t_sample **inputs, **outputs, **buf;
-    t_outlet* out;
-    t_sample f;
+    template <class T>
+    struct _osc_saw_UI : public UI {
+    static std::string name;
 };
 
-static inline void zero_samples(int k, int n, t_sample** out)
-{
-    for (int i = 0; i < k; i++)
-#ifdef __STDC_IEC_559__
-        /* IEC 559 a.k.a. IEEE 754 floats can be initialized faster like this */
-        memset(out[i], 0, n * sizeof(t_sample));
-#else
-        for (int j = 0; j < n; j++)
-            out[i][j] = 0.0f;
-#endif
-}
+template <class T>
+std::string _osc_saw_UI<T>::name(sym(osc_saw));
 
-static inline void copy_samples(int k, int n, t_sample** out, t_sample** in)
-{
-    for (int i = 0; i < k; i++)
-        memcpy(out[i], in[i], n * sizeof(t_sample));
-}
+typedef _osc_saw_UI<osc_saw> osc_saw_UI;
 
-static t_int* faust_perform(t_int* w)
-{
-    t_faust_saw* x = reinterpret_cast<t_faust_saw*>(w[1]);
-    int n = static_cast<int>(w[2]);
-    if (!x->dsp || !x->buf)
-        return (w + 3);
-
-    AVOIDDENORMALS;
-    if (x->xfade > 0) {
-        float d = 1.0f / x->n_xfade, f = (x->xfade--) * d;
-        d = d / n;
-        x->dsp->compute(n, x->inputs, x->buf);
-        if (x->active) {
-            if (x->n_in == x->n_out) {
-                /* xfade inputs -> buf */
-                for (int j = 0; j < n; j++, f -= d) {
-                    for (int i = 0; i < x->n_out; i++)
-                        x->outputs[i][j] = f * x->inputs[i][j] + (1.0f - f) * x->buf[i][j];
-                }
-            } else {
-                /* xfade 0 -> buf */
-                for (int j = 0; j < n; j++, f -= d) {
-                    for (int i = 0; i < x->n_out; i++)
-                        x->outputs[i][j] = (1.0f - f) * x->buf[i][j];
-                }
-            }
-        } else if (x->n_in == x->n_out) {
-            /* xfade buf -> inputs */
-            for (int j = 0; j < n; j++, f -= d) {
-                for (int i = 0; i < x->n_out; i++)
-                    x->outputs[i][j] = f * x->buf[i][j] + (1.0f - f) * x->inputs[i][j];
-            }
-        } else {
-            /* xfade buf -> 0 */
-            for (int j = 0; j < n; j++, f -= d) {
-                for (int i = 0; i < x->n_out; i++)
-                    x->outputs[i][j] = f * x->buf[i][j];
-            }
-        }
-    } else if (x->active) {
-        x->dsp->compute(n, x->inputs, x->buf);
-        copy_samples(x->n_out, n, x->outputs, x->buf);
-    } else if (x->n_in == x->n_out) {
-        copy_samples(x->n_out, n, x->buf, x->inputs);
-        copy_samples(x->n_out, n, x->outputs, x->buf);
-    } else
-        zero_samples(x->n_out, n, x->outputs);
-
-    return (w + 3);
-}
-
-static void saw_faust_dsp(t_faust_saw* x, t_signal** sp)
-{
-    const int n = sp[0]->s_n;
-    const int sr = static_cast<int>(sp[0]->s_sr);
-
-    if (x->rate <= 0) {
-        /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
-        std::vector<FAUSTFLOAT> z = ui->uiValues();
-        /* set the proper sample rate; this requires reinitializing the dsp */
-        x->rate = sr;
-        x->dsp->init(sr);
-        ui->setUIValues(z);
-    }
-    if (n > 0)
-        x->n_xfade = static_cast<int>(x->rate * XFADE_TIME / n);
-
-    dsp_add(faust_perform, 2, x, n);
-
-    for (int i = 0; i < x->n_in; i++)
-        x->inputs[i] = sp[i]->s_vec;
-
-    for (int i = 0; i < x->n_out; i++)
-        x->outputs[i] = sp[x->n_in + i]->s_vec;
-
-    if (x->buf != NULL) {
-        for (int i = 0; i < x->n_out; i++) {
-            x->buf[i] = static_cast<t_sample*>(malloc(n * sizeof(t_sample)));
-            if (x->buf[i] == NULL) {
-                for (int j = 0; j < i; j++)
-                    free(x->buf[j]);
-                free(x->buf);
-                x->buf = NULL;
-                break;
-            }
-        }
-    }
-}
-
-static void saw_dump_to_console(t_faust_saw* x)
-{
-    t_object* xobj = &x->x_obj;
-    t_class* xc = xobj->te_pd;
-    const char* name = class_getname(xc);
-
-    // print xlets
-    post("[%s] inlets: %i", name, x->dsp->getNumInputs());
-    int info_outlet = (x->out == 0) ? 0 : 1;
-    post("[%s] outlets: %i", name, x->dsp->getNumOutputs() + info_outlet);
-
-    // print properties
-    for (size_t i = 0; i < x->ui->uiCount(); i++) {
-        UIElement* el = x->ui->uiAt(i);
-        post("[%s] property: %s = %g", name, el->setPropertySym()->s_name, static_cast<double>(el->value()));
-    }
-}
-
-static void saw_faust_any(t_faust_saw* x, t_symbol* s, int argc, t_atom* argv)
-{
-    if (!x->dsp)
-        return;
-
-    PdUI<UI>* ui = x->ui;
-    if (s == &s_bang) {
-        ui->dumpUI(x->out);
-    } else if (isGetAllProperties(s)) {
-        ui->outputAllProperties(x->out);
-    } else if (isGetProperty(s)) {
-        ui->outputProperty(s, x->out);
-    } else if (isSetProperty(s)) {
-        ui->setProperty(s, argc, argv);
-    } else {
-        const char* label = s->s_name;
-        int count = 0;
-        for (size_t i = 0; i < ui->uiCount(); i++) {
-            if (ui->uiAt(i)->pathcmp(label)) {
-                if (argc == 0) {
-                    ui->uiAt(i)->outputValue(x->out);
-                    ++count;
-                } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT)) {
-                    float f = atom_getfloat(argv);
-                    UIElement* el = ui->uiAt(i);
-                    el->setValue(f);
-                    ++count;
-                } else
-                    pd_error(x, "[ceammc] %s: bad control argument: %s", ui->fullName().c_str(), label);
-            }
-        }
-
-        if (count == 0 && strcmp(label, "active") == 0) {
-            if (argc == 0) {
-                t_atom arg;
-                SETFLOAT(&arg, (float)x->active);
-                if (x->out) {
-                    outlet_anything(x->out, gensym("active"), 1, &arg);
-                }
-            } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT)) {
-                float f = atom_getfloat(argv);
-                x->active = (int)f;
-                x->xfade = x->n_xfade;
-            }
-        }
-    }
-}
-
-static void faust_free_dsp(t_faust_saw* x)
-{
-    delete x->dsp;
-    x->dsp = NULL;
-}
-
-static void faust_free_ui(t_faust_saw* x)
-{
-    delete x->ui;
-    x->ui = NULL;
-}
-
-static void faust_free_inputs(t_faust_saw* x)
-{
-    if (x->inputs)
-        free(x->inputs);
-    x->inputs = NULL;
-}
-
-static void faust_free_outputs(t_faust_saw* x)
-{
-    if (x->outputs)
-        free(x->outputs);
-    x->outputs = NULL;
-}
-
-static void faust_free_buf(t_faust_saw* x)
-{
-    if (x->buf) {
-        for (int i = 0; i < x->n_out; i++) {
-            if (x->buf[i])
-                free(x->buf[i]);
-        }
-
-        free(x->buf);
-    }
-}
-
-static void saw_faust_free(t_faust_saw* x)
-{
-    faust_free_dsp(x);
-    faust_free_ui(x);
-    faust_free_inputs(x);
-    faust_free_outputs(x);
-    faust_free_buf(x);
-}
-
-static bool faust_init_inputs(t_faust_saw* x)
-{
-    x->inputs = NULL;
-    x->n_in = x->dsp->getNumInputs();
-
-    if (x->n_in > 0) {
-        x->inputs = static_cast<t_sample**>(calloc(x->n_in, sizeof(t_sample*)));
-
-        if (x->inputs == NULL) {
-            error("[%s] faust_init_inputs failed", sym(saw));
-            return false;
-        }
-    }
-
-    // creating sound inlets (except the first one!)
-    for (int i = 0; i < (x->n_in - 1); i++) {
-        inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_signal, &s_signal);
-    }
-
-    return true;
-}
-
-static bool faust_init_outputs(t_faust_saw* x, bool info_outlet)
-{
-    x->outputs = NULL;
-    x->buf = NULL;
-
-    x->n_out = x->dsp->getNumOutputs();
-
-    if (x->n_out > 0) {
-        x->outputs = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
-        if (x->outputs == NULL) {
-            error("[%s] faust_init_outputs failed", sym(saw));
-            return false;
-        }
-
-        x->buf = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
-        if (x->buf == NULL) {
-            error("[%s] faust_init_outputs failed", sym(saw));
-            faust_free_outputs(x);
-            return false;
-        }
-
-        for (int i = 0; i < x->n_out; i++)
-            x->buf[i] = NULL;
-    }
-
-    // creating sound outlets
-    for (int i = 0; i < x->n_out; i++) {
-        outlet_new(&x->x_obj, &s_signal);
-    }
-
-    // control outlet
-    if (info_outlet)
-        x->out = outlet_new(&x->x_obj, 0);
-    else
-        x->out = 0;
-
-    return true;
-}
-
-static bool faust_new_internal(t_faust_saw* x, const std::string& objId = "", bool info_outlet = true)
-{
-    int sr = 44100;
-    x->active = 1;
-    x->xfade = 0;
-    x->rate = sr;
-    x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
-
-    x->dsp = new saw();
-    x->ui = new PdUI<UI>(sym(saw), objId);
-
-    if (!faust_init_inputs(x)) {
-        saw_faust_free(x);
-        return false;
-    }
-
-    if (!faust_init_outputs(x, info_outlet)) {
-        saw_faust_free(x);
-        return false;
-    }
-
-    x->dsp->init(sr);
-    x->dsp->buildUserInterface(x->ui);
-
-    return true;
-}
-
-/**
- * find nth element that satisfies given predicate
- * @first - first element of sequence
- * @last - pointer behind last element of sequence
- * @Nth - searched element index
- * @pred - predicate
- * @return pointer to found element or pointer to @bold last, if not found
- */
-template <class InputIterator, class NthOccurence, class UnaryPredicate>
-InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
-{
-    if (Nth > 0) {
-        while (first != last) {
-            if (pred(*first))
-                if (!--Nth)
-                    return first;
-            ++first;
-        }
-    }
-    return last;
-}
-
-/**
- * @return true if given atom is a float
- */
-static bool atom_is_float(const t_atom& a)
-{
-    switch (a.a_type) {
-    case A_FLOAT:
-    case A_DEFFLOAT:
-        return true;
-    default:
-        return false;
-    }
-}
-
-/**
- * @return true if given atom is a symbol
- */
-static bool atom_is_symbol(const t_atom& a)
-{
-    switch (a.a_type) {
-    case A_DEFSYMBOL:
-    case A_SYMBOL:
-        return true;
-    default:
-        return false;
-    }
-}
-
-/**
- * @brief find nth float in argument list. (arguments can be mixed)
- * @param argc argument count
- * @param argv pointer to argument vector
- * @param nth find position. nth should be > 0!
- * @param dest destination to write value
- * @return true if argument at given position was found, otherwise false
- */
-static bool get_nth_float_arg(int argc, t_atom* argv, int nth, t_float* dest)
-{
-    t_atom* last = argv + argc;
-    t_atom* res = find_nth_if(argv, last, nth, atom_is_float);
-    if (last == res)
-        return false;
-
-    *dest = atom_getfloat(res);
-    return true;
-}
-
-/**
- * @brief find nth symbol in argument list. (arguments can be mixed)
- * @param argc argument count
- * @param argv pointer to argument vector
- * @param nth find position. nth should be > 0!
- * @param dest destination to write found argument value
- * @return true if argument at given position was found, otherwise false
- */
-static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** dest)
-{
-    t_atom* last = argv + argc;
-    t_atom* res = find_nth_if(argv, last, nth, atom_is_symbol);
-    if (last == res)
-        return false;
-
-    t_symbol* s = atom_getsymbol(res);
-    *dest = s->s_name;
-    return true;
-}
-
-class PdArgParser {
-    t_faust_saw* x_;
-    int argc_;
-    t_atom* argv_;
-    bool control_outlet_;
-
+class faust_osc_saw_tilde : public FaustExternal<osc_saw, osc_saw_UI> {
 public:
-    /**
-     * @brief FaustArgParser
-     * @param x pointer to faust class
-     * @param argc arguments count
-     * @param argv pointer to argument vector
-     */
-    PdArgParser(t_faust_saw* x, int argc, t_atom* argv, bool info_outlet = true)
-        : x_(x)
-        , argc_(argc)
-        , argv_(argv)
-        , control_outlet_(info_outlet)
+    faust_osc_saw_tilde(const ceammc::PdArgs& args)
+        : FaustExternal(args)
     {
-        const char* id = NULL;
-        std::string objId;
-        if (get_nth_symbol_arg(argc_, argv_, 1, &id))
-            objId = id;
-
-        // init error
-        if (!faust_new_internal(x, objId, control_outlet_)) {
-            this->x_ = NULL;
-        }
-    }
-
-    /**
-     * @brief initFloatArg
-     * @param name argument name
-     * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
-     * to select first argument - pass 1.
-     */
-    void initFloatArg(const char* name, int pos)
-    {
-        // object was not created
-        if (!this->x_)
-            return;
-
-        t_float v = 0.0;
-        if (get_nth_float_arg(this->argc_, this->argv_, pos, &v)) {
-            UIElement* el = this->x_->ui->findElementByLabel(name);
-            if (!el) {
-                post("invalid UI element name: %s", name);
-                return;
-            }
-
-            el->setValue(v, true);
-        }
-    }
-
-    /**
-     * @brief send creation argument to first signal inlet
-     * @param name argument name
-     * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
-     * to select first argument - pass 1.
-     */
-    void signalFloatArg(const char* name, int pos)
-    {
-        // object was not created
-        if (!this->x_)
-            return;
-
-        t_float arg = 0;
-        if (get_nth_float_arg(this->argc_, this->argv_, pos, &arg))
-            pd_float(reinterpret_cast<t_pd*>(this->x_), arg);
-    }
-
-    t_faust_saw* pd_obj()
-    {
-        return this->x_;
     }
 };
 
-static void* saw_faust_new(t_symbol* s, int argc, t_atom* argv);
-
-static void internal_setup(t_symbol* s)
-{
-    saw_faust_class = class_new(s, reinterpret_cast<t_newmethod>(saw_faust_new),
-        reinterpret_cast<t_method>(saw_faust_free),
-        sizeof(t_faust_saw),
-        CLASS_DEFAULT,
-        A_GIMME, A_NULL);
-    class_addmethod(saw_faust_class, nullfn, &s_signal, A_NULL);
-    class_addmethod(saw_faust_class, reinterpret_cast<t_method>(saw_faust_dsp), gensym("dsp"), A_NULL);
-    class_addmethod(saw_faust_class, reinterpret_cast<t_method>(saw_dump_to_console), gensym("dump"), A_NULL);
-    CLASS_MAINSIGNALIN(saw_faust_class, t_faust_saw, f);
-    class_addanything(saw_faust_class, saw_faust_any);
-}
-
-#define EXTERNAL_NEW void* saw_faust_new(t_symbol*, int argc, t_atom* argv)
-
-#define EXTERNAL_SIMPLE_NEW()                                                           \
-    static void* saw_faust_new(t_symbol*, int argc, t_atom* argv)                     \
-    {                                                                                   \
-        t_faust_saw* x = reinterpret_cast<t_faust_saw*>(pd_new(saw_faust_class)); \
-        PdArgParser p(x, argc, argv, false);                                            \
-        return p.pd_obj();                                                              \
-    }
-
-#define EXTERNAL_SETUP(MOD)                        \
-    extern "C" void setup_##MOD##0x2esaw_tilde() \
-    {                                              \
-        internal_setup(gensym(#MOD ".saw~"));    \
-    }
-
-#define SIMPLE_EXTERNAL(MOD) \
-    EXTERNAL_SIMPLE_NEW();   \
-    EXTERNAL_SETUP(MOD);
+#endif

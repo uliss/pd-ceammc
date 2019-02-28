@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="rational.new">
+        <title>rational.new</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>The Rational class</description>
+            <license>GPL3</license>
+            <library>numeric</library>
+            <category>rational</category>
+            <keywords>rational math</keywords>
+            <version>0.1</version>
+            <since>0.1</since>
+        </meta>
+        <arguments>
+            <argument type="int" name="NUM">numerator</argument>
+            <argument type="int" name="DEN">denominator</argument>
+        </arguments>
+        <methods>
+            <method name="set">set data without output</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output current data</xinfo>
+                <xinfo on="data">(on Rational) set new data value and output it</xinfo>
+                <xinfo on="list">list: int int (numerator/denominator)</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output created data (Rational)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib numeric]
+
+
+[B] [1 2( [set 3 4( [9/8( [F]   [9 / 8(
+|   |     |         |     |     |
+|   |     |         |     |     |
+|   |     |         |     |     |
+[rational.new 4                 ]
+|
+[ui.display display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

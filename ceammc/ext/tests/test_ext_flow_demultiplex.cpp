@@ -12,30 +12,26 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../flow/flow_demultiplex.h"
-#include "test_base.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
+#include "test_external.h"
 
-#include <stdio.h>
-
-typedef TestExternal<FlowDemultiplex> FlowDemultiplexTest;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(FlowDemultiplex, flow, demultiplex);
 
 TEST_CASE("flow.demultiplex", "[externals]")
 {
+    pd_test_init();
+
     SECTION("init")
     {
-        FlowDemultiplexTest t("flow.demultiplex");
-        REQUIRE(t.numInlets() == 1);
+        TestFlowDemultiplex t("flow.demultiplex");
+        REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
         REQUIRE_PROPERTY(t, @index, 0.f);
 
         // invalid
         SECTION("number")
         {
-            FlowDemultiplexTest t("flow.demultiplex", LF(0.f));
-            REQUIRE(t.numInlets() == 1);
+            TestFlowDemultiplex t("flow.demultiplex", LF(0.f));
+            REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
             REQUIRE_PROPERTY(t, @index, 0.f);
         }
@@ -43,8 +39,8 @@ TEST_CASE("flow.demultiplex", "[externals]")
         // invalid
         SECTION("number")
         {
-            FlowDemultiplexTest t("flow.demultiplex", LF(-1));
-            REQUIRE(t.numInlets() == 1);
+            TestFlowDemultiplex t("flow.demultiplex", LF(-1));
+            REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 24);
             REQUIRE_PROPERTY(t, @index, 0.f);
         }
@@ -52,8 +48,8 @@ TEST_CASE("flow.demultiplex", "[externals]")
         // invalid
         SECTION("number")
         {
-            FlowDemultiplexTest t("flow.demultiplex", LF(1));
-            REQUIRE(t.numInlets() == 1);
+            TestFlowDemultiplex t("flow.demultiplex", LF(1));
+            REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
             REQUIRE_PROPERTY(t, @index, 0.f);
         }
@@ -61,8 +57,8 @@ TEST_CASE("flow.demultiplex", "[externals]")
         // valid
         SECTION("number")
         {
-            FlowDemultiplexTest t("flow.demultiplex", LF(8));
-            REQUIRE(t.numInlets() == 1);
+            TestFlowDemultiplex t("flow.demultiplex", LF(8));
+            REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 8);
             REQUIRE_PROPERTY(t, @index, 0.f);
         }
@@ -70,7 +66,7 @@ TEST_CASE("flow.demultiplex", "[externals]")
 
     SECTION("process")
     {
-        FlowDemultiplexTest t("flow.demultiplex", LF(3));
+        TestFlowDemultiplex t("flow.demultiplex", LF(3));
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_BANG_AT_OUTLET(0, t);
@@ -121,5 +117,65 @@ TEST_CASE("flow.demultiplex", "[externals]")
         t.setProperty("@index", LF(-1));
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MSG(t);
+    }
+
+    SECTION("inlet external")
+    {
+        test::pdPrintToStdError();
+
+        TestExtFlowDemultiplex t("flow.demultiplex");
+        REQUIRE(t.object());
+
+        TestExtFlowDemultiplex t2("flow.demux");
+        REQUIRE(t2.object());
+
+        pd::External f("f");
+        f.connectTo(0, t, 1);
+
+        t << 100;
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(!t.hasOutputAt(1));
+        REQUIRE(t.outputFloatAt(0) == Approx(100));
+
+        f.sendFloat(1);
+        REQUIRE(t->property("@index")->get() == LF(1));
+        t << 200;
+        REQUIRE(!t.hasOutputAt(0));
+        REQUIRE(t.hasOutputAt(1));
+        REQUIRE(t.outputFloatAt(1) == Approx(200));
+
+        f.sendFloat(2);
+        REQUIRE(t->property("@index")->get() == LF(2));
+        t << 300;
+        REQUIRE(!t.hasOutputAt(0));
+        REQUIRE(!t.hasOutputAt(1));
+
+        f.sendFloat(0);
+        REQUIRE(t->property("@index")->get() == LF(0));
+        t << 400;
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(!t.hasOutputAt(1));
+        REQUIRE(t.outputFloatAt(0) == Approx(400));
+
+        t.call("@size?");
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(!t.hasOutputAt(1));
+        REQUIRE(t.outputAnyAt(0) == LA("@size?"));
+
+        t.call("@index?");
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(!t.hasOutputAt(1));
+        REQUIRE(t.outputAnyAt(0) == LA("@index", 0.f));
+
+        TestExtFlowDemultiplex t3("flow.demultiplex", LA("@noprops"));
+        t3.call("@index?");
+        REQUIRE(t3.hasOutputAt(0));
+        REQUIRE(!t3.hasOutputAt(1));
+        REQUIRE(t3.outputAnyAt(0) == LA("@index?"));
+
+        t3.call("@size?");
+        REQUIRE(t3.hasOutputAt(0));
+        REQUIRE(!t3.hasOutputAt(1));
+        REQUIRE(t3.outputAnyAt(0) == LA("@size?"));
     }
 }

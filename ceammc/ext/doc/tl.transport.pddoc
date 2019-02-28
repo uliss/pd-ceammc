@@ -10,7 +10,7 @@
             <description>Timeline transport control</description>
             <license>GPL3</license>
             <library>ceammc</library>
-            <category>ui</category>
+            <category>tl</category>
             <keywords>timeline transport</keywords>
             <since>0.1</since>
             <also>

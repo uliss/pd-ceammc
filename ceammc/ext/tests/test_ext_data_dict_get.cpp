@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/datatype_dict.h"
+#include "datatype_dict.h"
 #include "../data/dict_get.h"
 #include "test_base.h"
 #include "test_external.h"

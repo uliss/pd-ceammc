@@ -28,14 +28,37 @@
             <argument name="COL" type="int" minvalue="1" maxvalue="256">matrix columns</argument>
         </arguments>
         <properties>
-            <property name="@rows" type="int" minvalue="1">number of matrix rows</property>
-            <property name="@cols" type="int" minvalue="1">number of matrix columns</property>
+            <property name="@rows" type="int" minvalue="1" maxvalue="256" default="4">number of
+            matrix rows</property>
+            <property name="@cols" type="int" minvalue="1" maxvalue="256" default="8">number of
+            matrix columns</property>
+            <property name="@current_row" type="int" minvalue="0" default="-1">current row index.
+            -1 if not specified. This property is not saved in patch</property>
+            <property name="@current_col" type="int" minvalue="0" default="-1">current column
+            index. -1 if not specified. This property is not saved in patch</property>
+            <!-- common -->
+            <property name="@presetname" type="symbol">preset name for using with
+            [ui.preset]</property>
             <property name="@send" type="symbol">send destination</property>
             <property name="@receive" type="symbol">receive source</property>
-            <property name="@current_row" type="int" minvalue="0">current row index. -1 if not
-            specified</property>
-            <property name="@current_col" type="int" minvalue="0">current column index. -1 if not
-            specified</property>
+            <property name="@size" type="list">element size (width, height pair)</property>
+            <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
+            to the lowest level</property>
+            <property name="@active_color" type="list">active color (list of red, green, blue
+            values in 0-1 range)</property>
+            <property name="@current_color" type="list">current col/row color (list of red, green,
+            blue values in 0-1 range)</property>
+            <property name="@background_color" type="list">element background color (list of red,
+            green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list">border color (list of red, green, blue
+            values in 0-1 range)</property>
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
+            fontsize</property>
+            <property name="@fontname" type="symbol">fontname</property>
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
+            slant</property>
         </properties>
         <methods>
             <method name="get cell R C">outputs single cell value as message [cell ROW COL VALUE( 
@@ -73,6 +96,17 @@
             <param name="C" type="int" minvalue="0" required="true">column index</param></method>
             <method name="dump">dumps all object info to Pd console window.</method>
             <method name="reset">uncheck all matrix cells. No output</method>
+            <!-- presets -->
+            <method name="load">loads specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <method name="store">stores specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <method name="clear">clears specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- common-->
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
         </methods>
         <inlets>
             <inlet>

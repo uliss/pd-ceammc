@@ -1,10 +1,10 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 515 50 cnv 1 180 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 515 50 numeric symbol compare;
-#X obj 1 1 cnv 5 712 40 empty empty symbol.num_compare 20 20 0 20
+#X obj 585 50 cnv 1 180 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 585 50 numeric symbol compare;
+#X obj 1 1 cnv 5 765 40 empty empty symbol.num_compare 20 20 0 20
 -104026 -4096 0;
-#X obj 557 11 symbol.num_compare;
+#X obj 610 11 symbol.num_compare;
 #X text 50 118 common sort;
 #X msg 50 147 list 10.txt 1.txt 14.txt 2.txt 6.txt 7.txt 9.txt;
 #X obj 50 176 list.sort;
@@ -16,7 +16,7 @@
 #X obj 232 320 symbol.num_compare;
 #X obj 50 349 msg set;
 #X msg 50 378 ;
-#X obj 20 417 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 417 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 422 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 427 1\.;
@@ -28,7 +28,7 @@
 #X text 150 463 *symbol*;
 #X text 240 463 second compare symbol. Unicode strings also
 supported.;
-#X obj 20 491 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 491 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 496 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 501 1\.;
@@ -38,14 +38,14 @@ supported.;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title symbol @url ceammc.symbol-help.pd;
-#X obj 1 549 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 552 library: ceammc v0.6;
+#X obj 1 549 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 552 library: ceammc v0.7;
 #N canvas 10 571 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 symbol.num_compare;
 #X text 10 76 category:;

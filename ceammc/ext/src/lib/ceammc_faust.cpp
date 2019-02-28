@@ -12,6 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 
+#include <array>
+
 #include "ceammc_faust.h"
 
 namespace ceammc {
@@ -53,6 +55,31 @@ namespace faust {
         set_prop_symbol_ = gensym(buf);
         sprintf(buf, "@%s?", name.c_str());
         get_prop_symbol_ = gensym(buf);
+
+        // set type and view
+        switch (type_) {
+        case UI_CHECK_BUTTON:
+            pinfo_.setType(PropertyInfoType::BOOLEAN);
+            pinfo_.setView(PropertyInfoView::TOGGLE);
+            break;
+        case UI_V_SLIDER:
+        case UI_H_SLIDER:
+            pinfo_.setType(PropertyInfoType::FLOAT);
+            pinfo_.setView(PropertyInfoView::SLIDER);
+            break;
+        case UI_NUM_ENTRY:
+            pinfo_.setType(PropertyInfoType::FLOAT);
+            pinfo_.setView(PropertyInfoView::NUMBOX);
+            break;
+        default:
+            pinfo_.setType(PropertyInfoType::FLOAT);
+            pinfo_.setView(PropertyInfoView::SLIDER);
+            break;
+        }
+
+        pinfo_.setDefault(init_);
+        pinfo_.setStep(step_);
+        pinfo_.setRange(min_, max_);
     }
 
     void UIElement::outputProperty(t_outlet* out)
@@ -62,8 +89,8 @@ namespace faust {
 
         ceammc::Atom a;
 
-        if (zone_)
-            a.setFloat(*zone_, true);
+        if (value_)
+            a.setFloat(*value_, true);
         else
             a.setSymbol(gensym("?"), true);
 
@@ -72,7 +99,7 @@ namespace faust {
 
     void UIElement::outputValue(t_outlet* out)
     {
-        if (!out || !zone_)
+        if (!out || !value_)
             return;
 
         Atom a(value());
@@ -87,41 +114,42 @@ namespace faust {
         , min_(0)
         , max_(1)
         , step_(0)
-        , zone_(0)
+        , value_(0)
         , set_prop_symbol_(0)
         , get_prop_symbol_(0)
+        , pinfo_(std::string("@") + label, PropertyInfoType::FLOAT)
     {
         initProperty(label);
     }
 
     FAUSTFLOAT UIElement::value(FAUSTFLOAT def) const
     {
-        if (!zone_)
+        if (!value_)
             return std::min(max_, std::max(min_, def));
 
-        return std::min(max_, std::max(min_, *zone_));
+        return std::min(max_, std::max(min_, *value_));
     }
 
     void UIElement::setValue(FAUSTFLOAT v, bool clip)
     {
-        if (!zone_)
+        if (!value_)
             return;
 
         if (v < min_) {
             if (clip)
-                *zone_ = min_;
+                *value_ = min_;
 
             return;
         }
 
         if (v > max_) {
             if (clip)
-                *zone_ = max_;
+                *value_ = max_;
 
             return;
         }
 
-        *zone_ = v;
+        *value_ = v;
     }
 
     bool UIElement::pathcmp(const std::string& path) const
@@ -147,7 +175,7 @@ namespace faust {
         if (!out)
             return;
 
-        if (!zone_)
+        if (!value_)
             return;
 
         t_symbol* sel = typeSymbol();
@@ -231,9 +259,235 @@ namespace faust {
         return res;
     }
 
+    FaustExternalBase::FaustExternalBase(const PdArgs& args)
+        : SoundExternal(args)
+        , faust_bs_(0)
+        , active_(true)
+        , rate_(44100)
+        , xfade_(0)
+        , n_xfade_(static_cast<int>(rate_ * xfadeTime() / 64))
+    {
+        createCbProperty("@active", &FaustExternalBase::propActive, &FaustExternalBase::propSetActive);
+        auto& info = property("@active")->info();
+        info.setDefault(true);
+        info.setType(PropertyInfoType::BOOLEAN);
+    }
 
+    FaustExternalBase::~FaustExternalBase()
+    {
+        for (auto& b : faust_buf_)
+            delete[] b;
+    }
 
+    void FaustExternalBase::bindPositionalArgToProperty(size_t idx, t_symbol* propName)
+    {
+        if (idx >= positionalArguments().size())
+            return;
 
+        const Atom& a = positionalArguments()[idx];
+
+        if (!hasProperty(propName)) {
+            OBJ_ERR << "invalid property name: " << propName;
+            return;
+        }
+
+        if (!property(propName)->set(a)) {
+            OBJ_ERR << "can't set " << propName << " from positional argument " << a;
+            return;
+        }
+    }
+
+    void FaustExternalBase::bindPositionalArgsToProps(std::initializer_list<t_symbol*> lst)
+    {
+        size_t n = std::min(lst.size(), positionalArguments().size());
+        for (size_t i = 0; i < n; i++) {
+            t_symbol* p = lst.begin()[i];
+            bindPositionalArgToProperty(i, p);
+        }
+    }
+
+    void FaustExternalBase::setupDSP(t_signal** sp)
+    {
+        SoundExternal::setupDSP(sp);
+
+        const size_t BS = blockSize();
+
+        if (faust_bs_ != BS) {
+            for (auto& buf_block : faust_buf_) {
+                if (buf_block)
+                    delete[] buf_block;
+
+                buf_block = new t_sample[BS];
+            }
+
+            faust_bs_ = BS;
+        }
+    }
+
+    void FaustExternalBase::processInactive(const t_sample** in, t_sample** out)
+    {
+        const size_t N_IN = numInputChannels();
+        const size_t N_OUT = numOutputChannels();
+        const size_t BS = blockSize();
+
+        if (N_IN == N_OUT) {
+            // in non-active state - just pass thru samples
+            copy_samples(N_IN, BS, in, faust_buf_.data());
+            copy_samples(N_OUT, BS, (const t_sample**)faust_buf_.data(), out);
+        } else {
+            // if state is non-active and different inputs and outputs count
+            // fill outs with zero
+            zero_samples(N_OUT, BS, out);
+        }
+    }
+
+    void FaustExternalBase::processXfade(const t_sample** in, t_sample** out)
+    {
+        const size_t N_IN = numInputChannels();
+        const size_t N_OUT = numOutputChannels();
+
+        if (active_) {
+            if (N_IN == N_OUT) {
+                /* xfade inputs -> buf */
+                bufFadeIn(in, out, 1);
+            } else {
+                /* xfade 0 -> buf */
+                bufFadeIn(in, out, 0);
+            }
+        } else if (N_IN == N_OUT) {
+            /* xfade buf -> inputs */
+            bufFadeOut(in, out, 1);
+        } else {
+            /* xfade buf -> 0 */
+            bufFadeOut(in, out, 0);
+        }
+    }
+
+    void FaustExternalBase::initSignalInputs(size_t n)
+    {
+        for (int i = 1; i < n; i++)
+            createSignalInlet();
+    }
+
+    void FaustExternalBase::initSignalOutputs(size_t n)
+    {
+        for (int i = 0; i < n; i++)
+            createSignalOutlet();
+
+        faust_buf_.assign(n, nullptr);
+    }
+
+    float FaustExternalBase::xfadeTime() const
+    {
+        return 0.1f;
+    }
+
+    void FaustExternalBase::propSetActive(const AtomList& lst)
+    {
+        active_ = atomlistToValue<bool>(lst, false);
+    }
+
+    AtomList FaustExternalBase::propActive() const
+    {
+        return Atom(active_ ? 1 : 0);
+    }
+
+    void FaustExternalBase::bufFadeIn(const t_sample** in, t_sample** out, float k0)
+    {
+        const size_t BS = blockSize();
+        const size_t N_OUT = numOutputChannels();
+
+        float d = 1.0f / n_xfade_;
+        float f = (xfade_--) * d;
+        d = d / BS;
+
+        for (int j = 0; j < BS; j++, f -= d) {
+            for (int i = 0; i < N_OUT; i++)
+                out[i][j] = k0 * f * in[i][j] + (1.0f - f) * faust_buf_[i][j];
+        }
+    }
+
+    void FaustExternalBase::bufFadeOut(const t_sample** in, t_sample** out, float k0)
+    {
+        const size_t BS = blockSize();
+        const size_t N_OUT = numOutputChannels();
+
+        float d = 1.0f / n_xfade_;
+        float f = (xfade_--) * d;
+        d = d / BS;
+
+        for (int j = 0; j < BS; j++, f -= d) {
+            for (int i = 0; i < N_OUT; i++)
+                out[i][j] = f * faust_buf_[i][j] + k0 * (1.0f - f) * in[i][j];
+        }
+    }
+
+    UIProperty::UIProperty(UIElement* el)
+        : Property(el->propInfo())
+        , el_(el)
+    {
+    }
+
+    bool UIProperty::set(const AtomList& lst)
+    {
+        if (!readonlyCheck())
+            return false;
+
+        if (!emptyValueCheck(lst))
+            return false;
+
+        if (!lst[0].isFloat())
+            return false;
+
+        t_float v = lst[0].asFloat();
+        el_->setValue(v, true);
+        return true;
+    }
+
+    AtomList UIProperty::get() const
+    {
+        return Atom(el_->value());
+    }
+
+    float UIProperty::value() const
+    {
+        return el_->value(el_->init());
+    }
+
+    void UIProperty::setValue(float v, bool clip) const
+    {
+        el_->setValue(v, clip);
+    }
+
+    void UIElement::setContraints(float init, float min, float max, float step)
+    {
+        assert(min <= init && init <= max);
+
+        init_ = init;
+        min_ = min;
+        max_ = max;
+        step_ = step;
+        pinfo_.setDefault(init_);
+        pinfo_.setRange(min_, max_);
+        pinfo_.setStep(step_);
+    }
+
+    PropertyInfoUnits to_units(const char* u)
+    {
+        static std::pair<const char*, PropertyInfoUnits> umap[] = {
+            { "Hz", PropertyInfoUnits::HZ },
+            { "ms", PropertyInfoUnits::MSEC },
+            { "percent", PropertyInfoUnits::PERCENT },
+            { "db", PropertyInfoUnits::DB }
+        };
+
+        for (auto& p : umap) {
+            if (strcmp(u, p.first) == 0)
+                return p.second;
+        }
+
+        return PropertyInfoUnits::UNKNOWN;
+    }
 
 }
 }

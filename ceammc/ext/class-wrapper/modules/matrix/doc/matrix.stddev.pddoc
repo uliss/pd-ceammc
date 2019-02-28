@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.stddev">
+        <title>matrix.stddev</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>standart deviation for matrix values</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <version>0.1</version>
+            <since>0.1</since>
+            <also>
+                <see>matrix.stddev_col</see>
+                <see>matrix.stddev_row</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="int" name="NORM_TYPE" enum="0 1">if 0 given, N-1 normalization used, if 1 - N</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Matrix data constructor: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">Matrix data</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">if 0 given, N-1 normalization used, if 1 - N</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output standart deviation (float)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[5 5(          [5 5(
+|              |
+[matrix.randu] [matrix.randn]
+|              |
+[matrix.stddev ]
+|
+[F digits=8]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

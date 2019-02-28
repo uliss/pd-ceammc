@@ -22,6 +22,7 @@
 #include <string>
 #include <vector>
 
+#include "ceammc_externals.h"
 #include "ceammc_message.h"
 #include "ceammc_object.h"
 
@@ -72,11 +73,11 @@ public:
 public:
     ObjectFactory(const char* name, int flags = OBJECT_FACTORY_DEFAULT)
         : name_(name)
-        , fn_bang_(0)
-        , fn_float_(0)
-        , fn_symbol_(0)
-        , fn_list_(0)
-        , fn_any_(0)
+        , fn_bang_(nullptr)
+        , fn_float_(nullptr)
+        , fn_symbol_(nullptr)
+        , fn_list_(nullptr)
+        , fn_any_(nullptr)
     {
         int pd_flags = CLASS_PATCHABLE;
         if (flags & OBJECT_FACTORY_NO_DEFAULT_INLET) {
@@ -111,9 +112,11 @@ public:
         if (!(flags & OBJECT_FACTORY_NO_ANY))
             setAnyFn(processAny);
 
-        class_addmethod(c, reinterpret_cast<t_method>(dumpMethodList), gensym("dump"), A_NULL);
+        class_addmethod(c, reinterpret_cast<t_method>(dumpMethodList), SYM_DUMP(), A_NULL);
+        class_addmethod(c, reinterpret_cast<t_method>(queryPropNames), SYM_PROPS_ALL_Q(), A_NULL);
 
         class_name_ = s_name;
+        register_base_external(class_);
     }
 
     void mapFloatToList()
@@ -173,6 +176,13 @@ public:
     void addAlias(const char* name)
     {
         class_addcreator(reinterpret_cast<t_newmethod>(createObject), gensym(name), A_GIMME, A_NULL);
+    }
+
+    void addClick(MethodPtrList fn)
+    {
+        fn_click_ = fn;
+        class_addmethod(class_, reinterpret_cast<t_method>(processClick), gensym("click"),
+            A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_NULL);
     }
 
     void processData()
@@ -247,6 +257,12 @@ public:
         x->impl->anyDispatch(s, AtomList(argc, argv));
     }
 
+    static void processClick(ObjectProxy* x, t_symbol* sel,
+        t_floatarg a, t_floatarg b, t_floatarg c, t_floatarg d, t_floatarg e)
+    {
+        (x->impl->*(fn_click_))(sel, AtomList({ a, b, c, d, e }));
+    }
+
     static void processDataFn(ObjectProxy* x, t_symbol*, int argc, t_atom* argv)
     {
         if (argc == 1 && Atom(*argv).isData()) {
@@ -282,17 +298,21 @@ public:
 
     static void dumpMethodList(ObjectProxy* x)
     {
-        typename MethodListMap::iterator it;
-        for (it = methods_.begin(); it != methods_.end(); ++it) {
+        for (auto it = methods_.begin(); it != methods_.end(); ++it) {
             post("[%s] method: %s", class_name_->s_name, it->first->s_name);
         }
 
         x->impl->dump();
     }
 
+    static void queryPropNames(ObjectProxy* x)
+    {
+        x->impl->queryPropNames();
+    }
+
     static void defaultListMethod(ObjectProxy* x, t_symbol* sel, int argc, t_atom* argv)
     {
-        typename MethodListMap::iterator it = methods_.find(sel);
+        auto it = methods_.find(sel);
         if (it == methods_.end()) {
             pd_error(x, "unknown method: %s", sel->s_name);
             return;
@@ -319,6 +339,7 @@ private:
     static t_symbol* class_name_;
     static MethodListMap methods_;
     static int flags_;
+    static MethodPtrList fn_click_;
 
 private:
     const char* name_;
@@ -365,6 +386,9 @@ typename ObjectFactory<T>::MethodListMap ObjectFactory<T>::methods_;
 
 template <typename T>
 int ObjectFactory<T>::flags_ = 0;
+
+template <typename T>
+typename ObjectFactory<T>::MethodPtrList ObjectFactory<T>::fn_click_ = 0;
 
 #define CLASS_ADD_METHOD()
 

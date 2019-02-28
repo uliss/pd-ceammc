@@ -14,9 +14,6 @@
             <keywords>fx freqshift</keywords>
             <since>0.1</since>
         </meta>
-        <arguments>
-            <argument name="ID" type="symbol">object ID for OSC control path</argument>
-        </arguments>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
@@ -40,7 +37,7 @@
 |              |
 |              [lop~ 10]
 |              |.
-[fx.freqshift~   id]
+[fx.freqshift~   ]
 |
 [ui.gain~ @size 120 16]
 |\

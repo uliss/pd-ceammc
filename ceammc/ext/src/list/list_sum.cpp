@@ -1,5 +1,5 @@
 #include "list_sum.h"
-#include "../data/datatype_mlist.h"
+#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 
 ListSum::ListSum(const PdArgs& a)

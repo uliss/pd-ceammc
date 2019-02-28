@@ -436,9 +436,12 @@ void UIMenu::syncLabels()
     labels_.resize(items_.size());
     layouts_.reserve(items_.size());
 
+    if (layouts_.size() > items_.size())
+        layouts_.resize(items_.size());
+
     t_efont* f = &asEBox()->b_font;
     for (size_t i = layouts_.size(); i < items_.size(); i++) {
-        layouts_.push_back(boost::make_shared<UITextLayout>(f, ColorRGBA::black(),
+        layouts_.emplace_back(boost::make_shared<UITextLayout>(f, ColorRGBA::black(),
             ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP));
     }
 

@@ -1,0 +1,1 @@
+rational.from_float,float->rational		..		.

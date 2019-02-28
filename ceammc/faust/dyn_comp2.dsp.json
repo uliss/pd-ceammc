@@ -1,0 +1,82 @@
+{
+	"name": "dyn.comp2",
+	"filename": "dyn_comp2",
+	"version": "2.8.5",
+	"compile_options": "cpp, -scal -ftz 0",
+	"library_list": ["/Users/serj/work/music/pd-exp/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/compressors.lib","/usr/local/share/faust/analyzers.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/maths.lib"],
+	"include_pathnames": ["/Users/serj/work/music/pd-exp/pure-data/ceammc/faust","/usr/local/share/faust","/usr/share/faust"],
+	"inputs": "2",
+	"outputs": "2",
+	"meta": [ 
+		{ "analyzers.lib/name": "Faust Analyzer Library" },
+		{ "analyzers.lib/version": "0.0" },
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/version": "0.0" },
+		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
+		{ "ceammc.lib/version": "0.1.1" },
+		{ "compressors.lib/name": "Faust Compressor Effect Library" },
+		{ "compressors.lib/version": "0.0" },
+		{ "filename": "dyn_comp2" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.1" },
+		{ "name": "dyn.comp2" },
+		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/version": "0.0" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "dyn.comp2",
+			"items": [ 
+				{
+					"type": "vslider",
+					"label": "attack",
+					"address": "/dyn.comp2/attack",
+					"meta": [
+						{ "unit": "ms" }
+					],
+					"init": "10",
+					"min": "1",
+					"max": "100",
+					"step": "0.1"
+				},
+				{
+					"type": "vslider",
+					"label": "ratio",
+					"address": "/dyn.comp2/ratio",
+					"init": "1",
+					"min": "1",
+					"max": "10",
+					"step": "0.001"
+				},
+				{
+					"type": "vslider",
+					"label": "release",
+					"address": "/dyn.comp2/release",
+					"meta": [
+						{ "unit": "ms" }
+					],
+					"init": "50",
+					"min": "1",
+					"max": "500",
+					"step": "0.1"
+				},
+				{
+					"type": "vslider",
+					"label": "threshold",
+					"address": "/dyn.comp2/threshold",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"init": "100",
+					"min": "0",
+					"max": "100",
+					"step": "0.1"
+				}
+			]
+		}
+	]
+}

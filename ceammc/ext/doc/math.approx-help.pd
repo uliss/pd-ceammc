@@ -1,12 +1,12 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 285 50 cnv 1 410 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 285 50 check if input value approximately equal to pattern;
-#X obj 1 1 cnv 5 712 40 empty empty math.approx 20 20 0 20 -104026
+#X obj 355 50 cnv 1 410 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 355 50 check if input value approximately equal to pattern;
+#X obj 1 1 cnv 5 765 40 empty empty math.approx 20 20 0 20 -104026
 -4096 0;
-#X obj 538 11 approx;
-#X obj 607 11 math.approx;
-#X obj 205 80 cnv 1 490 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 591 11 approx;
+#X obj 660 11 math.approx;
+#X obj 205 80 cnv 1 560 33 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 checks is |x - pattern| <= |epsilon|;
 #X obj 50 141 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10
 -262144 -1 -1 0 0;
@@ -15,7 +15,7 @@
 #X obj 50 228 math.approx 50 10;
 #X text 242 228 40 <= x <= 60;
 #X floatatom 50 257 5 0 0 0 - - -;
-#X obj 20 296 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 301 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 306 1\.;
@@ -26,16 +26,16 @@
 #X text 150 324 float;
 #X obj 241 325 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 324 E: compare epsilon.;
-#X obj 20 352 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 357 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 362 value;
+#X msg 120 362 @value;
 #X text 240 362 Get/Set compare pattern. Type: float. Default value:
 0;
-#X msg 120 389 epsilon;
+#X msg 120 389 @epsilon;
 #X text 240 389 Get/Set compare epsilon. Type: float. Default value:
 0.01;
-#X obj 20 426 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 431 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 436 1\.;
@@ -49,7 +49,7 @@
 #X text 120 490 3\.;
 #X text 150 490 *float*;
 #X text 240 490 epsilon.;
-#X obj 20 518 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 518 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 523 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 528 1\.;
@@ -60,14 +60,14 @@ pattern \, 0 0 otherwise;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 590 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 593 library: ceammc v0.6;
+#X obj 1 590 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 593 library: ceammc v0.7;
 #N canvas 10 612 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 math.approx;
 #X text 10 76 category:;

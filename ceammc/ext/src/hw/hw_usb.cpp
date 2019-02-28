@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "hw_usb.h"
-#include "../data/datatype_dict.h"
+#include "datatype_dict.h"
 #include "ceammc_factory.h"
 #include "usb/libusb_wrapper.h"
 

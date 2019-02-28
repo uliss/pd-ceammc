@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "dyn_softclip"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -66,6 +66,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -229,6 +230,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -395,6 +399,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -417,7 +422,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -439,7 +444,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -489,9 +495,10 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 
-float softclip_faustpower2_f(float value) {
+static float softclip_faustpower2_f(float value) {
 	return (value * value);
 	
 }
@@ -603,7 +610,7 @@ class softclip : public dsp {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
 		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = (fabsf((2.0f * (max(-0.25f, min(0.25f, (0.158800006f * float(input0[i])))) + -0.25f))) + -0.5f);
+			float fTemp0 = (std::fabs((2.0f * (std::max(-0.25f, std::min(0.25f, (0.158800006f * float(input0[i])))) + -0.25f))) + -0.5f);
 			float fTemp1 = softclip_faustpower2_f(fTemp0);
 			output0[i] = FAUSTFLOAT((fTemp0 * ((fTemp1 * ((2.26548004f * fTemp1) + -5.13274002f)) + 3.14159012f)));
 			
@@ -626,6 +633,11 @@ static t_class* softclip_faust_class;
 #define FAUST_EXT_CLASS softclip_faust_class
 // clang-format on
 
+template <class T>
+class _softclip_UI : public UI {
+};
+typedef _softclip_UI<softclip> softclip_UI;
+
 struct t_faust_softclip {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -634,7 +646,7 @@ struct t_faust_softclip {
     int fence; /* dummy field (not used) */
 #endif
     softclip* dsp;
-    PdUI<UI>* ui;
+    PdUI<softclip_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -717,7 +729,7 @@ static void softclip_faust_dsp(t_faust_softclip* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<softclip_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -772,7 +784,7 @@ static void softclip_faust_any(t_faust_softclip* x, t_symbol* s, int argc, t_ato
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<softclip_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -932,7 +944,7 @@ static bool faust_new_internal(t_faust_softclip* x, const std::string& objId = "
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new softclip();
-    x->ui = new PdUI<UI>(sym(softclip), objId);
+    x->ui = new PdUI<softclip_UI>(sym(softclip), objId);
 
     if (!faust_init_inputs(x)) {
         softclip_faust_free(x);
@@ -1076,8 +1088,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1170,6 +1182,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(softclip_faust_class, reinterpret_cast<t_method>(softclip_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(softclip_faust_class, reinterpret_cast<t_method>(softclip_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(softclip_faust_class, softclip_faust_any);
+    ceammc::register_faust_external(softclip_faust_class);
 }
 
 #define EXTERNAL_NEW void* softclip_faust_new(t_symbol*, int argc, t_atom* argv)
