@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Pd-ceammc"
-#define MyAppVersion "${CEAMMC_DISTRIB_VERSION}"
+#define MyAppVersion "${CEAMMC_DISTRIB_VERSION}-${CEAMMC_DISTRIB_ARCH}"
 #define MyAppPublisher "ceammc"
 #define MyAppURL "https://github.com/uliss/pure-data"
 #define MyAppExeName "bin/pd.exe"
