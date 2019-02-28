@@ -53,30 +53,14 @@ std::ostream& operator<<(std::ostream& os, _symbol*& s);
 std::ostream& operator<<(std::ostream& os, const _symbol* const& s);
 
 template <typename T>
-static std::ostream& operator<<(std::ostream& os, const std::vector<T>& v)
+inline std::ostream& operator<<(std::ostream& os, const std::vector<T>& v)
 {
     os << '[';
-    typename std::vector<T>::const_iterator it;
-    for (it = v.begin(); it != v.end(); ++it) {
+    for (auto it = v.begin(); it != v.end(); ++it) {
         if (it != v.begin())
             os << ", ";
 
-        os << *it;
-    }
-    os << ']';
-    return os;
-}
-
-template <>
-std::ostream& operator<<(std::ostream& os, const std::vector<_symbol*>& v)
-{
-    os << '[';
-    std::vector<_symbol*>::const_iterator it;
-    for (it = v.begin(); it != v.end(); ++it) {
-        if (it != v.begin())
-            os << ", ";
-
-        ::operator<<(os, *it);
+        os << (*it);
     }
     os << ']';
     return os;

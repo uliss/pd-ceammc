@@ -77,10 +77,14 @@ Property* BaseObject::property(const char* key)
 bool BaseObject::setProperty(t_symbol* key, const AtomList& v)
 {
     Property* p = property(key);
-    if (p == 0 || p->readonly())
+    if (p == nullptr || p->readonly())
         return false;
 
-    return p->set(v);
+    bool rc = p->set(v);
+    if (rc && prop_set_callback_)
+        prop_set_callback_(this, key);
+
+    return rc;
 }
 
 bool BaseObject::setProperty(const char* key, const AtomList& v)
@@ -96,7 +100,16 @@ bool BaseObject::setPropertyFromPositionalArg(Property* p, size_t n)
     if (positional_args_.size() <= n)
         return false;
 
-    return p->set(AtomList(positional_args_.at(n)));
+    bool rc = p->set(AtomList(positional_args_.at(n)));
+    if (rc && prop_set_callback_)
+        prop_set_callback_(this, gensym(p->name().c_str()));
+
+    return rc;
+}
+
+const BaseObject::Properties& BaseObject::properties() const
+{
+    return props_;
 }
 
 void BaseObject::bangTo(size_t n)
@@ -223,22 +236,53 @@ bool BaseObject::processAnyProps(t_symbol* sel, const AtomList& lst)
         return false;
 
     t_symbol* get_key = tryGetPropKey(sel);
-    if (get_key != 0)
-        sel = get_key;
 
-    Properties::iterator it = props_.find(sel);
-    if (it == props_.end()) {
-        OBJ_ERR << "invalid property: " << sel->s_name;
-        return false;
-    }
-
-    if (get_key != 0) {
+    if (get_key) {
+        // no outlets
         if (numOutlets() < 1)
             return true;
 
-        anyTo(0, get_key, it->second->get());
+        // single property request
+        if (lst.empty()) {
+            AtomList res;
+            if (!queryProperty(get_key, res))
+                return false;
+
+            anyTo(0, res);
+        } else {
+            // multiple property request
+            AtomList res;
+            queryProperty(get_key, res);
+
+            for (auto& pname : lst) {
+                t_symbol* s;
+                if (!pname.getSymbol(&s))
+                    continue;
+
+                t_symbol* k = tryGetPropKey(s);
+                if (!k)
+                    continue;
+
+                queryProperty(k, res);
+            }
+
+            if (res.empty())
+                return false;
+
+            anyTo(0, res);
+        }
     } else {
-        it->second->set(lst);
+        auto it = props_.find(sel);
+        if (it == props_.end()) {
+            OBJ_ERR << "invalid property: " << sel;
+            return false;
+        }
+
+        bool rc = it->second->set(lst);
+        if (rc && prop_set_callback_)
+            prop_set_callback_(this, sel);
+
+        return rc;
     }
 
     return true;
@@ -263,20 +307,6 @@ AtomList BaseObject::propNumOutlets()
     return listFrom(numOutlets());
 }
 
-AtomList BaseObject::listAllProps() const
-{
-    AtomList res;
-    Properties::const_iterator it;
-    for (it = props_.begin(); it != props_.end(); ++it) {
-        if (it->first == gensym("@*"))
-            continue;
-
-        res.append(Atom(it->first));
-    }
-
-    return res;
-}
-
 void BaseObject::appendInlet(t_inlet* in)
 {
     inlets_.push_back(in);
@@ -285,6 +315,24 @@ void BaseObject::appendInlet(t_inlet* in)
 void BaseObject::appendOutlet(t_outlet* out)
 {
     outlets_.push_back(out);
+}
+
+bool BaseObject::queryProperty(t_symbol* key, AtomList& res) const
+{
+    auto it = props_.find(key);
+    if (it == props_.end()) {
+        OBJ_ERR << "invalid property: " << key;
+        return false;
+    }
+
+    res.append(key);
+    res.append(it->second->get());
+    return true;
+}
+
+void BaseObject::setPropertyCallback(BaseObject::PropCallback cb)
+{
+    prop_set_callback_ = cb;
 }
 
 void BaseObject::extractPositionalArguments()
@@ -353,9 +401,8 @@ BaseObject::BaseObject(const PdArgs& args)
     : pd_(args)
     , receive_from_(0)
     , cnv_(canvas_getcurrent())
+    , prop_set_callback_(nullptr)
 {
-    createCbProperty("@*", &BaseObject::listAllProps);
-
     extractPositionalArguments();
 }
 
@@ -403,7 +450,9 @@ void BaseObject::parseProperties()
         if (props_[pname]->readonly())
             continue;
 
-        props_[pname]->set(p[i].slice(1));
+        bool rc = props_[pname]->set(p[i].slice(1));
+        if (rc && prop_set_callback_)
+            prop_set_callback_(this, pname);
     }
 }
 
@@ -581,6 +630,20 @@ void BaseObject::dump() const
     }
 }
 
+void BaseObject::queryPropNames()
+{
+    AtomList res;
+    for (auto& p : props_) {
+        res.append(Atom(p.first));
+    }
+
+    if (outlets_.empty()) {
+        // dump to console
+        OBJ_DBG << res;
+    } else
+        res.outputAsAny(outlets_.front(), SYM_PROPS_ALL());
+}
+
 void BaseObject::onBang()
 {
     OBJ_ERR << "bang is not expected";
@@ -672,13 +735,14 @@ std::string BaseObject::findInStdPaths(const char* fname) const
 
 t_symbol* BaseObject::tryGetPropKey(t_symbol* sel)
 {
-    char buf[MAXPDSTRING] = { 0 };
-    t_symbol* res = 0;
-    const char* s_name = sel->s_name;
-    const size_t last_char_idx = strlen(s_name) - 1;
-    if (s_name[last_char_idx] == '?') {
-        memcpy(&buf, s_name, last_char_idx);
-        buf[last_char_idx] = '\0';
+    t_symbol* res = nullptr;
+    const char* str = sel->s_name;
+    const size_t last_idx = strlen(str) - 1;
+
+    if (str[last_idx] == '?') {
+        char buf[MAXPDSTRING] = { 0 };
+        memcpy(&buf, str, last_idx);
+        buf[last_idx] = '\0';
         res = gensym(buf);
     }
 

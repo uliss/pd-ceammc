@@ -18,9 +18,7 @@
 #include <stdexcept>
 #include <string>
 
-struct _garray;
-struct _symbol;
-union word;
+#include "m_pd.h"
 
 namespace ceammc {
 
@@ -74,6 +72,7 @@ class Array {
 public:
     typedef ArrayIterator iterator;
     typedef ArrayIterator const_iterator;
+    typedef t_sample value_type;
 
 public:
     Array();
@@ -131,6 +130,8 @@ public:
     void copyTo(float* dest, size_t n);
     void fillWith(float v);
     void fillWith(FloatValueGenerator gen);
+
+    bool setYBounds(float yBottom, float yTop);
 
 public:
     struct Exception : public std::runtime_error {

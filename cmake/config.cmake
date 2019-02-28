@@ -60,5 +60,9 @@ else()
     message(WARNING "Glib is not found: no fluidsynth build")
 endif()
 
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(PD_LONGINTTYPE "long long")
+endif()
+
 configure_file(${PROJECT_SOURCE_DIR}/config.h.in ${PROJECT_BINARY_DIR}/config.h)
 add_definitions(-include ${PROJECT_BINARY_DIR}/config.h)

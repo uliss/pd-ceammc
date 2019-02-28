@@ -28,7 +28,32 @@
             <par>Active slot is highlighted, available slots are dark gray</par>
         </info>
         <properties>
+            <property name="@current" type="int" default="0">current preset index</property>
+            <!-- common -->
+            <property name="@send" type="symbol">send destination</property>
             <property name="@receive" type="symbol">receive source</property>
+            <property name="@size" type="list">element size (width, height pair)</property>
+            <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
+            to the lowest level</property>
+            <property name="@active_color" type="list">active color (list of red, green, blue
+            values in 0-1 range)</property>
+            <property name="@text_color" type="list">text color (list of red, green, blue values in
+            0-1 range)</property>
+            <property name="@empty_color" type="list">empty cell color (list of red, green, blue
+            values in 0-1 range)</property>
+            <property name="@stored_color" type="list">stored cell color (list of red, green, blue
+            values in 0-1 range)</property>
+            <property name="@background_color" type="list">element background color (list of red,
+            green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list">border color (list of red, green, blue
+            values in 0-1 range)</property>
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
+            fontsize</property>
+            <property name="@fontname" type="symbol">fontname</property>
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
+            slant</property>
         </properties>
         <methods>
             <method name="clear">clear specified preset 
@@ -41,6 +66,10 @@
             <param type="symbol" name="PATH" required="true">path to preset file</param></method>
             <method name="write">read presets from file 
             <param type="symbol" name="PATH" required="true">path to preset file</param></method>
+            <!-- common-->
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
         </methods>
         <inlets>
             <inlet />

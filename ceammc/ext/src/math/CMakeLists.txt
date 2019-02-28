@@ -62,6 +62,8 @@ ceammc_mathxx_external(or)
 ceammc_mathxx_external(prime)
 ceammc_mathxx_external(polyeval)
 
+ceammc_mathxx_external(cdiv_tilde)
+ceammc_mathxx_external(cmul_tilde)
 ceammc_mathxx_external(round_tilde)
 
 add_library(ceammc_math STATIC mod_math.h mod_math.cpp ${MATH_SOURCES})

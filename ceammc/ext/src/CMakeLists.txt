@@ -30,10 +30,10 @@ endif()
 find_package(BISON)
 find_package(FLEX)
 
-set(CEAMMC_EXT_LINK_LIBRARIES ceammc_array ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_env
+set(CEAMMC_EXT_LINK_LIBRARIES ceammc_analyze ceammc_array ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_env
     ceammc_flt ceammc_flow ceammc_fx ceammc_hw ceammc_lfo ceammc_list ceammc_math ceammc_midi
-    ceammc_misc ceammc_noise ceammc_osc ceammc_preset ceammc_path ceammc_proto ceammc_random ceammc_spat
-    ceammc_symbol ceammc_synth ceammc_system ceammc_string ceammc_tl ceammc_ui ceammc_vector
+    ceammc_misc ceammc_net ceammc_noise ceammc_osc ceammc_preset ceammc_path ceammc_proto ceammc_random
+    ceammc_spat ceammc_symbol ceammc_synth ceammc_system ceammc_string ceammc_tl ceammc_ui
     ceammc_sound ceammc_window
     ceammc_core)
 
@@ -44,6 +44,7 @@ include_directories(${CMAKE_SOURCE_DIR}/src)
 remove_definitions(-DPD_INTERNAL)
 add_definitions(-DPD)
 
+add_subdirectory(an)
 add_subdirectory(array)
 add_subdirectory(base)
 add_subdirectory(conv)
@@ -60,10 +61,11 @@ add_subdirectory(list)
 add_subdirectory(math)
 add_subdirectory(midi)
 add_subdirectory(misc)
+add_subdirectory(net)
 add_subdirectory(noise)
 add_subdirectory(osc)
-add_subdirectory(preset)
 add_subdirectory(path)
+add_subdirectory(preset)
 add_subdirectory(proto)
 add_subdirectory(random)
 add_subdirectory(rtmidi)
@@ -74,7 +76,6 @@ add_subdirectory(synth)
 add_subdirectory(system)
 add_subdirectory(tl)
 add_subdirectory(ui)
-add_subdirectory(vector)
 add_subdirectory(window)
 
 pd_add_external(NAME ceammc

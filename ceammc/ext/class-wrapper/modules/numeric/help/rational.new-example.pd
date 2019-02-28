@@ -1,0 +1,19 @@
+#N canvas 0 0 393 188 12;
+#X declare -lib numeric;
+#X obj 20 48 declare -lib numeric;
+#X obj 20 92 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 58 92 1 2;
+#X msg 116 92 set 3 4;
+#X msg 212 92 9/8;
+#X floatatom 269 92 5 0 0 0 - - -;
+#X msg 327 92 9 / 8;
+#X obj 20 149 rational.new 4;
+#X obj 20 178 ui.display @size 150 18 display_type 1;
+#X connect 1 0 7 0;
+#X connect 2 0 7 0;
+#X connect 3 0 7 0;
+#X connect 4 0 7 0;
+#X connect 5 0 7 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;

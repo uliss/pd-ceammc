@@ -11,10 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/data_mlist.h"
 #include "../list/list_at.h"
-#include "test_base.h"
 #include "catch.hpp"
+#include "datatype_mlist.h"
+#include "test_base.h"
 #include "test_external.h"
 
 #include <stdio.h>
@@ -112,5 +112,35 @@ TEST_CASE("list.at", "[externals]")
 
         t.send(DataTypeMList("(1 2 3 -10)"));
         REQUIRE(t.outputFloatAt(0) == Approx(-10));
+    }
+
+    SECTION("@*?")
+    {
+        test::pdPrintToStdError(true);
+
+        TestExtListAt t("list.at");
+        t.call("dump");
+
+        // @*? test
+        t.call("@*?");
+        REQUIRE(t.hasOutput());
+        auto props = t.outputAnyAt(0);
+        props.sort();
+        REQUIRE(props == LA("@*", "@clip", "@fold", "@index", "@method", "@rel", "@wrap"));
+
+        // single test
+        t.call("@clip?");
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputAnyAt(0) == LA("@clip", 0.f));
+
+        // multiple test
+        t.call("@clip?", LA("@rel?", "@wrap?"));
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputAnyAt(0) == LA("@clip", 0.f, "@rel", 1, "@wrap", 0.f));
+
+        // multiple test with invalid
+        t.call("@clip?", LA("", "@norequest", "non-prop", "@rel?", "@xxx?", 100));
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputAnyAt(0) == LA("@clip", 0.f, "@rel", 1));
     }
 }

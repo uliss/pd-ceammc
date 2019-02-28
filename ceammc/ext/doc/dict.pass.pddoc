@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="dict.pass">
+        <title>dict.pass</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>passes specified keys in dict</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>pass dictionary</keywords>
+            <since>0.7</since>
+            <also>
+                <see>data.dict</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="KEYS" type="list">keys</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="data:dict">input dictionary</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo>set new keys</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>dict with passed keys</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[\[a: b\] \[c: d\] \[e: f\], bang(
+|
+[dict]
+|
+[dict.pass a e]
+|
+[ui.d]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

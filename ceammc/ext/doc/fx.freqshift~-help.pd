@@ -1,53 +1,46 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 277 50 cnv 1 418 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 277 50 frequency shifter or single-sideband ring modulation;
-#X obj 1 1 cnv 5 712 40 empty empty fx.freqshift~ 20 20 0 20 -104026
+#X obj 347 50 cnv 1 418 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 347 50 frequency shifter or single-sideband ring modulation;
+#X obj 1 1 cnv 5 765 40 empty empty fx.freqshift~ 20 20 0 20 -104026
 -4096 0;
-#X obj 592 11 fx.freqshift~;
+#X obj 645 11 fx.freqshift~;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X obj 50 147 osc.tri~ 440;
 #X floatatom 194 147 5 0 0 0 - - -;
 #X text 251 147 frequency shift;
 #X obj 194 176 sig~;
 #X obj 194 205 lop~ 10;
-#X obj 50 234 fx.freqshift~ id;
+#X obj 50 234 fx.freqshift~;
 #X obj 50 262 ui.gain~ @size 120 16;
 #X obj 50 291 dac~;
-#X obj 20 330 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 335 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
--49933 0;
-#X text 120 340 1\.;
-#X text 150 340 symbol;
-#X obj 241 341 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 340 ID: object ID for OSC control path.;
-#X obj 20 368 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 373 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 335 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 378 1\.;
-#X text 240 378 input signal.;
-#X text 120 396 2\.;
-#X text 240 396 frequency shift in Hertz. Range: -10000\...10000;
-#X obj 20 424 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 429 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 120 340 1\.;
+#X text 240 340 input signal.;
+#X text 120 358 2\.;
+#X text 240 358 frequency shift in Hertz. Range: -10000\...10000;
+#X obj 20 386 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 391 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 434 1\.;
-#X text 240 434 output signal (freq + shift);
-#X text 120 452 2\.;
-#X text 240 452 output signal (freq - shift);
+#X text 120 396 1\.;
+#X text 240 396 output signal (freq + shift);
+#X text 120 414 2\.;
+#X text 240 414 output signal (freq - shift);
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.6;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 508 library: ceammc v0.7;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 fx.freqshift~;
 #X text 10 76 category:;

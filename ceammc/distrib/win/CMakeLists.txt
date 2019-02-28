@@ -4,6 +4,14 @@ else()
     set(INSTALLED_BIN_DIR "${CMAKE_INSTALL_PREFIX}")
 endif()
 
+if(WIN32)
+    if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+        set(CEAMMC_DISTRIB_ARCH "(64-bit)")
+    elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+        set(CEAMMC_DISTRIB_ARCH "(32-bit)")
+    endif()
+endif()
+
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/pd.iss ${CMAKE_BINARY_DIR})
 
 if(WIN32 OR MSYS OR MINGW)
@@ -14,6 +22,7 @@ endif()
 find_program(ISCC_PATH
     NAMES ISCC.exe
     PATHS "$ENV{PROGRAMFILES}/Inno Setup 5"
+        "$ENV{PROGRAMFILES(X86)}/Inno Setup 5"
           "$ENV{HOME}/.wine/drive_c/Program Files/Inno Setup 5")
 
 

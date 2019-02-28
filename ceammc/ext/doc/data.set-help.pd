@@ -1,10 +1,10 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 404 50 cnv 1 291 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 404 50 container that store unique elements;
-#X obj 1 1 cnv 5 712 40 empty empty data.set 20 20 0 20 -104026 -4096
+#X obj 474 50 cnv 1 291 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 474 50 container that store unique elements;
+#X obj 1 1 cnv 5 765 40 empty empty data.set 20 20 0 20 -104026 -4096
 0;
-#X obj 629 11 data.set;
+#X obj 682 11 data.set;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X msg 50 147 \$1 \, bang;
 #X msg 155 147 clear;
@@ -13,14 +13,14 @@
 #X obj 50 234 list.range;
 #X obj 50 262 msg set;
 #X msg 50 291 ;
-#X obj 20 330 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 335 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 340 1\.;
 #X text 150 340 any;
 #X obj 241 341 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 340 X: set elements.;
-#X obj 20 368 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 373 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 378 @empty;
@@ -29,7 +29,7 @@ Type: int. Allowed values: 0 \, 1;
 #X msg 120 415 @size;
 #X text 240 415 (readonly) Get number of elements in list. Type: int.
 Min value: 0;
-#X obj 20 462 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 462 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 467 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 472 add;
@@ -46,7 +46,7 @@ Min value: 0;
 #X text 240 616 sets new set content without output. Arguments are:;
 #X obj 250 644 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 644 LIST: new set content. Type: list.;
-#X obj 20 682 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 682 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 687 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 692 1\.;
@@ -60,7 +60,7 @@ Min value: 0;
 #X text 240 746 adds new elements to set \, no output.;
 #X text 150 764 *data:set*;
 #X text 240 764 set new set content and output.;
-#X obj 20 792 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 792 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 797 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 802 1\.;
@@ -70,17 +70,17 @@ Min value: 0;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 850 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 853 library: ceammc v0.6;
-#X text 469 865 see also:;
-#X obj 545 865 set->list;
-#X obj 625 865 data.list;
+#X obj 1 850 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 853 library: ceammc v0.7;
+#X text 539 865 see also:;
+#X obj 615 865 set->list;
+#X obj 695 865 data.list;
 #N canvas 10 872 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 data.set;
 #X text 10 76 category:;

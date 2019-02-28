@@ -33,6 +33,16 @@
                 silently removed</param>
             </method>
         </methods>
+        <properties>
+            <property name="@empty" type="int" enum="0 1" readonly="true">if queue is
+            empty</property>
+            <property name="@filled" type="int" minvalue="0" readonly="true">current number of
+            elements in queue</property>
+            <property name="@size" type="int" minvalue="0" readonly="true">max number of elements
+            in queue</property>
+            <property name="@free" type="int" minvalue="0" readonly="true">number of elements you
+            can add to queue until it full</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">same as *flush* message</xinfo>

@@ -1,5 +1,5 @@
 #include "list_each.h"
-#include "../data/datatype_mlist.h"
+#include "datatype_mlist.h"
 
 static bool is_valid_step(int v)
 {
@@ -34,8 +34,15 @@ ListEach::~ListEach()
 
 void ListEach::onList(const AtomList& l)
 {
-    mode_ = MODE_NORMAL;
-    mapped_list_.clear();
+    mode_ = l.anyOf(isData) ? MODE_DLIST : MODE_NORMAL;
+
+    switch (mode_) {
+    case MODE_DLIST:
+        mapped_dlist_.clear();
+        break;
+    default:
+        mapped_list_.clear();
+    }
 
     size_t step = step_prop_->value();
 
@@ -48,7 +55,12 @@ void ListEach::onList(const AtomList& l)
             listTo(1, l.slice(i, i + step - 1));
     }
 
-    listTo(0, mapped_list_);
+    switch (mode_) {
+    case MODE_DLIST:
+        return listTo(0, mapped_dlist_.toList());
+    default:
+        return listTo(0, mapped_list_);
+    }
 }
 
 void ListEach::onInlet(size_t n, const AtomList& l)
@@ -59,12 +71,16 @@ void ListEach::onInlet(size_t n, const AtomList& l)
     if (l.empty())
         return;
 
-    if (mode_ == MODE_NORMAL) {
-        for (size_t i = 0; i < l.size(); i++)
-            mapped_list_.append(l[i]);
-    } else {
-        for (size_t i = 0; i < l.size(); i++)
-            mapped_mlist_->append(l[i]);
+    switch (mode_) {
+    case MODE_NORMAL:
+        mapped_list_.append(l);
+        break;
+    case MODE_DLIST:
+        mapped_dlist_.append(l);
+        break;
+    default:
+        mapped_mlist_->append(l);
+        break;
     }
 }
 

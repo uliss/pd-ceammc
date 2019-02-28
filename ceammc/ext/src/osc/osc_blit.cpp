@@ -17,14 +17,22 @@
 
 #include "Blit.h"
 
+static const t_float DEFAULT_FREQ = 440;
+
 OscBlit::OscBlit(const PdArgs& args)
     : SoundExternal(args)
     , osc_(nullptr)
-    , freq_(positionalFloatArgument(0, 440))
+    , freq_(positionalFloatArgument(0, DEFAULT_FREQ))
     , num_harmonics_(0)
 {
-    createCbProperty("@freq", &OscBlit::propFreq, &OscBlit::propSetFreq);
-    createCbProperty("@harmonics", &OscBlit::propHarm, &OscBlit::propSetHarm);
+    auto pfreq = createCbProperty("@freq", &OscBlit::propFreq, &OscBlit::propSetFreq);
+    pfreq->info().setType(PropertyInfoType::FLOAT);
+    pfreq->info().setMin(0);
+    pfreq->info().setDefault(DEFAULT_FREQ);
+    pfreq->info().setUnits(PropertyInfoUnits::HZ);
+
+    auto pharm = createCbProperty("@harmonics", &OscBlit::propHarm, &OscBlit::propSetHarm);
+    pharm->info().setType(PropertyInfoType::INTEGER);
 
     osc_ = new stk::Blit(freq_);
 
@@ -104,7 +112,7 @@ void OscBlit::propSetHarm(const AtomList& lst)
     num_harmonics_ = lst[0].asInt();
 }
 
-void setup_osc_blit()
+void setup_osc_blit_tilde()
 {
     SoundExternalFactory<OscBlit> obj("osc.blit~");
 }

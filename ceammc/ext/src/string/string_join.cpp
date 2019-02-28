@@ -23,6 +23,7 @@ StringJoin::StringJoin(const PdArgs& a)
     createOutlet();
 
     createCbProperty("@sep", &StringJoin::propGetSeparator, &StringJoin::propSetSeparator);
+    property("@sep")->info().setType(PropertyInfoType::VARIANT);
     parseArgs();
 }
 

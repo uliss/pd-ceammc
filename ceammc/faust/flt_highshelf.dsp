@@ -1,3 +1,5 @@
+declare name "flt.highshelf";
+
 msp = library("maxmsp.lib");
 ui = library("ceammc_ui.lib");
 

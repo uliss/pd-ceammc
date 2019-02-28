@@ -83,6 +83,42 @@ do
     echo "+ Copy: '$help'"
 done
 
+echo "Copying wrapper help files to ${OUTDIR} ..."
+find "${SRCDIR}/ext/class-wrapper/modules" -name *-help\\.pd | while read file
+do
+    help=$(basename $file)
+    cat "$file" |
+        sed 's/ceammc\/ceammc-help\.pd/ceammc-help.pd/' |
+        sed 's/\.\.\/index-help\.pd/index-help.pd/' > "${OUTDIR}/${help}"
+    echo "+ Copy: '$help'"
+done
+
+echo "Copying STK rawwaves files to ${OUTDIR}/stk ..."
+mkdir -p "${OUTDIR}/stk"
+find "${SRCDIR}/extra/stk/stk/rawwaves" -name *\\.raw | while read file
+do
+    help=$(basename $file)
+    cp "$file" "${OUTDIR}/stk"
+    echo "+ Copy: '$help'"
+done
+
+echo "Copying CEAMMC wav examples to ${OUTDIR} ..."
+find "${SRCDIR}/ext/doc" -name *\\.wav | while read file
+do
+    help=$(basename $file)
+    cp "$file" ${OUTDIR}
+    echo "+ Copy: '$help'"
+done
+
+echo "Copying SF2 fonts to ${OUTDIR}/sf2 ..."
+cp -R "${SRCDIR}/extra/fluidsynth/fluidsynth/sf2" ${OUTDIR}
+
+echo "+ Copying abstractions:"
+for abs in ${SRCDIR}/ext/abstractions/*.pd
+do
+    echo "    $(basename $abs)"
+    cp "${abs}" "${OUTDIR}"
+done
 
 echo "+ Copying misc files:"
 echo "    stargazing.mod"
@@ -91,6 +127,7 @@ echo "    prs.txt"
 cp "${SRCDIR}/ext/doc/prs.txt" "${OUTDIR}"
 echo "    soundtouch~.d_fat"
 cp "${BINDIR}/../extra/SoundTouch/pd/soundtouch~.d_fat" "${OUTDIR}"
+${DYLIBBUNDLER} -x ${OUTDIR}/soundtouch~.d_fat -b -d ${OUTDIR} -p @loader_path/ -of
 echo "    soundtouch~-help.pd"
 cp "${BINDIR}/../extra/SoundTouch/pd/soundtouch~-help.pd" "${OUTDIR}"
 echo "    soundtouch-help.pd"

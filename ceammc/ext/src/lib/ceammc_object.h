@@ -60,6 +60,7 @@ class BaseObject {
     typedef std::vector<t_outlet*> OutletList;
     typedef std::vector<t_symbol*> SymbolList;
     typedef std::map<t_symbol*, Property*> Properties;
+    typedef void (*PropCallback)(BaseObject*, t_symbol*);
     InletList inlets_;
     OutletList outlets_;
     SymbolList inlets_s_;
@@ -67,6 +68,7 @@ class BaseObject {
     AtomList positional_args_;
     t_symbol* receive_from_;
     t_canvas* cnv_;
+    PropCallback prop_set_callback_;
 
 public:
     typedef AtomList (BaseObject::*GetterFn)() const;
@@ -138,6 +140,12 @@ public:
     virtual void dump() const;
 
     /**
+     * Outputs all properties name
+     * @example on message [@*?( outputs message [@* @prop1 @prop2 etc..(
+     */
+    void queryPropNames();
+
+    /**
      * You should override this functions to react upon arrived messages.
      */
     virtual void onBang();
@@ -194,12 +202,13 @@ public:
 
     void createProperty(Property* p);
     template <class T>
-    void createCbProperty(const std::string& name,
+    Property* createCbProperty(const std::string& name,
         AtomList (T::*getter)() const,
         void (T::*setter)(const AtomList&) = 0)
     {
         CallbackProperty<T>* p = new CallbackProperty<T>(name, static_cast<T*>(this), getter, setter);
         createProperty(p);
+        return p;
     }
     bool hasProperty(t_symbol* key) const;
     bool hasProperty(const char* key) const;
@@ -208,6 +217,7 @@ public:
     bool setProperty(t_symbol* key, const AtomList& v);
     bool setProperty(const char* key, const AtomList& v);
     bool setPropertyFromPositionalArg(Property* p, size_t n);
+    const Properties& properties() const;
 
     /**
      * Outputs atom to specified outlet
@@ -319,6 +329,11 @@ public:
     std::string findInStdPaths(const char* fname) const;
 
 public:
+    /**
+     * @brief tryGetPropKey - return property name for property query name: @prop? -> @prop
+     * @param sel - property query, like @prop?
+     * @return @prop or nullptr on error
+     */
     static t_symbol* tryGetPropKey(t_symbol* sel);
 
     /**
@@ -333,10 +348,11 @@ protected:
     void freeProps();
     AtomList propNumInlets();
     AtomList propNumOutlets();
-    AtomList listAllProps() const;
     const AtomList& args() const { return pd_.args; }
     void appendInlet(t_inlet* in);
     void appendOutlet(t_outlet* out);
+    bool queryProperty(t_symbol* key, AtomList& res) const;
+    void setPropertyCallback(PropCallback cb);
 
 private:
     void extractPositionalArguments();

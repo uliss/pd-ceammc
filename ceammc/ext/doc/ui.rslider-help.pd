@@ -1,14 +1,14 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 587 50 cnv 1 108 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 587 50 rangle slider;
-#X obj 1 1 cnv 5 712 40 empty empty ui.rslider 20 20 0 20 -104026
+#X obj 665 50 cnv 1 100 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 665 50 range slider;
+#X obj 1 1 cnv 5 765 40 empty empty ui.rslider 20 20 0 20 -104026
 -4096 0;
-#X obj 541 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+#X obj 594 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.rsl] @url ui.rslider-help.pd;
-#X obj 612 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+#X obj 665 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.rslider] @url ui.rslider-help.pd;
-#X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 205 80 cnv 1 560 47 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Hold *Shift* to move ranges separately. When @sync
 property is true \, outputs value on every mouse move;
 #X msg 50 155 20 80;
@@ -21,7 +21,7 @@ property is true \, outputs value on every mouse move;
 #X text 50 299 Mouse sync is on;
 #X obj 50 328 ui.rslider @size 120 16 @sync 1;
 #X obj 50 357 ui.display @display_type 1 @size 150 18;
-#X obj 20 397 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 402 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 407 @min;
@@ -37,54 +37,103 @@ Default value: 0\. Allowed values: 0 \, 1;
 #X msg 120 532 @value;
 #X text 240 532 Get/Set current slider value. Type: list;
 #X msg 120 559 @low;
-#X text 240 559 Get/Set low (left) selection value. Type: float;
-#X msg 120 586 @high;
-#X text 240 586 Get/Set max (right) selection value. Type: float;
-#X msg 120 613 @range;
-#X text 240 613 Get/Set selected slider value. Type: float. Min value:
-0;
-#X msg 120 640 @send;
-#X text 240 640 Get/Set send destination. Type: symbol;
-#X msg 120 667 @receive;
-#X text 240 667 Get/Set receive source. Type: symbol;
-#X obj 20 704 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 709 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X text 240 559 Get/Set low (left) selection value. Type: float.
+Default value: 0;
+#X msg 120 596 @high;
+#X text 240 596 Get/Set max (right) selection value. Type: float.
+Default value: 0;
+#X msg 120 633 @range;
+#X text 240 633 Get/Set selected slider value. Type: float. Default
+value: 0\. Min value: 0;
+#X msg 120 670 @presetname;
+#X text 240 670 Get/Set preset name for using with [ui.preset]. Type:
+symbol;
+#X msg 120 707 @send;
+#X text 240 707 Get/Set send destination. Type: symbol;
+#X msg 120 734 @receive;
+#X text 240 734 Get/Set receive source. Type: symbol;
+#X msg 120 761 @size;
+#X text 240 761 Get/Set element size (width \, height pair). Type:
+list;
+#X msg 120 788 @pinned;
+#X text 240 788 Get/Set pin mode. if 1 - put element to the lowest
+level. Type: int. Default value: 0\. Allowed values: 0 \, 1;
+#X msg 120 825 @knob_color;
+#X text 240 825 Get/Set knob color (list of red \, green \, blue
+values in 0-1 range). Type: list;
+#X msg 120 862 @background_color;
+#X text 240 862 Get/Set element background color (list of red \, green
+\, blue values in 0-1 range). Type: list;
+#X msg 120 899 @border_color;
+#X text 240 899 Get/Set border color (list of red \, green \, blue
+values in 0-1 range). Type: list;
+#X msg 120 936 @fontsize;
+#X text 240 936 Get/Set fontsize. Type: int. Default value: 11\. Value
+range: 4-11;
+#X msg 120 973 @fontname;
+#X text 240 973 Get/Set fontname. Type: symbol;
+#X msg 120 1000 @fontweight;
+#X text 240 1000 Get/Set font weight. Type: symbol. Default value:
+normal. Allowed values: normal \, bold;
+#X msg 120 1037 @fontslant;
+#X text 240 1037 Get/Set font slant. Type: symbol. Default value:
+roman. Allowed values: roman \, italic;
+#X obj 20 1084 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1089 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 714 set;
-#X text 240 714 sets slider value without output. Arguments are:;
-#X obj 250 742 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 742 V: new value. Type: float.;
-#X obj 20 780 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 785 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 120 790 1\.;
-#X text 150 790 *bang*;
-#X text 240 790 outputs current slider state.;
-#X text 150 808 *list*;
-#X text 240 808 set range value without output.;
-#X obj 20 836 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 841 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X msg 120 1094 set;
+#X text 240 1094 sets slider value without output. Arguments are:;
+#X obj 250 1122 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1122 V: new value. Type: float.;
+#X msg 120 1150 load;
+#X text 240 1150 loads specified preset. Arguments are:;
+#X obj 250 1178 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1178 IDX: preset index. Type: int.;
+#X msg 120 1206 store;
+#X text 240 1206 stores specified preset. Arguments are:;
+#X obj 250 1234 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1234 IDX: preset index. Type: int.;
+#X msg 120 1262 clear;
+#X text 240 1262 clears specified preset. Arguments are:;
+#X obj 250 1290 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1290 IDX: preset index. Type: int.;
+#X msg 120 1318 pos;
+#X text 240 1318 set UI element position. Arguments are:;
+#X obj 250 1346 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1346 X: top left x-coord. Type: float.;
+#X obj 250 1374 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1374 Y: top right y-coord. Type: float.;
+#X obj 20 1412 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1417 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 846 1\.;
-#X text 240 846 output slider range as pair of values;
+#X text 120 1422 1\.;
+#X text 150 1422 *bang*;
+#X text 240 1422 outputs current slider state.;
+#X text 150 1440 *list*;
+#X text 240 1440 set range value without output.;
+#X obj 20 1468 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1473 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 120 1478 1\.;
+#X text 240 1478 output slider range as pair of values;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 894 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 897 library: ceammc v0.6;
-#X text 456 909 see also:;
-#X obj 532 912 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1526 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1529 library: ceammc v0.7;
+#X text 526 1541 see also:;
+#X obj 602 1544 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.slider] @url ui.slider-help.pd;
-#X obj 615 912 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 685 1544 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.sliders] @url ui.sliders-help.pd;
-#N canvas 10 916 400 290 info 0;
+#N canvas 10 1548 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 ui.rslider;
 #X text 10 76 category:;
@@ -103,7 +152,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 916 pd info;
+#X restore 10 1548 pd info;
 #X connect 7 0 12 0;
 #X connect 9 0 12 0;
 #X connect 8 0 12 0;

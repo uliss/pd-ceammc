@@ -1,12 +1,12 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 428 50 cnv 1 267 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 428 50 converts BPM to frequency in herz;
-#X obj 1 1 cnv 5 712 40 empty empty conv.bpm2hz 20 20 0 20 -104026
+#X obj 498 50 cnv 1 267 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 498 50 converts BPM to frequency in herz;
+#X obj 1 1 cnv 5 765 40 empty empty conv.bpm2hz 20 20 0 20 -104026
 -4096 0;
-#X obj 533 11 bpm->hz;
-#X obj 608 11 conv.bpm2hz;
-#X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 586 11 bpm->hz;
+#X obj 661 11 conv.bpm2hz;
+#X obj 205 80 cnv 1 560 47 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Converts frequency from BPM (beats per minute) to herz.
 It is simple as /60 \, but more readable.;
 #X msg 50 155 120;
@@ -18,13 +18,13 @@ It is simple as /60 \, but more readable.;
 #X obj 69 299 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 328 *~;
 #X obj 50 357 dac~;
-#X obj 20 396 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 401 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 406 1\.;
 #X text 150 406 *float*;
 #X text 240 406 frequency in BPM.;
-#X obj 20 434 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 439 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 444 1\.;
@@ -34,16 +34,16 @@ It is simple as /60 \, but more readable.;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.6;
-#X text 535 520 see also:;
-#X obj 611 520 conv.bpm2ms;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 508 library: ceammc v0.7;
+#X text 605 520 see also:;
+#X obj 681 520 conv.bpm2ms;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 conv.bpm2hz;
 #X text 10 76 category:;

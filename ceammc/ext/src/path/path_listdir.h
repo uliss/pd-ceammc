@@ -34,8 +34,6 @@ public:
     void onSymbol(t_symbol* path);
     void onDataT(const DataTypeString& s);
 
-    void m_match(t_symbol*, const AtomList& lst);
-
 private:
     void readDirList();
 };

@@ -11,9 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "test_base.h"
 #include "ceammc_canvas.h"
 #include "ceammc_pd.h"
+#include "test_base.h"
 
 #include "catch.hpp"
 
@@ -109,8 +109,12 @@ TEST_CASE("Canvas", "[ceammc::Canvas]")
         {
             REQUIRE(canvas_info_args(0) == L());
 
-            CanvasPtr cnv = PureData::instance().createTopCanvas("patch");
+            CanvasPtr cnv = PureData::instance().createTopCanvas("patch", LX(1, 2, 3));
             REQUIRE(canvas_info_args(cnv->pd_canvas()) == L());
+
+            // load abstraction
+            CanvasPtr cnv2 = PureData::instance().createTopCanvas(TEST_DATA_DIR "/patch2", LX(1, 2, 3));
+            REQUIRE(canvas_info_args(cnv2->pd_canvas()) == LX(1, 2, 3));
         }
     }
 }

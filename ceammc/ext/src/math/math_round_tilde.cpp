@@ -38,7 +38,7 @@ void MathRoundTilde::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
-extern "C" void setup_math0x2eround_tilde()
+void setup_math_round_tilde()
 {
     SoundExternalFactory<MathRoundTilde> obj("math.round~");
     obj.addAlias("round~");

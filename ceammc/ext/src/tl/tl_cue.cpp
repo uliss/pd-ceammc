@@ -8,8 +8,10 @@
 //
 
 //  CICM Wrapper version
+#include "ceammc_externals.h"
 #include "ceammc_gui.h"
 #include "ceammc_timeline.h"
+#include "ceammc_ui_object.h"
 
 using namespace ceammc_gui;
 using namespace ceammc::tl;
@@ -55,7 +57,8 @@ static inline void vline_draw(t_ebox* x)
 
 static inline void vline_delete(t_ebox* x)
 {
-    sys_vgui("%s delete .x%lxVLINE\n", x->b_canvas_id->s_name, x);
+    if (x->b_canvas_id)
+        sys_vgui("%s delete .x%lxVLINE\n", x->b_canvas_id->s_name, x);
 }
 
 static inline void vline_move(t_ebox* x)
@@ -75,7 +78,7 @@ static void tl_cue_getdrawparams(tl_cue* x, t_object* view, t_edrawparams* param
 
 static void tl_cue_ebox_move(t_ebox* x)
 {
-    if (glist_isvisible(x->b_obj.o_canvas)) {
+    if (x->b_obj.o_canvas && glist_isvisible(x->b_obj.o_canvas)) {
         int xx = (int)(x->b_rect.x - x->b_boxparameters.d_borderthickness);
         int yy = (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness);
         sys_vgui("%s coords %s %d %d\n",
@@ -106,7 +109,7 @@ static void update_canvas_cues(t_canvas* c)
 
 void tl_cue_displace(t_gobj* z, t_glist* glist, int dx, int /*dy*/)
 {
-//todo set arg - see ui.display
+    //todo set arg - see ui.display
 
 #ifdef _WINDOWS
     t_ebox* x = (t_ebox*)z;
@@ -251,4 +254,5 @@ extern "C" void setup_tl0x2ecue()
 {
     GuiFactory<tl_cue> class1;
     class1.setup_noin("tl.cue");
+    ceammc::register_ui_external(&class1.pd_class->c_class);
 }

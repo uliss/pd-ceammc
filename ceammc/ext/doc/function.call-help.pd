@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 539 50 cnv 1 156 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 539 50 call named function;
-#X obj 1 1 cnv 5 712 40 empty empty function.call 20 20 0 20 -104026
+#X obj 609 50 cnv 1 156 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 609 50 call named function;
+#X obj 1 1 cnv 5 765 40 empty empty function.call 20 20 0 20 -104026
 -4096 0;
-#X obj 503 11 func.call;
-#X obj 593 11 function.call;
+#X obj 556 11 func.call;
+#X obj 646 11 function.call;
 #X obj 50 118 function f1;
 #X obj 184 118 sin;
 #X obj 50 147 function f2;
@@ -15,14 +15,14 @@
 #X msg 222 176 symbol f2;
 #X obj 50 205 func.call f1;
 #X floatatom 50 234 5 0 0 0 - - -;
-#X obj 20 273 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 278 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 283 1\.;
 #X text 150 283 symbol;
 #X obj 241 284 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 283 NAME: function name.;
-#X obj 20 311 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 316 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 321 1\.;
@@ -30,7 +30,7 @@
 #X text 120 339 2\.;
 #X text 150 339 *symbol*;
 #X text 240 339 change function name.;
-#X obj 20 367 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 372 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 377 1\.;
@@ -40,17 +40,17 @@
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.6;
-#X text 554 520 see also:;
-#X obj 630 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 508 library: ceammc v0.7;
+#X text 624 520 see also:;
+#X obj 700 523 ui.link @background_color 0.78431 0.78431 0.78431
 @title [function] @url function-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 function.call;
 #X text 10 76 category:;

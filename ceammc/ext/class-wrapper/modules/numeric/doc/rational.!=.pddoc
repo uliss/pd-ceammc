@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="rational.!=">
+        <title>rational.!=</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>not equal check</description>
+            <license>GPL3</license>
+            <library>numeric</library>
+            <category>rational</category>
+            <keywords>compare</keywords>
+            <version>0.1</version>
+            <since>0.1</since>
+            <also>
+                <see>rational.==</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="list" name="C">rational number to compare (Rational NUM DEN) or float to compare</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Rational data constructor: NUM DEN</xinfo>
+                <xinfo on="data">Rational data</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">rational number to compare: NUM DEN</xinfo>
+                <xinfo on="data">rational number to compare</xinfo>
+                <xinfo on="float">float to compare</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output 1 if numbers are not equal, otherwise 0 (bool)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib numeric]
+
+
+[2 3(  [3 6(
+|      |
+|      |      [1 2(  [0.5(
+|      |      |.     |.
+[rational.!=  2 3     ]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

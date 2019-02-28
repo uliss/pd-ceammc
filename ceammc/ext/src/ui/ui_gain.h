@@ -21,19 +21,20 @@
 using namespace ceammc;
 
 class UIGain : public UIDspObject {
+private:
+    UIFont font_;
+    UITextLayout txt_max_;
+    UITextLayout txt_min_;
+    float knob_pos_;
+    bool is_horizontal_;
+
+protected:
+    SmoothControlValue smooth_;
     t_rgba prop_color_knob;
     t_rgba prop_color_scale;
     int prop_max;
     int prop_min;
     int prop_output_value;
-
-private:
-    UIFont font_;
-    UITextLayout txt_max_;
-    UITextLayout txt_min_;
-    SmoothControlValue smooth_;
-    float knob_pos_;
-    bool is_horizontal_;
 
 public:
     UIGain();

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.add">
+        <title>matrix.add</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>element-wise matrix addition</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <version>0.1</version>
+            <since>0.1</since>
+            <aliases>
+                <alias>matrix.+</alias>
+            </aliases>
+            <also>
+                <see>matrix.sub</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="list" name="V">float to add or matrix to add (Matrix NROWS NCOLS ...)</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Matrix data constructor: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">Matrix data</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">float to add</xinfo>
+                <xinfo on="data">matrix to add (NROWS NCOLS ...)</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output result Matrix (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[2 3(         [2 3(
+|             |
+[matrix.ones] [matrix.randu]
+|             |.
+[matrix.add  10]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

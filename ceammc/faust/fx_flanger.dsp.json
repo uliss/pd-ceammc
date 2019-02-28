@@ -1,0 +1,116 @@
+{
+	"name": "fx.flanger",
+	"filename": "fx_flanger",
+	"version": "2.15.0",
+	"compile_options": "cpp, -scal -ftz 0",
+	"library_list": ["/Users/serj/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/phaflangers.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/oscillators.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/delays.lib","/Users/serj/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/basics.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
+	"inputs": "1",
+	"outputs": "1",
+	"meta": [ 
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/version": "0.0" },
+		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
+		{ "ceammc.lib/version": "0.1.1" },
+		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
+		{ "ceammc_ui.lib/version": "0.1.1" },
+		{ "delays.lib/name": "Faust Delay Library" },
+		{ "delays.lib/version": "0.0" },
+		{ "filename": "fx_flanger" },
+		{ "filters.lib/name": "Faust Filters Library" },
+		{ "filters.lib/version": "0.0" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.1" },
+		{ "name": "fx.flanger" },
+		{ "oscillators.lib/name": "Faust Oscillator Library" },
+		{ "oscillators.lib/version": "0.0" },
+		{ "phaflangers.lib/name": "Faust Phaser and Flanger Library" },
+		{ "phaflangers.lib/version": "0.0" },
+		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/version": "0.0" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "fx.flanger",
+			"items": [ 
+				{
+					"type": "checkbox",
+					"label": "bypass",
+					"address": "/fx.flanger/bypass"
+				},
+				{
+					"type": "hslider",
+					"label": "delay",
+					"address": "/fx.flanger/delay",
+					"meta": [
+						{ "style": "knob" },
+						{ "unit": "ms" }
+					],
+					"init": "10",
+					"min": "0",
+					"max": "20",
+					"step": "0.001"
+				},
+				{
+					"type": "hslider",
+					"label": "drywet",
+					"address": "/fx.flanger/drywet",
+					"meta": [
+						{ "style": "knob" }
+					],
+					"init": "1",
+					"min": "0",
+					"max": "1",
+					"step": "0.01"
+				},
+				{
+					"type": "hslider",
+					"label": "feedback",
+					"address": "/fx.flanger/feedback",
+					"meta": [
+						{ "style": "knob" }
+					],
+					"init": "0",
+					"min": "0",
+					"max": "1",
+					"step": "0.001"
+				},
+				{
+					"type": "checkbox",
+					"label": "invert",
+					"address": "/fx.flanger/invert"
+				},
+				{
+					"type": "hslider",
+					"label": "offset",
+					"address": "/fx.flanger/offset",
+					"meta": [
+						{ "style": "knob" },
+						{ "unit": "ms" }
+					],
+					"init": "1",
+					"min": "0",
+					"max": "20",
+					"step": "0.001"
+				},
+				{
+					"type": "hslider",
+					"label": "speed",
+					"address": "/fx.flanger/speed",
+					"meta": [
+						{ "style": "knob" },
+						{ "unit": "Hz" }
+					],
+					"init": "0.5",
+					"min": "0",
+					"max": "10",
+					"step": "0.01"
+				}
+			]
+		}
+	]
+}

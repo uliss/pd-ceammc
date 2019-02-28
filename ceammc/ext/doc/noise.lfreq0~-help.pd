@@ -1,39 +1,39 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 382 50 cnv 1 313 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 382 50 sampled/held noise (piecewise constant);
-#X obj 1 1 cnv 5 712 40 empty empty noise.lfreq0~ 20 20 0 20 -104026
+#X obj 452 50 cnv 1 313 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 452 50 sampled/held noise (piecewise constant);
+#X obj 1 1 cnv 5 765 40 empty empty noise.lfreq0~ 20 20 0 20 -104026
 -4096 0;
-#X obj 592 11 noise.lfreq0~;
-#X obj 205 80 cnv 1 490 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 645 11 noise.lfreq0~;
+#X obj 205 80 cnv 1 560 33 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 new random number every int(SR/freq) samples or so;
-#X msg 50 141 freq 200;
-#X msg 155 141 @freq 2000;
+#X msg 50 141 @freq 200;
+#X msg 165 141 @freq 2000;
 #X obj 50 170 noise.lfreq0~ 400;
 #X obj 78 199 ui.gain~ @size 120 16;
 #X obj 78 228 dac~;
 #X obj 50 271 ui.scope~ @size 300 100;
 #X obj 50 386 ui.dsp~;
-#X obj 20 425 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 430 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 435 1\.;
 #X text 150 435 float;
 #X obj 241 436 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 435 FREQ: noise generation freq.;
-#X obj 20 463 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 463 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 468 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 473 @freq;
 #X text 240 473 Get/Set noise generation freq. New random number every
-int(SR/freq). Type: float. Default value: 1000\. Value range:
-10-22050;
-#X obj 20 534 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+int(SR/freq). Type: float. Default value: 1000\. Value range: 5-22050;
+#X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 539 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 544 1\.;
-#X text 240 544 control input.;
-#X obj 20 572 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 150 544 *float*;
+#X text 240 544 set average frequency.;
+#X obj 20 572 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 577 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 582 1\.;
@@ -43,16 +43,16 @@ int(SR/freq). Type: float. Default value: 1000\. Value range:
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title noise @url ceammc.noise-help.pd;
-#X obj 1 630 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 633 library: ceammc v0.6;
-#X text 527 645 see also:;
-#X obj 603 645 noise.lfreq~;
+#X obj 1 630 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 633 library: ceammc v0.7;
+#X text 597 645 see also:;
+#X obj 673 645 noise.lfreq~;
 #N canvas 10 652 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 noise.lfreq0~;
 #X text 10 76 category:;

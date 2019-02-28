@@ -1,15 +1,18 @@
 set(OSC_SOURCES osc_blit.cpp)
-macro(ceammc_osc_extension name)
+
+macro(ceammc_osc_obj_external name)
     list(APPEND OSC_SOURCES "osc_${name}.cpp")
-    ceammc_faust_gen(osc ${name} simple_pd_control_ext)
+    ceammc_faust_gen_obj(osc ${name})
 endmacro()
 
-ceammc_osc_extension(impulse)
-ceammc_osc_extension(pulse)
-ceammc_osc_extension(saw)
-ceammc_osc_extension(sinfb)
-ceammc_osc_extension(square)
-ceammc_osc_extension(tri)
+ceammc_osc_obj_external(impulse)
+ceammc_osc_obj_external(pulse)
+ceammc_osc_obj_external(saw)
+ceammc_osc_obj_external(saw4)
+ceammc_osc_obj_external(sin)
+ceammc_osc_obj_external(sinfb)
+ceammc_osc_obj_external(square)
+ceammc_osc_obj_external(tri)
 
 include_directories(${CMAKE_SOURCE_DIR}/ceammc/extra/stk/stk/include)
 

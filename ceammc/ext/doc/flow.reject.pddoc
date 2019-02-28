@@ -21,8 +21,11 @@
             </also>
         </meta>
         <arguments>
-            <argument type="atom" name="values">list of atoms to reject</argument>
+            <argument type="list" name="values">list of atoms to reject</argument>
         </arguments>
+        <properties>
+            <property name="@values" type="list">atoms to reject</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">pass</xinfo>

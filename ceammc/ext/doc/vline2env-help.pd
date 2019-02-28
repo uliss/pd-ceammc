@@ -1,18 +1,18 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 451 50 cnv 1 244 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 451 50 Converts vline messages to env;
-#X obj 1 1 cnv 5 712 40 empty empty vline2env 20 20 0 20 -104026 -4096
+#X obj 521 50 cnv 1 244 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 521 50 Converts vline messages to env;
+#X obj 1 1 cnv 5 765 40 empty empty vline2env 20 20 0 20 -104026 -4096
 0;
-#X obj 523 11 vline->env;
-#X obj 621 11 vline2env;
+#X obj 576 11 vline->env;
+#X obj 674 11 vline2env;
 #X msg 50 118 0 \, 1 200;
 #X msg 165 118 1 100 50;
 #X msg 270 118 0 \, 1 300 \, 0 500 300;
 #X msg 290 147 0 \, 1 300 \, 0 500 500;
 #X obj 50 205 vline2env;
 #X obj 50 234 ui.env @size 200 150;
-#X obj 20 406 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 411 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 416 1\.;
@@ -20,7 +20,7 @@
 #X text 240 416 output current envelope.;
 #X text 150 434 *list*;
 #X text 240 434 vline message.;
-#X obj 20 462 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 462 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 467 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 472 1\.;
@@ -30,17 +30,17 @@
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title env @url ceammc.env-help.pd;
-#X obj 1 520 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 523 library: ceammc v0.6;
-#X text 453 535 see also:;
-#X obj 529 535 env->vline;
-#X obj 617 535 env->array;
+#X obj 1 520 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 523 library: ceammc v0.7;
+#X text 523 535 see also:;
+#X obj 599 535 env->vline;
+#X obj 687 535 env->array;
 #N canvas 10 542 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 vline2env;
 #X text 10 76 category:;

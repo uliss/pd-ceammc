@@ -218,6 +218,8 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
         DataTypeEnv env;
         env.setAR(100, 200);
         REQUIRE(!env.empty());
+        REQUIRE(env.isAR());
+        REQUIRE(env.isAR(true));
         REQUIRE(env.numPoints() == 3);
         REQUIRE(!env.hasStopPoints());
         REQUIRE(env.totalLength() == 300);
@@ -253,6 +255,8 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
         DataTypeEnv env;
         env.setASR(100, 200);
         REQUIRE(!env.empty());
+        REQUIRE(env.isAR());
+        REQUIRE(env.isAR(true));
         REQUIRE(env.numPoints() == 3);
         REQUIRE(env.hasStopPoints());
         REQUIRE(env.totalLength() == 300);
@@ -285,6 +289,9 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
         REQUIRE(env.hasPointAtTime(30 * 1000));
         REQUIRE(env.hasPointAtTime(100 * 1000));
         REQUIRE(env.hasStopPoints());
+
+        REQUIRE_FALSE(env.isAR());
+        REQUIRE_FALSE(env.isAR(true));
     }
 
     SECTION("render")
@@ -606,11 +613,13 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
             REQUIRE(e.numPoints() == 3);
             REQUIRE(e.totalLength() == 30000);
             REQUIRE(e.numStopPoints() == 0);
+            REQUIRE(e.isAR());
 
             e.setNamedEnvelope(gensym("asr"), LF(20, 20));
             REQUIRE(e.numPoints() == 3);
             REQUIRE(e.totalLength() == 40000);
             REQUIRE(e.numStopPoints() == 1);
+            REQUIRE(e.isAR());
 
             e.setNamedEnvelope(gensym("adsr"), LF(20, 30, 10, 100));
             REQUIRE(e.numPoints() == 4);
@@ -621,16 +630,19 @@ TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
             REQUIRE(e.numPoints() == 3);
             REQUIRE(e.totalLength() == 30000);
             REQUIRE(e.numStopPoints() == 0);
+            REQUIRE_FALSE(e.isAR());
 
             e.setNamedEnvelope(gensym("easr"), LF(20, -3, 20, -4));
             REQUIRE(e.numPoints() == 3);
             REQUIRE(e.totalLength() == 40000);
             REQUIRE(e.numStopPoints() == 1);
+            REQUIRE_FALSE(e.isAR());
 
             e.setNamedEnvelope(gensym("eadsr"), LF(20, -1, 30, -2, 10, 100, -5));
             REQUIRE(e.numPoints() == 4);
             REQUIRE(e.totalLength() == 150000);
             REQUIRE(e.numStopPoints() == 1);
+            REQUIRE_FALSE(e.isAR());
         }
     }
 

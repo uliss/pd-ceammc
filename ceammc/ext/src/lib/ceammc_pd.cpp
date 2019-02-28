@@ -13,6 +13,8 @@
  *****************************************************************************/
 #include "ceammc_pd.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_externals.h"
+#include "ceammc_factory.h"
 #include "ceammc_platform.h"
 
 #include "m_pd.h"
@@ -36,48 +38,23 @@ using namespace ceammc;
 pd::External::External(const char* name, const AtomList& lst)
     : obj_(0)
 {
-    t_symbol* OBJ_NAME = gensym(name);
-
-    //    pd_typedmess(&pd_objectmaker, OBJ_NAME, lst.size(), lst.toPdData());
-
-    t_methodentry* m = pd_objectmaker->c_methods;
     try {
-        for (int i = 0; i < pd_objectmaker->c_nmethod; i++) {
-            if (m[i].me_name == OBJ_NAME) {
-                if (m[i].me_arg[0] == A_GIMME) {
-                    t_newgimme new_fn = (t_newgimme)m[i].me_fun;
-                    t_atom* al = lst.toPdData();
-                    obj_ = (*new_fn)(OBJ_NAME, lst.size(), al);
-                    break;
-                }
+        t_symbol* OBJ_NAME = gensym(name);
+        pd_typedmess(&pd_objectmaker, OBJ_NAME, lst.size(), lst.toPdData());
 
-                if (lst.size() > 5) {
-                    break;
-                }
-
-                if (m[i].me_arg[0] == A_NULL) {
-                    t_newempty new_fn = (t_newempty)m[i].me_fun;
-                    obj_ = (*new_fn)();
-                    break;
-                }
-
-                if (m[i].me_arg[0] == A_DEFFLOAT) {
-                    t_newfloat new_fn = (t_newfloat)m[i].me_fun;
-                    t_float f = lst.empty() ? 0 : lst[0].asFloat(0);
-                    obj_ = (*new_fn)(f);
-                    break;
-                }
-
-                if (m[i].me_arg[0] == A_DEFSYMBOL) {
-                    t_newsymbol new_fn = (t_newsymbol)m[i].me_fun;
-                    t_symbol* s = lst.empty() ? 0 : lst[0].asSymbol();
-                    obj_ = (*new_fn)(s);
-                    break;
-                }
-
-                printf("unknown construct method: %d...\n", m[i].me_arg[0]);
-            }
+        t_pd* ptr = pd_newest();
+        if (!ptr) {
+            printf("object creation failed\n");
+            return;
         }
+
+        t_object* res = pd_checkobject(ptr);
+        if (!res) {
+            printf("invalid object\n");
+            return;
+        }
+
+        obj_ = res;
     } catch (std::exception& e) {
         std::cerr << "error: " << e.what() << std::endl;
         obj_ = 0;
@@ -244,12 +221,109 @@ int pd::External::numInlets() const
     return obj_ninlets(obj_);
 }
 
+int pd::External::xPos() const
+{
+    if (!obj_)
+        return 0;
+
+    return obj_->te_xpix;
+}
+
+int pd::External::yPos() const
+{
+    if (!obj_)
+        return 0;
+
+    return obj_->te_ypix;
+}
+
+void pd::External::setXPos(int x)
+{
+    if (!obj_)
+        return;
+
+    obj_->te_xpix = x;
+}
+
+void pd::External::setYPos(int y)
+{
+    if (!obj_)
+        return;
+
+    obj_->te_ypix = y;
+}
+
+std::vector<t_symbol*> pd::External::methods() const
+{
+    std::vector<t_symbol*> res;
+    if (!obj_)
+        return res;
+
+    t_class* c = obj_->te_g.g_pd;
+    for (int i = 0; i < c->c_nmethod; i++) {
+        auto m = &c->c_methods[i];
+        res.push_back(m->me_name);
+    }
+
+    return res;
+}
+
+bool pd::External::isCeammc() const
+{
+    return is_ceammc(obj_);
+}
+
+bool pd::External::isCeammcBase() const
+{
+    return is_ceammc_base(obj_);
+}
+
+bool pd::External::isCeammcUI() const
+{
+    return is_ceammc_ui(obj_);
+}
+
+bool pd::External::isCeammcFaust() const
+{
+    return is_ceammc_faust(obj_);
+}
+
+bool pd::External::isCeammcFlext() const
+{
+    return is_ceammc_flext(obj_);
+}
+
+const BaseObject* pd::External::asCeammcBaseObject() const
+{
+    return ceammc_to_base_object(obj_);
+}
+
+const UIObject* pd::External::asCeammcUIObject() const
+{
+    return ceammc_to_ui_object(obj_);
+}
+
+std::vector<PropertyInfo> pd::External::properties() const
+{
+    if (!isCeammc())
+        return {};
+
+    if (isCeammcBase())
+        return ceammc_base_properties(obj_);
+    else if (isCeammcUI())
+        return ceammc_ui_properties(obj_);
+    else if (isCeammcFaust())
+        return ceammc_faust_properties(obj_);
+    else
+        return {};
+}
+
 PureData::PureData()
 {
     pd_init();
 }
 
-CanvasPtr PureData::createTopCanvas(const char* name)
+CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)
 {
     CanvasPtr ptr;
 
@@ -271,6 +345,9 @@ CanvasPtr PureData::createTopCanvas(const char* name)
         std::string fname = platform::basename(name);
         glob_setfilename(0, gensym(fname.c_str()), gensym(dir.c_str()));
     }
+
+    if (!args.empty())
+        canvas_setargs(args.size(), args.toPdData());
 
     t_canvas* cnv = canvas_new(0, gensym(name), l.size(), l.toPdData());
 

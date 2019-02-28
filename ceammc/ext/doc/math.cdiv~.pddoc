@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.cdiv~">
+        <title>math.cdiv~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>division of complex signals</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math complex division</keywords>
+            <aliases>
+                <alias>cdiv~</alias>
+            </aliases>
+            <since>0.7</since>
+            <also>
+                <see>math.cmul~</see>
+            </also>
+        </meta>
+        <info>
+            <par>Calculates for signals (a + bi) / (c + di) = (ac + bd) / (c^2 + d^2) + ((bc - ad)
+            / (c^2 + d^2))i</par>
+            <par>If c + di = 0, outputs 0, as [/~] does</par>
+        </info>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>real part of input signal1</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>imag part of input signal1</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>real part of input signal2</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>imag part of input signal2</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">real part of result</outlet>
+            <outlet type="audio">imag part of result</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]    [F]    [F]    [F]
+|      |      |      |
+[sig~] [sig~] [sig~] [sig~]
+|      |      |      |
+|      |      |      |
+|      |.     |..    |...
+[math.cdiv~             ]  [ui.dsp~]
+|           ^|
+[ui.n~]     [ui.n~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

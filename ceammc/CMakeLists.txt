@@ -1,4 +1,4 @@
-set(CEAMMC_LIB_VERSION "0.6")
+set(CEAMMC_LIB_VERSION "0.7")
 set(CEAMMC_LIB_HOME "https://github.com/uliss/pure-data")
 
 # we need 1.50.0 for boost random uniform distribution
@@ -26,7 +26,7 @@ set(POT_TEMPLATE "${CMAKE_SOURCE_DIR}/po/template.pot")
 find_program(XGETTEXT xgettext)
 
 if(XGETTEXT)
-    file(GLOB _CICM_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/ui/cicm/Sources/*.c")
+    file(GLOB _CICM_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/lib/cicm/Sources/*.cpp")
     file(GLOB _CEAMMC_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/*.cpp")
     file(GLOB _UI_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/ui/*.cpp")
 

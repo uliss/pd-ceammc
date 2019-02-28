@@ -58,18 +58,16 @@ bool init = initFuncMap();
 
 Window::Window(const PdArgs& a)
     : BaseObject(a)
-    , size_(0)
+    , size_(nullptr)
     , type_(WIN_DEFAULT)
     , fn_(window::hann<float>)
 {
     createCbProperty("@type", &Window::pTypeGet, &Window::pTypeSet);
+    property("@type")->info().setType(PropertyInfoType::SYMBOL);
+
     setWindowFunc(positionalSymbolArgument(0, WIN_DEFAULT));
 
-    int arg_size = int(positionalFloatArgument(1, DEFAULT_SIZE));
-    if (arg_size < 1)
-        arg_size = DEFAULT_SIZE;
-
-    size_ = new SizeTProperty("@size", size_t(arg_size));
+    size_ = new IntPropertyMinEq("@size", positionalFloatArgument(1, DEFAULT_SIZE), 16);
     createProperty(size_);
 
     createOutlet();

@@ -26,8 +26,8 @@
             frequency of noise impulses per second</property>
         </properties>
         <inlets>
-            <inlet type="audio">
-                <xinfo>control input</xinfo>
+            <inlet>
+                <xinfo on="float">set average frequency</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -36,8 +36,8 @@
         <example>
             <pdascii>
 <![CDATA[
-[freq 3( [@freq 50(
-|        |
+[@freq 3( [@freq 50(
+|         |
 [noise.crackle~ ]
 |
 [ui.gain~ @size 120 16]

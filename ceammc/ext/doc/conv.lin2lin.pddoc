@@ -17,6 +17,7 @@
             <since>0.1</since>
             <aliases>
                 <alias>lin-&gt;lin</alias>
+                <alias>l-&gt;l</alias>
             </aliases>
         </meta>
         <properties>
@@ -39,7 +40,7 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="float">intput value</xinfo>
+                <xinfo on="float">input value</xinfo>
             </inlet>
         </inlets>
         <outlets>

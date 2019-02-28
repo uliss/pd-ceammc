@@ -299,6 +299,22 @@ public:
 
     friend DataTypeEnv operator+(const DataTypeEnv& env0, const DataTypeEnv& env1);
 
+    /**
+     * Checks if envelope is linear A(S)R - contains three points connected with linear segments
+     * @param checkVal if true - check values at envelope points: 0 at attack, 1 at sustain, 0 at release
+     *        otherwise no checks are performed
+     * @return true on success
+     */
+    bool isAR(bool checkVal = false) const;
+
+    /**
+     * Checks if envelope is linear ADSR - contains four points connected with linear segments
+     * @param checkVal if true - check values at envelope points: 0 at attack, 1 at sustain, 0 at release
+     *        otherwise no checks are performed
+     * @return true on success
+     */
+    bool isADSR(bool checkVal = false) const;
+
 public:
     static DataType dataType;
 };

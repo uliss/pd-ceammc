@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="complex.imag">
+        <title>complex.imag</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>get imaginary part of complex number</description>
+            <license>GPL3</license>
+            <library>numeric</library>
+            <category>complex</category>
+            <version>0.1</version>
+            <since>0.1</since>
+            <also>
+                <see>complex.real</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Complex data constructor: REAL IMAG</xinfo>
+                <xinfo on="data">Complex data</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output imaginary part of complex number (float)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib numeric]
+
+
+[1 2( [3 4( [5 6(
+|     |     |
+[complex.imag]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

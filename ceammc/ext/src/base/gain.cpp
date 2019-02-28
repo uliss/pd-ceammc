@@ -50,6 +50,7 @@ Gain::Gain(const PdArgs& args)
     createCbProperty("@value", &Gain::propGain, &Gain::propSetGain);
 
     smooth_ = new FloatPropertyMin("@smooth_time", 20, 1);
+    smooth_->info().setUnits(PropertyInfoUnits::MSEC);
     createProperty(smooth_);
 }
 

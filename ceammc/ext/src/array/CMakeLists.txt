@@ -18,6 +18,8 @@ ceammc_array_extension(s2p)
 ceammc_array_extension(set)
 ceammc_array_extension(stretch)
 ceammc_array_extension(vline_play)
+ceammc_array_extension(window)
+
 
 add_library(ceammc_array STATIC mod_array.h mod_array.cpp ${ARRAY_SOURCES})
 target_link_libraries(ceammc_array soundtouch)

@@ -32,3 +32,9 @@
 [submodule "ceammc/extra/fluidsynth/fluidsynth"]
 	path = ceammc/extra/fluidsynth/fluidsynth
 	url = https://github.com/FluidSynth/fluidsynth.git
+[submodule "ceammc/extra/subprocess/tiny-process-library"]
+	path = ceammc/extra/subprocess/tiny-process-library
+	url = https://gitlab.com/eidheim/tiny-process-library.git
+[submodule "ceammc/extra/readerwriterqueue"]
+	path = ceammc/extra/readerwriterqueue
+	url = https://github.com/cameron314/readerwriterqueue.git

@@ -22,9 +22,16 @@
         <arguments>
             <argument name="freq" type="float" units="herz" minvalue="20">frequency</argument>
         </arguments>
+        <properties>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo minvalue="20" on="float">frequency in Hz</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">reset phase</xinfo>
             </inlet>
         </inlets>
         <outlets>

@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 580 50 cnv 1 115 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 580 50 dynamic [expr];
-#X obj 1 1 cnv 5 712 40 empty empty math.expr 20 20 0 20 -104026 -4096
+#X obj 650 50 cnv 1 115 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 650 50 dynamic [expr];
+#X obj 1 1 cnv 5 765 40 empty empty math.expr 20 20 0 20 -104026 -4096
 0;
-#X obj 621 11 math.expr;
-#X obj 205 80 cnv 1 490 153 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 674 11 math.expr;
+#X obj 205 80 cnv 1 560 153 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Operators: + \, - \, * \, / \, % \, < \, <= \, >= \, >
 \, == \, !=;
 #X text 210 103 Functions: sin() \, cos() \, tan() \, atan() \, sqrt()
@@ -39,19 +39,19 @@
 #X floatatom 50 592 5 0 0 0 - - -;
 #X floatatom 242 592 5 0 0 0 - - -;
 #X floatatom 443 592 5 0 0 0 - - -;
-#X obj 20 631 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 631 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 636 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 641 1\.;
 #X text 150 641 list;
 #X obj 241 642 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 641 EXPR: expression.;
-#X obj 20 669 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 669 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 674 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 679 @expr;
 #X text 240 679 Get/Set expression. Type: list;
-#X obj 20 716 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 716 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 721 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 726 1\.;
@@ -62,7 +62,7 @@
 expression).;
 #X text 120 762 2\.;
 #X text 240 762 change expression.;
-#X obj 20 790 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 790 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 795 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 800 1\.;
@@ -72,14 +72,14 @@ expression).;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 848 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 851 library: ceammc v0.6;
+#X obj 1 848 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 851 library: ceammc v0.7;
 #N canvas 10 870 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 math.expr;
 #X text 10 76 category:;

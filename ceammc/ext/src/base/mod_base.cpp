@@ -10,7 +10,13 @@
 #include "metro_pattern.h"
 #include "metro_seq.h"
 #include "mix.h"
+#include "msg_after.h"
+#include "obj_info.h"
+#include "obj_props.h"
 #include "patch_args.h"
+#include "patch_props.h"
+#include "prop.h"
+#include "prop_declare.h"
 #include "radio.h"
 #include "xfade2_tilde.h"
 #include "xfade_tilde.h"
@@ -36,13 +42,16 @@ extern "C" void setup_test0x2eexpect();
 extern "C" void setup_prop0x2eget_tilde();
 
 void setup_is_data();
+void setup_load_msg();
 
 void ceammc_base_setup()
 {
+    click_tilde_setup();
     expand_env_setup();
+    function_call_setup();
+    function_setup();
     is_any_setup();
     is_bang_setup();
-    setup_is_data();
     is_even_setup();
     is_file_setup();
     is_float_setup();
@@ -51,14 +60,20 @@ void ceammc_base_setup()
     is_pointer_setup();
     is_symbol_setup();
     msg_setup();
-    function_setup();
-    function_call_setup();
+    replace_setup();
+    setup_base_prop();
+    setup_is_data();
+    setup_load_msg();
     setup_metro_pattern();
     setup_metro_seq();
-    replace_setup();
+    setup_msg_after();
+    setup_obj_info();
+    setup_obj_props();
+    setup_patch_props();
+    setup_prop_declare();
+
     setup_prop0x2eget();
     setup_prop0x2eset();
-    click_tilde_setup();
 
 #ifdef WITH_SND_FILE
     setup_snd0x2efile();

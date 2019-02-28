@@ -26,6 +26,16 @@ static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
 
 using namespace ceammc;
 
+static t_symbol* midi_ctl_sym()
+{
+#ifdef __WIN32
+    static t_symbol* sym = gensym("#ctlin");
+    return sym;
+#else
+    return pd_this->pd_ctlin_sym;
+#endif
+}
+
 UISingleValue::UISingleValue()
     : midi_proxy_(this, &UISingleValue::onMidiCtrl)
     , pick_value_side_(0)
@@ -77,7 +87,7 @@ void UISingleValue::init(t_symbol* name, const AtomList& args, bool usePresets)
     UIObject::init(name, args, usePresets);
 
     if (prop_midi_chn > 0 || prop_midi_ctl > 0)
-        midi_proxy_.bind(pd_this->pd_ctlin_sym);
+        midi_proxy_.bind(midi_ctl_sym());
 }
 
 t_pd_err UISingleValue::notify(t_symbol* attr_name, t_symbol* msg)
@@ -97,8 +107,7 @@ t_pd_err UISingleValue::notify(t_symbol* attr_name, t_symbol* msg)
                     ss << prop_midi_chn;
 
                 UI_DBG << ss.str();
-
-                midi_proxy_.bind(pd_this->pd_ctlin_sym);
+                midi_proxy_.bind(midi_ctl_sym());
             } else
                 midi_proxy_.unbind();
         }
@@ -259,7 +268,7 @@ void UISingleValue::setDrawParams(t_object*, t_edrawparams* params)
 void UISingleValue::startListenMidi()
 {
     listen_midi_ctrl_ = true;
-    midi_proxy_.bind(pd_this->pd_ctlin_sym);
+    midi_proxy_.bind(midi_ctl_sym());
     LIB_DBG << "move MIDI control to bind";
 
     asEBox()->b_boxparameters.d_bordercolor = BIND_MIDI_COLOR;

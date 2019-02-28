@@ -10,7 +10,7 @@
             <description>Timeline section</description>
             <license>GPL3</license>
             <library>ceammc</library>
-            <category view="link">ui</category>
+            <category view="link">tl</category>
             <keywords>timeline cue</keywords>
             <since>0.1</since>
             <also>

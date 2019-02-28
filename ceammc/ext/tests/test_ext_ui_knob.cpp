@@ -521,4 +521,22 @@ TEST_CASE("ui.knob", "[ui.knob]")
         t << BANG;
         REQUIRE_FLOAT_WAS_SEND(t, "r1", 0.5);
     }
+
+    SECTION("props test")
+    {
+        TestExtKnob t("ui.knob");
+        t.call("@*?");
+        REQUIRE(t.hasOutput());
+        auto props = t.outputAnyAt(0);
+        props.sort();
+        const auto desired = LA("@*", "@active_scale", "@background_color", "@border_color",
+                                 "@fontname", "@fontsize", "@fontslant", "@fontweight",
+                                 "@knob_color", "@max", "@midi_channel", "@midi_control")
+            + LA("@midi_pickup", "@min", "@pinned", "@presetname", "@receive",
+                  "@scale_color", "@send", "@show_range", "@size", "@value");
+        REQUIRE(props == desired);
+
+        t.call("@max?", LA("@min?", "@xxx?", "", "@non", "unknown", 100, "@receive?"));
+        REQUIRE(t.outputAnyAt(0) == LA("@max", 1, "@min", 0.f, "@receive", "(null)"));
+    }
 }

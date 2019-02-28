@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "frequency shifter"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.8.5 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -66,6 +66,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -229,6 +230,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -395,6 +399,7 @@ struct Meta
 #include <map>
 #include <string.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 
 using std::max;
@@ -417,7 +422,7 @@ inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
 inline long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
@@ -439,7 +444,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -489,6 +495,7 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 #include <math.h>
 
@@ -586,7 +593,7 @@ class freqshift : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = min(192000.0f, max(1.0f, float(fSamplingFreq)));
+		fConst0 = std::min(192000.0f, std::max(1.0f, float(fSamplingFreq)));
 		fConst1 = (6.28318548f / fConst0);
 		
 	}
@@ -672,18 +679,18 @@ class freqshift : public dsp {
 			float fTemp0 = float(input0[i]);
 			fVec0[0] = fTemp0;
 			fRec3[0] = ((0.161758006f * (fTemp0 + fRec3[2])) - fVec0[2]);
-			fRec2[0] = ((0.733029008f * (fRec3[0] + fRec2[2])) - fRec3[2]);
-			fRec1[0] = ((0.945349991f * (fRec2[0] + fRec1[2])) - fRec2[2]);
-			fRec0[0] = ((0.990598023f * (fRec1[0] + fRec0[2])) - fRec1[2]);
+			fRec2[0] = ((0.733029008f * (fRec2[2] + fRec3[0])) - fRec3[2]);
+			fRec1[0] = ((0.945349991f * (fRec1[2] + fRec2[0])) - fRec2[2]);
+			fRec0[0] = ((0.990598023f * (fRec0[2] + fRec1[0])) - fRec1[2]);
 			float fTemp1 = float(input1[i]);
 			iRec4[0] = (iRec4[1] + 1);
-			float fTemp2 = (fConst1 * (fTemp1 * fmodf(float(iRec4[0]), (fConst0 / fTemp1))));
-			float fTemp3 = (fRec0[0] * sinf(fTemp2));
+			float fTemp2 = (fConst1 * (fTemp1 * std::fmod(float(iRec4[0]), (fConst0 / fTemp1))));
+			float fTemp3 = (fRec0[0] * std::sin(fTemp2));
 			fRec8[0] = ((0.479400992f * (fVec0[1] + fRec8[2])) - fVec0[3]);
-			fRec7[0] = ((0.876218021f * (fRec8[0] + fRec7[2])) - fRec8[2]);
-			fRec6[0] = ((0.976598978f * (fRec7[0] + fRec6[2])) - fRec7[2]);
-			fRec5[0] = ((0.997500002f * (fRec6[0] + fRec5[2])) - fRec6[2]);
-			float fTemp4 = (fRec5[0] * cosf(fTemp2));
+			fRec7[0] = ((0.876218021f * (fRec7[2] + fRec8[0])) - fRec8[2]);
+			fRec6[0] = ((0.976598978f * (fRec6[2] + fRec7[0])) - fRec7[2]);
+			fRec5[0] = ((0.997500002f * (fRec5[2] + fRec6[0])) - fRec6[2]);
+			float fTemp4 = (fRec5[0] * std::cos(fTemp2));
 			output0[i] = FAUSTFLOAT((fTemp3 + fTemp4));
 			output1[i] = FAUSTFLOAT((fTemp3 - fTemp4));
 			for (int j0 = 3; (j0 > 0); j0 = (j0 - 1)) {
@@ -727,6 +734,11 @@ static t_class* freqshift_faust_class;
 #define FAUST_EXT_CLASS freqshift_faust_class
 // clang-format on
 
+template <class T>
+class _freqshift_UI : public UI {
+};
+typedef _freqshift_UI<freqshift> freqshift_UI;
+
 struct t_faust_freqshift {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -735,7 +747,7 @@ struct t_faust_freqshift {
     int fence; /* dummy field (not used) */
 #endif
     freqshift* dsp;
-    PdUI<UI>* ui;
+    PdUI<freqshift_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -818,7 +830,7 @@ static void freqshift_faust_dsp(t_faust_freqshift* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<freqshift_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -873,7 +885,7 @@ static void freqshift_faust_any(t_faust_freqshift* x, t_symbol* s, int argc, t_a
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<freqshift_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -1033,7 +1045,7 @@ static bool faust_new_internal(t_faust_freqshift* x, const std::string& objId = 
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new freqshift();
-    x->ui = new PdUI<UI>(sym(freqshift), objId);
+    x->ui = new PdUI<freqshift_UI>(sym(freqshift), objId);
 
     if (!faust_init_inputs(x)) {
         freqshift_faust_free(x);
@@ -1177,8 +1189,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1271,6 +1283,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(freqshift_faust_class, reinterpret_cast<t_method>(freqshift_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(freqshift_faust_class, reinterpret_cast<t_method>(freqshift_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(freqshift_faust_class, freqshift_faust_any);
+    ceammc::register_faust_external(freqshift_faust_class);
 }
 
 #define EXTERNAL_NEW void* freqshift_faust_new(t_symbol*, int argc, t_atom* argv)

@@ -80,6 +80,14 @@ TEST_CASE("data.mlist", "[externals]")
             REQUIRE_SIZE(t, 1);
             REQUIRE_CONTAINS_ATOM(t, "key", "the value");
         }
+
+        SECTION("nesting")
+        {
+            DataTypeDict t("[a: ([b: c d][e: f])]");
+            REQUIRE(t.size() == 1);
+            REQUIRE(t.contains(A("a")));
+            REQUIRE(*t.toJSON(-1) == "{\"a\":{\"b\":[\"c\",\"d\"],\"e\":\"f\"}}");
+        }
     }
 
     SECTION("onBang")

@@ -13,20 +13,17 @@
  *****************************************************************************/
 #include "../base/canvas_current.h"
 #include "test_base.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
+#include "test_external.h"
 
-#include <stdio.h>
-
-typedef TestExternal<CanvasCurrent> CanvasCurrentTest;
+PD_COMPLETE_TEST_SETUP(CanvasCurrent, canvas, current);
 
 TEST_CASE("canvas.current", "[externals]")
 {
+    pd_test_init();
+
     SECTION("init")
     {
-        setup_canvas_current();
-
-        CanvasCurrentTest t("canvas.current");
+        TestCanvasCurrent t("canvas.current");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
 
@@ -44,17 +41,17 @@ TEST_CASE("canvas.current", "[externals]")
         REQUIRE_PROPERTY_LIST(t, @paths, L());
         REQUIRE_PROPERTY_LIST(t, @size, AtomList(0.f, 0.f));
 
-        CanvasPtr cnv = PureData::instance().createTopCanvas("patch");
+        CanvasPtr cnv = PureData::instance().createTopCanvas(TEST_DATA_DIR "/patch");
 
         {
-            CanvasCurrentTest t("canvas.current");
+            TestExtCanvasCurrent t("canvas.current");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
             REQUIRE_PROPERTY(t, @name, "patch");
-            REQUIRE_PROPERTY(t, @dir, "");
+            REQUIRE_PROPERTY(t, @dir, TEST_DATA_DIR);
             REQUIRE_PROPERTY(t, @root, 1);
-            REQUIRE_PROPERTY(t, @abstraction, Atom(0.f));
+            REQUIRE_PROPERTY(t, @abstraction, Atom(1));
             REQUIRE_PROPERTY(t, @font, 10);
             REQUIRE_PROPERTY(t, @width, 600);
             REQUIRE_PROPERTY(t, @height, 400);

@@ -13,9 +13,6 @@
             <keywords>fx flanger</keywords>
             <since>0.2</since>
         </meta>
-        <arguments>
-            <argument name="ID" type="symbol">object ID for OSC control path</argument>
-        </arguments>
         <properties>
             <property name="@delay" type="float" minvalue="0" maxvalue="20" units="millisecond"
             default="10">flange delay</property>
@@ -32,29 +29,9 @@
             wet.</property>
             <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
             'effected' signal.</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
         </properties>
-        <methods>
-            <method name="delay">set flange delay 
-            <param type="float" minvalue="0" maxvalue="20" units="millisecond"
-            required="true" /></method>
-            <method name="offset">set flange delay offset 
-            <param type="float" minvalue="0" maxvalue="20" units="millisecond"
-            required="true" /></method>
-            <method name="speed">set flanger frequency 
-            <param type="float" minvalue="0" maxvalue="10" units="herz" required="true" /></method>
-            <method name="feedback">set feedback gain 
-            <param name="X" type="float" minvalue="0" maxvalue="1" required="true" /></method>
-            <method name="invert">set sign of flanging sum 
-            <param type="int" name="X" enum="0 1" required="true">0 for normal, 1 to invert sign of
-            flanging sum</param></method>
-            <method name="drywet">set proportion of mix between the original (dry) and 'effected'
-            (wet) signals. 
-            <param name="X" type="float" minvalue="0" maxvalue="1" required="true">0 - dry signal,
-            1 - wet.</param></method>
-            <method name="bypass">bypass effect 
-            <param name="X" type="int" enum="0 1" required="true">if set to 1 - bypass 'effected'
-            signal.</param></method>
-        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
@@ -62,26 +39,31 @@
         </inlets>
         <outlets>
             <outlet type="audio">output signal</outlet>
-            <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
+[T]
+|
+[metro 5000]
+|
 [open %CEAMMC%/guitar1.wav, 1(
 |
-[expand_env]
+[expand_env] [F]         [F]         [F]          [ui.knob]
+|            |           |           |            |
+|            |           |           |            |
+|            |           |           |            |
+[readsf~]    [@speed $1( [@delay $1( [@offset $1( [@feedback $1(
+|            |           |           |            |
+|            [s flng                              ]
 |
-[readsf~]
-|
-|      [F]        [F]        [F]           [T]
-|      |          |          |             |
-|      [speed $1( [delay $1( [offset $1(   [bypass $1(
-|      |          |          |             |
-|      |          |          | [T]         | [F]
-|      |          |          | |           | |
-|      |          |          | [invert $1( | [feedback $1(
-|      |          |          | |           | |
-[fx.flanger~ id                               ]
+|                                       [ui.knob]
+|                                       |
+|  [r flng]   [T]          [T]          |
+|  |          |            |            |
+|  |          [@invert $1( [@bypass $1( [@drywet $1(
+|  |          |            |            |
+[fx.flanger~                            ]
 |
 [ui.gain~ @size 120 16]   [ui.dsp~]
 |\

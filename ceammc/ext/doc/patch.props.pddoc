@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="patch.props">
+        <title>patch.props</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>patch properties manager</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>property</category>
+            <keywords>property</keywords>
+            <since>0.7</since>
+            <also>
+                <see>prop.declare</see>
+                <see>prop</see>
+            </also>
+        </meta>
+        <info>
+            <par>Property should be declared with [prop.declare]</par>
+        </info>
+        <methods>
+            <method name="default">reset all props to default value and output</method>
+            <method name="@*?">output all patch properties as list</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output all properties in [prop] objects</xinfo>
+                <xinfo on="any">get/set property value and output it</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[prop.declare freq @min 20 @max 20000 @default 1000]
+
+[prop.declare gain @min -60 @max 12 @default -3]
+
+[@*?( [@freq 100( [@freq?( [default(
+|     |           |        |
+[patch.props               ]
+|
+[ui.display @display_type=1]
+
+[F]          [F]
+|            |
+[prop @freq] [prop @gain]
+|            |
+[F]          [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

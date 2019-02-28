@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>record up to 8s of sound and playback the recorded sound in
+            <description>record up to 32s of sound and playback the recorded sound in
             loop</description>
             <license>GPL3</license>
             <library>ceammc</library>
@@ -15,33 +15,41 @@
             <since>0.1</since>
         </meta>
         <methods>
-            <method name="record">
-                <param type="int">capture sound while = 1, play sound while = 0</param>
-            </method>
+            <method name="record">start record</method>
+            <method name="stop">stop record</method>
+            <method name="reset">reset recorded data</method>
         </methods>
-        <arguments>
-            <argument name="ID" type="symbol">object ID for OSC control path</argument>
-        </arguments>
+        <properties>
+            <property name="@gate" type="int" enum="0 1" default="0">start/stop
+            recording</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>source signal</xinfo>
-                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">1/0 toggle signal</xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">recorded signal</outlet>
-            <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[adc~]    [_]
-|         |
-|  [bng]  [record $1(
-|  |      |
-[live.capture~ id]
-|\              ^|
-[dac~]          [print]
+[adc~]     [reset(
+|          |
+| [record( | [T]
+| |        | |
+| | [stop( | [@gate $1( [T]
+| | |      | |          |.
+[live.capture~             ]
+|
+[ui.gain~ @size 120 14] [ui.dsp~]
+|\
+[dac~]
 ]]>
             </pdascii>
         </example>

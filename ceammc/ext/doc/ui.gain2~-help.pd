@@ -1,0 +1,152 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 584 50 cnv 1 181 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 584 50 UI stereo gain control;
+#X obj 1 1 cnv 5 765 40 empty empty ui.gain2~ 20 20 0 20 -104026 -4096
+0;
+#X obj 672 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.gain2~] @url ui.gain2~-help.pd;
+#X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
+#X obj 50 147 expand_env;
+#X obj 50 176 readsf~;
+#X obj 50 205 fx.zita_rev1~;
+#X obj 50 234 ui.gain2~ @size 120 14;
+#X obj 290 234 ui.dsp~;
+#X obj 50 262 dac~;
+#X obj 20 301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 306 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 120 311 @max;
+#X text 240 311 Get/Set maximum gain value. Type: int. Units: db.
+Default value: 0\. Value range: -12-12;
+#X msg 120 348 @min;
+#X text 240 348 Get/Set minimal gain value. Type: int. Units: db.
+Default value: -60\. Value range: -90--30;
+#X msg 120 385 @db;
+#X text 240 385 Get/Set gain in dbfs scale. Type: float. Units: db.
+Default value: -60;
+#X msg 120 422 @amp;
+#X text 240 422 Get/Set gain as amplitude ratio. Type: float. Default
+value: 0;
+#X msg 120 459 @output_value;
+#X text 240 459 Get/Set flag to output @db property after each knob
+move. Type: int. Default value: 0\. Allowed values: 0 \, 1;
+#X msg 120 496 @presetname;
+#X text 240 496 Get/Set preset name for using with [ui.preset]. Type:
+symbol;
+#X msg 120 533 @send;
+#X text 240 533 Get/Set send destination. Type: symbol;
+#X msg 120 560 @receive;
+#X text 240 560 Get/Set receive source. Type: symbol;
+#X msg 120 587 @size;
+#X text 240 587 Get/Set element size (width \, height pair). Type:
+list;
+#X msg 120 614 @pinned;
+#X text 240 614 Get/Set pin mode. if 1 - put element to the lowest
+level. Type: int. Default value: 0\. Allowed values: 0 \, 1;
+#X msg 120 651 @knob_color;
+#X text 240 651 Get/Set knob color (list of red \, green \, blue
+values in 0-1 range). Type: list;
+#X msg 120 688 @background_color;
+#X text 240 688 Get/Set element background color (list of red \, green
+\, blue values in 0-1 range). Type: list;
+#X msg 120 725 @border_color;
+#X text 240 725 Get/Set border color (list of red \, green \, blue
+values in 0-1 range). Type: list;
+#X msg 120 762 @fontsize;
+#X text 240 762 Get/Set fontsize. Type: int. Default value: 11\. Value
+range: 4-11;
+#X msg 120 799 @fontname;
+#X text 240 799 Get/Set fontname. Type: symbol;
+#X msg 120 826 @fontweight;
+#X text 240 826 Get/Set font weight. Type: symbol. Default value:
+normal. Allowed values: normal \, bold;
+#X msg 120 863 @fontslant;
+#X text 240 863 Get/Set font slant. Type: symbol. Default value:
+roman. Allowed values: roman \, italic;
+#X obj 20 910 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 915 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+-49933 0;
+#X msg 120 920 + N;
+#X text 240 920 increase current gain by N db.;
+#X msg 120 952 - N;
+#X text 240 952 decrease current gain by N db.;
+#X msg 120 984 ++;
+#X text 240 984 decrease current gain by 1 db.;
+#X msg 120 1016 --;
+#X text 240 1016 decrease current gain by 1 db.;
+#X msg 120 1048 set N;
+#X text 240 1048 set current gain to N db.;
+#X msg 120 1080 load;
+#X text 240 1080 loads specified preset. Arguments are:;
+#X obj 250 1108 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1108 IDX: preset index. Type: int.;
+#X msg 120 1136 store;
+#X text 240 1136 stores specified preset. Arguments are:;
+#X obj 250 1164 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1164 IDX: preset index. Type: int.;
+#X msg 120 1192 clear;
+#X text 240 1192 clears specified preset. Arguments are:;
+#X obj 250 1220 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1220 IDX: preset index. Type: int.;
+#X msg 120 1248 pos;
+#X text 240 1248 set UI element position. Arguments are:;
+#X obj 250 1276 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1276 X: top left x-coord. Type: float.;
+#X obj 250 1304 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1304 Y: top right y-coord. Type: float.;
+#X obj 20 1342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1347 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+-49933 0;
+#X text 120 1352 1\.;
+#X text 240 1352 left input signal.;
+#X text 150 1370 *bang*;
+#X text 240 1370 output current gain @db property.;
+#X text 120 1388 2\.;
+#X text 240 1388 right input signal.;
+#X obj 20 1416 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1421 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 120 1426 1\.;
+#X text 240 1426 left output signal;
+#X text 120 1444 2\.;
+#X text 240 1444 right output signal;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 115 45 ::;
+#X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
+#X obj 1 1492 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1495 library: ceammc v0.7;
+#N canvas 10 1514 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.7;
+#X text 10 54 object:;
+#X text 120 54 ui.gain2~;
+#X text 10 76 category:;
+#X text 120 76 ui;
+#X text 10 98 since:;
+#X text 120 98 0.7;
+#X text 10 120 authors:;
+#X text 120 120 Serge Potlavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3;
+#X text 10 164 keywords:;
+#X text 120 164 ui \, gain;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 1514 pd info;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 7 1 8 1;
+#X connect 8 0 10 0;
+#X connect 8 1 10 1;

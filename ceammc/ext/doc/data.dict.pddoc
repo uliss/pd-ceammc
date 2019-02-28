@@ -21,7 +21,9 @@
             </aliases>
         </meta>
         <info>
-            <par>Syntax: [key: value] or [key : "the value"]</par>
+            <par>Syntax: ([key1: value] [key2 : "with space"]). Parenthesis can be ommitted if you
+            are not using nested dictionaries. Nested dictionaries are supported: ([a:
+            ([A:1][B:2])]).</par>
         </info>
         <properties>
             <property name="@keys" readonly="true" type="list">keys of dictionary</property>
@@ -43,7 +45,7 @@
             <method name="set">set dict content without output</method>
             <method name="remove">remove entry from dictionary 
             <param name="KEY" type="atom" required="true">entry key</param></method>
-            <method name="[....]">sets new content without output</method>
+            <method name="[....]" example="true">sets new content without output</method>
             <method name="read">read dict from JSON file 
             <param name="PATH" type="symbol" required="true">file path</param></method>
             <method name="write">write dict as JSON file 
@@ -73,7 +75,7 @@
 |  |  |  [list a b c d(  |       | |
 |  |  |  |               |       | [read $1(
 |  |  |  |               |       | |
-[data.dict \[tempo: 120\]\[title: "New Masterpiece"\] ]
+[data.dict (\[tempo: 120\]\[title: "New Masterpiece"\]) ]
 |
 [ui.display @display_type=1]
 ]]>

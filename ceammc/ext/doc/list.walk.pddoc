@@ -28,14 +28,14 @@
         <properties>
             <property name="@mode" type="symbol" enum="single clip wrap fold">pass mode. See
             properties below for detailed information.</property>
-            <property name="@clip" type="int">clipped pass mode. When the list bounds are reached -
-            min/max value repeats perpetually.</property>
-            <property name="@single" type="int">single pass mode. When the list bounds are reached
-            - no output any more until reset.</property>
-            <property name="@loop" type="int">@wrap alias</property>
-            <property name="@wrap" type="int">wrap pass mode. List values are repeated in a
+            <property name="@clip" type="alias">clipped pass mode. When the list bounds are reached
+            - min/max value repeats perpetually.</property>
+            <property name="@single" type="alias">single pass mode. When the list bounds are
+            reached - no output any more until reset.</property>
+            <property name="@loop" type="alias">@wrap alias</property>
+            <property name="@wrap" type="alias">wrap pass mode. List values are repeated in a
             loop</property>
-            <property name="@fold" type="int">fold pass mode. List values are repeated in a loop
+            <property name="@fold" type="alias">fold pass mode. List values are repeated in a loop
             with folding</property>
             <property name="@direction" type="int" default="1" enum="0 1">walking direction. "1" -
             forwards, "0" - backwards.</property>

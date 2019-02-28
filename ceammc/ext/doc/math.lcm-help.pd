@@ -1,24 +1,24 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 443 50 cnv 1 252 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 443 50 calculate least common multiple;
-#X obj 1 1 cnv 5 712 40 empty empty math.lcm 20 20 0 20 -104026 -4096
+#X obj 513 50 cnv 1 252 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 513 50 calculate least common multiple;
+#X obj 1 1 cnv 5 765 40 empty empty math.lcm 20 20 0 20 -104026 -4096
 0;
-#X obj 628 11 math.lcm;
+#X obj 681 11 math.lcm;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X floatatom 98 118 5 0 0 0 - - -;
 #X obj 50 147 flow.sync 2;
 #X msg 184 147 3 5;
 #X obj 50 176 math.lcm 12;
 #X floatatom 50 205 5 0 0 0 - - -;
-#X obj 20 244 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 244 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 249 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 254 1\.;
 #X text 150 254 int;
 #X obj 241 255 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 254 ARG2: second argument.;
-#X obj 20 282 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 282 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 287 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 292 1\.;
@@ -30,7 +30,7 @@ output calculated LCM value.;
 #X text 120 342 2\.;
 #X text 150 342 *int*;
 #X text 240 342 sets second value.;
-#X obj 20 370 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 375 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 380 1\.;
@@ -40,16 +40,16 @@ output calculated LCM value.;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.6;
-#X text 556 520 see also:;
-#X obj 632 520 math.gcd;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 508 library: ceammc v0.7;
+#X text 626 520 see also:;
+#X obj 702 520 math.gcd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 math.lcm;
 #X text 10 76 category:;

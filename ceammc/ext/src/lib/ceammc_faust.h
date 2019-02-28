@@ -18,12 +18,16 @@
 #include <cassert>
 #include <cctype>
 #include <cstring>
+#include <initializer_list>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include "ceammc_atom.h"
 #include "ceammc_atomlist.h"
-#include "m_pd.h"
+#include "ceammc_object.h"
+#include "ceammc_property_info.h"
+#include "ceammc_sound_external.h"
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -33,6 +37,70 @@ struct Soundfile;
 
 namespace ceammc {
 namespace faust {
+
+    class UIElement;
+
+    PropertyInfoUnits to_units(const char* u);
+
+    class UIProperty : public Property {
+        UIElement* el_;
+
+    public:
+        UIProperty(UIElement* el);
+
+        bool set(const AtomList& lst) override;
+        AtomList get() const override;
+        float value() const;
+        void setValue(float v, bool clip = false) const;
+    };
+
+    static inline void zero_samples(int n_ch, size_t bs, t_sample** out)
+    {
+        for (int i = 0; i < n_ch; i++)
+#ifdef __STDC_IEC_559__
+            /* IEC 559 a.k.a. IEEE 754 floats can be initialized faster like this */
+            memset(out[i], 0, bs * sizeof(t_sample));
+#else
+            for (size_t j = 0; j < bs; j++)
+                out[i][j] = 0.0f;
+#endif
+    }
+
+    static inline void copy_samples(int n_ch, size_t bs, const t_sample** in, t_sample** out)
+    {
+        for (int i = 0; i < n_ch; i++)
+            memcpy(out[i], in[i], bs * sizeof(t_sample));
+    }
+
+    class FaustExternalBase : public SoundExternal {
+    protected:
+        std::vector<t_sample*> faust_buf_;
+        size_t faust_bs_;
+        bool active_;
+        int rate_, xfade_, n_xfade_;
+
+    public:
+        FaustExternalBase(const PdArgs& args);
+        ~FaustExternalBase();
+
+        void bindPositionalArgToProperty(size_t idx, t_symbol* propName);
+        void bindPositionalArgsToProps(std::initializer_list<t_symbol*> lst);
+
+        void setupDSP(t_signal** sp) override;
+
+        void processInactive(const t_sample** in, t_sample** out);
+        void processXfade(const t_sample** in, t_sample** out);
+
+        void initSignalInputs(size_t n);
+        void initSignalOutputs(size_t n);
+        float xfadeTime() const;
+        void propSetActive(const AtomList& lst);
+        AtomList propActive() const;
+
+    private:
+        void bufFadeIn(const t_sample** in, t_sample** out, float k0);
+        void bufFadeOut(const t_sample** in, t_sample** out, float k0);
+    };
 
     enum UIElementType {
         UI_BUTTON,
@@ -53,9 +121,10 @@ namespace faust {
         std::string path_;
         std::string label_;
         FAUSTFLOAT init_, min_, max_, step_;
-        FAUSTFLOAT* zone_;
+        FAUSTFLOAT* value_;
         t_symbol* set_prop_symbol_;
         t_symbol* get_prop_symbol_;
+        PropertyInfo pinfo_;
 
     public:
         UIElement(UIElementType t, const std::string& path, const std::string& label);
@@ -77,13 +146,16 @@ namespace faust {
         FAUSTFLOAT value(FAUSTFLOAT def = 0.f) const;
         void setValue(FAUSTFLOAT v, bool clip = false);
 
-        const FAUSTFLOAT* valuePtr() const { return zone_; }
+        const FAUSTFLOAT* valuePtr() const { return value_; }
         void setValuePtr(FAUSTFLOAT* vPtr);
         void setContraints(FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step);
 
         bool pathcmp(const std::string& path) const;
 
         void dump(t_outlet* out);
+
+        const PropertyInfo& propInfo() const { return pinfo_; }
+        void setUnits(PropertyInfoUnits u) { pinfo_.setUnits(u); }
 
     private:
         static t_symbol *s_button, *s_checkbox, *s_vslider, *s_hslider, *s_nentry, *s_vbargraph, *s_hbargraph;
@@ -116,18 +188,8 @@ namespace faust {
 
     inline void UIElement::setValuePtr(FAUSTFLOAT* vPtr)
     {
-        zone_ = vPtr;
-        *zone_ = init_;
-    }
-
-    inline void UIElement::setContraints(FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
-    {
-        assert(min <= init && init <= max);
-
-        init_ = init;
-        min_ = min;
-        max_ = max;
-        step_ = step;
+        value_ = vPtr;
+        *value_ = init_;
     }
 
     bool isGetAllProperties(t_symbol* s);
@@ -144,6 +206,7 @@ namespace faust {
         std::vector<std::string> osc_path_;
         std::string name_;
         std::string id_;
+        std::unordered_map<FAUSTFLOAT*, const char*> unit_map_;
 
     public:
         PdUI(const std::string& name, const std::string& id);
@@ -175,10 +238,13 @@ namespace faust {
         virtual void openVerticalBox(const char* label);
         virtual void closeBox();
 
+        virtual void declare(FAUSTFLOAT* v, const char* name, const char* value);
+
         virtual void run();
 
     public:
         UIElement* findElementByLabel(const char* label);
+        UIElement* findElementByPtr(FAUSTFLOAT* vptr);
         void setElementValue(const char* label, FAUSTFLOAT v);
         void dumpUI(t_outlet* out);
         void outputAllProperties(t_outlet* out);
@@ -189,6 +255,86 @@ namespace faust {
         void setUIValues(const std::vector<FAUSTFLOAT>& v);
         std::string fullName() const;
         std::string oscPath(const std::string& label) const;
+    };
+
+    template <typename DSP, typename ui_tag>
+    class FaustExternal : public FaustExternalBase {
+    protected:
+        DSP* dsp_;
+        PdUI<ui_tag>* ui_;
+
+    public:
+        FaustExternal(const PdArgs& args)
+            : FaustExternalBase(args)
+            , dsp_(new DSP())
+            , ui_(new PdUI<ui_tag>(ui_tag::name, ""))
+        {
+            initSignalInputs(dsp_->getNumInputs());
+            initSignalOutputs(dsp_->getNumOutputs());
+
+            dsp_->init(samplerate());
+            dsp_->buildUserInterface(ui_);
+
+            size_t n_ui = ui_->uiCount();
+            for (size_t i = 0; i < n_ui; i++)
+                createProperty(new UIProperty(ui_->uiAt(i)));
+        }
+
+        ~FaustExternal()
+        {
+            delete dsp_;
+            delete ui_;
+        }
+
+        void setupDSP(t_signal** sp) override
+        {
+            FaustExternalBase::setupDSP(sp);
+
+            const size_t BS = blockSize();
+            const size_t SR = samplerate();
+
+            if (rate_ <= 0) {
+                std::vector<FAUSTFLOAT> z = ui_->uiValues();
+                /* set the proper sample rate; this requires reinitializing the dsp */
+                dsp_->init(SR);
+                ui_->setUIValues(z);
+            }
+
+            n_xfade_ = static_cast<int>(SR * xfadeTime() / BS);
+        }
+
+        void processBlock(const t_sample** in, t_sample** out) override
+        {
+            if (!dsp_)
+                return;
+
+            const size_t N_OUT = numOutputChannels();
+            const size_t BS = blockSize();
+
+            if (xfade_ > 0) {
+                dsp_->compute(BS, (t_sample**)in, faust_buf_.data());
+                processXfade(in, out);
+            } else if (active_) {
+                dsp_->compute(BS, (t_sample**)in, faust_buf_.data());
+                copy_samples(N_OUT, BS, (const t_sample**)faust_buf_.data(), out);
+            } else
+                processInactive(in, out);
+        }
+
+        void resetUI()
+        {
+            ui_->instanceResetUserInterface();
+        }
+
+        void clear()
+        {
+            ui_->instanceClear();
+        }
+
+        void setInitSignalValue(t_float f)
+        {
+            pd_float(reinterpret_cast<t_pd*>(owner()), f);
+        }
     };
 
     template <typename T>
@@ -319,6 +465,22 @@ namespace faust {
     void PdUI<T>::closeBox()
     {
         osc_path_.pop_back();
+
+        for (auto el : ui_elements_) {
+            auto it = unit_map_.find(const_cast<FAUSTFLOAT*>(el->valuePtr()));
+            if (it == unit_map_.end())
+                continue;
+
+            el->setUnits(to_units(it->second));
+        }
+    }
+
+    template <typename T>
+    void PdUI<T>::declare(FAUSTFLOAT* v, const char* name, const char* value)
+    {
+        if (strcmp(name, "unit") == 0) {
+            unit_map_[v] = value;
+        }
     }
 
     template <typename T>
@@ -332,7 +494,18 @@ namespace faust {
                 return ui_elements_[i];
         }
 
-        return NULL;
+        return nullptr;
+    }
+
+    template <typename T>
+    UIElement* PdUI<T>::findElementByPtr(FAUSTFLOAT* vptr)
+    {
+        for (auto el : ui_elements_) {
+            if (el->valuePtr() == vptr)
+                return el;
+        }
+
+        return nullptr;
     }
 
     template <typename T>

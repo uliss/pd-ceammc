@@ -7,7 +7,7 @@
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Band-reject coefficent calculator for biquad filter</description>
+            <description>Band-reject coefficient calculator for biquad filter</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>flt</category>
@@ -19,24 +19,27 @@
                 <see>flt.biquad~</see>
             </also>
         </meta>
-        <methods>
-            <method name="freq">
-                <param type="float" units="herz">center frequency</param>
-            </method>
-            <method name="q">
-                <param type="float" name="Q" minvalue="0.01" maxvalue="100" default="1">quality
-                factor</param>
-            </method>
-        </methods>
+        <info>
+            <par>Calculates coefficients for transfer function:
+            H(z)=(b0+b1*z^-1+b2*z^-2)/(1+a1*z^-1+a2*z^-2)</par>
+        </info>
         <arguments>
-            <argument name="freq" type="float" units="herz">center frequency</argument>
+            <argument name="freq" type="float" units="herz" minvalue="20" maxvalue="20000">center
+            frequency</argument>
             <argument name="q" type="float" minvalue="0.01" maxvalue="100">quality
             factory</argument>
-            <argument name="ID" type="symbol">object ID for OSC control</argument>
         </arguments>
+        <properties>
+            <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
+            units="herz">center frequency</property>
+            <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="1">quality
+            factor: @freq/BANDWIDTH</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
         <inlets>
-            <inlet type="audio">
-                <xinfo>input signal</xinfo>
+            <inlet>
+                <xinfo>control signal</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -45,24 +48,26 @@
             <outlet type="audio">b2</outlet>
             <outlet type="audio">a1</outlet>
             <outlet type="audio">a2</outlet>
-            <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-
-[osc~ 300    ] [T] [F]       [F]
-|        ._____/   |         |
-[*~      ]         [freq $1( [q $1(
-|                  |         |
+[osc~ 300    ] [T] [F]        [F]
+|        ._____/   |          |
+[*~      ]         [@freq $1( [@q $1(
+|                  |          |
 |                  [flt.c_notch~ 300 20]
 |                  | ^| ^^| ^^^| ^^^^|
 |                  |  |   |    |     |
 |                  |  |   |    |     |
 |                  |. |.. |... |.... |.....
 [flt.biquad~                              ]
+|
+[ui.gain~ @size 120 16]
 |\
 [dac~]
+
+[ui.dsp~]
 
 ]]>
             </pdascii>

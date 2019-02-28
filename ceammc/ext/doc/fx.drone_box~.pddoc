@@ -17,16 +17,15 @@
         <arguments>
             <argument name="pitch" type="float" minvalue="36" maxvalue="60">drone MIDI
             pitch</argument>
-            <argument name="ID" type="symbol">object ID for OSC control path</argument>
         </arguments>
         <properties>
             <property name="@pitch" type="float" minvalue="36" maxvalue="60" default="48">drone
             MIDI pitch</property>
             <property name="@decay" type="float" minvalue="100" maxvalue="120000"
             units="millisecond" default="4000">drone pluck decay time</property>
-            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
-            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
-            wet.</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
+            proportion of mix between the original (dry) and 'effected' (wet) signals. 0 - dry
+            signal, 1 - wet.</property>
             <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
             'effected' signal.</property>
         </properties>
@@ -37,7 +36,6 @@
         </inlets>
         <outlets>
             <outlet type="audio">output signal</outlet>
-            <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -52,7 +50,7 @@
 |            |        |.
 |            [*~      0]
 |            |
-[fx.drone_box~ 48 id]
+[fx.drone_box~ 48]
 |
 [ui.gain~ @size 120 16]  [ui.dsp~]
 |\

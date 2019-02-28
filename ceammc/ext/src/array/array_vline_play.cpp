@@ -48,10 +48,18 @@ ArrayVlinePlay::ArrayVlinePlay(const PdArgs& args)
 
     createCbProperty("@state", &ArrayVlinePlay::propState);
     createCbProperty("@speed", &ArrayVlinePlay::propSpeed, &ArrayVlinePlay::propSetSpeed);
+    property("@speed")->info().setType(PropertyInfoType::FLOAT);
+    property("@speed")->info().setMin(0.1);
+    property("@speed")->info().setDefault(1.f);
+
     createCbProperty("@begin", &ArrayVlinePlay::propBeginSample, &ArrayVlinePlay::propSetBeginSample);
+    property("@begin")->info().setType(PropertyInfoType::INTEGER);
     createCbProperty("@end", &ArrayVlinePlay::propEndSample, &ArrayVlinePlay::propSetEndSample);
+    property("@end")->info().setType(PropertyInfoType::INTEGER);
     createCbProperty("@abs_begin", &ArrayVlinePlay::propAbsBeginSample);
+    property("@abs_begin")->info().setType(PropertyInfoType::FLOAT);
     createCbProperty("@abs_end", &ArrayVlinePlay::propAbsEndSample);
+    property("@abs_end")->info().setType(PropertyInfoType::FLOAT);
 
     reversed_ = new BoolProperty("@reversed", false);
     createProperty(reversed_);

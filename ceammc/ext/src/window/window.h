@@ -21,7 +21,7 @@ using namespace ceammc;
 typedef float (*WindowFuncPtr)(size_t, size_t);
 
 class Window : public BaseObject {
-    SizeTProperty* size_;
+    IntPropertyMinEq* size_;
     t_symbol* type_;
     WindowFuncPtr fn_;
 

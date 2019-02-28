@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="an.pitchtrack~">
+        <title>an.pitchtrack~</title>
+        <meta>
+            <authors>
+                <author>Katja Vetter</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>pitch tracker</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>an</category>
+            <keywords>pitchtrack</keywords>
+            <since>0.7</since>
+            <aliases>
+                <alias>helmholtz~</alias>
+            </aliases>
+            <also>
+                <see>sigmund~</see>
+                <see>fiddle~</see>
+            </also>
+        </meta>
+        <info>
+            <par>Period-length detector using Philip McLeod's Specially Normalized AutoCorrelation
+            function (SNAC)</par>
+        </info>
+        <arguments>
+            <argument name="FRAME" type="int" enum="126 256 512 1024 2048">frame size in
+            samples</argument>
+            <argument name="OVERLAP" type="int" enum="1 2 4 8">overlap of analysis
+            frames</argument>
+        </arguments>
+        <properties>
+            <property name="@framesize" type="int" enum="126 256 512 1024 2048" default="1024"
+            units="sample">frame size in samples</property>
+            <property name="@overlap" type="int" enum="1 2 3 4 8" default="1">overlap of analysis
+            frames</property>
+            <property name="@bias" type="float" minvalue="0" maxvalue="1" default="0.2">bias which
+            favours small lags over large lags in the period detection, thereby avoiding low-octave
+            jumps</property>
+            <property name="@fidthr" type="float" minvalue="0" maxvalue="1" default="0.95">min
+            fidelity threshold to report the pitch</property>
+            <property name="@maxfreq" type="float" minvalue="10" maxvalue="10000" default="1500"
+            units="herz">max tracked frequency</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+            <outlet>output frequency in Hz</outlet>
+            <outlet>track fidelity: a value between 0 and 1, indicating to which extent the input
+            signal is periodic. A fidelity of ~0.95 can be considered to indicate a periodic
+            signal.</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[adc~ 1]     [ui.dsp~]
+|
+|   [T] [F]
+|   |.  |
+[gain~] [osc~ 440]  [hradio]
+|       |.          |..
+[flow.mux~           2]
+|
+[an.pitchtrack~]
+^|     ^^|
+[F]    [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,42 +1,17 @@
 /* ------------------------------------------------------------
-name: "ks"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+name: "synth.ks"
+Code generated with Faust 2.15.0 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
-#ifndef  __ks_H__
-#define  __ks_H__
+#ifndef  __synth_ks_H__
+#define  __synth_ks_H__
 
-/************************************************************************
- ************************************************************************
-    FAUST Architecture File
-    Copyright (C) 2006-2011 Albert Graef <Dr.Graef@t-online.de>
-    ---------------------------------------------------------------------
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as
-    published by the Free Software Foundation; either version 2.1 of the
-    License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
-
-    You should have received a copy of the GNU Lesser General Public
-    License along with the GNU C Library; if not, write to the Free
-    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
-    02111-1307 USA.
- ************************************************************************
- ************************************************************************/
-
-/* Pd architecture file, written by Albert Graef <Dr.Graef@t-online.de>.
-   This was derived from minimal.cpp included in the Faust distribution.
-   Please note that this is to be compiled as a shared library, which is
-   then loaded dynamically by Pd as an external. */
-
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
+// FAUST Architecture File for ceammc::SoundExternal class
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <memory>
 #include <string>
 
 /************************************************************************
@@ -66,6 +41,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -229,6 +205,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -393,8 +372,8 @@ struct Meta
 
 #include <algorithm>
 #include <map>
+#include <cstdlib>
 #include <string.h>
-#include <stdlib.h>
 
 
 using std::max;
@@ -402,33 +381,33 @@ using std::min;
 
 struct XXXX_Meta : std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
-inline int lsr(int x, int n)	{ return int(((unsigned int)x) >> n); }
+static int lsr(int x, int n) { return int(((unsigned int)x) >> n); }
 
-inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
+static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
-inline long lopt(char* argv[], const char* name, long def)
+static long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
-inline bool isopt(char* argv[], const char* name)
+static bool isopt(char* argv[], const char* name)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
 	return false;
 }
 
-inline const char* lopts(char* argv[], const char* name, const char* def)
+static const char* lopts(char* argv[], const char* name, const char* def)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
@@ -438,16 +417,9 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 #endif
 
 
-#include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_faust.h"
 
-/******************************************************************************
-*******************************************************************************
-
-                                   VECTOR INTRINSICS
-
-*******************************************************************************
-*******************************************************************************/
+using namespace ceammc::faust;
 
 #ifdef FAUST_MACRO
 // clang-format off
@@ -457,31 +429,12 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 #define sym(name) xsym(name)
 #define xsym(name) #name
 
-/***************************************************************************
-   Pd UI interface
-***************************************************************************/
-
 // clang-format off
 #ifndef FAUST_MACRO
-struct ks : public dsp {
+struct synth_ks : public dsp {
 };
 #endif
 // clang-format on
-
-#include "ceammc_faust.h"
-using namespace ceammc::faust;
-
-/******************************************************************************
-*******************************************************************************
-
-                FAUST DSP
-
-*******************************************************************************
-*******************************************************************************/
-
-//----------------------------------------------------------------------------
-//  FAUST generated signal processor
-//----------------------------------------------------------------------------
 
 #ifdef FAUST_MACRO
 // clang-format off
@@ -489,23 +442,24 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 #include <math.h>
 
-float ks_faustpower2_f(float value) {
+static float synth_ks_faustpower2_f(float value) {
 	return (value * value);
 	
 }
 
 #ifndef FAUSTCLASS 
-#define FAUSTCLASS ks
+#define FAUSTCLASS synth_ks
 #endif
 #ifdef __APPLE__ 
 #define exp10f __exp10f
 #define exp10 __exp10
 #endif
 
-class ks : public dsp {
+class synth_ks : public dsp {
 	
  private:
 	
@@ -562,7 +516,7 @@ class ks : public dsp {
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
 		m->declare("maths.lib/version", "2.1");
-		m->declare("name", "ks");
+		m->declare("name", "synth.ks");
 		m->declare("noises.lib/name", "Faust Noise Generator Library");
 		m->declare("noises.lib/version", "0.0");
 		m->declare("routes.lib/name", "Faust Signal Routing Library");
@@ -616,7 +570,7 @@ class ks : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = min(192000.0f, max(1.0f, float(fSamplingFreq)));
+		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSamplingFreq)));
 		fConst1 = (0.00147058826f * fConst0);
 		fConst2 = (0.00882352982f * fConst0);
 		fConst3 = (6911.50391f / fConst0);
@@ -710,8 +664,8 @@ class ks : public dsp {
 		instanceClear();
 	}
 	
-	virtual ks* clone() {
-		return new ks();
+	virtual synth_ks* clone() {
+		return new synth_ks();
 	}
 	virtual int getSampleRate() {
 		return fSamplingFreq;
@@ -719,7 +673,7 @@ class ks : public dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("ks");
+		ui_interface->openVerticalBox("synth.ks");
 		ui_interface->addHorizontalSlider("cutoff", &fHslider4, 1.0f, 0.100000001f, 1.0f, 0.00100000005f);
 		ui_interface->addHorizontalSlider("gain", &fHslider3, 1.0f, 0.0f, 1.0f, 0.00100000005f);
 		ui_interface->addButton("gate", &fButton0);
@@ -735,83 +689,85 @@ class ks : public dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = (0.5f * ((0.200000003f * (1.0f - float(fHslider0))) + 0.800000012f));
-		float fSlow1 = powf(2.0f, (0.0833333358f * (float(fHslider1) + -69.0f)));
+		float fSlow1 = std::pow(2.0f, (0.0833333358f * (float(fHslider1) + -69.0f)));
 		float fSlow2 = (fConst1 * ((0.772727251f / fSlow1) + -0.0500000007f));
 		float fSlow3 = (fSlow2 + -1.49999499f);
-		float fSlow4 = floorf(fSlow3);
+		float fSlow4 = std::floor(fSlow3);
 		float fSlow5 = (fSlow2 + (-1.0f - fSlow4));
 		float fSlow6 = (fSlow2 + (-2.0f - fSlow4));
 		float fSlow7 = (fSlow2 + (-3.0f - fSlow4));
 		float fSlow8 = (fSlow2 + (-4.0f - fSlow4));
 		float fSlow9 = ((((0.0f - fSlow5) * (0.0f - (0.5f * fSlow6))) * (0.0f - (0.333333343f * fSlow7))) * (0.0f - (0.25f * fSlow8)));
 		int iSlow10 = int(fSlow3);
-		int iSlow11 = (int(min(fConst2, float(max(0, iSlow10)))) + 1);
+		int iSlow11 = (int(std::min<float>(fConst2, float(std::max<int>(0, iSlow10)))) + 1);
 		float fSlow12 = (fSlow2 - fSlow4);
 		float fSlow13 = (((0.0f - fSlow6) * (0.0f - (0.5f * fSlow7))) * (0.0f - (0.333333343f * fSlow8)));
-		int iSlow14 = (int(min(fConst2, float(max(0, (iSlow10 + 1))))) + 1);
+		int iSlow14 = (int(std::min<float>(fConst2, float(std::max<int>(0, (iSlow10 + 1))))) + 1);
 		float fSlow15 = (0.5f * ((fSlow5 * (0.0f - fSlow7)) * (0.0f - (0.5f * fSlow8))));
-		int iSlow16 = (int(min(fConst2, float(max(0, (iSlow10 + 2))))) + 1);
+		int iSlow16 = (int(std::min<float>(fConst2, float(std::max<int>(0, (iSlow10 + 2))))) + 1);
 		float fSlow17 = (fSlow5 * fSlow6);
 		float fSlow18 = (0.166666672f * (fSlow17 * (0.0f - fSlow8)));
-		int iSlow19 = (int(min(fConst2, float(max(0, (iSlow10 + 3))))) + 1);
+		int iSlow19 = (int(std::min<float>(fConst2, float(std::max<int>(0, (iSlow10 + 3))))) + 1);
 		float fSlow20 = (0.0416666679f * (fSlow17 * fSlow7));
-		int iSlow21 = (int(min(fConst2, float(max(0, (iSlow10 + 4))))) + 1);
+		int iSlow21 = (int(std::min<float>(fConst2, float(std::max<int>(0, (iSlow10 + 4))))) + 1);
 		int iSlow22 = (int(float(fHslider2)) >= 1);
 		float fSlow23 = float(fHslider3);
-		float fSlow24 = tanf((fConst3 * (fSlow1 * float(fHslider4))));
+		float fSlow24 = std::tan((fConst3 * (fSlow1 * float(fHslider4))));
 		float fSlow25 = (1.0f / fSlow24);
 		float fSlow26 = (((fSlow25 + 1.41421354f) / fSlow24) + 1.0f);
 		float fSlow27 = (fSlow23 / fSlow26);
 		float fSlow28 = (1.0f / fSlow26);
-		float fSlow29 = (2.0f * (1.0f - (1.0f / ks_faustpower2_f(fSlow24))));
-		float fSlow30 = (((fSlow25 + -1.41421354f) / fSlow24) + 1.0f);
+		float fSlow29 = (((fSlow25 + -1.41421354f) / fSlow24) + 1.0f);
+		float fSlow30 = (2.0f * (1.0f - (1.0f / synth_ks_faustpower2_f(fSlow24))));
 		float fSlow31 = float(fButton0);
 		float fSlow32 = float(fHslider5);
-		float fSlow33 = (ks_faustpower2_f((1.0f - (0.219999999f * fSlow1))) * fSlow32);
+		float fSlow33 = (fSlow32 * synth_ks_faustpower2_f((1.0f - (0.219999999f * fSlow1))));
 		float fSlow34 = (fConst4 * fSlow33);
 		float fSlow35 = (fConst5 * fSlow33);
 		float fSlow36 = (fConst6 / fSlow33);
 		float fSlow37 = float(fHslider6);
-		float fSlow38 = tanf((fConst7 * ((15000.0f * fSlow37) + 500.0f)));
+		float fSlow38 = std::tan((fConst7 * ((15000.0f * fSlow37) + 500.0f)));
 		float fSlow39 = (1.0f / fSlow38);
 		float fSlow40 = (((fSlow39 + 1.41421354f) / fSlow38) + 1.0f);
 		float fSlow41 = (fSlow23 / fSlow40);
-		float fSlow42 = tanf((fConst7 * ((500.0f * fSlow37) + 40.0f)));
+		float fSlow42 = std::tan((fConst7 * ((500.0f * fSlow37) + 40.0f)));
 		float fSlow43 = (1.0f / fSlow42);
 		float fSlow44 = (1.0f / (((fSlow43 + 1.41421354f) / fSlow42) + 1.0f));
-		float fSlow45 = (1.0f / ks_faustpower2_f(fSlow42));
-		float fSlow46 = (2.0f * (0.0f - fSlow45));
-		float fSlow47 = (2.0f * (1.0f - fSlow45));
+		float fSlow45 = synth_ks_faustpower2_f(fSlow42);
+		float fSlow46 = (1.0f / fSlow45);
+		float fSlow47 = (2.0f * (1.0f - fSlow46));
 		float fSlow48 = (((fSlow43 + -1.41421354f) / fSlow42) + 1.0f);
-		float fSlow49 = (1.0f / fSlow40);
-		float fSlow50 = (2.0f * (1.0f - (1.0f / ks_faustpower2_f(fSlow38))));
-		float fSlow51 = (((fSlow39 + -1.41421354f) / fSlow38) + 1.0f);
-		float fSlow52 = (fConst4 * fSlow32);
-		float fSlow53 = (fConst5 * fSlow32);
-		float fSlow54 = (fConst6 / fSlow32);
+		float fSlow49 = (0.0f - (2.0f / fSlow45));
+		float fSlow50 = (1.0f / fSlow40);
+		float fSlow51 = (2.0f * (1.0f - (1.0f / synth_ks_faustpower2_f(fSlow38))));
+		float fSlow52 = (((fSlow39 + -1.41421354f) / fSlow38) + 1.0f);
+		float fSlow53 = (fConst4 * fSlow32);
+		float fSlow54 = (fConst5 * fSlow32);
+		float fSlow55 = (fConst6 / fSlow32);
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = (fSlow0 * (fRec1[1] + fRec1[2]));
 			fRec7[(IOTA & 2047)] = fTemp0;
 			float fRec8 = ((fSlow9 * fRec7[((IOTA - iSlow11) & 2047)]) + (fSlow12 * ((((fSlow13 * fRec7[((IOTA - iSlow14) & 2047)]) + (fSlow15 * fRec7[((IOTA - iSlow16) & 2047)])) + (fSlow18 * fRec7[((IOTA - iSlow19) & 2047)])) + (fSlow20 * fRec7[((IOTA - iSlow21) & 2047)]))));
 			iRec12[0] = ((1103515245 * iRec12[1]) + 12345);
 			float fTemp1 = (4.65661287e-10f * float(iRec12[0]));
-			fRec11[0] = (fTemp1 - (fSlow28 * ((fSlow29 * fRec11[1]) + (fSlow30 * fRec11[2]))));
+			fRec11[0] = (fTemp1 - (fSlow28 * ((fSlow29 * fRec11[2]) + (fSlow30 * fRec11[1]))));
 			fVec0[0] = fSlow31;
 			int iTemp2 = (((fSlow31 - fVec0[1]) > 0.0f) > 0);
 			fVec1[0] = fSlow32;
 			fVec2[0] = fSlow33;
-			fRec13[0] = (iTemp2?0.0f:min(fSlow34, (((fConst4 * (fSlow33 - fVec2[1])) + fRec13[1]) + 1.0f)));
+			fRec13[0] = (iTemp2?0.0f:std::min<float>(fSlow34, ((fRec13[1] + (fConst4 * (fSlow33 - fVec2[1]))) + 1.0f)));
 			int iTemp3 = (fRec13[0] < fSlow35);
 			fRec15[0] = (fTemp1 - (fSlow44 * ((fSlow47 * fRec15[1]) + (fSlow48 * fRec15[2]))));
-			fRec14[0] = ((fSlow44 * (((fSlow46 * fRec15[1]) + (fSlow45 * fRec15[0])) + (fSlow45 * fRec15[2]))) - (fSlow49 * ((fSlow50 * fRec14[1]) + (fSlow51 * fRec14[2]))));
-			fRec16[0] = (iTemp2?0.0f:min(fSlow52, (((fConst4 * (fSlow32 - fVec1[1])) + fRec16[1]) + 1.0f)));
-			int iTemp4 = (fRec16[0] < fSlow53);
-			float fTemp5 = (iSlow22?(fSlow41 * ((fRec14[2] + ((2.0f * fRec14[1]) + fRec14[0])) * (iTemp4?((fRec16[0] < 0.0f)?0.0f:(iTemp4?(fSlow54 * fRec16[0]):1.0f)):((fRec16[0] < fSlow52)?((fSlow54 * (0.0f - (fRec16[0] - fSlow53))) + 1.0f):0.0f)))):(fSlow27 * ((fRec11[2] + (fRec11[0] + (2.0f * fRec11[1]))) * (iTemp3?((fRec13[0] < 0.0f)?0.0f:(iTemp3?(fSlow36 * fRec13[0]):1.0f)):((fRec13[0] < fSlow34)?((fSlow36 * (0.0f - (fRec13[0] - fSlow35))) + 1.0f):0.0f)))));
-			float fTemp6 = (fTemp5 + fRec0[2]);
+			fRec14[0] = ((fSlow44 * (((fSlow46 * fRec15[0]) + (fSlow49 * fRec15[1])) + (fSlow46 * fRec15[2]))) - (fSlow50 * ((fSlow51 * fRec14[1]) + (fSlow52 * fRec14[2]))));
+			fRec16[0] = (iTemp2?0.0f:std::min<float>(fSlow53, (((fConst4 * (fSlow32 - fVec1[1])) + fRec16[1]) + 1.0f)));
+			int iTemp4 = (fRec16[0] < fSlow54);
+			float fTemp5 = (iSlow22?(fSlow41 * ((fRec14[2] + ((2.0f * fRec14[1]) + fRec14[0])) * (iTemp4?((fRec16[0] < 0.0f)?0.0f:(iTemp4?(fSlow55 * fRec16[0]):1.0f)):((fRec16[0] < fSlow53)?((fSlow55 * (0.0f - (fRec16[0] - fSlow54))) + 1.0f):0.0f)))):(fSlow27 * ((fRec11[2] + ((2.0f * fRec11[1]) + fRec11[0])) * (iTemp3?((fRec13[0] < 0.0f)?0.0f:(iTemp3?(fSlow36 * fRec13[0]):1.0f)):((fRec13[0] < fSlow34)?((fSlow36 * (0.0f - (fRec13[0] - fSlow35))) + 1.0f):0.0f)))));
+			float fTemp6 = (fRec0[2] + fTemp5);
 			fVec3[(IOTA & 2047)] = fTemp6;
-			float fTemp7 = ((fSlow9 * fVec3[((IOTA - iSlow11) & 2047)]) + (fSlow12 * (((fSlow18 * fVec3[((IOTA - iSlow19) & 2047)]) + ((fSlow13 * fVec3[((IOTA - iSlow14) & 2047)]) + (fSlow15 * fVec3[((IOTA - iSlow16) & 2047)]))) + (fSlow20 * fVec3[((IOTA - iSlow21) & 2047)]))));
-			float fRec9 = fTemp7;
-			float fRec10 = (fTemp7 + fTemp0);
+			float fTemp7 = (fSlow9 * fVec3[((IOTA - iSlow11) & 2047)]);
+			float fTemp8 = (fSlow12 * ((((fSlow15 * fVec3[((IOTA - iSlow16) & 2047)]) + (fSlow13 * fVec3[((IOTA - iSlow14) & 2047)])) + (fSlow18 * fVec3[((IOTA - iSlow19) & 2047)])) + (fSlow20 * fVec3[((IOTA - iSlow21) & 2047)])));
+			float fRec9 = (fTemp7 + fTemp8);
+			float fRec10 = ((fTemp0 + fTemp7) + fTemp8);
 			fRec3[0] = fRec8;
 			float fRec4 = (fTemp5 + fRec3[1]);
 			float fRec5 = fRec9;
@@ -848,586 +804,22 @@ class ks : public dsp {
 // clang-format on
 #endif
 
-// clang-format off
-#define faust_setup(name) xfaust_setup(name)
-#define xfaust_setup(name) name##_tilde_setup(void)
-// time for "active" toggle xfades in secs
-#define XFADE_TIME 0.1f
-static t_class* ks_faust_class;
-#define FAUST_EXT t_faust_ks
-#define FAUST_EXT_CLASS ks_faust_class
-// clang-format on
-
-struct t_faust_ks {
-    t_object x_obj;
-#ifdef __MINGW32__
-    /* This seems to be necessary as some as yet undetermined Pd routine seems
-     to write past the end of x_obj on Windows. */
-    int fence; /* dummy field (not used) */
-#endif
-    ks* dsp;
-    PdUI<UI>* ui;
-    int active, xfade, n_xfade, rate, n_in, n_out;
-    t_sample **inputs, **outputs, **buf;
-    t_outlet* out;
-    t_sample f;
+    template <class T>
+    struct _synth_ks_UI : public UI {
+    static std::string name;
 };
 
-static inline void zero_samples(int k, int n, t_sample** out)
-{
-    for (int i = 0; i < k; i++)
-#ifdef __STDC_IEC_559__
-        /* IEC 559 a.k.a. IEEE 754 floats can be initialized faster like this */
-        memset(out[i], 0, n * sizeof(t_sample));
-#else
-        for (int j = 0; j < n; j++)
-            out[i][j] = 0.0f;
-#endif
-}
+template <class T>
+std::string _synth_ks_UI<T>::name(sym(synth_ks));
 
-static inline void copy_samples(int k, int n, t_sample** out, t_sample** in)
-{
-    for (int i = 0; i < k; i++)
-        memcpy(out[i], in[i], n * sizeof(t_sample));
-}
+typedef _synth_ks_UI<synth_ks> synth_ks_UI;
 
-static t_int* faust_perform(t_int* w)
-{
-    t_faust_ks* x = reinterpret_cast<t_faust_ks*>(w[1]);
-    int n = static_cast<int>(w[2]);
-    if (!x->dsp || !x->buf)
-        return (w + 3);
-
-    AVOIDDENORMALS;
-    if (x->xfade > 0) {
-        float d = 1.0f / x->n_xfade, f = (x->xfade--) * d;
-        d = d / n;
-        x->dsp->compute(n, x->inputs, x->buf);
-        if (x->active) {
-            if (x->n_in == x->n_out) {
-                /* xfade inputs -> buf */
-                for (int j = 0; j < n; j++, f -= d) {
-                    for (int i = 0; i < x->n_out; i++)
-                        x->outputs[i][j] = f * x->inputs[i][j] + (1.0f - f) * x->buf[i][j];
-                }
-            } else {
-                /* xfade 0 -> buf */
-                for (int j = 0; j < n; j++, f -= d) {
-                    for (int i = 0; i < x->n_out; i++)
-                        x->outputs[i][j] = (1.0f - f) * x->buf[i][j];
-                }
-            }
-        } else if (x->n_in == x->n_out) {
-            /* xfade buf -> inputs */
-            for (int j = 0; j < n; j++, f -= d) {
-                for (int i = 0; i < x->n_out; i++)
-                    x->outputs[i][j] = f * x->buf[i][j] + (1.0f - f) * x->inputs[i][j];
-            }
-        } else {
-            /* xfade buf -> 0 */
-            for (int j = 0; j < n; j++, f -= d) {
-                for (int i = 0; i < x->n_out; i++)
-                    x->outputs[i][j] = f * x->buf[i][j];
-            }
-        }
-    } else if (x->active) {
-        x->dsp->compute(n, x->inputs, x->buf);
-        copy_samples(x->n_out, n, x->outputs, x->buf);
-    } else if (x->n_in == x->n_out) {
-        copy_samples(x->n_out, n, x->buf, x->inputs);
-        copy_samples(x->n_out, n, x->outputs, x->buf);
-    } else
-        zero_samples(x->n_out, n, x->outputs);
-
-    return (w + 3);
-}
-
-static void ks_faust_dsp(t_faust_ks* x, t_signal** sp)
-{
-    const int n = sp[0]->s_n;
-    const int sr = static_cast<int>(sp[0]->s_sr);
-
-    if (x->rate <= 0) {
-        /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
-        std::vector<FAUSTFLOAT> z = ui->uiValues();
-        /* set the proper sample rate; this requires reinitializing the dsp */
-        x->rate = sr;
-        x->dsp->init(sr);
-        ui->setUIValues(z);
-    }
-    if (n > 0)
-        x->n_xfade = static_cast<int>(x->rate * XFADE_TIME / n);
-
-    dsp_add(faust_perform, 2, x, n);
-
-    for (int i = 0; i < x->n_in; i++)
-        x->inputs[i] = sp[i]->s_vec;
-
-    for (int i = 0; i < x->n_out; i++)
-        x->outputs[i] = sp[x->n_in + i]->s_vec;
-
-    if (x->buf != NULL) {
-        for (int i = 0; i < x->n_out; i++) {
-            x->buf[i] = static_cast<t_sample*>(malloc(n * sizeof(t_sample)));
-            if (x->buf[i] == NULL) {
-                for (int j = 0; j < i; j++)
-                    free(x->buf[j]);
-                free(x->buf);
-                x->buf = NULL;
-                break;
-            }
-        }
-    }
-}
-
-static void ks_dump_to_console(t_faust_ks* x)
-{
-    t_object* xobj = &x->x_obj;
-    t_class* xc = xobj->te_pd;
-    const char* name = class_getname(xc);
-
-    // print xlets
-    post("[%s] inlets: %i", name, x->dsp->getNumInputs());
-    int info_outlet = (x->out == 0) ? 0 : 1;
-    post("[%s] outlets: %i", name, x->dsp->getNumOutputs() + info_outlet);
-
-    // print properties
-    for (size_t i = 0; i < x->ui->uiCount(); i++) {
-        UIElement* el = x->ui->uiAt(i);
-        post("[%s] property: %s = %g", name, el->setPropertySym()->s_name, static_cast<double>(el->value()));
-    }
-}
-
-static void ks_faust_any(t_faust_ks* x, t_symbol* s, int argc, t_atom* argv)
-{
-    if (!x->dsp)
-        return;
-
-    PdUI<UI>* ui = x->ui;
-    if (s == &s_bang) {
-        ui->dumpUI(x->out);
-    } else if (isGetAllProperties(s)) {
-        ui->outputAllProperties(x->out);
-    } else if (isGetProperty(s)) {
-        ui->outputProperty(s, x->out);
-    } else if (isSetProperty(s)) {
-        ui->setProperty(s, argc, argv);
-    } else {
-        const char* label = s->s_name;
-        int count = 0;
-        for (size_t i = 0; i < ui->uiCount(); i++) {
-            if (ui->uiAt(i)->pathcmp(label)) {
-                if (argc == 0) {
-                    ui->uiAt(i)->outputValue(x->out);
-                    ++count;
-                } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT)) {
-                    float f = atom_getfloat(argv);
-                    UIElement* el = ui->uiAt(i);
-                    el->setValue(f);
-                    ++count;
-                } else
-                    pd_error(x, "[ceammc] %s: bad control argument: %s", ui->fullName().c_str(), label);
-            }
-        }
-
-        if (count == 0 && strcmp(label, "active") == 0) {
-            if (argc == 0) {
-                t_atom arg;
-                SETFLOAT(&arg, (float)x->active);
-                if (x->out) {
-                    outlet_anything(x->out, gensym("active"), 1, &arg);
-                }
-            } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT)) {
-                float f = atom_getfloat(argv);
-                x->active = (int)f;
-                x->xfade = x->n_xfade;
-            }
-        }
-    }
-}
-
-static void faust_free_dsp(t_faust_ks* x)
-{
-    delete x->dsp;
-    x->dsp = NULL;
-}
-
-static void faust_free_ui(t_faust_ks* x)
-{
-    delete x->ui;
-    x->ui = NULL;
-}
-
-static void faust_free_inputs(t_faust_ks* x)
-{
-    if (x->inputs)
-        free(x->inputs);
-    x->inputs = NULL;
-}
-
-static void faust_free_outputs(t_faust_ks* x)
-{
-    if (x->outputs)
-        free(x->outputs);
-    x->outputs = NULL;
-}
-
-static void faust_free_buf(t_faust_ks* x)
-{
-    if (x->buf) {
-        for (int i = 0; i < x->n_out; i++) {
-            if (x->buf[i])
-                free(x->buf[i]);
-        }
-
-        free(x->buf);
-    }
-}
-
-static void ks_faust_free(t_faust_ks* x)
-{
-    faust_free_dsp(x);
-    faust_free_ui(x);
-    faust_free_inputs(x);
-    faust_free_outputs(x);
-    faust_free_buf(x);
-}
-
-static bool faust_init_inputs(t_faust_ks* x)
-{
-    x->inputs = NULL;
-    x->n_in = x->dsp->getNumInputs();
-
-    if (x->n_in > 0) {
-        x->inputs = static_cast<t_sample**>(calloc(x->n_in, sizeof(t_sample*)));
-
-        if (x->inputs == NULL) {
-            error("[%s] faust_init_inputs failed", sym(ks));
-            return false;
-        }
-    }
-
-    // creating sound inlets (except the first one!)
-    for (int i = 0; i < (x->n_in - 1); i++) {
-        inlet_new(&x->x_obj, &x->x_obj.ob_pd, &s_signal, &s_signal);
-    }
-
-    return true;
-}
-
-static bool faust_init_outputs(t_faust_ks* x, bool info_outlet)
-{
-    x->outputs = NULL;
-    x->buf = NULL;
-
-    x->n_out = x->dsp->getNumOutputs();
-
-    if (x->n_out > 0) {
-        x->outputs = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
-        if (x->outputs == NULL) {
-            error("[%s] faust_init_outputs failed", sym(ks));
-            return false;
-        }
-
-        x->buf = static_cast<t_sample**>(calloc(x->n_out, sizeof(t_sample*)));
-        if (x->buf == NULL) {
-            error("[%s] faust_init_outputs failed", sym(ks));
-            faust_free_outputs(x);
-            return false;
-        }
-
-        for (int i = 0; i < x->n_out; i++)
-            x->buf[i] = NULL;
-    }
-
-    // creating sound outlets
-    for (int i = 0; i < x->n_out; i++) {
-        outlet_new(&x->x_obj, &s_signal);
-    }
-
-    // control outlet
-    if (info_outlet)
-        x->out = outlet_new(&x->x_obj, 0);
-    else
-        x->out = 0;
-
-    return true;
-}
-
-static bool faust_new_internal(t_faust_ks* x, const std::string& objId = "", bool info_outlet = true)
-{
-    int sr = 44100;
-    x->active = 1;
-    x->xfade = 0;
-    x->rate = sr;
-    x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
-
-    x->dsp = new ks();
-    x->ui = new PdUI<UI>(sym(ks), objId);
-
-    if (!faust_init_inputs(x)) {
-        ks_faust_free(x);
-        return false;
-    }
-
-    if (!faust_init_outputs(x, info_outlet)) {
-        ks_faust_free(x);
-        return false;
-    }
-
-    x->dsp->init(sr);
-    x->dsp->buildUserInterface(x->ui);
-
-    return true;
-}
-
-/**
- * find nth element that satisfies given predicate
- * @param first - first element of sequence
- * @param last - pointer behind last element of sequence
- * @param Nth - searched element index
- * @param pred - predicate
- * @return pointer to found element or pointer to last, if not found
- */
-template <class InputIterator, class NthOccurence, class UnaryPredicate>
-InputIterator find_nth_if(InputIterator first, InputIterator last, NthOccurence Nth, UnaryPredicate pred)
-{
-    if (Nth > 0) {
-        while (first != last) {
-            if (pred(*first))
-                if (!--Nth)
-                    return first;
-            ++first;
-        }
-    }
-    return last;
-}
-
-/**
- * @return true if given atom is a float
- */
-static bool atom_is_float(const t_atom& a)
-{
-    switch (a.a_type) {
-    case A_FLOAT:
-    case A_DEFFLOAT:
-        return true;
-    default:
-        return false;
-    }
-}
-
-/**
- * @return true if given atom is a symbol
- */
-static bool atom_is_symbol(const t_atom& a)
-{
-    switch (a.a_type) {
-    case A_DEFSYMBOL:
-    case A_SYMBOL:
-        return true;
-    default:
-        return false;
-    }
-}
-
-/**
- * @return true if given atom is a property
- */
-static bool atom_is_property(const t_atom& a)
-{
-    switch (a.a_type) {
-    case A_DEFSYMBOL:
-    case A_SYMBOL:
-        return a.a_w.w_symbol->s_name[0] == '@';
-    default:
-        return false;
-    }
-}
-
-/**
- * @brief find nth float in argument list. (arguments can be mixed)
- * @param argc argument count
- * @param argv pointer to argument vector
- * @param nth find position. nth should be > 0!
- * @param dest destination to write value
- * @return true if argument at given position was found, otherwise false
- */
-static bool get_nth_float_arg(int argc, t_atom* argv, int nth, t_float* dest)
-{
-    t_atom* last = argv + argc;
-    t_atom* res = find_nth_if(argv, last, nth, atom_is_float);
-    if (last == res)
-        return false;
-
-    *dest = atom_getfloat(res);
-    return true;
-}
-
-/**
- * @brief find nth symbol in argument list. (arguments can be mixed)
- * @param argc argument count
- * @param argv pointer to argument vector
- * @param nth find position. nth should be > 0!
- * @param dest destination to write found argument value
- * @return true if argument at given position was found, otherwise false
- */
-static bool get_nth_symbol_arg(int argc, t_atom* argv, int nth, const char** dest)
-{
-    t_atom* last = argv + argc;
-    t_atom* res = find_nth_if(argv, last, nth, atom_is_symbol);
-    if (last == res)
-        return false;
-
-    t_symbol* s = atom_getsymbol(res);
-    *dest = s->s_name;
-    return true;
-}
-
-class PdArgParser {
-    t_faust_ks* x_;
-    int argc_;
-    t_atom* argv_;
-    bool control_outlet_;
-
+class faust_synth_ks_tilde : public FaustExternal<synth_ks, synth_ks_UI> {
 public:
-    /**
-     * @brief FaustArgParser
-     * @param x pointer to faust class
-     * @param argc arguments count
-     * @param argv pointer to argument vector
-     */
-    PdArgParser(t_faust_ks* x, int argc, t_atom* argv, bool info_outlet = true)
-        : x_(x)
-        , argc_(0)
-        , argv_(argv)
-        , control_outlet_(info_outlet)
+    faust_synth_ks_tilde(const ceammc::PdArgs& args)
+        : FaustExternal(args)
     {
-        const char* id = NULL;
-        std::string objId;
-
-        int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
-                first_prop_idx = i;
-        }
-
-        // store argument count (without properties)
-        argc_ = first_prop_idx;
-
-        if (get_nth_symbol_arg(argc_, argv_, 1, &id))
-            objId = id;
-
-        // init error
-        if (!faust_new_internal(x, objId, control_outlet_)) {
-            this->x_ = NULL;
-        }
-
-        // process properties
-        std::deque<ceammc::AtomList> props = ceammc::AtomList(argc, argv).properties();
-        for (size_t i = 0; i < props.size(); i++) {
-            ceammc::AtomList& p = props[i];
-            // skip empty property
-            if (p.size() < 2)
-                continue;
-
-            t_atom* data = p.toPdData() + 1;
-            this->x_->ui->setProperty(p[0].asSymbol(), p.size() - 1, data);
-        }
-    }
-
-    /**
-     * @brief initFloatArg
-     * @param name argument name
-     * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
-     * to select first argument - pass 1.
-     */
-    void initFloatArg(const char* name, int pos)
-    {
-        // object was not created
-        if (!this->x_)
-            return;
-
-        t_float v = 0.0;
-        if (get_nth_float_arg(this->argc_, this->argv_, pos, &v)) {
-            UIElement* el = this->x_->ui->findElementByLabel(name);
-            if (!el) {
-                post("invalid UI element name: %s", name);
-                return;
-            }
-
-            el->setValue(v, true);
-        }
-    }
-
-    /**
-     * @brief send creation argument to first signal inlet
-     * @param name argument name
-     * @param pos argument position among of @bold float(!) arguments. Position starts from @bold 1(!).
-     * to select first argument - pass 1.
-     */
-    void signalFloatArg(const char* /*name*/, int pos)
-    {
-        // object was not created
-        if (!this->x_)
-            return;
-
-        t_float arg = 0;
-        if (get_nth_float_arg(this->argc_, this->argv_, pos, &arg))
-            pd_float(reinterpret_cast<t_pd*>(this->x_), arg);
-    }
-
-    t_faust_ks* pd_obj()
-    {
-        return this->x_;
     }
 };
-
-static void* ks_faust_new(t_symbol* s, int argc, t_atom* argv);
-
-static void internal_setup(t_symbol* s, bool soundIn = true)
-{
-    ks_faust_class = class_new(s, reinterpret_cast<t_newmethod>(ks_faust_new),
-        reinterpret_cast<t_method>(ks_faust_free),
-        sizeof(t_faust_ks),
-        CLASS_DEFAULT,
-        A_GIMME, A_NULL);
-
-    if (soundIn) {
-        class_addmethod(ks_faust_class, nullfn, &s_signal, A_NULL);
-        CLASS_MAINSIGNALIN(ks_faust_class, t_faust_ks, f);
-    }
-
-    class_addmethod(ks_faust_class, reinterpret_cast<t_method>(ks_faust_dsp), gensym("dsp"), A_NULL);
-    class_addmethod(ks_faust_class, reinterpret_cast<t_method>(ks_dump_to_console), gensym("dump"), A_NULL);
-    class_addanything(ks_faust_class, ks_faust_any);
-}
-
-#define EXTERNAL_NEW void* ks_faust_new(t_symbol*, int argc, t_atom* argv)
-
-#define EXTERNAL_SIMPLE_NEW()                                                           \
-    static void* ks_faust_new(t_symbol*, int argc, t_atom* argv)                     \
-    {                                                                                   \
-        t_faust_ks* x = reinterpret_cast<t_faust_ks*>(pd_new(ks_faust_class)); \
-        PdArgParser p(x, argc, argv, false);                                            \
-        return p.pd_obj();                                                              \
-    }
-
-#define EXTERNAL_SETUP(MOD)                        \
-    extern "C" void setup_##MOD##0x2eks_tilde() \
-    {                                              \
-        internal_setup(gensym(#MOD ".ks~"));    \
-    }
-
-#define EXTERNAL_SETUP_NO_IN(MOD)                      \
-    extern "C" void setup_##MOD##0x2eks_tilde()     \
-    {                                                  \
-        internal_setup(gensym(#MOD ".ks~"), false); \
-    }
-
-#define SIMPLE_EXTERNAL(MOD) \
-    EXTERNAL_SIMPLE_NEW();   \
-    EXTERNAL_SETUP(MOD);
 
 #endif

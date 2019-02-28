@@ -1,0 +1,262 @@
+#N canvas 0 0 950 600 12;
+#X obj 25 125 fx.distortion1~;
+#X obj 25 25 inlet~;
+#X obj 425 25 inlet;
+#X obj 425 200 route fx.distortion1;
+#X obj 425 250 route @drive @gain @high_drive @high_gain @level
+@low_drive @low_gain @sp_high_freq @sp_low_freq @sp_on_off @high_freq
+@low_freq @on_off @middle_h_drive @middle_h_gain @middle_l_drive
+@middle_l_gain @resonator @split_high_freq @split_low_freq
+@split_middle_freq @trigger @vibrato;
+#X obj 675 350 print unknown property;
+#X msg 325 75 @drive 0.64 \, @gain 2 \, @high_drive 1 \, @high_gain 10 \, @level 0.01 \, @low_drive 1 \, @low_gain 10 \, @sp_high_freq 5000 \, @sp_low_freq 130 \, @high_freq 130 \, @low_freq 5000 \, @middle_h_drive 1 \, @middle_h_gain 10 \, @middle_l_drive 1 \, @middle_l_gain 10 \, @split_high_freq 1250 \, @split_low_freq 250 \, @split_middle_freq 650 \, @trigger 0.12 \, @vibrato 1 \,;
+#X obj 325 25 msg.onload;
+#X obj 500 550 outlet~;
+#X obj 600 550 outlet ctl;
+#X obj 3 202 cnv 8 198 18 empty empty [fx.distortion1~] 3 9 0 12
+-104026 -262144 0;
+#X text 10 218 drive:;
+#X obj 12 237 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion1~/slider0 @min 0 @max 1;
+#X obj 140 237 ui.number @size 40 12 @digits 3 @min 0 @max 1;
+#X obj 190 237 msg set;
+#X msg 260 237 @drive \$1;
+#X text 10 251 gain(db):;
+#X obj 12 270 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion1~/slider1 @min -10 @max 10;
+#X obj 140 270 ui.number @size 40 12 @digits 3 @min -10 @max 10;
+#X obj 190 270 msg set;
+#X msg 260 270 @gain \$1;
+#X text 10 284 high_drive:;
+#X obj 12 303 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion1~/slider2 @min 0 @max 1;
+#X obj 140 303 ui.number @size 40 12 @digits 3 @min 0 @max 1;
+#X obj 190 303 msg set;
+#X msg 260 303 @high_drive \$1;
+#X text 10 317 high_gain(db):;
+#X obj 12 336 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion1~/slider3 @min -10 @max 20;
+#X obj 140 336 ui.number @size 40 12 @digits 3 @min -10 @max 20;
+#X obj 190 336 msg set;
+#X msg 260 336 @high_gain \$1;
+#X text 10 350 level:;
+#X obj 12 369 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion1~/slider4 @min 0 @max 0.5;
+#X obj 140 369 ui.number @size 40 12 @digits 3 @min 0 @max 0.5;
+#X obj 190 369 msg set;
+#X msg 260 369 @level \$1;
+#X text 10 383 low_drive:;
+#X obj 12 402 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion1~/slider5 @min 0 @max 1;
+#X obj 140 402 ui.number @size 40 12 @digits 3 @min 0 @max 1;
+#X obj 190 402 msg set;
+#X msg 260 402 @low_drive \$1;
+#X text 10 416 low_gain(db):;
+#X obj 12 435 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion1~/slider6 @min -10 @max 20;
+#X obj 140 435 ui.number @size 40 12 @digits 3 @min -10 @max 20;
+#X obj 190 435 msg set;
+#X msg 260 435 @low_gain \$1;
+#X text 10 449 sp_high_freq(Hz):;
+#X obj 12 468 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion1~/slider7 @min 1000 @max 12000;
+#X obj 140 468 ui.number @size 40 12 @digits 3 @min 1000 @max 12000;
+#X obj 190 468 msg set;
+#X msg 260 468 @sp_high_freq \$1;
+#X text 10 482 sp_low_freq(Hz):;
+#X obj 12 501 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion1~/slider8 @min 20 @max 1000;
+#X obj 140 501 ui.number @size 40 12 @digits 3 @min 20 @max 1000;
+#X obj 190 501 msg set;
+#X msg 260 501 @sp_low_freq \$1;
+#X obj 12 523 ui.toggle @size 12 12 @presetname
+/gui/fx.distortion1~/checkbox9;
+#X text 26 518 sp_on_off;
+#X msg 260 515 @sp_on_off \$1;
+#X text 10 535 high_freq:;
+#X obj 12 554 ui.number @size 60 12 @presetname
+/gui/fx.distortion1~/numbox10 @min 20 @max 7040 @step 10;
+#X msg 260 554 @high_freq \$1;
+#X text 10 568 low_freq:;
+#X obj 12 587 ui.number @size 60 12 @presetname
+/gui/fx.distortion1~/numbox11 @min 20 @max 12000 @step 10;
+#X msg 260 587 @low_freq \$1;
+#X obj 12 609 ui.toggle @size 12 12 @presetname
+/gui/fx.distortion1~/checkbox12;
+#X text 26 604 on_off;
+#X msg 260 601 @on_off \$1;
+#X text 10 621 middle_h_drive:;
+#X obj 12 640 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion1~/slider13 @min 0 @max 1;
+#X obj 140 640 ui.number @size 40 12 @digits 3 @min 0 @max 1;
+#X obj 190 640 msg set;
+#X msg 260 640 @middle_h_drive \$1;
+#X text 10 654 middle_h_gain(db):;
+#X obj 12 673 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion1~/slider14 @min -10 @max 20;
+#X obj 140 673 ui.number @size 40 12 @digits 3 @min -10 @max 20;
+#X obj 190 673 msg set;
+#X msg 260 673 @middle_h_gain \$1;
+#X text 10 687 middle_l_drive:;
+#X obj 12 706 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion1~/slider15 @min 0 @max 1;
+#X obj 140 706 ui.number @size 40 12 @digits 3 @min 0 @max 1;
+#X obj 190 706 msg set;
+#X msg 260 706 @middle_l_drive \$1;
+#X text 10 720 middle_l_gain(db):;
+#X obj 12 739 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion1~/slider16 @min -10 @max 20;
+#X obj 140 739 ui.number @size 40 12 @digits 3 @min -10 @max 20;
+#X obj 190 739 msg set;
+#X msg 260 739 @middle_l_gain \$1;
+#X obj 12 761 ui.toggle @size 12 12 @presetname
+/gui/fx.distortion1~/checkbox17;
+#X text 26 756 resonator;
+#X msg 260 753 @resonator \$1;
+#X text 10 773 split_high_freq:;
+#X obj 12 792 ui.number @size 60 12 @presetname
+/gui/fx.distortion1~/numbox18 @min 1250 @max 12000 @step 10;
+#X msg 260 792 @split_high_freq \$1;
+#X text 10 806 split_low_freq:;
+#X obj 12 825 ui.number @size 60 12 @presetname
+/gui/fx.distortion1~/numbox19 @min 20 @max 600 @step 10;
+#X msg 260 825 @split_low_freq \$1;
+#X text 10 839 split_middle_freq:;
+#X obj 12 858 ui.number @size 60 12 @presetname
+/gui/fx.distortion1~/numbox20 @min 600 @max 1250 @step 10;
+#X msg 260 858 @split_middle_freq \$1;
+#X text 10 872 trigger:;
+#X obj 12 891 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion1~/slider21 @min 0 @max 1;
+#X obj 140 891 ui.number @size 40 12 @digits 3 @min 0 @max 1;
+#X obj 190 891 msg set;
+#X msg 260 891 @trigger \$1;
+#X text 10 905 vibrato:;
+#X obj 12 924 ui.slider @size 120 12 @active_scale 1 @presetname
+/gui/fx.distortion1~/slider22 @min 0 @max 1;
+#X obj 140 924 ui.number @size 40 12 @digits 3 @min 0 @max 1;
+#X obj 190 924 msg set;
+#X msg 260 924 @vibrato \$1;
+#X connect 1 0 0 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 23 5 0;
+#X connect 6 0 4 0;
+#X connect 7 0 6 0;
+#X connect 0 0 8 0;
+#X connect 3 1 9 0;
+#X connect 12 0 13 0;
+#X connect 13 0 14 0;
+#X connect 14 0 12 0;
+#X connect 12 0 15 0;
+#X connect 15 0 0 0;
+#X connect 4 0 12 0;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;
+#X connect 19 0 17 0;
+#X connect 17 0 20 0;
+#X connect 20 0 0 0;
+#X connect 4 1 17 0;
+#X connect 22 0 23 0;
+#X connect 23 0 24 0;
+#X connect 24 0 22 0;
+#X connect 22 0 25 0;
+#X connect 25 0 0 0;
+#X connect 4 2 22 0;
+#X connect 27 0 28 0;
+#X connect 28 0 29 0;
+#X connect 29 0 27 0;
+#X connect 27 0 30 0;
+#X connect 30 0 0 0;
+#X connect 4 3 27 0;
+#X connect 32 0 33 0;
+#X connect 33 0 34 0;
+#X connect 34 0 32 0;
+#X connect 32 0 35 0;
+#X connect 35 0 0 0;
+#X connect 4 4 32 0;
+#X connect 37 0 38 0;
+#X connect 38 0 39 0;
+#X connect 39 0 37 0;
+#X connect 37 0 40 0;
+#X connect 40 0 0 0;
+#X connect 4 5 37 0;
+#X connect 42 0 43 0;
+#X connect 43 0 44 0;
+#X connect 44 0 42 0;
+#X connect 42 0 45 0;
+#X connect 45 0 0 0;
+#X connect 4 6 42 0;
+#X connect 47 0 48 0;
+#X connect 48 0 49 0;
+#X connect 49 0 47 0;
+#X connect 47 0 50 0;
+#X connect 50 0 0 0;
+#X connect 4 7 47 0;
+#X connect 52 0 53 0;
+#X connect 53 0 54 0;
+#X connect 54 0 52 0;
+#X connect 52 0 55 0;
+#X connect 55 0 0 0;
+#X connect 4 8 52 0;
+#X connect 56 0 58 0;
+#X connect 58 0 0 0;
+#X connect 4 9 56 0;
+#X connect 60 0 61 0;
+#X connect 61 0 0 0;
+#X connect 4 10 60 0;
+#X connect 63 0 64 0;
+#X connect 64 0 0 0;
+#X connect 4 11 63 0;
+#X connect 65 0 67 0;
+#X connect 67 0 0 0;
+#X connect 4 12 65 0;
+#X connect 69 0 70 0;
+#X connect 70 0 71 0;
+#X connect 71 0 69 0;
+#X connect 69 0 72 0;
+#X connect 72 0 0 0;
+#X connect 4 13 69 0;
+#X connect 74 0 75 0;
+#X connect 75 0 76 0;
+#X connect 76 0 74 0;
+#X connect 74 0 77 0;
+#X connect 77 0 0 0;
+#X connect 4 14 74 0;
+#X connect 79 0 80 0;
+#X connect 80 0 81 0;
+#X connect 81 0 79 0;
+#X connect 79 0 82 0;
+#X connect 82 0 0 0;
+#X connect 4 15 79 0;
+#X connect 84 0 85 0;
+#X connect 85 0 86 0;
+#X connect 86 0 84 0;
+#X connect 84 0 87 0;
+#X connect 87 0 0 0;
+#X connect 4 16 84 0;
+#X connect 88 0 90 0;
+#X connect 90 0 0 0;
+#X connect 4 17 88 0;
+#X connect 92 0 93 0;
+#X connect 93 0 0 0;
+#X connect 4 18 92 0;
+#X connect 95 0 96 0;
+#X connect 96 0 0 0;
+#X connect 4 19 95 0;
+#X connect 98 0 99 0;
+#X connect 99 0 0 0;
+#X connect 4 20 98 0;
+#X connect 101 0 102 0;
+#X connect 102 0 103 0;
+#X connect 103 0 101 0;
+#X connect 101 0 104 0;
+#X connect 104 0 0 0;
+#X connect 4 21 101 0;
+#X connect 106 0 107 0;
+#X connect 107 0 108 0;
+#X connect 108 0 106 0;
+#X connect 106 0 109 0;
+#X connect 109 0 0 0;
+#X connect 4 22 106 0;
+#X coords 0 -1 1 1 200 746 2 2 200;

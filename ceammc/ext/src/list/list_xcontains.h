@@ -14,7 +14,7 @@
 #ifndef LIST_CONTAINSX_H
 #define LIST_CONTAINSX_H
 
-#include "../data/datatype_mlist.h"
+#include "datatype_mlist.h"
 #include "ceammc_dataatomlist.h"
 #include "ceammc_object.h"
 

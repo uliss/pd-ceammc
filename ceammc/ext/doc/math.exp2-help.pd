@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 523 50 cnv 1 172 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 523 50 exponential functions;
-#X obj 1 1 cnv 5 712 40 empty empty math.exp2 20 20 0 20 -104026 -4096
+#X obj 593 50 cnv 1 172 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 593 50 exponential functions;
+#X obj 1 1 cnv 5 765 40 empty empty math.exp2 20 20 0 20 -104026 -4096
 0;
-#X obj 622 11 math.exp2;
-#X obj 205 80 cnv 1 490 176 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 675 11 math.exp2;
+#X obj 205 80 cnv 1 560 176 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 The exp2() function computes 2**x \, the base-2
 exponential of x.;
 #X text 210 117 Special values:;
@@ -17,7 +17,7 @@ magnitude of x is too large.;
 #X floatatom 50 284 5 0 0 0 - - -;
 #X obj 50 313 math.exp2;
 #X floatatom 50 342 5 0 0 0 - - -;
-#X obj 20 381 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 386 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 391 1\.;
@@ -25,7 +25,7 @@ magnitude of x is too large.;
 #X text 240 391 input value.;
 #X text 150 409 *list*;
 #X text 240 409 apply to all numeric values.;
-#X obj 20 437 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 437 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 442 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 447 1\.;
@@ -35,17 +35,17 @@ magnitude of x is too large.;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
-#X obj 1 505 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.6;
-#X text 483 520 see also:;
-#X obj 559 520 math.log;
-#X obj 632 520 math.exp;
+#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 508 library: ceammc v0.7;
+#X text 553 520 see also:;
+#X obj 629 520 math.log;
+#X obj 702 520 math.exp;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 math.exp2;
 #X text 10 76 category:;

@@ -1,13 +1,20 @@
 #include "flt_moog_vcf.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
+using namespace ceammc;
+
+static t_symbol* SYM_PROP_RES = gensym("@res");
+
+class FltMoogVcf : public faust_flt_moog_vcf_tilde {
+public:
+    FltMoogVcf(const PdArgs& args)
+        : faust_flt_moog_vcf_tilde(args)
+    {
+        bindPositionalArgsToProps({ SYM_PROP_RES });
+    }
+};
+
+void setup_flt_moog_vcf_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-    PdArgParser p(x, argc, argv);
-    p.initFloatArg("freq", 1);
-    p.initFloatArg("res", 2);
-    return p.pd_obj();
+    SoundExternalFactory<FltMoogVcf> obj("flt.moog_vcf~");
 }
-
-EXTERNAL_SETUP(flt);
-

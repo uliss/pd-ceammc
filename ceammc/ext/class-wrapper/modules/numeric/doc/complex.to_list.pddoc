@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="complex.to_list">
+        <title>complex.to_list</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>real and imaginary part as list</description>
+            <license>GPL3</license>
+            <library>numeric</library>
+            <category>complex</category>
+            <version>0.1</version>
+            <since>0.1</since>
+            <aliases>
+                <alias>complex-&gt;list</alias>
+            </aliases>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Complex data constructor: REAL IMAG</xinfo>
+                <xinfo on="data">Complex data</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output list of real and imaginary part (std::vector&lt;float&gt;)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib numeric]
+
+
+[0 0( [1 0( [2 2(
+|     |     |
+[complex->list]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

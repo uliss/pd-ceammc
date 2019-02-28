@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.cmul~">
+        <title>math.cmul~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>multiplication of complex signals</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math complex multiplication</keywords>
+            <aliases>
+                <alias>cmul~</alias>
+            </aliases>
+            <since>0.7</since>
+            <also>
+                <see>math.cdiv~</see>
+            </also>
+        </meta>
+        <info>
+            <par>Calculates for signals (a + bi) * (c + di) = (ac - bd) + (ad + bc)i</par>
+        </info>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>real part of input signal1</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>imag part of input signal1</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>real part of input signal2</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>imag part of input signal2</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">real part of result</outlet>
+            <outlet type="audio">imag part of result</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]    [F]    [F]    [F]
+|      |      |      |
+[sig~] [sig~] [sig~] [sig~]
+|      |      |      |
+|      |      |      |
+|      |.     |..    |...
+[math.cmul~             ]  [ui.dsp~]
+|           ^|
+[ui.n~]     [ui.n~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

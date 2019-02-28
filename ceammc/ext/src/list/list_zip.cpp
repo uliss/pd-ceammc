@@ -114,11 +114,11 @@ void ListZip::initProperties()
     // @pad - pad with specified value (@pad_value property), zero by default
     // @wrap - pad with wrapped values
     // @fold - pad with fold values
-    method_ = new SymbolEnumProperty("@method", "min");
-    method_->appendEnum("pad");
-    method_->appendEnum("clip");
-    method_->appendEnum("wrap");
-    method_->appendEnum("fold");
+    method_ = new SymbolEnumProperty("@method", SYM_MIN);
+    method_->appendEnum(SYM_PAD);
+    method_->appendEnum(SYM_CLIP);
+    method_->appendEnum(SYM_WRAP);
+    method_->appendEnum(SYM_FOLD);
     createProperty(method_);
 
     // adding aliases

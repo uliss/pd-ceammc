@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="{{OBJECTNAME_PD}}">
+        <title>{{OBJECTNAME_PD}}</title>
+        <meta>
+            <authors>
+            {% for author in AUTHORS %}
+                <author>{{author}}</author>
+            {% endfor %}
+            </authors>
+            <description>{{DESCR}}</description>
+            <license>{{LICENSE}}</license>
+            <library>{{LIBRARY}}</library>
+            <category>{{CATEGORY}}</category>
+        {% if KEYWORDS %}
+            <keywords>{{KEYWORDS}}</keywords>
+        {% endif %}
+            <version>{{VERSION}}</version>
+            <since>{{SINCE}}</since>
+        {% if (ALIASES is defined) and ALIASES: %}
+            <aliases>
+            {% for alias in ALIASES %}
+                <alias>{{alias}}</alias>
+            {% endfor %}
+            </aliases>
+        {% endif %}
+        {% if (ALSO is defined) and ALSO %}
+            <also>
+            {% for see in ALSO %}
+                <see>{{see}}</see>
+            {% endfor %}
+            </also>
+        {% endif %}
+        </meta>
+    {% if (ARGS is defined) and ARGS %}
+        <arguments>
+        {% for arg in ARGS %}
+            <argument type="{{arg["type"]}}" name="{{arg["name"]|upper}}">{{arg["info"]}}</argument>
+        {% endfor %}
+        </arguments>
+    {% endif %}
+        <methods>
+            <method name="set">set data without output</method>
+        </methods>
+        <inlets>
+        {% for inlet in INLETS %}
+            <inlet>
+            {% for type in inlet %}
+                <xinfo on="{{type["type"]}}">{{type["info"]}}</xinfo>
+            {% endfor %}
+            </inlet>
+        {% endfor %}
+        </inlets>
+        <outlets>
+            <outlet>output created data ({{DATATYPE}})</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib {{LIBRARY}}]
+
+{{EXAMPLE|safe}}
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

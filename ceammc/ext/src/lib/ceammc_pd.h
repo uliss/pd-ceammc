@@ -16,6 +16,7 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_canvas.h"
+#include "ceammc_property_info.h"
 
 #include <boost/shared_ptr.hpp>
 #include <map>
@@ -25,6 +26,10 @@ struct _text;
 typedef struct _text t_object;
 
 namespace ceammc {
+
+class BaseObject;
+class UIObject;
+
 namespace pd {
     class External {
     private:
@@ -55,6 +60,24 @@ namespace pd {
 
         int numOutlets() const;
         int numInlets() const;
+
+        int xPos() const;
+        int yPos() const;
+        void setXPos(int x);
+        void setYPos(int y);
+
+        std::vector<t_symbol*> methods() const;
+
+        bool isCeammc() const;
+        bool isCeammcBase() const;
+        bool isCeammcUI() const;
+        bool isCeammcFaust() const;
+        bool isCeammcFlext() const;
+
+        const BaseObject* asCeammcBaseObject() const;
+        const UIObject* asCeammcUIObject() const;
+
+        std::vector<PropertyInfo> properties() const;
     };
 }
 
@@ -66,7 +89,7 @@ class PureData {
 
 public:
     static PureData& instance();
-    CanvasPtr createTopCanvas(const char* name);
+    CanvasPtr createTopCanvas(const char* name, const AtomList& args = AtomList());
     CanvasPtr createSubpatch(_glist* parent, const char* name);
 
 private:

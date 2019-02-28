@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_pass_if.h"
-#include "../data/datatype_mlist.h"
+#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 
 ListPassIf::ListPassIf(const PdArgs& a)

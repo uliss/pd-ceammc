@@ -1,0 +1,2551 @@
+{
+    "authors": [
+        "Serge Poltavski"
+    ],
+    "classes": [
+        {
+            "brief": "Complex data",
+            "class": "Complex",
+            "constructor": "REAL IMAG",
+            "keywords": [
+                "complex"
+            ],
+            "methods": {
+                "abs": {
+                    "brief": "the magnitude of a complex number",
+                    "doc_args": {
+                        "pd_types": [
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.abs",
+                    "doc_outlets": [
+                        {
+                            "info": "the magnitude of a complex number",
+                            "type": "float"
+                        }
+                    ],
+                    "example": "\n[1 1( [2 6( [3 4(\n|     |     |\n[complex.abs]\n|\n[F]",
+                    "param_names": [],
+                    "params": [],
+                    "pd_aliases": [],
+                    "pddoc_args": [],
+                    "return": [
+                        "the magnitude of a complex number"
+                    ],
+                    "see": [
+                        "complex.norm",
+                        "complex.arg"
+                    ],
+                    "since": "0.1"
+                },
+                "add": {
+                    "brief": "add two complex numbers",
+                    "doc_args": {
+                        "pd_types": [
+                            "data",
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ],
+                        [
+                            {
+                                "info": "complex number to add: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "complex number to add",
+                                "type": "data"
+                            },
+                            {
+                                "info": "float to add",
+                                "type": "float"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.add",
+                    "doc_outlets": [
+                        {
+                            "info": "addition result",
+                            "type": "Complex"
+                        }
+                    ],
+                    "example": "\n[B]\n|\n[complex.new 2 4] [3 5(\n|                 |.\n[complex.add 3     ]\n|\n[ui.display @display_type=1]",
+                    "keywords": [
+                        "arithmetic",
+                        "math"
+                    ],
+                    "overloads": {
+                        "param_names": [
+                            "f"
+                        ],
+                        "params": [
+                            [
+                                "float to add"
+                            ]
+                        ]
+                    },
+                    "param_names": [
+                        "c"
+                    ],
+                    "params": [
+                        "complex number to add"
+                    ],
+                    "pd_aliases": [
+                        "complex.+"
+                    ],
+                    "pddoc_args": [
+                        {
+                            "info": "complex number to add (Complex REAL IMAG) or float to add",
+                            "name": "c",
+                            "type": "list"
+                        }
+                    ],
+                    "return": [
+                        "addition result"
+                    ],
+                    "see": [
+                        "complex.sub"
+                    ],
+                    "since": "0.1"
+                },
+                "arg": {
+                    "brief": "the phase angle of the complex number x, expressed in radians",
+                    "doc_args": {
+                        "pd_types": [
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.arg",
+                    "doc_outlets": [
+                        {
+                            "info": "phase angle in radians",
+                            "type": "float"
+                        }
+                    ],
+                    "example": "\n[1 0( [0 1( [-1 0( [-1 -1(\n|     |     |      |\n|     |     |      |\n[complex.arg       ]\n|\n[F]",
+                    "param_names": [],
+                    "params": [],
+                    "pd_aliases": [],
+                    "pddoc_args": [],
+                    "return": [
+                        "phase angle in radians"
+                    ],
+                    "since": "0.1"
+                },
+                "conj": {
+                    "brief": "the complex conjugate",
+                    "doc_args": {
+                        "pd_types": [
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.conj",
+                    "doc_outlets": [
+                        {
+                            "info": "result",
+                            "type": "Complex"
+                        }
+                    ],
+                    "example": "\n[B]\n|\n[complex.new 10 20]\n|\n[complex.conj]\n|\n[ui.display @display_type=1]",
+                    "param_names": [],
+                    "params": [],
+                    "pd_aliases": [],
+                    "pddoc_args": [],
+                    "return": [
+                        "result"
+                    ],
+                    "since": "0.1"
+                },
+                "cos": {
+                    "brief": "cosine of complex number",
+                    "doc_args": {
+                        "pd_types": [
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.cos",
+                    "doc_outlets": [
+                        {
+                            "info": "result",
+                            "type": "Complex"
+                        }
+                    ],
+                    "example": "\n[0 0( [1 0( [2 2(\n|     |     |\n[complex.cos]\n|\n[ui.display @display_type=1]",
+                    "param_names": [],
+                    "params": [],
+                    "pd_aliases": [],
+                    "pddoc_args": [],
+                    "return": [
+                        "result"
+                    ],
+                    "see": [
+                        "complex.sin"
+                    ],
+                    "since": "0.1"
+                },
+                "div": {
+                    "brief": "divide complex numbers",
+                    "doc_args": {
+                        "pd_types": [
+                            "data",
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ],
+                        [
+                            {
+                                "info": "complex number divisor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "complex number divisor",
+                                "type": "data"
+                            },
+                            {
+                                "info": "float divisor",
+                                "type": "float"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.div",
+                    "doc_outlets": [
+                        {
+                            "info": "division result",
+                            "type": "Complex"
+                        }
+                    ],
+                    "example": "\n[B]               [B]\n|                 |\n[complex.new 2 3] [complex.new 4 5]\n|                 |.\n[complex.div       2]\n|\n[ui.display @display_type=1]",
+                    "keywords": [
+                        "arithmetic",
+                        "math"
+                    ],
+                    "overloads": {
+                        "param_names": [
+                            "f"
+                        ],
+                        "params": [
+                            [
+                                "float divisor"
+                            ]
+                        ]
+                    },
+                    "param_names": [
+                        "c"
+                    ],
+                    "params": [
+                        "complex number divisor"
+                    ],
+                    "pd_aliases": [
+                        "complex./"
+                    ],
+                    "pddoc_args": [
+                        {
+                            "info": "complex number divisor (Complex REAL IMAG) or float divisor",
+                            "name": "c",
+                            "type": "list"
+                        }
+                    ],
+                    "return": [
+                        "division result"
+                    ],
+                    "see": [
+                        "complex.mul"
+                    ],
+                    "since": "0.1"
+                },
+                "eq": {
+                    "brief": "equal check",
+                    "doc_args": {
+                        "pd_types": [
+                            "data",
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ],
+                        [
+                            {
+                                "info": "complex number to compare: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "complex number to compare",
+                                "type": "data"
+                            },
+                            {
+                                "info": "float number to compare",
+                                "type": "float"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.==",
+                    "doc_outlets": [
+                        {
+                            "info": "1 if numbers are equal, otherwise 0",
+                            "type": "bool"
+                        }
+                    ],
+                    "example": "\n[2 4(  [3 6(  [B]\n|      |      |\n|      |      [complex.new 3 6]\n|      |      |.\n[complex.==  2 4]\n|\n[F]",
+                    "keywords": [
+                        "compare"
+                    ],
+                    "overloads": {
+                        "param_names": [
+                            "f"
+                        ],
+                        "params": [
+                            [
+                                "float number to compare"
+                            ]
+                        ]
+                    },
+                    "param_names": [
+                        "c"
+                    ],
+                    "params": [
+                        "complex number to compare"
+                    ],
+                    "pd_aliases": [],
+                    "pd_name": "==",
+                    "pddoc_args": [
+                        {
+                            "info": "complex number to compare (Complex REAL IMAG) or float number to compare",
+                            "name": "c",
+                            "type": "list"
+                        }
+                    ],
+                    "return": [
+                        "1 if numbers are equal, otherwise 0"
+                    ],
+                    "see": [
+                        "complex.!="
+                    ],
+                    "since": "0.1"
+                },
+                "exp": {
+                    "brief": "complex base e exponential",
+                    "doc_args": {
+                        "pd_types": [
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.exp",
+                    "doc_outlets": [
+                        {
+                            "info": "result",
+                            "type": "Complex"
+                        }
+                    ],
+                    "example": "\n[0 0( [1 0( [2 2(\n|     |     |\n[complex.exp]\n|\n[ui.display @display_type=1]",
+                    "param_names": [],
+                    "params": [],
+                    "pd_aliases": [],
+                    "pddoc_args": [],
+                    "return": [
+                        "result"
+                    ],
+                    "since": "0.1"
+                },
+                "imag": {
+                    "brief": "get imaginary part of complex number",
+                    "doc_args": {
+                        "pd_types": [
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.imag",
+                    "doc_outlets": [
+                        {
+                            "info": "imaginary part of complex number",
+                            "type": "float"
+                        }
+                    ],
+                    "example": "\n[1 2( [3 4( [5 6(\n|     |     |\n[complex.imag]\n|\n[F]",
+                    "param_names": [],
+                    "params": [],
+                    "pd_aliases": [],
+                    "pddoc_args": [],
+                    "return": [
+                        "imaginary part of complex number"
+                    ],
+                    "see": [
+                        "complex.real"
+                    ],
+                    "since": "0.1"
+                },
+                "log": {
+                    "brief": "complex natural logarithm with the branch cuts along the negative real axis",
+                    "doc_args": {
+                        "pd_types": [
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.log",
+                    "doc_outlets": [
+                        {
+                            "info": "result",
+                            "type": "Complex"
+                        }
+                    ],
+                    "example": "\n[0 0( [1 0( [2 2(\n|     |     |\n[complex.log]\n|\n[ui.display @display_type=1]",
+                    "param_names": [],
+                    "params": [],
+                    "pd_aliases": [
+                        "ln"
+                    ],
+                    "pddoc_args": [],
+                    "return": [
+                        "result"
+                    ],
+                    "since": "0.1"
+                },
+                "log10": {
+                    "brief": "complex common logarithm with the branch cuts along the negative real axis",
+                    "doc_args": {
+                        "pd_types": [
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.log10",
+                    "doc_outlets": [
+                        {
+                            "info": "result",
+                            "type": "Complex"
+                        }
+                    ],
+                    "example": "\n[10 0( [1 0( [100 2(\n|      |     |\n[complex.log10]\n|\n[ui.display @display_type=1]",
+                    "param_names": [],
+                    "params": [],
+                    "pd_aliases": [],
+                    "pddoc_args": [],
+                    "return": [
+                        "result"
+                    ],
+                    "since": "0.1"
+                },
+                "mul": {
+                    "brief": "multiply complex numbers",
+                    "doc_args": {
+                        "pd_types": [
+                            "data",
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ],
+                        [
+                            {
+                                "info": "complex number multiplier: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "complex number multiplier",
+                                "type": "data"
+                            },
+                            {
+                                "info": "float multiplier",
+                                "type": "float"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.mul",
+                    "doc_outlets": [
+                        {
+                            "info": "multiplication result",
+                            "type": "Complex"
+                        }
+                    ],
+                    "example": "\n[B]\n|\n[complex.new 2 4] [4 5(\n|                 |.\n[complex.mul     3  ]\n|\n[ui.display @display_type=1]",
+                    "keywords": [
+                        "arithmetic",
+                        "math"
+                    ],
+                    "overloads": {
+                        "param_names": [
+                            "v"
+                        ],
+                        "params": [
+                            [
+                                "float multiplier"
+                            ]
+                        ]
+                    },
+                    "param_names": [
+                        "c"
+                    ],
+                    "params": [
+                        "complex number multiplier"
+                    ],
+                    "pd_aliases": [
+                        "complex.*"
+                    ],
+                    "pddoc_args": [
+                        {
+                            "info": "complex number multiplier (Complex REAL IMAG) or float multiplier",
+                            "name": "c",
+                            "type": "list"
+                        }
+                    ],
+                    "return": [
+                        "multiplication result"
+                    ],
+                    "see": [
+                        "complex.div"
+                    ],
+                    "since": "0.1"
+                },
+                "neq": {
+                    "brief": "not equal check",
+                    "doc_args": {
+                        "pd_types": [
+                            "data",
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ],
+                        [
+                            {
+                                "info": "complex number to compare: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "complex number to compare",
+                                "type": "data"
+                            },
+                            {
+                                "info": "float to compare",
+                                "type": "float"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.!=",
+                    "doc_outlets": [
+                        {
+                            "info": "1 if numbers are not equal, otherwise 0",
+                            "type": "bool"
+                        }
+                    ],
+                    "example": "\n[2 4(  [3 6(  [B]\n|      |      |\n|      |      [complex.new 2 4]\n|      |      |.\n[complex.!=  3 6]\n|\n[F]",
+                    "keywords": [
+                        "compare"
+                    ],
+                    "overloads": {
+                        "param_names": [
+                            "f"
+                        ],
+                        "params": [
+                            [
+                                "float to compare"
+                            ]
+                        ]
+                    },
+                    "param_names": [
+                        "c"
+                    ],
+                    "params": [
+                        "complex number to compare"
+                    ],
+                    "pd_aliases": [],
+                    "pd_name": "!=",
+                    "pddoc_args": [
+                        {
+                            "info": "complex number to compare (Complex REAL IMAG) or float to compare",
+                            "name": "c",
+                            "type": "list"
+                        }
+                    ],
+                    "return": [
+                        "1 if numbers are not equal, otherwise 0"
+                    ],
+                    "see": [
+                        "complex.=="
+                    ],
+                    "since": "0.1"
+                },
+                "norm": {
+                    "brief": "the squared magnitude",
+                    "doc_args": {
+                        "pd_types": [
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.norm",
+                    "doc_outlets": [
+                        {
+                            "info": "squared magnitude",
+                            "type": "float"
+                        }
+                    ],
+                    "example": "\n[1 2( [3 4(\n|     |\n|     |\n[complex.norm]\n|\n[F]",
+                    "param_names": [],
+                    "params": [],
+                    "pd_aliases": [],
+                    "pddoc_args": [],
+                    "return": [
+                        "squared magnitude"
+                    ],
+                    "see": [
+                        "complex.abs"
+                    ],
+                    "since": "0.1"
+                },
+                "polar": {
+                    "brief": "creates Complex number in polar coordinates",
+                    "doc_args": {
+                        "pd_types": [
+                            "float",
+                            "float"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "magnitude",
+                                "type": "float"
+                            }
+                        ],
+                        [
+                            {
+                                "info": "phase angle in radians",
+                                "type": "float"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.polar",
+                    "doc_outlets": [
+                        {
+                            "info": "Complex number",
+                            "type": "Complex"
+                        }
+                    ],
+                    "example": "\n[bang( [1 3.1415926( [1 6.2831852(\n|      |             |\n[complex.polar 1 1.5707963]\n|\n[ui.display display_type=1]",
+                    "keywords": [
+                        "polar"
+                    ],
+                    "param_names": [
+                        "r",
+                        "theta"
+                    ],
+                    "params": [
+                        "magnitude",
+                        "phase angle in radians"
+                    ],
+                    "pd_aliases": [],
+                    "pddoc_args": [
+                        {
+                            "info": "magnitude",
+                            "name": "r",
+                            "type": "float"
+                        },
+                        {
+                            "info": "phase angle in radians",
+                            "name": "theta",
+                            "type": "float"
+                        }
+                    ],
+                    "return": [
+                        "Complex number"
+                    ],
+                    "see": [
+                        "complex"
+                    ],
+                    "since": "0.1"
+                },
+                "pow": {
+                    "brief": "complex power",
+                    "doc_args": {
+                        "pd_types": [
+                            "data",
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ],
+                        [
+                            {
+                                "info": "complex power: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "complex power",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.pow",
+                    "doc_outlets": [
+                        {
+                            "info": "result",
+                            "type": "Complex"
+                        }
+                    ],
+                    "example": "\n[B]               [loadbang]\n|                 |\n[complex.new 2 4] [complex.new 3 6]\n|                 |.\n[complex.pow       ]\n|\n[ui.display @display_type=1]",
+                    "param_names": [
+                        "p"
+                    ],
+                    "params": [
+                        "complex power"
+                    ],
+                    "pd_aliases": [],
+                    "pddoc_args": [
+                        {
+                            "info": "complex power",
+                            "name": "p",
+                            "type": "list"
+                        }
+                    ],
+                    "return": [
+                        "result"
+                    ],
+                    "since": "0.1"
+                },
+                "real": {
+                    "brief": "get real part of complex number",
+                    "doc_args": {
+                        "pd_types": [
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.real",
+                    "doc_outlets": [
+                        {
+                            "info": "real part of complex number",
+                            "type": "float"
+                        }
+                    ],
+                    "example": "\n[1 2( [3 4( [5 6(\n|     |     |\n[complex.real]\n|\n[F]",
+                    "param_names": [],
+                    "params": [],
+                    "pd_aliases": [],
+                    "pddoc_args": [],
+                    "return": [
+                        "real part of complex number"
+                    ],
+                    "see": [
+                        "complex.imag"
+                    ],
+                    "since": "0.1"
+                },
+                "sin": {
+                    "brief": "sine of complex number",
+                    "doc_args": {
+                        "pd_types": [
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.sin",
+                    "doc_outlets": [
+                        {
+                            "info": "result",
+                            "type": "Complex"
+                        }
+                    ],
+                    "example": "\n[0 0( [1 0( [2 2(\n|     |     |\n[complex.sin]\n|\n[ui.display @display_type=1]",
+                    "param_names": [],
+                    "params": [],
+                    "pd_aliases": [],
+                    "pddoc_args": [],
+                    "return": [
+                        "result"
+                    ],
+                    "see": [
+                        "complex.cos"
+                    ],
+                    "since": "0.1"
+                },
+                "sqrt": {
+                    "brief": "complex square root in the range of the right half-plane",
+                    "doc_args": {
+                        "pd_types": [
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.sqrt",
+                    "doc_outlets": [
+                        {
+                            "info": "result",
+                            "type": "Complex"
+                        }
+                    ],
+                    "example": "\n[0 0( [1 0( [2 2(\n|     |     |\n[complex.sqrt]\n|\n[ui.display @display_type=1]",
+                    "param_names": [],
+                    "params": [],
+                    "pd_aliases": [],
+                    "pddoc_args": [],
+                    "return": [
+                        "result"
+                    ],
+                    "since": "0.1"
+                },
+                "sub": {
+                    "brief": "substruct complex numbers",
+                    "doc_args": {
+                        "pd_types": [
+                            "data",
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ],
+                        [
+                            {
+                                "info": "complex number to substract: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "complex number to substract",
+                                "type": "data"
+                            },
+                            {
+                                "info": "float to substract",
+                                "type": "float"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.sub",
+                    "doc_outlets": [
+                        {
+                            "info": "substraction result",
+                            "type": "Complex"
+                        }
+                    ],
+                    "example": "\n[B]\n|\n[complex.new 2 4] [3 6(\n|                 |.\n[complex.sub    1  ]\n|\n[ui.display @display_type=1]",
+                    "keywords": [
+                        "arithmetic",
+                        "math"
+                    ],
+                    "overloads": {
+                        "param_names": [
+                            "f"
+                        ],
+                        "params": [
+                            [
+                                "float to substract"
+                            ]
+                        ]
+                    },
+                    "param_names": [
+                        "c"
+                    ],
+                    "params": [
+                        "complex number to substract"
+                    ],
+                    "pd_aliases": [
+                        "complex.-"
+                    ],
+                    "pddoc_args": [
+                        {
+                            "info": "complex number to substract (Complex REAL IMAG) or float to substract",
+                            "name": "c",
+                            "type": "list"
+                        }
+                    ],
+                    "return": [
+                        "substraction result"
+                    ],
+                    "see": [
+                        "complex.add"
+                    ],
+                    "since": "0.1"
+                },
+                "tan": {
+                    "brief": "tangent of complex number",
+                    "doc_args": {
+                        "pd_types": [
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.tan",
+                    "doc_outlets": [
+                        {
+                            "info": "result",
+                            "type": "Complex"
+                        }
+                    ],
+                    "example": "\n[0 0( [1 0( [2 2(\n|     |     |\n[complex.tan]\n|\n[ui.display @display_type=1]",
+                    "param_names": [],
+                    "params": [],
+                    "pd_aliases": [],
+                    "pddoc_args": [],
+                    "return": [
+                        "result"
+                    ],
+                    "see": [
+                        "complex.sin",
+                        "complex.cos"
+                    ],
+                    "since": "0.1"
+                },
+                "toList": {
+                    "brief": "real and imaginary part as list",
+                    "doc_args": {
+                        "pd_types": [
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.to_list",
+                    "doc_outlets": [
+                        {
+                            "info": "list of real and imaginary part",
+                            "type": "std::vector<float>"
+                        }
+                    ],
+                    "example": "\n[0 0( [1 0( [2 2(\n|     |     |\n[complex->list]\n|\n[ui.display @display_type=1]",
+                    "param_names": [],
+                    "params": [],
+                    "pd_aliases": [
+                        "complex->list"
+                    ],
+                    "pd_name": "to_list",
+                    "pddoc_args": [],
+                    "return": [
+                        "list of real and imaginary part"
+                    ],
+                    "since": "0.1"
+                },
+                "toTuple": {
+                    "brief": "unpacks complex number to real and imaginary parts",
+                    "doc_args": {
+                        "pd_types": [
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "REAL IMAG",
+                        "pd_name": "complex"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Complex data constructor: REAL IMAG",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Complex data",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "complex.unpack",
+                    "doc_outlets": [
+                        {
+                            "info": "real part",
+                            "type": "float"
+                        },
+                        {
+                            "info": "imaginary part",
+                            "type": "float"
+                        }
+                    ],
+                    "example": "\n[0 0( [1 0( [2 2(\n|     |     |\n[complex->tuple]\n|       ^|\n[F]     [F]",
+                    "param_names": [],
+                    "params": [],
+                    "pd_aliases": [
+                        "complex->tuple"
+                    ],
+                    "pd_name": "unpack",
+                    "pddoc_args": [],
+                    "return": [
+                        "real part",
+                        "imaginary part"
+                    ],
+                    "since": "0.1"
+                }
+            },
+            "param_names": [],
+            "params": [],
+            "pd_aliases": [],
+            "pd_class": "complex",
+            "pddoc": {
+                "arguments": [
+                    {
+                        "info": "real part",
+                        "name": "re",
+                        "type": "float"
+                    },
+                    {
+                        "info": "imaginary part",
+                        "name": "im",
+                        "type": "float"
+                    }
+                ],
+                "example": "\n[B] [1 2( [set 3 4(\n|   |     |\n[complex.new 4 5]\n|\n[ui.display display_type=1]",
+                "inlets": [
+                    [
+                        {
+                            "info": "output current data",
+                            "type": "bang"
+                        },
+                        {
+                            "info": "(on Complex) set new data value and output it",
+                            "type": "data"
+                        },
+                        {
+                            "info": "list: float float (real part/imaginary part)",
+                            "type": "list"
+                        }
+                    ]
+                ],
+                "methods": [
+                    {
+                        "info": "set new data without output",
+                        "name": "set"
+                    }
+                ]
+            },
+            "return": [],
+            "since": "0.1"
+        },
+        {
+            "brief": "The Rational class",
+            "class": "Rational",
+            "constructor": "NUM DEN",
+            "keywords": [
+                "rational",
+                "math"
+            ],
+            "methods": {
+                "abs": {
+                    "brief": "abs absolute value",
+                    "doc_args": {
+                        "pd_types": [
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "NUM DEN",
+                        "pd_name": "rational"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Rational data constructor: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Rational data",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "rational.abs",
+                    "doc_outlets": [
+                        {
+                            "info": "result value",
+                            "type": "Rational"
+                        }
+                    ],
+                    "example": "\n[-11/4( [1/4(\n|       |\n[rational.abs]\n|\n[ui.display @display_type=1]",
+                    "param_names": [],
+                    "params": [],
+                    "pd_aliases": [],
+                    "pddoc_args": [],
+                    "return": [
+                        "result value"
+                    ],
+                    "since": "0.1"
+                },
+                "add": {
+                    "brief": "add two rational numbers",
+                    "doc_args": {
+                        "pd_types": [
+                            "data",
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "NUM DEN",
+                        "pd_name": "rational"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Rational data constructor: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Rational data",
+                                "type": "data"
+                            }
+                        ],
+                        [
+                            {
+                                "info": "rational number to add: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "rational number to add",
+                                "type": "data"
+                            },
+                            {
+                                "info": "integer to add",
+                                "type": "int"
+                            }
+                        ]
+                    ],
+                    "doc_name": "rational.add",
+                    "doc_outlets": [
+                        {
+                            "info": "addition result",
+                            "type": "Rational"
+                        }
+                    ],
+                    "example": "\n[B]                [B]\n|                  |\n[rational.new 2 4] [rational.new 3 6] [F]\n|                  |.                 |.\n[rational.add                     10 -10]\n|\n[ui.display @display_type=1]",
+                    "keywords": [
+                        "arithmetic",
+                        "math"
+                    ],
+                    "overloads": {
+                        "param_names": [
+                            "v"
+                        ],
+                        "params": [
+                            [
+                                "integer to add"
+                            ]
+                        ]
+                    },
+                    "param_names": [
+                        "c"
+                    ],
+                    "params": [
+                        "rational number to add"
+                    ],
+                    "pd_aliases": [
+                        "rational.+"
+                    ],
+                    "pddoc_args": [
+                        {
+                            "info": "rational number to add (Rational NUM DEN) or integer to add",
+                            "name": "c",
+                            "type": "list"
+                        }
+                    ],
+                    "return": [
+                        "addition result"
+                    ],
+                    "see": [
+                        "rational.sub"
+                    ],
+                    "since": "0.1"
+                },
+                "div": {
+                    "brief": "divide rational numbers",
+                    "doc_args": {
+                        "pd_types": [
+                            "data",
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "NUM DEN",
+                        "pd_name": "rational"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Rational data constructor: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Rational data",
+                                "type": "data"
+                            }
+                        ],
+                        [
+                            {
+                                "info": "rational number divisor: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "rational number divisor",
+                                "type": "data"
+                            },
+                            {
+                                "info": "integer divisor",
+                                "type": "int"
+                            }
+                        ]
+                    ],
+                    "doc_name": "rational.div",
+                    "doc_outlets": [
+                        {
+                            "info": "division result",
+                            "type": "Rational"
+                        }
+                    ],
+                    "example": "\n[B]                [B]\n|                  |\n[rational.new 2 3] [rational.new 4 5]\n|                  |.\n[rational.div       3]\n|\n[ui.display @display_type=1]",
+                    "keywords": [
+                        "arithmetic",
+                        "math"
+                    ],
+                    "overloads": {
+                        "param_names": [
+                            "v"
+                        ],
+                        "params": [
+                            [
+                                "integer divisor"
+                            ]
+                        ]
+                    },
+                    "param_names": [
+                        "c"
+                    ],
+                    "params": [
+                        "rational number divisor"
+                    ],
+                    "pd_aliases": [
+                        "rational./"
+                    ],
+                    "pddoc_args": [
+                        {
+                            "info": "rational number divisor (Rational NUM DEN) or integer divisor",
+                            "name": "c",
+                            "type": "list"
+                        }
+                    ],
+                    "return": [
+                        "division result"
+                    ],
+                    "see": [
+                        "rational.mul"
+                    ],
+                    "since": "0.1"
+                },
+                "eq": {
+                    "brief": "equal check",
+                    "doc_args": {
+                        "pd_types": [
+                            "data",
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "NUM DEN",
+                        "pd_name": "rational"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Rational data constructor: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Rational data",
+                                "type": "data"
+                            }
+                        ],
+                        [
+                            {
+                                "info": "rational number to compare: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "rational number to compare",
+                                "type": "data"
+                            },
+                            {
+                                "info": "float to compare",
+                                "type": "float"
+                            }
+                        ]
+                    ],
+                    "doc_name": "rational.==",
+                    "doc_outlets": [
+                        {
+                            "info": "1 if numbers are equal, otherwise 0",
+                            "type": "bool"
+                        }
+                    ],
+                    "example": "\n[2 1(  [3 6(\n|      |\n|      |      [0.5(\n|      |      |.\n[rational.==  2 1]\n|\n[F]",
+                    "keywords": [
+                        "compare"
+                    ],
+                    "overloads": {
+                        "param_names": [
+                            "f"
+                        ],
+                        "params": [
+                            [
+                                "float to compare"
+                            ]
+                        ]
+                    },
+                    "param_names": [
+                        "r"
+                    ],
+                    "params": [
+                        "rational number to compare"
+                    ],
+                    "pd_aliases": [],
+                    "pd_name": "==",
+                    "pddoc_args": [
+                        {
+                            "info": "rational number to compare (Rational NUM DEN) or float to compare",
+                            "name": "r",
+                            "type": "list"
+                        }
+                    ],
+                    "return": [
+                        "1 if numbers are equal, otherwise 0"
+                    ],
+                    "see": [
+                        "rational.!="
+                    ],
+                    "since": "0.1"
+                },
+                "floatToRational": {
+                    "brief": "converts input float to rational with specified precision",
+                    "doc_args": {
+                        "pd_types": [
+                            "float",
+                            "int"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "NUM DEN",
+                        "pd_name": "rational"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "input float",
+                                "type": "float"
+                            }
+                        ],
+                        [
+                            {
+                                "info": "max denominator value",
+                                "type": "int"
+                            }
+                        ]
+                    ],
+                    "doc_name": "rational.from_float",
+                    "doc_outlets": [
+                        {
+                            "info": "rational number",
+                            "type": "Rational"
+                        }
+                    ],
+                    "example": "\n[3.14159265(\n|\n|   [1( [16( [256( [4096(\n|   |.  |.   |.    |.\n[float->rational   1]\n|\n[ui.display @display_type=1]",
+                    "param_names": [
+                        "f",
+                        "max_den"
+                    ],
+                    "params": [
+                        "input float",
+                        "max denominator value"
+                    ],
+                    "pd_aliases": [
+                        "float->rational"
+                    ],
+                    "pd_name": "from_float",
+                    "pddoc_args": [
+                        {
+                            "info": "input float",
+                            "name": "f",
+                            "type": "float"
+                        },
+                        {
+                            "info": "max denominator value",
+                            "name": "max_den",
+                            "type": "int"
+                        }
+                    ],
+                    "return": [
+                        "rational number"
+                    ],
+                    "since": "0.1"
+                },
+                "ge": {
+                    "brief": "greater equal compare operator",
+                    "doc_args": {
+                        "pd_types": [
+                            "data",
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "NUM DEN",
+                        "pd_name": "rational"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Rational data constructor: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Rational data",
+                                "type": "data"
+                            }
+                        ],
+                        [
+                            {
+                                "info": "rational number to compare: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "rational number to compare",
+                                "type": "data"
+                            },
+                            {
+                                "info": "float to compare",
+                                "type": "float"
+                            }
+                        ]
+                    ],
+                    "doc_name": "rational.ge",
+                    "doc_outlets": [
+                        {
+                            "info": "1 if left number is greater equal then right",
+                            "type": "bool"
+                        }
+                    ],
+                    "example": "\n[1 3(    [1 3( [1 4( [F]\n|        |.    |.    |.\n[rational.>=        1 5]\n|\n[F]",
+                    "keywords": [
+                        "compare"
+                    ],
+                    "overloads": {
+                        "param_names": [
+                            "f"
+                        ],
+                        "params": [
+                            [
+                                "float to compare"
+                            ]
+                        ]
+                    },
+                    "param_names": [
+                        "r"
+                    ],
+                    "params": [
+                        "rational number to compare"
+                    ],
+                    "pd_aliases": [
+                        "rational.>="
+                    ],
+                    "pddoc_args": [
+                        {
+                            "info": "rational number to compare (Rational NUM DEN) or float to compare",
+                            "name": "r",
+                            "type": "list"
+                        }
+                    ],
+                    "return": [
+                        "1 if left number is greater equal then right"
+                    ],
+                    "see": [
+                        "rational.>"
+                    ],
+                    "since": "0.1"
+                },
+                "gt": {
+                    "brief": "greater than compare operator",
+                    "doc_args": {
+                        "pd_types": [
+                            "data",
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "NUM DEN",
+                        "pd_name": "rational"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Rational data constructor: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Rational data",
+                                "type": "data"
+                            }
+                        ],
+                        [
+                            {
+                                "info": "rational number to compare: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "rational number to compare",
+                                "type": "data"
+                            },
+                            {
+                                "info": "float to compare",
+                                "type": "float"
+                            }
+                        ]
+                    ],
+                    "doc_name": "rational.gt",
+                    "doc_outlets": [
+                        {
+                            "info": "1 if left number is greater then right",
+                            "type": "bool"
+                        }
+                    ],
+                    "example": "\n[1 3(    [1 3( [1 4( [F]\n|        |.    |.    |.\n[rational.>        1 5]\n|\n[F]",
+                    "keywords": [
+                        "compare"
+                    ],
+                    "overloads": {
+                        "param_names": [
+                            "f"
+                        ],
+                        "params": [
+                            [
+                                "float to compare"
+                            ]
+                        ]
+                    },
+                    "param_names": [
+                        "r"
+                    ],
+                    "params": [
+                        "rational number to compare"
+                    ],
+                    "pd_aliases": [
+                        "rational.>"
+                    ],
+                    "pddoc_args": [
+                        {
+                            "info": "rational number to compare (Rational NUM DEN) or float to compare",
+                            "name": "r",
+                            "type": "list"
+                        }
+                    ],
+                    "return": [
+                        "1 if left number is greater then right"
+                    ],
+                    "see": [
+                        "rational.<"
+                    ],
+                    "since": "0.1"
+                },
+                "le": {
+                    "brief": "less equal compare operator",
+                    "doc_args": {
+                        "pd_types": [
+                            "data",
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "NUM DEN",
+                        "pd_name": "rational"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Rational data constructor: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Rational data",
+                                "type": "data"
+                            }
+                        ],
+                        [
+                            {
+                                "info": "rational number to compare: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "rational number to compare",
+                                "type": "data"
+                            },
+                            {
+                                "info": "float to compare",
+                                "type": "float"
+                            }
+                        ]
+                    ],
+                    "doc_name": "rational.le",
+                    "doc_outlets": [
+                        {
+                            "info": "1 if left number is less equal then right",
+                            "type": "bool"
+                        }
+                    ],
+                    "example": "\n[1 3(    [1 3( [1 4( [F]\n|        |.    |.    |.\n[rational.<=       2 3]\n|\n[F]",
+                    "keywords": [
+                        "compare"
+                    ],
+                    "overloads": {
+                        "param_names": [
+                            "f"
+                        ],
+                        "params": [
+                            [
+                                "float to compare"
+                            ]
+                        ]
+                    },
+                    "param_names": [
+                        "r"
+                    ],
+                    "params": [
+                        "rational number to compare"
+                    ],
+                    "pd_aliases": [
+                        "rational.<="
+                    ],
+                    "pddoc_args": [
+                        {
+                            "info": "rational number to compare (Rational NUM DEN) or float to compare",
+                            "name": "r",
+                            "type": "list"
+                        }
+                    ],
+                    "return": [
+                        "1 if left number is less equal then right"
+                    ],
+                    "see": [
+                        "rational.<"
+                    ],
+                    "since": "0.1"
+                },
+                "lt": {
+                    "brief": "less than compare operator",
+                    "doc_args": {
+                        "pd_types": [
+                            "data",
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "NUM DEN",
+                        "pd_name": "rational"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Rational data constructor: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Rational data",
+                                "type": "data"
+                            }
+                        ],
+                        [
+                            {
+                                "info": "rational number to compare: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "rational number to compare",
+                                "type": "data"
+                            },
+                            {
+                                "info": "float to compare",
+                                "type": "float"
+                            }
+                        ]
+                    ],
+                    "doc_name": "rational.lt",
+                    "doc_outlets": [
+                        {
+                            "info": "1 if left number is less then right",
+                            "type": "bool"
+                        }
+                    ],
+                    "example": "\n[1 3(    [1 3( [1 4( [F]\n|        |.    |.    |.\n[rational.<      2 3  ]\n|\n[F]",
+                    "keywords": [
+                        "compare"
+                    ],
+                    "overloads": {
+                        "param_names": [
+                            "f"
+                        ],
+                        "params": [
+                            [
+                                "float to compare"
+                            ]
+                        ]
+                    },
+                    "param_names": [
+                        "r"
+                    ],
+                    "params": [
+                        "rational number to compare"
+                    ],
+                    "pd_aliases": [
+                        "rational.<"
+                    ],
+                    "pddoc_args": [
+                        {
+                            "info": "rational number to compare (Rational NUM DEN) or float to compare",
+                            "name": "r",
+                            "type": "list"
+                        }
+                    ],
+                    "return": [
+                        "1 if left number is less then right"
+                    ],
+                    "see": [
+                        "rational.>"
+                    ],
+                    "since": "0.1"
+                },
+                "mul": {
+                    "brief": "multiply rational numbers",
+                    "doc_args": {
+                        "pd_types": [
+                            "data",
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "NUM DEN",
+                        "pd_name": "rational"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Rational data constructor: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Rational data",
+                                "type": "data"
+                            }
+                        ],
+                        [
+                            {
+                                "info": "rational number multiplier: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "rational number multiplier",
+                                "type": "data"
+                            },
+                            {
+                                "info": "integer muptiplier",
+                                "type": "int"
+                            }
+                        ]
+                    ],
+                    "doc_name": "rational.mul",
+                    "doc_outlets": [
+                        {
+                            "info": "multiplication result",
+                            "type": "Rational"
+                        }
+                    ],
+                    "keywords": [
+                        "arithmetic",
+                        "math"
+                    ],
+                    "overloads": {
+                        "param_names": [
+                            "v"
+                        ],
+                        "params": [
+                            [
+                                "integer muptiplier"
+                            ]
+                        ]
+                    },
+                    "param_names": [
+                        "c"
+                    ],
+                    "params": [
+                        "rational number multiplier"
+                    ],
+                    "pd_aliases": [
+                        "rational.*"
+                    ],
+                    "pddoc_args": [
+                        {
+                            "info": "rational number multiplier (Rational NUM DEN) or integer muptiplier",
+                            "name": "c",
+                            "type": "list"
+                        }
+                    ],
+                    "return": [
+                        "multiplication result"
+                    ],
+                    "see": [
+                        "rational.div"
+                    ],
+                    "since": "0.1"
+                },
+                "neq": {
+                    "brief": "not equal check",
+                    "doc_args": {
+                        "pd_types": [
+                            "data",
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "NUM DEN",
+                        "pd_name": "rational"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Rational data constructor: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Rational data",
+                                "type": "data"
+                            }
+                        ],
+                        [
+                            {
+                                "info": "rational number to compare: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "rational number to compare",
+                                "type": "data"
+                            },
+                            {
+                                "info": "float to compare",
+                                "type": "float"
+                            }
+                        ]
+                    ],
+                    "doc_name": "rational.!=",
+                    "doc_outlets": [
+                        {
+                            "info": "1 if numbers are not equal, otherwise 0",
+                            "type": "bool"
+                        }
+                    ],
+                    "example": "\n[2 3(  [3 6(\n|      |\n|      |      [1 2(  [0.5(\n|      |      |.     |.\n[rational.!=  2 3     ]\n|\n[F]",
+                    "keywords": [
+                        "compare"
+                    ],
+                    "overloads": {
+                        "param_names": [
+                            "f"
+                        ],
+                        "params": [
+                            [
+                                "float to compare"
+                            ]
+                        ]
+                    },
+                    "param_names": [
+                        "c"
+                    ],
+                    "params": [
+                        "rational number to compare"
+                    ],
+                    "pd_aliases": [],
+                    "pd_name": "!=",
+                    "pddoc_args": [
+                        {
+                            "info": "rational number to compare (Rational NUM DEN) or float to compare",
+                            "name": "c",
+                            "type": "list"
+                        }
+                    ],
+                    "return": [
+                        "1 if numbers are not equal, otherwise 0"
+                    ],
+                    "see": [
+                        "rational.=="
+                    ],
+                    "since": "0.1"
+                },
+                "pow": {
+                    "brief": "rational power",
+                    "doc_args": {
+                        "pd_types": [
+                            "data",
+                            "int"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "NUM DEN",
+                        "pd_name": "rational"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Rational data constructor: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Rational data",
+                                "type": "data"
+                            }
+                        ],
+                        [
+                            {
+                                "info": "exponent",
+                                "type": "int"
+                            }
+                        ]
+                    ],
+                    "doc_name": "rational.pow",
+                    "doc_outlets": [
+                        {
+                            "info": "result value",
+                            "type": "Rational"
+                        }
+                    ],
+                    "example": "\n[1/2(         [F]\n|             |.\n[rational.pow 10]\n|\n[ui.display @display_type=1]",
+                    "param_names": [
+                        "n"
+                    ],
+                    "params": [
+                        "exponent"
+                    ],
+                    "pd_aliases": [],
+                    "pddoc_args": [
+                        {
+                            "info": "exponent",
+                            "name": "n",
+                            "type": "int"
+                        }
+                    ],
+                    "return": [
+                        "result value"
+                    ],
+                    "since": "0.1"
+                },
+                "reciprocal": {
+                    "brief": "reciprocal rational number",
+                    "doc_args": {
+                        "pd_types": [
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "NUM DEN",
+                        "pd_name": "rational"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Rational data constructor: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Rational data",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "rational.reciprocal",
+                    "doc_outlets": [
+                        {
+                            "info": "reciprocal number",
+                            "type": "Rational"
+                        }
+                    ],
+                    "example": "\n[1/2(\n|\n[rational.reciprocal  ]\n|                     |\n[rational.reciprocal] [ui.display @display_type=1]\n|\n[ui.display @display_type=1]",
+                    "param_names": [],
+                    "params": [],
+                    "pd_aliases": [
+                        "rational.1/x"
+                    ],
+                    "pddoc_args": [],
+                    "return": [
+                        "reciprocal number"
+                    ],
+                    "since": "0.1"
+                },
+                "sub": {
+                    "brief": "substruct rational numbers",
+                    "doc_args": {
+                        "pd_types": [
+                            "data",
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "NUM DEN",
+                        "pd_name": "rational"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Rational data constructor: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Rational data",
+                                "type": "data"
+                            }
+                        ],
+                        [
+                            {
+                                "info": "rational number to substract: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "rational number to substract",
+                                "type": "data"
+                            },
+                            {
+                                "info": "integer to substract",
+                                "type": "int"
+                            }
+                        ]
+                    ],
+                    "doc_name": "rational.sub",
+                    "doc_outlets": [
+                        {
+                            "info": "substraction result",
+                            "type": "Rational"
+                        }
+                    ],
+                    "example": "\n[B]                [B]\n|                  |\n[rational.new 2 4] [rational.new 3 6]\n|                  |.\n[rational.sub  1    ]\n|\n[ui.display @display_type=1]",
+                    "keywords": [
+                        "arithmetic",
+                        "math"
+                    ],
+                    "overloads": {
+                        "param_names": [
+                            "v"
+                        ],
+                        "params": [
+                            [
+                                "integer to substract"
+                            ]
+                        ]
+                    },
+                    "param_names": [
+                        "c"
+                    ],
+                    "params": [
+                        "rational number to substract"
+                    ],
+                    "pd_aliases": [
+                        "rational.-"
+                    ],
+                    "pddoc_args": [
+                        {
+                            "info": "rational number to substract (Rational NUM DEN) or integer to substract",
+                            "name": "c",
+                            "type": "list"
+                        }
+                    ],
+                    "return": [
+                        "substraction result"
+                    ],
+                    "see": [
+                        "rational.add"
+                    ],
+                    "since": "0.1"
+                },
+                "toFloat": {
+                    "brief": "convert to float value",
+                    "doc_args": {
+                        "pd_types": [
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "NUM DEN",
+                        "pd_name": "rational"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Rational data constructor: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Rational data",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "rational.to_float",
+                    "doc_outlets": [
+                        {
+                            "info": "float value",
+                            "type": "float"
+                        }
+                    ],
+                    "example": "\n[1 3(\n|\n[rational->float]\n|\n[F]",
+                    "param_names": [],
+                    "params": [],
+                    "pd_aliases": [
+                        "rational->float"
+                    ],
+                    "pd_name": "to_float",
+                    "pddoc_args": [],
+                    "return": [
+                        "float value"
+                    ],
+                    "since": "0.1"
+                },
+                "toList": {
+                    "brief": "numerator and denominator part as list",
+                    "doc_args": {
+                        "pd_types": [
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "NUM DEN",
+                        "pd_name": "rational"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Rational data constructor: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Rational data",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "rational.to_list",
+                    "doc_outlets": [
+                        {
+                            "info": "list of numerator and denominator parts",
+                            "type": "std::vector<float>"
+                        }
+                    ],
+                    "example": "\n[0 0( [1 0( [2 2(\n|     |     |\n[rational->list]\n|\n[ui.display @display_type=1]",
+                    "param_names": [],
+                    "params": [],
+                    "pd_aliases": [
+                        "rational->list"
+                    ],
+                    "pd_name": "to_list",
+                    "pddoc_args": [],
+                    "return": [
+                        "list of numerator and denominator parts"
+                    ],
+                    "since": "0.1"
+                },
+                "toTuple": {
+                    "brief": "unpacks rational number to numerator and denominator parts",
+                    "doc_args": {
+                        "pd_types": [
+                            "data"
+                        ]
+                    },
+                    "doc_class": {
+                        "pd_args": "NUM DEN",
+                        "pd_name": "rational"
+                    },
+                    "doc_inlets": [
+                        [
+                            {
+                                "info": "Rational data constructor: NUM DEN",
+                                "type": "list"
+                            },
+                            {
+                                "info": "Rational data",
+                                "type": "data"
+                            }
+                        ]
+                    ],
+                    "doc_name": "rational.unpack",
+                    "doc_outlets": [
+                        {
+                            "info": "numerator part",
+                            "type": "float"
+                        },
+                        {
+                            "info": "demonimator part",
+                            "type": "float"
+                        }
+                    ],
+                    "example": "\n[0 0( [1 0( [2 2(\n|     |     |\n[rational->tuple]\n|       ^|\n[F]     [F]",
+                    "param_names": [],
+                    "params": [],
+                    "pd_aliases": [
+                        "rational->tuple"
+                    ],
+                    "pd_name": "unpack",
+                    "pddoc_args": [],
+                    "return": [
+                        "numerator part",
+                        "demonimator part"
+                    ],
+                    "since": "0.1"
+                }
+            },
+            "param_names": [],
+            "params": [],
+            "pd_aliases": [],
+            "pd_class": "rational",
+            "pddoc": {
+                "arguments": [
+                    {
+                        "info": "numerator",
+                        "name": "num",
+                        "type": "int"
+                    },
+                    {
+                        "info": "denominator",
+                        "name": "den",
+                        "type": "int"
+                    }
+                ],
+                "example": "\n[B] [1 2( [set 3 4( [9/8( [F]   [9 / 8(\n|   |     |         |     |     |\n|   |     |         |     |     |\n|   |     |         |     |     |\n[rational.new 4                 ]\n|\n[ui.display display_type=1]",
+                "inlets": [
+                    [
+                        {
+                            "info": "output current data",
+                            "type": "bang"
+                        },
+                        {
+                            "info": "(on Rational) set new data value and output it",
+                            "type": "data"
+                        },
+                        {
+                            "info": "list: int int (numerator/denominator)",
+                            "type": "list"
+                        }
+                    ]
+                ],
+                "methods": [
+                    {
+                        "info": "set new data without output",
+                        "name": "set"
+                    }
+                ]
+            },
+            "return": [],
+            "since": "0.1"
+        }
+    ],
+    "library": "numeric",
+    "license": "GPL3",
+    "param_names": [],
+    "params": [],
+    "pd_aliases": [],
+    "return": [],
+    "version": "0.1"
+}

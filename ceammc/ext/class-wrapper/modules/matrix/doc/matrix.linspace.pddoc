@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.linspace">
+        <title>matrix.linspace</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>generate row with linearly spaced N elements</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <keywords>linspace</keywords>
+            <version>0.1</version>
+            <since>0.1</since>
+            <also>
+                <see>matrix.logspace</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="float" name="START">start element value</argument>
+            <argument type="float" name="END">including end element value</argument>
+            <argument type="int" name="N" minvalue="0">number of element, if 0, means default value 100 elements</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="float">start element value</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">including end element value</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">number of element, if 0, means default value 100 elements</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output matrix row (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[B] [0 10 5(
+|   |
+[matrix.linspace 1 2 3]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

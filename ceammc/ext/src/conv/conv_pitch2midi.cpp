@@ -1,5 +1,5 @@
 #include "conv_pitch2midi.h"
-#include "../string/datatype_string.h"
+#include "datatype_string.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 

@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 236 50 cnv 1 459 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 236 50 on input list checks if it contains specified
+#X obj 306 50 cnv 1 459 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 306 50 on input list checks if it contains specified
 subsequence;
-#X obj 1 1 cnv 5 712 40 empty empty list.contains 20 20 0 20 -104026
+#X obj 1 1 cnv 5 765 40 empty empty list.contains 20 20 0 20 -104026
 -4096 0;
-#X obj 594 11 list.contains;
+#X obj 647 11 list.contains;
 #X msg 50 118 1 2;
 #X msg 107 118 3 4;
 #X floatatom 184 118 5 0 0 0 - - -;
@@ -20,7 +20,7 @@ subsequence;
 #X obj 50 349 flow.pass_if;
 #X obj 213 349 list.contains 0;
 #X obj 50 378 ui.display @display_type 1 @size 150 18;
-#X obj 20 418 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 418 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 423 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 428 1\.;
@@ -33,7 +33,7 @@ subsequence;
 #X text 240 464 set needle atom.;
 #X text 150 482 *list*;
 #X text 240 482 set needle list.;
-#X obj 20 510 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 515 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 520 1\.;
@@ -43,18 +43,18 @@ subsequence;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 568 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 571 library: ceammc v0.6;
-#X text 318 583 see also:;
-#X obj 394 583 list.^contains;
-#X obj 510 583 list.all_of;
-#X obj 604 583 list.none_of;
+#X obj 1 568 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 571 library: ceammc v0.7;
+#X text 388 583 see also:;
+#X obj 464 583 list.^contains;
+#X obj 580 583 list.all_of;
+#X obj 674 583 list.none_of;
 #N canvas 10 590 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 list.contains;
 #X text 10 76 category:;

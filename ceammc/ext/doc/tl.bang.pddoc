@@ -1,26 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="tl.bang" type="gui">
+    <object name="tl.bang">
         <title>tl.bang</title>
         <meta>
             <authors>
                 <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Timeline bang</description>
+            <description>Timeline bang (with possible delay)</description>
             <license>GPL3</license>
             <library>ceammc</library>
-            <category view="link">ui</category>
+            <category>tl</category>
             <keywords>timeline bang</keywords>
             <since>0.1</since>
             <also>
+                <see>tl.toggle</see>
                 <see view="link">tl.cue</see>
             </also>
         </meta>
         <info>
-            <par>Bang only when nearest left tl.cue was activated</par>
+            <par>Bang only when nearest left tl.cue was activated. If other cue is activated and
+            bang was scheduled by @delay property - it canceled</par>
         </info>
-        <inlets />
+        <properties>
+            <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">bang
+            delay after cue activation</property>
+            <property name="@cue" type="symbol" readonly="true">related cue</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>control inlet</xinfo>
+            </inlet>
+        </inlets>
         <outlets>
             <outlet>bang output</outlet>
         </outlets>
@@ -29,11 +40,11 @@
 <![CDATA[
               [tl.cue]           [tl.cue]
 
-[HR number=3]    [tl.bang]
-|                |
-[cue $1(         [B]                      [tl.bang]
-|                                         |
-[tl.transport]                            [B]
+[HR number=3]    [tl.bang]                [tl.bang @delay 500]
+|                |                        |
+[cue $1(         [B]                      [B]
+|
+[tl.transport]
 ]]>
             </pdascii>
         </example>

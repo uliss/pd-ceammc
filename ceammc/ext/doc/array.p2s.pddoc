@@ -21,11 +21,14 @@
             </aliases>
         </meta>
         <info>
-            <par>this object allows to do relative access to array</par>
+            <par>this object allows to get relative access to array</par>
         </info>
         <arguments>
             <argument name="NAME" type="symbol">array name</argument>
         </arguments>
+        <properties>
+            <property name="@array" type="symbol">array name</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">value between 0 and 1, where 0 maps to begin of array, 1 - to

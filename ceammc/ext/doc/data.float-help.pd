@@ -1,12 +1,12 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 540 50 cnv 1 155 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 540 50 robust float object;
-#X obj 1 1 cnv 5 712 40 empty empty data.float 20 20 0 20 -104026
+#X obj 610 50 cnv 1 155 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 610 50 robust float object;
+#X obj 1 1 cnv 5 765 40 empty empty data.float 20 20 0 20 -104026
 -4096 0;
-#X obj 506 11 .float;
-#X obj 573 11 .f;
-#X obj 615 11 data.float;
+#X obj 559 11 .float;
+#X obj 626 11 .f;
+#X obj 668 11 data.float;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X msg 69 147 + 1.1 \, bang;
 #X msg 203 147 10 \, bang;
@@ -16,19 +16,19 @@
 #X floatatom 251 205 5 0 0 0 - - -;
 #X obj 50 234 .float 100;
 #X floatatom 50 262 10 0 0 0 - - -;
-#X obj 20 301 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 306 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 311 1\.;
 #X text 150 311 float;
 #X obj 241 312 cnv 1 33 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 311 VAL: set initial value.;
-#X obj 20 339 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 344 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 349 @value;
 #X text 240 349 (readonly) Get current value. Type: float;
-#X obj 20 386 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 386 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 391 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 396 set;
@@ -36,12 +36,12 @@
 #X msg 120 428 +;
 #X text 240 428 add to float \, no output.;
 #X msg 120 460 -;
-#X text 240 460 substruct from float \, no output.;
+#X text 240 460 subtract from float \, no output.;
 #X msg 120 492 *;
 #X text 240 492 multiply to \, no output.;
 #X msg 120 524 /;
 #X text 240 524 divide by \, no output.;
-#X obj 20 566 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 566 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 571 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 576 1\.;
@@ -51,7 +51,7 @@
 #X text 240 594 set new value and outputs.;
 #X text 120 612 2\.;
 #X text 240 612 set new value without output.;
-#X obj 20 640 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 640 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 645 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 650 1\.;
@@ -61,16 +61,16 @@
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 698 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 701 library: ceammc v0.6;
-#X text 556 713 see also:;
-#X obj 632 713 data.int;
+#X obj 1 698 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 701 library: ceammc v0.7;
+#X text 626 713 see also:;
+#X obj 702 713 data.int;
 #N canvas 10 720 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 data.float;
 #X text 10 76 category:;

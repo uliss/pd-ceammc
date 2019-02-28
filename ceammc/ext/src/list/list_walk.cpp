@@ -5,13 +5,14 @@
 using namespace ceammc;
 using namespace ceammc::list;
 
+static t_symbol* SYM_SINGLE = gensym("single");
+static t_symbol* SYM_CLIP = gensym("clip");
+static t_symbol* SYM_WRAP = gensym("wrap");
+static t_symbol* SYM_FOLD = gensym("fold");
+
 ListWalk::ListWalk(const PdArgs& a)
     : BaseObject(a)
     , walk_mode_(0)
-    , m_single_(gensym("single"))
-    , m_clip_(gensym("clip"))
-    , m_wrap_(gensym("wrap"))
-    , m_fold_(gensym("fold"))
     , current_pos_(0)
     , length_(1)
     , forward_(true)
@@ -23,21 +24,22 @@ ListWalk::ListWalk(const PdArgs& a)
     createProperty(new PointerProperty<int>("@length", &length_, false));
     createProperty(new PointerProperty<AtomList>("@value", &lst_));
 
-    walk_mode_ = new SymbolEnumProperty("@mode", "single");
-    walk_mode_->appendEnum("wrap");
-    walk_mode_->appendEnum("clip");
-    walk_mode_->appendEnum("fold");
+    walk_mode_ = new SymbolEnumProperty("@mode", SYM_SINGLE);
+    walk_mode_->appendEnum(SYM_WRAP);
+    walk_mode_->appendEnum(SYM_CLIP);
+    walk_mode_->appendEnum(SYM_FOLD);
     createProperty(walk_mode_);
 
     // aliases
-    createProperty(new SymbolEnumAlias("@single", walk_mode_, gensym("single")));
-    createProperty(new SymbolEnumAlias("@loop", walk_mode_, gensym("wrap")));
-    createProperty(new SymbolEnumAlias("@wrap", walk_mode_, gensym("wrap")));
-    createProperty(new SymbolEnumAlias("@clip", walk_mode_, gensym("clip")));
-    createProperty(new SymbolEnumAlias("@fold", walk_mode_, gensym("fold")));
+    createProperty(new SymbolEnumAlias("@single", walk_mode_, SYM_SINGLE));
+    createProperty(new SymbolEnumAlias("@loop", walk_mode_, SYM_WRAP));
+    createProperty(new SymbolEnumAlias("@wrap", walk_mode_, SYM_WRAP));
+    createProperty(new SymbolEnumAlias("@clip", walk_mode_, SYM_CLIP));
+    createProperty(new SymbolEnumAlias("@fold", walk_mode_, SYM_FOLD));
 
     createCbProperty("@size", &ListWalk::p_size);
     createCbProperty("@index", &ListWalk::p_index, &ListWalk::p_set_index);
+    property("@index")->info().setType(PropertyInfoType::INTEGER);
 
     lst_ = positionalArguments();
 }
@@ -79,7 +81,7 @@ AtomList ListWalk::p_size() const { return AtomList(lst_.size()); }
 
 AtomList ListWalk::p_index() const
 {
-    if (walk_mode_->value() != m_fold_)
+    if (walk_mode_->value() != SYM_FOLD)
         return AtomList(current_pos_);
     else {
         size_t idx = 0;
@@ -126,7 +128,7 @@ void ListWalk::toPosition(int pos)
 
     size_t idx = 0;
 
-    if (walk_mode_->value() == m_single_) {
+    if (walk_mode_->value() == SYM_SINGLE) {
         if (pos < 0) {
             current_pos_ = 0;
             single_done_ = true;
@@ -137,13 +139,13 @@ void ListWalk::toPosition(int pos)
             current_pos_ = lst_.size() - 1;
             single_done_ = true;
         }
-    } else if (walk_mode_->value() == m_wrap_) {
+    } else if (walk_mode_->value() == SYM_WRAP) {
         if (calcWrapIndex(pos, lst_.size(), &idx))
             current_pos_ = idx;
-    } else if (walk_mode_->value() == m_clip_) {
+    } else if (walk_mode_->value() == SYM_CLIP) {
         if (calcClipIndex(pos, lst_.size(), &idx))
             current_pos_ = idx;
-    } else if (walk_mode_->value() == m_fold_) {
+    } else if (walk_mode_->value() == SYM_FOLD) {
         current_pos_ = pos;
     } else {
         OBJ_ERR << "unsupported list mode: " << walk_mode_->value()->s_name;
@@ -163,22 +165,22 @@ void ListWalk::current()
     }
 
     //! single
-    if (walk_mode_->value() == m_single_) {
+    if (walk_mode_->value() == SYM_SINGLE) {
         if (single_done_)
             return;
 
         listTo(0, lst_.slice(current_pos_, current_pos_ + length_ - 1));
     }
     //! clip
-    else if (walk_mode_->value() == m_clip_) {
+    else if (walk_mode_->value() == SYM_CLIP) {
         listTo(0, list::sliceClip(lst_, current_pos_, length_));
     }
     //! wrap/loop
-    else if (walk_mode_->value() == m_wrap_) {
+    else if (walk_mode_->value() == SYM_WRAP) {
         listTo(0, list::sliceWrap(lst_, current_pos_, length_));
     }
     //! fold
-    else if (walk_mode_->value() == m_fold_) {
+    else if (walk_mode_->value() == SYM_FOLD) {
         listTo(0, list::sliceFold(lst_, current_pos_, length_));
     }
 }

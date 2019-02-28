@@ -1,3 +1,5 @@
+declare name "flt.bpf24";
+
 fl = library("filters.lib");
 ui = library("ceammc_ui.lib");
 ma = library("maths.lib");

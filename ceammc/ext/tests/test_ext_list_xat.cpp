@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/data_mlist.h"
 #include "../list/list_xat.h"
+#include "datatype_mlist.h"
 #include "test_external.h"
 
 PD_COMPLETE_TEST_SETUP(ListXAt, list, xat);
@@ -21,7 +21,7 @@ typedef TestExternal<ListXAt> ListXAtTest;
 
 TEST_CASE("list.^at", "[externals]")
 {
-    pd_test_mod_init_list_xat();
+    pd_test_init();
 
     SECTION("test create with:")
     {

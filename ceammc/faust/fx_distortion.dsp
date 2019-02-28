@@ -1,3 +1,5 @@
+declare name "fx.distortion";
+
 mf = library("misceffects.lib");
 ba = library("basics.lib");
 si = library("signals.lib");

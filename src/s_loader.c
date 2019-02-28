@@ -210,7 +210,14 @@ gotone:
         ntdll = LoadLibrary(filename);
         if (!ntdll)
         {
-            error("%s: couldn't load", filename);
+            DWORD rc = GetLastError();
+            LPSTR messageBuffer = NULL;
+            size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+                                NULL, rc, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
+
+            error("%s: couldn't load - %s", filename, messageBuffer);
+            //Free the buffer.
+            LocalFree(messageBuffer);
             class_set_extern_dir(&s_);
             return (0);
         }

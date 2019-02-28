@@ -1,3 +1,5 @@
+declare name "flt.resonbp";
+
 import("stdfaust.lib");
 
 freq = vslider("freq [unit:Hz]", 1000, 20, 20000, 0.1) : si.smoo;

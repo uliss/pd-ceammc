@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ $# -ne 1 ];
+then
+    echo "Usage: $(basename $0) DMG-file"
+    exit 1
+fi
+
 cd ~
 eval `gpgshell`
 cd -

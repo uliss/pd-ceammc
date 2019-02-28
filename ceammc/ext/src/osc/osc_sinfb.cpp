@@ -1,13 +1,27 @@
 #include "osc_sinfb.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
+using namespace ceammc;
+
+static t_symbol* SYM_PROP_FEEDBACK = gensym("@feedback");
+
+class OscSinFb : public faust_osc_sinfb_tilde {
+public:
+    OscSinFb(const PdArgs& args)
+        : faust_osc_sinfb_tilde(args)
+    {
+        createInlet();
+        setInitSignalValue(positionalFloatArgument(0, 0));
+        bindPositionalArgToProperty(1, SYM_PROP_FEEDBACK);
+    }
+
+    void onInlet(size_t n, const AtomList&) override
+    {
+        dsp_->instanceClear();
+    }
+};
+
+void setup_osc_sinfb_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-
-    PdArgParser p(x, argc, argv);
-    p.signalFloatArg("freq", 1);
-    p.initFloatArg("feedback", 2);
-    return p.pd_obj();
+    SoundExternalFactory<OscSinFb> obj("osc.sinfb~");
 }
-
-EXTERNAL_SETUP(osc);

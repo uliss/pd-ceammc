@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.at">
+        <title>matrix.at</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>select matrix element at specified position</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <version>0.1</version>
+            <since>0.1</since>
+            <also>
+                <see>matrix.col_at</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="int" name="M" minvalue="0">row number</argument>
+            <argument type="int" name="N" minvalue="0">column number</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Matrix data constructor: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">Matrix data</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">row number</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">column number</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output float element (float)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[0 64 65(
+|
+[matrix.linspace]
+|
+[matrix.reshape 8 8]
+|
+|           [hradio]
+|           |
+|           |   [hradio]
+|           |.  |..
+[matrix.at     1 1]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

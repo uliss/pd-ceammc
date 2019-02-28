@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="complex.==">
+        <title>complex.==</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>equal check</description>
+            <license>GPL3</license>
+            <library>numeric</library>
+            <category>complex</category>
+            <keywords>compare</keywords>
+            <version>0.1</version>
+            <since>0.1</since>
+            <also>
+                <see>complex.!=</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="list" name="C">complex number to compare (Complex REAL IMAG) or float number to compare</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Complex data constructor: REAL IMAG</xinfo>
+                <xinfo on="data">Complex data</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">complex number to compare: REAL IMAG</xinfo>
+                <xinfo on="data">complex number to compare</xinfo>
+                <xinfo on="float">float number to compare</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output 1 if numbers are equal, otherwise 0 (bool)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib numeric]
+
+
+[2 4(  [3 6(  [B]
+|      |      |
+|      |      [complex.new 3 6]
+|      |      |.
+[complex.==  2 4]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

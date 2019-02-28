@@ -16,6 +16,8 @@
         <properties>
             <property name="@sf" type="symbol">path to SoundFont</property>
             <property name="@version" type="symbol" readonly="true">FluidSynth version</property>
+            <property name="@soundfonts" type="list" readonly="true">list of found
+            soundfonts</property>
         </properties>
         <inlets>
             <inlet>
@@ -44,7 +46,7 @@
         </methods>
         <outlets>
             <outlet type="audio">left channel and property output</outlet>
-            <outlet type="audio">rigth channel</outlet>
+            <outlet type="audio">right channel</outlet>
         </outlets>
         <example>
             <pdascii>

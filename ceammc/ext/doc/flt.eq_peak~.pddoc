@@ -20,43 +20,40 @@
                 <see>flt.highshelf~</see>
             </also>
         </meta>
-        <methods>
-            <method name="freq">
-                <param type="float" units="herz">peak frequency</param>
-            </method>
-            <method name="gain">
-                <param type="float" units="decibel">level at fx (boost if &gt;0 or cut if
-                &lt;0)</param>
-            </method>
-            <method name="bandwidth">
-                <param type="float" units="herz">bandwidth of peak</param>
-            </method>
-        </methods>
         <arguments>
-            <argument name="freq" type="float" units="herz">peak frequency</argument>
-            <argument name="gain" type="float" units="decibel">level at fx (boost if &gt;0 or cut
-            if &lt;0)</argument>
-            <argument name="bandwidth" type="float" units="herz">bandwidth of peak</argument>
-            <argument name="ID" type="symbol">object ID for OSC control</argument>
+            <argument name="freq" type="float" units="herz" minvalue="20" maxvalue="20000">peak
+            frequency</argument>
+            <argument name="gain" type="float" units="decibel" minvalue="-15" maxvalue="15">level
+            at fx (boost if &gt;0 or cut if &lt;0)</argument>
+            <argument name="bandwidth" type="float" units="herz" minvalue="1" maxvalue="5000">
+            bandwidth of peak</argument>
         </arguments>
+        <properties>
+            <property name="@freq" type="float" units="herz" minvalue="20" maxvalue="20000"
+            default="1000">peak frequency</property>
+            <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15"
+            default="0">level at fx (boost if &gt;0 or cut if &lt;0)</property>
+            <property name="@bandwidth" type="float" units="herz" minvalue="1" maxvalue="5000"
+            default="100">bandwidth of peak</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
-                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
             </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">filtered signal</outlet>
-            <outlet type="control">information output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[noise~] [F]       [F]       [F]
-|        |         |         |
-|        [freq $1( [gain $1( [bandwidth $1(
-|        |         |         |
-[flt.eq_peak~ 3000 20 400 id ]
+[noise~] [F]        [F]        [F]
+|        |          |          |
+|        [@freq $1( [@gain $1( [@bandwidth $1(
+|        |          |          |
+[flt.eq_peak~ 3000 20 400      ]
 |
 [ui.ssc~ @size 500 120]
 

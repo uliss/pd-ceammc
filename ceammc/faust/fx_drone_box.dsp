@@ -1,4 +1,4 @@
-declare name "DroneBox";
+declare name "fx.drone_box";
 declare description "Mono Sympathetic Resonance Generator";
 declare author "Oli Larkin (contact@olilarkin.co.uk)";
 declare copyright "Oliver Larkin";

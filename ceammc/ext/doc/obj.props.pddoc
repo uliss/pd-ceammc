@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="obj.props">
+        <title>obj.props</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>property extractor</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>property</keywords>
+            <since>0.7</since>
+        </meta>
+        <info>
+            <par>extract properties from object, connected to second outlet</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output extracted properties to first outlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>property output (data:dict)</outlet>
+            <outlet>connect to examined object</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[obj.props                     ]
+|                             ^|
+[ui.d]                        [flt.moog_vcf~]
+
+
+
+
+/* ... */
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

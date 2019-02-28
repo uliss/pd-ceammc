@@ -31,13 +31,90 @@ struct _canvasenvironment {
     t_namelist* ce_path; /* search path */
 };
 
+// temp crash fix with newer version
+// because _glits have other field order and size
+struct pd048_glist
+{
+    t_object gl_obj;            /* header in case we're a glist */
+    t_gobj *gl_list;            /* the actual data */
+    struct _gstub *gl_stub;     /* safe pointer handler */
+    int gl_valid;               /* incremented when pointers might be stale */
+    struct _glist *gl_owner;    /* parent glist, supercanvas, or 0 if none */
+    int gl_pixwidth;            /* width in pixels (on parent, if a graph) */
+    int gl_pixheight;
+    t_float gl_x1;                /* bounding rectangle in our own coordinates */
+    t_float gl_y1;
+    t_float gl_x2;
+    t_float gl_y2;
+    int gl_screenx1;            /* screen coordinates when toplevel */
+    int gl_screeny1;
+    int gl_screenx2;
+    int gl_screeny2;
+    int gl_xmargin;                /* origin for GOP rectangle */
+    int gl_ymargin;
+    t_tick gl_xtick;            /* ticks marking X values */
+    int gl_nxlabels;            /* number of X coordinate labels */
+    t_symbol **gl_xlabel;           /* ... an array to hold them */
+    t_float gl_xlabely;               /* ... and their Y coordinates */
+    t_tick gl_ytick;            /* same as above for Y ticks and labels */
+    int gl_nylabels;
+    t_symbol **gl_ylabel;
+    t_float gl_ylabelx;
+    t_editor *gl_editor;        /* editor structure when visible */
+    t_symbol *gl_name;          /* symbol bound here */
+    int gl_font;                /* nominal font size in points, e.g., 10 */
+    struct _glist *gl_next;         /* link in list of toplevels */
+    t_canvasenvironment *gl_env;    /* root canvases and abstractions only */
+    unsigned int gl_havewindow:1;   /* true if we own a window */
+    unsigned int gl_mapped:1;       /* true if, moreover, it's "mapped" */
+    unsigned int gl_dirty:1;        /* (root canvas only:) patch has changed */
+    unsigned int gl_loading:1;      /* am now loading from file */
+    unsigned int gl_willvis:1;      /* make me visible after loading */
+    unsigned int gl_edit:1;         /* edit mode */
+    unsigned int gl_isdeleting:1;   /* we're inside glist_delete -- hack! */
+    unsigned int gl_goprect:1;      /* draw rectangle for graph-on-parent */
+    unsigned int gl_isgraph:1;      /* show as graph on parent */
+    unsigned int gl_hidetext:1;     /* hide object-name + args when doing graph on parent */
+    unsigned int gl_private:1;      /* private flag used in x_scalar.c */
+    unsigned int gl_isclone:1;      /* exists as part of a clone object */
+    int gl_zoom;                    /* zoom factor (integer zoom-in only) */
+    void *gl_privatedata;           /* private data */
+};
+
 using namespace ceammc;
+
+static bool is_pd048()
+{
+    int major, minor, bugfix;
+    sys_getversion(&major, &minor, &bugfix);
+    static_assert(PD_MINOR_VERSION < 48, "update for minor version");
+    if(major == PD_MAJOR_VERSION && minor == PD_MINOR_VERSION)
+        return false;
+
+    return true;
+}
+
+t_canvasenvironment* canvas_get_current_env(const t_canvas* c)
+{
+    static bool fix = is_pd048();
+
+    if(!c)
+        return nullptr;
+
+    if(!fix) {
+        return c->gl_env;
+    }
+    else {
+        auto x = reinterpret_cast<const pd048_glist*>(c);
+        return x->gl_env;
+    }
+}
 
 AtomList ceammc::canvas_info_paths(const t_canvas* c)
 {
     AtomList res;
 
-    if (!c || !c->gl_env)
+    if (!canvas_get_current_env(c))
         return res;
 
     t_canvasenvironment* e = canvas_getenv(const_cast<t_canvas*>(c));
@@ -59,7 +136,7 @@ t_symbol* ceammc::canvas_info_name(const t_canvas* c)
 t_symbol* ceammc::canvas_info_dir(const t_canvas* c)
 {
     auto cnv = canvas_root(c);
-    if (!cnv || !cnv->gl_env)
+    if (!canvas_get_current_env(c))
         return &s_;
 
     return canvas_getdir(const_cast<t_canvas*>(cnv));
@@ -168,16 +245,22 @@ AtomList ceammc::canvas_info_args(const _glist* c)
     if (!c)
         return res;
 
-    t_binbuf* b = c->gl_obj.te_binbuf;
-    if (b) {
-        int argc = binbuf_getnatom(b);
-        t_atom* argv = binbuf_getvec(b);
+    t_canvasenvironment* env = canvas_get_current_env(c);
 
-        for (int i = 1; i < argc; i++)
-            res.append(Atom(argv[i]));
+    if (!env) {
+        t_binbuf* b = c->gl_obj.te_binbuf;
+        if (b) {
+            int argc = binbuf_getnatom(b);
+            t_atom* argv = binbuf_getvec(b);
+
+            for (int i = 1; i < argc; i++)
+                res.append(Atom(argv[i]));
+        }
+
+        return res;
     }
 
-    return res;
+    return AtomList(env->ce_argc, env->ce_argv);
 }
 
 const _glist* ceammc::canvas_root(const _glist* c)

@@ -987,6 +987,45 @@ bool DataTypeEnv::interpolated(const DataTypeEnv& env0, const DataTypeEnv& env1,
     return true;
 }
 
+bool DataTypeEnv::isAR(bool checkVal) const
+{
+    if (points_.size() != 3)
+        return false;
+
+    if (!(points_[0].type == CURVE_LINE
+            && points_[1].type == CURVE_LINE))
+        return false;
+
+    if (checkVal) {
+        if (points_[0].value != 0
+            || points_[1].value != 1
+            || points_[2].value != 0)
+            return false;
+    }
+
+    return true;
+}
+
+bool DataTypeEnv::isADSR(bool checkVal) const
+{
+    if (points_.size() != 4)
+        return false;
+
+    if (!(points_[0].type == CURVE_LINE
+            && points_[1].type == CURVE_LINE
+            && points_[2].type == CURVE_LINE))
+        return false;
+
+    if (checkVal) {
+        if (points_[0].value != 0
+            || points_[1].value != 1
+            || points_[3].value != 0)
+            return false;
+    }
+
+    return true;
+}
+
 bool operator==(const EnvelopePoint& p0, const EnvelopePoint& p1)
 {
     return p0.utime == p1.utime

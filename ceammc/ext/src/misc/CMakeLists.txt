@@ -1,12 +1,9 @@
-set(MISC_SOURCES "")
-set(MISC_LIBRARIES "")
-
-macro(ceammc_misc_extension mod name)
+macro(ceammc_misc_external mod name)
     list(APPEND MISC_SOURCES "${mod}_${name}.cpp")
-    ceammc_faust_gen(${mod} ${name})
+    ceammc_faust_gen_obj(${mod} ${name})
 endmacro()
 
-ceammc_misc_extension(live capture)
+ceammc_misc_external(live capture)
 
 find_package(ModPlug)
 if(MODPLUG_FOUND)

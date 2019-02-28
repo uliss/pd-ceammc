@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="tl.toggle">
+        <title>tl.toggle</title>
+        <meta>
+            <authors>
+                <author>Alex Nadzharov</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Timeline bang</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>tl</category>
+            <keywords>timeline toggle</keywords>
+            <since>0.7</since>
+            <also>
+                <see>tl.bang</see>
+                <see view="link">tl.cue</see>
+            </also>
+        </meta>
+        <info>
+            <par>Output 1 when cue section activated, 0 when switched to other cue section</par>
+        </info>
+        <properties>
+            <property name="@cue" type="symbol" readonly="true">related cue</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>control inlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>1 on cue enter, 0 on cue out</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+              [tl.cue]           [tl.cue]
+
+[HR number=3]    [tl.toggle]              [tl.toggle]
+|                |                        |
+[cue $1(         [T]                      [T]
+|
+[tl.transport]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

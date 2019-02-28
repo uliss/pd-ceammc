@@ -1,11 +1,24 @@
 #include "lfo_tri.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_NEW
+using namespace ceammc;
+
+class LfoTri : public faust_lfo_tri_tilde {
+public:
+    LfoTri(const PdArgs& args)
+        : faust_lfo_tri_tilde(args)
+    {
+        createInlet();
+        setInitSignalValue(positionalFloatArgument(0, 0));
+    }
+
+    void onInlet(size_t n, const AtomList&) override
+    {
+        dsp_->instanceClear();
+    }
+};
+
+void setup_lfo_tri_tilde()
 {
-    FAUST_EXT* x = reinterpret_cast<FAUST_EXT*>(pd_new(FAUST_EXT_CLASS));
-    PdArgParser p(x, argc, argv, false);
-    p.signalFloatArg("freq", 1);
-    return p.pd_obj();
+    SoundExternalFactory<LfoTri> obj("lfo.tri~");
 }
-
-EXTERNAL_SETUP(lfo);

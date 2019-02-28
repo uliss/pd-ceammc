@@ -1,4 +1,9 @@
 #include "synth_risset_tone.h"
+#include "ceammc_factory.h"
 
-EXTERNAL_SIMPLE_NEW();
-EXTERNAL_SETUP_NO_IN(synth);
+using namespace ceammc;
+
+void setup_synth_risset_tone_tilde()
+{
+    SoundExternalFactory<faust_synth_risset_tone_tilde> obj("synth.risset_tone~", OBJECT_FACTORY_DEFAULT);
+}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.median">
+        <title>flt.median~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Median control flow filter</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter median</keywords>
+            <since>0.7</since>
+        </meta>
+        <info>
+            <par>The main idea of the median filter is to run through the signal entry by entry,
+            replacing each entry with the median of neighboring entries.</par>
+            <par>If window size is even: mean between center elements outputed</par>
+        </info>
+        <properties>
+            <property name="@size" type="int" minvalue="1" maxvalue="128" default="9"
+            units="sample">filter windows size</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input control signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>filtered control stream</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[metro 50]
+|
+[random.float 0 1]  [F]
+|                   |
+[ui.hsl]            [@size $1(
+|                   |
+[flt.median         ]
+|
+[ui.hsl]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

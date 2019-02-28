@@ -1,5 +1,146 @@
 # CEAMMC external library changelog
 
+## [0.7]
+### Added:
+- array.window added
+- tl.timeline added
+- msg.onload added
+- net.host->ip added
+- system.shell added
+- osc.saw4~ added (Faust os.saw4~)
+- osc.sin~ added for library completeness
+- lfo.+tri~ added
+- lfo.+square~ added
+- lfo.+pulse~ added
+- lfo.+saw~ added
+- lfo.saw~ added
+- pan.linsig~ added
+- osc.saw~ algo changed to Faust os.sawtooth
+- osc.tri~ added inlet for phase reset
+- osc.saw~ added inlet for phase reset
+- osc.square~ added inlet for phase reset
+- osc.pulse~ added inlet for phase reset
+- osc.impulse~ added inlet for phase reset
+- fx.flanger~ @drywet property added
+- fx.greyhole~ @drywet property added
+- fx.sdelay~ clear and reset messages added
+- fx.greyhole~ reset message added
+- fx.echo~ reset message added
+- fx.zita_rev1~ reset message added
+- fx.zita_rev1~ arguments mapped to @decay_low, @decay_mid
+- fx.chorus~ added
+- fx.bitdown~ added
+- fx.vocoder~ added
+- prop.declare added
+- prop added
+- patch.props added
+- ui.gain2~ added (stereo gain)
+- msg.after added (send delayed message after passed input message)
+- math.cmul~ added (multiplication of complex signals)
+- math.cdiv~ added (division of complex signals)
+- dict.each added for mapping all dict values
+- is_dict predicate object added
+- dict.pass added for passing only specified keys
+- dict.reject added for rejecting specified keys
+- dict.from_list added (with list->dict alias)
+- dict.to_list added (with dict->list alias)
+- conv.list2props (with aliases: list->props, any->props) added
+- live.capture~ @gate property added, reset method added
+- l->l alias added for lin->lin
+- soundtouch~ pitch argument added
+- flt.eq10~ graphic 10-band (1 octave) equalizer added
+- flt.median added
+- numeric external added with bunch of objects:
+  - rational, for working with rational numbers:
+    - rational.!=
+    - rational.==
+    - rational.abs
+    - rational.add
+    - rational.div
+    - rational.from_float
+    - rational.ge
+    - rational.gt
+    - rational.le
+    - rational.lt
+    - rational.mul
+    - rational.new
+    - rational.pow
+    - rational.reciprocal
+    - rational.sub
+    - rational.to_float
+    - rational.to_list
+    - rational.unpack
+  - complex, for working with complex numbers:
+    - complex.!=
+    - complex.==
+    - complex.abs
+    - complex.add
+    - complex.arg
+    - complex.conj
+    - complex.cos
+    - complex.div
+    - complex.exp
+    - complex.imag
+    - complex.log
+    - complex.log10
+    - complex.mul
+    - complex.new
+    - complex.norm
+    - complex.polar
+    - complex.pow
+    - complex.real
+    - complex.sin
+    - complex.sqrt
+    - complex.sub
+    - complex.tan
+    - complex.to_list
+    - complex.unpack
+- matrix external added, for working with matrices: matrix.!=,
+    matrix.<, matrix.<=, matrix.==, matrix.>, matrix.>=,
+    matrix.abs, matrix.accu, matrix.acos, matrix.acosh, matrix.add,
+    matrix.all, matrix.all_col, matrix.all_row, matrix.any, matrix.any_col,
+    matrix.any_row, matrix.asin, matrix.asinh, matrix.at, matrix.atan,
+    matrix.atanh, matrix.clip, matrix.col, matrix.col_at, matrix.conv2, matrix.cos,
+    matrix.cosh, matrix.det, matrix.diag, matrix.div, matrix.exp, matrix.exp10,
+    matrix.exp2, matrix.fill, matrix.from_list, matrix.full, matrix.hist,
+    matrix.identity, matrix.insert_col, matrix.insert_row, matrix.inverse,
+    matrix.linspace, matrix.load, matrix.logspace, matrix.matmul, matrix.matrix,
+    matrix.max, matrix.mean, matrix.mean_col, matrix.mean_row, matrix.median,
+    matrix.median_col, matrix.median_row, matrix.min, matrix.mul, matrix.ncols,
+    matrix.new, matrix.nrows, matrix.ones, matrix.ones_like, matrix.randn,
+    matrix.randu, matrix.range, matrix.range_col, matrix.range_row, matrix.rank,
+    matrix.remove_col, matrix.remove_row, matrix.replace, matrix.reshape,
+    matrix.resize, matrix.row, matrix.row_at, matrix.save, matrix.shift_col,
+    matrix.shift_row, matrix.sign, matrix.sin, matrix.sinh, matrix.size, matrix.solve,
+    matrix.stddev, matrix.stddev_col, matrix.stddev_row, matrix.sub, matrix.swap_cols,
+    matrix.swap_rows, matrix.tan, matrix.tanh, matrix.to_list, matrix.transpose,
+    matrix.trunc_exp, matrix.vectorise, matrix.zeros, matrix.zeros_like
+
+
+### Changed:
+- data type generation support for list.gen and list.each
+- flow.demultiplex - second inlet added and @noprops flag added
+- ui.matrix @current_col and @current_row are made unsaved properties
+- \[ceammc\] object prints all library objects to Pd window
+- you can request several properties in one message, line [@prop1? @prop2?(,
+    the output is: [@prop1 values... @prop2 values...]
+- lfo.tri~ now is zero-mean in \[-1, 1\] range
+- lfo.square~ now is zero-mean in \[-1, 1\] range
+- lfo.pulse~ now is in \[-1, 1\] range
+- env.ar~ now supports Envelope data type, run on bang, bang on done added
+- fx.echo~ @time property renamed to @delay
+- live.capture~ record message only starts record process, use stop to stop it
+- fx.freeverb~ @roomsize renamed to @room
+- fx.freeverb2~ @roomsize renamed to @room
+- fx.echo~ @time property renamed to @delay
+- flt.moog_vcf~ signal inlet used for center frequency
+- ui.gain~ range cnahges from [-90,30] till [-12,12] now
+
+### Removed:
+- fx.greyhole~ 3rd information outlet removed
+- vector.* objects removed, use matrix externals
+
+
 ## [0.6]
 ### Added:
 - env.asr~ envelope generator added

@@ -22,11 +22,42 @@
             <par>Values &gt; -3db are red, range [-12, -3) db is hot, [-21, -12) db is warm, [-30,
             -21) is tepid, values &lt; 30 are cold.</par>
         </info>
+        <methods>
+            <!-- common-->
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
+        </methods>
         <properties>
-            <property name="@interval" type="float" units="millisecond" minvalue="20" default="50">
+            <property name="@interval" type="int" units="millisecond" minvalue="20" default="50">
             refresh interval</property>
+            <!-- common -->
             <property name="@send" type="symbol">send destination</property>
-            <property name="@receive" type="symbol">receive source (only control)</property>
+            <property name="@receive" type="symbol">receive source</property>
+            <property name="@size" type="list">element size (width, height pair)</property>
+            <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
+            to the lowest level</property>
+            <property name="@cold_color" type="list">extra low-level signal color &lt;-31db (list
+            of red, green, blue values in 0-1 range)</property>
+            <property name="@tepid_color" type="list">low-level signal color &lt;-21db (list of
+            red, green, blue values in 0-1 range)</property>
+            <property name="@warm_color" type="list">normal level signal color &lt;-9db (list of
+            red, green, blue values in 0-1 range)</property>
+            <property name="@hot_color" type="list">loud level signal color &lt;-3db (list of red,
+            green, blue values in 0-1 range)</property>
+            <property name="@over_color" type="list">extra-loud level signal color &gt;-3db (list
+            of red, green, blue values in 0-1 range)</property>
+            <property name="@background_color" type="list">element background color (list of red,
+            green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list">border color (list of red, green, blue
+            values in 0-1 range)</property>
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
+            fontsize</property>
+            <property name="@fontname" type="symbol">fontname</property>
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
+            slant</property>
         </properties>
         <inlets>
             <inlet type="audio">

@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 270 50 cnv 1 425 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 270 50 replace from one substring to another in input string;
-#X obj 1 1 cnv 5 712 40 empty empty string.replace 20 20 0 20 -104026
+#X obj 340 50 cnv 1 425 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 340 50 replace from one substring to another in input string;
+#X obj 1 1 cnv 5 765 40 empty empty string.replace 20 20 0 20 -104026
 -4096 0;
-#X obj 481 11 str.replace;
-#X obj 586 11 string.replace;
+#X obj 534 11 str.replace;
+#X obj 639 11 string.replace;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 string A_B_C_D_E;
@@ -13,7 +13,7 @@
 #X obj 50 205 str->sym;
 #X obj 50 234 msg set;
 #X msg 50 262 ;
-#X obj 20 301 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 306 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 311 1\.;
@@ -24,7 +24,7 @@
 #X text 150 329 symbol;
 #X obj 241 330 cnv 1 25 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 329 TO: substring to replace.;
-#X obj 20 357 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 357 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 362 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 367 @from;
@@ -43,7 +43,7 @@ input string;
 #X msg 120 522 @last;
 #X text 240 522 alias to @mode last - replace last occurence in input
 string;
-#X obj 20 569 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 569 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 574 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 579 1\.;
@@ -52,7 +52,7 @@ string;
 #X text 240 597 from.;
 #X text 120 615 3\.;
 #X text 240 615 to.;
-#X obj 20 643 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 643 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 648 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 653 1\.;
@@ -62,16 +62,16 @@ string;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title string @url ceammc.string-help.pd;
-#X obj 1 701 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 704 library: ceammc v0.6;
-#X text 542 716 see also:;
-#X obj 618 716 str.remove;
+#X obj 1 701 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 704 library: ceammc v0.7;
+#X text 612 716 see also:;
+#X obj 688 716 str.remove;
 #N canvas 10 723 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 string.replace;
 #X text 10 76 category:;

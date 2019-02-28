@@ -1,10 +1,12 @@
-declare name        "GreyholeRaw";
+declare name        "fx.greyhole";
 declare version     "1.0";
 declare author      "Julian Parker, bug fixes by Till Bovermann";
 declare license     "GPL2+";
 declare copyright   "(c) Julian Parker 2013";
 
 import("stdfaust.lib");
+ui = library("ceammc_ui.lib");
+cm = library("ceammc.lib");
 
 fb = hslider("feedback",0.9,0.0,1.0,0.01):linear_interp;
 depth = ((ma.SR/44100)*50*hslider("moddepth",0.1,0.0,1.0,0.001)):linear_interp;
@@ -69,8 +71,11 @@ diffuser_nested(1,angle,g,scale) = si.bus(2) <: ( (si.bus(2)	:par(i,2,*(c_norm))
             s_norm = sin(g);
         };
 
-        // blackhole =
-        process = 	( si.bus(4) :> seq(i,3,diffuser_nested(4,ma.PI/2,(-1^i)*diff,10+19*i) ):par(i,2,si.smooth(damp)) )
+// blackhole =
+effect = _,_ : 	( si.bus(4) :> seq(i,3,diffuser_nested(4,ma.PI/2,(-1^i)*diff,10+19*i) ):par(i,2,si.smooth(damp)) )
                      ~( (de.fdelay4(512, 10+depth + depth*os.oscrc(freq)),de.fdelay4(512, 10+ depth + depth*os.oscrs(freq)) ) :
                         (de.sdelay(65536,44100/2,floor(dt)),de.sdelay(65536,44100/2,floor(dt))) :
-                        par(i,2,*(fb)) );
+                        par(i,2,*(fb)) ) : _,_;
+
+
+process = _,_ : cm.fx_wrap2(ui.bypass, ui.drywet(1), effect) : _,_;

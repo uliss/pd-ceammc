@@ -55,7 +55,7 @@ ListApprox::ListApprox()
 {
 }
 
-ListApprox::ListApprox(std::initializer_list<t_float> l)
+ListApprox::ListApprox(std::initializer_list<float> l)
     : lst_(l)
 {
 }
@@ -65,4 +65,33 @@ std::string ListApprox::toString() const
     std::ostringstream oss;
     oss << "ListApprox( " << lst_ << " )";
     return oss.str();
+}
+
+AtomListApprox::AtomListApprox(const AtomList& lst)
+    : AtomList(lst)
+{
+}
+
+bool operator==(const AtomListApprox& la, const AtomList& al)
+{
+    if (la.size() != al.size())
+        return false;
+
+    for (size_t i = 0; i < la.size(); i++) {
+        auto& a0 = la[i];
+        auto& a1 = al[i];
+
+        if (a0.isSymbol() && a0 != a1)
+            return false;
+
+        if (a0.asFloat() != Approx(a1.asFloat()))
+            return false;
+    }
+
+    return true;
+}
+
+bool operator==(const AtomList& al, const AtomListApprox& la)
+{
+    return operator==(la, al);
 }

@@ -14,8 +14,9 @@
 #include "../spat/pan_spread.h"
 #include "ceammc_pd.h"
 #include "test_sound.h"
+#include "test_external.h"
 
-#include "catch.hpp"
+PD_COMPLETE_SND_TEST_SETUP(PanSpread, pan, spread)
 
 typedef TestSoundExternal<PanSpread> PanSpreadTest;
 
@@ -23,7 +24,7 @@ using namespace ceammc;
 
 TEST_CASE("pan.spread~", "[externals]")
 {
-    setTestSampleRate(48000);
+    pd_test_init();
 
     SECTION("init")
     {

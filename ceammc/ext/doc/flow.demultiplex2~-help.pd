@@ -1,12 +1,12 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 427 50 cnv 1 268 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 427 50 audio stream stereo demultiplexer;
-#X obj 1 1 cnv 5 712 40 empty empty flow.demultiplex2~ 20 20 0 20
+#X obj 497 50 cnv 1 268 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 497 50 audio stream stereo demultiplexer;
+#X obj 1 1 cnv 5 765 40 empty empty flow.demultiplex2~ 20 20 0 20
 -104026 -4096 0;
-#X obj 367 11 flow.demux2~;
-#X obj 479 11 demux2~;
-#X obj 556 11 flow.demultiplex2~;
+#X obj 420 11 flow.demux2~;
+#X obj 532 11 demux2~;
+#X obj 609 11 flow.demultiplex2~;
 #X obj 50 118 sig~ 1;
 #X obj 242 118 ui.radio @nitems 2 @size 127 15;
 #X obj 443 118 ui.dsp~;
@@ -23,19 +23,19 @@
 #X floatatom 136 334 5 0 0 0 - - -;
 #X floatatom 232 334 5 0 0 0 - - -;
 #X floatatom 328 334 5 0 0 0 - - -;
-#X obj 20 373 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 373 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 378 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 383 1\.;
 #X text 150 383 int;
 #X obj 241 384 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 383 N: number of output stereo-pairs. Range: 2\...8;
-#X obj 20 411 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 416 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 421 @value;
 #X text 240 421 Get/Set gain coefficients per each output. Type: list;
-#X obj 20 458 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 458 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 463 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 468 1\.;
@@ -44,7 +44,7 @@
 #X text 240 486 right input signal.;
 #X text 120 504 3\.;
 #X text 240 504 demultiplexer control.;
-#X obj 20 532 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 532 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 537 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 542 1\.;
@@ -64,17 +64,17 @@
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
-#X obj 1 680 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 683 library: ceammc v0.6;
-#X text 359 695 see also:;
-#X obj 435 695 flow.demultiplex~;
-#X obj 574 695 flow.demultiplex;
+#X obj 1 680 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 683 library: ceammc v0.7;
+#X text 429 695 see also:;
+#X obj 505 695 flow.demultiplex~;
+#X obj 644 695 flow.demultiplex;
 #N canvas 10 702 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 flow.demultiplex2~;
 #X text 10 76 category:;

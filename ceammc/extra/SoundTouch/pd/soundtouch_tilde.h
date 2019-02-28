@@ -13,7 +13,9 @@ class SoundTouchExt : public SoundExternal {
 
 public:
     SoundTouchExt(const PdArgs& a);
-    void processBlock(const t_sample** in, t_sample** out);
+    void processBlock(const t_sample** in, t_sample** out) override;
+
+    void onInlet(size_t, const AtomList&) override;
 
     /**
      * Enable/disable anti-alias filter in pitch transposer (0 = disable)

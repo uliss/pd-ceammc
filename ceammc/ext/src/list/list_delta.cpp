@@ -4,52 +4,47 @@
 
 using namespace ceammc;
 
+static t_symbol* SYM_MIN = gensym("min");
+static t_symbol* SYM_PADZ = gensym("padz");
+static t_symbol* SYM_CLIP = gensym("clip");
+static t_symbol* SYM_WRAP = gensym("wrap");
+static t_symbol* SYM_FOLD = gensym("fold");
+
 class ListDelta : public BaseObject {
     AtomList prev_list_;
     AtomList delta_list_;
     SymbolEnumProperty* wrap_method_;
-    t_symbol* gmin_;
-    t_symbol* gpadz_;
-    t_symbol* gclip_;
-    t_symbol* gwrap_;
-    t_symbol* gfold_;
 
 public:
     ListDelta(const PdArgs& a)
         : BaseObject(a)
     {
         createOutlet();
-        wrap_method_ = new SymbolEnumProperty("@oversize", "padz");
-        wrap_method_->appendEnum("min");
-        wrap_method_->appendEnum("clip");
-        wrap_method_->appendEnum("fold");
-        wrap_method_->appendEnum("wrap");
+        wrap_method_ = new SymbolEnumProperty("@oversize", SYM_PADZ);
+        wrap_method_->appendEnum(SYM_MIN);
+        wrap_method_->appendEnum(SYM_CLIP);
+        wrap_method_->appendEnum(SYM_FOLD);
+        wrap_method_->appendEnum(SYM_WRAP);
         createProperty(wrap_method_);
 
-        gmin_ = gensym("min");
-        gpadz_ = gensym("padz");
-        gclip_ = gensym("clip");
-        gwrap_ = gensym("wrap");
-        gfold_ = gensym("fold");
-
-        createProperty(new SymbolEnumAlias("@min", wrap_method_, gmin_));
-        createProperty(new SymbolEnumAlias("@padz", wrap_method_, gpadz_));
-        createProperty(new SymbolEnumAlias("@clip", wrap_method_, gclip_));
-        createProperty(new SymbolEnumAlias("@wrap", wrap_method_, gwrap_));
-        createProperty(new SymbolEnumAlias("@fold", wrap_method_, gfold_));
+        createProperty(new SymbolEnumAlias("@min", wrap_method_, SYM_MIN));
+        createProperty(new SymbolEnumAlias("@padz", wrap_method_, SYM_PADZ));
+        createProperty(new SymbolEnumAlias("@clip", wrap_method_, SYM_CLIP));
+        createProperty(new SymbolEnumAlias("@wrap", wrap_method_, SYM_WRAP));
+        createProperty(new SymbolEnumAlias("@fold", wrap_method_, SYM_FOLD));
     }
 
     AtomList::NonEqualLengthBehaivor symbolToWrap(t_symbol* s)
     {
-        if (s == gmin_)
+        if (s == SYM_MIN)
             return AtomList::MINSIZE;
-        else if (s == gpadz_)
+        else if (s == SYM_PADZ)
             return AtomList::PADZERO;
-        else if (s == gclip_)
+        else if (s == SYM_CLIP)
             return AtomList::CLIP;
-        else if (s == gwrap_)
+        else if (s == SYM_WRAP)
             return AtomList::WRAP;
-        else if (s == gfold_)
+        else if (s == SYM_FOLD)
             return AtomList::FOLD;
         else
             return AtomList::MINSIZE;

@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_set.h"
-#include "../data/datatype_mlist.h"
+#include "datatype_mlist.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 

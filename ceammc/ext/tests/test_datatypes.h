@@ -35,6 +35,8 @@ public:
     ceammc::DataType type() const;
     IntData* clone() const;
 
+    static void init();
+
 public:
     static ceammc::DataType dataType;
     static int constructor_called;

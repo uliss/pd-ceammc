@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="rational.sub">
+        <title>rational.sub</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>substruct rational numbers</description>
+            <license>GPL3</license>
+            <library>numeric</library>
+            <category>rational</category>
+            <keywords>arithmetic math</keywords>
+            <version>0.1</version>
+            <since>0.1</since>
+            <aliases>
+                <alias>rational.-</alias>
+            </aliases>
+            <also>
+                <see>rational.add</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="list" name="C">rational number to substract (Rational NUM DEN) or integer to substract</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Rational data constructor: NUM DEN</xinfo>
+                <xinfo on="data">Rational data</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">rational number to substract: NUM DEN</xinfo>
+                <xinfo on="data">rational number to substract</xinfo>
+                <xinfo on="int">integer to substract</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output substraction result (Rational)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib numeric]
+
+
+[B]                [B]
+|                  |
+[rational.new 2 4] [rational.new 3 6]
+|                  |.
+[rational.sub  1    ]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

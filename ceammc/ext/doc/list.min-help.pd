@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 405 50 cnv 1 290 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 405 50 returns smallest element in the list;
-#X obj 1 1 cnv 5 712 40 empty empty list.min 20 20 0 20 -104026 -4096
+#X obj 475 50 cnv 1 290 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 475 50 returns smallest element in the list;
+#X obj 1 1 cnv 5 765 40 empty empty list.min 20 20 0 20 -104026 -4096
 0;
-#X obj 630 11 list.min;
-#X obj 205 80 cnv 1 490 84 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 683 11 list.min;
+#X obj 205 80 cnv 1 560 84 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 By default returns smallest float in list \, this equal
 to using @float property.;
 #X text 210 117 Also you can choose smallest symbol from list by using
@@ -24,30 +24,20 @@ to using @float property.;
 #X obj 50 336 list.min @any;
 #X obj 50 365 msg set;
 #X msg 50 394 ;
-#X obj 20 433 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 438 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 433 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 438 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X text 120 443 1\.;
-#X text 150 443 property;
-#X obj 241 444 cnv 1 49 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 443 @type: type of smallest element. Possible values are:
-float (default) \, symbol \, any.;
-#X text 120 475 2\.;
-#X text 150 475 property;
-#X obj 241 476 cnv 1 57 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 475 @float: alias for @type float. Find min float element
-in list.;
-#X text 120 507 3\.;
-#X text 150 507 property;
-#X obj 241 508 cnv 1 65 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 507 @symbol: alias for @type symbol. Find smallest symbol
-element.;
-#X text 120 539 4\.;
-#X text 150 539 property;
-#X obj 241 540 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 539 @any: alias for @type any. Find smallest atom of any
-type. Note: numbers are smaller then symbols.;
-#X obj 20 581 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X msg 120 443 @type;
+#X text 240 443 Get/Set type of largest element. Type: symbol. Default
+value: float. Allowed values: float \, symbol \, any;
+#X msg 120 480 @float;
+#X text 240 480 alias for @type float. Find max float element in list;
+#X msg 120 507 @symbol;
+#X text 240 507 alias for @type symbol. Find greatest symbol element;
+#X msg 120 534 @any;
+#X text 240 534 alias for @type any. Find greatest atom of any type.
+Note: symbols are greater then numbers;
+#X obj 20 581 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 586 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 591 1\.;
@@ -59,7 +49,7 @@ type. Note: numbers are smaller then symbols.;
 #X text 240 627 passed thru in @float or @any mode.;
 #X text 150 645 *symbol*;
 #X text 240 645 passed thru in @symbol or @any mode.;
-#X obj 20 673 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 678 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 683 1\.;
@@ -69,17 +59,17 @@ type. Note: numbers are smaller then symbols.;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 731 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 734 library: ceammc v0.6;
-#X text 469 746 see also:;
-#X obj 545 746 list.max;
-#X obj 618 746 list.range;
+#X obj 1 731 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 734 library: ceammc v0.7;
+#X text 539 746 see also:;
+#X obj 615 746 list.max;
+#X obj 688 746 list.range;
 #N canvas 10 753 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 list.min;
 #X text 10 76 category:;

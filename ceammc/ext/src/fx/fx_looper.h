@@ -1,8 +1,12 @@
 #ifndef FX_LOOPER_H
 #define FX_LOOPER_H
 
+#include "ceammc_array.h"
 #include "ceammc_clock.h"
 #include "ceammc_sound_external.h"
+
+#include <array>
+#include <functional>
 
 using namespace ceammc;
 
@@ -20,13 +24,16 @@ enum FxLooperState {
     STATE_PLAY_XFADE_STOP,
     STATE_PLAY_XFADE_DUB,
     STATE_STOP,
-    STATE_STOP_XFADE_PLAY
+    STATE_STOP_XFADE_PLAY,
+    STATE_COUNT_
 };
 
 class XFadeProperty : public FloatProperty {
 protected:
     size_t length_;
     size_t phase_;
+    size_t sr_;
+    size_t bs_;
 
 public:
     XFadeProperty(const std::string& name, float ms = 0);
@@ -38,6 +45,7 @@ public:
     size_t samples() const { return length_; }
     void next() { phase_ += (phase_ < length_); }
     virtual t_float amp() const = 0;
+    bool set(const AtomList& lst) override;
 };
 
 class LinFadeoutProperty : public XFadeProperty {
@@ -56,7 +64,8 @@ class PowXFadeProperty : public XFadeProperty {
 public:
     PowXFadeProperty(const std::string& name, float ms = 0);
     t_float amp() const override;
-    virtual t_float amp2() const;
+    t_float fadeinAmp() const;
+    t_float fadeoutAmp() const;
 };
 
 class FxLooper : public SoundExternal {
@@ -67,17 +76,23 @@ class FxLooper : public SoundExternal {
     LinFadeoutProperty* x_play_to_stop_;
     LinFadeinProperty* x_stop_to_play_;
     PowXFadeProperty* x_rec_to_play_;
-    LinFadeoutProperty* x_rec_to_stop_;
-    LinFadeinProperty* x_rec_to_dub_;
     LinFadeinProperty* x_play_to_dub_;
     LinFadeoutProperty* x_dub_to_play_;
-    FloatPropertyMinEq* smooth_ms_;
+    LinFadeoutProperty* x_dub_to_stop_;
+    FloatPropertyMinEq* loop_smooth_ms_;
     size_t max_samples_;
     size_t loop_len_;
     size_t play_phase_;
     size_t rec_phase_;
     std::vector<t_sample> buffer_;
     ClockMemberFunction<FxLooper> clock_;
+    SymbolProperty* array_name_;
+    Array array_;
+
+    typedef std::function<bool()> TransitionFn;
+    typedef std::array<TransitionFn, STATE_COUNT_> StateTransition;
+    typedef std::array<StateTransition, STATE_COUNT_> StateTable;
+    StateTable state_table_;
 
 public:
     FxLooper(const PdArgs& args);
@@ -86,11 +101,11 @@ public:
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** sp) override;
 
-    void stateStop(t_sample** out);
-    void statePlay(t_sample** out);
-    void statePlayToStop(t_sample** out);
+    void statePlay(const t_sample** in, t_sample** out);
+    void statePlayToStop(const t_sample** in, t_sample** out);
     void statePlayToDub(const t_sample** in, t_sample** out);
-    void stateStopToPlay(t_sample** out);
+    void stateStop(t_sample** out);
+    void stateStopToPlay(const t_sample** in, t_sample** out);
     void stateRecord(const t_sample** in, t_sample** out);
     void stateRecordToPlay(const t_sample** in, t_sample** out);
     void stateRecordToStop(const t_sample** in, t_sample** out);
@@ -99,13 +114,14 @@ public:
     void stateDubToStop(const t_sample** in, t_sample** out);
     void stateDubToPlay(const t_sample** in, t_sample** out);
 
-    void m_record(t_symbol*, const AtomList& lst);
-    void m_stop(t_symbol*, const AtomList& lst);
-    void m_pause(t_symbol*, const AtomList& lst);
-    void m_play(t_symbol*, const AtomList& lst);
-    void m_overdub(t_symbol*, const AtomList& lst);
-    void m_clear(t_symbol*, const AtomList& lst);
+    void m_record(t_symbol*, const AtomList&);
+    void m_stop(t_symbol*, const AtomList&);
+    void m_pause(t_symbol*, const AtomList&);
+    void m_play(t_symbol*, const AtomList&);
+    void m_overdub(t_symbol*, const AtomList&);
+    void m_clear(t_symbol*, const AtomList&);
     void m_adjust(t_symbol*, const AtomList& lst);
+    void m_smooth(t_symbol*, const AtomList& lst);
 
     AtomList p_length() const;
     AtomList p_play_pos() const;
@@ -122,6 +138,136 @@ public:
 public:
     void loopCycleFinish();
     void clockTick();
+    void calcXFades();
+
+private:
+    template <typename Fn>
+    void processPlayLoop(const t_sample** in, t_sample** out, Fn fn)
+    {
+        assert(play_phase_ < max_samples_);
+
+        const bool USE_ARRAY = arraySpecified();
+
+        const size_t BS = blockSize();
+        const size_t LEFT = loop_len_ - play_phase_;
+
+        // enough samples until loop end
+        if (LEFT > BS) {
+            if (USE_ARRAY) {
+                if (array_.isValid() && array_.size() >= loop_len_) {
+                    for (size_t i = 0; i < BS; i++)
+                        fn(in[0][i], out[0][i], array_[play_phase_++]);
+                } else {
+                    stateStop(out);
+                }
+            } else {
+                for (size_t i = 0; i < BS; i++) {
+                    fn(in[0][i], out[0][i], buffer_[play_phase_++]);
+                }
+            }
+
+            // loop_len - play_phase >= bs
+            // loop_len >= play_phase + bs
+        } else {
+            // LEFT <= BS
+            // process till loop end
+            if (USE_ARRAY) {
+                if (array_.isValid() && array_.size() >= loop_len_) {
+                    for (size_t i = 0; i < LEFT; i++)
+                        fn(in[0][i], out[0][i], array_[play_phase_++]);
+                } else {
+                    stateStop(out);
+                }
+            } else {
+                for (size_t i = 0; i < LEFT; i++)
+                    fn(in[0][i], out[0][i], buffer_[play_phase_++]);
+            }
+
+            play_phase_ = 0;
+            loopCycleFinish();
+
+            // process from loop start
+            if (USE_ARRAY) {
+                if (array_.isValid() && array_.size() >= loop_len_) {
+                    for (size_t i = LEFT; i < BS; i++)
+                        fn(in[0][i], out[0][i], array_[play_phase_++]);
+                } else {
+                    stateStop(out);
+                }
+            } else {
+                for (size_t i = LEFT; i < BS; i++)
+                    fn(in[0][i], out[0][i], buffer_[play_phase_++]);
+            }
+        }
+    }
+
+    /**
+     * @return true when max_samples reached
+     */
+    template <typename Fn>
+    bool processRecLoop(const t_sample** in, t_sample** out, Fn fn)
+    {
+        assert(rec_phase_ < max_samples_);
+
+        const bool USE_ARRAY = arraySpecified();
+
+        const size_t BS = blockSize();
+        const size_t LEFT = max_samples_ - rec_phase_;
+
+        // enough samples until loop end
+        if (LEFT > BS) {
+            if (USE_ARRAY) {
+                if (array_.isValid() && array_.size() == max_samples_) {
+                    for (size_t i = 0; i < BS; i++)
+                        fn(in[0][i], out[0][i], array_[rec_phase_++]);
+                }
+            } else {
+                // manual loop unrolling
+                for (size_t i = 0; i < BS; i += 8) {
+                    fn(in[0][i + 0], out[0][i + 0], buffer_[rec_phase_++]);
+                    fn(in[0][i + 1], out[0][i + 1], buffer_[rec_phase_++]);
+                    fn(in[0][i + 2], out[0][i + 2], buffer_[rec_phase_++]);
+                    fn(in[0][i + 3], out[0][i + 3], buffer_[rec_phase_++]);
+                    fn(in[0][i + 4], out[0][i + 4], buffer_[rec_phase_++]);
+                    fn(in[0][i + 5], out[0][i + 5], buffer_[rec_phase_++]);
+                    fn(in[0][i + 6], out[0][i + 6], buffer_[rec_phase_++]);
+                    fn(in[0][i + 7], out[0][i + 7], buffer_[rec_phase_++]);
+                }
+            }
+
+            return false;
+
+            // max_samples_ - rec_phase_ >= bs
+            // max_samples_ >= rec_phase_ + bs
+        } else {
+            // LEFT < BS
+            // process till loop end
+            if (USE_ARRAY) {
+                if (array_.isValid() && array_.size() == max_samples_) {
+                    for (size_t i = 0; i < LEFT; i++)
+                        fn(in[0][i], out[0][i], array_[rec_phase_++]);
+                }
+            } else {
+                for (size_t i = 0; i < LEFT; i++)
+                    fn(in[0][i], out[0][i], buffer_[rec_phase_++]);
+            }
+
+            state_ = STATE_STOP;
+            loop_len_ = rec_phase_;
+            rec_phase_ = 0;
+            play_phase_ = 0;
+            return true;
+        }
+    }
+
+private:
+    void initTansitionTable();
+    void toState(FxLooperState st);
+    bool resizeBuffer();
+    void finishRecord();
+    bool arraySpecified() const;
+    void applyFades();
+    void doApplyFades(size_t N);
 };
 
 void setup_fx_looper();

@@ -1,0 +1,53 @@
+{
+	"name": "fx.bitdown",
+	"filename": "fx_bitdown",
+	"version": "2.8.5",
+	"compile_options": "cpp, -scal -ftz 0",
+	"library_list": ["/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/basics.lib","/Users/serj/work/music/pd-exp/pure-data/ceammc/faust/ceammc_ui.lib"],
+	"include_pathnames": ["/Users/serj/work/music/pd-exp/pure-data/ceammc/faust","/usr/local/share/faust","/usr/share/faust"],
+	"inputs": "1",
+	"outputs": "1",
+	"meta": [ 
+		{ "author": "Viacheslav Lotsmanov (unclechu)" },
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/version": "0.0" },
+		{ "category": "Distortion" },
+		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
+		{ "ceammc_ui.lib/version": "0.1.1" },
+		{ "copyright": "(c) Viacheslav Lotsmanov, 2015" },
+		{ "filename": "fx_bitdown" },
+		{ "license": "BSD" },
+		{ "name": "fx.bitdown" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "fx.bitdown",
+			"items": [ 
+				{
+					"type": "vslider",
+					"label": "bits",
+					"address": "/fx.bitdown/bits",
+					"init": "16",
+					"min": "1",
+					"max": "16",
+					"step": "0.1"
+				},
+				{
+					"type": "checkbox",
+					"label": "bypass",
+					"address": "/fx.bitdown/bypass"
+				},
+				{
+					"type": "vslider",
+					"label": "downsamp",
+					"address": "/fx.bitdown/downsamp",
+					"init": "1",
+					"min": "1",
+					"max": "200",
+					"step": "1"
+				}
+			]
+		}
+	]
+}

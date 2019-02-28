@@ -1,12 +1,12 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 293 50 cnv 1 402 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 293 50 convert frequency in BPM to period in milliseconds;
-#X obj 1 1 cnv 5 712 40 empty empty conv.bpm2ms 20 20 0 20 -104026
+#X obj 363 50 cnv 1 402 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 363 50 convert frequency in BPM to period in milliseconds;
+#X obj 1 1 cnv 5 765 40 empty empty conv.bpm2ms 20 20 0 20 -104026
 -4096 0;
-#X obj 533 11 bpm->ms;
-#X obj 608 11 conv.bpm2ms;
-#X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 586 11 bpm->ms;
+#X obj 661 11 conv.bpm2ms;
+#X obj 205 80 cnv 1 560 47 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Converts frequency from BPM (beats per minute) to
 period in ms. It is simple as (60 / f) * 1000 \, but more readable.;
 #X floatatom 126 155 5 0 0 0 - - -;
@@ -23,13 +23,13 @@ period in ms. It is simple as (60 / f) * 1000 \, but more readable.;
 #X obj 69 386 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 415 *~;
 #X obj 50 443 dac~;
-#X obj 20 482 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 487 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 492 1\.;
 #X text 150 492 *float*;
 #X text 240 492 frequency in BPM.;
-#X obj 20 520 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 520 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 525 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 530 1\.;
@@ -39,17 +39,17 @@ period in ms. It is simple as (60 / f) * 1000 \, but more readable.;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 578 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 581 library: ceammc v0.6;
-#X text 433 593 see also:;
-#X obj 509 593 conv.bpm2sec;
-#X obj 611 593 conv.bpm2hz;
+#X obj 1 578 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 581 library: ceammc v0.7;
+#X text 503 593 see also:;
+#X obj 579 593 conv.bpm2sec;
+#X obj 681 593 conv.bpm2hz;
 #N canvas 10 600 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 conv.bpm2ms;
 #X text 10 76 category:;

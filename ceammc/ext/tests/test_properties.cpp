@@ -49,9 +49,12 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(!p.readonly());
         REQUIRE(p.visible());
         REQUIRE(p.name() == "test");
-        p.setName("a");
-        REQUIRE(p.name() == "a");
         AtomList v = p.get();
+
+        REQUIRE(p.info().name() == "test");
+        REQUIRE(p.info().type() == PropertyInfoType::FLOAT);
+        REQUIRE(p.info().view() == PropertyInfoView::SLIDER);
+        REQUIRE(p.info().defaultFloat() == Approx(0.1));
 
         REQUIRE(v.size() == 1);
         REQUIRE(v[0].isFloat());
@@ -78,8 +81,11 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(!p.readonly());
         REQUIRE(p.value() == 120);
         REQUIRE(p.name() == "test");
-        p.setName("a");
-        REQUIRE(p.name() == "a");
+        REQUIRE(p.info().name() == "test");
+        REQUIRE(p.info().type() == PropertyInfoType::INTEGER);
+        REQUIRE(p.info().view() == PropertyInfoView::NUMBOX);
+        REQUIRE(p.info().defaultInt() == 120);
+
         AtomList v = p.get();
 
         REQUIRE(v.size() == 1);
@@ -100,17 +106,22 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
     SECTION("list property")
     {
-        ListProperty p("test", LF(-1.f, -2.f, -3.f), false);
+        ListProperty p("test", LF(-1, -2, -3), false);
         REQUIRE(!p.readonly());
         REQUIRE(p.name() == "test");
-        REQUIRE(p.get() == LF(-1.f, -2.f, -3.f));
+        REQUIRE(p.get() == LX(-1, -2, -3));
         REQUIRE(p.set(L()));
         REQUIRE(p.get() == L());
 
-        ListProperty p2("test2", LF(-1.f, -2.f, -3.f), true);
+        REQUIRE(p.info().name() == "test");
+        REQUIRE(p.info().type() == PropertyInfoType::LIST);
+        REQUIRE(p.info().view() == PropertyInfoView::ENTRY);
+        REQUIRE(p.info().defaultList() == LX(-1, -2, -3));
+
+        ListProperty p2("test2", LF(-1, -2, -3), true);
         REQUIRE(p2.readonly());
         REQUIRE(p2.name() == "test2");
-        REQUIRE(p2.get() == LF(-1.f, -2.f, -3.f));
+        REQUIRE(p2.get() == LX(-1, -2, -3));
         REQUIRE_FALSE(p2.set(L()));
         REQUIRE_FALSE(p2.get() == L());
     }
@@ -124,6 +135,11 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE_FALSE(p.set(AtomList::zeroes(0)));
         REQUIRE(p.set(AtomList::zeroes(10)));
         REQUIRE(p.get() == AtomList::zeroes(1));
+
+        REQUIRE(p.info().name() == "test");
+        REQUIRE(p.info().type() == PropertyInfoType::VARIANT);
+        REQUIRE(p.info().view() == PropertyInfoView::ENTRY);
+        REQUIRE(p.info().defaultAtom() == Atom(1.5f));
 
         AtomProperty p2("test2", Atom(1.5f), true);
         REQUIRE(p2.readonly());
@@ -139,6 +155,11 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p1.readonly() == true);
         REQUIRE(p1.get() == LF(100.f));
         REQUIRE_FALSE(p1.set(L()));
+
+        REQUIRE(p1.info().name() == "test");
+        REQUIRE(p1.info().type() == PropertyInfoType::LIST);
+        REQUIRE(p1.info().view() == PropertyInfoView::ENTRY);
+        REQUIRE(p1.info().defaultAtom().isNone());
 
         prop_rw r2;
         CallbackProperty<prop_rw> p2("test2", &r2, &prop_rw::get, &prop_rw::set);
@@ -157,6 +178,10 @@ TEST_CASE("Properties", "[ceammc::properties]")
         TypedCbProperty<size_t, AtomList> p1("@size", &v1, &AtomList::size);
         REQUIRE(p1.name() == "@size");
         REQUIRE(p1.readonly() == true);
+
+        REQUIRE(p1.info().name() == "@size");
+        REQUIRE(p1.info().type() == PropertyInfoType::LIST);
+        REQUIRE(p1.info().view() == PropertyInfoView::ENTRY);
 
         REQUIRE(p1.get() == LF(0.f));
         v1.append(1.f);
@@ -187,6 +212,11 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p.value() == false);
         REQUIRE(p.get() == AtomList::zeroes(1));
 
+        REQUIRE(p.info().name() == "test");
+        REQUIRE(p.info().type() == PropertyInfoType::BOOLEAN);
+        REQUIRE(p.info().view() == PropertyInfoView::TOGGLE);
+        REQUIRE(p.info().defaultBool() == true);
+
         REQUIRE_FALSE(p.set(listFrom(Atom(gensym("a")))));
         REQUIRE(p.set(listFrom(Atom(gensym("True")))));
         REQUIRE(p.value() == true);
@@ -202,7 +232,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
     SECTION("symbol enum property")
     {
-        SymbolEnumProperty p("test", "default");
+        SymbolEnumProperty p("test", gensym("default"));
         REQUIRE(!p.readonly());
         REQUIRE(p.name() == "test");
         REQUIRE(p.value() == gensym("default"));
@@ -211,9 +241,9 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
         REQUIRE(p.get() == listFrom(gensym("default")));
 
-        p.appendEnum("a");
-        p.appendEnum("a"); // check twice!
-        p.appendEnum("b");
+        p.appendEnum(gensym("a"));
+        p.appendEnum(gensym("a")); // check twice!
+        p.appendEnum(gensym("b"));
 
         REQUIRE(p.numEnums() == 3);
 
@@ -229,6 +259,13 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p.value() == gensym("a"));
         p.setValue(gensym("b"));
         REQUIRE(p.value() == gensym("b"));
+
+        REQUIRE(p.info().name() == "test");
+        REQUIRE(p.info().type() == PropertyInfoType::SYMBOL);
+        REQUIRE(p.info().view() == PropertyInfoView::MENU);
+        REQUIRE(p.info().defaultSymbol() == gensym("default"));
+        REQUIRE(p.info().enumValues() == LA("default", "a", "b"));
+        REQUIRE(p.info().hasEnumLimit());
     }
 
     SECTION("SizeT property")
@@ -237,9 +274,15 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(!p.readonly());
         REQUIRE(p.value() == 12);
         REQUIRE(p.name() == "test");
-        p.setName("a");
-        REQUIRE(p.name() == "a");
         AtomList v = p.get();
+
+        REQUIRE(p.info().name() == "test");
+        REQUIRE(p.info().type() == PropertyInfoType::INTEGER);
+        REQUIRE(p.info().view() == PropertyInfoView::NUMBOX);
+        REQUIRE(p.info().min() == 0);
+        REQUIRE(p.info().hasMinLimit());
+        REQUIRE(!p.info().hasMaxLimit());
+        REQUIRE(!p.info().hasEnumLimit());
 
         REQUIRE(v.size() == 1);
         REQUIRE(v[0].isFloat());
@@ -289,6 +332,14 @@ TEST_CASE("Properties", "[ceammc::properties]")
                     REQUIRE(IntPropertyMin("test", 2, 2).value() == 3);
                     REQUIRE(IntPropertyMin("test", 3, 2).value() == 3);
                 }
+
+                REQUIRE(p.info().name() == "test");
+                REQUIRE(p.info().type() == PropertyInfoType::INTEGER);
+                REQUIRE(p.info().view() == PropertyInfoView::NUMBOX);
+                REQUIRE(p.info().min() == 2);
+                REQUIRE(p.info().hasMinLimit());
+                REQUIRE(!p.info().hasMaxLimit());
+                REQUIRE(p.info().defaultInt() == 10);
             }
 
             SECTION("INT MIN EQ")
@@ -308,6 +359,14 @@ TEST_CASE("Properties", "[ceammc::properties]")
                     REQUIRE(IntPropertyMinEq("test", 2, 2).value() == 2);
                     REQUIRE(IntPropertyMinEq("test", 3, 2).value() == 3);
                 }
+
+                REQUIRE(p.info().name() == "test");
+                REQUIRE(p.info().type() == PropertyInfoType::INTEGER);
+                REQUIRE(p.info().view() == PropertyInfoView::NUMBOX);
+                REQUIRE(p.info().min() == 2);
+                REQUIRE(p.info().hasMinLimit());
+                REQUIRE(!p.info().hasMaxLimit());
+                REQUIRE(p.info().defaultInt() == 10);
             }
 
             SECTION("INT MAX")
@@ -327,6 +386,14 @@ TEST_CASE("Properties", "[ceammc::properties]")
                     REQUIRE(IntPropertyMax("test", 200, 200).value() == 199);
                     REQUIRE(IntPropertyMax("test", 201, 200).value() == 199);
                 }
+
+                REQUIRE(p.info().name() == "test");
+                REQUIRE(p.info().type() == PropertyInfoType::INTEGER);
+                REQUIRE(p.info().view() == PropertyInfoView::NUMBOX);
+                REQUIRE(p.info().max() == 200);
+                REQUIRE(!p.info().hasMinLimit());
+                REQUIRE(p.info().hasMaxLimit());
+                REQUIRE(p.info().defaultInt() == -10);
             }
 
             SECTION("INT MAX EQ")
@@ -348,6 +415,14 @@ TEST_CASE("Properties", "[ceammc::properties]")
                     REQUIRE(IntPropertyMaxEq("test", 200, 200).value() == 200);
                     REQUIRE(IntPropertyMaxEq("test", 201, 200).value() == 200);
                 }
+
+                REQUIRE(p.info().name() == "test");
+                REQUIRE(p.info().type() == PropertyInfoType::INTEGER);
+                REQUIRE(p.info().view() == PropertyInfoView::NUMBOX);
+                REQUIRE(p.info().max() == 200);
+                REQUIRE(!p.info().hasMinLimit());
+                REQUIRE(p.info().hasMaxLimit());
+                REQUIRE(p.info().defaultInt() == -10);
             }
 
             SECTION("INT OPEN RANGE")
@@ -379,6 +454,16 @@ TEST_CASE("Properties", "[ceammc::properties]")
                     IntPropertyOpenRange p4("test", 100, -100, 100);
                     REQUIRE(p4.value() == 0);
                 }
+
+                REQUIRE(p.info().name() == "test");
+                REQUIRE(p.info().type() == PropertyInfoType::INTEGER);
+                REQUIRE(p.info().view() == PropertyInfoView::NUMBOX);
+                REQUIRE(p.info().max() == 100);
+                REQUIRE(p.info().min() == -100);
+
+                REQUIRE(p.info().hasMinLimit());
+                REQUIRE(p.info().hasMaxLimit());
+                REQUIRE(p.info().defaultInt() == -10);
             }
 
             SECTION("INT CLOSED RANGE")
@@ -406,6 +491,10 @@ TEST_CASE("Properties", "[ceammc::properties]")
                     REQUIRE(IntPropertyClosedRange("test", 200, -100, 100).value() == 100);
                     REQUIRE(IntPropertyClosedRange("test", 20, 0, 100).value() == 20);
                 }
+
+                REQUIRE(p.info().hasMinLimit());
+                REQUIRE(p.info().hasMaxLimit());
+                REQUIRE(p.info().defaultInt() == -10);
             }
         }
     }
@@ -427,6 +516,10 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(ro.get() == LF(20));
         REQUIRE_FALSE(ro.set(LF(15)));
         REQUIRE(v == 20);
+
+        REQUIRE(!rw.info().hasMinLimit());
+        REQUIRE(!rw.info().hasMaxLimit());
+        REQUIRE(rw.info().defaultInt() == 10);
     }
 
     SECTION("flag property")
@@ -437,6 +530,10 @@ TEST_CASE("Properties", "[ceammc::properties]")
         fl.set(AtomList(0.f));
         REQUIRE(fl.value() == true);
         REQUIRE(fl.get() == LF(1));
+
+        REQUIRE(fl.info().type() == PropertyInfoType::BOOLEAN);
+        REQUIRE(fl.info().view() == PropertyInfoView::TOGGLE);
+        REQUIRE(fl.info().defaultBool() == false);
     }
 
     SECTION("symbol property")
@@ -463,6 +560,10 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p_ro.value() == gensym("RO"));
 
         REQUIRE_FALSE(p_ro.set(LA("RW")));
+
+        REQUIRE(p.info().type() == PropertyInfoType::SYMBOL);
+        REQUIRE(p.info().view() == PropertyInfoView::ENTRY);
+        REQUIRE(p.info().defaultSymbol() == gensym("test"));
     }
 
     SECTION("init property")
@@ -489,5 +590,9 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(InitBoolProperty(new BoolProperty("test", true)).value() == true);
         REQUIRE(InitBoolProperty(new BoolProperty("test", false)).value() == false);
         REQUIRE(InitSymbolProperty(new SymbolProperty("test", gensym("abc"))).value() == gensym("abc"));
+
+        REQUIRE(p.info().type() == PropertyInfoType::INTEGER);
+        REQUIRE(p.info().view() == PropertyInfoView::NUMBOX);
+        REQUIRE(p.info().defaultInt() == 20);
     }
 }

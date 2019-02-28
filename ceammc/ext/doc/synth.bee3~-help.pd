@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 364 50 cnv 1 331 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 364 50 Hammond-oid organ FM synthesis instrument;
-#X obj 1 1 cnv 5 712 40 empty empty synth.bee3~ 20 20 0 20 -104026
+#X obj 434 50 cnv 1 331 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 434 50 Hammond-oid organ FM synthesis instrument;
+#X obj 1 1 cnv 5 765 40 empty empty synth.bee3~ 20 20 0 20 -104026
 -4096 0;
-#X obj 607 11 synth.bee3~;
-#X obj 205 80 cnv 1 490 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 660 11 synth.bee3~;
+#X obj 205 80 cnv 1 560 47 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 This class implements a simple 4 operator topology \,
 also referred to as algorithm 8 of the TX81Z;
 #X obj 50 155 ui.keyboard @size 433 60;
@@ -20,7 +20,7 @@ also referred to as algorithm 8 of the TX81Z;
 #X obj 50 371 ui.gain~ @size 120 16;
 #X obj 290 371 ui.dsp~;
 #X obj 50 400 dac~;
-#X obj 20 439 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 439 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 444 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 449 @freq;
@@ -44,7 +44,7 @@ range: 0-127;
 #X msg 120 651 @adsr;
 #X text 240 651 Get/Set ADSR 2 & 4 Target. Type: float. Value range:
 0-127;
-#X obj 20 688 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 688 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 693 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 698 cc;
@@ -53,12 +53,12 @@ range: 0-127;
 #X text 250 726 CTL: control number. Type: int.;
 #X obj 250 754 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 250 754 VAL: value. Type: float.;
-#X obj 20 792 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 792 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 797 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
 #X text 120 802 1\.;
 #X text 240 802 control inlet.;
-#X obj 20 830 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 830 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 835 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 840 1\.;
@@ -68,14 +68,14 @@ range: 0-127;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 888 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 891 library: ceammc v0.6;
+#X obj 1 888 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 891 library: ceammc v0.7;
 #N canvas 10 910 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 synth.bee3~;
 #X text 10 76 category:;

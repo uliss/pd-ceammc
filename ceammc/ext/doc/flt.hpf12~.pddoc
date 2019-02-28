@@ -24,18 +24,15 @@
             higher than a certain cutoff frequency and attenuates signals with frequencies lower
             than the cutoff frequency.</par>
         </info>
-        <methods>
-            <method name="freq">
-                <param type="float" units="herz">cutoff frequency</param>
-            </method>
-        </methods>
         <arguments>
-            <argument name="freq" type="float" units="herz">cutoff frequency</argument>
-            <argument name="ID" type="symbol">object ID for OSC control</argument>
+            <argument name="freq" type="float" minvalue="20" maxvalue="20000" units="herz">cutoff
+            frequency</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" units="herz" default="10000">cutoff
-            frequency</property>
+            <property name="@freq" type="float" units="herz" minvalue="20" maxvalue="20000"
+            default="10000">cutoff frequency</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
         </properties>
         <inlets>
             <inlet type="audio">
@@ -44,7 +41,6 @@
         </inlets>
         <outlets>
             <outlet type="audio">filtered signal</outlet>
-            <outlet>information output</outlet>
         </outlets>
         <example>
             <pdascii>

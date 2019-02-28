@@ -1,11 +1,11 @@
-#N canvas 0 0 715 555 12;
+#N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 499 50 cnv 1 196 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 499 50 global named list object;
-#X obj 1 1 cnv 5 712 40 empty empty global.list 20 20 0 20 -104026
+#X obj 569 50 cnv 1 196 21 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 569 50 global named list object;
+#X obj 1 1 cnv 5 765 40 empty empty global.list 20 20 0 20 -104026
 -4096 0;
-#X obj 607 11 global.list;
-#X obj 205 80 cnv 1 490 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 660 11 global.list;
+#X obj 205 80 cnv 1 560 33 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Defines global scope list variable \, accessed by ID
 name.;
 #X msg 50 141 list a b c;
@@ -19,14 +19,14 @@ name.;
 #X obj 309 228 msg set;
 #X msg 50 257 ;
 #X msg 309 257 ;
-#X obj 20 296 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 301 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 120 306 1\.;
 #X text 150 306 symbol;
 #X obj 241 307 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 240 306 ID: object ID.;
-#X obj 20 334 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 339 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 344 @empty;
@@ -35,7 +35,7 @@ Type: int. Allowed values: 0 \, 1;
 #X msg 120 381 @size;
 #X text 240 381 (readonly) Get number of elements in list. Type: int.
 Min value: 0;
-#X obj 20 428 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 433 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 120 438 append;
@@ -60,7 +60,7 @@ are:;
 #X msg 120 690 reverse;
 #X text 240 690 reverses list.;
 #X msg 120 722 shuffle;
-#X text 240 722 put elemtns in random order.;
+#X text 240 722 put elements in random order.;
 #X msg 120 754 sort;
 #X text 240 754 sorts list.;
 #X msg 120 786 clear;
@@ -77,7 +77,7 @@ are:;
 #X text 250 934 LIST: new list content. Type: list.;
 #X msg 120 962 dump;
 #X text 240 962 dump object info to Pd window.;
-#X obj 20 1004 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1004 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1009 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1014 1\.;
@@ -90,7 +90,7 @@ indexes are supported.;
 #X text 240 1064 set new list content and output.;
 #X text 150 1082 *data:mlist*;
 #X text 240 1082 same as list.;
-#X obj 20 1110 cnv 1 685 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1110 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1115 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 120 1120 1\.;
@@ -100,17 +100,17 @@ indexes are supported.;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title global @url ceammc.global-help.pd;
-#X obj 1 1168 cnv 5 712 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1171 library: ceammc v0.6;
-#X text 440 1183 see also:;
-#X obj 516 1183 global.float;
-#X obj 618 1183 global.int;
+#X obj 1 1168 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1171 library: ceammc v0.7;
+#X text 510 1183 see also:;
+#X obj 586 1183 global.float;
+#X obj 688 1183 global.int;
 #N canvas 10 1190 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.6;
+#X text 120 32 0.7;
 #X text 10 54 object:;
 #X text 120 54 global.list;
 #X text 10 76 category:;

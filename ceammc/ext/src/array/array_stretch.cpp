@@ -9,6 +9,7 @@ static t_symbol* PROP_SEEK_WINDOW = gensym("@seekwindow");
 static t_symbol* PROP_OVERLAP = gensym("@overlap");
 static t_symbol* PROP_ANTIALIAS = gensym("@antialias");
 static t_symbol* PROP_ANTIALIAS_LENGTH = gensym("@aalength");
+static t_symbol* PROP_SPEECH = gensym("@speech");
 
 class PdSoundTouch : public soundtouch::SoundTouch {
 public:
@@ -87,7 +88,9 @@ ArrayStretch::ArrayStretch(const PdArgs& a)
     createOutlet();
 
     pitch_ = new FloatProperty("@pitch", 0);
+    pitch_->info().setUnits(PropertyInfoUnits::SEMITONE);
     tempo_ = new FloatProperty("@tempo", 0);
+    tempo_->info().setUnits(PropertyInfoUnits::PERCENT);
     rate_ = new FloatProperty("@rate", 1);
 
     createProperty(pitch_);
@@ -101,39 +104,60 @@ ArrayStretch::ArrayStretch(const PdArgs& a)
         dest_array_.open(dest_array_name_);
 
     createCbProperty("@src", &ArrayStretch::propSrcArray, &ArrayStretch::propSetSrcArray);
+    property("@src")->info().setType(PropertyInfoType::SYMBOL);
     createCbProperty("@dest", &ArrayStretch::propDestArray, &ArrayStretch::propSetDestArray);
+    property("@dest")->info().setType(PropertyInfoType::SYMBOL);
 
     // time-stretch params
     // @sequence
     createCbProperty(PROP_SEQUENCE->s_name,
         &ArrayStretch::propSequence,
         &ArrayStretch::propSetSequence);
+    property(PROP_SEQUENCE)->info().setType(PropertyInfoType::INTEGER);
+    property(PROP_SEQUENCE)->info().setDefault(0);
+    property(PROP_SEQUENCE)->info().setRange(0, 100);
+    property(PROP_SEQUENCE)->info().setUnits(PropertyInfoUnits::MSEC);
 
     // @seekwindow
     createCbProperty(PROP_SEEK_WINDOW->s_name,
         &ArrayStretch::propSeekWindow,
         &ArrayStretch::propSetSeekWindow);
+    property(PROP_SEEK_WINDOW)->info().setType(PropertyInfoType::INTEGER);
+    property(PROP_SEEK_WINDOW)->info().setDefault(0);
+    property(PROP_SEEK_WINDOW)->info().setRange(0, 100);
+    property(PROP_SEEK_WINDOW)->info().setUnits(PropertyInfoUnits::MSEC);
 
     // @overlap
     createCbProperty(PROP_OVERLAP->s_name,
         &ArrayStretch::propOverlap,
         &ArrayStretch::propSetOverlap);
+    property(PROP_OVERLAP)->info().setType(PropertyInfoType::INTEGER);
+    property(PROP_OVERLAP)->info().setDefault(8);
+    property(PROP_OVERLAP)->info().setRange(1, 100);
+    property(PROP_OVERLAP)->info().setUnits(PropertyInfoUnits::MSEC);
 
     // pitch-shift params
     // antialias
     createCbProperty(PROP_ANTIALIAS->s_name,
         &ArrayStretch::propAnitAlias,
         &ArrayStretch::propSetAntiAlias);
+    property(PROP_ANTIALIAS)->info().setType(PropertyInfoType::BOOLEAN);
+    property(PROP_ANTIALIAS)->info().setDefault(true);
 
     // antialias length
     createCbProperty(PROP_ANTIALIAS_LENGTH->s_name,
         &ArrayStretch::propAnitAliasLength,
         &ArrayStretch::propSetAntiAliasLength);
+    property(PROP_ANTIALIAS_LENGTH)->info().setType(PropertyInfoType::INTEGER);
+    property(PROP_ANTIALIAS_LENGTH)->info().setDefault(64);
+    property(PROP_ANTIALIAS_LENGTH)->info().setRange(8, 128);
 
     // optimise for speech
-    createCbProperty("@speech",
+    createCbProperty(PROP_SPEECH->s_name,
         &ArrayStretch::propSpeech,
         &ArrayStretch::propSetSpeech);
+    property(PROP_SPEECH)->info().setType(PropertyInfoType::BOOLEAN);
+    property(PROP_SPEECH)->info().setDefault(false);
 }
 
 void ArrayStretch::onBang()

@@ -29,9 +29,9 @@ StringReplace::StringReplace(const PdArgs& a)
     createInlet();
     createOutlet();
 
-    mode_ = new SymbolEnumProperty("@mode", "all");
-    mode_->appendEnum("first");
-    mode_->appendEnum("last");
+    mode_ = new SymbolEnumProperty("@mode", REPLACE_ALL);
+    mode_->appendEnum(REPLACE_FIRST);
+    mode_->appendEnum(REPLACE_LAST);
     createProperty(mode_);
 
     createProperty(new SymbolEnumAlias("@all", mode_, REPLACE_ALL));

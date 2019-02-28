@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.chorus~">
+        <title>fx.chorus~</title>
+        <meta>
+            <authors>
+                <author>Albert Graef</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Chorus effect</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx chorus</keywords>
+            <since>0.7</since>
+        </meta>
+        <methods>
+            <method name="reset">same as reset</method>
+        </methods>
+        <properties>
+            <property name="@delay" type="float" minvalue="0" maxvalue="200" default="25"
+            units="millisecond">delay amount</property>
+            <property name="@freq" type="float" minvalue="0" maxvalue="10" default="3"
+            units="herz">effect freq</property>
+            <property name="@depth" type="float" minvalue="0" maxvalue="1" default="0.02">effect
+            depth</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">Ratio
+            between processed signal (wet) and source signal</property>
+            <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
+            'effected' signal.</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1(
+|
+[expand_env] [ui.knob]   [F]         [F]
+|            |           |           |
+|            |           |           |
+|            |           |           |
+[readsf~]    [@depth $1( [@delay $1( [@freq $1(
+|            |           |           |
+|            |           |           |
+|            |           |           |
+[fx.chorus~                          ]
+|
+[ui.gain~ @size 120 14] [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

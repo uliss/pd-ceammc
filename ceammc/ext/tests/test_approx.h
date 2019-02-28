@@ -27,15 +27,25 @@ class ListApprox {
 
 public:
     ListApprox();
-    ListApprox(std::initializer_list<t_float> l);
+    ListApprox(std::initializer_list<float> l);
     std::string toString() const;
     friend ListApprox operator+(const ListApprox& l0, const ListApprox& l1);
     friend bool operator==(const ListApprox& la, const AtomList& al);
+
+    operator AtomList() const { return lst_; }
 };
 
 std::ostream& operator<<(std::ostream& os, const ListApprox& value);
 ListApprox operator+(const ListApprox& l0, const ListApprox& l1);
 bool operator==(const ListApprox& la, const AtomList& al);
 bool operator==(const AtomList& al, const ListApprox& la);
+
+class AtomListApprox : public AtomList {
+public:
+    explicit AtomListApprox(const AtomList& lst);
+};
+
+bool operator==(const AtomListApprox& la, const AtomList& al);
+bool operator==(const AtomList& al, const AtomListApprox& la);
 
 #endif // TEST_APPROX_H

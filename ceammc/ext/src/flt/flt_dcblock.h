@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt_dcblock"
-Code generated with Faust 2.5.31 (https://faust.grame.fr)
+Code generated with Faust 2.15.0 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -66,6 +66,7 @@ Compilation options: cpp, -scal -ftz 0
 #define __dsp__
 
 #include <string>
+#include <vector>
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
@@ -229,6 +230,9 @@ class dsp_factory {
         virtual std::string getName() = 0;
         virtual std::string getSHAKey() = 0;
         virtual std::string getDSPCode() = 0;
+        virtual std::string getCompileOptions() = 0;
+        virtual std::vector<std::string> getLibraryList() = 0;
+        virtual std::vector<std::string> getIncludePathnames() = 0;
     
         virtual dsp* createDSPInstance() = 0;
     
@@ -393,8 +397,8 @@ struct Meta
 
 #include <algorithm>
 #include <map>
+#include <cstdlib>
 #include <string.h>
-#include <stdlib.h>
 
 
 using std::max;
@@ -402,33 +406,33 @@ using std::min;
 
 struct XXXX_Meta : std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
-inline int lsr(int x, int n)	{ return int(((unsigned int)x) >> n); }
+static int lsr(int x, int n) { return int(((unsigned int)x) >> n); }
 
-inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
+static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
-inline long lopt(char* argv[], const char* name, long def)
+static long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return atoi(argv[i+1]);
+    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
-inline bool isopt(char* argv[], const char* name)
+static bool isopt(char* argv[], const char* name)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
 	return false;
 }
 
-inline const char* lopts(char* argv[], const char* name, const char* def)
+static const char* lopts(char* argv[], const char* name, const char* def)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
@@ -439,7 +443,8 @@ inline const char* lopts(char* argv[], const char* name, const char* def)
 
 
 #include "ceammc_atomlist.h"
-#include <m_pd.h>
+#include "ceammc_externals.h"
+#include "m_pd.h"
 
 /******************************************************************************
 *******************************************************************************
@@ -489,6 +494,7 @@ using namespace ceammc::faust;
 #define FAUSTFLOAT float
 #endif 
 
+#include <algorithm>
 #include <cmath>
 
 
@@ -637,6 +643,11 @@ static t_class* dcblock_faust_class;
 #define FAUST_EXT_CLASS dcblock_faust_class
 // clang-format on
 
+template <class T>
+class _dcblock_UI : public UI {
+};
+typedef _dcblock_UI<dcblock> dcblock_UI;
+
 struct t_faust_dcblock {
     t_object x_obj;
 #ifdef __MINGW32__
@@ -645,7 +656,7 @@ struct t_faust_dcblock {
     int fence; /* dummy field (not used) */
 #endif
     dcblock* dsp;
-    PdUI<UI>* ui;
+    PdUI<dcblock_UI>* ui;
     int active, xfade, n_xfade, rate, n_in, n_out;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
@@ -728,7 +739,7 @@ static void dcblock_faust_dsp(t_faust_dcblock* x, t_signal** sp)
 
     if (x->rate <= 0) {
         /* default sample rate is whatever Pd tells us */
-        PdUI<UI>* ui = x->ui;
+        PdUI<dcblock_UI>* ui = x->ui;
         std::vector<FAUSTFLOAT> z = ui->uiValues();
         /* set the proper sample rate; this requires reinitializing the dsp */
         x->rate = sr;
@@ -783,7 +794,7 @@ static void dcblock_faust_any(t_faust_dcblock* x, t_symbol* s, int argc, t_atom*
     if (!x->dsp)
         return;
 
-    PdUI<UI>* ui = x->ui;
+    PdUI<dcblock_UI>* ui = x->ui;
     if (s == &s_bang) {
         ui->dumpUI(x->out);
     } else if (isGetAllProperties(s)) {
@@ -943,7 +954,7 @@ static bool faust_new_internal(t_faust_dcblock* x, const std::string& objId = ""
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
 
     x->dsp = new dcblock();
-    x->ui = new PdUI<UI>(sym(dcblock), objId);
+    x->ui = new PdUI<dcblock_UI>(sym(dcblock), objId);
 
     if (!faust_init_inputs(x)) {
         dcblock_faust_free(x);
@@ -1087,8 +1098,8 @@ public:
         std::string objId;
 
         int first_prop_idx = argc;
-        for(int i = 0; i < argc; i++) {
-            if(atom_is_property(argv[i]))
+        for (int i = 0; i < argc; i++) {
+            if (atom_is_property(argv[i]))
                 first_prop_idx = i;
         }
 
@@ -1181,6 +1192,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
     class_addmethod(dcblock_faust_class, reinterpret_cast<t_method>(dcblock_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(dcblock_faust_class, reinterpret_cast<t_method>(dcblock_dump_to_console), gensym("dump"), A_NULL);
     class_addanything(dcblock_faust_class, dcblock_faust_any);
+    ceammc::register_faust_external(dcblock_faust_class);
 }
 
 #define EXTERNAL_NEW void* dcblock_faust_new(t_symbol*, int argc, t_atom* argv)

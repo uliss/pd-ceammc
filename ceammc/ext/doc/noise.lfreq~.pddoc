@@ -20,12 +20,12 @@
             <argument type="float" name="FREQ">noise generation freq</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" minvalue="10" maxvalue="22050" default="1000">noise
+            <property name="@freq" type="float" minvalue="5" maxvalue="22050" default="1000">noise
             generation freq</property>
         </properties>
         <inlets>
-            <inlet type="audio">
-                <xinfo>control input</xinfo>
+            <inlet>
+                <xinfo on="float">set average frequency</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -34,8 +34,8 @@
         <example>
             <pdascii>
 <![CDATA[
-[freq 5000( [@freq 2000(
-|           |
+[@freq 5000( [@freq 2000(
+|            |
 [noise.lfreq~ 1000]
 |  |
 |  [ui.gain~ @size 120 16]

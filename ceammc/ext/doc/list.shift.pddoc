@@ -22,7 +22,7 @@
             interpolation. Can be negative.</argument>
         </arguments>
         <properties>
-            <property name="@shift" type="float">shift amount</property>
+            <property name="@shift" type="float" default="0">shift amount</property>
         </properties>
         <inlets>
             <inlet>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="complex.mul">
+        <title>complex.mul</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>multiply complex numbers</description>
+            <license>GPL3</license>
+            <library>numeric</library>
+            <category>complex</category>
+            <keywords>arithmetic math</keywords>
+            <version>0.1</version>
+            <since>0.1</since>
+            <aliases>
+                <alias>complex.*</alias>
+            </aliases>
+            <also>
+                <see>complex.div</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="list" name="C">complex number multiplier (Complex REAL IMAG) or float multiplier</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Complex data constructor: REAL IMAG</xinfo>
+                <xinfo on="data">Complex data</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">complex number multiplier: REAL IMAG</xinfo>
+                <xinfo on="data">complex number multiplier</xinfo>
+                <xinfo on="float">float multiplier</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output multiplication result (Complex)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib numeric]
+
+
+[B]
+|
+[complex.new 2 4] [4 5(
+|                 |.
+[complex.mul     3  ]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

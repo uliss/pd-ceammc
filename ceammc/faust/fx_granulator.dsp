@@ -1,25 +1,25 @@
-declare name "Granulator";
+declare name "fx.granulator";
 declare author "Mayank Sanganeria";
 declare version "1.0";
 
+import("stdfaust.lib");
+cm = library("ceammc.lib");
+
 // Controls
-N = hslider("density", 1, 1, maxN, 1);
-gLength = hslider("length", 0.1, 0.01, 0.5, 0.01);
-dLength = hslider("delay", 10, 0.5, 10, 0.1);
+N = hslider("density", 10, 1, maxN, 1);
+gLength = hslider("length [unit:ms]", 100, 10, 500, 0.01) : cm.time_pd2faust : si.smoo;
+dLength = hslider("delay [unit:sec]", 10, 0.5, 10, 0.1) : si.smoo;
 
 // Globals
-SR = fconstant(int fSamplingFreq, <math.h>);
-counter = +(1)%delayLength~_; // to iterate through the delay line
+counter = +(1) % delayLength ~ _; // to iterate through the delay line
 delayBufferSize = 480000;
 maxN = 64;
 
 //Granular synth variables
-grainLength = int(SR*gLength);
-delayLength = int(SR*dLength);
-
+grainLength = int(ma.SR * gLength);
+delayLength = int(ma.SR * dLength);
 
 //Noise Generator
-
 S(1,F) = F;
 S(i,F) = F <: S(i-1,F),_ ;
 Divide(n,k) = par(i, n, /(k)) ;
@@ -48,9 +48,17 @@ grainRandomStartPos(i) = int(SH(int(grainCounter(i)/(grainLength-1)),int(delayLe
 grainPosition(i) = grainCounter(i) + grainRandomStartPos(i);
 
 //Delay Line
-buffer(write,read,x) = rwtable(delayBufferSize, 0.0, write % delayLength, x, read % delayLength);
+buffer(write, read, x) = rwtable(delayBufferSize, 0.0, write % delayLength, x, read % delayLength);
 
 //sin wave for windowing
-window(i) = sin(2*3.14159*grainCounter(i)/(grainLength-1));
 
-process = _<: par(i, maxN, buffer(counter, grainPosition(i)) * window(i) * (i<N) / N) :> _,_;
+//  hann window
+hann_window(N) = float(ba.time) : hanf with {
+    hanf(n) = 0.5 * (1 - cos((2 * ma.PI * n) / (N - 1)));
+};
+
+WIN_SIZE = 1024;
+window2(i) = rdtable(WIN_SIZE, hann_window(WIN_SIZE), int((grainCounter(i) / (grainLength-1)) * WIN_SIZE));
+window1(i) = sin(2 * ma.PI * grainCounter(i)/(grainLength-1));
+
+process = _<: par(i, maxN, buffer(counter, grainPosition(i)) * window2(i) * (i<N) / (N/2)) :> _,_;

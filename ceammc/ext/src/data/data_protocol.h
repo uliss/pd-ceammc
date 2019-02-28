@@ -159,7 +159,12 @@ public:
         : BaseIFace<T>(args)
     {
         T::createCbProperty("@size", &CollectionIFace::propSize);
+        PropertyInfo& size_info = T::property("@size")->info();
+        size_info.setType(PropertyInfoType::INTEGER);
+        size_info.setMin(0);
+
         T::createCbProperty("@empty", &CollectionIFace::propEmpty);
+        T::property("@empty")->info().setType(PropertyInfoType::BOOLEAN);
     }
 
     virtual void proto_add(const AtomList& lst) = 0;
@@ -206,7 +211,12 @@ public:
         : BaseIFace<T>(args)
     {
         T::createCbProperty("@size", &ListIFace::propSize);
+        PropertyInfo& size_info = T::property("@size")->info();
+        size_info.setType(PropertyInfoType::INTEGER);
+        size_info.setMin(0);
+
         T::createCbProperty("@empty", &ListIFace::propEmpty);
+        T::property("@empty")->info().setType(PropertyInfoType::BOOLEAN);
     }
 
     virtual void proto_append(const AtomList& lst) = 0;

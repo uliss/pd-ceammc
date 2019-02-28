@@ -1,0 +1,68 @@
+{
+	"name": "fx.granulator",
+	"filename": "fx_granulator",
+	"version": "2.8.5",
+	"compile_options": "cpp, -scal -ftz 0",
+	"library_list": ["/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/maths.lib","/Users/serj/work/music/pd-exp/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/basics.lib"],
+	"include_pathnames": ["/Users/serj/work/music/pd-exp/pure-data/ceammc/faust","/usr/local/share/faust","/usr/share/faust"],
+	"inputs": "1",
+	"outputs": "2",
+	"meta": [ 
+		{ "author": "Mayank Sanganeria" },
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/version": "0.0" },
+		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
+		{ "ceammc.lib/version": "0.1.1" },
+		{ "filename": "fx_granulator" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.1" },
+		{ "name": "fx.granulator" },
+		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/version": "0.0" },
+		{ "version": "1.0" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "fx.granulator",
+			"items": [ 
+				{
+					"type": "hslider",
+					"label": "delay",
+					"address": "/fx.granulator/delay",
+					"meta": [
+						{ "unit": "sec" }
+					],
+					"init": "10",
+					"min": "0.5",
+					"max": "10",
+					"step": "0.1"
+				},
+				{
+					"type": "hslider",
+					"label": "density",
+					"address": "/fx.granulator/density",
+					"init": "10",
+					"min": "1",
+					"max": "64",
+					"step": "1"
+				},
+				{
+					"type": "hslider",
+					"label": "length",
+					"address": "/fx.granulator/length",
+					"meta": [
+						{ "unit": "ms" }
+					],
+					"init": "100",
+					"min": "10",
+					"max": "500",
+					"step": "0.01"
+				}
+			]
+		}
+	]
+}

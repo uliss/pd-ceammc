@@ -1,0 +1,8 @@
+#N canvas 0 0 190 158 12;
+#X declare -lib numeric;
+#X obj 20 48 declare -lib numeric;
+#X msg 20 92 1 3;
+#X obj 20 120 rational->float;
+#X floatatom 20 149 5 0 0 0 - - -;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
