@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2018-03-20 02:51+0300\n"
+"POT-Creation-Date: 2019-03-01 00:49+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,64 +16,79 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Basic"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
-msgid "Patching Size"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
-msgid "Pinned"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
-msgid "Font Name"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/pdwindow.tcl
-msgid "normal"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
-msgid "Font Weight"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
-msgid "Font Slant"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/dialog_font.tcl
-msgid "Font Size"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
-msgid "Receive Symbol"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
-msgid "Send Symbol"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
-msgid "Preset Name"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/dialog_iemgui.tcl
-msgid "Colors"
-msgstr ""
-
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Bounds"
 msgstr ""
 
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/dialog_iemgui.tcl
+msgid "Colors"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+msgid "Font Name"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/dialog_font.tcl
+msgid "Font Size"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+msgid "Font Slant"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+msgid "Font Weight"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "MIDI"
 msgstr ""
 
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+msgid "Patching Size"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+msgid "Pinned"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+msgid "Preset Name"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+msgid "Receive Symbol"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Select"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+msgid "Send Symbol"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/pdwindow.tcl
+msgid "normal"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
@@ -81,11 +96,11 @@ msgid "Array name"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
-msgid "Wave Color"
+msgid "Cursor Color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
-msgid "Cursor Color"
+msgid "Selection Color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
@@ -94,6 +109,10 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
 msgid "Show RMS"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_arrayview.cpp
+msgid "Wave Color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_bang.cpp ../ceammc/ext/src/ui/ui_display.cpp
@@ -108,14 +127,6 @@ msgid "Active Color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_colorpanel.cpp
-msgid "Matrix Size"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_colorpanel.cpp
-msgid "Saturation"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_colorpanel.cpp
 msgid "First Hue"
 msgstr ""
 
@@ -127,16 +138,24 @@ msgstr ""
 msgid "Matrix Reversed"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_colorpanel.cpp
+msgid "Matrix Size"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_colorpanel.cpp
+msgid "Saturation"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_display.cpp
+msgid "Auto size"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_display.cpp
 msgid "Display events"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_display.cpp
 msgid "Display type"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_display.cpp
-msgid "Auto size"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_display.cpp ../ceammc/ext/src/ui/ui_label.cpp
@@ -146,27 +165,30 @@ msgid "Text Color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_env.cpp
-msgid "Line Color"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_env.cpp
 msgid "Length"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_env.cpp
+msgid "Line Color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
+#: ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "Knob Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_scope.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Maximum value"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_scope.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Minimum value"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_gain.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
 msgid "Output value"
 msgstr ""
 
@@ -175,11 +197,11 @@ msgid "Icon"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_icon.cpp
-msgid "Size"
+msgid "Mode"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_icon.cpp
-msgid "Mode"
+msgid "Size"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_incdec.cpp
@@ -198,27 +220,6 @@ msgstr ""
 msgid "Leftmost MIDI note"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_knob.cpp
-msgid "Scale Color"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_number.cpp
-#: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_slider.cpp
-#: ../ceammc/ext/src/ui/ui_sliders.cpp
-msgid "Minimum Value"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_number.cpp
-#: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_slider.cpp
-#: ../ceammc/ext/src/ui/ui_sliders.cpp
-msgid "Maximum Value"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
-#: ../ceammc/ext/src/ui/ui_sliders.cpp
-msgid "Show range"
-msgstr ""
-
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "Draw active scale"
 msgstr ""
@@ -235,20 +236,25 @@ msgstr ""
 msgid "MIDI pickup"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_label.cpp
-msgid "Margin top"
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_number.cpp
+#: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "Maximum Value"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_label.cpp
-msgid "Margin left"
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_number.cpp
+#: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "Minimum Value"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_label.cpp
-msgid "Margin bottom"
+#: ../ceammc/ext/src/ui/ui_knob.cpp
+msgid "Scale Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_label.cpp
-msgid "Margin right"
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "Show range"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_label.cpp
@@ -256,11 +262,31 @@ msgid "Align"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_label.cpp
+msgid "Margin bottom"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_label.cpp
+msgid "Margin left"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_label.cpp
+msgid "Margin right"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_label.cpp
+msgid "Margin top"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_label.cpp
 msgid "Text"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_link.cpp ../ceammc/ext/src/ui/ui_tab.cpp
+msgid "Hover Color"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_link.cpp
-msgid "URL"
+msgid "Link Color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_link.cpp
@@ -268,15 +294,7 @@ msgid "Title"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_link.cpp
-msgid "Link Color"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_link.cpp ../ceammc/ext/src/ui/ui_tab.cpp
-msgid "Hover Color"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_matrix.cpp
-msgid "Rows"
+msgid "URL"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
@@ -287,24 +305,20 @@ msgstr ""
 msgid "Current Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_menu.cpp
-msgid "Maximum item length"
+#: ../ceammc/ext/src/ui/ui_matrix.cpp
+msgid "Rows"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_tab.cpp
 msgid "Items"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_menu.cpp
+msgid "Maximum item length"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_meter.cpp
 msgid "Cold signal color"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_meter.cpp
-msgid "Tepid signal color"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_meter.cpp
-msgid "Warm signal color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_meter.cpp
@@ -317,6 +331,18 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_meter.cpp ../ceammc/ext/src/ui/ui_number_tilde.cpp
 msgid "Refresh interval (ms)"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_meter.cpp
+msgid "Tepid signal color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_meter.cpp
+msgid "Warm signal color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_number.cpp
+msgid "Digits"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_number.cpp ../ceammc/ext/src/ui/ui_number_tilde.cpp
@@ -336,35 +362,31 @@ msgid "Stored Button Color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_radio.cpp
-msgid "Number of Items"
+msgid "Check List Mode"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_radio.cpp
-msgid "Check List Mode"
+msgid "Number of Items"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_rslider.cpp
 msgid "Mouse sync"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_scope.cpp
-msgid "Window size"
-msgstr ""
-
 #: ../ceammc/ext/src/ui/ui_scope.cpp ../ceammc/ext/src/ui/ui_spectroscope.cpp
 msgid "Refresh time (ms)"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_slider.cpp
-msgid "Relative Mode"
+#: ../ceammc/ext/src/ui/ui_scope.cpp
+msgid "Window size"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "Output on mouse up"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "Minimum X-value"
+#: ../ceammc/ext/src/ui/ui_slider.cpp
+msgid "Relative Mode"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
@@ -372,11 +394,15 @@ msgid "Maximum X-value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "Minimum Y-value"
+msgid "Maximum Y-value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "Maximum Y-value"
+msgid "Minimum X-value"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "Minimum Y-value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
@@ -384,7 +410,7 @@ msgid "Show grid"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
-msgid "Slider color"
+msgid "Auto range"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
@@ -392,11 +418,11 @@ msgid "Select color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
-msgid "Sliders count"
+msgid "Slider color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
-msgid "Auto range"
+msgid "Sliders count"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_spectroscope.cpp
@@ -407,12 +433,16 @@ msgstr ""
 msgid "Log scale"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_tab.cpp
-msgid "Vertical Orientation"
+#: ../ceammc/ext/src/ui/ui_spectroscope~.cpp ../tcl/dialog_iemgui.tcl
+msgid "Foreground color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_tab.cpp
 msgid "Toggle Mode"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_tab.cpp
+msgid "Vertical Orientation"
 msgstr ""
 
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
@@ -558,7 +588,7 @@ msgstr ""
 msgid "Sample rate:"
 msgstr ""
 
-#: ../tcl/dialog_audio.tcl ../tcl/pd_menus.tcl
+#: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl ../tcl/pd_menus.tcl
 msgid "Save All Settings"
 msgstr ""
 
@@ -773,10 +803,6 @@ msgstr ""
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Flash Time (msec)"
-msgstr ""
-
-#: ../tcl/dialog_iemgui.tcl
-msgid "Foreground color"
 msgstr ""
 
 #: ../tcl/dialog_iemgui.tcl
@@ -1373,6 +1399,11 @@ msgstr ""
 
 #: ../tcl/pdwindow.tcl
 msgid "fatal"
+msgstr ""
+
+#: ../tcl/wheredoesthisgo.tcl
+#, tcl-format
+msgid "Ignoring '%s': doesn't exist"
 msgstr ""
 
 #: ../tcl/wheredoesthisgo.tcl
