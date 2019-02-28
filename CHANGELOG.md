@@ -1,6 +1,6 @@
 # CEAMMC Pd distribution changelog
 
-## [2019.02]
+## [2019.03]
 ### Added:
 - **CEAMMC** external library v0.7 - [ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)
 - \[print\] object supports datatypes
