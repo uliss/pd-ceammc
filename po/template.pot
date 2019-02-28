@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-03-01 00:28+0300\n"
+"POT-Creation-Date: 2019-03-01 00:45+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,64 +16,79 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Basic"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
-msgid "Bounds"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/dialog_iemgui.tcl
-msgid "Colors"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
-msgid "Font Name"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/dialog_font.tcl
-msgid "Font Size"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
-msgid "Font Slant"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
-msgid "Font Weight"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
-msgid "MIDI"
-msgstr ""
-
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Patching Size"
 msgstr ""
 
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Pinned"
 msgstr ""
 
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
-msgid "Preset Name"
+msgid "Font Name"
 msgstr ""
 
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/pdwindow.tcl
+msgid "normal"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+msgid "Font Weight"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+msgid "Font Slant"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/dialog_font.tcl
+msgid "Font Size"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Receive Symbol"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
-msgid "Select"
-msgstr ""
-
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Send Symbol"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/pdwindow.tcl
-msgid "normal"
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+msgid "Preset Name"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/dialog_iemgui.tcl
+msgid "Colors"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+msgid "Bounds"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+msgid "MIDI"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+msgid "Select"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
@@ -1388,12 +1403,12 @@ msgstr ""
 
 #: ../tcl/wheredoesthisgo.tcl
 #, tcl-format
-msgid "Ignoring '%s': doesn't look like a Pd-file"
+msgid "Ignoring '%s': doesn't exist"
 msgstr ""
 
 #: ../tcl/wheredoesthisgo.tcl
 #, tcl-format
-msgid "Ignoring '%s': doesn't exist"
+msgid "Ignoring '%s': doesn't look like a Pd-file"
 msgstr ""
 
 #: iemgui_dynamic_strings.tcl
