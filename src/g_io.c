@@ -101,19 +101,12 @@ int vinlet_issignal(t_vinlet *x)
     return (x->x_buf != 0);
 }
 
-static int tot;
-
 t_int *vinlet_perform(t_int *w)
 {
     t_vinlet *x = (t_vinlet *)(w[1]);
     t_float *out = (t_float *)(w[2]);
     int n = (int)(w[3]);
     t_float *in = x->x_read;
-#if 0
-    if (tot < 5) post("-in %lx out %lx n %d", in, out, n);
-    if (tot < 5) post("-buf %lx endbuf %lx", x->x_buf, x->x_endbuf);
-    if (tot < 5) post("in[0] %f in[1] %f in[2] %f", in[0], in[1], in[2]);
-#endif
     while (n--) *out++ = *in++;
     if (in == x->x_endbuf) in = x->x_buf;
     x->x_read = in;
@@ -152,10 +145,6 @@ t_int *vinlet_doprolog(t_int *w)
         out -= x->x_hop;
         while (nshift--) *f1++ = *f2++;
     }
-#if 0
-    if (tot < 5) post("in %lx out %lx n %lx", in, out, n), tot++;
-    if (tot < 5) post("in[0] %f in[1] %f in[2] %f", in[0], in[1], in[2]);
-#endif
 
     while (n--) *out++ = *in++;
     x->x_fill = out;
@@ -169,7 +158,7 @@ void vinlet_dspprolog(struct _vinlet *x, t_signal **parentsigs,
     int myvecsize, int calcsize, int phase, int period, int frequency,
     int downsample, int upsample,  int reblock, int switched)
 {
-    t_signal *insig, *outsig;
+    t_signal *insig;
         /* no buffer means we're not a signal inlet */
     if (!x->x_buf)
         return;
@@ -218,8 +207,9 @@ void vinlet_dspprolog(struct _vinlet *x, t_signal **parentsigs,
         {
             x->x_hop = period * re_parentvecsize;
 
-            x->x_fill = x->x_endbuf -
-              (x->x_hop - prologphase * re_parentvecsize);
+            x->x_fill = prologphase ?
+                x->x_endbuf - (x->x_hop - prologphase * re_parentvecsize) :
+                    x->x_endbuf;
 
             if (upsample * downsample == 1)
                     dsp_add(vinlet_doprolog, 3, x, insig->s_vec,
@@ -263,7 +253,7 @@ static void *vinlet_newsig(t_symbol *s)
 
     /* this should be though over:
      * it might prove hard to provide consistency between labeled up- & downsampling methods
-     * maybe indeces would be better...
+     * maybe indices would be better...
      *
      * up till now we provide several upsampling methods and 1 single downsampling method (no filtering !)
      */
@@ -388,10 +378,6 @@ t_int *voutlet_perform(t_int *w)
     t_float *in = (t_float *)(w[2]);
     int n = (int)(w[3]);
     t_sample *out = x->x_write, *outwas = out;
-#if 0
-    if (tot < 5) post("-in %lx out %lx n %d", in, out, n);
-    if (tot < 5) post("-buf %lx endbuf %lx", x->x_buf, x->x_endbuf);
-#endif
     while (n--)
     {
         *out++ += *in++;
@@ -413,10 +399,6 @@ static t_int *voutlet_doepilog(t_int *w)
     t_sample *in = x->x_empty;
     if (x->x_updown.downsample != x->x_updown.upsample)
         out = x->x_updown.s_vec;
-
-#if 0
-    if (tot < 5) post("outlet in %lx out %lx n %lx", in, out, n), tot++;
-#endif
     for (; n--; in++) *out++ = *in, *in = 0;
     if (in == x->x_endbuf) in = x->x_buf;
     x->x_empty = in;
@@ -429,10 +411,6 @@ static t_int *voutlet_doepilog_resampling(t_int *w)
     int n = (int)(w[2]);
     t_sample *in  = x->x_empty;
     t_sample *out = x->x_updown.s_vec;
-
-#if 0
-    if (tot < 5) post("outlet in %lx out %lx n %lx", in, out, n), tot++;
-#endif
     for (; n--; in++) *out++ = *in, *in = 0;
     if (in == x->x_endbuf) in = x->x_buf;
     x->x_empty = in;
@@ -497,7 +475,7 @@ void voutlet_dspepilog(struct _voutlet *x, t_signal **parentsigs,
     x->x_updown.upsample=upsample;
     if (reblock)
     {
-        t_signal *insig, *outsig;
+        t_signal *outsig;
         int parentvecsize, bufsize, oldbufsize;
         int re_parentvecsize;
         int bigperiod, epilogphase, blockphase;
@@ -582,7 +560,7 @@ static void *voutlet_newsig(t_symbol *s)
 
     /* this should be though over:
      * it might prove hard to provide consistency between labeled up- & downsampling methods
-     * maybe indeces would be better...
+     * maybe indices would be better...
      *
      * up till now we provide several upsampling methods and 1 single downsampling method (no filtering !)
      */
