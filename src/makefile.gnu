@@ -56,8 +56,9 @@ libpdtcldir = $(libpddir)/tcl
 CPPFLAGS = -DPD -DHAVE_LIBDL -DHAVE_UNISTD_H -DHAVE_ALLOCA_H \
     -DPDGUIDIR=\"tcl/\" \
     -D_LARGEFILE64_SOURCE -DINSTALL_PREFIX=\"$(prefix)\" \
-    -Wall -W -Wstrict-prototypes \
-    -Wno-unused -Wno-unused-parameter -Wno-parentheses -Wno-switch
+    -Wall -W -Wstrict-prototypes  -Wno-address\
+    -Wno-unused -Wno-unused-parameter -Wno-parentheses -Wno-switch \
+    -Wno-cast-function-type -Wno-stringop-truncation -Wno-format-truncation
 
 # code generation flags (e.g., optimization).  
 CODECFLAGS = -g -O3 -ffast-math -funroll-loops -fomit-frame-pointer
@@ -77,24 +78,33 @@ LIB = -ldl -lm -lpthread
 SYSSRC = s_midi_oss.c
 
 # conditionally add code and flags for various audio APIs
-ifdef ALSA
+ifeq ($(ALSA), true)
 CPPFLAGS += -DUSEAPI_ALSA
 SYSSRC += s_audio_alsa.c s_audio_alsamm.c s_midi_alsa.c
 LIB += -lasound
+HAVEAUDIOAPI=true
 endif
 ifdef JACK
 CPPFLAGS += -DUSEAPI_JACK
 SYSSRC += s_audio_jack.c
 LIB += -ljack
+HAVEAUDIOAPI=true
 endif
-ifdef OSS
+ifeq ($(OSS), true)
+#error foo
 CPPFLAGS += -DUSEAPI_OSS
 SYSSRC += s_audio_oss.c
+HAVEAUDIOAPI=true
 endif
 ifdef PA
 CPPFLAGS += -DUSEAPI_PORTAUDIO
 SYSSRC += s_audio_pa.c
 LIB += -lportaudio
+HAVEAUDIOAPI=true
+endif
+ifndef HAVEAUDIOAPI
+CPPFLAGS += -DUSEAPI_DUMMY
+SYSSRC += s_audio_dummy.c
 endif
 
 CFLAGS = $(CPPFLAGS) $(CODECFLAGS) $(MORECFLAGS)
@@ -102,7 +112,8 @@ CFLAGS = $(CPPFLAGS) $(CODECFLAGS) $(MORECFLAGS)
 SRC = g_canvas.c g_graph.c g_text.c g_rtext.c g_array.c g_template.c g_io.c \
     g_scalar.c g_traversal.c g_guiconnect.c g_readwrite.c g_editor.c g_clone.c \
     g_all_guis.c g_bang.c g_hdial.c g_hslider.c g_mycanvas.c g_numbox.c \
-    g_toggle.c g_vdial.c g_vslider.c g_vumeter.c \
+    g_toggle.c g_undo.c g_vdial.c g_vslider.c g_vumeter.c \
+    g_editor_extras.c \
     m_pd.c m_class.c m_obj.c m_atom.c m_memory.c m_binbuf.c \
     m_conf.c m_glob.c m_sched.c \
     s_main.c s_inter.c s_file.c s_print.c \
@@ -183,6 +194,7 @@ ABOUT_FILE=$(DESTDIR)$(pddocdir)/1.manual/1.introduction.txt
 install:  all
 	install -d $(DESTDIR)$(libpdbindir)
 	install $(BIN_DIR)/pd-watchdog $(DESTDIR)$(libpdbindir)/pd-watchdog
+	install $(BINARYMODE) $(PDEXEC) $(DESTDIR)$(libpdbindir)/pd
 	install -d $(DESTDIR)$(bindir)
 	install $(BINARYMODE) $(PDEXEC) $(DESTDIR)$(bindir)/pd
 	install -m755 $(BIN_DIR)/pdsend $(DESTDIR)$(bindir)/pdsend
@@ -259,10 +271,3 @@ uninstall:
 	rm -f $(DESTDIR)$(mandir)/man1/pdreceive.1.gz
 
 -include makefile.dependencies
-
-
-
-
-
-
-
