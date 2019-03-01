@@ -183,7 +183,7 @@ void pd_unbind(t_pd *x, t_symbol *s)
     else pd_error(x, "%s: couldn't unbind", s->s_name);
 }
 
-t_pd *pd_findbyclass(t_symbol *s, t_class *c)
+t_pd *pd_findbyclass(t_symbol *s, const t_class *c)
 {
     t_pd *x = 0;
 
@@ -288,82 +288,50 @@ void pd_list(t_pd *x, t_symbol *s, int argc, t_atom *argv)
     (*(*x)->c_listmethod)(x, &s_list, argc, argv);
 }
 
+void pd_anything(t_pd *x, t_symbol *s, int argc, t_atom *argv)
+{
+    (*(*x)->c_anymethod)(x, s, argc, argv);
+}
+
 void mess_init(void);
 void obj_init(void);
 void conf_init(void);
 void glob_init(void);
 void garray_init(void);
-
-t_pdinstance *pd_this;
-
-static t_symbol *midi_gensym(const char *prefix, const char *name)
-{
-    char buf[80];
-    strncpy(buf, prefix, 79);
-    buf[79] = 0;
-    strncat(buf, name, 79 - strlen(buf));
-    return (gensym(buf));
-}
-
-static t_pdinstance *pdinstance_donew(int useprefix)
-{
-    t_pdinstance *x = (t_pdinstance *)getbytes(sizeof(t_pdinstance));
-    char midiprefix[80];
-    if (useprefix)
-        sprintf(midiprefix, "%p", x);
-    else midiprefix[0] = 0;
-    x->pd_systime = 0;
-    x->pd_clock_setlist = 0;
-    x->pd_dspchain = 0;
-    x->pd_dspchainsize = 0;
-    x->pd_canvaslist = 0;
-    x->pd_dspstate = 0;
-    x->pd_midiin_sym = midi_gensym(midiprefix, "#midiin");
-    x->pd_sysexin_sym = midi_gensym(midiprefix, "#sysexin");
-    x->pd_notein_sym = midi_gensym(midiprefix, "#notein");
-    x->pd_ctlin_sym = midi_gensym(midiprefix, "#ctlin");
-    x->pd_pgmin_sym = midi_gensym(midiprefix, "#pgmin");
-    x->pd_bendin_sym = midi_gensym(midiprefix, "#bendin");
-    x->pd_touchin_sym = midi_gensym(midiprefix, "#touchin");
-    x->pd_polytouchin_sym = midi_gensym(midiprefix, "#polytouchin");
-    x->pd_midiclkin_sym = midi_gensym(midiprefix, "#midiclkin");
-    x->pd_midirealtimein_sym = midi_gensym(midiprefix, "#midirealtimein");
-    return (x);
-}
-
-EXTERN t_pdinstance *pdinstance_new(void)
-{
-    return (pdinstance_donew(1));
-}
+void ooura_term(void);
 
 void pd_init(void)
 {
-    if (!pd_this)
-        pd_this = pdinstance_donew(0);
+    static int initted = 0;
+    if (initted)
+        return;
+    initted = 1;
+#ifdef PDINSTANCE
+    pd_instances = (t_pdinstance **)getbytes(sizeof(*pd_instances));
+    pd_instances[0] = &pd_maininstance;
+    pd_ninstances = 1;
+#endif
+    pd_init_systems();
+}
+
+EXTERN void pd_init_systems(void) {
     mess_init();
+    sys_lock();
     obj_init();
     conf_init();
     glob_init();
     garray_init();
+    sys_unlock();
 }
 
-EXTERN void pd_setinstance(t_pdinstance *x)
-{
-    pd_this = x;
-}
-
-EXTERN void pdinstance_free(t_pdinstance *x)
-{
-    /* placeholder - LATER free symtab, dsp chain, classes and canvases */
+EXTERN void pd_term_systems(void) {
+    sys_lock();
+    /* ooura_term();  oops - this doesn't seem to have got merged from PR  */
+    sys_unlock();
 }
 
 EXTERN t_canvas *pd_getcanvaslist(void)
 {
     return (pd_this->pd_canvaslist);
-}
-
-EXTERN int pd_getdspstate(void)
-{
-    return (pd_this->pd_dspstate);
 }
 
