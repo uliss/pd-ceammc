@@ -183,7 +183,7 @@ static t_atom* format_atoms(int ac, t_atom* av)
     return av;
 }
 
-static long unformat_symbol(char* text, char* buffer, long size)
+static long unformat_symbol(const char* text, char* buffer, long size)
 {
     int i = 0, j = 0, lenght = (int)strlen(text);
     int end = text[lenght - 1] == '"' || text[lenght - 1] == '\'';
