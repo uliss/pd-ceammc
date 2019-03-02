@@ -45,14 +45,14 @@ void bng_draw_new(t_bng* x, t_glist* glist)
     int inset = IEMGUI_ZOOM(x);
     t_canvas* canvas = glist_getcanvas(glist);
 
-    g_ceammc_draw_brect(x, xpos, ypos, canvas);
-    g_ceammc_draw_inlets(x, xpos, ypos, canvas);
-    g_ceammc_draw_outlets(x, xpos, ypos, canvas);
+    g_iem_brect_draw(canvas, &x->x_gui, xpos, ypos);
+    g_iem_inlets_draw(canvas, &x->x_gui, xpos, ypos);
+    g_iem_outlets_draw(canvas, &x->x_gui, xpos, ypos);
     g_circle_draw_filled(canvas, x, "BTN",
         xpos + inset, ypos + inset,
         x->x_gui.x_w - 2 * inset, x->x_gui.x_h - 2 * inset,
         IEMGUI_ZOOM(x), (x->x_flashed ? x->x_gui.x_fcol : x->x_gui.x_bcol));
-    g_ceammc_draw_label(x, xpos, ypos, (strcmp(x->x_gui.x_lab->s_name, "empty") ? x->x_gui.x_lab->s_name : ""), canvas);
+    g_iem_label_draw(canvas, &x->x_gui, xpos, ypos, (strcmp(x->x_gui.x_lab->s_name, "empty") ? x->x_gui.x_lab->s_name : ""));
 }
 
 void bng_draw_move(t_bng* x, t_glist* glist)

@@ -22,25 +22,30 @@ extern "C" {
 
 #include "g_all_guis.h"
 
-void g_ceammc_draw_brect(t_bng* x, int xpos, int ypos, t_canvas* canvas);
-void g_ceammc_draw_inlets(t_bng* x, int xpos, int ypos, t_canvas* canvas);
-void g_ceammc_draw_outlets(t_bng* x, int xpos, int ypos, t_canvas* canvas);
-void g_ceammc_draw_label(t_bng* x, int xpos, int ypos, const char* str, t_canvas* canvas);
+// IEM
+void g_iem_brect_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
+void g_iem_inlets_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
+void g_iem_outlets_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
+void g_iem_label_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos, const char* str);
 
+// cirlce
 void g_circle_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
     int xpos, int ypos, int w, int h, int zoom, int color);
 void g_circle_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos, int w, int h);
 
+// rect
 void g_rect_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
     int xpos, int ypos, int w, int h, int color);
 void g_rect_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos, int w, int h);
 
+// text
 void g_text_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos);
 void g_text_set(t_canvas* canvas, void* x, const char* figure_id, const char* txt);
 void g_text_color(t_canvas* canvas, void* x, const char* figure_id, int color);
 void g_text_font(t_canvas* canvas, void* x, const char* figure_id,
     const char* font, int size, const char* weight);
 
+// all figures
 void g_figure_set_linewidth(t_canvas* canvas, void* x, const char* figure_id, int width);
 void g_figure_fill(t_canvas* canvas, void* x, const char* figure_id, int color);
 void g_figure_outline(t_canvas* canvas, void* x, const char* figure_id, int color);

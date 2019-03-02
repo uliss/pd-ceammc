@@ -20,45 +20,49 @@
 
 #include <string.h>
 
-void g_ceammc_draw_brect(t_bng* x, int xpos, int ypos, t_canvas* canvas)
+void g_iem_brect_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
 {
-    g_rect_draw_filled(canvas, x, "BASE", xpos, ypos, x->x_gui.x_w, x->x_gui.x_h, x->x_gui.x_bcol);
-    g_figure_set_linewidth(canvas, x, "BASE", IEMGUI_ZOOM(x));
+    const int z = x->x_glist->gl_zoom;
+
+    g_rect_draw_filled(canvas, x, "BASE", xpos, ypos, x->x_w, x->x_h, x->x_bcol);
+    g_figure_set_linewidth(canvas, x, "BASE", z);
 }
 
-void g_ceammc_draw_inlets(t_bng* x, int xpos, int ypos, t_canvas* canvas)
+void g_iem_inlets_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
 {
-    int iow = IOWIDTH * IEMGUI_ZOOM(x);
-    int ioh = IEM_GUI_IOHEIGHT * IEMGUI_ZOOM(x);
+    const int z = x->x_glist->gl_zoom;
+    const int iow = IOWIDTH * z;
+    const int ioh = IEM_GUI_IOHEIGHT * z;
 
-    if (!x->x_gui.x_fsf.x_rcv_able)
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill black -tags [list %lx_IN0 inlet]\n",
+    if (!x->x_fsf.x_rcv_able)
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill #%6.6x -tags [list %lx_IN0 inlet]\n",
             canvas,
             xpos, ypos,
-            xpos + iow, ypos - IEMGUI_ZOOM(x) + ioh, x);
+            xpos + iow, ypos - z + ioh, IEM_GUI_COLOR_XLET, x);
 }
 
-void g_ceammc_draw_outlets(t_bng* x, int xpos, int ypos, t_canvas* canvas)
+void g_iem_outlets_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
 {
-    int iow = IOWIDTH * IEMGUI_ZOOM(x);
-    int ioh = IEM_GUI_IOHEIGHT * IEMGUI_ZOOM(x);
+    const int z = x->x_glist->gl_zoom;
+    const int iow = IOWIDTH * z;
+    const int ioh = IEM_GUI_IOHEIGHT * z;
 
-    if (!x->x_gui.x_fsf.x_snd_able)
-        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill black -tags [list %lx_OUT0 outlet]\n",
+    if (!x->x_fsf.x_snd_able)
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill #%6.6x -tags [list %lx_OUT0 outlet]\n",
             canvas,
-            xpos, ypos + x->x_gui.x_h + IEMGUI_ZOOM(x) - ioh,
-            xpos + iow, ypos + x->x_gui.x_h,
-            x);
+            xpos, ypos + x->x_h - ioh,
+            xpos + iow, ypos + x->x_h, IEM_GUI_COLOR_XLET, x);
 }
 
-void g_ceammc_draw_label(t_bng* x, int xpos, int ypos, const char* str, t_canvas* canvas)
+void g_iem_label_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos, const char* str)
 {
+    const int z = x->x_glist->gl_zoom;
     sys_vgui(".x%lx.c create text %d %d -text {%s} -anchor w \
              -font {{%s} -%d %s} -fill #%6.6x -tags [list %lx_LABEL label text]\n",
-        canvas, xpos + x->x_gui.x_ldx * IEMGUI_ZOOM(x),
-        ypos + x->x_gui.x_ldy * IEMGUI_ZOOM(x), str,
-        x->x_gui.x_font, x->x_gui.x_fontsize * IEMGUI_ZOOM(x), sys_fontweight,
-        x->x_gui.x_lcol, x);
+        canvas, xpos + x->x_ldx * z,
+        ypos + x->x_ldy * z, str,
+        x->x_font, x->x_fontsize * z, sys_fontweight,
+        x->x_lcol, x);
 }
 
 void g_circle_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
