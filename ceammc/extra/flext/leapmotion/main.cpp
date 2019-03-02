@@ -421,7 +421,7 @@ public:
                 post("leapmotion: gestures wrong arguments");
                 return;
             }
-            char* type = argv[0].a_w.w_symbol->s_name;
+            const char* type = argv[0].a_w.w_symbol->s_name;
             float s = argv[1].a_w.w_float;
 
             if (strcmp(type, "TYPE_CIRCLE") == 0) {
