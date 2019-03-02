@@ -22,11 +22,10 @@
 
 void g_ceammc_draw_brect(t_bng* x, int xpos, int ypos, t_canvas* canvas)
 {
-    sys_vgui(".x%lx.c create rectangle %d %d %d %d -width %d -fill #%6.6x -tags %lxBASE\n",
-        canvas, xpos, ypos,
-        xpos + x->x_gui.x_w, ypos + x->x_gui.x_h,
-        IEMGUI_ZOOM(x),
-        x->x_gui.x_bcol, x);
+    g_rect_draw_filled(canvas, x, "BASE", xpos, ypos, x->x_gui.x_w, x->x_gui.x_h, x->x_gui.x_bcol);
+    // g_figure_set_linewidth(canvas, x, "BASE", IEMGUI_ZOOM(x));
+    // ceammc style
+    g_figure_set_linewidth(canvas, x, "BASE", 1);
 }
 
 void g_ceammc_draw_inlets(t_bng* x, int xpos, int ypos, t_canvas* canvas)
@@ -74,12 +73,6 @@ void g_circle_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
         color, x, figure_id);
 }
 
-void g_circle_fill(t_canvas* canvas, void* x, const char* figure_id, int color)
-{
-    sys_vgui(".x%lx.c itemconfigure %lx_%s -fill #%6.6x\n",
-        canvas, x, figure_id, color);
-}
-
 void g_circle_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos, int w, int h)
 {
     sys_vgui(".x%lx.c coords %lx_%s %d %d %d %d\n",
@@ -87,14 +80,38 @@ void g_circle_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, i
         xpos, ypos, xpos + w, ypos + h);
 }
 
-void g_circle_outline(t_canvas* canvas, void* x, const char* figure_id, int color)
+void g_figure_outline(t_canvas* canvas, void* x, const char* figure_id, int color)
 {
     sys_vgui(".x%lx.c itemconfigure %lx_%s -outline #%6.6x\n", canvas, x, figure_id, color);
 }
 
-void g_circle_erase(t_canvas* canvas, void* x, const char* figure_id)
+void g_figure_fill(t_canvas* canvas, void* x, const char* figure_id, int color)
+{
+    sys_vgui(".x%lx.c itemconfigure %lx_%s -fill #%6.6x\n",
+        canvas, x, figure_id, color);
+}
+
+void g_figure_set_linewidth(t_canvas* canvas, void* x, const char* figure_id, int width)
+{
+    sys_vgui(".x%lx.c itemconfigure %lx_%s -width %d\n", canvas, x, figure_id, width);
+}
+
+void g_figure_erase(t_canvas* canvas, void* x, const char* figure_id)
 {
     sys_vgui(".x%lx.c delete %lx_%s\n", canvas, x, figure_id);
+}
+
+void g_rect_draw_filled(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos, int w, int h, int color)
+{
+    sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill #%6.6x -tags %lx_%s\n",
+        canvas, xpos, ypos, xpos + w, ypos + h, color, x, figure_id);
+}
+
+void g_rect_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos, int w, int h)
+{
+    sys_vgui(".x%lx.c coords %lx_%s %d %d %d %d\n",
+        canvas, x, figure_id,
+        xpos, ypos, xpos + w, ypos + h);
 }
 
 #endif // G_CEAMMC_DRAW_C

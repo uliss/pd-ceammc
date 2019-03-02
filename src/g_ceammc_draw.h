@@ -29,10 +29,16 @@ void g_ceammc_draw_label(t_bng* x, int xpos, int ypos, const char* str, t_canvas
 
 void g_circle_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
     int xpos, int ypos, int w, int h, int zoom, int color);
-void g_circle_fill(t_canvas* canvas, void* x, const char* figure_id, int color);
 void g_circle_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos, int w, int h);
-void g_circle_outline(t_canvas* canvas, void* x, const char* figure_id, int color);
-void g_circle_erase(t_canvas* canvas, void* x, const char* figure_id);
+
+void g_rect_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
+    int xpos, int ypos, int w, int h, int color);
+void g_rect_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos, int w, int h);
+
+void g_figure_set_linewidth(t_canvas* canvas, void* x, const char* figure_id, int width);
+void g_figure_fill(t_canvas* canvas, void* x, const char* figure_id, int color);
+void g_figure_outline(t_canvas* canvas, void* x, const char* figure_id, int color);
+void g_figure_erase(t_canvas* canvas, void* x, const char* figure_id);
 
 #if defined(_LANGUAGE_C_PLUS_PLUS) || defined(__cplusplus)
 }
