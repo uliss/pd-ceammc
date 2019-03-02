@@ -36,6 +36,7 @@ set(G_SRC
     g_canvas.c
     g_clone.c
     g_editor.c
+    g_editor_extras.c
     g_draw.h
     g_draw.c
     g_draw_tcl.c
@@ -53,6 +54,7 @@ set(G_SRC
     g_text.c
     g_toggle.c
     g_traversal.c
+    g_undo.c
     g_vdial.c
     g_vslider.c
     g_vumeter.c)
