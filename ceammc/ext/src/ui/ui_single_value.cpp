@@ -28,12 +28,8 @@ using namespace ceammc;
 
 static t_symbol* midi_ctl_sym()
 {
-#ifdef __WIN32
     static t_symbol* sym = gensym("#ctlin");
     return sym;
-#else
-    return pd_this->pd_ctlin_sym;
-#endif
 }
 
 UISingleValue::UISingleValue()
