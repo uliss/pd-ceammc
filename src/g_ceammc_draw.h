@@ -35,10 +35,17 @@ void g_rect_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
     int xpos, int ypos, int w, int h, int color);
 void g_rect_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos, int w, int h);
 
+void g_text_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos);
+void g_text_set(t_canvas* canvas, void* x, const char* figure_id, const char* txt);
+void g_text_color(t_canvas* canvas, void* x, const char* figure_id, int color);
+void g_text_font(t_canvas* canvas, void* x, const char* figure_id,
+    const char* font, int size, const char* weight);
+
 void g_figure_set_linewidth(t_canvas* canvas, void* x, const char* figure_id, int width);
 void g_figure_fill(t_canvas* canvas, void* x, const char* figure_id, int color);
 void g_figure_outline(t_canvas* canvas, void* x, const char* figure_id, int color);
 void g_figure_erase(t_canvas* canvas, void* x, const char* figure_id);
+void g_figure_raise(t_canvas* canvas, void* x, const char* fig_upper, const char* fig_lower);
 
 #if defined(_LANGUAGE_C_PLUS_PLUS) || defined(__cplusplus)
 }

@@ -40,6 +40,7 @@
 // ceammc
 #define IEM_GUI_COLOR_SELECTED       0x1441E6
 #define IEM_GUI_COLOR_NORMAL         0x333333
+#define IEM_GUI_COLOR_XLET           IEM_GUI_COLNR_BLACK
 // ceammc end
 
 #define IEM_GUI_MAX_COLOR            30
