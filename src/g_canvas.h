@@ -43,6 +43,8 @@ in future releases.  The public (stable) API is in m_pd.h. */
 extern "C" {
 #endif
 
+#include "m_pd.h"
+
 /* --------------------- geometry ---------------------------- */
 #define IOWIDTH 7       /* width of an inlet/outlet in pixels */
 #define IHEIGHT 3       /* height of an inlet in pixels */

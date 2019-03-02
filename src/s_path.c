@@ -264,7 +264,7 @@ void sys_setextrapath(const char *p)
     strncpy(pathbuf, sys_libdir->s_name, MAXPDSTRING-30);
     pathbuf[MAXPDSTRING-30] = 0;
     strcat(pathbuf, "/extra/ceammc");
-    sys_staticpath = namelist_append(sys_staticpath, pathbuf, 0);
+    STUFF->st_staticpath = namelist_append(STUFF->st_staticpath, pathbuf, 0);
 
     /* add built-in "extra" path last so its checked last */
     STUFF->st_staticpath = namelist_append(STUFF->st_staticpath, p, 0);
