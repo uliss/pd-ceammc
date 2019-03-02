@@ -2,6 +2,7 @@
 * For information on usage and redistribution, and for a DISCLAIMER OF ALL
 * WARRANTIES, see the file, "LICENSE.txt," in this distribution. */
 /* g_7_guis.h written by Thomas Musil (c) IEM KUG Graz Austria 2000-2001 */
+#pragma once
 
 #define IEM_GUI_COLNR_WHITE          0
 #define IEM_GUI_COLNR_ML_GREY        1
