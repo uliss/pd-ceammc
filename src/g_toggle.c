@@ -110,14 +110,9 @@ void toggle_draw_erase(t_toggle* x, t_glist* glist)
 {
     t_canvas *canvas = glist_getcanvas(glist);
 
-    g_figure_erase(canvas, x, "BASE");
+    g_iem_box_erase(canvas, &x->x_gui);
     g_figure_erase(canvas, x, "X1");
     g_figure_erase(canvas, x, "X2");
-    g_figure_erase(canvas, x, "LABEL");
-    if(!x->x_gui.x_fsf.x_snd_able)
-        g_figure_erase(canvas, x, "OUT0");
-    if(!x->x_gui.x_fsf.x_rcv_able)
-        g_figure_erase(canvas, x, "IN0");
 }
 
 void toggle_draw_config(t_toggle* x, t_glist* glist)

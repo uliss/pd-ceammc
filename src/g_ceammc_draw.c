@@ -105,6 +105,18 @@ void g_iem_box_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
         g_rect_move(canvas, x, "IN0", xpos, ypos, iow, ioh - z);
 }
 
+void g_iem_box_erase(t_canvas* canvas, t_iemgui* x)
+{
+    g_figure_erase(canvas, x, "BASE");
+    g_figure_erase(canvas, x, "LABEL");
+
+    if (!x->x_fsf.x_snd_able)
+        g_figure_erase(canvas, x, "OUT0");
+
+    if (!x->x_fsf.x_rcv_able)
+        g_figure_erase(canvas, x, "IN0");
+}
+
 void g_iem_io_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos, int old_snd_rcv_flags)
 {
     const int z = x->x_glist->gl_zoom;

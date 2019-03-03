@@ -31,6 +31,7 @@ void g_iem_label_config(t_canvas* canvas, t_iemgui* x);
 void g_iem_label_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
 void g_iem_box_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
 void g_iem_box_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
+void g_iem_box_erase(t_canvas* canvas, t_iemgui* x);
 void g_iem_io_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos, int old_snd_rcv_flags);
 
 // cirlce
