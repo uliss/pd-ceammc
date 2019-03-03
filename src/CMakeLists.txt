@@ -38,9 +38,6 @@ set(G_SRC
     g_clone.c
     g_editor.c
     g_editor_extras.c
-    g_draw.h
-    g_draw.c
-    g_draw_tcl.c
     g_graph.c
     g_guiconnect.c
     g_hdial.c
