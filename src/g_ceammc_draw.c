@@ -83,6 +83,16 @@ void g_iem_label_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
         ypos + x->x_ldy * z);
 }
 
+void g_iem_label_select(t_canvas* canvas, t_iemgui* x)
+{
+    g_figure_fill(canvas, x, "LABEL", IEM_GUI_COLOR_SELECTED);
+}
+
+void g_iem_label_unselect(t_canvas* canvas, t_iemgui* x)
+{
+    g_figure_fill(canvas, x, "LABEL", x->x_lcol);
+}
+
 void g_iem_box_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
 {
     g_iem_brect_draw(canvas, x, xpos, ypos);
@@ -100,12 +110,7 @@ void g_iem_box_erase(t_canvas* canvas, t_iemgui* x)
 {
     g_figure_erase(canvas, x, "BASE");
     g_figure_erase(canvas, x, "LABEL");
-
-    if (!x->x_fsf.x_snd_able)
-        g_figure_erase(canvas, x, "OUT0");
-
-    if (!x->x_fsf.x_rcv_able)
-        g_figure_erase(canvas, x, "IN0");
+    g_iem_io_erase(canvas, x);
 }
 
 void g_iem_io_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos, int old_snd_rcv_flags)
@@ -150,6 +155,21 @@ void g_iem_io_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
         g_rect_move(canvas, x, "IN0", xpos, ypos, iow, ioh - z);
 }
 
+void g_figure_outfill(t_canvas* canvas, void* x, const char* figure_id, int color)
+{
+    sys_vgui(".x%lx.c itemconfigure %lx_%s -fill #%6.6x -outline #%6.6x \n",
+        canvas, x, figure_id, color, color);
+}
+
+void g_iem_io_erase(t_canvas* canvas, t_iemgui* x)
+{
+    if (!x->x_fsf.x_snd_able)
+        g_figure_erase(canvas, x, "OUT0");
+
+    if (!x->x_fsf.x_rcv_able)
+        g_figure_erase(canvas, x, "IN0");
+}
+
 void g_circle_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
     int xpos, int ypos, int w, int h, int zoom, int color)
 {
@@ -187,10 +207,18 @@ void g_figure_erase(t_canvas* canvas, void* x, const char* figure_id)
     sys_vgui(".x%lx.c delete %lx_%s\n", canvas, x, figure_id);
 }
 
-void g_rect_draw_filled(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos, int w, int h, int color)
+void g_rect_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
+    int xpos, int ypos, int w, int h, int color)
 {
     sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill #%6.6x -tags %lx_%s\n",
         canvas, xpos, ypos, xpos + w, ypos + h, color, x, figure_id);
+}
+
+void g_rect_draw_outfilled(t_canvas* canvas, void* x, const char* figure_id,
+    int xpos, int ypos, int w, int h, int color)
+{
+    sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill #%6.6x -outline #%6.6x -tags %lx_%s\n",
+        canvas, xpos, ypos, xpos + w, ypos + h, color, color, x, figure_id);
 }
 
 void g_rect_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos, int w, int h)
@@ -225,6 +253,42 @@ void g_text_font(t_canvas* canvas, void* x, const char* figure_id,
 void g_figure_raise(t_canvas* canvas, void* x, const char* fig_upper, const char* fig_lower)
 {
     sys_vgui(".x%lx.c raise %lx_%s %lx_%s\n", canvas, x, fig_upper, x, fig_lower);
+}
+
+void g_figure_fill_n(t_canvas* canvas, void* x, const char* figure_tmp, int n, int color)
+{
+    char buf_id[64];
+    for (int i = 0; i < n; i++) {
+        snprintf(buf_id, sizeof(buf_id), figure_tmp, i);
+        g_figure_fill(canvas, x, buf_id, color);
+    }
+}
+
+void g_figure_outline_n(t_canvas* canvas, void* x, const char* figure_tmp, int n, int color)
+{
+    char buf_id[64];
+    for (int i = 0; i < n; i++) {
+        snprintf(buf_id, sizeof(buf_id), figure_tmp, i);
+        g_figure_outline(canvas, x, buf_id, color);
+    }
+}
+
+void g_figure_outfill_n(t_canvas* canvas, void* x, const char* figure_tmp, int n, int color)
+{
+    char buf_id[64];
+    for (int i = 0; i < n; i++) {
+        snprintf(buf_id, sizeof(buf_id), figure_tmp, i);
+        g_figure_outfill(canvas, x, buf_id, color);
+    }
+}
+
+void g_figure_erase_n(t_canvas* canvas, void* x, const char* figure_tmp, int n)
+{
+    char buf_id[64];
+    for (int i = 0; i < n; i++) {
+        snprintf(buf_id, sizeof(buf_id), figure_tmp, i);
+        g_figure_erase(canvas, x, buf_id);
+    }
 }
 
 void g_line_draw(t_canvas* canvas, void* x, const char* figure_id,

@@ -29,11 +29,14 @@ void g_iem_outlets_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
 void g_iem_label_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
 void g_iem_label_config(t_canvas* canvas, t_iemgui* x);
 void g_iem_label_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
+void g_iem_label_select(t_canvas* canvas, t_iemgui* x);
+void g_iem_label_unselect(t_canvas* canvas, t_iemgui* x);
 void g_iem_box_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
 void g_iem_box_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
 void g_iem_box_erase(t_canvas* canvas, t_iemgui* x);
 void g_iem_io_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos, int old_snd_rcv_flags);
 void g_iem_io_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
+void g_iem_io_erase(t_canvas* canvas, t_iemgui* x);
 
 // cirlce
 void g_circle_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
@@ -42,6 +45,8 @@ void g_circle_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, i
 
 // rect
 void g_rect_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
+    int xpos, int ypos, int w, int h, int color);
+void g_rect_draw_outfilled(t_canvas* canvas, void* x, const char* figure_id,
     int xpos, int ypos, int w, int h, int color);
 void g_rect_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos, int w, int h);
 
@@ -62,8 +67,14 @@ void g_line_move(t_canvas* canvas, void* x, const char* figure_id,
 void g_figure_set_linewidth(t_canvas* canvas, void* x, const char* figure_id, int width);
 void g_figure_fill(t_canvas* canvas, void* x, const char* figure_id, int color);
 void g_figure_outline(t_canvas* canvas, void* x, const char* figure_id, int color);
+void g_figure_outfill(t_canvas* canvas, void* x, const char* figure_id, int color);
 void g_figure_erase(t_canvas* canvas, void* x, const char* figure_id);
 void g_figure_raise(t_canvas* canvas, void* x, const char* fig_upper, const char* fig_lower);
+
+void g_figure_fill_n(t_canvas* canvas, void* x, const char* figure_tmp, int n, int color);
+void g_figure_outline_n(t_canvas* canvas, void* x, const char* figure_tmp, int n, int color);
+void g_figure_outfill_n(t_canvas* canvas, void* x, const char* figure_id, int n, int color);
+void g_figure_erase_n(t_canvas* canvas, void* x, const char* figure_tmp, int n);
 
 #if defined(_LANGUAGE_C_PLUS_PLUS) || defined(__cplusplus)
 }
