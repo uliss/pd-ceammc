@@ -25,7 +25,9 @@ extern "C" {
 // IEM
 void g_iem_brect_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
 void g_iem_inlets_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
+void g_iem_inlets_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
 void g_iem_outlets_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
+void g_iem_outlets_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
 void g_iem_label_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
 void g_iem_label_config(t_canvas* canvas, t_iemgui* x);
 void g_iem_label_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);

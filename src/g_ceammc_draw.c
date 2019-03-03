@@ -41,6 +41,16 @@ void g_iem_inlets_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
             xpos + iow, ypos - z + ioh, IEM_GUI_COLOR_XLET, x);
 }
 
+void g_iem_inlets_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
+{
+    const int z = x->x_glist->gl_zoom;
+    const int iow = IOWIDTH * z;
+    const int ioh = IEM_GUI_IOHEIGHT * z;
+
+    if (!x->x_fsf.x_rcv_able)
+        g_rect_move(canvas, x, "IN0", xpos, ypos, iow, ioh - z);
+}
+
 void g_iem_outlets_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
 {
     const int z = x->x_glist->gl_zoom;
@@ -52,6 +62,16 @@ void g_iem_outlets_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
             canvas,
             xpos, ypos + x->x_h - ioh + z,
             xpos + iow, ypos + x->x_h, IEM_GUI_COLOR_XLET, x);
+}
+
+void g_iem_outlets_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
+{
+    const int z = x->x_glist->gl_zoom;
+    const int iow = IOWIDTH * z;
+    const int ioh = IEM_GUI_IOHEIGHT * z;
+
+    if (!x->x_fsf.x_snd_able)
+        g_rect_move(canvas, x, "OUT0", xpos, ypos + x->x_h, iow, z - ioh);
 }
 
 void g_iem_label_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
@@ -144,15 +164,8 @@ void g_iem_io_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos, int old_sn
 
 void g_iem_io_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
 {
-    const int z = x->x_glist->gl_zoom;
-    const int iow = IOWIDTH * z;
-    const int ioh = IEM_GUI_IOHEIGHT * z;
-
-    if (!x->x_fsf.x_snd_able)
-        g_rect_move(canvas, x, "OUT0", xpos, ypos + x->x_h, iow, z - ioh);
-
-    if (!x->x_fsf.x_rcv_able)
-        g_rect_move(canvas, x, "IN0", xpos, ypos, iow, ioh - z);
+    g_iem_inlets_move(canvas, x, xpos, ypos);
+    g_iem_outlets_move(canvas, x, xpos, ypos);
 }
 
 void g_figure_outfill(t_canvas* canvas, void* x, const char* figure_id, int color)
