@@ -33,6 +33,7 @@ void g_iem_box_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
 void g_iem_box_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
 void g_iem_box_erase(t_canvas* canvas, t_iemgui* x);
 void g_iem_io_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos, int old_snd_rcv_flags);
+void g_iem_io_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
 
 // cirlce
 void g_circle_draw_filled(t_canvas* canvas, void* x, const char* figure_id,

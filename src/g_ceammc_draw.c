@@ -92,17 +92,8 @@ void g_iem_box_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
 
 void g_iem_box_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
 {
-    const int z = x->x_glist->gl_zoom;
-    const int iow = IOWIDTH * z;
-    const int ioh = IEM_GUI_IOHEIGHT * z;
-
     g_rect_move(canvas, x, "BASE", xpos, ypos, x->x_w, x->x_h);
-
-    if (!x->x_fsf.x_snd_able)
-        g_rect_move(canvas, x, "OUT0", xpos, ypos + x->x_h, iow, z - ioh);
-
-    if (!x->x_fsf.x_rcv_able)
-        g_rect_move(canvas, x, "IN0", xpos, ypos, iow, ioh - z);
+    g_iem_io_move(canvas, x, xpos, ypos);
 }
 
 void g_iem_box_erase(t_canvas* canvas, t_iemgui* x)
@@ -144,6 +135,19 @@ void g_iem_io_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos, int old_sn
 
     if (!(old_snd_rcv_flags & IEM_GUI_OLD_RCV_FLAG) && x->x_fsf.x_rcv_able)
         g_figure_erase(canvas, x, "IN0");
+}
+
+void g_iem_io_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
+{
+    const int z = x->x_glist->gl_zoom;
+    const int iow = IOWIDTH * z;
+    const int ioh = IEM_GUI_IOHEIGHT * z;
+
+    if (!x->x_fsf.x_snd_able)
+        g_rect_move(canvas, x, "OUT0", xpos, ypos + x->x_h, iow, z - ioh);
+
+    if (!x->x_fsf.x_rcv_able)
+        g_rect_move(canvas, x, "IN0", xpos, ypos, iow, ioh - z);
 }
 
 void g_circle_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
