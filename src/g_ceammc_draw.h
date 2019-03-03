@@ -26,7 +26,12 @@ extern "C" {
 void g_iem_brect_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
 void g_iem_inlets_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
 void g_iem_outlets_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
-void g_iem_label_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos, const char* str);
+void g_iem_label_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
+void g_iem_label_config(t_canvas* canvas, t_iemgui* x);
+void g_iem_label_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
+void g_iem_box_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
+void g_iem_box_move(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
+void g_iem_io_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos, int old_snd_rcv_flags);
 
 // cirlce
 void g_circle_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
@@ -44,6 +49,12 @@ void g_text_set(t_canvas* canvas, void* x, const char* figure_id, const char* tx
 void g_text_color(t_canvas* canvas, void* x, const char* figure_id, int color);
 void g_text_font(t_canvas* canvas, void* x, const char* figure_id,
     const char* font, int size, const char* weight);
+
+// line
+void g_line_draw(t_canvas* canvas, void* x, const char* figure_id,
+    int xpos0, int ypos0, int xpos1, int ypos1, int width, int color);
+void g_line_move(t_canvas* canvas, void* x, const char* figure_id,
+    int xpos0, int ypos0, int xpos1, int ypos1);
 
 // all figures
 void g_figure_set_linewidth(t_canvas* canvas, void* x, const char* figure_id, int width);

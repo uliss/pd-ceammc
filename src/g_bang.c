@@ -45,37 +45,29 @@ void bng_draw_new(t_bng* x, t_glist* glist)
     int inset = IEMGUI_ZOOM(x);
     t_canvas* canvas = glist_getcanvas(glist);
 
-    g_iem_brect_draw(canvas, &x->x_gui, xpos, ypos);
-    g_iem_inlets_draw(canvas, &x->x_gui, xpos, ypos);
-    g_iem_outlets_draw(canvas, &x->x_gui, xpos, ypos);
+    g_iem_box_draw(canvas, &x->x_gui, xpos, ypos);
     g_circle_draw_filled(canvas, x, "BTN",
         xpos + inset, ypos + inset,
         x->x_gui.x_w - 2 * inset, x->x_gui.x_h - 2 * inset,
         IEMGUI_ZOOM(x), (x->x_flashed ? x->x_gui.x_fcol : x->x_gui.x_bcol));
-    g_iem_label_draw(canvas, &x->x_gui, xpos, ypos, (strcmp(x->x_gui.x_lab->s_name, "empty") ? x->x_gui.x_lab->s_name : ""));
+    g_iem_label_draw(canvas, &x->x_gui, xpos, ypos);
 }
 
 void bng_draw_move(t_bng* x, t_glist* glist)
 {
     int xpos = text_xpix(&x->x_gui.x_obj, glist);
     int ypos = text_ypix(&x->x_gui.x_obj, glist);
-    int iow = IOWIDTH * IEMGUI_ZOOM(x), ioh = IEM_GUI_IOHEIGHT * IEMGUI_ZOOM(x);
     int inset = IEMGUI_ZOOM(x);
     t_canvas* canvas = glist_getcanvas(glist);
 
-    g_rect_move(canvas, x, "BASE", xpos, ypos, x->x_gui.x_w, x->x_gui.x_h);
-    if (!x->x_gui.x_fsf.x_snd_able)
-        g_rect_move(canvas, x, "OUT0", xpos, ypos + x->x_gui.x_h, iow, IEMGUI_ZOOM(x) - ioh);
-    if (!x->x_gui.x_fsf.x_rcv_able)
-        g_rect_move(canvas, x, "IN0", xpos, ypos, iow, ioh - IEMGUI_ZOOM(x));
+    g_iem_box_move(canvas, &x->x_gui, xpos, ypos);
 
     g_circle_move(canvas, x, "BTN", xpos + inset, ypos + inset,
         x->x_gui.x_w - 2 * inset, x->x_gui.x_h - 2 * inset);
     g_figure_fill(canvas, x, "BTN",
         (x->x_flashed ? x->x_gui.x_fcol : x->x_gui.x_bcol));
-    g_text_move(canvas, x, "LABEL",
-        xpos + x->x_gui.x_ldx * IEMGUI_ZOOM(x),
-        ypos + x->x_gui.x_ldy * IEMGUI_ZOOM(x));
+
+    g_iem_label_move(canvas, &x->x_gui, xpos, ypos);
 }
 
 void bng_draw_erase(t_bng* x, t_glist* glist)
@@ -96,10 +88,7 @@ void bng_draw_config(t_bng* x, t_glist* glist)
 {
     t_canvas* canvas = glist_getcanvas(glist);
 
-    g_text_set(canvas, x, "LABEL", (strcmp(x->x_gui.x_lab->s_name, "empty") ? x->x_gui.x_lab->s_name : ""));
-    g_text_font(canvas, x, "LABEL", x->x_gui.x_font, x->x_gui.x_fontsize * IEMGUI_ZOOM(x), sys_fontweight);
-    g_text_color(canvas, x, "LABEL", (x->x_gui.x_fsf.x_selected ? IEM_GUI_COLOR_SELECTED : x->x_gui.x_lcol));
-
+    g_iem_label_config(canvas, &x->x_gui);
     g_figure_fill(canvas, x, "BASE", x->x_gui.x_bcol);
     g_figure_fill(canvas, x, "BTN", (x->x_flashed ? x->x_gui.x_fcol : x->x_gui.x_bcol));
 }
@@ -108,28 +97,9 @@ void bng_draw_io(t_bng* x, t_glist* glist, int old_snd_rcv_flags)
 {
     int xpos = text_xpix(&x->x_gui.x_obj, glist);
     int ypos = text_ypix(&x->x_gui.x_obj, glist);
-    int iow = IOWIDTH * IEMGUI_ZOOM(x), ioh = IEM_GUI_IOHEIGHT * IEMGUI_ZOOM(x);
     t_canvas* canvas = glist_getcanvas(glist);
 
-    if ((old_snd_rcv_flags & IEM_GUI_OLD_SND_FLAG) && !x->x_gui.x_fsf.x_snd_able) {
-        g_rect_draw_filled(canvas, x, "OUT0",
-            xpos, ypos + x->x_gui.x_h, iow, IEMGUI_ZOOM(x) - ioh,
-            IEM_GUI_COLOR_XLET);
-        /* keep above outlet */
-        g_figure_raise(canvas, x, "LABEL", "OUT0");
-    }
-    if (!(old_snd_rcv_flags & IEM_GUI_OLD_SND_FLAG) && x->x_gui.x_fsf.x_snd_able)
-        g_figure_erase(canvas, x, "OUT0");
-
-    if ((old_snd_rcv_flags & IEM_GUI_OLD_RCV_FLAG) && !x->x_gui.x_fsf.x_rcv_able) {
-        g_rect_draw_filled(canvas, x, "IN0",
-            xpos, ypos, iow, ioh,
-            IEM_GUI_COLOR_XLET);
-        /* keep above inlet */
-        g_figure_raise(canvas, x, "LABEL", "IN0");
-    }
-    if (!(old_snd_rcv_flags & IEM_GUI_OLD_RCV_FLAG) && x->x_gui.x_fsf.x_rcv_able)
-        g_figure_erase(canvas, x, "IN0");
+    g_iem_io_draw(canvas, &x->x_gui, xpos, ypos, old_snd_rcv_flags);
 }
 
 void bng_draw_select(t_bng* x, t_glist* glist)
