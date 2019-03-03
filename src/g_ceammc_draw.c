@@ -50,7 +50,7 @@ void g_iem_outlets_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
     if (!x->x_fsf.x_snd_able)
         sys_vgui(".x%lx.c create rectangle %d %d %d %d -fill #%6.6x -tags [list %lx_OUT0 outlet]\n",
             canvas,
-            xpos, ypos + x->x_h - ioh,
+            xpos, ypos + x->x_h - ioh + z,
             xpos + iow, ypos + x->x_h, IEM_GUI_COLOR_XLET, x);
 }
 
