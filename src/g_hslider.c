@@ -114,6 +114,19 @@ static void hslider_draw_io(t_hslider* x, t_glist* glist, int old_snd_rcv_flags)
     t_canvas *canvas = glist_getcanvas(glist);
 
     g_iem_io_draw(canvas, &x->x_gui, xpos - lmargin, ypos, old_snd_rcv_flags);
+
+    if((old_snd_rcv_flags & IEM_GUI_OLD_SND_FLAG) && !x->x_gui.x_fsf.x_snd_able)
+    {
+        /* keep these above outlet */
+        g_figure_raise(canvas, x, "KNOB", "OUT0");
+        g_figure_raise(canvas, x, "LABEL", "KNOB");
+    }
+    if((old_snd_rcv_flags & IEM_GUI_OLD_RCV_FLAG) && !x->x_gui.x_fsf.x_rcv_able)
+    {
+        /* keep these above inlet */
+        g_figure_raise(canvas, x, "KNOB", "IN0");
+        g_figure_raise(canvas, x, "LABEL", "KNOB");
+    }
 }
 
 static void hslider_draw_select(t_hslider* x, t_glist* glist)
