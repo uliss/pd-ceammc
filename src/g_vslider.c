@@ -43,7 +43,7 @@ static void vslider_draw_update(t_gobj *client, t_glist *glist)
         t_canvas *canvas = glist_getcanvas(glist);
 
         g_line_move(canvas, x, "KNOB",
-                    xpos + IEMGUI_ZOOM(x), r,
+                    xpos, r,
                     xpos + x->x_gui.x_w - IEMGUI_ZOOM(x), r);
     }
 }
@@ -66,7 +66,7 @@ static void vslider_draw_new(t_vslider *x, t_glist *glist)
     g_iem_outlets_draw(canvas, &x->x_gui, xpos, ypos + bmargin);
 
     g_line_draw(canvas, x, "KNOB",
-                xpos + IEMGUI_ZOOM(x), r,
+                xpos, r,
                 xpos + x->x_gui.x_w - IEMGUI_ZOOM(x), r,
                 1 + 2 * IEMGUI_ZOOM(x),
                 x->x_gui.x_fcol);
@@ -87,7 +87,7 @@ static void vslider_draw_move(t_vslider *x, t_glist *glist)
     g_iem_inlets_move(canvas, &x->x_gui, xpos, ypos - tmargin);
     g_iem_outlets_move(canvas, &x->x_gui, xpos, ypos + bmargin);
     g_line_move(canvas, x, "KNOB",
-                xpos + IEMGUI_ZOOM(x), r,
+                xpos, r,
                 xpos + x->x_gui.x_w - IEMGUI_ZOOM(x), r);
     g_iem_label_move(canvas, &x->x_gui, xpos, ypos);
 }
