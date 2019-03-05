@@ -16,6 +16,8 @@ to be different but are now unified except for some fossilized names.) */
 #include "g_all_guis.h"
 #include "g_undo.h"
 
+#include "g_ceammc_draw.h"
+
 #ifdef _MSC_VER
 #include <io.h>
 #define snprintf _snprintf
@@ -639,15 +641,11 @@ void canvas_dirty(t_canvas *x, t_floatarg f)
 void canvas_drawredrect(t_canvas *x, int doit)
 {
     if (doit)
-        sys_vgui(".x%lx.c create line %d %d %d %d %d %d %d %d %d %d "
-            "-fill #ff8080 -width %d -capstyle projecting -tags GOP\n",
-            glist_getcanvas(x),
-            x->gl_xmargin, x->gl_ymargin,
-            x->gl_xmargin + x->gl_pixwidth, x->gl_ymargin,
-            x->gl_xmargin + x->gl_pixwidth, x->gl_ymargin + x->gl_pixheight,
-            x->gl_xmargin, x->gl_ymargin + x->gl_pixheight,
-            x->gl_xmargin, x->gl_ymargin, glist_getzoom(x));
-    else sys_vgui(".x%lx.c delete GOP\n",  glist_getcanvas(x));
+        g_gop_draw(glist_getcanvas(x),
+                   x->gl_xmargin, x->gl_ymargin,
+                   x->gl_pixwidth, x->gl_pixheight);
+    else
+        g_gop_erase(glist_getcanvas(x));
 }
 
     /* the window becomes "mapped" (visible and not miniaturized) or
@@ -683,7 +681,7 @@ void canvas_map(t_canvas *x, t_floatarg f)
         if (glist_isvisible(x))
         {
                 /* just clear out the whole canvas */
-            sys_vgui(".x%lx.c delete all\n", x);
+            g_delete_all(x);
             x->gl_mapped = 0;
         }
     }
@@ -803,14 +801,12 @@ static void canvas_drawlines(t_canvas *x)
     t_outconnect *oc;
     int yoffset = x->gl_zoom; /* slight offset to hide thick line corners */
     {
+        t_canvas* canvas = glist_getcanvas(x);
         linetraverser_start(&t, x);
-        while ((oc = linetraverser_next(&t)))
-            sys_vgui(
-        ".x%lx.c create line %d %d %d %d -width %d -tags [list l%lx cord]\n",
-                glist_getcanvas(x),
-                t.tr_lx1, t.tr_ly1 - yoffset, t.tr_lx2, t.tr_ly2 + yoffset,
-                (outlet_getsymbol(t.tr_outlet) == &s_signal ? 2:1) * x->gl_zoom,
-                oc);
+        while ((oc = linetraverser_next(&t))) {
+            g_cord_draw(canvas, t.tr_ob, t.tr_outno, oc,
+                        t.tr_lx1, t.tr_ly1 - yoffset, t.tr_lx2, t.tr_ly2 + yoffset);
+        }
     }
 }
 
@@ -821,13 +817,12 @@ void canvas_fixlinesfor(t_canvas *x, t_text *text)
     int yoffset = x->gl_zoom; /* slight offset to hide thick line corners */
     
     linetraverser_start(&t, x);
+    t_canvas* canvas = glist_getcanvas(x);
     while ((oc = linetraverser_next(&t)))
     {
         if (t.tr_ob == text || t.tr_ob2 == text)
         {
-            sys_vgui(".x%lx.c coords l%lx %d %d %d %d\n",
-                glist_getcanvas(x), oc,
-                t.tr_lx1, t.tr_ly1 - yoffset, t.tr_lx2, t.tr_ly2 + yoffset);
+            g_cord_move(canvas, oc, t.tr_lx1, t.tr_ly1 - yoffset, t.tr_lx2, t.tr_ly2 + yoffset);
         }
     }
 }
@@ -838,14 +833,14 @@ void canvas_deletelinesfor(t_canvas *x, t_text *text)
     t_linetraverser t;
     t_outconnect *oc;
     linetraverser_start(&t, x);
+    t_canvas* canvas = glist_getcanvas(x);
     while ((oc = linetraverser_next(&t)))
     {
         if (t.tr_ob == text || t.tr_ob2 == text)
         {
             if (glist_isvisible(x))
             {
-                sys_vgui(".x%lx.c delete l%lx\n",
-                    glist_getcanvas(x), oc);
+                g_cord_erase(canvas, oc);
             }
             obj_disconnect(t.tr_ob, t.tr_outno, t.tr_ob2, t.tr_inno);
         }
@@ -858,6 +853,7 @@ void canvas_deletelinesforio(t_canvas *x, t_text *text,
 {
     t_linetraverser t;
     t_outconnect *oc;
+    t_canvas* canvas = glist_getcanvas(x);
     linetraverser_start(&t, x);
     while ((oc = linetraverser_next(&t)))
     {
@@ -866,8 +862,7 @@ void canvas_deletelinesforio(t_canvas *x, t_text *text,
         {
             if (glist_isvisible(x))
             {
-                sys_vgui(".x%lx.c delete l%lx\n",
-                    glist_getcanvas(x), oc);
+                g_cord_erase(canvas, oc);
             }
             obj_disconnect(t.tr_ob, t.tr_outno, t.tr_ob2, t.tr_inno);
         }
