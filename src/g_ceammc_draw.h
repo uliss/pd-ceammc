@@ -48,6 +48,8 @@ void g_circle_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, i
 // rect
 void g_rect_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
     int xpos, int ypos, int w, int h, int color);
+void g_rect_draw_outlined(t_canvas* canvas, void* x, const char* figure_id,
+    int xpos, int ypos, int w, int h, int line_width, int color);
 void g_rect_draw_outfilled(t_canvas* canvas, void* x, const char* figure_id,
     int xpos, int ypos, int w, int h, int color);
 void g_rect_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos, int w, int h);

@@ -230,6 +230,13 @@ void g_rect_draw_filled(t_canvas* canvas, void* x, const char* figure_id,
         canvas, xpos, ypos, xpos + w, ypos + h, color, x, figure_id);
 }
 
+void g_rect_draw_outlined(t_canvas* canvas, void* x, const char* figure_id,
+    int xpos, int ypos, int w, int h, int line_wd, int color)
+{
+    sys_vgui(".x%lx.c create rectangle %d %d %d %d -width %d -outline #%6.6x -tags %lx_%s\n",
+        canvas, xpos, ypos, xpos + w, ypos + h, line_wd, color, x, figure_id);
+}
+
 void g_rect_draw_outfilled(t_canvas* canvas, void* x, const char* figure_id,
     int xpos, int ypos, int w, int h, int color)
 {
