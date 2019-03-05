@@ -25,6 +25,29 @@
 #include <stdio.h>
 #include <string.h>
 
+void g_delete_all(t_canvas* c)
+{
+    sys_vgui(".x%lx.c delete all\n", c);
+}
+
+void g_gop_draw(t_canvas* canvas, int x0, int y0, int w, int h)
+{
+    sys_vgui(".x%lx.c create line %d %d %d %d %d %d %d %d %d %d "
+             "-fill #%6.6x -width %d -capstyle projecting -tags GOP\n",
+        canvas,
+        x0, y0,
+        x0 + w, y0,
+        x0 + w, y0 + h,
+        x0, y0 + h,
+        x0, y0,
+        STYLE_CANVAS_GOP_RECT_COLOR, 1);
+}
+
+void g_gop_erase(t_canvas* canvas)
+{
+    sys_vgui(".x%lx.c delete GOP\n", canvas);
+}
+
 void g_cord_draw(t_canvas* canvas, t_object* src, int outno, t_outconnect* oc,
     int x0, int y0, int x1, int y1)
 {
@@ -37,7 +60,7 @@ void g_cord_draw(t_canvas* canvas, t_object* src, int outno, t_outconnect* oc,
 
 void g_selection_draw(t_canvas* canvas, int x0, int y0, int x1, int y1)
 {
-    sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags x\n", canvas, x0, y0, x1, y1);
+    sys_vgui(".x%lx.c create rectangle %d %d %d %d -dash . -tags x\n", canvas, x0, y0, x1, y1);
 }
 
 void g_selection_move(t_canvas* canvas, int x0, int y0, int x1, int y1)

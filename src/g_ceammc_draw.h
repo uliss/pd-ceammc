@@ -22,6 +22,8 @@ extern "C" {
 
 #include "g_all_guis.h"
 
+void g_delete_all(t_canvas* c);
+
 // cords
 void g_cord_draw(t_canvas* canvas, t_object* src, int outno, t_outconnect* oc,
     int x0, int y0, int x1, int y1);
@@ -36,6 +38,10 @@ void g_connection_draw(t_canvas* canvas, int x0, int y0, int x1, int y1, int iss
 void g_selection_draw(t_canvas* canvas, int x0, int y0, int x1, int y1);
 void g_selection_move(t_canvas* canvas, int x0, int y0, int x1, int y1);
 void g_selection_clear(t_canvas* canvas);
+
+// GOP (graph on parent)
+void g_gop_draw(t_canvas* canvas, int x0, int y0, int x1, int y1);
+void g_gop_erase(t_canvas* canvas);
 
 // IEM
 void g_iem_brect_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
