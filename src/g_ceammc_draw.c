@@ -15,13 +15,71 @@
 #define G_CEAMMC_DRAW_C
 
 #include "g_ceammc_draw.h"
+#include "g_style.h"
 
 #include "g_canvas.h"
+#include "m_imp.h"
 
 #include <stdarg.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <string.h>
+
+void g_cord_draw(t_canvas* canvas, t_object* src, int outno, t_outconnect* oc,
+    int x0, int y0, int x1, int y1)
+{
+    sys_vgui(
+        ".x%lx.c create line %d %d %d %d -width %d -fill #%6.6x -tags [list l%lx cord]\n",
+        glist_getcanvas(canvas),
+        x0, y0, x1, y1,
+        style_cord_width(canvas, src, outno), style_cord_color(), oc);
+}
+
+void g_selection_draw(t_canvas* canvas, int x0, int y0, int x1, int y1)
+{
+    sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags x\n", canvas, x0, y0, x1, y1);
+}
+
+void g_selection_move(t_canvas* canvas, int x0, int y0, int x1, int y1)
+{
+    sys_vgui(".x%lx.c coords x %d %d %d %d\n", canvas, x0, y0, x1, y1);
+}
+
+void g_selection_clear(t_canvas* canvas)
+{
+    sys_vgui(".x%lx.c delete x\n", canvas);
+}
+
+void g_cord_select(t_canvas* canvas, t_outconnect* oc)
+{
+    sys_vgui(".x%lx.c itemconfigure l%lx -fill #%6.6x\n", canvas, oc, STYLE_CORD_SELECTED);
+}
+
+void g_cord_deselect(t_canvas* canvas, t_outconnect* oc)
+{
+    sys_vgui(".x%lx.c itemconfigure l%lx -fill #%6.6x\n", canvas, oc, STYLE_CORD_NORMAL);
+}
+
+void g_cord_erase(t_canvas* canvas, t_outconnect* oc)
+{
+    sys_vgui(".x%lx.c delete l%lx\n", canvas, oc);
+}
+
+void g_cord_move(t_canvas* canvas, t_outconnect* oc, int x0, int y0, int x1, int y1)
+{
+    sys_vgui(".x%lx.c coords l%lx %d %d %d %d\n", canvas, oc, x0, y0, x1, y1);
+}
+
+void g_cord_raise_all(t_canvas* canvas)
+{
+    sys_vgui(".x%lx.c raise cord\n", canvas);
+}
+
+void g_connection_draw(t_canvas* canvas, int x0, int y0, int x1, int y1, int issignal)
+{
+    sys_vgui(".x%lx.c create line %d %d %d %d -width %d -tags x\n",
+        canvas, x0, y0, x1, y1, style_cord_width_by_type(issignal) * canvas->gl_zoom);
+}
 
 void g_iem_brect_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
 {

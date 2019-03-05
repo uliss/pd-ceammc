@@ -22,6 +22,21 @@ extern "C" {
 
 #include "g_all_guis.h"
 
+// cords
+void g_cord_draw(t_canvas* canvas, t_object* src, int outno, t_outconnect* oc,
+    int x0, int y0, int x1, int y1);
+void g_cord_select(t_canvas* canvas, t_outconnect* oc);
+void g_cord_deselect(t_canvas* canvas, t_outconnect* oc);
+void g_cord_erase(t_canvas* canvas, t_outconnect* oc);
+void g_cord_move(t_canvas* canvas, t_outconnect* oc, int x0, int y0, int x1, int y1);
+void g_cord_raise_all(t_canvas* canvas);
+
+// connection
+void g_connection_draw(t_canvas* canvas, int x0, int y0, int x1, int y1, int issignal);
+void g_selection_draw(t_canvas* canvas, int x0, int y0, int x1, int y1);
+void g_selection_move(t_canvas* canvas, int x0, int y0, int x1, int y1);
+void g_selection_clear(t_canvas* canvas);
+
 // IEM
 void g_iem_brect_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
 void g_iem_inlets_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
