@@ -18,6 +18,9 @@
 
 #include "g_canvas.h"
 
+#include <stdarg.h>
+#include <stddef.h>
+#include <stdio.h>
 #include <string.h>
 
 void g_iem_brect_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos)
@@ -241,6 +244,15 @@ void g_rect_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, int
         xpos, ypos, xpos + w, ypos + h);
 }
 
+void g_text_draw(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos, const char* txt)
+{
+    sys_vgui(".x%lx.c create text %d %d -text {%s} -tags %lx_%s\n",
+        canvas,
+        xpos, ypos,
+        txt,
+        x, figure_id);
+}
+
 void g_text_move(t_canvas* canvas, void* x, const char* figure_id, int xpos, int ypos)
 {
     sys_vgui(".x%lx.c coords %lx_%s %d %d\n", canvas, x, figure_id, xpos, ypos);
@@ -261,6 +273,11 @@ void g_text_font(t_canvas* canvas, void* x, const char* figure_id,
 {
     sys_vgui(".x%lx.c itemconfigure %lx_%s -font {{%s} -%d %s} \n",
         canvas, x, figure_id, font, size, weight);
+}
+
+void g_text_anchor(t_canvas* canvas, void* x, const char* figure_id, const char* anchor)
+{
+    sys_vgui(".x%lx.c itemconfigure %lx_%s -anchor %s \n", canvas, x, figure_id, anchor);
 }
 
 void g_figure_raise(t_canvas* canvas, void* x, const char* fig_upper, const char* fig_lower)
@@ -318,6 +335,146 @@ void g_line_move(t_canvas* canvas, void* x, const char* figure_id,
 {
     sys_vgui(".x%lx.c coords %lx_%s %d %d %d %d\n",
         canvas, x, figure_id, xpos0, ypos0, xpos1, ypos1);
+}
+
+static const char digit_pairs[201] = {
+    "00010203040506070809"
+    "10111213141516171819"
+    "20212223242526272829"
+    "30313233343536373839"
+    "40414243444546474849"
+    "50515253545556575859"
+    "60616263646566676869"
+    "70717273747576777879"
+    "80818283848586878889"
+    "90919293949596979899"
+};
+
+static const int INT_BUFFER_SIZE = 11;
+static const int MAX_VARS = 70;
+static const int VAR_INT_BUFFER_SIZE = (INT_BUFFER_SIZE + 1) * MAX_VARS + 1;
+
+size_t g_int2str(int val, char* dest)
+{
+    if (!dest)
+        return 0;
+
+    char buf[INT_BUFFER_SIZE];
+    char* it = &buf[INT_BUFFER_SIZE - 3];
+
+    if (val >= 0) {
+        int div = val / 100;
+        while (div) {
+            memcpy(it, &digit_pairs[2 * (val - div * 100)], 2);
+            val = div;
+            it -= 2;
+            div = val / 100;
+        }
+        memcpy(it, &digit_pairs[2 * val], 2);
+        if (val < 10)
+            it++;
+    } else {
+        int div = val / 100;
+        while (div) {
+            memcpy(it, &digit_pairs[-2 * (val - div * 100)], 2);
+            val = div;
+            it -= 2;
+            div = val / 100;
+        }
+        memcpy(it, &digit_pairs[-2 * val], 2);
+        if (val <= -10)
+            it--;
+        *it = '-';
+    }
+
+    buf[INT_BUFFER_SIZE - 1] = '\0';
+    strcpy(dest, it);
+    return &buf[INT_BUFFER_SIZE - 1] - it;
+}
+
+static int g_va_int2str_helper(char* dest, size_t n, unsigned argc, va_list args)
+{
+    if (n == 0)
+        return -1;
+
+    char buf[INT_BUFFER_SIZE];
+    size_t total_sz = 0;
+    int rc = 0;
+
+    for (int i = 0; i < argc; i++) {
+        int ival = va_arg(args, int);
+        size_t nchars = g_int2str(ival, buf);
+        if (total_sz + nchars >= (n - 1)) {
+            fputs("buffer size is too small\n", stderr);
+            rc = -1;
+            break;
+        }
+
+        strcpy(dest + total_sz, buf);
+        total_sz += nchars;
+        dest[total_sz++] = ' ';
+        dest[total_sz] = '\0';
+    }
+
+    return rc;
+}
+
+int g_va_int2str(char* dest, size_t n, unsigned argc, ...)
+{
+    va_list args;
+    va_start(args, argc);
+    int rc = g_va_int2str_helper(dest, n, argc, args);
+    va_end(args);
+    return rc;
+}
+
+void g_figure_move_var(t_canvas* canvas, void* x, const char* figure_id, unsigned int ncoords, ...)
+{
+    va_list args;
+    va_start(args, ncoords);
+
+    char buf_int[VAR_INT_BUFFER_SIZE] = { 0 };
+    int rc = g_va_int2str_helper(buf_int, VAR_INT_BUFFER_SIZE, ncoords, args);
+    va_end(args);
+
+    if (rc != 0)
+        return;
+
+    sys_vgui(".x%lx.c coords %lx_%s %s\n", canvas, x, figure_id, buf_int);
+}
+
+void g_line_draw_var(t_canvas* canvas, void* x, const char* figure_id, unsigned ncoords, ...)
+{
+    va_list args;
+    va_start(args, ncoords);
+
+    char buf_int[VAR_INT_BUFFER_SIZE] = { 0 };
+    int rc = g_va_int2str_helper(buf_int, VAR_INT_BUFFER_SIZE, ncoords, args);
+
+    va_end(args);
+
+    if (rc != 0)
+        return;
+
+    sys_vgui(".x%lx.c create line %s -tags %lx_%s\n",
+        canvas, buf_int, x, figure_id);
+}
+
+void g_polygon_draw(t_canvas* canvas, void* x, const char* figure_id, unsigned ncoords, ...)
+{
+    va_list args;
+    va_start(args, ncoords);
+
+    char buf_int[VAR_INT_BUFFER_SIZE] = { 0 };
+    int rc = g_va_int2str_helper(buf_int, VAR_INT_BUFFER_SIZE, ncoords, args);
+
+    va_end(args);
+
+    if (rc != 0)
+        return;
+
+    sys_vgui(".x%lx.c create polygon %s -tags %lx_%s\n",
+        canvas, buf_int, x, figure_id);
 }
 
 #endif // G_CEAMMC_DRAW_C

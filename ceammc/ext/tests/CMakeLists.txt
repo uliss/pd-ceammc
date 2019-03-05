@@ -387,6 +387,9 @@ ceammc_add_test_linked(TITLE "[speech.flite]"
     NAME test_ext_misc_speech_flite
     LINK ceammc_core ceammc_misc ceammc_string puredata-core ${FLUIDSYNTH_LIBRARIES})
 
+add_executable(test_pd_core test_pd_core.cpp)
+target_link_libraries(test_pd_core puredata-core)
+
 ceammc_add_test_linked(TITLE "class_wrapper::class" NAME test_wrapper_class LINK wrapper_lib)
 ceammc_add_test_linked(TITLE "class_wrapper::method" NAME test_wrapper_method LINK wrapper_lib)
 ceammc_add_test_linked(TITLE "class_wrapper::static_method" NAME test_wrapper_static_method LINK wrapper_lib)
