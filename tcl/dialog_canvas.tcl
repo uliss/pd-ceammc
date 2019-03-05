@@ -103,7 +103,7 @@ proc ::dialog_canvas::pdtk_canvas_dialog {mytoplevel xscale yscale graphmeflags 
         raise $mytoplevel
         focus $mytoplevel
     } else {
-        create_dialog $mytoplevel
+        create_dialog $mytoplevel $::popup_xabs $::popup_yabs
     }
     switch -- $graphmeflags {
         0 {
@@ -137,12 +137,13 @@ proc ::dialog_canvas::pdtk_canvas_dialog {mytoplevel xscale yscale graphmeflags 
    ::dialog_canvas::checkcommand $mytoplevel
 }
 
-proc ::dialog_canvas::create_dialog {mytoplevel} {
+proc ::dialog_canvas::create_dialog {mytoplevel x y} {
     toplevel $mytoplevel -class DialogWindow
     wm title $mytoplevel [_ "Canvas Properties"]
     wm group $mytoplevel .
     wm resizable $mytoplevel 0 0
     wm transient $mytoplevel $::focused_window
+    wm geometry $mytoplevel +$x+$y
     $mytoplevel configure -menu $::dialog_menubar
     $mytoplevel configure -padx 8 -pady 8
     ::pd_bindings::dialog_bindings $mytoplevel "canvas"

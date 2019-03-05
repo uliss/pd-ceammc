@@ -10,9 +10,6 @@ namespace eval ::pdtk_canvas:: {
     namespace export pdtk_canvas_setparents
     namespace export pdtk_canvas_reflecttitle
     namespace export pdtk_canvas_menuclose
-
-    #ceammc
-    namespace export pdtk_canvas_setup
 }
 
 # One thing that is tricky to understand is the difference between a Tk
@@ -248,15 +245,11 @@ proc ::pdtk_canvas::done_popup {mytoplevel action} {
     pdsend "$mytoplevel done-popup $action $::popup_xcanvas $::popup_ycanvas"
 }
 
-#ceammc
-proc ::pdtk_canvas::pdtk_canvas_setup {xcanvas ycanvas} {
-	set ::popup_xcanvas $xcanvas
-    set ::popup_ycanvas $ycanvas
-}
-
-proc ::pdtk_canvas::pdtk_canvas_popup {mytoplevel xcanvas ycanvas hasproperties hasopen} {
+proc ::pdtk_canvas::pdtk_canvas_popup {mytoplevel xcanvas ycanvas hasproperties hasopen xabs yabs} {
     set ::popup_xcanvas $xcanvas
     set ::popup_ycanvas $ycanvas
+    set ::popup_xabs $xabs
+    set ::popup_yabs $yabs
     if {$hasproperties} {
         .popup entryconfigure [_ "Properties"] -state normal
     } else {
