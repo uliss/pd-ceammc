@@ -16,6 +16,8 @@
 #include "g_all_guis.h"
 #include <math.h>
 
+#include "g_ceammc_draw.h"
+
 #ifdef _MSC_VER
 #define snprintf _snprintf
 #endif
@@ -443,22 +445,26 @@ void iemgui_label(void *x, t_iemgui *iemgui, t_symbol *s)
     iemgui->x_lab_unexpanded = iemgui_raute2dollar(s);
     iemgui->x_lab = canvas_realizedollar(iemgui->x_glist, iemgui->x_lab_unexpanded);
 
-    if(glist_isvisible(iemgui->x_glist) && iemgui->x_lab != old)
-        sys_vgui(".x%lx.c itemconfigure %lxLABEL -text {%s} \n",
-                 glist_getcanvas(iemgui->x_glist), x,
-                 strcmp(s->s_name, "empty")?iemgui->x_lab->s_name:"");
+    if(glist_isvisible(iemgui->x_glist) && iemgui->x_lab != old) {
+        t_canvas* canvas = glist_getcanvas(iemgui->x_glist);
+
+        g_text_set(canvas, x, "LABEL",
+                   strcmp(s->s_name, "empty")?iemgui->x_lab->s_name:"");
+    }
 }
 
 void iemgui_label_pos(void *x, t_iemgui *iemgui, t_symbol *s, int ac, t_atom *av)
 {
-    int zoom = glist_getzoom(iemgui->x_glist);
     iemgui->x_ldx = (int)atom_getfloatarg(0, ac, av);
     iemgui->x_ldy = (int)atom_getfloatarg(1, ac, av);
-    if(glist_isvisible(iemgui->x_glist))
-        sys_vgui(".x%lx.c coords %lxLABEL %d %d\n",
-                 glist_getcanvas(iemgui->x_glist), x,
-                 text_xpix((t_object *)x, iemgui->x_glist) + iemgui->x_ldx*zoom,
-                 text_ypix((t_object *)x, iemgui->x_glist) + iemgui->x_ldy*zoom);
+
+    if(glist_isvisible(iemgui->x_glist)) {
+        int xpos = text_xpix((t_object *)x, iemgui->x_glist);
+        int ypos = text_ypix((t_object *)x, iemgui->x_glist);
+        t_canvas* canvas = glist_getcanvas(iemgui->x_glist);
+
+        g_iem_label_move(canvas, iemgui, xpos, ypos);
+    }
 }
 
 void iemgui_label_font(void *x, t_iemgui *iemgui, t_symbol *s, int ac, t_atom *av)
@@ -478,10 +484,10 @@ void iemgui_label_font(void *x, t_iemgui *iemgui, t_symbol *s, int ac, t_atom *a
     if(f < 4)
         f = 4;
     iemgui->x_fontsize = f;
-    if(glist_isvisible(iemgui->x_glist))
-        sys_vgui(".x%lx.c itemconfigure %lxLABEL -font {{%s} -%d %s}\n",
-                 glist_getcanvas(iemgui->x_glist), x, iemgui->x_font,
-                 iemgui->x_fontsize*zoom, sys_fontweight);
+    if(glist_isvisible(iemgui->x_glist)) {
+        g_text_font(glist_getcanvas(iemgui->x_glist), x, "LABEL",
+                    iemgui->x_font, iemgui->x_fontsize*zoom, sys_fontweight);
+    }
 }
 
 void iemgui_size(void *x, t_iemgui *iemgui)
