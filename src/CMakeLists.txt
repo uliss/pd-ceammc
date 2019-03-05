@@ -92,6 +92,8 @@ set(X_SRC
     x_vexp_if.c)
 
 set(MISC_H
+    g_style.h
+    g_style.c
     g_ceammc_draw.h
 )
 
