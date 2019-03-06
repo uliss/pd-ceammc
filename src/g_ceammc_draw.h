@@ -51,6 +51,10 @@ void g_gop_erase(t_canvas* canvas);
 
 // atoms
 void g_atom_select(t_canvas* canvas, const char* tag, int state);
+void g_atom_label_draw(t_canvas* canvas, t_gobj* obj, int x, int y, const char* txt, int fontsize);
+void g_atom_label_move(t_canvas* canvas, t_gobj* obj, int x, int y);
+void g_atom_label_erase(t_canvas* canvas, t_gobj* obj);
+void g_atom_erase(t_canvas* canvas, const char* tag);
 // messages
 void g_message_click(t_canvas* canvas, const char* tag);
 void g_message_normal(t_canvas* canvas, const char* tag);

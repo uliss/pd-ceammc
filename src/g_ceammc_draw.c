@@ -737,4 +737,26 @@ void g_inlets_erase(t_canvas* canvas, const char* tag, int n)
         sys_vgui(".x%lx.c delete %si%d\n", canvas, tag, i);
 }
 
+void g_atom_label_move(t_canvas* canvas, t_gobj* obj, int x, int y)
+{
+    sys_vgui(".x%lx.c move %lx.l %d %d\n", canvas, obj, x, y);
+}
+
+void g_atom_label_erase(t_canvas* canvas, t_gobj* obj)
+{
+    sys_vgui(".x%lx.c delete %lx.l\n", canvas, obj);
+}
+
+void g_atom_label_draw(t_canvas* canvas, t_gobj* obj, int x, int y, const char* txt, int fontsize)
+{
+    sys_vgui("pdtk_text_new .x%lx.c {%lx.l label text} %f %f {%s } %d %s\n",
+        canvas, obj, (double)x, (double)y, txt, fontsize,
+        "black");
+}
+
+void g_atom_erase(t_canvas* canvas, const char* tag)
+{
+    sys_vgui(".x%lx.c delete %sR\n", canvas, tag);
+}
+
 #endif // G_CEAMMC_DRAW_C
