@@ -712,4 +712,29 @@ void g_xatom_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int
         x1, y1, x2 - corner, y1, x2, y1 + corner, x2, y2, x1, y2);
 }
 
+void g_commentbar_draw(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2)
+{
+    sys_vgui(".x%lx.c create rectangle %d %d %d %d "
+             "-outline #%6.6x -width 1 -tags [list %sR commentbar]\n",
+        canvas,
+        x1, y1, x2, y2, STYLE_BORDER_COLOR, tag);
+}
+
+void g_commentbar_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2)
+{
+    sys_vgui(".x%lx.c coords %sR %d %d %d %d\n", canvas, tag, x1, y1, x2, y2);
+}
+
+void g_outlets_erase(t_canvas* canvas, const char* tag, int n)
+{
+    for (int i = 0; i < n; i++)
+        sys_vgui(".x%lx.c delete %so%d\n", canvas, tag, i);
+}
+
+void g_inlets_erase(t_canvas* canvas, const char* tag, int n)
+{
+    for (int i = 0; i < n; i++)
+        sys_vgui(".x%lx.c delete %si%d\n", canvas, tag, i);
+}
+
 #endif // G_CEAMMC_DRAW_C

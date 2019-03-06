@@ -66,10 +66,15 @@ void g_outlet_draw(t_canvas* canvas, t_object* obj, const char* tag, int idx, in
 void g_outlet_move(t_canvas* canvas, const char* tag, int idx, int x, int y, int zoom);
 void g_inlet_draw(t_canvas* canvas, t_object* obj, const char* tag, int idx, int x, int y, int zoom);
 void g_inlet_move(t_canvas* canvas, const char* tag, int idx, int x, int y, int zoom);
+void g_outlets_erase(t_canvas* canvas, const char* tag, int n);
+void g_inlets_erase(t_canvas* canvas, const char* tag, int n);
 // float and symbol atoms
 void g_xatom_draw(t_canvas* canvas, const char* tag,
     int x1, int y1, int x2, int y2, int corner, int zoom);
 void g_xatom_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner);
+// comment bar in edit mode
+void g_commentbar_draw(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2);
+void g_commentbar_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2);
 
 // IEM
 void g_iem_brect_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
