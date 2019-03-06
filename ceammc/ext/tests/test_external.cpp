@@ -111,7 +111,7 @@ void ExternalOutput::reset()
 
 void setTestSampleRate(size_t sr)
 {
-    sys_dacsr = sr;
+    *get_sys_dacsr() = sr;
     sched_set_using_audio(SCHED_AUDIO_NONE);
 }
 
