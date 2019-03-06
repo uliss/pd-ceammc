@@ -37,8 +37,11 @@ typedef struct _canvas_private
     t_undo undo;
 } t_canvas_private;
 
-#define GLIST_DEFCANVASWIDTH 450
-#define GLIST_DEFCANVASHEIGHT 300
+//#define GLIST_DEFCANVASWIDTH 450
+//#define GLIST_DEFCANVASHEIGHT 300
+// ceammc
+#define GLIST_DEFCANVASWIDTH 700
+#define GLIST_DEFCANVASHEIGHT 500
 
 /* since the window decorations aren't included, open new windows a few
 pixels down so you can posibly move the window later.  Apple needs less
