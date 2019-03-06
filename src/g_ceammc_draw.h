@@ -22,6 +22,12 @@ extern "C" {
 
 #include "g_all_guis.h"
 
+typedef enum dash_pattern {
+    DASH_PATTERN_SOLID = 0, // no dash
+    DASH_PATTERN_2_4, // two dots, four spaces: -  -  -
+    DASH_PATTERN_6_4
+} t_dash_pattern;
+
 void g_delete_all(t_canvas* c);
 
 // cords
@@ -42,6 +48,24 @@ void g_selection_clear(t_canvas* canvas);
 // GOP (graph on parent)
 void g_gop_draw(t_canvas* canvas, int x0, int y0, int x1, int y1);
 void g_gop_erase(t_canvas* canvas);
+
+// atoms
+void g_atom_select(t_canvas* canvas, const char* tag, int state);
+// messages
+void g_message_click(t_canvas* canvas, const char* tag);
+void g_message_normal(t_canvas* canvas, const char* tag);
+void g_message_draw(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner);
+void g_message_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner);
+// objects
+void g_object_draw(t_canvas* canvas, const char* tag,
+    int x1, int y1, int x2, int y2, int zoom, t_dash_pattern p);
+void g_object_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2);
+void g_object_dash(t_canvas* canvas, const char* tag, t_dash_pattern p);
+// xlets
+void g_outlet_draw(t_canvas* canvas, t_object* obj, const char* tag, int idx, int x, int y, int zoom);
+void g_outlet_move(t_canvas* canvas, const char* tag, int idx, int x, int y, int zoom);
+void g_inlet_draw(t_canvas* canvas, t_object* obj, const char* tag, int idx, int x, int y, int zoom);
+void g_inlet_move(t_canvas* canvas, const char* tag, int idx, int x, int y, int zoom);
 
 // IEM
 void g_iem_brect_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);
@@ -101,6 +125,7 @@ void g_figure_outline(t_canvas* canvas, void* x, const char* figure_id, int colo
 void g_figure_outfill(t_canvas* canvas, void* x, const char* figure_id, int color);
 void g_figure_erase(t_canvas* canvas, void* x, const char* figure_id);
 void g_figure_raise(t_canvas* canvas, void* x, const char* fig_upper, const char* fig_lower);
+void g_figure_dash(t_canvas* canvas, const char* tag, const char* pattern);
 
 void g_figure_fill_n(t_canvas* canvas, void* x, const char* figure_tmp, int n, int color);
 void g_figure_outline_n(t_canvas* canvas, void* x, const char* figure_tmp, int n, int color);

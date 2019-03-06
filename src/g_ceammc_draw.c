@@ -25,6 +25,13 @@
 #include <stdio.h>
 #include <string.h>
 
+// from https://www.tcl-lang.org/man/tcl/TkCmd/canvas.htm#M26
+static const char* dash_pattern_str[] = {
+    "\"\"", // no dash
+    ".",
+    "-"
+};
+
 void g_delete_all(t_canvas* c)
 {
     sys_vgui(".x%lx.c delete all\n", c);
@@ -563,6 +570,125 @@ void g_polygon_draw(t_canvas* canvas, void* x, const char* figure_id, unsigned n
 
     sys_vgui(".x%lx.c create polygon %s -tags %lx_%s\n",
         canvas, buf_int, x, figure_id);
+}
+
+void g_message_click(t_canvas* canvas, const char* tag)
+{
+    sys_vgui(".x%lx.c itemconfigure %sR -width %d\n", canvas, tag, STYLE_BORDER_WIDTH_CLICKED);
+    sys_vgui(".x%lx.c itemconfigure %sR -outline #%6.6x\n", canvas, tag, STYLE_BORDER_COLOR_CLICKED);
+}
+
+void g_message_normal(t_canvas* canvas, const char* tag)
+{
+    sys_vgui(".x%lx.c itemconfigure %sR -width %d\n", canvas, tag, STYLE_BORDER_WIDTH * canvas->gl_zoom);
+    sys_vgui(".x%lx.c itemconfigure %sR -outline #%6.6x\n", canvas, tag, STYLE_BORDER_COLOR);
+}
+
+void g_message_draw(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner)
+{
+    sys_vgui(".x%lx.c create polygon %d %d %d %d %d %d %d %d %d %d %d %d "
+             "-width %d -outline #%6.6x -fill #%6.6x -tags [list %sR msg]\n",
+        canvas,
+        x1, y1, x2 + corner, y1, x2, y1 + corner, x2, y2 - corner, x2 + corner, y2,
+        x1, y2,
+        canvas->gl_zoom, STYLE_BORDER_COLOR, STYLE_FILL_COLOR, tag);
+}
+
+void g_message_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner)
+{
+    sys_vgui(".x%lx.c coords %sR %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n",
+        canvas, tag,
+        x1, y1, x2 + corner, y1, x2, y1 + corner, x2, y2 - corner, x2 + corner, y2,
+        x1, y2, x1, y1);
+}
+
+void g_atom_select(t_canvas* canvas, const char* tag, int state)
+{
+    sys_vgui(".x%lx.c itemconfigure %sR -outline #%6.6x\n", canvas, tag,
+        (state ? STYLE_SELECT_COLOR : STYLE_BORDER_COLOR));
+}
+
+void g_outlet_draw(t_canvas* canvas, t_object* obj, const char* tag, int idx, int x, int y, int zoom)
+{
+    int iow = IOWIDTH * zoom;
+    int oh = (OHEIGHT - 1) * zoom;
+
+    if (obj_issignaloutlet(obj, idx)) {
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d "
+                 "-tags [list %so%d outlet] -fill #%6.6x "
+                 "-outline #%6.6x -width %d\n",
+            canvas,
+            x, y - oh,
+            x + iow, y,
+            tag, idx, STYLE_AUDIO_XLET_COLOR, STYLE_AUDIO_XLET_COLOR, zoom);
+    } else {
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d "
+                 "-tags [list %so%d outlet] -fill #%6.6x -outline #%6.6x -width %d\n",
+            canvas,
+            x, y - oh,
+            x + iow, y,
+            tag, idx, STYLE_FILL_COLOR, STYLE_CONTROL_XLET_COLOR, zoom);
+    }
+}
+
+void g_outlet_move(t_canvas* canvas, const char* tag, int idx, int x, int y, int zoom)
+{
+    int iow = IOWIDTH * zoom;
+    int oh = (OHEIGHT - 1) * zoom;
+
+    sys_vgui(".x%lx.c coords %so%d %d %d %d %d\n",
+        canvas, tag, idx,
+        x, y - oh, x + iow, y);
+}
+
+void g_inlet_draw(t_canvas* canvas, t_object* obj, const char* tag, int idx, int x, int y, int zoom)
+{
+    int iow = IOWIDTH * zoom;
+    int ih = IHEIGHT * zoom;
+
+    if (obj_issignalinlet(obj, idx)) {
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d "
+                 "-tags [list %si%d inlet] -fill #%6.6x "
+                 "-outline #%6.6x -width %d\n",
+            canvas, x, y, x + iow, y + ih - zoom, tag, idx,
+            STYLE_AUDIO_XLET_COLOR, STYLE_AUDIO_XLET_COLOR, zoom);
+    } else {
+        sys_vgui(".x%lx.c create rectangle %d %d %d %d "
+                 "-tags [list %si%d inlet] -fill #%6.6x "
+                 "-outline #%6.6x -width %d\n",
+            canvas, x, y, x + iow, y + ih - zoom, tag, idx,
+            STYLE_FILL_COLOR, STYLE_CONTROL_XLET_COLOR, zoom);
+    }
+}
+
+void g_inlet_move(t_canvas* canvas, const char* tag, int idx, int x, int y, int zoom)
+{
+    int iow = IOWIDTH * zoom;
+    int ih = OHEIGHT * zoom;
+
+    sys_vgui(".x%lx.c coords %si%d %d %d %d %d\n",
+        canvas, tag, idx,
+        x, y, x + iow, y + ih - zoom);
+}
+
+void g_object_draw(t_canvas* canvas, const char* tag,
+    int x1, int y1, int x2, int y2, int zoom, t_dash_pattern p)
+{
+    sys_vgui(".x%lx.c create rectangle %d %d %d %d "
+             " -dash %s -width %d -fill #%6.6x -outline #%6.6x -tags [list %sR obj]\n",
+        canvas, x1, y1, x2, y2, dash_pattern_str[p], zoom,
+        STYLE_FILL_COLOR, STYLE_BORDER_COLOR, tag);
+}
+
+void g_object_move(t_canvas* canvas, const char* tag,
+    int x1, int y1, int x2, int y2)
+{
+    sys_vgui(".x%lx.c coords %sR %d %d %d %d\n", canvas, tag, x1, y1, x2, y2);
+}
+
+void g_object_dash(t_canvas* canvas, const char* tag, t_dash_pattern p)
+{
+    sys_vgui(".x%lx.c itemconfigure %sR -dash %s\n", canvas, tag, dash_pattern_str[p]);
 }
 
 #endif // G_CEAMMC_DRAW_C
