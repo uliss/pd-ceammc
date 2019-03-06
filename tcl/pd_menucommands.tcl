@@ -91,6 +91,9 @@ menu_gridmode [expr {! $::gridmode_button}]
 # send a message to a pd canvas receiver
 proc ::pd_menucommands::menu_send {window message} {
     set mytoplevel [winfo toplevel $window]
+    # ceammc: save event absolute coords for popup dialogs
+    set ::popup_xabs [winfo rootx $mytoplevel]
+    set ::popup_yabs [winfo rooty $mytoplevel]
     if {[winfo class $mytoplevel] eq "PatchWindow"} {
         pdsend "$mytoplevel $message"
     } elseif {$mytoplevel eq ".pdwindow"} {
