@@ -32,7 +32,7 @@ void g_delete_all(t_canvas* c);
 
 // cords
 void g_cord_draw(t_canvas* canvas, t_object* src, int outno, t_outconnect* oc,
-    int x0, int y0, int x1, int y1);
+    int x0, int y0, int x1, int y1, int zoom);
 void g_cord_select(t_canvas* canvas, t_outconnect* oc);
 void g_cord_deselect(t_canvas* canvas, t_outconnect* oc);
 void g_cord_erase(t_canvas* canvas, t_outconnect* oc);
@@ -66,6 +66,10 @@ void g_outlet_draw(t_canvas* canvas, t_object* obj, const char* tag, int idx, in
 void g_outlet_move(t_canvas* canvas, const char* tag, int idx, int x, int y, int zoom);
 void g_inlet_draw(t_canvas* canvas, t_object* obj, const char* tag, int idx, int x, int y, int zoom);
 void g_inlet_move(t_canvas* canvas, const char* tag, int idx, int x, int y, int zoom);
+// float and symbol atoms
+void g_xatom_draw(t_canvas* canvas, const char* tag,
+    int x1, int y1, int x2, int y2, int corner, int zoom);
+void g_xatom_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner);
 
 // IEM
 void g_iem_brect_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);

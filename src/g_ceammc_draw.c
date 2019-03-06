@@ -56,13 +56,18 @@ void g_gop_erase(t_canvas* canvas)
 }
 
 void g_cord_draw(t_canvas* canvas, t_object* src, int outno, t_outconnect* oc,
-    int x0, int y0, int x1, int y1)
+    int x0, int y0, int x1, int y1, int zoom)
 {
+    int cordw = (obj_issignaloutlet(src, outno)
+            ? STYLE_CORD_AUDIO_WIDTH
+            : STYLE_CORD_CONTROL_WIDTH);
+
     sys_vgui(
-        ".x%lx.c create line %d %d %d %d -width %d -fill #%6.6x -tags [list l%lx cord]\n",
-        glist_getcanvas(canvas),
+        ".x%lx.c create line %d %d %d %d -capstyle round "
+        "-width %d -fill #%6.6x -tags [list l%lx cord]\n",
+        canvas,
         x0, y0, x1, y1,
-        style_cord_width(canvas, src, outno), style_cord_color(), oc);
+        cordw * zoom, style_cord_color(), oc);
 }
 
 void g_selection_draw(t_canvas* canvas, int x0, int y0, int x1, int y1)
@@ -689,6 +694,22 @@ void g_object_move(t_canvas* canvas, const char* tag,
 void g_object_dash(t_canvas* canvas, const char* tag, t_dash_pattern p)
 {
     sys_vgui(".x%lx.c itemconfigure %sR -dash %s\n", canvas, tag, dash_pattern_str[p]);
+}
+
+void g_xatom_draw(t_canvas* canvas, const char* tag,
+    int x1, int y1, int x2, int y2, int corner, int zoom)
+{
+    sys_vgui(".x%lx.c create polygon %d %d %d %d %d %d %d %d %d %d "
+             "-width %d -fill #%6.6x -outline #%6.6x -tags [list %sR atom]\n",
+        canvas, x1, y1, x2 - corner, y1, x2, y1 + corner, x2, y2, x1, y2,
+        zoom, STYLE_FILL_COLOR, STYLE_BORDER_COLOR, tag);
+}
+
+void g_xatom_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2, int corner)
+{
+    sys_vgui(".x%lx.c coords %sR %d %d %d %d %d %d %d %d %d %d\n",
+        canvas, tag,
+        x1, y1, x2 - corner, y1, x2, y1 + corner, x2, y2, x1, y2);
 }
 
 #endif // G_CEAMMC_DRAW_C
