@@ -19,6 +19,8 @@
 #include <cstdlib>
 #include <ctime>
 
+extern "C" void strcpy_safe_tcl(char* dest, const char* src);
+
 TEST_CASE("pd core", "[PureData]")
 {
     SECTION("g_int2str")
@@ -66,5 +68,17 @@ TEST_CASE("pd core", "[PureData]")
         char buf2[32];
         REQUIRE(g_va_int2str(buf2, 32, 2, 100, 200) == 0);
         REQUIRE(std::string(buf2) == "100 200 ");
+    }
+
+    SECTION("strcpy_safe_tcl")
+    {
+        char buf[100];
+        strcpy_safe_tcl(buf, "123");
+        REQUIRE(std::string(buf) == "123");
+
+        strcpy_safe_tcl(buf, "123{");
+        REQUIRE(std::string(buf) == "123(");
+        strcpy_safe_tcl(buf, "123{}");
+        REQUIRE(std::string(buf) == "123()");
     }
 }
