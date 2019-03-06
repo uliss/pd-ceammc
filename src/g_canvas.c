@@ -799,13 +799,12 @@ static void canvas_drawlines(t_canvas *x)
 {
     t_linetraverser t;
     t_outconnect *oc;
-    int yoffset = x->gl_zoom; /* slight offset to hide thick line corners */
     {
         t_canvas* canvas = glist_getcanvas(x);
         linetraverser_start(&t, x);
         while ((oc = linetraverser_next(&t))) {
             g_cord_draw(canvas, t.tr_ob, t.tr_outno, oc,
-                        t.tr_lx1, t.tr_ly1 - yoffset, t.tr_lx2, t.tr_ly2 + yoffset);
+                        t.tr_lx1, t.tr_ly1, t.tr_lx2, t.tr_ly2, x->gl_zoom);
         }
     }
 }
@@ -814,7 +813,6 @@ void canvas_fixlinesfor(t_canvas *x, t_text *text)
 {
     t_linetraverser t;
     t_outconnect *oc;
-    int yoffset = x->gl_zoom; /* slight offset to hide thick line corners */
     
     linetraverser_start(&t, x);
     t_canvas* canvas = glist_getcanvas(x);
@@ -822,7 +820,7 @@ void canvas_fixlinesfor(t_canvas *x, t_text *text)
     {
         if (t.tr_ob == text || t.tr_ob2 == text)
         {
-            g_cord_move(canvas, oc, t.tr_lx1, t.tr_ly1 - yoffset, t.tr_lx2, t.tr_ly2 + yoffset);
+            g_cord_move(canvas, oc, t.tr_lx1, t.tr_ly1, t.tr_lx2, t.tr_ly2);
         }
     }
 }
