@@ -237,7 +237,7 @@ proc ::dialog_array::pdtk_array_dialog {mytoplevel name size flags newone} {
         raise $mytoplevel
         focus $mytoplevel
     } else {
-        create_dialog $mytoplevel $newone
+        create_dialog $mytoplevel $newone [expr $::popup_xabs - 50] [expr $::popup_yabs - 50]
     }
 
     $mytoplevel.array.name.entry insert 0 [::dialog_gatom::unescape $name]
@@ -252,12 +252,13 @@ proc ::dialog_array::pdtk_array_dialog {mytoplevel name size flags newone} {
 #    int style = ((flags & 6) >> 1);
 }
 
-proc ::dialog_array::create_dialog {mytoplevel newone} {
+proc ::dialog_array::create_dialog {mytoplevel newone xabs yabs} {
     toplevel $mytoplevel -class DialogWindow
     wm title $mytoplevel [_ "Array Properties"]
     wm group $mytoplevel .
     wm resizable $mytoplevel 0 0
     wm transient $mytoplevel $::focused_window
+    wm geometry $mytoplevel +$xabs+$yabs
     $mytoplevel configure -menu $::dialog_menubar
     $mytoplevel configure -padx 10 -pady 5
     ::pd_bindings::dialog_bindings $mytoplevel "array"
