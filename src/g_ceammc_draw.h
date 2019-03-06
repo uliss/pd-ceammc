@@ -79,6 +79,7 @@ void g_xatom_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int
 // comment bar in edit mode
 void g_commentbar_draw(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2);
 void g_commentbar_move(t_canvas* canvas, const char* tag, int x1, int y1, int x2, int y2);
+void g_commentbar_erase_all(t_canvas* canvas);
 
 // IEM
 void g_iem_brect_draw(t_canvas* canvas, t_iemgui* x, int xpos, int ypos);

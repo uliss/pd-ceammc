@@ -4585,7 +4585,7 @@ void canvas_editmode(t_canvas *x, t_floatarg state)
         if (glist_isvisible(x) && glist_istoplevel(x))
         {
             canvas_setcursor(x, CURSOR_RUNMODE_NOTHING);
-            sys_vgui(".x%lx.c delete commentbar\n", glist_getcanvas(x));
+            g_commentbar_erase_all(glist_getcanvas(x));
         }
     }
     if (glist_isvisible(x))

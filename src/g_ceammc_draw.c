@@ -759,4 +759,9 @@ void g_atom_erase(t_canvas* canvas, const char* tag)
     sys_vgui(".x%lx.c delete %sR\n", canvas, tag);
 }
 
+void g_commentbar_erase_all(t_canvas* canvas)
+{
+    sys_vgui(".x%lx.c delete commentbar\n", canvas);
+}
+
 #endif // G_CEAMMC_DRAW_C
