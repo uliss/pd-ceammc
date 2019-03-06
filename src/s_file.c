@@ -33,49 +33,32 @@
 #define snprintf _snprintf
 #endif
 
-int sys_defeatrt;
-t_symbol *sys_flags = &s_;
 void sys_doflags( void);
 
-    /* Hmm... maybe better would be to #if on not-apple-or-windows  */
-#if defined(__linux__) || defined(__CYGWIN__) || defined(__FreeBSD__) \
-|| defined(__GNU__) || defined(ANDROID) || defined(__OpenBSD__) || defined(__NetBSD__)
+static PERTHREAD char *sys_prefbuf;
+static PERTHREAD int sys_prefbufsize;
+static PERTHREAD FILE *sys_prefsavefp;
 
-/*****  linux/android/BSD etc: read and write to ~/.pd_ceammc_settings file ******/
+static const char* UNIX_CONFIG_FILENAME = ".pd_ceammc_settings";
+static const char* WIN_CONFIG_REGNAME = "Software\\Pd-ceammc";
+static const char* WIN_CONFIG_KEYNAME = "Pd-ceammc";
+static const char* MACOSX_CONFIG_NAME = "com.ceammc.pd";
 
-static char *sys_prefbuf;
-static int sys_prefbufsize;
-
-static void sys_initloadpreferences( void)
+static void sys_initloadpreferences_file(const char *filename)
 {
-    char filenamebuf[MAXPDSTRING], *homedir = getenv("HOME");
-    int fd, length;
-    char user_prefs_file[MAXPDSTRING]; /* user prefs file */
-        /* default prefs embedded in the package */
-    char default_prefs_file[MAXPDSTRING];
-    struct stat statbuf;
-
-    snprintf(default_prefs_file, MAXPDSTRING, "%s/default.pdsettings",
-        sys_libdir->s_name);
-    snprintf(user_prefs_file, MAXPDSTRING, "%s/.pd_ceammc_settings",
-        (homedir ? homedir : "."));
-    if (stat(user_prefs_file, &statbuf) == 0)
-        strncpy(filenamebuf, user_prefs_file, MAXPDSTRING);
-    else if (stat(default_prefs_file, &statbuf) == 0)
-        strncpy(filenamebuf, default_prefs_file, MAXPDSTRING);
-    else return;
-    filenamebuf[MAXPDSTRING-1] = 0;
-    if ((fd = open(filenamebuf, 0)) < 0)
+    int fd;
+    long length;
+    if ((fd = open(filename, 0)) < 0)
     {
         if (sys_verbose)
-            perror(filenamebuf);
+            perror(filename);
         return;
     }
     length = lseek(fd, 0, 2);
     if (length < 0)
     {
         if (sys_verbose)
-            perror(filenamebuf);
+            perror(filename);
         close(fd);
         return;
     }
@@ -89,7 +72,7 @@ static void sys_initloadpreferences( void)
     sys_prefbuf[0] = '\n';
     if (read(fd, sys_prefbuf+1, length) < length)
     {
-        perror(filenamebuf);
+        perror(filename);
         sys_prefbuf[0] = 0;
         close(fd);
         return;
@@ -97,10 +80,10 @@ static void sys_initloadpreferences( void)
     sys_prefbuf[length+1] = 0;
     close(fd);
     if (sys_verbose)
-        post("success reading preferences from: %s", filenamebuf);
+        post("success reading preferences from: %s", filename);
 }
 
-static int sys_getpreference(const char *key, char *value, int size)
+static int sys_getpreference_file(const char *key, char *value, int size)
 {
     char searchfor[80], *where, *whereend;
     if (!sys_prefbuf)
@@ -123,13 +106,69 @@ static int sys_getpreference(const char *key, char *value, int size)
     return (1);
 }
 
-static void sys_doneloadpreferences( void)
+static void sys_doneloadpreferences_file( void)
 {
     if (sys_prefbuf)
         free(sys_prefbuf);
 }
 
-static FILE *sys_prefsavefp;
+static void sys_initsavepreferences_file(const char *filename)
+{
+    if ((sys_prefsavefp = fopen(filename, "w")) == NULL)
+        pd_error(0, "%s: %s", filename, strerror(errno));
+}
+
+static void sys_putpreference_file(const char *key, const char *value)
+{
+    if (sys_prefsavefp)
+        fprintf(sys_prefsavefp, "%s: %s\n",
+            key, value);
+}
+
+static void sys_donesavepreferences_file( void)
+{
+    if (sys_prefsavefp)
+    {
+        fclose(sys_prefsavefp);
+        sys_prefsavefp = 0;
+    }
+}
+
+
+/*****  linux/android/BSD etc: read and write to ~/.pd_ceammc_settings file ******/
+#if !defined(_WIN32) && !defined(__APPLE__)
+
+static void sys_initloadpreferences( void)
+{
+    char filenamebuf[MAXPDSTRING], *homedir = getenv("HOME");
+    int fd, length;
+    char user_prefs_file[MAXPDSTRING]; /* user prefs file */
+        /* default prefs embedded in the package */
+    char default_prefs_file[MAXPDSTRING];
+    struct stat statbuf;
+
+    snprintf(default_prefs_file, MAXPDSTRING, "%s/default.pdsettings",
+        sys_libdir->s_name);
+    snprintf(user_prefs_file, MAXPDSTRING, "%s/%s",
+        (homedir ? homedir : "."), UNIX_CONFIG_FILENAME);
+    if (stat(user_prefs_file, &statbuf) == 0)
+        strncpy(filenamebuf, user_prefs_file, MAXPDSTRING);
+    else if (stat(default_prefs_file, &statbuf) == 0)
+        strncpy(filenamebuf, default_prefs_file, MAXPDSTRING);
+    else return;
+    filenamebuf[MAXPDSTRING-1] = 0;
+    sys_initloadpreferences_file(filenamebuf);
+}
+
+static int sys_getpreference(const char *key, char *value, int size)
+{
+    return (sys_getpreference_file(key, value, size));
+}
+
+static void sys_doneloadpreferences( void)
+{
+    sys_doneloadpreferences_file();
+}
 
 static void sys_initsavepreferences( void)
 {
@@ -139,156 +178,137 @@ static void sys_initsavepreferences( void)
 
     if (!homedir)
         return;
-    snprintf(filenamebuf, MAXPDSTRING, "%s/.pd_ceammc_settings", homedir);
+    snprintf(filenamebuf, MAXPDSTRING, "%s/%s", homedir, UNIX_CONFIG_FILENAME);
     filenamebuf[MAXPDSTRING-1] = 0;
-    if ((sys_prefsavefp = fopen(filenamebuf, "w")) == NULL)
-    {
-        pd_error(0, "%s: %s", filenamebuf, strerror(errno));
-    }
+    sys_initsavepreferences_file(filenamebuf);
 }
 
 static void sys_putpreference(const char *key, const char *value)
 {
-    if (sys_prefsavefp)
-        fprintf(sys_prefsavefp, "%s: %s\n",
-            key, value);
+    sys_putpreference_file(key, value);
 }
 
 static void sys_donesavepreferences( void)
 {
-    if (sys_prefsavefp)
-    {
-        fclose(sys_prefsavefp);
-        sys_prefsavefp = 0;
-    }
+    sys_donesavepreferences_file();
 }
 
-#endif /* __linux__ || __CYGWIN__ || __FreeBSD_kernel__ || __GNU__ */
+#else  /* !defined(_WIN32) && !defined(__APPLE__) */
 
+static void sys_initloadpreferences( void)
+{
+    if (sys_prefbuf)
+        bug("sys_initloadpreferences");
+}
+static void sys_doneloadpreferences( void)
+{
+    if (sys_prefbuf)
+        sys_doneloadpreferences_file();
+}
+static void sys_initsavepreferences( void)
+{
+    if (sys_prefsavefp)
+        bug("sys_initsavepreferences");
+}
+static void sys_donesavepreferences( void)
+{
+    if (sys_prefsavefp)
+        sys_donesavepreferences_file();
+}
+
+static int sys_getpreference(const char *key, char *value, int size)
+{
+    if (sys_prefbuf)
+        return (sys_getpreference_file(key, value, size));
+    else
+    {
 #ifdef _WIN32
-
-static void sys_initloadpreferences( void)
-{
-}
-
-static int sys_getpreference(const char *key, char *value, int size)
-{
-    HKEY hkey;
-    DWORD bigsize = size;
-    LONG err = RegOpenKeyEx(HKEY_CURRENT_USER,
-        "Software\\Pd-ceammc", 0,  KEY_QUERY_VALUE, &hkey);
-    if (err != ERROR_SUCCESS)
-        return (0);
-
-    err = RegQueryValueEx(hkey, key, 0, 0, value, &bigsize);
-    if (err != ERROR_SUCCESS)
-    {
+        HKEY hkey;
+        DWORD bigsize = size;
+        LONG err = RegOpenKeyEx(HKEY_CURRENT_USER,
+            WIN_CONFIG_REGNAME, 0,  KEY_QUERY_VALUE, &hkey);
+        if (err != ERROR_SUCCESS)
+            return (0);
+        err = RegQueryValueEx(hkey, key, 0, 0, value, &bigsize);
+        if (err != ERROR_SUCCESS)
+        {
+            RegCloseKey(hkey);
+            return (0);
+        }
         RegCloseKey(hkey);
-        return (0);
-    }
-    RegCloseKey(hkey);
-    return (1);
-}
-
-static void sys_doneloadpreferences( void)
-{
-}
-
-static void sys_initsavepreferences( void)
-{
-}
-
-static void sys_putpreference(const char *key, const char *value)
-{
-    HKEY hkey;
-    LONG err = RegCreateKeyEx(HKEY_CURRENT_USER,
-        "Software\\Pd-ceammc", 0, NULL, REG_OPTION_NON_VOLATILE, KEY_SET_VALUE,
-        NULL, &hkey, NULL);
-    if (err != ERROR_SUCCESS)
-    {
-        error("unable to create registry entry: %s\n", key);
-        return;
-    }
-    err = RegSetValueEx(hkey, key, 0, REG_EXPAND_SZ, value, strlen(value)+1);
-    if (err != ERROR_SUCCESS)
-        error("unable to set registry entry: %s\n", key);
-    RegCloseKey(hkey);
-}
-
-static void sys_donesavepreferences( void)
-{
-}
-
+        return (1);
 #endif /* _WIN32 */
-
 #ifdef __APPLE__
-
-static void sys_initloadpreferences( void)
-{
-}
-
-static int sys_getpreference(const char *key, char *value, int size)
-{
-    char cmdbuf[256];
-    int nread = 0, nleft = size;
-    char embedded_prefs[MAXPDSTRING];
-    char user_prefs[MAXPDSTRING];
-    char *homedir = getenv("HOME");
-    struct stat statbuf;
-   /* the 'defaults' command expects the filename without .plist at the
-        end */
-    snprintf(embedded_prefs, MAXPDSTRING, "%s/../org.puredata.pd",
-        sys_libdir->s_name);
-    snprintf(user_prefs, MAXPDSTRING,
-        "%s/Library/Preferences/org.puredata.pd-ceammc.plist", homedir);
-    if (stat(user_prefs, &statbuf) == 0)
-        snprintf(cmdbuf, 256, "defaults read org.puredata.pd-ceammc %s 2> /dev/null\n",
-            key);
-    else snprintf(cmdbuf, 256, "defaults read %s %s 2> /dev/null\n",
-            embedded_prefs, key);
-    FILE *fp = popen(cmdbuf, "r");
-    while (nread < size)
-    {
-        int newread = fread(value+nread, 1, size-nread, fp);
-        if (newread <= 0)
-            break;
-        nread += newread;
+        char cmdbuf[256];
+        int nread = 0, nleft = size;
+        char embedded_prefs[MAXPDSTRING];
+        char user_prefs[MAXPDSTRING];
+        char *homedir = getenv("HOME");
+        struct stat statbuf;
+       /* the 'defaults' command expects the filename without .plist at the
+            end */
+        snprintf(embedded_prefs, MAXPDSTRING, "%s/../%s",
+            sys_libdir->s_name, MACOSX_CONFIG_NAME);
+        snprintf(user_prefs, MAXPDSTRING,
+            "%s/Library/Preferences/%s.plist", homedir, MACOSX_CONFIG_NAME);
+        if (stat(user_prefs, &statbuf) == 0)
+            snprintf(cmdbuf, 256, "defaults read %s %s 2> /dev/null\n",
+                MACOSX_CONFIG_NAME, key);
+        else snprintf(cmdbuf, 256, "defaults read %s %s 2> /dev/null\n",
+                embedded_prefs, key);
+        FILE *fp = popen(cmdbuf, "r");
+        while (nread < size)
+        {
+            int newread = fread(value+nread, 1, size-nread, fp);
+            if (newread <= 0)
+                break;
+            nread += newread;
+        }
+        pclose(fp);
+        if (nread < 1)
+            return (0);
+        if (nread >= size)
+            nread = size-1;
+        value[nread] = 0;
+        if (value[nread-1] == '\n')     /* remove newline character at end */
+            value[nread-1] = 0;
+        return(1);
+#endif /* __APPLE__ */
     }
-    pclose(fp);
-    if (nread < 1)
-        return (0);
-    if (nread >= size)
-        nread = size-1;
-    value[nread] = 0;
-    if (value[nread-1] == '\n')     /* remove newline character at end */
-        value[nread-1] = 0;
-    return(1);
-}
-
-static void sys_doneloadpreferences( void)
-{
-}
-
-static void sys_initsavepreferences( void)
-{
 }
 
 static void sys_putpreference(const char *key, const char *value)
 {
-    char cmdbuf[MAXPDSTRING];
-    snprintf(cmdbuf, MAXPDSTRING,
-        "defaults write org.puredata.pd-ceammc %s \"%s\" 2> /dev/null\n", key, value);
-    system(cmdbuf);
-}
-
-static void sys_donesavepreferences( void)
-{
-}
-
+    if (sys_prefsavefp)
+        sys_putpreference_file(key, value);
+    else
+    {
+#ifdef _WIN32
+        HKEY hkey;
+        LONG err = RegCreateKeyEx(HKEY_CURRENT_USER,
+            WIN_CONFIG_REGNAME, 0, NULL, REG_OPTION_NON_VOLATILE, KEY_SET_VALUE,
+            NULL, &hkey, NULL);
+        if (err != ERROR_SUCCESS)
+        {
+            error("unable to create registry entry: %s\n", key);
+            return;
+        }
+        err = RegSetValueEx(hkey, key, 0, REG_EXPAND_SZ, value, strlen(value)+1);
+        if (err != ERROR_SUCCESS)
+            error("unable to set registry entry: %s\n", key);
+        RegCloseKey(hkey);
+#endif /* _WIN32 */
+#ifdef __APPLE__
+        char cmdbuf[MAXPDSTRING];
+        snprintf(cmdbuf, MAXPDSTRING,
+            "defaults write %s %s \"%s\" 2> /dev/null\n", MACOSX_CONFIG_NAME, key, value);
+        system(cmdbuf);
 #endif /* __APPLE__ */
+    }
+}
+#endif  /* !defined(_WIN32) && !defined(__APPLE__) */
 
-
-void sys_loadpreferences( void)
+void sys_loadpreferences(const char *filename, int startingup)
 {
     int naudioindev, audioindev[MAXAUDIOINDEV], chindev[MAXAUDIOINDEV];
     int naudiooutdev, audiooutdev[MAXAUDIOOUTDEV], choutdev[MAXAUDIOOUTDEV];
@@ -298,9 +318,12 @@ void sys_loadpreferences( void)
         api, midiapi, nolib, maxi;
     char prefbuf[MAXPDSTRING], keybuf[80];
 
-    sys_initloadpreferences();
+    if (*filename)
+        sys_initloadpreferences_file(filename);
+    else sys_initloadpreferences();
         /* load audio preferences */
-    if (sys_getpreference("audioapi", prefbuf, MAXPDSTRING)
+    if (!sys_externalschedlib
+        && sys_getpreference("audioapi", prefbuf, MAXPDSTRING)
         && sscanf(prefbuf, "%d", &api) > 0)
             sys_set_audio_api(api);
             /* JMZ/MB: brackets for initializing */
@@ -426,7 +449,8 @@ void sys_loadpreferences( void)
         sprintf(keybuf, "path%d", i+1);
         if (!sys_getpreference(keybuf, prefbuf, MAXPDSTRING))
             break;
-        sys_searchpath = namelist_append_files(sys_searchpath, prefbuf);
+        STUFF->st_searchpath =
+            namelist_append_files(STUFF->st_searchpath, prefbuf);
     }
     if (sys_getpreference("standardpath", prefbuf, MAXPDSTRING))
         sscanf(prefbuf, "%d", &sys_usestdpath);
@@ -442,17 +466,17 @@ void sys_loadpreferences( void)
         sprintf(keybuf, "loadlib%d", i+1);
         if (!sys_getpreference(keybuf, prefbuf, MAXPDSTRING))
             break;
-        sys_externlist = namelist_append_files(sys_externlist, prefbuf);
+        STUFF->st_externlist = namelist_append_files(STUFF->st_externlist, prefbuf);
     }
     if (sys_getpreference("defeatrt", prefbuf, MAXPDSTRING))
         sscanf(prefbuf, "%d", &sys_defeatrt);
-    if (sys_getpreference("flags", prefbuf, MAXPDSTRING))
+    if (sys_getpreference("flags", prefbuf, MAXPDSTRING) &&
+        strcmp(prefbuf, "."))
     {
-        if (strcmp(prefbuf, "."))
-            sys_flags = gensym(prefbuf);
+        sys_flags = gensym(prefbuf);
+        if (startingup)
+            sys_doflags();
     }
-    sys_doflags();
-
     if (sys_defeatrt)
         sys_hipriority = 0;
     else
@@ -467,9 +491,11 @@ void sys_loadpreferences( void)
 #endif
     if (sys_getpreference("zoom", prefbuf, MAXPDSTRING))
         sscanf(prefbuf, "%d", &sys_zoom_open);
+
+    sys_doneloadpreferences();
 }
 
-void glob_savepreferences(t_pd *dummy)
+void sys_savepreferences(const char *filename)
 {
     int naudioindev, audioindev[MAXAUDIOINDEV], chindev[MAXAUDIOINDEV];
     int naudiooutdev, audiooutdev[MAXAUDIOOUTDEV], choutdev[MAXAUDIOOUTDEV];
@@ -478,9 +504,9 @@ void glob_savepreferences(t_pd *dummy)
     int nmidiindev, midiindev[MAXMIDIINDEV];
     int nmidioutdev, midioutdev[MAXMIDIOUTDEV];
 
-    sys_initsavepreferences();
-
-
+    if (filename && *filename)
+        sys_initsavepreferences_file(filename);
+    else sys_initsavepreferences();
         /* audio settings */
     sprintf(buf1, "%d", sys_audioapi);
     sys_putpreference("audioapi", buf1);
@@ -559,7 +585,7 @@ void glob_savepreferences(t_pd *dummy)
 
     for (i = 0; 1; i++)
     {
-        char *pathelem = namelist_get(sys_searchpath, i);
+        const char *pathelem = namelist_get(STUFF->st_searchpath, i);
         if (!pathelem)
             break;
         sprintf(buf1, "path%d", i+1);
@@ -575,7 +601,7 @@ void glob_savepreferences(t_pd *dummy)
         /* startup */
     for (i = 0; 1; i++)
     {
-        char *pathelem = namelist_get(sys_externlist, i);
+        const char *pathelem = namelist_get(STUFF->st_externlist, i);
         if (!pathelem)
             break;
         sprintf(buf1, "loadlib%d", i+1);
@@ -590,6 +616,88 @@ void glob_savepreferences(t_pd *dummy)
         /* misc */
     sprintf(buf1, "%d", sys_zoom_open);
     sys_putpreference("zoom", buf1);
+    sys_putpreference("loading", "no");
 
     sys_donesavepreferences();
+}
+
+    /* calls from GUI to load/save from/to a file */
+void glob_loadpreferences(t_pd *dummy, t_symbol *filesym)
+{
+    sys_loadpreferences(filesym->s_name, 0);
+    sys_close_audio();
+    sys_reopen_audio();
+    sys_close_midi();
+    sys_reopen_midi();
+}
+
+void glob_savepreferences(t_pd *dummy, t_symbol *filesym)
+{
+    sys_savepreferences(filesym->s_name);
+}
+
+void glob_forgetpreferences(t_pd *dummy)
+{
+#if !defined(_WIN32) && !defined(__APPLE__)
+    if (system("cat ~/" UNIX_CONFIG_FILENAME " >& /dev/null\n"))
+        post("no Pd settings to clear");
+    else if (!system("rm ~/" CONFIG_ORG_NAME "\n"))
+        post("removed " CONFIG_ORG_NAME " file");
+    else post("couldn't delete " CONFIG_ORG_NAME " file");
+#endif  /* !defined(_WIN32) && !defined(__APPLE__) */
+#ifdef __APPLE__
+    char cmdbuf[MAXPDSTRING];
+    int warn = 1;
+    if (!sys_getpreference("audioapi", cmdbuf, MAXPDSTRING))
+        post("no Pd settings to clear"), warn = 0;
+            /* do it anyhow, why not... */
+    snprintf(cmdbuf, MAXPDSTRING,
+        "defaults delete %s 2> /dev/null\n", MACOSX_CONFIG_NAME);
+    if (system(cmdbuf) && warn)
+        post("failed to erase Pd settings");
+    else if(warn) post("erased Pd settings");
+#endif /* __APPLE__ */
+#ifdef _WIN32
+    HKEY hkey;
+    if (RegOpenKeyEx(HKEY_CURRENT_USER,
+        "Software", 0,  KEY_QUERY_VALUE, &hkey) != ERROR_SUCCESS)
+            post("no Pd settings to erase");
+    else
+    {
+        if (RegDeleteKey(hkey, WIN_CONFIG_KEYNAME) != ERROR_SUCCESS)
+            post("no Pd settings to erase");
+        else post("erased Pd settings");
+        RegCloseKey(hkey);
+    }
+#endif /* _WIN32 */
+}
+
+int sys_oktoloadfiles(int done)
+{
+#if defined(_WIN32) || defined(__APPLE__)
+    if (done)
+    {
+        sys_putpreference("loading", "no");
+        return (1);
+    }
+    else
+    {
+        char prefbuf[MAXPDSTRING];
+        if (sys_getpreference("loading", prefbuf, MAXPDSTRING) &&
+            strcmp(prefbuf, "no"))
+        {
+            post(
+    "skipping loading preferences... Pd seems to have crashed on startup.");
+            post("(re-save preferences to reinstate them)");
+            return (0);
+        }
+        else
+        {
+            sys_putpreference("loading", "yes");
+            return (1);
+        }
+    }
+#else
+    return (1);
+#endif
 }
