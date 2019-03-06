@@ -2636,7 +2636,7 @@ static int tryconnect(t_canvas*x, t_object*src, int nout, t_object*sink, int nin
                              ((x22-x21-iow) * nin)/(ninlets-1) : 0)
                 + iom;
             ly2 = y21;
-            g_cord_draw(x, src, nout, oc, lx1, ly1, lx2, ly2);
+            g_cord_draw(glist_getcanvas(x), src, nout, oc, lx1, ly1, lx2, ly2, x->gl_zoom);
             canvas_undo_add(x, UNDO_CONNECT, "connect", canvas_undo_set_connect(x,
                     canvas_getindex(x, &src->ob_g), nout,
                     canvas_getindex(x, &sink->ob_g), nin));
@@ -4186,7 +4186,7 @@ void canvas_connect(t_canvas *x, t_floatarg fwhoout, t_floatarg foutno,
     if (!(oc = obj_connect(objsrc, outno, objsink, inno))) goto bad;
     if (glist_isvisible(x))
     {
-        g_cord_draw(x, objsrc, outno, oc, 0, 0, 0, 0);
+        g_cord_draw(glist_getcanvas(x), objsrc, outno, oc, 0, 0, 0, 0, x->gl_zoom);
         canvas_fixlinesfor(x, objsrc);
     }
     return;

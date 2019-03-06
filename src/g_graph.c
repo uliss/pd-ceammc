@@ -656,7 +656,7 @@ void glist_redraw(t_glist *x)
             linetraverser_start(&t, x);
             t_canvas* canvas = glist_getcanvas(x);
             while ((oc = linetraverser_next(&t)))
-                g_cord_draw(canvas, t.tr_ob, t.tr_outno, oc, t.tr_lx1, t.tr_ly1, t.tr_lx2, t.tr_ly2);
+                g_cord_draw(canvas, t.tr_ob, t.tr_outno, oc, t.tr_lx1, t.tr_ly1, t.tr_lx2, t.tr_ly2, x->gl_zoom);
 
             canvas_drawredrect(x, 0);
             if (x->gl_goprect)

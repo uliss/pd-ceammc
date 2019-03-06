@@ -17,9 +17,6 @@
 #include "g_canvas.h"
 #include "m_imp.h"
 
-#define STYLE_CORD_AUDIO_WIDTH 2
-#define STYLE_CORD_CONTROL_WIDTH 1
-
 int style_cord_width(t_glist* x, t_object* ob, int nout)
 {
     return (obj_issignaloutlet(ob, nout) ? STYLE_CORD_AUDIO_WIDTH : STYLE_CORD_CONTROL_WIDTH) * x->gl_zoom;
