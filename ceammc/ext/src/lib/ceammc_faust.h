@@ -156,9 +156,6 @@ namespace faust {
 
         const PropertyInfo& propInfo() const { return pinfo_; }
         void setUnits(PropertyInfoUnits u) { pinfo_.setUnits(u); }
-
-    private:
-        static t_symbol *s_button, *s_checkbox, *s_vslider, *s_hslider, *s_nentry, *s_vbargraph, *s_hbargraph;
     };
 
     inline const std::string& UIElement::label() const
