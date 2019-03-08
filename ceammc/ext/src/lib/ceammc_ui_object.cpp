@@ -396,7 +396,7 @@ void UIObject::bindPreset(t_symbol* name)
     post("bind preset: %s", name->s_name);
 #endif
 
-    pd_bind(asPd(), Preset::SYM_PRESET_ALL);
+    pd_bind(asPd(), gensym(Preset::SYM_PRESET_ALL));
     PresetStorage::instance().bindPreset(name);
     acquirePresetName(name);
 }
@@ -410,7 +410,7 @@ void UIObject::unbindPreset(t_symbol* name)
     post("unbind preset: %s", name->s_name);
 #endif
 
-    pd_unbind(asPd(), Preset::SYM_PRESET_ALL);
+    pd_unbind(asPd(), gensym(Preset::SYM_PRESET_ALL));
     PresetStorage::instance().unbindPreset(name);
     releasePresetName(name);
 }
