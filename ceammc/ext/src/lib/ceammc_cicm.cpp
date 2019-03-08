@@ -2,19 +2,19 @@
 
 namespace ceammc {
 
-static t_symbol* SYM_DECORATION_NONE = gensym("roman");
-static t_symbol* SYM_DECORATION_ITALIC = gensym("italic");
-static t_symbol* SYM_WEIGHT_NORMAL = gensym("normal");
-static t_symbol* SYM_WEIGHT_BOLD = gensym("bold");
+static const char* SYM_DECORATION_NONE = "roman";
+static const char* SYM_DECORATION_ITALIC = "italic";
+static const char* SYM_WEIGHT_NORMAL = "normal";
+static const char* SYM_WEIGHT_BOLD = "bold";
 
 static t_symbol* toSymbol(FontDecoration dec)
 {
     switch (dec) {
     case FONT_DECORATION_NONE:
-        return SYM_DECORATION_NONE;
+        return gensym(SYM_DECORATION_NONE);
     case FONT_DECORATION_ITALIC:
     default:
-        return SYM_DECORATION_ITALIC;
+        return gensym(SYM_DECORATION_ITALIC);
     }
 }
 
@@ -22,10 +22,10 @@ static t_symbol* toSymbol(FontWeight w)
 {
     switch (w) {
     case FONT_WEIGHT_NORMAL:
-        return SYM_WEIGHT_NORMAL;
+        return gensym(SYM_WEIGHT_NORMAL);
     case FONT_WEIGHT_BOLD:
     default:
-        return SYM_WEIGHT_BOLD;
+        return gensym(SYM_WEIGHT_BOLD);
     }
 }
 
