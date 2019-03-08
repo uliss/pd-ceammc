@@ -26,10 +26,10 @@ const t_rgba rgba_blue = { 0.f, 0.f, 1.f, 1.f };
 const t_rgba rgba_green = { 0.f, 1.f, 0.f, 1.f };
 const t_rgba rgba_red = { 1.f, 0.f, 0.f, 1.f };
 
-static t_symbol* SYM_ITALIC = gensym("italic");
-static t_symbol* SYM_ROMAN = gensym("roman");
-static t_symbol* SYM_BOLD = gensym("bold");
-static t_symbol* SYM_NORMAL = gensym("normal");
+static const char* SYM_ITALIC = "italic";
+static const char* SYM_ROMAN = "roman";
+static const char* SYM_BOLD = "bold";
+static const char* SYM_NORMAL = "normal";
 
 static void egraphics_apply_matrix(t_elayer* g, t_egobj* gobj);
 
@@ -934,12 +934,12 @@ t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, float
     if (new_font) {
         new_font[0].c_family = family;
         new_font[0].c_slant = slant;
-        if (new_font[0].c_slant != SYM_ITALIC)
-            new_font[0].c_slant = SYM_ROMAN;
+        if (new_font[0].c_slant != gensym(SYM_ITALIC))
+            new_font[0].c_slant = gensym(SYM_ROMAN);
 
         new_font[0].c_weight = weight;
-        if (new_font[0].c_weight != SYM_BOLD)
-            new_font[0].c_weight = SYM_NORMAL;
+        if (new_font[0].c_weight != gensym(SYM_BOLD))
+            new_font[0].c_weight = gensym(SYM_NORMAL);
 
         new_font[0].c_size = pd_clip_min(size, 1.f);
     }
