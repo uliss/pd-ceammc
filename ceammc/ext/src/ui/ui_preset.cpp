@@ -30,7 +30,7 @@ UIPreset::UIPreset()
 void UIPreset::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
-    bindTo(PresetStorage::SYM_PRESET_UPDATE_INDEX_ADDR);
+    bindTo(gensym(PresetStorage::SYM_PRESET_UPDATE_INDEX_ADDR));
     updateIndexes();
 }
 
@@ -202,8 +202,8 @@ void UIPreset::setup()
     obj.addProperty("current", &UIPreset::propCurrent, 0);
 
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_MOVE | UI_MOUSE_LEAVE);
-    obj.addMethod(PresetStorage::SYM_PRESET_INDEX_ADD->s_name, &UIPreset::indexAdd);
-    obj.addMethod(PresetStorage::SYM_PRESET_INDEX_REMOVE->s_name, &UIPreset::indexRemove);
+    obj.addMethod(PresetStorage::SYM_PRESET_INDEX_ADD, &UIPreset::indexAdd);
+    obj.addMethod(PresetStorage::SYM_PRESET_INDEX_REMOVE, &UIPreset::indexRemove);
 
     obj.addMethod("read", &UIPreset::m_read);
     obj.addMethod("write", &UIPreset::m_write);
