@@ -546,12 +546,18 @@ void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const c
     t_symbol* s_attrname = gensym(attrname);
     for (i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == s_attrname) {
-            pch = strtok(gensym(list)->s_name, " ,");
+            auto plist = strdup(list);
+            if (!plist)
+                return;
+
+            pch = strtok(plist, " ,");
 
             while (pch != NULL) {
                 pch = strtok(NULL, " ,");
                 size++;
             }
+
+            free(plist);
             if (size > 0) {
                 if (c->c_attr[i]->itemssize) {
                     size_t new_sz = (unsigned long)size * sizeof(t_symbol*);
@@ -564,12 +570,18 @@ void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const c
                         c->c_attr[i]->itemssize = size;
                 }
                 if (c->c_attr[i]->itemslist && c->c_attr[i]->itemssize) {
-                    pch = strtok(gensym(list)->s_name, " ,");
+                    auto plist = strdup(list);
+                    if (!plist)
+                        return;
+
+                    pch = strtok(plist, " ,");
                     while (pch != NULL && (long)j < c->c_attr[i]->itemssize) {
                         c->c_attr[i]->itemslist[j] = gensym(pch);
                         pch = strtok(NULL, " ,");
                         j++;
                     }
+
+                    free(plist);
                 }
 
             } else {
@@ -805,14 +817,14 @@ void eclass_attr_ceammc_getter(t_object* x, t_symbol* s, int argc, t_atom* argv)
         request_property(x, s, res);
         for (int i = 0; i < argc; i++) {
             t_atom* a = &argv[i];
-            if(atom_gettype(a) != A_SYMBOL)
+            if (atom_gettype(a) != A_SYMBOL)
                 continue;
 
             if (!request_property(x, atom_getsymbol(a), res))
                 continue;
         }
 
-        if(res.empty())
+        if (res.empty())
             return;
 
         outlet_anything(z->b_obj.o_obj.te_outlet, res[0].a_w.w_symbol, res.size() - 1, res.data() + 1);

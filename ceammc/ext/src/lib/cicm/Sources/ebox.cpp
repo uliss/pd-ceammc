@@ -12,6 +12,8 @@
 #include "egraphics.h"
 #include "eobj.h"
 
+#include <cstdlib>
+#include <cstring>
 #include <inttypes.h>
 
 int egraphics_smooth();
@@ -270,7 +272,8 @@ static void ebox_attrprocess_default(void* x)
             defv = (t_atom*)calloc((unsigned long)defc, sizeof(t_atom));
             if (defc && defv) {
                 char check = 0;
-                char* str_start = c->c_attr[i]->defvals->s_name;
+                const char* str_start = c->c_attr[i]->defvals->s_name;
+                char* str_end = nullptr;
                 for (j = 0; j < defc; j++) {
                     for (k = 0; k < (int)(strlen(str_start)); k++) {
                         if (isalpha(str_start[k]))
@@ -279,8 +282,9 @@ static void ebox_attrprocess_default(void* x)
                     if (check || strpbrk(str_start, "<>()'\"")) {
                         atom_setsym(defv + j, gensym(str_start));
                     } else {
-                        float val = (float)strtod(str_start, &str_start);
+                        float val = std::strtof(str_start, &str_end);
                         atom_setfloat(defv + j, val);
+                        str_start = str_end;
                     }
                 }
                 eobj_attr_setvalueof(x, c->c_attr[i]->name, (int)defc, defv);
@@ -898,8 +902,14 @@ t_pd_err ebox_set_font(t_ebox* x, t_object* attr, int argc, t_atom* argv)
     } else
         x->b_font.c_family = SYM_DEFAULT_FONT_FAMILY;
 
-    x->b_font.c_family = gensym(strtok(x->b_font.c_family->s_name, " ',.-"));
-    x->b_font.c_family->s_name[0] = (char)toupper(x->b_font.c_family->s_name[0]);
+    auto ftname = strdup(x->b_font.c_family->s_name);
+    if (!ftname)
+        return -1;
+
+    auto ftname_uc = strtok(ftname, " ',.-");
+    ftname_uc[0] = (char)toupper(ftname_uc[0]);
+    x->b_font.c_family = gensym(ftname_uc);
+    free(ftname);
     return 0;
 }
 
