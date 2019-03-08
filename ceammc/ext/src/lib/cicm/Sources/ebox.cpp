@@ -46,29 +46,29 @@ static const char* my_dashstylelist[] = {
     "-dash -"
 };
 
-static t_symbol* SYM_CENTER = gensym("center");
-static t_symbol* SYM_RIGHT = gensym("right");
-static t_symbol* SYM_LEFT = gensym("left");
-static t_symbol* SYM_N = gensym("n");
-static t_symbol* SYM_NE = gensym("ne");
-static t_symbol* SYM_E = gensym("e");
-static t_symbol* SYM_SE = gensym("se");
-static t_symbol* SYM_S = gensym("s");
-static t_symbol* SYM_SW = gensym("sw");
-static t_symbol* SYM_W = gensym("w");
-static t_symbol* SYM_NW = gensym("nw");
+static const char* SYM_CENTER = "center";
+static const char* SYM_RIGHT = "right";
+static const char* SYM_LEFT = "left";
+static const char* SYM_N = "n";
+static const char* SYM_NE = "ne";
+static const char* SYM_E = "e";
+static const char* SYM_SE = "se";
+static const char* SYM_S = "s";
+static const char* SYM_SW = "sw";
+static const char* SYM_W = "w";
+static const char* SYM_NW = "nw";
 
-static t_symbol* SYM_SIZE = gensym("size");
-static t_symbol* SYM_DEFAULT_FONT_FAMILY = gensym("Helvetica");
-static t_symbol* SYM_BOLD = gensym("bold");
-static t_symbol* SYM_NORMAL = gensym("normal");
-static t_symbol* SYM_ITALIC = gensym("italic");
-static t_symbol* SYM_ROMAN = gensym("roman");
-static t_symbol* SYM_ALL_PROPS = gensym("@*");
+static const char* SYM_SIZE = "size";
+static const char* SYM_DEFAULT_FONT_FAMILY = "Helvetica";
+static const char* SYM_BOLD = "bold";
+static const char* SYM_NORMAL = "normal";
+static const char* SYM_ITALIC = "italic";
+static const char* SYM_ROMAN = "roman";
+static const char* SYM_ALL_PROPS = "@*";
 
-static t_symbol* SYM_CHECKBUTTON = gensym("checkbutton");
-static t_symbol* SYM_MENU = gensym("menu");
-static t_symbol* SYM_COLOR = gensym("color");
+static const char* SYM_CHECKBUTTON = "checkbutton";
+static const char* SYM_MENU = "menu";
+static const char* SYM_COLOR = "color";
 
 static void ebox_create_window(t_ebox* x, t_glist* glist);
 static void ebox_invalidate_all(t_ebox* x);
@@ -86,23 +86,23 @@ static const char* anchor_to_symbol(etextanchor_flags anchor)
 {
     switch (anchor) {
     case ETEXT_UP:
-        return SYM_N->s_name;
+        return SYM_N;
     case ETEXT_UP_RIGHT:
-        return SYM_NE->s_name;
+        return SYM_NE;
     case ETEXT_RIGHT:
-        return SYM_E->s_name;
+        return SYM_E;
     case ETEXT_DOWN_RIGHT:
-        return SYM_SE->s_name;
+        return SYM_SE;
     case ETEXT_DOWN:
-        return SYM_S->s_name;
+        return SYM_S;
     case ETEXT_DOWN_LEFT:
-        return SYM_SW->s_name;
+        return SYM_SW;
     case ETEXT_LEFT:
-        return SYM_W->s_name;
+        return SYM_W;
     case ETEXT_UP_LEFT:
-        return SYM_NW->s_name;
+        return SYM_NW;
     default:
-        return SYM_CENTER->s_name;
+        return SYM_CENTER;
     }
 }
 
@@ -110,11 +110,11 @@ static const char* justify_to_symbol(etextjustify_flags justify)
 {
     switch (justify) {
     case ETEXT_JCENTER:
-        return SYM_CENTER->s_name;
+        return SYM_CENTER;
     case ETEXT_JRIGHT:
-        return SYM_RIGHT->s_name;
+        return SYM_RIGHT;
     default:
-        return SYM_LEFT->s_name;
+        return SYM_LEFT;
     }
 }
 
@@ -896,11 +896,11 @@ t_pd_err ebox_set_font(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 {
     if (argc && argv && atom_gettype(argv) == A_SYMBOL) {
         if (atom_getsymbol(argv) == s_null)
-            x->b_font.c_family = SYM_DEFAULT_FONT_FAMILY;
+            x->b_font.c_family = gensym(SYM_DEFAULT_FONT_FAMILY);
         else
             x->b_font.c_family = atom_getsymbol(argv);
     } else
-        x->b_font.c_family = SYM_DEFAULT_FONT_FAMILY;
+        x->b_font.c_family = gensym(SYM_DEFAULT_FONT_FAMILY);
 
     auto ftname = strdup(x->b_font.c_family->s_name);
     if (!ftname)
@@ -916,12 +916,12 @@ t_pd_err ebox_set_font(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 t_pd_err ebox_set_fontweight(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 {
     if (argc && argv && atom_gettype(argv) == A_SYMBOL) {
-        if (atom_getsymbol(argv) == SYM_BOLD)
-            x->b_font.c_weight = SYM_BOLD;
+        if (atom_getsymbol(argv) == gensym(SYM_BOLD))
+            x->b_font.c_weight = gensym(SYM_BOLD);
         else
-            x->b_font.c_weight = SYM_NORMAL;
+            x->b_font.c_weight = gensym(SYM_NORMAL);
     } else
-        x->b_font.c_weight = SYM_NORMAL;
+        x->b_font.c_weight = gensym(SYM_NORMAL);
 
     return 0;
 }
@@ -929,12 +929,12 @@ t_pd_err ebox_set_fontweight(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 t_pd_err ebox_set_fontslant(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 {
     if (argc && argv && atom_gettype(argv) == A_SYMBOL) {
-        if (atom_getsymbol(argv) == SYM_ITALIC)
-            x->b_font.c_slant = SYM_ITALIC;
+        if (atom_getsymbol(argv) == gensym(SYM_ITALIC))
+            x->b_font.c_slant = gensym(SYM_ITALIC);
         else
-            x->b_font.c_slant = SYM_ROMAN;
+            x->b_font.c_slant = gensym(SYM_ROMAN);
     } else
-        x->b_font.c_slant = SYM_ROMAN;
+        x->b_font.c_slant = gensym(SYM_ROMAN);
 
     return 0;
 }
@@ -1081,7 +1081,7 @@ void ebox_output_all_attrs(t_ebox* x)
         atom_setsym(&argv[i], gensym(buf));
     }
 
-    outlet_anything(x->b_obj.o_obj.te_outlet, SYM_ALL_PROPS, argc, argv);
+    outlet_anything(x->b_obj.o_obj.te_outlet, gensym(SYM_ALL_PROPS), argc, argv);
     free(argv);
 }
 
@@ -1163,17 +1163,17 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                 ac = 0;
                 eobj_attr_getvalueof((t_object*)x, c->c_attr[attrindex]->name, &ac, &av);
                 if (ac && av) {
-                    if (c->c_attr[attrindex]->style == SYM_CHECKBUTTON) {
+                    if (c->c_attr[attrindex]->style == gensym(SYM_CHECKBUTTON)) {
                         if (atom_getfloat(av) == 0)
                             sys_vgui("%s.top_frame.sele%i.selec state !selected\n", atom_getsymbol(argv)->s_name, attrindex + 1);
                         else
                             sys_vgui("%s.top_frame.sele%i.selec state selected\n", atom_getsymbol(argv)->s_name, attrindex + 1);
-                    } else if (c->c_attr[attrindex]->style == SYM_COLOR) {
+                    } else if (c->c_attr[attrindex]->style == gensym(SYM_COLOR)) {
                         color.red = atom_getfloat(av);
                         color.green = atom_getfloat(av + 1);
                         color.blue = atom_getfloat(av + 2);
                         sys_vgui("%s.top_frame.sele%i.selec configure -readonlybackground %s \n", atom_getsymbol(argv)->s_name, attrindex + 1, rgb_to_hex(color));
-                    } else if (c->c_attr[attrindex]->style == SYM_MENU) {
+                    } else if (c->c_attr[attrindex]->style == gensym(SYM_MENU)) {
                         atom_string(av, buffer, MAXPDSTRING);
                         for (i = 1; i < ac; i++) {
                             atom_string(av + i, temp, MAXPDSTRING);
@@ -1618,7 +1618,8 @@ void ebox_setzoom(t_ebox* x, float f)
 
     int argc = 0;
     t_atom* argv = NULL;
-    eobj_attr_getvalueof(x, SYM_SIZE, &argc, &argv);
+    t_symbol* TSYM_SIZE = gensym(SYM_SIZE);
+    eobj_attr_getvalueof(x, TSYM_SIZE, &argc, &argv);
 
     if (argc == 2) {
         x->b_zoom = f;
@@ -1626,7 +1627,7 @@ void ebox_setzoom(t_ebox* x, float f)
         float h = atom_getfloat(&argv[1]) / oldzoom * f;
         atom_setfloat(&argv[0], w);
         atom_setfloat(&argv[1], h);
-        eobj_attr_setvalueof(x, SYM_SIZE, argc, argv);
+        eobj_attr_setvalueof(x, TSYM_SIZE, argc, argv);
     }
 
     free(argv);
