@@ -4,12 +4,12 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_cicm.h"
 #include "ceammc_data.h"
-#include "ceammc_log.h"
 #include "ceammc_externals.h"
+#include "ceammc_log.h"
 #include "m_pd.h"
 
-#include <boost/unordered_map.hpp>
 #include <string>
+#include <unordered_map>
 #include <utility>
 
 namespace ceammc {
@@ -70,11 +70,11 @@ public:
     typedef std::pair<propFloatGet, propFloatSet> propertyFloatAccess;
     typedef std::pair<propListGet, propListSet> propertyListAccess;
 
-    typedef boost::unordered_map<t_symbol*, bangMethodPtr> BangMethodMap;
-    typedef boost::unordered_map<t_symbol*, floatMethodPtr> FloatMethodMap;
-    typedef boost::unordered_map<t_symbol*, listMethodPtr> ListMethodMap;
-    typedef boost::unordered_map<t_symbol*, propertyFloatAccess> FloatPropertyMap;
-    typedef boost::unordered_map<t_symbol*, propertyListAccess> ListPropertyMap;
+    typedef std::unordered_map<t_symbol*, bangMethodPtr> BangMethodMap;
+    typedef std::unordered_map<t_symbol*, floatMethodPtr> FloatMethodMap;
+    typedef std::unordered_map<t_symbol*, listMethodPtr> ListMethodMap;
+    typedef std::unordered_map<t_symbol*, propertyFloatAccess> FloatPropertyMap;
+    typedef std::unordered_map<t_symbol*, propertyListAccess> ListPropertyMap;
 
 public:
     UIObjectFactory(const char* name, long fl = EBOX_GROWINDI, int pd_flags = 0)
