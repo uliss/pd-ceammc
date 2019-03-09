@@ -7,31 +7,31 @@
 
 namespace ceammc {
 
-t_symbol* UIObject::BG_LAYER = gensym("background_layer");
+const char* UIObject::BG_LAYER = "background_layer";
 
 #ifdef __APPLE__
-t_symbol* UIObject::FONT_FAMILY = gensym("Helvetica");
+const char* UIObject::FONT_FAMILY = "Helvetica";
 const int UIObject::FONT_SIZE = 12;
 const int UIObject::FONT_SIZE_SMALL = 8;
 #elif _WIN32
-t_symbol* UIObject::FONT_FAMILY = gensym("DejaVu Sans Mono");
+const char* UIObject::FONT_FAMILY = "DejaVu Sans Mono";
 const int UIObject::FONT_SIZE = 9;
 const int UIObject::FONT_SIZE_SMALL = 6;
 #else
-t_symbol* UIObject::FONT_FAMILY = gensym("DejaVu Sans Mono");
+const char* UIObject::FONT_FAMILY = "DejaVu Sans Mono";
 const int UIObject::FONT_SIZE = 9;
 const int UIObject::FONT_SIZE_SMALL = 6;
 #endif
 
-t_symbol* UIObject::FONT_STYLE = gensym("roman");
-t_symbol* UIObject::FONT_WEIGHT = gensym("normal");
-t_symbol* UIObject::COLOR_ACTIVE = gensym("#00C0FF");
+const char* UIObject::FONT_STYLE = "roman";
+const char* UIObject::FONT_WEIGHT = "normal";
+const char* UIObject::COLOR_ACTIVE = "#00C0FF";
 
 UIObject::PresetNameMap UIObject::presets_;
 
 UIObject::UIObject()
     : name_(&s_)
-    , bg_layer_(asEBox(), BG_LAYER)
+    , bg_layer_(asEBox(), gensym(BG_LAYER))
     , old_preset_id_(s_null)
     , cursor_(ECURSOR_LEFT_PTR)
     , use_presets_(false)

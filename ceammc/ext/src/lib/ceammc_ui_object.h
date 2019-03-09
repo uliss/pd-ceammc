@@ -6,9 +6,9 @@
 #include "ceammc_data.h"
 #include "ceammc_property_info.h"
 
-#include <boost/unordered_map.hpp>
-#include <boost/unordered_set.hpp>
 #include <sstream>
+#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 namespace ceammc {
@@ -39,7 +39,7 @@ public:
 class UIObject : t_ebox {
     AtomList args_;
     std::vector<t_outlet*> outlets_;
-    boost::unordered_set<t_symbol*> binded_signals_;
+    std::unordered_set<t_symbol*> binded_signals_;
     t_symbol* name_;
     t_symbol* old_preset_id_;
     t_cursor cursor_;
@@ -155,11 +155,11 @@ public:
     float fontSizeZoomed() const;
 
 public:
-    static t_symbol* BG_LAYER;
-    static t_symbol* FONT_FAMILY;
-    static t_symbol* FONT_STYLE;
-    static t_symbol* FONT_WEIGHT;
-    static t_symbol* COLOR_ACTIVE;
+    static const char* BG_LAYER;
+    static const char* FONT_FAMILY;
+    static const char* FONT_STYLE;
+    static const char* FONT_WEIGHT;
+    static const char* COLOR_ACTIVE;
     static const int FONT_SIZE;
     static const int FONT_SIZE_SMALL;
 
@@ -168,7 +168,7 @@ public:
     static void releasePresetName(t_symbol* s);
 
 private:
-    typedef boost::unordered_map<t_symbol*, int> PresetNameMap;
+    typedef std::unordered_map<t_symbol*, int> PresetNameMap;
     static PresetNameMap presets_;
 };
 }
