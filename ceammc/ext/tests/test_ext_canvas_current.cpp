@@ -28,9 +28,9 @@ TEST_CASE("canvas.current", "[externals]")
         REQUIRE(t.numOutlets() == 1);
 
         REQUIRE_PROPERTY(t, @name, "test_canvas");
-        REQUIRE_PROPERTY(t, @dir, "");
+        REQUIRE_PROPERTY(t, @dir, "~");
         REQUIRE_PROPERTY(t, @root, Atom(1));
-        REQUIRE_PROPERTY(t, @abstraction, Atom(0.f));
+        REQUIRE_PROPERTY(t, @abstraction, Atom(1));
         REQUIRE_PROPERTY(t, @font, Atom(10));
         REQUIRE_PROPERTY(t, @width, Atom(600));
         REQUIRE_PROPERTY(t, @height, Atom(400));
@@ -43,7 +43,7 @@ TEST_CASE("canvas.current", "[externals]")
 
         CanvasPtr cnv = PureData::instance().createTopCanvas(TEST_DATA_DIR "/patch");
 
-        {
+        {   
             TestExtCanvasCurrent t("canvas.current");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);

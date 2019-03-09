@@ -339,7 +339,7 @@ CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)
     canvas_setcurrent(0);
 
     if (platform::is_path_relative(name)) {
-        glob_setfilename(0, gensym(name), &s_);
+        glob_setfilename(0, gensym(name), gensym("~"));
     } else {
         std::string dir = platform::dirname(name);
         std::string fname = platform::basename(name);
@@ -349,6 +349,7 @@ CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)
     if (!args.empty())
         canvas_setargs(args.size(), args.toPdData());
 
+    assert(l.size() == 5);
     t_canvas* cnv = canvas_new(0, gensym(name), l.size(), l.toPdData());
 
     if (!cnv)

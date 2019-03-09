@@ -38,7 +38,7 @@ TEST_CASE("Canvas", "[ceammc::Canvas]")
             REQUIRE(canvas_info_dir(0) == &s_);
 
             CanvasPtr cnv = PureData::instance().createTopCanvas("test");
-            REQUIRE(canvas_info_dir(cnv->pd_canvas()) == &s_);
+            REQUIRE(canvas_info_dir(cnv->pd_canvas()) == gensym("~"));
 
 #ifdef __WIN32
             const char* FNAME = "C:/dir/test";
@@ -87,7 +87,7 @@ TEST_CASE("Canvas", "[ceammc::Canvas]")
             REQUIRE_FALSE(canvas_info_is_abstraction(0));
 
             CanvasPtr cnv = PureData::instance().createTopCanvas("patch");
-            REQUIRE_FALSE(canvas_info_is_abstraction(cnv->pd_canvas()));
+            REQUIRE(canvas_info_is_abstraction(cnv->pd_canvas()));
         }
 
         SECTION("rect")
