@@ -55,8 +55,8 @@ TEST_CASE("canvas.top", "[externals]")
             REQUIRE_PROPERTY(t, @height, 400);
 
 #ifdef __APPLE__
-            REQUIRE_PROPERTY(t, @x, Atom(0.f));
-            REQUIRE_PROPERTY(t, @y, 22);
+            REQUIRE_PROPERTY(t, @x, 0.f);
+            REQUIRE_PROPERTY(t, @y, 0.f);
 #endif
 
             REQUIRE_PROPERTY_LIST(t, @size, LF(600, 400));
