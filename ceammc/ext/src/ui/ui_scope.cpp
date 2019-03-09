@@ -21,7 +21,7 @@ static const size_t N_SAMPLES = 150;
 UIScope::UIScope()
     : data_(N_SAMPLES, 0)
     , redraw_timer_(this, &UIScope::redrawTick)
-    , txt_font_(FONT_FAMILY, FONT_SIZE_SMALL)
+    , txt_font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , txt0_(txt_font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
     , txt1_(txt_font_.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
     , txt2_(txt_font_.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)

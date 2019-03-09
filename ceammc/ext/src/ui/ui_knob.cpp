@@ -85,7 +85,7 @@ void UIKnob::setup()
 }
 
 UIKnob::UIKnob()
-    : txt_font(FONT_FAMILY, FONT_SIZE_SMALL)
+    : txt_font(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , txt_min(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
     , txt_max(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_RIGHT, ETEXT_JRIGHT, ETEXT_NOWRAP)
     , show_range_(0)

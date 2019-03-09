@@ -52,7 +52,7 @@ void UIPreset::paint(t_object* view)
 
     // NO multithreading!!!
     static std::vector<UITextLayout*> numbers_;
-    static UIFont font(FONT_FAMILY, FNT_SZ);
+    static UIFont font(gensym(FONT_FAMILY), FNT_SZ);
 
     if (numbers_.empty()) {
         for (size_t i = 0; i < 256; i++)
