@@ -17,11 +17,11 @@
 
 #include <cstdio>
 
-static t_symbol* SYM_START = gensym("begin");
-static t_symbol* SYM_END = gensym("end");
-static t_symbol* SYM_INF = gensym("inf");
-static t_symbol* SYM_INF2 = gensym("infinite");
-static t_symbol* SYM_FIXED = gensym("fixed");
+static const char* SYM_START = "begin";
+static const char* SYM_END = "end";
+static const char* SYM_INF = "inf";
+static const char* SYM_INF2 = "infinite";
+static const char* SYM_FIXED = "fixed";
 
 TlTimeLine::TlTimeLine(const PdArgs& args)
     : BaseObject(args)
@@ -63,12 +63,12 @@ void TlTimeLine::event(size_t n, t_float at)
 
 void TlTimeLine::eventStart()
 {
-    listTo(0, AtomList(SYM_START, Atom(0.f)));
+    listTo(0, AtomList(gensym(SYM_START), Atom(0.f)));
 }
 
 void TlTimeLine::eventEnd()
 {
-    listTo(0, AtomList(SYM_END, tl_.length()));
+    listTo(0, AtomList(gensym(SYM_END), tl_.length()));
 }
 
 void TlTimeLine::m_add(t_symbol* s, const AtomList& lst)
@@ -168,9 +168,9 @@ AtomList TlTimeLine::propMode() const
 {
     switch (tl_.mode()) {
     case tl::MODE_FIXED:
-        return Atom(SYM_FIXED);
+        return Atom(gensym(SYM_FIXED));
     case tl::MODE_INFINITE:
-        return Atom(SYM_INF);
+        return Atom(gensym(SYM_INF));
     }
 }
 
@@ -178,12 +178,12 @@ void TlTimeLine::propSetMode(const AtomList& lst)
 {
     t_symbol* s = lst.symbolAt(0, 0);
 
-    if (s == SYM_INF || s == SYM_INF2)
+    if (s == gensym(SYM_INF) || s == gensym(SYM_INF2))
         tl_.setMode(tl::MODE_INFINITE);
-    else if (s == SYM_FIXED)
+    else if (s == gensym(SYM_FIXED))
         tl_.setMode(tl::MODE_FIXED);
     else
-        OBJ_ERR << SYM_INF << " or " << SYM_FIXED << " expected";
+        OBJ_ERR << gensym(SYM_INF) << " or " << gensym(SYM_FIXED) << " expected";
 }
 
 tl::RunState TlTimeLine::state() const

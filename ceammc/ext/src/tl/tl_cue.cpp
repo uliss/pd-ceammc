@@ -139,7 +139,7 @@ void tl_cue_displace(t_gobj* z, t_glist* glist, int dx, int /*dy*/)
 UI_fun(tl_cue)::new_ext(tl_cue* zx, t_symbol* /*s*/, int /*argc*/, t_atom* /*argv*/)
 {
     zx->txt = etext_layout_create();
-    zx->fnt = efont_create(FONT_FAMILY, FONT_STYLE, FONT_WEIGHT, FONT_SIZE);
+    zx->fnt = efont_create(gensym(FONT_FAMILY), gensym(FONT_STYLE), gensym(FONT_WEIGHT), FONT_SIZE);
     zx->canvas = canvas_getcurrent();
 
     zx->data = new CueData(zx->canvas, zx->asObj());
@@ -216,7 +216,7 @@ UI_fun(tl_cue)::wx_paint(tl_cue* zx, t_object* /*view*/)
         redraw_canvas_cues(zx->canvas);
     }
 
-    t_elayer* g = ebox_start_layer(asBox(zx), BG_LAYER, rect.width, rect.height);
+    t_elayer* g = ebox_start_layer(asBox(zx), gensym(BG_LAYER), rect.width, rect.height);
     if (g) {
         const float xoff = 2 * ebox_getzoom(asBox(zx));
 
@@ -224,13 +224,13 @@ UI_fun(tl_cue)::wx_paint(tl_cue* zx, t_object* /*view*/)
             ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP);
 
         etext_layout_draw(zx->txt, g);
-        ebox_end_layer(asBox(zx), BG_LAYER);
+        ebox_end_layer(asBox(zx), gensym(BG_LAYER));
 
         vline_delete(asBox(zx));
         vline_draw(asBox(zx));
     }
 
-    ebox_paint_layer(asBox(zx), BG_LAYER, 0., 0.);
+    ebox_paint_layer(asBox(zx), gensym(BG_LAYER), 0., 0.);
 }
 
 static void redraw_canvas_cues(t_canvas* c, tl_cue* except)

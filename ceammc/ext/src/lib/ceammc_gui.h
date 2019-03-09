@@ -181,11 +181,11 @@ public:
 public:
 #pragma mark static - definitions
     static t_eclass* pd_class;
-    static t_symbol* BG_LAYER;
-    static t_symbol* FONT_FAMILY;
-    static t_symbol* FONT_STYLE;
-    static t_symbol* FONT_WEIGHT;
-    static t_symbol* COLOR_ACTIVE;
+    static const char* BG_LAYER;
+    static const char* FONT_FAMILY;
+    static const char* FONT_STYLE;
+    static const char* FONT_WEIGHT;
+    static const char* COLOR_ACTIVE;
     static const int FONT_SIZE;
     static const int FONT_SIZE_SMALL;
     static long flags;
@@ -406,7 +406,7 @@ public:
      */
     static void ws_redraw(U* z)
     {
-        ebox_invalidate_layer(asBox(z), BG_LAYER);
+        ebox_invalidate_layer(asBox(z), gensym(BG_LAYER));
         ebox_redraw(asBox(z));
     }
 
@@ -420,17 +420,17 @@ public:
         t_rect rect;
         z->getRect(&rect);
 
-        t_elayer* g = ebox_start_layer(asBox(z), BG_LAYER, rect.width, rect.height);
+        t_elayer* g = ebox_start_layer(asBox(z), gensym(BG_LAYER), rect.width, rect.height);
         if (g) {
             // EXAMPLE
             //            size = rect.width * 0.5;
             //            egraphics_set_color_hex(g, gensym("#00C0FF"));
             //            egraphics_circle(g, floor(size + 0.5), floor(size + 0.5), size * 0.9);
             //            egraphics_fill(g);
-            ebox_end_layer(asBox(z), BG_LAYER);
+            ebox_end_layer(asBox(z), gensym(BG_LAYER));
         }
 
-        ebox_paint_layer(asBox(z), BG_LAYER, 0., 0.);
+        ebox_paint_layer(asBox(z), gensym(BG_LAYER), 0., 0.);
     }
 
     /**
@@ -697,25 +697,25 @@ template <typename U>
 t_eclass* GuiFactory<U>::pd_class = 0;
 
 template <typename U>
-t_symbol* GuiFactory<U>::BG_LAYER = gensym("background_layer");
+const char* GuiFactory<U>::BG_LAYER = "background_layer";
 
 #ifdef __APPLE__
 template <typename U>
-t_symbol* GuiFactory<U>::FONT_FAMILY = gensym("Helvetica");
+const char* GuiFactory<U>::FONT_FAMILY = "Helvetica";
 template <typename U>
 const int GuiFactory<U>::FONT_SIZE = 12;
 template <typename U>
 const int GuiFactory<U>::FONT_SIZE_SMALL = 8;
 #elif _WIN32
 template <typename U>
-t_symbol* GuiFactory<U>::FONT_FAMILY = gensym("Verdana");
+const char* GuiFactory<U>::FONT_FAMILY = "Verdana";
 template <typename U>
 const int GuiFactory<U>::FONT_SIZE = 9;
 template <typename U>
 const int GuiFactory<U>::FONT_SIZE_SMALL = 6;
 #else
 template <typename U>
-t_symbol* GuiFactory<U>::FONT_FAMILY = gensym("OpenSans");
+const char* GuiFactory<U>::FONT_FAMILY = "OpenSans";
 template <typename U>
 const int GuiFactory<U>::FONT_SIZE = 10;
 template <typename U>
@@ -723,11 +723,11 @@ const int GuiFactory<U>::FONT_SIZE_SMALL = 6;
 #endif
 
 template <typename U>
-t_symbol* GuiFactory<U>::FONT_STYLE = gensym("roman");
+const char* GuiFactory<U>::FONT_STYLE = "roman";
 template <typename U>
-t_symbol* GuiFactory<U>::FONT_WEIGHT = gensym("normal");
+const char* GuiFactory<U>::FONT_WEIGHT = "normal";
 template <typename U>
-t_symbol* GuiFactory<U>::COLOR_ACTIVE = gensym("#00C0FF");
+const char* GuiFactory<U>::COLOR_ACTIVE = "#00C0FF";
 
 }; //namespace ceammc_gui
 
