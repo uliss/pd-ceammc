@@ -22,8 +22,6 @@
 
 using namespace ceammc;
 
-// strange link fix: do not remove!
-static t_symbol* t = gensym("test");
 static bool destructor_called = false;
 
 static void test_reset()
