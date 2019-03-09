@@ -20,9 +20,9 @@
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 
-#include <boost/unordered_map.hpp>
-#include <boost/unordered_set.hpp>
 #include <sstream>
+#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 namespace ceammc {
@@ -53,7 +53,7 @@ public:
 class UIDspObject : t_edspbox {
     AtomList args_;
     std::vector<t_outlet*> outlets_;
-    boost::unordered_set<t_symbol*> binded_signals_;
+    std::unordered_set<t_symbol*> binded_signals_;
     t_symbol* name_;
     t_symbol* old_preset_id_;
     t_cursor cursor_;
@@ -194,7 +194,7 @@ public:
     static void releasePresetName(t_symbol* s);
 
 private:
-    typedef boost::unordered_map<t_symbol*, int> PresetNameMap;
+    typedef std::unordered_map<t_symbol*, int> PresetNameMap;
     static PresetNameMap presets_;
 };
 }
