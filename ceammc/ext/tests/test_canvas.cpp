@@ -98,7 +98,7 @@ TEST_CASE("Canvas", "[ceammc::Canvas]")
 
 #ifdef __APPLE__
             REQUIRE(canvas_info_rect(cnv->pd_canvas()).x == 0);
-            REQUIRE(canvas_info_rect(cnv->pd_canvas()).y == 22);
+            REQUIRE(canvas_info_rect(cnv->pd_canvas()).y == 0);
 #endif
 
             REQUIRE(canvas_info_rect(cnv->pd_canvas()).w == 600);
