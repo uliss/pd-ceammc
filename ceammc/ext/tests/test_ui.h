@@ -26,6 +26,7 @@ using namespace ceammc;
     static void ui_test_init()                                                      \
     {                                                                               \
         pd_init();                                                                  \
+        epd_init();                                                                 \
         UI##T::setup();                                                             \
         ExternalOutput::setup();                                                    \
         ListenerExternal::setup();                                                  \
