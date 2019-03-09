@@ -48,31 +48,31 @@ UIDspDebug::~UIDspDebug()
         post("[ceammc] %s", str().c_str());
 }
 
-t_symbol* UIDspObject::BG_LAYER = gensym("background_layer");
+const char* UIDspObject::BG_LAYER = "background_layer";
 
 #ifdef __APPLE__
-t_symbol* UIDspObject::FONT_FAMILY = gensym("Helvetica");
+const char* UIDspObject::FONT_FAMILY = "Helvetica";
 const int UIDspObject::FONT_SIZE = 12;
 const int UIDspObject::FONT_SIZE_SMALL = 8;
 #elif _WIN32
-t_symbol* UIDspObject::FONT_FAMILY = gensym("DejaVu Sans Mono");
+const char* UIDspObject::FONT_FAMILY = "DejaVu Sans Mono";
 const int UIDspObject::FONT_SIZE = 9;
 const int UIDspObject::FONT_SIZE_SMALL = 6;
 #else
-t_symbol* UIDspObject::FONT_FAMILY = gensym("DejaVu Sans Mono");
+const char* UIDspObject::FONT_FAMILY = "DejaVu Sans Mono";
 const int UIDspObject::FONT_SIZE = 9;
 const int UIDspObject::FONT_SIZE_SMALL = 6;
 #endif
 
-t_symbol* UIDspObject::FONT_STYLE = gensym("roman");
-t_symbol* UIDspObject::FONT_WEIGHT = gensym("normal");
-t_symbol* UIDspObject::COLOR_ACTIVE = gensym("#00C0FF");
+const char* UIDspObject::FONT_STYLE = "roman";
+const char* UIDspObject::FONT_WEIGHT = "normal";
+const char* UIDspObject::COLOR_ACTIVE = "#00C0FF";
 
 UIDspObject::PresetNameMap UIDspObject::presets_;
 
 UIDspObject::UIDspObject()
     : name_(&s_)
-    , bg_layer_(asEBox(), BG_LAYER)
+    , bg_layer_(asEBox(), gensym(BG_LAYER))
     , old_preset_id_(s_null)
     , cursor_(ECURSOR_LEFT_PTR)
     , samplerate_(44100)

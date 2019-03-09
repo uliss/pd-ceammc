@@ -181,11 +181,11 @@ public:
     float fontSizeZoomed() const;
 
 public:
-    static t_symbol* BG_LAYER;
-    static t_symbol* FONT_FAMILY;
-    static t_symbol* FONT_STYLE;
-    static t_symbol* FONT_WEIGHT;
-    static t_symbol* COLOR_ACTIVE;
+    static const char* BG_LAYER;
+    static const char* FONT_FAMILY;
+    static const char* FONT_STYLE;
+    static const char* FONT_WEIGHT;
+    static const char* COLOR_ACTIVE;
     static const int FONT_SIZE;
     static const int FONT_SIZE_SMALL;
 
