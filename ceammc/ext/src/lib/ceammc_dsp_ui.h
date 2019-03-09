@@ -6,8 +6,8 @@
 #include "ceammc_externals.h"
 #include "ceammc_ui.h"
 
-#include <boost/unordered_map.hpp>
 #include <string>
+#include <unordered_map>
 #include <utility>
 
 namespace ceammc {
@@ -29,11 +29,11 @@ public:
     typedef std::pair<propFloatGet, propFloatSet> propertyFloatAccess;
     typedef std::pair<propListGet, propListSet> propertyListAccess;
 
-    typedef boost::unordered_map<t_symbol*, bangMethodPtr> BangMethodMap;
-    typedef boost::unordered_map<t_symbol*, floatMethodPtr> FloatMethodMap;
-    typedef boost::unordered_map<t_symbol*, listMethodPtr> ListMethodMap;
-    typedef boost::unordered_map<t_symbol*, propertyFloatAccess> FloatPropertyMap;
-    typedef boost::unordered_map<t_symbol*, propertyListAccess> ListPropertyMap;
+    typedef std::unordered_map<t_symbol*, bangMethodPtr> BangMethodMap;
+    typedef std::unordered_map<t_symbol*, floatMethodPtr> FloatMethodMap;
+    typedef std::unordered_map<t_symbol*, listMethodPtr> ListMethodMap;
+    typedef std::unordered_map<t_symbol*, propertyFloatAccess> FloatPropertyMap;
+    typedef std::unordered_map<t_symbol*, propertyListAccess> ListPropertyMap;
 
 public:
     UIDspFactory(const char* name, long fl = EBOX_GROWINDI, int pd_flags = 0)
@@ -478,7 +478,7 @@ public:
 
     static t_pd_err notify(UI* z, t_symbol* s, t_symbol* msg, void*, void*)
     {
-        if (use_presets && msg == s_attr_modified && s == SYM_PROP_PRESET_NAME) {
+        if (use_presets && msg == s_attr_modified && s == gensym(PROP_PRESET_NAME)) {
             z->handlePresetNameChange();
         }
 

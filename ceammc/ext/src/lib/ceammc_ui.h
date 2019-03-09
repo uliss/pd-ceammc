@@ -25,7 +25,6 @@ static const char* PROP_BORDER_COLOR = "border_color";
 static const char* PROP_TEXT_COLOR = "text_color";
 
 static const char* PROP_PRESET_NAME = "presetname";
-static t_symbol* SYM_PROP_PRESET_NAME = gensym(PROP_PRESET_NAME);
 
 //! Gettext extract message helper
 #ifndef _
@@ -590,7 +589,7 @@ public:
 
     static t_pd_err notify(UI* z, t_symbol* s, t_symbol* msg, void*, void*)
     {
-        if (use_presets && msg == s_attr_modified && s == SYM_PROP_PRESET_NAME) {
+        if (use_presets && msg == s_attr_modified && s == gensym(PROP_PRESET_NAME)) {
             z->handlePresetNameChange();
         }
 
