@@ -39,7 +39,7 @@ static PERTHREAD char *sys_prefbuf;
 static PERTHREAD int sys_prefbufsize;
 static PERTHREAD FILE *sys_prefsavefp;
 
-#define UNIX_CONFIG_FILENAME ".pd_ceammc_settings";
+#define UNIX_CONFIG_FILENAME ".pd_ceammc_settings"
 static const char* WIN_CONFIG_REGNAME = "Software\\Pd-ceammc";
 static const char* WIN_CONFIG_KEYNAME = "Pd-ceammc";
 static const char* MACOSX_CONFIG_NAME = "com.ceammc.pd";
@@ -641,9 +641,9 @@ void glob_forgetpreferences(t_pd *dummy)
 #if !defined(_WIN32) && !defined(__APPLE__)
     if (system("cat ~/" UNIX_CONFIG_FILENAME " >& /dev/null\n"))
         post("no Pd settings to clear");
-    else if (!system("rm ~/" CONFIG_ORG_NAME "\n"))
-        post("removed " CONFIG_ORG_NAME " file");
-    else post("couldn't delete " CONFIG_ORG_NAME " file");
+    else if (!system("rm ~/" UNIX_CONFIG_FILENAME "\n"))
+        post("removed " UNIX_CONFIG_FILENAME " file");
+    else post("couldn't delete " UNIX_CONFIG_FILENAME " file");
 #endif  /* !defined(_WIN32) && !defined(__APPLE__) */
 #ifdef __APPLE__
     char cmdbuf[MAXPDSTRING];
