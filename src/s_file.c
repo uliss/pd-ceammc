@@ -39,7 +39,7 @@ static PERTHREAD char *sys_prefbuf;
 static PERTHREAD int sys_prefbufsize;
 static PERTHREAD FILE *sys_prefsavefp;
 
-static const char* UNIX_CONFIG_FILENAME = ".pd_ceammc_settings";
+#define UNIX_CONFIG_FILENAME ".pd_ceammc_settings";
 static const char* WIN_CONFIG_REGNAME = "Software\\Pd-ceammc";
 static const char* WIN_CONFIG_KEYNAME = "Pd-ceammc";
 static const char* MACOSX_CONFIG_NAME = "com.ceammc.pd";
