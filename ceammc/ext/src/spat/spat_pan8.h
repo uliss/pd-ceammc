@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "spat.pan8"
-Code generated with Faust 2.8.5 (https://faust.grame.fr)
+Code generated with Faust 2.15.10 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -372,9 +372,8 @@ struct Meta
 
 #include <algorithm>
 #include <map>
-#include <string.h>
-#include <stdlib.h>
 #include <cstdlib>
+#include <string.h>
 
 
 using std::max;
@@ -382,33 +381,33 @@ using std::min;
 
 struct XXXX_Meta : std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
-inline int lsr(int x, int n)	{ return int(((unsigned int)x) >> n); }
+static int lsr(int x, int n) { return int(((unsigned int)x) >> n); }
 
-inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
+static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
-inline long lopt(char* argv[], const char* name, long def)
+static long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
     for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
-inline bool isopt(char* argv[], const char* name)
+static bool isopt(char* argv[], const char* name)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
 	return false;
 }
 
-inline const char* lopts(char* argv[], const char* name, const char* def)
+static const char* lopts(char* argv[], const char* name, const char* def)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
@@ -611,6 +610,7 @@ class spat_pan8 : public dsp {
 		classInit(samplingFreq);
 		instanceInit(samplingFreq);
 	}
+	
 	virtual void instanceInit(int samplingFreq) {
 		instanceConstants(samplingFreq);
 		instanceResetUserInterface();
@@ -620,6 +620,7 @@ class spat_pan8 : public dsp {
 	virtual spat_pan8* clone() {
 		return new spat_pan8();
 	}
+	
 	virtual int getSampleRate() {
 		return fSamplingFreq;
 		
@@ -647,32 +648,32 @@ class spat_pan8 : public dsp {
 		float fSlow0 = float(fVslider0);
 		float fSlow1 = (fSlow0 + 1.0f);
 		float fSlow2 = (0.159154937f * float(fVslider1));
-		float fSlow3 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.5f), 1.0f) + -0.5f)))))))));
-		float fSlow4 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.375f), 1.0f) + -0.5f)))))))));
-		float fSlow5 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.25f), 1.0f) + -0.5f)))))))));
-		float fSlow6 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.125f), 1.0f) + -0.5f)))))))));
-		float fSlow7 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.0f), 1.0f) + -0.5f)))))))));
-		float fSlow8 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 0.875f), 1.0f) + -0.5f)))))))));
-		float fSlow9 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 0.75f), 1.0f) + -0.5f)))))))));
-		float fSlow10 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 0.625f), 1.0f) + -0.5f)))))))));
+		float fSlow3 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.5f), 1.0f) + -0.5f)))))))));
+		float fSlow4 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.375f), 1.0f) + -0.5f)))))))));
+		float fSlow5 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.25f), 1.0f) + -0.5f)))))))));
+		float fSlow6 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.125f), 1.0f) + -0.5f)))))))));
+		float fSlow7 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 1.0f), 1.0f) + -0.5f)))))))));
+		float fSlow8 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 0.875f), 1.0f) + -0.5f)))))))));
+		float fSlow9 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 0.75f), 1.0f) + -0.5f)))))))));
+		float fSlow10 = (4.99999987e-05f * (fSlow1 * std::sqrt(std::max<float>(0.0f, (1.0f - (8.0f * (fSlow0 * std::fabs((std::fmod((fSlow2 + 0.625f), 1.0f) + -0.5f)))))))));
 		for (int i = 0; (i < count); i = (i + 1)) {
-			fRec0[0] = (fSlow3 + (0.999899983f * fRec0[1]));
 			float fTemp0 = float(input0[i]);
-			output0[i] = FAUSTFLOAT((fRec0[0] * fTemp0));
+			fRec0[0] = (fSlow3 + (0.999899983f * fRec0[1]));
+			output0[i] = FAUSTFLOAT((fTemp0 * fRec0[0]));
 			fRec1[0] = (fSlow4 + (0.999899983f * fRec1[1]));
-			output1[i] = FAUSTFLOAT((fRec1[0] * fTemp0));
+			output1[i] = FAUSTFLOAT((fTemp0 * fRec1[0]));
 			fRec2[0] = (fSlow5 + (0.999899983f * fRec2[1]));
-			output2[i] = FAUSTFLOAT((fRec2[0] * fTemp0));
+			output2[i] = FAUSTFLOAT((fTemp0 * fRec2[0]));
 			fRec3[0] = (fSlow6 + (0.999899983f * fRec3[1]));
-			output3[i] = FAUSTFLOAT((fRec3[0] * fTemp0));
+			output3[i] = FAUSTFLOAT((fTemp0 * fRec3[0]));
 			fRec4[0] = (fSlow7 + (0.999899983f * fRec4[1]));
-			output4[i] = FAUSTFLOAT((fRec4[0] * fTemp0));
+			output4[i] = FAUSTFLOAT((fTemp0 * fRec4[0]));
 			fRec5[0] = (fSlow8 + (0.999899983f * fRec5[1]));
-			output5[i] = FAUSTFLOAT((fRec5[0] * fTemp0));
+			output5[i] = FAUSTFLOAT((fTemp0 * fRec5[0]));
 			fRec6[0] = (fSlow9 + (0.999899983f * fRec6[1]));
-			output6[i] = FAUSTFLOAT((fRec6[0] * fTemp0));
+			output6[i] = FAUSTFLOAT((fTemp0 * fRec6[0]));
 			fRec7[0] = (fSlow10 + (0.999899983f * fRec7[1]));
-			output7[i] = FAUSTFLOAT((fRec7[0] * fTemp0));
+			output7[i] = FAUSTFLOAT((fTemp0 * fRec7[0]));
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
@@ -686,7 +687,6 @@ class spat_pan8 : public dsp {
 		
 	}
 
-	
 };
 // clang-format on
 #endif
