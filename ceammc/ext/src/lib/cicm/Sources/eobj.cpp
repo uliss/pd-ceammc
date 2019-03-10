@@ -232,9 +232,7 @@ void eobj_attr_getvalueof(void* x, t_symbol* s, int* argc, t_atom** argv)
 void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom* argv)
 {
     char buf[MAXPDSTRING];
-    char* pch;
     t_atom av[1];
-    t_namelist* var = 0;
     t_eclass* c = eobj_getclass(x);
 
     // Name
@@ -247,7 +245,7 @@ void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom* argv)
         // Invalid path or no path
         else {
             // Wrong path but we don't care
-            pch = strpbrk(atom_getsymbol(argv)->s_name, "/\"");
+            auto pch = strpbrk(atom_getsymbol(argv)->s_name, "/\"");
             if (pch != NULL) {
                 if (c->c_widget.w_read)
                     c->c_widget.w_read(x, s, 1, argv);
