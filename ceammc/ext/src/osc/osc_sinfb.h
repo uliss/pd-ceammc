@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "osc_sinfb"
-Code generated with Faust 2.8.5 (https://faust.grame.fr)
+Code generated with Faust 2.15.10 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -372,9 +372,8 @@ struct Meta
 
 #include <algorithm>
 #include <map>
-#include <string.h>
-#include <stdlib.h>
 #include <cstdlib>
+#include <string.h>
 
 
 using std::max;
@@ -382,33 +381,33 @@ using std::min;
 
 struct XXXX_Meta : std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
-inline int lsr(int x, int n)	{ return int(((unsigned int)x) >> n); }
+static int lsr(int x, int n) { return int(((unsigned int)x) >> n); }
 
-inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
+static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
-inline long lopt(char* argv[], const char* name, long def)
+static long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
     for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
-inline bool isopt(char* argv[], const char* name)
+static bool isopt(char* argv[], const char* name)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
 	return false;
 }
 
-inline const char* lopts(char* argv[], const char* name, const char* def)
+static const char* lopts(char* argv[], const char* name, const char* def)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
@@ -510,6 +509,7 @@ class osc_sinfbSIG0 {
 		}
 		
 	}
+
 };
 
 osc_sinfbSIG0* newosc_sinfbSIG0() { return (osc_sinfbSIG0*)new osc_sinfbSIG0(); }
@@ -578,6 +578,7 @@ class osc_sinfbSIG1 {
 		}
 		
 	}
+
 };
 
 osc_sinfbSIG1* newosc_sinfbSIG1() { return (osc_sinfbSIG1*)new osc_sinfbSIG1(); }
@@ -678,7 +679,7 @@ class osc_sinfb : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = (1.0f / std::min(192000.0f, std::max(1.0f, float(fSamplingFreq))));
+		fConst0 = (1.0f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSamplingFreq))));
 		
 	}
 	
@@ -707,6 +708,7 @@ class osc_sinfb : public dsp {
 		classInit(samplingFreq);
 		instanceInit(samplingFreq);
 	}
+	
 	virtual void instanceInit(int samplingFreq) {
 		instanceConstants(samplingFreq);
 		instanceResetUserInterface();
@@ -716,6 +718,7 @@ class osc_sinfb : public dsp {
 	virtual osc_sinfb* clone() {
 		return new osc_sinfb();
 	}
+	
 	virtual int getSampleRate() {
 		return fSamplingFreq;
 		
@@ -733,11 +736,11 @@ class osc_sinfb : public dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = (0.00100000005f * float(fHslider0));
 		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = ((fConst0 * float(input0[i])) + fRec2[1]);
+			float fTemp0 = (fRec2[1] + (fConst0 * float(input0[i])));
 			fRec2[0] = (fTemp0 - std::floor(fTemp0));
 			int iTemp1 = int((65536.0f * fRec2[0]));
 			fRec3[0] = (fSlow0 + (0.999000013f * fRec3[1]));
-			float fTemp2 = (fRec0[1] * fRec3[0]);
+			float fTemp2 = (fRec3[0] * fRec0[1]);
 			fRec0[0] = ((ftbl0osc_sinfbSIG0[iTemp1] * std::cos(fTemp2)) + (ftbl1osc_sinfbSIG1[iTemp1] * std::sin(fTemp2)));
 			output0[i] = FAUSTFLOAT(fRec0[0]);
 			fRec2[1] = fRec2[0];
@@ -748,7 +751,6 @@ class osc_sinfb : public dsp {
 		
 	}
 
-	
 };
 // clang-format on
 #endif
