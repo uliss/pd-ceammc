@@ -1023,7 +1023,7 @@ void pd_vmess(t_pd* x, t_symbol* sel, const char* fmt, ...)
     va_list ap;
     t_atom arg[10], *at = arg;
     int nargs = 0;
-    char* fp = fmt;
+    const char* fp = fmt;
 
     va_start(ap, fmt);
     while (1) {
