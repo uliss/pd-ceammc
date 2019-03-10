@@ -450,9 +450,11 @@ static const char digit_pairs[201] = {
     "90919293949596979899"
 };
 
-enum { INT_BUFFER_SIZE = 11 };
-static const int MAX_VARS = 70;
-static const int VAR_INT_BUFFER_SIZE = (INT_BUFFER_SIZE + 1) * MAX_VARS + 1;
+enum {
+    INT_BUFFER_SIZE = 11,
+    MAX_VARS = 70,
+    VAR_INT_BUFFER_SIZE = (INT_BUFFER_SIZE + 1) * MAX_VARS + 1
+};
 
 size_t g_int2str(int val, char* dest)
 {
