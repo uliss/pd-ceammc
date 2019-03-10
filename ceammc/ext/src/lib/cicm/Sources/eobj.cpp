@@ -150,13 +150,12 @@ void eobj_save(t_gobj* x, t_binbuf* b)
 void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom* argv)
 {
     char buf[MAXPDSTRING];
-    char* pch;
     t_atom av[1];
     t_eclass* c = eobj_getclass(x);
 
     // The file name is defined
     if (argc && argv && atom_gettype(argv) == A_SYMBOL) {
-        pch = strpbrk(atom_getsymbol(argv)->s_name, "/\"");
+        auto pch = strpbrk(atom_getsymbol(argv)->s_name, "/\"");
         // The folder seems defined
         if (pch != NULL) {
             atom_setsym(av, atom_getsymbol(argv));
