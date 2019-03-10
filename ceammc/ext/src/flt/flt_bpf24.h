@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt.bpf24"
-Code generated with Faust 2.15.0 (https://faust.grame.fr)
+Code generated with Faust 2.15.10 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -598,6 +598,7 @@ class flt_bpf24 : public dsp {
 		classInit(samplingFreq);
 		instanceInit(samplingFreq);
 	}
+	
 	virtual void instanceInit(int samplingFreq) {
 		instanceConstants(samplingFreq);
 		instanceResetUserInterface();
@@ -607,6 +608,7 @@ class flt_bpf24 : public dsp {
 	virtual flt_bpf24* clone() {
 		return new flt_bpf24();
 	}
+	
 	virtual int getSampleRate() {
 		return fSamplingFreq;
 		
@@ -639,11 +641,11 @@ class flt_bpf24 : public dsp {
 			float fTemp7 = (fConst10 * fTemp4);
 			float fTemp8 = flt_bpf24_faustpower2_f(fTemp4);
 			float fTemp9 = (8.0f * fTemp8);
-			float fTemp10 = ((4.0f * fTemp8) + (8.0f * fTemp3));
+			float fTemp10 = ((8.0f * fTemp3) + (4.0f * fTemp8));
 			float fTemp11 = (fConst1 * fTemp3);
 			float fTemp12 = (2.82842708f * fTemp4);
 			float fTemp13 = (fConst12 * fTemp4);
-			float fTemp14 = ((fTemp13 + (fConst2 * (fTemp10 + (fConst1 * (fTemp3 * (fTemp11 + fTemp12)))))) + 16.0f);
+			float fTemp14 = (((fConst2 * (fTemp10 + (fConst1 * (fTemp3 * (fTemp11 + fTemp12))))) + fTemp13) + 16.0f);
 			fRec0[0] = (float(input0[i]) - (((((fRec0[1] * ((fConst3 * (fTemp3 * (fTemp5 + fTemp6))) + (-64.0f - fTemp7))) + (fRec0[2] * ((fConst2 * ((0.0f - (fTemp9 + (16.0f * fTemp3))) + (fConst11 * flt_bpf24_faustpower4_f(fTemp2)))) + 96.0f))) + (((fTemp7 + (fConst3 * (fTemp3 * (fTemp6 - fTemp5)))) + -64.0f) * fRec0[3])) + (fRec0[4] * ((fConst2 * (fTemp10 + (fConst1 * (fTemp3 * (fTemp11 - fTemp12))))) + (16.0f - fTemp13)))) / fTemp14));
 			output0[i] = FAUSTFLOAT((fConst2 * ((((fRec0[2] * (0.0f - fTemp9)) + (4.0f * (fRec0[0] * fTemp8))) + (4.0f * (fTemp8 * fRec0[4]))) / fTemp14)));
 			fRec1[1] = fRec1[0];
@@ -657,7 +659,6 @@ class flt_bpf24 : public dsp {
 		
 	}
 
-	
 };
 // clang-format on
 #endif

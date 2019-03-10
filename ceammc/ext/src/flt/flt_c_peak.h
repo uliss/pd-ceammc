@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt_c_peak"
-Code generated with Faust 2.15.0 (https://faust.grame.fr)
+Code generated with Faust 2.15.10 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -584,6 +584,7 @@ class flt_c_peak : public dsp {
 		classInit(samplingFreq);
 		instanceInit(samplingFreq);
 	}
+	
 	virtual void instanceInit(int samplingFreq) {
 		instanceConstants(samplingFreq);
 		instanceResetUserInterface();
@@ -593,6 +594,7 @@ class flt_c_peak : public dsp {
 	virtual flt_c_peak* clone() {
 		return new flt_c_peak();
 	}
+	
 	virtual int getSampleRate() {
 		return fSamplingFreq;
 		
@@ -644,7 +646,6 @@ class flt_c_peak : public dsp {
 		
 	}
 
-	
 };
 // clang-format on
 #endif
