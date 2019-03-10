@@ -450,7 +450,7 @@ static const char digit_pairs[201] = {
     "90919293949596979899"
 };
 
-static const int INT_BUFFER_SIZE = 11;
+enum { INT_BUFFER_SIZE = 11 };
 static const int MAX_VARS = 70;
 static const int VAR_INT_BUFFER_SIZE = (INT_BUFFER_SIZE + 1) * MAX_VARS + 1;
 
