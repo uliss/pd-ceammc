@@ -297,7 +297,7 @@ static PropertyInfoType type2type(DataTypeProperty::Type t)
 
 PropertyInfo DataTypeProperty::info() const
 {
-    char* name = strchr(name_->s_name, '@');
+    auto name = std::strchr(name_->s_name, '@');
     PropertyInfo res(name, type2type(type_));
 
     if (isFloat()) {
