@@ -92,20 +92,20 @@ else() # search via pkg-config
     find_path(GLIB_INCLUDE_DIR
         NAMES glib.h
         HINTS ${PKGCONFIG_GLIB_INCLUDEDIR} ${PKGCONFIG_GLIB_INCLUDE_DIRS}
-        PATHS ${_include_paths}
-        PATH_SUFFIXES glib-2.0
+        PATHS ${_include_paths} ${_lib_paths}
+        PATH_SUFFIXES glib-2.0 glib-2.0/include glib-2.0/include/glib include/glib-2.0
         NO_DEFAULT_PATH)
 
     find_path(ICONV_INCLUDE_DIR
         NAMES iconv.h
         HINTS ${PKGCONFIG_GLIB_INCLUDEDIR} ${PKGCONFIG_GLIB_INCLUDE_DIRS}
-        PATHS ${_include_paths}
+        PATHS ${_include_paths} ${_lib_paths}
         NO_DEFAULT_PATH)
 
     find_path(GLIB_CONFIG_INCLUDE_DIR
         NAMES glibconfig.h
         HINTS ${PKGCONFIG_GLIB_INCLUDEDIR} ${PKGCONFIG_GLIB_INCLUDE_DIRS}
-        PATHS ${_include_paths}
+        PATHS ${_include_paths} ${_lib_paths}
         PATH_SUFFIXES glib-2.0/include
         NO_DEFAULT_PATH)
 
