@@ -10,7 +10,7 @@ BINDIR="$2"
 VERSION="$4"
 OUTDIR="$3/ceammc"
 SYSVER=$(sw_vers | grep ProductVersion | cut -f2 | cut -f1,2 -d.)
-OUTFILE="ceammc-${VERSION}-macosx-${SYSVER}-pd-0.47.tar.gz"
+OUTFILE="ceammc-${VERSION}-macosx-${SYSVER}-pd-0.49.tar.gz"
 DYLIBBUNDLER="@DYLIBBUNDLER@"
 
 
@@ -27,7 +27,7 @@ function skip_ext {
 
 echo "Making CEAMMC library from build directory: $BINDIR"
 mkdir -p "${OUTDIR}"
-rm "${OUTDIR}/*"
+rm -f "${OUTDIR}/*"
 
 echo "Copying libraries to ${OUTDIR} ..."
 find "${BINDIR}" -name *.dylib -print0 | while read -r -d '' file
@@ -36,9 +36,16 @@ do
     echo "+ Lib:  $(basename $file)"
 done
 
+find_ext() {
+    find "$1" -name "$2\\.d_fat" \
+        -o -name "$2\\.d_amd64" \
+        -o -name "$2\\.pd_darwin" \
+        -o -name "$2\\.d_i386"
+}
+
 
 echo "Copying extension files to ${OUTDIR} ..."
-find "${BINDIR}" -name *.d_fat -print0 | while read -r -d '' file
+find_ext ${BINDIR} "*" | while read file
 do
     ext_name=$(basename $file)
     skip_ext $file
@@ -54,7 +61,7 @@ do
 done
 
 echo "Copying [system.serial] extension files to ${OUTDIR} ..."
-find "${BINDIR}/../extra/comport" -name *.d_fat -print0 | while read -r -d '' file
+find_ext "${BINDIR}/../extra/comport" "*" | while read file
 do
     ext_name=$(basename $file)
     skip_ext $file
@@ -69,9 +76,9 @@ do
     ${DYLIBBUNDLER} -x ${OUTDIR}/$ext_name -b -d ${OUTDIR} -p @loader_path/ -of
 done
 
-ceammc_lib=$(find "${BINDIR}" -name ceammc\\.d_fat)
+ceammc_lib=$(find_ext "${BINDIR}" ceammc)
 cp $ceammc_lib "${OUTDIR}"
-${DYLIBBUNDLER} -x ${OUTDIR}/ceammc.d_fat -b -d ${OUTDIR} -p @loader_path/ -of
+${DYLIBBUNDLER} -x ${OUTDIR}/$(basename $ceammc_lib) -b -d ${OUTDIR} -p @loader_path/ -of
 
 echo "Copying help files to ${OUTDIR} ..."
 find "${SRCDIR}/ext/doc" -name *-help\\.pd | while read file
@@ -80,7 +87,7 @@ do
     cat "$file" |
         sed 's/ceammc\/ceammc-help\.pd/ceammc-help.pd/' |
         sed 's/\.\.\/index-help\.pd/index-help.pd/' > "${OUTDIR}/${help}"
-    echo "+ Copy: '$help'"
+    echo "+ Help: '$help'"
 done
 
 echo "Copying wrapper help files to ${OUTDIR} ..."
@@ -90,7 +97,7 @@ do
     cat "$file" |
         sed 's/ceammc\/ceammc-help\.pd/ceammc-help.pd/' |
         sed 's/\.\.\/index-help\.pd/index-help.pd/' > "${OUTDIR}/${help}"
-    echo "+ Copy: '$help'"
+    echo "+ Help: '$help'"
 done
 
 echo "Copying STK rawwaves files to ${OUTDIR}/stk ..."
@@ -99,7 +106,7 @@ find "${SRCDIR}/extra/stk/stk/rawwaves" -name *\\.raw | while read file
 do
     help=$(basename $file)
     cp "$file" "${OUTDIR}/stk"
-    echo "+ Copy: '$help'"
+    echo "+ RAW: '$help'"
 done
 
 echo "Copying CEAMMC wav examples to ${OUTDIR} ..."
@@ -107,7 +114,7 @@ find "${SRCDIR}/ext/doc" -name *\\.wav | while read file
 do
     help=$(basename $file)
     cp "$file" ${OUTDIR}
-    echo "+ Copy: '$help'"
+    echo "+ WAV: '$help'"
 done
 
 echo "Copying SF2 fonts to ${OUTDIR}/sf2 ..."
@@ -125,9 +132,10 @@ echo "    stargazing.mod"
 cp "${SRCDIR}/ext/doc/stargazing.mod" "${OUTDIR}"
 echo "    prs.txt"
 cp "${SRCDIR}/ext/doc/prs.txt" "${OUTDIR}"
-echo "    soundtouch~.d_fat"
-cp "${BINDIR}/../extra/SoundTouch/pd/soundtouch~.d_fat" "${OUTDIR}"
-${DYLIBBUNDLER} -x ${OUTDIR}/soundtouch~.d_fat -b -d ${OUTDIR} -p @loader_path/ -of
+echo "    soundtouch~"
+soundtouch_ext=$(find_ext "${BINDIR}/../extra/SoundTouch/pd" "soundtouch~")
+cp "$soundtouch_ext" "${OUTDIR}"
+${DYLIBBUNDLER} -x ${OUTDIR}/$(basename $soundtouch_ext) -b -d ${OUTDIR} -p @loader_path/ -of
 echo "    soundtouch~-help.pd"
 cp "${BINDIR}/../extra/SoundTouch/pd/soundtouch~-help.pd" "${OUTDIR}"
 echo "    soundtouch-help.pd"
