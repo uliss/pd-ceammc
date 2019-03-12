@@ -10,7 +10,7 @@ BINDIR="$2"
 VERSION="$4"
 OUTDIR="$3/ceammc"
 SYSVER=$(sw_vers | grep ProductVersion | cut -f2 | cut -f1,2 -d.)
-OUTFILE="ceammc-${VERSION}-macosx-${SYSVER}-pd-0.49.tar.gz"
+OUTFILE="ceammc-${VERSION}-macosx-${SYSVER}-pd-@PD_TEXT_VERSION_SHORT@.tar.gz"
 DYLIBBUNDLER="@DYLIBBUNDLER@"
 
 
