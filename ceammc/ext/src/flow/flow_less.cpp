@@ -18,7 +18,7 @@
 static bool is_sorted(const std::vector<t_float>& v)
 {
     if (v.empty())
-        return false;
+        return true;
 
     t_float cur = v[0];
     for (size_t i = 1; i < v.size(); i++) {
@@ -50,7 +50,7 @@ FlowLess::FlowLess(const PdArgs& a)
     createOutlet();
 
     if (!is_sorted(args_)) {
-        OBJ_ERR << "unsorted list" << pos_args;
+        OBJ_ERR << "unsorted list " << pos_args;
     }
 }
 
