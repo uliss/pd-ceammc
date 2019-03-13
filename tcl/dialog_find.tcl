@@ -203,33 +203,32 @@ proc ::dialog_find::create_dialog {mytoplevel} {
     .find configure -padx 10 -pady 5
     ::pd_bindings::dialog_bindings .find "find"
 
-    label .find.searchin -text \
+    ttk::label .find.searchin -text \
             [format [_ "Search in %s for:"] [_ "Pd window"] ]
     pack .find.searchin -side top -fill x -pady 1
 
-    entry .find.entry -width 54 -font 18 -relief sunken \
-        -highlightthickness 1 -highlightcolor blue
+    ttk::entry .find.entry -width 54
     pack .find.entry -side top -padx 10
 
     bind .find.entry <Up> "::dialog_find::get_history 1"
     bind .find.entry <Down> "::dialog_find::get_history -1"
 
-    checkbutton .find.wholeword -variable ::dialog_find::wholeword_button \
-        -text [_ "Match whole word only"] -anchor w
+    ttk::checkbutton .find.wholeword -variable ::dialog_find::wholeword_button \
+        -text [_ "Match whole word only"]
     pack .find.wholeword -side left -padx 10 -pady 3
 
     frame .find.buttonframe -background yellow
     pack .find.buttonframe -side right -pady 3
     if {$::windowingsystem eq "win32"} {
-        button .find.cancel -text [_ "Cancel"] -default normal \
+        ttk::button .find.cancel -text [_ "Cancel"] -default normal \
             -command "::dialog_find::cancel $mytoplevel"
         pack .find.cancel -side right -padx 6 -pady 3 -ipadx 10
     }
-    button .find.button -text [_ "Find"] -default active \
+    ttk::button .find.button -text [_ "Find"] -default active \
         -command "::dialog_find::ok $mytoplevel"
     pack .find.button -side right -padx 6 -pady 3 -ipadx 15
     if {$::windowingsystem eq "x11"} {
-        button .find.close -text [_ "Close"] -default normal \
+        ttk::button .find.close -text [_ "Close"] -default normal \
             -command "::dialog_find::cancel $mytoplevel"
         pack .find.close -side right -padx 6 -pady 3 -ipadx 10
     }
