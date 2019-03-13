@@ -28,7 +28,7 @@ proc ::dialog_canvas::apply {mytoplevel} {
             [$mytoplevel.range.x.size_entry get] \
             [$mytoplevel.range.y.size_entry get] \
             [$mytoplevel.range.x.margin_entry get] \
-            [$mytoplevel.range.y.margin_entry get]"
+            [$mytoplevel.range.y.margin_entry get] 1"
 }
 
 proc ::dialog_canvas::cancel {mytoplevel} {
@@ -147,7 +147,7 @@ proc ::dialog_canvas::create_dialog {mytoplevel x y} {
     $mytoplevel configure -menu $::dialog_menubar
     $mytoplevel configure -padx 8 -pady 8
     ::pd_bindings::dialog_bindings $mytoplevel "canvas"
-    
+
     labelframe $mytoplevel.scale -text [_ "Scale"] -borderwidth 1
     pack $mytoplevel.scale -side top -fill x
     frame $mytoplevel.scale.x -pady 2 -borderwidth 1
@@ -257,11 +257,13 @@ proc ::dialog_canvas::create_dialog {mytoplevel x y} {
         $mytoplevel.buttons.ok config -default normal
         bind $mytoplevel.buttons.ok <FocusIn> "$mytoplevel.buttons.ok config -default active"
         bind $mytoplevel.buttons.ok <FocusOut> "$mytoplevel.buttons.ok config -default normal"
-    
+
         # since we show the active focus, disable the highlight outline
         $mytoplevel.buttons.ok config -highlightthickness 0
         $mytoplevel.buttons.cancel config -highlightthickness 0
     }
+
+    position_over_window $mytoplevel $::focused_window
  }
 
 # for live updates on OSX

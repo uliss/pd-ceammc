@@ -37,13 +37,13 @@ proc ::dialog_array::pdtk_array_listview_fillpage {arrayName} {
     set windowName [format ".%sArrayWindow" $arrayName]
     set topItem [expr [lindex [$windowName.lb yview] 0] * \
                      [$windowName.lb size]]
-    
+
     if {[winfo exists $windowName]} {
         set cmd "$::pd_array_listview_id($arrayName) \
                arrayviewlistfillpage \
                $::pd_array_listview_page($arrayName) \
                $topItem"
-        
+
         pdsend $cmd
     }
 }
@@ -76,7 +76,7 @@ proc ::dialog_array::pdtk_array_listview_new {id arrayName page} {
         "x11" {selection handle $windowName.lb \
                    "::dialog_array::listview_lbselection $arrayName"}
         "win32" {bind $windowName.lb <ButtonPress-3> \
-                     "::dialog_array::listview_popup $arrayName"} 
+                     "::dialog_array::listview_popup $arrayName"}
     }
     set $windowName.prevBtn [button $windowName.prevBtn -text "<-" \
                                  -command "::dialog_array::listview_changepage $arrayName -1"]
@@ -359,11 +359,13 @@ proc ::dialog_array::create_dialog {mytoplevel newone xabs yabs} {
         $mytoplevel.buttonframe.ok config -default normal
         bind $mytoplevel.buttonframe.ok <FocusIn> "$mytoplevel.buttonframe.ok config -default active"
         bind $mytoplevel.buttonframe.ok <FocusOut> "$mytoplevel.buttonframe.ok config -default normal"
-    
+
         # since we show the active focus, disable the highlight outline
         $mytoplevel.buttonframe.ok config -highlightthickness 0
         $mytoplevel.buttonframe.cancel config -highlightthickness 0
     }
+
+    position_over_window "$mytoplevel" "$::focused_window"
 }
 
 # for live widget updates on OSX
