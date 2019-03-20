@@ -233,6 +233,9 @@ array set redo_actions {}
 set undo_action no
 set redo_action no
 
+# ceammc
+set ::ceammc_libdir [file normalize [file join $::sys_guidir "ceammc"]]
+
 namespace eval ::pdgui:: {
     variable scriptname [ file normalize [ info script ] ]
 }

@@ -732,10 +732,10 @@ proc ::dialog_iemgui::pdtk_iemgui_dialog {mytoplevel mainheader dim_header \
 
     frame $mytoplevel.colors.sections
     pack $mytoplevel.colors.sections -side top
-    button $mytoplevel.colors.sections.but -text [_ "Compose color"] \
+    button $mytoplevel.colors.sections.but -text [_ "Compose color"]\
         -command "::dialog_iemgui::choose_col_bkfrlb $mytoplevel"
     pack $mytoplevel.colors.sections.but -side left -anchor w -pady 5 -padx 10\
-        -expand yes -fill x
+        -expand yes -fill x -ipadx 10
     frame $mytoplevel.colors.sections.exp
     pack $mytoplevel.colors.sections.exp -side right -padx 5
     if { [eval concat $$var_iemgui_fcol] ne "none" } {
