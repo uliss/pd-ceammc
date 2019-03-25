@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
 "POT-Creation-Date: 2019-03-26 00:55+0300\n"
-"PO-Revision-Date: 2019-03-26 00:56+0300\n"
+"PO-Revision-Date: 2019-03-26 01:08+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -295,9 +295,8 @@ msgid "Browse"
 msgstr "Обзор справки"
 
 #: ../tcl/pd_menus.tcl
-#, fuzzy
 msgid "Browser..."
-msgstr "Обзор справки"
+msgstr "Обзор справки…"
 
 #: ../tcl/pd_menus.tcl
 msgid "CEAMMC objects"
