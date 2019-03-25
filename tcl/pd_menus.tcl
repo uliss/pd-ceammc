@@ -44,7 +44,6 @@ proc ::pd_menus::create_menubar {} {
         } {
             set underlined 0
         }
-
         menu $menubar.$mymenu
         $menubar add cascade -label [_ [string totitle $mymenu]] \
             -underline $underlined -menu $menubar.$mymenu
@@ -58,15 +57,20 @@ proc ::pd_menus::configure_for_pdwindow {} {
     variable menubar
     # these are meaningless for the Pd window, so disable them
     # File menu
+    $menubar.file entryconfigure [_ "Close"] -state disabled
     $menubar.file entryconfigure [_ "Save"] -state disabled
     $menubar.file entryconfigure [_ "Save As..."] -state normal
     $menubar.file entryconfigure [_ "Print..."] -state disabled
-    $menubar.file entryconfigure [_ "Close"] -state disabled
+
     # Edit menu
+    $menubar.edit entryconfigure [_ "Paste Replace"] -state disabled
     $menubar.edit entryconfigure [_ "Duplicate"] -state disabled
-    $menubar.edit entryconfigure [_ "Tidy Up"] -state disabled
+    $menubar.edit entryconfigure [_ "Font"] -state normal
     $menubar.edit entryconfigure [_ "Zoom In"] -state disabled
     $menubar.edit entryconfigure [_ "Zoom Out"] -state disabled
+    $menubar.edit entryconfigure [_ "Tidy Up"] -state disabled
+    $menubar.edit entryconfigure [_ "(Dis)Connect Selection"] -state disabled
+    $menubar.edit entryconfigure [_ "Triggerize"] -state disabled
     $menubar.edit entryconfigure [_ "Edit Mode"] -state disabled
     pdtk_canvas_editmode .pdwindow 0
     # Undo/Redo change names, they need to have the asterisk (*) after
@@ -80,21 +84,25 @@ proc ::pd_menus::configure_for_pdwindow {} {
     # Help menu
     # make sure "List of objects..." is enabled, it sometimes greys out on Mac
     $menubar.help entryconfigure [_ "List of objects..."] -state normal
+    $menubar.help entryconfigure [_ "CEAMMC objects"]     -state normal
 }
 
 proc ::pd_menus::configure_for_canvas {mytoplevel} {
     variable menubar
     # File menu
+    $menubar.file entryconfigure [_ "Close"] -state normal
     $menubar.file entryconfigure [_ "Save"] -state normal
     $menubar.file entryconfigure [_ "Save As..."] -state normal
-    # $menubar.file entryconfigure [_ "Save Current Patch As..."] -state normal
     $menubar.file entryconfigure [_ "Print..."] -state normal
-    $menubar.file entryconfigure [_ "Close"] -state normal
     # Edit menu
+    $menubar.edit entryconfigure [_ "Paste Replace"] -state normal
     $menubar.edit entryconfigure [_ "Duplicate"] -state normal
-    $menubar.edit entryconfigure [_ "Tidy Up"] -state normal
+    $menubar.edit entryconfigure [_ "Font"] -state normal
     $menubar.edit entryconfigure [_ "Zoom In"] -state normal
     $menubar.edit entryconfigure [_ "Zoom Out"] -state normal
+    $menubar.edit entryconfigure [_ "Tidy Up"] -state normal
+    $menubar.edit entryconfigure [_ "(Dis)Connect Selection"] -state normal
+    $menubar.edit entryconfigure [_ "Triggerize"] -state normal
     $menubar.edit entryconfigure [_ "Edit Mode"] -state normal
     pdtk_canvas_editmode $mytoplevel $::editmode($mytoplevel)
     # Put menu
@@ -104,30 +112,43 @@ proc ::pd_menus::configure_for_canvas {mytoplevel} {
             $menubar.put entryconfigure $i -state normal
         }
     }
-    update_undo_on_menu $mytoplevel
+    update_undo_on_menu $mytoplevel $::undo_actions($mytoplevel) $::redo_actions($mytoplevel)
     # Help menu
     # make sure "List of objects..." is enabled, it sometimes greys out on Mac
     $menubar.help entryconfigure [_ "List of objects..."] -state normal
     $menubar.help entryconfigure [_ "CEAMMC objects"]     -state normal
+    $menubar.help entryconfigure [_ "Report a bug"]       -state normal
 }
 
 proc ::pd_menus::configure_for_dialog {mytoplevel} {
     variable menubar
     # these are meaningless for the dialog panels, so disable them except for
-    # the ones that make sense in the Find dialog panel
+    # the ones that make sense in the Find dialog panel and it's canvas
     # File menu
-    if {$mytoplevel ne ".find"} {
+    $menubar.file entryconfigure [_ "Close"] -state disabled
+    if {$mytoplevel eq ".find"} {
+        # these bindings are passed through Find to it's target search window
+        $menubar.file entryconfigure [_ "Save As..."] -state disabled
+        if {$mytoplevel ne ".pdwindow"} {
+            # these don't do anything in the pdwindow
+            $menubar.file entryconfigure [_ "Save"] -state disabled
+            $menubar.file entryconfigure [_ "Print..."] -state disabled
+        }
+    } else {
         $menubar.file entryconfigure [_ "Save"] -state disabled
         $menubar.file entryconfigure [_ "Save As..."] -state disabled
         $menubar.file entryconfigure [_ "Print..."] -state disabled
     }
-    $menubar.file entryconfigure [_ "Close"] -state disabled
+
     # Edit menu
     $menubar.edit entryconfigure [_ "Font"] -state disabled
+    $menubar.edit entryconfigure [_ "Paste Replace"] -state disabled
     $menubar.edit entryconfigure [_ "Duplicate"] -state disabled
-    $menubar.edit entryconfigure [_ "Tidy Up"] -state disabled
     $menubar.edit entryconfigure [_ "Zoom In"] -state disabled
     $menubar.edit entryconfigure [_ "Zoom Out"] -state disabled
+    $menubar.edit entryconfigure [_ "Tidy Up"] -state disabled
+    $menubar.edit entryconfigure [_ "(Dis)Connect Selection"] -state disabled
+    $menubar.edit entryconfigure [_ "Triggerize"] -state disabled
     $menubar.edit entryconfigure [_ "Edit Mode"] -state disabled
     pdtk_canvas_editmode $mytoplevel 0
     # Undo/Redo change names, they need to have the asterisk (*) after
@@ -141,6 +162,8 @@ proc ::pd_menus::configure_for_dialog {mytoplevel} {
     # Help menu
     # make sure "List of objects..." is enabled, it sometimes greys out on Mac
     $menubar.help entryconfigure [_ "List of objects..."] -state normal
+    $menubar.help entryconfigure [_ "CEAMMC objects"]     -state normal
+    $menubar.help entryconfigure [_ "Report a bug"]       -state normal
 }
 
 
@@ -153,9 +176,8 @@ proc ::pd_menus::build_file_menu {mymenu} {
     $mymenu entryconfigure [_ "Open"]       -command {menu_open}
     $mymenu entryconfigure [_ "Save"]       -command {menu_send $::focused_window menusave}
     $mymenu entryconfigure [_ "Save As..."] -command {menu_send $::focused_window menusaveas}
-    # $mymenu entryconfigure [_ "Save Current Patch As..."] -command {menu_send $::focused_window menusavecurrentas}
     #$mymenu entryconfigure [_ "Revert*"]    -command {menu_revert $::focused_window}
-    $mymenu entryconfigure [_ "Close"]      -command {menu_send_float $::focused_window menuclose 0}
+    $mymenu entryconfigure [_ "Close"]      -command {::pd_bindings::window_close $::focused_window}
     $mymenu entryconfigure [_ "Message..."] -command {menu_message_dialog}
     $mymenu entryconfigure [_ "Print..."]   -command {menu_print $::focused_window}
     # update recent files
@@ -179,28 +201,23 @@ proc ::pd_menus::build_edit_menu {mymenu} {
         -command {menu_send $::focused_window paste}
     $mymenu add command -label [_ "Duplicate"]  -accelerator "$accelerator+D" \
         -command {menu_send $::focused_window duplicate}
+    $mymenu add command -label [_ "Paste Replace" ]  \
+        -command {menu_send $::focused_window paste-replace}
     $mymenu add command -label [_ "Select All"] -accelerator "$accelerator+A" \
         -command {menu_send $::focused_window selectall}
     $mymenu add  separator
-    if {$::windowingsystem eq "aqua"} {
-#        $mymenu add command -label [_ "Text Editor"] \
-#            -command {menu_texteditor}
-        $mymenu add command -label [_ "Font"]   -accelerator "$accelerator+T" \
-            -command {menu_font_dialog}
-    } else {
-#        $mymenu add command -label [_ "Text Editor"] -accelerator "$accelerator+T"\
-#            -command {menu_texteditor}
-        $mymenu add command -label [_ "Font"] \
-            -command {menu_font_dialog}
-    }
+    $mymenu add command -label [_ "Font"] \
+        -command {menu_font_dialog}
     $mymenu add command -label [_ "Zoom In"]    -accelerator "$accelerator++" \
         -command {menu_send_float $::focused_window zoom 2}
     $mymenu add command -label [_ "Zoom Out"]   -accelerator "$accelerator+-" \
         -command {menu_send_float $::focused_window zoom 1}
     $mymenu add command -label [_ "Tidy Up"]    -accelerator "$accelerator+Shift+R" \
         -command {menu_send $::focused_window tidy}
-    $mymenu add command -label [_ "Align To Grid"]    -accelerator "$accelerator+Alt+Shift+R" \
-        -command {menu_send $::focused_window aligntogrid}
+    $mymenu add command -label [_ "(Dis)Connect Selection"]    -accelerator "$accelerator+K" \
+        -command {menu_send $::focused_window connect_selection}
+    $mymenu add command -label [_ "Triggerize"] -accelerator "$accelerator+T" \
+        -command {menu_send $::focused_window triggerize}
     $mymenu add command -label [_ "Clear Console"] \
         -accelerator "Shift+$accelerator+L" -command {menu_clear_console}
     $mymenu add  separator
@@ -208,14 +225,6 @@ proc ::pd_menus::build_edit_menu {mymenu} {
     $mymenu add check -label [_ "Edit Mode"]    -accelerator "$accelerator+E" \
         -variable ::editmode_button \
         -command {menu_editmode $::editmode_button}
-    $mymenu add check -label [_ "Draw Grid"]    -accelerator "$accelerator+Alt+Shift+G" \
-        -variable ::gridmode_button \
-        -command {menu_gridmode $::gridmode_button}
-    if {$::windowingsystem ne "aqua"} {
-        $mymenu add  separator
-        create_preferences_menu $mymenu.preferences
-        $mymenu add cascade -label [_ "Preferences"] -menu $mymenu.preferences
-    }
 }
 
 proc ::pd_menus::build_put_menu {mymenu} {
@@ -321,10 +330,12 @@ proc ::pd_menus::build_window_menu {mymenu} {
                 -command {menu_bringalltofront}
         }
     } else {
-		$mymenu add command -label [_ "Next Window"] \
+        $mymenu add command -label [_ "Minimize"] -accelerator "$accelerator+M" \
+                -command {menu_minimize $::focused_window}
+        $mymenu add command -label [_ "Next Window"] \
             -command {menu_raisenextwindow} \
             -accelerator [_ "$accelerator+Page Down"]
-		$mymenu add command -label [_ "Previous Window"] \
+        $mymenu add command -label [_ "Previous Window"] \
             -command {menu_raisepreviouswindow} \
             -accelerator [_ "$accelerator+Page Up"]
     }
@@ -337,16 +348,23 @@ proc ::pd_menus::build_window_menu {mymenu} {
 }
 
 proc ::pd_menus::build_help_menu {mymenu} {
+    variable accelerator
     if {$::windowingsystem ne "aqua"} {
+        # Tk creates this automatically on Mac
         $mymenu add command -label [_ "About Pd"] -command {menu_aboutpd}
     }
-    $mymenu add command -label [_ "HTML Manual..."] \
-        -command {menu_doc_open doc/1.manual index.htm}
     $mymenu add command -label [_ "FLOSS Manual..."] \
         -command {menu_openfile \
         {http://write.flossmanuals.net/pure-data/introduction2/}}
     $mymenu add command -label [_ "Pd tutorial by Johannes Kreidler"] \
         -command {menu_openfile {http://www.pd-tutorial.com/english/}}
+    if {$::windowingsystem ne "aqua" || $::tcl_version < 8.5} {
+        # TK 8.5+ on Mac creates this automatically, other platforms do not
+        $mymenu add command -label [_ "HTML Manual..."] \
+                -command {menu_manual}
+    }
+    $mymenu add command -label [_ "Browser..."] -accelerator "$accelerator+B" \
+        -command {menu_helpbrowser}
     $mymenu add command -label [_ "List of objects..."] \
         -command {menu_objectlist}
     $mymenu add command -label [_ "CEAMMC objects"] \
@@ -355,23 +373,26 @@ proc ::pd_menus::build_help_menu {mymenu} {
     $mymenu add command -label [_ "puredata.info"] \
         -command {menu_openfile {http://puredata.info}}
     $mymenu add command -label [_ "Report a bug"] -command {menu_openfile \
-        {http://sourceforge.net/tracker/?func=add&group_id=55736&atid=478070}}
+        {http://bugs.puredata.info}}
 }
 
 #------------------------------------------------------------------------------#
 # undo/redo menu items
 
-proc ::pd_menus::update_undo_on_menu {mytoplevel} {
+proc ::pd_menus::update_undo_on_menu {mytoplevel undo redo} {
     variable menubar
-    if {$mytoplevel eq $::undo_toplevel && $::undo_action ne "no"} {
+    if {$undo eq "no"} { set undo "" }
+    if {$redo eq "no"} { set redo "" }
+
+    if {$undo ne ""} {
         $menubar.edit entryconfigure 0 -state normal \
-            -label [_ "Undo $::undo_action"]
+            -label [_ "Undo $undo"]
     } else {
         $menubar.edit entryconfigure 0 -state disabled -label [_ "Undo"]
     }
-    if {$mytoplevel eq $::undo_toplevel && $::redo_action ne "no"} {
+    if {$redo ne ""} {
         $menubar.edit entryconfigure 1 -state normal \
-            -label [_ "Redo $::redo_action"]
+            -label [_ "Redo $redo"]
     } else {
         $menubar.edit entryconfigure 1 -state disabled -label [_ "Redo"]
     }
@@ -389,10 +410,9 @@ proc ::pd_menus::update_recentfiles_menu {{write true}} {
 }
 
 proc ::pd_menus::clear_recentfiles_menu {} {
+    # empty recentfiles in preferences (write empty array)
     set ::recentfiles_list {}
     ::pd_menus::update_recentfiles_menu
-    # empty recentfiles in preferences (write empty array)
-    ::pd_guiprefs::write_recentfiles
 }
 
 proc ::pd_menus::update_openrecent_menu_aqua {mymenu {write}} {
@@ -428,14 +448,17 @@ proc ::pd_menus::update_recentfiles_on_menu {mymenu {write}} {
     }
     # insert the list from the end because we insert each element on the top
     set i [llength $::recentfiles_list]
-    while {[incr i -1] > 0} {
+    while {[incr i -1] > -1} {
         set filename [lindex $::recentfiles_list $i]
+        set j [expr $i + 1]
+        if {$::windowingsystem eq "aqua"} {
+            set label [file tail $filename]
+        } else {
+            set label [concat "$j. " [file tail $filename]]
+        }
         $mymenu insert [expr $top_separator+1] command \
-            -label [file tail $filename] -command "open_file {$filename}"
+            -label $label -command "open_file {$filename}" -underline 0
     }
-    set filename [lindex $::recentfiles_list 0]
-    $mymenu insert [expr $top_separator+1] command \
-        -label [file tail $filename] -command "open_file {$filename}"
 
     # write to config file
     if {$write == true} { ::pd_guiprefs::write_recentfiles }
@@ -521,6 +544,26 @@ proc ::pd_menus::update_window_menu {} {
 
 # ------------------------------------------------------------------------------
 # submenu for Preferences, now used on all platforms
+proc ::pd_menus::savepreferences {} {
+    set filename [tk_getSaveFile \
+                  -initialdir $::fileopendir \
+                  -defaultextension .pdsettings \
+                  -initialfile Untitled.pdsettings]
+    if {$filename ne ""} {pdsend "pd save-preferences $filename"}
+}
+
+proc ::pd_menus::loadpreferences {} {
+    set filename [tk_getOpenFile \
+                  -initialdir $::fileopendir \
+                  -defaultextension .pdsettings]
+    if {$filename ne ""} {pdsend "pd load-preferences $filename"}
+}
+
+proc ::pd_menus::forgetpreferences {} {
+    pdtk_check .pdwindow \
+        [_ "Delete all preferences?\n(takes effect when Pd is restarted)"] \
+        {pd forget-preferences} yes
+}
 
 proc ::pd_menus::create_preferences_menu {mymenu} {
     menu $mymenu
@@ -528,16 +571,22 @@ proc ::pd_menus::create_preferences_menu {mymenu} {
         -command {pdsend "pd start-path-dialog"}
     $mymenu add command -label [_ "Startup..."] \
         -command {pdsend "pd start-startup-dialog"}
-    $mymenu add command -label [_ "Audio Settings..."] \
+    $mymenu add command -label [_ "Audio..."] \
         -command {pdsend "pd audio-properties"}
-    $mymenu add command -label [_ "MIDI Settings..."] \
+    $mymenu add command -label [_ "MIDI..."] \
         -command {pdsend "pd midi-properties"}
-    $mymenu add check -label [_ "Zoom new windows"] \
+    $mymenu add check -label [_ "Zoom New Windows"] \
         -variable ::zoom_open \
         -command {pdsend "pd zoom-open $zoom_open"}
     $mymenu add  separator
-    $mymenu add command -label [_ "Save All Settings"] \
+    $mymenu add command -label [_ "Save All Preferences"] \
         -command {pdsend "pd save-preferences"}
+    $mymenu add command -label [_ "Save to..."] \
+        -command {::pd_menus::savepreferences}
+    $mymenu add command -label [_ "Load from..."] \
+        -command {::pd_menus::loadpreferences}
+    $mymenu add command -label [_ "Forget All..."] \
+        -command {::pd_menus::forgetpreferences}
 }
 
 # ------------------------------------------------------------------------------
@@ -567,7 +616,6 @@ proc ::pd_menus::build_file_menu_aqua {mymenu} {
     $mymenu add command -label [_ "Close"]      -accelerator "$accelerator+W"
     $mymenu add command -label [_ "Save"]       -accelerator "$accelerator+S"
     $mymenu add command -label [_ "Save As..."] -accelerator "$accelerator+Shift+S"
-    # $mymenu add command -label [_ "Save Current Patch As..."] -accelerator "$accelerator+Alt+Shift+S"
     #$mymenu add command -label [_ "Save All"]
     #$mymenu add command -label [_ "Revert to Saved"]
     $mymenu add  separator
@@ -596,10 +644,9 @@ proc ::pd_menus::build_file_menu_x11 {mymenu} {
     $mymenu add  separator
     $mymenu add command -label [_ "Save"]        -accelerator "$accelerator+S"
     $mymenu add command -label [_ "Save As..."]  -accelerator "Shift+$accelerator+S"
-    # $mymenu add command -label [_ "Save Current Patch As..."] -accelerator "$accelerator+Alt+Shift+S"
     #    $mymenu add command -label "Revert"
     $mymenu add  separator
-    $mymenu add command -label [_ "Message..."]  -accelerator "$accelerator+M"
+    $mymenu add command -label [_ "Message..."]  -accelerator "$accelerator+Shift+M"
     create_preferences_menu $mymenu.preferences
     $mymenu add cascade -label [_ "Preferences"] -menu $mymenu.preferences
     $mymenu add command -label [_ "Print..."]    -accelerator "$accelerator+P"
@@ -644,10 +691,9 @@ proc ::pd_menus::build_file_menu_win32 {mymenu} {
     $mymenu add  separator
     $mymenu add command -label [_ "Save"]        -accelerator "$accelerator+S"
     $mymenu add command -label [_ "Save As..."]  -accelerator "Shift+$accelerator+S"
-    # $mymenu add command -label [_ "Save Current Patch As..."] -accelerator "$accelerator+Alt+Shift+S"
     #    $mymenu add command -label "Revert"
     $mymenu add  separator
-    $mymenu add command -label [_ "Message..."]  -accelerator "$accelerator+M"
+    $mymenu add command -label [_ "Message..."]  -accelerator "$accelerator+Shift+M"
     create_preferences_menu $mymenu.preferences
     $mymenu add cascade -label [_ "Preferences"] -menu $mymenu.preferences
     $mymenu add command -label [_ "Print..."]    -accelerator "$accelerator+P"

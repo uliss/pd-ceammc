@@ -172,6 +172,8 @@ set startup_libraries {}
 # start dirs for new files and open panels
 set filenewdir [pwd]
 set fileopendir [pwd]
+# ceammc
+set ceammc_libdir {}
 
 # lists of audio/midi devices and APIs for prefs dialogs
 set audio_apilist {}
@@ -233,9 +235,6 @@ array set redo_actions {}
 set undo_action no
 set redo_action no
 
-# ceammc
-set ::ceammc_libdir [file normalize [file join $::sys_guidir "ceammc"]]
-
 namespace eval ::pdgui:: {
     variable scriptname [ file normalize [ info script ] ]
 }
@@ -282,6 +281,8 @@ namespace eval ::pdgui:: {
 proc set_pd_paths {} {
     set ::sys_guidir [file normalize [file dirname [info script]]]
     set ::sys_libdir [file normalize [file join $::sys_guidir ".."]]
+    # ceammc
+    set ::ceammc_libdir [file normalize [file join $::sys_guidir "ceammc"]]
 }
 
 proc init_for_platform {} {
@@ -774,10 +775,11 @@ proc load_startup_plugins {} {
     # load built-in plugins
     load_plugin_script [file join $::sys_guidir pd_deken.tcl]
     load_plugin_script [file join $::sys_guidir pd_docsdir.tcl]
+    ::pdwindow::post "$::ceammc_libdir\n"
 
     # load other installed plugins
     # ceammc
-    foreach pathdir [concat $::sys_searchpath $::sys_temppath $::sys_staticpath [list $::ceammc_libdir]] {
+    foreach pathdir [concat $::sys_searchpath $::sys_temppath $::sys_staticpath $::ceammc_libdir] {
         set dir [file normalize $pathdir]
         if { ! [file isdirectory $dir]} {continue}
         foreach filename [glob -directory $dir -nocomplain -types {f} -- \
