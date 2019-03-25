@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.49.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-03-21 01:22+0300\n"
+"POT-Creation-Date: 2019-03-26 00:55+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1398,6 +1398,14 @@ msgstr ""
 #: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "searching for '%s'"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "Create"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "Check"
 msgstr ""
 
 #: ../tcl/pd_docsdir.tcl

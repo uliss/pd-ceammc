@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-03-21 01:22+0300\n"
-"PO-Revision-Date: 2019-03-26 00:46+0300\n"
+"POT-Creation-Date: 2019-03-26 00:55+0300\n"
+"PO-Revision-Date: 2019-03-26 00:56+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -325,6 +325,10 @@ msgstr "Свойства Canvas"
 msgid "Channels:"
 msgstr "Каналы:"
 
+#: ../tcl/pd_deken.tcl
+msgid "Check"
+msgstr "Проверить"
+
 #: ../ceammc/ext/src/ui/ui_radio.cpp
 msgid "Check List Mode"
 msgstr "Множественный выбор"
@@ -415,6 +419,10 @@ msgstr "Не удалось найти '%s' в %s"
 #, tcl-format
 msgid "Couldn't find '%s' in %s"
 msgstr "Не удалось найти '%s' в %s"
+
+#: ../tcl/pd_deken.tcl
+msgid "Create"
+msgstr "Создать"
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
 msgid "Current Color"
@@ -720,9 +728,8 @@ msgid "Install %1$s to %2$s?"
 msgstr "Установить в директорию «%s»?"
 
 #: ../tcl/dialog_path.tcl ../tcl/pd_deken.tcl
-#, fuzzy
 msgid "Install externals to directory:"
-msgstr "Установить в директорию:"
+msgstr "Устанавливать расширения в каталог:"
 
 #: ../tcl/pd_deken.tcl
 msgid "Install libraries to directory:"
