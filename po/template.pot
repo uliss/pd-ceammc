@@ -5,9 +5,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Pure\\ Data 0.47.1_ceammc\n"
+"Project-Id-Version: Pure\\ Data 0.49.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-03-01 00:49+0300\n"
+"POT-Creation-Date: 2019-03-21 01:22+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -456,7 +456,7 @@ msgstr ""
 
 #: ../tcl/dialog_array.tcl ../tcl/dialog_audio.tcl ../tcl/dialog_canvas.tcl
 #: ../tcl/dialog_gatom.tcl ../tcl/dialog_iemgui.tcl ../tcl/dialog_midi.tcl
-#: ../tcl/scrollboxwindow.tcl
+#: ../tcl/pd_deken.tcl ../tcl/scrollboxwindow.tcl
 msgid "Apply"
 msgstr ""
 
@@ -474,7 +474,7 @@ msgstr ""
 
 #: ../tcl/dialog_array.tcl ../tcl/dialog_audio.tcl ../tcl/dialog_canvas.tcl
 #: ../tcl/dialog_find.tcl ../tcl/dialog_gatom.tcl ../tcl/dialog_iemgui.tcl
-#: ../tcl/dialog_midi.tcl ../tcl/scrollboxwindow.tcl
+#: ../tcl/dialog_midi.tcl ../tcl/pd_deken.tcl ../tcl/scrollboxwindow.tcl
 msgid "Cancel"
 msgstr ""
 
@@ -504,7 +504,8 @@ msgstr ""
 
 #: ../tcl/dialog_array.tcl ../tcl/dialog_audio.tcl ../tcl/dialog_canvas.tcl
 #: ../tcl/dialog_font.tcl ../tcl/dialog_gatom.tcl ../tcl/dialog_iemgui.tcl
-#: ../tcl/dialog_midi.tcl ../tcl/dialog_startup.tcl ../tcl/scrollboxwindow.tcl
+#: ../tcl/dialog_midi.tcl ../tcl/dialog_startup.tcl ../tcl/pd_deken.tcl
+#: ../tcl/scrollboxwindow.tcl
 msgid "OK"
 msgstr ""
 
@@ -666,11 +667,21 @@ msgstr ""
 
 #: ../tcl/dialog_find.tcl
 #, tcl-format
+msgid "Couldn't find '%1$s' in %2$s"
+msgstr ""
+
+#: ../tcl/dialog_find.tcl
+#, tcl-format
 msgid "Couldn't find '%s' in %s"
 msgstr ""
 
 #: ../tcl/dialog_find.tcl
 msgid "Find"
+msgstr ""
+
+#: ../tcl/dialog_find.tcl
+#, tcl-format
+msgid "Found '%1$s' in %2$s"
 msgstr ""
 
 #: ../tcl/dialog_find.tcl
@@ -687,7 +698,22 @@ msgstr ""
 
 #: ../tcl/dialog_find.tcl
 #, tcl-format
+msgid "Search in %s for:"
+msgstr ""
+
+#: ../tcl/dialog_find.tcl
+#, tcl-format
+msgid "Showed last '%1$s' in %2$s"
+msgstr ""
+
+#: ../tcl/dialog_find.tcl
+#, tcl-format
 msgid "Showed last '%s' in %s"
+msgstr ""
+
+#: ../tcl/dialog_find.tcl
+#, tcl-format
+msgid "Showing '%1$d' out of %2$d items in %3$s"
 msgstr ""
 
 #: ../tcl/dialog_find.tcl
@@ -734,6 +760,10 @@ msgstr ""
 
 #: ../tcl/dialog_gatom.tcl ../tcl/dialog_iemgui.tcl
 msgid "Label"
+msgstr ""
+
+#: ../tcl/dialog_gatom.tcl
+msgid "Left"
 msgstr ""
 
 #: ../tcl/dialog_gatom.tcl
@@ -957,8 +987,40 @@ msgstr ""
 msgid "Out Ports:"
 msgstr ""
 
+#: ../tcl/dialog_midi.tcl
+msgid "Use Multiple Devices"
+msgstr ""
+
 #: ../tcl/dialog_path.tcl
 msgid "Add a new path"
+msgstr ""
+
+#: ../tcl/dialog_path.tcl
+msgid "Browse"
+msgstr ""
+
+#: ../tcl/dialog_path.tcl ../tcl/pd_docsdir.tcl
+msgid "Choose Pd documents directory:"
+msgstr ""
+
+#: ../tcl/dialog_path.tcl
+msgid "Clear"
+msgstr ""
+
+#: ../tcl/dialog_path.tcl
+msgid "Disable"
+msgstr ""
+
+#: ../tcl/dialog_path.tcl
+msgid "Externals Install Directory"
+msgstr ""
+
+#: ../tcl/dialog_path.tcl ../tcl/pd_deken.tcl
+msgid "Install externals to directory:"
+msgstr ""
+
+#: ../tcl/dialog_path.tcl
+msgid "Pd Documents Directory"
 msgstr ""
 
 #: ../tcl/dialog_path.tcl
@@ -966,7 +1028,15 @@ msgid "Pd search path for objects, help, fonts, and other files"
 msgstr ""
 
 #: ../tcl/dialog_path.tcl
+msgid "Reset"
+msgstr ""
+
+#: ../tcl/dialog_path.tcl
 msgid "Use standard extensions"
+msgstr ""
+
+#: ../tcl/dialog_path.tcl
+msgid "Use standard paths"
 msgstr ""
 
 #: ../tcl/dialog_path.tcl
@@ -1050,11 +1120,38 @@ msgstr ""
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
+msgid "2. Copy the contents into %s."
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
 msgid "2. Copy the contents into %s.\n"
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Add %s to the Pd search paths?"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Added %s to search paths"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "Are you online?"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
 msgid "Cannot download/install libraries!"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid ""
+"Commencing downloading of:\n"
+"%1$s\n"
+"Into %2$s..."
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
@@ -1066,7 +1163,26 @@ msgid ""
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Default platform: %s"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Deken %s Preferences"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
 msgid "Find externals"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "Hide foreign architectures?"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Install %1$s to %2$s?"
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
@@ -1074,8 +1190,20 @@ msgid "Install libraries to directory:"
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
+msgid "Install package"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "Install to directory %s?"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "Installation options:"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "No matching externals found."
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
@@ -1091,7 +1219,23 @@ msgid "Only install externals uploaded by people you trust."
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
+msgid "Open webpage"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "Platform settings:"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
 msgid "Please perform the following steps manually:"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "Please select a (writable) installation directory!"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl ../tcl/pd_menus.tcl
+msgid "Preferences"
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
@@ -1103,7 +1247,20 @@ msgid "Searching for externals..."
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
+msgid "Should newly installed libraries be added to Pd's search path?"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "Show README of newly installed libraries (if present)?"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
 msgid "Show all"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Successfully unzipped %1$s into %2$s."
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
@@ -1116,7 +1273,29 @@ msgid "To get a list of all available externals, try an empty search."
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
+msgid "Try to remove libraries before (re)installing them?"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "Try using the full name e.g. 'freeverb'."
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Unable to add %s to search paths"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Unable to download from %1$s [%2$s]"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
 msgid "Unable to extract package automatically."
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "Unable to perform search."
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
@@ -1125,12 +1304,135 @@ msgstr ""
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
+msgid "Unable to remove stray file %s"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Unable to rename downloaded file to %s"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Uninstalling %1$s from %2$s failed!"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Uploaded by %1$s @ %2$s"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
 msgid "Uploaded by %s @ %s"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "User-defined platform:"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "[deken] Platform detected: %s"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "[deken] Platform re-detected: %s"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "[deken] deken-plugin.tcl (Pd externals search) loaded from %s."
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "[deken] uninstalling '%s'"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "[deken]: "
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "[deken]: No matching externals found."
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "[deken]: Start searching for externals..."
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "[deken]: Unable to extract package automatically."
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "[deken]: installed version [%1$s] < %2$s...overwriting!"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "[deken]: installed version [%1$s] == %2$s...skipping!"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "[deken]: installed version [%1$s] > %2$s...skipping!"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "[deken]: online? %s"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "_"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "aborting.\n"
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "searching for '%s'"
+msgstr ""
+
+#: ../tcl/pd_docsdir.tcl
+#, tcl-format
+msgid "Couldn't create \"externals\" directory in: %s\n"
+msgstr ""
+
+#: ../tcl/pd_docsdir.tcl
+#, tcl-format
+msgid "Couldn't create Pd documents directory: %s\n"
+msgstr ""
+
+#: ../tcl/pd_docsdir.tcl
+#, tcl-format
+msgid ""
+"Do you want Pd to create a documents directory for patches and external "
+"libraries?\n"
+"\n"
+"Location: %s\n"
+"\n"
+"You can change or disable this later in the Path preferences."
+msgstr ""
+
+#: ../tcl/pd_docsdir.tcl
+#, tcl-format
+msgid ""
+"Pd documents directory cannot be found:\n"
+"\n"
+"%s\n"
+"\n"
+"Choose a new location?"
+msgstr ""
+
+#: ../tcl/pd_menus.tcl
+msgid "(Dis)Connect Selection"
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
@@ -1146,7 +1448,15 @@ msgid "Audio Settings..."
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
+msgid "Audio..."
+msgstr ""
+
+#: ../tcl/pd_menus.tcl
 msgid "Bring All to Front"
+msgstr ""
+
+#: ../tcl/pd_menus.tcl
+msgid "Browser..."
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
@@ -1178,6 +1488,12 @@ msgid "DSP On"
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
+msgid ""
+"Delete all preferences?\n"
+"(takes effect when Pd is restarted)"
+msgstr ""
+
+#: ../tcl/pd_menus.tcl
 msgid "Draw Grid"
 msgstr ""
 
@@ -1206,6 +1522,10 @@ msgid "Find..."
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
+msgid "Forget All..."
+msgstr ""
+
+#: ../tcl/pd_menus.tcl
 msgid "Graph"
 msgstr ""
 
@@ -1222,7 +1542,15 @@ msgid "Load Meter"
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
+msgid "Load from..."
+msgstr ""
+
+#: ../tcl/pd_menus.tcl
 msgid "MIDI Settings..."
+msgstr ""
+
+#: ../tcl/pd_menus.tcl
+msgid "MIDI..."
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
@@ -1262,15 +1590,15 @@ msgid "Parent Window"
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
+msgid "Paste Replace"
+msgstr ""
+
+#: ../tcl/pd_menus.tcl
 msgid "Path..."
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
 msgid "Pd tutorial by Johannes Kreidler"
-msgstr ""
-
-#: ../tcl/pd_menus.tcl
-msgid "Preferences"
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
@@ -1298,11 +1626,19 @@ msgid "Save"
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
+msgid "Save All Preferences"
+msgstr ""
+
+#: ../tcl/pd_menus.tcl
 msgid "Save As..."
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
 msgid "Save Current Patch As..."
+msgstr ""
+
+#: ../tcl/pd_menus.tcl
+msgid "Save to..."
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
@@ -1326,6 +1662,10 @@ msgid "Tidy Up"
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
+msgid "Triggerize"
+msgstr ""
+
+#: ../tcl/pd_menus.tcl
 msgid "Undo"
 msgstr ""
 
@@ -1335,6 +1675,10 @@ msgstr ""
 
 #: ../tcl/pd_menus.tcl
 msgid "Zoom In"
+msgstr ""
+
+#: ../tcl/pd_menus.tcl
+msgid "Zoom New Windows"
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
@@ -1370,6 +1714,10 @@ msgid "Audio off"
 msgstr ""
 
 #: ../tcl/pdwindow.tcl
+msgid "Audio on"
+msgstr ""
+
+#: ../tcl/pdwindow.tcl
 msgid "DSP"
 msgstr ""
 
@@ -1399,6 +1747,18 @@ msgstr ""
 
 #: ../tcl/pdwindow.tcl
 msgid "fatal"
+msgstr ""
+
+#: ../tcl/scrollbox.tcl
+msgid "Delete"
+msgstr ""
+
+#: ../tcl/scrollbox.tcl
+msgid "Edit..."
+msgstr ""
+
+#: ../tcl/scrollbox.tcl
+msgid "New..."
 msgstr ""
 
 #: ../tcl/wheredoesthisgo.tcl
