@@ -21,7 +21,7 @@ static float FIX_TEXT_Y_OFF = 0;
 #elif __APPLE__
 static t_symbol* LINK_FONT = gensym("Menlo");
 static float FIX_LINK_Y_POS = 3;
-static float FIX_TEXT_Y_OFF = 1;
+static float FIX_TEXT_Y_OFF = 2;
 #else
 static t_symbol* LINK_FONT = gensym("DejaVu Sans Mono");
 static float FIX_LINK_Y_POS = 3;
@@ -85,7 +85,7 @@ void UILink::paint(t_object* view)
     link_text_.setFont(&asEBox()->b_font);
 
     link_text_.setColor(hover_ ? prop_color_hover : prop_color_link);
-    link_text_.set(prop_title->s_name, 3, r.height / 2, 0, 0);
+    link_text_.set(prop_title->s_name, 3, r.height / 2 + FIX_TEXT_Y_OFF, 0, 0);
 
     p.drawText(link_text_);
 }
