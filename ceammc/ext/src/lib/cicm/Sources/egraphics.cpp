@@ -64,7 +64,7 @@ void egraphics_set_color_hsl(t_elayer* g, const t_hsl* hsl)
     g->e_color = rgb_to_hex_int(color);
 }
 
-static void egraphics_paint(t_elayer* g, int filled, int preserved)
+static void egraphics_paint(t_elayer* g, bool filled, int preserved)
 {
     t_egobj *nobj, *temp;
     if (g->e_new_objects.e_type != E_GOBJ_INVALID && g->e_new_objects.e_npoints) {
@@ -73,11 +73,7 @@ static void egraphics_paint(t_elayer* g, int filled, int preserved)
             g->e_objects = temp;
             nobj = g->e_objects + g->e_number_objects;
             g->e_number_objects++;
-            if (filled) {
-                nobj->e_filled = 1;
-            } else {
-                nobj->e_filled = 0;
-            }
+            nobj->e_filled = filled;
             nobj->e_type = g->e_new_objects.e_type;
             nobj->e_npoints = g->e_new_objects.e_npoints;
             nobj->e_points = (t_pt*)malloc((size_t)nobj->e_npoints * sizeof(t_pt));
@@ -112,22 +108,22 @@ static void egraphics_paint(t_elayer* g, int filled, int preserved)
 
 void egraphics_fill_preserve(t_elayer* g)
 {
-    egraphics_paint(g, 1, 1);
+    egraphics_paint(g, true, 1);
 }
 
 void egraphics_fill(t_elayer* g)
 {
-    egraphics_paint(g, 1, 0);
+    egraphics_paint(g, true, 0);
 }
 
 void egraphics_stroke_preserve(t_elayer* g)
 {
-    egraphics_paint(g, 0, 1);
+    egraphics_paint(g, false, 1);
 }
 
 void egraphics_stroke(t_elayer* g)
 {
-    egraphics_paint(g, 0, 0);
+    egraphics_paint(g, false, 0);
 }
 
 void etext_layout_draw(t_etext* textlayout, t_elayer* g)
