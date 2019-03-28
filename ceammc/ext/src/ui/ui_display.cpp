@@ -87,7 +87,7 @@ UIDisplay::UIDisplay()
 
 void UIDisplay::paint(t_object* view)
 {
-    const t_rect& r = rect();
+    const auto r = rect();
 
     UIPainter p = bg_layer_.painter(r);
 
@@ -124,9 +124,9 @@ void UIDisplay::paint(t_object* view)
 
 void UIDisplay::okSize(t_rect* newrect)
 {
-    float min_width = 40 * zoom();
+    float min_width = 40;
     if (prop_display_type != 0)
-        min_width += TYPE_WIDTH * zoom();
+        min_width += TYPE_WIDTH;
 
     newrect->width = pd_clip_min(newrect->width, min_width);
     newrect->height = pd_clip_min(newrect->height, 18);

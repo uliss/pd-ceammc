@@ -61,7 +61,7 @@ void UIMenu::okSize(t_rect* newrect)
 
 void UIMenu::paint(t_object* view)
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
     if (!p)
         return;

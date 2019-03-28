@@ -149,7 +149,7 @@ void UIIcon::paint(t_object* view)
 
 void UIIcon::drawBackground()
 {
-    const t_rect& r = rect();
+    const auto r = rect();
 
     UIPainter p = bg_layer_.painter(r);
     if (!p)
@@ -163,7 +163,7 @@ void UIIcon::drawBackground()
 
 void UIIcon::drawImage()
 {
-    const t_rect& r = rect();
+    const auto r = rect();
     UIPainter p = image_layer_.painter(r);
 
     if (!p)

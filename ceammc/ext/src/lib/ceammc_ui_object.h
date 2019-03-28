@@ -120,7 +120,7 @@ public:
     void send(const AtomList& lst);
     void send(t_symbol* s, const AtomList& lst);
 
-    const t_rect& rect() const;
+    t_rect rect() const;
     float x() const;
     float y() const;
     float width() const;

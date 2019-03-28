@@ -75,7 +75,7 @@ void UIRSlider::paint(t_object* view)
 
 void UIRSlider::drawBackground()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
     if (!p)
         return;
@@ -91,7 +91,7 @@ void UIRSlider::drawBackground()
 
 void UIRSlider::drawKnob()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = knob_layer_.painter(r);
     if (!p)
         return;
@@ -150,7 +150,7 @@ void UIRSlider::onList(const AtomList& lst)
 
 void UIRSlider::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
 
     float value = 0;
 
@@ -187,7 +187,7 @@ void UIRSlider::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 
 void UIRSlider::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
 
     float value;
 

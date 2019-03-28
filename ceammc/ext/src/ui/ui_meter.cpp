@@ -61,7 +61,7 @@ void UIMeter::paint(t_object* view)
 
 void UIMeter::drawBackground()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)
@@ -91,7 +91,7 @@ static inline float led2Db(int ledIdx)
 
 void UIMeter::drawLeds()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = led_layer_.painter(r);
     if (!p)
         return;

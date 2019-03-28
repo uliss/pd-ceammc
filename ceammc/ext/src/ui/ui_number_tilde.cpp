@@ -37,13 +37,13 @@ void UINumberTilde::init(t_symbol* name, const AtomList& args, bool usePresets)
 
 void UINumberTilde::okSize(t_rect* newrect)
 {
-    newrect->height = 16 * zoom();
+    newrect->height = 15;
     newrect->width = pd_clip_min(newrect->width, sys_fontwidth(fontSizeZoomed()) * 3 + 8);
 }
 
 void UINumberTilde::paint(t_object* view)
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
 
     // background
     {
@@ -101,7 +101,7 @@ void UINumberTilde::setup()
 {
     UIDspFactory<UINumberTilde> obj("ui.number~", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK);
     obj.addAlias("ui.n~");
-    obj.setDefaultSize(80, 16);
+    obj.setDefaultSize(80, 15);
 
     obj.addProperty(PROP_TEXT_COLOR, _("Text color"), "0.9 0.9 0.9 1", &UINumberTilde::prop_color_text);
     obj.addProperty(PROP_ACTIVE_COLOR, _("Text color"), DEFAULT_ACTIVE_COLOR, &UINumberTilde::prop_color_active);

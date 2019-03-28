@@ -31,7 +31,7 @@ void UIDsp::paint(t_object*)
         init_ = true;
     }
 
-    const t_rect& r = rect();
+    const auto r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (p) {

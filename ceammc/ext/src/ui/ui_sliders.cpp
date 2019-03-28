@@ -64,7 +64,7 @@ void UISliders::paint(t_object* view)
 
 void UISliders::paintBackground()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)
@@ -85,7 +85,7 @@ void UISliders::paintBackground()
 
 void UISliders::paintSliders()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = sliders_layer_.painter(r);
 
     if (!p)

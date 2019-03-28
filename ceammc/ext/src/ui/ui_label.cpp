@@ -46,7 +46,7 @@ void UILabel::okSize(t_rect* newrect)
 
 void UILabel::paint(t_object* view)
 {
-    const t_rect& r = rect();
+    const auto r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (p) {

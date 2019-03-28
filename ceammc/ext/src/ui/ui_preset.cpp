@@ -60,7 +60,7 @@ void UIPreset::paint(t_object* view)
                 ETEXT_CENTER, ETEXT_JCENTER, ETEXT_NOWRAP));
     }
 
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)

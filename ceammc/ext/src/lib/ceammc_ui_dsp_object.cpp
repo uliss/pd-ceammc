@@ -368,15 +368,22 @@ void UIDspObject::send(t_symbol* s, const AtomList& lst)
         pd_typedmess(send, s, lst.size(), lst.toPdData());
 }
 
-const t_rect& UIDspObject::rect() const { return asEBox()->b_rect; }
+t_rect UIDspObject::rect() const
+{
+    auto z = asEBox()->b_zoom;
+    auto r = asEBox()->b_rect;
+    r.width *= z;
+    r.height *= z;
+    return r;
+}
 
 float UIDspObject::x() const { return asEBox()->b_rect.x; }
 
 float UIDspObject::y() const { return asEBox()->b_rect.y; }
 
-float UIDspObject::width() const { return asEBox()->b_rect.width; }
+float UIDspObject::width() const { return asEBox()->b_rect.width * asEBox()->b_zoom; }
 
-float UIDspObject::height() const { return asEBox()->b_rect.height; }
+float UIDspObject::height() const { return asEBox()->b_rect.height * asEBox()->b_zoom; }
 
 float UIDspObject::zoom() const
 {

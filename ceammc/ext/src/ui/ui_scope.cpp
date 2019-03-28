@@ -67,7 +67,7 @@ void UIScope::paint(t_object* view)
 
 void UIScope::paintBackground()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)
@@ -103,7 +103,7 @@ void UIScope::paintScope()
         return;
     }
 
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = scope_layer_.painter(r);
 
     if (!p)

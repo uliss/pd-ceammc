@@ -99,7 +99,7 @@ UIKnob::UIKnob()
 
 void UIKnob::paint(t_object*)
 {
-    const t_rect& r = rect();
+    const auto r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)

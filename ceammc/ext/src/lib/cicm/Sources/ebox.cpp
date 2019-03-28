@@ -303,8 +303,8 @@ void ebox_wgetrect(t_gobj* z, t_glist* glist, int* xp1, int* yp1, int* xp2, int*
     t_ebox* x = (t_ebox*)z;
     *xp1 = text_xpix(&x->b_obj.o_obj, glist);
     *yp1 = text_ypix(&x->b_obj.o_obj, glist) - (int)(x->b_boxparameters.d_borderthickness);
-    *xp2 = text_xpix(&x->b_obj.o_obj, glist) + (int)x->b_rect.width + (int)(x->b_boxparameters.d_borderthickness);
-    *yp2 = text_ypix(&x->b_obj.o_obj, glist) + (int)x->b_rect.height + (int)(x->b_boxparameters.d_borderthickness);
+    *xp2 = text_xpix(&x->b_obj.o_obj, glist) + (int)x->b_rect.width * x->b_zoom + (int)(x->b_boxparameters.d_borderthickness);
+    *yp2 = text_ypix(&x->b_obj.o_obj, glist) + (int)x->b_rect.height * x->b_zoom + (int)(x->b_boxparameters.d_borderthickness);
 }
 
 static void ebox_paint(t_ebox* x)
@@ -431,8 +431,8 @@ static void ebox_create_widget(t_ebox* x)
 
     sys_vgui("canvas %s -width %d -height %d -bd 0 -highlightthickness 0 -insertborderwidth 0 -state normal -takefocus 1 -insertwidth 0 -confine 0\n",
         x->b_drawing_id->s_name,
-        (int)(x->b_rect.width + x->b_boxparameters.d_borderthickness * 2.),
-        (int)(x->b_rect.height + x->b_boxparameters.d_borderthickness * 2.));
+        (int)(x->b_rect.width * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.),
+        (int)(x->b_rect.height * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.));
 }
 
 static void ebox_create_window(t_ebox* x, t_glist* glist)
@@ -467,8 +467,8 @@ static void ebox_create_window(t_ebox* x, t_glist* glist)
         (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness),
         x->b_drawing_id->s_name,
         x->b_window_id->s_name,
-        (int)(x->b_rect.width + x->b_boxparameters.d_borderthickness * 2.),
-        (int)(x->b_rect.height + x->b_boxparameters.d_borderthickness * 2.));
+        (int)(x->b_rect.width * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.),
+        (int)(x->b_rect.height * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.));
 
     x->b_have_window = 1;
 }
@@ -567,15 +567,15 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
             x->b_selected_item = EITEM_NONE;
             sys_vgui("eobj_canvas_motion %s 0\n", x->b_canvas_id->s_name);
 
-            right = (int)(x->b_rect.width + x->b_boxparameters.d_borderthickness * 2.);
-            bottom = (int)(x->b_rect.height + x->b_boxparameters.d_borderthickness * 2.);
+            right = (int)(x->b_rect.width * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.);
+            bottom = (int)(x->b_rect.height * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.);
 
             // TOP //
             if (mouse.y >= 0 && mouse.y < 3) {
                 for (i = 0; i < obj_noutlets((t_object*)x); i++) {
                     int pos_x_inlet = 0;
                     if (obj_ninlets((t_object*)x) != 1)
-                        pos_x_inlet = (int)(i / (float)(obj_ninlets((t_object*)x) - 1) * (x->b_rect.width - 8));
+                        pos_x_inlet = (int)(i / (float)(obj_ninlets((t_object*)x) - 1) * (x->b_rect.width * x->b_zoom - 8));
 
                     if (mouse.x >= pos_x_inlet && mouse.x <= pos_x_inlet + 7) {
                         x->b_selected_inlet = i;
@@ -598,7 +598,7 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                 for (i = 0; i < obj_noutlets((t_object*)x); i++) {
                     int pos_x_outlet = 0;
                     if (obj_noutlets((t_object*)x) != 1)
-                        pos_x_outlet = (int)(i / (float)(obj_noutlets((t_object*)x) - 1) * (x->b_rect.width - 8));
+                        pos_x_outlet = (int)(i / (float)(obj_noutlets((t_object*)x) - 1) * (x->b_rect.width * x->b_zoom - 8));
 
                     if (mouse.x >= pos_x_outlet && mouse.x <= pos_x_outlet + 7) {
                         x->b_selected_outlet = i;
@@ -973,7 +973,7 @@ t_pd_err ebox_size_set(t_ebox* x, t_object* attr, int argc, t_atom* argv)
             return 0;
         else if (x->b_flags & EBOX_GROWLINK) {
             if (atom_gettype(argv) == A_FLOAT) {
-                width = (float)pd_clip_min(atom_getfloat(argv), 4);
+                width = (float)pd_clip_min(atom_getfloat(argv), 4) / x->b_zoom;
                 height = x->b_rect.height;
                 x->b_rect.height += width - x->b_rect.width;
                 if (x->b_rect.height < 4) {
@@ -986,9 +986,9 @@ t_pd_err ebox_size_set(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 
         } else if (x->b_flags & EBOX_GROWINDI) {
             if (atom_gettype(argv) == A_FLOAT)
-                x->b_rect.width = (float)pd_clip_min(atom_getfloat(argv), 4);
+                x->b_rect.width = (float)pd_clip_min(atom_getfloat(argv), 4) / x->b_zoom;
             if (atom_gettype(argv + 1) == A_FLOAT)
-                x->b_rect.height = (float)pd_clip_min(atom_getfloat(argv + 1), 4);
+                x->b_rect.height = (float)pd_clip_min(atom_getfloat(argv + 1), 4) / x->b_zoom;
         }
     }
 
@@ -1003,7 +1003,9 @@ t_pd_err ebox_notify(t_ebox* x, t_symbol* s, t_symbol* msg, void* sender, void* 
             c->c_widget.w_oksize(x, &x->b_rect);
         ebox_invalidate_all(x);
         if (ebox_isdrawable(x)) {
-            sys_vgui("%s itemconfigure %s -width %d -height %d\n", x->b_canvas_id->s_name, x->b_window_id->s_name, (int)(x->b_rect.width + x->b_boxparameters.d_borderthickness * 2.), (int)(x->b_rect.height + x->b_boxparameters.d_borderthickness * 2.));
+            sys_vgui("%s itemconfigure %s -width %d -height %d\n", x->b_canvas_id->s_name, x->b_window_id->s_name,
+                     (int)(x->b_rect.width * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.),
+                     (int)(x->b_rect.height * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.));
             canvas_fixlinesfor(x->b_obj.o_canvas, (t_text*)x);
         }
         ebox_redraw(x);
@@ -1503,7 +1505,7 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
 static void ebox_draw_border(t_ebox* x)
 {
     float bdsize = x->b_boxparameters.d_borderthickness;
-    t_elayer* g = ebox_start_layer(x, s_eboxbd, x->b_rect.width, x->b_rect.height);
+    t_elayer* g = ebox_start_layer(x, s_eboxbd, x->b_rect.width * x->b_zoom, x->b_rect.height * x->b_zoom);
 
     if (g) {
         if (x->b_selected_box == EITEM_OBJ) {
@@ -1513,7 +1515,9 @@ static void ebox_draw_border(t_ebox* x)
         }
 
         egraphics_set_line_width(g, bdsize * 2);
-        egraphics_rectangle_rounded(g, 0, 0, x->b_rect.width + bdsize * 2, x->b_rect.height + bdsize * 2, 0);
+        egraphics_rectangle_rounded(g, 0, 0,
+                                    x->b_rect.width * x->b_zoom + bdsize * 2,
+                                    x->b_rect.height * x->b_zoom + bdsize * 2, 0);
         egraphics_stroke(g);
 
         ebox_end_layer(x, s_eboxbd);
@@ -1527,7 +1531,7 @@ static void ebox_draw_iolets(t_ebox* x)
     float bdsize;
     t_elayer* g = NULL;
     bdsize = x->b_boxparameters.d_borderthickness;
-    g = ebox_start_layer(x, s_eboxio, x->b_rect.width, x->b_rect.height);
+    g = ebox_start_layer(x, s_eboxio, x->b_rect.width * x->b_zoom, x->b_rect.height * x->b_zoom);
 
     if (g && !x->b_boxparameters.d_hideiolets) {
         if (!x->b_isinsubcanvas) {
@@ -1537,7 +1541,7 @@ static void ebox_draw_iolets(t_ebox* x)
             for (int i = 0; i < N_IN; i++) {
                 int pos_x_inlet = 0;
                 if (N_IN != 1)
-                    pos_x_inlet = (int)(i / (float)(N_IN - 1) * (x->b_rect.width - 8));
+                    pos_x_inlet = (int)(i / (float)(N_IN - 1) * (x->b_rect.width * x->b_zoom - 8));
                 egraphics_rectangle(g, pos_x_inlet, 0, 7, 1);
                 egraphics_set_color_rgba(g, &rgba_black);
                 egraphics_stroke(g);
@@ -1547,8 +1551,8 @@ static void ebox_draw_iolets(t_ebox* x)
             for (int i = 0; i < N_OUT; i++) {
                 int pos_x_outlet = 0;
                 if (N_OUT != 1)
-                    pos_x_outlet = (int)(i / (float)(N_OUT - 1) * (x->b_rect.width - 8));
-                egraphics_rectangle(g, pos_x_outlet, x->b_rect.height - 2 + bdsize * 2, 7, 1);
+                    pos_x_outlet = (int)(i / (float)(N_OUT - 1) * (x->b_rect.width * x->b_zoom- 8));
+                egraphics_rectangle(g, pos_x_outlet, x->b_rect.height * x->b_zoom - 2 + bdsize * 2, 7, 1);
                 egraphics_set_color_rgba(g, &rgba_black);
                 egraphics_stroke(g);
             }
@@ -1605,7 +1609,9 @@ static void ebox_select(t_ebox* x)
 static void ebox_move(t_ebox* x)
 {
     if (glist_isvisible(x->b_obj.o_canvas)) {
-        sys_vgui("%s coords %s %d %d\n", x->b_canvas_id->s_name, x->b_window_id->s_name, (int)(x->b_rect.x - x->b_boxparameters.d_borderthickness), (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness));
+        sys_vgui("%s coords %s %d %d\n", x->b_canvas_id->s_name, x->b_window_id->s_name,
+                 (int)(x->b_rect.x - x->b_boxparameters.d_borderthickness),
+                 (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness));
     }
     canvas_fixlinesfor(glist_getcanvas(x->b_obj.o_canvas), (t_text*)x);
 }
@@ -1617,17 +1623,17 @@ void ebox_setzoom(t_ebox* x, float f)
         oldzoom = 1;
 
     int argc = 0;
-    t_atom* argv = NULL;
+    t_atom* argv = nullptr;
     t_symbol* TSYM_SIZE = gensym(SYM_SIZE);
     eobj_attr_getvalueof(x, TSYM_SIZE, &argc, &argv);
 
     if (argc == 2) {
         x->b_zoom = f;
-        float w = atom_getfloat(&argv[0]) / oldzoom * f;
-        float h = atom_getfloat(&argv[1]) / oldzoom * f;
-        atom_setfloat(&argv[0], w);
-        atom_setfloat(&argv[1], h);
-        eobj_attr_setvalueof(x, TSYM_SIZE, argc, argv);
+//        float w = atom_getfloat(&argv[0]) / oldzoom * f;
+//        float h = atom_getfloat(&argv[1]) / oldzoom * f;
+//        atom_setfloat(&argv[0], w);
+//        atom_setfloat(&argv[1], h);
+//        eobj_attr_setvalueof(x, TSYM_SIZE, argc, argv);
     }
 
     free(argv);
@@ -1645,8 +1651,8 @@ static void ebox_newzoom(t_ebox* x)
         z = 1;
 
     if (z != 1) {
-        x->b_rect.width *= z;
-        x->b_rect.height *= z;
+//        x->b_rect.width *= z;
+//        x->b_rect.height *= z;
         x->b_zoom = z;
     }
 }

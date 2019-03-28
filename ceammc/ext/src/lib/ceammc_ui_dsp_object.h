@@ -136,7 +136,7 @@ public:
     void send(t_symbol* s, const AtomList& lst);
 
     // coordinates
-    const t_rect& rect() const;
+    t_rect rect() const;
     float x() const;
     float y() const;
     float width() const;

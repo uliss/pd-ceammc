@@ -279,7 +279,7 @@ void UIRadio::paint(t_object* view)
 
 void UIRadio::drawBackground()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)
@@ -305,7 +305,7 @@ void UIRadio::drawBackground()
 
 void UIRadio::drawItems()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = items_layer_.painter(r);
 
     if (!p)

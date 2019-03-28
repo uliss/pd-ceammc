@@ -61,7 +61,7 @@ UILink::UILink()
 
 void UILink::okSize(t_rect* newrect)
 {
-    float w = prop_title ? text_width(prop_title, FONT_SIZE) * zoom() : 40;
+    float w = prop_title ? text_width(prop_title, FONT_SIZE) : 40;
     newrect->width = pd_clip_min(w, 20);
     float h = ebox_fontheight(asEBox());
 
@@ -74,7 +74,7 @@ void UILink::okSize(t_rect* newrect)
 
 void UILink::paint(t_object* view)
 {
-    const t_rect& r = rect();
+    const auto r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)

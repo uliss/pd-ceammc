@@ -48,7 +48,7 @@ void UIGain::okSize(t_rect* newrect)
 
 void UIGain::paint(t_object* view)
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)

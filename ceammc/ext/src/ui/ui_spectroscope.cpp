@@ -107,7 +107,7 @@ static int roundGridFreq(int freq)
 
 void UISpectroscope::drawBackground()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)
@@ -187,7 +187,7 @@ void UISpectroscope::drawBackground()
 
 void UISpectroscope::drawGraph()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
 
     UIPainter p = graph_layer_.painter(r);
     if (!p)
@@ -214,7 +214,7 @@ void UISpectroscope::drawGraph()
 
 void UISpectroscope::drawGraphLinear(UIPainter& p)
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
 
     int outside_counter = 0;
 
@@ -263,7 +263,7 @@ static inline float approx_lin(float v, float* buf)
 void UISpectroscope::drawGraphLog(UIPainter& p)
 {
     static const int MIN_FREQ = 10;
-    const t_rect& r = rect();
+    const t_rect r = rect();
 
     const int MAX_FREQ = samplerate() / 2;
     const float k = float(MAX_FREQ) / N_BINS;
@@ -324,7 +324,7 @@ void UISpectroscope::drawGraphLog(UIPainter& p)
 
 void UISpectroscope::drawHGrid(UIPainter& p)
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
 
     // draw horizontal lines
     int v_step = roundf(r.height / DB_SCALE_N);

@@ -109,7 +109,7 @@ void UIArrayView::drawWaveform()
 
 void UIArrayView::drawLabels()
 {
-    const t_rect& r = rect();
+    const auto r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p || !prop_show_labels)
@@ -133,7 +133,7 @@ void UIArrayView::drawLabels()
 
 void UIArrayView::drawCursor()
 {
-    const t_rect& r = rect();
+    const auto r = rect();
     UIPainter p = cursor_layer_.painter(r);
 
     if (!p)
@@ -513,7 +513,7 @@ void UIArrayView::renderRange(size_t pos, size_t len)
 
 void UIArrayView::drawWaveformSegment(UIPainter& p, int pixel_from, int pixel_to, const t_rgba& color)
 {
-    const t_rect& r = rect();
+    const auto r = rect();
     const int len = pixel_to - pixel_from;
 
     if (!p || len < 1 || len > buffer_.size() || pixel_to > buffer_.size())

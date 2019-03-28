@@ -77,7 +77,7 @@ t_pd_err UISlider2D::notify(t_symbol* attr_name, t_symbol* msg)
 
 void UISlider2D::paintBackground()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
 
     UIPainter p = bg_layer_.painter(r);
     if (!p)
@@ -108,7 +108,7 @@ void UISlider2D::paintBackground()
 
 void UISlider2D::paintKnob()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = knob_layer_.painter(r);
 
     if (p) {

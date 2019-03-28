@@ -225,7 +225,7 @@ void UIMatrix::paint(t_object* view)
     assert(prop_cols_ > 0);
     assert(prop_rows_ > 0);
 
-    const t_rect& r = rect();
+    const auto r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (p) {

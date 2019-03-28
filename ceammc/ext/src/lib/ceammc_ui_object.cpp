@@ -339,15 +339,21 @@ void UIObject::send(t_symbol* s, const AtomList& lst)
         pd_typedmess(send, s, lst.size(), lst.toPdData());
 }
 
-const t_rect& UIObject::rect() const { return asEBox()->b_rect; }
+t_rect UIObject::rect() const {
+    auto z = asEBox()->b_zoom;
+    auto r = asEBox()->b_rect;
+    r.width *= z;
+    r.height *= z;
+    return r;
+}
 
 float UIObject::x() const { return asEBox()->b_rect.x; }
 
 float UIObject::y() const { return asEBox()->b_rect.y; }
 
-float UIObject::width() const { return asEBox()->b_rect.width; }
+float UIObject::width() const { return asEBox()->b_rect.width * asEBox()->b_zoom; }
 
-float UIObject::height() const { return asEBox()->b_rect.height; }
+float UIObject::height() const { return asEBox()->b_rect.height * asEBox()->b_zoom; }
 
 float UIObject::zoom() const
 {

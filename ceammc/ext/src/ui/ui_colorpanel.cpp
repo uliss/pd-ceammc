@@ -89,7 +89,7 @@ void UIColorPanel::paint(t_object* view)
 
 void UIColorPanel::drawBackground()
 {
-    const t_rect& r = rect();
+    const auto r = rect();
 
     UIPainter p = bg_layer_.painter(r);
     if (!p)
@@ -111,7 +111,7 @@ void UIColorPanel::drawBackground()
 
 void UIColorPanel::drawHover()
 {
-    const t_rect& r = rect();
+    const auto r = rect();
 
     UIPainter p = hover_layer_.painter(r);
     if (!p)
@@ -131,7 +131,7 @@ void UIColorPanel::drawHover()
 
 void UIColorPanel::drawPicked()
 {
-    const t_rect& r = rect();
+    const auto r = rect();
 
     UIPainter p = picked_layer_.painter(r);
     if (!p)
@@ -152,7 +152,7 @@ void UIColorPanel::drawPicked()
 
 void UIColorPanel::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
 {
-    const t_rect& r = rect();
+    const auto r = rect();
 
     hover_x_ = -1;
     hover_y_ = -1;
@@ -177,7 +177,7 @@ void UIColorPanel::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
 
 void UIColorPanel::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
 {
-    const t_rect& r = rect();
+    const auto r = rect();
     hover_x_ = clip<int>(pt.x / (r.width / matrix_x_), 0, matrix_x_ - 1);
     hover_y_ = clip<int>(pt.y / (r.height / matrix_y_), 0, matrix_y_ - 1);
     hover_layer_.invalidate();

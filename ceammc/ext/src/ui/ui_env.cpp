@@ -84,7 +84,7 @@ void UIEnv::onData(const DataPtr& ptr)
 
 void UIEnv::paint(t_object*)
 {
-    const t_rect& r = rect();
+    const auto r = rect();
     UIPainter bp = bg_layer_.painter(r);
 
     if (bp) {

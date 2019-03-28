@@ -27,7 +27,7 @@ void UISlider::init(t_symbol* name, const AtomList& args, bool usePresets)
 
 void UISlider::paint(t_object*)
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)
