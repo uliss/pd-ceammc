@@ -60,14 +60,6 @@ void egraphics_set_color_rgba(t_elayer* g, const t_rgba* rgba);
 void egraphics_set_color_rgb(t_elayer* g, const t_rgb* rgb);
 
 /*!
- * \fn          void egraphics_set_color_hex(t_elayer *g, t_symbol *hex)
- * \brief       Sets the color in hexadecimal that will be used by the t_elayer.
- * \param g     The t_elayer pointer.
- * \param hex   The hexadecimal color.
- */
-void egraphics_set_color_hex(t_elayer* g, t_symbol* hex);
-
-/*!
  * \fn          void egraphics_set_color_hsla(t_elayer *g, const t_hsla *hsla)
  * \brief       Sets the color in hsla that will be used by the t_elayer.
  * \param g     The t_elayer pointer.
@@ -430,28 +422,20 @@ void hsl_set(t_hsl* color, float hue, float saturation, float lightness);
 char* rgba_to_hex(t_rgba color);
 
 /*!
- * \fn          char* rgb_to_hex(t_rgb color)
- * \brief       Converts a t_rgb color to an hexadecimal color.
- * \param color The t_rgb color.
+ * \fn          char* rgba_to_hex(t_rgba color)
+ * \brief       Converts a t_rgba color to an hexadecimal color.
+ * \param color The t_rgba color.
  * \return The hexadecimal color.
  */
-char* rgb_to_hex(t_rgb color);
+int rgba_to_hex_int(const t_rgba& color);
 
 /*!
- * \fn          char* hsla_to_hex(t_hsla color)
- * \brief       Converts a t_hsla color to an hexadecimal color.
- * \param color The t_hsla color.
+ * \fn          char* rgba_to_hex(t_rgba color)
+ * \brief       Converts a t_rgba color to an hexadecimal color.
+ * \param color The t_rgba color.
  * \return The hexadecimal color.
  */
-char* hsla_to_hex(t_hsla color);
-
-/*!
- * \fn          char* hsl_to_hex(t_hsl color)
- * \brief       Converts a t_hsl color to an hexadecimal color.
- * \param color The t_hsl color.
- * \return The hexadecimal color.
- */
-char* hsl_to_hex(t_hsl color);
+int rgb_to_hex_int(const t_rgb& color);
 
 /*!
  * \fn          t_hsla rgba_to_hsla(t_rgba color)

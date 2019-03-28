@@ -312,7 +312,8 @@ static void ebox_paint(t_ebox* x)
 {
     t_eclass* c = eobj_getclass(x);
     ebox_update(x);
-    sys_vgui("%s configure -bg %s\n", x->b_drawing_id->s_name, rgba_to_hex(x->b_boxparameters.d_boxfillcolor));
+    sys_vgui("%s configure -bg #%6.6x\n",
+        x->b_drawing_id->s_name, rgba_to_hex_int(x->b_boxparameters.d_boxfillcolor));
     if (x->b_pinned) {
         sys_vgui((char*)"lower %s\n", x->b_drawing_id->s_name);
     }
@@ -1175,7 +1176,8 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                         color.red = atom_getfloat(av);
                         color.green = atom_getfloat(av + 1);
                         color.blue = atom_getfloat(av + 2);
-                        sys_vgui("%s.top_frame.sele%i.selec configure -readonlybackground %s \n", atom_getsymbol(argv)->s_name, attrindex + 1, rgb_to_hex(color));
+                        sys_vgui("%s.top_frame.sele%i.selec configure -readonlybackground #%6.6x \n",
+                            atom_getsymbol(argv)->s_name, attrindex + 1, rgb_to_hex_int(color));
                     } else if (c->c_attr[attrindex]->style == gensym(SYM_MENU)) {
                         atom_string(av, buffer, MAXPDSTRING);
                         for (i = 1; i < ac; i++) {
@@ -1244,7 +1246,7 @@ t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
                 graphic->e_line_width = 1.f;
                 graphic->e_line_capstyle = ECAPSTYLE_BUTT;
                 graphic->e_line_dashstyle = EDASHSTYLE_NONE;
-                graphic->e_color = s_color_black_hex;
+                graphic->e_color = 0;
                 graphic->e_rect.x = 0.f;
                 graphic->e_rect.y = 0.f;
                 graphic->e_rect.height = (float)pd_clip_min(height, 0.);
@@ -1297,7 +1299,7 @@ t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
         graphic->e_line_width = 1.f;
         graphic->e_line_capstyle = ECAPSTYLE_BUTT;
         graphic->e_line_dashstyle = EDASHSTYLE_NONE;
-        graphic->e_color = s_color_black_hex;
+        graphic->e_color = 0;
         graphic->e_rect.x = 0.f;
         graphic->e_rect.y = 0.f;
         graphic->e_rect.height = (float)pd_clip_min(height, 0.);
@@ -1358,9 +1360,11 @@ static void ebox_do_paint_oval(t_elayer* g, t_ebox* x, t_egobj const* gobj, floa
         (int)(pt[2].x + x_p), (int)(pt[2].y + y_p));
 
     if (gobj->e_filled) {
-        sys_vgui("-fill %s -outline %s -width 1 -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_color->s_name, g->e_id->s_name, x->b_all_id->s_name);
+        sys_vgui("-fill #%6.6x -outline #%6.6x -width 1 -tags { %s %s }\n",
+            gobj->e_color, gobj->e_color, g->e_id->s_name, x->b_all_id->s_name);
     } else {
-        sys_vgui("-outline %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
+        sys_vgui("-outline #%6.6x -width %f -tags { %s %s }\n",
+            gobj->e_color, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
     }
 }
 
@@ -1373,9 +1377,11 @@ static void ebox_do_paint_arc(t_elayer* g, t_ebox* x, t_egobj const* gobj, float
         (int)(pt[2].x + x_p), (int)(pt[2].y + y_p), pt[3].y, pt[3].x);
 
     if (gobj->e_filled) {
-        sys_vgui("-style pieslice -fill %s -outline %s -width 1 -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_color->s_name, g->e_id->s_name, x->b_all_id->s_name);
+        sys_vgui("-style pieslice -fill #%6.6x -outline #%6.6x -width 1 -tags { %s %s }\n",
+            gobj->e_color, gobj->e_color, g->e_id->s_name, x->b_all_id->s_name);
     } else {
-        sys_vgui("-style arc -outline %s -width %f -tags { %s %s }\n", gobj->e_color->s_name, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
+        sys_vgui("-style arc -outline #%6.6x -width %f -tags { %s %s }\n",
+            gobj->e_color, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
     }
 }
 
@@ -1397,7 +1403,6 @@ static void ebox_do_paint_image(t_elayer* g, t_ebox* x, t_egobj const* gobj, flo
 
 t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
 {
-#ifndef JUCE_APP_VERSION
     int i, j;
     char header[256];
     char bottom[256];
@@ -1413,13 +1418,13 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                 int mode = E_PATH_MOVE;
                 if (gobj->e_filled) {
                     sprintf(header, "%s create polygon ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-smooth %s -splinesteps 100 -fill %s -width 0 -tags { %s %s }\n",
-                        x->b_smooth_method ? "raw" : "true", gobj->e_color->s_name, g->e_id->s_name, x->b_all_id->s_name);
+                    sprintf(bottom, "-smooth %s -splinesteps 100 -fill #%6.6x -width 0 -tags { %s %s }\n",
+                        x->b_smooth_method ? "raw" : "true", gobj->e_color, g->e_id->s_name, x->b_all_id->s_name);
                 } else {
                     sprintf(header, "%s create line ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-smooth %s -splinesteps 100 -fill %s -width %f -capstyle %s %s -tags { %s %s }\n",
+                    sprintf(bottom, "-smooth %s -splinesteps 100 -fill #%6.6x -width %f -capstyle %s %s -tags { %s %s }\n",
                         x->b_smooth_method ? "raw" : "true",
-                        gobj->e_color->s_name, gobj->e_width,
+                        gobj->e_color, gobj->e_width,
                         my_capstylelist[gobj->e_capstyle],
                         my_dashstylelist[gobj->e_dashstyle],
                         g->e_id->s_name, x->b_all_id->s_name);
@@ -1465,7 +1470,7 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                 sys_vgui("%s", bottom);
             } else if (gobj->e_type == E_GOBJ_TEXT) {
                 int zoom = ebox_getzoom(x);
-                sys_vgui("%s create text %d %d -text {%s} -anchor %s -justify %s -font {{%s} %d %s %s} -fill %s -width %d -tags { %s %s }\n",
+                sys_vgui("%s create text %d %d -text {%s} -anchor %s -justify %s -font {{%s} %d %s %s} -fill #%6.6x -width %d -tags { %s %s }\n",
                     x->b_drawing_id->s_name,
                     (int)(gobj->e_points[0].x + x_p),
                     (int)(gobj->e_points[0].y + y_p),
@@ -1476,7 +1481,7 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                     (int)gobj->e_font.c_size * zoom,
                     gobj->e_font.c_weight->s_name,
                     gobj->e_font.c_slant->s_name,
-                    gobj->e_color->s_name,
+                    gobj->e_color,
                     (int)(gobj->e_points[1].x),
                     g->e_id->s_name,
                     x->b_all_id->s_name);
@@ -1497,8 +1502,6 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
     } else {
         return -1;
     }
-
-#endif
 
     return 0;
 }
@@ -1619,9 +1622,11 @@ static void ebox_select(t_ebox* x)
 {
     if (glist_isvisible(x->b_obj.o_canvas)) {
         if (x->b_selected_box == EITEM_OBJ) {
-            sys_vgui("%s itemconfigure eboxbd%ld -fill %s\n", x->b_drawing_id->s_name, x, rgba_to_hex(rgba_blue));
+            sys_vgui("%s itemconfigure eboxbd%ld -fill #%6.6x\n",
+                x->b_drawing_id->s_name, x, rgba_to_hex_int(rgba_blue));
         } else {
-            sys_vgui("%s itemconfigure eboxbd%ld -fill %s\n", x->b_drawing_id->s_name, x, rgba_to_hex(x->b_boxparameters.d_bordercolor));
+            sys_vgui("%s itemconfigure eboxbd%ld -fill #%6.6x\n",
+                x->b_drawing_id->s_name, x, rgba_to_hex_int(x->b_boxparameters.d_bordercolor));
         }
     }
 }

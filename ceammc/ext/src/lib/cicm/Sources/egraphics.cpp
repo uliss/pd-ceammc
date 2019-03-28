@@ -8,7 +8,6 @@
  * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
-
 #include "egraphics.h"
 
 #include "ceammc_convert.h"
@@ -45,29 +44,24 @@ void egraphics_set_line_capstyle(t_elayer* g, t_capstyle style)
 
 void egraphics_set_color_rgba(t_elayer* g, const t_rgba* rgba)
 {
-    g->e_color = gensym(rgba_to_hex(*rgba));
+    g->e_color = rgba_to_hex_int(*rgba);
 }
 
 void egraphics_set_color_rgb(t_elayer* g, const t_rgb* rgb)
 {
-    g->e_color = gensym(rgb_to_hex(*rgb));
-}
-
-void egraphics_set_color_hex(t_elayer* g, t_symbol* hex)
-{
-    g->e_color = hex;
+    g->e_color = rgb_to_hex_int(*rgb);
 }
 
 void egraphics_set_color_hsla(t_elayer* g, const t_hsla* hsla)
 {
     t_rgba color = hsla_to_rgba(*hsla);
-    g->e_color = gensym(rgba_to_hex(color));
+    g->e_color = rgba_to_hex_int(color);
 }
 
 void egraphics_set_color_hsl(t_elayer* g, const t_hsl* hsl)
 {
     t_rgb color = hsl_to_rgb(*hsl);
-    g->e_color = gensym(rgb_to_hex(color));
+    g->e_color = rgb_to_hex_int(color);
 }
 
 static void egraphics_paint(t_elayer* g, int filled, int preserved)
@@ -154,7 +148,7 @@ void etext_layout_draw(t_etext* textlayout, t_elayer* g)
             g->e_objects[index].e_points[0].y = textlayout->c_rect.y;
             g->e_objects[index].e_points[1].x = textlayout->c_rect.width;
             g->e_objects[index].e_points[1].y = textlayout->c_rect.height;
-            g->e_objects[index].e_color = gensym(rgba_to_hex(textlayout->c_color));
+            g->e_objects[index].e_color = rgba_to_hex_int(textlayout->c_color);
 
             g->e_objects[index].e_font = textlayout->c_font;
             g->e_objects[index].e_justify = textlayout->c_justify;
@@ -516,6 +510,24 @@ void egraphics_arc_oval_to(t_elayer* g, float cx, float cy, float radius, float 
     }
 }
 
+int rgba_to_hex_int(const t_rgba& color)
+{
+    const auto r = static_cast<unsigned int>(color.red * 255.f) & 0xFF;
+    const auto g = static_cast<unsigned int>(color.green * 255.f) & 0xFF;
+    const auto b = static_cast<unsigned int>(color.blue * 255.f) & 0xFF;
+
+    return (r << 16) | (g << 8) | b;
+}
+
+int rgb_to_hex_int(const t_rgb& color)
+{
+    const auto r = static_cast<unsigned int>(color.red * 255.f) & 0xFF;
+    const auto g = static_cast<unsigned int>(color.green * 255.f) & 0xFF;
+    const auto b = static_cast<unsigned int>(color.blue * 255.f) & 0xFF;
+
+    return (r << 16)  | (g << 8) | b;
+}
+
 char* rgba_to_hex(t_rgba color)
 {
     int r = (int)(color.red * 255.f);
@@ -530,34 +542,6 @@ char* rgba_to_hex(t_rgba color)
     ColBuf[6] = HexDigits[b & 15];
     ColBuf[7] = '\0';
     return &ColBuf[0];
-}
-
-char* rgb_to_hex(t_rgb color)
-{
-    int r = (int)(color.red * 255.f);
-    int g = (int)(color.green * 255.f);
-    int b = (int)(color.blue * 255.f);
-    ColBuf[0] = '#';
-    ColBuf[1] = HexDigits[(r >> 4) & 15];
-    ColBuf[2] = HexDigits[r & 15];
-    ColBuf[3] = HexDigits[(g >> 4) & 15];
-    ColBuf[4] = HexDigits[g & 15];
-    ColBuf[5] = HexDigits[(b >> 4) & 15];
-    ColBuf[6] = HexDigits[b & 15];
-    ColBuf[7] = '\0';
-    return &ColBuf[0];
-}
-
-char* hsla_to_hex(t_hsla color)
-{
-    t_rgba ncolor = hsla_to_rgba(color);
-    return rgba_to_hex(ncolor);
-}
-
-char* hsl_to_hex(t_hsl color)
-{
-    t_rgb ncolor = hsl_to_rgb(color);
-    return rgb_to_hex(ncolor);
 }
 
 t_rgba hex_to_rgba(const char* color)
@@ -598,7 +582,7 @@ t_hsla rgba_to_hsla(t_rgba color)
     delta = max - min;
     ncolor.alpha = color.alpha;
     ncolor.lightness = (max + min) / 2.f;
-    if(delta == 0) {
+    if (delta == 0) {
         ncolor.hue = 0;
         ncolor.saturation = 1;
         ncolor.lightness = 1;

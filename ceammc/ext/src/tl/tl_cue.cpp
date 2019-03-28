@@ -50,9 +50,9 @@ static inline void vline_draw(t_ebox* x)
 {
     int height = canvas_height(x);
     int xx = x->b_rect.x - 1;
-    sys_vgui("%s create line %d %d %d %d -width %d -fill %s -tags .x%lxVLINE\n",
+    sys_vgui("%s create line %d %d %d %d -width %d -fill #%6.6x -tags .x%lxVLINE\n",
         x->b_canvas_id->s_name, xx, 0, xx, height, LINE_WIDTH,
-        rgba_to_hex(asCue(x)->b_color_border), x);
+        rgba_to_hex_int(asCue(x)->b_color_border), x);
 }
 
 static inline void vline_delete(t_ebox* x)
