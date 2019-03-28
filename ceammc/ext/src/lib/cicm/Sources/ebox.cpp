@@ -1545,7 +1545,7 @@ static void ebox_draw_iolets(t_ebox* x)
             egraphics_set_line_width(g, 1);
             const float XW = XLET_W * x->b_zoom;
             const float XCTRLH = XLET_H;
-            const float XSIGH = XCTRLH * x->b_zoom;
+            const float XSIGH = XCTRLH * x->b_zoom + 1;
             const t_object* obj = reinterpret_cast<t_object*>(x);
 
             const int N_IN = obj_ninlets(obj);
