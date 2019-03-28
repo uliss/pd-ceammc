@@ -309,16 +309,18 @@ void ebox_wgetrect(t_gobj* z, t_glist* glist, int* xp1, int* yp1, int* xp2, int*
 
 static void ebox_paint(t_ebox* x)
 {
-    t_eclass* c = eobj_getclass(x);
     ebox_update(x);
+
     sys_vgui("%s configure -bg #%6.6x\n",
         x->b_drawing_id->s_name, rgba_to_hex_int(x->b_boxparameters.d_boxfillcolor));
-    if (x->b_pinned) {
-        sys_vgui((char*)"lower %s\n", x->b_drawing_id->s_name);
-    }
-    if (c->c_widget.w_paint) {
+
+    if (x->b_pinned)
+        sys_vgui("lower %s\n", x->b_drawing_id->s_name);
+
+    t_eclass* c = eobj_getclass(x);
+    if (c->c_widget.w_paint)
         c->c_widget.w_paint(x, (t_object*)eobj_getcanvas(x));
-    }
+
     ebox_draw_border(x);
     ebox_draw_iolets(x);
 }
@@ -1506,26 +1508,25 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
 
 static void ebox_draw_border(t_ebox* x)
 {
-    float bdsize = x->b_boxparameters.d_borderthickness;
-    t_elayer* g = ebox_start_layer(x, s_eboxbd, x->b_rect.width * x->b_zoom, x->b_rect.height * x->b_zoom);
+    const float BRD_W = x->b_boxparameters.d_borderthickness;
+    const float BOX_W = x->b_rect.width * x->b_zoom;
+    const float BOX_H = x->b_rect.height * x->b_zoom;
+    t_elayer* g = ebox_start_layer(x, s_eboxbd, BOX_W, BOX_H);
 
     if (g) {
-        if (x->b_selected_box == EITEM_OBJ) {
+        if (x->b_selected_box == EITEM_OBJ)
             egraphics_set_color_rgba(g, &rgba_blue);
-        } else {
+        else
             egraphics_set_color_rgba(g, &x->b_boxparameters.d_bordercolor);
-        }
 
-        egraphics_set_line_width(g, bdsize * 2);
-        egraphics_rectangle_rounded(g, 0, 0,
-            x->b_rect.width * x->b_zoom + bdsize * 2,
-            x->b_rect.height * x->b_zoom + bdsize * 2, 0);
+        egraphics_set_line_width(g, BRD_W * 2);
+        egraphics_rectangle(g, 0, 0, BOX_W + BRD_W * 2, BOX_H + BRD_W * 2);
         egraphics_stroke(g);
 
         ebox_end_layer(x, s_eboxbd);
     }
 
-    ebox_paint_layer(x, s_eboxbd, -bdsize, -bdsize);
+    ebox_paint_layer(x, s_eboxbd, -BRD_W, -BRD_W);
 }
 
 static void ebox_draw_iolets(t_ebox* x)
@@ -1543,20 +1544,23 @@ static void ebox_draw_iolets(t_ebox* x)
         if (!x->b_isinsubcanvas) {
             egraphics_set_line_width(g, 1);
             const float XW = XLET_W * x->b_zoom;
-            const float XH = XLET_H;
+            const float XCTRLH = XLET_H;
+            const float XSIGH = XCTRLH * x->b_zoom;
             const t_object* obj = reinterpret_cast<t_object*>(x);
 
             const int N_IN = obj_ninlets(obj);
             for (int i = 0; i < N_IN; i++) {
                 int pos_x_inlet = 0;
                 if (N_IN != 1)
-                    pos_x_inlet = (int)(i / (float)(N_IN - 1) * (BOX_W - 8));
-                egraphics_rectangle(g, pos_x_inlet, 0, XW, XH);
+                    pos_x_inlet = (int)(i / (float)(N_IN - 1) * (BOX_W - (XW + 1)));
 
-                if (obj_issignalinlet(obj, i))
-                    egraphics_set_color_rgba(g, &rgba_blue);
+                const int is_sig = obj_issignalinlet(obj, i);
+                if (is_sig)
+                    egraphics_set_color_hex(g, STYLE_AUDIO_XLET_COLOR);
                 else
-                    egraphics_set_color_rgba(g, &rgba_black);
+                    egraphics_set_color_hex(g, STYLE_IEM_BORDER_COLOR);
+
+                egraphics_rectangle(g, pos_x_inlet, 0, XW, (is_sig) ? XSIGH : XCTRLH);
 
                 egraphics_stroke_preserve(g);
                 egraphics_fill(g);
@@ -1566,13 +1570,19 @@ static void ebox_draw_iolets(t_ebox* x)
             for (int i = 0; i < N_OUT; i++) {
                 int pos_x_outlet = 0;
                 if (N_OUT != 1)
-                    pos_x_outlet = (int)(i / (float)(N_OUT - 1) * (BOX_W - 8));
-                egraphics_rectangle(g, pos_x_outlet, BOX_H - 2 + bdsize * 2, XW, XH);
+                    pos_x_outlet = (int)(i / (float)(N_OUT - 1) * (BOX_W - (XW + 1)));
 
-                if (obj_issignaloutlet(obj, i))
-                    egraphics_set_color_rgba(g, &rgba_blue);
-                else
-                    egraphics_set_color_rgba(g, &rgba_black);
+                const int is_sig = obj_issignaloutlet(obj, i);
+                float outlet_h;
+                if (is_sig) {
+                    outlet_h = XSIGH;
+                    egraphics_set_color_hex(g, STYLE_AUDIO_XLET_COLOR);
+                } else {
+                    outlet_h = XCTRLH;
+                    egraphics_set_color_hex(g, STYLE_IEM_BORDER_COLOR);
+                }
+
+                egraphics_rectangle(g, pos_x_outlet, BOX_H - (outlet_h + 1) + bdsize * 2, XW, outlet_h);
 
                 egraphics_stroke_preserve(g);
                 egraphics_fill(g);
