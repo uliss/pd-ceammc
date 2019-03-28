@@ -1004,8 +1004,8 @@ t_pd_err ebox_notify(t_ebox* x, t_symbol* s, t_symbol* msg, void* sender, void* 
         ebox_invalidate_all(x);
         if (ebox_isdrawable(x)) {
             sys_vgui("%s itemconfigure %s -width %d -height %d\n", x->b_canvas_id->s_name, x->b_window_id->s_name,
-                     (int)(x->b_rect.width * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.),
-                     (int)(x->b_rect.height * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.));
+                (int)(x->b_rect.width * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.),
+                (int)(x->b_rect.height * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.));
             canvas_fixlinesfor(x->b_obj.o_canvas, (t_text*)x);
         }
         ebox_redraw(x);
@@ -1516,8 +1516,8 @@ static void ebox_draw_border(t_ebox* x)
 
         egraphics_set_line_width(g, bdsize * 2);
         egraphics_rectangle_rounded(g, 0, 0,
-                                    x->b_rect.width * x->b_zoom + bdsize * 2,
-                                    x->b_rect.height * x->b_zoom + bdsize * 2, 0);
+            x->b_rect.width * x->b_zoom + bdsize * 2,
+            x->b_rect.height * x->b_zoom + bdsize * 2, 0);
         egraphics_stroke(g);
 
         ebox_end_layer(x, s_eboxbd);
@@ -1528,33 +1528,41 @@ static void ebox_draw_border(t_ebox* x)
 
 static void ebox_draw_iolets(t_ebox* x)
 {
-    float bdsize;
-    t_elayer* g = NULL;
-    bdsize = x->b_boxparameters.d_borderthickness;
-    g = ebox_start_layer(x, s_eboxio, x->b_rect.width * x->b_zoom, x->b_rect.height * x->b_zoom);
+    static const int XLET_W = 7;
+    static const float XLET_H = 1;
+
+    const float bdsize = x->b_boxparameters.d_borderthickness;
+    const float BOX_W = x->b_rect.width * x->b_zoom;
+    const float BOX_H = x->b_rect.height * x->b_zoom;
+
+    t_elayer* g = ebox_start_layer(x, s_eboxio, BOX_W, BOX_H);
 
     if (g && !x->b_boxparameters.d_hideiolets) {
         if (!x->b_isinsubcanvas) {
             egraphics_set_line_width(g, 1);
+            const float XW = XLET_W * x->b_zoom;
+            const float XH = XLET_H;
 
             const int N_IN = obj_ninlets((t_object*)x);
             for (int i = 0; i < N_IN; i++) {
                 int pos_x_inlet = 0;
                 if (N_IN != 1)
-                    pos_x_inlet = (int)(i / (float)(N_IN - 1) * (x->b_rect.width * x->b_zoom - 8));
-                egraphics_rectangle(g, pos_x_inlet, 0, 7, 1);
+                    pos_x_inlet = (int)(i / (float)(N_IN - 1) * (BOX_W - 8));
+                egraphics_rectangle(g, pos_x_inlet, 0, XW, XH);
                 egraphics_set_color_rgba(g, &rgba_black);
-                egraphics_stroke(g);
+                egraphics_stroke_preserve(g);
+                egraphics_fill(g);
             }
 
             const int N_OUT = obj_noutlets((t_object*)x);
             for (int i = 0; i < N_OUT; i++) {
                 int pos_x_outlet = 0;
                 if (N_OUT != 1)
-                    pos_x_outlet = (int)(i / (float)(N_OUT - 1) * (x->b_rect.width * x->b_zoom- 8));
-                egraphics_rectangle(g, pos_x_outlet, x->b_rect.height * x->b_zoom - 2 + bdsize * 2, 7, 1);
+                    pos_x_outlet = (int)(i / (float)(N_OUT - 1) * (BOX_W - 8));
+                egraphics_rectangle(g, pos_x_outlet, BOX_H - 2 + bdsize * 2, XW, XH);
                 egraphics_set_color_rgba(g, &rgba_black);
-                egraphics_stroke(g);
+                egraphics_stroke_preserve(g);
+                egraphics_fill(g);
             }
         }
 
@@ -1610,18 +1618,14 @@ static void ebox_move(t_ebox* x)
 {
     if (glist_isvisible(x->b_obj.o_canvas)) {
         sys_vgui("%s coords %s %d %d\n", x->b_canvas_id->s_name, x->b_window_id->s_name,
-                 (int)(x->b_rect.x - x->b_boxparameters.d_borderthickness),
-                 (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness));
+            (int)(x->b_rect.x - x->b_boxparameters.d_borderthickness),
+            (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness));
     }
     canvas_fixlinesfor(glist_getcanvas(x->b_obj.o_canvas), (t_text*)x);
 }
 
 void ebox_setzoom(t_ebox* x, float f)
 {
-    float oldzoom = ebox_getzoom(x);
-    if (oldzoom < 1)
-        oldzoom = 1;
-
     int argc = 0;
     t_atom* argv = nullptr;
     t_symbol* TSYM_SIZE = gensym(SYM_SIZE);
@@ -1629,11 +1633,6 @@ void ebox_setzoom(t_ebox* x, float f)
 
     if (argc == 2) {
         x->b_zoom = f;
-//        float w = atom_getfloat(&argv[0]) / oldzoom * f;
-//        float h = atom_getfloat(&argv[1]) / oldzoom * f;
-//        atom_setfloat(&argv[0], w);
-//        atom_setfloat(&argv[1], h);
-//        eobj_attr_setvalueof(x, TSYM_SIZE, argc, argv);
     }
 
     free(argv);
@@ -1651,8 +1650,8 @@ static void ebox_newzoom(t_ebox* x)
         z = 1;
 
     if (z != 1) {
-//        x->b_rect.width *= z;
-//        x->b_rect.height *= z;
+        //        x->b_rect.width *= z;
+        //        x->b_rect.height *= z;
         x->b_zoom = z;
     }
 }
