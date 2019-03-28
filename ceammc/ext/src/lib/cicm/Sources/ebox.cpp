@@ -951,11 +951,10 @@ static const int FONT_SIZE = 10;
 
 t_pd_err ebox_set_fontsize(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 {
-    if (argc && argv && atom_gettype(argv) == A_FLOAT) {
-        x->b_font.c_sizereal = (long)pd_clip_min(atom_getfloat(argv), 4);
-    } else {
+    if (argc && argv && atom_gettype(argv) == A_FLOAT)
+        x->b_font.c_sizereal = static_cast<int>(pd_clip_min(atom_getfloat(argv), 4));
+    else
         x->b_font.c_sizereal = FONT_SIZE;
-    }
 
 #ifdef __APPLE__
     x->b_font.c_size = x->b_font.c_sizereal;
