@@ -95,7 +95,6 @@ void UILink::setDrawParams(t_object*, t_edrawparams* params)
     params->d_borderthickness = 1;
     params->d_bordercolor = prop_color_background;
     params->d_boxfillcolor = prop_color_background;
-    params->d_cornersize = 0;
 }
 
 t_pd_err UILink::notify(t_symbol* attr_name, t_symbol* msg)

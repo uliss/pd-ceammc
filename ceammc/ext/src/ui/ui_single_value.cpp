@@ -256,7 +256,6 @@ void UISingleValue::onDblClick(t_object*, const t_pt&, long mod)
 void UISingleValue::setDrawParams(t_object*, t_edrawparams* params)
 {
     params->d_borderthickness = 1;
-    params->d_cornersize = 1;
     params->d_bordercolor = listen_midi_ctrl_ ? BIND_MIDI_COLOR : prop_color_border;
     params->d_boxfillcolor = prop_color_background;
 }

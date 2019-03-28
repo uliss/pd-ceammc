@@ -152,7 +152,6 @@ void ebox_ready(t_ebox* x)
     x->b_boxparameters.d_bordercolor = rgba_black;
     x->b_boxparameters.d_borderthickness = 1;
     x->b_boxparameters.d_boxfillcolor = rgba_white;
-    x->b_boxparameters.d_cornersize = 0;
     if (c->c_widget.w_getdrawparameters)
         c->c_widget.w_getdrawparameters(x, NULL, &x->b_boxparameters);
     x->b_ready_to_draw = 1;

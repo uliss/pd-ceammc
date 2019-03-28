@@ -78,7 +78,7 @@ UIIcon::~UIIcon()
 void UIIcon::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
-    asEBox()->b_boxparameters.d_hideiolets = 1;
+    asEBox()->b_boxparameters.d_hideiolets = true;
 
     image_ = eimage_create(icon_default_24, 0, 0, ETEXT_UP_LEFT);
 

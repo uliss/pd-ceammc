@@ -71,7 +71,6 @@ static inline void vline_move(t_ebox* x)
 static void tl_cue_getdrawparams(tl_cue* x, t_object* view, t_edrawparams* params)
 {
     params->d_borderthickness = 2;
-    params->d_cornersize = 2;
     params->d_bordercolor = x->b_color_border;
     params->d_boxfillcolor = x->b_color_background;
 }

@@ -708,12 +708,10 @@ typedef enum t_cursor {
  * @details It contains the default parameters of a ebox.
  */
 typedef struct t_edrawparams {
-    float d_cornersize; /*!< The corner roundness. */
-    float d_borderthickness; /*!< The border size. */
     t_rgba d_bordercolor; /*!< The border color. */
     t_rgba d_boxfillcolor; /*!< The background color. */
-    int d_hideiolets; /*!< CEAMMC experimental: hide standard iolets. */
-
+    float d_borderthickness; /*!< The border size. */
+    bool d_hideiolets; /*!< hide standard iolets, for ui.icon for example */
 } t_edrawparams;
 
 /**
