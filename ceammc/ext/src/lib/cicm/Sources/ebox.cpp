@@ -11,6 +11,7 @@
 #include "ebox.h"
 #include "egraphics.h"
 #include "eobj.h"
+#include "g_style.h"
 
 #include <cstdlib>
 #include <cstring>
@@ -1542,25 +1543,36 @@ static void ebox_draw_iolets(t_ebox* x)
             egraphics_set_line_width(g, 1);
             const float XW = XLET_W * x->b_zoom;
             const float XH = XLET_H;
+            const t_object* obj = reinterpret_cast<t_object*>(x);
 
-            const int N_IN = obj_ninlets((t_object*)x);
+            const int N_IN = obj_ninlets(obj);
             for (int i = 0; i < N_IN; i++) {
                 int pos_x_inlet = 0;
                 if (N_IN != 1)
                     pos_x_inlet = (int)(i / (float)(N_IN - 1) * (BOX_W - 8));
                 egraphics_rectangle(g, pos_x_inlet, 0, XW, XH);
-                egraphics_set_color_rgba(g, &rgba_black);
+
+                if (obj_issignalinlet(obj, i))
+                    egraphics_set_color_rgba(g, &rgba_blue);
+                else
+                    egraphics_set_color_rgba(g, &rgba_black);
+
                 egraphics_stroke_preserve(g);
                 egraphics_fill(g);
             }
 
-            const int N_OUT = obj_noutlets((t_object*)x);
+            const int N_OUT = obj_noutlets(obj);
             for (int i = 0; i < N_OUT; i++) {
                 int pos_x_outlet = 0;
                 if (N_OUT != 1)
                     pos_x_outlet = (int)(i / (float)(N_OUT - 1) * (BOX_W - 8));
                 egraphics_rectangle(g, pos_x_outlet, BOX_H - 2 + bdsize * 2, XW, XH);
-                egraphics_set_color_rgba(g, &rgba_black);
+
+                if (obj_issignaloutlet(obj, i))
+                    egraphics_set_color_rgba(g, &rgba_blue);
+                else
+                    egraphics_set_color_rgba(g, &rgba_black);
+
                 egraphics_stroke_preserve(g);
                 egraphics_fill(g);
             }
@@ -1650,8 +1662,6 @@ static void ebox_newzoom(t_ebox* x)
         z = 1;
 
     if (z != 1) {
-        //        x->b_rect.width *= z;
-        //        x->b_rect.height *= z;
         x->b_zoom = z;
     }
 }
