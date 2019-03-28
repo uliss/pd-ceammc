@@ -173,7 +173,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_SYMBOL(c, "fontname", 0, t_ebox, b_font.c_family);
     CLASS_ATTR_SYMBOL(c, "fontweight", 0, t_ebox, b_font.c_weight);
     CLASS_ATTR_SYMBOL(c, "fontslant", 0, t_ebox, b_font.c_slant);
-    CLASS_ATTR_LONG(c, "fontsize", 0, t_ebox, b_font.c_sizereal);
+    CLASS_ATTR_INT(c, "fontsize", 0, t_ebox, b_font.c_sizereal);
     CLASS_ATTR_SYMBOL(c, "receive", 0, t_ebox, b_receive_id);
     CLASS_ATTR_SYMBOL(c, "send", 0, t_ebox, b_send_id);
 

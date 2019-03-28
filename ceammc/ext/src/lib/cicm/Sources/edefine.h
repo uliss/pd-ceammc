@@ -338,11 +338,11 @@ extern const t_rgba rgba_red;
  * @details It contains the informations of a font.
  */
 typedef struct t_efont {
-    float c_size; /*!< The size of the font. */
-    long c_sizereal; /*!< The plateform's size of the font. */
     t_symbol* c_family; /*!< The family of the font (times, helvetica, ect.). */
     t_symbol* c_slant; /*!< The slant of the font (regular, italic, etc.). */
     t_symbol* c_weight; /*!< The weight of the font (normal, bold). */
+    float c_size; /*!< The size of the font. */
+    int c_sizereal; /*!< The platform's size of the font. */
 } t_efont;
 
 /**
@@ -354,11 +354,11 @@ typedef struct t_etext {
     t_rgba c_color; /*!< The color of the text. */
     t_efont c_font; /*!< The font of the text. */
     t_rect c_rect; /*!< The rectangle of the text. */
-    etextanchor_flags c_anchor; /*!< The anchor of the text. */
-    etextjustify_flags c_justify; /*!< The justification of the text. */
     const char* c_text; /*!< The text. */
     char c_buf[64];
     char c_is_buffer_used;
+    etextanchor_flags c_anchor; /*!< The anchor of the text. */
+    etextjustify_flags c_justify; /*!< The justification of the text. */
 } t_etext;
 
 /**
@@ -369,8 +369,8 @@ typedef struct t_etext {
 typedef struct t_eimage {
     const char* data_base64;
     t_symbol* name;
-    size_t width;
-    size_t height;
+    uint16_t width;
+    uint16_t height;
     etextanchor_flags anchor;
 } t_eimage;
 
@@ -381,20 +381,22 @@ typedef struct t_eimage {
  * @todo should keep the allocated memory
  */
 typedef struct t_egobj {
-    egraphics_types e_type; /*!< The type of the graphical object. */
-    int e_filled; /*!< The filled state of the graphical object. */
-    unsigned int e_color; /*!< The color of the graphical object. */
-    float e_width; /*!< The line width of the graphical object. */
-    int e_capstyle; /*!< The line capstyle of the graphical object. */
-    int e_dashstyle; /*!< The line dashstyle of the graphical object. */
-
     t_pt* e_points; /*!< The points of the graphical object. */
     int e_npoints; /*!< The number of points of the graphical object. */
     t_efont e_font; /*!< The font of the graphical object. */
-    etextanchor_flags e_anchor; /*!< The anchor of the graphical object. */
-    etextjustify_flags e_justify; /*!< The justification of the graphical object. */
     const char* e_text; /*!< The text of the graphical object. */
     t_eimage* e_image; /*!< The image of the graphical object. */
+
+    float e_width; /*!< The line width of the graphical object. */
+    uint32_t e_color; /*!< The color of the graphical object. */
+
+    t_capstyle e_capstyle; /*!< The line capstyle of the graphical object. */
+    t_dashstyle e_dashstyle; /*!< The line dashstyle of the graphical object. */
+
+    etextanchor_flags e_anchor; /*!< The anchor of the graphical object. */
+    etextjustify_flags e_justify; /*!< The justification of the graphical object. */
+    egraphics_types e_type; /*!< The type of the graphical object. */
+    bool e_filled; /*!< The filled state of the graphical object. */
 } t_egobj;
 
 /**
