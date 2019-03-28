@@ -51,7 +51,7 @@ UIColorPanel::UIColorPanel()
 
 void UIColorPanel::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 30.);
+    newrect->width = pd_clip_min(newrect->width, 49);
     newrect->height = pd_clip_min(newrect->height, 10.);
 
     float ratio = (newrect->width - 1) / matrix_x_;
@@ -67,7 +67,7 @@ void UIColorPanel::okSize(t_rect* newrect)
         newrect->height = ratio * matrix_y_ + 1;
     }
 
-    newrect->width = pd_clip_min(newrect->width, 30);
+    newrect->width = pd_clip_min(newrect->width, 49);
     newrect->height = pd_clip_min(newrect->height, 10);
 }
 
