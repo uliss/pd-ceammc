@@ -76,6 +76,14 @@ void egraphics_set_color_hsla(t_elayer* g, const t_hsla* hsla);
 void egraphics_set_color_hsl(t_elayer* g, const t_hsl* hsl);
 
 /*!
+ * \fn          void egraphics_set_color_hex(t_elayer *g, uint32_t c)
+ * \brief       Sets the color in hex that will be used by the t_elayer.
+ * \param g     The t_elayer pointer.
+ * \param hex   The hex color.
+ */
+void egraphics_set_color_hex(t_elayer* g, uint32_t c);
+
+/*!
  * \fn          void egraphics_matrix_init(t_matrix *x, float xx, float yx, float xy, float yy, float x0, float y0)
  * \brief       Initializes a matrix.
  * \param x     The t_matrix pointer.

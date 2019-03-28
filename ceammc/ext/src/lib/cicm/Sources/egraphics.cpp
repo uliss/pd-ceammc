@@ -521,7 +521,7 @@ int rgb_to_hex_int(const t_rgb& color)
     const auto g = static_cast<unsigned int>(color.green * 255.f) & 0xFF;
     const auto b = static_cast<unsigned int>(color.blue * 255.f) & 0xFF;
 
-    return (r << 16)  | (g << 8) | b;
+    return (r << 16) | (g << 8) | b;
 }
 
 char* rgba_to_hex(t_rgba color)
@@ -1046,4 +1046,9 @@ void eimage_copy(t_eimage* dest, const t_eimage* src)
 void eimage_set_base64_data(t_eimage* img, const char* base64)
 {
     img->data_base64 = base64;
+}
+
+void egraphics_set_color_hex(t_elayer* g, uint32_t c)
+{
+    g->e_color = c;
 }
