@@ -406,17 +406,18 @@ typedef struct t_elayer {
     t_object* e_owner; /*!< The layer owner. */
     t_symbol* e_name; /*!< The layer name. */
     t_symbol* e_id; /*!< The layer canvas ID. */
-    int e_state; /*!< The layer state. */
+    t_egobj* e_objects; /*!< The layer objects. */
     t_rect e_rect; /*!< The layer size. */
-
-    unsigned int e_color; /*!< The layer color. */
-    int e_line_width; /*!< The layer line width. */
-    int e_line_capstyle; /*!< The layer line capstyle. */
-    int e_line_dashstyle; /*!< The layer line dashstyle. */
     t_matrix e_matrix; /*!< The layer matrix. */
     t_egobj e_new_objects; /*!< The layer new object. */
-    t_egobj* e_objects; /*!< The layer objects. */
-    long e_number_objects; /*!< The number of layer objects. */
+
+    uint32_t e_color; /*!< The layer color. */
+    uint16_t e_number_objects; /*!< The number of layer objects. */
+    uint16_t e_line_width; /*!< The layer line width. */
+
+    elayer_flags e_state; /*!< The layer state. */
+    t_capstyle e_line_capstyle; /*!< The layer line capstyle. */
+    t_dashstyle e_line_dashstyle; /*!< The layer line dashstyle. */
 } t_elayer;
 
 /** @} */
