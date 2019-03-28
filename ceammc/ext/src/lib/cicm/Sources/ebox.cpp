@@ -1215,13 +1215,6 @@ void ebox_redraw(t_ebox* x)
         ebox_invalidate_layer(x, s_eboxio);
         ebox_paint(x);
     }
-    //    t_symbol* s = canvas_realizedollar(eobj_getcanvas(x), gensym("$0-camomile"));
-    //    if(s->s_thing)
-    //    {
-    //        t_atom av;
-    //        atom_setfloat(&av, (float)((long)x));
-    //        pd_typedmess(s->s_thing, gensym("redraw"), 1, &av);
-    //    }
 }
 
 void ebox_get_rect_for_view(t_ebox* x, t_rect* rect)
