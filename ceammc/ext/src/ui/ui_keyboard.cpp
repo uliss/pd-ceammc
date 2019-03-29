@@ -251,5 +251,8 @@ int UIKeyboard::realPitch() const
 
 void UIKeyboard::output()
 {
+    if (current_key_ == -1)
+        return;
+
     listTo(0, AtomList(realPitch(), velocity_));
 }
