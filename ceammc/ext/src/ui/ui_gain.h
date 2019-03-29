@@ -35,6 +35,7 @@ protected:
     int prop_max;
     int prop_min;
     int prop_output_value;
+    int prop_show_range;
 
 public:
     UIGain();

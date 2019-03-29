@@ -25,6 +25,7 @@ UIGain::UIGain()
     , prop_max(0)
     , prop_min(-60)
     , prop_output_value(0)
+    , prop_show_range(1)
     , font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , txt_max_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
     , txt_min_(font_.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT)
@@ -69,17 +70,18 @@ void UIGain::paint(t_object* view)
         p.setColor(prop_color_knob);
         p.drawLine(x, 0, x, r.height);
 
-        // levels
-        txt_min_.setAnchor(ETEXT_LEFT);
-        txt_max_.setAnchor(ETEXT_RIGHT);
-        txt_min_.setJustify(ETEXT_JLEFT);
-        txt_max_.setJustify(ETEXT_JRIGHT);
-        txt_min_.setPos(2, height() / 2);
-        txt_max_.setPos(width() - 2, height() / 2);
+        if (prop_show_range) {
+            // level range
+            txt_min_.setAnchor(ETEXT_LEFT);
+            txt_max_.setAnchor(ETEXT_RIGHT);
+            txt_min_.setJustify(ETEXT_JLEFT);
+            txt_max_.setJustify(ETEXT_JRIGHT);
+            txt_min_.setPos(2, height() / 2);
+            txt_max_.setPos(width() - 2, height() / 2);
 
-        p.drawText(txt_max_);
-        p.drawText(txt_min_);
-
+            p.drawText(txt_max_);
+            p.drawText(txt_min_);
+        }
     } else {
         float y = r.height * (1 - knob_pos_);
         // scale
@@ -91,16 +93,18 @@ void UIGain::paint(t_object* view)
         p.setColor(prop_color_knob);
         p.drawLine(0, y, r.width, y);
 
-        // levels
-        txt_min_.setAnchor(ETEXT_DOWN);
-        txt_max_.setAnchor(ETEXT_UP);
-        txt_min_.setJustify(ETEXT_JCENTER);
-        txt_max_.setJustify(ETEXT_JCENTER);
-        txt_min_.setPos(width() / 2, height() - 2);
-        txt_max_.setPos(width() / 2, 2);
+        if (prop_show_range) {
+            // levels
+            txt_min_.setAnchor(ETEXT_DOWN);
+            txt_max_.setAnchor(ETEXT_UP);
+            txt_min_.setJustify(ETEXT_JCENTER);
+            txt_max_.setJustify(ETEXT_JCENTER);
+            txt_min_.setPos(width() / 2, height() - 2);
+            txt_max_.setPos(width() / 2, 2);
 
-        p.drawText(txt_max_);
-        p.drawText(txt_min_);
+            p.drawText(txt_max_);
+            p.drawText(txt_min_);
+        }
     }
 }
 
@@ -241,6 +245,7 @@ void UIGain::setup()
     obj.addIntProperty("min", _("Minimum value"), -60, &UIGain::prop_min);
     obj.setPropertyRange("max", -12, 12);
     obj.setPropertyRange("min", -90, -30);
+    obj.addBoolProperty("show_range", _("Show range"), true, &UIGain::prop_show_range);
     obj.addBoolProperty("output_value", _("Output value"), false, &UIGain::prop_output_value);
 
     obj.setDefaultSize(15, 120);
