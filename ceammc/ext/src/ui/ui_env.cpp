@@ -201,7 +201,8 @@ void UIEnv::paint(t_object*)
 
             // draw selection rectangle
             if (n.is_selected) {
-                if (delete_mode_)
+                bool is_inner_node = ((i != 0) && (i != (total - 1)));
+                if (delete_mode_ && is_inner_node)
                     bp.setColor(DELETE_COLOR);
 
                 bp.drawRect((n.x - 6) * z, (n.y - 6) * z, 12 * z, 12 * z);
