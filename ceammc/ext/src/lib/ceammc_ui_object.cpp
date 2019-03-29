@@ -114,6 +114,11 @@ void UIObject::redraw()
     ebox_redraw(asEBox());
 }
 
+void UIObject::redrawInnerArea()
+{
+    ebox_redraw_inner(asEBox());
+}
+
 void UIObject::redrawBGLayer()
 {
     bg_layer_.invalidate();
@@ -338,7 +343,8 @@ void UIObject::send(t_symbol* s, const AtomList& lst)
         pd_typedmess(send, s, lst.size(), lst.toPdData());
 }
 
-t_rect UIObject::rect() const {
+t_rect UIObject::rect() const
+{
     auto z = asEBox()->b_zoom;
     auto r = asEBox()->b_rect;
     r.width *= z;

@@ -1209,6 +1209,14 @@ void ebox_redraw(t_ebox* x)
     }
 }
 
+void ebox_redraw_inner(t_ebox* x)
+{
+    if ((ebox_isdrawable(x) && x->b_have_window) || x->b_force_redraw) {
+        x->b_force_redraw = 0;
+        ebox_paint(x);
+    }
+}
+
 void ebox_get_rect_for_view(t_ebox* x, t_rect* rect)
 {
     rect->x = x->b_rect.x;

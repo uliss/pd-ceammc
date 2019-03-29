@@ -146,6 +146,14 @@ void ebox_set_cursor(t_ebox* x, t_cursor cursor);
 void ebox_redraw(t_ebox *x);
 
 /*!
+ * \fn      void ebox_redraw_inner(t_ebox* x)
+ * \brief   Notifies the t_ebox that it should be redrawn without xlet and border/background
+ * \param x The t_ebox pointer.
+ * \todo optimize gensym
+ */
+void ebox_redraw_inner(t_ebox *x);
+
+/*!
  * \fn      void ebox_get_rect_for_view(t_ebox* x, t_rect *rect)
  * \brief   Retrieves the rectangle of the t_ebox.
  * \details This function should be used while the paint method is called to retrieves the current size of the t_ebox.

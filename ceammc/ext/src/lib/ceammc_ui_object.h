@@ -73,6 +73,7 @@ public:
 
     void paint(t_object* view);
     void redraw();
+    void redrawInnerArea();
     void redrawBGLayer();
     void updateSize();
     void resize(int w, int h);
