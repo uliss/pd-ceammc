@@ -135,7 +135,7 @@ void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv);
  * \param cursor The type of cursor.
  * \see ebox_cursors
  */
-void ebox_set_cursor(t_ebox* x, int cursor);
+void ebox_set_cursor(t_ebox* x, t_cursor cursor);
 
 /*!
  * \fn      void ebox_redraw(t_ebox* x)

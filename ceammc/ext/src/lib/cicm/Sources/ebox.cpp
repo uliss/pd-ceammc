@@ -13,13 +13,15 @@
 #include "eobj.h"
 #include "g_style.h"
 
+#include <array>
+#include <cstdint>
 #include <cstdlib>
 #include <cstring>
 #include <inttypes.h>
 
 int egraphics_smooth();
 
-static const char* my_cursorlist[] = {
+static std::array<const char*, ECURSOR_XTERM + 1> my_cursorlist = {
     "left_ptr",
     "center_ptr",
     "sb_v_double_arrow",
@@ -35,13 +37,13 @@ static const char* my_cursorlist[] = {
     "xterm"
 };
 
-static const char* my_capstylelist[] = {
+static std::array<const char*, ECAPSTYLE_SQUARE + 1> my_capstylelist = {
     "butt",
     "round",
     "projecting"
 };
 
-static const char* my_dashstylelist[] = {
+static std::array<const char*, EDASHSTYLE_64 + 1> my_dashstylelist = {
     "",
     "-dash .",
     "-dash -"
@@ -213,9 +215,8 @@ char ebox_isdrawable(t_ebox* x)
     return 0;
 }
 
-void ebox_set_cursor(t_ebox* x, int cursor)
+void ebox_set_cursor(t_ebox* x, t_cursor cursor)
 {
-    cursor = (int)pd_clip_minmax(cursor, 0, 12);
     sys_vgui("%s configure -cursor %s\n", x->b_drawing_id->s_name, my_cursorlist[cursor]);
 }
 
@@ -536,31 +537,31 @@ void ebox_mouse_leave(t_ebox* x)
         if (c->c_widget.w_mouseleave) {
             c->c_widget.w_mouseleave(x);
         }
-        ebox_set_cursor(x, 0);
+        ebox_set_cursor(x, ECURSOR_LEFT_PTR);
     } else if (x->b_obj.o_canvas->gl_edit && !x->b_mouse_down) {
-        ebox_set_cursor(x, 4);
+        ebox_set_cursor(x, ECURSOR_HAND);
     }
 }
 
 void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
 {
-    int i;
-    int right, bottom;
     t_pt mouse;
     t_atom av[2];
     long modif = modifier_wrapper((long)atom_getfloat(argv + 2));
     t_eclass* c = eobj_getclass(x);
+
+    // mouse move
     if (!x->b_mouse_down) {
         if (is_for_box(x, modif)) {
             if (!(x->b_flags & EBOX_IGNORELOCKCLICK)) {
-                ebox_set_cursor(x, 1);
+                ebox_set_cursor(x, ECURSOR_CENTER_PTR);
                 if (c->c_widget.w_mousemove) {
                     mouse.x = atom_getfloat(argv);
                     mouse.y = atom_getfloat(argv + 1);
                     c->c_widget.w_mousemove(x, x->b_obj.o_canvas, mouse, modif);
                 }
             } else {
-                ebox_set_cursor(x, 0);
+                ebox_set_cursor(x, ECURSOR_LEFT_PTR);
             }
         } else if (!x->b_isinsubcanvas) {
             mouse.x = atom_getfloat(argv);
@@ -570,68 +571,55 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
             x->b_selected_item = EITEM_NONE;
             sys_vgui("eobj_canvas_motion %s 0\n", x->b_canvas_id->s_name);
 
-            right = (int)(x->b_rect.width * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.);
-            bottom = (int)(x->b_rect.height * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.);
+            const int right = (int)(x->b_rect.width * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.);
+            const int bottom = (int)(x->b_rect.height * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.);
+            const int CURSOR_AREA = 3;
 
-            // TOP //
-            if (mouse.y >= 0 && mouse.y < 3) {
-                for (i = 0; i < obj_noutlets((t_object*)x); i++) {
-                    int pos_x_inlet = 0;
-                    if (obj_ninlets((t_object*)x) != 1)
-                        pos_x_inlet = (int)(i / (float)(obj_ninlets((t_object*)x) - 1) * (x->b_rect.width * x->b_zoom - 8));
-
-                    if (mouse.x >= pos_x_inlet && mouse.x <= pos_x_inlet + 7) {
-                        x->b_selected_inlet = i;
-                        ebox_set_cursor(x, 4);
-                        break;
-                    }
-                }
-                ebox_invalidate_layer(x, s_eboxio);
-                ebox_redraw(x);
-                return;
-            }
             // BOTTOM & RIGHT //
-            else if (mouse.y > bottom - 3 && mouse.y <= bottom && mouse.x > right - 3 && mouse.x <= right) {
+            if (mouse.y > bottom - CURSOR_AREA
+                && mouse.y <= bottom
+                && mouse.x > right - CURSOR_AREA
+                && mouse.x <= right) {
+
                 x->b_selected_item = EITEM_CORNER;
-                ebox_set_cursor(x, 8);
+                ebox_set_cursor(x, ECURSOR_RIGHT_CORNER);
                 return;
             }
             // BOTTOM //
-            else if (mouse.y > bottom - 3 && mouse.y < bottom) {
-                for (i = 0; i < obj_noutlets((t_object*)x); i++) {
+            else if (mouse.y > bottom - CURSOR_AREA && mouse.y <= bottom) {
+                const int N = obj_noutlets((t_object*)x);
+                const int XLET_W = 7;
+                const int XLET_ZW = XLET_W * x->b_zoom;
+                for (int i = 0; i < N; i++) {
                     int pos_x_outlet = 0;
-                    if (obj_noutlets((t_object*)x) != 1)
-                        pos_x_outlet = (int)(i / (float)(obj_noutlets((t_object*)x) - 1) * (x->b_rect.width * x->b_zoom - 8));
+                    if (N > 1)
+                        pos_x_outlet = (int)(i / (float)(N - 1) * (x->b_rect.width * x->b_zoom - (XLET_ZW + 1)));
 
-                    if (mouse.x >= pos_x_outlet && mouse.x <= pos_x_outlet + 7) {
+                    if (mouse.x >= pos_x_outlet && mouse.x <= pos_x_outlet + XLET_ZW) {
                         x->b_selected_outlet = i;
-                        ebox_set_cursor(x, 5);
+                        ebox_set_cursor(x, ECURSOR_CIRCLE);
                         break;
                     }
                 }
                 if (x->b_selected_outlet == -1) {
                     x->b_selected_item = EITEM_BOTTOM;
-                    ebox_set_cursor(x, 7);
+                    ebox_set_cursor(x, ECURSOR_BOTTOM);
                 }
-                ebox_invalidate_layer(x, s_eboxio);
-                ebox_redraw(x);
                 return;
             }
             // RIGHT //
             else if (mouse.x > right - 3 && mouse.x <= right) {
                 x->b_selected_item = EITEM_RIGHT;
-                ebox_set_cursor(x, 9);
+                ebox_set_cursor(x, ECURSOR_RIGHT_SIDE);
                 return;
             }
 
             // BOX //
-            ebox_set_cursor(x, 4);
-            ebox_invalidate_layer(x, s_eboxio);
-            ebox_redraw(x);
+            ebox_set_cursor(x, ECURSOR_HAND);
         } else {
             sys_vgui("eobj_canvas_motion %s 0\n", x->b_canvas_id->s_name);
         }
-    } else {
+    } else { // mouse drag
         if (is_for_box(x, modif)) {
             if (c->c_widget.w_mousedrag && !(x->b_flags & EBOX_IGNORELOCKCLICK)) {
                 mouse.x = atom_getfloat(argv);
@@ -1331,21 +1319,21 @@ t_pd_err ebox_end_layer(t_ebox* x, t_symbol* name)
 static inline t_elayer* ebox_get_layer(t_ebox* x, t_symbol const* name)
 {
     for (int i = 0; i < x->b_number_of_layers; i++) {
-        if (x->b_layers[i].e_name == name) {
+        if (x->b_layers[i].e_name == name)
             return x->b_layers + i;
-        }
     }
-    return NULL;
+
+    return nullptr;
 }
 
 t_pd_err ebox_invalidate_layer(t_ebox* x, t_symbol* name)
 {
     t_elayer* g = ebox_get_layer(x, name);
-    if (g) {
-        g->e_state = EGRAPHICS_INVALID;
-        return 0;
-    }
-    return -1;
+    if (!g)
+        return -1;
+
+    g->e_state = EGRAPHICS_INVALID;
+    return 0;
 }
 
 static void ebox_do_paint_oval(t_elayer* g, t_ebox* x, t_egobj const* gobj, float x_p, float y_p)
@@ -1369,7 +1357,7 @@ static void ebox_do_paint_arc(t_elayer* g, t_ebox* x, t_egobj const* gobj, float
 {
     t_pt const* pt = gobj->e_points;
 
-    sys_vgui("%s create arc %d %d %d %d -extent %f -start %f ", x->b_drawing_id->s_name,
+    sys_vgui("%s create arc %d %d %d %d -extent %.2f -start %.2f ", x->b_drawing_id->s_name,
         (int)(pt[1].x + x_p), (int)(pt[1].y + y_p),
         (int)(pt[2].x + x_p), (int)(pt[2].y + y_p), pt[3].y, pt[3].x);
 
@@ -1377,7 +1365,7 @@ static void ebox_do_paint_arc(t_elayer* g, t_ebox* x, t_egobj const* gobj, float
         sys_vgui("-style pieslice -fill #%6.6x -outline #%6.6x -width 1 -tags { %s %s }\n",
             gobj->e_color, gobj->e_color, g->e_id->s_name, x->b_all_id->s_name);
     } else {
-        sys_vgui("-style arc -outline #%6.6x -width %f -tags { %s %s }\n",
+        sys_vgui("-style arc -outline #%6.6x -width %.1f -tags { %s %s }\n",
             gobj->e_color, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
     }
 }
@@ -1386,9 +1374,10 @@ static void ebox_do_paint_image(t_elayer* g, t_ebox* x, t_egobj const* gobj, flo
 {
     t_pt const* pt = gobj->e_points;
 
-    sys_vgui("image create photo %s -width %li -height %li -data %s\n",
+    sys_vgui("image create photo %s -width %u -height %u -data %s\n",
         gobj->e_image->name->s_name,
-        gobj->e_image->width, gobj->e_image->height,
+        (unsigned int)gobj->e_image->width,
+        (unsigned int)gobj->e_image->height,
         gobj->e_image->data_base64);
 
     sys_vgui("%s create image %d %d -anchor %s -image %s -tags {%s %s}\n", x->b_drawing_id->s_name,
@@ -1419,7 +1408,7 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                         x->b_smooth_method ? "raw" : "true", gobj->e_color, g->e_id->s_name, x->b_all_id->s_name);
                 } else {
                     sprintf(header, "%s create line ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-smooth %s -splinesteps 100 -fill #%6.6x -width %f -capstyle %s %s -tags { %s %s }\n",
+                    sprintf(bottom, "-smooth %s -splinesteps 100 -fill #%6.6x -width %.1f -capstyle %s %s -tags { %s %s }\n",
                         x->b_smooth_method ? "raw" : "true",
                         gobj->e_color, gobj->e_width,
                         my_capstylelist[gobj->e_capstyle],
