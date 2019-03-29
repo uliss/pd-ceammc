@@ -70,6 +70,13 @@ void UIGain::paint(t_object* view)
         p.drawLine(x, 0, x, r.height);
 
         // levels
+        txt_min_.setAnchor(ETEXT_LEFT);
+        txt_max_.setAnchor(ETEXT_RIGHT);
+        txt_min_.setJustify(ETEXT_JLEFT);
+        txt_max_.setJustify(ETEXT_JRIGHT);
+        txt_min_.setPos(2, height() / 2);
+        txt_max_.setPos(width() - 2, height() / 2);
+
         p.drawText(txt_max_);
         p.drawText(txt_min_);
 
@@ -85,6 +92,13 @@ void UIGain::paint(t_object* view)
         p.drawLine(0, y, r.width, y);
 
         // levels
+        txt_min_.setAnchor(ETEXT_DOWN);
+        txt_max_.setAnchor(ETEXT_UP);
+        txt_min_.setJustify(ETEXT_JCENTER);
+        txt_max_.setJustify(ETEXT_JCENTER);
+        txt_min_.setPos(width() / 2, height() - 2);
+        txt_max_.setPos(width() / 2, 2);
+
         p.drawText(txt_max_);
         p.drawText(txt_min_);
     }
@@ -252,9 +266,9 @@ void UIGain::updateLabels()
         txt_max_.setJustify(ETEXT_JRIGHT);
         txt_max_.set(buf, width() - 2, height() / 2, 40, 20);
     } else {
-        txt_max_.setAnchor(ETEXT_UP_LEFT);
-        txt_max_.setJustify(ETEXT_JLEFT);
-        txt_max_.set(buf, 2, 2, 40, 20);
+        txt_max_.setAnchor(ETEXT_UP);
+        txt_max_.setJustify(ETEXT_JCENTER);
+        txt_max_.set(buf, width() / 2, 2, 40, 20);
     }
 
     // MIN
@@ -264,9 +278,9 @@ void UIGain::updateLabels()
         txt_min_.setJustify(ETEXT_JLEFT);
         txt_min_.set(buf, 2, height() / 2, 40, 20);
     } else {
-        txt_min_.setAnchor(ETEXT_DOWN_LEFT);
-        txt_min_.setJustify(ETEXT_JLEFT);
-        txt_min_.set(buf, 2, height() - 2, 40, 20);
+        txt_min_.setAnchor(ETEXT_DOWN);
+        txt_min_.setJustify(ETEXT_JCENTER);
+        txt_min_.set(buf, width() / 2, height() - 2, 40, 20);
     }
 }
 
