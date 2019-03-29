@@ -170,7 +170,9 @@ void UIIcon::drawImage()
         return;
 
     if (image_ && current_) {
-        eimage_set_base64_data(image_, current_->data[sizeToIdx(prop_size)]);
+        // zoom icons 18 and 24 pix
+        int idx = (prop_size <= 24) ? prop_size * zoom() : prop_size;
+        eimage_set_base64_data(image_, current_->data[sizeToIdx(idx)]);
         egraphics_image(p.layer(), 0, 0, image_);
         egraphics_stroke(p.layer());
     }
