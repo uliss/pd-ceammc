@@ -77,7 +77,7 @@ static void ebox_create_window(t_ebox* x, t_glist* glist);
 static void ebox_invalidate_all(t_ebox* x);
 static void ebox_draw_border(t_ebox* x);
 static void ebox_draw_iolets(t_ebox* x);
-static void ebox_update(t_ebox* x);
+static void layers_erase(t_ebox* x);
 static void ebox_erase(t_ebox* x);
 static void ebox_select(t_ebox* x);
 static void ebox_move(t_ebox* x);
@@ -310,7 +310,7 @@ void ebox_wgetrect(t_gobj* z, t_glist* glist, int* xp1, int* yp1, int* xp2, int*
 
 static void ebox_paint(t_ebox* x)
 {
-    ebox_update(x);
+    layers_erase(x);
 
     sys_vgui("%s configure -bg #%6.6x\n",
         x->b_drawing_id->s_name, rgba_to_hex_int(x->b_boxparameters.d_boxfillcolor));
@@ -1428,12 +1428,11 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                 int mode = E_PATH_MOVE;
                 if (gobj->e_filled) {
                     sprintf(header, "%s create polygon ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-smooth %s -splinesteps 100 -fill #%6.6x -width 0 -tags { %s %s }\n",
-                        x->b_smooth_method ? "raw" : "true", gobj->e_color, g->e_id->s_name, x->b_all_id->s_name);
+                    sprintf(bottom, "-fill #%6.6x -width 0 -tags { %s %s }\n",
+                        gobj->e_color, g->e_id->s_name, x->b_all_id->s_name);
                 } else {
                     sprintf(header, "%s create line ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-smooth %s -splinesteps 100 -fill #%6.6x -width %.1f -capstyle %s %s -tags { %s %s }\n",
-                        x->b_smooth_method ? "raw" : "true",
+                    sprintf(bottom, "-fill #%6.6x -width %.1f -capstyle %s %s -tags { %s %s }\n",
                         gobj->e_color, gobj->e_width,
                         my_capstylelist[gobj->e_capstyle],
                         my_dashstylelist[gobj->e_dashstyle],
@@ -1452,9 +1451,7 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                         j += 2;
                         mode = E_PATH_MOVE;
                     } else if (pt[0].x == E_PATH_LINE) {
-                        sys_vgui("%d %d %d %d %d %d ",
-                            (int)(pt[-1].x + x_p), (int)(pt[-1].y + y_p),
-                            (int)(pt[1].x + x_p), (int)(pt[1].y + y_p),
+                        sys_vgui("%d %d ",
                             (int)(pt[1].x + x_p), (int)(pt[1].y + y_p));
                         pt += 2;
                         j += 2;
@@ -1468,10 +1465,6 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                         j += 4;
                         mode = E_PATH_CURVE;
                     } else if (pt[0].x == E_PATH_CLOSE) {
-                        sys_vgui("%d %d %d %d %d %d ",
-                            (int)(pt[-1].x + x_p), (int)(pt[-1].y + y_p),
-                            (int)(start.x + x_p), (int)(start.y + y_p),
-                            (int)(start.x + x_p), (int)(start.y + y_p));
                         pt += 1;
                         j += 1;
                         mode = E_PATH_CLOSE;
@@ -1619,7 +1612,7 @@ static void ebox_invalidate_all(t_ebox* x)
     }
 }
 
-static void ebox_update(t_ebox* x)
+static void layers_erase(t_ebox* x)
 {
     for (int i = 0; i < x->b_number_of_layers; i++) {
         if (x->b_layers[i].e_state == EGRAPHICS_INVALID) {

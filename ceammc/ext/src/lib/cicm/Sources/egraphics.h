@@ -276,6 +276,9 @@ void egraphics_arc(t_elayer* g, float xc, float yc, float radius, float angle1, 
 void egraphics_arc_oval(t_elayer* g, float xc, float yc, float radiusx, float radiusy, float angle1, float angle2);
 
 void egraphics_image(t_elayer* g, float xc, float yc, t_eimage* image);
+void egraphics_poly(t_elayer* g, const std::vector<t_pt>& points);
+void egraphics_raise(t_elayer* over, t_elayer* l);
+
 
 /*!
  * \fn          t_etext* etext_layout_create(void)

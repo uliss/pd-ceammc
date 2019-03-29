@@ -116,6 +116,7 @@ public:
     void drawRect(float x, float y, float w, float h);
     void drawRect(const t_rect& r);
     void drawCircle(float x, float y, float r);
+    void drawPoly(const std::vector<t_pt>& v);
 
     void drawLineTo(float x, float y);
     void moveTo(float x, float y);
@@ -132,6 +133,7 @@ public:
     void setDashStyle(t_dashstyle style);
 
     t_elayer* layer();
+    void raiseOver(UIPainter& painter);
 };
 
 class UILayer {

@@ -160,12 +160,12 @@ void etext_layout_draw(t_etext* textlayout, t_elayer* g)
 
 static void egraphics_preallocate(t_elayer* g, size_t inc)
 {
-    t_pt* temp;
+
     if (g->e_new_objects.e_points == NULL) {
         g->e_new_objects.e_points = (t_pt*)malloc(inc * sizeof(t_pt));
         g->e_new_objects.e_npoints = 0;
     } else {
-        temp = (t_pt*)realloc(g->e_new_objects.e_points, ((size_t)g->e_new_objects.e_npoints + inc) * sizeof(t_pt));
+        t_pt* temp = (t_pt*)realloc(g->e_new_objects.e_points, ((size_t)g->e_new_objects.e_npoints + inc) * sizeof(t_pt));
         if (temp) {
             g->e_new_objects.e_points = temp;
         } else {
@@ -343,6 +343,33 @@ void egraphics_arc_oval(t_elayer* g, float xc, float yc, float radiusx, float ra
             g->e_new_objects.e_points[3].x = (angle1 / EPD_PI) * 180.f;
             g->e_new_objects.e_points[3].y = ((angle2 - angle1) / EPD_PI) * 180.f;
             g->e_new_objects.e_npoints = 4;
+        }
+    }
+}
+
+void egraphics_poly(t_elayer* g, const std::vector<t_pt>& points)
+{
+    if (points.empty())
+        return;
+
+    if (g->e_state == EGRAPHICS_OPEN) {
+        const size_t N = points.size() * 2 + 1;
+        egraphics_preallocate(g, N);
+        g->e_new_objects.e_type = E_GOBJ_PATH;
+
+        if (g->e_new_objects.e_points) {
+            g->e_new_objects.e_points[0].x = E_PATH_MOVE;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 1].x = points[0].x;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 1].y = points[0].y;
+
+            for (size_t i = 1; i < points.size(); i++) {
+                g->e_new_objects.e_points[g->e_new_objects.e_npoints + i * 2].x = E_PATH_LINE;
+                g->e_new_objects.e_points[g->e_new_objects.e_npoints + i * 2 + 1].x = points[i].x;
+                g->e_new_objects.e_points[g->e_new_objects.e_npoints + i * 2 + 1].y = points[i].y;
+            }
+
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints + points.size() * 2].x = E_PATH_CLOSE;
+            g->e_new_objects.e_npoints += N;
         }
     }
 }
@@ -1040,4 +1067,9 @@ void eimage_set_base64_data(t_eimage* img, const char* base64)
 void egraphics_set_color_hex(t_elayer* g, uint32_t c)
 {
     g->e_color = c;
+}
+
+void egraphics_raise(t_elayer* over, t_elayer* l)
+{
+    sys_vgui("raise %s %s\n", over->e_id->s_name, l->e_id->s_name);
 }

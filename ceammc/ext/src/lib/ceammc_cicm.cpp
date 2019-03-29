@@ -295,6 +295,11 @@ void UIPainter::drawCircle(float x, float y, float r)
     egraphics_circle(layer_, x, y, r);
 }
 
+void UIPainter::drawPoly(const std::vector<t_pt>& v)
+{
+    egraphics_poly(layer_, v);
+}
+
 void UIPainter::drawLineTo(float x, float y)
 {
     egraphics_line_to(layer_, x, y);
@@ -353,5 +358,13 @@ void UIPainter::setDashStyle(t_dashstyle style)
 t_elayer* UIPainter::layer()
 {
     return layer_;
+}
+
+void UIPainter::raiseOver(UIPainter& painter)
+{
+    if (!painter)
+        return;
+
+    egraphics_raise(layer_, painter.layer());
 }
 }
