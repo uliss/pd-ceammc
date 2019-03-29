@@ -125,33 +125,41 @@ void UITextLayout::set(const char* txt)
 void UITextLayout::setX(float x)
 {
     x_ = x;
+    text_->c_rect.x = x;
 }
 
 void UITextLayout::setY(float y)
 {
     y_ = y;
+    text_->c_rect.y = y;
 }
 
 void UITextLayout::setPos(float x, float y)
 {
     x_ = x;
     y_ = y;
+    text_->c_rect.x = x;
+    text_->c_rect.y = y;
 }
 
 void UITextLayout::setWidth(float w)
 {
     w_ = w;
+    text_->c_rect.width = w;
 }
 
 void UITextLayout::setHeight(float h)
 {
     h_ = h;
+    text_->c_rect.height = h;
 }
 
 void UITextLayout::setSize(float w, float h)
 {
     w_ = w;
     h_ = h;
+    text_->c_rect.width = w;
+    text_->c_rect.height = h;
 }
 
 void UITextLayout::setJustify(etextjustify_flags j)
