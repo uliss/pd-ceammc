@@ -210,7 +210,8 @@ typedef enum {
 typedef enum {
     E_SHAPE_OVAL = 0, /*!< This shape is oval. */
     E_SHAPE_ARC = 1, /*!< This shape is arc. */
-    E_SHAPE_IMAGE = 2 /*!< This shape is image. */
+    E_SHAPE_IMAGE = 2, /*!< This shape is image. */
+    E_SHAPE_RECT = 3 /*!< This shape is rectangle. */
 } eshape_types;
 
 /**

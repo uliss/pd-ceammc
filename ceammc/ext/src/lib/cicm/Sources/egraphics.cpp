@@ -292,22 +292,16 @@ void egraphics_curve(t_elayer* g, float startx, float starty,
 void egraphics_rectangle(t_elayer* g, float x, float y, float width, float height)
 {
     if (g->e_state == EGRAPHICS_OPEN) {
-        egraphics_preallocate(g, 9);
+        egraphics_preallocate(g, 3);
+        g->e_new_objects.e_type = E_GOBJ_SHAPE;
+
         if (g->e_new_objects.e_points) {
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints].x = E_PATH_MOVE;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 1].x = x;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 1].y = y;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 2].x = E_PATH_LINE;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 3].x = x + width;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 3].y = y;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 4].x = E_PATH_LINE;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 5].x = x + width;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 5].y = y + height;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 6].x = E_PATH_LINE;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 7].x = x;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 7].y = y + height;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 8].x = E_PATH_CLOSE;
-            g->e_new_objects.e_npoints += 9;
+            g->e_new_objects.e_points[0].x = E_SHAPE_RECT;
+            g->e_new_objects.e_points[1].x = x;
+            g->e_new_objects.e_points[1].y = y;
+            g->e_new_objects.e_points[2].x = x + width;
+            g->e_new_objects.e_points[2].y = y + height;
+            g->e_new_objects.e_npoints = 3;
         }
     }
 }

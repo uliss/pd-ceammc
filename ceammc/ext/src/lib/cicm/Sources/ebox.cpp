@@ -1344,6 +1344,23 @@ t_pd_err ebox_invalidate_layer(t_ebox* x, t_symbol* name)
     return 0;
 }
 
+static void ebox_do_paint_rect(t_elayer* g, t_ebox* x, t_egobj const* gobj, float x_p, float y_p)
+{
+    t_pt const* pt = gobj->e_points;
+
+    sys_vgui("%s create rectangle %d %d %d %d ", x->b_drawing_id->s_name,
+        (int)(pt[1].x + x_p), (int)(pt[1].y + y_p),
+        (int)(pt[2].x + x_p), (int)(pt[2].y + y_p));
+
+    if (gobj->e_filled) {
+        sys_vgui("-fill #%6.6x -outline #%6.6x -width 1 -tags { %s %s }\n",
+            gobj->e_color, gobj->e_color, g->e_id->s_name, x->b_all_id->s_name);
+    } else {
+        sys_vgui("-outline #%6.6x -width %0.1f -tags { %s %s }\n",
+            gobj->e_color, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
+    }
+}
+
 static void ebox_do_paint_oval(t_elayer* g, t_ebox* x, t_egobj const* gobj, float x_p, float y_p)
 {
     t_pt const* pt = gobj->e_points;
@@ -1481,12 +1498,20 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                     x->b_all_id->s_name);
 
             } else if (gobj->e_type == E_GOBJ_SHAPE) {
-                if (gobj->e_points[0].x == E_SHAPE_OVAL) {
+                int type = gobj->e_points[0].x;
+                switch (type) {
+                case E_SHAPE_RECT:
+                    ebox_do_paint_rect(g, x, gobj, x_p, y_p);
+                    break;
+                case E_SHAPE_OVAL:
                     ebox_do_paint_oval(g, x, gobj, x_p, y_p);
-                } else if (gobj->e_points[0].x == E_SHAPE_ARC) {
+                    break;
+                case E_SHAPE_ARC:
                     ebox_do_paint_arc(g, x, gobj, x_p, y_p);
-                } else if (gobj->e_points[0].x == E_SHAPE_IMAGE) {
+                    break;
+                case E_SHAPE_IMAGE:
                     ebox_do_paint_image(g, x, gobj, x_p, y_p);
+                    break;
                 }
             } else {
                 return -1;
@@ -1623,13 +1648,12 @@ static void ebox_erase(t_ebox* x)
 static void ebox_select(t_ebox* x)
 {
     if (glist_isvisible(x->b_obj.o_canvas)) {
-        if (x->b_selected_box == EITEM_OBJ) {
-            sys_vgui("%s itemconfigure eboxbd%ld -fill #%6.6x\n",
-                x->b_drawing_id->s_name, x, rgba_to_hex_int(rgba_blue));
-        } else {
-            sys_vgui("%s itemconfigure eboxbd%ld -fill #%6.6x\n",
-                x->b_drawing_id->s_name, x, rgba_to_hex_int(x->b_boxparameters.d_bordercolor));
-        }
+        int color = (x->b_selected_box == EITEM_OBJ)
+            ? rgba_to_hex_int(rgba_blue)
+            : rgba_to_hex_int(x->b_boxparameters.d_bordercolor);
+
+        sys_vgui("%s itemconfigure eboxbd%ld -outline #%6.6x\n",
+            x->b_drawing_id->s_name, x, color);
     }
 }
 
