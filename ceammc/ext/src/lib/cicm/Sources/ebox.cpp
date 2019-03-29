@@ -703,7 +703,11 @@ void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                 sys_vgui("eobj_canvas_down %s 0\n", x->b_canvas_id->s_name);
             }
         } else {
-            x->b_rect_last = x->b_rect;
+            const float z = x->b_zoom;
+            t_rect br = x->b_rect;
+            br.height *= z;
+            br.width *= z;
+            x->b_rect_last = br;
         }
     }
     x->b_mouse_down = 1;
