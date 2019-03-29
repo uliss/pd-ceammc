@@ -21,6 +21,7 @@ public:
     int prop_midi_chn;
     int prop_midi_ctl;
     int prop_midi_pickup;
+    int prop_show_value;
 
 public:
     UISingleValue();

@@ -7,10 +7,13 @@ static const float ALPHA_BLEND = 0.4;
 
 UISlider::UISlider()
     : is_horizontal_(false)
-    , prop_knob_color(hex_to_rgba(DEFAULT_ACTIVE_COLOR))
-    , prop_rel_mode(0)
     , value_last_(0)
     , value_ref_(0)
+    , font_(gensym(FONT_FAMILY), FONT_SIZE - 2)
+    , txt_value_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
+    , prop_knob_color(hex_to_rgba(DEFAULT_ACTIVE_COLOR))
+    , prop_text_color(hex_to_rgba(DEFAULT_BORDER_COLOR))
+    , prop_rel_mode(0)
     , mouse_up_output(0)
     , prop_active_scale(0)
 {
@@ -41,6 +44,14 @@ void UISlider::paint(t_object*)
                 kp.setColor(rgba_color_sum(&prop_color_background, &prop_knob_color, ALPHA_BLEND));
                 kp.drawRect(0, 0, x, r.height);
                 kp.fill();
+            }
+
+            if (prop_show_value) {
+                txt_value_.setColor(prop_text_color);
+                txt_value_.setAnchor(ETEXT_CENTER);
+                txt_value_.setJustify(ETEXT_JCENTER);
+                txt_value_.set(std::to_string(value()).c_str(), width() / 2, height() / 2, width() / 2, height());
+                kp.drawText(txt_value_);
             }
         } else {
             float y = (1.0 - value()) * r.height;
@@ -161,6 +172,7 @@ void UISlider::setup()
     obj.setDefaultSize(15, 120);
 
     obj.addProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UISlider::prop_knob_color);
+    obj.addProperty("text_color", _("Text Color"), DEFAULT_TEXT_COLOR, &UISlider::prop_text_color);
 
     obj.addProperty("mode", _("Relative Mode"), false, &UISlider::prop_rel_mode);
     obj.addProperty("min", _("Minimum Value"), 0, &UISingleValue::prop_min, "Bounds");
@@ -173,6 +185,7 @@ void UISlider::setup()
     obj.addProperty("midi_pickup", _("MIDI pickup"), true, &UISingleValue::prop_midi_pickup, "MIDI");
     obj.addProperty("mouse_up_output", _("Output on mouse up"), false, &UISlider::mouse_up_output);
     obj.addProperty("active_scale", _("Draw active scale"), false, &UISlider::prop_active_scale);
+    obj.addProperty("show_value", _("Show value in horizontal mode"), false, &UISingleValue::prop_show_value);
 
     obj.addProperty("value", &UISingleValue::realValue, &UISingleValue::setRealValue);
 }

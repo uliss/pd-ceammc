@@ -7,9 +7,12 @@ class UISlider : public UISingleValue {
     bool is_horizontal_;
     float value_last_;
     float value_ref_;
+    UIFont font_;
+    UITextLayout txt_value_;
 
 protected:
     t_rgba prop_knob_color;
+    t_rgba prop_text_color;
     int prop_rel_mode;
     int mouse_up_output;
     int prop_active_scale;
@@ -17,7 +20,7 @@ protected:
 public:
     UISlider();
 
-    void init(t_symbol *name, const AtomList &args, bool usePresets);
+    void init(t_symbol* name, const AtomList& args, bool usePresets);
     void paint(t_object*);
     void okSize(t_rect* newrect);
     void onMouseDown(t_object*, const t_pt& pt, long);

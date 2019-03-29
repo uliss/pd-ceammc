@@ -43,6 +43,7 @@ UISingleValue::UISingleValue()
     , prop_midi_chn(0)
     , prop_midi_ctl(0)
     , prop_midi_pickup(0)
+    , prop_show_value(0)
     , knob_layer_(asEBox(), gensym("knob_layer"))
 {
     createOutlet();
