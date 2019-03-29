@@ -28,31 +28,29 @@ void UISlider::init(t_symbol* name, const AtomList& args, bool usePresets)
 void UISlider::paint(t_object*)
 {
     const t_rect r = rect();
-    UIPainter p = bg_layer_.painter(r);
+    UIPainter kp = knob_layer_.painter(r);
+    if (kp) {
+        kp.setColor(prop_knob_color);
+        kp.setLineWidth(2 * zoom());
 
-    if (!p)
-        return;
+        if (is_horizontal_) { // horizontal
+            float x = value() * r.width;
+            kp.drawLine(x, 0, x, r.height);
 
-    p.setColor(prop_knob_color);
-    p.setLineWidth(2);
+            if (prop_active_scale) {
+                kp.setColor(rgba_color_sum(&prop_color_background, &prop_knob_color, ALPHA_BLEND));
+                kp.drawRect(0, 0, x, r.height);
+                kp.fill();
+            }
+        } else {
+            float y = (1.0 - value()) * r.height;
+            kp.drawLine(0, y, r.width, y);
 
-    if (is_horizontal_) { // horizontal
-        float x = value() * r.width;
-        p.drawLine(x, 0, x, r.height);
-
-        if (prop_active_scale) {
-            p.setColor(rgba_color_sum(&prop_color_background, &prop_knob_color, ALPHA_BLEND));
-            p.drawRect(0, 0, x, r.height);
-            p.fill();
-        }
-    } else {
-        float y = (1.0 - value()) * r.height;
-        p.drawLine(0, y, r.width, y);
-
-        if (prop_active_scale) {
-            p.setColor(rgba_color_sum(&prop_color_background, &prop_knob_color, ALPHA_BLEND));
-            p.drawRect(0, y, r.width, r.height * value());
-            p.fill();
+            if (prop_active_scale) {
+                kp.setColor(rgba_color_sum(&prop_color_background, &prop_knob_color, ALPHA_BLEND));
+                kp.drawRect(0, y, r.width, r.height * value());
+                kp.fill();
+            }
         }
     }
 }
@@ -91,7 +89,7 @@ void UISlider::onMouseDown(t_object*, const t_pt& pt, long)
             output();
 
         // redraw immidiately
-        redrawBGLayer();
+        redrawKnob();
     }
 }
 
@@ -122,7 +120,7 @@ void UISlider::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
     if (!mouse_up_output)
         output();
 
-    redrawBGLayer();
+    redrawKnob();
 }
 
 void UISlider::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
@@ -133,7 +131,7 @@ void UISlider::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 
 void UISlider::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
-    if(modifiers == EMOD_SHIFT)
+    if (modifiers == EMOD_SHIFT)
         return UISingleValue::onDblClick(view, pt, modifiers);
 
     t_canvas* c = reinterpret_cast<t_canvas*>(view);
