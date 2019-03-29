@@ -50,6 +50,7 @@ void UIGain2::setup()
     obj.addIntProperty("min", _("Minimum value"), -60, &UIGain2::prop_min);
     obj.setPropertyRange("max", -12, 12);
     obj.setPropertyRange("min", -90, -30);
+    obj.addBoolProperty("show_range", _("Show range"), true, &UIGain2::prop_show_range);
     obj.addBoolProperty("output_value", _("Output value"), false, &UIGain2::prop_output_value);
 
     obj.setDefaultSize(15, 120);
