@@ -90,6 +90,7 @@ UIKnob::UIKnob()
     , txt_max(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_RIGHT, ETEXT_JRIGHT, ETEXT_NOWRAP)
     , show_range_(0)
     , draw_active_scale_(0)
+    , knob_layer_(asEBox(), gensym("knob_layer"))
     , prop_knob_color(rgba_black)
     , prop_scale_color(rgba_black)
 {
@@ -102,59 +103,61 @@ void UIKnob::paint(t_object*)
     const auto r = rect();
     UIPainter p = bg_layer_.painter(r);
 
-    if (!p)
-        return;
+    if (p) {
+        if (show_range_) {
+            const float xoff = (1 + (r.width > 50)) * zoom();
+            const float yoff = (1 + (r.height > 50)) * zoom();
 
-    const float cx = r.width * 0.5f;
-    const float cy = r.height * 0.5f;
+            char buf[10];
+            sprintf(buf, "%g", minValue());
 
-    float radius_scale = 0.85f;
-    const float radius = cx * radius_scale;
-    const float arc_scale = 0.78f;
-    const float arc_full = -(EPD_2PI)*arc_scale;
-    const float arc_angle_offset = -(EPD_PI2 + (1 - arc_scale) * EPD_PI);
-    const float arc_begin = arc_angle_offset;
-    const float arc_end = arc_full + arc_angle_offset;
-    const float value_angle = prop_value * arc_full + arc_angle_offset;
+            txt_min.set(buf, xoff, r.height - yoff, r.width * 2, r.height / 2);
+            p.drawText(txt_min);
 
-    // adjust knob
-    float line_width = int(r.height / 20) + 1;
+            sprintf(buf, "%g", maxValue());
+            txt_max.set(buf, r.width - xoff, r.height - yoff, r.width, r.height / 2);
+            p.drawText(txt_max);
+        }
+    }
+
+    UIPainter kp = knob_layer_.painter(r);
+    if (kp) {
+        const float cx = r.width * 0.5f;
+        const float cy = r.height * 0.5f;
+
+        float radius_scale = 0.85f;
+        const float radius = cx * radius_scale;
+        const float arc_scale = 0.78f;
+        const float arc_full = -(EPD_2PI)*arc_scale;
+        const float arc_angle_offset = -(EPD_PI2 + (1 - arc_scale) * EPD_PI);
+        const float arc_begin = arc_angle_offset;
+        const float arc_end = arc_full + arc_angle_offset;
+        const float value_angle = prop_value * arc_full + arc_angle_offset;
+
+        // adjust knob
+        float line_width = int(r.height / 20) + 1;
 
 #ifdef __WIN32
-    line_width *= 0.5;
+        line_width *= 0.5;
 #endif
 
-    if (r.height < 30) {
-        radius_scale = 0.55f;
-    }
+        if (r.height < 30) {
+            radius_scale = 0.55f;
+        }
 
-    if (draw_active_scale_) {
-        // draw active arc
-        draw_knob_arc(p, cx, cy, radius, arc_begin, value_angle, line_width, prop_knob_color);
+        if (draw_active_scale_) {
+            // draw active arc
+            draw_knob_arc(kp, cx, cy, radius, arc_begin, value_angle, line_width, prop_knob_color);
 
-        // draw passive arc
-        draw_knob_arc(p, cx, cy, radius, value_angle, arc_end, line_width, prop_scale_color);
-    } else {
-        // draw full arc
-        draw_knob_arc(p, cx, cy, radius, arc_begin, arc_end, line_width, prop_scale_color);
-    }
+            // draw passive arc
+            draw_knob_arc(kp, cx, cy, radius, value_angle, arc_end, line_width, prop_scale_color);
+        } else {
+            // draw full arc
+            draw_knob_arc(kp, cx, cy, radius, arc_begin, arc_end, line_width, prop_scale_color);
+        }
 
-    // draw knob line
-    draw_knob_line(p, cx, cy, radius, value_angle, line_width, prop_knob_color);
-
-    if (show_range_) {
-        const float xoff = (1 + (r.width > 50)) * zoom();
-        const float yoff = (1 + (r.height > 50)) * zoom();
-
-        char buf[10];
-        sprintf(buf, "%g", minValue());
-
-        txt_min.set(buf, xoff, r.height - yoff, r.width * 2, r.height / 2);
-        p.drawText(txt_min);
-
-        sprintf(buf, "%g", maxValue());
-        txt_max.set(buf, r.width - xoff, r.height - yoff, r.width, r.height / 2);
-        p.drawText(txt_max);
+        // draw knob line
+        draw_knob_line(kp, cx, cy, radius, value_angle, line_width, prop_knob_color);
     }
 }
 
@@ -169,7 +172,8 @@ void UIKnob::onMouseDrag(t_object*, const t_pt& pt, long)
     t_float delta = (click_pos_.y - pt.y) / height();
     setValue(value() + delta);
     click_pos_ = pt;
-    redrawBGLayer();
+    knob_layer_.invalidate();
+    redrawInnerArea();
     output();
 }
 
