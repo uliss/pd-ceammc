@@ -312,11 +312,6 @@ void egraphics_rectangle(t_elayer* g, float x, float y, float width, float heigh
     }
 }
 
-void egraphics_rectangle_rounded(t_elayer* g, float x, float y, float width, float height, float roundness)
-{
-    egraphics_rectangle(g, x, y, width, height);
-}
-
 void egraphics_oval(t_elayer* g, float xc, float yc, float radiusx, float radiusy)
 {
     if (g->e_state == EGRAPHICS_OPEN) {

@@ -13,6 +13,8 @@
 
 #include "ecommon.h"
 
+#include <vector>
+
 /*! @addtogroup groupgraphics The Graphics Part
  * @brief The t_elayer part.
  * @details This part refers to the methods and structures used to paint.
@@ -226,18 +228,6 @@ void egraphics_close_path(t_elayer* g);
  * \param height    The height of the rectangle.
  */
 void egraphics_rectangle(t_elayer* g, float x, float y, float width, float height);
-
-/*!
- * \fn          void egraphics_rectangle_rounded(t_elayer *g, float x, float y, float width, float height, float roundness)
- * \brief       Adds a rounded rectangle in the t_elayer.
- * \param g     The t_elayer pointer.
- * \param x     The abscissa of the rectangle.
- * \param y     The ordiante of the rectangle.
- * \param width     The width of the rectangle.
- * \param height    The height of the rectangle.
- * \param roundness The roundness of the angles in pixel.
- */
-void egraphics_rectangle_rounded(t_elayer* g, float x, float y, float width, float height, float roundness);
 
 /*!
  * \fn          void egraphics_circle(t_elayer *g, float xc, float yc, float radius)
