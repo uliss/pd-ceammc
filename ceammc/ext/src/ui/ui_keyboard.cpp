@@ -92,18 +92,18 @@ void UIKeyboard::paint(t_object* view)
 
             t_rect key_rect = white_key_rect(i, black_key_w, key_h);
 
-            bool hover = (i == current_key_);
+            // current note or sustained
+            const bool hover = ((i == current_key_) && mouse_pressed_)
+                || (sustained_keys_.find(i) != sustained_keys_.end());
 
             p.drawRect(key_rect);
-            p.setColor((hover & mouse_pressed_) ? prop_color_active_ : RGBA_WHITE);
-            p.fill();
+            p.setColor(hover ? prop_color_active_ : RGBA_WHITE);
+            p.fillPreserve();
 
-            p.drawRect(key_rect);
             p.setColor(hover ? prop_color_active_ : prop_color_border);
             p.stroke();
 
             if (i + shift_ == 60) { // middle C indicator
-
                 p.setLineWidth(2);
                 p.setColor(prop_color_active_);
 
@@ -124,13 +124,14 @@ void UIKeyboard::paint(t_object* view)
 
             t_rect key_r = black_key_rect(i, black_key_w, key_h);
 
-            bool hover = (i == current_key_);
+            // current note or sustained
+            const bool hover = ((i == current_key_) && mouse_pressed_)
+                || (sustained_keys_.find(i) != sustained_keys_.end());
 
             p.drawRect(key_r);
-            p.setColor((hover & mouse_pressed_) ? prop_color_active_ : RGBA_BLACK);
-            p.fill();
+            p.setColor(hover ? prop_color_active_ : RGBA_BLACK);
+            p.fillPreserve();
 
-            p.drawRect(key_r);
             p.setColor(hover ? prop_color_active_ : prop_color_border);
             p.stroke();
         }
@@ -143,12 +144,34 @@ void UIKeyboard::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
     velocity_ = std::min<int>(127, int(pt.y / height() * 100.f) + 27);
     mouse_pressed_ = true;
     current_key_ = findPressedKey(pt);
-    output();
+    if (current_key_ < 0)
+        return;
+
+    // sustain mode
+    if (modifiers & EMOD_SHIFT) {
+        // add new sustaind note
+        if (sustained_keys_.find(current_key_) == sustained_keys_.end()) {
+            sustained_keys_.insert(current_key_);
+            output();
+            current_key_ = -1;
+        } else { // remove sustained note
+            sustained_keys_.erase(current_key_);
+            velocity_ = 0;
+            output();
+            current_key_ = -1;
+        }
+    } else {
+        output();
+    }
+
     redrawBGLayer();
 }
 
 void UIKeyboard::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
+    if (current_key_ == -1)
+        return;
+
     velocity_ = 0;
     mouse_pressed_ = false;
     output();

@@ -3,6 +3,8 @@
 
 #include "ceammc_ui_object.h"
 
+#include <unordered_set>
+
 using namespace ceammc;
 
 class UIKeyboard : public UIObject {
@@ -12,6 +14,7 @@ class UIKeyboard : public UIObject {
     int velocity_;
     bool mouse_pressed_;
     t_rgba prop_color_active_;
+    std::unordered_set<int> sustained_keys_;
 
 public:
     UIKeyboard();
