@@ -16,6 +16,7 @@ UISlider::UISlider()
     , prop_rel_mode(0)
     , mouse_up_output(0)
     , prop_active_scale(0)
+    , prop_value_pos(gensym("center"))
 {
 }
 
@@ -48,9 +49,20 @@ void UISlider::paint(t_object*)
 
             if (prop_show_value) {
                 txt_value_.setColor(prop_text_color);
-                txt_value_.setAnchor(ETEXT_CENTER);
-                txt_value_.setJustify(ETEXT_JCENTER);
-                txt_value_.set(std::to_string(value()).c_str(), width() / 2, height() / 2, width() / 2, height());
+                if (prop_value_pos == gensym("left")) {
+                    txt_value_.setAnchor(ETEXT_LEFT);
+                    txt_value_.setJustify(ETEXT_JLEFT);
+                    txt_value_.set(std::to_string(value()).c_str(), 2, height() / 2, width() / 2, height());
+                } else if (prop_value_pos == gensym("center")) {
+                    txt_value_.setAnchor(ETEXT_CENTER);
+                    txt_value_.setJustify(ETEXT_JCENTER);
+                    txt_value_.set(std::to_string(value()).c_str(), width() / 2, height() / 2, width() / 2, height());
+                } else if (prop_value_pos == gensym("right")) {
+                    txt_value_.setAnchor(ETEXT_RIGHT);
+                    txt_value_.setJustify(ETEXT_JRIGHT);
+                    txt_value_.set(std::to_string(value()).c_str(), width() - 2, height() / 2, width() / 2, height());
+                }
+
                 kp.drawText(txt_value_);
             }
         } else {
@@ -186,6 +198,7 @@ void UISlider::setup()
     obj.addProperty("mouse_up_output", _("Output on mouse up"), false, &UISlider::mouse_up_output);
     obj.addProperty("active_scale", _("Draw active scale"), false, &UISlider::prop_active_scale);
     obj.addProperty("show_value", _("Show value in horizontal mode"), false, &UISingleValue::prop_show_value);
+    obj.addProperty("value_pos", _("Value position"), "center", &UISlider::prop_value_pos, "left center right");
 
     obj.addProperty("value", &UISingleValue::realValue, &UISingleValue::setRealValue);
 }

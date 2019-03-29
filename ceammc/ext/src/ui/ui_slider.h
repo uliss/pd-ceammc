@@ -16,6 +16,7 @@ protected:
     int prop_rel_mode;
     int mouse_up_output;
     int prop_active_scale;
+    t_symbol* prop_value_pos;
 
 public:
     UISlider();
