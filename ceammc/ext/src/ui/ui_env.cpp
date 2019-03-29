@@ -618,7 +618,7 @@ t_pd_err UIEnv::notify(t_symbol* attr_name, t_symbol* msg)
 void UIEnv::redrawCursorLayer()
 {
     cursor_layer_.invalidate();
-    redraw();
+    redrawInnerArea();
 }
 
 void UIEnv::redrawAll()
