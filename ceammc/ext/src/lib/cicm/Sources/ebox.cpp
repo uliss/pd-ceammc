@@ -1017,9 +1017,9 @@ t_pd_err ebox_notify(t_ebox* x, t_symbol* s, t_symbol* msg, void* sender, void* 
         ebox_redraw(x);
     } else if (s == s_pinned && ebox_isdrawable(x)) {
         if (x->b_pinned) {
-            sys_vgui((char*)"lower %s\n", x->b_drawing_id->s_name);
+            sys_vgui("lower %s\n", x->b_drawing_id->s_name);
         } else {
-            sys_vgui((char*)"raise %s\n", x->b_drawing_id->s_name);
+            sys_vgui("raise %s\n", x->b_drawing_id->s_name);
         }
     }
 
