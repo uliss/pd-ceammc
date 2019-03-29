@@ -8,10 +8,6 @@
 
 static const int ENV_MIN_WIDTH = 40;
 static const int ENV_MIN_HEIGHT = 30;
-static t_symbol* GRID_COLOR = gensym("#C0C0C0");
-static t_symbol* ENV_COLOR = gensym("#505050");
-static t_symbol* ENV_COLOR2 = gensym("#00C0FF");
-static t_symbol* ENV_ACTIVE = gensym("#FF0000");
 static t_rgba DELETE_COLOR = hex_to_rgba("#F00030");
 static const char* DEFAULT_LINE_COLOR = "0.1 0.1 0.1 1.0";
 static const char* PROP_LENGTH = "length";
