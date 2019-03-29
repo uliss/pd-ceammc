@@ -82,7 +82,8 @@ void UIBang::onAny(t_symbol* s, const AtomList& lst)
 void UIBang::activate()
 {
     active_ = true;
-    redrawBGLayer();
+    bg_layer_.invalidate();
+    redrawInnerArea();
     bangTo(0);
     sendBang();
 }
@@ -90,7 +91,8 @@ void UIBang::activate()
 void UIBang::deactivate()
 {
     active_ = false;
-    redrawBGLayer();
+    bg_layer_.invalidate();
+    redrawInnerArea();
 }
 
 void UIBang::setup()
