@@ -491,12 +491,13 @@ void UIEnv::updateNodes()
 void UIEnv::updateEnvelope()
 {
     env_.clear();
+    const float z = zoom();
 
     for (size_t i = 0; i < nodes_.size(); i++) {
         const Node& n = nodes_[i];
 
-        EnvelopePoint pt(n.x / width() * prop_length * 1000,
-            1 - (n.y / height()),
+        EnvelopePoint pt(((n.x * z) / width()) * prop_length * 1000,
+            1 - ((n.y * z) / height()),
             n.is_stop,
             n.type,
             n.curve);
