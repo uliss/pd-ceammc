@@ -90,7 +90,6 @@ UIKnob::UIKnob()
     , txt_max(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_RIGHT, ETEXT_JRIGHT, ETEXT_NOWRAP)
     , show_range_(0)
     , draw_active_scale_(0)
-    , knob_layer_(asEBox(), gensym("knob_layer"))
     , prop_knob_color(rgba_black)
     , prop_scale_color(rgba_black)
 {
@@ -172,8 +171,7 @@ void UIKnob::onMouseDrag(t_object*, const t_pt& pt, long)
     t_float delta = (click_pos_.y - pt.y) / height();
     setValue(value() + delta);
     click_pos_ = pt;
-    knob_layer_.invalidate();
-    redrawInnerArea();
+    redrawKnob();
     output();
 }
 

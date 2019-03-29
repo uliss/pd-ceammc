@@ -13,7 +13,6 @@ class UIKnob : public UISingleValue {
     int show_range_;
     int draw_active_scale_;
     t_pt click_pos_;
-    UILayer knob_layer_;
 
 public:
     t_rgba prop_knob_color;

@@ -59,6 +59,11 @@ public:
 
     void startListenMidi();
     void stopListenMidi();
+
+    void redrawKnob();
+
+protected:
+    UILayer knob_layer_;
 };
 
 #endif // UI_SINGLE_VALUE_H

@@ -43,6 +43,7 @@ UISingleValue::UISingleValue()
     , prop_midi_chn(0)
     , prop_midi_ctl(0)
     , prop_midi_pickup(0)
+    , knob_layer_(asEBox(), gensym("knob_layer"))
 {
     createOutlet();
 }
@@ -108,7 +109,7 @@ t_pd_err UISingleValue::notify(t_symbol* attr_name, t_symbol* msg)
                 midi_proxy_.unbind();
         }
 
-        redrawBGLayer();
+        redrawKnob();
     }
 
     return 0;
@@ -128,7 +129,7 @@ void UISingleValue::onBang()
 void UISingleValue::onFloat(t_float f)
 {
     setRealValue(f);
-    redrawBGLayer();
+    redrawKnob();
     output();
 }
 
@@ -177,7 +178,7 @@ void UISingleValue::onMidiCtrl(const AtomList& l)
             else if (pick_value_side_ == -side) {
                 midi_value_picked_ = true;
                 setValue(v);
-                redrawBGLayer();
+                redrawKnob();
                 output();
             }
 
@@ -185,7 +186,7 @@ void UISingleValue::onMidiCtrl(const AtomList& l)
         }
 
         setValue(v);
-        redrawBGLayer();
+        redrawKnob();
         output();
     }
 }
@@ -193,7 +194,7 @@ void UISingleValue::onMidiCtrl(const AtomList& l)
 void UISingleValue::m_set(t_float f)
 {
     setRealValue(f);
-    redrawBGLayer();
+    redrawKnob();
 }
 
 void UISingleValue::m_plus(t_float f)
@@ -244,8 +245,10 @@ void UISingleValue::storePreset(size_t idx)
 
 void UISingleValue::onDblClick(t_object*, const t_pt&, long mod)
 {
-    if (!(mod & EMOD_SHIFT))
+    if (!(mod & EMOD_SHIFT)) {
+        onFloat(minValue() + maxValue() / 2);
         return;
+    }
 
     if (!listen_midi_ctrl_)
         startListenMidi();
@@ -277,4 +280,10 @@ void UISingleValue::stopListenMidi()
     asEBox()->b_boxparameters.d_bordercolor = prop_color_border;
     asEBox()->b_force_redraw = 1;
     redraw();
+}
+
+void UISingleValue::redrawKnob()
+{
+    knob_layer_.invalidate();
+    redrawInnerArea();
 }
