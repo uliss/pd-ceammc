@@ -1373,7 +1373,7 @@ static void ebox_do_paint_oval(t_elayer* g, t_ebox* x, t_egobj const* gobj, floa
         sys_vgui("-fill #%6.6x -outline #%6.6x -width 1 -tags { %s %s }\n",
             gobj->e_color, gobj->e_color, g->e_id->s_name, x->b_all_id->s_name);
     } else {
-        sys_vgui("-outline #%6.6x -width %f -tags { %s %s }\n",
+        sys_vgui("-outline #%6.6x -width %.1f -tags { %s %s }\n",
             gobj->e_color, gobj->e_width, g->e_id->s_name, x->b_all_id->s_name);
     }
 }
@@ -1414,14 +1414,13 @@ static void ebox_do_paint_image(t_elayer* g, t_ebox* x, t_egobj const* gobj, flo
 
 t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
 {
-    int i, j;
     char header[256];
     char bottom[256];
     t_elayer* g = ebox_get_layer(x, name);
     if (g && g->e_state == EGRAPHICS_TODRAW) {
         x_p += x->b_boxparameters.d_borderthickness;
         y_p += x->b_boxparameters.d_borderthickness;
-        for (i = 0; i < g->e_number_objects; i++) {
+        for (int i = 0; i < g->e_number_objects; i++) {
             t_egobj const* gobj = g->e_objects + i;
             t_pt const* pt = gobj->e_points;
             t_pt start;
@@ -1441,7 +1440,7 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                         g->e_id->s_name, x->b_all_id->s_name);
                 }
 
-                for (j = 0; j < gobj->e_npoints;) {
+                for (int j = 0; j < gobj->e_npoints;) {
                     if (pt[0].x == E_PATH_MOVE) {
                         if (mode != E_PATH_MOVE) {
                             sys_vgui("%s", bottom);
