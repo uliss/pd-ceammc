@@ -90,30 +90,14 @@ void UIEnv::paint(t_object*)
     if (bp) {
         const size_t total = nodes_.size();
 
-        // draw grid
-        // horizontal
+        // grid: horizontal
         bp.setColor(rgba_addContrast(prop_color_background, 0.05));
 
         bp.drawLine(-1, height() * 0.25, width(), height() * 0.25);
         bp.drawLine(-1, height() * 0.5, width(), height() * 0.5);
         bp.drawLine(-1, height() * 0.75, width(), height() * 0.75);
 
-        txt_value0.setColor(prop_color_border);
-        txt_value0.setPos(3, 3);
-        txt_value0.set("1.0");
-        bp.drawText(txt_value0);
-
-        txt_value1.setColor(prop_color_border);
-        txt_value1.setPos(3, height() * 0.5 - 2);
-        txt_value1.set("0.5");
-        bp.drawText(txt_value1);
-
-        txt_value2.setColor(prop_color_border);
-        txt_value2.setPos(3, height() - 2);
-        txt_value2.set("0.0");
-        bp.drawText(txt_value2);
-
-        // vertical
+        // grid: vertical
         const float len_ms = env_.totalLength() / 1000;
         float p = log10f(len_ms);
         float np = 0;
@@ -127,8 +111,30 @@ void UIEnv::paint(t_object*)
             }
         }
 
+        // labels
+        // label top
+        txt_value0.setColor(prop_color_border);
+        txt_value0.setPos(3, 3);
+        txt_value0.set("1.0");
+        bp.drawText(txt_value0);
+
+        // draw middle label if has enough space
+        if ((height() / zoom()) > 50) {
+            txt_value1.setColor(prop_color_border);
+            txt_value1.setPos(3, height() * 0.5 - 2);
+            txt_value1.set("0.5");
+            bp.drawText(txt_value1);
+        }
+
+        // label bottom
+        txt_value2.setColor(prop_color_border);
+        txt_value2.setPos(3, height() - 2);
+        txt_value2.set("0.0");
+        bp.drawText(txt_value2);
+
         const float z = zoom();
 
+        // draw nodes
         for (size_t i = 0; i < total; i++) {
             const Node& n = nodes_[i];
 
