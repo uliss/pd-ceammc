@@ -114,7 +114,7 @@ void UIEnv::paint(t_object*)
         bp.drawText(txt_value2);
 
         // vertical
-        float len_ms = env_.totalLength() / 1000;
+        const float len_ms = env_.totalLength() / 1000;
         float p = log10f(len_ms);
         float np = 0;
         if (modff(p, &np) < 0.35)
@@ -127,6 +127,8 @@ void UIEnv::paint(t_object*)
             }
         }
 
+        const float z = zoom();
+
         for (size_t i = 0; i < total; i++) {
             const Node& n = nodes_[i];
 
@@ -138,51 +140,51 @@ void UIEnv::paint(t_object*)
 
                 switch (n.type) {
                 case CURVE_LINE:
-                    bp.drawLine(n.x, n.y, next.x, next.y);
+                    bp.drawLine(n.x * z, n.y * z, next.x * z, next.y * z);
                     break;
                 case CURVE_STEP:
-                    bp.drawLine(n.x, n.y, next.x, n.y);
-                    bp.drawLine(next.x, n.y, next.x, next.y);
+                    bp.drawLine(n.x * z, n.y * z, next.x * z, n.y * z);
+                    bp.drawLine(next.x * z, n.y * z, next.x * z, next.y * z);
                     break;
                 case CURVE_EXP: {
+                    bp.moveTo(n.x * z, n.y * z);
 
-                    bp.moveTo(n.x, n.y);
-
-                    int i = n.x;
-                    for (; i < next.x; i += 4) {
-                        float y = convert::lin2curve(float(i), n.x, next.x, n.y, next.y, n.curve);
+                    int i = n.x * z;
+                    for (; i < next.x * z; i += 4 * z) {
+                        float y = convert::lin2curve(float(i), n.x* z, next.x* z, n.y* z, next.y* z, n.curve);
                         bp.drawLineTo(i, y);
                     }
 
-                    bp.drawLineTo(next.x, next.y);
+                    bp.drawLineTo(next.x * z, next.y * z);
                     bp.stroke();
 
                 } break;
                 case CURVE_SIN2: {
 
-                    bp.moveTo(n.x, n.y);
+                    bp.moveTo(n.x * z, n.y * z);
 
-                    int i = n.x;
-                    for (; i < next.x; i += 4) {
-                        float y = convert::lin2sin2(i, n.x, next.x, n.y, next.y);
+                    int i = n.x * z;
+                    for (; i < next.x * z; i += 4 * z) {
+                        float y = convert::lin2sin2(i, n.x * z, next.x * z, n.y * z, next.y * z);
                         bp.drawLineTo(i, y);
                     }
 
-                    bp.drawLineTo(next.x, next.y);
+                    bp.drawLineTo(next.x * z, next.y * z);
                     bp.stroke();
 
                 } break;
                 case CURVE_SIGMOID: {
 
-                    bp.moveTo(n.x, n.y);
+                    bp.moveTo(n.x * z, n.y * z);
 
-                    int i = n.x;
-                    for (; i < next.x; i += 4) {
-                        float y = convert::lin2sigmoid(i, n.x, next.x, n.y, next.y, n.sigmoid_skew);
+                    int i = n.x * z;
+                    for (; i < next.x * z; i += 4 * z) {
+                        float y = convert::lin2sigmoid(i, n.x * z, next.x * z,
+                            n.y * z, next.y * z, n.sigmoid_skew);
                         bp.drawLineTo(i, y);
                     }
 
-                    bp.drawLineTo(next.x, next.y);
+                    bp.drawLineTo(next.x * z, next.y * z);
                     bp.stroke();
 
                 } break;
@@ -196,19 +198,19 @@ void UIEnv::paint(t_object*)
                 if (delete_mode_)
                     bp.setColor(DELETE_COLOR);
 
-                bp.drawRect(n.x - 6, n.y - 6, 12, 12);
+                bp.drawRect((n.x - 6) * z, (n.y - 6) * z, 12 * z, 12 * z);
                 bp.stroke();
             }
 
             // draw point itself
             bp.setColor(prop_line_color);
-            bp.drawRect(n.x - 3, n.y - 3, 6, 6);
+            bp.drawRect((n.x - 3) * z, (n.y - 3) * z, 6 * z, 6 * z);
             bp.fill();
 
             // draw vertical dash line for stop point
             if (n.is_stop) {
                 bp.setDashStyle(EDASHSTYLE_24);
-                bp.drawLine(n.x, 0, n.x, height());
+                bp.drawLine(n.x * z, 0, n.x * z, height());
                 bp.setDashStyle(EDASHSTYLE_NONE);
             }
         }
@@ -249,7 +251,11 @@ void UIEnv::okSize(t_rect* newrect)
 
 void UIEnv::onMouseMove(t_object*, const t_pt& pt, long modifiers)
 {
-    int idx = findNearestNode(pt.x, pt.y);
+    const float z = zoom();
+    const float x_norm = pt.x / z;
+    const float y_norm = pt.y / z;
+
+    int idx = findNearestNode(x_norm, y_norm);
 
     if (selectNode(idx < 0 ? nodes_.size() : idx))
         bg_layer_.invalidate();
@@ -268,8 +274,8 @@ void UIEnv::onMouseMove(t_object*, const t_pt& pt, long modifiers)
         draw_cursor_pos_ = (idx >= 0);
 
         if (idx >= 0) {
-            cursor_pos_.x = nodes_[idx].x;
-            cursor_pos_.y = nodes_[idx].y;
+            cursor_pos_.x = nodes_[idx].x * z;
+            cursor_pos_.y = nodes_[idx].y * z;
         }
     }
 
@@ -278,6 +284,10 @@ void UIEnv::onMouseMove(t_object*, const t_pt& pt, long modifiers)
 
 void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long)
 {
+    const float z = zoom();
+    const float x_norm = pt.x / z;
+    const float y_norm = pt.y / z;
+
     long idx = -1;
     for (size_t i = 0; i < nodes_.size(); i++) {
         if (nodes_[i].is_selected) {
@@ -294,10 +304,10 @@ void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long)
 
     // update coordinates
     if (!n.fixed_x)
-        n.x = clip<float>(pt.x, 0, width());
+        n.x = clip<float>(x_norm, 0, width() / z);
 
     if (!n.fixed_y)
-        n.y = clip<float>(pt.y, 0, height());
+        n.y = clip<float>(y_norm, 0, height() / z);
 
     // x-coord
     if (nodes_.size() > 1 && idx > 0 && idx < (nodes_.size() - 1)) {
@@ -319,24 +329,28 @@ void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long)
 
 void UIEnv::onMouseDown(t_object*, const t_pt& pt, long mod)
 {
+    const float z = zoom();
+    const float x_norm = pt.x / z;
+    const float y_norm = pt.y / z;
+
     if (mod & EMOD_SHIFT) {
 
         long insert_idx = 0;
         for (size_t i = 1; i < nodes_.size(); i++) {
             // prevent to close insertion
-            if (fabsf(nodes_[i].x - pt.x) < 2)
+            if (fabsf(nodes_[i].x - x_norm) < 2)
                 return;
 
             // find node index to insert before
-            if (nodes_[i].x > pt.x) {
+            if (nodes_[i].x > x_norm) {
                 insert_idx = i;
                 break;
             }
         }
 
         Node n;
-        n.x = pt.x;
-        n.y = pt.y;
+        n.x = x_norm;
+        n.y = y_norm;
         n.is_selected = true;
 
         // insert new selected node
@@ -385,9 +399,12 @@ void UIEnv::onMouseLeave(t_object*, const t_pt& pt, long)
 
 void UIEnv::onMouseWheel(t_object*, const t_pt& pt, long, double delta)
 {
+    const float z = zoom();
+    const float x_norm = pt.x / z;
+
     long idx = -1;
     for (size_t i = 1; i < nodes_.size(); i++) {
-        if (pt.x < nodes_[i].x) {
+        if (x_norm < nodes_[i].x) {
             idx = i - 1;
             break;
         }
@@ -418,12 +435,15 @@ void UIEnv::onMouseUp(t_object*, const t_pt& pt, long)
 
 void UIEnv::onDblClick(t_object*, const t_pt& pt, long modifiers)
 {
+    const float z = zoom();
+    const float x_norm = pt.x / z;
+
     if (!(modifiers & EMOD_CTRL))
         return;
 
     long idx = -1;
     for (size_t i = 1; i < nodes_.size(); i++) {
-        if (pt.x < nodes_[i].x) {
+        if (x_norm < nodes_[i].x) {
             idx = i - 1;
             break;
         }
@@ -450,11 +470,13 @@ void UIEnv::updateNodes()
 
     size_t total_us = env_.totalLength();
     size_t n = env_.numPoints();
+    const float z = zoom();
 
     for (size_t i = 0; i < n; i++) {
         bool is_edge = (i == 0) || (i == (n - 1));
 
-        nodes_.push_back(Node::fromEnvelope(env_.pointAt(i), total_us, width(), height(), is_edge));
+        // using normalized width() and height()
+        nodes_.push_back(Node::fromEnvelope(env_.pointAt(i), total_us, width() / z, height() / z, is_edge));
     }
 
     prop_length = total_us / 1000.0;
