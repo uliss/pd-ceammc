@@ -17,6 +17,7 @@ UISlider::UISlider()
     , mouse_up_output(0)
     , prop_active_scale(0)
     , prop_value_pos(gensym("center"))
+    , prop_value_precision(2)
 {
 }
 
@@ -48,19 +49,24 @@ void UISlider::paint(t_object*)
             }
 
             if (prop_show_value) {
+                char fmt[] = "%..f";
+                fmt[2] = char(prop_value_precision) + '0';
+                char buf[16];
+                snprintf(buf, sizeof(buf), fmt, value());
+
                 txt_value_.setColor(prop_text_color);
                 if (prop_value_pos == gensym("left")) {
                     txt_value_.setAnchor(ETEXT_LEFT);
                     txt_value_.setJustify(ETEXT_JLEFT);
-                    txt_value_.set(std::to_string(value()).c_str(), 2, height() / 2, width() / 2, height());
+                    txt_value_.set(buf, 2, height() / 2, width() / 2, height());
                 } else if (prop_value_pos == gensym("center")) {
                     txt_value_.setAnchor(ETEXT_CENTER);
                     txt_value_.setJustify(ETEXT_JCENTER);
-                    txt_value_.set(std::to_string(value()).c_str(), width() / 2, height() / 2, width() / 2, height());
+                    txt_value_.set(buf, width() / 2, height() / 2, width() / 2, height());
                 } else if (prop_value_pos == gensym("right")) {
                     txt_value_.setAnchor(ETEXT_RIGHT);
                     txt_value_.setJustify(ETEXT_JRIGHT);
-                    txt_value_.set(std::to_string(value()).c_str(), width() - 2, height() / 2, width() / 2, height());
+                    txt_value_.set(buf, width() - 2, height() / 2, width() / 2, height());
                 }
 
                 kp.drawText(txt_value_);
@@ -199,6 +205,8 @@ void UISlider::setup()
     obj.addProperty("active_scale", _("Draw active scale"), false, &UISlider::prop_active_scale);
     obj.addProperty("show_value", _("Show value in horizontal mode"), false, &UISingleValue::prop_show_value);
     obj.addProperty("value_pos", _("Value position"), "center", &UISlider::prop_value_pos, "left center right");
+    obj.addProperty("value_precision", _("Precision"), 2, &UISlider::prop_value_precision);
+    obj.setPropertyRange("value_precision", 0, 7);
 
     obj.addProperty("value", &UISingleValue::realValue, &UISingleValue::setRealValue);
 }
