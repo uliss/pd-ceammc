@@ -87,7 +87,7 @@ UIDisplay::UIDisplay()
 
 void UIDisplay::paint(t_object* view)
 {
-    const auto r = rect();
+    const t_rect r = rect();
 
     UIPainter p = bg_layer_.painter(r);
 
@@ -277,10 +277,6 @@ void UIDisplay::update()
         float w = msg_txt_.size() * 8 + type_width_ + 7;
         float h = int(w / 250) * 15 + 15;
         w = std::min(std::max(w, 20.f), 250.f); // 20 <= w <= 250
-
-        h *= zoom();
-        w *= zoom();
-
         resize(w, h);
     }
 
