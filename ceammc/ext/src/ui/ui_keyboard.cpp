@@ -321,6 +321,8 @@ t_pd_err UIKeyboard::notify(t_symbol* attr_name, t_symbol* msg)
         bg_layer_.invalidate();
         redraw();
     }
+
+    return 0;
 }
 
 void UIKeyboard::setup()

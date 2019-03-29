@@ -40,6 +40,7 @@ class UIObject : t_ebox {
     AtomList args_;
     std::vector<t_outlet*> outlets_;
     std::unordered_set<t_symbol*> binded_signals_;
+    std::vector<UILayer*> layer_stack_;
     t_symbol* name_;
     t_symbol* old_preset_id_;
     t_cursor cursor_;
@@ -47,6 +48,8 @@ class UIObject : t_ebox {
 
 protected:
     UILayer bg_layer_;
+    void pushToLayerStack(UILayer* l);
+    void invalidateLayer(UILayer* l);
 
 public:
     t_rgba prop_color_background;
@@ -72,9 +75,12 @@ public:
     t_symbol* presetId();
 
     void paint(t_object* view);
+
     void redraw();
     void redrawInnerArea();
     void redrawBGLayer();
+    void redrawLayer(UILayer& l);
+
     void updateSize();
     void resize(int w, int h);
 

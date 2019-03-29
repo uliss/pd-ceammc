@@ -41,6 +41,7 @@ class UIEnv : public UIObject {
     bool draw_cursor_pos_;
     bool draw_cursor_cross_;
     bool delete_mode_;
+    UILayer envelope_layer_;
     UILayer cursor_layer_;
     UIFont font_;
     UITextLayout cursor_txt_pos_;
@@ -87,8 +88,11 @@ public:
     t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
 
 private:
-    void redrawCursorLayer();
     void redrawAll();
+
+    void drawBackground(const t_rect& r);
+    void drawCursor(const t_rect& r);
+    void drawEnvelope(const t_rect& r);
 
 public:
     static void setup();

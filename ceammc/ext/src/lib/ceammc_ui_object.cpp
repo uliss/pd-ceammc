@@ -3,8 +3,6 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 
-#include <boost/foreach.hpp>
-
 namespace ceammc {
 
 const char* UIObject::BG_LAYER = "background_layer";
@@ -38,6 +36,7 @@ UIObject::UIObject()
     , prop_color_background(rgba_white)
     , prop_color_border(rgba_black)
 {
+    pushToLayerStack(&bg_layer_);
 }
 
 UIObject::~UIObject()
@@ -47,6 +46,23 @@ UIObject::~UIObject()
 
     unbindPreset(presetId());
     unbindAll();
+}
+
+void UIObject::pushToLayerStack(UILayer* l)
+{
+    layer_stack_.push_back(l);
+}
+
+void UIObject::invalidateLayer(UILayer* l)
+{
+    bool found = false;
+    for (UILayer* x : layer_stack_) {
+        if (x == l)
+            found = true;
+
+        if (found)
+            x->invalidate();
+    }
 }
 
 t_ebox* UIObject::asEBox() const { return const_cast<UIObject*>(this); }
@@ -137,6 +153,12 @@ void UIObject::resize(int w, int h)
     updateSize();
 }
 
+void UIObject::redrawLayer(UILayer& l)
+{
+    invalidateLayer(&l);
+    redrawInnerArea();
+}
+
 void UIObject::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
 {
 }
@@ -172,7 +194,7 @@ void UIObject::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 t_pd_err UIObject::notify(t_symbol* /*attr_name*/, t_symbol* msg)
 {
     if (msg == s_attr_modified) {
-        redrawBGLayer();
+        redrawLayer(bg_layer_);
     }
 
     return 0;
@@ -681,7 +703,7 @@ void UIObject::unbindFrom(t_symbol* s)
 
 void UIObject::unbindAll()
 {
-    BOOST_FOREACH (t_symbol* s, binded_signals_) {
+    for (t_symbol* s : binded_signals_) {
         pd_unbind(asPd(), s);
     }
 }
