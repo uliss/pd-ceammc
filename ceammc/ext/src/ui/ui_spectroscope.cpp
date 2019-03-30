@@ -410,7 +410,7 @@ void UISpectroscope::updateFFT()
     if (t > prop_refresh) {
         last_redraw_time_ = clock_getlogicaltime();
         graph_layer_.invalidate();
-        redraw();
+        redrawInnerArea();
     }
 }
 
