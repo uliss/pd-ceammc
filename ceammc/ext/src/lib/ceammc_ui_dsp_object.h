@@ -89,8 +89,11 @@ public:
 
     // appearence
     void paint(t_object* view);
+
     void redraw();
+    void redrawInnerArea();
     void redrawBGLayer();
+
     void updateSize();
     void resize(int w, int h);
     t_pd_err notify(t_symbol* attr_name, t_symbol* msg);

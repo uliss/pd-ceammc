@@ -146,7 +146,7 @@ void UINumberTilde::updateTextValue()
 
         last_redraw_time_ = clock_getlogicaltime();
         text_layer_.invalidate();
-        redraw();
+        redrawInnerArea();
     }
 }
 

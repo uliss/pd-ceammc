@@ -158,6 +158,11 @@ void UIDspObject::redraw()
     ebox_redraw(asEBox());
 }
 
+void UIDspObject::redrawInnerArea()
+{
+    ebox_redraw_inner(asEBox());
+}
+
 void UIDspObject::redrawBGLayer()
 {
     bg_layer_.invalidate();
