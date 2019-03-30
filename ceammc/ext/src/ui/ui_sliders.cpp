@@ -132,7 +132,7 @@ void UISliders::paintSliders()
             w = v * r.width;
             h = r.height / N - 1;
         } else {
-            y = (1 - v) * (r.height - 1);
+            y = (1 - v) * (r.height);
             x = i * r.width / N;
             h = r.height - 1;
             w = r.width / N - 1;
@@ -199,7 +199,7 @@ void UISliders::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
 
     pos_values_[idx] = val;
     outputList();
-    redrawLayer(sliders_layer_);
+    redrawAll();
 }
 
 void UISliders::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
@@ -294,7 +294,7 @@ bool UISliders::setRealValues(const AtomList& l)
         setRealValueAt(i, f);
     }
 
-    redrawLayer(sliders_layer_);
+    redrawAll();
     return true;
 }
 
@@ -307,7 +307,7 @@ void UISliders::setPropCount(float f)
 {
     prop_count = clip<int>(f, 1, MAX_SLIDERS_NUM);
     pos_values_.resize(prop_count, prop_min);
-    redrawLayer(sliders_layer_);
+    redrawAll();
 }
 
 float UISliders::propAutoRange() const
@@ -392,7 +392,7 @@ void UISliders::m_set(const AtomList& l)
             }
 
             setRealValueAt(idx, v);
-            redrawLayer(sliders_layer_);
+            redrawAll();
         } else {
             UI_ERR << "usage: set slider INDEX VALUE";
             return;
@@ -405,7 +405,7 @@ void UISliders::m_set(const AtomList& l)
 void UISliders::m_select(const AtomList& l)
 {
     select_idx_ = l.floatAt(0, -1);
-    redrawLayer(sliders_layer_);
+    redrawAll();
 }
 
 void UISliders::m_plus(t_float f)

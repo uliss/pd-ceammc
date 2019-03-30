@@ -51,6 +51,7 @@ protected:
     void appendToLayerList(UILayer* l);
     void prependToLayerList(UILayer* l);
     void invalidateLayer(UILayer* l);
+    void invalidateBox();
 
 public:
     t_rgba prop_color_background;

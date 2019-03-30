@@ -70,6 +70,12 @@ void UIObject::invalidateLayer(UILayer* l)
     }
 }
 
+void UIObject::invalidateBox()
+{
+    ebox_invalidate_layer(asEBox(), s_eboxbd);
+    ebox_invalidate_layer(asEBox(), s_eboxio);
+}
+
 t_ebox* UIObject::asEBox() const { return const_cast<UIObject*>(this); }
 
 t_object* UIObject::asPdObject() const
