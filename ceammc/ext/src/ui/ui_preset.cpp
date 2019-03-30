@@ -130,14 +130,14 @@ void UIPreset::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
 
     if (mouse_over_index_ != index) {
         mouse_over_index_ = index;
-        redrawBGLayer();
+        redrawLayer(bg_layer_);
     }
 }
 
 void UIPreset::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
 {
     mouse_over_index_ = -1;
-    redrawBGLayer();
+    redrawLayer(bg_layer_);
 }
 
 int UIPreset::buttonIndexAt(float x, float y) const
@@ -154,7 +154,7 @@ void UIPreset::m_read(const AtomList& lst)
 {
     if (PresetStorage::instance().read(canvas(), to_string(lst))) {
         selected_index_ = -1;
-        redrawBGLayer();
+        redrawLayer(bg_layer_);
     }
 }
 
@@ -223,7 +223,7 @@ void UIPreset::indexAdd(const AtomList& lst)
         }
 
         presets_.set(idx, true);
-        redrawBGLayer();
+        redrawLayer(bg_layer_);
     }
 }
 
@@ -238,7 +238,7 @@ void UIPreset::indexRemove(const AtomList& lst)
         }
 
         presets_.set(idx, false);
-        redrawBGLayer();
+        redrawLayer(bg_layer_);
     }
 }
 
@@ -259,7 +259,7 @@ void UIPreset::loadIndex(size_t idx)
     if (presets_.test(idx)) {
         selected_index_ = idx;
         PresetStorage::instance().loadAll(idx);
-        redrawBGLayer();
+        redrawLayer(bg_layer_);
     }
 }
 
@@ -288,7 +288,7 @@ void UIPreset::clearIndex(size_t idx)
 
         PresetStorage::instance().clearAll(idx);
         presets_.set(idx, false);
-        redrawBGLayer();
+        redrawLayer(bg_layer_);
     }
 }
 
