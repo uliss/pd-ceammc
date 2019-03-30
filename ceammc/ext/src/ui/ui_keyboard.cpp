@@ -176,6 +176,7 @@ UIKeyboard::UIKeyboard()
     , prop_color_active_(rgba_black)
     , key_layer_(asEBox(), gensym("keys_layer"))
 {
+    pushToLayerStack(&key_layer_);
     createOutlet();
 }
 
@@ -198,6 +199,21 @@ void UIKeyboard::paint(t_object* view)
 
 void UIKeyboard::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
 {
+    // release all notes
+    if (modifiers & EMOD_ALT) {
+        // release sustained
+        for (int k : sustained_keys_) {
+            listTo(0, AtomList(shift_ + k, 0.f));
+        }
+
+        sustained_keys_.clear();
+        velocity_ = 0;
+        current_key_ = -1;
+
+        redrawLayer(key_layer_);
+        return;
+    }
+
     // calc velocity
     velocity_ = std::min<int>(127, int(pt.y / height() * 100.f) + 27);
     mouse_pressed_ = true;
@@ -222,8 +238,7 @@ void UIKeyboard::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
         output();
     }
 
-    key_layer_.invalidate();
-    redrawInnerArea();
+    redrawLayer(key_layer_);
 }
 
 void UIKeyboard::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
@@ -236,8 +251,7 @@ void UIKeyboard::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
     output();
     current_key_ = -1;
 
-    key_layer_.invalidate();
-    redrawInnerArea();
+    redrawLayer(key_layer_);
 }
 
 void UIKeyboard::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
@@ -250,8 +264,7 @@ void UIKeyboard::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
     current_key_ = -1;
     mouse_pressed_ = false;
 
-    key_layer_.invalidate();
-    redrawInnerArea();
+    redrawLayer(key_layer_);
 }
 
 void UIKeyboard::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
@@ -273,8 +286,7 @@ void UIKeyboard::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
         current_key_ = new_pitch;
         output();
 
-        key_layer_.invalidate();
-        redrawInnerArea();
+        redrawLayer(key_layer_);
     }
 }
 
@@ -312,17 +324,6 @@ int UIKeyboard::findPressedKey(const t_pt& pt) const
         return keys_ - 1;
 
     return res;
-}
-
-t_pd_err UIKeyboard::notify(t_symbol* attr_name, t_symbol* msg)
-{
-    if (attr_name == s_attr_modified) {
-        key_layer_.invalidate();
-        bg_layer_.invalidate();
-        redraw();
-    }
-
-    return 0;
 }
 
 void UIKeyboard::setup()

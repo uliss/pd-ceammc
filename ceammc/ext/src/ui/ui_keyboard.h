@@ -31,8 +31,6 @@ public:
 
     int findPressedKey(const t_pt& pt) const;
 
-    t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
-
 public:
     static void setup();
 
