@@ -48,6 +48,18 @@ UISliders::UISliders()
     createOutlet();
 }
 
+void UISliders::init(t_symbol* name, const AtomList& args, bool usePresets)
+{
+    UIObject::init(name, args, usePresets);
+
+    int n = args.intAt(0, -1);
+
+    if (n > 0) {
+        prop_count = clip<int>(n, 2, MAX_SLIDERS_NUM);
+        pos_values_.resize(prop_count, 0);
+    }
+}
+
 void UISliders::okSize(t_rect* newrect)
 {
     is_vertical_ = newrect->width < newrect->height;
@@ -183,7 +195,7 @@ void UISliders::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
     t_canvas* c = reinterpret_cast<t_canvas*>(view);
     if (c->gl_edit)
-        resize(height(), width());
+        resize(height() / zoom(), width() / zoom());
 }
 
 void UISliders::m_get(const AtomList& l)
