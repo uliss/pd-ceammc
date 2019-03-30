@@ -55,7 +55,7 @@ void UISliders::init(t_symbol* name, const AtomList& args, bool usePresets)
     int n = args.intAt(0, -1);
 
     if (n > 0) {
-        prop_count = clip<int>(n, 2, MAX_SLIDERS_NUM);
+        prop_count = clip<int>(n, 1, MAX_SLIDERS_NUM);
         pos_values_.resize(prop_count, 0);
     }
 }

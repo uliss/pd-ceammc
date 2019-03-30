@@ -21,6 +21,10 @@
         <info>
             <par>Double click in edit mode changes multislider orientation</par>
         </info>
+        <arguments>
+            <argument name="N" type="float" minvalue="1" maxvalue="1024">number of
+            sliders</argument>
+        </arguments>
         <properties>
             <property name="@count" type="int" default="8" minvalue="1" maxvalue="1024">number of
             sliders</property>
