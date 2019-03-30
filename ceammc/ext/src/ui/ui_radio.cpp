@@ -350,7 +350,7 @@ void UIRadio::drawItems()
         }
     } else {
         const int knob_offset = std::max((static_cast<int>(roundf(cell_size * 0.16f)) / 2) * 2, 2);
-        const int knob_size = cell_size - knob_offset * 2;
+        const int knob_size = cell_size - knob_offset * 2 - 1;
         const float cell_offset = (cell_size - knob_size) / 2;
 
         if (isVertical()) {
@@ -398,13 +398,13 @@ void UIRadio::redrawAll()
 {
     bg_layer_.invalidate();
     items_layer_.invalidate();
-    redraw();
+    redrawInnerArea();
 }
 
 void UIRadio::redrawItems()
 {
     items_layer_.invalidate();
-    redraw();
+    redrawInnerArea();
 }
 
 t_pd_err UIRadio::notify(t_symbol* attr_name, t_symbol* msg)
