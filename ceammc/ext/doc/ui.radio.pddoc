@@ -15,9 +15,14 @@
             <also>
                 <see view="link">ui.matrix</see>
             </also>
+            <aliases>
+                <alias view="link">ui.hrd</alias>
+                <alias view="link">ui.vrd</alias>
+            </aliases>
         </meta>
         <info>
             <par>Double click in edit mode changes slider orientation</par>
+            <par>[ui.hrd] alias for horizontal radio, [ui.vrd] alias for vertical radio</par>
         </info>
         <properties>
             <property name="@nitems" type="int" default="8" minvalue="2" maxvalue="128">number of
