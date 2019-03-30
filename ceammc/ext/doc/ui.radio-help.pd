@@ -29,116 +29,123 @@ for vertical radio;
 #X msg 232 279 next;
 #X obj 50 322 ui.radio @size 127 15;
 #X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 364 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 364 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 369 @nitems;
-#X text 240 369 Get/Set number of items. Type: int. Default value: 8\.
+#X text 120 369 1\.;
+#X text 150 369 float;
+#X obj 241 370 cnv 1 57 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 240 369 NCELLS: number of cells. Range: 2\...128;
+#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 402 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 120 407 @nitems;
+#X text 240 407 Get/Set number of items. Type: int. Default value: 8\.
 Value range: 2-128;
-#X msg 120 406 @mode;
-#X text 240 406 Get/Set check list mode. If true acts as checklist.
+#X msg 120 444 @mode;
+#X text 240 444 Get/Set check list mode. If true acts as checklist.
 Type: int. Default value: 0\. Allowed values: 0 \, 1;
-#X msg 120 443 @value;
-#X text 240 443 Get/Set widget value (float or list). Type: list;
-#X msg 120 470 @presetname;
-#X text 240 470 Get/Set preset name for using with [ui.preset]. Type:
+#X msg 120 481 @value;
+#X text 240 481 Get/Set widget value (float or list). Type: list;
+#X msg 120 508 @presetname;
+#X text 240 508 Get/Set preset name for using with [ui.preset]. Type:
 symbol;
-#X msg 120 507 @send;
-#X text 240 507 Get/Set send destination. Type: symbol;
-#X msg 120 534 @receive;
-#X text 240 534 Get/Set receive source. Type: symbol;
-#X msg 120 561 @size;
-#X text 240 561 Get/Set element size (width \, height pair). Type:
+#X msg 120 545 @send;
+#X text 240 545 Get/Set send destination. Type: symbol;
+#X msg 120 572 @receive;
+#X text 240 572 Get/Set receive source. Type: symbol;
+#X msg 120 599 @size;
+#X text 240 599 Get/Set element size (width \, height pair). Type:
 list;
-#X msg 120 588 @pinned;
-#X text 240 588 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 120 626 @pinned;
+#X text 240 626 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1;
-#X msg 120 625 @active_color;
-#X text 240 625 Get/Set active color (list of red \, green \, blue
+#X msg 120 663 @active_color;
+#X text 240 663 Get/Set active color (list of red \, green \, blue
 values in 0-1 range). Type: list;
-#X msg 120 662 @background_color;
-#X text 240 662 Get/Set element background color (list of red \, green
+#X msg 120 700 @background_color;
+#X text 240 700 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list;
-#X msg 120 699 @border_color;
-#X text 240 699 Get/Set border color (list of red \, green \, blue
+#X msg 120 737 @border_color;
+#X text 240 737 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list;
-#X msg 120 736 @fontsize;
-#X text 240 736 Get/Set fontsize. Type: int. Default value: 11\. Value
+#X msg 120 774 @fontsize;
+#X text 240 774 Get/Set fontsize. Type: int. Default value: 11\. Value
 range: 4-11;
-#X msg 120 773 @fontname;
-#X text 240 773 Get/Set fontname. Type: symbol;
-#X msg 120 800 @fontweight;
-#X text 240 800 Get/Set font weight. Type: symbol. Default value:
+#X msg 120 811 @fontname;
+#X text 240 811 Get/Set fontname. Type: symbol;
+#X msg 120 838 @fontweight;
+#X text 240 838 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold;
-#X msg 120 837 @fontslant;
-#X text 240 837 Get/Set font slant. Type: symbol. Default value:
+#X msg 120 875 @fontslant;
+#X text 240 875 Get/Set font slant. Type: symbol. Default value:
 roman. Allowed values: roman \, italic;
-#X obj 20 884 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 889 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 922 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 927 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 894 set;
-#X text 240 894 sets radio without output. Arguments are:;
-#X obj 250 922 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 922 V: new value. Type: float.;
-#X msg 120 950 reset;
-#X text 240 950 reset radio (only in checklist mode).;
-#X msg 120 982 flip;
-#X text 240 982 flips radio (only in checklist mode).;
-#X msg 120 1014 next;
-#X text 240 1014 moves to next position until last cell is reached
+#X msg 120 932 set;
+#X text 240 932 sets radio without output. Arguments are:;
+#X obj 250 960 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 960 V: new value. Type: float.;
+#X msg 120 988 reset;
+#X text 240 988 reset radio (only in checklist mode).;
+#X msg 120 1020 flip;
+#X text 240 1020 flips radio (only in checklist mode).;
+#X msg 120 1052 next;
+#X text 240 1052 moves to next position until last cell is reached
 (single mode only).;
-#X msg 120 1056 prev;
-#X text 240 1056 moves to previous position until first cell is
+#X msg 120 1094 prev;
+#X text 240 1094 moves to previous position until first cell is
 reached (single mode only).;
-#X msg 120 1098 + STEP;
-#X text 240 1098 moves several steps forward on a loop (single mode
+#X msg 120 1136 + STEP;
+#X text 240 1136 moves several steps forward on a loop (single mode
 only).;
-#X msg 120 1130 - STEP;
-#X text 240 1130 moves several step backwards on a loop (single mode
+#X msg 120 1168 - STEP;
+#X text 240 1168 moves several step backwards on a loop (single mode
 only).;
-#X msg 120 1162 load;
-#X text 240 1162 loads specified preset. Arguments are:;
-#X obj 250 1190 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1190 IDX: preset index. Type: int.;
-#X msg 120 1218 store;
-#X text 240 1218 stores specified preset. Arguments are:;
-#X obj 250 1246 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1246 IDX: preset index. Type: int.;
-#X msg 120 1274 clear;
-#X text 240 1274 clears specified preset. Arguments are:;
-#X obj 250 1302 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1302 IDX: preset index. Type: int.;
-#X msg 120 1330 pos;
-#X text 240 1330 set UI element position. Arguments are:;
-#X obj 250 1358 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1358 X: top left x-coord. Type: float.;
-#X obj 250 1386 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1386 Y: top right y-coord. Type: float.;
-#X obj 20 1424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1429 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 120 1200 load;
+#X text 240 1200 loads specified preset. Arguments are:;
+#X obj 250 1228 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1228 IDX: preset index. Type: int.;
+#X msg 120 1256 store;
+#X text 240 1256 stores specified preset. Arguments are:;
+#X obj 250 1284 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1284 IDX: preset index. Type: int.;
+#X msg 120 1312 clear;
+#X text 240 1312 clears specified preset. Arguments are:;
+#X obj 250 1340 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1340 IDX: preset index. Type: int.;
+#X msg 120 1368 pos;
+#X text 240 1368 set UI element position. Arguments are:;
+#X obj 250 1396 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1396 X: top left x-coord. Type: float.;
+#X obj 250 1424 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 250 1424 Y: top right y-coord. Type: float.;
+#X obj 20 1462 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1467 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 1434 1\.;
-#X text 150 1434 *bang*;
-#X text 240 1434 outputs current radio state.;
-#X text 150 1452 *float*;
-#X text 240 1452 set radio and output.;
-#X text 150 1470 *list*;
-#X text 240 1470 set radio and output (only in checklist mode).;
-#X obj 20 1498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1503 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 120 1472 1\.;
+#X text 150 1472 *bang*;
+#X text 240 1472 outputs current radio state.;
+#X text 150 1490 *float*;
+#X text 240 1490 set radio and output.;
+#X text 150 1508 *list*;
+#X text 240 1508 set radio and output (only in checklist mode).;
+#X obj 20 1536 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1541 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 1508 1\.;
-#X text 240 1508 output value;
+#X text 120 1546 1\.;
+#X text 240 1546 output value;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1556 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1559 library: ceammc v0.7;
-#X text 616 1571 see also:;
-#X obj 692 1574 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1594 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1597 library: ceammc v0.7;
+#X text 616 1609 see also:;
+#X obj 692 1612 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.matrix] @url ui.matrix-help.pd;
-#N canvas 10 1578 400 290 info 0;
+#N canvas 10 1616 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -162,7 +169,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1578 pd info;
+#X restore 10 1616 pd info;
 #X connect 9 0 14 0;
 #X connect 10 0 14 0;
 #X connect 11 0 15 0;
