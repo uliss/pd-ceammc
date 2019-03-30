@@ -20,6 +20,8 @@
         <info>
             <par>Simple knob widget with default range 0-1.</par>
             <par>Leftmost position outputs @min property value, rightmost - @max</par>
+            <par>DblClick set knob to the middle position</par>
+            <par>Shift+DblClick switch knob to bind MIDI mode</par>
         </info>
         <properties>
             <property name="@min" type="float" default="0">minimum knob value</property>
