@@ -43,11 +43,11 @@ void UIMenu::init(t_symbol* name, const AtomList& args, bool usePresets)
 
 void UIMenu::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, ebox_fontwidth(asEBox()) * 3 + 8);
-    newrect->height = fontSizeZoomed() + 5;
+    newrect->width = pd_clip_min(newrect->width, ebox_fontwidth(asEBox()) * 3 / zoom() + 8);
+    newrect->height = fontSize() + 5;
 
 #ifdef __WIN32
-    newrect->height += 4 * zoom();
+    newrect->height += 4;
 #endif
 
     item_height_ = close_height_ = newrect->height;
@@ -70,7 +70,7 @@ void UIMenu::paint(t_object* view)
         p.setColor(prop_color_border);
 
         for (size_t i = 0; i < items_.size(); i++) {
-            float y = item_height_ * (i + 1);
+            float y = itemHeightZoomed() * (i + 1);
             p.drawLine(-1, y, r.width + 1, y);
         }
 
@@ -82,28 +82,28 @@ void UIMenu::paint(t_object* view)
             // fill current item
             if (i == current_idx_ || i == hover_idx_) {
                 p.setColor(i == hover_idx_ ? prop_color_active : current_color);
-                p.drawRect(0, item_height_ * (i + 1), r.width, item_height_);
+                p.drawRect(0, itemHeightZoomed() * (i + 1), r.width, itemHeightZoomed());
                 p.fill();
             }
 
             const std::string& lbl = labels_[i];
             TextPtr& ptxt = layouts_[i];
-            ptxt->set(lbl.c_str(), 3, item_height_ * (i + 1.5), 0, 0);
+            ptxt->set(lbl.c_str(), 3, itemHeightZoomed() * (i + 1.5), 0, 0);
 
             p.drawText(*ptxt);
         }
 
         // draw separator
-        const float x = r.width - item_height_;
+        const float x = r.width - itemHeightZoomed();
         p.setColor(prop_color_border);
         p.setLineWidth(1);
-        p.drawLine(x, -1, x, item_height_);
+        p.drawLine(x, -1, x, itemHeightZoomed());
 
         // draw knob
-        p.moveTo(x + item_height_ * 0.25, item_height_ * 0.75);
-        p.drawLineTo(x + item_height_ * 0.75, item_height_ * 0.75);
-        p.drawLineTo(x + item_height_ * 0.5, item_height_ * 0.25);
-        p.drawLineTo(x + item_height_ * 0.25, item_height_ * 0.75);
+        p.moveTo(x + itemHeightZoomed() * 0.25, itemHeightZoomed() * 0.75);
+        p.drawLineTo(x + itemHeightZoomed() * 0.75, itemHeightZoomed() * 0.75);
+        p.drawLineTo(x + itemHeightZoomed() * 0.5, itemHeightZoomed() * 0.25);
+        p.drawLineTo(x + itemHeightZoomed() * 0.25, itemHeightZoomed() * 0.75);
         p.fill();
 
     } else {
@@ -121,11 +121,6 @@ void UIMenu::paint(t_object* view)
         }
 
         const float x = r.width - r.height;
-        // fill knob
-        p.setColor(prop_color_background);
-        p.drawRect(x + 1, 0, r.height, r.height);
-        p.fill();
-
         // draw separator
         p.setColor(prop_color_border);
         p.setLineWidth(1);
@@ -466,10 +461,10 @@ int UIMenu::findIndex(int y)
     if (!is_open_)
         return -1;
 
-    if (y <= item_height_ || y > height())
+    if (y <= itemHeightZoomed() || y > height())
         return -1;
 
-    int res = int(y / item_height_) - 1;
+    int res = int(y / itemHeightZoomed()) - 1;
     if (res >= items_.size())
         return -1;
 
@@ -519,7 +514,7 @@ void UIMenu::setOpen(bool v)
 
 void UIMenu::adjustSize()
 {
-    resize(width(), height());
+    resize(width() / zoom(), height() / zoom());
 }
 
 void UIMenu::setup()

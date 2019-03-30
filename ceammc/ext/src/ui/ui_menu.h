@@ -39,6 +39,7 @@ private:
     int item_height_;
     int current_idx_;
     int hover_idx_;
+    int itemHeightZoomed() const { return item_height_ * zoom(); }
 
 public:
     UIMenu();
