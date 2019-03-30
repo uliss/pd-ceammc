@@ -32,8 +32,18 @@ void UIRadio::init(t_symbol* name, const AtomList& args, bool usePresets)
         std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
 
     int n = args.intAt(0, -1);
-    if (n > 0)
+    if (n > 0) {
         prop_nitems_ = clip<int>(n, 2, MAX_ITEMS);
+        const int dim1 = 15;
+        const int dim2 = ((dim1 + 1) * prop_nitems_) - 1;
+        if (isVertical()) {
+            asEBox()->b_rect.width = dim1;
+            asEBox()->b_rect.height = dim2;
+        } else {
+            asEBox()->b_rect.width = dim2;
+            asEBox()->b_rect.height = dim1;
+        }
+    }
 }
 
 int UIRadio::singleValue() const
