@@ -176,7 +176,7 @@ UIKeyboard::UIKeyboard()
     , prop_color_active_(rgba_black)
     , key_layer_(asEBox(), gensym("keys_layer"))
 {
-    pushToLayerStack(&key_layer_);
+    appendToLayerList(&key_layer_);
     createOutlet();
 }
 

@@ -41,10 +41,12 @@ private:
 public:
     UISliders();
 
+    void init(t_symbol* name, const AtomList& args, bool usePresets);
+
     void okSize(t_rect* newrect);
     t_pd_err notify(t_symbol* attrname, t_symbol* msg);
     void paint(t_object* view);
-    void paintBackground();
+    void paintLabels();
     void paintSliders();
 
     void onBang();
@@ -94,7 +96,6 @@ public:
     static void setup();
 
 private:
-    void redrawSliders();
     void redrawAll();
 };
 

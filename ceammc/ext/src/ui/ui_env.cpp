@@ -44,8 +44,8 @@ UIEnv::UIEnv()
     cursor_txt_pos_.setWidth(100);
     cursor_txt_pos_.setY(FONT_SIZE_SMALL);
 
-    pushToLayerStack(&envelope_layer_);
-    pushToLayerStack(&cursor_layer_);
+    appendToLayerList(&envelope_layer_);
+    appendToLayerList(&cursor_layer_);
 
     createOutlet();
     env_.setADSR(40 * 1000, 60 * 1000, 0.3, 400 * 1000);

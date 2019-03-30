@@ -45,6 +45,7 @@ UISliders::UISliders()
     , c_min()
     , c_max()
 {
+    prependToLayerList(&sliders_layer_);
     createOutlet();
 }
 
@@ -70,11 +71,11 @@ void UISliders::okSize(t_rect* newrect)
 
 void UISliders::paint(t_object* view)
 {
-    paintBackground();
     paintSliders();
+    paintLabels();
 }
 
-void UISliders::paintBackground()
+void UISliders::paintLabels()
 {
     const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
@@ -87,8 +88,23 @@ void UISliders::paintBackground()
         const float xoff = 3 * z;
         const float yoff = 3 * z;
 
-        txt_min_.set(c_min, xoff, r.height - yoff, r.width * 2, r.height / 2);
-        txt_max_.set(c_max, xoff, yoff, r.width * 2, r.height / 2);
+        if (is_vertical_) {
+            txt_min_.setAnchor(ETEXT_UP_LEFT);
+            txt_min_.setJustify(ETEXT_JLEFT);
+            txt_min_.set(c_min, xoff, yoff, r.width * 2, r.height / 2);
+
+            txt_max_.setAnchor(ETEXT_UP_RIGHT);
+            txt_max_.setJustify(ETEXT_JRIGHT);
+            txt_max_.set(c_max, r.width - xoff, yoff, r.width * 2, r.height / 2);
+        } else {
+            txt_min_.setAnchor(ETEXT_DOWN_LEFT);
+            txt_min_.setJustify(ETEXT_JLEFT);
+            txt_min_.set(c_min, xoff, r.height - yoff, r.width * 2, r.height / 2);
+
+            txt_max_.setAnchor(ETEXT_UP_LEFT);
+            txt_max_.setJustify(ETEXT_JLEFT);
+            txt_max_.set(c_max, xoff, yoff, r.width * 2, r.height / 2);
+        }
 
         p.drawText(txt_min_);
         p.drawText(txt_max_);
@@ -116,9 +132,9 @@ void UISliders::paintSliders()
             w = v * r.width;
             h = r.height / N - 1;
         } else {
-            y = r.height - v * r.height;
+            y = (1 - v) * (r.height - 1);
             x = i * r.width / N;
-            h = r.height;
+            h = r.height - 1;
             w = r.width / N - 1;
         }
 
@@ -183,7 +199,7 @@ void UISliders::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
 
     pos_values_[idx] = val;
     outputList();
-    redrawSliders();
+    redrawLayer(sliders_layer_);
 }
 
 void UISliders::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
@@ -278,7 +294,7 @@ bool UISliders::setRealValues(const AtomList& l)
         setRealValueAt(i, f);
     }
 
-    redrawSliders();
+    redrawLayer(sliders_layer_);
     return true;
 }
 
@@ -291,7 +307,7 @@ void UISliders::setPropCount(float f)
 {
     prop_count = clip<int>(f, 1, MAX_SLIDERS_NUM);
     pos_values_.resize(prop_count, prop_min);
-    redrawSliders();
+    redrawLayer(sliders_layer_);
 }
 
 float UISliders::propAutoRange() const
@@ -320,12 +336,6 @@ void UISliders::generateTxtLabels()
 {
     snprintf(c_min, 15, "%g", prop_min);
     snprintf(c_max, 15, "%g", prop_max);
-}
-
-void UISliders::redrawSliders()
-{
-    sliders_layer_.invalidate();
-    redraw();
 }
 
 void UISliders::redrawAll()
@@ -382,7 +392,7 @@ void UISliders::m_set(const AtomList& l)
             }
 
             setRealValueAt(idx, v);
-            redrawSliders();
+            redrawLayer(sliders_layer_);
         } else {
             UI_ERR << "usage: set slider INDEX VALUE";
             return;
@@ -395,7 +405,7 @@ void UISliders::m_set(const AtomList& l)
 void UISliders::m_select(const AtomList& l)
 {
     select_idx_ = l.floatAt(0, -1);
-    redrawSliders();
+    redrawLayer(sliders_layer_);
 }
 
 void UISliders::m_plus(t_float f)

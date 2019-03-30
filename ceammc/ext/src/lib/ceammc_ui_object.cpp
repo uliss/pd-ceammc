@@ -36,7 +36,7 @@ UIObject::UIObject()
     , prop_color_background(rgba_white)
     , prop_color_border(rgba_black)
 {
-    pushToLayerStack(&bg_layer_);
+    appendToLayerList(&bg_layer_);
 }
 
 UIObject::~UIObject()
@@ -48,9 +48,14 @@ UIObject::~UIObject()
     unbindAll();
 }
 
-void UIObject::pushToLayerStack(UILayer* l)
+void UIObject::appendToLayerList(UILayer* l)
 {
     layer_stack_.push_back(l);
+}
+
+void UIObject::prependToLayerList(UILayer* l)
+{
+    layer_stack_.insert(layer_stack_.begin(), l);
 }
 
 void UIObject::invalidateLayer(UILayer* l)

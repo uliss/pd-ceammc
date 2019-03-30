@@ -48,7 +48,8 @@ class UIObject : t_ebox {
 
 protected:
     UILayer bg_layer_;
-    void pushToLayerStack(UILayer* l);
+    void appendToLayerList(UILayer* l);
+    void prependToLayerList(UILayer* l);
     void invalidateLayer(UILayer* l);
 
 public:
