@@ -172,7 +172,7 @@ void UIGain::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
     t_canvas* c = reinterpret_cast<t_canvas*>(view);
     if (c->gl_edit) {
-        resize(height(), width());
+        resize(height() / zoom(), width() / zoom());
         updateLabels();
         redrawBGLayer();
     }
