@@ -9,7 +9,7 @@
 #X obj 205 80 cnv 1 560 70 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 210 80 Piano keyboard widget;
 #X text 210 103 Shift+click allows multiple selection. Alt+Click
-removes release sustained notes.;
+release sustained notes;
 #X msg 50 178 dump;
 #X obj 50 207 ui.keyboard @size 433 60;
 #X obj 50 279 unpack f f;
