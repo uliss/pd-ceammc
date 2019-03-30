@@ -21,6 +21,8 @@ class UIRadio : public UIObject {
 public:
     UIRadio();
 
+    void init(t_symbol* name, const AtomList& args, bool usePresets);
+
     int singleValue() const;
     void setSingleValue(int idx);
     AtomList listValue() const;

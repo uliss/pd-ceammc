@@ -24,6 +24,18 @@ UIRadio::UIRadio()
     createOutlet();
 }
 
+void UIRadio::init(t_symbol* name, const AtomList& args, bool usePresets)
+{
+    UIObject::init(name, args, usePresets);
+
+    if (name == gensym("ui.vrd"))
+        std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+
+    int n = args.intAt(0, -1);
+    if (n > 0)
+        prop_nitems_ = clip<int>(n, 2, MAX_ITEMS);
+}
+
 int UIRadio::singleValue() const
 {
     return idx_;
@@ -86,7 +98,7 @@ void UIRadio::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
     t_canvas* c = reinterpret_cast<t_canvas*>(view);
     if (c->gl_edit)
-        resize(height(), width());
+        resize(height() / zoom(), width() / zoom());
     else
         onMouseDown(view, pt, modifiers);
 }
@@ -289,15 +301,15 @@ void UIRadio::drawBackground()
     p.setColor(prop_color_border);
 
     if (isVertical()) {
-        const int cell_size = r.width + 1;
+        const int cell_size = r.width + zoom();
         for (int i = 1; i < prop_nitems_; i++) {
-            int y = i * cell_size - 1;
+            int y = i * cell_size - zoom();
             p.drawLine(-1, y, r.width, y);
         }
     } else {
-        const int cell_size = r.height + 1;
+        const int cell_size = r.height + zoom();
         for (int i = 1; i < prop_nitems_; i++) {
-            int x = i * cell_size - 1;
+            int x = i * cell_size - zoom();
             p.drawLine(x, -1, x, r.height);
         }
     }
@@ -314,13 +326,14 @@ void UIRadio::drawItems()
     p.setColor(prop_color_active);
     const int cell_size = isVertical() ? r.width : r.height;
 
+    // draw crosses
     if (prop_checklist_mode_) {
         p.setLineWidth(2);
 
         if (isVertical()) {
             for (int i = 0; i < prop_nitems_; i++) {
                 if (items_[i]) {
-                    const int offset = i * (cell_size + 1);
+                    const int offset = i * (cell_size + zoom());
 
                     const int x0 = offset + 1;
                     const int y0 = 1;
@@ -335,7 +348,7 @@ void UIRadio::drawItems()
         } else {
             for (int i = 0; i < prop_nitems_; i++) {
                 if (items_[i]) {
-                    const int offset = i * (cell_size + 1);
+                    const int offset = i * (cell_size + zoom());
 
                     const int x0 = offset + 1;
                     const int y0 = 1;
@@ -349,6 +362,7 @@ void UIRadio::drawItems()
             }
         }
     } else {
+        // draw knobs
         const int knob_offset = std::max((static_cast<int>(roundf(cell_size * 0.16f)) / 2) * 2, 2);
         const int knob_size = cell_size - knob_offset * 2 - 1;
         const float cell_offset = (cell_size - knob_size) / 2;
@@ -356,7 +370,7 @@ void UIRadio::drawItems()
         if (isVertical()) {
             for (int i = 0; i < prop_nitems_; i++) {
                 if (i == idx_) {
-                    float y = i * (cell_size + 1) + cell_offset;
+                    float y = i * (cell_size + zoom()) + cell_offset;
                     p.drawRect(cell_offset, y, knob_size, knob_size);
                     p.fill();
                 }
@@ -365,7 +379,7 @@ void UIRadio::drawItems()
         } else {
             for (int i = 0; i < prop_nitems_; i++) {
                 if (i == idx_) {
-                    float x = i * (cell_size + 1) + cell_offset;
+                    float x = i * (cell_size + zoom()) + cell_offset;
                     p.drawRect(x, cell_offset, knob_size, knob_size);
                     p.fill();
                 }
@@ -419,6 +433,9 @@ t_pd_err UIRadio::notify(t_symbol* attr_name, t_symbol* msg)
 void UIRadio::setup()
 {
     UIObjectFactory<UIRadio> obj("ui.radio");
+    obj.addAlias("ui.hrd");
+    obj.addAlias("ui.vrd");
+
     obj.useBang();
     obj.useFloat();
     obj.useList();
