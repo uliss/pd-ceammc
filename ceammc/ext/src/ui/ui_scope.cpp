@@ -146,7 +146,7 @@ void UIScope::dspProcess(t_sample** ins, long, t_sample**, long, long samplefram
         }
 
         size_t idx = roundf(k * window_phase_);
-        if(idx < N) {
+        if (idx < N) {
             data_[idx] = ins[0][i];
         }
     }
@@ -213,7 +213,7 @@ void UIScope::redrawTick()
     if (t >= prop_refresh) {
         last_redraw_time_ = clock_getlogicaltime();
         scope_layer_.invalidate();
-        redraw();
+        redrawInnerArea();
     }
 }
 
