@@ -14,10 +14,15 @@
 #include "g_style.h"
 
 #include <array>
+#include <cstddef>
 #include <cstdint>
 #include <cstdlib>
 #include <cstring>
 #include <inttypes.h>
+
+// assert for equal struct sizes
+static_assert(offsetof(t_ebox, b_layers) == offsetof(t_edspbox, b_layers), "structs should be equal");
+static_assert(offsetof(t_ebox, b_force_redraw) == offsetof(t_edspbox, b_force_redraw), "structs should be equal");
 
 int egraphics_smooth();
 
