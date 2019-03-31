@@ -4,12 +4,12 @@
 #X obj 20 92 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 20 120 metro 200;
 #X msg 20 149 get list;
-#X obj 20 178 ui.matrix @cols 10 @rows 10 @size 100 100;
+#X obj 20 178 ui.matrix @cols 16 @rows 16 @size 101 101;
 #X obj 221 235 loadbang;
-#X msg 221 264 10 10;
+#X msg 221 264 16 16;
 #X obj 20 293 route list;
 #X obj 221 293 matrix.randu;
-#X obj 20 322 msg 10 10;
+#X obj 20 322 msg 16 16;
 #X obj 221 322 matrix.> 0.6;
 #X obj 20 351 matrix.new;
 #X obj 20 379 t a a;

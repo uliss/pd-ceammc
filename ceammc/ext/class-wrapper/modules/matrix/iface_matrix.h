@@ -746,17 +746,17 @@ public:
      * |
      * [get list(
      * |
-     * [ui.matrix @size=100x100 @cols=10 @rows=10 #d]
+     * [ui.matrix @size=101x101 @cols=16 @rows=16 #d]
      * |
      * |
      * |
      * |                    [loadbang]
      * |                    |
-     * |                    [10 10(
+     * |                    [16 16(
      * |                    |
      * [route list]         [matrix.randu]
      * |                    |
-     * [msg 10 10]          [matrix.> 0.6]
+     * [msg 16 16]          [matrix.> 0.6]
      * |                    |
      * [matrix.new        #a]
      * |

@@ -1038,7 +1038,7 @@
                             "type": "Matrix"
                         }
                     ],
-                    "example": "\n[T]\n|\n[metro 200]\n|\n[get list(\n|\n[ui.matrix @size=100x100 @cols=10 @rows=10 #d]\n|\n|\n|\n|                    [loadbang]\n|                    |\n|                    [10 10(\n|                    |\n[route list]         [matrix.randu]\n|                    |\n[msg 10 10]          [matrix.> 0.6]\n|                    |\n[matrix.new        #a]\n|\n[t a a]\n|  ^|\n|  [matrix.conv2 3 3 1 1 1 1 0 1 1 1 1]\n|  |\n|  [t a a         ]\n|  |             ^|\n|  [matrix.== 2] [matrix.== 3]\n|  |.            |\n[matrix.*]       |\n|                |.\n[matrix.+          ]\n|              |\n[matrix->list] [msg set #b]\n|\n[msg set list #c]\n\n[X b->a]\n[X c->d]",
+                    "example": "\n[T]\n|\n[metro 200]\n|\n[get list(\n|\n[ui.matrix @size=101x101 @cols=16 @rows=16 #d]\n|\n|\n|\n|                    [loadbang]\n|                    |\n|                    [16 16(\n|                    |\n[route list]         [matrix.randu]\n|                    |\n[msg 16 16]          [matrix.> 0.6]\n|                    |\n[matrix.new        #a]\n|\n[t a a]\n|  ^|\n|  [matrix.conv2 3 3 1 1 1 1 0 1 1 1 1]\n|  |\n|  [t a a         ]\n|  |             ^|\n|  [matrix.== 2] [matrix.== 3]\n|  |.            |\n[matrix.*]       |\n|                |.\n[matrix.+          ]\n|              |\n[matrix->list] [msg set #b]\n|\n[msg set list #c]\n\n[X b->a]\n[X c->d]",
                     "keywords": [
                         "convolution"
                     ],
