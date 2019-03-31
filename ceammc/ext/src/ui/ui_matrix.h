@@ -76,6 +76,7 @@ public:
 
     void m_flip(const AtomList& lst);
     void m_reset();
+    void m_random();
     void m_get(const AtomList& lst);
     void m_set(const AtomList& lst);
 
@@ -84,6 +85,7 @@ public:
 
     t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
     void onZoom(t_float z);
+    void onPopup(t_symbol* menu_name, long item_idx);
 
 public:
     static void setup();

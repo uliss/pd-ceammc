@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <cassert>
 #include <limits>
+#include <random>
 
 static t_symbol* SYM_CELL = gensym("cell");
 static t_symbol* SYM_ROW = gensym("row");
@@ -487,6 +488,17 @@ void UIMatrix::onList(const AtomList& lst)
 
 void UIMatrix::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
+    if (modifiers == EMOD_RIGHT) {
+        UIPopupMenu menu(asEObj(), "menu", abs_pt);
+        menu.addItem(_("reset"));
+        menu.addItem(_("flip"));
+        menu.addItem(_("random"));
+        menu.addSeparator();
+        menu.addItem(_("load"));
+        menu.addItem(_("save"));
+        return;
+    }
+
     auto c = cellAt(pt);
     mouse_current_col_ = c.first;
     mouse_current_row_ = c.second;
@@ -588,6 +600,20 @@ void UIMatrix::m_reset()
 
     // do after redraw with reset_all_cells_ flag
     matrix_.reset();
+}
+
+void UIMatrix::m_random()
+{
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<int> dist(0, 1);
+
+    for (size_t i = 0; i < matrix_.size(); i++)
+        matrix_.set(i, dist(mt));
+
+    // better to redraw all then allocate memory to update list
+    update_all_cells_ = true;
+    drawActiveCells();
 }
 
 void UIMatrix::m_get(const AtomList& lst)
@@ -697,6 +723,23 @@ void UIMatrix::onZoom(t_float z)
     cells_are_created_ = false;
 }
 
+void UIMatrix::onPopup(t_symbol* menu_name, long item_idx)
+{
+    if (menu_name == gensym("menu")) {
+        switch (item_idx) {
+        case 0:
+            m_reset();
+            break;
+        case 1:
+            m_flip(AtomList());
+            break;
+        case 2:
+            m_random();
+            break;
+        }
+    }
+}
+
 float UIMatrix::p_rows() const
 {
     return prop_rows_;
@@ -759,6 +802,7 @@ void UIMatrix::setup()
 
     obj.addMethod("flip", &UIMatrix::m_flip);
     obj.addMethod("reset", &UIMatrix::m_reset);
+    obj.addMethod("random", &UIMatrix::m_random);
     obj.addMethod("get", &UIMatrix::m_get);
     obj.addMethod("set", &UIMatrix::m_set);
 }
