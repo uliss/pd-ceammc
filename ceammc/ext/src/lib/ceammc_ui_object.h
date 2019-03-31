@@ -100,7 +100,7 @@ public:
     void okSize(t_rect* newrect);
     void setDrawParams(t_object*, t_edrawparams* params);
     void onZoom(t_float z);
-    void onPopup(t_symbol* msg, long itemIdx);
+    void onPopup(t_symbol* menu_name, long itemIdx);
 
     void m_custom(t_symbol* sel, const AtomList& lst);
 

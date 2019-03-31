@@ -231,9 +231,8 @@ void UIObject::onZoom(t_float z)
 {
 }
 
-void UIObject::onPopup(t_symbol* msg, long itemIdx)
+void UIObject::onPopup(t_symbol* menu_name, long itemIdx)
 {
-    UI_DBG << "popup: " << msg << ", idx: " << itemIdx;
 }
 
 void UIObject::m_custom(t_symbol* sel, const AtomList& lst)

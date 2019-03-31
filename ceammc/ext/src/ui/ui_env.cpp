@@ -386,9 +386,9 @@ void UIEnv::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
     } else if (mod & EMOD_RIGHT) {
         // context menu
         UIPopupMenu menu(asEObj(), "adsr_select", abs_pt);
-        menu.addItem("ADSR");
-        menu.addItem("ASR");
-        menu.addItem("AR");
+        menu.addItem("ADSR (10 20 30 500)");
+        menu.addItem("ASR (500 500)");
+        menu.addItem("AR (500 500)");
     }
 
     // find selected node index
@@ -494,6 +494,41 @@ void UIEnv::onDblClick(t_object*, const t_pt& pt, long modifiers)
     }
 
     redrawLayer(cursor_layer_);
+}
+
+void UIEnv::onPopup(t_symbol* msg, long itemIdx)
+{
+    if (msg == gensym("adsr_select")) {
+        switch (itemIdx) {
+        case 0: {
+            AtomList lst;
+            lst.append(10);
+            lst.append(20);
+            lst.append(30);
+            lst.append(500);
+            setNamedEnvelope(SYM_ADSR, lst);
+            break;
+        }
+        case 1: {
+            AtomList lst;
+            lst.append(500);
+            lst.append(500);
+            setNamedEnvelope(SYM_ASR, lst);
+            break;
+        }
+        case 2: {
+            AtomList lst;
+            lst.append(500);
+            lst.append(500);
+            setNamedEnvelope(SYM_AR, lst);
+            break;
+        }
+        default: {
+            UI_ERR << "popup menu inconsistance " << msg << ", index not exists: " << itemIdx;
+            break;
+        }
+        }
+    }
 }
 
 void UIEnv::updateNodes()
