@@ -77,6 +77,7 @@ public:
 
     // CICM and Pd
     t_ebox* asEBox() const;
+    t_eobj* asEObj() const;
     t_edspbox* asDspBox() const;
     t_object* asPdObject() const;
     t_pd* asPd() const;
@@ -113,6 +114,7 @@ public:
     void onMouseEnter(t_object* view, const t_pt& pt, long modifiers);
     void onMouseWheel(t_object* view, const t_pt& pt, long modifiers, double delta);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
+    void onPopup(t_symbol* menu_name, long item_idx);
 
     // input
     void onBang();

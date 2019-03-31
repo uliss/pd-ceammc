@@ -104,6 +104,7 @@ public:
         eclass_addmethod(pd_class, UI_DSP_METHOD_PTR(paint),         "paint",         A_GIMME, 0);
         eclass_addmethod(pd_class, UI_DSP_METHOD_PTR(notify),        "notify",        A_GIMME, 0);
         eclass_addmethod(pd_class, UI_DSP_METHOD_PTR(okSize),        "oksize",        A_GIMME, 0);
+        eclass_addmethod(pd_class, UI_DSP_METHOD_PTR(onPopup),       "popup",         A_GIMME, 0);
         eclass_addmethod(pd_class, UI_DSP_METHOD_PTR(setDrawParams), "getdrawparams", A_NULL,  0);
         // clang-format on
     }
@@ -488,6 +489,11 @@ public:
     static void okSize(UI* z, ::t_rect* newrect)
     {
         z->okSize(newrect);
+    }
+
+    static void onPopup(UI* z, t_symbol* menu_name, long itemIdx)
+    {
+        z->onPopup(menu_name, itemIdx);
     }
 
     static void onBang(UI* z)

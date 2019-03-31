@@ -91,6 +91,11 @@ UIDspObject::~UIDspObject()
 
 t_ebox* UIDspObject::asEBox() const { return reinterpret_cast<t_ebox*>(const_cast<UIDspObject*>(this)); }
 
+t_eobj* UIDspObject::asEObj() const
+{
+    return &const_cast<UIDspObject*>(this)->b_obj;
+}
+
 t_edspbox* UIDspObject::asDspBox() const
 {
     return const_cast<UIDspObject*>(this);
@@ -210,6 +215,10 @@ void UIDspObject::onMouseWheel(t_object* view, const t_pt& pt, long modifiers, d
 }
 
 void UIDspObject::onDblClick(t_object* view, const t_pt& pt, long modifiers)
+{
+}
+
+void UIDspObject::onPopup(t_symbol* menu_name, long item_idx)
 {
 }
 
