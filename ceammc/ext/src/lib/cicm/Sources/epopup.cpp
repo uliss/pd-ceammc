@@ -31,7 +31,7 @@ void epopupmenu_additem(t_epopup* popup, int itemid, const char* text, bool enab
 {
     sys_vgui(".eboxpopup%s add command ", popup->c_name->s_name);
     sys_vgui("-command {pdsend {%s popup %s %d}} ", popup->c_send->s_name, popup->c_name->s_name, itemid);
-    sys_vgui("-label {%s} ", text);
+    sys_vgui("-label [_ {%s} ] ", text);
     if (enabled)
         sys_vgui("-state active\n");
     else
