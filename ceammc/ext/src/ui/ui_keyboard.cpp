@@ -197,20 +197,30 @@ void UIKeyboard::paint(t_object* view)
     drawActive();
 }
 
+void UIKeyboard::releaseAllNotes()
+{
+    for (int k : sustained_keys_) {
+        listTo(0, AtomList(shift_ + k, 0.f));
+    }
+
+    sustained_keys_.clear();
+    velocity_ = 0;
+    current_key_ = -1;
+
+    redrawLayer(key_layer_);
+}
+
 void UIKeyboard::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
+    if (modifiers & EMOD_RIGHT) {
+        UIPopupMenu menu(asEObj(), "popup", abs_pt);
+        menu.addItem(_("release all"));
+        return;
+    }
+
     // release all notes
     if (modifiers & EMOD_ALT) {
-        // release sustained
-        for (int k : sustained_keys_) {
-            listTo(0, AtomList(shift_ + k, 0.f));
-        }
-
-        sustained_keys_.clear();
-        velocity_ = 0;
-        current_key_ = -1;
-
-        redrawLayer(key_layer_);
+        releaseAllNotes();
         return;
     }
 
@@ -287,6 +297,20 @@ void UIKeyboard::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
         output();
 
         redrawLayer(key_layer_);
+    }
+}
+
+void UIKeyboard::onPopup(t_symbol* menu_name, long item_idx)
+{
+    if (menu_name == gensym("popup")) {
+        switch (item_idx) {
+        case 0:
+            releaseAllNotes();
+            break;
+        default:
+            UI_ERR << "popup menu unknown index: " << item_idx;
+            break;
+        }
     }
 }
 

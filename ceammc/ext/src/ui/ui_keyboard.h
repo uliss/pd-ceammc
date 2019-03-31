@@ -28,6 +28,7 @@ public:
     void onMouseMove(t_object* view, const t_pt& pt, long modifiers);
     void onMouseLeave(t_object* view, const t_pt& pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
+    void onPopup(t_symbol* menu_name, long item_idx);
 
     int findPressedKey(const t_pt& pt) const;
 
@@ -39,6 +40,7 @@ private:
     void output();
     void drawBackground();
     void drawActive();
+    void releaseAllNotes();
 };
 
 /**
