@@ -47,7 +47,7 @@ public:
     void onBang();
     void onFloat(t_float f);
 
-    void onMouseDown(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
 
     void m_set(const AtomList& lst);

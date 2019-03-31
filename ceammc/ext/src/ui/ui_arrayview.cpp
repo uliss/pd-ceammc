@@ -57,6 +57,9 @@ UIArrayView::UIArrayView()
     , label_bottom_right_(font_.font(), ColorRGBA::black(), ETEXT_DOWN_RIGHT, ETEXT_JRIGHT, ETEXT_NOWRAP)
 {
     createOutlet();
+
+    appendToLayerList(&wave_layer_);
+    appendToLayerList(&cursor_layer_);
 }
 
 void UIArrayView::paint(t_object* view)
@@ -206,7 +209,7 @@ t_pd_err UIArrayView::notify(t_symbol* attr_name, t_symbol* msg)
     return 0;
 }
 
-void UIArrayView::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIArrayView::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     if (!isValidArray())
         return;

@@ -78,6 +78,11 @@ void UIObject::invalidateBox()
 
 t_ebox* UIObject::asEBox() const { return const_cast<UIObject*>(this); }
 
+t_eobj* UIObject::asEObj() const
+{
+    return &const_cast<UIObject*>(this)->b_obj;
+}
+
 t_object* UIObject::asPdObject() const
 {
     return &(asEBox()->b_obj.o_obj);
@@ -178,7 +183,7 @@ void UIObject::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
 }
 
-void UIObject::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIObject::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
 }
 
@@ -224,6 +229,11 @@ void UIObject::setDrawParams(t_object*, t_edrawparams* params)
 
 void UIObject::onZoom(t_float z)
 {
+}
+
+void UIObject::onPopup(t_symbol* msg, long itemIdx)
+{
+    UI_DBG << "popup: " << msg << ", idx: " << itemIdx;
 }
 
 void UIObject::m_custom(t_symbol* sel, const AtomList& lst)

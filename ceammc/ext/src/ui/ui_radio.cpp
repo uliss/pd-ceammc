@@ -85,7 +85,7 @@ void UIRadio::onList(const AtomList& lst)
     redrawItems();
 }
 
-void UIRadio::onMouseDown(t_object*, const t_pt& pt, long mod)
+void UIRadio::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
 {
     t_rect r = rect();
     const int idx = isVertical() ? (pt.y / r.height * prop_nitems_) : (pt.x / r.width * prop_nitems_);
@@ -110,7 +110,7 @@ void UIRadio::onDblClick(t_object* view, const t_pt& pt, long modifiers)
     if (c->gl_edit)
         resize(height() / zoom(), width() / zoom());
     else
-        onMouseDown(view, pt, modifiers);
+        onMouseDown(view, pt, pt, modifiers);
 }
 
 float UIRadio::p_numItems() const

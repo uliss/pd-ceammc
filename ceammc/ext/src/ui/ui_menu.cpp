@@ -179,7 +179,7 @@ void UIMenu::onAny(t_symbol* s, const AtomList& lst)
     onSymbol(s);
 }
 
-void UIMenu::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIMenu::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     if (is_open_) {
         int idx = findIndex(pt.y);

@@ -249,13 +249,7 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
         TestExtSliders t("ui.sliders");
         REQUIRE_UI_LIST_PROPERTY(t, "size", LF(150, 100));
 
-#define CLICK(t, x0, y0)         \
-    {                            \
-        t_pt p;                  \
-        p.x = x0;                \
-        p.y = y0;                \
-        t->onMouseDown(0, p, 0); \
-    }
+#define CLICK(t, x0, y0) t.mouseDown(x0, y0)
 
         CLICK(t, 10, 50);
         REQUIRE_OUTPUT_LIST(t, 0, LF(0.5) + AtomList::zeroes(7));

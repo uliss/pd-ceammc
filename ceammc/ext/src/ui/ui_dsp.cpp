@@ -47,7 +47,7 @@ void UIDsp::paint(t_object*)
     }
 }
 
-void UIDsp::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIDsp::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     if (canvas_dspstate)
         m_stop(AtomList());

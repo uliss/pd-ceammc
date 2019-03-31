@@ -109,7 +109,7 @@ t_pd_err UILink::notify(t_symbol* attr_name, t_symbol* msg)
     return 0;
 }
 
-void UILink::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UILink::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     t_canvas* c = reinterpret_cast<t_canvas*>(view);
     if (!c) {

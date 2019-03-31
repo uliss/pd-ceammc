@@ -175,7 +175,7 @@ void UIKnob::onMouseDrag(t_object*, const t_pt& pt, long)
     output();
 }
 
-void UIKnob::onMouseDown(t_object*, const t_pt& pt, long)
+void UIKnob::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long)
 {
     click_pos_ = pt;
 }

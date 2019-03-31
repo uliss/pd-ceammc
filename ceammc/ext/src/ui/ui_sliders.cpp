@@ -175,7 +175,7 @@ void UISliders::storePreset(size_t idx)
     PresetStorage::instance().setListValueAt(presetId(), idx, realValues());
 }
 
-void UISliders::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UISliders::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     const t_rect r = rect();
     const size_t N = pos_values_.size();
@@ -204,7 +204,7 @@ void UISliders::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
 
 void UISliders::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
-    onMouseDown(view, pt, modifiers);
+    onMouseDown(view, pt, pt, modifiers);
 }
 
 void UISliders::onDblClick(t_object* view, const t_pt& pt, long modifiers)

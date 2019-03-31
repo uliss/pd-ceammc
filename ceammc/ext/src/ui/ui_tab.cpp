@@ -164,7 +164,7 @@ void UITab::onAny(t_symbol* s, const AtomList& lst)
     onSymbol(s);
 }
 
-void UITab::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UITab::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     const size_t N = items_.size();
     if (!N)

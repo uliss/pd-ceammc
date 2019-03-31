@@ -40,7 +40,6 @@ class UIColorPanel : public UIObject {
     int hover_x_;
     int hover_y_;
 
-
 public:
     UIColorPanel();
 
@@ -51,7 +50,7 @@ public:
     void drawHover();
     void drawPicked();
 
-    void onMouseDown(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseLeave(t_object* view, const t_pt& pt, long modifiers);
     void onMouseMove(t_object* view, const t_pt& pt, long modifiers);
     void onBang();

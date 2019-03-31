@@ -157,7 +157,7 @@ void UISlider2D::onList(const AtomList& lst)
     output();
 }
 
-void UISlider2D::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UISlider2D::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     mouse_down_ = true;
     setMouse(pt.x, pt.y);

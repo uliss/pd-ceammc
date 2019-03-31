@@ -168,7 +168,7 @@ void UIScope::m_scale(t_float f)
     setProperty(gensym("max"), AtomList(-f));
 }
 
-void UIScope::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIScope::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     if (modifiers == EMOD_SHIFT) {
         setProperty(gensym("min"), AtomList(prop_min * 0.8));
@@ -182,7 +182,7 @@ void UIScope::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
 void UIScope::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
     if (modifiers != 0)
-        onMouseDown(view, pt, modifiers);
+        onMouseDown(view, pt, pt, modifiers);
     else
         freeze_ = !freeze_;
 }

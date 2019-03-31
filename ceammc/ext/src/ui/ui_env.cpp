@@ -353,7 +353,7 @@ void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long)
     redrawInnerArea();
 }
 
-void UIEnv::onMouseDown(t_object*, const t_pt& pt, long mod)
+void UIEnv::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
 {
     const float z = zoom();
     const float x_norm = pt.x / z;
@@ -383,6 +383,12 @@ void UIEnv::onMouseDown(t_object*, const t_pt& pt, long mod)
         nodes_.insert(nodes_.begin() + insert_idx, n);
         redrawLayer(cursor_layer_);
         return;
+    } else if (mod & EMOD_RIGHT) {
+        // context menu
+        UIPopupMenu menu(asEObj(), "adsr_select", abs_pt);
+        menu.addItem("ADSR");
+        menu.addItem("ASR");
+        menu.addItem("AR");
     }
 
     // find selected node index

@@ -367,4 +367,37 @@ void UIPainter::raiseOver(UIPainter& painter)
 
     egraphics_raise(layer_, painter.layer());
 }
+
+UIPopupMenu::UIPopupMenu(t_eobj* x, const char* name, const t_pt& pos)
+    : menu_(nullptr)
+    , pos_(pos)
+{
+    menu_ = epopupmenu_create(x, gensym(name));
+}
+
+UIPopupMenu::~UIPopupMenu()
+{
+    int cnt = 0;
+    for (MenuEntry& m : menu_items_) {
+        if (m.first.empty())
+            epopupmenu_addseparator(menu_);
+        else
+            epopupmenu_additem(menu_, cnt++, m.first.c_str(), m.second);
+    }
+
+    epopupmenu_popup(menu_, pos_);
+
+    free(menu_);
+}
+
+void UIPopupMenu::addSeparator()
+{
+    menu_items_.emplace_back("", false);
+}
+
+void UIPopupMenu::addItem(const std::string& name, bool enabled)
+{
+    menu_items_.emplace_back(name, enabled);
+}
+
 }

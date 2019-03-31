@@ -63,6 +63,7 @@ public:
 
     // CICM and Pd
     t_ebox* asEBox() const;
+    t_eobj* asEObj() const;
     t_object* asPdObject() const;
     t_pd* asPd() const;
     t_outlet* createOutlet();
@@ -88,7 +89,7 @@ public:
 
     void onMouseMove(t_object* view, const t_pt& pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
-    void onMouseDown(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseLeave(t_object* view, const t_pt& pt, long modifiers);
     void onMouseEnter(t_object* view, const t_pt& pt, long modifiers);
@@ -99,6 +100,7 @@ public:
     void okSize(t_rect* newrect);
     void setDrawParams(t_object*, t_edrawparams* params);
     void onZoom(t_float z);
+    void onPopup(t_symbol* msg, long itemIdx);
 
     void m_custom(t_symbol* sel, const AtomList& lst);
 

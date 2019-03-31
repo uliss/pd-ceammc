@@ -185,7 +185,7 @@ void UIIcon::onBang()
 
     if (prop_mode == SYM_MODE_BANG || prop_mode == SYM_MODE_TOGGLE) {
         t_pt pt;
-        onMouseDown(0, pt, 0);
+        onMouseDown(0, pt, pt, 0);
     } else {
         UI_ERR << "bang is not expected in button mode";
     }
@@ -205,7 +205,7 @@ void UIIcon::onFloat(t_float f)
     }
 }
 
-void UIIcon::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIIcon::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     if (modifiers & EMOD_ALT) {
         UI_DBG << "available icons: ";

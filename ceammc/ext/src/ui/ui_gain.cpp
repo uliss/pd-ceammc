@@ -150,7 +150,7 @@ void UIGain::onBang()
     send(SYM_PROP_DB, v);
 }
 
-void UIGain::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIGain::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     onMouseDrag(view, pt, modifiers);
 }

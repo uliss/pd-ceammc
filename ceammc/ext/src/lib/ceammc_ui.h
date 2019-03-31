@@ -143,6 +143,7 @@ public:
         eclass_addmethod(pd_class, UI_METHOD_PTR(notify),        "notify",        A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(okSize),        "oksize",        A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(onZoom),        "onzoom",        A_GIMME,  0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(onPopup),       "popup",        A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(setDrawParams), "getdrawparams", A_NULL, 0);
         // clang-format on
     }
@@ -521,10 +522,10 @@ public:
         z->onMouseMove(view, pt, modifiers);
     }
 
-    static void mouseDown(UI* z, t_object* view, t_pt pt, long modifiers)
+    static void mouseDown(UI* z, t_object* view, t_pt pt, t_pt abs_pt, long modifiers)
     {
         updateMousePos(pt);
-        z->onMouseDown(view, pt, modifiers);
+        z->onMouseDown(view, pt, abs_pt, modifiers);
     }
 
     static void mouseUp(UI* z, t_object* view, t_pt pt, long modifiers)
@@ -605,6 +606,11 @@ public:
     static void onZoom(UI* z, t_float zoom)
     {
         z->onZoom(zoom);
+    }
+
+    static void onPopup(UI* z, t_symbol* menu_name, long itemIdx)
+    {
+        z->onPopup(menu_name, itemIdx);
     }
 
     static void onBang(UI* z)

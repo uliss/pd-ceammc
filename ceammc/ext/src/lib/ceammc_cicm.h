@@ -3,6 +3,8 @@
 
 #include "cicm/Sources/cicm_wrapper.h"
 
+#include <memory>
+#include <string>
 #include <vector>
 
 namespace ceammc {
@@ -147,6 +149,21 @@ public:
 };
 
 bool contains_point(const t_rect& r, const t_pt& pt);
+
+class UIPopupMenu {
+    t_epopup* menu_;
+    t_pt pos_;
+    typedef std::pair<std::string, bool> MenuEntry;
+    std::vector<MenuEntry> menu_items_;
+
+public:
+    UIPopupMenu(t_eobj* x, const char* name, const t_pt& pos);
+    ~UIPopupMenu();
+
+    void addSeparator();
+    void addItem(const std::string& name, bool enabled = true);
+};
+
 }
 
 #endif // CEAMMC_CICM_H

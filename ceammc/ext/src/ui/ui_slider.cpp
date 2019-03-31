@@ -97,7 +97,7 @@ void UISlider::okSize(t_rect* newrect)
         newrect->height = pd_clip_min(newrect->height, 50.);
 }
 
-void UISlider::onMouseDown(t_object*, const t_pt& pt, long)
+void UISlider::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long)
 {
     t_rect r = rect();
 

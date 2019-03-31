@@ -228,7 +228,7 @@ void UINumber::onKeyFilter(int k, long modifiers)
     }
 }
 
-void UINumber::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UINumber::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     drag_start_ypos_ = pt.y;
     drag_start_value_ = value_;

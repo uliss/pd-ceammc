@@ -42,7 +42,7 @@ public:
     void onBang();
     void onFloat(t_float f);
     void onList(const AtomList& lst);
-    void onMouseDown(t_object*, const t_pt& pt, long mod);
+    void onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
     void loadPreset(size_t idx);
     void storePreset(size_t idx);

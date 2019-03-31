@@ -61,7 +61,7 @@ public:
     void okSize(t_rect* newrect);
     void onMouseMove(t_object*, const t_pt& pt, long modifiers);
     void onMouseDrag(t_object*, const t_pt& pt, long);
-    void onMouseDown(t_object*, const t_pt& pt, long mod);
+    void onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod);
     void onMouseLeave(t_object*, const t_pt&, long);
     void onMouseWheel(t_object*, const t_pt& pt, long, double delta);
     void onMouseUp(t_object*, const t_pt&, long);

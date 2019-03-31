@@ -485,7 +485,7 @@ void UIMatrix::onList(const AtomList& lst)
     outputAllCells();
 }
 
-void UIMatrix::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIMatrix::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     auto c = cellAt(pt);
     mouse_current_col_ = c.first;

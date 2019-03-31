@@ -197,7 +197,7 @@ void UIKeyboard::paint(t_object* view)
     drawActive();
 }
 
-void UIKeyboard::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIKeyboard::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     // release all notes
     if (modifiers & EMOD_ALT) {

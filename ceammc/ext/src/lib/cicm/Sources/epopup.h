@@ -48,17 +48,16 @@ void epopupmenu_setfont(t_epopup* popup, t_efont* font);
  * \param popup  The t_epopup pointer.
  * \param itemid The id of the item.
  * \param text   The text of the item.
- * \param checked If the item is marked as checked or not.
- * \param disabled If the item is marked as disabled or not.
+ * \param enabled If the item is marked as enabled or not.
  */
-void epopupmenu_additem(t_epopup* popup, int itemid, const char* text, bool disabled);
+void epopupmenu_additem(t_epopup* popup, int itemid, const char* text, bool enabled);
 
 /*!
- * \fn          void epopupmenu_addseperator(t_epopup *popup)
+ * \fn          void epopupmenu_addseparator(t_epopup *popup)
  * \brief       Adds a new seprator in the popup list.
  * \param popup  The t_epopup pointer.
  */
-void epopupmenu_addseperator(t_epopup* popup);
+void epopupmenu_addseparator(t_epopup* popup);
 
 /*!
  * \fn          void epopupmenu_popup(t_epopup *popup, t_pt screen)

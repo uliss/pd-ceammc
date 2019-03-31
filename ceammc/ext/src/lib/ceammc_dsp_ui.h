@@ -436,9 +436,9 @@ public:
         z->onMouseMove(view, pt, modifiers);
     }
 
-    static void mouseDown(UI* z, t_object* view, t_pt pt, long modifiers)
+    static void mouseDown(UI* z, t_object* view, t_pt pt, t_pt abs_pt, long modifiers)
     {
-        z->onMouseDown(view, pt, modifiers);
+        z->onMouseDown(view, pt, abs_pt, modifiers);
     }
 
     static void mouseUp(UI* z, t_object* view, t_pt pt, long modifiers)

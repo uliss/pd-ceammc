@@ -408,9 +408,9 @@ static void ebox_tk_ids(t_ebox* x, t_canvas* canvas)
 static void ebox_bind_events(t_ebox* x)
 {
     t_eclass* c = (t_eclass*)eobj_getclass(x);
-    sys_vgui("bind %s <Button-3> {+pdsend {%s mousedown %%x %%y %i}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name, EMOD_RIGHT);
-    sys_vgui("bind %s <Button-2> {+pdsend {%s mousedown %%x %%y %i}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name, EMOD_RIGHT);
-    sys_vgui("bind %s <Button-1> {+pdsend {%s mousedown %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
+    sys_vgui("bind %s <Button-3> {+pdsend {%s mousedown %%x %%y %%X %%Y %i}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name, EMOD_RIGHT);
+    sys_vgui("bind %s <Button-2> {+pdsend {%s mousedown %%x %%y %%X %%Y %i}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name, EMOD_RIGHT);
+    sys_vgui("bind %s <Button-1> {+pdsend {%s mousedown %%x %%y %%X %%Y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
     sys_vgui("bind %s <ButtonRelease> {+pdsend {%s mouseup %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
     sys_vgui("bind %s <Motion> {+pdsend {%s mousemove %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
 
@@ -672,14 +672,24 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
 
 void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
 {
-    t_pt mouse;
-    long modif = modifier_wrapper((long)atom_getfloat(argv + 2));
+    if (argc != 5) {
+        fprintf(stderr, "[ebox_mouse_down] warning: not enough arguments: %d", argc);
+        return;
+    }
+
+    long modif = modifier_wrapper((long)atom_getfloat(argv + 4));
     t_eclass* c = eobj_getclass(x);
     if (is_for_box(x, modif)) {
         if (c->c_widget.w_mousedown && !(x->b_flags & EBOX_IGNORELOCKCLICK)) {
+            t_pt mouse;
             mouse.x = atom_getfloat(argv);
             mouse.y = atom_getfloat(argv + 1);
-            c->c_widget.w_mousedown(x, x->b_obj.o_canvas, mouse, modif);
+
+            t_pt mouse_abs;
+            mouse_abs.x = atom_getfloat(argv + 2);
+            mouse_abs.y = atom_getfloat(argv + 3);
+
+            c->c_widget.w_mousedown(x, x->b_obj.o_canvas, mouse, mouse_abs, modif);
         }
     } else {
         if (x->b_selected_item == EITEM_NONE) {

@@ -89,7 +89,7 @@ public:
         t_pt p;
         p.x = x;
         p.y = y;
-        obj->onMouseDown(0, p, modifiers);
+        obj->onMouseDown(0, p, p, modifiers);
     }
 
     void mouseUp(float x, float y, long modifiers = 0)
@@ -148,7 +148,7 @@ public:
         t_pt p;
         p.x = x;
         p.y = y;
-        (*this)->onMouseDown(0, p, mod);
+        (*this)->onMouseDown(0, p, p, mod);
     }
 
     void mouseUp(float x, float y, long mod = 0)

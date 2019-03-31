@@ -55,7 +55,7 @@ void UIToggle::paint(t_object*)
     }
 }
 
-void UIToggle::onMouseDown(t_object*, const t_pt&, long)
+void UIToggle::onMouseDown(t_object*, const t_pt&, const t_pt& abs_pt, long)
 {
     flip();
     output();

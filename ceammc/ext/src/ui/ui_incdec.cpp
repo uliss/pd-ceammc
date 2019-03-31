@@ -93,7 +93,7 @@ void UIIncDec::onFloat(t_float f)
     output();
 }
 
-void UIIncDec::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIIncDec::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     if (pt.y < height() / 2) {
         m_inc();

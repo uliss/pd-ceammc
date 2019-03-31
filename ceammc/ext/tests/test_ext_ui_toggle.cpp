@@ -70,9 +70,9 @@ TEST_CASE("ui.toggle", "[ui.toggle]")
         t->m_set(0);
         REQUIRE(t->value() == 0);
 
-        t->onMouseDown(0, t_pt(), 0);
+        t.mouseDown(1, 1);
         REQUIRE(t->value() == 1);
-        t->onMouseDown(0, t_pt(), 0);
+        t.mouseDown(1, 1);
         REQUIRE(t->value() == 0);
 
         t->flip();
