@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <limits>
 
 static t_symbol* SYM_CELL = gensym("cell");
 static t_symbol* SYM_ROW = gensym("row");
@@ -22,6 +23,8 @@ static const int CELL_MARGIN = 1;
 
 UIMatrix::UIMatrix()
     : matrix_()
+    , update_all_cells_(false)
+    , reset_all_cells_(false)
     , prop_color_active_(rgba_black)
     , prop_color_current_(rgba_black)
     , prop_rows_(4)
@@ -32,6 +35,8 @@ UIMatrix::UIMatrix()
     , current_row_(-1)
     , cells_are_created_(false)
 {
+    static_assert(std::numeric_limits<CellIdxT>::max() > UI_MAX_MATRIX_SIZE, "check cell index type");
+
     createOutlet();
 }
 
@@ -75,7 +80,7 @@ void UIMatrix::setCell(const AtomList& lst)
         return;
     }
 
-    matrix_.set(row * UI_MAX_MATRIX_SIZE + col, v);
+    setCell(row, col, v);
 }
 
 AtomList UIMatrix::column(size_t col) const
@@ -93,7 +98,7 @@ void UIMatrix::setColumn(size_t col, const AtomList& lst)
 {
     size_t t = std::min<size_t>(lst.size(), prop_rows_);
     for (size_t row = 0; row < t; row++)
-        matrix_.set(row * UI_MAX_MATRIX_SIZE + col, lst[row].asFloat() != 0);
+        setCell(row, col, lst[row].asFloat() != 0);
 }
 
 void UIMatrix::setColumn(const AtomList& lst)
@@ -131,7 +136,7 @@ void UIMatrix::setRow(size_t row, const AtomList& lst)
     size_t t = std::min<size_t>(lst.size(), prop_cols_);
 
     for (size_t col = 0; col < t; col++)
-        matrix_.set(row * UI_MAX_MATRIX_SIZE + col, lst[col].asFloat() != 0);
+        setCell(row, col, lst[col].asFloat() != 0);
 }
 
 void UIMatrix::setRow(const AtomList& lst)
@@ -161,30 +166,36 @@ void UIMatrix::setList(const AtomList& lst)
         size_t col = i % prop_cols_;
         size_t row = i / prop_cols_;
 
-        matrix_.set(row * UI_MAX_MATRIX_SIZE + col, lst[i].asFloat() != 0);
+        setCell(row, col, lst[i].asFloat() != 0);
     }
 }
 
 void UIMatrix::flipCell(size_t row, size_t col)
 {
     matrix_.flip(row * UI_MAX_MATRIX_SIZE + col);
+    addToUpdateList(row, col);
 }
 
 void UIMatrix::flipColumn(size_t col)
 {
-    for (int row = 0; row < prop_rows_; row++)
+    for (int row = 0; row < prop_rows_; row++) {
         matrix_.flip(row * UI_MAX_MATRIX_SIZE + col);
+        addToUpdateList(row, col);
+    }
 }
 
 void UIMatrix::flipRow(size_t row)
 {
-    for (int col = 0; col < prop_cols_; col++)
+    for (int col = 0; col < prop_cols_; col++) {
         matrix_.flip(row * UI_MAX_MATRIX_SIZE + col);
+        addToUpdateList(row, col);
+    }
 }
 
 void UIMatrix::flipAll()
 {
     matrix_.flip();
+    update_all_cells_ = true;
 }
 
 AtomList UIMatrix::asList() const
@@ -221,32 +232,60 @@ void UIMatrix::okSize(t_rect* newrect)
 
 void UIMatrix::drawActiveCells()
 {
-    const int w = cellWidth();
-    const int h = cellHeight();
-
     if (!asEBox() || !asEBox()->b_drawing_id)
         return;
-
-    BitMatrix upd = matrix_ ^ old_matrix_;
 
     int color_inactive = rgba_to_hex_int(prop_color_background);
     int color_active = rgba_to_hex_int(prop_color_active_);
 
-    for (int inc_x = 0, col = 0; col < prop_cols_; col++, inc_x += w) {
-        for (int inc_y = 0, row = 0; row < prop_rows_; row++, inc_y += h) {
-            if (upd[row * UI_MAX_MATRIX_SIZE + col]) {
+    for (const CellList::value_type& c : cell_update_list_) {
+        int col = c.second;
+        int row = c.first;
+        sys_vgui("%s itemconfigure " CELL_TAG_FMT " -fill #%6.6x\n",
+            asEBox()->b_drawing_id->s_name,
+            asEBox(),
+            col, row,
+            cell(row, col)
+                ? color_active
+                : color_inactive);
+    }
+
+    cell_update_list_.clear();
+
+    // update all cells on flag set (on total flip)
+    if (update_all_cells_) {
+        for (size_t col = 0; col < prop_cols_; col++) {
+            for (size_t row = 0; row < prop_rows_; row++) {
                 sys_vgui("%s itemconfigure " CELL_TAG_FMT " -fill #%6.6x\n",
                     asEBox()->b_drawing_id->s_name,
                     asEBox(),
                     col, row,
-                    matrix_[row * UI_MAX_MATRIX_SIZE + col]
+                    cell(row, col)
                         ? color_active
                         : color_inactive);
             }
         }
+
+        update_all_cells_ = false;
     }
 
-    old_matrix_ = matrix_;
+    // reset only active cells
+    if (reset_all_cells_) {
+        for (size_t col = 0; col < prop_cols_; col++) {
+            for (size_t row = 0; row < prop_rows_; row++) {
+                if (!cell(row, col))
+                    continue;
+
+                sys_vgui("%s itemconfigure " CELL_TAG_FMT " -fill #%6.6x\n",
+                    asEBox()->b_drawing_id->s_name,
+                    asEBox(),
+                    col, row,
+                    color_inactive);
+            }
+        }
+
+        reset_all_cells_ = false;
+    }
 }
 
 void UIMatrix::createCells()
@@ -543,8 +582,12 @@ void UIMatrix::m_flip(const AtomList& lst)
 
 void UIMatrix::m_reset()
 {
-    matrix_.reset();
+    // redraw should be done before actual matrix reset
+    reset_all_cells_ = true;
     drawActiveCells();
+
+    // do after redraw with reset_all_cells_ flag
+    matrix_.reset();
 }
 
 void UIMatrix::m_get(const AtomList& lst)
@@ -609,8 +652,7 @@ void UIMatrix::m_set(const AtomList& lst)
 
 void UIMatrix::loadPreset(size_t idx)
 {
-    AtomList lst = PresetStorage::instance().listValueAt(presetId(), idx);
-    onList(lst);
+    onList(PresetStorage::instance().listValueAt(presetId(), idx));
 }
 
 void UIMatrix::storePreset(size_t idx)
@@ -682,7 +724,7 @@ void UIMatrix::p_setCols(float n)
     int num = clip<int>(n, 1, UI_MAX_MATRIX_SIZE);
     if (num != prop_cols_) {
         prop_cols_ = num;
-        matrix_.reset();   
+        matrix_.reset();
         updateSize();
         eraseCells();
         createCells();
@@ -719,6 +761,20 @@ void UIMatrix::setup()
     obj.addMethod("reset", &UIMatrix::m_reset);
     obj.addMethod("get", &UIMatrix::m_get);
     obj.addMethod("set", &UIMatrix::m_set);
+}
+
+void UIMatrix::addToUpdateList(int row, int col)
+{
+    cell_update_list_.push_back(CellList::value_type(row, col));
+}
+
+void UIMatrix::setCell(int row, int col, bool v)
+{
+    auto idx = row * UI_MAX_MATRIX_SIZE + col;
+    if (matrix_[idx] != v) {
+        matrix_.set(idx, v);
+        addToUpdateList(row, col);
+    }
 }
 
 int UIMatrix::cellWidth() const

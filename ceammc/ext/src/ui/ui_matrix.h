@@ -4,6 +4,8 @@
 #include "ceammc_ui_object.h"
 
 #include <bitset>
+#include <memory>
+#include <vector>
 
 using namespace ceammc;
 
@@ -13,7 +15,11 @@ typedef std::bitset<UI_BITSET_SIZE> BitMatrix;
 
 class UIMatrix : public UIObject {
     BitMatrix matrix_;
-    BitMatrix old_matrix_;
+    typedef char CellIdxT;
+    typedef std::vector<std::pair<CellIdxT, CellIdxT>> CellList;
+    CellList cell_update_list_;
+    bool update_all_cells_;
+    bool reset_all_cells_;
 
     t_rgba prop_color_active_;
     t_rgba prop_color_current_;
@@ -83,6 +89,8 @@ public:
     static void setup();
 
 private:
+    void addToUpdateList(int row, int col);
+    void setCell(int row, int col, bool v);
     int cellWidth() const;
     int cellHeight() const;
     void updateCellsCoords();
