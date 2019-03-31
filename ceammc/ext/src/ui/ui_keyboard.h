@@ -36,6 +36,7 @@ public:
     static void setup();
 
 private:
+    void playChord(const std::unordered_set<int>& keys);
     int realPitch() const;
     void output();
     void drawBackground();

@@ -215,6 +215,18 @@ void UIKeyboard::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt,
     if (modifiers & EMOD_RIGHT) {
         UIPopupMenu menu(asEObj(), "popup", abs_pt);
         menu.addItem(_("release all"));
+        menu.addSeparator();
+        menu.addItem("maj"); // 1
+        menu.addItem("min"); // 2
+        menu.addItem("aug"); // 3
+        menu.addItem("dim"); // 4
+        menu.addItem("7"); // 5
+        menu.addItem("maj7"); // 6
+        menu.addItem("min7"); // 7
+        menu.addItem("aug7"); // 8
+
+        velocity_ = std::min<int>(127, int(pt.y / height() * 100.f) + 27);
+        current_key_ = findPressedKey(pt);
         return;
     }
 
@@ -307,11 +319,54 @@ void UIKeyboard::onPopup(t_symbol* menu_name, long item_idx)
         case 0:
             releaseAllNotes();
             break;
+        case 1: {
+            playChord({ 0, 4, 7 });
+            redrawLayer(key_layer_);
+        } break;
+        case 2: {
+            playChord({ 0, 3, 7 });
+            redrawLayer(key_layer_);
+        } break;
+        case 3: {
+            playChord({ 0, 4, 8 });
+            redrawLayer(key_layer_);
+        } break;
+        case 4: {
+            playChord({ 0, 3, 6 });
+            redrawLayer(key_layer_);
+        } break;
+        case 5: {
+            playChord({ 0, 4, 7, 10 });
+            redrawLayer(key_layer_);
+        } break;
+        case 6: {
+            playChord({ 0, 4, 7, 11 });
+            redrawLayer(key_layer_);
+        } break;
+        case 7: {
+            playChord({ 0, 3, 7, 10 });
+            redrawLayer(key_layer_);
+        } break;
+        case 8: {
+            playChord({ 0, 4, 8, 10 });
+            redrawLayer(key_layer_);
+        } break;
         default:
             UI_ERR << "popup menu unknown index: " << item_idx;
             break;
         }
     }
+}
+
+void UIKeyboard::playChord(const std::unordered_set<int>& keys)
+{
+    if (current_key_ == -1)
+        current_key_ = 60;
+
+    for (int k : keys)
+        sustained_keys_.insert(current_key_ + k);
+
+    output();
 }
 
 int UIKeyboard::findPressedKey(const t_pt& pt) const
