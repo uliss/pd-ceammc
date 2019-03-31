@@ -38,6 +38,7 @@ static const char* SYM_PAINT = "paint";
 static const char* SYM_NOTIFY = "notify";
 static const char* SYM_GET_DRAW_PARAMS = "getdrawparams";
 static const char* SYM_OK_SIZE = "oksize";
+static const char* SYM_ONZOOM = "onzoom";
 static const char* SYM_SAVE = "save";
 static const char* SYM_POPUP = "popup";
 static const char* SYM_PRESET = "preset";
@@ -331,6 +332,8 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
         c->c_widget.w_getdrawparameters = m;
     } else if (gensym(name) == gensym(SYM_OK_SIZE)) {
         c->c_widget.w_oksize = m;
+    } else if (gensym(name) == gensym(SYM_ONZOOM)) {
+        c->c_widget.w_onzoom = m;
     } else if (gensym(name) == gensym(SYM_SAVE)) {
         c->c_widget.w_save = m;
     } else if (gensym(name) == gensym(SYM_POPUP)) {
@@ -983,6 +986,7 @@ static void ewidget_init(t_eclass* c)
     c->c_widget.w_oksize = NULL;
     c->c_widget.w_write = NULL;
     c->c_widget.w_read = NULL;
+    c->c_widget.w_onzoom = NULL;
 }
 
 #define DIALOG_GRID_PADY " -pady 1 "

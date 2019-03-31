@@ -142,6 +142,7 @@ public:
 
         eclass_addmethod(pd_class, UI_METHOD_PTR(notify),        "notify",        A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(okSize),        "oksize",        A_GIMME,  0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(onZoom),        "onzoom",        A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(setDrawParams), "getdrawparams", A_NULL, 0);
         // clang-format on
     }
@@ -599,6 +600,11 @@ public:
     static void okSize(UI* z, ::t_rect* newrect)
     {
         z->okSize(newrect);
+    }
+
+    static void onZoom(UI* z, t_float zoom)
+    {
+        z->onZoom(zoom);
     }
 
     static void onBang(UI* z)

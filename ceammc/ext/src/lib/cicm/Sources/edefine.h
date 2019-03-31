@@ -488,6 +488,7 @@ typedef struct t_ewidget {
     t_err_method w_notify; /*!< The notification method. */
     t_typ_method w_write; /*!< The write to file method. */
     t_typ_method w_read; /*!< The read from file method. */
+    t_typ_method w_onzoom;  /*!< Zoom callback. */
 } t_ewidget;
 
 /**

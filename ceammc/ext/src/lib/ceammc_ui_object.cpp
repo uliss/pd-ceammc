@@ -222,6 +222,10 @@ void UIObject::setDrawParams(t_object*, t_edrawparams* params)
     params->d_boxfillcolor = prop_color_background;
 }
 
+void UIObject::onZoom(t_float z)
+{
+}
+
 void UIObject::m_custom(t_symbol* sel, const AtomList& lst)
 {
 }

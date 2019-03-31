@@ -98,6 +98,7 @@ public:
     t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
     void okSize(t_rect* newrect);
     void setDrawParams(t_object*, t_edrawparams* params);
+    void onZoom(t_float z);
 
     void m_custom(t_symbol* sel, const AtomList& lst);
 
