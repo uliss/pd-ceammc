@@ -1661,17 +1661,12 @@ static void ebox_move(t_ebox* x)
 
 void ebox_setzoom(t_ebox* x, float f)
 {
-    int argc = 0;
-    t_atom* argv = nullptr;
-    t_symbol* TSYM_SIZE = gensym(SYM_SIZE);
-    eobj_attr_getvalueof(x, TSYM_SIZE, &argc, &argv);
-
-    if (argc == 2) {
-        x->b_zoom = f;
-    }
-
-    free(argv);
+    x->b_zoom = f;
     ebox_redraw(x);
+
+    t_eclass* c = eobj_getclass(x);
+    if (c->c_widget.w_onzoom)
+        c->c_widget.w_onzoom(x, f);
 }
 
 static void ebox_newzoom(t_ebox* x)
