@@ -7,12 +7,13 @@
 
 using namespace ceammc;
 
-static const size_t UI_MAX_MATRIX_SIZE = 256;
+static const size_t UI_MAX_MATRIX_SIZE = 64;
 static const size_t UI_BITSET_SIZE = UI_MAX_MATRIX_SIZE * UI_MAX_MATRIX_SIZE;
 typedef std::bitset<UI_BITSET_SIZE> BitMatrix;
 
 class UIMatrix : public UIObject {
     BitMatrix matrix_;
+    BitMatrix old_matrix_;
 
     t_rgba prop_color_active_;
     t_rgba prop_color_current_;
@@ -22,6 +23,7 @@ class UIMatrix : public UIObject {
     int mouse_current_row_;
     int current_col_;
     int current_row_;
+    bool cells_are_created_;
 
 public:
     UIMatrix();
@@ -44,7 +46,7 @@ public:
     AtomList asList() const;
 
     void okSize(t_rect* newrect);
-    void paint(t_object* view);
+    void paint(t_object*);
     void outputCell(size_t row, size_t column);
     void outputCell(const AtomList& args);
     void outputCol(size_t column);
@@ -74,8 +76,20 @@ public:
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
 
+    t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
+    void onZoom(t_float z);
+
 public:
     static void setup();
+
+private:
+    int cellWidth() const;
+    int cellHeight() const;
+    void updateCellsCoords();
+    void drawActiveCells();
+    void createCells();
+    void eraseCells();
+    std::pair<int, int> cellAt(const t_pt& pt);
 };
 
 void setup_ui_matrix();
