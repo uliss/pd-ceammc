@@ -852,13 +852,13 @@ static void eclass_attr_ceammc_setter(t_object* x, t_symbol* s, int argc, t_atom
 
 void eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
 {
-    long i, j, size;
+    long size;
     char* point;
     long* point_size;
     t_ebox* z = (t_ebox*)x;
     t_eclass* c = (t_eclass*)z->b_obj.o_obj.te_g.g_pd;
 
-    for (i = 0; i < c->c_nattr; i++) {
+    for (int i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == s) {
             t_symbol* type = c->c_attr[i]->type;
             if (c->c_attr[i]->sizemax == 0) {
@@ -876,14 +876,14 @@ void eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
             point = (char*)(x) + c->c_attr[i]->offset;
 
             if (c->c_attr[i]->clipped == 1 || c->c_attr[i]->clipped == 3) {
-                for (j = 0; j < argc; j++) {
+                for (int j = 0; j < argc; j++) {
                     if (atom_gettype(argv + j) == A_FLOAT) {
                         atom_setfloat(argv + j, (float)pd_clip_min(atom_getfloat(argv + j), c->c_attr[i]->minimum));
                     }
                 }
             }
             if (c->c_attr[i]->clipped == 2 || c->c_attr[i]->clipped == 3) {
-                for (j = 0; j < argc; j++) {
+                for (int j = 0; j < argc; j++) {
                     if (atom_gettype(argv + j) == A_FLOAT) {
                         atom_setfloat(argv + j, (float)pd_clip_max(atom_getfloat(argv + j), c->c_attr[i]->maximum));
                     }
@@ -894,42 +894,42 @@ void eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
                 c->c_attr[i]->setter(x, c->c_attr[i], argc, argv);
             } else if (type == s_int) {
                 int* pointor = (int*)point;
-                for (j = 0; j < size && j < argc; j++) {
+                for (int j = 0; j < size && j < argc; j++) {
                     if (atom_gettype(argv + j) == A_FLOAT) {
                         pointor[j] = (int)atom_getlong(argv + j);
                     }
                 }
             } else if (type == s_long) {
                 long* pointor = (long*)point;
-                for (j = 0; j < size && j < argc; j++) {
+                for (int j = 0; j < size && j < argc; j++) {
                     if (atom_gettype(argv + j) == A_FLOAT) {
                         pointor[j] = (long)atom_getlong(argv + j);
                     }
                 }
             } else if (type == &s_float) {
                 float* pointor = (float*)point;
-                for (j = 0; j < size && j < argc; j++) {
+                for (int j = 0; j < size && j < argc; j++) {
                     if (atom_gettype(argv + j) == A_FLOAT) {
                         pointor[j] = (float)atom_getfloat(argv + j);
                     }
                 }
             } else if (type == s_double) {
                 double* pointor = (double*)point;
-                for (j = 0; j < size && j < argc; j++) {
+                for (int j = 0; j < size && j < argc; j++) {
                     if (atom_gettype(argv + j) == A_FLOAT) {
                         pointor[j] = (double)atom_getfloat(argv + j);
                     }
                 }
             } else if (type == &s_symbol) {
                 t_symbol** pointor = (t_symbol**)point;
-                for (j = 0; j < size && j < argc; j++) {
+                for (int j = 0; j < size && j < argc; j++) {
                     if (atom_gettype(argv + j) == A_SYMBOL) {
                         pointor[j] = gensym(atom_getsymbol(argv + j)->s_name);
                     }
                 }
             } else if (type == s_atom) {
                 t_atom* pointor = (t_atom*)point;
-                for (j = 0; j < size && j < argc; j++) {
+                for (int j = 0; j < size && j < argc; j++) {
                     pointor[j] = argv[j];
                 }
             }
@@ -1200,9 +1200,12 @@ static void eclass_properties_dialog(t_eclass* c)
                 sys_vgui("pack %s -side left\n", btn_id);
             } else {
                 sys_vgui("ttk::entry %s -width 20 -textvariable [string trim $var_%s]\n", WIDGET_ID, ATTR_NAME);
+                // erase (null) on focus in
                 sys_vgui("bind %s <FocusIn> { if { [string trim [%%W get]] == {(null)} } { %%W delete 0 end } }\n", WIDGET_ID);
+                // insert (null) on focus out
                 sys_vgui("bind %s <FocusOut> { if { [string trim [%%W get]] == {} } { %%W insert 0 {(null)} } }\n", WIDGET_ID);
-                sys_vgui("bind %s <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
+                sys_vgui("bind %s <KeyPress-Return> { if { [string trim [%%W get]] == {} } { %%W insert 0 {(null)} } }\n", WIDGET_ID);
+                sys_vgui("bind %s <KeyPress-Return> +[concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
                 sys_vgui("pack %s -side left\n", WIDGET_ID);
             }
 
