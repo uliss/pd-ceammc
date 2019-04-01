@@ -1082,7 +1082,9 @@ static void eclass_properties_dialog(t_eclass* c)
             sprintf(temp, "@%s ", ATTR_NAME);
             lenght = (int)strlen(temp);
             strncat(buffer, temp, lenght);
-            sprintf(temp, "[eval concat $$var_%s] ", ATTR_NAME);
+            // replace dollar $N with #N
+            // tcl: regsub -all {\$(\d+)} $s {#\1}
+            sprintf(temp, "[regsub -all {\\$(\\d+)} [eval concat $$var_%s] {#\\1} ]", ATTR_NAME);
             lenght = (int)strlen(temp);
             strncat(buffer, temp, lenght);
             strncat(buffer, "]\n", 2);
