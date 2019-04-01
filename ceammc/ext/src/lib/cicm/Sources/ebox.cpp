@@ -19,12 +19,18 @@
 #include <cstdlib>
 #include <cstring>
 #include <inttypes.h>
+#include <iostream>
+#include <string>
 
 // assert for equal struct sizes
 static_assert(offsetof(t_ebox, b_layers) == offsetof(t_edspbox, b_layers), "structs should be equal");
 static_assert(offsetof(t_ebox, b_force_redraw) == offsetof(t_edspbox, b_force_redraw), "structs should be equal");
 
 int egraphics_smooth();
+
+std::string ceammc_raute2dollar(const char* s);
+t_symbol* ceammc_dollar2raute(const char* s);
+std::string ceammc_quote_str(const std::string& str, char q = '\'');
 
 static std::array<const char*, ECURSOR_XTERM + 1> my_cursorlist = {
     "left_ptr",
@@ -77,6 +83,7 @@ static const char* SYM_ALL_PROPS = "@*";
 static const char* SYM_CHECKBUTTON = "checkbutton";
 static const char* SYM_MENU = "menu";
 static const char* SYM_COLOR = "color";
+static const char* SYM_ENTRY = "entry";
 
 static void ebox_create_window(t_ebox* x, t_glist* glist);
 static void ebox_invalidate_all(t_ebox* x);
@@ -200,14 +207,15 @@ float ebox_getfontsize(t_ebox* x)
 
 t_pd* ebox_getsender(t_ebox* x)
 {
-    t_symbol* sname;
     if (x->b_send_id && x->b_send_id != s_null) {
-        sname = canvas_realizedollar(eobj_getcanvas(x), x->b_send_id);
-        if (sname && sname->s_thing) {
-            return x->b_send_id->s_thing;
-        }
+        t_symbol* dollar_sname = gensym(ceammc_raute2dollar(x->b_send_id->s_name).c_str());
+        t_symbol* sname = canvas_realizedollar(eobj_getcanvas(x), dollar_sname);
+
+        if (sname && sname->s_thing)
+            return sname->s_thing;
     }
-    return NULL;
+
+    return nullptr;
 }
 
 char ebox_isdrawable(t_ebox* x)
@@ -853,22 +861,37 @@ void ebox_vis(t_ebox* x, int vis)
 
 t_pd_err ebox_set_receiveid(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 {
-    t_symbol* sname;
     if (argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null) {
+        t_symbol* new_sym = atom_getsymbol(argv);
+
+        if (new_sym == x->b_receive_id)
+            return 0; // no change
+
+        // unbind previous
         if (x->b_receive_id != s_null) {
-            sname = canvas_realizedollar(eobj_getcanvas(x), x->b_receive_id);
-            pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
+            // replace #n => $d
+            t_symbol* sname_dollar = gensym(ceammc_raute2dollar(x->b_receive_id->s_name).c_str());
+            t_symbol* sname = canvas_realizedollar(eobj_getcanvas(x), sname_dollar);
+            if (sname)
+                pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
         }
-        x->b_receive_id = atom_getsymbol(argv);
-        sname = canvas_realizedollar(eobj_getcanvas(x), x->b_receive_id);
+
+        // bind new
+        x->b_receive_id = new_sym;
+        t_symbol* sname_dollar = gensym(ceammc_raute2dollar(x->b_receive_id->s_name).c_str());
+        t_symbol* sname = canvas_realizedollar(eobj_getcanvas(x), sname_dollar);
         pd_bind(&x->b_obj.o_obj.ob_pd, sname);
     } else {
+        // unbind
         if (x->b_receive_id != s_null) {
-            sname = canvas_realizedollar(eobj_getcanvas(x), x->b_receive_id);
+            t_symbol* sname_dollar = gensym(ceammc_raute2dollar(x->b_receive_id->s_name).c_str());
+            t_symbol* sname = canvas_realizedollar(eobj_getcanvas(x), sname_dollar);
             pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
         }
+
         x->b_receive_id = s_null;
     }
+
     return 0;
 }
 
@@ -1098,23 +1121,23 @@ void ebox_output_all_attrs(t_ebox* x)
 
 void ebox_properties(t_ebox* x, t_glist* glist)
 {
-    int i, j, lenght;
-    t_atom* argv = NULL;
-    int argc = 0;
     t_eclass* c = eobj_getclass(x);
-    char buffer[MAXPDSTRING];
     char temp[MAXPDSTRING];
 
-    sprintf(buffer, "pdtk_%s_dialog %%s", c->c_class.c_name->s_name);
+    sprintf(temp, "pdtk_%s_dialog %%s", c->c_class.c_name->s_name);
+    std::string buffer(temp);
 
-    for (i = 0; i < c->c_nattr; i++) {
+    for (int i = 0; i < c->c_nattr; i++) {
         if (!c->c_attr[i]->invisible) {
-            argv = 0;
-            argc = 0;
+            t_atom* argv = 0;
+            int argc = 0;
             eobj_attr_getvalueof(x, c->c_attr[i]->name, &argc, &argv);
-            strncat(buffer, " ", 1);
-            strncat(buffer, "\"", 1);
+            // tcl: using curly brackets instead of double quotes
+            // to prevent variable (with $) substitution
+            buffer += " {";
             if (argc && argv) {
+                int j;
+                // ceammc: why we need this macroses???
 #ifndef _WINDOWS
                 for (j = 0; j < argc - 1; j++)
 #else
@@ -1122,53 +1145,89 @@ void ebox_properties(t_ebox* x, t_glist* glist)
 #endif
                 {
                     atom_string(argv + j, temp, MAXPDSTRING);
-                    lenght = (int)strlen(temp);
+                    // quote string if it contains spaces
                     if (c->c_attr[i]->type == &s_symbol && strchr(temp, ' ')) {
-                        strncat(buffer, "'", 1);
-                        strncat(buffer, temp, lenght);
-                        strncat(buffer, "'", 1);
+                        buffer += ceammc_quote_str(ceammc_raute2dollar(temp));
                     } else {
-                        strncat(buffer, temp, lenght);
+                        buffer += ceammc_raute2dollar(temp);
                     }
-                    strncat(buffer, " ", 1);
+                    buffer.push_back(' ');
                 }
 #ifndef _WINDOWS
                 atom_string(argv + j, temp, MAXPDSTRING);
-                lenght = (int)strlen(temp);
                 if (c->c_attr[i]->type == &s_symbol && strchr(temp, ' ')) {
-
-                    strncat(buffer, "'", 1);
-                    strncat(buffer, temp, lenght);
-                    strncat(buffer, "'", 1);
+                    buffer += ceammc_quote_str(ceammc_raute2dollar(temp));
                 } else {
-                    strncat(buffer, temp, lenght);
+                    buffer += ceammc_raute2dollar(temp);
                 }
-                free(argv);
 #endif
             }
-            strncat(buffer, "\"", 1);
+
+            free(argv);
+            buffer.push_back('}');
         }
     }
-    strncat(buffer, "\n", 1);
+    buffer.push_back('\n');
 
-    gfxstub_new((t_pd*)x, x, buffer);
+    gfxstub_new((t_pd*)x, x, buffer.c_str());
+}
+
+t_symbol* ceammc_dollar2raute(const char* s)
+{
+    if (strlen(s) >= MAXPDSTRING)
+        return gensym(s);
+
+    char buf[MAXPDSTRING + 1];
+    char* s2 = buf;
+    for (const char* s1 = s; /**/; s1++, s2++) {
+        if (*s1 == '$')
+            *s2 = '#';
+        else if (!(*s2 = *s1))
+            break;
+    }
+
+    return gensym(buf);
+}
+
+std::string ceammc_raute2dollar(const char* s)
+{
+    if (strlen(s) >= MAXPDSTRING)
+        return s;
+
+    char buf[MAXPDSTRING + 1];
+    char* s2 = buf;
+    for (const char* s1 = s; /**/; s1++, s2++) {
+        if (*s1 == '#')
+            *s2 = '$';
+        else if (!(*s2 = *s1))
+            break;
+    }
+
+    return buf;
+}
+
+std::string ceammc_quote_str(const std::string& str, char q)
+{
+    std::string res;
+    res.push_back(q);
+    res += str;
+    res.push_back(q);
+    return res;
 }
 
 void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
 {
-    int i, lenght;
-    int attrindex;
     t_eclass* c = eobj_getclass(x);
     t_atom* av = NULL;
     int ac;
-    char buffer[MAXPDSTRING];
     char temp[MAXPDSTRING];
     t_rgb color;
 
     if (argc > 2 && argv) {
         ebox_attrprocess_viatoms(x, argc, argv);
+
         if (atom_gettype(argv) == A_SYMBOL && atom_gettype(argv + 1) == A_FLOAT) {
-            attrindex = (int)atom_getfloat(argv + 1) - 1;
+            int attrindex = (int)atom_getfloat(argv + 1) - 1;
             if (attrindex >= 0 && attrindex < c->c_nattr) {
                 av = 0;
                 ac = 0;
@@ -1186,25 +1245,31 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                         sys_vgui("%s.top_frame.sele%i.selec configure -readonlybackground #%6.6x \n",
                             atom_getsymbol(argv)->s_name, attrindex + 1, rgb_to_hex_int(color));
                     } else if (c->c_attr[attrindex]->style == gensym(SYM_MENU)) {
-                        atom_string(av, buffer, MAXPDSTRING);
-                        for (i = 1; i < ac; i++) {
+                        atom_string(av, temp, MAXPDSTRING);
+                        std::string buffer(temp);
+                        for (int i = 1; i < ac; i++) {
                             atom_string(av + i, temp, MAXPDSTRING);
-                            lenght = (int)strlen(temp);
-                            strncat(buffer, " ", 1);
-                            strncat(buffer, temp, lenght);
+                            buffer.push_back(' ');
+                            buffer += temp;
                         }
                         sys_vgui("%s.top_frame.sele%i.selec delete 0 end \n", atom_getsymbol(argv)->s_name, attrindex + 1);
-                        sys_vgui("%s.top_frame.sele%i.selec insert 0 \"%s\" \n", atom_getsymbol(argv)->s_name, attrindex + 1, buffer);
+                        sys_vgui("%s.top_frame.sele%i.selec insert 0 \"%s\" \n",
+                            atom_getsymbol(argv)->s_name, attrindex + 1, buffer.c_str());
                     } else {
-                        atom_string(av, buffer, MAXPDSTRING);
-                        for (i = 1; i < ac; i++) {
+                        atom_string(av, temp, MAXPDSTRING);
+                        std::string buffer(temp);
+
+                        for (int i = 1; i < ac; i++) {
                             atom_string(av + i, temp, MAXPDSTRING);
-                            lenght = (int)strlen(temp);
-                            strncat(buffer, " ", 1);
-                            strncat(buffer, temp, lenght);
+                            buffer.push_back(' ');
+                            buffer += temp;
                         }
+
                         sys_vgui("%s.top_frame.sele%i.selec delete 0 end \n", atom_getsymbol(argv)->s_name, attrindex + 1);
-                        sys_vgui("%s.top_frame.sele%i.selec insert 0 [string trim \"%s\"] \n", atom_getsymbol(argv)->s_name, attrindex + 1, buffer);
+                        // replace #\d+ -> $\d+
+                        // tcl: regsub -all {#(\d+)} $s {$\1}
+                        sys_vgui("%s.top_frame.sele%i.selec insert 0 [regsub -all {#(\\d+)} [string trim \"%s\"] {$\\1}]\n",
+                            atom_getsymbol(argv)->s_name, attrindex + 1, buffer.c_str());
                     }
 
                     free(av);
