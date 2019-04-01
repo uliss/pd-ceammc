@@ -1677,7 +1677,6 @@ static void ebox_move(t_ebox* x)
 void ebox_setzoom(t_ebox* x, float f)
 {
     x->b_zoom = f;
-    ebox_redraw(x);
 
     t_eclass* c = eobj_getclass(x);
     if (c->c_widget.w_onzoom)
