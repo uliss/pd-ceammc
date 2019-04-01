@@ -1136,31 +1136,22 @@ void ebox_properties(t_ebox* x, t_glist* glist)
             // to prevent variable (with $) substitution
             buffer += " {";
             if (argc && argv) {
-                int j;
-                // ceammc: why we need this macroses???
-#ifndef _WINDOWS
-                for (j = 0; j < argc - 1; j++)
-#else
-                for (j = 0; j < argc; j++)
-#endif
-                {
+                for (int j = 0; j < argc; j++) {
+                    if (j > 0)
+                        buffer.push_back(' ');
+
                     atom_string(argv + j, temp, MAXPDSTRING);
                     // quote string if it contains spaces
                     if (c->c_attr[i]->type == &s_symbol && strchr(temp, ' ')) {
-                        buffer += ceammc_quote_str(ceammc_raute2dollar(temp));
+                        // right trim spaces
+                        auto str = ceammc_raute2dollar(temp);
+                        str.erase(str.find_last_not_of(' ') + 1);
+
+                        buffer += ceammc_quote_str(str);
                     } else {
                         buffer += ceammc_raute2dollar(temp);
                     }
-                    buffer.push_back(' ');
                 }
-#ifndef _WINDOWS
-                atom_string(argv + j, temp, MAXPDSTRING);
-                if (c->c_attr[i]->type == &s_symbol && strchr(temp, ' ')) {
-                    buffer += ceammc_quote_str(ceammc_raute2dollar(temp));
-                } else {
-                    buffer += ceammc_raute2dollar(temp);
-                }
-#endif
             }
 
             free(argv);
@@ -1265,10 +1256,20 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                             buffer += temp;
                         }
 
+                        // if have spaces
+                        if (buffer.find(' ') != std::string::npos) {
+                            // trim spaces
+                            buffer.erase(0, buffer.find_first_not_of(' '));
+                            buffer.erase(buffer.find_last_not_of(' ') + 1);
+
+                            buffer.insert(buffer.begin(), '\'');
+                            buffer.push_back('\'');
+                        }
+
                         sys_vgui("%s.top_frame.sele%i.selec delete 0 end \n", atom_getsymbol(argv)->s_name, attrindex + 1);
                         // replace #\d+ -> $\d+
                         // tcl: regsub -all {#(\d+)} $s {$\1}
-                        sys_vgui("%s.top_frame.sele%i.selec insert 0 [regsub -all {#(\\d+)} [string trim \"%s\"] {$\\1}]\n",
+                        sys_vgui("%s.top_frame.sele%i.selec insert 0 [regsub -all {#(\\d+)} \"%s\" {$\\1}]\n",
                             atom_getsymbol(argv)->s_name, attrindex + 1, buffer.c_str());
                     }
 
