@@ -293,6 +293,8 @@ void UIMatrix::createCells()
 {
     const int w = cellWidth();
     const int h = cellHeight();
+    const int color_inactive = rgba_to_hex_int(prop_color_background);
+    const int color_active = rgba_to_hex_int(prop_color_active_);
 
     if (!cells_are_created_ && asEBox() && asEBox()->b_drawing_id) {
         int color_cell_border = rgba_to_hex_int(prop_color_border);
@@ -302,11 +304,14 @@ void UIMatrix::createCells()
                 int y0 = inc_y + CELL_MARGIN;
                 int x1 = inc_x + w - CELL_MARGIN;
                 int y1 = inc_y + h - CELL_MARGIN;
-                sys_vgui("%s create rectangle %d %d %d %d -outline #%6.6x "
-                         "-tags { " CELL_TAG_FMT " " ALL_CELLS_TAG_FMT " }\n",
+                sys_vgui("%s create rectangle %d %d %d %d -outline #%6.6x -fill #%6.6x"
+                         " -tags { " CELL_TAG_FMT " " ALL_CELLS_TAG_FMT " }\n",
                     asEBox()->b_drawing_id->s_name,
                     x0, y0, x1, y1,
                     color_cell_border,
+                    cell(row, col)
+                        ? color_active
+                        : color_inactive,
                     asEBox(),
                     col, row,
                     asEBox());
