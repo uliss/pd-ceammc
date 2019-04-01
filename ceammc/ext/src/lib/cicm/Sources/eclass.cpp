@@ -1035,12 +1035,12 @@ static const char* dialog_widget_id(int i)
  */
 static void eclass_properties_dialog(t_eclass* c)
 {
-    int i, j, lenght;
+    int j, lenght;
     char buffer[1000];
     char temp[1000];
 
     // DIALOG WINDOW APPLY //
-    for (i = 0; i < c->c_nattr; i++) {
+    for (int i = 0; i < c->c_nattr; i++) {
         const char* ATTR_NAME = c->c_attr[i]->name->s_name;
 
         if (c->c_attr[i]->style == gensym(SYM_COLOR)) {
@@ -1094,7 +1094,7 @@ static void eclass_properties_dialog(t_eclass* c)
 
     // DIALOG WINDOW CREATION //
     sys_vgui("proc pdtk_%s_dialog {id \n", c->c_class.c_name->s_name);
-    for (i = 0; i < c->c_nattr; i++) {
+    for (int i = 0; i < c->c_nattr; i++) {
         const char* ATTR_NAME = c->c_attr[i]->name->s_name;
         if (!c->c_attr[i]->invisible) {
             sys_vgui("%s \n", ATTR_NAME);
@@ -1103,7 +1103,7 @@ static void eclass_properties_dialog(t_eclass* c)
     sys_gui("} {\n");
     sys_gui("set vid [string trimleft $id .]\n");
 
-    for (i = 0; i < c->c_nattr; i++) {
+    for (int i = 0; i < c->c_nattr; i++) {
         const char* ATTR_NAME = c->c_attr[i]->name->s_name;
         if (!c->c_attr[i]->invisible) {
             sys_vgui("set var_%s [string trim [concat %s_$vid]]\n", ATTR_NAME, ATTR_NAME);
@@ -1121,7 +1121,7 @@ static void eclass_properties_dialog(t_eclass* c)
     sys_vgui("ttk::frame $id.top_frame\n");
     sys_vgui("grid $id.top_frame\n");
 
-    for (i = 0; i < c->c_nattr; i++) {
+    for (int i = 0; i < c->c_nattr; i++) {
         if (!c->c_attr[i]->invisible) {
             const char* LABEL_FRAME = dialog_label_frame(i + 1);
             const char* WIDGET_FRAME = dialog_widget_frame(i + 1);
