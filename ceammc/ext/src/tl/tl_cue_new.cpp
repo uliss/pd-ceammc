@@ -20,7 +20,7 @@
 
 using namespace tl;
 
-static const int CUE_Y_POS = 2;
+static const int CUE_Y_POS = 3;
 static const int LINE_BOTTOM_MARGIN = 5;
 static const int LINE_WIDTH = 1;
 
@@ -34,7 +34,22 @@ static void tl_cue_displace(t_gobj* z, t_glist* glist, int dx, int dy)
     reinterpret_cast<TlCue*>(x)->updatePos();
 }
 
+static void tl_cue_wvis(t_gobj* z, t_glist* glist, int vis)
+{
+    if (vis) {
+        t_ebox* x = (t_ebox*)z;
+        x->b_rect.y = CUE_Y_POS;
+        x->b_obj.o_obj.te_ypix = CUE_Y_POS;
+        TlCue* c = reinterpret_cast<TlCue*>(x);
+        c->syncXPos();
+        c->visIncrement();
+    }
+
+    ebox_wvis(z, glist, vis);
+}
+
 size_t TlCue::ref_counter_ = 0;
+std::unordered_map<t_canvas*, int> TlCue::draw_counter_;
 
 TlCue::TlCue()
     : data_(canvas(), asPdObject())
@@ -66,6 +81,10 @@ TlCue::~TlCue()
 
         if (--ref_counter_ == 0)
             sys_gui("::ceammc::tl::stoppolling\n");
+
+        auto it = draw_counter_.find(canvas());
+        if (it != draw_counter_.end())
+            it->second--;
     }
 
     deleteLine();
@@ -77,6 +96,9 @@ void TlCue::init(t_symbol* name, const AtomList& args, bool usePresets)
     auto ebox = asEBox();
     ebox->b_rect.y = CUE_Y_POS;
     ebox->b_obj.o_obj.te_ypix = CUE_Y_POS;
+
+    if (isPatchLoading())
+        draw_counter_[canvas()] = 0;
 }
 
 void TlCue::okSize(t_rect* newrect)
@@ -89,27 +111,17 @@ void TlCue::okSize(t_rect* newrect)
     x->b_obj.o_obj.te_ypix = CUE_Y_POS;
 }
 
-void TlCue::setDrawParams(t_object* obj, t_edrawparams* params)
-{
-    UIObject::setDrawParams(obj, params);
-    params->d_borderthickness = CUE_Y_POS;
-}
-
 void TlCue::paint(t_object* view)
 {
     // update all cues on first draw
     if (first_draw_) {
         first_draw_ = false;
-        data_.setXPos(x());
 
-        if (y() != CUE_Y_POS)
-            ebox_pos(asEBox(), x(), CUE_Y_POS);
-
-        if (!isLayoutFinished())
-            return;
-
-        updateCues();
-        redrawCues();
+        if (visLast()) {
+            updateCues();
+            // no recusion, since first_draw_ changed
+            redrawCues();
+        }
     }
 
     UIPainter p = bg_layer_.painter(rect());
@@ -134,6 +146,9 @@ void TlCue::onZoom(t_float z)
     UIObject::onZoom(z);
 
     deleteLine();
+
+    first_draw_ = true;
+    draw_counter_[canvas()] = 0;
 }
 
 void TlCue::m_updateLine(const AtomList& l)
@@ -142,6 +157,11 @@ void TlCue::m_updateLine(const AtomList& l)
         return;
 
     updateLine();
+}
+
+void TlCue::syncXPos()
+{
+    data_.setXPos(x());
 }
 
 bool TlCue::updateCues()
@@ -154,12 +174,28 @@ bool TlCue::updateCues()
     for (size_t i = 0; i < lst->size(); i++) {
         void* obj = lst->at(i)->object();
         TlCue* c = reinterpret_cast<TlCue*>(obj);
-        c->data_.setXPos(c->x());
+        c->syncXPos();
     }
 
     CueStorage::sort(canvas());
     // return true if enumeration changed
     return CueStorage::enumerate(canvas());
+}
+
+void TlCue::visIncrement()
+{
+    if (!canvas())
+        return;
+
+    draw_counter_[canvas()]++;
+}
+
+bool TlCue::visLast()
+{
+    if (!canvas())
+        return false;
+
+    return draw_counter_[canvas()] == CueStorage::cueCount(canvas());
 }
 
 void TlCue::redrawCues()
@@ -175,18 +211,6 @@ void TlCue::redrawCues()
     }
 }
 
-bool TlCue::isLayoutFinished()
-{
-    CueList* lst = CueStorage::cueList(canvas());
-    for (size_t i = 0; i < lst->size(); i++) {
-        TlCue* c = reinterpret_cast<TlCue*>(lst->at(i)->object());
-        if (c->x() == 0.f)
-            return false;
-    }
-
-    return true;
-}
-
 void TlCue::createLine()
 {
     if (line_created_ || !asEBox()->b_canvas_id)
@@ -194,8 +218,8 @@ void TlCue::createLine()
 
     sys_vgui("%s create line %d %d %d %d -width %d -fill #%6.6x -tags .x%lx_CUE_LINE\n",
         asEBox()->b_canvas_id->s_name,
-        int(x() - 2 * LINE_WIDTH), CUE_Y_POS,
-        int(x() - 2 * LINE_WIDTH),
+        int(x() - LINE_WIDTH), CUE_Y_POS + 1,
+        int(x() - LINE_WIDTH),
         lineHeight(), LINE_WIDTH,
         rgba_to_hex_int(prop_color_border), this);
 
@@ -218,8 +242,8 @@ void TlCue::updateLine()
 
     sys_vgui("%s coords .x%lx_CUE_LINE %d %d %d %d\n",
         asEBox()->b_canvas_id->s_name, this,
-        int(x() - 2 * LINE_WIDTH), CUE_Y_POS,
-        int(x() - 2 * LINE_WIDTH), lineHeight());
+        int(x() - LINE_WIDTH), CUE_Y_POS + 1,
+        int(x() - LINE_WIDTH), lineHeight());
 }
 
 int TlCue::lineHeight() const
@@ -235,6 +259,18 @@ int TlCue::lineHeight() const
     return res;
 }
 
+bool TlCue::isLayoutFinished()
+{
+    CueList* lst = CueStorage::cueList(canvas());
+    for (size_t i = 0; i < lst->size(); i++) {
+        TlCue* c = reinterpret_cast<TlCue*>(lst->at(i)->object());
+        if (c->x() == 0.f)
+            return false;
+    }
+
+    return true;
+}
+
 void TlCue::setup()
 {
     UIObjectFactory<TlCue> obj("tl.cue", EBOX_GROWNO | EBOX_IGNORELOCKCLICK, CLASS_NOINLET);
@@ -247,6 +283,7 @@ void TlCue::setup()
     obj.setPropertyDefaultValue(PROP_BORDER_COLOR, DEFAULT_ACTIVE_COLOR);
 
     obj.pd_class->c_widget.w_displacefn = tl_cue_displace;
+    obj.pd_class->c_widget.w_visfn = tl_cue_wvis;
     obj.addMethod("update_line", &TlCue::m_updateLine);
 }
 

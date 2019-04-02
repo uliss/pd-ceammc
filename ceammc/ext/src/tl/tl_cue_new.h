@@ -17,11 +17,14 @@
 #include "ceammc_timeline.h"
 #include "ceammc_ui_object.h"
 
+#include <unordered_map>
+
 using namespace ceammc;
 
 class TlCue : public UIObject {
 private:
     static size_t ref_counter_;
+    static std::unordered_map<t_canvas*, int> draw_counter_;
 
 private:
     tl::CueData data_;
@@ -37,20 +40,23 @@ public:
 
     void init(t_symbol* name, const AtomList& args, bool usePresets);
     void okSize(t_rect* newrect);
-    void setDrawParams(t_object*, t_edrawparams* params);
     void paint(t_object* view);
     void updatePos();
     void onZoom(t_float z);
 
     void m_updateLine(const AtomList& l);
+    void syncXPos();
+    bool updateCues();
+
+    void visIncrement();
+    bool visLast();
 
 public:
     static void setup();
 
 private:
-    bool updateCues();
-    void redrawCues();
     bool isLayoutFinished();
+    void redrawCues();
     void createLine();
     void deleteLine();
     void updateLine();
