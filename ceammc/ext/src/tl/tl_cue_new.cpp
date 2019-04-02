@@ -138,7 +138,7 @@ void TlCue::updatePos()
     if (updateCues())
         redrawCues();
 
-    updateLine();
+    updateLineCoords();
 }
 
 void TlCue::onZoom(t_float z)
@@ -151,12 +151,20 @@ void TlCue::onZoom(t_float z)
     draw_counter_[canvas()] = 0;
 }
 
+t_pd_err TlCue::notify(t_symbol* attr_name, t_symbol* msg)
+{
+    if (attr_name == gensym(PROP_BORDER_COLOR))
+        updateLineBackground();
+
+    return UIObject::notify(attr_name, msg);
+}
+
 void TlCue::m_updateLine(const AtomList& l)
 {
     if (l.symbolAt(0, &s_) != asEBox()->b_canvas_id)
         return;
 
-    updateLine();
+    updateLineCoords();
 }
 
 void TlCue::syncXPos()
@@ -235,7 +243,7 @@ void TlCue::deleteLine()
     line_created_ = false;
 }
 
-void TlCue::updateLine()
+void TlCue::updateLineCoords()
 {
     if (!line_created_ || !asEBox()->b_canvas_id)
         return;
@@ -244,6 +252,15 @@ void TlCue::updateLine()
         asEBox()->b_canvas_id->s_name, this,
         int(x() - LINE_WIDTH), CUE_Y_POS + 1,
         int(x() - LINE_WIDTH), lineHeight());
+}
+
+void TlCue::updateLineBackground()
+{
+    if (!line_created_ || !asEBox()->b_canvas_id)
+        return;
+
+    sys_vgui("%s itemconfigure .x%lx_CUE_LINE -fill #%6.6x\n",
+        asEBox()->b_canvas_id->s_name, this, rgba_to_hex_int(prop_color_border));
 }
 
 int TlCue::lineHeight() const

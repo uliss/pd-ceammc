@@ -43,6 +43,7 @@ public:
     void paint(t_object* view);
     void updatePos();
     void onZoom(t_float z);
+    t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
 
     void m_updateLine(const AtomList& l);
     void syncXPos();
@@ -59,7 +60,8 @@ private:
     void redrawCues();
     void createLine();
     void deleteLine();
-    void updateLine();
+    void updateLineCoords();
+    void updateLineBackground();
     int lineHeight() const;
 };
 
