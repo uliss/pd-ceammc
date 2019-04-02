@@ -1,6 +1,5 @@
 #include "mod_tl.h"
 
-extern "C" void setup_tl0x2ecue();
 extern "C" void setup_tl0x2etransport();
 
 void setup_tl_bang();
@@ -16,5 +15,4 @@ void ceammc_tl_setup()
     setup_tl_cue();
 
     setup_tl0x2etransport();
-    setup_tl0x2ecue();
 }

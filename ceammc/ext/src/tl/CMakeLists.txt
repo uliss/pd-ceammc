@@ -15,7 +15,6 @@ endmacro()
 
 ceammc_tl_extension(bang)
 ceammc_tl_extension(baseobject)
-ceammc_tl_extension(cue)
 ceammc_tl_extension(cue_new)
 ceammc_tl_extension(timeline)
 ceammc_tl_extension(toggle)

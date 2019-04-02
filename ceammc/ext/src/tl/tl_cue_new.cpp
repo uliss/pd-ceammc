@@ -121,21 +121,6 @@ void TlCue::paint(t_object* view)
     createLine();
 }
 
-void TlCue::setup()
-{
-    UIObjectFactory<TlCue> obj("tl.ncue", EBOX_GROWNO | EBOX_IGNORELOCKCLICK, CLASS_NOINLET);
-
-    obj.setDefaultSize(45, 15);
-    obj.hideProperty("size");
-    obj.hideProperty("send");
-    obj.hideProperty("receive");
-
-    obj.setPropertyDefaultValue(PROP_BORDER_COLOR, DEFAULT_ACTIVE_COLOR);
-
-    obj.pd_class->c_widget.w_displacefn = tl_cue_displace;
-    obj.addMethod("update_line", &TlCue::m_updateLine);
-}
-
 void TlCue::updatePos()
 {
     if (updateCues())
@@ -156,7 +141,6 @@ void TlCue::m_updateLine(const AtomList& l)
     if (l.symbolAt(0, &s_) != asEBox()->b_canvas_id)
         return;
 
-    UI_DBG << l;
     updateLine();
 }
 
@@ -249,6 +233,21 @@ int TlCue::lineHeight() const
         res -= 32;
 
     return res;
+}
+
+void TlCue::setup()
+{
+    UIObjectFactory<TlCue> obj("tl.cue", EBOX_GROWNO | EBOX_IGNORELOCKCLICK, CLASS_NOINLET);
+
+    obj.setDefaultSize(45, 15);
+    obj.hideProperty("size");
+    obj.hideProperty("send");
+    obj.hideProperty("receive");
+
+    obj.setPropertyDefaultValue(PROP_BORDER_COLOR, DEFAULT_ACTIVE_COLOR);
+
+    obj.pd_class->c_widget.w_displacefn = tl_cue_displace;
+    obj.addMethod("update_line", &TlCue::m_updateLine);
 }
 
 void setup_tl_cue()
