@@ -137,7 +137,6 @@ void ebox_new(t_ebox* x, long flags)
 {
     x->b_flags = flags;
     x->b_ready_to_draw = 0;
-    x->b_have_window = 0;
     x->b_number_of_layers = 0;
     x->b_layers = NULL;
     x->b_window_id = NULL;
@@ -178,6 +177,10 @@ void ebox_free(t_ebox* x)
     eobj_free(x);
     if (x->b_receive_id && x->b_receive_id != s_null) {
         pd_unbind((t_pd*)x, x->b_receive_id);
+        // replace #n => $d
+        // t_symbol* sname_dollar = gensym(ceammc_raute2dollar(x->b_receive_id->s_name).c_str());
+        // t_symbol* sname = canvas_realizedollar(eobj_getcanvas(x), sname_dollar);
+        // pd_unbind((t_pd*)x, sname);
     }
     gfxstub_deleteforkey(x);
     if (eobj_isdsp(x)) {
@@ -317,8 +320,8 @@ void ebox_wgetrect(t_gobj* z, t_glist* glist, int* xp1, int* yp1, int* xp2, int*
     t_ebox* x = (t_ebox*)z;
     *xp1 = text_xpix(&x->b_obj.o_obj, glist);
     *yp1 = text_ypix(&x->b_obj.o_obj, glist) - (int)(x->b_boxparameters.d_borderthickness);
-    *xp2 = text_xpix(&x->b_obj.o_obj, glist) + (int)x->b_rect.width * x->b_zoom + (int)(x->b_boxparameters.d_borderthickness);
-    *yp2 = text_ypix(&x->b_obj.o_obj, glist) + (int)x->b_rect.height * x->b_zoom + (int)(x->b_boxparameters.d_borderthickness);
+    *xp2 = *xp1 + (int)x->b_rect.width * x->b_zoom + (int)(x->b_boxparameters.d_borderthickness);
+    *yp2 = *yp1 + (int)x->b_rect.height * x->b_zoom + (int)(x->b_boxparameters.d_borderthickness);
 }
 
 static void ebox_paint(t_ebox* x)
@@ -454,7 +457,6 @@ static void ebox_create_widget(t_ebox* x)
 
 static void ebox_create_window(t_ebox* x, t_glist* glist)
 {
-    x->b_have_window = 0;
     x->b_force_redraw = 0;
     if (!glist->gl_havewindow) {
         x->b_isinsubcanvas = 1;
@@ -486,8 +488,6 @@ static void ebox_create_window(t_ebox* x, t_glist* glist)
         x->b_window_id->s_name,
         (int)(x->b_rect.width * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.),
         (int)(x->b_rect.height * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.));
-
-    x->b_have_window = 1;
 }
 
 static char is_platform_control(long mod)
@@ -1282,7 +1282,7 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
 
 void ebox_redraw(t_ebox* x)
 {
-    if ((ebox_isdrawable(x) && x->b_have_window) || x->b_force_redraw) {
+    if ((ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow) || x->b_force_redraw) {
         x->b_force_redraw = 0;
         ebox_invalidate_layer(x, s_eboxbd);
         ebox_invalidate_layer(x, s_eboxio);
@@ -1292,7 +1292,7 @@ void ebox_redraw(t_ebox* x)
 
 void ebox_redraw_inner(t_ebox* x)
 {
-    if ((ebox_isdrawable(x) && x->b_have_window) || x->b_force_redraw) {
+    if ((ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow) || x->b_force_redraw) {
         x->b_force_redraw = 0;
         ebox_paint(x);
     }
@@ -1704,9 +1704,8 @@ static void layers_erase(t_ebox* x)
 
 static void ebox_erase(t_ebox* x)
 {
-    if (x->b_obj.o_canvas && glist_isvisible(x->b_obj.o_canvas) && x->b_have_window) {
+    if (x->b_obj.o_canvas && glist_isvisible(x->b_obj.o_canvas) && x->b_obj.o_canvas->gl_havewindow) {
         sys_vgui("destroy %s \n", x->b_drawing_id->s_name);
-        x->b_have_window = 0;
     }
     if (x->b_layers) {
         for (long i = 0; i < x->b_number_of_layers; i++)
