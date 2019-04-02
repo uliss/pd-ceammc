@@ -14,9 +14,15 @@
 #include "tl_cue_new.h"
 #include "ceammc_ui.h"
 
+#include "tl_cue_fn.tcl.h"
+
+#include <inttypes.h>
+
 using namespace tl;
 
 static const int CUE_Y_POS = 2;
+static const int LINE_BOTTOM_MARGIN = 5;
+static const int LINE_WIDTH = 1;
 
 static void tl_cue_displace(t_gobj* z, t_glist* glist, int dx, int dy)
 {
@@ -28,13 +34,24 @@ static void tl_cue_displace(t_gobj* z, t_glist* glist, int dx, int dy)
     reinterpret_cast<TlCue*>(x)->updatePos();
 }
 
+size_t TlCue::ref_counter_ = 0;
+
 TlCue::TlCue()
     : data_(canvas(), asPdObject())
     , font_(gensym(FONT_FAMILY), FONT_SIZE)
     , txt_(font_.font(), ColorRGBA::black(), ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
+    , bind_sym_(gensym("tl_cue_canvas_resize"))
     , first_draw_(true)
+    , line_created_(false)
 {
     CueStorage::add(&data_);
+
+    // canvas can be equal nullptr
+    if (canvas() != nullptr) {
+        bindTo(bind_sym_);
+        if (++ref_counter_ == 1)
+            sys_gui("::ceammc::tl::startpolling\n");
+    }
 }
 
 TlCue::~TlCue()
@@ -43,6 +60,15 @@ TlCue::~TlCue()
     CueStorage::sort(canvas());
     CueStorage::enumerate(canvas());
     redrawCues();
+
+    if (canvas()) {
+        unbindFrom(bind_sym_);
+
+        if (--ref_counter_ == 0)
+            sys_gui("::ceammc::tl::stoppolling\n");
+    }
+
+    deleteLine();
 }
 
 void TlCue::init(t_symbol* name, const AtomList& args, bool usePresets)
@@ -71,6 +97,7 @@ void TlCue::setDrawParams(t_object* obj, t_edrawparams* params)
 
 void TlCue::paint(t_object* view)
 {
+    // update all cues on first draw
     if (first_draw_) {
         first_draw_ = false;
         data_.setXPos(x());
@@ -90,6 +117,8 @@ void TlCue::paint(t_object* view)
         txt_.set(data_.name().c_str(), 3, height() / 2, width(), height());
         p.drawText(txt_);
     }
+
+    createLine();
 }
 
 void TlCue::setup()
@@ -104,12 +133,31 @@ void TlCue::setup()
     obj.setPropertyDefaultValue(PROP_BORDER_COLOR, DEFAULT_ACTIVE_COLOR);
 
     obj.pd_class->c_widget.w_displacefn = tl_cue_displace;
+    obj.addMethod("update_line", &TlCue::m_updateLine);
 }
 
 void TlCue::updatePos()
 {
     if (updateCues())
         redrawCues();
+
+    updateLine();
+}
+
+void TlCue::onZoom(t_float z)
+{
+    UIObject::onZoom(z);
+
+    deleteLine();
+}
+
+void TlCue::m_updateLine(const AtomList& l)
+{
+    if (l.symbolAt(0, &s_) != asEBox()->b_canvas_id)
+        return;
+
+    UI_DBG << l;
+    updateLine();
 }
 
 bool TlCue::updateCues()
@@ -155,7 +203,56 @@ bool TlCue::isLayoutFinished()
     return true;
 }
 
+void TlCue::createLine()
+{
+    if (line_created_ || !asEBox()->b_canvas_id)
+        return;
+
+    sys_vgui("%s create line %d %d %d %d -width %d -fill #%6.6x -tags .x%lx_CUE_LINE\n",
+        asEBox()->b_canvas_id->s_name,
+        int(x() - 2 * LINE_WIDTH), CUE_Y_POS,
+        int(x() - 2 * LINE_WIDTH),
+        lineHeight(), LINE_WIDTH,
+        rgba_to_hex_int(prop_color_border), this);
+
+    line_created_ = true;
+}
+
+void TlCue::deleteLine()
+{
+    if (!line_created_ || !asEBox()->b_canvas_id)
+        return;
+
+    sys_vgui("%s delete .x%lx_CUE_LINE\n", asEBox()->b_canvas_id->s_name, this);
+    line_created_ = false;
+}
+
+void TlCue::updateLine()
+{
+    if (!line_created_ || !asEBox()->b_canvas_id)
+        return;
+
+    sys_vgui("%s coords .x%lx_CUE_LINE %d %d %d %d\n",
+        asEBox()->b_canvas_id->s_name, this,
+        int(x() - 2 * LINE_WIDTH), CUE_Y_POS,
+        int(x() - 2 * LINE_WIDTH), lineHeight());
+}
+
+int TlCue::lineHeight() const
+{
+    t_canvas* cnv = canvas();
+    if (!cnv)
+        return 0;
+
+    int res = (cnv->gl_screeny2 - cnv->gl_screeny1) - LINE_BOTTOM_MARGIN;
+    if (cnv->gl_edit)
+        res -= 32;
+
+    return res;
+}
+
 void setup_tl_cue()
 {
+    sys_gui(tl_cue_fn_tcl);
     TlCue::setup();
 }

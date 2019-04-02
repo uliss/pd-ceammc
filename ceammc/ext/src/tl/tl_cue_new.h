@@ -21,10 +21,15 @@ using namespace ceammc;
 
 class TlCue : public UIObject {
 private:
+    static size_t ref_counter_;
+
+private:
     tl::CueData data_;
     UIFont font_;
     UITextLayout txt_;
+    t_symbol* bind_sym_;
     bool first_draw_;
+    bool line_created_;
 
 public:
     TlCue();
@@ -35,6 +40,9 @@ public:
     void setDrawParams(t_object*, t_edrawparams* params);
     void paint(t_object* view);
     void updatePos();
+    void onZoom(t_float z);
+
+    void m_updateLine(const AtomList& l);
 
 public:
     static void setup();
@@ -43,6 +51,10 @@ private:
     bool updateCues();
     void redrawCues();
     bool isLayoutFinished();
+    void createLine();
+    void deleteLine();
+    void updateLine();
+    int lineHeight() const;
 };
 
 void setup_tl_cue();

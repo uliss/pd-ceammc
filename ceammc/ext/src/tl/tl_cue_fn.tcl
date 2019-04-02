@@ -14,19 +14,17 @@ proc ::ceammc::tl::unbind {tag event script} {
     foreach x $bind {bind $tag $event $x}
 }
 
-proc ::ceammc::tl::setbounds {x y w h name} {
-    variable receive_symbol
-    pdsend "$receive_symbol setbounds $x $y $w $h $name"
+proc ::ceammc::tl::update_line {win x y w h} {
+    pdsend "tl_cue_canvas_resize update_line $win.c $x $y $w $h"
 }
 
 proc ::ceammc::tl::startpolling {} {
-    bind PatchWindow <Configure> {+::ceammc::tl::setbounds %x %y %w %h %W}
+    ::pdwindow::verbose 0 "\[ceammc\] start tl.cue canvas resize polling...\n"
+    bind PatchWindow <Configure> {+::ceammc::tl::update_line %W %x %y %w %h }
 }
 
 proc ::ceammc::tl::stoppolling {} {
-    unbind PatchWindow <Configure> {::ceammc::tl::setbounds %x %y %w %h %W}
+    ::pdwindow::verbose 0 "\[ceammc\] stop tl.cue canvas resize polling...\n"
+    unbind PatchWindow <Configure> {::ceammc::tl::update_line %W %x %y %w %h }
 }
 
-proc ::ceammc::tl::setup {symbol} {
-    variable receive_symbol $symbol
-}
