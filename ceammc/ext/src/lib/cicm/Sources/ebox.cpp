@@ -176,11 +176,10 @@ void ebox_free(t_ebox* x)
 {
     eobj_free(x);
     if (x->b_receive_id && x->b_receive_id != s_null) {
-        pd_unbind((t_pd*)x, x->b_receive_id);
         // replace #n => $d
-        // t_symbol* sname_dollar = gensym(ceammc_raute2dollar(x->b_receive_id->s_name).c_str());
-        // t_symbol* sname = canvas_realizedollar(eobj_getcanvas(x), sname_dollar);
-        // pd_unbind((t_pd*)x, sname);
+        t_symbol* sname_dollar = gensym(ceammc_raute2dollar(x->b_receive_id->s_name).c_str());
+        t_symbol* sname = canvas_realizedollar(eobj_getcanvas(x), sname_dollar);
+        pd_unbind((t_pd*)x, sname);
     }
     gfxstub_deleteforkey(x);
     if (eobj_isdsp(x)) {
