@@ -216,7 +216,7 @@ void TlCue::createLine()
     if (line_created_ || !asEBox()->b_canvas_id)
         return;
 
-    sys_vgui("%s create line %d %d %d %d -width %d -fill #%6.6x -tags .x%lx_CUE_LINE\n",
+    sys_vgui("%s create line %d %d %d %d -width %d -dash .- -fill #%6.6x -tags .x%lx_CUE_LINE\n",
         asEBox()->b_canvas_id->s_name,
         int(x() - LINE_WIDTH), CUE_Y_POS + 1,
         int(x() - LINE_WIDTH),
