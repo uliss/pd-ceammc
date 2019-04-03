@@ -15,8 +15,8 @@ echo "#ifndef ${NAME}_h_" >> "$FILE"
 echo "#define ${NAME}_h_" >> "$FILE"
 echo "const char* $NAME = " >> "$FILE"
 
-cat $1 | while IFS='' read -r line || [[ -n "$line" ]]; do
-    line=$(echo $line | sed 's/\\/\\\\/g' | sed 's/"/\\"/g')
+cat "$1" | sed '/^$/d' | sed '/^#/d' | while IFS='' read -r line || [[ -n "$line" ]]; do
+    line=$(echo "$line" | sed 's/\\/\\\\/g' | sed 's/"/\\"/g')
     echo "\"$line\\n\"" >> "$FILE"
 done
 

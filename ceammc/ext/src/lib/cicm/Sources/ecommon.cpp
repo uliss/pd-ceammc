@@ -10,6 +10,7 @@
 
 #include "ecommon.h"
 #include "egraphics.h"
+#include "cicm_common.tcl.h"
 
 t_symbol* s_null;
 t_symbol* s_atom;
@@ -45,82 +46,7 @@ void epd_init(void)
     s_color_black_hex = gensym("#000000");
     if(!epd_symbol->s_thing)
     {
-        // PATCHER MOUSE MOTION //
-        sys_vgui("proc eobj_canvas_motion {patcher val} {\n");
-        sys_gui(" set rx [winfo rootx $patcher]\n");
-        sys_gui(" set ry [winfo rooty $patcher]\n");
-        sys_gui(" set x  [winfo pointerx .]\n");
-        sys_gui(" set y  [winfo pointery .]\n");
-        sys_vgui(" pdtk_canvas_motion $patcher [expr $x - $rx] [expr $y - $ry] $val\n");
-        sys_gui("}\n");
-        
-        // PATCHER MOUSE DOWN //
-        sys_vgui("proc eobj_canvas_down {patcher val} {\n");
-        sys_gui(" set rx [winfo rootx $patcher]\n");
-        sys_gui(" set ry [winfo rooty $patcher]\n");
-        sys_gui(" set x  [winfo pointerx .]\n");
-        sys_gui(" set y  [winfo pointery .]\n");
-        sys_vgui(" pdtk_canvas_mouse $patcher [expr $x - $rx] [expr $y - $ry] 0 $val\n");
-        sys_gui("}\n");
-        
-        // PATCHER MOUSE UP //
-        sys_vgui("proc eobj_canvas_up {patcher} {\n");
-        sys_gui(" set rx [winfo rootx $patcher]\n");
-        sys_gui(" set ry [winfo rooty $patcher]\n");
-        sys_gui(" set x  [winfo pointerx .]\n");
-        sys_gui(" set y  [winfo pointery .]\n");
-        sys_vgui(" pdtk_canvas_mouseup $patcher [expr $x - $rx] [expr $y - $ry] 0\n");
-        sys_gui("}\n");
-        
-        // PATCHER MOUSE RIGHT //
-        sys_vgui("proc eobj_canvas_right {patcher} {\n");
-        sys_gui(" set rx [winfo rootx $patcher]\n");
-        sys_gui(" set ry [winfo rooty $patcher]\n");
-        sys_gui(" set x  [winfo pointerx .]\n");
-        sys_gui(" set y  [winfo pointery .]\n");
-        sys_vgui(" pdtk_canvas_rightclick $patcher [expr $x - $rx] [expr $y - $ry] 0\n");
-        sys_gui("}\n");
-        
-        // OBJECT SAVE FILE //
-        sys_gui("proc eobj_saveas {name initialfile initialdir} {\n");
-        sys_gui("if { ! [file isdirectory $initialdir]} {set initialdir $::env(HOME)}\n");
-        sys_gui("set filename [tk_getSaveFile -initialfile $initialfile -initialdir $initialdir -filetypes $::filetypes]\n");
-        sys_gui("if {$filename eq \"\"} return;\n");
-        
-        sys_gui("set extension [file extension $filename]\n");
-        sys_gui("set oldfilename $filename\n");
-        
-        sys_gui("if {$filename ne $oldfilename && [file exists $filename]} {\n");
-        sys_gui("set answer [tk_messageBox -type okcancel -icon question -default cancel-message [_ \"$filename\" already exists. Do you want to replace it?]]\n");
-        sys_gui("if {$answer eq \"cancel\"} return;\n");
-        sys_gui("}\n");
-        sys_gui("set dirname [file dirname $filename]\n");
-        sys_gui("set basename [file tail $filename]\n");
-        sys_gui("pdsend \"$name eobjwriteto [enquote_path $dirname/$basename]\"\n");
-        sys_gui("set ::filenewdir $dirname\n");
-        sys_gui("::pd_guiprefs::update_recentfiles $filename\n");
-        sys_gui("}\n");
-        
-        // OBJECT OPEN FILE //
-        sys_gui("proc eobj_openfrom {name} {\n");
-        sys_gui("if { ! [file isdirectory $::filenewdir]} {\n");
-        sys_gui("set ::filenewdir [file normalize $::env(HOME)]\n");
-        sys_gui("}\n");
-        sys_gui("set files [tk_getOpenFile -multiple false -initialdir $::fileopendir]\n");
-        sys_gui("pdsend \"$name eobjreadfrom [enquote_path $files]\"\n");
-        sys_gui("}\n");
-        
-        // RGBA TO HEX //
-        sys_gui("proc eobj_rgba_to_hex {red green blue alpha} { \n");
-        sys_gui("set nR [expr int( $red * 65025 )]\n");
-        sys_gui("set nG [expr int( $green * 65025 )]\n");
-        sys_gui("set nB [expr int( $blue * 65025 )]\n");
-        sys_gui("set col [format {%4.4x} $nR]\n");
-        sys_gui("append col [format {%4.4x} $nG]\n");
-        sys_gui("append col [format {%4.4x} $nB]\n");
-        sys_gui("return #$col\n");
-        sys_gui("}\n");
-
+        sys_gui(cicm_common_tcl);
         epd_symbol->s_thing = (t_class **)1;
     }
 }
