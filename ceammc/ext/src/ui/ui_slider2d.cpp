@@ -49,6 +49,7 @@ UISlider2D::UISlider2D()
     , x_pos_(0.5f)
     , y_pos_(0.5f)
     , mouse_down_(false)
+    , right_click_(false)
 {
     createOutlet();
 }
@@ -157,8 +158,48 @@ void UISlider2D::onList(const AtomList& lst)
     output();
 }
 
+void UISlider2D::onPopup(t_symbol* menu_name, long item_idx)
+{
+    if (menu_name != gensym("popup"))
+        return;
+
+    t_float xcenter = convert::lin2lin<t_float>(0.5, 0, 1, prop_x_min, prop_x_max);
+    t_float ycenter = convert::lin2lin<t_float>(0.5, 0, 1, prop_y_min, prop_y_max);
+
+    switch (item_idx) {
+    case 0:
+        onList(AtomList(xcenter, ycenter));
+        break;
+    case 1:
+        onList(AtomList(prop_x_min, ycenter));
+        break;
+    case 2:
+        onList(AtomList(prop_x_max, ycenter));
+        break;
+    case 3:
+        onList(AtomList(xcenter, prop_y_min));
+        break;
+    case 4:
+        onList(AtomList(xcenter, prop_y_max));
+        break;
+    }
+}
+
 void UISlider2D::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
+    // right click
+    if (modifiers & EMOD_RIGHT) {
+        UIPopupMenu menu(asEObj(), "popup", abs_pt);
+        menu.addItem(_("center"));
+        menu.addItem(_("left center"));
+        menu.addItem(_("right center"));
+        menu.addItem(_("top center"));
+        menu.addItem(_("bottom center"));
+        right_click_ = true;
+        return;
+    }
+
+    right_click_ = false;
     mouse_down_ = true;
     setMouse(pt.x, pt.y);
     redrawKnob();
@@ -174,6 +215,11 @@ void UISlider2D::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 
 void UISlider2D::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
+    if (right_click_) {
+        right_click_ = false;
+        return;
+    }
+
     mouse_down_ = false;
     setMouse(pt.x, pt.y);
     redrawKnob();
