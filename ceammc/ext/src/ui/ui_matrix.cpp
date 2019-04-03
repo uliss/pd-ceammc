@@ -6,6 +6,8 @@
 
 #include <algorithm>
 #include <cassert>
+#include <cstdio>
+#include <fstream>
 #include <limits>
 #include <random>
 
@@ -545,6 +547,59 @@ void UIMatrix::onMouseLeave(t_object*, const t_pt&, long)
     mouse_current_row_ = -1;
 }
 
+void UIMatrix::read(const std::string& fname)
+{
+    std::ifstream ifs(fname.c_str());
+    if (!ifs) {
+        UI_ERR << "can't open file " << quote(fname);
+        return;
+    }
+
+    int row = 0;
+    for (std::string line; std::getline(ifs, line) && (row < prop_rows_); row++) {
+        std::string::size_type prev_pos = 0;
+
+        std::string::size_type from = 0;
+        for (int col = 0; col < prop_cols_; col++) {
+            auto to = line.find(',', from);
+            if (to == std::string::npos) {
+                float v = std::stof(line.substr(from));
+                setCell(row, col, v != 0);
+                break;
+            } else {
+                float v = std::stof(line.substr(from, (to - from)));
+                setCell(row, col, v != 0);
+                from = to + 1;
+            }
+        }
+    }
+
+    drawActiveCells();
+}
+
+void UIMatrix::write(const std::string& fname)
+{
+    std::ofstream ofs(fname.c_str());
+    if (!ofs) {
+        UI_ERR << "can't open file " << quote(fname);
+        return;
+    }
+
+    for (size_t row = 0; row < prop_rows_; row++) {
+        for (size_t col = 0; col < prop_cols_; col++) {
+            if (col != 0)
+                ofs.put(',');
+
+            ofs.put(cell(row, col) ? '1' : '0');
+        }
+
+        ofs << "\n";
+    }
+
+    if (ofs.fail())
+        UI_ERR << "error while writing to file: " << quote(fname);
+}
+
 void UIMatrix::m_flip(const AtomList& lst)
 {
     if (lst.empty()) {
@@ -788,6 +843,7 @@ void UIMatrix::setup()
     obj.useList();
     obj.useBang();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_LEAVE);
+    obj.readWrite();
 
     obj.addProperty("rows", _("Rows"), 4, &UIMatrix::prop_rows_);
     obj.setPropertyRange("rows", 1, UI_MAX_MATRIX_SIZE);
