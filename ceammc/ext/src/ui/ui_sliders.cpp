@@ -177,6 +177,18 @@ void UISliders::storePreset(size_t idx)
 
 void UISliders::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
+    // right click
+    if (modifiers & EMOD_RIGHT) {
+        UIPopupMenu menu(asEObj(), "popup", abs_pt);
+        char buf[64];
+        snprintf(buf, sizeof(buf), _("fill with %f"), prop_max);
+        menu.addItem(buf);
+        snprintf(buf, sizeof(buf), _("fill with %f"), (prop_max - prop_min) * 0.5);
+        menu.addItem(buf);
+        snprintf(buf, sizeof(buf), _("fill with %f"), prop_min);
+        menu.addItem(buf);
+    }
+
     const t_rect r = rect();
     const size_t N = pos_values_.size();
 
@@ -212,6 +224,27 @@ void UISliders::onDblClick(t_object* view, const t_pt& pt, long modifiers)
     t_canvas* c = reinterpret_cast<t_canvas*>(view);
     if (c->gl_edit)
         resize(height() / zoom(), width() / zoom());
+}
+
+void UISliders::onPopup(t_symbol* menu_name, long item_idx)
+{
+    if (menu_name != gensym("popup"))
+        return;
+
+    switch (item_idx) {
+    case 0:
+        m_fill(prop_max);
+        break;
+    case 1:
+        m_fill((prop_max - prop_min) * 0.5);
+        break;
+    case 2:
+        m_fill(prop_min);
+        break;
+    default:
+        UI_ERR << "unknown popup menu item: " << item_idx;
+        break;
+    }
 }
 
 void UISliders::m_get(const AtomList& l)
