@@ -182,9 +182,9 @@ TEST_CASE("ui.sliders", "[ui.sliders]")
         REQUIRE_UI_FLOAT_PROPERTY(t, "max", 12);
 
         t->m_set(LF(-1, 2, 3, 4, 5));
-        REQUIRE(t->realValues() == LF(1, 2, 3, 4, 5, 1, 1, 1));
+        REQUIRE(t->realValues() == LX(1, 2, 3, 4, 5, 1, 1, 1));
         t->normalize();
-        REQUIRE(t->realValues() == LF(1, 2, 3, 4, 5, 1, 1, 1));
+        REQUIRE(t->realValues() == LX(1, 2, 3, 4, 5, 1, 1, 1));
         REQUIRE_UI_FLOAT_PROPERTY(t, "min", 1);
         REQUIRE_UI_FLOAT_PROPERTY(t, "max", 5);
     }
