@@ -84,7 +84,7 @@ void epd_init(void)
         // OBJECT SAVE FILE //
         sys_gui("proc eobj_saveas {name initialfile initialdir} {\n");
         sys_gui("if { ! [file isdirectory $initialdir]} {set initialdir $::env(HOME)}\n");
-        sys_gui("set filename [tk_getSaveFile -initialfile $initialfile -initialdir $initialdir -defaultextension .pd -filetypes $::filetypes]\n");
+        sys_gui("set filename [tk_getSaveFile -initialfile $initialfile -initialdir $initialdir -filetypes $::filetypes]\n");
         sys_gui("if {$filename eq \"\"} return;\n");
         
         sys_gui("set extension [file extension $filename]\n");
@@ -106,7 +106,7 @@ void epd_init(void)
         sys_gui("if { ! [file isdirectory $::filenewdir]} {\n");
         sys_gui("set ::filenewdir [file normalize $::env(HOME)]\n");
         sys_gui("}\n");
-        sys_gui("set files [tk_getOpenFile -multiple true -initialdir $::fileopendir]\n");
+        sys_gui("set files [tk_getOpenFile -multiple false -initialdir $::fileopendir]\n");
         sys_gui("pdsend \"$name eobjreadfrom [enquote_path $files]\"\n");
         sys_gui("}\n");
         
