@@ -34,6 +34,9 @@ static const char* SYM_MOUSE_DBL_CLICK = "dblclick";
 static const char* SYM_KEY = "key";
 static const char* SYM_KEY_FILTER = "keyfilter";
 
+static const char* SYM_READ = "read";
+static const char* SYM_WRITE = "write";
+
 static const char* SYM_PAINT = "paint";
 static const char* SYM_NOTIFY = "notify";
 static const char* SYM_GET_DRAW_PARAMS = "getdrawparams";
@@ -299,68 +302,76 @@ t_pd_err eclass_register(t_symbol* name, t_eclass* c)
 
 void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type, long dummy)
 {
-    if (gensym(name) == gensym(SYM_MOUSE_ENTER)) {
+    t_symbol* sname = gensym(name);
+    t_class* cx = &c->c_class;
+    if (sname == gensym(SYM_MOUSE_ENTER)) {
         c->c_widget.w_mouseenter = m;
-    } else if (gensym(name) == gensym(SYM_MOUSE_LEAVE)) {
+    } else if (sname == gensym(SYM_MOUSE_LEAVE)) {
         c->c_widget.w_mouseleave = m;
-    } else if (gensym(name) == gensym(SYM_MOUSE_MOVE)) {
+    } else if (sname == gensym(SYM_MOUSE_MOVE)) {
         c->c_widget.w_mousemove = m;
-    } else if (gensym(name) == gensym(SYM_MOUSE_DOWN)) {
+    } else if (sname == gensym(SYM_MOUSE_DOWN)) {
         c->c_widget.w_mousedown = m;
-    } else if (gensym(name) == gensym(SYM_MOUSE_DRAG)) {
+    } else if (sname == gensym(SYM_MOUSE_DRAG)) {
         c->c_widget.w_mousedrag = m;
-    } else if (gensym(name) == gensym(SYM_MOUSE_UP)) {
+    } else if (sname == gensym(SYM_MOUSE_UP)) {
         c->c_widget.w_mouseup = m;
-    } else if (gensym(name) == gensym(SYM_MOUSE_WHEEL)) {
-        class_addmethod((t_class*)c, (t_method)ebox_mouse_wheel, gensym(SYM_MOUSE_WHEEL), A_GIMME, 0);
+    } else if (sname == gensym(SYM_MOUSE_WHEEL)) {
+        class_addmethod(cx, (t_method)ebox_mouse_wheel, gensym(SYM_MOUSE_WHEEL), A_GIMME, 0);
         c->c_widget.w_mousewheel = m;
-    } else if (gensym(name) == gensym(SYM_MOUSE_DBL_CLICK)) {
-        class_addmethod((t_class*)c, (t_method)ebox_mouse_dblclick, gensym(SYM_MOUSE_DBL_CLICK), A_GIMME, 0);
+    } else if (sname == gensym(SYM_MOUSE_DBL_CLICK)) {
+        class_addmethod(cx, (t_method)ebox_mouse_dblclick, gensym(SYM_MOUSE_DBL_CLICK), A_GIMME, 0);
         c->c_widget.w_dblclick = m;
-    } else if (gensym(name) == gensym(SYM_KEY) || gensym(name) == gensym(SYM_KEY_FILTER)) {
+    } else if (sname == gensym(SYM_KEY) || sname == gensym(SYM_KEY_FILTER)) {
         if (c->c_widget.w_key == NULL && c->c_widget.w_keyfilter == NULL)
-            class_addmethod((t_class*)c, (t_method)ebox_key, gensym(SYM_KEY), A_GIMME, 0);
-        if (gensym(name) == gensym(SYM_KEY))
+            class_addmethod(cx, (t_method)ebox_key, gensym(SYM_KEY), A_GIMME, 0);
+        if (sname == gensym(SYM_KEY))
             c->c_widget.w_key = m;
-        if (gensym(name) == gensym(SYM_KEY_FILTER))
+        if (sname == gensym(SYM_KEY_FILTER))
             c->c_widget.w_keyfilter = m;
-    } else if (gensym(name) == gensym(SYM_PAINT)) {
+    } else if (sname == gensym(SYM_PAINT)) {
         c->c_widget.w_paint = m;
-    } else if (gensym(name) == gensym(SYM_NOTIFY)) {
+    } else if (sname == gensym(SYM_NOTIFY)) {
         c->c_widget.w_notify = (t_err_method)m;
-    } else if (gensym(name) == gensym(SYM_GET_DRAW_PARAMS)) {
+    } else if (sname == gensym(SYM_GET_DRAW_PARAMS)) {
         c->c_widget.w_getdrawparameters = m;
-    } else if (gensym(name) == gensym(SYM_OK_SIZE)) {
+    } else if (sname == gensym(SYM_OK_SIZE)) {
         c->c_widget.w_oksize = m;
-    } else if (gensym(name) == gensym(SYM_ONZOOM)) {
+    } else if (sname == gensym(SYM_ONZOOM)) {
         c->c_widget.w_onzoom = m;
-    } else if (gensym(name) == gensym(SYM_SAVE)) {
+    } else if (sname == gensym(SYM_SAVE)) {
         c->c_widget.w_save = m;
-    } else if (gensym(name) == gensym(SYM_POPUP)) {
-        class_addmethod((t_class*)c, (t_method)eobj_popup, gensym(SYM_POPUP), A_SYMBOL, A_DEFFLOAT, 0);
+    } else if (sname == gensym(SYM_POPUP)) {
+        class_addmethod(cx, (t_method)eobj_popup, gensym(SYM_POPUP), A_SYMBOL, A_DEFFLOAT, 0);
         c->c_widget.w_popup = m;
-    } else if (gensym(name) == gensym(SYM_DSP)) {
+    } else if (sname == gensym(SYM_DSP)) {
         c->c_widget.w_dsp = m;
-    } else if (gensym(name) == &s_bang) {
-        class_addbang((t_class*)c, m);
-    } else if (gensym(name) == &s_float) {
-        class_addfloat((t_class*)c, m);
-    } else if (gensym(name) == &s_list) {
-        class_addlist((t_class*)c, m);
-    } else if (gensym(name) == gensym(SYM_ANY)) {
-        class_addanything((t_class*)c, m);
-    } else if (gensym(name) == &s_symbol) {
-        class_addsymbol((t_class*)c, m);
-    } else if (gensym(name) == gensym(SYM_PRESET)) {
+    } else if (sname == &s_bang) {
+        class_addbang(cx, m);
+    } else if (sname == &s_float) {
+        class_addfloat(cx, m);
+    } else if (sname == &s_list) {
+        class_addlist(cx, m);
+    } else if (sname == gensym(SYM_ANY)) {
+        class_addanything(cx, m);
+    } else if (sname == &s_symbol) {
+        class_addsymbol(cx, m);
+    } else if (sname == gensym(SYM_PRESET)) {
         CLASS_ATTR_SYMBOL(c, "presetname", 0, t_ebox, b_objpreset_id);
         CLASS_ATTR_DEFAULT(c, "presetname", 0, "(null)");
         CLASS_ATTR_SAVE(c, "presetname", 0);
         CLASS_ATTR_CATEGORY(c, "presetname", 0, _("Basic"));
         CLASS_ATTR_LABEL(c, "presetname", 0, _("Preset Name"));
         CLASS_ATTR_ACCESSORS(c, "presetname", NULL, ebox_set_presetid);
-        class_addmethod((t_class*)c, (t_method)m, gensym(name), type, 0);
+        class_addmethod(cx, (t_method)m, sname, type, 0);
+    } else if (sname == gensym(SYM_WRITE)) {
+        class_addmethod(cx, (t_method)eobj_write, sname, type, 0);
+        c->c_widget.w_write = m;
+    } else if (sname == gensym(SYM_READ)) {
+        class_addmethod(cx, (t_method)eobj_read, sname, type, 0);
+        c->c_widget.w_read = m;
     } else {
-        class_addmethod((t_class*)c, (t_method)m, gensym(name), type, 0);
+        class_addmethod(cx, (t_method)m, sname, type, 0);
     }
 }
 

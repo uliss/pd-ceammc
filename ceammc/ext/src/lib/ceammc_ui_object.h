@@ -101,6 +101,8 @@ public:
     void setDrawParams(t_object*, t_edrawparams* params);
     void onZoom(t_float z);
     void onPopup(t_symbol* menu_name, long item_idx);
+    void write(const std::string& fname);
+    void read(const std::string& fname);
 
     void m_custom(t_symbol* sel, const AtomList& lst);
 

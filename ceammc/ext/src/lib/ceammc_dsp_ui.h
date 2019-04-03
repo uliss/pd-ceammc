@@ -131,6 +131,14 @@ public:
         // clang-format on
     }
 
+    void readWrite()
+    {
+        // clang-format off
+        eclass_addmethod(pd_class, UI_METHOD_PTR(write),         "write",         A_GIMME,  0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(read),          "read",          A_GIMME,  0);
+        // clang-format on
+    }
+
     void usePresets()
     {
         // clang-format off
@@ -484,6 +492,16 @@ public:
         }
 
         return z->notify(s, msg);
+    }
+
+    static void write(UI* z, const char* fname)
+    {
+        z->write(fname);
+    }
+
+    static void read(UI* z, const char* fname)
+    {
+        z->read(fname);
     }
 
     static void okSize(UI* z, ::t_rect* newrect)

@@ -5,7 +5,9 @@
 #include "ceammc_cicm.h"
 #include "ceammc_data.h"
 #include "ceammc_externals.h"
+#include "ceammc_format.h"
 #include "ceammc_log.h"
+#include "ceammc_platform.h"
 #include "m_pd.h"
 
 #include <string>
@@ -143,8 +145,8 @@ public:
         eclass_addmethod(pd_class, UI_METHOD_PTR(notify),        "notify",        A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(okSize),        "oksize",        A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(onZoom),        "onzoom",        A_GIMME,  0);
-        eclass_addmethod(pd_class, UI_METHOD_PTR(onPopup),       "popup",        A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(setDrawParams), "getdrawparams", A_NULL, 0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(onPopup),       "popup",         A_GIMME,  0);
         // clang-format on
     }
 
@@ -187,6 +189,14 @@ public:
         CLASS_ATTR_LABEL    (pd_class, PROP_PRESET_NAME, 0, _("Preset Name"));
         CLASS_ATTR_ACCESSORS(pd_class, PROP_PRESET_NAME, NULL, ebox_set_presetid);
 
+        // clang-format on
+    }
+
+    void readWrite()
+    {
+        // clang-format off
+        eclass_addmethod(pd_class, UI_METHOD_PTR(write),         "write",         A_GIMME,  0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(read),          "read",          A_GIMME,  0);
         // clang-format on
     }
 
@@ -601,6 +611,16 @@ public:
     static void okSize(UI* z, ::t_rect* newrect)
     {
         z->okSize(newrect);
+    }
+
+    static void write(UI* z, const char* fname)
+    {
+        z->write(fname);
+    }
+
+    static void read(UI* z, const char* fname)
+    {
+        z->read(fname);
     }
 
     static void onZoom(UI* z, t_float zoom)

@@ -235,6 +235,14 @@ void UIObject::onPopup(t_symbol* menu_name, long item_idx)
 {
 }
 
+void UIObject::write(const std::string& fname)
+{
+}
+
+void UIObject::read(const std::string& fname)
+{
+}
+
 void UIObject::m_custom(t_symbol* sel, const AtomList& lst)
 {
 }
