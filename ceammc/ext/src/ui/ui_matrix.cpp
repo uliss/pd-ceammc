@@ -558,16 +558,24 @@ void UIMatrix::read(const std::string& fname)
     int row = 0;
     for (std::string line; std::getline(ifs, line) && (row < prop_rows_); row++) {
         std::string::size_type from = 0;
-        for (int col = 0; col < prop_cols_; col++) {
+        for (int col = 0; col < prop_cols_ && from < line.size(); col++) {
             auto to = line.find(',', from);
-            if (to == std::string::npos) {
-                float v = std::stof(line.substr(from));
-                setCell(row, col, v != 0);
+
+            try {
+                if (to == std::string::npos) {
+                    float v = std::stof(line.substr(from));
+                    setCell(row, col, v != 0);
+                    // last value in column - break inner loop
+                    break;
+                } else {
+                    float v = std::stof(line.substr(from, (to - from)));
+                    setCell(row, col, v != 0);
+                    from = to + 1;
+                }
+            } catch (std::invalid_argument& e) {
+                UI_ERR << "parse error: " << e.what();
+                // last value in column - break inner loop
                 break;
-            } else {
-                float v = std::stof(line.substr(from, (to - from)));
-                setCell(row, col, v != 0);
-                from = to + 1;
             }
         }
     }
