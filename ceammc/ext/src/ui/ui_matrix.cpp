@@ -557,8 +557,6 @@ void UIMatrix::read(const std::string& fname)
 
     int row = 0;
     for (std::string line; std::getline(ifs, line) && (row < prop_rows_); row++) {
-        std::string::size_type prev_pos = 0;
-
         std::string::size_type from = 0;
         for (int col = 0; col < prop_cols_; col++) {
             auto to = line.find(',', from);
@@ -795,6 +793,12 @@ void UIMatrix::onPopup(t_symbol* menu_name, long item_idx)
             break;
         case 2:
             m_random();
+            break;
+        case 3:
+            eobj_read(asEObj(), gensym("read"), 0, nullptr);
+            break;
+        case 4:
+            eobj_write(asEObj(), gensym("write"), 0, nullptr);
             break;
         }
     }

@@ -165,6 +165,10 @@ void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom* argv)
     }
     // The file name is not defined so we popup a window
     else {
+        // dialog cancelled
+        if (s == gensym("eobjwriteto"))
+            return;
+
         sys_vgui("eobj_saveas %s nothing nothing\n", x->o_id->s_name);
     }
 }
@@ -239,6 +243,9 @@ void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom* argv)
     }
     // No name so we popup a window
     else {
+        if (s == gensym("eobjreadfrom"))
+            return;
+
         sys_vgui("eobj_openfrom %s\n", x->o_id->s_name);
     }
 }

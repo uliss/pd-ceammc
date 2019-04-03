@@ -366,9 +366,11 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
         class_addmethod(cx, (t_method)m, sname, type, 0);
     } else if (sname == gensym(SYM_WRITE)) {
         class_addmethod(cx, (t_method)eobj_write, sname, type, 0);
+        class_addmethod(cx, (t_method)eobj_write, gensym("eobjwriteto"), type, 0);
         c->c_widget.w_write = m;
     } else if (sname == gensym(SYM_READ)) {
         class_addmethod(cx, (t_method)eobj_read, sname, type, 0);
+        class_addmethod(cx, (t_method)eobj_read, gensym("eobjreadfrom"), type, 0);
         c->c_widget.w_read = m;
     } else {
         class_addmethod(cx, (t_method)m, sname, type, 0);
