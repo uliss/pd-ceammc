@@ -88,4 +88,14 @@ TEST_CASE("format", "[ceammc::format]")
         REQUIRE_ESCAPED("\"a ", "\"`\"a \"");
         REQUIRE_ESCAPED("\"a b\"", "\"`\"a b`\"\"");
     }
+
+    SECTION("quote")
+    {
+        REQUIRE(quote("") == std::string("\"\""));
+        REQUIRE(quote("abc") == std::string("\"abc\""));
+        // no escaping
+        REQUIRE(quote("abc\"") == std::string("\"abc\"\""));
+        REQUIRE(quote("abc", '\'') == std::string("'abc'"));
+
+    }
 }
