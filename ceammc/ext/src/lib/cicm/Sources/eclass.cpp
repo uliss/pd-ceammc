@@ -36,7 +36,6 @@ static const char* SYM_KEY_FILTER = "keyfilter";
 
 static const char* SYM_READ = "read";
 static const char* SYM_WRITE = "write";
-static const char* SYM_DSP = "write";
 
 static const char* SYM_PAINT = "paint";
 static const char* SYM_NOTIFY = "notify";
@@ -268,7 +267,7 @@ void eclass_guiinit(t_eclass* c, long flags)
 void eclass_dspinit(t_eclass* c)
 {
     c->c_dsp = 1;
-    class_addmethod((t_class*)c, (t_method)eobj_dsp, gensym(SYM_DSP), A_NULL, 0);
+    class_addmethod((t_class*)c, (t_method)eobj_dsp, gensym(SYM_DSP), A_CANT, 0);
     class_addmethod((t_class*)c, (t_method)eobj_dsp_add, gensym(SYM_DSP_ADD), A_NULL, 0);
     class_addmethod((t_class*)c, (t_method)eobj_dsp_add, gensym(SYM_DSP_ADD64), A_NULL, 0);
 }
@@ -365,16 +364,6 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
         CLASS_ATTR_LABEL(c, "presetname", 0, _("Preset Name"));
         CLASS_ATTR_ACCESSORS(c, "presetname", NULL, ebox_set_presetid);
         class_addmethod(cx, (t_method)m, sname, type, 0);
-    } else if (sname == gensym(SYM_WRITE)) {
-        class_addmethod(cx, (t_method)eobj_write, sname, type, 0);
-        class_addmethod(cx, (t_method)eobj_write, gensym("eobjwriteto"), type, 0);
-        c->c_widget.w_write = m;
-    } else if (sname == gensym(SYM_READ)) {
-        class_addmethod(cx, (t_method)eobj_read, sname, type, 0);
-        class_addmethod(cx, (t_method)eobj_read, gensym("eobjreadfrom"), type, 0);
-        c->c_widget.w_read = m;
-    } else if (sname == gensym(SYM_DSP)) {
-        class_addmethod(cx, (t_method)m, sname, A_CANT, 0);
     } else {
         class_addmethod(cx, (t_method)m, sname, type, 0);
     }
