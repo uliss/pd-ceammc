@@ -36,6 +36,7 @@ static const char* SYM_KEY_FILTER = "keyfilter";
 
 static const char* SYM_READ = "read";
 static const char* SYM_WRITE = "write";
+static const char* SYM_DSP = "write";
 
 static const char* SYM_PAINT = "paint";
 static const char* SYM_NOTIFY = "notify";
@@ -372,6 +373,8 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
         class_addmethod(cx, (t_method)eobj_read, sname, type, 0);
         class_addmethod(cx, (t_method)eobj_read, gensym("eobjreadfrom"), type, 0);
         c->c_widget.w_read = m;
+    } else if (sname == gensym(SYM_DSP)) {
+        class_addmethod(cx, (t_method)m, sname, A_CANT, 0);
     } else {
         class_addmethod(cx, (t_method)m, sname, type, 0);
     }
