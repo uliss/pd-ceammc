@@ -22,8 +22,10 @@
 #include <fnmatch.h>
 #include <iostream>
 #include <libgen.h>
+#include <limits.h>
 #include <netdb.h>
 #include <pwd.h>
+#include <stdio.h>
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -161,5 +163,14 @@ namespace platform {
             return true;
     }
 
+    std::string unix_current_working_directory()
+    {
+        char cwd[PATH_MAX];
+        if (getcwd(cwd, sizeof(cwd)) != NULL)
+            return cwd;
+
+        perror("getcwd() error");
+        return std::string();
+    }
 }
 }

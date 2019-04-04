@@ -200,6 +200,21 @@ namespace platform {
         Sleep(ms);
     }
 
+    std::string win_current_working_directory()
+    {
+        char* buffer;
+
+        // Get the current working directory:
+        if ((buffer = _getcwd(NULL, 0)) == NULL) {
+            perror("_getcwd error");
+            return std::string();
+        } else {
+            std::string res(buffer);
+            free(buffer);
+            return res;
+        }
+    }
+
     Either<NetAddressList> win_hostnametoip(const char* name, NetAddressType type)
     {
         struct addrinfo* result = NULL;

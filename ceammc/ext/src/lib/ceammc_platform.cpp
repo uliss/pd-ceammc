@@ -265,7 +265,7 @@ namespace platform {
         return full_path;
     }
 
-    std::string make_abs_filepath_with_canvas(_glist* cnv, const std::string& path)
+    std::string make_abs_filepath_with_canvas(t_canvas* cnv, const std::string& path)
     {
         if (path.empty() || path == "~" || path == "~/")
             return std::string();
@@ -281,6 +281,10 @@ namespace platform {
                     std::string dir(patch_dir->s_name);
                     dir += '/';
                     dir += p;
+
+                    if (dir[0] == '~')
+                        return expand_tilde_path(dir);
+
                     return dir;
                 }
             }
@@ -313,6 +317,11 @@ namespace platform {
     Either<bool> init_pipe(int fd[])
     {
         return NS(init_pipe(fd));
+    }
+
+    std::string current_working_directory()
+    {
+        return NS(current_working_directory());
     }
 
 }
