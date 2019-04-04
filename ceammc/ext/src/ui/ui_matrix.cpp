@@ -587,7 +587,7 @@ void UIMatrix::write(const std::string& fname)
 {
     std::ofstream ofs(fname.c_str());
     if (!ofs) {
-        UI_ERR << "can't open file " << quote(fname);
+        UI_ERR << "can't open file " << quote(fname) << " for writing";
         return;
     }
 

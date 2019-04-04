@@ -195,8 +195,13 @@ public:
     void readWrite()
     {
         // clang-format off
-        eclass_addmethod(pd_class, UI_METHOD_PTR(write),         "write",         A_GIMME,  0);
-        eclass_addmethod(pd_class, UI_METHOD_PTR(read),          "read",          A_GIMME,  0);
+        class_addmethod(&pd_class->c_class, (t_method)eobj_write, gensym("write"), A_GIMME, 0);
+        class_addmethod(&pd_class->c_class, (t_method)eobj_write, gensym("eobjwriteto"), A_GIMME, 0);
+        pd_class->c_widget.w_write = (t_typ_method)write;
+
+        class_addmethod(&pd_class->c_class, (t_method)eobj_read, gensym("read"), A_GIMME, 0);
+        class_addmethod(&pd_class->c_class, (t_method)eobj_read, gensym("eobjreadfrom"), A_GIMME, 0);
+        pd_class->c_widget.w_read = (t_typ_method)read;
         // clang-format on
     }
 
