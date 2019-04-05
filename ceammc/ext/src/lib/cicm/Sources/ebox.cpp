@@ -237,13 +237,12 @@ void ebox_set_cursor(t_ebox* x, t_cursor cursor)
 
 void ebox_attrprocess_viatoms(void* x, int argc, t_atom* argv)
 {
-    int i;
     char buffer[MAXPDSTRING];
     int defc = 0;
     t_atom* defv = NULL;
     t_eclass* c = eobj_getclass(x);
 
-    for (i = 0; i < c->c_nattr; i++) {
+    for (int i = 0; i < c->c_nattr; i++) {
         sprintf(buffer, "@%s", c->c_attr[i]->name->s_name);
         atoms_get_attribute(argc, argv, gensym(buffer), &defc, &defv);
         if (defc && defv) {
@@ -257,13 +256,12 @@ void ebox_attrprocess_viatoms(void* x, int argc, t_atom* argv)
 
 void ebox_attrprocess_viabinbuf(void* x, t_binbuf* d)
 {
-    int i;
     char attr_name[MAXPDSTRING];
 
     int defc = 0;
     t_atom* defv = NULL;
     t_eclass* c = eobj_getclass(x);
-    for (i = 0; i < c->c_nattr; i++) {
+    for (int i = 0; i < c->c_nattr; i++) {
         sprintf(attr_name, "@%s", c->c_attr[i]->name->s_name);
         binbuf_get_attribute(d, gensym(attr_name), &defc, &defv);
         if (defc && defv) {
