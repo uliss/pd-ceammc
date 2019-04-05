@@ -197,6 +197,8 @@ set total_recentfiles 5
 # keep track of the location of popup menu for PatchWindows, in canvas coords
 set popup_xcanvas 0
 set popup_ycanvas 0
+set popup_xabs 0
+set popup_yabs 0
 # modifier for key commands (Ctrl/Control on most platforms, Cmd/Mod1 on MacOSX)
 set modifier ""
 # current state of the Edit Mode menu item
