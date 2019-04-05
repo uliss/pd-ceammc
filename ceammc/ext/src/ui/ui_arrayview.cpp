@@ -97,14 +97,19 @@ void UIArrayView::drawWaveform()
         auto sel_color = rgba_color_sum(&prop_color_wave, &prop_color_selection, 0.4);
         auto sel_rect_color = rgba_color_sum(&prop_color_background, &prop_color_selection, 0.9);
 
+        // draw before selection if exists
         if (pixel_sel_start > 1)
             drawWaveformSegment(p, 0, pixel_sel_start, prop_color_wave);
 
+        // draw selection
+        // selection rectangle
         p.setColor(sel_rect_color);
-        p.drawRect(pixel_sel_start, 0, pixel_sel_end - pixel_sel_start, height());
+        p.drawRect(pixel_sel_start, 0, (pixel_sel_end - pixel_sel_start), height());
         p.fill();
+        // selection waveform segment
         drawWaveformSegment(p, pixel_sel_start, pixel_sel_end, sel_color);
 
+        // draw after selection
         if (pixel_sel_end <= (WD - 1))
             drawWaveformSegment(p, pixel_sel_end, WD, prop_color_wave);
     }
@@ -207,6 +212,13 @@ t_pd_err UIArrayView::notify(t_symbol* attr_name, t_symbol* msg)
         }
     }
     return 0;
+}
+
+void UIArrayView::onZoom(t_float z)
+{
+    cursor_layer_.invalidate();
+    bg_layer_.invalidate();
+    wave_layer_.invalidate();
 }
 
 void UIArrayView::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
@@ -514,22 +526,27 @@ void UIArrayView::renderRange(size_t pos, size_t len)
     }
 }
 
-void UIArrayView::drawWaveformSegment(UIPainter& p, int pixel_from, int pixel_to, const t_rgba& color)
+void UIArrayView::drawWaveformSegment(UIPainter& p, int pixel_begin, int pixel_end, const t_rgba& color)
 {
-    const auto r = rect();
-    const int len = pixel_to - pixel_from;
+    const int idx_begin = pixel_begin / zoom();
+    const int idx_end = pixel_end / zoom();
+    const int z = zoom();
+    const t_rect r = rect();
+    const int len = idx_end - idx_begin;
+    const int N = buffer_.size();
 
-    if (!p || len < 1 || len > buffer_.size() || pixel_to > buffer_.size())
+    if (!p || len < 1 || len > N || idx_end > N || idx_begin >= N)
         return;
 
     // draw peak
     p.setColor(color);
-    p.moveTo(pixel_from, convert::lin2lin<float>(buffer_[pixel_from].peak_min, 1, -1, 0, r.height));
-    p.drawLineTo(pixel_from, convert::lin2lin<float>(buffer_[pixel_from].peak_max, 1, -1, 0, r.height));
+    p.moveTo(idx_begin * z, convert::lin2lin<float>(buffer_[idx_begin].peak_min, 1, -1, 0, r.height));
+    p.drawLineTo(idx_begin * z, convert::lin2lin<float>(buffer_[idx_begin].peak_max, 1, -1, 0, r.height));
 
-    for (int x = pixel_from + 1; x < pixel_to; x++) {
-        p.drawLineTo(x, convert::lin2lin<float>(buffer_[x].peak_min, 1, -1, 0, r.height));
-        p.drawLineTo(x, convert::lin2lin<float>(buffer_[x].peak_max, 1, -1, 0, r.height));
+    // assume: (x < idx_end) && (idx_end <= N) ----> (x < N)
+    for (int x = idx_begin + 1; x < idx_end; x++) {
+        p.drawLineTo(x * z, convert::lin2lin<float>(buffer_[x].peak_min, 1, -1, 0, r.height));
+        p.drawLineTo(x * z, convert::lin2lin<float>(buffer_[x].peak_max, 1, -1, 0, r.height));
     }
 
     p.stroke();
@@ -537,12 +554,13 @@ void UIArrayView::drawWaveformSegment(UIPainter& p, int pixel_from, int pixel_to
     if (prop_show_rms) {
         // draw rms
         p.setColor(rgba_addContrast(color, 0.23f));
-        p.moveTo(pixel_from, convert::lin2lin<float>(buffer_[pixel_from].rms, 1, -1, 0, r.height));
-        p.drawLineTo(pixel_from, convert::lin2lin<float>(-buffer_[pixel_from].rms, 1, -1, 0, r.height));
+        p.moveTo(idx_begin * z, convert::lin2lin<float>(buffer_[idx_begin].rms, 1, -1, 0, r.height));
+        p.drawLineTo(idx_begin * z, convert::lin2lin<float>(-buffer_[idx_begin].rms, 1, -1, 0, r.height));
 
-        for (int x = pixel_from + 1; x < pixel_to; x++) {
-            p.drawLineTo(x, convert::lin2lin<float>(buffer_[x].rms, 1, -1, 0, r.height));
-            p.drawLineTo(x, convert::lin2lin<float>(-buffer_[x].rms, 1, -1, 0, r.height));
+        // assume: (x < idx_end) && (idx_end <= N) ----> (x < N)
+        for (int x = idx_begin + 1; x < idx_end; x++) {
+            p.drawLineTo(x * z, convert::lin2lin<float>(buffer_[x].rms, 1, -1, 0, r.height));
+            p.drawLineTo(x * z, convert::lin2lin<float>(-buffer_[x].rms, 1, -1, 0, r.height));
         }
 
         p.stroke();
