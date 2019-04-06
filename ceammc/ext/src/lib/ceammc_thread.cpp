@@ -94,7 +94,7 @@ void ThreadExternalBase::start()
 void ThreadExternalBase::stop()
 {
     if (task_->stopRequested()) {
-        OBJ_ERR << "already stopping....";
+        OBJ_DBG << "already stopping....";
         return;
     }
 
