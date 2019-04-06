@@ -99,7 +99,7 @@ public:
     void resize(int w, int h);
     t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
     void okSize(t_rect* newrect);
-    void setDrawParams(t_object*, t_edrawparams* params);
+    void setDrawParams(t_edrawparams* params);
     float zoom() const;
     t_cursor cursor() const;
     void setCursor(t_cursor c);

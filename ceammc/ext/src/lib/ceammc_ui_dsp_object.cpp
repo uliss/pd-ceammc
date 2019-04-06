@@ -235,7 +235,7 @@ void UIDspObject::okSize(t_rect* newrect)
 {
 }
 
-void UIDspObject::setDrawParams(t_object*, t_edrawparams* params)
+void UIDspObject::setDrawParams(t_edrawparams* params)
 {
     params->d_borderthickness = 1;
     params->d_bordercolor = prop_color_border;

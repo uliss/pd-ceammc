@@ -220,7 +220,7 @@ void UIObject::okSize(t_rect* newrect)
 {
 }
 
-void UIObject::setDrawParams(t_object*, t_edrawparams* params)
+void UIObject::setDrawParams(t_edrawparams* params)
 {
     params->d_borderthickness = 1;
     params->d_bordercolor = prop_color_border;

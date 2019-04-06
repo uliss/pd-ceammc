@@ -166,7 +166,7 @@ void ebox_ready(t_ebox* x)
     x->b_boxparameters.d_borderthickness = 1;
     x->b_boxparameters.d_boxfillcolor = rgba_white;
     if (c->c_widget.w_getdrawparameters)
-        c->c_widget.w_getdrawparameters(x, NULL, &x->b_boxparameters);
+        c->c_widget.w_getdrawparameters(x, &x->b_boxparameters);
     x->b_ready_to_draw = 1;
 
     ebox_newzoom(x);

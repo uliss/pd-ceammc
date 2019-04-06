@@ -641,9 +641,9 @@ public:
         (z->*m)();
     }
 
-    static void setDrawParams(UI* z, t_object* obj, t_edrawparams* params)
+    static void setDrawParams(UI* z, t_edrawparams* params)
     {
-        z->setDrawParams(obj, params);
+        z->setDrawParams(params);
     }
 
     static t_pd_err floatPropGetter(UI* z, t_eattr* attr, int* argc, t_atom** argv)

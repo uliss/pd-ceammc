@@ -40,7 +40,7 @@ public:
     void init(t_symbol* name, const AtomList& args, bool usePresets);
     t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
     void output();
-    void setDrawParams(t_object*, t_edrawparams* params);
+    void setDrawParams(t_edrawparams* params);
 
     void onBang();
     void onFloat(t_float f);

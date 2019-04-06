@@ -90,9 +90,9 @@ void UILink::paint()
     p.drawText(link_text_);
 }
 
-void UILink::setDrawParams(t_object*, t_edrawparams* params)
+void UILink::setDrawParams(t_edrawparams* params)
 {
-    params->d_borderthickness = 1;
+    UIObject::setDrawParams(params);
     params->d_bordercolor = prop_color_background;
     params->d_boxfillcolor = prop_color_background;
 }

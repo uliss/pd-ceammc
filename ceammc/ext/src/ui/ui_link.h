@@ -31,7 +31,7 @@ public:
 
     void okSize(t_rect* newrect);
     void paint();
-    void setDrawParams(t_object*, t_edrawparams* params);
+    void setDrawParams(t_edrawparams* params);
     t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
 
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
