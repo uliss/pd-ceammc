@@ -143,6 +143,13 @@ void ebox_new(t_ebox* x, long flags)
     x->b_zoom = 1;
     x->b_smooth_method = egraphics_smooth();
     x->b_force_redraw = 0;
+
+    x->b_label = s_null;
+    x->label_anchor = 0;
+    x->label_font_size = 12;
+    x->label_xoff = 0;
+    x->label_yoff = -15;
+
     eobj_getclass(x)->c_widget.w_dosave = (t_typ_method)ebox_dosave;
     ebox_attrprocess_default(x);
 }
@@ -486,6 +493,17 @@ static void ebox_create_window(t_ebox* x, t_glist* glist)
         x->b_window_id->s_name,
         (int)(x->b_rect.width * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.),
         (int)(x->b_rect.height * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.));
+
+    if (x->b_label != s_null) {
+        sys_vgui("%s create text %d %d -text {test label} -fill red "
+                 "-font {Helvetica %d roman normal} "
+                 "-tags { %s_label }\n",
+            x->b_canvas_id->s_name,
+            (int)(x->b_rect.x - x->b_boxparameters.d_borderthickness + x->label_xoff * x->b_zoom),
+            (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness + x->label_yoff * x->b_zoom),
+            (int)(11 * x->b_zoom),
+            x->b_canvas_id->s_name);
+    }
 }
 
 static char is_platform_control(long mod)
@@ -1703,6 +1721,10 @@ static void layers_erase(t_ebox* x)
 static void ebox_erase(t_ebox* x)
 {
     if (x->b_obj.o_canvas && glist_isvisible(x->b_obj.o_canvas) && x->b_obj.o_canvas->gl_havewindow) {
+        if (x->b_label != s_null) {
+            sys_vgui("%s delete %s_label \n", x->b_canvas_id->s_name, x->b_canvas_id->s_name);
+        }
+
         sys_vgui("destroy %s \n", x->b_drawing_id->s_name);
     }
     if (x->b_layers) {
@@ -1733,6 +1755,14 @@ static void ebox_move(t_ebox* x)
         sys_vgui("%s coords %s %d %d\n", x->b_canvas_id->s_name, x->b_window_id->s_name,
             (int)(x->b_rect.x - x->b_boxparameters.d_borderthickness),
             (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness));
+
+        if (x->b_label != s_null) {
+            sys_vgui("%s coords %s_label %d %d\n",
+                x->b_canvas_id->s_name,
+                x->b_canvas_id->s_name,
+                (int)(x->b_rect.x - x->b_boxparameters.d_borderthickness + x->label_xoff * x->b_zoom),
+                (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness + x->label_yoff * x->b_zoom));
+        }
     }
     canvas_fixlinesfor(glist_getcanvas(x->b_obj.o_canvas), (t_text*)x);
 }

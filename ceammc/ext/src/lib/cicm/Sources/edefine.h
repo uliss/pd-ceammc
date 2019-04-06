@@ -488,7 +488,7 @@ typedef struct t_ewidget {
     t_err_method w_notify; /*!< The notification method. */
     t_typ_method w_write; /*!< The write to file method. */
     t_typ_method w_read; /*!< The read from file method. */
-    t_typ_method w_onzoom;  /*!< Zoom callback. */
+    t_typ_method w_onzoom; /*!< Zoom callback. */
 } t_ewidget;
 
 /**
@@ -758,6 +758,12 @@ typedef struct t_ebox {
     t_elayer* b_layers; /*!< The ebox layers. */
     long b_number_of_layers; /*!< The ebox number of layers. */
     char b_force_redraw; /*!< Force ebox redraw. */
+
+    t_symbol* b_label; /*!< The UI label. */
+    int label_xoff;
+    int label_yoff;
+    int label_anchor;
+    int label_font_size;
 } t_ebox;
 
 /** @} */
