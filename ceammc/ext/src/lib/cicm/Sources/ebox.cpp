@@ -22,10 +22,6 @@
 #include <iostream>
 #include <string>
 
-// assert for equal struct sizes
-static_assert(offsetof(t_ebox, b_layers) == offsetof(t_edspbox, b_layers), "structs should be equal");
-static_assert(offsetof(t_ebox, b_force_redraw) == offsetof(t_edspbox, b_force_redraw), "structs should be equal");
-
 int egraphics_smooth();
 
 std::string ceammc_raute2dollar(const char* s);

@@ -770,40 +770,7 @@ typedef struct t_ebox {
  * @ingroup groupbox groupdspobj
  */
 typedef struct t_edspbox {
-    t_eobj b_obj; /*!< The  DSP object. */
-
-    t_symbol* b_receive_id; /*!< The object user ID. */
-    t_symbol* b_send_id; /*!< The object send ID. */
-    t_symbol* b_objpreset_id; /*!< The object preset ID. */
-
-    t_symbol* b_canvas_id; /*!< The canvas ID. */
-    t_symbol* b_drawing_id; /*!< The drawing ID. */
-    t_symbol* b_window_id; /*!< The window ID. */
-    t_symbol* b_all_id; /*!< The global ID. */
-
-    long b_flags; /*!< The ebox flags. */
-    t_rect b_rect; /*!< The ebox rectangle. */
-    t_rect b_rect_last; /*!< The ebox previous rectangle. */
-    t_efont b_font; /*!< The ebox font. */
-    int b_pinned; /*!< If the ebox is pinned to the canvas. */
-    int b_selected_box; /*!< The selected state */
-    int b_selected_item; /*!< The items selected. */
-    int b_selected_inlet; /*!< The inlet selected. */
-    int b_selected_outlet; /*!< The outlet selected. */
-    float b_zoom;
-
-    char b_mouse_down; /*!< The mouse state. */
-
-    char b_visible; /*!< The visible State. */
-    char b_ready_to_draw; /*!< The ebox state for drawing. */
-    char b_have_window; /*!< The ebox window state. */
-    char b_isinsubcanvas; /*!< If the box is in a sub canvas. */
-    t_edrawparams b_boxparameters; /*!< The ebox parameters. */
-
-    t_elayer* b_layers; /*!< The ebox layers. */
-    long b_number_of_layers; /*!< The ebox number of layers. */
-    char b_force_redraw; /*!< Force ebox redraw. */
-
+    t_ebox e_box; /*!< The  DSP object. */
     t_edsp d_dsp; /*!< The dsp structure. */
 } t_edspbox;
 

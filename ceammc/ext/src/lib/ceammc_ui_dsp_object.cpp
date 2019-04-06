@@ -89,11 +89,11 @@ UIDspObject::~UIDspObject()
     unbindAll();
 }
 
-t_ebox* UIDspObject::asEBox() const { return reinterpret_cast<t_ebox*>(const_cast<UIDspObject*>(this)); }
+t_ebox* UIDspObject::asEBox() const { return &const_cast<UIDspObject*>(this)->e_box; }
 
 t_eobj* UIDspObject::asEObj() const
 {
-    return &const_cast<UIDspObject*>(this)->b_obj;
+    return &const_cast<UIDspObject*>(this)->e_box.b_obj;
 }
 
 t_edspbox* UIDspObject::asDspBox() const
@@ -151,7 +151,7 @@ t_symbol* UIDspObject::name() const
 
 t_symbol* UIDspObject::presetId()
 {
-    return b_objpreset_id;
+    return e_box.b_objpreset_id;
 }
 
 void UIDspObject::paint()
@@ -181,8 +181,8 @@ void UIDspObject::updateSize()
 
 void UIDspObject::resize(int w, int h)
 {
-    b_rect.width = w;
-    b_rect.height = h;
+    e_box.b_rect.width = w;
+    e_box.b_rect.height = h;
     updateSize();
 }
 
@@ -417,14 +417,14 @@ void UIDspObject::presetInit()
     old_preset_id_ = s_null;
     if ((!presetId() || presetId() == s_null) && !isPatchLoading()) {
         t_symbol* name = genPresetName(name_);
-        b_objpreset_id = name;
-        bindPreset(b_objpreset_id);
+        e_box.b_objpreset_id = name;
+        bindPreset(e_box.b_objpreset_id);
     } else if (isPatchEdited() && !isPatchLoading()) {
-        PresetNameMap::iterator it = presets_.find(b_objpreset_id);
+        PresetNameMap::iterator it = presets_.find(e_box.b_objpreset_id);
         if (it != presets_.end() && it->second > 1) {
             t_symbol* name = genPresetName(name_);
-            rebindPreset(b_objpreset_id, name);
-            b_objpreset_id = name;
+            rebindPreset(e_box.b_objpreset_id, name);
+            e_box.b_objpreset_id = name;
         }
     }
 
@@ -489,7 +489,7 @@ void UIDspObject::handlePresetNameChange()
             rebindPreset(old_preset_id_, presetId());
 
         // sync
-        old_preset_id_ = b_objpreset_id;
+        old_preset_id_ = e_box.b_objpreset_id;
     }
 }
 
@@ -505,7 +505,7 @@ size_t UIDspObject::numOutlets() const
 
 bool UIDspObject::hasProperty(t_symbol* name) const
 {
-    t_eclass* c = (t_eclass*)b_obj.o_obj.te_g.g_pd;
+    t_eclass* c = eobj_getclass(asEObj());
 
     for (int i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == name)
