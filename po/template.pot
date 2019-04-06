@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.49.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-03-26 00:55+0300\n"
+"POT-Creation-Date: 2019-04-06 17:05+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -160,7 +160,7 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_display.cpp ../ceammc/ext/src/ui/ui_label.cpp
 #: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_preset.cpp
-#: ../ceammc/ext/src/ui/ui_tab.cpp
+#: ../ceammc/ext/src/ui/ui_slider.cpp ../ceammc/ext/src/ui/ui_tab.cpp
 msgid "Text Color"
 msgstr ""
 
@@ -192,6 +192,12 @@ msgstr ""
 msgid "Output value"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "Show range"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_icon.cpp
 msgid "Icon"
 msgstr ""
@@ -218,6 +224,10 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "Leftmost MIDI note"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "release all"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
@@ -252,9 +262,16 @@ msgstr ""
 msgid "Scale Color"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_knob.cpp
+msgid "min"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
-#: ../ceammc/ext/src/ui/ui_sliders.cpp
-msgid "Show range"
+msgid "center"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_knob.cpp
+msgid "max"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_label.cpp
@@ -307,6 +324,26 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
 msgid "Rows"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_matrix.cpp
+msgid "reset"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_matrix.cpp
+msgid "flip"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_matrix.cpp
+msgid "random"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_matrix.cpp
+msgid "load"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_matrix.cpp
+msgid "save"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_tab.cpp
@@ -389,6 +426,18 @@ msgstr ""
 msgid "Relative Mode"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_slider.cpp
+msgid "Show value in horizontal mode"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_slider.cpp
+msgid "Value position"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_slider.cpp
+msgid "Precision"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "Maximum X-value"
 msgstr ""
@@ -409,6 +458,22 @@ msgstr ""
 msgid "Show grid"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "left center"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "right center"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "top center"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "bottom center"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "Auto range"
 msgstr ""
@@ -425,12 +490,25 @@ msgstr ""
 msgid "Sliders count"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+#, c-format
+msgid "fill with %f"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_spectroscope.cpp
 msgid "Label Color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_spectroscope.cpp
 msgid "Log scale"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_spectroscope.cpp
+msgid "linear scale"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_spectroscope.cpp
+msgid "log scale"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_spectroscope~.cpp ../tcl/dialog_iemgui.tcl
@@ -1147,6 +1225,10 @@ msgid "Cannot download/install libraries!"
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
+msgid "Check"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid ""
 "Commencing downloading of:\n"
@@ -1160,6 +1242,10 @@ msgid ""
 "Commencing downloading of:\n"
 "%s\n"
 "Into %s..."
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "Create"
 msgstr ""
 
 #: ../tcl/pd_deken.tcl
@@ -1398,14 +1484,6 @@ msgstr ""
 #: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "searching for '%s'"
-msgstr ""
-
-#: ../tcl/pd_deken.tcl
-msgid "Create"
-msgstr ""
-
-#: ../tcl/pd_deken.tcl
-msgid "Check"
 msgstr ""
 
 #: ../tcl/pd_docsdir.tcl

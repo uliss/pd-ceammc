@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-03-26 00:55+0300\n"
-"PO-Revision-Date: 2019-03-26 01:08+0300\n"
+"POT-Creation-Date: 2019-04-06 17:05+0300\n"
+"PO-Revision-Date: 2019-04-06 17:18+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -290,9 +290,8 @@ msgid "Bring All to Front"
 msgstr "Все окна - на передний план"
 
 #: ../tcl/dialog_path.tcl
-#, fuzzy
 msgid "Browse"
-msgstr "Обзор справки"
+msgstr "Обзор"
 
 #: ../tcl/pd_menus.tcl
 msgid "Browser..."
@@ -366,15 +365,15 @@ msgid "Columns"
 msgstr "Столбцы"
 
 #: ../tcl/pd_deken.tcl
-#, fuzzy, tcl-format
+#, tcl-format
 msgid ""
 "Commencing downloading of:\n"
 "%1$s\n"
 "Into %2$s..."
 msgstr ""
 "Начало загрузки:\n"
-"%s\n"
-"в %s…"
+"%1$s\n"
+"в %2$s…"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
@@ -495,7 +494,7 @@ msgstr "Число разрядов"
 
 #: ../tcl/dialog_path.tcl
 msgid "Disable"
-msgstr ""
+msgstr "Отключить"
 
 #: pd_dynamic_strings.tcl
 #, tcl-format
@@ -520,6 +519,11 @@ msgid ""
 "\n"
 "You can change or disable this later in the Path preferences."
 msgstr ""
+"Вы хотите создать каталог для документов, патчей и внешних библиотек?\n"
+"\n"
+"Расположение: %s\n"
+"\n"
+"Вы можете изменить или отключить это в настройках Путей."
 
 #: pd_dynamic_strings.tcl
 #, tcl-format
@@ -632,7 +636,7 @@ msgstr "Цвет переднего плана"
 
 #: ../tcl/pd_menus.tcl
 msgid "Forget All..."
-msgstr ""
+msgstr "Удалить все…"
 
 #: ../tcl/dialog_find.tcl
 #, tcl-format
@@ -722,9 +726,9 @@ msgid "Input Devices"
 msgstr "Устройства ввода"
 
 #: ../tcl/pd_deken.tcl
-#, fuzzy, tcl-format
+#, tcl-format
 msgid "Install %1$s to %2$s?"
-msgstr "Установить в директорию «%s»?"
+msgstr "Установить %1$s в директорию «%2$s»?"
 
 #: ../tcl/dialog_path.tcl ../tcl/pd_deken.tcl
 msgid "Install externals to directory:"
@@ -1195,6 +1199,10 @@ msgstr "Точками"
 msgid "Polygon"
 msgstr "Линиями"
 
+#: ../ceammc/ext/src/ui/ui_slider.cpp
+msgid "Precision"
+msgstr "Десятичная точность"
+
 #: ../tcl/pd_deken.tcl ../tcl/pd_menus.tcl
 msgid "Preferences"
 msgstr "Настройки"
@@ -1420,10 +1428,15 @@ msgstr "Показать все"
 msgid "Show grid"
 msgstr "Показывать сетку"
 
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "Show range"
 msgstr "Показывать диапазон"
+
+#: ../ceammc/ext/src/ui/ui_slider.cpp
+msgid "Show value in horizontal mode"
+msgstr "Показывать значение при горизонтальной ориентации"
 
 #: ../tcl/dialog_find.tcl
 #, tcl-format
@@ -1521,7 +1534,7 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_display.cpp ../ceammc/ext/src/ui/ui_label.cpp
 #: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_preset.cpp
-#: ../ceammc/ext/src/ui/ui_tab.cpp
+#: ../ceammc/ext/src/ui/ui_slider.cpp ../ceammc/ext/src/ui/ui_tab.cpp
 msgid "Text Color"
 msgstr "Цвет текста"
 
@@ -1674,7 +1687,6 @@ msgid "Use standard extensions"
 msgstr "Использовать стандартные расширения"
 
 #: ../tcl/dialog_path.tcl
-#, fuzzy
 msgid "Use standard paths"
 msgstr "Использовать стандартные расширения"
 
@@ -1685,6 +1697,10 @@ msgstr "Платформа указанная пользователем:"
 #: ../tcl/dialog_iemgui.tcl ../tcl/pd_menus.tcl
 msgid "VU Meter"
 msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_slider.cpp
+msgid "Value position"
+msgstr "Смещение значения"
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Value:"
@@ -1870,9 +1886,17 @@ msgstr ""
 msgid "all"
 msgstr "все"
 
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "bottom center"
+msgstr "внизу по центру"
+
 #: iemgui_dynamic_strings.tcl
 msgid "bottom:"
 msgstr "снизу:"
+
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "center"
+msgstr "по центру"
 
 #: ../tcl/pdwindow.tcl
 msgid "debug"
@@ -1885,6 +1909,15 @@ msgstr "ошибки"
 #: ../tcl/pdwindow.tcl
 msgid "fatal"
 msgstr "критические ошибки"
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+#, c-format
+msgid "fill with %f"
+msgstr "заполнить %f"
+
+#: ../ceammc/ext/src/ui/ui_matrix.cpp
+msgid "flip"
+msgstr "инвертировать"
 
 #: ../tcl/dialog_find.tcl
 msgid "for:"
@@ -1902,25 +1935,49 @@ msgstr ""
 msgid "intrrpt:"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "left center"
+msgstr "по центре левой стороны"
+
 #: iemgui_dynamic_strings.tcl
 msgid "left:"
 msgstr "слева:"
 
 #: iemgui_dynamic_strings.tcl
 msgid "lin"
-msgstr ""
+msgstr "lin"
+
+#: ../ceammc/ext/src/ui/ui_spectroscope.cpp
+msgid "linear scale"
+msgstr "линейная шкала"
+
+#: ../ceammc/ext/src/ui/ui_matrix.cpp
+msgid "load"
+msgstr "загрузить"
 
 #: iemgui_dynamic_strings.tcl
 msgid "log"
-msgstr ""
+msgstr "log"
+
+#: ../ceammc/ext/src/ui/ui_spectroscope.cpp
+msgid "log scale"
+msgstr "логарифмическая шкала"
 
 #: iemgui_dynamic_strings.tcl
 msgid "log-height:"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_knob.cpp
+msgid "max"
+msgstr "макс:макс"
+
 #: iemgui_dynamic_strings.tcl
 msgid "max:"
 msgstr "макс:"
+
+#: ../ceammc/ext/src/ui/ui_knob.cpp
+msgid "min"
+msgstr "мин"
 
 #: iemgui_dynamic_strings.tcl
 msgid "min:"
@@ -1935,9 +1992,29 @@ msgstr "обычный"
 msgid "puredata.info"
 msgstr "puredata.info"
 
+#: ../ceammc/ext/src/ui/ui_matrix.cpp
+msgid "random"
+msgstr "случайное значение"
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "release all"
+msgstr "отпустить все"
+
+#: ../ceammc/ext/src/ui/ui_matrix.cpp
+msgid "reset"
+msgstr "сбросить"
+
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "right center"
+msgstr "по центру правой стороны"
+
 #: iemgui_dynamic_strings.tcl
 msgid "right:"
 msgstr "справа:"
+
+#: ../ceammc/ext/src/ui/ui_matrix.cpp
+msgid "save"
+msgstr "сохранить"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
@@ -1951,6 +2028,10 @@ msgstr "размер:"
 #: ../tcl/dialog_canvas.tcl
 msgid "to"
 msgstr "до"
+
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "top center"
+msgstr "вверху по центру"
 
 #: iemgui_dynamic_strings.tcl
 msgid "top:"
@@ -2000,17 +2081,11 @@ msgstr "ширина:"
 #~ msgid "Shift"
 #~ msgstr "Смещение"
 
-#~ msgid "Show value range"
-#~ msgstr "Показывать диапазон значений"
-
 #~ msgid "Topmost value"
 #~ msgstr "Крайнее верхнее значение"
 
 #~ msgid "Value range"
 #~ msgstr "Диапазон значений"
-
-#~ msgid "Value shift"
-#~ msgstr "Смещение значения"
 
 #~ msgid "Vertical range"
 #~ msgstr "Вертикальный диапазон"
