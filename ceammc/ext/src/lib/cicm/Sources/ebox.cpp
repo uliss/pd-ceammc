@@ -129,6 +129,25 @@ static const char* justify_to_symbol(etextjustify_flags justify)
     }
 }
 
+static void ebox_create_label(t_ebox* x)
+{
+    sys_vgui("%s create text %d %d -text {%s} -fill red "
+             "-font {Helvetica %d roman normal} "
+             "-tags { %s_label }\n",
+        x->b_canvas_id->s_name,
+        (int)(x->b_rect.x - x->b_boxparameters.d_borderthickness + x->label_xoff * x->b_zoom),
+        (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness + x->label_yoff * x->b_zoom),
+        x->b_label->s_name,
+        (int)(11 * x->b_zoom),
+        x->b_canvas_id->s_name);
+}
+
+static void ebox_erase_label(t_ebox* x)
+{
+    if (x->b_label != s_null)
+        sys_vgui("%s delete %s_label \n", x->b_canvas_id->s_name, x->b_canvas_id->s_name);
+}
+
 void ebox_new(t_ebox* x, long flags)
 {
     x->b_flags = flags;
@@ -494,16 +513,8 @@ static void ebox_create_window(t_ebox* x, t_glist* glist)
         (int)(x->b_rect.width * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.),
         (int)(x->b_rect.height * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.));
 
-    if (x->b_label != s_null) {
-        sys_vgui("%s create text %d %d -text {test label} -fill red "
-                 "-font {Helvetica %d roman normal} "
-                 "-tags { %s_label }\n",
-            x->b_canvas_id->s_name,
-            (int)(x->b_rect.x - x->b_boxparameters.d_borderthickness + x->label_xoff * x->b_zoom),
-            (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness + x->label_yoff * x->b_zoom),
-            (int)(11 * x->b_zoom),
-            x->b_canvas_id->s_name);
-    }
+    if (x->b_label != s_null)
+        ebox_create_label(x);
 }
 
 static char is_platform_control(long mod)
@@ -917,6 +928,36 @@ t_pd_err ebox_set_sendid(t_ebox* x, t_object* attr, int argc, t_atom* argv)
         x->b_send_id = atom_getsymbol(argv);
     } else {
         x->b_send_id = s_null;
+    }
+
+    return 0;
+}
+
+t_pd_err ebox_set_label(t_ebox* x, t_object* attr, int argc, t_atom* argv)
+{
+    if (argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null) {
+        if (x->b_label == s_null) {
+            x->b_label = atom_getsymbol(argv);
+            // create new label
+            if (ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow && x->b_visible)
+                ebox_create_label(x);
+        } else {
+            x->b_label = atom_getsymbol(argv);
+
+            if (ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow && x->b_visible) {
+                sys_vgui("%s itemconfigure %s_label -text {%s}\n",
+                    x->b_canvas_id->s_name,
+                    x->b_canvas_id->s_name,
+                    x->b_label->s_name);
+            }
+        }
+    } else {
+        if (x->b_label != s_null) {
+            if (ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow && x->b_visible)
+                ebox_erase_label(x);
+        }
+
+        x->b_label = s_null;
     }
 
     return 0;
@@ -1721,10 +1762,7 @@ static void layers_erase(t_ebox* x)
 static void ebox_erase(t_ebox* x)
 {
     if (x->b_obj.o_canvas && glist_isvisible(x->b_obj.o_canvas) && x->b_obj.o_canvas->gl_havewindow) {
-        if (x->b_label != s_null) {
-            sys_vgui("%s delete %s_label \n", x->b_canvas_id->s_name, x->b_canvas_id->s_name);
-        }
-
+        ebox_erase_label(x);
         sys_vgui("destroy %s \n", x->b_drawing_id->s_name);
     }
     if (x->b_layers) {

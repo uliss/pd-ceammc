@@ -66,11 +66,14 @@ static const char* SYM_DSP = "dsp";
 static const char* SYM_DSP_ADD = "dsp_add";
 static const char* SYM_DSP_ADD64 = "dsp_add";
 
-static const int CAT_BASE = 0;
-static const int CAT_COLOR = 100;
-static const int CAT_BOUNDS = 200;
-static const int CAT_MIDI = 300;
-static const int CAT_MISC = 400;
+enum CategoryType {
+    CAT_BASE = 0,
+    CAT_COLOR = 100,
+    CAT_BOUNDS = 200,
+    CAT_LABEL = 250,
+    CAT_MIDI = 300,
+    CAT_MISC = 400
+};
 
 static void eclass_properties_dialog(t_eclass* c);
 static void ewidget_init(t_eclass* c);
@@ -180,6 +183,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_INT(c, "fontsize", 0, t_ebox, b_font.c_sizereal);
     CLASS_ATTR_SYMBOL(c, "receive", 0, t_ebox, b_receive_id);
     CLASS_ATTR_SYMBOL(c, "send", 0, t_ebox, b_send_id);
+    CLASS_ATTR_SYMBOL(c, "label", 0, t_ebox, b_label);
 
     CLASS_ATTR_DEFAULT(c, "size", 0, "100. 100.");
     CLASS_ATTR_FILTER_MIN(c, "size", 4);
@@ -244,6 +248,12 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_SAVE(c, "send", 0);
     CLASS_ATTR_CATEGORY(c, "send", 0, _("Basic"));
     CLASS_ATTR_LABEL(c, "send", 0, _("Send Symbol"));
+
+    CLASS_ATTR_DEFAULT(c, "label", 0, "(null)");
+    CLASS_ATTR_ACCESSORS(c, "label", NULL, ebox_set_label);
+    CLASS_ATTR_SAVE(c, "label", 0);
+    CLASS_ATTR_CATEGORY(c, "label", 0, _("Label"));
+    CLASS_ATTR_LABEL(c, "label", 0, _("Label"));
 
     // GUI always need this methods //
     class_addmethod((t_class*)c, (t_method)ebox_attr_dump, gensym(SYM_DUMP), A_NULL, 0);
@@ -467,6 +477,8 @@ void eclass_attr_default(t_eclass* c, const char* attrname, long flags, const ch
             return;
         }
     }
+
+    pd_error("[%s] property not found: %s", c->c_class.c_name->s_name, attrname);
 }
 
 void eclass_attr_category(t_eclass* c, const char* attrname, long flags, const char* category)
@@ -484,6 +496,8 @@ void eclass_attr_category(t_eclass* c, const char* attrname, long flags, const c
                 c->c_attr[i]->order += CAT_COLOR;
             else if (cat == gensym(_("Bounds")))
                 c->c_attr[i]->order += CAT_BOUNDS;
+            else if (cat == gensym(_("Label")))
+                c->c_attr[i]->order += CAT_LABEL;
             else if (cat == gensym(_("MIDI")))
                 c->c_attr[i]->order += CAT_MIDI;
             else

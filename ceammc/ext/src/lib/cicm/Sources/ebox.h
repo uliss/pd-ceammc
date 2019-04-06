@@ -455,6 +455,8 @@ void ebox_attr_dump(t_ebox* x);
  */
 void ebox_output_all_attrs(t_ebox* x);
 
+t_pd_err ebox_set_label(t_ebox* x, t_object* attr, int argc, t_atom* argv);
+
 // The defaults pd widgets
 void ebox_wgetrect(t_gobj* z, t_glist* glist, int* xp1, int* yp1, int* xp2, int* yp2);
 void ebox_wvis(t_gobj* z, t_glist* glist, int vis);
