@@ -36,10 +36,6 @@ FlowLess::FlowLess(const PdArgs& a)
 {
     const AtomList& pos_args = positionalArguments();
 
-    if (pos_args.empty()) {
-        OBJ_DBG << "Usage: flow.less FLOAT1 [FLOAT2] ... [FLOAT-N]";
-    }
-
     for (size_t i = 0; i < pos_args.size(); i++) {
         if (pos_args[i].isFloat()) {
             createOutlet();
@@ -49,9 +45,10 @@ FlowLess::FlowLess(const PdArgs& a)
 
     createOutlet();
 
-    if (!is_sorted(args_)) {
-        OBJ_ERR << "unsorted list " << pos_args;
-    }
+    if (args_.empty())
+        OBJ_DBG << "Usage: flow.less FLOAT1 [FLOAT2] ... [FLOAT-N] (in ascending order)";
+    else if (!is_sorted(args_))
+        OBJ_ERR << "values should be in ascending order: " << pos_args;
 }
 
 void FlowLess::onFloat(t_float f)
