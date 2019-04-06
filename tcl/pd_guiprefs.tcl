@@ -28,33 +28,33 @@ set ::pd_guiprefs::recentfiles_is_array false
 #
 # legacy
 #   registry
-#    HKEY_CURRENT_USER\Software\Pure-Data <key>:<value>
-#    domain: HKEY_CURRENT_USER\Software\Pure-Data
+#    HKEY_CURRENT_USER\Software\Pd-ceammc <key>:<value>
+#    domain: HKEY_CURRENT_USER\Software\Pd-ceammc
 #   plist
-#    org.puredata <key> <value>
-#    domain: org.puredata
+#    com.ceammc.pd <key> <value>
+#    domain: com.ceammc.pd
 #   linux:
-#    ~/.config/pure-data/<key>.conf
-#    domain: ~/.config/pure-data/
+#    ~/.config/pd-ceammc/<key>.conf
+#    domain: ~/.config/pd-ceammc/
 #
 # new
 #   plist
-#    org.puredata.pd.pd-gui <key> <value>
-#    domain: org.puredata.pd-gui
+#    com.ceammc.pd.pd-gui <key> <value>
+#    domain: com.ceammc.pd.pd-gui
 #   registry
-#    HKEY_CURRENT_USER\Software\Pure-Data\org.puredata <key>:<value>
-#    domain: org.puredata.pd-gui
+#    HKEY_CURRENT_USER\Software\Pd-ceammc <key>:<value>
+#    domain: com.ceammc.pd.pd-gui
 #   file
-#    Linux: ~/.config/pd/org.puredata/<key>.conf
+#    Linux: ~/.config/pd/com.ceammc.pd/<key>.conf
 #       - env(XDG_CONFIG_HOME)=~/.config/
 #       - env(PD_CONFIG_DIR)=~/.config/pd/
-#       - domain=org.puredata.pd-gui
-#    OSX  : ~/Library/Preferences/Pd/org.puredata/<key>.conf
+#       - domain=com.ceammc.pd.pd-gui
+#    OSX  : ~/Library/Preferences/Pd/com.ceammc.pd/<key>.conf
 #       - env(PD_CONFIG_DIR)=~/Library/Preferences/Pd/
-#       - domain=org.puredata.pd-gui
-#    W32  : %AppData%\Pd\.config\org.puredata\<key>.conf
+#       - domain=com.ceammc.pd.pd-gui
+#    W32  : %AppData%\Pd\.config\ocom.ceammc.pd\<key>.conf
 #       - env(PD_CONFIG_DIR)=%AppData%\Pd\.config
-#       - domain=org.puredata.pd-gui
+#       - domain=com.ceammc.pd.pd-gui
 #
 #################################################################
 
@@ -65,7 +65,7 @@ set ::pd_guiprefs::recentfiles_is_array false
 # init preferences
 #
 proc ::pd_guiprefs::init {} {
-    set ::pd_guiprefs::domain org.puredata.pd.pd-gui
+    set ::pd_guiprefs::domain "com.ceammc.pd.pd-gui"
 
     switch -- $::platform {
         "Darwin" {
@@ -150,7 +150,7 @@ proc ::pd_guiprefs::init {} {
         }
         "registry" {
             # windows uses registry
-            set ::pd_guiprefs::registrypath "HKEY_CURRENT_USER\\Software\\Pure-Data"
+            set ::pd_guiprefs::registrypath "HKEY_CURRENT_USER\\Software\\Pd-ceammc"
             set ::pd_guiprefs::recentfiles_key "RecentDocs"
 
             # ------------------------------------------------------------------------------
@@ -295,8 +295,8 @@ proc ::pd_guiprefs::prepare_configdir {domain} {
             set confdir [file join ~ Library Preferences Pd]
         }
         default {
-            # linux uses ~/.config/pure-data dir
-            set confdir [file join ~ .config Pd]
+            # linux uses ~/.config/pd dir
+            set confdir [file join ~ .config pd]
             if {[info exists ::env(XDG_CONFIG_HOME)]} {
                 set confdir [file join $::env(XDG_CONFIG_HOME) pd]
             }
