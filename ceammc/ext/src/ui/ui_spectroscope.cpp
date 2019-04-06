@@ -75,19 +75,15 @@ void UISpectroscope::okSize(t_rect* newrect)
     newrect->height = pd_clip_min(newrect->height, 30);
 }
 
-t_pd_err UISpectroscope::notify(t_symbol* attr_name, t_symbol* msg)
+void UISpectroscope::onPropChange(t_symbol* prop_name)
 {
-    if (msg == s_attr_modified) {
-        grid_color_main_ = rgba_addContrast(prop_color_background, -0.12);
-        grid_color_thick_ = rgba_addContrast(prop_color_background, -0.05);
-        updateLabelColors();
+    grid_color_main_ = rgba_addContrast(prop_color_background, -0.12);
+    grid_color_thick_ = rgba_addContrast(prop_color_background, -0.05);
+    updateLabelColors();
 
-        bg_layer_.invalidate();
-        graph_layer_.invalidate();
-        redraw();
-    }
-
-    return 0;
+    bg_layer_.invalidate();
+    graph_layer_.invalidate();
+    redraw();
 }
 
 void UISpectroscope::paint()

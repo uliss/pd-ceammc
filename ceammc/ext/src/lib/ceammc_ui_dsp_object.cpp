@@ -222,10 +222,9 @@ void UIDspObject::onPopup(t_symbol* menu_name, long item_idx)
 {
 }
 
-void UIDspObject::notify(t_symbol* /*prop_name*/, t_symbol* msg)
+void UIDspObject::onPropChange(t_symbol* /*prop_name*/)
 {
-    if (msg == s_attr_modified)
-        redrawBGLayer();
+    redrawBGLayer();
 }
 
 void UIDspObject::okSize(t_rect* newrect)

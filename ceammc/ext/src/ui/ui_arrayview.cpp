@@ -182,34 +182,32 @@ void UIArrayView::okSize(t_rect* newrect)
     newrect->height = clip<float>(newrect->height, 10, 1000);
 }
 
-void UIArrayView::notify(t_symbol* prop_name, t_symbol* msg)
+void UIArrayView::onPropChange(t_symbol* prop_name)
 {
-    if (msg == s_attr_modified) {
-        if (prop_name == SYM_ATTR_SIZE) {
-            // width changed
-            if (buffer_.size() != width()) {
-                buffer_.resize(width());
-                m_update();
-            } else {
-                // height changed: no need to update buffer, just redraw
-                bg_layer_.invalidate();
-                cursor_layer_.invalidate();
-                wave_layer_.invalidate();
-                redraw();
-            }
-        } else if (prop_name == SYM_ATTR_WAVE_COLOR || prop_name == SYM_ATTR_SELECTION_COLOR) {
-            wave_layer_.invalidate();
-            redraw();
-        } else if (prop_name == SYM_ATTR_BG_COLOR || prop_name == SYM_ATTR_SHOW_LABELS) {
-            bg_layer_.invalidate();
-            wave_layer_.invalidate();
-            redraw();
-        } else if (prop_name == SYM_ATTR_CURSOR_COLOR) {
-            cursor_layer_.invalidate();
-            redraw();
-        } else if (prop_name == SYM_ARRAY_NAME) {
+    if (prop_name == SYM_ATTR_SIZE) {
+        // width changed
+        if (buffer_.size() != width()) {
+            buffer_.resize(width());
             m_update();
+        } else {
+            // height changed: no need to update buffer, just redraw
+            bg_layer_.invalidate();
+            cursor_layer_.invalidate();
+            wave_layer_.invalidate();
+            redraw();
         }
+    } else if (prop_name == SYM_ATTR_WAVE_COLOR || prop_name == SYM_ATTR_SELECTION_COLOR) {
+        wave_layer_.invalidate();
+        redraw();
+    } else if (prop_name == SYM_ATTR_BG_COLOR || prop_name == SYM_ATTR_SHOW_LABELS) {
+        bg_layer_.invalidate();
+        wave_layer_.invalidate();
+        redraw();
+    } else if (prop_name == SYM_ATTR_CURSOR_COLOR) {
+        cursor_layer_.invalidate();
+        redraw();
+    } else if (prop_name == SYM_ARRAY_NAME) {
+        m_update();
     }
 }
 

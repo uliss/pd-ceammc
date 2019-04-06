@@ -61,13 +61,11 @@ void UINumber::okSize(t_rect* newrect)
     ebox_set_fontsize(asEBox(), 0, 1, &a);
 }
 
-void UINumber::notify(t_symbol* prop_name, t_symbol* msg)
+void UINumber::onPropChange(t_symbol* prop_name)
 {
-    if (msg == s_attr_modified) {
-        bg_layer_.invalidate();
-        text_layer_.invalidate();
-        redraw();
-    }
+    bg_layer_.invalidate();
+    text_layer_.invalidate();
+    redraw();
 }
 
 void UINumber::paint()

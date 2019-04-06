@@ -38,7 +38,7 @@ public:
     void setRealValue(t_float v);
 
     void init(t_symbol* name, const AtomList& args, bool usePresets);
-    void notify(t_symbol* attr_name, t_symbol* msg);
+    void onPropChange(t_symbol* prop_name);
     void output();
     void setDrawParams(t_edrawparams* params);
 

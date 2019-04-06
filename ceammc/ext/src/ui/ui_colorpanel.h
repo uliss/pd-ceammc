@@ -44,7 +44,7 @@ public:
     UIColorPanel();
 
     void okSize(t_rect* newrect);
-    void notify(t_symbol* prop_name, t_symbol* msg);
+    void onPropChange(t_symbol* prop_name);
     void paint();
     void drawBackground();
     void drawHover();

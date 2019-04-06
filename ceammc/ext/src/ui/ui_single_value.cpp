@@ -88,30 +88,28 @@ void UISingleValue::init(t_symbol* name, const AtomList& args, bool usePresets)
         midi_proxy_.bind(midi_ctl_sym());
 }
 
-void UISingleValue::notify(t_symbol* prop_name, t_symbol* msg)
+void UISingleValue::onPropChange(t_symbol* prop_name)
 {
-    UIObject::notify(prop_name, msg);
+    UIObject::onPropChange(prop_name);
 
-    if (msg == s_attr_modified) {
-        if (prop_name == SYM_MIDI_CTL) {
-            if (prop_midi_ctl != 0) {
-                // info
-                std::ostringstream ss;
-                ss << "binded to MIDI ctl #"
-                   << prop_midi_ctl
-                   << (prop_midi_chn == 0 ? " on all channels" : " on channel: ");
+    if (prop_name == SYM_MIDI_CTL) {
+        if (prop_midi_ctl != 0) {
+            // info
+            std::ostringstream ss;
+            ss << "binded to MIDI ctl #"
+               << prop_midi_ctl
+               << (prop_midi_chn == 0 ? " on all channels" : " on channel: ");
 
-                if (prop_midi_chn > 0)
-                    ss << prop_midi_chn;
+            if (prop_midi_chn > 0)
+                ss << prop_midi_chn;
 
-                UI_DBG << ss.str();
-                midi_proxy_.bind(midi_ctl_sym());
-            } else
-                midi_proxy_.unbind();
-        }
-
-        redrawKnob();
+            UI_DBG << ss.str();
+            midi_proxy_.bind(midi_ctl_sym());
+        } else
+            midi_proxy_.unbind();
     }
+
+    redrawKnob();
 }
 
 void UISingleValue::output()

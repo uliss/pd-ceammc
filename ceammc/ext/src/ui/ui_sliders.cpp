@@ -529,12 +529,10 @@ void UISliders::setup()
     obj.addMethod("fill", &UISliders::m_fill);
 }
 
-void UISliders::notify(t_symbol* prop_name, t_symbol* msg)
+void UISliders::onPropChange(t_symbol* prop_name)
 {
-    if (msg == s_attr_modified) {
-        generateTxtLabels();
-        redrawAll();
-    }
+    generateTxtLabels();
+    redrawAll();
 }
 
 void setup_ui_sliders()

@@ -47,7 +47,7 @@ public:
     UIScope();
 
     void okSize(t_rect* newrect);
-    t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
+    void onPropChange(t_symbol* prop_name);
     void paint();
     void paintBackground();
     void paintScope();

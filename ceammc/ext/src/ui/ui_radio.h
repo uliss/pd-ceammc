@@ -37,7 +37,7 @@ public:
     void okSize(t_rect* newrect);
     void redrawAll();
     void redrawItems();
-    void notify(t_symbol* attr_name, t_symbol* msg);
+    void onPropChange(t_symbol* prop_name);
 
     void onBang();
     void onFloat(t_float f);

@@ -207,12 +207,6 @@ void UIObject::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
 }
 
-void UIObject::notify(t_symbol* /*prop_name*/, t_symbol* msg)
-{
-    if (msg == s_attr_modified)
-        redrawLayer(bg_layer_);
-}
-
 void UIObject::okSize(t_rect* newrect)
 {
 }
@@ -230,6 +224,11 @@ void UIObject::onZoom(t_float z)
 
 void UIObject::onPopup(t_symbol* menu_name, long item_idx)
 {
+}
+
+void UIObject::onPropChange(t_symbol* name)
+{
+    redrawLayer(bg_layer_);
 }
 
 void UIObject::write(const std::string& fname)

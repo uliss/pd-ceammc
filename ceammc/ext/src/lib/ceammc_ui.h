@@ -606,10 +606,12 @@ public:
 
     static void notify(UI* z, t_symbol* prop_name, t_symbol* action_name)
     {
-        if (use_presets && action_name == s_attr_modified && prop_name == gensym(PROP_PRESET_NAME))
-            z->handlePresetNameChange();
+        if (action_name == s_attr_modified) {
+            if (use_presets && prop_name == gensym(PROP_PRESET_NAME))
+                z->handlePresetNameChange();
 
-        z->notify(prop_name, action_name);
+            z->onPropChange(prop_name);
+        }
     }
 
     static void okSize(UI* z, ::t_rect* newrect)

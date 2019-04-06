@@ -41,7 +41,7 @@ public:
     UIRSlider();
 
     void init(t_symbol* name, const AtomList& args, bool usePresets);
-    void notify(t_symbol* prop_name, t_symbol* msg);
+    void onPropChange(t_symbol* prop_name);
     void okSize(t_rect* newrect);
     void paint();
     void drawBackground();

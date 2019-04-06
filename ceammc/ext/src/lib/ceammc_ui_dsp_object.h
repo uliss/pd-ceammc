@@ -97,7 +97,7 @@ public:
 
     void updateSize();
     void resize(int w, int h);
-    void notify(t_symbol* prop_name, t_symbol* msg);
+    void onPropChange(t_symbol* prop_name);
     void okSize(t_rect* newrect);
     void setDrawParams(t_edrawparams* params);
     float zoom() const;

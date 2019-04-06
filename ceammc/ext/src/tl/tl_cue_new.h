@@ -43,7 +43,7 @@ public:
     void paint();
     void updatePos();
     void onZoom(t_float z);
-    void notify(t_symbol* prop_name, t_symbol* msg);
+    void onPropChange(t_symbol* prop_name);
 
     void m_updateLine(const AtomList& l);
     void syncXPos();

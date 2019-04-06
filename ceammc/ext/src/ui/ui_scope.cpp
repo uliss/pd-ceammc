@@ -46,17 +46,13 @@ void UIScope::okSize(t_rect* newrect)
     newrect->width = pd_clip_min(newrect->width, 40);
 }
 
-t_pd_err UIScope::notify(t_symbol* attr_name, t_symbol* msg)
+void UIScope::onPropChange(t_symbol* prop_name)
 {
-    if (msg == s_attr_modified) {
-        calcDspVars();
+    calcDspVars();
 
-        scope_layer_.invalidate();
-        bg_layer_.invalidate();
-        redraw();
-    }
-
-    return 0;
+    scope_layer_.invalidate();
+    bg_layer_.invalidate();
+    redraw();
 }
 
 void UIScope::paint()

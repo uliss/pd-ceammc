@@ -45,7 +45,7 @@ public:
 
     void init(t_symbol* name, const AtomList& args, bool usePresets);
     void dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes);
-    t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
+    void onPropChange(t_symbol* prop_name);
 
     void onBang();
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);

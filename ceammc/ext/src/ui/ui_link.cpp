@@ -97,13 +97,11 @@ void UILink::setDrawParams(t_edrawparams* params)
     params->d_boxfillcolor = prop_color_background;
 }
 
-void UILink::notify(t_symbol* prop_name, t_symbol* msg)
+void UILink::onPropChange(t_symbol* prop_name)
 {
-    if (msg == s_attr_modified) {
-        if (prop_name == gensym("title")) {
-            size_t w = text_width(prop_title, FONT_SIZE) * zoom();
-            resize(w, 0);
-        }
+    if (prop_name == gensym("title")) {
+        size_t w = text_width(prop_title, FONT_SIZE) * zoom();
+        resize(w, 0);
     }
 }
 

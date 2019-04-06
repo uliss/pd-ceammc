@@ -66,12 +66,10 @@ void UISlider2D::paint()
     paintKnob();
 }
 
-void UISlider2D::notify(t_symbol* prop_name, t_symbol* msg)
+void UISlider2D::onPropChange(t_symbol* prop_name)
 {
-    if (msg == s_attr_modified) {
-        updateLabels();
-        redrawAll();
-    }
+    updateLabels();
+    redrawAll();
 }
 
 void UISlider2D::paintBackground()

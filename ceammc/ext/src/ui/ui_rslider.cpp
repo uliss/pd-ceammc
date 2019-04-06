@@ -39,12 +39,10 @@ void UIRSlider::init(t_symbol* name, const AtomList& args, bool usePresets)
     vhigh_ = convert::lin2lin<t_float>(0.6, 0, 1, prop_min, prop_max);
 }
 
-void UIRSlider::notify(t_symbol* prop_name, t_symbol* msg)
+void UIRSlider::onPropChange(t_symbol* prop_name)
 {
-    if (msg == s_attr_modified) {
-        redrawBGLayer();
-        redrawKnob();
-    }
+    redrawBGLayer();
+    redrawKnob();
 }
 
 void UIRSlider::okSize(t_rect* newrect)

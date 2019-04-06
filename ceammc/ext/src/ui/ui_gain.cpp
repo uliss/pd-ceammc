@@ -126,21 +126,17 @@ void UIGain::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs
     }
 }
 
-t_pd_err UIGain::notify(t_symbol* attr_name, t_symbol* msg)
+void UIGain::onPropChange(t_symbol* prop_name)
 {
-    if (msg == s_attr_modified) {
-        // update text labels
-        updateLabels();
+    // update text labels
+    updateLabels();
 
-        // recalc scale color
-        prop_color_scale = rgba_color_sum(&prop_color_background, &prop_color_knob, SCALE_ALPHA_BLEND);
+    // recalc scale color
+    prop_color_scale = rgba_color_sum(&prop_color_background, &prop_color_knob, SCALE_ALPHA_BLEND);
 
-        // redraw
-        bg_layer_.invalidate();
-        redraw();
-    }
-
-    return 0;
+    // redraw
+    bg_layer_.invalidate();
+    redraw();
 }
 
 void UIGain::onBang()

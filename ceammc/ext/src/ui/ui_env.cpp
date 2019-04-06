@@ -666,7 +666,7 @@ void UIEnv::storePreset(size_t idx)
     PresetStorage::instance().setListValueAt(presetId(), idx, env_.toList());
 }
 
-void UIEnv::notify(t_symbol* prop_name, t_symbol* msg)
+void UIEnv::onPropChange(t_symbol* prop_name)
 {
     if (prop_name == SYM_LENGTH) {
         if (env_.totalLength() != prop_length * 1000) {
@@ -676,7 +676,7 @@ void UIEnv::notify(t_symbol* prop_name, t_symbol* msg)
         }
     }
 
-    return UIObject::notify(prop_name, msg);
+    UIObject::onPropChange(prop_name);
 }
 
 void UIEnv::redrawAll()

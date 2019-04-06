@@ -85,7 +85,7 @@ public:
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
 
-    void notify(t_symbol* prop_name, t_symbol* msg);
+    void onPropChange(t_symbol* prop_name);
     void onZoom(t_float z);
     void onPopup(t_symbol* menu_name, long item_idx);
 

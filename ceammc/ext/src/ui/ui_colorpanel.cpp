@@ -71,10 +71,9 @@ void UIColorPanel::okSize(t_rect* newrect)
     newrect->height = pd_clip_min(newrect->height, 10);
 }
 
-void UIColorPanel::notify(t_symbol* prop_name, t_symbol* msg)
+void UIColorPanel::onPropChange(t_symbol* prop_name)
 {
-    if (msg == s_attr_modified)
-        computeColors();
+    computeColors();
 }
 
 void UIColorPanel::paint()
