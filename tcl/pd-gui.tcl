@@ -777,7 +777,6 @@ proc load_startup_plugins {} {
     # load built-in plugins
     load_plugin_script [file join $::sys_guidir pd_deken.tcl]
     load_plugin_script [file join $::sys_guidir pd_docsdir.tcl]
-    ::pdwindow::post "$::ceammc_libdir\n"
 
     # load other installed plugins
     # ceammc
