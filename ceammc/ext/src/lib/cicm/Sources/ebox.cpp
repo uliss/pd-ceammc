@@ -325,6 +325,11 @@ static void ebox_paint(t_ebox* x)
 {
     layers_erase(x);
 
+    // prevent crash if called by some reason before calling
+    // create_widget
+    if (!x->b_drawing_id)
+        return;
+
     sys_vgui("%s configure -bg #%6.6x\n",
         x->b_drawing_id->s_name, rgba_to_hex_int(x->b_boxparameters.d_boxfillcolor));
 
