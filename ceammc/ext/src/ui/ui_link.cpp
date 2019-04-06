@@ -31,21 +31,24 @@ static float FIX_TEXT_Y_OFF = 0;
 static size_t text_width(t_symbol* txt, int sz)
 {
     const size_t len = strlen(txt->s_name);
-    size_t char_wd = static_cast<size_t>(sys_fontwidth(sz));
+    float char_wd = static_cast<size_t>(sys_fontwidth(sz));
     int corr = 0;
 
 #ifdef __APPLE__
-    if (len < 6)
+    if (len < 6) {
+        char_wd += 0.5;
         corr = 3;
-    if (len > 16)
-        corr = -3;
+    } else {
+        char_wd += 0.6;
+        corr = 2;
+    }
 #elif __WIN32
     char_wd += 5;
 #else
     char_wd += 3;
 #endif
 
-    return char_wd * len + corr;
+    return std::round(char_wd * len) + corr;
 }
 
 UILink::UILink()
@@ -66,7 +69,7 @@ void UILink::okSize(t_rect* newrect)
     float h = ebox_fontheight(asEBox());
 
 #ifdef __APPLE__
-    newrect->height = h;
+    newrect->height = std::round(h * 1.3);
 #else
     newrect->height = floorf(1.5 * h);
 #endif
