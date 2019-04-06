@@ -88,12 +88,12 @@ void UISingleValue::init(t_symbol* name, const AtomList& args, bool usePresets)
         midi_proxy_.bind(midi_ctl_sym());
 }
 
-t_pd_err UISingleValue::notify(t_symbol* attr_name, t_symbol* msg)
+void UISingleValue::notify(t_symbol* prop_name, t_symbol* msg)
 {
-    UIObject::notify(attr_name, msg);
+    UIObject::notify(prop_name, msg);
 
     if (msg == s_attr_modified) {
-        if (attr_name == SYM_MIDI_CTL) {
+        if (prop_name == SYM_MIDI_CTL) {
             if (prop_midi_ctl != 0) {
                 // info
                 std::ostringstream ss;
@@ -112,8 +112,6 @@ t_pd_err UISingleValue::notify(t_symbol* attr_name, t_symbol* msg)
 
         redrawKnob();
     }
-
-    return 0;
 }
 
 void UISingleValue::output()

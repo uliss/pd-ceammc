@@ -106,7 +106,7 @@ public:
 
     void init(t_symbol* name, const AtomList& args, bool usePresets);
     void okSize(t_rect* newrect);
-    t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
+    void notify(t_symbol* prop_name, t_symbol* msg);
     void onZoom(t_float z);
 
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);

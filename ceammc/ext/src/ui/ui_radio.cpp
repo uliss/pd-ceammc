@@ -431,13 +431,10 @@ void UIRadio::redrawItems()
     redrawInnerArea();
 }
 
-t_pd_err UIRadio::notify(t_symbol* attr_name, t_symbol* msg)
+void UIRadio::notify(t_symbol* attr_name, t_symbol* msg)
 {
-    if (msg == s_attr_modified) {
+    if (msg == s_attr_modified)
         redrawAll();
-    }
-
-    return 0;
 }
 
 void UIRadio::setup()

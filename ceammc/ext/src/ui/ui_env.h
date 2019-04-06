@@ -86,7 +86,7 @@ public:
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
 
-    t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
+    void notify(t_symbol* prop_name, t_symbol* msg);
 
 private:
     void redrawAll();

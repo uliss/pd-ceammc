@@ -86,18 +86,16 @@ void UIIcon::init(t_symbol* name, const AtomList& args, bool usePresets)
         m_set(args[0]);
 }
 
-t_pd_err UIIcon::notify(t_symbol* attr_name, t_symbol* msg)
+void UIIcon::notify(t_symbol* prop_name, t_symbol* msg)
 {
     if (msg == s_attr_modified) {
-        if (attr_name == gensym("icon_size")) {
+        if (prop_name == gensym("icon_size")) {
             resize(prop_size, prop_size);
         }
 
         bg_layer_.invalidate();
         updateIconProp();
     }
-
-    return 0;
 }
 
 void UIIcon::okSize(t_rect* newrect)

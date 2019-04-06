@@ -939,9 +939,9 @@ void eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
                 }
             }
 
-            ebox_notify(z, s, s_attr_modified, NULL, NULL);
+            ebox_notify(z, s);
             if (c->c_widget.w_notify != NULL) {
-                c->c_widget.w_notify(x, s, s_attr_modified, NULL, NULL);
+                c->c_widget.w_notify(x, s, s_attr_modified);
             }
 
             if (c->c_attr[i]->paint) {

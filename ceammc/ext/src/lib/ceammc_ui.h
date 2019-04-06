@@ -604,13 +604,12 @@ public:
         z->onKeyFilter(k, modifiers);
     }
 
-    static t_pd_err notify(UI* z, t_symbol* s, t_symbol* msg, void*, void*)
+    static void notify(UI* z, t_symbol* prop_name, t_symbol* action_name)
     {
-        if (use_presets && msg == s_attr_modified && s == gensym(PROP_PRESET_NAME)) {
+        if (use_presets && action_name == s_attr_modified && prop_name == gensym(PROP_PRESET_NAME))
             z->handlePresetNameChange();
-        }
 
-        return z->notify(s, msg);
+        z->notify(prop_name, action_name);
     }
 
     static void okSize(UI* z, ::t_rect* newrect)

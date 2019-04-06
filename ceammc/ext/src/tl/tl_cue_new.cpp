@@ -151,12 +151,12 @@ void TlCue::onZoom(t_float z)
     draw_counter_[canvas()] = 0;
 }
 
-t_pd_err TlCue::notify(t_symbol* attr_name, t_symbol* msg)
+void TlCue::notify(t_symbol* prop_name, t_symbol* msg)
 {
-    if (attr_name == gensym(PROP_BORDER_COLOR))
+    if (prop_name == gensym(PROP_BORDER_COLOR))
         updateLineBackground();
 
-    return UIObject::notify(attr_name, msg);
+    return UIObject::notify(prop_name, msg);
 }
 
 void TlCue::m_updateLine(const AtomList& l)

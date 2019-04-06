@@ -41,7 +41,7 @@ public:
 
     void okSize(t_rect* newrect);
     void paint();
-    t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
+    void notify(t_symbol* prop_name, t_symbol* msg);
     void paintBackground();
     void paintKnob();
 

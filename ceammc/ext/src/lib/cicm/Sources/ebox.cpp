@@ -1029,7 +1029,7 @@ t_pd_err ebox_size_set(t_ebox* x, t_object* attr, int argc, t_atom* argv)
     return 0;
 }
 
-t_pd_err ebox_notify(t_ebox* x, t_symbol* s, t_symbol* msg, void* sender, void* data)
+bool ebox_notify(t_ebox* x, t_symbol* s)
 {
     t_eclass* c = eobj_getclass(x);
     if (s == s_size) {
@@ -1051,7 +1051,7 @@ t_pd_err ebox_notify(t_ebox* x, t_symbol* s, t_symbol* msg, void* sender, void* 
         }
     }
 
-    return 0;
+    return true;
 }
 
 void ebox_attr_dump(t_ebox* x)

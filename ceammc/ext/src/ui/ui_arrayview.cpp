@@ -182,10 +182,10 @@ void UIArrayView::okSize(t_rect* newrect)
     newrect->height = clip<float>(newrect->height, 10, 1000);
 }
 
-t_pd_err UIArrayView::notify(t_symbol* attr_name, t_symbol* msg)
+void UIArrayView::notify(t_symbol* prop_name, t_symbol* msg)
 {
     if (msg == s_attr_modified) {
-        if (attr_name == SYM_ATTR_SIZE) {
+        if (prop_name == SYM_ATTR_SIZE) {
             // width changed
             if (buffer_.size() != width()) {
                 buffer_.resize(width());
@@ -197,21 +197,20 @@ t_pd_err UIArrayView::notify(t_symbol* attr_name, t_symbol* msg)
                 wave_layer_.invalidate();
                 redraw();
             }
-        } else if (attr_name == SYM_ATTR_WAVE_COLOR || attr_name == SYM_ATTR_SELECTION_COLOR) {
+        } else if (prop_name == SYM_ATTR_WAVE_COLOR || prop_name == SYM_ATTR_SELECTION_COLOR) {
             wave_layer_.invalidate();
             redraw();
-        } else if (attr_name == SYM_ATTR_BG_COLOR || attr_name == SYM_ATTR_SHOW_LABELS) {
+        } else if (prop_name == SYM_ATTR_BG_COLOR || prop_name == SYM_ATTR_SHOW_LABELS) {
             bg_layer_.invalidate();
             wave_layer_.invalidate();
             redraw();
-        } else if (attr_name == SYM_ATTR_CURSOR_COLOR) {
+        } else if (prop_name == SYM_ATTR_CURSOR_COLOR) {
             cursor_layer_.invalidate();
             redraw();
-        } else if (attr_name == SYM_ARRAY_NAME) {
+        } else if (prop_name == SYM_ARRAY_NAME) {
             m_update();
         }
     }
-    return 0;
 }
 
 void UIArrayView::onZoom(t_float z)

@@ -33,8 +33,7 @@
  * \see ebox_flags
  * \todo Not here but for doc (in ebox_wvis vis is called sevral times with vis = 1 perhaps we can avoid to recreate the stuff at each time)
  */
-void ebox_new(t_ebox *x, long flags);
-
+void ebox_new(t_ebox* x, long flags);
 
 /*!
  * \fn          void ebox_ready(t_ebox *x)
@@ -42,7 +41,7 @@ void ebox_new(t_ebox *x, long flags);
  * \details     Actives the drawind methods. \n This function should be call after durng the new method just before returning the object.
  * \param x     The t_ebox pointer.
  */
-void ebox_ready(t_ebox *x);
+void ebox_ready(t_ebox* x);
 
 /*!
  * \fn          void ebox_free(t_ebox* x)
@@ -116,7 +115,7 @@ char ebox_isdrawable(t_ebox* x);
  * \param x The t_ebox pointer.
  * \param d The binbuf pointer.
  */
-void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d);
+void ebox_attrprocess_viabinbuf(void* x, t_binbuf* d);
 
 /*!
  * \fn      void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv)
@@ -126,7 +125,7 @@ void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d);
  * \param argc The number of atoms.
  * \param argv The pointer to the atoms.
  */
-void ebox_attrprocess_viatoms(void *x, int argc, t_atom *argv);
+void ebox_attrprocess_viatoms(void* x, int argc, t_atom* argv);
 
 /*!
  * \fn      void ebox_set_cursor(t_ebox* x, int cursor)
@@ -143,7 +142,7 @@ void ebox_set_cursor(t_ebox* x, t_cursor cursor);
  * \param x The t_ebox pointer.
  * \todo optimize gensym
  */
-void ebox_redraw(t_ebox *x);
+void ebox_redraw(t_ebox* x);
 
 /*!
  * \fn      void ebox_redraw_inner(t_ebox* x)
@@ -151,7 +150,7 @@ void ebox_redraw(t_ebox *x);
  * \param x The t_ebox pointer.
  * \todo optimize gensym
  */
-void ebox_redraw_inner(t_ebox *x);
+void ebox_redraw_inner(t_ebox* x);
 
 /*!
  * \fn      void ebox_get_rect_for_view(t_ebox* x, t_rect *rect)
@@ -160,7 +159,7 @@ void ebox_redraw_inner(t_ebox *x);
  * \param x The t_ebox pointer.
  * \param rect The t_rect pointer.
  */
-void ebox_get_rect_for_view(t_ebox* x, t_rect *rect);
+void ebox_get_rect_for_view(t_ebox* x, t_rect* rect);
 
 /*!
  * \fn      t_elayer* ebox_start_layer(t_ebox *b, t_symbol *name, float width, float height)
@@ -172,7 +171,7 @@ void ebox_get_rect_for_view(t_ebox* x, t_rect *rect);
  * \param height The height of the layer.
  * \see ebox_end_layer ebox_invalidate_layer ebox_paint_layer t_elayer_flags t_elayer
  */
-t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height);
+t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height);
 
 /*!
  * \fn      t_pd_err ebox_end_layer(t_ebox *b, t_symbol *name)
@@ -182,7 +181,7 @@ t_elayer* ebox_start_layer(t_ebox *x, t_symbol *name, float width, float height)
  * \param name The name of the layer.
  * \see ebox_start_layer ebox_invalidate_layer ebox_paint_layer t_elayer_flags t_elayer
  */
-t_pd_err ebox_end_layer(t_ebox *x, t_symbol *name);
+t_pd_err ebox_end_layer(t_ebox* x, t_symbol* name);
 
 void ebox_free_layer(t_elayer* l);
 
@@ -197,7 +196,7 @@ void ebox_free_layer(t_elayer* l);
  * \see ebox_start_layer ebox_end_layer ebox_invalidate_layer t_elayer_flags t_elayer
  * \todo The global ebox method shouldn't be here. Perhaps remove rectangle flag
  */
-t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p);
+t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p);
 
 /*!
  * \fn      ebox_invalidate_layer(t_ebox *b,t_symbol *name)
@@ -207,10 +206,9 @@ t_pd_err ebox_paint_layer(t_ebox *x, t_symbol *name, float x_p, float y_p);
  * \param name The name of the layer.
  * \see ebox_start_layer ebox_end_layer ebox_redraw ebox_paint_layer t_elayer_flags t_elayer
  */
-t_pd_err ebox_invalidate_layer(t_ebox *x,t_symbol *name);
+t_pd_err ebox_invalidate_layer(t_ebox* x, t_symbol* name);
 
 /** @} */
-
 
 //! @cond
 //! The mouse enter method called by tcl/tk (PRIVATE)
@@ -238,7 +236,7 @@ void ebox_mouse_leave(t_ebox* x);
  * \param argv      The array of atoms
  * \return          Nothing
  */
-void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom* argv);
 
 //! The mouse up method called by tcl/tk (PRIVATE)
 /*
@@ -249,7 +247,7 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
  * \param argv      The array of atoms
  * \return          Nothing
  */
-void ebox_mouse_up(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+void ebox_mouse_up(t_ebox* x, t_symbol* s, int argc, t_atom* argv);
 
 //! The mouse down method called by tcl/tk (PRIVATE)
 /*
@@ -260,7 +258,7 @@ void ebox_mouse_up(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
  * \param argv      The array of atoms
  * \return          Nothing
  */
-void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom* argv);
 
 //! The mouse double click method called by tcl/tk (PRIVATE)
 /*
@@ -271,7 +269,7 @@ void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
  * \param argv      The array of atoms
  * \return          Nothing
  */
-void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom* argv);
 
 //! The mouse wheel method called by tcl/tk (PRIVATE)
 /*
@@ -282,7 +280,7 @@ void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
  * \param argv      The array of atoms
  * \return          Nothing
  */
-void ebox_mouse_wheel(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+void ebox_mouse_wheel(t_ebox* x, t_symbol* s, int argc, t_atom* argv);
 
 //! The key down method called by tcl/tk (PRIVATE AND NOT READY)
 /*
@@ -292,7 +290,7 @@ void ebox_mouse_wheel(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
  * \param argc      The size of the array of atoms
  * \param argv      The array of atoms
  */
-void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
+void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom* argv);
 
 //! The default save method for UI ebox (PRIVATE)
 /*
@@ -300,7 +298,7 @@ void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom *argv);
  * \param x         The ebox pointer
  * \param b         The binbuf
  */
-void ebox_dosave(t_ebox* x, t_binbuf *b);
+void ebox_dosave(t_ebox* x, t_binbuf* b);
 
 //! The method to move an UI ebox (PRIVATE)
 /*
@@ -328,7 +326,7 @@ void ebox_vis(t_ebox* x, int vis);
  * \param argv      The array of atoms
  * \return          Always 0 (for the moment)
  */
-t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+t_pd_err ebox_set_receiveid(t_ebox* x, t_object* attr, int argc, t_atom* argv);
 
 //! The default user send id method for all ebox called by PD (PRIVATE)
 /*
@@ -339,7 +337,7 @@ t_pd_err ebox_set_receiveid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
  * \param argv      The array of atoms
  * \return          Always 0 (for the moment)
  */
-t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+t_pd_err ebox_set_sendid(t_ebox* x, t_object* attr, int argc, t_atom* argv);
 
 //! The default user preset id method for all ebox called by PD (PRIVATE)
 /*
@@ -350,7 +348,7 @@ t_pd_err ebox_set_sendid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
  * \param argv      The array of atoms
  * \return          Always 0 (for the moment)
  */
-t_pd_err ebox_set_presetid(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+t_pd_err ebox_set_presetid(t_ebox* x, t_object* attr, int argc, t_atom* argv);
 
 //! Retrive the preset id of an ebox
 /*
@@ -368,7 +366,7 @@ t_symbol* ebox_get_presetid(t_ebox* x);
  * \param argv      The array of atoms
  * \return          Always 0 (for the moment)
  */
-t_pd_err ebox_set_font(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+t_pd_err ebox_set_font(t_ebox* x, t_object* attr, int argc, t_atom* argv);
 
 //! The default user fontweight method for all ebox called by PD (PRIVATE)
 /*
@@ -379,7 +377,7 @@ t_pd_err ebox_set_font(t_ebox *x, t_object *attr, int argc, t_atom *argv);
  * \param argv      The array of atoms
  * \return          Always 0 (for the moment)
  */
-t_pd_err ebox_set_fontweight(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+t_pd_err ebox_set_fontweight(t_ebox* x, t_object* attr, int argc, t_atom* argv);
 
 //! The default user fontslant method for all ebox called by PD (PRIVATE)
 /*
@@ -390,7 +388,7 @@ t_pd_err ebox_set_fontweight(t_ebox *x, t_object *attr, int argc, t_atom *argv);
  * \param argv      The array of atoms
  * \return          Always 0 (for the moment)
  */
-t_pd_err ebox_set_fontslant(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+t_pd_err ebox_set_fontslant(t_ebox* x, t_object* attr, int argc, t_atom* argv);
 
 //! The default user fontsize method for all ebox called by PD (PRIVATE)
 /*
@@ -401,7 +399,7 @@ t_pd_err ebox_set_fontslant(t_ebox *x, t_object *attr, int argc, t_atom *argv);
  * \param argv      The array of atoms
  * \return          Always 0 (for the moment)
  */
-t_pd_err ebox_set_fontsize(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+t_pd_err ebox_set_fontsize(t_ebox* x, t_object* attr, int argc, t_atom* argv);
 
 //! Open the properties window (PRIVATE)
 /*
@@ -410,7 +408,7 @@ t_pd_err ebox_set_fontsize(t_ebox *x, t_object *attr, int argc, t_atom *argv);
  * \param glist     The canvas
  * \return          Nothing
  */
-void ebox_properties(t_ebox *x, t_glist *glist);
+void ebox_properties(t_ebox* x, t_glist* glist);
 
 //! Receive the properties window messages and change the attributes values (PRIVATE)
 /*
@@ -419,19 +417,16 @@ void ebox_properties(t_ebox *x, t_glist *glist);
  * \param s         Nothing (for Max 6 compatibility)
  * \return          Nothing
  */
-void ebox_dialog(t_ebox *x, t_symbol *s, int argc, t_atom *argv);
+void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv);
 
 //! The default notify method of ebox called when an attribute has changed // PRIVATE
 /*
  * \memberof        ebox
  * \param x         The ebox
  * \param s         The name of the attribute
- * \param msg       Nothing (for Max 6 compatibility)
- * \param sender    Nothing (for Max 6 compatibility)
- * \param data      Nothing (for Max 6 compatibility)
- * \return          Always 0 (for the moment)
+ * \return          Always true (for the moment)
  */
-t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *data);
+bool ebox_notify(t_ebox* x, t_symbol* s);
 
 //! The default size attribute method of ebox called when an size attribute has changed. This function restrains the width and the height depending of the ebox flags EBOX_GROWNO, EBOX_GROWLINK and EBOX_GROWINDI // PRIVATE
 /*
@@ -442,7 +437,7 @@ t_pd_err ebox_notify(t_ebox *x, t_symbol *s, t_symbol *msg, void *sender, void *
  * \param argv      The array of atoms that contains the new width and the new height
  * \return          Always 0 (for the moment)
  */
-t_pd_err ebox_size_set(t_ebox *x, t_object *attr, int argc, t_atom *argv);
+t_pd_err ebox_size_set(t_ebox* x, t_object* attr, int argc, t_atom* argv);
 
 //! The dumps all attributes values in the PD console // PRIVATE
 /*
@@ -461,11 +456,11 @@ void ebox_attr_dump(t_ebox* x);
 void ebox_output_all_attrs(t_ebox* x);
 
 // The defaults pd widgets
-void ebox_wgetrect(t_gobj *z,     t_glist *glist, int *xp1, int *yp1, int *xp2, int *yp2);
-void ebox_wvis(t_gobj *z,         t_glist *glist, int vis);
-void ebox_wdisplace(t_gobj *z,    t_glist *glist, int dx, int dy);
-void ebox_wselect(t_gobj *z,      t_glist *glist, int selected);
-void ebox_wdelete(t_gobj *z,      t_glist *glist);
+void ebox_wgetrect(t_gobj* z, t_glist* glist, int* xp1, int* yp1, int* xp2, int* yp2);
+void ebox_wvis(t_gobj* z, t_glist* glist, int vis);
+void ebox_wdisplace(t_gobj* z, t_glist* glist, int dx, int dy);
+void ebox_wselect(t_gobj* z, t_glist* glist, int selected);
+void ebox_wdelete(t_gobj* z, t_glist* glist);
 //! @endcond
 
 // ceammc
@@ -475,6 +470,3 @@ float ebox_fontwidth(t_ebox* x);
 float ebox_fontheight(t_ebox* x);
 
 #endif
-
-
-

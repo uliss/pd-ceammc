@@ -666,9 +666,9 @@ void UIEnv::storePreset(size_t idx)
     PresetStorage::instance().setListValueAt(presetId(), idx, env_.toList());
 }
 
-t_pd_err UIEnv::notify(t_symbol* attr_name, t_symbol* msg)
+void UIEnv::notify(t_symbol* prop_name, t_symbol* msg)
 {
-    if (attr_name == SYM_LENGTH) {
+    if (prop_name == SYM_LENGTH) {
         if (env_.totalLength() != prop_length * 1000) {
             env_.resizeTime(prop_length * 1000);
             updateNodes();
@@ -676,7 +676,7 @@ t_pd_err UIEnv::notify(t_symbol* attr_name, t_symbol* msg)
         }
     }
 
-    return UIObject::notify(attr_name, msg);
+    return UIObject::notify(prop_name, msg);
 }
 
 void UIEnv::redrawAll()

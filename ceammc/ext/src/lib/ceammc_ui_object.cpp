@@ -159,7 +159,7 @@ void UIObject::redrawBGLayer()
 
 void UIObject::updateSize()
 {
-    ebox_notify(asEBox(), s_size, &s_, NULL, NULL);
+    ebox_notify(asEBox(), s_size);
 }
 
 void UIObject::resize(int w, int h)
@@ -207,13 +207,10 @@ void UIObject::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
 }
 
-t_pd_err UIObject::notify(t_symbol* /*attr_name*/, t_symbol* msg)
+void UIObject::notify(t_symbol* /*prop_name*/, t_symbol* msg)
 {
-    if (msg == s_attr_modified) {
+    if (msg == s_attr_modified)
         redrawLayer(bg_layer_);
-    }
-
-    return 0;
 }
 
 void UIObject::okSize(t_rect* newrect)

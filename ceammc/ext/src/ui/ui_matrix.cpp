@@ -774,13 +774,12 @@ void UIMatrix::updateCellsCoords()
     }
 }
 
-t_pd_err UIMatrix::notify(t_symbol* attr_name, t_symbol* msg)
+void UIMatrix::notify(t_symbol* prop_name, t_symbol* msg)
 {
-    if (attr_name == s_size) {
+    if (prop_name == s_size)
         updateCellsCoords();
-        return 0;
-    } else
-        return UIObject::notify(attr_name, msg);
+    else
+        return UIObject::notify(prop_name, msg);
 }
 
 void UIMatrix::onZoom(t_float z)

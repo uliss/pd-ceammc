@@ -97,16 +97,14 @@ void UILink::setDrawParams(t_edrawparams* params)
     params->d_boxfillcolor = prop_color_background;
 }
 
-t_pd_err UILink::notify(t_symbol* attr_name, t_symbol* msg)
+void UILink::notify(t_symbol* prop_name, t_symbol* msg)
 {
     if (msg == s_attr_modified) {
-        if (attr_name == gensym("title")) {
+        if (prop_name == gensym("title")) {
             size_t w = text_width(prop_title, FONT_SIZE) * zoom();
             resize(w, 0);
         }
     }
-
-    return 0;
 }
 
 void UILink::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)

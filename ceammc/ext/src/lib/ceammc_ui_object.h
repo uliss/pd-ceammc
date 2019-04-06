@@ -96,7 +96,7 @@ public:
     void onMouseWheel(t_object* view, const t_pt& pt, long modifiers, double delta);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
 
-    t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
+    void notify(t_symbol* prop_name, t_symbol* msg);
     void okSize(t_rect* newrect);
     void setDrawParams(t_edrawparams* params);
     void onZoom(t_float z);

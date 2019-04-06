@@ -176,7 +176,7 @@ void UIDspObject::redrawBGLayer()
 
 void UIDspObject::updateSize()
 {
-    ebox_notify(asEBox(), s_size, &s_, NULL, NULL);
+    ebox_notify(asEBox(), s_size);
 }
 
 void UIDspObject::resize(int w, int h)
@@ -222,13 +222,10 @@ void UIDspObject::onPopup(t_symbol* menu_name, long item_idx)
 {
 }
 
-t_pd_err UIDspObject::notify(t_symbol* /*attr_name*/, t_symbol* msg)
+void UIDspObject::notify(t_symbol* /*prop_name*/, t_symbol* msg)
 {
-    if (msg == s_attr_modified) {
+    if (msg == s_attr_modified)
         redrawBGLayer();
-    }
-
-    return 0;
 }
 
 void UIDspObject::okSize(t_rect* newrect)
