@@ -967,31 +967,31 @@ static void ewidget_init(t_eclass* c)
     c->c_widget.w_visfn = ebox_wvis;
     c->c_widget.w_displacefn = ebox_wdisplace;
     c->c_widget.w_selectfn = ebox_wselect;
-    c->c_widget.w_activatefn = NULL;
+    c->c_widget.w_activatefn = nullptr;
     c->c_widget.w_deletefn = ebox_wdelete;
-    c->c_widget.w_clickfn = NULL;
+    c->c_widget.w_clickfn = nullptr;
 
-    c->c_widget.w_paint = NULL;
-    c->c_widget.w_mouseenter = NULL;
-    c->c_widget.w_mouseleave = NULL;
-    c->c_widget.w_mousemove = NULL;
-    c->c_widget.w_mousedown = NULL;
-    c->c_widget.w_mousedrag = NULL;
-    c->c_widget.w_mouseup = NULL;
-    c->c_widget.w_mousewheel = NULL;
-    c->c_widget.w_dblclick = NULL;
-    c->c_widget.w_key = NULL;
-    c->c_widget.w_keyfilter = NULL;
-    c->c_widget.w_getdrawparameters = NULL;
-    c->c_widget.w_notify = NULL;
-    c->c_widget.w_save = NULL;
-    c->c_widget.w_dosave = NULL;
-    c->c_widget.w_popup = NULL;
-    c->c_widget.w_dsp = NULL;
-    c->c_widget.w_oksize = NULL;
-    c->c_widget.w_write = NULL;
-    c->c_widget.w_read = NULL;
-    c->c_widget.w_onzoom = NULL;
+    c->c_widget.w_paint = nullptr;
+    c->c_widget.w_mouseenter = nullptr;
+    c->c_widget.w_mouseleave = nullptr;
+    c->c_widget.w_mousemove = nullptr;
+    c->c_widget.w_mousedown = nullptr;
+    c->c_widget.w_mousedrag = nullptr;
+    c->c_widget.w_mouseup = nullptr;
+    c->c_widget.w_mousewheel = nullptr;
+    c->c_widget.w_dblclick = nullptr;
+    c->c_widget.w_key = nullptr;
+    c->c_widget.w_keyfilter = nullptr;
+    c->c_widget.w_getdrawparameters = nullptr;
+    c->c_widget.w_notify = nullptr;
+    c->c_widget.w_save = nullptr;
+    c->c_widget.w_dosave = nullptr;
+    c->c_widget.w_popup = nullptr;
+    c->c_widget.w_dsp = nullptr;
+    c->c_widget.w_oksize = nullptr;
+    c->c_widget.w_write = nullptr;
+    c->c_widget.w_read = nullptr;
+    c->c_widget.w_onzoom = nullptr;
 }
 
 #define DIALOG_GRID_PADY " -pady 1 "
