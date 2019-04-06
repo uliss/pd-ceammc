@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
 "POT-Creation-Date: 2019-04-06 17:05+0300\n"
-"PO-Revision-Date: 2019-04-06 17:18+0300\n"
+"PO-Revision-Date: 2019-04-06 17:21+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -1969,7 +1969,7 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp
 msgid "max"
-msgstr "макс:макс"
+msgstr "max"
 
 #: iemgui_dynamic_strings.tcl
 msgid "max:"
@@ -1977,7 +1977,7 @@ msgstr "макс:"
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp
 msgid "min"
-msgstr "мин"
+msgstr "min"
 
 #: iemgui_dynamic_strings.tcl
 msgid "min:"
