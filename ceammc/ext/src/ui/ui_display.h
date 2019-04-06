@@ -40,7 +40,7 @@ private:
 public:
     UIDisplay();
 
-    void paint(t_canvas*);
+    void paint();
     void okSize(t_rect* newrect);
 
     void onBang();

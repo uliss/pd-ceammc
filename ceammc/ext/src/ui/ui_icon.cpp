@@ -141,7 +141,7 @@ static int sizeToIdx(int s)
     }
 }
 
-void UIIcon::paint(t_canvas*)
+void UIIcon::paint()
 {
     drawBackground();
     drawImage();

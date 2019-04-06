@@ -34,7 +34,7 @@ void UIBang::okSize(t_rect* newrect)
         newrect->height++;
 }
 
-void UIBang::paint(t_canvas*)
+void UIBang::paint()
 {
     const auto r = rect();
     UIPainter p = bg_layer_.painter(r);

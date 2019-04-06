@@ -154,7 +154,7 @@ t_symbol* UIDspObject::presetId()
     return b_objpreset_id;
 }
 
-void UIDspObject::paint(t_canvas* view)
+void UIDspObject::paint()
 {
 }
 

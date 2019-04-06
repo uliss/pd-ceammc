@@ -36,7 +36,7 @@ void UIToggle::okSize(t_rect* newrect)
     newrect->height = pd_clip_min(newrect->height, 8);
 }
 
-void UIToggle::paint(t_canvas*)
+void UIToggle::paint()
 {
     const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);

@@ -53,7 +53,7 @@ void UIMeter::okSize(t_rect* newrect)
         newrect->height = pd_clip_min(newrect->height, 50.);
 }
 
-void UIMeter::paint(t_canvas* view)
+void UIMeter::paint()
 {
     drawBackground();
     drawLeds();

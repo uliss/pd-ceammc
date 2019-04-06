@@ -72,7 +72,7 @@ t_pd_err UINumber::notify(t_symbol* attr_name, t_symbol* msg)
     return 0;
 }
 
-void UINumber::paint(t_canvas* view)
+void UINumber::paint()
 {
     drawBackground();
     drawValue();

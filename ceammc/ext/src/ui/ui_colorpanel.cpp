@@ -80,7 +80,7 @@ t_pd_err UIColorPanel::notify(t_symbol* attr_name, t_symbol* msg)
     return 0;
 }
 
-void UIColorPanel::paint(t_canvas*)
+void UIColorPanel::paint()
 {
     drawBackground();
     drawHover();

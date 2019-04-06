@@ -516,9 +516,9 @@ public:
     }
 
 public:
-    static void paint(UI* z, t_canvas* view)
+    static void paint(UI* z)
     {
-        z->paint(view);
+        z->paint();
     }
 
     template <class T>

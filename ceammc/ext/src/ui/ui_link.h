@@ -30,7 +30,7 @@ public:
     UILink();
 
     void okSize(t_rect* newrect);
-    void paint(t_canvas* view);
+    void paint();
     void setDrawParams(t_object*, t_edrawparams* params);
     t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
 

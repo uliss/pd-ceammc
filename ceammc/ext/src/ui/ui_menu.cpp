@@ -59,7 +59,7 @@ void UIMenu::okSize(t_rect* newrect)
         newrect->height = item_height_ * (items_.size() + 1);
 }
 
-void UIMenu::paint(t_canvas* view)
+void UIMenu::paint()
 {
     const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);

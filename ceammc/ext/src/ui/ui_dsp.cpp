@@ -23,7 +23,7 @@ bool UIDsp::okSize(t_rect* newrect)
     return true;
 }
 
-void UIDsp::paint(t_canvas*)
+void UIDsp::paint()
 {
     // first time only to draw in right state
     if (!init_) {

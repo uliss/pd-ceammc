@@ -137,7 +137,7 @@ t_symbol* UIObject::presetId()
     return b_objpreset_id;
 }
 
-void UIObject::paint(t_canvas* view)
+void UIObject::paint()
 {
 }
 

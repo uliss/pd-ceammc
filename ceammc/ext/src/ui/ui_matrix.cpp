@@ -345,7 +345,7 @@ std::pair<int, int> UIMatrix::cellAt(const t_pt& pt)
     return res;
 }
 
-void UIMatrix::paint(t_canvas*)
+void UIMatrix::paint()
 {
     assert(prop_cols_ > 0);
     assert(prop_rows_ > 0);

@@ -97,7 +97,7 @@ UIKnob::UIKnob()
     click_pos_.y = 0;
 }
 
-void UIKnob::paint(t_canvas*)
+void UIKnob::paint()
 {
     const auto r = rect();
     UIPainter p = bg_layer_.painter(r);

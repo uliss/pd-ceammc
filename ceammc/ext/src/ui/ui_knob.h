@@ -23,7 +23,7 @@ public:
 public:
     UIKnob();
 
-    void paint(t_canvas*);
+    void paint();
     void okSize(t_rect* newrect);
     void onMouseDrag(t_object*, const t_pt& pt, long);
     void onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long modifiers);

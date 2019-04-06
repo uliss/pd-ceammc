@@ -77,7 +77,7 @@ public:
     t_symbol* name() const;
     t_symbol* presetId();
 
-    void paint(t_canvas* view);
+    void paint();
 
     void redraw();
     void redrawInnerArea();

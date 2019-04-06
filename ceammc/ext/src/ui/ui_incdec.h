@@ -30,7 +30,7 @@ public:
     UIIncDec();
 
     void okSize(t_rect* newrect);
-    void paint(t_canvas* view);
+    void paint();
 
     void onBang();
     void onFloat(t_float f);

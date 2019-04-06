@@ -30,7 +30,7 @@ void UIIncDec::okSize(t_rect* newrect)
     newrect->height = pd_clip_min(newrect->height, 15.);
 }
 
-void UIIncDec::paint(t_canvas* view)
+void UIIncDec::paint()
 {
     const auto r = rect();
     UIPainter p = bg_layer_.painter(r);

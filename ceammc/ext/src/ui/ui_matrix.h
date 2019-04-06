@@ -52,7 +52,7 @@ public:
     AtomList asList() const;
 
     void okSize(t_rect* newrect);
-    void paint(t_canvas*);
+    void paint();
     void outputCell(size_t row, size_t column);
     void outputCell(const AtomList& args);
     void outputCol(size_t column);

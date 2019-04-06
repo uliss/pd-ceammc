@@ -43,7 +43,7 @@ public:
     void init(t_symbol* name, const AtomList& args, bool usePresets);
     t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
     void okSize(t_rect* newrect);
-    void paint(t_canvas* view);
+    void paint();
     void drawBackground();
     void drawKnob();
 

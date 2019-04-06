@@ -85,7 +85,7 @@ UIDisplay::UIDisplay()
 {
 }
 
-void UIDisplay::paint(t_canvas*)
+void UIDisplay::paint()
 {
     const t_rect r = rect();
 

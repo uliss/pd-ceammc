@@ -67,7 +67,7 @@ void UIRSlider::okSize(t_rect* newrect)
     }
 }
 
-void UIRSlider::paint(t_canvas* view)
+void UIRSlider::paint()
 {
     drawBackground();
     drawKnob();

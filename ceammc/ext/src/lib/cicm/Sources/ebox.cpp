@@ -338,7 +338,7 @@ static void ebox_paint(t_ebox* x)
 
     t_eclass* c = eobj_getclass(x);
     if (c->c_widget.w_paint)
-        c->c_widget.w_paint(x, eobj_getcanvas(x));
+        c->c_widget.w_paint(x);
 
     ebox_draw_border(x);
     ebox_draw_iolets(x);
