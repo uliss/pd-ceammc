@@ -57,7 +57,7 @@ public:
     void onBang();
     void onData(const DataPtr& ptr);
 
-    void paint(t_object*);
+    void paint(t_canvas*);
     void okSize(t_rect* newrect);
     void onMouseMove(t_object*, const t_pt& pt, long modifiers);
     void onMouseDrag(t_object*, const t_pt& pt, long);

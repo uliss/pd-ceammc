@@ -90,7 +90,7 @@ t_pd_err UISpectroscope::notify(t_symbol* attr_name, t_symbol* msg)
     return 0;
 }
 
-void UISpectroscope::paint(t_object* view)
+void UISpectroscope::paint(t_canvas* view)
 {
     drawBackground();
     drawGraph();

@@ -516,7 +516,7 @@ public:
     }
 
 public:
-    static void paint(UI* z, t_object* view)
+    static void paint(UI* z, t_canvas* view)
     {
         z->paint(view);
     }

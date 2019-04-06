@@ -59,7 +59,7 @@ t_pd_err UIScope::notify(t_symbol* attr_name, t_symbol* msg)
     return 0;
 }
 
-void UIScope::paint(t_object* view)
+void UIScope::paint(t_canvas* view)
 {
     paintBackground();
     paintScope();

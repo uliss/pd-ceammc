@@ -89,7 +89,7 @@ public:
     AtomList& args() { return args_; }
 
     // appearence
-    void paint(t_object* view);
+    void paint(t_canvas* view);
 
     void redraw();
     void redrawInnerArea();

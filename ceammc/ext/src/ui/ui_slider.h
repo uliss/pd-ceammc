@@ -23,7 +23,7 @@ public:
     UISlider();
 
     void init(t_symbol* name, const AtomList& args, bool usePresets);
-    void paint(t_object*);
+    void paint(t_canvas*);
     void okSize(t_rect* newrect);
     void onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);

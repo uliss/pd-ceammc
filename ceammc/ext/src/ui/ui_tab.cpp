@@ -55,7 +55,7 @@ void UITab::okSize(t_rect* newrect)
     }
 }
 
-void UITab::paint(t_object* view)
+void UITab::paint(t_canvas*)
 {
     const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);

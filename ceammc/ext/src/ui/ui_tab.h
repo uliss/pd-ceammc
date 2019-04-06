@@ -43,7 +43,7 @@ public:
 
     void init(t_symbol* name, const AtomList& args, bool usePresets);
     void okSize(t_rect* newrect);
-    void paint(t_object* view);
+    void paint(t_canvas*);
 
     void onBang();
     void onFloat(t_float f);

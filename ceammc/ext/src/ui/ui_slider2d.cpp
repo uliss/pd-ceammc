@@ -60,7 +60,7 @@ void UISlider2D::okSize(t_rect* newrect)
     newrect->width = std::max<float>(30, newrect->width);
 }
 
-void UISlider2D::paint(t_object* view)
+void UISlider2D::paint(t_canvas* view)
 {
     paintBackground();
     paintKnob();

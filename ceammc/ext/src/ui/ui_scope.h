@@ -48,7 +48,7 @@ public:
 
     void okSize(t_rect* newrect);
     t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
-    void paint(t_object* view);
+    void paint(t_canvas* view);
     void paintBackground();
     void paintScope();
 

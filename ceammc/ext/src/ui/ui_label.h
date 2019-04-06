@@ -35,7 +35,7 @@ public:
     UILabel();
 
     void okSize(t_rect* newrect);
-    void paint(t_object* view);
+    void paint(t_canvas* view);
     void setDrawParams(t_object*, t_edrawparams* params);
     void init(t_symbol* name, const AtomList& args, bool usePresets);
 

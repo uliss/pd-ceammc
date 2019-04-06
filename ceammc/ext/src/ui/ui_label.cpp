@@ -44,7 +44,7 @@ void UILabel::okSize(t_rect* newrect)
     newrect->height = pd_clip_min(newrect->height, 20);
 }
 
-void UILabel::paint(t_object* view)
+void UILabel::paint(t_canvas* view)
 {
     const auto r = rect();
     UIPainter p = bg_layer_.painter(r);

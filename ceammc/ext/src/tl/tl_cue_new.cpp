@@ -111,7 +111,7 @@ void TlCue::okSize(t_rect* newrect)
     x->b_obj.o_obj.te_ypix = CUE_Y_POS;
 }
 
-void TlCue::paint(t_object* view)
+void TlCue::paint(t_canvas*)
 {
     // update all cues on first draw
     if (first_draw_) {

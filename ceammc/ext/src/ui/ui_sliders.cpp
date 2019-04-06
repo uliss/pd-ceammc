@@ -69,7 +69,7 @@ void UISliders::okSize(t_rect* newrect)
     newrect->height = std::max(20.f, newrect->height);
 }
 
-void UISliders::paint(t_object* view)
+void UISliders::paint(t_canvas* view)
 {
     paintSliders();
     paintLabels();

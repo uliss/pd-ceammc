@@ -255,7 +255,7 @@ void UIEnv::drawEnvelope(const t_rect& r)
     }
 }
 
-void UIEnv::paint(t_object*)
+void UIEnv::paint(t_canvas*)
 {
     const t_rect r = rect();
 

@@ -40,7 +40,7 @@ public:
 
     void init(t_symbol* name, const AtomList& args, bool usePresets);
     void okSize(t_rect* newrect);
-    void paint(t_object* view);
+    void paint(t_canvas*);
     void updatePos();
     void onZoom(t_float z);
     t_pd_err notify(t_symbol* attr_name, t_symbol* msg);

@@ -40,7 +40,7 @@ void UIPreset::okSize(t_rect* newrect)
     newrect->height = pd_clip_min(newrect->height, 15.);
 }
 
-void UIPreset::paint(t_object* view)
+void UIPreset::paint(t_canvas* view)
 {
 #ifdef __APPLE__
     const static int FNT_SZ = FONT_SIZE_SMALL;

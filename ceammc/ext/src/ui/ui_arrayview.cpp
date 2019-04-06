@@ -62,7 +62,7 @@ UIArrayView::UIArrayView()
     appendToLayerList(&cursor_layer_);
 }
 
-void UIArrayView::paint(t_object* view)
+void UIArrayView::paint(t_canvas*)
 {
     drawWaveform();
     drawLabels();

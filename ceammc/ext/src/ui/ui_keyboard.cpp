@@ -188,7 +188,7 @@ bool UIKeyboard::okSize(t_rect* newrect)
     return true;
 }
 
-void UIKeyboard::paint(t_object* view)
+void UIKeyboard::paint(t_canvas* view)
 {
     if (keyboard_num_white_keys(keys_) < 1)
         return;

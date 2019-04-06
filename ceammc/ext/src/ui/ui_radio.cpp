@@ -293,7 +293,7 @@ void UIRadio::output()
     }
 }
 
-void UIRadio::paint(t_object* view)
+void UIRadio::paint(t_canvas* view)
 {
     drawBackground();
     drawItems();

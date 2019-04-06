@@ -41,7 +41,7 @@ void UINumberTilde::okSize(t_rect* newrect)
     newrect->width = pd_clip_min(newrect->width, sys_fontwidth(fontSizeZoomed()) * 3 + 8);
 }
 
-void UINumberTilde::paint(t_object* view)
+void UINumberTilde::paint(t_canvas* view)
 {
     const t_rect r = rect();
 

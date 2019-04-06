@@ -72,7 +72,7 @@ void UILink::okSize(t_rect* newrect)
 #endif
 }
 
-void UILink::paint(t_object* view)
+void UILink::paint(t_canvas* view)
 {
     const auto r = rect();
     UIPainter p = bg_layer_.painter(r);

@@ -18,7 +18,7 @@ public:
     void output();
 
     void okSize(t_rect* newrect);
-    void paint(t_object*);
+    void paint(t_canvas*);
     void onMouseDown(t_object*, const t_pt&, const t_pt& abs_pt, long);
 
     void onBang();

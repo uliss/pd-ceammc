@@ -30,7 +30,7 @@ void UISlider::init(t_symbol* name, const AtomList& args, bool usePresets)
     }
 }
 
-void UISlider::paint(t_object*)
+void UISlider::paint(t_canvas*)
 {
     const t_rect r = rect();
     UIPainter kp = knob_layer_.painter(r);

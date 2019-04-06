@@ -31,7 +31,7 @@ public:
     void output();
     bool isVertical() const { return width() < height(); }
 
-    void paint(t_object* view);
+    void paint(t_canvas* view);
     void drawBackground();
     void drawItems();
     void okSize(t_rect* newrect);

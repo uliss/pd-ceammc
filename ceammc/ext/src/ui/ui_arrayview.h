@@ -99,7 +99,7 @@ public:
 public:
     UIArrayView();
 
-    void paint(t_object* view);
+    void paint(t_canvas*);
     void drawWaveform();
     void drawLabels();
     void drawCursor();

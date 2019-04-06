@@ -425,7 +425,7 @@ public:
         z->dspProcess(ins, n_ins, outs, n_outs, sampleframes);
     }
 
-    static void paint(UI* z, t_object* view)
+    static void paint(UI* z, t_canvas* view)
     {
         z->paint(view);
     }

@@ -47,7 +47,7 @@ void UIGain::okSize(t_rect* newrect)
         newrect->height = pd_clip_min(newrect->height, 50.);
 }
 
-void UIGain::paint(t_object* view)
+void UIGain::paint(t_canvas*)
 {
     const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
