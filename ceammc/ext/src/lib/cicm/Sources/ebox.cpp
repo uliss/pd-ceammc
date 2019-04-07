@@ -232,11 +232,11 @@ static const char* ebox_label_anchor(t_ebox* x,
     static const char* anchor_outer[4][3][3] = {
         { // side: left
             { // valign: top
-                "ne", "n", "nw" },
+                "nw", "n", "ne" },
             { // valign: middle
-                "e", "center", "w" },
+                "w", "center", "e" },
             { // valign: bottom
-                "se", "s", "sw" } },
+                "sw", "s", "se" } },
         { // side: top
             { "sw", "s", "se" }, { "sw", "s", "se" }, { "sw", "s", "se" } },
         { // side: right
@@ -311,60 +311,61 @@ static std::pair<int, int> ebox_label_coord(t_ebox* x,
 
         switch (side) {
         case LABEL_SIDE_LEFT: {
+            const int margin_right = x0 - x->label_xmargin * x->b_zoom;
+            const int margin_top = y0 + x->label_ymargin * x->b_zoom;
+            const int margin_bottom = y1 - x->label_ymargin * x->b_zoom;
+
             switch (valign) {
-            case LABEL_VALIGN_TOP: {
-                const int X = x0 + x->label_xmargin * x->b_zoom;
-                const int Y = y0 + x->label_ymargin * x->b_zoom;
-                return std::make_pair(X, Y);
-            }
-            case LABEL_VALIGN_CENTER: {
-                const int X = x0 + x->label_xmargin * x->b_zoom;
-                return std::make_pair(X, yc);
-            }
-            case LABEL_VALIGN_BOTTOM: {
-                const int X = x0 + x->label_xmargin * x->b_zoom;
-                const int Y = y1 - x->label_ymargin * x->b_zoom;
-                return std::make_pair(X, Y);
-            }
+            case LABEL_VALIGN_TOP:
+                return std::make_pair(margin_right, margin_top);
+            case LABEL_VALIGN_CENTER:
+                return std::make_pair(margin_right, yc);
+            case LABEL_VALIGN_BOTTOM:
+                return std::make_pair(margin_right, margin_bottom);
             }
         } break;
         case LABEL_SIDE_TOP: {
-            const int Y = y0 - x->label_ymargin * x->b_zoom;
+            const int margin_left = x0 + x->label_xmargin * x->b_zoom;
+            const int margin_right = x1 - x->label_xmargin * x->b_zoom;
+            const int margin_bottom = y0 - x->label_ymargin * x->b_zoom;
+
+            // ignore valign
             switch (align) {
             case LABEL_ALIGN_LEFT:
-                return std::make_pair(
-                    int(x0 + x->label_xmargin * x->b_zoom),
-                    Y);
+                return std::make_pair(margin_left, margin_bottom);
             case LABEL_ALIGN_CENTER:
-                return std::make_pair(
-                    xc, // no xmargin
-                    Y);
+                return std::make_pair(xc, margin_bottom);
             case LABEL_ALIGN_RIGHT:
-                return std::make_pair(
-                    int(x1 - x->label_xmargin * x->b_zoom),
-                    Y);
+                return std::make_pair(margin_right, margin_bottom);
             }
-            break;
-        }
+        } break;
         case LABEL_SIDE_BOTTOM: {
-            const int Y = y1 + x->label_ymargin * x->b_zoom;
+            const int margin_left = x0 + x->label_xmargin * x->b_zoom;
+            const int margin_right = x1 - x->label_xmargin * x->b_zoom;
+            const int margin_top = y1 + x->label_ymargin * x->b_zoom;
+
             switch (align) {
             case LABEL_ALIGN_LEFT:
-                return std::make_pair(
-                    int(x0 + x->label_xmargin * x->b_zoom),
-                    Y);
+                return std::make_pair(margin_left, margin_top);
             case LABEL_ALIGN_CENTER:
-                return std::make_pair(
-                    xc, // no xmargin
-                    Y);
+                return std::make_pair(xc, margin_top);
             case LABEL_ALIGN_RIGHT:
-                return std::make_pair(
-                    int(x1 - x->label_xmargin * x->b_zoom),
-                    Y);
+                return std::make_pair(margin_right, margin_top);
             }
-            break;
-        }
+        } break;
         case LABEL_SIDE_RIGHT: {
+            const int margin_left = x1 + x->label_xmargin * x->b_zoom;
+            const int margin_top = y0 + x->label_ymargin * x->b_zoom;
+            const int margin_bottom = y1 - x->label_ymargin * x->b_zoom;
+
+            switch (valign) {
+            case LABEL_VALIGN_TOP:
+                return std::make_pair(margin_left, margin_top);
+            case LABEL_VALIGN_CENTER:
+                return std::make_pair(margin_left, yc);
+            case LABEL_VALIGN_BOTTOM:
+                return std::make_pair(margin_left, margin_bottom);
+            }
         }
         }
     } break;
@@ -395,7 +396,7 @@ static std::tuple<LabelPosition, LabelSide, LabelAlign, LabelVAlign> label_enums
 }
 
 static void ebox_create_label(t_ebox* x)
-{   
+{
     auto enums = label_enums(x);
     auto pt = ebox_label_coord(x, std::get<0>(enums), std::get<1>(enums), std::get<2>(enums), std::get<3>(enums));
 
@@ -1380,8 +1381,6 @@ t_pd_err ebox_set_label_position(t_ebox* x, t_object* attr, int argc, t_atom* ar
 
         if (x->label_position != s) {
             const bool is_drawable = ebox_isdrawable(x);
-            post("is_drawable: %d, visible: %d, have_window: %d",
-                (int)is_drawable, (int)x->b_visible, (int)x->b_have_window);
 
             if (is_drawable)
                 ebox_erase_label(x);
