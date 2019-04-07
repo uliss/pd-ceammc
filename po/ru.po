@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-04-06 17:05+0300\n"
-"PO-Revision-Date: 2019-04-06 17:21+0300\n"
+"POT-Creation-Date: 2019-04-08 01:03+0300\n"
+"PO-Revision-Date: 2019-04-08 01:05+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -255,6 +255,10 @@ msgstr "Автоматический размер"
 msgid "Background"
 msgstr "Фон"
 
+#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
+msgid "Background Color"
+msgstr "Цвет фона"
+
 #: ../tcl/dialog_iemgui.tcl
 msgid "Background color"
 msgstr "Цвет фона"
@@ -263,6 +267,7 @@ msgstr "Цвет фона"
 msgid "Bang"
 msgstr "Bang"
 
+#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Basic"
@@ -275,6 +280,10 @@ msgstr "Кривыми"
 #: ../tcl/dialog_audio.tcl
 msgid "Block size:"
 msgstr "Размер блока:"
+
+#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
+msgid "Border Color"
+msgstr "Цвет границы"
 
 #: ../tcl/dialog_gatom.tcl
 msgid "Bottom"
@@ -773,17 +782,35 @@ msgstr "Число клавиш"
 msgid "Knob Color"
 msgstr "Цвет ползунка"
 
-#: ../tcl/dialog_gatom.tcl ../tcl/dialog_iemgui.tcl
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp ../tcl/dialog_gatom.tcl
+#: ../tcl/dialog_iemgui.tcl
 msgid "Label"
 msgstr "Ярлык"
 
+#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
 #: ../ceammc/ext/src/ui/ui_spectroscope.cpp
 msgid "Label Color"
 msgstr "Цвета ярлыка"
 
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label align"
+msgstr "Выравнивание ярлыка"
+
 #: ../tcl/dialog_iemgui.tcl
 msgid "Label color"
 msgstr "Ярлык"
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label position"
+msgstr "Положение ярлыка"
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label side"
+msgstr "Сторона ярлыка"
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label vertical align"
+msgstr "Вертикальное выравнивание ярлыка"
 
 #: ../tcl/dialog_array.tcl
 msgid "Last graph"
@@ -1051,7 +1078,7 @@ msgstr ""
 #: ../tcl/dialog_midi.tcl ../tcl/dialog_startup.tcl ../tcl/pd_deken.tcl
 #: ../tcl/scrollboxwindow.tcl
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/pd_menus.tcl
@@ -1207,6 +1234,7 @@ msgstr "Десятичная точность"
 msgid "Preferences"
 msgstr "Настройки"
 
+#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Preset Name"
@@ -1349,7 +1377,7 @@ msgstr "Сохранить в…"
 msgid "Scale"
 msgstr "Масштаб"
 
-#: ../ceammc/ext/src/ui/ui_knob.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_spectroscope.cpp
 msgid "Scale Color"
 msgstr "Цвет шкалы"
 
@@ -2050,12 +2078,6 @@ msgstr "ширина:"
 
 #~ msgid "Auto send"
 #~ msgstr "Отправлять при изменении"
-
-#~ msgid "Background Color"
-#~ msgstr "Цвет фона"
-
-#~ msgid "Border Color"
-#~ msgstr "Цвет границы"
 
 #~ msgid "Cross Color"
 #~ msgstr "Цвет индикатора"
