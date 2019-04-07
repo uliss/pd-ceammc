@@ -188,8 +188,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_SYMBOL(c, "label_side", 0, t_ebox, label_side);
     CLASS_ATTR_SYMBOL(c, "label_align", 0, t_ebox, label_align);
     CLASS_ATTR_SYMBOL(c, "label_valign", 0, t_ebox, label_valign);
-    CLASS_ATTR_INT(c, "label_xmargin", 0, t_ebox, label_xmargin);
-    CLASS_ATTR_INT(c, "label_ymargin", 0, t_ebox, label_ymargin);
+    CLASS_ATTR_INT_ARRAY(c, "label_margins", 0, t_ebox, label_margins, 2);
 
     CLASS_ATTR_DEFAULT(c, "size", 0, "100. 100.");
     CLASS_ATTR_FILTER_MIN(c, "size", 4);
@@ -293,21 +292,12 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_STYLE(c, "label_pos", 0, "menu");
     CLASS_ATTR_ITEMS(c, "label_pos", 0, "inner outer");
 
-    CLASS_ATTR_DEFAULT(c, "label_xmargin", 0, "0");
-    CLASS_ATTR_SAVE(c, "label_xmargin", 0);
-    CLASS_ATTR_PAINT(c, "label_xmargin", 0);
-    CLASS_ATTR_CATEGORY(c, "label_xmargin", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label_xmargin", 0, _("Label horizontal margin"));
-    CLASS_ATTR_ACCESSORS(c, "label_xmargin", NULL, ebox_set_label_xmargin);
-    CLASS_ATTR_STYLE(c, "label_xmargin", 0, "number");
-
-    CLASS_ATTR_DEFAULT(c, "label_ymargin", 0, "0");
-    CLASS_ATTR_SAVE(c, "label_ymargin", 0);
-    CLASS_ATTR_PAINT(c, "label_ymargin", 0);
-    CLASS_ATTR_CATEGORY(c, "label_ymargin", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label_ymargin", 0, _("Label vertical margin"));
-    CLASS_ATTR_ACCESSORS(c, "label_ymargin", NULL, ebox_set_label_ymargin);
-    CLASS_ATTR_STYLE(c, "label_ymargin", 0, "number");
+    CLASS_ATTR_DEFAULT(c, "label_margins", 0, "0 0");
+    CLASS_ATTR_SAVE(c, "label_margins", 0);
+    CLASS_ATTR_PAINT(c, "label_margins", 0);
+    CLASS_ATTR_CATEGORY(c, "label_margins", 0, _("Label"));
+    CLASS_ATTR_LABEL(c, "label_margins", 0, _("Label margins"));
+    CLASS_ATTR_ACCESSORS(c, "label_margins", NULL, ebox_set_label_margins);
 
     // GUI always need this methods //
     class_addmethod((t_class*)c, (t_method)ebox_attr_dump, gensym(SYM_DUMP), A_NULL, 0);

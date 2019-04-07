@@ -783,8 +783,7 @@ typedef struct t_ebox {
     t_symbol* label_valign; /*!< The UI label vertical align: top, center or bottom */
     t_symbol* label_position; /*!< The UI label position: inner or outer */
     t_symbol* label_side; /*!< The UI label anchor side: top, left, right, or bottom */
-    int label_xmargin;
-    int label_ymargin;
+    int label_margins[2];
 } t_ebox;
 
 /** @} */

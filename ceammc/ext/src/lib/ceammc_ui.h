@@ -146,6 +146,9 @@ public:
 
     void setupAttributes()
     {
+        CLASS_ATTR_INVISIBLE(pd_class, "fontweight", 1);
+        CLASS_ATTR_INVISIBLE(pd_class, "fontslant", 1);
+
         // clang-format off
         // background / border color
         addProperty(PROP_BACKGROUND_COLOR,
@@ -191,8 +194,6 @@ public:
     void hideFontProps()
     {
         CLASS_ATTR_INVISIBLE(pd_class, "fontname", 1);
-        CLASS_ATTR_INVISIBLE(pd_class, "fontweight", 1);
-        CLASS_ATTR_INVISIBLE(pd_class, "fontslant", 1);
         CLASS_ATTR_INVISIBLE(pd_class, "fontsize", 1);
     }
 

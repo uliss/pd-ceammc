@@ -263,10 +263,10 @@ static std::pair<int, int> ebox_label_coord(t_ebox* x,
         const int xc = w * 0.5;
         const int yc = h * 0.5;
 
-        const int margin_left = int((x->label_xmargin + MIN_MARGIN) * x->b_zoom);
-        const int margin_right = int(w - (x->label_xmargin + MIN_MARGIN) * x->b_zoom);
-        const int margin_top = int((x->label_ymargin + MIN_MARGIN) * x->b_zoom);
-        const int margin_bottom = int(h - (x->label_ymargin + MIN_MARGIN) * x->b_zoom);
+        const int margin_left = int((x->label_margins[0] + MIN_MARGIN) * x->b_zoom);
+        const int margin_right = int(w - (x->label_margins[0] + MIN_MARGIN) * x->b_zoom);
+        const int margin_top = int((x->label_margins[1] + MIN_MARGIN) * x->b_zoom);
+        const int margin_bottom = int(h - (x->label_margins[1] + MIN_MARGIN) * x->b_zoom);
 
         switch (valign) {
         case LABEL_VALIGN_TOP: {
@@ -313,9 +313,9 @@ static std::pair<int, int> ebox_label_coord(t_ebox* x,
 
         switch (side) {
         case LABEL_SIDE_LEFT: {
-            const int margin_right = x0 - (x->label_xmargin + MIN_MARGIN) * x->b_zoom;
-            const int margin_top = y0 + x->label_ymargin * x->b_zoom;
-            const int margin_bottom = y1 - x->label_ymargin * x->b_zoom;
+            const int margin_right = x0 - (x->label_margins[0] + MIN_MARGIN) * x->b_zoom;
+            const int margin_top = y0 + x->label_margins[1] * x->b_zoom;
+            const int margin_bottom = y1 - x->label_margins[1] * x->b_zoom;
 
             switch (valign) {
             case LABEL_VALIGN_TOP:
@@ -327,9 +327,9 @@ static std::pair<int, int> ebox_label_coord(t_ebox* x,
             }
         } break;
         case LABEL_SIDE_TOP: {
-            const int margin_left = x0 + x->label_xmargin * x->b_zoom;
-            const int margin_right = x1 - x->label_xmargin * x->b_zoom;
-            const int margin_bottom = y0 - (x->label_ymargin + MIN_MARGIN) * x->b_zoom;
+            const int margin_left = x0 + x->label_margins[0] * x->b_zoom;
+            const int margin_right = x1 - x->label_margins[0] * x->b_zoom;
+            const int margin_bottom = y0 - (x->label_margins[1] + MIN_MARGIN) * x->b_zoom;
 
             // ignore valign
             switch (align) {
@@ -342,9 +342,9 @@ static std::pair<int, int> ebox_label_coord(t_ebox* x,
             }
         } break;
         case LABEL_SIDE_BOTTOM: {
-            const int margin_left = x0 + x->label_xmargin * x->b_zoom;
-            const int margin_right = x1 - x->label_xmargin * x->b_zoom;
-            const int margin_top = y1 + (x->label_ymargin + MIN_MARGIN) * x->b_zoom;
+            const int margin_left = x0 + x->label_margins[0] * x->b_zoom;
+            const int margin_right = x1 - x->label_margins[0] * x->b_zoom;
+            const int margin_top = y1 + (x->label_margins[1] + MIN_MARGIN) * x->b_zoom;
 
             switch (align) {
             case LABEL_ALIGN_LEFT:
@@ -356,9 +356,9 @@ static std::pair<int, int> ebox_label_coord(t_ebox* x,
             }
         } break;
         case LABEL_SIDE_RIGHT: {
-            const int margin_left = x1 + (x->label_xmargin + MIN_MARGIN) * x->b_zoom;
-            const int margin_top = y0 + x->label_ymargin * x->b_zoom;
-            const int margin_bottom = y1 - x->label_ymargin * x->b_zoom;
+            const int margin_left = x1 + (x->label_margins[0] + MIN_MARGIN) * x->b_zoom;
+            const int margin_top = y0 + x->label_margins[1] * x->b_zoom;
+            const int margin_bottom = y1 - x->label_margins[1] * x->b_zoom;
 
             switch (valign) {
             case LABEL_VALIGN_TOP:
@@ -405,7 +405,7 @@ static void ebox_create_label(t_ebox* x)
     sys_vgui("%s create text %d %d -anchor %s "
              "-justify %s "
              "-text {%s} -fill #%6.6x "
-             "-font {Helvetica %d roman normal} "
+             "-font {{%s} %d roman normal} "
              "-tags { " LABEL_TAG " }\n",
         label_draw_id(x)->s_name,
         pt.first, pt.second,
@@ -413,6 +413,7 @@ static void ebox_create_label(t_ebox* x)
         x->label_align->s_name,
         x->b_label->s_name,
         rgba_to_hex_int(x->b_boxparameters.d_labelcolor),
+        x->b_font.c_family->s_name,
         (int)(x->b_font.c_sizereal * x->b_zoom),
         x->b_canvas_id->s_name);
 }
@@ -444,9 +445,10 @@ static void ebox_update_label_font(t_ebox* x)
     if (ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow && x->b_visible && x->b_label != s_null) {
         t_symbol* cnv = label_draw_id(x);
 
-        sys_vgui("%s itemconfigure " LABEL_TAG " -font {Helvetica %d roman normal}\n",
+        sys_vgui("%s itemconfigure " LABEL_TAG " -font {{%s} %d roman normal}\n",
             cnv->s_name,
             x->b_canvas_id->s_name,
+            x->b_font.c_family->s_name,
             (int)(x->b_font.c_sizereal * x->b_zoom));
     }
 }
@@ -471,8 +473,8 @@ void ebox_new(t_ebox* x, long flags)
     x->label_valign = s_value_label_valign_center;
     x->label_position = s_value_label_position_outer;
     x->label_side = gensym("left");
-    x->label_xmargin = 4;
-    x->label_ymargin = 4;
+    x->label_margins[0] = 0;
+    x->label_margins[1] = 0;
 
     eobj_getclass(x)->c_widget.w_dosave = (t_typ_method)ebox_dosave;
     ebox_attrprocess_default(x);
@@ -1418,22 +1420,14 @@ t_pd_err ebox_set_label_position(t_ebox* x, t_object* attr, int argc, t_atom* ar
     return 0;
 }
 
-t_pd_err ebox_set_label_xmargin(t_ebox* x, t_object* attr, int argc, t_atom* argv)
+t_pd_err ebox_set_label_margins(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 {
-    if (argc && argv && atom_gettype(argv) == A_FLOAT) {
-        x->label_xmargin = int(atom_getfloat(argv));
+    if (argc == 2 && argv && atom_gettype(argv) == A_FLOAT) {
+        x->label_margins[0] = int(atom_getfloat(argv));
+        x->label_margins[1] = int(atom_getfloat(argv + 1));
         ebox_update_label_pos(x);
-    }
-
-    return 0;
-}
-
-t_pd_err ebox_set_label_ymargin(t_ebox* x, t_object* attr, int argc, t_atom* argv)
-{
-    if (argc && argv && atom_gettype(argv) == A_FLOAT) {
-        x->label_ymargin = int(atom_getfloat(argv));
-        ebox_update_label_pos(x);
-    }
+    } else
+        pd_error("[%s] X Y margin pair expected", eobj_getclassname(x)->s_name);
 
     return 0;
 }
@@ -1475,6 +1469,9 @@ t_pd_err ebox_set_font(t_ebox* x, t_object* attr, int argc, t_atom* argv)
     ftname_uc[0] = (char)toupper(ftname_uc[0]);
     x->b_font.c_family = gensym(ftname_uc);
     free(ftname);
+
+    ebox_update_label_font(x);
+
     return 0;
 }
 
