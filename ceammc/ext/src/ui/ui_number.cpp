@@ -304,6 +304,7 @@ void UINumber::setup()
     obj.useFloat();
     obj.useMouseEvents(UI_MOUSE_DBL_CLICK | UI_MOUSE_DRAG | UI_MOUSE_DOWN | UI_MOUSE_LEAVE);
     obj.useKeys();
+    obj.hideLabelInner();
 
     obj.setDefaultSize(53, 15);
 

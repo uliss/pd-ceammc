@@ -409,6 +409,7 @@ void UIKeyboard::setup()
 {
     UIObjectFactory<UIKeyboard> obj("ui.keyboard");
 
+    obj.hideLabelInner();
     obj.useBang();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG
         | UI_MOUSE_MOVE | UI_MOUSE_LEAVE

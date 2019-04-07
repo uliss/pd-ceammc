@@ -149,6 +149,7 @@ void UILabel::setup()
 {
     UIObjectFactory<UILabel> obj("ui.label", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK, CLASS_NOINLET);
     obj.setDefaultSize(300, 47);
+    obj.hideLabel();
 
     obj.hideProperty("border_color");
     obj.hideProperty("send");

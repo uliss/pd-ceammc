@@ -494,6 +494,7 @@ void UITab::setup()
     obj.useFloat();
     obj.useSymbol();
     obj.usePresets();
+    obj.hideLabelInner();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_MOVE | UI_MOUSE_LEAVE);
 
     obj.showProperty("fontname");

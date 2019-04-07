@@ -140,6 +140,7 @@ void UIIncDec::setup()
 {
     UIObjectFactory<UIIncDec> obj("ui.incdec");
     obj.setDefaultSize(15, 20);
+    obj.hideLabelInner();
 
     obj.useBang();
     obj.useFloat();

@@ -194,6 +194,7 @@ void UIPreset::setup()
 #endif
 
     obj.hideProperty("send");
+    obj.hideLabelInner();
 
     obj.addProperty("text_color", _("Text Color"), "0. 0. 0. 1.", &UIPreset::prop_color_text);
     obj.addProperty("empty_color", _("Empty Button Color"), "0.86 0.86 0.86 1.", &UIPreset::prop_color_empty);

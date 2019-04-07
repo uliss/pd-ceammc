@@ -209,6 +209,7 @@ void UIDisplay::setup()
 {
     UIObjectFactory<UIDisplay> obj("ui.display");
     obj.addAlias("ui.d");
+    obj.hideLabel();
 
     obj.setDefaultSize(150, 18);
 

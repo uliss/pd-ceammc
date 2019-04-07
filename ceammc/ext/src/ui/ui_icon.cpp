@@ -293,6 +293,7 @@ void UIIcon::setup()
     UIObjectFactory<UIIcon> obj("ui.icon", EBOX_GROWLINK);
     obj.setDefaultSize(24, 24);
     obj.hideProperty("size");
+    obj.hideLabelInner();
     obj.usePresets();
     obj.useBang();
     obj.useFloat();

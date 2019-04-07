@@ -146,8 +146,8 @@ public:
 
     void setupAttributes()
     {
-        CLASS_ATTR_INVISIBLE(pd_class, "fontweight", 1);
-        CLASS_ATTR_INVISIBLE(pd_class, "fontslant", 1);
+        hideProperty("fontweight");
+        hideProperty("fontslant");
 
         // clang-format off
         // background / border color
@@ -193,8 +193,27 @@ public:
 
     void hideFontProps()
     {
-        CLASS_ATTR_INVISIBLE(pd_class, "fontname", 1);
-        CLASS_ATTR_INVISIBLE(pd_class, "fontsize", 1);
+        hideProperty("fontname");
+        hideProperty("fontsize");
+    }
+
+    void hideLabel()
+    {
+        hideProperty("label");
+        hideProperty("label_color");
+        hideProperty("label_pos");
+        hideProperty("label_side");
+        hideProperty("label_align");
+        hideProperty("label_valign");
+        hideProperty("label_margins");
+
+        hideFontProps();
+    }
+
+    void hideLabelInner()
+    {
+        hideProperty("label_pos");
+        setPropertyDefaultValue("label_pos", "outer");
     }
 
     void readWrite()

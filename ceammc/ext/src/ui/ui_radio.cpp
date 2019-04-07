@@ -448,6 +448,7 @@ void UIRadio::setup()
     obj.usePresets();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DBL_CLICK);
     obj.setDefaultSize(127, 15);
+    obj.hideLabelInner();
 
     obj.addProperty("active_color", _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIRadio::prop_color_active);
     obj.addProperty("nitems", _("Number of Items"), 8, &UIRadio::prop_nitems_, "Basic");

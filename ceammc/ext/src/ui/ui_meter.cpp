@@ -202,6 +202,7 @@ void UIMeter::setup()
 {
     UIDspFactory<UIMeter> obj("ui.meter~", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK);
     obj.addAlias("ui.m~");
+    obj.hideLabelInner();
 
     obj.setDefaultSize(15, 120);
 

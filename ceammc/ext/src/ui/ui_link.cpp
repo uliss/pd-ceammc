@@ -148,6 +148,7 @@ void UILink::setup()
     obj.hideProperty("send");
     obj.hideProperty("receive");
     obj.hideProperty("size");
+    obj.hideLabel();
     obj.hideProperty(PROP_BACKGROUND_COLOR);
     obj.hideProperty(PROP_BORDER_COLOR);
 

@@ -527,6 +527,7 @@ void UIMenu::setup()
     obj.useFloat();
     obj.useAny();
     obj.useSymbol();
+    obj.hideLabelInner();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_MOVE | UI_MOUSE_LEAVE);
 
     obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UIMenu::prop_color_text);

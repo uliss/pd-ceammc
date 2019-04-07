@@ -921,6 +921,7 @@ void UIArrayView::setup()
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_MOVE | UI_MOUSE_LEAVE | UI_MOUSE_DRAG);
     obj.useFloat();
     obj.useBang();
+    obj.hideLabelInner();
 
     obj.addSymbolProperty("array", _("Array name"), "", &UIArrayView::prop_array);
     obj.setPropertyAccessor("array", &UIArrayView::propArray, &UIArrayView::propSetArray);

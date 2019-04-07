@@ -164,6 +164,25 @@ public:
         // clang-format on
     }
 
+    void hideLabel()
+    {
+        hideProperty("label");
+        hideProperty("label_color");
+        hideProperty("label_pos");
+        hideProperty("label_side");
+        hideProperty("label_align");
+        hideProperty("label_valign");
+        hideProperty("label_margins");
+
+        hideFontProps();
+    }
+
+    void hideLabelInner()
+    {
+        hideProperty("label_pos");
+        setPropertyDefaultValue("label_pos", "outer");
+    }
+
     void hideFontProps()
     {
         CLASS_ATTR_INVISIBLE(pd_class, "fontname", 1);

@@ -97,6 +97,7 @@ void UIDsp::m_settings(const AtomList&)
 void UIDsp::setup()
 {
     UIObjectFactory<UIDsp> obj("ui.dsp~", EBOX_GROWLINK);
+    obj.hideLabelInner();
 
     obj.useAny();
     obj.setDefaultSize(30, 30);

@@ -855,6 +855,7 @@ void UIMatrix::setup()
     obj.useBang();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_LEAVE);
     obj.readWrite();
+    obj.hideLabelInner();
 
     obj.addProperty("rows", _("Rows"), 4, &UIMatrix::prop_rows_);
     obj.setPropertyRange("rows", 1, UI_MAX_MATRIX_SIZE);
