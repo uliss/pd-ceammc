@@ -439,6 +439,18 @@ static void ebox_update_label_pos(t_ebox* x)
     }
 }
 
+static void ebox_update_label_font(t_ebox* x)
+{
+    if (ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow && x->b_visible && x->b_label != s_null) {
+        t_symbol* cnv = label_draw_id(x);
+
+        sys_vgui("%s itemconfigure " LABEL_TAG " -font {Helvetica %d roman normal}\n",
+            cnv->s_name,
+            x->b_canvas_id->s_name,
+            (int)(x->b_font.c_sizereal * x->b_zoom));
+    }
+}
+
 void ebox_new(t_ebox* x, long flags)
 {
     x->b_flags = flags;
@@ -1514,6 +1526,8 @@ t_pd_err ebox_set_fontsize(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 #else
     x->b_font.c_size = x->b_font.c_sizereal - 3;
 #endif
+
+    ebox_update_label_font(x);
     return 0;
 }
 
