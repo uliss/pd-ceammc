@@ -27,8 +27,10 @@ find_program(XGETTEXT xgettext)
 
 if(XGETTEXT)
     file(GLOB _CICM_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/lib/cicm/Sources/*.cpp")
-    file(GLOB _CEAMMC_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/*.cpp")
-    file(GLOB _UI_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/ui/*.cpp")
+    file(GLOB _CEAMMC_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/*.h")
+    file(GLOB _CEAMMC_LIB_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/lib/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/lib/*.h")
+    file(GLOB _UI_FILES RELATIVE ${CMAKE_SOURCE_DIR}/po "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/ui/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/ext/src/ui/*.h")
+
 
     add_custom_target(ceammc_messages
         COMMAND ${XGETTEXT} --join-existing --from-code=UTF-8
@@ -38,7 +40,7 @@ if(XGETTEXT)
             --package-name="Pure Data" --package-version=${PD_TEXT_VERSION_FULL}
             --copyright-holder='This file is put in the public domain'
             --foreign-user --msgid-bugs-address=pd-dev@iem.at
-            ${_CICM_FILES} ${_CEAMMC_FILES} ${_UI_FILES}
+            ${_CICM_FILES} ${_CEAMMC_FILES} ${_CEAMMC_LIB_FILES} ${_UI_FILES}
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 endif()
 

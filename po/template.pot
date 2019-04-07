@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.49.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-04-06 17:05+0300\n"
+"POT-Creation-Date: 2019-04-08 01:03+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,9 +16,29 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
+msgid "Background Color"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
+msgid "Border Color"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
+#: ../ceammc/ext/src/ui/ui_spectroscope.cpp
+msgid "Label Color"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Basic"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+msgid "Preset Name"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
@@ -51,6 +71,27 @@ msgstr ""
 msgid "Font Weight"
 msgstr ""
 
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp ../tcl/dialog_gatom.tcl
+#: ../tcl/dialog_iemgui.tcl
+msgid "Label"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label align"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label position"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label side"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label vertical align"
+msgstr ""
+
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "MIDI"
@@ -64,11 +105,6 @@ msgstr ""
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Pinned"
-msgstr ""
-
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
-msgid "Preset Name"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
@@ -258,12 +294,8 @@ msgstr ""
 msgid "Minimum Value"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_knob.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_spectroscope.cpp
 msgid "Scale Color"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_knob.cpp
-msgid "min"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
@@ -272,6 +304,10 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp
 msgid "max"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_knob.cpp
+msgid "min"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_label.cpp
@@ -327,11 +363,11 @@ msgid "Rows"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
-msgid "reset"
+msgid "flip"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
-msgid "flip"
+msgid "load"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
@@ -339,7 +375,7 @@ msgid "random"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
-msgid "load"
+msgid "reset"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
@@ -423,6 +459,10 @@ msgid "Output on mouse up"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider.cpp
+msgid "Precision"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "Relative Mode"
 msgstr ""
 
@@ -432,10 +472,6 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "Value position"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_slider.cpp
-msgid "Precision"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
@@ -459,6 +495,10 @@ msgid "Show grid"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "bottom center"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "left center"
 msgstr ""
 
@@ -468,10 +508,6 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "top center"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "bottom center"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
@@ -493,10 +529,6 @@ msgstr ""
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
 #, c-format
 msgid "fill with %f"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_spectroscope.cpp
-msgid "Label Color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_spectroscope.cpp
@@ -834,10 +866,6 @@ msgstr ""
 
 #: ../tcl/dialog_gatom.tcl
 msgid "Bottom"
-msgstr ""
-
-#: ../tcl/dialog_gatom.tcl ../tcl/dialog_iemgui.tcl
-msgid "Label"
 msgstr ""
 
 #: ../tcl/dialog_gatom.tcl
