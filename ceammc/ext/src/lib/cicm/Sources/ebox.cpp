@@ -1404,6 +1404,26 @@ t_pd_err ebox_set_label_position(t_ebox* x, t_object* attr, int argc, t_atom* ar
     return 0;
 }
 
+t_pd_err ebox_set_label_xmargin(t_ebox* x, t_object* attr, int argc, t_atom* argv)
+{
+    if (argc && argv && atom_gettype(argv) == A_FLOAT) {
+        x->label_xmargin = int(atom_getfloat(argv));
+        ebox_update_label_pos(x);
+    }
+
+    return 0;
+}
+
+t_pd_err ebox_set_label_ymargin(t_ebox* x, t_object* attr, int argc, t_atom* argv)
+{
+    if (argc && argv && atom_gettype(argv) == A_FLOAT) {
+        x->label_ymargin = int(atom_getfloat(argv));
+        ebox_update_label_pos(x);
+    }
+
+    return 0;
+}
+
 t_symbol* ebox_get_presetid(t_ebox* x)
 {
     if (x->b_objpreset_id != s_null) {
