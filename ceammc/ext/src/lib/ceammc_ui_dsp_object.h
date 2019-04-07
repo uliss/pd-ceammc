@@ -67,6 +67,7 @@ protected:
 public:
     t_rgba prop_color_background;
     t_rgba prop_color_border;
+    t_rgba prop_color_label;
 
 public:
     UIDspObject();

@@ -123,6 +123,11 @@ public:
                     DEFAULT_BORDER_COLOR,
                     &UI::prop_color_border);
 
+        addProperty(PROP_LABEL_COLOR,
+                    _("Label Color"),
+                    DEFAULT_LABEL_COLOR,
+                    &UI::prop_color_label);
+
         // default
         CLASS_ATTR_DEFAULT              (pd_class, "size", 0, "45. 15.");
         // clang-format on

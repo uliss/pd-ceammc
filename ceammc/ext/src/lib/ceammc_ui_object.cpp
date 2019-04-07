@@ -35,6 +35,7 @@ UIObject::UIObject()
     , use_presets_(false)
     , prop_color_background(rgba_white)
     , prop_color_border(rgba_black)
+    , prop_color_label(rgba_black)
 {
     appendToLayerList(&bg_layer_);
 }
@@ -216,6 +217,7 @@ void UIObject::setDrawParams(t_edrawparams* params)
     params->d_borderthickness = 1;
     params->d_bordercolor = prop_color_border;
     params->d_boxfillcolor = prop_color_background;
+    params->d_labelcolor = prop_color_label;
 }
 
 void UIObject::onZoom(t_float z)

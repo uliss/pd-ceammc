@@ -80,6 +80,7 @@ UIDspObject::UIDspObject()
     , use_presets_(false)
     , prop_color_background(rgba_white)
     , prop_color_border(rgba_black)
+    , prop_color_label(rgba_black)
 {
 }
 

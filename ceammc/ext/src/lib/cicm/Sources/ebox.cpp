@@ -402,7 +402,7 @@ static void ebox_create_label(t_ebox* x)
 
     sys_vgui("%s create text %d %d -anchor %s "
              "-justify %s "
-             "-text {%s} -fill red "
+             "-text {%s} -fill #%6.6x "
              "-font {Helvetica %d roman normal} "
              "-tags { " LABEL_TAG " }\n",
         label_draw_id(x)->s_name,
@@ -410,6 +410,7 @@ static void ebox_create_label(t_ebox* x)
         ebox_label_anchor(x, std::get<0>(enums), std::get<1>(enums), std::get<2>(enums), std::get<3>(enums)),
         x->label_align->s_name,
         x->b_label->s_name,
+        rgba_to_hex_int(x->b_boxparameters.d_labelcolor),
         (int)(x->b_font.c_sizereal * x->b_zoom),
         x->b_canvas_id->s_name);
 }
@@ -474,11 +475,14 @@ void ebox_ready(t_ebox* x)
     x->b_resize = 0;
     x->b_zoom = 1;
 
-    x->b_boxparameters.d_bordercolor = rgba_black;
     x->b_boxparameters.d_borderthickness = 1;
+    x->b_boxparameters.d_bordercolor = rgba_black;
     x->b_boxparameters.d_boxfillcolor = rgba_white;
+    x->b_boxparameters.d_labelcolor = rgba_black;
+
     if (c->c_widget.w_getdrawparameters)
         c->c_widget.w_getdrawparameters(x, &x->b_boxparameters);
+
     x->b_ready_to_draw = 1;
 
     ebox_newzoom(x);
@@ -652,11 +656,16 @@ static void ebox_paint(t_ebox* x)
     if (c->c_widget.w_paint)
         c->c_widget.w_paint(x);
 
-    if (x->b_label != s_null && x->label_position == s_value_label_position_inner) {
-        sys_vgui("%s raise " LABEL_TAG " %s\n",
-            label_draw_id(x)->s_name, x->b_canvas_id->s_name, x->b_all_id->s_name);
-        sys_vgui("%s raise " LABEL_TAG " %s\n",
-            label_draw_id(x)->s_name, x->b_canvas_id->s_name, x->b_all_id->s_name);
+    if (x->b_label != s_null) {
+        if (x->label_position == s_value_label_position_inner) {
+            // raise up
+            sys_vgui("%s raise " LABEL_TAG " %s\n",
+                label_draw_id(x)->s_name, x->b_canvas_id->s_name, x->b_all_id->s_name);
+        }
+
+        // update label color
+        sys_vgui("%s itemconfigure " LABEL_TAG " -fill #%6.6x\n",
+            label_draw_id(x)->s_name, x->b_canvas_id->s_name, rgba_to_hex_int(x->b_boxparameters.d_labelcolor));
     }
 
     ebox_draw_border(x);
@@ -2197,6 +2206,8 @@ static void ebox_erase(t_ebox* x)
 {
     if (x->b_obj.o_canvas && glist_isvisible(x->b_obj.o_canvas) && x->b_obj.o_canvas->gl_havewindow) {
         ebox_erase_label(x);
+        // prevent double destroy
+        x->b_label = s_null;
         sys_vgui("destroy %s \n", x->b_drawing_id->s_name);
     }
     if (x->b_layers) {

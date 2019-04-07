@@ -40,7 +40,7 @@ static bool init_hann_window()
 UISpectroscope::UISpectroscope()
     : clock_(this, &UISpectroscope::updateFFT)
     , prop_color_active(rgba_blue)
-    , prop_color_label(rgba_black)
+    , prop_color_scale(rgba_black)
     , graph_layer_(asEBox(), SYM_GRAPH_LAYER)
     , font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL - 1)
     , grid_color_main_(rgba_greylight)
@@ -420,7 +420,7 @@ void UISpectroscope::setup()
     obj.setDefaultSize(150, 100);
 
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UISpectroscope::prop_color_active);
-    obj.addProperty("label_color", _("Label Color"), "0.6 0.6 0.6 1", &UISpectroscope::prop_color_label);
+    obj.addProperty("scale_color", _("Scale Color"), "0.6 0.6 0.6 1", &UISpectroscope::prop_color_scale);
     obj.addIntProperty("refresh", _("Refresh time (ms)"), 100, &UISpectroscope::prop_refresh);
     obj.setPropertyRange("refresh", 20, 1000);
     obj.addBoolProperty("log_scale", _("Log scale"), false, &UISpectroscope::prop_log_scale);
@@ -470,10 +470,10 @@ void UISpectroscope::freeLabels()
 void UISpectroscope::updateLabelColors()
 {
     for (size_t i = 0; i < x_labels_.size(); i++)
-        x_labels_[i]->setColor(prop_color_label);
+        x_labels_[i]->setColor(prop_color_scale);
 
     for (size_t i = 0; i < y_labels_.size(); i++)
-        y_labels_[i]->setColor(prop_color_label);
+        y_labels_[i]->setColor(prop_color_scale);
 }
 
 void setup_ui_spectroscope()

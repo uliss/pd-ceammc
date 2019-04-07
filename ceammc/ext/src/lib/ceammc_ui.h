@@ -20,11 +20,13 @@ static const char* DEFAULT_ACTIVE_COLOR = "0. 0.75 1. 1.";
 static const char* DEFAULT_BORDER_COLOR = "0.6 0.6 0.6 1.";
 static const char* DEFAULT_BACKGROUND_COLOR = "0.93 0.93 0.93 1.";
 static const char* DEFAULT_TEXT_COLOR = "0. 0. 0. 1.";
+static const char* DEFAULT_LABEL_COLOR = "0. 0. 0. 1.";
 
 static const char* PROP_ACTIVE_COLOR = "active_color";
 static const char* PROP_BACKGROUND_COLOR = "background_color";
 static const char* PROP_BORDER_COLOR = "border_color";
 static const char* PROP_TEXT_COLOR = "text_color";
+static const char* PROP_LABEL_COLOR = "label_color";
 
 static const char* PROP_PRESET_NAME = "presetname";
 
@@ -155,6 +157,11 @@ public:
                     _("Border Color"),
                     DEFAULT_BORDER_COLOR,
                     &UI::prop_color_border);
+
+        addProperty(PROP_LABEL_COLOR,
+                    _("Label Color"),
+                    DEFAULT_LABEL_COLOR,
+                    &UI::prop_color_label);
 
         // default
         CLASS_ATTR_DEFAULT              (pd_class, "size", 0, "45. 15.");

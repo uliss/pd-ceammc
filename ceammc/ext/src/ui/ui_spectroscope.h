@@ -35,7 +35,7 @@ public:
 private:
     ClockMemberFunction<UISpectroscope> clock_;
     t_rgba prop_color_active;
-    t_rgba prop_color_label;
+    t_rgba prop_color_scale;
     UILayer graph_layer_;
     UIFont font_;
     std::vector<UITextLayout*> x_labels_;
