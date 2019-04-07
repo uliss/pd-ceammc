@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.49.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-04-08 01:03+0300\n"
+"POT-Creation-Date: 2019-04-08 01:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,18 +21,18 @@ msgid "Background Color"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+msgid "Basic"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
 msgid "Border Color"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
 #: ../ceammc/ext/src/ui/ui_spectroscope.cpp
 msgid "Label Color"
-msgstr ""
-
-#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
-msgid "Basic"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
@@ -93,6 +93,14 @@ msgid "Label vertical align"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label x-margin"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label y-margin"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "MIDI"
 msgstr ""
@@ -125,6 +133,14 @@ msgstr ""
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/pdwindow.tcl
 msgid "normal"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label horizontal margin"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label vertical margin"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp

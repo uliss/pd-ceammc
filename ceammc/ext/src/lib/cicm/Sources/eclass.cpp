@@ -297,7 +297,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_SAVE(c, "label_xmargin", 0);
     CLASS_ATTR_PAINT(c, "label_xmargin", 0);
     CLASS_ATTR_CATEGORY(c, "label_xmargin", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label_xmargin", 0, _("Label x-margin"));
+    CLASS_ATTR_LABEL(c, "label_xmargin", 0, _("Label horizontal margin"));
     CLASS_ATTR_ACCESSORS(c, "label_xmargin", NULL, ebox_set_label_xmargin);
     CLASS_ATTR_STYLE(c, "label_xmargin", 0, "number");
 
@@ -305,7 +305,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_SAVE(c, "label_ymargin", 0);
     CLASS_ATTR_PAINT(c, "label_ymargin", 0);
     CLASS_ATTR_CATEGORY(c, "label_ymargin", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label_ymargin", 0, _("Label y-margin"));
+    CLASS_ATTR_LABEL(c, "label_ymargin", 0, _("Label vertical margin"));
     CLASS_ATTR_ACCESSORS(c, "label_ymargin", NULL, ebox_set_label_ymargin);
     CLASS_ATTR_STYLE(c, "label_ymargin", 0, "number");
 

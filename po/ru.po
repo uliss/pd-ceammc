@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-04-08 01:03+0300\n"
-"PO-Revision-Date: 2019-04-08 01:05+0300\n"
+"POT-Creation-Date: 2019-04-08 01:35+0300\n"
+"PO-Revision-Date: 2019-04-08 01:36+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -801,6 +801,10 @@ msgid "Label color"
 msgstr "Ярлык"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label horizontal margin"
+msgstr "Горизонтальный отступ ярлыка"
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 msgid "Label position"
 msgstr "Положение ярлыка"
 
@@ -811,6 +815,18 @@ msgstr "Сторона ярлыка"
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 msgid "Label vertical align"
 msgstr "Вертикальное выравнивание ярлыка"
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label vertical margin"
+msgstr "Вертикальный отступ ярлыка"
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label x-margin"
+msgstr "Отступ ярлыка по x"
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label y-margin"
+msgstr "Отступ ярлыка по y"
 
 #: ../tcl/dialog_array.tcl
 msgid "Last graph"

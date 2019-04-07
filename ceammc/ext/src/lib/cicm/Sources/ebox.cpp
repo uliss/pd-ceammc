@@ -313,7 +313,7 @@ static std::pair<int, int> ebox_label_coord(t_ebox* x,
 
         switch (side) {
         case LABEL_SIDE_LEFT: {
-            const int margin_right = x0 - x->label_xmargin * x->b_zoom;
+            const int margin_right = x0 - (x->label_xmargin + MIN_MARGIN) * x->b_zoom;
             const int margin_top = y0 + x->label_ymargin * x->b_zoom;
             const int margin_bottom = y1 - x->label_ymargin * x->b_zoom;
 
@@ -329,7 +329,7 @@ static std::pair<int, int> ebox_label_coord(t_ebox* x,
         case LABEL_SIDE_TOP: {
             const int margin_left = x0 + x->label_xmargin * x->b_zoom;
             const int margin_right = x1 - x->label_xmargin * x->b_zoom;
-            const int margin_bottom = y0 - x->label_ymargin * x->b_zoom;
+            const int margin_bottom = y0 - (x->label_ymargin + MIN_MARGIN) * x->b_zoom;
 
             // ignore valign
             switch (align) {
@@ -344,7 +344,7 @@ static std::pair<int, int> ebox_label_coord(t_ebox* x,
         case LABEL_SIDE_BOTTOM: {
             const int margin_left = x0 + x->label_xmargin * x->b_zoom;
             const int margin_right = x1 - x->label_xmargin * x->b_zoom;
-            const int margin_top = y1 + x->label_ymargin * x->b_zoom;
+            const int margin_top = y1 + (x->label_ymargin + MIN_MARGIN) * x->b_zoom;
 
             switch (align) {
             case LABEL_ALIGN_LEFT:
@@ -356,7 +356,7 @@ static std::pair<int, int> ebox_label_coord(t_ebox* x,
             }
         } break;
         case LABEL_SIDE_RIGHT: {
-            const int margin_left = x1 + x->label_xmargin * x->b_zoom;
+            const int margin_left = x1 + (x->label_xmargin + MIN_MARGIN) * x->b_zoom;
             const int margin_top = y0 + x->label_ymargin * x->b_zoom;
             const int margin_bottom = y1 - x->label_ymargin * x->b_zoom;
 
