@@ -112,9 +112,6 @@ public:
     void setupAttributes()
     {
         // clang-format off
-        //hide standard CICM attributes
-        HIDE_FONT_PROPS(pd_class);
-
         // background / border color
         addProperty(PROP_BACKGROUND_COLOR,
                     _("Background Color"),
@@ -157,6 +154,14 @@ public:
         CLASS_ATTR_ACCESSORS(pd_class, PROP_PRESET_NAME, NULL, ebox_set_presetid);
 
         // clang-format on
+    }
+
+    void hideFontProps()
+    {
+        CLASS_ATTR_INVISIBLE(pd_class, "fontname", 1);
+        CLASS_ATTR_INVISIBLE(pd_class, "fontweight", 1);
+        CLASS_ATTR_INVISIBLE(pd_class, "fontslant", 1);
+        CLASS_ATTR_INVISIBLE(pd_class, "fontsize", 1);
     }
 
     void useMouseEvents(int events)

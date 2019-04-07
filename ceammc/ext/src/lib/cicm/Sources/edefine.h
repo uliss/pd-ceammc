@@ -98,6 +98,24 @@ extern t_symbol* s_attr_size;
 //! The pre-defined s_color_black_hex t_symbol*
 extern t_symbol* s_color_black_hex;
 
+extern t_symbol* s_prop_label;
+extern t_symbol* s_prop_label_align;
+extern t_symbol* s_prop_label_valign;
+extern t_symbol* s_prop_label_position;
+extern t_symbol* s_prop_label_side;
+extern t_symbol* s_value_label_align_left;
+extern t_symbol* s_value_label_align_center;
+extern t_symbol* s_value_label_align_right;
+extern t_symbol* s_value_label_valign_top;
+extern t_symbol* s_value_label_valign_center;
+extern t_symbol* s_value_label_valign_bottom;
+extern t_symbol* s_value_label_position_inner;
+extern t_symbol* s_value_label_position_outer;
+extern t_symbol* s_value_label_side_left;
+extern t_symbol* s_value_label_side_top;
+extern t_symbol* s_value_label_side_right;
+extern t_symbol* s_value_label_side_bottom;
+
 //! @cond
 typedef struct _namelist /* element in a linked list of stored strings */
 {
@@ -760,10 +778,12 @@ typedef struct t_ebox {
     char b_force_redraw; /*!< Force ebox redraw. */
 
     t_symbol* b_label; /*!< The UI label. */
-    int label_xoff;
-    int label_yoff;
-    int label_anchor;
-    int label_font_size;
+    t_symbol* label_align; /*!< The UI label align: left center or right */
+    t_symbol* label_valign; /*!< The UI label vertical align: top, center or bottom */
+    t_symbol* label_position; /*!< The UI label position: inner or outer */
+    t_symbol* label_side; /*!< The UI label anchor side: top, left, right, or bottom */
+    int label_xmargin;
+    int label_ymargin;
 } t_ebox;
 
 /** @} */

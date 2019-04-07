@@ -35,14 +35,6 @@ static const char* PROP_PRESET_NAME = "presetname";
 
 #define UI_METHOD_PTR(m) reinterpret_cast<t_typ_method>(&UIObjectFactory<UI>::m)
 
-#define HIDE_FONT_PROPS(cl)                        \
-    {                                              \
-        CLASS_ATTR_INVISIBLE(cl, "fontname", 1);   \
-        CLASS_ATTR_INVISIBLE(cl, "fontweight", 1); \
-        CLASS_ATTR_INVISIBLE(cl, "fontslant", 1);  \
-        CLASS_ATTR_INVISIBLE(cl, "fontsize", 1);   \
-    }
-
 // clang-format off
 enum MouseEvents {
     UI_MOUSE_DOWN      = 1,
@@ -153,9 +145,6 @@ public:
     void setupAttributes()
     {
         // clang-format off
-        //hide standard CICM attributes
-        HIDE_FONT_PROPS(pd_class);
-
         // background / border color
         addProperty(PROP_BACKGROUND_COLOR,
                     _("Background Color"),
@@ -190,6 +179,14 @@ public:
         CLASS_ATTR_ACCESSORS(pd_class, PROP_PRESET_NAME, NULL, ebox_set_presetid);
 
         // clang-format on
+    }
+
+    void hideFontProps()
+    {
+        CLASS_ATTR_INVISIBLE(pd_class, "fontname", 1);
+        CLASS_ATTR_INVISIBLE(pd_class, "fontweight", 1);
+        CLASS_ATTR_INVISIBLE(pd_class, "fontslant", 1);
+        CLASS_ATTR_INVISIBLE(pd_class, "fontsize", 1);
     }
 
     void readWrite()

@@ -104,9 +104,9 @@ t_pd* ebox_getsender(t_ebox* x);
  * \brief       Retrieves if a t_ebox is drawable.
  * \details     Checks several things that ensure that the t_ebox can be drawn;
  * \param x     The t_ebox pointer.
- * \return      The function returns 1 if the box is drawable otherwise 0.
+ * \return      The function returns true if the box is drawable otherwise false.
  */
-char ebox_isdrawable(t_ebox* x);
+bool ebox_isdrawable(t_ebox* x);
 
 /*!
  * \fn      void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)
@@ -456,6 +456,10 @@ void ebox_attr_dump(t_ebox* x);
 void ebox_output_all_attrs(t_ebox* x);
 
 t_pd_err ebox_set_label(t_ebox* x, t_object* attr, int argc, t_atom* argv);
+t_pd_err ebox_set_label_align(t_ebox* x, t_object* attr, int argc, t_atom* argv);
+t_pd_err ebox_set_label_valign(t_ebox* x, t_object* attr, int argc, t_atom* argv);
+t_pd_err ebox_set_label_side(t_ebox* x, t_object* attr, int argc, t_atom* argv);
+t_pd_err ebox_set_label_position(t_ebox* x, t_object* attr, int argc, t_atom* argv);
 
 // The defaults pd widgets
 void ebox_wgetrect(t_gobj* z, t_glist* glist, int* xp1, int* yp1, int* xp2, int* yp2);

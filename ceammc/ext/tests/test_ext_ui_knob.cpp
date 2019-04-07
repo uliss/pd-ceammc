@@ -531,9 +531,11 @@ TEST_CASE("ui.knob", "[ui.knob]")
         props.sort();
         const auto desired = LA("@*", "@active_scale", "@background_color", "@border_color",
                                  "@fontname", "@fontsize", "@fontslant", "@fontweight",
-                                 "@knob_color", "@max", "@midi_channel", "@midi_control")
+                                 "@knob_color", "@label", "@label_align", "@label_pos")
+            + LA("@label_side", "@label_valign",
+                "@max", "@midi_channel", "@midi_control")
             + LA("@midi_pickup", "@min", "@pinned", "@presetname", "@receive",
-                  "@scale_color", "@send", "@show_range", "@size", "@value");
+                "@scale_color", "@send", "@show_range", "@size", "@value");
         REQUIRE(props == desired);
 
         t.call("@max?", LA("@min?", "@xxx?", "", "@non", "unknown", 100, "@receive?"));

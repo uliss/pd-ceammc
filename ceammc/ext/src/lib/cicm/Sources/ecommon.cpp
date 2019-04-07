@@ -9,8 +9,8 @@
  */
 
 #include "ecommon.h"
-#include "egraphics.h"
 #include "cicm_common.tcl.h"
+#include "egraphics.h"
 
 t_symbol* s_null;
 t_symbol* s_atom;
@@ -26,42 +26,76 @@ t_symbol* s_long;
 t_symbol* s_double;
 t_symbol* s_attr_size;
 t_symbol* s_color_black_hex;
+t_symbol* s_prop_label;
+t_symbol* s_prop_label_align;
+t_symbol* s_prop_label_valign;
+t_symbol* s_prop_label_position;
+t_symbol* s_prop_label_side;
+t_symbol* s_value_label_align_left;
+t_symbol* s_value_label_align_center;
+t_symbol* s_value_label_align_right;
+t_symbol* s_value_label_valign_top;
+t_symbol* s_value_label_valign_center;
+t_symbol* s_value_label_valign_bottom;
+t_symbol* s_value_label_position_inner;
+t_symbol* s_value_label_position_outer;
+t_symbol* s_value_label_side_left;
+t_symbol* s_value_label_side_top;
+t_symbol* s_value_label_side_right;
+t_symbol* s_value_label_side_bottom;
 
 void epd_init(void)
 {
     t_symbol* epd_symbol = gensym("epd1572");
-    s_null          = gensym("(null)");
-    s_atom          = gensym("atom");
-    s_obj           = gensym("obj");
+    s_null = gensym("(null)");
+    s_atom = gensym("atom");
+    s_obj = gensym("obj");
     s_attr_modified = gensym("attr_modified");
-    s_eboxbd        = gensym("eboxbd");
-    s_eboxio        = gensym("eboxio");
-    s_size          = gensym("size");
-    s_int           = gensym("int");
-    s_long          = gensym("long");
-    s_double        = gensym("double");
-    s_pinned        = gensym("pinned");
-    s_iscicm        = gensym("iscicm");
-    s_attr_size     = gensym("@size");
+    s_eboxbd = gensym("eboxbd");
+    s_eboxio = gensym("eboxio");
+    s_size = gensym("size");
+    s_int = gensym("int");
+    s_long = gensym("long");
+    s_double = gensym("double");
+    s_pinned = gensym("pinned");
+    s_iscicm = gensym("iscicm");
+    s_attr_size = gensym("@size");
     s_color_black_hex = gensym("#000000");
-    if(!epd_symbol->s_thing)
-    {
+
+    s_prop_label = gensym("@label");
+    s_prop_label_align = gensym("@label_align");
+    s_prop_label_valign = gensym("@label_valign");
+    s_prop_label_position = gensym("@label_position");
+    s_prop_label_side = gensym("@label_side");
+    s_value_label_align_left = gensym("left");
+    s_value_label_align_center = gensym("center");
+    s_value_label_align_right = gensym("right");
+    s_value_label_valign_top = gensym("top");
+    s_value_label_valign_center = gensym("center");
+    s_value_label_valign_bottom = gensym("bottom");
+    s_value_label_position_inner = gensym("inner");
+    s_value_label_position_outer = gensym("outer");
+    s_value_label_side_left = gensym("left");
+    s_value_label_side_top = gensym("top");
+    s_value_label_side_right = gensym("right");
+    s_value_label_side_bottom = gensym("bottom");
+
+    if (!epd_symbol->s_thing) {
         sys_gui(cicm_common_tcl);
-        epd_symbol->s_thing = (t_class **)1;
+        epd_symbol->s_thing = (t_class**)1;
     }
 }
 
 void object_method(void* x, t_symbol* s, void* z, t_typ_method method, long number, void* other)
 {
-    t_ret_method nrmethod = (t_ret_method)getfn((t_pd *)x, s);
+    t_ret_method nrmethod = (t_ret_method)getfn((t_pd*)x, s);
     nrmethod(x, s, z, method, number, other);
 }
 
-t_binbuf* binbuf_via_atoms(int ac, t_atom *av)
+t_binbuf* binbuf_via_atoms(int ac, t_atom* av)
 {
     t_binbuf* dico = binbuf_new();
-    if(dico)
-    {
+    if (dico) {
         binbuf_add(dico, ac, av);
     }
     return dico;
@@ -72,10 +106,8 @@ static t_symbol* format_symbol(t_symbol* s)
     int i, j, lenght = (int)strlen(s->s_name);
     char buffer[MAXPDSTRING];
     buffer[0] = '\"';
-    for(i = 0, j = 1; i < lenght && j < MAXPDSTRING - 2; i++, j++)
-    {
-        if(s->s_name[i] == '"' || s->s_name[i] == '\\')
-        {
+    for (i = 0, j = 1; i < lenght && j < MAXPDSTRING - 2; i++, j++) {
+        if (s->s_name[i] == '"' || s->s_name[i] == '\\') {
             buffer[j++] = '\\';
         }
         buffer[j] = s->s_name[i];
@@ -87,11 +119,9 @@ static t_symbol* format_symbol(t_symbol* s)
 
 static t_atom* format_atoms(int ac, t_atom* av)
 {
-    for(int i = 0; i < ac; i++)
-    {
-        if(atom_gettype(av+i) == A_SYMBOL)
-        {
-            atom_setsym(av+i, format_symbol(atom_getsymbol(av+i)));
+    for (int i = 0; i < ac; i++) {
+        if (atom_gettype(av + i) == A_SYMBOL) {
+            atom_setsym(av + i, format_symbol(atom_getsymbol(av + i)));
         }
     }
     return av;
@@ -101,10 +131,8 @@ static long unformat_symbol(const char* text, char* buffer, long size)
 {
     int i = 0, j = 0, lenght = (int)strlen(text);
     int end = text[lenght - 1] == '"' || text[lenght - 1] == '\'';
-    for(; i < lenght - end && j < size - 1; i++)
-    {
-        if(text[i] != '\\')
-        {
+    for (; i < lenght - end && j < size - 1; i++) {
+        if (text[i] != '\\') {
             buffer[j++] = text[i];
         }
     }
@@ -119,58 +147,42 @@ static long unformat_atoms(int ac, t_atom* av)
     char temp[256];
     char buffer[MAXPDSTRING];
     t_symbol* s;
-    for(i = 0; i < ac; i++)
-    {
-        if(atom_gettype(av+i) == A_SYMBOL)
-        {
-            s = atom_getsymbol(av+i);
-            if(strcmp(s->s_name, "[") && strcmp(s->s_name, "]"))
-            {
-                if(!str)
-                {
-                    if(s->s_name[0] == '"' || s->s_name[0] == '\'')
-                    {
-                        str = (char)unformat_symbol(s->s_name+1, buffer, MAXPDSTRING);
-                    }
-                    else
-                    {
+    for (i = 0; i < ac; i++) {
+        if (atom_gettype(av + i) == A_SYMBOL) {
+            s = atom_getsymbol(av + i);
+            if (strcmp(s->s_name, "[") && strcmp(s->s_name, "]")) {
+                if (!str) {
+                    if (s->s_name[0] == '"' || s->s_name[0] == '\'') {
+                        str = (char)unformat_symbol(s->s_name + 1, buffer, MAXPDSTRING);
+                    } else {
                         unformat_symbol(s->s_name, buffer, MAXPDSTRING);
                     }
-                }
-                else
-                {
+                } else {
                     lenght = (int)strlen(buffer);
                     strncat(buffer, " ", 1);
-                    str = (char)unformat_symbol(s->s_name, buffer+lenght+1, MAXPDSTRING-lenght-1);
+                    str = (char)unformat_symbol(s->s_name, buffer + lenght + 1, MAXPDSTRING - lenght - 1);
                 }
-                if(!str)
-                {
-                    atom_setsym(av+newize, gensym(buffer));
+                if (!str) {
+                    atom_setsym(av + newize, gensym(buffer));
                     //sprintf(buffer, "");
                     //buffer[0] = '\0'; //-> is equal to sprintf(buffer, "") but only change the first caractere
-                    memset(buffer, '\0', MAXPDSTRING*sizeof(char)); //-> clean all the buffer
+                    memset(buffer, '\0', MAXPDSTRING * sizeof(char)); //-> clean all the buffer
                     newize++;
                 }
             }
-        }
-        else if(str)
-        {
-            sprintf(temp, " %f", atom_getfloat(av+i));
+        } else if (str) {
+            sprintf(temp, " %f", atom_getfloat(av + i));
             lenght = (int)strlen(temp);
-            while(temp[lenght - 1] == '0')
-            {
+            while (temp[lenght - 1] == '0') {
                 temp[lenght - 1] = '\0';
                 lenght--;
             }
-            if(temp[lenght - 1] == '.')
-            {
+            if (temp[lenght - 1] == '.') {
                 temp[lenght - 1] = '\0';
                 lenght--;
             }
             strncat(buffer, temp, lenght);
-        }
-        else
-        {
+        } else {
             av[newize++] = av[i];
         }
     }
@@ -178,10 +190,9 @@ static long unformat_atoms(int ac, t_atom* av)
     return newize;
 }
 
-t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, int argc, t_atom *argv)
+t_pd_err binbuf_append_attribute(t_binbuf* d, t_symbol* key, int argc, t_atom* argv)
 {
-    if(d && key && argc && argv)
-    {
+    if (d && key && argc && argv) {
         format_atoms(argc, argv);
         binbuf_addv(d, "s", key);
         binbuf_add(d, argc, argv);
@@ -193,17 +204,15 @@ t_pd_err binbuf_append_attribute(t_binbuf *d, t_symbol *key, int argc, t_atom *a
 int atoms_get_attributes_offset(int argc, t_atom* argv)
 {
     int i;
-    for(i = 0; i < argc; i++)
-    {
-        if(atom_gettype(argv+i) == A_SYMBOL && atom_getsymbol(argv+i)->s_name[0] == '@')
-        {
+    for (i = 0; i < argc; i++) {
+        if (atom_gettype(argv + i) == A_SYMBOL && atom_getsymbol(argv + i)->s_name[0] == '@') {
             break;
         }
     }
     return (int)pd_clip_minmax(i, 0, argc);
 }
 
-int binbuf_get_attributes_offset(t_binbuf *d)
+int binbuf_get_attributes_offset(t_binbuf* d)
 {
     return atoms_get_attributes_offset(binbuf_getnatom(d), binbuf_getvec(d));
 }
@@ -211,17 +220,15 @@ int binbuf_get_attributes_offset(t_binbuf *d)
 int atoms_get_nattributes(int argc, t_atom* argv)
 {
     int i, j;
-    for(i = 0, j = 0; i < argc; i++)
-    {
-        if(atom_gettype(argv+i) == A_SYMBOL && atom_getsymbol(argv+i)->s_name[0] == '@')
-        {
+    for (i = 0, j = 0; i < argc; i++) {
+        if (atom_gettype(argv + i) == A_SYMBOL && atom_getsymbol(argv + i)->s_name[0] == '@') {
             j++;
         }
     }
     return j;
 }
 
-int binbuf_get_nattributes(t_binbuf *d)
+int binbuf_get_nattributes(t_binbuf* d)
 {
     return atoms_get_nattributes(binbuf_getnatom(d), binbuf_getvec(d));
 }
@@ -230,16 +237,12 @@ int atoms_get_keys(int ac, t_atom* av, t_symbol*** keys)
 {
     int i, j;
     int size = atoms_get_nattributes(ac, av);
-    if(size)
-    {
-        keys[0] = (t_symbol**)malloc((size_t)size * sizeof(t_symbol *));
-        if(keys[0])
-        {
-            for(i = 0, j = 0; i < ac; i++)
-            {
-                if(atom_gettype(av+i) == A_SYMBOL && atom_getsymbol(av+i)->s_name[0] == '@')
-                {
-                    keys[0][j] = atom_getsymbol(av+i);
+    if (size) {
+        keys[0] = (t_symbol**)malloc((size_t)size * sizeof(t_symbol*));
+        if (keys[0]) {
+            for (i = 0, j = 0; i < ac; i++) {
+                if (atom_gettype(av + i) == A_SYMBOL && atom_getsymbol(av + i)->s_name[0] == '@') {
+                    keys[0][j] = atom_getsymbol(av + i);
                     j++;
                 }
             }
@@ -249,21 +252,17 @@ int atoms_get_keys(int ac, t_atom* av, t_symbol*** keys)
     return 0;
 }
 
-int binbuf_get_keys(t_binbuf *d, t_symbol*** keys)
+int binbuf_get_keys(t_binbuf* d, t_symbol*** keys)
 {
     return atoms_get_keys(binbuf_getnatom(d), binbuf_getvec(d), keys);
 }
 
-
-t_pd_err atoms_has_attribute(int argc, t_atom* argv, t_symbol *key)
+t_pd_err atoms_has_attribute(int argc, t_atom* argv, t_symbol* key)
 {
     int i;
-    if(argc && argv)
-    {
-        for(i = 0; i < argc; i++)
-        {
-            if(atom_gettype(argv+i) == A_SYMBOL && atom_getsymbol(argv+i) == key)
-            {
+    if (argc && argv) {
+        for (i = 0; i < argc; i++) {
+            if (atom_gettype(argv + i) == A_SYMBOL && atom_getsymbol(argv + i) == key) {
                 return 1;
             }
         }
@@ -271,23 +270,20 @@ t_pd_err atoms_has_attribute(int argc, t_atom* argv, t_symbol *key)
     return 0;
 }
 
-t_pd_err binbuf_has_attribute(t_binbuf *d, t_symbol *key)
+t_pd_err binbuf_has_attribute(t_binbuf* d, t_symbol* key)
 {
-    if(d)
+    if (d)
         return atoms_has_attribute(binbuf_getnatom(d), binbuf_getvec(d), key);
     else
         return -1;
 }
 
-int atoms_get_attribute_index(int argc, t_atom *argv, t_symbol *key)
+int atoms_get_attribute_index(int argc, t_atom* argv, t_symbol* key)
 {
     int i;
-    if(argc && argv)
-    {
-        for(i = 0; i < argc; i++)
-        {
-            if(atom_gettype(argv+i) == A_SYMBOL && atom_getsymbol(argv+i) == key)
-            {
+    if (argc && argv) {
+        for (i = 0; i < argc; i++) {
+            if (atom_gettype(argv + i) == A_SYMBOL && atom_getsymbol(argv + i) == key) {
                 return i;
                 break;
             }
@@ -296,69 +292,55 @@ int atoms_get_attribute_index(int argc, t_atom *argv, t_symbol *key)
     return -1;
 }
 
-int binbuf_get_attribute_index(t_binbuf *d, t_symbol *key)
+int binbuf_get_attribute_index(t_binbuf* d, t_symbol* key)
 {
     return atoms_get_attribute_index(binbuf_getnatom(d), binbuf_getvec(d), key);
 }
 
-t_pd_err atoms_get_attribute(int ac, t_atom* av, t_symbol *key, int *argc, t_atom **argv)
+t_pd_err atoms_get_attribute(int ac, t_atom* av, t_symbol* key, int* argc, t_atom** argv)
 {
     t_atom* temp;
-    long i = 0, index  = 0, newsize = 0;
-    argc[0]     = 0;
-    argv[0]     = NULL;
+    long i = 0, index = 0, newsize = 0;
+    argc[0] = 0;
+    argv[0] = NULL;
 
     index = atoms_get_attribute_index(ac, av, key) + 1;
-    if(index > 0)
-    {
+    if (index > 0) {
         i = index;
-        while(i < ac && atom_getsymbol(av+i)->s_name[0] != '@')
-        {
+        while (i < ac && atom_getsymbol(av + i)->s_name[0] != '@') {
             i++;
             argc[0]++;
         }
-    }
-    else
-    {
+    } else {
         argc[0] = 0;
         argv[0] = NULL;
         return -1;
     }
 
-    if(argc[0])
-    {
-        argv[0] = (t_atom *)malloc((size_t)argc[0] * sizeof(t_atom));
-        if(argv[0])
-        {
-            memcpy(argv[0], av+index, (size_t)argc[0] * sizeof(t_atom));
+    if (argc[0]) {
+        argv[0] = (t_atom*)malloc((size_t)argc[0] * sizeof(t_atom));
+        if (argv[0]) {
+            memcpy(argv[0], av + index, (size_t)argc[0] * sizeof(t_atom));
             newsize = unformat_atoms(argc[0], argv[0]);
-            if(newsize)
-            {
-                temp = (t_atom *)realloc(argv[0], (size_t)newsize * sizeof(t_atom));
-                if(temp)
-                {
+            if (newsize) {
+                temp = (t_atom*)realloc(argv[0], (size_t)newsize * sizeof(t_atom));
+                if (temp) {
                     argv[0] = temp;
                     argc[0] = (int)newsize;
                     return 0;
-                }
-                else
-                {
+                } else {
                     free(argv[0]);
                     argv[0] = NULL;
                     argc[0] = 0;
                 }
-            }
-            else
-            {
+            } else {
                 free(argv[0]);
             }
         }
         argc[0] = 0;
         argv[0] = NULL;
         return -1;
-    }
-    else
-    {
+    } else {
         argc[0] = 0;
         argv[0] = NULL;
         return -1;
@@ -367,24 +349,21 @@ t_pd_err atoms_get_attribute(int ac, t_atom* av, t_symbol *key, int *argc, t_ato
     return 0;
 }
 
-t_pd_err binbuf_get_attribute(t_binbuf *d, t_symbol *key, int *argc, t_atom **argv)
+t_pd_err binbuf_get_attribute(t_binbuf* d, t_symbol* key, int* argc, t_atom** argv)
 {
-    if(d)
+    if (d)
         return atoms_get_attribute(binbuf_getnatom(d), binbuf_getvec(d), key, argc, argv);
     else
         return -1;
 }
 
-t_pd_err atoms_get_attribute_int(int ac, t_atom* av, t_symbol *key, int *value)
+t_pd_err atoms_get_attribute_int(int ac, t_atom* av, t_symbol* key, int* value)
 {
     int argc = 0;
     t_atom* argv = NULL;
-    if(!atoms_get_attribute(ac, av, key, &argc, &argv))
-    {
-        if(argc && argv)
-        {
-            if(atom_gettype(argv) == A_FLOAT)
-            {
+    if (!atoms_get_attribute(ac, av, key, &argc, &argv)) {
+        if (argc && argv) {
+            if (atom_gettype(argv) == A_FLOAT) {
                 value[0] = (int)atom_getfloat(argv);
                 free(argv);
                 return 0;
@@ -396,24 +375,21 @@ t_pd_err atoms_get_attribute_int(int ac, t_atom* av, t_symbol *key, int *value)
     return -1;
 }
 
-t_pd_err binbuf_get_attribute_int(t_binbuf *d, t_symbol *key, int *value)
+t_pd_err binbuf_get_attribute_int(t_binbuf* d, t_symbol* key, int* value)
 {
-    if(d)
+    if (d)
         return atoms_get_attribute_int(binbuf_getnatom(d), binbuf_getvec(d), key, value);
     else
         return -1;
 }
 
-t_pd_err atoms_get_attribute_long(int ac, t_atom* av, t_symbol *key, long *value)
+t_pd_err atoms_get_attribute_long(int ac, t_atom* av, t_symbol* key, long* value)
 {
     int argc = 0;
     t_atom* argv = NULL;
-    if(!atoms_get_attribute(ac, av, key, &argc, &argv))
-    {
-        if(argc && argv)
-        {
-            if(atom_gettype(argv) == A_FLOAT)
-            {
+    if (!atoms_get_attribute(ac, av, key, &argc, &argv)) {
+        if (argc && argv) {
+            if (atom_gettype(argv) == A_FLOAT) {
                 value[0] = atom_getlong(argv);
                 free(argv);
                 return 0;
@@ -425,24 +401,21 @@ t_pd_err atoms_get_attribute_long(int ac, t_atom* av, t_symbol *key, long *value
     return -1;
 }
 
-t_pd_err binbuf_get_attribute_long(t_binbuf *d, t_symbol *key, long *value)
+t_pd_err binbuf_get_attribute_long(t_binbuf* d, t_symbol* key, long* value)
 {
-    if(d)
+    if (d)
         return atoms_get_attribute_long(binbuf_getnatom(d), binbuf_getvec(d), key, value);
     else
         return -1;
 }
 
-t_pd_err atoms_get_attribute_float(int ac, t_atom* av, t_symbol *key, float *value)
+t_pd_err atoms_get_attribute_float(int ac, t_atom* av, t_symbol* key, float* value)
 {
     int argc = 0;
     t_atom* argv = NULL;
-    if(!atoms_get_attribute(ac, av, key, &argc, &argv))
-    {
-        if(argc && argv)
-        {
-            if(atom_gettype(argv) == A_FLOAT)
-            {
+    if (!atoms_get_attribute(ac, av, key, &argc, &argv)) {
+        if (argc && argv) {
+            if (atom_gettype(argv) == A_FLOAT) {
                 value[0] = atom_getfloat(argv);
                 free(argv);
                 return 0;
@@ -454,9 +427,9 @@ t_pd_err atoms_get_attribute_float(int ac, t_atom* av, t_symbol *key, float *val
     return -1;
 }
 
-t_pd_err binbuf_get_attribute_float(t_binbuf *d, t_symbol *key, float *value)
+t_pd_err binbuf_get_attribute_float(t_binbuf* d, t_symbol* key, float* value)
 {
-    if(d)
+    if (d)
         return atoms_get_attribute_float(binbuf_getnatom(d), binbuf_getvec(d), key, value);
     else
         return -1;
@@ -464,6 +437,4 @@ t_pd_err binbuf_get_attribute_float(t_binbuf *d, t_symbol *key, float *value)
 
 void epd_add_folder(const char* name, const char* folder)
 {
-
 }
-

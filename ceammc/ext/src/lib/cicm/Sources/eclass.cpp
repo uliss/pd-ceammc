@@ -184,6 +184,10 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_SYMBOL(c, "receive", 0, t_ebox, b_receive_id);
     CLASS_ATTR_SYMBOL(c, "send", 0, t_ebox, b_send_id);
     CLASS_ATTR_SYMBOL(c, "label", 0, t_ebox, b_label);
+    CLASS_ATTR_SYMBOL(c, "label_pos", 0, t_ebox, label_position);
+    CLASS_ATTR_SYMBOL(c, "label_side", 0, t_ebox, label_side);
+    CLASS_ATTR_SYMBOL(c, "label_align", 0, t_ebox, label_align);
+    CLASS_ATTR_SYMBOL(c, "label_valign", 0, t_ebox, label_valign);
 
     CLASS_ATTR_DEFAULT(c, "size", 0, "100. 100.");
     CLASS_ATTR_FILTER_MIN(c, "size", 4);
@@ -204,7 +208,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_DEFAULT(c, "fontname", 0, "Helvetica");
     CLASS_ATTR_SAVE(c, "fontname", 0);
     CLASS_ATTR_PAINT(c, "fontname", 0);
-    CLASS_ATTR_CATEGORY(c, "fontname", 0, _("Basic"));
+    CLASS_ATTR_CATEGORY(c, "fontname", 0, _("Label"));
     CLASS_ATTR_LABEL(c, "fontname", 0, _("Font Name"));
     CLASS_ATTR_ACCESSORS(c, "fontname", NULL, (t_err_method)ebox_set_font);
     CLASS_ATTR_STYLE(c, "fontname", 0, "menu");
@@ -213,7 +217,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_DEFAULT(c, "fontweight", 0, _("normal"));
     CLASS_ATTR_SAVE(c, "fontweight", 0);
     CLASS_ATTR_PAINT(c, "fontweight", 0);
-    CLASS_ATTR_CATEGORY(c, "fontweight", 0, _("Basic"));
+    CLASS_ATTR_CATEGORY(c, "fontweight", 0, _("Label"));
     CLASS_ATTR_LABEL(c, "fontweight", 0, _("Font Weight"));
     CLASS_ATTR_ACCESSORS(c, "fontweight", NULL, (t_err_method)ebox_set_fontweight);
     CLASS_ATTR_STYLE(c, "fontweight", 0, "menu");
@@ -222,7 +226,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_DEFAULT(c, "fontslant", 0, "roman");
     CLASS_ATTR_SAVE(c, "fontslant", 0);
     CLASS_ATTR_PAINT(c, "fontslant", 0);
-    CLASS_ATTR_CATEGORY(c, "fontslant", 0, _("Basic"));
+    CLASS_ATTR_CATEGORY(c, "fontslant", 0, _("Label"));
     CLASS_ATTR_LABEL(c, "fontslant", 0, _("Font Slant"));
     CLASS_ATTR_ACCESSORS(c, "fontslant", NULL, (t_err_method)ebox_set_fontslant);
     CLASS_ATTR_STYLE(c, "fontslant", 0, "menu");
@@ -232,7 +236,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_FILTER_MIN(c, "fontsize", 4);
     CLASS_ATTR_SAVE(c, "fontsize", 0);
     CLASS_ATTR_PAINT(c, "fontsize", 0);
-    CLASS_ATTR_CATEGORY(c, "fontsize", 0, _("Basic"));
+    CLASS_ATTR_CATEGORY(c, "fontsize", 0, _("Label"));
     CLASS_ATTR_LABEL(c, "fontsize", 0, _("Font Size"));
     CLASS_ATTR_ACCESSORS(c, "fontsize", NULL, ebox_set_fontsize);
     CLASS_ATTR_STYLE(c, "fontsize", 0, "number");
@@ -254,6 +258,38 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_SAVE(c, "label", 0);
     CLASS_ATTR_CATEGORY(c, "label", 0, _("Label"));
     CLASS_ATTR_LABEL(c, "label", 0, _("Label"));
+
+    CLASS_ATTR_DEFAULT(c, "label_align", 0, "left");
+    CLASS_ATTR_ACCESSORS(c, "label_align", NULL, ebox_set_label_align);
+    CLASS_ATTR_SAVE(c, "label_align", 0);
+    CLASS_ATTR_CATEGORY(c, "label_align", 0, _("Label"));
+    CLASS_ATTR_LABEL(c, "label_align", 0, _("Label align"));
+    CLASS_ATTR_STYLE(c, "label_align", 0, "menu");
+    CLASS_ATTR_ITEMS(c, "label_align", 0, "left center right");
+
+    CLASS_ATTR_DEFAULT(c, "label_valign", 0, "top");
+    CLASS_ATTR_ACCESSORS(c, "label_valign", NULL, ebox_set_label_valign);
+    CLASS_ATTR_SAVE(c, "label_valign", 0);
+    CLASS_ATTR_CATEGORY(c, "label_valign", 0, _("Label"));
+    CLASS_ATTR_LABEL(c, "label_valign", 0, _("Label vertical align"));
+    CLASS_ATTR_STYLE(c, "label_valign", 0, "menu");
+    CLASS_ATTR_ITEMS(c, "label_valign", 0, "top center bottom");
+
+    CLASS_ATTR_DEFAULT(c, "label_side", 0, "top");
+    CLASS_ATTR_ACCESSORS(c, "label_side", NULL, ebox_set_label_side);
+    CLASS_ATTR_SAVE(c, "label_side", 0);
+    CLASS_ATTR_CATEGORY(c, "label_side", 0, _("Label"));
+    CLASS_ATTR_LABEL(c, "label_side", 0, _("Label side"));
+    CLASS_ATTR_STYLE(c, "label_side", 0, "menu");
+    CLASS_ATTR_ITEMS(c, "label_side", 0, "left top right bottom");
+
+    CLASS_ATTR_DEFAULT(c, "label_pos", 0, "outer");
+    CLASS_ATTR_ACCESSORS(c, "label_pos", NULL, ebox_set_label_position);
+    CLASS_ATTR_SAVE(c, "label_pos", 0);
+    CLASS_ATTR_CATEGORY(c, "label_pos", 0, _("Label"));
+    CLASS_ATTR_LABEL(c, "label_pos", 0, _("Label position"));
+    CLASS_ATTR_STYLE(c, "label_pos", 0, "menu");
+    CLASS_ATTR_ITEMS(c, "label_pos", 0, "inner outer");
 
     // GUI always need this methods //
     class_addmethod((t_class*)c, (t_method)ebox_attr_dump, gensym(SYM_DUMP), A_NULL, 0);

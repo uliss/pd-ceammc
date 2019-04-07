@@ -81,6 +81,8 @@ static const char* SYM_MENU = "menu";
 static const char* SYM_COLOR = "color";
 static const char* SYM_ENTRY = "entry";
 
+#define LABEL_TAG "label_%s"
+
 static void ebox_create_window(t_ebox* x, t_glist* glist);
 static void ebox_invalidate_all(t_ebox* x);
 static void ebox_draw_border(t_ebox* x);
@@ -129,23 +131,308 @@ static const char* justify_to_symbol(etextjustify_flags justify)
     }
 }
 
-static void ebox_create_label(t_ebox* x)
+static t_symbol* label_draw_id(t_ebox* x)
 {
-    sys_vgui("%s create text %d %d -text {%s} -fill red "
-             "-font {Helvetica %d roman normal} "
-             "-tags { %s_label }\n",
-        x->b_canvas_id->s_name,
-        (int)(x->b_rect.x - x->b_boxparameters.d_borderthickness + x->label_xoff * x->b_zoom),
-        (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness + x->label_yoff * x->b_zoom),
-        x->b_label->s_name,
-        (int)(11 * x->b_zoom),
-        x->b_canvas_id->s_name);
+    if (x->label_position == s_value_label_position_outer)
+        return x->b_canvas_id;
+    else
+        return x->b_drawing_id;
 }
 
 static void ebox_erase_label(t_ebox* x)
 {
     if (x->b_label != s_null)
-        sys_vgui("%s delete %s_label \n", x->b_canvas_id->s_name, x->b_canvas_id->s_name);
+        sys_vgui("%s delete " LABEL_TAG "\n", label_draw_id(x)->s_name, x->b_canvas_id->s_name);
+}
+
+enum LabelPosition {
+    LABEL_POSITION_INNER = 0,
+    LABEL_POSITION_OUTER
+};
+
+enum LabelAlign {
+    LABEL_ALIGN_LEFT = 0,
+    LABEL_ALIGN_CENTER,
+    LABEL_ALIGN_RIGHT
+};
+
+enum LabelVAlign {
+    LABEL_VALIGN_TOP = 0,
+    LABEL_VALIGN_CENTER,
+    LABEL_VALIGN_BOTTOM
+};
+
+enum LabelSide {
+    LABEL_SIDE_LEFT = 0,
+    LABEL_SIDE_TOP,
+    LABEL_SIDE_RIGHT,
+    LABEL_SIDE_BOTTOM
+};
+
+static LabelPosition label_position_idx(t_symbol* s)
+{
+    if (s == s_value_label_position_inner)
+        return LABEL_POSITION_INNER;
+    else if (s == s_value_label_position_outer)
+        return LABEL_POSITION_OUTER;
+    else
+        return static_cast<LabelPosition>(-1);
+}
+
+static LabelAlign label_align_idx(t_symbol* s)
+{
+    if (s == s_value_label_align_left)
+        return LABEL_ALIGN_LEFT;
+    else if (s == s_value_label_align_center)
+        return LABEL_ALIGN_CENTER;
+    else if (s == s_value_label_align_right)
+        return LABEL_ALIGN_RIGHT;
+    else
+        return static_cast<LabelAlign>(-1);
+}
+
+static LabelVAlign label_valign_idx(t_symbol* s)
+{
+    if (s == s_value_label_valign_top)
+        return LABEL_VALIGN_TOP;
+    else if (s == s_value_label_valign_center)
+        return LABEL_VALIGN_CENTER;
+    else if (s == s_value_label_valign_bottom)
+        return LABEL_VALIGN_BOTTOM;
+    else
+        return static_cast<LabelVAlign>(-1);
+}
+
+static LabelSide label_side_idx(t_symbol* s)
+{
+    if (s == s_value_label_side_left)
+        return LABEL_SIDE_LEFT;
+    else if (s == s_value_label_side_top)
+        return LABEL_SIDE_TOP;
+    else if (s == s_value_label_side_right)
+        return LABEL_SIDE_RIGHT;
+    else if (s == s_value_label_side_bottom)
+        return LABEL_SIDE_BOTTOM;
+    else
+        return static_cast<LabelSide>(-1);
+}
+
+static const char* ebox_label_anchor(t_ebox* x,
+    LabelPosition pos, LabelSide side, LabelAlign align, LabelVAlign valign)
+{
+    static const char* anchor_inner[3][3] = {
+        { // valign: top
+            "nw", "n", "ne" },
+        { // valign: middle
+            "w", "center", "e" },
+        { // valign: bottom
+            "sw", "s", "se" }
+    };
+
+    static const char* anchor_outer[4][3][3] = {
+        { // side: left
+            { // valign: top
+                "ne", "n", "nw" },
+            { // valign: middle
+                "e", "center", "w" },
+            { // valign: bottom
+                "se", "s", "sw" } },
+        { // side: top
+            { "sw", "s", "se" }, { "sw", "s", "se" }, { "sw", "s", "se" } },
+        { // side: right
+            { "nw", "n", "ne" }, { "w", "center", "e" }, { "sw", "s", "se" } },
+        { // side: bottom
+            { "nw", "n", "ne" }, { "nw", "n", "nw" }, { "nw", "n", "ne" } }
+    };
+
+    if (pos == LABEL_POSITION_INNER)
+        return anchor_inner[valign][align];
+    else
+        return anchor_outer[side][valign][align];
+}
+
+static std::pair<int, int> ebox_label_coord(t_ebox* x,
+    LabelPosition pos, LabelSide side, LabelAlign align, LabelVAlign valign)
+{
+    switch (pos) {
+    case LABEL_POSITION_INNER: {
+        const int w = x->b_rect.width * x->b_zoom;
+        const int h = x->b_rect.height * x->b_zoom;
+        const int xc = w * 0.5;
+        const int yc = h * 0.5;
+
+        const int margin_left = int(x->label_xmargin * x->b_zoom);
+        const int margin_right = int(w - x->label_xmargin * x->b_zoom);
+        const int margin_top = int(x->label_ymargin * x->b_zoom);
+        const int margin_bottom = int(h - x->label_ymargin * x->b_zoom);
+
+        switch (valign) {
+        case LABEL_VALIGN_TOP: {
+            switch (align) {
+            case LABEL_ALIGN_LEFT:
+                return std::make_pair(margin_left, margin_top);
+            case LABEL_ALIGN_CENTER:
+                return std::make_pair(xc, margin_top);
+            case LABEL_ALIGN_RIGHT:
+                return std::make_pair(margin_right, margin_top);
+            }
+            break;
+        }
+        case LABEL_VALIGN_CENTER: {
+            switch (align) {
+            case LABEL_ALIGN_LEFT:
+                return std::make_pair(margin_left, yc);
+            case LABEL_ALIGN_CENTER:
+                return std::make_pair(xc, yc);
+            case LABEL_ALIGN_RIGHT:
+                return std::make_pair(margin_right, yc);
+            }
+            break;
+        }
+        case LABEL_VALIGN_BOTTOM: {
+            switch (align) {
+            case LABEL_ALIGN_LEFT:
+                return std::make_pair(margin_left, margin_bottom);
+            case LABEL_ALIGN_CENTER:
+                return std::make_pair(xc, margin_bottom);
+            case LABEL_ALIGN_RIGHT:
+                return std::make_pair(margin_right, margin_bottom);
+            }
+        } break;
+        }
+    } break;
+    case LABEL_POSITION_OUTER: {
+        int x0 = x->b_rect.x;
+        int y0 = x->b_rect.y;
+        int x1 = x0 + x->b_rect.width * x->b_zoom;
+        int y1 = y0 + x->b_rect.height * x->b_zoom;
+        int xc = x0 + x->b_rect.width * x->b_zoom * 0.5;
+        int yc = y0 + x->b_rect.height * x->b_zoom * 0.5;
+
+        switch (side) {
+        case LABEL_SIDE_LEFT: {
+            switch (valign) {
+            case LABEL_VALIGN_TOP: {
+                const int X = x0 + x->label_xmargin * x->b_zoom;
+                const int Y = y0 + x->label_ymargin * x->b_zoom;
+                return std::make_pair(X, Y);
+            }
+            case LABEL_VALIGN_CENTER: {
+                const int X = x0 + x->label_xmargin * x->b_zoom;
+                return std::make_pair(X, yc);
+            }
+            case LABEL_VALIGN_BOTTOM: {
+                const int X = x0 + x->label_xmargin * x->b_zoom;
+                const int Y = y1 - x->label_ymargin * x->b_zoom;
+                return std::make_pair(X, Y);
+            }
+            }
+        } break;
+        case LABEL_SIDE_TOP: {
+            const int Y = y0 - x->label_ymargin * x->b_zoom;
+            switch (align) {
+            case LABEL_ALIGN_LEFT:
+                return std::make_pair(
+                    int(x0 + x->label_xmargin * x->b_zoom),
+                    Y);
+            case LABEL_ALIGN_CENTER:
+                return std::make_pair(
+                    xc, // no xmargin
+                    Y);
+            case LABEL_ALIGN_RIGHT:
+                return std::make_pair(
+                    int(x1 - x->label_xmargin * x->b_zoom),
+                    Y);
+            }
+            break;
+        }
+        case LABEL_SIDE_BOTTOM: {
+            const int Y = y1 + x->label_ymargin * x->b_zoom;
+            switch (align) {
+            case LABEL_ALIGN_LEFT:
+                return std::make_pair(
+                    int(x0 + x->label_xmargin * x->b_zoom),
+                    Y);
+            case LABEL_ALIGN_CENTER:
+                return std::make_pair(
+                    xc, // no xmargin
+                    Y);
+            case LABEL_ALIGN_RIGHT:
+                return std::make_pair(
+                    int(x1 - x->label_xmargin * x->b_zoom),
+                    Y);
+            }
+            break;
+        }
+        case LABEL_SIDE_RIGHT: {
+        }
+        }
+    } break;
+    }
+
+    return std::make_pair(x->b_rect.x, x->b_rect.y);
+}
+
+static std::tuple<LabelPosition, LabelSide, LabelAlign, LabelVAlign> label_enums(t_ebox* x)
+{
+    LabelPosition pos = label_position_idx(x->label_position);
+    if (pos < 0)
+        pos = LABEL_POSITION_OUTER;
+
+    LabelSide side = label_side_idx(x->label_side);
+    if (side < 0)
+        side = LABEL_SIDE_LEFT;
+
+    LabelAlign align = label_align_idx(x->label_align);
+    if (align < 0)
+        align = LABEL_ALIGN_LEFT;
+
+    LabelVAlign valign = label_valign_idx(x->label_valign);
+    if (valign < 0)
+        valign = LABEL_VALIGN_TOP;
+
+    return std::make_tuple(pos, side, align, valign);
+}
+
+static void ebox_create_label(t_ebox* x)
+{   
+    auto enums = label_enums(x);
+    auto pt = ebox_label_coord(x, std::get<0>(enums), std::get<1>(enums), std::get<2>(enums), std::get<3>(enums));
+
+    sys_vgui("%s create text %d %d -anchor %s "
+             "-justify %s "
+             "-text {%s} -fill red "
+             "-font {Helvetica %d roman normal} "
+             "-tags { " LABEL_TAG " }\n",
+        label_draw_id(x)->s_name,
+        pt.first, pt.second,
+        ebox_label_anchor(x, std::get<0>(enums), std::get<1>(enums), std::get<2>(enums), std::get<3>(enums)),
+        x->label_align->s_name,
+        x->b_label->s_name,
+        (int)(x->b_font.c_sizereal * x->b_zoom),
+        x->b_canvas_id->s_name);
+}
+
+static void ebox_update_label_pos(t_ebox* x)
+{
+    if (ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow && x->b_visible && x->b_label != s_null) {
+        auto enums = label_enums(x);
+
+        t_symbol* cnv = label_draw_id(x);
+
+        sys_vgui("%s itemconfigure " LABEL_TAG " -anchor %s -justify %s\n",
+            cnv->s_name,
+            x->b_canvas_id->s_name,
+            ebox_label_anchor(x, std::get<0>(enums), std::get<1>(enums), std::get<2>(enums), std::get<3>(enums)),
+            x->label_align->s_name);
+
+        auto pt = ebox_label_coord(x, std::get<0>(enums), std::get<1>(enums), std::get<2>(enums), std::get<3>(enums));
+        sys_vgui("%s coords " LABEL_TAG " %d %d\n",
+            cnv->s_name,
+            x->b_canvas_id->s_name,
+            pt.first,
+            pt.second);
+    }
 }
 
 void ebox_new(t_ebox* x, long flags)
@@ -164,10 +451,12 @@ void ebox_new(t_ebox* x, long flags)
     x->b_force_redraw = 0;
 
     x->b_label = s_null;
-    x->label_anchor = 0;
-    x->label_font_size = 12;
-    x->label_xoff = 0;
-    x->label_yoff = -15;
+    x->label_align = s_value_label_align_left;
+    x->label_valign = s_value_label_valign_center;
+    x->label_position = s_value_label_position_outer;
+    x->label_side = gensym("left");
+    x->label_xmargin = 4;
+    x->label_ymargin = 4;
 
     eobj_getclass(x)->c_widget.w_dosave = (t_typ_method)ebox_dosave;
     ebox_attrprocess_default(x);
@@ -242,14 +531,14 @@ t_pd* ebox_getsender(t_ebox* x)
     return nullptr;
 }
 
-char ebox_isdrawable(t_ebox* x)
+bool ebox_isdrawable(t_ebox* x)
 {
     if (eobj_isbox(x) && x->b_obj.o_canvas) {
         if (x->b_ready_to_draw && glist_isvisible(x->b_obj.o_canvas)) {
-            return 1;
+            return true;
         }
     }
-    return 0;
+    return false;
 }
 
 void ebox_set_cursor(t_ebox* x, t_cursor cursor)
@@ -361,6 +650,13 @@ static void ebox_paint(t_ebox* x)
     t_eclass* c = eobj_getclass(x);
     if (c->c_widget.w_paint)
         c->c_widget.w_paint(x);
+
+    if (x->b_label != s_null && x->label_position == s_value_label_position_inner) {
+        sys_vgui("%s raise " LABEL_TAG " %s\n",
+            label_draw_id(x)->s_name, x->b_canvas_id->s_name, x->b_all_id->s_name);
+        sys_vgui("%s raise " LABEL_TAG " %s\n",
+            label_draw_id(x)->s_name, x->b_canvas_id->s_name, x->b_all_id->s_name);
+    }
 
     ebox_draw_border(x);
     ebox_draw_iolets(x);
@@ -945,8 +1241,8 @@ t_pd_err ebox_set_label(t_ebox* x, t_object* attr, int argc, t_atom* argv)
             x->b_label = atom_getsymbol(argv);
 
             if (ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow && x->b_visible) {
-                sys_vgui("%s itemconfigure %s_label -text {%s}\n",
-                    x->b_canvas_id->s_name,
+                sys_vgui("%s itemconfigure " LABEL_TAG " -text {%s}\n",
+                    label_draw_id(x)->s_name,
                     x->b_canvas_id->s_name,
                     x->b_label->s_name);
             }
@@ -958,6 +1254,143 @@ t_pd_err ebox_set_label(t_ebox* x, t_object* attr, int argc, t_atom* argv)
         }
 
         x->b_label = s_null;
+    }
+
+    return 0;
+}
+
+t_pd_err ebox_set_label_align(t_ebox* x, t_object* attr, int argc, t_atom* argv)
+{
+    static t_symbol* items[] = {
+        s_value_label_align_center,
+        s_value_label_align_left,
+        s_value_label_align_right
+    };
+
+    if (argc && argv && atom_gettype(argv) == A_SYMBOL) {
+        t_symbol* s = atom_getsymbol(argv);
+
+        auto it = std::find(std::begin(items), std::end(items), s);
+        if (it == std::end(items)) {
+            pd_error("[%s] invalid @label_align property value: %s", eobj_getclassname(x)->s_name, s->s_name);
+
+            std::string values;
+            for (t_symbol* it : items) {
+                values.push_back(' ');
+                values += it->s_name;
+            }
+
+            pd_error("[%s] supported values are:%s", eobj_getclassname(x)->s_name, values.c_str());
+            return 1;
+        }
+
+        x->label_align = s;
+        ebox_update_label_pos(x);
+    }
+
+    return 0;
+}
+
+t_pd_err ebox_set_label_valign(t_ebox* x, t_object* attr, int argc, t_atom* argv)
+{
+    static t_symbol* items[] = {
+        s_value_label_valign_top,
+        s_value_label_valign_center,
+        s_value_label_valign_bottom
+    };
+
+    if (argc && argv && atom_gettype(argv) == A_SYMBOL) {
+        t_symbol* s = atom_getsymbol(argv);
+
+        auto it = std::find(std::begin(items), std::end(items), s);
+        if (it == std::end(items)) {
+            pd_error("[%s] invalid @label_valign property value: %s", eobj_getclassname(x)->s_name, s->s_name);
+
+            std::string values;
+            for (t_symbol* it : items) {
+                values.push_back(' ');
+                values += it->s_name;
+            }
+
+            pd_error("[%s] supported values are:%s", eobj_getclassname(x)->s_name, values.c_str());
+            return 1;
+        }
+
+        x->label_valign = s;
+        ebox_update_label_pos(x);
+    }
+
+    return 0;
+}
+
+t_pd_err ebox_set_label_side(t_ebox* x, t_object* attr, int argc, t_atom* argv)
+{
+    static t_symbol* items[] = {
+        s_value_label_side_bottom,
+        s_value_label_side_left,
+        s_value_label_side_right,
+        s_value_label_side_top
+    };
+
+    if (argc && argv && atom_gettype(argv) == A_SYMBOL) {
+        t_symbol* s = atom_getsymbol(argv);
+        auto it = std::find(std::begin(items), std::end(items), s);
+        if (it == std::end(items)) {
+            pd_error("[%s] invalid @label_side property value: %s", eobj_getclassname(x)->s_name, s->s_name);
+
+            std::string values;
+            for (t_symbol* it : items) {
+                values.push_back(' ');
+                values += it->s_name;
+            }
+
+            pd_error("[%s] supported values are:%s", eobj_getclassname(x)->s_name, values.c_str());
+            return 1;
+        }
+
+        x->label_side = s;
+        ebox_update_label_pos(x);
+    }
+
+    return 0;
+}
+
+t_pd_err ebox_set_label_position(t_ebox* x, t_object* attr, int argc, t_atom* argv)
+{
+    static t_symbol* items[] = {
+        s_value_label_position_inner,
+        s_value_label_position_outer
+    };
+
+    if (argc && argv && atom_gettype(argv) == A_SYMBOL) {
+        t_symbol* s = atom_getsymbol(argv);
+        auto it = std::find(std::begin(items), std::end(items), s);
+        if (it == std::end(items)) {
+            pd_error("[%s] invalid @label_pos property value: %s", eobj_getclassname(x)->s_name, s->s_name);
+
+            std::string values;
+            for (t_symbol* it : items) {
+                values.push_back(' ');
+                values += it->s_name;
+            }
+
+            pd_error("[%s] supported values are:%s", eobj_getclassname(x)->s_name, values.c_str());
+            return 1;
+        }
+
+        if (x->label_position != s) {
+            const bool is_drawable = ebox_isdrawable(x);
+            post("is_drawable: %d, visible: %d, have_window: %d",
+                (int)is_drawable, (int)x->b_visible, (int)x->b_have_window);
+
+            if (is_drawable)
+                ebox_erase_label(x);
+
+            x->label_position = s;
+
+            if (is_drawable)
+                ebox_create_label(x);
+        }
     }
 
     return 0;
@@ -1096,6 +1529,8 @@ bool ebox_notify(t_ebox* x, t_symbol* s)
                 (int)(x->b_rect.width * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.),
                 (int)(x->b_rect.height * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.));
             canvas_fixlinesfor(x->b_obj.o_canvas, (t_text*)x);
+
+            ebox_update_label_pos(x);
         }
         ebox_redraw(x);
     } else if (s == s_pinned && ebox_isdrawable(x)) {
@@ -1794,13 +2229,8 @@ static void ebox_move(t_ebox* x)
             (int)(x->b_rect.x - x->b_boxparameters.d_borderthickness),
             (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness));
 
-        if (x->b_label != s_null) {
-            sys_vgui("%s coords %s_label %d %d\n",
-                x->b_canvas_id->s_name,
-                x->b_canvas_id->s_name,
-                (int)(x->b_rect.x - x->b_boxparameters.d_borderthickness + x->label_xoff * x->b_zoom),
-                (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness + x->label_yoff * x->b_zoom));
-        }
+        if (x->b_label != s_null)
+            ebox_update_label_pos(x);
     }
     canvas_fixlinesfor(glist_getcanvas(x->b_obj.o_canvas), (t_text*)x);
 }
