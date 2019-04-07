@@ -254,6 +254,8 @@ static const char* ebox_label_anchor(t_ebox* x,
 static std::pair<int, int> ebox_label_coord(t_ebox* x,
     LabelPosition pos, LabelSide side, LabelAlign align, LabelVAlign valign)
 {
+    const int MIN_MARGIN = 2;
+
     switch (pos) {
     case LABEL_POSITION_INNER: {
         const int w = x->b_rect.width * x->b_zoom;
@@ -261,10 +263,10 @@ static std::pair<int, int> ebox_label_coord(t_ebox* x,
         const int xc = w * 0.5;
         const int yc = h * 0.5;
 
-        const int margin_left = int(x->label_xmargin * x->b_zoom);
-        const int margin_right = int(w - x->label_xmargin * x->b_zoom);
-        const int margin_top = int(x->label_ymargin * x->b_zoom);
-        const int margin_bottom = int(h - x->label_ymargin * x->b_zoom);
+        const int margin_left = int((x->label_xmargin + MIN_MARGIN) * x->b_zoom);
+        const int margin_right = int(w - (x->label_xmargin + MIN_MARGIN) * x->b_zoom);
+        const int margin_top = int((x->label_ymargin + MIN_MARGIN) * x->b_zoom);
+        const int margin_bottom = int(h - (x->label_ymargin + MIN_MARGIN) * x->b_zoom);
 
         switch (valign) {
         case LABEL_VALIGN_TOP: {

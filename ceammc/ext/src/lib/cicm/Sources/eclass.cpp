@@ -301,7 +301,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_ACCESSORS(c, "label_xmargin", NULL, ebox_set_label_xmargin);
     CLASS_ATTR_STYLE(c, "label_xmargin", 0, "number");
 
-    CLASS_ATTR_DEFAULT(c, "label_ymargin", 0, "3");
+    CLASS_ATTR_DEFAULT(c, "label_ymargin", 0, "0");
     CLASS_ATTR_SAVE(c, "label_ymargin", 0);
     CLASS_ATTR_PAINT(c, "label_ymargin", 0);
     CLASS_ATTR_CATEGORY(c, "label_ymargin", 0, _("Label"));
