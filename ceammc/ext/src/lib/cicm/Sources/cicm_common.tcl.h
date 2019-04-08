@@ -73,7 +73,7 @@ const char* cicm_common_tcl =
 "    if {$nB > 1.} {set nB 1.}\n"
 "    return [concat $nR $nG $nB]\n"
 "}\n"
-"proc font_create_label_bold {font_name} {\n"
+"proc ceammc_create_label_font_bold {font_name} {\n"
 "    set font [ttk::style lookup TLabel -font]\n"
 "    set family [font configure $font -family]\n"
 "    set size [font configure $font -size]\n"
@@ -81,6 +81,7 @@ const char* cicm_common_tcl =
 "    set underline [font configure TkDefaultFont -underline]\n"
 "    return [font create $font_name -family $family -size $size -weight bold -slant $slant -underline $underline]\n"
 "}\n"
+"ceammc_create_label_font_bold CICMCategoryFont\n"
 ;
 #endif
 // clang-format on

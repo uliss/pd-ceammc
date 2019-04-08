@@ -1105,9 +1105,10 @@ static void eclass_properties_dialog(t_eclass* c)
 {
     static const char* proc_color = "proc pdtk_{0}_picker_apply_{1} {{id red green blue alpha}} {{\n"
                                     "   set col [eobj_rgba_to_hex $red $green $blue $alpha]\n"
-                                    "   wm attributes $id -topmost 0\n"
+                                    /// temp fix for bug when scrollbox popup behind the topmost window
+                                    /// "   wm attributes $id -topmost 0\n"
                                     "   set color [tk_chooseColor -title {{{0}}} -initialcolor ${{col}} -parent $id ]\n"
-                                    "   wm attributes $id -topmost 1 \n"
+                                    /// "   wm attributes $id -topmost 1 \n"
                                     "   if {{$color == \"\"}} return \n"
                                     "   foreach {{red2 green2 blue2}} [winfo rgb . $color] {{}}\n"
                                     "   set cmd [concat $id dialog $id {2} @{1} [eobj_rgb_int_to_float $red2 $green2 $blue2]]\n"
@@ -1117,8 +1118,8 @@ static void eclass_properties_dialog(t_eclass* c)
     static const char* proc_entry = "proc pdtk_{0}_dialog_apply_{1} {{id}} {{ \n"
                                     "   set vid [string trimleft $id .]\n"
                                     "   set var_{1} [concat {1}_$vid] \n"
-                                    // replace dollar $N with #N
-                                    // tcl: regsub -all {\$(\d+)} $s {#\1}
+                                    /// replace dollar $N with #N
+                                    /// tcl: regsub -all {\$(\d+)} $s {#\1}
                                     "   global $var_{1} \n"
                                     "   set cmd [concat $id dialog $id {2} @{1} "
                                     "       [regsub -all {{\\$(\\d+)}} [eval concat $$var_{1}] {{#\\1}} ]]\n"
@@ -1186,7 +1187,6 @@ static void eclass_properties_dialog(t_eclass* c)
                            "   wm resizable $id 0 0\n"
                            "   raise [winfo toplevel $id]\n"
                            "   $id configure " DIALOG_BACKGROUND DIALOG_WINDOW_PADX DIALOG_WINDOW_PADY "\n"
-                           "   font_create_label_bold CICMCategoryFont\n"
                            "   ttk::frame $id.top_frame\n"
                            "   grid $id.top_frame\n",
         c->c_class.c_name->s_name);
@@ -1225,7 +1225,6 @@ static void eclass_properties_dialog(t_eclass* c)
             sys_gui(str.c_str());
 
             /** SELECTOR WIDGETS **/
-
             if (c->c_attr[i]->style == gensym(SYM_CHECKBUTTON)) {
                 sys_vgui("ttk::checkbutton %s -variable [string trim $var_%s] "
                          "-command  [concat pdtk_%s_dialog_apply_%s $id]\n",
