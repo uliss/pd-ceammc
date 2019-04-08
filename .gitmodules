@@ -35,3 +35,6 @@
 [submodule "ceammc/extra/readerwriterqueue"]
 	path = ceammc/extra/readerwriterqueue
 	url = https://github.com/cameron314/readerwriterqueue.git
+[submodule "ceammc/extra/fmt"]
+	path = ceammc/extra/fmt
+	url = https://github.com/fmtlib/fmt.git
