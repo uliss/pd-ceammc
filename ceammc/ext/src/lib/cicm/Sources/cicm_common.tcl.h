@@ -81,6 +81,17 @@ const char* cicm_common_tcl =
 "    set underline [font configure TkDefaultFont -underline]\n"
 "    return [font create $font_name -family $family -size $size -weight bold -slant $slant -underline $underline]\n"
 "}\n"
+"proc ceammc_category_icon {state} {\n"
+"    if {$state ne 0} {\n"
+"        return ceammc_image_category_opened\n"
+"    } {\n"
+"        return ceammc_image_category_closed\n"
+"    }\n"
+"}\n"
+"image create photo ceammc_image_category_opened -width 18 -height 18 \\\n"
+"    -data \"iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAQAAAD8x0bcAAAAQklEQVR4AWMYDoAFnYcJNBnuMFjDebYMtxk0MBVJMtxg+MxgA1XyBciTBLMxlQElbfAoQShDKMGjDKYErzIgHFEAAGLzEOwIrN0jAAAAAElFTkSuQmCC\"\n"
+"image create photo ceammc_image_category_closed -width 18 -height 18 \\\n"
+"    -data \"iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAQAAAD8x0bcAAAAPUlEQVR4AWMY9ICNoZCBlZAiH4b/DGsIK8sjTlkBccoqgcqW41fCy3CE4Q9DKO2UIIArw3egEoJAkmGIAABqKxDmokl7sAAAAABJRU5ErkJggg==\"\n"
 "ceammc_create_label_font_bold CICMCategoryFont\n"
 ;
 #endif

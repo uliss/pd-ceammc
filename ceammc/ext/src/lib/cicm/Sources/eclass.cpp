@@ -1057,7 +1057,7 @@ static void ewidget_init(t_eclass* c)
     c->c_widget.w_onzoom = nullptr;
 }
 
-#define DIALOG_GRID_PADY " -pady 1 "
+#define DIALOG_GRID_PADY " -pady 0 "
 #define DIALOG_WINDOW_PADX " -padx 8 "
 #define DIALOG_WINDOW_PADY " -pady 8 "
 
@@ -1206,9 +1206,12 @@ static void eclass_properties_dialog(t_eclass* c)
             sys_vgui("   frame %s\n", LABEL_FRAME);
             sys_vgui("   frame %s\n", WIDGET_FRAME);
 
+            /** PROPERTY CATEGORY **/
             if (c->c_attr[i]->category != cat) {
                 auto str = fmt::format("   frame $id.top_frame.cat{0}\n"
+                                       "   ttk::label $id.top_frame.cat{0}.img -image [ceammc_category_icon 1]\n"
                                        "   ttk::label $id.top_frame.cat{0}.label -justify left -text [_ \"{0}\"] -font CICMCategoryFont\n"
+                                       "   pack $id.top_frame.cat{0}.img -side left\n"
                                        "   pack $id.top_frame.cat{0}.label -side left\n"
                                        "   grid config $id.top_frame.cat{0} -column 0 -row {1} -sticky w" DIALOG_GRID_PADY "\n",
                     c->c_attr[i]->category->s_name, i + category_idx + 1);
@@ -1292,7 +1295,7 @@ static void eclass_properties_dialog(t_eclass* c)
                 sys_vgui("pack %s -side left\n", WIDGET_ID);
             }
 
-            sys_vgui("grid config %s -column 0 -row %i -sticky w" DIALOG_GRID_PADY "\n", LABEL_FRAME, i + category_idx + 1);
+            sys_vgui("grid config %s -column 0 -row %i -sticky w -padx 10 " DIALOG_GRID_PADY "\n", LABEL_FRAME, i + category_idx + 1);
             sys_vgui("grid config %s -column 1 -row %i -sticky w" DIALOG_GRID_PADY "\n", WIDGET_FRAME, i + category_idx + 1);
         }
     }

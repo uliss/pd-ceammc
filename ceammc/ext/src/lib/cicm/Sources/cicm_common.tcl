@@ -95,4 +95,20 @@ proc ceammc_create_label_font_bold {font_name} {
     return [font create $font_name -family $family -size $size -weight bold -slant $slant -underline $underline]
 }
 
+proc ceammc_category_icon {state} {
+    if {$state ne 0} {
+        return ceammc_image_category_opened
+    } {
+        return ceammc_image_category_closed
+    }
+}
+
+# create images
+image create photo ceammc_image_category_opened -width 18 -height 18 \
+    -data "iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAQAAAD8x0bcAAAAQklEQVR4AWMYDoAFnYcJNBnuMFjDebYMtxk0MBVJMtxg+MxgA1XyBciTBLMxlQElbfAoQShDKMGjDKYErzIgHFEAAGLzEOwIrN0jAAAAAElFTkSuQmCC"
+image create photo ceammc_image_category_closed -width 18 -height 18 \
+    -data "iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAQAAAD8x0bcAAAAPUlEQVR4AWMY9ICNoZCBlZAiH4b/DGsIK8sjTlkBccoqgcqW41fCy3CE4Q9DKO2UIIArw3egEoJAkmGIAABqKxDmokl7sAAAAABJRU5ErkJggg=="
+
+
+# create font for categories in dialog
 ceammc_create_label_font_bold CICMCategoryFont
