@@ -1789,8 +1789,9 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                             buffer += temp;
                         }
 
-                        // if have spaces
-                        if (buffer.find(' ') != std::string::npos) {
+                        // if have spaces and text entry
+                        if (c->c_attr[attrindex]->type == &s_symbol
+                            && buffer.find(' ') != std::string::npos) {
                             // trim spaces
                             buffer.erase(0, buffer.find_first_not_of(' '));
                             buffer.erase(buffer.find_last_not_of(' ') + 1);
