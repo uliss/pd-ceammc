@@ -1209,7 +1209,10 @@ static void eclass_properties_dialog(t_eclass* c)
             /** PROPERTY CATEGORY **/
             if (c->c_attr[i]->category != cat) {
                 auto str = fmt::format("   frame $id.top_frame.cat{0}\n"
-                                       "   ttk::label $id.top_frame.cat{0}.img -image [ceammc_category_icon 1]\n"
+                                       "   global var_cat{0}_state\n"
+                                       "   set var_cat{0}_state 1\n"
+                                       "   ttk::label $id.top_frame.cat{0}.img -image [ceammc_category_icon var_cat{0}_state]\n"
+                                       "   bind $id.top_frame.cat{0}.img <Button> [concat ceammc_category_toggle $id.top_frame.cat{0}.img var_cat{0}_state]\n"
                                        "   ttk::label $id.top_frame.cat{0}.label -justify left -text [_ \"{0}\"] -font CICMCategoryFont\n"
                                        "   pack $id.top_frame.cat{0}.img -side left\n"
                                        "   pack $id.top_frame.cat{0}.label -side left\n"

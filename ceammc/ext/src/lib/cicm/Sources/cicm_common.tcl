@@ -103,6 +103,14 @@ proc ceammc_category_icon {state} {
     }
 }
 
+proc ceammc_category_toggle {id var_name_state} {
+    global $var_name_state
+    set v [expr $$var_name_state]
+    if {$v ne 0} { set $var_name_state 0 } { set $var_name_state 1 }
+    set v [expr $$var_name_state]
+    $id configure -image [ceammc_category_icon $v]
+}
+
 # create images
 image create photo ceammc_image_category_opened -width 18 -height 18 \
     -data "iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAQAAAD8x0bcAAAAQklEQVR4AWMYDoAFnYcJNBnuMFjDebYMtxk0MBVJMtxg+MxgA1XyBciTBLMxlQElbfAoQShDKMGjDKYErzIgHFEAAGLzEOwIrN0jAAAAAElFTkSuQmCC"
