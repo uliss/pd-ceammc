@@ -1125,17 +1125,33 @@ static void eclass_properties_dialog(t_eclass* c)
                                     "   pdsend $cmd\n"
                                     "}}\n";
 
+    static const char* proc_num = "proc pdtk_{0}_dialog_apply_{1} {{id}} {{ \n"
+                                  "   set vid [string trimleft $id .]\n"
+                                  "   set var_{1} [concat {1}_$vid] \n"
+                                  "   global $var_{1} \n"
+                                  "   set cmd [concat $id dialog $id {2} @{1} [eval concat $$var_{1}]]\n"
+                                  "   pdsend $cmd\n"
+                                  "}}\n";
+
     t_symbol* s_color = gensym(SYM_COLOR);
+    t_symbol* s_number = gensym(SYM_NUMBER);
+    t_symbol* s_menu = gensym(SYM_MENU);
+    t_symbol* s_checkbox = gensym(SYM_CHECKBUTTON);
 
     // DIALOG WINDOW APPLY //
     for (int i = 0; i < c->c_nattr; i++) {
-        const char* ATTR_NAME = c->c_attr[i]->name->s_name;
+        t_symbol* style = c->c_attr[i]->style;
+        const char* prop_name = c->c_attr[i]->name->s_name;
+        const char* class_name = c->c_class.c_name->s_name;
 
-        if (c->c_attr[i]->style == s_color) {
-            auto str = fmt::format(proc_color, c->c_class.c_name->s_name, ATTR_NAME, i + 1);
+        if (style == s_color) {
+            auto str = fmt::format(proc_color, class_name, prop_name, i + 1);
+            sys_gui(str.c_str());
+        } else if (style == s_number || style == s_menu || style == s_checkbox) {
+            auto str = fmt::format(proc_num, class_name, prop_name, i + 1);
             sys_gui(str.c_str());
         } else {
-            auto str = fmt::format(proc_entry, c->c_class.c_name->s_name, ATTR_NAME, i + 1);
+            auto str = fmt::format(proc_entry, class_name, prop_name, i + 1);
             sys_gui(str.c_str());
         }
     }
