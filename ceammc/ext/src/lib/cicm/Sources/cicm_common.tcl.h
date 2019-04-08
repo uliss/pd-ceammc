@@ -64,6 +64,15 @@ const char* cicm_common_tcl =
 "    append col [format {%4.4x} $nB]\n"
 "    return #$col\n"
 "}\n"
+"proc eobj_rgb_int_to_float {red green blue} {\n"
+"    set nR [expr ( $red / 65025. )]\n"
+"    set nG [expr ( $green / 65025. )]\n"
+"    set nB [expr ( $blue / 65025. )]\n"
+"    if {$nR > 1.} {set nR 1.}\n"
+"    if {$nG > 1.} {set nG 1.}\n"
+"    if {$nB > 1.} {set nB 1.}\n"
+"    return [concat $nR $nG $nB]\n"
+"}\n"
 ;
 #endif
 // clang-format on

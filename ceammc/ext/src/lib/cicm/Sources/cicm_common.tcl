@@ -74,3 +74,14 @@ proc eobj_rgba_to_hex {red green blue alpha} {
     append col [format {%4.4x} $nB]
     return #$col
 }
+
+# RGB int list to RGB float list
+proc eobj_rgb_int_to_float {red green blue} {
+    set nR [expr ( $red / 65025. )]
+    set nG [expr ( $green / 65025. )]
+    set nB [expr ( $blue / 65025. )]
+    if {$nR > 1.} {set nR 1.}
+    if {$nG > 1.} {set nG 1.}
+    if {$nB > 1.} {set nB 1.}
+    return [concat $nR $nG $nB]
+}

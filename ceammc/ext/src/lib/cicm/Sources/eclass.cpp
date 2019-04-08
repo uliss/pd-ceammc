@@ -1103,47 +1103,31 @@ static const char* dialog_widget_id(int i)
  */
 static void eclass_properties_dialog(t_eclass* c)
 {
-    static const char* proc_rgb2hex = "proc cicm_rgb_to_hex {red green blue alpha} {\n"
-                                      "   set nR [expr int( $red * 65025 )]\n"
-                                      "   set nG [expr int( $green * 65025 )]\n"
-                                      "   set nB [expr int( $blue * 65025 )]\n"
-                                      "   set col [format {%4.4x} $nR]\n"
-                                      "   append col [format {%4.4x} $nG]\n"
-                                      "   append col [format {%4.4x} $nB]\n"
-                                      "   return $col\n"
-                                      "}\n";
-
-    static const char* proc_int2rgb = "proc cicm_int_to_rgb {red green blue} {\n"
-                                      "   set nR [expr ( $red / 65025. )]\n"
-                                      "   set nG [expr ( $green / 65025. )]\n"
-                                      "   set nB [expr ( $blue / 65025. )]\n"
-                                      "   if {$nR > 1.} {set nR 1.} \n"
-                                      "   if {$nG > 1.} {set nG 1.} \n"
-                                      "   if {$nB > 1.} {set nB 1.} \n"
-                                      "   return [concat $nR $nG $nB]\n"
-                                      "}\n";
-
     static const char* proc_color = "proc pdtk_{0}_picker_apply_{1} {{id red green blue alpha}} {{\n"
-                                    "   set col [cicm_rgb_to_hex $red $green $blue $alpha]\n"
+                                    "   set col [eobj_rgba_to_hex $red $green $blue $alpha]\n"
                                     "   wm attributes $id -topmost 0\n"
-                                    "   set color [tk_chooseColor -title {{{0}}} -initialcolor #${{col}} -parent $id ]\n"
+                                    "   set color [tk_chooseColor -title {{{0}}} -initialcolor ${{col}} -parent $id ]\n"
                                     "   wm attributes $id -topmost 1 \n"
                                     "   if {{$color == \"\"}} return \n"
                                     "   foreach {{red2 green2 blue2}} [winfo rgb . $color] {{}}\n"
-                                    "   set cmd [concat $id dialog $id {2} @{1} [cicm_int_to_rgb $red2 $green2 $blue2]]\n"
+                                    "   set cmd [concat $id dialog $id {2} @{1} [eobj_rgb_int_to_float $red2 $green2 $blue2]]\n"
                                     "   pdsend $cmd\n"
                                     "}}\n";
 
-    int lenght;
-    char buffer[1000];
-    char temp[1000];
+    static const char* proc_entry = "proc pdtk_{0}_dialog_apply_{1} {{id}} {{ \n"
+                                    "   set vid [string trimleft $id .]\n"
+                                    "   set var_{1} [concat {1}_$vid] \n"
+                                    // replace dollar $N with #N
+                                    // tcl: regsub -all {\$(\d+)} $s {#\1}
+                                    "   global $var_{1} \n"
+                                    "   set cmd [concat $id dialog $id {2} @{1} "
+                                    "       [regsub -all {{\\$(\\d+)}} [eval concat $$var_{1}] {{#\\1}} ]]\n"
+                                    "   pdsend $cmd\n"
+                                    "}}\n";
 
     t_symbol* s_color = gensym(SYM_COLOR);
 
     // DIALOG WINDOW APPLY //
-    sys_gui(proc_rgb2hex);
-    sys_gui(proc_int2rgb);
-
     for (int i = 0; i < c->c_nattr; i++) {
         const char* ATTR_NAME = c->c_attr[i]->name->s_name;
 
@@ -1151,23 +1135,8 @@ static void eclass_properties_dialog(t_eclass* c)
             auto str = fmt::format(proc_color, c->c_class.c_name->s_name, ATTR_NAME, i + 1);
             sys_gui(str.c_str());
         } else {
-            sys_vgui("proc pdtk_%s_dialog_apply_%s {id} { \n", c->c_class.c_name->s_name, ATTR_NAME);
-            sys_gui("set vid [string trimleft $id .]\n");
-            sys_vgui("set var_%s [concat %s_$vid] \n", ATTR_NAME, ATTR_NAME);
-            sys_vgui("global $var_%s \n", ATTR_NAME);
-            sprintf(buffer, "set cmd [concat $id dialog $id %i ", i + 1);
-            sprintf(temp, "@%s ", ATTR_NAME);
-            lenght = (int)strlen(temp);
-            strncat(buffer, temp, lenght);
-            // replace dollar $N with #N
-            // tcl: regsub -all {\$(\d+)} $s {#\1}
-            sprintf(temp, "[regsub -all {\\$(\\d+)} [eval concat $$var_%s] {#\\1} ]", ATTR_NAME);
-            lenght = (int)strlen(temp);
-            strncat(buffer, temp, lenght);
-            strncat(buffer, "]\n", 2);
-            sys_gui(buffer);
-            sys_gui("pdsend $cmd\n");
-            sys_gui("}\n");
+            auto str = fmt::format(proc_entry, c->c_class.c_name->s_name, ATTR_NAME, i + 1);
+            sys_gui(str.c_str());
         }
     }
 
