@@ -137,7 +137,7 @@ add_library(ceammc_core SHARED
     ${CEAMMC_MLIST_SRC}
     ${CEAMMC_DICT_SRC}
     ${CEAMMC_UI_SRC})
-target_link_libraries(ceammc_core puredata-core)
+target_link_libraries(ceammc_core puredata-core fmt)
 
 set_target_properties(ceammc_core PROPERTIES
     COMPILE_FLAGS "${LIBCEAMMC_COMPILE_FLAGS}"

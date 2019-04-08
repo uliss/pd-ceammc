@@ -14,7 +14,12 @@
 #include "egraphics.h"
 #include "eobj.h"
 #include "epopup.h"
+#include "fmtmsg.h"
 
+#include "../ceammc/extra/fmt/include/fmt/core.h"
+#include "../ceammc/extra/fmt/include/fmt/format.h"
+
+#include <iostream>
 #include <vector>
 
 #define _(msg) msg
@@ -522,7 +527,7 @@ void eclass_attr_default(t_eclass* c, const char* attrname, long flags, const ch
         }
     }
 
-    pd_error("[%s] property not found: %s", c->c_class.c_name->s_name, attrname);
+    pd_error(nullptr, "[%s] property not found: %s", c->c_class.c_name->s_name, attrname);
 }
 
 void eclass_attr_category(t_eclass* c, const char* attrname, long flags, const char* category)
@@ -1098,44 +1103,40 @@ static const char* dialog_widget_id(int i)
  */
 static void eclass_properties_dialog(t_eclass* c)
 {
-    int j, lenght;
+    static const char* proc_color = "proc pdtk_{0}_picker_apply_{1} {{id red green blue alpha}} {{\n"
+                                    "   set nR [expr int( $red * 65025 )]\n"
+                                    "   set nG [expr int( $green * 65025 )]\n"
+                                    "   set nB [expr int( $blue * 65025 )]\n"
+                                    "   set col [format {{%4.4x}} $nR]\n"
+                                    "   append col [format {{%4.4x}} $nG]\n"
+                                    "   append col [format {{%4.4x}} $nB]\n"
+                                    "   wm attributes $id -topmost 0\n"
+                                    "   set color [tk_chooseColor -title {{{0}}} -initialcolor #${{col}} -parent $id ]\n"
+                                    "   wm attributes $id -topmost 1 \n"
+                                    "   if {{$color == \"\"}} return \n"
+                                    "   foreach {{red2 green2 blue2}} [winfo rgb . $color] {{}}\n"
+                                    "   set nR2 [expr ( $red2 / 65025. )]\n"
+                                    "   set nG2 [expr ( $green2 / 65025. )]\n"
+                                    "   set nB2 [expr ( $blue2 / 65025. )]\n"
+                                    "   if {{$nR2 > 1.}} {{set nR2 1.}} \n"
+                                    "   if {{$nG2 > 1.}} {{set nG2 1.}} \n"
+                                    "   if {{$nB2 > 1.}} {{set nB2 1.}} \n"
+                                    "   set cmd [concat $id dialog $id {2} @{1} [concat $nR2 $nG2 $nB2]]\n"
+                                    "   pdsend $cmd\n"
+                                    "}}\n";
+
+    int lenght;
     char buffer[1000];
     char temp[1000];
 
+    t_symbol* s_color = gensym(SYM_COLOR);
     // DIALOG WINDOW APPLY //
     for (int i = 0; i < c->c_nattr; i++) {
         const char* ATTR_NAME = c->c_attr[i]->name->s_name;
 
-        if (c->c_attr[i]->style == gensym(SYM_COLOR)) {
-            sys_vgui("proc pdtk_%s_picker_apply_%s {id red green blue alpha} { \n", c->c_class.c_name->s_name, ATTR_NAME);
-            sys_gui("set nR [expr int( $red * 65025 )]\n");
-            sys_gui("set nG [expr int( $green * 65025 )]\n");
-            sys_gui("set nB [expr int( $blue * 65025 )]\n");
-            sys_gui("set col [format {%4.4x} $nR]\n");
-            sys_gui("append col [format {%4.4x} $nG]\n");
-            sys_gui("append col [format {%4.4x} $nB]\n");
-            sys_vgui("wm attributes $id -topmost 0 \n");
-            sys_vgui("set color [tk_chooseColor -title {%s} -initialcolor #${col} -parent $id ]\n", c->c_attr[i]->label->s_name, ATTR_NAME);
-            sys_vgui("wm attributes $id -topmost 1 \n");
-            sys_gui("if {$color == \"\"} return \n");
-            sys_gui("foreach {red2 green2 blue2} [winfo rgb . $color] {}\n");
-            sys_gui("set nR2 [expr ( $red2 / 65025. )]\n");
-            sys_gui("set nG2 [expr ( $green2 / 65025. )]\n");
-            sys_gui("set nB2 [expr ( $blue2 / 65025. )]\n");
-            sys_gui("if {$nR2 > 1.} {set nR2 1.} \n");
-            sys_gui("if {$nG2 > 1.} {set nG2 1.} \n");
-            sys_gui("if {$nB2 > 1.} {set nB2 1.} \n");
-            sprintf(buffer, "set cmd [concat $id dialog $id %i ", i + 1);
-            sprintf(temp, "@%s ", ATTR_NAME);
-            lenght = (int)strlen(temp);
-            strncat(buffer, temp, lenght);
-            sprintf(temp, "[concat $nR2 $nG2 $nB2] ");
-            lenght = (int)strlen(temp);
-            strncat(buffer, temp, lenght);
-            strncat(buffer, "]\n", 2);
-            sys_gui(buffer);
-            sys_gui("pdsend $cmd\n");
-            sys_gui("}\n");
+        if (c->c_attr[i]->style == s_color) {
+            auto str = fmt::format(proc_color, c->c_class.c_name->s_name, ATTR_NAME, i + 1);
+            sys_gui(str.c_str());
         } else {
             sys_vgui("proc pdtk_%s_dialog_apply_%s {id} { \n", c->c_class.c_name->s_name, ATTR_NAME);
             sys_gui("set vid [string trimleft $id .]\n");
@@ -1186,6 +1187,8 @@ static void eclass_properties_dialog(t_eclass* c)
     sys_vgui("ttk::frame $id.top_frame\n");
     sys_vgui("grid $id.top_frame\n");
 
+    t_symbol* cat = &s_;
+
     for (int i = 0; i < c->c_nattr; i++) {
         if (!c->c_attr[i]->invisible) {
             const char* LABEL_FRAME = dialog_label_frame(i + 1);
@@ -1197,6 +1200,9 @@ static void eclass_properties_dialog(t_eclass* c)
 
             sys_vgui("frame %s\n", LABEL_FRAME);
             sys_vgui("frame %s\n", WIDGET_FRAME);
+
+            if (c->c_attr[i]->category != cat) {
+            }
 
             /** ATTRIBUTES NAMES **/
 
