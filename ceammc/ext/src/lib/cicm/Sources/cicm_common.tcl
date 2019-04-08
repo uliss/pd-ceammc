@@ -85,3 +85,12 @@ proc eobj_rgb_int_to_float {red green blue} {
     if {$nB > 1.} {set nB 1.}
     return [concat $nR $nG $nB]
 }
+
+proc font_create_label_bold {font_name} {
+    set font [ttk::style lookup TLabel -font]
+    set family [font configure $font -family]
+    set size [font configure $font -size]
+    set slant [font configure $font -slant]
+    set underline [font configure TkDefaultFont -underline]
+    return [font create $font_name -family $family -size $size -weight bold -slant $slant -underline $underline]
+}

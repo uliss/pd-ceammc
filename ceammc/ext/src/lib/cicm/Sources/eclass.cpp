@@ -1186,13 +1186,14 @@ static void eclass_properties_dialog(t_eclass* c)
                            "   wm resizable $id 0 0\n"
                            "   raise [winfo toplevel $id]\n"
                            "   $id configure " DIALOG_BACKGROUND DIALOG_WINDOW_PADX DIALOG_WINDOW_PADY "\n"
+                           "   font_create_label_bold CICMCategoryFont\n"
                            "   ttk::frame $id.top_frame\n"
                            "   grid $id.top_frame\n",
         c->c_class.c_name->s_name);
     sys_gui(str.c_str());
 
     t_symbol* cat = &s_;
-
+    int category_idx = 0;
     for (int i = 0; i < c->c_nattr; i++) {
         if (!c->c_attr[i]->invisible) {
             const char* LABEL_FRAME = dialog_label_frame(i + 1);
@@ -1202,16 +1203,26 @@ static void eclass_properties_dialog(t_eclass* c)
             const char* ATTR_NAME = c->c_attr[i]->name->s_name;
             const char* CLASS_NAME = c->c_class.c_name->s_name;
 
-            sys_vgui("frame %s\n", LABEL_FRAME);
-            sys_vgui("frame %s\n", WIDGET_FRAME);
+            sys_vgui("   frame %s\n", LABEL_FRAME);
+            sys_vgui("   frame %s\n", WIDGET_FRAME);
 
             if (c->c_attr[i]->category != cat) {
+                auto str = fmt::format("   frame $id.top_frame.cat{0}\n"
+                                       "   ttk::label $id.top_frame.cat{0}.label -justify left -text [_ \"{0}\"] -font CICMCategoryFont\n"
+                                       "   pack $id.top_frame.cat{0}.label -side left\n"
+                                       "   grid config $id.top_frame.cat{0} -column 0 -row {1} -sticky w" DIALOG_GRID_PADY "\n",
+                    c->c_attr[i]->category->s_name, i + category_idx + 1);
+                // update current category
+                cat = c->c_attr[i]->category;
+                category_idx++;
+                sys_gui(str.c_str());
             }
 
             /** ATTRIBUTES NAMES **/
-
-            sys_vgui("ttk::label %s -justify left -text [join [list [_ \"%s\" ] {:}] {}]\n", LABEL_ID, c->c_attr[i]->label->s_name);
-            sys_vgui("pack %s -side left\n", LABEL_ID);
+            auto str = fmt::format("   ttk::label {0} -justify left -text [join [list [_ \"{1}\" ] {{:}}] {{}}]\n"
+                                   "   pack {0} -side left\n",
+                LABEL_ID, c->c_attr[i]->label->s_name);
+            sys_gui(str.c_str());
 
             /** SELECTOR WIDGETS **/
 
@@ -1282,8 +1293,8 @@ static void eclass_properties_dialog(t_eclass* c)
                 sys_vgui("pack %s -side left\n", WIDGET_ID);
             }
 
-            sys_vgui("grid config %s -column 0 -row %i -sticky w" DIALOG_GRID_PADY "\n", LABEL_FRAME, i + 1);
-            sys_vgui("grid config %s -column 1 -row %i -sticky w" DIALOG_GRID_PADY "\n", WIDGET_FRAME, i + 1);
+            sys_vgui("grid config %s -column 0 -row %i -sticky w" DIALOG_GRID_PADY "\n", LABEL_FRAME, i + category_idx + 1);
+            sys_vgui("grid config %s -column 1 -row %i -sticky w" DIALOG_GRID_PADY "\n", WIDGET_FRAME, i + category_idx + 1);
         }
     }
     sys_gui("}\n");
