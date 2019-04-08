@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-04-08 01:58+0300\n"
+"POT-Creation-Date: 2019-04-08 13:37+0300\n"
 "PO-Revision-Date: 2019-04-08 01:59+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
@@ -27,6 +27,11 @@ msgstr "Шрифт %s"
 #: ../tcl/dialog_iemgui.tcl
 #, tcl-format
 msgid "%s Properties"
+msgstr "Свойства %s"
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#, fuzzy, c-format
+msgid "%s properties"
 msgstr "Свойства %s"
 
 #: ../tcl/pd_menus.tcl
@@ -1777,8 +1782,7 @@ msgstr "Vertial Slider"
 #: ../tcl/pd-gui.tcl
 #, tcl-format
 msgid "WARNING: Font family '%s' not found, using default (%s)\n"
-msgstr ""
-"ВНИМАНИЕ: Шрифт «%s» не найден, используется шрифт по умолчанию (%s)\n"
+msgstr "ВНИМАНИЕ: Шрифт «%s» не найден, используется шрифт по умолчанию (%s)\n"
 
 #: ../tcl/pd-gui.tcl
 #, tcl-format

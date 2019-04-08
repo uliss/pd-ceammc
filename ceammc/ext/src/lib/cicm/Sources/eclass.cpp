@@ -1161,29 +1161,35 @@ static void eclass_properties_dialog(t_eclass* c)
     for (int i = 0; i < c->c_nattr; i++) {
         const char* ATTR_NAME = c->c_attr[i]->name->s_name;
         if (!c->c_attr[i]->invisible) {
-            sys_vgui("%s \n", ATTR_NAME);
+            sys_vgui("   %s \n", ATTR_NAME);
         }
     }
     sys_gui("} {\n");
-    sys_gui("set vid [string trimleft $id .]\n");
+    sys_gui("   set vid [string trimleft $id .]\n");
 
+    // set global vars
     for (int i = 0; i < c->c_nattr; i++) {
         const char* ATTR_NAME = c->c_attr[i]->name->s_name;
         if (!c->c_attr[i]->invisible) {
-            sys_vgui("set var_%s [string trim [concat %s_$vid]]\n", ATTR_NAME, ATTR_NAME);
-            sys_vgui("global $var_%s \n", ATTR_NAME);
-            sys_vgui("set $var_%s [string trim $%s]\n", ATTR_NAME, ATTR_NAME);
+            auto str = fmt::format("   set var_{0} [string trim [concat {0}_$vid]]\n"
+                                   "   global $var_{0} \n"
+                                   "   set $var_{0} [string trim ${0}]\n",
+                ATTR_NAME);
+            sys_gui(str.c_str());
         }
     }
-    sys_vgui("toplevel $id\n");
-    sys_vgui("wm title $id {%s properties} \n", c->c_class.c_name->s_name);
-    sys_vgui("wm resizable $id 0 0\n");
-    sys_vgui("raise [winfo toplevel $id]\n");
 
-    //CEAMMC
-    sys_vgui("$id configure " DIALOG_BACKGROUND DIALOG_WINDOW_PADX DIALOG_WINDOW_PADY "\n");
-    sys_vgui("ttk::frame $id.top_frame\n");
-    sys_vgui("grid $id.top_frame\n");
+    // window creation
+    // _("%s properties")
+    auto str = fmt::format("   toplevel $id\n"
+                           "   wm title $id [format [_ \"%s properties\" ] {{{0}}}] \n"
+                           "   wm resizable $id 0 0\n"
+                           "   raise [winfo toplevel $id]\n"
+                           "   $id configure " DIALOG_BACKGROUND DIALOG_WINDOW_PADX DIALOG_WINDOW_PADY "\n"
+                           "   ttk::frame $id.top_frame\n"
+                           "   grid $id.top_frame\n",
+        c->c_class.c_name->s_name);
+    sys_gui(str.c_str());
 
     t_symbol* cat = &s_;
 
