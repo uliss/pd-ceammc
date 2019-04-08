@@ -1103,25 +1103,34 @@ static const char* dialog_widget_id(int i)
  */
 static void eclass_properties_dialog(t_eclass* c)
 {
+    static const char* proc_rgb2hex = "proc cicm_rgb_to_hex {red green blue alpha} {\n"
+                                      "   set nR [expr int( $red * 65025 )]\n"
+                                      "   set nG [expr int( $green * 65025 )]\n"
+                                      "   set nB [expr int( $blue * 65025 )]\n"
+                                      "   set col [format {%4.4x} $nR]\n"
+                                      "   append col [format {%4.4x} $nG]\n"
+                                      "   append col [format {%4.4x} $nB]\n"
+                                      "   return $col\n"
+                                      "}\n";
+
+    static const char* proc_int2rgb = "proc cicm_int_to_rgb {red green blue} {\n"
+                                      "   set nR [expr ( $red / 65025. )]\n"
+                                      "   set nG [expr ( $green / 65025. )]\n"
+                                      "   set nB [expr ( $blue / 65025. )]\n"
+                                      "   if {$nR > 1.} {set nR 1.} \n"
+                                      "   if {$nG > 1.} {set nG 1.} \n"
+                                      "   if {$nB > 1.} {set nB 1.} \n"
+                                      "   return [concat $nR $nG $nB]\n"
+                                      "}\n";
+
     static const char* proc_color = "proc pdtk_{0}_picker_apply_{1} {{id red green blue alpha}} {{\n"
-                                    "   set nR [expr int( $red * 65025 )]\n"
-                                    "   set nG [expr int( $green * 65025 )]\n"
-                                    "   set nB [expr int( $blue * 65025 )]\n"
-                                    "   set col [format {{%4.4x}} $nR]\n"
-                                    "   append col [format {{%4.4x}} $nG]\n"
-                                    "   append col [format {{%4.4x}} $nB]\n"
+                                    "   set col [cicm_rgb_to_hex $red $green $blue $alpha]\n"
                                     "   wm attributes $id -topmost 0\n"
                                     "   set color [tk_chooseColor -title {{{0}}} -initialcolor #${{col}} -parent $id ]\n"
                                     "   wm attributes $id -topmost 1 \n"
                                     "   if {{$color == \"\"}} return \n"
                                     "   foreach {{red2 green2 blue2}} [winfo rgb . $color] {{}}\n"
-                                    "   set nR2 [expr ( $red2 / 65025. )]\n"
-                                    "   set nG2 [expr ( $green2 / 65025. )]\n"
-                                    "   set nB2 [expr ( $blue2 / 65025. )]\n"
-                                    "   if {{$nR2 > 1.}} {{set nR2 1.}} \n"
-                                    "   if {{$nG2 > 1.}} {{set nG2 1.}} \n"
-                                    "   if {{$nB2 > 1.}} {{set nB2 1.}} \n"
-                                    "   set cmd [concat $id dialog $id {2} @{1} [concat $nR2 $nG2 $nB2]]\n"
+                                    "   set cmd [concat $id dialog $id {2} @{1} [cicm_int_to_rgb $red2 $green2 $blue2]]\n"
                                     "   pdsend $cmd\n"
                                     "}}\n";
 
@@ -1130,7 +1139,11 @@ static void eclass_properties_dialog(t_eclass* c)
     char temp[1000];
 
     t_symbol* s_color = gensym(SYM_COLOR);
+
     // DIALOG WINDOW APPLY //
+    sys_gui(proc_rgb2hex);
+    sys_gui(proc_int2rgb);
+
     for (int i = 0; i < c->c_nattr; i++) {
         const char* ATTR_NAME = c->c_attr[i]->name->s_name;
 
