@@ -1298,13 +1298,16 @@ static void eclass_properties_dialog(t_eclass* c)
                     ATTR_NAME,
                     ATTR_NAME);
             } else {
-                sys_vgui("   ttk::entry %s -width 20 -textvariable [string trim $var_%s]\n", WIDGET_ID, ATTR_NAME);
-                // erase (null) on focus in
-                sys_vgui("   bind %s <FocusIn> { if { [string trim [%%W get]] == {(null)} } { %%W delete 0 end } }\n", WIDGET_ID);
-                // insert (null) on focus out
-                sys_vgui("   bind %s <FocusOut> { if { [string trim [%%W get]] == {} } { %%W insert 0 {(null)} } }\n", WIDGET_ID);
-                sys_vgui("   bind %s <KeyPress-Return> { if { [string trim [%%W get]] == {} } { %%W insert 0 {(null)} } }\n", WIDGET_ID);
-                sys_vgui("   bind %s <KeyPress-Return> +[concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
+                str = fmt::format(
+                    "   ttk::entry {0} -width 20 -textvariable [string trim $var_{1}]\n"
+                    // erase (null) on focus in
+                    // insert (null) on focus out
+                    "   bind {0} <FocusIn> {{ if {{ [string trim [%%W get]] == {{(null)}} }} {{ %%W delete 0 end }} }}\n"
+                    "   bind {0} <FocusOut> {{ if {{ [string trim [%%W get]] == {{}} }} {{ %%W insert 0 {{(null)}} }} }}\n"
+                    "   bind {0} <KeyPress-Return> {{ if {{ [string trim [%%W get]] == {{}} }} {{ %%W insert 0 {{(null)}} }} }}\n"
+                    "   bind {0} <KeyPress-Return> +[concat pdtk_{2}_dialog_apply_{1} $id]\n",
+                    WIDGET_ID, ATTR_NAME, CLASS_NAME);
+                sys_gui(str.c_str());
             }
 
             str = fmt::format(
