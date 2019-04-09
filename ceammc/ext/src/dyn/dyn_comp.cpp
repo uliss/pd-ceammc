@@ -12,7 +12,10 @@ public:
     DynComp(const PdArgs& args)
         : faust_dyn_comp_tilde(args)
     {
-        bindPositionalArgsToProps({ SYM_PROP_RATIO, SYM_PROP_THRESHOLD, SYM_PROP_ATTACK, SYM_PROP_RELEASE });
+        bindPositionalArgsToProps({ gensym("@ratio"),
+            gensym("@threshold"),
+            gensym("@attack"),
+            gensym("@release") });
     }
 };
 
