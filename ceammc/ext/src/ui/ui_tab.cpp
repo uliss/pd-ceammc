@@ -501,10 +501,11 @@ void UITab::setup()
     obj.showProperty("fontsize");
     obj.showProperty("fontweight");
 
-    obj.addProperty("orientation", _("Vertical Orientation"), false, &UITab::prop_is_vertical);
-    obj.addProperty("toggle", _("Toggle Mode"), false, &UITab::prop_toggle_mode);
+    obj.addProperty("orientation", _("Vertical Orientation"), false, &UITab::prop_is_vertical, "Main");
+    obj.addProperty("toggle", _("Toggle Mode"), false, &UITab::prop_toggle_mode, "Main");
     obj.addProperty("items", &UITab::propItems, &UITab::propSetItems);
     obj.showProperty("items");
+    obj.setPropertyCategory("items", "Main");
     obj.setPropertyLabel("items", _("Items"));
     obj.setPropertySave("items");
     obj.addProperty("count", &UITab::propCount, 0);

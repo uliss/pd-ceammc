@@ -421,9 +421,9 @@ void UISpectroscope::setup()
 
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UISpectroscope::prop_color_active);
     obj.addProperty("scale_color", _("Scale Color"), "0.6 0.6 0.6 1", &UISpectroscope::prop_color_scale);
-    obj.addIntProperty("refresh", _("Refresh time (ms)"), 100, &UISpectroscope::prop_refresh);
+    obj.addIntProperty("refresh", _("Refresh time (ms)"), 100, &UISpectroscope::prop_refresh, "Main");
     obj.setPropertyRange("refresh", 20, 1000);
-    obj.addBoolProperty("log_scale", _("Log scale"), false, &UISpectroscope::prop_log_scale);
+    obj.addBoolProperty("log_scale", _("Log scale"), false, &UISpectroscope::prop_log_scale, "Main");
 
     obj.hideProperty("send");
 }
