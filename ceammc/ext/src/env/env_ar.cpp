@@ -3,10 +3,6 @@
 #include "ceammc_factory.h"
 #include "datatype_env.h"
 
-static t_symbol* SYM_PROP_ATTACK = gensym("@attack");
-static t_symbol* SYM_PROP_RELEASE = gensym("@release");
-static t_symbol* SYM_PROP_GATE = gensym("@gate");
-
 using namespace ceammc;
 
 class EnvAr : public faust_env_ar_tilde {
@@ -22,12 +18,12 @@ public:
         : faust_env_ar_tilde(args)
         , auto_release_(this, &EnvAr::release)
         , done_(this, &EnvAr::done)
-        , prop_attack_((UIProperty*)property(SYM_PROP_ATTACK))
-        , prop_release_((UIProperty*)property(SYM_PROP_RELEASE))
-        , prop_gate_((UIProperty*)property(SYM_PROP_GATE))
+        , prop_attack_((UIProperty*)property(gensym("@attack")))
+        , prop_release_((UIProperty*)property(gensym("@release")))
+        , prop_gate_((UIProperty*)property(gensym("@gate")))
     {
-        bindPositionalArgsToProps({ SYM_PROP_ATTACK, SYM_PROP_RELEASE });
-        createProperty(new CombinedProperty("@ar", { property(SYM_PROP_ATTACK), property(SYM_PROP_RELEASE) }));
+        bindPositionalArgsToProps({ gensym("@attack"), gensym("@release") });
+        createProperty(new CombinedProperty("@ar", { property(gensym("@attack")), property(gensym("@release")) }));
         createCbProperty("@length", &EnvAr::propLength);
 
         createOutlet();
@@ -35,7 +31,7 @@ public:
 
     bool processAnyProps(t_symbol* sel, const AtomList& lst) override
     {
-        if (sel == SYM_PROP_GATE && atomlistToValue<bool>(lst, false)) {
+        if (sel == gensym("@gate") && atomlistToValue<bool>(lst, false)) {
             auto_release_.unset();
             done_.delay(length());
         }

@@ -4,11 +4,6 @@
 #include "datatype_env.h"
 #include "env_faust_play.h"
 
-static t_symbol* SYM_PROP_ATTACK = gensym("@attack");
-static t_symbol* SYM_PROP_SUSTAIN = gensym("@sustain");
-static t_symbol* SYM_PROP_RELEASE = gensym("@release");
-static t_symbol* SYM_PROP_GATE = gensym("@gate");
-
 using namespace ceammc;
 
 class EnvAsr : public faust_env_asr_tilde {
@@ -25,21 +20,21 @@ public:
         : faust_env_asr_tilde(args)
         , attack_done_(this, &EnvAsr::attackDone)
         , release_done_(this, &EnvAsr::releaseDone)
-        , prop_attack_((UIProperty*)property(SYM_PROP_ATTACK))
-        , prop_sustain_((UIProperty*)property(SYM_PROP_SUSTAIN))
-        , prop_release_((UIProperty*)property(SYM_PROP_RELEASE))
-        , prop_gate_((UIProperty*)property(SYM_PROP_GATE))
+        , prop_attack_((UIProperty*)property(gensym("@attack")))
+        , prop_sustain_((UIProperty*)property(gensym("@sustain")))
+        , prop_release_((UIProperty*)property(gensym("@release")))
+        , prop_gate_((UIProperty*)property(gensym("@gate")))
     {
-        bindPositionalArgsToProps({ SYM_PROP_ATTACK, SYM_PROP_SUSTAIN, SYM_PROP_RELEASE });
+        bindPositionalArgsToProps({ gensym("@attack"), gensym("@sustain"), gensym("@release") });
         createProperty(new CombinedProperty("@asr",
-            { property(SYM_PROP_ATTACK), property(SYM_PROP_SUSTAIN), property(SYM_PROP_RELEASE) }));
+            { property(gensym("@attack")), property(gensym("@sustain")), property(gensym("@release")) }));
 
         createOutlet();
     }
 
     bool processAnyProps(t_symbol* sel, const AtomList& lst) override
     {
-        if (sel == SYM_PROP_GATE) {
+        if (sel == gensym("@gate")) {
             if (atomlistToValue<bool>(lst, false)) {
                 clockReset();
                 attack_done_.delay(prop_attack_->value());

@@ -1,9 +1,9 @@
 #include "env_to_array.h"
 #include "ceammc_factory.h"
 
-t_symbol* SYM_FIT = gensym("fit");
-t_symbol* SYM_RAW = gensym("raw");
-t_symbol* SYM_RESIZE = gensym("resize");
+static t_symbol* SYM_FIT;
+static t_symbol* SYM_RAW;
+static t_symbol* SYM_RESIZE;
 
 Env2Array::Env2Array(const PdArgs& args)
     : ArrayMod(args)
@@ -72,6 +72,10 @@ void Env2Array::render(const DataTypeEnv& env)
 
 void setup_env_to_array()
 {
+    SYM_FIT = gensym("fit");
+    SYM_RAW = gensym("raw");
+    SYM_RESIZE = gensym("resize");
+
     ObjectFactory<Env2Array> obj("env2array");
     obj.addAlias("env->array");
     obj.processData<DataTypeEnv>();

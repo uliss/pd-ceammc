@@ -19,9 +19,6 @@
 
 namespace ceammc {
 
-static t_symbol* SYM_RESET = gensym("reset");
-static t_symbol* SYM_PROP_GATE2 = gensym("@gate");
-
 template <class T>
 class EnvAutoplay : public T {
     ClockMemberFunction<EnvAutoplay<T>> auto_play_clock_;
@@ -57,11 +54,14 @@ private:
 
     void sendReset()
     {
+        static t_symbol* SYM_RESET = gensym("reset");
         pd_typedmess(&(this->owner()->te_g.g_pd), SYM_RESET, 0, nullptr);
     }
 
     void sendGate(bool on)
     {
+        static t_symbol* SYM_PROP_GATE2 = gensym("@gate");
+
         // send @gate message
         t_atom v;
         SETFLOAT(&v, on ? 1 : 0);
