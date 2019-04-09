@@ -14,9 +14,6 @@
 #include "flow_append.h"
 #include "ceammc_factory.h"
 
-static t_symbol* SYM_PROP_GET_DELAY = gensym("@delay?");
-static t_symbol* SYM_PROP_DELAY = gensym("@delay");
-
 FlowAppend::FlowAppend(const PdArgs& args)
     : BaseObject(args)
     , delay_time_(0)
@@ -71,6 +68,9 @@ bool FlowAppend::processAnyInlets(t_symbol* sel, const AtomList& lst)
 
 bool FlowAppend::processAnyProps(t_symbol* s, const AtomList& lst)
 {
+    static t_symbol* SYM_PROP_GET_DELAY = gensym("@delay?");
+    static t_symbol* SYM_PROP_DELAY = gensym("@delay");
+
     // get
     if (s == SYM_PROP_GET_DELAY) {
         anyTo(0, SYM_PROP_DELAY, delay_time_->get());

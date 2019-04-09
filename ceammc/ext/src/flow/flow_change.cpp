@@ -15,13 +15,11 @@
 #include "../base/function.h"
 #include "ceammc_factory.h"
 
-static t_symbol* SYM_EMPTY = gensym("");
-
 FlowChange::FlowChange(const PdArgs& a)
     : BaseObject(a)
     , on_repeat_(NULL)
 {
-    on_repeat_ = new SymbolProperty("@onrepeat", SYM_EMPTY);
+    on_repeat_ = new SymbolProperty("@onrepeat", &s_);
     createProperty(on_repeat_);
     createOutlet();
 }
@@ -93,7 +91,7 @@ void FlowChange::m_set(t_symbol*, const AtomList& l)
 
 void FlowChange::onRepeat()
 {
-    if (on_repeat_->value() == SYM_EMPTY)
+    if (on_repeat_->value() == &s_)
         return;
 
     Function* fn = Function::function(on_repeat_->value());

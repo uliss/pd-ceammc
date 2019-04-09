@@ -1,9 +1,6 @@
 #include "flow_gate.h"
 #include "ceammc_factory.h"
 
-static t_symbol* PROP_STATE = gensym("@state");
-static t_symbol* PROP_GET_STATE = gensym("@state?");
-
 FlowGate::FlowGate(const PdArgs& args)
     : BaseObject(args)
 {
@@ -72,6 +69,9 @@ void FlowGate::onInlet(size_t n, const AtomList& l)
 
 bool FlowGate::processAnyProps(t_symbol* s, const AtomList& l)
 {
+    static t_symbol* PROP_STATE = gensym("@state");
+    static t_symbol* PROP_GET_STATE = gensym("@state?");
+
     // get
     if (s == PROP_GET_STATE) {
         anyTo(0, PROP_STATE, state_->value());
