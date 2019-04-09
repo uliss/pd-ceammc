@@ -264,7 +264,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_ACCESSORS(c, "label", NULL, ebox_set_label);
     CLASS_ATTR_SAVE(c, "label", 0);
     CLASS_ATTR_CATEGORY(c, "label", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label", 0, _("Label"));
+    CLASS_ATTR_LABEL(c, "label", 0, _("Text"));
 
     CLASS_ATTR_DEFAULT(c, "label_align", 0, "left");
     CLASS_ATTR_ACCESSORS(c, "label_align", NULL, ebox_set_label_align);
