@@ -1226,7 +1226,7 @@ static void eclass_properties_dialog(t_eclass* c)
             if (c->c_attr[i]->category != cat) {
                 auto str = fmt::format(
                     "   global var_cat{0}_state\n"
-                    "   set var_cat{0}_state 1\n"
+                    "   if {{ [info exists var_cat{0}_state] eq 0 }} {{ set var_cat{0}_state 1 }}\n"
                     "   ttk::label $id.t.cat_img{0} -image [ceammc_category_icon var_cat{0}_state]\n"
                     "   bind $id.t.cat_img{0} <Button> [list ceammc_category_toggle"
                     "       $id.t.cat_img{0} var_cat{0}_state [concat [dict get $cat_dict \"{0}\"]]]\n"
@@ -1321,6 +1321,28 @@ static void eclass_properties_dialog(t_eclass* c)
             sys_gui(str.c_str());
         }
     }
+
+    {
+        // show/hide categories
+        t_symbol* cat = &s_;
+        for (int i = 0; i < c->c_nattr; i++) {
+            if (c->c_attr[i]->invisible)
+                continue;
+
+            if (cat == c->c_attr[i]->category)
+                continue;
+
+            cat = c->c_attr[i]->category;
+            str = fmt::format(
+                "   if {{ $var_cat{0}_state eq 0 }} {{\n"
+                "      set lst [dict get $cat_dict \"{0}\"]\n"
+                "      ceammc_category_apply $id.t.cat_img{0} var_cat{0}_state $lst\n"
+                "   }}\n",
+                cat->s_name);
+            sys_gui(str.c_str());
+        }
+    }
+
     sys_gui("}\n");
 }
 

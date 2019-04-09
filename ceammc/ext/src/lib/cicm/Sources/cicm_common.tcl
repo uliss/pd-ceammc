@@ -103,10 +103,8 @@ proc ceammc_category_icon {state} {
     }
 }
 
-proc ceammc_category_toggle {id var_name_state controls} {
+proc ceammc_category_apply {id var_name_state controls} {
     global $var_name_state
-    set v [expr $$var_name_state]
-    if {$v ne 0} { set $var_name_state 0 } { set $var_name_state 1 }
     set v [expr $$var_name_state]
     $id configure -image [ceammc_category_icon $v]
 
@@ -117,6 +115,14 @@ proc ceammc_category_toggle {id var_name_state controls} {
             grid config $w
         }
     }
+}
+
+proc ceammc_category_toggle {id var_name_state controls} {
+    global $var_name_state
+    set v [expr $$var_name_state]
+    if {$v ne 0} { set $var_name_state 0 } { set $var_name_state 1 }
+
+    ceammc_category_apply $id $var_name_state $controls
 }
 
 # create images
