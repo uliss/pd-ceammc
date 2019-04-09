@@ -3,13 +3,13 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_PITCH = gensym("@pitch");
-
 class FxDroneBox : public faust_fx_drone_box_tilde {
 public:
     FxDroneBox(const PdArgs& args)
         : faust_fx_drone_box_tilde(args)
     {
+        static t_symbol* SYM_PROP_PITCH = gensym("@pitch");
+
         bindPositionalArgsToProps({ SYM_PROP_PITCH });
     }
 };

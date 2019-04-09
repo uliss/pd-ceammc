@@ -3,13 +3,13 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_DRIVE = gensym("@drive");
-
 class FxDrive : public faust_fx_drive_tilde {
 public:
     FxDrive(const PdArgs& args)
         : faust_fx_drive_tilde(args)
     {
+        static t_symbol* SYM_PROP_DRIVE = gensym("@drive");
+
         bindPositionalArgsToProps({ SYM_PROP_DRIVE });
     }
 };

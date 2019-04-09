@@ -10,25 +10,6 @@
 static const float DEFAULT_CAPACITY_SEC = 5;
 static const float MAX_CAPACITY_SEC = 120;
 
-static t_symbol* states[] = {
-    gensym("init"),
-    gensym("record"),
-    gensym("rec->play"),
-    gensym("rec->stop"),
-    gensym("rec->dub"),
-    gensym("overdub"),
-    gensym("dub->stop"),
-    gensym("dub->play"),
-    gensym("pause"),
-    gensym("play"),
-    gensym("play->stop"),
-    gensym("play->dub"),
-    gensym("stop"),
-    gensym("stop->play")
-};
-
-static_assert((sizeof(states) / sizeof(states[0])) == (STATE_COUNT_), "invalid state count");
-
 #define CHECK_PHASE(p, b)                                                          \
     {                                                                              \
         if (p >= b.size()) {                                                       \
@@ -505,6 +486,25 @@ AtomList FxLooper::p_play_phase() const
 
 AtomList FxLooper::p_state() const
 {
+    static t_symbol* states[] = {
+        gensym("init"),
+        gensym("record"),
+        gensym("rec->play"),
+        gensym("rec->stop"),
+        gensym("rec->dub"),
+        gensym("overdub"),
+        gensym("dub->stop"),
+        gensym("dub->play"),
+        gensym("pause"),
+        gensym("play"),
+        gensym("play->stop"),
+        gensym("play->dub"),
+        gensym("stop"),
+        gensym("stop->play")
+    };
+
+    static_assert((sizeof(states) / sizeof(states[0])) == (STATE_COUNT_), "invalid state count");
+
     return AtomList(states[state_]);
 }
 
