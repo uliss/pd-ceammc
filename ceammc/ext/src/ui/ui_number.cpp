@@ -314,6 +314,7 @@ void UINumber::setup()
     obj.addProperty("digits", _("Digits"), -1, &UINumber::prop_digits);
     obj.setPropertyMin("digits", -1);
     obj.setPropertyMax("digits", 8);
+    obj.setPropertyCategory("digits", _("Main"));
 
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UINumber::prop_color_active);
     obj.addProperty("text_color", _("Text color"), DEFAULT_TEXT_COLOR, &UINumber::prop_color_text);
