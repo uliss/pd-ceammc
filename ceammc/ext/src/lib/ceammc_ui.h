@@ -454,6 +454,11 @@ public:
         CLASS_ATTR_DEFAULT(pd_class, "size", 0, buf);
     }
 
+    void setPropertyCategory(const char* name, const char* cat_name)
+    {
+        eclass_attr_category(pd_class, name, 0, cat_name);
+    }
+
     void addProperty(const char* name,
         float (UI::*getter)() const,
         void (UI::*setter)(float))

@@ -857,10 +857,10 @@ void UIMatrix::setup()
     obj.readWrite();
     obj.hideLabelInner();
 
-    obj.addProperty("rows", _("Rows"), 4, &UIMatrix::prop_rows_);
+    obj.addProperty("rows", _("Rows"), 4, &UIMatrix::prop_rows_, _("Main"));
     obj.setPropertyRange("rows", 1, UI_MAX_MATRIX_SIZE);
     obj.setPropertyAccessor("rows", &UIMatrix::p_rows, &UIMatrix::p_setRows);
-    obj.addProperty("cols", _("Columns"), 8, &UIMatrix::prop_cols_);
+    obj.addProperty("cols", _("Columns"), 8, &UIMatrix::prop_cols_, _("Main"));
     obj.setPropertyRange("cols", 1, UI_MAX_MATRIX_SIZE);
     obj.setPropertyAccessor("cols", &UIMatrix::p_cols, &UIMatrix::p_setCols);
     obj.addProperty("active_color", _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIMatrix::prop_color_active_);

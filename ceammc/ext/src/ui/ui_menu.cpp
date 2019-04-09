@@ -551,6 +551,7 @@ void UIMenu::setup()
 
     obj.addProperty("items", &UIMenu::propItems, &UIMenu::propSetItems);
     obj.setPropertyLabel("items", _("Items"));
+    obj.setPropertyCategory("items", _("Main"));
     obj.showProperty("items");
     obj.setPropertySave("items");
 }
