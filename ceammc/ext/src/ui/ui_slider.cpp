@@ -192,7 +192,7 @@ void UISlider::setup()
     obj.addProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UISlider::prop_knob_color);
     obj.addProperty("text_color", _("Text Color"), DEFAULT_TEXT_COLOR, &UISlider::prop_text_color);
 
-    obj.addProperty("mode", _("Relative Mode"), false, &UISlider::prop_rel_mode);
+    obj.addProperty("mode", _("Relative Mode"), false, &UISlider::prop_rel_mode, "Main");
     obj.addProperty("min", _("Minimum Value"), 0, &UISingleValue::prop_min, "Bounds");
     obj.addProperty("max", _("Maximum Value"), 1, &UISingleValue::prop_max, "Bounds");
 
@@ -201,11 +201,11 @@ void UISlider::setup()
     obj.addProperty("midi_control", _("MIDI control"), 0, &UISingleValue::prop_midi_ctl, "MIDI");
     obj.setPropertyRange("midi_control", 0, 128);
     obj.addProperty("midi_pickup", _("MIDI pickup"), true, &UISingleValue::prop_midi_pickup, "MIDI");
-    obj.addProperty("mouse_up_output", _("Output on mouse up"), false, &UISlider::mouse_up_output);
-    obj.addProperty("active_scale", _("Draw active scale"), false, &UISlider::prop_active_scale);
-    obj.addProperty("show_value", _("Show value in horizontal mode"), false, &UISingleValue::prop_show_value);
-    obj.addProperty("value_pos", _("Value position"), "center", &UISlider::prop_value_pos, "left center right");
-    obj.addProperty("value_precision", _("Precision"), 2, &UISlider::prop_value_precision);
+    obj.addProperty("mouse_up_output", _("Output on mouse up"), false, &UISlider::mouse_up_output, "Main");
+    obj.addProperty("active_scale", _("Draw active scale"), false, &UISlider::prop_active_scale, "Main");
+    obj.addProperty("show_value", _("Show value in horizontal mode"), false, &UISingleValue::prop_show_value, "Misc");
+    obj.addProperty("value_pos", _("Value position"), "center", &UISlider::prop_value_pos, "left center right", "Misc");
+    obj.addProperty("value_precision", _("Precision"), 2, &UISlider::prop_value_precision, "Main");
     obj.setPropertyRange("value_precision", 0, 7);
 
     obj.addProperty("value", &UISingleValue::realValue, &UISingleValue::setRealValue);
