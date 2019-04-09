@@ -370,18 +370,18 @@ void UISlider2D::setup()
 
     obj.setDefaultSize(100, 100);
 
-    obj.addProperty("x_min", _("Minimum X-value"), -1, &UISlider2D::prop_x_min, "Values");
-    obj.addProperty("x_max", _("Maximum X-value"), 1, &UISlider2D::prop_x_max, "Values");
-    obj.addProperty("y_min", _("Minimum Y-value"), -1, &UISlider2D::prop_y_min, "Values");
-    obj.addProperty("y_max", _("Maximum Y-value"), 1, &UISlider2D::prop_y_max, "Values");
+    obj.addProperty("x_min", _("Minimum X-value"), -1, &UISlider2D::prop_x_min, "Bounds");
+    obj.addProperty("x_max", _("Maximum X-value"), 1, &UISlider2D::prop_x_max, "Bounds");
+    obj.addProperty("y_min", _("Minimum Y-value"), -1, &UISlider2D::prop_y_min, "Bounds");
+    obj.addProperty("y_max", _("Maximum Y-value"), 1, &UISlider2D::prop_y_max, "Bounds");
 
     obj.addProperty("x_range", &UISlider2D::propXRange, 0);
     obj.addProperty("y_range", &UISlider2D::propYRange, 0);
     obj.addProperty("x_value", &UISlider2D::propXValue, &UISlider2D::propSetXValue);
     obj.addProperty("y_value", &UISlider2D::propYValue, &UISlider2D::propSetYValue);
 
-    obj.addProperty("show_grid", _("Show grid"), false, &UISlider2D::prop_show_grid);
-    obj.addProperty("show_range", _("Show range"), true, &UISlider2D::prop_show_range);
+    obj.addProperty("show_grid", _("Show grid"), false, &UISlider2D::prop_show_grid, "Main");
+    obj.addProperty("show_range", _("Show range"), true, &UISlider2D::prop_show_range, "Main");
 
     obj.usePresets();
     obj.useList();
