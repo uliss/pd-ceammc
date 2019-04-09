@@ -13,11 +13,11 @@
  *****************************************************************************/
 #include "ceammc_platform_win.h"
 
+#include <Winsock2.h>
 #include <Shlwapi.h>
 #include <Stringapiset.h>
 #include <Userenv.h>
 #include <Windows.h>
-#include <Winsock2.h>
 #include <cstdlib>
 #include <cstring>
 #include <direct.h>
