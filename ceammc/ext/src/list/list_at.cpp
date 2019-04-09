@@ -1,16 +1,16 @@
 #include "list_at.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_log.h"
-
-static t_symbol* SYM_REL = gensym("rel");
-static t_symbol* SYM_CLIP = gensym("clip");
-static t_symbol* SYM_WRAP = gensym("wrap");
-static t_symbol* SYM_FOLD = gensym("fold");
+#include "datatype_mlist.h"
 
 ListAt::ListAt(const PdArgs& a)
     : BaseObject(a)
 {
+    static t_symbol* SYM_REL = gensym("rel");
+    static t_symbol* SYM_CLIP = gensym("clip");
+    static t_symbol* SYM_WRAP = gensym("wrap");
+    static t_symbol* SYM_FOLD = gensym("fold");
+
     createInlet();
     createOutlet();
 

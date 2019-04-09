@@ -1,10 +1,10 @@
 #include "list_min.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
-static t_symbol* SYM_FLOAT(gensym("float"));
-static t_symbol* SYM_SYMBOL(gensym("symbol"));
-static t_symbol* SYM_ANY(gensym("any"));
+static t_symbol* SYM_FLOAT;
+static t_symbol* SYM_SYMBOL;
+static t_symbol* SYM_ANY;
 
 ListMin::ListMin(const PdArgs& a)
     : BaseObject(a)
@@ -40,6 +40,10 @@ void ListMin::onDataT(const DataTypeMList& lst)
 
 void setup_list_min()
 {
+    SYM_FLOAT = gensym("float");
+    SYM_SYMBOL = gensym("symbol");
+    SYM_ANY = gensym("any");
+
     ObjectFactory<ListMin> obj("list.min");
     obj.mapFloatToList();
     obj.mapSymbolToList();

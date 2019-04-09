@@ -1,14 +1,12 @@
 #include "list_rotate.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
-
-static t_symbol* SYM_ROTATE_RIGHT = gensym("list.>>");
+#include "datatype_mlist.h"
 
 ListRotate::ListRotate(const PdArgs& a)
     : BaseObject(a)
     , step_(0)
-    , rotate_dir_((a.creationName == SYM_ROTATE_RIGHT) ? ROTATE_RIGHT : ROTATE_LEFT)
+    , rotate_dir_((a.creationName == gensym("list.>>")) ? ROTATE_RIGHT : ROTATE_LEFT)
 {
     createInlet();
     createOutlet();

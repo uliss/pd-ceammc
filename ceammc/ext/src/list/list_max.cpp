@@ -1,10 +1,10 @@
 #include "list_max.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
-static t_symbol* SYM_FLOAT = gensym("float");
-static t_symbol* SYM_SYMBOL = gensym("symbol");
-static t_symbol* SYM_ANY = gensym("any");
+static t_symbol* SYM_FLOAT;
+static t_symbol* SYM_SYMBOL;
+static t_symbol* SYM_ANY;
 
 ListMax::ListMax(const PdArgs& a)
     : BaseObject(a)
@@ -60,6 +60,10 @@ void ListMax::onDataT(const DataTypeMList& lst)
 
 void setup_list_max()
 {
+    SYM_FLOAT = gensym("float");
+    SYM_SYMBOL = gensym("symbol");
+    SYM_ANY = gensym("any");
+
     ObjectFactory<ListMax> obj("list.max");
     obj.mapFloatToList();
     obj.mapSymbolToList();

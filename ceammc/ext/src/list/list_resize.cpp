@@ -3,10 +3,10 @@
 
 static const size_t MAX_SIZE = 1024;
 
-static t_symbol* SYM_PAD = gensym("pad");
-static t_symbol* SYM_CLIP = gensym("clip");
-static t_symbol* SYM_WRAP = gensym("wrap");
-static t_symbol* SYM_FOLD = gensym("fold");
+static t_symbol* SYM_PAD;
+static t_symbol* SYM_CLIP;
+static t_symbol* SYM_WRAP;
+static t_symbol* SYM_FOLD;
 
 ListResize::ListResize(const PdArgs& a)
     : BaseObject(a)
@@ -89,5 +89,10 @@ void ListResize::setPadValue(const AtomList& l)
 
 void setup_list_resize()
 {
+    SYM_PAD = gensym("pad");
+    SYM_CLIP = gensym("clip");
+    SYM_WRAP = gensym("wrap");
+    SYM_FOLD = gensym("fold");
+
     ObjectFactory<ListResize> obj("list.resize");
 }
