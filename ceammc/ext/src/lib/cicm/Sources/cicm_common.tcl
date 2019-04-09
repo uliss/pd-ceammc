@@ -134,3 +134,6 @@ image create photo ceammc_image_category_closed -width 18 -height 18 \
 
 # create font for categories in dialog
 ceammc_create_label_font_bold CICMCategoryFont
+
+# show tooltips
+package require tooltip

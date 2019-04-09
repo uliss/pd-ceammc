@@ -111,6 +111,7 @@ const char* cicm_common_tcl =
 "image create photo ceammc_image_category_closed -width 18 -height 18 \\\n"
 "    -data \"iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAQAAAD8x0bcAAAAPUlEQVR4AWMY9ICNoZCBlZAiH4b/DGsIK8sjTlkBccoqgcqW41fCy3CE4Q9DKO2UIIArw3egEoJAkmGIAABqKxDmokl7sAAAAABJRU5ErkJggg==\"\n"
 "ceammc_create_label_font_bold CICMCategoryFont\n"
+"package require tooltip\n"
 ;
 #endif
 // clang-format on

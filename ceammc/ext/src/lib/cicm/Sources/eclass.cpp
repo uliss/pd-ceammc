@@ -1245,7 +1245,8 @@ static void eclass_properties_dialog(t_eclass* c)
 
             /** ATTRIBUTES NAMES **/
             auto str = fmt::format("   # property: @{2}\n"
-                                   "   ttk::label {0} -justify left -text [join [list [_ \"{1}\" ] {{:}}] {{}}]\n",
+                                   "   ttk::label {0} -justify left -text [join [list [_ \"{1}\" ] {{:}}] {{}}]\n"
+                                   "   tooltip::tooltip {0} \"@{2}\"\n",
                 LABEL_ID, c->c_attr[i]->label->s_name, ATTR_NAME);
             sys_gui(str.c_str());
 
