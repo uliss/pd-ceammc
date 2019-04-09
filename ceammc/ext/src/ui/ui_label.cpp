@@ -161,6 +161,11 @@ void UILabel::setup()
     obj.setPropertyDefaultValue("fontweight", "normal");
     obj.setPropertyDefaultValue("background_color", "1 1 1 1");
     obj.setPropertyDefaultValue("pinned", "1");
+    // change default categories
+    obj.setPropertyCategory("fontname", "Main");
+    obj.setPropertyCategory("fontsize", "Main");
+    obj.setPropertyCategory("fontweight", "Main");
+    obj.setPropertyCategory("fontslant", "Main");
 
     obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UILabel::prop_text_color);
 
@@ -169,8 +174,9 @@ void UILabel::setup()
     obj.addProperty("margin_bottom", _("Margin bottom"), 5, &UILabel::prop_margin_bottom, "Margins");
     obj.addProperty("margin_right", _("Margin right"), 5, &UILabel::prop_margin_right, "Margins");
 
-    obj.addProperty("align", _("Align"), SYM_LEFT->s_name, &UILabel::prop_align, "left center right");
+    obj.addProperty("align", _("Align"), SYM_LEFT->s_name, &UILabel::prop_align, "left center right", "Main");
     obj.addVirtualProperty("text", _("Text"), "Label", &UILabel::propGetText, &UILabel::propSetText);
+    obj.setPropertyCategory("text", "Main");
 
     obj.useList();
     obj.useAny();

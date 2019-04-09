@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
 "POT-Creation-Date: 2019-04-09 18:30+0300\n"
-"PO-Revision-Date: 2019-04-09 21:03+0300\n"
+"PO-Revision-Date: 2019-04-09 21:52+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -1603,7 +1603,7 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_label.cpp
 msgid "Text"
-msgstr ""
+msgstr "Текст"
 
 #: ../ceammc/ext/src/ui/ui_display.cpp ../ceammc/ext/src/ui/ui_label.cpp
 #: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_preset.cpp
