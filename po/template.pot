@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.49.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-04-09 18:03+0300\n"
+"POT-Creation-Date: 2019-04-09 18:14+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,8 @@ msgid "%s properties"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../ceammc/ext/src/ui/ui_gain.cpp
+#: ../ceammc/ext/src/ui/ui_gain2.cpp
 msgid "Bounds"
 msgstr ""
 
@@ -123,6 +124,13 @@ msgid "MIDI"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/ui_arrayview.cpp ../ceammc/ext/src/ui/ui_display.cpp
+#: ../ceammc/ext/src/ui/ui_env.cpp ../ceammc/ext/src/ui/ui_gain.cpp
+#: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_icon.cpp
+msgid "Main"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Patching Size"
 msgstr ""
@@ -150,11 +158,6 @@ msgstr ""
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/pdwindow.tcl
 msgid "normal"
-msgstr ""
-
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/ui_arrayview.cpp ../ceammc/ext/src/ui/ui_display.cpp
-msgid "Main"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
@@ -238,6 +241,10 @@ msgstr ""
 msgid "Line Color"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_env.cpp
+msgid "Length (ms)"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
 #: ../ceammc/ext/src/ui/ui_slider.cpp
@@ -264,6 +271,10 @@ msgstr ""
 msgid "Show range"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+msgid "Misc"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_icon.cpp
 msgid "Icon"
 msgstr ""
@@ -274,6 +285,10 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_icon.cpp
 msgid "Size"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_icon.cpp
+msgid "Base"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_incdec.cpp

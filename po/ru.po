@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-04-09 18:03+0300\n"
-"PO-Revision-Date: 2019-04-09 18:04+0300\n"
+"POT-Creation-Date: 2019-04-09 18:14+0300\n"
+"PO-Revision-Date: 2019-04-09 18:16+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -272,6 +272,10 @@ msgstr "Цвет фона"
 msgid "Bang"
 msgstr "Bang"
 
+#: ../ceammc/ext/src/ui/ui_icon.cpp
+msgid "Base"
+msgstr ""
+
 #: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
@@ -295,7 +299,8 @@ msgid "Bottom"
 msgstr "Снизу"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../ceammc/ext/src/ui/ui_gain.cpp
+#: ../ceammc/ext/src/ui/ui_gain2.cpp
 msgid "Bounds"
 msgstr "Границы"
 
@@ -715,7 +720,7 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_icon.cpp
 msgid "Icon"
-msgstr ""
+msgstr "Иконка"
 
 #: ../tcl/wheredoesthisgo.tcl
 #, tcl-format
@@ -857,6 +862,10 @@ msgstr "Начальная MIDI нота"
 msgid "Length"
 msgstr "Длина"
 
+#: ../ceammc/ext/src/ui/ui_env.cpp
+msgid "Length (ms)"
+msgstr "Длина (мс)"
+
 #: ../tcl/dialog_gatom.tcl
 msgid "Limits"
 msgstr "Диапазон"
@@ -928,6 +937,8 @@ msgstr "MIDI…"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp ../ceammc/ext/src/ui/ui_display.cpp
+#: ../ceammc/ext/src/ui/ui_env.cpp ../ceammc/ext/src/ui/ui_gain.cpp
+#: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_icon.cpp
 msgid "Main"
 msgstr "Основные"
 
@@ -1036,6 +1047,10 @@ msgstr "Минимальное Y-значение"
 #: ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Minimum value"
 msgstr "Минимальное значение"
+
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+msgid "Misc"
+msgstr "Разное"
 
 #: ../ceammc/ext/src/ui/ui_icon.cpp
 msgid "Mode"
@@ -1615,7 +1630,7 @@ msgstr ""
 
 #: ../tcl/dialog_iemgui.tcl ../tcl/pd_menus.tcl
 msgid "Toggle"
-msgstr ""
+msgstr "Toggle"
 
 #: ../ceammc/ext/src/ui/ui_tab.cpp
 msgid "Toggle Mode"

@@ -302,11 +302,11 @@ void UIIcon::setup()
     obj.setPropertyDefaultValue(PROP_BACKGROUND_COLOR, "1 1 1 1");
     obj.setPropertyDefaultValue(PROP_BORDER_COLOR, "1 1 1 1");
 
-    obj.addProperty("icon", _("Icon"), "default", &UIIcon::prop_icon, icons_string);
-    obj.addPropertyIntMenu("icon_size", _("Size"), "24", &UIIcon::prop_size, "48 36 24 18");
+    obj.addProperty("icon", _("Icon"), "default", &UIIcon::prop_icon, icons_string, _("Main"));
+    obj.addPropertyIntMenu("icon_size", _("Size"), "24", &UIIcon::prop_size, "48 36 24 18", _("Base"));
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIIcon::prop_color_active);
 
-    obj.addProperty("mode", _("Mode"), "button", &UIIcon::prop_mode, "toggle button bang");
+    obj.addProperty("mode", _("Mode"), "button", &UIIcon::prop_mode, "toggle button bang", _("Main"));
     obj.addProperty("enabled", &UIIcon::propEnabled, &UIIcon::propSetEnabled);
 
     obj.addMethod("set", &UIIcon::m_set);
