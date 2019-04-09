@@ -34,11 +34,10 @@ set(G_SRC
     g_array.c
     g_bang.c
     g_canvas.c
+    g_ceammc_draw.c
     g_clone.c
     g_editor.c
-    g_draw.h
-    g_draw.c
-    g_draw_tcl.c
+    g_editor_extras.c
     g_graph.c
     g_guiconnect.c
     g_hdial.c
@@ -53,6 +52,7 @@ set(G_SRC
     g_text.c
     g_toggle.c
     g_traversal.c
+    g_undo.c
     g_vdial.c
     g_vslider.c
     g_vumeter.c)
@@ -90,6 +90,12 @@ set(X_SRC
     x_vexp.c
     x_vexp_fun.c
     x_vexp_if.c)
+
+set(MISC_H
+    g_style.h
+    g_style.c
+    g_ceammc_draw.h
+)
 
 set(PD_NEEDED_LIBS)
 
@@ -176,7 +182,7 @@ if(WIN32 OR MSYS)
     set_target_properties(puredata-core PROPERTIES PREFIX "" OUTPUT_NAME pd)
     add_executable(pd WIN32 s_entry.c ${RESOURCE})
 else()
-    add_library(puredata-core STATIC ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
+    add_library(puredata-core STATIC ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC} ${MISC_H})
     add_executable(pd s_entry.c)
     set_target_properties(puredata-core PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()

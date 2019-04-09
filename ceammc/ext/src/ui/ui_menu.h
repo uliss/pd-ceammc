@@ -39,20 +39,21 @@ private:
     int item_height_;
     int current_idx_;
     int hover_idx_;
+    int itemHeightZoomed() const { return item_height_ * zoom(); }
 
 public:
     UIMenu();
 
     void init(t_symbol* name, const AtomList& args, bool usePresets);
     void okSize(t_rect* newrect);
-    void paint(t_object* view);
+    void paint();
 
     void onBang();
     void onFloat(t_float f);
     void onSymbol(t_symbol* s);
     void onAny(t_symbol* s, const AtomList& lst);
 
-    void onMouseDown(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseMove(t_object* view, const t_pt& pt, long modifiers);
     void onMouseLeave(t_object* view, const t_pt& pt, long modifiers);
 

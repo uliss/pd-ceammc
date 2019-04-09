@@ -34,21 +34,23 @@ private:
     float x_pos_;
     float y_pos_;
     bool mouse_down_;
+    bool right_click_;
 
 public:
     UISlider2D();
 
     void okSize(t_rect* newrect);
-    void paint(t_object* view);
-    t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
+    void paint();
+    void onPropChange(t_symbol* prop_name);
     void paintBackground();
     void paintKnob();
 
     void onBang();
     void onList(const AtomList& lst);
-    void onMouseDown(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
+    void onPopup(t_symbol* menu_name, long item_idx);
 
     void m_set(const AtomList& lst);
     void m_move(const AtomList& lst);

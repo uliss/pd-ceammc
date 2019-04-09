@@ -85,7 +85,7 @@ bool Array::isValid() const
     return array_ != 0;
 }
 
-bool Array::open(_symbol* name)
+bool Array::open(t_symbol* name)
 {
     array_ = reinterpret_cast<t_garray*>(pd_findbyclass(name, garray_class));
     if (!array_) {

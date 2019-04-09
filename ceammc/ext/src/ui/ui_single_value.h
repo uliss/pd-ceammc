@@ -21,6 +21,7 @@ public:
     int prop_midi_chn;
     int prop_midi_ctl;
     int prop_midi_pickup;
+    int prop_show_value;
 
 public:
     UISingleValue();
@@ -37,9 +38,9 @@ public:
     void setRealValue(t_float v);
 
     void init(t_symbol* name, const AtomList& args, bool usePresets);
-    t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
+    void onPropChange(t_symbol* prop_name);
     void output();
-    void setDrawParams(t_object*, t_edrawparams* params);
+    void setDrawParams(t_edrawparams* params);
 
     void onBang();
     void onFloat(t_float f);
@@ -59,6 +60,11 @@ public:
 
     void startListenMidi();
     void stopListenMidi();
+
+    void redrawKnob();
+
+protected:
+    UILayer knob_layer_;
 };
 
 #endif // UI_SINGLE_VALUE_H

@@ -29,7 +29,7 @@ static const int MAX_SLIDERS_NUM = 1024;
 static t_symbol* SYM_SLIDER = gensym("slider");
 
 UISliders::UISliders()
-    : txt_font_(FONT_FAMILY, FONT_SIZE_SMALL)
+    : txt_font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , txt_min_(txt_font_.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
     , txt_max_(txt_font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JRIGHT, ETEXT_NOWRAP)
     , select_idx_(-1)
@@ -45,7 +45,20 @@ UISliders::UISliders()
     , c_min()
     , c_max()
 {
+    prependToLayerList(&sliders_layer_);
     createOutlet();
+}
+
+void UISliders::init(t_symbol* name, const AtomList& args, bool usePresets)
+{
+    UIObject::init(name, args, usePresets);
+
+    int n = args.intAt(0, -1);
+
+    if (n > 0) {
+        prop_count = clip<int>(n, 1, MAX_SLIDERS_NUM);
+        pos_values_.resize(prop_count, 0);
+    }
 }
 
 void UISliders::okSize(t_rect* newrect)
@@ -56,15 +69,15 @@ void UISliders::okSize(t_rect* newrect)
     newrect->height = std::max(20.f, newrect->height);
 }
 
-void UISliders::paint(t_object* view)
+void UISliders::paint()
 {
-    paintBackground();
     paintSliders();
+    paintLabels();
 }
 
-void UISliders::paintBackground()
+void UISliders::paintLabels()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)
@@ -75,8 +88,23 @@ void UISliders::paintBackground()
         const float xoff = 3 * z;
         const float yoff = 3 * z;
 
-        txt_min_.set(c_min, xoff, r.height - yoff, r.width * 2, r.height / 2);
-        txt_max_.set(c_max, xoff, yoff, r.width * 2, r.height / 2);
+        if (is_vertical_) {
+            txt_min_.setAnchor(ETEXT_UP_LEFT);
+            txt_min_.setJustify(ETEXT_JLEFT);
+            txt_min_.set(c_min, xoff, yoff, r.width * 2, r.height / 2);
+
+            txt_max_.setAnchor(ETEXT_UP_RIGHT);
+            txt_max_.setJustify(ETEXT_JRIGHT);
+            txt_max_.set(c_max, r.width - xoff, yoff, r.width * 2, r.height / 2);
+        } else {
+            txt_min_.setAnchor(ETEXT_DOWN_LEFT);
+            txt_min_.setJustify(ETEXT_JLEFT);
+            txt_min_.set(c_min, xoff, r.height - yoff, r.width * 2, r.height / 2);
+
+            txt_max_.setAnchor(ETEXT_UP_LEFT);
+            txt_max_.setJustify(ETEXT_JLEFT);
+            txt_max_.set(c_max, xoff, yoff, r.width * 2, r.height / 2);
+        }
 
         p.drawText(txt_min_);
         p.drawText(txt_max_);
@@ -85,7 +113,7 @@ void UISliders::paintBackground()
 
 void UISliders::paintSliders()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = sliders_layer_.painter(r);
 
     if (!p)
@@ -104,9 +132,9 @@ void UISliders::paintSliders()
             w = v * r.width;
             h = r.height / N - 1;
         } else {
-            y = r.height - v * r.height;
+            y = (1 - v) * (r.height);
             x = i * r.width / N;
-            h = r.height;
+            h = r.height - 1;
             w = r.width / N - 1;
         }
 
@@ -147,8 +175,20 @@ void UISliders::storePreset(size_t idx)
     PresetStorage::instance().setListValueAt(presetId(), idx, realValues());
 }
 
-void UISliders::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UISliders::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
+    // right click
+    if (modifiers & EMOD_RIGHT) {
+        UIPopupMenu menu(asEObj(), "popup", abs_pt);
+        char buf[64];
+        snprintf(buf, sizeof(buf), _("fill with %f"), prop_max);
+        menu.addItem(buf);
+        snprintf(buf, sizeof(buf), _("fill with %f"), (prop_max - prop_min) * 0.5);
+        menu.addItem(buf);
+        snprintf(buf, sizeof(buf), _("fill with %f"), prop_min);
+        menu.addItem(buf);
+    }
+
     const t_rect r = rect();
     const size_t N = pos_values_.size();
 
@@ -171,19 +211,40 @@ void UISliders::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
 
     pos_values_[idx] = val;
     outputList();
-    redrawSliders();
+    redrawAll();
 }
 
 void UISliders::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
-    onMouseDown(view, pt, modifiers);
+    onMouseDown(view, pt, pt, modifiers);
 }
 
 void UISliders::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
     t_canvas* c = reinterpret_cast<t_canvas*>(view);
     if (c->gl_edit)
-        resize(height(), width());
+        resize(height() / zoom(), width() / zoom());
+}
+
+void UISliders::onPopup(t_symbol* menu_name, long item_idx)
+{
+    if (menu_name != gensym("popup"))
+        return;
+
+    switch (item_idx) {
+    case 0:
+        m_fill(prop_max);
+        break;
+    case 1:
+        m_fill((prop_max - prop_min) * 0.5);
+        break;
+    case 2:
+        m_fill(prop_min);
+        break;
+    default:
+        UI_ERR << "unknown popup menu item: " << item_idx;
+        break;
+    }
 }
 
 void UISliders::m_get(const AtomList& l)
@@ -266,7 +327,7 @@ bool UISliders::setRealValues(const AtomList& l)
         setRealValueAt(i, f);
     }
 
-    redrawSliders();
+    redrawAll();
     return true;
 }
 
@@ -279,7 +340,7 @@ void UISliders::setPropCount(float f)
 {
     prop_count = clip<int>(f, 1, MAX_SLIDERS_NUM);
     pos_values_.resize(prop_count, prop_min);
-    redrawSliders();
+    redrawAll();
 }
 
 float UISliders::propAutoRange() const
@@ -308,12 +369,6 @@ void UISliders::generateTxtLabels()
 {
     snprintf(c_min, 15, "%g", prop_min);
     snprintf(c_max, 15, "%g", prop_max);
-}
-
-void UISliders::redrawSliders()
-{
-    sliders_layer_.invalidate();
-    redraw();
 }
 
 void UISliders::redrawAll()
@@ -370,7 +425,7 @@ void UISliders::m_set(const AtomList& l)
             }
 
             setRealValueAt(idx, v);
-            redrawSliders();
+            redrawAll();
         } else {
             UI_ERR << "usage: set slider INDEX VALUE";
             return;
@@ -383,7 +438,7 @@ void UISliders::m_set(const AtomList& l)
 void UISliders::m_select(const AtomList& l)
 {
     select_idx_ = l.floatAt(0, -1);
-    redrawSliders();
+    redrawAll();
 }
 
 void UISliders::m_plus(t_float f)
@@ -447,16 +502,16 @@ void UISliders::setup()
     obj.addProperty("slider_color", _("Slider color"), "0.75 0.75 0.75 1.0", &UISliders::prop_slider_color);
     obj.addProperty("select_color", _("Select color"), DEFAULT_ACTIVE_COLOR, &UISliders::prop_select_color);
 
-    obj.addProperty("count", _("Sliders count"), 8, &UISliders::prop_count);
+    obj.addProperty("count", _("Sliders count"), 8, &UISliders::prop_count, "Main");
     obj.setPropertyRange("count", 1, MAX_SLIDERS_NUM);
     obj.setPropertyAccessor("count", &UISliders::propCount, &UISliders::setPropCount);
 
     obj.addProperty("min", _("Minimum Value"), 0, &UISliders::prop_min, "Bounds");
     obj.addProperty("max", _("Maximum Value"), 1, &UISliders::prop_max, "Bounds");
 
-    obj.addProperty("auto_range", _("Auto range"), false, &UISliders::prop_auto_range, "View");
+    obj.addProperty("auto_range", _("Auto range"), false, &UISliders::prop_auto_range, "Main");
     obj.setPropertyAccessor("auto_range", &UISliders::propAutoRange, &UISliders::setPropAutoRange);
-    obj.addProperty("show_range", _("Show range"), true, &UISliders::prop_show_range, "View");
+    obj.addProperty("show_range", _("Show range"), true, &UISliders::prop_show_range, "Main");
 
     obj.addProperty("range", &UISliders::propRange, 0);
     obj.addProperty("value", &UISliders::propValue, 0);
@@ -474,14 +529,10 @@ void UISliders::setup()
     obj.addMethod("fill", &UISliders::m_fill);
 }
 
-t_pd_err UISliders::notify(t_symbol* attrname, t_symbol* msg)
+void UISliders::onPropChange(t_symbol* prop_name)
 {
-    if (msg == s_attr_modified) {
-        generateTxtLabels();
-        redrawAll();
-    }
-
-    return 0;
+    generateTxtLabels();
+    redrawAll();
 }
 
 void setup_ui_sliders()

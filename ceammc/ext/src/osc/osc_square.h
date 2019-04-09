@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "osc_square"
-Code generated with Faust 2.8.5 (https://faust.grame.fr)
+Code generated with Faust 2.15.10 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -372,9 +372,8 @@ struct Meta
 
 #include <algorithm>
 #include <map>
-#include <string.h>
-#include <stdlib.h>
 #include <cstdlib>
+#include <string.h>
 
 
 using std::max;
@@ -382,33 +381,33 @@ using std::min;
 
 struct XXXX_Meta : std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
-inline int lsr(int x, int n)	{ return int(((unsigned int)x) >> n); }
+static int lsr(int x, int n) { return int(((unsigned int)x) >> n); }
 
-inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
+static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
-inline long lopt(char* argv[], const char* name, long def)
+static long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
     for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
-inline bool isopt(char* argv[], const char* name)
+static bool isopt(char* argv[], const char* name)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
 	return false;
 }
 
-inline const char* lopts(char* argv[], const char* name, const char* def)
+static const char* lopts(char* argv[], const char* name, const char* def)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
@@ -539,7 +538,7 @@ class osc_square : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = std::min(192000.0f, std::max(1.0f, float(fSamplingFreq)));
+		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSamplingFreq)));
 		fConst1 = (0.25f * fConst0);
 		fConst2 = (1.0f / fConst0);
 		fConst3 = (0.5f * fConst0);
@@ -579,6 +578,7 @@ class osc_square : public dsp {
 		classInit(samplingFreq);
 		instanceInit(samplingFreq);
 	}
+	
 	virtual void instanceInit(int samplingFreq) {
 		instanceConstants(samplingFreq);
 		instanceResetUserInterface();
@@ -588,6 +588,7 @@ class osc_square : public dsp {
 	virtual osc_square* clone() {
 		return new osc_square();
 	}
+	
 	virtual int getSampleRate() {
 		return fSamplingFreq;
 		
@@ -605,19 +606,19 @@ class osc_square : public dsp {
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			iVec0[0] = 1;
-			float fTemp1 = std::max(fTemp0, 23.4489498f);
-			float fTemp2 = std::max(20.0f, std::fabs(fTemp1));
+			float fTemp1 = std::max<float>(fTemp0, 23.4489498f);
+			float fTemp2 = std::max<float>(20.0f, std::fabs(fTemp1));
 			fVec1[0] = fTemp2;
 			float fTemp3 = (fRec0[1] + (fConst2 * fVec1[1]));
 			fRec0[0] = (fTemp3 - std::floor(fTemp3));
 			float fTemp4 = osc_square_faustpower2_f(((2.0f * fRec0[0]) + -1.0f));
 			fVec2[0] = fTemp4;
-			float fTemp5 = (((fTemp4 - fVec2[1]) * float(iVec0[1])) / fTemp2);
+			float fTemp5 = ((float(iVec0[1]) * (fTemp4 - fVec2[1])) / fTemp2);
 			fVec3[(IOTA & 4095)] = fTemp5;
-			float fTemp6 = std::max(0.0f, std::min(2047.0f, (fConst3 / fTemp1)));
+			float fTemp6 = std::max<float>(0.0f, std::min<float>(2047.0f, (fConst3 / fTemp1)));
 			int iTemp7 = int(fTemp6);
 			float fTemp8 = std::floor(fTemp6);
-			output0[i] = FAUSTFLOAT(((fTemp0 == 0.0f)?0.0f:(fConst1 * (fTemp5 - ((fVec3[((IOTA - iTemp7) & 4095)] * (fTemp8 + (1.0f - fTemp6))) + (fVec3[((IOTA - (iTemp7 + 1)) & 4095)] * (fTemp6 - fTemp8)))))));
+			output0[i] = FAUSTFLOAT(((fTemp0 == 0.0f)?0.0f:(fConst1 * ((fTemp5 - (fVec3[((IOTA - iTemp7) & 4095)] * (fTemp8 + (1.0f - fTemp6)))) - ((fTemp6 - fTemp8) * fVec3[((IOTA - (iTemp7 + 1)) & 4095)])))));
 			iVec0[1] = iVec0[0];
 			fVec1[1] = fVec1[0];
 			fRec0[1] = fRec0[0];
@@ -628,7 +629,6 @@ class osc_square : public dsp {
 		
 	}
 
-	
 };
 // clang-format on
 #endif

@@ -21,6 +21,8 @@ class UIRadio : public UIObject {
 public:
     UIRadio();
 
+    void init(t_symbol* name, const AtomList& args, bool usePresets);
+
     int singleValue() const;
     void setSingleValue(int idx);
     AtomList listValue() const;
@@ -29,18 +31,18 @@ public:
     void output();
     bool isVertical() const { return width() < height(); }
 
-    void paint(t_object* view);
+    void paint();
     void drawBackground();
     void drawItems();
     void okSize(t_rect* newrect);
     void redrawAll();
     void redrawItems();
-    t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
+    void onPropChange(t_symbol* prop_name);
 
     void onBang();
     void onFloat(t_float f);
     void onList(const AtomList& lst);
-    void onMouseDown(t_object*, const t_pt& pt, long mod);
+    void onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
     void loadPreset(size_t idx);
     void storePreset(size_t idx);

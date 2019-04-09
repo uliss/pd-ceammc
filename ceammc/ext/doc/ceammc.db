@@ -418,7 +418,7 @@ ui.meter~,ui.m~		~		.
 ui.number,ui.n		.		.
 ui.number~,ui.n~		~		~
 ui.preset		.		-
-ui.radio		.		.
+ui.radio,ui.hrd,ui.vrd		.		.
 ui.rslider,ui.rsl		.		.
 ui.scope~		.		-
 ui.slider,ui.hsl,ui.vsl		.		.

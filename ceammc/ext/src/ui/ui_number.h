@@ -31,8 +31,8 @@ public:
     UINumber();
 
     void okSize(t_rect* newrect);
-    t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
-    void paint(t_object* view);
+    void onPropChange(t_symbol* prop_name);
+    void paint();
     void drawBackground();
     void drawValue();
 
@@ -41,7 +41,7 @@ public:
     void setValue(t_float f);
     void onKey(int k, long modifiers);
     void onKeyFilter(int k, long modifiers);
-    void onMouseDown(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseLeave(t_object* view, const t_pt& pt, long modifiers);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);

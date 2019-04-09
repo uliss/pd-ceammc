@@ -39,14 +39,10 @@ void UIRSlider::init(t_symbol* name, const AtomList& args, bool usePresets)
     vhigh_ = convert::lin2lin<t_float>(0.6, 0, 1, prop_min, prop_max);
 }
 
-t_pd_err UIRSlider::notify(t_symbol* attr_name, t_symbol* msg)
+void UIRSlider::onPropChange(t_symbol* prop_name)
 {
-    if (msg == s_attr_modified) {
-        redrawBGLayer();
-        redrawKnob();
-    }
-
-    return 0;
+    redrawBGLayer();
+    redrawKnob();
 }
 
 void UIRSlider::okSize(t_rect* newrect)
@@ -67,7 +63,7 @@ void UIRSlider::okSize(t_rect* newrect)
     }
 }
 
-void UIRSlider::paint(t_object* view)
+void UIRSlider::paint()
 {
     drawBackground();
     drawKnob();
@@ -75,7 +71,7 @@ void UIRSlider::paint(t_object* view)
 
 void UIRSlider::drawBackground()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
     if (!p)
         return;
@@ -91,7 +87,7 @@ void UIRSlider::drawBackground()
 
 void UIRSlider::drawKnob()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = knob_layer_.painter(r);
     if (!p)
         return;
@@ -148,9 +144,9 @@ void UIRSlider::onList(const AtomList& lst)
     output();
 }
 
-void UIRSlider::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIRSlider::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
 
     float value = 0;
 
@@ -187,7 +183,7 @@ void UIRSlider::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 
 void UIRSlider::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
 
     float value;
 
@@ -333,9 +329,9 @@ void UIRSlider::setup()
     obj.useBang();
     obj.useList();
 
-    obj.addProperty("min", _("Minimum Value"), 0.f, &UIRSlider::prop_min);
-    obj.addProperty("max", _("Maximum Value"), 1.f, &UIRSlider::prop_max);
-    obj.addProperty("sync", _("Mouse sync"), false, &UIRSlider::prop_mouse_sync);
+    obj.addProperty("min", _("Minimum Value"), 0.f, &UIRSlider::prop_min, _("Bounds"));
+    obj.addProperty("max", _("Maximum Value"), 1.f, &UIRSlider::prop_max, _("Bounds"));
+    obj.addProperty("sync", _("Mouse sync"), false, &UIRSlider::prop_mouse_sync, _("Main"));
     obj.addProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UIRSlider::prop_color_knob);
 
     obj.addProperty("value", &UIRSlider::propValue, &UIRSlider::propSetValue);

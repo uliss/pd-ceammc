@@ -20,9 +20,6 @@
 
 using namespace ceammc::string;
 
-// strange link fix: do not remove!
-static t_symbol* t = gensym("test");
-
 TEST_CASE("ceammc_string", "[PureData]")
 {
     SECTION("utf8_strlen")

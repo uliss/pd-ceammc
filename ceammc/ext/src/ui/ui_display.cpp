@@ -76,7 +76,7 @@ UIDisplay::UIDisplay()
     , type_width_(-1)
     , prop_active_color(rgba_white)
     , prop_text_color(rgba_black)
-    , font_(FONT_FAMILY, FONT_SIZE)
+    , font_(gensym(FONT_FAMILY), FONT_SIZE)
     , txt_value_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_WRAP)
     , txt_type_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
     , msg_type_(gensym("..."))
@@ -85,9 +85,9 @@ UIDisplay::UIDisplay()
 {
 }
 
-void UIDisplay::paint(t_object* view)
+void UIDisplay::paint()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
 
     UIPainter p = bg_layer_.painter(r);
 
@@ -124,9 +124,9 @@ void UIDisplay::paint(t_object* view)
 
 void UIDisplay::okSize(t_rect* newrect)
 {
-    float min_width = 40 * zoom();
+    float min_width = 40;
     if (prop_display_type != 0)
-        min_width += TYPE_WIDTH * zoom();
+        min_width += TYPE_WIDTH;
 
     newrect->width = pd_clip_min(newrect->width, min_width);
     newrect->height = pd_clip_min(newrect->height, 18);
@@ -209,13 +209,14 @@ void UIDisplay::setup()
 {
     UIObjectFactory<UIDisplay> obj("ui.display");
     obj.addAlias("ui.d");
+    obj.hideLabel();
 
     obj.setDefaultSize(150, 18);
 
     obj.hideProperty("send");
-    obj.addProperty("display_events", _("Display events"), true, &UIDisplay::prop_display_events);
-    obj.addProperty("display_type", _("Display type"), false, &UIDisplay::prop_display_type);
-    obj.addProperty("auto_size", _("Auto size"), true, &UIDisplay::prop_auto_size);
+    obj.addProperty("display_events", _("Display events"), true, &UIDisplay::prop_display_events, _("Main"));
+    obj.addProperty("display_type", _("Display type"), false, &UIDisplay::prop_display_type, _("Main"));
+    obj.addProperty("auto_size", _("Auto size"), true, &UIDisplay::prop_auto_size, _("Main"));
     obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UIDisplay::prop_text_color);
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIDisplay::prop_active_color);
 
@@ -277,10 +278,6 @@ void UIDisplay::update()
         float w = msg_txt_.size() * 8 + type_width_ + 7;
         float h = int(w / 250) * 15 + 15;
         w = std::min(std::max(w, 20.f), 250.f); // 20 <= w <= 250
-
-        h *= zoom();
-        w *= zoom();
-
         resize(w, h);
     }
 

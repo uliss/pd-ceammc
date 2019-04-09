@@ -153,31 +153,34 @@ namespace tl {
         return cue_map_.find(cnv) != cue_map_.end();
     }
 
-    static bool sort_cue_ptr(CueData* a, CueData* b)
-    {
-        return a->xPos() < b->xPos();
-    }
-
     void CueStorage::sort(t_canvas* cnv)
     {
         CueList* lst = cueList(cnv);
         if (lst == 0)
             return;
 
-        std::sort(lst->begin(), lst->end(), sort_cue_ptr);
+        std::sort(lst->begin(), lst->end(),
+            [](const CueData* a, const CueData* b) { return a->xPos() < b->xPos(); });
     }
 
-    void CueStorage::enumerate(t_canvas* cnv)
+    bool CueStorage::enumerate(t_canvas* cnv)
     {
+        bool changed = false;
         CueList* lst = cueList(cnv);
         if (lst == 0)
-            return;
+            return changed;
 
-        CueList::iterator it;
         int i = 0;
-        for (it = lst->begin(); it != lst->end(); ++it) {
-            (*it)->setIndex(i++);
+        for (auto it = lst->begin(); it != lst->end(); ++it) {
+            if ((*it)->index() != i) {
+                changed = true;
+                (*it)->setIndex(i);
+            }
+
+            i++;
         }
+
+        return changed;
     }
 
     size_t CueStorage::cueCount(const t_canvas* cnv)

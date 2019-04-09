@@ -15,7 +15,7 @@ endmacro()
 
 ceammc_tl_extension(bang)
 ceammc_tl_extension(baseobject)
-ceammc_tl_extension(cue)
+ceammc_tl_extension(cue_new)
 ceammc_tl_extension(timeline)
 ceammc_tl_extension(toggle)
 ceammc_tl_extension(transport)
@@ -33,3 +33,9 @@ if(BISON_FOUND AND FLEX_FOUND)
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     )
 endif()
+
+add_custom_target(ceammc_tl_tcl_gen
+    COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh tl_cue_fn.tcl
+    DEPENDS tl_cue_fn.tcl
+    SOURCES tl_cue_fn.tcl
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})

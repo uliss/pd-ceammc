@@ -44,9 +44,9 @@ void UILabel::okSize(t_rect* newrect)
     newrect->height = pd_clip_min(newrect->height, 20);
 }
 
-void UILabel::paint(t_object* view)
+void UILabel::paint()
 {
-    const t_rect& r = rect();
+    const auto r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (p) {
@@ -75,12 +75,12 @@ void UILabel::paint(t_object* view)
     }
 }
 
-void UILabel::setDrawParams(t_object*, t_edrawparams* params)
+void UILabel::setDrawParams(t_edrawparams* params)
 {
-    params->d_borderthickness = 1;
+    UIObject::setDrawParams(params);
+    // set border and background to the same color
     params->d_bordercolor = prop_color_background;
     params->d_boxfillcolor = prop_color_background;
-    params->d_cornersize = 0;
 }
 
 void UILabel::init(t_symbol* name, const AtomList& args, bool usePresets)
@@ -149,6 +149,7 @@ void UILabel::setup()
 {
     UIObjectFactory<UILabel> obj("ui.label", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK, CLASS_NOINLET);
     obj.setDefaultSize(300, 47);
+    obj.hideLabel();
 
     obj.hideProperty("border_color");
     obj.hideProperty("send");
@@ -160,6 +161,11 @@ void UILabel::setup()
     obj.setPropertyDefaultValue("fontweight", "normal");
     obj.setPropertyDefaultValue("background_color", "1 1 1 1");
     obj.setPropertyDefaultValue("pinned", "1");
+    // change default categories
+    obj.setPropertyCategory("fontname", "Main");
+    obj.setPropertyCategory("fontsize", "Main");
+    obj.setPropertyCategory("fontweight", "Main");
+    obj.setPropertyCategory("fontslant", "Main");
 
     obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UILabel::prop_text_color);
 
@@ -168,8 +174,9 @@ void UILabel::setup()
     obj.addProperty("margin_bottom", _("Margin bottom"), 5, &UILabel::prop_margin_bottom, "Margins");
     obj.addProperty("margin_right", _("Margin right"), 5, &UILabel::prop_margin_right, "Margins");
 
-    obj.addProperty("align", _("Align"), SYM_LEFT->s_name, &UILabel::prop_align, "left center right");
+    obj.addProperty("align", _("Align"), SYM_LEFT->s_name, &UILabel::prop_align, "left center right", "Main");
     obj.addVirtualProperty("text", _("Text"), "Label", &UILabel::propGetText, &UILabel::propSetText);
+    obj.setPropertyCategory("text", "Main");
 
     obj.useList();
     obj.useAny();

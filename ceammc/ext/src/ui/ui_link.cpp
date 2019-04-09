@@ -21,7 +21,7 @@ static float FIX_TEXT_Y_OFF = 0;
 #elif __APPLE__
 static t_symbol* LINK_FONT = gensym("Menlo");
 static float FIX_LINK_Y_POS = 3;
-static float FIX_TEXT_Y_OFF = 1;
+static float FIX_TEXT_Y_OFF = 2;
 #else
 static t_symbol* LINK_FONT = gensym("DejaVu Sans Mono");
 static float FIX_LINK_Y_POS = 3;
@@ -31,21 +31,24 @@ static float FIX_TEXT_Y_OFF = 0;
 static size_t text_width(t_symbol* txt, int sz)
 {
     const size_t len = strlen(txt->s_name);
-    size_t char_wd = static_cast<size_t>(sys_fontwidth(sz));
+    float char_wd = static_cast<size_t>(sys_fontwidth(sz));
     int corr = 0;
 
 #ifdef __APPLE__
-    if (len < 6)
+    if (len < 6) {
+        char_wd += 0.5;
         corr = 3;
-    if (len > 16)
-        corr = -3;
+    } else {
+        char_wd += 0.6;
+        corr = 2;
+    }
 #elif __WIN32
     char_wd += 5;
 #else
     char_wd += 3;
 #endif
 
-    return char_wd * len + corr;
+    return std::round(char_wd * len) + corr;
 }
 
 UILink::UILink()
@@ -61,20 +64,20 @@ UILink::UILink()
 
 void UILink::okSize(t_rect* newrect)
 {
-    float w = prop_title ? text_width(prop_title, FONT_SIZE) * zoom() : 40;
+    float w = prop_title ? text_width(prop_title, FONT_SIZE) : 40;
     newrect->width = pd_clip_min(w, 20);
     float h = ebox_fontheight(asEBox());
 
 #ifdef __APPLE__
-    newrect->height = h;
+    newrect->height = std::round(h * 1.3);
 #else
     newrect->height = floorf(1.5 * h);
 #endif
 }
 
-void UILink::paint(t_object* view)
+void UILink::paint()
 {
-    const t_rect& r = rect();
+    const auto r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)
@@ -85,32 +88,27 @@ void UILink::paint(t_object* view)
     link_text_.setFont(&asEBox()->b_font);
 
     link_text_.setColor(hover_ ? prop_color_hover : prop_color_link);
-    link_text_.set(prop_title->s_name, 3, r.height / 2, 0, 0);
+    link_text_.set(prop_title->s_name, 3, r.height / 2 + FIX_TEXT_Y_OFF, 0, 0);
 
     p.drawText(link_text_);
 }
 
-void UILink::setDrawParams(t_object*, t_edrawparams* params)
+void UILink::setDrawParams(t_edrawparams* params)
 {
-    params->d_borderthickness = 1;
+    UIObject::setDrawParams(params);
     params->d_bordercolor = prop_color_background;
     params->d_boxfillcolor = prop_color_background;
-    params->d_cornersize = 0;
 }
 
-t_pd_err UILink::notify(t_symbol* attr_name, t_symbol* msg)
+void UILink::onPropChange(t_symbol* prop_name)
 {
-    if (msg == s_attr_modified) {
-        if (attr_name == gensym("title")) {
-            size_t w = text_width(prop_title, FONT_SIZE) * zoom();
-            resize(w, 0);
-        }
+    if (prop_name == gensym("title")) {
+        size_t w = text_width(prop_title, FONT_SIZE) * zoom();
+        resize(w, 0);
     }
-
-    return 0;
 }
 
-void UILink::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UILink::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     t_canvas* c = reinterpret_cast<t_canvas*>(view);
     if (!c) {
@@ -150,14 +148,15 @@ void UILink::setup()
     obj.hideProperty("send");
     obj.hideProperty("receive");
     obj.hideProperty("size");
+    obj.hideLabel();
     obj.hideProperty(PROP_BACKGROUND_COLOR);
     obj.hideProperty(PROP_BORDER_COLOR);
 
     obj.setDefaultSize(120, 15);
     obj.setPropertyDefaultValue(PROP_BACKGROUND_COLOR, "1.0 1.0 1.0 1.0");
 
-    obj.addSymbolProperty("url", _("URL"), "<no url>", &UILink::prop_url);
-    obj.addSymbolProperty("title", _("Title"), "<no title>", &UILink::prop_title);
+    obj.addSymbolProperty("url", _("URL"), "<no url>", &UILink::prop_url, _("Main"));
+    obj.addSymbolProperty("title", _("Title"), "<no title>", &UILink::prop_title, _("Main"));
     obj.setPropertyAccessor("title", &UILink::p_title, &UILink::p_setTitle);
     obj.addProperty("link_color", _("Link Color"), "0 0.625 0.75 1", &UILink::prop_color_link);
     obj.addProperty("hover_color", _("Hover Color"), "1 0 0.5 1", &UILink::prop_color_hover);

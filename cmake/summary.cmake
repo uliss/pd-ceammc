@@ -58,5 +58,6 @@ message(STATUS "  Coverage:         ${WITH_COVERAGE}")
 message(STATUS "  Benchmark:        ${WITH_BENCHMARK}")
 message(STATUS "  Experimental:     ${WITH_EXPERIMENTAL}")
 message(STATUS "  Install prefix:   ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "  External suffix:  ${PD_EXTERNAL_EXTENSION}")
 message(STATUS "")
 

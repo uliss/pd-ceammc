@@ -48,31 +48,31 @@ UIDspDebug::~UIDspDebug()
         post("[ceammc] %s", str().c_str());
 }
 
-t_symbol* UIDspObject::BG_LAYER = gensym("background_layer");
+const char* UIDspObject::BG_LAYER = "background_layer";
 
 #ifdef __APPLE__
-t_symbol* UIDspObject::FONT_FAMILY = gensym("Helvetica");
+const char* UIDspObject::FONT_FAMILY = "Helvetica";
 const int UIDspObject::FONT_SIZE = 12;
 const int UIDspObject::FONT_SIZE_SMALL = 8;
 #elif _WIN32
-t_symbol* UIDspObject::FONT_FAMILY = gensym("DejaVu Sans Mono");
+const char* UIDspObject::FONT_FAMILY = "DejaVu Sans Mono";
 const int UIDspObject::FONT_SIZE = 9;
 const int UIDspObject::FONT_SIZE_SMALL = 6;
 #else
-t_symbol* UIDspObject::FONT_FAMILY = gensym("DejaVu Sans Mono");
+const char* UIDspObject::FONT_FAMILY = "DejaVu Sans Mono";
 const int UIDspObject::FONT_SIZE = 9;
 const int UIDspObject::FONT_SIZE_SMALL = 6;
 #endif
 
-t_symbol* UIDspObject::FONT_STYLE = gensym("roman");
-t_symbol* UIDspObject::FONT_WEIGHT = gensym("normal");
-t_symbol* UIDspObject::COLOR_ACTIVE = gensym("#00C0FF");
+const char* UIDspObject::FONT_STYLE = "roman";
+const char* UIDspObject::FONT_WEIGHT = "normal";
+const char* UIDspObject::COLOR_ACTIVE = "#00C0FF";
 
 UIDspObject::PresetNameMap UIDspObject::presets_;
 
 UIDspObject::UIDspObject()
     : name_(&s_)
-    , bg_layer_(asEBox(), BG_LAYER)
+    , bg_layer_(asEBox(), gensym(BG_LAYER))
     , old_preset_id_(s_null)
     , cursor_(ECURSOR_LEFT_PTR)
     , samplerate_(44100)
@@ -80,6 +80,7 @@ UIDspObject::UIDspObject()
     , use_presets_(false)
     , prop_color_background(rgba_white)
     , prop_color_border(rgba_black)
+    , prop_color_label(rgba_black)
 {
 }
 
@@ -89,7 +90,12 @@ UIDspObject::~UIDspObject()
     unbindAll();
 }
 
-t_ebox* UIDspObject::asEBox() const { return reinterpret_cast<t_ebox*>(const_cast<UIDspObject*>(this)); }
+t_ebox* UIDspObject::asEBox() const { return &const_cast<UIDspObject*>(this)->e_box; }
+
+t_eobj* UIDspObject::asEObj() const
+{
+    return &const_cast<UIDspObject*>(this)->e_box.b_obj;
+}
 
 t_edspbox* UIDspObject::asDspBox() const
 {
@@ -146,16 +152,21 @@ t_symbol* UIDspObject::name() const
 
 t_symbol* UIDspObject::presetId()
 {
-    return b_objpreset_id;
+    return e_box.b_objpreset_id;
 }
 
-void UIDspObject::paint(t_object* view)
+void UIDspObject::paint()
 {
 }
 
 void UIDspObject::redraw()
 {
     ebox_redraw(asEBox());
+}
+
+void UIDspObject::redrawInnerArea()
+{
+    ebox_redraw_inner(asEBox());
 }
 
 void UIDspObject::redrawBGLayer()
@@ -166,13 +177,13 @@ void UIDspObject::redrawBGLayer()
 
 void UIDspObject::updateSize()
 {
-    ebox_notify(asEBox(), s_size, &s_, NULL, NULL);
+    ebox_notify(asEBox(), s_size);
 }
 
 void UIDspObject::resize(int w, int h)
 {
-    b_rect.width = w;
-    b_rect.height = h;
+    e_box.b_rect.width = w;
+    e_box.b_rect.height = h;
     updateSize();
 }
 
@@ -184,7 +195,7 @@ void UIDspObject::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
 }
 
-void UIDspObject::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIDspObject::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
 }
 
@@ -208,23 +219,22 @@ void UIDspObject::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
 }
 
-t_pd_err UIDspObject::notify(t_symbol* /*attr_name*/, t_symbol* msg)
+void UIDspObject::onPopup(t_symbol* menu_name, long item_idx)
 {
-    if (msg == s_attr_modified) {
-        redrawBGLayer();
-    }
+}
 
-    return 0;
+void UIDspObject::onPropChange(t_symbol* /*prop_name*/)
+{
+    redrawBGLayer();
 }
 
 void UIDspObject::okSize(t_rect* newrect)
 {
 }
 
-void UIDspObject::setDrawParams(t_object*, t_edrawparams* params)
+void UIDspObject::setDrawParams(t_edrawparams* params)
 {
     params->d_borderthickness = 1;
-    params->d_cornersize = 1;
     params->d_bordercolor = prop_color_border;
     params->d_boxfillcolor = prop_color_background;
 }
@@ -368,15 +378,22 @@ void UIDspObject::send(t_symbol* s, const AtomList& lst)
         pd_typedmess(send, s, lst.size(), lst.toPdData());
 }
 
-const t_rect& UIDspObject::rect() const { return asEBox()->b_rect; }
+t_rect UIDspObject::rect() const
+{
+    auto z = asEBox()->b_zoom;
+    auto r = asEBox()->b_rect;
+    r.width *= z;
+    r.height *= z;
+    return r;
+}
 
 float UIDspObject::x() const { return asEBox()->b_rect.x; }
 
 float UIDspObject::y() const { return asEBox()->b_rect.y; }
 
-float UIDspObject::width() const { return asEBox()->b_rect.width; }
+float UIDspObject::width() const { return asEBox()->b_rect.width * asEBox()->b_zoom; }
 
-float UIDspObject::height() const { return asEBox()->b_rect.height; }
+float UIDspObject::height() const { return asEBox()->b_rect.height * asEBox()->b_zoom; }
 
 float UIDspObject::zoom() const
 {
@@ -401,14 +418,14 @@ void UIDspObject::presetInit()
     old_preset_id_ = s_null;
     if ((!presetId() || presetId() == s_null) && !isPatchLoading()) {
         t_symbol* name = genPresetName(name_);
-        b_objpreset_id = name;
-        bindPreset(b_objpreset_id);
+        e_box.b_objpreset_id = name;
+        bindPreset(e_box.b_objpreset_id);
     } else if (isPatchEdited() && !isPatchLoading()) {
-        PresetNameMap::iterator it = presets_.find(b_objpreset_id);
+        PresetNameMap::iterator it = presets_.find(e_box.b_objpreset_id);
         if (it != presets_.end() && it->second > 1) {
             t_symbol* name = genPresetName(name_);
-            rebindPreset(b_objpreset_id, name);
-            b_objpreset_id = name;
+            rebindPreset(e_box.b_objpreset_id, name);
+            e_box.b_objpreset_id = name;
         }
     }
 
@@ -425,7 +442,7 @@ void UIDspObject::bindPreset(t_symbol* name)
     post("bind preset: %s", name->s_name);
 #endif
 
-    pd_bind(asPd(), Preset::SYM_PRESET_ALL);
+    pd_bind(asPd(), gensym(Preset::SYM_PRESET_ALL));
     PresetStorage::instance().bindPreset(name);
     acquirePresetName(name);
 }
@@ -439,7 +456,7 @@ void UIDspObject::unbindPreset(t_symbol* name)
     post("unbind preset: %s", name->s_name);
 #endif
 
-    pd_unbind(asPd(), Preset::SYM_PRESET_ALL);
+    pd_unbind(asPd(), gensym(Preset::SYM_PRESET_ALL));
     PresetStorage::instance().unbindPreset(name);
     releasePresetName(name);
 }
@@ -473,7 +490,7 @@ void UIDspObject::handlePresetNameChange()
             rebindPreset(old_preset_id_, presetId());
 
         // sync
-        old_preset_id_ = b_objpreset_id;
+        old_preset_id_ = e_box.b_objpreset_id;
     }
 }
 
@@ -489,7 +506,7 @@ size_t UIDspObject::numOutlets() const
 
 bool UIDspObject::hasProperty(t_symbol* name) const
 {
-    t_eclass* c = (t_eclass*)b_obj.o_obj.te_g.g_pd;
+    t_eclass* c = eobj_getclass(asEObj());
 
     for (int i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == name)

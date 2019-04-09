@@ -16,9 +16,9 @@ public:
     void init(t_symbol* name, const AtomList& args, bool);
 
     bool okSize(t_rect* newrect);
-    void paint(t_object*);
+    void paint();
 
-    void onMouseDown(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onDblClick(t_object*, const t_pt&, long mod);
     void onAny(t_symbol* s, const AtomList& lst);
 

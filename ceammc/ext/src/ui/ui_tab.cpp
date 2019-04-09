@@ -55,9 +55,9 @@ void UITab::okSize(t_rect* newrect)
     }
 }
 
-void UITab::paint(t_object* view)
+void UITab::paint()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
     if (!p)
         return;
@@ -164,7 +164,7 @@ void UITab::onAny(t_symbol* s, const AtomList& lst)
     onSymbol(s);
 }
 
-void UITab::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UITab::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     const size_t N = items_.size();
     if (!N)
@@ -494,16 +494,18 @@ void UITab::setup()
     obj.useFloat();
     obj.useSymbol();
     obj.usePresets();
+    obj.hideLabelInner();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_MOVE | UI_MOUSE_LEAVE);
 
     obj.showProperty("fontname");
     obj.showProperty("fontsize");
     obj.showProperty("fontweight");
 
-    obj.addProperty("orientation", _("Vertical Orientation"), false, &UITab::prop_is_vertical);
-    obj.addProperty("toggle", _("Toggle Mode"), false, &UITab::prop_toggle_mode);
+    obj.addProperty("orientation", _("Vertical Orientation"), false, &UITab::prop_is_vertical, "Main");
+    obj.addProperty("toggle", _("Toggle Mode"), false, &UITab::prop_toggle_mode, "Main");
     obj.addProperty("items", &UITab::propItems, &UITab::propSetItems);
     obj.showProperty("items");
+    obj.setPropertyCategory("items", "Main");
     obj.setPropertyLabel("items", _("Items"));
     obj.setPropertySave("items");
     obj.addProperty("count", &UITab::propCount, 0);

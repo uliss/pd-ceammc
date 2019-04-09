@@ -348,15 +348,15 @@ proc ::dialog_midi::pdtk_midi_dialog {id \
     if {$longform == 0} {
         frame $id.longbutton
         pack $id.longbutton -side top -fill x
-        button $id.longbutton.b -text [_ "Use multiple devices"] \
+        button $id.longbutton.b -text [_ "Use Multiple Devices"] \
             -command  {pdsend "pd midi-properties 1"}
-        pack $id.longbutton.b -expand 1 -ipadx 10 -pady 3
+        pack $id.longbutton.b -expand 1 -ipadx 10 -pady 5
     }
 
     # save all settings button
     button $id.saveall -text [_ "Save All Settings"] \
         -command "::dialog_midi::apply $id; pdsend \"pd save-preferences\""
-    pack $id.saveall -side top -expand 1 -ipadx 10 -pady 3
+    pack $id.saveall -side top -expand 1 -ipadx 10 -pady 5
 
     # buttons
     frame $id.buttonframe
@@ -487,7 +487,7 @@ proc ::dialog_midi::pdtk_alsa_midi_dialog {id indev1 indev2 indev3 indev4 \
     # set min size based on widget sizing & pos over pdwindow
     wm minsize $id [winfo reqwidth $id] [winfo reqheight $id]
     position_over_window $id .pdwindow
-    rase "$id"
+    raise "$id"
 }
 
 # for focus handling on OSX

@@ -15,6 +15,7 @@
 #include "../base/debug_gensym.h"
 #include "catch.hpp"
 #include "ceammc.hpp"
+#include "g_ceammc_draw.h"
 
 extern "C" void pd_init();
 
@@ -94,5 +95,12 @@ TEST_CASE("PD", "[PureData]")
         REQUIRE(ceammc::get_env("TEST") == "");
         ceammc::set_env("TEST", "VALUE");
         REQUIRE(ceammc::get_env("TEST") == "VALUE");
+    }
+
+    SECTION("int2str")
+    {
+        char buf[20];
+        REQUIRE(g_int2str(0, buf) == 1);
+        REQUIRE(std::string("0") == buf);
     }
 }

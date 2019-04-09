@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "dyn_limit"
-Code generated with Faust 2.8.5 (https://faust.grame.fr)
+Code generated with Faust 2.15.10 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -397,9 +397,8 @@ struct Meta
 
 #include <algorithm>
 #include <map>
-#include <string.h>
-#include <stdlib.h>
 #include <cstdlib>
+#include <string.h>
 
 
 using std::max;
@@ -407,33 +406,33 @@ using std::min;
 
 struct XXXX_Meta : std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
-inline int lsr(int x, int n)	{ return int(((unsigned int)x) >> n); }
+static int lsr(int x, int n) { return int(((unsigned int)x) >> n); }
 
-inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
+static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
-inline long lopt(char* argv[], const char* name, long def)
+static long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
     for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
-inline bool isopt(char* argv[], const char* name)
+static bool isopt(char* argv[], const char* name)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
 	return false;
 }
 
-inline const char* lopts(char* argv[], const char* name, const char* def)
+static const char* lopts(char* argv[], const char* name, const char* def)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
@@ -589,7 +588,7 @@ class limit : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = std::min(192000.0f, std::max(1.0f, float(fSamplingFreq)));
+		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSamplingFreq)));
 		fConst1 = std::exp((0.0f - (2500.0f / fConst0)));
 		fConst2 = (1.0f - fConst1);
 		fConst3 = std::exp((0.0f - (1250.0f / fConst0)));
@@ -621,6 +620,7 @@ class limit : public dsp {
 		classInit(samplingFreq);
 		instanceInit(samplingFreq);
 	}
+	
 	virtual void instanceInit(int samplingFreq) {
 		instanceConstants(samplingFreq);
 		instanceResetUserInterface();
@@ -630,6 +630,7 @@ class limit : public dsp {
 	virtual limit* clone() {
 		return new limit();
 	}
+	
 	virtual int getSampleRate() {
 		return fSamplingFreq;
 		
@@ -648,9 +649,9 @@ class limit : public dsp {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = std::fabs(fTemp0);
 			float fTemp2 = ((fRec1[1] > fTemp1)?fConst4:fConst3);
-			fRec2[0] = ((fTemp1 * (1.0f - fTemp2)) + (fTemp2 * fRec2[1]));
+			fRec2[0] = ((fRec2[1] * fTemp2) + (fTemp1 * (1.0f - fTemp2)));
 			fRec1[0] = fRec2[0];
-			fRec0[0] = ((fConst1 * fRec0[1]) + (fConst2 * (0.0f - (0.75f * std::max(((20.0f * std::log10(fRec1[0])) + 6.0f), 0.0f)))));
+			fRec0[0] = ((fConst1 * fRec0[1]) + (fConst2 * (0.0f - (0.75f * std::max<float>(((20.0f * std::log10(fRec1[0])) + 6.0f), 0.0f)))));
 			output0[i] = FAUSTFLOAT((fTemp0 * std::pow(10.0f, (0.0500000007f * fRec0[0]))));
 			fRec2[1] = fRec2[0];
 			fRec1[1] = fRec1[0];
@@ -660,7 +661,6 @@ class limit : public dsp {
 		
 	}
 
-	
 };
 // clang-format on
 #endif

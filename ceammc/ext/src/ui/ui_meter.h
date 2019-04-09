@@ -43,7 +43,7 @@ public:
     UIMeter();
 
     void okSize(t_rect* newrect);
-    void paint(t_object* view);
+    void paint();
     void drawBackground();
     void drawLeds();
 

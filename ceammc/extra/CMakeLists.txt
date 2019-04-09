@@ -16,6 +16,7 @@ add_subdirectory(sf2)
 add_subdirectory(speech)
 add_subdirectory(stk)
 add_subdirectory(subprocess)
+add_subdirectory(fmt)
 
 if(WITH_EXPERIMENTAL)
     add_subdirectory(libusb)

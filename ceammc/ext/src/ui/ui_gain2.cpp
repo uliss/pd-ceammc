@@ -46,11 +46,12 @@ void UIGain2::setup()
     obj.addProperty("db", &UIGain2::dbValue, &UIGain2::setDbValue);
     obj.setPropertyDefaultValue("db", "-60");
     obj.addProperty("amp", &UIGain2::ampValue, &UIGain2::setAmpValue);
-    obj.addIntProperty("max", _("Maximum value"), 0, &UIGain2::prop_max);
-    obj.addIntProperty("min", _("Minimum value"), -60, &UIGain2::prop_min);
+    obj.addIntProperty("max", _("Maximum value"), 0, &UIGain2::prop_max, _("Bounds"));
+    obj.addIntProperty("min", _("Minimum value"), -60, &UIGain2::prop_min, _("Bounds"));
     obj.setPropertyRange("max", -12, 12);
     obj.setPropertyRange("min", -90, -30);
-    obj.addBoolProperty("output_value", _("Output value"), false, &UIGain2::prop_output_value);
+    obj.addBoolProperty("show_range", _("Show range"), true, &UIGain2::prop_show_range, _("Misc"));
+    obj.addBoolProperty("output_value", _("Output value"), false, &UIGain2::prop_output_value, _("Main"));
 
     obj.setDefaultSize(15, 120);
     obj.usePresets();

@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "dyn_softclip"
-Code generated with Faust 2.8.5 (https://faust.grame.fr)
+Code generated with Faust 2.15.10 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -397,9 +397,8 @@ struct Meta
 
 #include <algorithm>
 #include <map>
-#include <string.h>
-#include <stdlib.h>
 #include <cstdlib>
+#include <string.h>
 
 
 using std::max;
@@ -407,33 +406,33 @@ using std::min;
 
 struct XXXX_Meta : std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
-inline int lsr(int x, int n)	{ return int(((unsigned int)x) >> n); }
+static int lsr(int x, int n) { return int(((unsigned int)x) >> n); }
 
-inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
+static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
-inline long lopt(char* argv[], const char* name, long def)
+static long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
     for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
-inline bool isopt(char* argv[], const char* name)
+static bool isopt(char* argv[], const char* name)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
 	return false;
 }
 
-inline const char* lopts(char* argv[], const char* name, const char* def)
+static const char* lopts(char* argv[], const char* name, const char* def)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
@@ -586,6 +585,7 @@ class softclip : public dsp {
 		classInit(samplingFreq);
 		instanceInit(samplingFreq);
 	}
+	
 	virtual void instanceInit(int samplingFreq) {
 		instanceConstants(samplingFreq);
 		instanceResetUserInterface();
@@ -595,6 +595,7 @@ class softclip : public dsp {
 	virtual softclip* clone() {
 		return new softclip();
 	}
+	
 	virtual int getSampleRate() {
 		return fSamplingFreq;
 		
@@ -610,7 +611,7 @@ class softclip : public dsp {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
 		for (int i = 0; (i < count); i = (i + 1)) {
-			float fTemp0 = (std::fabs((2.0f * (std::max(-0.25f, std::min(0.25f, (0.158800006f * float(input0[i])))) + -0.25f))) + -0.5f);
+			float fTemp0 = (std::fabs((2.0f * (std::max<float>(-0.25f, std::min<float>(0.25f, (0.158800006f * float(input0[i])))) + -0.25f))) + -0.5f);
 			float fTemp1 = softclip_faustpower2_f(fTemp0);
 			output0[i] = FAUSTFLOAT((fTemp0 * ((fTemp1 * ((2.26548004f * fTemp1) + -5.13274002f)) + 3.14159012f)));
 			
@@ -618,7 +619,6 @@ class softclip : public dsp {
 		
 	}
 
-	
 };
 // clang-format on
 #endif

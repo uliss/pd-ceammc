@@ -33,7 +33,6 @@ void PitchTrack::initProperties()
     p_framesize->set(Atom(positionalFloatArgument(0, 1024)));
 
     framesize_ = new PitchTrackEnumProperty(p_framesize, this, [](PitchTrack* this_, IntEnumProperty* p) {
-        LIB_DBG << "setting frame size to: " << p->value();
         this_->helmholtz_->setframesize(p->value());
     });
     framesize_->info().setUnits(PropertyInfoUnits::SAMP);
@@ -46,13 +45,11 @@ void PitchTrack::initProperties()
     p_overlap->set(Atom(positionalFloatArgument(1, 1)));
 
     overlap_ = new PitchTrackEnumProperty(p_overlap, this, [](PitchTrack* this_, IntEnumProperty* p) {
-        LIB_DBG << "setting overlap to: " << p->value();
         this_->helmholtz_->setoverlap(p->value());
     });
     createProperty(overlap_);
 
     bias_ = new PitchTrackFloatProperty(new FloatPropertyClosedRange("@bias", 0.2, 0, 1), this, [](PitchTrack* this_, FloatPropertyClosedRange* p) {
-        LIB_DBG << "setting bias to: " << p->value();
         this_->helmholtz_->setbias(p->value());
     });
     createProperty(bias_);

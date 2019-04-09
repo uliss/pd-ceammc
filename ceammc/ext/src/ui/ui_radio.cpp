@@ -24,6 +24,28 @@ UIRadio::UIRadio()
     createOutlet();
 }
 
+void UIRadio::init(t_symbol* name, const AtomList& args, bool usePresets)
+{
+    UIObject::init(name, args, usePresets);
+
+    if (name == gensym("ui.vrd"))
+        std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+
+    int n = args.intAt(0, -1);
+    if (n > 0) {
+        prop_nitems_ = clip<int>(n, 2, MAX_ITEMS);
+        const int dim1 = 15;
+        const int dim2 = ((dim1 + 1) * prop_nitems_) - 1;
+        if (isVertical()) {
+            asEBox()->b_rect.width = dim1;
+            asEBox()->b_rect.height = dim2;
+        } else {
+            asEBox()->b_rect.width = dim2;
+            asEBox()->b_rect.height = dim1;
+        }
+    }
+}
+
 int UIRadio::singleValue() const
 {
     return idx_;
@@ -63,7 +85,7 @@ void UIRadio::onList(const AtomList& lst)
     redrawItems();
 }
 
-void UIRadio::onMouseDown(t_object*, const t_pt& pt, long mod)
+void UIRadio::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
 {
     t_rect r = rect();
     const int idx = isVertical() ? (pt.y / r.height * prop_nitems_) : (pt.x / r.width * prop_nitems_);
@@ -86,9 +108,9 @@ void UIRadio::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
     t_canvas* c = reinterpret_cast<t_canvas*>(view);
     if (c->gl_edit)
-        resize(height(), width());
+        resize(height() / zoom(), width() / zoom());
     else
-        onMouseDown(view, pt, modifiers);
+        onMouseDown(view, pt, pt, modifiers);
 }
 
 float UIRadio::p_numItems() const
@@ -271,7 +293,7 @@ void UIRadio::output()
     }
 }
 
-void UIRadio::paint(t_object* view)
+void UIRadio::paint()
 {
     drawBackground();
     drawItems();
@@ -279,7 +301,7 @@ void UIRadio::paint(t_object* view)
 
 void UIRadio::drawBackground()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)
@@ -289,15 +311,15 @@ void UIRadio::drawBackground()
     p.setColor(prop_color_border);
 
     if (isVertical()) {
-        const int cell_size = r.width + 1;
+        const int cell_size = r.width + zoom();
         for (int i = 1; i < prop_nitems_; i++) {
-            int y = i * cell_size - 1;
+            int y = i * cell_size - zoom();
             p.drawLine(-1, y, r.width, y);
         }
     } else {
-        const int cell_size = r.height + 1;
+        const int cell_size = r.height + zoom();
         for (int i = 1; i < prop_nitems_; i++) {
-            int x = i * cell_size - 1;
+            int x = i * cell_size - zoom();
             p.drawLine(x, -1, x, r.height);
         }
     }
@@ -305,7 +327,7 @@ void UIRadio::drawBackground()
 
 void UIRadio::drawItems()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = items_layer_.painter(r);
 
     if (!p)
@@ -314,13 +336,14 @@ void UIRadio::drawItems()
     p.setColor(prop_color_active);
     const int cell_size = isVertical() ? r.width : r.height;
 
+    // draw crosses
     if (prop_checklist_mode_) {
         p.setLineWidth(2);
 
         if (isVertical()) {
             for (int i = 0; i < prop_nitems_; i++) {
                 if (items_[i]) {
-                    const int offset = i * (cell_size + 1);
+                    const int offset = i * (cell_size + zoom());
 
                     const int x0 = offset + 1;
                     const int y0 = 1;
@@ -335,7 +358,7 @@ void UIRadio::drawItems()
         } else {
             for (int i = 0; i < prop_nitems_; i++) {
                 if (items_[i]) {
-                    const int offset = i * (cell_size + 1);
+                    const int offset = i * (cell_size + zoom());
 
                     const int x0 = offset + 1;
                     const int y0 = 1;
@@ -349,14 +372,15 @@ void UIRadio::drawItems()
             }
         }
     } else {
+        // draw knobs
         const int knob_offset = std::max((static_cast<int>(roundf(cell_size * 0.16f)) / 2) * 2, 2);
-        const int knob_size = cell_size - knob_offset * 2;
+        const int knob_size = cell_size - knob_offset * 2 - 1;
         const float cell_offset = (cell_size - knob_size) / 2;
 
         if (isVertical()) {
             for (int i = 0; i < prop_nitems_; i++) {
                 if (i == idx_) {
-                    float y = i * (cell_size + 1) + cell_offset;
+                    float y = i * (cell_size + zoom()) + cell_offset;
                     p.drawRect(cell_offset, y, knob_size, knob_size);
                     p.fill();
                 }
@@ -365,7 +389,7 @@ void UIRadio::drawItems()
         } else {
             for (int i = 0; i < prop_nitems_; i++) {
                 if (i == idx_) {
-                    float x = i * (cell_size + 1) + cell_offset;
+                    float x = i * (cell_size + zoom()) + cell_offset;
                     p.drawRect(x, cell_offset, knob_size, knob_size);
                     p.fill();
                 }
@@ -398,39 +422,39 @@ void UIRadio::redrawAll()
 {
     bg_layer_.invalidate();
     items_layer_.invalidate();
-    redraw();
+    redrawInnerArea();
 }
 
 void UIRadio::redrawItems()
 {
     items_layer_.invalidate();
-    redraw();
+    redrawInnerArea();
 }
 
-t_pd_err UIRadio::notify(t_symbol* attr_name, t_symbol* msg)
+void UIRadio::onPropChange(t_symbol* prop_name)
 {
-    if (msg == s_attr_modified) {
-        redrawAll();
-    }
-
-    return 0;
+    redrawAll();
 }
 
 void UIRadio::setup()
 {
     UIObjectFactory<UIRadio> obj("ui.radio");
+    obj.addAlias("ui.hrd");
+    obj.addAlias("ui.vrd");
+
     obj.useBang();
     obj.useFloat();
     obj.useList();
     obj.usePresets();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DBL_CLICK);
     obj.setDefaultSize(127, 15);
+    obj.hideLabelInner();
 
     obj.addProperty("active_color", _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIRadio::prop_color_active);
-    obj.addProperty("nitems", _("Number of Items"), 8, &UIRadio::prop_nitems_, "Basic");
+    obj.addProperty("nitems", _("Number of Items"), 8, &UIRadio::prop_nitems_, _("Main"));
     obj.setPropertyRange("nitems", 2, MAX_ITEMS);
     obj.setPropertyAccessor("nitems", &UIRadio::p_numItems, &UIRadio::p_setNumItems);
-    obj.addProperty("mode", _("Check List Mode"), false, &UIRadio::prop_checklist_mode_);
+    obj.addProperty("mode", _("Check List Mode"), false, &UIRadio::prop_checklist_mode_, _("Main"));
     obj.setPropertyAccessor("mode", &UIRadio::p_mode, &UIRadio::p_setMode);
     obj.addProperty("value", &UIRadio::p_value, &UIRadio::p_setValue);
 

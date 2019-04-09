@@ -13,7 +13,7 @@
 static t_rgba RGBA_WHITE = hex_to_rgba("#F0F0F0");
 static t_rgba RGBA_BLACK = hex_to_rgba("#505050");
 
-size_t keyboard_white_keys(size_t num_keys)
+size_t keyboard_num_white_keys(size_t num_keys)
 {
     size_t n_octave = num_keys / 12;
     size_t n_number = num_keys % 12;
@@ -51,6 +51,117 @@ static t_rect white_key_rect(int offset, float black_key_w, float key_h)
     return ret;
 }
 
+std::vector<t_pt> white_key_poly(int offset, float black_key_w, float key_h)
+{
+    enum side_t {
+        SIDE_LEFT = 0,
+        SIDE_RIGHT = 1
+    };
+
+    enum offset_t {
+        NO_OFF = 0,
+        LEFT_OFF = 1,
+        RIGHT_OFF = -1
+    };
+
+    struct PointTemplate {
+        size_t side;
+        offset_t off;
+        float height;
+    };
+
+    static const float Y_TOP = 0;
+    static const float Y_BLACK = 0.6f;
+    static const float Y_BOTTOM = 1;
+
+    static std::vector<PointTemplate> key_templates[] = {
+        // white key template: C
+        // .__.
+        // |  |
+        // |  |
+        // |  |_.
+        // |    |
+        // |____|
+
+        { { SIDE_LEFT, NO_OFF, Y_TOP },
+            { SIDE_LEFT, NO_OFF, Y_BOTTOM },
+            { SIDE_RIGHT, NO_OFF, Y_BOTTOM },
+            { SIDE_RIGHT, NO_OFF, Y_BLACK },
+            { SIDE_RIGHT, RIGHT_OFF, Y_BLACK },
+            { SIDE_RIGHT, RIGHT_OFF, Y_TOP } },
+
+        // white key template: D
+        //  .__.
+        //  |  |
+        //  |  |
+        //  |  |
+        // ..  ..
+        // |    |
+        // |____|
+        {
+            { SIDE_LEFT, LEFT_OFF, Y_TOP },
+            { SIDE_LEFT, LEFT_OFF, Y_BLACK },
+            { SIDE_LEFT, NO_OFF, Y_BLACK },
+            { SIDE_LEFT, NO_OFF, Y_BOTTOM },
+            { SIDE_RIGHT, NO_OFF, Y_BOTTOM },
+            { SIDE_RIGHT, NO_OFF, Y_BLACK },
+            { SIDE_RIGHT, RIGHT_OFF, Y_BLACK },
+            { SIDE_RIGHT, RIGHT_OFF, Y_TOP } },
+
+        // white key template: E
+        //   .__.
+        //   |  |
+        //   |  |
+        //   |  |
+        // ._|  |
+        // |    |
+        // |____|
+        {
+            { SIDE_LEFT, LEFT_OFF, Y_TOP },
+            { SIDE_LEFT, LEFT_OFF, Y_BLACK },
+            { SIDE_LEFT, NO_OFF, Y_BLACK },
+            { SIDE_LEFT, NO_OFF, Y_BOTTOM },
+            { SIDE_RIGHT, NO_OFF, Y_BOTTOM },
+            { SIDE_RIGHT, NO_OFF, Y_TOP } }
+    };
+
+    const int n_number = offset % 12;
+    const int n_octave = offset / 12;
+
+    int template_idx = 0;
+    switch (n_number) {
+    case 0:
+    case 5:
+        template_idx = 0;
+        break;
+    case 2:
+    case 7:
+    case 9:
+        template_idx = 1;
+        break;
+    case 4:
+    case 11:
+        template_idx = 2;
+        break;
+    }
+
+    const std::vector<PointTemplate>& ktmpl = key_templates[template_idx];
+    std::vector<t_pt> res;
+    res.reserve(ktmpl.size());
+
+    const float white_key_w = black_key_w * 2;
+
+    for (const PointTemplate& ptmp : ktmpl) {
+        t_pt pt;
+        pt.x = (offset + (n_number > 4 ? 1 : 0) + 2 * n_octave) * black_key_w
+            + white_key_w * ptmp.side + black_key_w * ptmp.off * 0.5;
+        pt.y = ptmp.height * key_h;
+        res.push_back(pt);
+    }
+
+    return res;
+}
+
 void setup_ui_keyboard()
 {
     UIKeyboard::setup();
@@ -63,97 +174,106 @@ UIKeyboard::UIKeyboard()
     , velocity_(0)
     , mouse_pressed_(false)
     , prop_color_active_(rgba_black)
+    , key_layer_(asEBox(), gensym("keys_layer"))
 {
+    appendToLayerList(&key_layer_);
     createOutlet();
 }
 
 bool UIKeyboard::okSize(t_rect* newrect)
 {
-    float min_width = keyboard_white_keys(keys_) * 8;
+    float min_width = keyboard_num_white_keys(keys_) * 8;
     newrect->width = pd_clip_min(newrect->width, min_width);
     newrect->height = pd_clip_min(newrect->height, 40.);
     return true;
 }
 
-void UIKeyboard::paint(t_object* view)
+void UIKeyboard::paint()
 {
-    const t_rect& r = rect();
-    UIPainter p = bg_layer_.painter(r);
+    if (keyboard_num_white_keys(keys_) < 1)
+        return;
 
-    if (p) {
-        const float black_key_w = width() / (keyboard_white_keys(keys_) * 2.f);
-        const float key_h = height();
-
-        // two pass draw
-        // draw white keys first
-        for (int i = 0; i < keys_; i++) {
-            if (music::keyboard::is_black_key(i))
-                continue;
-
-            t_rect key_rect = white_key_rect(i, black_key_w, key_h);
-
-            bool hover = (i == current_key_);
-
-            p.drawRect(key_rect);
-            p.setColor((hover & mouse_pressed_) ? prop_color_active_ : RGBA_WHITE);
-            p.fill();
-
-            p.drawRect(key_rect);
-            p.setColor(hover ? prop_color_active_ : prop_color_border);
-            p.stroke();
-
-            if (i + shift_ == 60) { // middle C indicator
-
-                p.setLineWidth(2);
-                p.setColor(prop_color_active_);
-
-                const float w = black_key_w * 1.5;
-
-                p.drawLine(key_rect.x, key_rect.y, key_rect.x + w / 2, key_rect.y + w / 2);
-                p.drawLine(key_rect.x + w, key_rect.y, key_rect.x + w / 2, key_rect.y + w / 2);
-                p.drawLine(key_rect.x, key_rect.y, key_rect.x + w, key_rect.y);
-
-                p.setLineWidth(1);
-            }
-        }
-
-        // draw black keys
-        for (int i = 0; i < keys_; i++) {
-            if (music::keyboard::is_white_key(i))
-                continue;
-
-            t_rect key_r = black_key_rect(i, black_key_w, key_h);
-
-            bool hover = (i == current_key_);
-
-            p.drawRect(key_r);
-            p.setColor((hover & mouse_pressed_) ? prop_color_active_ : RGBA_BLACK);
-            p.fill();
-
-            p.drawRect(key_r);
-            p.setColor(hover ? prop_color_active_ : prop_color_border);
-            p.stroke();
-        }
-    }
+    drawBackground();
+    drawActive();
 }
 
-void UIKeyboard::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIKeyboard::releaseAllNotes()
 {
+    for (int k : sustained_keys_) {
+        listTo(0, AtomList(shift_ + k, 0.f));
+    }
+
+    sustained_keys_.clear();
+    velocity_ = 0;
+    current_key_ = -1;
+
+    redrawLayer(key_layer_);
+}
+
+void UIKeyboard::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
+{
+    if (modifiers & EMOD_RIGHT) {
+        UIPopupMenu menu(asEObj(), "popup", abs_pt);
+        menu.addItem(_("release all"));
+        menu.addSeparator();
+        menu.addItem("maj"); // 1
+        menu.addItem("min"); // 2
+        menu.addItem("aug"); // 3
+        menu.addItem("dim"); // 4
+        menu.addItem("7"); // 5
+        menu.addItem("maj7"); // 6
+        menu.addItem("min7"); // 7
+        menu.addItem("aug7"); // 8
+
+        velocity_ = std::min<int>(127, int(pt.y / height() * 100.f) + 27);
+        current_key_ = findPressedKey(pt);
+        return;
+    }
+
+    // release all notes
+    if (modifiers & EMOD_ALT) {
+        releaseAllNotes();
+        return;
+    }
+
     // calc velocity
     velocity_ = std::min<int>(127, int(pt.y / height() * 100.f) + 27);
     mouse_pressed_ = true;
     current_key_ = findPressedKey(pt);
-    output();
-    redrawBGLayer();
+    if (current_key_ < 0)
+        return;
+
+    // sustain mode
+    if (modifiers & EMOD_SHIFT) {
+        // add new sustaind note
+        if (sustained_keys_.find(current_key_) == sustained_keys_.end()) {
+            sustained_keys_.insert(current_key_);
+            output();
+            current_key_ = -1;
+        } else { // remove sustained note
+            sustained_keys_.erase(current_key_);
+            velocity_ = 0;
+            output();
+            current_key_ = -1;
+        }
+    } else {
+        output();
+    }
+
+    redrawLayer(key_layer_);
 }
 
 void UIKeyboard::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
+    if (current_key_ == -1)
+        return;
+
     velocity_ = 0;
     mouse_pressed_ = false;
     output();
-    redrawBGLayer();
     current_key_ = -1;
+
+    redrawLayer(key_layer_);
 }
 
 void UIKeyboard::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
@@ -165,7 +285,8 @@ void UIKeyboard::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
 {
     current_key_ = -1;
     mouse_pressed_ = false;
-    redrawBGLayer();
+
+    redrawLayer(key_layer_);
 }
 
 void UIKeyboard::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
@@ -187,15 +308,72 @@ void UIKeyboard::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
         current_key_ = new_pitch;
         output();
 
-        redrawBGLayer();
+        redrawLayer(key_layer_);
     }
+}
+
+void UIKeyboard::onPopup(t_symbol* menu_name, long item_idx)
+{
+    if (menu_name == gensym("popup")) {
+        switch (item_idx) {
+        case 0:
+            releaseAllNotes();
+            break;
+        case 1: {
+            playChord({ 0, 4, 7 });
+            redrawLayer(key_layer_);
+        } break;
+        case 2: {
+            playChord({ 0, 3, 7 });
+            redrawLayer(key_layer_);
+        } break;
+        case 3: {
+            playChord({ 0, 4, 8 });
+            redrawLayer(key_layer_);
+        } break;
+        case 4: {
+            playChord({ 0, 3, 6 });
+            redrawLayer(key_layer_);
+        } break;
+        case 5: {
+            playChord({ 0, 4, 7, 10 });
+            redrawLayer(key_layer_);
+        } break;
+        case 6: {
+            playChord({ 0, 4, 7, 11 });
+            redrawLayer(key_layer_);
+        } break;
+        case 7: {
+            playChord({ 0, 3, 7, 10 });
+            redrawLayer(key_layer_);
+        } break;
+        case 8: {
+            playChord({ 0, 4, 8, 10 });
+            redrawLayer(key_layer_);
+        } break;
+        default:
+            UI_ERR << "popup menu unknown index: " << item_idx;
+            break;
+        }
+    }
+}
+
+void UIKeyboard::playChord(const std::unordered_set<int>& keys)
+{
+    if (current_key_ == -1)
+        current_key_ = 60;
+
+    for (int k : keys)
+        sustained_keys_.insert(current_key_ + k);
+
+    output();
 }
 
 int UIKeyboard::findPressedKey(const t_pt& pt) const
 {
     int res = -1;
 
-    const float black_key_w = width() / (keyboard_white_keys(keys_) * 2.f);
+    const float black_key_w = width() / (keyboard_num_white_keys(keys_) * 2.f);
     const float white_key_w = black_key_w * 2;
     const int key = music::keyboard::wkey_to_key<int>(round(pt.x / white_key_w));
 
@@ -221,6 +399,9 @@ int UIKeyboard::findPressedKey(const t_pt& pt) const
         }
     }
 
+    if (res >= keys_)
+        return keys_ - 1;
+
     return res;
 }
 
@@ -228,6 +409,7 @@ void UIKeyboard::setup()
 {
     UIObjectFactory<UIKeyboard> obj("ui.keyboard");
 
+    obj.hideLabelInner();
     obj.useBang();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG
         | UI_MOUSE_MOVE | UI_MOUSE_LEAVE
@@ -236,11 +418,11 @@ void UIKeyboard::setup()
     obj.addProperty("active_color", _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIKeyboard::prop_color_active_);
     obj.hideProperty(PROP_BACKGROUND_COLOR);
 
-    obj.addProperty("keys", _("Keys"), 61, &UIKeyboard::keys_);
+    obj.addProperty("keys", _("Keys"), 61, &UIKeyboard::keys_, _("Main"));
     obj.setDefaultSize(433, 60);
     obj.setPropertyRange("keys", 5, 88);
 
-    obj.addProperty("shift", _("Leftmost MIDI note"), 36, &UIKeyboard::shift_);
+    obj.addProperty("shift", _("Leftmost MIDI note"), 36, &UIKeyboard::shift_, _("Main"));
     obj.setPropertyRange("shift", 6, 88);
 }
 
@@ -251,5 +433,125 @@ int UIKeyboard::realPitch() const
 
 void UIKeyboard::output()
 {
+    if (current_key_ == -1)
+        return;
+
     listTo(0, AtomList(realPitch(), velocity_));
+}
+
+void UIKeyboard::drawBackground()
+{
+    const t_rect r = rect();
+    UIPainter p = bg_layer_.painter(r);
+    const float black_key_w = width() / (keyboard_num_white_keys(keys_) * 2.f);
+    const float key_h = height();
+
+    if (p) {
+        // two pass draw
+        // draw white keys first
+        for (int i = 0; i < keys_; i++) {
+            if (music::keyboard::is_black_key(i))
+                continue;
+
+            t_rect key_rect = white_key_rect(i, black_key_w, key_h);
+
+            p.drawRect(key_rect);
+            p.setColor(RGBA_WHITE);
+            p.fillPreserve();
+            p.setColor(prop_color_border);
+            p.stroke();
+
+            if (i + shift_ == 60) { // middle C indicator
+                p.setLineWidth(2);
+                p.setColor(prop_color_active_);
+
+                const float w = black_key_w * 1.5;
+
+                p.drawLine(key_rect.x, key_rect.y, key_rect.x + w / 2, key_rect.y + w / 2);
+                p.drawLine(key_rect.x + w, key_rect.y, key_rect.x + w / 2, key_rect.y + w / 2);
+                p.drawLine(key_rect.x, key_rect.y, key_rect.x + w, key_rect.y);
+
+                p.setLineWidth(1);
+            }
+        }
+
+        // draw black keys
+        for (int i = 0; i < keys_; i++) {
+            if (music::keyboard::is_white_key(i))
+                continue;
+
+            t_rect key_r = black_key_rect(i, black_key_w, key_h);
+
+            p.drawRect(key_r);
+            p.setColor(RGBA_BLACK);
+            p.fillPreserve();
+
+            p.setColor(prop_color_border);
+            p.stroke();
+        }
+    }
+}
+
+void UIKeyboard::drawActive()
+{
+    const t_rect r = rect();
+    const float black_key_w = width() / (keyboard_num_white_keys(keys_) * 2.f);
+    const float key_h = height();
+
+    UIPainter kp = key_layer_.painter(r);
+    if (kp) {
+        if (current_key_ >= 0 && mouse_pressed_) {
+            if (music::keyboard::is_black_key(current_key_)) {
+                t_rect key_r = black_key_rect(current_key_, black_key_w, key_h);
+
+                kp.drawRect(key_r);
+                kp.setColor(prop_color_active_);
+                kp.fill();
+            } else {
+                const bool is_C = (current_key_ % 12) == 0;
+                const bool is_F = (current_key_ % 12) == 5;
+                // last white full key (C or F)
+                const bool full = ((current_key_ + 1) == keys_) && (is_C || is_F);
+
+                if (full) {
+                    t_rect key_r = white_key_rect(current_key_, black_key_w, key_h);
+                    kp.drawRect(key_r);
+                    kp.setColor(prop_color_active_);
+                    kp.fill();
+                } else {
+                    auto vec = white_key_poly(current_key_, black_key_w, key_h);
+                    kp.drawPoly(vec);
+                    kp.setColor(prop_color_active_);
+                    kp.fill();
+                }
+            }
+        }
+
+        for (int key : sustained_keys_) {
+            if (music::keyboard::is_black_key(key)) {
+                t_rect key_r = black_key_rect(key, black_key_w, key_h);
+
+                kp.drawRect(key_r);
+                kp.setColor(prop_color_active_);
+                kp.fill();
+            } else {
+                const bool is_C = (key % 12) == 0;
+                const bool is_F = (key % 12) == 5;
+                // last white full key (C or F)
+                const bool full = ((key + 1) == keys_) && (is_C || is_F);
+
+                if (full) {
+                    t_rect key_r = white_key_rect(key, black_key_w, key_h);
+                    kp.drawRect(key_r);
+                    kp.setColor(prop_color_active_);
+                    kp.fill();
+                } else {
+                    auto vec = white_key_poly(key, black_key_w, key_h);
+                    kp.drawPoly(vec);
+                    kp.setColor(prop_color_active_);
+                    kp.fill();
+                }
+            }
+        }
+    }
 }

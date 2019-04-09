@@ -19,6 +19,7 @@
         </meta>
         <info>
             <par>Piano keyboard widget</par>
+            <par>Shift+click allows multiple selection. Alt+Click release sustained notes</par>
         </info>
         <properties>
             <property name="@keys" type="int" default="61" minvalue="5" maxvalue="88">number of

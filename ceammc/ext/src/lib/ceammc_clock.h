@@ -58,17 +58,20 @@ public:
 
     ~ClockMemberFunction()
     {
-        clock_free(clock_);
+        if (clock_)
+            clock_free(clock_);
     }
 
     void unset()
     {
-        clock_unset(clock_);
+        if (clock_)
+            clock_unset(clock_);
     }
 
     void delay(double ms)
     {
-        clock_delay(clock_, ms);
+        if (clock_)
+            clock_delay(clock_, ms);
     }
 
 private:

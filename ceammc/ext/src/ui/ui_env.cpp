@@ -8,10 +8,6 @@
 
 static const int ENV_MIN_WIDTH = 40;
 static const int ENV_MIN_HEIGHT = 30;
-static t_symbol* GRID_COLOR = gensym("#C0C0C0");
-static t_symbol* ENV_COLOR = gensym("#505050");
-static t_symbol* ENV_COLOR2 = gensym("#00C0FF");
-static t_symbol* ENV_ACTIVE = gensym("#FF0000");
 static t_rgba DELETE_COLOR = hex_to_rgba("#F00030");
 static const char* DEFAULT_LINE_COLOR = "0.1 0.1 0.1 1.0";
 static const char* PROP_LENGTH = "length";
@@ -33,11 +29,12 @@ UIEnv::UIEnv()
     : draw_cursor_pos_(false)
     , draw_cursor_cross_(false)
     , delete_mode_(false)
+    , envelope_layer_(asEBox(), gensym("envelope_layer"))
     , cursor_layer_(asEBox(), gensym("cursor_layer"))
-    , font_(FONT_FAMILY, FONT_SIZE_SMALL)
+    , font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , cursor_txt_pos_(font_.font(), ColorRGBA::black(), ETEXT_UP, ETEXT_JCENTER)
     , max_env_value_(1)
-    , txt_font(FONT_FAMILY, FONT_SIZE_SMALL)
+    , txt_font(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , txt_value0(txt_font.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
     , txt_value1(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT)
     , txt_value2(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT)
@@ -46,6 +43,9 @@ UIEnv::UIEnv()
     cursor_pos_.y = 0;
     cursor_txt_pos_.setWidth(100);
     cursor_txt_pos_.setY(FONT_SIZE_SMALL);
+
+    appendToLayerList(&envelope_layer_);
+    appendToLayerList(&cursor_layer_);
 
     createOutlet();
     env_.setADSR(40 * 1000, 60 * 1000, 0.3, 400 * 1000);
@@ -82,142 +82,11 @@ void UIEnv::onData(const DataPtr& ptr)
     onBang();
 }
 
-void UIEnv::paint(t_object*)
+void UIEnv::drawCursor(const t_rect& r)
 {
-    const t_rect& r = rect();
-    UIPainter bp = bg_layer_.painter(r);
-
-    if (bp) {
-        const size_t total = nodes_.size();
-
-        // draw grid
-        // horizontal
-        bp.setColor(rgba_addContrast(prop_color_background, 0.05));
-
-        bp.drawLine(-1, height() * 0.25, width(), height() * 0.25);
-        bp.drawLine(-1, height() * 0.5, width(), height() * 0.5);
-        bp.drawLine(-1, height() * 0.75, width(), height() * 0.75);
-
-        txt_value0.setColor(prop_color_border);
-        txt_value0.setPos(3, 3);
-        txt_value0.set("1.0");
-        bp.drawText(txt_value0);
-
-        txt_value1.setColor(prop_color_border);
-        txt_value1.setPos(3, height() * 0.5 - 2);
-        txt_value1.set("0.5");
-        bp.drawText(txt_value1);
-
-        txt_value2.setColor(prop_color_border);
-        txt_value2.setPos(3, height() - 2);
-        txt_value2.set("0.0");
-        bp.drawText(txt_value2);
-
-        // vertical
-        float len_ms = env_.totalLength() / 1000;
-        float p = log10f(len_ms);
-        float np = 0;
-        if (modff(p, &np) < 0.35)
-            np -= 1;
-
-        float step = ((powf(10, np)) / len_ms) * width();
-        if (step > 3) {
-            for (float x = 0; x < width(); x += step) {
-                bp.drawLine(x, 0, x, height());
-            }
-        }
-
-        for (size_t i = 0; i < total; i++) {
-            const Node& n = nodes_[i];
-
-            bp.setColor(prop_line_color);
-
-            // draw segments
-            if (i != (total - 1)) { // skip last point
-                const Node& next = nodes_[i + 1];
-
-                switch (n.type) {
-                case CURVE_LINE:
-                    bp.drawLine(n.x, n.y, next.x, next.y);
-                    break;
-                case CURVE_STEP:
-                    bp.drawLine(n.x, n.y, next.x, n.y);
-                    bp.drawLine(next.x, n.y, next.x, next.y);
-                    break;
-                case CURVE_EXP: {
-
-                    bp.moveTo(n.x, n.y);
-
-                    int i = n.x;
-                    for (; i < next.x; i += 4) {
-                        float y = convert::lin2curve(float(i), n.x, next.x, n.y, next.y, n.curve);
-                        bp.drawLineTo(i, y);
-                    }
-
-                    bp.drawLineTo(next.x, next.y);
-                    bp.stroke();
-
-                } break;
-                case CURVE_SIN2: {
-
-                    bp.moveTo(n.x, n.y);
-
-                    int i = n.x;
-                    for (; i < next.x; i += 4) {
-                        float y = convert::lin2sin2(i, n.x, next.x, n.y, next.y);
-                        bp.drawLineTo(i, y);
-                    }
-
-                    bp.drawLineTo(next.x, next.y);
-                    bp.stroke();
-
-                } break;
-                case CURVE_SIGMOID: {
-
-                    bp.moveTo(n.x, n.y);
-
-                    int i = n.x;
-                    for (; i < next.x; i += 4) {
-                        float y = convert::lin2sigmoid(i, n.x, next.x, n.y, next.y, n.sigmoid_skew);
-                        bp.drawLineTo(i, y);
-                    }
-
-                    bp.drawLineTo(next.x, next.y);
-                    bp.stroke();
-
-                } break;
-                default:
-                    break;
-                }
-            }
-
-            // draw selection rectangle
-            if (n.is_selected) {
-                if (delete_mode_)
-                    bp.setColor(DELETE_COLOR);
-
-                bp.drawRect(n.x - 6, n.y - 6, 12, 12);
-                bp.stroke();
-            }
-
-            // draw point itself
-            bp.setColor(prop_line_color);
-            bp.drawRect(n.x - 3, n.y - 3, 6, 6);
-            bp.fill();
-
-            // draw vertical dash line for stop point
-            if (n.is_stop) {
-                bp.setDashStyle(EDASHSTYLE_24);
-                bp.drawLine(n.x, 0, n.x, height());
-                bp.setDashStyle(EDASHSTYLE_NONE);
-            }
-        }
-    }
-
     UIPainter cp = cursor_layer_.painter(r);
 
     if (cp) {
-
         // draw add point cross
         if (draw_cursor_cross_) {
             cp.setColor(prop_active_color);
@@ -239,6 +108,162 @@ void UIEnv::paint(t_object*)
     }
 }
 
+void UIEnv::drawBackground(const t_rect& r)
+{
+    UIPainter bp = bg_layer_.painter(r);
+
+    if (bp) {
+        // grid: horizontal
+        bp.setColor(rgba_addContrast(prop_color_background, 0.05));
+
+        bp.drawLine(-1, height() * 0.25, width(), height() * 0.25);
+        bp.drawLine(-1, height() * 0.5, width(), height() * 0.5);
+        bp.drawLine(-1, height() * 0.75, width(), height() * 0.75);
+
+        // grid: vertical
+        const float len_ms = env_.totalLength() / 1000;
+        float p = log10f(len_ms);
+        float np = 0;
+        if (modff(p, &np) < 0.35)
+            np -= 1;
+
+        float step = ((powf(10, np)) / len_ms) * width();
+        if (step > 3) {
+            for (float x = 0; x < width(); x += step) {
+                bp.drawLine(x, 0, x, height());
+            }
+        }
+
+        // labels
+        // label top
+        txt_value0.setColor(prop_color_border);
+        txt_value0.setPos(3, 3);
+        txt_value0.set("1.0");
+        bp.drawText(txt_value0);
+
+        // draw middle label if has enough space
+        if ((height() / zoom()) > 50) {
+            txt_value1.setColor(prop_color_border);
+            txt_value1.setPos(3, height() * 0.5 - 2);
+            txt_value1.set("0.5");
+            bp.drawText(txt_value1);
+        }
+
+        // label bottom
+        txt_value2.setColor(prop_color_border);
+        txt_value2.setPos(3, height() - 2);
+        txt_value2.set("0.0");
+        bp.drawText(txt_value2);
+    }
+}
+
+void UIEnv::drawEnvelope(const t_rect& r)
+{
+    UIPainter ep = envelope_layer_.painter(r);
+
+    if (ep) {
+        const size_t total = nodes_.size();
+        const float z = zoom();
+
+        // draw nodes
+        for (size_t i = 0; i < total; i++) {
+            const Node& n = nodes_[i];
+
+            ep.setColor(prop_line_color);
+
+            // draw segments
+            if (i != (total - 1)) { // skip last point
+                const Node& next = nodes_[i + 1];
+
+                switch (n.type) {
+                case CURVE_LINE:
+                    ep.drawLine(n.x * z, n.y * z, next.x * z, next.y * z);
+                    break;
+                case CURVE_STEP:
+                    ep.drawLine(n.x * z, n.y * z, next.x * z, n.y * z);
+                    ep.drawLine(next.x * z, n.y * z, next.x * z, next.y * z);
+                    break;
+                case CURVE_EXP: {
+                    ep.moveTo(n.x * z, n.y * z);
+
+                    int i = n.x * z;
+                    for (; i < next.x * z; i += 4 * z) {
+                        float y = convert::lin2curve(float(i), n.x* z, next.x* z, n.y* z, next.y* z, n.curve);
+                        ep.drawLineTo(i, y);
+                    }
+
+                    ep.drawLineTo(next.x * z, next.y * z);
+                    ep.stroke();
+
+                } break;
+                case CURVE_SIN2: {
+
+                    ep.moveTo(n.x * z, n.y * z);
+
+                    int i = n.x * z;
+                    for (; i < next.x * z; i += 4 * z) {
+                        float y = convert::lin2sin2(i, n.x * z, next.x * z, n.y * z, next.y * z);
+                        ep.drawLineTo(i, y);
+                    }
+
+                    ep.drawLineTo(next.x * z, next.y * z);
+                    ep.stroke();
+
+                } break;
+                case CURVE_SIGMOID: {
+
+                    ep.moveTo(n.x * z, n.y * z);
+
+                    int i = n.x * z;
+                    for (; i < next.x * z; i += 4 * z) {
+                        float y = convert::lin2sigmoid(i, n.x * z, next.x * z,
+                            n.y * z, next.y * z, n.sigmoid_skew);
+                        ep.drawLineTo(i, y);
+                    }
+
+                    ep.drawLineTo(next.x * z, next.y * z);
+                    ep.stroke();
+
+                } break;
+                default:
+                    break;
+                }
+            }
+
+            // draw selection rectangle
+            if (n.is_selected) {
+                bool is_inner_node = ((i != 0) && (i != (total - 1)));
+                if (delete_mode_ && is_inner_node)
+                    ep.setColor(DELETE_COLOR);
+
+                ep.drawRect((n.x - 6) * z, (n.y - 6) * z, 12 * z, 12 * z);
+                ep.stroke();
+            }
+
+            // draw point itself
+            ep.setColor(prop_line_color);
+            ep.drawRect((n.x - 3) * z, (n.y - 3) * z, 6 * z, 6 * z);
+            ep.fill();
+
+            // draw vertical dash line for stop point
+            if (n.is_stop) {
+                ep.setDashStyle(EDASHSTYLE_24);
+                ep.drawLine(n.x * z, 0, n.x * z, height());
+                ep.setDashStyle(EDASHSTYLE_NONE);
+            }
+        }
+    }
+}
+
+void UIEnv::paint()
+{
+    const t_rect r = rect();
+
+    drawBackground(r);
+    drawEnvelope(r);
+    drawCursor(r);
+}
+
 void UIEnv::okSize(t_rect* newrect)
 {
     newrect->width = pd_clip_min(newrect->width, ENV_MIN_WIDTH);
@@ -249,10 +274,14 @@ void UIEnv::okSize(t_rect* newrect)
 
 void UIEnv::onMouseMove(t_object*, const t_pt& pt, long modifiers)
 {
-    int idx = findNearestNode(pt.x, pt.y);
+    const float z = zoom();
+    const float x_norm = pt.x / z;
+    const float y_norm = pt.y / z;
+
+    int idx = findNearestNode(x_norm, y_norm);
 
     if (selectNode(idx < 0 ? nodes_.size() : idx))
-        bg_layer_.invalidate();
+        envelope_layer_.invalidate();
 
     // draw cursor position
     if (modifiers == EMOD_SHIFT) {
@@ -261,23 +290,27 @@ void UIEnv::onMouseMove(t_object*, const t_pt& pt, long modifiers)
         cursor_pos_ = pt;
     } else if (modifiers == EMOD_ALT) {
         delete_mode_ = true;
-        bg_layer_.invalidate();
+        envelope_layer_.invalidate();
     } else {
         delete_mode_ = false;
         draw_cursor_cross_ = false;
         draw_cursor_pos_ = (idx >= 0);
 
         if (idx >= 0) {
-            cursor_pos_.x = nodes_[idx].x;
-            cursor_pos_.y = nodes_[idx].y;
+            cursor_pos_.x = nodes_[idx].x * z;
+            cursor_pos_.y = nodes_[idx].y * z;
         }
     }
 
-    redrawCursorLayer();
+    redrawLayer(cursor_layer_);
 }
 
 void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long)
 {
+    const float z = zoom();
+    const float x_norm = pt.x / z;
+    const float y_norm = pt.y / z;
+
     long idx = -1;
     for (size_t i = 0; i < nodes_.size(); i++) {
         if (nodes_[i].is_selected) {
@@ -294,10 +327,10 @@ void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long)
 
     // update coordinates
     if (!n.fixed_x)
-        n.x = clip<float>(pt.x, 0, width());
+        n.x = clip<float>(x_norm, 0, width() / z);
 
     if (!n.fixed_y)
-        n.y = clip<float>(pt.y, 0, height());
+        n.y = clip<float>(y_norm, 0, height() / z);
 
     // x-coord
     if (nodes_.size() > 1 && idx > 0 && idx < (nodes_.size() - 1)) {
@@ -314,35 +347,48 @@ void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long)
     draw_cursor_pos_ = true;
     cursor_pos_ = pt;
 
-    redrawAll();
+    // no background redraw needed
+    envelope_layer_.invalidate();
+    cursor_layer_.invalidate();
+    redrawInnerArea();
 }
 
-void UIEnv::onMouseDown(t_object*, const t_pt& pt, long mod)
+void UIEnv::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
 {
+    const float z = zoom();
+    const float x_norm = pt.x / z;
+    const float y_norm = pt.y / z;
+
     if (mod & EMOD_SHIFT) {
 
         long insert_idx = 0;
         for (size_t i = 1; i < nodes_.size(); i++) {
             // prevent to close insertion
-            if (fabsf(nodes_[i].x - pt.x) < 2)
+            if (fabsf(nodes_[i].x - x_norm) < 2)
                 return;
 
             // find node index to insert before
-            if (nodes_[i].x > pt.x) {
+            if (nodes_[i].x > x_norm) {
                 insert_idx = i;
                 break;
             }
         }
 
         Node n;
-        n.x = pt.x;
-        n.y = pt.y;
+        n.x = x_norm;
+        n.y = y_norm;
         n.is_selected = true;
 
         // insert new selected node
         nodes_.insert(nodes_.begin() + insert_idx, n);
-        redrawBGLayer();
+        redrawLayer(cursor_layer_);
         return;
+    } else if (mod & EMOD_RIGHT) {
+        // context menu
+        UIPopupMenu menu(asEObj(), "adsr_select", abs_pt);
+        menu.addItem("ADSR (10 20 30 500)");
+        menu.addItem("ASR (500 500)");
+        menu.addItem("AR (500 500)");
     }
 
     // find selected node index
@@ -360,7 +406,7 @@ void UIEnv::onMouseDown(t_object*, const t_pt& pt, long mod)
 
     if (mod & EMOD_CTRL) {
         nodes_[idx].is_stop = !nodes_[idx].is_stop;
-        redrawBGLayer();
+        redrawLayer(cursor_layer_);
         return;
     }
 
@@ -371,7 +417,7 @@ void UIEnv::onMouseDown(t_object*, const t_pt& pt, long mod)
 
         nodes_.erase(nodes_.begin() + idx);
         delete_mode_ = false;
-        redrawBGLayer();
+        redrawLayer(cursor_layer_);
         return;
     }
 }
@@ -380,14 +426,17 @@ void UIEnv::onMouseLeave(t_object*, const t_pt& pt, long)
 {
     draw_cursor_cross_ = false;
     draw_cursor_pos_ = false;
-    redrawCursorLayer();
+    redrawLayer(cursor_layer_);
 }
 
 void UIEnv::onMouseWheel(t_object*, const t_pt& pt, long, double delta)
 {
+    const float z = zoom();
+    const float x_norm = pt.x / z;
+
     long idx = -1;
     for (size_t i = 1; i < nodes_.size(); i++) {
-        if (pt.x < nodes_[i].x) {
+        if (x_norm < nodes_[i].x) {
             idx = i - 1;
             break;
         }
@@ -407,7 +456,7 @@ void UIEnv::onMouseWheel(t_object*, const t_pt& pt, long, double delta)
         return;
     }
 
-    redrawBGLayer();
+    redrawLayer(cursor_layer_);
 }
 
 void UIEnv::onMouseUp(t_object*, const t_pt& pt, long)
@@ -418,12 +467,15 @@ void UIEnv::onMouseUp(t_object*, const t_pt& pt, long)
 
 void UIEnv::onDblClick(t_object*, const t_pt& pt, long modifiers)
 {
+    const float z = zoom();
+    const float x_norm = pt.x / z;
+
     if (!(modifiers & EMOD_CTRL))
         return;
 
     long idx = -1;
     for (size_t i = 1; i < nodes_.size(); i++) {
-        if (pt.x < nodes_[i].x) {
+        if (x_norm < nodes_[i].x) {
             idx = i - 1;
             break;
         }
@@ -441,7 +493,42 @@ void UIEnv::onDblClick(t_object*, const t_pt& pt, long modifiers)
         }
     }
 
-    redrawBGLayer();
+    redrawLayer(cursor_layer_);
+}
+
+void UIEnv::onPopup(t_symbol* msg, long itemIdx)
+{
+    if (msg == gensym("adsr_select")) {
+        switch (itemIdx) {
+        case 0: {
+            AtomList lst;
+            lst.append(10);
+            lst.append(20);
+            lst.append(30);
+            lst.append(500);
+            setNamedEnvelope(SYM_ADSR, lst);
+            break;
+        }
+        case 1: {
+            AtomList lst;
+            lst.append(500);
+            lst.append(500);
+            setNamedEnvelope(SYM_ASR, lst);
+            break;
+        }
+        case 2: {
+            AtomList lst;
+            lst.append(500);
+            lst.append(500);
+            setNamedEnvelope(SYM_AR, lst);
+            break;
+        }
+        default: {
+            UI_ERR << "popup menu inconsistance " << msg << ", index not exists: " << itemIdx;
+            break;
+        }
+        }
+    }
 }
 
 void UIEnv::updateNodes()
@@ -450,11 +537,13 @@ void UIEnv::updateNodes()
 
     size_t total_us = env_.totalLength();
     size_t n = env_.numPoints();
+    const float z = zoom();
 
     for (size_t i = 0; i < n; i++) {
         bool is_edge = (i == 0) || (i == (n - 1));
 
-        nodes_.push_back(Node::fromEnvelope(env_.pointAt(i), total_us, width(), height(), is_edge));
+        // using normalized width() and height()
+        nodes_.push_back(Node::fromEnvelope(env_.pointAt(i), total_us, width() / z, height() / z, is_edge));
     }
 
     prop_length = total_us / 1000.0;
@@ -463,12 +552,13 @@ void UIEnv::updateNodes()
 void UIEnv::updateEnvelope()
 {
     env_.clear();
+    const float z = zoom();
 
     for (size_t i = 0; i < nodes_.size(); i++) {
         const Node& n = nodes_[i];
 
-        EnvelopePoint pt(n.x / width() * prop_length * 1000,
-            1 - (n.y / height()),
+        EnvelopePoint pt(((n.x * z) / width()) * prop_length * 1000,
+            1 - ((n.y * z) / height()),
             n.is_stop,
             n.type,
             n.curve);
@@ -576,9 +666,9 @@ void UIEnv::storePreset(size_t idx)
     PresetStorage::instance().setListValueAt(presetId(), idx, env_.toList());
 }
 
-t_pd_err UIEnv::notify(t_symbol* attr_name, t_symbol* msg)
+void UIEnv::onPropChange(t_symbol* prop_name)
 {
-    if (attr_name == SYM_LENGTH) {
+    if (prop_name == SYM_LENGTH) {
         if (env_.totalLength() != prop_length * 1000) {
             env_.resizeTime(prop_length * 1000);
             updateNodes();
@@ -586,19 +676,14 @@ t_pd_err UIEnv::notify(t_symbol* attr_name, t_symbol* msg)
         }
     }
 
-    return UIObject::notify(attr_name, msg);
-}
-
-void UIEnv::redrawCursorLayer()
-{
-    cursor_layer_.invalidate();
-    redraw();
+    UIObject::onPropChange(prop_name);
 }
 
 void UIEnv::redrawAll()
 {
     bg_layer_.invalidate();
     cursor_layer_.invalidate();
+    envelope_layer_.invalidate();
     redraw();
 }
 
@@ -616,7 +701,7 @@ void UIEnv::setup()
 
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIEnv::prop_active_color);
     obj.addProperty("line_color", _("Line Color"), DEFAULT_LINE_COLOR, &UIEnv::prop_line_color);
-    obj.addProperty(PROP_LENGTH, _("Length"), 400, &UIEnv::prop_length);
+    obj.addProperty(PROP_LENGTH, _("Length (ms)"), 400, &UIEnv::prop_length, _("Main"));
     obj.setPropertyMin(PROP_LENGTH, 10);
 
     obj.addMethod(SYM_ADSR, &UIEnv::m_adsr);

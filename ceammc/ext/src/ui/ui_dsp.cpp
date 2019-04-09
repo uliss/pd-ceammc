@@ -23,7 +23,7 @@ bool UIDsp::okSize(t_rect* newrect)
     return true;
 }
 
-void UIDsp::paint(t_object*)
+void UIDsp::paint()
 {
     // first time only to draw in right state
     if (!init_) {
@@ -31,7 +31,7 @@ void UIDsp::paint(t_object*)
         init_ = true;
     }
 
-    const t_rect& r = rect();
+    const auto r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (p) {
@@ -47,7 +47,7 @@ void UIDsp::paint(t_object*)
     }
 }
 
-void UIDsp::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIDsp::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     if (canvas_dspstate)
         m_stop(AtomList());
@@ -97,6 +97,7 @@ void UIDsp::m_settings(const AtomList&)
 void UIDsp::setup()
 {
     UIObjectFactory<UIDsp> obj("ui.dsp~", EBOX_GROWLINK);
+    obj.hideLabelInner();
 
     obj.useAny();
     obj.setDefaultSize(30, 30);
@@ -116,7 +117,7 @@ void UIDsp::openSoundSettingsDialog()
 void UIDsp::redrawAll()
 {
     bg_layer_.invalidate();
-    redraw();
+    redrawInnerArea();
 }
 
 void setup_ui_dsp()

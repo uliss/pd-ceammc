@@ -42,6 +42,14 @@ std::string to_string_quoted(const Atom& a);
 std::string to_string(const AtomList& a, const std::string& separator = " ");
 std::string to_string(const Message& msg, const std::string& separator = " ");
 
+/**
+ * Simple string quotation
+ * @param str - string to quote
+ * @param q - quotation character
+ * @return quoted string
+ */
+std::string quote(const std::string& str, char q = '"');
+
 } // namespace ceammc
 
 #endif // CEAMMC_FORMATTER_H

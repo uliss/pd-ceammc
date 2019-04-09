@@ -12,7 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../ui/ui_matrix.h"
+#include "ceammc_platform.h"
 #include "test_ui.h"
+
+#include <ctime>
+#include <fstream>
+#include <random>
 
 UI_COMPLETE_TEST_SETUP(Matrix)
 
@@ -570,5 +575,52 @@ TEST_CASE("ui.matrix", "[ui.matrix]")
 
         t.mouseDown(5, 5);
         REQUIRE_ANY_WAS_SEND(t, "r1", LA("cell", 0.f, 0.f, 0.f));
+    }
+
+    SECTION("read/write")
+    {
+        std::string CWD = platform::current_working_directory();
+        std::string FNAME = CWD + "/matrix_data1.txt";
+        test::pdPrintToStdError();
+        TestExtMatrix t("ui.matrix", LA("@rows", 2, "@cols", 3));
+        t->setRow(0, LF(1, 1, 1));
+        t->setRow(1, LF(0, 1, 1));
+        // nothing
+        t.call("write", L());
+        // REQUIRE(!platform::path_exists(FNAME.c_str()));
+        t.call("write", LA(FNAME.c_str()));
+        REQUIRE(platform::path_exists(FNAME.c_str()));
+
+        std::ifstream ifs(FNAME.c_str());
+        REQUIRE(ifs);
+        std::string buf;
+        REQUIRE(std::getline(ifs, buf));
+        REQUIRE(buf == "1,1,1");
+        REQUIRE(std::getline(ifs, buf));
+        REQUIRE(buf == "0,1,1");
+
+        t->m_reset();
+        REQUIRE(t->asList() == LF(0, 0, 0, 0, 0, 0));
+        t.call("read", LA("unknown"));
+        REQUIRE(t->asList() == LF(0, 0, 0, 0, 0, 0));
+        t.call("read", LA(FNAME.c_str()));
+        REQUIRE(t->asList() == LF(1, 1, 1, 0, 1, 1));
+
+        {
+            char ch[] = { '1', '0', ',', '\n', '.' };
+            std::mt19937 gen(time(0));
+            std::uniform_int_distribution<int> dis(0, sizeof(ch) - 1);
+
+            char buf[128];
+            for (size_t i = 0; i < sizeof(buf); i++)
+                buf[i] = ch[dis(gen)];
+
+            std::ofstream ofs("matrix_data2.txt");
+            ofs.write(buf, sizeof(buf));
+        }
+
+        // crash test
+        t.call("read", LA((CWD + "/matrix_data2.txt").c_str()));
+        platform::remove(FNAME.c_str());
     }
 }

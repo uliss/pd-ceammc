@@ -18,8 +18,8 @@ public:
     void output();
 
     void okSize(t_rect* newrect);
-    void paint(t_object*);
-    void onMouseDown(t_object*, const t_pt&, long);
+    void paint();
+    void onMouseDown(t_object*, const t_pt&, const t_pt& abs_pt, long);
 
     void onBang();
     void onFloat(t_float f);

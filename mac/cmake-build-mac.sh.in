@@ -1,10 +1,10 @@
 #!/bin/bash
-SRC_DIR=${PROJECT_SOURCE_DIR}
-BUILD_DIR=${PROJECT_BINARY_DIR}
+SRC_DIR=@PROJECT_SOURCE_DIR@
+BUILD_DIR=@PROJECT_BINARY_DIR@
 WISH=wish-shell.tgz
-DYLIBBUNDLER="${DYLIBBUNDLER}"
+DYLIBBUNDLER="@DYLIBBUNDLER@"
 
-PD_APP=$(basename ${BUNDLE})
+PD_APP=$(basename @BUNDLE@)
 PD_CONTENT=$BUILD_DIR/dist/$PD_APP/Contents
 PD_RESOURCES=$PD_CONTENT/Resources
 PD_EXTRA=$PD_RESOURCES/extra
@@ -18,10 +18,11 @@ SRC_CEAMMC=$SRC_DIR/ceammc
 PD_INFO="$BUILD_DIR/dist/Info.plist"
 PD_ICON="$SRC_DIR/ceammc/gui/icons/pd_ceammc.icns"
 PD_ICON_FILE="$SRC_DIR/ceammc/gui/icons/pd_doc.icns"
-WISH_APP="${WISH_APP}"
-TK_PATH="${TK_PATH}"
-TCL_PATH="${TCL_PATH}"
-IS_SYSTEM_TK=${IS_SYSTEM_TK}
+WISH_APP="@WISH_APP@"
+TK_PATH="@TK_PATH@"
+TCL_PATH="@TCL_PATH@"
+TK_VERSION="@TK_VERSION@"
+IS_SYSTEM_TK=@IS_SYSTEM_TK@
 
 CURRENT_DATE=$(LANG=C date -u '+%d %h %Y %Z %H:%M:%S')
 GIT_BRANCH=$(git --git-dir $SRC_DIR/.git symbolic-ref --short HEAD)
@@ -33,7 +34,10 @@ echo "$TCL_PATH"
 CEAMMC_EXT_SRC_DIR="$SRC_DIR/ceammc/ext/src"
 CEAMMC_EXT_BIN_DIR="$BUILD_DIR/ceammc/ext/src"
 
-LIB_LEAPMOTION="${LEAPMOTION_LIBRARY}"
+LIB_LEAPMOTION="@LEAPMOTION_LIBRARY@"
+
+# set globbing
+shopt -s extglob
 
 cd "$BUILD_DIR"
 mkdir -p dist
@@ -79,7 +83,7 @@ mkdir -p extra
 cp $SRC_DIR/extra/*.pd extra
 
 function extension_files() {
-    find "$1" -type f | grep -e 'd_fat' -e '\.pd' -e '\.tcl'
+    find "$1" -type f | grep -e 'd_fat' -e 'd_amd64' -e 'd_i386' -e 'pd_darwin' -e '\.pd' -e '\.tcl'
 }
 
 find $BUILD_DIR/extra -maxdepth 1 -type d | sed 1d | grep -v -i cmake | while read ext_dir
@@ -118,35 +122,35 @@ function dylib_external_fix() {
 }
 
 echo "Copying Additional extra:"
-cp $BUILD_DIR/ceammc/extra/comport/system.serial.d_fat $PD_EXTRA/ceammc
-cp $BUILD_DIR/ceammc/extra/hcs/*.d_fat $PD_EXTRA/ceammc
+cp $BUILD_DIR/ceammc/extra/comport/system.serial.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/ceammc
+cp $BUILD_DIR/ceammc/extra/hcs/*.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/ceammc
 cp $SRC_DIR/ceammc/extra/hcs/*.tcl $PD_EXTRA/ceammc
-dylib_external_fix $PD_EXTRA/ceammc/system.serial.d_fat $PD_EXTRA/ceammc
-dylib_external_fix $PD_EXTRA/ceammc/system.cursor.d_fat $PD_EXTRA/ceammc
-dylib_external_fix $PD_EXTRA/ceammc/system.colorpanel.d_fat $PD_EXTRA/ceammc
+dylib_external_fix $PD_EXTRA/ceammc/system.serial.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/ceammc
+dylib_external_fix $PD_EXTRA/ceammc/system.cursor.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/ceammc
+dylib_external_fix $PD_EXTRA/ceammc/system.colorpanel.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/ceammc
 
 echo "Copying zconf..."
 mkdir -p $PD_EXTRA/zconf
-cp $BUILD_DIR/ceammc/extra/flext/zconf/zconf.d_fat $PD_EXTRA/zconf
+cp $BUILD_DIR/ceammc/extra/flext/zconf/zconf.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/zconf
 cp $SRC_DIR/ceammc/extra/flext/zconf/zconf/zconf-help.pd $PD_EXTRA/zconf
 
 echo "Copying libdir..."
 mkdir -p $PD_EXTRA/libdir
-cp $BUILD_DIR/ceammc/extra/libdir/libdir.d_fat $PD_EXTRA/libdir
+cp $BUILD_DIR/ceammc/extra/libdir/libdir.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/libdir
 cp $SRC_DIR/ceammc/extra/libdir/libdir/libdir-help.pd $PD_EXTRA/libdir
 cp $SRC_DIR/ceammc/extra/libdir/libdir/libdir-meta.pd $PD_EXTRA/libdir
 cp $SRC_DIR/ceammc/extra/libdir/libdir/LICENSE.txt $PD_EXTRA/libdir
 
 echo "Copying import..."
 mkdir -p $PD_EXTRA/import
-cp $BUILD_DIR/ceammc/extra/import/import.d_fat $PD_EXTRA/import
+cp $BUILD_DIR/ceammc/extra/import/import.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/import
 cp $SRC_DIR/ceammc/extra/import/import-help.pd $PD_EXTRA/import
 cp $SRC_DIR/ceammc/extra/import/import-meta.pd $PD_EXTRA/import
 cp $SRC_DIR/ceammc/extra/import/LICENSE.txt $PD_EXTRA/import
 
 echo "Copying VASP..."
 mkdir -p $PD_EXTRA/vasp
-cp $BUILD_DIR/ceammc/extra/flext/vasp.d_fat $PD_EXTRA/vasp
+cp $BUILD_DIR/ceammc/extra/flext/vasp.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/vasp
 cp $SRC_DIR/ceammc/extra/flext/vasp/pd/* $PD_EXTRA/vasp
 cp $SRC_DIR/ceammc/extra/flext/vasp/pd-help/* $PD_EXTRA/vasp
 cp $SRC_DIR/ceammc/extra/flext/vasp/gpl.txt $PD_EXTRA/vasp
@@ -154,7 +158,7 @@ cp $SRC_DIR/ceammc/extra/flext/vasp/license.txt $PD_EXTRA/vasp
 
 echo "Copying xsample..."
 mkdir -p $PD_EXTRA/xsample
-cp $BUILD_DIR/ceammc/extra/flext/xsample/xsample.d_fat $PD_EXTRA/xsample
+cp $BUILD_DIR/ceammc/extra/flext/xsample/xsample.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/xsample
 cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/pd/* $PD_EXTRA/xsample
 cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/pd-ex/* $PD_EXTRA/xsample
 cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/gpl.txt $PD_EXTRA/xsample
@@ -162,42 +166,45 @@ cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/license.txt $PD_EXTRA/xsample
 
 echo "Copying LyonPotpourri..."
 mkdir -p $PD_EXTRA/lyonpotpourri/sound
-cp $BUILD_DIR/ceammc/extra/lyonpotpourri/*.d_fat $PD_EXTRA/lyonpotpourri
+cp $BUILD_DIR/ceammc/extra/lyonpotpourri/*.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/lyonpotpourri
 cp $SRC_DIR/ceammc/extra/lyonpotpourri/*-help.pd $PD_EXTRA/lyonpotpourri
 cp $SRC_DIR/ceammc/extra/lyonpotpourri/LICENSE.txt $PD_EXTRA/lyonpotpourri
 cp $SRC_DIR/ceammc/extra/lyonpotpourri/examples/* $PD_EXTRA/lyonpotpourri/sound
 
 echo "Copying FFTease..."
 mkdir -p $PD_EXTRA/fftease/sound
-cp $BUILD_DIR/ceammc/extra/fftease/*.d_fat $PD_EXTRA/fftease
+cp $BUILD_DIR/ceammc/extra/fftease/*.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/fftease
 cp $SRC_DIR/ceammc/extra/fftease/fftease/help/*.pd $PD_EXTRA/fftease
 cp $SRC_DIR/ceammc/extra/fftease/fftease/LICENSE.txt $PD_EXTRA/fftease
 cp $SRC_DIR/ceammc/extra/fftease/fftease/sound/* $PD_EXTRA/fftease/sound
 
-LEAPMOTION_EXTERNAL="$BUILD_DIR/ceammc/extra/flext/leapmotion/leapmotion.d_fat"
-if [ -f "$LEAPMOTION_EXTERNAL" ]
+exists() {
+    [ -e "$1" ]
+}
+
+if exists $BUILD_DIR/ceammc/extra/flext/leapmotion/leapmotion.@(d_fat|d_amd64|d_i386|pd_darwin)
 then
     echo "Copying LeapMotion"
     mkdir $PD_EXTRA/leapmotion
-    cp "$LEAPMOTION_EXTERNAL" $PD_EXTRA/leapmotion
+    cp $BUILD_DIR/ceammc/extra/flext/leapmotion/leapmotion.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/leapmotion
     cp $SRC_DIR/ceammc/extra/flext/leapmotion/*.pd $PD_EXTRA/leapmotion
     cp $LIB_LEAPMOTION $PD_EXTRA/leapmotion
 fi
 
 # install soundtouch~ to ceammc
 echo "Copying SoundTouch external..."
-cp $BUILD_DIR/ceammc/extra/SoundTouch/pd/*.d_fat $PD_EXTRA/ceammc
+cp $BUILD_DIR/ceammc/extra/SoundTouch/pd/*.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/ceammc
 cp $SRC_DIR/ceammc/extra/SoundTouch/pd/*-help.pd $PD_EXTRA/ceammc
-dylib_external_fix $PD_EXTRA/ceammc/soundtouch~.d_fat $PD_EXTRA/ceammc
+dylib_external_fix $PD_EXTRA/ceammc/soundtouch~.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/ceammc
 
 echo "Copying autotune external..."
 mkdir $PD_EXTRA/autotune
-cp $BUILD_DIR/ceammc/extra/autotune/*.d_fat $PD_EXTRA/autotune
+cp $BUILD_DIR/ceammc/extra/autotune/*.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/autotune
 cp $SRC_DIR/ceammc/extra/autotune/*-help.pd $PD_EXTRA/autotune
 
 echo "Copying disis_munger~ external..."
 mkdir $PD_EXTRA/disis_munger~
-cp $BUILD_DIR/ceammc/extra/flext/disis_munger/*.d_fat $PD_EXTRA/disis_munger~
+cp $BUILD_DIR/ceammc/extra/flext/disis_munger/*.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/disis_munger~
 cp $SRC_DIR/ceammc/extra/flext/disis_munger/*-help.pd $PD_EXTRA/disis_munger~
 
 echo "Copying CEAMMC help files:"
@@ -273,7 +280,7 @@ echo "Copying abstractions..."
 cp $SRC_DIR/ceammc/ext/abstractions/*.pd $PD_CEAMMC
 
 echo "Copying class wrapper objects..."
-for wrapper in $BUILD_DIR/ceammc/ext/class-wrapper/*.d_fat
+for wrapper in $BUILD_DIR/ceammc/ext/class-wrapper/*.@(d_fat|d_amd64|d_i386|pd_darwin)
 do
     fname=$(basename $wrapper)
     mod_name=$(echo $fname | cut -d. -f1)

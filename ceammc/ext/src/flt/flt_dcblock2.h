@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt_dcblock2"
-Code generated with Faust 2.15.0 (https://faust.grame.fr)
+Code generated with Faust 2.15.10 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -613,6 +613,7 @@ class dcblock2 : public dsp {
 		classInit(samplingFreq);
 		instanceInit(samplingFreq);
 	}
+	
 	virtual void instanceInit(int samplingFreq) {
 		instanceConstants(samplingFreq);
 		instanceResetUserInterface();
@@ -622,6 +623,7 @@ class dcblock2 : public dsp {
 	virtual dcblock2* clone() {
 		return new dcblock2();
 	}
+	
 	virtual int getSampleRate() {
 		return fSamplingFreq;
 		
@@ -656,7 +658,6 @@ class dcblock2 : public dsp {
 		
 	}
 
-	
 };
 // clang-format on
 #endif

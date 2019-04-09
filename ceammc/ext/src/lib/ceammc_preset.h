@@ -16,12 +16,7 @@ class Preset {
     int ref_count_;
 
 public:
-    static t_symbol* SYM_NONE;
-    static t_symbol* SYM_LOAD;
-    static t_symbol* SYM_STORE;
-    static t_symbol* SYM_UPDATE;
-    static t_symbol* SYM_CLEAR;
-    static t_symbol* SYM_PRESET_ALL;
+    static const char* SYM_PRESET_ALL;
 
 public:
     Preset(t_symbol* name);
@@ -39,7 +34,7 @@ public:
     bool hasAnyAt(size_t idx) { return hasDataTypeAt(idx, Message::ANY); }
 
     float floatAt(size_t idx, float def = 0) const;
-    t_symbol* symbolAt(size_t idx, t_symbol* def = SYM_NONE) const;
+    t_symbol* symbolAt(size_t idx, t_symbol* def = &s_) const;
     AtomList listAt(size_t idx, const AtomList& def = AtomList()) const;
     AtomList anyAt(size_t idx, const AtomList& def = AtomList()) const;
 
@@ -109,9 +104,9 @@ public:
     void updateAll();
 
 public:
-    static t_symbol* SYM_PRESET_UPDATE_INDEX_ADDR;
-    static t_symbol* SYM_PRESET_INDEX_ADD;
-    static t_symbol* SYM_PRESET_INDEX_REMOVE;
+    static const char* SYM_PRESET_UPDATE_INDEX_ADDR;
+    static const char* SYM_PRESET_INDEX_ADD;
+    static const char* SYM_PRESET_INDEX_REMOVE;
 
 private:
     PresetPtr getOrCreate(t_symbol* name);

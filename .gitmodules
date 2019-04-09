@@ -8,9 +8,6 @@
 [submodule "ceammc/extra/flext/flext"]
 	path = ceammc/extra/flext/flext
 	url = https://github.com/grrrr/flext
-[submodule "ceammc/extra/libdir/libdir"]
-	path = ceammc/extra/libdir/libdir
-	url = https://github.com/pure-data/libdir.git
 [submodule "ceammc/extra/flext/vasp"]
 	path = ceammc/extra/flext/vasp
 	url = https://github.com/grrrr/vasp.git
@@ -38,3 +35,6 @@
 [submodule "ceammc/extra/readerwriterqueue"]
 	path = ceammc/extra/readerwriterqueue
 	url = https://github.com/cameron314/readerwriterqueue.git
+[submodule "ceammc/extra/fmt"]
+	path = ceammc/extra/fmt
+	url = https://github.com/fmtlib/fmt.git

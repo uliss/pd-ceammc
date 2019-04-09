@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt_c_bpf"
-Code generated with Faust 2.15.0 (https://faust.grame.fr)
+Code generated with Faust 2.15.10 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -577,6 +577,7 @@ class flt_c_bpf : public dsp {
 		classInit(samplingFreq);
 		instanceInit(samplingFreq);
 	}
+	
 	virtual void instanceInit(int samplingFreq) {
 		instanceConstants(samplingFreq);
 		instanceResetUserInterface();
@@ -586,6 +587,7 @@ class flt_c_bpf : public dsp {
 	virtual flt_c_bpf* clone() {
 		return new flt_c_bpf();
 	}
+	
 	virtual int getSampleRate() {
 		return fSamplingFreq;
 		
@@ -630,7 +632,6 @@ class flt_c_bpf : public dsp {
 		
 	}
 
-	
 };
 // clang-format on
 #endif

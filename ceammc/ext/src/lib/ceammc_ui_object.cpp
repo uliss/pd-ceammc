@@ -3,41 +3,41 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 
-#include <boost/foreach.hpp>
-
 namespace ceammc {
 
-t_symbol* UIObject::BG_LAYER = gensym("background_layer");
+const char* UIObject::BG_LAYER = "background_layer";
 
 #ifdef __APPLE__
-t_symbol* UIObject::FONT_FAMILY = gensym("Helvetica");
+const char* UIObject::FONT_FAMILY = "Helvetica";
 const int UIObject::FONT_SIZE = 12;
 const int UIObject::FONT_SIZE_SMALL = 8;
 #elif _WIN32
-t_symbol* UIObject::FONT_FAMILY = gensym("DejaVu Sans Mono");
+const char* UIObject::FONT_FAMILY = "DejaVu Sans Mono";
 const int UIObject::FONT_SIZE = 9;
 const int UIObject::FONT_SIZE_SMALL = 6;
 #else
-t_symbol* UIObject::FONT_FAMILY = gensym("DejaVu Sans Mono");
+const char* UIObject::FONT_FAMILY = "DejaVu Sans Mono";
 const int UIObject::FONT_SIZE = 9;
 const int UIObject::FONT_SIZE_SMALL = 6;
 #endif
 
-t_symbol* UIObject::FONT_STYLE = gensym("roman");
-t_symbol* UIObject::FONT_WEIGHT = gensym("normal");
-t_symbol* UIObject::COLOR_ACTIVE = gensym("#00C0FF");
+const char* UIObject::FONT_STYLE = "roman";
+const char* UIObject::FONT_WEIGHT = "normal";
+const char* UIObject::COLOR_ACTIVE = "#00C0FF";
 
 UIObject::PresetNameMap UIObject::presets_;
 
 UIObject::UIObject()
     : name_(&s_)
-    , bg_layer_(asEBox(), BG_LAYER)
+    , bg_layer_(asEBox(), gensym(BG_LAYER))
     , old_preset_id_(s_null)
     , cursor_(ECURSOR_LEFT_PTR)
     , use_presets_(false)
     , prop_color_background(rgba_white)
     , prop_color_border(rgba_black)
+    , prop_color_label(rgba_black)
 {
+    appendToLayerList(&bg_layer_);
 }
 
 UIObject::~UIObject()
@@ -49,7 +49,40 @@ UIObject::~UIObject()
     unbindAll();
 }
 
+void UIObject::appendToLayerList(UILayer* l)
+{
+    layer_stack_.push_back(l);
+}
+
+void UIObject::prependToLayerList(UILayer* l)
+{
+    layer_stack_.insert(layer_stack_.begin(), l);
+}
+
+void UIObject::invalidateLayer(UILayer* l)
+{
+    bool found = false;
+    for (UILayer* x : layer_stack_) {
+        if (x == l)
+            found = true;
+
+        if (found)
+            x->invalidate();
+    }
+}
+
+void UIObject::invalidateBox()
+{
+    ebox_invalidate_layer(asEBox(), s_eboxbd);
+    ebox_invalidate_layer(asEBox(), s_eboxio);
+}
+
 t_ebox* UIObject::asEBox() const { return const_cast<UIObject*>(this); }
+
+t_eobj* UIObject::asEObj() const
+{
+    return &const_cast<UIObject*>(this)->b_obj;
+}
 
 t_object* UIObject::asPdObject() const
 {
@@ -105,13 +138,18 @@ t_symbol* UIObject::presetId()
     return b_objpreset_id;
 }
 
-void UIObject::paint(t_object* view)
+void UIObject::paint()
 {
 }
 
 void UIObject::redraw()
 {
     ebox_redraw(asEBox());
+}
+
+void UIObject::redrawInnerArea()
+{
+    ebox_redraw_inner(asEBox());
 }
 
 void UIObject::redrawBGLayer()
@@ -122,7 +160,7 @@ void UIObject::redrawBGLayer()
 
 void UIObject::updateSize()
 {
-    ebox_notify(asEBox(), s_size, &s_, NULL, NULL);
+    ebox_notify(asEBox(), s_size);
 }
 
 void UIObject::resize(int w, int h)
@@ -130,6 +168,12 @@ void UIObject::resize(int w, int h)
     b_rect.width = w;
     b_rect.height = h;
     updateSize();
+}
+
+void UIObject::redrawLayer(UILayer& l)
+{
+    invalidateLayer(&l);
+    redrawInnerArea();
 }
 
 void UIObject::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
@@ -140,7 +184,7 @@ void UIObject::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
 }
 
-void UIObject::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIObject::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
 }
 
@@ -164,25 +208,37 @@ void UIObject::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
 }
 
-t_pd_err UIObject::notify(t_symbol* /*attr_name*/, t_symbol* msg)
-{
-    if (msg == s_attr_modified) {
-        redrawBGLayer();
-    }
-
-    return 0;
-}
-
 void UIObject::okSize(t_rect* newrect)
 {
 }
 
-void UIObject::setDrawParams(t_object*, t_edrawparams* params)
+void UIObject::setDrawParams(t_edrawparams* params)
 {
     params->d_borderthickness = 1;
-    params->d_cornersize = 1;
     params->d_bordercolor = prop_color_border;
     params->d_boxfillcolor = prop_color_background;
+    params->d_labelcolor = prop_color_label;
+}
+
+void UIObject::onZoom(t_float z)
+{
+}
+
+void UIObject::onPopup(t_symbol* menu_name, long item_idx)
+{
+}
+
+void UIObject::onPropChange(t_symbol* name)
+{
+    redrawLayer(bg_layer_);
+}
+
+void UIObject::write(const std::string& fname)
+{
+}
+
+void UIObject::read(const std::string& fname)
+{
 }
 
 void UIObject::m_custom(t_symbol* sel, const AtomList& lst)
@@ -339,15 +395,22 @@ void UIObject::send(t_symbol* s, const AtomList& lst)
         pd_typedmess(send, s, lst.size(), lst.toPdData());
 }
 
-const t_rect& UIObject::rect() const { return asEBox()->b_rect; }
+t_rect UIObject::rect() const
+{
+    auto z = asEBox()->b_zoom;
+    auto r = asEBox()->b_rect;
+    r.width *= z;
+    r.height *= z;
+    return r;
+}
 
 float UIObject::x() const { return asEBox()->b_rect.x; }
 
 float UIObject::y() const { return asEBox()->b_rect.y; }
 
-float UIObject::width() const { return asEBox()->b_rect.width; }
+float UIObject::width() const { return asEBox()->b_rect.width * asEBox()->b_zoom; }
 
-float UIObject::height() const { return asEBox()->b_rect.height; }
+float UIObject::height() const { return asEBox()->b_rect.height * asEBox()->b_zoom; }
 
 float UIObject::zoom() const
 {
@@ -396,7 +459,7 @@ void UIObject::bindPreset(t_symbol* name)
     post("bind preset: %s", name->s_name);
 #endif
 
-    pd_bind(asPd(), Preset::SYM_PRESET_ALL);
+    pd_bind(asPd(), gensym(Preset::SYM_PRESET_ALL));
     PresetStorage::instance().bindPreset(name);
     acquirePresetName(name);
 }
@@ -410,7 +473,7 @@ void UIObject::unbindPreset(t_symbol* name)
     post("unbind preset: %s", name->s_name);
 #endif
 
-    pd_unbind(asPd(), Preset::SYM_PRESET_ALL);
+    pd_unbind(asPd(), gensym(Preset::SYM_PRESET_ALL));
     PresetStorage::instance().unbindPreset(name);
     releasePresetName(name);
 }
@@ -670,7 +733,7 @@ void UIObject::unbindFrom(t_symbol* s)
 
 void UIObject::unbindAll()
 {
-    BOOST_FOREACH (t_symbol* s, binded_signals_) {
+    for (t_symbol* s : binded_signals_) {
         pd_unbind(asPd(), s);
     }
 }

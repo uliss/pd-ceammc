@@ -43,14 +43,16 @@ void PresetExternal::m_store(t_symbol*, const AtomList& l)
 
 void PresetExternal::m_clear(t_symbol*, const AtomList& l)
 {
+    t_symbol* SYM_PRESET_ALL = gensym(Preset::SYM_PRESET_ALL);
+
     size_t idx = l.asSizeT(0);
 
-    if (!Preset::SYM_PRESET_ALL->s_thing)
+    if (!SYM_PRESET_ALL->s_thing)
         return;
 
     t_atom a;
     SETFLOAT(&a, idx);
-    pd_typedmess(Preset::SYM_PRESET_ALL->s_thing, Preset::SYM_CLEAR, 1, &a);
+    pd_typedmess(SYM_PRESET_ALL->s_thing, gensym("clear"), 1, &a);
 }
 
 void PresetExternal::m_write(t_symbol*, const AtomList& l)

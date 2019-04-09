@@ -14,19 +14,12 @@
 #include "s_stuff.h"
 #include "g_canvas.h"
 #include "s_utf8.h"
-#include "g_style.h"
-
+#include "g_all_guis.h"
 
 #define LMARGIN 2
 #define RMARGIN 2
-/* for some reason, it draws text 1 pixel lower on Mac OS X (& linux too?) */
-#ifndef _WIN32
-#define TMARGIN 2
-#define BMARGIN 2
-#else
 #define TMARGIN 3
-#define BMARGIN 1
-#endif
+#define BMARGIN 2
 
 #define SEND_FIRST 1
 #define SEND_UPDATE 2
@@ -66,8 +59,6 @@ t_rtext *rtext_new(t_glist *glist, t_text *who)
     return (x);
 }
 
-static t_rtext *rtext_entered;
-
 void rtext_free(t_rtext *x)
 {
     if (!x) return; //ceammc
@@ -85,7 +76,6 @@ void rtext_free(t_rtext *x)
             break;
         }
     }
-    if (rtext_entered == x) rtext_entered = 0;
     freebytes(x->x_buf, x->x_bufsize);
     freebytes(x, sizeof *x);
 }
@@ -297,8 +287,19 @@ static void rtext_senditup(t_rtext *x, int action, int *widthp, int *heightp,
         }
     }
     else ncolumns = widthspec_c;
-    pixwide = ncolumns * fontwidth + (LMARGIN + RMARGIN);
-    pixhigh = nlines * fontheight + (TMARGIN + BMARGIN);
+    pixwide = ncolumns * fontwidth;
+    pixhigh = nlines * fontheight;
+    if (glist_getzoom(x->x_glist) > 1)
+    {
+        /* zoom margins */
+        pixwide += (LMARGIN + RMARGIN) * glist_getzoom(x->x_glist);
+        pixhigh += (TMARGIN + BMARGIN) * glist_getzoom(x->x_glist);
+    }
+    else
+    {
+        pixwide += LMARGIN + RMARGIN;
+        pixhigh += TMARGIN + BMARGIN;
+    }
 
     if (action && x->x_text->te_width && x->x_text->te_type != T_ATOM)
     {
@@ -316,17 +317,28 @@ static void rtext_senditup(t_rtext *x, int action, int *widthp, int *heightp,
     }
     if (action == SEND_FIRST)
     {
-        sys_vgui("pdtk_text_new .x%lx.c {%s %s text} %f %f {%.*s} %d %s\n",
+        int lmargin = LMARGIN, tmargin = TMARGIN;
+        if (glist_getzoom(x->x_glist) > 1)
+        {
+            /* zoom margins */
+            lmargin *= glist_getzoom(x->x_glist);
+            tmargin *= glist_getzoom(x->x_glist);
+        }
+            /* we add an extra space to the string just in case the last
+            character is an unescaped backslash ('\') which would have confused
+            tcl/tk by escaping the close brace otherwise.  The GUI code
+            drops the last character in the string. */
+        sys_vgui("pdtk_text_new .x%lx.c {%s %s text} %f %f {%.*s } %d %s\n",
             canvas, x->x_tag, rtext_gettype(x)->s_name,
-            dispx + LMARGIN, dispy + TMARGIN,
+            dispx + lmargin, dispy + tmargin,
             outchars_b, tempbuf,
             sys_hostfontsize(font, glist_getzoom(x->x_glist)),
             (glist_isselected(x->x_glist,
-                &x->x_glist->gl_gobj)? STYLE_TEXT_SELECT_COLOR : STYLE_TEXT_NORMAL_COLOR));
+                &x->x_glist->gl_gobj)? "blue" : "black"));
     }
     else if (action == SEND_UPDATE)
     {
-        sys_vgui("pdtk_text_set .x%lx.c %s {%.*s}\n",
+        sys_vgui("pdtk_text_set .x%lx.c %s {%.*s }\n",
             canvas, x->x_tag, outchars_b, tempbuf);
         if (pixwide != x->x_drawnwidth || pixhigh != x->x_drawnheight)
             text_drawborder(x->x_text, x->x_glist, x->x_tag,
@@ -473,8 +485,8 @@ void rtext_select(t_rtext *x, int state)
     if (!x) return; //ceammc
     t_glist *glist = x->x_glist;
     t_canvas *canvas = glist_getcanvas(glist);
-    sys_vgui(".x%lx.c itemconfigure %s -fill %s\n", canvas,
-        x->x_tag, (state? STYLE_TEXT_SELECT_COLOR : STYLE_TEXT_NORMAL_COLOR));
+    sys_vgui(".x%lx.c itemconfigure %s -fill #%6.6x\n", canvas,
+        x->x_tag, (state? IEM_GUI_COLOR_SELECTED : IEM_GUI_COLOR_NORMAL));
 }
 
 void rtext_activate(t_rtext *x, int state)
@@ -539,7 +551,7 @@ void rtext_key(t_rtext *x, int keynum, t_symbol *keysym)
 be printable in whatever 8-bit character set we find ourselves. */
 
 /*-- moo:
-  ... but test with "<" rather than "!=" in order to accomodate unicode
+  ... but test with "<" rather than "!=" in order to accommodate unicode
   codepoints for n (which we get since Tk is sending the "%A" substitution
   for bind <Key>), effectively reducing the coverage of this clause to 7
   bits.  Case n>127 is covered by the next clause.
@@ -569,6 +581,24 @@ be printable in whatever 8-bit character set we find ourselves. */
         }
         x->x_selend = x->x_selstart;
         x->x_glist->gl_editor->e_textdirty = 1;
+    }
+    else if (!strcmp(keysym->s_name, "Home"))
+    {
+        if (x->x_selend == x->x_selstart)
+        {
+            x->x_selend = x->x_selstart = 0;
+        }
+        else
+            x->x_selstart = 0;
+    }
+    else if (!strcmp(keysym->s_name, "End"))
+    {
+        if (x->x_selend == x->x_selstart)
+        {
+            x->x_selend = x->x_selstart = x->x_bufsize;
+        }
+        else
+            x->x_selend = x->x_bufsize;
     }
     else if (!strcmp(keysym->s_name, "Right"))
     {

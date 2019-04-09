@@ -85,7 +85,7 @@ void UIKnob::setup()
 }
 
 UIKnob::UIKnob()
-    : txt_font(FONT_FAMILY, FONT_SIZE_SMALL)
+    : txt_font(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , txt_min(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
     , txt_max(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_RIGHT, ETEXT_JRIGHT, ETEXT_NOWRAP)
     , show_range_(0)
@@ -97,64 +97,66 @@ UIKnob::UIKnob()
     click_pos_.y = 0;
 }
 
-void UIKnob::paint(t_object*)
+void UIKnob::paint()
 {
-    const t_rect& r = rect();
+    const auto r = rect();
     UIPainter p = bg_layer_.painter(r);
 
-    if (!p)
-        return;
+    if (p) {
+        if (show_range_) {
+            const float xoff = (1 + (r.width > 50)) * zoom();
+            const float yoff = (1 + (r.height > 50)) * zoom();
 
-    const float cx = r.width * 0.5f;
-    const float cy = r.height * 0.5f;
+            char buf[10];
+            sprintf(buf, "%g", minValue());
 
-    float radius_scale = 0.85f;
-    const float radius = cx * radius_scale;
-    const float arc_scale = 0.78f;
-    const float arc_full = -(EPD_2PI)*arc_scale;
-    const float arc_angle_offset = -(EPD_PI2 + (1 - arc_scale) * EPD_PI);
-    const float arc_begin = arc_angle_offset;
-    const float arc_end = arc_full + arc_angle_offset;
-    const float value_angle = prop_value * arc_full + arc_angle_offset;
+            txt_min.set(buf, xoff, r.height - yoff, r.width * 2, r.height / 2);
+            p.drawText(txt_min);
 
-    // adjust knob
-    float line_width = int(r.height / 20) + 1;
+            sprintf(buf, "%g", maxValue());
+            txt_max.set(buf, r.width - xoff, r.height - yoff, r.width, r.height / 2);
+            p.drawText(txt_max);
+        }
+    }
+
+    UIPainter kp = knob_layer_.painter(r);
+    if (kp) {
+        const float cx = r.width * 0.5f;
+        const float cy = r.height * 0.5f;
+
+        float radius_scale = 0.85f;
+        const float radius = cx * radius_scale;
+        const float arc_scale = 0.78f;
+        const float arc_full = -(EPD_2PI)*arc_scale;
+        const float arc_angle_offset = -(EPD_PI2 + (1 - arc_scale) * EPD_PI);
+        const float arc_begin = arc_angle_offset;
+        const float arc_end = arc_full + arc_angle_offset;
+        const float value_angle = prop_value * arc_full + arc_angle_offset;
+
+        // adjust knob
+        float line_width = int(r.height / 20) + 1;
 
 #ifdef __WIN32
-    line_width *= 0.5;
+        line_width *= 0.5;
 #endif
 
-    if (r.height < 30) {
-        radius_scale = 0.55f;
-    }
+        if (r.height < 30) {
+            radius_scale = 0.55f;
+        }
 
-    if (draw_active_scale_) {
-        // draw active arc
-        draw_knob_arc(p, cx, cy, radius, arc_begin, value_angle, line_width, prop_knob_color);
+        if (draw_active_scale_) {
+            // draw active arc
+            draw_knob_arc(kp, cx, cy, radius, arc_begin, value_angle, line_width, prop_knob_color);
 
-        // draw passive arc
-        draw_knob_arc(p, cx, cy, radius, value_angle, arc_end, line_width, prop_scale_color);
-    } else {
-        // draw full arc
-        draw_knob_arc(p, cx, cy, radius, arc_begin, arc_end, line_width, prop_scale_color);
-    }
+            // draw passive arc
+            draw_knob_arc(kp, cx, cy, radius, value_angle, arc_end, line_width, prop_scale_color);
+        } else {
+            // draw full arc
+            draw_knob_arc(kp, cx, cy, radius, arc_begin, arc_end, line_width, prop_scale_color);
+        }
 
-    // draw knob line
-    draw_knob_line(p, cx, cy, radius, value_angle, line_width, prop_knob_color);
-
-    if (show_range_) {
-        const float xoff = (1 + (r.width > 50)) * zoom();
-        const float yoff = (1 + (r.height > 50)) * zoom();
-
-        char buf[10];
-        sprintf(buf, "%g", minValue());
-
-        txt_min.set(buf, xoff, r.height - yoff, r.width * 2, r.height / 2);
-        p.drawText(txt_min);
-
-        sprintf(buf, "%g", maxValue());
-        txt_max.set(buf, r.width - xoff, r.height - yoff, r.width, r.height / 2);
-        p.drawText(txt_max);
+        // draw knob line
+        draw_knob_line(kp, cx, cy, radius, value_angle, line_width, prop_knob_color);
     }
 }
 
@@ -169,13 +171,42 @@ void UIKnob::onMouseDrag(t_object*, const t_pt& pt, long)
     t_float delta = (click_pos_.y - pt.y) / height();
     setValue(value() + delta);
     click_pos_ = pt;
-    redrawBGLayer();
+    redrawKnob();
     output();
 }
 
-void UIKnob::onMouseDown(t_object*, const t_pt& pt, long)
+void UIKnob::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
+    if (modifiers & EMOD_RIGHT) {
+        UIPopupMenu menu(asEObj(), "popup", abs_pt);
+        menu.addItem(_("min"));
+        menu.addItem(_("center"));
+        menu.addItem(_("max"));
+        return;
+    }
+
     click_pos_ = pt;
+}
+
+void UIKnob::onPopup(t_symbol* menu_name, long item_idx)
+{
+    if (menu_name != gensym("popup"))
+        return;
+
+    switch (item_idx) {
+    case 0:
+        onFloat(prop_min);
+        break;
+    case 1:
+        onFloat(convert::lin2lin<t_float>(0.5, 0, 1, prop_min, prop_max));
+        break;
+    case 2:
+        onFloat(prop_max);
+        break;
+    default:
+        UI_ERR << "unknown popup menu index: " << item_idx;
+        break;
+    }
 }
 
 void setup_ui_knob()

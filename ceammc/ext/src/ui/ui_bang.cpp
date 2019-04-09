@@ -24,8 +24,8 @@ UIBang::UIBang()
 
 void UIBang::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 10);
-    newrect->height = pd_clip_min(newrect->height, 10);
+    newrect->width = pd_clip_min(newrect->width, 8);
+    newrect->height = pd_clip_min(newrect->height, 8);
 
     // We defines that the width and the height can't be an even number (to center the bang circle).
     if ((int)newrect->width % 2 == 0)
@@ -34,9 +34,9 @@ void UIBang::okSize(t_rect* newrect)
         newrect->height++;
 }
 
-void UIBang::paint(t_object*)
+void UIBang::paint()
 {
-    const t_rect& r = rect();
+    const auto r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)
@@ -63,7 +63,7 @@ void UIBang::paint(t_object*)
     }
 }
 
-void UIBang::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIBang::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     activate();
 }
@@ -82,7 +82,8 @@ void UIBang::onAny(t_symbol* s, const AtomList& lst)
 void UIBang::activate()
 {
     active_ = true;
-    redrawBGLayer();
+    bg_layer_.invalidate();
+    redrawInnerArea();
     bangTo(0);
     sendBang();
 }
@@ -90,7 +91,8 @@ void UIBang::activate()
 void UIBang::deactivate()
 {
     active_ = false;
-    redrawBGLayer();
+    bg_layer_.invalidate();
+    redrawInnerArea();
 }
 
 void UIBang::setup()
@@ -98,7 +100,7 @@ void UIBang::setup()
     UIObjectFactory<UIBang> obj("ui.bang", EBOX_GROWLINK);
     obj.addAlias("ui.b");
 
-    obj.setDefaultSize(16, 16);
+    obj.setDefaultSize(15, 15);
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIBang::prop_color_active);
 
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP);

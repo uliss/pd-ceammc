@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-03-01 00:49+0300\n"
-"PO-Revision-Date: 2019-03-01 00:50+0300\n"
+"POT-Creation-Date: 2019-04-09 22:10+0300\n"
+"PO-Revision-Date: 2019-04-09 22:11+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -28,6 +28,15 @@ msgstr "Шрифт %s"
 #, tcl-format
 msgid "%s Properties"
 msgstr "Свойства %s"
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#, c-format
+msgid "%s properties"
+msgstr "Свойства %s"
+
+#: ../tcl/pd_menus.tcl
+msgid "(Dis)Connect Selection"
+msgstr "(Раз)соединить"
 
 #: ../tcl/pd_connect.tcl ../tcl/pdwindow.tcl
 msgid "(Tcl) INVALID COMMAND NAME: "
@@ -92,6 +101,11 @@ msgstr "1:"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
+msgid "2. Copy the contents into %s."
+msgstr "2. Копирую содержимое в %s."
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
 msgid "2. Copy the contents into %s.\n"
 msgstr "2. Копирую содержимое в %s.\n"
 
@@ -146,6 +160,11 @@ msgstr "О программе Pd"
 msgid "Active Color"
 msgstr "Активный цвет"
 
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Add %s to the Pd search paths?"
+msgstr "Добавить %s к путям поиска Pd?"
+
 #: ../tcl/dialog_path.tcl
 msgid "Add a new path"
 msgstr "Добавить новый путь"
@@ -153,6 +172,11 @@ msgstr "Добавить новый путь"
 #: ../tcl/dialog_startup.tcl
 msgid "Add new library"
 msgstr "Добавить новую библиотеку"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Added %s to search paths"
+msgstr "Добавлен %s к путям поиска"
 
 #: ../ceammc/ext/src/ui/ui_label.cpp
 msgid "Align"
@@ -168,9 +192,13 @@ msgstr "Вид на родительском патче"
 
 #: ../tcl/dialog_array.tcl ../tcl/dialog_audio.tcl ../tcl/dialog_canvas.tcl
 #: ../tcl/dialog_gatom.tcl ../tcl/dialog_iemgui.tcl ../tcl/dialog_midi.tcl
-#: ../tcl/scrollboxwindow.tcl
+#: ../tcl/pd_deken.tcl ../tcl/scrollboxwindow.tcl
 msgid "Apply"
 msgstr "Применить"
+
+#: ../tcl/pd_deken.tcl
+msgid "Are you online?"
+msgstr "Вы онлайн?"
 
 #: ../tcl/dialog_array.tcl ../tcl/pd_menus.tcl
 msgid "Array"
@@ -196,6 +224,10 @@ msgstr "Все поддерживаемые форматы"
 msgid "Atom Box Properties"
 msgstr "Свойста AtomBox"
 
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Attach side"
+msgstr "Сторона прикрепления"
+
 #: ../tcl/pdwindow.tcl
 msgid "Audio I/O error"
 msgstr "Ошибка Audio I/O"
@@ -212,6 +244,14 @@ msgstr "Настройки аудио..."
 msgid "Audio off"
 msgstr "Выключить звук"
 
+#: ../tcl/pdwindow.tcl
+msgid "Audio on"
+msgstr "Включить звук"
+
+#: ../tcl/pd_menus.tcl
+msgid "Audio..."
+msgstr "Аудио..."
+
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "Auto range"
 msgstr "Автоматический диапазон"
@@ -224,6 +264,10 @@ msgstr "Автоматический размер"
 msgid "Background"
 msgstr "Фон"
 
+#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
+msgid "Background Color"
+msgstr "Цвет фона"
+
 #: ../tcl/dialog_iemgui.tcl
 msgid "Background color"
 msgstr "Цвет фона"
@@ -232,8 +276,9 @@ msgstr "Цвет фона"
 msgid "Bang"
 msgstr "Bang"
 
+#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../ceammc/ext/src/ui/ui_icon.cpp
 msgid "Basic"
 msgstr "Базовые"
 
@@ -245,12 +290,18 @@ msgstr "Кривыми"
 msgid "Block size:"
 msgstr "Размер блока:"
 
+#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
+msgid "Border Color"
+msgstr "Цвет границы"
+
 #: ../tcl/dialog_gatom.tcl
 msgid "Bottom"
 msgstr "Снизу"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../ceammc/ext/src/ui/ui_gain.cpp
+#: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
+#: ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Bounds"
 msgstr "Границы"
 
@@ -258,13 +309,21 @@ msgstr "Границы"
 msgid "Bring All to Front"
 msgstr "Все окна - на передний план"
 
+#: ../tcl/dialog_path.tcl
+msgid "Browse"
+msgstr "Обзор"
+
+#: ../tcl/pd_menus.tcl
+msgid "Browser..."
+msgstr "Обзор справки…"
+
 #: ../tcl/pd_menus.tcl
 msgid "CEAMMC objects"
 msgstr "CEAMMC объекты"
 
 #: ../tcl/dialog_array.tcl ../tcl/dialog_audio.tcl ../tcl/dialog_canvas.tcl
 #: ../tcl/dialog_find.tcl ../tcl/dialog_gatom.tcl ../tcl/dialog_iemgui.tcl
-#: ../tcl/dialog_midi.tcl ../tcl/scrollboxwindow.tcl
+#: ../tcl/dialog_midi.tcl ../tcl/pd_deken.tcl ../tcl/scrollboxwindow.tcl
 msgid "Cancel"
 msgstr "Отмена"
 
@@ -284,9 +343,21 @@ msgstr "Свойства Canvas"
 msgid "Channels:"
 msgstr "Каналы:"
 
+#: ../tcl/pd_deken.tcl
+msgid "Check"
+msgstr "Проверить"
+
 #: ../ceammc/ext/src/ui/ui_radio.cpp
 msgid "Check List Mode"
 msgstr "Множественный выбор"
+
+#: ../tcl/dialog_path.tcl ../tcl/pd_docsdir.tcl
+msgid "Choose Pd documents directory:"
+msgstr "Выберите каталог Pd документов:"
+
+#: ../tcl/dialog_path.tcl
+msgid "Clear"
+msgstr "Очистить"
 
 #: ../tcl/pd_menus.tcl
 msgid "Clear Console"
@@ -317,6 +388,17 @@ msgstr "Столбцы"
 #, tcl-format
 msgid ""
 "Commencing downloading of:\n"
+"%1$s\n"
+"Into %2$s..."
+msgstr ""
+"Начало загрузки:\n"
+"%1$s\n"
+"в %2$s…"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid ""
+"Commencing downloading of:\n"
 "%s\n"
 "Into %s..."
 msgstr ""
@@ -336,10 +418,29 @@ msgstr "Выбрать цвет"
 msgid "Copy"
 msgstr "Копировать"
 
+#: ../tcl/pd_docsdir.tcl
+#, tcl-format
+msgid "Couldn't create \"externals\" directory in: %s\n"
+msgstr "Невозможно создать каталог «externals» в %s\n"
+
+#: ../tcl/pd_docsdir.tcl
+#, tcl-format
+msgid "Couldn't create Pd documents directory: %s\n"
+msgstr "Невозможно создать каталог для Pd документов: %s\n"
+
+#: ../tcl/dialog_find.tcl
+#, tcl-format
+msgid "Couldn't find '%1$s' in %2$s"
+msgstr "Не удалось найти '%s' в %s"
+
 #: ../tcl/dialog_find.tcl
 #, tcl-format
 msgid "Couldn't find '%s' in %s"
 msgstr "Не удалось найти '%s' в %s"
+
+#: ../tcl/pd_deken.tcl
+msgid "Create"
+msgstr "Создать"
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
 msgid "Current Color"
@@ -373,13 +474,35 @@ msgstr "Свойства данных"
 msgid "Decimal precision"
 msgstr "Десятичная точность"
 
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Default platform: %s"
+msgstr "Платформа по умолчанию: %s"
+
 #: ../tcl/dialog_startup.tcl
 msgid "Defeat real-time scheduling"
 msgstr ""
 
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Deken %s Preferences"
+msgstr "Настройки deken %s"
+
 #: ../tcl/dialog_audio.tcl
 msgid "Delay (msec):"
 msgstr "Задержка (мкс):"
+
+#: ../tcl/scrollbox.tcl
+msgid "Delete"
+msgstr "Удалить"
+
+#: ../tcl/pd_menus.tcl
+msgid ""
+"Delete all preferences?\n"
+"(takes effect when Pd is restarted)"
+msgstr ""
+"Удалить все настройки?\n"
+"(имеет эффект после перезапуска Pd)"
 
 #: ../tcl/dialog_array.tcl
 msgid "Delete array"
@@ -388,6 +511,10 @@ msgstr "Удалить array"
 #: ../ceammc/ext/src/ui/ui_number.cpp
 msgid "Digits"
 msgstr "Число разрядов"
+
+#: ../tcl/dialog_path.tcl
+msgid "Disable"
+msgstr "Отключить"
 
 #: pd_dynamic_strings.tcl
 #, tcl-format
@@ -401,6 +528,22 @@ msgstr "Показывать события"
 #: ../ceammc/ext/src/ui/ui_display.cpp
 msgid "Display type"
 msgstr "Показывать тип сообщения"
+
+#: ../tcl/pd_docsdir.tcl
+#, tcl-format
+msgid ""
+"Do you want Pd to create a documents directory for patches and external "
+"libraries?\n"
+"\n"
+"Location: %s\n"
+"\n"
+"You can change or disable this later in the Path preferences."
+msgstr ""
+"Вы хотите создать каталог для документов, патчей и внешних библиотек?\n"
+"\n"
+"Расположение: %s\n"
+"\n"
+"Вы можете изменить или отключить это в настройках Путей."
 
 #: pd_dynamic_strings.tcl
 #, tcl-format
@@ -431,6 +574,10 @@ msgstr "Режим редактирования"
 msgid "Edit library"
 msgstr "Изменить библиотеку"
 
+#: ../tcl/scrollbox.tcl
+msgid "Edit..."
+msgstr "Правка…"
+
 #: ../ceammc/ext/src/ui/ui_preset.cpp
 msgid "Empty Button Color"
 msgstr "Цвет пустой ячейки"
@@ -438,6 +585,10 @@ msgstr "Цвет пустой ячейки"
 #: ../ceammc/gui/plugins/patch2svg-plugin.tcl
 msgid "Export patch as SVG..."
 msgstr "Экспортировать патч в SVG..."
+
+#: ../tcl/dialog_path.tcl
+msgid "Externals Install Directory"
+msgstr "Каталог установки расширений"
 
 #: ../tcl/pd_menus.tcl
 msgid "FLOSS Manual..."
@@ -503,6 +654,15 @@ msgstr "Жирность шрифта"
 msgid "Foreground color"
 msgstr "Цвет переднего плана"
 
+#: ../tcl/pd_menus.tcl
+msgid "Forget All..."
+msgstr "Удалить все…"
+
+#: ../tcl/dialog_find.tcl
+#, tcl-format
+msgid "Found '%1$s' in %2$s"
+msgstr "Найдено ‘%1$s’ в %2$s"
+
 #: ../tcl/dialog_iemgui.tcl
 msgid "Front"
 msgstr "Передний план"
@@ -531,6 +691,10 @@ msgstr "Справка"
 msgid "Help Browser"
 msgstr "Обзор справки"
 
+#: ../tcl/pd_deken.tcl
+msgid "Hide foreign architectures?"
+msgstr "Скрывать другие архитектуры?"
+
 #: ../tcl/dialog_canvas.tcl
 msgid "Hide object name and arguments"
 msgstr "Скрыть имя объекта и аргументы"
@@ -538,6 +702,10 @@ msgstr "Скрыть имя объекта и аргументы"
 #: ../tcl/dialog_iemgui.tcl
 msgid "Hold:"
 msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Horizontal align"
+msgstr "Горизонтальное выравнивание"
 
 #: ../ceammc/ext/src/ui/ui_meter.cpp
 msgid "Hot signal color"
@@ -557,7 +725,7 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_icon.cpp
 msgid "Icon"
-msgstr ""
+msgstr "Иконка"
 
 #: ../tcl/wheredoesthisgo.tcl
 #, tcl-format
@@ -577,18 +745,39 @@ msgstr "Порты ввода:"
 msgid "Init"
 msgstr ""
 
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Inner position"
+msgstr "Ярлык внутри"
+
 #: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl
 msgid "Input Devices"
 msgstr "Устройства ввода"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Install %1$s to %2$s?"
+msgstr "Установить %1$s в директорию «%2$s»?"
+
+#: ../tcl/dialog_path.tcl ../tcl/pd_deken.tcl
+msgid "Install externals to directory:"
+msgstr "Устанавливать расширения в каталог:"
 
 #: ../tcl/pd_deken.tcl
 msgid "Install libraries to directory:"
 msgstr "Установить в директорию:"
 
 #: ../tcl/pd_deken.tcl
+msgid "Install package"
+msgstr "Установить пакет"
+
+#: ../tcl/pd_deken.tcl
 #, tcl-format
 msgid "Install to directory %s?"
 msgstr "Установить в директорию «%s»?"
+
+#: ../tcl/pd_deken.tcl
+msgid "Installation options:"
+msgstr "Опции установки:"
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Intrrpt:"
@@ -612,21 +801,51 @@ msgstr "Число клавиш"
 msgid "Knob Color"
 msgstr "Цвет ползунка"
 
-#: ../tcl/dialog_gatom.tcl ../tcl/dialog_iemgui.tcl
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp ../tcl/dialog_gatom.tcl
+#: ../tcl/dialog_iemgui.tcl
 msgid "Label"
 msgstr "Ярлык"
 
+#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
 #: ../ceammc/ext/src/ui/ui_spectroscope.cpp
 msgid "Label Color"
 msgstr "Цвета ярлыка"
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label align"
+msgstr "Выравнивание ярлыка"
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Label color"
 msgstr "Ярлык"
 
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label horizontal margin"
+msgstr "Горизонтальный отступ ярлыка"
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label margins"
+msgstr "Отступы ярлыка"
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label position"
+msgstr "Положение ярлыка"
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label side"
+msgstr "Сторона ярлыка"
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Label vertical align"
+msgstr "Вертикальное выравнивание ярлыка"
+
 #: ../tcl/dialog_array.tcl
 msgid "Last graph"
 msgstr "Последний graph"
+
+#: ../tcl/dialog_gatom.tcl
+msgid "Left"
+msgstr "Слева"
 
 #: ../tcl/dialog_gatom.tcl
 msgid "Left   "
@@ -639,6 +858,10 @@ msgstr "Начальная MIDI нота"
 #: ../ceammc/ext/src/ui/ui_env.cpp
 msgid "Length"
 msgstr "Длина"
+
+#: ../ceammc/ext/src/ui/ui_env.cpp
+msgid "Length (ms)"
+msgstr "Длина (мс)"
 
 #: ../tcl/dialog_gatom.tcl
 msgid "Limits"
@@ -659,6 +882,10 @@ msgstr "Список объектов..."
 #: ../tcl/pd_menus.tcl
 msgid "Load Meter"
 msgstr "Индикатор загрузки"
+
+#: ../tcl/pd_menus.tcl
+msgid "Load from..."
+msgstr "Загрузить из…"
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Log height:"
@@ -701,6 +928,23 @@ msgstr "MIDI контроллер"
 msgid "MIDI pickup"
 msgstr "Подхват MIDI значения"
 
+#: ../tcl/pd_menus.tcl
+msgid "MIDI..."
+msgstr "MIDI…"
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/ui_arrayview.cpp ../ceammc/ext/src/ui/ui_display.cpp
+#: ../ceammc/ext/src/ui/ui_env.cpp ../ceammc/ext/src/ui/ui_gain.cpp
+#: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_icon.cpp
+#: ../ceammc/ext/src/ui/ui_incdec.cpp ../ceammc/ext/src/ui/ui_keyboard.cpp
+#: ../ceammc/ext/src/ui/ui_link.cpp ../ceammc/ext/src/ui/ui_matrix.cpp
+#: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_meter.cpp
+#: ../ceammc/ext/src/ui/ui_number.cpp ../ceammc/ext/src/ui/ui_number_tilde.cpp
+#: ../ceammc/ext/src/ui/ui_radio.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
+#: ../ceammc/ext/src/ui/ui_scope.cpp
+msgid "Main"
+msgstr "Основные"
+
 #: ../ceammc/ext/src/ui/ui_label.cpp
 msgid "Margin bottom"
 msgstr "Отступ снизу"
@@ -720,6 +964,10 @@ msgstr "Отступ сверху"
 #: ../tcl/dialog_canvas.tcl
 msgid "Margin:"
 msgstr "Отступ:"
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Margins"
+msgstr "Отступы"
 
 #: ../tcl/dialog_find.tcl
 msgid "Match whole word only"
@@ -807,6 +1055,10 @@ msgstr "Минимальное Y-значение"
 msgid "Minimum value"
 msgstr "Минимальное значение"
 
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+msgid "Misc"
+msgstr "Разное"
+
 #: ../ceammc/ext/src/ui/ui_icon.cpp
 msgid "Mode"
 msgstr "Режим"
@@ -827,6 +1079,10 @@ msgstr "Новый"
 msgid "New graph"
 msgstr "Новый graph"
 
+#: ../tcl/scrollbox.tcl
+msgid "New..."
+msgstr "Новый…"
+
 #: ../tcl/pd_menus.tcl
 msgid "Next Window"
 msgstr "Следующее окно"
@@ -834,6 +1090,10 @@ msgstr "Следующее окно"
 #: ../tcl/dialog_iemgui.tcl
 msgid "No init"
 msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "No matching externals found."
+msgstr "Подходящие расширения не найдены."
 
 #: ../tcl/pd_deken.tcl
 msgid "No matching externals found. Try using the full name e.g. 'freeverb'."
@@ -867,9 +1127,10 @@ msgstr ""
 
 #: ../tcl/dialog_array.tcl ../tcl/dialog_audio.tcl ../tcl/dialog_canvas.tcl
 #: ../tcl/dialog_font.tcl ../tcl/dialog_gatom.tcl ../tcl/dialog_iemgui.tcl
-#: ../tcl/dialog_midi.tcl ../tcl/dialog_startup.tcl ../tcl/scrollboxwindow.tcl
+#: ../tcl/dialog_midi.tcl ../tcl/dialog_startup.tcl ../tcl/pd_deken.tcl
+#: ../tcl/scrollboxwindow.tcl
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/pd_menus.tcl
@@ -891,6 +1152,10 @@ msgstr "Открыть в виде списка..."
 #: ../tcl/pd_menus.tcl
 msgid "Open Recent"
 msgstr "Недавние файлы"
+
+#: ../tcl/pd_deken.tcl
+msgid "Open webpage"
+msgstr "Открыть веб-страницу"
 
 #: ../tcl/dialog_array.tcl
 msgid "Options"
@@ -932,6 +1197,10 @@ msgstr "Родительское окно"
 msgid "Paste"
 msgstr "Вставить"
 
+#: ../tcl/pd_menus.tcl
+msgid "Paste Replace"
+msgstr ""
+
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Patching Size"
@@ -945,9 +1214,28 @@ msgstr "Пути..."
 msgid "Pd"
 msgstr ""
 
+#: ../tcl/dialog_path.tcl
+msgid "Pd Documents Directory"
+msgstr ""
+
 #: ../tcl/pd-gui.tcl
 msgid "Pd Files"
 msgstr "Файлы Pd"
+
+#: ../tcl/pd_docsdir.tcl
+#, tcl-format
+msgid ""
+"Pd documents directory cannot be found:\n"
+"\n"
+"%s\n"
+"\n"
+"Choose a new location?"
+msgstr ""
+"Каталог Pd документов не найден:\n"
+"\n"
+"%s\n"
+"\n"
+"Выбрать новый путь?"
 
 #: ../tcl/dialog_startup.tcl
 msgid "Pd libraries to load on startup"
@@ -971,8 +1259,16 @@ msgid "Pinned"
 msgstr "Закрепить на нижнем слое"
 
 #: ../tcl/pd_deken.tcl
+msgid "Platform settings:"
+msgstr "Настройки платформы:"
+
+#: ../tcl/pd_deken.tcl
 msgid "Please perform the following steps manually:"
 msgstr "Пожалуйста, сделайте вручную следующие шаги:"
+
+#: ../tcl/pd_deken.tcl
+msgid "Please select a (writable) installation directory!"
+msgstr "Пожалуйста, выберите каталог для установки доступный для записи!"
 
 #: ../tcl/dialog_array.tcl
 msgid "Points"
@@ -982,10 +1278,19 @@ msgstr "Точками"
 msgid "Polygon"
 msgstr "Линиями"
 
-#: ../tcl/pd_menus.tcl
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Position"
+msgstr "Положение"
+
+#: ../ceammc/ext/src/ui/ui_slider.cpp
+msgid "Precision"
+msgstr "Десятичная точность"
+
+#: ../tcl/pd_deken.tcl ../tcl/pd_menus.tcl
 msgid "Preferences"
 msgstr "Настройки"
 
+#: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Preset Name"
@@ -1076,6 +1381,10 @@ msgstr "Относительный режим"
 msgid "Report a bug"
 msgstr "Сообщить об ошибке"
 
+#: ../tcl/dialog_path.tcl
+msgid "Reset"
+msgstr "Сбросить"
+
 #: ../tcl/dialog_gatom.tcl
 msgid "Right"
 msgstr "Справа"
@@ -1096,6 +1405,10 @@ msgstr "Насыщенность"
 msgid "Save"
 msgstr "Сохранить"
 
+#: ../tcl/pd_menus.tcl
+msgid "Save All Preferences"
+msgstr "Сохранить все настройки"
+
 #: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl ../tcl/pd_menus.tcl
 msgid "Save All Settings"
 msgstr "Сохранить все"
@@ -1112,11 +1425,15 @@ msgstr "Сохранить текущий патч как..."
 msgid "Save contents"
 msgstr "Сохранять содержимое"
 
+#: ../tcl/pd_menus.tcl
+msgid "Save to..."
+msgstr "Сохранить в…"
+
 #: ../tcl/dialog_canvas.tcl
 msgid "Scale"
 msgstr "Масштаб"
 
-#: ../ceammc/ext/src/ui/ui_knob.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_spectroscope.cpp
 msgid "Scale Color"
 msgstr "Цвет шкалы"
 
@@ -1127,6 +1444,11 @@ msgstr "Поиск"
 #: ../tcl/dialog_find.tcl
 msgid "Search in"
 msgstr "Поиск в"
+
+#: ../tcl/dialog_find.tcl
+#, tcl-format
+msgid "Search in %s for:"
+msgstr "Поиск в %s:"
 
 #: ../tcl/pd_deken.tcl
 msgid "Searching for externals..."
@@ -1166,9 +1488,17 @@ msgstr "Отправлять:"
 msgid "Settings"
 msgstr "Настройки"
 
+#: ../tcl/pd_deken.tcl
+msgid "Should newly installed libraries be added to Pd's search path?"
+msgstr "Добавлять установленные библиотеки к путям поиска Pd?"
+
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
 msgid "Show Labels"
 msgstr "Показать ярлыки"
+
+#: ../tcl/pd_deken.tcl
+msgid "Show README of newly installed libraries (if present)?"
+msgstr "Показать README только установленных библиотек (если существует)?"
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
 msgid "Show RMS"
@@ -1182,15 +1512,30 @@ msgstr "Показать все"
 msgid "Show grid"
 msgstr "Показывать сетку"
 
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "Show range"
 msgstr "Показывать диапазон"
 
+#: ../ceammc/ext/src/ui/ui_slider.cpp
+msgid "Show value in horizontal mode"
+msgstr "Показывать значение при горизонтальной ориентации"
+
+#: ../tcl/dialog_find.tcl
+#, tcl-format
+msgid "Showed last '%1$s' in %2$s"
+msgstr "Показаны последние ‘%s’ в %s"
+
 #: ../tcl/dialog_find.tcl
 #, tcl-format
 msgid "Showed last '%s' in %s"
 msgstr "Показаны последние ‘%s’ в %s"
+
+#: ../tcl/dialog_find.tcl
+#, tcl-format
+msgid "Showing '%1$d' out of %2$d items in %3$s"
+msgstr "Показано ‘%1$d’ из %2$d элементов в %3$s"
 
 #: ../tcl/dialog_find.tcl
 #, tcl-format
@@ -1239,6 +1584,11 @@ msgstr "Масштаб"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
+msgid "Successfully unzipped %1$s into %2$s."
+msgstr "Файл %1$s успешно распакован в директорию %2$s."
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
 msgid "Successfully unzipped %s into %s.\n"
 msgstr "Успешно распакован файл %s в директорию %s.\n"
 
@@ -1264,11 +1614,11 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_label.cpp
 msgid "Text"
-msgstr ""
+msgstr "Текст"
 
 #: ../ceammc/ext/src/ui/ui_display.cpp ../ceammc/ext/src/ui/ui_label.cpp
 #: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_preset.cpp
-#: ../ceammc/ext/src/ui/ui_tab.cpp
+#: ../ceammc/ext/src/ui/ui_slider.cpp ../ceammc/ext/src/ui/ui_tab.cpp
 msgid "Text Color"
 msgstr "Цвет текста"
 
@@ -1291,7 +1641,7 @@ msgstr ""
 
 #: ../tcl/dialog_iemgui.tcl ../tcl/pd_menus.tcl
 msgid "Toggle"
-msgstr ""
+msgstr "Toggle"
 
 #: ../ceammc/ext/src/ui/ui_tab.cpp
 msgid "Toggle Mode"
@@ -1301,17 +1651,53 @@ msgstr "Режим переключателя"
 msgid "Top"
 msgstr "Сверху"
 
+#: ../tcl/pd_menus.tcl
+msgid "Triggerize"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "Try to remove libraries before (re)installing them?"
+msgstr "Пытаться удалить установленные библиотеки перед их (пере)установкой?"
+
+#: ../tcl/pd_deken.tcl
+msgid "Try using the full name e.g. 'freeverb'."
+msgstr "Попробуйте использовать полное имя, например ‘freeverb’."
+
 #: ../ceammc/ext/src/ui/ui_link.cpp
 msgid "URL"
 msgstr "URL"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Unable to add %s to search paths"
+msgstr "Невозможно добавить %s в пути поиска"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Unable to download from %1$s [%2$s]"
+msgstr "Невозможно загрузить из %1$s [%2$s]"
 
 #: ../tcl/pd_deken.tcl
 msgid "Unable to extract package automatically."
 msgstr "Невозможно распаковать пакет автоматически."
 
 #: ../tcl/pd_deken.tcl
+msgid "Unable to perform search."
+msgstr "Невозможно выполнить поиск."
+
+#: ../tcl/pd_deken.tcl
 msgid "Unable to perform search. Are you online?"
 msgstr "Невозможно выполнить поиск. Вы онлайн?"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Unable to remove stray file %s"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Unable to rename downloaded file to %s"
+msgstr "Невозможно переименовать загруженный файл в %s"
 
 #: ../tcl/pd_menus.tcl
 msgid "Undo"
@@ -1351,12 +1737,26 @@ msgstr "Отменить ввод"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
+msgid "Uninstalling %1$s from %2$s failed!"
+msgstr "Не удалось удалить %1$s из %2$s!"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "Uploaded by %1$s @ %2$s"
+msgstr "Добавлено пользователем %1$s @ %2$s"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
 msgid "Uploaded by %s @ %s"
 msgstr "Добавлено пользователем %s @ %s"
 
 #: ../tcl/dialog_gatom.tcl ../tcl/dialog_iemgui.tcl
 msgid "Upper:"
 msgstr "До:"
+
+#: ../tcl/dialog_midi.tcl
+msgid "Use Multiple Devices"
+msgstr "Использовать несколько устройств"
 
 #: ../tcl/dialog_audio.tcl
 msgid "Use callbacks"
@@ -1370,9 +1770,21 @@ msgstr "Использовать несколько устройств"
 msgid "Use standard extensions"
 msgstr "Использовать стандартные расширения"
 
+#: ../tcl/dialog_path.tcl
+msgid "Use standard paths"
+msgstr "Использовать стандартные расширения"
+
+#: ../tcl/pd_deken.tcl
+msgid "User-defined platform:"
+msgstr "Платформа указанная пользователем:"
+
 #: ../tcl/dialog_iemgui.tcl ../tcl/pd_menus.tcl
 msgid "VU Meter"
 msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_slider.cpp
+msgid "Value position"
+msgstr "Располагать значение"
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Value:"
@@ -1385,6 +1797,10 @@ msgstr "Подробный вывод"
 #: ../ceammc/ext/src/ui/ui_tab.cpp
 msgid "Vertical Orientation"
 msgstr "Вертикально"
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Vertical align"
+msgstr "Вертикальное выравнивание"
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Visible Rectangle (pix)"
@@ -1479,6 +1895,10 @@ msgid "Zoom In"
 msgstr "Увеличить"
 
 #: ../tcl/pd_menus.tcl
+msgid "Zoom New Windows"
+msgstr "Увеличенный шрифт в новых окнах"
+
+#: ../tcl/pd_menus.tcl
 msgid "Zoom Out"
 msgstr "Уменьшить"
 
@@ -1486,13 +1906,85 @@ msgstr "Уменьшить"
 msgid "Zoom new windows"
 msgstr "Увеличенный шрифт в новых окнах"
 
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "[deken] Platform detected: %s"
+msgstr "[deken] Платформа определена: %s"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "[deken] Platform re-detected: %s"
+msgstr "[deken] платформа определена заново: %s"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "[deken] deken-plugin.tcl (Pd externals search) loaded from %s."
+msgstr "[deken] deken-plugin.tcl (поиск расширений Pd) загружен из %s."
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "[deken] uninstalling '%s'"
+msgstr "[deken] удаление ’%s’"
+
+#: ../tcl/pd_deken.tcl
+msgid "[deken]: "
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "[deken]: No matching externals found."
+msgstr "[deken]: Подходящие расширения не найдены."
+
+#: ../tcl/pd_deken.tcl
+msgid "[deken]: Start searching for externals..."
+msgstr "[deken]: Начинаю поиск расширений…"
+
+#: ../tcl/pd_deken.tcl
+msgid "[deken]: Unable to extract package automatically."
+msgstr "[deken]: Невозможно распаковать пакет автоматически."
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "[deken]: installed version [%1$s] < %2$s...overwriting!"
+msgstr "[deken]: установленная версия [%1$s] < %2$s…перезаписываю!"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "[deken]: installed version [%1$s] == %2$s...skipping!"
+msgstr "[deken]: установленная версия [%1$s] == %2$s…пропускаю!"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "[deken]: installed version [%1$s] > %2$s...skipping!"
+msgstr "[deken]: установленная версия [%1$s] > %2$s… пропускаю!"
+
+#: ../tcl/pd_deken.tcl
+#, tcl-format
+msgid "[deken]: online? %s"
+msgstr "[deken]: онлайн? %s"
+
+#: ../tcl/pd_deken.tcl
+msgid "_"
+msgstr ""
+
+#: ../tcl/pd_deken.tcl
+msgid "aborting.\n"
+msgstr ""
+
 #: ../tcl/pdwindow.tcl
 msgid "all"
 msgstr "все"
 
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "bottom center"
+msgstr "внизу по центру"
+
 #: iemgui_dynamic_strings.tcl
 msgid "bottom:"
 msgstr "снизу:"
+
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "center"
+msgstr "по центру"
 
 #: ../tcl/pdwindow.tcl
 msgid "debug"
@@ -1505,6 +1997,15 @@ msgstr "ошибки"
 #: ../tcl/pdwindow.tcl
 msgid "fatal"
 msgstr "критические ошибки"
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+#, c-format
+msgid "fill with %f"
+msgstr "заполнить %f"
+
+#: ../ceammc/ext/src/ui/ui_matrix.cpp
+msgid "flip"
+msgstr "инвертировать"
 
 #: ../tcl/dialog_find.tcl
 msgid "for:"
@@ -1522,25 +2023,49 @@ msgstr ""
 msgid "intrrpt:"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "left center"
+msgstr "по центре левой стороны"
+
 #: iemgui_dynamic_strings.tcl
 msgid "left:"
 msgstr "слева:"
 
 #: iemgui_dynamic_strings.tcl
 msgid "lin"
-msgstr ""
+msgstr "lin"
+
+#: ../ceammc/ext/src/ui/ui_spectroscope.cpp
+msgid "linear scale"
+msgstr "линейная шкала"
+
+#: ../ceammc/ext/src/ui/ui_matrix.cpp
+msgid "load"
+msgstr "загрузить"
 
 #: iemgui_dynamic_strings.tcl
 msgid "log"
-msgstr ""
+msgstr "log"
+
+#: ../ceammc/ext/src/ui/ui_spectroscope.cpp
+msgid "log scale"
+msgstr "логарифмическая шкала"
 
 #: iemgui_dynamic_strings.tcl
 msgid "log-height:"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_knob.cpp
+msgid "max"
+msgstr "max"
+
 #: iemgui_dynamic_strings.tcl
 msgid "max:"
 msgstr "макс:"
+
+#: ../ceammc/ext/src/ui/ui_knob.cpp
+msgid "min"
+msgstr "min"
 
 #: iemgui_dynamic_strings.tcl
 msgid "min:"
@@ -1555,9 +2080,29 @@ msgstr "обычный"
 msgid "puredata.info"
 msgstr "puredata.info"
 
+#: ../ceammc/ext/src/ui/ui_matrix.cpp
+msgid "random"
+msgstr "случайное значение"
+
+#: ../ceammc/ext/src/ui/ui_keyboard.cpp
+msgid "release all"
+msgstr "отпустить все"
+
+#: ../ceammc/ext/src/ui/ui_matrix.cpp
+msgid "reset"
+msgstr "сбросить"
+
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "right center"
+msgstr "по центру правой стороны"
+
 #: iemgui_dynamic_strings.tcl
 msgid "right:"
 msgstr "справа:"
+
+#: ../ceammc/ext/src/ui/ui_matrix.cpp
+msgid "save"
+msgstr "сохранить"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
@@ -1571,6 +2116,10 @@ msgstr "размер:"
 #: ../tcl/dialog_canvas.tcl
 msgid "to"
 msgstr "до"
+
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "top center"
+msgstr "вверху по центру"
 
 #: iemgui_dynamic_strings.tcl
 msgid "top:"
@@ -1590,23 +2139,23 @@ msgstr "ширина:"
 #~ msgid "Auto send"
 #~ msgstr "Отправлять при изменении"
 
-#~ msgid "Background Color"
-#~ msgstr "Цвет фона"
-
-#~ msgid "Border Color"
-#~ msgstr "Цвет границы"
-
 #~ msgid "Cross Color"
 #~ msgstr "Цвет индикатора"
-
-#~ msgid "Horizontal range"
-#~ msgstr "Горизонтальный диапазон"
 
 #~ msgid "Hover Mode"
 #~ msgstr "Режим наведения"
 
 #~ msgid "Item Color"
 #~ msgstr "Цвет элемента"
+
+#~ msgid "Label vertical margin"
+#~ msgstr "Вертикальный отступ ярлыка"
+
+#~ msgid "Label x-margin"
+#~ msgstr "Отступ ярлыка по x"
+
+#~ msgid "Label y-margin"
+#~ msgstr "Отступ ярлыка по y"
 
 #~ msgid "Leftmost value"
 #~ msgstr "Крайнее левое значение"
@@ -1620,17 +2169,8 @@ msgstr "ширина:"
 #~ msgid "Shift"
 #~ msgstr "Смещение"
 
-#~ msgid "Show value range"
-#~ msgstr "Показывать диапазон значений"
-
 #~ msgid "Topmost value"
 #~ msgstr "Крайнее верхнее значение"
 
 #~ msgid "Value range"
 #~ msgstr "Диапазон значений"
-
-#~ msgid "Value shift"
-#~ msgstr "Смещение значения"
-
-#~ msgid "Vertical range"
-#~ msgstr "Вертикальный диапазон"

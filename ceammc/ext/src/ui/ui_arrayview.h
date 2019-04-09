@@ -99,16 +99,17 @@ public:
 public:
     UIArrayView();
 
-    void paint(t_object* view);
+    void paint();
     void drawWaveform();
     void drawLabels();
     void drawCursor();
 
     void init(t_symbol* name, const AtomList& args, bool usePresets);
     void okSize(t_rect* newrect);
-    t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
+    void onPropChange(t_symbol* prop_name);
+    void onZoom(t_float z);
 
-    void onMouseDown(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
     void onMouseMove(t_object* view, const t_pt& pt, long modifiers);
     void onMouseLeave(t_object* view, const t_pt& pt, long modifiers);
@@ -125,7 +126,15 @@ private:
     bool quickRender();
     void renderTick();
     void renderRange(size_t pos, size_t len);
-    void drawWaveformSegment(UIPainter& p, int pixel_from, int pixel_to, const t_rgba& color);
+
+    /*
+     * draw part of waveform
+     * @param p - painter
+     * @param pixel_begin - begin pixel x-coord
+     * @param pixel_end - end pixel x-coord
+     * @param color - waveform color
+     */
+    void drawWaveformSegment(UIPainter& p, int pixel_begin, int pixel_end, const t_rgba& color);
     void output();
 
     t_float cursorPosSample() const;

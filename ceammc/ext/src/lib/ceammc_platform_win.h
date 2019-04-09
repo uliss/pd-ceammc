@@ -32,6 +32,7 @@ namespace platform {
     std::string win_home_directory();
     void win_sleep_ms(unsigned int ms);
     bool win_is_dir(const char* path);
+    std::string win_current_working_directory();
     Either<NetAddressList> win_hostnametoip(const char* name, NetAddressType type);
     Either<int> win_fd_set_non_blocking(int fd);
     Either<bool> win_init_pipe(int fd[]);

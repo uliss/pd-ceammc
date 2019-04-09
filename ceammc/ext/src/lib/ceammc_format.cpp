@@ -157,4 +157,14 @@ std::string to_string(const DataPtr& p)
     return p.isNull() ? "???" : p->toString();
 }
 
+std::string quote(const std::string& str, char q)
+{
+    std::string res;
+    res.reserve(str.size() + 2);
+    res.push_back(q);
+    res += str;
+    res.push_back(q);
+    return res;
+}
+
 } // namespace ceammc

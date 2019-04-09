@@ -27,7 +27,7 @@ TEST_CASE("ui.number", "[ui.number]")
         REQUIRE(t->numOutlets() == 1);
         REQUIRE_UI_FLOAT_PROPERTY(t, "min", -std::numeric_limits<float>::max());
         REQUIRE_UI_FLOAT_PROPERTY(t, "max", std::numeric_limits<float>::max());
-        REQUIRE_UI_LIST_PROPERTY(t, "size", LF(53, 16));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LF(53, 15));
         REQUIRE_UI_FLOAT_PROPERTY(t, "value", 0.f);
         REQUIRE(t->value() == 0.f);
     }

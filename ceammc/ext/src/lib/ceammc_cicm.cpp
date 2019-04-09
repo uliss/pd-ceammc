@@ -2,19 +2,19 @@
 
 namespace ceammc {
 
-static t_symbol* SYM_DECORATION_NONE = gensym("roman");
-static t_symbol* SYM_DECORATION_ITALIC = gensym("italic");
-static t_symbol* SYM_WEIGHT_NORMAL = gensym("normal");
-static t_symbol* SYM_WEIGHT_BOLD = gensym("bold");
+static const char* SYM_DECORATION_NONE = "roman";
+static const char* SYM_DECORATION_ITALIC = "italic";
+static const char* SYM_WEIGHT_NORMAL = "normal";
+static const char* SYM_WEIGHT_BOLD = "bold";
 
 static t_symbol* toSymbol(FontDecoration dec)
 {
     switch (dec) {
     case FONT_DECORATION_NONE:
-        return SYM_DECORATION_NONE;
+        return gensym(SYM_DECORATION_NONE);
     case FONT_DECORATION_ITALIC:
     default:
-        return SYM_DECORATION_ITALIC;
+        return gensym(SYM_DECORATION_ITALIC);
     }
 }
 
@@ -22,10 +22,10 @@ static t_symbol* toSymbol(FontWeight w)
 {
     switch (w) {
     case FONT_WEIGHT_NORMAL:
-        return SYM_WEIGHT_NORMAL;
+        return gensym(SYM_WEIGHT_NORMAL);
     case FONT_WEIGHT_BOLD:
     default:
-        return SYM_WEIGHT_BOLD;
+        return gensym(SYM_WEIGHT_BOLD);
     }
 }
 
@@ -125,33 +125,41 @@ void UITextLayout::set(const char* txt)
 void UITextLayout::setX(float x)
 {
     x_ = x;
+    text_->c_rect.x = x;
 }
 
 void UITextLayout::setY(float y)
 {
     y_ = y;
+    text_->c_rect.y = y;
 }
 
 void UITextLayout::setPos(float x, float y)
 {
     x_ = x;
     y_ = y;
+    text_->c_rect.x = x;
+    text_->c_rect.y = y;
 }
 
 void UITextLayout::setWidth(float w)
 {
     w_ = w;
+    text_->c_rect.width = w;
 }
 
 void UITextLayout::setHeight(float h)
 {
     h_ = h;
+    text_->c_rect.height = h;
 }
 
 void UITextLayout::setSize(float w, float h)
 {
     w_ = w;
     h_ = h;
+    text_->c_rect.width = w;
+    text_->c_rect.height = h;
 }
 
 void UITextLayout::setJustify(etextjustify_flags j)
@@ -287,6 +295,11 @@ void UIPainter::drawCircle(float x, float y, float r)
     egraphics_circle(layer_, x, y, r);
 }
 
+void UIPainter::drawPoly(const std::vector<t_pt>& v)
+{
+    egraphics_poly(layer_, v);
+}
+
 void UIPainter::drawLineTo(float x, float y)
 {
     egraphics_line_to(layer_, x, y);
@@ -346,4 +359,45 @@ t_elayer* UIPainter::layer()
 {
     return layer_;
 }
+
+void UIPainter::raiseOver(UIPainter& painter)
+{
+    if (!painter)
+        return;
+
+    egraphics_raise(layer_, painter.layer());
+}
+
+UIPopupMenu::UIPopupMenu(t_eobj* x, const char* name, const t_pt& pos)
+    : menu_(nullptr)
+    , pos_(pos)
+{
+    menu_ = epopupmenu_create(x, gensym(name));
+}
+
+UIPopupMenu::~UIPopupMenu()
+{
+    int cnt = 0;
+    for (MenuEntry& m : menu_items_) {
+        if (m.first.empty())
+            epopupmenu_addseparator(menu_);
+        else
+            epopupmenu_additem(menu_, cnt++, m.first.c_str(), m.second);
+    }
+
+    epopupmenu_popup(menu_, pos_);
+
+    free(menu_);
+}
+
+void UIPopupMenu::addSeparator()
+{
+    menu_items_.emplace_back("", false);
+}
+
+void UIPopupMenu::addItem(const std::string& name, bool enabled)
+{
+    menu_items_.emplace_back(name, enabled);
+}
+
 }

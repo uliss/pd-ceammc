@@ -30,7 +30,7 @@ UIPreset::UIPreset()
 void UIPreset::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
-    bindTo(PresetStorage::SYM_PRESET_UPDATE_INDEX_ADDR);
+    bindTo(gensym(PresetStorage::SYM_PRESET_UPDATE_INDEX_ADDR));
     updateIndexes();
 }
 
@@ -40,7 +40,7 @@ void UIPreset::okSize(t_rect* newrect)
     newrect->height = pd_clip_min(newrect->height, 15.);
 }
 
-void UIPreset::paint(t_object* view)
+void UIPreset::paint()
 {
 #ifdef __APPLE__
     const static int FNT_SZ = FONT_SIZE_SMALL;
@@ -52,7 +52,7 @@ void UIPreset::paint(t_object* view)
 
     // NO multithreading!!!
     static std::vector<UITextLayout*> numbers_;
-    static UIFont font(FONT_FAMILY, FNT_SZ);
+    static UIFont font(gensym(FONT_FAMILY), FNT_SZ);
 
     if (numbers_.empty()) {
         for (size_t i = 0; i < 256; i++)
@@ -60,7 +60,7 @@ void UIPreset::paint(t_object* view)
                 ETEXT_CENTER, ETEXT_JCENTER, ETEXT_NOWRAP));
     }
 
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)
@@ -109,7 +109,7 @@ void UIPreset::paint(t_object* view)
     }
 }
 
-void UIPreset::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIPreset::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     int index = buttonIndexAt(pt.x, pt.y);
 
@@ -130,14 +130,14 @@ void UIPreset::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
 
     if (mouse_over_index_ != index) {
         mouse_over_index_ = index;
-        redrawBGLayer();
+        redrawLayer(bg_layer_);
     }
 }
 
 void UIPreset::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
 {
     mouse_over_index_ = -1;
-    redrawBGLayer();
+    redrawLayer(bg_layer_);
 }
 
 int UIPreset::buttonIndexAt(float x, float y) const
@@ -154,7 +154,7 @@ void UIPreset::m_read(const AtomList& lst)
 {
     if (PresetStorage::instance().read(canvas(), to_string(lst))) {
         selected_index_ = -1;
-        redrawBGLayer();
+        redrawLayer(bg_layer_);
     }
 }
 
@@ -194,6 +194,7 @@ void UIPreset::setup()
 #endif
 
     obj.hideProperty("send");
+    obj.hideLabelInner();
 
     obj.addProperty("text_color", _("Text Color"), "0. 0. 0. 1.", &UIPreset::prop_color_text);
     obj.addProperty("empty_color", _("Empty Button Color"), "0.86 0.86 0.86 1.", &UIPreset::prop_color_empty);
@@ -202,8 +203,8 @@ void UIPreset::setup()
     obj.addProperty("current", &UIPreset::propCurrent, 0);
 
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_MOVE | UI_MOUSE_LEAVE);
-    obj.addMethod(PresetStorage::SYM_PRESET_INDEX_ADD->s_name, &UIPreset::indexAdd);
-    obj.addMethod(PresetStorage::SYM_PRESET_INDEX_REMOVE->s_name, &UIPreset::indexRemove);
+    obj.addMethod(PresetStorage::SYM_PRESET_INDEX_ADD, &UIPreset::indexAdd);
+    obj.addMethod(PresetStorage::SYM_PRESET_INDEX_REMOVE, &UIPreset::indexRemove);
 
     obj.addMethod("read", &UIPreset::m_read);
     obj.addMethod("write", &UIPreset::m_write);
@@ -223,7 +224,7 @@ void UIPreset::indexAdd(const AtomList& lst)
         }
 
         presets_.set(idx, true);
-        redrawBGLayer();
+        redrawLayer(bg_layer_);
     }
 }
 
@@ -238,7 +239,7 @@ void UIPreset::indexRemove(const AtomList& lst)
         }
 
         presets_.set(idx, false);
-        redrawBGLayer();
+        redrawLayer(bg_layer_);
     }
 }
 
@@ -259,7 +260,7 @@ void UIPreset::loadIndex(size_t idx)
     if (presets_.test(idx)) {
         selected_index_ = idx;
         PresetStorage::instance().loadAll(idx);
-        redrawBGLayer();
+        redrawLayer(bg_layer_);
     }
 }
 
@@ -288,7 +289,7 @@ void UIPreset::clearIndex(size_t idx)
 
         PresetStorage::instance().clearAll(idx);
         presets_.set(idx, false);
-        redrawBGLayer();
+        redrawLayer(bg_layer_);
     }
 }
 

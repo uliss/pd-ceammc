@@ -7,7 +7,6 @@
 #include <stdio.h>
 
 #include "m_pd.h"
-#include "s_stuff.h"    /* for sys_hostfontsize */
 #include "g_canvas.h"
 
 /*
@@ -30,8 +29,54 @@ struct _gtemplate
     t_atom *x_argv;
 };
 
+struct _instancetemplate
+{
+    int curve_motion_field;
+    t_float curve_motion_xcumulative;
+    t_float curve_motion_xbase;
+    t_float curve_motion_xper;
+    t_float curve_motion_ycumulative;
+    t_float curve_motion_ybase;
+    t_float curve_motion_yper;
+    t_glist *curve_motion_glist;
+    t_scalar *curve_motion_scalar;
+    t_array *curve_motion_array;
+    t_word *curve_motion_wp;
+    t_template *curve_motion_template;
+    t_gpointer curve_motion_gpointer;
+    t_float array_motion_xcumulative;
+    t_float array_motion_ycumulative;
+    t_fielddesc *array_motion_xfield;
+    t_fielddesc *array_motion_yfield;
+    t_glist *array_motion_glist;
+    t_scalar *array_motion_scalar;
+    t_array *array_motion_array;
+    t_word *array_motion_wp;
+    t_template *array_motion_template;
+    int array_motion_npoints;
+    int array_motion_elemsize;
+    int array_motion_altkey;
+    t_float array_motion_initx;
+    t_float array_motion_xperpix;
+    t_float array_motion_yperpix;
+    int array_motion_lastx;
+    int array_motion_fatten;
+    t_float drawnumber_motion_ycumulative;
+    t_glist *drawnumber_motion_glist;
+    t_scalar *drawnumber_motion_scalar;
+    t_array *drawnumber_motion_array;
+    t_word *drawnumber_motion_wp;
+    t_template *drawnumber_motion_template;
+    t_gpointer drawnumber_motion_gpointer;
+    int drawnumber_motion_type;
+    int drawnumber_motion_firstkey;
+};
+
+
 /* ---------------- forward definitions ---------------- */
 
+static void template_addtolist(t_template *x);
+static void template_takeofflist(t_template *x);
 static void template_conformarray(t_template *tfrom, t_template *tto,
     int *conformaction, t_array *a);
 static void template_conformglist(t_template *tfrom, t_template *tto,
@@ -57,11 +102,33 @@ static int dataslot_matches(t_dataslot *ds1, t_dataslot *ds2,
 
 /* -- templates, the active ingredient in gtemplates defined below. ------- */
 
+    /* add a template to the list */
+static void template_addtolist(t_template *x)
+{
+    x->t_next = pd_this->pd_templatelist;
+    pd_this->pd_templatelist = x;
+}
+
+static void template_takeofflist(t_template *x)
+{
+        /* take it off the template list */
+    if (x == pd_this->pd_templatelist) pd_this->pd_templatelist = x->t_next;
+    else
+    {
+        t_template *z;
+        for (z = pd_this->pd_templatelist; z->t_next != x; z = z->t_next)
+            if (!z->t_next) return;
+        z->t_next = x->t_next;
+    }
+}
+
 t_template *template_new(t_symbol *templatesym, int argc, t_atom *argv)
 {
     t_template *x = (t_template *)pd_new(template_class);
     x->t_n = 0;
     x->t_vec = (t_dataslot *)t_getbytes(0);
+    x->t_next = 0;
+    template_addtolist(x);
     while (argc > 0)
     {
         int newtype, oldn, newn;
@@ -527,6 +594,7 @@ void template_free(t_template *x)
     if (*x->t_sym->s_name)
         pd_unbind(&x->t_pdobj, x->t_sym);
     t_freebytes(x->t_vec, x->t_n * sizeof(*x->t_vec));
+    template_takeofflist(x);
 }
 
 static void template_setup(void)
@@ -743,7 +811,7 @@ static void fielddesc_setfloat_var(t_fielddesc *fd, t_symbol *s)
     }
     else
     {
-        int cpy = s1 - s->s_name, got;
+        int cpy = (int)(s1 - s->s_name), got;
         double v1, v2, screen1, screen2, quantum;
         if (cpy > MAXPDSTRING-5)
             cpy = MAXPDSTRING-5;
@@ -780,9 +848,10 @@ static void fielddesc_setfloat_var(t_fielddesc *fd, t_symbol *s)
     }
 }
 
-#define CLOSED 1
-#define BEZ 2
-#define NOMOUSE 4
+#define CLOSED 1      /* polygon */
+#define BEZ 2         /* bezier shape */
+#define NOMOUSERUN 4  /* disable mouse interaction when in run mode  */
+#define NOMOUSEEDIT 8 /* same in edit mode */
 #define A_ARRAY 55      /* LATER decide whether to enshrine this in m_pd.h */
 
 static void fielddesc_setfloatarg(t_fielddesc *fd, int argc, t_atom *argv)
@@ -948,7 +1017,7 @@ t_class *curve_class;
 typedef struct _curve
 {
     t_object x_obj;
-    int x_flags;            /* CLOSED and/or BEZ and/or NOMOUSE */
+    int x_flags;    /* CLOSED, BEZ, NOMOUSERUN, NOMOUSEEDIT */
     t_fielddesc x_fillcolor;
     t_fielddesc x_outlinecolor;
     t_fielddesc x_width;
@@ -961,7 +1030,7 @@ typedef struct _curve
 static void *curve_new(t_symbol *classsym, int argc, t_atom *argv)
 {
     t_curve *x = (t_curve *)pd_new(curve_class);
-    char *classname = classsym->s_name;
+    const char *classname = classsym->s_name;
     int flags = 0;
     int nxy, i;
     t_fielddesc *fd;
@@ -974,20 +1043,40 @@ static void *curve_new(t_symbol *classsym, int argc, t_atom *argv)
     else classname += 4;
     if (classname[0] == 'c') flags |= BEZ;
     fielddesc_setfloat_const(&x->x_vis, 1);
-    while (1)
+    while (argc && argv->a_type == A_SYMBOL &&
+        *argv->a_w.w_symbol->s_name == '-')
     {
-        t_symbol *firstarg = atom_getsymbolarg(0, argc, argv);
-        if (!strcmp(firstarg->s_name, "-v") && argc > 1)
+        const char *flag = argv->a_w.w_symbol->s_name;
+        if (!strcmp(flag, "-n"))
+        {
+            fielddesc_setfloat_const(&x->x_vis, 0);
+        }
+        else if (!strcmp(flag, "-v") && argc > 1)
         {
             fielddesc_setfloatarg(&x->x_vis, 1, argv+1);
-            argc -= 2; argv += 2;
-        }
-        else if (!strcmp(firstarg->s_name, "-x"))
-        {
-            flags |= NOMOUSE;
             argc -= 1; argv += 1;
         }
-        else break;
+        else if (!strcmp(flag, "-x"))
+        {
+            /* disable all mouse interaction */
+            flags |= (NOMOUSERUN | NOMOUSEEDIT);
+        }
+        else if (!strcmp(flag, "-xr"))
+        {
+            /* disable mouse actions in run mode */
+            flags |= NOMOUSERUN;
+        }
+        else if (!strcmp(flag, "-xe"))
+        {
+            /* disable mouse actions in edit mode */
+            flags |= NOMOUSEEDIT;
+        }
+        else
+        {
+            pd_error(x, "%s: unknown flag '%s'...", classsym->s_name,
+                flag);
+        }
+        argc--; argv++;
     }
     x->x_flags = flags;
     if ((flags & CLOSED) && argc)
@@ -1036,7 +1125,8 @@ static void curve_getrect(t_gobj *z, t_glist *glist,
     t_fielddesc *f = x->x_vec;
     int x1 = 0x7fffffff, x2 = -0x7fffffff, y1 = 0x7fffffff, y2 = -0x7fffffff;
     if (!fielddesc_getfloat(&x->x_vis, template, data, 0) ||
-        (x->x_flags & NOMOUSE))
+        (glist->gl_edit && x->x_flags & NOMOUSEEDIT) ||
+        (!glist->gl_edit && x->x_flags & NOMOUSERUN))
     {
         *xp1 = *yp1 = 0x7fffffff;
         *xp2 = *yp2 = -0x7fffffff;
@@ -1142,6 +1232,8 @@ static void curve_vis(t_gobj *z, t_glist *glist,
                     basey + fielddesc_getcoord(f+1, template, data, 1));
             }
             if (width < 1) width = 1;
+            if (glist->gl_isgraph)
+                width *= glist_getzoom(glist);
             numbertocolor(
                 fielddesc_getfloat(&x->x_outlinecolor, template, data, 1),
                 outline);
@@ -1172,55 +1264,48 @@ static void curve_vis(t_gobj *z, t_glist *glist,
     }
 }
 
-static int curve_motion_field;
-static t_float curve_motion_xcumulative;
-static t_float curve_motion_xbase;
-static t_float curve_motion_xper;
-static t_float curve_motion_ycumulative;
-static t_float curve_motion_ybase;
-static t_float curve_motion_yper;
-static t_glist *curve_motion_glist;
-static t_scalar *curve_motion_scalar;
-static t_array *curve_motion_array;
-static t_word *curve_motion_wp;
-static t_template *curve_motion_template;
-static t_gpointer curve_motion_gpointer;
-
     /* LATER protect against the template changing or the scalar disappearing
     probably by attaching a gpointer here ... */
 
 static void curve_motion(void *z, t_floatarg dx, t_floatarg dy)
 {
     t_curve *x = (t_curve *)z;
-    t_fielddesc *f = x->x_vec + curve_motion_field;
+    t_fielddesc *f = x->x_vec + TEMPLATE->curve_motion_field;
     t_atom at;
-    if (!gpointer_check(&curve_motion_gpointer, 0))
+    if (!gpointer_check(&TEMPLATE->curve_motion_gpointer, 0))
     {
         post("curve_motion: scalar disappeared");
         return;
     }
-    curve_motion_xcumulative += dx;
-    curve_motion_ycumulative += dy;
+    TEMPLATE->curve_motion_xcumulative += dx;
+    TEMPLATE->curve_motion_ycumulative += dy;
     if (f->fd_var && (dx != 0))
     {
-        fielddesc_setcoord(f, curve_motion_template, curve_motion_wp,
-            curve_motion_xbase + curve_motion_xcumulative * curve_motion_xper,
+        fielddesc_setcoord(f, TEMPLATE->curve_motion_template,
+            TEMPLATE->curve_motion_wp,
+            TEMPLATE->curve_motion_xbase +
+            TEMPLATE->curve_motion_xcumulative * TEMPLATE->curve_motion_xper,
                 1);
     }
     if ((f+1)->fd_var && (dy != 0))
     {
-        fielddesc_setcoord(f+1, curve_motion_template, curve_motion_wp,
-            curve_motion_ybase + curve_motion_ycumulative * curve_motion_yper,
+        fielddesc_setcoord(f+1, TEMPLATE->curve_motion_template,
+            TEMPLATE->curve_motion_wp,
+            TEMPLATE->curve_motion_ybase +
+            TEMPLATE->curve_motion_ycumulative * TEMPLATE->curve_motion_yper,
                 1);
     }
         /* LATER figure out what to do to notify for an array? */
-    if (curve_motion_scalar)
-        template_notifyforscalar(curve_motion_template, curve_motion_glist,
-            curve_motion_scalar, gensym("change"), 1, &at);
-    if (curve_motion_scalar)
-        scalar_redraw(curve_motion_scalar, curve_motion_glist);
-    if (curve_motion_array)
-        array_redraw(curve_motion_array, curve_motion_glist);
+    if (TEMPLATE->curve_motion_scalar)
+        template_notifyforscalar(TEMPLATE->curve_motion_template,
+            TEMPLATE->curve_motion_glist,
+            TEMPLATE->curve_motion_scalar, gensym("change"), 1, &at);
+    if (TEMPLATE->curve_motion_scalar)
+        scalar_redraw(TEMPLATE->curve_motion_scalar,
+            TEMPLATE->curve_motion_glist);
+    if (TEMPLATE->curve_motion_array)
+        array_redraw(TEMPLATE->curve_motion_array,
+            TEMPLATE->curve_motion_glist);
 }
 
 static int curve_click(t_gobj *z, t_glist *glist,
@@ -1233,8 +1318,9 @@ static int curve_click(t_gobj *z, t_glist *glist,
     int bestn = -1;
     int besterror = 0x7fffffff;
     t_fielddesc *f;
-    if (!fielddesc_getfloat(&x->x_vis, template, data, 0))
-        return (0);
+    if ((x->x_flags & NOMOUSERUN) ||
+        !fielddesc_getfloat(&x->x_vis, template, data, 0))
+            return (0);
     for (i = 0, f = x->x_vec; i < n; i++, f += 2)
     {
         int xval = fielddesc_getcoord(f, template, data, 0),
@@ -1252,8 +1338,8 @@ static int curve_click(t_gobj *z, t_glist *glist,
             xerr = yerr;
         if (xerr < besterror)
         {
-            curve_motion_xbase = xval;
-            curve_motion_ybase = yval;
+            TEMPLATE->curve_motion_xbase = xval;
+            TEMPLATE->curve_motion_ybase = yval;
             besterror = xerr;
             bestn = i;
         }
@@ -1262,29 +1348,29 @@ static int curve_click(t_gobj *z, t_glist *glist,
         return (0);
     if (doit)
     {
-        curve_motion_xper = glist_pixelstox(glist, 1)
+        TEMPLATE->curve_motion_xper = glist_pixelstox(glist, 1)
             - glist_pixelstox(glist, 0);
-        curve_motion_yper = glist_pixelstoy(glist, 1)
+        TEMPLATE->curve_motion_yper = glist_pixelstoy(glist, 1)
             - glist_pixelstoy(glist, 0);
-        curve_motion_xcumulative = 0;
-        curve_motion_ycumulative = 0;
-        curve_motion_glist = glist;
-        curve_motion_scalar = sc;
-        curve_motion_array = ap;
-        curve_motion_wp = data;
-        curve_motion_field = 2*bestn;
-        curve_motion_template = template;
-        if (curve_motion_scalar)
-            gpointer_setglist(&curve_motion_gpointer, curve_motion_glist,
-                curve_motion_scalar);
-        else gpointer_setarray(&curve_motion_gpointer,
-                curve_motion_array, curve_motion_wp);
+        TEMPLATE->curve_motion_xcumulative = 0;
+        TEMPLATE->curve_motion_ycumulative = 0;
+        TEMPLATE->curve_motion_glist = glist;
+        TEMPLATE->curve_motion_scalar = sc;
+        TEMPLATE->curve_motion_array = ap;
+        TEMPLATE->curve_motion_wp = data;
+        TEMPLATE->curve_motion_field = 2*bestn;
+        TEMPLATE->curve_motion_template = template;
+        if (TEMPLATE->curve_motion_scalar)
+            gpointer_setglist(&TEMPLATE->curve_motion_gpointer,
+                TEMPLATE->curve_motion_glist, TEMPLATE->curve_motion_scalar);
+        else gpointer_setarray(&TEMPLATE->curve_motion_gpointer,
+                TEMPLATE->curve_motion_array, TEMPLATE->curve_motion_wp);
         glist_grab(glist, z, curve_motion, 0, xpix, ypix);
     }
     return (1);
 }
 
-t_parentwidgetbehavior curve_widgetbehavior =
+const t_parentwidgetbehavior curve_widgetbehavior =
 {
     curve_getrect,
     curve_displace,
@@ -1426,8 +1512,8 @@ void plot_float(t_plot *x, t_floatarg f)
 static int plot_readownertemplate(t_plot *x,
     t_word *data, t_template *ownertemplate,
     t_symbol **elemtemplatesymp, t_array **arrayp,
-    t_float *linewidthp, t_float *xlocp, t_float *xincp, t_float *ylocp, t_float *stylep,
-    t_float *visp, t_float *scalarvisp,
+    t_float *linewidthp, t_float *xlocp, t_float *xincp, t_float *ylocp,
+    t_float *stylep, t_float *visp, t_float *scalarvisp,
     t_fielddesc **xfield, t_fielddesc **yfield, t_fielddesc **wfield)
 {
     int arrayonset, type;
@@ -1591,7 +1677,8 @@ static void plot_getrect(t_gobj *z, t_glist *glist,
                 for (y = elemtemplatecanvas->gl_list; y; y = y->g_next)
                 {
                     int xx1, xx2, yy1, yy2;
-                    t_parentwidgetbehavior *wb = pd_getparentwidget(&y->g_pd);
+                    const t_parentwidgetbehavior *wb =
+                        pd_getparentwidget(&y->g_pd);
                     if (!wb) continue;
                     (*wb->w_parentgetrectfn)(y, glist,
                         (t_word *)((char *)(array->a_vec) + elemsize * i),
@@ -1674,6 +1761,9 @@ static void plot_vis(t_gobj *z, t_glist *glist,
     nelem = array->a_n;
     elem = (char *)array->a_vec;
 
+    if (glist->gl_isgraph)
+        linewidth *= glist_getzoom(glist);
+
     if (tovis)
     {
         if (style == PLOTSTYLE_POINTS)
@@ -1713,8 +1803,8 @@ static void plot_vis(t_gobj *z, t_glist *glist,
                     maxyval = yval;
                 if (i == nelem-1 || inextx != ixpix)
                 {
-                    sys_vgui(".x%lx.c create rectangle %d %d %d %d \
--fill black -width 0  -tags [list plot%lx array]\n",
+                    sys_vgui(".x%lx.c create rectangle %d %d %d %d "
+                        "-fill black -width 0 -tags [list plot%lx array]\n",
                         glist_getcanvas(glist),
                         ixpix, (int)glist_ytopixels(glist,
                             basey + fielddesc_cvttocoord(yfielddesc, minyval)),
@@ -1813,7 +1903,8 @@ static void plot_vis(t_gobj *z, t_glist *glist,
                                 fielddesc_cvttocoord(wfielddesc, wval)));
                 }
             ouch:
-                sys_vgui(" -width 1 -fill %s -outline %s\\\n",
+                sys_vgui(" -width %d -fill %s -outline %s\\\n",
+                    (glist->gl_isgraph ? glist_getzoom(glist) : 1),
                     outline, outline);
                 if (style == PLOTSTYLE_BEZ) sys_vgui("-smooth 1\\\n");
 
@@ -1884,7 +1975,8 @@ static void plot_vis(t_gobj *z, t_glist *glist,
                     fielddesc_cvttocoord(yfielddesc, yval);
                 for (y = elemtemplatecanvas->gl_list; y; y = y->g_next)
                 {
-                    t_parentwidgetbehavior *wb = pd_getparentwidget(&y->g_pd);
+                    const t_parentwidgetbehavior *wb =
+                        pd_getparentwidget(&y->g_pd);
                     if (!wb) continue;
                     (*wb->w_parentvisfn)(y, glist,
                         (t_word *)(elem + elemsize * i),
@@ -1904,7 +1996,8 @@ static void plot_vis(t_gobj *z, t_glist *glist,
                 t_gobj *y;
                 for (y = elemtemplatecanvas->gl_list; y; y = y->g_next)
                 {
-                    t_parentwidgetbehavior *wb = pd_getparentwidget(&y->g_pd);
+                    const t_parentwidgetbehavior *wb =
+                        pd_getparentwidget(&y->g_pd);
                     if (!wb) continue;
                     (*wb->w_parentvisfn)(y, glist,
                         (t_word *)(elem + elemsize * i), elemtemplate,
@@ -1918,101 +2011,88 @@ static void plot_vis(t_gobj *z, t_glist *glist,
     }
 }
 
-static t_float array_motion_xcumulative;
-static t_float array_motion_ycumulative;
-static t_fielddesc *array_motion_xfield;
-static t_fielddesc *array_motion_yfield;
-static t_glist *array_motion_glist;
-static t_scalar *array_motion_scalar;
-static t_array *array_motion_array;
-static t_word *array_motion_wp;
-static t_template *array_motion_template;
-static int array_motion_npoints;
-static int array_motion_elemsize;
-static int array_motion_altkey;
-static t_float array_motion_initx;
-static t_float array_motion_xperpix;
-static t_float array_motion_yperpix;
-static int array_motion_lastx;
-static int array_motion_fatten;
-
     /* LATER protect against the template changing or the scalar disappearing
     probably by attaching a gpointer here ... */
 
 static void array_motion(void *z, t_floatarg dx, t_floatarg dy)
 {
-    array_motion_xcumulative += dx * array_motion_xperpix;
-    array_motion_ycumulative += dy * array_motion_yperpix;
-    if (array_motion_xfield)
+    TEMPLATE->array_motion_xcumulative += dx * TEMPLATE->array_motion_xperpix;
+    TEMPLATE->array_motion_ycumulative += dy * TEMPLATE->array_motion_yperpix;
+    if (TEMPLATE->array_motion_xfield)
     {
             /* it's an x, y plot */
         int i;
-        for (i = 0; i < array_motion_npoints; i++)
+        for (i = 0; i < TEMPLATE->array_motion_npoints; i++)
         {
-            t_word *thisword = (t_word *)(((char *)array_motion_wp) +
-                i * array_motion_elemsize);
-            t_float xwas = fielddesc_getcoord(array_motion_xfield,
-                array_motion_template, thisword, 1);
-            t_float ywas = (array_motion_yfield ?
-                fielddesc_getcoord(array_motion_yfield,
-                    array_motion_template, thisword, 1) : 0);
-            fielddesc_setcoord(array_motion_xfield,
-                array_motion_template, thisword, xwas + dx, 1);
-            if (array_motion_yfield)
+            t_word *thisword = (t_word *)(((char *)TEMPLATE->array_motion_wp) +
+                i * TEMPLATE->array_motion_elemsize);
+            t_float xwas = fielddesc_getcoord(TEMPLATE->array_motion_xfield,
+                TEMPLATE->array_motion_template, thisword, 1);
+            t_float ywas = (TEMPLATE->array_motion_yfield ?
+                fielddesc_getcoord(TEMPLATE->array_motion_yfield,
+                    TEMPLATE->array_motion_template, thisword, 1) : 0);
+            fielddesc_setcoord(TEMPLATE->array_motion_xfield,
+                TEMPLATE->array_motion_template, thisword, xwas + dx, 1);
+            if (TEMPLATE->array_motion_yfield)
             {
-                if (array_motion_fatten)
+                if (TEMPLATE->array_motion_fatten)
                 {
                     if (i == 0)
                     {
-                        t_float newy = ywas + dy * array_motion_yperpix;
+                        t_float newy = ywas +
+                            dy * TEMPLATE->array_motion_yperpix;
                         if (newy < 0)
                             newy = 0;
-                        fielddesc_setcoord(array_motion_yfield,
-                            array_motion_template, thisword, newy, 1);
+                        fielddesc_setcoord(TEMPLATE->array_motion_yfield,
+                            TEMPLATE->array_motion_template, thisword, newy, 1);
                     }
                 }
                 else
                 {
-                    fielddesc_setcoord(array_motion_yfield,
-                        array_motion_template, thisword,
-                            ywas + dy * array_motion_yperpix, 1);
+                    fielddesc_setcoord(TEMPLATE->array_motion_yfield,
+                        TEMPLATE->array_motion_template, thisword,
+                            ywas + dy * TEMPLATE->array_motion_yperpix, 1);
                 }
             }
         }
     }
-    else if (array_motion_yfield)
+    else if (TEMPLATE->array_motion_yfield)
     {
             /* a y-only plot. */
-        int thisx = array_motion_initx + array_motion_xcumulative + 0.5, x2;
+        int thisx = TEMPLATE->array_motion_initx +
+            TEMPLATE->array_motion_xcumulative + 0.5, x2;
         int increment, i, nchange;
-        t_float newy = array_motion_ycumulative,
-            oldy = fielddesc_getcoord(array_motion_yfield,
-                array_motion_template,
-                    (t_word *)(((char *)array_motion_wp) +
-                        array_motion_elemsize * array_motion_lastx),
+        t_float newy = TEMPLATE->array_motion_ycumulative,
+            oldy = fielddesc_getcoord(TEMPLATE->array_motion_yfield,
+                TEMPLATE->array_motion_template,
+                    (t_word *)(((char *)TEMPLATE->array_motion_wp) +
+                        TEMPLATE->array_motion_elemsize *
+                            TEMPLATE->array_motion_lastx),
                             1);
         t_float ydiff = newy - oldy;
         if (thisx < 0) thisx = 0;
-        else if (thisx >= array_motion_npoints)
-            thisx = array_motion_npoints - 1;
-        increment = (thisx > array_motion_lastx ? -1 : 1);
-        nchange = 1 + increment * (array_motion_lastx - thisx);
+        else if (thisx >= TEMPLATE->array_motion_npoints)
+            thisx = TEMPLATE->array_motion_npoints - 1;
+        increment = (thisx > TEMPLATE->array_motion_lastx ? -1 : 1);
+        nchange = 1 + increment * (TEMPLATE->array_motion_lastx - thisx);
 
         for (i = 0, x2 = thisx; i < nchange; i++, x2 += increment)
         {
-            fielddesc_setcoord(array_motion_yfield,
-                array_motion_template,
-                    (t_word *)(((char *)array_motion_wp) +
-                        array_motion_elemsize * x2), newy, 1);
+            fielddesc_setcoord(TEMPLATE->array_motion_yfield,
+                TEMPLATE->array_motion_template,
+                    (t_word *)(((char *)TEMPLATE->array_motion_wp) +
+                        TEMPLATE->array_motion_elemsize * x2), newy, 1);
             if (nchange > 1)
                 newy -= ydiff * (1./(nchange - 1));
          }
-         array_motion_lastx = thisx;
+         TEMPLATE->array_motion_lastx = thisx;
     }
-    if (array_motion_scalar)
-        scalar_redraw(array_motion_scalar, array_motion_glist);
-    if (array_motion_array)
-        array_redraw(array_motion_array, array_motion_glist);
+    if (TEMPLATE->array_motion_scalar)
+        scalar_redraw(TEMPLATE->array_motion_scalar,
+            TEMPLATE->array_motion_glist);
+    if (TEMPLATE->array_motion_array)
+        array_redraw(TEMPLATE->array_motion_array,
+            TEMPLATE->array_motion_glist);
 }
 
 int scalar_doclick(t_word *data, t_template *template, t_scalar *sc,
@@ -2052,8 +2132,9 @@ static int array_doclick_element(t_array *array, t_glist *glist,
                 *(t_float *)(((char *)(array->a_vec) + elemsize * i) + xonset));
         else usexloc = xloc + xsum, xsum += xinc;
         useyloc = yloc + (yonset >= 0 ? fielddesc_cvttocoord(yfield,
-            *(t_float *)(((char *)(array->a_vec) + elemsize * i) + yonset)) : 0);
-        
+            *(t_float *)
+                (((char *)(array->a_vec) + elemsize * i) + yonset)) : 0);
+
         if ((hit = scalar_doclick(
             (t_word *)((char *)(array->a_vec) + i * elemsize),
             elemtemplate, 0, array,
@@ -2066,7 +2147,8 @@ static int array_doclick_element(t_array *array, t_glist *glist,
 
 static int array_doclick(t_array *array, t_glist *glist, t_scalar *sc,
     t_array *ap, t_symbol *elemtemplatesym,
-    t_float linewidth, t_float xloc, t_float xinc, t_float yloc, t_float scalarvis,
+    t_float linewidth, t_float xloc, t_float xinc, t_float yloc,
+    t_float scalarvis,
     t_fielddesc *xfield, t_fielddesc *yfield, t_fielddesc *wfield,
     int xpix, int ypix, int shift, int alt, int dbl, int doit)
 {
@@ -2081,13 +2163,13 @@ static int array_doclick(t_array *array, t_glist *glist, t_scalar *sc,
         t_float best = 100;
             /* if it has more than 2000 points, just check 1000 of them. */
         int incr = (array->a_n <= 2000 ? 1 : array->a_n / 1000);
-        array_motion_elemsize = elemsize;
-        array_motion_glist = glist;
-        array_motion_scalar = sc;
-        array_motion_array = ap;
-        array_motion_template = elemtemplate;
-        array_motion_xperpix = glist_dpixtodx(glist, 1);
-        array_motion_yperpix = glist_dpixtody(glist, 1);
+        TEMPLATE->array_motion_elemsize = elemsize;
+        TEMPLATE->array_motion_glist = glist;
+        TEMPLATE->array_motion_scalar = sc;
+        TEMPLATE->array_motion_array = ap;
+        TEMPLATE->array_motion_template = elemtemplate;
+        TEMPLATE->array_motion_xperpix = glist_dpixtodx(glist, 1);
+        TEMPLATE->array_motion_yperpix = glist_dpixtody(glist, 1);
             /* if we're a garray, the only one here, and if we appear to have
             only a 'y' field, click always succeeds and furthermore we'll
             call "motion" later. */
@@ -2100,24 +2182,26 @@ static int array_doclick(t_array *array, t_glist *glist, t_scalar *sc,
                 xval = 0;
             else if (xval >= array->a_n)
                 xval = array->a_n - 1;
-            array_motion_yfield = yfield;
-            array_motion_ycumulative = glist_pixelstoy(glist, ypix);
-            array_motion_fatten = 0;
-            array_motion_xfield = 0;
-            array_motion_xcumulative = 0;
-            array_motion_lastx = array_motion_initx = xval;
-            array_motion_npoints = array->a_n;
-            array_motion_wp = (t_word *)((char *)array->a_vec);
+            TEMPLATE->array_motion_yfield = yfield;
+            TEMPLATE->array_motion_ycumulative = glist_pixelstoy(glist, ypix);
+            TEMPLATE->array_motion_fatten = 0;
+            TEMPLATE->array_motion_xfield = 0;
+            TEMPLATE->array_motion_xcumulative = 0;
+            TEMPLATE->array_motion_lastx = TEMPLATE->array_motion_initx = xval;
+            TEMPLATE->array_motion_npoints = array->a_n;
+            TEMPLATE->array_motion_wp = (t_word *)((char *)array->a_vec);
             if (doit)
             {
                 fielddesc_setcoord(yfield, elemtemplate,
                     (t_word *)(((char *)array->a_vec) + elemsize * xval),
                         glist_pixelstoy(glist, ypix), 1);
                 glist_grab(glist, 0, array_motion, 0, xpix, ypix);
-                if (array_motion_scalar)
-                    scalar_redraw(array_motion_scalar, array_motion_glist);
-                if (array_motion_array)
-                    array_redraw(array_motion_array, array_motion_glist);
+                if (TEMPLATE->array_motion_scalar)
+                    scalar_redraw(TEMPLATE->array_motion_scalar,
+                        TEMPLATE->array_motion_glist);
+                if (TEMPLATE->array_motion_array)
+                    array_redraw(TEMPLATE->array_motion_array,
+                        TEMPLATE->array_motion_glist);
             }
         }
         else
@@ -2164,7 +2248,8 @@ static int array_doclick(t_array *array, t_glist *glist, t_scalar *sc,
             for (i = 0; i < array->a_n; i += incr)
             {
                 t_float pxpix, pypix, pwpix, dx, dy, dy2, dy3;
-                array_getcoordinate(glist, (char *)(array->a_vec) + i * elemsize,
+                array_getcoordinate(glist,
+                    (char *)(array->a_vec) + i * elemsize,
                     xonset, yonset, wonset, i, xloc, yloc, xinc,
                     xfield, yfield, wfield, &pxpix, &pypix, &pwpix);
                 if (pwpix < 4)
@@ -2186,10 +2271,10 @@ static int array_doclick(t_array *array, t_glist *glist, t_scalar *sc,
                 if (dx + dy <= best || dx + dy2 <= best || dx + dy3 <= best)
                 {
                     if (dy < dy2 && dy < dy3)
-                        array_motion_fatten = 0;
+                        TEMPLATE->array_motion_fatten = 0;
                     else if (dy2 < dy3)
-                        array_motion_fatten = -1;
-                    else array_motion_fatten = 1;
+                        TEMPLATE->array_motion_fatten = -1;
+                    else TEMPLATE->array_motion_fatten = 1;
                     if (doit)
                     {
                         char *elem = (char *)array->a_vec;
@@ -2200,13 +2285,15 @@ static int array_doclick(t_array *array, t_glist *glist, t_scalar *sc,
                             memmove((char *)(array->a_vec) + elemsize * i,
                                 (char *)(array->a_vec) + elemsize * (i+1),
                                     (array->a_n - 1 - i) * elemsize);
-                            array_resize_and_redraw(array, glist, array->a_n - 1);
+                            array_resize_and_redraw(array,
+                                glist, array->a_n - 1);
                             return (0);
                         }
                         else if (alt)
                         {
                             /* add a point (after the clicked-on one) */
-                            array_resize_and_redraw(array, glist, array->a_n + 1);
+                            array_resize_and_redraw(array, glist,
+                                array->a_n + 1);
                             elem = (char *)array->a_vec;
                             memmove(elem + elemsize * (i+1),
                                 elem + elemsize * i,
@@ -2215,46 +2302,52 @@ static int array_doclick(t_array *array, t_glist *glist, t_scalar *sc,
                         }
                         if (xonset >= 0)
                         {
-                            array_motion_xfield = xfield;
-                            array_motion_xcumulative =
-                                fielddesc_getcoord(xfield, array_motion_template,
+                            TEMPLATE->array_motion_xfield = xfield;
+                            TEMPLATE->array_motion_xcumulative =
+                                fielddesc_getcoord(xfield,
+                                    TEMPLATE->array_motion_template,
                                     (t_word *)(elem + i * elemsize), 1);
-                                array_motion_wp = (t_word *)(elem + i * elemsize);
+                                TEMPLATE->array_motion_wp =
+                                    (t_word *)(elem + i * elemsize);
                             if (shift)
-                                array_motion_npoints = array->a_n - i;
-                            else array_motion_npoints = 1;
+                                TEMPLATE->array_motion_npoints =
+                                    array->a_n - i;
+                            else TEMPLATE->array_motion_npoints = 1;
                         }
                         else
                         {
-                            array_motion_xfield = 0;
-                            array_motion_xcumulative = 0;
-                            array_motion_wp = (t_word *)elem;
-                            array_motion_npoints = array->a_n;
+                            TEMPLATE->array_motion_xfield = 0;
+                            TEMPLATE->array_motion_xcumulative = 0;
+                            TEMPLATE->array_motion_wp = (t_word *)elem;
+                            TEMPLATE->array_motion_npoints = array->a_n;
 
-                            array_motion_initx = i;
-                            array_motion_lastx = i;
-                            array_motion_xperpix *= (xinc == 0 ? 1 : 1./xinc);
+                            TEMPLATE->array_motion_initx = i;
+                            TEMPLATE->array_motion_lastx = i;
+                            TEMPLATE->array_motion_xperpix *=
+                                (xinc == 0 ? 1 : 1./xinc);
                         }
-                        if (array_motion_fatten)
+                        if (TEMPLATE->array_motion_fatten)
                         {
-                            array_motion_yfield = wfield;
-                            array_motion_ycumulative =
-                                fielddesc_getcoord(wfield, array_motion_template,
+                            TEMPLATE->array_motion_yfield = wfield;
+                            TEMPLATE->array_motion_ycumulative =
+                                fielddesc_getcoord(wfield,
+                                    TEMPLATE->array_motion_template,
                                     (t_word *)(elem + i * elemsize), 1);
-                            array_motion_yperpix *= -array_motion_fatten;
+                            TEMPLATE->array_motion_yperpix *=
+                                -TEMPLATE->array_motion_fatten;
                         }
                         else if (yonset >= 0)
                         {
-                            array_motion_yfield = yfield;
-                            array_motion_ycumulative =
-                                fielddesc_getcoord(yfield, array_motion_template,
+                            TEMPLATE->array_motion_yfield = yfield;
+                            TEMPLATE->array_motion_ycumulative =
+                                fielddesc_getcoord(yfield,
+                                    TEMPLATE->array_motion_template,
                                     (t_word *)(elem + i * elemsize), 1);
-                                /* *(t_float *)((elem + elemsize * i) + yonset); */
                         }
                         else
                         {
-                            array_motion_yfield = 0;
-                            array_motion_ycumulative = 0;
+                            TEMPLATE->array_motion_yfield = 0;
+                            TEMPLATE->array_motion_ycumulative = 0;
                         }
                         glist_grab(glist, 0, array_motion, 0, xpix, ypix);
                     }
@@ -2264,7 +2357,7 @@ static int array_doclick(t_array *array, t_glist *glist, t_scalar *sc,
                             return (CURSOR_EDITMODE_DISCONNECT);
                         else return (CURSOR_RUNMODE_ADDPOINT);
                     }
-                    else return (array_motion_fatten ?
+                    else return (TEMPLATE->array_motion_fatten ?
                         CURSOR_RUNMODE_THICKEN : CURSOR_RUNMODE_CLICKME);
                 }
             }
@@ -2298,7 +2391,7 @@ static int plot_click(t_gobj *z, t_glist *glist,
     else return (0);
 }
 
-t_parentwidgetbehavior plot_widgetbehavior =
+const t_parentwidgetbehavior plot_widgetbehavior =
 {
     plot_getrect,
     plot_displace,
@@ -2342,7 +2435,7 @@ typedef struct _drawnumber
 static void *drawnumber_new(t_symbol *classsym, int argc, t_atom *argv)
 {
     t_drawnumber *x = (t_drawnumber *)pd_new(drawnumber_class);
-    char *classname = classsym->s_name;
+    const char *classname = classsym->s_name;
 
     fielddesc_setfloat_const(&x->x_vis, 1);
     x->x_canvas = canvas_getcurrent();
@@ -2415,7 +2508,7 @@ static void drawnumber_getbuf(t_drawnumber *x, t_word *data,
     {
         strncpy(buf, x->x_label->s_name, DRAWNUMBER_BUFSIZE);
         buf[DRAWNUMBER_BUFSIZE - 1] = 0;
-        nchars = strlen(buf);
+        nchars = (int)strlen(buf);
         if (type == DT_TEXT)
         {
             char *buf2;
@@ -2469,11 +2562,11 @@ static void drawnumber_getrect(t_gobj *z, t_glist *glist,
         startline = newline+1)
     {
         if (newline - startline > width)
-            width = newline - startline;
+            width = (int)(newline - startline);
         height++;
     }
     if (strlen(startline) > (unsigned)width)
-        width = strlen(startline);
+        width = (int)strlen(startline);
     *xp1 = xloc;
     *yp1 = yloc;
     *xp2 = xloc + fontwidth * width;
@@ -2525,49 +2618,43 @@ static void drawnumber_vis(t_gobj *z, t_glist *glist,
         sys_vgui(".x%lx.c create text %d %d -anchor nw -fill %s -text {%s}",
                 glist_getcanvas(glist), xloc, yloc, colorstring, buf);
         sys_vgui(" -font {{%s} -%d %s}", sys_font,
-            sys_hostfontsize(glist_getfont(glist), glist_getzoom(glist)),
+            sys_hostfontsize(glist_getfont(glist), 1),
                 sys_fontweight);
         sys_vgui(" -tags [list drawnumber%lx label]\n", data);
     }
-    else sys_vgui(".x%lx.c delete drawnumber%lx\n", glist_getcanvas(glist), data);
+    else sys_vgui(".x%lx.c delete drawnumber%lx\n",
+        glist_getcanvas(glist), data);
 }
-
-static t_float drawnumber_motion_ycumulative;
-static t_glist *drawnumber_motion_glist;
-static t_scalar *drawnumber_motion_scalar;
-static t_array *drawnumber_motion_array;
-static t_word *drawnumber_motion_wp;
-static t_template *drawnumber_motion_template;
-static t_gpointer drawnumber_motion_gpointer;
-static int drawnumber_motion_type;
-static int drawnumber_motion_firstkey;
 
 static void drawnumber_motion(void *z, t_floatarg dx, t_floatarg dy)
 {
     t_drawnumber *x = (t_drawnumber *)z;
     t_atom at;
-    if (!gpointer_check(&drawnumber_motion_gpointer, 0))
+    if (!gpointer_check(&TEMPLATE->drawnumber_motion_gpointer, 0))
     {
         post("drawnumber_motion: scalar disappeared");
         return;
     }
-    if (drawnumber_motion_type != DT_FLOAT)
+    if (TEMPLATE->drawnumber_motion_type != DT_FLOAT)
         return;
-    drawnumber_motion_ycumulative -= dy;
-    template_setfloat(drawnumber_motion_template,
+    TEMPLATE->drawnumber_motion_ycumulative -= dy;
+    template_setfloat(TEMPLATE->drawnumber_motion_template,
         x->x_fieldname,
-            drawnumber_motion_wp,
-            drawnumber_motion_ycumulative,
+            TEMPLATE->drawnumber_motion_wp,
+            TEMPLATE->drawnumber_motion_ycumulative,
                 1);
-    if (drawnumber_motion_scalar)
-        template_notifyforscalar(drawnumber_motion_template,
-            drawnumber_motion_glist, drawnumber_motion_scalar,
+    if (TEMPLATE->drawnumber_motion_scalar)
+        template_notifyforscalar(TEMPLATE->drawnumber_motion_template,
+            TEMPLATE->drawnumber_motion_glist,
+                TEMPLATE->drawnumber_motion_scalar,
                 gensym("change"), 1, &at);
 
-    if (drawnumber_motion_scalar)
-        scalar_redraw(drawnumber_motion_scalar, drawnumber_motion_glist);
-    if (drawnumber_motion_array)
-        array_redraw(drawnumber_motion_array, drawnumber_motion_glist);
+    if (TEMPLATE->drawnumber_motion_scalar)
+        scalar_redraw(TEMPLATE->drawnumber_motion_scalar,
+            TEMPLATE->drawnumber_motion_glist);
+    if (TEMPLATE->drawnumber_motion_array)
+        array_redraw(TEMPLATE->drawnumber_motion_array,
+            TEMPLATE->drawnumber_motion_glist);
 }
 
 static void drawnumber_key(void *z, t_floatarg fkey)
@@ -2576,20 +2663,21 @@ static void drawnumber_key(void *z, t_floatarg fkey)
     int key = fkey;
     char sbuf[MAXPDSTRING];
     t_atom at;
-    if (!gpointer_check(&drawnumber_motion_gpointer, 0))
+    if (!gpointer_check(&TEMPLATE->drawnumber_motion_gpointer, 0))
     {
         post("drawnumber_motion: scalar disappeared");
         return;
     }
     if (key == 0)
         return;
-    if (drawnumber_motion_type == DT_SYMBOL)
+    if (TEMPLATE->drawnumber_motion_type == DT_SYMBOL)
     {
             /* key entry for a symbol field */
-        if (drawnumber_motion_firstkey)
+        if (TEMPLATE->drawnumber_motion_firstkey)
             sbuf[0] = 0;
-        else strncpy(sbuf, template_getsymbol(drawnumber_motion_template,
-            x->x_fieldname, drawnumber_motion_wp, 1)->s_name,
+        else strncpy(sbuf,
+            template_getsymbol(TEMPLATE->drawnumber_motion_template,
+            x->x_fieldname, TEMPLATE->drawnumber_motion_wp, 1)->s_name,
                 MAXPDSTRING);
         sbuf[MAXPDSTRING-1] = 0;
         if (key == '\b')
@@ -2603,15 +2691,16 @@ static void drawnumber_key(void *z, t_floatarg fkey)
             sbuf[strlen(sbuf)] = key;
         }
     }
-    else if (drawnumber_motion_type == DT_FLOAT)
+    else if (TEMPLATE->drawnumber_motion_type == DT_FLOAT)
     {
             /* key entry for a numeric field.  This is just a stopgap. */
         double newf;
-        if (drawnumber_motion_firstkey)
+        if (TEMPLATE->drawnumber_motion_firstkey)
             sbuf[0] = 0;
-        else sprintf(sbuf, "%g", template_getfloat(drawnumber_motion_template,
-            x->x_fieldname, drawnumber_motion_wp, 1));
-        drawnumber_motion_firstkey = (key == '\n');
+        else sprintf(sbuf, "%g",
+            template_getfloat(TEMPLATE->drawnumber_motion_template,
+            x->x_fieldname, TEMPLATE->drawnumber_motion_wp, 1));
+        TEMPLATE->drawnumber_motion_firstkey = (key == '\n');
         if (key == '\b')
         {
             if (*sbuf)
@@ -2624,16 +2713,19 @@ static void drawnumber_key(void *z, t_floatarg fkey)
         }
         if (sscanf(sbuf, "%lg", &newf) < 1)
             newf = 0;
-        template_setfloat(drawnumber_motion_template,
-            x->x_fieldname, drawnumber_motion_wp, (t_float)newf, 1);
-        if (drawnumber_motion_scalar)
-            template_notifyforscalar(drawnumber_motion_template,
-                drawnumber_motion_glist, drawnumber_motion_scalar,
+        template_setfloat(TEMPLATE->drawnumber_motion_template,
+            x->x_fieldname, TEMPLATE->drawnumber_motion_wp, (t_float)newf, 1);
+        if (TEMPLATE->drawnumber_motion_scalar)
+            template_notifyforscalar(TEMPLATE->drawnumber_motion_template,
+                TEMPLATE->drawnumber_motion_glist,
+                    TEMPLATE->drawnumber_motion_scalar,
                     gensym("change"), 1, &at);
-        if (drawnumber_motion_scalar)
-            scalar_redraw(drawnumber_motion_scalar, drawnumber_motion_glist);
-        if (drawnumber_motion_array)
-            array_redraw(drawnumber_motion_array, drawnumber_motion_glist);
+        if (TEMPLATE->drawnumber_motion_scalar)
+            scalar_redraw(TEMPLATE->drawnumber_motion_scalar,
+                TEMPLATE->drawnumber_motion_glist);
+        if (TEMPLATE->drawnumber_motion_array)
+            array_redraw(TEMPLATE->drawnumber_motion_array,
+                TEMPLATE->drawnumber_motion_glist);
     }
     else post("typing at text fields not yet implemented");
 }
@@ -2654,20 +2746,22 @@ static int drawnumber_click(t_gobj *z, t_glist *glist,
     {
         if (doit)
         {
-            drawnumber_motion_glist = glist;
-            drawnumber_motion_wp = data;
-            drawnumber_motion_template = template;
-            drawnumber_motion_scalar = sc;
-            drawnumber_motion_array = ap;
-            drawnumber_motion_firstkey = 1;
-            drawnumber_motion_ycumulative =
+            TEMPLATE->drawnumber_motion_glist = glist;
+            TEMPLATE->drawnumber_motion_wp = data;
+            TEMPLATE->drawnumber_motion_template = template;
+            TEMPLATE->drawnumber_motion_scalar = sc;
+            TEMPLATE->drawnumber_motion_array = ap;
+            TEMPLATE->drawnumber_motion_firstkey = 1;
+            TEMPLATE->drawnumber_motion_ycumulative =
                 template_getfloat(template, x->x_fieldname, data, 0);
-            drawnumber_motion_type = type;
-            if (drawnumber_motion_scalar)
-                gpointer_setglist(&drawnumber_motion_gpointer,
-                    drawnumber_motion_glist, drawnumber_motion_scalar);
-            else gpointer_setarray(&drawnumber_motion_gpointer,
-                    drawnumber_motion_array, drawnumber_motion_wp);
+            TEMPLATE->drawnumber_motion_type = type;
+            if (TEMPLATE->drawnumber_motion_scalar)
+                gpointer_setglist(&TEMPLATE->drawnumber_motion_gpointer,
+                    TEMPLATE->drawnumber_motion_glist,
+                        TEMPLATE->drawnumber_motion_scalar);
+            else gpointer_setarray(&TEMPLATE->drawnumber_motion_gpointer,
+                    TEMPLATE->drawnumber_motion_array,
+                        TEMPLATE->drawnumber_motion_wp);
             glist_grab(glist, z, drawnumber_motion, drawnumber_key,
                 xpix, ypix);
         }
@@ -2676,7 +2770,7 @@ static int drawnumber_click(t_gobj *z, t_glist *glist,
     else return (0);
 }
 
-t_parentwidgetbehavior drawnumber_widgetbehavior =
+const t_parentwidgetbehavior drawnumber_widgetbehavior =
 {
     drawnumber_getrect,
     drawnumber_displace,
@@ -2715,3 +2809,12 @@ void g_template_setup(void)
     drawnumber_setup();
 }
 
+void g_template_newpdinstance( void)
+{
+    TEMPLATE = getbytes(sizeof(*TEMPLATE));
+}
+
+void g_template_freepdinstance( void)
+{
+    freebytes(TEMPLATE, sizeof(*TEMPLATE));
+}

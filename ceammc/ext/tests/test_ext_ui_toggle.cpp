@@ -24,8 +24,8 @@ TEST_CASE("ui.toggle", "[ui.toggle]")
     {
         TestToggle t("ui.toggle");
         REQUIRE(t->numOutlets() == 1);
-        REQUIRE(t->width() == 16);
-        REQUIRE(t->height() == 16);
+        REQUIRE(t->width() == 15);
+        REQUIRE(t->height() == 15);
         REQUIRE(t->value() == 0);
         HAS_PROPERTY(t, "value");
 
@@ -70,9 +70,9 @@ TEST_CASE("ui.toggle", "[ui.toggle]")
         t->m_set(0);
         REQUIRE(t->value() == 0);
 
-        t->onMouseDown(0, t_pt(), 0);
+        t.mouseDown(1, 1);
         REQUIRE(t->value() == 1);
-        t->onMouseDown(0, t_pt(), 0);
+        t.mouseDown(1, 1);
         REQUIRE(t->value() == 0);
 
         t->flip();
@@ -116,7 +116,7 @@ TEST_CASE("ui.toggle", "[ui.toggle]")
         REQUIRE_OUTPUT_VALUE(0);
 
         tgl.sendMessage(gensym("@size?"));
-        REQUIRE(out.msg().listValue() == LF(16, 16));
+        REQUIRE(out.msg().listValue() == LF(15, 15));
 
         out.reset();
         tgl.sendMessage(gensym("set"), LF(1));

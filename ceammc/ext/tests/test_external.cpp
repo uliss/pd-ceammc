@@ -72,6 +72,8 @@ static void test_output_any(t_test_output* x, t_symbol* s, int argc, t_atom* arg
 
 static bool setup_test_output()
 {
+    pd_init();
+
     test_output_class = class_new(gensym("test_output"),
         reinterpret_cast<t_newmethod>(test_output_new),
         reinterpret_cast<t_method>(test_output_free),
@@ -111,7 +113,7 @@ void ExternalOutput::reset()
 
 void setTestSampleRate(size_t sr)
 {
-    sys_dacsr = sr;
+    *get_sys_dacsr() = sr;
     sched_set_using_audio(SCHED_AUDIO_NONE);
 }
 

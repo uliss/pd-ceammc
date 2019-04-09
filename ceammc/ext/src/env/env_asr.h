@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "env_asr"
-Code generated with Faust 2.8.5 (https://faust.grame.fr)
+Code generated with Faust 2.15.10 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -372,9 +372,8 @@ struct Meta
 
 #include <algorithm>
 #include <map>
-#include <string.h>
-#include <stdlib.h>
 #include <cstdlib>
+#include <string.h>
 
 
 using std::max;
@@ -382,33 +381,33 @@ using std::min;
 
 struct XXXX_Meta : std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
-inline int lsr(int x, int n)	{ return int(((unsigned int)x) >> n); }
+static int lsr(int x, int n) { return int(((unsigned int)x) >> n); }
 
-inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
+static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
-inline long lopt(char* argv[], const char* name, long def)
+static long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
     for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
-inline bool isopt(char* argv[], const char* name)
+static bool isopt(char* argv[], const char* name)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
 	return false;
 }
 
-inline const char* lopts(char* argv[], const char* name, const char* def)
+static const char* lopts(char* argv[], const char* name, const char* def)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
@@ -546,7 +545,7 @@ class env_asr : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = std::min(192000.0f, std::max(1.0f, float(fSamplingFreq)));
+		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSamplingFreq)));
 		fConst1 = (1.0f / fConst0);
 		
 	}
@@ -591,6 +590,7 @@ class env_asr : public dsp {
 		classInit(samplingFreq);
 		instanceInit(samplingFreq);
 	}
+	
 	virtual void instanceInit(int samplingFreq) {
 		instanceConstants(samplingFreq);
 		instanceResetUserInterface();
@@ -600,6 +600,7 @@ class env_asr : public dsp {
 	virtual env_asr* clone() {
 		return new env_asr();
 	}
+	
 	virtual int getSampleRate() {
 		return fSamplingFreq;
 		
@@ -628,20 +629,21 @@ class env_asr : public dsp {
 		int iSlow1 = (fSlow0 > 0.0f);
 		int iSlow2 = (iSlow1 > 0);
 		float fSlow3 = (9.99999997e-07f * float(fHslider0));
-		int iSlow4 = ((fSlow0 == 0.0f) > 0);
-		float fSlow5 = (9.99999997e-07f * float(fHslider1));
-		float fSlow6 = (9.99999975e-06f * float(fHslider2));
-		float fSlow7 = (fConst1 * fSlow0);
+		float fSlow4 = float(iSlow1);
+		int iSlow5 = ((fSlow0 == 0.0f) > 0);
+		float fSlow6 = (9.99999997e-07f * float(fHslider1));
+		float fSlow7 = (9.99999975e-06f * float(fHslider2));
+		float fSlow8 = (fConst1 * fSlow0);
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec1[0] = (fSlow3 + (0.999000013f * fRec1[1]));
 			float fTemp0 = (fConst0 * fRec1[0]);
-			fRec0[0] = (iSlow2?0.0f:std::min(fTemp0, (fRec0[1] + 1.0f)));
-			fRec4[0] = (fSlow5 + (0.999000013f * fRec4[1]));
+			fRec0[0] = (iSlow2?0.0f:std::min<float>(fTemp0, (fRec0[1] + 1.0f)));
+			fRec4[0] = (fSlow6 + (0.999000013f * fRec4[1]));
 			float fTemp1 = (fConst0 * fRec4[0]);
-			fRec3[0] = (iSlow4?0.0f:std::min(fTemp1, (fRec3[1] + 1.0f)));
-			fRec5[0] = (fSlow6 + (0.999000013f * fRec5[1]));
-			fRec2[0] = (iSlow1?(float(iSlow1) * ((fRec3[0] < 0.0f)?0.0f:((fRec3[0] < fTemp1)?(fSlow7 * ((fRec3[0] * fRec5[0]) / fRec4[0])):(fSlow0 * fRec5[0])))):fRec2[1]);
-			output0[i] = FAUSTFLOAT((float(input0[i]) * ((fRec0[0] < 0.0f)?fRec2[0]:((fRec0[0] < fTemp0)?(fRec2[0] + (fConst1 * ((fRec0[0] * (0.0f - fRec2[0])) / fRec1[0]))):0.0f))));
+			fRec3[0] = (iSlow5?0.0f:std::min<float>(fTemp1, (fRec3[1] + 1.0f)));
+			fRec5[0] = (fSlow7 + (0.999000013f * fRec5[1]));
+			fRec2[0] = (iSlow1?(fSlow4 * ((fRec3[0] < 0.0f)?0.0f:((fRec3[0] < fTemp1)?(fSlow8 * ((fRec3[0] * fRec5[0]) / fRec4[0])):(fSlow0 * fRec5[0])))):fRec2[1]);
+			output0[i] = FAUSTFLOAT((float(input0[i]) * ((fRec0[0] < 0.0f)?fRec2[0]:((fRec0[0] < fTemp0)?(fRec2[0] + (fConst1 * ((0.0f - (fRec0[0] * fRec2[0])) / fRec1[0]))):0.0f))));
 			fRec1[1] = fRec1[0];
 			fRec0[1] = fRec0[0];
 			fRec4[1] = fRec4[0];
@@ -653,7 +655,6 @@ class env_asr : public dsp {
 		
 	}
 
-	
 };
 // clang-format on
 #endif

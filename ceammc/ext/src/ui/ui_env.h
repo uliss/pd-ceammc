@@ -41,6 +41,7 @@ class UIEnv : public UIObject {
     bool draw_cursor_pos_;
     bool draw_cursor_cross_;
     bool delete_mode_;
+    UILayer envelope_layer_;
     UILayer cursor_layer_;
     UIFont font_;
     UITextLayout cursor_txt_pos_;
@@ -56,15 +57,16 @@ public:
     void onBang();
     void onData(const DataPtr& ptr);
 
-    void paint(t_object*);
+    void paint();
     void okSize(t_rect* newrect);
     void onMouseMove(t_object*, const t_pt& pt, long modifiers);
     void onMouseDrag(t_object*, const t_pt& pt, long);
-    void onMouseDown(t_object*, const t_pt& pt, long mod);
+    void onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod);
     void onMouseLeave(t_object*, const t_pt&, long);
     void onMouseWheel(t_object*, const t_pt& pt, long, double delta);
     void onMouseUp(t_object*, const t_pt&, long);
     void onDblClick(t_object*, const t_pt& pt, long modifiers);
+    void onPopup(t_symbol* msg, long itemIdx);
 
     void updateNodes();
     void updateEnvelope();
@@ -84,11 +86,14 @@ public:
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
 
-    t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
+    void onPropChange(t_symbol* prop_name);
 
 private:
-    void redrawCursorLayer();
     void redrawAll();
+
+    void drawBackground(const t_rect& r);
+    void drawCursor(const t_rect& r);
+    void drawEnvelope(const t_rect& r);
 
 public:
     static void setup();
