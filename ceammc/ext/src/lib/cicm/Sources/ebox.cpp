@@ -16,6 +16,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <inttypes.h>
@@ -1755,19 +1756,24 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
             if (attrindex >= 0 && attrindex < c->c_nattr) {
                 av = 0;
                 ac = 0;
+
+                char WIDGET_ID[64];
+                snprintf(WIDGET_ID, sizeof(WIDGET_ID), "%s.top_frame.sele%i",
+                    atom_getsymbol(argv)->s_name, attrindex + 1);
+
                 eobj_attr_getvalueof((t_object*)x, c->c_attr[attrindex]->name, &ac, &av);
+
                 if (ac && av) {
                     if (c->c_attr[attrindex]->style == gensym(SYM_CHECKBUTTON)) {
                         if (atom_getfloat(av) == 0)
-                            sys_vgui("%s.top_frame.sele%i.selec state !selected\n", atom_getsymbol(argv)->s_name, attrindex + 1);
+                            sys_vgui("%s state !selected\n", WIDGET_ID);
                         else
-                            sys_vgui("%s.top_frame.sele%i.selec state selected\n", atom_getsymbol(argv)->s_name, attrindex + 1);
+                            sys_vgui("%s state selected\n", WIDGET_ID);
                     } else if (c->c_attr[attrindex]->style == gensym(SYM_COLOR)) {
                         color.red = atom_getfloat(av);
                         color.green = atom_getfloat(av + 1);
                         color.blue = atom_getfloat(av + 2);
-                        sys_vgui("%s.top_frame.sele%i.selec configure -readonlybackground #%6.6x \n",
-                            atom_getsymbol(argv)->s_name, attrindex + 1, rgb_to_hex_int(color));
+                        sys_vgui("%s configure -readonlybackground #%6.6x\n", WIDGET_ID, rgb_to_hex_int(color));
                     } else if (c->c_attr[attrindex]->style == gensym(SYM_MENU)) {
                         atom_string(av, temp, MAXPDSTRING);
                         std::string buffer(temp);
@@ -1776,9 +1782,8 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                             buffer.push_back(' ');
                             buffer += temp;
                         }
-                        sys_vgui("%s.top_frame.sele%i.selec delete 0 end \n", atom_getsymbol(argv)->s_name, attrindex + 1);
-                        sys_vgui("%s.top_frame.sele%i.selec insert 0 \"%s\" \n",
-                            atom_getsymbol(argv)->s_name, attrindex + 1, buffer.c_str());
+                        sys_vgui("%s delete 0 end\n", WIDGET_ID);
+                        sys_vgui("%s insert 0 \"%s\"\n", WIDGET_ID, buffer.c_str());
                     } else {
                         atom_string(av, temp, MAXPDSTRING);
                         std::string buffer(temp);
@@ -1800,11 +1805,11 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                             buffer.push_back('\'');
                         }
 
-                        sys_vgui("%s.top_frame.sele%i.selec delete 0 end \n", atom_getsymbol(argv)->s_name, attrindex + 1);
+                        sys_vgui("%s delete 0 end \n", WIDGET_ID);
                         // replace #\d+ -> $\d+
                         // tcl: regsub -all {#(\d+)} $s {$\1}
-                        sys_vgui("%s.top_frame.sele%i.selec insert 0 [regsub -all {#(\\d+)} \"%s\" {$\\1}]\n",
-                            atom_getsymbol(argv)->s_name, attrindex + 1, buffer.c_str());
+                        sys_vgui("%s insert 0 [regsub -all {#(\\d+)} \"%s\" {$\\1}]\n",
+                            WIDGET_ID, buffer.c_str());
                     }
 
                     free(av);

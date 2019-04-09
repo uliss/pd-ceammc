@@ -103,12 +103,21 @@ proc ceammc_category_icon {state} {
     }
 }
 
-proc ceammc_category_toggle {id var_name_state} {
+proc ceammc_category_toggle {id var_name_state controls} {
     global $var_name_state
     set v [expr $$var_name_state]
     if {$v ne 0} { set $var_name_state 0 } { set $var_name_state 1 }
     set v [expr $$var_name_state]
     $id configure -image [ceammc_category_icon $v]
+
+    foreach w $controls {
+        ::pdwindow::error "widget: $w\n"
+        if {$v eq 0 } {
+            grid remove $w
+        } {
+            grid config $w
+        }
+    }
 }
 
 # create images

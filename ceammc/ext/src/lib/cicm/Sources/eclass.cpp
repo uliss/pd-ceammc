@@ -1067,31 +1067,17 @@ static void ewidget_init(t_eclass* c)
 #define DIALOG_BACKGROUND " -background #ECECEC "
 #endif
 
-static const char* dialog_label_frame(int i)
+static const char* dialog_label_id(int i)
 {
     static char buf[100];
     snprintf(buf, 100, "$id.top_frame.name%i", i);
     return buf;
 }
 
-static const char* dialog_widget_frame(int i)
-{
-    static char buf[100];
-    snprintf(buf, 100, "$id.top_frame.sele%i", i);
-    return buf;
-}
-
-static const char* dialog_label_id(int i)
-{
-    static char buf[100];
-    snprintf(buf, 100, "$id.top_frame.name%i.name", i);
-    return buf;
-}
-
 static const char* dialog_widget_id(int i)
 {
     static char buf[100];
-    snprintf(buf, 100, "$id.top_frame.sele%i.selec", i);
+    snprintf(buf, 100, "$id.top_frame.sele%i", i);
     return buf;
 }
 
@@ -1168,26 +1154,49 @@ static void eclass_properties_dialog(t_eclass* c)
     sys_gui("} {\n");
     sys_gui("   set vid [string trimleft $id .]\n");
 
-    // set global vars
+    /// fill category dict
+#ifndef NDEBUG
+    sys_gui("   # category dictionary");
+#endif
+    sys_gui("   set cat_dict [dict create]\n");
+    for (int i = 0; i < c->c_nattr; i++) {
+        if (c->c_attr[i]->invisible)
+            continue;
+
+        auto str = fmt::format("   dict lappend cat_dict {0} $id.top_frame.name{1}\n"
+                               "   dict lappend cat_dict {0} $id.top_frame.sele{1}\n",
+            c->c_attr[i]->category->s_name,
+            i + 1);
+        sys_gui(str.c_str());
+    }
+
+    /// set global vars
+#ifndef NDEBUG
+    sys_gui("   # global vars");
+#endif
     for (int i = 0; i < c->c_nattr; i++) {
         const char* ATTR_NAME = c->c_attr[i]->name->s_name;
         if (!c->c_attr[i]->invisible) {
             auto str = fmt::format("   set var_{0} [string trim [concat {0}_$vid]]\n"
                                    "   global $var_{0} \n"
                                    "   set $var_{0} [string trim ${0}]\n",
-                ATTR_NAME);
+                ATTR_NAME,
+                c->c_attr[i]->category->s_name);
             sys_gui(str.c_str());
         }
     }
 
-    // window creation
+    /// window creation
+#ifndef NDEBUG
+    sys_gui("   # window");
+#endif
     // _("%s properties")
     auto str = fmt::format("   toplevel $id\n"
                            "   wm title $id [format [_ \"%s properties\" ] {{{0}}}] \n"
                            "   wm resizable $id 0 0\n"
                            "   raise [winfo toplevel $id]\n"
                            "   $id configure " DIALOG_BACKGROUND DIALOG_WINDOW_PADX DIALOG_WINDOW_PADY "\n"
-                           "   ttk::frame $id.top_frame\n"
+                           "   frame $id.top_frame\n"
                            "   grid $id.top_frame\n",
         c->c_class.c_name->s_name);
     sys_gui(str.c_str());
@@ -1196,27 +1205,22 @@ static void eclass_properties_dialog(t_eclass* c)
     int category_idx = 0;
     for (int i = 0; i < c->c_nattr; i++) {
         if (!c->c_attr[i]->invisible) {
-            const char* LABEL_FRAME = dialog_label_frame(i + 1);
-            const char* WIDGET_FRAME = dialog_widget_frame(i + 1);
             const char* LABEL_ID = dialog_label_id(i + 1);
             const char* WIDGET_ID = dialog_widget_id(i + 1);
             const char* ATTR_NAME = c->c_attr[i]->name->s_name;
             const char* CLASS_NAME = c->c_class.c_name->s_name;
 
-            sys_vgui("   frame %s\n", LABEL_FRAME);
-            sys_vgui("   frame %s\n", WIDGET_FRAME);
-
             /** PROPERTY CATEGORY **/
             if (c->c_attr[i]->category != cat) {
-                auto str = fmt::format("   frame $id.top_frame.cat{0}\n"
-                                       "   global var_cat{0}_state\n"
-                                       "   set var_cat{0}_state 1\n"
-                                       "   ttk::label $id.top_frame.cat{0}.img -image [ceammc_category_icon var_cat{0}_state]\n"
-                                       "   bind $id.top_frame.cat{0}.img <Button> [concat ceammc_category_toggle $id.top_frame.cat{0}.img var_cat{0}_state]\n"
-                                       "   ttk::label $id.top_frame.cat{0}.label -justify left -text [_ \"{0}\"] -font CICMCategoryFont\n"
-                                       "   pack $id.top_frame.cat{0}.img -side left\n"
-                                       "   pack $id.top_frame.cat{0}.label -side left\n"
-                                       "   grid config $id.top_frame.cat{0} -column 0 -row {1} -sticky w" DIALOG_GRID_PADY "\n",
+                auto str = fmt::format(
+                    "   global var_cat{0}_state\n"
+                    "   set var_cat{0}_state 1\n"
+                    "   ttk::label $id.top_frame.cat_img{0} -image [ceammc_category_icon var_cat{0}_state]\n"
+                    "   bind $id.top_frame.cat_img{0} <Button> [list ceammc_category_toggle"
+                    "       $id.top_frame.cat_img{0} var_cat{0}_state [concat [dict get $cat_dict \"{0}\"]]]\n"
+                    "   ttk::label $id.top_frame.cat_lbl{0} -justify left -text [_ \"{0}\"] -font CICMCategoryFont\n"
+                    "   grid config $id.top_frame.cat_img{0} -column 0 -row {1} -sticky w" DIALOG_GRID_PADY "\n"
+                    "   grid config $id.top_frame.cat_lbl{0} -column 1 -columnspan 2 -row {1} -sticky nwse" DIALOG_GRID_PADY "\n",
                     c->c_attr[i]->category->s_name, i + category_idx + 1);
                 // update current category
                 cat = c->c_attr[i]->category;
@@ -1225,48 +1229,43 @@ static void eclass_properties_dialog(t_eclass* c)
             }
 
             /** ATTRIBUTES NAMES **/
-            auto str = fmt::format("   ttk::label {0} -justify left -text [join [list [_ \"{1}\" ] {{:}}] {{}}]\n"
-                                   "   pack {0} -side left\n",
-                LABEL_ID, c->c_attr[i]->label->s_name);
+            auto str = fmt::format("   # property: @{2}\n"
+                                   "   ttk::label {0} -justify left -text [join [list [_ \"{1}\" ] {{:}}] {{}}]\n",
+                LABEL_ID, c->c_attr[i]->label->s_name, ATTR_NAME);
             sys_gui(str.c_str());
 
             /** SELECTOR WIDGETS **/
             if (c->c_attr[i]->style == gensym(SYM_CHECKBUTTON)) {
-                sys_vgui("ttk::checkbutton %s -variable [string trim $var_%s] "
+                sys_vgui("   ttk::checkbutton %s -variable [string trim $var_%s] "
                          "-command  [concat pdtk_%s_dialog_apply_%s $id]\n",
                     WIDGET_ID, ATTR_NAME, CLASS_NAME, ATTR_NAME);
-                sys_vgui("pack %s -side left\n", WIDGET_ID);
             } else if (c->c_attr[i]->style == gensym(SYM_COLOR)) {
-                sys_vgui("set color [eval eobj_rgba_to_hex $%s]\n", ATTR_NAME);
-                sys_vgui("entry %s -font {Helvetica 11} -width 10 -readonlybackground $color -state readonly\n", WIDGET_ID);
-                sys_vgui("bind  %s <Button> [concat pdtk_%s_picker_apply_%s $id $%s]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME, ATTR_NAME);
-                sys_vgui("pack %s -side left\n", WIDGET_ID);
+                sys_vgui("   set color [eval eobj_rgba_to_hex $%s]\n", ATTR_NAME);
+                sys_vgui("   entry %s -font {Helvetica 11} -width 10 -readonlybackground $color -state readonly\n", WIDGET_ID);
+                sys_vgui("   bind  %s <Button> [concat pdtk_%s_picker_apply_%s $id $%s]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME, ATTR_NAME);
             } else if (c->c_attr[i]->style == gensym(SYM_NUMBER)) {
-                sys_vgui("ttk::spinbox %s -width 18 -textvariable [string trim $var_%s] -increment %f \n", WIDGET_ID, ATTR_NAME, (float)c->c_attr[i]->step);
-                sys_vgui("%s configure -command [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
-                sys_vgui("%s configure -from -9999999999999 -to 9999999999999\n", WIDGET_ID, (float)c->c_attr[i]->maximum); // Should be enough
-                sys_vgui("%s delete 0 end \n", WIDGET_ID);
-                sys_vgui("%s insert 0 $%s \n", WIDGET_ID, ATTR_NAME);
+                sys_vgui("   ttk::spinbox %s -width 18 -textvariable [string trim $var_%s] -increment %f \n", WIDGET_ID, ATTR_NAME, (float)c->c_attr[i]->step);
+                sys_vgui("   %s configure -command [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
+                sys_vgui("   %s configure -from -9999999999999 -to 9999999999999\n", WIDGET_ID, (float)c->c_attr[i]->maximum); // Should be enough
+                sys_vgui("   %s delete 0 end \n", WIDGET_ID);
+                sys_vgui("   %s insert 0 $%s \n", WIDGET_ID, ATTR_NAME);
 
-                sys_vgui("bind %s <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
-                sys_vgui("pack %s -side left\n", WIDGET_ID);
+                sys_vgui("   bind %s <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
             } else if (c->c_attr[i]->style == gensym(SYM_MENU)) {
-                sys_vgui("ttk::combobox %s -width 16 -state readonly -textvariable [string trim $var_%s]\n", WIDGET_ID, ATTR_NAME);
-                sys_vgui("%s configure -values { ", WIDGET_ID);
+                sys_vgui("   ttk::combobox %s -width 16 -state readonly -textvariable [string trim $var_%s]\n", WIDGET_ID, ATTR_NAME);
+                sys_vgui("   %s configure -values { ", WIDGET_ID);
                 for (int j = 0; j < c->c_attr[i]->itemssize; j++) {
                     sys_vgui("%s ", c->c_attr[i]->itemslist[c->c_attr[i]->itemssize - 1 - j]->s_name);
                 }
-                sys_vgui("}\n");
+                sys_vgui("   }\n");
 
-                sys_vgui("bind %s <<ComboboxSelected>> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
-                sys_vgui("pack %s -side left\n", WIDGET_ID);
-                sys_vgui("%s set [string trim $%s] \n", WIDGET_ID, ATTR_NAME);
+                sys_vgui("   bind %s <<ComboboxSelected>> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
+                sys_vgui("   %s set [string trim $%s] \n", WIDGET_ID, ATTR_NAME);
             } else if (c->c_attr[i]->style == gensym(SYM_PATH)) {
                 sys_vgui("ttk::entry %s -width 20 -textvariable [string trim $var_%s]\n", WIDGET_ID, ATTR_NAME);
                 //                sys_vgui("bind %s <FocusIn> { if { [string trim [%%W get]] == {(null)} } { %%W delete 0 end } }\n", WIDGET_ID);
                 //                sys_vgui("bind %s <FocusOut> { if { [string trim [%%W get]] == {} } { %%W insert 0 {(null)} } }\n", WIDGET_ID);
                 sys_vgui("bind %s <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
-                sys_vgui("pack %s -side left\n", WIDGET_ID);
 
                 sys_vgui("proc cicm_dialog_%s_open_%s {varname id} {\n", CLASS_NAME, ATTR_NAME);
                 sys_vgui("global $varname\n");
@@ -1286,20 +1285,19 @@ static void eclass_properties_dialog(t_eclass* c)
                     CLASS_NAME,
                     ATTR_NAME,
                     ATTR_NAME);
-                sys_vgui("pack %s -side left\n", btn_id);
             } else {
-                sys_vgui("ttk::entry %s -width 20 -textvariable [string trim $var_%s]\n", WIDGET_ID, ATTR_NAME);
+                sys_vgui("   ttk::entry %s -width 20 -textvariable [string trim $var_%s]\n", WIDGET_ID, ATTR_NAME);
                 // erase (null) on focus in
-                sys_vgui("bind %s <FocusIn> { if { [string trim [%%W get]] == {(null)} } { %%W delete 0 end } }\n", WIDGET_ID);
+                sys_vgui("   bind %s <FocusIn> { if { [string trim [%%W get]] == {(null)} } { %%W delete 0 end } }\n", WIDGET_ID);
                 // insert (null) on focus out
-                sys_vgui("bind %s <FocusOut> { if { [string trim [%%W get]] == {} } { %%W insert 0 {(null)} } }\n", WIDGET_ID);
-                sys_vgui("bind %s <KeyPress-Return> { if { [string trim [%%W get]] == {} } { %%W insert 0 {(null)} } }\n", WIDGET_ID);
-                sys_vgui("bind %s <KeyPress-Return> +[concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
-                sys_vgui("pack %s -side left\n", WIDGET_ID);
+                sys_vgui("   bind %s <FocusOut> { if { [string trim [%%W get]] == {} } { %%W insert 0 {(null)} } }\n", WIDGET_ID);
+                sys_vgui("   bind %s <KeyPress-Return> { if { [string trim [%%W get]] == {} } { %%W insert 0 {(null)} } }\n", WIDGET_ID);
+                sys_vgui("   bind %s <KeyPress-Return> +[concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
             }
 
-            sys_vgui("grid config %s -column 0 -row %i -sticky w -padx 10 " DIALOG_GRID_PADY "\n", LABEL_FRAME, i + category_idx + 1);
-            sys_vgui("grid config %s -column 1 -row %i -sticky w" DIALOG_GRID_PADY "\n", WIDGET_FRAME, i + category_idx + 1);
+            sys_vgui("   grid [ttk::frame $id.top_frame.fr%i] -sticky nwse -column 0 -row %i\n", i + 1, i + category_idx + 1);
+            sys_vgui("   grid config %s -column 1 -row %i -sticky nwse " DIALOG_GRID_PADY "\n", LABEL_ID, i + category_idx + 1);
+            sys_vgui("   grid config %s -column 2 -row %i -sticky nwse" DIALOG_GRID_PADY "\n", WIDGET_ID, i + category_idx + 1);
         }
     }
     sys_gui("}\n");
