@@ -532,7 +532,7 @@ TEST_CASE("ui.knob", "[ui.knob]")
         const auto desired = LA("@*", "@active_scale", "@background_color", "@border_color",
                                  "@fontname", "@fontsize", "@fontslant", "@fontweight",
                                  "@knob_color", "@label", "@label_align", "@label_color")
-            + LA("@label_margins", "@label_pos", "@label_side", "@label_valign",
+            + LA("@label_inner", "@label_margins", "@label_side", "@label_valign",
                 "@max", "@midi_channel", "@midi_control")
             + LA("@midi_pickup", "@min", "@pinned", "@presetname", "@receive",
                 "@scale_color", "@send", "@show_range", "@size", "@value");
