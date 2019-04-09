@@ -1252,9 +1252,12 @@ static void eclass_properties_dialog(t_eclass* c)
                          "-command  [concat pdtk_%s_dialog_apply_%s $id]\n",
                     WIDGET_ID, ATTR_NAME, CLASS_NAME, ATTR_NAME);
             } else if (c->c_attr[i]->style == gensym(SYM_COLOR)) {
-                sys_vgui("   set color [eval eobj_rgba_to_hex $%s]\n", ATTR_NAME);
-                sys_vgui("   entry %s -font {Helvetica 11} -width 10 -readonlybackground $color -state readonly\n", WIDGET_ID);
-                sys_vgui("   bind  %s <Button> [concat pdtk_%s_picker_apply_%s $id $%s]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME, ATTR_NAME);
+                auto str = fmt::format(
+                    "   set color [eval eobj_rgba_to_hex ${2}]\n"
+                    "   entry {0} -font {{Helvetica 11}} -width 10 -readonlybackground $color -state readonly\n"
+                    "   bind  {0} <Button> [concat pdtk_{1}_picker_apply_{2} $id ${2}]\n",
+                    WIDGET_ID, CLASS_NAME, ATTR_NAME);
+                sys_gui(str.c_str());
             } else if (c->c_attr[i]->style == gensym(SYM_NUMBER)) {
                 sys_vgui("   ttk::spinbox %s -width 18 -textvariable [string trim $var_%s] -increment %f \n", WIDGET_ID, ATTR_NAME, (float)c->c_attr[i]->step);
                 sys_vgui("   %s configure -command [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
