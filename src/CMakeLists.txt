@@ -48,6 +48,7 @@ set(G_SRC
     g_readwrite.c
     g_rtext.c
     g_scalar.c
+    g_style.c
     g_template.c
     g_text.c
     g_toggle.c
@@ -93,7 +94,6 @@ set(X_SRC
 
 set(MISC_H
     g_style.h
-    g_style.c
     g_ceammc_draw.h
 )
 
