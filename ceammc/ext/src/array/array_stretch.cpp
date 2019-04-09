@@ -4,12 +4,12 @@
 
 #include "SoundTouch.h"
 
-static t_symbol* PROP_SEQUENCE = gensym("@sequence");
-static t_symbol* PROP_SEEK_WINDOW = gensym("@seekwindow");
-static t_symbol* PROP_OVERLAP = gensym("@overlap");
-static t_symbol* PROP_ANTIALIAS = gensym("@antialias");
-static t_symbol* PROP_ANTIALIAS_LENGTH = gensym("@aalength");
-static t_symbol* PROP_SPEECH = gensym("@speech");
+static t_symbol* PROP_SEQUENCE;
+static t_symbol* PROP_SEEK_WINDOW;
+static t_symbol* PROP_OVERLAP;
+static t_symbol* PROP_ANTIALIAS;
+static t_symbol* PROP_ANTIALIAS_LENGTH;
+static t_symbol* PROP_SPEECH;
 
 class PdSoundTouch : public soundtouch::SoundTouch {
 public:
@@ -363,6 +363,13 @@ void ArrayStretch::setupSoundTouch()
 
 extern "C" void setup_array0x2estretch()
 {
+    PROP_SEQUENCE = gensym("@sequence");
+    PROP_SEEK_WINDOW = gensym("@seekwindow");
+    PROP_OVERLAP = gensym("@overlap");
+    PROP_ANTIALIAS = gensym("@antialias");
+    PROP_ANTIALIAS_LENGTH = gensym("@aalength");
+    PROP_SPEECH = gensym("@speech");
+
     ObjectFactory<ArrayStretch> obj("array.stretch");
     soundtouch::SoundTouch st;
     LIB_DBG << " SoundTouch " << st.getVersionString();
