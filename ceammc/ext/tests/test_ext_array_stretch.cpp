@@ -26,6 +26,8 @@ static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("array.stretch", "[externals]")
 {
+    setup_array0x2estretch();
+
     SECTION("create")
     {
         ArrayPtr aptr0 = cnv->createArray("array0", 10);

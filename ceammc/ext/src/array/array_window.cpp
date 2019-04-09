@@ -32,20 +32,7 @@ static t_symbol* WIN_DEFAULT;
 static t_symbol* PROP_TYPE;
 
 typedef std::unordered_map<t_symbol*, WindowFuncPtr> WFuncMap;
-
-static WFuncMap fn_map = {
-    { WIN_TRIANGLE, window::triangle<float> },
-    { WIN_GAUSS, window::gauss<1> },
-    { WIN_HANN, window::hann<float> },
-    { WIN_RECT, window::rect<float> },
-    { WIN_SINE, window::sine<float> },
-    { WIN_HAMMING, window::hamming<float> },
-    { WIN_BLACKMAN, window::blackman<float> },
-    { WIN_NUTTALL, window::nuttall<float> },
-    { WIN_BLACKMAN_HARRIS, window::blackman_harris<float> },
-    { WIN_FLATTOP, window::flattop<float> },
-    { WIN_WELCH, window::welch<float> }
-};
+static WFuncMap fn_map;
 
 static void propCallback(BaseObject* b, t_symbol* sel)
 {
@@ -162,6 +149,20 @@ void setup_array_window()
     WIN_GAUSS = gensym("gauss");
     WIN_DEFAULT = WIN_HANN;
     PROP_TYPE = gensym("@type");
+
+    fn_map = {
+        { WIN_TRIANGLE, window::triangle<float> },
+        { WIN_GAUSS, window::gauss<1> },
+        { WIN_HANN, window::hann<float> },
+        { WIN_RECT, window::rect<float> },
+        { WIN_SINE, window::sine<float> },
+        { WIN_HAMMING, window::hamming<float> },
+        { WIN_BLACKMAN, window::blackman<float> },
+        { WIN_NUTTALL, window::nuttall<float> },
+        { WIN_BLACKMAN_HARRIS, window::blackman_harris<float> },
+        { WIN_FLATTOP, window::flattop<float> },
+        { WIN_WELCH, window::welch<float> }
+    };
 
     ObjectFactory<ArrayWindow> obj("array.window");
     obj.addMethod("resize", &ArrayWindow::m_resize);

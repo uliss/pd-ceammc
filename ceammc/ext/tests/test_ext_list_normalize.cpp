@@ -21,6 +21,9 @@ typedef TestExternal<ListNormalize> ListNormalizeTest;
 
 TEST_CASE("list.normalize", "[externals]")
 {
+    pd_init();
+    setup_list_normalize();
+
     SECTION("test create with:")
     {
         SECTION("empty")

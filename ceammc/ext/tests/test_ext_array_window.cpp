@@ -24,6 +24,7 @@ static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("array.window", "[externals]")
 {
+    setup_array_window();
     //    pd_test_mod_init_array_window();
 
     SECTION("empty")
