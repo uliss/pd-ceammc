@@ -3,15 +3,15 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_FREQ = gensym("@freq");
-static t_symbol* SYM_PROP_GAIN = gensym("@gain");
-static t_symbol* SYM_PROP_Q = gensym("@q");
-
 class FxEqPeakCq : public faust_flt_eq_peak_cq_tilde {
 public:
     FxEqPeakCq(const PdArgs& args)
         : faust_flt_eq_peak_cq_tilde(args)
     {
+        static t_symbol* SYM_PROP_FREQ = gensym("@freq");
+        static t_symbol* SYM_PROP_GAIN = gensym("@gain");
+        static t_symbol* SYM_PROP_Q = gensym("@q");
+
         bindPositionalArgsToProps({ SYM_PROP_FREQ, SYM_PROP_GAIN, SYM_PROP_Q });
     }
 };

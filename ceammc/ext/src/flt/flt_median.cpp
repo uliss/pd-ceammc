@@ -14,10 +14,10 @@
 #include "flt_median.h"
 #include "ceammc_factory.h"
 
-static t_symbol* PROP_SIZE = gensym("@size");
-
 static void updatePropSize(BaseObject* b, t_symbol* prop)
 {
+    static t_symbol* PROP_SIZE = gensym("@size");
+
     if (prop != PROP_SIZE)
         return;
 

@@ -3,14 +3,14 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_FREQ = gensym("@freq");
-static t_symbol* SYM_PROP_WIDTH = gensym("@width");
-
 class FltNotch : public faust_flt_notch_tilde {
 public:
     FltNotch(const PdArgs& args)
         : faust_flt_notch_tilde(args)
     {
+        static t_symbol* SYM_PROP_FREQ = gensym("@freq");
+        static t_symbol* SYM_PROP_WIDTH = gensym("@width");
+
         bindPositionalArgsToProps({ SYM_PROP_FREQ, SYM_PROP_WIDTH });
     }
 };

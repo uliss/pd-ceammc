@@ -3,14 +3,12 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_FREQ = gensym("@freq");
-
 class FltHpf12 : public faust_flt_hpf12_tilde {
 public:
     FltHpf12(const PdArgs& args)
         : faust_flt_hpf12_tilde(args)
     {
-        bindPositionalArgsToProps({ SYM_PROP_FREQ });
+        bindPositionalArgsToProps({ gensym("@freq") });
     }
 };
 

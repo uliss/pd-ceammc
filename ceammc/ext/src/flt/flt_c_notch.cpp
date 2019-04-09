@@ -3,15 +3,12 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_FREQ = gensym("@freq");
-static t_symbol* SYM_PROP_Q = gensym("@q");
-
 class FltCNotch : public faust_flt_c_notch_tilde {
 public:
     FltCNotch(const PdArgs& args)
         : faust_flt_c_notch_tilde(args)
     {
-        bindPositionalArgsToProps({ SYM_PROP_FREQ, SYM_PROP_Q });
+       bindPositionalArgsToProps({ gensym("@freq"), gensym("@q") });
     }
 };
 
