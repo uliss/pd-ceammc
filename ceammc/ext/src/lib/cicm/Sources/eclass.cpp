@@ -1069,21 +1069,21 @@ static void ewidget_init(t_eclass* c)
 static const char* dialog_frame_id(int i)
 {
     static char buf[100];
-    snprintf(buf, 100, "$id.top_frame.frame%i", i);
+    snprintf(buf, 100, "$id.t.frame%i", i);
     return buf;
 }
 
 static const char* dialog_label_id(int i)
 {
     static char buf[100];
-    snprintf(buf, 100, "$id.top_frame.name%i", i);
+    snprintf(buf, 100, "$id.t.l%i", i);
     return buf;
 }
 
 static const char* dialog_widget_id(int i)
 {
     static char buf[100];
-    snprintf(buf, 100, "$id.top_frame.sele%i", i);
+    snprintf(buf, 100, "$id.t.w%i", i);
     return buf;
 }
 
@@ -1207,8 +1207,8 @@ static void eclass_properties_dialog(t_eclass* c)
                            "   wm resizable $id 0 0\n"
                            "   raise [winfo toplevel $id]\n"
                            "   $id configure " DIALOG_BACKGROUND DIALOG_WINDOW_PADX DIALOG_WINDOW_PADY "\n"
-                           "   frame $id.top_frame\n"
-                           "   grid $id.top_frame\n",
+                           "   frame $id.t\n"
+                           "   grid $id.t\n",
         c->c_class.c_name->s_name);
     sys_gui(str.c_str());
 
@@ -1227,12 +1227,12 @@ static void eclass_properties_dialog(t_eclass* c)
                 auto str = fmt::format(
                     "   global var_cat{0}_state\n"
                     "   set var_cat{0}_state 1\n"
-                    "   ttk::label $id.top_frame.cat_img{0} -image [ceammc_category_icon var_cat{0}_state]\n"
-                    "   bind $id.top_frame.cat_img{0} <Button> [list ceammc_category_toggle"
-                    "       $id.top_frame.cat_img{0} var_cat{0}_state [concat [dict get $cat_dict \"{0}\"]]]\n"
-                    "   ttk::label $id.top_frame.cat_lbl{0} -justify left -text [_ \"{0}\"] -font CICMCategoryFont\n"
-                    "   grid config $id.top_frame.cat_img{0} -column 0 -row {1} -sticky w\n"
-                    "   grid config $id.top_frame.cat_lbl{0} -column 1 -columnspan 2 -row {1} -sticky nwse\n",
+                    "   ttk::label $id.t.cat_img{0} -image [ceammc_category_icon var_cat{0}_state]\n"
+                    "   bind $id.t.cat_img{0} <Button> [list ceammc_category_toggle"
+                    "       $id.t.cat_img{0} var_cat{0}_state [concat [dict get $cat_dict \"{0}\"]]]\n"
+                    "   ttk::label $id.t.cat_lbl{0} -justify left -text [_ \"{0}\"] -font CICMCategoryFont\n"
+                    "   grid config $id.t.cat_img{0} -column 0 -row {1} -sticky w\n"
+                    "   grid config $id.t.cat_lbl{0} -column 1 -columnspan 2 -row {1} -sticky nwse\n",
                     c->c_attr[i]->category->s_name, i + category_idx + 1);
                 // update current category
                 cat = c->c_attr[i]->category;

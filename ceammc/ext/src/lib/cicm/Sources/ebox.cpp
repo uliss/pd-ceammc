@@ -1758,7 +1758,7 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                 ac = 0;
 
                 char WIDGET_ID[64];
-                snprintf(WIDGET_ID, sizeof(WIDGET_ID), "%s.top_frame.sele%i",
+                snprintf(WIDGET_ID, sizeof(WIDGET_ID), "%s.t.w%i",
                     atom_getsymbol(argv)->s_name, attrindex + 1);
 
                 eobj_attr_getvalueof((t_object*)x, c->c_attr[attrindex]->name, &ac, &av);
