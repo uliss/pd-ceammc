@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-04-08 13:37+0300\n"
-"PO-Revision-Date: 2019-04-08 01:59+0300\n"
+"POT-Creation-Date: 2019-04-09 18:03+0300\n"
+"PO-Revision-Date: 2019-04-09 18:04+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -30,7 +30,7 @@ msgid "%s Properties"
 msgstr "Свойства %s"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#, fuzzy, c-format
+#, c-format
 msgid "%s properties"
 msgstr "Свойства %s"
 
@@ -926,6 +926,11 @@ msgstr "Подхват MIDI значения"
 msgid "MIDI..."
 msgstr "MIDI…"
 
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/ui_arrayview.cpp ../ceammc/ext/src/ui/ui_display.cpp
+msgid "Main"
+msgstr "Основные"
+
 #: ../ceammc/ext/src/ui/ui_label.cpp
 msgid "Margin bottom"
 msgstr "Отступ снизу"
@@ -1782,7 +1787,8 @@ msgstr "Vertial Slider"
 #: ../tcl/pd-gui.tcl
 #, tcl-format
 msgid "WARNING: Font family '%s' not found, using default (%s)\n"
-msgstr "ВНИМАНИЕ: Шрифт «%s» не найден, используется шрифт по умолчанию (%s)\n"
+msgstr ""
+"ВНИМАНИЕ: Шрифт «%s» не найден, используется шрифт по умолчанию (%s)\n"
 
 #: ../tcl/pd-gui.tcl
 #, tcl-format

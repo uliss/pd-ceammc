@@ -214,9 +214,9 @@ void UIDisplay::setup()
     obj.setDefaultSize(150, 18);
 
     obj.hideProperty("send");
-    obj.addProperty("display_events", _("Display events"), true, &UIDisplay::prop_display_events);
-    obj.addProperty("display_type", _("Display type"), false, &UIDisplay::prop_display_type);
-    obj.addProperty("auto_size", _("Auto size"), true, &UIDisplay::prop_auto_size);
+    obj.addProperty("display_events", _("Display events"), true, &UIDisplay::prop_display_events, _("Main"));
+    obj.addProperty("display_type", _("Display type"), false, &UIDisplay::prop_display_type, _("Main"));
+    obj.addProperty("auto_size", _("Auto size"), true, &UIDisplay::prop_auto_size, _("Main"));
     obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UIDisplay::prop_text_color);
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIDisplay::prop_active_color);
 

@@ -75,9 +75,10 @@ enum CategoryType {
     CAT_BASE = 0,
     CAT_COLOR = 100,
     CAT_BOUNDS = 200,
-    CAT_LABEL = 250,
-    CAT_MIDI = 300,
-    CAT_MISC = 400
+    CAT_LABEL = 300,
+    CAT_MAIN = 400,
+    CAT_MIDI = 500,
+    CAT_MISC = 600
 };
 
 static void eclass_properties_dialog(t_eclass* c);
@@ -547,6 +548,8 @@ void eclass_attr_category(t_eclass* c, const char* attrname, long flags, const c
                 c->c_attr[i]->order += CAT_BOUNDS;
             else if (cat == gensym(_("Label")))
                 c->c_attr[i]->order += CAT_LABEL;
+            else if (cat == gensym(_("Main")))
+                c->c_attr[i]->order += CAT_MAIN;
             else if (cat == gensym(_("MIDI")))
                 c->c_attr[i]->order += CAT_MIDI;
             else

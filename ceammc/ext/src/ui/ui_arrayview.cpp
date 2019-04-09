@@ -923,7 +923,8 @@ void UIArrayView::setup()
     obj.useBang();
     obj.hideLabelInner();
 
-    obj.addSymbolProperty("array", _("Array name"), "", &UIArrayView::prop_array);
+    obj.addSymbolProperty("array", _("Array name"), "", &UIArrayView::prop_array, _("Main"));
+
     obj.setPropertyAccessor("array", &UIArrayView::propArray, &UIArrayView::propSetArray);
     obj.addProperty("wave_color", _("Wave Color"), "0.3 0.3 0.3 1", &UIArrayView::prop_color_wave);
     obj.addProperty("cursor_color", _("Cursor Color"), DEFAULT_ACTIVE_COLOR, &UIArrayView::prop_color_cursor);
