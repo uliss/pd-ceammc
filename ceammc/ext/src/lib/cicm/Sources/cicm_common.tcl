@@ -111,7 +111,6 @@ proc ceammc_category_toggle {id var_name_state controls} {
     $id configure -image [ceammc_category_icon $v]
 
     foreach w $controls {
-        ::pdwindow::error "widget: $w\n"
         if {$v eq 0 } {
             grid remove $w
         } {

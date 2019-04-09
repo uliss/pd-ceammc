@@ -1163,7 +1163,8 @@ static void eclass_properties_dialog(t_eclass* c)
         if (c->c_attr[i]->invisible)
             continue;
 
-        auto str = fmt::format("   dict lappend cat_dict {0} $id.top_frame.name{1}\n"
+        auto str = fmt::format("   dict lappend cat_dict {0} $id.top_frame.frame{1}\n"
+                               "   dict lappend cat_dict {0} $id.top_frame.name{1}\n"
                                "   dict lappend cat_dict {0} $id.top_frame.sele{1}\n",
             c->c_attr[i]->category->s_name,
             i + 1);
@@ -1295,7 +1296,7 @@ static void eclass_properties_dialog(t_eclass* c)
                 sys_vgui("   bind %s <KeyPress-Return> +[concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
             }
 
-            sys_vgui("   grid [ttk::frame $id.top_frame.fr%i] -sticky nwse -column 0 -row %i\n", i + 1, i + category_idx + 1);
+            sys_vgui("   grid [ttk::frame $id.top_frame.frame%i] -sticky nwse -column 0 -row %i\n", i + 1, i + category_idx + 1);
             sys_vgui("   grid config %s -column 1 -row %i -sticky nwse " DIALOG_GRID_PADY "\n", LABEL_ID, i + category_idx + 1);
             sys_vgui("   grid config %s -column 2 -row %i -sticky nwse" DIALOG_GRID_PADY "\n", WIDGET_ID, i + category_idx + 1);
         }

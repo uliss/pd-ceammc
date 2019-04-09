@@ -95,7 +95,6 @@ const char* cicm_common_tcl =
 "    set v [expr $$var_name_state]\n"
 "    $id configure -image [ceammc_category_icon $v]\n"
 "    foreach w $controls {\n"
-"        ::pdwindow::error \"widget: $w\\n\"\n"
 "        if {$v eq 0 } {\n"
 "            grid remove $w\n"
 "        } {\n"
