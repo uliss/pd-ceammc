@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-04-09 18:14+0300\n"
-"PO-Revision-Date: 2019-04-09 18:16+0300\n"
+"POT-Creation-Date: 2019-04-09 18:30+0300\n"
+"PO-Revision-Date: 2019-04-09 18:34+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -224,6 +224,10 @@ msgstr "Все поддерживаемые форматы"
 msgid "Atom Box Properties"
 msgstr "Свойста AtomBox"
 
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Attach side"
+msgstr "Сторона прикрепления"
+
 #: ../tcl/pdwindow.tcl
 msgid "Audio I/O error"
 msgstr "Ошибка Audio I/O"
@@ -272,13 +276,9 @@ msgstr "Цвет фона"
 msgid "Bang"
 msgstr "Bang"
 
-#: ../ceammc/ext/src/ui/ui_icon.cpp
-msgid "Base"
-msgstr ""
-
 #: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../ceammc/ext/src/ui/ui_icon.cpp
 msgid "Basic"
 msgstr "Базовые"
 
@@ -702,6 +702,10 @@ msgstr "Скрыть имя объекта и аргументы"
 msgid "Hold:"
 msgstr ""
 
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Horizontal align"
+msgstr "Горизонтальное выравнивание"
+
 #: ../ceammc/ext/src/ui/ui_meter.cpp
 msgid "Hot signal color"
 msgstr "Горячий цвет"
@@ -830,18 +834,6 @@ msgstr "Сторона ярлыка"
 msgid "Label vertical align"
 msgstr "Вертикальное выравнивание ярлыка"
 
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-msgid "Label vertical margin"
-msgstr "Вертикальный отступ ярлыка"
-
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-msgid "Label x-margin"
-msgstr "Отступ ярлыка по x"
-
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-msgid "Label y-margin"
-msgstr "Отступ ярлыка по y"
-
 #: ../tcl/dialog_array.tcl
 msgid "Last graph"
 msgstr "Последний graph"
@@ -961,6 +953,10 @@ msgstr "Отступ сверху"
 #: ../tcl/dialog_canvas.tcl
 msgid "Margin:"
 msgstr "Отступ:"
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Margins"
+msgstr "Отступы"
 
 #: ../tcl/dialog_find.tcl
 msgid "Match whole word only"
@@ -1270,6 +1266,10 @@ msgstr "Точками"
 #: ../tcl/dialog_array.tcl
 msgid "Polygon"
 msgstr "Линиями"
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Position"
+msgstr "Положение"
 
 #: ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "Precision"
@@ -1787,6 +1787,10 @@ msgstr "Подробный вывод"
 msgid "Vertical Orientation"
 msgstr "Вертикально"
 
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Vertical align"
+msgstr "Вертикальное выравнивание"
+
 #: ../tcl/dialog_iemgui.tcl
 msgid "Visible Rectangle (pix)"
 msgstr "Видимый размер (в пикселях)"
@@ -2127,14 +2131,20 @@ msgstr "ширина:"
 #~ msgid "Cross Color"
 #~ msgstr "Цвет индикатора"
 
-#~ msgid "Horizontal range"
-#~ msgstr "Горизонтальный диапазон"
-
 #~ msgid "Hover Mode"
 #~ msgstr "Режим наведения"
 
 #~ msgid "Item Color"
 #~ msgstr "Цвет элемента"
+
+#~ msgid "Label vertical margin"
+#~ msgstr "Вертикальный отступ ярлыка"
+
+#~ msgid "Label x-margin"
+#~ msgstr "Отступ ярлыка по x"
+
+#~ msgid "Label y-margin"
+#~ msgstr "Отступ ярлыка по y"
 
 #~ msgid "Leftmost value"
 #~ msgstr "Крайнее левое значение"
@@ -2153,6 +2163,3 @@ msgstr "ширина:"
 
 #~ msgid "Value range"
 #~ msgstr "Диапазон значений"
-
-#~ msgid "Vertical range"
-#~ msgstr "Вертикальный диапазон"

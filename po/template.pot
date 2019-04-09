@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.49.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-04-09 18:14+0300\n"
+"POT-Creation-Date: 2019-04-09 18:31+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: ../ceammc/ext/src/lib/ceammc_dsp_ui.h ../ceammc/ext/src/lib/ceammc_ui.h
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
+#: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../ceammc/ext/src/ui/ui_icon.cpp
 msgid "Basic"
 msgstr ""
 
@@ -44,6 +44,10 @@ msgstr ""
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #, c-format
 msgid "%s properties"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Attach side"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
@@ -77,6 +81,10 @@ msgstr ""
 msgid "Font Weight"
 msgstr ""
 
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Horizontal align"
+msgstr ""
+
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp ../tcl/dialog_gatom.tcl
 #: ../tcl/dialog_iemgui.tcl
 msgid "Label"
@@ -107,18 +115,6 @@ msgid "Label vertical align"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-msgid "Label vertical margin"
-msgstr ""
-
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-msgid "Label x-margin"
-msgstr ""
-
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-msgid "Label y-margin"
-msgstr ""
-
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "MIDI"
 msgstr ""
@@ -131,6 +127,10 @@ msgid "Main"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Margins"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Patching Size"
 msgstr ""
@@ -138,6 +138,10 @@ msgstr ""
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Pinned"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Position"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
@@ -153,6 +157,10 @@ msgstr ""
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Send Symbol"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Vertical align"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
@@ -238,11 +246,11 @@ msgid "Length"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_env.cpp
-msgid "Line Color"
+msgid "Length (ms)"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_env.cpp
-msgid "Length (ms)"
+msgid "Line Color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
@@ -262,6 +270,10 @@ msgid "Minimum value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+msgid "Misc"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
 msgid "Output value"
 msgstr ""
 
@@ -269,10 +281,6 @@ msgstr ""
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "Show range"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
-msgid "Misc"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_icon.cpp
@@ -285,10 +293,6 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_icon.cpp
 msgid "Size"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_icon.cpp
-msgid "Base"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_incdec.cpp

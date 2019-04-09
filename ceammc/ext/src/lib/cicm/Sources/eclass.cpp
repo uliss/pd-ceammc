@@ -270,7 +270,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_ACCESSORS(c, "label_align", NULL, ebox_set_label_align);
     CLASS_ATTR_SAVE(c, "label_align", 0);
     CLASS_ATTR_CATEGORY(c, "label_align", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label_align", 0, _("Label align"));
+    CLASS_ATTR_LABEL(c, "label_align", 0, _("Horizontal align"));
     CLASS_ATTR_STYLE(c, "label_align", 0, "menu");
     CLASS_ATTR_ITEMS(c, "label_align", 0, "left center right");
 
@@ -278,7 +278,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_ACCESSORS(c, "label_valign", NULL, ebox_set_label_valign);
     CLASS_ATTR_SAVE(c, "label_valign", 0);
     CLASS_ATTR_CATEGORY(c, "label_valign", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label_valign", 0, _("Label vertical align"));
+    CLASS_ATTR_LABEL(c, "label_valign", 0, _("Vertical align"));
     CLASS_ATTR_STYLE(c, "label_valign", 0, "menu");
     CLASS_ATTR_ITEMS(c, "label_valign", 0, "top center bottom");
 
@@ -286,7 +286,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_ACCESSORS(c, "label_side", NULL, ebox_set_label_side);
     CLASS_ATTR_SAVE(c, "label_side", 0);
     CLASS_ATTR_CATEGORY(c, "label_side", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label_side", 0, _("Label side"));
+    CLASS_ATTR_LABEL(c, "label_side", 0, _("Attach side"));
     CLASS_ATTR_STYLE(c, "label_side", 0, "menu");
     CLASS_ATTR_ITEMS(c, "label_side", 0, "left top right bottom");
 
@@ -294,7 +294,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_ACCESSORS(c, "label_pos", NULL, ebox_set_label_position);
     CLASS_ATTR_SAVE(c, "label_pos", 0);
     CLASS_ATTR_CATEGORY(c, "label_pos", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label_pos", 0, _("Label position"));
+    CLASS_ATTR_LABEL(c, "label_pos", 0, _("Position"));
     CLASS_ATTR_STYLE(c, "label_pos", 0, "menu");
     CLASS_ATTR_ITEMS(c, "label_pos", 0, "inner outer");
 
@@ -302,7 +302,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_SAVE(c, "label_margins", 0);
     CLASS_ATTR_PAINT(c, "label_margins", 0);
     CLASS_ATTR_CATEGORY(c, "label_margins", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label_margins", 0, _("Label margins"));
+    CLASS_ATTR_LABEL(c, "label_margins", 0, _("Margins"));
     CLASS_ATTR_ACCESSORS(c, "label_margins", NULL, ebox_set_label_margins);
 
     // GUI always need this methods //
