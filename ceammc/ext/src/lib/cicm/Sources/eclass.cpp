@@ -1057,7 +1057,6 @@ static void ewidget_init(t_eclass* c)
     c->c_widget.w_onzoom = nullptr;
 }
 
-#define DIALOG_GRID_PADY " -pady 0 "
 #define DIALOG_WINDOW_PADX " -padx 8 "
 #define DIALOG_WINDOW_PADY " -pady 8 "
 
@@ -1066,6 +1065,13 @@ static void ewidget_init(t_eclass* c)
 #else
 #define DIALOG_BACKGROUND " -background #ECECEC "
 #endif
+
+static const char* dialog_frame_id(int i)
+{
+    static char buf[100];
+    snprintf(buf, 100, "$id.top_frame.frame%i", i);
+    return buf;
+}
 
 static const char* dialog_label_id(int i)
 {
@@ -1163,11 +1169,15 @@ static void eclass_properties_dialog(t_eclass* c)
         if (c->c_attr[i]->invisible)
             continue;
 
-        auto str = fmt::format("   dict lappend cat_dict {0} $id.top_frame.frame{1}\n"
-                               "   dict lappend cat_dict {0} $id.top_frame.name{1}\n"
-                               "   dict lappend cat_dict {0} $id.top_frame.sele{1}\n",
+        auto frame_id = dialog_frame_id(i + 1);
+        auto label_id = dialog_label_id(i + 1);
+        auto widget_id = dialog_widget_id(i + 1);
+
+        auto str = fmt::format("   dict lappend cat_dict {0} {1}\n"
+                               "   dict lappend cat_dict {0} {2}\n"
+                               "   dict lappend cat_dict {0} {3}\n",
             c->c_attr[i]->category->s_name,
-            i + 1);
+            frame_id, label_id, widget_id);
         sys_gui(str.c_str());
     }
 
@@ -1206,6 +1216,7 @@ static void eclass_properties_dialog(t_eclass* c)
     int category_idx = 0;
     for (int i = 0; i < c->c_nattr; i++) {
         if (!c->c_attr[i]->invisible) {
+            const char* FRAME_ID = dialog_frame_id(i + 1);
             const char* LABEL_ID = dialog_label_id(i + 1);
             const char* WIDGET_ID = dialog_widget_id(i + 1);
             const char* ATTR_NAME = c->c_attr[i]->name->s_name;
@@ -1220,8 +1231,8 @@ static void eclass_properties_dialog(t_eclass* c)
                     "   bind $id.top_frame.cat_img{0} <Button> [list ceammc_category_toggle"
                     "       $id.top_frame.cat_img{0} var_cat{0}_state [concat [dict get $cat_dict \"{0}\"]]]\n"
                     "   ttk::label $id.top_frame.cat_lbl{0} -justify left -text [_ \"{0}\"] -font CICMCategoryFont\n"
-                    "   grid config $id.top_frame.cat_img{0} -column 0 -row {1} -sticky w" DIALOG_GRID_PADY "\n"
-                    "   grid config $id.top_frame.cat_lbl{0} -column 1 -columnspan 2 -row {1} -sticky nwse" DIALOG_GRID_PADY "\n",
+                    "   grid config $id.top_frame.cat_img{0} -column 0 -row {1} -sticky w\n"
+                    "   grid config $id.top_frame.cat_lbl{0} -column 1 -columnspan 2 -row {1} -sticky nwse\n",
                     c->c_attr[i]->category->s_name, i + category_idx + 1);
                 // update current category
                 cat = c->c_attr[i]->category;
@@ -1296,9 +1307,12 @@ static void eclass_properties_dialog(t_eclass* c)
                 sys_vgui("   bind %s <KeyPress-Return> +[concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
             }
 
-            sys_vgui("   grid [ttk::frame $id.top_frame.frame%i] -sticky nwse -column 0 -row %i\n", i + 1, i + category_idx + 1);
-            sys_vgui("   grid config %s -column 1 -row %i -sticky nwse " DIALOG_GRID_PADY "\n", LABEL_ID, i + category_idx + 1);
-            sys_vgui("   grid config %s -column 2 -row %i -sticky nwse" DIALOG_GRID_PADY "\n", WIDGET_ID, i + category_idx + 1);
+            str = fmt::format(
+                "   grid [ttk::frame {1}] -column 0 -row {0} -sticky nwse\n"
+                "   grid {2} -column 1 -row {0} -sticky nwse\n"
+                "   grid {3} -column 2 -row {0} -sticky nwse\n",
+                i + category_idx + 1, FRAME_ID, LABEL_ID, WIDGET_ID);
+            sys_gui(str.c_str());
         }
     }
     sys_gui("}\n");
