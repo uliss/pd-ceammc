@@ -295,7 +295,8 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_SAVE(c, "label_inner", 0);
     CLASS_ATTR_CATEGORY(c, "label_inner", 0, _("Label"));
     CLASS_ATTR_LABEL(c, "label_inner", 0, _("Inner position"));
-    CLASS_ATTR_STYLE(c, "label_inner", 0, "checkbox");
+    CLASS_ATTR_STYLE(c, "label_inner", 0, "onoff");
+    CLASS_ATTR_FILTER_CLIP(c, "label_inner", 0, 1);
 
     CLASS_ATTR_DEFAULT(c, "label_margins", 0, "0 0");
     CLASS_ATTR_SAVE(c, "label_margins", 0);
