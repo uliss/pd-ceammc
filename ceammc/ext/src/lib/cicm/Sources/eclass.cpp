@@ -74,8 +74,8 @@ static const char* SYM_DSP_ADD64 = "dsp_add";
 enum CategoryType {
     CAT_BASE = 0,
     CAT_COLOR = 100,
-    CAT_BOUNDS = 200,
-    CAT_LABEL = 300,
+    CAT_LABEL = 200,
+    CAT_BOUNDS = 300,
     CAT_MAIN = 400,
     CAT_MIDI = 500,
     CAT_MISC = 600
