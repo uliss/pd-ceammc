@@ -46,9 +46,6 @@ public:
     bool isSymbol() const;
     bool isList() const;
 
-public:
-    static t_symbol* className;
-
 private:
     void initName();
 };

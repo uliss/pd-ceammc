@@ -17,21 +17,13 @@
 
 #include <algorithm>
 
+static t_symbol* SYM_POW;
+static t_symbol* SYM_LIN;
+
 static const int DEFAULT_INLETS = 2;
 static const t_float DEFAULT_SMOOTH_MS = 20;
 static const int MIN_INLETS = 2;
 static const int MAX_INLETS = 16;
-
-static t_symbol* SYM_POW = gensym("pow");
-static t_symbol* SYM_LIN = gensym("lin");
-
-typedef std::function<t_float(t_float, t_float)> XFadeCurveFunction;
-typedef std::pair<t_symbol*, XFadeCurveFunction> XFadeCurvePair;
-
-static XFadeCurvePair xfade_fns[] = {
-    { SYM_LIN, [](t_float a, t_float b) { return a - b; } },
-    { SYM_POW, [](t_float a, t_float b) { return (a - b) * (a - b); } }
-};
 
 static int maxInlets(const PdArgs& args)
 {
@@ -104,6 +96,14 @@ void XFadeTilde::processBlock(const t_sample** in, t_sample** out)
 
 void XFadeTilde::onInlet(size_t n, const AtomList& lst)
 {
+    typedef std::function<t_float(t_float, t_float)> XFadeCurveFunction;
+    typedef std::pair<t_symbol*, XFadeCurveFunction> XFadeCurvePair;
+
+    static XFadeCurvePair xfade_fns[] = {
+        { SYM_LIN, [](t_float a, t_float b) { return a - b; } },
+        { SYM_POW, [](t_float a, t_float b) { return (a - b) * (a - b); } }
+    };
+
     if (!checkArgs(lst, ARG_FLOAT)) {
         OBJ_ERR << "float expected: " << lst;
         return;
@@ -156,5 +156,8 @@ std::vector<float> XFadeTilde::gains() const
 
 void setup_base_xfade_tilde()
 {
+    SYM_POW = gensym("pow");
+    SYM_LIN = gensym("lin");
+
     SoundExternalFactory<XFadeTilde> obj("xfade~");
 }

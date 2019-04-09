@@ -29,16 +29,14 @@ extern "C" {
 #include "m_imp.h"
 }
 
-static t_symbol* SYM_BOOL = gensym("bool");
-static t_symbol* SYM_INT = gensym("int");
-static t_symbol* SYM_ENUM = gensym("enum");
+static t_symbol* SYM_BOOL;
+static t_symbol* SYM_INT;
+static t_symbol* SYM_ENUM;
 
 static const t_float FMIN = std::numeric_limits<t_float>::lowest();
 static const t_float FMAX = std::numeric_limits<t_float>::max();
 static const long IMIN = std::numeric_limits<long>::min();
 static const long IMAX = std::numeric_limits<long>::max();
-
-t_symbol* PropDeclare::className = gensym("prop.declare");
 
 class CanvasEditCallback {
     std::unordered_map<t_canvas*, t_glistkeyfn> map_;
@@ -257,6 +255,10 @@ void PropDeclare::initName()
 
 void setup_prop_declare()
 {
-    ObjectFactory<PropDeclare> obj(PropDeclare::className->s_name, OBJECT_FACTORY_NO_DEFAULT_INLET);
+    SYM_BOOL = gensym("bool");
+    SYM_INT = gensym("int");
+    SYM_ENUM = gensym("enum");
+
+    ObjectFactory<PropDeclare> obj("prop.declare", OBJECT_FACTORY_NO_DEFAULT_INLET);
     class_addmethod(obj.classPointer(), (t_method)prop_declare_loadbang, gensym("loadbang"), A_DEFFLOAT, 0);
 }

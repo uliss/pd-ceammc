@@ -32,6 +32,7 @@ private:
     void outputProp(const std::string& name, t_float f);
     void outputProp(const std::string& name, t_symbol* s);
     void outputProp(const std::string& name, const AtomList& l);
+    t_symbol* className() const;
 };
 
 void setup_patch_props();

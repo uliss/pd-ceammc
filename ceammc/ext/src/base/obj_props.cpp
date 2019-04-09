@@ -20,30 +20,30 @@ extern "C" {
 #include "m_imp.h"
 }
 
-static t_symbol* TYPE_NAMES[] = {
-    gensym("bool"), gensym("int"), gensym("float"),
-    gensym("symbol"), gensym("variant"), gensym("list")
-};
-
-static t_symbol* VIEW_NAMES[] = {
-    gensym("slider"), gensym("knob"), gensym("numbox"),
-    gensym("spinbox"), gensym("toggle"), gensym("menu"),
-    gensym("entry"), gensym("color")
-};
-
-static_assert(sizeof(TYPE_NAMES) / sizeof(TYPE_NAMES[0]) == int(PropertyInfoType::LIST) + 1,
-    "type to symbol table size mismatch");
-
-static_assert(sizeof(VIEW_NAMES) / sizeof(VIEW_NAMES[0]) == int(PropertyInfoView::COLOR) + 1,
-    "view to symbol table size mismatch");
-
 static t_symbol* typeToSymbol(PropertyInfoType t)
 {
+    static t_symbol* TYPE_NAMES[] = {
+        gensym("bool"), gensym("int"), gensym("float"),
+        gensym("symbol"), gensym("variant"), gensym("list")
+    };
+
+    static_assert(sizeof(TYPE_NAMES) / sizeof(TYPE_NAMES[0]) == int(PropertyInfoType::LIST) + 1,
+        "type to symbol table size mismatch");
+
     return TYPE_NAMES[int(t)];
 }
 
 static t_symbol* viewToSymbol(PropertyInfoView v)
 {
+    static t_symbol* VIEW_NAMES[] = {
+        gensym("slider"), gensym("knob"), gensym("numbox"),
+        gensym("spinbox"), gensym("toggle"), gensym("menu"),
+        gensym("entry"), gensym("color")
+    };
+
+    static_assert(sizeof(VIEW_NAMES) / sizeof(VIEW_NAMES[0]) == int(PropertyInfoView::COLOR) + 1,
+        "view to symbol table size mismatch");
+
     return VIEW_NAMES[int(v)];
 }
 
