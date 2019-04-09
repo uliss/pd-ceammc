@@ -155,8 +155,8 @@ void UILink::setup()
     obj.setDefaultSize(120, 15);
     obj.setPropertyDefaultValue(PROP_BACKGROUND_COLOR, "1.0 1.0 1.0 1.0");
 
-    obj.addSymbolProperty("url", _("URL"), "<no url>", &UILink::prop_url);
-    obj.addSymbolProperty("title", _("Title"), "<no title>", &UILink::prop_title);
+    obj.addSymbolProperty("url", _("URL"), "<no url>", &UILink::prop_url, _("Main"));
+    obj.addSymbolProperty("title", _("Title"), "<no title>", &UILink::prop_title, _("Main"));
     obj.setPropertyAccessor("title", &UILink::p_title, &UILink::p_setTitle);
     obj.addProperty("link_color", _("Link Color"), "0 0.625 0.75 1", &UILink::prop_color_link);
     obj.addProperty("hover_color", _("Hover Color"), "1 0 0.5 1", &UILink::prop_color_hover);

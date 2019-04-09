@@ -418,11 +418,11 @@ void UIKeyboard::setup()
     obj.addProperty("active_color", _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIKeyboard::prop_color_active_);
     obj.hideProperty(PROP_BACKGROUND_COLOR);
 
-    obj.addProperty("keys", _("Keys"), 61, &UIKeyboard::keys_);
+    obj.addProperty("keys", _("Keys"), 61, &UIKeyboard::keys_, _("Main"));
     obj.setDefaultSize(433, 60);
     obj.setPropertyRange("keys", 5, 88);
 
-    obj.addProperty("shift", _("Leftmost MIDI note"), 36, &UIKeyboard::shift_);
+    obj.addProperty("shift", _("Leftmost MIDI note"), 36, &UIKeyboard::shift_, _("Main"));
     obj.setPropertyRange("shift", 6, 88);
 }
 
