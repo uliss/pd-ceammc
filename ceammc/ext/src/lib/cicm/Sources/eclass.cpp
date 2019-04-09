@@ -1248,9 +1248,11 @@ static void eclass_properties_dialog(t_eclass* c)
 
             /** SELECTOR WIDGETS **/
             if (c->c_attr[i]->style == gensym(SYM_CHECKBUTTON)) {
-                sys_vgui("   ttk::checkbutton %s -variable [string trim $var_%s] "
-                         "-command  [concat pdtk_%s_dialog_apply_%s $id]\n",
-                    WIDGET_ID, ATTR_NAME, CLASS_NAME, ATTR_NAME);
+                auto str = fmt::format(
+                    "   ttk::checkbutton {0} -variable [string trim $var_{2}] "
+                    "   -command [concat pdtk_{1}_dialog_apply_{2} $id]\n",
+                    WIDGET_ID, CLASS_NAME, ATTR_NAME);
+                sys_gui(str.c_str());
             } else if (c->c_attr[i]->style == gensym(SYM_COLOR)) {
                 auto str = fmt::format(
                     "   set color [eval eobj_rgba_to_hex ${2}]\n"
@@ -1259,13 +1261,16 @@ static void eclass_properties_dialog(t_eclass* c)
                     WIDGET_ID, CLASS_NAME, ATTR_NAME);
                 sys_gui(str.c_str());
             } else if (c->c_attr[i]->style == gensym(SYM_NUMBER)) {
-                sys_vgui("   ttk::spinbox %s -width 18 -textvariable [string trim $var_%s] -increment %f \n", WIDGET_ID, ATTR_NAME, (float)c->c_attr[i]->step);
-                sys_vgui("   %s configure -command [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
-                sys_vgui("   %s configure -from -9999999999999 -to 9999999999999\n", WIDGET_ID, (float)c->c_attr[i]->maximum); // Should be enough
-                sys_vgui("   %s delete 0 end \n", WIDGET_ID);
-                sys_vgui("   %s insert 0 $%s \n", WIDGET_ID, ATTR_NAME);
+                auto str = fmt::format(
+                    "   ttk::spinbox {0} -width 18 -textvariable [string trim $var_{2}] -increment {3} \n"
+                    "   {0} configure -command [concat pdtk_{1}_dialog_apply_{2} $id]\n"
+                    "   {0} configure -from -9999999999999 -to 9999999999999\n"
+                    "   {0} delete 0 end \n"
+                    "   {0} insert 0 ${2} \n"
+                    "   bind {0} <KeyPress-Return> [concat pdtk_{1}_dialog_apply_{2} $id]\n",
+                    WIDGET_ID, CLASS_NAME, ATTR_NAME, (float)c->c_attr[i]->step);
 
-                sys_vgui("   bind %s <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
+                sys_gui(str.c_str());
             } else if (c->c_attr[i]->style == gensym(SYM_MENU)) {
                 sys_vgui("   ttk::combobox %s -width 16 -state readonly -textvariable [string trim $var_%s]\n", WIDGET_ID, ATTR_NAME);
                 sys_vgui("   %s configure -values { ", WIDGET_ID);
