@@ -1,5 +1,13 @@
 # CEAMMC external library changelog
 
+## [Unreleased]
+### Added:
+- properties dialogs for ui.* objects are improved:
+  - $0 can be used in @send and @receive
+  - tooltips are shown when mouse pointer is over property label
+  - foldable categories added
+- outer/inner label added for almost all UI widgets
+
 ## [0.7]
 ### Added:
 - array.window added
