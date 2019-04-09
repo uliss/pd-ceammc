@@ -502,16 +502,16 @@ void UISliders::setup()
     obj.addProperty("slider_color", _("Slider color"), "0.75 0.75 0.75 1.0", &UISliders::prop_slider_color);
     obj.addProperty("select_color", _("Select color"), DEFAULT_ACTIVE_COLOR, &UISliders::prop_select_color);
 
-    obj.addProperty("count", _("Sliders count"), 8, &UISliders::prop_count);
+    obj.addProperty("count", _("Sliders count"), 8, &UISliders::prop_count, "Main");
     obj.setPropertyRange("count", 1, MAX_SLIDERS_NUM);
     obj.setPropertyAccessor("count", &UISliders::propCount, &UISliders::setPropCount);
 
     obj.addProperty("min", _("Minimum Value"), 0, &UISliders::prop_min, "Bounds");
     obj.addProperty("max", _("Maximum Value"), 1, &UISliders::prop_max, "Bounds");
 
-    obj.addProperty("auto_range", _("Auto range"), false, &UISliders::prop_auto_range, "View");
+    obj.addProperty("auto_range", _("Auto range"), false, &UISliders::prop_auto_range, "Main");
     obj.setPropertyAccessor("auto_range", &UISliders::propAutoRange, &UISliders::setPropAutoRange);
-    obj.addProperty("show_range", _("Show range"), true, &UISliders::prop_show_range, "View");
+    obj.addProperty("show_range", _("Show range"), true, &UISliders::prop_show_range, "Main");
 
     obj.addProperty("range", &UISliders::propRange, 0);
     obj.addProperty("value", &UISliders::propValue, 0);
