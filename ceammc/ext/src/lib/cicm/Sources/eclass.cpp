@@ -1272,47 +1272,42 @@ static void eclass_properties_dialog(t_eclass* c)
 
                 sys_gui(str.c_str());
             } else if (c->c_attr[i]->style == gensym(SYM_MENU)) {
-                sys_vgui("   ttk::combobox %s -width 16 -state readonly -textvariable [string trim $var_%s]\n", WIDGET_ID, ATTR_NAME);
-                sys_vgui("   %s configure -values { ", WIDGET_ID);
+                std::string tmpl(
+                    "   ttk::combobox {0} -width 16 -state readonly -textvariable [string trim $var_{2}]\n"
+                    "   {0} configure -values {{ ");
+
+                // append values
                 for (int j = 0; j < c->c_attr[i]->itemssize; j++) {
-                    sys_vgui("%s ", c->c_attr[i]->itemslist[c->c_attr[i]->itemssize - 1 - j]->s_name);
+                    tmpl += c->c_attr[i]->itemslist[c->c_attr[i]->itemssize - 1 - j]->s_name;
+                    tmpl.push_back(' ');
                 }
-                sys_vgui("   }\n");
 
-                sys_vgui("   bind %s <<ComboboxSelected>> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
-                sys_vgui("   %s set [string trim $%s] \n", WIDGET_ID, ATTR_NAME);
+                tmpl += "}}\n"
+                        "   bind {0} <<ComboboxSelected>> [concat pdtk_{1}_dialog_apply_{2} $id]\n"
+                        "   {0} set [string trim ${2}] \n";
+
+                sys_gui(fmt::format(tmpl, WIDGET_ID, CLASS_NAME, ATTR_NAME).c_str());
             } else if (c->c_attr[i]->style == gensym(SYM_PATH)) {
-                sys_vgui("ttk::entry %s -width 20 -textvariable [string trim $var_%s]\n", WIDGET_ID, ATTR_NAME);
-                //                sys_vgui("bind %s <FocusIn> { if { [string trim [%%W get]] == {(null)} } { %%W delete 0 end } }\n", WIDGET_ID);
-                //                sys_vgui("bind %s <FocusOut> { if { [string trim [%%W get]] == {} } { %%W insert 0 {(null)} } }\n", WIDGET_ID);
-                sys_vgui("bind %s <KeyPress-Return> [concat pdtk_%s_dialog_apply_%s $id]\n", WIDGET_ID, CLASS_NAME, ATTR_NAME);
-
-                sys_vgui("proc cicm_dialog_%s_open_%s {varname id} {\n", CLASS_NAME, ATTR_NAME);
-                sys_vgui("global $varname\n");
-                sys_vgui("puts $varname\n");
-                sys_vgui("set types {\n");
-                sys_vgui("{{Image Files}        {.gif .png .jpg .jpeg}}\n");
-                sys_vgui("}\n");
-                sys_vgui("set $varname [tk_getOpenFile -initialfile $$varname -filetypes $types]\n");
-                sys_vgui("pdtk_%s_dialog_apply_%s $id\n", CLASS_NAME, ATTR_NAME);
-                sys_vgui("}\n");
-
-                char btn_id[120];
-                snprintf(btn_id, 120, "%s_%s_file", WIDGET_ID, ATTR_NAME);
-                sys_vgui("ttk::button %s -text %s -command [concat cicm_dialog_%s_open_%s [string trim $var_%s] $id]\n",
-                    btn_id,
-                    _("Select"),
-                    CLASS_NAME,
-                    ATTR_NAME,
-                    ATTR_NAME);
+                auto str = fmt::format(
+                    "   ttk::entry {0} -width 20 -textvariable [string trim $var_{2}]\n"
+                    "   bind {0} <KeyPress-Return> [concat pdtk_{1}_dialog_apply_{2} $id]\n"
+                    "   proc cicm_dialog_{1}_open_{2} {varname id} {\n"
+                    "      global $varname\n"
+                    "      set types {{ {{Image Files}} {{.gif .png .jpg .jpeg}} }}\n"
+                    "      set $varname [tk_getOpenFile -initialfile $$varname -filetypes $types]\n"
+                    "      pdtk_{1}_dialog_apply_{2} $id\n"
+                    "   }\n"
+                    "   ttk::button {0}_{2}_file -text [_ \"{3}\"] -command [concat cicm_dialog_{1}_open_{2} [string trim $var_{2}] $id]\n",
+                    WIDGET_ID, CLASS_NAME, ATTR_NAME, _("Select"));
+                sys_gui(str.c_str());
             } else {
                 str = fmt::format(
                     "   ttk::entry {0} -width 20 -textvariable [string trim $var_{1}]\n"
                     // erase (null) on focus in
                     // insert (null) on focus out
-                    "   bind {0} <FocusIn> {{ if {{ [string trim [%%W get]] == {{(null)}} }} {{ %%W delete 0 end }} }}\n"
-                    "   bind {0} <FocusOut> {{ if {{ [string trim [%%W get]] == {{}} }} {{ %%W insert 0 {{(null)}} }} }}\n"
-                    "   bind {0} <KeyPress-Return> {{ if {{ [string trim [%%W get]] == {{}} }} {{ %%W insert 0 {{(null)}} }} }}\n"
+                    "   bind {0} <FocusIn> {{ if {{ [string trim [%W get]] == {{(null)}} }} {{ %W delete 0 end }} }}\n"
+                    "   bind {0} <FocusOut> {{ if {{ [string trim [%W get]] == {{}} }} {{ %W insert 0 {{(null)}} }} }}\n"
+                    "   bind {0} <KeyPress-Return> {{ if {{ [string trim [%W get]] == {{}} }} {{ %W insert 0 {{(null)}} }} }}\n"
                     "   bind {0} <KeyPress-Return> +[concat pdtk_{2}_dialog_apply_{1} $id]\n",
                     WIDGET_ID, ATTR_NAME, CLASS_NAME);
                 sys_gui(str.c_str());
