@@ -28,7 +28,7 @@ static t_symbol* WIN_NUTTALL;
 static t_symbol* WIN_BLACKMAN_HARRIS;
 static t_symbol* WIN_FLATTOP;
 static t_symbol* WIN_GAUSS;
-static t_symbol* WIN_DEFAULT = WIN_HANN;
+static t_symbol* WIN_DEFAULT;
 static t_symbol* PROP_TYPE;
 
 typedef std::unordered_map<t_symbol*, WindowFuncPtr> WFuncMap;
