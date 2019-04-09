@@ -329,9 +329,9 @@ void UIRSlider::setup()
     obj.useBang();
     obj.useList();
 
-    obj.addProperty("min", _("Minimum Value"), 0.f, &UIRSlider::prop_min);
-    obj.addProperty("max", _("Maximum Value"), 1.f, &UIRSlider::prop_max);
-    obj.addProperty("sync", _("Mouse sync"), false, &UIRSlider::prop_mouse_sync);
+    obj.addProperty("min", _("Minimum Value"), 0.f, &UIRSlider::prop_min, _("Bounds"));
+    obj.addProperty("max", _("Maximum Value"), 1.f, &UIRSlider::prop_max, _("Bounds"));
+    obj.addProperty("sync", _("Mouse sync"), false, &UIRSlider::prop_mouse_sync, _("Main"));
     obj.addProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UIRSlider::prop_color_knob);
 
     obj.addProperty("value", &UIRSlider::propValue, &UIRSlider::propSetValue);

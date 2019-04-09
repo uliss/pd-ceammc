@@ -451,10 +451,10 @@ void UIRadio::setup()
     obj.hideLabelInner();
 
     obj.addProperty("active_color", _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIRadio::prop_color_active);
-    obj.addProperty("nitems", _("Number of Items"), 8, &UIRadio::prop_nitems_, "Basic");
+    obj.addProperty("nitems", _("Number of Items"), 8, &UIRadio::prop_nitems_, _("Main"));
     obj.setPropertyRange("nitems", 2, MAX_ITEMS);
     obj.setPropertyAccessor("nitems", &UIRadio::p_numItems, &UIRadio::p_setNumItems);
-    obj.addProperty("mode", _("Check List Mode"), false, &UIRadio::prop_checklist_mode_);
+    obj.addProperty("mode", _("Check List Mode"), false, &UIRadio::prop_checklist_mode_, _("Main"));
     obj.setPropertyAccessor("mode", &UIRadio::p_mode, &UIRadio::p_setMode);
     obj.addProperty("value", &UIRadio::p_value, &UIRadio::p_setValue);
 

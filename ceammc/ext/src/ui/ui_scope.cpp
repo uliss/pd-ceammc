@@ -193,11 +193,11 @@ void UIScope::setup()
     obj.addMethod("scale", &UIScope::m_scale);
 
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIScope::prop_color_active);
-    obj.addProperty("max", _("Maximum value"), 1, &UIScope::prop_max);
-    obj.addProperty("min", _("Minimum value"), -1, &UIScope::prop_min);
-    obj.addIntProperty("window", _("Window size"), 2048, &UIScope::prop_window);
+    obj.addProperty("max", _("Maximum value"), 1, &UIScope::prop_max, _("Bounds"));
+    obj.addProperty("min", _("Minimum value"), -1, &UIScope::prop_min, _("Bounds"));
+    obj.addIntProperty("window", _("Window size"), 2048, &UIScope::prop_window, _("Main"));
     obj.setPropertyRange("window", 512, 4096);
-    obj.addIntProperty("refresh", _("Refresh time (ms)"), 40, &UIScope::prop_refresh);
+    obj.addIntProperty("refresh", _("Refresh time (ms)"), 40, &UIScope::prop_refresh, _("Main"));
     obj.setPropertyRange("refresh", 10, 1000);
 
     obj.hideProperty("send");
