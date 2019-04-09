@@ -22,6 +22,7 @@
 #include <inttypes.h>
 #include <iostream>
 #include <string>
+#include <tuple>
 
 int egraphics_smooth();
 
