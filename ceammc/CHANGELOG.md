@@ -1,6 +1,6 @@
 # CEAMMC external library changelog
 
-## [Unreleased]
+## [0.7.1]
 ### Added:
 - properties dialogs for ui.* objects are improved:
   - $0 can be used in @send and @receive
