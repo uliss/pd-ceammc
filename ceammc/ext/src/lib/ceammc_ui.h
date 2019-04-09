@@ -201,7 +201,7 @@ public:
     {
         hideProperty("label");
         hideProperty("label_color");
-        hideProperty("label_pos");
+        hideProperty("label_inner");
         hideProperty("label_side");
         hideProperty("label_align");
         hideProperty("label_valign");
@@ -212,8 +212,8 @@ public:
 
     void hideLabelInner()
     {
-        hideProperty("label_pos");
-        setPropertyDefaultValue("label_pos", "outer");
+        hideProperty("label_inner");
+        setPropertyDefaultValue("label_inner", "0");
     }
 
     void readWrite()

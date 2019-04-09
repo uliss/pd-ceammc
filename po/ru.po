@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-04-09 18:30+0300\n"
-"PO-Revision-Date: 2019-04-09 21:52+0300\n"
+"POT-Creation-Date: 2019-04-09 22:10+0300\n"
+"PO-Revision-Date: 2019-04-09 22:11+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -300,7 +300,8 @@ msgstr "Снизу"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../ceammc/ext/src/ui/ui_gain.cpp
-#: ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
+#: ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Bounds"
 msgstr "Границы"
 
@@ -744,6 +745,10 @@ msgstr "Порты ввода:"
 msgid "Init"
 msgstr ""
 
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Inner position"
+msgstr "Ярлык внутри"
+
 #: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl
 msgid "Input Devices"
 msgstr "Устройства ввода"
@@ -931,6 +936,12 @@ msgstr "MIDI…"
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp ../ceammc/ext/src/ui/ui_display.cpp
 #: ../ceammc/ext/src/ui/ui_env.cpp ../ceammc/ext/src/ui/ui_gain.cpp
 #: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_icon.cpp
+#: ../ceammc/ext/src/ui/ui_incdec.cpp ../ceammc/ext/src/ui/ui_keyboard.cpp
+#: ../ceammc/ext/src/ui/ui_link.cpp ../ceammc/ext/src/ui/ui_matrix.cpp
+#: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_meter.cpp
+#: ../ceammc/ext/src/ui/ui_number.cpp ../ceammc/ext/src/ui/ui_number_tilde.cpp
+#: ../ceammc/ext/src/ui/ui_radio.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
+#: ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Main"
 msgstr "Основные"
 

@@ -37,8 +37,6 @@ t_symbol* s_value_label_align_right;
 t_symbol* s_value_label_valign_top;
 t_symbol* s_value_label_valign_center;
 t_symbol* s_value_label_valign_bottom;
-t_symbol* s_value_label_position_inner;
-t_symbol* s_value_label_position_outer;
 t_symbol* s_value_label_side_left;
 t_symbol* s_value_label_side_top;
 t_symbol* s_value_label_side_right;
@@ -65,7 +63,7 @@ void epd_init(void)
     s_prop_label = gensym("@label");
     s_prop_label_align = gensym("@label_align");
     s_prop_label_valign = gensym("@label_valign");
-    s_prop_label_position = gensym("@label_position");
+    s_prop_label_position = gensym("@label_inner");
     s_prop_label_side = gensym("@label_side");
     s_value_label_align_left = gensym("left");
     s_value_label_align_center = gensym("center");
@@ -73,8 +71,6 @@ void epd_init(void)
     s_value_label_valign_top = gensym("top");
     s_value_label_valign_center = gensym("center");
     s_value_label_valign_bottom = gensym("bottom");
-    s_value_label_position_inner = gensym("inner");
-    s_value_label_position_outer = gensym("outer");
     s_value_label_side_left = gensym("left");
     s_value_label_side_top = gensym("top");
     s_value_label_side_right = gensym("right");

@@ -109,8 +109,6 @@ extern t_symbol* s_value_label_align_right;
 extern t_symbol* s_value_label_valign_top;
 extern t_symbol* s_value_label_valign_center;
 extern t_symbol* s_value_label_valign_bottom;
-extern t_symbol* s_value_label_position_inner;
-extern t_symbol* s_value_label_position_outer;
 extern t_symbol* s_value_label_side_left;
 extern t_symbol* s_value_label_side_top;
 extern t_symbol* s_value_label_side_right;
@@ -781,8 +779,8 @@ typedef struct t_ebox {
     t_symbol* b_label; /*!< The UI label. */
     t_symbol* label_align; /*!< The UI label align: left center or right */
     t_symbol* label_valign; /*!< The UI label vertical align: top, center or bottom */
-    t_symbol* label_position; /*!< The UI label position: inner or outer */
     t_symbol* label_side; /*!< The UI label anchor side: top, left, right, or bottom */
+    int label_inner;
     int label_margins[2];
 } t_ebox;
 

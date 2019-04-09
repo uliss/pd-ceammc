@@ -190,7 +190,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_SYMBOL(c, "receive", 0, t_ebox, b_receive_id);
     CLASS_ATTR_SYMBOL(c, "send", 0, t_ebox, b_send_id);
     CLASS_ATTR_SYMBOL(c, "label", 0, t_ebox, b_label);
-    CLASS_ATTR_SYMBOL(c, "label_pos", 0, t_ebox, label_position);
+    CLASS_ATTR_INT(c, "label_inner", 0, t_ebox, label_inner);
     CLASS_ATTR_SYMBOL(c, "label_side", 0, t_ebox, label_side);
     CLASS_ATTR_SYMBOL(c, "label_align", 0, t_ebox, label_align);
     CLASS_ATTR_SYMBOL(c, "label_valign", 0, t_ebox, label_valign);
@@ -290,13 +290,12 @@ void eclass_guiinit(t_eclass* c, long flags)
     CLASS_ATTR_STYLE(c, "label_side", 0, "menu");
     CLASS_ATTR_ITEMS(c, "label_side", 0, "left top right bottom");
 
-    CLASS_ATTR_DEFAULT(c, "label_pos", 0, "outer");
-    CLASS_ATTR_ACCESSORS(c, "label_pos", NULL, ebox_set_label_position);
-    CLASS_ATTR_SAVE(c, "label_pos", 0);
-    CLASS_ATTR_CATEGORY(c, "label_pos", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label_pos", 0, _("Position"));
-    CLASS_ATTR_STYLE(c, "label_pos", 0, "menu");
-    CLASS_ATTR_ITEMS(c, "label_pos", 0, "inner outer");
+    CLASS_ATTR_DEFAULT(c, "label_inner", 0, "0");
+    CLASS_ATTR_ACCESSORS(c, "label_inner", NULL, ebox_set_label_position);
+    CLASS_ATTR_SAVE(c, "label_inner", 0);
+    CLASS_ATTR_CATEGORY(c, "label_inner", 0, _("Label"));
+    CLASS_ATTR_LABEL(c, "label_inner", 0, _("Inner position"));
+    CLASS_ATTR_STYLE(c, "label_inner", 0, "checkbox");
 
     CLASS_ATTR_DEFAULT(c, "label_margins", 0, "0 0");
     CLASS_ATTR_SAVE(c, "label_margins", 0);

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.49.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-04-09 18:31+0300\n"
+"POT-Creation-Date: 2019-04-09 22:10+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,7 +52,8 @@ msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../ceammc/ext/src/ui/ui_gain.cpp
-#: ../ceammc/ext/src/ui/ui_gain2.cpp
+#: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
+#: ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Bounds"
 msgstr ""
 
@@ -123,6 +124,12 @@ msgstr ""
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp ../ceammc/ext/src/ui/ui_display.cpp
 #: ../ceammc/ext/src/ui/ui_env.cpp ../ceammc/ext/src/ui/ui_gain.cpp
 #: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_icon.cpp
+#: ../ceammc/ext/src/ui/ui_incdec.cpp ../ceammc/ext/src/ui/ui_keyboard.cpp
+#: ../ceammc/ext/src/ui/ui_link.cpp ../ceammc/ext/src/ui/ui_matrix.cpp
+#: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_meter.cpp
+#: ../ceammc/ext/src/ui/ui_number.cpp ../ceammc/ext/src/ui/ui_number_tilde.cpp
+#: ../ceammc/ext/src/ui/ui_radio.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
+#: ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Main"
 msgstr ""
 
@@ -166,6 +173,10 @@ msgstr ""
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/pdwindow.tcl
 msgid "normal"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Inner position"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp

@@ -13,6 +13,7 @@
 #include "eobj.h"
 #include "g_style.h"
 
+#include <algorithm>
 #include <array>
 #include <cstddef>
 #include <cstdint>
@@ -133,20 +134,6 @@ static const char* justify_to_symbol(etextjustify_flags justify)
     }
 }
 
-static t_symbol* label_draw_id(t_ebox* x)
-{
-    if (x->label_position == s_value_label_position_outer)
-        return x->b_canvas_id;
-    else
-        return x->b_drawing_id;
-}
-
-static void ebox_erase_label(t_ebox* x)
-{
-    if (x->b_label != s_null)
-        sys_vgui("%s delete " LABEL_TAG "\n", label_draw_id(x)->s_name, x->b_canvas_id->s_name);
-}
-
 enum LabelPosition {
     LABEL_POSITION_INNER = 0,
     LABEL_POSITION_OUTER
@@ -171,14 +158,18 @@ enum LabelSide {
     LABEL_SIDE_BOTTOM
 };
 
-static LabelPosition label_position_idx(t_symbol* s)
+static t_symbol* label_draw_id(t_ebox* x)
 {
-    if (s == s_value_label_position_inner)
-        return LABEL_POSITION_INNER;
-    else if (s == s_value_label_position_outer)
-        return LABEL_POSITION_OUTER;
+    if (x->label_inner == 0)
+        return x->b_canvas_id;
     else
-        return static_cast<LabelPosition>(-1);
+        return x->b_drawing_id;
+}
+
+static void ebox_erase_label(t_ebox* x)
+{
+    if (x->b_label != s_null)
+        sys_vgui("%s delete " LABEL_TAG "\n", label_draw_id(x)->s_name, x->b_canvas_id->s_name);
 }
 
 static LabelAlign label_align_idx(t_symbol* s)
@@ -380,9 +371,7 @@ static std::pair<int, int> ebox_label_coord(t_ebox* x,
 
 static std::tuple<LabelPosition, LabelSide, LabelAlign, LabelVAlign> label_enums(t_ebox* x)
 {
-    LabelPosition pos = label_position_idx(x->label_position);
-    if (pos < 0)
-        pos = LABEL_POSITION_OUTER;
+    LabelPosition pos = (x->label_inner == 1) ? LABEL_POSITION_INNER : LABEL_POSITION_OUTER;
 
     LabelSide side = label_side_idx(x->label_side);
     if (side < 0)
@@ -473,7 +462,7 @@ void ebox_new(t_ebox* x, long flags)
     x->b_label = s_null;
     x->label_align = s_value_label_align_left;
     x->label_valign = s_value_label_valign_center;
-    x->label_position = s_value_label_position_outer;
+    x->label_inner = 0;
     x->label_side = gensym("left");
     x->label_margins[0] = 0;
     x->label_margins[1] = 0;
@@ -675,7 +664,7 @@ static void ebox_paint(t_ebox* x)
         c->c_widget.w_paint(x);
 
     if (x->b_label != s_null) {
-        if (x->label_position == s_value_label_position_inner) {
+        if (x->label_inner) {
             // raise up
             sys_vgui("%s raise " LABEL_TAG " %s\n",
                 label_draw_id(x)->s_name, x->b_canvas_id->s_name, x->b_all_id->s_name);
@@ -1300,7 +1289,7 @@ t_pd_err ebox_set_label_align(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 
         auto it = std::find(std::begin(items), std::end(items), s);
         if (it == std::end(items)) {
-            pd_error("[%s] invalid @label_align property value: %s", eobj_getclassname(x)->s_name, s->s_name);
+            pd_error(x, "[%s] invalid @label_align property value: %s", eobj_getclassname(x)->s_name, s->s_name);
 
             std::string values;
             for (t_symbol* it : items) {
@@ -1308,7 +1297,7 @@ t_pd_err ebox_set_label_align(t_ebox* x, t_object* attr, int argc, t_atom* argv)
                 values += it->s_name;
             }
 
-            pd_error("[%s] supported values are:%s", eobj_getclassname(x)->s_name, values.c_str());
+            pd_error(x, "[%s] supported values are:%s", eobj_getclassname(x)->s_name, values.c_str());
             return 1;
         }
 
@@ -1332,7 +1321,7 @@ t_pd_err ebox_set_label_valign(t_ebox* x, t_object* attr, int argc, t_atom* argv
 
         auto it = std::find(std::begin(items), std::end(items), s);
         if (it == std::end(items)) {
-            pd_error("[%s] invalid @label_valign property value: %s", eobj_getclassname(x)->s_name, s->s_name);
+            pd_error(x, "[%s] invalid @label_valign property value: %s", eobj_getclassname(x)->s_name, s->s_name);
 
             std::string values;
             for (t_symbol* it : items) {
@@ -1340,7 +1329,7 @@ t_pd_err ebox_set_label_valign(t_ebox* x, t_object* attr, int argc, t_atom* argv
                 values += it->s_name;
             }
 
-            pd_error("[%s] supported values are:%s", eobj_getclassname(x)->s_name, values.c_str());
+            pd_error(x, "[%s] supported values are:%s", eobj_getclassname(x)->s_name, values.c_str());
             return 1;
         }
 
@@ -1364,7 +1353,7 @@ t_pd_err ebox_set_label_side(t_ebox* x, t_object* attr, int argc, t_atom* argv)
         t_symbol* s = atom_getsymbol(argv);
         auto it = std::find(std::begin(items), std::end(items), s);
         if (it == std::end(items)) {
-            pd_error("[%s] invalid @label_side property value: %s", eobj_getclassname(x)->s_name, s->s_name);
+            pd_error(x, "[%s] invalid @label_side property value: %s", eobj_getclassname(x)->s_name, s->s_name);
 
             std::string values;
             for (t_symbol* it : items) {
@@ -1372,7 +1361,7 @@ t_pd_err ebox_set_label_side(t_ebox* x, t_object* attr, int argc, t_atom* argv)
                 values += it->s_name;
             }
 
-            pd_error("[%s] supported values are:%s", eobj_getclassname(x)->s_name, values.c_str());
+            pd_error(x, "[%s] supported values are:%s", eobj_getclassname(x)->s_name, values.c_str());
             return 1;
         }
 
@@ -1385,34 +1374,16 @@ t_pd_err ebox_set_label_side(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 
 t_pd_err ebox_set_label_position(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 {
-    static t_symbol* items[] = {
-        s_value_label_position_inner,
-        s_value_label_position_outer
-    };
+    if (argc && argv && atom_gettype(argv) == A_FLOAT) {
+        int pos = (atom_getfloat(argv) != 0) ? 1 : 0;
 
-    if (argc && argv && atom_gettype(argv) == A_SYMBOL) {
-        t_symbol* s = atom_getsymbol(argv);
-        auto it = std::find(std::begin(items), std::end(items), s);
-        if (it == std::end(items)) {
-            pd_error("[%s] invalid @label_pos property value: %s", eobj_getclassname(x)->s_name, s->s_name);
-
-            std::string values;
-            for (t_symbol* it : items) {
-                values.push_back(' ');
-                values += it->s_name;
-            }
-
-            pd_error("[%s] supported values are:%s", eobj_getclassname(x)->s_name, values.c_str());
-            return 1;
-        }
-
-        if (x->label_position != s) {
+        if (x->label_inner != pos) {
             const bool is_drawable = ebox_isdrawable(x);
 
             if (is_drawable)
                 ebox_erase_label(x);
 
-            x->label_position = s;
+            x->label_inner = pos;
 
             if (is_drawable)
                 ebox_create_label(x);
@@ -1429,7 +1400,7 @@ t_pd_err ebox_set_label_margins(t_ebox* x, t_object* attr, int argc, t_atom* arg
         x->label_margins[1] = int(atom_getfloat(argv + 1));
         ebox_update_label_pos(x);
     } else
-        pd_error("[%s] X Y margin pair expected", eobj_getclassname(x)->s_name);
+        pd_error(x, "[%s] X Y margin pair expected", eobj_getclassname(x)->s_name);
 
     return 0;
 }
