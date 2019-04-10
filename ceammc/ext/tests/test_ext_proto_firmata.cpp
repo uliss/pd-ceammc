@@ -13,9 +13,9 @@
  *****************************************************************************/
 #include "../base/function.h"
 #include "../proto/proto_firmata.h"
-#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
+#include "test_base.h"
 
 #include <stdio.h>
 
@@ -23,6 +23,8 @@ static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("proto.firmata", "[externals]")
 {
+    proto_firmata_setup();
+
     SECTION("static")
     {
         REQUIRE(Firmata::symToPinMode(gensym("INPUT")) == 0);
