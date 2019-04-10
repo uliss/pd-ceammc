@@ -16,6 +16,7 @@ MetroSeq::MetroSeq(const PdArgs& a)
     createOutlet();
 
     interval_ = new FloatProperty("@interval", positionalFloatArgument(0));
+    interval_->info().setUnits(PropertyInfoUnits::MSEC);
     createProperty(interval_);
 
     createCbProperty("@current", &MetroSeq::p_current, &MetroSeq::p_set_current);
