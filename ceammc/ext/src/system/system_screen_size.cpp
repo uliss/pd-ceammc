@@ -32,7 +32,7 @@ public:
     void onBang()
     {
         if (receive()) {
-            sys_vgui("pdsend \"%s screensize [winfo screenwidth .] [winfo screenheight .]\"\n",
+            sys_vgui("pdsend \"%s .screensize [winfo screenwidth .] [winfo screenheight .]\"\n",
                 receive()->s_name);
         }
     }
@@ -46,5 +46,5 @@ public:
 extern "C" void setup_system0x2escreen_size()
 {
     ObjectFactory<SystemScreenSize> obj("system.screen_size");
-    obj.addMethod("screensize", &SystemScreenSize::screenSize);
+    obj.addMethod(".screensize", &SystemScreenSize::screenSize);
 }
