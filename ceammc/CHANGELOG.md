@@ -7,6 +7,7 @@
   - tooltips are shown when mouse pointer is over property label
   - foldable categories added
 - outer/inner label added for almost all UI widgets
+- ui.matrix read/write methods added to save/load in text format
 
 ## [0.7]
 ### Added:
