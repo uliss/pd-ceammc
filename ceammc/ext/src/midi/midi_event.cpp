@@ -2,8 +2,6 @@
 #include "MidiEvent.h"
 #include "ceammc_factory.h"
 
-static t_symbol* SYM_MIDI_EVENT = gensym("MidiEvent");
-
 XMidiEvent::XMidiEvent(const AtomList& l)
     : valid_(false)
     , raw_(l)
@@ -85,6 +83,8 @@ BaseMidiEventExternal::BaseMidiEventExternal(const PdArgs& a)
 
 void BaseMidiEventExternal::onAny(t_symbol* s, const AtomList& args)
 {
+    static t_symbol* SYM_MIDI_EVENT = gensym("MidiEvent");
+
     if (s != SYM_MIDI_EVENT) {
         OBJ_ERR << "MidiEvent expected: " << s->s_name;
         return;

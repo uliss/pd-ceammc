@@ -3,8 +3,6 @@
 #include "ceammc_factory.h"
 #include "datatype_midistream.h"
 
-static t_symbol* SYM_MIDI_EVENT = gensym("MidiEvent");
-
 MidiTrack::MidiTrack(const PdArgs& args)
     : BaseObject(args)
     , midi_track_()
@@ -178,6 +176,8 @@ void MidiTrack::m_pause(t_symbol*, const AtomList&)
 
 void MidiTrack::outputEvent(MidiEvent* ev)
 {
+    static t_symbol* SYM_MIDI_EVENT = gensym("MidiEvent");
+
     current_event_.clear();
 
     current_event_.append(ev->tick);
