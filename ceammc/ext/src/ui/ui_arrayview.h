@@ -119,7 +119,6 @@ public:
     void onFloat(t_float f);
 
     void m_update();
-    void m_set(const AtomList& lst);
     void m_selectSamples(const AtomList& lst);
 
 private:

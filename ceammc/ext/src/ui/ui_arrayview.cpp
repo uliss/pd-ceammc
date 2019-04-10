@@ -351,16 +351,6 @@ void UIArrayView::m_update()
     render_clock_.delay(RENDER_CHUNK_PERIOD);
 }
 
-void UIArrayView::m_set(const AtomList& lst)
-{
-    t_symbol* sel = lst.symbolAt(0, 0);
-    if (sel == 0) {
-        UI_ERR << "invalid arguments";
-    } else {
-        UI_ERR << "unknown selector: " << sel;
-    }
-}
-
 void UIArrayView::m_selectSamples(const AtomList& lst)
 {
     if (lst.empty()) {
@@ -951,7 +941,6 @@ void UIArrayView::setup()
     obj.addProperty("size_ms", &UIArrayView::sizeMs, 0);
 
     obj.addMethod("update", &UIArrayView::m_update);
-    obj.addMethod("set", &UIArrayView::m_set);
     obj.addMethod("select", &UIArrayView::m_selectSamples);
 }
 
