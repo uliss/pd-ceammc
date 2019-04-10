@@ -17,6 +17,7 @@
 #include "m_pd.h"
 
 #include <cmath>
+#include <limits>
 
 namespace ceammc {
 class SmoothControlValue {
