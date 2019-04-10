@@ -7,8 +7,6 @@
 
 #include "stksynth_p.h"
 
-static t_symbol* SYM_CC = gensym("cc");
-
 StkBase::StkBase(const PdArgs& args, stk::Instrmnt* instr)
     : SoundExternal(args)
     , synth_(instr)
