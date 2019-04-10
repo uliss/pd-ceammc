@@ -20,8 +20,6 @@
 #include <fstream>
 #include <limits>
 
-static t_symbol* SNULL = gensym("");
-
 ModPlug::ModPlug(const PdArgs& a)
     : SoundExternal(a)
     , path_(gensym(""))
@@ -29,7 +27,7 @@ ModPlug::ModPlug(const PdArgs& a)
     , play_(false)
     , play_prop_(0)
     , pos_(0)
-    , func_on_end_(SNULL)
+    , func_on_end_(&s_)
     , cnv_(canvas_getcurrent())
 {
     createSignalOutlet();
@@ -80,7 +78,7 @@ void ModPlug::processBlock(const t_sample** /*in*/, t_sample** out)
         ModPlug_Seek(file_, 0);
         pos_ = 0;
 
-        if (func_on_end_ != SNULL) {
+        if (func_on_end_ != &s_) {
             Function* f = Function::function(func_on_end_);
             if (!f) {
                 OBJ_ERR << "function is not found: " << func_on_end_->s_name;

@@ -27,10 +27,6 @@ extern cst_voice* register_cmu_us_awb();
 extern void unregister_cmu_us_kal16();
 }
 
-static t_symbol* SYM_VOICE_KAL16 = gensym("kal16");
-static t_symbol* SYM_VOICE_SLT = gensym("slt");
-static t_symbol* SYM_VOICE_DEFAULT = SYM_VOICE_KAL16;
-
 SpeechFlite::SpeechFlite(const PdArgs& args)
     : BaseObject(args)
     , name_(positionalSymbolArgument(0, &s_))
@@ -42,7 +38,7 @@ SpeechFlite::SpeechFlite(const PdArgs& args)
 {
     createProperty(new PointerProperty<t_symbol*>("@array", &name_, false));
 
-    voice_name_ = new SymbolProperty("@voice", SYM_VOICE_DEFAULT);
+    voice_name_ = new SymbolProperty("@voice", gensym("kal16"));
     createProperty(voice_name_);
 
     speed_ = new FloatPropertyClosedRange("@speed", 1, 1, 4);
