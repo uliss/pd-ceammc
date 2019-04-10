@@ -83,8 +83,8 @@ public:
     }
 };
 
-static t_symbol* SYM_IPV4 = gensym("ipv4");
-static t_symbol* SYM_IPV6 = gensym("ipv6");
+static t_symbol* SYM_IPV4;
+static t_symbol* SYM_IPV6;
 
 NetHost::NetHost(const PdArgs& args)
     : ThreadExternal(args, new HostTask(this))
@@ -126,6 +126,9 @@ HostTask* NetHost::task()
 
 void setup_net_host()
 {
+    SYM_IPV4 = gensym("ipv4");
+    SYM_IPV6 = gensym("ipv6");
+
     ObjectFactory<NetHost> obj("net.host2ip");
     obj.addAlias("net.host->ip");
 }
