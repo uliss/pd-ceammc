@@ -12,6 +12,7 @@ FlowSpeedLimit::FlowSpeedLimit(const PdArgs& a)
     createOutlet();
 
     period_ = new IntProperty("@limit", positionalFloatArgument(0, 0));
+    period_->info().setUnits(PropertyInfoUnits::MSEC);
     createProperty(period_);
 }
 
