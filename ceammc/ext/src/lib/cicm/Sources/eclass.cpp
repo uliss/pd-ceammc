@@ -1164,7 +1164,7 @@ static void eclass_properties_dialog(t_eclass* c)
 
     /// fill category dict
 #ifndef NDEBUG
-    sys_gui("   # category dictionary");
+    sys_gui("   # category dictionary\n");
 #endif
     sys_gui("   set cat_dict [dict create]\n");
     for (int i = 0; i < c->c_nattr; i++) {
@@ -1185,7 +1185,7 @@ static void eclass_properties_dialog(t_eclass* c)
 
     /// set global vars
 #ifndef NDEBUG
-    sys_gui("   # global vars");
+    sys_gui("   # global vars\n");
 #endif
     for (int i = 0; i < c->c_nattr; i++) {
         const char* ATTR_NAME = c->c_attr[i]->name->s_name;
@@ -1201,7 +1201,7 @@ static void eclass_properties_dialog(t_eclass* c)
 
     /// window creation
 #ifndef NDEBUG
-    sys_gui("   # window");
+    sys_gui("   # window\n");
 #endif
     // _("%s properties")
     auto str = fmt::format("   toplevel $id\n"
