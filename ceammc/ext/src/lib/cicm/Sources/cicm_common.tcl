@@ -38,16 +38,14 @@ proc eobj_canvas_right {patcher} {
 proc eobj_saveas {name initialfile initialdir} {
     if { ! [file isdirectory $initialdir]} {set initialdir $::env(HOME)}
     set filename [tk_getSaveFile -initialfile $initialfile -initialdir $initialdir -filetypes $::filetypes]
-    if {$filename eq ""}
-        return;
+    if {$filename eq ""} { return }
 
     set extension [file extension $filename]
     set oldfilename $filename
 
     if {$filename ne $oldfilename && [file exists $filename]} {
         set answer [tk_messageBox -type okcancel -icon question -default cancel-message [_ "$filename" already exists. Do you want to replace it?]]
-        if {$answer eq "cancel"}
-            return;
+        if {$answer eq "cancel"} { return }
     }
     set dirname [file dirname $filename]
     set basename [file tail $filename]
