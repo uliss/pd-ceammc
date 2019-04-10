@@ -46,7 +46,27 @@ int main(int argc, char* argv[])
         return 2;
     }
 
-    pd::External ext(argv[1], AtomList());
+    AtomList args;
+    if (argc > 2) {
+        t_binbuf* b = binbuf_new();
+
+        std::string str;
+        for (int i = 2; i < argc; i++) {
+            str += argv[i];
+            str += " ";
+        }
+
+        binbuf_text(b, str.c_str(), str.size());
+
+        int n = binbuf_getnatom(b);
+
+        for (int i = 0; i < n; i++)
+            args.append(binbuf_getvec(b)[i]);
+
+        binbuf_free(b);
+    }
+
+    pd::External ext(argv[1], args);
     if (!ext.object()) {
         cerr << "can't create object: " << argv[1] << endl;
         return 3;

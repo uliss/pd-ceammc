@@ -23,6 +23,8 @@ EXT_LIST = BIN_PATH + "ext_list"
 EXT_METHODS = BIN_PATH + "ext_methods"
 EXT_PROPS = BIN_PATH + "ext_props"
 
+SPECIAL_OBJ = {"function": "f"}
+
 corrector = jamspell.TSpellCorrector()
 
 def read_all_externals():
@@ -36,8 +38,12 @@ def read_methods(name):
         return (len(x) and x[0] != '@' and x[0] != '.') and (not str(x).endswith("_aliased"))
 
     try:
+        args = [EXT_METHODS, name]
+        if name in SPECIAL_OBJ:
+            args.append(SPECIAL_OBJ[name])
+
         return set(filter(valid_method,
-            subprocess.check_output([EXT_METHODS, name], stderr=subprocess.DEVNULL).decode().split('\n')))
+            subprocess.check_output(args, stderr=subprocess.DEVNULL).decode().split('\n')))
     except(subprocess.CalledProcessError):
         cprint(f"[{name}] can't get methods", "red")
         return set()
