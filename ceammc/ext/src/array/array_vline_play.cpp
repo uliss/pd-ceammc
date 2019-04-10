@@ -54,8 +54,10 @@ ArrayVlinePlay::ArrayVlinePlay(const PdArgs& args)
 
     createCbProperty("@begin", &ArrayVlinePlay::propBeginSample, &ArrayVlinePlay::propSetBeginSample);
     property("@begin")->info().setType(PropertyInfoType::INTEGER);
+    property("@begin")->info().setUnits(PropertyInfoUnits::SAMP);
     createCbProperty("@end", &ArrayVlinePlay::propEndSample, &ArrayVlinePlay::propSetEndSample);
     property("@end")->info().setType(PropertyInfoType::INTEGER);
+    property("@end")->info().setUnits(PropertyInfoUnits::SAMP);
     createCbProperty("@abs_begin", &ArrayVlinePlay::propAbsBeginSample);
     property("@abs_begin")->info().setType(PropertyInfoType::FLOAT);
     createCbProperty("@abs_end", &ArrayVlinePlay::propAbsEndSample);
