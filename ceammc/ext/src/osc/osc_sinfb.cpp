@@ -3,8 +3,6 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_FEEDBACK = gensym("@feedback");
-
 class OscSinFb : public faust_osc_sinfb_tilde {
 public:
     OscSinFb(const PdArgs& args)
@@ -12,7 +10,7 @@ public:
     {
         createInlet();
         setInitSignalValue(positionalFloatArgument(0, 0));
-        bindPositionalArgToProperty(1, SYM_PROP_FEEDBACK);
+        bindPositionalArgToProperty(1, gensym("@feedback"));
     }
 
     void onInlet(size_t n, const AtomList&) override

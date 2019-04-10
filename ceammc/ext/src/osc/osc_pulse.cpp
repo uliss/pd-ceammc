@@ -3,8 +3,6 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_DUTY = gensym("@duty");
-
 class OscPulse : public faust_osc_pulse_tilde {
 public:
     OscPulse(const PdArgs& args)
@@ -12,7 +10,7 @@ public:
     {
         createInlet();
         setInitSignalValue(positionalFloatArgument(0, 0));
-        bindPositionalArgToProperty(1, SYM_PROP_DUTY);
+        bindPositionalArgToProperty(1, gensym("@duty"));
     }
 
     void onInlet(size_t n, const AtomList&) override
