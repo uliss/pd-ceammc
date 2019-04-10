@@ -7,7 +7,7 @@ extern "C" {
 #include "g_canvas.h"
 }
 
-#include <boost/math/special_functions/fpclassify.hpp>
+#include <cmath>
 
 namespace ceammc {
 
@@ -544,7 +544,7 @@ float Preset::floatAt(size_t idx, float def) const
     if (data_[idx].isFloat()) {
         t_float v = data_[idx].atomValue().asFloat();
 
-        if (boost::math::isnan(v) || boost::math::isinf(v))
+        if (std::isnan(v) || std::isinf(v))
             return def;
         else
             return v;

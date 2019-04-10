@@ -16,7 +16,6 @@
 
 #include "m_pd.h"
 
-#include <boost/math/special_functions/fpclassify.hpp>
 #include <cmath>
 
 namespace ceammc {
@@ -31,7 +30,7 @@ public:
 
     t_float get(t_float v)
     {
-        if (boost::math::isnan(v) || v == std::numeric_limits<t_float>::infinity())
+        if (std::isnan(v) || v == std::numeric_limits<t_float>::infinity())
             return smooth_;
 
         smooth_ = (1 - n_) * v + n_ * smooth_;
