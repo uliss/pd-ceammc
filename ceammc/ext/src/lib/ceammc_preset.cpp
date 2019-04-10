@@ -8,6 +8,7 @@ extern "C" {
 }
 
 #include <cmath>
+#include <cstring>
 
 namespace ceammc {
 
