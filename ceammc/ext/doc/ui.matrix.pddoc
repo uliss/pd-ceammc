@@ -24,13 +24,13 @@
             <par>On click outputs message with format [cell ROW COL VALUE(</par>
         </info>
         <arguments>
-            <argument name="ROW" type="int" minvalue="1" maxvalue="256">matrix rows</argument>
-            <argument name="COL" type="int" minvalue="1" maxvalue="256">matrix columns</argument>
+            <argument name="ROW" type="int" minvalue="1" maxvalue="64">matrix rows</argument>
+            <argument name="COL" type="int" minvalue="1" maxvalue="64">matrix columns</argument>
         </arguments>
         <properties>
-            <property name="@rows" type="int" minvalue="1" maxvalue="256" default="4">number of
+            <property name="@rows" type="int" minvalue="1" maxvalue="64" default="4">number of
             matrix rows</property>
-            <property name="@cols" type="int" minvalue="1" maxvalue="256" default="8">number of
+            <property name="@cols" type="int" minvalue="1" maxvalue="64" default="8">number of
             matrix columns</property>
             <property name="@current_row" type="int" minvalue="0" default="-1">current row index.
             -1 if not specified. This property is not saved in patch</property>
