@@ -18,6 +18,10 @@ add_subdirectory(stk)
 add_subdirectory(subprocess)
 add_subdirectory(fmt)
 
+if(UNIX)
+    set_target_properties(fmt PROPERTIES COMPILE_FLAGS "-fPIC")
+endif()
+
 if(WITH_EXPERIMENTAL)
     add_subdirectory(libusb)
 endif()
