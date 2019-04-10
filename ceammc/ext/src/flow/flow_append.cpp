@@ -21,6 +21,7 @@ FlowAppend::FlowAppend(const PdArgs& args)
     , clock_(this, &FlowAppend::tick)
 {
     delay_time_ = new FloatProperty("@delay", 0, 0);
+    delay_time_->info().setUnits(PropertyInfoUnits::MSEC);
     createProperty(delay_time_);
 
     as_msg_ = new FlagProperty("@msg");
