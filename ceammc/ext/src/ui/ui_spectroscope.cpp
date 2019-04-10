@@ -11,6 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#define _USE_MATH_DEFINES // for M_PI constants
+
 #include "ui_spectroscope.h"
 #include "ceammc_convert.h"
 #include "ceammc_dsp_ui.h"
