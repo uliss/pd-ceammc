@@ -17,10 +17,10 @@
 
 #include <boost/algorithm/string.hpp>
 
-static t_symbol* SQUOTE = gensym("'");
-
 static bool isSpace(const AtomList& lst)
 {
+    static t_symbol* SQUOTE = gensym("'");
+
     if (lst.size() != 2)
         return false;
 

@@ -17,9 +17,9 @@
 
 #include <boost/algorithm/string.hpp>
 
-static t_symbol* REMOVE_ALL = gensym("all");
-static t_symbol* REMOVE_FIRST = gensym("first");
-static t_symbol* REMOVE_LAST = gensym("last");
+static t_symbol* REMOVE_ALL;
+static t_symbol* REMOVE_FIRST;
+static t_symbol* REMOVE_LAST;
 
 StringRemove::StringRemove(const PdArgs& a)
     : BaseObject(a)
@@ -66,6 +66,10 @@ void StringRemove::onDataT(const DataTypeString& s)
 
 void setup_string0x2eremove()
 {
+    REMOVE_ALL = gensym("all");
+    REMOVE_FIRST = gensym("first");
+    REMOVE_LAST = gensym("last");
+
     ObjectFactory<StringRemove> obj("string.remove");
     obj.processData<DataTypeString>();
     obj.addAlias("str.remove");
