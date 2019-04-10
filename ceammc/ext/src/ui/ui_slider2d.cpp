@@ -33,7 +33,6 @@ static t_rgba KNOB_FILL_ACTIVE = hex_to_rgba("#003070");
 static t_rgba KNOB_BORDER_ACTIVE = hex_to_rgba("#00C0FF");
 static t_rgba GUIDE_LINE_COLOR = hex_to_rgba("#00C0F0");
 static const float GUIDE_LINE_WIDTH = 0.5f;
-static t_symbol* SYM_KNOB_LAYER = gensym("knob_layer");
 
 UISlider2D::UISlider2D()
     : prop_x_min(-1)
@@ -45,7 +44,7 @@ UISlider2D::UISlider2D()
     , txt_font(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , txt_xrange_(txt_font.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
     , txt_yrange_(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_RIGHT, ETEXT_JRIGHT)
-    , knob_layer_(asEBox(), SYM_KNOB_LAYER)
+    , knob_layer_(asEBox(), gensym("knob_layer"))
     , x_pos_(0.5f)
     , y_pos_(0.5f)
     , mouse_down_(false)

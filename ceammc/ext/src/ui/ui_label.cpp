@@ -16,10 +16,10 @@
 #include "ceammc_format.h"
 #include "ceammc_ui.h"
 
-static t_symbol* SYM_LEFT = gensym("left");
-static t_symbol* SYM_CENTER = gensym("center");
-static t_symbol* SYM_RIGHT = gensym("right");
-static t_symbol* SYM_TEXT = gensym("text");
+static t_symbol* SYM_LEFT;
+static t_symbol* SYM_CENTER;
+static t_symbol* SYM_RIGHT;
+static t_symbol* SYM_TEXT;
 
 #ifdef __WIN32
 static const char* DEFAULT_LABEL_FONT_SIZE = "28";
@@ -147,6 +147,11 @@ void UILabel::m_prepend(const AtomList& lst)
 
 void UILabel::setup()
 {
+    SYM_LEFT = gensym("left");
+    SYM_CENTER = gensym("center");
+    SYM_RIGHT = gensym("right");
+    SYM_TEXT = gensym("text");
+
     UIObjectFactory<UILabel> obj("ui.label", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK, CLASS_NOINLET);
     obj.setDefaultSize(300, 47);
     obj.hideLabel();

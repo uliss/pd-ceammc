@@ -49,13 +49,26 @@ echo "icon_entry icons_list[] = {"
 
 for i in $ICONS;
 do
-    echo "  { gensym(\"$i\"), { icon_${i}_18, icon_${i}_24, icon_${i}_36, icon_${i}_48 } },"
+    echo "  { &s_, { icon_${i}_18, icon_${i}_24, icon_${i}_36, icon_${i}_48 } },"
 done
 
-echo "  { gensym(\"default\"), { icon_default_18, icon_default_24, icon_default_36, icon_default_48 } },"
-echo "  { gensym(\"ceammc\"), { icon_ceammc, icon_ceammc, icon_ceammc, icon_ceammc } },"
+echo "  { &s_, { icon_default_18, icon_default_24, icon_default_36, icon_default_48 } },"
+echo "  { &s_, { icon_ceammc, icon_ceammc, icon_ceammc, icon_ceammc } },"
 echo "  { 0, { 0, 0, 0, 0 } }"
 echo "};"
+
+echo "void init_icon_list() {"
+idx=0
+for i in $ICONS;
+do
+    echo "  icons_list[${idx}].name = gensym(\"${i}\");"
+    idx=$(($idx+1))
+done
+echo "  icons_list[${idx}].name = gensym(\"default\");"
+idx=$(($idx+1))
+echo "  icons_list[${idx}].name = gensym(\"ceammc\");"
+echo "}"
+echo
 
 echo "const char* icons_string = \"${ALL_ICONS}\";";
 

@@ -26,7 +26,7 @@
 using namespace ceammc;
 
 static const int MAX_SLIDERS_NUM = 1024;
-static t_symbol* SYM_SLIDER = gensym("slider");
+static t_symbol* SYM_SLIDER;
 
 UISliders::UISliders()
     : txt_font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
@@ -490,6 +490,8 @@ void UISliders::outputList()
 
 void UISliders::setup()
 {
+    SYM_SLIDER = gensym("slider");
+
     UIObjectFactory<UISliders> obj("ui.sliders");
 
     obj.usePresets();

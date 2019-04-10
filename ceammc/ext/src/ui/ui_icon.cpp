@@ -16,10 +16,10 @@
 #include "ceammc_ui.h"
 #include "icons/generated_icons.h"
 
-static t_symbol* SYM_CEAMMC = gensym("ceammc");
-static t_symbol* SYM_MODE_BANG = gensym("bang");
-static t_symbol* SYM_MODE_BUTTON = gensym("button");
-static t_symbol* SYM_MODE_TOGGLE = gensym("toggle");
+static t_symbol* SYM_CEAMMC;
+static t_symbol* SYM_MODE_BANG;
+static t_symbol* SYM_MODE_BUTTON;
+static t_symbol* SYM_MODE_TOGGLE;
 
 static const t_rgba COLOR_DISABLED(hex_to_rgba("#D0D0D0"));
 
@@ -403,6 +403,13 @@ void setup_ui_icon()
         return;
     }
 #endif
+
+    SYM_CEAMMC = gensym("ceammc");
+    SYM_MODE_BANG = gensym("bang");
+    SYM_MODE_BUTTON = gensym("button");
+    SYM_MODE_TOGGLE = gensym("toggle");
+
+    init_icon_list();
 
     UIIcon::setup();
 }

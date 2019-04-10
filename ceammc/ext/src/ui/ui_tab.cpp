@@ -16,12 +16,6 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 
-#include <boost/make_shared.hpp>
-#include <boost/static_assert.hpp>
-
-static t_symbol* SYM_PROP_TITLE = gensym("@title");
-static t_symbol* SYM_PROP_SELECTED = gensym("@selected");
-
 static const size_t MAX_ITEMS = 128;
 
 UITab::UITab()
@@ -261,7 +255,7 @@ void UITab::propSetItems(const AtomList& lst)
     layouts_.reserve(lst.size());
 
     for (size_t i = layouts_.size(); i < lst.size(); i++) {
-        layouts_.push_back(boost::make_shared<UITextLayout>(&asEBox()->b_font, prop_color_text,
+        layouts_.push_back(std::make_shared<UITextLayout>(&asEBox()->b_font, prop_color_text,
             ETEXT_CENTER, ETEXT_JCENTER, ETEXT_NOWRAP));
     }
 
@@ -419,6 +413,7 @@ void UITab::output()
             res.append(Atom(toggles_.test(i) ? 1 : 0));
         }
 
+        t_symbol* SYM_PROP_SELECTED = gensym("@selected");
         anyTo(0, SYM_PROP_SELECTED, res);
         send(SYM_PROP_SELECTED, res);
 
@@ -433,6 +428,8 @@ void UITab::output()
             return;
 
         AtomList sel(items_[item_selected_]);
+
+        t_symbol* SYM_PROP_TITLE = gensym("@title");
         anyTo(0, SYM_PROP_TITLE, sel);
         send(SYM_PROP_TITLE, sel);
 

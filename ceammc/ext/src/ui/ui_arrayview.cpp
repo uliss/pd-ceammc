@@ -16,24 +16,24 @@
 #include "ceammc_format.h"
 #include "ceammc_ui.h"
 
-static t_symbol* SYM_ARRAY_NAME = gensym("array");
-static t_symbol* SYM_ATTR_SIZE = gensym("size");
-static t_symbol* SYM_ATTR_WAVE_COLOR = gensym("wave_color");
-static t_symbol* SYM_ATTR_CURSOR_COLOR = gensym("cursor_color");
-static t_symbol* SYM_ATTR_SELECTION_COLOR = gensym("selection_color");
-static t_symbol* SYM_ATTR_BG_COLOR = gensym(PROP_BACKGROUND_COLOR);
-static t_symbol* SYM_ATTR_SHOW_LABELS = gensym("show_labels");
-static t_symbol* SYM_CURSOR_SAMPLE = gensym("@cursor_samp");
-static t_symbol* SYM_CURSOR_PHASE = gensym("@cursor_phase");
-static t_symbol* SYM_CURSOR_MS = gensym("@cursor_ms");
-static t_symbol* SYM_CURSOR_SEC = gensym("@cursor_sec");
+static t_symbol* SYM_ARRAY_NAME;
+static t_symbol* SYM_ATTR_SIZE;
+static t_symbol* SYM_ATTR_WAVE_COLOR;
+static t_symbol* SYM_ATTR_CURSOR_COLOR;
+static t_symbol* SYM_ATTR_SELECTION_COLOR;
+static t_symbol* SYM_ATTR_BG_COLOR;
+static t_symbol* SYM_ATTR_SHOW_LABELS;
+static t_symbol* SYM_CURSOR_SAMPLE;
+static t_symbol* SYM_CURSOR_PHASE;
+static t_symbol* SYM_CURSOR_MS;
+static t_symbol* SYM_CURSOR_SEC;
 
-static t_symbol* SYM_SELECT_SAMPLE = gensym("@select_samp");
-static t_symbol* SYM_SELECT_PHASE = gensym("@select_phase");
-static t_symbol* SYM_SELECT_MS = gensym("@select_ms");
-static t_symbol* SYM_SELECT_SEC = gensym("@select_sec");
-static t_symbol* SYM_BEGIN = gensym("@begin");
-static t_symbol* SYM_END = gensym("@end");
+static t_symbol* SYM_SELECT_SAMPLE;
+static t_symbol* SYM_SELECT_PHASE;
+static t_symbol* SYM_SELECT_MS;
+static t_symbol* SYM_SELECT_SEC;
+static t_symbol* SYM_BEGIN;
+static t_symbol* SYM_END;
 
 static const size_t RENDER_CHUNK = 44100 * 5;
 static const size_t RENDER_CHUNK_PERIOD = 100;
@@ -957,5 +957,24 @@ void UIArrayView::setup()
 
 void setup_ui_arrayview()
 {
+    SYM_ARRAY_NAME = gensym("array");
+    SYM_ATTR_SIZE = gensym("size");
+    SYM_ATTR_WAVE_COLOR = gensym("wave_color");
+    SYM_ATTR_CURSOR_COLOR = gensym("cursor_color");
+    SYM_ATTR_SELECTION_COLOR = gensym("selection_color");
+    SYM_ATTR_BG_COLOR = gensym(PROP_BACKGROUND_COLOR);
+    SYM_ATTR_SHOW_LABELS = gensym("show_labels");
+    SYM_CURSOR_SAMPLE = gensym("@cursor_samp");
+    SYM_CURSOR_PHASE = gensym("@cursor_phase");
+    SYM_CURSOR_MS = gensym("@cursor_ms");
+    SYM_CURSOR_SEC = gensym("@cursor_sec");
+
+    SYM_SELECT_SAMPLE = gensym("@select_samp");
+    SYM_SELECT_PHASE = gensym("@select_phase");
+    SYM_SELECT_MS = gensym("@select_ms");
+    SYM_SELECT_SEC = gensym("@select_sec");
+    SYM_BEGIN = gensym("@begin");
+    SYM_END = gensym("@end");
+
     UIArrayView::setup();
 }

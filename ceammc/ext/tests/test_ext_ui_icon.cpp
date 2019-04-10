@@ -19,6 +19,7 @@ UI_COMPLETE_TEST_SETUP(Icon)
 TEST_CASE("ui.icon", "[ui.icon]")
 {
     ui_test_init();
+    setup_ui_icon();
 
     SECTION("construct")
     {

@@ -6,7 +6,6 @@
 #include <cassert>
 
 static const int MAX_ITEMS = 128;
-static t_symbol* ITEMS_LAYER = gensym("items_layer");
 
 void setup_ui_radio()
 {
@@ -19,7 +18,7 @@ UIRadio::UIRadio()
     , prop_nitems_(8)
     , prop_checklist_mode_(0)
     , prop_color_active(hex_to_rgba(DEFAULT_ACTIVE_COLOR))
-    , items_layer_(asEBox(), ITEMS_LAYER)
+    , items_layer_(asEBox(), gensym("items_layer"))
 {
     createOutlet();
 }

@@ -24,6 +24,7 @@ UI_COMPLETE_TEST_SETUP(Matrix)
 TEST_CASE("ui.matrix", "[ui.matrix]")
 {
     ui_test_init();
+    setup_ui_matrix();
 
     SECTION("construct")
     {

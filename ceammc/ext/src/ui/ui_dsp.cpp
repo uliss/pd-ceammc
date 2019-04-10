@@ -1,8 +1,6 @@
 #include "ui_dsp.h"
 #include "ceammc_ui.h"
 
-static t_symbol* SYM_DSP = gensym("dsp");
-
 UIDsp::UIDsp()
     : state_(false)
     , init_(false)
@@ -63,7 +61,7 @@ void UIDsp::onDblClick(t_object*, const t_pt&, long mod)
 
 void UIDsp::onAny(t_symbol* s, const AtomList& lst)
 {
-    if (s == SYM_DSP && lst.size() > 0 && lst[0].isFloat()) {
+    if (s == gensym("dsp") && lst.size() > 0 && lst[0].isFloat()) {
         state_ = lst[0].asInt(0);
         redrawAll();
     }
@@ -74,7 +72,7 @@ void UIDsp::m_start(const AtomList&)
     t_symbol* SYM_PD = gensym("pd");
     t_atom av;
     atom_setfloat(&av, 1);
-    pd_typedmess((t_pd*)SYM_PD->s_thing, SYM_DSP, 1, &av);
+    pd_typedmess((t_pd*)SYM_PD->s_thing, gensym("dsp"), 1, &av);
     state_ = true;
     redrawAll();
 }
@@ -84,7 +82,7 @@ void UIDsp::m_stop(const AtomList&)
     t_symbol* SYM_PD = gensym("pd");
     t_atom av;
     atom_setfloat(&av, 0);
-    pd_typedmess((t_pd*)SYM_PD->s_thing, SYM_DSP, 1, &av);
+    pd_typedmess((t_pd*)SYM_PD->s_thing, gensym("dsp"), 1, &av);
     state_ = false;
     redrawAll();
 }

@@ -11,13 +11,13 @@
 #include <limits>
 #include <random>
 
-static t_symbol* SYM_CELL = gensym("cell");
-static t_symbol* SYM_ROW = gensym("row");
-static t_symbol* SYM_COL = gensym("col");
-static t_symbol* SYM_LIST = gensym("list");
-static t_symbol* SYM_OUTPUT_ALL_COLS = gensym("cols");
-static t_symbol* SYM_OUTPUT_ALL_ROWS = gensym("rows");
-static t_symbol* SYM_OUTPUT_ALL_CELLS = gensym("cells");
+static t_symbol* SYM_CELL;
+static t_symbol* SYM_ROW;
+static t_symbol* SYM_COL;
+static t_symbol* SYM_LIST;
+static t_symbol* SYM_OUTPUT_ALL_COLS;
+static t_symbol* SYM_OUTPUT_ALL_ROWS;
+static t_symbol* SYM_OUTPUT_ALL_CELLS;
 
 #define CELL_TAG_FMT "cell_#%x_%d_%d"
 #define ALL_CELLS_TAG_FMT "cells_#%x"
@@ -847,6 +847,14 @@ void UIMatrix::p_setCols(float n)
 
 void UIMatrix::setup()
 {
+    SYM_CELL = gensym("cell");
+    SYM_ROW = gensym("row");
+    SYM_COL = gensym("col");
+    SYM_LIST = gensym("list");
+    SYM_OUTPUT_ALL_COLS = gensym("cols");
+    SYM_OUTPUT_ALL_ROWS = gensym("rows");
+    SYM_OUTPUT_ALL_CELLS = gensym("cells");
+
     UIObjectFactory<UIMatrix> obj("ui.matrix");
     obj.setDefaultSize(105, 53);
 

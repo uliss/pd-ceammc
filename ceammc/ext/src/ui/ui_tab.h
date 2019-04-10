@@ -17,11 +17,11 @@
 #include "ceammc_ui_object.h"
 
 #include <bitset>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 using namespace ceammc;
 
-typedef boost::shared_ptr<UITextLayout> Layout;
+typedef std::shared_ptr<UITextLayout> Layout;
 
 class UITab : public UIObject {
     AtomList items_;

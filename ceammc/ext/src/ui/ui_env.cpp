@@ -12,13 +12,13 @@ static t_rgba DELETE_COLOR = hex_to_rgba("#F00030");
 static const char* DEFAULT_LINE_COLOR = "0.1 0.1 0.1 1.0";
 static const char* PROP_LENGTH = "length";
 
-static t_symbol* SYM_ADSR = gensym("adsr");
-static t_symbol* SYM_ASR = gensym("asr");
-static t_symbol* SYM_AR = gensym("ar");
-static t_symbol* SYM_EADSR = gensym("eadsr");
-static t_symbol* SYM_EASR = gensym("easr");
-static t_symbol* SYM_EAR = gensym("ear");
-static t_symbol* SYM_LENGTH = gensym("length");
+static t_symbol* SYM_ADSR;
+static t_symbol* SYM_ASR;
+static t_symbol* SYM_AR;
+static t_symbol* SYM_EADSR;
+static t_symbol* SYM_EASR;
+static t_symbol* SYM_EAR;
+static t_symbol* SYM_LENGTH;
 
 static float lin2lin(float v, float x0, float x1, float y0, float y1)
 {
@@ -714,6 +714,14 @@ void UIEnv::setup()
 
 void setup_ui_env()
 {
+    SYM_ADSR = gensym("adsr");
+    SYM_ASR = gensym("asr");
+    SYM_AR = gensym("ar");
+    SYM_EADSR = gensym("eadsr");
+    SYM_EASR = gensym("easr");
+    SYM_EAR = gensym("ear");
+    SYM_LENGTH = gensym("length");
+
     UIEnv::setup();
 }
 

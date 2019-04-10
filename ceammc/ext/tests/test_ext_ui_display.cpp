@@ -19,6 +19,7 @@ UI_COMPLETE_TEST_SETUP(Display)
 TEST_CASE("ui.display", "[ui.display]")
 {
     ui_test_init();
+    setup_ui_display();
 
     SECTION("construct")
     {

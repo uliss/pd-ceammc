@@ -14,16 +14,14 @@
 #include "ui_link.h"
 #include "ui_link_tcl.h"
 
+static t_symbol* LINK_FONT;
 #ifdef __WIN32
-static t_symbol* LINK_FONT = gensym("DejaVu Sans Mono");
 static float FIX_LINK_Y_POS = 5;
 static float FIX_TEXT_Y_OFF = 0;
 #elif __APPLE__
-static t_symbol* LINK_FONT = gensym("Menlo");
 static float FIX_LINK_Y_POS = 3;
 static float FIX_TEXT_Y_OFF = 2;
 #else
-static t_symbol* LINK_FONT = gensym("DejaVu Sans Mono");
 static float FIX_LINK_Y_POS = 3;
 static float FIX_TEXT_Y_OFF = 0;
 #endif
@@ -166,6 +164,14 @@ void UILink::setup()
 
 void setup_ui_link()
 {
+#ifdef __WIN32
+    LINK_FONT = gensym("DejaVu Sans Mono");
+#elif __APPLE__
+    LINK_FONT = gensym("Menlo");
+#else
+    LINK_FONT = gensym("DejaVu Sans Mono");
+#endif
+
     uilink_tcl_init();
     UILink::setup();
 }

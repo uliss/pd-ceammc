@@ -19,10 +19,10 @@
 static const int DEFAULT_MATRIX_X = 24;
 static const int DEFAULT_MATRIX_Y = 13;
 
-static t_symbol* SYM_PROP_PD = gensym("@pd");
-static t_symbol* SYM_PROP_RGB = gensym("@rgb");
-static t_symbol* SYM_PROP_HSL = gensym("@hsl");
-static t_symbol* SYM_PROP_HEX = gensym("@hex");
+static t_symbol* SYM_PROP_PD;
+static t_symbol* SYM_PROP_RGB;
+static t_symbol* SYM_PROP_HSL;
+static t_symbol* SYM_PROP_HEX;
 
 static int rgb_to_pd(const t_rgba& c)
 {
@@ -445,5 +445,10 @@ void UIColorPanel::setup()
 
 void setup_ui_colorpanel()
 {
+    SYM_PROP_PD = gensym("@pd");
+    SYM_PROP_RGB = gensym("@rgb");
+    SYM_PROP_HSL = gensym("@hsl");
+    SYM_PROP_HEX = gensym("@hex");
+
     UIColorPanel::setup();
 }

@@ -14,14 +14,6 @@ extern "C" {
 #include "m_imp.h"
 }
 
-static t_symbol* SYM_PLUS = gensym("+");
-static t_symbol* SYM_MINUS = gensym("-");
-static t_symbol* SYM_MUL = gensym("*");
-static t_symbol* SYM_DIV = gensym("/");
-static t_symbol* SYM_INC = gensym("++");
-static t_symbol* SYM_DEC = gensym("--");
-static t_symbol* SYM_MIDI_CTL = gensym("midi_control");
-
 static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
 
 using namespace ceammc;
@@ -92,7 +84,7 @@ void UISingleValue::onPropChange(t_symbol* prop_name)
 {
     UIObject::onPropChange(prop_name);
 
-    if (prop_name == SYM_MIDI_CTL) {
+    if (prop_name == gensym("midi_control")) {
         if (prop_midi_ctl != 0) {
             // info
             std::ostringstream ss;

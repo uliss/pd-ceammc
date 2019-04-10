@@ -14,12 +14,12 @@ extern "C" {
 #include "m_imp.h"
 }
 
-static t_symbol* SYM_PLUS = gensym("+");
-static t_symbol* SYM_MINUS = gensym("-");
-static t_symbol* SYM_MUL = gensym("*");
-static t_symbol* SYM_DIV = gensym("/");
-static t_symbol* SYM_INC = gensym("++");
-static t_symbol* SYM_DEC = gensym("--");
+static t_symbol* SYM_PLUS;
+static t_symbol* SYM_MINUS;
+static t_symbol* SYM_MUL;
+static t_symbol* SYM_DIV;
+static t_symbol* SYM_INC;
+static t_symbol* SYM_DEC;
 
 static const int KNOB_MIN_SIZE = 20;
 static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
@@ -211,5 +211,12 @@ void UIKnob::onPopup(t_symbol* menu_name, long item_idx)
 
 void setup_ui_knob()
 {
+    SYM_PLUS = gensym("+");
+    SYM_MINUS = gensym("-");
+    SYM_MUL = gensym("*");
+    SYM_DIV = gensym("/");
+    SYM_INC = gensym("++");
+    SYM_DEC = gensym("--");
+
     UIKnob::setup();
 }

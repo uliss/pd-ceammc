@@ -17,7 +17,6 @@
 #include "ceammc_preset.h"
 
 static const float SCALE_ALPHA_BLEND = 0.7;
-static t_symbol* SYM_PROP_DB = gensym("@db");
 
 UIGain::UIGain()
     : prop_color_knob(rgba_blue)
@@ -141,9 +140,10 @@ void UIGain::onPropChange(t_symbol* prop_name)
 
 void UIGain::onBang()
 {
+    t_symbol* s_db = gensym("@db");
     AtomList v(dbValue());
-    anyTo(0, SYM_PROP_DB, v);
-    send(SYM_PROP_DB, v);
+    anyTo(0, s_db, v);
+    send(s_db, v);
 }
 
 void UIGain::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)

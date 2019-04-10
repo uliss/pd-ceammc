@@ -19,6 +19,7 @@ UI_COMPLETE_TEST_SETUP(Sliders)
 TEST_CASE("ui.sliders", "[ui.sliders]")
 {
     ui_test_init();
+    setup_ui_sliders();
 
     SECTION("construct")
     {

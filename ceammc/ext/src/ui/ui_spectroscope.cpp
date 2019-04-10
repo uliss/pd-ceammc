@@ -30,8 +30,6 @@ const size_t UISpectroscope::DB_SCALE_STEP = 10;
 const size_t UISpectroscope::DB_SCALE_N = UISpectroscope::DB_SCALE_RANGE / UISpectroscope::DB_SCALE_STEP;
 static t_sample hann_window[UISpectroscope::WINDOW_SIZE] = { 0 };
 
-static t_symbol* SYM_GRAPH_LAYER = gensym("graph_layer");
-
 static bool init_hann_window()
 {
     return window::fill(hann_window, hann_window + UISpectroscope::WINDOW_SIZE, window::hann<float>);
@@ -41,7 +39,7 @@ UISpectroscope::UISpectroscope()
     : clock_(this, &UISpectroscope::updateFFT)
     , prop_color_active(rgba_blue)
     , prop_color_scale(rgba_black)
-    , graph_layer_(asEBox(), SYM_GRAPH_LAYER)
+    , graph_layer_(asEBox(), gensym("graph_layer"))
     , font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL - 1)
     , grid_color_main_(rgba_greylight)
     , grid_color_thick_(rgba_greylight)
