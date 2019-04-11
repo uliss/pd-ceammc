@@ -11,6 +11,32 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+/* --------------------------------------------------------------------------*/
+/*                                                                           */
+/* get/set the keyboard light level on Apple Mac OS X                        */
+/* Written by Hans-Christoph Steiner <hans@eds.org>                         */
+/*                                                                           */
+/* Copyright (c) 2008 Free Software Foundation                               */
+/*                                                                           */
+/* This program is free software; you can redistribute it and/or             */
+/* modify it under the terms of the GNU General Public License               */
+/* as published by the Free Software Foundation; either version 2            */
+/* of the License, or (at your option) any later version.                    */
+/*                                                                           */
+/* See file LICENSE for further informations on licensing terms.             */
+/*                                                                           */
+/* This program is distributed in the hope that it will be useful,           */
+/* but WITHOUT ANY WARRANTY; without even the implied warranty of            */
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             */
+/* GNU General Public License for more details.                              */
+/*                                                                           */
+/* You should have received a copy of the GNU General Public License         */
+/* along with this program; if not, write to the Free Software Foundation,   */
+/* Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA */
+/*                                                                           */
+/* --------------------------------------------------------------------------*/
+
+// using code from apple/keyboard_light.c
 #include "hw_kbd_light.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"

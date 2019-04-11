@@ -5,6 +5,7 @@
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
+                <author>Hans-Christoph Steiner</author>
             </authors>
             <description>Get/set keyboard light on some devices</description>
             <license>GPL3</license>
