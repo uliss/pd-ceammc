@@ -12,16 +12,16 @@
 #X obj 20 215 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 220 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 225 1\.;
-#X text 150 225 *list*;
-#X text 240 225 input list. Non float values are ignored.;
-#X text 150 243 *data:mlist*;
-#X text 240 243 input mlist.;
-#X obj 20 271 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 276 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 221 1\.;
+#X text 150 221 *list*;
+#X text 245 221 input list. Non float values are ignored.;
+#X text 150 239 *data:mlist*;
+#X text 245 239 input mlist.;
+#X obj 20 267 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 272 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 281 1\.;
-#X text 240 281 float list sum;
+#X text 110 273 1\.;
+#X text 245 273 float list sum.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -29,9 +29,9 @@
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 504 520 see also:;
-#X obj 580 520 list.product;
-#X obj 681 520 list.reduce;
+#X text 484 520 see also:;
+#X obj 560 520 list.product;
+#X obj 661 520 list.reduce;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

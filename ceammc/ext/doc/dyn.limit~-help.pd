@@ -16,13 +16,13 @@
 #X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 335 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 340 1\.;
-#X text 240 340 input signal.;
-#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 373 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 336 1\.;
+#X text 245 336 input signal.;
+#X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 369 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 378 1\.;
-#X text 240 378 output signal;
+#X text 110 370 1\.;
+#X text 245 370 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -30,9 +30,9 @@
 #X obj 131 48 ui.link @title dyn @url ceammc.dyn-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 522 520 see also:;
-#X obj 598 520 dyn.limit2~;
-#X obj 694 520 dyn.comp~;
+#X text 502 520 see also:;
+#X obj 578 520 dyn.limit2~;
+#X obj 674 520 dyn.comp~;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

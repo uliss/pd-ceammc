@@ -5,12 +5,12 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.sin 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 math.sin;
-#X obj 205 80 cnv 1 560 116 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 The sin() function computes the sine of input value
+#X obj 210 80 cnv 1 555 116 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 The sin() function computes the sine of input value
 (measured in radians).;
-#X text 210 117 Special values:;
-#X text 210 140 sin(+-0) returns +-0\.;
-#X text 210 163 sin(+-infinity) returns a NaN.;
+#X text 215 117 Special values:;
+#X text 215 140 sin(+-0) returns +-0\.;
+#X text 215 163 sin(+-infinity) returns a NaN.;
 #X floatatom 50 224 5 0 0 0 - - -;
 #X msg 98 224 1 2 3;
 #X obj 50 253 math.sin;
@@ -19,16 +19,16 @@
 #X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 355 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 360 1\.;
-#X text 150 360 *float*;
-#X text 240 360 input value.;
-#X text 150 378 *list*;
-#X text 240 378 apply to all numeric values.;
-#X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 411 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 356 1\.;
+#X text 150 356 *float*;
+#X text 245 356 input value.;
+#X text 150 374 *list*;
+#X text 245 374 apply to all numeric values.;
+#X obj 20 402 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 407 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 416 1\.;
-#X text 240 416 result value;
+#X text 110 408 1\.;
+#X text 245 408 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -36,10 +36,10 @@
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 459 520 see also:;
-#X obj 535 520 math.acos;
-#X obj 615 520 math.asin;
-#X obj 695 520 math.atan;
+#X text 439 520 see also:;
+#X obj 515 520 math.acos;
+#X obj 595 520 math.asin;
+#X obj 675 520 math.atan;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

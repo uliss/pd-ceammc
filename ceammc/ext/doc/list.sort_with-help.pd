@@ -14,21 +14,21 @@
 #X obj 20 245 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 250 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 255 1\.;
-#X text 150 255 *list*;
-#X text 240 255 input list.;
-#X text 150 273 *data:mlist*;
-#X text 240 273 input mlist.;
-#X text 120 291 2\.;
-#X text 150 291 *int*;
-#X text 240 291 output from compare object (1 or 0).;
-#X obj 20 319 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 324 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 251 1\.;
+#X text 150 251 *list*;
+#X text 245 251 input list.;
+#X text 150 269 *data:mlist*;
+#X text 245 269 input mlist.;
+#X text 110 287 2\.;
+#X text 150 287 *int*;
+#X text 245 287 output from compare object (1 or 0).;
+#X obj 20 315 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 320 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 329 1\.;
-#X text 240 329 sorted list (or mlist);
-#X text 120 347 2\.;
-#X text 240 347 output list with two element to compare side-chain;
+#X text 110 321 1\.;
+#X text 245 321 sorted list (or mlist).;
+#X text 110 339 2\.;
+#X text 245 339 output list with two element to compare side-chain.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -36,8 +36,8 @@
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 620 520 see also:;
-#X obj 696 520 list.sort;
+#X text 600 520 see also:;
+#X obj 676 520 list.sort;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

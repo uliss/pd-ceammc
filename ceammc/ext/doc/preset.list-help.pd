@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty preset.list 20 20 0 20 -104026
 -4096 0;
 #X obj 661 11 preset.list;
-#X obj 205 80 cnv 1 560 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Named list preset entry. Can store/load up to 16
+#X obj 210 80 cnv 1 555 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Named list preset entry. Can store/load up to 16
 various lists;
 #X msg 155 155 store 0;
 #X msg 290 155 store 1;
@@ -20,61 +20,61 @@ various lists;
 #X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 372 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 377 1\.;
-#X text 150 377 symbol;
-#X obj 241 378 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 377 ID: preset id (should be unique in most use cases).;
-#X text 120 395 2\.;
-#X text 150 395 list;
-#X obj 241 396 cnv 1 57 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 395 VALUES: preset initial value.;
-#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 428 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 407 1\.;
+#X text 150 407 symbol;
+#X obj 246 408 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 407 ID: preset id (should be unique in most use cases).;
+#X text 110 425 2\.;
+#X text 150 425 list;
+#X obj 246 426 cnv 1 57 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 425 VALUES: preset initial value.;
+#X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 458 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 433 @path;
-#X text 240 433 (readonly) Get property OSC-like path that includes id
+#X msg 110 493 @global;
+#X text 245 493 use global path like /ID.;
+#X msg 110 522 @id;
+#X text 245 522 (readonly) Get preset id. Type: symbol.;
+#X msg 110 551 @init;
+#X text 245 551 Get/Set init list value. Type: list.;
+#X msg 110 580 @path;
+#X text 245 580 (readonly) Get property OSC-like path that includes id
 \, abstraction name and may be subpatch name separated by slashes.
-Type: symbol;
-#X msg 120 484 @id;
-#X text 240 484 (readonly) Get preset id. Type: symbol;
-#X msg 120 511 @init;
-#X text 240 511 Get/Set init list value. Type: list;
-#X msg 120 538 @global;
-#X text 240 538 use global path like /ID;
-#X msg 120 565 @subpatch;
-#X text 240 565 include subpatch name to path;
-#X obj 20 602 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 607 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+Type: symbol.;
+#X msg 110 633 @subpatch;
+#X text 245 633 include subpatch name to path.;
+#X obj 20 672 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 677 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 612 load;
-#X text 240 612 load preset value by specified index and output it.;
-#X msg 120 644 store;
-#X text 240 644 stores preset value at specified index.;
-#X msg 120 676 clear;
-#X text 240 676 clear preset at specified index.;
-#X obj 20 718 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 723 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 712 clear;
+#X text 245 712 clear preset at specified index.;
+#X msg 110 739 load;
+#X text 245 739 load preset value by specified index and output it.;
+#X msg 110 766 store;
+#X text 245 766 stores preset value at specified index.;
+#X obj 20 803 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 808 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 728 1\.;
-#X text 150 728 *list*;
-#X text 240 728 set preset value without output.;
-#X obj 20 756 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 761 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 809 1\.;
+#X text 150 809 *list*;
+#X text 245 809 set preset value without output.;
+#X obj 20 837 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 842 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 766 1\.;
-#X text 240 766 preset list value;
+#X text 110 843 1\.;
+#X text 245 843 preset list value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title preset @url ceammc.preset-help.pd;
-#X obj 1 814 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 817 library: ceammc v0.7.1;
-#X text 373 829 see also:;
-#X obj 449 829 preset.storage;
-#X obj 565 829 preset.float;
-#X obj 666 829 preset.symbol;
-#N canvas 10 836 400 290 info 0;
+#X obj 1 891 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 894 library: ceammc v0.7.1;
+#X text 353 906 see also:;
+#X obj 429 906 preset.storage;
+#X obj 545 906 preset.float;
+#X obj 646 906 preset.symbol;
+#N canvas 10 913 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -98,7 +98,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 836 pd info;
+#X restore 10 913 pd info;
 #X connect 8 0 12 0;
 #X connect 10 0 12 0;
 #X connect 6 0 12 0;

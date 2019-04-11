@@ -42,82 +42,82 @@
 #X obj 20 431 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 436 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 441 1\.;
-#X text 150 441 symbol;
-#X obj 241 442 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 441 NAME: array name.;
-#X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 474 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 471 1\.;
+#X text 150 471 symbol;
+#X obj 246 472 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 471 NAME: array name.;
+#X obj 20 499 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 504 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 479 @array;
-#X text 240 479 Get/Set array name. Type: symbol;
-#X msg 120 506 @state;
-#X text 240 506 (readonly) Get player state. Type: symbol. Allowed
-values: play \, stop;
-#X msg 120 543 @speed;
-#X text 240 543 Get/Set play speed. Type: float. Default value: 1\.
-Min value: 0.1;
-#X msg 120 580 @begin;
-#X text 240 580 Get/Set begin position in samples. Type: int. Units:
-samp. Default value: 0;
-#X msg 120 617 @end;
-#X text 240 617 Get/Set end position in samples. Type: int. Units:
-samp. Default value: 0;
-#X msg 120 654 @abs_begin;
-#X text 240 654 (readonly) Get absolute start position in samples.
-Type: int. Units: samp;
-#X msg 120 691 @abs_end;
-#X text 240 691 (readonly) Get absolute stop position in samples.
-Type: int. Units: samp;
-#X msg 120 728 @reversed;
-#X text 240 728 Get/Set playing backwards (if set to 1). Type: int.
-Default value: 0\. Allowed values: 0 \, 1;
-#X obj 20 775 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 780 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 539 @abs_begin;
+#X text 245 539 (readonly) Get absolute start position in samples.
+Type: int. Units: samp.;
+#X msg 110 578 @abs_end;
+#X text 245 578 (readonly) Get absolute stop position in samples.
+Type: int. Units: samp.;
+#X msg 110 617 @array;
+#X text 245 617 Get/Set array name. Type: symbol.;
+#X msg 110 646 @begin;
+#X text 245 646 Get/Set begin position in samples. Type: int. Units:
+samp. Default value: 0\.;
+#X msg 110 685 @end;
+#X text 245 685 Get/Set end position in samples. Type: int. Units:
+samp. Default value: 0\.;
+#X msg 110 724 @reversed;
+#X text 245 724 Get/Set playing backwards (if set to 1). Type: int.
+Default value: 0\. Allowed values: 0 \, 1\.;
+#X msg 110 763 @speed;
+#X text 245 763 Get/Set play speed. Type: float. Default value: 1\.
+Min value: 0.1\.;
+#X msg 110 802 @state;
+#X text 245 802 (readonly) Get player state. Type: symbol. Allowed
+values: play \, stop.;
+#X obj 20 851 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 856 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 785 play;
-#X text 240 785 start playing.;
-#X msg 120 817 stop;
-#X text 240 817 stop playing.;
-#X msg 120 849 range;
-#X text 240 849 set play range. Arguments are:;
-#X obj 250 877 cnv 1 46 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 877 VALUE: start value. Negative values (offset from end)
+#X msg 110 891 play;
+#X text 245 891 start playing.;
+#X msg 110 918 range;
+#X text 245 918 set play range. Arguments are:;
+#X obj 255 939 cnv 1 46 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 939 VALUE: start value. Negative values (offset from end)
 are supported for ms \, sec and sample units. *-1 sample* means last
 sample. Type: float.;
-#X obj 250 933 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 933 UNIT: value unit. Type: symbol. Allowed values: ms \,
+#X obj 255 988 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 988 UNIT: value unit. Type: symbol. Allowed values: ms \,
 sec \, phase \, sample.;
-#X obj 250 975 cnv 1 56 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 975 [VALUE]: end value. Type: float.;
-#X obj 250 1003 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1003 UNIT: value unit. Type: symbol. Allowed values: ms \,
+#X obj 255 1023 cnv 1 56 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1023 [VALUE]: end value. Type: float.;
+#X obj 255 1044 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1044 UNIT: value unit. Type: symbol. Allowed values: ms \,
 sec \, phase \, sample.;
-#X obj 20 1055 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1060 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1081 stop;
+#X text 245 1081 stop playing.;
+#X obj 20 1118 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1123 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 1065 1\.;
-#X text 150 1065 *bang*;
-#X text 240 1065 start playing from the begining.;
-#X text 150 1083 *float*;
-#X text 240 1083 1 - play \, 0 - stop.;
-#X obj 20 1111 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1116 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1124 1\.;
+#X text 150 1124 *bang*;
+#X text 245 1124 start playing from the begining.;
+#X text 150 1142 *float*;
+#X text 245 1142 1 - play \, 0 - stop.;
+#X obj 20 1170 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1175 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 1121 1\.;
-#X text 240 1121 message to vline~ object;
-#X text 120 1139 2\.;
-#X text 240 1139 bang after playing finished;
+#X text 110 1176 1\.;
+#X text 245 1176 message to vline~ object.;
+#X text 110 1194 2\.;
+#X text 245 1194 bang after playing finished.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 1187 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1190 library: ceammc v0.7.1;
-#X text 619 1202 see also:;
-#X obj 695 1202 list.each;
-#N canvas 10 1209 400 290 info 0;
+#X obj 1 1242 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1245 library: ceammc v0.7.1;
+#X text 599 1257 see also:;
+#X obj 675 1257 list.each;
+#N canvas 10 1264 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -141,7 +141,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1209 pd info;
+#X restore 10 1264 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 10 0;
 #X connect 7 0 11 0;

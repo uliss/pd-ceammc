@@ -18,18 +18,18 @@
 #X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 335 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 340 1\.;
-#X text 150 340 *list*;
-#X text 240 340 input list.;
-#X text 150 358 *data:mlist*;
-#X text 240 358 input mlist.;
-#X obj 20 386 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 391 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 336 1\.;
+#X text 150 336 *list*;
+#X text 245 336 input list.;
+#X text 150 354 *data:mlist*;
+#X text 245 354 input mlist.;
+#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 387 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 396 1\.;
-#X text 240 396 outlet for single atoms;
-#X text 120 414 2\.;
-#X text 240 414 outputs bang after last element in the list;
+#X text 110 388 1\.;
+#X text 245 388 outlet for single atoms.;
+#X text 110 406 2\.;
+#X text 245 406 outputs bang after last element in the list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -37,9 +37,9 @@
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 509 520 see also:;
-#X obj 585 520 list.repack;
-#X obj 680 520 list.unpack;
+#X text 489 520 see also:;
+#X obj 565 520 list.repack;
+#X obj 660 520 list.unpack;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

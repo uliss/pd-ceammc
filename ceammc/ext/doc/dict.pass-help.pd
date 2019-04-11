@@ -12,23 +12,23 @@
 #X obj 20 244 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 249 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 254 1\.;
-#X text 150 254 list;
-#X obj 241 255 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 254 KEYS: keys.;
-#X obj 20 282 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 287 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 284 1\.;
+#X text 150 284 list;
+#X obj 246 285 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 284 KEYS: keys.;
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 317 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 292 1\.;
-#X text 150 292 *data:dict*;
-#X text 240 292 input dictionary.;
-#X text 120 310 2\.;
-#X text 240 310 set new keys.;
-#X obj 20 338 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 343 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 318 1\.;
+#X text 150 318 *data:dict*;
+#X text 245 318 input dictionary.;
+#X text 110 336 2\.;
+#X text 245 336 set new keys.;
+#X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 369 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 348 1\.;
-#X text 240 348 dict with passed keys;
+#X text 110 370 1\.;
+#X text 245 370 dict with passed keys.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -36,8 +36,8 @@
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 619 520 see also:;
-#X obj 695 520 data.dict;
+#X text 599 520 see also:;
+#X obj 675 520 data.dict;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

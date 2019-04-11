@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty tl.toggle 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 tl.toggle;
-#X obj 205 80 cnv 1 560 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Output 1 when cue section activated \, 0 when switched
+#X obj 210 80 cnv 1 555 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Output 1 when cue section activated \, 0 when switched
 to other cue section;
 #X obj 184 155 tl.cue;
 #X obj 366 155 tl.cue;
@@ -21,18 +21,18 @@ to other cue section;
 #X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 286 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 291 @cue;
-#X text 240 291 (readonly) Get related cue. Type: symbol;
-#X obj 20 328 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 333 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 321 @cue;
+#X text 245 321 (readonly) Get related cue. Type: symbol.;
+#X obj 20 360 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 365 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 338 1\.;
-#X text 240 338 control inlet.;
-#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 371 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 366 1\.;
+#X text 245 366 control inlet.;
+#X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 399 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 376 1\.;
-#X text 240 376 1 on cue enter \, 0 on cue out;
+#X text 110 400 1\.;
+#X text 245 400 1 on cue enter \, 0 on cue out.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -40,9 +40,9 @@ to other cue section;
 #X obj 131 48 ui.link @title tl @url ceammc.tl-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 572 520 see also:;
-#X obj 648 520 tl.bang;
-#X obj 714 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X text 552 520 see also:;
+#X obj 628 520 tl.bang;
+#X obj 694 523 ui.link @background_color 0.78431 0.78431 0.78431
 @title [tl.cue] @url tl.cue-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

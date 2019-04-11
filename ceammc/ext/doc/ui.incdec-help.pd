@@ -22,98 +22,98 @@
 #X obj 20 301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 306 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 311 @step;
-#X text 240 311 Get/Set increment step. Type: float. Default value:
-1\. Min value: 0;
-#X msg 120 348 @value;
-#X text 240 348 Get/Set current widget value. Type: float. Default
-value: 0;
-#X msg 120 375 @presetname;
-#X text 240 375 Get/Set preset name for using with [ui.preset]. Type:
-symbol;
-#X msg 120 412 @send;
-#X text 240 412 Get/Set send destination. Type: symbol;
-#X msg 120 439 @receive;
-#X text 240 439 Get/Set receive source. Type: symbol;
-#X msg 120 466 @size;
-#X text 240 466 Get/Set element size (width \, height pair). Type:
-list;
-#X msg 120 493 @pinned;
-#X text 240 493 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: int. Default value: 0\. Allowed values: 0 \, 1;
-#X msg 120 530 @arrow_color;
-#X text 240 530 Get/Set arrow color (list of red \, green \, blue
-values in 0-1 range). Type: list;
-#X msg 120 567 @background_color;
-#X text 240 567 Get/Set element background color (list of red \, green
-\, blue values in 0-1 range). Type: list;
-#X msg 120 604 @border_color;
-#X text 240 604 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list;
-#X msg 120 641 @fontsize;
-#X text 240 641 Get/Set fontsize. Type: int. Default value: 11\. Value
-range: 4-11;
-#X msg 120 678 @fontname;
-#X text 240 678 Get/Set fontname. Type: symbol;
-#X msg 120 705 @fontweight;
-#X text 240 705 Get/Set font weight. Type: symbol. Default value:
-normal. Allowed values: normal \, bold;
-#X msg 120 742 @fontslant;
-#X text 240 742 Get/Set font slant. Type: symbol. Default value:
-roman. Allowed values: roman \, italic;
-#X obj 20 789 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 794 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 341 @receive;
+#X text 245 341 Get/Set receive source. Type: symbol.;
+#X msg 110 370 @send;
+#X text 245 370 Get/Set send destination. Type: symbol.;
+#X msg 110 399 @step;
+#X text 245 399 Get/Set increment step. Type: float. Default value:
+1\. Min value: 0\.;
+#X msg 110 438 @value;
+#X text 245 438 Get/Set current widget value. Type: float. Default
+value: 0\.;
+#X msg 110 477 @arrow_color;
+#X text 245 477 Get/Set arrow color (list of red \, green \, blue
+values in 0-1 range). Type: list.;
+#X msg 110 516 @background_color;
+#X text 245 516 Get/Set element background color (list of red \, green
+\, blue values in 0-1 range). Type: list.;
+#X msg 110 555 @border_color;
+#X text 245 555 Get/Set border color (list of red \, green \, blue
+values in 0-1 range). Type: list.;
+#X msg 110 594 @fontname;
+#X text 245 594 Get/Set fontname. Type: symbol.;
+#X msg 110 623 @fontsize;
+#X text 245 623 Get/Set fontsize. Type: int. Default value: 11\.
+Range: 4\...11\.;
+#X msg 110 662 @fontslant;
+#X text 245 662 Get/Set font slant. Type: symbol. Default value:
+roman. Allowed values: roman \, italic.;
+#X msg 110 701 @fontweight;
+#X text 245 701 Get/Set font weight. Type: symbol. Default value:
+normal. Allowed values: normal \, bold.;
+#X msg 110 740 @pinned;
+#X text 245 740 Get/Set pin mode. if 1 - put element to the lowest
+level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+#X msg 110 779 @presetname;
+#X text 245 779 Get/Set preset name for using with [ui.preset]. Type:
+symbol.;
+#X msg 110 818 @size;
+#X text 245 818 Get/Set element size (width \, height pair). Type:
+list.;
+#X obj 20 857 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 862 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 799 set;
-#X text 240 799 set widget value with no output. Arguments are:;
-#X obj 250 827 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 827 VAL: value. Type: float.;
-#X msg 120 855 inc;
-#X text 240 855 increments widget with output.;
-#X msg 120 887 dec;
-#X text 240 887 decrements widget with output.;
-#X msg 120 919 load;
-#X text 240 919 loads specified preset. Arguments are:;
-#X obj 250 947 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 947 IDX: preset index. Type: int.;
-#X msg 120 975 store;
-#X text 240 975 stores specified preset. Arguments are:;
-#X obj 250 1003 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1003 IDX: preset index. Type: int.;
-#X msg 120 1031 clear;
-#X text 240 1031 clears specified preset. Arguments are:;
-#X obj 250 1059 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1059 IDX: preset index. Type: int.;
-#X msg 120 1087 pos;
-#X text 240 1087 set UI element position. Arguments are:;
-#X obj 250 1115 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1115 X: top left x-coord. Type: float.;
-#X obj 250 1143 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1143 Y: top right y-coord. Type: float.;
-#X obj 20 1181 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1186 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 897 clear;
+#X text 245 897 clears specified preset. Arguments are:;
+#X obj 255 918 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 918 IDX: preset index. Type: int.;
+#X msg 110 941 dec;
+#X text 245 941 decrements widget with output.;
+#X msg 110 968 inc;
+#X text 245 968 increments widget with output.;
+#X msg 110 995 load;
+#X text 245 995 loads specified preset. Arguments are:;
+#X obj 255 1016 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1016 IDX: preset index. Type: int.;
+#X msg 110 1039 pos;
+#X text 245 1039 set UI element position. Arguments are:;
+#X obj 255 1060 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1060 X: top left x-coord. Type: float.;
+#X obj 255 1081 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1081 Y: top right y-coord. Type: float.;
+#X msg 110 1104 set;
+#X text 245 1104 set widget value with no output. Arguments are:;
+#X obj 255 1125 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1125 VAL: value. Type: float.;
+#X msg 110 1148 store;
+#X text 245 1148 stores specified preset. Arguments are:;
+#X obj 255 1169 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1169 IDX: preset index. Type: int.;
+#X obj 20 1202 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1207 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 1191 1\.;
-#X text 150 1191 *bang*;
-#X text 240 1191 outputs current widget value.;
-#X text 150 1209 *float*;
-#X text 240 1209 change widget value and output it.;
-#X obj 20 1237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1242 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1208 1\.;
+#X text 150 1208 *bang*;
+#X text 245 1208 outputs current widget value.;
+#X text 150 1226 *float*;
+#X text 245 1226 change widget value and output it.;
+#X obj 20 1254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1259 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 1247 1\.;
-#X text 240 1247 output value;
+#X text 110 1260 1\.;
+#X text 245 1260 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1295 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1298 library: ceammc v0.7.1;
-#X text 616 1310 see also:;
-#X obj 692 1313 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1308 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1311 library: ceammc v0.7.1;
+#X text 596 1323 see also:;
+#X obj 672 1326 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.number] @url ui.number-help.pd;
-#N canvas 10 1317 400 290 info 0;
+#N canvas 10 1330 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -137,7 +137,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1317 pd info;
+#X restore 10 1330 pd info;
 #X connect 7 0 10 0;
 #X connect 4 0 12 0;
 #X connect 5 0 12 0;

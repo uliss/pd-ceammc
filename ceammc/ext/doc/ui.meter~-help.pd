@@ -8,9 +8,9 @@
 [ui.m~] @url ui.meter~-help.pd;
 #X obj 672 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.meter~] @url ui.meter~-help.pd;
-#X obj 205 80 cnv 1 560 84 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Each cell has 3db range. Full meter range is 39 db.;
-#X text 210 103 Values > -3db are red \, range [-12 \, -3) db is hot
+#X obj 210 80 cnv 1 555 84 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Each cell has 3db range. Full meter range is 39 db.;
+#X text 215 103 Values > -3db are red \, range [-12 \, -3) db is hot
 \, [-21 \, -12) db is warm \, [-30 \, -21) is tepid \, values < 30 are
 cold.;
 #X obj 50 192 lfo.tri~ 0.2;
@@ -23,79 +23,79 @@ cold.;
 #X obj 20 448 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 453 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 458 @interval;
-#X text 240 458 Get/Set refresh interval. Type: int. Units: ms.
-Default value: 50\. Min value: 20;
-#X msg 120 495 @send;
-#X text 240 495 Get/Set send destination. Type: symbol;
-#X msg 120 522 @receive;
-#X text 240 522 Get/Set receive source. Type: symbol;
-#X msg 120 549 @size;
-#X text 240 549 Get/Set element size (width \, height pair). Type:
-list;
-#X msg 120 576 @pinned;
-#X text 240 576 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: int. Default value: 0\. Allowed values: 0 \, 1;
-#X msg 120 613 @cold_color;
-#X text 240 613 Get/Set extra low-level signal color <-31db (list of
-red \, green \, blue values in 0-1 range). Type: list;
-#X msg 120 650 @tepid_color;
-#X text 240 650 Get/Set low-level signal color <-21db (list of red \,
-green \, blue values in 0-1 range). Type: list;
-#X msg 120 687 @warm_color;
-#X text 240 687 Get/Set normal level signal color <-9db (list of red
-\, green \, blue values in 0-1 range). Type: list;
-#X msg 120 724 @hot_color;
-#X text 240 724 Get/Set loud level signal color <-3db (list of red \,
-green \, blue values in 0-1 range). Type: list;
-#X msg 120 761 @over_color;
-#X text 240 761 Get/Set extra-loud level signal color >-3db (list of
-red \, green \, blue values in 0-1 range). Type: list;
-#X msg 120 798 @background_color;
-#X text 240 798 Get/Set element background color (list of red \, green
-\, blue values in 0-1 range). Type: list;
-#X msg 120 835 @border_color;
-#X text 240 835 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list;
-#X msg 120 872 @fontsize;
-#X text 240 872 Get/Set fontsize. Type: int. Default value: 11\. Value
-range: 4-11;
-#X msg 120 909 @fontname;
-#X text 240 909 Get/Set fontname. Type: symbol;
-#X msg 120 936 @fontweight;
-#X text 240 936 Get/Set font weight. Type: symbol. Default value:
-normal. Allowed values: normal \, bold;
-#X msg 120 973 @fontslant;
-#X text 240 973 Get/Set font slant. Type: symbol. Default value:
-roman. Allowed values: roman \, italic;
-#X obj 20 1020 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1025 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 488 @interval;
+#X text 245 488 Get/Set refresh interval. Type: int. Units: ms.
+Default value: 50\. Min value: 20\.;
+#X msg 110 527 @receive;
+#X text 245 527 Get/Set receive source. Type: symbol.;
+#X msg 110 556 @send;
+#X text 245 556 Get/Set send destination. Type: symbol.;
+#X msg 110 585 @background_color;
+#X text 245 585 Get/Set element background color (list of red \, green
+\, blue values in 0-1 range). Type: list.;
+#X msg 110 624 @border_color;
+#X text 245 624 Get/Set border color (list of red \, green \, blue
+values in 0-1 range). Type: list.;
+#X msg 110 663 @cold_color;
+#X text 245 663 Get/Set extra low-level signal color <-31db (list of
+red \, green \, blue values in 0-1 range). Type: list.;
+#X msg 110 702 @hot_color;
+#X text 245 702 Get/Set loud level signal color <-3db (list of red \,
+green \, blue values in 0-1 range). Type: list.;
+#X msg 110 741 @over_color;
+#X text 245 741 Get/Set extra-loud level signal color >-3db (list of
+red \, green \, blue values in 0-1 range). Type: list.;
+#X msg 110 780 @tepid_color;
+#X text 245 780 Get/Set low-level signal color <-21db (list of red \,
+green \, blue values in 0-1 range). Type: list.;
+#X msg 110 819 @warm_color;
+#X text 245 819 Get/Set normal level signal color <-9db (list of red
+\, green \, blue values in 0-1 range). Type: list.;
+#X msg 110 858 @fontname;
+#X text 245 858 Get/Set fontname. Type: symbol.;
+#X msg 110 887 @fontsize;
+#X text 245 887 Get/Set fontsize. Type: int. Default value: 11\.
+Range: 4\...11\.;
+#X msg 110 926 @fontslant;
+#X text 245 926 Get/Set font slant. Type: symbol. Default value:
+roman. Allowed values: roman \, italic.;
+#X msg 110 965 @fontweight;
+#X text 245 965 Get/Set font weight. Type: symbol. Default value:
+normal. Allowed values: normal \, bold.;
+#X msg 110 1004 @pinned;
+#X text 245 1004 Get/Set pin mode. if 1 - put element to the lowest
+level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+#X msg 110 1043 @size;
+#X text 245 1043 Get/Set element size (width \, height pair). Type:
+list.;
+#X obj 20 1082 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1087 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 1030 pos;
-#X text 240 1030 set UI element position. Arguments are:;
-#X obj 250 1058 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1058 X: top left x-coord. Type: float.;
-#X obj 250 1086 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1086 Y: top right y-coord. Type: float.;
-#X obj 20 1124 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1129 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1122 pos;
+#X text 245 1122 set UI element position. Arguments are:;
+#X obj 255 1143 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1143 X: top left x-coord. Type: float.;
+#X obj 255 1164 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1164 Y: top right y-coord. Type: float.;
+#X obj 20 1197 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1202 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 1134 1\.;
-#X text 240 1134 input signal.;
-#X obj 20 1162 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1167 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1203 1\.;
+#X text 245 1203 input signal.;
+#X obj 20 1231 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1236 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 1172 1\.;
-#X text 240 1172 output pair of values: rms and peak in decibels
-(dbfs);
+#X text 110 1237 1\.;
+#X text 245 1237 output pair of values: rms and peak in decibels
+(dbfs).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1220 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1223 library: ceammc v0.7.1;
-#N canvas 10 1242 400 290 info 0;
+#X obj 1 1285 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1288 library: ceammc v0.7.1;
+#N canvas 10 1307 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -119,7 +119,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1242 pd info;
+#X restore 10 1307 pd info;
 #X connect 9 0 10 0;
 #X connect 10 0 11 0;
 #X connect 8 0 12 0;

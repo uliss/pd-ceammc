@@ -14,27 +14,27 @@
 #X obj 20 215 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 220 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 225 1\.;
-#X text 150 225 int;
-#X obj 241 226 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 225 N: number of outlets. Range: 1\...32;
-#X obj 20 253 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 258 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 255 1\.;
+#X text 150 255 int;
+#X obj 246 256 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 255 N: number of outlets. Range: 1\...32;
+#X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 288 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 263 1\.;
-#X text 150 263 *list*;
-#X text 240 263 input list.;
-#X text 150 281 *data:mlist*;
-#X text 240 281 input mlist.;
-#X obj 20 309 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 314 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 289 1\.;
+#X text 150 289 *list*;
+#X text 245 289 input list.;
+#X text 150 307 *data:mlist*;
+#X text 245 307 input mlist.;
+#X obj 20 335 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 340 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 319 1\.;
-#X text 240 319 outlet for first atom in list;
-#X text 120 337 ....;
-#X text 240 337 ;
-#X text 120 355 n.;
-#X text 240 355 outlet for Nth atom in list;
+#X text 110 341 1\.;
+#X text 245 341 outlet for first atom in list.;
+#X text 110 359 ....;
+#X text 245 359 ;
+#X text 110 377 n.;
+#X text 245 377 outlet for Nth atom in list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -42,8 +42,8 @@
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 604 520 see also:;
-#X obj 680 520 list.repack;
+#X text 584 520 see also:;
+#X obj 660 520 list.repack;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

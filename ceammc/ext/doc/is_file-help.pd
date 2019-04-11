@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty is_file 20 20 0 20 -104026 -4096
 0;
 #X obj 689 11 is_file;
-#X obj 205 80 cnv 1 560 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 If relative path is given file searched under patch
+#X obj 210 80 cnv 1 555 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 If relative path is given file searched under patch
 directory;
 #X msg 50 155 symbol is_file-help.pd;
 #X msg 88 184 symbol not-exists;
@@ -15,15 +15,15 @@ directory;
 #X obj 20 279 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 284 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 289 1\.;
-#X text 150 289 *symbol*;
-#X text 240 289 outputs '1' if file exists and can be opened \,
+#X text 110 285 1\.;
+#X text 150 285 *symbol*;
+#X text 245 285 outputs '1' if file exists and can be opened \,
 otherwise '0'.;
-#X obj 20 331 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 336 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 327 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 332 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 341 1\.;
-#X text 240 341 0 or 1;
+#X text 110 333 1\.;
+#X text 245 333 0 or 1\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -14,18 +14,18 @@
 #X obj 20 271 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 276 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 281 1\.;
-#X text 240 281 input set. Other values are ignored.;
-#X text 120 299 2\.;
-#X text 150 299 *atom*;
-#X text 240 299 single searched element.;
-#X text 150 317 *list*;
-#X text 240 317 check if at least one of elements is in set.;
-#X obj 20 345 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 350 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 277 1\.;
+#X text 245 277 input set. Other values are ignored.;
+#X text 110 295 2\.;
+#X text 150 295 *atom*;
+#X text 245 295 single searched element.;
+#X text 150 313 *list*;
+#X text 245 313 check if at least one of elements is in set.;
+#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 346 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 355 1\.;
-#X text 240 355 1 if element exists in set \, otherwise 0\.;
+#X text 110 347 1\.;
+#X text 245 347 1 if element exists in set \, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -33,8 +33,8 @@
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 626 520 see also:;
-#X obj 702 520 data.set;
+#X text 606 520 see also:;
+#X obj 682 520 data.set;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

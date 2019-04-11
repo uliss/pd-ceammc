@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty list.all_of 20 20 0 20 -104026
 -4096 0;
 #X obj 661 11 list.all_of;
-#X obj 205 80 cnv 1 560 33 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Note: also data.mlist;
+#X obj 210 80 cnv 1 555 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Note: also data.mlist;
 #X msg 50 141 1 10;
 #X msg 155 141 (1 3 5) \, bang;
 #X msg 203 170 1 10 2;
@@ -19,23 +19,23 @@
 #X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 329 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 334 1\.;
-#X text 150 334 *list*;
-#X text 240 334 Input list.;
-#X text 150 352 *data*;
-#X text 240 352 Input mlist.;
-#X text 120 370 2\.;
-#X text 150 370 *float*;
-#X text 240 370 input value from predicate. "1" means accepted. "0"
-means reject.. Range: 0\...1;
-#X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 417 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 330 1\.;
+#X text 150 330 *list*;
+#X text 245 330 Input list.;
+#X text 150 348 *data*;
+#X text 245 348 Input mlist.;
+#X text 110 366 2\.;
+#X text 150 366 *float*;
+#X text 245 366 input value from predicate. "1" means accepted. "0"
+means reject. Range: 0\...1\.;
+#X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 413 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 422 1\.;
-#X text 240 422 1 - if predicate object returns true for all the
+#X text 110 414 1\.;
+#X text 245 414 1 - if predicate object returns true for all the
 elements or list is empty or 0 otherwise.;
-#X text 120 454 2\.;
-#X text 240 454 atom to predicate;
+#X text 110 446 2\.;
+#X text 245 446 atom to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -43,8 +43,8 @@ elements or list is empty or 0 otherwise.;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 598 520 see also:;
-#X obj 674 520 list.none_of;
+#X text 578 520 see also:;
+#X obj 654 520 list.none_of;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

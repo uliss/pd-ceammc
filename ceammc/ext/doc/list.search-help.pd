@@ -5,9 +5,9 @@
 #X obj 1 1 cnv 5 765 40 empty empty list.search 20 20 0 20 -104026
 -4096 0;
 #X obj 661 11 list.search;
-#X obj 205 80 cnv 1 560 56 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Returns item position in list or -1 if not found.;
-#X text 210 103 If several items are specified returns list of
+#X obj 210 80 cnv 1 555 56 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Returns item position in list or -1 if not found.;
+#X text 215 103 If several items are specified returns list of
 positions.;
 #X msg 50 164 1 2 3 4;
 #X msg 146 164 list ABC BC A;
@@ -19,19 +19,19 @@ positions.;
 #X obj 20 319 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 324 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 329 1\.;
-#X text 150 329 *list*;
-#X text 240 329 input list.;
-#X text 150 347 *data:mlist*;
-#X text 240 347 input mlist.;
-#X text 120 365 2\.;
-#X text 150 365 *list*;
-#X text 240 365 set searched items.;
-#X obj 20 393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 398 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 325 1\.;
+#X text 150 325 *list*;
+#X text 245 325 input list.;
+#X text 150 343 *data:mlist*;
+#X text 245 343 input mlist.;
+#X text 110 361 2\.;
+#X text 150 361 *list*;
+#X text 245 361 set searched items.;
+#X obj 20 389 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 394 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 403 1\.;
-#X text 240 403 position of search item or list of such positions;
+#X text 110 395 1\.;
+#X text 245 395 position of search item or list of such positions.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -39,8 +39,8 @@ positions.;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 612 520 see also:;
-#X obj 688 520 list.index;
+#X text 592 520 see also:;
+#X obj 668 520 list.index;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

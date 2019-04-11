@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.neg 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 math.neg;
-#X obj 205 80 cnv 1 560 33 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Returns value with opposite sign;
+#X obj 210 80 cnv 1 555 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Returns value with opposite sign;
 #X floatatom 50 141 5 0 0 0 - - -;
 #X msg 98 141 -2 -1 0 1 2;
 #X obj 50 170 math.neg;
@@ -15,16 +15,16 @@
 #X obj 20 267 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 272 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 277 1\.;
-#X text 150 277 *float*;
-#X text 240 277 input value.;
-#X text 150 295 *list*;
-#X text 240 295 list of numbers.;
-#X obj 20 323 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 328 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 273 1\.;
+#X text 150 273 *float*;
+#X text 245 273 input value.;
+#X text 150 291 *list*;
+#X text 245 291 list of numbers.;
+#X obj 20 319 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 324 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 333 1\.;
-#X text 240 333 result;
+#X text 110 325 1\.;
+#X text 245 325 result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

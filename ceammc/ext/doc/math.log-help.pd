@@ -5,30 +5,30 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.log 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 math.log;
-#X obj 205 80 cnv 1 560 162 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 The log() function computes the value of the natural
+#X obj 210 80 cnv 1 555 162 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 The log() function computes the value of the natural
 logarithm of argu- ment x.;
-#X text 210 117 Special values:;
-#X text 210 140 log(+-0) return -infinity;
-#X text 210 163 log(1) return +0\.;
-#X text 210 186 log(x) return a NaN;
-#X text 210 209 log(+infinity) return +infinity.;
+#X text 215 117 Special values:;
+#X text 215 140 log(+-0) return -infinity;
+#X text 215 163 log(1) return +0\.;
+#X text 215 186 log(x) return a NaN;
+#X text 215 209 log(+infinity) return +infinity.;
 #X floatatom 50 270 5 0 0 0 - - -;
 #X obj 50 299 math.log;
 #X floatatom 50 328 5 0 0 0 - - -;
 #X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 372 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 377 1\.;
-#X text 150 377 *float*;
-#X text 240 377 input value.;
-#X text 150 395 *list*;
-#X text 240 395 apply to all numeric values.;
-#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 428 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 373 1\.;
+#X text 150 373 *float*;
+#X text 245 373 input value.;
+#X text 150 391 *list*;
+#X text 245 391 apply to all numeric values.;
+#X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 424 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 433 1\.;
-#X text 240 433 result value;
+#X text 110 425 1\.;
+#X text 245 425 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -36,9 +36,9 @@ logarithm of argu- ment x.;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 546 520 see also:;
-#X obj 622 520 math.exp;
-#X obj 695 520 math.math;
+#X text 526 520 see also:;
+#X obj 602 520 math.exp;
+#X obj 675 520 math.math;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

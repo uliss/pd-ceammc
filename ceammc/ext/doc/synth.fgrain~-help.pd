@@ -28,73 +28,73 @@
 #X obj 20 445 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 450 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 455 @file;
-#X text 240 455 Get/Set path file to granulate. Only WAV and AIFF
-formats are supported. Type: symbol;
-#X msg 120 492 @voices;
-#X text 240 492 Get/Set number of simultaneous grain "voices" to use.
-Type: int. Default value: 1\. Value range: 0-1000;
-#X msg 120 529 @stretch;
-#X text 240 529 Get/Set stretch factor used for grain playback (1 -
-1000). Granular synthesis allows for time-stetching without affecting
-the original pitch of a sound. A stretch factor of 4 will produce a
-resulting sound of length 4 times the orignal sound. The default
-parameter of 1 produces no stretching. Type: int. Default value: 1\.
-Value range: 1-100;
-#X msg 120 636 @random;
-#X text 240 636 Get/Set factor used when setting individual grain
+#X msg 110 485 @file;
+#X text 245 485 Get/Set path file to granulate. Only WAV and AIFF
+formats are supported. Type: symbol.;
+#X msg 110 524 @gdelay;
+#X text 245 524 Get/Set delay parameter that causes grain calculations
+to pause between grains. Type: int. Units: ms. Default value: 0\. Min
+value: 0\.;
+#X msg 110 577 @gdur;
+#X text 245 577 Get/Set grain duration. Type: int. Units: ms. Default
+value: 30\. Min value: 1\.;
+#X msg 110 616 @goffset;
+#X text 245 616 Get/Set offset parameter that controls grain pointer
+jumps between enveloped grain segments. Type: int. Units: ms. Default
+value: 0\.;
+#X msg 110 669 @gramp;
+#X text 245 669 Get/Set grain ramp. For values of @gramp greater than
+zero \, a linear envelope will be applied to each grain. If @gramp = 1
+\, the resultant grain "window" is triangular while @gramp = 0.5
+produces a trapezoidal window. Type: float. Default value: 0.5\.
+Range: 0\...1\.;
+#X msg 110 750 @random;
+#X text 245 750 Get/Set factor used when setting individual grain
 parameters. This random factor is applied when all grain state
 durations are calculated. If set to 0.0 \, no randomness occurs. When
 @random=1.0 \, a grain segment of length duration will be randomly
 augmented by up to +-duration seconds (i.e. \, a 30 millisecond length
 will be augmented by an extra length of up to +30 or -30
-milliseconds). Type: float. Default value: 0.1\. Value range: 0-1;
-#X msg 120 771 @gramp;
-#X text 240 771 Get/Set grain ramp. For values of @gramp greater than
-zero \, a linear envelope will be applied to each grain. If @gramp = 1
-\, the resultant grain "window" is triangular while @gramp = 0.5
-produces a trapezoidal window. Type: float. Default value: 0.5\. Value
-range: 0-1;
-#X msg 120 850 @gdur;
-#X text 240 850 Get/Set grain duration. Type: int. Units: ms. Default
-value: 30\. Min value: 1;
-#X msg 120 887 @goffset;
-#X text 240 887 Get/Set offset parameter that controls grain pointer
-jumps between enveloped grain segments. Type: int. Units: ms. Default
-value: 0;
-#X msg 120 938 @gdelay;
-#X text 240 938 Get/Set delay parameter that causes grain calculations
-to pause between grains. Type: int. Units: ms. Default value: 0\. Min
-value: 0;
-#X obj 20 999 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1004 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+milliseconds). Type: float. Default value: 0.1\. Range: 0\...1\.;
+#X msg 110 887 @stretch;
+#X text 245 887 Get/Set stretch factor used for grain playback (1 -
+1000). Granular synthesis allows for time-stetching without affecting
+the original pitch of a sound. A stretch factor of 4 will produce a
+resulting sound of length 4 times the orignal sound. The default
+parameter of 1 produces no stretching. Type: int. Default value: 1\.
+Range: 1\...100\.;
+#X msg 110 982 @voices;
+#X text 245 982 Get/Set number of simultaneous grain "voices" to use.
+Type: int. Default value: 1\. Range: 0\...1000\.;
+#X obj 20 1031 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1036 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 1009 open;
-#X text 240 1009 open a monophonic soundfile to be "granulated". Only
+#X msg 110 1071 open;
+#X text 245 1071 open a monophonic soundfile to be "granulated". Only
 WAV and AIFF formats are supported. Arguments are:;
-#X obj 250 1051 cnv 1 48 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 1051 [PATH]: path to file. Type: symbol.;
-#X msg 120 1079 reset;
-#X text 240 1079 reset the file pointer and all existing grains to the
+#X obj 255 1106 cnv 1 48 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1106 [PATH]: path to file. Type: symbol.;
+#X msg 110 1129 reset;
+#X text 245 1129 reset the file pointer and all existing grains to the
 file start.;
-#X obj 20 1131 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1136 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1176 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1181 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 1141 1\.;
-#X text 240 1141 control inlet.;
-#X obj 20 1169 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1174 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1182 1\.;
+#X text 245 1182 control inlet.;
+#X obj 20 1210 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1215 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 1179 1\.;
-#X text 240 1179 ;
+#X text 110 1216 1\.;
+#X text 245 1216 ;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1227 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1230 library: ceammc v0.7.1;
-#N canvas 10 1249 400 290 info 0;
+#X obj 1 1264 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1267 library: ceammc v0.7.1;
+#N canvas 10 1286 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -118,7 +118,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1249 pd info;
+#X restore 10 1286 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 8 0 10 0;

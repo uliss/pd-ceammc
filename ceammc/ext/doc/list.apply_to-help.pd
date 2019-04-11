@@ -14,32 +14,32 @@ it via external object.;
 #X obj 20 244 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 249 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 254 1\.;
-#X text 150 254 list;
-#X obj 241 255 cnv 1 47 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 254 index: apply index(es) (starting from 0). Negative
+#X text 110 284 1\.;
+#X text 150 284 list;
+#X obj 246 285 cnv 1 47 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 284 index: apply index(es) (starting from 0). Negative
 value means position from end of the list. For example: '-1' means
 last element..;
-#X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 315 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 345 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 320 1\.;
-#X text 150 320 *list*;
-#X text 240 320 Input list. If no element found by specified index -
+#X text 110 346 1\.;
+#X text 150 346 *list*;
+#X text 245 346 Input list. If no element found by specified index -
 list passed without changes.;
-#X text 120 352 2\.;
-#X text 150 352 *list*;
-#X text 240 352 set apply index(es).;
-#X text 120 370 3\.;
-#X text 240 370 return value from applied object.;
-#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 403 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 378 2\.;
+#X text 150 378 *list*;
+#X text 245 378 set apply index(es).;
+#X text 110 396 3\.;
+#X text 245 396 return value from applied object.;
+#X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 429 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 408 1\.;
-#X text 240 408 new modified list;
-#X text 120 426 2\.;
-#X text 240 426 element at given index. Should be passed to applied
-object;
+#X text 110 430 1\.;
+#X text 245 430 new modified list.;
+#X text 110 448 2\.;
+#X text 245 448 element at given index. Should be passed to applied
+object.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -47,8 +47,8 @@ object;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 619 520 see also:;
-#X obj 695 520 list.each;
+#X text 599 520 see also:;
+#X obj 675 520 list.each;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -13,32 +13,32 @@
 #X obj 20 215 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 220 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 225 1\.;
-#X text 150 225 int;
-#X obj 241 226 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 225 PASS: init gate state. 1 means open \, 0 - closed. By
+#X text 110 255 1\.;
+#X text 150 255 int;
+#X obj 246 256 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 255 PASS: init gate state. 1 means open \, 0 - closed. By
 default gate is closed.;
-#X obj 20 267 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 272 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 297 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 302 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 277 @state;
-#X text 240 277 Get/Set gate state. 1 means open \, 0 - closed. Type:
-int. Default value: 0\. Allowed values: 0 \, 1;
-#X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 329 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 337 @state;
+#X text 245 337 Get/Set gate state. 1 means open \, 0 - closed. Type:
+int. Default value: 0\. Allowed values: 0 \, 1\.;
+#X obj 20 386 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 391 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 334 1\.;
-#X text 150 334 *any*;
-#X text 240 334 input flow.;
-#X text 120 352 2\.;
-#X text 150 352 *float*;
-#X text 240 352 gate control inlet. Sending *1* opens gate \, *0* -
+#X text 110 392 1\.;
+#X text 150 392 *any*;
+#X text 245 392 input flow.;
+#X text 110 410 2\.;
+#X text 150 410 *float*;
+#X text 245 410 gate control inlet. Sending *1* opens gate \, *0* -
 closes.;
-#X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 385 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 438 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 443 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 390 1\.;
-#X text 240 390 output flow;
+#X text 110 444 1\.;
+#X text 245 444 output flow.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -46,8 +46,8 @@ closes.;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 619 520 see also:;
-#X obj 695 520 flow.pass;
+#X text 599 520 see also:;
+#X obj 675 520 flow.pass;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

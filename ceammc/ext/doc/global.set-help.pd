@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty global.set 20 20 0 20 -104026
 -4096 0;
 #X obj 668 11 global.set;
-#X obj 205 80 cnv 1 560 33 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Defines global scope set variable \, accessed by ID
+#X obj 210 80 cnv 1 555 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Defines global scope set variable \, accessed by ID
 name;
 #X obj 50 141 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -21,66 +21,66 @@ name;
 #X obj 20 268 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 273 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 278 1\.;
-#X text 150 278 symbol;
-#X obj 241 279 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 278 ID: object ID.;
-#X obj 20 306 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 311 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 308 1\.;
+#X text 150 308 symbol;
+#X obj 246 309 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 308 ID: object ID.;
+#X obj 20 336 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 341 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 316 @empty;
-#X text 240 316 (readonly) Get 1 if list is empty \, otherwise 0\.
-Type: int. Allowed values: 0 \, 1;
-#X msg 120 353 @size;
-#X text 240 353 (readonly) Get number of elements in list. Type: int.
-Min value: 0;
-#X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 405 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 376 @empty;
+#X text 245 376 (readonly) Get 1 if list is empty \, otherwise 0\.
+Type: int. Allowed values: 0 \, 1\.;
+#X msg 110 415 @size;
+#X text 245 415 (readonly) Get number of elements in list. Type: int.
+Min value: 0\.;
+#X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 469 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 410 add;
-#X text 240 410 add values to the set. Arguments are:;
-#X obj 250 438 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 438 VAL: added values. Type: list.;
-#X msg 120 466 clear;
-#X text 240 466 removes all set elements.;
-#X msg 120 498 remove;
-#X text 240 498 remove elements from the set. Arguments are:;
-#X obj 250 526 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 526 VAL: elements. Type: list.;
-#X msg 120 554 set;
-#X text 240 554 sets new set content without output. Arguments are:;
-#X obj 250 582 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 582 LIST: new set content. Type: list.;
-#X obj 20 620 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 625 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 504 add;
+#X text 245 504 add values to the set. Arguments are:;
+#X obj 255 525 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 525 VAL: added values. Type: list.;
+#X msg 110 548 clear;
+#X text 245 548 removes all set elements.;
+#X msg 110 575 remove;
+#X text 245 575 remove elements from the set. Arguments are:;
+#X obj 255 596 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 596 VAL: elements. Type: list.;
+#X msg 110 619 set;
+#X text 245 619 sets new set content without output. Arguments are:;
+#X obj 255 640 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 640 LIST: new set content. Type: list.;
+#X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 678 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 630 1\.;
-#X text 150 630 *bang*;
-#X text 240 630 output set content.;
-#X text 150 648 *float*;
-#X text 240 648 adds new element to set \, no output.;
-#X text 150 666 *symbol*;
-#X text 240 666 adds new element to set \, no output.;
-#X text 150 684 *list*;
-#X text 240 684 adds new elements to set \, no output.;
-#X text 150 702 *data:set*;
-#X text 240 702 set new set content and output.;
-#X obj 20 730 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 735 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 679 1\.;
+#X text 150 679 *bang*;
+#X text 245 679 output set content.;
+#X text 150 697 *float*;
+#X text 245 697 adds new element to set \, no output.;
+#X text 150 715 *symbol*;
+#X text 245 715 adds new element to set \, no output.;
+#X text 150 733 *list*;
+#X text 245 733 adds new elements to set \, no output.;
+#X text 150 751 *data:set*;
+#X text 245 751 set new set content and output.;
+#X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 784 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 740 1\.;
-#X text 240 740 set output;
+#X text 110 785 1\.;
+#X text 245 785 set output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title global @url ceammc.global-help.pd;
-#X obj 1 788 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 791 library: ceammc v0.7.1;
-#X text 547 803 see also:;
-#X obj 623 803 data.set;
-#X obj 696 803 local.set;
-#N canvas 10 810 400 290 info 0;
+#X obj 1 833 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 836 library: ceammc v0.7.1;
+#X text 527 848 see also:;
+#X obj 603 848 data.set;
+#X obj 676 848 local.set;
+#N canvas 10 855 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -104,7 +104,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 810 pd info;
+#X restore 10 855 pd info;
 #X connect 6 0 11 0;
 #X connect 7 0 11 0;
 #X connect 8 0 11 0;

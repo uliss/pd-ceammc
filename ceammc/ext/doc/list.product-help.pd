@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty list.product 20 20 0 20 -104026
 -4096 0;
 #X obj 654 11 list.product;
-#X obj 205 80 cnv 1 560 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Note: symbol values are treated as 0\. So if list
+#X obj 210 80 cnv 1 555 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Note: symbol values are treated as 0\. So if list
 contains at least one symbol \, product will be always equal to zero;
 #X msg 50 155 1 2 3 4 5 -6;
 #X msg 213 155 1 2 a b c;
@@ -16,16 +16,16 @@ contains at least one symbol \, product will be always equal to zero;
 #X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 300 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 305 1\.;
-#X text 150 305 *list*;
-#X text 240 305 input list.;
-#X text 150 323 *data:mlist*;
-#X text 240 323 input mlist.;
-#X obj 20 351 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 356 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 301 1\.;
+#X text 150 301 *list*;
+#X text 245 301 input list.;
+#X text 150 319 *data:mlist*;
+#X text 245 319 input mlist.;
+#X obj 20 347 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 352 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 361 1\.;
-#X text 240 361 float list product;
+#X text 110 353 1\.;
+#X text 245 353 float list product.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -33,8 +33,8 @@ contains at least one symbol \, product will be always equal to zero;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 626 520 see also:;
-#X obj 702 520 list.sum;
+#X text 606 520 see also:;
+#X obj 682 520 list.sum;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

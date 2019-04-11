@@ -6,8 +6,8 @@
 -4096 0;
 #X obj 563 11 list.minmax;
 #X obj 668 11 list.range;
-#X obj 205 80 cnv 1 560 33 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Note: numbers are smaller then symbols;
+#X obj 210 80 cnv 1 555 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Note: numbers are smaller then symbols;
 #X msg 50 141 list a b z;
 #X msg 174 141 1 2 b c;
 #X floatatom 69 170 5 0 0 0 - - -;
@@ -22,17 +22,17 @@
 #X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 301 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 306 1\.;
-#X text 150 306 *list*;
-#X text 240 306 input list.;
-#X text 150 324 *data:mlist*;
-#X text 240 324 input mlist.;
-#X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 357 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 302 1\.;
+#X text 150 302 *list*;
+#X text 245 302 input list.;
+#X text 150 320 *data:mlist*;
+#X text 245 320 input mlist.;
+#X obj 20 348 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 353 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 362 1\.;
-#X text 240 362 list of two elements: first is a smallest values \,
-second - largest;
+#X text 110 354 1\.;
+#X text 245 354 list of two elements: first is a smallest values \,
+second - largest.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -40,9 +40,9 @@ second - largest;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 554 520 see also:;
-#X obj 630 520 list.min;
-#X obj 702 520 list.max;
+#X text 534 520 see also:;
+#X obj 610 520 list.min;
+#X obj 682 520 list.max;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

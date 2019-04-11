@@ -6,11 +6,11 @@
 -4096 0;
 #X obj 578 11 pass_if;
 #X obj 653 11 flow.pass_if;
-#X obj 205 80 cnv 1 560 84 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 conditional value pass according to *predicate* side-
+#X obj 210 80 cnv 1 555 84 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 conditional value pass according to *predicate* side-
 chain. *predicate* should accept value and ouput 0 or 1 \, for value
 passing.;
-#X text 210 131 [>=] [is_even] [is_list] - examples of predicates.;
+#X text 215 131 [>=] [is_even] [is_list] - examples of predicates.;
 #X floatatom 50 192 5 0 0 0 - - -;
 #X floatatom 251 192 5 0 0 0 - - -;
 #X obj 299 192 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -27,19 +27,19 @@ passing.;
 #X obj 20 332 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 337 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 342 1\.;
-#X text 240 342 input value.;
-#X text 120 360 2\.;
-#X text 150 360 *int*;
-#X text 240 360 conditional output from predicate object. '1' means
-pass \, '0' means reject. Range: 0\...1;
-#X obj 20 402 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 407 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 338 1\.;
+#X text 245 338 input value.;
+#X text 110 356 2\.;
+#X text 150 356 *int*;
+#X text 245 356 conditional output from predicate object. '1' means
+pass \, '0' means reject. Range: 0\...1\.;
+#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 403 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 412 1\.;
-#X text 240 412 passed values;
-#X text 120 430 2\.;
-#X text 240 430 output to predicate side-chain;
+#X text 110 404 1\.;
+#X text 245 404 passed values.;
+#X text 110 422 2\.;
+#X text 245 422 output to predicate side-chain.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -47,8 +47,8 @@ pass \, '0' means reject. Range: 0\...1;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 619 520 see also:;
-#X obj 695 520 flow.pass;
+#X text 599 520 see also:;
+#X obj 675 520 flow.pass;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -17,24 +17,24 @@
 #X obj 20 259 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 264 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 269 1\.;
-#X text 150 269 symbol;
-#X obj 241 270 cnv 1 33 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 269 VAR: environment variable name.;
-#X obj 20 297 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 302 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 299 1\.;
+#X text 150 299 symbol;
+#X obj 246 300 cnv 1 33 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 299 VAR: environment variable name.;
+#X obj 20 327 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 332 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 307 1\.;
-#X text 150 307 *bang*;
-#X text 240 307 outputs variable value.;
-#X text 150 325 *symbol*;
-#X text 240 325 sets name of environment variable and outputs it
+#X text 110 333 1\.;
+#X text 150 333 *bang*;
+#X text 245 333 outputs variable value.;
+#X text 150 351 *symbol*;
+#X text 245 351 sets name of environment variable and outputs it
 value.;
-#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 358 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 379 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 384 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 363 1\.;
-#X text 240 363 symbol: env-variable value;
+#X text 110 385 1\.;
+#X text 245 385 symbol: env-variable value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -42,8 +42,8 @@ value.;
 #X obj 131 48 ui.link @title system @url ceammc.system-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 576 520 see also:;
-#X obj 652 520 system.hostname;
+#X text 556 520 see also:;
+#X obj 632 520 system.hostname;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

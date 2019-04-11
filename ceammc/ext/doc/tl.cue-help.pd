@@ -23,8 +23,8 @@
 #X obj 20 244 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 249 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X obj 20 274 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 279 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 270 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 275 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
@@ -33,10 +33,10 @@
 #X obj 131 48 ui.link @title tl @url ceammc.tl-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 548 520 see also:;
-#X obj 624 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X text 528 520 see also:;
+#X obj 604 523 ui.link @background_color 0.78431 0.78431 0.78431
 @title [tl.bang] @url tl.bang-help.pd;
-#X obj 692 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 672 523 ui.link @background_color 0.78431 0.78431 0.78431
 @title [tl.toggle] @url tl.toggle-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

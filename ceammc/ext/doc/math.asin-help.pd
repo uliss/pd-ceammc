@@ -5,12 +5,12 @@
 #X obj 1 1 cnv 5 765 40 empty empty math.asin 20 20 0 20 -104026 -4096
 0;
 #X obj 675 11 math.asin;
-#X obj 205 80 cnv 1 560 144 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 The asin() function computes the principal value of the
+#X obj 210 80 cnv 1 555 144 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 The asin() function computes the principal value of the
 arc sine of input value. The result is in the range [-pi/2 \, +pi/2].;
-#X text 210 131 Special values:;
-#X text 210 154 asin(+-0) returns +-0\.;
-#X text 210 177 asin(x) returns a NAN and raises the "invalid"
+#X text 215 131 Special values:;
+#X text 215 154 asin(+-0) returns +-0\.;
+#X text 215 177 asin(x) returns a NAN and raises the "invalid"
 floating-point exception for |x| > 1\.;
 #X floatatom 50 252 5 0 0 0 - - -;
 #X obj 50 281 math.asin;
@@ -18,16 +18,16 @@ floating-point exception for |x| > 1\.;
 #X obj 20 349 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 354 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 359 1\.;
-#X text 150 359 *float*;
-#X text 240 359 input value.;
-#X text 150 377 *list*;
-#X text 240 377 apply to all numeric values.;
-#X obj 20 405 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 410 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 355 1\.;
+#X text 150 355 *float*;
+#X text 245 355 input value.;
+#X text 150 373 *list*;
+#X text 245 373 apply to all numeric values.;
+#X obj 20 401 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 406 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 415 1\.;
-#X text 240 415 result value;
+#X text 110 407 1\.;
+#X text 245 407 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -35,10 +35,10 @@ floating-point exception for |x| > 1\.;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 466 520 see also:;
-#X obj 542 520 math.acos;
-#X obj 622 520 math.atan;
-#X obj 702 520 math.cos;
+#X text 446 520 see also:;
+#X obj 522 520 math.acos;
+#X obj 602 520 math.atan;
+#X obj 682 520 math.cos;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

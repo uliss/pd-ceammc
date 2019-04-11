@@ -18,23 +18,23 @@
 #X obj 20 273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 278 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 283 1\.;
-#X text 150 283 symbol;
-#X obj 241 284 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 283 NAME: function name.;
-#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 316 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 313 1\.;
+#X text 150 313 symbol;
+#X obj 246 314 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 313 NAME: function name.;
+#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 346 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 321 1\.;
-#X text 240 321 input value.;
-#X text 120 339 2\.;
-#X text 150 339 *symbol*;
-#X text 240 339 change function name.;
-#X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 372 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 347 1\.;
+#X text 245 347 input value.;
+#X text 110 365 2\.;
+#X text 150 365 *symbol*;
+#X text 245 365 change function name.;
+#X obj 20 393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 398 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 377 1\.;
-#X text 240 377 function result;
+#X text 110 399 1\.;
+#X text 245 399 function result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -42,8 +42,8 @@
 #X obj 131 48 ui.link @title base @url ceammc.base-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 624 520 see also:;
-#X obj 700 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X text 604 520 see also:;
+#X obj 680 523 ui.link @background_color 0.78431 0.78431 0.78431
 @title [function] @url function-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

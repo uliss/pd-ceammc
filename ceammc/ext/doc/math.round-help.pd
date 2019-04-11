@@ -6,13 +6,13 @@ direction;
 #X obj 1 1 cnv 5 765 40 empty empty math.round 20 20 0 20 -104026
 -4096 0;
 #X obj 668 11 math.round;
-#X obj 205 80 cnv 1 560 130 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 The round() functions return the integral value nearest
+#X obj 210 80 cnv 1 555 130 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 The round() functions return the integral value nearest
 to x rounding half-way cases away from zero \, regardless of the
 current rounding direction.;
-#X text 210 131 Special values:;
-#X text 210 154 round(+-0) returns +-0\.;
-#X text 210 177 round(+-infinity) returns +-infinity.;
+#X text 215 131 Special values:;
+#X text 215 154 round(+-0) returns +-0\.;
+#X text 215 177 round(+-infinity) returns +-infinity.;
 #X floatatom 50 238 5 0 0 0 - - -;
 #X msg 98 238 2.3 3.8 5.5 -2.3 -3.8 -5.5;
 #X obj 50 267 math.round;
@@ -21,16 +21,16 @@ current rounding direction.;
 #X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 369 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 374 1\.;
-#X text 150 374 *float*;
-#X text 240 374 input value.;
-#X text 150 392 *list*;
-#X text 240 392 apply to all numeric values.;
-#X obj 20 420 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 425 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 370 1\.;
+#X text 150 370 *float*;
+#X text 245 370 input value.;
+#X text 150 388 *list*;
+#X text 245 388 apply to all numeric values.;
+#X obj 20 416 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 421 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 430 1\.;
-#X text 240 430 result value;
+#X text 110 422 1\.;
+#X text 245 422 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -38,10 +38,10 @@ current rounding direction.;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 442 520 see also:;
-#X obj 518 520 math.ceil;
-#X obj 599 520 math.floor;
-#X obj 687 520 math.trunc;
+#X text 422 520 see also:;
+#X obj 498 520 math.ceil;
+#X obj 579 520 math.floor;
+#X obj 667 520 math.trunc;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

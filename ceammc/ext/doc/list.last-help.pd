@@ -15,16 +15,16 @@
 #X obj 20 273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 278 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 283 1\.;
-#X text 150 283 *list*;
-#X text 240 283 input list.;
-#X text 150 301 *data:mlist*;
-#X text 240 301 input mlist.;
-#X obj 20 329 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 334 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 279 1\.;
+#X text 150 279 *list*;
+#X text 245 279 input list.;
+#X text 150 297 *data:mlist*;
+#X text 245 297 input mlist.;
+#X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 339 1\.;
-#X text 240 339 last list element;
+#X text 110 331 1\.;
+#X text 245 331 last list element.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -32,9 +32,9 @@
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 547 520 see also:;
-#X obj 623 520 list.first;
-#X obj 710 520 list.at;
+#X text 527 520 see also:;
+#X obj 603 520 list.first;
+#X obj 690 520 list.at;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

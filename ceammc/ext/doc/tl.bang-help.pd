@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty tl.bang 20 20 0 20 -104026 -4096
 0;
 #X obj 689 11 tl.bang;
-#X obj 205 80 cnv 1 560 61 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Bang only when nearest left tl.cue was activated. If
+#X obj 210 80 cnv 1 555 61 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Bang only when nearest left tl.cue was activated. If
 other cue is activated and bang was scheduled by @delay property - it
 canceled;
 #X obj 184 169 tl.cue;
@@ -24,21 +24,21 @@ canceled;
 #X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 300 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 305 @delay;
-#X text 240 305 Get/Set bang delay after cue activation. Type: float.
-Units: ms. Default value: 0\. Min value: 0;
-#X msg 120 342 @cue;
-#X text 240 342 (readonly) Get related cue. Type: symbol;
-#X obj 20 379 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 384 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 335 @cue;
+#X text 245 335 (readonly) Get related cue. Type: symbol.;
+#X msg 110 364 @delay;
+#X text 245 364 Get/Set bang delay after cue activation. Type: float.
+Units: ms. Default value: 0\. Min value: 0\.;
+#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 418 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 389 1\.;
-#X text 240 389 control inlet.;
-#X obj 20 417 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 422 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 419 1\.;
+#X text 245 419 control inlet.;
+#X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 452 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 427 1\.;
-#X text 240 427 bang output;
+#X text 110 453 1\.;
+#X text 245 453 bang output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -46,9 +46,9 @@ Units: ms. Default value: 0\. Min value: 0;
 #X obj 131 48 ui.link @title tl @url ceammc.tl-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 557 520 see also:;
-#X obj 633 520 tl.toggle;
-#X obj 714 523 ui.link @background_color 0.78431 0.78431 0.78431
+#X text 537 520 see also:;
+#X obj 613 520 tl.toggle;
+#X obj 694 523 ui.link @background_color 0.78431 0.78431 0.78431
 @title [tl.cue] @url tl.cue-help.pd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

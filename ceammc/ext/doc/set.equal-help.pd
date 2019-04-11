@@ -18,22 +18,22 @@
 #X obj 20 271 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 276 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 281 1\.;
-#X text 150 281 any;
-#X obj 241 282 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 281 ARGS: right set elements.;
-#X obj 20 309 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 314 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 311 1\.;
+#X text 150 311 any;
+#X obj 246 312 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 311 ARGS: right set elements.;
+#X obj 20 339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 344 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 319 1\.;
-#X text 240 319 Set or list \, other values are ignored..;
-#X text 120 337 2\.;
-#X text 240 337 second set.;
-#X obj 20 365 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 370 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 345 1\.;
+#X text 245 345 Set or list \, other values are ignored.;
+#X text 110 363 2\.;
+#X text 245 363 second set.;
+#X obj 20 391 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 396 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 375 1\.;
-#X text 240 375 output 1 if sets are equal \, 0 otherwise;
+#X text 110 397 1\.;
+#X text 245 397 output 1 if sets are equal \, 0 otherwise.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -41,8 +41,8 @@
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 626 520 see also:;
-#X obj 702 520 data.set;
+#X text 606 520 see also:;
+#X obj 682 520 data.set;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

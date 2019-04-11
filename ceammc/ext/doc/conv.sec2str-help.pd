@@ -21,22 +21,22 @@ string);
 #X obj 20 273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 278 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 283 @ms;
-#X text 240 283 output milliseconds;
-#X msg 120 310 @symbol;
-#X text 240 310 if specified - output formatted time as symbol \,
-otherwise as string;
-#X obj 20 357 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 362 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 313 @ms;
+#X text 245 313 output milliseconds.;
+#X msg 110 342 @symbol;
+#X text 245 342 if specified - output formatted time as symbol \,
+otherwise as string.;
+#X obj 20 391 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 396 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 367 1\.;
-#X text 150 367 *float*;
-#X text 240 367 converts float value in seconds to formatted symbol.;
-#X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 400 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 397 1\.;
+#X text 150 397 *float*;
+#X text 245 397 converts float value in seconds to formatted symbol.;
+#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 430 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 405 1\.;
-#X text 240 405 time in format "HH:MM::SS" or "HH:MM:SS.XXX";
+#X text 110 431 1\.;
+#X text 245 431 time in format "HH:MM::SS" or "HH:MM:SS.XXX".;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -44,8 +44,8 @@ otherwise as string;
 #X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 597 520 see also:;
-#X obj 673 520 conv.str2sec;
+#X text 577 520 see also:;
+#X obj 653 520 conv.str2sec;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

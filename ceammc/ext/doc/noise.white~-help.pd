@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty noise.white~ 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 noise.white~;
-#X obj 205 80 cnv 1 560 33 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 outputs random numbers between -1 and 1 at signal
+#X obj 210 80 cnv 1 555 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 outputs random numbers between -1 and 1 at signal
 rate.;
 #X obj 50 141 ui.dsp~;
 #X obj 50 185 noise.white~;
@@ -14,8 +14,8 @@ rate.;
 #X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 369 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 374 1\.;
-#X text 240 374 output signal;
+#X text 110 370 1\.;
+#X text 245 370 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -23,8 +23,8 @@ rate.;
 #X obj 131 48 ui.link @title noise @url ceammc.noise-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 604 520 see also:;
-#X obj 680 520 noise.pink~;
+#X text 584 520 see also:;
+#X obj 660 520 noise.pink~;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

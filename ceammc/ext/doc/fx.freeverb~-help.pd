@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty fx.freeverb~ 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 fx.freeverb~;
-#X obj 205 80 cnv 1 560 103 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 A simple Schroeder reverberator primarily developed by
+#X obj 210 80 cnv 1 555 103 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 A simple Schroeder reverberator primarily developed by
 "Jezar at Dreampoint" that is extensively used in the free-software
 world. It uses four Schroeder allpasses in series and eight parallel
 Schroeder-Moorer filtered-feedback comb-filters for each audio channel
@@ -31,59 +31,59 @@ Schroeder-Moorer filtered-feedback comb-filters for each audio channel
 #X obj 20 481 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 486 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 491 1\.;
-#X text 150 491 float;
-#X obj 241 492 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 491 ROOM: room size. Range: 0\...1;
-#X text 120 509 2\.;
-#X text 150 509 float;
-#X obj 241 510 cnv 1 56 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 509 DRYWET: ratio between processed signal (wet) and
+#X text 110 521 1\.;
+#X text 150 521 float;
+#X obj 246 522 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 521 ROOM: room size. Range: 0\...1;
+#X text 110 539 2\.;
+#X text 150 539 float;
+#X obj 246 540 cnv 1 56 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 539 DRYWET: ratio between processed signal (wet) and
 source signal. Range: 0\...1;
-#X obj 20 551 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 556 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 581 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 586 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 561 @room;
-#X text 240 561 Get/Set room size. Type: float. Default value: 0.5\.
-Value range: 0-1;
-#X msg 120 598 @damp;
-#X text 240 598 Get/Set damping of the lowpass comb filter. Type:
-float. Default value: 0.5\. Value range: 0-1;
-#X msg 120 635 @drywet;
-#X text 240 635 Get/Set proportion of mix between the original (dry)
+#X msg 110 621 @active;
+#X text 245 621 Get/Set on/off dsp processing. Type: int. Default
+value: 1\. Allowed values: 0 \, 1\.;
+#X msg 110 660 @bypass;
+#X text 245 660 Get/Set if set to 1 - bypass 'effected' signal. Type:
+int. Default value: 0\. Allowed values: 0 \, 1\.;
+#X msg 110 699 @damp;
+#X text 245 699 Get/Set damping of the lowpass comb filter. Type:
+float. Default value: 0.5\. Range: 0\...1\.;
+#X msg 110 738 @drywet;
+#X text 245 738 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 0.33\. Value range: 0-1;
-#X msg 120 686 @bypass;
-#X text 240 686 Get/Set if set to 1 - bypass 'effected' signal. Type:
-int. Default value: 0\. Allowed values: 0 \, 1;
-#X msg 120 723 @active;
-#X text 240 723 Get/Set on/off dsp processing. Type: int. Default
-value: 1\. Allowed values: 0 \, 1;
-#X obj 20 770 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 775 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+Default value: 0.33\. Range: 0\...1\.;
+#X msg 110 791 @room;
+#X text 245 791 Get/Set room size. Type: float. Default value: 0.5\.
+Range: 0\...1\.;
+#X obj 20 840 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 845 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 780 reset;
-#X text 240 780 reset reverb.;
-#X obj 20 822 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 827 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 880 reset;
+#X text 245 880 reset reverb.;
+#X obj 20 917 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 922 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 832 1\.;
-#X text 240 832 input signal.;
-#X obj 20 860 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 865 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 923 1\.;
+#X text 245 923 input signal.;
+#X obj 20 951 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 956 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 870 1\.;
-#X text 240 870 output signal;
+#X text 110 957 1\.;
+#X text 245 957 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 918 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 921 library: ceammc v0.7.1;
-#X text 589 933 see also:;
-#X obj 665 933 fx.freeverb2~;
-#N canvas 10 940 400 290 info 0;
+#X obj 1 1005 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1008 library: ceammc v0.7.1;
+#X text 569 1020 see also:;
+#X obj 645 1020 fx.freeverb2~;
+#N canvas 10 1027 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -107,7 +107,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 940 pd info;
+#X restore 10 1027 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 9 0;
 #X connect 8 0 14 0;

@@ -19,22 +19,22 @@ predicate.;
 #X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 335 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 340 1\.;
-#X text 150 340 *list*;
-#X text 240 340 input list.;
-#X text 150 358 *data*;
-#X text 240 358 input mlist.;
-#X text 120 376 2\.;
-#X text 150 376 *float*;
-#X text 240 376 input value from predicate. "1" means accepted. "0"
-means reject. Range: 0\...1;
-#X obj 20 418 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 423 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 336 1\.;
+#X text 150 336 *list*;
+#X text 245 336 input list.;
+#X text 150 354 *data*;
+#X text 245 354 input mlist.;
+#X text 110 372 2\.;
+#X text 150 372 *float*;
+#X text 245 372 input value from predicate. "1" means accepted. "0"
+means reject. Range: 0\...1\.;
+#X obj 20 414 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 419 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 428 1\.;
-#X text 240 428 count of elements;
-#X text 120 446 2\.;
-#X text 240 446 element output to predicate;
+#X text 110 420 1\.;
+#X text 245 420 count of elements.;
+#X text 110 438 2\.;
+#X text 245 438 element output to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -42,8 +42,8 @@ means reject. Range: 0\...1;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 612 520 see also:;
-#X obj 688 520 list.count;
+#X text 592 520 see also:;
+#X obj 668 520 list.count;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
