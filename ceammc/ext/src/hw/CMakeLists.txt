@@ -8,7 +8,8 @@ endmacro()
 
 ceammc_hw_external(serial)
 ceammc_hw_external(arduino)
-
+ceammc_hw_external(apple_sms)
+ceammc_hw_external(kbd_light)
 
 if(LIBUSB_1_FOUND)
     ceammc_hw_external(usb)
