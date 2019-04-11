@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "hw_kbd_light.h"
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
 #ifdef __APPLE__
@@ -84,6 +85,11 @@ void HwKeyboardLight::onBang()
     floatTo(0, currentLevel());
 }
 
+void HwKeyboardLight::onFloat(t_float v)
+{
+    setLevel(v);
+}
+
 t_float HwKeyboardLight::currentLevel() const
 {
 #ifdef __APPLE__
@@ -115,6 +121,44 @@ t_float HwKeyboardLight::currentLevel() const
     return 0;
 #else
     return 0;
+#endif
+}
+
+bool HwKeyboardLight::setLevel(t_float v)
+{
+#ifdef __APPLE__
+    if (!io_connect_)
+        return false;
+
+    const t_float BRIGHTNESS_MAX = 0xfff;
+    t_float brightness = clip<t_float>(v * BRIGHTNESS_MAX, 0, BRIGHTNESS_MAX);
+
+    uint64_t inputValues[3];
+    uint32_t inputCount = 3;
+    uint64_t outputValues[1];
+    uint32_t outputCount = 1;
+    inputValues[0] = 0;
+    inputValues[1] = brightness;
+    inputValues[2] = DEFAULT_DELAYTIME;
+    kern_return_t kernResult = IOConnectCallScalarMethod(io_connect_,
+        kSetLEDFadeID,
+        inputValues,
+        inputCount,
+        outputValues,
+        &outputCount);
+
+    if (kernResult != KERN_SUCCESS) {
+        if (kernResult == kIOReturnBusy)
+            OBJ_ERR << "device busy";
+        else
+            OBJ_ERR << "could not write to device";
+
+        return false;
+    }
+
+    return true;
+#else
+    return false;
 #endif
 }
 

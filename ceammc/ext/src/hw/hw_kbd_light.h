@@ -30,9 +30,11 @@ public:
     HwKeyboardLight(const PdArgs& args);
     ~HwKeyboardLight();
     void onBang();
+    void onFloat(t_float v);
 
 private:
     t_float currentLevel() const;
+    bool setLevel(t_float v);
 };
 
 void setup_hw_keyboard_light();
