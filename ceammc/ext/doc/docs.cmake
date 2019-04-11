@@ -149,6 +149,7 @@ set(DOC_FILES
     global.mlist
     global.set
     hw.arduino
+    hw.kbd_light
     is_any
     is_bang
     is_data

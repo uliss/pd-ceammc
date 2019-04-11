@@ -515,6 +515,9 @@
     <entry descr="Arduino device" name="hw.arduino" ref_view="object">
       <xi:include href="hw.arduino.pddoc" parse="xml"/>
     </entry>
+    <entry descr="Get/set keyboard light on some devices" name="hw.kbd_light" ref_view="object">
+      <xi:include href="hw.kbd_light.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="lfo">
     <entry descr="Unit-amplitude nonnegative low frequency pulse train" name="lfo.+pulse~" ref_view="object">

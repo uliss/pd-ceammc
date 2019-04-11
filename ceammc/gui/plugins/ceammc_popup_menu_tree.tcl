@@ -90,7 +90,7 @@
         global.set
     }}
     {hw {
-        hw.arduino
+        hw.arduino hw.kbd_light
     }}
     {lfo {
         lfo.+pulse~ lfo.+saw~ lfo.+square~ lfo.+tri~ lfo.impulse~ lfo.pulse~

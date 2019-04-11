@@ -191,7 +191,9 @@ global.mlist
 global.set
 group
 helmholtz~
+hw.apple_sms
 hw.arduino
+hw.kbd_light
 hw.serial
 hw.usb
 is_any
@@ -549,6 +551,7 @@ ui.dsp~
 ui.env
 ui.gain2~
 ui.gain~
+ui.hrd
 ui.hsl
 ui.icon
 ui.incdec
@@ -577,6 +580,7 @@ ui.ssc~
 ui.t
 ui.tab
 ui.toggle
+ui.vrd
 ui.vsl
 vline->env
 vline2env
