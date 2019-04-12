@@ -2,6 +2,7 @@
 #include "array_bpm.h"
 #include "array_set.h"
 #include "array_stretch.h"
+#include "array_sum.h"
 #include "array_vline_play.h"
 #include "array_window.h"
 
@@ -27,4 +28,5 @@ void ceammc_array_setup()
     setup_array0x2estretch();
     setup_array_vline_play();
     setup_array_window();
+    setup_array_sum();
 }
