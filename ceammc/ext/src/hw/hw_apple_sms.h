@@ -17,9 +17,20 @@
 #include "ceammc_object.h"
 using namespace ceammc;
 
+#ifdef WITH_SMS
+#include "sms/suddenmotionsensor.h"
+#endif
+
 class HwAppleSMS : public BaseObject {
+#ifdef WITH_SMS
+    apple_sms::SuddenMotionSensor sensor_;
+#endif
+
+    BoolProperty* raw_;
+
 public:
     HwAppleSMS(const PdArgs& args);
+    ~HwAppleSMS();
 
     void onBang();
 

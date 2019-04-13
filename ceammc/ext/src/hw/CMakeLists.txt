@@ -1,10 +1,17 @@
 add_subdirectory(arduino)
 include_directories(${PROJECT_BINARY_DIR}/ceammc/extra/libusb)
 include_directories(${CMAKE_SOURCE_DIR}/ceammc/extra/serial/serial/include)
+include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/SMSLib)
 
 macro(ceammc_hw_external name)
     list(APPEND HW_SOURCES "hw_${name}.cpp")
 endmacro()
+
+# Sudden motion sensor on macbook's
+if(APPLE)
+    add_compile_definitions(WITH_SMS)
+    list(APPEND HW_SOURCES sms/suddenmotionsensor.cpp)
+endif()
 
 ceammc_hw_external(serial)
 ceammc_hw_external(arduino)
@@ -36,3 +43,4 @@ endif()
 if(UNIX)
     set_target_properties(ceammc_hw PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
+
