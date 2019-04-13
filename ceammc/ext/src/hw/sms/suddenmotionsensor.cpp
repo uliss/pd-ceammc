@@ -383,8 +383,6 @@ void SuddenMotionSensor::init()
 
 bool SuddenMotionSensor::connectTo(const std::string& serviceName)
 {
-    //    auto rec_size = model_it->spec.size;
-    //    auto fn = model_it->spec.function;
     io_iterator_t iterator;
     io_object_t device;
 
