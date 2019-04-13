@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.mean">
+        <title>array.mean</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>calculates array arithmetic mean value</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array mean</keywords>
+            <since>0.8</since>
+            <also>
+                <see>array.sum</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="NAME" type="symbol">array name</argument>
+        </arguments>
+        <properties>
+            <property name="@array" type="symbol">array name</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">calculates and outputs mean value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>mean value value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]                            [array amean size=10 w=180 h=130]
+|
+[array.mean amean]
+|
+[F digits=16]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

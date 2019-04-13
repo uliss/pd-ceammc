@@ -5,6 +5,7 @@ set(DOC_FILES
     array.do
     array.each
     array.fill
+    array.mean
     array.minmax
     array.p2s
     array.s2p
