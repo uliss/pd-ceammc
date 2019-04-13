@@ -3,6 +3,7 @@
 #include "array_set.h"
 #include "array_stretch.h"
 #include "array_sum.h"
+#include "array_sum2.h"
 #include "array_vline_play.h"
 #include "array_window.h"
 
@@ -29,4 +30,5 @@ void ceammc_array_setup()
     setup_array_vline_play();
     setup_array_window();
     setup_array_sum();
+    setup_array_sum2();
 }

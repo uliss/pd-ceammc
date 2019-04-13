@@ -63,6 +63,7 @@ ceammc_external_test(array p2s)
 ceammc_external_test(array s2p)
 ceammc_external_test(array stretch)
 ceammc_external_test(array sum)
+ceammc_external_test(array sum2)
 ceammc_external_test(array vplay)
 ceammc_external_test(array window)
 

@@ -18,6 +18,7 @@ ceammc_array_extension(s2p)
 ceammc_array_extension(set)
 ceammc_array_extension(stretch)
 ceammc_array_extension(sum)
+ceammc_array_extension(sum2)
 ceammc_array_extension(vline_play)
 ceammc_array_extension(window)
 
