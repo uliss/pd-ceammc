@@ -11,28 +11,36 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "array_sum2.h"
+#include "array_rms.h"
 #include "ceammc_factory.h"
 
+#include <cmath>
 #include <numeric>
 
-ArraySum2::ArraySum2(const PdArgs& args)
+ArrayRMS::ArrayRMS(const PdArgs& args)
     : ArrayBase(args)
 {
     createOutlet();
 }
 
-void ArraySum2::onBang()
+void ArrayRMS::onBang()
 {
     if (!checkArray())
         return;
 
-    t_sample sum = std::accumulate(array_.begin(), array_.end(), t_sample(0),
+    const size_t N = array_.size();
+    if (N < 1) {
+        OBJ_ERR << "array is empty";
+        return;
+    }
+
+    t_float sum = std::accumulate(array_.begin(), array_.end(), t_sample(0),
         [](t_sample accum, t_sample x) { return accum + x * x; });
-    floatTo(0, sum);
+
+    floatTo(0, std::sqrt(sum / N));
 }
 
-void setup_array_sum2()
+void setup_array_rms()
 {
-    ObjectFactory<ArraySum2> obj("array.sum^2");
+    ObjectFactory<ArrayRMS> obj("array.rms");
 }

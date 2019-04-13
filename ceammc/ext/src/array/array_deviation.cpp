@@ -11,28 +11,42 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "array_sum2.h"
+#include "array_deviation.h"
 #include "ceammc_factory.h"
 
+#include <cmath>
 #include <numeric>
 
-ArraySum2::ArraySum2(const PdArgs& args)
+ArrayDeviation::ArrayDeviation(const PdArgs& args)
     : ArrayBase(args)
 {
     createOutlet();
 }
 
-void ArraySum2::onBang()
+void ArrayDeviation::onBang()
 {
     if (!checkArray())
         return;
 
-    t_sample sum = std::accumulate(array_.begin(), array_.end(), t_sample(0),
-        [](t_sample accum, t_sample x) { return accum + x * x; });
-    floatTo(0, sum);
+    const size_t N = array_.size();
+    if (N < 2) {
+        OBJ_ERR << "array size should be > 1";
+        return;
+    }
+
+    t_sample sum = 0;
+    t_sample sum2 = std::accumulate(array_.begin(), array_.end(), t_sample(0),
+        [&sum](t_sample accum, t_sample x) {
+            sum += x;
+            return accum + x * x;
+        });
+
+    auto variance = (sum2 - (sum * sum) / N) / (N - 1);
+
+    floatTo(0, std::sqrt(variance));
 }
 
-void setup_array_sum2()
+void setup_array_deviation()
 {
-    ObjectFactory<ArraySum2> obj("array.sum^2");
+    ObjectFactory<ArrayDeviation> obj("array.stddev");
 }

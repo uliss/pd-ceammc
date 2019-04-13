@@ -11,28 +11,17 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "array_sum2.h"
-#include "ceammc_factory.h"
+#ifndef ARRAY_MEAN_H
+#define ARRAY_MEAN_H
 
-#include <numeric>
+#include "array_base.h"
 
-ArraySum2::ArraySum2(const PdArgs& args)
-    : ArrayBase(args)
-{
-    createOutlet();
-}
+class ArrayMean : public ArrayBase {
+public:
+    ArrayMean(const PdArgs& args);
+    void onBang();
+};
 
-void ArraySum2::onBang()
-{
-    if (!checkArray())
-        return;
+void setup_array_mean();
 
-    t_sample sum = std::accumulate(array_.begin(), array_.end(), t_sample(0),
-        [](t_sample accum, t_sample x) { return accum + x * x; });
-    floatTo(0, sum);
-}
-
-void setup_array_sum2()
-{
-    ObjectFactory<ArraySum2> obj("array.sum^2");
-}
+#endif // ARRAY_MEAN_H
