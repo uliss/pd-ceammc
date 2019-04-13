@@ -2,10 +2,12 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 30 116 hw.arduino;
-#X text 200 116 Arduino device;
-#X obj 30 143 hw.kbd_light;
-#X text 200 143 Get/set keyboard light on some devices;
+#X obj 30 116 hw.apple_sms;
+#X text 200 116 query the sudden motion sensor in Apples;
+#X obj 30 143 hw.arduino;
+#X text 200 143 Arduino device;
+#X obj 30 170 hw.kbd_light;
+#X text 200 170 Get/set keyboard light on some devices;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::hw 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

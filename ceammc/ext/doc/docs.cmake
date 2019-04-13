@@ -10,6 +10,7 @@ set(DOC_FILES
     array.s2p
     array.set
     array.stretch
+    array.sum
     array.vplay
     array.window
     canvas.current

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.sum">
+        <title>array.sum</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>calculates sum of array elements</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array sum</keywords>
+            <since>0.8</since>
+            <also>
+                <see>array.sum2</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="NAME" type="symbol">array name</argument>
+        </arguments>
+        <properties>
+            <property name="@array" type="symbol">array name</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">calculates and outputs the sum</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>sum of array values</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]                            [array asum1 size=100 w=180 h=130]
+|
+[array.sum asum1]
+|
+[F]
+
+[sinesum 100 0.2 0.3(
+|
+[s asum1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

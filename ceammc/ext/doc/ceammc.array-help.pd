@@ -18,10 +18,12 @@
 #X text 200 278 set array content from list;
 #X obj 30 305 array.stretch;
 #X text 200 305 array time-stretch \, pitch-shift or rate-change;
-#X obj 30 332 array.vplay;
-#X text 200 332 simple array player for using with vline~;
-#X obj 30 359 array.window;
-#X text 200 359 fill array with window;
+#X obj 30 332 array.sum;
+#X text 200 332 calculates sum of array elements;
+#X obj 30 359 array.vplay;
+#X text 200 359 simple array player for using with vline~;
+#X obj 30 386 array.window;
+#X text 200 386 fill array with window;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::array 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

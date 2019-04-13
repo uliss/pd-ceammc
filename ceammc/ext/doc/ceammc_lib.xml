@@ -30,6 +30,9 @@
     <entry descr="array time-stretch, pitch-shift or rate-change" name="array.stretch" ref_view="object">
       <xi:include href="array.stretch.pddoc" parse="xml"/>
     </entry>
+    <entry descr="calculates sum of array elements" name="array.sum" ref_view="object">
+      <xi:include href="array.sum.pddoc" parse="xml"/>
+    </entry>
     <entry descr="simple array player for using with vline~" name="array.vplay" ref_view="object">
       <xi:include href="array.vplay.pddoc" parse="xml"/>
     </entry>
