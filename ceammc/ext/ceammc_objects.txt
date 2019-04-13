@@ -29,7 +29,7 @@ array.set
 array.stddev
 array.stretch
 array.sum
-array.sum^2
+array.sum2
 array.variance
 array.vplay
 array.window

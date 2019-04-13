@@ -33,6 +33,9 @@
     <entry descr="calculates sum of array elements" name="array.sum" ref_view="object">
       <xi:include href="array.sum.pddoc" parse="xml"/>
     </entry>
+    <entry descr="calculates sum of squares of array elements" name="array.sum2" ref_view="object">
+      <xi:include href="array.sum2.pddoc" parse="xml"/>
+    </entry>
     <entry descr="simple array player for using with vline~" name="array.vplay" ref_view="object">
       <xi:include href="array.vplay.pddoc" parse="xml"/>
     </entry>

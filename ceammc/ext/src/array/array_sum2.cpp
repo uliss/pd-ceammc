@@ -34,5 +34,5 @@ void ArraySum2::onBang()
 
 void setup_array_sum2()
 {
-    ObjectFactory<ArraySum2> obj("array.sum^2");
+    ObjectFactory<ArraySum2> obj("array.sum2");
 }

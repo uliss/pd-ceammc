@@ -11,6 +11,7 @@ set(DOC_FILES
     array.set
     array.stretch
     array.sum
+    array.sum2
     array.vplay
     array.window
     canvas.current
