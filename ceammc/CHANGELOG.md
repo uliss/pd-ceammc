@@ -8,6 +8,8 @@
   - foldable categories added
 - outer/inner label added for almost all UI widgets
 - ui.matrix read/write methods added to save/load in text format
+- hw.kdb_light added
+- hw.apple_sms (sudden motion sensor) added
 
 ## [0.7]
 ### Added:

@@ -148,6 +148,7 @@ set(DOC_FILES
     global.list
     global.mlist
     global.set
+    hw.apple_sms
     hw.arduino
     hw.kbd_light
     is_any
