@@ -3,7 +3,7 @@
 #include "array_mean.h"
 #include "array_rms.h"
 #include "array_set.h"
-#include "array_stddev.h".h "
+#include "array_stddev.h"
 #include "array_stretch.h"
 #include "array_sum.h"
 #include "array_sum2.h"
