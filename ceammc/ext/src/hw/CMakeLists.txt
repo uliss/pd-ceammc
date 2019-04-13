@@ -10,7 +10,7 @@ endmacro()
 # Sudden motion sensor on macbook's
 if(APPLE)
     add_compile_definitions(WITH_SMS)
-    list(APPEND HW_SOURCES sms/suddenmotionsensor.cpp)
+    list(APPEND HW_SOURCES apple/suddenmotionsensor.cpp)
 endif()
 
 ceammc_hw_external(serial)

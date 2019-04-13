@@ -18,7 +18,7 @@
 using namespace ceammc;
 
 #ifdef WITH_SMS
-#include "sms/suddenmotionsensor.h"
+#include "apple/suddenmotionsensor.h"
 #endif
 
 class HwAppleSMS : public BaseObject {
