@@ -15,7 +15,7 @@
 #X coords 0 1 100 -1 180 130 1;
 #X restore 347 118 graph;
 #X obj 50 147 array.sum asum1;
-#X floatatom 50 176 5 0 0 0 - - -;
+#X floatatom 50 176 16 0 0 0 - - -;
 #X msg 50 205 sinesum 100 0.2 0.3;
 #X obj 50 234 s asum1;
 #X obj 20 273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

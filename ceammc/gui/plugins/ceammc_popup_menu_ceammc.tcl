@@ -4,7 +4,7 @@
     }}
     {array {
         array.bpm array.copy array.do array.each array.fill array.minmax
-        array.set array.stretch array.vplay array.window
+        array.set array.stretch array.sum array.vplay array.window
     }}
     {base {
         function function.call gain~ matrix~ metro.pattern metro.seq mix~
@@ -58,7 +58,7 @@
         global.set
     }}
     {hw {
-        hw.arduino hw.kbd_light
+        hw.apple_sms hw.arduino hw.kbd_light
     }}
     {lfo {
         lfo.+pulse~ lfo.+saw~ lfo.+square~ lfo.+tri~ lfo.impulse~ lfo.pulse~

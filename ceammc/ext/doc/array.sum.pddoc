@@ -37,7 +37,7 @@
 |
 [array.sum asum1]
 |
-[F]
+[F digits=16]
 
 [sinesum 100 0.2 0.3(
 |
