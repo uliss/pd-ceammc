@@ -67,35 +67,35 @@ enum {
 HwKeyboardLight::HwKeyboardLight(const PdArgs& args)
     : BaseObject(args)
 {
+    createOutlet();
+
 #ifndef __APPLE__
     OBJ_DBG << "now supporting only Apple hardware";
 #else
 
     io_connect_ = 0;
-
     io_service_ = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("AppleLMUController"));
+
     if (io_service_) {
-        OBJ_DBG << "found AppleLMUController";
-        //        logpost(x, 4, "[keyboard_light]: found AppleLMUController");
+        OBJ_LOG << "found AppleLMUController";
     } else {
-        OBJ_DBG << "AppleLMUController not found, trying IOI2CDeviceLMU";
+        OBJ_LOG << "AppleLMUController not found, trying IOI2CDeviceLMU";
         io_service_ = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOI2CDeviceLMU"));
         if (io_service_) {
-            OBJ_DBG << "found IOI2CDeviceLMU";
-            //            logpost(x, 4, "[keyboard_light]: found IOI2CDeviceLMU");
+            OBJ_LOG << "found IOI2CDeviceLMU";
         } else
-            OBJ_ERR << "no sensor found";
+            OBJ_ERR << "no keyboard controller found";
+
+        return;
     }
 
     kern_return_t kernResult = IOServiceOpen(io_service_, mach_task_self(), 0, &io_connect_);
-
     IOObjectRelease(io_service_);
-    if (kernResult != KERN_SUCCESS) {
-        OBJ_ERR << "IOServiceOpen(): " << kernResult;
-    }
-#endif
 
-    createOutlet();
+    if (kernResult != KERN_SUCCESS)
+        OBJ_ERR << "can't open service, error code is: " << kernResult;
+
+#endif
 }
 
 HwKeyboardLight::~HwKeyboardLight()
