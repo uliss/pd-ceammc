@@ -16,12 +16,12 @@
 
 #include "array_base.h"
 
-class ArrayDeviation : public ArrayBase {
+class ArrayStdDeviation : public ArrayBase {
 public:
-    ArrayDeviation(const PdArgs& args);
+    ArrayStdDeviation(const PdArgs& args);
     void onBang();
 };
 
-void setup_array_deviation();
+void setup_array_stddev();
 
 #endif // ARRAY_DEVIATION_H

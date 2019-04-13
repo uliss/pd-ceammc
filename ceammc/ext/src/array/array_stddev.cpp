@@ -11,19 +11,19 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "array_deviation.h"
+#include "array_stddev.h"
 #include "ceammc_factory.h"
 
 #include <cmath>
 #include <numeric>
 
-ArrayDeviation::ArrayDeviation(const PdArgs& args)
+ArrayStdDeviation::ArrayStdDeviation(const PdArgs& args)
     : ArrayBase(args)
 {
     createOutlet();
 }
 
-void ArrayDeviation::onBang()
+void ArrayStdDeviation::onBang()
 {
     if (!checkArray())
         return;
@@ -46,7 +46,7 @@ void ArrayDeviation::onBang()
     floatTo(0, std::sqrt(variance));
 }
 
-void setup_array_deviation()
+void setup_array_stddev()
 {
-    ObjectFactory<ArrayDeviation> obj("array.stddev");
+    ObjectFactory<ArrayStdDeviation> obj("array.stddev");
 }

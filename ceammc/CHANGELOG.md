@@ -12,6 +12,7 @@
 - hw.apple_sms (sudden motion sensor) added
 - array.sum added
 - array.sum2 added
+- array.mean added
 
 ## [0.7]
 ### Added:
