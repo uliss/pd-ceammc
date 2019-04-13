@@ -40,6 +40,11 @@ AtomList HwAppleSMS::getXYZ() const
 #ifndef WITH_SMS
     return AtomList::zeroes(3);
 #else
+    if (!sensor_.isConnected()) {
+        OBJ_ERR << "sensor is not found on this machine";
+        return AtomList::zeroes(3);
+    }
+
     apple_sms::AccelData res;
     if (raw_->value())
         res = sensor_.getRawAccel();

@@ -195,7 +195,7 @@ static const SensorModelMap sensors_model_info = {
             {true, 4, 2, 0,  251}
         }}}
     },
-    {"MacBookPro8,11",
+    {"MacBookPro8,1",
         { "SMCMotionSensor", { 5, 40, {
             {true, 0, 2, 0, 251},
             {true, 2, 2, 0, 251},
@@ -255,6 +255,7 @@ static const SensorMap sensors_info = {
 
 SuddenMotionSensor::SuddenMotionSensor()
     : model_name_(getModelName())
+    , connection_(0)
     , spec_({ 0, 0, { { false, 0, 0, 0 }, { false, 0, 0, 0 }, { false, 0, 0, 0 } } })
 {
     data_in_.fill(0);
@@ -358,14 +359,26 @@ bool SuddenMotionSensor::isConnected() const
 
 void SuddenMotionSensor::init()
 {
+    // first try to find model info
     auto model_it = sensors_model_info.find(model_name_);
     if (model_it != sensors_model_info.end()) {
         if (connectTo(model_it->second.sensor_name)) {
-            LIB_DBG << "connected to " << model_it->second.sensor_name << " on device " << model_it->first;
+            LIB_LOG << "connected to " << model_it->second.sensor_name << " on device " << model_it->first;
             spec_ = model_it->second.spec;
             return;
         }
     }
+
+    // use common info
+    for (auto kv : sensors_info) {
+        if (connectTo(kv.first)) {
+            LIB_LOG << "connected to " << kv.first;
+            spec_ = kv.second;
+            return;
+        }
+    }
+
+    LIB_ERR << "can't connect to sudden motion sensor";
 }
 
 bool SuddenMotionSensor::connectTo(const std::string& serviceName)
@@ -377,20 +390,20 @@ bool SuddenMotionSensor::connectTo(const std::string& serviceName)
 
     CFMutableDictionaryRef dict = IOServiceMatching(serviceName.c_str());
     if (!dict) {
-        LIB_ERR << "can't create matching dict for: " << serviceName;
+        LIB_LOG << "can't create matching dict for: " << serviceName;
         return false;
     }
 
     kern_return_t res = IOServiceGetMatchingServices(kIOMasterPortDefault, dict, &iterator);
     if (res != KERN_SUCCESS) {
-        LIB_ERR << "can't match service " << serviceName << " with return value: " << res;
+        LIB_LOG << "can't match service " << serviceName << " with return value: " << res;
         return false;
     }
 
     // first device in list
     device = IOIteratorNext(iterator);
     if (device == 0) {
-        LIB_ERR << "can't get device for service: " << serviceName;
+        LIB_LOG << "can't get device for service: " << serviceName;
         IOObjectRelease(iterator);
         return false;
     }
@@ -400,10 +413,10 @@ bool SuddenMotionSensor::connectTo(const std::string& serviceName)
     IOObjectRelease(iterator);
 
     if (res != KERN_SUCCESS) {
-        LIB_ERR << "can't open device with return value: " << res;
+        LIB_LOG << "can't open device with return value: " << res;
         return false;
     } else if (connection_ == 0) {
-        LIB_ERR << "device opened, but can't get connection";
+        LIB_LOG << "device opened, but can't get connection";
         return false;
     } else
         return true;
