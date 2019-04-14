@@ -15,6 +15,7 @@ set(DOC_FILES
     array.stretch
     array.sum
     array.sum2
+    array.variance
     array.vplay
     array.window
     canvas.current

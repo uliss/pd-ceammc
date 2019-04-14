@@ -4,8 +4,8 @@
     }}
     {array {
         array.bpm array.copy array.do array.each array.fill array.mean
-        array.minmax array.rms array.set array.stretch array.sum array.sum2
-        array.vplay array.window
+        array.minmax array.rms array.set array.stddev array.stretch array.sum
+        array.sum2 array.variance array.vplay array.window
     }}
     {base {
         function function.call gain~ matrix~ metro.pattern metro.seq mix~
