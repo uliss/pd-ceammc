@@ -48,7 +48,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[array A1 size=100 w=130 h=100]
+[array afill size=100 w=130 h=100]
 
 
 
@@ -56,15 +56,19 @@
 
 
 
-[fill 0.1(  [fill -0.2 0 1 0.5 0.6(
-|           |
-|           | [fill @from 50 0.5 0.6 0.7 0.7 0.8(
-|           | |
-|           | | [fill @from 20 @to -10 -0.5(
-|           | | |
-[array.fill   A1]
+[fill 0.1(  [fill -0.2 0 1 0.5 0.6(               [ui.knob]
+|           |                                     |
+|           | [fill @from 50 0.5 0.6 0.7 0.7 0.8( |
+|           | |                                   |
+|           | | [fill @from 20 @to -10 -0.5(      [sin 100 0.8 $1(
+|           | | |                                 |
+|           | | |                                 |
+|           | | |                                 |
+[array.fill                           @array afill]
 |
 [B]
+
+
 ]]>
             </pdascii>
         </example>
