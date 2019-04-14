@@ -59,7 +59,7 @@
         global.set
     }}
     {hw {
-        hw.apple_sms hw.arduino hw.kbd_light
+        hw.apple_smc hw.apple_sms hw.arduino hw.cpu_temp hw.kbd_light
     }}
     {lfo {
         lfo.+pulse~ lfo.+saw~ lfo.+square~ lfo.+tri~ lfo.impulse~ lfo.pulse~
