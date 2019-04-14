@@ -11,6 +11,7 @@ set(DOC_FILES
     array.rms
     array.s2p
     array.set
+    array.stddev
     array.stretch
     array.sum
     array.sum2

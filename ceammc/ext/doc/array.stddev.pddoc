@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.stddev">
+        <title>array.stddev</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>calculates standard deviation for array values</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array deviation</keywords>
+            <since>0.7.1</since>
+            <also>
+                <see>array.variance</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="NAME" type="symbol">array name</argument>
+        </arguments>
+        <properties>
+            <property name="@array" type="symbol">array name</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">calculates and outputs standard deviation</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>standard deviation value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]                            [array astddev size=64 w=200 h=100]
+|
+[array.stddev astddev]
+|
+[F digits=16]
+
+
+
+                               [const 0(
+                               |
+                               [s astddev]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -10,6 +10,7 @@ array.p2s,array.p->s,array.phase->sample		.		.
 array.rms		.		.
 array.s2p,array.s->p,array.sample->phase		.		.
 array.set,list->array		.		-
+array.stddev		.		.
 array.stretch		.		.
 array.sum		.		.
 array.sum2		.		.

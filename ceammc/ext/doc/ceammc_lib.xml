@@ -33,6 +33,9 @@
     <entry descr="set array content from list" name="array.set" ref_view="object">
       <xi:include href="array.set.pddoc" parse="xml"/>
     </entry>
+    <entry descr="calculates standard deviation for array values" name="array.stddev" ref_view="object">
+      <xi:include href="array.stddev.pddoc" parse="xml"/>
+    </entry>
     <entry descr="array time-stretch, pitch-shift or rate-change" name="array.stretch" ref_view="object">
       <xi:include href="array.stretch.pddoc" parse="xml"/>
     </entry>
