@@ -17,17 +17,17 @@
 #include <IOKit/IOTypes.h>
 
 #include "ceammc_atomlist.h"
+#include "fn_strings.h"
+
 using namespace ceammc;
 
 namespace apple_smc {
 
-#define OP_NONE 0
-#define OP_LIST 1
-#define OP_READ 2
-#define OP_READ_FAN 3
-#define OP_WRITE 4
-
-#define KERNEL_INDEX_SMC 2
+//#define OP_NONE 0
+//#define OP_LIST 1
+//#define OP_READ 2
+//#define OP_READ_FAN 3
+//#define OP_WRITE 4
 
 enum {
     SMC_CMD_READ_BYTES = 5,
@@ -48,13 +48,11 @@ enum {
 // lots more here:
 //   http://discussions.apple.com/thread.jspa?threadID=734247&tstart=0
 #define SMC_KEY_CPU_TEMP "TC0D"
+#define SMC_KEY_GPU_TEMP "TG0P"
 #define SMC_KEY_FAN0_RPM_MIN "F0Mn"
 #define SMC_KEY_FAN1_RPM_MIN "F1Mn"
 #define SMC_KEY_FAN0_RPM_CUR "F0Ac"
 #define SMC_KEY_FAN1_RPM_CUR "F1Ac"
-
-typedef char SMCBytes_t[32];
-typedef char UInt32Char_t[5];
 
 struct SMCKeyDataVersion {
     char major;
@@ -87,14 +85,14 @@ struct SMCKeyData {
     char status;
     char data8; // command
     UInt32 data32;
-    SMCBytes_t bytes;
+    SMCBytes bytes;
 };
 
 struct SMCValue {
-    UInt32Char_t key;
+    UInt32CharKey key;
     UInt32 dataSize;
-    UInt32Char_t dataType;
-    SMCBytes_t bytes;
+    UInt32CharKey dataType;
+    SMCBytes bytes;
 };
 
 class SMC {
@@ -108,6 +106,9 @@ public:
     bool isConnected() const;
     AtomList keys() const;
     size_t keyCount() const;
+
+    t_float cpuTemperature() const;
+    t_float gpuTemperature() const;
 
 private:
     bool readKey(const std::string& key, SMCValue& val) const;

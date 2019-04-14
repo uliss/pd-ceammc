@@ -13,6 +13,7 @@ if(APPLE)
     add_compile_definitions(WITH_SMC)
     list(APPEND HW_SOURCES apple/suddenmotionsensor.cpp)
     list(APPEND HW_SOURCES apple/smc.cpp)
+    list(APPEND HW_SOURCES apple/fn_strings.cpp)
 endif()
 
 ceammc_hw_external(serial)

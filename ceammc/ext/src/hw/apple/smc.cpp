@@ -23,42 +23,7 @@ using namespace ceammc;
 
 namespace apple_smc {
 
-static void _ultostr(char* str, UInt32 val)
-{
-    str[0] = '\0';
-    sprintf(str, "%c%c%c%c",
-        (unsigned int)val >> 24,
-        (unsigned int)val >> 16,
-        (unsigned int)val >> 8,
-        (unsigned int)val);
-}
-
-static UInt32 _strtoul(const char* str, int size, int base)
-{
-    UInt32 total = 0;
-
-    for (int i = 0; i < size; i++) {
-        if (base == 16)
-            total += str[i] << (size - 1 - i) * 8;
-        else
-            total += (unsigned char)(str[i] << (size - 1 - i) * 8);
-    }
-    return total;
-}
-
-static float _strtof(const char* str, int size, int e)
-{
-    float total = 0;
-
-    for (int i = 0; i < size; i++) {
-        if (i == (size - 1))
-            total += (str[i] & 0xff) >> e;
-        else
-            total += str[i] << (size - 1 - i) * (8 - e);
-    }
-
-    return total;
-}
+static const int KERNEL_INDEX_SMC = 2;
 
 SMC::SMC()
     : io_connection_(0)
@@ -106,16 +71,13 @@ AtomList SMC::readKey(t_symbol* key) const
     }
 
     if (strcmp(val.dataType, DATATYPE_SP78) == 0) {
-        int intValue = (val.bytes[0] * 256 + val.bytes[1]) >> 2;
-        return AtomList(intValue / 64.f);
+        return AtomList(smc_bytes_sp78_to_float(val.bytes));
     } else if ((strcmp(val.dataType, DATATYPE_UINT8) == 0)
         || (strcmp(val.dataType, DATATYPE_UINT16) == 0)
         || (strcmp(val.dataType, DATATYPE_UINT32) == 0)) {
-        LIB_LOG << val.dataSize << ": " << _strtoul(val.bytes, val.dataSize, 10);
-        //        LIB_LOG << std::string(val.bytes, val.dataSize);
-        return AtomList(_strtoul(val.bytes, val.dataSize, 10));
+        return AtomList(smc_bytes_to_int(val.bytes, val.dataSize, 10));
     } else if (strcmp(val.dataType, DATATYPE_FPE2) == 0) {
-        return AtomList(_strtof(val.bytes, val.dataSize, 2));
+        return AtomList(smc_bytes_to_float(val.bytes, val.dataSize, 2));
     } else {
         AtomList res;
         for (UInt32 i = 0; i < val.dataSize; i++)
@@ -133,11 +95,10 @@ bool SMC::isConnected() const
 AtomList SMC::keys() const
 {
     AtomList res;
-    //    kern_return_t result;
     SMCKeyData in_data;
     SMCKeyData out_data;
 
-    UInt32Char_t key;
+    UInt32CharKey key;
     SMCValue val;
 
     const auto N = keyCount();
@@ -152,7 +113,7 @@ AtomList SMC::keys() const
         if (!smcCall(KERNEL_INDEX_SMC, &in_data, &out_data))
             continue;
 
-        _ultostr(key, out_data.key);
+        smc_int_to_key(out_data.key, key);
         res.append(gensym(key));
     }
 
@@ -163,7 +124,25 @@ size_t SMC::keyCount() const
 {
     SMCValue val;
     readKey("#KEY", val);
-    return _strtoul(val.bytes, val.dataSize, 16);
+    return smc_bytes_to_int(val.bytes, val.dataSize, 16);
+}
+
+t_float SMC::cpuTemperature() const
+{
+    SMCValue val;
+    if (!readKey(SMC_KEY_CPU_TEMP, val))
+        return 0;
+
+    return smc_bytes_to_float(val.bytes, val.dataSize, 2);
+}
+
+t_float SMC::gpuTemperature() const
+{
+    SMCValue val;
+    if (!readKey(SMC_KEY_GPU_TEMP, val))
+        return 0;
+
+    return smc_bytes_to_float(val.bytes, val.dataSize, 2);
 }
 
 bool SMC::readKey(const std::string& key, SMCValue& val) const
@@ -175,7 +154,10 @@ bool SMC::readKey(const std::string& key, SMCValue& val) const
     memset(&out_data, 0, sizeof(SMCKeyData));
     memset(&val, 0, sizeof(SMCValue));
 
-    in_data.key = _strtoul(key.c_str(), 4, 16);
+    SMCBytes bkey;
+    strlcpy(bkey, key.c_str(), sizeof(bkey));
+
+    in_data.key = smc_bytes_to_int(bkey, 4, 16);
     in_data.data8 = SMC_CMD_READ_KEYINFO;
 
     if (!smcCall(KERNEL_INDEX_SMC, &in_data, &out_data)) {
@@ -183,9 +165,10 @@ bool SMC::readKey(const std::string& key, SMCValue& val) const
         return false;
     }
 
-    LIB_LOG << "data type: " << out_data.keyInfo.dataType;
+    smc_int_to_key(out_data.keyInfo.dataType, val.dataType);
 
-    _ultostr(val.dataType, out_data.keyInfo.dataType);
+    LIB_LOG << "data type: " << val.dataType;
+
     val.dataSize = out_data.keyInfo.dataSize;
     in_data.keyInfo.dataSize = val.dataSize;
     in_data.data8 = SMC_CMD_READ_BYTES;

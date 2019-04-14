@@ -41,7 +41,13 @@ void HwAppleSMC::m_read(t_symbol* s, const AtomList& l)
     if (!checkArgs(l, ARG_SYMBOL, s))
         return;
 
-    listTo(0, smc_.readKey(l.symbolAt(0, &s_)));
+    AtomList res(smc_.readKey(l.symbolAt(0, &s_)));
+    if (res.empty()) {
+        OBJ_ERR << "key is not found: " << l;
+        return;
+    }
+
+    listTo(0, res);
 #else
     OBJ_ERR << "no SMS support on this machine";
 #endif
