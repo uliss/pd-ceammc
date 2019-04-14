@@ -10,9 +10,13 @@
 - ui.matrix read/write methods added to save/load in text format
 - hw.kdb_light added
 - hw.apple_sms (sudden motion sensor) added
+- hw.apple_smc (system management control) added
+- hw.cpu_temp added
 - array.sum added
 - array.sum2 added
 - array.mean added
+- array.stddev added
+- array.variance added
 
 ## [0.7]
 ### Added:

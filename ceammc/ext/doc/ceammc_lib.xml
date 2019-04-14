@@ -521,6 +521,9 @@
     </entry>
   </category>
   <category name="hw">
+    <entry descr="query the system management control in Apples" name="hw.apple_smc" ref_view="object">
+      <xi:include href="hw.apple_smc.pddoc" parse="xml"/>
+    </entry>
     <entry descr="query the sudden motion sensor in Apples" name="hw.apple_sms" ref_view="object">
       <xi:include href="hw.apple_sms.pddoc" parse="xml"/>
     </entry>
