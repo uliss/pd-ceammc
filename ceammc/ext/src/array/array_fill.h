@@ -26,6 +26,7 @@ public:
     void onFloat(float f);
     void onList(const AtomList& l);
 
+    void m_gauss(t_symbol* m, const AtomList& l);
     void m_fill(t_symbol* m, const AtomList& l);
     void m_sin(t_symbol* m, const AtomList& l);
     AtomList parseRange(const AtomList& args, size_t* from, size_t* to) const;

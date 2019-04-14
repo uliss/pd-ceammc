@@ -41,9 +41,9 @@
 
 
 
-                               [const 0(
-                               |
-                               [s astddev]
+[gauss 0 0.4( [sin 25 1( [fill 0(
+|             |          |
+[array.fill       astddev]
 ]]>
             </pdascii>
         </example>
