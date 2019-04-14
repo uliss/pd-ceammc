@@ -133,16 +133,12 @@ t_float SMC::cpuTemperature() const
     if (!readKey(SMC_KEY_CPU_TEMP, val))
         return 0;
 
-    return smc_bytes_to_float(val.bytes, val.dataSize, 2);
-}
-
-t_float SMC::gpuTemperature() const
-{
-    SMCValue val;
-    if (!readKey(SMC_KEY_GPU_TEMP, val))
+    if (strcmp(val.dataType, DATATYPE_SP78) == 0)
+        return smc_bytes_sp78_to_float(val.bytes);
+    else if (strcmp(val.dataType, DATATYPE_FPE2) == 0)
+        return smc_bytes_to_float(val.bytes, val.dataSize, 2);
+    else
         return 0;
-
-    return smc_bytes_to_float(val.bytes, val.dataSize, 2);
 }
 
 bool SMC::readKey(const std::string& key, SMCValue& val) const

@@ -49,6 +49,7 @@ enum {
 //   http://discussions.apple.com/thread.jspa?threadID=734247&tstart=0
 #define SMC_KEY_CPU_TEMP "TC0P"
 #define SMC_KEY_GPU_TEMP "TG0P"
+#define SMC_KEY_BATTERY_TEMP "TB0T"
 #define SMC_KEY_FAN0_RPM_MIN "F0Mn"
 #define SMC_KEY_FAN1_RPM_MIN "F1Mn"
 #define SMC_KEY_FAN0_RPM_CUR "F0Ac"
@@ -108,7 +109,6 @@ public:
     size_t keyCount() const;
 
     t_float cpuTemperature() const;
-    t_float gpuTemperature() const;
 
 private:
     bool readKey(const std::string& key, SMCValue& val) const;
