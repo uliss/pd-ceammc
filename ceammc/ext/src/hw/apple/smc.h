@@ -47,7 +47,7 @@ enum {
 // key values
 // lots more here:
 //   http://discussions.apple.com/thread.jspa?threadID=734247&tstart=0
-#define SMC_KEY_CPU_TEMP "TC0D"
+#define SMC_KEY_CPU_TEMP "TC0P"
 #define SMC_KEY_GPU_TEMP "TG0P"
 #define SMC_KEY_FAN0_RPM_MIN "F0Mn"
 #define SMC_KEY_FAN1_RPM_MIN "F1Mn"
