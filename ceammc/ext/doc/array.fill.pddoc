@@ -36,10 +36,13 @@
             <param name="A" type="float" default="1">amplitude</param>
             <param name="PHASE" type="float" default="0" minvalue="0" maxvalue="1">phase in 0...1
             range</param></method>
-            <method name="gauss">fill all array with random value with normal (gauss) distribution
+            <method name="gauss">fill all array with random value with normal (gauss) distribution 
             <param name="MEAN" type="float" default="0">mean value</param>
-            <param name="SIGMA" type="float" default="1" minvalue="0">standard deviation</param>
-            </method>
+            <param name="SIGMA" type="float" default="1" minvalue="0">standard
+            deviation</param></method>
+            <method name="uniform">fill all array with random value with uniform distribution 
+            <param name="A" type="float" default="0">min value</param>
+            <param name="B" type="float" default="1">max value</param></method>
         </methods>
         <inlets>
             <inlet>
@@ -60,7 +63,7 @@
 
 [fill 0.1 #a1(   [gauss 0 0.4 #a5( [gauss 0.5 0.2 #a6(
 
-[fill -0.2 0 1 0.5 0.6 #a2(
+[fill -0.2 0 1 0.5 0.6 #a2(  [uniform -0.2 0.5 #a7(
 
 [fill @from 50 0.5 0.6 0.7 0.7 0.8 #a3(
 
@@ -82,6 +85,7 @@
 [X a4->b]
 [X a5->b]
 [X a6->b]
+[X a7->b]
 ]]>
             </pdascii>
         </example>

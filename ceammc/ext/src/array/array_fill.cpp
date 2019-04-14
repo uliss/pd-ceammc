@@ -58,13 +58,37 @@ void ArrayFill::m_gauss(t_symbol* m, const AtomList& l)
     const t_float stddev = l.floatAt(1, 1);
 
     if (stddev <= 0) {
-        OBJ_ERR << "standart deviation (sigma) should be > 0";
+        METHOD_ERR(m) << "standart deviation (sigma) should be > 0";
         return;
     }
 
     auto seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine gen(seed);
     std::normal_distribution<t_float> dist(mean, stddev);
+
+    std::generate(array_.begin(), array_.end(), [&gen, &dist]() {
+        return dist(gen);
+    });
+
+    finish();
+}
+
+void ArrayFill::m_uniform(t_symbol* m, const AtomList& l)
+{
+    if (!checkArray())
+        return;
+
+    const t_float a = l.floatAt(0, 0);
+    const t_float b = l.floatAt(1, 1);
+
+    if (!(a < b)) {
+        METHOD_ERR(m) << "a should be less then b";
+        return;
+    }
+
+    auto seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine gen(seed);
+    std::uniform_real_distribution<t_float> dist(a, b);
 
     std::generate(array_.begin(), array_.end(), [&gen, &dist]() {
         return dist(gen);
@@ -213,4 +237,5 @@ extern "C" void setup_array0x2efill()
     obj.addMethod("fill", &ArrayFill::m_fill);
     obj.addMethod("sin", &ArrayFill::m_sin);
     obj.addMethod("gauss", &ArrayFill::m_gauss);
+    obj.addMethod("uniform", &ArrayFill::m_uniform);
 }
