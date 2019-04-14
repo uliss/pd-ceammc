@@ -19,6 +19,7 @@
 - hw.cpu_temp added
 - hw.kdb_light added
 - array.fill sin method added
+- array.fill gauss method added
 
 ## [0.7]
 ### Added:
