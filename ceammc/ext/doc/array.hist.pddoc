@@ -16,6 +16,9 @@
                 <see>list.hist</see>
             </also>
         </meta>
+        <info>
+            <par>Values outside of range @min...@max are ignored</par>
+        </info>
         <arguments>
             <argument name="NAME" type="symbol">array name</argument>
             <argument name="BINS" type="int" minvalue="10" maxvalue="1000">number of bins</argument>
