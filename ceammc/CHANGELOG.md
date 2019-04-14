@@ -8,6 +8,7 @@
   - foldable categories added
 - outer/inner label added for almost all UI widgets
 - ui.matrix read/write methods added to save/load in text format
+- array.hist added
 - array.mean added
 - array.rms added
 - array.stddev added

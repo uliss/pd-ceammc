@@ -351,7 +351,7 @@ float UISliders::propAutoRange() const
 void UISliders::setPropAutoRange(float f)
 {
     prop_auto_range = (f) ? 1 : 0;
-    if (prop_auto_range)
+    if (prop_auto_range && !isPatchLoading())
         normalize();
 }
 

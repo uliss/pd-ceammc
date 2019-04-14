@@ -1,5 +1,6 @@
 #include "mod_array.h"
 #include "array_bpm.h"
+#include "array_hist.h"
 #include "array_mean.h"
 #include "array_rms.h"
 #include "array_set.h"
@@ -31,9 +32,10 @@ void ceammc_array_setup()
     setup_array0x2es2p();
     setup_array0x2eset();
     setup_array0x2estretch();
-    setup_array_stddev();
+    setup_array_hist();
     setup_array_mean();
     setup_array_rms();
+    setup_array_stddev();
     setup_array_sum();
     setup_array_sum2();
     setup_array_variance();

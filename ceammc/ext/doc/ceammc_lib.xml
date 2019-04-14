@@ -21,6 +21,9 @@
     <entry descr="fill array with single value or pattern" name="array.fill" ref_view="object">
       <xi:include href="array.fill.pddoc" parse="xml"/>
     </entry>
+    <entry descr="calculates array histogram" name="array.hist" ref_view="object">
+      <xi:include href="array.hist.pddoc" parse="xml"/>
+    </entry>
     <entry descr="calculates array arithmetic mean value" name="array.mean" ref_view="object">
       <xi:include href="array.mean.pddoc" parse="xml"/>
     </entry>

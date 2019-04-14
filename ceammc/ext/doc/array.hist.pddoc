@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.hist">
+        <title>array.hist</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>calculates array histogram</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array histogram</keywords>
+            <since>0.7.1</since>
+            <also>
+                <see>list.hist</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="NAME" type="symbol">array name</argument>
+            <argument name="BINS" type="int" minvalue="10" maxvalue="1000">number of bins</argument>
+            <argument name="MIN" type="float">minimal value</argument>
+            <argument name="MAX" type="float">maximum value</argument>
+        </arguments>
+        <properties>
+            <property name="@array" type="symbol">array name</property>
+            <property name="@bins" type="int" minvalue="10" maxvalue="1000" default="100">number of bins</property>
+            <property name="@min" type="float" default="-1">minimal value</property>
+            <property name="@max" type="float" default="1">maximum value</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">calculates and outputs histogram</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list of histogram value (length=@bins)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[array ahist size=512 w=330 h=100] [ui.sliders @size=40x100 @receive=ahist-r @auto_range=1]
+
+
+
+
+
+
+
+[loadbang]
+|
+[uniform -1 -0.2( [gauss 0.5 0.2( [sin 50 0.6( [fill 0(
+|                 |               |            |
+|                 |               |            |
+|                 |               |            |
+[array.fill ahist                              ]
+
+[B]
+|
+[array.hist ahist 100]
+|
+[list.reverse]
+|
+[s ahist-r]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
