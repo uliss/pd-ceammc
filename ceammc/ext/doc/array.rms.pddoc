@@ -42,9 +42,9 @@
 
 [B]
 |
-[array.mean arms]               [const 0(
-|                               |
-[F digits=16]                   [s arms]
+[array.mean arms]               [uniform( [sin 32( [gauss 0 0.3( [fill 0(
+|                               |         |        |             |
+[F digits=16]                   [array.fill                  arms]
 ]]>
             </pdascii>
         </example>

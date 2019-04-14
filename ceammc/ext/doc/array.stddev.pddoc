@@ -33,7 +33,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[B]                            [array astddev size=64 w=200 h=100]
+[B]                            [array astddev size=200 w=200 h=100]
 |
 [array.stddev astddev]
 |

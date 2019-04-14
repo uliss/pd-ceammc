@@ -20,6 +20,7 @@
 - hw.kdb_light added
 - array.fill sin method added
 - array.fill gauss method added
+- array.fill uniform method added
 
 ## [0.7]
 ### Added:

@@ -38,6 +38,10 @@
 [array.mean amean]
 |
 [F digits=16]
+
+[uniform( [fill 0(
+|         |
+[array.fill amean]
 ]]>
             </pdascii>
         </example>
