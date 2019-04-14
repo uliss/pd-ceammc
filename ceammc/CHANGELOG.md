@@ -18,6 +18,7 @@
 - hw.apple_sms (sudden motion sensor) added
 - hw.cpu_temp added
 - hw.kdb_light added
+- array.fill sin method added
 
 ## [0.7]
 ### Added:

@@ -15,11 +15,7 @@
 #X restore 347 118 graph;
 #X obj 50 147 array.stddev astddev;
 #X floatatom 50 176 16 0 0 0 - - -;
-#X obj 50 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X obj 50 234 array.stddev astddev;
 #X msg 347 234 const 0;
-#X floatatom 50 262 16 0 0 0 - - -;
 #X obj 347 262 s astddev;
 #X obj 20 301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 306 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
@@ -81,5 +77,3 @@ https://github.com/uliss/pure-data;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;
 #X connect 8 0 9 0;
-#X connect 9 0 11 0;
-#X connect 10 0 12 0;

@@ -11,6 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 #include "array_fill.h"
 #include "ceammc_factory.h"
 
@@ -56,6 +60,34 @@ void ArrayFill::m_fill(t_symbol* m, const AtomList& l)
     }
 
     fillRange(from, to, values);
+}
+
+void ArrayFill::m_sin(t_symbol* m, const AtomList& l)
+{
+    if (!checkArray())
+        return;
+
+    if (l.empty()) {
+        METHOD_ERR(m) << "usage: " << m << " PERIOD [AMPLITUDE] [PHASE]";
+        return;
+    }
+
+    const t_float p = l.floatAt(0, 0);
+    const t_float amp = l.floatAt(1, 1);
+    const t_float phase = l.floatAt(2, 0) * M_PI;
+
+    if (p <= 0) {
+        METHOD_ERR(m) << "invalid period value: " << p;
+        return;
+    }
+
+    const t_float w = 2 * M_PI / p;
+
+    int i = 0;
+    for (auto& v : array_)
+        v = amp * std::sin(w * i++ + phase);
+
+    finish();
 }
 
 void ArrayFill::fillRange(size_t from, size_t to, const AtomList& l)
@@ -151,4 +183,5 @@ extern "C" void setup_array0x2efill()
 {
     ObjectFactory<ArrayFill> obj("array.fill");
     obj.addMethod("fill", &ArrayFill::m_fill);
+    obj.addMethod("sin", &ArrayFill::m_sin);
 }
