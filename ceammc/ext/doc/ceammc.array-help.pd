@@ -28,11 +28,13 @@
 #X text 200 413 calculates sum of array elements;
 #X obj 30 440 array.sum2;
 #X text 200 440 calculates sum of squares of array elements;
-#X obj 30 467 array.vplay;
-#X text 200 467 simple array player for using with vline~;
-#X obj 30 494 array.window;
-#X text 200 494 fill array with window;
+#X obj 30 467 array.variance;
+#X text 200 467 calculates variance of array values;
+#X obj 30 494 array.vplay;
+#X text 200 494 simple array player for using with vline~;
+#X obj 30 521 array.window;
+#X text 200 521 fill array with window;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::array 20 20 0 20 -104026
 -4096 0;
-#X obj 1 521 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 531 library: ceammc;
+#X obj 1 548 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 558 library: ceammc;
