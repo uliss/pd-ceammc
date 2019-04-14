@@ -85,7 +85,7 @@ struct SMCKeyData {
     SMCKeyDataKeyInfo keyInfo;
     char result;
     char status;
-    char data8;
+    char data8; // command
     UInt32 data32;
     SMCBytes_t bytes;
 };

@@ -35,7 +35,20 @@ AtomList HwAppleSMC::propKeys() const
 #endif
 }
 
+void HwAppleSMC::m_read(t_symbol* s, const AtomList& l)
+{
+#ifdef WITH_SMC
+    if (!checkArgs(l, ARG_SYMBOL, s))
+        return;
+
+    listTo(0, smc_.readKey(l.symbolAt(0, &s_)));
+#else
+    OBJ_ERR << "no SMS support on this machine";
+#endif
+}
+
 void setup_hw_apple_smc()
 {
     ObjectFactory<HwAppleSMC> obj("hw.apple_smc");
+    obj.addMethod("read", &HwAppleSMC::m_read);
 }

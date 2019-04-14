@@ -92,12 +92,18 @@ SMC::~SMC()
 
 AtomList SMC::readKey(t_symbol* key) const
 {
-    SMCValue val;
-    if (!readKey(key->s_name, val))
-        return AtomList();
+    LIB_LOG << "read key: " << key;
 
-    if (val.dataSize < 1)
+    SMCValue val;
+    if (!readKey(key->s_name, val)) {
+        LIB_LOG << "error while key read: " << key;
         return AtomList();
+    }
+
+    if (val.dataSize < 1) {
+        LIB_LOG << "invalid key size: " << val.dataSize;
+        return AtomList();
+    }
 
     if (strcmp(val.dataType, DATATYPE_SP78) == 0) {
         int intValue = (val.bytes[0] * 256 + val.bytes[1]) >> 2;
@@ -105,7 +111,8 @@ AtomList SMC::readKey(t_symbol* key) const
     } else if ((strcmp(val.dataType, DATATYPE_UINT8) == 0)
         || (strcmp(val.dataType, DATATYPE_UINT16) == 0)
         || (strcmp(val.dataType, DATATYPE_UINT32) == 0)) {
-
+        LIB_LOG << val.dataSize << ": " << _strtoul(val.bytes, val.dataSize, 10);
+        //        LIB_LOG << std::string(val.bytes, val.dataSize);
         return AtomList(_strtoul(val.bytes, val.dataSize, 10));
     } else if (strcmp(val.dataType, DATATYPE_FPE2) == 0) {
         return AtomList(_strtof(val.bytes, val.dataSize, 2));
@@ -156,7 +163,7 @@ size_t SMC::keyCount() const
 {
     SMCValue val;
     readKey("#KEY", val);
-    return _strtoul(val.bytes, val.dataSize, 10);
+    return _strtoul(val.bytes, val.dataSize, 16);
 }
 
 bool SMC::readKey(const std::string& key, SMCValue& val) const
@@ -169,22 +176,24 @@ bool SMC::readKey(const std::string& key, SMCValue& val) const
     memset(&val, 0, sizeof(SMCValue));
 
     in_data.key = _strtoul(key.c_str(), 4, 16);
-    snprintf(val.key, 4, "%s", key.c_str());
     in_data.data8 = SMC_CMD_READ_KEYINFO;
 
     if (!smcCall(KERNEL_INDEX_SMC, &in_data, &out_data)) {
-        LIB_LOG << "can't read key: " << key;
+        LIB_LOG << "can't read key info: " << key;
         return false;
     }
 
-    val.dataSize = out_data.keyInfo.dataSize;
+    LIB_LOG << "data type: " << out_data.keyInfo.dataType;
 
     _ultostr(val.dataType, out_data.keyInfo.dataType);
+    val.dataSize = out_data.keyInfo.dataSize;
     in_data.keyInfo.dataSize = val.dataSize;
     in_data.data8 = SMC_CMD_READ_BYTES;
 
-    if (!smcCall(KERNEL_INDEX_SMC, &in_data, &out_data))
+    if (!smcCall(KERNEL_INDEX_SMC, &in_data, &out_data)) {
+        LIB_LOG << "can't read bytes: " << key;
         return false;
+    }
 
     memcpy(val.bytes, out_data.bytes, sizeof(out_data.bytes));
     return true;
