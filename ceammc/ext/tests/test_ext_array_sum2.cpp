@@ -18,7 +18,7 @@
 
 #include "catch.hpp"
 
-typedef TestExternal<ArraySum2> ArraySumTest;
+typedef TestExternal<ArraySum2> TestArraySum2;
 
 using namespace ceammc;
 
@@ -28,7 +28,7 @@ TEST_CASE("array.sum2", "[externals]")
 {
     SECTION("empty")
     {
-        ArraySumTest t("array.sum2");
+        TestArraySum2 t("array.sum2");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY_NONE(t, @array);
@@ -39,7 +39,7 @@ TEST_CASE("array.sum2", "[externals]")
 
     SECTION("invalid")
     {
-        ArraySumTest t("array.sum2", LA("non-exists"));
+        TestArraySum2 t("array.sum2", LA("non-exists"));
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @array, "non-exists");
@@ -50,7 +50,7 @@ TEST_CASE("array.sum2", "[externals]")
 
     SECTION("array1")
     {
-        ArraySumTest t("array.sum2", LA("array1"));
+        TestArraySum2 t("array.sum2", LA("array1"));
 
         // no array yet
         WHEN_SEND_BANG_TO(0, t);

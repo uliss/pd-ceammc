@@ -18,17 +18,17 @@
 
 #include "catch.hpp"
 
-typedef TestExternal<ArraySum> ArraySumTest;
+typedef TestExternal<ArraySum> TestArraySum;
 
 using namespace ceammc;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
-TEST_CASE("array.minmax", "[externals]")
+TEST_CASE("array.sum", "[externals]")
 {
     SECTION("empty")
     {
-        ArraySumTest t("array.minmax");
+        TestArraySum t("array.sum");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY_NONE(t, @array);
@@ -39,7 +39,7 @@ TEST_CASE("array.minmax", "[externals]")
 
     SECTION("invalid")
     {
-        ArraySumTest t("array.minmax", LA("non-exists"));
+        TestArraySum t("array.sum", LA("non-exists"));
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @array, "non-exists");
@@ -50,7 +50,7 @@ TEST_CASE("array.minmax", "[externals]")
 
     SECTION("array1")
     {
-        ArraySumTest t("array.minmax", LA("array1"));
+        TestArraySum t("array.sum", LA("array1"));
 
         // no array yet
         WHEN_SEND_BANG_TO(0, t);

@@ -14,6 +14,7 @@
 #ifndef CEAMMC_ARRAY_H
 #define CEAMMC_ARRAY_H
 
+#include <initializer_list>
 #include <iterator>
 #include <stdexcept>
 #include <string>
@@ -78,6 +79,7 @@ public:
     Array();
     Array(_symbol* name);
     Array(const char* name);
+    Array(const char* name, std::initializer_list<t_sample> l);
 
     /** iterators */
     iterator begin();

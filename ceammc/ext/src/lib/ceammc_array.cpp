@@ -44,6 +44,18 @@ Array::Array(const char* name)
     open(name);
 }
 
+Array::Array(const char* name, std::initializer_list<t_sample> l)
+    : name_(0)
+    , array_(0)
+    , size_(0)
+    , data_(0)
+{
+    if (open(name)) {
+        if (resize(l.size()))
+            std::copy(l.begin(), l.end(), begin());
+    }
+}
+
 Array::iterator Array::begin()
 {
     return ArrayIterator(data_);
