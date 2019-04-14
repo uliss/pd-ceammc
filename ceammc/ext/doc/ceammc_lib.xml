@@ -27,6 +27,9 @@
     <entry descr="find array min and max element value" name="array.minmax" ref_view="object">
       <xi:include href="array.minmax.pddoc" parse="xml"/>
     </entry>
+    <entry descr="calculates root mean square value for array" name="array.rms" ref_view="object">
+      <xi:include href="array.rms.pddoc" parse="xml"/>
+    </entry>
     <entry descr="set array content from list" name="array.set" ref_view="object">
       <xi:include href="array.set.pddoc" parse="xml"/>
     </entry>

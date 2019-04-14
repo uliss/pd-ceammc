@@ -8,6 +8,7 @@ set(DOC_FILES
     array.mean
     array.minmax
     array.p2s
+    array.rms
     array.s2p
     array.set
     array.stretch
