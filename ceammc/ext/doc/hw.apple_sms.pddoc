@@ -42,7 +42,9 @@
 |           |
 [hw.apple_sms]
 |
-[ui.d]
+[unpack    0 0 0]
+|      ^|     ^^|
+[F]    [F]    [F]
 ]]>
             </pdascii>
         </example>
