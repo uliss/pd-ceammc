@@ -17,6 +17,9 @@
                 <see>array.sum2</see>
             </also>
         </meta>
+        <info>
+            <wiki name="Root_mean_square">Root mean square</wiki>
+        </info>
         <arguments>
             <argument name="NAME" type="symbol">array name</argument>
         </arguments>
@@ -34,17 +37,19 @@
         <example>
             <pdascii>
 <![CDATA[
-[B]                            [array arms size=64 w=200 h=100]
+[B]                       [array arms size=300 w=300 h=100]
 |
 [array.rms arms]
 |
 [F digits=16]
 
-[B]
-|
-[array.mean arms]               [uniform( [sin 32( [gauss 0 0.3( [fill 0(
-|                               |         |        |             |
-[F digits=16]                   [array.fill                  arms]
+
+
+[uniform( [sin 100( [gauss 0 0.3( [fill 0( [pulse 50( [tri 60(
+|         |         |             |        |          |
+|         |         |             |        |          |
+|         |         |             |        |          |
+[array.fill                                       arms]
 ]]>
             </pdascii>
         </example>

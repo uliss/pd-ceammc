@@ -16,6 +16,9 @@
                 <see>array.stddev</see>
             </also>
         </meta>
+        <info>
+            <wiki name="Variance">Variance</wiki>
+        </info>
         <arguments>
             <argument name="NAME" type="symbol">array name</argument>
         </arguments>
