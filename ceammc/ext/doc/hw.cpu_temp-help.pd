@@ -1,27 +1,27 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 608 50 cnv 1 157 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 608 50 get CPU temperature;
+#X obj 613 50 cnv 1 152 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 613 50 get CPU temperature;
 #X obj 1 1 cnv 5 765 40 empty empty hw.cpu_temp 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 hw.cpu_temp;
-#X obj 210 80 cnv 1 555 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 At this moment supports only MacOSX;
-#X obj 50 141 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 170 metro 1000;
-#X obj 50 213 hw.cpu_temp;
-#X floatatom 50 242 6 0 0 0 - - -;
-#X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 286 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 50 143 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 172 metro 1000;
+#X obj 50 215 hw.cpu_temp;
+#X floatatom 50 244 6 0 0 0 - - -;
+#X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 288 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 287 1\.;
-#X text 150 287 *bang*;
-#X text 245 287 outputs current CPU temperature.;
-#X obj 20 315 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 320 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 289 1\.;
+#X text 150 289 *bang*;
+#X text 245 289 outputs current CPU temperature.;
+#X obj 20 319 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 324 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 321 1\.;
-#X text 245 321 float value in celsius degree.;
+#X text 110 325 1\.;
+#X text 245 325 float value in celsius degree.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -16,6 +16,9 @@
                 <see>array.sum</see>
             </also>
         </meta>
+        <info>
+            <wiki name="Arithmetic_mean">Arithmetic mean</wiki>
+        </info>
         <arguments>
             <argument name="NAME" type="symbol">array name</argument>
         </arguments>

@@ -1,44 +1,43 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 442 50 cnv 1 323 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 442 50 query the sudden motion sensor in Apples;
+#X obj 453 50 cnv 1 312 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 453 50 query the sudden motion sensor in Apples;
 #X obj 1 1 cnv 5 765 40 empty empty hw.apple_sms 20 20 0 20 -104026
 -4096 0;
 #X obj 654 11 hw.apple_sms;
-#X obj 210 80 cnv 1 555 103 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 In raw output mode output values can be in various
-output range and sign \, otherwise output data are normalized to float
-range \, where positive *x* mean rightwards \, positive *y* means
-rearwards \, positive *z* mean upwards \, but not all devices are in
-database. It it occures with your device (wrong direction) \, please
-\, send us this information;
-#X obj 50 211 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 240 metro 300;
-#X obj 165 240 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 165 269 @raw \$1;
-#X obj 50 298 hw.apple_sms;
-#X obj 50 327 unpack 0 0 0;
-#X floatatom 50 355 5 0 0 0 - - -;
-#X floatatom 117 355 5 0 0 0 - - -;
-#X floatatom 184 355 5 0 0 0 - - -;
-#X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 399 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 210 80 cnv 1 555 110 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 In raw output mode output values can be in various output
+range and sign \, otherwise output data are normalized to float range
+\, where positive *x* mean rightwards \, positive *y* means rearwards
+\, positive *z* mean upwards \, but not all devices are in database.
+It it occures with your device (wrong direction) \, please \, send
+us this information;
+#X obj 50 218 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 247 metro 300;
+#X obj 165 247 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 165 276 @raw \$1;
+#X obj 50 305 hw.apple_sms;
+#X obj 50 334 unpack 0 0 0;
+#X floatatom 50 362 5 0 0 0 - - -;
+#X floatatom 117 362 5 0 0 0 - - -;
+#X floatatom 184 362 5 0 0 0 - - -;
+#X obj 20 401 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 406 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 434 @raw;
-#X text 245 434 Get/Set raw data output mode. Type: int. Default
-value: 0\. Allowed values: 0 \, 1\.;
-#X obj 20 483 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 488 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 441 @raw;
+#X text 245 441 Get/Set raw data output mode. Type: int. Default value:
+0\. Allowed values: 0 \, 1\.;
+#X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 498 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 489 1\.;
-#X text 150 489 *bang*;
-#X text 245 489 outputs current motion sensor information.;
-#X obj 20 517 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 522 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 499 1\.;
+#X text 150 499 *bang*;
+#X text 245 499 outputs current motion sensor information.;
+#X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 534 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 523 1\.;
-#X text 245 523 list of three values: x-rotation \, y-rotation \,
-z-acceleration.;
+#X text 110 535 1\.;
+#X text 245 535 list of three values: x-rotation \, y-rotation \, z-acceleration.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

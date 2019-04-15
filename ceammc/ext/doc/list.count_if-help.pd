@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 347 50 cnv 1 418 35 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 347 50 returns the number of items that satisfy to external
+#X obj 362 50 cnv 1 403 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 362 50 returns the number of items that satisfy to external
 predicate.;
 #X obj 1 1 cnv 5 765 40 empty empty list.count_if 20 20 0 20 -104026
 -4096 0;
@@ -22,19 +22,19 @@ predicate.;
 #X text 110 336 1\.;
 #X text 150 336 *list*;
 #X text 245 336 input list.;
-#X text 150 354 *data*;
-#X text 245 354 input mlist.;
-#X text 110 372 2\.;
-#X text 150 372 *float*;
-#X text 245 372 input value from predicate. "1" means accepted. "0"
+#X text 150 356 *data*;
+#X text 245 356 input mlist.;
+#X text 110 376 2\.;
+#X text 150 376 *float*;
+#X text 245 376 input value from predicate. "1" means accepted. "0"
 means reject. Range: 0\...1\.;
-#X obj 20 414 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 419 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 421 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 426 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 420 1\.;
-#X text 245 420 count of elements.;
-#X text 110 438 2\.;
-#X text 245 438 element output to predicate.;
+#X text 110 427 1\.;
+#X text 245 427 count of elements.;
+#X text 110 447 2\.;
+#X text 245 447 element output to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -42,7 +42,7 @@ means reject. Range: 0\...1\.;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 592 520 see also:;
+#X text 594 520 see also:;
 #X obj 668 520 list.count;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

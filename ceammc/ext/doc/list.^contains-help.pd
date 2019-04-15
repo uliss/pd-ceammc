@@ -1,71 +1,71 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 299 50 cnv 1 466 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 299 50 on input atom or list checks if specified list contains
+#X obj 315 50 cnv 1 450 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 315 50 on input atom or list checks if specified list contains
 it;
 #X obj 1 1 cnv 5 765 40 empty empty list.^contains 20 20 0 20 -104026
 -4096 0;
 #X obj 639 11 list.^contains;
-#X obj 210 80 cnv 1 555 56 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 60 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Outputs 1 if contains \, otherwise 0;
-#X text 215 103 Different arguments order then in [list.^contains];
-#X floatatom 50 164 5 0 0 0 - - -;
-#X msg 98 164 2 3 4;
-#X msg 174 164 4 5 6;
-#X msg 251 164 symbol A;
-#X msg 357 164 list A B;
-#X msg 376 193 list A B C D;
-#X obj 50 222 list.^contains 1 2 3 4 5;
-#X obj 50 251 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X text 50 280 works with data;
-#X obj 242 280 loadbang;
-#X obj 50 308 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X text 215 105 Different arguments order then in [list.^contains];
+#X floatatom 50 168 5 0 0 0 - - -;
+#X msg 98 168 2 3 4;
+#X msg 174 168 4 5 6;
+#X msg 251 168 symbol A;
+#X msg 357 168 list A B;
+#X msg 376 197 list A B C D;
+#X obj 50 226 list.^contains 1 2 3 4 5;
+#X obj 50 255 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X text 50 284 works with data;
+#X obj 242 284 loadbang;
+#X obj 50 312 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 146 308 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 146 312 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 242 308 str ABC;
-#X obj 338 308 str DEF;
-#X obj 50 337 str ABC;
-#X obj 146 337 str ??;
-#X obj 242 337 list append;
-#X obj 50 366 list.^contains;
-#X obj 50 395 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 424 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 242 312 str ABC;
+#X obj 338 312 str DEF;
+#X obj 50 341 str ABC;
+#X obj 146 341 str ??;
+#X obj 242 341 list append;
+#X obj 50 370 list.^contains;
+#X obj 50 399 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 428 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 461 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 466 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 465 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 470 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 467 1\.;
-#X text 150 467 *float*;
-#X text 245 467 checks if given float contains in list.;
-#X text 150 485 *symbol*;
-#X text 245 485 checks if given symbol contains in list.;
-#X text 150 503 *list*;
-#X text 245 503 check is given list is subseqence of list.;
-#X text 150 521 *data:mlist*;
-#X text 245 521 as list.;
-#X text 150 539 *data*;
-#X text 245 539 checks if given data contains in list.;
-#X text 110 557 2\.;
-#X text 150 557 *list*;
-#X text 245 557 set haystack list.;
-#X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 590 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 471 1\.;
+#X text 150 471 *float*;
+#X text 245 471 checks if given float contains in list.;
+#X text 150 491 *symbol*;
+#X text 245 491 checks if given symbol contains in list.;
+#X text 150 511 *list*;
+#X text 245 511 check is given list is subseqence of list.;
+#X text 150 531 *data:mlist*;
+#X text 245 531 as list.;
+#X text 150 551 *data*;
+#X text 245 551 checks if given data contains in list.;
+#X text 110 571 2\.;
+#X text 150 571 *list*;
+#X text 245 571 set haystack list.;
+#X obj 20 601 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 606 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 591 1\.;
-#X text 245 591 1 on success \, otherwise 0\.;
+#X text 110 607 1\.;
+#X text 245 607 1 on success \, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 639 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 642 library: ceammc v0.7.1;
-#X text 376 654 see also:;
-#X obj 452 654 list.contains;
-#X obj 560 654 list.all_of;
-#X obj 654 654 list.none_of;
-#N canvas 10 661 400 290 info 0;
+#X obj 1 657 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 660 library: ceammc v0.7.1;
+#X text 378 672 see also:;
+#X obj 452 672 list.contains;
+#X obj 560 672 list.all_of;
+#X obj 654 672 list.none_of;
+#N canvas 10 679 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -89,7 +89,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 661 pd info;
+#X restore 10 679 pd info;
 #X connect 7 0 13 0;
 #X connect 8 0 13 0;
 #X connect 9 0 13 0;

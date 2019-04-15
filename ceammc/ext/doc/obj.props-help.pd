@@ -1,32 +1,32 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 616 50 cnv 1 149 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 616 50 property extractor;
+#X obj 621 50 cnv 1 144 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 621 50 property extractor;
 #X obj 1 1 cnv 5 765 40 empty empty obj.props 20 20 0 20 -104026 -4096
 0;
 #X obj 675 11 obj.props;
-#X obj 210 80 cnv 1 555 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 extract properties from object \, connected to second
 outlet;
-#X obj 50 141 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 170 obj.props;
-#X obj 50 199 ui.d;
-#X obj 338 199 flt.moog_vcf~;
-#X text 50 271 ...;
-#X obj 20 306 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 311 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 50 172 obj.props;
+#X obj 50 201 ui.d;
+#X obj 338 201 flt.moog_vcf~;
+#X text 50 273 ...;
+#X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 315 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 312 1\.;
-#X text 150 312 *bang*;
-#X text 245 312 output extracted properties to first outlet.;
-#X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 345 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 316 1\.;
+#X text 150 316 *bang*;
+#X text 245 316 output extracted properties to first outlet.;
+#X obj 20 346 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 351 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 346 1\.;
-#X text 245 346 property output (data:dict).;
-#X text 110 364 2\.;
-#X text 245 364 connect to examined object.;
+#X text 110 352 1\.;
+#X text 245 352 property output (data:dict).;
+#X text 110 372 2\.;
+#X text 245 372 connect to examined object.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

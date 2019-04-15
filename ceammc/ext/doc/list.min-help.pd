@@ -1,71 +1,70 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 475 50 cnv 1 290 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 475 50 returns smallest element in the list;
+#X obj 485 50 cnv 1 280 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 485 50 returns smallest element in the list;
 #X obj 1 1 cnv 5 765 40 empty empty list.min 20 20 0 20 -104026 -4096
 0;
 #X obj 683 11 list.min;
-#X obj 210 80 cnv 1 555 84 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 90 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 By default returns smallest float in list \, this equal
 to using @float property.;
-#X text 215 117 Also you can choose smallest symbol from list by using
+#X text 215 120 Also you can choose smallest symbol from list by using
 @symbol property.;
-#X msg 50 192 1 2 3 a b;
-#X msg 174 192 list a b c;
-#X msg 309 192 1 2 3 a b;
-#X msg 434 192 list aa ab ac;
-#X obj 50 236 list.min @float;
-#X obj 309 236 list.min @symbol;
-#X floatatom 50 264 5 0 0 0 - - -;
-#X symbolatom 309 264 10 0 0 0 - - -;
-#X msg 50 293 1 a 2 b 3 c;
-#X floatatom 184 293 5 0 0 0 - - -;
-#X symbolatom 251 293 8 0 0 0 - - -;
-#X obj 50 336 list.min @any;
-#X obj 50 365 msg set;
-#X msg 50 394 ;
-#X obj 20 433 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 438 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X msg 50 198 1 2 3 a b;
+#X msg 174 198 list a b c;
+#X msg 309 198 1 2 3 a b;
+#X msg 434 198 list aa ab ac;
+#X obj 50 242 list.min @float;
+#X obj 309 242 list.min @symbol;
+#X floatatom 50 270 5 0 0 0 - - -;
+#X symbolatom 309 270 10 0 0 0 - - -;
+#X msg 50 299 1 a 2 b 3 c;
+#X floatatom 184 299 5 0 0 0 - - -;
+#X symbolatom 251 299 8 0 0 0 - - -;
+#X obj 50 342 list.min @any;
+#X obj 50 371 msg set;
+#X msg 50 400 ;
+#X obj 20 439 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 444 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 473 @any;
-#X text 245 473 alias for @type any. Find greatest atom of any type.
+#X msg 110 479 @any;
+#X text 245 479 alias for @type any. Find greatest atom of any type.
 Note: symbols are greater then numbers.;
-#X msg 110 512 @float;
-#X text 245 512 alias for @type float. Find max float element in
-list.;
-#X msg 110 541 @symbol;
-#X text 245 541 alias for @type symbol. Find greatest symbol element.;
-#X msg 110 570 @type;
-#X text 245 570 Get/Set type of largest element. Type: symbol. Default
+#X msg 110 521 @float;
+#X text 245 521 alias for @type float. Find max float element in list.;
+#X msg 110 550 @symbol;
+#X text 245 550 alias for @type symbol. Find greatest symbol element.;
+#X msg 110 579 @type;
+#X text 245 579 Get/Set type of largest element. Type: symbol. Default
 value: float. Allowed values: float \, symbol \, any.;
-#X obj 20 619 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 624 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 631 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 636 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 625 1\.;
-#X text 150 625 *list*;
-#X text 245 625 input list.;
-#X text 150 643 *data:mlist*;
-#X text 245 643 input mlist.;
-#X text 150 661 *float*;
-#X text 245 661 passed thru in @float or @any mode.;
-#X text 150 679 *symbol*;
-#X text 245 679 passed thru in @symbol or @any mode.;
-#X obj 20 707 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 712 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 637 1\.;
+#X text 150 637 *list*;
+#X text 245 637 input list.;
+#X text 150 657 *data:mlist*;
+#X text 245 657 input mlist.;
+#X text 150 677 *float*;
+#X text 245 677 passed thru in @float or @any mode.;
+#X text 150 697 *symbol*;
+#X text 245 697 passed thru in @symbol or @any mode.;
+#X obj 20 727 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 732 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 713 1\.;
-#X text 245 713 smallest element.;
+#X text 110 733 1\.;
+#X text 245 733 smallest element.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 761 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 764 library: ceammc v0.7.1;
-#X text 519 776 see also:;
-#X obj 595 776 list.max;
-#X obj 668 776 list.range;
-#N canvas 10 783 400 290 info 0;
+#X obj 1 783 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 786 library: ceammc v0.7.1;
+#X text 521 798 see also:;
+#X obj 595 798 list.max;
+#X obj 668 798 list.range;
+#N canvas 10 805 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -89,7 +88,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 783 pd info;
+#X restore 10 805 pd info;
 #X connect 7 0 11 0;
 #X connect 8 0 11 0;
 #X connect 9 0 12 0;

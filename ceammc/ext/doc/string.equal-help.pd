@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 553 50 cnv 1 212 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 553 50 check strings for equality;
+#X obj 560 50 cnv 1 205 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 560 50 check strings for equality;
 #X obj 1 1 cnv 5 765 40 empty empty string.equal 20 20 0 20 -104026
 -4096 0;
 #X obj 563 11 str.equal;
@@ -17,20 +17,20 @@
 -49933 0;
 #X text 110 282 1\.;
 #X text 150 282 symbol;
-#X obj 246 283 cnv 1 32 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 246 283 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 282 STR: second string initial value.;
-#X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 315 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 317 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 316 1\.;
-#X text 245 316 first string (or symbol).;
-#X text 110 334 2\.;
-#X text 245 334 second string (or symbol).;
-#X obj 20 362 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 367 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 318 1\.;
+#X text 245 318 first string (or symbol).;
+#X text 110 338 2\.;
+#X text 245 338 second string (or symbol).;
+#X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 373 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 368 1\.;
-#X text 245 368 outputs 1 if strings are equal \, otherwise 0\.;
+#X text 110 374 1\.;
+#X text 245 374 outputs 1 if strings are equal \, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -38,7 +38,7 @@
 #X obj 131 48 ui.link @title string @url ceammc.string-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 621 520 see also:;
+#X text 623 520 see also:;
 #X obj 697 520 string;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

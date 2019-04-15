@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 473 50 cnv 1 292 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 473 50 checks if input data has *data* type;
+#X obj 484 50 cnv 1 281 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 484 50 checks if input data has *data* type;
 #X obj 1 1 cnv 5 765 40 empty empty is_data 20 20 0 20 -104026 -4096
 0;
 #X obj 690 11 is_data;
@@ -24,13 +24,13 @@
 #X text 110 320 1\.;
 #X text 150 320 *data*;
 #X text 245 320 outputs '1' to 1st outlet \, otherwise '0'.;
-#X obj 20 348 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 353 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 355 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 354 1\.;
-#X text 245 354 0 or 1\.;
-#X text 110 372 2\.;
-#X text 245 372 passes *data* message.;
+#X text 110 356 1\.;
+#X text 245 356 0 or 1\.;
+#X text 110 376 2\.;
+#X text 245 376 passes *data* message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -39,7 +39,7 @@
 ceammc.predicates-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 462 520 see also:;
+#X text 464 520 see also:;
 #X obj 538 520 is_float;
 #X obj 610 520 is_symbol;
 #X obj 690 520 is_list;

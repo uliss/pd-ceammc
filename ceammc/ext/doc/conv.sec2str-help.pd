@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 338 50 cnv 1 427 35 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 338 50 converts float time in seconds to formated symbol (or
+#X obj 294 50 cnv 1 471 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 294 50 converts float time in seconds to formated symbol (or
 string);
 #X obj 1 1 cnv 5 765 40 empty empty conv.sec2str 20 20 0 20 -104026
 -4096 0;
@@ -24,19 +24,19 @@ string);
 #X msg 110 313 @ms;
 #X text 245 313 output milliseconds.;
 #X msg 110 342 @symbol;
-#X text 245 342 if specified - output formatted time as symbol \,
-otherwise as string.;
-#X obj 20 391 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 396 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 245 342 if specified - output formatted time as symbol \, otherwise
+as string.;
+#X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 399 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 397 1\.;
-#X text 150 397 *float*;
-#X text 245 397 converts float value in seconds to formatted symbol.;
-#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 430 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 400 1\.;
+#X text 150 400 *float*;
+#X text 245 400 converts float value in seconds to formatted symbol.;
+#X obj 20 430 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 435 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 431 1\.;
-#X text 245 431 time in format "HH:MM::SS" or "HH:MM:SS.XXX".;
+#X text 110 436 1\.;
+#X text 245 436 time in format "HH:MM::SS" or "HH:MM:SS.XXX".;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -44,7 +44,7 @@ otherwise as string.;
 #X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 577 520 see also:;
+#X text 579 520 see also:;
 #X obj 653 520 conv.str2sec;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

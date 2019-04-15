@@ -16,6 +16,9 @@
                 <see>array.variance</see>
             </also>
         </meta>
+        <info>
+            <wiki name="Standard_deviation">Standard deviation</wiki>
+        </info>
         <arguments>
             <argument name="NAME" type="symbol">array name</argument>
         </arguments>

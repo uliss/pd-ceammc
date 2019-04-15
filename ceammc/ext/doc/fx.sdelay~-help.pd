@@ -1,83 +1,83 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 474 50 cnv 1 291 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 474 50 smooth delay with a feedback control;
+#X obj 484 50 cnv 1 281 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 484 50 smooth delay with a feedback control;
 #X obj 1 1 cnv 5 765 40 empty empty fx.sdelay~ 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 fx.sdelay~;
-#X obj 210 80 cnv 1 555 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 delay that doesn't click and doesn't transpose when the
-delay time is changed;
-#X msg 50 155 open %CEAMMC%/guitar1.wav \, 1;
-#X obj 50 184 expand_env;
-#X obj 174 184 ui.hsl;
-#X obj 50 227 readsf~;
-#X obj 174 227 lin->lin 0 1 0 1000;
-#X msg 174 256 @delay \$1;
-#X obj 50 285 fx.sdelay~ @drywet 0.5 @interpolation 100;
-#X obj 50 314 ui.gain~ @size 120 16;
-#X obj 290 314 ui.dsp~;
-#X obj 50 342 dac~;
-#X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 386 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 delay that doesn't click and doesn't transpose when
+the delay time is changed;
+#X msg 50 158 open %CEAMMC%/guitar1.wav \, 1;
+#X obj 50 187 expand_env;
+#X obj 174 187 ui.hsl;
+#X obj 50 230 readsf~;
+#X obj 174 230 lin->lin 0 1 0 1000;
+#X msg 174 259 @delay \$1;
+#X obj 50 288 fx.sdelay~ @drywet 0.5 @interpolation 100;
+#X obj 50 317 ui.gain~ @size 120 16;
+#X obj 290 317 ui.dsp~;
+#X obj 50 345 dac~;
+#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 389 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 421 1\.;
-#X text 150 421 float;
-#X obj 246 422 cnv 1 80 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 421 delay(ms): delay time. Range: 10\...6000;
-#X text 110 439 2\.;
-#X text 150 439 float;
-#X obj 246 440 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 439 feedback: feedback coefficient. Range: 0\...1;
-#X obj 20 467 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 472 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 424 1\.;
+#X text 150 424 float;
+#X obj 246 425 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 424 delay(ms): delay time. Range: 10\...6000;
+#X text 110 444 2\.;
+#X text 150 444 float;
+#X obj 246 445 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 444 feedback: feedback coefficient. Range: 0\...1;
+#X obj 20 474 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 479 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 507 @active;
-#X text 245 507 Get/Set on/off dsp processing. Type: int. Default
-value: 1\. Allowed values: 0 \, 1\.;
-#X msg 110 546 @bypass;
-#X text 245 546 Get/Set if set to 1 - bypass 'effected' signal. Type:
+#X msg 110 514 @active;
+#X text 245 514 Get/Set on/off dsp processing. Type: int. Default value:
+1\. Allowed values: 0 \, 1\.;
+#X msg 110 556 @bypass;
+#X text 245 556 Get/Set if set to 1 - bypass 'effected' signal. Type:
 int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 585 @delay;
-#X text 245 585 Get/Set echo time. Type: float. Units: ms. Default
+#X msg 110 598 @delay;
+#X text 245 598 Get/Set echo time. Type: float. Units: ms. Default
 value: 1\. Range: 0\...6000\.;
-#X msg 110 624 @drywet;
-#X text 245 624 Get/Set proportion of mix between the original (dry)
+#X msg 110 640 @drywet;
+#X text 245 640 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 1\. Range: 0\...1\.;
-#X msg 110 677 @feedback;
-#X text 245 677 Get/Set feedback coefficient. Type: float. Default
+#X msg 110 697 @feedback;
+#X text 245 697 Get/Set feedback coefficient. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 716 @interpolation;
-#X text 245 716 Get/Set interpolation time. Type: float. Units: ms.
+#X msg 110 739 @interpolation;
+#X text 245 739 Get/Set interpolation time. Type: float. Units: ms.
 Default value: 20\. Range: 1\...200\.;
-#X obj 20 765 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 770 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 791 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 796 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 805 clear;
-#X text 245 805 clears delay line.;
-#X msg 110 832 reset;
-#X text 245 832 same as reset.;
-#X obj 20 869 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 874 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 831 clear;
+#X text 245 831 clears delay line.;
+#X msg 110 858 reset;
+#X text 245 858 same as reset.;
+#X obj 20 895 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 900 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 875 1\.;
-#X text 245 875 input signal.;
-#X obj 20 903 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 908 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 901 1\.;
+#X text 245 901 input signal.;
+#X obj 20 931 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 936 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 909 1\.;
-#X text 245 909 output signal.;
+#X text 110 937 1\.;
+#X text 245 937 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 957 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 960 library: ceammc v0.7.1;
-#X text 605 972 see also:;
-#X obj 681 972 fx.echo~;
-#N canvas 10 979 400 290 info 0;
+#X obj 1 987 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 990 library: ceammc v0.7.1;
+#X text 607 1002 see also:;
+#X obj 681 1002 fx.echo~;
+#N canvas 10 1009 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -101,7 +101,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 979 pd info;
+#X restore 10 1009 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 9 0;
 #X connect 8 0 10 0;

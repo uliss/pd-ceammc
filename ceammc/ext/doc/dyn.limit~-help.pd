@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 568 50 cnv 1 197 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 568 50 mono 1176LN Peak Limiter;
+#X obj 575 50 cnv 1 190 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 575 50 mono 1176LN Peak Limiter;
 #X obj 1 1 cnv 5 765 40 empty empty dyn.limit~ 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 dyn.limit~;
@@ -18,11 +18,11 @@
 0;
 #X text 110 336 1\.;
 #X text 245 336 input signal.;
-#X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 369 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 371 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 370 1\.;
-#X text 245 370 output signal.;
+#X text 110 372 1\.;
+#X text 245 372 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -30,7 +30,7 @@
 #X obj 131 48 ui.link @title dyn @url ceammc.dyn-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 502 520 see also:;
+#X text 504 520 see also:;
 #X obj 578 520 dyn.limit2~;
 #X obj 674 520 dyn.comp~;
 #N canvas 10 527 400 290 info 0;

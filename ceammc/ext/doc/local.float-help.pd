@@ -1,74 +1,74 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 489 50 cnv 1 276 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 489 50 canvas-scoped named float variable;
+#X obj 499 50 cnv 1 266 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 499 50 canvas-scoped named float variable;
 #X obj 1 1 cnv 5 765 40 empty empty local.float 20 20 0 20 -104026
 -4096 0;
 #X obj 661 11 local.float;
-#X obj 210 80 cnv 1 555 61 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 65 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Defines named local float variable \, accessed by name
-and available only within its patch (canvas). Note: it is not
-accessible even from subpatch.;
-#X floatatom 50 169 5 0 0 0 - - -;
-#X msg 107 169 + 2 \, bang;
-#X msg 251 169 * 3 \, bang;
-#X msg 395 169 bang;
-#X msg 136 213 - 3 \, bang;
-#X msg 270 213 / 2 \, bang;
-#X obj 50 270 local.float f1;
-#X obj 395 270 local.float f1;
-#X floatatom 50 299 5 0 0 0 - - -;
-#X floatatom 395 299 5 0 0 0 - - -;
-#X obj 20 338 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 343 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+and available only within its patch (canvas). Note: it is not accessible
+even from subpatch.;
+#X floatatom 50 173 5 0 0 0 - - -;
+#X msg 107 173 + 2 \, bang;
+#X msg 251 173 * 3 \, bang;
+#X msg 395 173 bang;
+#X msg 136 217 - 3 \, bang;
+#X msg 270 217 / 2 \, bang;
+#X obj 50 274 local.float f1;
+#X obj 395 274 local.float f1;
+#X floatatom 50 303 5 0 0 0 - - -;
+#X floatatom 395 303 5 0 0 0 - - -;
+#X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 347 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 378 1\.;
-#X text 150 378 symbol;
-#X obj 246 379 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 378 ID: object ID.;
-#X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 411 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 382 1\.;
+#X text 150 382 symbol;
+#X obj 246 383 cnv 1 23 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 382 ID: object ID.;
+#X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 417 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 446 @value;
-#X text 245 446 (readonly) Get current value. Type: float.;
-#X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 490 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 452 @value;
+#X text 245 452 (readonly) Get current value. Type: float.;
+#X obj 20 491 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 496 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 525 set;
-#X text 245 525 sets new value without output.;
-#X msg 110 552 *;
-#X text 245 552 multiply to \, no output.;
-#X msg 110 579 +;
-#X text 245 579 add to float \, no output.;
-#X msg 110 606 -;
-#X text 245 606 subtract from float \, no output.;
-#X msg 110 633 /;
-#X text 245 633 divide by \, no output.;
-#X obj 20 670 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 675 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 531 set;
+#X text 245 531 sets new value without output.;
+#X msg 110 558 *;
+#X text 245 558 multiply to \, no output.;
+#X msg 110 585 +;
+#X text 245 585 add to float \, no output.;
+#X msg 110 612 -;
+#X text 245 612 subtract from float \, no output.;
+#X msg 110 639 /;
+#X text 245 639 divide by \, no output.;
+#X obj 20 676 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 681 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 676 1\.;
-#X text 150 676 *bang*;
-#X text 245 676 output value.;
-#X text 150 694 *float*;
-#X text 245 694 sets new value and outputs it ONLY at current object
+#X text 110 682 1\.;
+#X text 150 682 *bang*;
+#X text 245 682 output value.;
+#X text 150 702 *float*;
+#X text 245 702 sets new value and outputs it ONLY at current object
 outlet.;
-#X obj 20 736 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 741 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 732 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 737 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 742 1\.;
-#X text 245 742 float output.;
+#X text 110 738 1\.;
+#X text 245 738 float output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title local @url ceammc.local-help.pd;
-#X obj 1 790 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 793 library: ceammc v0.7.1;
-#X text 513 805 see also:;
-#X obj 589 805 local.int;
-#X obj 668 805 global.int;
-#N canvas 10 812 400 290 info 0;
+#X obj 1 788 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 791 library: ceammc v0.7.1;
+#X text 515 803 see also:;
+#X obj 589 803 local.int;
+#X obj 668 803 global.int;
+#N canvas 10 810 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -92,7 +92,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 812 pd info;
+#X restore 10 810 pd info;
 #X connect 6 0 12 0;
 #X connect 7 0 12 0;
 #X connect 10 0 12 0;

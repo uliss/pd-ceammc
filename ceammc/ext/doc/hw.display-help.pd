@@ -1,33 +1,32 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 553 50 cnv 1 212 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 553 50 get/set display properties;
+#X obj 560 50 cnv 1 205 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 560 50 get/set display properties;
 #X obj 1 1 cnv 5 765 40 empty empty hw.display 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 hw.display;
-#X obj 210 80 cnv 1 555 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 At this moment supports only MacOSX;
-#X obj 50 141 ui.slider @size 120 12;
-#X msg 50 170 @brightness \$1;
-#X msg 213 170 @brightness?;
-#X obj 50 199 hw.display;
-#X obj 50 228 ui.d;
-#X obj 20 267 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 272 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 50 143 ui.slider @size 120 12;
+#X msg 50 172 @brightness \$1;
+#X msg 213 172 @brightness?;
+#X obj 50 201 hw.display;
+#X obj 50 230 ui.d;
+#X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 274 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 307 @brightness;
-#X text 245 307 Get/Set display brightness. Type: float. Range:
-0\...1\.;
-#X obj 20 346 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 351 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 309 @brightness;
+#X text 245 309 Get/Set display brightness. Type: float. Range: 0\...1\.;
+#X obj 20 348 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 353 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 352 1\.;
-#X text 245 352 input.;
-#X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 385 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 354 1\.;
+#X text 245 354 input.;
+#X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 389 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 386 1\.;
-#X text 245 386 properties output.;
+#X text 110 390 1\.;
+#X text 245 390 properties output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

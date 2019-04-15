@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 513 50 cnv 1 252 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 513 50 calculate least common multiple;
+#X obj 522 50 cnv 1 243 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 522 50 calculate least common multiple;
 #X obj 1 1 cnv 5 765 40 empty empty math.lcm 20 20 0 20 -104026 -4096
 0;
 #X obj 681 11 math.lcm;
@@ -16,25 +16,25 @@
 -49933 0;
 #X text 110 284 1\.;
 #X text 150 284 int;
-#X obj 246 285 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 246 285 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 284 ARG2: second argument.;
-#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 314 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 319 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 318 1\.;
-#X text 150 318 *int*;
-#X text 245 318 sets first argument and outputs calculated LCM value.;
-#X text 150 336 *list*;
-#X text 245 336 sets first argument and second arguments \, then
-output calculated LCM value.;
-#X text 110 368 2\.;
-#X text 150 368 *int*;
-#X text 245 368 sets second value.;
-#X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 401 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 320 1\.;
+#X text 150 320 *int*;
+#X text 245 320 sets first argument and outputs calculated LCM value.;
+#X text 150 340 *list*;
+#X text 245 340 sets first argument and second arguments \, then output
+calculated LCM value.;
+#X text 110 375 2\.;
+#X text 150 375 *int*;
+#X text 245 375 sets second value.;
+#X obj 20 405 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 410 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 402 1\.;
-#X text 245 402 LCM value.;
+#X text 110 411 1\.;
+#X text 245 411 LCM value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -42,7 +42,7 @@ output calculated LCM value.;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 606 520 see also:;
+#X text 608 520 see also:;
 #X obj 682 520 math.gcd;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

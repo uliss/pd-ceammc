@@ -1,41 +1,41 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 624 50 cnv 1 141 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 624 50 Property injector;
+#X obj 629 50 cnv 1 136 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 629 50 Property injector;
 #X obj 1 1 cnv 5 765 40 empty empty prop.set 20 20 0 20 -104026 -4096
 0;
 #X obj 613 11 prop<-;
 #X obj 682 11 prop.set;
-#X obj 210 80 cnv 1 555 89 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 80 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Injects properties into data stream. Values from first
 inlet are passed unchanged and named property values added to stream.
 Note: all property inlets are *hot* \, i.e. if object receives new
 value on inlet it immediately outputs it.;
-#X floatatom 50 197 5 0 0 0 - - -;
-#X floatatom 136 197 5 0 0 0 - - -;
-#X obj 78 226 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X floatatom 50 188 5 0 0 0 - - -;
+#X floatatom 136 188 5 0 0 0 - - -;
+#X obj 78 217 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 136 226 \$1 \$1;
-#X floatatom 203 255 5 0 0 0 - - -;
-#X obj 50 284 prop<- @size @a;
-#X obj 50 313 prop-> @size;
-#X floatatom 50 341 5 0 0 0 - - -;
-#X obj 107 341 ui.display @display_type 1 @size 150 18;
-#X obj 386 341 ui.display @display_type 1 @size 150 18;
-#X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 386 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 136 217 \$1 \$1;
+#X floatatom 203 246 5 0 0 0 - - -;
+#X obj 50 275 prop<- @size @a;
+#X obj 50 304 prop-> @size;
+#X floatatom 50 332 5 0 0 0 - - -;
+#X obj 107 332 ui.display @display_type 1 @size 150 18;
+#X obj 386 332 ui.display @display_type 1 @size 150 18;
+#X obj 20 372 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 377 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 387 1\.;
-#X text 245 387 data stream.;
-#X text 110 405 2\.;
-#X text 245 405 property value.;
-#X text 110 423 ....;
-#X text 245 423 property value.;
-#X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 456 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 378 1\.;
+#X text 245 378 data stream.;
+#X text 110 398 2\.;
+#X text 245 398 property value.;
+#X text 110 418 ....;
+#X text 245 418 property value.;
+#X obj 20 448 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 453 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 457 1\.;
-#X text 245 457 output values.;
+#X text 110 454 1\.;
+#X text 245 454 output values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -43,7 +43,7 @@ value on inlet it immediately outputs it.;
 #X obj 131 48 ui.link @title property @url ceammc.property-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 620 520 see also:;
+#X text 622 520 see also:;
 #X obj 696 520 prop->;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

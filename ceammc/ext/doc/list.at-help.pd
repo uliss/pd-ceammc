@@ -1,98 +1,96 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 324 50 cnv 1 441 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 324 50 on input list outputs element(s) at specified
-index(es);
+#X obj 340 50 cnv 1 425 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 340 50 on input list outputs element(s) at specified index(es);
 #X obj 1 1 cnv 5 765 40 empty empty list.at 20 20 0 20 -104026 -4096
 0;
 #X obj 690 11 list.at;
-#X obj 210 80 cnv 1 555 186 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 185 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Returns the element at the given index position in the
 list.;
-#X text 215 117 @rel property allows to acess elements in range
-(-LIST_SIZE \, LIST_SIZE). Negative index means position from the end
-of the list. For example: -1 returns last element.;
-#X text 215 168 @clip property: if element index < 0 - first element
+#X text 215 105 @rel property allows to acess elements in range (-LIST_SIZE
+\, LIST_SIZE). Negative index means position from the end of the list.
+For example: -1 returns last element.;
+#X text 215 160 @clip property: if element index < 0 - first element
 returned. If element index >= LIST_SIZE last element returned.;
-#X text 215 219 @wrap property: in range [0 \, LIST_SIZE) ordinal
-elements are returned. Other indexes are wrapped by modulo division.;
-#X msg 50 294 1 2 3 4 5;
-#X floatatom 165 294 5 0 0 0 - - -;
-#X msg 213 294 1 2 3 4 5;
-#X floatatom 328 294 5 0 0 0 - - -;
-#X obj 50 323 list.at -1;
-#X obj 213 323 list.at @clip;
-#X floatatom 50 352 5 0 0 0 - - -;
-#X floatatom 213 352 5 0 0 0 - - -;
-#X msg 50 395 1 2 3 4 5;
-#X floatatom 165 395 5 0 0 0 - - -;
-#X msg 213 395 1 2 3 4 5;
-#X floatatom 328 395 5 0 0 0 - - -;
-#X obj 50 424 list.at @wrap;
-#X obj 213 424 list.at @fold;
-#X floatatom 50 453 5 0 0 0 - - -;
-#X floatatom 213 453 5 0 0 0 - - -;
-#X msg 50 481 list A B C D E;
-#X obj 50 510 list.at -1 1 3;
-#X obj 50 539 msg set;
-#X msg 50 568 ;
-#X obj 20 607 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 612 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X text 215 215 @wrap property: in range [0 \, LIST_SIZE) ordinal elements
+are returned. Other indexes are wrapped by modulo division.;
+#X msg 50 293 1 2 3 4 5;
+#X floatatom 165 293 5 0 0 0 - - -;
+#X msg 213 293 1 2 3 4 5;
+#X floatatom 328 293 5 0 0 0 - - -;
+#X obj 50 322 list.at -1;
+#X obj 213 322 list.at @clip;
+#X floatatom 50 351 5 0 0 0 - - -;
+#X floatatom 213 351 5 0 0 0 - - -;
+#X msg 50 394 1 2 3 4 5;
+#X floatatom 165 394 5 0 0 0 - - -;
+#X msg 213 394 1 2 3 4 5;
+#X floatatom 328 394 5 0 0 0 - - -;
+#X obj 50 423 list.at @wrap;
+#X obj 213 423 list.at @fold;
+#X floatatom 50 452 5 0 0 0 - - -;
+#X floatatom 213 452 5 0 0 0 - - -;
+#X msg 50 480 list A B C D E;
+#X obj 50 509 list.at -1 1 3;
+#X obj 50 538 msg set;
+#X msg 50 567 ;
+#X obj 20 606 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 611 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 647 1\.;
-#X text 150 647 list;
-#X obj 246 648 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 647 position: single or multiple elements position.;
-#X obj 20 675 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 680 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 646 1\.;
+#X text 150 646 list;
+#X obj 246 647 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 646 position: single or multiple elements position.;
+#X obj 20 676 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 681 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 715 @clip;
-#X text 245 715 alias to @method clip. If index < 0 - return first
+#X msg 110 716 @clip;
+#X text 245 716 alias to @method clip. If index < 0 - return first
 element. If index greater or equal list size - return last element.;
-#X msg 110 754 @fold;
-#X text 245 754 alias to @method fold. In range [0 \, LIST_SIZE)
-ordinal elements are returned. [LIST_SIZE \, 2*LIST_SIZE) - returned
-in negative order etc.;
-#X msg 110 807 @index;
-#X text 245 807 Get/Set indexes. Type: list.;
-#X msg 110 836 @method;
-#X text 245 836 Get/Set methods of processing of negative/invalid
-indexes. Type: symbol. Default value: rel. Allowed values: rel \, clip
-\, fold \, wrap.;
-#X msg 110 889 @rel;
-#X text 245 889 alias to @method rel. Negative index means position
+#X msg 110 758 @fold;
+#X text 245 758 alias to @method fold. In range [0 \, LIST_SIZE) ordinal
+elements are returned. [LIST_SIZE \, 2*LIST_SIZE) - returned in negative
+order etc.;
+#X msg 110 815 @index;
+#X text 245 815 Get/Set indexes. Type: list.;
+#X msg 110 844 @method;
+#X text 245 844 Get/Set methods of processing of negative/invalid indexes.
+Type: symbol. Default value: rel. Allowed values: rel \, clip \, fold
+\, wrap.;
+#X msg 110 901 @rel;
+#X text 245 901 alias to @method rel. Negative index means position
 from the end of the list.;
-#X msg 110 928 @wrap;
-#X text 245 928 alias to @method wrap. In range [0 \, LIST_SIZE)
-ordinal elements are returned. Other indexes are wrapped by modulo
-division.;
-#X obj 20 991 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 996 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 110 997 1\.;
-#X text 150 997 *list*;
-#X text 245 997 input list.;
-#X text 150 1015 *data:mlist*;
-#X text 245 1015 input mlist.;
-#X text 110 1033 2\.;
-#X text 150 1033 *list*;
-#X text 245 1033 positions.;
-#X obj 20 1061 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1066 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X msg 110 943 @wrap;
+#X text 245 943 alias to @method wrap. In range [0 \, LIST_SIZE) ordinal
+elements are returned. Other indexes are wrapped by modulo division.;
+#X obj 20 1010 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1015 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1067 1\.;
-#X text 245 1067 element(s) at the given index position(s).;
+#X text 110 1016 1\.;
+#X text 150 1016 *list*;
+#X text 245 1016 input list.;
+#X text 150 1036 *data:mlist*;
+#X text 245 1036 input mlist.;
+#X text 110 1056 2\.;
+#X text 150 1056 *list*;
+#X text 245 1056 positions.;
+#X obj 20 1086 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1091 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1092 1\.;
+#X text 245 1092 element(s) at the given index position(s).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 1115 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1118 library: ceammc v0.7.1;
-#X text 498 1130 see also:;
-#X obj 574 1130 list.^at;
-#X obj 646 1130 list.apply_to;
-#N canvas 10 1137 400 290 info 0;
+#X obj 1 1142 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1145 library: ceammc v0.7.1;
+#X text 500 1157 see also:;
+#X obj 574 1157 list.^at;
+#X obj 646 1157 list.apply_to;
+#N canvas 10 1164 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -116,7 +114,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1137 pd info;
+#X restore 10 1164 pd info;
 #X connect 9 0 13 0;
 #X connect 10 0 13 1;
 #X connect 11 0 14 0;

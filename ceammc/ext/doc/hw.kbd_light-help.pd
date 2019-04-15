@@ -1,31 +1,31 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 457 50 cnv 1 308 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 457 50 Get/set keyboard light on some devices;
+#X obj 468 50 cnv 1 297 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 468 50 Get/set keyboard light on some devices;
 #X obj 1 1 cnv 5 765 40 empty empty hw.kbd_light 20 20 0 20 -104026
 -4096 0;
 #X obj 654 11 hw.kbd_light;
-#X obj 210 80 cnv 1 555 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Only Apple keyboards are supported at this moment;
-#X obj 50 141 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 170 metro 250;
-#X obj 165 170 ui.knob @size 40 40;
-#X obj 50 228 hw.kbd_light;
-#X floatatom 50 257 5 0 0 0 - - -;
-#X obj 20 296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 301 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 50 143 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 172 metro 250;
+#X obj 165 172 ui.knob @size 40 40;
+#X obj 50 230 hw.kbd_light;
+#X floatatom 50 259 5 0 0 0 - - -;
+#X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 303 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 302 1\.;
-#X text 150 302 *float*;
-#X text 245 302 sets current keyboards light level (no output). Range:
+#X text 110 304 1\.;
+#X text 150 304 *float*;
+#X text 245 304 sets current keyboards light level (no output). Range:
 0\...1\.;
-#X text 150 334 *bang*;
-#X text 245 334 outputs current keyboard light level.;
-#X obj 20 362 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 367 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 150 339 *bang*;
+#X text 245 339 outputs current keyboard light level.;
+#X obj 20 369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 374 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 368 1\.;
-#X text 245 368 keyboard light level in range 0\...1\.;
+#X text 110 375 1\.;
+#X text 245 375 keyboard light level in range 0\...1\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
