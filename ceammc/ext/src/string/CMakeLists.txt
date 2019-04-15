@@ -16,6 +16,10 @@ ceammc_string_extension(str)
 ceammc_string_extension(to_symbol)
 ceammc_string_extension(substr)
 
+if(PCRE2_FOUND)
+#    ceammc_string_extension(match)
+endif()
+
 add_library(ceammc_string STATIC mod_string.cpp ${STRING_SOURCES})
 if(UNIX)
     set_target_properties(ceammc_string PROPERTIES COMPILE_FLAGS "-fPIC")

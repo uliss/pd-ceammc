@@ -73,8 +73,8 @@ if(WITH_LIBSNDFILE)
     include(FindLibSndFile)
 endif()
 
-if(WITH_PCRE)
-    find_package(PCRE)
+if(WITH_PCRE2)
+    find_package(PCRE2)
 endif()
 
 # FFTW3
