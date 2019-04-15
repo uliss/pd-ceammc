@@ -73,6 +73,10 @@ if(WITH_LIBSNDFILE)
     include(FindLibSndFile)
 endif()
 
+if(WITH_PCRE)
+    find_package(PCRE)
+endif()
+
 # FFTW3
 option(WITH_FFTW "Use fftw3 library (http://www.fftw.org/)" ON)
 if(WITH_FFTW)
