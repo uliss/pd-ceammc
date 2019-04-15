@@ -173,6 +173,34 @@ void ArrayFill::m_pulse(t_symbol* m, const AtomList& l)
     finish();
 }
 
+void ArrayFill::m_saw(t_symbol* m, const AtomList& l)
+{
+    if (!checkArray())
+        return;
+
+    if (l.empty()) {
+        METHOD_ERR(m) << "usage: " << m << " PERIOD [AMPLITUDE] [PHASE]";
+        return;
+    }
+
+    const t_float period = l.floatAt(0, 0);
+    const t_float amp = l.floatAt(1, 1);
+
+    if (period <= 1) {
+        METHOD_ERR(m) << "invalid period value: " << period;
+        return;
+    }
+
+    int i = 0;
+    for (auto& v : array_) {
+        t_float n = (i++ / period);
+        auto frac = std::fmod(n, 1);
+        v = convert::lin2lin<t_sample>(frac, 0, 1, -amp, amp);
+    }
+
+    finish();
+}
+
 void ArrayFill::fillRange(size_t from, size_t to, const AtomList& l)
 {
     size_t step = l.size();
@@ -270,4 +298,5 @@ extern "C" void setup_array0x2efill()
     obj.addMethod("gauss", &ArrayFill::m_gauss);
     obj.addMethod("uniform", &ArrayFill::m_uniform);
     obj.addMethod("pulse", &ArrayFill::m_pulse);
+    obj.addMethod("saw", &ArrayFill::m_saw);
 }
