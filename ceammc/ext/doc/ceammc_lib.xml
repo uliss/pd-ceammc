@@ -545,6 +545,9 @@
     <entry descr="get CPU temperature" name="hw.cpu_temp" ref_view="object">
       <xi:include href="hw.cpu_temp.pddoc" parse="xml"/>
     </entry>
+    <entry descr="get/set display properties" name="hw.display" ref_view="object">
+      <xi:include href="hw.display.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Get/set keyboard light on some devices" name="hw.kbd_light" ref_view="object">
       <xi:include href="hw.kbd_light.pddoc" parse="xml"/>
     </entry>

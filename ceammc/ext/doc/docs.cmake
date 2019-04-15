@@ -159,6 +159,7 @@ set(DOC_FILES
     hw.apple_sms
     hw.arduino
     hw.cpu_temp
+    hw.display
     hw.kbd_light
     is_any
     is_bang

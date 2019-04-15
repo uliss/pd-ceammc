@@ -66,12 +66,17 @@ void ArrayHist::onBang()
     }
 
     const t_sample NBINS = nbins_->value();
-    for (auto samp : array_) {
-        int n = std::round(convert::lin2lin(samp, MIN, MAX, t_sample(0), NBINS));
-        if (n < 0 || n >= NBINS)
+    for (t_sample samp : array_) {
+        // ignore out of range values
+        if (samp < MIN || samp > MAX)
             continue;
 
-        hist[n]++;
+        auto n = convert::lin2lin<t_sample>(samp, MIN, MAX, t_sample(0), NBINS);
+        int idx = n;
+        if (n == NBINS)
+            idx--;
+
+        hist[idx]++;
     }
 
     AtomList res;
