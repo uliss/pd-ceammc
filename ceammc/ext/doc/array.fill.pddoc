@@ -49,7 +49,11 @@
             <param name="A" type="float" default="1">wave amplitude</param>
             <param name="D" type="float" default="0.5" minvalue="0.001" maxvalue="0.999">duty
             cycle</param></method>
-            <method name="saw">fill all array with saw wave 
+            <method name="tri">fill all array with triangle wave
+            <param name="T" type="float" required="true" minvalue="1" units="sample">wave
+            period</param>
+            <param name="AMP" type="float" default="1">wave amplitude</param></method>
+            <method name="saw">fill all array with saw wave
             <param name="T" type="float" required="true" minvalue="1" units="sample">wave
             period</param>
             <param name="A" type="float" default="1">wave amplitude</param></method>
@@ -78,7 +82,7 @@
 
 [fill @from 50 0.5 0.6 0.7 0.7 0.8 #a3( [pulse 50 0.7 0.3 #a8(
 
-[fill @from 20 @to -10 -0.5 #a4( [saw 60 0.9 #a9(
+[fill @from 20 @to -10 -0.5 #a4( [saw 60 0.9 #a9( [tri 80 0.6 #a10(
 
            [ui.knob]
            |
@@ -99,6 +103,7 @@
 [X a7->b]
 [X a8->b]
 [X a9->b]
+[X a10->b]
 ]]>
             </pdascii>
         </example>
