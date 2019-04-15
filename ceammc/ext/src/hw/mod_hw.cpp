@@ -7,6 +7,7 @@
 void setup_hw_apple_smc();
 void setup_hw_apple_sms();
 void setup_hw_cpu_temp();
+void setup_hw_display();
 void setup_hw_keyboard_light();
 
 void ceammc_hw_setup()
@@ -16,6 +17,7 @@ void ceammc_hw_setup()
     setup_hw_apple_smc();
     setup_hw_apple_sms();
     setup_hw_cpu_temp();
+    setup_hw_display();
     setup_hw_keyboard_light();
 
 #ifdef WITH_LIBUSB_01

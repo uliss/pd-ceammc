@@ -18,6 +18,7 @@
 - hw.apple_smc (system management control) added
 - hw.apple_sms (sudden motion sensor) added
 - hw.cpu_temp added
+- hw.display added
 - hw.kdb_light added
 - array.fill sin method added
 - array.fill gauss method added
