@@ -30,6 +30,7 @@ public:
     void m_uniform(t_symbol* m, const AtomList& l);
     void m_fill(t_symbol* m, const AtomList& l);
     void m_sin(t_symbol* m, const AtomList& l);
+    void m_pulse(t_symbol* m, const AtomList& l);
     AtomList parseRange(const AtomList& args, size_t* from, size_t* to) const;
 
 private:

@@ -16,10 +16,12 @@
 #include <cmath>
 
 #include "array_fill.h"
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
 #include <algorithm>
 #include <chrono>
+#include <cmath>
 #include <random>
 
 ArrayFill::ArrayFill(const PdArgs& a)
@@ -142,6 +144,35 @@ void ArrayFill::m_sin(t_symbol* m, const AtomList& l)
     finish();
 }
 
+void ArrayFill::m_pulse(t_symbol* m, const AtomList& l)
+{
+    if (!checkArray())
+        return;
+
+    if (l.empty()) {
+        METHOD_ERR(m) << "usage: " << m << " PERIOD [AMPLITUDE] [PHASE]";
+        return;
+    }
+
+    const t_float period = l.floatAt(0, 0);
+    const t_float amp = l.floatAt(1, 1);
+    const t_float duty = clip<t_float>(l.floatAt(2, 0.5), 0.001, 0.999);
+
+    if (period <= 1) {
+        METHOD_ERR(m) << "invalid period value: " << period;
+        return;
+    }
+
+    int i = 0;
+    for (auto& v : array_) {
+        t_float n = (i++ / period);
+        auto frac = std::fmod(n, 1);
+        v = (frac < duty) ? amp : -amp;
+    }
+
+    finish();
+}
+
 void ArrayFill::fillRange(size_t from, size_t to, const AtomList& l)
 {
     size_t step = l.size();
@@ -238,4 +269,5 @@ extern "C" void setup_array0x2efill()
     obj.addMethod("sin", &ArrayFill::m_sin);
     obj.addMethod("gauss", &ArrayFill::m_gauss);
     obj.addMethod("uniform", &ArrayFill::m_uniform);
+    obj.addMethod("pulse", &ArrayFill::m_pulse);
 }
