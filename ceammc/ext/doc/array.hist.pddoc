@@ -21,13 +21,15 @@
         </info>
         <arguments>
             <argument name="NAME" type="symbol">array name</argument>
-            <argument name="BINS" type="int" minvalue="10" maxvalue="1000">number of bins</argument>
+            <argument name="BINS" type="int" minvalue="10" maxvalue="1000">number of
+            bins</argument>
             <argument name="MIN" type="float">minimal value</argument>
             <argument name="MAX" type="float">maximum value</argument>
         </arguments>
         <properties>
             <property name="@array" type="symbol">array name</property>
-            <property name="@bins" type="int" minvalue="10" maxvalue="1000" default="100">number of bins</property>
+            <property name="@bins" type="int" minvalue="10" maxvalue="1000" default="100">number of
+            bins</property>
             <property name="@min" type="float" default="-1">minimal value</property>
             <property name="@max" type="float" default="1">maximum value</property>
         </properties>

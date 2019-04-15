@@ -19,7 +19,7 @@
 #include <stdexcept>
 #include <string>
 
-#include "m_pd.h"
+#include "ceammc_atomlist.h"
 
 namespace ceammc {
 
@@ -132,6 +132,9 @@ public:
     void copyTo(float* dest, size_t n);
     void fillWith(float v);
     void fillWith(FloatValueGenerator gen);
+
+    bool set(const AtomList& l);
+    bool set(std::initializer_list<t_sample> l);
 
     bool setYBounds(float yBottom, float yTop);
 

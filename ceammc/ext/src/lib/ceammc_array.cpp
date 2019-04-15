@@ -208,6 +208,27 @@ void Array::fillWith(FloatValueGenerator gen)
     std::generate(begin(), end(), g);
 }
 
+bool Array::set(const AtomList& l)
+{
+    if (!resize(l.size()))
+        return false;
+
+    const size_t N = std::min(size(), l.size());
+    for (size_t i = 0; i < N; i++)
+        data_[i].w_float = l[i].asFloat();
+
+    return true;
+}
+
+bool Array::set(std::initializer_list<t_sample> l)
+{
+    if (!resize(l.size()))
+        return false;
+
+    std::copy(l.begin(), l.end(), begin());
+    return true;
+}
+
 bool Array::setYBounds(float yBottom, float yTop)
 {
     static t_symbol* SYM_BOUNDS = gensym("bounds");
