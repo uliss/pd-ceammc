@@ -32,7 +32,7 @@
             <param name="VAL..." type="float">other values..</param></method>
             <method name="sin">fill all array with sine wave 
             <param name="T" type="float" minvalue="0" required="true" units="sample">wave period.
-            Should be &gt; 0</param>
+            Should be &gt;0</param>
             <param name="A" type="float" default="1">amplitude</param>
             <param name="PHASE" type="float" default="0" minvalue="0" maxvalue="1">phase in 0...1
             range</param></method>

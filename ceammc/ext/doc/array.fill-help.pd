@@ -84,7 +84,7 @@ distribution. Arguments are:;
 #X msg 110 1051 sin;
 #X text 245 1051 fill all array with sine wave. Arguments are:;
 #X obj 255 1072 cnv 1 38 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1072 SAMP: wave period. Should be > 0\. Type: float. Min
+#X text 255 1072 SAMP: wave period. Should be >0\. Type: float. Min
 value: 0\.;
 #X obj 255 1107 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1107 [A=1]: amplitude. Type: float.;
