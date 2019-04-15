@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 347 50 cnv 1 418 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 347 50 frequency shifter or single-sideband ring modulation;
+#X obj 362 50 cnv 1 403 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 362 50 frequency shifter or single-sideband ring modulation;
 #X obj 1 1 cnv 5 765 40 empty empty fx.freqshift~ 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 fx.freqshift~;
@@ -19,15 +19,15 @@
 0;
 #X text 110 336 1\.;
 #X text 245 336 input signal.;
-#X text 110 354 2\.;
-#X text 245 354 frequency shift in Hertz. Range: -10000\...10000\.;
-#X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 387 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 356 2\.;
+#X text 245 356 frequency shift in Hertz. Range: -10000\...10000\.;
+#X obj 20 386 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 391 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 388 1\.;
-#X text 245 388 output signal (freq + shift).;
-#X text 110 406 2\.;
-#X text 245 406 output signal (freq - shift).;
+#X text 110 392 1\.;
+#X text 245 392 output signal (freq + shift).;
+#X text 110 412 2\.;
+#X text 245 412 output signal (freq - shift).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

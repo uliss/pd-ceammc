@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 633 50 cnv 1 132 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 633 50 soft signal clip;
+#X obj 637 50 cnv 1 128 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 637 50 soft signal clip;
 #X obj 1 1 cnv 5 765 40 empty empty dyn.softclip~ 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 dyn.softclip~;
@@ -24,11 +24,11 @@
 0;
 #X text 110 293 1\.;
 #X text 245 293 input signal.;
-#X obj 20 321 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 326 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 323 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 328 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 327 1\.;
-#X text 245 327 output signal.;
+#X text 110 329 1\.;
+#X text 245 329 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

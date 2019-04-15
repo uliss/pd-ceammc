@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 467 50 cnv 1 298 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 467 50 returns current screen size in pixels;
+#X obj 478 50 cnv 1 287 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 478 50 returns current screen size in pixels;
 #X obj 1 1 cnv 5 765 40 empty empty system.screen_size 20 20 0 20
 -104026 -4096 0;
 #X obj 610 11 system.screen_size;
@@ -15,11 +15,11 @@
 #X text 110 236 1\.;
 #X text 150 236 *bang*;
 #X text 245 236 outputs screen size in pixels.;
-#X obj 20 264 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 269 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 271 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 270 1\.;
-#X text 245 270 list of two values: width and height.;
+#X text 110 272 1\.;
+#X text 245 272 list of two values: width and height.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

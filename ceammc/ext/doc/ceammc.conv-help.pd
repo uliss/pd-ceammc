@@ -5,44 +5,44 @@
 #X obj 30 116 array.p2s;
 #X text 200 116 convert array phase [0\..1] to sample position;
 #X obj 30 143 array.s2p;
-#X text 200 143 convert array sample position to relative phase
-position [0\..1];
-#X obj 30 180 conv.amp2dbfs;
-#X text 200 180 convert from amplitude to decibel full scale;
-#X obj 30 207 conv.bpm2hz;
-#X text 200 207 converts BPM to frequency in herz;
-#X obj 30 234 conv.bpm2ms;
-#X text 200 234 convert frequency in BPM to period in milliseconds;
-#X obj 30 261 conv.bpm2sec;
-#X text 200 261 convert frequency in BPM to period in seconds;
-#X obj 30 288 conv.cc2amp;
-#X text 200 288 convert from MIDI Control Change range;
-#X obj 30 315 conv.dbfs2amp;
-#X text 200 315 convert decibel full scale to amplitude;
-#X obj 30 342 conv.lin2curve;
-#X text 200 342 map linear to exponential range with 0 allowed.;
-#X obj 30 369 conv.lin2exp;
-#X text 200 369 maps linear range to exponential range;
-#X obj 30 396 conv.lin2lin;
-#X text 200 396 convert from one linear range to another;
-#X obj 30 423 conv.list2props;
-#X text 200 423 converts list to series of property messages;
-#X obj 30 450 conv.midi2freq;
-#X text 200 450 convert from midi pitch to frequency in hz (with
-various base A and temperament);
-#X obj 30 487 conv.pitch2midi;
-#X text 200 487 converts symbol pitch name to MIDI note number;
-#X obj 30 514 conv.samp2sec;
-#X text 200 514 convert samples to time according to samplerate;
-#X obj 30 541 conv.sec2samp;
-#X text 200 541 convert time in seconds to number of samples according
+#X text 200 143 convert array sample position to relative phase position
+[0\..1];
+#X obj 30 183 conv.amp2dbfs;
+#X text 200 183 convert from amplitude to decibel full scale;
+#X obj 30 210 conv.bpm2hz;
+#X text 200 210 converts BPM to frequency in herz;
+#X obj 30 237 conv.bpm2ms;
+#X text 200 237 convert frequency in BPM to period in milliseconds;
+#X obj 30 264 conv.bpm2sec;
+#X text 200 264 convert frequency in BPM to period in seconds;
+#X obj 30 291 conv.cc2amp;
+#X text 200 291 convert from MIDI Control Change range;
+#X obj 30 318 conv.dbfs2amp;
+#X text 200 318 convert decibel full scale to amplitude;
+#X obj 30 345 conv.lin2curve;
+#X text 200 345 map linear to exponential range with 0 allowed.;
+#X obj 30 372 conv.lin2exp;
+#X text 200 372 maps linear range to exponential range;
+#X obj 30 399 conv.lin2lin;
+#X text 200 399 convert from one linear range to another;
+#X obj 30 426 conv.list2props;
+#X text 200 426 converts list to series of property messages;
+#X obj 30 453 conv.midi2freq;
+#X text 200 453 convert from midi pitch to frequency in hz (with various
+base A and temperament);
+#X obj 30 493 conv.pitch2midi;
+#X text 200 493 converts symbol pitch name to MIDI note number;
+#X obj 30 520 conv.samp2sec;
+#X text 200 520 convert samples to time according to samplerate;
+#X obj 30 547 conv.sec2samp;
+#X text 200 547 convert time in seconds to number of samples according
 to current samplerate;
-#X obj 30 578 conv.sec2str;
-#X text 200 578 converts float time in seconds to formated symbol (or
+#X obj 30 587 conv.sec2str;
+#X text 200 587 converts float time in seconds to formated symbol (or
 string);
-#X obj 30 615 conv.str2sec;
-#X text 200 615 converts formatted time to float value in seconds;
+#X obj 30 614 conv.str2sec;
+#X text 200 614 converts formatted time to float value in seconds;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
-#X obj 1 642 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 652 library: ceammc;
+#X obj 1 641 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 651 library: ceammc;

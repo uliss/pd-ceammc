@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 593 50 cnv 1 172 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 593 50 one message pass thru;
+#X obj 599 50 cnv 1 166 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 599 50 one message pass thru;
 #X obj 1 1 cnv 5 765 40 empty empty flow.once 20 20 0 20 -104026 -4096
 0;
 #X obj 621 11 once;
@@ -21,11 +21,11 @@
 #X text 110 298 1\.;
 #X text 150 298 *any*;
 #X text 245 298 input flow.;
-#X obj 20 326 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 331 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 328 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 333 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 332 1\.;
-#X text 245 332 output flow.;
+#X text 110 334 1\.;
+#X text 245 334 output flow.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -33,7 +33,7 @@
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 599 520 see also:;
+#X text 601 520 see also:;
 #X obj 675 520 flow.gate;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

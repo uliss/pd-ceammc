@@ -1,94 +1,94 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 600 50 cnv 1 165 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 600 50 A bang... that's all;
+#X obj 605 50 cnv 1 160 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 605 50 A bang... that's all;
 #X obj 1 1 cnv 5 765 40 empty empty ui.bang 20 20 0 20 -104026 -4096
 0;
 #X obj 630 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.b] @url ui.bang-help.pd;
 #X obj 687 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.bang] @url ui.bang-help.pd;
-#X obj 210 80 cnv 1 555 33 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 do nothing more than vanilla bang for the moment...;
-#X msg 50 141 dump;
-#X obj 50 170 ui.bang @receive b_in @send b_out @size 40 40;
-#X obj 117 199 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X msg 50 143 dump;
+#X obj 50 172 ui.bang @receive b_in @send b_out @size 40 40;
+#X obj 117 201 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 228 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 230 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 117 228 s b_in;
-#X obj 20 267 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 272 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 117 230 s b_in;
+#X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 274 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 307 @receive;
-#X text 245 307 Get/Set receive source. Type: symbol.;
-#X msg 110 336 @send;
-#X text 245 336 Get/Set send destination. Type: symbol.;
-#X msg 110 365 @active_color;
-#X text 245 365 Get/Set element active color (list of red \, green \,
-blue values in 0-1 range). Type: list.;
-#X msg 110 404 @background_color;
-#X text 245 404 Get/Set element background color (list of red \, green
+#X msg 110 309 @receive;
+#X text 245 309 Get/Set receive source. Type: symbol.;
+#X msg 110 338 @send;
+#X text 245 338 Get/Set send destination. Type: symbol.;
+#X msg 110 367 @active_color;
+#X text 245 367 Get/Set element active color (list of red \, green
 \, blue values in 0-1 range). Type: list.;
-#X msg 110 443 @border_color;
-#X text 245 443 Get/Set border color (list of red \, green \, blue
+#X msg 110 409 @background_color;
+#X text 245 409 Get/Set element background color (list of red \, green
+\, blue values in 0-1 range). Type: list.;
+#X msg 110 451 @border_color;
+#X text 245 451 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list.;
-#X msg 110 482 @fontname;
-#X text 245 482 Get/Set fontname. Type: symbol.;
-#X msg 110 511 @fontsize;
-#X text 245 511 Get/Set fontsize. Type: int. Default value: 11\.
-Range: 4\...11\.;
-#X msg 110 550 @fontslant;
-#X text 245 550 Get/Set font slant. Type: symbol. Default value:
-roman. Allowed values: roman \, italic.;
-#X msg 110 589 @fontweight;
-#X text 245 589 Get/Set font weight. Type: symbol. Default value:
-normal. Allowed values: normal \, bold.;
-#X msg 110 628 @pinned;
-#X text 245 628 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 493 @fontname;
+#X text 245 493 Get/Set fontname. Type: symbol.;
+#X msg 110 522 @fontsize;
+#X text 245 522 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...11\.;
+#X msg 110 564 @fontslant;
+#X text 245 564 Get/Set font slant. Type: symbol. Default value: roman.
+Allowed values: roman \, italic.;
+#X msg 110 606 @fontweight;
+#X text 245 606 Get/Set font weight. Type: symbol. Default value: normal.
+Allowed values: normal \, bold.;
+#X msg 110 648 @pinned;
+#X text 245 648 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 667 @size;
-#X text 245 667 Get/Set element size (width \, height pair). Type:
+#X msg 110 690 @size;
+#X text 245 690 Get/Set element size (width \, height pair). Type:
 list.;
-#X obj 20 706 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 711 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 729 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 734 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 746 pos;
-#X text 245 746 set UI element position. Arguments are:;
-#X obj 255 767 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 767 X: top left x-coord. Type: float.;
-#X obj 255 788 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 788 Y: top right y-coord. Type: float.;
-#X msg 110 811 dump;
-#X text 245 811 dumps all object info to Pd console window.;
-#X obj 20 848 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 853 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 769 pos;
+#X text 245 769 set UI element position. Arguments are:;
+#X obj 255 792 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 792 X: top left x-coord. Type: float.;
+#X obj 255 815 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 815 Y: top right y-coord. Type: float.;
+#X msg 110 840 dump;
+#X text 245 840 dumps all object info to Pd console window.;
+#X obj 20 877 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 882 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 854 1\.;
-#X text 150 854 *bang*;
-#X text 245 854 outputs bang.;
-#X text 150 872 *float*;
-#X text 245 872 outputs bang.;
-#X text 150 890 *symbol*;
-#X text 245 890 outputs bang.;
-#X text 150 908 *list*;
-#X text 245 908 outputs bang.;
-#X obj 20 936 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 941 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 883 1\.;
+#X text 150 883 *bang*;
+#X text 245 883 outputs bang.;
+#X text 150 903 *float*;
+#X text 245 903 outputs bang.;
+#X text 150 923 *symbol*;
+#X text 245 923 outputs bang.;
+#X text 150 943 *list*;
+#X text 245 943 outputs bang.;
+#X obj 20 973 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 978 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 942 1\.;
-#X text 245 942 bang output.;
+#X text 110 979 1\.;
+#X text 245 979 bang output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 990 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 993 library: ceammc v0.7.1;
-#X text 596 1005 see also:;
-#X obj 672 1008 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1029 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1032 library: ceammc v0.7.1;
+#X text 598 1044 see also:;
+#X obj 672 1047 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.toggle] @url ui.toggle-help.pd;
-#N canvas 10 1012 400 290 info 0;
+#N canvas 10 1051 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -112,7 +112,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1012 pd info;
+#X restore 10 1051 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;

@@ -44,6 +44,18 @@ Array::Array(const char* name)
     open(name);
 }
 
+Array::Array(const char* name, std::initializer_list<t_sample> l)
+    : name_(0)
+    , array_(0)
+    , size_(0)
+    , data_(0)
+{
+    if (open(name)) {
+        if (resize(l.size()))
+            std::copy(l.begin(), l.end(), begin());
+    }
+}
+
 Array::iterator Array::begin()
 {
     return ArrayIterator(data_);
@@ -194,6 +206,27 @@ void Array::fillWith(FloatValueGenerator gen)
 {
     SampleGenerator g(gen);
     std::generate(begin(), end(), g);
+}
+
+bool Array::set(const AtomList& l)
+{
+    if (!resize(l.size()))
+        return false;
+
+    const size_t N = std::min(size(), l.size());
+    for (size_t i = 0; i < N; i++)
+        data_[i].w_float = l[i].asFloat();
+
+    return true;
+}
+
+bool Array::set(std::initializer_list<t_sample> l)
+{
+    if (!resize(l.size()))
+        return false;
+
+    std::copy(l.begin(), l.end(), begin());
+    return true;
 }
 
 bool Array::setYBounds(float yBottom, float yTop)

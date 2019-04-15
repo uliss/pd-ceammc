@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 465 50 cnv 1 300 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 465 50 outputs directory portion of pathname;
+#X obj 476 50 cnv 1 289 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 476 50 outputs directory portion of pathname;
 #X obj 1 1 cnv 5 765 40 empty empty path.dirname 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 path.dirname;
@@ -25,11 +25,11 @@
 #X text 110 379 1\.;
 #X text 150 379 *symbol*;
 #X text 245 379 outputs directory portion of pathname.;
-#X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 412 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 414 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 413 1\.;
-#X text 245 413 directory name.;
+#X text 110 415 1\.;
+#X text 245 415 directory name.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -37,7 +37,7 @@
 #X obj 131 48 ui.link @title path @url ceammc.path-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 570 520 see also:;
+#X text 572 520 see also:;
 #X obj 646 520 path.basename;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

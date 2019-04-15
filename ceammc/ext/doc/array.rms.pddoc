@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.rms">
+        <title>array.rms</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>calculates root mean square value for array</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array mean rms square</keywords>
+            <since>0.7.1</since>
+            <also>
+                <see>array.mean</see>
+                <see>array.sum2</see>
+            </also>
+        </meta>
+        <info>
+            <wiki name="Root_mean_square">Root mean square</wiki>
+        </info>
+        <arguments>
+            <argument name="NAME" type="symbol">array name</argument>
+        </arguments>
+        <properties>
+            <property name="@array" type="symbol">array name</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">calculates and outputs RMS value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>RMS value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]                       [array arms size=300 w=300 h=100]
+|
+[array.rms arms]
+|
+[F digits=16]
+
+
+
+[uniform( [sin 100( [gauss 0 0.3( [fill 0( [pulse 50( [tri 60(
+|         |         |             |        |          |
+|         |         |             |        |          |
+|         |         |             |        |          |
+[array.fill                                       arms]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

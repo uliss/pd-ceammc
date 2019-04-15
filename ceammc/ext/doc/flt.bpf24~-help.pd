@@ -1,77 +1,76 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 410 50 cnv 1 355 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 410 50 Band-pass filter with 24/db per octave slope;
+#X obj 422 50 cnv 1 343 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 422 50 Band-pass filter with 24/db per octave slope;
 #X obj 1 1 cnv 5 765 40 empty empty flt.bpf24~ 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 flt.bpf24~;
-#X obj 210 80 cnv 1 555 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Band-pass filter passes frequencies within a certain
 range and rejects frequencies outside that range.;
-#X floatatom 50 155 5 0 0 0 - - -;
-#X msg 213 155 400;
-#X msg 270 155 800;
-#X msg 328 155 1000;
-#X msg 395 155 1200;
-#X msg 462 155 2400;
-#X obj 50 184 osc~ 1000;
-#X floatatom 213 184 5 0 0 0 - - -;
-#X msg 213 213 @freq \$1;
-#X obj 117 242 flt.bpf24~ 1000 2.5;
-#X text 328 242 800-1200;
-#X obj 50 271 env~;
-#X obj 117 271 env~;
-#X floatatom 50 299 5 0 0 0 - - -;
-#X floatatom 117 299 5 0 0 0 - - -;
-#X obj 50 328 ui.dsp~;
-#X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 372 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X floatatom 50 158 5 0 0 0 - - -;
+#X msg 213 158 400;
+#X msg 270 158 800;
+#X msg 328 158 1000;
+#X msg 395 158 1200;
+#X msg 462 158 2400;
+#X obj 50 187 osc~ 1000;
+#X floatatom 213 187 5 0 0 0 - - -;
+#X msg 213 216 @freq \$1;
+#X obj 117 245 flt.bpf24~ 1000 2.5;
+#X text 328 245 800-1200;
+#X obj 50 274 env~;
+#X obj 117 274 env~;
+#X floatatom 50 302 5 0 0 0 - - -;
+#X floatatom 117 302 5 0 0 0 - - -;
+#X obj 50 331 ui.dsp~;
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 375 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 407 1\.;
-#X text 150 407 float;
-#X obj 246 408 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 407 freq(Hz): center frequency.;
-#X text 110 425 2\.;
-#X text 150 425 float;
-#X obj 246 426 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 425 q: quality factory: @freq/BANDWIDTH. Range:
-0.01\...100;
-#X text 110 443 3\.;
-#X text 150 443 symbol;
-#X obj 246 444 cnv 1 24 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 443 ID: object ID for OSC control.;
-#X obj 20 471 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 476 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 410 1\.;
+#X text 150 410 float;
+#X obj 246 411 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 410 freq(Hz): center frequency.;
+#X text 110 430 2\.;
+#X text 150 430 float;
+#X obj 246 431 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 430 q: quality factory: @freq/BANDWIDTH. Range: 0.01\...100;
+#X text 110 450 3\.;
+#X text 150 450 symbol;
+#X obj 246 451 cnv 1 23 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 450 ID: object ID for OSC control.;
+#X obj 20 480 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 485 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 511 @active;
-#X text 245 511 Get/Set on/off dsp processing. Type: int. Default
-value: 1\. Allowed values: 0 \, 1\.;
-#X msg 110 550 @freq;
-#X text 245 550 Get/Set cutoff frequency. Type: float. Units: Hz.
-Default value: 1000\. Range: 20\...20000\.;
-#X msg 110 589 @q;
-#X text 245 589 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
+#X msg 110 520 @active;
+#X text 245 520 Get/Set on/off dsp processing. Type: int. Default value:
+1\. Allowed values: 0 \, 1\.;
+#X msg 110 562 @freq;
+#X text 245 562 Get/Set cutoff frequency. Type: float. Units: Hz. Default
+value: 1000\. Range: 20\...20000\.;
+#X msg 110 604 @q;
+#X text 245 604 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
 Default value: 2\. Range: 0.01\...100\.;
-#X obj 20 638 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 643 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 656 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 661 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 644 1\.;
-#X text 245 644 input signal.;
-#X obj 20 672 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 677 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 662 1\.;
+#X text 245 662 input signal.;
+#X obj 20 692 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 697 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 678 1\.;
-#X text 245 678 filtered signal.;
+#X text 110 698 1\.;
+#X text 245 698 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 726 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 729 library: ceammc v0.7.1;
-#X text 591 741 see also:;
-#X obj 667 741 flt.bpf12~;
-#N canvas 10 748 400 290 info 0;
+#X obj 1 748 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 751 library: ceammc v0.7.1;
+#X text 593 763 see also:;
+#X obj 667 763 flt.bpf12~;
+#N canvas 10 770 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -95,7 +94,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 748 pd info;
+#X restore 10 770 pd info;
 #X connect 6 0 12 0;
 #X connect 7 0 13 0;
 #X connect 8 0 13 0;

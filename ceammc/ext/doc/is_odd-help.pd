@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 530 50 cnv 1 235 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 530 50 checks if input number is odd;
+#X obj 538 50 cnv 1 227 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 538 50 checks if input number is odd;
 #X obj 1 1 cnv 5 765 40 empty empty is_odd 20 20 0 20 -104026 -4096 0;
 #X obj 697 11 is_odd;
 #X floatatom 50 118 5 0 0 0 - - -;
@@ -13,18 +13,18 @@
 0;
 #X text 110 221 1\.;
 #X text 150 221 *int*;
-#X text 245 221 outputs '1' if number is not a multiple of two \,
-otherwise outputs '0'.;
-#X text 150 253 *float*;
-#X text 245 253 first value converted to integer \, then the check is
-performed.;
-#X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 300 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 245 221 outputs '1' if number is not a multiple of two \, otherwise
+outputs '0'.;
+#X text 150 256 *float*;
+#X text 245 256 first value converted to integer \, then the check
+is performed.;
+#X obj 20 301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 306 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 301 1\.;
-#X text 245 301 0 or 1\.;
-#X text 110 319 2\.;
-#X text 245 319 passed odd numbers.;
+#X text 110 307 1\.;
+#X text 245 307 0 or 1\.;
+#X text 110 327 2\.;
+#X text 245 327 passed odd numbers.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -33,7 +33,7 @@ performed.;
 ceammc.predicates-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 614 520 see also:;
+#X text 616 520 see also:;
 #X obj 690 520 is_even;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

@@ -1,192 +1,190 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 584 50 cnv 1 181 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 584 50 Multiple slider widget;
+#X obj 590 50 cnv 1 175 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 590 50 Multiple slider widget;
 #X obj 1 1 cnv 5 765 40 empty empty ui.sliders 20 20 0 20 -104026
 -4096 0;
 #X obj 665 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.sliders] @url ui.sliders-help.pd;
-#X obj 210 80 cnv 1 555 33 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Double click in edit mode changes multislider
-orientation;
-#X msg 50 141 1 2 3 4 5;
-#X msg 165 141 0 30;
-#X floatatom 357 141 5 0 0 0 - - -;
-#X obj 472 141 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 78 170 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Double click in edit mode changes multislider orientation;
+#X msg 50 143 1 2 3 4 5;
+#X msg 165 143 0 30;
+#X floatatom 357 143 5 0 0 0 - - -;
+#X obj 472 143 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 78 172 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 165 170 list.seq;
-#X msg 357 170 @count \$1;
-#X msg 472 170 @auto_range \$1;
-#X floatatom 184 199 5 0 0 0 - - -;
-#X msg 510 213 select 4;
-#X msg 184 228 set slider 4 \$1;
-#X text 539 257 vertical slider;
-#X obj 50 285 ui.sliders @max 10 @presetname sl-help @size 150 100;
-#X obj 539 285 ui.sliders @size 100 150;
-#X obj 50 401 ui.display @display_type 1 @size 150 18;
-#X obj 20 457 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 462 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 165 172 list.seq;
+#X msg 357 172 @count \$1;
+#X msg 472 172 @auto_range \$1;
+#X floatatom 184 201 5 0 0 0 - - -;
+#X msg 510 215 select 4;
+#X msg 184 230 set slider 4 \$1;
+#X text 539 259 vertical slider;
+#X obj 50 287 ui.sliders @max 10 @presetname sl-help @size 150 100;
+#X obj 539 287 ui.sliders @size 100 150;
+#X obj 50 403 ui.display @display_type 1 @size 150 18;
+#X obj 20 459 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 464 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 497 1\.;
-#X text 150 497 float;
-#X obj 246 498 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 497 N: number of sliders. Range: 1\...1024;
-#X obj 20 525 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 530 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 499 1\.;
+#X text 150 499 float;
+#X obj 246 500 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 499 N: number of sliders. Range: 1\...1024;
+#X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 534 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 565 @auto_range;
-#X text 245 565 Get/Set if set numbers of sliders equal to input list
+#X msg 110 569 @auto_range;
+#X text 245 569 Get/Set if set numbers of sliders equal to input list
 length. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 618 @count;
-#X text 245 618 Get/Set number of sliders. Type: int. Default value:
+#X msg 110 611 @count;
+#X text 245 611 Get/Set number of sliders. Type: int. Default value:
 8\. Range: 1\...1024\.;
-#X msg 110 657 @max;
-#X text 245 657 Get/Set maximum value. Type: float. Default value:
+#X msg 110 653 @max;
+#X text 245 653 Get/Set maximum value. Type: float. Default value:
 1\.;
-#X msg 110 686 @min;
-#X text 245 686 Get/Set minimal value. Type: float. Default value:
+#X msg 110 682 @min;
+#X text 245 682 Get/Set minimal value. Type: float. Default value:
 0\.;
-#X msg 110 715 @range;
-#X text 245 715 (readonly) Get value range. Type: float. Default
-value: 1\.;
-#X msg 110 744 @receive;
-#X text 245 744 Get/Set receive source. Type: symbol.;
-#X msg 110 773 @send;
-#X text 245 773 Get/Set send destination. Type: symbol.;
-#X msg 110 802 @show_range;
-#X text 245 802 Get/Set if show slider range. Type: int. Default
-value: 1\. Allowed values: 0 \, 1\.;
-#X msg 110 841 @value;
-#X text 245 841 (readonly) Get sliders value. Type: list.;
-#X msg 110 870 @background_color;
-#X text 245 870 Get/Set element background color (list of red \, green
+#X msg 110 711 @range;
+#X text 245 711 (readonly) Get value range. Type: float. Default value:
+1\.;
+#X msg 110 740 @receive;
+#X text 245 740 Get/Set receive source. Type: symbol.;
+#X msg 110 769 @send;
+#X text 245 769 Get/Set send destination. Type: symbol.;
+#X msg 110 798 @show_range;
+#X text 245 798 Get/Set if show slider range. Type: int. Default value:
+1\. Allowed values: 0 \, 1\.;
+#X msg 110 840 @value;
+#X text 245 840 (readonly) Get sliders value. Type: list.;
+#X msg 110 869 @background_color;
+#X text 245 869 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list.;
-#X msg 110 909 @border_color;
-#X text 245 909 Get/Set border color (list of red \, green \, blue
+#X msg 110 911 @border_color;
+#X text 245 911 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list.;
-#X msg 110 948 @select_color;
-#X text 245 948 Get/Set selection color (list of red \, green \, blue
+#X msg 110 953 @select_color;
+#X text 245 953 Get/Set selection color (list of red \, green \, blue
 values in 0-1 range). Type: list.;
-#X msg 110 987 @slider_color;
-#X text 245 987 Get/Set slider color (list of red \, green \, blue
+#X msg 110 995 @slider_color;
+#X text 245 995 Get/Set slider color (list of red \, green \, blue
 values in 0-1 range). Type: list.;
-#X msg 110 1026 @fontname;
-#X text 245 1026 Get/Set fontname. Type: symbol.;
-#X msg 110 1055 @fontsize;
-#X text 245 1055 Get/Set fontsize. Type: int. Default value: 11\.
-Range: 4\...11\.;
-#X msg 110 1094 @fontslant;
-#X text 245 1094 Get/Set font slant. Type: symbol. Default value:
-roman. Allowed values: roman \, italic.;
-#X msg 110 1133 @fontweight;
-#X text 245 1133 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1037 @fontname;
+#X text 245 1037 Get/Set fontname. Type: symbol.;
+#X msg 110 1066 @fontsize;
+#X text 245 1066 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...11\.;
+#X msg 110 1108 @fontslant;
+#X text 245 1108 Get/Set font slant. Type: symbol. Default value: roman.
+Allowed values: roman \, italic.;
+#X msg 110 1150 @fontweight;
+#X text 245 1150 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1172 @pinned;
-#X text 245 1172 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1192 @pinned;
+#X text 245 1192 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 1211 @presetname;
-#X text 245 1211 Get/Set preset name for using with [ui.preset]. Type:
+#X msg 110 1234 @presetname;
+#X text 245 1234 Get/Set preset name for using with [ui.preset]. Type:
 symbol.;
-#X msg 110 1250 @size;
-#X text 245 1250 Get/Set element size (width \, height pair). Type:
+#X msg 110 1263 @size;
+#X text 245 1263 Get/Set element size (width \, height pair). Type:
 list.;
-#X obj 20 1289 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1294 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1302 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1307 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1329 clear;
-#X text 245 1329 clears specified preset. Arguments are:;
-#X obj 255 1350 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1350 IDX: preset index. Type: int.;
-#X msg 110 1373 fill;
-#X text 245 1373 fill sliders value with specified value without
-output.;
-#X msg 110 1400 get slider N;
-#X text 245 1400 get specified slider value. Arguments are:;
-#X obj 255 1421 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1421 N: slider position \, starting from 0\. Type: int.
+#X msg 110 1342 clear;
+#X text 245 1342 clears specified preset. Arguments are:;
+#X obj 255 1365 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1365 IDX: preset index. Type: int.;
+#X msg 110 1390 fill;
+#X text 245 1390 fill sliders value with specified value without output.;
+#X msg 110 1417 get slider N;
+#X text 245 1417 get specified slider value. Arguments are:;
+#X obj 255 1440 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1440 N: slider position \, starting from 0\. Type: int.
 Min value: 0\.;
-#X msg 110 1458 load;
-#X text 245 1458 loads specified preset. Arguments are:;
-#X obj 255 1479 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1479 IDX: preset index. Type: int.;
-#X msg 110 1502 pos;
-#X text 245 1502 set UI element position. Arguments are:;
-#X obj 255 1523 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1523 X: top left x-coord. Type: float.;
-#X obj 255 1544 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1544 Y: top right y-coord. Type: float.;
-#X msg 110 1567 select;
-#X text 245 1567 draws specified slider with select color. Arguments
+#X msg 110 1480 load;
+#X text 245 1480 loads specified preset. Arguments are:;
+#X obj 255 1503 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1503 IDX: preset index. Type: int.;
+#X msg 110 1528 pos;
+#X text 245 1528 set UI element position. Arguments are:;
+#X obj 255 1551 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1551 X: top left x-coord. Type: float.;
+#X obj 255 1574 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1574 Y: top right y-coord. Type: float.;
+#X msg 110 1599 select;
+#X text 245 1599 draws specified slider with select color. Arguments
 are:;
-#X obj 255 1588 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1588 N: slider index \, starting from 0\. Type: int. Min
+#X obj 255 1622 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1622 N: slider index \, starting from 0\. Type: int. Min
 value: 0\.;
-#X msg 110 1625 set;
-#X text 245 1625 sets sliders values without output. Arguments are:;
-#X obj 255 1646 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1646 [VALUES]: slider values. Type: list.;
-#X msg 110 1669 set slider N V;
-#X text 245 1669 sets specified slider value. Arguments are:;
-#X obj 255 1690 cnv 1 14 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1690 N: slider position \, starting from 0\. Type: int.
+#X msg 110 1647 set;
+#X text 245 1647 sets sliders values without output. Arguments are:;
+#X obj 255 1670 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1670 [VALUES]: slider values. Type: list.;
+#X msg 110 1695 set slider N V;
+#X text 245 1695 sets specified slider value. Arguments are:;
+#X obj 255 1718 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1718 N: slider position \, starting from 0\. Type: int.
 Min value: 0\.;
-#X obj 255 1725 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1725 V: slider value. Type: float.;
-#X msg 110 1748 store;
-#X text 245 1748 stores specified preset. Arguments are:;
-#X obj 255 1769 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1769 IDX: preset index. Type: int.;
-#X msg 110 1792 *;
-#X text 245 1792 multiply each slider without output. Arguments are:;
-#X obj 255 1813 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1813 V: multiplied value. Type: float.;
-#X msg 110 1836 +;
-#X text 245 1836 add value to every slider without output. Arguments
+#X obj 255 1756 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1756 V: slider value. Type: float.;
+#X msg 110 1781 store;
+#X text 245 1781 stores specified preset. Arguments are:;
+#X obj 255 1804 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1804 IDX: preset index. Type: int.;
+#X msg 110 1829 *;
+#X text 245 1829 multiply each slider without output. Arguments are:;
+#X obj 255 1852 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1852 V: multiplied value. Type: float.;
+#X msg 110 1877 +;
+#X text 245 1877 add value to every slider without output. Arguments
 are:;
-#X obj 255 1857 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1857 V: added value. Type: float.;
-#X msg 110 1880 ++;
-#X text 245 1880 increment all sliders without output.;
-#X msg 110 1907 -;
-#X text 245 1907 subtract value from every slider without output.
-Arguments are:;
-#X obj 255 1942 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1942 V: subtracted value. Type: float.;
-#X msg 110 1965 --;
-#X text 245 1965 decrement all sliders without output.;
-#X msg 110 1992 /;
-#X text 245 1992 divide each slider without output. Arguments are:;
-#X obj 255 2013 cnv 1 15 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2013 V: denominator value. Type: float.;
-#X msg 110 2036 dump;
-#X text 245 2036 dumps all object info to Pd console window.;
-#X obj 20 2073 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2078 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 255 1900 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1900 V: added value. Type: float.;
+#X msg 110 1925 ++;
+#X text 245 1925 increment all sliders without output.;
+#X msg 110 1952 -;
+#X text 245 1952 subtract value from every slider without output. Arguments
+are:;
+#X obj 255 1990 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1990 V: subtracted value. Type: float.;
+#X msg 110 2015 --;
+#X text 245 2015 decrement all sliders without output.;
+#X msg 110 2042 /;
+#X text 245 2042 divide each slider without output. Arguments are:;
+#X obj 255 2065 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2065 V: denominator value. Type: float.;
+#X msg 110 2090 dump;
+#X text 245 2090 dumps all object info to Pd console window.;
+#X obj 20 2127 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2132 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2079 1\.;
-#X text 150 2079 *bang*;
-#X text 245 2079 outputs sliders position.;
-#X text 150 2097 *list*;
-#X text 245 2097 sets slider values and outputs it.;
-#X obj 20 2125 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2130 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 2133 1\.;
+#X text 150 2133 *bang*;
+#X text 245 2133 outputs sliders position.;
+#X text 150 2153 *list*;
+#X text 245 2153 sets slider values and outputs it.;
+#X obj 20 2183 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2188 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2131 1\.;
-#X text 245 2131 list of slider values.;
+#X text 110 2189 1\.;
+#X text 245 2189 list of slider values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2179 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2182 library: ceammc v0.7.1;
-#X text 506 2194 see also:;
-#X obj 582 2197 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 2239 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2242 library: ceammc v0.7.1;
+#X text 508 2254 see also:;
+#X obj 582 2257 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.slider] @url ui.slider-help.pd;
-#X obj 665 2197 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 665 2257 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.presets] @url ui.presets-help.pd;
-#N canvas 10 2201 400 290 info 0;
+#N canvas 10 2261 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -210,7 +208,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2201 pd info;
+#X restore 10 2261 pd info;
 #X connect 7 0 11 0;
 #X connect 8 0 12 0;
 #X connect 9 0 13 0;

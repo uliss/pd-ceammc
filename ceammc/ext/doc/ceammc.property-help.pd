@@ -5,8 +5,7 @@
 #X obj 30 116 patch.props;
 #X text 200 116 patch properties manager;
 #X obj 30 143 prop;
-#X text 200 143 get/set named property value for subpatch or
-abstraction;
+#X text 200 143 get/set named property value for subpatch or abstraction;
 #X obj 30 170 prop.declare;
 #X text 200 170 declare named property for subpatch or abstraction;
 #X obj 30 197 prop.get;

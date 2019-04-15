@@ -6,12 +6,12 @@
 #X text 200 116 Timeline bang (with possible delay);
 #X obj 30 146 ui.link @title [tl.cue] @url tl.cue-help.pd;
 #X text 200 143 Timeline section;
-#X obj 30 166 tl.timeline;
-#X text 200 166 Timeline - event scheduler;
-#X obj 30 193 tl.toggle;
-#X text 200 193 Timeline bang;
-#X obj 30 220 tl.transport;
-#X text 200 220 Timeline transport control;
+#X obj 30 168 tl.timeline;
+#X text 200 168 Timeline - event scheduler;
+#X obj 30 195 tl.toggle;
+#X text 200 195 Timeline bang;
+#X obj 30 222 tl.transport;
+#X text 200 222 Timeline transport control;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::tl 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

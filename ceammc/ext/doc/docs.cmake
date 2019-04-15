@@ -5,11 +5,18 @@ set(DOC_FILES
     array.do
     array.each
     array.fill
+    array.hist
+    array.mean
     array.minmax
     array.p2s
+    array.rms
     array.s2p
     array.set
+    array.stddev
     array.stretch
+    array.sum
+    array.sum2
+    array.variance
     array.vplay
     array.window
     canvas.current
@@ -148,7 +155,12 @@ set(DOC_FILES
     global.list
     global.mlist
     global.set
+    hw.apple_smc
+    hw.apple_sms
     hw.arduino
+    hw.cpu_temp
+    hw.display
+    hw.kbd_light
     is_any
     is_bang
     is_data

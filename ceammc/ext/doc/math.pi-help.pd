@@ -1,29 +1,29 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 593 50 cnv 1 172 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 593 50 mathematical constant;
+#X obj 599 50 cnv 1 166 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 599 50 mathematical constant;
 #X obj 1 1 cnv 5 765 40 empty empty math.pi 20 20 0 20 -104026 -4096
 0;
 #X obj 689 11 math.pi;
-#X obj 210 80 cnv 1 555 61 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 65 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 The number PI is a mathematical constant \, the ratio
 of a circle's circumference to its diameter \, commonly approximated
 as 3.14159\.;
-#X obj 50 169 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 173 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 198 math.pi;
-#X floatatom 50 227 10 0 0 0 - - -;
-#X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 271 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 50 202 math.pi;
+#X floatatom 50 231 10 0 0 0 - - -;
+#X obj 20 270 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 275 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 272 1\.;
-#X text 150 272 *bang*;
-#X text 245 272 outputs value.;
-#X obj 20 300 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 305 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 276 1\.;
+#X text 150 276 *bang*;
+#X text 245 276 outputs value.;
+#X obj 20 306 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 311 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 306 1\.;
-#X text 245 306 output value.;
+#X text 110 312 1\.;
+#X text 245 312 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -31,7 +31,7 @@ as 3.14159\.;
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 620 520 see also:;
+#X text 622 520 see also:;
 #X obj 696 520 math.e;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

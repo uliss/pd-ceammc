@@ -14,11 +14,12 @@
 #ifndef CEAMMC_ARRAY_H
 #define CEAMMC_ARRAY_H
 
+#include <initializer_list>
 #include <iterator>
 #include <stdexcept>
 #include <string>
 
-#include "m_pd.h"
+#include "ceammc_atomlist.h"
 
 namespace ceammc {
 
@@ -78,6 +79,7 @@ public:
     Array();
     Array(_symbol* name);
     Array(const char* name);
+    Array(const char* name, std::initializer_list<t_sample> l);
 
     /** iterators */
     iterator begin();
@@ -130,6 +132,9 @@ public:
     void copyTo(float* dest, size_t n);
     void fillWith(float v);
     void fillWith(FloatValueGenerator gen);
+
+    bool set(const AtomList& l);
+    bool set(std::initializer_list<t_sample> l);
 
     bool setYBounds(float yBottom, float yTop);
 

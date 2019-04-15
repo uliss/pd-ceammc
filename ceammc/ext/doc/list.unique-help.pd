@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 491 50 cnv 1 274 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 491 50 removes duplicates from input list;
+#X obj 501 50 cnv 1 264 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 501 50 removes duplicates from input list;
 #X obj 1 1 cnv 5 765 40 empty empty list.unique 20 20 0 20 -104026
 -4096 0;
 #X obj 661 11 list.unique;
@@ -15,19 +15,19 @@
 #X msg 110 298 @stable;
 #X text 245 298 Get/Set if true - preserves element appearing order.
 Type: int. Default value: 1\. Allowed values: 0 \, 1\.;
-#X obj 20 347 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 352 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 355 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 353 1\.;
-#X text 150 353 *list*;
-#X text 245 353 input list.;
-#X text 150 371 *data:mlist*;
-#X text 245 371 input mlist.;
-#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 404 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 356 1\.;
+#X text 150 356 *list*;
+#X text 245 356 input list.;
+#X text 150 376 *data:mlist*;
+#X text 245 376 input mlist.;
+#X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 411 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 405 1\.;
-#X text 245 405 output list.;
+#X text 110 412 1\.;
+#X text 245 412 output list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -35,7 +35,7 @@ Type: int. Default value: 1\. Allowed values: 0 \, 1\.;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 600 520 see also:;
+#X text 602 520 see also:;
 #X obj 676 520 list.sort;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

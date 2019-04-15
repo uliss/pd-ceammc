@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 482 50 cnv 1 283 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 482 50 repack input list to specified size;
+#X obj 492 50 cnv 1 273 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 492 50 repack input list to specified size;
 #X obj 1 1 cnv 5 765 40 empty empty list.repack 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 list.repack;
@@ -13,27 +13,27 @@
 -49933 0;
 #X text 110 269 1\.;
 #X text 150 269 int;
-#X obj 246 270 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 246 270 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 269 SIZE: output list size. Min value: 1;
-#X obj 20 297 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 302 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 299 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 304 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 337 @size;
-#X text 245 337 Get/Set output list size. Type: int. Default value:
+#X msg 110 339 @size;
+#X text 245 339 Get/Set output list size. Type: int. Default value:
 1\. Range: 1\...1024\.;
-#X obj 20 386 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 391 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 391 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 396 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 392 1\.;
-#X text 150 392 *list*;
-#X text 245 392 input list.;
-#X obj 20 420 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 425 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 397 1\.;
+#X text 150 397 *list*;
+#X text 245 397 input list.;
+#X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 432 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 426 1\.;
-#X text 245 426 output list.;
-#X text 110 444 2\.;
-#X text 245 444 bang after last element output.;
+#X text 110 433 1\.;
+#X text 245 433 output list.;
+#X text 110 453 2\.;
+#X text 245 453 bang after last element output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

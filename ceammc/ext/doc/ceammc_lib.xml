@@ -21,14 +21,35 @@
     <entry descr="fill array with single value or pattern" name="array.fill" ref_view="object">
       <xi:include href="array.fill.pddoc" parse="xml"/>
     </entry>
+    <entry descr="calculates array histogram" name="array.hist" ref_view="object">
+      <xi:include href="array.hist.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="calculates array arithmetic mean value" name="array.mean" ref_view="object">
+      <xi:include href="array.mean.pddoc" parse="xml"/>
+    </entry>
     <entry descr="find array min and max element value" name="array.minmax" ref_view="object">
       <xi:include href="array.minmax.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="calculates root mean square value for array" name="array.rms" ref_view="object">
+      <xi:include href="array.rms.pddoc" parse="xml"/>
     </entry>
     <entry descr="set array content from list" name="array.set" ref_view="object">
       <xi:include href="array.set.pddoc" parse="xml"/>
     </entry>
+    <entry descr="calculates standard deviation for array values" name="array.stddev" ref_view="object">
+      <xi:include href="array.stddev.pddoc" parse="xml"/>
+    </entry>
     <entry descr="array time-stretch, pitch-shift or rate-change" name="array.stretch" ref_view="object">
       <xi:include href="array.stretch.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="calculates sum of array elements" name="array.sum" ref_view="object">
+      <xi:include href="array.sum.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="calculates sum of squares of array elements" name="array.sum2" ref_view="object">
+      <xi:include href="array.sum2.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="calculates variance of array values" name="array.variance" ref_view="object">
+      <xi:include href="array.variance.pddoc" parse="xml"/>
     </entry>
     <entry descr="simple array player for using with vline~" name="array.vplay" ref_view="object">
       <xi:include href="array.vplay.pddoc" parse="xml"/>
@@ -512,8 +533,23 @@
     </entry>
   </category>
   <category name="hw">
+    <entry descr="query the system management control in Apples" name="hw.apple_smc" ref_view="object">
+      <xi:include href="hw.apple_smc.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="query the sudden motion sensor in Apples" name="hw.apple_sms" ref_view="object">
+      <xi:include href="hw.apple_sms.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Arduino device" name="hw.arduino" ref_view="object">
       <xi:include href="hw.arduino.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="get CPU temperature" name="hw.cpu_temp" ref_view="object">
+      <xi:include href="hw.cpu_temp.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="get/set display properties" name="hw.display" ref_view="object">
+      <xi:include href="hw.display.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Get/set keyboard light on some devices" name="hw.kbd_light" ref_view="object">
+      <xi:include href="hw.kbd_light.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="lfo">

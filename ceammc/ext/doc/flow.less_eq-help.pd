@@ -1,43 +1,42 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 444 50 cnv 1 321 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 444 50 numeric stream router \, like many [moses];
+#X obj 456 50 cnv 1 309 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 456 50 numeric stream router \, like many [moses];
 #X obj 1 1 cnv 5 765 40 empty empty flow.less_eq 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 flow.less_eq;
-#X obj 210 80 cnv 1 555 47 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Numbers thar are *less equal* then N-th argument are
 passed to N-th inlet;
-#X floatatom 50 155 5 0 0 0 - - -;
-#X obj 50 213 flow.less_eq 0 10 20 30;
-#X floatatom 50 242 5 0 0 0 - - -;
-#X floatatom 107 242 5 0 0 0 - - -;
-#X floatatom 165 242 5 0 0 0 - - -;
-#X floatatom 222 242 5 0 0 0 - - -;
-#X floatatom 290 242 5 0 0 0 - - -;
-#X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 286 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X floatatom 50 158 5 0 0 0 - - -;
+#X obj 50 216 flow.less_eq 0 10 20 30;
+#X floatatom 50 245 5 0 0 0 - - -;
+#X floatatom 107 245 5 0 0 0 - - -;
+#X floatatom 165 245 5 0 0 0 - - -;
+#X floatatom 222 245 5 0 0 0 - - -;
+#X floatatom 290 245 5 0 0 0 - - -;
+#X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 289 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 321 1\.;
-#X text 150 321 list;
-#X obj 246 322 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 321 LIST: compare values: list of floats in ascending
-order.;
-#X obj 20 349 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 354 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 324 1\.;
+#X text 150 324 list;
+#X obj 246 325 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 324 LIST: compare values: list of floats in ascending order.;
+#X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 359 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 355 1\.;
-#X text 150 355 *float*;
-#X text 245 355 input flow.;
-#X obj 20 383 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 388 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 360 1\.;
+#X text 150 360 *float*;
+#X text 245 360 input flow.;
+#X obj 20 390 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 395 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 389 1\.;
-#X text 245 389 numbers that are less equal then 1st argument.;
-#X text 110 407 ....;
-#X text 245 407 numbers that are less equal than N-th argument.;
-#X text 110 425 n.;
-#X text 245 425 numbers that are greater than last argument.;
+#X text 110 396 1\.;
+#X text 245 396 numbers that are less equal then 1st argument.;
+#X text 110 416 ....;
+#X text 245 416 numbers that are less equal than N-th argument.;
+#X text 110 436 n.;
+#X text 245 436 numbers that are greater than last argument.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -45,7 +44,7 @@ order.;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 599 520 see also:;
+#X text 601 520 see also:;
 #X obj 675 520 flow.less;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

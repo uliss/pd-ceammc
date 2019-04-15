@@ -1,78 +1,78 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 425 50 cnv 1 340 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 425 50 various percussion sounds from STK library;
+#X obj 437 50 cnv 1 328 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 437 50 various percussion sounds from STK library;
 #X obj 1 1 cnv 5 765 40 empty empty synth.shakers~ 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 synth.shakers~;
-#X obj 210 80 cnv 1 555 182 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 195 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 PhISEM (Physically Informed Stochastic Event Modeling)
-is an algorithmic approach for simulating collisions of multiple
-independent sound producing objects. This class is a meta-model that
-can simulate a Maraca \, Sekere \, Cabasa \, Bamboo Wind Chimes \,
-Water Drops \, Tambourine \, Sleighbells \, and a Guiro.;
-#X text 215 173 PhOLIES (Physically-Oriented Library of Imitated
-Environmental Sounds) is a similar approach for the synthesis of
-environmental sounds. This class implements simulations of breaking
-sticks \, crunchy snow (or not) \, a wrench \, sandpaper \, and more.;
-#X obj 50 290 ui.icon get_app;
-#X obj 222 290 loadbang;
-#X obj 328 290 r menu;
-#X obj 328 319 ui.menu;
-#X msg 50 348 @gate \$1;
-#X msg 222 348 @types?;
-#X msg 328 348 @type \$1;
-#X obj 50 377 synth.shakers~ big_rocks;
-#X obj 50 406 ~->;
-#X obj 88 434 prop-> @types;
-#X obj 126 463 msg @items;
-#X obj 126 492 flow.append 1;
-#X obj 126 521 s menu;
-#X obj 50 550 ui.gain~ @size 120 16;
-#X obj 290 550 ui.dsp~;
-#X obj 50 578 dac~;
-#X obj 20 617 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 622 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+is an algorithmic approach for simulating collisions of multiple independent
+sound producing objects. This class is a meta-model that can simulate
+a Maraca \, Sekere \, Cabasa \, Bamboo Wind Chimes \, Water Drops \,
+Tambourine \, Sleighbells \, and a Guiro.;
+#X text 215 180 PhOLIES (Physically-Oriented Library of Imitated Environmental
+Sounds) is a similar approach for the synthesis of environmental sounds.
+This class implements simulations of breaking sticks \, crunchy snow
+(or not) \, a wrench \, sandpaper \, and more.;
+#X obj 50 303 ui.icon get_app;
+#X obj 222 303 loadbang;
+#X obj 328 303 r menu;
+#X obj 328 332 ui.menu;
+#X msg 50 361 @gate \$1;
+#X msg 222 361 @types?;
+#X msg 328 361 @type \$1;
+#X obj 50 390 synth.shakers~ big_rocks;
+#X obj 50 419 ~->;
+#X obj 88 447 prop-> @types;
+#X obj 126 476 msg @items;
+#X obj 126 505 flow.append 1;
+#X obj 126 534 s menu;
+#X obj 50 563 ui.gain~ @size 120 16;
+#X obj 290 563 ui.dsp~;
+#X obj 50 591 dac~;
+#X obj 20 630 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 635 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 657 @gate;
-#X text 245 657 Get/Set synth gate (>0 - play). Type: float. Default
+#X msg 110 670 @gate;
+#X text 245 670 Get/Set synth gate (>0 - play). Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 696 @type;
-#X text 245 696 Get/Set instrument type. Type: symbol. Default value:
+#X msg 110 712 @type;
+#X text 245 712 Get/Set instrument type. Type: symbol. Default value:
 maraca. Allowed values: maraca \, cabasa \, sekere \, tambourine \,
 sleigh_bells \, bamboo_chimes \, sand_paper \, coke_can \, sticks \,
-crunch \, big_rocks \, little_rocks \, next_mug \, penny_mug \,
-nickle_mug \, dime_mug \, quarter_mug \, franc_mug \, peso_mug \,
-guiro \, wrench \, water_drops \, tuned_bamboo_chimes.;
-#X msg 110 791 @types;
-#X text 245 791 (readonly) Get all instrument types. Type: list.;
-#X obj 20 830 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 835 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+crunch \, big_rocks \, little_rocks \, next_mug \, penny_mug \, nickle_mug
+\, dime_mug \, quarter_mug \, franc_mug \, peso_mug \, guiro \, wrench
+\, water_drops \, tuned_bamboo_chimes.;
+#X msg 110 814 @types;
+#X text 245 814 (readonly) Get all instrument types. Type: list.;
+#X obj 20 853 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 858 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 870 cc;
-#X text 245 870 Control change. Arguments are:;
-#X obj 255 891 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 891 CTL: control number. Type: int.;
-#X obj 255 912 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 912 VAL: value. Type: float.;
-#X obj 20 945 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 950 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 893 cc;
+#X text 245 893 Control change. Arguments are:;
+#X obj 255 916 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 916 CTL: control number. Type: int.;
+#X obj 255 939 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 939 VAL: value. Type: float.;
+#X obj 20 974 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 979 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 951 1\.;
-#X text 245 951 control inlet.;
-#X obj 20 979 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 984 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 980 1\.;
+#X text 245 980 control inlet.;
+#X obj 20 1010 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1015 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 985 1\.;
-#X text 245 985 ;
+#X text 110 1016 1\.;
+#X text 245 1016;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1033 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1036 library: ceammc v0.7.1;
-#N canvas 10 1055 400 290 info 0;
+#X obj 1 1066 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1069 library: ceammc v0.7.1;
+#N canvas 10 1088 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -96,7 +96,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1055 pd info;
+#X restore 10 1088 pd info;
 #X connect 9 0 10 0;
 #X connect 7 0 11 0;
 #X connect 8 0 12 0;

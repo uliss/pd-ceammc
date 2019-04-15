@@ -30,6 +30,33 @@
             set to array length.</param>
             <param name="VAL1" type="float" required="true">value 1</param>
             <param name="VAL..." type="float">other values..</param></method>
+            <method name="sin">fill all array with sine wave 
+            <param name="T" type="float" minvalue="0" required="true" units="sample">wave period.
+            Should be &gt;0</param>
+            <param name="A" type="float" default="1">amplitude</param>
+            <param name="PHASE" type="float" default="0" minvalue="0" maxvalue="1">phase in 0...1
+            range</param></method>
+            <method name="gauss">fill all array with random value with normal (gauss) distribution 
+            <param name="MEAN" type="float" default="0">mean value</param>
+            <param name="SIGMA" type="float" default="1" minvalue="0">standard
+            deviation</param></method>
+            <method name="uniform">fill all array with random value with uniform distribution 
+            <param name="A" type="float" default="0">min value</param>
+            <param name="B" type="float" default="1">max value</param></method>
+            <method name="pulse">fill all array with pulse wave 
+            <param name="T" type="float" required="true" minvalue="1" units="sample">wave
+            period</param>
+            <param name="A" type="float" default="1">wave amplitude</param>
+            <param name="D" type="float" default="0.5" minvalue="0.001" maxvalue="0.999">duty
+            cycle</param></method>
+            <method name="tri">fill all array with triangle wave
+            <param name="T" type="float" required="true" minvalue="1" units="sample">wave
+            period</param>
+            <param name="AMP" type="float" default="1">wave amplitude</param></method>
+            <method name="saw">fill all array with saw wave
+            <param name="T" type="float" required="true" minvalue="1" units="sample">wave
+            period</param>
+            <param name="A" type="float" default="1">wave amplitude</param></method>
         </methods>
         <inlets>
             <inlet>
@@ -42,23 +69,41 @@
         <example>
             <pdascii>
 <![CDATA[
-[array A1 size=100 w=130 h=100]
+[array afill size=300 w=300 h=90]
 
 
 
 
 
 
+[fill 0.1 #a1(   [gauss 0 0.4 #a5( [gauss 0.5 0.2 #a6(
 
-[fill 0.1(  [fill -0.2 0 1 0.5 0.6(
-|           |
-|           | [fill @from 50 0.5 0.6 0.7 0.7 0.8(
-|           | |
-|           | | [fill @from 20 @to -10 -0.5(
-|           | | |
-[array.fill   A1]
+[fill -0.2 0 1 0.5 0.6 #a2(  [uniform -0.2 0.5 #a7(
+
+[fill @from 50 0.5 0.6 0.7 0.7 0.8 #a3( [pulse 50 0.7 0.3 #a8(
+
+[fill @from 20 @to -10 -0.5 #a4( [saw 60 0.9 #a9( [tri 80 0.6 #a10(
+
+           [ui.knob]
+           |
+           |
+           |
+           [sin 100 0.8 $1(
+           |
+[array.fill @array afill #b]
 |
 [B]
+
+[X a1->b]
+[X a2->b]
+[X a3->b]
+[X a4->b]
+[X a5->b]
+[X a6->b]
+[X a7->b]
+[X a8->b]
+[X a9->b]
+[X a10->b]
 ]]>
             </pdascii>
         </example>

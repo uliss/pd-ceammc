@@ -1,88 +1,88 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 394 50 cnv 1 371 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 394 50 First-In-First-Out (FIFO) queue data container;
+#X obj 407 50 cnv 1 358 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 407 50 First-In-First-Out (FIFO) queue data container;
 #X obj 1 1 cnv 5 765 40 empty empty data.fifo 20 20 0 20 -104026 -4096
 0;
 #X obj 675 11 data.fifo;
-#X obj 210 80 cnv 1 555 61 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 65 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 If size argument specified - creates queue with fixed
 size. When count of values exceed this limit \, outputs and removes
 first value in queue.;
-#X floatatom 213 169 5 0 0 0 - - -;
-#X msg 88 198 pop;
-#X msg 155 198 1 2;
-#X msg 213 198 resize \$1;
-#X msg 338 213 @size?;
-#X msg 424 213 @free?;
-#X msg 510 213 @filled?;
-#X floatatom 50 227 5 0 0 0 - - -;
-#X obj 117 227 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X floatatom 213 173 5 0 0 0 - - -;
+#X msg 88 202 pop;
+#X msg 155 202 1 2;
+#X msg 213 202 resize \$1;
+#X msg 338 217 @size?;
+#X msg 424 217 @free?;
+#X msg 510 217 @filled?;
+#X floatatom 50 231 5 0 0 0 - - -;
+#X obj 117 231 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 174 227 clear;
-#X msg 270 227 flush;
-#X obj 50 256 data.fifo 5;
-#X obj 50 285 msg set;
-#X obj 213 285 print;
-#X msg 50 313 ;
-#X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 357 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X msg 174 231 clear;
+#X msg 270 231 flush;
+#X obj 50 260 data.fifo 5;
+#X obj 50 289 msg set;
+#X obj 213 289 print;
+#X msg 50 317 ;
+#X obj 20 356 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 361 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 392 1\.;
-#X text 150 392 int;
-#X obj 246 393 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 392 size: if specified \, creates fixed-size queue. Value
+#X text 110 396 1\.;
+#X text 150 396 int;
+#X obj 246 397 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 396 size: if specified \, creates fixed-size queue. Value
 '0' means default size (1024). Min value: 0;
-#X obj 20 434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 439 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 441 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 446 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 474 @empty;
-#X text 245 474 (readonly) Get if queue is empty. Type: int. Allowed
+#X msg 110 481 @empty;
+#X text 245 481 (readonly) Get if queue is empty. Type: int. Allowed
 values: 0 \, 1\.;
-#X msg 110 513 @filled;
-#X text 245 513 (readonly) Get current number of elements in queue.
+#X msg 110 523 @filled;
+#X text 245 523 (readonly) Get current number of elements in queue.
 Type: int. Min value: 0\.;
-#X msg 110 552 @free;
-#X text 245 552 (readonly) Get number of elements you can add to queue
+#X msg 110 565 @free;
+#X text 245 565 (readonly) Get number of elements you can add to queue
 until it full. Type: int. Min value: 0\.;
-#X msg 110 591 @size;
-#X text 245 591 (readonly) Get max number of elements in queue. Type:
+#X msg 110 607 @size;
+#X text 245 607 (readonly) Get max number of elements in queue. Type:
 int. Min value: 0\.;
-#X obj 20 640 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 645 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 659 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 664 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 680 clear;
-#X text 245 680 removes all queue values.;
-#X msg 110 707 flush;
-#X text 245 707 outputs and removes all queue values.;
-#X msg 110 734 pop;
-#X text 245 734 outputs and removes first values in queue.;
-#X msg 110 761 resize;
-#X text 245 761 Arguments are:;
-#X obj 255 782 cnv 1 64 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 782 [anonym]: changes queue size. All previous values (if
+#X msg 110 699 clear;
+#X text 245 699 removes all queue values.;
+#X msg 110 726 flush;
+#X text 245 726 outputs and removes all queue values.;
+#X msg 110 753 pop;
+#X text 245 753 outputs and removes first values in queue.;
+#X msg 110 780 resize;
+#X text 245 780 Arguments are:;
+#X obj 255 803 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 803 [anonym]: changes queue size. All previous values (if
 any) are silently removed. Type: int. Min value: 0\.;
-#X obj 20 829 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 834 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 853 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 858 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 835 1\.;
-#X text 150 835 *bang*;
-#X text 245 835 same as *flush* message.;
-#X obj 20 863 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 868 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 859 1\.;
+#X text 150 859 *bang*;
+#X text 245 859 same as *flush* message.;
+#X obj 20 889 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 894 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 869 1\.;
-#X text 245 869 output value.;
+#X text 110 895 1\.;
+#X text 245 895 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 917 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 920 library: ceammc v0.7.1;
-#X text 599 932 see also:;
-#X obj 675 932 data.list;
-#N canvas 10 939 400 290 info 0;
+#X obj 1 945 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 948 library: ceammc v0.7.1;
+#X text 601 960 see also:;
+#X obj 675 960 data.list;
+#N canvas 10 967 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -106,7 +106,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 939 pd info;
+#X restore 10 967 pd info;
 #X connect 6 0 9 0;
 #X connect 13 0 17 0;
 #X connect 7 0 17 0;

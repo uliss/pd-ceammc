@@ -1,33 +1,33 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 601 50 cnv 1 164 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 601 50 arc tangent function;
+#X obj 606 50 cnv 1 159 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 606 50 arc tangent function;
 #X obj 1 1 cnv 5 765 40 empty empty math.atan 20 20 0 20 -104026 -4096
 0;
 #X obj 675 11 math.atan;
-#X obj 210 80 cnv 1 555 130 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 The atan() function computes the principal value of the
-arc tangent of input value. The result is in the range [-pi/2 \,
+#X obj 210 80 cnv 1 555 140 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 The atan() function computes the principal value of
+the arc tangent of input value. The result is in the range [-pi/2 \,
 +pi/2].;
-#X text 215 131 Special values:;
-#X text 215 154 atan(+-0) returns +-0\.;
-#X text 215 177 atan(+-infinity) returns +-pi/2;
-#X floatatom 50 238 5 0 0 0 - - -;
-#X obj 50 267 math.atan;
-#X floatatom 50 296 5 0 0 0 - - -;
-#X obj 20 335 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 340 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 215 135 Special values:;
+#X text 215 160 atan(+-0) returns +-0\.;
+#X text 215 185 atan(+-infinity) returns +-pi/2;
+#X floatatom 50 248 5 0 0 0 - - -;
+#X obj 50 277 math.atan;
+#X floatatom 50 306 5 0 0 0 - - -;
+#X obj 20 345 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 350 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 341 1\.;
-#X text 150 341 *float*;
-#X text 245 341 input value.;
-#X text 150 359 *list*;
-#X text 245 359 apply to all numeric values.;
-#X obj 20 387 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 392 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 351 1\.;
+#X text 150 351 *float*;
+#X text 245 351 input value.;
+#X text 150 371 *list*;
+#X text 245 371 apply to all numeric values.;
+#X obj 20 401 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 406 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 393 1\.;
-#X text 245 393 result value.;
+#X text 110 407 1\.;
+#X text 245 407 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -35,7 +35,7 @@ arc tangent of input value. The result is in the range [-pi/2 \,
 #X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 446 520 see also:;
+#X text 448 520 see also:;
 #X obj 522 520 math.acos;
 #X obj 602 520 math.asin;
 #X obj 682 520 math.cos;

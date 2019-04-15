@@ -1,152 +1,150 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 552 50 cnv 1 213 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 552 50 Timeline - event scheduler;
+#X obj 559 50 cnv 1 206 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 559 50 Timeline - event scheduler;
 #X obj 1 1 cnv 5 765 40 empty empty tl.timeline 20 20 0 20 -104026
 -4096 0;
 #X obj 577 11 timeline;
 #X obj 660 11 tl.timeline;
-#X obj 210 80 cnv 1 555 163 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 With timeline you can schedule your events and
-start/pause/stop/move time;
-#X text 215 117 This time formats for event are supported: *clock
-format* - HH:MM:SS.MS \, or values like NUMBER UNIT: 10 ms \, 10 msec
-\, 20 sec \, 30.5s. Note: spaces are ignored.;
-#X text 215 168 Empty timeline always contains "end" event \, that
+#X obj 210 80 cnv 1 555 175 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 With timeline you can schedule your events and start/pause/stop/move
+time;
+#X text 215 120 This time formats for event are supported: *clock format*
+- HH:MM:SS.MS \, or values like NUMBER UNIT: 10 ms \, 10 msec \, 20
+sec \, 30.5s. Note: spaces are ignored.;
+#X text 215 175 Empty timeline always contains "end" event \, that
 can't be removed. Events are referred by name or by index. Negative
 indexes are supported: -1 means last event (not "end" event \, but
 last user event);
-#X msg 50 271 add 5.4 sec;
-#X msg 213 271 add middle 10s;
-#X msg 405 271 add last 5s before end;
-#X obj 59 300 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 59 329 metro 100;
-#X msg 59 358 @current?;
-#X msg 98 387 start;
-#X msg 174 387 pause;
-#X msg 251 387 stop;
-#X obj 318 387 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 318 415 @loop \$1;
-#X obj 50 444 tl.timeline 20 @loop 1;
-#X obj 50 473 prop-> @current;
-#X obj 50 502 sel 0 1 2 begin end;
-#X obj 280 502 / 1000;
-#X obj 50 531 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X msg 50 283 add 5.4 sec;
+#X msg 213 283 add middle 10s;
+#X msg 405 283 add last 5s before end;
+#X obj 59 312 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 59 341 metro 100;
+#X msg 59 370 @current?;
+#X msg 98 399 start;
+#X msg 174 399 pause;
+#X msg 251 399 stop;
+#X obj 318 399 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 318 427 @loop \$1;
+#X obj 50 456 tl.timeline 20 @loop 1;
+#X obj 50 485 prop-> @current;
+#X obj 50 514 sel 0 1 2 begin end;
+#X obj 280 514 / 1000;
+#X obj 50 543 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 88 531 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 88 543 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 136 531 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 136 543 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 174 531 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 174 543 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 242 531 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 242 543 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 280 531 sec->str @symbol @ms;
-#X symbolatom 280 559 15 0 0 0 - - -;
-#X obj 20 598 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 603 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 280 543 sec->str @symbol @ms;
+#X symbolatom 280 571 15 0 0 0 - - -;
+#X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 615 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 638 1\.;
-#X text 150 638 int;
-#X obj 246 639 cnv 1 95 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 638 LENGTH(sec): timeline length.;
-#X obj 20 666 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 671 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 650 1\.;
+#X text 150 650 int;
+#X obj 246 651 cnv 1 92 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 650 LENGTH(sec): timeline length.;
+#X obj 20 680 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 685 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 706 @current;
-#X text 245 706 (readonly) Get current time. Type: float. Units: ms.;
-#X msg 110 735 @events;
-#X text 245 735 (readonly) Get list of event names in chronological
+#X msg 110 720 @current;
+#X text 245 720 (readonly) Get current time. Type: float. Units: ms.;
+#X msg 110 749 @events;
+#X text 245 749 (readonly) Get list of event names in chronological
 order. Type: list.;
-#X msg 110 774 @is_running;
-#X text 245 774 (readonly) Get if timeline is running. Type: int.
-Allowed values: 0 \, 1\.;
-#X msg 110 813 @length;
-#X text 245 813 (readonly) Get timeline length. Type: float. Units:
+#X msg 110 791 @is_running;
+#X text 245 791 (readonly) Get if timeline is running. Type: int. Allowed
+values: 0 \, 1\.;
+#X msg 110 833 @length;
+#X text 245 833 (readonly) Get timeline length. Type: float. Units:
 sec. Default value: 60\.;
-#X msg 110 852 @loop;
-#X text 245 852 Get/Set loop mode. Type: int. Default value: 0\.
-Allowed values: 0 \, 1\.;
-#X msg 110 891 @mode;
-#X text 245 891 Get/Set timeline mode. If timeline is fixed \, when
-reached \, it outputs *end* event and stops after that. Infinite
-timeline never stops by itself. Fixed timeline can have @loop property
-for repeats. Type: symbol. Default value: fixed. Allowed values: fixed
-\, inf.;
-#X msg 110 972 @phase;
-#X text 245 972 (readonly) Get current phase in [0-1) range. Type:
+#X msg 110 875 @loop;
+#X text 245 875 Get/Set loop mode. Type: int. Default value: 0\. Allowed
+values: 0 \, 1\.;
+#X msg 110 917 @mode;
+#X text 245 917 Get/Set timeline mode. If timeline is fixed \, when
+reached \, it outputs *end* event and stops after that. Infinite timeline
+never stops by itself. Fixed timeline can have @loop property for repeats.
+Type: symbol. Default value: fixed. Allowed values: fixed \, inf.;
+#X msg 110 1004 @phase;
+#X text 245 1004 (readonly) Get current phase in [0-1) range. Type:
 float. Range: 0\...0\.;
-#X msg 110 1011 @size;
-#X text 245 1011 (readonly) Get number of events in timeline. Type:
+#X msg 110 1046 @size;
+#X text 245 1046 (readonly) Get number of events in timeline. Type:
 int. Units: sec. Default value: 60\.;
-#X obj 20 1060 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1065 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1098 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1103 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1100 add;
-#X text 245 1100 add event to timeline. You can use simple syntax like
+#X msg 110 1138 add;
+#X text 245 1138 add event to timeline. You can use simple syntax like
 [add 10.1 sec( to create event with default name \, or use advanced:
 [add myEvent 510ms before end(. Arguments are:;
-#X obj 255 1149 cnv 1 104 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1149 [NAME=eventN]: event name (if ommitted \,
-autogenerated name is used: event1 \, event2 etc.). Type: symbol.;
-#X obj 255 1184 cnv 1 48 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1184 [TIME]: event time: see *info* section. Type: list.;
-#X obj 255 1205 cnv 1 80 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1205 [relative]: create relative event before or after
+#X obj 255 1191 cnv 1 100 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1191 [NAME=eventN]: event name (if ommitted \, autogenerated
+name is used: event1 \, event2 etc.). Type: symbol.;
+#X obj 255 1229 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1229 [TIME]: event time: see *info* section. Type: list.;
+#X obj 255 1252 cnv 1 77 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1252 [relative]: create relative event before or after
 target event. Type: symbol. Allowed values: before \, after.;
-#X obj 255 1240 cnv 1 88 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1240 [REL_EVENT]: relative event name. Type: symbol.;
-#X msg 110 1263 clear;
-#X text 245 1263 remove all timeline events.;
-#X msg 110 1290 pause;
-#X text 245 1290 stops timeline at current position.;
-#X msg 110 1317 remove;
-#X text 245 1317 remove event by given index or name. [remove event1(
+#X obj 255 1290 cnv 1 85 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1290 [REL_EVENT]: relative event name. Type: symbol.;
+#X msg 110 1315 clear;
+#X text 245 1315 remove all timeline events.;
+#X msg 110 1342 pause;
+#X text 245 1342 stops timeline at current position.;
+#X msg 110 1369 remove;
+#X text 245 1369 remove event by given index or name. [remove event1(
 or [remove 3(. Arguments are:;
-#X obj 255 1352 cnv 1 80 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1352 [NAME|IDX]: event name or index. Type: atom.;
-#X msg 110 1375 remove_at;
-#X text 245 1375 remove event at specified time. Arguments are:;
-#X obj 255 1396 cnv 1 48 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1396 [TIME]: time in supported format. See *info* section.
+#X obj 255 1407 cnv 1 77 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1407 [NAME|IDX]: event name or index. Type: atom.;
+#X msg 110 1432 remove_at;
+#X text 245 1432 remove event at specified time. Arguments are:;
+#X obj 255 1455 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1455 [TIME]: time in supported format. See *info* section.
 Type: list.;
-#X msg 110 1433 start;
-#X text 245 1433 start timeline from current position.;
-#X msg 110 1460 stop;
-#X text 245 1460 stops timeline and reset current position to the
-beginning.;
-#X msg 110 1487 to_event;
-#X text 245 1487 move time to specified event. Arguments are:;
-#X obj 255 1508 cnv 1 80 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1508 [NAME|IDX]: event or index. Type: atom.;
-#X msg 110 1531 to_time;
-#X text 245 1531 move time to time. Arguments are:;
-#X obj 255 1552 cnv 1 48 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1552 [TIME]: time in supported format. See *info* section.
+#X msg 110 1495 start;
+#X text 245 1495 start timeline from current position.;
+#X msg 110 1522 stop;
+#X text 245 1522 stops timeline and reset current position to the beginning.;
+#X msg 110 1549 to_event;
+#X text 245 1549 move time to specified event. Arguments are:;
+#X obj 255 1572 cnv 1 77 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1572 [NAME|IDX]: event or index. Type: atom.;
+#X msg 110 1597 to_time;
+#X text 245 1597 move time to time. Arguments are:;
+#X obj 255 1620 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1620 [TIME]: time in supported format. See *info* section.
 Type: list.;
-#X obj 20 1599 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1604 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1670 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1675 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1605 1\.;
-#X text 150 1605 *float*;
-#X text 245 1605 control inlet. Non-zero value starts timeline \, zero
+#X text 110 1676 1\.;
+#X text 150 1676 *float*;
+#X text 245 1676 control inlet. Non-zero value starts timeline \, zero
 - stops.;
-#X obj 20 1647 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1652 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1706 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1711 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1653 1\.;
-#X text 245 1653 outputs pair: event index and event name.;
+#X text 110 1712 1\.;
+#X text 245 1712 outputs pair: event index and event name.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title tl @url ceammc.tl-help.pd;
-#X obj 1 1701 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1704 library: ceammc v0.7.1;
-#X text 618 1716 see also:;
-#X obj 694 1719 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1762 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1765 library: ceammc v0.7.1;
+#X text 620 1777 see also:;
+#X obj 694 1780 ui.link @background_color 0.78431 0.78431 0.78431
 @title [tl.cue] @url tl.cue-help.pd;
-#N canvas 10 1723 400 290 info 0;
+#N canvas 10 1784 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -170,7 +168,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1723 pd info;
+#X restore 10 1784 pd info;
 #X connect 12 0 13 0;
 #X connect 13 0 14 0;
 #X connect 18 0 19 0;

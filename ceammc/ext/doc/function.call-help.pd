@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 609 50 cnv 1 156 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 609 50 call named function;
+#X obj 614 50 cnv 1 151 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 614 50 call named function;
 #X obj 1 1 cnv 5 765 40 empty empty function.call 20 20 0 20 -104026
 -4096 0;
 #X obj 556 11 func.call;
@@ -20,21 +20,21 @@
 -49933 0;
 #X text 110 313 1\.;
 #X text 150 313 symbol;
-#X obj 246 314 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
+#X obj 246 314 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 313 NAME: function name.;
-#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 346 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 343 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 348 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 347 1\.;
-#X text 245 347 input value.;
-#X text 110 365 2\.;
-#X text 150 365 *symbol*;
-#X text 245 365 change function name.;
-#X obj 20 393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 398 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 349 1\.;
+#X text 245 349 input value.;
+#X text 110 369 2\.;
+#X text 150 369 *symbol*;
+#X text 245 369 change function name.;
+#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 404 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 399 1\.;
-#X text 245 399 function result.;
+#X text 110 405 1\.;
+#X text 245 405 function result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -42,7 +42,7 @@
 #X obj 131 48 ui.link @title base @url ceammc.base-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 604 520 see also:;
+#X text 606 520 see also:;
 #X obj 680 523 ui.link @background_color 0.78431 0.78431 0.78431
 @title [function] @url function-help.pd;
 #N canvas 10 527 400 290 info 0;

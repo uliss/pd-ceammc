@@ -1,35 +1,35 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 530 50 cnv 1 235 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 530 50 send message when patch loads;
+#X obj 538 50 cnv 1 227 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 538 50 send message when patch loads;
 #X obj 1 1 cnv 5 765 40 empty empty msg.onload 20 20 0 20 -104026
 -4096 0;
 #X obj 593 11 loadmsg;
 #X obj 668 11 msg.onload;
-#X obj 210 80 cnv 1 555 56 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 60 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 like [loadbang] \, but with message and click support.;
-#X text 215 103 Click on object sends message again.;
-#X text 50 164 click me!;
-#X obj 50 193 loadmsg load message;
-#X obj 50 236 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X text 215 105 Click on object sends message again.;
+#X text 50 168 click me!;
+#X obj 50 197 loadmsg load message;
+#X obj 50 240 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 88 236 print;
-#X obj 165 236 ui.d;
-#X obj 20 275 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 280 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 88 240 print;
+#X obj 165 240 ui.d;
+#X obj 20 279 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 284 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 315 1\.;
-#X text 150 315 list;
-#X obj 246 316 cnv 1 41 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 315 ARGS: message.;
-#X obj 20 343 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 348 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 319 1\.;
+#X text 150 319 list;
+#X obj 246 320 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 319 ARGS: message.;
+#X obj 20 349 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 354 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X obj 20 369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 374 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 375 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 380 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 375 1\.;
-#X text 245 375 message output.;
+#X text 110 381 1\.;
+#X text 245 381 message output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

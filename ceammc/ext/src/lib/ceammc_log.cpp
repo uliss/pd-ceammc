@@ -44,6 +44,21 @@ Debug::~Debug()
     else
         post("[ceammc] %s", str().c_str());
 }
+
+Log::Log(const BaseObject* obj, int level)
+    : obj_(obj)
+    , level_(level)
+{
+}
+
+Log::~Log()
+{
+    if (obj_ != 0)
+        logpost(static_cast<void*>(obj_->owner()), level_ + 4, "[%s] %s", obj_->className().c_str(), str().c_str());
+    else
+        logpost(nullptr, level_ + 4, "[ceammc] %s", str().c_str());
+}
+
 }
 
 std::ostream& operator<<(std::ostream& os, t_symbol*& s)

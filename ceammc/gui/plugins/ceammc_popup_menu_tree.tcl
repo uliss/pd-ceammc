@@ -35,8 +35,9 @@
         an.pitchtrack~
     }}
     {array {
-        array.bpm array.copy array.do array.each array.fill array.minmax
-        array.set array.stretch array.vplay array.window
+        array.bpm array.copy array.do array.each array.fill array.hist
+        array.mean array.minmax array.rms array.set array.stddev array.stretch
+        array.sum array.sum2 array.variance array.vplay array.window
     }}
     {base {
         function function.call gain~ matrix~ metro.pattern metro.seq mix~
@@ -90,7 +91,7 @@
         global.set
     }}
     {hw {
-        hw.arduino
+        hw.apple_smc hw.apple_sms hw.arduino hw.cpu_temp hw.kbd_light
     }}
     {lfo {
         lfo.+pulse~ lfo.+saw~ lfo.+square~ lfo.+tri~ lfo.impulse~ lfo.pulse~

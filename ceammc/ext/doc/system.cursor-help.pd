@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 354 50 cnv 1 411 35 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 354 50 Get information about cursor motion \, mousewheel and
+#X obj 369 50 cnv 1 396 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 369 50 Get information about cursor motion \, mousewheel and
 buttonclick;
 #X obj 1 1 cnv 5 765 40 empty empty system.cursor 20 20 0 20 -104026
 -4096 0;
@@ -23,14 +23,14 @@ buttonclick;
 #X text 110 307 1\.;
 #X text 150 307 *bang*;
 #X text 245 307 output cursor position.;
-#X text 150 325 *float*;
-#X text 245 325 when 1 is received - turns on cursor polling (position
+#X text 150 327 *float*;
+#X text 245 327 when 1 is received - turns on cursor polling (position
 and buttons) \, when 0 is received - turns it off.;
-#X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 372 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 372 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 377 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 373 1\.;
-#X text 245 373 messages: motion \, mousewheel \, button.;
+#X text 110 378 1\.;
+#X text 245 378 messages: motion \, mousewheel \, button.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

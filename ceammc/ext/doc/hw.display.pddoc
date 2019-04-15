@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="hw.display">
+        <title>hw.display</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>get/set display properties</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>hw</category>
+            <keywords>display brightness</keywords>
+            <since>0.7.1</since>
+        </meta>
+        <info>
+            <par>At this moment supports only MacOSX</par>
+        </info>
+        <properties>
+            <property name="@brightness" type="float" minvalue="0" maxvalue="1">display
+            brightness</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>properties output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.slider @size 120 12]
+|
+[@brightness $1( [@brightness?(
+|                |
+[hw.display      ]
+|
+[ui.d]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

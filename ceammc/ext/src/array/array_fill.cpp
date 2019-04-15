@@ -11,8 +11,18 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 #include "array_fill.h"
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
+
+#include <algorithm>
+#include <chrono>
+#include <cmath>
+#include <random>
 
 ArrayFill::ArrayFill(const PdArgs& a)
     : ArrayMod(a)
@@ -41,6 +51,54 @@ void ArrayFill::onList(const AtomList& l)
     m_fill(gensym("fill"), l);
 }
 
+void ArrayFill::m_gauss(t_symbol* m, const AtomList& l)
+{
+    if (!checkArray())
+        return;
+
+    const t_float mean = l.floatAt(0, 0);
+    const t_float stddev = l.floatAt(1, 1);
+
+    if (stddev <= 0) {
+        METHOD_ERR(m) << "standart deviation (sigma) should be > 0";
+        return;
+    }
+
+    auto seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine gen(seed);
+    std::normal_distribution<t_float> dist(mean, stddev);
+
+    std::generate(array_.begin(), array_.end(), [&gen, &dist]() {
+        return dist(gen);
+    });
+
+    finish();
+}
+
+void ArrayFill::m_uniform(t_symbol* m, const AtomList& l)
+{
+    if (!checkArray())
+        return;
+
+    const t_float a = l.floatAt(0, 0);
+    const t_float b = l.floatAt(1, 1);
+
+    if (!(a < b)) {
+        METHOD_ERR(m) << "a should be less then b";
+        return;
+    }
+
+    auto seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine gen(seed);
+    std::uniform_real_distribution<t_float> dist(a, b);
+
+    std::generate(array_.begin(), array_.end(), [&gen, &dist]() {
+        return dist(gen);
+    });
+
+    finish();
+}
+
 void ArrayFill::m_fill(t_symbol* m, const AtomList& l)
 {
     if (!checkArray())
@@ -56,6 +114,121 @@ void ArrayFill::m_fill(t_symbol* m, const AtomList& l)
     }
 
     fillRange(from, to, values);
+}
+
+void ArrayFill::m_sin(t_symbol* m, const AtomList& l)
+{
+    if (!checkArray())
+        return;
+
+    if (l.empty()) {
+        METHOD_ERR(m) << "usage: " << m << " PERIOD [AMPLITUDE] [PHASE]";
+        return;
+    }
+
+    const t_float p = l.floatAt(0, 0);
+    const t_float amp = l.floatAt(1, 1);
+    const t_float phase = l.floatAt(2, 0) * M_PI;
+
+    if (p <= 0) {
+        METHOD_ERR(m) << "invalid period value: " << p;
+        return;
+    }
+
+    const t_float w = 2 * M_PI / p;
+
+    int i = 0;
+    for (auto& v : array_)
+        v = amp * std::sin(w * i++ + phase);
+
+    finish();
+}
+
+void ArrayFill::m_pulse(t_symbol* m, const AtomList& l)
+{
+    if (!checkArray())
+        return;
+
+    if (l.empty()) {
+        METHOD_ERR(m) << "usage: " << m << " PERIOD [AMPLITUDE] [PHASE]";
+        return;
+    }
+
+    const t_float period = l.floatAt(0, 0);
+    const t_float amp = l.floatAt(1, 1);
+    const t_float duty = clip<t_float>(l.floatAt(2, 0.5), 0.001, 0.999);
+
+    if (period <= 1) {
+        METHOD_ERR(m) << "invalid period value: " << period;
+        return;
+    }
+
+    int i = 0;
+    for (auto& v : array_) {
+        t_float n = (i++ / period);
+        auto frac = std::fmod(n, 1);
+        v = (frac < duty) ? amp : -amp;
+    }
+
+    finish();
+}
+
+void ArrayFill::m_saw(t_symbol* m, const AtomList& l)
+{
+    if (!checkArray())
+        return;
+
+    if (l.empty()) {
+        METHOD_ERR(m) << "usage: " << m << " PERIOD [AMPLITUDE] [PHASE]";
+        return;
+    }
+
+    const t_float period = l.floatAt(0, 0);
+    const t_float amp = l.floatAt(1, 1);
+
+    if (period <= 1) {
+        METHOD_ERR(m) << "invalid period value: " << period;
+        return;
+    }
+
+    int i = 0;
+    for (auto& v : array_) {
+        t_float n = (i++ / period);
+        auto frac = std::fmod(n, 1);
+        v = convert::lin2lin<t_sample>(frac, 0, 1, -amp, amp);
+    }
+
+    finish();
+}
+
+void ArrayFill::m_tri(t_symbol* m, const AtomList& l)
+{
+    if (!checkArray())
+        return;
+
+    if (l.empty()) {
+        METHOD_ERR(m) << "usage: " << m << " PERIOD [AMPLITUDE] [PHASE]";
+        return;
+    }
+
+    const t_float period = l.floatAt(0, 0);
+    const t_float amp = l.floatAt(1, 1);
+
+    if (period <= 1) {
+        METHOD_ERR(m) << "invalid period value: " << period;
+        return;
+    }
+
+    int i = 0;
+    for (auto& v : array_) {
+        t_float n = (i++ / period);
+        auto frac = std::fmod(n + 0.25, 1);
+        auto v1 = convert::lin2lin<t_sample>(frac, 0, 1, -2 * amp, 2 * amp);
+        auto v2 = -v1;
+        v = std::min(v1, v2) + amp;
+    }
+
+    finish();
 }
 
 void ArrayFill::fillRange(size_t from, size_t to, const AtomList& l)
@@ -151,4 +324,10 @@ extern "C" void setup_array0x2efill()
 {
     ObjectFactory<ArrayFill> obj("array.fill");
     obj.addMethod("fill", &ArrayFill::m_fill);
+    obj.addMethod("sin", &ArrayFill::m_sin);
+    obj.addMethod("gauss", &ArrayFill::m_gauss);
+    obj.addMethod("uniform", &ArrayFill::m_uniform);
+    obj.addMethod("pulse", &ArrayFill::m_pulse);
+    obj.addMethod("saw", &ArrayFill::m_saw);
+    obj.addMethod("tri", &ArrayFill::m_tri);
 }
