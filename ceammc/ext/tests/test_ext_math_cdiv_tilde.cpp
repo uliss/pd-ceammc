@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <stdio.h>
+#include <array>
 
 #define REQUIRE_OUTPUT_EQUAL(dsp, val, ival)        \
     {                                               \
