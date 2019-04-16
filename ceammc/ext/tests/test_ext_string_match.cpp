@@ -43,7 +43,7 @@ TEST_CASE("string.match", "[external]")
         SECTION("prop")
         {
             TestStringMatch t("string.match", LA("@re", "`sabc"));
-            REQUIRE_PROPERTY_LIST(t, @re, LA("\\sabc"));
+            REQUIRE_PROPERTY_LIST(t, @re, LA("`sabc"));
         }
     }
 
@@ -108,6 +108,13 @@ TEST_CASE("string.match", "[external]")
         REQUIRE_MATCH(t, "a1");
         REQUIRE_MATCH(t, "a123");
         REQUIRE_NO_MATCH(t, "aa");
+
+        WHEN_SEND_SYMBOL_TO(1, t, "A~(2,4)~BC");
+        REQUIRE_MATCH(t, "AABC");
+        REQUIRE_MATCH(t, "AAABC");
+        REQUIRE_MATCH(t, "AAAABC");
+        REQUIRE_NO_MATCH(t, "ABC");
+        REQUIRE_NO_MATCH(t, "AAAAABC");
     }
 
     SECTION("unicode")
@@ -116,5 +123,23 @@ TEST_CASE("string.match", "[external]")
         REQUIRE_NO_MATCH(t, "abc");
         REQUIRE_MATCH(t, "абвгд");
         REQUIRE_NO_MATCH(t, "Абвгд");
+    }
+
+    SECTION("escape/unescape")
+    {
+        REQUIRE(StringMatch::escape("") == "");
+        REQUIRE(StringMatch::escape("abc") == "abc");
+        REQUIRE(StringMatch::escape("`a") == "\\a");
+        REQUIRE(StringMatch::escape("`a``ABC ") == "\\a`ABC ");
+        REQUIRE(StringMatch::escape("`a`") == "\\a\\");
+        REQUIRE(StringMatch::escape("``") == "`");
+        REQUIRE(StringMatch::escape("```") == "`\\");
+        REQUIRE(StringMatch::escape("`~") == "~");
+        REQUIRE(StringMatch::escape("`~(") == "~(");
+        REQUIRE(StringMatch::escape(")`~") == ")~");
+        REQUIRE(StringMatch::escape("~abc~") == "~abc~");
+        REQUIRE(StringMatch::escape("A~(2,10)~") == "A{2,10}");
+        REQUIRE(StringMatch::escape("(2,10)") == "(2,10)");
+        REQUIRE(StringMatch::escape("(test)string") == "(test)string");
     }
 }

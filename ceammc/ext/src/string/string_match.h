@@ -39,6 +39,10 @@ public:
 
     void update(const std::string& re);
 
+public:
+    static std::string escape(const std::string& s);
+    static std::string unescape(const std::string& s);
+
 private:
     AtomList propRe2() const;
     void propSetRe2(const AtomList& lst);
