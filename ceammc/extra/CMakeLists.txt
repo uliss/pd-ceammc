@@ -18,6 +18,13 @@ add_subdirectory(stk)
 add_subdirectory(subprocess)
 add_subdirectory(fmt)
 
+set(RE2_BUILD_TESTING OFF)
+add_subdirectory(re2)
+
+if(UNIX)
+    set_target_properties(re2 PROPERTIES COMPILE_FLAGS "-fPIC")
+endif()
+
 if(UNIX)
     set_target_properties(fmt PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()

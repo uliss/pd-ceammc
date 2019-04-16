@@ -73,10 +73,6 @@ if(WITH_LIBSNDFILE)
     include(FindLibSndFile)
 endif()
 
-if(WITH_PCRE2)
-    find_package(PCRE2)
-endif()
-
 # FFTW3
 option(WITH_FFTW "Use fftw3 library (http://www.fftw.org/)" ON)
 if(WITH_FFTW)
