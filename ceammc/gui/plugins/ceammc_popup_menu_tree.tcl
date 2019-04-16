@@ -91,7 +91,8 @@
         global.set
     }}
     {hw {
-        hw.apple_smc hw.apple_sms hw.arduino hw.cpu_temp hw.kbd_light
+        hw.apple_smc hw.apple_sms hw.arduino hw.cpu_temp hw.display
+        hw.kbd_light
     }}
     {lfo {
         lfo.+pulse~ lfo.+saw~ lfo.+square~ lfo.+tri~ lfo.impulse~ lfo.pulse~
@@ -178,8 +179,8 @@
     }}
     {string {
         string string.contains string.ends_with string.equal string.format
-        string.join string.length string.remove string.replace string.split
-        string.starts_with string.substr string2symbol
+        string.join string.length string.match string.remove string.replace
+        string.split string.starts_with string.substr string2symbol
     }}
     {symbol {
         symbol.equal symbol.length symbol.num_compare

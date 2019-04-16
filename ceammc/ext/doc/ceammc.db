@@ -373,6 +373,7 @@ string.equal,str.equal		..		.
 string.format,str.format		.		.
 string.join,str.join		.		.
 string.length,str.length		.		.
+string.match,str.match		..		.
 string.remove,str.remove		..		.
 string.replace,str.replace		...		.
 string.split,str.split		.		.

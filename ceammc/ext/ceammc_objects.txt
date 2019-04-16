@@ -501,6 +501,7 @@ str.equal
 str.format
 str.join
 str.length
+str.match
 str.remove
 str.replace
 str.split
@@ -513,6 +514,7 @@ string.equal
 string.format
 string.join
 string.length
+string.match
 string.remove
 string.replace
 string.split

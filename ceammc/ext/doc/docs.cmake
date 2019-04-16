@@ -375,6 +375,7 @@ set(DOC_FILES
     string.format
     string.join
     string.length
+    string.match
     string.remove
     string.replace
     string.split
