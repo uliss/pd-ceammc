@@ -8,6 +8,7 @@
   - foldable categories added
 - outer/inner label added for almost all UI widgets
 - ui.matrix read/write methods added to save/load in text format
+- ui.dsp~ popup menu added
 - array.hist added
 - array.mean added
 - array.rms added
@@ -23,6 +24,8 @@
 - array.fill sin method added
 - array.fill gauss method added
 - array.fill uniform method added
+### Changed:
+- ui.dsp~ Shift+DblClick binding removed
 
 ## [0.7]
 ### Added:

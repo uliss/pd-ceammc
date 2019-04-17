@@ -6,72 +6,75 @@
 0;
 #X obj 687 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.dsp~] @url ui.dsp~-help.pd;
-#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 SHIFT+DblClick open audio settings dialog;
-#X msg 50 143 start;
-#X msg 126 143 stop;
-#X msg 194 143 settings;
-#X obj 50 187 ui.dsp~;
-#X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 231 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X msg 50 118 start;
+#X msg 126 118 stop;
+#X msg 194 118 settings;
+#X obj 50 162 ui.dsp~;
+#X obj 20 201 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 206 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 266 @receive;
-#X text 245 266 Get/Set receive source. Type: symbol.;
-#X msg 110 295 @send;
-#X text 245 295 Get/Set send destination. Type: symbol.;
-#X msg 110 324 @active_color;
-#X text 245 324 Get/Set element active color (list of red \, green
+#X text 110 241 Right-click;
+#X text 285 241 opens popup menu with items: Audio Settings.;
+#X obj 20 271 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 276 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 311 @receive;
+#X text 245 311 Get/Set receive source. Type: symbol.;
+#X msg 110 340 @send;
+#X text 245 340 Get/Set send destination. Type: symbol.;
+#X msg 110 369 @active_color;
+#X text 245 369 Get/Set element active color (list of red \, green
 \, blue values in 0-1 range). Type: list.;
-#X msg 110 366 @background_color;
-#X text 245 366 Get/Set element background color (list of red \, green
+#X msg 110 411 @background_color;
+#X text 245 411 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list.;
-#X msg 110 408 @border_color;
-#X text 245 408 Get/Set border color (list of red \, green \, blue
+#X msg 110 453 @border_color;
+#X text 245 453 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list.;
-#X msg 110 450 @fontname;
-#X text 245 450 Get/Set fontname. Type: symbol.;
-#X msg 110 479 @fontsize;
-#X text 245 479 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 495 @fontname;
+#X text 245 495 Get/Set fontname. Type: symbol.;
+#X msg 110 524 @fontsize;
+#X text 245 524 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...11\.;
-#X msg 110 521 @fontslant;
-#X text 245 521 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 566 @fontslant;
+#X text 245 566 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 563 @fontweight;
-#X text 245 563 Get/Set font weight. Type: symbol. Default value: normal.
+#X msg 110 608 @fontweight;
+#X text 245 608 Get/Set font weight. Type: symbol. Default value: normal.
 Allowed values: normal \, bold.;
-#X msg 110 605 @pinned;
-#X text 245 605 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 650 @pinned;
+#X text 245 650 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 647 @size;
-#X text 245 647 Get/Set element size (width \, height pair). Type:
+#X msg 110 692 @size;
+#X text 245 692 Get/Set element size (width \, height pair). Type:
 list.;
-#X obj 20 686 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 691 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 731 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 736 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 726 pos;
-#X text 245 726 set UI element position. Arguments are:;
-#X obj 255 749 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 749 X: top left x-coord. Type: float.;
-#X obj 255 772 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 772 Y: top right y-coord. Type: float.;
-#X msg 110 797 settings;
-#X text 245 797 opens audio settings dialog.;
-#X msg 110 824 start;
-#X text 245 824 starts audio processing.;
-#X msg 110 851 stop;
-#X text 245 851 stops audio processing.;
-#X obj 20 888 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 893 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 771 pos;
+#X text 245 771 set UI element position. Arguments are:;
+#X obj 255 794 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 794 X: top left x-coord. Type: float.;
+#X obj 255 817 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 817 Y: top right y-coord. Type: float.;
+#X msg 110 842 settings;
+#X text 245 842 opens audio settings dialog.;
+#X msg 110 869 start;
+#X text 245 869 starts audio processing.;
+#X msg 110 896 stop;
+#X text 245 896 stops audio processing.;
+#X obj 20 933 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 938 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 894 1\.;
+#X text 110 939 1\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 924 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 927 library: ceammc v0.7.1;
-#N canvas 10 946 400 290 info 0;
+#X obj 1 969 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 972 library: ceammc v0.7.1;
+#N canvas 10 991 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -95,7 +98,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 946 pd info;
-#X connect 6 0 9 0;
-#X connect 7 0 9 0;
-#X connect 8 0 9 0;
+#X restore 10 991 pd info;
+#X connect 4 0 7 0;
+#X connect 5 0 7 0;
+#X connect 6 0 7 0;

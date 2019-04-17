@@ -14,9 +14,10 @@
             <keywords>ui dsp</keywords>
             <since>0.1</since>
         </meta>
-        <info>
-            <par>SHIFT+DblClick open audio settings dialog</par>
-        </info>
+        <mouse>
+            <event editmode="false" type="right-click">opens popup menu with items: Audio
+            Settings</event>
+        </mouse>
         <methods>
             <method name="start">starts audio processing</method>
             <method name="stop">stops audio processing</method>
