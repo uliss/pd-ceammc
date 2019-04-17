@@ -115,6 +115,14 @@ TEST_CASE("string.match", "[external]")
         REQUIRE_MATCH(t, "AAAABC");
         REQUIRE_NO_MATCH(t, "ABC");
         REQUIRE_NO_MATCH(t, "AAAAABC");
+
+
+        WHEN_SEND_SYMBOL_TO(1, t, "`d+\\.txt");
+        REQUIRE_MATCH(t, "1.txt");
+        REQUIRE_MATCH(t, "12.txt");
+        REQUIRE_MATCH(t, "123.txt");
+        REQUIRE_NO_MATCH(t, "123*txt");
+        REQUIRE_NO_MATCH(t, "a12.txt");
     }
 
     SECTION("unicode")
@@ -135,11 +143,29 @@ TEST_CASE("string.match", "[external]")
         REQUIRE(StringMatch::escape("``") == "`");
         REQUIRE(StringMatch::escape("```") == "`\\");
         REQUIRE(StringMatch::escape("`~") == "~");
+        REQUIRE(StringMatch::escape("`'") == ",");
+        REQUIRE(StringMatch::escape("`:") == ";");
         REQUIRE(StringMatch::escape("`~(") == "~(");
         REQUIRE(StringMatch::escape(")`~") == ")~");
         REQUIRE(StringMatch::escape("~abc~") == "~abc~");
-        REQUIRE(StringMatch::escape("A~(2,10)~") == "A{2,10}");
-        REQUIRE(StringMatch::escape("(2,10)") == "(2,10)");
+        REQUIRE(StringMatch::escape("A~(2`'10)~") == "A{2,10}");
+        REQUIRE(StringMatch::escape("(2`'10)") == "(2,10)");
         REQUIRE(StringMatch::escape("(test)string") == "(test)string");
+
+        REQUIRE(StringMatch::unescape("\\a") == "`a");
+        REQUIRE(StringMatch::unescape("") == "");
+        REQUIRE(StringMatch::unescape("abc") == "abc");
+        REQUIRE(StringMatch::unescape("\\a`ABC ") == "`a``ABC ");
+        REQUIRE(StringMatch::unescape("\\a\\") == "`a`");
+        REQUIRE(StringMatch::unescape("`") == "``");
+        REQUIRE(StringMatch::unescape("`\\") == "```");
+        REQUIRE(StringMatch::unescape("~") == "`~");
+        REQUIRE(StringMatch::unescape(",") == "`'");
+        REQUIRE(StringMatch::unescape(";") == "`:");
+        REQUIRE(StringMatch::unescape("{") == "~(");
+        REQUIRE(StringMatch::unescape("}") == ")~");
+        REQUIRE(StringMatch::unescape(")~") == ")`~");
+        REQUIRE(StringMatch::unescape("~abc~") == "`~abc`~");
+        REQUIRE(StringMatch::unescape("A{1,2}") == "A~(1`'2)~");
     }
 }

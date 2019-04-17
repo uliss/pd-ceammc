@@ -22,8 +22,8 @@ StringMatch::StringMatch(const PdArgs& args)
     : BaseObject(args)
 {
     createCbProperty("@re", &StringMatch::propRe2, &StringMatch::propSetRe2);
-    if (positionalSymbolArgument(0, &s_) != &s_)
-        propSetRe2(positionalArgument(0));
+    if (!positionalArguments().empty())
+        propSetRe2(positionalArguments());
 
     createOutlet();
     createInlet();
@@ -90,6 +90,12 @@ std::string StringMatch::escape(const std::string& s)
             } else if (cnext == '~') { // `~ -> ~
                 i++;
                 res.push_back('~');
+            } else if (cnext == '\'') { // `' -> ,
+                i++;
+                res.push_back(',');
+            } else if (cnext == ':') { // `: -> ;
+                i++;
+                res.push_back(';');
             } else { /* ` -> \\ */
                 res.push_back('\\');
             }
@@ -154,6 +160,14 @@ std::string StringMatch::unescape(const std::string& s)
             res.push_back('`');
             res.push_back('~');
             break;
+        case ',':
+            res.push_back('`');
+            res.push_back('\'');
+            break;
+        case ';':
+            res.push_back('`');
+            res.push_back(':');
+            break;
         default:
             res.push_back(c);
             break;
@@ -176,7 +190,7 @@ void StringMatch::propSetRe2(const AtomList& lst)
     if (lst.empty())
         return;
 
-    re_.reset(new re2::RE2(escape(to_string(lst[0]))));
+    re_.reset(new re2::RE2(escape(to_string(lst, " "))));
     if (!re_->ok())
         OBJ_ERR << "invalid regexp: " << lst[0];
 }
