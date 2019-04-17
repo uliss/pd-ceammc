@@ -66,7 +66,7 @@ typedef int socklen_t;
 
 #ifndef WISH
 # if defined _WIN32
-#  define WISH "wish85.exe"
+#  define WISH "wish86.exe"
 # elif defined __APPLE__
    // leave undefined to use dummy search path, otherwise
    // this should be a full path to wish on mac
