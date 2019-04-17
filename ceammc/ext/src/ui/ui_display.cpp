@@ -42,13 +42,9 @@ static const int TYPE_WIDTH = 58;
 static const int TYPE_WIDTH = 50;
 #endif
 
+// macosx, win - checked
 static const int TEXT_XPAD = 3;
-
-#ifdef __WIN32
-static const int TEXT_YPAD = 0;
-#else
 static const int TEXT_YPAD = 2;
-#endif
 
 static inline const t_rgba& msg_color(t_symbol* s_type)
 {
