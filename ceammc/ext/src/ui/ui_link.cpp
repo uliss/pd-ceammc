@@ -41,7 +41,7 @@ static size_t text_width(t_symbol* txt, int sz)
         corr = 2;
     }
 #elif __WIN32
-    char_wd += 5;
+    char_wd += 3;
 #else
     char_wd += 3;
 #endif

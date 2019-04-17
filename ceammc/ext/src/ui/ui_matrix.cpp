@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <chrono>
 #include <cstdio>
 #include <fstream>
 #include <limits>
@@ -670,12 +671,12 @@ void UIMatrix::m_reset()
 
 void UIMatrix::m_random()
 {
-    std::random_device rd;
-    std::mt19937 mt(rd());
+    auto seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine gen(seed);
     std::uniform_int_distribution<int> dist(0, 1);
 
     for (size_t i = 0; i < matrix_.size(); i++)
-        matrix_.set(i, dist(mt));
+        matrix_.set(i, dist(gen));
 
     // better to redraw all then allocate memory to update list
     update_all_cells_ = true;
