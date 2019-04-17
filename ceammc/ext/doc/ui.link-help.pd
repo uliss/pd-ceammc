@@ -7,10 +7,10 @@
 #X obj 687 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.link] @url ui.link-help.pd;
 #X obj 210 80 cnv 1 555 80 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Link allows to open external URLs \, not only pd patches
-but all kind of URL supported by your OS. If relarive file path is
-given \, it searched in current directory \, then PD doc directory
-and PD external directories;
+#X text 215 80 Link allows to open external URLs \, not only Pd patches
+but all kind of URL supported by your OS. If relative file path is
+given \, it searched in current directory \, then Pd doc directory
+and Pd external directories;
 #X text 50 203 [ui.link @url vu-help.pd @title VU-help];
 #X obj 50 232 ui.link @title VU-help @url vu-help.pd;
 #X text 50 260 [ui.link @url http://puredata.info @title puredata.info];
