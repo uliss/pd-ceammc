@@ -175,6 +175,7 @@ UIKeyboard::UIKeyboard()
     , mouse_pressed_(false)
     , prop_color_active_(rgba_black)
     , key_layer_(asEBox(), gensym("keys_layer"))
+    , popup_(false)
 {
     appendToLayerList(&key_layer_);
     createOutlet();
@@ -227,6 +228,7 @@ void UIKeyboard::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt,
 
         velocity_ = std::min<int>(127, int(pt.y / height() * 100.f) + 27);
         current_key_ = findPressedKey(pt);
+        popup_ = true;
         return;
     }
 
@@ -265,6 +267,9 @@ void UIKeyboard::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt,
 
 void UIKeyboard::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
+    if(popup_)
+        return;
+
     if (current_key_ == -1)
         return;
 
@@ -283,6 +288,9 @@ void UIKeyboard::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
 
 void UIKeyboard::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
 {
+    if(popup_)
+        return;
+
     current_key_ = -1;
     mouse_pressed_ = false;
 
@@ -356,12 +364,14 @@ void UIKeyboard::onPopup(t_symbol* menu_name, long item_idx)
             break;
         }
     }
+
+    popup_ = false;
 }
 
 void UIKeyboard::playChord(const std::unordered_set<int>& keys)
 {
     if (current_key_ == -1)
-        current_key_ = 60;
+        current_key_ = 60 - shift_;
 
     for (int k : keys)
         sustained_keys_.insert(current_key_ + k);

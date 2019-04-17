@@ -16,6 +16,7 @@ class UIKeyboard : public UIObject {
     t_rgba prop_color_active_;
     std::unordered_set<int> sustained_keys_;
     UILayer key_layer_;
+    bool popup_;
 
 public:
     UIKeyboard();
