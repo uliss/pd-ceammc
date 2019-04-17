@@ -850,14 +850,12 @@ static long modifier_wrapper(long mod)
     if (mod >= 256) {
         mod -= 256;
     }
-#elif _WINDOWS
+#elif __WIN32
 
     if (mod >= 131072) {
         mod -= 131072;
-        mod += EMOD_ALT;
+        mod |= EMOD_ALT;
     }
-/*else
-        mod -= 8;*/
 #else
     if (mod == 24) //right click
         mod = EMOD_CMD;
@@ -866,7 +864,7 @@ static long modifier_wrapper(long mod)
         mod |= EMOD_ALT;
     }
 #endif
-    //post("MOD : %ld", mod);
+    // post("MOD : %ld", mod);
     return mod;
 }
 
