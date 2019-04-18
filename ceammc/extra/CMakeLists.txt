@@ -18,7 +18,7 @@ add_subdirectory(stk)
 add_subdirectory(subprocess)
 add_subdirectory(fmt)
 
-option(RE2_BUILD_TESTING OFF)
+option(RE2_BUILD_TESTING "" OFF)
 add_subdirectory(re2)
 
 if(UNIX)
