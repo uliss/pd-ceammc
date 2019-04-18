@@ -7,6 +7,8 @@ macro(ceammc_hw_external name)
     list(APPEND HW_SOURCES "hw_${name}.cpp")
 endmacro()
 
+set(HW_LINK_LIBRARIES)
+
 # Sudden motion sensor on macbook's
 if(APPLE)
     add_compile_definitions(WITH_SMS)
@@ -16,7 +18,15 @@ if(APPLE)
     list(APPEND HW_SOURCES apple/smc.cpp)
     list(APPEND HW_SOURCES apple/fn_strings.cpp)
     list(APPEND HW_SOURCES apple/iodisplay.cpp)
+elseif(UNIX AND NOT APPLE)
+    find_package(XCB)
+    if(XCB_FOUND AND XCB_RANDR_FOUND AND XCB_UTIL_FOUND)
+        add_definitions(-DWITH_X11DISPLAY)
+        list(APPEND HW_SOURCES linux/x11display.cpp)
+        list(APPEND HW_LINK_LIBRARIES ${XCB_LIBRARIES} ${XCB_RANDR_LIBRARIES} ${XCB_UTIL_LIBRARIES})
+    endif()
 endif()
+
 
 ceammc_hw_external(apple_smc)
 ceammc_hw_external(apple_sms)
@@ -35,7 +45,7 @@ if(LIBUSB_1_FOUND)
 endif()
 
 add_library(ceammc_hw STATIC mod_hw.cpp ${HW_SOURCES})
-target_link_libraries(ceammc_hw hw_arduino)
+target_link_libraries(ceammc_hw hw_arduino ${HW_LINK_LIBRARIES})
 
 if(WITH_EXPERIMENTAL)
     add_definitions(-DWITH_LIBUSB_01)

@@ -21,9 +21,16 @@ using namespace ceammc;
 #include "apple/iodisplay.h"
 #endif
 
+#ifdef WITH_X11DISPLAY
+#include "linux/x11display.h"
+#endif
+
 class HwDisplay : public BaseObject {
 #ifdef WITH_IODISPLAY
     io_display::IODisplay display_;
+#endif
+#ifdef WITH_X11DISPLAY
+    x11_display::X11Display display_;
 #endif
 public:
     HwDisplay(const PdArgs& args);

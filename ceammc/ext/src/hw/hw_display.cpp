@@ -29,9 +29,17 @@ AtomList HwDisplay::propBrightness() const
         OBJ_ERR << "can't get brightness";
 
     return AtomList(v);
-#else
-    return AtomList(-1);
 #endif
+
+#ifdef WITH_X11DISPLAY
+    float v = 0;
+    if(!display_.getBrightness(&v))
+        OBJ_ERR << "can't get brightness";
+
+    return AtomList(v);
+#endif
+
+    return AtomList(-1);
 }
 
 void HwDisplay::setPropBrightness(const AtomList& v)
