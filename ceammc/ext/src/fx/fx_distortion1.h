@@ -897,7 +897,7 @@ class fx_distortion1 : public dsp {
 		ui_interface->addVerticalSlider("middle_l_drive", &fVslider12, 1.0f, 0.0f, 1.0f, 0.00999999978f);
 		ui_interface->declare(&fVslider11, "unit", "db");
 		ui_interface->addVerticalSlider("middle_l_gain", &fVslider11, 10.0f, -10.0f, 20.0f, 0.100000001f);
-		ui_interface->addCheckButton("resonator", &fCheckbox2);
+		ui_interface->addCheckButton("res_on_off", &fCheckbox2);
 		ui_interface->declare(&fEntry0, "unit", "Hz");
 		ui_interface->addNumEntry("split_high_freq", &fEntry0, 1250.0f, 1250.0f, 12000.0f, 10.0f);
 		ui_interface->declare(&fEntry4, "unit", "Hz");

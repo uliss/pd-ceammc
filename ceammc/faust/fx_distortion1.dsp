@@ -65,7 +65,7 @@ with {
   a = vslider("trigger", 0.12, 0, 1, 0.01);
 };
 
-switch2       	= checkbox("resonator");
+switch2       	= checkbox("res_on_off");
 
 hs 				= component("HighShelf.dsp").hs;
 process 		= bypass(switch2, resonator) : +(anti_denormal_ac) : pass  : sbp : hs : distortion : *(drivegain1) : hs : sbp;

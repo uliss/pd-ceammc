@@ -65,7 +65,7 @@
             <property name="@middle_h_drive" type="float" minvalue="0" maxvalue="1" default="1">
             distortion amount on middle high frequencies</property>
             <!-- resonator -->
-            <property name="@resonator" type="int" default="0" enum="0 1">resonator</property>
+            <property name="@res_on_off" type="int" default="0" enum="0 1">resonator</property>
             <property name="@vibrato" type="float" default="1" minvalue="0" maxvalue="1">resonator
             vibration</property>
             <property name="@trigger" type="float" default="0.12" minvalue="0" maxvalue="1">

@@ -66,7 +66,7 @@ Type: float. Default value: 1\. Range: 0\...1\.;
 #X msg 110 1030 @middle_l_gain;
 #X text 245 1030 Get/Set gain on middle low frequencies. Type: float.
 Units: db. Default value: 10\. Range: -10\...20\.;
-#X msg 110 1072 @resonator;
+#X msg 110 1072 @res_on_off;
 #X text 245 1072 Get/Set resonator. Type: int. Default value: 0\. Allowed
 values: 0 \, 1\.;
 #X msg 110 1114 @sp_high_freq;

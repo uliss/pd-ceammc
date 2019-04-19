@@ -225,8 +225,8 @@
 				},
 				{
 					"type": "checkbox",
-					"label": "resonator",
-					"address": "/fx.distortion1/resonator"
+					"label": "res_on_off",
+					"address": "/fx.distortion1/res_on_off"
 				},
 				{
 					"type": "nentry",

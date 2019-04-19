@@ -6,7 +6,7 @@
 #X obj 425 250 route @drive @gain @high_drive @high_gain @level
 @low_drive @low_gain @sp_high_freq @sp_low_freq @sp_on_off @flt_on_off
 @high_freq @low_freq @middle_h_drive @middle_h_gain @middle_l_drive
-@middle_l_gain @resonator @split_high_freq @split_low_freq
+@middle_l_gain @res_on_off @split_high_freq @split_low_freq
 @split_middle_freq @trigger @vibrato;
 #X obj 675 350 print unknown property;
 #X msg 325 75 @drive 0.64 \, @gain 2 \, @high_drive 1 \, @high_gain 10 \, @level 0.01 \, @low_drive 1 \, @low_gain 10 \, @sp_high_freq 5000 \, @sp_low_freq 130 \, @high_freq 130 \, @low_freq 5000 \, @middle_h_drive 1 \, @middle_h_gain 10 \, @middle_l_drive 1 \, @middle_l_gain 10 \, @split_high_freq 1250 \, @split_low_freq 250 \, @split_middle_freq 650 \, @trigger 0.12 \, @vibrato 1 \,;
@@ -111,8 +111,8 @@
 #X msg 260 739 @middle_l_gain \$1;
 #X obj 12 761 ui.toggle @size 12 12 @presetname
 /gui/fx.distortion1~/checkbox17;
-#X text 26 756 resonator;
-#X msg 260 753 @resonator \$1;
+#X text 26 756 res_on_off;
+#X msg 260 753 @res_on_off \$1;
 #X text 10 773 split_high_freq:;
 #X obj 12 792 ui.number @size 60 12 @presetname
 /gui/fx.distortion1~/numbox18 @min 1250 @max 12000 @step 10;
