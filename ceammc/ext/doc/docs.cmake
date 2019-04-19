@@ -134,6 +134,7 @@ set(DOC_FILES
     fx.chorus~
     fx.distortion~
     fx.distortion1~
+    fx.distortion2~
     fx.drive~
     fx.drone_box~
     fx.echo~
