@@ -50,8 +50,14 @@ void HwDisplay::setPropBrightness(const AtomList& v)
 
     if (!display_.setBrightness(v.floatAt(0, 0)))
         OBJ_ERR << "can't set brightness";
-#else
+#endif
 
+#ifdef WITH_X11DISPLAY
+    if (!checkArgs(v, ARG_FLOAT))
+        return;
+
+    if (!display_.setBrightness(v.floatAt(0, 0)))
+        OBJ_ERR << "can't set brightness";
 #endif
 }
 

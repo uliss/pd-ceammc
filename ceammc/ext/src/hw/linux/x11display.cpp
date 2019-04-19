@@ -1,5 +1,6 @@
 #include "x11display.h"
 
+#include "ceammc_convert.h"
 #include "ceammc_log.h"
 #include "m_pd.h"
 
@@ -117,10 +118,72 @@ X11Display::X11Display()
 
 X11Display::~X11Display()
 {
-    //    if (conn_) {
-    //        xcb_aux_sync (conn);
     xcb_disconnect(conn_);
-    //    }
+}
+
+bool X11Display::setBrightness(float v)
+{
+    if (!conn_)
+        return false;
+
+    xcb_generic_error_t* error;
+
+    xcb_screen_iterator_t iter = xcb_setup_roots_iterator(xcb_get_setup(conn_));
+    while (iter.rem) {
+        xcb_screen_t* screen = iter.data;
+        xcb_window_t root = screen->root;
+
+        xcb_randr_get_screen_resources_current_cookie_t resources_cookie;
+        xcb_randr_get_screen_resources_current_reply_t* resources_reply;
+
+        resources_cookie = xcb_randr_get_screen_resources_current(conn_, root);
+        resources_reply = xcb_randr_get_screen_resources_current_reply(conn_, resources_cookie, &error);
+        if (error != NULL || resources_reply == NULL) {
+            int ec = error ? error->error_code : -1;
+            pd_error(nullptr, "RANDR Get Screen Resources returned error %d", ec);
+            continue;
+        }
+
+        xcb_randr_output_t* outputs = xcb_randr_get_screen_resources_current_outputs(resources_reply);
+        for (int o = 0; o < resources_reply->num_outputs; o++) {
+            xcb_randr_output_t output = outputs[o];
+            xcb_atom_t backlight;
+            double cur = backlight_get(conn_, backlight, backlight_new, backlight_legacy, output);
+            if (cur != -1) {
+                xcb_randr_query_output_property_cookie_t prop_cookie;
+                xcb_randr_query_output_property_reply_t* prop_reply;
+
+                prop_cookie = xcb_randr_query_output_property(conn_, output, backlight);
+                prop_reply = xcb_randr_query_output_property_reply(conn_, prop_cookie, &error);
+
+                if (error != NULL || prop_reply == NULL)
+                    continue;
+
+                if (prop_reply->range && xcb_randr_query_output_property_valid_values_length(prop_reply) == 2) {
+                    int32_t* values = xcb_randr_query_output_property_valid_values(prop_reply);
+                    double vmin = values[0];
+                    double vmax = values[1];
+
+                    long vset = clip<float>(v, vmin, vmax) * (vmax - vmin) + vmin;
+                    xcb_randr_change_output_property (conn_, output, backlight, XCB_ATOM_INTEGER,
+                                       32, XCB_PROP_MODE_REPLACE,
+                                       1, &vset);
+                    xcb_flush(conn_);
+
+                    free(resources_reply);
+                    free(prop_reply);
+                    return true;
+                }
+
+                free(prop_reply);
+            }
+
+            free(resources_reply);
+            xcb_screen_next(&iter);
+        }
+    }
+
+    return false;
 }
 
 bool X11Display::getBrightness(float* v) const
@@ -180,5 +243,7 @@ bool X11Display::getBrightness(float* v) const
             xcb_screen_next(&iter);
         }
     }
+
+    return false;
 }
 }

@@ -23,7 +23,7 @@ public:
     X11Display();
     ~X11Display();
 
-//    bool setBrightness(float v);
+    bool setBrightness(float v);
     bool getBrightness(float* v) const;
 };
 
