@@ -887,9 +887,9 @@ class fx_distortion1 : public dsp {
 		ui_interface->openHorizontalBox("low_highpass");
 		ui_interface->addCheckButton("flt_on_off", &fCheckbox1);
 		ui_interface->declare(&fEntry1, "unit", "Hz");
-		ui_interface->addNumEntry("high_freq", &fEntry1, 130.0f, 20.0f, 7040.0f, 10.0f);
+		ui_interface->addNumEntry("hp_freq", &fEntry1, 130.0f, 20.0f, 7040.0f, 10.0f);
 		ui_interface->declare(&fEntry2, "unit", "Hz");
-		ui_interface->addNumEntry("low_freq", &fEntry2, 5000.0f, 20.0f, 12000.0f, 10.0f);
+		ui_interface->addNumEntry("lp_freq", &fEntry2, 5000.0f, 20.0f, 12000.0f, 10.0f);
 		ui_interface->closeBox();
 		ui_interface->addVerticalSlider("middle_h_drive", &fVslider10, 1.0f, 0.0f, 1.0f, 0.00999999978f);
 		ui_interface->declare(&fVslider9, "unit", "db");
@@ -929,7 +929,7 @@ class fx_distortion1 : public dsp {
 		float fSlow13 = (((fSlow12 + 1.0f) / fSlow11) + 1.0f);
 		float fSlow14 = (std::pow(10.0f, (2.0f * (float(fVslider5) * fSlow10))) / fSlow13);
 		float fSlow15 = fx_distortion1_faustpower2_f(fSlow11);
-		float fSlow16 = (1.0f / fSlow15);
+		float fSlow16 = (0.0f - (2.0f / fSlow15));
 		float fSlow17 = (fSlow12 + 1.0f);
 		float fSlow18 = (1.0f / (fSlow11 * fSlow17));
 		int iSlow19 = int(float(fCheckbox1));
@@ -956,8 +956,8 @@ class fx_distortion1 : public dsp {
 		float fSlow40 = (fSlow39 / fSlow17);
 		float fSlow41 = (1.0f / fSlow13);
 		float fSlow42 = (((fSlow12 + -1.0f) / fSlow11) + 1.0f);
-		float fSlow43 = (2.0f * (1.0f - fSlow16));
-		float fSlow44 = (0.0f - (2.0f / fSlow15));
+		float fSlow43 = (1.0f / fSlow15);
+		float fSlow44 = (2.0f * (1.0f - fSlow43));
 		float fSlow45 = (0.00100000005f * std::pow(10.0f, (0.0500000007f * (float(fVslider9) + -10.0f))));
 		float fSlow46 = std::tan((fConst1 * float(fEntry3)));
 		float fSlow47 = (1.0f / fSlow46);
@@ -1019,11 +1019,11 @@ class fx_distortion1 : public dsp {
 			float fTemp6 = (((fConst9 * fRec10[1]) + (fConst12 * fRec10[0])) + (fConst13 * fRec10[2]));
 			fVec5[0] = fTemp6;
 			fRec9[0] = ((fConst7 * ((fSlow18 * fTemp6) + (fSlow38 * fVec5[1]))) - (fSlow40 * fRec9[1]));
-			fRec8[0] = (fRec9[0] - (fSlow41 * ((fSlow42 * fRec8[2]) + (fSlow43 * fRec8[1]))));
-			float fTemp7 = std::max<float>(-1.0f, std::min<float>(1.0f, (fSlow9 + (fSlow14 * (((fSlow16 * fRec8[0]) + (fSlow44 * fRec8[1])) + (fSlow16 * fRec8[2]))))));
+			fRec8[0] = (fRec9[0] - (fSlow41 * ((fSlow42 * fRec8[2]) + (fSlow44 * fRec8[1]))));
+			float fTemp7 = std::max<float>(-1.0f, std::min<float>(1.0f, (fSlow9 + (fSlow14 * (((fSlow16 * fRec8[1]) + (fSlow43 * fRec8[0])) + (fSlow43 * fRec8[2]))))));
 			fRec18[0] = (fSlow45 + (0.999000013f * fRec18[1]));
 			fRec22[0] = (0.0f - (fSlow54 * ((fSlow39 * fRec22[1]) - (fConst7 * (fTemp6 + fVec5[1])))));
-			fRec21[0] = (fRec22[0] - (fSlow41 * ((fSlow42 * fRec21[2]) + (fSlow43 * fRec21[1]))));
+			fRec21[0] = (fRec22[0] - (fSlow41 * ((fSlow42 * fRec21[2]) + (fSlow44 * fRec21[1]))));
 			float fTemp8 = (fRec21[2] + (fRec21[0] + (2.0f * fRec21[1])));
 			float fTemp9 = (fSlow41 * fTemp8);
 			fVec6[0] = fTemp9;

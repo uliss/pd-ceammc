@@ -34,8 +34,8 @@ switch1 		= checkbox("sp_on_off");
 sbp 			= hgroup("low_highcutoff", ba.bypass1(switch1, +(anti_denormal_ac) : ef.speakerbp(sbp1, sbp2)));
 
 //-low and highpass
-lowpassfreq  	= nentry("low_freq [unit:Hz]", 5000, 20, 12000, 10);
-highpassfreq 	= nentry("high_freq [unit:Hz]", 130, 20, 7040, 10);
+lowpassfreq  	= nentry("lp_freq [unit:Hz]", 5000, 20, 12000, 10);
+highpassfreq 	= nentry("hp_freq [unit:Hz]", 130, 20, 7040, 10);
 switch       	= checkbox("flt_on_off");
 passo 		 	= +(anti_denormal_ac) : fi.lowpass(1,lowpassfreq) : fi.highpass(1,highpassfreq);
 pass 		 	= hgroup("low_highpass", ba.bypass1(switch, passo));

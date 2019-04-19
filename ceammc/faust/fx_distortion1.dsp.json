@@ -157,8 +157,8 @@
 						},
 						{
 							"type": "nentry",
-							"label": "high_freq",
-							"address": "/fx.distortion1/low_highpass/high_freq",
+							"label": "hp_freq",
+							"address": "/fx.distortion1/low_highpass/hp_freq",
 							"meta": [
 								{ "unit": "Hz" }
 							],
@@ -169,8 +169,8 @@
 						},
 						{
 							"type": "nentry",
-							"label": "low_freq",
-							"address": "/fx.distortion1/low_highpass/low_freq",
+							"label": "lp_freq",
+							"address": "/fx.distortion1/low_highpass/lp_freq",
 							"meta": [
 								{ "unit": "Hz" }
 							],

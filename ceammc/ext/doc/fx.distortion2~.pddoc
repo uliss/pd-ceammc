@@ -27,9 +27,9 @@
             <property name="@sp_on_off" type="int" default="0" enum="0 1">speaker emulation turn
             on/off</property>
             <!-- filtering-->
-            <property name="@low_freq" type="float" units="herz" default="5000" minvalue="20"
+            <property name="@lp_freq" type="float" units="herz" default="5000" minvalue="20"
             maxvalue="12000">low pass frequency</property>
-            <property name="@high_freq" type="float" units="herz" default="130" minvalue="20"
+            <property name="@hp_freq" type="float" units="herz" default="130" minvalue="20"
             maxvalue="7040">high pass frequency</property>
             <property name="@flt_on_off" type="int" default="0" enum="0 1">filter
             processing</property>
