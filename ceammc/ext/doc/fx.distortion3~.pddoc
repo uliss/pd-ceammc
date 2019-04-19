@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.distortion3~">
+        <title>fx.distortion3~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>simple distortion #3 from Guitarix effects set</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx distortion</keywords>
+            <since>0.7</since>
+            <also>
+                <see>fx.distortion~</see>
+                <see>fx.distortion1~</see>
+                <see>fx.distortion2~</see>
+            </also>
+        </meta>
+        <properties>
+            <property name="@gain" type="float" units="decibel" default="0" minvalue="-30"
+            maxvalue="10">total effect gain</property>
+            <!-- drive -->
+            <property name="@drive" type="float" minvalue="0" maxvalue="1" default="0.5">
+            distortion amount</property>
+            <!-- filtering-->
+            <property name="@lp_freq" type="float" units="herz" default="10000" minvalue="1000"
+            maxvalue="20000">low pass frequency</property>
+            <property name="@hp_freq" type="float" units="herz" default="30" minvalue="20"
+            maxvalue="2000">high pass frequency</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
+            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
+            wet.</property>
+            <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
+            'effected' signal.</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1(
+|
+[expand_env]
+|
+[readsf~]
+|
+| [ui.knob]   [ui.knob]    [ui.knob]    [T]
+| |           |            |            |
+| |           |            |            |
+| |           |            |            |
+| [@drive $1( [@offset $1( [@drywet $1( [@bypass $1(
+| |           |            |            |
+| |           |            |            |
+[fx.distortion2~                        ]
+|
+[ui.gain~ @size 120 16]           [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

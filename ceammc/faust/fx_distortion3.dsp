@@ -13,8 +13,8 @@ process = _ : cm.fx_wrap_mono(ui.bypass, ui.drywet(1), fx) : _ with {
 
     dist(x)   = (1+k)*(x)/(1+k*abs(x)): +~_''* 0.5 with {
         k     = 2*a/(1-a);
-        a     = sin(((drive+1)/102)*(ma.PI/2));
-        drive = vslider("drive [tooltip: Distortion Level]", 50, 0, 100, 1): si.smoo;
+        a     = sin(((drive+0.01)/1.02)*(ma.PI/2));
+        drive = vslider("drive [tooltip: Distortion Level]", 0.5, 0, 1, 1): si.smoo;
     };
 
     bread = fi.highpass(2, hp_freq) : fi.lowpass(1, 6532);

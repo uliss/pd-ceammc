@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 461 50 cnv 1 304 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 461 50 gistortion #1 from Guitarix effects set;
+#X text 461 50 distortion #1 from Guitarix effects set;
 #X obj 1 1 cnv 5 765 40 empty empty fx.distortion1~ 20 20 0 20 -104026
 -4096 0;
 #X obj 631 11 fx.distortion1~;
