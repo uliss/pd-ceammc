@@ -94,7 +94,7 @@
 | |           |             |
 | |           |             |
 | |           |             |
-| [@drive $1( [@vibrato $1( [@resonator $1(
+| [@drive $1( [@vibrato $1( [@res_on_off $1(
 | |           |             |
 | |           |             |
 [fx.distortion1~            ]
