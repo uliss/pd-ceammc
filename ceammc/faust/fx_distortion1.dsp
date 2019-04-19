@@ -36,7 +36,7 @@ sbp 			= hgroup("low_highcutoff", ba.bypass1(switch1, +(anti_denormal_ac) : ef.s
 //-low and highpass
 lowpassfreq  	= nentry("low_freq [unit:Hz]", 5000, 20, 12000, 10);
 highpassfreq 	= nentry("high_freq [unit:Hz]", 130, 20, 7040, 10);
-switch       	= checkbox("on_off");
+switch       	= checkbox("flt_on_off");
 passo 		 	= +(anti_denormal_ac) : fi.lowpass(1,lowpassfreq) : fi.highpass(1,highpassfreq);
 pass 		 	= hgroup("low_highpass", ba.bypass1(switch, passo));
 

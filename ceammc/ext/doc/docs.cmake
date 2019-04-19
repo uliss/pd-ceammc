@@ -133,6 +133,7 @@ set(DOC_FILES
     fx.bitdown~
     fx.chorus~
     fx.distortion~
+    fx.distortion1~
     fx.drive~
     fx.drone_box~
     fx.echo~

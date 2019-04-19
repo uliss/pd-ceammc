@@ -130,6 +130,7 @@ function,func		..		..
 function.call,func.call		..		.
 fx.bitdown~		~		~
 fx.chorus~		~		~
+fx.distortion1~		~		~
 fx.distortion~		~		~
 fx.drive~		~		~
 fx.drone_box~		~		~

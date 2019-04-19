@@ -463,6 +463,9 @@
     <entry descr="Chorus effect" name="fx.chorus~" ref_view="object">
       <xi:include href="fx.chorus~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="gistortion #1 from Guitarix effects set" name="fx.distortion1~" ref_view="object">
+      <xi:include href="fx.distortion1~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="cubic nonlinearity distortion" name="fx.distortion~" ref_view="object">
       <xi:include href="fx.distortion~.pddoc" parse="xml"/>
     </entry>

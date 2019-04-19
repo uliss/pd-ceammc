@@ -1,10 +1,10 @@
 {
 	"name": "fx.distortion1",
 	"filename": "fx_distortion1",
-	"version": "2.8.5",
+	"version": "2.17.3",
 	"compile_options": "cpp, -scal -ftz 0",
-	"library_list": ["/usr/local/share/faust/maxmsp.lib","/Users/serj/work/music/pd-exp/pure-data/ceammc/faust/guitarix.lib","/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/misceffects.lib","/Users/serj/work/music/pd-exp/pure-data/ceammc/faust/HighShelf.dsp"],
-	"include_pathnames": ["/Users/serj/work/music/pd-exp/pure-data/ceammc/faust","/usr/local/share/faust","/usr/share/faust"],
+	"library_list": ["/usr/local/share/faust/maxmsp.lib","/Users/serj/work/music/pure-data/ceammc/faust/guitarix.lib","/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/misceffects.lib","/Users/serj/work/music/pure-data/ceammc/faust/HighShelf.dsp"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
 	"inputs": "1",
 	"outputs": "1",
 	"meta": [ 
@@ -14,7 +14,7 @@
 		{ "basics.lib/version": "0.0" },
 		{ "copyright": "(c)brummer 2008" },
 		{ "delays.lib/name": "Faust Delay Library" },
-		{ "delays.lib/version": "0.0" },
+		{ "delays.lib/version": "0.1" },
 		{ "filename": "fx_distortion1" },
 		{ "filters.lib/name": "Faust Filters Library" },
 		{ "filters.lib/version": "0.0" },
@@ -151,6 +151,11 @@
 					"label": "low_highpass",
 					"items": [ 
 						{
+							"type": "checkbox",
+							"label": "flt_on_off",
+							"address": "/fx.distortion1/low_highpass/flt_on_off"
+						},
+						{
 							"type": "nentry",
 							"label": "high_freq",
 							"address": "/fx.distortion1/low_highpass/high_freq",
@@ -173,11 +178,6 @@
 							"min": "20",
 							"max": "12000",
 							"step": "10"
-						},
-						{
-							"type": "checkbox",
-							"label": "on_off",
-							"address": "/fx.distortion1/low_highpass/on_off"
 						}
 					]
 				},

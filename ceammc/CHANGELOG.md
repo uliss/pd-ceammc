@@ -24,6 +24,8 @@
 - array.fill sin method added
 - array.fill gauss method added
 - array.fill uniform method added
+- documentation added for:
+  - fx.distortion1~
 ### Changed:
 - ui.dsp~ Shift+DblClick binding removed
 

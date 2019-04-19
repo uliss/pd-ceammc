@@ -4,8 +4,8 @@
 #X obj 425 25 inlet;
 #X obj 425 200 route fx.distortion1;
 #X obj 425 250 route @drive @gain @high_drive @high_gain @level
-@low_drive @low_gain @sp_high_freq @sp_low_freq @sp_on_off @high_freq
-@low_freq @on_off @middle_h_drive @middle_h_gain @middle_l_drive
+@low_drive @low_gain @sp_high_freq @sp_low_freq @sp_on_off @flt_on_off
+@high_freq @low_freq @middle_h_drive @middle_h_gain @middle_l_drive
 @middle_l_gain @resonator @split_high_freq @split_low_freq
 @split_middle_freq @trigger @vibrato;
 #X obj 675 350 print unknown property;
@@ -73,18 +73,18 @@
 /gui/fx.distortion1~/checkbox9;
 #X text 26 518 sp_on_off;
 #X msg 260 515 @sp_on_off \$1;
-#X text 10 535 high_freq:;
-#X obj 12 554 ui.number @size 60 12 @presetname
-/gui/fx.distortion1~/numbox10 @min 20 @max 7040 @step 10;
-#X msg 260 554 @high_freq \$1;
-#X text 10 568 low_freq:;
-#X obj 12 587 ui.number @size 60 12 @presetname
-/gui/fx.distortion1~/numbox11 @min 20 @max 12000 @step 10;
-#X msg 260 587 @low_freq \$1;
-#X obj 12 609 ui.toggle @size 12 12 @presetname
-/gui/fx.distortion1~/checkbox12;
-#X text 26 604 on_off;
-#X msg 260 601 @on_off \$1;
+#X obj 12 543 ui.toggle @size 12 12 @presetname
+/gui/fx.distortion1~/checkbox10;
+#X text 26 538 flt_on_off;
+#X msg 260 535 @flt_on_off \$1;
+#X text 10 555 high_freq:;
+#X obj 12 574 ui.number @size 60 12 @presetname
+/gui/fx.distortion1~/numbox11 @min 20 @max 7040 @step 10;
+#X msg 260 574 @high_freq \$1;
+#X text 10 588 low_freq:;
+#X obj 12 607 ui.number @size 60 12 @presetname
+/gui/fx.distortion1~/numbox12 @min 20 @max 12000 @step 10;
+#X msg 260 607 @low_freq \$1;
 #X text 10 621 middle_h_drive:;
 #X obj 12 640 ui.slider @size 120 12 @active_scale 1 @presetname
 /gui/fx.distortion1~/slider13 @min 0 @max 1;
@@ -202,15 +202,15 @@
 #X connect 56 0 58 0;
 #X connect 58 0 0 0;
 #X connect 4 9 56 0;
-#X connect 60 0 61 0;
+#X connect 59 0 61 0;
 #X connect 61 0 0 0;
-#X connect 4 10 60 0;
+#X connect 4 10 59 0;
 #X connect 63 0 64 0;
 #X connect 64 0 0 0;
 #X connect 4 11 63 0;
-#X connect 65 0 67 0;
+#X connect 66 0 67 0;
 #X connect 67 0 0 0;
-#X connect 4 12 65 0;
+#X connect 4 12 66 0;
 #X connect 69 0 70 0;
 #X connect 70 0 71 0;
 #X connect 71 0 69 0;
