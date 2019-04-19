@@ -59,6 +59,7 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_preset.cpp
     ceammc_property.cpp
     ceammc_property_info.cpp
+    ceammc_regexp.cpp
     ceammc_sound_external.cpp
     ceammc_string.cpp
     ceammc_thread.cpp

@@ -11,39 +11,17 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef STRING_MATCH_H
-#define STRING_MATCH_H
+#ifndef CEAMMC_REGEXP_H
+#define CEAMMC_REGEXP_H
 
-#include "ceammc_object.h"
-#include "datatype_string.h"
+#include <string>
 
-#include <memory>
+namespace ceammc {
+namespace regexp {
 
-// forward definition
-namespace re2 {
-class RE2;
+    std::string escape(const std::string& str);
+    std::string unescape(const std::string& str);
+}
 }
 
-using namespace ceammc;
-
-class StringMatch : public BaseObject {
-    typedef std::shared_ptr<re2::RE2> Regexp;
-    Regexp re_;
-
-public:
-    StringMatch(const PdArgs& args);
-
-    void onSymbol(t_symbol* s);
-    void onDataT(const DataTypeString& s);
-    void onInlet(size_t n, const AtomList& l);
-
-    void update(const std::string& re);
-
-private:
-    AtomList propRe2() const;
-    void propSetRe2(const AtomList& lst);
-};
-
-void setup_string_match();
-
-#endif // STRING_MATCH_H
+#endif // CEAMMC_REGEXP_H

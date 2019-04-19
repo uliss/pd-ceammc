@@ -14,6 +14,7 @@
 #include "string_match.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_regexp.h"
 #include "re2/re2.h"
 
 #include <algorithm>
@@ -69,118 +70,10 @@ void StringMatch::onInlet(size_t n, const AtomList& l)
     propSetRe2(l);
 }
 
-std::string StringMatch::escape(const std::string& s)
-{
-    std::string res;
-    res.reserve(s.size());
-    const size_t N = s.size();
-
-    for (size_t i = 0; i < N; i++) {
-        const int c = s[i];
-        const bool last = (i == N - 1);
-        const int cnext = last ? -1 : s[i + 1];
-
-        if (c == '`') {
-            if (last) { /* last ` in the string -> \\ */
-                res.push_back('\\');
-                break;
-            } else if (cnext == '`') { // double `` -> `
-                i++;
-                res.push_back('`');
-            } else if (cnext == '~') { // `~ -> ~
-                i++;
-                res.push_back('~');
-            } else if (cnext == '\'') { // `' -> ,
-                i++;
-                res.push_back(',');
-            } else if (cnext == ':') { // `: -> ;
-                i++;
-                res.push_back(';');
-            } else { /* ` -> \\ */
-                res.push_back('\\');
-            }
-
-            continue;
-
-        } else if (c == '~') {
-            if (last) { // last ~ in the string
-                res.push_back('~');
-                break;
-            } else if (cnext == '(') { // ~( -> {
-                i++;
-                res.push_back('{');
-            } else
-                res.push_back('~');
-
-            continue;
-
-        } else if (c == ')') {
-            if (last) { // last ) in the string
-                res.push_back(')');
-                break;
-            } else if (cnext == '~') {
-                i++;
-                res.push_back('}');
-            } else
-                res.push_back(')');
-
-            continue;
-
-        } else {
-            res.push_back(c);
-        }
-    }
-
-    return res;
-}
-
-std::string StringMatch::unescape(const std::string& s)
-{
-    std::string res;
-    res.reserve(s.size());
-
-    for (auto c : s) {
-        switch (c) {
-        case '\\':
-            res.push_back('`');
-            break;
-        case '`':
-            res.push_back('`');
-            res.push_back('`');
-            break;
-        case '{':
-            res.push_back('~');
-            res.push_back('(');
-            break;
-        case '}':
-            res.push_back(')');
-            res.push_back('~');
-            break;
-        case '~':
-            res.push_back('`');
-            res.push_back('~');
-            break;
-        case ',':
-            res.push_back('`');
-            res.push_back('\'');
-            break;
-        case ';':
-            res.push_back('`');
-            res.push_back(':');
-            break;
-        default:
-            res.push_back(c);
-            break;
-        }
-    }
-
-    return res;
-}
-
 AtomList StringMatch::propRe2() const
 {
     if (re_)
-        return Atom(gensym(unescape(re_->pattern()).c_str()));
+        return Atom(gensym(regexp::unescape(re_->pattern()).c_str()));
     else
         return Atom(&s_);
 }
@@ -190,7 +83,7 @@ void StringMatch::propSetRe2(const AtomList& lst)
     if (lst.empty())
         return;
 
-    re_.reset(new re2::RE2(escape(to_string(lst, " "))));
+    re_.reset(new re2::RE2(regexp::escape(to_string(lst, " "))));
     if (!re_->ok())
         OBJ_ERR << "invalid regexp: " << lst[0];
 }
