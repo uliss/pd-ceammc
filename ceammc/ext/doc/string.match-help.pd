@@ -8,8 +8,8 @@
 #X obj 654 11 string.match;
 #X obj 210 80 cnv 1 555 65 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Used syntax: re2 (like pcre). Some non-supported in
-Pd. Use ` instead of backslash \, `` instead of `` \, ~( instead of
-{ \, )~ instead of }~ \, `' instead of \, \, `: instead of semicolon;
+Pd. Use ` instead of backslash \, `` instead of ` \, ~( instead of
+{ \, )~ instead of }~ \, .. instead of \, \, `: instead of semicolon;
 #X msg 50 173 test.mp3;
 #X msg 155 173 test.mp4;
 #X msg 261 173 FILE.mp2;
