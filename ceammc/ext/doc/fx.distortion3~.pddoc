@@ -22,8 +22,8 @@
             <property name="@gain" type="float" units="decibel" default="0" minvalue="-30"
             maxvalue="10">total effect gain</property>
             <!-- drive -->
-            <property name="@drive" type="float" minvalue="0" maxvalue="1" default="0.5">
-            distortion amount</property>
+            <property name="@drive" type="float" minvalue="0" maxvalue="1" default="0.5">distortion
+            amount</property>
             <!-- filtering-->
             <property name="@lp_freq" type="float" units="herz" default="10000" minvalue="1000"
             maxvalue="20000">low pass frequency</property>
