@@ -110,7 +110,7 @@ TEST_CASE("string.match", "[external]")
         REQUIRE_MATCH(t, "a123");
         REQUIRE_NO_MATCH(t, "aa");
 
-        WHEN_SEND_SYMBOL_TO(1, t, "A~(2,4)~BC");
+        WHEN_SEND_SYMBOL_TO(1, t, "A((2..4))BC");
         REQUIRE_MATCH(t, "AABC");
         REQUIRE_MATCH(t, "AAABC");
         REQUIRE_MATCH(t, "AAAABC");
@@ -142,14 +142,17 @@ TEST_CASE("string.match", "[external]")
         REQUIRE(regexp::escape("`a`") == "\\a\\");
         REQUIRE(regexp::escape("``") == "`");
         REQUIRE(regexp::escape("```") == "`\\");
-        REQUIRE(regexp::escape("`~") == "~");
+        REQUIRE(regexp::escape("`~") == "\\~");
+        REQUIRE(regexp::escape("~") == "~");
         REQUIRE(regexp::escape("`'") == "\\'");
         REQUIRE(regexp::escape("..") == ",");
         REQUIRE(regexp::escape("`:") == ";");
-        REQUIRE(regexp::escape("`~(") == "~(");
-        REQUIRE(regexp::escape(")`~") == ")~");
+        REQUIRE(regexp::escape("`~(") == "\\~(");
+        REQUIRE(regexp::escape("((") == "{");
+        REQUIRE(regexp::escape("))") == "}");
+        REQUIRE(regexp::escape(")`~") == ")\\~");
         REQUIRE(regexp::escape("~abc~") == "~abc~");
-        REQUIRE(regexp::escape("A~(2..10)~") == "A{2,10}");
+        REQUIRE(regexp::escape("A((2..10))") == "A{2,10}");
         REQUIRE(regexp::escape("(2..10)") == "(2,10)");
         REQUIRE(regexp::escape("(test)string") == "(test)string");
 
@@ -160,13 +163,13 @@ TEST_CASE("string.match", "[external]")
         REQUIRE(regexp::unescape("\\a\\") == "`a`");
         REQUIRE(regexp::unescape("`") == "``");
         REQUIRE(regexp::unescape("`\\") == "```");
-        REQUIRE(regexp::unescape("~") == "`~");
+        REQUIRE(regexp::unescape("~") == "~");
         REQUIRE(regexp::unescape(",") == "..");
         REQUIRE(regexp::unescape(";") == "`:");
-        REQUIRE(regexp::unescape("{") == "~(");
-        REQUIRE(regexp::unescape("}") == ")~");
-        REQUIRE(regexp::unescape(")~") == ")`~");
-        REQUIRE(regexp::unescape("~abc~") == "`~abc`~");
-        REQUIRE(regexp::unescape("A{1,2}") == "A~(1..2)~");
+        REQUIRE(regexp::unescape("{") == "((");
+        REQUIRE(regexp::unescape("}") == "))");
+        REQUIRE(regexp::unescape(")~") == ")~");
+        REQUIRE(regexp::unescape("~abc~") == "~abc~");
+        REQUIRE(regexp::unescape("A{1,2}") == "A((1..2))");
     }
 }

@@ -31,9 +31,6 @@ std::string ceammc::regexp::escape(const std::string& s)
             } else if (cnext == '`') { // double `` -> `
                 i++;
                 res.push_back('`');
-            } else if (cnext == '~') { // `~ -> ~
-                i++;
-                res.push_back('~');
             } else if (cnext == ':') { // `: -> ;
                 i++;
                 res.push_back(';');
@@ -43,30 +40,12 @@ std::string ceammc::regexp::escape(const std::string& s)
 
             continue;
 
-        } else if (c == '~') {
-            if (last) { // last ~ in the string
-                res.push_back('~');
-                break;
-            } else if (cnext == '(') { // ~( -> {
-                i++;
-                res.push_back('{');
-            } else
-                res.push_back('~');
-
-            continue;
-
-        } else if (c == ')') {
-            if (last) { // last ) in the string
-                res.push_back(')');
-                break;
-            } else if (cnext == '~') {
-                i++;
-                res.push_back('}');
-            } else
-                res.push_back(')');
-
-            continue;
-
+        } else if (c == ')' && cnext == ')') {
+            i++;
+            res.push_back('}');
+        } else if (c == '(' && cnext == '(') {
+            i++;
+            res.push_back('{');
         } else if (c == '.' && cnext == '.') {
             i++;
             res.push_back(',');
@@ -93,16 +72,12 @@ std::string ceammc::regexp::unescape(const std::string& s)
             res.push_back('`');
             break;
         case '{':
-            res.push_back('~');
+            res.push_back('(');
             res.push_back('(');
             break;
         case '}':
             res.push_back(')');
-            res.push_back('~');
-            break;
-        case '~':
-            res.push_back('`');
-            res.push_back('~');
+            res.push_back(')');
             break;
         case ',':
             res.push_back('.');
