@@ -23,6 +23,7 @@ std::string ceammc::regexp::escape(const std::string& s)
         const int c = s[i];
         const bool last = (i == N - 1);
         const int cnext = last ? -1 : s[i + 1];
+        const int cprev = (i == 0) ? -1 : s[i - 1];
 
         if (c == '`') {
             if (last) { /* last ` in the string -> \\ */
@@ -46,7 +47,7 @@ std::string ceammc::regexp::escape(const std::string& s)
         } else if (c == '(' && cnext == '(') {
             i++;
             res.push_back('{');
-        } else if (c == '.' && cnext == '.') {
+        } else if (c == '.' && cnext == '.' && cprev != '`') {
             i++;
             res.push_back(',');
         } else {

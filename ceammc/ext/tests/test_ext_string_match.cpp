@@ -141,6 +141,7 @@ TEST_CASE("string.match", "[external]")
         REQUIRE(regexp::escape("`a``ABC ") == "\\a`ABC ");
         REQUIRE(regexp::escape("`a`") == "\\a\\");
         REQUIRE(regexp::escape("``") == "`");
+        REQUIRE(regexp::escape("`.") == "\\.");
         REQUIRE(regexp::escape("```") == "`\\");
         REQUIRE(regexp::escape("`~") == "\\~");
         REQUIRE(regexp::escape("~") == "~");
@@ -155,6 +156,9 @@ TEST_CASE("string.match", "[external]")
         REQUIRE(regexp::escape("A((2..10))") == "A{2,10}");
         REQUIRE(regexp::escape("(2..10)") == "(2,10)");
         REQUIRE(regexp::escape("(test)string") == "(test)string");
+        REQUIRE(regexp::escape("[a-z]((2..3))") == "[a-z]{2,3}");
+        REQUIRE(regexp::escape("[a-z]((2..3))`.") == "[a-z]{2,3}\\.");
+        REQUIRE(regexp::escape("[a-z]((2..3))`..+") == "[a-z]{2,3}\\..+");
 
         REQUIRE(regexp::unescape("\\a") == "`a");
         REQUIRE(regexp::unescape("") == "");
@@ -171,5 +175,6 @@ TEST_CASE("string.match", "[external]")
         REQUIRE(regexp::unescape(")~") == ")~");
         REQUIRE(regexp::unescape("~abc~") == "~abc~");
         REQUIRE(regexp::unescape("A{1,2}") == "A((1..2))");
+        REQUIRE(regexp::unescape("[a-z]{2,3}\\..+") == "[a-z]((2..3))`..+");
     }
 }
