@@ -25,6 +25,8 @@
 #include "flow_sync.h"
 #include "flow_tee_tilde.h"
 
+void setup_flow_match();
+
 void ceammc_flow_setup()
 {
     setup_flow0x2echange();
@@ -46,6 +48,7 @@ void ceammc_flow_setup()
     setup_flow_interval();
     setup_flow_less();
     setup_flow_less_eq();
+    setup_flow_match();
     setup_flow_multiplex();
     setup_flow_multiplex2_tilde();
     setup_flow_multiplex_tilde();
