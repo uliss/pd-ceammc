@@ -16,7 +16,7 @@ public:
     const DataTypeEnv& envelope() const;
 
     void onBang();
-    void onDataT(const DataTypeEnv& env);
+    void onDataT(const DataTPtr<DataTypeEnv>& dptr);
 
     void m_addPoint(t_symbol* s, const AtomList& lst);
     void m_removePoint(t_symbol* s, const AtomList& lst);

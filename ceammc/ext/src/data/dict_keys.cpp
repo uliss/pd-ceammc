@@ -20,11 +20,11 @@ DictKeys::DictKeys(const PdArgs& args)
     createOutlet();
 }
 
-void DictKeys::onDataT(const DataTypeDict& dict)
+void DictKeys::onDataT(const DataTPtr<DataTypeDict>& dptr)
 {
     AtomList res;
 
-    const auto& d = dict.innerData();
+    const auto& d = dptr->innerData();
     for (auto& kv : d)
         res.append(kv.first);
 

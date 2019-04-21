@@ -28,7 +28,7 @@ public:
     AtomList p_length_tick() const;
     AtomList p_length_beat() const;
 
-    void onDataT(const DataTypeMidiStream& data);
+    void onDataT(const DataTPtr<DataTypeMidiStream>& data);
 };
 
 extern "C" void setup_midi_file();

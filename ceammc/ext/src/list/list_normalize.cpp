@@ -8,7 +8,7 @@ static t_symbol* BY_RANGE;
 static t_symbol* BY_SUM;
 
 ListNormalize::ListNormalize(const PdArgs& a)
-    : BaseObject(a)
+    : ListBase(a)
     , by_(0)
 {
     createOutlet();
@@ -38,11 +38,6 @@ void ListNormalize::onList(const AtomList& lst)
     }
 
     listTo(0, out);
-}
-
-void ListNormalize::onDataT(const DataTypeMList& lst)
-{
-    onList(lst.toList());
 }
 
 void setup_list_normalize()

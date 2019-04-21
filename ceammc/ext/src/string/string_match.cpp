@@ -46,7 +46,7 @@ void StringMatch::onSymbol(t_symbol* s)
     floatTo(0, v ? 1 : 0);
 }
 
-void StringMatch::onDataT(const DataTypeString& s)
+void StringMatch::onDataT(const DataTPtr<DataTypeString>& dptr)
 {
     if (!re_) {
         OBJ_ERR << "no regexp specified";
@@ -58,7 +58,7 @@ void StringMatch::onDataT(const DataTypeString& s)
         return;
     }
 
-    bool v = (RE2::FullMatch(s.str(), *re_));
+    bool v = (RE2::FullMatch(dptr->str(), *re_));
     floatTo(0, v ? 1 : 0);
 }
 

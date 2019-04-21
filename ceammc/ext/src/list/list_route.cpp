@@ -3,7 +3,7 @@
 #include "ceammc_factory.h"
 
 ListRoute::ListRoute(const PdArgs& args)
-    : BaseObject(args)
+    : ListBase(args)
     , trim_(0)
     , as_any_(0)
 {
@@ -68,11 +68,6 @@ void ListRoute::onList(const AtomList& lst)
         else
             outputList(idx, lst);
     }
-}
-
-void ListRoute::onDataT(const DataTypeMList& lst)
-{
-    onList(lst.toList());
 }
 
 int ListRoute::outletIndex(const Atom& a) const

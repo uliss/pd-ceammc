@@ -16,12 +16,12 @@ void ListFirst::onList(const AtomList& lst)
     atomTo(0, lst[0]);
 }
 
-void ListFirst::onDataT(const DataTypeMList& lst)
+void ListFirst::onDataT(const DataTPtr<DataTypeMList>& dptr)
 {
-    if (lst.empty())
+    if (dptr->empty())
         return;
 
-    atomTo(0, lst.at(0).toAtom());
+    atomTo(0, dptr->at(0).toAtom());
 }
 
 void setup_list_first()

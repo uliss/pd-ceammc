@@ -22,7 +22,7 @@ using namespace ceammc;
 class DictKeys : public BaseObject {
 public:
     DictKeys(const PdArgs& args);
-    void onDataT(const DataTypeDict& dict);
+    void onDataT(const DataTPtr<DataTypeDict>& dptr);
 };
 
 void setup_dict_keys();

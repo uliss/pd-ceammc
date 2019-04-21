@@ -27,12 +27,11 @@ void SetUnion::onList(const AtomList& lst)
     onDataT(DataTypeSet(lst));
 }
 
-void SetUnion::onDataT(const DataTypeSet& s)
+void SetUnion::onDataT(const DataTPtr<DataTypeSet>& dptr)
 {
-    DataTypeSet* res = new DataTypeSet();
-    DataPtr ptr(res);
-    DataTypeSet::set_union(*res, s, set1_);
-    dataTo(0, ptr);
+    DataTypeSet res;
+    DataTypeSet::set_union(res, *dptr, set1_);
+    dataTo(0, DataTPtr<DataTypeSet>(res));
 }
 
 void SetUnion::onInlet(size_t, const AtomList& lst)

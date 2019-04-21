@@ -47,11 +47,11 @@ void MidiTrack::onBang()
     outputCurrent();
 }
 
-void MidiTrack::onDataT(const DataTypeMidiStream& s)
+void MidiTrack::onDataT(const DataTPtr<DataTypeMidiStream>& dptr)
 {
     if (join_->value()) {
         // copy
-        MidiFile mf = *s.midifile();
+        MidiFile mf = *dptr->midifile();
         mf.joinTracks();
 
         midi_track_ = DataTypeMidiTrack(mf[0]);
@@ -59,7 +59,7 @@ void MidiTrack::onDataT(const DataTypeMidiStream& s)
 
     } else {
         const size_t trackN = track_idx_->value();
-        const MidiFile* mf = s.midifile();
+        const MidiFile* mf = dptr->midifile();
         if (mf->getTrackCount() <= trackN) {
             OBJ_ERR << "invalid track index: " << trackN;
             return;

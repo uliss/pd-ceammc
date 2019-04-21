@@ -49,19 +49,15 @@ void StringRemove::onInlet(size_t, const AtomList& l)
     str_to_remove_ = to_string(l);
 }
 
-void StringRemove::onDataT(const DataTypeString& s)
+void StringRemove::onDataT(const DataTPtr<DataTypeString>& dptr)
 {
-    DataTypeString* str = 0;
-
     if (mode_->value() == REMOVE_ALL) {
-        str = new DataTypeString(s.removeAll(str_to_remove_));
+        dataTo(0, DataTPtr<DataTypeString>(dptr->removeAll(str_to_remove_)));
     } else if (mode_->value() == REMOVE_FIRST) {
-        str = new DataTypeString(s.removeFirst(str_to_remove_));
+        dataTo(0, DataTPtr<DataTypeString>(dptr->removeFirst(str_to_remove_)));
     } else if (mode_->value() == REMOVE_LAST) {
-        str = new DataTypeString(s.removeLast(str_to_remove_));
+        dataTo(0, DataTPtr<DataTypeString>(dptr->removeLast(str_to_remove_)));
     }
-
-    dataTo(0, DataPtr(str));
 }
 
 void setup_string0x2eremove()

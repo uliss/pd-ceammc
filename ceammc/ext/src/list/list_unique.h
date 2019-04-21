@@ -25,7 +25,7 @@ class ListUnique : public BaseObject {
 public:
     ListUnique(const PdArgs& a);
     void onList(const AtomList& l) override;
-    void onDataT(const DataTypeMList& l);
+    void onDataT(const DataTPtr<DataTypeMList>& l);
 };
 
 void setup_list_unique();

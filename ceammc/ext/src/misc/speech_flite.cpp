@@ -73,9 +73,9 @@ void SpeechFlite::onList(const AtomList& lst)
     synth(to_string(lst).c_str());
 }
 
-void SpeechFlite::onDataT(const DataTypeString& str)
+void SpeechFlite::onDataT(const DataTPtr<DataTypeString>& dptr)
 {
-    synth(str.str().c_str());
+    synth(dptr->str().c_str());
 }
 
 bool SpeechFlite::synth(const char* str)

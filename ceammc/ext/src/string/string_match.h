@@ -34,7 +34,7 @@ public:
     StringMatch(const PdArgs& args);
 
     void onSymbol(t_symbol* s);
-    void onDataT(const DataTypeString& s);
+    void onDataT(const DataTPtr<DataTypeString>& dptr);
     void onInlet(size_t n, const AtomList& l);
 
     void update(const std::string& re);

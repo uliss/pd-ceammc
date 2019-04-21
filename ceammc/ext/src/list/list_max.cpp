@@ -48,14 +48,14 @@ static bool is_atom(const DataAtom& d)
     return d.isAtom();
 }
 
-void ListMax::onDataT(const DataTypeMList& lst)
+void ListMax::onDataT(const DataTPtr<DataTypeMList>& dptr)
 {
     if (type_->value() == SYM_ANY)
-        maxData(lst.begin_filter(is_atom), lst.end_filter());
+        maxData(dptr->begin_filter(is_atom), dptr->end_filter());
     else if (type_->value() == SYM_FLOAT)
-        maxData(lst.begin_filter(is_float), lst.end_filter());
+        maxData(dptr->begin_filter(is_float), dptr->end_filter());
     else if (type_->value() == SYM_SYMBOL)
-        maxData(lst.begin_filter(is_symbol), lst.end_filter());
+        maxData(dptr->begin_filter(is_symbol), dptr->end_filter());
 }
 
 void setup_list_max()

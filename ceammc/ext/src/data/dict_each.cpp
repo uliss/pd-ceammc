@@ -35,11 +35,11 @@ void DictEach::onInlet(size_t n, const AtomList& lst)
         return; // skip empty values
 }
 
-void DictEach::onDataT(const DataTypeDict& d)
+void DictEach::onDataT(const DataTPtr<DataTypeDict>& dptr)
 {
     dict_.clear();
 
-    const DataTypeDict::DictMap& dict = d.innerData();
+    const DataTypeDict::DictMap& dict = dptr->innerData();
     for (auto& kv : dict) {
         current_key_ = kv.first;
         auto val = kv.second;
@@ -54,7 +54,7 @@ void DictEach::onDataT(const DataTypeDict& d)
         }
     }
 
-    dataTo(0, DataPtr(dict_.clone()));
+    dataTo(0, DataTPtr<DataTypeDict>(dict_));
 }
 
 void setup_dict_each()

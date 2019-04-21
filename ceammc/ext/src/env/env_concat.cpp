@@ -14,12 +14,12 @@ void EnvConcat::onBang()
     dataTo(0, DataPtr(res_env_.clone()));
 }
 
-void EnvConcat::onDataT(const DataTypeEnv& env)
+void EnvConcat::onDataT(const DataTPtr<DataTypeEnv>& dptr)
 {
     if (right_.isValid())
-        res_env_ = env + *right_.data();
+        res_env_ = *dptr + *right_;
     else
-        res_env_ = env;
+        res_env_ = *dptr;
 
     onBang();
 }

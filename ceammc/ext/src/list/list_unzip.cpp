@@ -22,7 +22,7 @@ static t_symbol* SYM_MIN;
 static t_symbol* SYM_PAD;
 
 ListUnzip::ListUnzip(const PdArgs& a)
-    : BaseObject(a)
+    : ListBase(a)
     , out_count_(clip(atomlistToValue<size_t>(a.args, MIN_OUTLET), MIN_OUTLET, MAX_OUTLET))
     , pad_(0.f)
     , method_(0)
@@ -47,11 +47,6 @@ void ListUnzip::onList(const AtomList& l)
         list::deinterleavePadWith(l, pad_, out_lists_);
 
     onBang();
-}
-
-void ListUnzip::onDataT(const DataTypeMList& lst)
-{
-    onList(lst.toList());
 }
 
 void ListUnzip::clearOutputList()

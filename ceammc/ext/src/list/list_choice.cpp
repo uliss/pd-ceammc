@@ -8,7 +8,7 @@
 const static int MAX_REPEAT_TRIES = 10;
 
 ListChoice::ListChoice(const PdArgs& a)
-    : BaseObject(a)
+    : ListBase(a)
     , no_repeat_(0)
     , prev_idx_(size_t(-1))
 {
@@ -51,11 +51,6 @@ void ListChoice::onList(const AtomList& l)
 
     prev_idx_ = idx;
     atomTo(0, l[idx]);
-}
-
-void ListChoice::onDataT(const DataTypeMList& lst)
-{
-    onList(lst.toList());
 }
 
 void setup_list_choice()

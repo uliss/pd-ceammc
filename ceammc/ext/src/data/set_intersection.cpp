@@ -27,12 +27,11 @@ void SetIntersection::onList(const AtomList& lst)
     onDataT(DataTypeSet(lst));
 }
 
-void SetIntersection::onDataT(const DataTypeSet& s)
+void SetIntersection::onDataT(const DataTPtr<DataTypeSet>& dptr)
 {
-    DataTypeSet* res = new DataTypeSet();
-    DataPtr out(res);
-    DataTypeSet::intersection(*res, s, set1_);
-    dataTo(0, out);
+    DataTypeSet res;
+    DataTypeSet::intersection(res, *dptr, set1_);
+    dataTo(0, DataTPtr<DataTypeSet>(res));
 }
 
 void SetIntersection::onInlet(size_t, const AtomList& l)

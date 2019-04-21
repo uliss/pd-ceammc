@@ -1,7 +1,7 @@
 #include "conv_pitch2midi.h"
-#include "datatype_string.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "datatype_string.h"
 
 PitchToMIDI::PitchToMIDI(const PdArgs& a)
     : BaseObject(a)
@@ -9,9 +9,9 @@ PitchToMIDI::PitchToMIDI(const PdArgs& a)
     createOutlet();
 }
 
-void PitchToMIDI::onDataT(const DataTypeString& s)
+void PitchToMIDI::onDataT(const DataTPtr<DataTypeString>& s)
 {
-    convert(s.str().c_str());
+    convert(s->str().c_str());
 }
 
 void PitchToMIDI::convert(const char* p)

@@ -37,9 +37,26 @@ DataTypeDict::DataTypeDict(const DataTypeDict& dict)
 {
 }
 
+DataTypeDict::DataTypeDict(DataTypeDict&& dict)
+    : dict_(std::move(dict.dict_))
+{
+}
+
 DataTypeDict::DataTypeDict(const std::string& str)
 {
     fromString(str);
+}
+
+DataTypeDict& DataTypeDict::operator=(const DataTypeDict& dict)
+{
+    dict_ = dict.dict_;
+    return *this;
+}
+
+DataTypeDict& DataTypeDict::operator=(DataTypeDict&& dict)
+{
+    dict_ = std::move(dict.dict_);
+    return *this;
 }
 
 DataTypeDict* DataTypeDict::clone() const

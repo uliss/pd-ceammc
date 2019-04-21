@@ -65,9 +65,9 @@ public:
         }
     }
 
-    void onDataT(const DataTypeDict& d)
+    void onDataT(const DataTPtr<DataTypeDict>& d)
     {
-        dict() = d;
+        dict() = *d.data();
         onBang();
     }
 

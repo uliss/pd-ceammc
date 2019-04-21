@@ -20,7 +20,7 @@
 class SetSize : public BaseObject {
 public:
     SetSize(const PdArgs& a);
-    void onDataT(const DataTypeSet& s);
+    void onDataT(const DataTPtr<DataTypeSet>& s);
 };
 
 extern "C" void setup_set0x2esize();

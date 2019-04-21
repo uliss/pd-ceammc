@@ -39,7 +39,7 @@ public:
     void onFloat(t_float v);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& lst);
-    void onDataT(const DataTypeString& str);
+    void onDataT(const DataTPtr<DataTypeString>& str);
 
 private:
     bool synth(const char* str);

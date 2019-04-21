@@ -25,7 +25,7 @@ class SetDifference : public BaseObject {
 public:
     SetDifference(const PdArgs& a);
     void onList(const AtomList& l);
-    void onDataT(const DataTypeSet& s);
+    void onDataT(const DataTPtr<DataTypeSet>& s);
     void onInlet(size_t, const AtomList& l);
 };
 

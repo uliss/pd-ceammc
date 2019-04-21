@@ -48,9 +48,9 @@ public:
             OBJ_ERR << "parse error: " << lst;
     }
 
-    void onDataT(const DataTypeMList& lst)
+    void onDataT(const DataTPtr<DataTypeMList>& dptr)
     {
-        mlist() = lst;
+        mlist() = *dptr;
         onBang();
     }
 

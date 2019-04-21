@@ -1,8 +1,9 @@
 #include "list_do.h"
+#include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
 ListDo::ListDo(const PdArgs& a)
-    : BaseObject(a)
+    : ListBase(a)
 {
     createInlet();
     createOutlet();
@@ -32,11 +33,6 @@ void ListDo::onInlet(size_t n, const AtomList& l)
         return;
 
     mapped_list_.append(l);
-}
-
-void ListDo::onDataT(const DataTypeMList& lst)
-{
-    onList(lst.toList());
 }
 
 void setup_list_do()

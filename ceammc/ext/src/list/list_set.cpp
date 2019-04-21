@@ -12,9 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_set.h"
-#include "datatype_mlist.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 ListSet::ListSet(const PdArgs& args)
     : BaseObject(args)
@@ -53,23 +53,23 @@ void ListSet::onInlet(size_t n, const AtomList& lst)
         value_ = DataAtom(lst[0]);
 }
 
-void ListSet::onDataT(const DataTypeMList& lst)
+void ListSet::onDataT(const DataTPtr<DataTypeMList>& lst)
 {
     if (!value_.isValid()) {
         OBJ_ERR << "empty value";
         return;
     }
 
-    auto idx = relativeIndex<long>(idx_, lst.size());
+    auto idx = relativeIndex<long>(idx_, lst->size());
 
     if (idx < 0) {
         OBJ_ERR << "invalid index: " << idx_;
         return;
     }
 
-    auto res = lst.clone();
-    res->at(idx) = value_;
-    dataTo(0, DataPtr(res));
+    DataTypeMList res(*lst);
+    res.at(idx) = value_;
+    dataTo(0, DataTPtr<DataTypeMList>(res));
 }
 
 t_float ListSet::index() const

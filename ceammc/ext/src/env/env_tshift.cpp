@@ -12,20 +12,20 @@ EnvTimeShift::EnvTimeShift(const PdArgs& args)
     createOutlet();
 }
 
-void EnvTimeShift::onDataT(const DataTypeEnv& env)
+void EnvTimeShift::onDataT(const DataTPtr<DataTypeEnv>& dptr)
 {
-    DataTypeEnv* e = env.clone();
+    DataTypeEnv env(*dptr);
 
-    if (!e->empty()) {
-        if (shift_->value() < 0 && e->pointAt(0).timeMs() < (-shift_->value())) {
+    if (!env.empty()) {
+        if (shift_->value() < 0 && env.pointAt(0).timeMs() < (-shift_->value())) {
             OBJ_ERR << "invalid shift value: " << shift_->value();
             return;
         }
 
-        e->shiftTime(shift_->value() * 1000);
+        env.shiftTime(shift_->value() * 1000);
     }
 
-    dataTo(0, DataPtr(e));
+    dataTo(0, DataTPtr<DataTypeEnv>(env));
 }
 
 void setup_env_tshift()

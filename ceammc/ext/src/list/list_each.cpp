@@ -8,7 +8,6 @@ static bool is_valid_step(int v)
 
 ListEach::ListEach(const PdArgs& a)
     : BaseObject(a)
-    , mapped_mlist_(new DataTypeMList)
     , mode_(MODE_NORMAL)
 {
     createInlet();
@@ -25,11 +24,6 @@ ListEach::ListEach(const PdArgs& a)
         if (v > 1)
             step_prop_->setValue(v);
     }
-}
-
-ListEach::~ListEach()
-{
-    delete mapped_mlist_;
 }
 
 void ListEach::onList(const AtomList& l)
@@ -79,30 +73,30 @@ void ListEach::onInlet(size_t n, const AtomList& l)
         mapped_dlist_.append(l);
         break;
     default:
-        mapped_mlist_->append(l);
+        mapped_mlist_.append(l);
         break;
     }
 }
 
-void ListEach::onDataT(const DataTypeMList& lst)
+void ListEach::onDataT(const DataTPtr<DataTypeMList>& dptr)
 {
     mode_ = MODE_MLIST;
-    mapped_mlist_->clear();
+    mapped_mlist_.clear();
 
     size_t step = step_prop_->value();
 
     // output single values
     if (step == 1) {
-        for (size_t i = 0; i < lst.size(); i += step)
-            atomTo(1, lst.at(i).toAtom());
+        for (size_t i = 0; i < dptr->size(); i += step)
+            atomTo(1, dptr->at(i).toAtom());
 
     } else { // output as sublist
-        AtomList l = lst.toList();
-        for (size_t i = 0; i < lst.size(); i += step)
+        AtomList l = dptr->toList();
+        for (size_t i = 0; i < dptr->size(); i += step)
             listTo(1, l.slice(i, i + step - 1));
     }
 
-    dataTo(0, DataPtr(mapped_mlist_->clone()));
+    dataTo(0, DataTPtr<DataTypeMList>(mapped_mlist_));
 }
 
 void setup_list_each()

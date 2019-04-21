@@ -38,9 +38,9 @@ void PathListDir::onSymbol(t_symbol* path)
     onBang();
 }
 
-void PathListDir::onDataT(const DataTypeString& s)
+void PathListDir::onDataT(const DataTPtr<DataTypeString>& dptr)
 {
-    path_ = s.str();
+    path_ = dptr->str();
     onBang();
 }
 

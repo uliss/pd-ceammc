@@ -32,6 +32,11 @@ public:
     DataTypeString(const AtomList& l);
     DataTypeString(const char* str);
     DataTypeString(const std::string& str);
+    DataTypeString(const DataTypeString& d);
+    DataTypeString(DataTypeString&& d);
+    DataTypeString& operator=(const DataTypeString& s);
+    DataTypeString& operator=(DataTypeString&& s);
+
     ~DataTypeString();
 
     void clear();

@@ -30,11 +30,11 @@ void ListContains::onList(const AtomList& lst)
     output(it != lst.end());
 }
 
-void ListContains::onDataT(const DataTypeMList& lst)
+void ListContains::onDataT(const DataTPtr<DataTypeMList>& dptr)
 {
     auto eq = [](const DataAtom& d, const Atom& a) { return d == DataAtom(a); };
-    auto it = std::search(lst.begin(), lst.end(), needle_.begin(), needle_.end(), eq);
-    output(it != lst.end());
+    auto it = std::search(dptr->begin(), dptr->end(), needle_.begin(), needle_.end(), eq);
+    output(it != dptr->end());
 }
 
 void ListContains::onInlet(size_t n, const AtomList& lst)

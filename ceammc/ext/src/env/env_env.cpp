@@ -52,9 +52,9 @@ void Envelope::onBang()
     dataTo(0, DataPtr(env_.clone()));
 }
 
-void Envelope::onDataT(const DataTypeEnv& env)
+void Envelope::onDataT(const DataTPtr<DataTypeEnv>& dptr)
 {
-    env_ = env;
+    env_ = *dptr;
     onBang();
 }
 

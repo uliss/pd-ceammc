@@ -22,9 +22,9 @@ SetEqual::SetEqual(const PdArgs& a)
     createOutlet();
 }
 
-void SetEqual::onDataT(const DataTypeSet& s)
+void SetEqual::onDataT(const DataTPtr<DataTypeSet>& dptr)
 {
-    floatTo(0, (s == set1_) ? 1 : 0);
+    floatTo(0, (dptr->operator==(set1_)) ? 1 : 0);
 }
 
 void SetEqual::onInlet(size_t, const AtomList& l)

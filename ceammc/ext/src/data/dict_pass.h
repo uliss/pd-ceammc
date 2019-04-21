@@ -28,7 +28,7 @@ public:
     void parseProperties() override;
     void onInlet(size_t, const AtomList&) override;
 
-    void onDataT(const DataTypeDict& dict);
+    void onDataT(const DataTPtr<DataTypeDict>& dptr);
 };
 
 void setup_dict_pass();

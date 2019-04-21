@@ -24,7 +24,7 @@ class SetEqual : public BaseObject {
 
 public:
     SetEqual(const PdArgs& a);
-    void onDataT(const DataTypeSet& s);
+    void onDataT(const DataTPtr<DataTypeSet>& s);
     void onInlet(size_t, const AtomList& l);
     void onList(const AtomList& l);
 };

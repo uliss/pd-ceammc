@@ -25,12 +25,12 @@ StringEqual::StringEqual(const PdArgs& a)
 
 void StringEqual::onSymbol(t_symbol* s)
 {
-    onDataT(DataTypeString(s));
+    floatTo(0, (DataTypeString(s) == str1_) ? 1 : 0);
 }
 
-void StringEqual::onDataT(const DataTypeString& s)
+void StringEqual::onDataT(const DataTPtr<DataTypeString>& data)
 {
-    bool eq = (s.str() == str1_);
+    bool eq = (data->str() == str1_);
     floatTo(0, eq ? 1 : 0);
 }
 

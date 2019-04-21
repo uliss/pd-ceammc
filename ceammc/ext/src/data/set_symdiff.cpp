@@ -27,12 +27,11 @@ void SetSymmetricDifference::onList(const AtomList& l)
     onDataT(DataTypeSet(l));
 }
 
-void SetSymmetricDifference::onDataT(const DataTypeSet& s)
+void SetSymmetricDifference::onDataT(const DataTPtr<DataTypeSet>& dptr)
 {
-    DataTypeSet* res = new DataTypeSet();
-    DataPtr out(res);
-    DataTypeSet::set_sym_difference(*res, s, set1_);
-    dataTo(0, out);
+    DataTypeSet res;
+    DataTypeSet::set_sym_difference(res, *dptr, set1_);
+    dataTo(0, DataTPtr<DataTypeSet>(res));
 }
 
 void SetSymmetricDifference::onInlet(size_t, const AtomList& l)

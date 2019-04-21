@@ -286,7 +286,7 @@ public:
             Atom data(*argv);
             DataTPtr<DataT> ptr(data);
             if (ptr.isValid()) {
-                x->impl->onDataT(*ptr.data());
+                x->impl->onDataT(ptr);
             } else {
                 DataDesc d = data.getData();
                 LIB_ERR << "can't get data with type=" << d.type << " and id=" << d.id;

@@ -25,7 +25,7 @@ class StringSubstr : public BaseObject {
 
 public:
     StringSubstr(const PdArgs& a);
-    void onDataT(const DataTypeString& s);
+    void onDataT(const DataTPtr<DataTypeString>& dptr);
     void onSymbol(t_symbol* s);
 };
 

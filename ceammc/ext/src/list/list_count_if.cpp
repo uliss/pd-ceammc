@@ -3,7 +3,7 @@
 #include "ceammc_factory.h"
 
 ListCountIf::ListCountIf(const PdArgs& a)
-    : BaseObject(a)
+    : ListBase(a)
     , count_(0)
 {
     createInlet();
@@ -31,11 +31,6 @@ void ListCountIf::onInlet(size_t n, const AtomList& l)
     size_t c = atomlistToValue<size_t>(l, 0);
     if (c > 0)
         count_++;
-}
-
-void ListCountIf::onDataT(const DataTypeMList& lst)
-{
-    onList(lst.toList());
 }
 
 void setup_list_count_if()

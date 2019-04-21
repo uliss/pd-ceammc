@@ -3,7 +3,7 @@
 #include "ceammc_factory.h"
 
 ListProduct::ListProduct(const PdArgs& args)
-    : BaseObject(args)
+    : ListBase(args)
 {
     createOutlet();
 }
@@ -20,11 +20,6 @@ void ListProduct::onList(const AtomList& lst)
         return;
 
     floatTo(0, *p);
-}
-
-void ListProduct::onDataT(const DataTypeMList& lst)
-{
-    onList(lst.toList());
 }
 
 void setup_list_product()

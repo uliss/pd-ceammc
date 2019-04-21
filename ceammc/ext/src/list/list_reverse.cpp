@@ -1,6 +1,6 @@
 #include "list_reverse.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 #include <algorithm>
 
@@ -17,11 +17,11 @@ void ListReverse::onList(const AtomList& l)
     listTo(0, rev);
 }
 
-void ListReverse::onDataT(const DataTypeMList& lst)
+void ListReverse::onDataT(const DataTPtr<DataTypeMList>& dptr)
 {
-    DataTypeMList* res = new DataTypeMList(lst);
-    std::reverse(std::begin(*res), std::end(*res));
-    dataTo(0, DataPtr(res));
+    DataTypeMList res(*dptr);
+    std::reverse(std::begin(res), std::end(res));
+    dataTo(0, DataTPtr<DataTypeMList>(res));
 }
 
 void setup_list_reverse()

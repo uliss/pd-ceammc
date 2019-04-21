@@ -25,7 +25,7 @@ public:
     ListRange(const PdArgs& a);
 
     void onList(const AtomList& l);
-    void onDataT(const DataTypeMList& l);
+    void onDataT(const DataTPtr<DataTypeMList>& l);
 };
 
 void setup_list_range();

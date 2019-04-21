@@ -36,7 +36,7 @@ public:
 
     void onBang();
 
-    void onDataT(const DataTypeMidiStream& s);
+    void onDataT(const DataTPtr<DataTypeMidiStream>& dptr);
 
     AtomList p_events() const;
     AtomList p_current() const;

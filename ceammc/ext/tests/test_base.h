@@ -396,7 +396,7 @@ template <class T>
 template <class DataT>
 void TestExternal<T>::sendTData(const DataT& d, int inlet)
 {
-    T::onDataT(d);
+    T::onDataT(DataTPtr<DataT>(d));
 }
 
 template <class T>

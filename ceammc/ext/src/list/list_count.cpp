@@ -1,10 +1,10 @@
 #include "list_count.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_log.h"
+#include "datatype_mlist.h"
 
 ListCount::ListCount(const PdArgs& a)
-    : BaseObject(a)
+    : ListBase(a)
     , pattern_(0)
 {
     createInlet();
@@ -29,11 +29,6 @@ void ListCount::onInlet(size_t n, const AtomList& l)
         OBJ_DBG << "search pattern can be only single element, not list. Using first element from " << l;
         pattern_->setValue(l[0]);
     }
-}
-
-void ListCount::onDataT(const DataTypeMList& lst)
-{
-    onList(lst.toList());
 }
 
 void setup_list_count()

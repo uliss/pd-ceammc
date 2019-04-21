@@ -4,7 +4,7 @@
 #include "datatype_mlist.h"
 
 ListAt::ListAt(const PdArgs& a)
-    : BaseObject(a)
+    : ListBase(a)
 {
     static t_symbol* SYM_REL = gensym("rel");
     static t_symbol* SYM_CLIP = gensym("clip");
@@ -71,11 +71,6 @@ void ListAt::onList(const AtomList& l)
     }
 
     listTo(0, res);
-}
-
-void ListAt::onDataT(const DataTypeMList& data)
-{
-    onList(data.toList());
 }
 
 const Atom* ListAt::at(const AtomList& l, const Atom& p)

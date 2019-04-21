@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_insert.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 ListInsert::ListInsert(const PdArgs& args)
     : BaseObject(args)
@@ -70,18 +70,18 @@ void ListInsert::onInlet(size_t n, const AtomList& lst)
     }
 }
 
-void ListInsert::onDataT(const DataTypeMList& lst)
+void ListInsert::onDataT(const DataTPtr<DataTypeMList>& dptr)
 {
-    if (index_->value() > lst.size()) {
+    if (index_->value() > dptr->size()) {
         OBJ_ERR << "index value is too big: " << index_->value();
         return;
     }
 
-    const size_t N = std::min<size_t>(lst.size(), index_->value());
+    const size_t N = std::min<size_t>(dptr->size(), index_->value());
 
-    DataTypeMList* res = new DataTypeMList(lst);
-    res->insert(N, lst_);
-    dataTo(0, DataPtr(res));
+    DataTypeMList res(*dptr);
+    res.insert(N, lst_);
+    dataTo(0, DataTPtr<DataTypeMList>(res));
 }
 
 void setup_list_insert()

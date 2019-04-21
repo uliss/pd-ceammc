@@ -32,17 +32,17 @@ void DictPass::onInlet(size_t, const AtomList& lst)
     keys_ = lst;
 }
 
-void DictPass::onDataT(const DataTypeDict& d)
+void DictPass::onDataT(const DataTPtr<DataTypeDict>& dptr)
 {
-    DataTypeDict* res = new DataTypeDict(d);
+    DataTypeDict res(*dptr);
 
-    const DataTypeDict::DictMap& dict = d.innerData();
+    const auto& dict = dptr->innerData();
     for (auto& kv : dict) {
         if (!keys_.contains(kv.first))
-            res->remove(kv.first);
+            res.remove(kv.first);
     }
 
-    dataTo(0, DataPtr(res));
+    dataTo(0, DataTPtr<DataTypeDict>(res));
 }
 
 void setup_dict_pass()

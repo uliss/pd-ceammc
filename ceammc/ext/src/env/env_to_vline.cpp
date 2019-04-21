@@ -40,9 +40,9 @@ void Env2VLine::onFloat(t_float f)
         outputRelease();
 }
 
-void Env2VLine::onDataT(const DataTypeEnv& env)
+void Env2VLine::onDataT(const DataTPtr<DataTypeEnv>& dptr)
 {
-    env_ = env;
+    env_ = *dptr;
     stop_point_index_ = 0;
     stop_offset_us_ = 0;
     state_ = STATE_INIT;

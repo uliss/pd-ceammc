@@ -1,6 +1,6 @@
 #include "list_split.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 ListSplit::ListSplit(const ceammc::PdArgs& args)
     : BaseObject(args)
@@ -28,20 +28,20 @@ void ListSplit::onList(const AtomList& l)
     listTo(0, l1);
 }
 
-void ListSplit::onDataT(const DataTypeMList& lst)
+void ListSplit::onDataT(const DataTPtr<DataTypeMList>& dptr)
 {
-    DataTypeMList* l1 = new DataTypeMList;
-    DataTypeMList* l2 = new DataTypeMList;
+    DataTypeMList l1;
+    DataTypeMList l2;
 
-    for (size_t i = 0; i < lst.size(); i++) {
+    for (size_t i = 0; i < dptr->size(); i++) {
         if (i < index_->value())
-            l1->append(lst[i]);
+            l1.append((*dptr)[i]);
         else
-            l2->append(lst[i]);
+            l2.append((*dptr)[i]);
     }
 
-    dataTo(1, DataPtr(l2));
-    dataTo(0, DataPtr(l1));
+    dataTo(1, DataTPtr<DataTypeMList>(l2));
+    dataTo(0, DataTPtr<DataTypeMList>(l1));
 }
 
 void setup_list_split()

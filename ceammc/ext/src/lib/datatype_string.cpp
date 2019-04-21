@@ -65,6 +65,32 @@ DataTypeString::DataTypeString(const std::string& str)
 #endif
 }
 
+DataTypeString::DataTypeString(const DataTypeString& d)
+    : str_(d.str_)
+{
+}
+
+DataTypeString::DataTypeString(DataTypeString&& d)
+    : str_(std::move(d.str_))
+{
+}
+
+DataTypeString& DataTypeString::operator=(const DataTypeString& s)
+{
+    if (&s != this)
+        str_ = s.str_;
+
+    return *this;
+}
+
+DataTypeString& DataTypeString::operator=(DataTypeString&& s)
+{
+    if (&s != this)
+        str_ = std::move(s.str_);
+
+    return *this;
+}
+
 DataTypeString::~DataTypeString()
 {
 #ifndef NDEBUG

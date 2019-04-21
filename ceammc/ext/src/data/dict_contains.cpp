@@ -39,14 +39,14 @@ void DictContains::onInlet(size_t n, const AtomList& lst)
     key_ = lst[0];
 }
 
-void DictContains::onDataT(const DataTypeDict& d)
+void DictContains::onDataT(const DataTPtr<DataTypeDict>& dptr)
 {
     if (key_.isNone()) {
         OBJ_ERR << "no key specified: " << key_;
         return;
     }
 
-    floatTo(0, d.contains(key_));
+    floatTo(0, dptr->contains(key_));
 }
 
 void setup_dict_contains()

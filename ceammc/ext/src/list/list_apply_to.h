@@ -34,7 +34,7 @@ public:
 
     void onList(const AtomList&) override;
     void onInlet(size_t n, const AtomList&) override;
-    void onDataT(const DataTypeMList& l);
+    void onDataT(const DataTPtr<DataTypeMList>& dptr);
 
 private:
     void setIndexes(const AtomList& lst);

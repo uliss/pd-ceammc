@@ -24,7 +24,7 @@ class SetToList : public BaseObject {
 
 public:
     SetToList(const PdArgs& a);
-    void onDataT(const DataTypeSet& s);
+    void onDataT(const DataTPtr<DataTypeSet>& dptr);
 };
 
 extern "C" void setup_set0x2elist();

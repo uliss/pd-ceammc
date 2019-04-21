@@ -26,7 +26,7 @@ class DictEach : public BaseObject {
 public:
     DictEach(const PdArgs& args);
     void onInlet(size_t n, const AtomList& lst) override;
-    void onDataT(const DataTypeDict& d);
+    void onDataT(const DataTPtr<DataTypeDict>& dptr);
 };
 
 void setup_dict_each();

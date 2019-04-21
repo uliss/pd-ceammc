@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_sort_with.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 #include <algorithm>
 
@@ -54,22 +54,22 @@ void ListSortWith::onInlet(size_t n, const AtomList& l)
     }
 }
 
-void ListSortWith::onDataT(const DataTypeMList& l)
+void ListSortWith::onDataT(const DataTPtr<DataTypeMList>& dptr)
 {
-    if (l.size() < 2) {
-        dataTo(0, DataPtr(l.clone()));
+    if (dptr->size() < 2) {
+        dataTo(0, dptr);
         return;
     }
 
     less_ = true;
 
-    DataTypeMList* res = new DataTypeMList(l);
-    std::sort(res->begin(), res->end(), [this](const DataAtom& a0, const DataAtom& a1) {
+    DataTypeMList res(*dptr);
+    std::sort(res.begin(), res.end(), [this](const DataAtom& a0, const DataAtom& a1) {
         this->listTo(1, AtomList(a0.toAtom(), a1.toAtom()));
         return !this->less_;
     });
 
-    dataTo(0, DataPtr(res));
+    dataTo(0, DataTPtr<DataTypeMList>(res));
 }
 
 void setup_list_sort_with()

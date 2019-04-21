@@ -29,7 +29,7 @@ public:
     ListMin(const PdArgs& a);
 
     void onList(const AtomList& l) override;
-    void onDataT(const DataTypeMList& lst);
+    void onDataT(const DataTPtr<DataTypeMList>& lst);
 
     template <typename Iterator>
     void min(Iterator begin, Iterator end)

@@ -54,9 +54,9 @@ public:
         data().add(l);
     }
 
-    void onDataT(const DataTypeSet& s)
+    void onDataT(const DataTPtr<DataTypeSet>& s)
     {
-        data() = s;
+        data() = *s.data();
         onBang();
     }
 

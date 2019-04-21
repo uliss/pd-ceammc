@@ -14,13 +14,11 @@
 #ifndef LIST_EQUAL_H
 #define LIST_EQUAL_H
 
-#include "ceammc_object.h"
+#include "list_base.h"
 
 using namespace ceammc;
 
-class DataTypeMList;
-
-class ListEqual : public BaseObject {
+class ListEqual : public ListBase {
     ListProperty* pattern_;
 
 public:
@@ -28,7 +26,6 @@ public:
 
     void onInlet(size_t n, const AtomList& lst) override;
     void onList(const AtomList& lst) override;
-    void onDataT(const DataTypeMList& lst);
 };
 
 void setup_list_equal();

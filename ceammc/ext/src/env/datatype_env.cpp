@@ -167,6 +167,11 @@ DataTypeEnv::DataTypeEnv(const DataTypeEnv& env)
 {
 }
 
+DataTypeEnv::DataTypeEnv(DataTypeEnv&& env)
+    : points_(std::move(env.points_))
+{
+}
+
 DataType DataTypeEnv::type() const
 {
     return data::DATA_ENVELOPE;
@@ -904,6 +909,14 @@ DataTypeEnv& DataTypeEnv::operator=(const DataTypeEnv& env)
 {
     if (&env != this)
         points_ = env.points_;
+
+    return *this;
+}
+
+DataTypeEnv& DataTypeEnv::operator=(DataTypeEnv&& env)
+{
+    if (&env != this)
+        points_ = std::move(env.points_);
 
     return *this;
 }

@@ -54,19 +54,15 @@ void StringReplace::onSymbol(t_symbol* s)
     onDataT(DataTypeString(s));
 }
 
-void StringReplace::onDataT(const DataTypeString& s)
+void StringReplace::onDataT(const DataTPtr<DataTypeString>& dptr)
 {
-    DataTypeString* res = 0;
-
     if (mode_->value() == REPLACE_ALL) {
-        res = new DataTypeString(s.replaceAll(from_, to_));
+        dataTo(0, DataTPtr<DataTypeString>(dptr->replaceAll(from_, to_)));
     } else if (mode_->value() == REPLACE_FIRST) {
-        res = new DataTypeString(s.replaceFirst(from_, to_));
+        dataTo(0, DataTPtr<DataTypeString>(dptr->replaceFirst(from_, to_)));
     } else if (mode_->value() == REPLACE_LAST) {
-        res = new DataTypeString(s.replaceLast(from_, to_));
+        dataTo(0, DataTPtr<DataTypeString>(dptr->replaceLast(from_, to_)));
     }
-
-    dataTo(0, DataPtr(res));
 }
 
 void StringReplace::onInlet(size_t n, const AtomList& l)

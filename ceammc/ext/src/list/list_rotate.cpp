@@ -25,10 +25,9 @@ void ListRotate::onInlet(size_t, const AtomList& step)
     step_->set(step);
 }
 
-void ListRotate::onDataT(const DataTypeMList& ml)
+void ListRotate::onDataT(const DataTPtr<DataTypeMList>& ml)
 {
-    DataPtr ptr(ml.rotateLeft(step_->value() * rotate_dir_).clone());
-    dataTo(0, ptr);
+    dataTo(0, DataTPtr<DataTypeMList>(ml->rotateLeft(step_->value() * rotate_dir_)));
 }
 
 void setup_list_rotate()

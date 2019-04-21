@@ -1,10 +1,10 @@
 #include "list_mean.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "datatype_mlist.h"
 
 ListMean::ListMean(const PdArgs& a)
-    : BaseObject(a)
+    : ListBase(a)
 {
     createOutlet();
 }
@@ -24,11 +24,6 @@ void ListMean::onList(const AtomList& l)
         return;
 
     floatTo(0, *avg);
-}
-
-void ListMean::onDataT(const DataTypeMList& lst)
-{
-    onList(lst.toList());
 }
 
 void setup_list_mean()

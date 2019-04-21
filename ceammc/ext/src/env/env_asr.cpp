@@ -58,19 +58,19 @@ public:
             OBJ_ERR << "can't set envelope";
     }
 
-    void onDataT(const DataTypeEnv& env)
+    void onDataT(const DataTPtr<DataTypeEnv>& dptr)
     {
-        if (!env.isAR()) {
-            OBJ_ERR << "not an AR envelope: " << env;
+        if (!dptr->isAR()) {
+            OBJ_ERR << "not an AR envelope: " << *dptr;
             return;
         }
 
-        float attack = env.pointAt(1).timeMs() - env.pointAt(0).timeMs();
-        float sustain = env.pointAt(1).value * 100;
-        float release = env.pointAt(2).timeMs() - env.pointAt(1).timeMs();
+        float attack = dptr->pointAt(1).timeMs() - dptr->pointAt(0).timeMs();
+        float sustain = dptr->pointAt(1).value * 100;
+        float release = dptr->pointAt(2).timeMs() - dptr->pointAt(1).timeMs();
 
         if (!set(attack, sustain, release))
-            OBJ_ERR << "can't set envelope: " << env;
+            OBJ_ERR << "can't set envelope: " << *dptr;
     }
 
     void m_reset(t_symbol*, const AtomList&)

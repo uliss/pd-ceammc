@@ -25,7 +25,7 @@ public:
     ListLast(const PdArgs& args);
 
     void onList(const AtomList& lst) override;
-    void onDataT(const DataTypeMList& lst);
+    void onDataT(const DataTPtr<DataTypeMList>& lst);
 };
 
 void setup_list_last();

@@ -42,13 +42,13 @@ bool DictGet::processAnyProps(t_symbol* sel, const AtomList& lst)
     return true;
 }
 
-void DictGet::onDataT(const DataTypeDict& d)
+void DictGet::onDataT(const DataTPtr<DataTypeDict>& dptr)
 {
     long n = keys_.size();
     // back order
     while (n-- > 0) {
         const auto& k = keys_[n];
-        auto v = d.value(k);
+        auto v = dptr->value(k);
         if (DataTypeDict::isNull(v))
             continue;
 

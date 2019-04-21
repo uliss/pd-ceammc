@@ -1,13 +1,11 @@
 #ifndef LIST_ROUTE_H
 #define LIST_ROUTE_H
 
-#include "ceammc_object.h"
+#include "list_base.h"
 
 using namespace ceammc;
 
-class DataTypeMList;
-
-class ListRoute : public BaseObject {
+class ListRoute : public ListBase {
     FlagProperty* trim_;
     FlagProperty* as_any_;
     BoolProperty* simplify_types_;
@@ -17,7 +15,6 @@ public:
     void onFloat(t_float f);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& lst);
-    void onDataT(const DataTypeMList& lst);
 
     int outletIndex(const Atom& a) const;
 

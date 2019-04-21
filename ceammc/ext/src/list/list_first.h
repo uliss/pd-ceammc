@@ -24,7 +24,7 @@ public:
     ListFirst(const PdArgs& args);
 
     void onList(const AtomList& lst) override;
-    void onDataT(const DataTypeMList& lst);
+    void onDataT(const DataTPtr<DataTypeMList>& dptr);
 };
 
 void setup_list_first();

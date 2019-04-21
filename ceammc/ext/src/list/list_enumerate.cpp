@@ -17,7 +17,7 @@
 #include "ceammc_fn_list.h"
 
 ListEnumerate::ListEnumerate(const PdArgs& a)
-    : BaseObject(a)
+    : ListBase(a)
     , from_(0)
     , append_(0)
 {
@@ -33,11 +33,6 @@ ListEnumerate::ListEnumerate(const PdArgs& a)
 void ListEnumerate::onList(const AtomList& l)
 {
     listTo(0, list::enumerate(l, from_->value(), append_->value() ? list::APPEND : list::PREPEND));
-}
-
-void ListEnumerate::onDataT(const DataTypeMList& lst)
-{
-    onList(lst.toList());
 }
 
 void setup_list_enumerate()

@@ -20,11 +20,11 @@ DictToList::DictToList(const PdArgs& args)
     createOutlet();
 }
 
-void DictToList::onDataT(const DataTypeDict& d)
+void DictToList::onDataT(const DataTPtr<DataTypeDict>& dptr)
 {
     AtomList res;
 
-    auto& dict = d.innerData();
+    auto& dict = dptr->innerData();
     for (auto& kv : dict) {
         res.append(kv.first);
 

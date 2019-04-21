@@ -15,7 +15,7 @@ class Env2Array : public ArrayMod {
 public:
     Env2Array(const PdArgs& args);
 
-    void onDataT(const DataTypeEnv& env);
+    void onDataT(const DataTPtr<DataTypeEnv>& dptr);
     void render(const DataTypeEnv& env);
 };
 

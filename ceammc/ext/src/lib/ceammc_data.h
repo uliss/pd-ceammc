@@ -16,6 +16,8 @@
 
 #include "ceammc_abstractdata.h"
 
+#include <type_traits>
+
 namespace ceammc {
 
 class DataPtr {
@@ -69,11 +71,38 @@ bool operator<(const DataPtr& d0, const DataPtr& d1);
 template <class T>
 class DataTPtr : public DataPtr {
 public:
+    /// move constructor
+    DataTPtr(DataTPtr&& ptr)
+        : DataPtr(ptr)
+    {
+    }
+
+    /// copy constructor
+    DataTPtr(const DataTPtr& ptr)
+        : DataPtr(ptr)
+    {
+    }
+
+    /// create from pointer
+    /// take ownership
     DataTPtr(T* d)
         : DataPtr(d)
     {
     }
 
+    /// create from copy
+    DataTPtr(const T& d)
+        : DataPtr(new T(d))
+    {
+    }
+
+    /// create from move
+    DataTPtr(T&& d)
+        : DataPtr(new T(std::move(d)))
+    {
+    }
+
+    /// from atom
     DataTPtr(const Atom& a)
         : DataPtr(a)
     {
@@ -82,8 +111,22 @@ public:
         }
     }
 
+    DataTPtr& operator=(const DataTPtr& d)
+    {
+        DataPtr::operator=(d);
+        return *this;
+    }
+
+    DataTPtr& operator=(DataTPtr&& d)
+    {
+        DataPtr::operator=(std::move(d));
+        return *this;
+    }
+
     const T* data() const { return static_cast<const T*>(DataPtr::data()); }
     const T* operator->() const { return data(); }
+
+    const T& operator*() const { return *data(); }
 };
 }
 

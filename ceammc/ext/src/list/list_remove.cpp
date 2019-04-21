@@ -12,10 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_remove.h"
-#include "datatype_mlist.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "datatype_mlist.h"
 
 ListRemove::ListRemove(const PdArgs& args)
     : BaseObject(args)
@@ -54,11 +54,11 @@ void ListRemove::onList(const AtomList& lst)
     listTo(0, res);
 }
 
-void ListRemove::onDataT(const DataTypeMList& l)
+void ListRemove::onDataT(const DataTPtr<DataTypeMList>& dptr)
 {
-    size_t N = l.size();
-    DataTypeMList* res = new DataTypeMList;
-    res->reserve(N);
+    size_t N = dptr->size();
+    DataTypeMList res;
+    res.reserve(N);
 
     precalcIndexes(N);
 
@@ -67,10 +67,10 @@ void ListRemove::onDataT(const DataTypeMList& l)
         if (it != calc_idx_.end())
             continue;
 
-        res->append(l[i]);
+        res.append((*dptr)[i]);
     }
 
-    dataTo(0, DataPtr(res));
+    dataTo(0, DataTPtr<DataTypeMList>(res));
 }
 
 void ListRemove::precalcIndexes(size_t N)

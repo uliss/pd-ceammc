@@ -1,7 +1,7 @@
-#include "datatype_string.h"
 #include "ceammc_factory.h"
 #include "ceammc_object.h"
 #include "ceammc_platform.h"
+#include "datatype_string.h"
 
 using namespace ceammc;
 
@@ -31,9 +31,9 @@ public:
         listTo(0, l.map(exists));
     }
 
-    void onDataT(const DataTypeString& s)
+    void onDataT(const DataTPtr<DataTypeString>& dptr)
     {
-        floatTo(0, platform::path_exists(s.str().c_str()) ? 1 : 0);
+        floatTo(0, platform::path_exists(dptr->str().c_str()) ? 1 : 0);
     }
 };
 

@@ -11,12 +11,12 @@ EnvValueScale::EnvValueScale(const PdArgs& args)
     createOutlet();
 }
 
-void EnvValueScale::onDataT(const DataTypeEnv& env)
+void EnvValueScale::onDataT(const DataTPtr<DataTypeEnv>& dptr)
 {
-    DataTypeEnv res(env);
+    DataTypeEnv res(*dptr);
     res.scaleValue(scale_->value());
 
-    dataTo(0, DataPtr(res.clone()));
+    dataTo(0, DataTPtr<DataTypeEnv>(res));
 }
 
 void setup_env_vscale()

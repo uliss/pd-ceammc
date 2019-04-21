@@ -25,7 +25,7 @@ StringStartsWith::StringStartsWith(const PdArgs& a)
 
 void StringStartsWith::onSymbol(t_symbol* s)
 {
-    onDataT(DataTypeString(s));
+    floatTo(0, DataTypeString(s).startsWith(suffix_) ? 1 : 0);
 }
 
 void StringStartsWith::onInlet(size_t, const AtomList& l)
@@ -33,9 +33,9 @@ void StringStartsWith::onInlet(size_t, const AtomList& l)
     suffix_ = to_string(l);
 }
 
-void StringStartsWith::onDataT(const DataTypeString& s)
+void StringStartsWith::onDataT(const DataTPtr<DataTypeString>& dptr)
 {
-    floatTo(0, s.startsWith(suffix_) ? 1 : 0);
+    floatTo(0, dptr->startsWith(suffix_) ? 1 : 0);
 }
 
 extern "C" void setup_string0x2estarts_with()

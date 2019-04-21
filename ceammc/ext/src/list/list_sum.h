@@ -14,19 +14,16 @@
 #ifndef LIST_SUM_H
 #define LIST_SUM_H
 
-#include "ceammc_object.h"
+#include "list_base.h"
 
 using namespace ceammc;
 
-class DataTypeMList;
-
-class ListSum : public BaseObject {
+class ListSum : public ListBase {
 public:
     ListSum(const PdArgs& a);
 
     void onFloat(float f) override;
     void onList(const AtomList& l) override;
-    void onDataT(const DataTypeMList& l);
 };
 
 void setup_list_sum();

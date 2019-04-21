@@ -32,10 +32,10 @@ void ListMin::onList(const AtomList& l)
         min(l.beginFilter(isSymbol), l.endFilter());
 }
 
-void ListMin::onDataT(const DataTypeMList& lst)
+void ListMin::onDataT(const DataTPtr<DataTypeMList>& lst)
 {
     auto pred = [](const DataAtom& a) { return a.isAtom() && (a.toAtom().isFloat() || a.toAtom().isSymbol()); };
-    onList(lst.toList(pred));
+    onList(lst->toList(pred));
 }
 
 void setup_list_min()

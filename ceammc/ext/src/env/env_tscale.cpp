@@ -11,11 +11,11 @@ EnvTimeScale::EnvTimeScale(const PdArgs& a)
     createOutlet();
 }
 
-void EnvTimeScale::onDataT(const DataTypeEnv& env)
+void EnvTimeScale::onDataT(const DataTPtr<DataTypeEnv>& dptr)
 {
-    DataTypeEnv* e = env.clone();
-    e->scaleTime(scale_->value());
-    dataTo(0, DataPtr(e));
+    DataTypeEnv env(*dptr);
+    env.scaleTime(scale_->value());
+    dataTo(0, DataTPtr<DataTypeEnv>(env));
 }
 
 void setup_env_tscale()

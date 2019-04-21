@@ -60,9 +60,9 @@ void ListApplyTo::onInlet(size_t n, const AtomList& lst)
     }
 }
 
-void ListApplyTo::onDataT(const DataTypeMList& l)
+void ListApplyTo::onDataT(const DataTPtr<DataTypeMList>& dptr)
 {
-    const int N = l.size();
+    const int N = dptr->size();
     mapped_.clear();
     mapped_.reserve(N);
     normalizeIndexes(N);
@@ -75,15 +75,13 @@ void ListApplyTo::onDataT(const DataTypeMList& l)
 
         // no proccessing required
         if (it == norm_idxs_.end())
-            mapped_.append(l[cur_idx_].toAtom());
+            mapped_.append((*dptr)[cur_idx_].toAtom());
         else
-            atomTo(1, l[cur_idx_].toAtom());
+            atomTo(1, (*dptr)[cur_idx_].toAtom());
     }
 
     on_loop_ = false;
-
-    DataTypeMList* mlist = new DataTypeMList(mapped_);
-    dataTo(0, DataPtr(mlist));
+    dataTo(0, DataTPtr<DataTypeMList>(DataTypeMList(mapped_)));
 }
 
 void ListApplyTo::setIndexes(const AtomList& lst)

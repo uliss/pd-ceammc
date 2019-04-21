@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2017 Serge Poltavsky. All rights reserved.
+ * Copyright 2019 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,24 +11,25 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef SET_UNION_H
-#define SET_UNION_H
+#ifndef LIST_BASE_H
+#define LIST_BASE_H
 
 #include "ceammc_object.h"
-#include "datatype_set.h"
+#include "datatype_mlist.h"
 
-using namespace ceammc;
-
-class SetUnion : public BaseObject {
-    DataTypeSet set1_;
-
+namespace ceammc {
+class ListBase : public BaseObject {
 public:
-    SetUnion(const PdArgs& a);
-    void onList(const AtomList& lst);
-    void onDataT(const DataTPtr<DataTypeSet>& dptr);
-    void onInlet(size_t, const AtomList& lst);
+    ListBase(const PdArgs& args)
+        : BaseObject(args)
+    {
+    }
+
+    void onDataT(const DataTPtr<DataTypeMList>& dptr)
+    {
+        onList(dptr->toList());
+    }
 };
+}
 
-extern "C" void setup_set0x2eunion();
-
-#endif // SET_UNION_H
+#endif // LIST_BASE_H

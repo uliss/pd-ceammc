@@ -31,14 +31,14 @@ void DictReject::onInlet(size_t, const AtomList& lst)
     keys_ = lst;
 }
 
-void DictReject::onDataT(const DataTypeDict& d)
+void DictReject::onDataT(const DataTPtr<DataTypeDict>& dptr)
 {
-    DataTypeDict* res = new DataTypeDict(d);
+    DataTypeDict res(*dptr);
 
     for (auto& a : keys_)
-        res->remove(a);
+        res.remove(a);
 
-    dataTo(0, DataPtr(res));
+    dataTo(0, DataTPtr<DataTypeDict>(res));
 }
 
 void setup_dict_reject()

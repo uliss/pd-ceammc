@@ -14,20 +14,16 @@
 #ifndef LIST_MEAN_H
 #define LIST_MEAN_H
 
-#include "ceammc_object.h"
+#include "list_base.h"
 
 using namespace ceammc;
 
-class DataTypeMList;
-
-class ListMean : public BaseObject {
+class ListMean : public ListBase {
 public:
     ListMean(const PdArgs& a);
 
     void onFloat(float f) override;
     void onList(const AtomList& l) override;
-
-    void onDataT(const DataTypeMList& lst);
 };
 
 void setup_list_mean();
