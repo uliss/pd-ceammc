@@ -127,7 +127,7 @@ else() # search via pkg-config
             NAMES gthread.h
             HINTS ${PKGCONFIG_GTHREAD_INCLUDEDIR} ${PKGCONFIG_GTHREAD_INCLUDE_DIRS}
             PATHS ${_include_paths} ${_lib_paths}
-            PATH_SUFFIXES glib-2.0)
+            PATH_SUFFIXES glib-2.0 glib-2.0/glib)
 
         # libs
         find_library(GLIB2_LIBRARIES
