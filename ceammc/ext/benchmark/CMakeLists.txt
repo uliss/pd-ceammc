@@ -10,7 +10,7 @@ set(BM_HTML_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 function(add_benchmark name)
     add_executable(bm_${name} bm_${name}.cpp)
     target_link_libraries(bm_${name} bm_main ceammc_core ceammc_base puredata-core
-        ceammc_list ceammc_data ceammc_core)
+        ceammc_list ceammc_data ceammc_core ceammc_array)
 
     message(STATUS "Bechmark target added: benchmark_${name}")
 
@@ -23,5 +23,6 @@ endfunction()
 add_benchmark(atomlist)
 add_benchmark(dataptr)
 add_benchmark(control_externals)
+add_benchmark(array)
 
 

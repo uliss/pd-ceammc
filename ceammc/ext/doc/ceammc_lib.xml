@@ -336,6 +336,9 @@
     <entry descr="numeric stream router, like many [moses]" name="flow.less_eq" ref_view="object">
       <xi:include href="flow.less_eq.pddoc" parse="xml"/>
     </entry>
+    <entry descr="route data flow by regexp match" name="flow.match" ref_view="object">
+      <xi:include href="flow.match.pddoc" parse="xml"/>
+    </entry>
     <entry descr="control flow multiplexer" name="flow.multiplex" ref_view="object">
       <xi:include href="flow.multiplex.pddoc" parse="xml"/>
     </entry>
