@@ -13,6 +13,7 @@ if(WIN32)
 endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/pd.iss ${CMAKE_BINARY_DIR})
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fix_dll_deps.sh ${CMAKE_BINARY_DIR})
 
 if(WIN32 OR MSYS OR MINGW)
     install(FILES fonts/DejaVuSansMono.ttf
