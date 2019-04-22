@@ -31,7 +31,7 @@ public:
 
     t_float get(t_float v)
     {
-        if (std::isnan(v) || v == std::numeric_limits<t_float>::infinity())
+        if (std::isnan(v) || std::isinf(v))
             return smooth_;
 
         smooth_ = (1 - n_) * v + n_ * smooth_;
