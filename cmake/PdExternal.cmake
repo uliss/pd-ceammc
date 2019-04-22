@@ -138,7 +138,7 @@ function(pd_add_external)
     if(_PD_EXT_LIBRARY)
         set(INSTALL_DIR "${_PD_EXT_INSTALL_DIR}/${_PD_EXT_LIBRARY}")
     else()
-        set(INSTALL_DIR "${_PD_EXT_INSTALL_DIR}/${TARGET_NAME}")
+        set(INSTALL_DIR "${_PD_EXT_INSTALL_DIR}/${_PD_EXT_NAME}")
     endif()
 
     #message(STATUS ${INSTALL_DIR})
