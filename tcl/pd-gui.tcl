@@ -778,12 +778,21 @@ proc load_startup_plugins {} {
     load_plugin_script [file join $::sys_guidir pd_deken.tcl]
     load_plugin_script [file join $::sys_guidir pd_docsdir.tcl]
 
-    # load other installed plugins
     # ceammc
-    foreach pathdir [concat $::sys_searchpath $::sys_temppath $::sys_staticpath $::ceammc_libdir] {
-        set dir [file normalize $pathdir]
-        if { ! [file isdirectory $dir]} {continue}
-        foreach filename [glob -directory $dir -nocomplain -types {f} -- \
+    # load other installed plugins
+    # nested list
+    set path_list {}
+    foreach p $::sys_searchpath { lappend path_list $p }
+    foreach p $::sys_temppath { lappend path_list $p }
+    foreach p $::sys_staticpath { lappend path_list $p }
+    lappend path_list $::ceammc_libdir
+
+    #set path_list [::struct::list flatten -full $nested_path_list]
+    foreach pathdir $path_list {
+        set dir [file normalize "$pathdir"]
+        if { ! [file isdirectory "$dir"]} { continue }
+        # ::pdwindow::error "search in dir: $dir\n"
+        foreach filename [glob -directory "$dir" -nocomplain -types {f} -- \
                               *-plugin/*-plugin.tcl *-plugin.tcl] {
             set ::current_plugin_loadpath [file dirname $filename]
             load_plugin_script $filename
