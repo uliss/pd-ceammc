@@ -19,29 +19,33 @@ list_dll () {
     done
 }
 
-fix_dll () {
-    list_dll $1 | sort | uniq | while read dll
+find_all_dll_deps() {
+    # PureData vanilla binaries
+    list_dll @PROJECT_BINARY_DIR@/src/pdsend.exe
+    list_dll @PROJECT_BINARY_DIR@/src/pdreceive.exe
+    list_dll @PROJECT_BINARY_DIR@/src/pd.exe
+    list_dll @PROJECT_BINARY_DIR@/src/pd.dll
+
+    # ceammc dlls
+    find "@PROJECT_BINARY_DIR@/ceammc/ext" -name *.dll | grep -v tests | while read dll
     do
-        cp -v "$dll" "@CMAKE_INSTALL_PREFIX@/@PD_EXE_INSTALL_PATH@"
+        list_dll "$dll"
+    done
+
+    # ceammc externals x86_64
+    find "@PROJECT_BINARY_DIR@/ceammc/ext" -name *.m_amd64 | grep -v tests | while read dll
+    do
+        list_dll "$dll"
+    done
+
+    # ceammc exteernals x86
+    find "@PROJECT_BINARY_DIR@/ceammc/ext" -name *.m_i386 | grep -v tests | while read dll
+    do
+        list_dll "$dll"
     done
 }
 
-fix_dll @PROJECT_BINARY_DIR@/src/pdsend.exe
-fix_dll @PROJECT_BINARY_DIR@/src/pdreceive.exe
-fix_dll @PROJECT_BINARY_DIR@/src/pd.exe
-fix_dll @PROJECT_BINARY_DIR@/src/pd.dll
-
-find "@PROJECT_BINARY_DIR@/ceammc/ext" -name *.dll | grep -v tests | while read dll
+find_all_dll_deps | sort | uniq | while read dll
 do
-    fix_dll "$dll"
-done
-
-find "@PROJECT_BINARY_DIR@/ceammc/ext" -name *.m_amd64 | grep -v tests | while read dll
-do
-    fix_dll "$dll"
-done
-
-find "@PROJECT_BINARY_DIR@/ceammc/ext" -name *.m_i386 | grep -v tests | while read dll
-do
-    fix_dll "$dll"
+    cp -v "$dll" "@CMAKE_INSTALL_PREFIX@/@PD_EXE_INSTALL_PATH@"
 done
