@@ -89,6 +89,7 @@ set(DOC_FILES
     flow.demultiplex~
     flow.demultiplex2~
     flow.interval
+    flow.match
     flow.multiplex
     flow.multiplex~
     flow.multiplex2~

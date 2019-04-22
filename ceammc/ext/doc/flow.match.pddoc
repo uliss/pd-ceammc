@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.match">
+        <title>flow.match</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>route data flow by regexp match</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>regexp</keywords>
+            <since>0.7.1</since>
+            <also>
+                <see>string.match</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="any">input flow</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output flow</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]       [reset(
+|         |
+[flow.match .+`.txt .+`.wav]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
