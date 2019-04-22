@@ -70,9 +70,8 @@ TEST_CASE("SoundExternal", "[ceammc::SoundExternal]")
         REQUIRE(sm.get(1) == Approx(0.9867f));
         REQUIRE(sm.get(1) == Approx(0.98803f));
 
+#if !defined(__FAST_MATH__)
         REQUIRE(sm.get(INFINITY) == Approx(0.98803f));
-
-#if defined(__clang_major__) || (__GNUC__ > 5)
         REQUIRE(sm.get(NAN) == Approx(0.98803f));
 #endif
 
