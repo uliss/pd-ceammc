@@ -37,7 +37,10 @@ public:
 
 private:
     void fillRange(size_t from, size_t to, const AtomList& l);
+    void fillRange(size_t from, size_t to, t_float v);
     void finish();
 };
+
+void setup_array_fill();
 
 #endif // ARRAY_FILL_H

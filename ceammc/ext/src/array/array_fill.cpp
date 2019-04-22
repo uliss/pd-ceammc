@@ -111,9 +111,10 @@ void ArrayFill::m_fill(t_symbol* m, const AtomList& l)
     if (values.empty()) {
         METHOD_ERR(m) << "usage: [@from N] [@to N] VALUES...";
         return;
-    }
-
-    fillRange(from, to, values);
+    } else if (values.size() == 1)
+        fillRange(from, to, values[0].asFloat());
+    else
+        fillRange(from, to, values);
 }
 
 void ArrayFill::m_sin(t_symbol* m, const AtomList& l)
@@ -240,6 +241,12 @@ void ArrayFill::fillRange(size_t from, size_t to, const AtomList& l)
     finish();
 }
 
+void ArrayFill::fillRange(size_t from, size_t to, t_float v)
+{
+    std::fill(array_.begin() + from, array_.begin() + to, v);
+    finish();
+}
+
 void ArrayFill::finish()
 {
     if (shouldRedraw())
@@ -320,7 +327,7 @@ AtomList ArrayFill::parseRange(const AtomList& args, size_t* from, size_t* to) c
     return res;
 }
 
-extern "C" void setup_array0x2efill()
+void setup_array_fill()
 {
     ObjectFactory<ArrayFill> obj("array.fill");
     obj.addMethod("fill", &ArrayFill::m_fill);
