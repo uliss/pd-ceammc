@@ -87,7 +87,7 @@ flow.group,group		.		.
 flow.interval		.		.
 flow.less		.		?
 flow.less_eq		.		?
-flow.match		.		.
+flow.match		?		?
 flow.multiplex,flow.mux		?		.
 flow.multiplex2~,flow.mux2~,mux2~		?		~~
 flow.multiplex~,flow.mux~,mux~		?		~

@@ -16,20 +16,49 @@
                 <see>string.match</see>
             </also>
         </meta>
-        <inlets>
-            <inlet>
-                <xinfo on="any">input flow</xinfo>
+        <arguments>
+            <argument name="RE_LST" type="list" required="true">list of regular expressions</argument>
+        </arguments>
+        <properties>
+            <property name="@cut" type="int" default="0" enum="0 1">cut or pass message selector</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet number="1">
+                <xinfo on="any">input message</xinfo>
+                <xinfo on="symbol">input symbol</xinfo>
+                <xinfo on="data:string">input symbol</xinfo>
+            </inlet>
+            <inlet number="2">
+                <xinfo on="symbol">set first regexp</xinfo>
+            </inlet>
+            <inlet number="...">
+                <xinfo on="symbol">set ... regexp</xinfo>
+            </inlet>
+            <inlet number="n+1">
+                <xinfo on="symbol">set n-th regexp</xinfo>
             </inlet>
         </inlets>
-        <outlets>
-            <outlet>output flow</outlet>
+        <outlets dynamic="true">
+            <outlet number="1">output match to first regexp</outlet>
+            <outlet number="...">output match to ... regexp</outlet>
+            <outlet number="n">output match to n-th regexp</outlet>
+            <outlet number="n+1">unmatched output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[F]       [reset(
-|         |
-[flow.match .+`.txt .+`.wav]
+[amp2( [amp3( [freq0( [freq1( [unmatched(
+|      |      |       |       |
+|      |      |       |       |
+|      |      |       |       |
+[symbol                       ]
+|
+[S digits=16]
+|
+[flow.match freq`d amp`d]
+|              ^|     ^^|
+|               |       |
+[S]           [S]       [ui.d @display_type=1]
 ]]>
             </pdascii>
         </example>
