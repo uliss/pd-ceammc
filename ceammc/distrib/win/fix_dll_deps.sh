@@ -26,7 +26,10 @@ fix_dll () {
     done
 }
 
+fix_dll @PROJECT_BINARY_DIR@/src/pdsend.exe
+fix_dll @PROJECT_BINARY_DIR@/src/pdreceive.exe
 fix_dll @PROJECT_BINARY_DIR@/src/pd.exe
+fix_dll @PROJECT_BINARY_DIR@/src/pd.dll
 
 find "@PROJECT_BINARY_DIR@/ceammc/ext" -name *.dll | grep -v tests | while read dll
 do
