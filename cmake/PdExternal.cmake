@@ -1,4 +1,5 @@
 include(CMakeParseArguments)
+include(TargetArch)
 
 set(PD_EXTERNAL_EXTENSION)
 set(PD_EXTERNAL_CFLAGS)
@@ -33,7 +34,15 @@ if(LINUX)
 endif()
 
 if(WIN32)
-    set(PD_EXTERNAL_EXTENSION ".dll")
+    target_architecture(_TARGET_ARCH)
+    if("${_TARGET_ARCH}" STREQUAL "x86_64")
+        set(PD_EXTERNAL_EXTENSION ".m_amd64")
+    elseif("${_TARGET_ARCH}" STREQUAL "i386")
+        set(PD_EXTERNAL_EXTENSION ".m_i386")
+    else()
+        set(PD_EXTERNAL_EXTENSION ".dll")
+    endif()
+
     set(PD_EXTERNAL_CFLAGS "-mms-bitfields")
     set(PD_EXTERNAL_LDFLAGS "-shared -Wl,--enable-auto-import")
 endif()

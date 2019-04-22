@@ -1,3 +1,6 @@
+include(TargetArch)
+target_architecture(SUMMARY_TARGET_ARCH)
+
 message(STATUS "===========================================")
 message(STATUS "Configure summary:")
 message(STATUS "===========================================")
@@ -9,6 +12,7 @@ message(STATUS "  Tk version:          ${TK_VERSION}")
 message(STATUS "  Distrib version:     ${CEAMMC_DISTRIB_VERSION}")
 message(STATUS "  C compiler:          ${CMAKE_C_COMPILER}")
 message(STATUS "  C++ compiler:        ${CMAKE_CXX_COMPILER}")
+message(STATUS "  Arch:                ${SUMMARY_TARGET_ARCH}")
 message(STATUS "  build type:          ${CMAKE_BUILD_TYPE}")
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
@@ -22,7 +26,6 @@ message(STATUS "  CXXFLAGS:            ${CMAKE_CXX_FLAGS_RELEASE} ${CMAKE_CXX_FL
 endif()
 
 if(APPLE)
-message(STATUS "  Arch:                ${CMAKE_OSX_ARCHITECTURES}")
 message(STATUS "  MacOSX sysroot:      ${CMAKE_OSX_SYSROOT}")
 message(STATUS "  MacOSX min-version:  ${CMAKE_OSX_DEPLOYMENT_TARGET}")
 endif()
@@ -60,4 +63,3 @@ message(STATUS "  Experimental:     ${WITH_EXPERIMENTAL}")
 message(STATUS "  Install prefix:   ${CMAKE_INSTALL_PREFIX}")
 message(STATUS "  External suffix:  ${PD_EXTERNAL_EXTENSION}")
 message(STATUS "")
-
