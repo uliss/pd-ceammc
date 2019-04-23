@@ -121,7 +121,7 @@ endif()
 
 
 if(UNIX)
-    configure_file(${PROJECT_SOURCE_DIR}/snapcraft.yaml.in
+    configure_file(${PROJECT_SOURCE_DIR}/snap/snapcraft.yaml.in
                ${PROJECT_SOURCE_DIR}/snap/snapcraft.yaml @ONLY)
 endif()
 
