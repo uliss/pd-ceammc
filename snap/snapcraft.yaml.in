@@ -1,0 +1,45 @@
+name: pd-ceammc
+version: "@CEAMMC_DISTRIB_VERSION@"
+summary: "Pure Data CEAMMC"
+description: |
+    Pure Data CEAMMC distribution and library of externals used for work and education purposes in Centre of electoacoustic music of Moscow Conservatory (CEAMMC) and ZIL-electro studio.
+    
+confinement: devmode
+base: core18
+
+apps:
+    pd-ceammc:
+        command: pd-ceammc
+        
+parts:
+    pd-ceammc:
+        plugin: cmake
+        source-type: git
+        source: https://github.com/uliss/pure-data
+        build-packages:
+            - g++
+            - make
+            - cmake 
+            - pkg-config 
+            - libasound2-dev 
+            - libmodplug-dev
+            - libboost-dev 
+            - gettext 
+            - libavahi-compat-libdnssd-dev 
+            - libsndfile1-dev
+            - libjack-jackd2-dev 
+            - libfftw3-dev 
+            - tcllib 
+            - tklib 
+            - alsa-utils 
+            - build-essential 
+            - patchelf 
+            - libarmadillo-dev 
+            - libusb-1.0.0-dev 
+            - libglib2.0-dev 
+            - libxcb-randr0-dev 
+            - libxcb-util-dev 
+            - libxcb1-dev 
+            - x11proto-dev 
+            - lsb-release
+
