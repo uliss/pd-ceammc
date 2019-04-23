@@ -180,7 +180,10 @@ if(GLIB_FOUND)
 
     list(REMOVE_DUPLICATES GLIB_INCLUDES)
     list(REMOVE_DUPLICATES GLIB_LIBRARIES)
-    list(REMOVE_DUPLICATES GLIB_LIBRARY_DIRS)
+
+    if(GLIB_LIBRARY_DIRS)
+        list(REMOVE_DUPLICATES GLIB_LIBRARY_DIRS)
+    endif()
 else()
     message(STATUS "glib-2.0 not found")
 endif()
