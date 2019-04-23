@@ -119,12 +119,6 @@ if(APPLE)
     add_custom_target(mac_deploy SOURCES mac/cmake-build-mac.sh.in mac/codesign.sh mac/dmg.sh)
 endif()
 
-
-if(UNIX)
-    configure_file(${PROJECT_SOURCE_DIR}/snap/snapcraft.yaml.in
-               ${PROJECT_SOURCE_DIR}/snap/snapcraft.yaml @ONLY)
-endif()
-
 add_custom_target(puredata_changelog SOURCES CHANGELOG.md)
 
 file(GLOB _DEB_FILES "debian/*")

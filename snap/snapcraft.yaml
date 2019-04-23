@@ -1,6 +1,6 @@
 name: pd-ceammc
 version: "2019.04"
-summary: "Pure Data CEAMMC"
+summary: "Pure Data CEAMMC distribution"
 description: |
     Pure Data CEAMMC distribution and library of externals used for work and education purposes in Centre of electoacoustic music of Moscow Conservatory (CEAMMC) and ZIL-electro studio.
     
@@ -9,11 +9,13 @@ base: core18
 
 apps:
     pd-ceammc:
-        command: pd-ceammc
+        command: lib/pd_ceammc/bin/pd
         
 parts:
     pd-ceammc:
         plugin: cmake
+        configflags:
+            - -DWITH_PORTAUDIO=OFF
         source-type: git
         source: https://github.com/uliss/pure-data
         build-packages:
@@ -35,11 +37,18 @@ parts:
             - build-essential 
             - patchelf 
             - libarmadillo-dev 
-            - libusb-1.0.0-dev 
             - libglib2.0-dev 
             - libxcb-randr0-dev 
             - libxcb-util-dev 
             - libxcb1-dev 
             - x11proto-dev 
             - lsb-release
-
+        stage-packages:
+            - libsndfile1
+            - libfftw3-single3
+            - libmodplug1
+            - libasound2
+            - tcl
+            - tk
+            - tklib
+            - tcllib
