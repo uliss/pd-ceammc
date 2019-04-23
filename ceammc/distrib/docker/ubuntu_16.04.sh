@@ -28,13 +28,11 @@ cmake -DCMAKE_BUILD_TYPE=RELEASE \
 make -j2
 make test
 make package
-make ceammc_lib
 ls
 "
 
 ID=$(docker ps -ql)
 
-docker cp ${ID}:${BUILD}/${LIB} .
 docker cp ${ID}:${BUILD}/${PD} .
 
 docker stop $ID
