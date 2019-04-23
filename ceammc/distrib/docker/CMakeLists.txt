@@ -10,6 +10,8 @@ if(DOCKER_EXE)
                    ${CMAKE_BINARY_DIR}/dist/docker/docker_ubuntu_17.10.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/debian_9.4.sh
                    ${CMAKE_BINARY_DIR}/dist/docker/docker_debian_9.4.sh @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/ubuntu_18.04.sh
+                   ${CMAKE_BINARY_DIR}/dist/docker/docker_ubuntu_18.04.sh @ONLY)
 
     add_custom_target(docker_debian9
         COMMAND "${CMAKE_BINARY_DIR}/dist/docker/docker_debian_9.4.sh"
@@ -19,5 +21,8 @@ if(DOCKER_EXE)
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
     add_custom_target(docker_ubuntu_1710
         COMMAND "${CMAKE_BINARY_DIR}/dist/docker/docker_ubuntu_17.10.sh"
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+    add_custom_target(docker_ubuntu_1804
+        COMMAND "${CMAKE_BINARY_DIR}/dist/docker/docker_ubuntu_18.04.sh"
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 endif()
