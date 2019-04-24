@@ -12,6 +12,7 @@ architectures:
     - i386
     - armhf
     - arm64
+    - s390x
 
 apps:
     pd-ceammc:
