@@ -636,133 +636,262 @@ struct icon_entry {
 };
 
 icon_entry icons_list[] = {
-  { gensym("add"), { icon_add_18, icon_add_24, icon_add_36, icon_add_48 } },
-  { gensym("add_circle"), { icon_add_circle_18, icon_add_circle_24, icon_add_circle_36, icon_add_circle_48 } },
-  { gensym("add_circle_outline"), { icon_add_circle_outline_18, icon_add_circle_outline_24, icon_add_circle_outline_36, icon_add_circle_outline_48 } },
-  { gensym("add_to_queue"), { icon_add_to_queue_18, icon_add_to_queue_24, icon_add_to_queue_36, icon_add_to_queue_48 } },
-  { gensym("alarm"), { icon_alarm_18, icon_alarm_24, icon_alarm_36, icon_alarm_48 } },
-  { gensym("alarm_off"), { icon_alarm_off_18, icon_alarm_off_24, icon_alarm_off_36, icon_alarm_off_48 } },
-  { gensym("alarm_on"), { icon_alarm_on_18, icon_alarm_on_24, icon_alarm_on_36, icon_alarm_on_48 } },
-  { gensym("album"), { icon_album_18, icon_album_24, icon_album_36, icon_album_48 } },
-  { gensym("arrow_down"), { icon_arrow_down_18, icon_arrow_down_24, icon_arrow_down_36, icon_arrow_down_48 } },
-  { gensym("arrow_left"), { icon_arrow_left_18, icon_arrow_left_24, icon_arrow_left_36, icon_arrow_left_48 } },
-  { gensym("arrow_right"), { icon_arrow_right_18, icon_arrow_right_24, icon_arrow_right_36, icon_arrow_right_48 } },
-  { gensym("arrow_up"), { icon_arrow_up_18, icon_arrow_up_24, icon_arrow_up_36, icon_arrow_up_48 } },
-  { gensym("audio"), { icon_audio_18, icon_audio_24, icon_audio_36, icon_audio_48 } },
-  { gensym("backspace"), { icon_backspace_18, icon_backspace_24, icon_backspace_36, icon_backspace_48 } },
-  { gensym("block"), { icon_block_18, icon_block_24, icon_block_36, icon_block_48 } },
-  { gensym("bluetooth"), { icon_bluetooth_18, icon_bluetooth_24, icon_bluetooth_36, icon_bluetooth_48 } },
-  { gensym("blur_on"), { icon_blur_on_18, icon_blur_on_24, icon_blur_on_36, icon_blur_on_48 } },
-  { gensym("bookmark"), { icon_bookmark_18, icon_bookmark_24, icon_bookmark_36, icon_bookmark_48 } },
-  { gensym("bookmark_border"), { icon_bookmark_border_18, icon_bookmark_border_24, icon_bookmark_border_36, icon_bookmark_border_48 } },
-  { gensym("build"), { icon_build_18, icon_build_24, icon_build_36, icon_build_48 } },
-  { gensym("cached"), { icon_cached_18, icon_cached_24, icon_cached_36, icon_cached_48 } },
-  { gensym("capslock"), { icon_capslock_18, icon_capslock_24, icon_capslock_36, icon_capslock_48 } },
-  { gensym("check_circle"), { icon_check_circle_18, icon_check_circle_24, icon_check_circle_36, icon_check_circle_48 } },
-  { gensym("clear"), { icon_clear_18, icon_clear_24, icon_clear_36, icon_clear_48 } },
-  { gensym("clock"), { icon_clock_18, icon_clock_24, icon_clock_36, icon_clock_48 } },
-  { gensym("computer"), { icon_computer_18, icon_computer_24, icon_computer_36, icon_computer_48 } },
-  { gensym("content_cut"), { icon_content_cut_18, icon_content_cut_24, icon_content_cut_36, icon_content_cut_48 } },
-  { gensym("copy"), { icon_copy_18, icon_copy_24, icon_copy_36, icon_copy_48 } },
-  { gensym("copyright"), { icon_copyright_18, icon_copyright_24, icon_copyright_36, icon_copyright_48 } },
-  { gensym("delete"), { icon_delete_18, icon_delete_24, icon_delete_36, icon_delete_48 } },
-  { gensym("delete_forever"), { icon_delete_forever_18, icon_delete_forever_24, icon_delete_forever_36, icon_delete_forever_48 } },
-  { gensym("done"), { icon_done_18, icon_done_24, icon_done_36, icon_done_48 } },
-  { gensym("eject"), { icon_eject_18, icon_eject_24, icon_eject_36, icon_eject_48 } },
-  { gensym("equalizer"), { icon_equalizer_18, icon_equalizer_24, icon_equalizer_36, icon_equalizer_48 } },
-  { gensym("exit"), { icon_exit_18, icon_exit_24, icon_exit_36, icon_exit_48 } },
-  { gensym("fast_forward"), { icon_fast_forward_18, icon_fast_forward_24, icon_fast_forward_36, icon_fast_forward_48 } },
-  { gensym("fast_rewind"), { icon_fast_rewind_18, icon_fast_rewind_24, icon_fast_rewind_36, icon_fast_rewind_48 } },
-  { gensym("favorite"), { icon_favorite_18, icon_favorite_24, icon_favorite_36, icon_favorite_48 } },
-  { gensym("favorite_border"), { icon_favorite_border_18, icon_favorite_border_24, icon_favorite_border_36, icon_favorite_border_48 } },
-  { gensym("fingerprint"), { icon_fingerprint_18, icon_fingerprint_24, icon_fingerprint_36, icon_fingerprint_48 } },
-  { gensym("flag"), { icon_flag_18, icon_flag_24, icon_flag_36, icon_flag_48 } },
-  { gensym("folder"), { icon_folder_18, icon_folder_24, icon_folder_36, icon_folder_48 } },
-  { gensym("folder_open"), { icon_folder_open_18, icon_folder_open_24, icon_folder_open_36, icon_folder_open_48 } },
-  { gensym("functions"), { icon_functions_18, icon_functions_24, icon_functions_36, icon_functions_48 } },
-  { gensym("gamepad"), { icon_gamepad_18, icon_gamepad_24, icon_gamepad_36, icon_gamepad_48 } },
-  { gensym("get_app"), { icon_get_app_18, icon_get_app_24, icon_get_app_36, icon_get_app_48 } },
-  { gensym("grade"), { icon_grade_18, icon_grade_24, icon_grade_36, icon_grade_48 } },
-  { gensym("grain"), { icon_grain_18, icon_grain_24, icon_grain_36, icon_grain_48 } },
-  { gensym("group"), { icon_group_18, icon_group_24, icon_group_36, icon_group_48 } },
-  { gensym("hdmi"), { icon_hdmi_18, icon_hdmi_24, icon_hdmi_36, icon_hdmi_48 } },
-  { gensym("headset"), { icon_headset_18, icon_headset_24, icon_headset_36, icon_headset_48 } },
-  { gensym("headset_mic"), { icon_headset_mic_18, icon_headset_mic_24, icon_headset_mic_36, icon_headset_mic_48 } },
-  { gensym("hearing"), { icon_hearing_18, icon_hearing_24, icon_hearing_36, icon_hearing_48 } },
-  { gensym("help"), { icon_help_18, icon_help_24, icon_help_36, icon_help_48 } },
-  { gensym("help_outline"), { icon_help_outline_18, icon_help_outline_24, icon_help_outline_36, icon_help_outline_48 } },
-  { gensym("history"), { icon_history_18, icon_history_24, icon_history_36, icon_history_48 } },
-  { gensym("home"), { icon_home_18, icon_home_24, icon_home_36, icon_home_48 } },
-  { gensym("hourglass"), { icon_hourglass_18, icon_hourglass_24, icon_hourglass_36, icon_hourglass_48 } },
-  { gensym("info"), { icon_info_18, icon_info_24, icon_info_36, icon_info_48 } },
-  { gensym("info_outline"), { icon_info_outline_18, icon_info_outline_24, icon_info_outline_36, icon_info_outline_48 } },
-  { gensym("input"), { icon_input_18, icon_input_24, icon_input_36, icon_input_48 } },
-  { gensym("keyboard"), { icon_keyboard_18, icon_keyboard_24, icon_keyboard_36, icon_keyboard_48 } },
-  { gensym("label"), { icon_label_18, icon_label_24, icon_label_36, icon_label_48 } },
-  { gensym("label_outline"), { icon_label_outline_18, icon_label_outline_24, icon_label_outline_36, icon_label_outline_48 } },
-  { gensym("levels"), { icon_levels_18, icon_levels_24, icon_levels_36, icon_levels_48 } },
-  { gensym("lightbulb_outline"), { icon_lightbulb_outline_18, icon_lightbulb_outline_24, icon_lightbulb_outline_36, icon_lightbulb_outline_48 } },
-  { gensym("linear_scale"), { icon_linear_scale_18, icon_linear_scale_24, icon_linear_scale_36, icon_linear_scale_48 } },
-  { gensym("list"), { icon_list_18, icon_list_24, icon_list_36, icon_list_48 } },
-  { gensym("lock"), { icon_lock_18, icon_lock_24, icon_lock_36, icon_lock_48 } },
-  { gensym("lock_open"), { icon_lock_open_18, icon_lock_open_24, icon_lock_open_36, icon_lock_open_48 } },
-  { gensym("loop"), { icon_loop_18, icon_loop_24, icon_loop_36, icon_loop_48 } },
-  { gensym("mic"), { icon_mic_18, icon_mic_24, icon_mic_36, icon_mic_48 } },
-  { gensym("mic_none"), { icon_mic_none_18, icon_mic_none_24, icon_mic_none_36, icon_mic_none_48 } },
-  { gensym("mic_off"), { icon_mic_off_18, icon_mic_off_24, icon_mic_off_36, icon_mic_off_48 } },
-  { gensym("midi"), { icon_midi_18, icon_midi_24, icon_midi_36, icon_midi_48 } },
-  { gensym("mouse"), { icon_mouse_18, icon_mouse_24, icon_mouse_36, icon_mouse_48 } },
-  { gensym("movie"), { icon_movie_18, icon_movie_24, icon_movie_36, icon_movie_48 } },
-  { gensym("notifications"), { icon_notifications_18, icon_notifications_24, icon_notifications_36, icon_notifications_48 } },
-  { gensym("open_with"), { icon_open_with_18, icon_open_with_24, icon_open_with_36, icon_open_with_48 } },
-  { gensym("pause"), { icon_pause_18, icon_pause_24, icon_pause_36, icon_pause_48 } },
-  { gensym("pause_circle_filled"), { icon_pause_circle_filled_18, icon_pause_circle_filled_24, icon_pause_circle_filled_36, icon_pause_circle_filled_48 } },
-  { gensym("pause_circle_outline"), { icon_pause_circle_outline_18, icon_pause_circle_outline_24, icon_pause_circle_outline_36, icon_pause_circle_outline_48 } },
-  { gensym("play"), { icon_play_18, icon_play_24, icon_play_36, icon_play_48 } },
-  { gensym("play_circle_filled"), { icon_play_circle_filled_18, icon_play_circle_filled_24, icon_play_circle_filled_36, icon_play_circle_filled_48 } },
-  { gensym("play_circle_filled_white"), { icon_play_circle_filled_white_18, icon_play_circle_filled_white_24, icon_play_circle_filled_white_36, icon_play_circle_filled_white_48 } },
-  { gensym("play_circle_outline"), { icon_play_circle_outline_18, icon_play_circle_outline_24, icon_play_circle_outline_36, icon_play_circle_outline_48 } },
-  { gensym("power"), { icon_power_18, icon_power_24, icon_power_36, icon_power_48 } },
-  { gensym("radio"), { icon_radio_18, icon_radio_24, icon_radio_36, icon_radio_48 } },
-  { gensym("record"), { icon_record_18, icon_record_24, icon_record_36, icon_record_48 } },
-  { gensym("redo"), { icon_redo_18, icon_redo_24, icon_redo_36, icon_redo_48 } },
-  { gensym("refresh"), { icon_refresh_18, icon_refresh_24, icon_refresh_36, icon_refresh_48 } },
-  { gensym("remove"), { icon_remove_18, icon_remove_24, icon_remove_36, icon_remove_48 } },
-  { gensym("remove_circle"), { icon_remove_circle_18, icon_remove_circle_24, icon_remove_circle_36, icon_remove_circle_48 } },
-  { gensym("remove_circle_outline"), { icon_remove_circle_outline_18, icon_remove_circle_outline_24, icon_remove_circle_outline_36, icon_remove_circle_outline_48 } },
-  { gensym("repeat"), { icon_repeat_18, icon_repeat_24, icon_repeat_36, icon_repeat_48 } },
-  { gensym("repeat_one"), { icon_repeat_one_18, icon_repeat_one_24, icon_repeat_one_36, icon_repeat_one_48 } },
-  { gensym("report_problem"), { icon_report_problem_18, icon_report_problem_24, icon_report_problem_36, icon_report_problem_48 } },
-  { gensym("save"), { icon_save_18, icon_save_24, icon_save_36, icon_save_48 } },
-  { gensym("search"), { icon_search_18, icon_search_24, icon_search_36, icon_search_48 } },
-  { gensym("select_all"), { icon_select_all_18, icon_select_all_24, icon_select_all_36, icon_select_all_48 } },
-  { gensym("settings"), { icon_settings_18, icon_settings_24, icon_settings_36, icon_settings_48 } },
-  { gensym("settings2"), { icon_settings2_18, icon_settings2_24, icon_settings2_36, icon_settings2_48 } },
-  { gensym("settings_voice"), { icon_settings_voice_18, icon_settings_voice_24, icon_settings_voice_36, icon_settings_voice_48 } },
-  { gensym("shuffle"), { icon_shuffle_18, icon_shuffle_24, icon_shuffle_36, icon_shuffle_48 } },
-  { gensym("skip_next"), { icon_skip_next_18, icon_skip_next_24, icon_skip_next_36, icon_skip_next_48 } },
-  { gensym("skip_previous"), { icon_skip_previous_18, icon_skip_previous_24, icon_skip_previous_36, icon_skip_previous_48 } },
-  { gensym("speaker"), { icon_speaker_18, icon_speaker_24, icon_speaker_36, icon_speaker_48 } },
-  { gensym("speaker_group"), { icon_speaker_group_18, icon_speaker_group_24, icon_speaker_group_36, icon_speaker_group_48 } },
-  { gensym("stars"), { icon_stars_18, icon_stars_24, icon_stars_36, icon_stars_48 } },
-  { gensym("stop"), { icon_stop_18, icon_stop_24, icon_stop_36, icon_stop_48 } },
-  { gensym("tape"), { icon_tape_18, icon_tape_24, icon_tape_36, icon_tape_48 } },
-  { gensym("timeline"), { icon_timeline_18, icon_timeline_24, icon_timeline_36, icon_timeline_48 } },
-  { gensym("touch_app"), { icon_touch_app_18, icon_touch_app_24, icon_touch_app_36, icon_touch_app_48 } },
-  { gensym("trending_flat"), { icon_trending_flat_18, icon_trending_flat_24, icon_trending_flat_36, icon_trending_flat_48 } },
-  { gensym("undo"), { icon_undo_18, icon_undo_24, icon_undo_36, icon_undo_48 } },
-  { gensym("videocam"), { icon_videocam_18, icon_videocam_24, icon_videocam_36, icon_videocam_48 } },
-  { gensym("visibility"), { icon_visibility_18, icon_visibility_24, icon_visibility_36, icon_visibility_48 } },
-  { gensym("visibility_off"), { icon_visibility_off_18, icon_visibility_off_24, icon_visibility_off_36, icon_visibility_off_48 } },
-  { gensym("volume_down"), { icon_volume_down_18, icon_volume_down_24, icon_volume_down_36, icon_volume_down_48 } },
-  { gensym("volume_mute"), { icon_volume_mute_18, icon_volume_mute_24, icon_volume_mute_36, icon_volume_mute_48 } },
-  { gensym("volume_off"), { icon_volume_off_18, icon_volume_off_24, icon_volume_off_36, icon_volume_off_48 } },
-  { gensym("volume_up"), { icon_volume_up_18, icon_volume_up_24, icon_volume_up_36, icon_volume_up_48 } },
-  { gensym("zoom_in"), { icon_zoom_in_18, icon_zoom_in_24, icon_zoom_in_36, icon_zoom_in_48 } },
-  { gensym("zoom_out"), { icon_zoom_out_18, icon_zoom_out_24, icon_zoom_out_36, icon_zoom_out_48 } },
-  { gensym("default"), { icon_default_18, icon_default_24, icon_default_36, icon_default_48 } },
-  { gensym("ceammc"), { icon_ceammc, icon_ceammc, icon_ceammc, icon_ceammc } },
+  { &s_, { icon_add_18, icon_add_24, icon_add_36, icon_add_48 } },
+  { &s_, { icon_add_circle_18, icon_add_circle_24, icon_add_circle_36, icon_add_circle_48 } },
+  { &s_, { icon_add_circle_outline_18, icon_add_circle_outline_24, icon_add_circle_outline_36, icon_add_circle_outline_48 } },
+  { &s_, { icon_add_to_queue_18, icon_add_to_queue_24, icon_add_to_queue_36, icon_add_to_queue_48 } },
+  { &s_, { icon_alarm_18, icon_alarm_24, icon_alarm_36, icon_alarm_48 } },
+  { &s_, { icon_alarm_off_18, icon_alarm_off_24, icon_alarm_off_36, icon_alarm_off_48 } },
+  { &s_, { icon_alarm_on_18, icon_alarm_on_24, icon_alarm_on_36, icon_alarm_on_48 } },
+  { &s_, { icon_album_18, icon_album_24, icon_album_36, icon_album_48 } },
+  { &s_, { icon_arrow_down_18, icon_arrow_down_24, icon_arrow_down_36, icon_arrow_down_48 } },
+  { &s_, { icon_arrow_left_18, icon_arrow_left_24, icon_arrow_left_36, icon_arrow_left_48 } },
+  { &s_, { icon_arrow_right_18, icon_arrow_right_24, icon_arrow_right_36, icon_arrow_right_48 } },
+  { &s_, { icon_arrow_up_18, icon_arrow_up_24, icon_arrow_up_36, icon_arrow_up_48 } },
+  { &s_, { icon_audio_18, icon_audio_24, icon_audio_36, icon_audio_48 } },
+  { &s_, { icon_backspace_18, icon_backspace_24, icon_backspace_36, icon_backspace_48 } },
+  { &s_, { icon_block_18, icon_block_24, icon_block_36, icon_block_48 } },
+  { &s_, { icon_bluetooth_18, icon_bluetooth_24, icon_bluetooth_36, icon_bluetooth_48 } },
+  { &s_, { icon_blur_on_18, icon_blur_on_24, icon_blur_on_36, icon_blur_on_48 } },
+  { &s_, { icon_bookmark_18, icon_bookmark_24, icon_bookmark_36, icon_bookmark_48 } },
+  { &s_, { icon_bookmark_border_18, icon_bookmark_border_24, icon_bookmark_border_36, icon_bookmark_border_48 } },
+  { &s_, { icon_build_18, icon_build_24, icon_build_36, icon_build_48 } },
+  { &s_, { icon_cached_18, icon_cached_24, icon_cached_36, icon_cached_48 } },
+  { &s_, { icon_capslock_18, icon_capslock_24, icon_capslock_36, icon_capslock_48 } },
+  { &s_, { icon_check_circle_18, icon_check_circle_24, icon_check_circle_36, icon_check_circle_48 } },
+  { &s_, { icon_clear_18, icon_clear_24, icon_clear_36, icon_clear_48 } },
+  { &s_, { icon_clock_18, icon_clock_24, icon_clock_36, icon_clock_48 } },
+  { &s_, { icon_computer_18, icon_computer_24, icon_computer_36, icon_computer_48 } },
+  { &s_, { icon_content_cut_18, icon_content_cut_24, icon_content_cut_36, icon_content_cut_48 } },
+  { &s_, { icon_copy_18, icon_copy_24, icon_copy_36, icon_copy_48 } },
+  { &s_, { icon_copyright_18, icon_copyright_24, icon_copyright_36, icon_copyright_48 } },
+  { &s_, { icon_delete_18, icon_delete_24, icon_delete_36, icon_delete_48 } },
+  { &s_, { icon_delete_forever_18, icon_delete_forever_24, icon_delete_forever_36, icon_delete_forever_48 } },
+  { &s_, { icon_done_18, icon_done_24, icon_done_36, icon_done_48 } },
+  { &s_, { icon_eject_18, icon_eject_24, icon_eject_36, icon_eject_48 } },
+  { &s_, { icon_equalizer_18, icon_equalizer_24, icon_equalizer_36, icon_equalizer_48 } },
+  { &s_, { icon_exit_18, icon_exit_24, icon_exit_36, icon_exit_48 } },
+  { &s_, { icon_fast_forward_18, icon_fast_forward_24, icon_fast_forward_36, icon_fast_forward_48 } },
+  { &s_, { icon_fast_rewind_18, icon_fast_rewind_24, icon_fast_rewind_36, icon_fast_rewind_48 } },
+  { &s_, { icon_favorite_18, icon_favorite_24, icon_favorite_36, icon_favorite_48 } },
+  { &s_, { icon_favorite_border_18, icon_favorite_border_24, icon_favorite_border_36, icon_favorite_border_48 } },
+  { &s_, { icon_fingerprint_18, icon_fingerprint_24, icon_fingerprint_36, icon_fingerprint_48 } },
+  { &s_, { icon_flag_18, icon_flag_24, icon_flag_36, icon_flag_48 } },
+  { &s_, { icon_folder_18, icon_folder_24, icon_folder_36, icon_folder_48 } },
+  { &s_, { icon_folder_open_18, icon_folder_open_24, icon_folder_open_36, icon_folder_open_48 } },
+  { &s_, { icon_functions_18, icon_functions_24, icon_functions_36, icon_functions_48 } },
+  { &s_, { icon_gamepad_18, icon_gamepad_24, icon_gamepad_36, icon_gamepad_48 } },
+  { &s_, { icon_get_app_18, icon_get_app_24, icon_get_app_36, icon_get_app_48 } },
+  { &s_, { icon_grade_18, icon_grade_24, icon_grade_36, icon_grade_48 } },
+  { &s_, { icon_grain_18, icon_grain_24, icon_grain_36, icon_grain_48 } },
+  { &s_, { icon_group_18, icon_group_24, icon_group_36, icon_group_48 } },
+  { &s_, { icon_hdmi_18, icon_hdmi_24, icon_hdmi_36, icon_hdmi_48 } },
+  { &s_, { icon_headset_18, icon_headset_24, icon_headset_36, icon_headset_48 } },
+  { &s_, { icon_headset_mic_18, icon_headset_mic_24, icon_headset_mic_36, icon_headset_mic_48 } },
+  { &s_, { icon_hearing_18, icon_hearing_24, icon_hearing_36, icon_hearing_48 } },
+  { &s_, { icon_help_18, icon_help_24, icon_help_36, icon_help_48 } },
+  { &s_, { icon_help_outline_18, icon_help_outline_24, icon_help_outline_36, icon_help_outline_48 } },
+  { &s_, { icon_history_18, icon_history_24, icon_history_36, icon_history_48 } },
+  { &s_, { icon_home_18, icon_home_24, icon_home_36, icon_home_48 } },
+  { &s_, { icon_hourglass_18, icon_hourglass_24, icon_hourglass_36, icon_hourglass_48 } },
+  { &s_, { icon_info_18, icon_info_24, icon_info_36, icon_info_48 } },
+  { &s_, { icon_info_outline_18, icon_info_outline_24, icon_info_outline_36, icon_info_outline_48 } },
+  { &s_, { icon_input_18, icon_input_24, icon_input_36, icon_input_48 } },
+  { &s_, { icon_keyboard_18, icon_keyboard_24, icon_keyboard_36, icon_keyboard_48 } },
+  { &s_, { icon_label_18, icon_label_24, icon_label_36, icon_label_48 } },
+  { &s_, { icon_label_outline_18, icon_label_outline_24, icon_label_outline_36, icon_label_outline_48 } },
+  { &s_, { icon_levels_18, icon_levels_24, icon_levels_36, icon_levels_48 } },
+  { &s_, { icon_lightbulb_outline_18, icon_lightbulb_outline_24, icon_lightbulb_outline_36, icon_lightbulb_outline_48 } },
+  { &s_, { icon_linear_scale_18, icon_linear_scale_24, icon_linear_scale_36, icon_linear_scale_48 } },
+  { &s_, { icon_list_18, icon_list_24, icon_list_36, icon_list_48 } },
+  { &s_, { icon_lock_18, icon_lock_24, icon_lock_36, icon_lock_48 } },
+  { &s_, { icon_lock_open_18, icon_lock_open_24, icon_lock_open_36, icon_lock_open_48 } },
+  { &s_, { icon_loop_18, icon_loop_24, icon_loop_36, icon_loop_48 } },
+  { &s_, { icon_mic_18, icon_mic_24, icon_mic_36, icon_mic_48 } },
+  { &s_, { icon_mic_none_18, icon_mic_none_24, icon_mic_none_36, icon_mic_none_48 } },
+  { &s_, { icon_mic_off_18, icon_mic_off_24, icon_mic_off_36, icon_mic_off_48 } },
+  { &s_, { icon_midi_18, icon_midi_24, icon_midi_36, icon_midi_48 } },
+  { &s_, { icon_mouse_18, icon_mouse_24, icon_mouse_36, icon_mouse_48 } },
+  { &s_, { icon_movie_18, icon_movie_24, icon_movie_36, icon_movie_48 } },
+  { &s_, { icon_notifications_18, icon_notifications_24, icon_notifications_36, icon_notifications_48 } },
+  { &s_, { icon_open_with_18, icon_open_with_24, icon_open_with_36, icon_open_with_48 } },
+  { &s_, { icon_pause_18, icon_pause_24, icon_pause_36, icon_pause_48 } },
+  { &s_, { icon_pause_circle_filled_18, icon_pause_circle_filled_24, icon_pause_circle_filled_36, icon_pause_circle_filled_48 } },
+  { &s_, { icon_pause_circle_outline_18, icon_pause_circle_outline_24, icon_pause_circle_outline_36, icon_pause_circle_outline_48 } },
+  { &s_, { icon_play_18, icon_play_24, icon_play_36, icon_play_48 } },
+  { &s_, { icon_play_circle_filled_18, icon_play_circle_filled_24, icon_play_circle_filled_36, icon_play_circle_filled_48 } },
+  { &s_, { icon_play_circle_filled_white_18, icon_play_circle_filled_white_24, icon_play_circle_filled_white_36, icon_play_circle_filled_white_48 } },
+  { &s_, { icon_play_circle_outline_18, icon_play_circle_outline_24, icon_play_circle_outline_36, icon_play_circle_outline_48 } },
+  { &s_, { icon_power_18, icon_power_24, icon_power_36, icon_power_48 } },
+  { &s_, { icon_radio_18, icon_radio_24, icon_radio_36, icon_radio_48 } },
+  { &s_, { icon_record_18, icon_record_24, icon_record_36, icon_record_48 } },
+  { &s_, { icon_redo_18, icon_redo_24, icon_redo_36, icon_redo_48 } },
+  { &s_, { icon_refresh_18, icon_refresh_24, icon_refresh_36, icon_refresh_48 } },
+  { &s_, { icon_remove_18, icon_remove_24, icon_remove_36, icon_remove_48 } },
+  { &s_, { icon_remove_circle_18, icon_remove_circle_24, icon_remove_circle_36, icon_remove_circle_48 } },
+  { &s_, { icon_remove_circle_outline_18, icon_remove_circle_outline_24, icon_remove_circle_outline_36, icon_remove_circle_outline_48 } },
+  { &s_, { icon_repeat_18, icon_repeat_24, icon_repeat_36, icon_repeat_48 } },
+  { &s_, { icon_repeat_one_18, icon_repeat_one_24, icon_repeat_one_36, icon_repeat_one_48 } },
+  { &s_, { icon_report_problem_18, icon_report_problem_24, icon_report_problem_36, icon_report_problem_48 } },
+  { &s_, { icon_save_18, icon_save_24, icon_save_36, icon_save_48 } },
+  { &s_, { icon_search_18, icon_search_24, icon_search_36, icon_search_48 } },
+  { &s_, { icon_select_all_18, icon_select_all_24, icon_select_all_36, icon_select_all_48 } },
+  { &s_, { icon_settings_18, icon_settings_24, icon_settings_36, icon_settings_48 } },
+  { &s_, { icon_settings2_18, icon_settings2_24, icon_settings2_36, icon_settings2_48 } },
+  { &s_, { icon_settings_voice_18, icon_settings_voice_24, icon_settings_voice_36, icon_settings_voice_48 } },
+  { &s_, { icon_shuffle_18, icon_shuffle_24, icon_shuffle_36, icon_shuffle_48 } },
+  { &s_, { icon_skip_next_18, icon_skip_next_24, icon_skip_next_36, icon_skip_next_48 } },
+  { &s_, { icon_skip_previous_18, icon_skip_previous_24, icon_skip_previous_36, icon_skip_previous_48 } },
+  { &s_, { icon_speaker_18, icon_speaker_24, icon_speaker_36, icon_speaker_48 } },
+  { &s_, { icon_speaker_group_18, icon_speaker_group_24, icon_speaker_group_36, icon_speaker_group_48 } },
+  { &s_, { icon_stars_18, icon_stars_24, icon_stars_36, icon_stars_48 } },
+  { &s_, { icon_stop_18, icon_stop_24, icon_stop_36, icon_stop_48 } },
+  { &s_, { icon_tape_18, icon_tape_24, icon_tape_36, icon_tape_48 } },
+  { &s_, { icon_timeline_18, icon_timeline_24, icon_timeline_36, icon_timeline_48 } },
+  { &s_, { icon_touch_app_18, icon_touch_app_24, icon_touch_app_36, icon_touch_app_48 } },
+  { &s_, { icon_trending_flat_18, icon_trending_flat_24, icon_trending_flat_36, icon_trending_flat_48 } },
+  { &s_, { icon_undo_18, icon_undo_24, icon_undo_36, icon_undo_48 } },
+  { &s_, { icon_videocam_18, icon_videocam_24, icon_videocam_36, icon_videocam_48 } },
+  { &s_, { icon_visibility_18, icon_visibility_24, icon_visibility_36, icon_visibility_48 } },
+  { &s_, { icon_visibility_off_18, icon_visibility_off_24, icon_visibility_off_36, icon_visibility_off_48 } },
+  { &s_, { icon_volume_down_18, icon_volume_down_24, icon_volume_down_36, icon_volume_down_48 } },
+  { &s_, { icon_volume_mute_18, icon_volume_mute_24, icon_volume_mute_36, icon_volume_mute_48 } },
+  { &s_, { icon_volume_off_18, icon_volume_off_24, icon_volume_off_36, icon_volume_off_48 } },
+  { &s_, { icon_volume_up_18, icon_volume_up_24, icon_volume_up_36, icon_volume_up_48 } },
+  { &s_, { icon_zoom_in_18, icon_zoom_in_24, icon_zoom_in_36, icon_zoom_in_48 } },
+  { &s_, { icon_zoom_out_18, icon_zoom_out_24, icon_zoom_out_36, icon_zoom_out_48 } },
+  { &s_, { icon_default_18, icon_default_24, icon_default_36, icon_default_48 } },
+  { &s_, { icon_ceammc, icon_ceammc, icon_ceammc, icon_ceammc } },
   { 0, { 0, 0, 0, 0 } }
 };
+void init_icon_list() {
+  icons_list[0].name = gensym("add");
+  icons_list[1].name = gensym("add_circle");
+  icons_list[2].name = gensym("add_circle_outline");
+  icons_list[3].name = gensym("add_to_queue");
+  icons_list[4].name = gensym("alarm");
+  icons_list[5].name = gensym("alarm_off");
+  icons_list[6].name = gensym("alarm_on");
+  icons_list[7].name = gensym("album");
+  icons_list[8].name = gensym("arrow_down");
+  icons_list[9].name = gensym("arrow_left");
+  icons_list[10].name = gensym("arrow_right");
+  icons_list[11].name = gensym("arrow_up");
+  icons_list[12].name = gensym("audio");
+  icons_list[13].name = gensym("backspace");
+  icons_list[14].name = gensym("block");
+  icons_list[15].name = gensym("bluetooth");
+  icons_list[16].name = gensym("blur_on");
+  icons_list[17].name = gensym("bookmark");
+  icons_list[18].name = gensym("bookmark_border");
+  icons_list[19].name = gensym("build");
+  icons_list[20].name = gensym("cached");
+  icons_list[21].name = gensym("capslock");
+  icons_list[22].name = gensym("check_circle");
+  icons_list[23].name = gensym("clear");
+  icons_list[24].name = gensym("clock");
+  icons_list[25].name = gensym("computer");
+  icons_list[26].name = gensym("content_cut");
+  icons_list[27].name = gensym("copy");
+  icons_list[28].name = gensym("copyright");
+  icons_list[29].name = gensym("delete");
+  icons_list[30].name = gensym("delete_forever");
+  icons_list[31].name = gensym("done");
+  icons_list[32].name = gensym("eject");
+  icons_list[33].name = gensym("equalizer");
+  icons_list[34].name = gensym("exit");
+  icons_list[35].name = gensym("fast_forward");
+  icons_list[36].name = gensym("fast_rewind");
+  icons_list[37].name = gensym("favorite");
+  icons_list[38].name = gensym("favorite_border");
+  icons_list[39].name = gensym("fingerprint");
+  icons_list[40].name = gensym("flag");
+  icons_list[41].name = gensym("folder");
+  icons_list[42].name = gensym("folder_open");
+  icons_list[43].name = gensym("functions");
+  icons_list[44].name = gensym("gamepad");
+  icons_list[45].name = gensym("get_app");
+  icons_list[46].name = gensym("grade");
+  icons_list[47].name = gensym("grain");
+  icons_list[48].name = gensym("group");
+  icons_list[49].name = gensym("hdmi");
+  icons_list[50].name = gensym("headset");
+  icons_list[51].name = gensym("headset_mic");
+  icons_list[52].name = gensym("hearing");
+  icons_list[53].name = gensym("help");
+  icons_list[54].name = gensym("help_outline");
+  icons_list[55].name = gensym("history");
+  icons_list[56].name = gensym("home");
+  icons_list[57].name = gensym("hourglass");
+  icons_list[58].name = gensym("info");
+  icons_list[59].name = gensym("info_outline");
+  icons_list[60].name = gensym("input");
+  icons_list[61].name = gensym("keyboard");
+  icons_list[62].name = gensym("label");
+  icons_list[63].name = gensym("label_outline");
+  icons_list[64].name = gensym("levels");
+  icons_list[65].name = gensym("lightbulb_outline");
+  icons_list[66].name = gensym("linear_scale");
+  icons_list[67].name = gensym("list");
+  icons_list[68].name = gensym("lock");
+  icons_list[69].name = gensym("lock_open");
+  icons_list[70].name = gensym("loop");
+  icons_list[71].name = gensym("mic");
+  icons_list[72].name = gensym("mic_none");
+  icons_list[73].name = gensym("mic_off");
+  icons_list[74].name = gensym("midi");
+  icons_list[75].name = gensym("mouse");
+  icons_list[76].name = gensym("movie");
+  icons_list[77].name = gensym("notifications");
+  icons_list[78].name = gensym("open_with");
+  icons_list[79].name = gensym("pause");
+  icons_list[80].name = gensym("pause_circle_filled");
+  icons_list[81].name = gensym("pause_circle_outline");
+  icons_list[82].name = gensym("play");
+  icons_list[83].name = gensym("play_circle_filled");
+  icons_list[84].name = gensym("play_circle_filled_white");
+  icons_list[85].name = gensym("play_circle_outline");
+  icons_list[86].name = gensym("power");
+  icons_list[87].name = gensym("radio");
+  icons_list[88].name = gensym("record");
+  icons_list[89].name = gensym("redo");
+  icons_list[90].name = gensym("refresh");
+  icons_list[91].name = gensym("remove");
+  icons_list[92].name = gensym("remove_circle");
+  icons_list[93].name = gensym("remove_circle_outline");
+  icons_list[94].name = gensym("repeat");
+  icons_list[95].name = gensym("repeat_one");
+  icons_list[96].name = gensym("report_problem");
+  icons_list[97].name = gensym("save");
+  icons_list[98].name = gensym("search");
+  icons_list[99].name = gensym("select_all");
+  icons_list[100].name = gensym("settings");
+  icons_list[101].name = gensym("settings2");
+  icons_list[102].name = gensym("settings_voice");
+  icons_list[103].name = gensym("shuffle");
+  icons_list[104].name = gensym("skip_next");
+  icons_list[105].name = gensym("skip_previous");
+  icons_list[106].name = gensym("speaker");
+  icons_list[107].name = gensym("speaker_group");
+  icons_list[108].name = gensym("stars");
+  icons_list[109].name = gensym("stop");
+  icons_list[110].name = gensym("tape");
+  icons_list[111].name = gensym("timeline");
+  icons_list[112].name = gensym("touch_app");
+  icons_list[113].name = gensym("trending_flat");
+  icons_list[114].name = gensym("undo");
+  icons_list[115].name = gensym("videocam");
+  icons_list[116].name = gensym("visibility");
+  icons_list[117].name = gensym("visibility_off");
+  icons_list[118].name = gensym("volume_down");
+  icons_list[119].name = gensym("volume_mute");
+  icons_list[120].name = gensym("volume_off");
+  icons_list[121].name = gensym("volume_up");
+  icons_list[122].name = gensym("zoom_in");
+  icons_list[123].name = gensym("zoom_out");
+  icons_list[124].name = gensym("default");
+  icons_list[125].name = gensym("ceammc");
+}
+
 const char* icons_string = "ceammc zoom_out zoom_in volume_up volume_off volume_mute volume_down visibility_off visibility videocam undo trending_flat touch_app timeline tape stop stars speaker_group speaker skip_previous skip_next shuffle settings_voice settings2 settings select_all search save report_problem repeat_one repeat remove_circle_outline remove_circle remove refresh redo record radio power play_circle_outline play_circle_filled_white play_circle_filled play pause_circle_outline pause_circle_filled pause open_with notifications movie mouse midi mic_off mic_none mic loop lock_open lock list linear_scale lightbulb_outline levels label_outline label keyboard input info_outline info hourglass home history help_outline help hearing headset_mic headset hdmi group grain grade get_app gamepad functions folder_open folder flag fingerprint favorite_border favorite fast_rewind fast_forward exit equalizer eject done delete_forever delete copyright copy content_cut computer clock clear check_circle capslock cached build bookmark_border bookmark blur_on bluetooth block backspace audio arrow_up arrow_right arrow_left arrow_down album alarm_on alarm_off alarm add_to_queue add_circle_outline add_circle add ";
 #endif // GENERATED_ICONS_H

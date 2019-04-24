@@ -14,20 +14,17 @@
 #ifndef LIST_DISTRIBUTION_H
 #define LIST_DISTRIBUTION_H
 
-#include "ceammc_object.h"
+#include "list_base.h"
 
 using namespace ceammc;
 
-class DataTypeMList;
-
-class ListDistribution : public BaseObject {
+class ListDistribution : public ListBase {
     BoolProperty* normalize_;
 
 public:
     ListDistribution(const PdArgs& a);
 
     void onList(const AtomList& l) override;
-    void onDataT(const DataTypeMList& lst);
 };
 
 void setup_list_distribution();

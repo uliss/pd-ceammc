@@ -41,10 +41,12 @@ private:
 public:
     UISliders();
 
+    void init(t_symbol* name, const AtomList& args, bool usePresets);
+
     void okSize(t_rect* newrect);
-    t_pd_err notify(t_symbol* attrname, t_symbol* msg);
-    void paint(t_object* view);
-    void paintBackground();
+    void onPropChange(t_symbol* prop_name);
+    void paint();
+    void paintLabels();
     void paintSliders();
 
     void onBang();
@@ -56,9 +58,10 @@ public:
     void storePreset(size_t idx);
 
     // mouse
-    void onMouseDown(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
+    void onPopup(t_symbol* menu_name, long item_idx);
 
     // methods
     void m_get(const AtomList& l);
@@ -94,7 +97,6 @@ public:
     static void setup();
 
 private:
-    void redrawSliders();
     void redrawAll();
 };
 

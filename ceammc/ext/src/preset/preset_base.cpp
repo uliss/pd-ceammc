@@ -71,7 +71,7 @@ void PresetBase::m_clear(t_symbol*, const AtomList& index)
 
 void PresetBase::bind()
 {
-    bindReceive(Preset::SYM_PRESET_ALL);
+    bindReceive(gensym(Preset::SYM_PRESET_ALL));
 
     if (PresetStorage::instance().hasPreset(preset_path_)) {
         OBJ_DBG << "warning! preset already exists: " << preset_path_->s_name;

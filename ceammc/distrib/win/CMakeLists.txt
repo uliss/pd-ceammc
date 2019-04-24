@@ -13,6 +13,7 @@ if(WIN32)
 endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/pd.iss ${CMAKE_BINARY_DIR})
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fix_dll_deps.sh ${CMAKE_BINARY_DIR})
 
 if(WIN32 OR MSYS OR MINGW)
     install(FILES fonts/DejaVuSansMono.ttf
@@ -22,7 +23,7 @@ endif()
 find_program(ISCC_PATH
     NAMES ISCC.exe
     PATHS "$ENV{PROGRAMFILES}/Inno Setup 5"
-        "$ENV{PROGRAMFILES(X86)}/Inno Setup 5"
+          "C:/Program Files (x86)/Inno Setup 5"
           "$ENV{HOME}/.wine/drive_c/Program Files/Inno Setup 5")
 
 

@@ -47,8 +47,8 @@ public:
     UIScope();
 
     void okSize(t_rect* newrect);
-    t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
-    void paint(t_object* view);
+    void onPropChange(t_symbol* prop_name);
+    void paint();
     void paintBackground();
     void paintScope();
 
@@ -58,7 +58,7 @@ public:
     void m_freeze(t_float f);
     void m_scale(t_float f);
 
-    void onMouseDown(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
 
 public:

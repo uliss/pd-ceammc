@@ -16,6 +16,18 @@ add_subdirectory(sf2)
 add_subdirectory(speech)
 add_subdirectory(stk)
 add_subdirectory(subprocess)
+add_subdirectory(fmt)
+
+option(RE2_BUILD_TESTING "" OFF)
+add_subdirectory(re2)
+
+if(UNIX)
+    set_target_properties(re2 PROPERTIES COMPILE_FLAGS "-fPIC")
+endif()
+
+if(UNIX)
+    set_target_properties(fmt PROPERTIES COMPILE_FLAGS "-fPIC")
+endif()
 
 if(WITH_EXPERIMENTAL)
     add_subdirectory(libusb)

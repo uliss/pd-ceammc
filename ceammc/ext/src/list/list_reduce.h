@@ -26,7 +26,7 @@ public:
     ListReduce(const PdArgs& a);
     void onList(const AtomList& l);
     void onInlet(size_t n, const AtomList& l);
-    void onDataT(const DataTypeMList& l);
+    void onDataT(const DataTPtr<DataTypeMList>& l);
 };
 
 void setup_list_reduce();

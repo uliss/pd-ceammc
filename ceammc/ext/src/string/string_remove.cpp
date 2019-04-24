@@ -17,9 +17,9 @@
 
 #include <boost/algorithm/string.hpp>
 
-static t_symbol* REMOVE_ALL = gensym("all");
-static t_symbol* REMOVE_FIRST = gensym("first");
-static t_symbol* REMOVE_LAST = gensym("last");
+static t_symbol* REMOVE_ALL;
+static t_symbol* REMOVE_FIRST;
+static t_symbol* REMOVE_LAST;
 
 StringRemove::StringRemove(const PdArgs& a)
     : BaseObject(a)
@@ -49,23 +49,23 @@ void StringRemove::onInlet(size_t, const AtomList& l)
     str_to_remove_ = to_string(l);
 }
 
-void StringRemove::onDataT(const DataTypeString& s)
+void StringRemove::onDataT(const DataTPtr<DataTypeString>& dptr)
 {
-    DataTypeString* str = 0;
-
     if (mode_->value() == REMOVE_ALL) {
-        str = new DataTypeString(s.removeAll(str_to_remove_));
+        dataTo(0, DataTPtr<DataTypeString>(dptr->removeAll(str_to_remove_)));
     } else if (mode_->value() == REMOVE_FIRST) {
-        str = new DataTypeString(s.removeFirst(str_to_remove_));
+        dataTo(0, DataTPtr<DataTypeString>(dptr->removeFirst(str_to_remove_)));
     } else if (mode_->value() == REMOVE_LAST) {
-        str = new DataTypeString(s.removeLast(str_to_remove_));
+        dataTo(0, DataTPtr<DataTypeString>(dptr->removeLast(str_to_remove_)));
     }
-
-    dataTo(0, DataPtr(str));
 }
 
 void setup_string0x2eremove()
 {
+    REMOVE_ALL = gensym("all");
+    REMOVE_FIRST = gensym("first");
+    REMOVE_LAST = gensym("last");
+
     ObjectFactory<StringRemove> obj("string.remove");
     obj.processData<DataTypeString>();
     obj.addAlias("str.remove");

@@ -22,12 +22,12 @@ StringLength::StringLength(const PdArgs& a)
 
 void StringLength::onSymbol(t_symbol* s)
 {
-    onDataT(DataTypeString(s));
+    floatTo(0, DataTypeString(s).length());
 }
 
-void StringLength::onDataT(const DataTypeString& s)
+void StringLength::onDataT(const DataTPtr<DataTypeString>& dptr)
 {
-    floatTo(0, s.length());
+    floatTo(0, dptr->length());
 }
 
 void setup_string0x2elength()

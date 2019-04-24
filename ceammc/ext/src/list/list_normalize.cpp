@@ -1,14 +1,14 @@
 #include "list_normalize.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 #include "ceammc_log.h"
+#include "datatype_mlist.h"
 
-static t_symbol* BY_RANGE = gensym("range");
-static t_symbol* BY_SUM = gensym("sum");
+static t_symbol* BY_RANGE;
+static t_symbol* BY_SUM;
 
 ListNormalize::ListNormalize(const PdArgs& a)
-    : BaseObject(a)
+    : ListBase(a)
     , by_(0)
 {
     createOutlet();
@@ -40,13 +40,11 @@ void ListNormalize::onList(const AtomList& lst)
     listTo(0, out);
 }
 
-void ListNormalize::onDataT(const DataTypeMList& lst)
-{
-    onList(lst.toList());
-}
-
 void setup_list_normalize()
 {
+    BY_RANGE = gensym("range");
+    BY_SUM = gensym("sum");
+
     ObjectFactory<ListNormalize> obj("list.normalize");
     obj.processData<DataTypeMList>();
 }

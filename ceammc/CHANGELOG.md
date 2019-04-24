@@ -1,5 +1,36 @@
 # CEAMMC external library changelog
 
+## [0.7.1]
+### Added:
+- properties dialogs for ui.* objects are improved:
+  - $0 can be used in @send and @receive
+  - tooltips are shown when mouse pointer is over property label
+  - foldable categories added
+- outer/inner label added for almost all UI widgets
+- ui.matrix read/write methods added to save/load in text format
+- ui.dsp~ popup menu added
+- array.hist added
+- array.mean added
+- array.rms added
+- array.stddev added
+- array.sum added
+- array.sum2 added
+- array.variance added
+- flow.match added (regexp route)
+- hw.apple_smc (system management control) added
+- hw.apple_sms (sudden motion sensor) added
+- hw.cpu_temp added
+- hw.display added
+- hw.kdb_light added
+- string.match added (regexp match for symbols and strings)
+- array.fill sin method added
+- array.fill gauss method added
+- array.fill uniform method added
+- documentation added for:
+  - fx.distortion1~
+### Changed:
+- ui.dsp~ Shift+DblClick binding removed
+
 ## [0.7]
 ### Added:
 - array.window added

@@ -1,83 +1,81 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 419 50 cnv 1 346 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 419 50 maps each list value via external object(s);
+#X obj 432 50 cnv 1 333 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 432 50 maps each list value via external object(s);
 #X obj 1 1 cnv 5 765 40 empty empty list.each 20 20 0 20 -104026 -4096
 0;
 #X obj 675 11 list.each;
-#X obj 205 80 cnv 1 560 61 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Each @step elements are passed via righmost outlet to
+#X obj 210 80 cnv 1 555 65 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Each @step elements are passed via righmost outlet to
 extenal object \, that suppose to return it back to rightmost inlet.
 So various mapping and filtering are possible.;
-#X msg 50 169 1 2 3 4 5 6 7 8 9;
-#X msg 261 169 1 2 3 4 5 6 7 8 9;
-#X obj 50 198 list.each;
-#X obj 184 198 pow 2;
-#X obj 261 198 list.each 2;
-#X obj 414 198 *;
-#X obj 50 227 msg set;
-#X obj 261 227 msg set;
-#X msg 50 256 ;
-#X msg 261 256 ;
-#X text 50 285 more complex example: multiply by three element in
-list;
-#X msg 50 313 1 2 3 4 5 6 7 8 9;
-#X obj 78 342 hradio 15 1 0 8 empty empty empty 17 7 0 10 -262144 -1
+#X msg 50 173 1 2 3 4 5 6 7 8 9;
+#X msg 261 173 1 2 3 4 5 6 7 8 9;
+#X obj 50 202 list.each;
+#X obj 184 202 pow 2;
+#X obj 261 202 list.each 2;
+#X obj 414 202 *;
+#X obj 50 231 msg set;
+#X obj 261 231 msg set;
+#X msg 50 260 ;
+#X msg 261 260 ;
+#X text 50 289 more complex example: multiply by three element in list;
+#X msg 50 317 1 2 3 4 5 6 7 8 9;
+#X obj 78 346 hradio 15 1 0 8 empty empty empty 17 7 0 10 -262144 -1
 -1 0;
-#X msg 78 371 @step \$1;
-#X obj 50 400 list.each 3;
-#X obj 203 400 list.reduce;
-#X obj 357 400 *;
-#X obj 50 429 msg set;
-#X msg 50 457 ;
-#X obj 20 496 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 501 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X msg 78 375 @step \$1;
+#X obj 50 404 list.each 3;
+#X obj 203 404 list.reduce;
+#X obj 357 404 *;
+#X obj 50 433 msg set;
+#X msg 50 461 ;
+#X obj 20 500 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 505 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 506 1\.;
-#X text 150 506 int;
-#X obj 241 507 cnv 1 40 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 506 step: see @step property. Range: 1\...1024;
-#X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 539 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 540 1\.;
+#X text 150 540 int;
+#X obj 246 541 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 540 step: see @step property. Range: 1\...1024;
+#X obj 20 570 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 575 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 544 @step;
-#X text 240 544 Get/Set number of elements outputted to rightmost
-outlet on each iteration. Type: int. Default value: 1\. Value range:
-1-1024;
-#X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 610 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 610 @step;
+#X text 245 610 Get/Set number of elements outputted to rightmost outlet
+on each iteration. Type: int. Default value: 1\. Range: 1\...1024\.;
+#X obj 20 677 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 682 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 615 1\.;
-#X text 150 615 *list*;
-#X text 240 615 Input list.;
-#X text 150 633 *data:mlist*;
-#X text 240 633 Input mlist.;
-#X text 120 651 2\.;
-#X text 240 651 New modified value from applied object..;
-#X obj 20 679 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 684 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 683 1\.;
+#X text 150 683 *list*;
+#X text 245 683 Input list.;
+#X text 150 703 *data:mlist*;
+#X text 245 703 Input mlist.;
+#X text 110 723 2\.;
+#X text 245 723 New modified value from applied object.;
+#X obj 20 753 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 758 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 689 1\.;
-#X text 240 689 New modified list (or mlist);
-#X text 120 707 2\.;
-#X text 240 707 single element or list of values (if @step property >
-1);
+#X text 110 759 1\.;
+#X text 245 759 New modified list (or mlist).;
+#X text 110 779 2\.;
+#X text 245 779 single element or list of values (if @step property
+> 1).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 755 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 758 library: ceammc v0.7;
-#X text 525 770 see also:;
-#X obj 601 770 list.do;
-#X obj 666 770 list.apply_to;
-#N canvas 10 777 400 290 info 0;
+#X obj 1 829 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 832 library: ceammc v0.7.1;
+#X text 507 844 see also:;
+#X obj 581 844 list.do;
+#X obj 646 844 list.apply_to;
+#N canvas 10 851 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.7;
+#X text 120 32 0.7.1;
 #X text 10 54 object:;
 #X text 120 54 list.each;
 #X text 10 76 category:;
@@ -96,7 +94,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 777 pd info;
+#X restore 10 851 pd info;
 #X connect 6 0 8 0;
 #X connect 7 0 10 0;
 #X connect 8 0 12 0;

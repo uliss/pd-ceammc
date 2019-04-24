@@ -25,7 +25,7 @@ class StringEqual : public BaseObject {
 public:
     StringEqual(const PdArgs& a);
     void onSymbol(t_symbol* s);
-    void onDataT(const DataTypeString& s);
+    void onDataT(const DataTPtr<DataTypeString>& data);
     void onInlet(size_t, const AtomList& l);
 };
 

@@ -2,8 +2,8 @@
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 363 50 cnv 1 377 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 363 50 math objects. can operate with list of numbers.;
+#X obj 376 50 cnv 1 364 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 376 50 math objects. can operate with list of numbers.;
 #X obj 30 116 math.abs;
 #X text 200 116 absolute value function;
 #X obj 30 143 math.acos;
@@ -38,8 +38,7 @@ value;
 #X obj 30 521 math.div;
 #X text 200 521 division (on lists too);
 #X obj 30 548 math.e;
-#X text 200 548 mathematical constant \, base of the natural
-logarithm;
+#X text 200 548 mathematical constant \, base of the natural logarithm;
 #X obj 30 575 math.exp;
 #X text 200 575 exponential functions;
 #X obj 30 602 math.exp2;

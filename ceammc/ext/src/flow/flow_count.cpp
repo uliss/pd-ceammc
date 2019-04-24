@@ -14,9 +14,6 @@
 #include "flow_count.h"
 #include "ceammc_factory.h"
 
-static t_symbol* PROP_VALUE = gensym("@value");
-static t_symbol* PROP_GET_VALUE = gensym("@value?");
-
 FlowCount::FlowCount(const PdArgs& a)
     : BaseObject(a)
     , counter_(0)
@@ -70,6 +67,9 @@ bool FlowCount::processAnyInlets(t_symbol*, const AtomList&)
 
 bool FlowCount::processAnyProps(t_symbol* s, const AtomList& l)
 {
+    static t_symbol* PROP_VALUE = gensym("@value");
+    static t_symbol* PROP_GET_VALUE = gensym("@value?");
+
     // get
     if (s == PROP_GET_VALUE) {
         anyTo(0, PROP_VALUE, counter_->get());

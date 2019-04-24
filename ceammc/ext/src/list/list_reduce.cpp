@@ -35,9 +35,9 @@ void ListReduce::onInlet(size_t n, const AtomList& l)
     accum_ = atomlistToValue<Atom>(l, Atom(0.f));
 }
 
-void ListReduce::onDataT(const DataTypeMList& l)
+void ListReduce::onDataT(const DataTPtr<DataTypeMList>& l)
 {
-    onList(l.toList());
+    onList(l->toList());
 }
 
 void setup_list_reduce()

@@ -14,13 +14,11 @@
 #ifndef LIST_AT_H
 #define LIST_AT_H
 
-#include "ceammc_object.h"
+#include "list_base.h"
 
 using namespace ceammc;
 
-class DataTypeMList;
-
-class ListAt : public BaseObject {
+class ListAt : public ListBase {
     ListProperty* pos_;
     SymbolEnumProperty* at_method_;
 
@@ -28,7 +26,6 @@ public:
     ListAt(const PdArgs& a);
     void onInlet(size_t idx, const AtomList& l);
     void onList(const AtomList& l);
-    void onDataT(const DataTypeMList& data);
 
 private:
     const Atom* at(const AtomList& l, const Atom& p);

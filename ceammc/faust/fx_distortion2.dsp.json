@@ -1,10 +1,10 @@
 {
 	"name": "fx.distortion2",
 	"filename": "fx_distortion2",
-	"version": "2.8.5",
+	"version": "2.17.3",
 	"compile_options": "cpp, -scal -ftz 0",
-	"library_list": ["/Users/serj/work/music/pd-exp/pure-data/ceammc/faust/guitarix.lib","/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/misceffects.lib","/Users/serj/work/music/pd-exp/pure-data/ceammc/faust/HighShelf.dsp","/usr/local/share/faust/maxmsp.lib","/usr/local/share/faust/signals.lib"],
-	"include_pathnames": ["/Users/serj/work/music/pd-exp/pure-data/ceammc/faust","/usr/local/share/faust","/usr/share/faust"],
+	"library_list": ["/Users/serj/work/music/pure-data/ceammc/faust/guitarix.lib","/usr/local/share/faust/stdfaust.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/misceffects.lib","/Users/serj/work/music/pure-data/ceammc/faust/HighShelf.dsp","/usr/local/share/faust/maxmsp.lib","/usr/local/share/faust/signals.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
 	"inputs": "1",
 	"outputs": "1",
 	"meta": [ 
@@ -14,7 +14,7 @@
 		{ "basics.lib/version": "0.0" },
 		{ "copyright": "(c)brummer 2008" },
 		{ "delays.lib/name": "Faust Delay Library" },
-		{ "delays.lib/version": "0.0" },
+		{ "delays.lib/version": "0.1" },
 		{ "filename": "fx_distortion2" },
 		{ "filters.lib/name": "Faust Filters Library" },
 		{ "filters.lib/version": "0.0" },
@@ -111,9 +111,14 @@
 					"label": "low_highpass",
 					"items": [ 
 						{
+							"type": "checkbox",
+							"label": "flt_on_off",
+							"address": "/fx.distortion2/low_highpass/flt_on_off"
+						},
+						{
 							"type": "nentry",
-							"label": "lh_high_freq",
-							"address": "/fx.distortion2/low_highpass/lh_high_freq",
+							"label": "hp_freq",
+							"address": "/fx.distortion2/low_highpass/hp_freq",
 							"meta": [
 								{ "unit": "Hz" }
 							],
@@ -124,8 +129,8 @@
 						},
 						{
 							"type": "nentry",
-							"label": "lh_low_freq",
-							"address": "/fx.distortion2/low_highpass/lh_low_freq",
+							"label": "lp_freq",
+							"address": "/fx.distortion2/low_highpass/lp_freq",
 							"meta": [
 								{ "unit": "Hz" }
 							],
@@ -133,11 +138,6 @@
 							"min": "20",
 							"max": "12000",
 							"step": "10"
-						},
-						{
-							"type": "checkbox",
-							"label": "lh_on_off",
-							"address": "/fx.distortion2/low_highpass/lh_on_off"
 						}
 					]
 				},

@@ -30,7 +30,7 @@ public:
     void onInlet(size_t, const AtomList&) override;
     void onList(const AtomList& lst) override;
 
-    void onDataT(const DataTypeMList& l);
+    void onDataT(const DataTPtr<DataTypeMList>& l);
 
 private:
     void precalcIndexes(size_t N);

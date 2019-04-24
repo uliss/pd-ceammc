@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 584 50 cnv 1 181 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 584 50 multislot signal mixer;
+#X obj 590 50 cnv 1 175 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 590 50 multislot signal mixer;
 #X obj 1 1 cnv 5 765 40 empty empty mix~ 20 20 0 20 -104026 -4096 0;
 #X obj 710 11 mix~;
 #X obj 50 118 ui.sliders @count 4 @size 150 100;
@@ -18,74 +18,74 @@
 #X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 364 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 369 1\.;
-#X text 150 369 int;
-#X obj 241 370 cnv 1 17 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 369 N: number of inputs. Range: 2\...16;
-#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 402 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 399 1\.;
+#X text 150 399 int;
+#X obj 246 400 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 399 N: number of inputs. Range: 2\...16;
+#X obj 20 429 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 434 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 407 @xfade_time;
-#X text 240 407 Get/Set smooth time. Type: float. Units: ms. Default
-value: 20\. Min value: 1;
-#X msg 120 444 @value;
-#X text 240 444 Get/Set linear amplitude values. Type: list. Min
-value: 0;
-#X msg 120 471 @db;
-#X text 240 471 Get/Set amplitude values in decibels. Type: list.
-Units: db. Min value: -144;
-#X msg 120 508 @mute;
-#X text 240 508 Get/Set mute channel list. Type: list. Allowed values:
-0 \, 1;
-#X msg 120 535 @solo;
-#X text 240 535 Get/Set solo channel list. Type: list. Allowed values:
-0 \, 1;
-#X obj 20 572 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 577 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 469 @db;
+#X text 245 469 Get/Set amplitude values in decibels. Type: list. Units:
+db. Min value: -144\.;
+#X msg 110 511 @mute;
+#X text 245 511 Get/Set mute channel list. Type: list. Allowed values:
+0 \, 1\.;
+#X msg 110 540 @solo;
+#X text 245 540 Get/Set solo channel list. Type: list. Allowed values:
+0 \, 1\.;
+#X msg 110 569 @value;
+#X text 245 569 Get/Set linear amplitude values. Type: list. Min value:
+0\.;
+#X msg 110 598 @xfade_time;
+#X text 245 598 Get/Set smooth time. Type: float. Units: ms. Default
+value: 20\. Min value: 1\.;
+#X obj 20 650 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 655 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 582 mute;
-#X text 240 582 mute specified channel. Arguments are:;
-#X obj 250 610 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 610 CH: channel index (from 0). Type: int. Min value: 0;
-#X obj 250 638 cnv 1 30 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 638 VAL: 1 - mute \, 0 - unmute. Type: int. Allowed
-values: 0 \, 1\.;
-#X msg 120 680 solo;
-#X text 240 680 solo (mute all others that not solo) specified
-channel. Arguments are:;
-#X obj 250 722 cnv 1 22 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 722 CH: channel index (from 0). Type: int. Min value: 0;
-#X obj 250 750 cnv 1 40 21 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 250 750 [VAL]: 1 - enable solo \, 0 - disable solo. Type: int.
+#X msg 110 690 mute;
+#X text 245 690 mute specified channel. Arguments are:;
+#X obj 255 713 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 713 CH: channel index (from 0). Type: int. Min value: 0\.;
+#X obj 255 736 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 736 VAL: 1 - mute \, 0 - unmute. Type: int. Allowed values:
+0 \, 1\.;
+#X msg 110 761 solo;
+#X text 245 761 solo (mute all others that not solo) specified channel.
+Arguments are:;
+#X obj 255 799 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 799 CH: channel index (from 0). Type: int. Min value: 0\.;
+#X obj 255 822 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 822 [VAL]: 1 - enable solo \, 0 - disable solo. Type: int.
 Allowed values: 0 \, 1\.;
-#X obj 20 802 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 807 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 872 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 877 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 812 1\.;
-#X text 240 812 input signal.;
-#X text 120 830 ....;
-#X text 240 830 input signal.;
-#X text 120 848 n.;
-#X text 150 848 *float*;
-#X text 240 848 input signal.;
-#X obj 20 876 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 881 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 878 1\.;
+#X text 245 878 input signal.;
+#X text 110 898 ....;
+#X text 245 898 input signal.;
+#X text 110 918 n.;
+#X text 150 918 *float*;
+#X text 245 918 input signal.;
+#X obj 20 948 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 953 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 886 1\.;
-#X text 240 886 output mixed signal;
+#X text 110 954 1\.;
+#X text 245 954 output mixed signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 934 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 937 library: ceammc v0.7;
-#N canvas 10 956 400 290 info 0;
+#X obj 1 1004 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1007 library: ceammc v0.7.1;
+#N canvas 10 1026 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.7;
+#X text 120 32 0.7.1;
 #X text 10 54 object:;
 #X text 120 54 mix~;
 #X text 10 76 category:;
@@ -104,7 +104,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 956 pd info;
+#X restore 10 1026 pd info;
 #X connect 6 0 11 0;
 #X connect 4 0 12 0;
 #X connect 7 0 12 0;

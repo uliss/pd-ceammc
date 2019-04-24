@@ -27,12 +27,12 @@ void ListStretch::onInlet(size_t n, const AtomList& lst)
     n_->set(lst);
 }
 
-void ListStretch::onDataT(const DataTypeMList& lst)
+void ListStretch::onDataT(const DataTPtr<DataTypeMList>& dptr)
 {
-    if (lst.empty())
+    if (dptr->empty())
         return;
 
-    dataTo(0, DataPtr(new DataTypeMList(list::stretch(lst.toList(), n_->value()))));
+    dataTo(0, DataTPtr<DataTypeMList>(DataTypeMList(list::stretch(dptr->toList(), n_->value()))));
 }
 
 void setup_list_stretch()

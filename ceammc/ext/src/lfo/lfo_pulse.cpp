@@ -2,13 +2,13 @@
 #include "ceammc_factory.h"
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_DUTY = gensym("@duty");
-
 class LfoPulse : public faust_lfo_pulse_tilde {
 public:
     LfoPulse(const PdArgs& args)
         : faust_lfo_pulse_tilde(args)
     {
+        static t_symbol* SYM_PROP_DUTY = gensym("@duty");
+
         createInlet();
         setInitSignalValue(positionalFloatArgument(0, 0));
         bindPositionalArgToProperty(1, SYM_PROP_DUTY);

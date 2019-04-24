@@ -37,13 +37,13 @@ void UINumberTilde::init(t_symbol* name, const AtomList& args, bool usePresets)
 
 void UINumberTilde::okSize(t_rect* newrect)
 {
-    newrect->height = 16 * zoom();
+    newrect->height = 15;
     newrect->width = pd_clip_min(newrect->width, sys_fontwidth(fontSizeZoomed()) * 3 + 8);
 }
 
-void UINumberTilde::paint(t_object* view)
+void UINumberTilde::paint()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
 
     // background
     {
@@ -101,13 +101,14 @@ void UINumberTilde::setup()
 {
     UIDspFactory<UINumberTilde> obj("ui.number~", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK);
     obj.addAlias("ui.n~");
-    obj.setDefaultSize(80, 16);
+    obj.setDefaultSize(80, 15);
+    obj.hideLabelInner();
 
     obj.addProperty(PROP_TEXT_COLOR, _("Text color"), "0.9 0.9 0.9 1", &UINumberTilde::prop_color_text);
     obj.addProperty(PROP_ACTIVE_COLOR, _("Text color"), DEFAULT_ACTIVE_COLOR, &UINumberTilde::prop_color_active);
-    obj.addIntProperty("decimal", _("Decimal precision"), 6, &UINumberTilde::prop_max_decimal);
+    obj.addIntProperty("decimal", _("Decimal precision"), 6, &UINumberTilde::prop_max_decimal, _("Main"));
     obj.setPropertyRange("precision", 0, 6);
-    obj.addIntProperty("interval", _("Refresh interval (ms)"), 50, &UINumberTilde::prop_interval);
+    obj.addIntProperty("interval", _("Refresh interval (ms)"), 50, &UINumberTilde::prop_interval, _("Main"));
     obj.setPropertyRange("interval", 20, 1000);
 
     obj.setPropertyDefaultValue(PROP_BACKGROUND_COLOR, "0.3 0.3 0.3 1");
@@ -146,7 +147,7 @@ void UINumberTilde::updateTextValue()
 
         last_redraw_time_ = clock_getlogicaltime();
         text_layer_.invalidate();
-        redraw();
+        redrawInnerArea();
     }
 }
 

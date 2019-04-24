@@ -23,7 +23,7 @@ class SetContains : public BaseObject {
 
 public:
     SetContains(const PdArgs& a);
-    void onDataT(const DataTypeSet& s);
+    void onDataT(const DataTPtr<DataTypeSet>& s);
     void onInlet(size_t n, const AtomList& lst);
 };
 

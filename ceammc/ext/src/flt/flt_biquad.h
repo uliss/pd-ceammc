@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt_biquad"
-Code generated with Faust 2.15.0 (https://faust.grame.fr)
+Code generated with Faust 2.15.10 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -613,6 +613,7 @@ class biquad : public dsp {
 		classInit(samplingFreq);
 		instanceInit(samplingFreq);
 	}
+	
 	virtual void instanceInit(int samplingFreq) {
 		instanceConstants(samplingFreq);
 		instanceResetUserInterface();
@@ -622,6 +623,7 @@ class biquad : public dsp {
 	virtual biquad* clone() {
 		return new biquad();
 	}
+	
 	virtual int getSampleRate() {
 		return fSamplingFreq;
 		
@@ -644,7 +646,7 @@ class biquad : public dsp {
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			fVec0[0] = fTemp0;
-			fRec0[0] = (((float(input2[i]) * fVec0[1]) + ((fTemp0 * float(input1[i])) + (float(input3[i]) * fVec0[2]))) - ((float(input4[i]) * fRec0[1]) + (float(input5[i]) * fRec0[2])));
+			fRec0[0] = ((((fVec0[2] * float(input3[i])) + (fVec0[1] * float(input2[i]))) + (fTemp0 * float(input1[i]))) - ((fRec0[1] * float(input4[i])) + (fRec0[2] * float(input5[i]))));
 			output0[i] = FAUSTFLOAT(fRec0[0]);
 			fVec0[2] = fVec0[1];
 			fVec0[1] = fVec0[0];
@@ -655,7 +657,6 @@ class biquad : public dsp {
 		
 	}
 
-	
 };
 // clang-format on
 #endif

@@ -5,20 +5,20 @@
 #X obj 30 116 system.cursor;
 #X text 200 116 Get information about cursor motion \, mousewheel and
 buttonclick;
-#X obj 30 153 system.getenv;
-#X text 200 153 Get system environment variables;
-#X obj 30 180 system.hostname;
-#X text 200 180 outputs system hostname;
-#X obj 30 207 system.memsize;
-#X text 200 207 returns the size of physical memory (RAM) in bytes
+#X obj 30 156 system.getenv;
+#X text 200 156 Get system environment variables;
+#X obj 30 183 system.hostname;
+#X text 200 183 outputs system hostname;
+#X obj 30 210 system.memsize;
+#X text 200 210 returns the size of physical memory (RAM) in bytes
 round to float data type.;
-#X obj 30 244 system.memused;
-#X text 200 244 returns the process physical memory use - current and
+#X obj 30 250 system.memused;
+#X text 200 250 returns the process physical memory use - current and
 peak;
-#X obj 30 271 system.screen_size;
-#X text 200 271 returns current screen size in pixels;
-#X obj 30 298 system.shell;
-#X text 200 298 run external command in separate process;
+#X obj 30 277 system.screen_size;
+#X text 200 277 returns current screen size in pixels;
+#X obj 30 304 system.shell;
+#X text 200 304 run external command in separate process;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::system 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

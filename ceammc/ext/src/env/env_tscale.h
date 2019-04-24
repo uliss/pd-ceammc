@@ -11,7 +11,7 @@ class EnvTimeScale : public BaseObject {
 
 public:
     EnvTimeScale(const PdArgs& a);
-    void onDataT(const DataTypeEnv& env);
+    void onDataT(const DataTPtr<DataTypeEnv>& dptr);
 };
 
 void setup_env_tscale();

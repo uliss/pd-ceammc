@@ -6,27 +6,26 @@
 #include "../string/tinyformat.h"
 
 #include <algorithm>
-#include <boost/algorithm/minmax_element.hpp>
-#include <boost/foreach.hpp>
 #include <boost/range.hpp>
+#include <unordered_map>
 
-static t_symbol* SYM_ADSR = gensym("adsr");
-static t_symbol* SYM_ASR = gensym("asr");
-static t_symbol* SYM_AR = gensym("ar");
+static const char* SYM_ADSR = "adsr";
+static const char* SYM_ASR = "asr";
+static const char* SYM_AR = "ar";
 
-static t_symbol* SYM_EADSR = gensym("eadsr");
-static t_symbol* SYM_EASR = gensym("easr");
-static t_symbol* SYM_EAR = gensym("ear");
+static const char* SYM_EADSR = "eadsr";
+static const char* SYM_EASR = "easr";
+static const char* SYM_EAR = "ear";
 
-static t_symbol* SYM_ENVELOPE_POINT = gensym("EnvelopePoint");
+static const char* SYM_ENVELOPE_POINT = "EnvelopePoint";
 
-static t_symbol* SYM_CURVE_STEP = gensym("step");
-static t_symbol* SYM_CURVE_LINE = gensym("line");
-static t_symbol* SYM_CURVE_EXP = gensym("exp");
-static t_symbol* SYM_CURVE_SIN2 = gensym("sin2");
-static t_symbol* SYM_CURVE_SIGMOID = gensym("sigmoid");
+static const char* SYM_CURVE_STEP = "step";
+static const char* SYM_CURVE_LINE = "line";
+static const char* SYM_CURVE_EXP = "exp";
+static const char* SYM_CURVE_SIN2 = "sin2";
+static const char* SYM_CURVE_SIGMOID = "sigmoid";
 
-static t_symbol* CURVE_TYPES[] = {
+static const char* CURVE_TYPES[] = {
     SYM_CURVE_STEP, SYM_CURVE_LINE, SYM_CURVE_EXP, SYM_CURVE_SIN2, SYM_CURVE_SIGMOID
 };
 
@@ -168,6 +167,11 @@ DataTypeEnv::DataTypeEnv(const DataTypeEnv& env)
 {
 }
 
+DataTypeEnv::DataTypeEnv(DataTypeEnv&& env)
+    : points_(std::move(env.points_))
+{
+}
+
 DataType DataTypeEnv::type() const
 {
     return data::DATA_ENVELOPE;
@@ -176,7 +180,7 @@ DataType DataTypeEnv::type() const
 static const char* to_string(CurveType t)
 {
     if (t >= 0 && t < boost::size(CURVE_TYPES))
-        return CURVE_TYPES[t]->s_name;
+        return CURVE_TYPES[t];
 
     return "?";
 }
@@ -369,8 +373,7 @@ std::pair<float, float> DataTypeEnv::valueRange() const
     if (points_.empty())
         return res;
 
-    std::pair<PointList::const_iterator, PointList::const_iterator> it = boost::minmax_element(points_.begin(),
-        points_.end(), compareByValue);
+    auto it = std::minmax_element(points_.begin(), points_.end(), compareByValue);
 
     res.first = it.first->value;
     res.second = it.second->value;
@@ -818,20 +821,20 @@ struct NameEntry {
 bool DataTypeEnv::setNamedEnvelope(t_symbol* name, const AtomList& args)
 {
     static const NameEntry envs[] = {
-        { SYM_EADSR, &DataTypeEnv::setEADSR },
-        { SYM_EASR, &DataTypeEnv::setEASR },
-        { SYM_EAR, &DataTypeEnv::setEAR },
-        { SYM_ADSR, &DataTypeEnv::setADSR },
-        { SYM_ASR, &DataTypeEnv::setASR },
-        { SYM_AR, &DataTypeEnv::setAR },
-        { SYM_CURVE_EXP, &DataTypeEnv::setExponential },
-        { SYM_CURVE_LINE, &DataTypeEnv::setLine },
-        { SYM_CURVE_SIGMOID, &DataTypeEnv::setSigmoid },
-        { SYM_CURVE_SIN2, &DataTypeEnv::setSin2 },
-        { SYM_CURVE_STEP, &DataTypeEnv::setStep },
+        { gensym(SYM_EADSR), &DataTypeEnv::setEADSR },
+        { gensym(SYM_EASR), &DataTypeEnv::setEASR },
+        { gensym(SYM_EAR), &DataTypeEnv::setEAR },
+        { gensym(SYM_ADSR), &DataTypeEnv::setADSR },
+        { gensym(SYM_ASR), &DataTypeEnv::setASR },
+        { gensym(SYM_AR), &DataTypeEnv::setAR },
+        { gensym(SYM_CURVE_EXP), &DataTypeEnv::setExponential },
+        { gensym(SYM_CURVE_LINE), &DataTypeEnv::setLine },
+        { gensym(SYM_CURVE_SIGMOID), &DataTypeEnv::setSigmoid },
+        { gensym(SYM_CURVE_SIN2), &DataTypeEnv::setSin2 },
+        { gensym(SYM_CURVE_STEP), &DataTypeEnv::setStep },
     };
 
-    BOOST_FOREACH (const NameEntry& e, envs) {
+    for (const NameEntry& e : envs) {
         if (e.s == name)
             return (this->*e.m)(args);
     }
@@ -842,11 +845,13 @@ bool DataTypeEnv::setNamedEnvelope(t_symbol* name, const AtomList& args)
 bool DataTypeEnv::isNamedEnvelope(t_symbol* name) const
 {
     static t_symbol* names[] = {
-        SYM_AR, SYM_ASR, SYM_ADSR, SYM_EAR, SYM_EASR, SYM_EADSR,
-        SYM_CURVE_EXP, SYM_CURVE_LINE, SYM_CURVE_SIGMOID, SYM_CURVE_SIN2, SYM_CURVE_STEP
+        gensym(SYM_AR), gensym(SYM_ASR), gensym(SYM_ADSR),
+        gensym(SYM_EAR), gensym(SYM_EASR), gensym(SYM_EADSR),
+        gensym(SYM_CURVE_EXP), gensym(SYM_CURVE_LINE),
+        gensym(SYM_CURVE_SIGMOID), gensym(SYM_CURVE_SIN2), gensym(SYM_CURVE_STEP)
     };
 
-    return std::find(boost::begin(names), boost::end(names), name) != boost::end(names);
+    return std::find(std::begin(names), std::end(names), name) != std::end(names);
 }
 
 bool DataTypeEnv::hasStopPoints() const
@@ -908,6 +913,14 @@ DataTypeEnv& DataTypeEnv::operator=(const DataTypeEnv& env)
     return *this;
 }
 
+DataTypeEnv& DataTypeEnv::operator=(DataTypeEnv&& env)
+{
+    if (&env != this)
+        points_ = std::move(env.points_);
+
+    return *this;
+}
+
 DataTypeEnv DataTypeEnv::fromList(const AtomList& lst)
 {
     DataTypeEnv env;
@@ -918,7 +931,7 @@ DataTypeEnv DataTypeEnv::fromList(const AtomList& lst)
     size_t n = lst.size() / 7;
     for (size_t i = 0; i < n; i++) {
 
-        if (lst[i * 7].asSymbol() != SYM_ENVELOPE_POINT) {
+        if (lst[i * 7].asSymbol() != gensym(SYM_ENVELOPE_POINT)) {
             LIB_ERR << "invalid preset data: " << lst;
             return env;
         }
@@ -1047,7 +1060,7 @@ AtomList EnvelopePoint::toList() const
     AtomList res;
     res.fill(Atom(), 7);
 
-    res[0] = SYM_ENVELOPE_POINT;
+    res[0] = gensym(SYM_ENVELOPE_POINT);
     res[1] = Atom(utime);
     res[2] = Atom(value);
     res[3] = Atom(data);
@@ -1062,7 +1075,7 @@ bool symbol2curve(t_symbol* s, CurveType& t)
 {
     const size_t n = boost::size(CURVE_TYPES);
     for (size_t i = 0; i < n; i++) {
-        if (CURVE_TYPES[i] == s) {
+        if (gensym(CURVE_TYPES[i]) == s) {
             t = static_cast<CurveType>(i);
             return true;
         }
@@ -1073,7 +1086,7 @@ bool symbol2curve(t_symbol* s, CurveType& t)
 
 t_symbol* curve2symbol(CurveType t)
 {
-    return (t >= 0 && t < boost::size(CURVE_TYPES)) ? CURVE_TYPES[t] : 0;
+    return (t >= 0 && t < boost::size(CURVE_TYPES)) ? gensym(CURVE_TYPES[t]) : nullptr;
 }
 
 bool isValidCurve(t_symbol* s)

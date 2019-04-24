@@ -14,9 +14,6 @@
 #include "flow_append.h"
 #include "ceammc_factory.h"
 
-static t_symbol* SYM_PROP_GET_DELAY = gensym("@delay?");
-static t_symbol* SYM_PROP_DELAY = gensym("@delay");
-
 FlowAppend::FlowAppend(const PdArgs& args)
     : BaseObject(args)
     , delay_time_(0)
@@ -24,6 +21,7 @@ FlowAppend::FlowAppend(const PdArgs& args)
     , clock_(this, &FlowAppend::tick)
 {
     delay_time_ = new FloatProperty("@delay", 0, 0);
+    delay_time_->info().setUnits(PropertyInfoUnits::MSEC);
     createProperty(delay_time_);
 
     as_msg_ = new FlagProperty("@msg");
@@ -71,6 +69,9 @@ bool FlowAppend::processAnyInlets(t_symbol* sel, const AtomList& lst)
 
 bool FlowAppend::processAnyProps(t_symbol* s, const AtomList& lst)
 {
+    static t_symbol* SYM_PROP_GET_DELAY = gensym("@delay?");
+    static t_symbol* SYM_PROP_DELAY = gensym("@delay");
+
     // get
     if (s == SYM_PROP_GET_DELAY) {
         anyTo(0, SYM_PROP_DELAY, delay_time_->get());

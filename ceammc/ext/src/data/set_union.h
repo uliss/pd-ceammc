@@ -25,7 +25,7 @@ class SetUnion : public BaseObject {
 public:
     SetUnion(const PdArgs& a);
     void onList(const AtomList& lst);
-    void onDataT(const DataTypeSet& s);
+    void onDataT(const DataTPtr<DataTypeSet>& dptr);
     void onInlet(size_t, const AtomList& lst);
 };
 

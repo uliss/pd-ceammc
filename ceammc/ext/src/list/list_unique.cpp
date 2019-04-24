@@ -1,7 +1,7 @@
 #include "list_unique.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "datatype_mlist.h"
 
 ListUnique::ListUnique(const ceammc::PdArgs& a)
     : BaseObject(a)
@@ -21,12 +21,12 @@ void ListUnique::onList(const AtomList& l)
         listTo(0, list::uniqueSorted(l));
 }
 
-void ListUnique::onDataT(const DataTypeMList& l)
+void ListUnique::onDataT(const DataTPtr<DataTypeMList>& l)
 {
     if (stable_->value())
-        dataTo(0, DataPtr(new DataTypeMList(list::uniqueStable(l.toList()))));
+        dataTo(0, DataTPtr<DataTypeMList>(DataTypeMList(list::uniqueStable(l->toList()))));
     else
-        dataTo(0, DataPtr(new DataTypeMList(list::uniqueSorted(l.toList()))));
+        dataTo(0, DataTPtr<DataTypeMList>(DataTypeMList(list::uniqueSorted(l->toList()))));
 }
 
 void setup_list_unique()

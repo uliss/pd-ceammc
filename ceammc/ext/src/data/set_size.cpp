@@ -20,9 +20,9 @@ SetSize::SetSize(const PdArgs& a)
     createOutlet();
 }
 
-void SetSize::onDataT(const DataTypeSet& s)
+void SetSize::onDataT(const DataTPtr<DataTypeSet>& dptr)
 {
-    floatTo(0, s.size());
+    floatTo(0, dptr->size());
 }
 
 extern "C" void setup_set0x2esize()

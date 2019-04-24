@@ -14,20 +14,17 @@
 #ifndef LIST_HISTOGRAM_H
 #define LIST_HISTOGRAM_H
 
-#include "ceammc_object.h"
+#include "list_base.h"
 
 using namespace ceammc;
 
-class DataTypeMList;
-
-class ListHistogram : public BaseObject {
+class ListHistogram : public ListBase {
     IntProperty* bins_;
 
 public:
     ListHistogram(const PdArgs& a);
     void onList(const AtomList& l) override;
     void onInlet(size_t, const AtomList& l) override;
-    void onDataT(const DataTypeMList& lst);
 };
 
 void setup_list_histogram();

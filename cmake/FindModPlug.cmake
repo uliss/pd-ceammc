@@ -35,7 +35,7 @@ if(MODPLUG_ROOT)
 else()
     find_package(PkgConfig QUIET)
     if(PKG_CONFIG_FOUND)
-        pkg_check_modules(PKGCONFIG_MODPLUG "libmodplug")
+        pkg_check_modules(PKGCONFIG_MODPLUG "libmodplug" QUIET)
     endif()
 
     find_path(MODPLUG_INCLUDE_DIR

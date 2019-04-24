@@ -13,6 +13,8 @@
 #include "string_substr.h"
 #include "string_to_symbol.h"
 
+void setup_string_match();
+
 void ceammc_string_setup()
 {
     setup_string0x2econtains();
@@ -27,5 +29,6 @@ void ceammc_string_setup()
     setup_string0x2estarts_with();
     setup_string0x2esubstr();
     setup_string0x2eto_symbol();
+    setup_string_match();
     string_setup();
 }

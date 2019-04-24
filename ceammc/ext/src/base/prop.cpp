@@ -19,10 +19,10 @@ extern "C" {
 #include "g_canvas.h"
 }
 
-static t_symbol* SYM_INVALID = gensym("@invalid");
-
 static t_symbol* makePropName(const AtomList& l)
 {
+    static t_symbol* SYM_INVALID = gensym("@invalid");
+
     if (l.isSymbol())
         return l[0].asSymbol();
     else

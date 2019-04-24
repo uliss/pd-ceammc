@@ -14,26 +14,14 @@ extern "C" {
 #include "m_imp.h"
 }
 
-static t_symbol* SYM_PLUS = gensym("+");
-static t_symbol* SYM_MINUS = gensym("-");
-static t_symbol* SYM_MUL = gensym("*");
-static t_symbol* SYM_DIV = gensym("/");
-static t_symbol* SYM_INC = gensym("++");
-static t_symbol* SYM_DEC = gensym("--");
-static t_symbol* SYM_MIDI_CTL = gensym("midi_control");
-
 static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
 
 using namespace ceammc;
 
 static t_symbol* midi_ctl_sym()
 {
-#ifdef __WIN32
     static t_symbol* sym = gensym("#ctlin");
     return sym;
-#else
-    return pd_this->pd_ctlin_sym;
-#endif
 }
 
 UISingleValue::UISingleValue()
@@ -47,6 +35,8 @@ UISingleValue::UISingleValue()
     , prop_midi_chn(0)
     , prop_midi_ctl(0)
     , prop_midi_pickup(0)
+    , prop_show_value(0)
+    , knob_layer_(asEBox(), gensym("knob_layer"))
 {
     createOutlet();
 }
@@ -90,32 +80,28 @@ void UISingleValue::init(t_symbol* name, const AtomList& args, bool usePresets)
         midi_proxy_.bind(midi_ctl_sym());
 }
 
-t_pd_err UISingleValue::notify(t_symbol* attr_name, t_symbol* msg)
+void UISingleValue::onPropChange(t_symbol* prop_name)
 {
-    UIObject::notify(attr_name, msg);
+    UIObject::onPropChange(prop_name);
 
-    if (msg == s_attr_modified) {
-        if (attr_name == SYM_MIDI_CTL) {
-            if (prop_midi_ctl != 0) {
-                // info
-                std::ostringstream ss;
-                ss << "binded to MIDI ctl #"
-                   << prop_midi_ctl
-                   << (prop_midi_chn == 0 ? " on all channels" : " on channel: ");
+    if (prop_name == gensym("midi_control")) {
+        if (prop_midi_ctl != 0) {
+            // info
+            std::ostringstream ss;
+            ss << "binded to MIDI ctl #"
+               << prop_midi_ctl
+               << (prop_midi_chn == 0 ? " on all channels" : " on channel: ");
 
-                if (prop_midi_chn > 0)
-                    ss << prop_midi_chn;
+            if (prop_midi_chn > 0)
+                ss << prop_midi_chn;
 
-                UI_DBG << ss.str();
-                midi_proxy_.bind(midi_ctl_sym());
-            } else
-                midi_proxy_.unbind();
-        }
-
-        redrawBGLayer();
+            UI_DBG << ss.str();
+            midi_proxy_.bind(midi_ctl_sym());
+        } else
+            midi_proxy_.unbind();
     }
 
-    return 0;
+    redrawKnob();
 }
 
 void UISingleValue::output()
@@ -132,7 +118,7 @@ void UISingleValue::onBang()
 void UISingleValue::onFloat(t_float f)
 {
     setRealValue(f);
-    redrawBGLayer();
+    redrawKnob();
     output();
 }
 
@@ -181,7 +167,7 @@ void UISingleValue::onMidiCtrl(const AtomList& l)
             else if (pick_value_side_ == -side) {
                 midi_value_picked_ = true;
                 setValue(v);
-                redrawBGLayer();
+                redrawKnob();
                 output();
             }
 
@@ -189,7 +175,7 @@ void UISingleValue::onMidiCtrl(const AtomList& l)
         }
 
         setValue(v);
-        redrawBGLayer();
+        redrawKnob();
         output();
     }
 }
@@ -197,7 +183,7 @@ void UISingleValue::onMidiCtrl(const AtomList& l)
 void UISingleValue::m_set(t_float f)
 {
     setRealValue(f);
-    redrawBGLayer();
+    redrawKnob();
 }
 
 void UISingleValue::m_plus(t_float f)
@@ -248,8 +234,10 @@ void UISingleValue::storePreset(size_t idx)
 
 void UISingleValue::onDblClick(t_object*, const t_pt&, long mod)
 {
-    if (!(mod & EMOD_SHIFT))
+    if (!(mod & EMOD_SHIFT)) {
+        onFloat(minValue() + maxValue() / 2);
         return;
+    }
 
     if (!listen_midi_ctrl_)
         startListenMidi();
@@ -257,12 +245,10 @@ void UISingleValue::onDblClick(t_object*, const t_pt&, long mod)
         stopListenMidi();
 }
 
-void UISingleValue::setDrawParams(t_object*, t_edrawparams* params)
+void UISingleValue::setDrawParams(t_edrawparams* params)
 {
-    params->d_borderthickness = 1;
-    params->d_cornersize = 1;
+    UIObject::setDrawParams(params);
     params->d_bordercolor = listen_midi_ctrl_ ? BIND_MIDI_COLOR : prop_color_border;
-    params->d_boxfillcolor = prop_color_background;
 }
 
 void UISingleValue::startListenMidi()
@@ -282,4 +268,10 @@ void UISingleValue::stopListenMidi()
     asEBox()->b_boxparameters.d_bordercolor = prop_color_border;
     asEBox()->b_force_redraw = 1;
     redraw();
+}
+
+void UISingleValue::redrawKnob()
+{
+    knob_layer_.invalidate();
+    redrawInnerArea();
 }

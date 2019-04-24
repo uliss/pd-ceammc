@@ -8,7 +8,6 @@
 #include <boost/cstdint.hpp>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
-#include <boost/static_assert.hpp>
 #include <cmath>
 #include <cstdio>
 
@@ -16,61 +15,44 @@ typedef unsigned char byte;
 
 using namespace firmata;
 
-static t_symbol* F_QUERY_FIRMWARE = gensym("firmware?");
-static t_symbol* F_QUERY_VERSION = gensym("version?");
-static t_symbol* F_QUERY_ANALOG_MAPPING = gensym("apin_mapping?");
-static t_symbol* F_QUERY_PIN_STATE = gensym("pin_state?");
-static t_symbol* F_QUERY_CAPABILITIES = gensym("capabilities?");
+static t_symbol* F_QUERY_FIRMWARE;
+static t_symbol* F_QUERY_VERSION;
+static t_symbol* F_QUERY_ANALOG_MAPPING;
+static t_symbol* F_QUERY_PIN_STATE;
+static t_symbol* F_QUERY_CAPABILITIES;
 
-static t_symbol* F_RESPONSE_VERSION = gensym("version");
-static t_symbol* F_RESPONSE_FIRMWARE = gensym("firmware");
-static t_symbol* F_RESPONSE_ANALOG_MAPPING = gensym("apin_mapping");
-static t_symbol* F_RESPONSE_PIN_STATE = gensym("pin_state");
-static t_symbol* F_RESPONSE_PIN_INFO = gensym("pin_info");
-static t_symbol* F_RESPONSE_ANALOG_PIN = gensym("apin");
-static t_symbol* F_RESPONSE_DIGITAL_PORT = gensym("dport");
-static t_symbol* F_RESPONSE_STRING = gensym("string");
+static t_symbol* F_RESPONSE_VERSION;
+static t_symbol* F_RESPONSE_FIRMWARE;
+static t_symbol* F_RESPONSE_ANALOG_MAPPING;
+static t_symbol* F_RESPONSE_PIN_STATE;
+static t_symbol* F_RESPONSE_PIN_INFO;
+static t_symbol* F_RESPONSE_ANALOG_PIN;
+static t_symbol* F_RESPONSE_DIGITAL_PORT;
+static t_symbol* F_RESPONSE_STRING;
 
-static t_symbol* F_SET_SAMPLING_INTERVAL = gensym("samp_interval");
-static t_symbol* F_SET_PIN_MODE = gensym("pin_mode");
+static t_symbol* F_SET_SAMPLING_INTERVAL;
+static t_symbol* F_SET_PIN_MODE;
 
-static t_symbol* F_WRITE_DIGITAL_PIN = gensym("write_dpin");
-static t_symbol* F_WRITE_PWM_PIN = gensym("write_pwm");
+static t_symbol* F_WRITE_DIGITAL_PIN;
+static t_symbol* F_WRITE_PWM_PIN;
 
-static t_symbol* F_REPORT_ANALOG_PIN = gensym("report_apin");
-static t_symbol* F_REPORT_DIGITAL_PORT = gensym("report_dport");
+static t_symbol* F_REPORT_ANALOG_PIN;
+static t_symbol* F_REPORT_DIGITAL_PORT;
 
-// clang-format off
-static t_symbol* PIN_MODE_INPUT   = gensym("INPUT");
-static t_symbol* PIN_MODE_OUTPUT  = gensym("OUTPUT");
-static t_symbol* PIN_MODE_ANALOG  = gensym("ANALOG");
-static t_symbol* PIN_MODE_PWM     = gensym("PWM");
-static t_symbol* PIN_MODE_SERVO   = gensym("SERVO");
-static t_symbol* PIN_MODE_SHIFT   = gensym("SHIFT");
-static t_symbol* PIN_MODE_I2C     = gensym("I2C");
-static t_symbol* PIN_MODE_ONEWIRE = gensym("ONEWIRE");
-static t_symbol* PIN_MODE_STEPPER = gensym("STEPPER");
-static t_symbol* PIN_MODE_ENCODER = gensym("ENCODER");
-static t_symbol* PIN_MODE_SERIAL  = gensym("SERIAL");
-static t_symbol* PIN_MODE_PULLUP  = gensym("PULLUP");
-// clang-format on
+static t_symbol* PIN_MODE_INPUT;
+static t_symbol* PIN_MODE_OUTPUT;
+static t_symbol* PIN_MODE_ANALOG;
+static t_symbol* PIN_MODE_PWM;
+static t_symbol* PIN_MODE_SERVO;
+static t_symbol* PIN_MODE_SHIFT;
+static t_symbol* PIN_MODE_I2C;
+static t_symbol* PIN_MODE_ONEWIRE;
+static t_symbol* PIN_MODE_STEPPER;
+static t_symbol* PIN_MODE_ENCODER;
+static t_symbol* PIN_MODE_SERIAL;
+static t_symbol* PIN_MODE_PULLUP;
 
-static t_symbol* pin_modes[] = {
-    PIN_MODE_INPUT,
-    PIN_MODE_OUTPUT,
-    PIN_MODE_ANALOG,
-    PIN_MODE_PWM,
-    PIN_MODE_SERVO,
-    PIN_MODE_SHIFT,
-    PIN_MODE_I2C,
-    PIN_MODE_ONEWIRE,
-    PIN_MODE_STEPPER,
-    PIN_MODE_ENCODER,
-    PIN_MODE_SERIAL,
-    PIN_MODE_PULLUP
-};
-
-BOOST_STATIC_ASSERT(sizeof(pin_modes) / sizeof(pin_modes[0]) == 12);
+static t_symbol* pin_modes[12] = { &s_, &s_, &s_, &s_, &s_, &s_, &s_, &s_, &s_, &s_, &s_, &s_ };
 
 Firmata::Firmata(const PdArgs& a)
     : BaseObject(a)
@@ -264,5 +246,57 @@ int Firmata::symToPinMode(t_symbol* s)
 
 void proto_firmata_setup()
 {
+    F_QUERY_FIRMWARE = gensym("firmware?");
+    F_QUERY_VERSION = gensym("version?");
+    F_QUERY_ANALOG_MAPPING = gensym("apin_mapping?");
+    F_QUERY_PIN_STATE = gensym("pin_state?");
+    F_QUERY_CAPABILITIES = gensym("capabilities?");
+
+    F_RESPONSE_VERSION = gensym("version");
+    F_RESPONSE_FIRMWARE = gensym("firmware");
+    F_RESPONSE_ANALOG_MAPPING = gensym("apin_mapping");
+    F_RESPONSE_PIN_STATE = gensym("pin_state");
+    F_RESPONSE_PIN_INFO = gensym("pin_info");
+    F_RESPONSE_ANALOG_PIN = gensym("apin");
+    F_RESPONSE_DIGITAL_PORT = gensym("dport");
+    F_RESPONSE_STRING = gensym("string");
+
+    F_SET_SAMPLING_INTERVAL = gensym("samp_interval");
+    F_SET_PIN_MODE = gensym("pin_mode");
+
+    F_WRITE_DIGITAL_PIN = gensym("write_dpin");
+    F_WRITE_PWM_PIN = gensym("write_pwm");
+
+    F_REPORT_ANALOG_PIN = gensym("report_apin");
+    F_REPORT_DIGITAL_PORT = gensym("report_dport");
+
+    // clang-format off
+    PIN_MODE_INPUT   = gensym("INPUT");
+    PIN_MODE_OUTPUT  = gensym("OUTPUT");
+    PIN_MODE_ANALOG  = gensym("ANALOG");
+    PIN_MODE_PWM     = gensym("PWM");
+    PIN_MODE_SERVO   = gensym("SERVO");
+    PIN_MODE_SHIFT   = gensym("SHIFT");
+    PIN_MODE_I2C     = gensym("I2C");
+    PIN_MODE_ONEWIRE = gensym("ONEWIRE");
+    PIN_MODE_STEPPER = gensym("STEPPER");
+    PIN_MODE_ENCODER = gensym("ENCODER");
+    PIN_MODE_SERIAL  = gensym("SERIAL");
+    PIN_MODE_PULLUP  = gensym("PULLUP");
+    // clang-format on
+
+    pin_modes[0] = PIN_MODE_INPUT;
+    pin_modes[1] = PIN_MODE_OUTPUT;
+    pin_modes[2] = PIN_MODE_ANALOG;
+    pin_modes[3] = PIN_MODE_PWM;
+    pin_modes[4] = PIN_MODE_SERVO;
+    pin_modes[5] = PIN_MODE_SHIFT;
+    pin_modes[6] = PIN_MODE_I2C;
+    pin_modes[7] = PIN_MODE_ONEWIRE;
+    pin_modes[8] = PIN_MODE_STEPPER;
+    pin_modes[9] = PIN_MODE_ENCODER;
+    pin_modes[10] = PIN_MODE_SERIAL;
+    pin_modes[11] = PIN_MODE_PULLUP;
+
     ObjectFactory<Firmata> obj("proto.firmata");
 }

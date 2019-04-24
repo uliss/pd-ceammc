@@ -4,12 +4,18 @@ array.copy		.		.
 array.do		..		..
 array.each		..		..
 array.fill		.		.
+array.hist		.		.
+array.mean		.		.
 array.minmax		.		..
 array.p2s,array.p->s,array.phase->sample		.		.
+array.rms		.		.
 array.s2p,array.s->p,array.sample->phase		.		.
 array.set,list->array		.		-
+array.stddev		.		.
 array.stretch		.		.
-array.vline_play		.		.
+array.sum		.		.
+array.sum2		.		.
+array.variance		.		.
 array.vplay		.		..
 array.window		.		.
 canvas.current		.		.
@@ -81,6 +87,7 @@ flow.group,group		.		.
 flow.interval		.		.
 flow.less		.		?
 flow.less_eq		.		?
+flow.match		?		?
 flow.multiplex,flow.mux		?		.
 flow.multiplex2~,flow.mux2~,mux2~		?		~~
 flow.multiplex~,flow.mux~,mux~		?		~
@@ -124,6 +131,9 @@ function,func		..		..
 function.call,func.call		..		.
 fx.bitdown~		~		~
 fx.chorus~		~		~
+fx.distortion1~		~		~
+fx.distortion2~		~		~
+fx.distortion3~		~		~
 fx.distortion~		~		~
 fx.drive~		~		~
 fx.drone_box~		~		~
@@ -147,7 +157,12 @@ global.int		.		.
 global.list		.		.
 global.mlist		.		.
 global.set		.		.
+hw.apple_smc		.		.
+hw.apple_sms		.		.
 hw.arduino		.		.
+hw.cpu_temp		.		.
+hw.display		.		.
+hw.kbd_light		.		.
 is_any		.		..
 is_bang		.		..
 is_data		.		..
@@ -317,7 +332,6 @@ osc.tri~		~.		~
 pan.cos~,pan~		~.		~~
 pan.linsig~		~~		~~
 pan.lin~		~.		~~
-pan.pan4~		~		~~~~
 pan.spread~		?		~~
 pan.sqrt~		~.		~~
 patch.args		.		.
@@ -363,6 +377,7 @@ string.equal,str.equal		..		.
 string.format,str.format		.		.
 string.join,str.join		.		.
 string.length,str.length		.		.
+string.match,str.match		..		.
 string.remove,str.remove		..		.
 string.replace,str.replace		...		.
 string.split,str.split		.		.
@@ -384,7 +399,6 @@ synth.rhodey~		.		~
 synth.risset_arp~		.		~~
 synth.risset_tone~		.		~
 synth.shakers~		.		~
-synth.tambura~		.		~
 synth.wurley~		.		~
 system.cursor		.		.
 system.getenv		.		.
@@ -418,7 +432,7 @@ ui.meter~,ui.m~		~		.
 ui.number,ui.n		.		.
 ui.number~,ui.n~		~		~
 ui.preset		.		-
-ui.radio		.		.
+ui.radio,ui.hrd,ui.vrd		.		.
 ui.rslider,ui.rsl		.		.
 ui.scope~		.		-
 ui.slider,ui.hsl,ui.vsl		.		.
@@ -427,10 +441,6 @@ ui.sliders		.		.
 ui.spectroscope~,ui.ssc~		~		-
 ui.tab		.		.
 ui.toggle,ui.t		.		.
-vector.distance		..		.
-vector.dot		..		.
-vector.length		.		.
-vector.normalize		.		.
 vline2env,vline->env		.		.
 window,win		.		.
 xfade2~		?		~~

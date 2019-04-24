@@ -21,9 +21,9 @@ DictValues::DictValues(const PdArgs& args)
     createOutlet();
 }
 
-void DictValues::onDataT(const DataTypeDict& dict)
+void DictValues::onDataT(const DataTPtr<DataTypeDict>& dptr)
 {
-    const auto& d = dict.innerData();
+    const auto& d = dptr->innerData();
 
     DataTypeMList res;
 
@@ -38,7 +38,7 @@ void DictValues::onDataT(const DataTypeDict& dict)
             res.append(boost::get<DataAtom>(v));
     }
 
-    dataTo(0, DataPtr(res.clone()));
+    dataTo(0, DataTPtr<DataTypeMList>(res));
 }
 
 void setup_dict_values()

@@ -12,11 +12,11 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_none_of.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 ListNoneOf::ListNoneOf(const PdArgs& a)
-    : BaseObject(a)
+    : ListBase(a)
     , none_(false)
 {
     createInlet();
@@ -48,11 +48,6 @@ void ListNoneOf::onInlet(size_t n, const AtomList& l)
 
     if (l.first()->asInt(0) != 0)
         none_ = false;
-}
-
-void ListNoneOf::onDataT(const DataTypeMList& lst)
-{
-    onList(lst.toList());
 }
 
 void setup_list_none_of()

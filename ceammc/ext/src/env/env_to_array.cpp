@@ -1,9 +1,9 @@
 #include "env_to_array.h"
 #include "ceammc_factory.h"
 
-t_symbol* SYM_FIT = gensym("fit");
-t_symbol* SYM_RAW = gensym("raw");
-t_symbol* SYM_RESIZE = gensym("resize");
+static t_symbol* SYM_FIT;
+static t_symbol* SYM_RAW;
+static t_symbol* SYM_RESIZE;
 
 Env2Array::Env2Array(const PdArgs& args)
     : ArrayMod(args)
@@ -22,19 +22,19 @@ Env2Array::Env2Array(const PdArgs& args)
     createProperty(new SymbolEnumAlias("@resize", mode_, SYM_RESIZE));
 }
 
-void Env2Array::onDataT(const DataTypeEnv& env)
+void Env2Array::onDataT(const DataTPtr<DataTypeEnv>& dptr)
 {
     if (!checkArray())
         return;
 
-    if (env.empty()) {
+    if (dptr->empty()) {
         OBJ_ERR << "empty envelope";
         return;
     }
 
     // resize if needed
     if (mode_->value() == SYM_RESIZE) {
-        size_t n = (sys_getsr() / 1000) * (env.back().timeMs()) + 1;
+        size_t n = (sys_getsr() / 1000) * (dptr->back().timeMs()) + 1;
         if (!array_.resize(n)) {
             OBJ_ERR << "can't resize array to " << n;
             return;
@@ -42,13 +42,13 @@ void Env2Array::onDataT(const DataTypeEnv& env)
     }
 
     // if shifted envelope
-    if (env.numPoints() > 0 && env.pointAt(0).utime > 0) {
-        DataTypeEnv env_fixed(env);
+    if (dptr->numPoints() > 0 && dptr->pointAt(0).utime > 0) {
+        DataTypeEnv env_fixed(*dptr);
         // insert start point with STEP segment
         env_fixed.insertPoint(EnvelopePoint(0, 0, false, CURVE_STEP));
         render(env_fixed);
     } else {
-        render(env);
+        render(*dptr);
     }
 
     if (shouldRedraw())
@@ -72,6 +72,10 @@ void Env2Array::render(const DataTypeEnv& env)
 
 void setup_env_to_array()
 {
+    SYM_FIT = gensym("fit");
+    SYM_RAW = gensym("raw");
+    SYM_RESIZE = gensym("resize");
+
     ObjectFactory<Env2Array> obj("env2array");
     obj.addAlias("env->array");
     obj.processData<DataTypeEnv>();

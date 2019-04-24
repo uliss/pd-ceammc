@@ -1,44 +1,43 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 417 50 cnv 1 348 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 417 50 Random integer generator in specified range;
+#X obj 430 50 cnv 1 335 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 430 50 Random integer generator in specified range;
 #X obj 1 1 cnv 5 765 40 empty empty random.int 20 20 0 20 -104026
 -4096 0;
 #X obj 669 11 random.int;
-#X obj 205 80 cnv 1 560 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Generates pseudo-random number in specified closed
-interval.;
-#X obj 50 155 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Generates pseudo-random number in specified closed interval.;
+#X obj 50 143 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 184 random.int -10 10;
-#X floatatom 50 213 5 0 0 0 - - -;
-#X obj 20 252 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 257 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 50 172 random.int -10 10;
+#X floatatom 50 201 5 0 0 0 - - -;
+#X obj 20 240 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 245 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 262 1\.;
-#X text 150 262 *bang*;
-#X text 240 262 generates random number.;
-#X obj 20 290 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 295 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 246 1\.;
+#X text 150 246 *bang*;
+#X text 245 246 generates random number.;
+#X obj 20 276 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 281 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 300 1\.;
-#X text 240 300 generated value;
+#X text 110 282 1\.;
+#X text 245 282 generated value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title random @url ceammc.random-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.7;
-#X text 499 520 see also:;
-#X obj 575 520 random.float;
-#X obj 675 520 random.gauss;
+#X text 10 508 library: ceammc v0.7.1;
+#X text 481 520 see also:;
+#X obj 555 520 random.float;
+#X obj 655 520 random.gauss;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.7;
+#X text 120 32 0.7.1;
 #X text 10 54 object:;
 #X text 120 54 random.int;
 #X text 10 76 category:;

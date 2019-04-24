@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "dyn.gate"
-Code generated with Faust 2.8.5 (https://faust.grame.fr)
+Code generated with Faust 2.15.10 (https://faust.grame.fr)
 Compilation options: cpp, -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -372,9 +372,8 @@ struct Meta
 
 #include <algorithm>
 #include <map>
-#include <string.h>
-#include <stdlib.h>
 #include <cstdlib>
+#include <string.h>
 
 
 using std::max;
@@ -382,33 +381,33 @@ using std::min;
 
 struct XXXX_Meta : std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
-    void declare(const char* key, const char* value) { (*this)[key]=value; }
+    void declare(const char* key, const char* value) { (*this)[key] = value; }
 };
 
-inline int lsr(int x, int n)	{ return int(((unsigned int)x) >> n); }
+static int lsr(int x, int n) { return int(((unsigned int)x) >> n); }
 
-inline int int2pow2(int x)		{ int r = 0; while ((1<<r) < x) r++; return r; }
+static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
-inline long lopt(char* argv[], const char* name, long def)
+static long lopt(char* argv[], const char* name, long def)
 {
 	int	i;
     for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
 	return def;
 }
 
-inline bool isopt(char* argv[], const char* name)
+static bool isopt(char* argv[], const char* name)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
 	return false;
 }
 
-inline const char* lopts(char* argv[], const char* name, const char* def)
+static const char* lopts(char* argv[], const char* name, const char* def)
 {
 	int	i;
 	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
@@ -465,13 +464,13 @@ class dyn_gate : public dsp {
 	float fConst1;
 	FAUSTFLOAT fVslider0;
 	FAUSTFLOAT fVslider1;
-	float fRec2[2];
-	FAUSTFLOAT fVslider2;
 	float fRec3[2];
+	FAUSTFLOAT fVslider2;
+	float fRec4[2];
 	int iVec0[2];
 	float fConst2;
 	FAUSTFLOAT fVslider3;
-	int iRec4[2];
+	int iRec5[2];
 	float fConst3;
 	float fRec1[2];
 	float fRec0[2];
@@ -545,7 +544,7 @@ class dyn_gate : public dsp {
 	
 	virtual void instanceConstants(int samplingFreq) {
 		fSamplingFreq = samplingFreq;
-		fConst0 = std::min(192000.0f, std::max(1.0f, float(fSamplingFreq)));
+		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSamplingFreq)));
 		fConst1 = (1.0f / fConst0);
 		fConst2 = (0.00100000005f * fConst0);
 		fConst3 = (1000.0f / fConst0);
@@ -562,11 +561,11 @@ class dyn_gate : public dsp {
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
-			fRec2[l0] = 0.0f;
+			fRec3[l0] = 0.0f;
 			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
-			fRec3[l1] = 0.0f;
+			fRec4[l1] = 0.0f;
 			
 		}
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
@@ -574,7 +573,7 @@ class dyn_gate : public dsp {
 			
 		}
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
-			iRec4[l3] = 0;
+			iRec5[l3] = 0;
 			
 		}
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
@@ -592,6 +591,7 @@ class dyn_gate : public dsp {
 		classInit(samplingFreq);
 		instanceInit(samplingFreq);
 	}
+	
 	virtual void instanceInit(int samplingFreq) {
 		instanceConstants(samplingFreq);
 		instanceResetUserInterface();
@@ -601,6 +601,7 @@ class dyn_gate : public dsp {
 	virtual dyn_gate* clone() {
 		return new dyn_gate();
 	}
+	
 	virtual int getSampleRate() {
 		return fSamplingFreq;
 		
@@ -625,7 +626,7 @@ class dyn_gate : public dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = float(fVslider0);
 		float fSlow1 = float(fVslider1);
-		float fSlow2 = std::exp((0.0f - (fConst1 / std::min((0.00100000005f * fSlow0), (0.00100000005f * fSlow1)))));
+		float fSlow2 = std::exp((0.0f - (fConst1 / std::min<float>((0.00100000005f * fSlow0), (0.00100000005f * fSlow1)))));
 		float fSlow3 = (1.0f - fSlow2);
 		float fSlow4 = (0.00100000005f * (float(fVslider2) + -100.0f));
 		int iSlow5 = int((fConst2 * float(fVslider3)));
@@ -633,20 +634,21 @@ class dyn_gate : public dsp {
 		float fSlow7 = std::exp((0.0f - (fConst3 / fSlow1)));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
-			fRec2[0] = ((fSlow2 * fRec2[1]) + (fSlow3 * std::fabs(fTemp0)));
-			fRec3[0] = (fSlow4 + (0.999000013f * fRec3[1]));
-			int iTemp1 = (fRec2[0] > std::pow(10.0f, (0.0500000007f * fRec3[0])));
+			fRec3[0] = ((fSlow2 * fRec3[1]) + (fSlow3 * std::fabs(fTemp0)));
+			float fRec2 = fRec3[0];
+			fRec4[0] = (fSlow4 + (0.999000013f * fRec4[1]));
+			int iTemp1 = (fRec2 > std::pow(10.0f, (0.0500000007f * fRec4[0])));
 			iVec0[0] = iTemp1;
-			iRec4[0] = std::max(int((iSlow5 * (iTemp1 < iVec0[1]))), int((iRec4[1] + -1)));
-			float fTemp2 = std::fabs(std::max(float(iTemp1), float((iRec4[0] > 0))));
+			iRec5[0] = std::max<int>(int((iSlow5 * (iTemp1 < iVec0[1]))), int((iRec5[1] + -1)));
+			float fTemp2 = std::fabs(std::max<float>(float(iTemp1), float((iRec5[0] > 0))));
 			float fTemp3 = ((fRec0[1] > fTemp2)?fSlow7:fSlow6);
-			fRec1[0] = ((fTemp2 * (1.0f - fTemp3)) + (fRec1[1] * fTemp3));
+			fRec1[0] = ((fRec1[1] * fTemp3) + (fTemp2 * (1.0f - fTemp3)));
 			fRec0[0] = fRec1[0];
-			output0[i] = FAUSTFLOAT((fRec0[0] * fTemp0));
-			fRec2[1] = fRec2[0];
+			output0[i] = FAUSTFLOAT((fTemp0 * fRec0[0]));
 			fRec3[1] = fRec3[0];
+			fRec4[1] = fRec4[0];
 			iVec0[1] = iVec0[0];
-			iRec4[1] = iRec4[0];
+			iRec5[1] = iRec5[0];
 			fRec1[1] = fRec1[0];
 			fRec0[1] = fRec0[0];
 			
@@ -654,7 +656,6 @@ class dyn_gate : public dsp {
 		
 	}
 
-	
 };
 // clang-format on
 #endif

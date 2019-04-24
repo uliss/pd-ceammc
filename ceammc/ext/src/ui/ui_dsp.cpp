@@ -1,8 +1,6 @@
 #include "ui_dsp.h"
 #include "ceammc_ui.h"
 
-static t_symbol* SYM_DSP = gensym("dsp");
-
 UIDsp::UIDsp()
     : state_(false)
     , init_(false)
@@ -23,7 +21,7 @@ bool UIDsp::okSize(t_rect* newrect)
     return true;
 }
 
-void UIDsp::paint(t_object*)
+void UIDsp::paint()
 {
     // first time only to draw in right state
     if (!init_) {
@@ -31,7 +29,7 @@ void UIDsp::paint(t_object*)
         init_ = true;
     }
 
-    const t_rect& r = rect();
+    const auto r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (p) {
@@ -47,25 +45,36 @@ void UIDsp::paint(t_object*)
     }
 }
 
-void UIDsp::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIDsp::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
+    if (modifiers & EMOD_RIGHT) {
+        UIPopupMenu menu(asEObj(), "menu", abs_pt);
+        menu.addItem(_("Audio Settings"));
+        return;
+    }
+
     if (canvas_dspstate)
         m_stop(AtomList());
     else
         m_start(AtomList());
 }
 
-void UIDsp::onDblClick(t_object*, const t_pt&, long mod)
-{
-    if (mod == EMOD_SHIFT)
-        openSoundSettingsDialog();
-}
-
 void UIDsp::onAny(t_symbol* s, const AtomList& lst)
 {
-    if (s == SYM_DSP && lst.size() > 0 && lst[0].isFloat()) {
+    if (s == gensym("dsp") && lst.size() > 0 && lst[0].isFloat()) {
         state_ = lst[0].asInt(0);
         redrawAll();
+    }
+}
+
+void UIDsp::onPopup(t_symbol* menu_name, long item_idx)
+{
+    switch (item_idx) {
+    case 0:
+        openSoundSettingsDialog();
+        break;
+    default:
+        break;
     }
 }
 
@@ -74,7 +83,7 @@ void UIDsp::m_start(const AtomList&)
     t_symbol* SYM_PD = gensym("pd");
     t_atom av;
     atom_setfloat(&av, 1);
-    pd_typedmess((t_pd*)SYM_PD->s_thing, SYM_DSP, 1, &av);
+    pd_typedmess((t_pd*)SYM_PD->s_thing, gensym("dsp"), 1, &av);
     state_ = true;
     redrawAll();
 }
@@ -84,7 +93,7 @@ void UIDsp::m_stop(const AtomList&)
     t_symbol* SYM_PD = gensym("pd");
     t_atom av;
     atom_setfloat(&av, 0);
-    pd_typedmess((t_pd*)SYM_PD->s_thing, SYM_DSP, 1, &av);
+    pd_typedmess((t_pd*)SYM_PD->s_thing, gensym("dsp"), 1, &av);
     state_ = false;
     redrawAll();
 }
@@ -97,10 +106,11 @@ void UIDsp::m_settings(const AtomList&)
 void UIDsp::setup()
 {
     UIObjectFactory<UIDsp> obj("ui.dsp~", EBOX_GROWLINK);
+    obj.hideLabelInner();
 
     obj.useAny();
     obj.setDefaultSize(30, 30);
-    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DBL_CLICK);
+    obj.useMouseEvents(UI_MOUSE_DOWN);
     obj.addProperty("active_color", _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIDsp::prop_color_active);
 
     obj.addMethod("start", &UIDsp::m_start);
@@ -116,7 +126,7 @@ void UIDsp::openSoundSettingsDialog()
 void UIDsp::redrawAll()
 {
     bg_layer_.invalidate();
-    redraw();
+    redrawInnerArea();
 }
 
 void setup_ui_dsp()

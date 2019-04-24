@@ -24,13 +24,13 @@
             <par>On click outputs message with format [cell ROW COL VALUE(</par>
         </info>
         <arguments>
-            <argument name="ROW" type="int" minvalue="1" maxvalue="256">matrix rows</argument>
-            <argument name="COL" type="int" minvalue="1" maxvalue="256">matrix columns</argument>
+            <argument name="ROW" type="int" minvalue="1" maxvalue="64">matrix rows</argument>
+            <argument name="COL" type="int" minvalue="1" maxvalue="64">matrix columns</argument>
         </arguments>
         <properties>
-            <property name="@rows" type="int" minvalue="1" maxvalue="256" default="4">number of
+            <property name="@rows" type="int" minvalue="1" maxvalue="64" default="4">number of
             matrix rows</property>
-            <property name="@cols" type="int" minvalue="1" maxvalue="256" default="8">number of
+            <property name="@cols" type="int" minvalue="1" maxvalue="64" default="8">number of
             matrix columns</property>
             <property name="@current_row" type="int" minvalue="0" default="-1">current row index.
             -1 if not specified. This property is not saved in patch</property>
@@ -94,8 +94,17 @@
             <method name="flip R C">flips single cell 
             <param name="R" type="int" minvalue="0" required="true">row index</param>
             <param name="C" type="int" minvalue="0" required="true">column index</param></method>
+            <method name="random">fill matrix random and output</method>
             <method name="dump">dumps all object info to Pd console window.</method>
             <method name="reset">uncheck all matrix cells. No output</method>
+            <method name="read">
+                <param type="symbol" name="FNAME">read matrix values from text file (space
+                separated). If fname argument is not specified opens file chooser dialog</param>
+            </method>
+            <method name="write">
+                <param type="symbol" name="FNAME">write matrix values to text file (space
+                separated). If fname argument is not specified opens file chooser dialog</param>
+            </method>
             <!-- presets -->
             <method name="load">loads specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>

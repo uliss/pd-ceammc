@@ -13,7 +13,7 @@ docker run --mount type=bind,source=@CMAKE_SOURCE_DIR@,target=/pure-data $IMAGE 
 mkdir -p ${BUILD}
 cd ${BUILD}
 cmake -DCMAKE_BUILD_TYPE=RELEASE \
-    -DCMAKE_INSTALL_PREIFX=/usr \
+    -DCMAKE_INSTALL_PREFIX=/usr \
     -DWITH_PORTAUDIO=OFF \
     -DWITH_ALSA=ON \
     -DWITH_PORTMIDI=ON \
@@ -22,13 +22,11 @@ cmake -DCMAKE_BUILD_TYPE=RELEASE \
 make -j2
 make test
 make package
-make ceammc_lib
 ls
 "
 
 ID=$(docker ps -ql)
 
-docker cp ${ID}:${BUILD}/${LIB} .
 docker cp ${ID}:${BUILD}/${PD} .
 
 docker stop $ID

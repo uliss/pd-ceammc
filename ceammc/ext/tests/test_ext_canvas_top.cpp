@@ -49,15 +49,13 @@ TEST_CASE("canvas.top", "[externals]")
             REQUIRE(t.numOutlets() == 1);
 
             REQUIRE_PROPERTY(t, @name, "patch");
-            REQUIRE_PROPERTY(t, @dir, "");
+            REQUIRE_PROPERTY(t, @dir, "~");
             REQUIRE_PROPERTY(t, @font, 10);
             REQUIRE_PROPERTY(t, @width, 600);
             REQUIRE_PROPERTY(t, @height, 400);
 
-#ifdef __APPLE__
-            REQUIRE_PROPERTY(t, @x, Atom(0.f));
-            REQUIRE_PROPERTY(t, @y, 22);
-#endif
+            REQUIRE_PROPERTY(t, @x, 0.f);
+            REQUIRE_PROPERTY(t, @y, 0.f);
 
             REQUIRE_PROPERTY_LIST(t, @size, LF(600, 400));
             REQUIRE_PROPERTY_LIST(t, @paths, L());

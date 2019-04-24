@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="hw.apple_smc">
+        <title>hw.apple_smc</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>query the system management control in Apples</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>hw</category>
+            <keywords>motion sensor</keywords>
+            <since>0.8</since>
+            <also>
+                <see>hw.apple_sms</see>
+                <see>hw.cpu_temp</see>
+            </also>
+        </meta>
+        <methods>
+            <method name="read">query specified SMC key 
+            <param name="KEY" type="symbol" required="true">SMC key</param></method>
+        </methods>
+        <properties>
+            <property name="@keys" type="list" readonly="true">list of all found SMC key</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output key value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[TC0P(/*cpu temp*/
+|
+[symbol]
+|
+[S digits=10] [@keys?(
+|             |
+[read $1(     |
+|             |
+[hw.apple_smc ]
+|
+[@->    ]
+|      ^|
+[F]    [print]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

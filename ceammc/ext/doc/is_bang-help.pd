@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 473 50 cnv 1 292 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 473 50 checks if input data has *bang* type;
+#X obj 484 50 cnv 1 281 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 484 50 checks if input data has *bang* type;
 #X obj 1 1 cnv 5 765 40 empty empty is_bang 20 20 0 20 -104026 -4096
 0;
 #X obj 690 11 is_bang;
@@ -15,16 +15,16 @@
 #X obj 20 215 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 220 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 225 1\.;
-#X text 150 225 *bang*;
-#X text 240 225 outputs '1' to 1st outlet \, otherwise '0'.;
-#X obj 20 253 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 258 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 221 1\.;
+#X text 150 221 *bang*;
+#X text 245 221 outputs '1' to 1st outlet \, otherwise '0'.;
+#X obj 20 251 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 256 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 263 1\.;
-#X text 240 263 0 or 1;
-#X text 120 281 2\.;
-#X text 240 281 passes *bang* message;
+#X text 110 257 1\.;
+#X text 245 257 0 or 1\.;
+#X text 110 277 2\.;
+#X text 245 277 passes *bang* message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -32,18 +32,18 @@
 #X obj 131 48 ui.link @title predicates @url
 ceammc.predicates-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.7;
-#X text 424 520 see also:;
-#X obj 500 520 is_any;
-#X obj 558 520 is_float;
-#X obj 630 520 is_symbol;
-#X obj 710 520 is_list;
+#X text 10 508 library: ceammc v0.7.1;
+#X text 406 520 see also:;
+#X obj 480 520 is_any;
+#X obj 538 520 is_float;
+#X obj 610 520 is_symbol;
+#X obj 690 520 is_list;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.7;
+#X text 120 32 0.7.1;
 #X text 10 54 object:;
 #X text 120 54 is_bang;
 #X text 10 76 category:;

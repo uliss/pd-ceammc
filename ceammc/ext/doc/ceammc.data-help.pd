@@ -25,8 +25,7 @@
 #X obj 30 386 dict.from_list;
 #X text 200 386 creates dictionary from list;
 #X obj 30 413 dict.get;
-#X text 200 413 on input dict outputs value to corresponding key
-outlet;
+#X text 200 413 on input dict outputs value to corresponding key outlet;
 #X obj 30 440 dict.keys;
 #X text 200 440 get list of dict keys;
 #X obj 30 467 dict.pass;

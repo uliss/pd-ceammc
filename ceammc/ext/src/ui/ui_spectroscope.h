@@ -35,7 +35,7 @@ public:
 private:
     ClockMemberFunction<UISpectroscope> clock_;
     t_rgba prop_color_active;
-    t_rgba prop_color_label;
+    t_rgba prop_color_scale;
     UILayer graph_layer_;
     UIFont font_;
     std::vector<UITextLayout*> x_labels_;
@@ -55,13 +55,16 @@ public:
 
     void init(t_symbol* name, const AtomList& args, bool usePresets);
     void okSize(t_rect* newrect);
-    t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
-    void paint(t_object* view);
+    void onPropChange(t_symbol* prop_name);
+    void paint();
     void drawBackground();
     void drawGraph();
     void drawGraphLinear(UIPainter& p);
     void drawGraphLog(UIPainter& p);
     void drawHGrid(UIPainter& p);
+
+    void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
+    void onPopup(t_symbol* menu_name, long item_idx);
 
     void dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes);
     void dspOn(double samplerate, long blocksize);

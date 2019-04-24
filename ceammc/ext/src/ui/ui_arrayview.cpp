@@ -16,24 +16,24 @@
 #include "ceammc_format.h"
 #include "ceammc_ui.h"
 
-static t_symbol* SYM_ARRAY_NAME = gensym("array");
-static t_symbol* SYM_ATTR_SIZE = gensym("size");
-static t_symbol* SYM_ATTR_WAVE_COLOR = gensym("wave_color");
-static t_symbol* SYM_ATTR_CURSOR_COLOR = gensym("cursor_color");
-static t_symbol* SYM_ATTR_SELECTION_COLOR = gensym("selection_color");
-static t_symbol* SYM_ATTR_BG_COLOR = gensym(PROP_BACKGROUND_COLOR);
-static t_symbol* SYM_ATTR_SHOW_LABELS = gensym("show_labels");
-static t_symbol* SYM_CURSOR_SAMPLE = gensym("@cursor_samp");
-static t_symbol* SYM_CURSOR_PHASE = gensym("@cursor_phase");
-static t_symbol* SYM_CURSOR_MS = gensym("@cursor_ms");
-static t_symbol* SYM_CURSOR_SEC = gensym("@cursor_sec");
+static t_symbol* SYM_ARRAY_NAME;
+static t_symbol* SYM_ATTR_SIZE;
+static t_symbol* SYM_ATTR_WAVE_COLOR;
+static t_symbol* SYM_ATTR_CURSOR_COLOR;
+static t_symbol* SYM_ATTR_SELECTION_COLOR;
+static t_symbol* SYM_ATTR_BG_COLOR;
+static t_symbol* SYM_ATTR_SHOW_LABELS;
+static t_symbol* SYM_CURSOR_SAMPLE;
+static t_symbol* SYM_CURSOR_PHASE;
+static t_symbol* SYM_CURSOR_MS;
+static t_symbol* SYM_CURSOR_SEC;
 
-static t_symbol* SYM_SELECT_SAMPLE = gensym("@select_samp");
-static t_symbol* SYM_SELECT_PHASE = gensym("@select_phase");
-static t_symbol* SYM_SELECT_MS = gensym("@select_ms");
-static t_symbol* SYM_SELECT_SEC = gensym("@select_sec");
-static t_symbol* SYM_BEGIN = gensym("@begin");
-static t_symbol* SYM_END = gensym("@end");
+static t_symbol* SYM_SELECT_SAMPLE;
+static t_symbol* SYM_SELECT_PHASE;
+static t_symbol* SYM_SELECT_MS;
+static t_symbol* SYM_SELECT_SEC;
+static t_symbol* SYM_BEGIN;
+static t_symbol* SYM_END;
 
 static const size_t RENDER_CHUNK = 44100 * 5;
 static const size_t RENDER_CHUNK_PERIOD = 100;
@@ -50,16 +50,19 @@ UIArrayView::UIArrayView()
     , prop_show_labels(0)
     , prop_show_rms(0)
     , cursor_sample_pos_(0)
-    , font_(FONT_FAMILY, FONT_SIZE_SMALL)
+    , font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , label_top_left_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
     , label_top_right_(font_.font(), ColorRGBA::black(), ETEXT_UP_RIGHT, ETEXT_JRIGHT, ETEXT_NOWRAP)
     , label_bottom_left_(font_.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
     , label_bottom_right_(font_.font(), ColorRGBA::black(), ETEXT_DOWN_RIGHT, ETEXT_JRIGHT, ETEXT_NOWRAP)
 {
     createOutlet();
+
+    appendToLayerList(&wave_layer_);
+    appendToLayerList(&cursor_layer_);
 }
 
-void UIArrayView::paint(t_object* view)
+void UIArrayView::paint()
 {
     drawWaveform();
     drawLabels();
@@ -94,14 +97,19 @@ void UIArrayView::drawWaveform()
         auto sel_color = rgba_color_sum(&prop_color_wave, &prop_color_selection, 0.4);
         auto sel_rect_color = rgba_color_sum(&prop_color_background, &prop_color_selection, 0.9);
 
+        // draw before selection if exists
         if (pixel_sel_start > 1)
             drawWaveformSegment(p, 0, pixel_sel_start, prop_color_wave);
 
+        // draw selection
+        // selection rectangle
         p.setColor(sel_rect_color);
-        p.drawRect(pixel_sel_start, 0, pixel_sel_end - pixel_sel_start, height());
+        p.drawRect(pixel_sel_start, 0, (pixel_sel_end - pixel_sel_start), height());
         p.fill();
+        // selection waveform segment
         drawWaveformSegment(p, pixel_sel_start, pixel_sel_end, sel_color);
 
+        // draw after selection
         if (pixel_sel_end <= (WD - 1))
             drawWaveformSegment(p, pixel_sel_end, WD, prop_color_wave);
     }
@@ -109,7 +117,7 @@ void UIArrayView::drawWaveform()
 
 void UIArrayView::drawLabels()
 {
-    const t_rect& r = rect();
+    const auto r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p || !prop_show_labels)
@@ -133,7 +141,7 @@ void UIArrayView::drawLabels()
 
 void UIArrayView::drawCursor()
 {
-    const t_rect& r = rect();
+    const auto r = rect();
     UIPainter p = cursor_layer_.painter(r);
 
     if (!p)
@@ -174,39 +182,43 @@ void UIArrayView::okSize(t_rect* newrect)
     newrect->height = clip<float>(newrect->height, 10, 1000);
 }
 
-t_pd_err UIArrayView::notify(t_symbol* attr_name, t_symbol* msg)
+void UIArrayView::onPropChange(t_symbol* prop_name)
 {
-    if (msg == s_attr_modified) {
-        if (attr_name == SYM_ATTR_SIZE) {
-            // width changed
-            if (buffer_.size() != width()) {
-                buffer_.resize(width());
-                m_update();
-            } else {
-                // height changed: no need to update buffer, just redraw
-                bg_layer_.invalidate();
-                cursor_layer_.invalidate();
-                wave_layer_.invalidate();
-                redraw();
-            }
-        } else if (attr_name == SYM_ATTR_WAVE_COLOR || attr_name == SYM_ATTR_SELECTION_COLOR) {
-            wave_layer_.invalidate();
-            redraw();
-        } else if (attr_name == SYM_ATTR_BG_COLOR || attr_name == SYM_ATTR_SHOW_LABELS) {
-            bg_layer_.invalidate();
-            wave_layer_.invalidate();
-            redraw();
-        } else if (attr_name == SYM_ATTR_CURSOR_COLOR) {
-            cursor_layer_.invalidate();
-            redraw();
-        } else if (attr_name == SYM_ARRAY_NAME) {
+    if (prop_name == SYM_ATTR_SIZE) {
+        // width changed
+        if (buffer_.size() != width()) {
+            buffer_.resize(width());
             m_update();
+        } else {
+            // height changed: no need to update buffer, just redraw
+            bg_layer_.invalidate();
+            cursor_layer_.invalidate();
+            wave_layer_.invalidate();
+            redraw();
         }
+    } else if (prop_name == SYM_ATTR_WAVE_COLOR || prop_name == SYM_ATTR_SELECTION_COLOR) {
+        wave_layer_.invalidate();
+        redraw();
+    } else if (prop_name == SYM_ATTR_BG_COLOR || prop_name == SYM_ATTR_SHOW_LABELS) {
+        bg_layer_.invalidate();
+        wave_layer_.invalidate();
+        redraw();
+    } else if (prop_name == SYM_ATTR_CURSOR_COLOR) {
+        cursor_layer_.invalidate();
+        redraw();
+    } else if (prop_name == SYM_ARRAY_NAME) {
+        m_update();
     }
-    return 0;
 }
 
-void UIArrayView::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIArrayView::onZoom(t_float z)
+{
+    cursor_layer_.invalidate();
+    bg_layer_.invalidate();
+    wave_layer_.invalidate();
+}
+
+void UIArrayView::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     if (!isValidArray())
         return;
@@ -337,16 +349,6 @@ void UIArrayView::m_update()
     redraw();
 
     render_clock_.delay(RENDER_CHUNK_PERIOD);
-}
-
-void UIArrayView::m_set(const AtomList& lst)
-{
-    t_symbol* sel = lst.symbolAt(0, 0);
-    if (sel == 0) {
-        UI_ERR << "invalid arguments";
-    } else {
-        UI_ERR << "unknown selector: " << sel;
-    }
 }
 
 void UIArrayView::m_selectSamples(const AtomList& lst)
@@ -511,22 +513,27 @@ void UIArrayView::renderRange(size_t pos, size_t len)
     }
 }
 
-void UIArrayView::drawWaveformSegment(UIPainter& p, int pixel_from, int pixel_to, const t_rgba& color)
+void UIArrayView::drawWaveformSegment(UIPainter& p, int pixel_begin, int pixel_end, const t_rgba& color)
 {
-    const t_rect& r = rect();
-    const int len = pixel_to - pixel_from;
+    const int idx_begin = pixel_begin / zoom();
+    const int idx_end = pixel_end / zoom();
+    const int z = zoom();
+    const t_rect r = rect();
+    const int len = idx_end - idx_begin;
+    const int N = buffer_.size();
 
-    if (!p || len < 1 || len > buffer_.size() || pixel_to > buffer_.size())
+    if (!p || len < 1 || len > N || idx_end > N || idx_begin >= N)
         return;
 
     // draw peak
     p.setColor(color);
-    p.moveTo(pixel_from, convert::lin2lin<float>(buffer_[pixel_from].peak_min, 1, -1, 0, r.height));
-    p.drawLineTo(pixel_from, convert::lin2lin<float>(buffer_[pixel_from].peak_max, 1, -1, 0, r.height));
+    p.moveTo(idx_begin * z, convert::lin2lin<float>(buffer_[idx_begin].peak_min, 1, -1, 0, r.height));
+    p.drawLineTo(idx_begin * z, convert::lin2lin<float>(buffer_[idx_begin].peak_max, 1, -1, 0, r.height));
 
-    for (int x = pixel_from + 1; x < pixel_to; x++) {
-        p.drawLineTo(x, convert::lin2lin<float>(buffer_[x].peak_min, 1, -1, 0, r.height));
-        p.drawLineTo(x, convert::lin2lin<float>(buffer_[x].peak_max, 1, -1, 0, r.height));
+    // assume: (x < idx_end) && (idx_end <= N) ----> (x < N)
+    for (int x = idx_begin + 1; x < idx_end; x++) {
+        p.drawLineTo(x * z, convert::lin2lin<float>(buffer_[x].peak_min, 1, -1, 0, r.height));
+        p.drawLineTo(x * z, convert::lin2lin<float>(buffer_[x].peak_max, 1, -1, 0, r.height));
     }
 
     p.stroke();
@@ -534,12 +541,13 @@ void UIArrayView::drawWaveformSegment(UIPainter& p, int pixel_from, int pixel_to
     if (prop_show_rms) {
         // draw rms
         p.setColor(rgba_addContrast(color, 0.23f));
-        p.moveTo(pixel_from, convert::lin2lin<float>(buffer_[pixel_from].rms, 1, -1, 0, r.height));
-        p.drawLineTo(pixel_from, convert::lin2lin<float>(-buffer_[pixel_from].rms, 1, -1, 0, r.height));
+        p.moveTo(idx_begin * z, convert::lin2lin<float>(buffer_[idx_begin].rms, 1, -1, 0, r.height));
+        p.drawLineTo(idx_begin * z, convert::lin2lin<float>(-buffer_[idx_begin].rms, 1, -1, 0, r.height));
 
-        for (int x = pixel_from + 1; x < pixel_to; x++) {
-            p.drawLineTo(x, convert::lin2lin<float>(buffer_[x].rms, 1, -1, 0, r.height));
-            p.drawLineTo(x, convert::lin2lin<float>(-buffer_[x].rms, 1, -1, 0, r.height));
+        // assume: (x < idx_end) && (idx_end <= N) ----> (x < N)
+        for (int x = idx_begin + 1; x < idx_end; x++) {
+            p.drawLineTo(x * z, convert::lin2lin<float>(buffer_[x].rms, 1, -1, 0, r.height));
+            p.drawLineTo(x * z, convert::lin2lin<float>(-buffer_[x].rms, 1, -1, 0, r.height));
         }
 
         p.stroke();
@@ -903,8 +911,10 @@ void UIArrayView::setup()
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_MOVE | UI_MOUSE_LEAVE | UI_MOUSE_DRAG);
     obj.useFloat();
     obj.useBang();
+    obj.hideLabelInner();
 
-    obj.addSymbolProperty("array", _("Array name"), "", &UIArrayView::prop_array);
+    obj.addSymbolProperty("array", _("Array name"), "", &UIArrayView::prop_array, _("Main"));
+
     obj.setPropertyAccessor("array", &UIArrayView::propArray, &UIArrayView::propSetArray);
     obj.addProperty("wave_color", _("Wave Color"), "0.3 0.3 0.3 1", &UIArrayView::prop_color_wave);
     obj.addProperty("cursor_color", _("Cursor Color"), DEFAULT_ACTIVE_COLOR, &UIArrayView::prop_color_cursor);
@@ -931,11 +941,29 @@ void UIArrayView::setup()
     obj.addProperty("size_ms", &UIArrayView::sizeMs, 0);
 
     obj.addMethod("update", &UIArrayView::m_update);
-    obj.addMethod("set", &UIArrayView::m_set);
     obj.addMethod("select", &UIArrayView::m_selectSamples);
 }
 
 void setup_ui_arrayview()
 {
+    SYM_ARRAY_NAME = gensym("array");
+    SYM_ATTR_SIZE = gensym("size");
+    SYM_ATTR_WAVE_COLOR = gensym("wave_color");
+    SYM_ATTR_CURSOR_COLOR = gensym("cursor_color");
+    SYM_ATTR_SELECTION_COLOR = gensym("selection_color");
+    SYM_ATTR_BG_COLOR = gensym(PROP_BACKGROUND_COLOR);
+    SYM_ATTR_SHOW_LABELS = gensym("show_labels");
+    SYM_CURSOR_SAMPLE = gensym("@cursor_samp");
+    SYM_CURSOR_PHASE = gensym("@cursor_phase");
+    SYM_CURSOR_MS = gensym("@cursor_ms");
+    SYM_CURSOR_SEC = gensym("@cursor_sec");
+
+    SYM_SELECT_SAMPLE = gensym("@select_samp");
+    SYM_SELECT_PHASE = gensym("@select_phase");
+    SYM_SELECT_MS = gensym("@select_ms");
+    SYM_SELECT_SEC = gensym("@select_sec");
+    SYM_BEGIN = gensym("@begin");
+    SYM_END = gensym("@end");
+
     UIArrayView::setup();
 }

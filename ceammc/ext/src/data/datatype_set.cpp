@@ -34,6 +34,11 @@ DataTypeSet::DataTypeSet(const AtomList& l)
     add(l);
 }
 
+DataTypeSet::DataTypeSet(DataTypeSet&& ds)
+    : data_(std::move(ds.data_))
+{
+}
+
 DataTypeSet::~DataTypeSet()
 {
 }

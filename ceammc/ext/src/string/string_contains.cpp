@@ -25,12 +25,12 @@ StringContains::StringContains(const PdArgs& a)
 
 void StringContains::onSymbol(t_symbol* s)
 {
-    onDataT(DataTypeString(s));
+    floatTo(0, DataTypeString(s).contains(subj_));
 }
 
-void StringContains::onDataT(const DataTypeString& s)
+void StringContains::onDataT(const DataTPtr<DataTypeString>& dptr)
 {
-    floatTo(0, s.contains(subj_));
+    floatTo(0, dptr->contains(subj_));
 }
 
 void StringContains::onInlet(size_t, const AtomList& l)

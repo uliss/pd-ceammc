@@ -17,13 +17,12 @@
 #include "ceammc_dataatomlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_object.h"
+#include "datatype_mlist.h"
 
 using namespace ceammc;
 
 typedef bool (*StepPropertyCheck)(int);
 typedef CheckedProperty<IntProperty, int, StepPropertyCheck> StepProperty;
-
-class DataTypeMList;
 
 enum ListMode {
     MODE_NORMAL = 0,
@@ -34,18 +33,17 @@ enum ListMode {
 class ListEach : public BaseObject {
     AtomList mapped_list_;
     DataAtomList mapped_dlist_;
-    DataTypeMList* mapped_mlist_;
+    DataTypeMList mapped_mlist_;
     StepProperty* step_prop_;
     ListMode mode_;
 
 public:
     ListEach(const PdArgs& a);
-    ~ListEach();
 
     void onList(const AtomList& l) override;
     void onInlet(size_t n, const AtomList& l) override;
 
-    void onDataT(const DataTypeMList& lst);
+    void onDataT(const DataTPtr<DataTypeMList>& dptr);
 };
 
 void setup_list_each();

@@ -26,7 +26,7 @@ public:
     StringStartsWith(const PdArgs& a);
     void onSymbol(t_symbol* s);
     void onInlet(size_t, const AtomList& l);
-    void onDataT(const DataTypeString& s);
+    void onDataT(const DataTPtr<DataTypeString>& dptr);
 };
 
 extern "C" void setup_string0x2estarts_with();

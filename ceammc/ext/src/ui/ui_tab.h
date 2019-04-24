@@ -17,11 +17,11 @@
 #include "ceammc_ui_object.h"
 
 #include <bitset>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 using namespace ceammc;
 
-typedef boost::shared_ptr<UITextLayout> Layout;
+typedef std::shared_ptr<UITextLayout> Layout;
 
 class UITab : public UIObject {
     AtomList items_;
@@ -43,14 +43,14 @@ public:
 
     void init(t_symbol* name, const AtomList& args, bool usePresets);
     void okSize(t_rect* newrect);
-    void paint(t_object* view);
+    void paint();
 
     void onBang();
     void onFloat(t_float f);
     void onSymbol(t_symbol* s);
     void onAny(t_symbol* s, const AtomList& lst);
 
-    void onMouseDown(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
     void onMouseMove(t_object* view, const t_pt& pt, long modifiers);
     void onMouseLeave(t_object* view, const t_pt& pt, long modifiers);

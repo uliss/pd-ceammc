@@ -6,8 +6,8 @@
 #include "ceammc_externals.h"
 #include "ceammc_ui.h"
 
-#include <boost/unordered_map.hpp>
 #include <string>
+#include <unordered_map>
 #include <utility>
 
 namespace ceammc {
@@ -29,11 +29,11 @@ public:
     typedef std::pair<propFloatGet, propFloatSet> propertyFloatAccess;
     typedef std::pair<propListGet, propListSet> propertyListAccess;
 
-    typedef boost::unordered_map<t_symbol*, bangMethodPtr> BangMethodMap;
-    typedef boost::unordered_map<t_symbol*, floatMethodPtr> FloatMethodMap;
-    typedef boost::unordered_map<t_symbol*, listMethodPtr> ListMethodMap;
-    typedef boost::unordered_map<t_symbol*, propertyFloatAccess> FloatPropertyMap;
-    typedef boost::unordered_map<t_symbol*, propertyListAccess> ListPropertyMap;
+    typedef std::unordered_map<t_symbol*, bangMethodPtr> BangMethodMap;
+    typedef std::unordered_map<t_symbol*, floatMethodPtr> FloatMethodMap;
+    typedef std::unordered_map<t_symbol*, listMethodPtr> ListMethodMap;
+    typedef std::unordered_map<t_symbol*, propertyFloatAccess> FloatPropertyMap;
+    typedef std::unordered_map<t_symbol*, propertyListAccess> ListPropertyMap;
 
 public:
     UIDspFactory(const char* name, long fl = EBOX_GROWINDI, int pd_flags = 0)
@@ -104,16 +104,17 @@ public:
         eclass_addmethod(pd_class, UI_DSP_METHOD_PTR(paint),         "paint",         A_GIMME, 0);
         eclass_addmethod(pd_class, UI_DSP_METHOD_PTR(notify),        "notify",        A_GIMME, 0);
         eclass_addmethod(pd_class, UI_DSP_METHOD_PTR(okSize),        "oksize",        A_GIMME, 0);
+        eclass_addmethod(pd_class, UI_DSP_METHOD_PTR(onPopup),       "popup",         A_GIMME, 0);
         eclass_addmethod(pd_class, UI_DSP_METHOD_PTR(setDrawParams), "getdrawparams", A_NULL,  0);
         // clang-format on
     }
 
     void setupAttributes()
     {
-        // clang-format off
-        //hide standard CICM attributes
-        HIDE_FONT_PROPS(pd_class);
+        CLASS_ATTR_INVISIBLE(pd_class, "fontweight", 1);
+        CLASS_ATTR_INVISIBLE(pd_class, "fontslant", 1);
 
+        // clang-format off
         // background / border color
         addProperty(PROP_BACKGROUND_COLOR,
                     _("Background Color"),
@@ -125,8 +126,21 @@ public:
                     DEFAULT_BORDER_COLOR,
                     &UI::prop_color_border);
 
+        addProperty(PROP_LABEL_COLOR,
+                    _("Label Color"),
+                    DEFAULT_LABEL_COLOR,
+                    &UI::prop_color_label);
+
         // default
         CLASS_ATTR_DEFAULT              (pd_class, "size", 0, "45. 15.");
+        // clang-format on
+    }
+
+    void readWrite()
+    {
+        // clang-format off
+        eclass_addmethod(pd_class, UI_METHOD_PTR(write),         "write",         A_GIMME,  0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(read),          "read",          A_GIMME,  0);
         // clang-format on
     }
 
@@ -148,6 +162,31 @@ public:
         CLASS_ATTR_ACCESSORS(pd_class, PROP_PRESET_NAME, NULL, ebox_set_presetid);
 
         // clang-format on
+    }
+
+    void hideLabel()
+    {
+        hideProperty("label");
+        hideProperty("label_color");
+        hideProperty("label_inner");
+        hideProperty("label_side");
+        hideProperty("label_align");
+        hideProperty("label_valign");
+        hideProperty("label_margins");
+
+        hideFontProps();
+    }
+
+    void hideLabelInner()
+    {
+        hideProperty("label_inner");
+        setPropertyDefaultValue("label_inner", "outer");
+    }
+
+    void hideFontProps()
+    {
+        CLASS_ATTR_INVISIBLE(pd_class, "fontname", 1);
+        CLASS_ATTR_INVISIBLE(pd_class, "fontsize", 1);
     }
 
     void useMouseEvents(int events)
@@ -416,9 +455,9 @@ public:
         z->dspProcess(ins, n_ins, outs, n_outs, sampleframes);
     }
 
-    static void paint(UI* z, t_object* view)
+    static void paint(UI* z)
     {
-        z->paint(view);
+        z->paint();
     }
 
     template <class T>
@@ -436,9 +475,9 @@ public:
         z->onMouseMove(view, pt, modifiers);
     }
 
-    static void mouseDown(UI* z, t_object* view, t_pt pt, long modifiers)
+    static void mouseDown(UI* z, t_object* view, t_pt pt, t_pt abs_pt, long modifiers)
     {
-        z->onMouseDown(view, pt, modifiers);
+        z->onMouseDown(view, pt, abs_pt, modifiers);
     }
 
     static void mouseUp(UI* z, t_object* view, t_pt pt, long modifiers)
@@ -476,18 +515,34 @@ public:
         z->onKey(k);
     }
 
-    static t_pd_err notify(UI* z, t_symbol* s, t_symbol* msg, void*, void*)
+    static void notify(UI* z, t_symbol* prop_name, t_symbol* action_name)
     {
-        if (use_presets && msg == s_attr_modified && s == SYM_PROP_PRESET_NAME) {
-            z->handlePresetNameChange();
-        }
+        if (action_name == s_attr_modified) {
+            if (use_presets && prop_name == gensym(PROP_PRESET_NAME))
+                z->handlePresetNameChange();
 
-        return z->notify(s, msg);
+            z->onPropChange(prop_name);
+        }
+    }
+
+    static void write(UI* z, const char* fname)
+    {
+        z->write(fname);
+    }
+
+    static void read(UI* z, const char* fname)
+    {
+        z->read(fname);
     }
 
     static void okSize(UI* z, ::t_rect* newrect)
     {
         z->okSize(newrect);
+    }
+
+    static void onPopup(UI* z, t_symbol* menu_name, long itemIdx)
+    {
+        z->onPopup(menu_name, itemIdx);
     }
 
     static void onBang(UI* z)
@@ -617,9 +672,9 @@ public:
         (z->*m)();
     }
 
-    static void setDrawParams(UI* z, t_object* obj, t_edrawparams* params)
+    static void setDrawParams(UI* z, t_edrawparams* params)
     {
-        z->setDrawParams(obj, params);
+        z->setDrawParams(params);
     }
 
     static t_pd_err floatPropGetter(UI* z, t_eattr* attr, int* argc, t_atom** argv)

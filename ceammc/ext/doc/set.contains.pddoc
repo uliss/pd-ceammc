@@ -16,6 +16,9 @@
                 <see>data.set</see>
             </also>
         </meta>
+        <arguments>
+            <argument name="X" type="list">searched elements</argument>
+        </arguments>
         <inlets>
             <inlet>
                 <xinfo>input set. Other values are ignored</xinfo>

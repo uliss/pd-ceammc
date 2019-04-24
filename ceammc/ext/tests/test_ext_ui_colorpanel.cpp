@@ -20,6 +20,7 @@ UI_COMPLETE_TEST_SETUP(ColorPanel)
 TEST_CASE("ui.colorpanel", "[ui.colorpanel]")
 {
     ui_test_init();
+    setup_ui_colorpanel();
 
     SECTION("construct")
     {

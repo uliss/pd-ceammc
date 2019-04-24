@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_separate.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 ListSeparate::ListSeparate(const PdArgs& a)
     : BaseObject(a)
@@ -30,9 +30,9 @@ void ListSeparate::onList(const AtomList& l)
     bangTo(1);
 }
 
-void ListSeparate::onDataT(const DataTypeMList& l)
+void ListSeparate::onDataT(const DataTPtr<DataTypeMList>& l)
 {
-    for (auto& el : l)
+    for (auto& el : *l)
         atomTo(0, el.toAtom());
 
     bangTo(1);

@@ -4,11 +4,11 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_MIN = gensym("min");
-static t_symbol* SYM_PADZ = gensym("padz");
-static t_symbol* SYM_CLIP = gensym("clip");
-static t_symbol* SYM_WRAP = gensym("wrap");
-static t_symbol* SYM_FOLD = gensym("fold");
+static t_symbol* SYM_MIN;
+static t_symbol* SYM_PADZ;
+static t_symbol* SYM_CLIP;
+static t_symbol* SYM_WRAP;
+static t_symbol* SYM_FOLD;
 
 class ListDelta : public BaseObject {
     AtomList prev_list_;
@@ -79,6 +79,12 @@ public:
 
 extern "C" void setup_list0x2edelta()
 {
+    SYM_MIN = gensym("min");
+    SYM_PADZ = gensym("padz");
+    SYM_CLIP = gensym("clip");
+    SYM_WRAP = gensym("wrap");
+    SYM_FOLD = gensym("fold");
+
     ObjectFactory<ListDelta> obj("list.delta");
     obj.addMethod("clear", &ListDelta::m_clear);
 }

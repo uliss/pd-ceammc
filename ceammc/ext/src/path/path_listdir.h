@@ -32,7 +32,7 @@ public:
     PathListDir(const PdArgs& a);
     void onBang();
     void onSymbol(t_symbol* path);
-    void onDataT(const DataTypeString& s);
+    void onDataT(const DataTPtr<DataTypeString>& dptr);
 
 private:
     void readDirList();

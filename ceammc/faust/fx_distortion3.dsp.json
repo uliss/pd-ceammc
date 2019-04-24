@@ -1,10 +1,10 @@
 {
 	"name": "fx.distortion3",
 	"filename": "fx_distortion3",
-	"version": "2.8.5",
+	"version": "2.17.3",
 	"compile_options": "cpp, -scal -ftz 0",
-	"library_list": ["/Users/serj/work/music/pd-exp/pure-data/ceammc/faust/guitarix.lib","/usr/local/share/faust/stdfaust.lib","/Users/serj/work/music/pd-exp/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/signals.lib","/Users/serj/work/music/pd-exp/pure-data/ceammc/faust/ceammc_ui.lib"],
-	"include_pathnames": ["/Users/serj/work/music/pd-exp/pure-data/ceammc/faust","/usr/local/share/faust","/usr/share/faust"],
+	"library_list": ["/Users/serj/work/music/pure-data/ceammc/faust/guitarix.lib","/usr/local/share/faust/stdfaust.lib","/Users/serj/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/signals.lib","/Users/serj/work/music/pure-data/ceammc/faust/ceammc_ui.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
 	"inputs": "1",
 	"outputs": "1",
 	"meta": [ 
@@ -46,9 +46,9 @@
 					"meta": [
 						{ "tooltip": "Distortion Level" }
 					],
-					"init": "50",
+					"init": "0.5",
 					"min": "0",
-					"max": "100",
+					"max": "1",
 					"step": "1"
 				},
 				{

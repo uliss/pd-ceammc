@@ -1,87 +1,86 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 450 50 cnv 1 315 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 450 50 Peaking equalizer calculator for biquad;
+#X obj 461 50 cnv 1 304 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 461 50 Peaking equalizer calculator for biquad;
 #X obj 1 1 cnv 5 765 40 empty empty flt.c_peak~ 20 20 0 20 -104026
 -4096 0;
 #X obj 660 11 flt.c_peak~;
-#X obj 205 80 cnv 1 560 47 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Calculates coefficients for transfer function:
-H(z)=(b0+b1*z^-1+b2*z^-2)/(1+a1*z^-1+a2*z^-2);
-#X obj 50 155 noise.pink~;
-#X floatatom 136 184 5 0 0 0 - - -;
-#X floatatom 242 184 5 0 0 0 - - -;
-#X msg 136 213 @freq \$1;
-#X msg 242 213 @gain \$1;
-#X obj 136 242 flt.c_peak~ 200 15 10;
-#X obj 50 285 flt.biquad~;
-#X obj 50 314 ui.gain~ @size 120 16;
-#X obj 50 342 dac~;
-#X obj 50 371 ui.dsp~;
-#X obj 20 410 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 415 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Calculates coefficients for transfer function: H(z)=(b0+b1*z^-1+b2*z^-2)/(1+a1*z^-1+a2*z^-2);
+#X obj 50 158 noise.pink~;
+#X floatatom 136 187 5 0 0 0 - - -;
+#X floatatom 242 187 5 0 0 0 - - -;
+#X msg 136 216 @freq \$1;
+#X msg 242 216 @gain \$1;
+#X obj 136 245 flt.c_peak~ 200 15 10;
+#X obj 50 288 flt.biquad~;
+#X obj 50 317 ui.gain~ @size 120 16;
+#X obj 50 345 dac~;
+#X obj 50 374 ui.dsp~;
+#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 418 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 420 1\.;
-#X text 150 420 float;
-#X obj 241 421 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 420 freq(Hz): center frequency. Range: 20\...20000;
-#X text 120 438 2\.;
-#X text 150 438 float;
-#X obj 241 439 cnv 1 72 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 438 gain(db): filter gain. Range: -15\...+15;
-#X text 120 456 3\.;
-#X text 150 456 float;
-#X obj 241 457 cnv 1 16 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 456 q: quality factory. Range: 0.01\...100;
-#X obj 20 484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 489 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 453 1\.;
+#X text 150 453 float;
+#X obj 246 454 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 453 freq(Hz): center frequency. Range: 20\...20000;
+#X text 110 473 2\.;
+#X text 150 473 float;
+#X obj 246 474 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 473 gain(db): filter gain. Range: -15\...+15;
+#X text 110 493 3\.;
+#X text 150 493 float;
+#X obj 246 494 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 493 q: quality factory. Range: 0.01\...100;
+#X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 528 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 494 @freq;
-#X text 240 494 Get/Set center frequency. Type: float. Units: Hz.
-Default value: 1000\. Value range: 20-20000;
-#X msg 120 531 @gain;
-#X text 240 531 Get/Set filter gain. Type: float. Units: db. Default
-value: 0\. Value range: -15-15;
-#X msg 120 568 @q;
-#X text 240 568 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
-Default value: 1\. Value range: 0.01-100;
-#X msg 120 605 @active;
-#X text 240 605 Get/Set on/off dsp processing. Type: int. Default
-value: 1\. Allowed values: 0 \, 1;
-#X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 657 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 563 @active;
+#X text 245 563 Get/Set on/off dsp processing. Type: int. Default value:
+1\. Allowed values: 0 \, 1\.;
+#X msg 110 605 @freq;
+#X text 245 605 Get/Set center frequency. Type: float. Units: Hz. Default
+value: 1000\. Range: 20\...20000\.;
+#X msg 110 647 @gain;
+#X text 245 647 Get/Set filter gain. Type: float. Units: db. Default
+value: 0\. Range: -15\...15\.;
+#X msg 110 689 @q;
+#X text 245 689 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
+Default value: 1\. Range: 0.01\...100\.;
+#X obj 20 741 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 746 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 662 1\.;
-#X text 240 662 control signal.;
-#X obj 20 690 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 695 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 747 1\.;
+#X text 245 747 control signal.;
+#X obj 20 777 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 782 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 700 1\.;
-#X text 240 700 b0;
-#X text 120 718 2\.;
-#X text 240 718 b1;
-#X text 120 736 3\.;
-#X text 240 736 b2;
-#X text 120 754 4\.;
-#X text 240 754 a1;
-#X text 120 772 5\.;
-#X text 240 772 a2;
+#X text 110 783 1\.;
+#X text 245 783 b0\.;
+#X text 110 803 2\.;
+#X text 245 803 b1\.;
+#X text 110 823 3\.;
+#X text 245 823 b2\.;
+#X text 110 843 4\.;
+#X text 245 843 a1\.;
+#X text 110 863 5\.;
+#X text 245 863 a2\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 820 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 823 library: ceammc v0.7;
-#X text 502 835 see also:;
-#X obj 578 835 flt.eq_peak~;
-#X obj 680 835 flt.biquad~;
-#N canvas 10 842 400 290 info 0;
+#X obj 1 913 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 916 library: ceammc v0.7.1;
+#X text 484 928 see also:;
+#X obj 558 928 flt.eq_peak~;
+#X obj 660 928 flt.biquad~;
+#N canvas 10 935 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.7;
+#X text 120 32 0.7.1;
 #X text 10 54 object:;
 #X text 120 54 flt.c_peak~;
 #X text 10 76 category:;
@@ -100,7 +99,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 842 pd info;
+#X restore 10 935 pd info;
 #X connect 7 0 9 0;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;

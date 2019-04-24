@@ -14,7 +14,7 @@ public:
     EnvConcat(const PdArgs& args);
 
     void onBang();
-    void onDataT(const DataTypeEnv& env);
+    void onDataT(const DataTPtr<DataTypeEnv>& dptr);
     void onInlet(size_t n, const AtomList& lst);
 };
 

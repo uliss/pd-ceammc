@@ -42,7 +42,7 @@ void PatchProps::onBang()
         return;
 
     for (t_gobj* y = x->gl_list; y; y = y->g_next) {
-        if (y->g_pd->c_name != PropDeclare::className)
+        if (y->g_pd->c_name != className())
             continue;
 
         PdObject<PropDeclare>* prop = reinterpret_cast<PdObject<PropDeclare>*>(y);
@@ -119,7 +119,7 @@ void PatchProps::m_all_props(t_symbol* s, const AtomList& args)
     char buf[MAXPDSTRING];
 
     for (t_gobj* y = x->gl_list; y; y = y->g_next) {
-        if (y->g_pd->c_name != PropDeclare::className)
+        if (y->g_pd->c_name != className())
             continue;
 
         PropDeclare* prop = reinterpret_cast<PdObject<PropDeclare>*>(y)->impl;
@@ -136,7 +136,7 @@ void PatchProps::m_default(t_symbol*, const AtomList&)
         return;
 
     for (t_gobj* x = cnv->gl_list; x; x = x->g_next) {
-        if (x->g_pd->c_name != PropDeclare::className)
+        if (x->g_pd->c_name != className())
             continue;
 
         PdObject<PropDeclare>* prop = reinterpret_cast<PdObject<PropDeclare>*>(x);
@@ -155,7 +155,7 @@ void PatchProps::dump() const
         return;
 
     for (t_gobj* x = cnv->gl_list; x; x = x->g_next) {
-        if (x->g_pd->c_name != PropDeclare::className)
+        if (x->g_pd->c_name != className())
             continue;
 
         PropDeclare* prop = reinterpret_cast<PdObject<PropDeclare>*>(x)->impl;
@@ -179,6 +179,11 @@ void PatchProps::outputProp(const std::string& name, t_symbol* s)
 void PatchProps::outputProp(const std::string& name, const AtomList& l)
 {
     anyTo(0, gensym(name.c_str()), l);
+}
+
+t_symbol* PatchProps::className() const
+{
+    return owner()->te_g.g_pd->c_name;
 }
 
 void setup_patch_props()

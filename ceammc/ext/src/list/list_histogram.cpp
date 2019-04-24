@@ -17,7 +17,7 @@
 #include "ceammc_fn_list.h"
 
 ListHistogram::ListHistogram(const PdArgs& a)
-    : BaseObject(a)
+    : ListBase(a)
     , bins_(0)
 {
     createInlet();
@@ -41,11 +41,6 @@ void ListHistogram::onList(const AtomList& l)
 void ListHistogram::onInlet(size_t, const AtomList& l)
 {
     bins_->set(l);
-}
-
-void ListHistogram::onDataT(const DataTypeMList& lst)
-{
-    onList(lst.toList());
 }
 
 void setup_list_histogram()

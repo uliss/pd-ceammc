@@ -26,6 +26,7 @@ static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("array.vplay", "[externals]")
 {
+    setup_array_vline_play();
     test::pdPrintToStdError(true);
     setTestSampleRate(100);
 

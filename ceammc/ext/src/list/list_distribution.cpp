@@ -4,7 +4,7 @@
 #include "ceammc_fn_list.h"
 
 ListDistribution::ListDistribution(const PdArgs& a)
-    : BaseObject(a)
+    : ListBase(a)
     , normalize_(nullptr)
 {
     createOutlet();
@@ -16,11 +16,6 @@ ListDistribution::ListDistribution(const PdArgs& a)
 void ListDistribution::onList(const AtomList& l)
 {
     listTo(0, list::countRepeats(l, normalize_->value()));
-}
-
-void ListDistribution::onDataT(const DataTypeMList& lst)
-{
-    onList(lst.toList());
 }
 
 void setup_list_distribution()

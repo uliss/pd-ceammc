@@ -16,7 +16,7 @@
 #include "ceammc_factory.h"
 
 ListAnyOf::ListAnyOf(const PdArgs& a)
-    : BaseObject(a)
+    : ListBase(a)
     , any_(false)
 {
     createOutlet();
@@ -52,11 +52,6 @@ void ListAnyOf::onInlet(size_t n, const AtomList& l)
 
     if (l.first()->asInt(0) == 1)
         any_ = true;
-}
-
-void ListAnyOf::onDataT(const DataTypeMList& lst)
-{
-    onList(lst.toList());
 }
 
 void setup_list_any_of()

@@ -2,17 +2,7 @@
 #include "ceammc_factory.h"
 
 using namespace ceammc;
-
-static t_symbol* SYM_PROP_FREQ_31 = gensym("@f31");
-static t_symbol* SYM_PROP_FREQ_62 = gensym("@f62");
-static t_symbol* SYM_PROP_FREQ_125 = gensym("@f125");
-static t_symbol* SYM_PROP_FREQ_250 = gensym("@f250");
-static t_symbol* SYM_PROP_FREQ_500 = gensym("@f500");
-static t_symbol* SYM_PROP_FREQ_1000 = gensym("@f1000");
-static t_symbol* SYM_PROP_FREQ_2000 = gensym("@f2000");
-static t_symbol* SYM_PROP_FREQ_4000 = gensym("@f4000");
-static t_symbol* SYM_PROP_FREQ_8000 = gensym("@f8000");
-static t_symbol* SYM_PROP_FREQ_16000 = gensym("@f16000");
+;
 
 template <typename T, std::size_t N>
 constexpr std::size_t countof(T const (&)[N]) noexcept
@@ -30,6 +20,17 @@ public:
 
     void onList(const AtomList& l) override
     {
+        static t_symbol* SYM_PROP_FREQ_31 = gensym("@f31");
+        static t_symbol* SYM_PROP_FREQ_62 = gensym("@f62");
+        static t_symbol* SYM_PROP_FREQ_125 = gensym("@f125");
+        static t_symbol* SYM_PROP_FREQ_250 = gensym("@f250");
+        static t_symbol* SYM_PROP_FREQ_500 = gensym("@f500");
+        static t_symbol* SYM_PROP_FREQ_1000 = gensym("@f1000");
+        static t_symbol* SYM_PROP_FREQ_2000 = gensym("@f2000");
+        static t_symbol* SYM_PROP_FREQ_4000 = gensym("@f4000");
+        static t_symbol* SYM_PROP_FREQ_8000 = gensym("@f8000");
+        static t_symbol* SYM_PROP_FREQ_16000 = gensym("@f16000");
+
         static t_symbol* freq_pack[] = {
             SYM_PROP_FREQ_31,
             SYM_PROP_FREQ_62,

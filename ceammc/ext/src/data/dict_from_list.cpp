@@ -30,19 +30,19 @@ DictFromList::DictFromList(const PdArgs& args)
 
 void DictFromList::onList(const AtomList& l)
 {
-    DataTypeDict* dict = new DataTypeDict;
+    DataTypeDict dict;
     size_t STEP = n_->value();
     size_t T = (l.size() / STEP) * STEP;
 
     if (STEP == 2) {
         for (size_t i = 0; i < T; i += STEP)
-            dict->insert(l[i], l[i + 1]);
+            dict.insert(l[i], l[i + 1]);
     } else {
         for (size_t i = 0; i < T; i += STEP)
-            dict->insert(l[i], l.slice(i + 1, i + STEP - 1));
+            dict.insert(l[i], l.slice(i + 1, i + STEP - 1));
     }
 
-    dataTo(0, DataPtr(dict));
+    dataTo(0, DataTPtr<DataTypeDict>(dict));
 }
 
 void setup_dict_from_list()

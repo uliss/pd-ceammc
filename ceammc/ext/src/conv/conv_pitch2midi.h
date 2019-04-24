@@ -12,7 +12,7 @@ public:
 
     void onSymbol(t_symbol* s);
     void onList(const AtomList& lst);
-    void onDataT(const DataTypeString& s);
+    void onDataT(const DataTPtr<DataTypeString>& s);
 
 private:
     void convert(const char* p);

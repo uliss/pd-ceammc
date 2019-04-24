@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.distortion1~">
+        <title>fx.distortion1~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>distortion #1 from Guitarix effects set</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx distortion</keywords>
+            <since>0.7</since>
+            <also>
+                <see>fx.distortion~</see>
+                <see>fx.distortion2~</see>
+                <see>fx.distortion3~</see>
+            </also>
+        </meta>
+        <properties>
+            <!-- speaker emulation-->
+            <property name="@sp_low_freq" type="float" units="herz" minvalue="20" maxvalue="1000"
+            default="130">speaker emulation low frequency</property>
+            <property name="@sp_high_freq" type="float" units="herz" default="5000" minvalue="1000"
+            maxvalue="12000">speaker emulation high frequency</property>
+            <property name="@sp_on_off" type="int" default="0" enum="0 1">speaker emulation turn
+            on/off</property>
+            <!-- filtering-->
+            <property name="@lp_freq" type="float" units="herz" default="5000" minvalue="20"
+            maxvalue="12000">low pass frequency</property>
+            <property name="@hp_freq" type="float" units="herz" default="130" minvalue="20"
+            maxvalue="7040">high pass frequency</property>
+            <property name="@flt_on_off" type="int" default="0" enum="0 1">filter
+            processing</property>
+            <!-- split frequencies -->
+            <property name="@split_low_freq" type="float" units="herz" default="250" minvalue="20"
+            maxvalue="600">low split frequency</property>
+            <property name="@split_middle_freq" type="float" units="herz" default="650"
+            minvalue="600" maxvalue="1250">middle split frequency</property>
+            <property name="@split_high_freq" type="float" units="herz" default="1250"
+            minvalue="1250" maxvalue="12000">high split frequency</property>
+            <!-- gain -->
+            <property name="@level" type="float" default="0.01" minvalue="0" maxvalue="0.5">effect
+            level</property>
+            <property name="@gain" type="float" units="decibel" default="2" minvalue="-10"
+            maxvalue="10">total effect gain</property>
+            <property name="@low_gain" type="float" units="decibel" default="10" minvalue="-10"
+            maxvalue="20">gain on low frequencies</property>
+            <property name="@high_gain" type="float" units="decibel" default="10" minvalue="-10"
+            maxvalue="20">gain on high frequencies</property>
+            <property name="@middle_l_gain" type="float" units="decibel" default="10"
+            minvalue="-10" maxvalue="20">gain on middle low frequencies</property>
+            <property name="@middle_h_gain" type="float" units="decibel" default="10"
+            minvalue="-10" maxvalue="20">gain on middle high frequencies</property>
+            <!-- drive -->
+            <property name="@drive" type="float" minvalue="0" maxvalue="1" default="0.64">
+            distortion amount</property>
+            <property name="@low_drive" type="float" minvalue="0" maxvalue="1" default="1">
+            distortion amount on low frequencies</property>
+            <property name="@high_drive" type="float" minvalue="0" maxvalue="1" default="1">
+            distortion amount on high frequencies</property>
+            <property name="@middle_l_drive" type="float" minvalue="0" maxvalue="1" default="1">
+            distortion amount on middle low frequencies</property>
+            <property name="@middle_h_drive" type="float" minvalue="0" maxvalue="1" default="1">
+            distortion amount on middle high frequencies</property>
+            <!-- resonator -->
+            <property name="@res_on_off" type="int" default="0" enum="0 1">resonator</property>
+            <property name="@vibrato" type="float" default="1" minvalue="0" maxvalue="1">resonator
+            vibration</property>
+            <property name="@trigger" type="float" default="0.12" minvalue="0" maxvalue="1">
+            resonator trigger</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1(
+|
+[expand_env]
+|
+[readsf~]
+|
+| [ui.knob]   [ui.knob]     [T]
+| |           |             |
+| |           |             |
+| |           |             |
+| [@drive $1( [@vibrato $1( [@res_on_off $1(
+| |           |             |
+| |           |             |
+[fx.distortion1~            ]
+|
+[ui.gain~ @size 120 16]           [ui.dsp~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

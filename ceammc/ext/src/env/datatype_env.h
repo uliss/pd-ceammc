@@ -97,6 +97,9 @@ public:
 public:
     DataTypeEnv();
     DataTypeEnv(const DataTypeEnv& env);
+    DataTypeEnv(DataTypeEnv&& env);
+    DataTypeEnv& operator=(const DataTypeEnv& env);
+    DataTypeEnv& operator=(DataTypeEnv&& env);
 
     DataType type() const;
     std::string toString() const;
@@ -272,13 +275,6 @@ public:
      * Concatenates another envelope
      */
     DataTypeEnv& operator+=(const DataTypeEnv& env);
-
-    /**
-     * Assign operator
-     * @param env
-     * @return
-     */
-    DataTypeEnv& operator=(const DataTypeEnv& env);
 
     /**
      * Create new envelope from raw list content

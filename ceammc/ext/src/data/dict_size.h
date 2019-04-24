@@ -22,7 +22,7 @@ using namespace ceammc;
 class DictSize : public BaseObject {
 public:
     DictSize(const PdArgs& args);
-    void onDataT(const DataTypeDict& dict);
+    void onDataT(const DataTPtr<DataTypeDict>& dict);
 };
 
 void setup_dict_size();

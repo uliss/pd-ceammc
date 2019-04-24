@@ -16,12 +16,6 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 
-#include <boost/make_shared.hpp>
-#include <boost/static_assert.hpp>
-
-static t_symbol* SYM_PROP_TITLE = gensym("@title");
-static t_symbol* SYM_PROP_SELECTED = gensym("@selected");
-
 static const size_t MAX_ITEMS = 128;
 
 UITab::UITab()
@@ -55,9 +49,9 @@ void UITab::okSize(t_rect* newrect)
     }
 }
 
-void UITab::paint(t_object* view)
+void UITab::paint()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
     if (!p)
         return;
@@ -164,7 +158,7 @@ void UITab::onAny(t_symbol* s, const AtomList& lst)
     onSymbol(s);
 }
 
-void UITab::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UITab::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     const size_t N = items_.size();
     if (!N)
@@ -261,7 +255,7 @@ void UITab::propSetItems(const AtomList& lst)
     layouts_.reserve(lst.size());
 
     for (size_t i = layouts_.size(); i < lst.size(); i++) {
-        layouts_.push_back(boost::make_shared<UITextLayout>(&asEBox()->b_font, prop_color_text,
+        layouts_.push_back(std::make_shared<UITextLayout>(&asEBox()->b_font, prop_color_text,
             ETEXT_CENTER, ETEXT_JCENTER, ETEXT_NOWRAP));
     }
 
@@ -419,6 +413,7 @@ void UITab::output()
             res.append(Atom(toggles_.test(i) ? 1 : 0));
         }
 
+        t_symbol* SYM_PROP_SELECTED = gensym("@selected");
         anyTo(0, SYM_PROP_SELECTED, res);
         send(SYM_PROP_SELECTED, res);
 
@@ -433,6 +428,8 @@ void UITab::output()
             return;
 
         AtomList sel(items_[item_selected_]);
+
+        t_symbol* SYM_PROP_TITLE = gensym("@title");
         anyTo(0, SYM_PROP_TITLE, sel);
         send(SYM_PROP_TITLE, sel);
 
@@ -494,16 +491,18 @@ void UITab::setup()
     obj.useFloat();
     obj.useSymbol();
     obj.usePresets();
+    obj.hideLabelInner();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_MOVE | UI_MOUSE_LEAVE);
 
     obj.showProperty("fontname");
     obj.showProperty("fontsize");
     obj.showProperty("fontweight");
 
-    obj.addProperty("orientation", _("Vertical Orientation"), false, &UITab::prop_is_vertical);
-    obj.addProperty("toggle", _("Toggle Mode"), false, &UITab::prop_toggle_mode);
+    obj.addProperty("orientation", _("Vertical Orientation"), false, &UITab::prop_is_vertical, "Main");
+    obj.addProperty("toggle", _("Toggle Mode"), false, &UITab::prop_toggle_mode, "Main");
     obj.addProperty("items", &UITab::propItems, &UITab::propSetItems);
     obj.showProperty("items");
+    obj.setPropertyCategory("items", "Main");
     obj.setPropertyLabel("items", _("Items"));
     obj.setPropertySave("items");
     obj.addProperty("count", &UITab::propCount, 0);

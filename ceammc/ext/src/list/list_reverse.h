@@ -24,7 +24,7 @@ class ListReverse : public BaseObject {
 public:
     ListReverse(const PdArgs& a);
     void onList(const AtomList& l) override;
-    void onDataT(const DataTypeMList& lst);
+    void onDataT(const DataTPtr<DataTypeMList>& dptr);
 };
 
 void setup_list_reverse();

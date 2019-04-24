@@ -14,19 +14,16 @@
 #ifndef LIST_NORMALIZE_H
 #define LIST_NORMALIZE_H
 
-#include "ceammc_object.h"
+#include "list_base.h"
 
 using namespace ceammc;
 
-class DataTypeMList;
-
-class ListNormalize : public BaseObject {
+class ListNormalize : public ListBase {
     SymbolEnumProperty* by_;
 
 public:
     ListNormalize(const PdArgs& a);
     void onList(const AtomList& lst);
-    void onDataT(const DataTypeMList& lst);
 };
 
 void setup_list_normalize();

@@ -43,7 +43,7 @@ if(MODPLUG_FOUND)
     set(CEAMMC_HAVE_MODPLUG ON)
 endif()
 
-# FuildSynth
+# FluidSynth
 find_package(GLIB)
 if(GLIB_FOUND)
     set(CEAMMC_HAVE_FLUIDSYNTH ON)

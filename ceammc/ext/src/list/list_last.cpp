@@ -1,6 +1,6 @@
 #include "list_last.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 ListLast::ListLast(const PdArgs& args)
     : BaseObject(args)
@@ -16,12 +16,12 @@ void ListLast::onList(const AtomList& lst)
         atomTo(0, *last);
 }
 
-void ListLast::onDataT(const DataTypeMList& lst)
+void ListLast::onDataT(const DataTPtr<DataTypeMList>& dptr)
 {
-    if (lst.empty())
+    if (dptr->empty())
         return;
 
-    atomTo(0, lst.at(lst.size() - 1).toAtom());
+    atomTo(0, dptr->at(dptr->size() - 1).toAtom());
 }
 
 void setup_list_last()

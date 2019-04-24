@@ -1,14 +1,12 @@
 #include "list_rotate.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
-
-static t_symbol* SYM_ROTATE_RIGHT = gensym("list.>>");
+#include "datatype_mlist.h"
 
 ListRotate::ListRotate(const PdArgs& a)
     : BaseObject(a)
     , step_(0)
-    , rotate_dir_((a.creationName == SYM_ROTATE_RIGHT) ? ROTATE_RIGHT : ROTATE_LEFT)
+    , rotate_dir_((a.creationName == gensym("list.>>")) ? ROTATE_RIGHT : ROTATE_LEFT)
 {
     createInlet();
     createOutlet();
@@ -27,10 +25,9 @@ void ListRotate::onInlet(size_t, const AtomList& step)
     step_->set(step);
 }
 
-void ListRotate::onDataT(const DataTypeMList& ml)
+void ListRotate::onDataT(const DataTPtr<DataTypeMList>& ml)
 {
-    DataPtr ptr(ml.rotateLeft(step_->value() * rotate_dir_).clone());
-    dataTo(0, ptr);
+    dataTo(0, DataTPtr<DataTypeMList>(ml->rotateLeft(step_->value() * rotate_dir_)));
 }
 
 void setup_list_rotate()

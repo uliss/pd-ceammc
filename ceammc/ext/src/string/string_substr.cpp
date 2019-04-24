@@ -26,14 +26,14 @@ StringSubstr::StringSubstr(const PdArgs& a)
     createProperty(len_);
 }
 
-void StringSubstr::onDataT(const DataTypeString& s)
+void StringSubstr::onDataT(const DataTPtr<DataTypeString>& dptr)
 {
-    dataTo(0, DataPtr(s.substr(from_->value(), len_->value()).clone()));
+    dataTo(0, DataTPtr<DataTypeString>(dptr->substr(from_->value(), len_->value())));
 }
 
 void StringSubstr::onSymbol(t_symbol* s)
 {
-    onDataT(DataTypeString(s));
+    dataTo(0, DataTPtr<DataTypeString>(DataTypeString(s).substr(from_->value(), len_->value())));
 }
 
 extern "C" void setup_string0x2esubstr()

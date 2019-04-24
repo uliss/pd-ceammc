@@ -1,4 +1,5 @@
 include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/re2)
 
 set(FLOW_SOURCES "")
 
@@ -17,6 +18,7 @@ ceammc_flow_extension(group)
 ceammc_flow_extension(interval)
 ceammc_flow_extension(less)
 ceammc_flow_extension(less_eq)
+ceammc_flow_extension(match)
 ceammc_flow_extension(multiplex)
 ceammc_flow_extension(multiplex_tilde)
 ceammc_flow_extension(multiplex2_tilde)
@@ -36,4 +38,4 @@ if(UNIX)
     set_target_properties(ceammc_flow PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
 
-target_link_libraries(ceammc_flow ceammc_base) # for function calls
+target_link_libraries(ceammc_flow ceammc_base re2) # for function calls

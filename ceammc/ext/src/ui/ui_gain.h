@@ -35,19 +35,20 @@ protected:
     int prop_max;
     int prop_min;
     int prop_output_value;
+    int prop_show_range;
 
 public:
     UIGain();
 
     void okSize(t_rect* newrect);
-    void paint(t_object* view);
+    void paint();
 
     void init(t_symbol* name, const AtomList& args, bool usePresets);
     void dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes);
-    t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
+    void onPropChange(t_symbol* prop_name);
 
     void onBang();
-    void onMouseDown(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
 

@@ -8,7 +8,6 @@
  * WARRANTIES, see the file, "LICENSE.txt," in this distribution.
  */
 
-
 #include "egraphics.h"
 
 #include "ceammc_convert.h"
@@ -26,10 +25,10 @@ const t_rgba rgba_blue = { 0.f, 0.f, 1.f, 1.f };
 const t_rgba rgba_green = { 0.f, 1.f, 0.f, 1.f };
 const t_rgba rgba_red = { 1.f, 0.f, 0.f, 1.f };
 
-static t_symbol* SYM_ITALIC = gensym("italic");
-static t_symbol* SYM_ROMAN = gensym("roman");
-static t_symbol* SYM_BOLD = gensym("bold");
-static t_symbol* SYM_NORMAL = gensym("normal");
+static const char* SYM_ITALIC = "italic";
+static const char* SYM_ROMAN = "roman";
+static const char* SYM_BOLD = "bold";
+static const char* SYM_NORMAL = "normal";
 
 static void egraphics_apply_matrix(t_elayer* g, t_egobj* gobj);
 
@@ -45,32 +44,27 @@ void egraphics_set_line_capstyle(t_elayer* g, t_capstyle style)
 
 void egraphics_set_color_rgba(t_elayer* g, const t_rgba* rgba)
 {
-    g->e_color = gensym(rgba_to_hex(*rgba));
+    g->e_color = rgba_to_hex_int(*rgba);
 }
 
 void egraphics_set_color_rgb(t_elayer* g, const t_rgb* rgb)
 {
-    g->e_color = gensym(rgb_to_hex(*rgb));
-}
-
-void egraphics_set_color_hex(t_elayer* g, t_symbol* hex)
-{
-    g->e_color = hex;
+    g->e_color = rgb_to_hex_int(*rgb);
 }
 
 void egraphics_set_color_hsla(t_elayer* g, const t_hsla* hsla)
 {
     t_rgba color = hsla_to_rgba(*hsla);
-    g->e_color = gensym(rgba_to_hex(color));
+    g->e_color = rgba_to_hex_int(color);
 }
 
 void egraphics_set_color_hsl(t_elayer* g, const t_hsl* hsl)
 {
     t_rgb color = hsl_to_rgb(*hsl);
-    g->e_color = gensym(rgb_to_hex(color));
+    g->e_color = rgb_to_hex_int(color);
 }
 
-static void egraphics_paint(t_elayer* g, int filled, int preserved)
+static void egraphics_paint(t_elayer* g, bool filled, int preserved)
 {
     t_egobj *nobj, *temp;
     if (g->e_new_objects.e_type != E_GOBJ_INVALID && g->e_new_objects.e_npoints) {
@@ -79,11 +73,7 @@ static void egraphics_paint(t_elayer* g, int filled, int preserved)
             g->e_objects = temp;
             nobj = g->e_objects + g->e_number_objects;
             g->e_number_objects++;
-            if (filled) {
-                nobj->e_filled = 1;
-            } else {
-                nobj->e_filled = 0;
-            }
+            nobj->e_filled = filled;
             nobj->e_type = g->e_new_objects.e_type;
             nobj->e_npoints = g->e_new_objects.e_npoints;
             nobj->e_points = (t_pt*)malloc((size_t)nobj->e_npoints * sizeof(t_pt));
@@ -118,22 +108,22 @@ static void egraphics_paint(t_elayer* g, int filled, int preserved)
 
 void egraphics_fill_preserve(t_elayer* g)
 {
-    egraphics_paint(g, 1, 1);
+    egraphics_paint(g, true, 1);
 }
 
 void egraphics_fill(t_elayer* g)
 {
-    egraphics_paint(g, 1, 0);
+    egraphics_paint(g, true, 0);
 }
 
 void egraphics_stroke_preserve(t_elayer* g)
 {
-    egraphics_paint(g, 0, 1);
+    egraphics_paint(g, false, 1);
 }
 
 void egraphics_stroke(t_elayer* g)
 {
-    egraphics_paint(g, 0, 0);
+    egraphics_paint(g, false, 0);
 }
 
 void etext_layout_draw(t_etext* textlayout, t_elayer* g)
@@ -154,7 +144,7 @@ void etext_layout_draw(t_etext* textlayout, t_elayer* g)
             g->e_objects[index].e_points[0].y = textlayout->c_rect.y;
             g->e_objects[index].e_points[1].x = textlayout->c_rect.width;
             g->e_objects[index].e_points[1].y = textlayout->c_rect.height;
-            g->e_objects[index].e_color = gensym(rgba_to_hex(textlayout->c_color));
+            g->e_objects[index].e_color = rgba_to_hex_int(textlayout->c_color);
 
             g->e_objects[index].e_font = textlayout->c_font;
             g->e_objects[index].e_justify = textlayout->c_justify;
@@ -170,12 +160,12 @@ void etext_layout_draw(t_etext* textlayout, t_elayer* g)
 
 static void egraphics_preallocate(t_elayer* g, size_t inc)
 {
-    t_pt* temp;
+
     if (g->e_new_objects.e_points == NULL) {
         g->e_new_objects.e_points = (t_pt*)malloc(inc * sizeof(t_pt));
         g->e_new_objects.e_npoints = 0;
     } else {
-        temp = (t_pt*)realloc(g->e_new_objects.e_points, ((size_t)g->e_new_objects.e_npoints + inc) * sizeof(t_pt));
+        t_pt* temp = (t_pt*)realloc(g->e_new_objects.e_points, ((size_t)g->e_new_objects.e_npoints + inc) * sizeof(t_pt));
         if (temp) {
             g->e_new_objects.e_points = temp;
         } else {
@@ -302,29 +292,18 @@ void egraphics_curve(t_elayer* g, float startx, float starty,
 void egraphics_rectangle(t_elayer* g, float x, float y, float width, float height)
 {
     if (g->e_state == EGRAPHICS_OPEN) {
-        egraphics_preallocate(g, 9);
+        egraphics_preallocate(g, 3);
+        g->e_new_objects.e_type = E_GOBJ_SHAPE;
+
         if (g->e_new_objects.e_points) {
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints].x = E_PATH_MOVE;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 1].x = x;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 1].y = y;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 2].x = E_PATH_LINE;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 3].x = x + width;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 3].y = y;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 4].x = E_PATH_LINE;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 5].x = x + width;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 5].y = y + height;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 6].x = E_PATH_LINE;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 7].x = x;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 7].y = y + height;
-            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 8].x = E_PATH_CLOSE;
-            g->e_new_objects.e_npoints += 9;
+            g->e_new_objects.e_points[0].x = E_SHAPE_RECT;
+            g->e_new_objects.e_points[1].x = x;
+            g->e_new_objects.e_points[1].y = y;
+            g->e_new_objects.e_points[2].x = x + width;
+            g->e_new_objects.e_points[2].y = y + height;
+            g->e_new_objects.e_npoints = 3;
         }
     }
-}
-
-void egraphics_rectangle_rounded(t_elayer* g, float x, float y, float width, float height, float roundness)
-{
-    egraphics_rectangle(g, x, y, width, height);
 }
 
 void egraphics_oval(t_elayer* g, float xc, float yc, float radiusx, float radiusy)
@@ -364,6 +343,33 @@ void egraphics_arc_oval(t_elayer* g, float xc, float yc, float radiusx, float ra
             g->e_new_objects.e_points[3].x = (angle1 / EPD_PI) * 180.f;
             g->e_new_objects.e_points[3].y = ((angle2 - angle1) / EPD_PI) * 180.f;
             g->e_new_objects.e_npoints = 4;
+        }
+    }
+}
+
+void egraphics_poly(t_elayer* g, const std::vector<t_pt>& points)
+{
+    if (points.empty())
+        return;
+
+    if (g->e_state == EGRAPHICS_OPEN) {
+        const size_t N = points.size() * 2 + 1;
+        egraphics_preallocate(g, N);
+        g->e_new_objects.e_type = E_GOBJ_PATH;
+
+        if (g->e_new_objects.e_points) {
+            g->e_new_objects.e_points[0].x = E_PATH_MOVE;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 1].x = points[0].x;
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints + 1].y = points[0].y;
+
+            for (size_t i = 1; i < points.size(); i++) {
+                g->e_new_objects.e_points[g->e_new_objects.e_npoints + i * 2].x = E_PATH_LINE;
+                g->e_new_objects.e_points[g->e_new_objects.e_npoints + i * 2 + 1].x = points[i].x;
+                g->e_new_objects.e_points[g->e_new_objects.e_npoints + i * 2 + 1].y = points[i].y;
+            }
+
+            g->e_new_objects.e_points[g->e_new_objects.e_npoints + points.size() * 2].x = E_PATH_CLOSE;
+            g->e_new_objects.e_npoints += N;
         }
     }
 }
@@ -516,6 +522,24 @@ void egraphics_arc_oval_to(t_elayer* g, float cx, float cy, float radius, float 
     }
 }
 
+int rgba_to_hex_int(const t_rgba& color)
+{
+    const auto r = static_cast<unsigned int>(color.red * 255.f) & 0xFF;
+    const auto g = static_cast<unsigned int>(color.green * 255.f) & 0xFF;
+    const auto b = static_cast<unsigned int>(color.blue * 255.f) & 0xFF;
+
+    return (r << 16) | (g << 8) | b;
+}
+
+int rgb_to_hex_int(const t_rgb& color)
+{
+    const auto r = static_cast<unsigned int>(color.red * 255.f) & 0xFF;
+    const auto g = static_cast<unsigned int>(color.green * 255.f) & 0xFF;
+    const auto b = static_cast<unsigned int>(color.blue * 255.f) & 0xFF;
+
+    return (r << 16) | (g << 8) | b;
+}
+
 char* rgba_to_hex(t_rgba color)
 {
     int r = (int)(color.red * 255.f);
@@ -530,34 +554,6 @@ char* rgba_to_hex(t_rgba color)
     ColBuf[6] = HexDigits[b & 15];
     ColBuf[7] = '\0';
     return &ColBuf[0];
-}
-
-char* rgb_to_hex(t_rgb color)
-{
-    int r = (int)(color.red * 255.f);
-    int g = (int)(color.green * 255.f);
-    int b = (int)(color.blue * 255.f);
-    ColBuf[0] = '#';
-    ColBuf[1] = HexDigits[(r >> 4) & 15];
-    ColBuf[2] = HexDigits[r & 15];
-    ColBuf[3] = HexDigits[(g >> 4) & 15];
-    ColBuf[4] = HexDigits[g & 15];
-    ColBuf[5] = HexDigits[(b >> 4) & 15];
-    ColBuf[6] = HexDigits[b & 15];
-    ColBuf[7] = '\0';
-    return &ColBuf[0];
-}
-
-char* hsla_to_hex(t_hsla color)
-{
-    t_rgba ncolor = hsla_to_rgba(color);
-    return rgba_to_hex(ncolor);
-}
-
-char* hsl_to_hex(t_hsl color)
-{
-    t_rgb ncolor = hsl_to_rgb(color);
-    return rgb_to_hex(ncolor);
 }
 
 t_rgba hex_to_rgba(const char* color)
@@ -598,7 +594,7 @@ t_hsla rgba_to_hsla(t_rgba color)
     delta = max - min;
     ncolor.alpha = color.alpha;
     ncolor.lightness = (max + min) / 2.f;
-    if(delta == 0) {
+    if (delta == 0) {
         ncolor.hue = 0;
         ncolor.saturation = 1;
         ncolor.lightness = 1;
@@ -934,12 +930,12 @@ t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, float
     if (new_font) {
         new_font[0].c_family = family;
         new_font[0].c_slant = slant;
-        if (new_font[0].c_slant != SYM_ITALIC)
-            new_font[0].c_slant = SYM_ROMAN;
+        if (new_font[0].c_slant != gensym(SYM_ITALIC))
+            new_font[0].c_slant = gensym(SYM_ROMAN);
 
         new_font[0].c_weight = weight;
-        if (new_font[0].c_weight != SYM_BOLD)
-            new_font[0].c_weight = SYM_NORMAL;
+        if (new_font[0].c_weight != gensym(SYM_BOLD))
+            new_font[0].c_weight = gensym(SYM_NORMAL);
 
         new_font[0].c_size = pd_clip_min(size, 1.f);
     }
@@ -1066,4 +1062,14 @@ void eimage_copy(t_eimage* dest, const t_eimage* src)
 void eimage_set_base64_data(t_eimage* img, const char* base64)
 {
     img->data_base64 = base64;
+}
+
+void egraphics_set_color_hex(t_elayer* g, uint32_t c)
+{
+    g->e_color = c;
+}
+
+void egraphics_raise(t_elayer* over, t_elayer* l)
+{
+    sys_vgui("raise %s %s\n", over->e_id->s_name, l->e_id->s_name);
 }

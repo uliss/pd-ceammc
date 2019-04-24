@@ -14,13 +14,11 @@
 #ifndef LIST_COUNT_IF_H
 #define LIST_COUNT_IF_H
 
-#include "ceammc_object.h"
+#include "list_base.h"
 
 using namespace ceammc;
 
-class DataTypeMList;
-
-class ListCountIf : public BaseObject {
+class ListCountIf : public ListBase {
     size_t count_;
 
 public:
@@ -28,7 +26,6 @@ public:
     void onBang() override;
     void onList(const AtomList& lst) override;
     void onInlet(size_t n, const AtomList& l) override;
-    void onDataT(const DataTypeMList& lst);
 };
 
 void setup_list_count_if();

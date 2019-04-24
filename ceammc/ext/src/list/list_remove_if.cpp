@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_remove_if.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 ListRemoveIf::ListRemoveIf(const PdArgs& a)
     : BaseObject(a)
@@ -48,20 +48,20 @@ void ListRemoveIf::onInlet(size_t n, const AtomList& l)
     remove_ = l[0].asFloat() != 0;
 }
 
-void ListRemoveIf::onDataT(const DataTypeMList& l)
+void ListRemoveIf::onDataT(const DataTPtr<DataTypeMList>& dptr)
 {
     remove_ = true;
-    DataTypeMList* res = new DataTypeMList;
+    DataTypeMList res;
 
-    for (size_t i = 0; i < l.size(); i++) {
+    for (size_t i = 0; i < dptr->size(); i++) {
         remove_ = true;
 
-        atomTo(1, l.at(i).toAtom());
+        atomTo(1, dptr->at(i).toAtom());
         if (!remove_)
-            res->append(l.at(i));
+            res.append(dptr->at(i));
     }
 
-    dataTo(0, DataPtr(res));
+    dataTo(0, DataTPtr<DataTypeMList>(res));
 }
 
 void setup_list_remove_if()

@@ -13,6 +13,8 @@
 
 #include "ecommon.h"
 
+#include <vector>
+
 /*! @addtogroup groupgraphics The Graphics Part
  * @brief The t_elayer part.
  * @details This part refers to the methods and structures used to paint.
@@ -60,14 +62,6 @@ void egraphics_set_color_rgba(t_elayer* g, const t_rgba* rgba);
 void egraphics_set_color_rgb(t_elayer* g, const t_rgb* rgb);
 
 /*!
- * \fn          void egraphics_set_color_hex(t_elayer *g, t_symbol *hex)
- * \brief       Sets the color in hexadecimal that will be used by the t_elayer.
- * \param g     The t_elayer pointer.
- * \param hex   The hexadecimal color.
- */
-void egraphics_set_color_hex(t_elayer* g, t_symbol* hex);
-
-/*!
  * \fn          void egraphics_set_color_hsla(t_elayer *g, const t_hsla *hsla)
  * \brief       Sets the color in hsla that will be used by the t_elayer.
  * \param g     The t_elayer pointer.
@@ -82,6 +76,14 @@ void egraphics_set_color_hsla(t_elayer* g, const t_hsla* hsla);
  * \param hsl   The hsla color.
  */
 void egraphics_set_color_hsl(t_elayer* g, const t_hsl* hsl);
+
+/*!
+ * \fn          void egraphics_set_color_hex(t_elayer *g, uint32_t c)
+ * \brief       Sets the color in hex that will be used by the t_elayer.
+ * \param g     The t_elayer pointer.
+ * \param hex   The hex color.
+ */
+void egraphics_set_color_hex(t_elayer* g, uint32_t c);
 
 /*!
  * \fn          void egraphics_matrix_init(t_matrix *x, float xx, float yx, float xy, float yy, float x0, float y0)
@@ -228,18 +230,6 @@ void egraphics_close_path(t_elayer* g);
 void egraphics_rectangle(t_elayer* g, float x, float y, float width, float height);
 
 /*!
- * \fn          void egraphics_rectangle_rounded(t_elayer *g, float x, float y, float width, float height, float roundness)
- * \brief       Adds a rounded rectangle in the t_elayer.
- * \param g     The t_elayer pointer.
- * \param x     The abscissa of the rectangle.
- * \param y     The ordiante of the rectangle.
- * \param width     The width of the rectangle.
- * \param height    The height of the rectangle.
- * \param roundness The roundness of the angles in pixel.
- */
-void egraphics_rectangle_rounded(t_elayer* g, float x, float y, float width, float height, float roundness);
-
-/*!
  * \fn          void egraphics_circle(t_elayer *g, float xc, float yc, float radius)
  * \brief       Adds a circle in the t_elayer.
  * \param g     The t_elayer pointer.
@@ -286,6 +276,9 @@ void egraphics_arc(t_elayer* g, float xc, float yc, float radius, float angle1, 
 void egraphics_arc_oval(t_elayer* g, float xc, float yc, float radiusx, float radiusy, float angle1, float angle2);
 
 void egraphics_image(t_elayer* g, float xc, float yc, t_eimage* image);
+void egraphics_poly(t_elayer* g, const std::vector<t_pt>& points);
+void egraphics_raise(t_elayer* over, t_elayer* l);
+
 
 /*!
  * \fn          t_etext* etext_layout_create(void)
@@ -430,28 +423,20 @@ void hsl_set(t_hsl* color, float hue, float saturation, float lightness);
 char* rgba_to_hex(t_rgba color);
 
 /*!
- * \fn          char* rgb_to_hex(t_rgb color)
- * \brief       Converts a t_rgb color to an hexadecimal color.
- * \param color The t_rgb color.
+ * \fn          char* rgba_to_hex(t_rgba color)
+ * \brief       Converts a t_rgba color to an hexadecimal color.
+ * \param color The t_rgba color.
  * \return The hexadecimal color.
  */
-char* rgb_to_hex(t_rgb color);
+int rgba_to_hex_int(const t_rgba& color);
 
 /*!
- * \fn          char* hsla_to_hex(t_hsla color)
- * \brief       Converts a t_hsla color to an hexadecimal color.
- * \param color The t_hsla color.
+ * \fn          char* rgba_to_hex(t_rgba color)
+ * \brief       Converts a t_rgba color to an hexadecimal color.
+ * \param color The t_rgba color.
  * \return The hexadecimal color.
  */
-char* hsla_to_hex(t_hsla color);
-
-/*!
- * \fn          char* hsl_to_hex(t_hsl color)
- * \brief       Converts a t_hsl color to an hexadecimal color.
- * \param color The t_hsl color.
- * \return The hexadecimal color.
- */
-char* hsl_to_hex(t_hsl color);
+int rgb_to_hex_int(const t_rgb& color);
 
 /*!
  * \fn          t_hsla rgba_to_hsla(t_rgba color)

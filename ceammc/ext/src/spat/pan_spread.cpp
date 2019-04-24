@@ -1,8 +1,10 @@
-#include "pan_spread.h"
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "pan_spread.h"
 
-#include <boost/math/constants/constants.hpp>
 #include <cassert>
 
 PanSpread::PanSpread(const PdArgs& args)
@@ -90,8 +92,6 @@ void PanSpread::processBlock(const t_sample** in, t_sample** out)
 
 void PanSpread::calcCoefficents()
 {
-    using namespace boost::math::float_constants;
-
     static const t_float SMALL_FLOAT = 0.0001f;
 
     const size_t N = channels_->value();
@@ -104,8 +104,8 @@ void PanSpread::calcCoefficents()
     for (size_t i = 0; i < N; i++) {
         t_float pos = clip<t_float>(convert::lin2lin<t_float>(t_float(i) / (N - 1), 0, 1, y0, y0 + len), 0, 1);
 
-        auto left = cosf(pos * half_pi) * comp;
-        auto right = sinf(pos * half_pi) * comp;
+        auto left = cosf(pos * M_PI_2) * comp;
+        auto right = sinf(pos * M_PI_2) * comp;
 
         if (left <= SMALL_FLOAT)
             left = 0.f;

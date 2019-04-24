@@ -1,6 +1,6 @@
 #include "list_sort.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 #include <algorithm>
 
@@ -20,11 +20,11 @@ void ListSort::onList(const AtomList& lst)
     listTo(0, res);
 }
 
-void ListSort::onDataT(const DataTypeMList& lst)
+void ListSort::onDataT(const DataTPtr<DataTypeMList>& lst)
 {
-    DataTypeMList* res = new DataTypeMList(lst);
-    res->sort();
-    dataTo(0, DataPtr(res));
+    DataTypeMList res(*lst);
+    res.sort();
+    dataTo(0, DataTPtr<DataTypeMList>(res));
 }
 
 void setup_list_sort()

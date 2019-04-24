@@ -17,22 +17,22 @@
 #include <boost/none.hpp>
 #include <cmath>
 
-static t_symbol* SYM_PLAY = gensym("play");
-static t_symbol* SYM_STOP = gensym("stop");
-static t_symbol* SYM_UNIT_SAMP = gensym("sample");
-static t_symbol* SYM_UNIT_SEC = gensym("sec");
-static t_symbol* SYM_UNIT_MS = gensym("ms");
-static t_symbol* SYM_UNIT_PHASE = gensym("phase");
+static t_symbol* SYM_PLAY;
+static t_symbol* SYM_STOP;
+static t_symbol* SYM_UNIT_SAMP;
+static t_symbol* SYM_UNIT_SEC;
+static t_symbol* SYM_UNIT_MS;
+static t_symbol* SYM_UNIT_PHASE;
 
-static t_symbol* SYM_CURSOR_SAMPLE = gensym("@cursor_samp");
-static t_symbol* SYM_CURSOR_PHASE = gensym("@cursor_phase");
-static t_symbol* SYM_CURSOR_MS = gensym("@cursor_ms");
-static t_symbol* SYM_CURSOR_SEC = gensym("@cursor_sec");
+static t_symbol* SYM_CURSOR_SAMPLE;
+static t_symbol* SYM_CURSOR_PHASE;
+static t_symbol* SYM_CURSOR_MS;
+static t_symbol* SYM_CURSOR_SEC;
 
-static t_symbol* SYM_SELECT_SAMPLE = gensym("@select_samp");
-static t_symbol* SYM_SELECT_PHASE = gensym("@select_phase");
-static t_symbol* SYM_SELECT_MS = gensym("@select_ms");
-static t_symbol* SYM_SELECT_SEC = gensym("@select_sec");
+static t_symbol* SYM_SELECT_SAMPLE;
+static t_symbol* SYM_SELECT_PHASE;
+static t_symbol* SYM_SELECT_MS;
+static t_symbol* SYM_SELECT_SEC;
 
 ArrayVlinePlay::ArrayVlinePlay(const PdArgs& args)
     : ArrayBase(args)
@@ -54,8 +54,10 @@ ArrayVlinePlay::ArrayVlinePlay(const PdArgs& args)
 
     createCbProperty("@begin", &ArrayVlinePlay::propBeginSample, &ArrayVlinePlay::propSetBeginSample);
     property("@begin")->info().setType(PropertyInfoType::INTEGER);
+    property("@begin")->info().setUnits(PropertyInfoUnits::SAMP);
     createCbProperty("@end", &ArrayVlinePlay::propEndSample, &ArrayVlinePlay::propSetEndSample);
     property("@end")->info().setType(PropertyInfoType::INTEGER);
+    property("@end")->info().setUnits(PropertyInfoUnits::SAMP);
     createCbProperty("@abs_begin", &ArrayVlinePlay::propAbsBeginSample);
     property("@abs_begin")->info().setType(PropertyInfoType::FLOAT);
     createCbProperty("@abs_end", &ArrayVlinePlay::propAbsEndSample);
@@ -336,6 +338,23 @@ void ArrayVlinePlay::m_stop(t_symbol* s, const AtomList& lst)
 
 void setup_array_vline_play()
 {
+    SYM_PLAY = gensym("play");
+    SYM_STOP = gensym("stop");
+    SYM_UNIT_SAMP = gensym("sample");
+    SYM_UNIT_SEC = gensym("sec");
+    SYM_UNIT_MS = gensym("ms");
+    SYM_UNIT_PHASE = gensym("phase");
+
+    SYM_CURSOR_SAMPLE = gensym("@cursor_samp");
+    SYM_CURSOR_PHASE = gensym("@cursor_phase");
+    SYM_CURSOR_MS = gensym("@cursor_ms");
+    SYM_CURSOR_SEC = gensym("@cursor_sec");
+
+    SYM_SELECT_SAMPLE = gensym("@select_samp");
+    SYM_SELECT_PHASE = gensym("@select_phase");
+    SYM_SELECT_MS = gensym("@select_ms");
+    SYM_SELECT_SEC = gensym("@select_sec");
+
     ObjectFactory<ArrayVlinePlay> obj("array.vplay");
 
     obj.addMethod("play", &ArrayVlinePlay::m_play);

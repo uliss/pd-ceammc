@@ -27,23 +27,23 @@ TEST_CASE("canvas.current", "[externals]")
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
 
-        REQUIRE_PROPERTY(t, @name, "");
-        REQUIRE_PROPERTY(t, @dir, "");
-        REQUIRE_PROPERTY(t, @root, Atom(0.f));
-        REQUIRE_PROPERTY(t, @abstraction, Atom(0.f));
-        REQUIRE_PROPERTY(t, @font, Atom(0.f));
-        REQUIRE_PROPERTY(t, @width, Atom(0.f));
-        REQUIRE_PROPERTY(t, @height, Atom(0.f));
+        REQUIRE_PROPERTY(t, @name, "test_canvas");
+        REQUIRE_PROPERTY(t, @dir, "~");
+        REQUIRE_PROPERTY(t, @root, Atom(1));
+        REQUIRE_PROPERTY(t, @abstraction, Atom(1));
+        REQUIRE_PROPERTY(t, @font, Atom(10));
+        REQUIRE_PROPERTY(t, @width, Atom(600));
+        REQUIRE_PROPERTY(t, @height, Atom(400));
         REQUIRE_PROPERTY(t, @x, Atom(0.f));
         REQUIRE_PROPERTY(t, @y, Atom(0.f));
 
         REQUIRE_PROPERTY_LIST(t, @args, L());
         REQUIRE_PROPERTY_LIST(t, @paths, L());
-        REQUIRE_PROPERTY_LIST(t, @size, AtomList(0.f, 0.f));
+        REQUIRE_PROPERTY_LIST(t, @size, AtomList(600, 400));
 
         CanvasPtr cnv = PureData::instance().createTopCanvas(TEST_DATA_DIR "/patch");
 
-        {
+        {   
             TestExtCanvasCurrent t("canvas.current");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
@@ -56,10 +56,8 @@ TEST_CASE("canvas.current", "[externals]")
             REQUIRE_PROPERTY(t, @width, 600);
             REQUIRE_PROPERTY(t, @height, 400);
 
-#ifdef __APPLE__
             REQUIRE_PROPERTY(t, @x, Atom(0.f));
-            REQUIRE_PROPERTY(t, @y, 22);
-#endif
+            REQUIRE_PROPERTY(t, @y, 0.f);
 
             REQUIRE_PROPERTY_LIST(t, @args, L());
             REQUIRE_PROPERTY_LIST(t, @size, LF(600, 400));

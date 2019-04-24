@@ -17,9 +17,9 @@
 
 #include <boost/algorithm/string.hpp>
 
-static t_symbol* REPLACE_ALL = gensym("all");
-static t_symbol* REPLACE_FIRST = gensym("first");
-static t_symbol* REPLACE_LAST = gensym("last");
+static t_symbol* REPLACE_ALL;
+static t_symbol* REPLACE_FIRST;
+static t_symbol* REPLACE_LAST;
 
 StringReplace::StringReplace(const PdArgs& a)
     : BaseObject(a)
@@ -54,19 +54,15 @@ void StringReplace::onSymbol(t_symbol* s)
     onDataT(DataTypeString(s));
 }
 
-void StringReplace::onDataT(const DataTypeString& s)
+void StringReplace::onDataT(const DataTPtr<DataTypeString>& dptr)
 {
-    DataTypeString* res = 0;
-
     if (mode_->value() == REPLACE_ALL) {
-        res = new DataTypeString(s.replaceAll(from_, to_));
+        dataTo(0, DataTPtr<DataTypeString>(dptr->replaceAll(from_, to_)));
     } else if (mode_->value() == REPLACE_FIRST) {
-        res = new DataTypeString(s.replaceFirst(from_, to_));
+        dataTo(0, DataTPtr<DataTypeString>(dptr->replaceFirst(from_, to_)));
     } else if (mode_->value() == REPLACE_LAST) {
-        res = new DataTypeString(s.replaceLast(from_, to_));
+        dataTo(0, DataTPtr<DataTypeString>(dptr->replaceLast(from_, to_)));
     }
-
-    dataTo(0, DataPtr(res));
 }
 
 void StringReplace::onInlet(size_t n, const AtomList& l)
@@ -104,6 +100,10 @@ void StringReplace::setPropTo(const AtomList& l)
 
 void setup_string0x2ereplace()
 {
+    REPLACE_ALL = gensym("all");
+    REPLACE_FIRST = gensym("first");
+    REPLACE_LAST = gensym("last");
+
     ObjectFactory<StringReplace> obj("string.replace");
     obj.processData<DataTypeString>();
     obj.addAlias("str.replace");

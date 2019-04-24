@@ -3,8 +3,6 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_GATE = gensym("@gate");
-
 class LiveCapture : public faust_live_capture_tilde {
 public:
     LiveCapture(const PdArgs& args)
@@ -20,12 +18,12 @@ public:
 
     void m_record(t_symbol*, const AtomList&)
     {
-        setProperty(SYM_PROP_GATE, Atom(1));
+        setProperty(gensym("@gate"), Atom(1));
     }
 
     void m_stop(t_symbol*, const AtomList&)
     {
-        setProperty(SYM_PROP_GATE, Atom(0.f));
+        setProperty(gensym("@gate"), Atom(0.f));
     }
 
     void onInlet(size_t, const AtomList& l)
@@ -37,7 +35,7 @@ public:
         }
 
         t_float f = l[0].asFloat();
-        setProperty(SYM_PROP_GATE, Atom(f == 0.f ? 0.f : 1));
+        setProperty(gensym("@gate"), Atom(f == 0.f ? 0.f : 1));
     }
 };
 

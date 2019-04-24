@@ -11,7 +11,7 @@ BINDIR="$2"
 VERSION="$4"
 OUTDIR="$3/ceammc"
 ARCH="$5"
-OUTFILE="ceammc-${VERSION}-win-pd-0.47-${ARCH}.zip"
+OUTFILE="ceammc-${VERSION}-win-pd-0.49-${ARCH}.zip"
 
 echo "    - source dir:  ${SRCDIR}"
 echo "    - binary dir:  ${BINDIR}"
@@ -36,6 +36,20 @@ rm -f "${OUTDIR}/*"
 
 echo "Copying externals to ${OUTDIR} ..."
 find "${BINDIR}/extra/ceammc" -name *.dll -print0 | while read -r -d '' file
+do
+    cp "$file" "${OUTDIR}"
+    echo "+ Ext:  $(basename $file)"
+done
+
+echo "Copying 64-bit externals to ${OUTDIR} ..."
+find "${BINDIR}/extra/ceammc" -name *.m_amd64 -print0 | while read -r -d '' file
+do
+    cp "$file" "${OUTDIR}"
+    echo "+ Ext:  $(basename $file)"
+done
+
+echo "Copying 32-bit externals to ${OUTDIR} ..."
+find "${BINDIR}/extra/ceammc" -name *.m_i386 -print0 | while read -r -d '' file
 do
     cp "$file" "${OUTDIR}"
     echo "+ Ext:  $(basename $file)"

@@ -18,18 +18,18 @@
 #include <algorithm>
 #include <map>
 
-static t_symbol* WIN_TRIANGLE = gensym("tri");
-static t_symbol* WIN_WELCH = gensym("welch");
-static t_symbol* WIN_HANN = gensym("hann");
-static t_symbol* WIN_RECT = gensym("rect");
-static t_symbol* WIN_SINE = gensym("sine");
-static t_symbol* WIN_HAMMING = gensym("hamming");
-static t_symbol* WIN_BLACKMAN = gensym("blackman");
-static t_symbol* WIN_NUTTALL = gensym("nuttall");
-static t_symbol* WIN_BLACKMAN_HARRIS = gensym("blackman-harris");
-static t_symbol* WIN_FLATTOP = gensym("flattop");
-static t_symbol* WIN_GAUSS = gensym("gauss");
-static t_symbol* WIN_DEFAULT = WIN_HANN;
+static t_symbol* WIN_TRIANGLE;
+static t_symbol* WIN_WELCH;
+static t_symbol* WIN_HANN;
+static t_symbol* WIN_RECT;
+static t_symbol* WIN_SINE;
+static t_symbol* WIN_HAMMING;
+static t_symbol* WIN_BLACKMAN;
+static t_symbol* WIN_NUTTALL;
+static t_symbol* WIN_BLACKMAN_HARRIS;
+static t_symbol* WIN_FLATTOP;
+static t_symbol* WIN_GAUSS;
+static t_symbol* WIN_DEFAULT;
 static const size_t DEFAULT_SIZE = 512;
 
 typedef std::map<t_symbol*, WindowFuncPtr> WFuncMap;
@@ -50,10 +50,6 @@ static bool initFuncMap()
     win_func_map[WIN_FLATTOP] = window::flattop<float>;
     win_func_map[WIN_GAUSS] = window::gauss<20>;
     return true;
-}
-
-namespace {
-bool init = initFuncMap();
 }
 
 Window::Window(const PdArgs& a)
@@ -193,6 +189,21 @@ void Window::m_gauss(t_symbol*, const AtomList&)
 
 void window_setup()
 {
+    WIN_TRIANGLE = gensym("tri");
+    WIN_WELCH = gensym("welch");
+    WIN_HANN = gensym("hann");
+    WIN_RECT = gensym("rect");
+    WIN_SINE = gensym("sine");
+    WIN_HAMMING = gensym("hamming");
+    WIN_BLACKMAN = gensym("blackman");
+    WIN_NUTTALL = gensym("nuttall");
+    WIN_BLACKMAN_HARRIS = gensym("blackman-harris");
+    WIN_FLATTOP = gensym("flattop");
+    WIN_GAUSS = gensym("gauss");
+    WIN_DEFAULT = WIN_HANN;
+
+    initFuncMap();
+
     ObjectFactory<Window> obj("window");
     obj.addAlias("win");
     obj.addMethod("tri", &Window::m_tri);

@@ -17,7 +17,6 @@
 #include "ceammc_preset.h"
 
 static const float SCALE_ALPHA_BLEND = 0.7;
-static t_symbol* SYM_PROP_DB = gensym("@db");
 
 UIGain::UIGain()
     : prop_color_knob(rgba_blue)
@@ -25,7 +24,8 @@ UIGain::UIGain()
     , prop_max(0)
     , prop_min(-60)
     , prop_output_value(0)
-    , font_(FONT_FAMILY, FONT_SIZE_SMALL)
+    , prop_show_range(1)
+    , font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , txt_max_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
     , txt_min_(font_.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT)
     , knob_pos_(0)
@@ -46,9 +46,9 @@ void UIGain::okSize(t_rect* newrect)
         newrect->height = pd_clip_min(newrect->height, 50.);
 }
 
-void UIGain::paint(t_object* view)
+void UIGain::paint()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)
@@ -69,10 +69,18 @@ void UIGain::paint(t_object* view)
         p.setColor(prop_color_knob);
         p.drawLine(x, 0, x, r.height);
 
-        // levels
-        p.drawText(txt_max_);
-        p.drawText(txt_min_);
+        if (prop_show_range) {
+            // level range
+            txt_min_.setAnchor(ETEXT_LEFT);
+            txt_max_.setAnchor(ETEXT_RIGHT);
+            txt_min_.setJustify(ETEXT_JLEFT);
+            txt_max_.setJustify(ETEXT_JRIGHT);
+            txt_min_.setPos(2, height() / 2);
+            txt_max_.setPos(width() - 2, height() / 2);
 
+            p.drawText(txt_max_);
+            p.drawText(txt_min_);
+        }
     } else {
         float y = r.height * (1 - knob_pos_);
         // scale
@@ -84,9 +92,18 @@ void UIGain::paint(t_object* view)
         p.setColor(prop_color_knob);
         p.drawLine(0, y, r.width, y);
 
-        // levels
-        p.drawText(txt_max_);
-        p.drawText(txt_min_);
+        if (prop_show_range) {
+            // levels
+            txt_min_.setAnchor(ETEXT_DOWN);
+            txt_max_.setAnchor(ETEXT_UP);
+            txt_min_.setJustify(ETEXT_JCENTER);
+            txt_max_.setJustify(ETEXT_JCENTER);
+            txt_min_.setPos(width() / 2, height() - 2);
+            txt_max_.setPos(width() / 2, 2);
+
+            p.drawText(txt_max_);
+            p.drawText(txt_min_);
+        }
     }
 }
 
@@ -108,31 +125,28 @@ void UIGain::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs
     }
 }
 
-t_pd_err UIGain::notify(t_symbol* attr_name, t_symbol* msg)
+void UIGain::onPropChange(t_symbol* prop_name)
 {
-    if (msg == s_attr_modified) {
-        // update text labels
-        updateLabels();
+    // update text labels
+    updateLabels();
 
-        // recalc scale color
-        prop_color_scale = rgba_color_sum(&prop_color_background, &prop_color_knob, SCALE_ALPHA_BLEND);
+    // recalc scale color
+    prop_color_scale = rgba_color_sum(&prop_color_background, &prop_color_knob, SCALE_ALPHA_BLEND);
 
-        // redraw
-        bg_layer_.invalidate();
-        redraw();
-    }
-
-    return 0;
+    // redraw
+    bg_layer_.invalidate();
+    redraw();
 }
 
 void UIGain::onBang()
 {
+    t_symbol* s_db = gensym("@db");
     AtomList v(dbValue());
-    anyTo(0, SYM_PROP_DB, v);
-    send(SYM_PROP_DB, v);
+    anyTo(0, s_db, v);
+    send(s_db, v);
 }
 
-void UIGain::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIGain::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     onMouseDrag(view, pt, modifiers);
 }
@@ -154,7 +168,7 @@ void UIGain::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
     t_canvas* c = reinterpret_cast<t_canvas*>(view);
     if (c->gl_edit) {
-        resize(height(), width());
+        resize(height() / zoom(), width() / zoom());
         updateLabels();
         redrawBGLayer();
     }
@@ -223,11 +237,12 @@ void UIGain::setup()
     obj.addProperty("db", &UIGain::dbValue, &UIGain::setDbValue);
     obj.setPropertyDefaultValue("db", "-60");
     obj.addProperty("amp", &UIGain::ampValue, &UIGain::setAmpValue);
-    obj.addIntProperty("max", _("Maximum value"), 0, &UIGain::prop_max);
-    obj.addIntProperty("min", _("Minimum value"), -60, &UIGain::prop_min);
+    obj.addIntProperty("max", _("Maximum value"), 0, &UIGain::prop_max, _("Bounds"));
+    obj.addIntProperty("min", _("Minimum value"), -60, &UIGain::prop_min, _("Bounds"));
     obj.setPropertyRange("max", -12, 12);
     obj.setPropertyRange("min", -90, -30);
-    obj.addBoolProperty("output_value", _("Output value"), false, &UIGain::prop_output_value);
+    obj.addBoolProperty("show_range", _("Show range"), true, &UIGain::prop_show_range, _("Misc"));
+    obj.addBoolProperty("output_value", _("Output value"), false, &UIGain::prop_output_value, _("Main"));
 
     obj.setDefaultSize(15, 120);
     obj.usePresets();
@@ -252,9 +267,9 @@ void UIGain::updateLabels()
         txt_max_.setJustify(ETEXT_JRIGHT);
         txt_max_.set(buf, width() - 2, height() / 2, 40, 20);
     } else {
-        txt_max_.setAnchor(ETEXT_UP_LEFT);
-        txt_max_.setJustify(ETEXT_JLEFT);
-        txt_max_.set(buf, 2, 2, 40, 20);
+        txt_max_.setAnchor(ETEXT_UP);
+        txt_max_.setJustify(ETEXT_JCENTER);
+        txt_max_.set(buf, width() / 2, 2, 40, 20);
     }
 
     // MIN
@@ -264,9 +279,9 @@ void UIGain::updateLabels()
         txt_min_.setJustify(ETEXT_JLEFT);
         txt_min_.set(buf, 2, height() / 2, 40, 20);
     } else {
-        txt_min_.setAnchor(ETEXT_DOWN_LEFT);
-        txt_min_.setJustify(ETEXT_JLEFT);
-        txt_min_.set(buf, 2, height() - 2, 40, 20);
+        txt_min_.setAnchor(ETEXT_DOWN);
+        txt_min_.setJustify(ETEXT_JCENTER);
+        txt_min_.set(buf, width() / 2, height() - 2, 40, 20);
     }
 }
 

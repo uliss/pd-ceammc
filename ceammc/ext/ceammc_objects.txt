@@ -16,15 +16,22 @@ array.copy
 array.do
 array.each
 array.fill
+array.hist
+array.mean
 array.minmax
 array.p->s
 array.p2s
 array.phase->sample
+array.rms
 array.s->p
 array.s2p
 array.sample->phase
 array.set
+array.stddev
 array.stretch
+array.sum
+array.sum2
+array.variance
 array.vplay
 array.window
 bpm->hz
@@ -191,7 +198,12 @@ global.mlist
 global.set
 group
 helmholtz~
+hw.apple_smc
+hw.apple_sms
 hw.arduino
+hw.cpu_temp
+hw.display
+hw.kbd_light
 hw.serial
 hw.usb
 is_any
@@ -489,6 +501,7 @@ str.equal
 str.format
 str.join
 str.length
+str.match
 str.remove
 str.replace
 str.split
@@ -501,6 +514,7 @@ string.equal
 string.format
 string.join
 string.length
+string.match
 string.remove
 string.replace
 string.split
@@ -549,6 +563,7 @@ ui.dsp~
 ui.env
 ui.gain2~
 ui.gain~
+ui.hrd
 ui.hsl
 ui.icon
 ui.incdec
@@ -577,6 +592,7 @@ ui.ssc~
 ui.t
 ui.tab
 ui.toggle
+ui.vrd
 ui.vsl
 vline->env
 vline2env

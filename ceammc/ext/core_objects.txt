@@ -34,7 +34,6 @@ atan
 atan2
 b
 bag
-bang
 bang~
 bendin
 bendout
@@ -84,11 +83,12 @@ fexpr~
 fft~
 filledcurve
 filledpolygon
-float
 framp~
 fswap
 ftom
 ftom~
+fudiformat
+fudiparse
 get
 getsize
 hdl
@@ -111,6 +111,7 @@ list fromsymbol
 list length
 list prepend
 list split
+list store
 list tosymbol
 list trim
 loadbang
@@ -122,7 +123,6 @@ makenote
 max
 max~
 metro
-midiclkin
 midiin
 midiout
 midirealtimein
@@ -191,6 +191,7 @@ s
 samphold~
 samplerate~
 savepanel
+savestate
 scalar
 sel
 select
@@ -209,7 +210,6 @@ stripnote
 struct
 swap
 switch~
-symbol
 sysexin
 s~
 t
@@ -231,6 +231,7 @@ text define
 text delete
 text fromlist
 text get
+text insert
 text search
 text sequence
 text set

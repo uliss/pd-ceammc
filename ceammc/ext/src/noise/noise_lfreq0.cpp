@@ -3,19 +3,17 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_FREQ = gensym("@freq");
-
 class NoiseLfreq0 : public faust_noise_lfreq0_tilde {
 public:
     NoiseLfreq0(const PdArgs& args)
         : faust_noise_lfreq0_tilde(args)
     {
-        bindPositionalArgsToProps({ SYM_PROP_FREQ });
+        bindPositionalArgsToProps({ gensym("@freq") });
     }
 
     void onFloat(t_float f) override
     {
-        setProperty(SYM_PROP_FREQ, AtomList(Atom(f)));
+        setProperty(gensym("@freq"), AtomList(Atom(f)));
     }
 };
 

@@ -18,16 +18,16 @@
 
 namespace ceammc {
 namespace faust {
-    t_symbol* UIElement::s_button = gensym("button");
-    t_symbol* UIElement::s_checkbox = gensym("checkbox");
-    t_symbol* UIElement::s_vslider = gensym("vslider");
-    t_symbol* UIElement::s_hslider = gensym("hslider");
-    t_symbol* UIElement::s_nentry = gensym("nentry");
-    t_symbol* UIElement::s_vbargraph = gensym("vbargraph");
-    t_symbol* UIElement::s_hbargraph = gensym("hbargraph");
-
     t_symbol* UIElement::typeSymbol() const
     {
+        static t_symbol* s_button = gensym("button");
+        static t_symbol* s_checkbox = gensym("checkbox");
+        static t_symbol* s_vslider = gensym("vslider");
+        static t_symbol* s_hslider = gensym("hslider");
+        static t_symbol* s_nentry = gensym("nentry");
+        static t_symbol* s_vbargraph = gensym("vbargraph");
+        static t_symbol* s_hbargraph = gensym("hbargraph");
+
         switch (type_) {
         case UI_BUTTON:
             return s_button;

@@ -9,10 +9,12 @@
  */
 
 #include "eobj.h"
+#include "ceammc_platform.h"
 #include "ecommon.h"
 #include "egraphics.h"
 
 #include <inttypes.h>
+#include <string>
 
 static t_eproxy* eproxy_new(void* owner, t_symbol* s);
 static void eproxy_free(void* owner, t_eproxy* proxy);
@@ -149,32 +151,24 @@ void eobj_save(t_gobj* x, t_binbuf* b)
 
 void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom* argv)
 {
-    char buf[MAXPDSTRING];
-    char* pch;
-    t_atom av[1];
     t_eclass* c = eobj_getclass(x);
 
     // The file name is defined
     if (argc && argv && atom_gettype(argv) == A_SYMBOL) {
-        pch = strpbrk(atom_getsymbol(argv)->s_name, "/\"");
-        // The folder seems defined
-        if (pch != NULL) {
-            atom_setsym(av, atom_getsymbol(argv));
-            if (c->c_widget.w_write)
-                c->c_widget.w_write(x, s, 1, av);
-            return;
-        }
-        // The folder isn't defined so write it in the canvas folder
-        else {
-            sprintf(buf, "%s/%s", canvas_getdir(x->o_canvas)->s_name, atom_getsymbol(argv)->s_name);
-            atom_setsym(av, gensym(buf));
-            if (c->c_widget.w_write)
-                c->c_widget.w_write(x, s, 1, av);
-            return;
-        }
+        std::string path = ceammc::platform::make_abs_filepath_with_canvas(x->o_canvas,
+            atom_getsymbol(argv)->s_name);
+
+        if (c->c_widget.w_write)
+            c->c_widget.w_write(x, path.c_str());
+
+        return;
     }
     // The file name is not defined so we popup a window
     else {
+        // dialog cancelled
+        if (s == gensym("eobjwriteto"))
+            return;
+
         sys_vgui("eobj_saveas %s nothing nothing\n", x->o_id->s_name);
     }
 }
@@ -231,44 +225,27 @@ void eobj_attr_getvalueof(void* x, t_symbol* s, int* argc, t_atom** argv)
 
 void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom* argv)
 {
-    char buf[MAXPDSTRING];
-    char* pch;
-    t_atom av[1];
-    t_namelist* var = 0;
     t_eclass* c = eobj_getclass(x);
 
     // Name
     if (argc && argv && atom_gettype(argv) == A_SYMBOL) {
-        // Valid path
-        if ((access(atom_getsymbol(argv)->s_name, O_RDONLY) != -1)) {
-            if (c->c_widget.w_read)
-                c->c_widget.w_read(x, s, 1, argv);
+        std::string path = ceammc::platform::find_in_std_path(x->o_canvas, atom_getsymbol(argv)->s_name);
+        if (path.empty()) {
+            pd_error(x, "[%s] can't find file: \"%s\"",
+                x->o_obj.te_g.g_pd->c_name->s_name,
+                atom_getsymbol(argv)->s_name);
+
+            return;
         }
-        // Invalid path or no path
-        else {
-            // Wrong path but we don't care
-            pch = strpbrk(atom_getsymbol(argv)->s_name, "/\"");
-            if (pch != NULL) {
-                if (c->c_widget.w_read)
-                    c->c_widget.w_read(x, s, 1, argv);
-            } else {
-                // Look in the canvas folder
-                sprintf(buf, "%s/%s", canvas_getdir(x->o_canvas)->s_name, atom_getsymbol(argv)->s_name);
-                if ((access(buf, O_RDONLY) != -1)) {
-                    atom_setsym(av, gensym(buf));
-                    if (c->c_widget.w_read)
-                        c->c_widget.w_read(x, s, 1, av);
-                    return;
-                }
-                // Nothing work but we don't care
-                if (c->c_widget.w_read)
-                    c->c_widget.w_read(x, s, 1, av);
-                return;
-            }
-        }
+
+        if (c->c_widget.w_read)
+            c->c_widget.w_read(x, path.c_str());
     }
     // No name so we popup a window
     else {
+        if (s == gensym("eobjreadfrom"))
+            return;
+
         sys_vgui("eobj_openfrom %s\n", x->o_id->s_name);
     }
 }
@@ -577,9 +554,6 @@ struct _inlet {
     t_pd* i_dest;
     t_symbol* i_symfrom;
     union inletunion i_un;
-
-    //CEAMMC EXPERIMENTAL
-    float y_offset;
 };
 
 struct _outlet {
@@ -587,9 +561,6 @@ struct _outlet {
     struct _outlet* o_next;
     t_outconnect* o_connections;
     t_symbol* o_sym;
-
-    //CEAMMC EXPERIMENTAL
-    float y_offset;
 };
 //! @endcond
 

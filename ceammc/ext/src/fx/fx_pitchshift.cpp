@@ -3,20 +3,18 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_PITCH = gensym("@pitch");
-
 class FxPitchShift : public faust_fx_pitchshift_tilde {
 public:
     FxPitchShift(const PdArgs& args)
         : faust_fx_pitchshift_tilde(args)
     {
-        bindPositionalArgsToProps({ SYM_PROP_PITCH });
+        bindPositionalArgsToProps({ gensym("@pitch") });
         createInlet();
     }
 
     void onInlet(size_t, const AtomList& l) override
     {
-        setProperty(SYM_PROP_PITCH, l);
+        setProperty(gensym("@pitch"), l);
     }
 
     void m_clear(t_symbol*, const AtomList&)

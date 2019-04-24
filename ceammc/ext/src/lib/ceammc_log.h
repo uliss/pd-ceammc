@@ -39,13 +39,26 @@ public:
     Debug& stream() { return *this; }
 };
 
+class Log : public std::ostringstream {
+    const BaseObject* obj_;
+    int level_;
+
+public:
+    Log(const BaseObject* obj = NULL, int level = 0);
+    ~Log();
+    Log& stream() { return *this; }
+};
+
 #define OBJ_ERR Error(this).stream()
 #define OBJ_DBG Debug(this).stream()
+#define OBJ_LOG Log(this).stream()
 #define METHOD_ERR(s) Error(this).stream() << "[" << s->s_name << "( "
-#define METHOD_DBG(s) Error(this).stream() << "[" << s->s_name << "( "
+#define METHOD_DBG(s) Debug(this).stream() << "[" << s->s_name << "( "
+#define METHOD_LOG(s) Log(this).stream() << "[" << s->s_name << "( "
 
-#define LIB_ERR Error(0).stream()
-#define LIB_DBG Debug(0).stream()
+#define LIB_ERR Error(nullptr).stream()
+#define LIB_DBG Debug(nullptr).stream()
+#define LIB_LOG Log(nullptr).stream()
 }
 
 struct _symbol;

@@ -16,10 +16,10 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
-static t_symbol* SYM_REL = gensym("rel");
-static t_symbol* SYM_CLIP = gensym("clip");
-static t_symbol* SYM_WRAP = gensym("wrap");
-static t_symbol* SYM_FOLD = gensym("fold");
+static t_symbol* SYM_REL;
+static t_symbol* SYM_CLIP;
+static t_symbol* SYM_WRAP;
+static t_symbol* SYM_FOLD;
 
 ListXAt::ListXAt(const PdArgs& args)
     : BaseObject(args)
@@ -134,5 +134,10 @@ const DataAtom* ListXAt::at(int pos) const
 
 void setup_list_xat()
 {
+    SYM_REL = gensym("rel");
+    SYM_CLIP = gensym("clip");
+    SYM_WRAP = gensym("wrap");
+    SYM_FOLD = gensym("fold");
+
     ObjectFactory<ListXAt> obj("list.^at");
 }

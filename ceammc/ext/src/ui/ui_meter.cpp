@@ -53,7 +53,7 @@ void UIMeter::okSize(t_rect* newrect)
         newrect->height = pd_clip_min(newrect->height, 50.);
 }
 
-void UIMeter::paint(t_object* view)
+void UIMeter::paint()
 {
     drawBackground();
     drawLeds();
@@ -61,7 +61,7 @@ void UIMeter::paint(t_object* view)
 
 void UIMeter::drawBackground()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)
@@ -91,7 +91,7 @@ static inline float led2Db(int ledIdx)
 
 void UIMeter::drawLeds()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = led_layer_.painter(r);
     if (!p)
         return;
@@ -202,6 +202,7 @@ void UIMeter::setup()
 {
     UIDspFactory<UIMeter> obj("ui.meter~", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK);
     obj.addAlias("ui.m~");
+    obj.hideLabelInner();
 
     obj.setDefaultSize(15, 120);
 
@@ -211,7 +212,7 @@ void UIMeter::setup()
     obj.addProperty("hot_color", _("Hot signal color"), "1 0.6 0 1", &UIMeter::prop_color_hot);
     obj.addProperty("over_color", _("Overload signal color"), "1 0 0 1", &UIMeter::prop_color_over);
 
-    obj.addIntProperty("interval", _("Refresh interval (ms)"), 50, &UIMeter::prop_interval_ms);
+    obj.addIntProperty("interval", _("Refresh interval (ms)"), 50, &UIMeter::prop_interval_ms, _("Main"));
 }
 
 void UIMeter::calc()

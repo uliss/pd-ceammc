@@ -24,8 +24,8 @@ env:
 
 matrix:
   include:
-  - compiler: clang
-    env: CEAMMC_BUILD_TYPE="Debug" CEAMMC_COVERAGE="OFF"
+  #- compiler: clang
+  #  env: CEAMMC_BUILD_TYPE="Debug" CEAMMC_COVERAGE="OFF"
   - compiler: gcc
     env: CEAMMC_BUILD_TYPE="Debug" CEAMMC_COVERAGE="ON"
   - compiler: gcc

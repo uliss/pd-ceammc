@@ -21,9 +21,6 @@
 
 using namespace ceammc::convert;
 
-// strange link fix: do not remove!
-t_symbol* t = gensym("test");
-
 TEST_CASE("convert", "[PureData]")
 {
     SECTION("time")

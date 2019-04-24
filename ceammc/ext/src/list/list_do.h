@@ -14,21 +14,17 @@
 #ifndef LIST_DO_H
 #define LIST_DO_H
 
-#include "ceammc_factory.h"
-#include "ceammc_object.h"
+#include "list_base.h"
 
 using namespace ceammc;
 
-class DataTypeMList;
-
-class ListDo : public BaseObject {
+class ListDo : public ListBase {
     AtomList mapped_list_;
 
 public:
     ListDo(const PdArgs& a);
     void onList(const AtomList& l) override;
     void onInlet(size_t n, const AtomList& l) override;
-    void onDataT(const DataTypeMList& lst);
 };
 
 void setup_list_do();

@@ -63,7 +63,7 @@ namespace tl {
         static bool exists(CueData* c);
         static bool exists(const t_canvas* cnv);
         static void sort(t_canvas* cnv);
-        static void enumerate(t_canvas* cnv);
+        static bool enumerate(t_canvas* cnv);
         static size_t cueCount(const t_canvas* cnv);
 
         static CueList* cueList(const t_canvas* c);

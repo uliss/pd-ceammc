@@ -4,18 +4,18 @@
 #include <boost/range.hpp>
 #include <limits>
 
-static t_symbol* SYM_CURVE_STEP = gensym("step");
-static t_symbol* SYM_CURVE_LINE = gensym("line");
-static t_symbol* SYM_CURVE_EXP = gensym("exp");
-static t_symbol* SYM_CURVE_SIN2 = gensym("sin2");
-static t_symbol* SYM_CURVE_SIGMOID = gensym("sigmoid");
+static t_symbol* SYM_CURVE_STEP;
+static t_symbol* SYM_CURVE_LINE;
+static t_symbol* SYM_CURVE_EXP;
+static t_symbol* SYM_CURVE_SIN2;
+static t_symbol* SYM_CURVE_SIGMOID;
 
-static t_symbol* SYM_ADSR = gensym("adsr");
-static t_symbol* SYM_ASR = gensym("asr");
-static t_symbol* SYM_AR = gensym("ar");
-static t_symbol* SYM_EADSR = gensym("eadsr");
-static t_symbol* SYM_EASR = gensym("easr");
-static t_symbol* SYM_EAR = gensym("ear");
+static t_symbol* SYM_ADSR;
+static t_symbol* SYM_ASR;
+static t_symbol* SYM_AR;
+static t_symbol* SYM_EADSR;
+static t_symbol* SYM_EASR;
+static t_symbol* SYM_EAR;
 
 Envelope::Envelope(const PdArgs& args)
     : BaseObject(args)
@@ -52,9 +52,9 @@ void Envelope::onBang()
     dataTo(0, DataPtr(env_.clone()));
 }
 
-void Envelope::onDataT(const DataTypeEnv& env)
+void Envelope::onDataT(const DataTPtr<DataTypeEnv>& dptr)
 {
-    env_ = env;
+    env_ = *dptr;
     onBang();
 }
 
@@ -382,6 +382,19 @@ AtomList Envelope::p_stops() const
 
 void setup_envelope()
 {
+    SYM_CURVE_STEP = gensym("step");
+    SYM_CURVE_LINE = gensym("line");
+    SYM_CURVE_EXP = gensym("exp");
+    SYM_CURVE_SIN2 = gensym("sin2");
+    SYM_CURVE_SIGMOID = gensym("sigmoid");
+
+    SYM_ADSR = gensym("adsr");
+    SYM_ASR = gensym("asr");
+    SYM_AR = gensym("ar");
+    SYM_EADSR = gensym("eadsr");
+    SYM_EASR = gensym("easr");
+    SYM_EAR = gensym("ear");
+
     ObjectFactory<Envelope> obj("envelope");
     obj.addAlias("env");
     obj.processData<DataTypeEnv>();

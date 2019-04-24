@@ -3,14 +3,14 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_BITS = gensym("@bits");
-static t_symbol* SYM_PROP_DOWNSAMP = gensym("@downsamp");
-
 class FxBitdown : public faust_fx_bitdown_tilde {
 public:
     FxBitdown(const PdArgs& args)
         : faust_fx_bitdown_tilde(args)
     {
+        static t_symbol* SYM_PROP_BITS = gensym("@bits");
+        static t_symbol* SYM_PROP_DOWNSAMP = gensym("@downsamp");
+
         bindPositionalArgsToProps({ SYM_PROP_BITS, SYM_PROP_DOWNSAMP });
     }
 };

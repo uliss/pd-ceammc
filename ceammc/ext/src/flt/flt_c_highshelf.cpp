@@ -3,15 +3,12 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_FREQ = gensym("@freq");
-static t_symbol* SYM_PROP_GAIN = gensym("@gain");
-
 class FltCHighShelf : public faust_flt_c_highshelf_tilde {
 public:
     FltCHighShelf(const PdArgs& args)
         : faust_flt_c_highshelf_tilde(args)
     {
-        bindPositionalArgsToProps({ SYM_PROP_FREQ, SYM_PROP_GAIN });
+        bindPositionalArgsToProps({ gensym("@freq"), gensym("@gain") });
     }
 };
 

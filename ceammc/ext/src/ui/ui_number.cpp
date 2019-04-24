@@ -54,25 +54,21 @@ void UINumber::okSize(t_rect* newrect)
     float border_min = std::min<float>(newrect->width, newrect->height);
     border_min = std::max<float>(10, border_min);
     newrect->height = border_min;
-    newrect->width = pd_clip_min(newrect->width, sys_fontwidth(fontSizeZoomed()) * 3 + 8);
+    newrect->width = pd_clip_min(newrect->width, sys_fontwidth(fontSize()) * 3 + 8);
 
     t_atom a;
-    SETFLOAT(&a, (newrect->height - newrect->height / FONT_SIZE_CORR) / zoom());
+    SETFLOAT(&a, (newrect->height - newrect->height / FONT_SIZE_CORR));
     ebox_set_fontsize(asEBox(), 0, 1, &a);
 }
 
-t_pd_err UINumber::notify(t_symbol* attr_name, t_symbol* msg)
+void UINumber::onPropChange(t_symbol* prop_name)
 {
-    if (msg == s_attr_modified) {
-        bg_layer_.invalidate();
-        text_layer_.invalidate();
-        redraw();
-    }
-
-    return 0;
+    bg_layer_.invalidate();
+    text_layer_.invalidate();
+    redraw();
 }
 
-void UINumber::paint(t_object* view)
+void UINumber::paint()
 {
     drawBackground();
     drawValue();
@@ -80,7 +76,7 @@ void UINumber::paint(t_object* view)
 
 void UINumber::drawBackground()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)
@@ -97,7 +93,7 @@ void UINumber::drawBackground()
 
 void UINumber::drawValue()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = text_layer_.painter(r);
 
     if (!p)
@@ -228,7 +224,7 @@ void UINumber::onKeyFilter(int k, long modifiers)
     }
 }
 
-void UINumber::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UINumber::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     drag_start_ypos_ = pt.y;
     drag_start_value_ = value_;
@@ -308,8 +304,9 @@ void UINumber::setup()
     obj.useFloat();
     obj.useMouseEvents(UI_MOUSE_DBL_CLICK | UI_MOUSE_DRAG | UI_MOUSE_DOWN | UI_MOUSE_LEAVE);
     obj.useKeys();
+    obj.hideLabelInner();
 
-    obj.setDefaultSize(53, 16);
+    obj.setDefaultSize(53, 15);
 
     obj.addProperty("min", _("Minimum Value"), -std::numeric_limits<float>::max(), &UINumber::prop_min, "Bounds");
     obj.addProperty("max", _("Maximum Value"), std::numeric_limits<float>::max(), &UINumber::prop_max, "Bounds");
@@ -317,6 +314,7 @@ void UINumber::setup()
     obj.addProperty("digits", _("Digits"), -1, &UINumber::prop_digits);
     obj.setPropertyMin("digits", -1);
     obj.setPropertyMax("digits", 8);
+    obj.setPropertyCategory("digits", _("Main"));
 
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UINumber::prop_color_active);
     obj.addProperty("text_color", _("Text color"), DEFAULT_TEXT_COLOR, &UINumber::prop_color_text);

@@ -1,6 +1,6 @@
 #include "list_range.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 #include <algorithm>
 #include <iterator>
@@ -18,10 +18,10 @@ void ListRange::onList(const AtomList& l)
         listTo(0, AtomList(min, max));
 }
 
-void ListRange::onDataT(const DataTypeMList& l)
+void ListRange::onDataT(const DataTPtr<DataTypeMList>& l)
 {
     auto is_atom = [](const DataAtom& a) { return a.isAtom(); };
-    onList(l.toList(is_atom));
+    onList(l->toList(is_atom));
 }
 
 void setup_list_range()

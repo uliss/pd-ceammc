@@ -22,16 +22,16 @@ SetContains::SetContains(const PdArgs& a)
     createOutlet();
 }
 
-void SetContains::onDataT(const DataTypeSet& s)
+void SetContains::onDataT(const DataTPtr<DataTypeSet>& dptr)
 {
     const size_t n = patterns_.size();
     if (n < 1)
         return;
 
     if (n == 1) {
-        floatTo(0, s.contains(patterns_[0].toAtom()));
+        floatTo(0, dptr->contains(patterns_[0].toAtom()));
     } else {
-        floatTo(0, s.contains(patterns_.toList()));
+        floatTo(0, dptr->contains(patterns_.toList()));
     }
 }
 

@@ -38,16 +38,16 @@ public:
     ~UIIcon();
 
     void init(t_symbol* name, const AtomList& args, bool usePresets);
-    t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
+    void onPropChange(t_symbol* prop_name);
     void okSize(t_rect* newrect);
-    void paint(t_object* view);
+    void paint();
     void drawBackground();
     void drawImage();
 
     void onBang();
     void onFloat(t_float f);
 
-    void onMouseDown(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
 
     void m_set(const AtomList& lst);

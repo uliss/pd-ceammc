@@ -18,14 +18,14 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_ROOM = gensym("@room");
-static t_symbol* SYM_PROP_DRYWET = gensym("@drywet");
-
 class FxFreeverb2 : public faust_fx_freeverb2_tilde {
 public:
     FxFreeverb2(const PdArgs& args)
         : faust_fx_freeverb2_tilde(args)
     {
+        static t_symbol* SYM_PROP_ROOM = gensym("@room");
+        static t_symbol* SYM_PROP_DRYWET = gensym("@drywet");
+
         bindPositionalArgsToProps({ SYM_PROP_ROOM, SYM_PROP_DRYWET });
     }
 

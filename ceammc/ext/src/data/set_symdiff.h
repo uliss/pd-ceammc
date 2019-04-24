@@ -25,7 +25,7 @@ class SetSymmetricDifference : public BaseObject {
 public:
     SetSymmetricDifference(const PdArgs& a);
     void onList(const AtomList& l);
-    void onDataT(const DataTypeSet& s);
+    void onDataT(const DataTPtr<DataTypeSet>& dptr);
     void onInlet(size_t, const AtomList& l);
 };
 

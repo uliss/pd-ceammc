@@ -21,7 +21,7 @@ static const size_t N_SAMPLES = 150;
 UIScope::UIScope()
     : data_(N_SAMPLES, 0)
     , redraw_timer_(this, &UIScope::redrawTick)
-    , txt_font_(FONT_FAMILY, FONT_SIZE_SMALL)
+    , txt_font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , txt0_(txt_font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
     , txt1_(txt_font_.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
     , txt2_(txt_font_.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
@@ -46,20 +46,16 @@ void UIScope::okSize(t_rect* newrect)
     newrect->width = pd_clip_min(newrect->width, 40);
 }
 
-t_pd_err UIScope::notify(t_symbol* attr_name, t_symbol* msg)
+void UIScope::onPropChange(t_symbol* prop_name)
 {
-    if (msg == s_attr_modified) {
-        calcDspVars();
+    calcDspVars();
 
-        scope_layer_.invalidate();
-        bg_layer_.invalidate();
-        redraw();
-    }
-
-    return 0;
+    scope_layer_.invalidate();
+    bg_layer_.invalidate();
+    redraw();
 }
 
-void UIScope::paint(t_object* view)
+void UIScope::paint()
 {
     paintBackground();
     paintScope();
@@ -67,7 +63,7 @@ void UIScope::paint(t_object* view)
 
 void UIScope::paintBackground()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)
@@ -103,7 +99,7 @@ void UIScope::paintScope()
         return;
     }
 
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = scope_layer_.painter(r);
 
     if (!p)
@@ -146,7 +142,7 @@ void UIScope::dspProcess(t_sample** ins, long, t_sample**, long, long samplefram
         }
 
         size_t idx = roundf(k * window_phase_);
-        if(idx < N) {
+        if (idx < N) {
             data_[idx] = ins[0][i];
         }
     }
@@ -168,7 +164,7 @@ void UIScope::m_scale(t_float f)
     setProperty(gensym("max"), AtomList(-f));
 }
 
-void UIScope::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIScope::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     if (modifiers == EMOD_SHIFT) {
         setProperty(gensym("min"), AtomList(prop_min * 0.8));
@@ -182,7 +178,7 @@ void UIScope::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
 void UIScope::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
     if (modifiers != 0)
-        onMouseDown(view, pt, modifiers);
+        onMouseDown(view, pt, pt, modifiers);
     else
         freeze_ = !freeze_;
 }
@@ -197,11 +193,11 @@ void UIScope::setup()
     obj.addMethod("scale", &UIScope::m_scale);
 
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIScope::prop_color_active);
-    obj.addProperty("max", _("Maximum value"), 1, &UIScope::prop_max);
-    obj.addProperty("min", _("Minimum value"), -1, &UIScope::prop_min);
-    obj.addIntProperty("window", _("Window size"), 2048, &UIScope::prop_window);
+    obj.addProperty("max", _("Maximum value"), 1, &UIScope::prop_max, _("Bounds"));
+    obj.addProperty("min", _("Minimum value"), -1, &UIScope::prop_min, _("Bounds"));
+    obj.addIntProperty("window", _("Window size"), 2048, &UIScope::prop_window, _("Main"));
     obj.setPropertyRange("window", 512, 4096);
-    obj.addIntProperty("refresh", _("Refresh time (ms)"), 40, &UIScope::prop_refresh);
+    obj.addIntProperty("refresh", _("Refresh time (ms)"), 40, &UIScope::prop_refresh, _("Main"));
     obj.setPropertyRange("refresh", 10, 1000);
 
     obj.hideProperty("send");
@@ -213,7 +209,7 @@ void UIScope::redrawTick()
     if (t >= prop_refresh) {
         last_redraw_time_ = clock_getlogicaltime();
         scope_layer_.invalidate();
-        redraw();
+        redrawInnerArea();
     }
 }
 

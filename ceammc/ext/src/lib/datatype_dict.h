@@ -45,7 +45,11 @@ private:
 public:
     DataTypeDict();
     DataTypeDict(const DataTypeDict& dict);
+    DataTypeDict(DataTypeDict&& dict);
     DataTypeDict(const std::string& str);
+
+    DataTypeDict& operator=(const DataTypeDict& dict);
+    DataTypeDict& operator=(DataTypeDict&& dict);
 
     DataTypeDict* clone() const override;
     DataType type() const override;

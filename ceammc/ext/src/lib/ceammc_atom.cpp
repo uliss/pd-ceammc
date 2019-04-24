@@ -357,18 +357,8 @@ bool operator==(const Atom& a1, const Atom& a2)
     if (a1.isFloat())
         return a1.a_w.w_float == a2.a_w.w_float;
 
-    if (a1.isSymbol()) {
-        if (a1.a_w.w_symbol == a2.a_w.w_symbol)
-            return true;
-
-        if (a1.a_w.w_symbol == 0 || a1.a_w.w_symbol == 0)
-            return false;
-
-        if (a1.a_w.w_symbol->s_name == 0 || a2.a_w.w_symbol->s_name == 0)
-            return false;
-
-        return strcmp(a1.a_w.w_symbol->s_name, a2.a_w.w_symbol->s_name) == 0;
-    }
+    if (a1.isSymbol())
+        return a1.a_w.w_symbol == a2.a_w.w_symbol;
 
     if (a1.isData() && a2.isData())
         return a1.getData() == a2.getData();

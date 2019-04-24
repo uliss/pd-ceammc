@@ -14,12 +14,10 @@
 #ifndef LIST_ENUMERATE_H
 #define LIST_ENUMERATE_H
 
-#include "ceammc_object.h"
+#include "list_base.h"
 using namespace ceammc;
 
-class DataTypeMList;
-
-class ListEnumerate : public BaseObject {
+class ListEnumerate : public ListBase {
     IntProperty* from_;
     FlagProperty* append_;
 
@@ -27,7 +25,6 @@ public:
     ListEnumerate(const PdArgs& a);
 
     void onList(const AtomList& l) override;
-    void onDataT(const DataTypeMList& lst);
 };
 
 void setup_list_enumerate();

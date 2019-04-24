@@ -3,15 +3,15 @@
 #include "ceammc_factory.h"
 #include "ceammc_music_temperament.h"
 
-static t_symbol* SYM_EQ12 = gensym("eq");
-static t_symbol* SYM_JUST = gensym("just");
-static t_symbol* SYM_GANASSI = gensym("ganassi");
-static t_symbol* SYM_MEANTONE = gensym("meantone");
-static t_symbol* SYM_KIRN3 = gensym("kirnberger3");
-static t_symbol* SYM_PYTH = gensym("pythagorean");
-static t_symbol* SYM_RAMEAU = gensym("rameau");
-static t_symbol* SYM_VALOTTI = gensym("valotti");
-static t_symbol* SYM_ZARLINO = gensym("zarlino");
+static t_symbol* SYM_EQ12;
+static t_symbol* SYM_JUST;
+static t_symbol* SYM_GANASSI;
+static t_symbol* SYM_MEANTONE;
+static t_symbol* SYM_KIRN3;
+static t_symbol* SYM_PYTH;
+static t_symbol* SYM_RAMEAU;
+static t_symbol* SYM_VALOTTI;
+static t_symbol* SYM_ZARLINO;
 
 static music::TemperamentType to_temp(t_symbol* s)
 {
@@ -81,6 +81,16 @@ void Midi2Freq::onList(const AtomList& lst)
 
 void setup_conv_midi2freq()
 {
+    SYM_EQ12 = gensym("eq");
+    SYM_JUST = gensym("just");
+    SYM_GANASSI = gensym("ganassi");
+    SYM_MEANTONE = gensym("meantone");
+    SYM_KIRN3 = gensym("kirnberger3");
+    SYM_PYTH = gensym("pythagorean");
+    SYM_RAMEAU = gensym("rameau");
+    SYM_VALOTTI = gensym("valotti");
+    SYM_ZARLINO = gensym("zarlino");
+
     ObjectFactory<Midi2Freq> obj("conv.midi2freq");
     obj.addAlias("midi->freq");
     obj.addAlias("m->f");

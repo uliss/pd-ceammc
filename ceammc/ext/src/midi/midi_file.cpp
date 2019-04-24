@@ -103,9 +103,9 @@ AtomList XMidiFile::p_length_beat() const
     return Atom(midi_stream_->totalTimeInQuarters());
 }
 
-void XMidiFile::onDataT(const DataTypeMidiStream& data)
+void XMidiFile::onDataT(const DataTPtr<DataTypeMidiStream>& data)
 {
-    midi_stream_ = data.clone();
+    midi_stream_ = data;
 }
 
 void setup_midi_file()

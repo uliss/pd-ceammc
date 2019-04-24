@@ -37,13 +37,13 @@ proc ::dialog_array::pdtk_array_listview_fillpage {arrayName} {
     set windowName [format ".%sArrayWindow" $arrayName]
     set topItem [expr [lindex [$windowName.lb yview] 0] * \
                      [$windowName.lb size]]
-    
+
     if {[winfo exists $windowName]} {
         set cmd "$::pd_array_listview_id($arrayName) \
                arrayviewlistfillpage \
                $::pd_array_listview_page($arrayName) \
                $topItem"
-        
+
         pdsend $cmd
     }
 }
@@ -76,7 +76,7 @@ proc ::dialog_array::pdtk_array_listview_new {id arrayName page} {
         "x11" {selection handle $windowName.lb \
                    "::dialog_array::listview_lbselection $arrayName"}
         "win32" {bind $windowName.lb <ButtonPress-3> \
-                     "::dialog_array::listview_popup $arrayName"} 
+                     "::dialog_array::listview_popup $arrayName"}
     }
     set $windowName.prevBtn [button $windowName.prevBtn -text "<-" \
                                  -command "::dialog_array::listview_changepage $arrayName -1"]
@@ -237,7 +237,7 @@ proc ::dialog_array::pdtk_array_dialog {mytoplevel name size flags newone} {
         raise $mytoplevel
         focus $mytoplevel
     } else {
-        create_dialog $mytoplevel $newone
+        create_dialog $mytoplevel $newone [expr $::popup_xabs - 50] [expr $::popup_yabs - 50]
     }
 
     $mytoplevel.array.name.entry insert 0 [::dialog_gatom::unescape $name]
@@ -252,12 +252,13 @@ proc ::dialog_array::pdtk_array_dialog {mytoplevel name size flags newone} {
 #    int style = ((flags & 6) >> 1);
 }
 
-proc ::dialog_array::create_dialog {mytoplevel newone} {
+proc ::dialog_array::create_dialog {mytoplevel newone xabs yabs} {
     toplevel $mytoplevel -class DialogWindow
     wm title $mytoplevel [_ "Array Properties"]
     wm group $mytoplevel .
     wm resizable $mytoplevel 0 0
     wm transient $mytoplevel $::focused_window
+    wm geometry $mytoplevel +$xabs+$yabs
     $mytoplevel configure -menu $::dialog_menubar
     $mytoplevel configure -padx 10 -pady 5
     ::pd_bindings::dialog_bindings $mytoplevel "array"
@@ -358,11 +359,13 @@ proc ::dialog_array::create_dialog {mytoplevel newone} {
         $mytoplevel.buttonframe.ok config -default normal
         bind $mytoplevel.buttonframe.ok <FocusIn> "$mytoplevel.buttonframe.ok config -default active"
         bind $mytoplevel.buttonframe.ok <FocusOut> "$mytoplevel.buttonframe.ok config -default normal"
-    
+
         # since we show the active focus, disable the highlight outline
         $mytoplevel.buttonframe.ok config -highlightthickness 0
         $mytoplevel.buttonframe.cancel config -highlightthickness 0
     }
+
+    position_over_window "$mytoplevel" "$::focused_window"
 }
 
 # for live widget updates on OSX

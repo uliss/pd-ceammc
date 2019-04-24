@@ -27,7 +27,7 @@ class StringReplace : public BaseObject {
 public:
     StringReplace(const PdArgs& a);
     void onSymbol(t_symbol* s);
-    void onDataT(const DataTypeString& s);
+    void onDataT(const DataTPtr<DataTypeString>& dptr);
     void onInlet(size_t n, const AtomList& l);
 
 public:

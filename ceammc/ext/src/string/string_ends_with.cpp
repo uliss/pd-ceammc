@@ -25,7 +25,7 @@ StringEndsWith::StringEndsWith(const PdArgs& a)
 
 void StringEndsWith::onSymbol(t_symbol* s)
 {
-    onDataT(DataTypeString(s));
+    floatTo(0, DataTypeString(s).endsWith(suffix_) ? 1 : 0);
 }
 
 void StringEndsWith::onInlet(size_t, const AtomList& l)
@@ -33,9 +33,9 @@ void StringEndsWith::onInlet(size_t, const AtomList& l)
     suffix_ = to_string(l);
 }
 
-void StringEndsWith::onDataT(const DataTypeString& s)
+void StringEndsWith::onDataT(const DataTPtr<DataTypeString>& dptr)
 {
-    floatTo(0, s.endsWith(suffix_) ? 1 : 0);
+    floatTo(0, dptr->endsWith(suffix_) ? 1 : 0);
 }
 
 extern "C" void setup_string0x2eends_with()

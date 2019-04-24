@@ -14,13 +14,11 @@
 #ifndef LIST_UNZIP_H
 #define LIST_UNZIP_H
 
-#include "ceammc_object.h"
+#include "list_base.h"
 
 using namespace ceammc;
 
-class DataTypeMList;
-
-class ListUnzip : public BaseObject {
+class ListUnzip : public ListBase {
     const size_t out_count_;
     AtomList in_list_;
     std::vector<AtomList> out_lists_;
@@ -31,7 +29,6 @@ public:
     ListUnzip(const PdArgs& a);
     void onBang() override;
     void onList(const AtomList& l) override;
-    void onDataT(const DataTypeMList& lst);
 
 private:
     void clearOutputList();

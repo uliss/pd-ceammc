@@ -22,7 +22,7 @@ class DictToList : public BaseObject {
 public:
     DictToList(const PdArgs& args);
 
-    void onDataT(const DataTypeDict& d);
+    void onDataT(const DataTPtr<DataTypeDict>& d);
 };
 
 void setup_dict_to_list();

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="hw.kbd_light">
+        <title>hw.kbd_light</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+                <author>Hans-Christoph Steiner</author>
+            </authors>
+            <description>Get/set keyboard light on some devices</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>hw</category>
+            <keywords>keyboard</keywords>
+            <since>0.8</since>
+        </meta>
+        <info>
+            <par>Only Apple keyboards are supported at this moment</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="float" minvalue="0" maxvalue="1">sets current keyboards light level (no
+                output)</xinfo>
+                <xinfo on="bang">outputs current keyboard light level</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>keyboard light level in range 0...1</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[metro 250] [ui.knob]
+|           |
+|           |
+|           |
+[hw.kbd_light]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

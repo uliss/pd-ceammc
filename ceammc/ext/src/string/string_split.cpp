@@ -17,10 +17,10 @@
 
 #include <boost/algorithm/string.hpp>
 
-static t_symbol* SQUOTE = gensym("'");
-
 static bool isSpace(const AtomList& lst)
 {
+    static t_symbol* SQUOTE = gensym("'");
+
     if (lst.size() != 2)
         return false;
 
@@ -43,9 +43,9 @@ void StringSplit::onSymbol(t_symbol* s)
     output();
 }
 
-void StringSplit::onDataT(const DataTypeString& s)
+void StringSplit::onDataT(const DataTPtr<DataTypeString>& dptr)
 {
-    split(s);
+    split(*dptr);
     output();
 }
 
@@ -56,8 +56,7 @@ void StringSplit::split(const DataTypeString& s)
     s.split(tokens, sep_);
 
     for (size_t i = 0; i < tokens.size(); i++) {
-        DataPtr d(new DataTypeString(tokens[i]));
-        tokens_.push_back(DataAtom(d));
+        tokens_.emplace_back(DataTPtr<DataTypeString>(tokens[i]));
     }
 }
 

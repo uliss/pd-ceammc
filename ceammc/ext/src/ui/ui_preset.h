@@ -38,9 +38,9 @@ public:
 
     void init(t_symbol* name, const AtomList& args, bool usePresets);
     void okSize(t_rect* newrect);
-    void paint(t_object* view);
+    void paint();
 
-    void onMouseDown(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseDown(t_object* view, const t_pt& pt, const t_pt &abs_pt, long modifiers);
     void onMouseMove(t_object* view, const t_pt& pt, long modifiers);
     void onMouseLeave(t_object* view, const t_pt& pt, long modifiers);
 

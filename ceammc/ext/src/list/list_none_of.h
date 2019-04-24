@@ -13,20 +13,17 @@
  *****************************************************************************/
 #ifndef LIST_NONE_OF_H
 #define LIST_NONE_OF_H
-#include "ceammc_object.h"
+#include "list_base.h"
 
 using namespace ceammc;
 
-class DataTypeMList;
-
-class ListNoneOf : public BaseObject {
+class ListNoneOf : public ListBase {
     mutable bool none_;
 
 public:
     ListNoneOf(const PdArgs& a);
     void onList(const AtomList& l);
     void onInlet(size_t n, const AtomList& l);
-    void onDataT(const DataTypeMList& lst);
 };
 
 void setup_list_none_of();

@@ -1,0 +1,16 @@
+#N canvas 548 257 652 468 10;
+#X text 75 37 libdir - loader for libraries adherent to the libdir
+standard;
+#X text 58 130 The 'libdir' loader is a Pd loader which supports the
+libdir library format. The libdir library format aims to be a common
+library format for Pd which works with objects written in any language
+\, including Pd. This library format was designed to be easy to create
+\, install \, and use. It should work when installed into the global
+path (i.e. pd/extra) or when copied locally into a project folder.
+It should work with objects written in any supported language (i.e.
+binaries \, .pd \, and the various loaders like pdlua and tclpd). Also
+\, starting with Pd 0.43 and Pd-extended 0.42 \, the Help Browser dynamically
+builds itself based on the libraries that are installed.;
+#X text 119 321 http://puredata.org/docs/developer/Libdir;
+#X obj 73 374 libdir;
+#X text 130 373 this object doesn't have any functionality.;

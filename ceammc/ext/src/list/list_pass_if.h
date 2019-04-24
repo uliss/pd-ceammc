@@ -27,7 +27,7 @@ public:
     ListPassIf(const PdArgs& a);
     void onList(const AtomList& lst);
     void onInlet(size_t n, const AtomList& l);
-    void onDataT(const DataTypeMList& lst);
+    void onDataT(const DataTPtr<DataTypeMList>& lst);
 };
 
 void setup_list_pass_if();

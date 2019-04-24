@@ -29,7 +29,7 @@ public:
 
     void onList(const AtomList&) override;
     void onInlet(size_t n, const AtomList& lst) override;
-    void onDataT(const DataTypeMList& lst);
+    void onDataT(const DataTPtr<DataTypeMList>& lst);
 
 public:
     t_float index() const;

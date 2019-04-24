@@ -3,8 +3,6 @@
 #include "ceammc_factory.h"
 #include "datatype_midistream.h"
 
-static t_symbol* SYM_MIDI_EVENT = gensym("MidiEvent");
-
 MidiTrack::MidiTrack(const PdArgs& args)
     : BaseObject(args)
     , midi_track_()
@@ -49,11 +47,11 @@ void MidiTrack::onBang()
     outputCurrent();
 }
 
-void MidiTrack::onDataT(const DataTypeMidiStream& s)
+void MidiTrack::onDataT(const DataTPtr<DataTypeMidiStream>& dptr)
 {
     if (join_->value()) {
         // copy
-        MidiFile mf = *s.midifile();
+        MidiFile mf = *dptr->midifile();
         mf.joinTracks();
 
         midi_track_ = DataTypeMidiTrack(mf[0]);
@@ -61,7 +59,7 @@ void MidiTrack::onDataT(const DataTypeMidiStream& s)
 
     } else {
         const size_t trackN = track_idx_->value();
-        const MidiFile* mf = s.midifile();
+        const MidiFile* mf = dptr->midifile();
         if (mf->getTrackCount() <= trackN) {
             OBJ_ERR << "invalid track index: " << trackN;
             return;
@@ -178,6 +176,8 @@ void MidiTrack::m_pause(t_symbol*, const AtomList&)
 
 void MidiTrack::outputEvent(MidiEvent* ev)
 {
+    static t_symbol* SYM_MIDI_EVENT = gensym("MidiEvent");
+
     current_event_.clear();
 
     current_event_.append(ev->tick);

@@ -146,16 +146,16 @@ public:
         method_call_idx_ = MAIN_METHOD_CALL;
     }
 
-    void onDataT(const DataType& d)
+    void onDataT(const DataTPtr<DataType>& dptr)
     {
-        if (d.dataTypeId() != DataType::wrappedDataTypeId) {
-            OBJ_ERR << "unexpected data with id=" << d.dataTypeId()
+        if (dptr->dataTypeId() != DataType::wrappedDataTypeId) {
+            OBJ_ERR << "unexpected data with id=" << dptr->dataTypeId()
                     << ", expecting " << T::typeName()
                     << " with id=" << DataType::wrappedDataTypeId;
             return;
         }
 
-        data_ = d.value();
+        data_ = dptr->value();
         dispatch();
     }
 

@@ -7,22 +7,16 @@ extern "C" {
 #include "g_canvas.h"
 }
 
-#include <boost/math/special_functions/fpclassify.hpp>
+#include <cmath>
+#include <cstring>
 
 namespace ceammc {
 
 static const size_t MAX_PRESET_COUNT = 16;
-static t_symbol* SYM_WITH_SPACES = gensym("_symbol_s");
-
-t_symbol* Preset::SYM_NONE = gensym("");
-t_symbol* Preset::SYM_LOAD = gensym("load");
-t_symbol* Preset::SYM_STORE = gensym("store");
-t_symbol* Preset::SYM_UPDATE = gensym("update");
-t_symbol* Preset::SYM_CLEAR = gensym("clear");
-t_symbol* Preset::SYM_PRESET_ALL = gensym(".preset update all");
-t_symbol* PresetStorage::SYM_PRESET_UPDATE_INDEX_ADDR = gensym(".preset index update addr");
-t_symbol* PresetStorage::SYM_PRESET_INDEX_ADD = gensym(".preset index add");
-t_symbol* PresetStorage::SYM_PRESET_INDEX_REMOVE = gensym(".preset index remove");
+const char* Preset::SYM_PRESET_ALL = ".preset update all";
+const char* PresetStorage::SYM_PRESET_UPDATE_INDEX_ADDR = ".preset index update addr";
+const char* PresetStorage::SYM_PRESET_INDEX_ADD = ".preset index add";
+const char* PresetStorage::SYM_PRESET_INDEX_REMOVE = ".preset index remove";
 
 PresetStorage::PresetStorage()
     : indexes_(MAX_PRESET_COUNT, PresetNameSet())
@@ -188,6 +182,8 @@ bool PresetStorage::write(t_canvas* c, const std::string& path) const
 
 bool PresetStorage::write(const char* path) const
 {
+    t_symbol* SYM_WITH_SPACES = gensym("_symbol_s");
+
     if (params_.empty()) {
         LIB_DBG << "no presets in storage";
         return false;
@@ -252,6 +248,8 @@ bool PresetStorage::read(t_canvas* c, const std::string& path)
 
 bool PresetStorage::read(const char* path)
 {
+    t_symbol* SYM_WITH_SPACES = gensym("_symbol_s");
+
     t_binbuf* content = binbuf_new();
     int rc = binbuf_read(content, (char*)path, (char*)"", 0);
 
@@ -387,7 +385,10 @@ void PresetStorage::clearAll()
 
 void PresetStorage::clearAll(size_t idx)
 {
-    if (!Preset::SYM_PRESET_ALL->s_thing)
+    t_symbol* SYM_CLEAR = gensym("clear");
+    t_symbol* SYM_PRESET_ALL = gensym(Preset::SYM_PRESET_ALL);
+
+    if (!SYM_PRESET_ALL->s_thing)
         return;
 
     if (idx >= maxPresetCount()) {
@@ -399,12 +400,15 @@ void PresetStorage::clearAll(size_t idx)
 
     t_atom a;
     SETFLOAT(&a, idx);
-    pd_typedmess(Preset::SYM_PRESET_ALL->s_thing, Preset::SYM_CLEAR, 1, &a);
+    pd_typedmess(SYM_PRESET_ALL->s_thing, SYM_CLEAR, 1, &a);
 }
 
 void PresetStorage::loadAll(size_t idx)
 {
-    if (!Preset::SYM_PRESET_ALL->s_thing)
+    t_symbol* SYM_LOAD = gensym("load");
+    t_symbol* SYM_PRESET_ALL = gensym(Preset::SYM_PRESET_ALL);
+
+    if (!SYM_PRESET_ALL->s_thing)
         return;
 
     if (idx >= maxPresetCount()) {
@@ -416,12 +420,15 @@ void PresetStorage::loadAll(size_t idx)
 
     t_atom a;
     SETFLOAT(&a, idx);
-    pd_typedmess(Preset::SYM_PRESET_ALL->s_thing, Preset::SYM_LOAD, 1, &a);
+    pd_typedmess(SYM_PRESET_ALL->s_thing, SYM_LOAD, 1, &a);
 }
 
 void PresetStorage::storeAll(size_t idx)
 {
-    if (!Preset::SYM_PRESET_ALL->s_thing)
+    t_symbol* SYM_STORE = gensym("store");
+    t_symbol* SYM_PRESET_ALL = gensym(Preset::SYM_PRESET_ALL);
+
+    if (!SYM_PRESET_ALL->s_thing)
         return;
 
     if (idx >= maxPresetCount()) {
@@ -433,15 +440,18 @@ void PresetStorage::storeAll(size_t idx)
 
     t_atom a;
     SETFLOAT(&a, idx);
-    pd_typedmess(Preset::SYM_PRESET_ALL->s_thing, Preset::SYM_STORE, 1, &a);
+    pd_typedmess(SYM_PRESET_ALL->s_thing, SYM_STORE, 1, &a);
 }
 
 void PresetStorage::updateAll()
 {
-    if (!Preset::SYM_PRESET_ALL->s_thing)
+    t_symbol* SYM_UPDATE = gensym("update");
+    t_symbol* SYM_PRESET_ALL = gensym(Preset::SYM_PRESET_ALL);
+
+    if (!SYM_PRESET_ALL->s_thing)
         return;
 
-    pd_typedmess(Preset::SYM_PRESET_ALL->s_thing, Preset::SYM_UPDATE, 0, NULL);
+    pd_typedmess(SYM_PRESET_ALL->s_thing, SYM_UPDATE, 0, NULL);
 }
 
 PresetPtr PresetStorage::getOrCreate(t_symbol* name)
@@ -457,6 +467,9 @@ PresetPtr PresetStorage::getOrCreate(t_symbol* name)
 
 void PresetStorage::addPresetIndex(t_symbol* name, size_t idx)
 {
+    t_symbol* SYM_PRESET_UPDATE_INDEX_ADDR = gensym(PresetStorage::SYM_PRESET_UPDATE_INDEX_ADDR);
+    t_symbol* SYM_PRESET_INDEX_ADD = gensym(PresetStorage::SYM_PRESET_INDEX_ADD);
+
     if (idx >= MAX_PRESET_COUNT)
         return;
 
@@ -472,6 +485,9 @@ void PresetStorage::addPresetIndex(t_symbol* name, size_t idx)
 
 void PresetStorage::removePresetIndex(t_symbol* name, size_t idx)
 {
+    t_symbol* SYM_PRESET_UPDATE_INDEX_ADDR = gensym(PresetStorage::SYM_PRESET_UPDATE_INDEX_ADDR);
+    t_symbol* SYM_PRESET_INDEX_REMOVE = gensym(PresetStorage::SYM_PRESET_INDEX_REMOVE);
+
     if (idx >= MAX_PRESET_COUNT)
         return;
 
@@ -529,7 +545,7 @@ float Preset::floatAt(size_t idx, float def) const
     if (data_[idx].isFloat()) {
         t_float v = data_[idx].atomValue().asFloat();
 
-        if (boost::math::isnan(v) || boost::math::isinf(v))
+        if (std::isnan(v) || std::isinf(v))
             return def;
         else
             return v;

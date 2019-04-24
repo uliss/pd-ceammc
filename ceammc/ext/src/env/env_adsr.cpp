@@ -4,12 +4,6 @@
 #include "datatype_env.h"
 #include "env_faust_play.h"
 
-static t_symbol* SYM_PROP_ATTACK = gensym("@attack");
-static t_symbol* SYM_PROP_DECAY = gensym("@decay");
-static t_symbol* SYM_PROP_SUSTAIN = gensym("@sustain");
-static t_symbol* SYM_PROP_RELEASE = gensym("@release");
-static t_symbol* SYM_PROP_GATE = gensym("@gate");
-
 using namespace ceammc;
 
 class EnvAdsr : public faust_env_adsr_tilde {
@@ -27,16 +21,16 @@ public:
         : faust_env_adsr_tilde(args)
         , ad_done_(this, &EnvAdsr::attackDecayDone)
         , release_done_(this, &EnvAdsr::releaseDone)
-        , prop_attack_((UIProperty*)property(SYM_PROP_ATTACK))
-        , prop_decay_((UIProperty*)property(SYM_PROP_DECAY))
-        , prop_sustain_((UIProperty*)property(SYM_PROP_SUSTAIN))
-        , prop_release_((UIProperty*)property(SYM_PROP_RELEASE))
-        , prop_gate_((UIProperty*)property(SYM_PROP_GATE))
+        , prop_attack_((UIProperty*)property(gensym("@attack")))
+        , prop_decay_((UIProperty*)property(gensym("@decay")))
+        , prop_sustain_((UIProperty*)property(gensym("@sustain")))
+        , prop_release_((UIProperty*)property(gensym("@release")))
+        , prop_gate_((UIProperty*)property(gensym("@gate")))
     {
-        bindPositionalArgsToProps({ SYM_PROP_ATTACK, SYM_PROP_DECAY, SYM_PROP_SUSTAIN, SYM_PROP_RELEASE });
+        bindPositionalArgsToProps({ gensym("@attack"), gensym("@decay"), gensym("@sustain"), gensym("@release") });
         createProperty(new CombinedProperty("@adsr",
-            { property(SYM_PROP_ATTACK), property(SYM_PROP_DECAY),
-                property(SYM_PROP_SUSTAIN), property(SYM_PROP_RELEASE) }));
+            { property(gensym("@attack")), property(gensym("@decay")),
+                property(gensym("@sustain")), property(gensym("@release")) }));
 
         createOutlet();
     }
@@ -44,7 +38,7 @@ public:
     bool processAnyProps(t_symbol* sel, const AtomList& lst) override
     {
         // intercept @gate call
-        if (sel == SYM_PROP_GATE) {
+        if (sel == gensym("@gate")) {
             if (atomlistToValue<bool>(lst, false)) {
                 clockReset();
                 ad_done_.delay(prop_attack_->value() + prop_decay_->value());
@@ -68,20 +62,20 @@ public:
             OBJ_ERR << "can't set envelope";
     }
 
-    void onDataT(const DataTypeEnv& env)
+    void onDataT(const DataTPtr<DataTypeEnv>& dptr)
     {
-        if (!env.isADSR()) {
-            OBJ_ERR << "not an ADSR envelope: " << env;
+        if (!dptr->isADSR()) {
+            OBJ_ERR << "not an ADSR envelope: " << *dptr;
             return;
         }
 
-        float attack = env.pointAt(1).timeMs() - env.pointAt(0).timeMs();
-        float decay = env.pointAt(2).timeMs() - env.pointAt(1).timeMs();
-        float sustain = env.pointAt(2).value * 100;
-        float release = env.pointAt(3).timeMs() - env.pointAt(2).timeMs();
+        float attack = dptr->pointAt(1).timeMs() - dptr->pointAt(0).timeMs();
+        float decay = dptr->pointAt(2).timeMs() - dptr->pointAt(1).timeMs();
+        float sustain = dptr->pointAt(2).value * 100;
+        float release = dptr->pointAt(3).timeMs() - dptr->pointAt(2).timeMs();
 
         if (!set(attack, decay, sustain, release))
-            OBJ_ERR << "can't set envelope: " << env;
+            OBJ_ERR << "can't set envelope: " << *dptr;
     }
 
     void m_reset(t_symbol*, const AtomList&)
@@ -104,7 +98,7 @@ private:
 
     void durationDone()
     {
-        processAnyProps(SYM_PROP_GATE, Atom(0.f));
+        processAnyProps(gensym("@gate"), Atom(0.f));
     }
 
     void clockReset()

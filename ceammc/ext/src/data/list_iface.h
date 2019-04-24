@@ -51,10 +51,10 @@ public:
         list() = l;
     }
 
-    void onDataT(const DataTypeMList& l)
+    void onDataT(const DataTPtr<DataTypeMList>& dptr)
     {
         auto pred = [](const DataAtom& a) { return a.isAtom(); };
-        onList(l.toList(pred));
+        onList(dptr->toList(pred));
     }
 
     void proto_set(const AtomList& lst) override

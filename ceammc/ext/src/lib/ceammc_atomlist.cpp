@@ -73,12 +73,14 @@ AtomList::AtomList(std::initializer_list<Atom> l)
 
 void AtomList::operator=(const AtomList& l)
 {
-    atoms_ = l.atoms_;
+    if (this != &l)
+        atoms_ = l.atoms_;
 }
 
 void AtomList::operator=(AtomList&& l)
 {
-    atoms_ = std::move(l.atoms_);
+    if (this != &l)
+        atoms_ = std::move(l.atoms_);
 }
 
 size_t AtomList::size() const

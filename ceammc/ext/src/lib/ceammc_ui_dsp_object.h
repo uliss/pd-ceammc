@@ -20,9 +20,9 @@
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 
-#include <boost/unordered_map.hpp>
-#include <boost/unordered_set.hpp>
 #include <sstream>
+#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 namespace ceammc {
@@ -53,7 +53,7 @@ public:
 class UIDspObject : t_edspbox {
     AtomList args_;
     std::vector<t_outlet*> outlets_;
-    boost::unordered_set<t_symbol*> binded_signals_;
+    std::unordered_set<t_symbol*> binded_signals_;
     t_symbol* name_;
     t_symbol* old_preset_id_;
     t_cursor cursor_;
@@ -67,6 +67,7 @@ protected:
 public:
     t_rgba prop_color_background;
     t_rgba prop_color_border;
+    t_rgba prop_color_label;
 
 public:
     UIDspObject();
@@ -77,6 +78,7 @@ public:
 
     // CICM and Pd
     t_ebox* asEBox() const;
+    t_eobj* asEObj() const;
     t_edspbox* asDspBox() const;
     t_object* asPdObject() const;
     t_pd* asPd() const;
@@ -88,14 +90,17 @@ public:
     AtomList& args() { return args_; }
 
     // appearence
-    void paint(t_object* view);
+    void paint();
+
     void redraw();
+    void redrawInnerArea();
     void redrawBGLayer();
+
     void updateSize();
     void resize(int w, int h);
-    t_pd_err notify(t_symbol* attr_name, t_symbol* msg);
+    void onPropChange(t_symbol* prop_name);
     void okSize(t_rect* newrect);
-    void setDrawParams(t_object*, t_edrawparams* params);
+    void setDrawParams(t_edrawparams* params);
     float zoom() const;
     t_cursor cursor() const;
     void setCursor(t_cursor c);
@@ -104,12 +109,13 @@ public:
     void onKey(int k);
     void onMouseMove(t_object* view, const t_pt& pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
-    void onMouseDown(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseLeave(t_object* view, const t_pt& pt, long modifiers);
     void onMouseEnter(t_object* view, const t_pt& pt, long modifiers);
     void onMouseWheel(t_object* view, const t_pt& pt, long modifiers, double delta);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
+    void onPopup(t_symbol* menu_name, long item_idx);
 
     // input
     void onBang();
@@ -136,7 +142,7 @@ public:
     void send(t_symbol* s, const AtomList& lst);
 
     // coordinates
-    const t_rect& rect() const;
+    t_rect rect() const;
     float x() const;
     float y() const;
     float width() const;
@@ -181,11 +187,11 @@ public:
     float fontSizeZoomed() const;
 
 public:
-    static t_symbol* BG_LAYER;
-    static t_symbol* FONT_FAMILY;
-    static t_symbol* FONT_STYLE;
-    static t_symbol* FONT_WEIGHT;
-    static t_symbol* COLOR_ACTIVE;
+    static const char* BG_LAYER;
+    static const char* FONT_FAMILY;
+    static const char* FONT_STYLE;
+    static const char* FONT_WEIGHT;
+    static const char* COLOR_ACTIVE;
     static const int FONT_SIZE;
     static const int FONT_SIZE_SMALL;
 
@@ -194,7 +200,7 @@ public:
     static void releasePresetName(t_symbol* s);
 
 private:
-    typedef boost::unordered_map<t_symbol*, int> PresetNameMap;
+    typedef std::unordered_map<t_symbol*, int> PresetNameMap;
     static PresetNameMap presets_;
 };
 }

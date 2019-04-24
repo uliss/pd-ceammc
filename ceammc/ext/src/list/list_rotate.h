@@ -33,7 +33,7 @@ public:
     ListRotate(const PdArgs& a);
     void onList(const AtomList& l);
     void onInlet(size_t, const AtomList& step);
-    void onDataT(const DataTypeMList& ml);
+    void onDataT(const DataTPtr<DataTypeMList>& ml);
 };
 
 void setup_list_rotate();

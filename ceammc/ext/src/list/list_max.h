@@ -27,7 +27,7 @@ public:
     ListMax(const PdArgs& a);
     void onList(const AtomList& l) override;
 
-    void onDataT(const DataTypeMList& lst);
+    void onDataT(const DataTPtr<DataTypeMList>& dptr);
 
     template <typename Iterator>
     void max(Iterator begin, Iterator end)

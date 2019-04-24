@@ -59,6 +59,7 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_preset.cpp
     ceammc_property.cpp
     ceammc_property_info.cpp
+    ceammc_regexp.cpp
     ceammc_sound_external.cpp
     ceammc_string.cpp
     ceammc_thread.cpp
@@ -137,7 +138,7 @@ add_library(ceammc_core SHARED
     ${CEAMMC_MLIST_SRC}
     ${CEAMMC_DICT_SRC}
     ${CEAMMC_UI_SRC})
-target_link_libraries(ceammc_core puredata-core)
+target_link_libraries(ceammc_core puredata-core fmt)
 
 set_target_properties(ceammc_core PROPERTIES
     COMPILE_FLAGS "${LIBCEAMMC_COMPILE_FLAGS}"
@@ -207,3 +208,8 @@ target_link_libraries(ext_methods puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
 
 add_executable(ext_props ext_props.cpp ../mod_init.cpp)
 target_link_libraries(ext_props puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
+
+add_custom_target(ceammc_cicm_tcl_gen
+    COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh cicm/Sources/cicm_common.tcl
+    SOURCES cicm/Sources/cicm_common.tcl
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})

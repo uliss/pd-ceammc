@@ -11,6 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#define _USE_MATH_DEFINES // for M_PI constants
+
 #include "ui_spectroscope.h"
 #include "ceammc_convert.h"
 #include "ceammc_dsp_ui.h"
@@ -30,8 +32,6 @@ const size_t UISpectroscope::DB_SCALE_STEP = 10;
 const size_t UISpectroscope::DB_SCALE_N = UISpectroscope::DB_SCALE_RANGE / UISpectroscope::DB_SCALE_STEP;
 static t_sample hann_window[UISpectroscope::WINDOW_SIZE] = { 0 };
 
-static t_symbol* SYM_GRAPH_LAYER = gensym("graph_layer");
-
 static bool init_hann_window()
 {
     return window::fill(hann_window, hann_window + UISpectroscope::WINDOW_SIZE, window::hann<float>);
@@ -40,9 +40,9 @@ static bool init_hann_window()
 UISpectroscope::UISpectroscope()
     : clock_(this, &UISpectroscope::updateFFT)
     , prop_color_active(rgba_blue)
-    , prop_color_label(rgba_black)
-    , graph_layer_(asEBox(), SYM_GRAPH_LAYER)
-    , font_(FONT_FAMILY, FONT_SIZE_SMALL - 1)
+    , prop_color_scale(rgba_black)
+    , graph_layer_(asEBox(), gensym("graph_layer"))
+    , font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL - 1)
     , grid_color_main_(rgba_greylight)
     , grid_color_thick_(rgba_greylight)
     , last_redraw_time_(0)
@@ -75,22 +75,18 @@ void UISpectroscope::okSize(t_rect* newrect)
     newrect->height = pd_clip_min(newrect->height, 30);
 }
 
-t_pd_err UISpectroscope::notify(t_symbol* attr_name, t_symbol* msg)
+void UISpectroscope::onPropChange(t_symbol* prop_name)
 {
-    if (msg == s_attr_modified) {
-        grid_color_main_ = rgba_addContrast(prop_color_background, -0.12);
-        grid_color_thick_ = rgba_addContrast(prop_color_background, -0.05);
-        updateLabelColors();
+    grid_color_main_ = rgba_addContrast(prop_color_background, -0.12);
+    grid_color_thick_ = rgba_addContrast(prop_color_background, -0.05);
+    updateLabelColors();
 
-        bg_layer_.invalidate();
-        graph_layer_.invalidate();
-        redraw();
-    }
-
-    return 0;
+    bg_layer_.invalidate();
+    graph_layer_.invalidate();
+    redraw();
 }
 
-void UISpectroscope::paint(t_object* view)
+void UISpectroscope::paint()
 {
     drawBackground();
     drawGraph();
@@ -107,7 +103,7 @@ static int roundGridFreq(int freq)
 
 void UISpectroscope::drawBackground()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)
@@ -187,7 +183,7 @@ void UISpectroscope::drawBackground()
 
 void UISpectroscope::drawGraph()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
 
     UIPainter p = graph_layer_.painter(r);
     if (!p)
@@ -214,7 +210,7 @@ void UISpectroscope::drawGraph()
 
 void UISpectroscope::drawGraphLinear(UIPainter& p)
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
 
     int outside_counter = 0;
 
@@ -263,7 +259,7 @@ static inline float approx_lin(float v, float* buf)
 void UISpectroscope::drawGraphLog(UIPainter& p)
 {
     static const int MIN_FREQ = 10;
-    const t_rect& r = rect();
+    const t_rect r = rect();
 
     const int MAX_FREQ = samplerate() / 2;
     const float k = float(MAX_FREQ) / N_BINS;
@@ -324,7 +320,7 @@ void UISpectroscope::drawGraphLog(UIPainter& p)
 
 void UISpectroscope::drawHGrid(UIPainter& p)
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
 
     // draw horizontal lines
     int v_step = roundf(r.height / DB_SCALE_N);
@@ -355,6 +351,33 @@ void UISpectroscope::drawHGrid(UIPainter& p)
     // draw 0db
     x_labels_[0]->set("0 db", r.width - 2, 2, 0, 0);
     p.drawText(*x_labels_[0]);
+}
+
+void UISpectroscope::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
+{
+    if (modifiers == EMOD_RIGHT) {
+        UIPopupMenu menu(asEObj(), "popup", abs_pt);
+        if (prop_log_scale)
+            menu.addItem(_("linear scale"));
+        else
+            menu.addItem(_("log scale"));
+    }
+}
+
+void UISpectroscope::onPopup(t_symbol* menu_name, long item_idx)
+{
+    if (menu_name == gensym("popup")) {
+        switch (item_idx) {
+        case 0:
+            prop_log_scale = !(prop_log_scale);
+            bg_layer_.invalidate();
+            graph_layer_.invalidate();
+            redraw();
+            break;
+        default:
+            break;
+        }
+    }
 }
 
 void UISpectroscope::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes)
@@ -391,15 +414,16 @@ void UISpectroscope::setup()
 {
     static const bool init = init_hann_window();
 
-    UIDspFactory<UISpectroscope> obj("ui.spectroscope~", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK);
+    UIDspFactory<UISpectroscope> obj("ui.spectroscope~", EBOX_GROWINDI);
+    obj.useMouseEvents(UI_MOUSE_DOWN);
     obj.addAlias("ui.ssc~");
     obj.setDefaultSize(150, 100);
 
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UISpectroscope::prop_color_active);
-    obj.addProperty("label_color", _("Label Color"), "0.6 0.6 0.6 1", &UISpectroscope::prop_color_label);
-    obj.addIntProperty("refresh", _("Refresh time (ms)"), 100, &UISpectroscope::prop_refresh);
+    obj.addProperty("scale_color", _("Scale Color"), "0.6 0.6 0.6 1", &UISpectroscope::prop_color_scale);
+    obj.addIntProperty("refresh", _("Refresh time (ms)"), 100, &UISpectroscope::prop_refresh, "Main");
     obj.setPropertyRange("refresh", 20, 1000);
-    obj.addBoolProperty("log_scale", _("Log scale"), false, &UISpectroscope::prop_log_scale);
+    obj.addBoolProperty("log_scale", _("Log scale"), false, &UISpectroscope::prop_log_scale, "Main");
 
     obj.hideProperty("send");
 }
@@ -410,7 +434,7 @@ void UISpectroscope::updateFFT()
     if (t > prop_refresh) {
         last_redraw_time_ = clock_getlogicaltime();
         graph_layer_.invalidate();
-        redraw();
+        redrawInnerArea();
     }
 }
 
@@ -446,10 +470,10 @@ void UISpectroscope::freeLabels()
 void UISpectroscope::updateLabelColors()
 {
     for (size_t i = 0; i < x_labels_.size(); i++)
-        x_labels_[i]->setColor(prop_color_label);
+        x_labels_[i]->setColor(prop_color_scale);
 
     for (size_t i = 0; i < y_labels_.size(); i++)
-        y_labels_[i]->setColor(prop_color_label);
+        y_labels_[i]->setColor(prop_color_scale);
 }
 
 void setup_ui_spectroscope()

@@ -14,7 +14,6 @@
 #ifdef _WIN32
 #include <io.h>
 #endif
-extern t_pd *newest;    /* OK - this should go into a .h file now :) */
 
 #ifdef _WIN32
 # include <malloc.h> /* MSVC or mingw on windows */
@@ -73,7 +72,7 @@ static void *table_donew(t_symbol *s, int size, int flags,
 
     graph_array(gl, s, &s_float, size, flags);
 
-    newest = &x->gl_pd;     /* mimic action of canvas_pop() */
+    pd_this->pd_newest = &x->gl_pd;     /* mimic action of canvas_pop() */
     pd_popsym(&x->gl_pd);
     x->gl_loading = 0;
 
@@ -86,7 +85,7 @@ static void *table_new(t_symbol *s, t_floatarg f)
 }
 
     /* return true if the "canvas" object is a "table". */
-int canvas_istable(t_canvas *x)
+int canvas_istable(const t_canvas *x)
 {
     t_atom *argv = (x->gl_obj.te_binbuf? binbuf_getvec(x->gl_obj.te_binbuf):0);
     int argc = (x->gl_obj.te_binbuf? binbuf_getnatom(x->gl_obj.te_binbuf) : 0);
@@ -176,6 +175,7 @@ static void *array_define_new(t_symbol *s, int argc, t_atom *argv)
         garray are being created.  There may be other, unknown side effects. */
     x->gl_obj.ob_pd = array_define_class;
     array_define_yrange(x, ylo, yhi);
+    outlet_new(&x->gl_obj, &s_pointer);
     return (x);
 }
 
@@ -217,7 +217,22 @@ static void array_define_send(t_glist *x, t_symbol *s)
         pd_pointer(s->s_thing, &gp);
         gpointer_unset(&gp);
     }
-    else bug("array_define_anything");
+    else bug("array_define_send");
+}
+
+static void array_define_bang(t_glist *x)
+{
+    t_glist *gl = (x->gl_list ? pd_checkglist(&x->gl_list->g_pd) : 0);
+    if (gl && gl->gl_list && pd_class(&gl->gl_list->g_pd) == garray_class)
+    {
+        t_gpointer gp;
+        gpointer_init(&gp);
+        gpointer_setglist(&gp, gl,
+            garray_getscalar((t_garray *)gl->gl_list));
+        outlet_pointer(x->gl_obj.ob_outlet, &gp);
+        gpointer_unset(&gp);
+    }
+    else bug("array_define_bang");
 }
 
     /* just forward any messages to the garray */
@@ -409,6 +424,11 @@ static void array_size_float(t_array_size *x, t_floatarg f)
         {
             t_garray *y = (t_garray *)pd_findbyclass(x->x_tc.tc_sym,
                 garray_class);
+            if (!y)
+            {
+                pd_error(x, "no such array '%s'", x->x_tc.tc_sym->s_name);
+                return;
+            }
             garray_resize(y, f);
         }
         else
@@ -523,10 +543,8 @@ static int array_rangeop_getrange(t_array_rangeop *x,
 {
     t_glist *glist;
     t_array *a = array_client_getbuf(&x->x_tc, &glist);
-    char *elemp;
-    int stride, fieldonset, arrayonset, nitem, i, type;
+    int stride, fieldonset, arrayonset, nitem, type;
     t_symbol *arraytype;
-    double sum;
     t_template *template;
     if (!a)
         return (0);
@@ -710,8 +728,8 @@ static void array_random_seed(t_array_random *x, t_floatarg f)
 
 static void array_random_bang(t_array_random *x)
 {
-    char *itemp, *firstitem;
-    int stride, nitem, arrayonset, i;
+    char *firstitem;
+    int stride, nitem, arrayonset;
 
     if (!array_rangeop_getrange(&x->x_r, &firstitem, &nitem, &stride,
         &arrayonset))
@@ -812,35 +830,35 @@ static void array_min_float(t_array_min *x, t_floatarg f)
 static void *arrayobj_new(t_symbol *s, int argc, t_atom *argv)
 {
     if (!argc || argv[0].a_type != A_SYMBOL)
-        newest = array_define_new(s, argc, argv);
+        pd_this->pd_newest = array_define_new(s, argc, argv);
     else
     {
-        char *str = argv[0].a_w.w_symbol->s_name;
+        const char *str = argv[0].a_w.w_symbol->s_name;
         if (!strcmp(str, "d") || !strcmp(str, "define"))
-            newest = array_define_new(s, argc-1, argv+1);
+            pd_this->pd_newest = array_define_new(s, argc-1, argv+1);
         else if (!strcmp(str, "size"))
-            newest = array_size_new(s, argc-1, argv+1);
+            pd_this->pd_newest = array_size_new(s, argc-1, argv+1);
         else if (!strcmp(str, "sum"))
-            newest = array_sum_new(s, argc-1, argv+1);
+            pd_this->pd_newest = array_sum_new(s, argc-1, argv+1);
         else if (!strcmp(str, "get"))
-            newest = array_get_new(s, argc-1, argv+1);
+            pd_this->pd_newest = array_get_new(s, argc-1, argv+1);
         else if (!strcmp(str, "set"))
-            newest = array_set_new(s, argc-1, argv+1);
+            pd_this->pd_newest = array_set_new(s, argc-1, argv+1);
         else if (!strcmp(str, "quantile"))
-            newest = array_quantile_new(s, argc-1, argv+1);
+            pd_this->pd_newest = array_quantile_new(s, argc-1, argv+1);
         else if (!strcmp(str, "random"))
-            newest = array_random_new(s, argc-1, argv+1);
+            pd_this->pd_newest = array_random_new(s, argc-1, argv+1);
         else if (!strcmp(str, "max"))
-            newest = array_max_new(s, argc-1, argv+1);
+            pd_this->pd_newest = array_max_new(s, argc-1, argv+1);
         else if (!strcmp(str, "min"))
-            newest = array_min_new(s, argc-1, argv+1);
+            pd_this->pd_newest = array_min_new(s, argc-1, argv+1);
         else
         {
             error("array %s: unknown function", str);
-            newest = 0;
+            pd_this->pd_newest = 0;
         }
     }
-    return (newest);
+    return (pd_this->pd_newest);
 }
 
 void canvas_add_for_class(t_class *c);
@@ -854,6 +872,7 @@ void x_array_setup(void )
     canvas_add_for_class(array_define_class);
     class_addmethod(array_define_class, (t_method)array_define_send,
         gensym("send"), A_SYMBOL, 0);
+    class_addbang(array_define_class, array_define_bang);
     class_addanything(array_define_class, array_define_anything);
     class_sethelpsymbol(array_define_class, gensym("array-object"));
     class_setsavefn(array_define_class, array_define_save);

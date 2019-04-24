@@ -1,8 +1,8 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 308 50 cnv 1 457 35 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 308 50 returns the difference between the current list of
-floats and the previous one.;
+#X obj 294 50 cnv 1 471 38 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 294 50 returns the difference between the current list of floats
+and the previous one.;
 #X obj 1 1 cnv 5 765 40 empty empty list.delta 20 20 0 20 -104026
 -4096 0;
 #X obj 668 11 list.delta;
@@ -31,60 +31,60 @@ floats and the previous one.;
 #X obj 20 417 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 422 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 427 @oversize;
-#X text 240 427 Get/Set behavior \, if list have different sizes.
-Type: symbol. Default value: padz. Allowed values: min \, padz \, clip
-\, wrap \, fold;
-#X msg 120 478 @min;
-#X text 240 478 alias for "@oversize min" property. Truncates lists to
-minimal common size;
-#X msg 120 515 @clip;
-#X text 240 515 alias for "@oversize min" property. Truncates lists to
-minimal common size;
-#X msg 120 552 @padz;
-#X text 240 552 alias for "@oversize padz" property. Pad shortest list
-with zeroes;
-#X msg 120 589 @clip;
-#X text 240 589 alias for "@oversize clip" property. Pad shortest list
-with last element to conform longest list;
-#X msg 120 626 @wrap;
-#X text 240 626 alias for "@oversize wrap" property. Pad shortest list
-with repeated values from the beginning;
-#X msg 120 663 @fold;
-#X text 240 663 alias for "@oversize fold" property. Pad shortest list
-with repeated values from the end to the beginning \, then back and so
-on;
-#X obj 20 724 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 729 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 457 @clip;
+#X text 245 457 alias for "@oversize min" property. Truncates lists
+to minimal common size.;
+#X msg 110 499 @clip;
+#X text 245 499 alias for "@oversize clip" property. Pad shortest list
+with last element to conform longest list.;
+#X msg 110 541 @fold;
+#X text 245 541 alias for "@oversize fold" property. Pad shortest list
+with repeated values from the end to the beginning \, then back and
+so on.;
+#X msg 110 598 @min;
+#X text 245 598 alias for "@oversize min" property. Truncates lists
+to minimal common size.;
+#X msg 110 640 @oversize;
+#X text 245 640 Get/Set behavior \, if list have different sizes. Type:
+symbol. Default value: padz. Allowed values: min \, padz \, clip \,
+wrap \, fold.;
+#X msg 110 697 @padz;
+#X text 245 697 alias for "@oversize padz" property. Pad shortest list
+with zeroes.;
+#X msg 110 739 @wrap;
+#X text 245 739 alias for "@oversize wrap" property. Pad shortest list
+with repeated values from the beginning.;
+#X obj 20 791 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 796 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 734 clear;
-#X text 240 734 sets to empty list current state.;
-#X obj 20 776 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 781 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 831 clear;
+#X text 245 831 sets to empty list current state.;
+#X obj 20 868 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 873 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 786 1\.;
-#X text 150 786 *list*;
-#X text 240 786 Input float list.;
-#X obj 20 814 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 819 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 874 1\.;
+#X text 150 874 *list*;
+#X text 245 874 Input float list.;
+#X obj 20 904 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 909 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 824 1\.;
-#X text 240 824 delta list;
+#X text 110 910 1\.;
+#X text 245 910 delta list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
-#X obj 1 872 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 875 library: ceammc v0.7;
-#X text 575 887 see also:;
-#X obj 651 887 list.integrator;
-#N canvas 10 894 400 290 info 0;
+#X obj 1 960 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 963 library: ceammc v0.7.1;
+#X text 557 975 see also:;
+#X obj 631 975 list.integrator;
+#N canvas 10 982 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.7;
+#X text 120 32 0.7.1;
 #X text 10 54 object:;
 #X text 120 54 list.delta;
 #X text 10 76 category:;
@@ -103,7 +103,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 894 pd info;
+#X restore 10 982 pd info;
 #X connect 4 0 6 0;
 #X connect 5 0 6 0;
 #X connect 6 0 8 0;

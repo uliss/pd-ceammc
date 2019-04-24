@@ -5,11 +5,18 @@ set(DOC_FILES
     array.do
     array.each
     array.fill
+    array.hist
+    array.mean
     array.minmax
     array.p2s
+    array.rms
     array.s2p
     array.set
+    array.stddev
     array.stretch
+    array.sum
+    array.sum2
+    array.variance
     array.vplay
     array.window
     canvas.current
@@ -82,6 +89,7 @@ set(DOC_FILES
     flow.demultiplex~
     flow.demultiplex2~
     flow.interval
+    flow.match
     flow.multiplex
     flow.multiplex~
     flow.multiplex2~
@@ -126,6 +134,9 @@ set(DOC_FILES
     fx.bitdown~
     fx.chorus~
     fx.distortion~
+    fx.distortion1~
+    fx.distortion2~
+    fx.distortion3~
     fx.drive~
     fx.drone_box~
     fx.echo~
@@ -148,7 +159,12 @@ set(DOC_FILES
     global.list
     global.mlist
     global.set
+    hw.apple_smc
+    hw.apple_sms
     hw.arduino
+    hw.cpu_temp
+    hw.display
+    hw.kbd_light
     is_any
     is_bang
     is_data
@@ -363,6 +379,7 @@ set(DOC_FILES
     string.format
     string.join
     string.length
+    string.match
     string.remove
     string.replace
     string.split

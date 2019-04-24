@@ -3,7 +3,7 @@
 #include "ceammc_factory.h"
 
 ListEqual::ListEqual(const PdArgs& a)
-    : BaseObject(a)
+    : ListBase(a)
     , pattern_(nullptr)
 {
     createInlet();
@@ -24,11 +24,6 @@ void ListEqual::onInlet(size_t n, const AtomList& lst)
 void ListEqual::onList(const AtomList& lst)
 {
     floatTo(0, lst == pattern_->value() ? 1 : 0);
-}
-
-void ListEqual::onDataT(const DataTypeMList& lst)
-{
-    onList(lst.toList());
 }
 
 void setup_list_equal()

@@ -35,8 +35,9 @@
         an.pitchtrack~
     }}
     {array {
-        array.bpm array.copy array.do array.each array.fill array.minmax
-        array.set array.stretch array.vplay array.window
+        array.bpm array.copy array.do array.each array.fill array.hist
+        array.mean array.minmax array.rms array.set array.stddev array.stretch
+        array.sum array.sum2 array.variance array.vplay array.window
     }}
     {base {
         function function.call gain~ matrix~ metro.pattern metro.seq mix~
@@ -80,17 +81,19 @@
         flt.lpf24~ flt.median flt.moog_vcf~ flt.notch~ flt.resonbp~
     }}
     {fx {
-        fx.bitdown~ fx.chorus~ fx.distortion~ fx.drive~ fx.drone_box~ fx.echo~
-        fx.flanger~ fx.freeverb2~ fx.freeverb~ fx.freqshift~ fx.granulator~
-        fx.greyhole~ fx.looper~ fx.pitchshift~ fx.sdelay~ fx.vocoder~
-        fx.wahwah~ fx.zita_rev1~
+        fx.bitdown~ fx.chorus~ fx.distortion1~ fx.distortion2~ fx.distortion3~
+        fx.distortion~ fx.drive~ fx.drone_box~ fx.echo~ fx.flanger~
+        fx.freeverb2~ fx.freeverb~ fx.freqshift~ fx.granulator~ fx.greyhole~
+        fx.looper~ fx.pitchshift~ fx.sdelay~ fx.vocoder~ fx.wahwah~
+        fx.zita_rev1~
     }}
     {global {
         global.dict global.float global.int global.list global.mlist
         global.set
     }}
     {hw {
-        hw.arduino
+        hw.apple_smc hw.apple_sms hw.arduino hw.cpu_temp hw.display
+        hw.kbd_light
     }}
     {lfo {
         lfo.+pulse~ lfo.+saw~ lfo.+square~ lfo.+tri~ lfo.impulse~ lfo.pulse~
@@ -177,8 +180,8 @@
     }}
     {string {
         string string.contains string.ends_with string.equal string.format
-        string.join string.length string.remove string.replace string.split
-        string.starts_with string.substr string2symbol
+        string.join string.length string.match string.remove string.replace
+        string.split string.starts_with string.substr string2symbol
     }}
     {symbol {
         symbol.equal symbol.length symbol.num_compare

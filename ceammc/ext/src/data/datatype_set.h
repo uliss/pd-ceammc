@@ -30,6 +30,7 @@ public:
     DataTypeSet();
     DataTypeSet(const Atom& a);
     DataTypeSet(const AtomList& l);
+    DataTypeSet(DataTypeSet&& ds);
     DataTypeSet(const DataTypeSet& ds);
     ~DataTypeSet();
 

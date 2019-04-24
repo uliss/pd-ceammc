@@ -27,11 +27,11 @@ void SetDifference::onList(const AtomList& l)
     onDataT(DataTypeSet(l));
 }
 
-void SetDifference::onDataT(const DataTypeSet& s)
+void SetDifference::onDataT(const DataTPtr<DataTypeSet>& dptr)
 {
-    DataTypeSet* res = new DataTypeSet();
-    DataTypeSet::set_difference(*res, s, set1_);
-    dataTo(0, DataPtr(res));
+    DataTypeSet res;
+    DataTypeSet::set_difference(res, *dptr, set1_);
+    dataTo(0, DataTPtr<DataTypeSet>(res));
 }
 
 void SetDifference::onInlet(size_t, const AtomList& l)

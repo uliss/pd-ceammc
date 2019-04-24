@@ -155,6 +155,12 @@ namespace platform {
      */
     bool is_dir(const char* path);
 
+    /**
+     * @brief returns current working directory
+     * @return emptry string on error
+     */
+    std::string current_working_directory();
+
     enum NetAddressType {
         ADDR_IPV4 = 0,
         ADDR_IPV6

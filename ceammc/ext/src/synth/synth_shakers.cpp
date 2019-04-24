@@ -20,31 +20,7 @@ typedef std::pair<t_symbol*, ShakerType> SymType;
 typedef std::vector<SymType> SymTypeList;
 
 // clazy:excludeall=non-pod-global-static
-static SymTypeList type_list = {
-    { gensym("maraca"), MARACA },
-    { gensym("cabasa"), CABASA },
-    { gensym("sekere"), SEKERE },
-    { gensym("tambourine"), TAMBOURINE },
-    { gensym("sleigh_bells"), SLEIGH_BELLS },
-    { gensym("bamboo_chimes"), BAMBOO_CHIMES },
-    { gensym("sand_paper"), SAND_PAPER },
-    { gensym("coke_can"), COKE_CAN },
-    { gensym("sticks"), STICKS },
-    { gensym("crunch"), CRUNCH },
-    { gensym("big_rocks"), BIG_ROCKS },
-    { gensym("little_rocks"), LITTLE_ROCKS },
-    { gensym("next_mug"), NEXT_MUG },
-    { gensym("penny_mug"), PENNY_MUG },
-    { gensym("nickle_mug"), NICKLE_MUG },
-    { gensym("dime_mug"), DIME_MUG },
-    { gensym("quarter_mug"), QUARTER_MUG },
-    { gensym("franc_mug"), FRANC_MUG },
-    { gensym("peso_mug"), PESO_MUG },
-    { gensym("guiro"), GUIRO },
-    { gensym("wrench"), WRENCH },
-    { gensym("water_drops"), WATER_DROPS },
-    { gensym("tuned_bamboo_chimes"), TUNED_BAMBOO_CHIMES }
-};
+static SymTypeList type_list;
 
 class MyShakers : public stk::Shakers {
 public:
@@ -178,6 +154,32 @@ bool SynthShakers::nameExists(t_symbol* s)
 
 void setup_synth_shakers()
 {
+    type_list = {
+        { gensym("maraca"), MARACA },
+        { gensym("cabasa"), CABASA },
+        { gensym("sekere"), SEKERE },
+        { gensym("tambourine"), TAMBOURINE },
+        { gensym("sleigh_bells"), SLEIGH_BELLS },
+        { gensym("bamboo_chimes"), BAMBOO_CHIMES },
+        { gensym("sand_paper"), SAND_PAPER },
+        { gensym("coke_can"), COKE_CAN },
+        { gensym("sticks"), STICKS },
+        { gensym("crunch"), CRUNCH },
+        { gensym("big_rocks"), BIG_ROCKS },
+        { gensym("little_rocks"), LITTLE_ROCKS },
+        { gensym("next_mug"), NEXT_MUG },
+        { gensym("penny_mug"), PENNY_MUG },
+        { gensym("nickle_mug"), NICKLE_MUG },
+        { gensym("dime_mug"), DIME_MUG },
+        { gensym("quarter_mug"), QUARTER_MUG },
+        { gensym("franc_mug"), FRANC_MUG },
+        { gensym("peso_mug"), PESO_MUG },
+        { gensym("guiro"), GUIRO },
+        { gensym("wrench"), WRENCH },
+        { gensym("water_drops"), WATER_DROPS },
+        { gensym("tuned_bamboo_chimes"), TUNED_BAMBOO_CHIMES }
+    };
+
     SoundExternalFactory<SynthShakers> obj("synth.shakers~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("cc", &SynthShakers::m_cc);
 }

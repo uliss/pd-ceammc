@@ -12,11 +12,11 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_all_of.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 ListAllOf::ListAllOf(const PdArgs& a)
-    : BaseObject(a)
+    : ListBase(a)
     , all_(false)
 {
     createOutlet();
@@ -52,11 +52,6 @@ void ListAllOf::onInlet(size_t n, const AtomList& l)
 
     if (l.first()->asInt(0) != 1)
         all_ = false;
-}
-
-void ListAllOf::onDataT(const DataTypeMList& lst)
-{
-    onList(lst.toList());
 }
 
 void setup_list_all_of()

@@ -22,7 +22,7 @@ using namespace ceammc;
 class MListFlatten : public BaseObject {
 public:
     MListFlatten(const PdArgs& args);
-    void onDataT(const DataTypeMList& lst);
+    void onDataT(const DataTPtr<DataTypeMList>& lst);
 };
 
 void setup_mlist_flatten();

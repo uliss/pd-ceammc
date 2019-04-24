@@ -24,7 +24,7 @@ class DictGet : public BaseObject {
 
 public:
     DictGet(const PdArgs& args);
-    void onDataT(const DataTypeDict& d);
+    void onDataT(const DataTPtr<DataTypeDict>& dptr);
 
     void parseProperties() override;
     bool processAnyProps(t_symbol* sel, const AtomList& lst) override;

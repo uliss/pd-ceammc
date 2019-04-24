@@ -7,22 +7,22 @@
 //
 
 #include "list_unzip.h"
-#include "datatype_mlist.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 #include "ceammc_log.h"
+#include "datatype_mlist.h"
 
 using namespace ceammc;
 
 static const size_t MIN_OUTLET = 2;
 static const size_t MAX_OUTLET = 20;
 
-static t_symbol* SYM_MIN = gensym("min");
-static t_symbol* SYM_PAD = gensym("pad");
+static t_symbol* SYM_MIN;
+static t_symbol* SYM_PAD;
 
 ListUnzip::ListUnzip(const PdArgs& a)
-    : BaseObject(a)
+    : ListBase(a)
     , out_count_(clip(atomlistToValue<size_t>(a.args, MIN_OUTLET), MIN_OUTLET, MAX_OUTLET))
     , pad_(0.f)
     , method_(0)
@@ -47,11 +47,6 @@ void ListUnzip::onList(const AtomList& l)
         list::deinterleavePadWith(l, pad_, out_lists_);
 
     onBang();
-}
-
-void ListUnzip::onDataT(const DataTypeMList& lst)
-{
-    onList(lst.toList());
 }
 
 void ListUnzip::clearOutputList()
@@ -90,6 +85,9 @@ void ListUnzip::setPadValue(const AtomList& l)
 
 void setup_list_unzip()
 {
+    SYM_MIN = gensym("min");
+    SYM_PAD = gensym("pad");
+
     ObjectFactory<ListUnzip> obj("list.unzip");
     obj.addAlias("list.deinterleave");
     obj.processData<DataTypeMList>();

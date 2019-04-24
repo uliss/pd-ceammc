@@ -20,11 +20,11 @@ using namespace ceammc;
 static const size_t MIN_INLET = 2;
 static const size_t MAX_INLET = 20;
 
-static t_symbol* SYM_MIN = gensym("min");
-static t_symbol* SYM_PAD = gensym("pad");
-static t_symbol* SYM_CLIP = gensym("clip");
-static t_symbol* SYM_WRAP = gensym("wrap");
-static t_symbol* SYM_FOLD = gensym("fold");
+static t_symbol* SYM_MIN;
+static t_symbol* SYM_PAD;
+static t_symbol* SYM_CLIP;
+static t_symbol* SYM_WRAP;
+static t_symbol* SYM_FOLD;
 
 ListZip::ListZip(const PdArgs& a)
     : BaseObject(a)
@@ -143,6 +143,12 @@ void ListZip::setPadValue(const AtomList& l)
 
 void setup_list_zip()
 {
+    SYM_MIN = gensym("min");
+    SYM_PAD = gensym("pad");
+    SYM_CLIP = gensym("clip");
+    SYM_WRAP = gensym("wrap");
+    SYM_FOLD = gensym("fold");
+
     ObjectFactory<ListZip> obj("list.zip");
     obj.addAlias("list.interleave");
 }

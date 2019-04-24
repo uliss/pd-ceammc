@@ -12,15 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "hw_usb.h"
-#include "datatype_dict.h"
 #include "ceammc_factory.h"
+#include "datatype_dict.h"
 #include "usb/libusb_wrapper.h"
 
-static t_symbol* SYM_SEP = gensym(":");
-static t_symbol* SYM_OPEN = gensym("(");
-static t_symbol* SYM_CLOSE = gensym(")");
-static t_symbol* SYM_CONNECTED = gensym("connected");
-static t_symbol* SYM_DISCONNECTED = gensym("disconnected");
 static char QUOTE = '`';
 
 static int POLL_TIME_MS = 100;
@@ -86,6 +81,9 @@ static AtomList toList(const EventInfo& ev)
 
 void HwUsb::tick()
 {
+    static t_symbol* SYM_CONNECTED = gensym("connected");
+    static t_symbol* SYM_DISCONNECTED = gensym("disconnected");
+
     clock_.delay(POLL_TIME_MS);
 
     auto& lib = LibUSB::instance();

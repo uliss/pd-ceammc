@@ -2,13 +2,13 @@
 #include "ceammc_factory.h"
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_INVERT = gensym("@invert");
-
 class LfoSaw : public faust_lfo_saw_tilde {
 public:
     LfoSaw(const PdArgs& args)
         : faust_lfo_saw_tilde(args)
     {
+        static t_symbol* SYM_PROP_INVERT = gensym("@invert");
+
         createInlet();
         setInitSignalValue(positionalFloatArgument(0, 0));
         bindPositionalArgToProperty(1, SYM_PROP_INVERT);

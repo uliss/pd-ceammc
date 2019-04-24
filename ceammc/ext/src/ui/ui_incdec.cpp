@@ -30,9 +30,9 @@ void UIIncDec::okSize(t_rect* newrect)
     newrect->height = pd_clip_min(newrect->height, 15.);
 }
 
-void UIIncDec::paint(t_object* view)
+void UIIncDec::paint()
 {
-    const t_rect& r = rect();
+    const auto r = rect();
     UIPainter p = bg_layer_.painter(r);
 
     if (!p)
@@ -93,7 +93,7 @@ void UIIncDec::onFloat(t_float f)
     output();
 }
 
-void UIIncDec::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UIIncDec::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     if (pt.y < height() / 2) {
         m_inc();
@@ -140,6 +140,7 @@ void UIIncDec::setup()
 {
     UIObjectFactory<UIIncDec> obj("ui.incdec");
     obj.setDefaultSize(15, 20);
+    obj.hideLabelInner();
 
     obj.useBang();
     obj.useFloat();
@@ -148,7 +149,7 @@ void UIIncDec::setup()
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP);
 
     obj.addProperty("arrow_color", _("Arrow Color"), DEFAULT_BORDER_COLOR, &UIIncDec::prop_color_arrow);
-    obj.addProperty("step", _("Step increment"), 1.f, &UIIncDec::prop_step);
+    obj.addProperty("step", _("Step increment"), 1.f, &UIIncDec::prop_step, _("Main"));
     obj.addProperty("value", &UIIncDec::propValue, &UIIncDec::propSetValue);
     obj.addMethod("set", &UIIncDec::propSetValue);
     obj.addMethod("inc", &UIIncDec::m_inc);

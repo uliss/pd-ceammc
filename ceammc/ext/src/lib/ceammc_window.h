@@ -14,9 +14,10 @@
 #ifndef CEAMMC_WINDOW_H
 #define CEAMMC_WINDOW_H
 
+#define _USE_MATH_DEFINES
+
 #include <cmath>
 #include <cstddef>
-#include <boost/math/constants/constants.hpp>
 
 namespace ceammc {
 namespace window {
@@ -66,12 +67,10 @@ namespace window {
     template <>
     inline float hann<float>(size_t idx, size_t n)
     {
-        using namespace boost::math::float_constants;
-
         if (idx >= n || n < 2)
             return 0.f;
 
-        return 0.5f * (1 - cosf(float(2.0 * pi * idx) / (n - 1)));
+        return 0.5f * (1 - cosf(float(2.0 * M_PI * idx) / (n - 1)));
     }
 
     template <class T>
@@ -89,9 +88,7 @@ namespace window {
     template <>
     inline float sine<float>(size_t idx, size_t n)
     {
-        using namespace boost::math::float_constants;
-
-        return sinf((pi * idx) / float(n - 1));
+        return sinf((M_PI * idx) / float(n - 1));
     }
 
     template <class T>
@@ -100,11 +97,9 @@ namespace window {
     template <>
     inline float hamming<float>(size_t idx, size_t n)
     {
-        using namespace boost::math::float_constants;
-
         static const float a = 0.54f;
         static const float b = 1 - a;
-        return a - b * cosf((2 * pi * idx) / float(n - 1));
+        return a - b * cosf((2 * M_PI * idx) / float(n - 1));
     }
 
     template <class T>
@@ -113,8 +108,6 @@ namespace window {
     template <>
     inline float blackman<float>(size_t idx, size_t n)
     {
-        using namespace boost::math::float_constants;
-
         static const float a = 0.16f;
         static const float a0 = (1 - a) / 2;
         static const float a1 = 0.5f;
@@ -122,8 +115,8 @@ namespace window {
         const float N = n - 1;
 
         return a0
-            - a1 * cosf((2 * pi * idx) / N)
-            + a2 * cosf((4 * pi * idx) / N);
+            - a1 * cosf((2 * M_PI * idx) / N)
+            + a2 * cosf((4 * M_PI * idx) / N);
     }
 
     template <class T>
@@ -132,8 +125,6 @@ namespace window {
     template <>
     inline float nuttall<float>(size_t idx, size_t n)
     {
-        using namespace boost::math::float_constants;
-
         static const float a0 = 0.355768f;
         static const float a1 = 0.487396f;
         static const float a2 = 0.144232f;
@@ -141,9 +132,9 @@ namespace window {
         const float N = n - 1;
 
         return a0
-            - a1 * cosf((2 * pi * idx) / N)
-            + a2 * cosf((4 * pi * idx) / N)
-            - a3 * cosf((6 * pi * idx) / N);
+            - a1 * cosf((2 * M_PI * idx) / N)
+            + a2 * cosf((4 * M_PI * idx) / N)
+            - a3 * cosf((6 * M_PI * idx) / N);
     }
 
     template <class T>
@@ -152,8 +143,6 @@ namespace window {
     template <>
     inline float blackman_harris<float>(size_t idx, size_t n)
     {
-        using namespace boost::math::float_constants;
-
         static const float a0 = 0.35875f;
         static const float a1 = 0.48829f;
         static const float a2 = 0.14128f;
@@ -161,9 +150,9 @@ namespace window {
         const float N = n - 1;
 
         return a0
-            - a1 * cosf((2 * pi * idx) / N)
-            + a2 * cosf((4 * pi * idx) / N)
-            - a3 * cosf((6 * pi * idx) / N);
+            - a1 * cosf((2 * M_PI * idx) / N)
+            + a2 * cosf((4 * M_PI * idx) / N)
+            - a3 * cosf((6 * M_PI * idx) / N);
     }
 
     template <class T>
@@ -172,8 +161,6 @@ namespace window {
     template <>
     inline float flattop<float>(size_t idx, size_t n)
     {
-        using namespace boost::math::float_constants;
-
         static const float a0 = 0.21557895f;
         static const float a1 = 0.41663158f;
         static const float a2 = 0.27726316f;
@@ -182,10 +169,10 @@ namespace window {
         const float N = n - 1;
 
         return a0
-            - a1 * cosf((2 * pi * idx) / N)
-            + a2 * cosf((4 * pi * idx) / N)
-            - a3 * cosf((6 * pi * idx) / N)
-            + a4 * cosf((8 * pi * idx) / N);
+            - a1 * cosf((2 * M_PI * idx) / N)
+            + a2 * cosf((4 * M_PI * idx) / N)
+            - a3 * cosf((6 * M_PI * idx) / N)
+            + a4 * cosf((8 * M_PI * idx) / N);
     }
 
     template <int SIGMA>

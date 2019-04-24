@@ -142,7 +142,7 @@ extern "C" void setup_prop0x2eget_tilde()
     class_addcreator(reinterpret_cast<t_newmethod>(prop_get_new), gensym("@~>"), A_GIMME, A_NULL);
     class_addanything(prop_get_tilde_class, prop_get_anything);
 
-    class_addmethod(prop_get_tilde_class, reinterpret_cast<t_method>(prop_setup_dsp), gensym("dsp"), A_CANT);
+    class_addmethod(prop_get_tilde_class, reinterpret_cast<t_method>(prop_setup_dsp), gensym("dsp"), A_CANT, A_NULL);
     class_addmethod(prop_get_tilde_class, reinterpret_cast<t_method>(prop_get_dump), gensym("dump"), A_NULL);
 
     CLASS_MAINSIGNALIN(prop_get_tilde_class, t_prop_tilde, f);

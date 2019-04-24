@@ -34,9 +34,9 @@ switch1 		= checkbox("sp_on_off");
 sbp 			= hgroup("low_highcutoff", ba.bypass1(switch1, +(anti_denormal_ac) : ef.speakerbp(sbp1, sbp2)));
 
 //-low and highpass
-lowpassfreq  	= nentry("low_freq [unit:Hz]", 5000, 20, 12000, 10);
-highpassfreq 	= nentry("high_freq [unit:Hz]", 130, 20, 7040, 10);
-switch       	= checkbox("on_off");
+lowpassfreq  	= nentry("lp_freq [unit:Hz]", 5000, 20, 12000, 10);
+highpassfreq 	= nentry("hp_freq [unit:Hz]", 130, 20, 7040, 10);
+switch       	= checkbox("flt_on_off");
 passo 		 	= +(anti_denormal_ac) : fi.lowpass(1,lowpassfreq) : fi.highpass(1,highpassfreq);
 pass 		 	= hgroup("low_highpass", ba.bypass1(switch, passo));
 
@@ -65,7 +65,7 @@ with {
   a = vslider("trigger", 0.12, 0, 1, 0.01);
 };
 
-switch2       	= checkbox("resonator");
+switch2       	= checkbox("res_on_off");
 
 hs 				= component("HighShelf.dsp").hs;
 process 		= bypass(switch2, resonator) : +(anti_denormal_ac) : pass  : sbp : hs : distortion : *(drivegain1) : hs : sbp;

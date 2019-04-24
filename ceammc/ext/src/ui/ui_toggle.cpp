@@ -32,13 +32,13 @@ void UIToggle::output()
 
 void UIToggle::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 10.);
-    newrect->height = pd_clip_min(newrect->height, 10.);
+    newrect->width = pd_clip_min(newrect->width, 8);
+    newrect->height = pd_clip_min(newrect->height, 8);
 }
 
-void UIToggle::paint(t_object*)
+void UIToggle::paint()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = bg_layer_.painter(r);
     if (!p)
         return;
@@ -55,7 +55,7 @@ void UIToggle::paint(t_object*)
     }
 }
 
-void UIToggle::onMouseDown(t_object*, const t_pt&, long)
+void UIToggle::onMouseDown(t_object*, const t_pt&, const t_pt& abs_pt, long)
 {
     flip();
     output();
@@ -98,7 +98,7 @@ void UIToggle::setup()
     UIObjectFactory<UIToggle> obj("ui.toggle", EBOX_GROWLINK);
     obj.addAlias("ui.t");
 
-    obj.setDefaultSize(16, 16);
+    obj.setDefaultSize(15, 15);
 
     obj.useBang();
     obj.useFloat();
@@ -114,7 +114,7 @@ void UIToggle::setup()
 void UIToggle::redrawAll()
 {
     bg_layer_.invalidate();
-    redraw();
+    redrawInnerArea();
 }
 
 void setup_ui_toggle()

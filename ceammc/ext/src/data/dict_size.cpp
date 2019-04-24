@@ -20,9 +20,9 @@ DictSize::DictSize(const PdArgs& args)
     createOutlet();
 }
 
-void DictSize::onDataT(const DataTypeDict& dict)
+void DictSize::onDataT(const DataTPtr<DataTypeDict>& dptr)
 {
-    floatTo(0, dict.size());
+    floatTo(0, dptr->size());
 }
 
 void setup_dict_size()

@@ -7,12 +7,17 @@ static const float ALPHA_BLEND = 0.4;
 
 UISlider::UISlider()
     : is_horizontal_(false)
-    , prop_knob_color(hex_to_rgba(DEFAULT_ACTIVE_COLOR))
-    , prop_rel_mode(0)
     , value_last_(0)
     , value_ref_(0)
+    , font_(gensym(FONT_FAMILY), FONT_SIZE - 2)
+    , txt_value_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
+    , prop_knob_color(hex_to_rgba(DEFAULT_ACTIVE_COLOR))
+    , prop_text_color(hex_to_rgba(DEFAULT_BORDER_COLOR))
+    , prop_rel_mode(0)
     , mouse_up_output(0)
     , prop_active_scale(0)
+    , prop_value_pos(gensym("center"))
+    , prop_value_precision(2)
 {
 }
 
@@ -25,34 +30,56 @@ void UISlider::init(t_symbol* name, const AtomList& args, bool usePresets)
     }
 }
 
-void UISlider::paint(t_object*)
+void UISlider::paint()
 {
-    const t_rect& r = rect();
-    UIPainter p = bg_layer_.painter(r);
+    const t_rect r = rect();
+    UIPainter kp = knob_layer_.painter(r);
+    if (kp) {
+        kp.setColor(prop_knob_color);
+        kp.setLineWidth(2 * zoom());
 
-    if (!p)
-        return;
+        if (is_horizontal_) { // horizontal
+            float x = value() * r.width;
+            kp.drawLine(x, 0, x, r.height);
 
-    p.setColor(prop_knob_color);
-    p.setLineWidth(2);
+            if (prop_active_scale) {
+                kp.setColor(rgba_color_sum(&prop_color_background, &prop_knob_color, ALPHA_BLEND));
+                kp.drawRect(0, 0, x, r.height);
+                kp.fill();
+            }
 
-    if (is_horizontal_) { // horizontal
-        float x = value() * r.width;
-        p.drawLine(x, 0, x, r.height);
+            if (prop_show_value) {
+                char fmt[] = "%..f";
+                fmt[2] = char(prop_value_precision) + '0';
+                char buf[16];
+                snprintf(buf, sizeof(buf), fmt, value());
 
-        if (prop_active_scale) {
-            p.setColor(rgba_color_sum(&prop_color_background, &prop_knob_color, ALPHA_BLEND));
-            p.drawRect(0, 0, x, r.height);
-            p.fill();
-        }
-    } else {
-        float y = (1.0 - value()) * r.height;
-        p.drawLine(0, y, r.width, y);
+                txt_value_.setColor(prop_text_color);
+                if (prop_value_pos == gensym("left")) {
+                    txt_value_.setAnchor(ETEXT_LEFT);
+                    txt_value_.setJustify(ETEXT_JLEFT);
+                    txt_value_.set(buf, 2, height() / 2, width() / 2, height());
+                } else if (prop_value_pos == gensym("center")) {
+                    txt_value_.setAnchor(ETEXT_CENTER);
+                    txt_value_.setJustify(ETEXT_JCENTER);
+                    txt_value_.set(buf, width() / 2, height() / 2, width() / 2, height());
+                } else if (prop_value_pos == gensym("right")) {
+                    txt_value_.setAnchor(ETEXT_RIGHT);
+                    txt_value_.setJustify(ETEXT_JRIGHT);
+                    txt_value_.set(buf, width() - 2, height() / 2, width() / 2, height());
+                }
 
-        if (prop_active_scale) {
-            p.setColor(rgba_color_sum(&prop_color_background, &prop_knob_color, ALPHA_BLEND));
-            p.drawRect(0, y, r.width, r.height * value());
-            p.fill();
+                kp.drawText(txt_value_);
+            }
+        } else {
+            float y = (1.0 - value()) * r.height;
+            kp.drawLine(0, y, r.width, y);
+
+            if (prop_active_scale) {
+                kp.setColor(rgba_color_sum(&prop_color_background, &prop_knob_color, ALPHA_BLEND));
+                kp.drawRect(0, y, r.width, r.height * value());
+                kp.fill();
+            }
         }
     }
 }
@@ -70,7 +97,7 @@ void UISlider::okSize(t_rect* newrect)
         newrect->height = pd_clip_min(newrect->height, 50.);
 }
 
-void UISlider::onMouseDown(t_object*, const t_pt& pt, long)
+void UISlider::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long)
 {
     t_rect r = rect();
 
@@ -91,7 +118,7 @@ void UISlider::onMouseDown(t_object*, const t_pt& pt, long)
             output();
 
         // redraw immidiately
-        redrawBGLayer();
+        redrawKnob();
     }
 }
 
@@ -122,7 +149,7 @@ void UISlider::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
     if (!mouse_up_output)
         output();
 
-    redrawBGLayer();
+    redrawKnob();
 }
 
 void UISlider::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
@@ -133,12 +160,12 @@ void UISlider::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 
 void UISlider::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
-    if(modifiers == EMOD_SHIFT)
+    if (modifiers == EMOD_SHIFT)
         return UISingleValue::onDblClick(view, pt, modifiers);
 
     t_canvas* c = reinterpret_cast<t_canvas*>(view);
     if (c->gl_edit)
-        resize(height(), width());
+        resize(height() / zoom(), width() / zoom());
 }
 
 void UISlider::setup()
@@ -163,8 +190,9 @@ void UISlider::setup()
     obj.setDefaultSize(15, 120);
 
     obj.addProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UISlider::prop_knob_color);
+    obj.addProperty("text_color", _("Text Color"), DEFAULT_TEXT_COLOR, &UISlider::prop_text_color);
 
-    obj.addProperty("mode", _("Relative Mode"), false, &UISlider::prop_rel_mode);
+    obj.addProperty("mode", _("Relative Mode"), false, &UISlider::prop_rel_mode, "Main");
     obj.addProperty("min", _("Minimum Value"), 0, &UISingleValue::prop_min, "Bounds");
     obj.addProperty("max", _("Maximum Value"), 1, &UISingleValue::prop_max, "Bounds");
 
@@ -173,8 +201,12 @@ void UISlider::setup()
     obj.addProperty("midi_control", _("MIDI control"), 0, &UISingleValue::prop_midi_ctl, "MIDI");
     obj.setPropertyRange("midi_control", 0, 128);
     obj.addProperty("midi_pickup", _("MIDI pickup"), true, &UISingleValue::prop_midi_pickup, "MIDI");
-    obj.addProperty("mouse_up_output", _("Output on mouse up"), false, &UISlider::mouse_up_output);
-    obj.addProperty("active_scale", _("Draw active scale"), false, &UISlider::prop_active_scale);
+    obj.addProperty("mouse_up_output", _("Output on mouse up"), false, &UISlider::mouse_up_output, "Main");
+    obj.addProperty("active_scale", _("Draw active scale"), false, &UISlider::prop_active_scale, "Main");
+    obj.addProperty("show_value", _("Show value in horizontal mode"), false, &UISingleValue::prop_show_value, "Misc");
+    obj.addProperty("value_pos", _("Value position"), "center", &UISlider::prop_value_pos, "left center right", "Misc");
+    obj.addProperty("value_precision", _("Precision"), 2, &UISlider::prop_value_precision, "Main");
+    obj.setPropertyRange("value_precision", 0, 7);
 
     obj.addProperty("value", &UISingleValue::realValue, &UISingleValue::setRealValue);
 }

@@ -15,6 +15,7 @@
             <since>0.1</since>
             <also>
                 <see view="link">tl.bang</see>
+                <see view="link">tl.toggle</see>
             </also>
         </meta>
         <inlets />
@@ -22,13 +23,13 @@
         <example>
             <pdascii>
 <![CDATA[
-              [tl.cue]           [tl.cue]
+              [tl.cue]              [tl.cue]           [tl.cue]
 
-[HR number=3]    [tl.bang]
-|                |
-[cue $1(         [B]                      [tl.bang]
-|                                         |
-[tl.transport]                            [B]
+[HR number=3]  [tl.bang @delay 500]
+|              |
+[cue $1(       [B]                      [tl.bang]       [tl.toggle]
+|                                       |               |
+[tl.transport]                          [B]             [_]
 ]]>
             </pdascii>
         </example>

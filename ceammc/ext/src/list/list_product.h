@@ -14,18 +14,15 @@
 #ifndef LIST_PRODUCT_H
 #define LIST_PRODUCT_H
 
-#include "ceammc_object.h"
+#include "list_base.h"
 
 using namespace ceammc;
 
-class DataTypeMList;
-
-class ListProduct : public BaseObject {
+class ListProduct : public ListBase {
 public:
     ListProduct(const PdArgs& args);
     void onFloat(t_float f) override;
     void onList(const AtomList& lst) override;
-    void onDataT(const DataTypeMList& lst);
 };
 
 void setup_list_product();

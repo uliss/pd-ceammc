@@ -21,14 +21,35 @@
     <entry descr="fill array with single value or pattern" name="array.fill" ref_view="object">
       <xi:include href="array.fill.pddoc" parse="xml"/>
     </entry>
+    <entry descr="calculates array histogram" name="array.hist" ref_view="object">
+      <xi:include href="array.hist.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="calculates array arithmetic mean value" name="array.mean" ref_view="object">
+      <xi:include href="array.mean.pddoc" parse="xml"/>
+    </entry>
     <entry descr="find array min and max element value" name="array.minmax" ref_view="object">
       <xi:include href="array.minmax.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="calculates root mean square value for array" name="array.rms" ref_view="object">
+      <xi:include href="array.rms.pddoc" parse="xml"/>
     </entry>
     <entry descr="set array content from list" name="array.set" ref_view="object">
       <xi:include href="array.set.pddoc" parse="xml"/>
     </entry>
+    <entry descr="calculates standard deviation for array values" name="array.stddev" ref_view="object">
+      <xi:include href="array.stddev.pddoc" parse="xml"/>
+    </entry>
     <entry descr="array time-stretch, pitch-shift or rate-change" name="array.stretch" ref_view="object">
       <xi:include href="array.stretch.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="calculates sum of array elements" name="array.sum" ref_view="object">
+      <xi:include href="array.sum.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="calculates sum of squares of array elements" name="array.sum2" ref_view="object">
+      <xi:include href="array.sum2.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="calculates variance of array values" name="array.variance" ref_view="object">
+      <xi:include href="array.variance.pddoc" parse="xml"/>
     </entry>
     <entry descr="simple array player for using with vline~" name="array.vplay" ref_view="object">
       <xi:include href="array.vplay.pddoc" parse="xml"/>
@@ -315,6 +336,9 @@
     <entry descr="numeric stream router, like many [moses]" name="flow.less_eq" ref_view="object">
       <xi:include href="flow.less_eq.pddoc" parse="xml"/>
     </entry>
+    <entry descr="route data flow by regexp match" name="flow.match" ref_view="object">
+      <xi:include href="flow.match.pddoc" parse="xml"/>
+    </entry>
     <entry descr="control flow multiplexer" name="flow.multiplex" ref_view="object">
       <xi:include href="flow.multiplex.pddoc" parse="xml"/>
     </entry>
@@ -442,6 +466,15 @@
     <entry descr="Chorus effect" name="fx.chorus~" ref_view="object">
       <xi:include href="fx.chorus~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="distortion #1 from Guitarix effects set" name="fx.distortion1~" ref_view="object">
+      <xi:include href="fx.distortion1~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="distortion #2 from Guitarix effects set" name="fx.distortion2~" ref_view="object">
+      <xi:include href="fx.distortion2~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="simple distortion #3 from Guitarix effects set" name="fx.distortion3~" ref_view="object">
+      <xi:include href="fx.distortion3~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="cubic nonlinearity distortion" name="fx.distortion~" ref_view="object">
       <xi:include href="fx.distortion~.pddoc" parse="xml"/>
     </entry>
@@ -512,8 +545,23 @@
     </entry>
   </category>
   <category name="hw">
+    <entry descr="query the system management control in Apples" name="hw.apple_smc" ref_view="object">
+      <xi:include href="hw.apple_smc.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="query the sudden motion sensor in Apples" name="hw.apple_sms" ref_view="object">
+      <xi:include href="hw.apple_sms.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Arduino device" name="hw.arduino" ref_view="object">
       <xi:include href="hw.arduino.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="get CPU temperature" name="hw.cpu_temp" ref_view="object">
+      <xi:include href="hw.cpu_temp.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="get/set display properties" name="hw.display" ref_view="object">
+      <xi:include href="hw.display.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="Get/set keyboard light on some devices" name="hw.kbd_light" ref_view="object">
+      <xi:include href="hw.kbd_light.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="lfo">
@@ -1168,6 +1216,9 @@
     <entry descr="number of characters in string (unicode supported)" name="string.length" ref_view="object">
       <xi:include href="string.length.pddoc" parse="xml"/>
     </entry>
+    <entry descr="check if string match regular expression" name="string.match" ref_view="object">
+      <xi:include href="string.match.pddoc" parse="xml"/>
+    </entry>
     <entry descr="remove substring from input string" name="string.remove" ref_view="object">
       <xi:include href="string.remove.pddoc" parse="xml"/>
     </entry>
@@ -1369,7 +1420,7 @@
     </entry>
   </category>
   <meta>
-    <version>0.7</version>
+    <version>0.7.1</version>
     <authors>
       <author>Albert Graef</author>
       <author>Alex Nadzharov</author>

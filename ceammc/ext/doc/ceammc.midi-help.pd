@@ -10,15 +10,13 @@ pair;
 #X obj 30 170 midi.event2note;
 #X text 200 170 convert MidiEvent message to midi note/velocity pair;
 #X obj 30 197 midi.event2prg;
-#X text 200 197 convert MidiEvent message to midi program change
-value;
+#X text 200 197 convert MidiEvent message to midi program change value;
 #X obj 30 224 midi.file;
 #X text 200 224 standard midi file SMF reader and writer;
 #X obj 30 251 midi.key2str;
 #X text 200 251 convert key number to SPN name according to tonality;
 #X obj 30 278 midi.prg2str;
-#X text 200 278 convert GM Instrument number to name (string or
-symbol);
+#X text 200 278 convert GM Instrument number to name (string or symbol);
 #X obj 30 305 midi.track;
 #X text 200 305 extract track from MidiFile;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::midi 20 20 0 20 -104026

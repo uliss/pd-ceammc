@@ -3,6 +3,8 @@
 
 #include "cicm/Sources/cicm_wrapper.h"
 
+#include <memory>
+#include <string>
 #include <vector>
 
 namespace ceammc {
@@ -116,6 +118,7 @@ public:
     void drawRect(float x, float y, float w, float h);
     void drawRect(const t_rect& r);
     void drawCircle(float x, float y, float r);
+    void drawPoly(const std::vector<t_pt>& v);
 
     void drawLineTo(float x, float y);
     void moveTo(float x, float y);
@@ -132,6 +135,7 @@ public:
     void setDashStyle(t_dashstyle style);
 
     t_elayer* layer();
+    void raiseOver(UIPainter& painter);
 };
 
 class UILayer {
@@ -145,6 +149,21 @@ public:
 };
 
 bool contains_point(const t_rect& r, const t_pt& pt);
+
+class UIPopupMenu {
+    t_epopup* menu_;
+    t_pt pos_;
+    typedef std::pair<std::string, bool> MenuEntry;
+    std::vector<MenuEntry> menu_items_;
+
+public:
+    UIPopupMenu(t_eobj* x, const char* name, const t_pt& pos);
+    ~UIPopupMenu();
+
+    void addSeparator();
+    void addItem(const std::string& name, bool enabled = true);
+};
+
 }
 
 #endif // CEAMMC_CICM_H

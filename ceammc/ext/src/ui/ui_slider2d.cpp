@@ -33,7 +33,6 @@ static t_rgba KNOB_FILL_ACTIVE = hex_to_rgba("#003070");
 static t_rgba KNOB_BORDER_ACTIVE = hex_to_rgba("#00C0FF");
 static t_rgba GUIDE_LINE_COLOR = hex_to_rgba("#00C0F0");
 static const float GUIDE_LINE_WIDTH = 0.5f;
-static t_symbol* SYM_KNOB_LAYER = gensym("knob_layer");
 
 UISlider2D::UISlider2D()
     : prop_x_min(-1)
@@ -42,13 +41,14 @@ UISlider2D::UISlider2D()
     , prop_y_max(1)
     , prop_show_range(1)
     , prop_show_grid(0)
-    , txt_font(FONT_FAMILY, FONT_SIZE_SMALL)
+    , txt_font(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , txt_xrange_(txt_font.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
     , txt_yrange_(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_RIGHT, ETEXT_JRIGHT)
-    , knob_layer_(asEBox(), SYM_KNOB_LAYER)
+    , knob_layer_(asEBox(), gensym("knob_layer"))
     , x_pos_(0.5f)
     , y_pos_(0.5f)
     , mouse_down_(false)
+    , right_click_(false)
 {
     createOutlet();
 }
@@ -59,25 +59,21 @@ void UISlider2D::okSize(t_rect* newrect)
     newrect->width = std::max<float>(30, newrect->width);
 }
 
-void UISlider2D::paint(t_object* view)
+void UISlider2D::paint()
 {
     paintBackground();
     paintKnob();
 }
 
-t_pd_err UISlider2D::notify(t_symbol* attr_name, t_symbol* msg)
+void UISlider2D::onPropChange(t_symbol* prop_name)
 {
-    if (msg == s_attr_modified) {
-        updateLabels();
-        redrawAll();
-    }
-
-    return 0;
+    updateLabels();
+    redrawAll();
 }
 
 void UISlider2D::paintBackground()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
 
     UIPainter p = bg_layer_.painter(r);
     if (!p)
@@ -108,7 +104,7 @@ void UISlider2D::paintBackground()
 
 void UISlider2D::paintKnob()
 {
-    const t_rect& r = rect();
+    const t_rect r = rect();
     UIPainter p = knob_layer_.painter(r);
 
     if (p) {
@@ -157,8 +153,48 @@ void UISlider2D::onList(const AtomList& lst)
     output();
 }
 
-void UISlider2D::onMouseDown(t_object* view, const t_pt& pt, long modifiers)
+void UISlider2D::onPopup(t_symbol* menu_name, long item_idx)
 {
+    if (menu_name != gensym("popup"))
+        return;
+
+    t_float xcenter = convert::lin2lin<t_float>(0.5, 0, 1, prop_x_min, prop_x_max);
+    t_float ycenter = convert::lin2lin<t_float>(0.5, 0, 1, prop_y_min, prop_y_max);
+
+    switch (item_idx) {
+    case 0:
+        onList(AtomList(xcenter, ycenter));
+        break;
+    case 1:
+        onList(AtomList(prop_x_min, ycenter));
+        break;
+    case 2:
+        onList(AtomList(prop_x_max, ycenter));
+        break;
+    case 3:
+        onList(AtomList(xcenter, prop_y_min));
+        break;
+    case 4:
+        onList(AtomList(xcenter, prop_y_max));
+        break;
+    }
+}
+
+void UISlider2D::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
+{
+    // right click
+    if (modifiers & EMOD_RIGHT) {
+        UIPopupMenu menu(asEObj(), "popup", abs_pt);
+        menu.addItem(_("center"));
+        menu.addItem(_("left center"));
+        menu.addItem(_("right center"));
+        menu.addItem(_("top center"));
+        menu.addItem(_("bottom center"));
+        right_click_ = true;
+        return;
+    }
+
+    right_click_ = false;
     mouse_down_ = true;
     setMouse(pt.x, pt.y);
     redrawKnob();
@@ -174,6 +210,11 @@ void UISlider2D::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 
 void UISlider2D::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
+    if (right_click_) {
+        right_click_ = false;
+        return;
+    }
+
     mouse_down_ = false;
     setMouse(pt.x, pt.y);
     redrawKnob();
@@ -328,18 +369,18 @@ void UISlider2D::setup()
 
     obj.setDefaultSize(100, 100);
 
-    obj.addProperty("x_min", _("Minimum X-value"), -1, &UISlider2D::prop_x_min, "Values");
-    obj.addProperty("x_max", _("Maximum X-value"), 1, &UISlider2D::prop_x_max, "Values");
-    obj.addProperty("y_min", _("Minimum Y-value"), -1, &UISlider2D::prop_y_min, "Values");
-    obj.addProperty("y_max", _("Maximum Y-value"), 1, &UISlider2D::prop_y_max, "Values");
+    obj.addProperty("x_min", _("Minimum X-value"), -1, &UISlider2D::prop_x_min, "Bounds");
+    obj.addProperty("x_max", _("Maximum X-value"), 1, &UISlider2D::prop_x_max, "Bounds");
+    obj.addProperty("y_min", _("Minimum Y-value"), -1, &UISlider2D::prop_y_min, "Bounds");
+    obj.addProperty("y_max", _("Maximum Y-value"), 1, &UISlider2D::prop_y_max, "Bounds");
 
     obj.addProperty("x_range", &UISlider2D::propXRange, 0);
     obj.addProperty("y_range", &UISlider2D::propYRange, 0);
     obj.addProperty("x_value", &UISlider2D::propXValue, &UISlider2D::propSetXValue);
     obj.addProperty("y_value", &UISlider2D::propYValue, &UISlider2D::propSetYValue);
 
-    obj.addProperty("show_grid", _("Show grid"), false, &UISlider2D::prop_show_grid);
-    obj.addProperty("show_range", _("Show range"), true, &UISlider2D::prop_show_range);
+    obj.addProperty("show_grid", _("Show grid"), false, &UISlider2D::prop_show_grid, "Main");
+    obj.addProperty("show_range", _("Show range"), true, &UISlider2D::prop_show_range, "Main");
 
     obj.usePresets();
     obj.useList();

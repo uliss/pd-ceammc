@@ -110,16 +110,16 @@ public:
         }
     }
 
-    void onDataT(const TypeWrapped& d)
+    void onDataT(const DataTPtr<TypeWrapped>& dptr)
     {
-        if (d.dataTypeId() != TypeWrapped::wrappedDataTypeId) {
-            OBJ_ERR << "unexpected data with id=" << d.dataTypeId()
+        if (dptr->dataTypeId() != TypeWrapped::wrappedDataTypeId) {
+            OBJ_ERR << "unexpected data with id=" << dptr->dataTypeId()
                     << ", expecting " << T::typeName()
                     << " with id=" << TypeWrapped::wrappedDataTypeId;
             return;
         }
 
-        data_ = TypedDataPtr(d.clone());
+        data_ = TypedDataPtr(dptr->clone());
         dataTo(0, data_);
     }
 

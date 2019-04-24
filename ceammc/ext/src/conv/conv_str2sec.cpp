@@ -36,9 +36,9 @@ void StrToSec::onAny(t_symbol* s, const AtomList& v)
     floatTo(0, convert::time::str2sec(s->s_name, on_err_->value()));
 }
 
-void StrToSec::onDataT(const DataTypeString& s)
+void StrToSec::onDataT(const DataTPtr<DataTypeString>& dptr)
 {
-    floatTo(0, convert::time::str2sec(s.str(), on_err_->value()));
+    floatTo(0, convert::time::str2sec(dptr->str(), on_err_->value()));
 }
 
 extern "C" void setup_conv0x2estr2sec()

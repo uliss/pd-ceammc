@@ -1,87 +1,87 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 537 50 cnv 1 228 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 537 50 gaussian random distribution;
+#X obj 545 50 cnv 1 220 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 545 50 gaussian random distribution;
 #X obj 1 1 cnv 5 765 40 empty empty random.gauss 20 20 0 20 -104026
 -4096 0;
 #X obj 655 11 random.gauss;
-#X obj 205 80 cnv 1 560 191 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 210 80 Generates random value that has gaussian distribution.
+#X obj 210 80 cnv 1 555 205 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Generates random value that has gaussian distribution.
 It has the shape of a bell curve and characterized by two parameters
 \, mu and sigma.;
-#X text 210 131 The center of the density function \, mu \, is the
+#X text 215 135 The center of the density function \, mu \, is the
 mean of the random variable. The spread of the density function is
 measured by a parameter called *standard deviation* or sigma. 68.26%
-of all results will occur in the interval with width +-SIGMA \,
-centered by the mean; the random variable is unbounded \, both as
-above and below the mean.;
-#X text 210 238 99.74% of all results fall within +-3 SIGMA.;
-#X obj 50 299 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+of all results will occur in the interval with width +-SIGMA \, centered
+by the mean; the random variable is unbounded \, both as above and
+below the mean.;
+#X text 215 250 99.74% of all results fall within +-3 SIGMA.;
+#X obj 50 313 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 328 list.gen 100;
+#X obj 50 342 list.gen 100;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array array1 100 float 0;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #X coords 0 1 100 0 200 140 1;
-#X restore 280 328 graph;
-#X obj 50 357 random.gauss 50 10;
-#X obj 50 386 math.round;
-#X obj 50 415 t f f;
-#X obj 98 443 tabread array1;
-#X obj 98 472 + 0.01;
-#X obj 50 501 swap;
-#X msg 280 501 const 0;
-#X msg 376 501 normalize;
-#X obj 50 530 tabwrite array1;
-#X obj 280 530 s array1;
-#X obj 20 569 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 574 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X restore 280 342 graph;
+#X obj 50 371 random.gauss 50 10;
+#X obj 50 400 math.round;
+#X obj 50 429 t f f;
+#X obj 98 457 tabread array1;
+#X obj 98 486 + 0.01;
+#X obj 50 515 swap;
+#X msg 280 515 const 0;
+#X msg 376 515 normalize;
+#X obj 50 544 tabwrite array1;
+#X obj 280 544 s array1;
+#X obj 20 583 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 588 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 579 1\.;
-#X text 150 579 float;
-#X obj 241 580 cnv 1 25 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 579 MU: the mean.;
-#X text 120 597 2\.;
-#X text 150 597 float;
-#X obj 241 598 cnv 1 48 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 597 SIGMA: the standard deviation. Min value: 0;
-#X obj 20 625 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 630 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 623 1\.;
+#X text 150 623 float;
+#X obj 246 624 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 623 MU: the mean.;
+#X text 110 643 2\.;
+#X text 150 643 float;
+#X obj 246 644 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 643 SIGMA: the standard deviation. Min value: 0;
+#X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 678 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 120 635 @mu;
-#X text 240 635 Get/Set the mean. Type: float. Default value: 0;
-#X msg 120 662 @sigma;
-#X text 240 662 Get/Set the standard deviation. Type: float. Default
-value: 0\. Min value: 0;
-#X obj 20 709 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 714 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 713 @mu;
+#X text 245 713 Get/Set the mean. Type: float. Default value: 0\.;
+#X msg 110 742 @sigma;
+#X text 245 742 Get/Set the standard deviation. Type: float. Default
+value: 0\. Min value: 0\.;
+#X obj 20 794 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 799 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 719 1\.;
-#X text 150 719 *bang*;
-#X text 240 719 generates random number.;
-#X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 752 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 800 1\.;
+#X text 150 800 *bang*;
+#X text 245 800 generates random number.;
+#X obj 20 830 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 835 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 757 1\.;
-#X text 240 757 result value;
+#X text 110 836 1\.;
+#X text 245 836 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 805 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 808 library: ceammc v0.7;
-#X text 513 820 see also:;
-#X obj 589 820 random.float;
-#X obj 689 820 random.int;
-#N canvas 10 827 400 290 info 0;
+#X obj 1 886 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 889 library: ceammc v0.7.1;
+#X text 495 901 see also:;
+#X obj 569 901 random.float;
+#X obj 669 901 random.int;
+#N canvas 10 908 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.7;
+#X text 120 32 0.7.1;
 #X text 10 54 object:;
 #X text 120 54 random.gauss;
 #X text 10 76 category:;
@@ -100,7 +100,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 827 pd info;
+#X restore 10 908 pd info;
 #X connect 8 0 9 0;
 #X connect 9 1 11 0;
 #X connect 11 0 12 0;

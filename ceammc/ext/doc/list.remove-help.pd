@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 331 50 cnv 1 434 21 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 331 50 on input list remove element(s) at specified positions;
+#X obj 346 50 cnv 1 419 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 346 50 on input list remove element(s) at specified positions;
 #X obj 1 1 cnv 5 765 40 empty empty list.remove 20 20 0 20 -104026
 -4096 0;
 #X obj 661 11 list.remove;
@@ -15,42 +15,42 @@
 #X obj 20 274 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 279 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 120 284 1\.;
-#X text 150 284 list;
-#X obj 241 285 cnv 1 64 18 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 240 284 INDEXES: list of indexes to remove. Negative indexes
+#X text 110 314 1\.;
+#X text 150 314 list;
+#X obj 246 315 cnv 1 61 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 314 INDEXES: list of indexes to remove. Negative indexes
 are also supported.;
-#X obj 20 326 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 331 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 364 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 120 336 1\.;
-#X text 150 336 *list*;
-#X text 240 336 input list.;
-#X text 150 354 *data:mlist*;
-#X text 240 354 input mlist.;
-#X text 120 372 2\.;
-#X text 150 372 *list*;
-#X text 240 372 set remove indexes.;
-#X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 405 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 365 1\.;
+#X text 150 365 *list*;
+#X text 245 365 input list.;
+#X text 150 385 *data:mlist*;
+#X text 245 385 input mlist.;
+#X text 110 405 2\.;
+#X text 150 405 *list*;
+#X text 245 405 set remove indexes.;
+#X obj 20 435 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 440 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 120 410 1\.;
-#X text 240 410 output list;
+#X text 110 441 1\.;
+#X text 245 441 output list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.7;
-#X text 605 520 see also:;
-#X obj 681 520 list.insert;
+#X text 10 508 library: ceammc v0.7.1;
+#X text 587 520 see also:;
+#X obj 661 520 list.insert;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.7;
+#X text 120 32 0.7.1;
 #X text 10 54 object:;
 #X text 120 54 list.remove;
 #X text 10 76 category:;

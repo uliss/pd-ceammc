@@ -3,14 +3,14 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_DRIVE = gensym("@drive");
-static t_symbol* SYM_PROP_OFFSET = gensym("@offset");
-
 class FxDistortion : public faust_fx_distortion_tilde {
 public:
     FxDistortion(const PdArgs& args)
         : faust_fx_distortion_tilde(args)
     {
+        static t_symbol* SYM_PROP_DRIVE = gensym("@drive");
+        static t_symbol* SYM_PROP_OFFSET = gensym("@offset");
+
         bindPositionalArgsToProps({ SYM_PROP_DRIVE, SYM_PROP_OFFSET });
     }
 };

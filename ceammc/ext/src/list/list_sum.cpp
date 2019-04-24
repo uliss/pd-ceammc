@@ -3,7 +3,7 @@
 #include "ceammc_factory.h"
 
 ListSum::ListSum(const PdArgs& a)
-    : BaseObject(a)
+    : ListBase(a)
 {
     createOutlet();
 }
@@ -20,11 +20,6 @@ void ListSum::onList(const AtomList& l)
         return;
 
     floatTo(0, *s);
-}
-
-void ListSum::onDataT(const DataTypeMList& l)
-{
-    onList(l.toList());
 }
 
 void setup_list_sum()

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="array.variance">
+        <title>array.variance</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>calculates variance of array values</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array deviation variance</keywords>
+            <since>0.7.1</since>
+            <also>
+                <see>array.stddev</see>
+            </also>
+        </meta>
+        <info>
+            <wiki name="Variance">Variance</wiki>
+        </info>
+        <arguments>
+            <argument name="NAME" type="symbol">array name</argument>
+        </arguments>
+        <properties>
+            <property name="@array" type="symbol">array name</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">calculates and outputs variance</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>variance</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]                            [array avar size=200 w=200 h=100]
+|
+[array.variance avar]
+|
+[F digits=16]
+
+
+
+[gauss 0 0.4( [sin 25 1( [fill 0(
+|             |          |
+[array.fill       avar   ]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

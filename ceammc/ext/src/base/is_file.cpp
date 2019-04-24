@@ -1,6 +1,6 @@
-#include "datatype_string.h"
 #include "ceammc_factory.h"
 #include "ceammc_object.h"
+#include "datatype_string.h"
 
 #include <fstream>
 
@@ -22,9 +22,9 @@ public:
         floatTo(0, isFile(s->s_name) ? 1 : 0);
     }
 
-    void onDataT(const DataTypeString& s)
+    void onDataT(const DataTPtr<DataTypeString>& dptr)
     {
-        floatTo(0, isFile(s.str()) ? 1 : 0);
+        floatTo(0, isFile(dptr->str()) ? 1 : 0);
     }
 
     bool isFile(const std::string& p) const

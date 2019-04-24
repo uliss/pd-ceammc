@@ -26,7 +26,7 @@ class ListUnpack : public BaseObject {
 public:
     ListUnpack(const PdArgs& a);
     void onList(const AtomList& l) override;
-    void onDataT(const DataTypeMList& l);
+    void onDataT(const DataTPtr<DataTypeMList>& dptr);
 };
 
 void setup_list_unpack();

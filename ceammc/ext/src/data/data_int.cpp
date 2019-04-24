@@ -13,8 +13,6 @@
  *****************************************************************************/
 #include "data_int.h"
 
-static t_symbol* SYM_SET = gensym("set");
-
 DataInt::DataInt(const PdArgs& a)
     : DataIntBase(a)
     , value_(positionalFloatArgument(0))

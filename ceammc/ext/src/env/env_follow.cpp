@@ -3,9 +3,6 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_PROP_ATTACK = gensym("@attack");
-static t_symbol* SYM_PROP_RELEASE = gensym("@release");
-
 class EnvFollow : public faust_env_follow_tilde {
     UIProperty* prop_attack_;
     UIProperty* prop_release_;
@@ -13,10 +10,10 @@ class EnvFollow : public faust_env_follow_tilde {
 public:
     EnvFollow(const PdArgs& args)
         : faust_env_follow_tilde(args)
-        , prop_attack_((UIProperty*)property(SYM_PROP_ATTACK))
-        , prop_release_((UIProperty*)property(SYM_PROP_RELEASE))
+        , prop_attack_((UIProperty*)property(gensym("@attack")))
+        , prop_release_((UIProperty*)property(gensym("@release")))
     {
-        bindPositionalArgsToProps({ SYM_PROP_ATTACK, SYM_PROP_RELEASE });
+        bindPositionalArgsToProps({ gensym("@attack"), gensym("@release") });
     }
 };
 
