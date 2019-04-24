@@ -61,6 +61,7 @@ parts:
             - libasound2
             - tcl
             - tk
+            - libtcl8.6
             - tklib
             - tcllib
             - libatm1
