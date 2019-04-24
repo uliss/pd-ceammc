@@ -10,10 +10,10 @@ base: core18
 apps:
     pd-ceammc:
         command: lib/pd_ceammc/bin/pd
-    pd-send:
-        command: lib/pd_ceammc/bin/pd-send
-    pd-receive:
-        command: lib/pd_ceammc/bin/pd-receive
+    pdsend:
+        command: lib/pd_ceammc/bin/pdsend
+    pdreceive:
+        command: lib/pd_ceammc/bin/pdreceive
         
 parts:
     pd-ceammc:
