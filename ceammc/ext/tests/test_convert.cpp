@@ -420,20 +420,20 @@ TEST_CASE("convert", "[PureData]")
         REQUIRE(wrapInteger<int>(-6, 3) == 0);
         REQUIRE(wrapInteger<int>(-7, 3) == 2);
 
-        REQUIRE(wrapInteger<char>(0, 3) == 0);
-        REQUIRE(wrapInteger<char>(1, 3) == 1);
-        REQUIRE(wrapInteger<char>(2, 3) == 2);
-        REQUIRE(wrapInteger<char>(3, 3) == 0);
-        REQUIRE(wrapInteger<char>(4, 3) == 1);
-        REQUIRE(wrapInteger<char>(5, 3) == 2);
-        REQUIRE(wrapInteger<char>(6, 3) == 0);
-        REQUIRE(wrapInteger<char>(-1, 3) == 2);
-        REQUIRE(wrapInteger<char>(-2, 3) == 1);
-        REQUIRE(wrapInteger<char>(-3, 3) == 0);
-        REQUIRE(wrapInteger<char>(-4, 3) == 2);
-        REQUIRE(wrapInteger<char>(-5, 3) == 1);
-        REQUIRE(wrapInteger<char>(-6, 3) == 0);
-        REQUIRE(wrapInteger<char>(-7, 3) == 2);
+        REQUIRE(wrapInteger<signed char>(0, 3) == 0);
+        REQUIRE(wrapInteger<signed char>(1, 3) == 1);
+        REQUIRE(wrapInteger<signed char>(2, 3) == 2);
+        REQUIRE(wrapInteger<signed char>(3, 3) == 0);
+        REQUIRE(wrapInteger<signed char>(4, 3) == 1);
+        REQUIRE(wrapInteger<signed char>(5, 3) == 2);
+        REQUIRE(wrapInteger<signed char>(6, 3) == 0);
+        REQUIRE(wrapInteger<signed char>(-1, 3) == 2);
+        REQUIRE(wrapInteger<signed char>(-2, 3) == 1);
+        REQUIRE(wrapInteger<signed char>(-3, 3) == 0);
+        REQUIRE(wrapInteger<signed char>(-4, 3) == 2);
+        REQUIRE(wrapInteger<signed char>(-5, 3) == 1);
+        REQUIRE(wrapInteger<signed char>(-6, 3) == 0);
+        REQUIRE(wrapInteger<signed char>(-7, 3) == 2);
 
         REQUIRE(wrapInteger<long>(0, 3) == 0);
         REQUIRE(wrapInteger<long>(1, 3) == 1);
