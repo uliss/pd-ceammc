@@ -52,3 +52,5 @@ parts:
             - tk
             - tklib
             - tcllib
+            - libatm1
+            - libxtables12
