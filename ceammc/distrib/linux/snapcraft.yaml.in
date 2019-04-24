@@ -7,6 +7,12 @@ description: |
 confinement: devmode
 base: core18
 
+architectures:
+    - amd64
+    - i386
+    - armhf
+    - arm64
+
 apps:
     pd-ceammc:
         command: lib/pd_ceammc/bin/pd
