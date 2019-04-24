@@ -64,3 +64,5 @@ parts:
             - tcllib
             - libatm1
             - libxtables12
+            - libxcb-randr0
+            - libjack-jackd2-0
