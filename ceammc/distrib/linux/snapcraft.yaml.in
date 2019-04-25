@@ -3,23 +3,23 @@ version: "@CEAMMC_DISTRIB_VERSION@"
 license: "GPL-3.0"
 summary: "Pure Data CEAMMC distribution"
 description: |
-    Pure Data CEAMMC distribution and library of externals used for work and education purposes in Centre of electoacoustic music of Moscow Conservatory (CEAMMC) and ZIL-electro studio.
+    Pure Data CEAMMC distribution and library of externals used for work
+    and education purposes in Centre of electoacoustic music of
+    Moscow Conservatory (CEAMMC) and ZIL-electro studio.
 
-confinement: devmode
+confinement: strict
 base: core18
 icon: ceammc/gui/icons/puredata-ceammc.png
 
 architectures:
-    - amd64
-    - i386
-    - armhf
-    - arm64
-    - s390x
+    - build-on: amd64
+    - build-on: i386
+    - build-on: armhf
 
 environment:
     TCL8.6_TM_PATH: ${SNAP}/usr/share/tcltk/tcl8.6/tcl8
     TCL_LIBRARY: ${SNAP}/usr/share/tcltk/tcl8.6
-    TK_LIBRARY:  "${SNAP}/usr/share/tcltk/tk8.6 ${SNAP}/usr/lib/x86_64-linux-gnu ${SNAP}/usr/lib/tcltk/x86_64-linux-gnu"
+    TK_LIBRARY:  "${SNAP}/usr/share/tcltk/tk8.6 ${SNAP}/usr/lib/${SNAPCRAFT_ARCH_TRIPLET} ${SNAP}/usr/lib/tcltk/${SNAPCRAFT_ARCH_TRIPLET}"
 
 layout:
     /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/alsa-lib:
@@ -41,12 +41,6 @@ apps:
             - network
             - desktop
             - desktop-legacy
-    tclsh:
-        command: usr/bin/tclsh.wrapper
-        plugs: [ home, x11, network, desktop, desktop-legacy ]
-    wish:
-        command: usr/bin/wish.wrapper
-        plugs: [ home, x11, network, desktop, desktop-legacy ]
     pdsend:
         command: lib/pd_ceammc/bin/pdsend
         plugs: [ network ]
@@ -60,20 +54,18 @@ parts:
         after: [ wrappers ]
         override-build: |
             #find ${SNAPCRAFT_PRIME}/../parts/pd-ceammc -name pkgIndex.tcl
-            fsname="/usr/lib/tcltk/x86_64-linux-gnu/tk8.6/pkgIndex.tcl"
+            fsname="/usr/lib/tcltk/${SNAPCRAFT_ARCH_TRIPLET}/tk8.6/pkgIndex.tcl"
             file="${SNAPCRAFT_PRIME}/../parts/pd-ceammc/install${fsname}"
-            sed -i "s|file join /usr/lib/x86_64-linux-gnu libtk8.6.so|file join {} libtk8.6.so|" $file
-            find ${SNAPCRAFT_STAGE}/usr/lib -name pkgIndex.tcl
+            sed -i "s|file join /usr/lib/${SNAPCRAFT_ARCH_TRIPLET} libtk8.6.so|file join {} libtk8.6.so|" $file
+            #find ${SNAPCRAFT_STAGE}/usr/lib -name pkgIndex.tcl
             file="${SNAPCRAFT_STAGE}/${fsname}"
-            sed -i "s|file join /usr/lib/x86_64-linux-gnu libtk8.6.so|file join {} libtk8.6.so|" $file
+            sed -i "s|file join /usr/lib/${SNAPCRAFT_ARCH_TRIPLET} libtk8.6.so|file join {} libtk8.6.so|" $file
     wrappers:
         plugin: dump
         after: [ pd-ceammc ]
         source: ceammc/distrib/linux/snap
         organize:
             pd.wrapper: /usr/bin/pd.wrapper
-            tclsh.wrapper: /usr/bin/tclsh.wrapper
-            wish.wrapper: /usr/bin/wish.wrapper
 
     alsa:
         plugin: nil
@@ -104,8 +96,9 @@ parts:
         configflags:
             - -DWITH_PORTAUDIO=OFF
             - -DWITH_BENCHMARK=OFF
+            - -DWITH_JACK=OFF
             - -DENABLE_TESTS=OFF
-            - -DCMAKE_BUILD_TYPE=Debug
+            - -DCMAKE_BUILD_TYPE=Release
         source: .
         build-packages:
             - g++
@@ -118,7 +111,6 @@ parts:
             - gettext
             - libavahi-compat-libdnssd-dev
             - libsndfile1-dev
-            - libjack-jackd2-dev
             - libfftw3-dev
             - tcllib
             - tklib
@@ -145,5 +137,4 @@ parts:
             - libatm1
             - libxtables12
             - libxcb-randr0
-            - libjack-jackd2-0
             - libice6
