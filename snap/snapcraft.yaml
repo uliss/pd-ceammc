@@ -21,12 +21,20 @@ environment:
     TCL_LIBRARY: ${SNAP}/usr/share/tcltk/tcl8.6
     TK_LIBRARY:  "${SNAP}/usr/share/tcltk/tk8.6 ${SNAP}/usr/lib/x86_64-linux-gnu ${SNAP}/usr/lib/tcltk/x86_64-linux-gnu"
 
+layout:
+    /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/alsa-lib:
+        bind: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/alsa-lib
+    /etc/asound.conf:
+        bind-file: $SNAP/etc/alsa.conf
+    /usr/share/alsa/alsa.conf:
+        bind-file: $SNAP/usr/share/alsa/alsa.conf
+
 apps:
     pd-ceammc:
         command: usr/bin/pd.wrapper
         desktop: share/applications/pd-ceammc.desktop
         plugs:
-            - alsa
+            - pulseaudio
             - home
             - unity7
             - x11
@@ -35,10 +43,10 @@ apps:
             - desktop-legacy
     tclsh:
         command: usr/bin/tclsh.wrapper
-        plugs: [ home, x11, network, desktop, desktop-legacy]
+        plugs: [ home, x11, network, desktop, desktop-legacy ]
     wish:
         command: usr/bin/wish.wrapper
-        plugs: [ home, x11, network, desktop, desktop-legacy]
+        plugs: [ home, x11, network, desktop, desktop-legacy ]
     pdsend:
         command: lib/pd_ceammc/bin/pdsend
         plugs: [ network ]
@@ -66,6 +74,31 @@ parts:
             pd.wrapper: /usr/bin/pd.wrapper
             tclsh.wrapper: /usr/bin/tclsh.wrapper
             wish.wrapper: /usr/bin/wish.wrapper
+
+    alsa:
+        plugin: nil
+        source: https://github.com/diddledan/snapcraft-alsa.git
+        override-pull: |
+            cat > alsa.conf <<EOF
+            pcm.!default {
+            type pulse
+            fallback "sysdefault"
+            hint {
+                show on
+                description "Default ALSA Output (currently PulseAudio Sound Server)"
+            }
+            }
+            ctl.!default {
+            type pulse
+            fallback "sysdefault"
+            }
+            EOF
+        override-build: |
+            install -m644 -D -t $SNAPCRAFT_PART_INSTALL/etc alsa.conf
+        stage-packages:
+            - libasound2
+            - libasound2-plugins
+
     pd-ceammc:
         plugin: cmake
         configflags:
