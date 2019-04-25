@@ -6,10 +6,10 @@ description: |
     Pure Data CEAMMC distribution and library of externals used for work
     and education purposes in Centre of electoacoustic music of
     Moscow Conservatory (CEAMMC) and ZIL-electro studio.
-
+icon: ceammc/gui/icons/puredata-ceammc.png
+grade: stable
 confinement: strict
 base: core18
-icon: ceammc/gui/icons/puredata-ceammc.png
 
 architectures:
     - build-on: amd64
@@ -32,7 +32,6 @@ layout:
 apps:
     pd-ceammc:
         command: usr/bin/pd.wrapper
-        desktop: share/applications/pd-ceammc.desktop
         plugs:
             - pulseaudio
             - home
@@ -41,6 +40,7 @@ apps:
             - network
             - desktop
             - desktop-legacy
+        desktop: snap/gui/pd-ceammc.desktop
     pdsend:
         command: lib/pd_ceammc/bin/pdsend
         plugs: [ network ]
@@ -97,6 +97,8 @@ parts:
             - -DWITH_PORTAUDIO=OFF
             - -DWITH_BENCHMARK=OFF
             - -DWITH_JACK=OFF
+            - -DWITH_ALSA_AUDIO=ON
+            - -DWITH_ALSA_MIDI=ON
             - -DENABLE_TESTS=OFF
             - -DCMAKE_BUILD_TYPE=Release
         source: .
