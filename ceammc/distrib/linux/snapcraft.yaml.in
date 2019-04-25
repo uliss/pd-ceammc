@@ -18,8 +18,8 @@ architectures:
 
 environment:
     TCL8.6_TM_PATH: ${SNAP}/usr/share/tcltk/tcl8.6/tcl8
-    TCL_LIBRARY: ${SNAP}/usr/share/tcltk/tcl8.6:$TCL_LIBRARY:$TK_LIBRARY
-    TK_LIBRARY:  ${SNAP}/usr/share/tcltk/tk8.6:$TK_LIBRARY:$TCL_LIBRARY
+    TCL_LIBRARY: ${SNAP}/usr/share/tcltk/tcl8.6
+    TK_LIBRARY:  "${SNAP}/usr/share/tcltk/tk8.6 ${SNAP}/usr/lib/x86_64-linux-gnu ${SNAP}/usr/lib/tcltk/x86_64-linux-gnu"
 
 apps:
     pd-ceammc:
@@ -30,49 +30,49 @@ apps:
             - home
             - unity7
             - x11
+            - network
+            - desktop
+            - desktop-legacy
     tclsh:
         command: usr/bin/tclsh.wrapper
-        plugs: [ home ]
+        plugs: [ home, x11, network, desktop, desktop-legacy]
+    wish:
+        command: usr/bin/wish.wrapper
+        plugs: [ home, x11, network, desktop, desktop-legacy]
     pdsend:
         command: lib/pd_ceammc/bin/pdsend
+        plugs: [ network ]
     pdreceive:
         command: lib/pd_ceammc/bin/pdreceive
+        plugs: [ network ]
 
 parts:
+    fix-hardcoded:
+        plugin: nil
+        after: [ wrappers ]
+        override-build: |
+            #find ${SNAPCRAFT_PRIME}/../parts/pd-ceammc -name pkgIndex.tcl
+            fsname="/usr/lib/tcltk/x86_64-linux-gnu/tk8.6/pkgIndex.tcl"
+            file="${SNAPCRAFT_PRIME}/../parts/pd-ceammc/install${fsname}"
+            sed -i "s|file join /usr/lib/x86_64-linux-gnu libtk8.6.so|file join {} libtk8.6.so|" $file
+            find ${SNAPCRAFT_STAGE}/usr/lib -name pkgIndex.tcl
+            file="${SNAPCRAFT_STAGE}/${fsname}"
+            sed -i "s|file join /usr/lib/x86_64-linux-gnu libtk8.6.so|file join {} libtk8.6.so|" $file
     wrappers:
         plugin: dump
         after: [ pd-ceammc ]
         source: ceammc/distrib/linux/snap
         organize:
-            # ceammc-pd.wrapper: /usr/bin/ceammc-pd.wrapper
-            # ceammc-tclsh.wrapper: /usr/bin/ceammc-tclsh.wrapper
             pd.wrapper: /usr/bin/pd.wrapper
             tclsh.wrapper: /usr/bin/tclsh.wrapper
-    libs:
-        plugin: nil
-        stage-packages:
-            - libsndfile1
-            - libfftw3-single3
-            - libmodplug1
-            - libasound2
-            - tcl
-            - tk
-            - libtcl8.6
-            - tklib
-            - tcllib
-            - libatm1
-            - libxtables12
-            - libxcb-randr0
-            - libjack-jackd2-0
+            wish.wrapper: /usr/bin/wish.wrapper
     pd-ceammc:
         plugin: cmake
-        after: [ libs ]
         configflags:
             - -DWITH_PORTAUDIO=OFF
             - -DWITH_BENCHMARK=OFF
             - -DENABLE_TESTS=OFF
-        # source-type:
-        # source: https://github.com/uliss/pure-data.git
+            - -DCMAKE_BUILD_TYPE=Debug
         source: .
         build-packages:
             - g++
@@ -99,3 +99,18 @@ parts:
             - libxcb1-dev
             - x11proto-dev
             - lsb-release
+        stage-packages:
+            - libsndfile1
+            - libfftw3-single3
+            - libmodplug1
+            - libasound2
+            - tcl
+            - tk
+            - libtcl8.6
+            - tklib
+            - tcllib
+            - libatm1
+            - libxtables12
+            - libxcb-randr0
+            - libjack-jackd2-0
+            - libice6
