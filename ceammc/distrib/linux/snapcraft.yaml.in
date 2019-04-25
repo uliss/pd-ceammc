@@ -40,7 +40,7 @@ apps:
             - network
             - desktop
             - desktop-legacy
-        desktop: snap/gui/pd-ceammc.desktop
+        #desktop: ceammc/distrib/linux/snap/pd-ceammc.desktop
     pdsend:
         command: lib/pd_ceammc/bin/pdsend
         plugs: [ network ]
@@ -55,6 +55,7 @@ parts:
         override-build: |
             echo "Fixing hardcoded libtk path ... "
             find ${SNAPCRAFT_STAGE}/usr/lib -name pkgIndex.tcl
+            fsname="usr/lib/tcltk/${SNAPCRAFT_ARCH_TRIPLET}/tk8.6/pkgIndex.tcl"
             file="${SNAPCRAFT_STAGE}/${fsname}"
             sed -i "s|file join /usr/lib/${SNAPCRAFT_ARCH_TRIPLET} libtk8.6.so|file join {} libtk8.6.so|" $file
     wrappers:
@@ -91,13 +92,13 @@ parts:
     pd-ceammc:
         plugin: cmake
         configflags:
+            - -DCMAKE_BUILD_TYPE=Release
             - -DWITH_PORTAUDIO=OFF
             - -DWITH_BENCHMARK=OFF
             - -DWITH_JACK=OFF
             - -DWITH_ALSA_AUDIO=ON
             - -DWITH_ALSA_MIDI=ON
             - -DENABLE_TESTS=OFF
-            - -DCMAKE_BUILD_TYPE=Release
         source: .
         build-packages:
             - g++
