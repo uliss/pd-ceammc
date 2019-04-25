@@ -2,7 +2,11 @@ include(PdExternal)
 
 add_subdirectory(src)
 add_subdirectory(doc)
-add_subdirectory(tests)
+
+if(ENABLE_TESTS)
+    add_subdirectory(tests)
+endif()
+
 add_subdirectory(abstractions)
 add_subdirectory(class-wrapper)
 

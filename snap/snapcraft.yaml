@@ -1,11 +1,13 @@
 name: pd-ceammc
 version: "2019.04"
+license: "GPL-3.0"
 summary: "Pure Data CEAMMC distribution"
 description: |
     Pure Data CEAMMC distribution and library of externals used for work and education purposes in Centre of electoacoustic music of Moscow Conservatory (CEAMMC) and ZIL-electro studio.
-    
+
 confinement: devmode
 base: core18
+icon: ceammc/gui/icons/puredata-ceammc.png
 
 architectures:
     - amd64
@@ -14,46 +16,40 @@ architectures:
     - arm64
     - s390x
 
+environment:
+    TCL8.6_TM_PATH: ${SNAP}/usr/share/tcltk/tcl8.6/tcl8
+    TCL_LIBRARY: ${SNAP}/usr/share/tcltk/tcl8.6:$TCL_LIBRARY:$TK_LIBRARY
+    TK_LIBRARY:  ${SNAP}/usr/share/tcltk/tk8.6:$TK_LIBRARY:$TCL_LIBRARY
+
 apps:
     pd-ceammc:
-        command: lib/pd_ceammc/bin/pd
+        command: usr/bin/pd.wrapper
+        desktop: share/applications/pd-ceammc.desktop
+        plugs:
+            - alsa
+            - home
+            - unity7
+            - x11
+    tclsh:
+        command: usr/bin/tclsh.wrapper
+        plugs: [ home ]
     pdsend:
         command: lib/pd_ceammc/bin/pdsend
     pdreceive:
         command: lib/pd_ceammc/bin/pdreceive
-        
+
 parts:
-    pd-ceammc:
-        plugin: cmake
-        configflags:
-            - -DWITH_PORTAUDIO=OFF
-        source-type: git
-        source: https://github.com/uliss/pure-data
-        build-packages:
-            - g++
-            - make
-            - cmake 
-            - pkg-config 
-            - libasound2-dev 
-            - libmodplug-dev
-            - libboost-dev 
-            - gettext 
-            - libavahi-compat-libdnssd-dev 
-            - libsndfile1-dev
-            - libjack-jackd2-dev 
-            - libfftw3-dev 
-            - tcllib 
-            - tklib 
-            - alsa-utils 
-            - build-essential 
-            - patchelf 
-            - libarmadillo-dev 
-            - libglib2.0-dev 
-            - libxcb-randr0-dev 
-            - libxcb-util-dev 
-            - libxcb1-dev 
-            - x11proto-dev 
-            - lsb-release
+    wrappers:
+        plugin: dump
+        after: [ pd-ceammc ]
+        source: ceammc/distrib/linux/snap
+        organize:
+            # ceammc-pd.wrapper: /usr/bin/ceammc-pd.wrapper
+            # ceammc-tclsh.wrapper: /usr/bin/ceammc-tclsh.wrapper
+            pd.wrapper: /usr/bin/pd.wrapper
+            tclsh.wrapper: /usr/bin/tclsh.wrapper
+    libs:
+        plugin: nil
         stage-packages:
             - libsndfile1
             - libfftw3-single3
@@ -68,3 +64,38 @@ parts:
             - libxtables12
             - libxcb-randr0
             - libjack-jackd2-0
+    pd-ceammc:
+        plugin: cmake
+        after: [ libs ]
+        configflags:
+            - -DWITH_PORTAUDIO=OFF
+            - -DWITH_BENCHMARK=OFF
+            - -DENABLE_TESTS=OFF
+        # source-type:
+        # source: https://github.com/uliss/pure-data.git
+        source: .
+        build-packages:
+            - g++
+            - make
+            - cmake
+            - pkg-config
+            - libasound2-dev
+            - libmodplug-dev
+            - libboost-dev
+            - gettext
+            - libavahi-compat-libdnssd-dev
+            - libsndfile1-dev
+            - libjack-jackd2-dev
+            - libfftw3-dev
+            - tcllib
+            - tklib
+            - alsa-utils
+            - build-essential
+            - patchelf
+            - libarmadillo-dev
+            - libglib2.0-dev
+            - libxcb-randr0-dev
+            - libxcb-util-dev
+            - libxcb1-dev
+            - x11proto-dev
+            - lsb-release
