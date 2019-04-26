@@ -14,7 +14,7 @@ base: core18
 architectures:
     - build-on: amd64
     - build-on: i386
-    - build-on: armhf
+    #- build-on: armhf
 
 environment:
     TCL8.6_TM_PATH: ${SNAP}/usr/share/tcltk/tcl8.6/tcl8
@@ -33,13 +33,14 @@ apps:
     pd-ceammc:
         command: usr/bin/pd.wrapper
         plugs:
-            - pulseaudio
+            - pulseaudio # for audio output
             - home
             - unity7
             - x11
             - network
-            - desktop
+            - desktop # for TCL-TK working
             - desktop-legacy
+            - removable-media # for alsa device access
         #desktop: ceammc/distrib/linux/snap/pd-ceammc.desktop
     pdsend:
         command: lib/pd_ceammc/bin/pdsend
@@ -95,9 +96,9 @@ parts:
             - -DCMAKE_BUILD_TYPE=Release
             - -DWITH_PORTAUDIO=OFF
             - -DWITH_BENCHMARK=OFF
-            - -DWITH_JACK=OFF
             - -DWITH_ALSA_AUDIO=ON
             - -DWITH_ALSA_MIDI=ON
+            - -DWITH_JACK=OFF
             - -DENABLE_TESTS=OFF
         source: .
         build-packages:
