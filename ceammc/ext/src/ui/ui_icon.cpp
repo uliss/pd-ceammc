@@ -16,6 +16,8 @@
 #include "ceammc_ui.h"
 #include "icons/generated_icons.h"
 
+#include <sstream>
+
 static t_symbol* SYM_CEAMMC;
 static t_symbol* SYM_MODE_BANG;
 static t_symbol* SYM_MODE_BUTTON;
@@ -67,6 +69,14 @@ UIIcon::UIIcon()
     , is_active_(false)
     , is_enabled_(true)
 {
+    auto ver = eclass_tcl_version();
+    if (ver.first == 8 && ver.second < 6) {
+        std::ostringstream ss;
+        ss << "too old TCL version (" << ver.first << '.' << ver.second
+           << "). PNG icons are not supported";
+        throw std::runtime_error(ss.str());
+    }
+
     createOutlet();
 }
 

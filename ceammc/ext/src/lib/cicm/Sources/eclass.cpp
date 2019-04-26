@@ -103,12 +103,22 @@ t_tcl_version* tcl_version_new()
     return x;
 }
 
+std::pair<int, int> eclass_tcl_version()
+{
+    std::pair<int, int> res({ 0, 0 });
+    if (!tcl_version_class || !tcl_version_instance)
+        return res;
+
+    res.first = tcl_version_instance->major;
+    res.second = tcl_version_instance->minor;
+    return res;
+}
+
 int egraphics_smooth()
 {
-    if (!tcl_version_class || !tcl_version_instance)
-        return 0;
+    auto ver = eclass_tcl_version();
 
-    if (tcl_version_instance->major == 8 && tcl_version_instance->minor == 6)
+    if (ver.first == 8 && ver.second == 6)
         return 1;
     else
         return 0;
@@ -135,8 +145,9 @@ void tcl_version_init()
 
         class_addmethod(tcl_version_class, (t_method)&tcl_version_set,
             gensym("tcl_version"), A_DEFFLOAT, A_NULL);
-        pd_bind(&tcl_version_class, gensym("tcl_version"));
+
         tcl_version_instance = tcl_version_new();
+        pd_bind(&tcl_version_instance->x_obj.te_g.g_pd, gensym("tcl_version"));
         sys_gui("pdsend \"tcl_version tcl_version $tk_version\"\n");
     }
 }

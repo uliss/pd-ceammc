@@ -10,6 +10,7 @@
 #include "ceammc_platform.h"
 #include "m_pd.h"
 
+#include <stdexcept>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -109,15 +110,30 @@ public:
         t_binbuf* d = binbuf_via_atoms(argc, argv);
 
         if (mem && d) {
-            UI* x = new (mem) UI();
+            try {
+                UI* x = new (mem) UI();
 
-            ebox_new(x->asEBox(), 0 | flags);
-            ebox_attrprocess_viabinbuf(x, d);
-            ebox_ready((t_ebox*)x);
-            binbuf_free(d);
+                ebox_new(x->asEBox(), 0 | flags);
+                ebox_attrprocess_viabinbuf(x, d);
+                ebox_ready((t_ebox*)x);
+                binbuf_free(d);
 
-            x->init(s, AtomList(argc, argv), use_presets);
-            return x;
+                x->init(s, AtomList(argc, argv), use_presets);
+                return x;
+            } catch (std::exception& e) {
+                char buf[200];
+                snprintf(buf, sizeof(buf) - 1, "%s", e.what());
+                const char* class_name = pd_class->c_class.c_name->s_name;
+                pd_error(0, "[ceammc] can't create object [%s], %s", class_name, buf);
+
+                binbuf_free(d);
+                return nullptr;
+            } catch (...) {
+                const char* class_name = pd_class->c_class.c_name->s_name;
+                pd_error(0, "[ceammc] can't create object [%s]", class_name);
+                binbuf_free(d);
+                return nullptr;
+            }
         }
 
         return 0;
