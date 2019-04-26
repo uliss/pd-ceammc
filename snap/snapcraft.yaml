@@ -32,6 +32,7 @@ apps:
     pd-ceammc:
         command: usr/bin/pd.wrapper
         plugs:
+            - alsa
             - pulseaudio # for audio output
             - home
             - unity7
