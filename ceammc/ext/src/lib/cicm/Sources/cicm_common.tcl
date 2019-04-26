@@ -135,9 +135,10 @@ ceammc_create_label_font_bold CICMCategoryFont
 
 # show tooltips
 if { [catch package require tooltip] } {
-    if { [catch source tooltip/tooltip.tcl] } {
-        ::pdwindow::error "can't load tooltip plugin"
-        proc tooltip {args} {}
+    namespace eval ::tooltip:: {
+        namespace export tooltip
     }
+
+    proc ::tooltip::tooltip {args} {}
 }
 

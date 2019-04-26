@@ -110,10 +110,10 @@ const char* cicm_common_tcl =
 "    -data \"R0lGODlhEgASAIABAAAAAP///yH5BAEKAAEALAAAAAASABIAAAIajI+py+0PA4gITGoszhdr30FfNIqhuKXqChUAOw==\"\n"
 "ceammc_create_label_font_bold CICMCategoryFont\n"
 "if { [catch package require tooltip] } {\n"
-"    if { [catch source tooltip/tooltip.tcl] } {\n"
-"        ::pdwindow::error \"can't load tooltip plugin\"\n"
-"        proc tooltip {args} {}\n"
+"    namespace eval ::tooltip:: {\n"
+"        namespace export tooltip\n"
 "    }\n"
+"    proc ::tooltip::tooltip {args} {}\n"
 "}\n"
 ;
 #endif
