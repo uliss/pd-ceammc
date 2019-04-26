@@ -17,7 +17,6 @@ architectures:
     #- build-on: armhf
 
 environment:
-    TCL8.6_TM_PATH: ${SNAP}/usr/share/tcltk/tcl8.6/tcl8
     TCL_LIBRARY: ${SNAP}/usr/share/tcltk/tcl8.6
     TK_LIBRARY:  "${SNAP}/usr/share/tcltk/tk8.6 ${SNAP}/usr/lib/${SNAPCRAFT_ARCH_TRIPLET} ${SNAP}/usr/lib/tcltk/${SNAPCRAFT_ARCH_TRIPLET}"
 
@@ -138,5 +137,4 @@ parts:
             - libatm1
             - libxtables12
             - libxcb-randr0
-            - libjack-jackd2-0
             - libice6
