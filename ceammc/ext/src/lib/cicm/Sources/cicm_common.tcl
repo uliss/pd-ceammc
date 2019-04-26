@@ -125,9 +125,9 @@ proc ceammc_category_toggle {id var_name_state controls} {
 
 # create images
 image create photo ceammc_image_category_opened -width 18 -height 18 \
-    -data "R0lGODlhEgASAPAAAAAAAAAAACH5BAEAAAAAIf8LSW1hZ2VNYWdpY2sOZ2FtbWE9MC40NTQ1NDUALAAAAAASABIAAAIahI+py+0Po2RB1RauyY8D32UaBE7miabqmhQAOw=="
+    -data "R0lGODlhEgASAIABAAAAAP///yH5BAEKAAEALAAAAAASABIAAAIajI+py+0Po2RA1QauyY8H32UaBE7miabqmhQAOw=="
 image create photo ceammc_image_category_closed -width 18 -height 18 \
-    -data "R0lGODlhEgASAPAAAAAAAAAAACH5BAEAAAAAIf8LSW1hZ2VNYWdpY2sOZ2FtbWE9MC40NTQ1NDUALAAAAAASABIAAAIYhI+py+0PowpBHmoNzjt2+D2hmJXmiToFADs="
+    -data "R0lGODlhEgASAIABAAAAAP///yH5BAEKAAEALAAAAAASABIAAAIajI+py+0PA4gITGoszhdr30FfNIqhuKXqChUAOw=="
 
 
 # create font for categories in dialog

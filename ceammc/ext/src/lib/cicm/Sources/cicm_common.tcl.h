@@ -105,9 +105,9 @@ const char* cicm_common_tcl =
 "    ceammc_category_apply $id $var_name_state $controls\n"
 "}\n"
 "image create photo ceammc_image_category_opened -width 18 -height 18 \\\n"
-"    -data \"R0lGODlhEgASAPAAAAAAAAAAACH5BAEAAAAAIf8LSW1hZ2VNYWdpY2sOZ2FtbWE9MC40NTQ1NDUALAAAAAASABIAAAIahI+py+0Po2RB1RauyY8D32UaBE7miabqmhQAOw==\"\n"
+"    -data \"R0lGODlhEgASAIABAAAAAP///yH5BAEKAAEALAAAAAASABIAAAIajI+py+0Po2RA1QauyY8H32UaBE7miabqmhQAOw==\"\n"
 "image create photo ceammc_image_category_closed -width 18 -height 18 \\\n"
-"    -data \"R0lGODlhEgASAPAAAAAAAAAAACH5BAEAAAAAIf8LSW1hZ2VNYWdpY2sOZ2FtbWE9MC40NTQ1NDUALAAAAAASABIAAAIYhI+py+0PowpBHmoNzjt2+D2hmJXmiToFADs=\"\n"
+"    -data \"R0lGODlhEgASAIABAAAAAP///yH5BAEKAAEALAAAAAASABIAAAIajI+py+0PA4gITGoszhdr30FfNIqhuKXqChUAOw==\"\n"
 "ceammc_create_label_font_bold CICMCategoryFont\n"
 "package require tooltip\n"
 ;
