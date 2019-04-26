@@ -109,7 +109,12 @@ const char* cicm_common_tcl =
 "image create photo ceammc_image_category_closed -width 18 -height 18 \\\n"
 "    -data \"R0lGODlhEgASAIABAAAAAP///yH5BAEKAAEALAAAAAASABIAAAIajI+py+0PA4gITGoszhdr30FfNIqhuKXqChUAOw==\"\n"
 "ceammc_create_label_font_bold CICMCategoryFont\n"
-"package require tooltip\n"
+"if { [catch package require tooltip] } {\n"
+"    if { [catch source tooltip/tooltip.tcl] } {\n"
+"        ::pdwindow::error \"can't load tooltip plugin\"\n"
+"        proc tooltip {args} {}\n"
+"    }\n"
+"}\n"
 ;
 #endif
 // clang-format on

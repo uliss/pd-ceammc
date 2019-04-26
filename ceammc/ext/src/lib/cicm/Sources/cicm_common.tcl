@@ -134,4 +134,10 @@ image create photo ceammc_image_category_closed -width 18 -height 18 \
 ceammc_create_label_font_bold CICMCategoryFont
 
 # show tooltips
-package require tooltip
+if { [catch package require tooltip] } {
+    if { [catch source tooltip/tooltip.tcl] } {
+        ::pdwindow::error "can't load tooltip plugin"
+        proc tooltip {args} {}
+    }
+}
+
