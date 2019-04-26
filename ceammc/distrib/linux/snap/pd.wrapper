@@ -1,0 +1,19 @@
+#!/bin/sh
+
+export TCLLIBPATH="$TCL_LIBRARY $TK_LIBRARY $SNAP/usr/share/tcltk/tcllib1.19 $SNAP/usr/share/tcltk/tcl8.6/tcl8 $SNAP/usr/lib/tcltk $SNAP/usr/lib/x86_64-linux-gnu $SNAP/usr/lib/tcltk/x86_64-linux-gnu"
+export TCL86_TM_PATH="$SNAP/usr/share/tcltk/tcl8.6/tcl8"
+
+export PATH="$SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$SNAP/lib:$SNAP/usr/lib:$SNAP/lib/x86_64-linux-gnu:$SNAP/usr/lib/x86_64-linux-gnu"
+export LD_LIBRARY_PATH="$SNAP/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH"
+
+echo "TCL_LIBRARY:     $TCL_LIBRARY"
+echo "TK_LIBRARY:      $TK_LIBRARY"
+echo "TCLLIBPATH:      $TCLLIBPATH"
+echo "TCL86_TM_PATH:   $TCL86_TM_PATH"
+echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
+echo "PATH:            $PATH"
+
+env "TCL8.6_TM_PATH=$TCL86_TM_PATH" $SNAP/lib/pd_ceammc/bin/pd $@
+
+

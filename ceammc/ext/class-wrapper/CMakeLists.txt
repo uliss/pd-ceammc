@@ -47,7 +47,7 @@ function(wrapper_add NAME)
     file(GLOB _help_files modules/${NAME}/help/*.pd)
 
     pd_add_external(NAME ${NAME}
-        INTERNAL
+        INTERNAL TRUE
         FILES modules/${NAME}/gen_${NAME}.cpp
         LINK ceammc_core wrapper_lib
         HELP_FILES ${_help_files})

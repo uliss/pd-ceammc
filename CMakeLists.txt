@@ -109,7 +109,10 @@ if(GETTEXT_FOUND)
     add_subdirectory(po)
 endif()
 
-enable_testing(true)
+if(ENABLE_TESTS)
+    enable_testing(true)
+endif()
+
 add_subdirectory(ceammc)
 
 include(summary)

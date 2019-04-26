@@ -200,14 +200,17 @@ else()
     install(TARGETS ceammc_sound LIBRARY DESTINATION ${PDCORE_LIB_INSTALL_PATH})
 endif()
 
-add_executable(ext_list ext_list.cpp ../mod_init.cpp)
-target_link_libraries(ext_list puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
+# utilities used while developing
+if(ENABLE_TESTS)
+    add_executable(ext_list ext_list.cpp ../mod_init.cpp)
+    target_link_libraries(ext_list puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
 
-add_executable(ext_methods ext_methods.cpp ../mod_init.cpp)
-target_link_libraries(ext_methods puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
+    add_executable(ext_methods ext_methods.cpp ../mod_init.cpp)
+    target_link_libraries(ext_methods puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
 
-add_executable(ext_props ext_props.cpp ../mod_init.cpp)
-target_link_libraries(ext_props puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
+    add_executable(ext_props ext_props.cpp ../mod_init.cpp)
+    target_link_libraries(ext_props puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
+endif()
 
 add_custom_target(ceammc_cicm_tcl_gen
     COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh cicm/Sources/cicm_common.tcl

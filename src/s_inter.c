@@ -1182,11 +1182,14 @@ static int sys_do_startgui(const char *libdir)
             /* sprintf the wish command with needed environment variables.
             For some reason the wish script fails if HOME isn't defined so
             if necessary we put that in here too. */
+            const char* HOME = getenv("HOME") ? "" : " HOME=/tmp";
             sprintf(cmdbuf,
-  "TCL_LIBRARY=\"%s/lib/tcl/library\" TK_LIBRARY=\"%s/lib/tk/library\"%s \
-  " WISH " \"%s/" PDGUIDIR "/pd-gui.tcl\" %d\n",
-                 libdir, libdir, (getenv("HOME") ? "" : " HOME=/tmp"),
-                    libdir, portno);
+//  ceammc: disable hard coded paths to run under SNAPd
+//  "TCL_LIBRARY=\"%s/lib/tcl/library\" TK_LIBRARY=\"%s/lib/tk/library\"%s \
+//  "
+                "%s env \"TCL8.6_TM_PATH=$TCL86_TM_PATH\" " // single way to define env var with dots
+                WISH " \"%s/" PDGUIDIR "/pd-gui.tcl\" %d\n",
+                HOME, libdir, portno);
 #endif /* __APPLE__ */
             guicmd = cmdbuf;
         }
