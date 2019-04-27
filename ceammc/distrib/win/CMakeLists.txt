@@ -10,10 +10,12 @@ if(WIN32)
     elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
         set(CEAMMC_DISTRIB_ARCH "32-bit")
     endif()
+
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/pd.iss ${CMAKE_BINARY_DIR})
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fix_dll_deps.sh ${CMAKE_BINARY_DIR} @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win_upload_to_github.sh ${CMAKE_BINARY_DIR} @ONLY)
 endif()
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/pd.iss ${CMAKE_BINARY_DIR})
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fix_dll_deps.sh ${CMAKE_BINARY_DIR})
 
 if(WIN32 OR MSYS OR MINGW)
     install(FILES fonts/DejaVuSansMono.ttf
@@ -48,4 +50,4 @@ if(WIN32)
     install(DIRECTORY fonts DESTINATION ${CMAKE_INSTALL_PREFIX})
 endif()
 
-add_custom_target(window_installer SOURCES pd.iss)
+add_custom_target(window_installer SOURCES fix_dll_deps.sh pd.iss)
