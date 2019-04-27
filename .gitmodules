@@ -41,3 +41,6 @@
 [submodule "ceammc/extra/re2"]
 	path = ceammc/extra/re2
 	url = https://github.com/google/re2.git
+[submodule "ceammc/extra/HoaLibrary-Light"]
+	path = ceammc/extra/HoaLibrary-Light
+	url = https://github.com/CICM/HoaLibrary-Light.git
