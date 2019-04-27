@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library xmlns:xi="http://www.w3.org/2001/XInclude" name="matrix" version="1.0">
   <category name="matrix">
-    <entry descr="element-wise matrix not equal comparasion" name="matrix.!=" ref_view="object">
-      <xi:include href="matrix.%21%3D.pddoc" parse="xml"/>
-    </entry>
     <entry descr="element-wise less then comparasion" name="matrix.&lt;" ref_view="object">
       <xi:include href="matrix.%3C.pddoc" parse="xml"/>
     </entry>
     <entry descr="element-wise less equal comparasion" name="matrix.&lt;=" ref_view="object">
       <xi:include href="matrix.%3C%3D.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="element-wise matrix equal comparasion" name="matrix.==" ref_view="object">
-      <xi:include href="matrix.%3D%3D.pddoc" parse="xml"/>
     </entry>
     <entry descr="element-wise greater then comparasion" name="matrix.&gt;" ref_view="object">
       <xi:include href="matrix.%3E.pddoc" parse="xml"/>
@@ -94,6 +88,9 @@
     <entry descr="element-wise matrix division" name="matrix.div" ref_view="object">
       <xi:include href="matrix.div.pddoc" parse="xml"/>
     </entry>
+    <entry descr="element-wise matrix equal comparasion" name="matrix.eq" ref_view="object">
+      <xi:include href="matrix.eq.pddoc" parse="xml"/>
+    </entry>
     <entry descr="element-wise base-e exponent: e^x" name="matrix.exp" ref_view="object">
       <xi:include href="matrix.exp.pddoc" parse="xml"/>
     </entry>
@@ -168,6 +165,9 @@
     </entry>
     <entry descr="return number of columns in Matrix" name="matrix.ncols" ref_view="object">
       <xi:include href="matrix.ncols.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="element-wise matrix not equal comparasion" name="matrix.ne" ref_view="object">
+      <xi:include href="matrix.ne.pddoc" parse="xml"/>
     </entry>
     <entry descr="Matrix data type" name="matrix.new" ref_view="object">
       <xi:include href="matrix.new.pddoc" parse="xml"/>

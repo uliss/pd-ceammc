@@ -198,12 +198,14 @@ void matrix_setup() {
         SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(float) const), SINGLE_ARG(&Matrix::lt, &Matrix::lt));
 
     // method: &Matrix::eq
-    WRAP_METHOD(Matrix, "matrix.==", m_id_matrix_eq,
+    WRAP_METHOD(Matrix, "matrix.eq", m_id_matrix_eq,
         SINGLE_ARG(Matrix(Matrix::*)(float) const, Matrix(Matrix::*)(const Matrix &) const), SINGLE_ARG(&Matrix::eq, &Matrix::eq));
+    WRAP_METHOD_ALIAS(m_id_matrix_eq, "matrix.==");
 
     // method: &Matrix::ne
-    WRAP_METHOD(Matrix, "matrix.!=", m_id_matrix_ne,
+    WRAP_METHOD(Matrix, "matrix.ne", m_id_matrix_ne,
         SINGLE_ARG(Matrix(Matrix::*)(float) const, Matrix(Matrix::*)(const Matrix &) const), SINGLE_ARG(&Matrix::ne, &Matrix::ne));
+    WRAP_METHOD_ALIAS(m_id_matrix_ne, "matrix.!=");
 
     // static method
     using mtype_matrix_load = Matrix(*)(const std::string &);

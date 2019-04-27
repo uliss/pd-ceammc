@@ -868,7 +868,7 @@ public:
      * @return compare result - matrix with 1 and 0
      * @since 0.1
      * @see matrix.> matrix.<
-     * @pd_name ==
+     * @pd_alias matrix.==
      * @example
      * [2 2 1 2 3 4(        [F]   [2 2 1 4 3 6(
      * |                    |.    |.
@@ -888,7 +888,7 @@ public:
      * @return compare result - matrix with 1 and 0
      * @since 0.1
      * @see matrix.==
-     * @pd_name !=
+     * @pd_alias matrix.!=
      * @example
      * [2 2 1 2 3 4(         [F]   [2 2 1 4 3 6(
      * |                     |.    |.

@@ -1370,7 +1370,7 @@
                             }
                         ]
                     ],
-                    "doc_name": "matrix.==",
+                    "doc_name": "matrix.eq",
                     "doc_outlets": [
                         {
                             "info": "compare result - matrix with 1 and 0",
@@ -1394,8 +1394,9 @@
                     "params": [
                         "float to compare"
                     ],
-                    "pd_aliases": [],
-                    "pd_name": "==",
+                    "pd_aliases": [
+                        "matrix.=="
+                    ],
                     "pddoc_args": [
                         {
                             "info": "float to compare or matrix to compare (Matrix NROWS NCOLS ...)",
@@ -3168,7 +3169,7 @@
                             }
                         ]
                     ],
-                    "doc_name": "matrix.!=",
+                    "doc_name": "matrix.ne",
                     "doc_outlets": [
                         {
                             "info": "compare result - matrix with 1 and 0",
@@ -3192,8 +3193,9 @@
                     "params": [
                         "float to compare"
                     ],
-                    "pd_aliases": [],
-                    "pd_name": "!=",
+                    "pd_aliases": [
+                        "matrix.!="
+                    ],
                     "pddoc_args": [
                         {
                             "info": "float to compare or matrix to compare (Matrix NROWS NCOLS ...)",

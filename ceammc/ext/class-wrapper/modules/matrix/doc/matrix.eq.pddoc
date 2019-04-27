@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="matrix.!=">
-        <title>matrix.!=</title>
+    <object name="matrix.eq">
+        <title>matrix.eq</title>
         <meta>
             <authors>
                 <author>Serge Poltavski</author>
             </authors>
-            <description>element-wise matrix not equal comparasion</description>
+            <description>element-wise matrix equal comparasion</description>
             <license>GPLv3</license>
             <library>matrix</library>
             <category>matrix</category>
             <version>0.1</version>
             <since>0.1</since>
+            <aliases>
+                <alias>matrix.==</alias>
+            </aliases>
             <also>
-                <see>matrix.==</see>
+                <see>matrix.&gt;</see>
+                <see>matrix.&lt;</see>
             </also>
         </meta>
         <arguments>
@@ -38,9 +42,9 @@
 [declare -lib matrix]
 
 
-[2 2 1 2 3 4(         [F]   [2 2 1 4 3 6(
-|                     |.    |.
-[matrix.!= Matrix 2 2 1 2 3 4]
+[2 2 1 2 3 4(        [F]   [2 2 1 4 3 6(
+|                    |.    |.
+[matrix.== Matrix 2 2 1 2 3 4]
 |
 [ui.display @display_type=1]
 ]]>

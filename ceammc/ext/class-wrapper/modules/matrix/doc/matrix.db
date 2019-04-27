@@ -24,7 +24,7 @@ matrix.cosh		.		.
 matrix.det		.		.
 matrix.diag		..		.
 matrix.div,matrix./		..		.
-matrix.==		..		.
+matrix.eq,matrix.==		..		.
 matrix.exp		.		.
 matrix.exp10		.		.
 matrix.exp2		.		.
@@ -54,7 +54,7 @@ matrix.median_row		.		.
 matrix.min		.		.
 matrix.mul,matrix.*		..		.
 matrix.ncols		.		.
-matrix.!=		..		.
+matrix.ne,matrix.!=		..		.
 matrix.nrows		.		.
 matrix.ones		..		.
 matrix.ones_like		.		.
