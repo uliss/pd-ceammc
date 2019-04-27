@@ -182,28 +182,34 @@ void matrix_setup() {
         SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const), SINGLE_ARG(&Matrix::conv2));
 
     // method: &Matrix::gt
-    WRAP_METHOD(Matrix, "matrix.>", m_id_matrix_gt,
+    WRAP_METHOD(Matrix, "matrix.gt", m_id_matrix_gt,
         SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(float) const), SINGLE_ARG(&Matrix::gt, &Matrix::gt));
+    WRAP_METHOD_ALIAS(m_id_matrix_gt, "matrix.>");
 
     // method: &Matrix::ge
-    WRAP_METHOD(Matrix, "matrix.>=", m_id_matrix_ge,
+    WRAP_METHOD(Matrix, "matrix.ge", m_id_matrix_ge,
         SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(float) const), SINGLE_ARG(&Matrix::ge, &Matrix::ge));
+    WRAP_METHOD_ALIAS(m_id_matrix_ge, "matrix.>=");
 
     // method: &Matrix::le
-    WRAP_METHOD(Matrix, "matrix.<=", m_id_matrix_le,
+    WRAP_METHOD(Matrix, "matrix.le", m_id_matrix_le,
         SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(float) const), SINGLE_ARG(&Matrix::le, &Matrix::le));
+    WRAP_METHOD_ALIAS(m_id_matrix_le, "matrix.<=");
 
     // method: &Matrix::lt
-    WRAP_METHOD(Matrix, "matrix.<", m_id_matrix_lt,
+    WRAP_METHOD(Matrix, "matrix.lt", m_id_matrix_lt,
         SINGLE_ARG(Matrix(Matrix::*)(const Matrix &) const, Matrix(Matrix::*)(float) const), SINGLE_ARG(&Matrix::lt, &Matrix::lt));
+    WRAP_METHOD_ALIAS(m_id_matrix_lt, "matrix.<");
 
     // method: &Matrix::eq
-    WRAP_METHOD(Matrix, "matrix.==", m_id_matrix_eq,
+    WRAP_METHOD(Matrix, "matrix.eq", m_id_matrix_eq,
         SINGLE_ARG(Matrix(Matrix::*)(float) const, Matrix(Matrix::*)(const Matrix &) const), SINGLE_ARG(&Matrix::eq, &Matrix::eq));
+    WRAP_METHOD_ALIAS(m_id_matrix_eq, "matrix.==");
 
     // method: &Matrix::ne
-    WRAP_METHOD(Matrix, "matrix.!=", m_id_matrix_ne,
+    WRAP_METHOD(Matrix, "matrix.ne", m_id_matrix_ne,
         SINGLE_ARG(Matrix(Matrix::*)(float) const, Matrix(Matrix::*)(const Matrix &) const), SINGLE_ARG(&Matrix::ne, &Matrix::ne));
+    WRAP_METHOD_ALIAS(m_id_matrix_ne, "matrix.!=");
 
     // static method
     using mtype_matrix_load = Matrix(*)(const std::string &);

@@ -1,24 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library xmlns:xi="http://www.w3.org/2001/XInclude" name="matrix" version="1.0">
   <category name="matrix">
-    <entry descr="element-wise matrix not equal comparasion" name="matrix.!=" ref_view="object">
-      <xi:include href="matrix.%21%3D.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="element-wise less then comparasion" name="matrix.&lt;" ref_view="object">
-      <xi:include href="matrix.%3C.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="element-wise less equal comparasion" name="matrix.&lt;=" ref_view="object">
-      <xi:include href="matrix.%3C%3D.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="element-wise matrix equal comparasion" name="matrix.==" ref_view="object">
-      <xi:include href="matrix.%3D%3D.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="element-wise greater then comparasion" name="matrix.&gt;" ref_view="object">
-      <xi:include href="matrix.%3E.pddoc" parse="xml"/>
-    </entry>
-    <entry descr="element-wise greater equal comparasion" name="matrix.&gt;=" ref_view="object">
-      <xi:include href="matrix.%3E%3D.pddoc" parse="xml"/>
-    </entry>
     <entry descr="calc abs value for each matrix element" name="matrix.abs" ref_view="object">
       <xi:include href="matrix.abs.pddoc" parse="xml"/>
     </entry>
@@ -94,6 +76,9 @@
     <entry descr="element-wise matrix division" name="matrix.div" ref_view="object">
       <xi:include href="matrix.div.pddoc" parse="xml"/>
     </entry>
+    <entry descr="element-wise matrix equal comparasion" name="matrix.eq" ref_view="object">
+      <xi:include href="matrix.eq.pddoc" parse="xml"/>
+    </entry>
     <entry descr="element-wise base-e exponent: e^x" name="matrix.exp" ref_view="object">
       <xi:include href="matrix.exp.pddoc" parse="xml"/>
     </entry>
@@ -112,6 +97,12 @@
     <entry descr="create Matrix filled with specified value" name="matrix.full" ref_view="object">
       <xi:include href="matrix.full.pddoc" parse="xml"/>
     </entry>
+    <entry descr="element-wise greater equal comparasion" name="matrix.ge" ref_view="object">
+      <xi:include href="matrix.ge.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="element-wise greater then comparasion" name="matrix.gt" ref_view="object">
+      <xi:include href="matrix.gt.pddoc" parse="xml"/>
+    </entry>
     <entry descr="produce a matrix containing column histogram counts" name="matrix.hist" ref_view="object">
       <xi:include href="matrix.hist.pddoc" parse="xml"/>
     </entry>
@@ -127,6 +118,9 @@
     <entry descr="inverse square matrix" name="matrix.inverse" ref_view="object">
       <xi:include href="matrix.inverse.pddoc" parse="xml"/>
     </entry>
+    <entry descr="element-wise less equal comparasion" name="matrix.le" ref_view="object">
+      <xi:include href="matrix.le.pddoc" parse="xml"/>
+    </entry>
     <entry descr="generate row with linearly spaced N elements" name="matrix.linspace" ref_view="object">
       <xi:include href="matrix.linspace.pddoc" parse="xml"/>
     </entry>
@@ -135,6 +129,9 @@
     </entry>
     <entry descr="generate row with N elements spaced logarithmically" name="matrix.logspace" ref_view="object">
       <xi:include href="matrix.logspace.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="element-wise less then comparasion" name="matrix.lt" ref_view="object">
+      <xi:include href="matrix.lt.pddoc" parse="xml"/>
     </entry>
     <entry descr="matrix product" name="matrix.matmul" ref_view="object">
       <xi:include href="matrix.matmul.pddoc" parse="xml"/>
@@ -168,6 +165,9 @@
     </entry>
     <entry descr="return number of columns in Matrix" name="matrix.ncols" ref_view="object">
       <xi:include href="matrix.ncols.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="element-wise matrix not equal comparasion" name="matrix.ne" ref_view="object">
+      <xi:include href="matrix.ne.pddoc" parse="xml"/>
     </entry>
     <entry descr="Matrix data type" name="matrix.new" ref_view="object">
       <xi:include href="matrix.new.pddoc" parse="xml"/>
