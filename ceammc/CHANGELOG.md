@@ -1,5 +1,8 @@
 # CEAMMC external library changelog
 
+## [Unreleased]
+### Added:
+
 ## [0.7.1]
 ### Added:
 - properties dialogs for ui.* objects are improved:
