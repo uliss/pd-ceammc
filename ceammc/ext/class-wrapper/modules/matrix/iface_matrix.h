@@ -785,7 +785,7 @@ public:
     /**
      * @brief element-wise greater then comparasion
      * @param b - matrix to compare
-     * @pd_name >
+     * @pd_alias matrix.>
      * @see matrix.== matrix.>=
      * @since 0.1
      * @return compare result - matrix with 1 and 0
@@ -805,7 +805,7 @@ public:
     /**
      * @brief element-wise greater equal comparasion
      * @param b - matrix to compare
-     * @pd_name >=
+     * @pd_alias matrix.>=
      * @see matrix.>
      * @since 0.1
      * @return compare result - matrix with 1 and 0
@@ -825,7 +825,7 @@ public:
     /**
      * @brief element-wise less equal comparasion
      * @param b - matrix to compare
-     * @pd_name <=
+     * @pd_alias matrix.<=
      * @see matrix.<
      * @since 0.1
      * @return compare result - matrix with 1 and 0
@@ -845,7 +845,7 @@ public:
     /**
      * @brief element-wise less then comparasion
      * @param b - matrix to compare
-     * @pd_name <
+     * @pd_alias matrix.<
      * @see matrix.<=
      * @since 0.1
      * @return compare result - matrix with 1 and 0

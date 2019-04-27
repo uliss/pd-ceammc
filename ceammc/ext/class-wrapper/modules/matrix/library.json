@@ -1777,7 +1777,7 @@
                             }
                         ]
                     ],
-                    "doc_name": "matrix.>=",
+                    "doc_name": "matrix.ge",
                     "doc_outlets": [
                         {
                             "info": "compare result - matrix with 1 and 0",
@@ -1801,8 +1801,9 @@
                     "params": [
                         "matrix to compare"
                     ],
-                    "pd_aliases": [],
-                    "pd_name": ">=",
+                    "pd_aliases": [
+                        "matrix.>="
+                    ],
                     "pddoc_args": [
                         {
                             "info": "matrix to compare (Matrix NROWS NCOLS ...) or float to compare",
@@ -1856,7 +1857,7 @@
                             }
                         ]
                     ],
-                    "doc_name": "matrix.>",
+                    "doc_name": "matrix.gt",
                     "doc_outlets": [
                         {
                             "info": "compare result - matrix with 1 and 0",
@@ -1880,8 +1881,9 @@
                     "params": [
                         "matrix to compare"
                     ],
-                    "pd_aliases": [],
-                    "pd_name": ">",
+                    "pd_aliases": [
+                        "matrix.>"
+                    ],
                     "pddoc_args": [
                         {
                             "info": "matrix to compare (Matrix NROWS NCOLS ...) or float to compare",
@@ -2261,7 +2263,7 @@
                             }
                         ]
                     ],
-                    "doc_name": "matrix.<=",
+                    "doc_name": "matrix.le",
                     "doc_outlets": [
                         {
                             "info": "compare result - matrix with 1 and 0",
@@ -2285,8 +2287,9 @@
                     "params": [
                         "matrix to compare"
                     ],
-                    "pd_aliases": [],
-                    "pd_name": "<=",
+                    "pd_aliases": [
+                        "matrix.<="
+                    ],
                     "pddoc_args": [
                         {
                             "info": "matrix to compare (Matrix NROWS NCOLS ...) or float to compare",
@@ -2551,7 +2554,7 @@
                             }
                         ]
                     ],
-                    "doc_name": "matrix.<",
+                    "doc_name": "matrix.lt",
                     "doc_outlets": [
                         {
                             "info": "compare result - matrix with 1 and 0",
@@ -2575,8 +2578,9 @@
                     "params": [
                         "matrix to compare"
                     ],
-                    "pd_aliases": [],
-                    "pd_name": "<",
+                    "pd_aliases": [
+                        "matrix.<"
+                    ],
                     "pddoc_args": [
                         {
                             "info": "matrix to compare (Matrix NROWS NCOLS ...) or float to compare",

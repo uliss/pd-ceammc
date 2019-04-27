@@ -35,7 +35,9 @@ matrix.fill
 matrix.from_list
 list->matrix
 matrix.full
+matrix.ge
 matrix.>=
+matrix.gt
 matrix.>
 matrix.hist
 matrix.identity
@@ -44,10 +46,12 @@ matrix.insert_col
 matrix.insert_row
 matrix.inverse
 matrix.-1
+matrix.le
 matrix.<=
 matrix.linspace
 matrix.load
 matrix.logspace
+matrix.lt
 matrix.<
 matrix.matmul
 matrix.dot
