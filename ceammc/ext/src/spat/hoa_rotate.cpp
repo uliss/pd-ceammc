@@ -38,17 +38,15 @@ void HoaRotate::parseProperties()
 void HoaRotate::processBlock(const t_sample** in, t_sample** out)
 {
     const size_t NOUTS = numOutputChannels();
-    const size_t NINS = numInputChannels();
+    const size_t NINS = numInputChannels() - 1; // last input is for Yaw
     const size_t BS = blockSize();
 
-    for (size_t i = 0; i < NOUTS; i++) {
+    for (size_t i = 0; i < NINS; i++) {
         Signal::copy(BS, &in[i][0], 1, &in_buf_[i], NINS);
     }
 
     for (size_t i = 0; i < BS; i++) {
-        rotate_->setYaw(in[NINS - 1][i]);
-        // CHECK THIS
-        // WARN!
+        rotate_->setYaw(in[NINS][i]); // read from last inlet
         rotate_->process(&in_buf_[NINS * i], &out_buf_[NOUTS * i]);
     }
 
