@@ -34,13 +34,19 @@ public:
     void setupDSP(t_signal** sp) override;
     void blocksizeChanged(size_t bs) override;
 
-    AtomList propCropSize() const;
-    void propSetCropSize(const AtomList& lst);
-    AtomList propPlaneWavesAzimuth() const;
     AtomList propPlaneWavesX() const;
     AtomList propPlaneWavesY() const;
     AtomList propPlaneWavesZ() const;
     AtomList propNumHarmonics() const;
+
+    AtomList propCropSize() const;
+    void propSetCropSize(const AtomList& lst);
+
+    AtomList propAngles() const;
+    void propSetAngles(const AtomList& lst);
+
+    AtomList propOffset() const;
+    void propSetOffset(const AtomList& lst);
 
 private:
     void processCommon();

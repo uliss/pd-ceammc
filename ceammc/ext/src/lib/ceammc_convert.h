@@ -14,6 +14,8 @@
 #ifndef CEAMMC_CONVERT_H
 #define CEAMMC_CONVERT_H
 
+#define _USE_MATH_DEFINES
+
 #include <algorithm>
 #include <cmath>
 #include <string>
@@ -110,6 +112,26 @@ T relativeIndex(T v, typename std::make_unsigned<T>::type n)
     return (v < 0) ? v + N : v;
 }
 
+/**
+ * wrap x -> [0,max)
+ */
+template <typename T>
+T wrapFloatMax(T x, T max)
+{
+    static_assert(std::is_floating_point<T>(), "Floating point type expected");
+    /* integer math: `(max + x % max) % max` */
+    return std::fmod(max + std::fmod(x, max), max);
+}
+
+/**
+ * wrap x -> [min,max)
+ */
+template <typename T>
+T wrapFloatMinMax(T x, T min, T max)
+{
+    return min + wrapFloatMax<T>(x - min, max - min);
+}
+
 namespace convert {
     namespace time {
         /**
@@ -162,6 +184,67 @@ namespace convert {
      */
     float freq2midi(float freq, float a_freq = 440.f);
     double freq2midi(double freq, double a_freq = 440);
+
+    /**
+     * x -> [0, 2pi)
+     */
+    template <typename T>
+    T phase2rad(T x)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return wrapFloatMax<T>(x, 1) * (2 * M_PI);
+    }
+
+    /**
+     * x -> [0, 360)
+     */
+    template <typename T>
+    T phase2degree(T x)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return wrapFloatMax<T>(x * 360, 360);
+    }
+
+    /**
+     * x -> [0, 1)
+     */
+    template <typename T>
+    T degree2phase(T x)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return wrapFloatMax<T>(x, 360) / 360;
+    }
+
+    /**
+     * x -> [0, 2pi)
+     */
+    template <typename T>
+    T degree2rad(T x)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return (wrapFloatMax<T>(x, 360) / 360) * (2 * M_PI);
+    }
+
+    /**
+     * x -> [0, 1)
+     */
+    template <typename T>
+    T rad2phase(T x)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return wrapFloatMax<T>(x / (2 * M_PI), 1);
+    }
+
+    /**
+     * x -> [0, 360)
+     */
+    template <typename T>
+    T rad2degree(T x)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return wrapFloatMax<T>(x * 360 / (2 * M_PI), 360);
+    }
+
 }
 }
 

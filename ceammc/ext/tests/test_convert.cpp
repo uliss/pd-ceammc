@@ -570,4 +570,110 @@ TEST_CASE("convert", "[PureData]")
         REQUIRE(freq2midi(0.f) == Approx(-1));
         REQUIRE(freq2midi(-10.f) == Approx(-1));
     }
+
+    SECTION("rad/phase/degrees")
+    {
+        REQUIRE(phase2rad<float>(0) == Approx(0));
+        REQUIRE(phase2rad<float>(0.25) == Approx(M_PI_2));
+        REQUIRE(phase2rad<float>(0.5) == Approx(M_PI));
+        REQUIRE(phase2rad<float>(1) == Approx(0));
+        REQUIRE(phase2rad<double>(0) == Approx(0));
+        REQUIRE(phase2rad<double>(0.25) == Approx(M_PI_2));
+        REQUIRE(phase2rad<double>(0.5) == Approx(M_PI));
+        REQUIRE(phase2rad<double>(1) == Approx(0));
+        REQUIRE(phase2rad<double>(1000) == Approx(0));
+        REQUIRE(phase2rad<double>(1000.125) == Approx(M_PI_4));
+        REQUIRE(phase2rad<double>(-1000) == Approx(0));
+
+        REQUIRE(phase2degree<double>(0) == Approx(0));
+        REQUIRE(phase2degree<double>(0.25) == Approx(90));
+        REQUIRE(phase2degree<double>(5.5) == Approx(180));
+        REQUIRE(phase2degree<double>(-0.25) == Approx(270));
+        REQUIRE(degree2rad<double>(0) == Approx(0));
+        REQUIRE(degree2rad<double>(90) == Approx(M_PI_2));
+        REQUIRE(degree2rad<double>(-180) == Approx(M_PI));
+
+        // degree->phase->degree
+        REQUIRE(phase2degree<float>(degree2phase<float>(0)) == Approx(0));
+        REQUIRE(phase2degree<float>(degree2phase<float>(90)) == Approx(90));
+        REQUIRE(phase2degree<float>(degree2phase<float>(181)) == Approx(181));
+        REQUIRE(phase2degree<float>(degree2phase<float>(272)) == Approx(272));
+        REQUIRE(phase2degree<float>(degree2phase<float>(360)) == Approx(0));
+        REQUIRE(phase2degree<float>(degree2phase<float>(361.1)) == Approx(1.1));
+        REQUIRE(phase2degree<float>(degree2phase<float>(-90)) == Approx(270));
+        REQUIRE(phase2degree<float>(degree2phase<float>(360010)) == Approx(10));
+
+        // phase->degree->phase
+        REQUIRE(degree2phase<float>(phase2degree<float>(0)) == Approx(0));
+        REQUIRE(degree2phase<float>(phase2degree<float>(0.5)) == Approx(0.5));
+        REQUIRE(degree2phase<float>(phase2degree<float>(2.1)) == Approx(0.1));
+        REQUIRE(degree2phase<float>(phase2degree<float>(-0.4)) == Approx(0.6));
+
+        // rad->phase->rad
+        REQUIRE(phase2rad<float>(rad2phase<float>(0)) == Approx(0));
+        REQUIRE(phase2rad<float>(rad2phase<float>(0.5)) == Approx(0.5));
+        REQUIRE(phase2rad<float>(rad2phase<float>(M_PI)) == Approx(M_PI));
+        REQUIRE(phase2rad<float>(rad2phase<float>(-M_PI)) == Approx(M_PI));
+        REQUIRE(phase2rad<float>(rad2phase<float>(-M_PI_2)) == Approx(3 * M_PI_2));
+        REQUIRE(phase2rad<float>(rad2phase<float>(2 * M_PI)) == Approx(0));
+
+        // phase->rad->phase
+        REQUIRE(rad2phase<float>(phase2rad<float>(0)) == Approx(0));
+        REQUIRE(rad2phase<float>(phase2rad<float>(0.5)) == Approx(0.5));
+        REQUIRE(rad2phase<float>(phase2rad<float>(1)) == Approx(0));
+        REQUIRE(rad2phase<float>(phase2rad<float>(1.1)) == Approx(0.1));
+
+        // rad->degree->rad
+        REQUIRE(degree2rad<float>(rad2degree<float>(0)) == Approx(0));
+        REQUIRE(degree2rad<float>(rad2degree<float>(M_PI)) == Approx(M_PI));
+        REQUIRE(degree2rad<float>(rad2degree<float>(2 * M_PI)) == Approx(0));
+        REQUIRE(degree2rad<float>(rad2degree<float>(-M_PI)) == Approx(M_PI));
+        REQUIRE(degree2rad<float>(rad2degree<float>(-M_PI_2)) == Approx(3 * M_PI_2));
+
+        // degree->rad->degree
+        REQUIRE(rad2degree<float>(degree2rad<float>(0)) == Approx(0));
+        REQUIRE(rad2degree<float>(degree2rad<float>(90)) == Approx(90));
+        REQUIRE(rad2degree<float>(degree2rad<float>(359.9)) == Approx(359.9));
+        REQUIRE(rad2degree<float>(degree2rad<float>(360)) == Approx(0));
+        REQUIRE(rad2degree<float>(degree2rad<float>(360000)) == Approx(0));
+        REQUIRE(rad2degree<float>(degree2rad<float>(-179)) == Approx(181));
+    }
+
+    SECTION("wrapeFloatMax")
+    {
+        using namespace ceammc;
+        REQUIRE(wrapFloatMax<float>(0, 2.5) == Approx(0));
+        REQUIRE(wrapFloatMax<float>(2, 2.5) == Approx(2));
+        REQUIRE(wrapFloatMax<float>(2.49, 2.5) == Approx(2.49));
+        REQUIRE(wrapFloatMax<float>(2.5, 2.5) == Approx(0));
+        REQUIRE(wrapFloatMax<float>(2.51, 2.5) == Approx(0.01));
+        REQUIRE(wrapFloatMax<float>(2.51, 2.5) == Approx(0.01));
+        REQUIRE(wrapFloatMax<float>(-0.1, 2.5) == Approx(2.4));
+
+        REQUIRE(wrapFloatMax<double>(0, 2.5) == Approx(0));
+        REQUIRE(wrapFloatMax<double>(2, 2.5) == Approx(2));
+        REQUIRE(wrapFloatMax<double>(2.49, 2.5) == Approx(2.49));
+        REQUIRE(wrapFloatMax<double>(2.5, 2.5) == Approx(0));
+        REQUIRE(wrapFloatMax<double>(2.51, 2.5) == Approx(0.01));
+        REQUIRE(wrapFloatMax<double>(2.51, 2.5) == Approx(0.01));
+        REQUIRE(wrapFloatMax<double>(-2500.01, 2.5) == Approx(2.49));
+        REQUIRE(wrapFloatMax<double>(2500.01, 2.5) == Approx(0.01));
+    }
+
+    SECTION("wrapeFloatMinMax")
+    {
+        using namespace ceammc;
+        REQUIRE(wrapFloatMinMax<float>(1.1, 1.1, 3.2) == Approx(1.1));
+        REQUIRE(wrapFloatMinMax<float>(1.2, 1.1, 3.2) == Approx(1.2));
+        REQUIRE(wrapFloatMinMax<float>(3.1, 1.1, 3.2) == Approx(3.1));
+        REQUIRE(wrapFloatMinMax<float>(3.2, 1.1, 3.2) == Approx(1.1));
+        REQUIRE(wrapFloatMinMax<float>(1.0, 1.1, 3.2) == Approx(3.1));
+
+        REQUIRE(wrapFloatMinMax<double>(-1, -1, 1) == Approx(-1));
+        REQUIRE(wrapFloatMinMax<double>(0, -1, 1) == Approx(0));
+        REQUIRE(wrapFloatMinMax<double>(0.9, -1, 1) == Approx(0.9));
+        REQUIRE(wrapFloatMinMax<double>(1, -1, 1) == Approx(-1));
+        REQUIRE(wrapFloatMinMax<double>(1.1, -1, 1) == Approx(-0.9));
+        REQUIRE(wrapFloatMinMax<double>(-1.1, -1, 1) == Approx(0.9));
+    }
 }
