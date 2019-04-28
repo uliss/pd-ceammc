@@ -17,6 +17,7 @@ add_subdirectory(speech)
 add_subdirectory(stk)
 add_subdirectory(subprocess)
 add_subdirectory(fmt)
+add_subdirectory(HoaLibrary-Light)
 
 option(RE2_BUILD_TESTING "" OFF)
 add_subdirectory(re2)

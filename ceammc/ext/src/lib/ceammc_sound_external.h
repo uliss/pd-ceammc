@@ -75,6 +75,16 @@ public:
      */
     void dump() const override;
 
+    /**
+     * @brief return pointer to input blocks
+     */
+    t_sample** inputBlocks() { return in_; }
+
+    /**
+     * @brief return pointer to output blocks
+     */
+    t_sample** outputBlocks() { return out_; }
+
 private:
     inline void _processBlock()
     {
