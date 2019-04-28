@@ -46,15 +46,15 @@ public:
         : SoundExternal(args)
         , order_(nullptr)
     {
+        order_ = new IntPropertyClosedRange("@order",
+            positionalFloatArgument(0, HOA_DEFAULT_ORDER), HOA_MIN_ORDER, HOA_MAX_ORDER);
+        createProperty(order_);
     }
 
     void parseProperties() override
     {
         SoundExternal::parseProperties();
-
-        order_ = new IntPropertyClosedRange("@order",
-            positionalFloatArgument(0, HOA_DEFAULT_ORDER), HOA_MIN_ORDER, HOA_MAX_ORDER);
-        createProperty(order_);
+        order_->setReadonly(true);
     }
 
     int order() const { return order_->value(); }

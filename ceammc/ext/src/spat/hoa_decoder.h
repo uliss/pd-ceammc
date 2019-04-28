@@ -20,11 +20,11 @@
 
 class HoaDecoder : public HoaBase {
     SymbolEnumProperty* mode_;
+    IntProperty* plain_waves_;
     std::unique_ptr<Decoder2d> decoder_;
     Buffer in_buf_;
     Buffer out_buf_;
     size_t crop_size_;
-    size_t num_plain_waves_;
 
 public:
     HoaDecoder(const PdArgs& args);
@@ -40,9 +40,6 @@ public:
     AtomList propPlaneWavesX() const;
     AtomList propPlaneWavesY() const;
     AtomList propPlaneWavesZ() const;
-
-    AtomList propNumPlainWaves() const;
-    void propSetNumPlainWaves(const AtomList& lst);
     AtomList propNumHarmonics() const;
 
 private:
@@ -64,6 +61,8 @@ private:
     }
 
     void initDecoder();
+    void parseMode();
+    void parsePlainWavesNum();
 };
 
 void setup_spat_hoa_decoder();

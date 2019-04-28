@@ -36,8 +36,8 @@ constexpr bool is_in(T t, T v, Args... args)
 HoaDecoder::HoaDecoder(const PdArgs& args)
     : HoaBase(args)
     , mode_(nullptr)
+    , plain_waves_(nullptr)
     , crop_size_(0)
-    , num_plain_waves_(0)
 {
     mode_ = new SymbolEnumProperty("@mode", SYM_REGULAR);
     mode_->appendEnum(SYM_IRREGULAR);
@@ -47,6 +47,9 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
     createProperty(new SymbolEnumAlias("@irregular", mode_, SYM_IRREGULAR));
     createProperty(new SymbolEnumAlias("@binaural", mode_, SYM_BINAURAL));
 
+    plain_waves_ = new IntProperty("@num_pw", 0);
+    createProperty(plain_waves_);
+
     Property* pcrop = createCbProperty("@crop", &HoaDecoder::propCropSize, &HoaDecoder::propSetCropSize);
     auto& pinfo = pcrop->info();
     pinfo.setDefault(0);
@@ -55,7 +58,6 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
     pinfo.setUnits(PropertyInfoUnits::SAMP);
     pinfo.setType(PropertyInfoType::INTEGER);
 
-    createCbProperty("@num_pw", &HoaDecoder::propNumPlainWaves, &HoaDecoder::propSetNumPlainWaves);
     createCbProperty("@num_harm", &HoaDecoder::propNumHarmonics);
 
     createCbProperty("@pw_azimuth", &HoaDecoder::propPlaneWavesAzimuth);
@@ -64,22 +66,59 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
     createCbProperty("@pw_z", &HoaDecoder::propPlaneWavesZ);
 }
 
-void HoaDecoder::parseProperties()
+void HoaDecoder::parseMode()
 {
-    HoaBase::parseProperties();
     auto pos_arg = positionalSymbolArgument(1, nullptr);
     if (pos_arg != nullptr)
         mode_->setValue(pos_arg);
 
     mode_->setReadonly(true);
+}
+
+void HoaDecoder::parsePlainWavesNum()
+{
+    const int MIN_PW_COUNT = 2 * order() + 1;
+
+    auto pos_arg = positionalFloatArgument(2, 0);
+    if (pos_arg != 0)
+        plain_waves_->setValue(pos_arg);
+
+    const auto N = plain_waves_->value();
+
+    if (N < MIN_PW_COUNT) {
+        // num of plain waves ignored in binaural mode
+        if (mode_->value() == SYM_BINAURAL) {
+            if (N != 2) {
+                if (N != 0)
+                    OBJ_ERR << "ignoring value in binaural mode: " << N;
+
+                plain_waves_->setValue(2);
+            }
+        } else {
+            // zero means auto calc
+            if (N != 0)
+                OBJ_ERR << "minimal number of plain waves should be >= " << MIN_PW_COUNT << ", setting to this value";
+
+            plain_waves_->setValue(MIN_PW_COUNT);
+        }
+    }
+
+    plain_waves_->setReadonly(true);
+}
+
+void HoaDecoder::parseProperties()
+{
+    HoaBase::parseProperties();
+    parseMode();
+    parsePlainWavesNum();
 
     initDecoder();
 
     createSignalInlets(decoder_->getNumberOfHarmonics());
     createSignalOutlets(decoder_->getNumberOfPlanewaves());
 
-    in_buf_.resize(decoder_->getNumberOfHarmonics() * HOA_DEFAULT_BLOCK_SIZE);
-    out_buf_.resize(decoder_->getNumberOfPlanewaves() * HOA_DEFAULT_BLOCK_SIZE);
+    in_buf_.resize(numInputChannels() * HOA_DEFAULT_BLOCK_SIZE);
+    out_buf_.resize(numOutputChannels() * HOA_DEFAULT_BLOCK_SIZE);
 }
 
 void HoaDecoder::processBlock(const t_sample** in, t_sample** out)
@@ -119,7 +158,6 @@ void HoaDecoder::processBinaural()
 
 void HoaDecoder::setupDSP(t_signal** sp)
 {
-    OBJ_LOG << "setup dsp...";
     HoaBase::setupDSP(sp);
 
     decoder_->prepare(blockSize());
@@ -141,18 +179,11 @@ void HoaDecoder::blocksizeChanged(size_t bs)
 
 void HoaDecoder::initDecoder()
 {
-    int state = canvas_suspend_dsp();
-
     t_symbol* mode = mode_->value();
     if (mode == SYM_REGULAR) {
-        int arg = order() * 2 + 1;
-        decoder_.reset(new DecoderRegular2d(order(), arg));
+        decoder_.reset(new DecoderRegular2d(order(), plain_waves_->value()));
     } else if (mode == SYM_IRREGULAR) {
-        int arg = order() * 2 + 1;
-        //        if (argc > 2 && argv + 2 && atom_gettype(argv + 2) == A_LONG) {
-        //            arg = ulong(pd_clip_min(atom_getlong(argv + 2), 1));
-        //        }
-        decoder_.reset(new DecoderIrregular2d(order(), arg));
+        decoder_.reset(new DecoderIrregular2d(order(), plain_waves_->value()));
     } else if (mode == SYM_BINAURAL) {
         DecoderBinaural2d* x = new DecoderBinaural2d(order());
         x->setCropSize(crop_size_);
@@ -162,8 +193,6 @@ void HoaDecoder::initDecoder()
     } else {
         OBJ_ERR << "unknown mode: " << mode;
     }
-
-    canvas_resume_dsp(state);
 }
 
 AtomList HoaDecoder::propCropSize() const
@@ -235,17 +264,6 @@ AtomList HoaDecoder::propPlaneWavesZ() const
         res.append(decoder_->getPlanewaveHeight(i, true));
 
     return res;
-}
-
-AtomList HoaDecoder::propNumPlainWaves() const
-{
-    assert(decoder_ && "decoder is uninitialized");
-
-    return Atom(decoder_->getNumberOfPlanewaves());
-}
-
-void HoaDecoder::propSetNumPlainWaves(const AtomList& lst)
-{
 }
 
 AtomList HoaDecoder::propNumHarmonics() const
