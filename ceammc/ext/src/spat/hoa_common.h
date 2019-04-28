@@ -35,6 +35,8 @@ typedef hoa::DecoderIrregular<hoa::Hoa2d, t_sample> DecoderIrregular2d;
 typedef hoa::DecoderRegular<hoa::Hoa2d, t_sample> DecoderRegular2d;
 typedef hoa::Encoder<hoa::Hoa2d, t_sample> Encoder2d;
 typedef hoa::Rotate<hoa::Hoa2d, t_sample> Rotate2d;
+typedef hoa::Wider<hoa::Hoa2d, t_sample> Wider2d;
+
 typedef hoa::Signal<t_sample> Signal;
 typedef std::vector<t_sample> Buffer;
 

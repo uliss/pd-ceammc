@@ -16,6 +16,7 @@ set(HOA_SOURCES
     hoa_encoder.cpp
     hoa_optim.cpp
     hoa_rotate.cpp
+    hoa_wider.cpp
 )
 
 macro(ceammc_spat_obj_ext name)
