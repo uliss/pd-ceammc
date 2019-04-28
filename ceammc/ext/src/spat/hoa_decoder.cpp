@@ -12,9 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "hoa_decoder.h"
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
-
-#include <cassert>
 
 static t_symbol* SYM_REGULAR;
 static t_symbol* SYM_IRREGULAR;
@@ -47,7 +46,7 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
     createProperty(new SymbolEnumAlias("@irregular", mode_, SYM_IRREGULAR));
     createProperty(new SymbolEnumAlias("@binaural", mode_, SYM_BINAURAL));
 
-    plain_waves_ = new IntProperty("@num_pw", 0);
+    plain_waves_ = new IntProperty("@n", 0);
     createProperty(plain_waves_);
 
     Property* pcrop = createCbProperty("@crop", &HoaDecoder::propCropSize, &HoaDecoder::propSetCropSize);
@@ -59,11 +58,12 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
     pinfo.setType(PropertyInfoType::INTEGER);
 
     createCbProperty("@num_harm", &HoaDecoder::propNumHarmonics);
-
-    createCbProperty("@pw_azimuth", &HoaDecoder::propPlaneWavesAzimuth);
     createCbProperty("@pw_x", &HoaDecoder::propPlaneWavesX);
     createCbProperty("@pw_y", &HoaDecoder::propPlaneWavesY);
     createCbProperty("@pw_z", &HoaDecoder::propPlaneWavesZ);
+
+    createCbProperty("@angles", &HoaDecoder::propAngles, &HoaDecoder::propSetAngles);
+    createCbProperty("@offset", &HoaDecoder::propOffset, &HoaDecoder::propSetOffset);
 }
 
 void HoaDecoder::parseMode()
@@ -171,8 +171,6 @@ void HoaDecoder::setupDSP(t_signal** sp)
 
 void HoaDecoder::blocksizeChanged(size_t bs)
 {
-    assert(decoder_ && "decoder is uninitialized");
-
     in_buf_.resize(numInputChannels() * bs);
     out_buf_.resize(numOutputChannels() * bs);
 }
@@ -229,8 +227,6 @@ void HoaDecoder::propSetCropSize(const AtomList& lst)
 
 AtomList HoaDecoder::propPlaneWavesX() const
 {
-    assert(decoder_ && "decoder is uninitialized");
-
     auto N = decoder_->getNumberOfPlanewaves();
     AtomList res;
     res.reserve(N);
@@ -242,8 +238,6 @@ AtomList HoaDecoder::propPlaneWavesX() const
 
 AtomList HoaDecoder::propPlaneWavesY() const
 {
-    assert(decoder_ && "decoder is uninitialized");
-
     auto N = decoder_->getNumberOfPlanewaves();
     AtomList res;
     res.reserve(N);
@@ -255,8 +249,6 @@ AtomList HoaDecoder::propPlaneWavesY() const
 
 AtomList HoaDecoder::propPlaneWavesZ() const
 {
-    assert(decoder_ && "decoder is uninitialized");
-
     auto N = decoder_->getNumberOfPlanewaves();
     AtomList res;
     res.reserve(N);
@@ -268,22 +260,55 @@ AtomList HoaDecoder::propPlaneWavesZ() const
 
 AtomList HoaDecoder::propNumHarmonics() const
 {
-    assert(decoder_ && "decoder is uninitialized");
-
     return Atom(decoder_->getNumberOfHarmonics());
 }
 
-AtomList HoaDecoder::propPlaneWavesAzimuth() const
+AtomList HoaDecoder::propAngles() const
 {
-    assert(decoder_ && "decoder is uninitialized");
-
     auto N = decoder_->getNumberOfPlanewaves();
     AtomList res;
     res.reserve(N);
     for (size_t i = 0; i < N; i++)
-        res.append(Atom(decoder_->getPlanewaveAzimuth(i, true)));
+        res.append(Atom(convert::rad2degree(decoder_->getPlanewaveAzimuth(i, true))));
 
     return res;
+}
+
+void HoaDecoder::propSetAngles(const AtomList& lst)
+{
+    if (mode_->value() != SYM_IRREGULAR) {
+        OBJ_ERR << "not in irregular mode: can not set angles";
+        return;
+    }
+
+    if (lst.empty()) {
+        OBJ_ERR << "angle list in degrees expected";
+        return;
+    }
+
+    auto N = std::min<size_t>(decoder_->getNumberOfPlanewaves(), lst.size());
+    for (size_t i = 0; i < N; i++)
+        decoder_->setPlanewaveAzimuth(i, convert::degree2rad(lst[i].asFloat()));
+}
+
+AtomList HoaDecoder::propOffset() const
+{
+    return Atom(convert::rad2degree(decoder_->getPlanewavesRotationZ()));
+}
+
+void HoaDecoder::propSetOffset(const AtomList& lst)
+{
+    if (mode_->value() == SYM_BINAURAL) {
+        OBJ_ERR << "can not set offset in binaural mode";
+        return;
+    }
+
+    if (!checkArgs(lst, ARG_FLOAT)) {
+        OBJ_ERR << "offset angle in degrees expected: " << lst;
+        return;
+    }
+
+    decoder_->setPlanewavesRotation(0, 0, convert::degree2rad(lst[0].asFloat()));
 }
 
 void setup_spat_hoa_decoder()
