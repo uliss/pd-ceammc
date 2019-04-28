@@ -14,6 +14,7 @@ set(HOA_SOURCES
     hoa_common.h
     hoa_decoder.cpp
     hoa_encoder.cpp
+    hoa_optim.cpp
     hoa_rotate.cpp
 )
 

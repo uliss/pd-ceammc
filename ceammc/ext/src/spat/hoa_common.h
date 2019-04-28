@@ -28,6 +28,7 @@ static const int HOA_DEFAULT_ORDER = 4;
 static const int HOA_MAXBLKSIZE = 8912;
 static const int HOA_DEFAULT_BLOCK_SIZE = 64;
 
+typedef hoa::Optim<hoa::Hoa2d, t_sample> Optim2d;
 typedef hoa::Decoder<hoa::Hoa2d, t_sample> Decoder2d;
 typedef hoa::DecoderBinaural<hoa::Hoa2d, t_sample, hoa::hrir::Sadie_D2_2D> DecoderBinaural2d;
 typedef hoa::DecoderIrregular<hoa::Hoa2d, t_sample> DecoderIrregular2d;
