@@ -14,17 +14,38 @@
 #include "hoa_decoder.h"
 #include "ceammc_factory.h"
 
+#include <cassert>
+
+static t_symbol* SYM_REGULAR;
+static t_symbol* SYM_IRREGULAR;
+static t_symbol* SYM_BINAURAL;
+static t_symbol* SYM_PROP_MODE;
+
+template <typename T>
+constexpr bool is_in(T t, T v)
+{
+    return t == v;
+}
+
+template <typename T, typename... Args>
+constexpr bool is_in(T t, T v, Args... args)
+{
+    return t == v || is_in(t, args...);
+}
+
 HoaDecoder::HoaDecoder(const PdArgs& args)
     : HoaBase(args)
-    , mode_(MODE_REGULAR)
+    , mode_(nullptr)
     , crop_size_(0)
+    , num_plain_waves_(0)
 {
-    typedef CallbackProperty<HoaDecoder> CbProp;
-    typedef AliasProperty<CbProp, AtomList> AliasProp;
-    CbProp* pmode = (CbProp*)createCbProperty("@mode", &HoaDecoder::propMode, &HoaDecoder::propSetMode);
-    //    createProperty(new AliasProp("@regular", prop, AtomList(Atom(gensym("regular")))));
-    //    createProperty(new AliasProp("@irregular", prop, AtomList(Atom(gensym("irregular")))));
-    //    createProperty(new AliasProp("@binaural", prop, AtomList(Atom(gensym("binaural")))));
+    mode_ = new SymbolEnumProperty("@mode", SYM_REGULAR);
+    mode_->appendEnum(SYM_IRREGULAR);
+    mode_->appendEnum(SYM_BINAURAL);
+    createProperty(mode_);
+    createProperty(new SymbolEnumAlias("@regular", mode_, SYM_REGULAR));
+    createProperty(new SymbolEnumAlias("@irregular", mode_, SYM_IRREGULAR));
+    createProperty(new SymbolEnumAlias("@binaural", mode_, SYM_BINAURAL));
 
     Property* pcrop = createCbProperty("@crop", &HoaDecoder::propCropSize, &HoaDecoder::propSetCropSize);
     auto& pinfo = pcrop->info();
@@ -48,9 +69,11 @@ void HoaDecoder::parseProperties()
     HoaBase::parseProperties();
     auto pos_arg = positionalSymbolArgument(1, nullptr);
     if (pos_arg != nullptr)
-        setProperty("@mode", Atom(pos_arg));
+        mode_->setValue(pos_arg);
 
-    setMode();
+    mode_->setReadonly(true);
+
+    initDecoder();
 
     createSignalInlets(decoder_->getNumberOfHarmonics());
     createSignalOutlets(decoder_->getNumberOfPlanewaves());
@@ -67,7 +90,7 @@ void HoaDecoder::processBlock(const t_sample** in, t_sample** out)
 void HoaDecoder::processCommon()
 {
     const size_t NINS = numInputChannels();
-    const size_t NOUTS = numInputChannels();
+    const size_t NOUTS = numOutputChannels();
     const size_t BS = blockSize();
 
     t_sample** in_blocks = inputBlocks();
@@ -94,41 +117,14 @@ void HoaDecoder::processBinaural()
     p->processBlock((const t_sample**)in_blocks, out_blocks);
 }
 
-void HoaDecoder::setMode()
-{
-    int state = canvas_suspend_dsp();
-
-    switch (mode_) {
-    case MODE_REGULAR: {
-        int arg = order() * 2 + 1;
-        decoder_.reset(new DecoderRegular2d(order(), arg));
-    } break;
-    case MODE_IRREGULAR: {
-        int arg = order() * 2 + 1;
-        //        if (argc > 2 && argv + 2 && atom_gettype(argv + 2) == A_LONG) {
-        //            arg = ulong(pd_clip_min(atom_getlong(argv + 2), 1));
-        //        }
-        decoder_.reset(new DecoderIrregular2d(order(), arg));
-    } break;
-    case MODE_BINAURAL: {
-        auto x = new DecoderBinaural2d(order());
-        x->setCropSize(crop_size_);
-        // to assure limits
-        crop_size_ = x->getCropSize();
-        decoder_.reset(x);
-    } break;
-    }
-
-    canvas_resume_dsp(state);
-}
-
 void HoaDecoder::setupDSP(t_signal** sp)
 {
+    OBJ_LOG << "setup dsp...";
     HoaBase::setupDSP(sp);
 
     decoder_->prepare(blockSize());
 
-    if (mode_ == MODE_BINAURAL) {
+    if (mode_->value() == SYM_BINAURAL) {
         dsp_add(dspPerformBinaural, 1, static_cast<void*>(this));
     } else {
         dsp_add(dspPerformCommon, 1, static_cast<void*>(this));
@@ -137,56 +133,42 @@ void HoaDecoder::setupDSP(t_signal** sp)
 
 void HoaDecoder::blocksizeChanged(size_t bs)
 {
-    in_buf_.resize(decoder_->getNumberOfHarmonics() * bs);
-    out_buf_.resize(decoder_->getNumberOfPlanewaves() * bs);
+    assert(decoder_ && "decoder is uninitialized");
+
+    in_buf_.resize(numInputChannels() * bs);
+    out_buf_.resize(numOutputChannels() * bs);
 }
 
-AtomList HoaDecoder::propMode() const
+void HoaDecoder::initDecoder()
 {
-    switch (mode_) {
-    case MODE_REGULAR:
-        return Atom(gensym("regular"));
-    case MODE_IRREGULAR:
-        return Atom(gensym("irregular"));
-    case MODE_BINAURAL:
-        return Atom(gensym("binaural"));
-    }
-}
+    int state = canvas_suspend_dsp();
 
-void HoaDecoder::propSetMode(const AtomList& lst)
-{
-    OBJ_DBG << "set prop: " << lst;
-
-    if (!checkArgs(lst, ARG_SYMBOL)) {
-        OBJ_ERR << "decoder mode expected: regular, irregular or binaural";
-        return;
-    }
-
-    t_symbol* name = lst.symbolAt(0, nullptr);
-
-    if (name == gensym("regular")) {
-        if (mode_ != MODE_REGULAR || !decoder_) {
-            mode_ = MODE_REGULAR;
-            setMode();
-        }
-    } else if (name == gensym("irregular")) {
-        if (mode_ != MODE_IRREGULAR || !decoder_) {
-            mode_ = MODE_IRREGULAR;
-            setMode();
-        }
-    } else if (name == gensym("binaural")) {
-        if (mode_ != MODE_BINAURAL || !decoder_) {
-            mode_ = MODE_BINAURAL;
-            setMode();
-        }
+    t_symbol* mode = mode_->value();
+    if (mode == SYM_REGULAR) {
+        int arg = order() * 2 + 1;
+        decoder_.reset(new DecoderRegular2d(order(), arg));
+    } else if (mode == SYM_IRREGULAR) {
+        int arg = order() * 2 + 1;
+        //        if (argc > 2 && argv + 2 && atom_gettype(argv + 2) == A_LONG) {
+        //            arg = ulong(pd_clip_min(atom_getlong(argv + 2), 1));
+        //        }
+        decoder_.reset(new DecoderIrregular2d(order(), arg));
+    } else if (mode == SYM_BINAURAL) {
+        DecoderBinaural2d* x = new DecoderBinaural2d(order());
+        x->setCropSize(crop_size_);
+        // to assure limits
+        crop_size_ = x->getCropSize();
+        decoder_.reset(x);
     } else {
-        OBJ_ERR << "unknown mode: " << lst;
+        OBJ_ERR << "unknown mode: " << mode;
     }
+
+    canvas_resume_dsp(state);
 }
 
 AtomList HoaDecoder::propCropSize() const
 {
-    if (mode_ == MODE_BINAURAL) {
+    if (mode_->value() == SYM_BINAURAL) {
         DecoderBinaural2d* p = static_cast<DecoderBinaural2d*>(decoder_.get());
         return Atom(p->getCropSize());
     } else
@@ -208,7 +190,7 @@ void HoaDecoder::propSetCropSize(const AtomList& lst)
 
     crop_size_ = v;
 
-    if (mode_ == MODE_BINAURAL) {
+    if (mode_->value() == SYM_BINAURAL) {
         DecoderBinaural2d* p = static_cast<DecoderBinaural2d*>(decoder_.get());
         p->setCropSize(crop_size_);
         // to assure limits
@@ -218,6 +200,8 @@ void HoaDecoder::propSetCropSize(const AtomList& lst)
 
 AtomList HoaDecoder::propPlaneWavesX() const
 {
+    assert(decoder_ && "decoder is uninitialized");
+
     auto N = decoder_->getNumberOfPlanewaves();
     AtomList res;
     res.reserve(N);
@@ -229,6 +213,8 @@ AtomList HoaDecoder::propPlaneWavesX() const
 
 AtomList HoaDecoder::propPlaneWavesY() const
 {
+    assert(decoder_ && "decoder is uninitialized");
+
     auto N = decoder_->getNumberOfPlanewaves();
     AtomList res;
     res.reserve(N);
@@ -240,6 +226,8 @@ AtomList HoaDecoder::propPlaneWavesY() const
 
 AtomList HoaDecoder::propPlaneWavesZ() const
 {
+    assert(decoder_ && "decoder is uninitialized");
+
     auto N = decoder_->getNumberOfPlanewaves();
     AtomList res;
     res.reserve(N);
@@ -251,6 +239,8 @@ AtomList HoaDecoder::propPlaneWavesZ() const
 
 AtomList HoaDecoder::propNumPlainWaves() const
 {
+    assert(decoder_ && "decoder is uninitialized");
+
     return Atom(decoder_->getNumberOfPlanewaves());
 }
 
@@ -260,11 +250,15 @@ void HoaDecoder::propSetNumPlainWaves(const AtomList& lst)
 
 AtomList HoaDecoder::propNumHarmonics() const
 {
+    assert(decoder_ && "decoder is uninitialized");
+
     return Atom(decoder_->getNumberOfHarmonics());
 }
 
 AtomList HoaDecoder::propPlaneWavesAzimuth() const
 {
+    assert(decoder_ && "decoder is uninitialized");
+
     auto N = decoder_->getNumberOfPlanewaves();
     AtomList res;
     res.reserve(N);
@@ -276,5 +270,10 @@ AtomList HoaDecoder::propPlaneWavesAzimuth() const
 
 void setup_spat_hoa_decoder()
 {
+    SYM_REGULAR = gensym("regular");
+    SYM_IRREGULAR = gensym("irregular");
+    SYM_BINAURAL = gensym("binaural");
+    SYM_PROP_MODE = gensym("@mode");
+
     SoundExternalFactory<HoaDecoder> obj("!hoa.decoder~");
 }

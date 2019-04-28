@@ -19,17 +19,12 @@
 #include <memory>
 
 class HoaDecoder : public HoaBase {
-    enum Mode {
-        MODE_REGULAR = 0,
-        MODE_IRREGULAR,
-        MODE_BINAURAL
-    };
-
-    Mode mode_;
+    SymbolEnumProperty* mode_;
     std::unique_ptr<Decoder2d> decoder_;
     Buffer in_buf_;
     Buffer out_buf_;
     size_t crop_size_;
+    size_t num_plain_waves_;
 
 public:
     HoaDecoder(const PdArgs& args);
@@ -39,8 +34,6 @@ public:
     void setupDSP(t_signal** sp) override;
     void blocksizeChanged(size_t bs) override;
 
-    AtomList propMode() const;
-    void propSetMode(const AtomList& lst);
     AtomList propCropSize() const;
     void propSetCropSize(const AtomList& lst);
     AtomList propPlaneWavesAzimuth() const;
@@ -70,7 +63,7 @@ private:
         return (w + 2);
     }
 
-    void setMode();
+    void initDecoder();
 };
 
 void setup_spat_hoa_decoder();
