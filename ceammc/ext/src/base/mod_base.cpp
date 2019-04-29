@@ -1,6 +1,7 @@
 #include "mod_base.h"
 
 #include "base_click.h"
+#include "base_dac.h"
 #include "canvas_current.h"
 #include "canvas_top.h"
 #include "function.h"
@@ -82,6 +83,7 @@ void ceammc_base_setup()
     setup_test0x2edata();
     setup_test0x2eexpect();
 
+    setup_base_dac();
     setup_canvas_current();
     setup_canvas_top();
     setup_gain_tilde();

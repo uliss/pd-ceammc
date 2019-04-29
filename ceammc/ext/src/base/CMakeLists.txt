@@ -44,6 +44,7 @@ list(APPEND BASE_SOURCES
 # sound
 list(APPEND BASE_SOURCES
     base_click.cpp
+    base_dac.cpp
     gain.cpp
     matrix.cpp
     mix.cpp
