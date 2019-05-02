@@ -17,6 +17,8 @@
 #include <vector>
 
 #include "Hoa.hpp"
+// temporal fix: this file not exists in newest Hoa-Library-Light
+#include "Hoa_Tools.hpp"
 #include "m_pd.h"
 
 #include "ceammc_sound_external.h"
@@ -34,6 +36,8 @@ typedef hoa::DecoderBinaural<hoa::Hoa2d, t_sample, hoa::hrir::Sadie_D2_2D> Decod
 typedef hoa::DecoderIrregular<hoa::Hoa2d, t_sample> DecoderIrregular2d;
 typedef hoa::DecoderRegular<hoa::Hoa2d, t_sample> DecoderRegular2d;
 typedef hoa::Encoder<hoa::Hoa2d, t_sample> Encoder2d;
+typedef hoa::MultiEncoder<hoa::Hoa2d, t_sample> MultiEncoder2d;
+typedef hoa::PolarLines<hoa::Hoa2d, t_sample> PolarLines2d;
 typedef hoa::Rotate<hoa::Hoa2d, t_sample> Rotate2d;
 typedef hoa::Wider<hoa::Hoa2d, t_sample> Wider2d;
 
