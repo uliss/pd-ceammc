@@ -8,6 +8,7 @@
 extern void setup_spat_hoa_decoder();
 extern void setup_spat_hoa_encoder();
 extern void setup_spat_hoa_optim();
+extern void setup_spat_hoa_projector();
 extern void setup_spat_hoa_rotate();
 extern void setup_spat_hoa_wider();
 extern void setup_spat_pan4_tilde();
@@ -23,6 +24,7 @@ void ceammc_spat_setup()
     setup_spat_hoa_decoder();
     setup_spat_hoa_encoder();
     setup_spat_hoa_optim();
+    setup_spat_hoa_projector();
     setup_spat_hoa_rotate();
     setup_spat_hoa_wider();
     setup_spat_pan4_tilde();
