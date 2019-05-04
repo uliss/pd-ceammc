@@ -24,8 +24,6 @@ extern "C" {
 
 static const t_float YOFF = 30;
 
-static t_class* hoa_process_inlet_class;
-
 static t_symbol* HOA_SYM_SWITCH;
 static t_symbol* HOA_SYM_BLOCK;
 static t_symbol* HOA_SYM_OBJ;

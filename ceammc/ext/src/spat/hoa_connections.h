@@ -20,7 +20,7 @@
 using namespace ceammc;
 
 class HoaIn : public BaseObject {
-    int extra_;
+    IntPropertyMin* extra_;
 
 public:
     HoaIn(const PdArgs& args);
@@ -29,7 +29,7 @@ public:
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
     void onAny(t_symbol* s, const AtomList& l) override;
-    int extra() const { return extra_; }
+    int extra() const { return extra_->value(); }
 
 public:
     static HoaIn* fromObject(t_object* obj);

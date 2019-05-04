@@ -18,16 +18,10 @@
 
 HoaIn::HoaIn(const PdArgs& args)
     : BaseObject(args)
-    , extra_(0)
+    , extra_(nullptr)
 {
-    auto n = positionalFloatArgument(0, 0);
-    if (n < 1) {
-        OBJ_ERR << "extra index should be > 0: " << n;
-        n = 0;
-    }
-
-    extra_ = n;
-
+    extra_ = new IntPropertyMin("@index", positionalFloatArgument(0, 0), 0);
+    createProperty(extra_);
     createOutlet();
 }
 
