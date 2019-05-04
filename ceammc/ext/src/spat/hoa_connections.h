@@ -30,11 +30,11 @@ public:
 class HoaIn : public HoaXlet {
 public:
     HoaIn(const PdArgs& args);
-    void onBang() override;
-    void onFloat(t_float v) override;
-    void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& l) override;
-    void onAny(t_symbol* s, const AtomList& l) override;
+    void onBang() final;
+    void onFloat(t_float v) final;
+    void onSymbol(t_symbol* s) final;
+    void onList(const AtomList& l) final;
+    void onAny(t_symbol* s, const AtomList& l) final;
 
 public:
     static HoaIn* fromObject(void* obj);
@@ -46,11 +46,11 @@ class HoaOut : public HoaXlet {
 
 public:
     HoaOut(const PdArgs& args);
-    void onBang() override;
-    void onFloat(t_float v) override;
-    void onSymbol(t_symbol* s) override;
-    void onList(const AtomList& l) override;
-    void onAny(t_symbol* s, const AtomList& l) override;
+    void onBang() final;
+    void onFloat(t_float v) final;
+    void onSymbol(t_symbol* s) final;
+    void onList(const AtomList& l) final;
+    void onAny(t_symbol* s, const AtomList& l) final;
 
     void setOutlet(t_outlet* x) { outlet_ = x; }
 
@@ -59,7 +59,31 @@ public:
     static bool isA(void* obj);
 };
 
-t_class* hoa_in_class();
+class HoaXletTilde : public SoundExternal {
+    IntPropertyMin* extra_;
+
+protected:
+    t_sample* signal_;
+
+public:
+    HoaXletTilde(const PdArgs& args);
+    int extra() const { return extra_->value(); }
+    void setSignal(t_sample* sig) { signal_ = sig; }
+
+    void processBlock(const t_sample** in, t_sample** out) final;
+};
+
+class HoaInTilde : public HoaXletTilde {
+public:
+    HoaInTilde(const PdArgs& args);
+    void setupDSP(t_signal** sp) final;
+};
+
+class HoaOutTilde : public HoaXletTilde {
+public:
+    HoaOutTilde(const PdArgs& args);
+    void setupDSP(t_signal** sp) final;
+};
 
 void setup_spat_hoa_connections();
 

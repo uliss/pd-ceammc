@@ -22,13 +22,6 @@
 
 typedef void (*t_bangmethod)(t_pd* x);
 
-typedef struct _hoa_out {
-    t_object f_obj;
-    int f_extra;
-    t_outlet* f_outlet;
-    struct _hoa_out* f_next;
-} t_hoa_out;
-
 typedef struct _hoa_io_tilde {
     t_object f_obj;
     int f_extra;

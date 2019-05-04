@@ -55,11 +55,6 @@ void HoaIn::onAny(t_symbol* s, const AtomList& l)
     anyTo(0, s, l);
 }
 
-t_class* hoa_in_class()
-{
-    return ObjectFactory<HoaIn>::classPointer();
-}
-
 HoaIn* HoaIn::fromObject(void* obj)
 {
     if (!isA(obj))
@@ -124,8 +119,49 @@ bool HoaOut::isA(void* obj)
         && ((t_object*)obj)->te_g.g_pd == ObjectFactory<HoaOut>::classPointer();
 }
 
+HoaXletTilde::HoaXletTilde(const PdArgs& args)
+    : SoundExternal(args)
+    , extra_(nullptr)
+    , signal_(nullptr)
+{
+    extra_ = new IntPropertyMin("@index", positionalFloatArgument(0, 0), 0);
+    createProperty(extra_);
+}
+
+void HoaXletTilde::processBlock(const t_sample** in, t_sample** out)
+{
+}
+
+HoaInTilde::HoaInTilde(const PdArgs& args)
+    : HoaXletTilde(args)
+{
+    createSignalOutlet();
+}
+
+void HoaInTilde::setupDSP(t_signal** sp)
+{
+    if (signal_)
+        dsp_add_copy(signal_, sp[0]->s_vec, sp[0]->s_n);
+    else
+        dsp_add_zero(sp[0]->s_vec, sp[0]->s_n);
+}
+
+HoaOutTilde::HoaOutTilde(const PdArgs& args)
+    : HoaXletTilde(args)
+{
+}
+
+void HoaOutTilde::setupDSP(t_signal** sp)
+{
+    if (signal_)
+        dsp_add_plus(sp[0]->s_vec, signal_, signal_, sp[0]->s_n);
+}
+
 void setup_spat_hoa_connections()
 {
     ObjectFactory<HoaIn> hoa_in("!hoa.in", OBJECT_FACTORY_NO_DEFAULT_INLET);
     ObjectFactory<HoaOut> hoa_out("!hoa.out");
+
+    SoundExternalFactory<HoaInTilde> hoa_in_tilde("!hoa.in~", OBJECT_FACTORY_NO_DEFAULT_INLET);
+    SoundExternalFactory<HoaOutTilde> hoa_out_tilde("!hoa.out~");
 }
