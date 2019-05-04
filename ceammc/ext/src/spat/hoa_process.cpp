@@ -149,14 +149,10 @@ static void hoa_process_instance_get_hoas(t_hoa_process_instance* x, t_canvas* c
             x->f_ins.emplace_front(HoaIn::fromObject(y));
         } else if (HoaOut::isA(y)) {
             x->f_outs.emplace_front(HoaOut::fromObject(y));
-        } else if (name == HOA_SYM_HOA_IN_TILDE) {
-            t_hoa_io_tilde* inlet_sig = (t_hoa_io_tilde*)y;
-            inlet_sig->f_next = x->f_ins_sig;
-            x->f_ins_sig = inlet_sig;
-        } else if (name == HOA_SYM_HOA_OUT_TILDE) {
-            t_hoa_io_tilde* outlet_sig = (t_hoa_io_tilde*)y;
-            outlet_sig->f_next = x->f_outs_sig;
-            x->f_outs_sig = outlet_sig;
+        } else if (HoaInTilde::isA(y)) {
+            x->f_ins_sig.emplace_front(HoaInTilde::fromObject(y));
+        } else if (HoaOutTilde::isA(y)) {
+            x->f_outs_sig.emplace_front(HoaOutTilde::fromObject(y));
         }
     }
 }
@@ -310,51 +306,31 @@ void HoaProcess::sendFloatToAll(size_t inlet_idx, t_float v)
 
 bool t_hoa_process_instance::has_inputs_sig_static()
 {
-    t_hoa_io_tilde* in = f_ins_sig;
-    while (in != nullptr) {
-        if (in->f_extra == 0)
-            return true;
-
-        in = in->f_next;
-    }
-    return false;
+    auto fx = [](const HoaInTilde* in) { return in->extra() == 0; };
+    return std::find_if(f_ins_sig.begin(), f_ins_sig.end(), fx) != f_ins_sig.end();
 }
 
 bool t_hoa_process_instance::has_outputs_sig_static()
 {
-    t_hoa_io_tilde* in = f_outs_sig;
-    while (in != nullptr) {
-        if (in->f_extra == 0)
-            return true;
-
-        in = in->f_next;
-    }
-    return false;
+    auto fx = [](const HoaOutTilde* out) { return out->extra() == 0; };
+    return std::find_if(f_outs_sig.begin(), f_outs_sig.end(), fx) != f_outs_sig.end();
 }
 
 size_t t_hoa_process_instance::get_ninputs_sig_extra()
 {
     size_t index = 0;
-    t_hoa_io_tilde* in = f_ins_sig;
-    while (in != nullptr) {
-        if (in->f_extra > index)
-            index = in->f_extra;
+    for (auto& in : f_ins_sig)
+        index = std::max(index, (size_t)in->extra());
 
-        in = in->f_next;
-    }
     return index;
 }
 
 size_t t_hoa_process_instance::get_noutputs_sig_extra()
 {
     size_t index = 0;
-    t_hoa_io_tilde* in = f_outs_sig;
-    while (in != nullptr) {
-        if (in->f_extra > index)
-            index = in->f_extra;
+    for (auto& out : f_outs_sig)
+        index = std::max(index, (size_t)out->extra());
 
-        in = in->f_next;
-    }
     return index;
 }
 

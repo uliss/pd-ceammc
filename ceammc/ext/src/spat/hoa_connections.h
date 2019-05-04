@@ -60,7 +60,7 @@ public:
 };
 
 class HoaXletTilde : public SoundExternal {
-    IntPropertyMin* extra_;
+    IntPropertyMinEq* extra_;
 
 protected:
     t_sample* signal_;
@@ -77,12 +77,20 @@ class HoaInTilde : public HoaXletTilde {
 public:
     HoaInTilde(const PdArgs& args);
     void setupDSP(t_signal** sp) final;
+
+public:
+    static HoaInTilde* fromObject(void* obj);
+    static bool isA(void* obj);
 };
 
 class HoaOutTilde : public HoaXletTilde {
 public:
     HoaOutTilde(const PdArgs& args);
     void setupDSP(t_signal** sp) final;
+
+public:
+    static HoaOutTilde* fromObject(void* obj);
+    static bool isA(void* obj);
 };
 
 void setup_spat_hoa_connections();

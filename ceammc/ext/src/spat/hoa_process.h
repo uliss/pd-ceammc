@@ -22,20 +22,12 @@
 
 typedef void (*t_bangmethod)(t_pd* x);
 
-typedef struct _hoa_io_tilde {
-    t_object f_obj;
-    int f_extra;
-    t_sample* f_signal;
-    t_float f_f;
-    struct _hoa_io_tilde* f_next;
-} t_hoa_io_tilde;
-
 struct t_hoa_process_instance {
     t_canvas* f_canvas;
     std::forward_list<HoaIn*> f_ins;
     std::forward_list<HoaOut*> f_outs;
-    t_hoa_io_tilde* f_ins_sig;
-    t_hoa_io_tilde* f_outs_sig;
+    std::forward_list<HoaInTilde*> f_ins_sig;
+    std::forward_list<HoaOutTilde*> f_outs_sig;
 
     bool has_inputs_sig_static();
     bool has_outputs_sig_static();

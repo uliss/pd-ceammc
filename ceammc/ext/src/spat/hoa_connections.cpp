@@ -124,7 +124,7 @@ HoaXletTilde::HoaXletTilde(const PdArgs& args)
     , extra_(nullptr)
     , signal_(nullptr)
 {
-    extra_ = new IntPropertyMin("@index", positionalFloatArgument(0, 0), 0);
+    extra_ = new IntPropertyMinEq("@index", positionalFloatArgument(0, 0), 0);
     createProperty(extra_);
 }
 
@@ -146,6 +146,20 @@ void HoaInTilde::setupDSP(t_signal** sp)
         dsp_add_zero(sp[0]->s_vec, sp[0]->s_n);
 }
 
+HoaInTilde* HoaInTilde::fromObject(void* obj)
+{
+    if (!isA(obj))
+        return nullptr;
+
+    return reinterpret_cast<ObjectFactory<HoaInTilde>::ObjectProxy*>(obj)->impl;
+}
+
+bool HoaInTilde::isA(void* obj)
+{
+    return obj != nullptr
+        && ((t_object*)obj)->te_g.g_pd == ObjectFactory<HoaInTilde>::classPointer();
+}
+
 HoaOutTilde::HoaOutTilde(const PdArgs& args)
     : HoaXletTilde(args)
 {
@@ -155,6 +169,20 @@ void HoaOutTilde::setupDSP(t_signal** sp)
 {
     if (signal_)
         dsp_add_plus(sp[0]->s_vec, signal_, signal_, sp[0]->s_n);
+}
+
+HoaOutTilde* HoaOutTilde::fromObject(void* obj)
+{
+    if (!isA(obj))
+        return nullptr;
+
+    return reinterpret_cast<ObjectFactory<HoaOutTilde>::ObjectProxy*>(obj)->impl;
+}
+
+bool HoaOutTilde::isA(void* obj)
+{
+    return obj != nullptr
+        && ((t_object*)obj)->te_g.g_pd == ObjectFactory<HoaOutTilde>::classPointer();
 }
 
 void setup_spat_hoa_connections()
