@@ -12,9 +12,12 @@ set(SPAT_SOURCES
 
 set(HOA_SOURCES
     hoa_common.h
+    hoa_connections.cpp
     hoa_decoder.cpp
     hoa_encoder.cpp
     hoa_optim.cpp
+    hoa_process.cpp
+    hoa_process_inlet.cpp
     hoa_projector.cpp
     hoa_recomposer.cpp
     hoa_rotate.cpp
