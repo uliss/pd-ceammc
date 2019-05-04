@@ -19,9 +19,15 @@
 
 using namespace ceammc;
 
-class HoaIn : public BaseObject {
+class HoaXlet : public BaseObject {
     IntPropertyMin* extra_;
 
+public:
+    HoaXlet(const PdArgs& args);
+    int extra() const { return extra_->value(); }
+};
+
+class HoaIn : public HoaXlet {
 public:
     HoaIn(const PdArgs& args);
     void onBang() override;
@@ -29,10 +35,28 @@ public:
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
     void onAny(t_symbol* s, const AtomList& l) override;
-    int extra() const { return extra_->value(); }
 
 public:
-    static HoaIn* fromObject(t_object* obj);
+    static HoaIn* fromObject(void* obj);
+    static bool isA(void* obj);
+};
+
+class HoaOut : public HoaXlet {
+    t_outlet* outlet_;
+
+public:
+    HoaOut(const PdArgs& args);
+    void onBang() override;
+    void onFloat(t_float v) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& l) override;
+    void onAny(t_symbol* s, const AtomList& l) override;
+
+    void setOutlet(t_outlet* x) { outlet_ = x; }
+
+public:
+    static HoaOut* fromObject(void* obj);
+    static bool isA(void* obj);
 };
 
 t_class* hoa_in_class();

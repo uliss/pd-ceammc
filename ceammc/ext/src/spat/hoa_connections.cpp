@@ -16,12 +16,17 @@
 
 #include <stdexcept>
 
-HoaIn::HoaIn(const PdArgs& args)
+HoaXlet::HoaXlet(const PdArgs& args)
     : BaseObject(args)
     , extra_(nullptr)
 {
     extra_ = new IntPropertyMin("@index", positionalFloatArgument(0, 0), 0);
     createProperty(extra_);
+}
+
+HoaIn::HoaIn(const PdArgs& args)
+    : HoaXlet(args)
+{
     createOutlet();
 }
 
@@ -55,18 +60,72 @@ t_class* hoa_in_class()
     return ObjectFactory<HoaIn>::classPointer();
 }
 
-HoaIn* HoaIn::fromObject(t_object* obj)
+HoaIn* HoaIn::fromObject(void* obj)
 {
-    if (!obj)
-        return nullptr;
-
-    if (obj->te_g.g_pd != ObjectFactory<HoaIn>::classPointer())
+    if (!isA(obj))
         return nullptr;
 
     return reinterpret_cast<ObjectFactory<HoaIn>::ObjectProxy*>(obj)->impl;
 }
 
+bool HoaIn::isA(void* obj)
+{
+    return obj != nullptr
+        && ((t_object*)obj)->te_g.g_pd == ObjectFactory<HoaIn>::classPointer();
+}
+
+HoaOut::HoaOut(const PdArgs& args)
+    : HoaXlet(args)
+    , outlet_(nullptr)
+{
+}
+
+void HoaOut::onBang()
+{
+    if (outlet_)
+        outlet_bang(outlet_);
+}
+
+void HoaOut::onFloat(t_float v)
+{
+    if (outlet_)
+        outlet_float(outlet_, v);
+}
+
+void HoaOut::onSymbol(t_symbol* s)
+{
+    if (outlet_)
+        outlet_symbol(outlet_, s);
+}
+
+void HoaOut::onList(const AtomList& l)
+{
+    if (outlet_)
+        outlet_list(outlet_, &s_list, l.size(), l.toPdData());
+}
+
+void HoaOut::onAny(t_symbol* s, const AtomList& l)
+{
+    if (outlet_)
+        outlet_anything(outlet_, s, l.size(), l.toPdData());
+}
+
+HoaOut* HoaOut::fromObject(void* obj)
+{
+    if (!isA(obj))
+        return nullptr;
+
+    return reinterpret_cast<ObjectFactory<HoaOut>::ObjectProxy*>(obj)->impl;
+}
+
+bool HoaOut::isA(void* obj)
+{
+    return obj != nullptr
+        && ((t_object*)obj)->te_g.g_pd == ObjectFactory<HoaOut>::classPointer();
+}
+
 void setup_spat_hoa_connections()
 {
-    ObjectFactory<HoaIn> hoa_in("!hoa.in");
+    ObjectFactory<HoaIn> hoa_in("!hoa.in", OBJECT_FACTORY_NO_DEFAULT_INLET);
+    ObjectFactory<HoaOut> hoa_out("!hoa.out");
 }

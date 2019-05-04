@@ -40,7 +40,7 @@ typedef struct _hoa_io_tilde {
 struct t_hoa_process_instance {
     t_canvas* f_canvas;
     std::forward_list<HoaIn*> f_ins;
-    t_hoa_out* f_outs;
+    std::forward_list<HoaOut*> f_outs;
     t_hoa_io_tilde* f_ins_sig;
     t_hoa_io_tilde* f_outs_sig;
 
@@ -50,6 +50,7 @@ struct t_hoa_process_instance {
     size_t get_noutputs_sig_extra();
     size_t get_ninputs();
     size_t get_noutputs();
+    void set_outlet(t_outlet* outl, size_t idx);
 };
 
 class HoaProcess : public HoaBase {
@@ -86,6 +87,7 @@ private:
     void showInstance(t_hoa_process_instance& instance);
     void allocSignals();
     void allocInlets();
+    void allocOutlets();
 
 public:
     size_t target() const { return target_; }

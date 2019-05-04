@@ -92,6 +92,7 @@ void HoaProcess::parseProperties()
 
         allocSignals();
         allocInlets();
+        allocOutlets();
 
         //        hoa_2d_process_tilde_alloc_outlets(x);
     } catch (std::exception& e) {
@@ -144,14 +145,10 @@ static void hoa_process_instance_get_hoas(t_hoa_process_instance* x, t_canvas* c
         if (name == HOA_SYM_CANVAS) {
             // recursive load
             hoa_process_instance_get_hoas(x, (t_canvas*)y);
-        } else if (y->g_pd == hoa_in_class()) {
-            HoaIn* ptr = HoaIn::fromObject((t_object*)y);
-            if (ptr)
-                x->f_ins.emplace_front(ptr);
-        } else if (name == HOA_SYM_HOA_OUT) {
-            t_hoa_out* outlet = (t_hoa_out*)y;
-            outlet->f_next = x->f_outs;
-            x->f_outs = outlet;
+        } else if (HoaIn::isA(y)) {
+            x->f_ins.emplace_front(HoaIn::fromObject(y));
+        } else if (HoaOut::isA(y)) {
+            x->f_outs.emplace_front(HoaOut::fromObject(y));
         } else if (name == HOA_SYM_HOA_IN_TILDE) {
             t_hoa_io_tilde* inlet_sig = (t_hoa_io_tilde*)y;
             inlet_sig->f_next = x->f_ins_sig;
@@ -240,6 +237,28 @@ void HoaProcess::allocInlets()
             ins_[i].x_owner = this;
             inlet_new(owner(), &(ins_[i].x_pd), 0, 0);
         }
+    }
+}
+
+void t_hoa_process_instance::set_outlet(t_outlet* outl, size_t idx)
+{
+    for (auto& out : f_outs) {
+        if (out->extra() == idx)
+            out->setOutlet(outl);
+    }
+}
+
+void HoaProcess::allocOutlets()
+{
+    size_t noutlets = 0;
+    for (auto& in : instances_)
+        noutlets = std::max(noutlets, in.get_noutputs());
+
+    for (size_t i = 0; i < noutlets; i++) {
+        t_outlet* outlet = createOutlet();
+
+        for (auto& in : instances_)
+            in.set_outlet(outlet, i + 1);
     }
 }
 
@@ -351,13 +370,9 @@ size_t t_hoa_process_instance::get_ninputs()
 size_t t_hoa_process_instance::get_noutputs()
 {
     size_t index = 0;
-    t_hoa_out* out = f_outs;
-    while (out != nullptr) {
-        if (out->f_extra > index)
-            index = out->f_extra;
+    for (auto& out : f_outs)
+        index = std::max(index, (size_t)out->extra());
 
-        out = out->f_next;
-    }
     return index;
 }
 
