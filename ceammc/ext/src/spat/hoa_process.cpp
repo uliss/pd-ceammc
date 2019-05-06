@@ -138,7 +138,7 @@ static long hoa_2d_get_azimuthal_order(size_t index)
     return (long)((long)(index + index % 2l) / 2l) * (1l - (long)(index % 2) * 2l);
 }
 
-bool HoaProcess::processInstanceInit(t_hoa_process_instance& x, t_canvas* parent, t_symbol* name, const AtomList& args)
+bool HoaProcess::processInstanceInit(ProcessInstance& x, t_canvas* parent, t_symbol* name, const AtomList& args)
 {
     AtomList create_abs;
     create_abs.append(Atom(10)); // x
@@ -192,7 +192,7 @@ void HoaProcess::allocInlets()
     }
 }
 
-void t_hoa_process_instance::setOutlet(t_outlet* outl, size_t idx)
+void ProcessInstance::setOutlet(t_outlet* outl, size_t idx)
 {
     for (auto& out : f_outs) {
         if (out->extra() == idx)
@@ -200,7 +200,7 @@ void t_hoa_process_instance::setOutlet(t_outlet* outl, size_t idx)
     }
 }
 
-void t_hoa_process_instance::setInletBuffer(t_sample* s, size_t idx)
+void ProcessInstance::setInletBuffer(t_sample* s, size_t idx)
 {
     for (auto& in : f_ins_sig) {
         if (in->extra() == idx)
@@ -208,7 +208,7 @@ void t_hoa_process_instance::setInletBuffer(t_sample* s, size_t idx)
     }
 }
 
-void t_hoa_process_instance::setOutletBuffer(t_sample* s, size_t idx)
+void ProcessInstance::setOutletBuffer(t_sample* s, size_t idx)
 {
     for (auto& out : f_outs_sig) {
         if (out->extra() == idx)
@@ -316,29 +316,29 @@ void HoaProcess::sendListToAll(size_t inlet_idx, const AtomList& l)
         inst.listTo(inlet_idx, l);
 }
 
-t_hoa_process_instance::t_hoa_process_instance()
+ProcessInstance::ProcessInstance()
     : canvas_(nullptr)
 {
 }
 
-void t_hoa_process_instance::setCanvas(t_canvas* c)
+void ProcessInstance::setCanvas(t_canvas* c)
 {
     canvas_ = c;
 }
 
-void t_hoa_process_instance::loadBang()
+void ProcessInstance::loadBang()
 {
     if (canvas_)
         canvas_loadbang(canvas_);
 }
 
-void t_hoa_process_instance::show()
+void ProcessInstance::show()
 {
     if (canvas_)
         canvas_vis(canvas_, 1);
 }
 
-void t_hoa_process_instance::scanCanvas(t_canvas* cnv)
+void ProcessInstance::scanCanvas(t_canvas* cnv)
 {
     for (t_gobj* y = cnv->gl_list; y; y = y->g_next) {
         const t_symbol* name = y->g_pd->c_name;
@@ -357,7 +357,7 @@ void t_hoa_process_instance::scanCanvas(t_canvas* cnv)
     }
 }
 
-void t_hoa_process_instance::bangTo(size_t inlet_idx)
+void ProcessInstance::bangTo(size_t inlet_idx)
 {
     for (auto& in : f_ins) {
         if (in->extra() == inlet_idx)
@@ -365,7 +365,7 @@ void t_hoa_process_instance::bangTo(size_t inlet_idx)
     }
 }
 
-void t_hoa_process_instance::floatTo(size_t inlet_idx, t_float v)
+void ProcessInstance::floatTo(size_t inlet_idx, t_float v)
 {
     for (auto& in : f_ins) {
         if (in->extra() == inlet_idx)
@@ -373,7 +373,7 @@ void t_hoa_process_instance::floatTo(size_t inlet_idx, t_float v)
     }
 }
 
-void t_hoa_process_instance::symbolTo(size_t inlet_idx, t_symbol* s)
+void ProcessInstance::symbolTo(size_t inlet_idx, t_symbol* s)
 {
     for (auto& in : f_ins) {
         if (in->extra() == inlet_idx)
@@ -381,7 +381,7 @@ void t_hoa_process_instance::symbolTo(size_t inlet_idx, t_symbol* s)
     }
 }
 
-void t_hoa_process_instance::listTo(size_t inlet_idx, const AtomList& l)
+void ProcessInstance::listTo(size_t inlet_idx, const AtomList& l)
 {
     for (auto& in : f_ins) {
         if (in->extra() == inlet_idx)
@@ -389,19 +389,19 @@ void t_hoa_process_instance::listTo(size_t inlet_idx, const AtomList& l)
     }
 }
 
-bool t_hoa_process_instance::hasStaticInputSignal() const
+bool ProcessInstance::hasStaticInputSignal() const
 {
     auto fx = [](const HoaInTilde* in) { return in->extra() == 0; };
     return std::find_if(f_ins_sig.begin(), f_ins_sig.end(), fx) != f_ins_sig.end();
 }
 
-bool t_hoa_process_instance::hasStaticOutputSignal() const
+bool ProcessInstance::hasStaticOutputSignal() const
 {
     auto fx = [](const HoaOutTilde* out) { return out->extra() == 0; };
     return std::find_if(f_outs_sig.begin(), f_outs_sig.end(), fx) != f_outs_sig.end();
 }
 
-size_t t_hoa_process_instance::numExtraSignalInputs() const
+size_t ProcessInstance::numExtraSignalInputs() const
 {
     size_t index = 0;
     for (auto& in : f_ins_sig)
@@ -410,7 +410,7 @@ size_t t_hoa_process_instance::numExtraSignalInputs() const
     return index;
 }
 
-size_t t_hoa_process_instance::numExtraSignalOutputs() const
+size_t ProcessInstance::numExtraSignalOutputs() const
 {
     size_t index = 0;
     for (auto& out : f_outs_sig)
@@ -419,7 +419,7 @@ size_t t_hoa_process_instance::numExtraSignalOutputs() const
     return index;
 }
 
-size_t t_hoa_process_instance::numControlInputs() const
+size_t ProcessInstance::numControlInputs() const
 {
     size_t index = 0;
     for (auto& in : f_ins)
@@ -428,7 +428,7 @@ size_t t_hoa_process_instance::numControlInputs() const
     return index;
 }
 
-size_t t_hoa_process_instance::numControlOutputs() const
+size_t ProcessInstance::numControlOutputs() const
 {
     size_t index = 0;
     for (auto& out : f_outs)
@@ -441,7 +441,7 @@ bool HoaProcess::loadHarmonics(t_symbol* name, const AtomList& patch_args)
 {
     const size_t NINSTANCE = 2 * order() + 1; //hoa_2d_get_number_of_harmonics(order);
 
-    instances_.assign(NINSTANCE, t_hoa_process_instance());
+    instances_.assign(NINSTANCE, ProcessInstance());
 
     AtomList load_args;
     load_args.append(Atom(HOA_SYM_2D));

@@ -22,8 +22,7 @@
 
 typedef void (*t_bangmethod)(t_pd* x);
 
-struct t_hoa_process_instance {
-private:
+class ProcessInstance {
     t_canvas* canvas_;
     std::forward_list<HoaIn*> f_ins;
     std::forward_list<HoaOut*> f_outs;
@@ -31,7 +30,7 @@ private:
     std::forward_list<HoaOutTilde*> f_outs_sig;
 
 public:
-    t_hoa_process_instance();
+    ProcessInstance();
 
 public:
     void setCanvas(t_canvas* c);
@@ -61,7 +60,7 @@ public:
 class HoaProcess : public HoaBase {
     t_bangmethod method_;
     t_object* block_;
-    std::vector<t_hoa_process_instance> instances_;
+    std::vector<ProcessInstance> instances_;
     t_canvas* hoa_canvas_;
     t_float canvas_yoff_;
 
@@ -88,7 +87,7 @@ private:
     bool init();
 
     bool loadHarmonics(t_symbol* name, const AtomList& patch_args);
-    bool processInstanceInit(t_hoa_process_instance& x, t_canvas* parent, t_symbol* name, const AtomList& args);
+    bool processInstanceInit(ProcessInstance& x, t_canvas* parent, t_symbol* name, const AtomList& args);
 
     void allocSignals();
     void allocInlets();
