@@ -44,9 +44,7 @@ HoaProcess::HoaProcess(const PdArgs& args)
     , block_(nullptr)
     , hoa_canvas_(nullptr)
     , canvas_yoff_(10)
-    , nins_(0)
     , target_(size_t(-1))
-    , nsigout_(0)
 {
     domain_ = new SymbolEnumProperty("@domain", HOA_SYM_HARMONICS);
     domain_->appendEnum(HOA_SYM_PLANEWAVES);

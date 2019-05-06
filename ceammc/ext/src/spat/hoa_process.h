@@ -47,9 +47,7 @@ class HoaProcess : public HoaBase {
     t_canvas* hoa_canvas_;
     t_float canvas_yoff_;
 
-    size_t nins_;
     size_t target_;
-    size_t nsigout_;
 
     std::vector<t_hoa_process_inlet> ins_;
     Buffer in_buf_;
