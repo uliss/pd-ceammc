@@ -105,8 +105,10 @@ void HoaProcess::parseProperties()
 bool HoaProcess::init()
 {
     hoa_canvas_ = canvas_new(NULL, gensym(""), 0, NULL);
-    if (!hoa_canvas_)
+    if (!hoa_canvas_) {
+        OBJ_ERR << "can't create canvas";
         return false;
+    }
 
     pd_popsym((t_pd*)hoa_canvas_);
     canvas_vis(hoa_canvas_, 0);
@@ -171,7 +173,7 @@ bool HoaProcess::processInstanceInit(t_hoa_process_instance& x, t_canvas* parent
 
     t_gobj* z;
     for (z = parent->gl_list; z->g_next; z = z->g_next) {
-        OBJ_DBG << z->g_pd->c_name;
+        // find last created object
     }
 
     // load abstraction
@@ -182,8 +184,6 @@ bool HoaProcess::processInstanceInit(t_hoa_process_instance& x, t_canvas* parent
         hoa_process_instance_get_hoas(&x, x.f_canvas);
         return true;
     }
-
-    OBJ_DBG << z->g_pd->c_name;
 
     return false;
 }
@@ -392,8 +392,6 @@ bool HoaProcess::loadHarmonics(t_symbol* name, const AtomList& patch_args)
     for (size_t i = 0; i < NINSTANCE; i++) {
         load_args[3].setFloat(hoa_2d_get_degree(i), true);
         load_args[4].setFloat(hoa_2d_get_azimuthal_order(i), true);
-
-        OBJ_DBG << "load with args: " << load_args;
 
         if (!processInstanceInit(instances_[i], hoa_canvas_, name, load_args)) {
             instances_.clear();
