@@ -206,7 +206,7 @@ void HoaProcess::allocInlets()
     size_t ninlets = 0;
 
     for (auto& in : instances_)
-        ninlets = std::max(ninlets, in.get_ninputs_ctl());
+        ninlets = std::max(ninlets, in.numControlInputs());
 
     if (ninlets) {
         ins_.resize(ninlets);
@@ -219,7 +219,7 @@ void HoaProcess::allocInlets()
     }
 }
 
-void t_hoa_process_instance::set_outlet(t_outlet* outl, size_t idx)
+void t_hoa_process_instance::setOutlet(t_outlet* outl, size_t idx)
 {
     for (auto& out : f_outs) {
         if (out->extra() == idx)
@@ -227,7 +227,7 @@ void t_hoa_process_instance::set_outlet(t_outlet* outl, size_t idx)
     }
 }
 
-void t_hoa_process_instance::set_inlet_signal(t_sample* s, size_t idx)
+void t_hoa_process_instance::setInletBuffer(t_sample* s, size_t idx)
 {
     for (auto& in : f_ins_sig) {
         if (in->extra() == idx)
@@ -235,7 +235,7 @@ void t_hoa_process_instance::set_inlet_signal(t_sample* s, size_t idx)
     }
 }
 
-void t_hoa_process_instance::set_outlet_signal(t_sample* s, size_t idx)
+void t_hoa_process_instance::setOutletBuffer(t_sample* s, size_t idx)
 {
     for (auto& out : f_outs_sig) {
         if (out->extra() == idx)
@@ -247,13 +247,13 @@ void HoaProcess::allocOutlets()
 {
     size_t noutlets = 0;
     for (auto& in : instances_)
-        noutlets = std::max(noutlets, in.get_noutputs_ctl());
+        noutlets = std::max(noutlets, in.numControlOutputs());
 
     for (size_t i = 0; i < noutlets; i++) {
         t_outlet* outlet = createOutlet();
 
         for (auto& in : instances_)
-            in.set_outlet(outlet, i + 1);
+            in.setOutlet(outlet, i + 1);
     }
 }
 
@@ -263,10 +263,10 @@ HoaProcess::InOutInfo HoaProcess::calcNumChannels() const
     size_t nins = 0, nouts = 0;
 
     for (auto& in : instances_) {
-        hasin = std::max<bool>(hasin, in.has_inputs_sig_static());
-        hasout = std::max<bool>(hasout, in.has_outputs_sig_static());
-        nins = std::max(nins, in.get_ninputs_sig_extra());
-        nouts = std::max(nouts, in.get_noutputs_sig_extra());
+        hasin = std::max<bool>(hasin, in.hasStaticInputSignal());
+        hasout = std::max<bool>(hasout, in.hasStaticOutputSignal());
+        nins = std::max(nins, in.numExtraSignalInputs());
+        nouts = std::max(nouts, in.numExtraSignalOutputs());
     }
 
     const size_t N = instances_.size();
@@ -325,19 +325,19 @@ void HoaProcess::sendFloatToAll(size_t inlet_idx, t_float v)
     }
 }
 
-bool t_hoa_process_instance::has_inputs_sig_static() const
+bool t_hoa_process_instance::hasStaticInputSignal() const
 {
     auto fx = [](const HoaInTilde* in) { return in->extra() == 0; };
     return std::find_if(f_ins_sig.begin(), f_ins_sig.end(), fx) != f_ins_sig.end();
 }
 
-bool t_hoa_process_instance::has_outputs_sig_static() const
+bool t_hoa_process_instance::hasStaticOutputSignal() const
 {
     auto fx = [](const HoaOutTilde* out) { return out->extra() == 0; };
     return std::find_if(f_outs_sig.begin(), f_outs_sig.end(), fx) != f_outs_sig.end();
 }
 
-size_t t_hoa_process_instance::get_ninputs_sig_extra() const
+size_t t_hoa_process_instance::numExtraSignalInputs() const
 {
     size_t index = 0;
     for (auto& in : f_ins_sig)
@@ -346,7 +346,7 @@ size_t t_hoa_process_instance::get_ninputs_sig_extra() const
     return index;
 }
 
-size_t t_hoa_process_instance::get_noutputs_sig_extra() const
+size_t t_hoa_process_instance::numExtraSignalOutputs() const
 {
     size_t index = 0;
     for (auto& out : f_outs_sig)
@@ -355,7 +355,7 @@ size_t t_hoa_process_instance::get_noutputs_sig_extra() const
     return index;
 }
 
-size_t t_hoa_process_instance::get_ninputs_ctl() const
+size_t t_hoa_process_instance::numControlInputs() const
 {
     size_t index = 0;
     for (auto& in : f_ins)
@@ -364,7 +364,7 @@ size_t t_hoa_process_instance::get_ninputs_ctl() const
     return index;
 }
 
-size_t t_hoa_process_instance::get_noutputs_ctl() const
+size_t t_hoa_process_instance::numControlOutputs() const
 {
     size_t index = 0;
     for (auto& out : f_outs)
@@ -433,7 +433,7 @@ void HoaProcess::setupDSP(t_signal** sp)
 
             if (info.in.has_static_ch) {
                 for (size_t i = 0; i < NINST; i++) {
-                    instances_[i].set_inlet_signal(&in_buf_[i * BS], 0);
+                    instances_[i].setInletBuffer(&in_buf_[i * BS], 0);
                 }
             }
 
@@ -442,7 +442,7 @@ void HoaProcess::setupDSP(t_signal** sp)
                 for (size_t j = 0; j < info.in.num_extra_chan; ++j) {
                     for (size_t i = 0; i < NINST; ++i) {
                         size_t nsamples = (offset + j) * BS;
-                        instances_[i].set_inlet_signal(&in_buf_[nsamples], j + 1);
+                        instances_[i].setInletBuffer(&in_buf_[nsamples], j + 1);
                     }
                 }
             }
@@ -454,7 +454,7 @@ void HoaProcess::setupDSP(t_signal** sp)
             if (info.out.has_static_ch) {
                 for (size_t i = 0; i < NINST; ++i) {
                     size_t nsamples = i * BS;
-                    instances_[i].set_outlet_signal(&out_buf_[nsamples], 0);
+                    instances_[i].setOutletBuffer(&out_buf_[nsamples], 0);
                 }
             }
 
@@ -463,7 +463,7 @@ void HoaProcess::setupDSP(t_signal** sp)
                 for (size_t j = 0; j < info.out.num_extra_chan; ++j) {
                     for (size_t i = 0; i < NINST; ++i) {
                         size_t nsamples = (offset + j) * BS;
-                        instances_[i].set_outlet_signal(&out_buf_[nsamples], j + 1);
+                        instances_[i].setOutletBuffer(&out_buf_[nsamples], j + 1);
                     }
                 }
             }

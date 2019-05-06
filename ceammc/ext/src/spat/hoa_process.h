@@ -29,15 +29,16 @@ struct t_hoa_process_instance {
     std::forward_list<HoaInTilde*> f_ins_sig;
     std::forward_list<HoaOutTilde*> f_outs_sig;
 
-    bool has_inputs_sig_static() const;
-    bool has_outputs_sig_static() const;
-    size_t get_ninputs_sig_extra() const;
-    size_t get_noutputs_sig_extra() const;
-    size_t get_ninputs_ctl() const;
-    size_t get_noutputs_ctl() const;
-    void set_outlet(t_outlet* outl, size_t idx);
-    void set_inlet_signal(t_sample* s, size_t idx);
-    void set_outlet_signal(t_sample* s, size_t idx);
+public:
+    bool hasStaticInputSignal() const;
+    bool hasStaticOutputSignal() const;
+    size_t numExtraSignalInputs() const;
+    size_t numExtraSignalOutputs() const;
+    size_t numControlInputs() const;
+    size_t numControlOutputs() const;
+    void setOutlet(t_outlet* outl, size_t idx);
+    void setInletBuffer(t_sample* s, size_t idx);
+    void setOutletBuffer(t_sample* s, size_t idx);
 };
 
 class HoaProcess : public HoaBase {
