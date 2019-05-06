@@ -29,13 +29,15 @@ struct t_hoa_process_instance {
     std::forward_list<HoaInTilde*> f_ins_sig;
     std::forward_list<HoaOutTilde*> f_outs_sig;
 
-    bool has_inputs_sig_static();
-    bool has_outputs_sig_static();
-    size_t get_ninputs_sig_extra();
-    size_t get_noutputs_sig_extra();
-    size_t get_ninputs();
-    size_t get_noutputs();
+    bool has_inputs_sig_static() const;
+    bool has_outputs_sig_static() const;
+    size_t get_ninputs_sig_extra() const;
+    size_t get_noutputs_sig_extra() const;
+    size_t get_ninputs_ctl() const;
+    size_t get_noutputs_ctl() const;
     void set_outlet(t_outlet* outl, size_t idx);
+    void set_inlet_signal(t_sample* s, size_t idx);
+    void set_outlet_signal(t_sample* s, size_t idx);
 };
 
 class HoaProcess : public HoaBase {
@@ -50,6 +52,8 @@ class HoaProcess : public HoaBase {
     size_t nsigout_;
 
     std::vector<t_hoa_process_inlet> ins_;
+    Buffer in_buf_;
+    Buffer out_buf_;
 
     SymbolEnumProperty* domain_;
 
@@ -59,6 +63,7 @@ public:
 
     void parseProperties() override;
     void processBlock(const t_sample** in, t_sample** out) override;
+    void setupDSP(t_signal** sp) final;
 
     void m_click(t_symbol* m, const AtomList& lst);
     void m_open_cnv(t_symbol* m, const AtomList& lst);
@@ -73,6 +78,19 @@ private:
     void allocSignals();
     void allocInlets();
     void allocOutlets();
+
+    struct ChannelInfo {
+        size_t num_chan;
+        size_t num_static_chan;
+        size_t num_extra_chan;
+        bool has_static_ch;
+    };
+
+    struct InOutInfo {
+        ChannelInfo in, out;
+    };
+
+    InOutInfo calcNumChannels() const;
 
 public:
     size_t target() const { return target_; }
