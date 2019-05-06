@@ -18,6 +18,7 @@ set(HOA_SOURCES
     hoa_optim.cpp
     hoa_process.cpp
     hoa_process_inlet.cpp
+    hoa_process_instance.cpp
     hoa_projector.cpp
     hoa_recomposer.cpp
     hoa_rotate.cpp

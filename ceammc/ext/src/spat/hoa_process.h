@@ -17,45 +17,9 @@
 #include "hoa_common.h"
 #include "hoa_connections.h"
 #include "hoa_process_inlet.h"
-
-#include <forward_list>
+#include "hoa_process_instance.h"
 
 typedef void (*t_bangmethod)(t_pd* x);
-
-class ProcessInstance {
-    t_canvas* canvas_;
-    std::forward_list<HoaIn*> f_ins;
-    std::forward_list<HoaOut*> f_outs;
-    std::forward_list<HoaInTilde*> f_ins_sig;
-    std::forward_list<HoaOutTilde*> f_outs_sig;
-
-public:
-    ProcessInstance();
-
-public:
-    void setCanvas(t_canvas* c);
-    const t_canvas* canvas() const { return canvas_; }
-    t_canvas* canvas() { return canvas_; }
-
-    void loadBang();
-    void show();
-    void scanCanvas(t_canvas* cnv);
-
-    void bangTo(size_t inlet_idx);
-    void floatTo(size_t inlet_idx, t_float v);
-    void symbolTo(size_t inlet_idx, t_symbol* s);
-    void listTo(size_t inlet_idx, const AtomList& l);
-
-    bool hasStaticInputSignal() const;
-    bool hasStaticOutputSignal() const;
-    size_t numExtraSignalInputs() const;
-    size_t numExtraSignalOutputs() const;
-    size_t numControlInputs() const;
-    size_t numControlOutputs() const;
-    void setOutlet(t_outlet* outl, size_t idx);
-    void setInletBuffer(t_sample* s, size_t idx);
-    void setOutletBuffer(t_sample* s, size_t idx);
-};
 
 class HoaProcess : public HoaBase {
     t_bangmethod method_;
@@ -118,6 +82,17 @@ public:
     void sendSymbolToAll(size_t inlet_idx, t_symbol* s);
     void sendListToInstance(size_t inst_idx, size_t inlet_idx, const AtomList& l);
     void sendListToAll(size_t inlet_idx, const AtomList& l);
+
+public:
+    static t_symbol* HOA_SYM_SWITCH;
+    static t_symbol* HOA_SYM_BLOCK;
+    static t_symbol* HOA_SYM_OBJ;
+    static t_symbol* HOA_SYM_HARMONICS;
+    static t_symbol* HOA_SYM_PLANEWAVES;
+    static t_symbol* HOA_SYM_2D;
+    static t_symbol* HOA_SYM_CANVAS;
+
+    static t_symbol* HOA_SYM_HOA_THISPROCESS;
 };
 
 void setup_spat_hoa_process();

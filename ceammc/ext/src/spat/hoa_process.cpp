@@ -24,19 +24,15 @@ extern "C" {
 
 static const t_float YOFF = 30;
 
-static t_symbol* HOA_SYM_SWITCH;
-static t_symbol* HOA_SYM_BLOCK;
-static t_symbol* HOA_SYM_OBJ;
-static t_symbol* HOA_SYM_HARMONICS;
-static t_symbol* HOA_SYM_PLANEWAVES;
-static t_symbol* HOA_SYM_2D;
-static t_symbol* HOA_SYM_CANVAS;
+t_symbol* HoaProcess::HOA_SYM_SWITCH;
+t_symbol* HoaProcess::HOA_SYM_BLOCK;
+t_symbol* HoaProcess::HOA_SYM_OBJ;
+t_symbol* HoaProcess::HOA_SYM_HARMONICS;
+t_symbol* HoaProcess::HOA_SYM_PLANEWAVES;
+t_symbol* HoaProcess::HOA_SYM_2D;
+t_symbol* HoaProcess::HOA_SYM_CANVAS;
 
-static t_symbol* HOA_SYM_HOA_THISPROCESS;
-static t_symbol* HOA_SYM_HOA_IN;
-static t_symbol* HOA_SYM_HOA_OUT;
-static t_symbol* HOA_SYM_HOA_IN_TILDE;
-static t_symbol* HOA_SYM_HOA_OUT_TILDE;
+t_symbol* HoaProcess::HOA_SYM_HOA_THISPROCESS;
 
 HoaProcess::HoaProcess(const PdArgs& args)
     : HoaBase(args)
@@ -192,30 +188,6 @@ void HoaProcess::allocInlets()
     }
 }
 
-void ProcessInstance::setOutlet(t_outlet* outl, size_t idx)
-{
-    for (auto& out : f_outs) {
-        if (out->extra() == idx)
-            out->setOutlet(outl);
-    }
-}
-
-void ProcessInstance::setInletBuffer(t_sample* s, size_t idx)
-{
-    for (auto& in : f_ins_sig) {
-        if (in->extra() == idx)
-            in->setSignal(s);
-    }
-}
-
-void ProcessInstance::setOutletBuffer(t_sample* s, size_t idx)
-{
-    for (auto& out : f_outs_sig) {
-        if (out->extra() == idx)
-            out->setSignal(s);
-    }
-}
-
 void HoaProcess::allocOutlets()
 {
     size_t noutlets = 0;
@@ -314,127 +286,6 @@ void HoaProcess::sendListToAll(size_t inlet_idx, const AtomList& l)
 {
     for (auto& inst : instances_)
         inst.listTo(inlet_idx, l);
-}
-
-ProcessInstance::ProcessInstance()
-    : canvas_(nullptr)
-{
-}
-
-void ProcessInstance::setCanvas(t_canvas* c)
-{
-    canvas_ = c;
-}
-
-void ProcessInstance::loadBang()
-{
-    if (canvas_)
-        canvas_loadbang(canvas_);
-}
-
-void ProcessInstance::show()
-{
-    if (canvas_)
-        canvas_vis(canvas_, 1);
-}
-
-void ProcessInstance::scanCanvas(t_canvas* cnv)
-{
-    for (t_gobj* y = cnv->gl_list; y; y = y->g_next) {
-        const t_symbol* name = y->g_pd->c_name;
-        if (name == HOA_SYM_CANVAS) {
-            // recursive load
-            scanCanvas((t_canvas*)y);
-        } else if (HoaIn::isA(y)) {
-            f_ins.emplace_front(HoaIn::fromObject(y));
-        } else if (HoaOut::isA(y)) {
-            f_outs.emplace_front(HoaOut::fromObject(y));
-        } else if (HoaInTilde::isA(y)) {
-            f_ins_sig.emplace_front(HoaInTilde::fromObject(y));
-        } else if (HoaOutTilde::isA(y)) {
-            f_outs_sig.emplace_front(HoaOutTilde::fromObject(y));
-        }
-    }
-}
-
-void ProcessInstance::bangTo(size_t inlet_idx)
-{
-    for (auto& in : f_ins) {
-        if (in->extra() == inlet_idx)
-            in->onBang();
-    }
-}
-
-void ProcessInstance::floatTo(size_t inlet_idx, t_float v)
-{
-    for (auto& in : f_ins) {
-        if (in->extra() == inlet_idx)
-            in->onFloat(v);
-    }
-}
-
-void ProcessInstance::symbolTo(size_t inlet_idx, t_symbol* s)
-{
-    for (auto& in : f_ins) {
-        if (in->extra() == inlet_idx)
-            in->onSymbol(s);
-    }
-}
-
-void ProcessInstance::listTo(size_t inlet_idx, const AtomList& l)
-{
-    for (auto& in : f_ins) {
-        if (in->extra() == inlet_idx)
-            in->onList(l);
-    }
-}
-
-bool ProcessInstance::hasStaticInputSignal() const
-{
-    auto fx = [](const HoaInTilde* in) { return in->extra() == 0; };
-    return std::find_if(f_ins_sig.begin(), f_ins_sig.end(), fx) != f_ins_sig.end();
-}
-
-bool ProcessInstance::hasStaticOutputSignal() const
-{
-    auto fx = [](const HoaOutTilde* out) { return out->extra() == 0; };
-    return std::find_if(f_outs_sig.begin(), f_outs_sig.end(), fx) != f_outs_sig.end();
-}
-
-size_t ProcessInstance::numExtraSignalInputs() const
-{
-    size_t index = 0;
-    for (auto& in : f_ins_sig)
-        index = std::max(index, (size_t)in->extra());
-
-    return index;
-}
-
-size_t ProcessInstance::numExtraSignalOutputs() const
-{
-    size_t index = 0;
-    for (auto& out : f_outs_sig)
-        index = std::max(index, (size_t)out->extra());
-
-    return index;
-}
-
-size_t ProcessInstance::numControlInputs() const
-{
-    size_t index = 0;
-    for (auto& in : f_ins)
-        index = std::max(index, (size_t)in->extra());
-
-    return index;
-}
-
-size_t ProcessInstance::numControlOutputs() const
-{
-    size_t index = 0;
-    for (auto& out : f_outs)
-        index = std::max(index, (size_t)out->extra());
-
-    return index;
 }
 
 bool HoaProcess::loadHarmonics(t_symbol* name, const AtomList& patch_args)
@@ -552,20 +403,14 @@ void HoaProcess::m_open_cnv(t_symbol* m, const AtomList& lst)
 
 void setup_spat_hoa_process()
 {
-    HOA_SYM_SWITCH = gensym("switch~");
-    HOA_SYM_BLOCK = gensym("block~");
-    HOA_SYM_CANVAS = gensym("canvas");
-    HOA_SYM_OBJ = gensym("obj");
-
-    HOA_SYM_HARMONICS = gensym("harmonics");
-    HOA_SYM_PLANEWAVES = gensym("planewaves");
-    HOA_SYM_2D = gensym("2d");
-
-    HOA_SYM_HOA_THISPROCESS = gensym("hoa.thisprocess~");
-    HOA_SYM_HOA_IN = gensym("hoa.in");
-    HOA_SYM_HOA_OUT = gensym("hoa.out");
-    HOA_SYM_HOA_IN_TILDE = gensym("hoa.in~");
-    HOA_SYM_HOA_OUT_TILDE = gensym("hoa.out~");
+    HoaProcess::HOA_SYM_SWITCH = gensym("switch~");
+    HoaProcess::HOA_SYM_BLOCK = gensym("block~");
+    HoaProcess::HOA_SYM_CANVAS = gensym("canvas");
+    HoaProcess::HOA_SYM_OBJ = gensym("obj");
+    HoaProcess::HOA_SYM_HARMONICS = gensym("harmonics");
+    HoaProcess::HOA_SYM_PLANEWAVES = gensym("planewaves");
+    HoaProcess::HOA_SYM_2D = gensym("2d");
+    HoaProcess::HOA_SYM_HOA_THISPROCESS = gensym("hoa.thisprocess~");
 
     SoundExternalFactory<HoaProcess> obj("!hoa.process~");
     obj.addClick(&HoaProcess::m_click);
