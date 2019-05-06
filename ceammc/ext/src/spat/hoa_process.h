@@ -43,6 +43,11 @@ public:
     void show();
     void scanCanvas(t_canvas* cnv);
 
+    void bangTo(size_t inlet_idx);
+    void floatTo(size_t inlet_idx, t_float v);
+    void symbolTo(size_t inlet_idx, t_symbol* s);
+    void listTo(size_t inlet_idx, const AtomList& l);
+
     bool hasStaticInputSignal() const;
     bool hasStaticOutputSignal() const;
     size_t numExtraSignalInputs() const;
@@ -111,6 +116,10 @@ public:
     void sendBangToAll(size_t inlet_idx);
     void sendFloatToInstance(size_t inst_idx, size_t inlet_idx, t_float v);
     void sendFloatToAll(size_t inlet_idx, t_float v);
+    void sendSymbolToInstance(size_t inst_idx, size_t inlet_idx, t_symbol* s);
+    void sendSymbolToAll(size_t inlet_idx, t_symbol* s);
+    void sendListToInstance(size_t inst_idx, size_t inlet_idx, const AtomList& l);
+    void sendListToAll(size_t inlet_idx, const AtomList& l);
 };
 
 void setup_spat_hoa_process();

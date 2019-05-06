@@ -259,20 +259,13 @@ void HoaProcess::sendBangToInstance(size_t inst_idx, size_t inlet_idx)
         return;
     }
 
-    for (auto& in : instances_[inst_idx].f_ins) {
-        if (in->extra() == inlet_idx)
-            in->onBang();
-    }
+    instances_[inst_idx].bangTo(inlet_idx);
 }
 
 void HoaProcess::sendBangToAll(size_t inlet_idx)
 {
-    for (auto& inst : instances_) {
-        for (auto& inlet : inst.f_ins) {
-            if (inlet->extra() == inlet_idx)
-                inlet->onBang();
-        }
-    }
+    for (auto& inst : instances_)
+        inst.bangTo(inlet_idx);
 }
 
 void HoaProcess::sendFloatToInstance(size_t inst_idx, size_t inlet_idx, t_float v)
@@ -282,20 +275,45 @@ void HoaProcess::sendFloatToInstance(size_t inst_idx, size_t inlet_idx, t_float 
         return;
     }
 
-    for (auto& in : instances_[inst_idx].f_ins) {
-        if (in->extra() == inlet_idx)
-            in->onFloat(v);
-    }
+    instances_[inst_idx].floatTo(inlet_idx, v);
 }
 
 void HoaProcess::sendFloatToAll(size_t inlet_idx, t_float v)
 {
-    for (auto& inst : instances_) {
-        for (auto& inlet : inst.f_ins) {
-            if (inlet->extra() == inlet_idx)
-                inlet->onFloat(v);
-        }
+    for (auto& inst : instances_)
+        inst.floatTo(inlet_idx, v);
+}
+
+void HoaProcess::sendSymbolToInstance(size_t inst_idx, size_t inlet_idx, t_symbol* s)
+{
+    if (inst_idx >= instances_.size()) {
+        OBJ_ERR << "invalid instance index: " << inst_idx;
+        return;
     }
+
+    instances_[inst_idx].symbolTo(inlet_idx, s);
+}
+
+void HoaProcess::sendSymbolToAll(size_t inlet_idx, t_symbol* s)
+{
+    for (auto& inst : instances_)
+        inst.symbolTo(inlet_idx, s);
+}
+
+void HoaProcess::sendListToInstance(size_t inst_idx, size_t inlet_idx, const AtomList& l)
+{
+    if (inst_idx >= instances_.size()) {
+        OBJ_ERR << "invalid instance index: " << inst_idx;
+        return;
+    }
+
+    instances_[inst_idx].listTo(inlet_idx, l);
+}
+
+void HoaProcess::sendListToAll(size_t inlet_idx, const AtomList& l)
+{
+    for (auto& inst : instances_)
+        inst.listTo(inlet_idx, l);
 }
 
 t_hoa_process_instance::t_hoa_process_instance()
@@ -336,6 +354,38 @@ void t_hoa_process_instance::scanCanvas(t_canvas* cnv)
         } else if (HoaOutTilde::isA(y)) {
             f_outs_sig.emplace_front(HoaOutTilde::fromObject(y));
         }
+    }
+}
+
+void t_hoa_process_instance::bangTo(size_t inlet_idx)
+{
+    for (auto& in : f_ins) {
+        if (in->extra() == inlet_idx)
+            in->onBang();
+    }
+}
+
+void t_hoa_process_instance::floatTo(size_t inlet_idx, t_float v)
+{
+    for (auto& in : f_ins) {
+        if (in->extra() == inlet_idx)
+            in->onFloat(v);
+    }
+}
+
+void t_hoa_process_instance::symbolTo(size_t inlet_idx, t_symbol* s)
+{
+    for (auto& in : f_ins) {
+        if (in->extra() == inlet_idx)
+            in->onSymbol(s);
+    }
+}
+
+void t_hoa_process_instance::listTo(size_t inlet_idx, const AtomList& l)
+{
+    for (auto& in : f_ins) {
+        if (in->extra() == inlet_idx)
+            in->onList(l);
     }
 }
 
