@@ -208,11 +208,9 @@ void HoaProcess::allocInlets()
     for (auto& in : instances_)
         ninlets = std::max(ninlets, in.get_ninputs_ctl());
 
-    OBJ_DBG << "ninlets: " << ninlets;
-
     if (ninlets) {
         ins_.resize(ninlets);
-        for (size_t i = 0; i < ins_.size(); i++) {
+        for (size_t i = 0; i < ninlets; i++) {
             ins_[i].x_index = i + 1;
             ins_[i].x_pd = process_inlet_class();
             ins_[i].x_owner = this;
