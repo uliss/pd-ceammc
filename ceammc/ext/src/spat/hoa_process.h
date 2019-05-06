@@ -25,14 +25,13 @@ typedef void (*t_bangmethod)(t_pd* x);
 struct t_hoa_process_instance {
 private:
     t_canvas* canvas_;
-
-public:
-    t_hoa_process_instance();
-
     std::forward_list<HoaIn*> f_ins;
     std::forward_list<HoaOut*> f_outs;
     std::forward_list<HoaInTilde*> f_ins_sig;
     std::forward_list<HoaOutTilde*> f_outs_sig;
+
+public:
+    t_hoa_process_instance();
 
 public:
     void setCanvas(t_canvas* c);
