@@ -138,29 +138,8 @@ static long hoa_2d_get_azimuthal_order(size_t index)
     return (long)((long)(index + index % 2l) / 2l) * (1l - (long)(index % 2) * 2l);
 }
 
-static void hoa_process_instance_get_hoas(t_hoa_process_instance* x, t_canvas* cnv)
-{
-    for (t_gobj* y = cnv->gl_list; y; y = y->g_next) {
-        const t_symbol* name = y->g_pd->c_name;
-        if (name == HOA_SYM_CANVAS) {
-            // recursive load
-            hoa_process_instance_get_hoas(x, (t_canvas*)y);
-        } else if (HoaIn::isA(y)) {
-            x->f_ins.emplace_front(HoaIn::fromObject(y));
-        } else if (HoaOut::isA(y)) {
-            x->f_outs.emplace_front(HoaOut::fromObject(y));
-        } else if (HoaInTilde::isA(y)) {
-            x->f_ins_sig.emplace_front(HoaInTilde::fromObject(y));
-        } else if (HoaOutTilde::isA(y)) {
-            x->f_outs_sig.emplace_front(HoaOutTilde::fromObject(y));
-        }
-    }
-}
-
 bool HoaProcess::processInstanceInit(t_hoa_process_instance& x, t_canvas* parent, t_symbol* name, const AtomList& args)
 {
-    x.f_canvas = nullptr;
-
     AtomList create_abs;
     create_abs.append(Atom(10)); // x
     create_abs.append(Atom(canvas_yoff_)); // y
@@ -178,19 +157,13 @@ bool HoaProcess::processInstanceInit(t_hoa_process_instance& x, t_canvas* parent
 
     // load abstraction
     if (z && z->g_pd->c_name == HOA_SYM_CANVAS) {
-        x.f_canvas = (t_canvas*)z;
-        canvas_loadbang(x.f_canvas);
-
-        hoa_process_instance_get_hoas(&x, x.f_canvas);
+        x.setCanvas((t_canvas*)z);
+        x.loadBang();
+        x.scanCanvas(x.canvas());
         return true;
     }
 
     return false;
-}
-
-void HoaProcess::showInstance(t_hoa_process_instance& instance)
-{
-    canvas_vis(instance.f_canvas, 1);
 }
 
 void HoaProcess::allocSignals()
@@ -321,6 +294,47 @@ void HoaProcess::sendFloatToAll(size_t inlet_idx, t_float v)
         for (auto& inlet : inst.f_ins) {
             if (inlet->extra() == inlet_idx)
                 inlet->onFloat(v);
+        }
+    }
+}
+
+t_hoa_process_instance::t_hoa_process_instance()
+    : canvas_(nullptr)
+{
+}
+
+void t_hoa_process_instance::setCanvas(t_canvas* c)
+{
+    canvas_ = c;
+}
+
+void t_hoa_process_instance::loadBang()
+{
+    if (canvas_)
+        canvas_loadbang(canvas_);
+}
+
+void t_hoa_process_instance::show()
+{
+    if (canvas_)
+        canvas_vis(canvas_, 1);
+}
+
+void t_hoa_process_instance::scanCanvas(t_canvas* cnv)
+{
+    for (t_gobj* y = cnv->gl_list; y; y = y->g_next) {
+        const t_symbol* name = y->g_pd->c_name;
+        if (name == HOA_SYM_CANVAS) {
+            // recursive load
+            scanCanvas((t_canvas*)y);
+        } else if (HoaIn::isA(y)) {
+            f_ins.emplace_front(HoaIn::fromObject(y));
+        } else if (HoaOut::isA(y)) {
+            f_outs.emplace_front(HoaOut::fromObject(y));
+        } else if (HoaInTilde::isA(y)) {
+            f_ins_sig.emplace_front(HoaInTilde::fromObject(y));
+        } else if (HoaOutTilde::isA(y)) {
+            f_outs_sig.emplace_front(HoaOutTilde::fromObject(y));
         }
     }
 }
@@ -478,7 +492,7 @@ void HoaProcess::setupDSP(t_signal** sp)
 void HoaProcess::m_click(t_symbol* m, const AtomList& lst)
 {
     if (instances_.size() > 0)
-        showInstance(instances_.front());
+        instances_.front().show();
 }
 
 void HoaProcess::m_open_cnv(t_symbol* m, const AtomList& lst)

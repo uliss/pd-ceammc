@@ -23,13 +23,26 @@
 typedef void (*t_bangmethod)(t_pd* x);
 
 struct t_hoa_process_instance {
-    t_canvas* f_canvas;
+private:
+    t_canvas* canvas_;
+
+public:
+    t_hoa_process_instance();
+
     std::forward_list<HoaIn*> f_ins;
     std::forward_list<HoaOut*> f_outs;
     std::forward_list<HoaInTilde*> f_ins_sig;
     std::forward_list<HoaOutTilde*> f_outs_sig;
 
 public:
+    void setCanvas(t_canvas* c);
+    const t_canvas* canvas() const { return canvas_; }
+    t_canvas* canvas() { return canvas_; }
+
+    void loadBang();
+    void show();
+    void scanCanvas(t_canvas* cnv);
+
     bool hasStaticInputSignal() const;
     bool hasStaticOutputSignal() const;
     size_t numExtraSignalInputs() const;
@@ -73,7 +86,6 @@ private:
     bool loadHarmonics(t_symbol* name, const AtomList& patch_args);
     bool processInstanceInit(t_hoa_process_instance& x, t_canvas* parent, t_symbol* name, const AtomList& args);
 
-    void showInstance(t_hoa_process_instance& instance);
     void allocSignals();
     void allocInlets();
     void allocOutlets();
