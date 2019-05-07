@@ -96,6 +96,9 @@ public:
     static t_symbol* HOA_SYM_CANVAS;
 
     static t_symbol* HOA_SYM_HOA_THISPROCESS;
+
+    static size_t calcIndexDegree(size_t index);
+    static long calcAzimuthalOrder(size_t index);
 };
 
 void setup_spat_hoa_process();

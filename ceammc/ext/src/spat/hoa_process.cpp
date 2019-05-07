@@ -128,12 +128,12 @@ bool HoaProcess::init()
     return false;
 }
 
-static size_t hoa_2d_get_degree(size_t index)
+size_t HoaProcess::calcIndexDegree(size_t index)
 {
     return (index + index % 2) / 2ul;
 }
 
-static long hoa_2d_get_azimuthal_order(size_t index)
+long HoaProcess::calcAzimuthalOrder(size_t index)
 {
     return (long)((long)(index + index % 2l) / 2l) * (1l - (long)(index % 2) * 2l);
 }
@@ -307,7 +307,7 @@ bool HoaProcess::loadHarmonics(t_symbol* name, const AtomList& patch_args)
     load_args.append(patch_args);
 
     for (size_t i = 0; i < NINSTANCE; i++) {
-        load_args[3].setFloat(hoa_2d_get_degree(i), true);
+        load_args[3].setFloat(calcIndexDegree(i), true);
 
         if (!processInstanceInit(instances_[i], canvas_, name, load_args)) {
             instances_.clear();
