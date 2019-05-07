@@ -47,6 +47,7 @@ public:
     void setupDSP(t_signal** sp) final;
 
     void m_click(t_symbol* m, const AtomList& lst);
+    void m_open(t_symbol* m, const AtomList& lst);
     void m_open_cnv(t_symbol* m, const AtomList& lst);
 
 private:
@@ -87,15 +88,15 @@ public:
     void sendListToAll(size_t inlet_idx, const AtomList& l);
 
 public:
-    static t_symbol* HOA_SYM_SWITCH;
-    static t_symbol* HOA_SYM_BLOCK;
-    static t_symbol* HOA_SYM_OBJ;
-    static t_symbol* HOA_SYM_HARMONICS;
-    static t_symbol* HOA_SYM_PLANEWAVES;
-    static t_symbol* HOA_SYM_2D;
-    static t_symbol* HOA_SYM_CANVAS;
+    static t_symbol* SYM_SWITCH;
+    static t_symbol* SYM_BLOCK;
+    static t_symbol* SYM_OBJ;
+    static t_symbol* SYM_HARMONICS;
+    static t_symbol* SYM_PLANEWAVES;
+    static t_symbol* SYM_2D;
+    static t_symbol* SYM_CANVAS;
 
-    static t_symbol* HOA_SYM_HOA_THISPROCESS;
+    static t_symbol* SYM_HOA_THISPROCESS;
 
     static size_t calcIndexDegree(size_t index);
     static long calcAzimuthalOrder(size_t index);

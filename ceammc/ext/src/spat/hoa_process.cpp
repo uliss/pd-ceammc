@@ -24,15 +24,15 @@ extern "C" {
 
 static const t_float YOFF = 30;
 
-t_symbol* HoaProcess::HOA_SYM_SWITCH;
-t_symbol* HoaProcess::HOA_SYM_BLOCK;
-t_symbol* HoaProcess::HOA_SYM_OBJ;
-t_symbol* HoaProcess::HOA_SYM_HARMONICS;
-t_symbol* HoaProcess::HOA_SYM_PLANEWAVES;
-t_symbol* HoaProcess::HOA_SYM_2D;
-t_symbol* HoaProcess::HOA_SYM_CANVAS;
+t_symbol* HoaProcess::SYM_SWITCH;
+t_symbol* HoaProcess::SYM_BLOCK;
+t_symbol* HoaProcess::SYM_OBJ;
+t_symbol* HoaProcess::SYM_HARMONICS;
+t_symbol* HoaProcess::SYM_PLANEWAVES;
+t_symbol* HoaProcess::SYM_2D;
+t_symbol* HoaProcess::SYM_CANVAS;
 
-t_symbol* HoaProcess::HOA_SYM_HOA_THISPROCESS;
+t_symbol* HoaProcess::SYM_HOA_THISPROCESS;
 
 HoaProcess::HoaProcess(const PdArgs& args)
     : HoaBase(args)
@@ -44,8 +44,8 @@ HoaProcess::HoaProcess(const PdArgs& args)
     , domain_(nullptr)
     , plain_waves_(nullptr)
 {
-    domain_ = new SymbolEnumProperty("@domain", HOA_SYM_HARMONICS);
-    domain_->appendEnum(HOA_SYM_PLANEWAVES);
+    domain_ = new SymbolEnumProperty("@domain", SYM_HARMONICS);
+    domain_->appendEnum(SYM_PLANEWAVES);
     createProperty(domain_);
 
     plain_waves_ = new IntPropertyMinEq("@n", 7, 1);
@@ -78,7 +78,7 @@ void HoaProcess::parseProperties()
 
         AtomList patch_args = positionalArguments().slice(3);
 
-        if (domain_->value() == HOA_SYM_HARMONICS) {
+        if (domain_->value() == SYM_HARMONICS) {
             if (!loadHarmonics(patch, patch_args)) {
                 std::ostringstream ss;
                 ss << "can't load the patch " << patch->s_name << ".pd";
@@ -114,12 +114,12 @@ bool HoaProcess::init()
     canvas_vis(canvas_, 0);
 
     AtomList args(Atom(10), Atom(canvas_yoff_));
-    args.append(Atom(HOA_SYM_SWITCH));
+    args.append(Atom(SYM_SWITCH));
     canvas_yoff_ += YOFF;
 
     // create switch~ object on canvas
-    pd_typedmess((t_pd*)canvas_, HOA_SYM_OBJ, args.size(), args.toPdData());
-    if (canvas_->gl_list->g_pd->c_name == HOA_SYM_BLOCK) {
+    pd_typedmess((t_pd*)canvas_, SYM_OBJ, args.size(), args.toPdData());
+    if (canvas_->gl_list->g_pd->c_name == SYM_BLOCK) {
         block_obj_ = (t_object*)canvas_->gl_list;
         block_obj_method_ = block_obj_->te_g.g_pd->c_bangmethod;
         return true;
@@ -148,7 +148,7 @@ bool HoaProcess::processInstanceInit(ProcessInstance& x, t_canvas* parent, t_sym
     canvas_yoff_ += YOFF;
 
     // create abstraction [name args...]
-    pd_typedmess((t_pd*)parent, HOA_SYM_OBJ, create_abs.size(), create_abs.toPdData());
+    pd_typedmess((t_pd*)parent, SYM_OBJ, create_abs.size(), create_abs.toPdData());
 
     t_gobj* z;
     for (z = parent->gl_list; z->g_next; z = z->g_next) {
@@ -156,7 +156,7 @@ bool HoaProcess::processInstanceInit(ProcessInstance& x, t_canvas* parent, t_sym
     }
 
     // load abstraction
-    if (z && z->g_pd->c_name == HOA_SYM_CANVAS) {
+    if (z && z->g_pd->c_name == SYM_CANVAS) {
         x.setCanvas((t_canvas*)z);
         x.loadBang();
         x.scanCanvas(x.canvas());
@@ -299,8 +299,8 @@ bool HoaProcess::loadHarmonics(t_symbol* name, const AtomList& patch_args)
     instances_.assign(NINSTANCE, ProcessInstance());
 
     AtomList load_args;
-    load_args.append(Atom(HOA_SYM_2D));
-    load_args.append(Atom(HOA_SYM_HARMONICS));
+    load_args.append(Atom(SYM_2D));
+    load_args.append(Atom(SYM_HARMONICS));
     load_args.append(Atom(order()));
     load_args.append(Atom());
     load_args.append(Atom());
@@ -324,8 +324,8 @@ bool HoaProcess::loadPlaneWaves(t_symbol* name, const AtomList& patch_args)
     instances_.assign(NINSTANCE, ProcessInstance());
 
     AtomList load_args;
-    load_args.append(Atom(HOA_SYM_2D));
-    load_args.append(Atom(HOA_SYM_PLANEWAVES));
+    load_args.append(Atom(SYM_2D));
+    load_args.append(Atom(SYM_PLANEWAVES));
     load_args.append(Atom(NINSTANCE));
     load_args.append(Atom());
     load_args.append(patch_args);
@@ -423,6 +423,34 @@ void HoaProcess::m_click(t_symbol* m, const AtomList& lst)
         instances_.front().show();
 }
 
+void HoaProcess::m_open(t_symbol* m, const AtomList& lst)
+{
+    if (!checkArgs(lst, ARG_FLOAT, m))
+        return;
+
+    t_float v = lst.floatAt(0, 0);
+    size_t idx = 0;
+
+    if (v < 0) { // open all
+        for (auto& in : instances_)
+            in.show();
+    } else {
+        if (domain_->value() == SYM_HARMONICS) {
+            idx = v;
+        } else if (domain_->value() == SYM_PLANEWAVES) {
+            idx = v;
+        } else {
+            METHOD_ERR(m) << "unknown domain: " << domain_->value();
+            return;
+        }
+
+        if (idx >= instances_.size()) {
+            METHOD_ERR(m) << "invalid index: " << idx << ", should be < " << instances_.size();
+            return;
+        }
+    }
+}
+
 void HoaProcess::m_open_cnv(t_symbol* m, const AtomList& lst)
 {
     canvas_vis(canvas_, 1);
@@ -430,14 +458,14 @@ void HoaProcess::m_open_cnv(t_symbol* m, const AtomList& lst)
 
 void setup_spat_hoa_process()
 {
-    HoaProcess::HOA_SYM_SWITCH = gensym("switch~");
-    HoaProcess::HOA_SYM_BLOCK = gensym("block~");
-    HoaProcess::HOA_SYM_CANVAS = gensym("canvas");
-    HoaProcess::HOA_SYM_OBJ = gensym("obj");
-    HoaProcess::HOA_SYM_HARMONICS = gensym("harmonics");
-    HoaProcess::HOA_SYM_PLANEWAVES = gensym("planewaves");
-    HoaProcess::HOA_SYM_2D = gensym("2d");
-    HoaProcess::HOA_SYM_HOA_THISPROCESS = gensym("hoa.thisprocess~");
+    HoaProcess::SYM_SWITCH = gensym("switch~");
+    HoaProcess::SYM_BLOCK = gensym("block~");
+    HoaProcess::SYM_CANVAS = gensym("canvas");
+    HoaProcess::SYM_OBJ = gensym("obj");
+    HoaProcess::SYM_HARMONICS = gensym("harmonics");
+    HoaProcess::SYM_PLANEWAVES = gensym("planewaves");
+    HoaProcess::SYM_2D = gensym("2d");
+    HoaProcess::SYM_HOA_THISPROCESS = gensym("hoa.thisprocess~");
 
     SoundExternalFactory<HoaProcess> obj("!hoa.process~");
     obj.addClick(&HoaProcess::m_click);

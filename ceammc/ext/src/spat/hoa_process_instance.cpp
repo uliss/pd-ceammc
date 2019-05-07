@@ -71,7 +71,7 @@ void ProcessInstance::scanCanvas(t_canvas* cnv)
 {
     for (t_gobj* y = cnv->gl_list; y; y = y->g_next) {
         const t_symbol* name = y->g_pd->c_name;
-        if (name == HoaProcess::HOA_SYM_CANVAS) {
+        if (name == HoaProcess::SYM_CANVAS) {
             // recursive load
             scanCanvas((t_canvas*)y);
         } else if (HoaIn::isA(y)) {
