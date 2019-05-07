@@ -18,7 +18,7 @@
 
 class HoaProcess;
 
-struct t_hoa_process_inlet {
+struct ProcessInlet {
     t_class* x_pd;
     size_t x_index;
     HoaProcess* x_owner;

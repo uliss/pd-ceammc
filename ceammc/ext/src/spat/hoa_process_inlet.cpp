@@ -21,7 +21,7 @@ t_class* process_inlet_class()
     return hoa_process_inlet_class;
 }
 
-static void hoa_process_inlet_bang(t_hoa_process_inlet* x)
+static void hoa_process_inlet_bang(ProcessInlet* x)
 {
     HoaProcess* obj = x->x_owner;
 
@@ -31,7 +31,7 @@ static void hoa_process_inlet_bang(t_hoa_process_inlet* x)
         obj->sendBangToAll(x->x_index);
 }
 
-static void hoa_process_inlet_float(t_hoa_process_inlet* x, t_float f)
+static void hoa_process_inlet_float(ProcessInlet* x, t_float f)
 {
     HoaProcess* obj = x->x_owner;
 
@@ -82,7 +82,7 @@ static void hoa_process_inlet_float(t_hoa_process_inlet* x, t_float f)
 void setup_spat_hoa_process_inlet()
 {
     t_class* c = class_new(gensym("hoa.2d.process.inlet"),
-        0, 0, sizeof(t_hoa_process_inlet), CLASS_PD, A_CANT, A_NULL);
+        0, 0, sizeof(ProcessInlet), CLASS_PD, A_CANT, A_NULL);
 
     if (c) {
         class_addbang(c, (t_method)hoa_process_inlet_bang);

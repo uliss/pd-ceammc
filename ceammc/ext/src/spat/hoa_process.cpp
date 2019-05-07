@@ -36,21 +36,26 @@ t_symbol* HoaProcess::HOA_SYM_HOA_THISPROCESS;
 
 HoaProcess::HoaProcess(const PdArgs& args)
     : HoaBase(args)
-    , method_(nullptr)
-    , block_(nullptr)
-    , hoa_canvas_(nullptr)
+    , block_obj_(nullptr)
+    , block_obj_method_(nullptr)
+    , canvas_(nullptr)
     , canvas_yoff_(10)
     , target_(size_t(-1))
+    , domain_(nullptr)
+    , plain_waves_(nullptr)
 {
     domain_ = new SymbolEnumProperty("@domain", HOA_SYM_HARMONICS);
     domain_->appendEnum(HOA_SYM_PLANEWAVES);
     createProperty(domain_);
+
+    plain_waves_ = new IntPropertyMinEq("@n", 7, 1);
+    createProperty(plain_waves_);
 }
 
 HoaProcess::~HoaProcess()
 {
-    if (hoa_canvas_)
-        canvas_free(hoa_canvas_);
+    if (canvas_)
+        canvas_free(canvas_);
 }
 
 void HoaProcess::parseProperties()
@@ -58,6 +63,7 @@ void HoaProcess::parseProperties()
     HoaBase::parseProperties();
 
     domain_->setReadonly(true);
+    plain_waves_->setReadonly(true);
 
     t_symbol* patch = positionalArguments().symbolAt(1, nullptr);
 
@@ -70,27 +76,25 @@ void HoaProcess::parseProperties()
         if (!patch)
             throw std::runtime_error("bad argument, second argument must be a patch name");
 
+        AtomList patch_args = positionalArguments().slice(3);
+
         if (domain_->value() == HOA_SYM_HARMONICS) {
-            AtomList patch_args = positionalArguments().slice(3);
             if (!loadHarmonics(patch, patch_args)) {
                 std::ostringstream ss;
                 ss << "can't load the patch " << patch->s_name << ".pd";
                 throw std::runtime_error(ss.str());
             }
         } else {
-            //            nplws = hoa_processor_clip_nplanewaves(x, (size_t)atom_getfloatarg(0, argc, argv));
-            //            if (!hoa_2d_process_tilde_load_planewaves(x, nplws, patch, argc < 3 ? 0 : argc - 3, argv + 3)) {
-            std::ostringstream ss;
-            ss << "can't load the patch " << patch->s_name << ".pd";
-            throw std::runtime_error(ss.str());
-            //            }
+            if (!loadPlaneWaves(patch, patch_args)) {
+                std::ostringstream ss;
+                ss << "can't load the patch " << patch->s_name << ".pd";
+                throw std::runtime_error(ss.str());
+            }
         }
 
         allocSignals();
         allocInlets();
         allocOutlets();
-
-        //        hoa_2d_process_tilde_alloc_outlets(x);
     } catch (std::exception& e) {
         OBJ_ERR << e.what();
     }
@@ -100,24 +104,24 @@ void HoaProcess::parseProperties()
 
 bool HoaProcess::init()
 {
-    hoa_canvas_ = canvas_new(NULL, gensym(""), 0, NULL);
-    if (!hoa_canvas_) {
+    canvas_ = canvas_new(NULL, gensym(""), 0, NULL);
+    if (!canvas_) {
         OBJ_ERR << "can't create canvas";
         return false;
     }
 
-    pd_popsym((t_pd*)hoa_canvas_);
-    canvas_vis(hoa_canvas_, 0);
+    pd_popsym((t_pd*)canvas_);
+    canvas_vis(canvas_, 0);
 
     AtomList args(Atom(10), Atom(canvas_yoff_));
     args.append(Atom(HOA_SYM_SWITCH));
     canvas_yoff_ += YOFF;
 
     // create switch~ object on canvas
-    pd_typedmess((t_pd*)hoa_canvas_, HOA_SYM_OBJ, args.size(), args.toPdData());
-    if (hoa_canvas_->gl_list->g_pd->c_name == HOA_SYM_BLOCK) {
-        block_ = (t_object*)hoa_canvas_->gl_list;
-        method_ = block_->te_g.g_pd->c_bangmethod;
+    pd_typedmess((t_pd*)canvas_, HOA_SYM_OBJ, args.size(), args.toPdData());
+    if (canvas_->gl_list->g_pd->c_name == HOA_SYM_BLOCK) {
+        block_obj_ = (t_object*)canvas_->gl_list;
+        block_obj_method_ = block_obj_->te_g.g_pd->c_bangmethod;
         return true;
     }
 
@@ -304,9 +308,32 @@ bool HoaProcess::loadHarmonics(t_symbol* name, const AtomList& patch_args)
 
     for (size_t i = 0; i < NINSTANCE; i++) {
         load_args[3].setFloat(hoa_2d_get_degree(i), true);
-        load_args[4].setFloat(hoa_2d_get_azimuthal_order(i), true);
 
-        if (!processInstanceInit(instances_[i], hoa_canvas_, name, load_args)) {
+        if (!processInstanceInit(instances_[i], canvas_, name, load_args)) {
+            instances_.clear();
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool HoaProcess::loadPlaneWaves(t_symbol* name, const AtomList& patch_args)
+{
+    const size_t NINSTANCE = plain_waves_->value();
+    instances_.assign(NINSTANCE, ProcessInstance());
+
+    AtomList load_args;
+    load_args.append(Atom(HOA_SYM_2D));
+    load_args.append(Atom(HOA_SYM_PLANEWAVES));
+    load_args.append(Atom(NINSTANCE));
+    load_args.append(Atom());
+    load_args.append(patch_args);
+
+    for (size_t i = 0; i < NINSTANCE; i++) {
+        load_args[3].setFloat(i, true);
+
+        if (!processInstanceInit(instances_[i], canvas_, name, load_args)) {
             instances_.clear();
             return false;
         }
@@ -327,7 +354,7 @@ void HoaProcess::processBlock(const t_sample** in, t_sample** out)
         Signal::copy(BS, &in[i][0], 1, &in_buf_[i], NINS);
     }
 
-    method_(&block_->te_g.g_pd);
+    block_obj_method_(&block_obj_->te_g.g_pd);
 
     for (size_t i = 0; i < NOUTS; i++) {
         Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
@@ -338,7 +365,7 @@ void HoaProcess::setupDSP(t_signal** sp)
 {
     HoaBase::setupDSP(sp);
 
-    if (block_ && method_) {
+    if (block_obj_ && block_obj_method_) {
         const size_t BS = (size_t)sp[0]->s_n;
         const size_t NINST = instances_.size();
         auto info = calcNumChannels();
@@ -384,7 +411,7 @@ void HoaProcess::setupDSP(t_signal** sp)
             }
         }
 
-        mess0((t_pd*)hoa_canvas_, gensym("dsp"));
+        mess0((t_pd*)canvas_, gensym("dsp"));
     } else {
         OBJ_ERR << "not initialized can't compile DSP chain";
     }
@@ -398,7 +425,7 @@ void HoaProcess::m_click(t_symbol* m, const AtomList& lst)
 
 void HoaProcess::m_open_cnv(t_symbol* m, const AtomList& lst)
 {
-    canvas_vis(hoa_canvas_, 1);
+    canvas_vis(canvas_, 1);
 }
 
 void setup_spat_hoa_process()

@@ -22,19 +22,21 @@
 typedef void (*t_bangmethod)(t_pd* x);
 
 class HoaProcess : public HoaBase {
-    t_bangmethod method_;
-    t_object* block_;
     std::vector<ProcessInstance> instances_;
-    t_canvas* hoa_canvas_;
-    t_float canvas_yoff_;
+    std::vector<ProcessInlet> ins_;
 
+    t_canvas* canvas_;
+    t_object* block_obj_;
+    t_bangmethod block_obj_method_;
+
+    t_float canvas_yoff_;
     size_t target_;
 
-    std::vector<t_hoa_process_inlet> ins_;
     Buffer in_buf_;
     Buffer out_buf_;
 
     SymbolEnumProperty* domain_;
+    IntPropertyMinEq* plain_waves_;
 
 public:
     HoaProcess(const PdArgs& args);
@@ -51,6 +53,7 @@ private:
     bool init();
 
     bool loadHarmonics(t_symbol* name, const AtomList& patch_args);
+    bool loadPlaneWaves(t_symbol* name, const AtomList& patch_args);
     bool processInstanceInit(ProcessInstance& x, t_canvas* parent, t_symbol* name, const AtomList& args);
 
     void allocSignals();
