@@ -136,8 +136,14 @@
     <entry descr="convert from midi pitch to frequency in hz (with various base A and temperament)" name="conv.midi2freq" ref_view="object">
       <xi:include href="conv.midi2freq.pddoc" parse="xml"/>
     </entry>
+    <entry descr="convert phase value [0-1] to radians" name="conv.phase2rad" ref_view="object">
+      <xi:include href="conv.phase2rad.pddoc" parse="xml"/>
+    </entry>
     <entry descr="converts symbol pitch name to MIDI note number" name="conv.pitch2midi" ref_view="object">
       <xi:include href="conv.pitch2midi.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="convert radians value to phase" name="conv.rad2phase" ref_view="object">
+      <xi:include href="conv.rad2phase.pddoc" parse="xml"/>
     </entry>
     <entry descr="convert samples to time according to samplerate" name="conv.samp2sec" ref_view="object">
       <xi:include href="conv.samp2sec.pddoc" parse="xml"/>
@@ -1172,6 +1178,9 @@
     </entry>
   </category>
   <category name="spat">
+    <entry descr="hoa 2d encoder" name="hoa.2d.encoder~" ref_view="object">
+      <xi:include href="hoa.2d.encoder~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="two channel equal power sine/cosine panner" name="pan.cos~" ref_view="object">
       <xi:include href="pan.cos~.pddoc" parse="xml"/>
     </entry>
@@ -1424,6 +1433,7 @@
     <authors>
       <author>Albert Graef</author>
       <author>Alex Nadzharov</author>
+      <author>Eliott Paris</author>
       <author>Hans-Christoph Steiner</author>
       <author>Julian Parker</author>
       <author>Katja Vetter</author>
@@ -1434,6 +1444,7 @@
       <author>Pierre Guillot</author>
       <author>Serge Poltavsky</author>
       <author>Serge Potlavsky</author>
+      <author>Thomas Le Meur</author>
       <author>Till Bovermann</author>
       <author>Viacheslav Lotsmanov</author>
       <author>Yann Orlarey</author>

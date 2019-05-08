@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 ### Added:
+- conv.rad2phase added (with alias rad->phase)
+- conv.rad2phase~ added (with alias rad->phase~)
+- conv.phase2rad added (with alias phase->rad)
+- conv.phase2rad~ added (with alias phase->rad~)
 
 ## [0.7.1]
 ### Added:

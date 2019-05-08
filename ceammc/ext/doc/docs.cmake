@@ -33,7 +33,9 @@ set(DOC_FILES
     conv.lin2lin
     conv.list2props
     conv.midi2freq
+    conv.phase2rad
     conv.pitch2midi
+    conv.rad2phase
     conv.samp2sec
     conv.sec2samp
     conv.sec2str
@@ -159,6 +161,7 @@ set(DOC_FILES
     global.list
     global.mlist
     global.set
+    hoa.2d.encoder~
     hw.apple_smc
     hw.apple_sms
     hw.arduino

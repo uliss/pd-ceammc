@@ -68,6 +68,8 @@ conv.midi2freq
 conv.phase2rad
 conv.phase2rad~
 conv.pitch2midi
+conv.rad2phase
+conv.rad2phase~
 conv.samp2sec
 conv.sec2samp
 conv.sec2str
@@ -481,6 +483,8 @@ prop.set
 prop<-
 prop~>
 proto.firmata
+rad->phase
+rad->phase~
 radio
 random.discrete
 random.float

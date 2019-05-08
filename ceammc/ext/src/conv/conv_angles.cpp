@@ -11,25 +11,41 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "conv_phase2rad.h"
+#include "conv_angles.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
-PhaseToRad::PhaseToRad(const PdArgs& args)
+Phase2Rad::Phase2Rad(const PdArgs& args)
     : SimpleConverter(args, convert::phase2rad<t_float>)
 {
 }
 
-PhaseToRadTilde::PhaseToRadTilde(const PdArgs& args)
+Rad2Phase::Rad2Phase(const PdArgs& args)
+    : SimpleConverter(args, convert::rad2phase<t_float>)
+{
+}
+
+Phase2RadTilde::Phase2RadTilde(const PdArgs& args)
     : SimpleConverterTilde(args, convert::phase2rad<t_float>)
 {
 }
 
-void setup_conv_phase2rad()
+Rad2PhaseTilde::Rad2PhaseTilde(const PdArgs& args)
+    : SimpleConverterTilde(args, convert::rad2phase<t_float>)
 {
-    ObjectFactory<PhaseToRad> obj("conv.phase2rad");
-    obj.addAlias("phase->rad");
+}
 
-    SoundExternalFactory<PhaseToRadTilde> obj_t("conv.phase2rad~");
-    obj_t.addAlias("phase->rad~");
+void setup_conv_angles()
+{
+    ObjectFactory<Phase2Rad> p2r("conv.phase2rad");
+    p2r.addAlias("phase->rad");
+
+    ObjectFactory<Rad2Phase> r2p("conv.rad2phase");
+    r2p.addAlias("rad->phase");
+
+    SoundExternalFactory<Phase2RadTilde> p2rt("conv.phase2rad~");
+    p2rt.addAlias("phase->rad~");
+
+    SoundExternalFactory<Phase2RadTilde> r2pt("conv.rad2phase~");
+    r2pt.addAlias("rad->phase~");
 }

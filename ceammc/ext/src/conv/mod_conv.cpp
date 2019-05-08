@@ -19,7 +19,7 @@ extern "C" void setup_conv0x2ebpm2ms();
 extern "C" void setup_conv0x2ebpm2sec();
 extern "C" void setup_conv0x2ebpm2hz();
 
-extern void setup_conv_phase2rad();
+extern void setup_conv_angles();
 
 void ceammc_conv_setup()
 {
@@ -45,5 +45,5 @@ void ceammc_conv_setup()
     setup_conv_midi2freq();
     setup_list_to_props();
 
-    setup_conv_phase2rad();
+    setup_conv_angles();
 }

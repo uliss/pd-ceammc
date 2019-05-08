@@ -9,7 +9,7 @@ endmacro()
 # MIDI
 ceammc_conv_external(cc2amp)
 
-ceammc_conv_external(phase2rad)
+ceammc_conv_external(angles)
 
 ceammc_conv_external(lin2curve)
 ceammc_conv_external(lin2exp)

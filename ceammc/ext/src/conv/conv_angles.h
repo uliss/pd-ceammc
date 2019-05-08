@@ -11,21 +11,31 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CONV_PHASE2RAD_H
-#define CONV_PHASE2RAD_H
+#ifndef CONV_ANGLES_H
+#define CONV_ANGLES_H
 
 #include "simple_converter.h"
 
-class PhaseToRad : public SimpleConverter {
+class Phase2Rad : public SimpleConverter {
 public:
-    PhaseToRad(const PdArgs& args);
+    Phase2Rad(const PdArgs& args);
 };
 
-class PhaseToRadTilde : public SimpleConverterTilde {
+class Rad2Phase : public SimpleConverter {
 public:
-    PhaseToRadTilde(const PdArgs& args);
+    Rad2Phase(const PdArgs& args);
 };
 
-void setup_conv_phase2rad();
+class Phase2RadTilde : public SimpleConverterTilde {
+public:
+    Phase2RadTilde(const PdArgs& args);
+};
 
-#endif // CONV_PHASE2RAD_H
+class Rad2PhaseTilde : public SimpleConverterTilde {
+public:
+    Rad2PhaseTilde(const PdArgs& args);
+};
+
+void setup_conv_angles();
+
+#endif // CONV_ANGLES_H

@@ -30,19 +30,23 @@
 #X obj 30 453 conv.midi2freq;
 #X text 200 453 convert from midi pitch to frequency in hz (with various
 base A and temperament);
-#X obj 30 493 conv.pitch2midi;
-#X text 200 493 converts symbol pitch name to MIDI note number;
-#X obj 30 520 conv.samp2sec;
-#X text 200 520 convert samples to time according to samplerate;
-#X obj 30 547 conv.sec2samp;
-#X text 200 547 convert time in seconds to number of samples according
+#X obj 30 493 conv.phase2rad;
+#X text 200 493 convert phase value [0-1] to radians;
+#X obj 30 520 conv.pitch2midi;
+#X text 200 520 converts symbol pitch name to MIDI note number;
+#X obj 30 547 conv.rad2phase;
+#X text 200 547 convert radians value to phase;
+#X obj 30 574 conv.samp2sec;
+#X text 200 574 convert samples to time according to samplerate;
+#X obj 30 601 conv.sec2samp;
+#X text 200 601 convert time in seconds to number of samples according
 to current samplerate;
-#X obj 30 587 conv.sec2str;
-#X text 200 587 converts float time in seconds to formated symbol (or
+#X obj 30 641 conv.sec2str;
+#X text 200 641 converts float time in seconds to formated symbol (or
 string);
-#X obj 30 614 conv.str2sec;
-#X text 200 614 converts formatted time to float value in seconds;
+#X obj 30 668 conv.str2sec;
+#X text 200 668 converts formatted time to float value in seconds;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
-#X obj 1 641 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 651 library: ceammc;
+#X obj 1 695 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 705 library: ceammc;
