@@ -14,12 +14,15 @@
 #ifndef HOA_PROCESS_H
 #define HOA_PROCESS_H
 
+#include "ceammc_property_extra.h"
 #include "hoa_common.h"
 #include "hoa_connections.h"
 #include "hoa_process_inlet.h"
 #include "hoa_process_instance.h"
 
 typedef void (*t_bangmethod)(t_pd* x);
+
+typedef LambdaCheckProperty<int> TargetProperty;
 
 class HoaProcess : public HoaBase {
     std::vector<ProcessInstance> instances_;
@@ -30,13 +33,14 @@ class HoaProcess : public HoaBase {
     t_bangmethod block_obj_method_;
 
     t_float canvas_yoff_;
-    size_t target_;
 
     Buffer in_buf_;
     Buffer out_buf_;
 
     SymbolEnumProperty* domain_;
     IntPropertyMinEq* plain_waves_;
+    TargetProperty* target_;
+    int target_value_;
 
 public:
     HoaProcess(const PdArgs& args);
@@ -75,8 +79,8 @@ private:
     InOutInfo calcNumChannels() const;
 
 public:
-    size_t target() const { return target_; }
-    bool targetAll() const { return target_ == size_t(-1); }
+    size_t target() const { return target_->value(); }
+    bool targetAll() const { return target_->value() == -1; }
 
     void sendBangToInstance(size_t inst_idx, size_t inlet_idx);
     void sendBangToAll(size_t inlet_idx);
@@ -100,6 +104,7 @@ public:
 
     static size_t calcIndexDegree(size_t index);
     static long calcAzimuthalOrder(size_t index);
+    static size_t orderToIndex(long order);
 };
 
 void setup_spat_hoa_process();

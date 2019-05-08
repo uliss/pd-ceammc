@@ -1,4 +1,5 @@
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/HoaLibrary-Light/Sources)
+include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/fmt/include)
 include_directories(${EIGEN3_DIR})
 
 set(SPAT_SOURCES

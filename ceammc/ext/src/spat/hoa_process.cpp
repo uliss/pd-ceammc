@@ -13,8 +13,9 @@
  *****************************************************************************/
 #include "hoa_process.h"
 #include "ceammc_factory.h"
+#include "ceammc_property_extra.h"
+#include "fmt/format.h"
 
-#include <sstream>
 #include <stdexcept>
 
 extern "C" {
@@ -40,9 +41,9 @@ HoaProcess::HoaProcess(const PdArgs& args)
     , block_obj_method_(nullptr)
     , canvas_(nullptr)
     , canvas_yoff_(10)
-    , target_(size_t(-1))
     , domain_(nullptr)
     , plain_waves_(nullptr)
+    , target_(nullptr)
 {
     domain_ = new SymbolEnumProperty("@domain", SYM_HARMONICS);
     domain_->appendEnum(SYM_PLANEWAVES);
@@ -50,6 +51,20 @@ HoaProcess::HoaProcess(const PdArgs& args)
 
     plain_waves_ = new IntPropertyMinEq("@n", 7, 1);
     createProperty(plain_waves_);
+
+    target_ = new TargetProperty(
+        "@target",
+        -1,
+        [this](int val) {
+            if (val >= -1 && val < (int)this->instances_.size())
+                return EitherInt(val);
+            else {
+                return EitherInt::makeError(val,
+                    fmt::format("invalid value range, shoud be >= -1 and < {}",
+                        this->instances_.size()));
+            }
+        });
+    createProperty(target_);
 }
 
 HoaProcess::~HoaProcess()
@@ -136,6 +151,11 @@ size_t HoaProcess::calcIndexDegree(size_t index)
 long HoaProcess::calcAzimuthalOrder(size_t index)
 {
     return (long)((long)(index + index % 2l) / 2l) * (1l - (long)(index % 2) * 2l);
+}
+
+size_t HoaProcess::orderToIndex(long order)
+{
+    return std::abs(order) * 2 - (long)(order < 0);
 }
 
 bool HoaProcess::processInstanceInit(ProcessInstance& x, t_canvas* parent, t_symbol* name, const AtomList& args)
@@ -308,6 +328,7 @@ bool HoaProcess::loadHarmonics(t_symbol* name, const AtomList& patch_args)
 
     for (size_t i = 0; i < NINSTANCE; i++) {
         load_args[3].setFloat(calcIndexDegree(i), true);
+        load_args[4].setFloat(calcAzimuthalOrder(i), true);
 
         if (!processInstanceInit(instances_[i], canvas_, name, load_args)) {
             instances_.clear();
@@ -435,15 +456,7 @@ void HoaProcess::m_open(t_symbol* m, const AtomList& lst)
         for (auto& in : instances_)
             in.show();
     } else {
-        if (domain_->value() == SYM_HARMONICS) {
-            idx = v;
-        } else if (domain_->value() == SYM_PLANEWAVES) {
-            idx = v;
-        } else {
-            METHOD_ERR(m) << "unknown domain: " << domain_->value();
-            return;
-        }
-
+        idx = v;
         if (idx >= instances_.size()) {
             METHOD_ERR(m) << "invalid index: " << idx << ", should be < " << instances_.size();
             return;
@@ -470,4 +483,5 @@ void setup_spat_hoa_process()
     SoundExternalFactory<HoaProcess> obj("!hoa.process~");
     obj.addClick(&HoaProcess::m_click);
     obj.addMethod("debug", &HoaProcess::m_open_cnv);
+    obj.addMethod("open", &HoaProcess::m_open);
 }
