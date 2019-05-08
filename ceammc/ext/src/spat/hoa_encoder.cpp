@@ -54,5 +54,6 @@ void HoaEncoder::blocksizeChanged(size_t bs)
 
 void setup_spat_hoa_encoder()
 {
-    SoundExternalFactory<HoaEncoder> obj("!hoa.encoder~");
+    SoundExternalFactory<HoaEncoder> obj("hoa.2d.encoder~");
+    obj.addAlias("hoa.encoder~");
 }

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="hoa.2d.encoder~">
+        <title>hoa.2d.encoder~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+                <author>Pierre Guillot</author>
+                <author>Eliott Paris</author>
+                <author>Thomas Le Meur</author>
+            </authors>
+            <description>hoa 2d encoder</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>hoa encoder</keywords>
+            <since>0.8</since>
+            <also>
+                <see>hoa.2d.decoder~</see>
+            </also>
+            <aliases>
+                <alias>hoa.encoder~</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Creates the circular harmonics of a signal depending of a given order and a
+            position on a circle given in radians (θ).</par>
+            <par>Each generated signal of the sound field carries the source signal weighted by its
+            associated harmonic Y defined by</par>
+            <par indent="2">Y[l, m](θ) = e^i|m|θ.</par>
+            <par>with the complex exponential e^i that can be expressed by</par>
+            <par>if m &lt; 0</par>
+            <par indent="2">Y[l, m](θ) = sin(|m|*θ)</par>
+            <par>else if m &gt;= 0</par>
+            <par indent="2">Y[l, m](θ) = cos(|m|*θ)</par>
+            <par>with l the degree, m the azimuthal order, θ the azimuth and S the signal to
+            encode.</par>
+            <par>The signal of the circular harmonics are not normalized, they are defined between
+            -1 and 1, even for the first omnidirectional harmonic Y[0, 0]. The harmonics Y[l, m]
+            are ordered following the ACN:</par>
+            <par indent="2">Y[0, Ø], Y[1, -1], Y[1, 1], Y[2, -2], ..., Y[N, -N], Y[N, N].</par>
+            <a href="hoa/hoa.2d.encoder~-help.pd">CICM documentation</a>
+            <a href="hoa/hoa.2d.encoder~-help.pd">CICM documentation</a>
+        </info>
+        <arguments>
+            <argument name="ORDER" type="int" minvalue="1">the order of decomposition</argument>
+        </arguments>
+        <properties>
+            <property name="@order" type="int" minvalue="1" maxvalue="63" default="4">the order of
+            decomposition</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>position on a circle in radians</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet type="audio">first circular harmonics output</outlet>
+            <outlet type="audio" number="...">... circular harmonics output</outlet>
+            <outlet type="audio" number="n">n-th circular harmonics output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[hoa/hoa.soundgrain~]    [lfo.saw~ 0.15]
+|                        |
+[ui.gain~ @size 120 14]  [phase->rad~]
+|                        |.
+[hoa.encoder~ 5 ----------]
+|
+[hoa.decoder~ 5 ----------]
+|
+[xdac~ 1:16]
+
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
