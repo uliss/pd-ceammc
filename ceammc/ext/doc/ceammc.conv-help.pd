@@ -38,17 +38,19 @@ base A and temperament);
 #X text 200 547 converts symbol pitch name to MIDI note number;
 #X obj 30 574 conv.rad2phase;
 #X text 200 574 convert radians value to phase;
-#X obj 30 601 conv.samp2sec;
-#X text 200 601 convert samples to time according to samplerate;
-#X obj 30 628 conv.sec2samp;
-#X text 200 628 convert time in seconds to number of samples according
+#X obj 30 601 conv.rad2phase~;
+#X text 200 601 convert radians value to phase;
+#X obj 30 628 conv.samp2sec;
+#X text 200 628 convert samples to time according to samplerate;
+#X obj 30 655 conv.sec2samp;
+#X text 200 655 convert time in seconds to number of samples according
 to current samplerate;
-#X obj 30 668 conv.sec2str;
-#X text 200 668 converts float time in seconds to formated symbol (or
+#X obj 30 695 conv.sec2str;
+#X text 200 695 converts float time in seconds to formated symbol (or
 string);
-#X obj 30 695 conv.str2sec;
-#X text 200 695 converts formatted time to float value in seconds;
+#X obj 30 722 conv.str2sec;
+#X text 200 722 converts formatted time to float value in seconds;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
-#X obj 1 722 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 732 library: ceammc;
+#X obj 1 749 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 759 library: ceammc;
