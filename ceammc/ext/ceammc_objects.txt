@@ -1,3 +1,14 @@
+!hoa.decoder~
+!hoa.in
+!hoa.in~
+!hoa.optim~
+!hoa.out
+!hoa.out~
+!hoa.process~
+!hoa.projector~
+!hoa.recomposer~
+!hoa.rotate~
+!hoa.wider~
 .f
 .float
 .i
@@ -54,6 +65,8 @@ conv.lin2exp
 conv.lin2lin
 conv.list2props
 conv.midi2freq
+conv.phase2rad
+conv.phase2rad~
 conv.pitch2midi
 conv.samp2sec
 conv.sec2samp
@@ -120,6 +133,7 @@ flow.group
 flow.interval
 flow.less
 flow.less_eq
+flow.match
 flow.multiplex
 flow.multiplex2~
 flow.multiplex~
@@ -198,6 +212,8 @@ global.mlist
 global.set
 group
 helmholtz~
+hoa.2d.encoder~
+hoa.encoder~
 hw.apple_smc
 hw.apple_sms
 hw.arduino
@@ -448,6 +464,8 @@ path.dirname
 path.exists
 path.ls
 path.lsdir
+phase->rad
+phase->rad~
 pitch->midi
 prepend
 preset.float
@@ -598,6 +616,7 @@ vline->env
 vline2env
 win
 window
+xdac~
 xfade2~
 xfade~
 ~->
