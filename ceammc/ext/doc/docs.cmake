@@ -34,6 +34,7 @@ set(DOC_FILES
     conv.list2props
     conv.midi2freq
     conv.phase2rad
+    conv.phase2rad~
     conv.pitch2midi
     conv.rad2phase
     conv.samp2sec

@@ -139,6 +139,9 @@
     <entry descr="convert phase value [0-1] to radians" name="conv.phase2rad" ref_view="object">
       <xi:include href="conv.phase2rad.pddoc" parse="xml"/>
     </entry>
+    <entry descr="convert phase value [0-1] to radians" name="conv.phase2rad~" ref_view="object">
+      <xi:include href="conv.phase2rad~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="converts symbol pitch name to MIDI note number" name="conv.pitch2midi" ref_view="object">
       <xi:include href="conv.pitch2midi.pddoc" parse="xml"/>
     </entry>

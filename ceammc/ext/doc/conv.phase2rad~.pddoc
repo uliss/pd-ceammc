@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.phase2rad~">
+        <title>conv.phase2rad~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert phase value [0-1] to radians</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv phase radians</keywords>
+            <since>0.8</since>
+            <also>
+                <see>conv.rad2phase~</see>
+            </also>
+            <aliases>
+                <alias>phase-&gt;rad~</alias>
+            </aliases>
+        </meta>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">converted value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[lfo.saw~ 0.1]  [ui.dsp~]
+|
+[phase->rad~]
+|
+[ui.n~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

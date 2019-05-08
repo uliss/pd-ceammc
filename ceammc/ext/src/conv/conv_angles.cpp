@@ -46,6 +46,6 @@ void setup_conv_angles()
     SoundExternalFactory<Phase2RadTilde> p2rt("conv.phase2rad~");
     p2rt.addAlias("phase->rad~");
 
-    SoundExternalFactory<Phase2RadTilde> r2pt("conv.rad2phase~");
+    SoundExternalFactory<Rad2PhaseTilde> r2pt("conv.rad2phase~");
     r2pt.addAlias("rad->phase~");
 }
