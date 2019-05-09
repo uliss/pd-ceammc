@@ -163,6 +163,7 @@ set(DOC_FILES
     global.list
     global.mlist
     global.set
+    hoa.2d.decoder~
     hoa.2d.encoder~
     hw.apple_smc
     hw.apple_sms

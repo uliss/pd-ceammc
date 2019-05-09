@@ -161,6 +161,7 @@ global.int		.		.
 global.list		.		.
 global.mlist		.		.
 global.set		.		.
+hoa.2d.decoder~,hoa.decoder~		?		?
 hoa.2d.encoder~,hoa.encoder~		~~		?
 hw.apple_smc		.		.
 hw.apple_sms		.		.

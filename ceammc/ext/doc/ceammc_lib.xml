@@ -1184,6 +1184,9 @@
     </entry>
   </category>
   <category name="spat">
+    <entry descr="hoa 2d decoder" name="hoa.2d.decoder~" ref_view="object">
+      <xi:include href="hoa.2d.decoder~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="hoa 2d encoder" name="hoa.2d.encoder~" ref_view="object">
       <xi:include href="hoa.2d.encoder~.pddoc" parse="xml"/>
     </entry>

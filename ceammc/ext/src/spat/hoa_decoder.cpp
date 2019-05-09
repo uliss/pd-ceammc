@@ -318,5 +318,6 @@ void setup_spat_hoa_decoder()
     SYM_BINAURAL = gensym("binaural");
     SYM_PROP_MODE = gensym("@mode");
 
-    SoundExternalFactory<HoaDecoder> obj("!hoa.decoder~");
+    SoundExternalFactory<HoaDecoder> obj("hoa.2d.decoder~");
+    obj.addAlias("hoa.decoder~");
 }

@@ -1,4 +1,3 @@
-!hoa.decoder~
 !hoa.in
 !hoa.in~
 !hoa.optim~
@@ -214,7 +213,9 @@ global.mlist
 global.set
 group
 helmholtz~
+hoa.2d.decoder~
 hoa.2d.encoder~
+hoa.decoder~
 hoa.encoder~
 hw.apple_smc
 hw.apple_sms

@@ -18,6 +18,7 @@
 #include <regex>
 
 extern "C" {
+#include "g_canvas.h"
 #include "s_stuff.h"
 }
 
@@ -86,6 +87,12 @@ BaseDac::BaseDac(const PdArgs& args)
 
 void BaseDac::parseProperties()
 {
+    t_rtext* y = glist_findrtext(canvas(), owner());
+    if (y) {
+        OBJ_DBG << "erext found...";
+        for (int i = 0; i < vec_.size(); i++)
+            sys_vgui("tooltip::tooltip %so%d \"inlet %d\"", rtext_gettag(y), i, i + 1);
+    }
 }
 
 void BaseDac::processBlock(const t_sample** in, t_sample** out)
