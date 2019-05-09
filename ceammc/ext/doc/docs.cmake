@@ -168,6 +168,7 @@ set(DOC_FILES
     global.set
     hoa.2d.decoder~
     hoa.2d.encoder~
+    hoa.2d.optim~
     hw.apple_smc
     hw.apple_sms
     hw.arduino

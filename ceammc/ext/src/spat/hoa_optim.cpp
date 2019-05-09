@@ -65,8 +65,6 @@ HoaOptim::HoaOptim(const PdArgs& args)
     createProperty(new SymbolEnumAlias("@basic", mode_, SYM_BASIC));
     createProperty(new SymbolEnumAlias("@maxre", mode_, SYM_MAXRE));
     createProperty(new SymbolEnumAlias("@inphase", mode_, SYM_INPHASE));
-
-    //    createProperty(new CallbackMemFnProperty(mode_, ));
 }
 
 void HoaOptim::parseProperties()
@@ -117,5 +115,6 @@ void setup_spat_hoa_optim()
     SYM_MAXRE = gensym("maxre");
     SYM_INPHASE = gensym("inphase");
 
-    SoundExternalFactory<HoaOptim>("!hoa.optim~");
+    SoundExternalFactory<HoaOptim> obj("hoa.2d.optim~");
+    obj.addAlias("hoa.optim~");
 }

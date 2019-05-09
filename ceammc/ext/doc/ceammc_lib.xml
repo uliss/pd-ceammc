@@ -1199,6 +1199,9 @@
     <entry descr="hoa 2d encoder" name="hoa.2d.encoder~" ref_view="object">
       <xi:include href="hoa.2d.encoder~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="a 2D ambisonic optimization tool" name="hoa.2d.optim~" ref_view="object">
+      <xi:include href="hoa.2d.optim~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="two channel equal power sine/cosine panner" name="pan.cos~" ref_view="object">
       <xi:include href="pan.cos~.pddoc" parse="xml"/>
     </entry>
