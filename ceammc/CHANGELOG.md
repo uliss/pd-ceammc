@@ -7,6 +7,7 @@
 - conv.phase2rad added (with alias phase->rad)
 - conv.phase2rad~ added (with alias phase->rad~)
 - canvas.name added
+- canvas.path added
 
 ## [0.7.1]
 ### Added:

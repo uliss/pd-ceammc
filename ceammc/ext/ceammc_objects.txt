@@ -49,6 +49,7 @@ bpm->ms
 bpm->sec
 canvas.current
 canvas.name
+canvas.path
 canvas.top
 cc->amp
 cdiv~

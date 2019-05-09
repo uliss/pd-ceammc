@@ -1063,6 +1063,9 @@
     <entry descr="current canvas name" name="canvas.name" ref_view="object">
       <xi:include href="canvas.name.pddoc" parse="xml"/>
     </entry>
+    <entry descr="current canvas fullpath" name="canvas.path" ref_view="object">
+      <xi:include href="canvas.path.pddoc" parse="xml"/>
+    </entry>
     <entry descr="verbose information about top-level canvas" name="canvas.top" ref_view="object">
       <xi:include href="canvas.top.pddoc" parse="xml"/>
     </entry>

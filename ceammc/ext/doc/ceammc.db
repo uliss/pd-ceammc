@@ -20,6 +20,7 @@ array.vplay		.		..
 array.window		.		.
 canvas.current		.		.
 canvas.name		.		.
+canvas.path		.		.
 canvas.top		.		.
 click~		.		~
 conv.amp2dbfs,amp->dbfs		.		.

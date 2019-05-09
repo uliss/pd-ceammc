@@ -21,6 +21,7 @@ set(DOC_FILES
     array.window
     canvas.current
     canvas.name
+    canvas.path
     canvas.top
     click~
     conv.amp2dbfs

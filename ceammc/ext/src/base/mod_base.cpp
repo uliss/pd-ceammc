@@ -43,6 +43,7 @@ extern "C" void setup_test0x2eexpect();
 extern "C" void setup_prop0x2eget_tilde();
 
 void setup_base_canvas_name();
+void setup_base_canvas_path();
 void setup_is_data();
 void setup_load_msg();
 
@@ -65,6 +66,7 @@ void ceammc_base_setup()
     replace_setup();
 
     setup_base_canvas_name();
+    setup_base_canvas_path();
     setup_base_prop();
     setup_is_data();
     setup_load_msg();
