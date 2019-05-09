@@ -63,6 +63,10 @@ the maximum is 512 samples. Only available for binaural mode.;
 #X text 8 425 @offset property the rotation of the loudspeakers (in
 degrees). Only available for regular and irregular modes.;
 #X obj 405 491 hoa.credits;
+#X text 8 165 • Regular decoding is used for a perfect circle of
+loudspeakers \, where all the loudspeakers are to equally spaced. The
+minimum number of loudspeakers is 2 * order + 1 (default : 2 * order
++ 2). Ex:, f 60;
 #X connect 2 0 25 0;
 #X connect 5 0 21 0;
 #X connect 5 1 21 1;
