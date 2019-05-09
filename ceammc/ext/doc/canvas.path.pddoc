@@ -22,7 +22,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>current canvas fullpath</outlet>
+            <outlet>current canvas fullpath as symbol</outlet>
         </outlets>
         <example>
             <pdascii>
