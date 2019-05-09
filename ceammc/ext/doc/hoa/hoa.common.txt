@@ -1,0 +1,8 @@
+hoa.connect-help.pd hoa.connect A connector for hoa objects.;
+hoa.dac~-help.pd hoa.dac~ A custom dac~ with matlab syntax.;
+hoa.io-help.pd hoa.io A set of inlet and outlet for hoa.process.;
+hoa.pi-help.pd hoa.pi A good pi number.;
+hoa.pi~-help.pd hoa.pi~ A good pi number for signal.;
+hoa.map-help.pd hoa.map A GUI to spatialize sources on a map.;
+hoa.process~-help.pd hoa.process~ A multi-patcher for harmonics and plane waves domains.;
+hoa.thisprocess~-help.pd hoa.thisprocess~ A patcher informer for hoa.process.;
