@@ -1,0 +1,182 @@
+#N canvas 539 58 662 587 10;
+#X obj 14 21 c.patcherinfos;
+#X obj 19 4 loadbang;
+#X obj 3 3 hoa.help.header;
+#X obj 24 518 hoa.help.pub;
+#N canvas 789 275 452 384 sel.hoa.txt 0;
+#X obj -556 -387 unpack s s;
+#X msg -394 -362 clear;
+#X obj -592 -600 inlet;
+#X obj -499 -336 outlet;
+#X obj -556 -443 c.prepend read;
+#X obj -556 -413 textfile;
+#X obj -590 -530 until;
+#X msg -573 -498 rewind;
+#X obj -590 -572 t b b s b;
+#X obj -556 -466 makefilename hoa.%s.txt;
+#X obj -499 -363 c.prepend append;
+#X connect 0 1 10 0;
+#X connect 1 0 3 0;
+#X connect 2 0 8 0;
+#X connect 4 0 5 0;
+#X connect 5 0 0 0;
+#X connect 5 1 6 1;
+#X connect 6 0 5 0;
+#X connect 7 0 5 0;
+#X connect 8 0 6 0;
+#X connect 8 1 7 0;
+#X connect 8 2 9 0;
+#X connect 8 3 1 0;
+#X connect 9 0 4 0;
+#X connect 10 0 3 0;
+#X restore 471 289 pd sel.hoa.txt;
+#N canvas 550 99 691 357 sel.hoa.text2 0;
+#X obj -326 -135 list split 1;
+#X obj -292 -115 list split 1;
+#X obj -467 -385 inlet;
+#X obj -258 -62 outlet;
+#X obj -467 -363 route -1;
+#X obj -328 -380 inlet;
+#X obj -326 -193 textfile;
+#X obj -326 -352 t s b;
+#X obj -422 -286 until;
+#X msg -356 -298 rewind;
+#X obj -326 -160 spigot 0;
+#X obj -422 -218 f 0;
+#X obj -383 -217 + 1;
+#X obj -422 -194 ==;
+#X msg -384 -250 0;
+#X obj -422 -310 + 1;
+#X obj -433 -241 t b b;
+#X obj -326 -246 makefilename hoa.%s.txt;
+#X msg -126 -92 clear;
+#X obj -422 -336 t f f b b;
+#X obj -258 -92 prepend text 10 10;
+#X obj -326 -223 msg read;
+#X connect 0 1 1 0;
+#X connect 1 1 20 0;
+#X connect 2 0 4 0;
+#X connect 4 1 19 0;
+#X connect 5 0 7 0;
+#X connect 6 0 10 0;
+#X connect 7 0 17 0;
+#X connect 7 1 18 0;
+#X connect 8 0 16 0;
+#X connect 9 0 6 0;
+#X connect 10 0 0 0;
+#X connect 11 0 12 0;
+#X connect 11 0 13 0;
+#X connect 12 0 11 1;
+#X connect 13 0 10 1;
+#X connect 14 0 11 1;
+#X connect 15 0 8 0;
+#X connect 16 0 6 0;
+#X connect 16 1 11 0;
+#X connect 17 0 21 0;
+#X connect 18 0 3 0;
+#X connect 19 0 15 0;
+#X connect 19 1 13 1;
+#X connect 19 1 14 0;
+#X connect 19 2 9 0;
+#X connect 19 3 18 0;
+#X connect 20 0 3 0;
+#X connect 21 0 6 0;
+#X restore 136 331 pd sel.hoa.text2;
+#N canvas 514 160 694 586 hoa.open.hel 1;
+#X obj 371 248 makefilename %s-help.pd;
+#X obj 371 281 pack s s;
+#X obj 371 187 t s b;
+#X msg 371 308 \; pd open \$1 \$2;
+#X obj 438 228 makefilename %s/helps;
+#X obj 216 19 inlet;
+#X obj 96 356 pack s s;
+#X msg 96 383 \; pd open \$1 \$2;
+#X obj 183 233 makefilename %s/tutorials;
+#X obj 16 30 sel tutos;
+#X obj 16 10 inlet;
+#X obj 96 168 spigot 0;
+#X obj 371 163 spigot 1;
+#X obj 16 72 f 1;
+#X obj 67 72 f 0;
+#X obj 42 72 f 0;
+#X obj 94 72 f 1;
+#X obj 67 50 bang;
+#X msg 74 286 hoa.tools.2d.pd;
+#X obj 146 19 inlet;
+#X obj 96 192 t f b;
+#X msg 235 302 hoa.tools.3d.pd;
+#X obj 53 323 makefilename Tutorial_%d.pd;
+#X obj 53 233 + 1;
+#X obj 114 253 sel 11 12;
+#X obj 143 213 patch.args;
+#X obj 398 208 patch.args;
+#X obj 216 41 list.at 1;
+#X connect 0 0 1 0;
+#X connect 1 0 3 0;
+#X connect 2 0 0 0;
+#X connect 2 1 26 0;
+#X connect 4 0 1 1;
+#X connect 5 0 27 0;
+#X connect 6 0 7 0;
+#X connect 8 0 6 1;
+#X connect 9 0 13 0;
+#X connect 9 0 15 0;
+#X connect 9 1 17 0;
+#X connect 10 0 9 0;
+#X connect 11 0 20 0;
+#X connect 12 0 2 0;
+#X connect 13 0 11 1;
+#X connect 14 0 11 1;
+#X connect 15 0 12 1;
+#X connect 16 0 12 1;
+#X connect 17 0 14 0;
+#X connect 17 0 16 0;
+#X connect 18 0 6 0;
+#X connect 19 0 11 0;
+#X connect 20 0 23 0;
+#X connect 20 1 25 0;
+#X connect 21 0 6 0;
+#X connect 22 0 6 0;
+#X connect 23 0 24 0;
+#X connect 24 0 18 0;
+#X connect 24 1 21 0;
+#X connect 24 2 22 0;
+#X connect 25 0 8 0;
+#X connect 26 0 4 0;
+#X connect 27 0 12 0;
+#X restore 220 420 pd hoa.open.hel;
+#X obj 5 464 c.blackboard @size 398 39 @fontname "Monaco" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
+@chalkmode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
+#X text 4 47 Hoa Library allows musicians and composers to synthesize
+\, transform and render sound fields in a creative and artistic way.
+This library facilitates the understanding and the appropriation of
+key concepts of Ambisonics. Thanks to original graphical interfaces
+a lot of new signal processings are allowed like diffuse sound field
+synthesis \, perspective distorsion or spatial filtering.;
+#X obj 6 173 msg.onload 0;
+#X obj 5 156 ui.tab @size 398 36 @receive "(null)" @send "(null)" @pinned
+0 @presetname "ui.tab.0" @background_color 0.93 0.93 0.93 1 @border_color
+0.6 0.6 0.6 1 @label_color 0 0 0 1 @text_color 0 0 0 1 @active_color
+0 0.75 1 1 @hover_color 0.5 0.5 0.5 1 @fontname "Monaco" @fontweight
+"normal" @fontslant "roman" @fontsize 13 @label "(null)" @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+0 0 @orientation 0 @toggle 1 @items "2d" "3d" "common" "process" "tutos"
+;
+#X obj 344 247 ui.tab @size 398 264 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.tab.1" @background_color 0.93 0.93 0.93 1
+@border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @text_color 0 0 0
+1 @active_color 0 0.75 1 1 @hover_color 0.5 0.5 0.5 1 @fontname "Monaco"
+@fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
+@label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @orientation 1 @toggle 0 @items "hoa.2d.decoder~"
+"hoa.2d.encoder~" "hoa.2d.map~" "hoa.2d.meter~" "hoa.2d.optim~" "hoa.2d.projector~"
+"hoa.2d.recomposer~" "hoa.2d.rotate~" "hoa.2d.scope~" "hoa.2d.space"
+"hoa.2d.wider~";
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X connect 4 0 11 0;
+#X connect 5 0 7 0;
+#X connect 9 0 10 0;
+#X connect 11 0 6 1;
+#X coords 0 -2.14748e+09 1 -2.14748e+09 100 60 0;

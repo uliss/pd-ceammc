@@ -1,0 +1,11 @@
+#N canvas 550 310 379 153 10;
+#X text 14 13 HOA Library - CICM | Universite Paris 8 | Labex Arts
+H2H;
+#X text 14 126 http://www.mshparisnord.fr/hoalibrary/;
+#X text 14 32 Authors:;
+#X text 14 46 2012: P. Guillot \, E. Paris & J. Colafrancesco;
+#X text 14 57 2012-2015 : P. Guillot & E. Paris;
+#X text 14 69 2015 : P. Guillot \, E. Paris & T. Le Meur;
+#X text 14 82 2016 : P. Guillot & E. Paris;
+#X text 14 102 Pure Data implementation:;
+#X text 14 115 2013-2016: P. Guillot \, E. Paris & T. Le Meur;
