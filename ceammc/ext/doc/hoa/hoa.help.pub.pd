@@ -1,0 +1,8 @@
+#N canvas 65 223 442 110 10;
+#X obj 1 1 cnv 15 359 40 empty \$0-hoa.header empty 3 12 0 18 -212212
+-1 0;
+#X text 144 0 HOA Library;
+#X text 4 13 by J. Colafrancesco \, P. Guillot \, E. Paris & T. Le
+Meur;
+#X text 87 27 2012-2015 CICM | Universite Paris 8;
+#X coords 0 -1 1 1 361 42 2 0 0;

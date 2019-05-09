@@ -1,0 +1,30 @@
+#N canvas 405 374 415 271 10;
+#X msg 125 174 \; pd open \$1 \$2;
+#X obj 225 38 s \$0-zeze;
+#X obj 152 30 r \$0-zeze;
+#X obj 1 1 cnv 15 130 40 empty \$0-hoa.header empty 3 12 0 18 -212212
+-1 0;
+#X obj 152 50 bang;
+#X obj 118 94 t b s;
+#X obj 192 115 makefilename %s/..;
+#X obj 231 182 print;
+#X obj 125 147 pack s s;
+#X msg 82 124 hoa-help.pd;
+#X obj 16 7 ui.tab @size 100 18 @receive "(null)" @send "(null)" @pinned
+0 @presetname "ui.tab.0" @background_color 0.93 0.93 0.93 1 @border_color
+0.6 0.6 0.6 1 @label_color 0 0 0 1 @text_color 0 0 0 1 @active_color
+0 0.75 1 1 @hover_color 0.5 0.5 0.5 1 @fontname "Monaco" @fontweight
+"normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner
+0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
+0 0 @orientation 0 @toggle 0 @items "hoa.overview";
+#X obj 152 74 patch.args;
+#X connect 2 0 4 0;
+#X connect 4 0 11 0;
+#X connect 5 0 9 0;
+#X connect 5 1 6 0;
+#X connect 6 0 8 1;
+#X connect 8 0 0 0;
+#X connect 9 0 8 0;
+#X connect 10 0 1 0;
+#X connect 11 0 5 0;
+#X coords 0 -1 1 1 132 42 2 0 0;
