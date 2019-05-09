@@ -65,13 +65,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[hoa/hoa.sounddrone]
+[hoa/hoa.soundrone]
 |
-[ui.gain~ @size 120 14]
-|
-[hoa.encoder~ 5 {w=36,i=11,o=11}]
-*|*
-[hoa.optim~ 5 {w=36,i=11,o=11}]
+[ui.gain~ @size 120 14]           [ui.menu basic maxre inphase]
+|                                 |
+[hoa.encoder~ 5 {w=36,i=11,o=11}] [@mode $2(
+*|*                               |
+[hoa.optim~ 5 {w=36,i=11,o=11}    ]
 *|*
 [hoa.decoder~ 5 binaural @crop 64 {w=36,i=11,o=2}]
 *|*
