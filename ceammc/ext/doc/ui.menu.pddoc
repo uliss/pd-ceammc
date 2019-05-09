@@ -83,9 +83,10 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs current menu state as list: INDEX VALUE</xinfo>
-                <xinfo on="float">change menu state and output new value</xinfo>
-                <xinfo on="any">selects item equal to given</xinfo>
+                <xinfo on="bang">outputs current menu state as list: INDEX ITEM_NAME</xinfo>
+                <xinfo on="float">change menu state and output list: INDEX ITEM_NAME</xinfo>
+                <xinfo on="any">selects item equal to given and output list: INDEX
+                ITEM_NAME</xinfo>
             </inlet>
         </inlets>
         <outlets>

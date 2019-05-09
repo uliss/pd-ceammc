@@ -134,11 +134,12 @@ are:;
 -49933 0;
 #X text 110 1885 1\.;
 #X text 150 1885 *bang*;
-#X text 245 1885 outputs current menu state as list: INDEX VALUE.;
+#X text 245 1885 outputs current menu state as list: INDEX ITEM_NAME.;
 #X text 150 1905 *float*;
-#X text 245 1905 change menu state and output new value.;
+#X text 245 1905 change menu state and output list: INDEX ITEM_NAME.;
 #X text 150 1925 *any*;
-#X text 245 1925 selects item equal to given.;
+#X text 245 1925 selects item equal to given and output list: INDEX
+ITEM_NAME.;
 #X obj 20 1955 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1960 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

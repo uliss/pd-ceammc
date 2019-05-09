@@ -96,7 +96,7 @@
 
 [ui.tab @items A1 A2]
 |
-[set $1, bang( [stop(
+[set $2, bang( [stop(
 |              |
 [tabplay~    A2]
 |

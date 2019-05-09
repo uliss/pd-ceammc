@@ -137,14 +137,15 @@ are:;
 -49933 0;
 #X text 110 1833 1\.;
 #X text 150 1833 *bang*;
-#X text 245 1833 in single mode outputs @title TAB and index of selected
-tab. In toggle mode outputs current state like: @selected 0 1 0 1 0
-etc. and list of two values: [CHANGED_IDX CHANGED_VALUE].;
+#X text 245 1833 in single mode outputs tab state as list: INDEX TAB_NAME.
+In toggle mode outputs current state like: @selected 0 1 0 1 0 etc.
+and list of two values: [CHANGED_IDX CHANGED_VALUE].;
 #X text 150 1883 *float*;
-#X text 245 1883 onle in single mode: change tab select tab by index
-and output tab @title and new index.;
+#X text 245 1883 only in single mode: change tab by index and output
+list: INDEX TAB_NAME.;
 #X text 150 1918 *any*;
-#X text 245 1918 selects item equal to given.;
+#X text 245 1918 selects item equal to given and output list: INDEX
+TAB_NAME.;
 #X obj 20 1948 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1953 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

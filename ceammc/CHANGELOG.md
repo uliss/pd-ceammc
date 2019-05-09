@@ -10,6 +10,9 @@
 - canvas.name added
 - canvas.path added
 
+### Changed:
+- ui.tab in single mode outputs like ui.menu: list pair - INDEX TAB_NAME
+
 ## [0.7.1]
 ### Added:
 - properties dialogs for ui.* objects are improved:
