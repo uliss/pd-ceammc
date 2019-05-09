@@ -77,30 +77,47 @@ void HoaDecoder::parseMode()
 
 void HoaDecoder::parsePlainWavesNum()
 {
-    const int MIN_PW_COUNT = 2 * order() + 1;
+    const int NWAVES_ARG_IDX = 2;
 
-    auto pos_arg = positionalFloatArgument(2, 0);
-    if (pos_arg != 0)
-        plain_waves_->setValue(pos_arg);
+    // num of plain waves ignored in binaural mode
+    if (mode_->value() == SYM_BINAURAL) {
+        plain_waves_->setValue(2);
+    } else if (mode_->value() == SYM_REGULAR) {
+        const int MIN_PW_COUNT = 2 * order() + 1;
+        const int DEFAULT = 2 * order() + 2;
 
-    const auto N = plain_waves_->value();
+        // property was not specified, try positional arg
+        if (plain_waves_->value() == 0)
+            plain_waves_->setValue(positionalFloatArgument(NWAVES_ARG_IDX, DEFAULT));
 
-    if (N < MIN_PW_COUNT) {
-        // num of plain waves ignored in binaural mode
-        if (mode_->value() == SYM_BINAURAL) {
-            if (N != 2) {
-                if (N != 0)
-                    OBJ_ERR << "ignoring value in binaural mode: " << N;
+        const auto N = plain_waves_->value();
 
-                plain_waves_->setValue(2);
-            }
+        if (N >= MIN_PW_COUNT) {
+            plain_waves_->setValue(N);
         } else {
-            // zero means auto calc
-            if (N != 0)
-                OBJ_ERR << "minimal number of plain waves should be >= " << MIN_PW_COUNT << ", setting to this value";
-
+            OBJ_ERR << "minimal number of plain waves for regular mode should be >= "
+                    << MIN_PW_COUNT << ", setting to this value";
             plain_waves_->setValue(MIN_PW_COUNT);
         }
+    } else if (mode_->value() == SYM_IRREGULAR) {
+        const int MIN_PW_COUNT = 1;
+        const int DEFAULT = 5;
+
+        // property was not specified, try positional arg
+        if (plain_waves_->value() == 0)
+            plain_waves_->setValue(positionalFloatArgument(NWAVES_ARG_IDX, DEFAULT));
+
+        const auto N = plain_waves_->value();
+
+        if (N >= MIN_PW_COUNT) {
+            plain_waves_->setValue(N);
+        } else {
+            OBJ_ERR << "minimal number of plain waves for irregular mode should be >= "
+                    << MIN_PW_COUNT << ", setting to this value";
+            plain_waves_->setValue(MIN_PW_COUNT);
+        }
+    } else {
+        OBJ_ERR << "unknown mode: " << mode_->value();
     }
 
     plain_waves_->setReadonly(true);
