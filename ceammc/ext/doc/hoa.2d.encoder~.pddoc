@@ -65,15 +65,15 @@
         <example>
             <pdascii>
 <![CDATA[
-[hoa/hoa.soundgrain~]    [lfo.saw~ 0.15]
-|                        |
-[ui.gain~ @size 120 14]  [phase->rad~]
-|                        |.
-[hoa.encoder~ 5 ----------]
-|
-[hoa.decoder~ 5 ----------]
-|
-[xdac~ 1:16]
+[hoa/hoa.soundgrain]         [lfo.saw~ 0.15]
+|                            |
+[ui.gain~ @size 120 14]      [phase->rad~]
+|                        .___/ |
+[hoa.encoder~ 5 ----------]  [ui.n~]
+*|*
+[hoa.decoder~ 5 binaural @crop 64]
+*|*
+[xdac~ 1:2 --------------]
 
 
 [ui.dsp~]

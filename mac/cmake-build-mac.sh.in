@@ -296,4 +296,8 @@ echo "Sound fonts..."
 mkdir -p $PD_SF2
 cp $SRC_CEAMMC/extra/sf2/* $PD_SF2
 
+echo "Hoa help files..."
+mkdir $PD_CEAMMC/hoa
+cp $SRC_CEAMMC/ext/doc/hoa/* $PD_CEAMMC/hoa
+
 cd ../../..
