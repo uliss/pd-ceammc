@@ -20,6 +20,7 @@ set(DOC_FILES
     array.vplay
     array.window
     canvas.current
+    canvas.dir
     canvas.name
     canvas.path
     canvas.top

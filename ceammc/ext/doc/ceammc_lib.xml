@@ -1060,6 +1060,9 @@
     <entry descr="verbose information about current canvas" name="canvas.current" ref_view="object">
       <xi:include href="canvas.current.pddoc" parse="xml"/>
     </entry>
+    <entry descr="current canvas directory" name="canvas.dir" ref_view="object">
+      <xi:include href="canvas.dir.pddoc" parse="xml"/>
+    </entry>
     <entry descr="current canvas name" name="canvas.name" ref_view="object">
       <xi:include href="canvas.name.pddoc" parse="xml"/>
     </entry>
