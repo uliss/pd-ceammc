@@ -1,0 +1,203 @@
+#N struct 1379-t-scope float x array bufr 1379-t-scope-value-r array
+bufg 1379-t-scope-value-g;
+#N struct 1379-t-scope-value-r float x float y;
+#N struct 1379-t-scope-value-g float x float y;
+#N struct 1386-t-scope float x array bufr 1386-t-scope-value-r array
+bufg 1386-t-scope-value-g;
+#N struct 1386-t-scope-value-r float x float y;
+#N struct 1386-t-scope-value-g float x float y;
+#N canvas 56 169 913 663 10;
+#X obj 398 625 hoa.dac~ 1:8 -----------;
+#X obj 398 123 hoa.2d.encoder~ 3, f 24;
+#X obj 122 623 hoa-help;
+#X obj 398 580 hoa.2d.decoder~ 3 regular 8, f 24;
+#X obj 398 95 misc//hoa.hgain~;
+#X obj 539 95 hoa.pi~ 2;
+#X obj 13 596 text define -k \$0-scope-attrs;
+#A set gain 118 \; interval 150 \;;
+#X obj 552 124 misc//hoa.number~;
+#X text 610 110 azimuth θ in radian (-π & π), f 17;
+#X obj 539 70 phasor~ 0.3;
+#X obj 398 358 hoa.2d.optim~ 3 inphase, f 24;
+#X obj 6 10 cnv 15 200 20 empty empty hoa.2d.optim~ 4 10 0 14 -233017
+-66577 0;
+#X msg 226 581 \; pd dsp 1;
+#X msg 226 616 \; pd dsp 0;
+#X text 9 42 hoa.2d.optim~ weights the signals of the circular harmonics
+to optimizes the ambisonic sound field for several restitution systems.
+;
+#X text 9 92 There are 3 optimizations \, basic (no optimization) \,
+maxre (energy vector optimization) and inphase (energy and velocity
+vector optimization):, f 59;
+#X text 558 609 Note that the optimizations decrease the precision
+of the sound field restitution thus it can be compared to particular
+cases of the fractional orders.;
+#X text 9 142 The basic optimization has no effect \, it should be
+used (or not) with a perfect ambisonic channels arrangement where all
+the channels are to equal distance on a circle or a sphere \, and for
+a listener placed at the perfect center of the circle of the sphere.
+This is also the prefered optimization for diffuse artistic sound field.
+, f 59;
+#X text 9 245 The maxre should be used should be used for an auditory
+confined to the center of the circle of loudspeakers., f 59;
+#X text 9 296 The inphase optimization should be used when the auditory
+covers the entire channels area and/or when the channels arrangement
+is not a perfect circle (when the channels are not to equal distance
+for example)., f 59;
+#X text 9 420 The optimization can be combined. The basic optimization
+can be applied to the granular diffuse part of the sound field while
+the inphase optimization is applied to the directional point sources
+part of the sound field.;
+#X text 9 483 At last \, the sound field can be split in two or three
+frequency ranges \, on which different optimizations are applied. The
+inphase optimization below 700 hz and the basic optimization above.
+This approach \, that Daniel defines as psychoacoustic in its PhD thesis
+\, is presented by Gerzon in the General Methatheory of Auditory Localization
+\, 1992;
+#N canvas 0 22 450 300 \$0-scope-before 0;
+#X scalar 1379-t-scope 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; \;;
+#X coords -1 -1 1 1 165 165 2 100 100;
+#X restore 554 148 pd \$0-scope-before;
+#X obj 398 195 hoa.2d.process~ 3 hoa.2d.scope~ harmonics \$0-scope-before
+\$0-scope-attrs, f 24;
+#N canvas 0 22 450 300 \$0-scope-after 0;
+#X scalar 1386-t-scope 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
+0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
+\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
+0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; \;;
+#X coords -1 -1 1 1 165 165 2 100 100;
+#X restore 554 425 pd \$0-scope-after;
+#X obj 398 469 hoa.2d.process~ 3 hoa.2d.scope~ harmonics \$0-scope-after
+\$0-scope-attrs, f 24;
+#X text 9 221 Y'[l \, m] = Y[l \, m], f 59;
+#X text 9 272 Y'[l \, m] = cos(πl/(2N+2))Y[l \, m], f 59;
+#X text 9 349 Y'[l \, m] = Y[l \, m](N!^2)/((N+l)!(N-l)!), f 60;
+#X text 9 369 with N the order of decomposition \, l the degree \,
+m the azimuthal order., f 60;
+#X text 729 191 Representation of the weighted sum of the circular
+harmonics over a disc before the optimization., f 27;
+#X text 739 489 Representation of the weighted sum of the circular
+harmonics over a disc after the optimization., f 27;
+#X text 557 334 The first argument is the order of decomposition N.
+, f 25;
+#X text 557 364 The second argument is the name of the optimization.
+, f 25;
+#X obj 398 69 *~, f 13;
+#X obj 398 47 phasor~ 101;
+#X obj 473 47 phasor~ 203;
+#X obj 12 623 misc/hoa.credits;
+#X connect 1 0 10 0;
+#X connect 1 0 23 0;
+#X connect 1 1 10 1;
+#X connect 1 1 23 1;
+#X connect 1 2 10 2;
+#X connect 1 2 23 2;
+#X connect 1 3 10 3;
+#X connect 1 3 23 3;
+#X connect 1 4 10 4;
+#X connect 1 4 23 4;
+#X connect 1 5 10 5;
+#X connect 1 5 23 5;
+#X connect 1 6 10 6;
+#X connect 1 6 23 6;
+#X connect 3 0 0 0;
+#X connect 3 1 0 1;
+#X connect 3 2 0 2;
+#X connect 3 3 0 3;
+#X connect 3 4 0 4;
+#X connect 3 5 0 5;
+#X connect 3 6 0 6;
+#X connect 3 7 0 7;
+#X connect 4 0 1 0;
+#X connect 5 0 1 1;
+#X connect 5 0 7 0;
+#X connect 9 0 5 0;
+#X connect 10 0 3 0;
+#X connect 10 0 25 0;
+#X connect 10 1 3 1;
+#X connect 10 1 25 1;
+#X connect 10 2 3 2;
+#X connect 10 2 25 2;
+#X connect 10 3 3 3;
+#X connect 10 3 25 3;
+#X connect 10 4 3 4;
+#X connect 10 4 25 4;
+#X connect 10 5 3 5;
+#X connect 10 5 25 5;
+#X connect 10 6 3 6;
+#X connect 10 6 25 6;
+#X connect 34 0 4 0;
+#X connect 35 0 34 0;
+#X connect 36 0 34 1;
+#X coords 0 663 1 662 100 60 0;

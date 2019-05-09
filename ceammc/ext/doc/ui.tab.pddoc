@@ -111,11 +111,7 @@
 | | |       |    |  | |    |        |
 [ui.tab      @items sin tri @size 350 15]
 |
-[prop-> @title]
-|      ^|
-[ui.d]  |
-        |
-        [ui.d]
+[ui.d]
 ]]>
             </pdascii>
         </example>
