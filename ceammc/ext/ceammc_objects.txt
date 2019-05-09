@@ -48,6 +48,7 @@ bpm->hz
 bpm->ms
 bpm->sec
 canvas.current
+canvas.name
 canvas.top
 cc->amp
 cdiv~

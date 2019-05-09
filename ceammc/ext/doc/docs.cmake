@@ -20,6 +20,7 @@ set(DOC_FILES
     array.vplay
     array.window
     canvas.current
+    canvas.name
     canvas.top
     click~
     conv.amp2dbfs
