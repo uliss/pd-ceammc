@@ -116,10 +116,9 @@ void PatchProps::m_all_props(t_symbol* s, const AtomList& args)
         return;
 
     AtomList res;
-    char buf[MAXPDSTRING];
 
     for (t_gobj* y = x->gl_list; y; y = y->g_next) {
-        if (y->g_pd->c_name != className())
+        if (y->g_pd != ObjectFactory<PropDeclare>::classPointer())
             continue;
 
         PropDeclare* prop = reinterpret_cast<PdObject<PropDeclare>*>(y)->impl;
@@ -136,7 +135,7 @@ void PatchProps::m_default(t_symbol*, const AtomList&)
         return;
 
     for (t_gobj* x = cnv->gl_list; x; x = x->g_next) {
-        if (x->g_pd->c_name != className())
+        if (x->g_pd != ObjectFactory<PropDeclare>::classPointer())
             continue;
 
         PdObject<PropDeclare>* prop = reinterpret_cast<PdObject<PropDeclare>*>(x);
