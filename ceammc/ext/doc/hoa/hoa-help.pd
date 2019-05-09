@@ -1,6 +1,4 @@
 #N canvas 539 58 662 587 10;
-#X obj 14 21 c.patcherinfos;
-#X obj 19 4 loadbang;
 #X obj 3 3 hoa.help.header;
 #X obj 24 518 hoa.help.pub;
 #N canvas 789 275 452 384 sel.hoa.txt 0;
@@ -82,7 +80,7 @@
 #X connect 20 0 3 0;
 #X connect 21 0 6 0;
 #X restore 136 331 pd sel.hoa.text2;
-#N canvas 514 160 694 586 hoa.open.hel 1;
+#N canvas 514 160 694 586 hoa.open.hel 0;
 #X obj 371 248 makefilename %s-help.pd;
 #X obj 371 281 pack s s;
 #X obj 371 187 t s b;
@@ -173,10 +171,12 @@ synthesis \, perspective distorsion or spatial filtering.;
 "hoa.2d.encoder~" "hoa.2d.map~" "hoa.2d.meter~" "hoa.2d.optim~" "hoa.2d.projector~"
 "hoa.2d.recomposer~" "hoa.2d.rotate~" "hoa.2d.scope~" "hoa.2d.space"
 "hoa.2d.wider~";
-#X connect 0 0 2 0;
-#X connect 1 0 0 0;
-#X connect 4 0 11 0;
-#X connect 5 0 7 0;
-#X connect 9 0 10 0;
-#X connect 11 0 6 1;
+#X obj 14 24 canvas.name;
+#X obj 14 4 msg.onload;
+#X connect 2 0 9 0;
+#X connect 3 0 5 0;
+#X connect 7 0 8 0;
+#X connect 9 0 4 1;
+#X connect 10 0 0 0;
+#X connect 11 0 10 0;
 #X coords 0 -2.14748e+09 1 -2.14748e+09 100 60 0;
