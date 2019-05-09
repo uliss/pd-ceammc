@@ -46,7 +46,7 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
     createProperty(new SymbolEnumAlias("@irregular", mode_, SYM_IRREGULAR));
     createProperty(new SymbolEnumAlias("@binaural", mode_, SYM_BINAURAL));
 
-    plain_waves_ = new IntProperty("@n", 0);
+    plain_waves_ = new IntProperty("@nwaves", 0);
     createProperty(plain_waves_);
 
     Property* pcrop = createCbProperty("@crop", &HoaDecoder::propCropSize, &HoaDecoder::propSetCropSize);
@@ -57,7 +57,8 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
     pinfo.setUnits(PropertyInfoUnits::SAMP);
     pinfo.setType(PropertyInfoType::INTEGER);
 
-    createCbProperty("@num_harm", &HoaDecoder::propNumHarmonics);
+    createCbProperty("@nharm", &HoaDecoder::propNumHarmonics);
+    property("@nharm")->info().setType(PropertyInfoType::INTEGER);
     createCbProperty("@pw_x", &HoaDecoder::propPlaneWavesX);
     createCbProperty("@pw_y", &HoaDecoder::propPlaneWavesY);
     createCbProperty("@pw_z", &HoaDecoder::propPlaneWavesZ);

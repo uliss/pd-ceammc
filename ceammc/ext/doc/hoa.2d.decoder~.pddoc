@@ -52,10 +52,26 @@
             <property name="@binaural" type="alias">alias for @mode binaural</property>
             <property name="@crop" type="int" minvalue="0" units="sample" maxvalue="512"
             default="0">crop HRIR response. Only in @binaural mode.</property>
-            <property name="@offset" type="float" units="degree" default="0">
-            rotation of loudspeakers. Only available for @regular and @irregular mode.</property>
-            <property name="@angles" type="list" units="degree">
-            angles of loudspeakers. Only available for @irregular mode.</property>
+            <property name="@offset" type="float" units="degree" default="0">rotation of
+            loudspeakers. Only available for @regular and @irregular mode.</property>
+            <property name="@angles" type="list" units="degree">angles of loudspeakers. Only
+            available for @irregular mode.</property>
+            <property name="@pw_x" type="list" units="radian" minvalue="-1" maxvalue="1"
+            readonly="true">list of plain wave x-coordinates (abscissas). -1 is the left of the
+            soundfield, 0 is the center of the soundfield and 1 is the right of the
+            soundfield.</property>
+            <property name="@pw_y" type="list" units="radian" minvalue="-1" maxvalue="1"
+            readonly="true">list of plain wave y-coordinates (ordinatas). -1 is the back of the
+            soundfield, 0 is the center of the soundfield and 1 is the front of the
+            soundfield.</property>
+            <property name="@pw_z" type="list" units="radian" minvalue="-1" maxvalue="1"
+            readonly="true">list of plain wave z-coordinates (heights). -1 is the bottom of the
+            soundfield, 0 is the center of the soundfield and 1 is the top of the
+            soundfield.</property>
+            <property name="@nharm" type="int" minvalue="1" readonly="true">number of circular
+            harmonics.</property>
+            <property name="@nwaves" type="int" minvalue="1" readonly="true">number of plain
+            harmonics.</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">

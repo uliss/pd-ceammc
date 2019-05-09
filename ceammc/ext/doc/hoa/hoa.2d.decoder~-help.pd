@@ -49,8 +49,6 @@ right:;
 @label_inner 0 @label_side "top" @label_align "left" @label_valign
 "top" @label_margins 0 0;
 #X obj 403 311 hoa.2d.decoder~ 7 binaural 2 @crop 256, f 28;
-#X text 8 425 @offset property defines the rotation of the loudspeakers
-(in degrees). Only available for regular and irregular modes.;
 #X text 8 465 @angles property defines the angles of the loudspeakers
 (in degrees). Only available for irregular mode.;
 #X text 8 495 @crop property defines the size of the HRIRs (in samples).
@@ -63,7 +61,9 @@ the maximum is 512 samples. Only available for binaural mode.;
 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
 @label_valign "top" @label_margins 0 0 @interval 50;
 #X obj 568 120 phase->rad~;
-#X connect 2 0 27 0;
+#X text 8 425 @offset property the rotation of the loudspeakers (in
+degrees). Only available for regular and irregular modes.;
+#X connect 2 0 26 0;
 #X connect 5 0 22 0;
 #X connect 5 1 22 1;
 #X connect 5 2 22 2;
@@ -88,6 +88,6 @@ the maximum is 512 samples. Only available for binaural mode.;
 #X connect 22 0 19 0;
 #X connect 22 0 20 0;
 #X connect 22 1 19 1;
-#X connect 22 1 26 0;
-#X connect 27 0 5 1;
+#X connect 22 1 25 0;
+#X connect 26 0 5 1;
 #X coords 0 558 1 557 100 60 0;
