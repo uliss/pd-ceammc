@@ -50,8 +50,8 @@ ACN:;
 #X obj 20 802 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 837 @order;
-#X text 245 837 Get/Set the order of decomposition. Type: int. Default
-value: 4\. Range: 1\...63\.;
+#X text 245 837 (readonly) Get the order of decomposition. Type: int.
+Default value: 4\. Range: 1\...63\.;
 #X obj 20 889 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 894 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

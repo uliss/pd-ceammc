@@ -46,8 +46,8 @@
             <argument name="ORDER" type="int" minvalue="1">the order of decomposition</argument>
         </arguments>
         <properties>
-            <property name="@order" type="int" minvalue="1" maxvalue="63" default="4">the order of
-            decomposition</property>
+            <property name="@order" type="int" minvalue="1" maxvalue="63" default="4"
+            readonly="true">the order of decomposition</property>
         </properties>
         <inlets>
             <inlet type="audio">
