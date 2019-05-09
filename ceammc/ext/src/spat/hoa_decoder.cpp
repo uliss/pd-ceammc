@@ -63,7 +63,12 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
     createCbProperty("@pw_z", &HoaDecoder::propPlaneWavesZ);
 
     createCbProperty("@angles", &HoaDecoder::propAngles, &HoaDecoder::propSetAngles);
+    property("@angles")->info().setType(PropertyInfoType::LIST);
+    property("@angles")->info().setUnits(PropertyInfoUnits::DEG);
+
     createCbProperty("@offset", &HoaDecoder::propOffset, &HoaDecoder::propSetOffset);
+    property("@offset")->info().setType(PropertyInfoType::FLOAT);
+    property("@offset")->info().setUnits(PropertyInfoUnits::DEG);
 }
 
 void HoaDecoder::parseMode()
