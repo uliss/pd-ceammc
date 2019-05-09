@@ -131,6 +131,12 @@ void HoaDecoder::parseProperties()
 
     initDecoder();
 
+    if (!init_offset_.empty())
+        propSetOffset(init_offset_);
+
+    if (!init_angles_.empty())
+        propSetAngles(init_angles_);
+
     createSignalInlets(decoder_->getNumberOfHarmonics());
     createSignalOutlets(decoder_->getNumberOfPlanewaves());
 
@@ -293,19 +299,24 @@ AtomList HoaDecoder::propAngles() const
 
 void HoaDecoder::propSetAngles(const AtomList& lst)
 {
-    if (mode_->value() != SYM_IRREGULAR) {
-        OBJ_ERR << "not in irregular mode: can not set angles";
-        return;
-    }
-
     if (lst.empty()) {
         OBJ_ERR << "angle list in degrees expected";
         return;
     }
 
-    auto N = std::min<size_t>(decoder_->getNumberOfPlanewaves(), lst.size());
-    for (size_t i = 0; i < N; i++)
-        decoder_->setPlanewaveAzimuth(i, convert::degree2rad(lst[i].asFloat()));
+    if (decoder_) {
+        if (mode_->value() != SYM_IRREGULAR) {
+            OBJ_ERR << "not in irregular mode: can not set angles";
+            return;
+        }
+
+        auto N = std::min<size_t>(decoder_->getNumberOfPlanewaves(), lst.size());
+        for (size_t i = 0; i < N; i++)
+            decoder_->setPlanewaveAzimuth(i, convert::degree2rad(lst[i].asFloat()));
+    } else {
+        // on init stage
+        init_angles_ = lst;
+    }
 }
 
 AtomList HoaDecoder::propOffset() const
@@ -315,17 +326,22 @@ AtomList HoaDecoder::propOffset() const
 
 void HoaDecoder::propSetOffset(const AtomList& lst)
 {
-    if (mode_->value() == SYM_BINAURAL) {
-        OBJ_ERR << "can not set offset in binaural mode";
-        return;
-    }
-
     if (!checkArgs(lst, ARG_FLOAT)) {
         OBJ_ERR << "offset angle in degrees expected: " << lst;
         return;
     }
 
-    decoder_->setPlanewavesRotation(0, 0, convert::degree2rad(lst[0].asFloat()));
+    if (decoder_) {
+        if (mode_->value() == SYM_BINAURAL) {
+            OBJ_ERR << "can not set offset in binaural mode";
+            return;
+        }
+
+        decoder_->setPlanewavesRotation(0, 0, convert::degree2rad(lst[0].asFloat()));
+    } else {
+        // on init stage
+        init_offset_ = lst;
+    }
 }
 
 void setup_spat_hoa_decoder()

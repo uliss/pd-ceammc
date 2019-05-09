@@ -25,6 +25,10 @@ class HoaDecoder : public HoaBase {
     Buffer in_buf_;
     Buffer out_buf_;
     size_t crop_size_;
+    // decoder_ is not available while parsing properties
+    // this members store initial values
+    AtomList init_offset_;
+    AtomList init_angles_;
 
 public:
     HoaDecoder(const PdArgs& args);
