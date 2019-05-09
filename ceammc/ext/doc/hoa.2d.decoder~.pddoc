@@ -23,7 +23,15 @@
             </aliases>
         </meta>
         <info>
-            <par></par>
+            <par>Decodes an ambisonics soundfield for several loudspeakers configuration or for
+            headphones.</par>
+            <par>Mode:</par>
+            <par indent="1">• regular for a regular loudspeakers repartition over a circle.</par>
+            <par indent="1">• irregular if the loudspeakers are not equally spaced on a
+            circle.</par>
+            <par indent="1">• binaural for headphones</par>
+            <par>The default mode is regular for an array of 2 * order + 2 loudspeakers. The
+            default irregular configuration is 5.1 standard multichannel configuration.</par>
             <a href="hoa/hoa.2d.decoder~-help.pd">CICM documentation</a>
         </info>
         <arguments>
@@ -35,10 +43,19 @@
             mode)</argument>
         </arguments>
         <properties>
-            <property name="@order" type="int" minvalue="1" maxvalue="63" default="4">the order of
-            decomposition</property>
-            <property name="@mode" type="symbol" enum="ambisonic irregular binaural">decoding
-            mode</property>
+            <property name="@order" type="int" minvalue="1" maxvalue="63" default="4"
+            readonly="true">the order of decomposition</property>
+            <property name="@mode" type="symbol" enum="regular irregular binaural" readonly="true">
+            decoding mode</property>
+            <property name="@regular" type="alias">alias for @mode regular</property>
+            <property name="@irregular" type="alias">alias for @mode irregular</property>
+            <property name="@binaural" type="alias">alias for @mode binaural</property>
+            <property name="@crop" type="int" minvalue="0" units="sample" maxvalue="512"
+            default="0">crop HRIR response. Only in @binaural mode.</property>
+            <property name="@offset" type="float" units="degree" default="0">
+            rotation of loudspeakers. Only available for @regular and @irregular mode.</property>
+            <property name="@angles" type="list" units="degree">
+            angles of loudspeakers. Only available for @irregular mode.</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">
@@ -52,9 +69,9 @@
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet type="audio">first circular harmonics output</outlet>
-            <outlet type="audio" number="...">... circular harmonics output</outlet>
-            <outlet type="audio" number="n">n-th circular harmonics output</outlet>
+            <outlet type="audio">first loudspeaker output</outlet>
+            <outlet type="audio" number="...">... loudspeaker output</outlet>
+            <outlet type="audio" number="n">n-th loudspeaker output</outlet>
         </outlets>
         <example>
             <pdascii>
