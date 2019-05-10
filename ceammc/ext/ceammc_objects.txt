@@ -213,7 +213,6 @@ helmholtz~
 hoa.2d.decoder~
 hoa.2d.encoder~
 hoa.2d.optim~
-hoa.2d.process~
 hoa.decoder~
 hoa.encoder~
 hoa.in
