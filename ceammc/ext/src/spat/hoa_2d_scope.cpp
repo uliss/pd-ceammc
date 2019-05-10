@@ -27,6 +27,7 @@ Hoa2dScope::Hoa2dScope()
     , start_clock_(false)
     , harm_layer_(asEBox(), gensym("harm_layer"))
 {
+    //    scope_.reset(new Scope2d(order_, HOA_DISPLAY_NPOINTS));
 }
 
 void Hoa2dScope::init(t_symbol* s, const AtomList& lst, bool usePresets)
@@ -104,22 +105,6 @@ void Hoa2dScope::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_
         start_clock_ = false;
         clock_.delay(0);
     }
-}
-
-void Hoa2dScope::setup()
-{
-    UIDspFactory<Hoa2dScope> obj("hoa.scope~", EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
-    obj.usePresets();
-
-    obj.addProperty("order", &Hoa2dScope::propOrder, &Hoa2dScope::propSetOrder);
-    obj.setPropertyDefaultValue("order", "3");
-    obj.showProperty("order");
-    obj.setPropertyRange("order", HOA_MIN_ORDER, HOA_MAX_ORDER);
-
-    obj.addProperty("gain", _("Gain"), 1.f, &Hoa2dScope::prop_gain_, "Main");
-    obj.setPropertyMin("gain", 0);
-
-    obj.setDefaultSize(60, 60);
 }
 
 void Hoa2dScope::drawBackground()
@@ -236,6 +221,21 @@ void Hoa2dScope::drawHarmonics()
     }
 
     p.setSmooth(ESMOOTH_NONE);
+}
+
+void Hoa2dScope::setup()
+{
+    UIDspFactory<Hoa2dScope> obj("hoa.scope~", EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
+    obj.usePresets();
+
+    obj.addIntProperty("order", _("Ambisonic Order"), 3, &Hoa2dScope::order_, "Main");
+    obj.setPropertyAccessor("order", &Hoa2dScope::propOrder, &Hoa2dScope::propSetOrder);
+    obj.setPropertyRange("order", HOA_MIN_ORDER, HOA_MAX_ORDER);
+
+    obj.addFloatProperty("gain", _("Gain"), 1.f, &Hoa2dScope::prop_gain_, "Main");
+    obj.setPropertyMin("gain", 0);
+
+    obj.setDefaultSize(60, 60);
 }
 
 void setup_spat_hoa_scope2d()
