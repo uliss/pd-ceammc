@@ -20,7 +20,14 @@
 #include "ceammc_property.h"
 #include "ceammc_property_info.h"
 
+#include <boost/version.hpp>
+#if BOOST_VERSION >= 105900
 #include <boost/core/demangle.hpp>
+#define CEAMMC_DEMANGLE(str) boost::core::demangle(str)
+#else
+#define CEAMMC_DEMANGLE(str) str
+#endif
+
 #include <type_traits>
 
 namespace ceammc {
@@ -82,7 +89,7 @@ private:
     {
         if (!list::canConvertToType<V>(l)) {
             LIB_ERR << name() << ": can't convert " << l << " to "
-                    << boost::core::demangle(typeid(V).name()) << " type";
+                    << CEAMMC_DEMANGLE(typeid(V).name()) << " type";
             return false;
         }
 
