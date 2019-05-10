@@ -1,0 +1,114 @@
+#N canvas 552 82 814 650 10;
+#X obj 125 497 hoa.in~;
+#X obj 125 623 hoa.out~;
+#X obj 13 7 c.loadmess;
+#X text 5 497 Receive the signal;
+#X text 12 624 Output the signal;
+#X text 362 108 Input messages selector;
+#X obj 80 77 hoa.mode.sel;
+#X obj 13 103 hoa.args.map;
+#X obj 125 581 *~;
+#X obj 185 500 line~;
+#X obj 326 534 *~;
+#X obj 326 473 osc~ 1;
+#X obj 326 451 line~;
+#X msg 326 429 \$1 20;
+#X obj 82 127 + 1;
+#X obj 82 162 / 1;
+#X obj 231 63 hoa.in extra 1;
+#X text 324 63 Extra 1 Receive the inlet messages.;
+#X text 24 33 Default arguments and attributes;
+#X text 377 473 Simple ring modulation;
+#X obj 298 153 list split;
+#X obj 326 177 unpack;
+#X obj 247 228 *;
+#X text 85 212 factor;
+#X text 81 202 instance;
+#X obj 82 182 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 13 182 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 0 256;
+#X obj 196 296 clip 0 1;
+#X text 371 215 float : The value \, that control the frequency of
+the ring modulation \, is multiplied by a factor depending on the intance.
+The factor is 1 for the highest harmonic and decreases toward 0 for
+the lower harmonics.;
+#X obj 326 407 f 1;
+#X msg 185 479 \$1 20;
+#X obj 223 402 sel 0 1;
+#X obj 196 359 t b f;
+#X text 12 202 number of;
+#X text 9 212 instances;
+#X text 375 297 diffusion : The value is clip between 0 and 1 and reversed.
+If the value is 1 \, the ring modulation is applied to all the intances.
+If the value is 0 \, the ring modulation is applied to no harmonics.
+Between the boudnaries \, the ring modulation appears first in the
+high harmonics then in the low harmonics.;
+#X obj 196 332 >= 0;
+#X obj 185 431 f 1;
+#X obj 266 500 line~;
+#X msg 266 479 \$1 20;
+#X obj 296 431 f 1;
+#X obj 223 431 f 0;
+#X obj 256 431 f 0;
+#X obj 193 393 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X text 34 385 1 if the ring modulation;
+#X text 34 395 is active and 0 if not;
+#X obj 172 78 f 10;
+#X obj 196 109 route diffusion float list;
+#X obj 347 82 sel done;
+#X obj 13 54 hoa.thisprocess~ 5 @diffusion 1;
+#X text 374 156 list : The item corresponding to the instance is selected
+and control the frequency of the ring modulation (mostly used in the
+plane waves domain).;
+#X text 240 17 This hoa.processing diffuses the sound field with ring
+modulation.;
+#X connect 0 0 8 0;
+#X connect 2 0 49 0;
+#X connect 6 0 7 1;
+#X connect 7 0 26 0;
+#X connect 7 0 15 1;
+#X connect 7 1 14 0;
+#X connect 7 1 20 1;
+#X connect 8 0 1 0;
+#X connect 9 0 8 1;
+#X connect 10 0 8 1;
+#X connect 11 0 10 0;
+#X connect 12 0 11 0;
+#X connect 13 0 12 0;
+#X connect 14 0 15 0;
+#X connect 15 0 22 1;
+#X connect 15 0 25 0;
+#X connect 15 0 36 1;
+#X connect 16 0 47 0;
+#X connect 20 1 21 0;
+#X connect 21 0 29 0;
+#X connect 22 0 29 0;
+#X connect 27 0 36 0;
+#X connect 29 0 13 0;
+#X connect 30 0 9 0;
+#X connect 31 0 37 0;
+#X connect 31 0 41 0;
+#X connect 31 1 40 0;
+#X connect 31 1 42 0;
+#X connect 32 0 29 0;
+#X connect 32 1 31 0;
+#X connect 32 1 43 0;
+#X connect 36 0 32 0;
+#X connect 37 0 30 0;
+#X connect 38 0 10 1;
+#X connect 39 0 38 0;
+#X connect 40 0 39 0;
+#X connect 41 0 39 0;
+#X connect 42 0 30 0;
+#X connect 46 0 47 0;
+#X connect 47 0 27 0;
+#X connect 47 1 22 0;
+#X connect 47 2 20 0;
+#X connect 47 3 48 0;
+#X connect 48 0 46 0;
+#X connect 49 0 7 0;
+#X connect 49 1 6 0;
+#X connect 49 2 46 0;
+#X connect 49 3 47 0;
