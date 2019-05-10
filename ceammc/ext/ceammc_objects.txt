@@ -221,6 +221,7 @@ hoa.2d.optim~
 hoa.decoder~
 hoa.encoder~
 hoa.optim~
+hoa.scope~
 hw.apple_smc
 hw.apple_sms
 hw.arduino

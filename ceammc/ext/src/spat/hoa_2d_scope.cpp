@@ -107,8 +107,7 @@ void Hoa2dScope::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_
 
 void Hoa2dScope::setup()
 {
-    UIDspFactory<Hoa2dScope> obj("hoa.scope", EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
-    obj.addAlias("hoa.scope~");
+    UIDspFactory<Hoa2dScope> obj("hoa.scope~", EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
     obj.usePresets();
 
     obj.addProperty("order", &Hoa2dScope::propOrder, &Hoa2dScope::propSetOrder);
