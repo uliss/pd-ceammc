@@ -27,7 +27,7 @@ using namespace ceammc;
 
 static const int HOA_MIN_ORDER = 1;
 static const int HOA_MAX_ORDER = 63;
-static const int HOA_DEFAULT_ORDER = 4;
+static const int HOA_DEFAULT_ORDER = 1;
 static const int HOA_DEFAULT_BLOCK_SIZE = 64;
 
 typedef hoa::Optim<hoa::Hoa2d, t_sample> Optim2d;
@@ -56,6 +56,9 @@ public:
     {
         order_ = new IntPropertyClosedRange("@order",
             positionalFloatArgument(0, HOA_DEFAULT_ORDER), HOA_MIN_ORDER, HOA_MAX_ORDER);
+        order_->info().setType(PropertyInfoType::INTEGER);
+        order_->info().setRange(HOA_MIN_ORDER, HOA_MAX_ORDER);
+        order_->info().setDefault(HOA_DEFAULT_ORDER);
         createProperty(order_);
     }
 
