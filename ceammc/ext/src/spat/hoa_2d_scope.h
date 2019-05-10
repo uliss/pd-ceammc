@@ -16,6 +16,7 @@
 
 #include <memory>
 
+#include "ceammc_clock.h"
 #include "ceammc_ui_dsp_object.h"
 #include "hoa_common.h"
 using namespace ceammc;
@@ -24,6 +25,12 @@ class Hoa2dScope : public UIDspObject {
     size_t order_;
     std::unique_ptr<Scope2d> scope_;
     Buffer in_buf_;
+    float prop_gain_;
+
+    ClockMemberFunction<Hoa2dScope> clock_;
+    bool start_clock_;
+
+    UILayer harm_layer_;
 
 public:
     Hoa2dScope();
@@ -36,8 +43,18 @@ public:
     t_float propOrder() const;
     void propSetOrder(t_float v);
 
+    void tick();
+
+    // dsp
+    void dspOn(double samplerate, long blocksize);
+    void dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes);
+
 public:
     static void setup();
+
+private:
+    void drawBackground();
+    void drawHarmonics();
 };
 
 void setup_spat_hoa_scope2d();
