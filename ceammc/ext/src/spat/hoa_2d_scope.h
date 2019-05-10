@@ -23,6 +23,7 @@ using namespace ceammc;
 
 class Hoa2dScope : public UIDspObject {
     size_t order_;
+    size_t nharm_;
     std::unique_ptr<Scope2d> scope_;
     Buffer in_buf_;
     float prop_gain_;

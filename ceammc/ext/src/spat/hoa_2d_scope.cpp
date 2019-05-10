@@ -22,11 +22,12 @@ static const float HOA_CONTRAST_LIGHTER = 0.2;
 
 Hoa2dScope::Hoa2dScope()
     : order_(3)
+    , nharm_(0)
     , clock_(this, &Hoa2dScope::tick)
     , start_clock_(false)
     , harm_layer_(asEBox(), gensym("harm_layer"))
 {
-    scope_.reset(new Scope2d(order_, HOA_DISPLAY_NPOINTS));
+//    scope_.reset(new Scope2d(order_, HOA_DISPLAY_NPOINTS));
 }
 
 void Hoa2dScope::init(t_symbol* s, const AtomList& lst, bool usePresets)
@@ -37,7 +38,7 @@ void Hoa2dScope::init(t_symbol* s, const AtomList& lst, bool usePresets)
     if (!lst.empty() && lst[0].isFloat())
         propSetOrder(clip<t_float>(lst[0].asFloat(), HOA_MIN_ORDER, HOA_MAX_ORDER));
 
-    dspSetup(order_, 0);
+    dspSetup(nharm_, 0);
 }
 
 void Hoa2dScope::okSize(t_rect* newrect)
@@ -61,14 +62,15 @@ void Hoa2dScope::propSetOrder(t_float v)
 {
     auto order = clip<int>(v, HOA_MIN_ORDER, HOA_MAX_ORDER);
 
-    if (order != scope_->getDecompositionOrder()) {
+    if (!scope_ || (order != scope_->getDecompositionOrder())) {
         int dspState = canvas_suspend_dsp();
         scope_.reset(new Scope2d(order, HOA_DISPLAY_NPOINTS));
         order_ = scope_->getDecompositionOrder();
+        nharm_ = scope_->getNumberOfHarmonics();
 
-        in_buf_.resize(scope_->getNumberOfHarmonics() * HOA_DEFAULT_BLOCK_SIZE);
+        in_buf_.resize(nharm_ * HOA_DEFAULT_BLOCK_SIZE);
 
-        eobj_resize_inputs(asEBox(), long(scope_->getNumberOfHarmonics()));
+        eobj_resize_inputs(asEBox(), nharm_);
         canvas_update_dsp();
         canvas_resume_dsp(dspState);
     }
