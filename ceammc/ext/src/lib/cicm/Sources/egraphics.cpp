@@ -846,6 +846,17 @@ static void egraphics_apply_matrix(t_elayer* g, t_egobj* gobj)
                 i++;
             }
         }
+    } else if (gobj->e_type == E_GOBJ_SHAPE) {
+        if (gobj->e_points[0].x == E_SHAPE_OVAL) {
+            x_p = gobj->e_points[1].x * g->e_matrix.xx + gobj->e_points[1].y * g->e_matrix.xy + g->e_matrix.x0;
+            y_p = gobj->e_points[1].x * g->e_matrix.yx + gobj->e_points[1].y * g->e_matrix.yy + g->e_matrix.y0;
+            gobj->e_points[1].x = x_p;
+            gobj->e_points[1].y = y_p;
+            x_p = gobj->e_points[2].x * g->e_matrix.xx + gobj->e_points[2].y * g->e_matrix.xy + g->e_matrix.x0;
+            y_p = gobj->e_points[2].x * g->e_matrix.yx + gobj->e_points[2].y * g->e_matrix.yy + g->e_matrix.y0;
+            gobj->e_points[2].x = x_p;
+            gobj->e_points[2].y = y_p;
+        }
     } else {
         for (i = 0; i < gobj->e_npoints; i++) {
             x_p = gobj->e_points[i].x * g->e_matrix.xx + gobj->e_points[i].y * g->e_matrix.xy + g->e_matrix.x0;

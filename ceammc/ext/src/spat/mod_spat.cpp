@@ -14,6 +14,7 @@ extern void setup_spat_hoa_process_inlet();
 extern void setup_spat_hoa_projector();
 extern void setup_spat_hoa_recomposer();
 extern void setup_spat_hoa_rotate();
+extern void setup_spat_hoa_scope2d();
 extern void setup_spat_hoa_wider();
 extern void setup_spat_pan4_tilde();
 extern void setup_spat_pan8_tilde();
@@ -34,6 +35,7 @@ void ceammc_spat_setup()
     setup_spat_hoa_projector();
     setup_spat_hoa_recomposer();
     setup_spat_hoa_rotate();
+    setup_spat_hoa_scope2d();
     setup_spat_hoa_wider();
     setup_spat_pan4_tilde();
     setup_spat_pan8_tilde();

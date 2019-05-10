@@ -18,6 +18,7 @@
 
 #include "Hoa.hpp"
 // temporal fix: this file not exists in newest Hoa-Library-Light
+#include "Hoa_Scope.hpp"
 #include "Hoa_Tools.hpp"
 #include "m_pd.h"
 
@@ -40,6 +41,7 @@ typedef hoa::MultiEncoder<hoa::Hoa2d, t_sample> MultiEncoder2d;
 typedef hoa::PolarLines<hoa::Hoa2d, t_sample> PolarLines2d;
 typedef hoa::Rotate<hoa::Hoa2d, t_sample> Rotate2d;
 typedef hoa::Wider<hoa::Hoa2d, t_sample> Wider2d;
+typedef hoa::Scope<hoa::Hoa2d, t_sample> Scope2d;
 
 typedef hoa::Signal<t_sample> Signal;
 typedef std::vector<t_sample> Buffer;
