@@ -480,7 +480,7 @@ void setup_spat_hoa_process()
     HoaProcess::SYM_2D = gensym("2d");
     HoaProcess::SYM_HOA_THISPROCESS = gensym("hoa.thisprocess~");
 
-    SoundExternalFactory<HoaProcess> obj("!hoa.process~");
+    SoundExternalFactory<HoaProcess> obj("hoa.process~");
     obj.addClick(&HoaProcess::m_click);
     obj.addMethod("debug", &HoaProcess::m_open_cnv);
     obj.addMethod("open", &HoaProcess::m_open);
