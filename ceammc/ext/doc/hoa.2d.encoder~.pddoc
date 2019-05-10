@@ -40,7 +40,6 @@
             are ordered following the ACN:</par>
             <par indent="2">Y[0, Ø], Y[1, -1], Y[1, 1], Y[2, -2], ..., Y[N, -N], Y[N, N].</par>
             <a href="hoa/hoa.2d.encoder~-help.pd">CICM documentation</a>
-            <a href="hoa/hoa.2d.encoder~-help.pd">CICM documentation</a>
         </info>
         <arguments>
             <argument name="ORDER" type="int" minvalue="1">the order of decomposition</argument>
@@ -65,16 +64,30 @@
         <example>
             <pdascii>
 <![CDATA[
-[hoa/hoa.soundgrain]               [lfo.saw~ 0.15]
-|                                  |
+[hoa/hoa.soundgrain] [sig~ 1]      [lfo.saw~ 0.15]
+|                    |             |
 [ui.gain~ @size 120 14]            [phase->rad~]
 |                              .___/ |
-[hoa.encoder~ 5 {w=36,i=11,o=11}]  [ui.n~]
+[hoa.encoder~ 5 {w=24,i=11,o=11}]  [ui.n~]
+*|*  *|*
+*|*  [hoa.scope~ @order 5 {i=11} @size 171 171]
 *|*
-[hoa.decoder~ 5 binaural @crop 64 {w=36,i=11,o=2}]
 *|*
-[xdac~ 1:2 {w=36,i=2}]
-
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+[hoa.decoder~ 5 binaural @crop 64 {w=24,i=11,o=2}]
+*|*
+*|*
+*|*
+[xdac~ 1:2 {w=24,i=2}]
 
 [ui.dsp~]
 ]]>

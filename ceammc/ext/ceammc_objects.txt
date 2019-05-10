@@ -1,6 +1,5 @@
 !hoa.in
 !hoa.in~
-!hoa.optim~
 !hoa.out
 !hoa.out~
 !hoa.process~
@@ -218,8 +217,10 @@ group
 helmholtz~
 hoa.2d.decoder~
 hoa.2d.encoder~
+hoa.2d.optim~
 hoa.decoder~
 hoa.encoder~
+hoa.optim~
 hw.apple_smc
 hw.apple_sms
 hw.arduino
