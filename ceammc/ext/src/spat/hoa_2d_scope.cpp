@@ -21,7 +21,7 @@ static const float HOA_CONTRAST_DARKER = 0.2;
 static const float HOA_CONTRAST_LIGHTER = 0.2;
 
 Hoa2dScope::Hoa2dScope()
-    : order_(3)
+    : prop_order_(3)
     , nharm_(0)
     , clock_(this, &Hoa2dScope::tick)
     , start_clock_(false)
@@ -53,19 +53,19 @@ void Hoa2dScope::paint()
     drawHarmonics();
 }
 
-t_float Hoa2dScope::propOrder() const
+float Hoa2dScope::propOrder() const
 {
-    return order_;
+    return prop_order_;
 }
 
-void Hoa2dScope::propSetOrder(t_float v)
+void Hoa2dScope::propSetOrder(float v)
 {
     auto order = clip<int>(v, HOA_MIN_ORDER, HOA_MAX_ORDER);
 
     if (!scope_ || (order != scope_->getDecompositionOrder())) {
         int dspState = canvas_suspend_dsp();
         scope_.reset(new Scope2d(order, HOA_DISPLAY_NPOINTS));
-        order_ = scope_->getDecompositionOrder();
+        prop_order_ = scope_->getDecompositionOrder();
         nharm_ = scope_->getNumberOfHarmonics();
 
         in_buf_.resize(nharm_ * HOA_DEFAULT_BLOCK_SIZE);
@@ -76,6 +76,20 @@ void Hoa2dScope::propSetOrder(t_float v)
     }
 }
 
+float Hoa2dScope::propView() const
+{
+    return prop_view_;
+}
+
+void Hoa2dScope::propSetView(float angle)
+{
+    int dspState = canvas_suspend_dsp();
+    prop_view_ = wrapFloatMax<float>(angle, 360);
+    scope_->setViewRotation(0., 0., convert::degree2rad(prop_view_));
+    scope_->computeRendering();
+    canvas_resume_dsp(dspState);
+}
+
 void Hoa2dScope::tick()
 {
     scope_->process(&in_buf_[0]);
@@ -83,7 +97,7 @@ void Hoa2dScope::tick()
     harm_layer_.invalidate();
     redrawInnerArea();
     if (canvas_dspstate)
-        clock_.delay(100);
+        clock_.delay(prop_refresh_);
 }
 
 void Hoa2dScope::dspOn(double samplerate, long blocksize)
@@ -124,8 +138,8 @@ void Hoa2dScope::drawBackground()
     p.setMatrix({ 1, 0, 0, -1, center, center });
 
     double angle, x1, x2, y1, y2, cosa, sina;
-    for (int i = 0; i < (order_ * 2 + 2); i++) {
-        angle = ((double)(i - 0.5) / (order_ * 2 + 2) * HOA_2PI);
+    for (int i = 0; i < (prop_order_ * 2 + 2); i++) {
+        angle = ((double)(i - 0.5) / (prop_order_ * 2 + 2) * HOA_2PI);
         cosa = cos(angle);
         sina = sin(angle);
         x1 = cosa * radius * 0.2;
@@ -226,19 +240,29 @@ void Hoa2dScope::drawHarmonics()
 void Hoa2dScope::setup()
 {
     UIDspFactory<Hoa2dScope> obj("hoa.scope~", EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
+    obj.setDefaultSize(60, 60);
 
     // hide some properties
     obj.hideProperty("send");
     obj.hideProperty("receive");
 
-    obj.addIntProperty("order", _("Ambisonic Order"), 3, &Hoa2dScope::order_, "Main");
+    // @order
+    obj.addIntProperty("order", _("Ambisonic Order"), 3, &Hoa2dScope::prop_order_, "Ambisonic");
     obj.setPropertyAccessor("order", &Hoa2dScope::propOrder, &Hoa2dScope::propSetOrder);
     obj.setPropertyRange("order", HOA_MIN_ORDER, HOA_MAX_ORDER);
 
+    // @view
+    obj.addFloatProperty("view", _("View rotation"), 0, &Hoa2dScope::prop_view_, "Ambisonic");
+    //    obj.setPropertyRange("view", 0, 360);
+    obj.setPropertyAccessor("view", &Hoa2dScope::propView, &Hoa2dScope::propSetView);
+
+    // @gain
     obj.addFloatProperty("gain", _("Gain"), 1.f, &Hoa2dScope::prop_gain_, "Main");
     obj.setPropertyMin("gain", 0);
 
-    obj.setDefaultSize(60, 60);
+    // @refresh
+    obj.addIntProperty("refresh", _("Refresh time (ms)"), 100, &Hoa2dScope::prop_refresh_, _("Main"));
+    obj.setPropertyRange("refresh", 20, 1000);
 }
 
 void setup_spat_hoa_scope2d()
