@@ -336,7 +336,8 @@ CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)
     l.append(400); // height
     l.append(10); // font size
 
-    canvas_setcurrent(0);
+    if (canvas_getcurrent())
+        canvas_unsetcurrent(canvas_getcurrent());
 
     if (platform::is_path_relative(name)) {
         glob_setfilename(0, gensym(name), gensym("~"));
