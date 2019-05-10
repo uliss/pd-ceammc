@@ -15,7 +15,7 @@
 #include "ceammc_convert.h"
 #include "ceammc_dsp_ui.h"
 
-static const int MIN_SIZE = 50;
+static const int MIN_SIZE = 20;
 static const int HOA_DISPLAY_NPOINTS = 65;
 static const float HOA_CONTRAST_DARKER = 0.2;
 static const float HOA_CONTRAST_LIGHTER = 0.2;
@@ -27,7 +27,6 @@ Hoa2dScope::Hoa2dScope()
     , start_clock_(false)
     , harm_layer_(asEBox(), gensym("harm_layer"))
 {
-    //    scope_.reset(new Scope2d(order_, HOA_DISPLAY_NPOINTS));
 }
 
 void Hoa2dScope::init(t_symbol* s, const AtomList& lst, bool usePresets)
@@ -244,14 +243,14 @@ void Hoa2dScope::drawHarmonics()
 void Hoa2dScope::setup()
 {
     UIDspFactory<Hoa2dScope> obj("hoa.scope~", EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
-    obj.setDefaultSize(100, 100);
+    obj.setDefaultSize(225, 225);
 
     // hide some properties
     obj.hideProperty("send");
     obj.hideProperty("receive");
 
     // @order
-    obj.addIntProperty("order", _("Ambisonic Order"), 3, &Hoa2dScope::prop_order_, "Ambisonic");
+    obj.addIntProperty("order", _("Ambisonic Order"), HOA_DEFAULT_ORDER, &Hoa2dScope::prop_order_, "Ambisonic");
     obj.setPropertyAccessor("order", &Hoa2dScope::propOrder, &Hoa2dScope::propSetOrder);
     obj.setPropertyRange("order", HOA_MIN_ORDER, HOA_MAX_ORDER);
 
