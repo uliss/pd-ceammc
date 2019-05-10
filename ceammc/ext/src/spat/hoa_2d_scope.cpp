@@ -226,7 +226,10 @@ void Hoa2dScope::drawHarmonics()
 void Hoa2dScope::setup()
 {
     UIDspFactory<Hoa2dScope> obj("hoa.scope~", EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
-    obj.usePresets();
+
+    // hide some properties
+    obj.hideProperty("send");
+    obj.hideProperty("receive");
 
     obj.addIntProperty("order", _("Ambisonic Order"), 3, &Hoa2dScope::order_, "Main");
     obj.setPropertyAccessor("order", &Hoa2dScope::propOrder, &Hoa2dScope::propSetOrder);
