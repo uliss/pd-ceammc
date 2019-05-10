@@ -6,78 +6,58 @@
 -4096 0;
 #X obj 519 11 hoa.encoder~;
 #X obj 631 11 hoa.2d.encoder~;
-#X obj 210 80 cnv 1 555 398 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 73 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Creates the circular harmonics of a signal depending
 of a given order and a position on a circle given in radians (θ).;
-#X text 215 120 Each generated signal of the sound field carries the
-source signal weighted by its associated harmonic Y defined by;
-#X text 235 160 Y[l \, m](θ) = e^i|m|θ.;
-#X text 215 185 with the complex exponential e^i that can be expressed
-by;
-#X text 215 210 if m < 0;
-#X text 235 235 Y[l \, m](θ) = sin(|m|*θ);
-#X text 215 260 else if m >= 0;
-#X text 235 285 Y[l \, m](θ) = cos(|m|*θ);
-#X text 215 310 with l the degree \, m the azimuthal order \, θ the
-azimuth and S the signal to encode.;
-#X text 215 350 The signal of the circular harmonics are not normalized
-\, they are defined between -1 and 1 \, even for the first omnidirectional
-harmonic Y[0 \, 0]. The harmonics Y[l \, m] are ordered following the
-ACN:;
-#X text 235 420 Y[0 \, Ø] \, Y[1 \, -1] \, Y[1 \, 1] \, Y[2 \, -2]
-\, ... \, Y[N \, -N] \, Y[N \, N].;
-#X obj 215 445 ui.link @background_color 0.98039 0.98039 0.98039
+#X obj 215 120 ui.link @background_color 0.98039 0.98039 0.98039
 @title CICM documentation @url hoa/hoa.2d.encoder~-help.pd;
-#X obj 50 506 hoa/hoa.soundgrain;
-#X obj 251 506 sig~ 1;
-#X obj 386 506 lfo.saw~ 0.15;
-#X obj 50 535 ui.gain~ @size 120 14;
-#X obj 386 535 phase->rad~;
-#X obj 50 564 hoa.encoder~ 5, f 24;
-#X obj 386 564 ui.n~;
-#X obj 98 593 hoa.scope~ @order 5 @size 171 171;
-#X obj 50 780 hoa.decoder~ 5 binaural @crop 64, f 24;
-#X obj 50 837 xdac~ 1:2, f 24;
-#X obj 50 866 ui.dsp~;
-#X obj 20 905 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 910 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 181 lfo.square~ 1;
+#X obj 386 181 phasor~ 0.15;
+#X obj 50 210 ui.gain~ @size 120 14;
+#X obj 386 210 phase->rad~;
+#X obj 50 239 hoa.encoder~ 5, f 24;
+#X obj 386 239 ui.n~;
+#X obj 50 268 hoa.scope~ @order 5 @size 171 171;
+#X obj 50 455 ui.dsp~;
+#X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 499 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 945 1\.;
-#X text 150 945 int;
-#X obj 246 946 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 945 ORDER: the order of decomposition. Min value: 1;
-#X obj 20 975 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 980 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 534 1\.;
+#X text 150 534 int;
+#X obj 246 535 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 534 ORDER: the order of decomposition. Range: 1\...63;
+#X obj 20 564 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 569 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1015 @order;
-#X text 245 1015 (readonly) Get the order of decomposition. Type: int.
-Default value: 4\. Range: 1\...63\.;
-#X obj 20 1067 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1072 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 604 @order;
+#X text 245 604 (readonly) Get the order of decomposition. Type: int.
+Default value: 1\. Range: 1\...63\.;
+#X obj 20 656 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 661 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+0;
+#X text 110 662 1\.;
+#X text 245 662 input signal.;
+#X text 110 682 2\.;
+#X text 245 682 position on a circle in radians.;
+#X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 717 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1073 1\.;
-#X text 245 1073 input signal.;
-#X text 110 1093 2\.;
-#X text 245 1093 position on a circle in radians.;
-#X obj 20 1123 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1128 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
--49933 0;
-#X text 110 1129 1\.;
-#X text 245 1129 first circular harmonics output.;
-#X text 110 1149 ....;
-#X text 245 1149 ... circular harmonics output.;
-#X text 110 1169 n.;
-#X text 245 1169 n-th circular harmonics output.;
+#X text 110 718 1\.;
+#X text 245 718 first circular harmonics output.;
+#X text 110 738 ....;
+#X text 245 738 ... circular harmonics output.;
+#X text 110 758 n.;
+#X text 245 758 n-th circular harmonics output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1219 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1222 library: ceammc v0.7.1;
-#X text 557 1234 see also:;
-#X obj 631 1234 hoa.2d.decoder~;
-#N canvas 10 1241 400 290 info 0;
+#X obj 1 808 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 811 library: ceammc v0.7.1;
+#X text 557 823 see also:;
+#X obj 631 823 hoa.2d.decoder~;
+#N canvas 10 830 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -102,34 +82,20 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1241 pd info;
-#X connect 18 0 21 0;
-#X connect 19 0 21 0;
-#X connect 20 0 22 0;
-#X connect 21 0 23 0;
-#X connect 22 0 23 1;
-#X connect 22 0 24 0;
-#X connect 23 0 25 0;
-#X connect 23 1 25 1;
-#X connect 23 2 25 2;
-#X connect 23 3 25 3;
-#X connect 23 4 25 4;
-#X connect 23 5 25 5;
-#X connect 23 6 25 6;
-#X connect 23 7 25 7;
-#X connect 23 8 25 8;
-#X connect 23 9 25 9;
-#X connect 23 10 25 10;
-#X connect 23 0 26 0;
-#X connect 23 1 26 1;
-#X connect 23 2 26 2;
-#X connect 23 3 26 3;
-#X connect 23 4 26 4;
-#X connect 23 5 26 5;
-#X connect 23 6 26 6;
-#X connect 23 7 26 7;
-#X connect 23 8 26 8;
-#X connect 23 9 26 9;
-#X connect 23 10 26 10;
-#X connect 26 0 27 0;
-#X connect 26 1 27 1;
+#X restore 10 830 pd info;
+#X connect 8 0 10 0;
+#X connect 9 0 11 0;
+#X connect 10 0 12 0;
+#X connect 11 0 12 1;
+#X connect 11 0 13 0;
+#X connect 12 0 14 0;
+#X connect 12 1 14 1;
+#X connect 12 2 14 2;
+#X connect 12 3 14 3;
+#X connect 12 4 14 4;
+#X connect 12 5 14 5;
+#X connect 12 6 14 6;
+#X connect 12 7 14 7;
+#X connect 12 8 14 8;
+#X connect 12 9 14 9;
+#X connect 12 10 14 10;

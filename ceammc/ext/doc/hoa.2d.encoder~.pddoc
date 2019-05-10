@@ -25,27 +25,14 @@
         <info>
             <par>Creates the circular harmonics of a signal depending of a given order and a
             position on a circle given in radians (θ).</par>
-            <par>Each generated signal of the sound field carries the source signal weighted by its
-            associated harmonic Y defined by</par>
-            <par indent="2">Y[l, m](θ) = e^i|m|θ.</par>
-            <par>with the complex exponential e^i that can be expressed by</par>
-            <par>if m &lt; 0</par>
-            <par indent="2">Y[l, m](θ) = sin(|m|*θ)</par>
-            <par>else if m &gt;= 0</par>
-            <par indent="2">Y[l, m](θ) = cos(|m|*θ)</par>
-            <par>with l the degree, m the azimuthal order, θ the azimuth and S the signal to
-            encode.</par>
-            <par>The signal of the circular harmonics are not normalized, they are defined between
-            -1 and 1, even for the first omnidirectional harmonic Y[0, 0]. The harmonics Y[l, m]
-            are ordered following the ACN:</par>
-            <par indent="2">Y[0, Ø], Y[1, -1], Y[1, 1], Y[2, -2], ..., Y[N, -N], Y[N, N].</par>
             <a href="hoa/hoa.2d.encoder~-help.pd">CICM documentation</a>
         </info>
         <arguments>
-            <argument name="ORDER" type="int" minvalue="1">the order of decomposition</argument>
+            <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
+            decomposition</argument>
         </arguments>
         <properties>
-            <property name="@order" type="int" minvalue="1" maxvalue="63" default="4"
+            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
             readonly="true">the order of decomposition</property>
         </properties>
         <inlets>
@@ -64,30 +51,24 @@
         <example>
             <pdascii>
 <![CDATA[
-[hoa/hoa.soundgrain] [sig~ 1]      [lfo.saw~ 0.15]
-|                    |             |
+[lfo.square~ 1]                    [phasor~ 0.15]
+|                                  |
 [ui.gain~ @size 120 14]            [phase->rad~]
 |                              .___/ |
 [hoa.encoder~ 5 {w=24,i=11,o=11}]  [ui.n~]
-*|*  *|*
-*|*  [hoa.scope~ @order 5 {i=11} @size 171 171]
 *|*
-*|*
-*|*
-*|*
-*|*
-*|*
-*|*
-*|*
-*|*
-*|*
-*|*
-*|*
-[hoa.decoder~ 5 binaural @crop 64 {w=24,i=11,o=2}]
-*|*
-*|*
-*|*
-[xdac~ 1:2 {w=24,i=2}]
+[hoa.scope~ @order 5 {i=11} @size 171 171]
+
+
+
+
+
+
+
+
+
+
+
 
 [ui.dsp~]
 ]]>
