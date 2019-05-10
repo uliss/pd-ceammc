@@ -88,6 +88,10 @@ void Hoa2dScope::propSetView(float angle)
     scope_->setViewRotation(0., 0., convert::degree2rad(prop_view_));
     scope_->computeRendering();
     canvas_resume_dsp(dspState);
+
+    harm_layer_.invalidate();
+    bg_layer_.invalidate();
+    redraw();
 }
 
 void Hoa2dScope::tick()
@@ -189,7 +193,7 @@ void Hoa2dScope::drawHarmonics()
     char pathLength = 0;
     t_pt start_pt;
 
-    p.setColor(rgba_red);
+    p.setColor(prop_ph_color_);
     p.setSmooth(ESMOOTH_BEZIER);
 
     for (size_t i = 0; i < scope_->getNumberOfPoints(); i++) {
@@ -213,7 +217,7 @@ void Hoa2dScope::drawHarmonics()
 
     // negative harmonics
     pathLength = 0;
-    p.setColor(rgba_blue);
+    p.setColor(prop_nh_color_);
 
     for (size_t i = 0; i < scope_->getNumberOfPoints(); i++) {
         if (scope_->getPointValue(i) < 0) {
@@ -240,7 +244,7 @@ void Hoa2dScope::drawHarmonics()
 void Hoa2dScope::setup()
 {
     UIDspFactory<Hoa2dScope> obj("hoa.scope~", EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
-    obj.setDefaultSize(60, 60);
+    obj.setDefaultSize(100, 100);
 
     // hide some properties
     obj.hideProperty("send");
@@ -263,6 +267,10 @@ void Hoa2dScope::setup()
     // @refresh
     obj.addIntProperty("refresh", _("Refresh time (ms)"), 100, &Hoa2dScope::prop_refresh_, _("Main"));
     obj.setPropertyRange("refresh", 20, 1000);
+
+    // @ph_color
+    obj.addColorProperty("ph_color", _("Positive Harmonics Color"), "1. 0. 0. 1.", &Hoa2dScope::prop_ph_color_);
+    obj.addColorProperty("nh_color", _("Negative Harmonics Color"), "0. 0. 1. 1.", &Hoa2dScope::prop_nh_color_);
 }
 
 void setup_spat_hoa_scope2d()

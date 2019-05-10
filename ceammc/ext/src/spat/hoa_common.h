@@ -28,7 +28,6 @@ using namespace ceammc;
 static const int HOA_MIN_ORDER = 1;
 static const int HOA_MAX_ORDER = 63;
 static const int HOA_DEFAULT_ORDER = 4;
-static const int HOA_MAXBLKSIZE = 8912;
 static const int HOA_DEFAULT_BLOCK_SIZE = 64;
 
 typedef hoa::Optim<hoa::Hoa2d, t_sample> Optim2d;

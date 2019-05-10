@@ -29,6 +29,8 @@ class Hoa2dScope : public UIDspObject {
     float prop_gain_;
     float prop_view_;
     int prop_refresh_;
+    t_rgba prop_ph_color_;
+    t_rgba prop_nh_color_;
 
     ClockMemberFunction<Hoa2dScope> clock_;
     bool start_clock_;
