@@ -32,6 +32,11 @@ Hoa2dScope::Hoa2dScope()
 void Hoa2dScope::init(t_symbol* s, const AtomList& lst, bool usePresets)
 {
     UIDspObject::init(s, lst, usePresets);
+
+    // first positional argument handling
+    if (!lst.empty() && lst[0].isFloat())
+        propSetOrder(clip<t_float>(lst[0].asFloat(), HOA_MIN_ORDER, HOA_MAX_ORDER));
+
     dspSetup(order_, 0);
 }
 
@@ -213,7 +218,7 @@ void Hoa2dScope::drawHarmonics()
                 p.moveTo(scope_->getPointAbscissa(i) * radius, scope_->getPointOrdinate(i) * radius);
                 pathLength++;
             } else {
-//                egraphics_curve_to(p.l);
+                //                egraphics_curve_to(p.l);
                 p.drawLineTo(scope_->getPointAbscissa(i) * radius, scope_->getPointOrdinate(i) * radius);
             }
         }
