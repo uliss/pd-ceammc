@@ -25,8 +25,6 @@ typedef struct convert_settings_t {
     AudioStreamBasicDescription inputFormat;
 } convert_settings;
 
-static const size_t PLAYER_BUF_SIZE = 8192;
-
 struct audio_player {
     ExtAudioFileRef file_ref;
     AudioStreamBasicDescription in_asbd;
