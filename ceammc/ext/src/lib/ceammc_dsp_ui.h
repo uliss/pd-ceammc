@@ -285,7 +285,7 @@ public:
     }
 
     /**
-     * @brief adds boolean property
+     * @brief adds boolean property shown as toggle in properties dialog
      * @param name - property name
      * @param label - property display label
      * @param def - default property value
@@ -304,7 +304,7 @@ public:
     }
 
     /**
-     * @brief adds float property
+     * @brief adds float property shown as number entry in property dialog
      * @param name - property name
      * @param label - property display label
      * @param def - default property value
@@ -326,7 +326,7 @@ public:
     }
 
     /**
-     * @brief adds integer property
+     * @brief adds integer property shown as integer spinbox entry in properties dialog
      * @param name - property name
      * @param label - property display label
      * @param def - default property value
@@ -348,7 +348,28 @@ public:
     }
 
     /**
-     * @brief adds RGBA color property
+     * @brief adds symbol enum property shown as dropown menu in properties dialog
+     * @param name - property name
+     * @param label - property display label
+     * @param def - default value
+     * @param m - member pointer to property
+     */
+    void addMenuProperty(const char* name, const char* label,
+        const char* def, t_symbol* UI::*m,
+        const char* items, const char* cat = "Misc")
+    {
+        eclass_new_attr_typed(pd_class, name, "symbol", 1, 0, 0, offset(m));
+        eclass_attr_label(pd_class, name, 0, label);
+        eclass_attr_save(pd_class, name, 0);
+        eclass_attr_paint(pd_class, name, 0);
+        eclass_attr_default(pd_class, name, 0, def);
+        eclass_attr_style(pd_class, name, 0, "menu");
+        eclass_attr_category(pd_class, name, 0, cat);
+        eclass_attr_itemlist(pd_class, name, 0, items);
+    }
+
+    /**
+     * @brief adds RGBA color property shown as color chooser in properties dialog
      * @param name - property name
      * @param label - property display label
      * @param def - default value, like "1.0 0.5 0.3 1", in RGBA format
@@ -381,20 +402,6 @@ public:
         eclass_new_attr_typed(pd_class, name, "atom", 1, 0, 0, 0);
         eclass_attr_invisible(pd_class, name, 0);
         setPropertyAccessor(name, getter, setter);
-    }
-
-    void addProperty(const char* name, const char* label,
-        const char* def, t_symbol* UI::*m,
-        const char* items, const char* cat = "Misc")
-    {
-        eclass_new_attr_typed(pd_class, name, "symbol", 1, 0, 0, offset(m));
-        eclass_attr_label(pd_class, name, 0, label);
-        eclass_attr_save(pd_class, name, 0);
-        eclass_attr_paint(pd_class, name, 0);
-        eclass_attr_default(pd_class, name, 0, def);
-        eclass_attr_style(pd_class, name, 0, "menu");
-        eclass_attr_category(pd_class, name, 0, cat);
-        eclass_attr_itemlist(pd_class, name, 0, items);
     }
 
     void addVirtualProperty(const char* name, const char* label, const char* def,
