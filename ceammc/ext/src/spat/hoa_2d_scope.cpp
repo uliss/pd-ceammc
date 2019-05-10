@@ -27,7 +27,6 @@ Hoa2dScope::Hoa2dScope()
     , start_clock_(false)
     , harm_layer_(asEBox(), gensym("harm_layer"))
 {
-//    scope_.reset(new Scope2d(order_, HOA_DISPLAY_NPOINTS));
 }
 
 void Hoa2dScope::init(t_symbol* s, const AtomList& lst, bool usePresets)
@@ -131,15 +130,13 @@ void Hoa2dScope::drawBackground()
     if (!p)
         return;
 
-    t_matrix transform;
     t_rgba black = rgba_addContrast(prop_color_background, -HOA_CONTRAST_DARKER);
     t_rgba white = rgba_addContrast(prop_color_background, HOA_CONTRAST_LIGHTER);
 
-    auto center = width() / 2;
-    auto radius = center * 0.95;
+    const float center = width() / 2;
+    const float radius = center * 0.95;
 
-    egraphics_matrix_init(&transform, 1, 0, 0, -1, center, center);
-    egraphics_set_matrix(p.layer(), &transform);
+    p.setMatrix({ 1, 0, 0, -1, center, center });
 
     double angle, x1, x2, y1, y2, cosa, sina;
     for (int i = 0; i < (order_ * 2 + 2); i++) {
@@ -155,19 +152,19 @@ void Hoa2dScope::drawBackground()
         p.drawLineTo(x2, y2);
         p.setLineWidth(3);
         p.setColor(white);
+        p.strokePreserve();
 
-        egraphics_stroke_preserve(p.layer());
         p.setColor(black);
         p.setLineWidth(1);
+        p.stroke();
     }
-
-    p.stroke();
 
     for (int i = 5; i > 0; i--) {
         p.setLineWidth(3);
         p.setColor(white);
         p.drawCircle(0, 0, i * 0.2 * radius);
-        p.stroke();
+        p.strokePreserve();
+
         p.setLineWidth(1);
         p.setColor(black);
         p.drawCircle(0, 0, i * 0.2 * radius);
@@ -182,13 +179,12 @@ void Hoa2dScope::drawHarmonics()
     if (!p)
         return;
 
-    t_matrix transform;
-    egraphics_rotate(p.layer(), HOA_PI);
+    const float center = width() * 0.5;
+    const float radius = center * 0.95;
+
+    p.rotate(HOA_PI);
     p.setLineWidth(1);
-    auto center = width() * 0.5;
-    auto radius = center * 0.95;
-    egraphics_matrix_init(&transform, 1, 0, 0, -1, center, center);
-    egraphics_set_matrix(p.layer(), &transform);
+    p.setMatrix({ 1, 0, 0, -1, center, center });
 
     // positive harmonics
     char pathLength = 0;
@@ -205,7 +201,7 @@ void Hoa2dScope::drawHarmonics()
         }
     }
 
-    egraphics_close_path(p.layer());
+    p.closePath();
     if (pathLength)
         p.stroke();
 
@@ -225,7 +221,7 @@ void Hoa2dScope::drawHarmonics()
         }
     }
 
-    egraphics_close_path(p.layer());
+    p.closePath();
     if (pathLength)
         p.stroke();
 }

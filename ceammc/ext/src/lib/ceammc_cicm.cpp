@@ -325,6 +325,16 @@ void UIPainter::stroke()
     egraphics_stroke(layer_);
 }
 
+void UIPainter::strokePreserve()
+{
+    egraphics_stroke_preserve(layer_);
+}
+
+void UIPainter::closePath()
+{
+    egraphics_close_path(layer_);
+}
+
 void UIPainter::fillLayer(const t_rgba& color)
 {
     float w = layer_->e_rect.width;
@@ -366,6 +376,16 @@ void UIPainter::raiseOver(UIPainter& painter)
         return;
 
     egraphics_raise(layer_, painter.layer());
+}
+
+void UIPainter::rotate(float angle)
+{
+    egraphics_rotate(layer_, angle);
+}
+
+void UIPainter::setMatrix(const t_matrix& mtx)
+{
+    egraphics_set_matrix(layer_, &mtx);
 }
 
 UIPopupMenu::UIPopupMenu(t_eobj* x, const char* name, const t_pt& pos)

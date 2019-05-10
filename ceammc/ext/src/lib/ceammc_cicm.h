@@ -126,6 +126,8 @@ public:
     void fill();
     void fillPreserve();
     void stroke();
+    void strokePreserve();
+    void closePath();
 
     void fillLayer(const t_rgba& color);
 
@@ -136,6 +138,9 @@ public:
 
     t_elayer* layer();
     void raiseOver(UIPainter& painter);
+
+    void rotate(float angle);
+    void setMatrix(const t_matrix& mtx);
 };
 
 class UILayer {
