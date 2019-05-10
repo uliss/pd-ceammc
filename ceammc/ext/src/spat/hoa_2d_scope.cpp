@@ -80,7 +80,7 @@ void Hoa2dScope::tick()
     scope_->process(&in_buf_[0]);
 
     harm_layer_.invalidate();
-    redraw();
+    redrawInnerArea();
     if (canvas_dspstate)
         clock_.delay(100);
 }
