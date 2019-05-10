@@ -206,11 +206,11 @@ void UIMeter::setup()
 
     obj.setDefaultSize(15, 120);
 
-    obj.addProperty("cold_color", _("Cold signal color"), "0 0.6 0 1", &UIMeter::prop_color_cold);
-    obj.addProperty("tepid_color", _("Tepid signal color"), "0.6 0.73 0 1", &UIMeter::prop_color_tepid);
-    obj.addProperty("warm_color", _("Warm signal color"), ".85 .85 0 1", &UIMeter::prop_color_warm);
-    obj.addProperty("hot_color", _("Hot signal color"), "1 0.6 0 1", &UIMeter::prop_color_hot);
-    obj.addProperty("over_color", _("Overload signal color"), "1 0 0 1", &UIMeter::prop_color_over);
+    obj.addColorProperty("cold_color", _("Cold signal color"), "0 0.6 0 1", &UIMeter::prop_color_cold);
+    obj.addColorProperty("tepid_color", _("Tepid signal color"), "0.6 0.73 0 1", &UIMeter::prop_color_tepid);
+    obj.addColorProperty("warm_color", _("Warm signal color"), ".85 .85 0 1", &UIMeter::prop_color_warm);
+    obj.addColorProperty("hot_color", _("Hot signal color"), "1 0.6 0 1", &UIMeter::prop_color_hot);
+    obj.addColorProperty("over_color", _("Overload signal color"), "1 0 0 1", &UIMeter::prop_color_over);
 
     obj.addIntProperty("interval", _("Refresh interval (ms)"), 50, &UIMeter::prop_interval_ms, _("Main"));
 }

@@ -116,20 +116,20 @@ public:
 
         // clang-format off
         // background / border color
-        addProperty(PROP_BACKGROUND_COLOR,
-                    _("Background Color"),
-                    DEFAULT_BACKGROUND_COLOR,
-                    &UI::prop_color_background);
+        addColorProperty(PROP_BACKGROUND_COLOR,
+                         _("Background Color"),
+                         DEFAULT_BACKGROUND_COLOR,
+                         &UI::prop_color_background);
 
-        addProperty(PROP_BORDER_COLOR,
-                    _("Border Color"),
-                    DEFAULT_BORDER_COLOR,
-                    &UI::prop_color_border);
+        addColorProperty(PROP_BORDER_COLOR,
+                         _("Border Color"),
+                         DEFAULT_BORDER_COLOR,
+                         &UI::prop_color_border);
 
-        addProperty(PROP_LABEL_COLOR,
-                    _("Label Color"),
-                    DEFAULT_LABEL_COLOR,
-                    &UI::prop_color_label);
+        addColorProperty(PROP_LABEL_COLOR,
+                         _("Label Color"),
+                         DEFAULT_LABEL_COLOR,
+                         &UI::prop_color_label);
 
         // default
         CLASS_ATTR_DEFAULT              (pd_class, "size", 0, "45. 15.");
@@ -284,7 +284,34 @@ public:
         eclass_addmethod(pd_class, reinterpret_cast<t_typ_method>(customMethodBang), name->s_name, A_GIMME, 0);
     }
 
-    void addProperty(const char* name, const char* label, float def, float UI::*m, const char* category = "Misc")
+    /**
+     * @brief adds boolean property
+     * @param name - property name
+     * @param label - property display label
+     * @param def - default property value
+     * @param m - member pointer to property
+     * @param category - property category
+     */
+    void addBoolProperty(const char* name, const char* label, bool def, int UI::*m, const char* category = "Misc")
+    {
+        eclass_new_attr_typed(pd_class, name, "int", 1, 0, 0, offset(m));
+        eclass_attr_label(pd_class, name, 0, label);
+        eclass_attr_save(pd_class, name, 0);
+        eclass_attr_paint(pd_class, name, 0);
+        eclass_attr_default(pd_class, name, 0, def ? "1" : "0");
+        eclass_attr_style(pd_class, name, 0, "onoff");
+        eclass_attr_category(pd_class, name, 0, category);
+    }
+
+    /**
+     * @brief adds float property
+     * @param name - property name
+     * @param label - property display label
+     * @param def - default property value
+     * @param m - member pointer to property
+     * @param category - property category
+     */
+    void addFloatProperty(const char* name, const char* label, float def, float UI::*m, const char* category = "Misc")
     {
         char buf[32];
         snprintf(buf, 30, "%g", def);
@@ -298,6 +325,14 @@ public:
         eclass_attr_category(pd_class, name, 0, category);
     }
 
+    /**
+     * @brief adds integer property
+     * @param name - property name
+     * @param label - property display label
+     * @param def - default property value
+     * @param m - member pointer to property
+     * @param category - property category
+     */
     void addIntProperty(const char* name, const char* label, int def, int UI::*m, const char* category = "Misc")
     {
         char buf[32];
@@ -312,18 +347,14 @@ public:
         eclass_attr_category(pd_class, name, 0, category);
     }
 
-    void addBoolProperty(const char* name, const char* label, bool def, int UI::*m, const char* category = "Misc")
-    {
-        eclass_new_attr_typed(pd_class, name, "int", 1, 0, 0, offset(m));
-        eclass_attr_label(pd_class, name, 0, label);
-        eclass_attr_save(pd_class, name, 0);
-        eclass_attr_paint(pd_class, name, 0);
-        eclass_attr_default(pd_class, name, 0, def ? "1" : "0");
-        eclass_attr_style(pd_class, name, 0, "onoff");
-        eclass_attr_category(pd_class, name, 0, category);
-    }
-
-    void addProperty(const char* name, const char* label, const char* def, t_rgba UI::*m)
+    /**
+     * @brief adds RGBA color property
+     * @param name - property name
+     * @param label - property display label
+     * @param def - default value, like "1.0 0.5 0.3 1", in RGBA format
+     * @param m - member pointer to property
+     */
+    void addColorProperty(const char* name, const char* label, const char* def, t_rgba UI::*m)
     {
         eclass_new_attr_typed(pd_class, name, "float", 4, 0, 0, offset(m));
         eclass_attr_label(pd_class, name, 0, label);
@@ -332,45 +363,6 @@ public:
         eclass_attr_default(pd_class, name, 0, def);
         eclass_attr_style(pd_class, name, 0, "color");
         eclass_attr_category(pd_class, name, 0, "Colors");
-    }
-
-    void setPropertyMin(const char* name, float v)
-    {
-        eclass_attr_filter_min(pd_class, name, v);
-    }
-
-    void setPropertyMax(const char* name, float v)
-    {
-        eclass_attr_filter_max(pd_class, name, v);
-    }
-
-    void setPropertyRange(const char* name, float min, float max)
-    {
-        setPropertyMin(name, min);
-        setPropertyMax(name, max);
-    }
-
-    void setPropertyDefaultValue(const char* name, const char* def)
-    {
-        eclass_attr_default(pd_class, name, 0, def);
-    }
-
-    void hideProperty(const char* name)
-    {
-        eclass_attr_invisible(pd_class, name, 0);
-    }
-
-    void showProperty(const char* name)
-    {
-        eclass_attr_visible(pd_class, name, 0);
-    }
-
-    void setDefaultSize(int w, int h)
-    {
-        char buf[32];
-        snprintf(buf, 30, "%d. %d.", w, h);
-
-        CLASS_ATTR_DEFAULT(pd_class, "size", 0, buf);
     }
 
     void addProperty(const char* name,
@@ -415,6 +407,50 @@ public:
         eclass_attr_default(pd_class, name, 0, def);
         eclass_attr_accessor(pd_class, name, (t_err_method)listPropGetter, (t_err_method)listPropSetter);
         prop_list_map[gensym(name)] = std::make_pair(getter, setter);
+    }
+
+    void setPropertyMin(const char* name, float v)
+    {
+        eclass_attr_filter_min(pd_class, name, v);
+    }
+
+    void setPropertyMax(const char* name, float v)
+    {
+        eclass_attr_filter_max(pd_class, name, v);
+    }
+
+    void setPropertyRange(const char* name, float min, float max)
+    {
+        setPropertyMin(name, min);
+        setPropertyMax(name, max);
+    }
+
+    void setPropertySave(const char* name, bool value = true)
+    {
+        eclass_attr_save(pd_class, name, 0, value);
+    }
+
+    void setPropertyDefaultValue(const char* name, const char* def)
+    {
+        eclass_attr_default(pd_class, name, 0, def);
+    }
+
+    void hideProperty(const char* name)
+    {
+        eclass_attr_invisible(pd_class, name, 0);
+    }
+
+    void showProperty(const char* name)
+    {
+        eclass_attr_visible(pd_class, name, 0);
+    }
+
+    void setDefaultSize(int w, int h)
+    {
+        char buf[32];
+        snprintf(buf, 30, "%d. %d.", w, h);
+
+        CLASS_ATTR_DEFAULT(pd_class, "size", 0, buf);
     }
 
     void setPropertyAccessor(const char* name, float (UI::*getter)() const, void (UI::*setter)(float))

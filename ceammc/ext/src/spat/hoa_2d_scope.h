@@ -22,7 +22,7 @@
 using namespace ceammc;
 
 class Hoa2dScope : public UIDspObject {
-    size_t order_;
+    int order_;
     size_t nharm_;
     std::unique_ptr<Scope2d> scope_;
     Buffer in_buf_;
