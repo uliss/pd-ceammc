@@ -43,9 +43,9 @@ void UIGain2::setup()
     UIDspFactory<UIGain2> obj("ui.gain2~");
 
     obj.addColorProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UIGain2::prop_color_knob);
-    obj.addProperty("db", &UIGain2::dbValue, &UIGain2::setDbValue);
+    obj.addHiddenFloatCbProperty("db", &UIGain2::dbValue, &UIGain2::setDbValue);
     obj.setPropertyDefaultValue("db", "-60");
-    obj.addProperty("amp", &UIGain2::ampValue, &UIGain2::setAmpValue);
+    obj.addHiddenFloatCbProperty("amp", &UIGain2::ampValue, &UIGain2::setAmpValue);
     obj.addIntProperty("max", _("Maximum value"), 0, &UIGain2::prop_max, _("Bounds"));
     obj.addIntProperty("min", _("Minimum value"), -60, &UIGain2::prop_min, _("Bounds"));
     obj.setPropertyRange("max", -12, 12);

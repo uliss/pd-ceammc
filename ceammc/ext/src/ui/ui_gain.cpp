@@ -234,9 +234,9 @@ void UIGain::setup()
     UIDspFactory<UIGain> obj("ui.gain~");
 
     obj.addColorProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UIGain::prop_color_knob);
-    obj.addProperty("db", &UIGain::dbValue, &UIGain::setDbValue);
+    obj.addHiddenFloatCbProperty("db", &UIGain::dbValue, &UIGain::setDbValue);
     obj.setPropertyDefaultValue("db", "-60");
-    obj.addProperty("amp", &UIGain::ampValue, &UIGain::setAmpValue);
+    obj.addHiddenFloatCbProperty("amp", &UIGain::ampValue, &UIGain::setAmpValue);
     obj.addIntProperty("max", _("Maximum value"), 0, &UIGain::prop_max, _("Bounds"));
     obj.addIntProperty("min", _("Minimum value"), -60, &UIGain::prop_min, _("Bounds"));
     obj.setPropertyRange("max", -12, 12);

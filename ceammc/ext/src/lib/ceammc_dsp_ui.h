@@ -348,11 +348,13 @@ public:
     }
 
     /**
-     * @brief adds symbol enum property shown as dropown menu in properties dialog
+     * @brief adds symbol enum property shown as dropout menu in properties dialog
      * @param name - property name
      * @param label - property display label
      * @param def - default value
      * @param m - member pointer to property
+     * @param items - list of items (space separated) "a b c"
+     * @param cat - category name
      */
     void addMenuProperty(const char* name, const char* label,
         const char* def, t_symbol* UI::*m,
@@ -386,24 +388,12 @@ public:
         eclass_attr_category(pd_class, name, 0, "Colors");
     }
 
-    void addProperty(const char* name,
-        float (UI::*getter)() const,
-        void (UI::*setter)(float))
-    {
-        eclass_new_attr_typed(pd_class, name, "float", 1, 0, 0, 0);
-        eclass_attr_invisible(pd_class, name, 0);
-        setPropertyAccessor(name, getter, setter);
-    }
-
-    void addProperty(const char* name,
-        AtomList (UI::*getter)() const,
-        void (UI::*setter)(const AtomList&))
-    {
-        eclass_new_attr_typed(pd_class, name, "atom", 1, 0, 0, 0);
-        eclass_attr_invisible(pd_class, name, 0);
-        setPropertyAccessor(name, getter, setter);
-    }
-
+    /**
+     * @brief adds visible in dialog property with callbacks, but without member pointer
+     * @param name - property name
+     * @param label - property name
+     * @param def - default value
+     */
     void addVirtualProperty(const char* name, const char* label, const char* def,
         AtomList (UI::*getter)() const, void (UI::*setter)(const AtomList&))
     {
@@ -414,6 +404,36 @@ public:
         eclass_attr_default(pd_class, name, 0, def);
         eclass_attr_accessor(pd_class, name, (t_err_method)listPropGetter, (t_err_method)listPropSetter);
         prop_list_map[gensym(name)] = std::make_pair(getter, setter);
+    }
+
+    /**
+     * @brief adds hidden float property with callbacks
+     * @param name - property name
+     * @param getter - member pointer to getter function
+     * @param setter - member pointer to setter function
+     */
+    void addHiddenFloatCbProperty(const char* name,
+        float (UI::*getter)() const,
+        void (UI::*setter)(float))
+    {
+        eclass_new_attr_typed(pd_class, name, "float", 1, 0, 0, 0);
+        eclass_attr_invisible(pd_class, name, 0);
+        setPropertyAccessor(name, getter, setter);
+    }
+
+    /**
+     * @brief adds hidden list property with callbacks
+     * @param name - property name
+     * @param getter - member pointer to getter function
+     * @param setter - member pointer to setter function
+     */
+    void addHiddenListCbProperty(const char* name,
+        AtomList (UI::*getter)() const,
+        void (UI::*setter)(const AtomList&))
+    {
+        eclass_new_attr_typed(pd_class, name, "atom", 1, 0, 0, 0);
+        eclass_attr_invisible(pd_class, name, 0);
+        setPropertyAccessor(name, getter, setter);
     }
 
     void setPropertyMin(const char* name, float v)
