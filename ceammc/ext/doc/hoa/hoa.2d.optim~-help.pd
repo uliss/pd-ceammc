@@ -1,214 +1,145 @@
-#N struct 1379-t-scope float x array bufr 1379-t-scope-value-r array
-bufg 1379-t-scope-value-g;
-#N struct 1379-t-scope-value-r float x float y;
-#N struct 1379-t-scope-value-g float x float y;
-#N struct 1386-t-scope float x array bufr 1386-t-scope-value-r array
-bufg 1386-t-scope-value-g;
-#N struct 1386-t-scope-value-r float x float y;
-#N struct 1386-t-scope-value-g float x float y;
-#N canvas 56 115 913 663 10;
-#X obj 398 123 hoa.2d.encoder~ 3, f 24;
-#X obj 122 623 hoa-help;
-#X obj 398 580 hoa.2d.decoder~ 3 regular 8, f 24;
-#X obj 13 596 text define -k \$0-scope-attrs;
-#A set gain 118 \; interval 150 \;;
-#X text 620 90 azimuth θ in radian (-π & π), f 17;
-#X obj 539 70 phasor~ 0.3;
-#X obj 398 358 hoa.2d.optim~ 3 inphase, f 24;
-#X obj 6 10 cnv 15 200 20 empty empty hoa.2d.optim~ 4 10 0 14 -233017
+#N canvas 158 32 949 689 10;
+#X obj 398 119 hoa.2d.encoder~ 3, f 24;
+#X obj 122 619 hoa-help;
+#X obj 398 576 hoa.2d.decoder~ 3 regular 8, f 24;
+#X text 620 86 azimuth θ in radian (-π & π), f 17;
+#X obj 539 66 phasor~ 0.3;
+#X obj 398 354 hoa.2d.optim~ 3 inphase, f 24;
+#X obj 6 6 cnv 15 200 20 empty empty hoa.2d.optim~ 4 10 0 14 -233017
 -66577 0;
-#X msg 226 581 \; pd dsp 1;
-#X msg 226 616 \; pd dsp 0;
-#X text 9 42 hoa.2d.optim~ weights the signals of the circular harmonics
+#X text 9 38 hoa.2d.optim~ weights the signals of the circular harmonics
 to optimizes the ambisonic sound field for several restitution systems.
 ;
-#X text 9 92 There are 3 optimizations \, basic (no optimization) \,
+#X text 9 88 There are 3 optimizations \, basic (no optimization) \,
 maxre (energy vector optimization) and inphase (energy and velocity
 vector optimization):, f 59;
-#X text 558 609 Note that the optimizations decrease the precision
+#X text 558 605 Note that the optimizations decrease the precision
 of the sound field restitution thus it can be compared to particular
 cases of the fractional orders.;
-#X text 9 142 The basic optimization has no effect \, it should be
+#X text 9 138 The basic optimization has no effect \, it should be
 used (or not) with a perfect ambisonic channels arrangement where all
 the channels are to equal distance on a circle or a sphere \, and for
 a listener placed at the perfect center of the circle of the sphere.
 This is also the prefered optimization for diffuse artistic sound field.
 , f 59;
-#X text 9 245 The maxre should be used should be used for an auditory
+#X text 9 241 The maxre should be used should be used for an auditory
 confined to the center of the circle of loudspeakers., f 59;
-#X text 9 296 The inphase optimization should be used when the auditory
+#X text 9 292 The inphase optimization should be used when the auditory
 covers the entire channels area and/or when the channels arrangement
 is not a perfect circle (when the channels are not to equal distance
 for example)., f 59;
-#X text 9 420 The optimization can be combined. The basic optimization
+#X text 9 416 The optimization can be combined. The basic optimization
 can be applied to the granular diffuse part of the sound field while
 the inphase optimization is applied to the directional point sources
 part of the sound field.;
-#X text 9 483 At last \, the sound field can be split in two or three
+#X text 9 479 At last \, the sound field can be split in two or three
 frequency ranges \, on which different optimizations are applied. The
 inphase optimization below 700 hz and the basic optimization above.
 This approach \, that Daniel defines as psychoacoustic in its PhD thesis
 \, is presented by Gerzon in the General Methatheory of Auditory Localization
 \, 1992;
-#N canvas 0 22 450 300 \$0-scope-before 0;
-#X scalar 1379-t-scope 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; \;;
-#X coords -1 -1 1 1 165 165 2 100 100;
-#X restore 554 148 pd \$0-scope-before;
-#X obj 398 195 hoa.2d.process~ 3 hoa.2d.scope~ harmonics \$0-scope-before
-\$0-scope-attrs, f 24;
-#N canvas 0 22 450 300 \$0-scope-after 0;
-#X scalar 1386-t-scope 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; \;;
-#X coords -1 -1 1 1 165 165 2 100 100;
-#X restore 554 425 pd \$0-scope-after;
-#X obj 398 469 hoa.2d.process~ 3 hoa.2d.scope~ harmonics \$0-scope-after
-\$0-scope-attrs, f 24;
-#X text 9 221 Y'[l \, m] = Y[l \, m], f 59;
-#X text 9 272 Y'[l \, m] = cos(πl/(2N+2))Y[l \, m], f 59;
-#X text 9 349 Y'[l \, m] = Y[l \, m](N!^2)/((N+l)!(N-l)!), f 60;
-#X text 9 369 with N the order of decomposition \, l the degree \,
+#X text 9 217 Y'[l \, m] = Y[l \, m], f 59;
+#X text 9 268 Y'[l \, m] = cos(πl/(2N+2))Y[l \, m], f 59;
+#X text 9 345 Y'[l \, m] = Y[l \, m](N!^2)/((N+l)!(N-l)!), f 60;
+#X text 9 365 with N the order of decomposition \, l the degree \,
 m the azimuthal order., f 60;
-#X text 729 191 Representation of the weighted sum of the circular
+#X text 729 187 Representation of the weighted sum of the circular
 harmonics over a disc before the optimization., f 27;
-#X text 739 489 Representation of the weighted sum of the circular
+#X text 739 485 Representation of the weighted sum of the circular
 harmonics over a disc after the optimization., f 27;
-#X text 557 334 The first argument is the order of decomposition N.
+#X text 557 330 The first argument is the order of decomposition N.
 , f 25;
-#X text 557 364 The second argument is the name of the optimization.
+#X text 557 360 The second argument is the name of the optimization.
 , f 25;
-#X obj 398 69 *~, f 13;
-#X obj 398 47 phasor~ 101;
-#X obj 473 47 phasor~ 203;
-#X obj 398 95 ui.gain~ @size 120 15 @receive "(null)" @send "(null)"
+#X obj 398 65 *~, f 13;
+#X obj 398 43 phasor~ 101;
+#X obj 473 43 phasor~ 203;
+#X obj 398 91 ui.gain~ @size 120 15 @receive "(null)" @send "(null)"
 @pinned 0 @presetname "ui.gain~.0" @background_color 0.93 0.93 0.93
 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75
 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
 @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value
 0 @show_range 1;
-#X obj 539 95 phase->rad~;
-#X obj 552 124 ui.number~ @size 80 15 @receive "(null)" @send "(null)"
+#X obj 539 91 phase->rad~;
+#X obj 552 120 ui.number~ @size 80 15 @receive "(null)" @send "(null)"
 @pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color
 0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname
 "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
 "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
 "top" @label_margins 0 0 @decimal 6 @interval 50;
-#X obj 12 623 hoa.credits;
-#X obj 398 625 xdac~ 1:8 -----------;
-#X connect 0 0 6 0;
-#X connect 0 0 19 0;
-#X connect 0 1 6 1;
-#X connect 0 1 19 1;
-#X connect 0 2 6 2;
-#X connect 0 2 19 2;
-#X connect 0 3 6 3;
-#X connect 0 3 19 3;
-#X connect 0 4 6 4;
-#X connect 0 4 19 4;
-#X connect 0 5 6 5;
-#X connect 0 5 19 5;
-#X connect 0 6 6 6;
-#X connect 0 6 19 6;
-#X connect 2 0 37 0;
-#X connect 2 1 37 1;
-#X connect 2 2 37 2;
-#X connect 2 3 37 3;
-#X connect 2 4 37 4;
-#X connect 2 5 37 5;
-#X connect 2 6 37 6;
-#X connect 2 7 37 7;
-#X connect 5 0 34 0;
-#X connect 6 0 2 0;
-#X connect 6 0 21 0;
-#X connect 6 1 2 1;
-#X connect 6 1 21 1;
-#X connect 6 2 2 2;
-#X connect 6 2 21 2;
-#X connect 6 3 2 3;
-#X connect 6 3 21 3;
-#X connect 6 4 2 4;
-#X connect 6 4 21 4;
-#X connect 6 5 2 5;
-#X connect 6 5 21 5;
-#X connect 6 6 2 6;
-#X connect 6 6 21 6;
-#X connect 30 0 33 0;
-#X connect 31 0 30 0;
-#X connect 32 0 30 1;
-#X connect 33 0 0 0;
-#X connect 34 0 0 1;
+#X obj 12 619 hoa.credits;
+#X obj 398 621 xdac~ 1:8, f 24;
+#X obj 311 577 ui.dsp~ @size 62 62 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica"
+@fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
+@label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0;
+#X obj 559 173 hoa.scope~ @size 147 147 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @gain 4 @refresh 35 @order 3 @view 0;
+#X obj 559 423 hoa.scope~ @size 147 147 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @gain 4 @refresh 35 @order 3 @view 0;
+#X obj 729 277 ui.tab @size 166 15 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.tab.2" @background_color 0.93 0.93 0.93 1
+@border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @text_color 0 0 0
+1 @active_color 0 0.75 1 1 @hover_color 0.5 0.5 0.5 1 @fontname "Helvetica"
+@fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
+@label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @orientation 0 @toggle 0 @items "basic" "maxre"
+"inphase";
+#X msg 729 299 @mode \$2;
+#X connect 0 0 5 0;
+#X connect 0 0 32 0;
+#X connect 0 1 5 1;
+#X connect 0 1 32 1;
+#X connect 0 2 5 2;
+#X connect 0 2 32 2;
+#X connect 0 3 5 3;
+#X connect 0 3 32 3;
+#X connect 0 4 5 4;
+#X connect 0 4 32 4;
+#X connect 0 5 5 5;
+#X connect 0 5 32 5;
+#X connect 0 6 5 6;
+#X connect 0 6 32 6;
+#X connect 2 0 30 0;
+#X connect 2 1 30 1;
+#X connect 2 2 30 2;
+#X connect 2 3 30 3;
+#X connect 2 4 30 4;
+#X connect 2 5 30 5;
+#X connect 2 6 30 6;
+#X connect 2 7 30 7;
+#X connect 4 0 27 0;
+#X connect 5 0 2 0;
+#X connect 5 0 33 0;
+#X connect 5 1 2 1;
+#X connect 5 1 33 1;
+#X connect 5 2 2 2;
+#X connect 5 2 33 2;
+#X connect 5 3 2 3;
+#X connect 5 3 33 3;
+#X connect 5 4 2 4;
+#X connect 5 4 33 4;
+#X connect 5 5 2 5;
+#X connect 5 5 33 5;
+#X connect 5 6 2 6;
+#X connect 5 6 33 6;
+#X connect 23 0 26 0;
+#X connect 24 0 23 0;
+#X connect 25 0 23 1;
+#X connect 26 0 0 0;
+#X connect 27 0 0 1;
+#X connect 27 0 28 0;
 #X connect 34 0 35 0;
-#X coords 0 663 1 662 100 60 0;
+#X connect 35 0 5 0;
+#X coords 0 689 1 688 100 60 0;
