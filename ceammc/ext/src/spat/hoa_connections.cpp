@@ -187,9 +187,9 @@ bool HoaOutTilde::isA(void* obj)
 
 void setup_spat_hoa_connections()
 {
-    ObjectFactory<HoaIn> hoa_in("!hoa.in", OBJECT_FACTORY_NO_DEFAULT_INLET);
-    ObjectFactory<HoaOut> hoa_out("!hoa.out");
+    ObjectFactory<HoaIn> hoa_in("hoa.in", OBJECT_FACTORY_NO_DEFAULT_INLET);
+    ObjectFactory<HoaOut> hoa_out("hoa.out");
 
-    SoundExternalFactory<HoaInTilde> hoa_in_tilde("!hoa.in~", OBJECT_FACTORY_NO_DEFAULT_INLET);
-    SoundExternalFactory<HoaOutTilde> hoa_out_tilde("!hoa.out~");
+    SoundExternalFactory<HoaInTilde> hoa_in_tilde("hoa.in~", OBJECT_FACTORY_NO_DEFAULT_INLET);
+    SoundExternalFactory<HoaOutTilde> hoa_out_tilde("hoa.out~");
 }

@@ -1,8 +1,3 @@
-!hoa.in
-!hoa.in~
-!hoa.out
-!hoa.out~
-!hoa.process~
 !hoa.projector~
 !hoa.recomposer~
 !hoa.rotate~
@@ -218,9 +213,15 @@ helmholtz~
 hoa.2d.decoder~
 hoa.2d.encoder~
 hoa.2d.optim~
+hoa.2d.process~
 hoa.decoder~
 hoa.encoder~
+hoa.in
+hoa.in~
 hoa.optim~
+hoa.out
+hoa.out~
+hoa.process~
 hoa.scope~
 hw.apple_smc
 hw.apple_sms
