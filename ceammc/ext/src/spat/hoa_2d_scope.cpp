@@ -16,7 +16,7 @@
 #include "ceammc_dsp_ui.h"
 
 static const int MIN_SIZE = 50;
-static const int HOA_DISPLAY_NPOINTS = 128;
+static const int HOA_DISPLAY_NPOINTS = 65;
 static const float HOA_CONTRAST_DARKER = 0.2;
 static const float HOA_CONTRAST_LIGHTER = 0.2;
 
@@ -188,12 +188,17 @@ void Hoa2dScope::drawHarmonics()
 
     // positive harmonics
     char pathLength = 0;
+    t_pt start_pt;
+
     p.setColor(rgba_red);
+    p.setSmooth(ESMOOTH_BEZIER);
 
     for (size_t i = 0; i < scope_->getNumberOfPoints(); i++) {
         if (scope_->getPointValue(i) >= 0) {
             if (!pathLength) {
-                p.moveTo(scope_->getPointAbscissa(i) * radius, scope_->getPointOrdinate(i) * radius);
+                start_pt.x = scope_->getPointAbscissa(i) * radius;
+                start_pt.y = scope_->getPointOrdinate(i) * radius;
+                p.moveTo(start_pt.x, start_pt.y);
                 pathLength++;
             } else {
                 p.drawLineTo(scope_->getPointAbscissa(i) * radius, scope_->getPointOrdinate(i) * radius);
@@ -202,8 +207,10 @@ void Hoa2dScope::drawHarmonics()
     }
 
     p.closePath();
-    if (pathLength)
+    if (pathLength) {
+        p.drawLineTo(start_pt.x, start_pt.y);
         p.stroke();
+    }
 
     // negative harmonics
     pathLength = 0;
@@ -212,18 +219,23 @@ void Hoa2dScope::drawHarmonics()
     for (size_t i = 0; i < scope_->getNumberOfPoints(); i++) {
         if (scope_->getPointValue(i) < 0) {
             if (!pathLength) {
-                p.moveTo(scope_->getPointAbscissa(i) * radius, scope_->getPointOrdinate(i) * radius);
+                start_pt.x = scope_->getPointAbscissa(i) * radius;
+                start_pt.y = scope_->getPointOrdinate(i) * radius;
+                p.moveTo(start_pt.x, start_pt.y);
                 pathLength++;
             } else {
-                //                egraphics_curve_to(p.l);
                 p.drawLineTo(scope_->getPointAbscissa(i) * radius, scope_->getPointOrdinate(i) * radius);
             }
         }
     }
 
     p.closePath();
-    if (pathLength)
+    if (pathLength) {
+        p.drawLineTo(start_pt.x, start_pt.y);
         p.stroke();
+    }
+
+    p.setSmooth(ESMOOTH_NONE);
 }
 
 void setup_spat_hoa_scope2d()

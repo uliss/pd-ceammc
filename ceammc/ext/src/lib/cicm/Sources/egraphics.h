@@ -46,6 +46,14 @@ void egraphics_set_line_capstyle(t_elayer* g, t_capstyle style);
 void egraphics_set_line_dashstyle(t_elayer* g, t_dashstyle style);
 
 /*!
+ * \fn          void egraphics_set_line_smooth(t_elayer *g, t_smooth smooth)
+ * \brief       Sets the line smooth that will be used by the t_elayer.
+ * \param g     The t_elayer pointer.
+ * \param smooth The t_dashstyle value.
+ */
+void egraphics_set_line_smooth(t_elayer* g, t_smooth smooth);
+
+/*!
  * \fn          void egraphics_set_color_rgba(t_elayer *g, const t_rgba *rgba)
  * \brief       Sets the color in rgba that will be used by the t_elayer.
  * \param g     The t_elayer pointer.

@@ -88,6 +88,7 @@ static void egraphics_paint(t_elayer* g, bool filled, int preserved)
             nobj->e_width = g->e_line_width;
             nobj->e_capstyle = g->e_line_capstyle;
             nobj->e_dashstyle = g->e_line_dashstyle;
+            nobj->e_smooth = g->e_line_smooth;
             nobj->e_justify = g->e_new_objects.e_justify;
             nobj->e_anchor = g->e_new_objects.e_anchor;
             nobj->e_text = g->e_new_objects.e_text;
@@ -1083,4 +1084,9 @@ void egraphics_set_color_hex(t_elayer* g, uint32_t c)
 void egraphics_raise(t_elayer* over, t_elayer* l)
 {
     sys_vgui("raise %s %s\n", over->e_id->s_name, l->e_id->s_name);
+}
+
+void egraphics_set_line_smooth(t_elayer* g, t_smooth smooth)
+{
+    g->e_line_smooth = smooth;
 }

@@ -135,6 +135,7 @@ public:
     void setLineWidth(float w);
     void setColor(const t_rgba& c);
     void setDashStyle(t_dashstyle style);
+    void setSmooth(t_smooth smooth);
 
     t_elayer* layer();
     void raiseOver(UIPainter& painter);

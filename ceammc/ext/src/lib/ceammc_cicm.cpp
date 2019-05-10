@@ -365,6 +365,11 @@ void UIPainter::setDashStyle(t_dashstyle style)
     egraphics_set_line_dashstyle(layer_, style);
 }
 
+void UIPainter::setSmooth(t_smooth smooth)
+{
+    egraphics_set_line_smooth(layer_, smooth);
+}
+
 t_elayer* UIPainter::layer()
 {
     return layer_;

@@ -332,6 +332,16 @@ typedef enum t_dashstyle {
     EDASHSTYLE_64 = 2 /*!<  */
 } t_dashstyle;
 
+/**
+ * @struct t_dashstyle
+ * @brief A dashstyle enum
+ */
+typedef enum t_smooth {
+    ESMOOTH_NONE = 0, /*!< Default. No dash line pattern */
+    ESMOOTH_RAW = 1, /*!<  */
+    ESMOOTH_BEZIER = 2 /*!<  */
+} t_smooth;
+
 //! The pre-defined black t_rgba
 extern const t_rgba rgba_black;
 //! The pre-defined grey dark t_rgba
@@ -409,6 +419,7 @@ typedef struct t_egobj {
 
     t_capstyle e_capstyle; /*!< The line capstyle of the graphical object. */
     t_dashstyle e_dashstyle; /*!< The line dashstyle of the graphical object. */
+    t_smooth e_smooth; /*!< The line smooth of the graphical object. */
 
     etextanchor_flags e_anchor; /*!< The anchor of the graphical object. */
     etextjustify_flags e_justify; /*!< The justification of the graphical object. */
@@ -437,6 +448,7 @@ typedef struct t_elayer {
     elayer_flags e_state; /*!< The layer state. */
     t_capstyle e_line_capstyle; /*!< The layer line capstyle. */
     t_dashstyle e_line_dashstyle; /*!< The layer line dashstyle. */
+    t_smooth e_line_smooth;  /*!< The layer line dashstyle. */
 } t_elayer;
 
 /** @} */

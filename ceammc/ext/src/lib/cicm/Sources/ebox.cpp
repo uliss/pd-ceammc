@@ -1829,6 +1829,7 @@ t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
                 graphic->e_line_width = 1.f;
                 graphic->e_line_capstyle = ECAPSTYLE_BUTT;
                 graphic->e_line_dashstyle = EDASHSTYLE_NONE;
+                graphic->e_line_smooth = ESMOOTH_NONE;
                 graphic->e_color = 0;
                 graphic->e_rect.x = 0.f;
                 graphic->e_rect.y = 0.f;
@@ -1882,6 +1883,7 @@ t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
         graphic->e_line_width = 1.f;
         graphic->e_line_capstyle = ECAPSTYLE_BUTT;
         graphic->e_line_dashstyle = EDASHSTYLE_NONE;
+        graphic->e_line_smooth = ESMOOTH_NONE;
         graphic->e_color = 0;
         graphic->e_rect.x = 0.f;
         graphic->e_rect.y = 0.f;
@@ -2022,10 +2024,11 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                         gobj->e_color, g->e_id->s_name, x->b_all_id->s_name);
                 } else {
                     sprintf(header, "%s create line ", x->b_drawing_id->s_name);
-                    sprintf(bottom, "-fill #%6.6x -width %.1f -capstyle %s %s -tags { %s %s }\n",
+                    sprintf(bottom, "-fill #%6.6x -width %.1f -capstyle %s %s %s -tags { %s %s }\n",
                         gobj->e_color, gobj->e_width,
                         my_capstylelist[gobj->e_capstyle],
                         my_dashstylelist[gobj->e_dashstyle],
+                        gobj->e_smooth == ESMOOTH_NONE ? "" : "-smooth true",
                         g->e_id->s_name, x->b_all_id->s_name);
                 }
 
