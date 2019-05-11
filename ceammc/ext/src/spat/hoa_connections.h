@@ -52,6 +52,8 @@ public:
     void onList(const AtomList& l) final;
     void onAny(t_symbol* s, const AtomList& l) final;
 
+    bool processAnyProps(t_symbol* sel, const AtomList& lst) override;
+
     void setOutlet(t_outlet* x) { outlet_ = x; }
 
 public:

@@ -14,6 +14,7 @@
 #ifndef HOA_PROCESS_H
 #define HOA_PROCESS_H
 
+#include "ceammc_clock.h"
 #include "ceammc_property_extra.h"
 #include "hoa_common.h"
 #include "hoa_connections.h"
@@ -42,6 +43,8 @@ class HoaProcess : public HoaBase {
     TargetProperty* target_;
     int target_value_;
 
+    ClockMemberFunction<HoaProcess> clock_;
+
 public:
     HoaProcess(const PdArgs& args);
     ~HoaProcess();
@@ -56,6 +59,7 @@ public:
 
 private:
     bool init();
+    void clockTick();
 
     bool loadHarmonics(t_symbol* name, const AtomList& patch_args);
     bool loadPlaneWaves(t_symbol* name, const AtomList& patch_args);

@@ -24,6 +24,7 @@ class ProcessInstance {
     std::forward_list<HoaOut*> f_outs;
     std::forward_list<HoaInTilde*> f_ins_sig;
     std::forward_list<HoaOutTilde*> f_outs_sig;
+    AtomList args_;
 
 public:
     ProcessInstance();
@@ -51,6 +52,9 @@ public:
     void setOutlet(t_outlet* outl, size_t idx);
     void setInletBuffer(t_sample* s, size_t idx);
     void setOutletBuffer(t_sample* s, size_t idx);
+
+    const AtomList& args() const { return args_; }
+    void setArgs(const AtomList& args) { args_ = args; }
 };
 
 #endif // HOA_PROCESS_INSTANCE_H

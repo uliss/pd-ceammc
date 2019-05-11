@@ -44,6 +44,7 @@ HoaProcess::HoaProcess(const PdArgs& args)
     , domain_(nullptr)
     , plain_waves_(nullptr)
     , target_(nullptr)
+    , clock_(this, &HoaProcess::clockTick)
 {
     domain_ = new SymbolEnumProperty("@domain", SYM_HARMONICS);
     domain_->appendEnum(SYM_PLANEWAVES);
@@ -75,12 +76,23 @@ HoaProcess::~HoaProcess()
 
 void HoaProcess::parseProperties()
 {
-    HoaBase::parseProperties();
+    if (positionalFloatArgument(0, -1) > 0) {
+        property("@order")->set({ Atom(positionalFloatArgument(0)) });
+        property("@order")->setReadonly(true);
+    } else {
+        OBJ_ERR << "order required";
+        return;
+    }
+
+    // handle position patch name
+    t_symbol* patch = positionalArguments().symbolAt(1, nullptr);
+
+    // hangle positional mode arg
+    if (positionalSymbolArgument(2, nullptr))
+        domain_->setValue(positionalSymbolArgument(2));
 
     domain_->setReadonly(true);
     plain_waves_->setReadonly(true);
-
-    t_symbol* patch = positionalArguments().symbolAt(1, nullptr);
 
     t_canvas* current = canvas_getcurrent();
 
@@ -91,7 +103,7 @@ void HoaProcess::parseProperties()
         if (!patch)
             throw std::runtime_error("bad argument, second argument must be a patch name");
 
-        AtomList patch_args = positionalArguments().slice(3);
+        AtomList patch_args = args().slice(3);
 
         if (domain_->value() == SYM_HARMONICS) {
             if (!loadHarmonics(patch, patch_args)) {
@@ -115,6 +127,7 @@ void HoaProcess::parseProperties()
     }
 
     canvas_setcurrent(current);
+    clock_.delay(5);
 }
 
 bool HoaProcess::init()
@@ -141,6 +154,12 @@ bool HoaProcess::init()
     }
 
     return false;
+}
+
+void HoaProcess::clockTick()
+{
+    for (auto& in : instances_)
+        in.loadBang();
 }
 
 size_t HoaProcess::calcIndexDegree(size_t index)
@@ -178,7 +197,7 @@ bool HoaProcess::processInstanceInit(ProcessInstance& x, t_canvas* parent, t_sym
     // load abstraction
     if (z && z->g_pd->c_name == SYM_CANVAS) {
         x.setCanvas((t_canvas*)z);
-        x.loadBang();
+        x.setArgs(args);
         x.scanCanvas(x.canvas());
         return true;
     }

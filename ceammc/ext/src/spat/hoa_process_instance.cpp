@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "hoa_process_instance.h"
 #include "hoa_process.h"
+#include "hoa_thisprocess.h"
 
 #include <algorithm>
 
@@ -82,6 +83,8 @@ void ProcessInstance::scanCanvas(t_canvas* cnv)
             f_ins_sig.emplace_front(HoaInTilde::fromObject(y));
         } else if (HoaOutTilde::isA(y)) {
             f_outs_sig.emplace_front(HoaOutTilde::fromObject(y));
+        } else if (HoaThisProcess::isA(y)) {
+            HoaThisProcess::fromObject(y)->setProcess(this);
         }
     }
 }

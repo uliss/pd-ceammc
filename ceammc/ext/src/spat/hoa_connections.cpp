@@ -105,6 +105,11 @@ void HoaOut::onAny(t_symbol* s, const AtomList& l)
         outlet_anything(outlet_, s, l.size(), l.toPdData());
 }
 
+bool HoaOut::processAnyProps(t_symbol* sel, const AtomList& lst)
+{
+    return false;
+}
+
 HoaOut* HoaOut::fromObject(void* obj)
 {
     if (!isA(obj))
