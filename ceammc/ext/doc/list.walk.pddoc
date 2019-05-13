@@ -63,6 +63,7 @@
             <inlet>
                 <xinfo on="bang">outputs current element and moves to next</xinfo>
                 <xinfo on="float">outputs current element and moves by specified position</xinfo>
+                <xinfo on="list">set new list and reset current position. (no output)</xinfo>
             </inlet>
         </inlets>
         <outlets>
