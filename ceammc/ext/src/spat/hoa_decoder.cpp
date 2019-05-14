@@ -132,6 +132,7 @@ void HoaDecoder::parsePlainWavesNum()
 void HoaDecoder::parseProperties()
 {
     HoaBase::parseProperties();
+
     parseMode();
     parsePlainWavesNum();
 
@@ -161,11 +162,11 @@ void HoaDecoder::processCommon()
     const size_t NOUTS = numOutputChannels();
     const size_t BS = blockSize();
 
-    t_sample** in_blocks = inputBlocks();
-    t_sample** out_blocks = outputBlocks();
+    t_sample** in = inputBlocks();
+    t_sample** out = outputBlocks();
 
     for (size_t i = 0; i < NINS; i++) {
-        Signal::copy(BS, in_blocks[i], 1, &in_buf_[i], NINS);
+        Signal::copy(BS, &in[i][0], 1, &in_buf_[i], NINS);
     }
 
     for (size_t i = 0; i < BS; i++) {
@@ -173,7 +174,7 @@ void HoaDecoder::processCommon()
     }
 
     for (size_t i = 0; i < NOUTS; i++) {
-        Signal::copy(BS, &in_buf_[i], NOUTS, out_blocks[i], 1);
+        Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
     }
 }
 
@@ -187,7 +188,7 @@ void HoaDecoder::processBinaural()
 
 void HoaDecoder::setupDSP(t_signal** sp)
 {
-    HoaBase::setupDSP(sp);
+    SoundExternal::signalInit(sp);
 
     decoder_->prepare(blockSize());
 
@@ -198,7 +199,7 @@ void HoaDecoder::setupDSP(t_signal** sp)
     }
 }
 
-void HoaDecoder::blocksizeChanged(size_t bs)
+void HoaDecoder::blockSizeChanged(size_t bs)
 {
     in_buf_.resize(numInputChannels() * bs);
     out_buf_.resize(numOutputChannels() * bs);
@@ -209,6 +210,7 @@ void HoaDecoder::initDecoder()
     t_symbol* mode = mode_->value();
     if (mode == SYM_REGULAR) {
         decoder_.reset(new DecoderRegular2d(order(), plain_waves_->value()));
+        decoder_->setPlanewavesRotation(0, 0, 0);
     } else if (mode == SYM_IRREGULAR) {
         decoder_.reset(new DecoderIrregular2d(order(), plain_waves_->value()));
     } else if (mode == SYM_BINAURAL) {

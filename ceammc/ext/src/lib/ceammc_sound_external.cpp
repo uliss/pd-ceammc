@@ -27,16 +27,8 @@ SoundExternal::SoundExternal(const PdArgs& a)
 
 void SoundExternal::setupDSP(t_signal** sp)
 {
-    block_size_ = size_t(sp[0]->s_n);
-    sample_rate_ = size_t(sp[0]->s_sr);
-
+    signalInit(sp);
     dsp_add(dspPerform, 1, static_cast<void*>(this));
-
-    for (size_t i = 0; i < n_in_; i++)
-        in_[i] = sp[i]->s_vec;
-
-    for (size_t i = 0; i < n_out_; i++)
-        out_[i] = sp[i + n_in_]->s_vec;
 }
 
 t_inlet* SoundExternal::createSignalInlet()
@@ -71,4 +63,34 @@ void SoundExternal::dump() const
     post("[%s] block size: %i", className().c_str(), blockSize());
     post("[%s] samplerate: %i", className().c_str(), samplerate());
 }
+
+void SoundExternal::blockSizeChanged(size_t bs)
+{
+}
+
+void SoundExternal::samplerateChanged(size_t sr)
+{
+}
+
+void SoundExternal::signalInit(t_signal** sp)
+{
+    auto old_bs = block_size_;
+    auto old_sr = sample_rate_;
+
+    block_size_ = size_t(sp[0]->s_n);
+    sample_rate_ = size_t(sp[0]->s_sr);
+
+    for (size_t i = 0; i < n_in_; i++)
+        in_[i] = sp[i]->s_vec;
+
+    for (size_t i = 0; i < n_out_; i++)
+        out_[i] = sp[i + n_in_]->s_vec;
+
+    if (old_bs != block_size_)
+        blockSizeChanged(block_size_);
+
+    if (old_sr != sample_rate_)
+        samplerateChanged(sample_rate_);
+}
+
 }

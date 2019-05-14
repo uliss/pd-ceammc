@@ -31,6 +31,11 @@ private:
 
 public:
     SoundExternal(const PdArgs& a);
+
+    /**
+     * @brief setup signal processing
+     * @param sp - pointer to signals vector
+     */
     virtual void setupDSP(t_signal** sp);
 
     /**
@@ -84,6 +89,25 @@ public:
      * @brief return pointer to output blocks
      */
     t_sample** outputBlocks() { return out_; }
+
+    /**
+     * @brief override this to get block size change notification while setupDSP step
+     * @param bs - new block size
+     */
+    virtual void blockSizeChanged(size_t bs);
+
+    /**
+     * @brief override this to get samplerate change notification while setupDSP step
+     * @param sr - new sample rate
+     */
+    virtual void samplerateChanged(size_t sr);
+
+protected:
+    /**
+     * @brief copy signals pointer
+     * @param sp
+     */
+    void signalInit(t_signal** sp);
 
 private:
     inline void _processBlock()

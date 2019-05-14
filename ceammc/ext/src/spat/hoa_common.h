@@ -81,20 +81,6 @@ public:
         for (size_t i = 0; i < n; i++)
             createSignalOutlet();
     }
-
-    void setupDSP(t_signal** sp) override
-    {
-        const size_t old_bs = blockSize();
-        SoundExternal::setupDSP(sp);
-
-        const size_t new_sz = blockSize();
-        if (new_sz != old_bs)
-            blocksizeChanged(new_sz);
-    }
-
-    virtual void blocksizeChanged(size_t bs)
-    {
-    }
 };
 
 #endif // HOA_COMMON_H

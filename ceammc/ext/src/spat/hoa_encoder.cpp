@@ -47,7 +47,7 @@ void HoaEncoder::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
-void HoaEncoder::blocksizeChanged(size_t bs)
+void HoaEncoder::blockSizeChanged(size_t bs)
 {
     signals_.resize(encoder_->getNumberOfHarmonics() * bs);
 }

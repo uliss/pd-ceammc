@@ -36,7 +36,7 @@ public:
     void parseProperties() override;
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** sp) override;
-    void blocksizeChanged(size_t bs) override;
+    void blockSizeChanged(size_t bs) override;
 
     AtomList propPlaneWavesX() const;
     AtomList propPlaneWavesY() const;

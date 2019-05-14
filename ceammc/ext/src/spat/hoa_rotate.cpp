@@ -55,7 +55,7 @@ void HoaRotate::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
-void HoaRotate::blocksizeChanged(size_t bs)
+void HoaRotate::blockSizeChanged(size_t bs)
 {
     const size_t SZ = rotate_->getNumberOfHarmonics() * bs;
     in_buf_.resize(SZ);

@@ -480,6 +480,8 @@ void HoaProcess::m_open(t_symbol* m, const AtomList& lst)
             METHOD_ERR(m) << "invalid index: " << idx << ", should be < " << instances_.size();
             return;
         }
+
+        instances_[idx].show();
     }
 }
 

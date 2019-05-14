@@ -25,7 +25,7 @@ class HoaProjector : public HoaBase {
 public:
     HoaProjector(const PdArgs& args);
     void parseProperties() override;
-    void blocksizeChanged(size_t bs) override;
+    void blockSizeChanged(size_t bs) override;
     void processBlock(const t_sample** in, t_sample** out) override;
 
 private:

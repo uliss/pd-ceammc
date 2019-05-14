@@ -68,7 +68,7 @@ void HoaRecomposer::parseProperties()
     out_buf_.resize(numOutputChannels() * HOA_DEFAULT_BLOCK_SIZE);
 }
 
-void HoaRecomposer::blocksizeChanged(size_t bs)
+void HoaRecomposer::blockSizeChanged(size_t bs)
 {
     in_buf_.resize(numInputChannels() * bs);
     out_buf_.resize(numOutputChannels() * bs);

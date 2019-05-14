@@ -30,7 +30,7 @@ public:
     void parseProperties() override;
 
     void processBlock(const t_sample** in, t_sample** out) override;
-    void blocksizeChanged(size_t bs) override;
+    void blockSizeChanged(size_t bs) override;
 };
 
 void setup_spat_hoa_rotate();
