@@ -9,6 +9,7 @@
 - canvas.dir added
 - canvas.name added
 - canvas.path added
+- list.walk second outlet added (with bang after reaching list last element)
 
 ### Changed:
 - ui.tab in single mode outputs like ui.menu: list pair - INDEX TAB_NAME
