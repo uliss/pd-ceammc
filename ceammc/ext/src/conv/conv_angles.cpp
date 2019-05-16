@@ -35,6 +35,44 @@ Rad2PhaseTilde::Rad2PhaseTilde(const PdArgs& args)
 {
 }
 
+Car2Pol::Car2Pol(const PdArgs& args)
+    : BaseObject(args)
+{
+    createOutlet();
+}
+
+void Car2Pol::onList(const AtomList& lst)
+{
+    if (!checkArgs(lst, ARG_FLOAT, ARG_FLOAT)) {
+        OBJ_ERR << "X Y coordinates expected: " << lst;
+        return;
+    }
+
+    const auto x = lst[0].asFloat();
+    const auto y = lst[1].asFloat();
+
+    listTo(0, { std::hypot(x, y), std::atan2(y, x) });
+}
+
+Pol2Car::Pol2Car(const PdArgs& args)
+    : BaseObject(args)
+{
+    createOutlet();
+}
+
+void Pol2Car::onList(const AtomList& lst)
+{
+    if (!checkArgs(lst, ARG_FLOAT, ARG_FLOAT)) {
+        OBJ_ERR << "R THETA coordinates expected: " << lst;
+        return;
+    }
+
+    const auto r = lst[0].asFloat();
+    const auto theta = lst[1].asFloat();
+
+    listTo(0, { r * std::cos(theta), r * std::sin(theta) });
+}
+
 void setup_conv_angles()
 {
     ObjectFactory<Phase2Rad> p2r("conv.phase2rad");
@@ -42,6 +80,12 @@ void setup_conv_angles()
 
     ObjectFactory<Rad2Phase> r2p("conv.rad2phase");
     r2p.addAlias("rad->phase");
+
+    ObjectFactory<Pol2Car> pol2car("conv.pol2car");
+    pol2car.addAlias("pol->car");
+
+    ObjectFactory<Car2Pol> car2pol("conv.car2pol");
+    car2pol.addAlias("car->pol");
 
     SoundExternalFactory<Phase2RadTilde> p2rt("conv.phase2rad~");
     p2rt.addAlias("phase->rad~");

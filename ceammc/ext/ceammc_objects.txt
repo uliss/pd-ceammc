@@ -46,6 +46,7 @@ canvas.dir
 canvas.name
 canvas.path
 canvas.top
+car->pol
 cc->amp
 cdiv~
 click~
@@ -54,6 +55,7 @@ conv.amp2dbfs
 conv.bpm2hz
 conv.bpm2ms
 conv.bpm2sec
+conv.car2pol
 conv.cc2amp
 conv.dbfs2amp
 conv.lin2curve
@@ -64,6 +66,7 @@ conv.midi2freq
 conv.phase2rad
 conv.phase2rad~
 conv.pitch2midi
+conv.pol2car
 conv.rad2phase
 conv.rad2phase~
 conv.samp2sec
@@ -222,6 +225,7 @@ hoa.out
 hoa.out~
 hoa.process~
 hoa.scope~
+hoa.thisprocess~
 hw.apple_smc
 hw.apple_sms
 hw.arduino
@@ -475,6 +479,7 @@ path.lsdir
 phase->rad
 phase->rad~
 pitch->midi
+pol->car
 prepend
 preset.float
 preset.list

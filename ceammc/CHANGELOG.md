@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 ### Added:
+- conv.car2pol converter from Cartesian to Polar coordinates added (with alias car->pol)
+- conv.pol2car converter from Polar to Cartesian coordinates added (with alias pol->car)
 - conv.rad2phase added (with alias rad->phase)
 - conv.rad2phase~ added (with alias rad->phase~)
 - conv.phase2rad added (with alias phase->rad)

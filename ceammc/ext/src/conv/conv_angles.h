@@ -26,6 +26,18 @@ public:
     Rad2Phase(const PdArgs& args);
 };
 
+class Car2Pol : public BaseObject {
+public:
+    Car2Pol(const PdArgs& args);
+    void onList(const AtomList& lst) override;
+};
+
+class Pol2Car : public BaseObject {
+public:
+    Pol2Car(const PdArgs& args);
+    void onList(const AtomList& lst) override;
+};
+
 class Phase2RadTilde : public SimpleConverterTilde {
 public:
     Phase2RadTilde(const PdArgs& args);
