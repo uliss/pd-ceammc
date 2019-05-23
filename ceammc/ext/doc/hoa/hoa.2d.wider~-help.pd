@@ -1,108 +1,14 @@
-#N struct 1082-t-scope float x array bufr 1082-t-scope-value-r array
-bufg 1082-t-scope-value-g;
-#N struct 1082-t-scope-value-r float x float y;
-#N struct 1082-t-scope-value-g float x float y;
-#N canvas 150 41 721 433 10;
-#X msg 219 338 \; pd dsp 1;
-#X msg 219 382 \; pd dsp 0;
-#X obj 313 81 hoa.2d.encoder~ 7, f 26;
-#X obj 313 395 hoa.dac~ 1:16, f 28;
-#X obj 313 365 hoa.2d.decoder~ 7 regular 16;
-#X obj 137 399 hoa-help;
-#X obj 11 373 text define -k \$0-scope-attrs;
+#N canvas 150 41 762 490 10;
+#X obj 313 78 hoa.2d.encoder~ 7, f 26;
+#X obj 313 392 hoa.2d.decoder~ 7 regular 16;
+#X obj 137 396 hoa-help;
+#X obj 11 370 text define -k \$0-scope-attrs;
 #A set gain 130 \; interval 150 \;;
-#X obj 6 6 cnv 15 200 20 empty empty hoa.2d.wider~ 4 10 0 14 -233017
+#X obj 6 3 cnv 15 200 20 empty empty hoa.2d.wider~ 4 10 0 14 -233017
 -66577 0;
-#X obj 313 180 hoa.2d.wider~ 7, f 28;
-#N canvas 0 22 450 300 \$0-scope 0;
-#X scalar 1082-t-scope 0 \; 0.0982248 0 \; 0.0981643 0.00344714 \;
-0.0979829 0.00689004 \; 0.0976807 0.0103244 \; 0.0972582 0.0137461
-\; 0.0967159 0.0171509 \; 0.0960544 0.0205345 \; 0.0952746 0.0238928
-\; 0.0943774 0.0272217 \; 0.093364 0.0305171 \; 0.0922355 0.0337748
-\; 0.0909933 0.036991 \; 0.0896391 0.0401616 \; 0.0881745 0.0432826
-\; 0.0866012 0.0463504 \; 0.0849212 0.0493611 \; 0.0831366 0.0523109
-\; 0.0812495 0.0551963 \; 0.0792624 0.0580137 \; 0.0771776 0.0607597
-\; 0.0749977 0.0634307 \; 0.0727255 0.0660237 \; 0.0703636 0.0685353
-\; 0.0679151 0.0709624 \; 0.0653829 0.0733021 \; 0.0627701 0.0755515
-\; 0.06008 0.0777079 \; 0.0573159 0.0797685 \; 0.0544811 0.0817308
-\; 0.0515793 0.0835925 \; 0.0486139 0.0853511 \; 0.0455886 0.0870046
-\; 0.0425071 0.0885509 \; 0.0393733 0.0899881 \; 0.036191 0.0913145
-\; 0.032964 0.0925283 \; 0.0296965 0.0936282 \; 0.0263924 0.0946127
-\; 0.0230558 0.0954806 \; 0.0196907 0.096231 \; 0.0163014 0.0968627
-\; 0.012892 0.0973751 \; 0.00946677 0.0977676 \; 0.00602984 0.0980396
-\; 0.00258548 0.0981908 \; -0.000862068 0.0982211 \; -0.00430855 0.0981303
-\; -0.00774973 0.0979187 \; -0.0111813 0.0975864 \; -0.0145992 0.0971339
-\; -0.017999 0.0965617 \; -0.0213767 0.0958705 \; -0.0247281 0.0950613
-\; -0.028049 0.0941349 \; -0.0313353 0.0930925 \; -0.034583 0.0919355
-\; -0.0377881 0.0906652 \; -0.0409467 0.0892832 \; -0.0440548 0.0877912
-\; -0.0471087 0.086191 \; -0.0501045 0.0844847 \; -0.0530386 0.0826743
-\; -0.0559073 0.080762 \; -0.0587071 0.0787502 \; -0.0614347 0.0766414
-\; -0.0640865 0.0744382 \; -0.0666594 0.0721432 \; -0.0691502 0.0697594
-\; -0.0715557 0.0672897 \; -0.0738731 0.064737 \; -0.0760995 0.0621046
-\; -0.0782322 0.0593957 \; -0.0802685 0.0566136 \; -0.0822058 0.0537617
-\; -0.0840419 0.0508436 \; -0.0857745 0.0478629 \; -0.0874014 0.0448232
-\; -0.0889206 0.0417283 \; -0.0903302 0.038582 \; -0.0916286 0.0353881
-\; -0.0928141 0.0321507 \; -0.0938852 0.0288736 \; -0.0948407 0.025561
-\; -0.0956793 0.0222169 \; -0.0964001 0.0188454 \; -0.0970021 0.0154507
-\; -0.0974845 0.0120369 \; -0.0978469 0.00860835 \; -0.0980887 0.00516916
-\; -0.0982097 0.00172361 \; -0.0982097 -0.00172407 \; -0.0980887 -0.0051696
-\; -0.0978469 -0.00860881 \; -0.0974845 -0.0120374 \; -0.097002 -0.0154511
-\; -0.0964 -0.0188458 \; -0.0956792 -0.0222173 \; -0.0948406 -0.0255614
-\; -0.0938851 -0.0288741 \; -0.0928139 -0.0321511 \; -0.0916284 -0.0353885
-\; -0.0903301 -0.0385824 \; -0.0889204 -0.0417287 \; -0.0874012 -0.0448236
-\; -0.0857743 -0.0478633 \; -0.0840417 -0.050844 \; -0.0822056 -0.0537621
-\; -0.0802682 -0.0566139 \; -0.0782319 -0.059396 \; -0.0760993 -0.0621049
-\; -0.0738728 -0.0647373 \; -0.0715554 -0.06729 \; -0.0691498 -0.0697597
-\; -0.0666591 -0.0721435 \; -0.0640862 -0.0744384 \; -0.0614343 -0.0766416
-\; -0.0587068 -0.0787505 \; -0.0559069 -0.0807622 \; -0.0530382 -0.0826745
-\; -0.0501041 -0.0844849 \; -0.0471083 -0.0861913 \; -0.0440544 -0.0877914
-\; -0.0409463 -0.0892834 \; -0.0377877 -0.0906654 \; -0.0345826 -0.0919356
-\; -0.0313349 -0.0930927 \; -0.0280486 -0.094135 \; -0.0247276 -0.0950614
-\; -0.0213763 -0.0958706 \; -0.0179986 -0.0965618 \; -0.0145987 -0.0971339
-\; -0.0111809 -0.0975864 \; -0.00774926 -0.0979187 \; -0.00430811 -0.0981303
-\; -0.000861606 -0.0982211 \; 0.00258592 -0.0981908 \; 0.00603025 -0.0980396
-\; 0.0094672 -0.0977675 \; 0.0128924 -0.0973751 \; 0.0163018 -0.0968626
-\; 0.0196911 -0.0962309 \; 0.0230561 -0.0954805 \; 0.0263928 -0.0946126
-\; 0.0296969 -0.0936281 \; 0.0329645 -0.0925282 \; 0.0361913 -0.0913143
-\; 0.0393737 -0.089988 \; 0.0425075 -0.0885507 \; 0.045589 -0.0870044
-\; 0.0486142 -0.0853509 \; 0.0515797 -0.0835922 \; 0.0544815 -0.0817306
-\; 0.0573162 -0.0797683 \; 0.0600803 -0.0777076 \; 0.0627704 -0.0755513
-\; 0.0653832 -0.0733018 \; 0.0679154 -0.0709621 \; 0.0703639 -0.0685349
-\; 0.0727258 -0.0660233 \; 0.0749981 -0.0634304 \; 0.0771779 -0.0607593
-\; 0.0792627 -0.0580134 \; 0.0812498 -0.055196 \; 0.0831368 -0.0523106
-\; 0.0849214 -0.0493607 \; 0.0866014 -0.04635 \; 0.0881746 -0.0432823
-\; 0.0896393 -0.0401612 \; 0.0909935 -0.0369906 \; 0.0922356 -0.0337745
-\; 0.0933641 -0.0305167 \; 0.0943775 -0.0272213 \; 0.0952747 -0.0238924
-\; 0.0960545 -0.0205341 \; 0.096716 -0.0171505 \; 0.0972583 -0.0137457
-\; 0.0976808 -0.010324 \; 0.0979829 -0.00688961 \; 0.0981644 -0.00344668
-\; 0.0982248 4.38709e-07 \; \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \;
--0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0
-\; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0
--0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \;
--0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0
-\; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0 -0 \; -0
--0 \; -0 -0 \; -0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0
-\; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \;
-0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0
-\; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \;
-0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0
-\; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 -0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \;
-0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0
-\; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0 0 \; 0
-0 \; 0 0 \; 0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \;
--0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0
-0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \;
--0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0
-0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 0 \;
--0 0 \; -0 0 \; -0 0 \; -0 0 \; -0 -0 \; \;;
-#X coords -1 -1 1 1 164 165 2 100 100;
-#X restore 512 217 pd \$0-scope;
-#X obj 313 220 hoa.2d.process~ 7 hoa.2d.scope~ harmonics \$0-scope
-\$0-scope-attrs, f 28;
-#X text 558 164 The factor of widening (between 0 and 1), f 23;
-#X text 6 30 hoa.2d.wider~ simulates fractional orders of decomposition
+#X obj 313 177 hoa.2d.wider~ 7, f 28;
+#X text 558 161 The factor of widening (between 0 and 1), f 23;
+#X text 6 27 hoa.2d.wider~ simulates fractional orders of decomposition
 to reduce the precision of the sound field. When the factor of widening
 is 0 sound field \, only the first hamonic Y[0 \, 0] remains and the
 sound field is omni directional. By increasing the factor of widening
@@ -110,14 +16,13 @@ toward 1 \, the other harmonics appears in a logarithmic way \, increasing
 the precision of the sound field that becomes more and more directional
 until all the harmonics appeared. The weight of the harmonics are defined
 by:, f 46;
-#X text 6 198 with N the order of decomposition \, l the degree \,
+#X text 6 195 with N the order of decomposition \, l the degree \,
 m the azimuthal order and x the factor of widening., f 46;
-#X text 6 184 W[l \, m](x) = x^l((1-x)(N-l)+1), f 46;
-#X obj 313 54 misc//hoa.hgain~;
-#X text 6 248 The (new) algorithm has the advantage to preserve a constant
+#X text 6 181 W[l \, m](x) = x^l((1-x)(N-l)+1), f 46;
+#X text 6 245 The (new) algorithm has the advantage to preserve a constant
 amplitude for the sound field whatever the factor of widening., f
 46;
-#N canvas 0 22 450 300 source~ 0;
+#N canvas 0 23 450 300 source~ 0;
 #X obj 29 203 *~, f 19;
 #X obj 29 169 *~, f 9;
 #X obj 80 140 *~, f 10;
@@ -141,90 +46,115 @@ amplitude for the sound field whatever the factor of widening., f
 #X connect 9 0 10 0;
 #X connect 10 0 0 1;
 #X connect 11 0 8 0;
-#X restore 313 22 pd source~;
+#X restore 313 19 pd source~;
 #N canvas 0 22 450 300 init 0;
 #X obj 21 37 loadbang;
 #X msg 21 59 0.666;
 #X obj 21 81 s \$0-wfac;
 #X connect 0 0 1 0;
 #X connect 1 0 2 0;
-#X restore 11 347 pd init;
-#X obj 10 399 misc/hoa.credits;
-#X obj 499 178 misc/hoa.number~;
-#X obj 478 81 osc~ 0.025;
-#X obj 466 55 hoa.pi~ 2;
-#X obj 466 27 phasor~ 0.2;
-#X obj 478 126 +~ 0.5;
-#X obj 478 148 clip~ 0 1;
-#X obj 478 103 *~ 0.75;
-#X connect 2 0 8 0;
-#X connect 2 1 8 1;
-#X connect 2 2 8 2;
-#X connect 2 3 8 3;
-#X connect 2 4 8 4;
-#X connect 2 5 8 5;
-#X connect 2 6 8 6;
-#X connect 2 7 8 7;
-#X connect 2 8 8 8;
-#X connect 2 9 8 9;
-#X connect 2 10 8 10;
-#X connect 2 11 8 11;
-#X connect 2 12 8 12;
-#X connect 2 13 8 13;
-#X connect 2 14 8 14;
-#X connect 4 0 3 0;
-#X connect 4 1 3 1;
-#X connect 4 2 3 2;
-#X connect 4 3 3 3;
-#X connect 4 4 3 4;
-#X connect 4 5 3 5;
-#X connect 4 6 3 6;
-#X connect 4 7 3 7;
-#X connect 4 8 3 8;
-#X connect 4 9 3 9;
-#X connect 4 10 3 10;
-#X connect 4 11 3 11;
-#X connect 4 12 3 12;
-#X connect 4 13 3 13;
-#X connect 4 14 3 14;
-#X connect 4 15 3 15;
-#X connect 8 0 10 0;
-#X connect 8 0 4 0;
-#X connect 8 1 10 1;
-#X connect 8 1 4 1;
-#X connect 8 2 10 2;
-#X connect 8 2 4 2;
-#X connect 8 3 10 3;
-#X connect 8 3 4 3;
-#X connect 8 4 10 4;
-#X connect 8 4 4 4;
-#X connect 8 5 10 5;
-#X connect 8 5 4 5;
-#X connect 8 6 10 6;
-#X connect 8 6 4 6;
-#X connect 8 7 10 7;
-#X connect 8 7 4 7;
-#X connect 8 8 10 8;
-#X connect 8 8 4 8;
-#X connect 8 9 10 9;
-#X connect 8 9 4 9;
-#X connect 8 10 10 10;
-#X connect 8 10 4 10;
-#X connect 8 11 10 11;
-#X connect 8 11 4 11;
-#X connect 8 12 10 12;
-#X connect 8 12 4 12;
-#X connect 8 13 10 13;
-#X connect 8 13 4 13;
-#X connect 8 14 10 14;
-#X connect 8 14 4 14;
-#X connect 15 0 2 0;
+#X restore 11 344 pd init;
+#X obj 478 78 osc~ 0.025;
+#X obj 466 24 phasor~ 0.2;
+#X obj 478 123 +~ 0.5;
+#X obj 478 145 clip~ 0 1;
+#X obj 478 100 *~ 0.75;
+#X obj 313 51 ui.gain~ @size 120 15 @receive "(null)" @send "(null)"
+@pinned 0 @presetname "ui.gain~.0" @background_color 0.93 0.93 0.93
+1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75
+1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
+11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
+@label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value
+0 @show_range 1;
+#X obj 205 357 ui.dsp~ @size 30 30 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica"
+@fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
+@label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0;
+#X obj 466 52 phase->rad~;
+#X obj 499 175 ui.number~ @size 58 15 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color
+0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @decimal 6 @interval 50;
+#X obj 322 206 hoa.scope~ @size 172 172 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
+0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @gain 1 @refresh 100 @order 7 @view 0;
+#X obj 313 422 xdac~ 1:16, f 28;
+#X obj 10 396 hoa.credits;
+#X connect 0 0 5 0;
+#X connect 0 1 5 1;
+#X connect 0 2 5 2;
+#X connect 0 3 5 3;
+#X connect 0 4 5 4;
+#X connect 0 5 5 5;
+#X connect 0 6 5 6;
+#X connect 0 7 5 7;
+#X connect 0 8 5 8;
+#X connect 0 9 5 9;
+#X connect 0 10 5 10;
+#X connect 0 11 5 11;
+#X connect 0 12 5 12;
+#X connect 0 13 5 13;
+#X connect 0 14 5 14;
+#X connect 1 0 23 0;
+#X connect 1 1 23 1;
+#X connect 1 2 23 2;
+#X connect 1 3 23 3;
+#X connect 1 4 23 4;
+#X connect 1 5 23 5;
+#X connect 1 6 23 6;
+#X connect 1 7 23 7;
+#X connect 1 8 23 8;
+#X connect 1 9 23 9;
+#X connect 1 10 23 10;
+#X connect 1 11 23 11;
+#X connect 1 12 23 12;
+#X connect 1 13 23 13;
+#X connect 1 14 23 14;
+#X connect 1 15 23 15;
+#X connect 5 0 1 0;
+#X connect 5 0 22 0;
+#X connect 5 1 1 1;
+#X connect 5 1 22 1;
+#X connect 5 2 1 2;
+#X connect 5 2 22 2;
+#X connect 5 3 1 3;
+#X connect 5 3 22 3;
+#X connect 5 4 1 4;
+#X connect 5 4 22 4;
+#X connect 5 5 1 5;
+#X connect 5 5 22 5;
+#X connect 5 6 1 6;
+#X connect 5 6 22 6;
+#X connect 5 7 1 7;
+#X connect 5 7 22 7;
+#X connect 5 8 1 8;
+#X connect 5 8 22 8;
+#X connect 5 9 1 9;
+#X connect 5 9 22 9;
+#X connect 5 10 1 10;
+#X connect 5 10 22 10;
+#X connect 5 11 1 11;
+#X connect 5 11 22 11;
+#X connect 5 12 1 12;
+#X connect 5 12 22 12;
+#X connect 5 13 1 13;
+#X connect 5 13 22 13;
+#X connect 5 14 1 14;
+#X connect 5 14 22 14;
+#X connect 11 0 18 0;
+#X connect 13 0 17 0;
+#X connect 14 0 20 0;
+#X connect 15 0 16 0;
+#X connect 16 0 5 15;
+#X connect 16 0 21 0;
 #X connect 17 0 15 0;
-#X connect 21 0 26 0;
-#X connect 22 0 2 1;
-#X connect 23 0 22 0;
-#X connect 24 0 25 0;
-#X connect 25 0 8 15;
-#X connect 25 0 20 0;
-#X connect 26 0 24 0;
-#X coords 0 433 1 432 100 60 0;
+#X connect 18 0 0 0;
+#X connect 20 0 0 1;
+#X coords 0 490 1 489 100 60 0;
