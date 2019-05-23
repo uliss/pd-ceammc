@@ -167,6 +167,8 @@ global.set		.		.
 hoa.2d.decoder~,hoa.decoder~		?		?
 hoa.2d.encoder~,hoa.encoder~		~~		?
 hoa.2d.optim~,hoa.optim~		?		?
+hoa.2d.wider~,hoa.wider~		?		?
+hoa.process~		?		?
 hw.apple_smc		.		.
 hw.apple_sms		.		.
 hw.arduino		.		.

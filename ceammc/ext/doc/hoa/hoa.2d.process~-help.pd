@@ -1,4 +1,4 @@
-#N canvas 117 38 901 661 10;
+#N canvas 169 26 901 661 10;
 #X declare -path ..;
 #X text 15 152 2nd argument is the name of the patcher to instantiate.
 ;
@@ -37,7 +37,7 @@ instance :;
 #X msg 510 245 target -2;
 #X msg 581 245 target all;
 #X obj 776 224 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
--262144 -1 -1 0 256;
+-262144 -1 -1 42 256;
 #X obj 12 424 declare -path ..;
 #X obj 12 447 hoa.credits;
 #X obj 92 447 hoa-help;
@@ -46,11 +46,15 @@ instance :;
 #X obj 754 310 print outlet-2;
 #X obj 831 243 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 436 123 hoa.2d.process~ 4 hoa.proc.plwav.ex planewaves;
-#X obj 439 281 hoa.2d.process~ 3 hoa.proc.harmo.ex harmonics;
+#X obj 436 123 hoa.process~ 4 hoa.proc.plwav.ex planewaves;
+#X obj 439 281 hoa.process~ 3 hoa.proc.harmo.ex harmonics;
 #X connect 10 0 26 0;
 #X connect 11 0 26 0;
 #X connect 15 0 27 0;
 #X connect 16 0 27 0;
 #X connect 17 0 27 0;
+#X connect 18 0 27 8;
 #X connect 22 0 27 0;
+#X connect 25 0 27 9;
+#X connect 27 7 23 0;
+#X connect 27 8 24 0;

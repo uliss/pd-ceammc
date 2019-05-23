@@ -1202,6 +1202,12 @@
     <entry descr="a 2D ambisonic optimization tool" name="hoa.2d.optim~" ref_view="object">
       <xi:include href="hoa.2d.optim~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="a 2d fractional ambisonic order simulator" name="hoa.2d.wider~" ref_view="object">
+      <xi:include href="hoa.2d.wider~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="patcher loader for multichannel processing" name="hoa.process~" ref_view="object">
+      <xi:include href="hoa.process~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="two channel equal power sine/cosine panner" name="pan.cos~" ref_view="object">
       <xi:include href="pan.cos~.pddoc" parse="xml"/>
     </entry>

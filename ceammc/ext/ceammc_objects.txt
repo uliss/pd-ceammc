@@ -1,7 +1,6 @@
 !hoa.projector~
 !hoa.recomposer~
 !hoa.rotate~
-!hoa.wider~
 .f
 .float
 .i
@@ -216,6 +215,7 @@ helmholtz~
 hoa.2d.decoder~
 hoa.2d.encoder~
 hoa.2d.optim~
+hoa.2d.wider~
 hoa.decoder~
 hoa.encoder~
 hoa.in
@@ -226,6 +226,7 @@ hoa.out~
 hoa.process~
 hoa.scope~
 hoa.thisprocess~
+hoa.wider~
 hw.apple_smc
 hw.apple_sms
 hw.arduino

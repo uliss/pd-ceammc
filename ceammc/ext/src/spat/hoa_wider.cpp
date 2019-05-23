@@ -53,5 +53,6 @@ void HoaWider::processBlock(const t_sample** in, t_sample** out)
 
 void setup_spat_hoa_wider()
 {
-    SoundExternalFactory<HoaWider> obj("!hoa.wider~");
+    SoundExternalFactory<HoaWider> obj("hoa.2d.wider~");
+    obj.addAlias("hoa.wider~");
 }
