@@ -21,6 +21,7 @@ using namespace ceammc;
 class ListAt : public ListBase {
     ListProperty* pos_;
     SymbolEnumProperty* at_method_;
+    AtomProperty* default_;
 
 public:
     ListAt(const PdArgs& a);

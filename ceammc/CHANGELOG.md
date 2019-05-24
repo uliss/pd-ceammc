@@ -11,11 +11,12 @@
 - canvas.dir added
 - canvas.name added
 - canvas.path added
+- list->props second outlet added for non-props elements
+- list.at @default property added (that outputs if element is not found)
 - list.walk second outlet added (with bang after reaching list last element)
 
 ### Changed:
 - ui.tab in single mode outputs like ui.menu: list pair - INDEX TAB_NAME
-- list->props second outlet added for non props elements
 
 ## [0.7.1]
 ### Added:
