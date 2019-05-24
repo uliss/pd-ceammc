@@ -15,6 +15,7 @@
 
 ### Changed:
 - ui.tab in single mode outputs like ui.menu: list pair - INDEX TAB_NAME
+- list->props second outlet added for non props elements
 
 ## [0.7.1]
 ### Added:
