@@ -384,8 +384,8 @@ bool HoaProcess::loadPlaneWaves(t_symbol* name, const AtomList& patch_args)
 
 void HoaProcess::processBlock(const t_sample** in, t_sample** out)
 {
-    const size_t NINS = numInputChannels();
-    const size_t NOUTS = numOutputChannels();
+    const size_t NINS = std::min<size_t>(numInputChannels(), in_buf_.size());
+    const size_t NOUTS = std::min<size_t>(numOutputChannels(), out_buf_.size());
     const size_t BS = blockSize();
 
     std::fill(out_buf_.begin(), out_buf_.end(), 0);
@@ -394,7 +394,8 @@ void HoaProcess::processBlock(const t_sample** in, t_sample** out)
         Signal::copy(BS, &in[i][0], 1, &in_buf_[i], NINS);
     }
 
-    block_obj_method_(&block_obj_->te_g.g_pd);
+    if (block_obj_method_ && block_obj_)
+        block_obj_method_(&block_obj_->te_g.g_pd);
 
     for (size_t i = 0; i < NOUTS; i++) {
         Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
@@ -453,7 +454,7 @@ void HoaProcess::setupDSP(t_signal** sp)
 
         mess0((t_pd*)canvas_, gensym("dsp"));
     } else {
-        OBJ_ERR << "not initialized can't compile DSP chain";
+        OBJ_ERR << "not initialized: can't compile DSP chain";
     }
 }
 
