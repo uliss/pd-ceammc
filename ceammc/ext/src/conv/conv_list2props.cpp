@@ -18,10 +18,21 @@ ConvList2Props::ConvList2Props(const PdArgs& args)
     : BaseObject(args)
 {
     createOutlet();
+    createOutlet();
 }
 
 void ConvList2Props::onList(const AtomList& lst)
 {
+    AtomList non_props;
+    for (auto& a : lst) {
+        if (a.isProperty())
+            break;
+
+        non_props.append(a);
+    }
+
+    listTo(1, non_props);
+
     auto props = lst.properties();
     for (auto& l : props)
         anyTo(0, l);
