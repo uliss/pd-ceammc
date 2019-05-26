@@ -43,6 +43,7 @@ class HoaProcess : public HoaBase {
     TargetProperty* target_;
     int target_value_;
 
+    // used to send loadbang to instances
     ClockMemberFunction<HoaProcess> clock_;
 
 public:
@@ -94,6 +95,8 @@ public:
     void sendSymbolToAll(size_t inlet_idx, t_symbol* s);
     void sendListToInstance(size_t inst_idx, size_t inlet_idx, const AtomList& l);
     void sendListToAll(size_t inlet_idx, const AtomList& l);
+    void sendAnyToInstance(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l);
+    void sendAnyToAll(size_t inlet_idx, t_symbol* s, const AtomList& l);
 
 public:
     static t_symbol* SYM_SWITCH;

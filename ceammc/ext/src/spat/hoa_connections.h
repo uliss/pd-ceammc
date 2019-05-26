@@ -54,7 +54,7 @@ public:
 
     bool processAnyProps(t_symbol* sel, const AtomList& lst) override;
 
-    void setOutlet(t_outlet* x) { outlet_ = x; }
+    void setOutlet(t_outlet* x);
 
 public:
     static HoaOut* fromObject(void* obj);
@@ -70,7 +70,7 @@ protected:
 public:
     HoaXletTilde(const PdArgs& args);
     int extra() const { return extra_->value(); }
-    void setSignal(t_sample* sig) { signal_ = sig; }
+    void setSignal(t_sample* sig);
 
     void processBlock(const t_sample** in, t_sample** out) final;
 };

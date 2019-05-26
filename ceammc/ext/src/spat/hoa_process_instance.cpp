@@ -121,6 +121,14 @@ void ProcessInstance::listTo(size_t inlet_idx, const AtomList& l)
     }
 }
 
+void ProcessInstance::anyTo(size_t inlet_idx, t_symbol* s, const AtomList& l)
+{
+    for (auto& in : f_ins) {
+        if (in->extra() == inlet_idx)
+            in->onAny(s, l);
+    }
+}
+
 bool ProcessInstance::hasStaticInputSignal() const
 {
     auto fx = [](const HoaInTilde* in) { return in->extra() == 0; };

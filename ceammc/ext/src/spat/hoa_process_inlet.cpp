@@ -41,43 +41,35 @@ static void hoa_process_inlet_float(ProcessInlet* x, t_float f)
         obj->sendFloatToAll(x->x_index, f);
 }
 
-//static void hoa_process_inlet_symbol(t_hoa_process_inlet* x, t_symbol* s)
-//{
-//    const size_t target = x->x_owner->f_target;
-//    if (target != (size_t)-1) {
-//        hoa_process_instance_send_symbol(x->x_owner->f_instances + target, x->x_index, s);
-//    } else {
-//        for (size_t i = 0; i < x->x_owner->f_ninstances; ++i) {
-//            hoa_process_instance_send_symbol(x->x_owner->f_instances + i, x->x_index, s);
-//        }
-//    }
-//}
+static void hoa_process_inlet_symbol(ProcessInlet* x, t_symbol* s)
+{
+    HoaProcess* obj = x->x_owner;
 
-//static void hoa_process_inlet_list(t_hoa_process_inlet* x, t_symbol* s, int argc, t_atom* argv)
-//{
-//    size_t i;
-//    const size_t target = x->x_owner->f_target;
-//    if (target != (size_t)-1) {
-//        hoa_process_instance_send_list(x->x_owner->f_instances + target, x->x_index, s, argc, argv);
-//    } else {
-//        for (i = 0; i < x->x_owner->f_ninstances; ++i) {
-//            hoa_process_instance_send_list(x->x_owner->f_instances + i, x->x_index, s, argc, argv);
-//        }
-//    }
-//}
+    if (!obj->targetAll())
+        obj->sendSymbolToInstance(obj->target(), x->x_index, s);
+    else
+        obj->sendSymbolToAll(x->x_index, s);
+}
 
-//static void hoa_process_inlet_anything(t_hoa_process_inlet* x, t_symbol* s, int argc, t_atom* argv)
-//{
-//    size_t i;
-//    const size_t target = x->x_owner->f_target;
-//    if (target != (size_t)-1) {
-//        hoa_process_instance_send_anything(x->x_owner->f_instances + target, x->x_index, s, argc, argv);
-//    } else {
-//        for (i = 0; i < x->x_owner->f_ninstances; ++i) {
-//            hoa_process_instance_send_anything(x->x_owner->f_instances + i, x->x_index, s, argc, argv);
-//        }
-//    }
-//}
+static void hoa_process_inlet_list(ProcessInlet* x, t_symbol* s, int argc, t_atom* argv)
+{
+    HoaProcess* obj = x->x_owner;
+
+    if (!obj->targetAll())
+        obj->sendListToInstance(obj->target(), x->x_index, AtomList(argc, argv));
+    else
+        obj->sendListToAll(x->x_index, AtomList(argc, argv));
+}
+
+static void hoa_process_inlet_anything(ProcessInlet* x, t_symbol* s, int argc, t_atom* argv)
+{
+    HoaProcess* obj = x->x_owner;
+
+    if (!obj->targetAll())
+        obj->sendAnyToInstance(obj->target(), x->x_index, s, AtomList(argc, argv));
+    else
+        obj->sendAnyToAll(x->x_index, s, AtomList(argc, argv));
+}
 
 void setup_spat_hoa_process_inlet()
 {
@@ -87,9 +79,9 @@ void setup_spat_hoa_process_inlet()
     if (c) {
         class_addbang(c, (t_method)hoa_process_inlet_bang);
         class_addfloat(c, (t_method)hoa_process_inlet_float);
-        //        class_addsymbol(c, (t_method)hoa_process_inlet_symbol);
-        //        class_addlist(c, (t_method)hoa_process_inlet_list);
-        //        class_addanything(c, (t_method)hoa_process_inlet_anything);
+        class_addsymbol(c, (t_method)hoa_process_inlet_symbol);
+        class_addlist(c, (t_method)hoa_process_inlet_list);
+        class_addanything(c, (t_method)hoa_process_inlet_anything);
     }
 
     hoa_process_inlet_class = c;

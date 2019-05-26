@@ -331,6 +331,22 @@ void HoaProcess::sendListToAll(size_t inlet_idx, const AtomList& l)
         inst.listTo(inlet_idx, l);
 }
 
+void HoaProcess::sendAnyToInstance(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l)
+{
+    if (inst_idx >= instances_.size()) {
+        OBJ_ERR << "invalid instance index: " << inst_idx;
+        return;
+    }
+
+    instances_[inst_idx].anyTo(inlet_idx, s, l);
+}
+
+void HoaProcess::sendAnyToAll(size_t inlet_idx, t_symbol* s, const AtomList& l)
+{
+    for (auto& inst : instances_)
+        inst.anyTo(inlet_idx, s, l);
+}
+
 bool HoaProcess::loadHarmonics(t_symbol* name, const AtomList& patch_args)
 {
     const size_t NINSTANCE = 2 * order() + 1; //hoa_2d_get_number_of_harmonics(order);
@@ -391,14 +407,14 @@ void HoaProcess::processBlock(const t_sample** in, t_sample** out)
     std::fill(out_buf_.begin(), out_buf_.end(), 0);
 
     for (size_t i = 0; i < NINS; i++) {
-        Signal::copy(BS, &in[i][0], 1, &in_buf_[i], NINS);
+        memcpy(&in_buf_[i * BS], in[i], BS * sizeof(t_sample));
     }
 
     if (block_obj_method_ && block_obj_)
         block_obj_method_(&block_obj_->te_g.g_pd);
 
     for (size_t i = 0; i < NOUTS; i++) {
-        Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
+        memcpy(out[i], &out_buf_[i * BS], BS * sizeof(t_sample));
     }
 }
 
@@ -423,9 +439,10 @@ void HoaProcess::setupDSP(t_signal** sp)
             if (info.in.num_extra_chan) {
                 size_t offset = info.in.num_static_chan;
                 for (size_t j = 0; j < info.in.num_extra_chan; ++j) {
+                    t_sample* inbuf = &in_buf_[(offset + j) * BS];
+
                     for (size_t i = 0; i < NINST; ++i) {
-                        size_t nsamples = (offset + j) * BS;
-                        instances_[i].setInletBuffer(&in_buf_[nsamples], j + 1);
+                        instances_[i].setInletBuffer(inbuf, j + 1);
                     }
                 }
             }
@@ -444,9 +461,10 @@ void HoaProcess::setupDSP(t_signal** sp)
             if (info.out.num_extra_chan > 0) {
                 size_t offset = info.out.num_static_chan;
                 for (size_t j = 0; j < info.out.num_extra_chan; ++j) {
+                    t_sample* outbuf = &out_buf_[(offset + j) * BS];
+
                     for (size_t i = 0; i < NINST; ++i) {
-                        size_t nsamples = (offset + j) * BS;
-                        instances_[i].setOutletBuffer(&out_buf_[nsamples], j + 1);
+                        instances_[i].setOutletBuffer(outbuf, j + 1);
                     }
                 }
             }

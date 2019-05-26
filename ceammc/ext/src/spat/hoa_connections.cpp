@@ -110,6 +110,11 @@ bool HoaOut::processAnyProps(t_symbol* sel, const AtomList& lst)
     return false;
 }
 
+void HoaOut::setOutlet(t_outlet* x)
+{
+    outlet_ = x;
+}
+
 HoaOut* HoaOut::fromObject(void* obj)
 {
     if (!isA(obj))
@@ -131,6 +136,11 @@ HoaXletTilde::HoaXletTilde(const PdArgs& args)
 {
     extra_ = new IntPropertyMinEq("@index", positionalFloatArgument(0, 0), 0);
     createProperty(extra_);
+}
+
+void HoaXletTilde::setSignal(t_sample* sig)
+{
+    signal_ = sig;
 }
 
 void HoaXletTilde::processBlock(const t_sample** in, t_sample** out)
@@ -174,6 +184,8 @@ void HoaOutTilde::setupDSP(t_signal** sp)
 {
     if (signal_)
         dsp_add_plus(sp[0]->s_vec, signal_, signal_, sp[0]->s_n);
+    else
+        OBJ_LOG << "empty signal...";
 }
 
 HoaOutTilde* HoaOutTilde::fromObject(void* obj)
