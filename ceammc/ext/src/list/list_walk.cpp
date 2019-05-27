@@ -12,7 +12,7 @@ static t_symbol* SYM_FOLD;
 
 ListWalk::ListWalk(const PdArgs& a)
     : BaseObject(a)
-    , walk_mode_(0)
+    , walk_mode_(nullptr)
     , current_pos_(0)
     , length_(1)
     , forward_(true)
@@ -190,7 +190,7 @@ void ListWalk::current()
         bangTo(1);
 }
 
-extern "C" void setup_list0x2ewalk()
+void setup_list_walk()
 {
     SYM_SINGLE = gensym("single");
     SYM_CLIP = gensym("clip");
