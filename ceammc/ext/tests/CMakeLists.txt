@@ -7,9 +7,14 @@ add_definitions("-DTEST_DATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}\"")
 add_definitions("-DTEST_BIN_DIR=\"${CMAKE_CURRENT_BINARY_DIR}\"")
 #remove_definitions(-DPD_INTERNAL)
 
-add_library(tests_main_lib STATIC tests_main.cpp test_external test_datatypes.cpp
+add_library(tests_main_lib STATIC
+    tests_main.cpp
     test_approx.cpp
-    test_wrappers.cpp)
+    test_datatypes.cpp
+    test_external.cpp
+    test_external_log_output.cpp
+    test_wrappers.cpp
+)
 
 if(APPLE)
     set(CMAKE_INSTALL_RPATH "@loader_path/../src/lib")
@@ -252,6 +257,24 @@ ceammc_external_test(spat pan_lin)
 ceammc_external_test(spat pan_sqrt)
 ceammc_external_test(spat pan_cos)
 ceammc_external_test(spat pan_spread)
+ceammc_add_test_linked(
+    TITLE "hoa_process"
+    NAME test_ext_spat_hoa_process
+    LINK ceammc_spat ceammc_core puredata-core ceammc_core
+    INCLUDE_DIRECTORIES
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/HoaLibrary-Light/Sources
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/fmt/include
+        ${EIGEN3_DIR}
+)
+ceammc_add_test_linked(
+    TITLE "hoa_in"
+    NAME test_ext_spat_hoa_in
+    LINK ceammc_spat ceammc_core puredata-core ceammc_core
+    INCLUDE_DIRECTORIES
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/HoaLibrary-Light/Sources
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/fmt/include
+        ${EIGEN3_DIR}
+)
 
 ceammc_add_test_linked(TITLE "tl.transport"
     NAME test_ext_tl_transport
