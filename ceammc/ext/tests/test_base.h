@@ -30,6 +30,10 @@
 #include <sstream>
 #include <vector>
 
+extern "C" {
+#include "m_imp.h"
+}
+
 template <class T>
 static t_object* make_owner(const char* name)
 {
@@ -314,8 +318,8 @@ static PdArgs mainSignalArgs(const PdArgs& args)
 template <class T>
 TestExternal<T>::TestExternal(const char* name, const AtomList& args, bool mainSignalInlet)
     : T(mainSignalInlet
-              ? mainSignalArgs(PdArgs(args, gensym(name), make_owner<T>(name), gensym(name)))
-              : PdArgs(args, gensym(name), make_owner<T>(name), gensym(name)))
+            ? mainSignalArgs(PdArgs(args, gensym(name), make_owner<T>(name), gensym(name)))
+            : PdArgs(args, gensym(name), make_owner<T>(name), gensym(name)))
     , atom_cb_(0)
 {
     const size_t N = T::numOutlets();
@@ -323,6 +327,10 @@ TestExternal<T>::TestExternal(const char* name, const AtomList& args, bool mainS
     msg_count_.assign(N, -1);
     data_.assign(N, DataPtrList());
     T::parseProperties();
+    // fix CLASS_NOINLET flag
+    if (T::owner() && ObjectFactory<T>::classPointer()) {
+        T::owner()->te_g.g_pd->c_firstin = ObjectFactory<T>::classPointer()->c_firstin;
+    }
 }
 
 template <class T>

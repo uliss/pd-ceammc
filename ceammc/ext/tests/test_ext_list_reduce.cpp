@@ -28,7 +28,7 @@ using namespace ceammc::pd;
 TEST_CASE("list.reduce", "[externals]")
 {
     pd_init();
-    ExternalOutput::setup();
+    LogExternalOutput::setup();
 
     SECTION("test create with:")
     {
@@ -54,7 +54,7 @@ TEST_CASE("list.reduce", "[externals]")
         {
             External foldl("list.reduce");
             External plus("+");
-            ExternalOutput out;
+            LogExternalOutput out;
 
             REQUIRE(!foldl.isNull());
             REQUIRE(!plus.isNull());
@@ -71,7 +71,7 @@ TEST_CASE("list.reduce", "[externals]")
         {
             External foldl("list.reduce");
             External minus("-");
-            ExternalOutput out;
+            LogExternalOutput out;
 
             REQUIRE(!foldl.isNull());
             REQUIRE(!minus.isNull());
@@ -88,7 +88,7 @@ TEST_CASE("list.reduce", "[externals]")
         {
             External foldl("list.reduce");
             External mul("*");
-            ExternalOutput out;
+            LogExternalOutput out;
 
             REQUIRE(!foldl.isNull());
             REQUIRE(!mul.isNull());

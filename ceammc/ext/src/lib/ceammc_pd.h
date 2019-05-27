@@ -50,12 +50,16 @@ namespace pd {
         bool connectFrom(int outn, External& ext, int inln);
 
         t_object* object();
+        t_pd* pd() { return &obj_->te_g.g_pd; }
 
-        void bang();
         void sendBang();
         void sendFloat(t_float v);
         void sendSymbol(t_symbol* s);
         void sendList(const AtomList& l);
+        void sendBangTo(size_t inlet);
+        void sendFloatTo(t_float v, size_t inlet);
+        void sendSymbolTo(t_symbol* s, size_t inlet);
+        void sendListTo(const AtomList& l, size_t inlet);
         void sendMessage(t_symbol* msg, const AtomList& args = AtomList());
 
         int numOutlets() const;

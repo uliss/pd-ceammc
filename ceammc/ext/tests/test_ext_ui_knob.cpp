@@ -432,7 +432,7 @@ TEST_CASE("ui.knob", "[ui.knob]")
     SECTION("send/receive test")
     {
         pd::External r1("receive", LA("r1"));
-        ExternalOutput out;
+        LogExternalOutput out;
         REQUIRE(r1.connectTo(0, out.object(), 0));
 
         TestKnob t("ui.knob", LA("@send", "r1", "@receive", "s1"));
@@ -466,17 +466,17 @@ TEST_CASE("ui.knob", "[ui.knob]")
     SECTION("output")
     {
         pd::External knob("ui.knob");
-        ExternalOutput out;
+        LogExternalOutput out;
         REQUIRE(knob.connectTo(0, out.object(), 0));
 
-        knob.bang();
+        knob.sendBang();
         REQUIRE(out.msg().atomValue().asFloat() == 0.f);
 
         knob.sendFloat(0.4);
         REQUIRE(out.msg().atomValue().asFloat() == 0.4f);
 
         out.reset();
-        knob.bang();
+        knob.sendBang();
         REQUIRE(out.msg().atomValue().asFloat() == 0.4f);
 
         // list auto convert test
@@ -488,7 +488,7 @@ TEST_CASE("ui.knob", "[ui.knob]")
         knob.sendMessage(gensym("@value"), LF(0.5));
         REQUIRE(out.msg().isNone());
 
-        knob.bang();
+        knob.sendBang();
         REQUIRE(out.msg().atomValue().asFloat() == 0.5f);
 
         knob.sendMessage(gensym("@value?"));
@@ -506,7 +506,7 @@ TEST_CASE("ui.knob", "[ui.knob]")
         out.reset();
         knob.sendMessage(gensym("set"), LF(0.1));
         REQUIRE(out.msg().isNone());
-        knob.bang();
+        knob.sendBang();
         REQUIRE(out.msg().atomValue().asFloat() == 0.1f);
     }
 

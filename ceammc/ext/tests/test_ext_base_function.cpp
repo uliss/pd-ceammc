@@ -68,13 +68,13 @@ TEST_CASE("function", "[externals]")
     SECTION("process")
     {
         function_setup();
-        ExternalOutput::setup();
+        LogExternalOutput::setup();
 
         pd::External func("function", LA("sqrt"));
         REQUIRE(!func.isNull());
         pd::External sqrt("sqrt");
         REQUIRE(!sqrt.isNull());
-        ExternalOutput out;
+        LogExternalOutput out;
 
         REQUIRE(func.connectTo(1, sqrt, 0));
         REQUIRE(sqrt.connectTo(0, func, 1));

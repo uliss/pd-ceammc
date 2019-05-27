@@ -28,7 +28,7 @@ using namespace ceammc;
         pd_init();                                                                  \
         epd_init();                                                                 \
         UI##T::setup();                                                             \
-        ExternalOutput::setup();                                                    \
+        LogExternalOutput::setup();                                                 \
         ListenerExternal::setup();                                                  \
     }
 
@@ -41,7 +41,7 @@ using namespace ceammc;
     {                                                                               \
         pd_init();                                                                  \
         UI##T::setup();                                                             \
-        ExternalOutput::setup();                                                    \
+        LogExternalOutput::setup();                                                 \
         ListenerExternal::setup();                                                  \
     }
 
@@ -129,7 +129,7 @@ template <class T>
 class TestUIExternal : public TestPdExternal<T> {
     typedef std::map<t_symbol*, ListenerExternal*> ListenerMap;
 
-    std::vector<ExternalOutput*> outs_;
+    std::vector<LogExternalOutput*> outs_;
     ListenerMap listeners_;
 
 public:

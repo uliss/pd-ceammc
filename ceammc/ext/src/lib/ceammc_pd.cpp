@@ -23,6 +23,7 @@ extern "C" {
 #include "g_canvas.h"
 #include "m_imp.h"
 void pd_init();
+void obj_sendinlet(t_object* x, int n, t_symbol* s, int argc, t_atom* argv);
 }
 
 #include <exception>
@@ -160,17 +161,12 @@ t_object* pd::External::object()
     return obj_;
 }
 
-void pd::External::bang()
+void pd::External::sendBang()
 {
     if (!obj_)
         return;
 
-    pd_bang(&obj_->te_g.g_pd);
-}
-
-void pd::External::sendBang()
-{
-    bang();
+    pd_bang(pd());
 }
 
 void pd::External::sendFloat(t_float v)
@@ -178,7 +174,7 @@ void pd::External::sendFloat(t_float v)
     if (!obj_)
         return;
 
-    pd_float(&obj_->te_g.g_pd, v);
+    pd_float(pd(), v);
 }
 
 void pd::External::sendSymbol(t_symbol* s)
@@ -186,7 +182,7 @@ void pd::External::sendSymbol(t_symbol* s)
     if (!obj_)
         return;
 
-    pd_symbol(&obj_->te_g.g_pd, s);
+    pd_symbol(pd(), s);
 }
 
 void pd::External::sendList(const AtomList& l)
@@ -194,7 +190,51 @@ void pd::External::sendList(const AtomList& l)
     if (!obj_)
         return;
 
-    pd_list(&obj_->te_g.g_pd, &s_list, l.size(), l.toPdData());
+    pd_list(pd(), &s_list, l.size(), l.toPdData());
+}
+
+void pd::External::sendBangTo(size_t inlet)
+{
+    if (inlet == 0)
+        sendBang();
+    else {
+        External pd_b("bang");
+        if (pd_b.connectTo(0, *this, inlet))
+            pd_bang(pd_b.pd());
+    }
+}
+
+void pd::External::sendFloatTo(t_float v, size_t inlet)
+{
+    if (inlet == 0)
+        sendFloat(v);
+    else {
+        External pd_f("float");
+        if (pd_f.connectTo(0, *this, inlet))
+            pd_float(pd_f.pd(), v);
+    }
+}
+
+void pd::External::sendSymbolTo(t_symbol* s, size_t inlet)
+{
+    if (inlet == 0)
+        sendSymbol(s);
+    else {
+        External pd_s("symbol");
+        if (pd_s.connectTo(0, *this, inlet))
+            pd_symbol(pd_s.pd(), s);
+    }
+}
+
+void pd::External::sendListTo(const AtomList& l, size_t inlet)
+{
+    if (inlet == 0)
+        sendList(l);
+    else {
+        External pd_l("list");
+        if (pd_l.connectTo(0, *this, inlet))
+            pd_list(pd_l.pd(), &s_list, l.size(), l.toPdData());
+    }
 }
 
 void pd::External::sendMessage(t_symbol* msg, const AtomList& args)

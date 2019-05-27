@@ -25,7 +25,7 @@ static const long IMAX = std::numeric_limits<long>::max();
 class TestPdAbstraction : public pd::External {
     typedef std::map<t_symbol*, ListenerExternal*> ListenerMap;
 
-    std::vector<ExternalOutput*> outs_;
+    std::vector<LogExternalOutput*> outs_;
     ListenerMap listeners_;
 
 public:
@@ -35,7 +35,7 @@ public:
         REQUIRE(object());
 
         for (size_t i = 0; i < numOutlets(); i++) {
-            ExternalOutput* e = new ExternalOutput;
+            LogExternalOutput* e = new LogExternalOutput;
             connectTo(i, e->object(), 0);
             outs_.push_back(e);
         }
