@@ -107,6 +107,41 @@ TEST_CASE("hoa.process~", "[externals]")
         REQUIRE(t.outputAnyAt(0) == LA("MSG", 1, 2));
     }
 
+    SECTION("control 03")
+    {
+        TestExtHoaProcess t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_03"));
+        REQUIRE(t.numInlets() == 2);
+        REQUIRE(t.numOutlets() == 1);
+    }
+
+    SECTION("control 04")
+    {
+        TestExtHoaProcess t("hoa.process~", LA(1, TEST_DATA_DIR "/hoa_test_04"));
+        t->setProperty("@target", LF(1));
+        REQUIRE(t.numInlets() == 2);
+        REQUIRE(t.numOutlets() == 4);
+
+        t.sendFloatTo(2.0, 1);
+        REQUIRE(t.messagesAt(0) == messageList(2));
+        REQUIRE(t.messagesAt(1) == messageList(4));
+        REQUIRE(t.messagesAt(2) == messageList(6));
+        REQUIRE(t.messagesAt(3) == messageList(8));
+    }
+
+    SECTION("control 05")
+    {
+        TestExtHoaProcess t("hoa.process~", LA(1, TEST_DATA_DIR "/hoa_test_05"));
+        t->setProperty("@target", LF(1));
+        REQUIRE(t.numInlets() == 2);
+        REQUIRE(t.numOutlets() == 4);
+
+        t.sendFloatTo(2.0, 1);
+        REQUIRE(t.messagesAt(3) == messageList(2));
+        REQUIRE(t.messagesAt(2) == messageList(4));
+        REQUIRE(t.messagesAt(1) == messageList(6));
+        REQUIRE(t.messagesAt(0) == messageList(8));
+    }
+
     SECTION("@target")
     {
         TestExtHoaProcess t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_01"));
