@@ -77,8 +77,13 @@ void SoundExternal::signalInit(t_signal** sp)
     auto old_bs = block_size_;
     auto old_sr = sample_rate_;
 
-    block_size_ = size_t(sp[0]->s_n);
-    sample_rate_ = size_t(sp[0]->s_sr);
+    if (n_in_) {
+        block_size_ = size_t(sp[0]->s_n);
+        sample_rate_ = size_t(sp[0]->s_sr);
+    } else {
+        block_size_ = 64;
+        sample_rate_ = 44100;
+    }
 
     for (size_t i = 0; i < n_in_; i++)
         in_[i] = sp[i]->s_vec;
