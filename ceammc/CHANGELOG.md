@@ -17,6 +17,7 @@
 
 ### Changed:
 - ui.tab in single mode outputs like ui.menu: list pair - INDEX TAB_NAME
+- flow.demux by default handles @index and @index? properties. To pass this values use @noprops flag
 
 ## [0.7.1]
 ### Added:
