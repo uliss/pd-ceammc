@@ -19,6 +19,10 @@
 #include <cstdint>
 #include <tuple>
 
+#include "extra/hw_alpaca/constants.h"
+
+using namespace alpaca;
+
 static t_symbol* SYM_DIGITAL;
 static t_symbol* SYM_ANALOG;
 static t_symbol* SYM_ANALOG_RAW;
@@ -48,30 +52,6 @@ enum StateType {
 typedef std::function<bool(ProtoSpAlpaca*, uint8_t)> TransitionFn;
 typedef std::function<bool(uint8_t)> ValidatorFn;
 typedef std::tuple<StateType, ValidatorFn, StateType, TransitionFn> FSMRow;
-
-enum CommandType {
-    CMD_START = 0x81,
-    CMD_END = 0x80,
-    // in
-    CMD_SEND_DIGITAL = 0x90,
-    CMD_SEND_ANALOG = 0xA0,
-    CMD_SEND_ANALOG_RAW = 0xB0,
-    CMD_RESPONSE = 0xC0,
-    // out
-    CMD_TARGET = 0xD0,
-    CMD_TARGET_JACK0 = 0x0,
-    CMD_TARGET_JACK1 = 0x1,
-    CMD_TARGET_JACK_BOTH = 0x2,
-    CMD_TARGET_MATRIX = 0x3,
-    CMD_JACK_SET_MODE = 0x10,
-    CMD_MATRIX_SET_BRIGHTNESS = 0x10,
-    CMD_MATRIX_SET_PIXEL = 0x20,
-    CMD_MATRIX_CLEAR_PIXEL = 0x30,
-    CMD_MATRIX_CLEAR = 0x40,
-    CMD_MATRIX_FILL = 0x50,
-    CMD_MATRIX_DRAW = 0x60,
-    CMD_MATRIX_CHAR = 0x70
-};
 
 static std::vector<FSMRow> fsm = {
     // start->cmd
@@ -186,7 +166,7 @@ bool ProtoSpAlpaca::fsm_output_analog()
         return false;
 
     const uint8_t n = in_cmd_[0] >> 1;
-    const uint8_t v = (in_cmd_[2] << 7) + in_cmd_[1];
+    const uint16_t v = (uint16_t(in_cmd_[2]) << 7) | in_cmd_[1];
     anyTo(0, SYM_ANALOG, { t_float(n), t_float(v) });
     return true;
 }
@@ -197,8 +177,8 @@ bool ProtoSpAlpaca::fsm_output_analog_raw()
         return false;
 
     const uint8_t n = in_cmd_[0] >> 1;
-    const uint8_t v1 = (in_cmd_[2] << 7) + in_cmd_[1];
-    const uint8_t v2 = (in_cmd_[4] << 7) + in_cmd_[3];
+    const uint16_t v1 = (uint16_t(in_cmd_[2]) << 7) | in_cmd_[1];
+    const uint16_t v2 = (uint16_t(in_cmd_[4]) << 7) | in_cmd_[3];
     anyTo(0, SYM_ANALOG_RAW, { t_float(n), t_float(v1), t_float(v2) });
     return true;
 }
@@ -261,7 +241,7 @@ void ProtoSpAlpaca::m_str(t_symbol* s, const AtomList& l)
 
 void ProtoSpAlpaca::m_mode(t_symbol* s, const AtomList& l)
 {
-    if (!checkArgs(ARG_INT, ARG_SYMBOL, s))
+    if (!checkArgs(l, ARG_INT, ARG_SYMBOL, s))
         return;
 
     const int ch = l.intAt(0, 0);
@@ -270,23 +250,37 @@ void ProtoSpAlpaca::m_mode(t_symbol* s, const AtomList& l)
         return;
     }
 
-    t_symbol* mode = l.symbolAt(0, &s_);
+    t_symbol* mode = l.symbolAt(1, &s_);
     if (mode == SYM_MODE_NONE) {
-
+        floatTo(0, CMD_START);
+        floatTo(0, CMD_TARGET | ch);
+        floatTo(0, CMD_JACK_SET_MODE | MODE_NONE);
+        floatTo(0, CMD_END);
     } else if (mode == SYM_MODE_ANALOG) {
-
+        floatTo(0, CMD_START);
+        floatTo(0, CMD_TARGET | ch);
+        floatTo(0, CMD_JACK_SET_MODE | MODE_ANALOG);
+        floatTo(0, CMD_END);
     } else if (mode == SYM_MODE_ANALOG_RAW) {
-
+        floatTo(0, CMD_START);
+        floatTo(0, CMD_TARGET | ch);
+        floatTo(0, CMD_JACK_SET_MODE | MODE_ANALOG_RAW);
+        floatTo(0, CMD_END);
     } else if (mode == SYM_MODE_DIGITAL1) {
         floatTo(0, CMD_START);
-        floatTo(0, CMD_TARGET | CMD_TARGET_JACK0);
-        floatTo(0, CMD_MO);
+        floatTo(0, CMD_TARGET | ch);
+        floatTo(0, CMD_JACK_SET_MODE | MODE_DIGITAL1);
         floatTo(0, CMD_END);
-
     } else if (mode == SYM_MODE_DIGITAL2) {
-
+        floatTo(0, CMD_START);
+        floatTo(0, CMD_TARGET | ch);
+        floatTo(0, CMD_JACK_SET_MODE | MODE_DIGITAL2);
+        floatTo(0, CMD_END);
     } else if (mode == SYM_MODE_DIGITAL_BOTH) {
-
+        floatTo(0, CMD_START);
+        floatTo(0, CMD_TARGET | ch);
+        floatTo(0, CMD_JACK_SET_MODE | MODE_DIGITAL_BOTH);
+        floatTo(0, CMD_END);
     } else {
         METHOD_ERR(s) << "unknown mode: " << mode->s_name;
     }
