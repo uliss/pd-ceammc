@@ -28,6 +28,12 @@ static t_symbol* SYM_NO_TARGET;
 static t_symbol* SYM_UNKNOWN_TARGET;
 static t_symbol* SYM_UNKNOWN_COMMAND;
 static t_symbol* SYM_RESPONSE;
+static t_symbol* SYM_MODE_NONE;
+static t_symbol* SYM_MODE_ANALOG;
+static t_symbol* SYM_MODE_DIGITAL1;
+static t_symbol* SYM_MODE_DIGITAL2;
+static t_symbol* SYM_MODE_DIGITAL_BOTH;
+static t_symbol* SYM_MODE_ANALOG_RAW;
 
 enum StateType {
     STATE_START = 0,
@@ -253,6 +259,39 @@ void ProtoSpAlpaca::m_str(t_symbol* s, const AtomList& l)
         drawChar(toupper(str[1]), 4);
 }
 
+void ProtoSpAlpaca::m_mode(t_symbol* s, const AtomList& l)
+{
+    if (!checkArgs(ARG_INT, ARG_SYMBOL, s))
+        return;
+
+    const int ch = l.intAt(0, 0);
+    if (ch < 0 || ch > 1) {
+        METHOD_ERR(s) << "invalid channel: " << ch << "; 0 or 1 expected";
+        return;
+    }
+
+    t_symbol* mode = l.symbolAt(0, &s_);
+    if (mode == SYM_MODE_NONE) {
+
+    } else if (mode == SYM_MODE_ANALOG) {
+
+    } else if (mode == SYM_MODE_ANALOG_RAW) {
+
+    } else if (mode == SYM_MODE_DIGITAL1) {
+        floatTo(0, CMD_START);
+        floatTo(0, CMD_TARGET | CMD_TARGET_JACK0);
+        floatTo(0, CMD_MO);
+        floatTo(0, CMD_END);
+
+    } else if (mode == SYM_MODE_DIGITAL2) {
+
+    } else if (mode == SYM_MODE_DIGITAL_BOTH) {
+
+    } else {
+        METHOD_ERR(s) << "unknown mode: " << mode->s_name;
+    }
+}
+
 void ProtoSpAlpaca::m_char(t_symbol* s, const AtomList& l)
 {
     if (l.empty() || l.size() > 2) {
@@ -335,8 +374,16 @@ void setup_proto_sp_alpaca()
     SYM_UNKNOWN_COMMAND = gensym("unknown_command");
     SYM_RESPONSE = gensym("response");
 
+    SYM_MODE_NONE = gensym("none");
+    SYM_MODE_ANALOG = gensym("analog");
+    SYM_MODE_DIGITAL1 = gensym("digital1");
+    SYM_MODE_DIGITAL2 = gensym("digital2");
+    SYM_MODE_DIGITAL_BOTH = gensym("digital");
+    SYM_MODE_ANALOG_RAW = gensym("analog_raw");
+
     ObjectFactory<ProtoSpAlpaca> obj("proto.sp.alpaca");
     obj.addMethod("clear", &ProtoSpAlpaca::m_clear);
     obj.addMethod("char", &ProtoSpAlpaca::m_char);
     obj.addMethod("str", &ProtoSpAlpaca::m_str);
+    obj.addMethod("mode", &ProtoSpAlpaca::m_mode);
 }

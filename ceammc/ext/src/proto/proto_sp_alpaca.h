@@ -43,6 +43,7 @@ public:
     void m_clear(t_symbol* s, const AtomList& l);
     void m_char(t_symbol* s, const AtomList& l);
     void m_str(t_symbol* s, const AtomList& l);
+    void m_mode(t_symbol* s, const AtomList& l);
 
 private:
     void parse(uint8_t v);
