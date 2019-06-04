@@ -265,6 +265,14 @@ void ProtoSpAlpaca::m_clear(t_symbol* s, const AtomList& l)
     floatTo(0, CMD_END);
 }
 
+void ProtoSpAlpaca::m_fill(t_symbol* s, const AtomList& l)
+{
+    floatTo(0, CMD_START);
+    floatTo(0, CMD_TARGET | CMD_TARGET_MATRIX);
+    floatTo(0, CMD_MATRIX_FILL);
+    floatTo(0, CMD_END);
+}
+
 void ProtoSpAlpaca::m_get_version(t_symbol* s, const AtomList& l)
 {
     floatTo(0, CMD_START);
@@ -493,6 +501,7 @@ void setup_proto_sp_alpaca()
     obj.addMethod("brightness", &ProtoSpAlpaca::m_brightness);
     obj.addMethod("char", &ProtoSpAlpaca::m_char);
     obj.addMethod("clear", &ProtoSpAlpaca::m_clear);
+    obj.addMethod("fill", &ProtoSpAlpaca::m_fill);
     obj.addMethod("mode", &ProtoSpAlpaca::m_mode);
     obj.addMethod("pixel", &ProtoSpAlpaca::m_pixel);
     obj.addMethod("str", &ProtoSpAlpaca::m_str);
