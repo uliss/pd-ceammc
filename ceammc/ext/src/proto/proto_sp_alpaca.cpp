@@ -173,7 +173,7 @@ bool ProtoSpAlpaca::fsm_output_analog()
 
 bool ProtoSpAlpaca::fsm_output_analog_raw()
 {
-    if (in_cmd_.size() != 3)
+    if (in_cmd_.size() != 5)
         return false;
 
     const uint8_t n = in_cmd_[0] >> 1;
