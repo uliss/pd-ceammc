@@ -18,8 +18,8 @@
 #include "ceammc_canvas.h"
 #include "ceammc_property_info.h"
 
-#include <boost/shared_ptr.hpp>
 #include <map>
+#include <memory>
 #include <string>
 
 struct _text;
@@ -27,6 +27,7 @@ typedef struct _text t_object;
 
 namespace ceammc {
 
+class Canvas;
 class BaseObject;
 class UIObject;
 
@@ -85,7 +86,7 @@ namespace pd {
     };
 }
 
-typedef boost::shared_ptr<Canvas> CanvasPtr;
+typedef std::shared_ptr<Canvas> CanvasPtr;
 typedef std::map<std::string, CanvasPtr> CanvasMap;
 
 class PureData {

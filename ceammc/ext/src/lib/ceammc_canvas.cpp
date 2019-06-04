@@ -207,6 +207,54 @@ bool Canvas::connect(const BaseObject& src, size_t nout, BaseObject& dest, size_
     return connect(src.owner(), nout, dest.owner(), ninl);
 }
 
+std::vector<const t_object*> Canvas::objectList() const
+{
+    std::vector<const t_object*> res;
+    if (!canvas_)
+        return res;
+
+    for (const t_gobj* y = canvas_->gl_list; y; y = y->g_next) {
+        // skip non t_object's
+        if (!y->g_pd->c_patchable)
+            continue;
+
+        res.push_back(reinterpret_cast<const t_object*>(y));
+    }
+
+    return res;
+}
+
+std::vector<const t_object*> Canvas::findObjectByClassName(t_symbol* name)
+{
+    std::vector<const t_object*> res;
+    if (!canvas_)
+        return res;
+
+    for (const t_gobj* y = canvas_->gl_list; y; y = y->g_next) {
+        if ((y->g_pd->c_name != name) || (!y->g_pd->c_patchable))
+            continue;
+
+        res.push_back(reinterpret_cast<const t_object*>(y));
+    }
+
+    return res;
+}
+
+void Canvas::addExternal(pd::External& ext)
+{
+    glist_add(canvas_, &ext.object()->te_g);
+}
+
+std::shared_ptr<pd::External> Canvas::createObject(const char* name, const AtomList& args)
+{
+    std::shared_ptr<pd::External> ptr;
+    if (!canvas_)
+        return ptr;
+
+    ptr.reset(new pd::External(name, args));
+    return ptr;
+}
+
 _glist* Canvas::owner()
 {
     return canvas_->gl_owner;
