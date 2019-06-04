@@ -23,21 +23,23 @@
 
 using namespace alpaca;
 
-static t_symbol* SYM_DIGITAL;
 static t_symbol* SYM_ANALOG;
 static t_symbol* SYM_ANALOG_RAW;
-static t_symbol* SYM_OK;
+static t_symbol* SYM_DIGITAL;
 static t_symbol* SYM_EMPTY;
-static t_symbol* SYM_NO_TARGET;
-static t_symbol* SYM_UNKNOWN_TARGET;
-static t_symbol* SYM_UNKNOWN_COMMAND;
-static t_symbol* SYM_RESPONSE;
-static t_symbol* SYM_MODE_NONE;
+static t_symbol* SYM_MODE;
 static t_symbol* SYM_MODE_ANALOG;
+static t_symbol* SYM_MODE_ANALOG_RAW;
 static t_symbol* SYM_MODE_DIGITAL1;
 static t_symbol* SYM_MODE_DIGITAL2;
 static t_symbol* SYM_MODE_DIGITAL_BOTH;
-static t_symbol* SYM_MODE_ANALOG_RAW;
+static t_symbol* SYM_MODE_NONE;
+static t_symbol* SYM_NO_TARGET;
+static t_symbol* SYM_OK;
+static t_symbol* SYM_RESPONSE;
+static t_symbol* SYM_UNKNOWN_COMMAND;
+static t_symbol* SYM_UNKNOWN_TARGET;
+static t_symbol* SYM_VERSION;
 
 enum StateType {
     STATE_START = 0,
@@ -115,9 +117,15 @@ static std::vector<FSMRow> fsm = {
         STATE_RESPONSE,
         [](ProtoSpAlpaca* p, uint8_t v) { return p->fsm_add(0x0F & v); } },
 
+    // response->response
+    { STATE_RESPONSE,
+        [](uint8_t v) { return v <= 0x7F; },
+        STATE_RESPONSE,
+        [](ProtoSpAlpaca* p, uint8_t v) { return p->fsm_add(0x7F & v); } },
+
     // response->end
     { STATE_RESPONSE,
-        nullptr,
+        [](uint8_t v) { return v == CMD_END; },
         STATE_END,
         [](ProtoSpAlpaca* p, uint8_t v) { return p->fsm_output_response(); } },
 };
@@ -189,9 +197,47 @@ bool ProtoSpAlpaca::fsm_output_response()
         return false;
 
     switch (in_cmd_[0]) {
-    case 0:
+    case 0: {
+        size_t argc = 0;
+        auto argv = &in_cmd_[2];
+        if (in_cmd_.size() > 1) {
+            argc = in_cmd_[1];
+            if (in_cmd_.size() != argc + 2) { // target, nargs, ....
+                OBJ_ERR << "invalid response format...";
+                return false;
+            }
+
+            if (argc == 2 && argv[0] == CMD_DEVICE_VERSION)
+                anyTo(0, SYM_VERSION, argv[1]);
+            else if (argc == 3 && argv[0] == CMD_DEVICE_MODE) {
+                t_symbol* s = SYM_MODE_NONE;
+                switch (argv[2]) {
+                case MODE_ANALOG:
+                    s = SYM_MODE_ANALOG;
+                    break;
+                case MODE_ANALOG_RAW:
+                    s = SYM_MODE_ANALOG_RAW;
+                    break;
+                case MODE_DIGITAL1:
+                    s = SYM_MODE_DIGITAL1;
+                    break;
+                case MODE_DIGITAL2:
+                    s = SYM_MODE_DIGITAL2;
+                    break;
+                case MODE_DIGITAL_BOTH:
+                    s = SYM_MODE_DIGITAL_BOTH;
+                    break;
+                default:
+                    break;
+                }
+
+                AtomList l(Atom(argv[1]), s);
+                anyTo(0, SYM_MODE, l);
+            }
+        }
+
         anyTo(0, SYM_RESPONSE, SYM_OK);
-        break;
+    } break;
     case 1:
         anyTo(0, SYM_RESPONSE, SYM_EMPTY);
         break;
@@ -219,6 +265,14 @@ void ProtoSpAlpaca::m_clear(t_symbol* s, const AtomList& l)
     floatTo(0, CMD_END);
 }
 
+void ProtoSpAlpaca::m_get_version(t_symbol* s, const AtomList& l)
+{
+    floatTo(0, CMD_START);
+    floatTo(0, CMD_TARGET | CMD_TARGET_DEVICE);
+    floatTo(0, CMD_DEVICE_VERSION);
+    floatTo(0, CMD_END);
+}
+
 void ProtoSpAlpaca::m_str(t_symbol* s, const AtomList& l)
 {
     auto str = to_string(l);
@@ -237,6 +291,14 @@ void ProtoSpAlpaca::m_str(t_symbol* s, const AtomList& l)
     drawChar(toupper(str[0]), 0);
     if (str.size() > 1)
         drawChar(toupper(str[1]), 4);
+}
+
+void ProtoSpAlpaca::m_sync(t_symbol* s, const AtomList& l)
+{
+    floatTo(0, CMD_START);
+    floatTo(0, CMD_TARGET | CMD_TARGET_DEVICE);
+    floatTo(0, CMD_DEVICE_SYNC);
+    floatTo(0, CMD_END);
 }
 
 void ProtoSpAlpaca::m_mode(t_symbol* s, const AtomList& l)
@@ -409,28 +471,31 @@ void ProtoSpAlpaca::drawChar(int ch, int offset)
 
 void setup_proto_sp_alpaca()
 {
-    SYM_DIGITAL = gensym("digital");
     SYM_ANALOG = gensym("analog");
     SYM_ANALOG_RAW = gensym("analog_raw");
-    SYM_OK = gensym("ok");
+    SYM_DIGITAL = gensym("digital");
     SYM_EMPTY = gensym("empty");
-    SYM_NO_TARGET = gensym("no_target");
-    SYM_UNKNOWN_TARGET = gensym("unknown_target");
-    SYM_UNKNOWN_COMMAND = gensym("unknown_command");
-    SYM_RESPONSE = gensym("response");
-
-    SYM_MODE_NONE = gensym("none");
+    SYM_MODE = gensym("mode");
     SYM_MODE_ANALOG = gensym("analog");
+    SYM_MODE_ANALOG_RAW = gensym("analog_raw");
     SYM_MODE_DIGITAL1 = gensym("digital1");
     SYM_MODE_DIGITAL2 = gensym("digital2");
     SYM_MODE_DIGITAL_BOTH = gensym("digital");
-    SYM_MODE_ANALOG_RAW = gensym("analog_raw");
+    SYM_MODE_NONE = gensym("none");
+    SYM_NO_TARGET = gensym("no_target");
+    SYM_OK = gensym("ok");
+    SYM_RESPONSE = gensym("response");
+    SYM_UNKNOWN_COMMAND = gensym("unknown_command");
+    SYM_UNKNOWN_TARGET = gensym("unknown_target");
+    SYM_VERSION = gensym("version");
 
     ObjectFactory<ProtoSpAlpaca> obj("proto.sp.alpaca");
-    obj.addMethod("clear", &ProtoSpAlpaca::m_clear);
-    obj.addMethod("char", &ProtoSpAlpaca::m_char);
-    obj.addMethod("str", &ProtoSpAlpaca::m_str);
-    obj.addMethod("mode", &ProtoSpAlpaca::m_mode);
     obj.addMethod("brightness", &ProtoSpAlpaca::m_brightness);
+    obj.addMethod("char", &ProtoSpAlpaca::m_char);
+    obj.addMethod("clear", &ProtoSpAlpaca::m_clear);
+    obj.addMethod("mode", &ProtoSpAlpaca::m_mode);
     obj.addMethod("pixel", &ProtoSpAlpaca::m_pixel);
+    obj.addMethod("str", &ProtoSpAlpaca::m_str);
+    obj.addMethod("sync", &ProtoSpAlpaca::m_sync);
+    obj.addMethod("version?", &ProtoSpAlpaca::m_get_version);
 }
