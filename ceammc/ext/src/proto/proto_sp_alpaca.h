@@ -45,6 +45,7 @@ public:
     void m_str(t_symbol* s, const AtomList& l);
     void m_mode(t_symbol* s, const AtomList& l);
     void m_brightness(t_symbol* s, const AtomList& l);
+    void m_pixel(t_symbol* s, const AtomList& l);
 
 private:
     void parse(uint8_t v);

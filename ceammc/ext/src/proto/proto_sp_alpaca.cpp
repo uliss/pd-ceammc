@@ -304,6 +304,39 @@ void ProtoSpAlpaca::m_brightness(t_symbol* s, const AtomList& l)
     floatTo(0, CMD_END);
 }
 
+void ProtoSpAlpaca::m_pixel(t_symbol* s, const AtomList& l)
+{
+    if (!checkArgs(l, ARG_INT, ARG_INT, ARG_INT)) {
+        METHOD_ERR(s) << " X Y 1|0 args expected: " << l;
+        return;
+    }
+
+    int x = l.intAt(0, 0);
+    int y = l.intAt(1, 0);
+    int state = l.intAt(2, 1);
+
+    if (x < 0 || x > 7) {
+        METHOD_ERR(s) << "x coordinate should be in [0-7] range: " << x;
+        return;
+    }
+
+    if (y < 0 || y > 5) {
+        METHOD_ERR(s) << "y coordinate should be in [0-5] range: " << y;
+        return;
+    }
+
+    if (!(state == 0 || state == 1)) {
+        METHOD_ERR(s) << "pixel state (0 or 1) expected: " << state;
+        return;
+    }
+
+    floatTo(0, CMD_START);
+    floatTo(0, CMD_TARGET | CMD_TARGET_MATRIX);
+    floatTo(0, state ? CMD_MATRIX_SET_PIXEL : CMD_MATRIX_CLEAR_PIXEL);
+    floatTo(0, (0x7 & x) | ((0x7 & y) << 4));
+    floatTo(0, CMD_END);
+}
+
 void ProtoSpAlpaca::m_char(t_symbol* s, const AtomList& l)
 {
     if (l.empty() || l.size() > 2) {
@@ -399,4 +432,5 @@ void setup_proto_sp_alpaca()
     obj.addMethod("str", &ProtoSpAlpaca::m_str);
     obj.addMethod("mode", &ProtoSpAlpaca::m_mode);
     obj.addMethod("brightness", &ProtoSpAlpaca::m_brightness);
+    obj.addMethod("pixel", &ProtoSpAlpaca::m_pixel);
 }
