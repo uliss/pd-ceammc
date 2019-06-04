@@ -40,8 +40,13 @@ public:
     bool fsm_output_analog_raw();
     bool fsm_output_response();
 
+    void m_clear(t_symbol* s, const AtomList& l);
+    void m_char(t_symbol* s, const AtomList& l);
+    void m_str(t_symbol* s, const AtomList& l);
+
 private:
     void parse(uint8_t v);
+    void drawChar(int ch, int offset = 0);
 };
 
 void setup_proto_sp_alpaca();

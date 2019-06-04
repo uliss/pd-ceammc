@@ -13,7 +13,9 @@
  *****************************************************************************/
 #include "proto_sp_alpaca.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 
+#include <cctype>
 #include <cstdint>
 #include <tuple>
 
@@ -44,10 +46,25 @@ typedef std::tuple<StateType, ValidatorFn, StateType, TransitionFn> FSMRow;
 enum CommandType {
     CMD_START = 0x81,
     CMD_END = 0x80,
+    // in
     CMD_SEND_DIGITAL = 0x90,
     CMD_SEND_ANALOG = 0xA0,
     CMD_SEND_ANALOG_RAW = 0xB0,
-    CMD_RESPONSE = 0xC0
+    CMD_RESPONSE = 0xC0,
+    // out
+    CMD_TARGET = 0xD0,
+    CMD_TARGET_JACK0 = 0x0,
+    CMD_TARGET_JACK1 = 0x1,
+    CMD_TARGET_JACK_BOTH = 0x2,
+    CMD_TARGET_MATRIX = 0x3,
+    CMD_JACK_SET_MODE = 0x10,
+    CMD_MATRIX_SET_BRIGHTNESS = 0x10,
+    CMD_MATRIX_SET_PIXEL = 0x20,
+    CMD_MATRIX_CLEAR_PIXEL = 0x30,
+    CMD_MATRIX_CLEAR = 0x40,
+    CMD_MATRIX_FILL = 0x50,
+    CMD_MATRIX_DRAW = 0x60,
+    CMD_MATRIX_CHAR = 0x70
 };
 
 static std::vector<FSMRow> fsm = {
@@ -163,7 +180,7 @@ bool ProtoSpAlpaca::fsm_output_analog()
         return false;
 
     const uint8_t n = in_cmd_[0] >> 1;
-    const uint8_t v = (in_cmd_[1] << 7) + in_cmd_[2];
+    const uint8_t v = (in_cmd_[2] << 7) + in_cmd_[1];
     anyTo(0, SYM_ANALOG, { t_float(n), t_float(v) });
     return true;
 }
@@ -174,8 +191,8 @@ bool ProtoSpAlpaca::fsm_output_analog_raw()
         return false;
 
     const uint8_t n = in_cmd_[0] >> 1;
-    const uint8_t v1 = (in_cmd_[1] << 7) + in_cmd_[2];
-    const uint8_t v2 = (in_cmd_[3] << 7) + in_cmd_[4];
+    const uint8_t v1 = (in_cmd_[2] << 7) + in_cmd_[1];
+    const uint8_t v2 = (in_cmd_[4] << 7) + in_cmd_[3];
     anyTo(0, SYM_ANALOG_RAW, { t_float(n), t_float(v1), t_float(v2) });
     return true;
 }
@@ -206,6 +223,56 @@ bool ProtoSpAlpaca::fsm_output_response()
         break;
     }
     return true;
+}
+
+void ProtoSpAlpaca::m_clear(t_symbol* s, const AtomList& l)
+{
+    floatTo(0, CMD_START);
+    floatTo(0, CMD_TARGET | CMD_TARGET_MATRIX);
+    floatTo(0, CMD_MATRIX_CLEAR);
+    floatTo(0, CMD_END);
+}
+
+void ProtoSpAlpaca::m_str(t_symbol* s, const AtomList& l)
+{
+    auto str = to_string(l);
+    if (str.empty()) {
+        METHOD_ERR(s) << "empty string";
+        return;
+    }
+
+    if (str.size() > 2) {
+        METHOD_ERR(s) << "max string length is 2: " << str;
+        return;
+    }
+
+    m_clear(s, l);
+
+    drawChar(toupper(str[0]), 0);
+    if (str.size() > 1)
+        drawChar(toupper(str[1]), 4);
+}
+
+void ProtoSpAlpaca::m_char(t_symbol* s, const AtomList& l)
+{
+    if (l.empty() || l.size() > 2) {
+        METHOD_ERR(s) << "CHAR [OFFSET] expected";
+        return;
+    }
+
+    auto str = to_string(l[0]);
+
+    if (str.size() != 1) {
+        METHOD_ERR(s) << "single character expected: " << str;
+        return;
+    }
+
+    if (l.size() == 2 && !l[1].isFloat()) {
+        METHOD_ERR(s) << "offset value expected: " << l[1];
+        return;
+    }
+
+    drawChar(toupper(str[0]), l.size() == 2 ? l[1].asFloat() : 0);
 }
 
 void ProtoSpAlpaca::parse(uint8_t v)
@@ -243,6 +310,19 @@ void ProtoSpAlpaca::parse(uint8_t v)
     state_ = STATE_START;
 }
 
+void ProtoSpAlpaca::drawChar(int ch, int offset)
+{
+    floatTo(0, CMD_START);
+    floatTo(0, CMD_TARGET | CMD_TARGET_MATRIX);
+    floatTo(0, CMD_MATRIX_CHAR);
+
+    floatTo(0, 0x3F & ch);
+    floatTo(0, 0x3F & (ch >> 6));
+    if (offset > 0)
+        floatTo(0, offset);
+    floatTo(0, CMD_END);
+}
+
 void setup_proto_sp_alpaca()
 {
     SYM_DIGITAL = gensym("digital");
@@ -256,4 +336,7 @@ void setup_proto_sp_alpaca()
     SYM_RESPONSE = gensym("response");
 
     ObjectFactory<ProtoSpAlpaca> obj("proto.sp.alpaca");
+    obj.addMethod("clear", &ProtoSpAlpaca::m_clear);
+    obj.addMethod("char", &ProtoSpAlpaca::m_char);
+    obj.addMethod("str", &ProtoSpAlpaca::m_str);
 }
