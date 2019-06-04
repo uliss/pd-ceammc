@@ -286,6 +286,24 @@ void ProtoSpAlpaca::m_mode(t_symbol* s, const AtomList& l)
     }
 }
 
+void ProtoSpAlpaca::m_brightness(t_symbol* s, const AtomList& l)
+{
+    if (!checkArgs(l, ARG_FLOAT, s))
+        return;
+
+    const float v = l.floatAt(0, 0);
+    if (v < 0 || v > 1) {
+        METHOD_ERR(s) << "brightness should be in range [0-1]; given value: " << v;
+        return;
+    }
+
+    floatTo(0, CMD_START);
+    floatTo(0, CMD_TARGET | CMD_TARGET_MATRIX);
+    floatTo(0, CMD_MATRIX_SET_BRIGHTNESS);
+    floatTo(0, int(v * 127));
+    floatTo(0, CMD_END);
+}
+
 void ProtoSpAlpaca::m_char(t_symbol* s, const AtomList& l)
 {
     if (l.empty() || l.size() > 2) {
@@ -380,4 +398,5 @@ void setup_proto_sp_alpaca()
     obj.addMethod("char", &ProtoSpAlpaca::m_char);
     obj.addMethod("str", &ProtoSpAlpaca::m_str);
     obj.addMethod("mode", &ProtoSpAlpaca::m_mode);
+    obj.addMethod("brightness", &ProtoSpAlpaca::m_brightness);
 }
