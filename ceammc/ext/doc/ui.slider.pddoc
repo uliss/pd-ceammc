@@ -27,7 +27,8 @@
         </info>
         <mouse>
             <event editmode="true" type="drag" keys="Cmd">changes the slider value</event>
-            <event editmode="true" type="double-click" keys="Cmd">changes slider orientation</event>
+            <event editmode="true" type="double-click" keys="Cmd">changes slider
+            orientation</event>
             <event editmode="0" type="drag">changes the slider value</event>
             <event editmode="0" type="left-click">jump to value unless @mode property is on</event>
             <event editmode="0" type="double-click" keys="Shift">toggle MIDI-learn mode (red border
