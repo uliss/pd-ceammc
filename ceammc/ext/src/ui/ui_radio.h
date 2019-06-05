@@ -47,6 +47,8 @@ public:
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
 
+    void onPopup(t_symbol* menu_name, long item_idx);
+
     // props
     float p_numItems() const;
     void p_setNumItems(float n);
@@ -60,6 +62,7 @@ public:
     void m_reset();
     void m_next();
     void m_prev();
+    void m_random();
     void m_plus(t_float f);
     void m_minus(t_float f);
 

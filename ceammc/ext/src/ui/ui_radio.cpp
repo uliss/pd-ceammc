@@ -4,8 +4,11 @@
 #include "ceammc_ui.h"
 
 #include <cassert>
+#include <chrono>
+#include <random>
 
 static const int MAX_ITEMS = 128;
+static const char* MENU_NAME_CHECKLIST = "checklist-menu";
 
 void setup_ui_radio()
 {
@@ -86,6 +89,16 @@ void UIRadio::onList(const AtomList& lst)
 
 void UIRadio::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
 {
+    if (mod == EMOD_RIGHT) {
+        if (prop_checklist_mode_) {
+            UIPopupMenu menu(asEObj(), MENU_NAME_CHECKLIST, abs_pt);
+            menu.addItem(_("reset"));
+            menu.addItem(_("flip"));
+            menu.addItem(_("random"));
+            return;
+        }
+    }
+
     t_rect r = rect();
     const int idx = isVertical() ? (pt.y / r.height * prop_nitems_) : (pt.x / r.width * prop_nitems_);
 
@@ -203,6 +216,25 @@ void UIRadio::m_next()
     }
 }
 
+void UIRadio::m_random()
+{
+    auto seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine gen(seed);
+
+    if (prop_checklist_mode_) {
+        std::uniform_int_distribution<int> dist(0, 1);
+
+        for (int i = 0; i < prop_nitems_; i++)
+            items_.set(i, dist(gen));
+
+        output();
+        redrawItems();
+    } else {
+        std::uniform_int_distribution<int> dist(0, prop_nitems_ - 1);
+        onFloat(dist(gen));
+    }
+}
+
 void UIRadio::m_prev()
 {
     if (prop_checklist_mode_) {
@@ -260,6 +292,26 @@ void UIRadio::storePreset(size_t idx)
         PresetStorage::instance().setListValueAt(presetId(), idx, listValue());
     else
         PresetStorage::instance().setFloatValueAt(presetId(), idx, singleValue());
+}
+
+void UIRadio::onPopup(t_symbol* menu_name, long item_idx)
+{
+    if (menu_name == gensym(MENU_NAME_CHECKLIST) && prop_checklist_mode_) {
+        switch (item_idx) {
+        case 0:
+            m_reset();
+            break;
+        case 1:
+            m_flip();
+            break;
+        case 2:
+            m_random();
+            break;
+        default:
+            UI_ERR << "unknown menu item: " << item_idx;
+            break;
+        }
+    }
 }
 
 AtomList UIRadio::listValue() const
@@ -457,11 +509,12 @@ void UIRadio::setup()
     obj.setPropertyAccessor("mode", &UIRadio::p_mode, &UIRadio::p_setMode);
     obj.addProperty("value", &UIRadio::p_value, &UIRadio::p_setValue);
 
+    obj.addMethod("+", &UIRadio::m_plus);
+    obj.addMethod("-", &UIRadio::m_minus);
     obj.addMethod("flip", &UIRadio::m_flip);
     obj.addMethod("next", &UIRadio::m_next);
     obj.addMethod("prev", &UIRadio::m_prev);
-    obj.addMethod("+", &UIRadio::m_plus);
-    obj.addMethod("-", &UIRadio::m_minus);
-    obj.addMethod("set", &UIRadio::p_setValue);
+    obj.addMethod("random", &UIRadio::m_random);
     obj.addMethod("reset", &UIRadio::m_reset);
+    obj.addMethod("set", &UIRadio::p_setValue);
 }

@@ -28,6 +28,7 @@
             orientation</event>
             <event editmode="0" type="left-click">select cell in radio mode, toggle cell in check
             list mode</event>
+            <event editmode="0" type="right-click">show context menu</event>
         </mouse>
         <arguments>
             <argument name="NCELLS" type="float" minvalue="2" maxvalue="128">number of
@@ -65,6 +66,7 @@
             <method name="set">sets radio without output 
             <param name="V" type="float" required="true">new value</param></method>
             <method name="reset">reset radio (only in checklist mode)</method>
+            <method name="random">check random cells</method>
             <method name="flip">flips radio (only in checklist mode)</method>
             <method name="next">moves to next position until last cell is reached (single mode
             only)</method>
