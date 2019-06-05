@@ -344,10 +344,10 @@ void UIRadio::drawItems()
                 if (items_[i]) {
                     const int offset = i * (cell_size + zoom());
 
-                    const int x0 = offset + 1;
-                    const int y0 = 1;
-                    const int x1 = offset + cell_size - 1;
-                    const int y1 = cell_size - 1;
+                    const int x0 = 1;
+                    const int y0 = offset + 1;
+                    const int x1 = cell_size - 1;
+                    const int y1 = offset + cell_size - 1;
 
                     // draw cross
                     p.drawLine(x0, y0, x1, y1);

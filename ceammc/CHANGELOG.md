@@ -19,6 +19,9 @@
 - ui.tab in single mode outputs like ui.menu: list pair - INDEX TAB_NAME
 - flow.demux by default handles @index and @index? properties. To pass this values use @noprops flag
 
+### Fixed:
+- ui.vrd - invalid draw in check list mode
+
 ## [0.7.1]
 ### Added:
 - properties dialogs for ui.* objects are improved:
