@@ -43,11 +43,12 @@ public:
     void m_brightness(t_symbol* s, const AtomList& l);
     void m_char(t_symbol* s, const AtomList& l);
     void m_clear(t_symbol* s, const AtomList& l);
-    void m_row(t_symbol* s, const AtomList& l);
     void m_fill(t_symbol* s, const AtomList& l);
     void m_get_version(t_symbol* s, const AtomList& l);
+    void m_invert(t_symbol* s, const AtomList& l);
     void m_mode(t_symbol* s, const AtomList& l);
     void m_pixel(t_symbol* s, const AtomList& l);
+    void m_row(t_symbol* s, const AtomList& l);
     void m_str(t_symbol* s, const AtomList& l);
     void m_sync(t_symbol* s, const AtomList& l);
 
