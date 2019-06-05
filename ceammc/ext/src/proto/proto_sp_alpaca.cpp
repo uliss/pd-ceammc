@@ -265,6 +265,51 @@ void ProtoSpAlpaca::m_clear(t_symbol* s, const AtomList& l)
     floatTo(0, CMD_END);
 }
 
+void ProtoSpAlpaca::m_row(t_symbol* s, const AtomList& l)
+{
+    // args example: 2 0 1 1 0 1 1
+    // 3rd row with values 0 1 1 0 1 1
+    if (l.size() < 2) {
+        METHOD_ERR(s) << "ROW_IDX VALUE [VALUE..] expected: " << l;
+        return;
+    }
+
+    int row = l.intAt(0, 0);
+    if (row < 0 || row > 7) {
+        METHOD_ERR(s) << "invalid row index range: " << row << "; 0 <= x < 8 expected";
+        return;
+    }
+
+    floatTo(0, CMD_START);
+    floatTo(0, CMD_TARGET | CMD_TARGET_MATRIX);
+    floatTo(0, CMD_MATRIX_ROW | row);
+
+    // pack first 4 elements of list in format 0 1 1 0 to bits
+    int left_part = 0;
+    const size_t LEFT_OFF = 1;
+    const size_t LEFT_N = std::min<size_t>(4 + LEFT_OFF, l.size());
+    for (size_t i = LEFT_OFF; i < LEFT_N; i++) {
+        auto v = l[i].asFloat(0);
+        if (v != 0)
+            left_part |= (1 << (i - LEFT_OFF));
+    }
+
+    floatTo(0, left_part);
+
+    // pack  4 elements of list in format 0 1 1 0 to bits
+    int right_part = 0;
+    const size_t RIGHT_OFF = 5;
+    const size_t RIGHT_N = std::min<size_t>(4 + RIGHT_OFF, l.size());
+    for (size_t i = RIGHT_OFF; i < RIGHT_N; i++) {
+        auto v = l[i].asFloat(0);
+        if (v != 0)
+            right_part |= (1 << (i - RIGHT_OFF));
+    }
+
+    floatTo(0, right_part);
+    floatTo(0, CMD_END);
+}
+
 void ProtoSpAlpaca::m_fill(t_symbol* s, const AtomList& l)
 {
     floatTo(0, CMD_START);
@@ -501,6 +546,7 @@ void setup_proto_sp_alpaca()
     obj.addMethod("brightness", &ProtoSpAlpaca::m_brightness);
     obj.addMethod("char", &ProtoSpAlpaca::m_char);
     obj.addMethod("clear", &ProtoSpAlpaca::m_clear);
+    obj.addMethod("row", &ProtoSpAlpaca::m_row);
     obj.addMethod("fill", &ProtoSpAlpaca::m_fill);
     obj.addMethod("mode", &ProtoSpAlpaca::m_mode);
     obj.addMethod("pixel", &ProtoSpAlpaca::m_pixel);
