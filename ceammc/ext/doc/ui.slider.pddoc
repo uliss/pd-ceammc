@@ -23,12 +23,16 @@
             </also>
         </meta>
         <info>
-            <par>Ctrl+Double click in edit mode changes slider orientation</par>
             <par>[ui.hsl] is alias for horizontal slider, [ui.vsl] - for vertical</par>
-            <par>Shift+click in performance mode - to bind to first received MIDI control event
-            from controller (red border appears). By default @midi_pickup is on, so you have to
-            pass over current slider value by MIDI control knob to activate binding.</par>
         </info>
+        <mouse>
+            <event editmode="true" type="drag" keys="Cmd">changes the slider value</event>
+            <event editmode="true" type="double-click" keys="Cmd">changes slider orientation</event>
+            <event editmode="0" type="drag">changes the slider value</event>
+            <event editmode="0" type="left-click">jump to value unless @mode property is on</event>
+            <event editmode="0" type="double-click" keys="Shift">toggle MIDI-learn mode (red border
+            displayed)</event>
+        </mouse>
         <properties>
             <property name="@min" type="float" default="0">minimum slider value</property>
             <property name="@max" type="float" default="1">maximum slider value</property>
