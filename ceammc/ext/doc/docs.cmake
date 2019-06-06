@@ -359,6 +359,7 @@ set(DOC_FILES
     preset.storage
     preset.symbol
     proto.firmata
+    proto.sp.alpaca
     prop
     prop.declare
     prop.get

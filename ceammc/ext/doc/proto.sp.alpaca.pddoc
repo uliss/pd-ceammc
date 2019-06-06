@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="proto.sp.alpaca">
+        <title>proto.sp.alpaca</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>protocol parser for Arduino-based CEAMMC footswitch</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>proto</category>
+            <keywords>protocol diy alpaca footswitch</keywords>
+            <since>0.8</since>
+        </meta>
+        <methods>
+            <method name="dump">dumps all object info to Pd console window.</method>
+            <method name="brightness">set LED brightness
+            <param name="VAL" type="float" required="true" minvalue="0" maxvalue="1">value</param></method>
+            <method name="clear">clear LED display</method>
+            <method name="fill">fill LED display</method>
+            <method name="invert">invert LED display</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="float">input byte value from arduino</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output parsed messages from device</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.knob] [version? #d(
+|
+|         [clear #a( [fill #b( [ui.hrd @mode 1] [F]         [S digits=5]
+|                              |                |           |
+[brightness $1(                [msg row 2 #c]   [str $1 #e( [char $1 #f(
+|
+|                              [ui.menu none digital1 digital2 analog]
+|                              |
+|                              [mode 0 $2 #g(
+|
+[proto.sp.alpaca #z]
+|
+[hw.arduino @rate 9600 @reconnect]
+|
+[proto.sp.alpaca]
+|
+[route digital analog]
+|                  ^|
+[route 0 1 2 3   ] [route 0 1]
+|    ^|  ^^|  ^^^| |     ^|
+[T]  [T]  [T]  [T] [F]   [F]
+
+[X a->z]
+[X b->z]
+[X c->z]
+[X d->z]
+[X e->z]
+[X f->z]
+[X g->z]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

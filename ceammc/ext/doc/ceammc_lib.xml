@@ -1163,6 +1163,9 @@
     <entry descr="Firmata Arduino protocol support" name="proto.firmata" ref_view="object">
       <xi:include href="proto.firmata.pddoc" parse="xml"/>
     </entry>
+    <entry descr="protocol parser for Arduino-based CEAMMC footswitch" name="proto.sp.alpaca" ref_view="object">
+      <xi:include href="proto.sp.alpaca.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="random">
     <entry descr="random weighted integers on interval [0, n)" name="random.discrete" ref_view="object">
@@ -1469,6 +1472,7 @@
       <author>Olli Parviainen</author>
       <author>Pierre Cochard</author>
       <author>Pierre Guillot</author>
+      <author>Serge Poltavski</author>
       <author>Serge Poltavsky</author>
       <author>Serge Potlavsky</author>
       <author>Thomas Le Meur</author>

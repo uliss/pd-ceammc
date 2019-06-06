@@ -362,6 +362,7 @@ prop.get,prop->,@->		.		?
 prop.get~,prop~>,@~>		~		?
 prop.set,prop<-		?		.
 proto.firmata		.		.
+proto.sp.alpaca		.		.
 radio		.		?
 random.discrete		.		.
 random.float		.		.
