@@ -118,7 +118,7 @@ void BaseDac::setupDSP(t_signal** sp)
 
             dsp_add_plus(in, out, out, DEFDACBLKSIZE);
         } else
-            OBJ_ERR << "invalid channel number: " << (ch + 1);
+            OBJ_LOG << "invalid channel number: " << (ch + 1);
     }
 }
 
