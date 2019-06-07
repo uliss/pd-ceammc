@@ -43,7 +43,7 @@
             mode)</argument>
         </arguments>
         <properties>
-            <property name="@order" type="int" minvalue="1" maxvalue="63" default="4"
+            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
             readonly="true">the order of decomposition</property>
             <property name="@mode" type="symbol" enum="regular irregular binaural" readonly="true">
             decoding mode</property>
@@ -68,10 +68,10 @@
             readonly="true">list of plain wave z-coordinates (heights). -1 is the bottom of the
             soundfield, 0 is the center of the soundfield and 1 is the top of the
             soundfield.</property>
-            <property name="@nharm" type="int" minvalue="1" readonly="true">number of circular
-            harmonics.</property>
-            <property name="@nwaves" type="int" minvalue="1" readonly="true">number of plain
-            harmonics.</property>
+            <property name="@nharm" type="int" minvalue="1" readonly="true" default="0">number of
+            circular harmonics.</property>
+            <property name="@nwaves" type="int" minvalue="1" readonly="true" default="0">number of
+            plain waves.</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">

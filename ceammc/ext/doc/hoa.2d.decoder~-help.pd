@@ -63,17 +63,17 @@ Type: int. Units: samp. Default value: 0\. Range: 0\...512\.;
 values: regular \, irregular \, binaural.;
 #X msg 110 898 @nharm;
 #X text 245 898 (readonly) Get number of circular harmonics. Type:
-int. Min value: 1\.;
+int. Default value: 0\. Min value: 1\.;
 #X msg 110 940 @nwaves;
-#X text 245 940 (readonly) Get number of plain harmonics. Type: int.
-Min value: 1\.;
+#X text 245 940 (readonly) Get number of plain waves. Type: int. Default
+value: 0\. Min value: 1\.;
 #X msg 110 982 @offset;
 #X text 245 982 Get/Set rotation of loudspeakers. Only available for
 @regular and @irregular mode. Type: float. Units: deg. Default value:
 0\.;
 #X msg 110 1039 @order;
 #X text 245 1039 (readonly) Get the order of decomposition. Type: int.
-Default value: 4\. Range: 1\...63\.;
+Default value: 1\. Range: 1\...63\.;
 #X msg 110 1081 @pw_x;
 #X text 245 1081 (readonly) Get list of plain wave x-coordinates (abscissas).
 -1 is the left of the soundfield \, 0 is the center of the soundfield
