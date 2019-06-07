@@ -53,11 +53,11 @@ your ears.;
 #X msg 110 929 @maxre;
 #X text 245 929 alias for @mode maxre.;
 #X msg 110 958 @mode;
-#X text 245 958 (readonly) Get optimization mode. Type: symbol. Default
-value: inphase. Allowed values: basic \, maxre \, inphase.;
+#X text 245 958 Get/Set optimization mode. Type: symbol. Default value:
+inphase. Allowed values: basic \, maxre \, inphase.;
 #X msg 110 1000 @order;
 #X text 245 1000 (readonly) Get the order of decomposition. Type: int.
-Default value: 4\. Range: 1\...63\.;
+Default value: 1\. Range: 1\...63\.;
 #X obj 20 1052 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1057 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
