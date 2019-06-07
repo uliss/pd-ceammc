@@ -33,13 +33,12 @@
             <argument name="PNAME" type="symbol">patch name</argument>
         </arguments>
         <properties>
-            <property name="@order" type="int" minvalue="1" maxvalue="63" default="4"
+            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
             readonly="true">the order of decomposition</property>
-            <property name="@mode" type="symbol" enum="basic maxre inphase" default="inphase"
-            readonly="true">optimization mode</property>
-            <property name="@basic" type="alias">alias for @mode basic.</property>
-            <property name="@maxre" type="alias">alias for @mode maxre.</property>
-            <property name="@inphase" type="alias">alias for @mode inphase.</property>
+            <property name="@nwaves" type="int" minvalue="1" readonly="true" default="7">number of
+            plain waves.</property>
+            <property name="@domain" type="symbol" readonly="true" default="harmonic" enum="harmonics plainwaves">
+            process domain: harmonics or plainwaves.</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">

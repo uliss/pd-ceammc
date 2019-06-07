@@ -50,7 +50,7 @@ HoaProcess::HoaProcess(const PdArgs& args)
     domain_->appendEnum(SYM_PLANEWAVES);
     createProperty(domain_);
 
-    plain_waves_ = new IntPropertyMinEq("@n", 7, 1);
+    plain_waves_ = new IntPropertyMinEq("@nwaves", 7, 1);
     createProperty(plain_waves_);
 
     target_ = new TargetProperty(
@@ -80,6 +80,7 @@ void HoaProcess::parseProperties()
         property("@order")->set({ Atom(positionalFloatArgument(0)) });
         property("@order")->setReadonly(true);
     } else {
+        property("@order")->setReadonly(true);
         OBJ_ERR << "order required";
         return;
     }
