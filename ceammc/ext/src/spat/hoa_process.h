@@ -112,6 +112,11 @@ public:
     static size_t calcIndexDegree(size_t index);
     static long calcAzimuthalOrder(size_t index);
     static size_t orderToIndex(long order);
+
+public:
+    // only for tests
+    Buffer& inputBuffer() { return in_buf_; }
+    Buffer& outputBuffer() { return out_buf_; }
 };
 
 void setup_spat_hoa_process();

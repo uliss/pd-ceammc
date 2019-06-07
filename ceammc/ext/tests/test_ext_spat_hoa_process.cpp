@@ -16,8 +16,9 @@
 #include "catch.hpp"
 #include "test_base.h"
 #include "test_external.h"
+#include "test_sound.h"
 
-PD_COMPLETE_TEST_SETUP(HoaProcess, spat, hoa_process);
+PD_COMPLETE_TEST_SETUP(HoaProcess, spat, hoa_process)
 
 TEST_CASE("hoa.process~", "[externals]")
 {
@@ -28,28 +29,28 @@ TEST_CASE("hoa.process~", "[externals]")
     {
         SECTION("empty args")
         {
-            TestHoaProcess t("hoa.process~");
+            TestExtHoaProcess t("hoa.process~");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 0);
         }
 
         SECTION("no patch")
         {
-            TestHoaProcess t("hoa.process~", LA(5));
+            TestExtHoaProcess t("hoa.process~", LA(5));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 0);
         }
 
         SECTION("invalid patch name")
         {
-            TestHoaProcess t("hoa.process~", LA(5, "not-exists"));
+            TestExtHoaProcess t("hoa.process~", LA(5, "not-exists"));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 0);
         }
 
         SECTION("patch name 01")
         {
-            TestHoaProcess t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_01"));
+            TestExtHoaProcess t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_01"));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @target, -1);
@@ -57,7 +58,7 @@ TEST_CASE("hoa.process~", "[externals]")
 
         SECTION("patch name 02")
         {
-            TestHoaProcess t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_02"));
+            TestExtHoaProcess t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_02"));
             REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 4);
             REQUIRE_PROPERTY_FLOAT(t, @target, -1);
@@ -140,6 +141,68 @@ TEST_CASE("hoa.process~", "[externals]")
         REQUIRE(t.messagesAt(2) == messageList(4));
         REQUIRE(t.messagesAt(1) == messageList(6));
         REQUIRE(t.messagesAt(0) == messageList(8));
+    }
+
+    SECTION("audio 10")
+    {
+        TestExtHoaProcess t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_10"));
+        REQUIRE(t.numInlets() == 7);
+        REQUIRE(t.numOutlets() == 7);
+    }
+
+    SECTION("audio 11")
+    {
+        TestExtHoaProcess t("hoa.process~", LA(4, TEST_DATA_DIR "/hoa_test_11"));
+        REQUIRE(t.numInlets() == 9);
+        REQUIRE(t.numOutlets() == 9);
+    }
+
+    SECTION("audio 12")
+    {
+        TestExtHoaProcess t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_12"));
+        REQUIRE(t.numInlets() == 11);
+        REQUIRE(t.numOutlets() == 12);
+    }
+
+    SECTION("audio 13")
+    {
+        TestExtHoaProcess t("hoa.process~", LA(1, TEST_DATA_DIR "/hoa_test_10"));
+        REQUIRE(t.numInlets() == 3);
+        REQUIRE(t.numOutlets() == 3);
+        REQUIRE(t->numInputChannels() == 3);
+        REQUIRE(t->numOutputChannels() == 3);
+
+        pd::External sig1("sig~", LF(1));
+        REQUIRE(sig1.connectTo(0, t, 0));
+        pd::External sig2("sig~", LF(-1));
+        REQUIRE(sig2.connectTo(0, t, 1));
+        pd::External sig3("sig~", LF(2.5));
+        REQUIRE(sig3.connectTo(0, t, 2));
+
+        cnv->addExternal(sig1);
+        cnv->addExternal(sig2);
+        cnv->addExternal(sig3);
+        cnv->addExternal(t);
+
+        REQUIRE(t->inputBuffer().size() == 0);
+        REQUIRE(t->outputBuffer().size() == 0);
+
+        canvas_resume_dsp(1);
+        t.schedTicks(1);
+        canvas_suspend_dsp();
+
+        REQUIRE(t->inputBuffer().size() != 0);
+        REQUIRE(t->outputBuffer().size() != 0);
+
+        for (size_t i = 0; i < t->outputBuffer().size(); i++) {
+            auto samp = t->outputBuffer()[i];
+            if (i / t->blockSize() == 0)
+                REQUIRE(samp == 2);
+            else if (i / t->blockSize() == 1)
+                REQUIRE(samp == -2);
+            else if (i / t->blockSize() == 2)
+                REQUIRE(samp == 5);
+        }
     }
 
     SECTION("@target")
