@@ -167,7 +167,7 @@
         patch.props prop prop.declare prop.get prop.get~ prop.set
     }}
     {proto {
-        proto.firmata
+        proto.firmata proto.sp.alpaca
     }}
     {random {
         random.discrete random.float random.gauss random.int random.linear

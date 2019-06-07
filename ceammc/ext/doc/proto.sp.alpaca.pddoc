@@ -15,11 +15,50 @@
         </meta>
         <methods>
             <method name="dump">dumps all object info to Pd console window.</method>
-            <method name="brightness">set LED brightness
-            <param name="VAL" type="float" required="true" minvalue="0" maxvalue="1">value</param></method>
+            <method name="brightness">set LED brightness 
+            <param name="VAL" type="float" required="true" minvalue="0" maxvalue="1">
+            value</param></method>
             <method name="clear">clear LED display</method>
             <method name="fill">fill LED display</method>
             <method name="invert">invert LED display</method>
+            <method name="sync">force device to send it's button and mode state</method>
+            <method name="version?">outputs device protocol version as message: [version
+            N]</method>
+            <method name="mode">set device jack mode 
+            <param name="IDX" type="int" required="true" enum="0 1">left (0) or right (1) device
+            side</param>
+            <param name="MODE" type="symbol" required="true"
+            enum="digital1 digital2 digital analog analog_raw none">output mode: none - no output,
+            digital1 - send only first button press, digital2 - send only second button press,
+            digital - send both buttons press, analog - send analog value (from pedal), analog_row
+            - send raw analog values (pair)</param></method>
+            <method name="pixel">draw/clear pixel on display matrix (6x8). 
+            <param name="X" type="int" required="true" minvalue="0" maxvalue="7">x-pixel
+            coordinate</param>
+            <param name="Y" type="int" required="true" minvalue="0" maxvalue="5">y-pixel
+            coordinate</param>
+            <param name="ON/OFF" type="int" required="true" enum="0 1">draw (1) or clear
+            (0)</param></method>
+            <method name="char">draw char at specified position 
+            <param name="CH" type="atom" required="true">char symbol or int value from 0 to
+            9</param>
+            <param name="XOFF" type="int" minvalue="0" maxvalue="7">horizontal character
+            offset</param></method>
+            <method name="char">draw char at specified position 
+            <param name="CH" type="atom" required="true">char symbol or int value from 0 to
+            9</param>
+            <param name="XOFF" type="int" minvalue="0" maxvalue="7">horizontal character
+            offset</param></method>
+            <method name="str">draw string 
+            <param name="STR" type="atom" required="true">string or int value from -9 to
+            99</param></method>
+            <method name="col">draw column pixels 
+            <param name="N" type="int" required="true" minvalue="0" maxvalue="7">column
+            index</param>
+            <param name="BITS" type="list" required="true">list of 0 and 1</param></method>
+            <method name="row">draw row pixels 
+            <param name="N" type="int" required="true" minvalue="0" maxvalue="5">row index</param>
+            <param name="BITS" type="list" required="true">list of 0 and 1</param></method>
         </methods>
         <inlets>
             <inlet>
