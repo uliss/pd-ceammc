@@ -144,9 +144,6 @@
 #X connect 27 0 22 0;
 #X connect 27 0 21 0;
 #X restore 42 267 pd hoa.open.hel;
-#X obj 5 464 c.blackboard @size 398 39 @fontname "Monaco" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@chalkmode 0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
 #X text 4 47 Hoa Library allows musicians and composers to synthesize
 \, transform and render sound fields in a creative and artistic way.
 This library facilitates the understanding and the appropriation of
@@ -168,19 +165,15 @@ synthesis \, perspective distorsion or spatial filtering.;
 1 @active_color 0 0.75 1 1 @hover_color 0.5 0.5 0.5 1 @fontname "Monaco"
 @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
 @label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0 @orientation 1 @toggle 0 @items "hoa.3d.decoder~"
-"hoa.3d.encoder~" "hoa.3d.map~" "hoa.3d.meter~" "hoa.3d.optim~" "hoa.3d.wider~"
-"hoa.3d.scope~" "hoa.3d.exchanger~";
-#X obj 84 28 canvas.name;
-#X obj 84 8 msg.onload;
+"top" @label_margins 0 0 @orientation 1 @toggle 0 @items "hoa.fx.convolve~"
+"hoa.fx.delay~" "hoa.fx.freeverb~" "hoa.fx.gain~" "hoa.fx.ringmod~"
+"hoa.fx.mirror~" "hoa.syn.delay~" "hoa.syn.grain~" "hoa.syn.ringmod~"
+;
 #X obj 5 202 list.at 1;
-#X connect 2 0 9 0;
-#X connect 3 0 5 0;
-#X connect 7 0 8 0;
-#X connect 8 0 12 0;
-#X connect 9 0 4 1;
-#X connect 10 0 0 0;
-#X connect 11 0 10 0;
-#X connect 12 0 4 0;
-#X connect 12 0 2 0;
+#X connect 2 0 8 0;
+#X connect 6 0 7 0;
+#X connect 7 0 9 0;
+#X connect 8 0 4 1;
+#X connect 9 0 4 0;
+#X connect 9 0 2 0;
 #X coords 0 -2.14748e+09 1 -2.14748e+09 100 60 0;
