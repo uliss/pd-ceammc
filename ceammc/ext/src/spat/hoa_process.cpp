@@ -76,33 +76,36 @@ HoaProcess::~HoaProcess()
 
 void HoaProcess::parseProperties()
 {
-    if (positionalFloatArgument(0, -1) > 0) {
-        property("@order")->set({ Atom(positionalFloatArgument(0)) });
-        property("@order")->setReadonly(true);
-    } else {
-        property("@order")->setReadonly(true);
-        OBJ_ERR << "order required";
-        return;
-    }
-
-    // handle position patch name
-    t_symbol* patch = positionalArguments().symbolAt(1, nullptr);
-
-    // hangle positional mode arg
-    if (positionalSymbolArgument(2, nullptr))
-        domain_->setValue(positionalSymbolArgument(2));
-
-    domain_->setReadonly(true);
-    plain_waves_->setReadonly(true);
-
+    // store current canvas
     t_canvas* current = canvas_getcurrent();
 
     try {
+        // handle position patch name
+        t_symbol* patch = positionalArguments().symbolAt(1, nullptr);
+
+        // hangle positional mode arg
+        if (positionalSymbolArgument(2, nullptr))
+            domain_->setValue(positionalSymbolArgument(2));
+
+        const auto ARG0 = positionalFloatArgument(0, -1);
+
+        if (domain_->value() == SYM_HARMONICS) {
+            if (ARG0 > 0)
+                prop_order()->setValue(ARG0);
+            else
+                throw std::invalid_argument("order required");
+        } else if (domain_->value() == SYM_PLANEWAVES) {
+            if (ARG0 > 0)
+                plain_waves_->setValue(ARG0);
+            else
+                throw std::invalid_argument("number of plainwaves required");
+        }
+
         if (!init())
             throw std::runtime_error("can't init canvas");
 
         if (!patch)
-            throw std::runtime_error("bad argument, second argument must be a patch name");
+            throw std::invalid_argument("bad argument, second argument must be a patch name");
 
         AtomList patch_args = args().slice(3);
 
@@ -127,6 +130,12 @@ void HoaProcess::parseProperties()
         OBJ_ERR << e.what();
     }
 
+    // set prop readonly
+    prop_order()->setReadonly(true);
+    plain_waves_->setReadonly(true);
+    domain_->setReadonly(true);
+
+    // restore canvas
     canvas_setcurrent(current);
     clock_.delay(5);
 }
