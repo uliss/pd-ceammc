@@ -81,6 +81,9 @@ public:
         for (size_t i = 0; i < n; i++)
             createSignalOutlet();
     }
+
+protected:
+    IntPropertyClosedRange* prop_order() { return order_; }
 };
 
 #endif // HOA_COMMON_H
