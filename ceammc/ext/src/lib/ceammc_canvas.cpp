@@ -243,6 +243,7 @@ std::vector<const t_object*> Canvas::findObjectByClassName(t_symbol* name)
 void Canvas::addExternal(pd::External& ext)
 {
     glist_add(canvas_, &ext.object()->te_g);
+    ext.setParent(canvas_);
 }
 
 std::shared_ptr<pd::External> Canvas::createObject(const char* name, const AtomList& args)

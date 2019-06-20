@@ -42,7 +42,7 @@ HoaProcess::HoaProcess(const PdArgs& args)
     , canvas_(nullptr)
     , canvas_yoff_(10)
     , domain_(nullptr)
-    , plain_waves_(nullptr)
+    , plane_waves_(nullptr)
     , target_(nullptr)
     , clock_(this, &HoaProcess::clockTick)
 {
@@ -50,8 +50,8 @@ HoaProcess::HoaProcess(const PdArgs& args)
     domain_->appendEnum(SYM_PLANEWAVES);
     createProperty(domain_);
 
-    plain_waves_ = new IntPropertyMinEq("@nwaves", 7, 1);
-    createProperty(plain_waves_);
+    plane_waves_ = new IntPropertyMinEq("@nwaves", 7, 1);
+    createProperty(plane_waves_);
 
     target_ = new TargetProperty(
         "@target",
@@ -96,9 +96,9 @@ void HoaProcess::parseProperties()
                 throw std::invalid_argument("order required");
         } else if (domain_->value() == SYM_PLANEWAVES) {
             if (ARG0 > 0)
-                plain_waves_->setValue(ARG0);
+                plane_waves_->setValue(ARG0);
             else
-                throw std::invalid_argument("number of plainwaves required");
+                throw std::invalid_argument("number of planewaves required");
         }
 
         if (!init())
@@ -132,7 +132,7 @@ void HoaProcess::parseProperties()
 
     // set prop readonly
     prop_order()->setReadonly(true);
-    plain_waves_->setReadonly(true);
+    plane_waves_->setReadonly(true);
     domain_->setReadonly(true);
 
     // restore canvas
@@ -386,7 +386,7 @@ bool HoaProcess::loadHarmonics(t_symbol* name, const AtomList& patch_args)
 
 bool HoaProcess::loadPlaneWaves(t_symbol* name, const AtomList& patch_args)
 {
-    const size_t NINSTANCE = plain_waves_->value();
+    const size_t NINSTANCE = plane_waves_->value();
     instances_.assign(NINSTANCE, ProcessInstance());
 
     AtomList load_args;

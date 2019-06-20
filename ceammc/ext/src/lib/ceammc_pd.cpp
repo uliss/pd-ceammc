@@ -37,7 +37,8 @@ typedef t_object* (*t_newgimme)(t_symbol* s, int argc, t_atom* argv);
 using namespace ceammc;
 
 pd::External::External(const char* name, const AtomList& lst)
-    : obj_(0)
+    : obj_(nullptr)
+    , parent_(nullptr)
 {
     try {
         t_symbol* OBJ_NAME = gensym(name);
@@ -65,7 +66,8 @@ pd::External::External(const char* name, const AtomList& lst)
 pd::External::~External()
 {
     if (obj_) {
-        pd_free(&obj_->te_g.g_pd);
+        if (!parent_)
+            pd_free(&obj_->te_g.g_pd);
     }
 }
 
@@ -159,6 +161,11 @@ bool pd::External::connectFrom(int outn, pd::External& ext, int inln)
 t_object* pd::External::object()
 {
     return obj_;
+}
+
+void pd::External::setParent(t_canvas* cnv)
+{
+    parent_ = cnv;
 }
 
 void pd::External::sendBang()

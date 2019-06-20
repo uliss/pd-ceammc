@@ -35,6 +35,7 @@ namespace pd {
     class External {
     private:
         t_object* obj_;
+        t_canvas* parent_;
 
     public:
         External(const char* name, const AtomList& lst = AtomList());
@@ -52,6 +53,7 @@ namespace pd {
 
         t_object* object();
         t_pd* pd() { return &obj_->te_g.g_pd; }
+        void setParent(t_canvas* cnv);
 
         void sendBang();
         void sendFloat(t_float v);

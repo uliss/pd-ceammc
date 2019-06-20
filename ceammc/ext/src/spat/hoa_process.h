@@ -39,7 +39,7 @@ class HoaProcess : public HoaBase {
     Buffer out_buf_;
 
     SymbolEnumProperty* domain_;
-    IntPropertyMinEq* plain_waves_;
+    IntPropertyMinEq* plane_waves_;
     TargetProperty* target_;
     int target_value_;
 

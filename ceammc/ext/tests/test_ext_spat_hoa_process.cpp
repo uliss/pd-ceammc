@@ -32,6 +32,7 @@ TEST_CASE("hoa.process~", "[externals]")
             TestExtHoaProcess t("hoa.process~");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 0);
+            REQUIRE_PROPERTY(t, @domain, S("harmonics"));
         }
 
         SECTION("no patch")
@@ -39,6 +40,7 @@ TEST_CASE("hoa.process~", "[externals]")
             TestExtHoaProcess t("hoa.process~", LA(5));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 0);
+            REQUIRE_PROPERTY(t, @domain, S("harmonics"));
         }
 
         SECTION("invalid patch name")
@@ -46,6 +48,7 @@ TEST_CASE("hoa.process~", "[externals]")
             TestExtHoaProcess t("hoa.process~", LA(5, "not-exists"));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 0);
+            REQUIRE_PROPERTY(t, @domain, S("harmonics"));
         }
 
         SECTION("patch name 01")
@@ -54,6 +57,7 @@ TEST_CASE("hoa.process~", "[externals]")
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @target, -1);
+            REQUIRE_PROPERTY(t, @domain, S("harmonics"));
         }
 
         SECTION("patch name 02")
@@ -61,6 +65,27 @@ TEST_CASE("hoa.process~", "[externals]")
             TestExtHoaProcess t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_02"));
             REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 4);
+            REQUIRE_PROPERTY_FLOAT(t, @target, -1);
+            REQUIRE_PROPERTY(t, @domain, S("harmonics"));
+        }
+
+        SECTION("invalid patch name planewaves")
+        {
+            TestExtHoaProcess t("hoa.process~", LA(11, "not-exists", "planewaves"));
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numOutlets() == 0);
+            REQUIRE_PROPERTY_FLOAT(t, @target, -1);
+            REQUIRE_PROPERTY(t, @domain, S("planewaves"));
+        }
+
+        SECTION("patch name planewaves")
+        {
+            TestExtHoaProcess t("hoa.process~", LA(15, TEST_DATA_DIR "/hoa_test_10", "planewaves"));
+            REQUIRE_PROPERTY_FLOAT(t, @nwaves, 15);
+            REQUIRE_PROPERTY(t, @domain, S("planewaves"));
+            REQUIRE(t.numInlets() == 15);
+            REQUIRE(t.numOutlets() == 15);
+
             REQUIRE_PROPERTY_FLOAT(t, @target, -1);
         }
     }
@@ -150,11 +175,25 @@ TEST_CASE("hoa.process~", "[externals]")
         REQUIRE(t.numOutlets() == 7);
     }
 
+    SECTION("audio 10 plain")
+    {
+        TestExtHoaProcess t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_10", "planewaves"));
+        REQUIRE(t.numInlets() == 3);
+        REQUIRE(t.numOutlets() == 3);
+    }
+
     SECTION("audio 11")
     {
         TestExtHoaProcess t("hoa.process~", LA(4, TEST_DATA_DIR "/hoa_test_11"));
         REQUIRE(t.numInlets() == 9);
         REQUIRE(t.numOutlets() == 9);
+    }
+
+    SECTION("audio 11 plane")
+    {
+        TestExtHoaProcess t("hoa.process~", LA(4, TEST_DATA_DIR "/hoa_test_11", "planewaves"));
+        REQUIRE(t.numInlets() == 4);
+        REQUIRE(t.numOutlets() == 4);
     }
 
     SECTION("audio 12")
@@ -164,9 +203,58 @@ TEST_CASE("hoa.process~", "[externals]")
         REQUIRE(t.numOutlets() == 12);
     }
 
+    SECTION("audio 12 plane")
+    {
+        TestExtHoaProcess t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_12", "planewaves"));
+        REQUIRE(t.numInlets() == 5);
+        REQUIRE(t.numOutlets() == 6);
+    }
+
     SECTION("audio 13")
     {
         TestExtHoaProcess t("hoa.process~", LA(1, TEST_DATA_DIR "/hoa_test_10"));
+        REQUIRE(t.numInlets() == 3);
+        REQUIRE(t.numOutlets() == 3);
+        REQUIRE(t->numInputChannels() == 3);
+        REQUIRE(t->numOutputChannels() == 3);
+
+        pd::External sig1("sig~", LF(1));
+        REQUIRE(sig1.connectTo(0, t, 0));
+        pd::External sig2("sig~", LF(-1));
+        REQUIRE(sig2.connectTo(0, t, 1));
+        pd::External sig3("sig~", LF(2.5));
+        REQUIRE(sig3.connectTo(0, t, 2));
+
+        cnv->addExternal(sig1);
+        cnv->addExternal(sig2);
+        cnv->addExternal(sig3);
+        cnv->addExternal(t);
+
+        REQUIRE(t->inputBuffer().size() == 0);
+        REQUIRE(t->outputBuffer().size() == 0);
+
+        canvas_resume_dsp(1);
+        t.schedTicks(1);
+        canvas_suspend_dsp();
+
+        REQUIRE(t->inputBuffer().size() != 0);
+        REQUIRE(t->outputBuffer().size() != 0);
+
+        for (size_t i = 0; i < t->outputBuffer().size(); i++) {
+            auto samp = t->outputBuffer()[i];
+            if (i / t->blockSize() == 0)
+                REQUIRE(samp == 2);
+            else if (i / t->blockSize() == 1)
+                REQUIRE(samp == -2);
+            else if (i / t->blockSize() == 2)
+                REQUIRE(samp == 5);
+        }
+    }
+
+    SECTION("audio 13 plane")
+    {
+        return;
+        TestExtHoaProcess t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_10", "planewaves"));
         REQUIRE(t.numInlets() == 3);
         REQUIRE(t.numOutlets() == 3);
         REQUIRE(t->numInputChannels() == 3);
