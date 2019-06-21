@@ -294,6 +294,60 @@ TEST_CASE("hoa.process~", "[externals]")
         }
     }
 
+    SECTION("audio 14 plane")
+    {
+        TestExtHoaProcess t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_11", "planewaves"));
+        REQUIRE(t.numInlets() == 3);
+        REQUIRE(t.numOutlets() == 3);
+        REQUIRE(t->numInputChannels() == 3);
+        REQUIRE(t->numOutputChannels() == 3);
+        REQUIRE_PROPERTY(t, @domain, S("planewaves"));
+    }
+
+    SECTION("audio 15 plane")
+    {
+        TestExtHoaProcess t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_12", "planewaves"));
+        REQUIRE(t.numInlets() == 3);
+        REQUIRE(t.numOutlets() == 4);
+        REQUIRE(t->numInputChannels() == 3);
+        REQUIRE(t->numOutputChannels() == 4);
+        REQUIRE_PROPERTY(t, @domain, S("planewaves"));
+
+        pd::External sig1("sig~", LF(1));
+        REQUIRE(sig1.connectTo(0, t, 0));
+        pd::External sig2("sig~", LF(-1));
+        REQUIRE(sig2.connectTo(0, t, 1));
+        pd::External sig3("sig~", LF(2.5));
+        REQUIRE(sig3.connectTo(0, t, 2));
+
+        cnv->addExternal(sig1);
+        cnv->addExternal(sig2);
+        cnv->addExternal(sig3);
+        cnv->addExternal(t);
+
+        REQUIRE(t->inputBuffer().size() == 0);
+        REQUIRE(t->outputBuffer().size() == 0);
+
+        canvas_resume_dsp(1);
+        t.schedTicks(1);
+        canvas_suspend_dsp();
+
+        REQUIRE(t->inputBuffer().size() != 0);
+        REQUIRE(t->outputBuffer().size() != 0);
+
+        for (size_t i = 0; i < t->outputBuffer().size(); i++) {
+            auto samp = t->outputBuffer()[i];
+            if (i / t->blockSize() == 0)
+                REQUIRE(samp == 2);
+            else if (i / t->blockSize() == 1)
+                REQUIRE(samp == -2);
+            else if (i / t->blockSize() == 2)
+                REQUIRE(samp == 5);
+            else if (i / t->blockSize() == 3)
+                REQUIRE(samp == -5);
+        }
+    }
+
     SECTION("@target")
     {
         TestExtHoaProcess t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_01"));
