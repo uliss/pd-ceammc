@@ -217,6 +217,7 @@ TEST_CASE("hoa.process~", "[externals]")
         REQUIRE(t.numOutlets() == 3);
         REQUIRE(t->numInputChannels() == 3);
         REQUIRE(t->numOutputChannels() == 3);
+        REQUIRE_PROPERTY(t, @domain, S("harmonics"));
 
         pd::External sig1("sig~", LF(1));
         REQUIRE(sig1.connectTo(0, t, 0));
@@ -258,6 +259,7 @@ TEST_CASE("hoa.process~", "[externals]")
         REQUIRE(t.numOutlets() == 3);
         REQUIRE(t->numInputChannels() == 3);
         REQUIRE(t->numOutputChannels() == 3);
+        REQUIRE_PROPERTY(t, @domain, S("planewaves"));
 
         pd::External sig1("sig~", LF(1));
         REQUIRE(sig1.connectTo(0, t, 0));
