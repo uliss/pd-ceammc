@@ -409,6 +409,54 @@ TEST_CASE("hoa.process~", "[externals]")
         }
     }
 
+    SECTION("audio 17 plane")
+    {
+        TestExtHoaProcess t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_13a", "planewaves"));
+        REQUIRE(t.numInlets() == 5);
+        REQUIRE(t.numOutlets() == 3);
+        REQUIRE(t->numInputChannels() == 5);
+        REQUIRE(t->numOutputChannels() == 3);
+        REQUIRE_PROPERTY(t, @domain, S("planewaves"));
+
+        pd::External sig1("sig~", LF(1));
+        REQUIRE(sig1.connectTo(0, t, 0));
+        pd::External sig2("sig~", LF(-1));
+        REQUIRE(sig2.connectTo(0, t, 1));
+        pd::External sig3("sig~", LF(2.5));
+        REQUIRE(sig3.connectTo(0, t, 2));
+        pd::External sig4("sig~", LF(10));
+        REQUIRE(sig4.connectTo(0, t, 3));
+        pd::External sig5("sig~", LF(-10));
+        REQUIRE(sig5.connectTo(0, t, 4));
+
+        cnv->addExternal(sig1);
+        cnv->addExternal(sig2);
+        cnv->addExternal(sig3);
+        cnv->addExternal(sig4);
+        cnv->addExternal(sig5);
+        cnv->addExternal(t);
+
+        REQUIRE(t->inputBuffer().size() == 0);
+        REQUIRE(t->outputBuffer().size() == 0);
+
+        canvas_resume_dsp(1);
+        t.schedTicks(1);
+        canvas_suspend_dsp();
+
+        REQUIRE(t->inputBuffer().size() != 0);
+        REQUIRE(t->outputBuffer().size() != 0);
+
+        for (size_t i = 0; i < t->outputBuffer().size(); i++) {
+            auto samp = t->outputBuffer()[i];
+            if (i / t->blockSize() == 0)
+                REQUIRE(samp == -10);
+            else if (i / t->blockSize() == 1)
+                REQUIRE(samp == 10);
+            else if (i / t->blockSize() == 2)
+                REQUIRE(samp == -25);
+        }
+    }
+
     SECTION("@target")
     {
         TestExtHoaProcess t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_01"));
