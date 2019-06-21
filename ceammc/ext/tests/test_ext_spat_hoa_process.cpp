@@ -253,7 +253,6 @@ TEST_CASE("hoa.process~", "[externals]")
 
     SECTION("audio 13 plane")
     {
-        return;
         TestExtHoaProcess t("hoa.process~", LA(3, TEST_DATA_DIR "/hoa_test_10", "planewaves"));
         REQUIRE(t.numInlets() == 3);
         REQUIRE(t.numOutlets() == 3);

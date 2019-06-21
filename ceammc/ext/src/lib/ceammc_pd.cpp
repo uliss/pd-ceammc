@@ -66,8 +66,22 @@ pd::External::External(const char* name, const AtomList& lst)
 pd::External::~External()
 {
     if (obj_) {
-        if (!parent_)
-            pd_free(&obj_->te_g.g_pd);
+        if (parent_) {
+            t_gobj* y = &obj_->te_g;
+
+            if (parent_->gl_list == y) {
+                parent_->gl_list = y->g_next;
+            } else {
+                for (auto g = parent_->gl_list; g; g = g->g_next) {
+                    if (g->g_next == y) {
+                        g->g_next = y->g_next;
+                        break;
+                    }
+                }
+            }
+        }
+
+        pd_free(&obj_->te_g.g_pd);
     }
 }
 
