@@ -33,6 +33,7 @@ TEST_CASE("hoa.process~", "[externals]")
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 0);
             REQUIRE_PROPERTY(t, @domain, S("harmonics"));
+            REQUIRE_PROPERTY_FLOAT(t, @n, 0);
         }
 
         SECTION("no patch")
@@ -41,6 +42,7 @@ TEST_CASE("hoa.process~", "[externals]")
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 0);
             REQUIRE_PROPERTY(t, @domain, S("harmonics"));
+            REQUIRE_PROPERTY_FLOAT(t, @n, 5);
         }
 
         SECTION("invalid patch name")
@@ -49,6 +51,7 @@ TEST_CASE("hoa.process~", "[externals]")
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 0);
             REQUIRE_PROPERTY(t, @domain, S("harmonics"));
+            REQUIRE_PROPERTY_FLOAT(t, @n, 5);
         }
 
         SECTION("patch name 01")
@@ -58,6 +61,7 @@ TEST_CASE("hoa.process~", "[externals]")
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @target, -1);
             REQUIRE_PROPERTY(t, @domain, S("harmonics"));
+            REQUIRE_PROPERTY_FLOAT(t, @n, 5);
         }
 
         SECTION("patch name 02")
@@ -67,6 +71,7 @@ TEST_CASE("hoa.process~", "[externals]")
             REQUIRE(t.numOutlets() == 4);
             REQUIRE_PROPERTY_FLOAT(t, @target, -1);
             REQUIRE_PROPERTY(t, @domain, S("harmonics"));
+            REQUIRE_PROPERTY_FLOAT(t, @n, 5);
         }
 
         SECTION("invalid patch name planewaves")
@@ -76,12 +81,13 @@ TEST_CASE("hoa.process~", "[externals]")
             REQUIRE(t.numOutlets() == 0);
             REQUIRE_PROPERTY_FLOAT(t, @target, -1);
             REQUIRE_PROPERTY(t, @domain, S("planewaves"));
+            REQUIRE_PROPERTY_FLOAT(t, @n, 11);
         }
 
         SECTION("patch name planewaves")
         {
             TestExtHoaProcess t("hoa.process~", LA(15, TEST_DATA_DIR "/hoa_test_10", "planewaves"));
-            REQUIRE_PROPERTY_FLOAT(t, @nwaves, 15);
+            REQUIRE_PROPERTY_FLOAT(t, @n, 15);
             REQUIRE_PROPERTY(t, @domain, S("planewaves"));
             REQUIRE(t.numInlets() == 15);
             REQUIRE(t.numOutlets() == 15);

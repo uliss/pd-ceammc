@@ -35,13 +35,13 @@ t_symbol* HoaProcess::SYM_CANVAS;
 t_symbol* HoaProcess::SYM_DSP;
 
 HoaProcess::HoaProcess(const PdArgs& args)
-    : HoaBase(args)
+    : SoundExternal(args)
     , block_obj_(nullptr)
     , block_obj_method_(nullptr)
     , canvas_(nullptr)
     , canvas_yoff_(10)
     , domain_(nullptr)
-    , plane_waves_(nullptr)
+    , num_(nullptr)
     , target_(nullptr)
     , clock_(this, &HoaProcess::clockTick)
 {
@@ -49,8 +49,8 @@ HoaProcess::HoaProcess(const PdArgs& args)
     domain_->appendEnum(SYM_PLANEWAVES);
     createProperty(domain_);
 
-    plane_waves_ = new IntPropertyMinEq("@nwaves", 7, 1);
-    createProperty(plane_waves_);
+    num_ = new IntPropertyMinEq("@n", 0, 0);
+    createProperty(num_);
 
     target_ = new TargetProperty(
         "@target",
@@ -90,12 +90,12 @@ void HoaProcess::parseProperties()
 
         if (domain_->value() == SYM_HARMONICS) {
             if (ARG0 > 0)
-                prop_order()->setValue(ARG0);
+                num_->setValue(ARG0);
             else
                 throw std::invalid_argument("order required");
         } else if (domain_->value() == SYM_PLANEWAVES) {
             if (ARG0 > 0)
-                plane_waves_->setValue(ARG0);
+                num_->setValue(ARG0);
             else
                 throw std::invalid_argument("number of planewaves required");
         }
@@ -126,12 +126,14 @@ void HoaProcess::parseProperties()
         allocInlets();
         allocOutlets();
     } catch (std::exception& e) {
-        OBJ_ERR << e.what();
+        if (!args().empty())
+            OBJ_ERR << e.what();
+        else
+            OBJ_LOG << e.what(); // object without args - used in help
     }
 
     // set prop readonly
-    prop_order()->setReadonly(true);
-    plane_waves_->setReadonly(true);
+    num_->setReadonly(true);
     domain_->setReadonly(true);
 
     // restore canvas
@@ -218,8 +220,11 @@ void HoaProcess::allocSignals()
 {
     auto info = calcNumChannels();
 
-    createSignalInlets(info.in.num_chan);
-    createSignalOutlets(info.out.num_chan);
+    for (size_t i = numInputChannels(); i < info.in.num_chan; i++)
+        createSignalInlet();
+
+    for (size_t i = 0; i < info.out.num_chan; i++)
+        createSignalOutlet();
 }
 
 void HoaProcess::allocInlets()
@@ -358,14 +363,14 @@ void HoaProcess::sendAnyToAll(size_t inlet_idx, t_symbol* s, const AtomList& l)
 
 bool HoaProcess::loadHarmonics(t_symbol* name, const AtomList& patch_args)
 {
-    const size_t NINSTANCE = 2 * order() + 1; //hoa_2d_get_number_of_harmonics(order);
+    const size_t NINSTANCE = 2 * num_->value() + 1; //hoa_2d_get_number_of_harmonics(order);
 
     instances_.assign(NINSTANCE, ProcessInstance());
 
     AtomList load_args;
     load_args.append(Atom(SYM_2D));
     load_args.append(Atom(SYM_HARMONICS));
-    load_args.append(Atom(order()));
+    load_args.append(Atom(num_->value()));
     load_args.append(Atom());
     load_args.append(Atom());
     load_args.append(patch_args);
@@ -385,7 +390,7 @@ bool HoaProcess::loadHarmonics(t_symbol* name, const AtomList& patch_args)
 
 bool HoaProcess::loadPlaneWaves(t_symbol* name, const AtomList& patch_args)
 {
-    const size_t NINSTANCE = plane_waves_->value();
+    const size_t NINSTANCE = num_->value();
     instances_.assign(NINSTANCE, ProcessInstance());
 
     AtomList load_args;
@@ -429,7 +434,7 @@ void HoaProcess::processBlock(const t_sample** in, t_sample** out)
 
 void HoaProcess::setupDSP(t_signal** sp)
 {
-    HoaBase::setupDSP(sp);
+    SoundExternal::setupDSP(sp);
 
     if (block_obj_ && block_obj_method_) {
         const size_t BS = (size_t)sp[0]->s_n;
@@ -481,7 +486,10 @@ void HoaProcess::setupDSP(t_signal** sp)
 
         mess0((t_pd*)canvas_, SYM_DSP);
     } else {
-        OBJ_ERR << "not initialized: can't compile DSP chain";
+        if (args().size() > 1)
+            OBJ_ERR << "not initialized: can't compile DSP chain";
+        else
+            OBJ_LOG << "not initialized: can't compile DSP chain";
     }
 }
 

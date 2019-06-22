@@ -25,7 +25,7 @@ typedef void (*t_bangmethod)(t_pd* x);
 
 typedef LambdaCheckProperty<int> TargetProperty;
 
-class HoaProcess : public HoaBase {
+class HoaProcess : public SoundExternal {
     std::vector<ProcessInstance> instances_;
     std::vector<ProcessInlet> ins_;
 
@@ -39,7 +39,7 @@ class HoaProcess : public HoaBase {
     Buffer out_buf_;
 
     SymbolEnumProperty* domain_;
-    IntPropertyMinEq* plane_waves_;
+    IntPropertyMinEq* num_;
     TargetProperty* target_;
     int target_value_;
 
