@@ -443,9 +443,6 @@ TEST_CASE("hoa.process~", "[externals]")
         t.schedTicks(1);
         canvas_suspend_dsp();
 
-        REQUIRE(t->inputBuffer().size() != 0);
-        REQUIRE(t->outputBuffer().size() != 0);
-
         for (size_t i = 0; i < t->outputBuffer().size(); i++) {
             auto samp = t->outputBuffer()[i];
             if (i / t->blockSize() == 0)
@@ -454,6 +451,98 @@ TEST_CASE("hoa.process~", "[externals]")
                 REQUIRE(samp == 10);
             else if (i / t->blockSize() == 2)
                 REQUIRE(samp == -25);
+        }
+    }
+
+    SECTION("audio 18 plane")
+    {
+        TestExtHoaProcess t("hoa.process~", LA(2, TEST_DATA_DIR "/hoa_test_13b", "planewaves"));
+        REQUIRE(t.numInlets() == 5);
+        REQUIRE(t.numOutlets() == 2);
+        REQUIRE(t->numInputChannels() == 4);
+        REQUIRE(t->numOutputChannels() == 2);
+        REQUIRE_PROPERTY(t, @domain, S("planewaves"));
+
+        pd::External sig1("sig~", LF(0.5));
+        REQUIRE(sig1.connectTo(0, t, 0));
+        pd::External sig2("sig~", LF(1));
+        REQUIRE(sig2.connectTo(0, t, 1));
+        pd::External sig3("sig~", LF(1000));
+        REQUIRE(sig3.connectTo(0, t, 2));
+        pd::External sig4("sig~", LF(4));
+        REQUIRE(sig4.connectTo(0, t, 3));
+        pd::External f1("f", LF(100));
+        REQUIRE(f1.connectTo(0, t, 4));
+
+        cnv->addExternal(sig1);
+        cnv->addExternal(sig2);
+        cnv->addExternal(sig3);
+        cnv->addExternal(sig4);
+        cnv->addExternal(f1);
+        cnv->addExternal(t);
+
+        REQUIRE(t->inputBuffer().size() == 0);
+        REQUIRE(t->outputBuffer().size() == 0);
+
+        canvas_resume_dsp(1);
+        t.schedTicks(1);
+        canvas_suspend_dsp();
+
+        REQUIRE(t->inputBuffer().size() != 0);
+        REQUIRE(t->outputBuffer().size() != 0);
+
+        for (size_t i = 0; i < t->outputBuffer().size(); i++) {
+            auto samp = t->outputBuffer()[i];
+            if (i / t->blockSize() == 0)
+                REQUIRE(samp == 2);
+            else if (i / t->blockSize() == 1)
+                REQUIRE(samp == 4);
+        }
+
+        // send float to all instances
+        f1.sendBang();
+        canvas_resume_dsp(1);
+        t.schedTicks(1);
+        canvas_suspend_dsp();
+
+        for (size_t i = 0; i < t->outputBuffer().size(); i++) {
+            auto samp = t->outputBuffer()[i];
+            if (i / t->blockSize() == 0)
+                REQUIRE(samp == 102);
+            else if (i / t->blockSize() == 1)
+                REQUIRE(samp == 104);
+        }
+
+        // send float to @target 1
+        t.sendMessage(gensym("@target"), LF(1));
+        f1.sendFloat(1000);
+        canvas_resume_dsp(1);
+        t.schedTicks(1);
+        canvas_suspend_dsp();
+
+        for (size_t i = 0; i < t->outputBuffer().size(); i++) {
+            auto samp = t->outputBuffer()[i];
+            if (i / t->blockSize() == 0)
+                REQUIRE(samp == 102);
+            // only target 1 affected
+            else if (i / t->blockSize() == 1)
+                REQUIRE(samp == 1004);
+        }
+
+        // send float to @target 0
+        t.sendMessage(gensym("@target"), LF(0));
+        f1.sendFloat(500);
+        canvas_resume_dsp(1);
+        t.schedTicks(1);
+        canvas_suspend_dsp();
+
+        for (size_t i = 0; i < t->outputBuffer().size(); i++) {
+            auto samp = t->outputBuffer()[i];
+            // only target 1 affected
+            if (i / t->blockSize() == 0)
+                REQUIRE(samp == 502);
+            else if (i / t->blockSize() == 1)
+                REQUIRE(samp == 1004);
         }
     }
 
