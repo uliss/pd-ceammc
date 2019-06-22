@@ -59,7 +59,6 @@ TEST_CASE("hoa.process~", "[externals]")
             TestExtHoaProcess t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_01"));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY_FLOAT(t, @target, -1);
             REQUIRE_PROPERTY(t, @domain, S("harmonics"));
             REQUIRE_PROPERTY_FLOAT(t, @n, 5);
         }
@@ -69,7 +68,6 @@ TEST_CASE("hoa.process~", "[externals]")
             TestExtHoaProcess t("hoa.process~", LA(5, TEST_DATA_DIR "/hoa_test_02"));
             REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 4);
-            REQUIRE_PROPERTY_FLOAT(t, @target, -1);
             REQUIRE_PROPERTY(t, @domain, S("harmonics"));
             REQUIRE_PROPERTY_FLOAT(t, @n, 5);
         }
@@ -79,7 +77,6 @@ TEST_CASE("hoa.process~", "[externals]")
             TestExtHoaProcess t("hoa.process~", LA(11, "not-exists", "planewaves"));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 0);
-            REQUIRE_PROPERTY_FLOAT(t, @target, -1);
             REQUIRE_PROPERTY(t, @domain, S("planewaves"));
             REQUIRE_PROPERTY_FLOAT(t, @n, 11);
         }
@@ -91,8 +88,6 @@ TEST_CASE("hoa.process~", "[externals]")
             REQUIRE_PROPERTY(t, @domain, S("planewaves"));
             REQUIRE(t.numInlets() == 15);
             REQUIRE(t.numOutlets() == 15);
-
-            REQUIRE_PROPERTY_FLOAT(t, @target, -1);
         }
     }
 
@@ -149,11 +144,13 @@ TEST_CASE("hoa.process~", "[externals]")
     SECTION("control 04")
     {
         TestExtHoaProcess t("hoa.process~", LA(1, TEST_DATA_DIR "/hoa_test_04"));
-        t->setProperty("@target", LF(1));
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 4);
 
-        t.sendFloatTo(2.0, 1);
+        pd::External tr("trigger", LA("a"));
+        REQUIRE(tr.connectTo(0, t, 1));
+
+        tr.sendMessage(gensym("#1"), LF(2));
         REQUIRE(t.messagesAt(0) == messageList(2));
         REQUIRE(t.messagesAt(1) == messageList(4));
         REQUIRE(t.messagesAt(2) == messageList(6));
@@ -163,15 +160,24 @@ TEST_CASE("hoa.process~", "[externals]")
     SECTION("control 05")
     {
         TestExtHoaProcess t("hoa.process~", LA(1, TEST_DATA_DIR "/hoa_test_05"));
-        t->setProperty("@target", LF(1));
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 4);
 
-        t.sendFloatTo(2.0, 1);
+        pd::External tr("trigger", LA("a"));
+        REQUIRE(tr.connectTo(0, t, 1));
+
+        tr.sendMessage(gensym("#1"), LF(2));
         REQUIRE(t.messagesAt(3) == messageList(2));
         REQUIRE(t.messagesAt(2) == messageList(4));
         REQUIRE(t.messagesAt(1) == messageList(6));
         REQUIRE(t.messagesAt(0) == messageList(8));
+
+        t.clearAll();
+        tr.sendMessage(gensym("#0"), LF(3));
+        REQUIRE(t.messagesAt(3) == messageList(3));
+        REQUIRE(t.messagesAt(2) == messageList(6));
+        REQUIRE(t.messagesAt(1) == messageList(9));
+        REQUIRE(t.messagesAt(0) == messageList(12));
     }
 
     SECTION("audio 10")
@@ -477,14 +483,14 @@ TEST_CASE("hoa.process~", "[externals]")
         REQUIRE(sig3.connectTo(0, t, 2));
         pd::External sig4("sig~", LF(4));
         REQUIRE(sig4.connectTo(0, t, 3));
-        pd::External f1("f", LF(100));
-        REQUIRE(f1.connectTo(0, t, 4));
+        pd::External t1("t", LA("a"));
+        REQUIRE(t1.connectTo(0, t, 4));
 
         cnv->addExternal(sig1);
         cnv->addExternal(sig2);
         cnv->addExternal(sig3);
         cnv->addExternal(sig4);
-        cnv->addExternal(f1);
+        cnv->addExternal(t1);
         cnv->addExternal(t);
 
         REQUIRE(t->inputBuffer().size() == 0);
@@ -506,7 +512,7 @@ TEST_CASE("hoa.process~", "[externals]")
         }
 
         // send float to all instances
-        f1.sendBang();
+        t1.sendFloat(100);
         canvas_resume_dsp(1);
         t.schedTicks(1);
         canvas_suspend_dsp();
@@ -520,8 +526,7 @@ TEST_CASE("hoa.process~", "[externals]")
         }
 
         // send float to @target 1
-        t.sendMessage(gensym("@target"), LF(1));
-        f1.sendFloat(1000);
+        t1.sendMessage(gensym("#1"), LF(1000));
         canvas_resume_dsp(1);
         t.schedTicks(1);
         canvas_suspend_dsp();
@@ -536,8 +541,7 @@ TEST_CASE("hoa.process~", "[externals]")
         }
 
         // send float to @target 0
-        t.sendMessage(gensym("@target"), LF(0));
-        f1.sendFloat(500);
+        t1.sendMessage(gensym("#0"), LF(500));
         canvas_resume_dsp(1);
         t.schedTicks(1);
         canvas_suspend_dsp();
@@ -558,16 +562,94 @@ TEST_CASE("hoa.process~", "[externals]")
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
 
-        t->setProperty("@target", LF(1));
+        pd::External tr("trigger", LA("a"));
+        REQUIRE(tr.connectTo(0, t, 1));
+
+        // invalid instance index
+        tr.sendMessage(gensym("#100"));
+        REQUIRE(t.messagesAt(0).empty());
+
+        // invalid instance index
+        tr.sendMessage(gensym("#5"));
+        REQUIRE(t.messagesAt(0).empty());
 
         // bang
-        t.sendBangTo(1);
+        t.clearAll();
+        tr.sendMessage(gensym("#1"));
         REQUIRE(t.messagesAt(0) == messageList(&s_bang));
-        t.sendFloatTo(-10, 1);
+
+        t.clearAll();
+        tr.sendMessage(gensym("#1"), LA("bang"));
+        REQUIRE(t.messagesAt(0) == messageList(&s_bang));
+
+        // float
+        t.clearAll();
+        tr.sendMessage(gensym("#1"), LF(-10));
         REQUIRE(t.messagesAt(0) == messageList(-10));
-        t.sendSymbolTo("ABC", 1);
+
+        t.clearAll();
+        tr.sendMessage(gensym("#1"), LA("float", -10));
+        REQUIRE(t.messagesAt(0) == messageList(-10));
+
+        // symbol
+        t.clearAll();
+        tr.sendMessage(gensym("#1"), LA("symbol", "ABC"));
         REQUIRE(t.messagesAt(0) == messageList(gensym("ABC")));
-        t.sendListTo(LF(1, 2, 3), 1);
+
+        // list
+        t.clearAll();
+        tr.sendMessage(gensym("#1"), LA("list", 1, 2, 3));
         REQUIRE(t.messagesAt(0) == messageList(LF(1, 2, 3)));
+
+        t.clearAll();
+        tr.sendMessage(gensym("#1"), LA("list", 1));
+        REQUIRE(t.messagesAt(0) == messageList(LF(1)));
+
+        t.clearAll();
+        tr.sendMessage(gensym("#1"), LA("list"));
+        REQUIRE(t.messagesAt(0) == messageList(AtomList()));
+
+        t.clearAll();
+        tr.sendMessage(gensym("#1"), LF(1, 2));
+        REQUIRE(t.messagesAt(0) == messageList(LF(1, 2)));
+
+        // any
+        t.clearAll();
+        tr.sendMessage(gensym("#1"), LA("msg"));
+        REQUIRE(t.messagesAt(0) == messageList(Message(gensym("msg"), L())));
+
+        t.clearAll();
+        tr.sendMessage(gensym("#1"), LA("msg", "A", -100));
+        REQUIRE(t.messagesAt(0) == messageList(Message(gensym("msg"), LA("A", -100))));
+
+        // any - to all
+        t.clearAll();
+        Message m0(gensym("msg"), L());
+        tr.sendMessage(gensym("msg"));
+        REQUIRE(t.messagesAt(0) == messageList(m0, m0, m0, m0, m0));
+
+        // any - to all
+        t.clearAll();
+        Message m1(gensym("#-10"), L());
+        tr.sendMessage(gensym("#-10"));
+        REQUIRE(t.messagesAt(0) == messageList(m1, m1, m1, m1, m1));
+
+        // any - to all
+        t.clearAll();
+        Message m2(gensym("#10000"), L());
+        tr.sendMessage(gensym("#10000"));
+        REQUIRE(t.messagesAt(0) == messageList(m2, m2, m2, m2, m2));
+
+        // any - to all
+        t.clearAll();
+        Message m3(gensym("#"), L());
+        tr.sendMessage(gensym("#"));
+        REQUIRE(t.messagesAt(0) == messageList(m3, m3, m3, m3, m3));
+
+        // any - to all
+        t.clearAll();
+        Message m4(gensym("#msg"), L());
+        tr.sendMessage(gensym("#msg"));
+        REQUIRE(t.messagesAt(0) == messageList(m4, m4, m4, m4, m4));
     }
 }

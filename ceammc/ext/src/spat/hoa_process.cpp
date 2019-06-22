@@ -42,7 +42,6 @@ HoaProcess::HoaProcess(const PdArgs& args)
     , canvas_yoff_(10)
     , domain_(nullptr)
     , num_(nullptr)
-    , target_(nullptr)
     , clock_(this, &HoaProcess::clockTick)
 {
     domain_ = new SymbolEnumProperty("@domain", SYM_HARMONICS);
@@ -51,20 +50,6 @@ HoaProcess::HoaProcess(const PdArgs& args)
 
     num_ = new IntPropertyMinEq("@n", 0, 0);
     createProperty(num_);
-
-    target_ = new TargetProperty(
-        "@target",
-        -1,
-        [this](int val) {
-            if (val >= -1 && val < (int)this->instances_.size())
-                return EitherInt(val);
-            else {
-                return EitherInt::makeError(val,
-                    fmt::format("invalid value range, shoud be >= -1 and < {}",
-                        this->instances_.size()));
-            }
-        });
-    createProperty(target_);
 }
 
 HoaProcess::~HoaProcess()

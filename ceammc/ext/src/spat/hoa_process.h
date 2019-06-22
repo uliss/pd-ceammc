@@ -15,15 +15,12 @@
 #define HOA_PROCESS_H
 
 #include "ceammc_clock.h"
-#include "ceammc_property_extra.h"
 #include "hoa_common.h"
 #include "hoa_connections.h"
 #include "hoa_process_inlet.h"
 #include "hoa_process_instance.h"
 
 typedef void (*t_bangmethod)(t_pd* x);
-
-typedef LambdaCheckProperty<int> TargetProperty;
 
 class HoaProcess : public SoundExternal {
     std::vector<ProcessInstance> instances_;
@@ -40,7 +37,6 @@ class HoaProcess : public SoundExternal {
 
     SymbolEnumProperty* domain_;
     IntPropertyMinEq* num_;
-    TargetProperty* target_;
     int target_value_;
 
     // used to send loadbang to instances
@@ -84,9 +80,6 @@ private:
     InOutInfo calcNumChannels() const;
 
 public:
-    size_t target() const { return target_->value(); }
-    bool targetAll() const { return target_->value() == -1; }
-
     void sendBangToInstance(size_t inst_idx, size_t inlet_idx);
     void sendBangToAll(size_t inlet_idx);
     void sendFloatToInstance(size_t inst_idx, size_t inlet_idx, t_float v);
