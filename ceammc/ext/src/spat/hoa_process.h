@@ -107,8 +107,6 @@ public:
     static t_symbol* SYM_2D;
     static t_symbol* SYM_CANVAS;
 
-    static t_symbol* SYM_HOA_THISPROCESS;
-
     static size_t calcIndexDegree(size_t index);
     static long calcAzimuthalOrder(size_t index);
     static size_t orderToIndex(long order);

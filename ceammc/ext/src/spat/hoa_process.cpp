@@ -33,8 +33,6 @@ t_symbol* HoaProcess::SYM_PLANEWAVES;
 t_symbol* HoaProcess::SYM_2D;
 t_symbol* HoaProcess::SYM_CANVAS;
 
-t_symbol* HoaProcess::SYM_HOA_THISPROCESS;
-
 HoaProcess::HoaProcess(const PdArgs& args)
     : HoaBase(args)
     , block_obj_(nullptr)
@@ -528,7 +526,6 @@ void setup_spat_hoa_process()
     HoaProcess::SYM_HARMONICS = gensym("harmonics");
     HoaProcess::SYM_PLANEWAVES = gensym("planewaves");
     HoaProcess::SYM_2D = gensym("2d");
-    HoaProcess::SYM_HOA_THISPROCESS = gensym("hoa.thisprocess~");
 
     SoundExternalFactory<HoaProcess> obj("hoa.process~");
     obj.addClick(&HoaProcess::m_click);
