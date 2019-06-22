@@ -31,30 +31,29 @@
             <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
             decomposition</argument>
             <argument name="PNAME" type="symbol">patch name</argument>
+            <argument name="DOMAIN" type="symbol" enum="harmonics planewaves">process domain: harmonics or planewaves</argument>
         </arguments>
         <properties>
-            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
-            readonly="true">the order of decomposition</property>
-            <property name="@nwaves" type="int" minvalue="1" readonly="true" default="7">number of
-            plain waves.</property>
-            <property name="@domain" type="symbol" readonly="true" default="harmonic" enum="harmonics plainwaves">
-            process domain: harmonics or plainwaves.</property>
+            <property name="@n" type="int" minvalue="0" maxvalue="63" default="0"
+            readonly="true">the order of decomposition/number of planewaves</property>
+            <property name="@domain" type="symbol" readonly="true" default="harmonic" enum="harmonics planewaves">
+            process domain: harmonics or planewaves</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">
-                <xinfo>first input harmonic</xinfo>
+                <xinfo>first input harmonic/planewave</xinfo>
             </inlet>
             <inlet type="audio" number="...">
-                <xinfo>... input harmonic</xinfo>
+                <xinfo>... input harmonic/planewave</xinfo>
             </inlet>
             <inlet type="audio" number="n">
-                <xinfo>n-th input harmonic</xinfo>
+                <xinfo>n-th input harmonic/planewave</xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet type="audio">first harmonic output</outlet>
-            <outlet type="audio" number="...">... harmonic output</outlet>
-            <outlet type="audio" number="n">n-th harmonic output</outlet>
+            <outlet type="audio">first harmonic/planewave output</outlet>
+            <outlet type="audio" number="...">... harmonic/planewave output</outlet>
+            <outlet type="audio" number="n">n-th harmonic/planewave output</outlet>
         </outlets>
         <example>
             <pdascii>
