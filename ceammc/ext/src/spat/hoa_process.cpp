@@ -32,6 +32,7 @@ t_symbol* HoaProcess::SYM_HARMONICS;
 t_symbol* HoaProcess::SYM_PLANEWAVES;
 t_symbol* HoaProcess::SYM_2D;
 t_symbol* HoaProcess::SYM_CANVAS;
+t_symbol* HoaProcess::SYM_DSP;
 
 HoaProcess::HoaProcess(const PdArgs& args)
     : HoaBase(args)
@@ -478,7 +479,7 @@ void HoaProcess::setupDSP(t_signal** sp)
             }
         }
 
-        mess0((t_pd*)canvas_, gensym("dsp"));
+        mess0((t_pd*)canvas_, SYM_DSP);
     } else {
         OBJ_ERR << "not initialized: can't compile DSP chain";
     }
@@ -526,6 +527,7 @@ void setup_spat_hoa_process()
     HoaProcess::SYM_HARMONICS = gensym("harmonics");
     HoaProcess::SYM_PLANEWAVES = gensym("planewaves");
     HoaProcess::SYM_2D = gensym("2d");
+    HoaProcess::SYM_DSP = gensym("dsp");
 
     SoundExternalFactory<HoaProcess> obj("hoa.process~");
     obj.addClick(&HoaProcess::m_click);
