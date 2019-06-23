@@ -28,7 +28,7 @@ current canvas).;
 #X text 245 398 Get/Set default property value. Type: list.;
 #X msg 110 427 @enum;
 #X text 245 427 Get/Set allowed values (without default value) (for
-symbol proeprties only). Type: list.;
+symbol properties only). Type: list.;
 #X msg 110 469 @f;
 #X text 245 469 alias to @type float.;
 #X msg 110 498 @i;
