@@ -91,9 +91,8 @@ if(WITH_LIBSNDFILE)
 endif()
 
 # FFTW3
-option(WITH_FFTW "Use fftw3 library (http://www.fftw.org/)" ON)
 if(WITH_FFTW)
-    include(FindFFTW)
+    find_package(FFTW REQUIRED)
     if(NOT FFTW_FOUND)
         set(WITH_FFTW OFF CACHE BOOL "" FORCE)
     endif()
