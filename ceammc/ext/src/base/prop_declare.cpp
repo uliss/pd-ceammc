@@ -92,7 +92,7 @@ PropDeclare::PropDeclare(const PdArgs& args)
 
     if (PropertyStorage::storage().contains(full_name_)) {
         auto msg = tfm::format("\"%s\" is already declared", sym_name_->s_name);
-        throw std::runtime_error(msg.c_str());
+        throw std::runtime_error(msg);
     }
 
     auto pprop = new DataTypeProperty(gensym(full_name_.c_str()));
@@ -198,6 +198,7 @@ void PropDeclare::onLoadBang()
         return;
 
     AtomList pv;
+    // no property defined in canvas arguments
     if (!canvas_info_args(cnv).property(sym_name_->s_name, &pv)) {
         // output default values
         if (sym_full_name_->s_thing)
@@ -212,6 +213,9 @@ void PropDeclare::onLoadBang()
 
     if (!pptr->setFromPdArgs(pv))
         OBJ_ERR << "error setting property: " << sym_name_;
+
+    if (sym_full_name_->s_thing)
+        pd_bang(sym_full_name_->s_thing);
 }
 
 bool PropDeclare::isFloat() const
