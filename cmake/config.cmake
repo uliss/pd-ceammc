@@ -38,11 +38,6 @@ check_include_file(unistd.h HAVE_UNISTD_H)
 check_function_exists(nanosleep HAVE_NANOSLEEP)
 check_function_exists(setenv HAVE_SETENV)
 
-find_package(ModPlug)
-if(MODPLUG_FOUND)
-    set(CEAMMC_HAVE_MODPLUG ON)
-endif()
-
 # FluidSynth
 find_package(GLIB)
 if(GLIB_FOUND)
