@@ -37,16 +37,16 @@ bool PatchProps::processAnyProps(t_symbol* sel, const AtomList& lst)
 
 void PatchProps::onBang()
 {
-    t_canvas* x = canvas();
-    if (!x)
+    t_canvas* cnv = canvas();
+    if (!cnv)
         return;
 
-    for (t_gobj* y = x->gl_list; y; y = y->g_next) {
-        if (y->g_pd->c_name != className())
+    for (t_gobj* x = cnv->gl_list; x != nullptr; x = x->g_next) {
+        if (x->g_pd != ObjectFactory<PropDeclare>::classPointer())
             continue;
 
-        PdObject<PropDeclare>* prop = reinterpret_cast<PdObject<PropDeclare>*>(y);
-        t_symbol* prop_name = prop->impl->fullName();
+        PropDeclare* prop = ObjectFactory<PropDeclare>::fromObject((t_object*)x);
+        t_symbol* prop_name = prop->fullName();
         if (prop_name->s_thing)
             pd_bang(prop_name->s_thing);
     }
@@ -121,7 +121,7 @@ void PatchProps::m_all_props(t_symbol* s, const AtomList& args)
         if (y->g_pd != ObjectFactory<PropDeclare>::classPointer())
             continue;
 
-        PropDeclare* prop = reinterpret_cast<PdObject<PropDeclare>*>(y)->impl;
+        PropDeclare* prop = ObjectFactory<PropDeclare>::fromObject((t_object*)y);
         res.append(prop->name());
     }
 
@@ -157,10 +157,18 @@ void PatchProps::dump() const
         if (x->g_pd != ObjectFactory<PropDeclare>::classPointer())
             continue;
 
-        PropDeclare* prop = reinterpret_cast<PdObject<PropDeclare>*>(x)->impl;
-        PropertyPtr pprop(prop->fullName()->s_name);
+        PropertyPtr pprop(ObjectFactory<PropDeclare>::fromObject((t_object*)x)->fullName()->s_name);
         if (pprop) {
-            OBJ_DBG << pprop->name()->s_name;
+            OBJ_DBG << "full name:   " << pprop->name()->s_name << "\n"
+                    << "type:        " << pprop->propertyStrType() << "\n"
+                    << "value:       " << pprop->propertyStrValue();
+
+            if (pprop->hasMinValue())
+                OBJ_DBG << "min:       " << pprop->propertyStrMinValue();
+            if (pprop->hasMaxValue())
+                OBJ_DBG << "max:       " << pprop->propertyStrMaxValue();
+            if (pprop->hasEnumValues())
+                OBJ_DBG << "enum:      " << pprop->enumValues();
         }
     }
 }

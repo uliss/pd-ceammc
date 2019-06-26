@@ -33,6 +33,8 @@ public:
     void onList(const AtomList& l) override;
 
     void m_default(t_symbol*, const AtomList&);
+
+    void dump() const override;
 };
 
 void setup_base_prop();

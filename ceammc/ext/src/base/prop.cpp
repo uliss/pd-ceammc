@@ -19,6 +19,9 @@ extern "C" {
 #include "g_canvas.h"
 }
 
+static t_symbol* SYM_TRUE;
+static t_symbol* SYM_FALSE;
+
 static t_symbol* makePropName(const AtomList& l)
 {
     static t_symbol* SYM_INVALID = gensym("@invalid");
@@ -95,7 +98,7 @@ void BaseProp::onFloat(t_float v)
         } else
             prop->setBool(v);
     } else {
-        OBJ_ERR << "unknown property type";
+        OBJ_ERR << "not a float, int or bool property";
     }
 }
 
@@ -109,12 +112,15 @@ void BaseProp::onSymbol(t_symbol* s)
     }
 
     if (prop->isSymbol()) {
+        if (!prop->setSymbol(s))
+            OBJ_ERR << "can't set property to " << s;
+    } else if (prop->isBool()) {
+        if (!(s == SYM_TRUE || s == SYM_FALSE))
+            OBJ_ERR << "only " << SYM_TRUE << " and " << SYM_FALSE << " values are supported";
+        else if (!prop->setBool(s == SYM_TRUE))
+            OBJ_ERR << "can't set property to " << s;
+    } else
         OBJ_ERR << "not a symbol property";
-        return;
-    }
-
-    if (!prop->setSymbol(s))
-        OBJ_ERR << "can't set property to " << s;
 }
 
 void BaseProp::onList(const AtomList& l)
@@ -126,7 +132,7 @@ void BaseProp::onList(const AtomList& l)
         return;
     }
 
-    if (prop->isList()) {
+    if (!prop->isList()) {
         OBJ_ERR << "not a list property";
         return;
     }
@@ -149,8 +155,37 @@ void BaseProp::m_default(t_symbol*, const AtomList&)
     PropertyStorage::storage().release(full_name_);
 }
 
+void BaseProp::dump() const
+{
+    BaseObject::dump();
+
+    DataTypeProperty* prop = PropertyStorage::storage().acquire(full_name_);
+
+    if (!prop) {
+        OBJ_ERR << "can't get property info: " << name_;
+        return;
+    }
+
+    OBJ_DBG << "name:      " << name_->s_name << "\n"
+            << "full name: " << full_name_ << "\n"
+            << "type:      " << prop->propertyStrType() << "\n"
+            << "value:     " << prop->propertyStrValue();
+
+    if (prop->hasMinValue())
+        OBJ_DBG << "min:       " << prop->propertyStrMinValue();
+    if (prop->hasMaxValue())
+        OBJ_DBG << "max:       " << prop->propertyStrMaxValue();
+    if (prop->hasEnumValues())
+        OBJ_DBG << "enum:      " << prop->enumValues();
+
+    PropertyStorage::storage().release(full_name_);
+}
+
 void setup_base_prop()
 {
+    SYM_TRUE = gensym("true");
+    SYM_FALSE = gensym("false");
+
     ObjectFactory<BaseProp> obj("prop");
     obj.addMethod("default", &BaseProp::m_default);
 }

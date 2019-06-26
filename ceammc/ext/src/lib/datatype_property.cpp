@@ -14,6 +14,7 @@
 #include "datatype_property.h"
 #include "ceammc_convert.h"
 #include "ceammc_datatypes.h"
+#include "ceammc_format.h"
 #include "ceammc_log.h"
 
 #include <cstring>
@@ -60,7 +61,8 @@ std::string DataTypeProperty::toString() const
 {
     std::ostringstream ss;
     ss << "Property: " << name_ << "\n"
-       << "  type: " << type_ << "\n";
+       << "  type:  " << type_ << "\n"
+       << "  value: " << propertyStrValue() << "\n";
 
     return ss.str();
 }
@@ -277,6 +279,79 @@ bool DataTypeProperty::setEnumValues(const AtomList& lst)
     enum_.append(boost::get<t_symbol*>(default_));
     enum_.append(lst.filter(ceammc::isSymbol));
     return true;
+}
+
+const std::string& DataTypeProperty::propertyStrType() const
+{
+    static std::string str_[] = { "float", "int", "bool", "symbol", "list" };
+    return str_[type_];
+}
+
+std::string DataTypeProperty::propertyStrValue() const
+{
+    bool vbool = false;
+    long vint = 0;
+    t_float vfloat = 0;
+    t_symbol* vsym = &s_;
+    AtomList vlist;
+
+    if (getBool(vbool))
+        return vbool ? "true" : "false";
+    else if (getInt(vint))
+        return std::to_string(vint);
+    else if (getFloat(vfloat))
+        return std::to_string(vfloat);
+    else if (getSymbol(&vsym))
+        return vsym->s_name;
+    else if (getList(vlist))
+        return to_string(vlist);
+    else
+        return "unknown property value type";
+}
+
+std::string DataTypeProperty::propertyStrMinValue() const
+{
+    if (isFloat())
+        return std::to_string(floatRange().first);
+    else if (isInt())
+        return std::to_string(intRange().first);
+    else
+        return "";
+}
+
+std::string DataTypeProperty::propertyStrMaxValue() const
+{
+    if (isFloat())
+        return std::to_string(floatRange().second);
+    else if (isInt())
+        return std::to_string(intRange().second);
+    else
+        return "";
+}
+
+bool DataTypeProperty::hasMinValue() const
+{
+    if (isFloat())
+        return floatRange().first != std::numeric_limits<t_float>::lowest();
+    else if (isInt())
+        return intRange().first != std::numeric_limits<long>::lowest();
+    else
+        return false;
+}
+
+bool DataTypeProperty::hasMaxValue() const
+{
+    if (isFloat())
+        return floatRange().second != std::numeric_limits<t_float>::max();
+    else if (isInt())
+        return intRange().second != std::numeric_limits<long>::max();
+    else
+        return false;
+}
+
+bool DataTypeProperty::hasEnumValues() const
+{
+    return !enum_.empty();
 }
 
 static PropertyInfoType type2type(DataTypeProperty::Type t)

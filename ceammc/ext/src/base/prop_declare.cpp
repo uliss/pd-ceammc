@@ -177,7 +177,8 @@ void PropDeclare::parseProperties()
         pprop_->setTypeList(default_->value());
     } else if (isSymbol()) {
         pprop_->setTypeSymbol(atomlistToValue<t_symbol*>(default_->value(), &s_));
-        pprop_->setEnumValues(enum_->get());
+        if (!enum_->value().empty())
+            pprop_->setEnumValues(enum_->get());
     }
 }
 
