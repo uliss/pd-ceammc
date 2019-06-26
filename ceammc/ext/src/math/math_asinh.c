@@ -1,9 +1,8 @@
 #include "ceammc.h"
-#include <m_pd.h>
+#include "m_pd.h"
 #include <math.h>
 
 #define OBJ_NAME "math.asinh"
-#define MSG_PREFIX "[" OBJ_NAME "]"
 
 static t_class* math_asinh_class;
 typedef struct math_asinh {

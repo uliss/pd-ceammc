@@ -45,13 +45,12 @@ class PdExternal(object):
     def generate_header(self):
         print '#include "ceammc.h"'
 
-        print "#include <m_pd.h>"
+        print "#include \"m_pd.h\""
         for f in self.headers:
             print "#include <{}>".format(f)
 
         macro = '''
-#define OBJ_NAME "{mod}.{ext}"
-#define MSG_PREFIX "[" OBJ_NAME "]"'''
+#define OBJ_NAME "{mod}.{ext}"'''
         print macro.format(mod=self.module, ext=self.extension)
 
     def generate_struct(self, fields=[]):

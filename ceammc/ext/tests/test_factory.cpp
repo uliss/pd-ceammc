@@ -14,9 +14,7 @@
 
 #include <stdexcept>
 
-#include "../base/debug_gensym.h"
 #include "catch.hpp"
-//#include "ceammc.hpp"
 #include "ceammc_factory.h"
 #include "ceammc_pd.h"
 #include "test_base.h"

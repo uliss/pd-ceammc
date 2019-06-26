@@ -1,9 +1,8 @@
 #include "ceammc.h"
-#include <m_pd.h>
+#include "m_pd.h"
 #include <math.h>
 
 #define OBJ_NAME "math.floor"
-#define MSG_PREFIX "[" OBJ_NAME "]"
 
 static t_class* math_floor_class;
 typedef struct math_floor {
