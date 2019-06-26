@@ -60,8 +60,8 @@ t_outlet* SoundExternal::createSignalOutlet()
 void SoundExternal::dump() const
 {
     BaseObject::dump();
-    post("[%s] block size: %i", className().c_str(), blockSize());
-    post("[%s] samplerate: %i", className().c_str(), samplerate());
+    post("[%s] block size: %i", className()->s_name, blockSize());
+    post("[%s] samplerate: %i", className()->s_name, samplerate());
 }
 
 void SoundExternal::blockSizeChanged(size_t bs)

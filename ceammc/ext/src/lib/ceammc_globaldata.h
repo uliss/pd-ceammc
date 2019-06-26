@@ -20,7 +20,7 @@
 #include <utility>
 #include <vector>
 
-#include <m_pd.h>
+#include "m_pd.h"
 
 namespace ceammc {
 
@@ -167,8 +167,14 @@ template <typename T>
 class GlobalData {
 private:
     typedef typename NamedDataDict<T>::iterator iterator;
-    static NamedDataDict<T> data_;
     const static int log_level = 0;
+
+private:
+    static NamedDataDict<T>& data()
+    {
+        static NamedDataDict<T> data_;
+        return data_;
+    }
 
 private:
     T* ptr_;
@@ -186,10 +192,10 @@ public:
         , name_(name)
         , descr_(desc)
     {
-        ptr_ = data_.acquire(name);
+        ptr_ = data().acquire(name);
         if (ptr_ == 0) { // if not found
-            data_.create(name, new T());
-            ptr_ = data_.acquire(name);
+            data().create(name, new T());
+            ptr_ = data().acquire(name);
 
             verbose(log_level, "[%s %s] created", descr_.c_str(), name_.c_str());
         }
@@ -200,9 +206,9 @@ public:
     ~GlobalData()
     {
         verbose(log_level, "[%s %s] -1", descr_.c_str(), name_.c_str());
-        data_.release(name_);
+        data().release(name_);
 
-        if (!data_.contains(name_))
+        if (!data().contains(name_))
             verbose(log_level, "[%s %s] destroyed", descr_.c_str(), name_.c_str());
     }
 
@@ -231,19 +237,16 @@ public:
     /**
       * Returns number of references to global data
       */
-    size_t refCount() const { return data_.refCount(name_); }
+    size_t refCount() const { return data().refCount(name_); }
 
     /**
       * Retrieve all dict keys
       */
     static void keys(std::vector<std::string>& res)
     {
-        data_.keys(res);
+        data().keys(res);
     }
 };
-
-template <typename T>
-NamedDataDict<T> GlobalData<T>::data_;
 }
 
 #endif // CEAMMC_SHAREDDATA_H

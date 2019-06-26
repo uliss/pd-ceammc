@@ -125,14 +125,19 @@ public:
     bool checkArgs(const AtomList& lst, ArgumentType a1, ArgumentType a2, ArgumentType a3, ArgumentType a4, t_symbol* method = 0) const;
 
     /**
-     * Returns object class name as string.
+     * Returns object class name
      */
-    inline std::string className() const { return pd_.className->s_name; }
+    t_symbol* className() const { return pd_.className; }
+
+    /**
+     * Returns object class pointer
+     */
+    t_class* classPointer() const { return pd_.owner->te_g.g_pd; }
 
     /**
      * Returns pointer to pd object struct, if you need manually call pd fuctions.
      */
-    inline t_object* owner() const { return pd_.owner; }
+    t_object* owner() const { return pd_.owner; }
 
     /**
      * Dumps object info to Pd window

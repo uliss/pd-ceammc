@@ -325,8 +325,8 @@ void DataTypeProperty::updateAll()
 
 PropertyStorage::Dict& PropertyStorage::storage()
 {
-    static Dict dict;
-    return dict;
+    static Dict dict_;
+    return dict_;
 }
 
 std::string PropertyStorage::makeFullName(const std::string& name, _glist* cnv)

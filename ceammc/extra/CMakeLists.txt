@@ -20,6 +20,7 @@ add_subdirectory(fmt)
 add_subdirectory(HoaLibrary-Light)
 
 option(RE2_BUILD_TESTING "" OFF)
+set(RE2_BUILD_TESTING OFF CACHE BOOL "" FORCE)
 add_subdirectory(re2)
 
 if(UNIX)
