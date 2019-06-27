@@ -1,20 +1,10 @@
-#N canvas 405 374 415 271 10;
-#X obj 225 38 s \$0-zeze;
-#X obj 152 30 r \$0-zeze;
+#N canvas 405 374 250 144 10;
 #X obj 1 1 cnv 15 130 40 empty \$0-hoa.header empty 3 12 0 18 -212212
 -1 0;
-#X obj 152 50 bang;
-#X obj 16 7 ui.tab @size 100 18 @receive "(null)" @send "(null)" @pinned
-0 @presetname "ui.tab.0" @background_color 0.93 0.93 0.93 1 @border_color
-0.6 0.6 0.6 1 @label_color 0 0 0 1 @text_color 0 0 0 1 @active_color
-0 0.75 1 1 @hover_color 0.5 0.5 0.5 1 @fontname "Monaco" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner
-0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
-0 0 @orientation 0 @toggle 0 @items "hoa.overview";
-#X msg 152 74 symbol hoa-help.pd;
-#X msg 152 104 \; pd open \$1 .;
-#X connect 1 0 3 0;
-#X connect 3 0 5 0;
-#X connect 4 0 0 0;
-#X connect 5 0 6 0;
+#X obj 14 12 ui.link @size 93 17 @receive "(null)" @send "(null)" @pinned
+0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color
+0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname
+"Menlo" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @url "hoa-help.pd" @title "hoa.overview";
 #X coords 0 -1 1 1 132 42 2 0 0;
