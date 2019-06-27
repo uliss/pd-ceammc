@@ -69,20 +69,18 @@ void HoaProjector::processBlock(const t_sample** in, t_sample** out)
     const size_t NOUTS = numOutputChannels();
     const size_t BS = blockSize();
 
-    for (size_t i = 0; i < NINS; i++) {
-        Signal::copy(BS, in[i], 1, &in_buf_[i], NINS);
-    }
+    for (size_t i = 0; i < NINS; i++)
+        Signal::copy(BS, &in[i][0], 1, &in_buf_[i], NINS);
 
-    for (size_t i = 0; i < BS; i++) {
+    for (size_t i = 0; i < BS; i++)
         processor_->process(&in_buf_[NINS * i], &out_buf_[NOUTS * i]);
-    }
 
-    for (size_t i = 0; i < NOUTS; i++) {
-        Signal::copy(BS, &in_buf_[i], NOUTS, out[i], 1);
-    }
+    for (size_t i = 0; i < NOUTS; i++)
+        Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
 }
 
 void setup_spat_hoa_projector()
 {
-    SoundExternalFactory<HoaProjector> obj("!hoa.projector~");
+    SoundExternalFactory<HoaProjector> obj("hoa.2d.projector~");
+    obj.addAlias("hoa.projector~");
 }
