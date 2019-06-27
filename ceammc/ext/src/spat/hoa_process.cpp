@@ -16,6 +16,7 @@
 #include "ceammc_property_extra.h"
 #include "fmt/format.h"
 
+#include <cmath>
 #include <stdexcept>
 
 extern "C" {
@@ -158,19 +159,44 @@ void HoaProcess::clockTick()
         in.loadBang();
 }
 
-size_t HoaProcess::calcIndexDegree(size_t index)
+size_t HoaProcess::calcHarmDegree2d(size_t index)
 {
     return (index + index % 2) / 2ul;
 }
 
-long HoaProcess::calcAzimuthalOrder(size_t index)
+size_t HoaProcess::calcHarmDegree3d(size_t index)
+{
+    return (size_t)sqrt(double(index));
+}
+
+long HoaProcess::calcAzimuthalOrder2d(size_t index)
 {
     return (long)((long)(index + index % 2l) / 2l) * (1l - (long)(index % 2) * 2l);
 }
 
-size_t HoaProcess::orderToIndex(long order)
+long HoaProcess::calcAzimuthalOrder3d(size_t index)
+{
+    return (long)(index) - ((long)(sqrt((double)(index))) * ((long)(sqrt((double)(index))) + 1));
+}
+
+size_t HoaProcess::harmToIndex2d(size_t degree, long order)
 {
     return std::abs(order) * 2 - (long)(order < 0);
+}
+
+size_t HoaProcess::harmToIndex3d(size_t degree, long order)
+{
+    return (size_t)((long)(degree * (degree + 1)) + order);
+}
+
+size_t HoaProcess::calcNumHarm2d(size_t order)
+{
+    return 2 * order + 1;
+}
+
+size_t HoaProcess::calcNumHarm3d(size_t order)
+{
+    return (order + 1) * (order + 1);
 }
 
 bool HoaProcess::processInstanceInit(ProcessInstance& x, t_canvas* parent, t_symbol* name, const AtomList& args)
@@ -348,21 +374,21 @@ void HoaProcess::sendAnyToAll(size_t inlet_idx, t_symbol* s, const AtomList& l)
 
 bool HoaProcess::loadHarmonics(t_symbol* name, const AtomList& patch_args)
 {
-    const size_t NINSTANCE = 2 * num_->value() + 1; //hoa_2d_get_number_of_harmonics(order);
+    const size_t NINSTANCE = calcNumHarm2d(num_->value());
 
     instances_.assign(NINSTANCE, ProcessInstance());
 
     AtomList load_args;
     load_args.append(Atom(SYM_2D));
     load_args.append(Atom(SYM_HARMONICS));
-    load_args.append(Atom(num_->value()));
-    load_args.append(Atom());
-    load_args.append(Atom());
+    load_args.append(Atom(num_->value())); // decomposition order
+    load_args.append(Atom()); // harmonic index (0, 1, 1, 2, 2..)
+    load_args.append(Atom()); // harmonic order (0, -1, 1, -2, 2..)
     load_args.append(patch_args);
 
     for (size_t i = 0; i < NINSTANCE; i++) {
-        load_args[3].setFloat(calcIndexDegree(i), true);
-        load_args[4].setFloat(calcAzimuthalOrder(i), true);
+        load_args[3].setFloat(calcHarmDegree2d(i), true);
+        load_args[4].setFloat(calcAzimuthalOrder2d(i), true);
 
         if (!processInstanceInit(instances_[i], canvas_, name, load_args)) {
             instances_.clear();
@@ -381,12 +407,14 @@ bool HoaProcess::loadPlaneWaves(t_symbol* name, const AtomList& patch_args)
     AtomList load_args;
     load_args.append(Atom(SYM_2D));
     load_args.append(Atom(SYM_PLANEWAVES));
-    load_args.append(Atom(NINSTANCE));
-    load_args.append(Atom());
+    load_args.append(Atom(NINSTANCE)); // number of channels
+    load_args.append(Atom()); // channel index
+    load_args.append(Atom()); // channel index
     load_args.append(patch_args);
 
     for (size_t i = 0; i < NINSTANCE; i++) {
         load_args[3].setFloat(i, true);
+        load_args[4].setFloat(i, true);
 
         if (!processInstanceInit(instances_[i], canvas_, name, load_args)) {
             instances_.clear();

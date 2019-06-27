@@ -21,6 +21,8 @@ set(HOA_SOURCES
     hoa_process.cpp
     hoa_process_inlet.cpp
     hoa_process_instance.cpp
+    hoa_process_props.cpp
+    hoa_process_route.cpp
     hoa_projector.cpp
     hoa_recomposer.cpp
     hoa_rotate.cpp

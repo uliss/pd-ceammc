@@ -101,9 +101,15 @@ public:
     static t_symbol* SYM_CANVAS;
     static t_symbol* SYM_DSP;
 
-    static size_t calcIndexDegree(size_t index);
-    static long calcAzimuthalOrder(size_t index);
-    static size_t orderToIndex(long order);
+    static size_t calcHarmDegree2d(size_t index);
+    static size_t calcHarmDegree3d(size_t index);
+    static long calcAzimuthalOrder2d(size_t index);
+    static long calcAzimuthalOrder3d(size_t index);
+    static size_t calcNumHarm2d(size_t order);
+    static size_t calcNumHarm3d(size_t order);
+
+    static size_t harmToIndex2d(size_t degree, long order);
+    static size_t harmToIndex3d(size_t degree, long order);
 
 public:
     // only for tests
