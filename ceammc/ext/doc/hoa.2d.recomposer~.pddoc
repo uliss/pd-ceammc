@@ -44,7 +44,7 @@
         <properties>
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
             readonly="true">the order of decomposition</property>
-            <property name="@n" type="int" minvalue="1" maxvalue="63" default="1" readonly="true">
+            <property name="@n" type="int" minvalue="0" maxvalue="63" default="0" readonly="true">
             number of channels (planewaves)</property>
             <property name="@mode" type="symbol" enum="fixe fisheye free" default="fixe"
             readonly="true">recomposition mode. There is three modes: *fixe* - simply recomposes a
@@ -52,24 +52,37 @@
             operation similar to the visual "fisheye" effect by distorsion of the sound field
             perspective to the front of the scene. *free* - allows you to change the angles and the
             widening value for each channels.</property>
-            <property name="@fixe" type="alias" readonly="true">alias for @mode fixe</property>
-            <property name="@fisheye" type="alias" readonly="true">alias for @mode
-            fisheye</property>
-            <property name="@free" type="alias" readonly="true">alias for @mode free</property>
+            <property name="@fixe" type="alias">alias for @mode fixe</property>
+            <property name="@fisheye" type="alias">alias for @mode fisheye</property>
+            <property name="@free" type="alias">alias for @mode free</property>
             <property name="@ramp" type="float" default="0" minvalue="0">ramp time</property>
         </properties>
-        <inlets>
+        <methods>
+            <method name="angles">set the angles of channels. Angles are in radians, wrapped
+            between 0 and 2π 
+            <param name="VALS" type="list" required="true" units="radian">list of
+            angles</param></method>
+            <method name="wide">set the widening value of channels. Widening value is clipped
+            between 0. (omnidirectional) and 1. (directional) 
+            <param name="VALS" type="list" required="true">list of values per
+            channel</param></method>
+        </methods>
+        <inlets dynamic="true">
             <inlet type="audio">
-                <xinfo>input signal</xinfo>
+                <xinfo>input harmonic</xinfo>
             </inlet>
-            <inlet type="audio">
-                <xinfo>position on a circle in radians</xinfo>
+            <inlet type="audio" number="...">
+                <xinfo>input harmonic</xinfo>
+            </inlet>
+            <inlet type="audio" number="n">
+                <xinfo>input harmonic. If @fisheye mode is used: fisheye factor [0-1] in last
+                inlet</xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet type="audio">first circular harmonics output</outlet>
-            <outlet type="audio" number="...">... circular harmonics output</outlet>
-            <outlet type="audio" number="n">n-th circular harmonics output</outlet>
+            <outlet type="audio">first planewave output</outlet>
+            <outlet type="audio" number="...">... planewave output</outlet>
+            <outlet type="audio" number="n">n-th planewave output</outlet>
         </outlets>
         <example>
             <pdascii>

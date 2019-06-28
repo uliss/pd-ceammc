@@ -33,7 +33,7 @@ public:
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** sp) override;
 
-    void m_angle(t_symbol* s, const AtomList& lst);
+    void m_angles(t_symbol* s, const AtomList& lst);
     void m_wide(t_symbol* s, const AtomList& lst);
 
     AtomList propRamp() const;

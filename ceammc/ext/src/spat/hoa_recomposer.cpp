@@ -37,6 +37,9 @@ HoaRecomposer::HoaRecomposer(const PdArgs& args)
     createProperty(new SymbolEnumAlias("@fisheye", mode_, SYM_FISHEYE));
 
     createCbProperty("@ramp", &HoaRecomposer::propRamp, &HoaRecomposer::propSetRamp);
+    Property* pramp = property("@ramp");
+    pramp->info().setType(PropertyInfoType::FLOAT);
+    pramp->info().setMin(0);
 }
 
 void HoaRecomposer::parseProperties()
@@ -93,7 +96,7 @@ void HoaRecomposer::setupDSP(t_signal** sp)
         OBJ_ERR << "unknown mode: " << mode_->value();
 }
 
-void HoaRecomposer::m_angle(t_symbol* s, const AtomList& lst)
+void HoaRecomposer::m_angles(t_symbol* s, const AtomList& lst)
 {
     const size_t N = std::min(lst.size(), processor_->getNumberOfSources());
     for (size_t i = 0; i < N; i++)
@@ -156,17 +159,17 @@ void HoaRecomposer::processFixE()
     const size_t NOUTS = numOutputChannels();
     const size_t BS = blockSize();
 
-    t_sample** in_blocks = inputBlocks();
-    t_sample** out_blocks = outputBlocks();
+    t_sample** in = inputBlocks();
+    t_sample** out = outputBlocks();
 
     for (size_t i = 0; i < NINS; i++)
-        Signal::copy(BS, &in_blocks[i][0], 1, &in_buf_[i], NINS);
+        Signal::copy(sizeof(BS), &in[i][0], 1, &in_buf_[i], sizeof(NINS));
 
     for (size_t i = 0; i < BS; i++)
         processor_->process(&in_buf_[NINS * i], &out_buf_[NOUTS * i]);
 
     for (size_t i = 0; i < NOUTS; i++)
-        Signal::copy(BS, &out_buf_[i], NOUTS, &out_blocks[i][0], 1);
+        Signal::copy(sizeof(BS), &out_buf_[i], sizeof(NOUTS), &out[i][0], 1);
 }
 
 void HoaRecomposer::processFree()
@@ -225,7 +228,8 @@ void setup_spat_hoa_recomposer()
     SYM_FIXE = gensym("fixe");
     SYM_FISHEYE = gensym("fisheye");
 
-    SoundExternalFactory<HoaRecomposer> obj("!hoa.recomposer~");
-    obj.addMethod("angle", &HoaRecomposer::m_angle);
+    SoundExternalFactory<HoaRecomposer> obj("hoa.2d.recomposer~");
+    obj.addAlias("hoa.recomposer~");
+    obj.addMethod("angles", &HoaRecomposer::m_angles);
     obj.addMethod("wide", &HoaRecomposer::m_wide);
 }
