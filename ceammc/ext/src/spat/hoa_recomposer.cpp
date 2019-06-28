@@ -64,6 +64,7 @@ void HoaRecomposer::parseProperties()
         line_buf_.resize(NSRC * 2);
     }
 
+    // one more inlet for fisheye
     createSignalInlets(processor_->getNumberOfSources() + (mode_->value() == SYM_FISHEYE ? 1 : 0));
     createSignalOutlets(processor_->getNumberOfHarmonics());
 
@@ -83,7 +84,7 @@ void HoaRecomposer::processBlock(const t_sample** in, t_sample** out)
 
 void HoaRecomposer::setupDSP(t_signal** sp)
 {
-    HoaBase::setupDSP(sp);
+    signalInit(sp);
 
     if (mode_->value() == SYM_FIXE) {
         dsp_add(dspPerformFixE, 1, static_cast<void*>(this));
@@ -163,13 +164,13 @@ void HoaRecomposer::processFixE()
     t_sample** out = outputBlocks();
 
     for (size_t i = 0; i < NINS; i++)
-        Signal::copy(sizeof(BS), &in[i][0], 1, &in_buf_[i], sizeof(NINS));
+        Signal::copy(BS, &in[i][0], 1, &in_buf_[i], NINS);
 
     for (size_t i = 0; i < BS; i++)
         processor_->process(&in_buf_[NINS * i], &out_buf_[NOUTS * i]);
 
     for (size_t i = 0; i < NOUTS; i++)
-        Signal::copy(sizeof(BS), &out_buf_[i], sizeof(NOUTS), &out[i][0], 1);
+        Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
 }
 
 void HoaRecomposer::processFree()
@@ -178,11 +179,11 @@ void HoaRecomposer::processFree()
     const size_t NOUTS = numOutputChannels();
     const size_t BS = blockSize();
 
-    t_sample** in_blocks = inputBlocks();
-    t_sample** out_blocks = outputBlocks();
+    t_sample** in = inputBlocks();
+    t_sample** out = outputBlocks();
 
     for (size_t i = 0; i < NINS; i++)
-        Signal::copy(BS, &in_blocks[i][0], 1, &in_buf_[i], NINS);
+        Signal::copy(BS, &in[i][0], 1, &in_buf_[i], NINS);
 
     for (size_t i = 0; i < BS; i++) {
         lines_->process(line_buf_.data());
@@ -197,7 +198,7 @@ void HoaRecomposer::processFree()
     }
 
     for (size_t i = 0; i < NOUTS; i++)
-        Signal::copy(BS, &out_buf_[i], NOUTS, &out_blocks[i][0], 1);
+        Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
 }
 
 void HoaRecomposer::processFisheye()
@@ -206,20 +207,20 @@ void HoaRecomposer::processFisheye()
     const size_t NOUTS = numOutputChannels();
     const size_t BS = blockSize();
 
-    t_sample** in_blocks = inputBlocks();
-    t_sample** out_blocks = outputBlocks();
+    t_sample** in = inputBlocks();
+    t_sample** out = outputBlocks();
 
     for (size_t i = 0; i < NPWS; i++)
-        Signal::copy(BS, &in_blocks[i][0], 1, &in_buf_[i], NPWS);
+        Signal::copy(BS, &in[i][0], 1, &in_buf_[i], NPWS);
 
     for (size_t i = 0; i < BS; i++) {
         // set from last inlet
-        processor_->setFisheye(in_blocks[NPWS][i]);
+        processor_->setFisheye(in[NPWS][i]);
         processor_->process(&in_buf_[NPWS * i], &out_buf_[NOUTS * i]);
     }
 
     for (size_t i = 0; i < NOUTS; i++)
-        Signal::copy(BS, &out_buf_[i], NOUTS, &out_blocks[i][0], 1);
+        Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
 }
 
 void setup_spat_hoa_recomposer()
