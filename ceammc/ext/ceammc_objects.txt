@@ -1,5 +1,3 @@
-!hoa.projector~
-!hoa.recomposer~
 !hoa.rotate~
 .f
 .float
@@ -175,7 +173,6 @@ flt.median
 flt.moog_vcf~
 flt.notch~
 flt.resonbp~
-fluid~
 func
 func.call
 function
@@ -215,7 +212,10 @@ helmholtz~
 hoa.2d.decoder~
 hoa.2d.encoder~
 hoa.2d.optim~
+hoa.2d.projector~
+hoa.2d.recomposer~
 hoa.2d.wider~
+hoa.@process
 hoa.decoder~
 hoa.encoder~
 hoa.in
@@ -223,7 +223,10 @@ hoa.in~
 hoa.optim~
 hoa.out
 hoa.out~
+hoa.process.route
 hoa.process~
+hoa.projector~
+hoa.recomposer~
 hoa.scope~
 hoa.thisprocess~
 hoa.wider~
@@ -415,7 +418,6 @@ mix~
 ml
 mlist
 mlist.flatten
-modplug~
 msg
 msg.after
 msg.onload

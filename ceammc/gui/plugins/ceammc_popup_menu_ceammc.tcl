@@ -145,9 +145,9 @@
         snd.file
     }}
     {spat {
-        hoa.2d.decoder~ hoa.2d.encoder~ hoa.2d.optim~ hoa.2d.wider~
-        hoa.process~ pan.cos~ pan.linsig~ pan.lin~ pan.spread~ pan.sqrt~
-        spat.pan4~ spat.pan8~
+        hoa.2d.decoder~ hoa.2d.encoder~ hoa.2d.optim~ hoa.2d.recomposer~
+        hoa.2d.wider~ hoa.process~ pan.cos~ pan.linsig~ pan.lin~ pan.spread~
+        pan.sqrt~ spat.pan4~ spat.pan8~
     }}
     {string {
         string string.contains string.ends_with string.equal string.format
