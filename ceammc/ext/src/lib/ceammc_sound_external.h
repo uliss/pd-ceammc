@@ -19,7 +19,7 @@
 
 namespace ceammc {
 class SoundExternal : public BaseObject {
-    const static size_t MAX_SIG_NUM = 16;
+    const static size_t MAX_SIG_NUM = 64;
 
 private:
     size_t block_size_;
