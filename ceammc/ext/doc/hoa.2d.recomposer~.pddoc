@@ -91,15 +91,18 @@
 |
 [ui.gain~ @size 120 14]
 |
-[hoa.2d.encoder~ 7 16]
+[hoa.2d.encoder~ 7 16 {w=46}]
 *|*
-[hoa.process~ 16 hoa/hoa.fx.delay2~ planewaves {i=17,o=16}]
+[hoa.projector~ 7 16 {w=46,i=16,o=16}]
 *|*
-[hoa.process~ 16 hoa/hoa.fx.gain~ planewaves 1 {i=17,o=16}]
+[hoa.process~ 16 hoa/hoa.fx.delay2~ planewaves {w=46,i=17,o=16}]
 *|*
-[hoa.2d.recomposer~ 7 16 {i=16,o=16}]
+[hoa.process~ 16 hoa/hoa.fx.gain~ planewaves 1 {w=46,i=17,o=16}]
+*|*
+[hoa.2d.recomposer~ 7 16 {w=46,i=16,o=15}]
 *|* *|*
-*|* [hoa.scope~ 5 @gain 4 {i=16} @size 164 164]
+*|* *|*
+*|* [hoa.scope~ 7 @gain 4 @size 164 164 {i=15}]
 *|*
 *|*
 *|*
@@ -111,9 +114,9 @@
 *|*
 *|*
 *|*
-[hoa.decoder~ 7 regular 16 {w=25,i=16,o=16}] [ui.dsp~]
+[hoa.decoder~ 7 regular {w=46,i=15,o=16}] [ui.dsp~]
 *|*
-[xdac~ 1:16 {w=25,i=16}]
+[xdac~ 1:16 {w=46,i=16}]
 ]]>
             </pdascii>
         </example>
