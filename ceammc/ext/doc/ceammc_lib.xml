@@ -1205,6 +1205,9 @@
     <entry descr="a 2D ambisonic optimization tool" name="hoa.2d.optim~" ref_view="object">
       <xi:include href="hoa.2d.optim~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="recomposes a 2d plane wave decomposition into circular harmonics" name="hoa.2d.recomposer~" ref_view="object">
+      <xi:include href="hoa.2d.recomposer~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="a 2d fractional ambisonic order simulator" name="hoa.2d.wider~" ref_view="object">
       <xi:include href="hoa.2d.wider~.pddoc" parse="xml"/>
     </entry>

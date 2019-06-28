@@ -169,6 +169,7 @@ set(DOC_FILES
     hoa.2d.decoder~
     hoa.2d.encoder~
     hoa.2d.optim~
+    hoa.2d.recomposer~
     hoa.2d.wider~
     hoa.process~
     hw.apple_smc

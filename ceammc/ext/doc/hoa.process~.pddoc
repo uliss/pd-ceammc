@@ -31,13 +31,14 @@
             <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
             decomposition</argument>
             <argument name="PNAME" type="symbol">patch name</argument>
-            <argument name="DOMAIN" type="symbol" enum="harmonics planewaves">process domain: harmonics or planewaves</argument>
+            <argument name="DOMAIN" type="symbol" enum="harmonics planewaves">process domain:
+            harmonics or planewaves</argument>
         </arguments>
         <properties>
-            <property name="@n" type="int" minvalue="0" maxvalue="63" default="0"
-            readonly="true">the order of decomposition/number of planewaves</property>
-            <property name="@domain" type="symbol" readonly="true" default="harmonic" enum="harmonics planewaves">
-            process domain: harmonics or planewaves</property>
+            <property name="@n" type="int" minvalue="0" maxvalue="63" default="0" readonly="true">
+            the order of decomposition/number of planewaves</property>
+            <property name="@domain" type="symbol" readonly="true" default="harmonic"
+            enum="harmonics planewaves">process domain: harmonics or planewaves</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">
