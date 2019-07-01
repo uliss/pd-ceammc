@@ -35,7 +35,7 @@ void HoaProjector::parseNumPlainWaves()
     if (N < MIN_PW_COUNT) {
         // zero means auto calc
         if (N != 0)
-            OBJ_ERR << "minimal number of plain waves should be >= " << MIN_PW_COUNT << ", setting to this value";
+            OBJ_ERR << "minimal number of plane waves should be >= " << MIN_PW_COUNT << ", setting to this value";
 
         plane_waves_->setValue(MIN_PW_COUNT);
     }
