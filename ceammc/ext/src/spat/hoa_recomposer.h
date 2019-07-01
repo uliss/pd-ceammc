@@ -40,7 +40,7 @@ public:
     void propSetRamp(const AtomList& lst);
 
 private:
-    void parseNumPlainWaves();
+    void parseNumPlaneWaves();
 
     void processFixE();
     void processFree();

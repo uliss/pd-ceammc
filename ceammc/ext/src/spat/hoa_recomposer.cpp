@@ -45,7 +45,7 @@ HoaRecomposer::HoaRecomposer(const PdArgs& args)
 void HoaRecomposer::parseProperties()
 {
     HoaBase::parseProperties();
-    parseNumPlainWaves();
+    parseNumPlaneWaves();
     mode_->setReadonly(true);
 
     processor_.reset(new MultiEncoder2d(order(), plain_waves_->value()));
@@ -133,7 +133,7 @@ void HoaRecomposer::propSetRamp(const AtomList& lst)
     lines_->setRamp(ramp_ / 1000 * sys_getsr());
 }
 
-void HoaRecomposer::parseNumPlainWaves()
+void HoaRecomposer::parseNumPlaneWaves()
 {
     const int MIN_PW_COUNT = 2 * order() + 1;
 
