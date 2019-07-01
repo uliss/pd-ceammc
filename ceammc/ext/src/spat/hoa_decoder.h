@@ -20,7 +20,7 @@
 
 class HoaDecoder : public HoaBase {
     SymbolEnumProperty* mode_;
-    IntProperty* plain_waves_;
+    IntProperty* plane_waves_;
     std::unique_ptr<Decoder2d> decoder_;
     Buffer in_buf_;
     Buffer out_buf_;

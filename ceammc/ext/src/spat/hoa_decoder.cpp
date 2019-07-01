@@ -35,7 +35,7 @@ constexpr bool is_in(T t, T v, Args... args)
 HoaDecoder::HoaDecoder(const PdArgs& args)
     : HoaBase(args)
     , mode_(nullptr)
-    , plain_waves_(nullptr)
+    , plane_waves_(nullptr)
     , crop_size_(0)
 {
     mode_ = new SymbolEnumProperty("@mode", SYM_REGULAR);
@@ -46,8 +46,8 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
     createProperty(new SymbolEnumAlias("@irregular", mode_, SYM_IRREGULAR));
     createProperty(new SymbolEnumAlias("@binaural", mode_, SYM_BINAURAL));
 
-    plain_waves_ = new IntProperty("@nwaves", 0);
-    createProperty(plain_waves_);
+    plane_waves_ = new IntProperty("@nwaves", 0);
+    createProperty(plane_waves_);
 
     Property* pcrop = createCbProperty("@crop", &HoaDecoder::propCropSize, &HoaDecoder::propSetCropSize);
     auto& pinfo = pcrop->info();
@@ -89,48 +89,48 @@ void HoaDecoder::parsePlainWavesNum()
 {
     const int NWAVES_ARG_IDX = 2;
 
-    // num of plain waves ignored in binaural mode
+    // num of plane waves ignored in binaural mode
     if (mode_->value() == SYM_BINAURAL) {
-        plain_waves_->setValue(2);
+        plane_waves_->setValue(2);
     } else if (mode_->value() == SYM_REGULAR) {
         const int MIN_PW_COUNT = 2 * order() + 1;
         const int DEFAULT = 2 * order() + 2;
 
         // property was not specified, try positional arg
-        if (plain_waves_->value() == 0)
-            plain_waves_->setValue(positionalFloatArgument(NWAVES_ARG_IDX, DEFAULT));
+        if (plane_waves_->value() == 0)
+            plane_waves_->setValue(positionalFloatArgument(NWAVES_ARG_IDX, DEFAULT));
 
-        const auto N = plain_waves_->value();
+        const auto N = plane_waves_->value();
 
         if (N >= MIN_PW_COUNT) {
-            plain_waves_->setValue(N);
+            plane_waves_->setValue(N);
         } else {
-            OBJ_ERR << "minimal number of plain waves for regular mode should be >= "
+            OBJ_ERR << "minimal number of plane waves for regular mode should be >= "
                     << MIN_PW_COUNT << ", setting to this value";
-            plain_waves_->setValue(MIN_PW_COUNT);
+            plane_waves_->setValue(MIN_PW_COUNT);
         }
     } else if (mode_->value() == SYM_IRREGULAR) {
         const int MIN_PW_COUNT = 1;
         const int DEFAULT = 5;
 
         // property was not specified, try positional arg
-        if (plain_waves_->value() == 0)
-            plain_waves_->setValue(positionalFloatArgument(NWAVES_ARG_IDX, DEFAULT));
+        if (plane_waves_->value() == 0)
+            plane_waves_->setValue(positionalFloatArgument(NWAVES_ARG_IDX, DEFAULT));
 
-        const auto N = plain_waves_->value();
+        const auto N = plane_waves_->value();
 
         if (N >= MIN_PW_COUNT) {
-            plain_waves_->setValue(N);
+            plane_waves_->setValue(N);
         } else {
-            OBJ_ERR << "minimal number of plain waves for irregular mode should be >= "
+            OBJ_ERR << "minimal number of plane waves for irregular mode should be >= "
                     << MIN_PW_COUNT << ", setting to this value";
-            plain_waves_->setValue(MIN_PW_COUNT);
+            plane_waves_->setValue(MIN_PW_COUNT);
         }
     } else {
         OBJ_ERR << "unknown mode: " << mode_->value();
     }
 
-    plain_waves_->setReadonly(true);
+    plane_waves_->setReadonly(true);
 }
 
 void HoaDecoder::parseProperties()
@@ -213,10 +213,10 @@ void HoaDecoder::initDecoder()
 {
     t_symbol* mode = mode_->value();
     if (mode == SYM_REGULAR) {
-        decoder_.reset(new DecoderRegular2d(order(), plain_waves_->value()));
+        decoder_.reset(new DecoderRegular2d(order(), plane_waves_->value()));
         decoder_->setPlanewavesRotation(0, 0, 0);
     } else if (mode == SYM_IRREGULAR) {
-        decoder_.reset(new DecoderIrregular2d(order(), plain_waves_->value()));
+        decoder_.reset(new DecoderIrregular2d(order(), plane_waves_->value()));
     } else if (mode == SYM_BINAURAL) {
         DecoderBinaural2d* x = new DecoderBinaural2d(order());
         x->setCropSize(crop_size_);
