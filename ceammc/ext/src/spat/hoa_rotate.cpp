@@ -64,5 +64,6 @@ void HoaRotate::blockSizeChanged(size_t bs)
 
 void setup_spat_hoa_rotate()
 {
-    SoundExternalFactory<HoaRotate> obj("!hoa.rotate~");
+    SoundExternalFactory<HoaRotate> obj("hoa.2d.rotate~");
+    obj.addAlias("hoa.rotate~");
 }

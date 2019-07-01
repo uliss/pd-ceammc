@@ -1,4 +1,3 @@
-!hoa.rotate~
 .f
 .float
 .i
@@ -214,6 +213,7 @@ hoa.2d.encoder~
 hoa.2d.optim~
 hoa.2d.projector~
 hoa.2d.recomposer~
+hoa.2d.rotate~
 hoa.2d.wider~
 hoa.@process
 hoa.decoder~
@@ -227,6 +227,7 @@ hoa.process.route
 hoa.process~
 hoa.projector~
 hoa.recomposer~
+hoa.rotate~
 hoa.scope~
 hoa.thisprocess~
 hoa.wider~

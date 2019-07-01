@@ -168,6 +168,7 @@ hoa.2d.decoder~,hoa.decoder~		?		?
 hoa.2d.encoder~,hoa.encoder~		~~		?
 hoa.2d.optim~,hoa.optim~		?		?
 hoa.2d.recomposer~,hoa.recomposer~		?		?
+hoa.2d.rotate~,hoa.rotate~		?		?
 hoa.2d.wider~,hoa.wider~		?		?
 hoa.process~		?		?
 hw.apple_smc		.		.
