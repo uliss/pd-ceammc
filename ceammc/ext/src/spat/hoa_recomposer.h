@@ -22,7 +22,7 @@ class HoaRecomposer : public HoaBase {
     Buffer line_buf_;
     std::unique_ptr<MultiEncoder2d> processor_;
     std::unique_ptr<PolarLines2d> lines_;
-    IntProperty* plain_waves_;
+    IntProperty* plane_waves_;
     SymbolEnumProperty* mode_;
     t_float ramp_;
 

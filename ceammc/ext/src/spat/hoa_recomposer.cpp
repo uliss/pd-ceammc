@@ -20,12 +20,12 @@ static t_symbol* SYM_FISHEYE;
 
 HoaRecomposer::HoaRecomposer(const PdArgs& args)
     : HoaBase(args)
-    , plain_waves_(nullptr)
+    , plane_waves_(nullptr)
     , mode_(nullptr)
     , ramp_(100)
 {
-    plain_waves_ = new IntProperty("@n", 0);
-    createProperty(plain_waves_);
+    plane_waves_ = new IntProperty("@n", 0);
+    createProperty(plane_waves_);
 
     mode_ = new SymbolEnumProperty("@mode", SYM_FREE);
     mode_->appendEnum(SYM_FIXE);
@@ -48,10 +48,10 @@ void HoaRecomposer::parseProperties()
     parseNumPlaneWaves();
     mode_->setReadonly(true);
 
-    processor_.reset(new MultiEncoder2d(order(), plain_waves_->value()));
+    processor_.reset(new MultiEncoder2d(order(), plane_waves_->value()));
 
     if (mode_->value() == SYM_FREE) {
-        lines_.reset(new PolarLines2d(plain_waves_->value()));
+        lines_.reset(new PolarLines2d(plane_waves_->value()));
         lines_->setRamp(ramp_ / 1000 * sys_getsr());
 
         const size_t NSRC = processor_->getNumberOfSources();
@@ -139,19 +139,19 @@ void HoaRecomposer::parseNumPlaneWaves()
 
     auto pos_arg = positionalFloatArgument(1, 0);
     if (pos_arg != 0)
-        plain_waves_->setValue(pos_arg);
+        plane_waves_->setValue(pos_arg);
 
-    const auto N = plain_waves_->value();
+    const auto N = plane_waves_->value();
 
     if (N < MIN_PW_COUNT) {
         // zero means auto calc
         if (N != 0)
             OBJ_ERR << "minimal number of plain waves should be >= " << MIN_PW_COUNT << ", setting to this value";
 
-        plain_waves_->setValue(MIN_PW_COUNT);
+        plane_waves_->setValue(MIN_PW_COUNT);
     }
 
-    plain_waves_->setReadonly(true);
+    plane_waves_->setReadonly(true);
 }
 
 void HoaRecomposer::processFixE()
