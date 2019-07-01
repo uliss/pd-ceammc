@@ -16,10 +16,10 @@
 
 HoaProjector::HoaProjector(const PdArgs& args)
     : HoaBase(args)
-    , plain_waves_(nullptr)
+    , plane_waves_(nullptr)
 {
-    plain_waves_ = new IntProperty("@n", 0);
-    createProperty(plain_waves_);
+    plane_waves_ = new IntProperty("@n", 0);
+    createProperty(plane_waves_);
 }
 
 void HoaProjector::parseNumPlainWaves()
@@ -28,19 +28,19 @@ void HoaProjector::parseNumPlainWaves()
 
     auto pos_arg = positionalFloatArgument(1, 0);
     if (pos_arg != 0)
-        plain_waves_->setValue(pos_arg);
+        plane_waves_->setValue(pos_arg);
 
-    const auto N = plain_waves_->value();
+    const auto N = plane_waves_->value();
 
     if (N < MIN_PW_COUNT) {
         // zero means auto calc
         if (N != 0)
             OBJ_ERR << "minimal number of plain waves should be >= " << MIN_PW_COUNT << ", setting to this value";
 
-        plain_waves_->setValue(MIN_PW_COUNT);
+        plane_waves_->setValue(MIN_PW_COUNT);
     }
 
-    plain_waves_->setReadonly(true);
+    plane_waves_->setReadonly(true);
 }
 
 void HoaProjector::parseProperties()
@@ -48,7 +48,7 @@ void HoaProjector::parseProperties()
     HoaBase::parseProperties();
     parseNumPlainWaves();
 
-    processor_.reset(new DecoderRegular2d(order(), plain_waves_->value()));
+    processor_.reset(new DecoderRegular2d(order(), plane_waves_->value()));
 
     createSignalInlets(processor_->getNumberOfHarmonics());
     createSignalOutlets(processor_->getNumberOfPlanewaves());

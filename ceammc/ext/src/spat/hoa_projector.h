@@ -20,7 +20,7 @@ class HoaProjector : public HoaBase {
     Buffer in_buf_;
     Buffer out_buf_;
     std::unique_ptr<DecoderRegular2d> processor_;
-    IntProperty* plain_waves_;
+    IntProperty* plane_waves_;
 
 public:
     HoaProjector(const PdArgs& args);
