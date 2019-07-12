@@ -101,6 +101,7 @@ set(DOC_FILES
     flow.multiplex~
     flow.multiplex2~
     flow.once
+    flow.pack
     flow.pass
     flow.pass_if
     flow.reject
@@ -168,6 +169,7 @@ set(DOC_FILES
     global.set
     hoa.2d.decoder~
     hoa.2d.encoder~
+    hoa.2d.map~
     hoa.2d.optim~
     hoa.2d.projector~
     hoa.2d.recomposer~

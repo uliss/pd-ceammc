@@ -363,6 +363,9 @@
     <entry descr="one message pass thru" name="flow.once" ref_view="object">
       <xi:include href="flow.once.pddoc" parse="xml"/>
     </entry>
+    <entry descr="hot flow pack" name="flow.pack" ref_view="object">
+      <xi:include href="flow.pack.pddoc" parse="xml"/>
+    </entry>
     <entry descr="pass specified values" name="flow.pass" ref_view="object">
       <xi:include href="flow.pass.pddoc" parse="xml"/>
     </entry>
@@ -1201,6 +1204,9 @@
     </entry>
     <entry descr="hoa 2d encoder" name="hoa.2d.encoder~" ref_view="object">
       <xi:include href="hoa.2d.encoder~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="a 2d ambisonic multisource spatializer" name="hoa.2d.map~" ref_view="object">
+      <xi:include href="hoa.2d.map~.pddoc" parse="xml"/>
     </entry>
     <entry descr="a 2D ambisonic optimization tool" name="hoa.2d.optim~" ref_view="object">
       <xi:include href="hoa.2d.optim~.pddoc" parse="xml"/>

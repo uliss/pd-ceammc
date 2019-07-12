@@ -138,6 +138,7 @@ flow.mux
 flow.mux2~
 flow.mux~
 flow.once
+flow.pack
 flow.pass
 flow.pass_if
 flow.reject
@@ -210,6 +211,7 @@ group
 helmholtz~
 hoa.2d.decoder~
 hoa.2d.encoder~
+hoa.2d.map~
 hoa.2d.optim~
 hoa.2d.projector~
 hoa.2d.recomposer~
@@ -220,6 +222,7 @@ hoa.decoder~
 hoa.encoder~
 hoa.in
 hoa.in~
+hoa.map~
 hoa.optim~
 hoa.out
 hoa.out~

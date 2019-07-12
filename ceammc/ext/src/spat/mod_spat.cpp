@@ -8,6 +8,7 @@
 extern void setup_spat_hoa_connections();
 extern void setup_spat_hoa_decoder();
 extern void setup_spat_hoa_encoder();
+extern void setup_spat_hoa_map();
 extern void setup_spat_hoa_optim();
 extern void setup_spat_hoa_process();
 extern void setup_spat_hoa_process_inlet();
@@ -32,6 +33,7 @@ void ceammc_spat_setup()
     setup_spat_hoa_connections();
     setup_spat_hoa_decoder();
     setup_spat_hoa_encoder();
+    setup_spat_hoa_map();
     setup_spat_hoa_optim();
     setup_spat_hoa_process();
     setup_spat_hoa_process_inlet();
