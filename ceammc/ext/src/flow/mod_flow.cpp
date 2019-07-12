@@ -15,6 +15,7 @@
 #include "flow_multiplex2_tilde.h"
 #include "flow_multiplex_tilde.h"
 #include "flow_once.h"
+#include "flow_pack.h"
 #include "flow_pass.h"
 #include "flow_pass_if.h"
 #include "flow_reject.h"
@@ -42,8 +43,8 @@ void ceammc_flow_setup()
     setup_flow_append();
     setup_flow_count();
     setup_flow_demultiplex();
-    setup_flow_demultiplex_tilde();
     setup_flow_demultiplex2_tilde();
+    setup_flow_demultiplex_tilde();
     setup_flow_gate();
     setup_flow_interval();
     setup_flow_less();
@@ -53,6 +54,7 @@ void ceammc_flow_setup()
     setup_flow_multiplex2_tilde();
     setup_flow_multiplex_tilde();
     setup_flow_once();
+    setup_flow_pack();
     setup_flow_route();
     setup_flow_speedlim();
 }

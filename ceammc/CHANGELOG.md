@@ -11,6 +11,7 @@
 - canvas.dir added
 - canvas.name added
 - canvas.path added
+- flow.pack added
 - list->props second outlet added for non-props elements
 - list.at @default property added (that outputs if element is not found)
 - list.walk second outlet added (with bang after reaching list last element)

@@ -99,6 +99,7 @@ flow.multiplex,flow.mux		?		.
 flow.multiplex2~,flow.mux2~,mux2~		?		~~
 flow.multiplex~,flow.mux~,mux~		?		~
 flow.once,once		.		.
+flow.pack		?		.
 flow.pass,pass		.		.
 flow.pass_if,pass_if		..		..
 flow.reject,reject		.		.
@@ -166,6 +167,7 @@ global.mlist		.		.
 global.set		.		.
 hoa.2d.decoder~,hoa.decoder~		?		?
 hoa.2d.encoder~,hoa.encoder~		~~		?
+hoa.2d.map~,hoa.map~		?		?
 hoa.2d.optim~,hoa.optim~		?		?
 hoa.2d.projector~,hoa.projector~		?		?
 hoa.2d.recomposer~,hoa.recomposer~		?		?
