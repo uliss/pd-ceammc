@@ -35,6 +35,13 @@
             <property name="@nsrc" type="int" minvalue="1" maxvalue="63" default="3"
             readonly="true">number of input sources</property>
         </properties>
+        <methods>
+            <method name="polar">set source mapping in polar coordinates
+            <param name="IDX" required="true" type="int" minvalue="0">source index</param>
+            <param name="RAD" required="true" type="float" minvalue="0" maxvalue="1">radius</param>
+            <param name="ANG" required="true" type="float" minvalue="0" maxvalue="2π" units="radian">rotation angle</param>
+            </method>
+        </methods>
         <inlets dynamic="true">
             <inlet type="audio">
                 <xinfo>first source input</xinfo>

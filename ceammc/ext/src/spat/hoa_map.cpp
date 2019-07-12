@@ -114,7 +114,6 @@ void HoaMap::processMultiSource()
             map_->setAzimuth(j, lines_vec_[j + NSRC]);
 
         map_->process(&in_buf_[NINS * i], &out_buf_[NOUTS * i]);
-        //        map_->process(x->f_sig_ins + numins * i, x->f_sig_outs + numouts * i);
     }
 
     for (size_t i = 0; i < NOUTS; i++)
