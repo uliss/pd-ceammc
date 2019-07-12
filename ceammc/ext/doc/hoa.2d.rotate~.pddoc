@@ -41,8 +41,8 @@
                 <xinfo>n-th input harmonic</xinfo>
             </inlet>
             <inlet type="audio" number="n+1">
-                <xinfo>Set the angle of the rotation of the soundfield in radian.
-                The rotation angle is anti-clockwise and wrapped between 0 and 2π.</xinfo>
+                <xinfo>Set the angle of the rotation of the soundfield in radian. The rotation
+                angle is anti-clockwise and wrapped between 0 and 2π.</xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
