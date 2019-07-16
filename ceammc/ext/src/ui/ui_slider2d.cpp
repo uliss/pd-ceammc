@@ -371,8 +371,8 @@ void UISlider2D::setup()
 
     obj.addProperty("x_min", _("Minimum X-value"), -1, &UISlider2D::prop_x_min, "Bounds");
     obj.addProperty("x_max", _("Maximum X-value"), 1, &UISlider2D::prop_x_max, "Bounds");
-    obj.addProperty("y_min", _("Minimum Y-value"), -1, &UISlider2D::prop_y_min, "Bounds");
-    obj.addProperty("y_max", _("Maximum Y-value"), 1, &UISlider2D::prop_y_max, "Bounds");
+    obj.addProperty("y_min", _("Minimum Y-value"), 1, &UISlider2D::prop_y_min, "Bounds");
+    obj.addProperty("y_max", _("Maximum Y-value"), -1, &UISlider2D::prop_y_max, "Bounds");
 
     obj.addProperty("x_range", &UISlider2D::propXRange, 0);
     obj.addProperty("y_range", &UISlider2D::propYRange, 0);
