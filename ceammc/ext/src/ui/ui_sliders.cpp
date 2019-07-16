@@ -183,7 +183,7 @@ void UISliders::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, 
         char buf[64];
         snprintf(buf, sizeof(buf), _("fill with %f"), prop_max);
         menu.addItem(buf);
-        snprintf(buf, sizeof(buf), _("fill with %f"), (prop_max - prop_min) * 0.5);
+        snprintf(buf, sizeof(buf), _("fill with %f"), (prop_max + prop_min) * 0.5);
         menu.addItem(buf);
         snprintf(buf, sizeof(buf), _("fill with %f"), prop_min);
         menu.addItem(buf);
@@ -236,7 +236,7 @@ void UISliders::onPopup(t_symbol* menu_name, long item_idx)
         m_fill(prop_max);
         break;
     case 1:
-        m_fill((prop_max - prop_min) * 0.5);
+        m_fill((prop_max + prop_min) * 0.5);
         break;
     case 2:
         m_fill(prop_min);
