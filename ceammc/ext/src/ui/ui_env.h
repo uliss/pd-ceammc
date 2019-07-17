@@ -42,7 +42,7 @@ class UIEnv : public UIObject {
     bool draw_cursor_cross_;
     bool delete_mode_;
     UILayer envelope_layer_;
-    UILayer cursor_layer_;
+    UILayer cursor_layer_; // cursor cross and text position
     UIFont font_;
     UITextLayout cursor_txt_pos_;
     float max_env_value_;
@@ -94,6 +94,13 @@ private:
     void drawBackground(const t_rect& r);
     void drawCursor(const t_rect& r);
     void drawEnvelope(const t_rect& r);
+
+    void makeCommonPopup(const t_pt& abs_pt);
+    void addNode(const t_pt& pt);
+    long findSelectedNodeIdx() const;
+
+    void toggleSelectedNodeStop();
+    void removeSelectedNode();
 
 public:
     static void setup();
