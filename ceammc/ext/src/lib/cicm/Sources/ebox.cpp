@@ -2221,8 +2221,6 @@ static void ebox_erase(t_ebox* x)
     if (x->b_obj.o_canvas && glist_isvisible(x->b_obj.o_canvas) && x->b_have_window) {
         x->b_have_window = false;
         ebox_erase_label(x);
-        // prevent double destroy
-        x->b_label = s_null;
         sys_vgui("destroy %s \n", x->b_drawing_id->s_name);
     }
 
