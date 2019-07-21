@@ -71,6 +71,7 @@ public:
     t_canvas* canvas() const;
     bool isPatchLoading() const;
     bool isPatchEdited() const;
+    bool isVisible() const;
     const AtomList& args() const { return args_; }
     AtomList& args() { return args_; }
 
@@ -79,6 +80,8 @@ public:
     t_symbol* presetId();
 
     void paint();
+    void create();
+    void erase();
 
     void redraw();
     void redrawInnerArea();

@@ -292,6 +292,12 @@ public:
         eclass_addmethod(pd_class, UI_METHOD_PTR(onData), "list", A_GIMME, 0);
     }
 
+    void useDrawCallbacks()
+    {
+        eclass_addmethod(pd_class, UI_METHOD_PTR(create), ".create", A_CANT, 0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(erase), ".erase", A_CANT, 0);
+    }
+
     void addMethod(const char* name, listMethodPtr m)
     {
         addMethod(gensym(name), m);
@@ -548,6 +554,16 @@ public:
     static void paint(UI* z)
     {
         z->paint();
+    }
+
+    static void create(UI* z)
+    {
+        z->create();
+    }
+
+    static void erase(UI* z)
+    {
+        z->erase();
     }
 
     template <class T>

@@ -118,6 +118,11 @@ bool UIObject::isPatchEdited() const
     return c ? c->gl_edit : false;
 }
 
+bool UIObject::isVisible() const
+{
+    return asEBox() && ebox_isvisible(asEBox());
+}
+
 void UIObject::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     name_ = name;
@@ -142,6 +147,14 @@ void UIObject::paint()
 {
 }
 
+void UIObject::create()
+{
+}
+
+void UIObject::erase()
+{
+}
+
 void UIObject::redraw()
 {
     ebox_redraw(asEBox());
@@ -160,7 +173,8 @@ void UIObject::redrawBGLayer()
 
 void UIObject::updateSize()
 {
-    ebox_notify(asEBox(), s_size);
+    if (asEBox())
+        ebox_notify(asEBox(), s_size);
 }
 
 void UIObject::resize(int w, int h)

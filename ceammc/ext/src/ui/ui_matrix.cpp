@@ -374,14 +374,12 @@ void UIMatrix::paint()
 
 void UIMatrix::create()
 {
-    UI_ERR << "create";
     createCells();
 }
 
 void UIMatrix::erase()
 {
     eraseCells();
-    UI_ERR << "erase";
 }
 
 void UIMatrix::outputCell(size_t row, size_t col)
