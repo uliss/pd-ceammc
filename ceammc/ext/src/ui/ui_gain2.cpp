@@ -21,6 +21,13 @@ UIGain2::UIGain2()
 void UIGain2::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIDspObject::init(name, args, usePresets);
+
+    if (name == gensym("ui.hgain2~")) {
+        is_horizontal_ = true;
+        std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+        updateLabels();
+    }
+
     dspSetup(2, 2);
 }
 
