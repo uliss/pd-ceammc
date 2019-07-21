@@ -145,6 +145,9 @@
     <entry descr="converts symbol pitch name to MIDI note number" name="conv.pitch2midi" ref_view="object">
       <xi:include href="conv.pitch2midi.pddoc" parse="xml"/>
     </entry>
+    <entry descr="convert from polar coordinates to cartesian" name="conv.pol2car" ref_view="object">
+      <xi:include href="conv.pol2car.pddoc" parse="xml"/>
+    </entry>
     <entry descr="convert radians value to phase" name="conv.rad2phase" ref_view="object">
       <xi:include href="conv.rad2phase.pddoc" parse="xml"/>
     </entry>

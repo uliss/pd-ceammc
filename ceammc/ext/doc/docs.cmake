@@ -39,6 +39,7 @@ set(DOC_FILES
     conv.phase2rad
     conv.phase2rad~
     conv.pitch2midi
+    conv.pol2car
     conv.rad2phase
     conv.rad2phase~
     conv.samp2sec

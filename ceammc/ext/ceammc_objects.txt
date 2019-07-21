@@ -43,7 +43,6 @@ canvas.name
 canvas.path
 canvas.top
 car->pol
-car->pol_aliased
 cc->amp
 cdiv~
 click~
@@ -53,7 +52,6 @@ conv.bpm2hz
 conv.bpm2ms
 conv.bpm2sec
 conv.car2pol
-conv.car2pol_aliased
 conv.cc2amp
 conv.dbfs2amp
 conv.lin2curve

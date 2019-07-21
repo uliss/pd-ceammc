@@ -38,6 +38,7 @@ conv.midi2freq,midi->freq,m->f		.		.
 conv.phase2rad,phase->rad		.		.
 conv.phase2rad~,phase->rad~		~		~
 conv.pitch2midi,pitch->midi		.		.
+conv.pol2car,pol->car		.		.
 conv.rad2phase,rad->phase		.		.
 conv.rad2phase~,rad->phase~		~		~
 conv.samp2sec,samp->sec		.		.
