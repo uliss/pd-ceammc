@@ -17,6 +17,7 @@
 - list.walk second outlet added (with bang after reaching list last element)
 - popup menu added to ui.radio in check list mode
 - ui.hgain~ alias added to create horizontal ui.gain~
+- ui.hgain2~ alias added to create horizontal ui.gain2~
 
 ### Changed:
 - ui.tab in single mode outputs like ui.menu: list pair - INDEX TAB_NAME

@@ -606,6 +606,7 @@ ui.dsp~
 ui.env
 ui.gain2~
 ui.gain~
+ui.hgain2~
 ui.hgain~
 ui.hrd
 ui.hsl
@@ -636,6 +637,7 @@ ui.ssc~
 ui.t
 ui.tab
 ui.toggle
+ui.vgain2~
 ui.vgain~
 ui.vrd
 ui.vsl

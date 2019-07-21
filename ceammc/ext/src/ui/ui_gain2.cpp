@@ -41,6 +41,8 @@ void UIGain2::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_out
 void UIGain2::setup()
 {
     UIDspFactory<UIGain2> obj("ui.gain2~");
+    obj.addAlias("ui.vgain2~");
+    obj.addAlias("ui.hgain2~");
 
     obj.addColorProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UIGain2::prop_color_knob);
     obj.addHiddenFloatCbProperty("db", &UIGain2::dbValue, &UIGain2::setDbValue);
