@@ -85,6 +85,7 @@ static const char* SYM_ENTRY = "entry";
 
 #define LABEL_TAG "label_%s"
 
+static t_pt ebox_calc_pos(t_ebox* x, t_glist* glist);
 static void ebox_create_window(t_ebox* x, t_glist* glist);
 static void ebox_invalidate_all(t_ebox* x);
 static void ebox_draw_border(t_ebox* x);
@@ -466,6 +467,8 @@ void ebox_new(t_ebox* x, long flags)
     x->label_margins[0] = 0;
     x->label_margins[1] = 0;
 
+    x->wis_canvas = nullptr;
+
     eobj_getclass(x)->c_widget.w_dosave = (t_typ_method)ebox_dosave;
     ebox_attrprocess_default(x);
 }
@@ -685,8 +688,11 @@ static void ebox_paint(t_ebox* x)
 void ebox_wvis(t_gobj* z, t_glist* glist, int vis)
 {
     t_ebox* x = (t_ebox*)z;
+    x->wis_canvas = glist;
+
     if (vis) {
         if (eobj_isbox(x) && x->b_ready_to_draw && x->b_visible) {
+
             ebox_invalidate_all(x);
             ebox_create_window(x, glist);
             ebox_paint(x);
@@ -794,27 +800,36 @@ static void ebox_create_widget(t_ebox* x)
         (int)(x->b_rect.height * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.));
 }
 
-static void ebox_create_window(t_ebox* x, t_glist* glist)
+static t_pt ebox_calc_pos(t_ebox* x, t_glist* glist)
 {
-    x->b_have_window = false;
+    t_pt pos = { 0, 0 };
 
     if (!glist->gl_havewindow) {
-        x->b_isinsubcanvas = true;
-        x->b_rect.x = x->b_obj.o_obj.te_xpix;
-        x->b_rect.y = x->b_obj.o_obj.te_ypix;
+        pos.x = x->b_obj.o_obj.te_xpix;
+        pos.y = x->b_obj.o_obj.te_ypix;
 
         while (!glist->gl_havewindow) {
-            x->b_rect.x -= glist->gl_xmargin;
-            x->b_rect.y -= glist->gl_ymargin;
-            x->b_rect.x += glist->gl_obj.te_xpix;
-            x->b_rect.y += glist->gl_obj.te_ypix;
+            pos.x -= glist->gl_xmargin;
+            pos.y -= glist->gl_ymargin;
+            pos.x += glist->gl_obj.te_xpix;
+            pos.y += glist->gl_obj.te_ypix;
             glist = glist->gl_owner;
         }
     } else {
-        x->b_isinsubcanvas = false;
-        x->b_rect.x = x->b_obj.o_obj.te_xpix;
-        x->b_rect.y = x->b_obj.o_obj.te_ypix;
+        pos.x = x->b_obj.o_obj.te_xpix;
+        pos.y = x->b_obj.o_obj.te_ypix;
     }
+
+    return pos;
+}
+
+static void ebox_create_window(t_ebox* x, t_glist* glist)
+{
+    x->b_have_window = false;
+    x->b_isinsubcanvas = !glist->gl_havewindow;
+    auto pos = ebox_calc_pos(x, glist);
+    x->b_rect.x = pos.x;
+    x->b_rect.y = pos.y;
 
     ebox_tk_ids(x, glist_getcanvas(glist));
     ebox_create_widget(x);
@@ -1194,15 +1209,25 @@ void ebox_pos(t_ebox* x, float newx, float newy)
     ebox_move(x);
 }
 
-void ebox_vis(t_ebox* x, int vis)
+void ebox_vis(t_ebox* x, t_float v)
 {
-    vis = (int)pd_clip_minmax(vis, 0, 1);
+    const bool vis = (v != 0);
     if (x->b_visible != vis) {
-        x->b_visible = (char)vis;
-        if (x->b_visible && x->b_ready_to_draw && x->b_obj.o_canvas) {
-            ebox_redraw(x);
-        } else {
-            ebox_erase(x);
+        x->b_visible = vis;
+
+        if (ebox_isdrawable(x)) {
+            if (vis) {
+                ebox_invalidate_all(x);
+                if (x->b_isinsubcanvas) {
+                    //                    pd_error(0, "")
+                    ebox_create_window(x, x->b_obj.o_canvas);
+                } else
+                    ebox_create_window(x, x->b_obj.o_canvas);
+
+                ebox_paint(x);
+            } else {
+                ebox_erase(x);
+            }
         }
     }
 }
@@ -2251,7 +2276,7 @@ static void ebox_erase(t_ebox* x)
 
 static void ebox_select(t_ebox* x)
 {
-    if (glist_isvisible(x->b_obj.o_canvas)) {
+    if (ebox_isvisible(x)) {
         int color = (x->b_selected_box == EITEM_OBJ)
             ? rgba_to_hex_int(rgba_blue)
             : rgba_to_hex_int(x->b_boxparameters.d_bordercolor);
@@ -2263,7 +2288,13 @@ static void ebox_select(t_ebox* x)
 
 static void ebox_move(t_ebox* x)
 {
-    if (glist_isvisible(x->b_obj.o_canvas)) {
+    if (ebox_isvisible(x)) {
+        if (x->wis_canvas) {
+            auto pos = ebox_calc_pos(x, x->wis_canvas);
+            x->b_rect.x = pos.x;
+            x->b_rect.y = pos.y;
+        }
+
         sys_vgui("%s coords %s %d %d\n", x->b_canvas_id->s_name, x->b_window_id->s_name,
             (int)(x->b_rect.x - x->b_boxparameters.d_borderthickness),
             (int)(x->b_rect.y - x->b_boxparameters.d_borderthickness));
@@ -2271,6 +2302,7 @@ static void ebox_move(t_ebox* x)
         if (x->b_label != s_null)
             ebox_update_label_pos(x);
     }
+
     canvas_fixlinesfor(glist_getcanvas(x->b_obj.o_canvas), (t_text*)x);
 }
 

@@ -448,7 +448,7 @@ typedef struct t_elayer {
     elayer_flags e_state; /*!< The layer state. */
     t_capstyle e_line_capstyle; /*!< The layer line capstyle. */
     t_dashstyle e_line_dashstyle; /*!< The layer line dashstyle. */
-    t_smooth e_line_smooth;  /*!< The layer line dashstyle. */
+    t_smooth e_line_smooth; /*!< The layer line dashstyle. */
 } t_elayer;
 
 /** @} */
@@ -795,6 +795,8 @@ typedef struct t_ebox {
     t_symbol* label_side; /*!< The UI label anchor side: top, left, right, or bottom */
     int label_inner;
     int label_margins[2];
+
+    t_canvas* wis_canvas;
 } t_ebox;
 
 /** @} */

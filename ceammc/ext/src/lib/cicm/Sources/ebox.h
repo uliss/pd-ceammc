@@ -321,7 +321,7 @@ void ebox_pos(t_ebox* x, float newx, float newy);
  * \param x         The ebox pointer
  * \param vis       The visible state
  */
-void ebox_vis(t_ebox* x, int vis);
+void ebox_vis(t_ebox* x, t_float vis);
 
 //! The default user id method for all ebox called by PD (PRIVATE)
 /*
@@ -467,7 +467,6 @@ t_pd_err ebox_set_label_valign(t_ebox* x, t_object* attr, int argc, t_atom* argv
 t_pd_err ebox_set_label_side(t_ebox* x, t_object* attr, int argc, t_atom* argv);
 t_pd_err ebox_set_label_position(t_ebox* x, t_object* attr, int argc, t_atom* argv);
 t_pd_err ebox_set_label_margins(t_ebox* x, t_object* attr, int argc, t_atom* argv);
-
 
 // The defaults pd widgets
 void ebox_wgetrect(t_gobj* z, t_glist* glist, int* xp1, int* yp1, int* xp2, int* yp2);
