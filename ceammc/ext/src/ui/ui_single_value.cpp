@@ -258,7 +258,7 @@ void UISingleValue::startListenMidi()
     LIB_DBG << "move MIDI control to bind";
 
     asEBox()->b_boxparameters.d_bordercolor = BIND_MIDI_COLOR;
-    asEBox()->b_force_redraw = 1;
+    asEBox()->b_ready_to_draw = true;
     redraw();
 }
 
@@ -266,7 +266,7 @@ void UISingleValue::stopListenMidi()
 {
     listen_midi_ctrl_ = false;
     asEBox()->b_boxparameters.d_bordercolor = prop_color_border;
-    asEBox()->b_force_redraw = 1;
+    asEBox()->b_ready_to_draw = true;
     redraw();
 }
 
