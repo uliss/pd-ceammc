@@ -1253,13 +1253,13 @@ t_pd_err ebox_set_label(t_ebox* x, t_object* attr, int argc, t_atom* argv)
         if (x->b_label == s_null) {
             // create new label
             x->b_label = atom_getsymbol(argv);
-            if (ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow && x->b_visible)
+            if (ebox_isvisible(x))
                 ebox_create_label(x);
         } else {
             // change label text
             x->b_label = atom_getsymbol(argv);
 
-            if (ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow && x->b_visible) {
+            if (ebox_isvisible(x)) {
                 sys_vgui("%s itemconfigure " LABEL_TAG " -text {%s}\n",
                     label_draw_id(x)->s_name,
                     x->b_drawing_id->s_name,
