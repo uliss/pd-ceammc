@@ -1379,14 +1379,14 @@ t_pd_err ebox_set_label_position(t_ebox* x, t_object* attr, int argc, t_atom* ar
         int pos = (atom_getfloat(argv) != 0) ? 1 : 0;
 
         if (x->label_inner != pos) {
-            const bool is_drawable = ebox_isdrawable(x);
+            const bool is_vis = ebox_isvisible(x);
 
-            if (is_drawable)
+            if (is_vis)
                 ebox_erase_label(x);
 
             x->label_inner = pos;
 
-            if (is_drawable)
+            if (is_vis)
                 ebox_create_label(x);
         }
     }
