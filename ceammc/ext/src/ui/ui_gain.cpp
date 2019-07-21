@@ -110,6 +110,13 @@ void UIGain::paint()
 void UIGain::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIDspObject::init(name, args, usePresets);
+
+    if (name == gensym("ui.hgain~") || name == gensym("ui.hgain2~")) {
+        is_horizontal_ = true;
+        std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+        updateLabels();
+    }
+
     dspSetup(1, 1);
 }
 
@@ -232,6 +239,8 @@ void UIGain::m_dec()
 void UIGain::setup()
 {
     UIDspFactory<UIGain> obj("ui.gain~");
+    obj.addAlias("ui.hgain~");
+    obj.addAlias("ui.vgain~");
 
     obj.addColorProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UIGain::prop_color_knob);
     obj.addHiddenFloatCbProperty("db", &UIGain::dbValue, &UIGain::setDbValue);

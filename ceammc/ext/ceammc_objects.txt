@@ -43,6 +43,7 @@ canvas.name
 canvas.path
 canvas.top
 car->pol
+car->pol_aliased
 cc->amp
 cdiv~
 click~
@@ -52,6 +53,7 @@ conv.bpm2hz
 conv.bpm2ms
 conv.bpm2sec
 conv.car2pol
+conv.car2pol_aliased
 conv.cc2amp
 conv.dbfs2amp
 conv.lin2curve
@@ -604,6 +606,7 @@ ui.dsp~
 ui.env
 ui.gain2~
 ui.gain~
+ui.hgain~
 ui.hrd
 ui.hsl
 ui.icon
@@ -633,6 +636,7 @@ ui.ssc~
 ui.t
 ui.tab
 ui.toggle
+ui.vgain~
 ui.vrd
 ui.vsl
 vline->env

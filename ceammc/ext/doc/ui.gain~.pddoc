@@ -12,6 +12,10 @@
             <category view="link">ui</category>
             <keywords>ui gain</keywords>
             <since>0.5</since>
+            <aliases>
+                <alias>ui.hgain~</alias>
+                <alias>ui.vgain~</alias>
+            </aliases>
         </meta>
         <properties>
             <property name="@max" type="int" minvalue="-12" maxvalue="12" default="0"
@@ -75,6 +79,9 @@
         <example>
             <pdascii>
 <![CDATA[
+/*use [ui.hgain~] to create horizontal control]*/
+[ui.hgain~]
+
 [osc~ 440]
 |
 |  [@db -30( [@amp 0.25( [- 3( [+ 3( [++( [--(

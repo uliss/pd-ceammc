@@ -437,7 +437,7 @@ ui.display,ui.d		.		-
 ui.dsp~		.		-
 ui.env		.		.
 ui.gain2~		~~		~~
-ui.gain~		~		~
+ui.gain~,ui.hgain~,ui.vgain~		~		~
 ui.icon		.		.
 ui.incdec		.		.
 ui.keyboard		.		.

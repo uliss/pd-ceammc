@@ -38,9 +38,9 @@
         expand_env flow.append flow.change flow.count flow.demultiplex
         flow.demultiplex2~ flow.demultiplex~ flow.gate flow.group
         flow.interval flow.less flow.less_eq flow.match flow.multiplex
-        flow.multiplex2~ flow.multiplex~ flow.once flow.pass flow.pass_if
-        flow.reject flow.reject_if flow.route flow.speedlim flow.split
-        flow.sync flow.tee~ replace
+        flow.multiplex2~ flow.multiplex~ flow.once flow.pack flow.pass
+        flow.pass_if flow.reject flow.reject_if flow.route flow.speedlim
+        flow.split flow.sync flow.tee~ replace
     }}
     {flt {
         flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_bpf~ flt.c_highshelf~
@@ -145,9 +145,10 @@
         snd.file
     }}
     {spat {
-        hoa.2d.decoder~ hoa.2d.encoder~ hoa.2d.optim~ hoa.2d.projector~
-        hoa.2d.recomposer~ hoa.2d.rotate~ hoa.2d.wider~ hoa.process~ pan.cos~
-        pan.linsig~ pan.lin~ pan.spread~ pan.sqrt~ spat.pan4~ spat.pan8~
+        hoa.2d.decoder~ hoa.2d.encoder~ hoa.2d.map~ hoa.2d.optim~
+        hoa.2d.projector~ hoa.2d.recomposer~ hoa.2d.rotate~ hoa.2d.wider~
+        hoa.process~ pan.cos~ pan.linsig~ pan.lin~ pan.spread~ pan.sqrt~
+        spat.pan4~ spat.pan8~
     }}
     {string {
         string string.contains string.ends_with string.equal string.format

@@ -16,13 +16,16 @@
 - list.at @default property added (that outputs if element is not found)
 - list.walk second outlet added (with bang after reaching list last element)
 - popup menu added to ui.radio in check list mode
+- ui.hgain~ alias added to create horizontal ui.gain~
 
 ### Changed:
 - ui.tab in single mode outputs like ui.menu: list pair - INDEX TAB_NAME
 - flow.demux by default handles @index and @index? properties. To pass this values use @noprops flag
+- default range for ui.slider2d now is from -1 (left) to 1 (right) and from 1 (top) to -1 (bottom)
 
 ### Fixed:
 - ui.vrd - invalid draw in check list mode
+- ui.* - various label fixes
 
 ## [0.7.1]
 ### Added:
