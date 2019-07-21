@@ -37,6 +37,8 @@ protected:
     int prop_output_value;
     int prop_show_range;
 
+    void initHorizontal();
+
 public:
     UIGain();
 

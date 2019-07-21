@@ -107,15 +107,19 @@ void UIGain::paint()
     }
 }
 
+void UIGain::initHorizontal()
+{
+    is_horizontal_ = true;
+    std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+    updateLabels();
+}
+
 void UIGain::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIDspObject::init(name, args, usePresets);
 
-    if (name == gensym("ui.hgain~")) {
-        is_horizontal_ = true;
-        std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
-        updateLabels();
-    }
+    if (name == gensym("ui.hgain~"))
+        initHorizontal();
 
     dspSetup(1, 1);
 }
