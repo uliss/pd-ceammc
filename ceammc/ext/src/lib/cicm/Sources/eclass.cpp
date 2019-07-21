@@ -309,7 +309,7 @@ void eclass_guiinit(t_eclass* c, long flags)
     // GUI always need this methods //
     class_addmethod((t_class*)c, (t_method)ebox_attr_dump, gensym(SYM_DUMP), A_NULL, 0);
     class_addmethod((t_class*)c, (t_method)ebox_output_all_attrs, gensym(SYM_GET_ALL_PROPS), A_NULL, 0);
-    class_addmethod((t_class*)c, (t_method)ebox_dialog, gensym(SYM_DIALOG), A_CANT, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_dialog, gensym(SYM_DIALOG), A_GIMME, 0);
 
     class_addmethod((t_class*)c, (t_method)ebox_mouse_enter, gensym(SYM_MOUSE_ENTER), A_NULL, 0);
     class_addmethod((t_class*)c, (t_method)ebox_mouse_leave, gensym(SYM_MOUSE_LEAVE), A_NULL, 0);
