@@ -599,7 +599,7 @@ void canvas_reflecttitle(t_canvas *x)
 {
     char namebuf[MAXPDSTRING];
     t_canvasenvironment *env = canvas_getenv(x);
-    if (!x->gl_havewindow)
+    if (!x->gl_loading && !x->gl_havewindow)
     {
         bug("canvas_reflecttitle");
         return;
