@@ -649,8 +649,10 @@ static void ebox_paint(t_ebox* x)
 
     // prevent crash if called by some reason before calling
     // create_widget
-    if (!x->b_drawing_id)
+    if (!x->b_drawing_id) {
+        bug("ebox_paint");
         return;
+    }
 
     sys_vgui("%s configure -bg #%6.6x\n",
         x->b_drawing_id->s_name, rgba_to_hex_int(x->b_boxparameters.d_boxfillcolor));
@@ -659,6 +661,7 @@ static void ebox_paint(t_ebox* x)
         sys_vgui("lower %s\n", x->b_drawing_id->s_name);
 
     t_eclass* c = eobj_getclass(x);
+
     if (c->c_widget.w_paint)
         c->c_widget.w_paint(x);
 
@@ -828,6 +831,11 @@ static void ebox_create_window(t_ebox* x, t_glist* glist)
 
     if (x->b_label != s_null)
         ebox_create_label(x);
+
+    // create callback
+    t_eclass* c = eobj_getclass(x);
+    if (c->c_widget.w_create)
+        c->c_widget.w_create(x);
 
     x->b_have_window = true;
 }
@@ -1539,7 +1547,7 @@ bool ebox_notify(t_ebox* x, t_symbol* s)
         if (c->c_widget.w_oksize != NULL)
             c->c_widget.w_oksize(x, &x->b_rect);
         ebox_invalidate_all(x);
-        if (ebox_isdrawable(x)) {
+        if (ebox_isvisible(x)) {
             sys_vgui("%s itemconfigure %s -width %d -height %d\n", x->b_canvas_id->s_name, x->b_window_id->s_name,
                 (int)(x->b_rect.width * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.),
                 (int)(x->b_rect.height * x->b_zoom + x->b_boxparameters.d_borderthickness * 2.));
@@ -1548,7 +1556,7 @@ bool ebox_notify(t_ebox* x, t_symbol* s)
             ebox_update_label_pos(x);
         }
         ebox_redraw(x);
-    } else if (s == s_pinned && ebox_isdrawable(x)) {
+    } else if (s == s_pinned && ebox_isvisible(x)) {
         if (x->b_pinned) {
             sys_vgui("lower %s\n", x->b_drawing_id->s_name);
         } else {
@@ -2218,8 +2226,14 @@ static void layers_erase(t_ebox* x)
 static void ebox_erase(t_ebox* x)
 {
     if (x->b_obj.o_canvas && glist_isvisible(x->b_obj.o_canvas) && x->b_have_window) {
-        if (x->b_obj.o_canvas->gl_havewindow)
+        if (x->b_obj.o_canvas->gl_havewindow) {
+            // erase callback
+            t_eclass* c = eobj_getclass(x);
+            if (c->c_widget.w_erase)
+                c->c_widget.w_erase(x);
+
             ebox_erase_label(x);
+        }
 
         sys_vgui("destroy %s \n", x->b_drawing_id->s_name);
         x->b_have_window = false;

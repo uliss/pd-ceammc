@@ -42,6 +42,8 @@ static const char* SYM_READ = "read";
 static const char* SYM_WRITE = "write";
 
 static const char* SYM_PAINT = "paint";
+static const char* SYM_WIDGET_CREATE = ".create";
+static const char* SYM_WIDGET_ERASE = ".erase";
 static const char* SYM_NOTIFY = "notify";
 static const char* SYM_GET_DRAW_PARAMS = "getdrawparams";
 static const char* SYM_OK_SIZE = "oksize";
@@ -390,6 +392,10 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
             c->c_widget.w_keyfilter = m;
     } else if (sname == gensym(SYM_PAINT)) {
         c->c_widget.w_paint = m;
+    } else if (sname == gensym(SYM_WIDGET_CREATE)) {
+        c->c_widget.w_create = m;
+    } else if (sname == gensym(SYM_WIDGET_ERASE)) {
+        c->c_widget.w_erase = m;
     } else if (sname == gensym(SYM_NOTIFY)) {
         c->c_widget.w_notify = (t_err_method)m;
     } else if (sname == gensym(SYM_GET_DRAW_PARAMS)) {
@@ -1037,6 +1043,8 @@ static void ewidget_init(t_eclass* c)
     c->c_widget.w_clickfn = nullptr;
 
     c->c_widget.w_paint = nullptr;
+    c->c_widget.w_create = nullptr;
+    c->c_widget.w_erase = nullptr;
     c->c_widget.w_mouseenter = nullptr;
     c->c_widget.w_mouseleave = nullptr;
     c->c_widget.w_mousemove = nullptr;

@@ -497,6 +497,8 @@ typedef struct t_ewidget {
     t_clickfn w_clickfn; /*!< The native Pd click method. */
     t_typ_method w_assist; /*!< The dummy iolets assist method. */
     t_typ_method w_paint; /*!< The paint method. */
+    t_typ_method w_create; /*!< The widget after create method. */
+    t_typ_method w_erase; /*!< The widget before erase method. */
     t_typ_method w_mouseenter; /*!< The mouse enter method. */
     t_typ_method w_mouseleave; /*!< The mouse leave method. */
     t_typ_method w_mousemove; /*!< The mouse move method. */
