@@ -410,7 +410,7 @@ static void ebox_create_label(t_ebox* x)
 
 static void ebox_update_label_pos(t_ebox* x)
 {
-    if (ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow && x->b_visible && x->b_label != s_null) {
+    if (ebox_isvisible(x) && x->b_label != s_null) {
         auto enums = label_enums(x);
 
         t_symbol* cnv = label_draw_id(x);
@@ -432,7 +432,7 @@ static void ebox_update_label_pos(t_ebox* x)
 
 static void ebox_update_label_font(t_ebox* x)
 {
-    if (ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow && x->b_visible && x->b_label != s_null) {
+    if (ebox_isvisible(x) && x->b_label != s_null) {
         t_symbol* cnv = label_draw_id(x);
 
         sys_vgui("%s itemconfigure " LABEL_TAG " -font {{%s} %d roman normal}\n",
@@ -1378,7 +1378,7 @@ t_pd_err ebox_set_label_position(t_ebox* x, t_object* attr, int argc, t_atom* ar
     if (argc && argv && atom_gettype(argv) == A_FLOAT) {
         int pos = (atom_getfloat(argv) != 0) ? 1 : 0;
 
-        if (x->label_inner != pos) {
+        if (x->label_inner != pos && x->b_label != s_null) {
             const bool is_vis = ebox_isvisible(x);
 
             if (is_vis)
