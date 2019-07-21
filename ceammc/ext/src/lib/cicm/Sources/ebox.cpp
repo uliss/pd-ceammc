@@ -1267,10 +1267,9 @@ t_pd_err ebox_set_label(t_ebox* x, t_object* attr, int argc, t_atom* argv)
             }
         }
     } else {
-        if (x->b_label != s_null) {
-            if (ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow && x->b_visible)
-                ebox_erase_label(x);
-        }
+        // erase label
+        if (ebox_isvisible(x) && x->b_label != s_null)
+            ebox_erase_label(x);
 
         x->b_label = s_null;
     }
@@ -2219,9 +2218,11 @@ static void layers_erase(t_ebox* x)
 static void ebox_erase(t_ebox* x)
 {
     if (x->b_obj.o_canvas && glist_isvisible(x->b_obj.o_canvas) && x->b_have_window) {
-        x->b_have_window = false;
-        ebox_erase_label(x);
+        if (x->b_obj.o_canvas->gl_havewindow)
+            ebox_erase_label(x);
+
         sys_vgui("destroy %s \n", x->b_drawing_id->s_name);
+        x->b_have_window = false;
     }
 
     if (x->b_layers) {
