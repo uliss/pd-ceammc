@@ -1217,12 +1217,15 @@ void ebox_vis(t_ebox* x, t_float v)
 
         if (ebox_isdrawable(x)) {
             if (vis) {
+
+                if (x->wis_canvas) {
+                    auto pos = ebox_calc_pos(x, x->wis_canvas);
+                    x->b_rect.x = pos.x;
+                    x->b_rect.y = pos.y;
+                }
+
                 ebox_invalidate_all(x);
-                if (x->b_isinsubcanvas) {
-                    //                    pd_error(0, "")
-                    ebox_create_window(x, x->b_obj.o_canvas);
-                } else
-                    ebox_create_window(x, x->b_obj.o_canvas);
+                ebox_create_window(x, x->wis_canvas);
 
                 ebox_paint(x);
             } else {
