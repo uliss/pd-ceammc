@@ -21,7 +21,6 @@
 #include <cstdlib>
 #include <cstring>
 #include <inttypes.h>
-#include <iostream>
 #include <string>
 #include <tuple>
 
@@ -447,17 +446,17 @@ static void ebox_update_label_font(t_ebox* x)
 void ebox_new(t_ebox* x, long flags)
 {
     x->b_flags = flags;
-    x->b_ready_to_draw = 0;
+    x->b_ready_to_draw = false;
+    x->b_have_window = false;
     x->b_number_of_layers = 0;
     x->b_layers = NULL;
     x->b_window_id = NULL;
     x->b_receive_id = s_null;
     x->b_send_id = s_null;
     x->b_objpreset_id = s_null;
-    x->b_visible = 1;
+    x->b_visible = true;
     x->b_zoom = 1;
     x->b_smooth_method = egraphics_smooth();
-    x->b_force_redraw = 0;
 
     x->b_label = s_null;
     x->label_align = s_value_label_align_left;
@@ -490,7 +489,7 @@ void ebox_ready(t_ebox* x)
     if (c->c_widget.w_getdrawparameters)
         c->c_widget.w_getdrawparameters(x, &x->b_boxparameters);
 
-    x->b_ready_to_draw = 1;
+    x->b_ready_to_draw = true;
 
     ebox_newzoom(x);
 }
@@ -794,9 +793,10 @@ static void ebox_create_widget(t_ebox* x)
 
 static void ebox_create_window(t_ebox* x, t_glist* glist)
 {
-    x->b_force_redraw = 0;
+    x->b_have_window = false;
+
     if (!glist->gl_havewindow) {
-        x->b_isinsubcanvas = 1;
+        x->b_isinsubcanvas = true;
         x->b_rect.x = x->b_obj.o_obj.te_xpix;
         x->b_rect.y = x->b_obj.o_obj.te_ypix;
 
@@ -808,7 +808,7 @@ static void ebox_create_window(t_ebox* x, t_glist* glist)
             glist = glist->gl_owner;
         }
     } else {
-        x->b_isinsubcanvas = 0;
+        x->b_isinsubcanvas = false;
         x->b_rect.x = x->b_obj.o_obj.te_xpix;
         x->b_rect.y = x->b_obj.o_obj.te_ypix;
     }
@@ -828,6 +828,8 @@ static void ebox_create_window(t_ebox* x, t_glist* glist)
 
     if (x->b_label != s_null)
         ebox_create_label(x);
+
+    x->b_have_window = true;
 }
 
 static char is_platform_control(long mod)
@@ -1247,12 +1249,14 @@ t_pd_err ebox_set_sendid(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 t_pd_err ebox_set_label(t_ebox* x, t_object* attr, int argc, t_atom* argv)
 {
     if (argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null) {
+
         if (x->b_label == s_null) {
-            x->b_label = atom_getsymbol(argv);
             // create new label
+            x->b_label = atom_getsymbol(argv);
             if (ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow && x->b_visible)
                 ebox_create_label(x);
         } else {
+            // change label text
             x->b_label = atom_getsymbol(argv);
 
             if (ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow && x->b_visible) {
@@ -1791,8 +1795,7 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
 
 void ebox_redraw(t_ebox* x)
 {
-    if ((ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow) || x->b_force_redraw) {
-        x->b_force_redraw = 0;
+    if (ebox_isvisible(x)) {
         ebox_invalidate_layer(x, s_eboxbd);
         ebox_invalidate_layer(x, s_eboxio);
         ebox_paint(x);
@@ -1801,8 +1804,7 @@ void ebox_redraw(t_ebox* x)
 
 void ebox_redraw_inner(t_ebox* x)
 {
-    if ((ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow) || x->b_force_redraw) {
-        x->b_force_redraw = 0;
+    if (ebox_isvisible(x)) {
         ebox_paint(x);
     }
 }
@@ -2216,12 +2218,14 @@ static void layers_erase(t_ebox* x)
 
 static void ebox_erase(t_ebox* x)
 {
-    if (x->b_obj.o_canvas && glist_isvisible(x->b_obj.o_canvas) && x->b_obj.o_canvas->gl_havewindow) {
+    if (x->b_obj.o_canvas && glist_isvisible(x->b_obj.o_canvas) && x->b_have_window) {
+        x->b_have_window = false;
         ebox_erase_label(x);
         // prevent double destroy
         x->b_label = s_null;
         sys_vgui("destroy %s \n", x->b_drawing_id->s_name);
     }
+
     if (x->b_layers) {
         for (long i = 0; i < x->b_number_of_layers; i++)
             elayer_free_content(x->b_layers[i]);
@@ -2324,4 +2328,9 @@ void ebox_free_layer(t_elayer* l)
 
     elayer_free_content(*l);
     free(l);
+}
+
+bool ebox_isvisible(t_ebox* x)
+{
+    return x && ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow && x->b_have_window && x->b_visible;
 }

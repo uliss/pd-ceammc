@@ -159,8 +159,8 @@ t_eclass* eclass_new(const char* name, t_typ_method newm, t_typ_method freem, si
         memset(&c->c_widget, 0, sizeof(t_ewidget));
         c->c_attr = 0;
         c->c_nattr = 0;
-        c->c_dsp = 0;
-        c->c_box = 0;
+        c->c_dsp = false;
+        c->c_box = false;
         c->c_attr = NULL;
     } else {
         bug("Memory allocation failed for the class %s.", name);

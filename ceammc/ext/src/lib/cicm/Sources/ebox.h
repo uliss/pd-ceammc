@@ -100,13 +100,19 @@ float ebox_getzoomfontsize(t_ebox* x);
 t_pd* ebox_getsender(t_ebox* x);
 
 /*!
- * \fn          char ebox_isdrawable(t_ebox* x)
+ * \fn          bool ebox_isdrawable(t_ebox* x)
  * \brief       Retrieves if a t_ebox is drawable.
  * \details     Checks several things that ensure that the t_ebox can be drawn;
  * \param x     The t_ebox pointer.
  * \return      The function returns true if the box is drawable otherwise false.
  */
 bool ebox_isdrawable(t_ebox* x);
+
+/**
+ * @brief       Check if a t_ebox is drawable and visible
+ * @param x     The t_ebox pointer
+ */
+bool ebox_isvisible(t_ebox* x);
 
 /*!
  * \fn      void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)

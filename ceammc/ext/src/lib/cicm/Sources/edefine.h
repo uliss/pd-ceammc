@@ -562,8 +562,8 @@ typedef struct t_eclass {
     // in Pd 0.48 t_class* next added into t_class, and sizeof(t_class) grown to 8 bytes on x86_64
     // this padding added to prevent field rewriting values
     char c_padding[8];
-    char c_box; /*!< The marker if the class is GUI. */
-    char c_dsp; /*!< The marker if the class is DSP. */
+    bool c_box; /*!< The marker if the class is GUI. */
+    bool c_dsp; /*!< The marker if the class is DSP. */
     t_ewidget c_widget; /*!< The extra widget methods. */
     t_eattr** c_attr; /*!< The attributes. */
     long c_nattr; /*!< The number of attributes. */
@@ -778,15 +778,14 @@ typedef struct t_ebox {
     char b_mouse_down; /*!< The mouse state. */
     char b_resize; /*!< Widget is in resize state */
 
-    char b_visible; /*!< The visible state. */
-    char b_ready_to_draw; /*!< The ebox state for drawing. */
-    char b_have_window; /*!< The ebox window state. */
-    char b_isinsubcanvas; /*!< If the box is in a sub canvas. */
+    bool b_visible; /*!< The visible state. */
+    bool b_ready_to_draw; /*!< The ebox state for drawing. */
+    bool b_have_window; /*!< The ebox window state. */
+    bool b_isinsubcanvas; /*!< If the box is in a sub canvas. */
     t_edrawparams b_boxparameters; /*!< The ebox parameters. */
 
     t_elayer* b_layers; /*!< The ebox layers. */
     long b_number_of_layers; /*!< The ebox number of layers. */
-    char b_force_redraw; /*!< Force ebox redraw. */
 
     t_symbol* b_label; /*!< The UI label. */
     t_symbol* label_align; /*!< The UI label align: left center or right */
