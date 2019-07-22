@@ -245,6 +245,20 @@ namespace convert {
         return wrapFloatMax<T>(x * 360 / (2 * M_PI), 360);
     }
 
+    template <typename T>
+    std::pair<T, T> cartesian2polar(T x, T y)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return { std::hypot(x, y), std::atan2(y, x) };
+    }
+
+    template <typename T>
+    std::pair<T, T> polar2cartesian(T r, T theta)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return { r * std::cos(theta), r * std::sin(theta) };
+    }
+
 }
 }
 
