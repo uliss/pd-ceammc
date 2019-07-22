@@ -19,6 +19,7 @@
 #include "ui_meter.h"
 #include "ui_number.h"
 #include "ui_number_tilde.h"
+#include "ui_polar.h"
 #include "ui_preset.h"
 #include "ui_radio.h"
 #include "ui_rslider.h"
@@ -51,6 +52,7 @@ void ceammc_ui_setup()
     setup_ui_meter();
     setup_ui_number();
     setup_ui_number_tilde();
+    setup_ui_polar();
     setup_ui_preset();
     setup_ui_radio();
     setup_ui_rslider();
