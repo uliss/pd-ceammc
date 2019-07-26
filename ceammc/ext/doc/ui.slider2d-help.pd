@@ -30,24 +30,23 @@ Allowed values: 0 \, 1\.;
 #X msg 110 592 @show_range;
 #X text 245 592 Get/Set if show slider range. Type: int. Default value:
 1\. Allowed values: 0 \, 1\.;
-#X msg 110 634 @x_max;
-#X text 245 634 Get/Set maximum x-value. Type: float. Default value:
-1\.;
-#X msg 110 663 @x_min;
-#X text 245 663 Get/Set minimal x-value. Type: float. Default value:
+#X msg 110 634 @x_left;
+#X text 245 634 Get/Set leftmost x-value. Type: float. Default value:
 -1\.;
-#X msg 110 692 @x_range;
-#X text 245 692 (readonly) Get x-value range. Type: float.;
+#X msg 110 663 @x_range;
+#X text 245 663 (readonly) Get abs x-value range. Type: float.;
+#X msg 110 692 @x_right;
+#X text 245 692 Get/Set rightmost x-value. Type: float. Default value:
+1\.;
 #X msg 110 721 @x_value;
 #X text 245 721 Get/Set slider x-value. Type: float.;
-#X msg 110 750 @y_max;
-#X text 245 750 Get/Set maximum y-value. Type: float. Default value:
-1\.;
-#X msg 110 779 @y_min;
-#X text 245 779 Get/Set minimal y-value. Type: float. Default value:
+#X msg 110 750 @y_bottom;
+#X text 245 750 Get/Set bottom y-value. Type: float. Default value:
 -1\.;
-#X msg 110 808 @y_range;
-#X text 245 808 (readonly) Get y-value range. Type: float.;
+#X msg 110 779 @y_range;
+#X text 245 779 (readonly) Get abs y-value range. Type: float.;
+#X msg 110 808 @y_top;
+#X text 245 808 Get/Set top y-value. Type: float. Default value: 1\.;
 #X msg 110 837 @y_value;
 #X text 245 837 Get/Set slider y-value. Type: float.;
 #X msg 110 866 @background_color;
