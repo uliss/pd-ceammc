@@ -38,6 +38,19 @@ T clip_any(T v, T v0, T v1)
     return clip<T>(v, r.first, r.second);
 }
 
+template <typename T, int Min, int Max>
+T clip(T v)
+{
+    static_assert(Min < Max, "Min should be less then Max");
+    return std::min<T>(T(Max), std::max<T>(v, T(Min)));
+}
+
+template <typename T>
+T clip01(T v)
+{
+    return clip<T, 0, 1>(v);
+}
+
 /**
  * Wraps input values to specified range:
  * -3 -2 -1 0 1 2 3
@@ -148,11 +161,25 @@ namespace convert {
         return (v - x0) / (x1 - x0) * (y1 - y0) + y0;
     }
 
+    template <class T, int x0, int x1>
+    T lin2lin(T v, T y0, T y1)
+    {
+        static_assert(x0 != x1, "Zero input range");
+        return (v - T(x0)) / (T(x1) - T(x0)) * (y1 - y0) + y0;
+    }
+
     template <class T>
     T lin2lin_clip(T v, T x0, T x1, T y0, T y1)
     {
         auto yr = std::minmax(y0, y1);
         return clip<T>(lin2lin<T>(v, x0, x1, y0, y1), yr.first, yr.second);
+    }
+
+    template <class T, int x0, int x1>
+    T lin2lin_clip(T v, T y0, T y1)
+    {
+        static_assert(x0 != x1, "Zero input range");
+        return (clip<T, x0, x1>(v) - T(x0)) / (T(x1) - T(x0)) * (y1 - y0) + y0;
     }
 
     float lin2exp(float x, float x0, float x1, float y0, float y1);

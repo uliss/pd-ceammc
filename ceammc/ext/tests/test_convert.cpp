@@ -660,7 +660,7 @@ TEST_CASE("convert", "[PureData]")
         REQUIRE(wrapFloatMax<double>(2500.01, 2.5) == Approx(0.01));
     }
 
-    SECTION("wrapeFloatMinMax")
+    SECTION("wrapFloatMinMax")
     {
         using namespace ceammc;
         REQUIRE(wrapFloatMinMax<float>(1.1, 1.1, 3.2) == Approx(1.1));
@@ -675,5 +675,53 @@ TEST_CASE("convert", "[PureData]")
         REQUIRE(wrapFloatMinMax<double>(1, -1, 1) == Approx(-1));
         REQUIRE(wrapFloatMinMax<double>(1.1, -1, 1) == Approx(-0.9));
         REQUIRE(wrapFloatMinMax<double>(-1.1, -1, 1) == Approx(0.9));
+    }
+
+    SECTION("clip")
+    {
+        using namespace ceammc;
+        REQUIRE(clip<int>(-1, 0, 10) == 0);
+        REQUIRE(clip<int>(0, 0, 10) == 0);
+        REQUIRE(clip<int>(1, 0, 10) == 1);
+        REQUIRE(clip<int>(10, 0, 10) == 10);
+        REQUIRE(clip<int>(11, 0, 10) == 10);
+
+        REQUIRE((clip<int, -1, 1>(-2)) == -1);
+        REQUIRE((clip<int, -1, 1>(-1)) == -1);
+        REQUIRE((clip<int, -1, 1>(0)) == 0);
+        REQUIRE((clip<int, -1, 1>(1)) == 1);
+        REQUIRE((clip<int, -1, 1>(2)) == 1);
+
+        REQUIRE((clip<float, -1, 1>(-1.1)) == -1);
+        REQUIRE((clip<float, -1, 1>(-1)) == -1);
+        REQUIRE((clip<float, -1, 1>(0.1f)) == 0.1f);
+        REQUIRE((clip<float, -1, 1>(1)) == 1);
+        REQUIRE((clip<float, -1, 1>(1.1)) == 1);
+    }
+
+    SECTION("clip01")
+    {
+        using namespace ceammc;
+        REQUIRE(clip01<float>(-1.1) == 0);
+        REQUIRE(clip01<float>(-1) == 0);
+        REQUIRE(clip01<float>(0) == 0);
+        REQUIRE(clip01<float>(0.1f) == 0.1f);
+        REQUIRE(clip01<float>(1) == 1);
+        REQUIRE(clip01<float>(1.1) == 1);
+    }
+
+    SECTION("lin2lin template")
+    {
+        REQUIRE((lin2lin<float, 0, 1>(-0.5, 4, 2)) == Approx(5));
+        REQUIRE((lin2lin<float, 0, 1>(0, 4, 2)) == Approx(4));
+        REQUIRE((lin2lin<float, 0, 1>(0.5, 4, 2)) == Approx(3));
+        REQUIRE((lin2lin<float, 0, 1>(1, 4, 2)) == Approx(2));
+        REQUIRE((lin2lin<float, 0, 1>(1.5, 4, 2)) == Approx(1));
+
+        REQUIRE((lin2lin_clip<float, 0, 1>(-0.5, 4, 2)) == Approx(4));
+        REQUIRE((lin2lin_clip<float, 0, 1>(0, 4, 2)) == Approx(4));
+        REQUIRE((lin2lin_clip<float, 0, 1>(0.5, 4, 2)) == Approx(3));
+        REQUIRE((lin2lin_clip<float, 0, 1>(1, 4, 2)) == Approx(2));
+        REQUIRE((lin2lin_clip<float, 2, 1>(1.5, 4, 2)) == Approx(2));
     }
 }
