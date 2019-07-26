@@ -16,13 +16,15 @@
 
 #include "ceammc_ui_object.h"
 
+#include <cmath>
+
 using namespace ceammc;
 
 class UISlider2D : public UIObject {
-    float prop_x_min;
-    float prop_x_max;
-    float prop_y_min;
-    float prop_y_max;
+    float prop_x_left;
+    float prop_x_right;
+    float prop_y_top;
+    float prop_y_bottom;
     int prop_show_range;
     int prop_show_grid;
 
@@ -62,8 +64,8 @@ public:
     t_float realXValue() const;
     t_float realYValue() const;
 
-    t_float xRange() const { return prop_x_max - prop_x_min; }
-    t_float yRange() const { return prop_y_max - prop_y_min; }
+    t_float xRange() const { return std::abs(prop_x_right - prop_x_left); }
+    t_float yRange() const { return std::abs(prop_y_bottom - prop_y_top); }
 
     void output();
 
