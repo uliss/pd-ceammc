@@ -80,13 +80,22 @@ void UISlider2D::paintBackground()
         return;
 
     if (prop_show_grid) {
-        p.setColor(prop_color_border);
         const float X_GRID_STEP = r.width / 10;
         const float Y_GRID_STEP = r.height / 10;
 
+        // draw center cross
+        p.setLineWidth(3);
+        p.setColor(rgba_addContrast(prop_color_background, 0.1));
+        p.drawLine(5 * X_GRID_STEP, -1, 5 * X_GRID_STEP, r.height + 2);
+        p.drawLine(-1, 5 * Y_GRID_STEP, r.width + 2, 5 * Y_GRID_STEP);
+        p.setLineWidth(1);
+        p.setColor(rgba_addContrast(prop_color_background, -0.1));
+
+        // draw horizontal lines
         for (int i = 1; i < 10; i++)
             p.drawLine(i * X_GRID_STEP, -1, i * X_GRID_STEP, r.height + 2);
 
+        // draw vertical lines
         for (int i = 1; i < 10; i++)
             p.drawLine(-1, i * Y_GRID_STEP, r.width + 2, i * Y_GRID_STEP);
     }
