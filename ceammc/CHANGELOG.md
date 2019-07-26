@@ -23,6 +23,11 @@
 - ui.tab in single mode outputs like ui.menu: list pair - INDEX TAB_NAME
 - flow.demux by default handles @index and @index? properties. To pass this values use @noprops flag
 - default range for ui.slider2d now is from -1 (left) to 1 (right) and from 1 (top) to -1 (bottom)
+- in ui.slider2d following properties are renamed:
+  - @x_min renamed to @x_left
+  - @x_max renamed to @x_right
+  - @y_min renamed to @y_top
+  - @y_max renamed to @y_bottom
 
 ### Fixed:
 - ui.vrd - invalid draw in check list mode
