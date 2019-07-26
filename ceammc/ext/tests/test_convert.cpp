@@ -722,6 +722,6 @@ TEST_CASE("convert", "[PureData]")
         REQUIRE((lin2lin_clip<float, 0, 1>(0, 4, 2)) == Approx(4));
         REQUIRE((lin2lin_clip<float, 0, 1>(0.5, 4, 2)) == Approx(3));
         REQUIRE((lin2lin_clip<float, 0, 1>(1, 4, 2)) == Approx(2));
-        REQUIRE((lin2lin_clip<float, 2, 1>(1.5, 4, 2)) == Approx(2));
+        REQUIRE((lin2lin_clip<float, 0, 1>(1.5, 4, 2)) == Approx(2));
     }
 }
