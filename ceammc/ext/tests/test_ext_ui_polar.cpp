@@ -42,7 +42,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
             REQUIRE_UI_FLOAT_PROPERTY(t, "angle", 0);
             REQUIRE_UI_FLOAT_PROPERTY(t, "radius", 0);
             REQUIRE_UI_FLOAT_PROPERTY(t, "clockwise", 1);
-            REQUIRE_UI_FLOAT_PROPERTY(t, "degrees", 0);
+            REQUIRE_UI_FLOAT_PROPERTY(t, "degrees", 1);
             REQUIRE_UI_FLOAT_PROPERTY(t, "positive", 0);
             REQUIRE_UI_LIST_PROPERTY(t, "direction", LA("N"));
             REQUIRE(t->presetId() == gensym("ui.polar.0"));
@@ -135,7 +135,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
         {
             SECTION("default")
             {
-                TestPolar t("ui.polar");
+                TestPolar t("ui.polar", LA("@degrees", 0.f));
                 REQUIRE(t->realValue() == LX(0, 0));
 
                 // invalid
@@ -196,7 +196,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
 
             SECTION("positive")
             {
-                TestPolar t("ui.polar", LA("@positive", 1));
+                TestPolar t("ui.polar", LA("@positive", 1, "@degrees", 0.f));
                 REQUIRE(t->realValue() == LX(0, 0));
 
                 // clip radius
@@ -490,7 +490,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
         {
             SECTION("radian")
             {
-                TestPolar t("ui.polar");
+                TestPolar t("ui.polar", LA("@degrees", 0.f));
                 REQUIRE(t->realValue() == LX(0, 0));
 
                 t.call("rotate", 0);
@@ -534,7 +534,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
     {
         SECTION("radians")
         {
-            TestExtPolar t("ui.polar");
+            TestExtPolar t("ui.polar", LA("@degrees", 0.f));
             t.mouseDown(50, 0);
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0));
             t.mouseDown(0, 50);
@@ -767,7 +767,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
     {
         SECTION("radian")
         {
-            TestExtPolar t("ui.polar");
+            TestExtPolar t("ui.polar", LA("@degrees", 0.f));
             REQUIRE(t->realValue() == LX(0, 0));
 
             // invalid list
@@ -814,7 +814,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
 
     SECTION("send")
     {
-        TestExtPolar t("ui.polar", LA("@send", "r1"));
+        TestExtPolar t("ui.polar", LA("@send", "r1", "@degrees", 0.f));
         t.addListener("r1");
 
         t << BANG;
