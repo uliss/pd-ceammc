@@ -452,6 +452,7 @@ set(DOC_FILES
     ui.label
     ui.link
     ui.number~
+    ui.polar
     ui.preset
     ui.scope~
     ui.slider

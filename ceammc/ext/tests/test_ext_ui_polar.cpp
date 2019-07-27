@@ -42,7 +42,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
             REQUIRE_UI_FLOAT_PROPERTY(t, "angle", 0);
             REQUIRE_UI_FLOAT_PROPERTY(t, "radius", 0);
             REQUIRE_UI_FLOAT_PROPERTY(t, "clockwise", 1);
-            REQUIRE_UI_FLOAT_PROPERTY(t, "use_degrees", 0);
+            REQUIRE_UI_FLOAT_PROPERTY(t, "degrees", 0);
             REQUIRE_UI_FLOAT_PROPERTY(t, "positive", 0);
             REQUIRE_UI_LIST_PROPERTY(t, "direction", LA("N"));
             REQUIRE(t->presetId() == gensym("ui.polar.0"));
@@ -90,10 +90,10 @@ TEST_CASE("ui.polar", "[ui.polar]")
             REQUIRE(t->realAngle() == Approx(0));
         }
 
-        SECTION("@use_degrees")
+        SECTION("@degrees")
         {
-            TestPolar t("ui.polar", LA("@use_degrees", 1));
-            REQUIRE_UI_FLOAT_PROPERTY(t, "use_degrees", 1);
+            TestPolar t("ui.polar", LA("@degrees", 1));
+            REQUIRE_UI_FLOAT_PROPERTY(t, "degrees", 1);
             REQUIRE_UI_FLOAT_PROPERTY(t, "angle", 0);
             REQUIRE_UI_FLOAT_PROPERTY(t, "radius", 0);
             REQUIRE(t->realValue() == LX(0, 0));
@@ -230,7 +230,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
         {
             SECTION("default")
             {
-                TestPolar t("ui.polar", LA("@use_degrees", 1));
+                TestPolar t("ui.polar", LA("@degrees", 1));
                 REQUIRE(t->realValue() == LX(0, 0));
 
                 // invalid
@@ -279,7 +279,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
 
             SECTION("positive")
             {
-                TestPolar t("ui.polar", LA("@use_degrees", 1, "@positive", 1));
+                TestPolar t("ui.polar", LA("@degrees", 1, "@positive", 1));
                 REQUIRE(t->realValue() == LX(0, 0));
 
                 // clip radius
@@ -343,7 +343,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
     {
         SECTION("@degree")
         {
-            TestExtPolar t("ui.polar", LA("@use_degrees", 1));
+            TestExtPolar t("ui.polar", LA("@degrees", 1));
 
             REQUIRE(t->realAngle() == Approx(0));
 
@@ -389,7 +389,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
 
             SECTION("radians")
             {
-                TestPolar t("ui.polar", LA("@use_degrees", 0.f, "@direction", "E"));
+                TestPolar t("ui.polar", LA("@degrees", 0.f, "@direction", "E"));
                 REQUIRE(t->realValue() == LX(0, 0));
 
                 // invalid
@@ -407,7 +407,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
 
             SECTION("degrees")
             {
-                TestPolar t("ui.polar", LA("@use_degrees", 1, "@direction", "E"));
+                TestPolar t("ui.polar", LA("@degrees", 1, "@direction", "E"));
                 REQUIRE(t->realValue() == LX(0, 0));
 
                 // invalid
@@ -428,7 +428,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
         {
             SECTION("degrees")
             {
-                TestPolar t("ui.polar", LA("@use_degrees", 1, "@direction", "E"));
+                TestPolar t("ui.polar", LA("@degrees", 1, "@direction", "E"));
                 REQUIRE(t->realValue() == LX(0, 0));
 
                 // invalid
@@ -449,7 +449,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
         {
             SECTION("degrees")
             {
-                TestPolar t("ui.polar", LA("@use_degrees", 1, "@direction", "E", "@clockwise", 0.f));
+                TestPolar t("ui.polar", LA("@degrees", 1, "@direction", "E", "@clockwise", 0.f));
                 REQUIRE(t->realValue() == LX(0, 0));
 
                 // invalid
@@ -507,7 +507,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
 
             SECTION("degree")
             {
-                TestPolar t("ui.polar", LA("@use_degrees", 1));
+                TestPolar t("ui.polar", LA("@degrees", 1));
                 REQUIRE(t->realValue() == LX(0, 0));
 
                 t.call("rotate", 0);
@@ -557,7 +557,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
 
         SECTION("degrees")
         {
-            TestExtPolar t("ui.polar", LA("@use_degrees", 1));
+            TestExtPolar t("ui.polar", LA("@degrees", 1));
             t.mouseDown(0, 0);
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, -45));
             t.mouseDown(50, 0);
@@ -614,7 +614,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
     {
         SECTION("N clockwise")
         {
-            TestExtPolar t("ui.polar", LA("@use_degrees", 1));
+            TestExtPolar t("ui.polar", LA("@degrees", 1));
             t.mouseDown(0, 0, EMOD_RIGHT);
             REQUIRE_NO_OUTPUT(t);
             t.mouseUp(0, 0);
@@ -646,7 +646,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
 
         SECTION("N")
         {
-            TestExtPolar t("ui.polar", LA("@use_degrees", 1, "@direction", "N", "@clockwise", 0.f));
+            TestExtPolar t("ui.polar", LA("@degrees", 1, "@direction", "N", "@clockwise", 0.f));
 
             t->onPopup(SYM("main"), 0); // center
             REQUIRE_OUTPUT_LIST(t, 0, LX(0, 0));
@@ -662,7 +662,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
 
         SECTION("E")
         {
-            TestExtPolar t("ui.polar", LA("@use_degrees", 1, "@direction", "E", "@clockwise", 0.f));
+            TestExtPolar t("ui.polar", LA("@degrees", 1, "@direction", "E", "@clockwise", 0.f));
 
             t->onPopup(SYM("main"), 0); // center
             REQUIRE_OUTPUT_LIST(t, 0, LX(0, 0));
@@ -678,7 +678,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
 
         SECTION("E clockwise")
         {
-            TestExtPolar t("ui.polar", LA("@use_degrees", 1, "@direction", "E", "@clockwise", 1));
+            TestExtPolar t("ui.polar", LA("@degrees", 1, "@direction", "E", "@clockwise", 1));
 
             t->onPopup(SYM("main"), 0); // center
             REQUIRE_OUTPUT_LIST(t, 0, LX(0, 0));
@@ -694,7 +694,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
 
         SECTION("S")
         {
-            TestExtPolar t("ui.polar", LA("@use_degrees", 1, "@direction", "S", "@clockwise", 0.f));
+            TestExtPolar t("ui.polar", LA("@degrees", 1, "@direction", "S", "@clockwise", 0.f));
 
             t->onPopup(SYM("main"), 0); // center
             REQUIRE_OUTPUT_LIST(t, 0, LX(0, 0));
@@ -710,7 +710,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
 
         SECTION("S clockwise")
         {
-            TestExtPolar t("ui.polar", LA("@use_degrees", 1, "@direction", "S", "@clockwise", 1));
+            TestExtPolar t("ui.polar", LA("@degrees", 1, "@direction", "S", "@clockwise", 1));
 
             t->onPopup(SYM("main"), 0); // center
             REQUIRE_OUTPUT_LIST(t, 0, LX(0, 0));
@@ -726,7 +726,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
 
         SECTION("W")
         {
-            TestExtPolar t("ui.polar", LA("@use_degrees", 1, "@direction", "W", "@clockwise", 0.f));
+            TestExtPolar t("ui.polar", LA("@degrees", 1, "@direction", "W", "@clockwise", 0.f));
 
             t->onPopup(SYM("main"), 0); // center
             REQUIRE_OUTPUT_LIST(t, 0, LX(0, 0));
@@ -742,7 +742,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
 
         SECTION("W clockwise")
         {
-            TestExtPolar t("ui.polar", LA("@use_degrees", 1, "@direction", "W", "@clockwise", 1));
+            TestExtPolar t("ui.polar", LA("@degrees", 1, "@direction", "W", "@clockwise", 1));
 
             t->onPopup(SYM("main"), 0); // center
             REQUIRE_OUTPUT_LIST(t, 0, LX(0, 0));
@@ -790,7 +790,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
 
         SECTION("degree")
         {
-            TestExtPolar t("ui.polar", LA("@use_degrees", 1));
+            TestExtPolar t("ui.polar", LA("@degrees", 1));
             REQUIRE(t->realValue() == LX(0, 0));
 
             // invalid list

@@ -1448,6 +1448,9 @@
     <entry descr="counterpart of the vanilla [nbx] for signal" name="ui.number~" ref_view="link">
       <xi:include href="ui.number~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="2D slider in polar coordinates" name="ui.polar" ref_view="link">
+      <xi:include href="ui.polar.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Preset manager" name="ui.preset" ref_view="link">
       <xi:include href="ui.preset.pddoc" parse="xml"/>
     </entry>

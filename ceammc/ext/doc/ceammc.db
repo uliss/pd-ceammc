@@ -451,6 +451,7 @@ ui.menu		.		.
 ui.meter~,ui.m~		~		.
 ui.number,ui.n		.		.
 ui.number~,ui.n~		~		~
+ui.polar		.		.
 ui.preset		.		-
 ui.radio,ui.hrd,ui.vrd		.		.
 ui.rslider,ui.rsl		.		.

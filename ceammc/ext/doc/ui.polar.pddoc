@@ -1,38 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="ui.slider2d" type="gui">
-        <title>ui.slider2d</title>
+    <object name="ui.polar" type="gui">
+        <title>ui.polar</title>
         <meta>
             <authors>
-                <author>Alex Nadzharov</author>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>2D slider widget</description>
+            <description>2D slider in polar coordinates</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category view="link">ui</category>
-            <keywords>ui slider</keywords>
-            <since>0.1</since>
+            <keywords>ui slider polar</keywords>
+            <since>0.8</since>
             <also>
-                <see view="link">ui.slider</see>
-                <see view="link">ui.polar</see>
+                <see view="link">ui.slider2d</see>
             </also>
         </meta>
-        <info>
-            <par>2D sliders widget</par>
-        </info>
         <properties>
-            <property name="@x_left" type="float" default="-1">leftmost x-value</property>
-            <property name="@x_right" type="float" default="1">rightmost x-value</property>
-            <property name="@y_top" type="float" default="1">top y-value</property>
-            <property name="@y_bottom" type="float" default="-1">bottom y-value</property>
-            <property name="@x_range" type="float" readonly="true">abs x-value range</property>
-            <property name="@y_range" type="float" readonly="true">abs y-value range</property>
-            <property name="@x_value" type="float">slider x-value</property>
-            <property name="@y_value" type="float">slider y-value</property>
-            <property name="@show_range" type="int" enum="0 1" default="1">if show slider
-            range</property>
-            <property name="@show_grid" type="int" enum="0 1" default="0">if show grid</property>
+            <property name="@clockwise" type="int" default="1" enum="0 1">clockwise positive direction</property>
+            <property name="@direction" type="symbol" default="N" enum="N E S W">zero-angle direction</property>
+            <property name="@positive" type="int" default="0" enum="0 1">use positive output angle range. For example:
+            [0..360) when using degrees, otherwise using [-180..180) range.</property>
+            <property name="@degrees" type="int" default="1" enum="0 1">using degrees instead of radians</property>
+            <property name="@angle" type="float">angle</property>
+            <property name="@radius" type="float">radius</property>
             <!-- common -->
             <property name="@presetname" type="symbol">preset name for using with
             [ui.preset]</property>
@@ -56,11 +47,20 @@
         <methods>
             <method name="dump">dumps all object info to Pd console window</method>
             <method name="set">sets slider position without output 
-            <param name="X" type="float" required="true">x-position</param>
-            <param name="Y" type="float" required="true">y-position</param></method>
-            <method name="move">move slider by given offset 
-            <param name="X" type="float" required="true">x-offset</param>
-            <param name="Y" type="float" required="true">y-offset</param></method>
+            <param name="RAD" type="float" minvalue="0" maxvalue="1" required="true">radius</param>
+            <param name="ANG" type="float" required="true">angle in degrees or radians (depends on
+            @use_degrees property)</param></method>
+            <method name="polar">sets slider position in polar coords and output 
+            <param name="RAD" type="float" minvalue="0" maxvalue="1" required="true">radius</param>
+            <param name="ANG" type="float" required="true">angle in degrees or radians (depends on
+            @use_degrees property)</param></method>
+            <method name="cartesian">sets slider position in cartesian coords and output 
+            <param name="X" type="float" minvalue="-1" maxvalue="1" required="true">x-coord</param>
+            <param name="Y" type="float" minvalue="-1" maxvalue="1" required="true">
+            y-coord</param></method>
+            <method name="rotate">rotate slider by specified angle 
+            <param name="A" type="float" required="true">angle in degrees or radians (depends on
+            @use_degrees property)</param></method>
             <!-- presets -->
             <method name="load">loads specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
@@ -80,16 +80,14 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list output of two values: X and Y</outlet>
+            <outlet>list output of two values: RADIUS and ANGLE</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-                           [T]
-                           |
-[set 0 0(  [move 0.1 -0.1( [@show_grid $1(
-|          |               |
-[ui.slider2d @presetname=s2d-help  ]
+[1 45( [rotate 45(
+|      |
+[ui.polar @use_degrees 1]
 |
 |
 |
@@ -98,11 +96,6 @@
 |
 |
 [ui.display @display_type=1]
-
-/*[Shift+click] to save, [Alt+click] to remove, [click] to activate*/
-
-
-[ui.preset]
 ]]>
             </pdascii>
         </example>
