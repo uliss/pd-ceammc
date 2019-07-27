@@ -115,12 +115,13 @@ void UIPolar::paintBackground()
     const float r = bbox.width / 2;
     const float c = r;
 
-    auto color = rgba_addContrast(prop_color_background, -0.1);
+    const auto color = rgba_addContrast(prop_color_background, -0.1);
+    const auto color2 = rgba_addContrast(prop_color_background, 0.1);
 
     // draw circles
     for (int i = 5; i > 0; i--) {
         p.setLineWidth(3);
-        p.setColor(rgba_white);
+        p.setColor(color2);
         p.drawCircle(c, c, i * 0.2 * r);
         p.strokePreserve();
 
@@ -140,7 +141,7 @@ void UIPolar::paintBackground()
         p.drawLine(k, bbox.height - k, bbox.width - k, k);
     };
 
-    p.setColor(rgba_white);
+    p.setColor(color2);
     draw_fn(3);
     p.setColor(color);
     draw_fn(1);
@@ -228,23 +229,37 @@ void UIPolar::onPopup(t_symbol* menu_name, long item_idx)
     if (menu_name != SYM_POPUP_MAIN)
         return;
 
-    const t_float ANG_OFF = directionAngleOffset() * (prop_clockwise_ ? 1 : -1);
+    auto side2angle = [this](int angle_idx) {
+        float angle = 0;
+
+        if (prop_use_deg_)
+            angle = angle_idx * 90;
+        else
+            angle = angle_idx * M_PI_2;
+
+        if (prop_clockwise_)
+            angle = directionAngleOffset() - angle;
+        else
+            angle -= directionAngleOffset();
+
+        return angle;
+    };
 
     switch (item_idx) {
     case 0:
         onList({ 0.f, 0.f });
         break;
     case 1:
-        onList({ 1, -ANG_OFF });
+        onList({ 1, side2angle(2) });
         break;
     case 2:
-        onList({ 1, ANG_OFF });
+        onList({ 1, side2angle(0) });
         break;
     case 3:
-        onList({ 1, 4 * ANG_OFF });
+        onList({ 1, side2angle(1) });
         break;
     case 4:
-        onList({ 1, 2 * ANG_OFF });
+        onList({ 1, side2angle(3) });
         break;
     }
 }
