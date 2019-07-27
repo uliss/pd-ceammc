@@ -622,6 +622,7 @@ ui.n
 ui.number
 ui.number~
 ui.n~
+ui.polar
 ui.preset
 ui.radio
 ui.rsl
