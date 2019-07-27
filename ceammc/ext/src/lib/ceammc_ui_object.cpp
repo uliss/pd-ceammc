@@ -31,7 +31,6 @@ UIObject::UIObject()
     : name_(&s_)
     , bg_layer_(asEBox(), gensym(BG_LAYER))
     , old_preset_id_(s_null)
-    , cursor_(ECURSOR_LEFT_PTR)
     , use_presets_(false)
     , prop_color_background(rgba_white)
     , prop_color_border(rgba_black)
@@ -436,17 +435,9 @@ float UIObject::zoom() const
     return ebox_getzoom(asEBox());
 }
 
-t_cursor UIObject::cursor() const
-{
-    return cursor_;
-}
-
 void UIObject::setCursor(t_cursor c)
 {
-    if (cursor_ != c) {
-        ebox_set_cursor(asEBox(), c);
-        cursor_ = c;
-    }
+    ebox_set_cursor(asEBox(), c);
 }
 
 void UIObject::presetInit()

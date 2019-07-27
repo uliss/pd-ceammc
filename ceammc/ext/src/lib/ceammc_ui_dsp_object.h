@@ -56,7 +56,6 @@ class UIDspObject : t_edspbox {
     std::unordered_set<t_symbol*> binded_signals_;
     t_symbol* name_;
     t_symbol* old_preset_id_;
-    t_cursor cursor_;
     t_float samplerate_;
     long blocksize_;
     bool use_presets_;
@@ -102,7 +101,6 @@ public:
     void okSize(t_rect* newrect);
     void setDrawParams(t_edrawparams* params);
     float zoom() const;
-    t_cursor cursor() const;
     void setCursor(t_cursor c);
 
     // user input

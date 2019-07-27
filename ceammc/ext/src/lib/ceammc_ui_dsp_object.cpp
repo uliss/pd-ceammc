@@ -74,7 +74,6 @@ UIDspObject::UIDspObject()
     : name_(&s_)
     , bg_layer_(asEBox(), gensym(BG_LAYER))
     , old_preset_id_(s_null)
-    , cursor_(ECURSOR_LEFT_PTR)
     , samplerate_(44100)
     , blocksize_(0)
     , use_presets_(false)
@@ -400,17 +399,9 @@ float UIDspObject::zoom() const
     return ebox_getzoom(asEBox());
 }
 
-t_cursor UIDspObject::cursor() const
-{
-    return cursor_;
-}
-
 void UIDspObject::setCursor(t_cursor c)
 {
-    if (cursor_ != c) {
-        ebox_set_cursor(asEBox(), c);
-        cursor_ = c;
-    }
+    ebox_set_cursor(asEBox(), c);
 }
 
 void UIDspObject::presetInit()

@@ -466,6 +466,7 @@ void ebox_new(t_ebox* x, long flags)
     x->label_side = gensym("left");
     x->label_margins[0] = 0;
     x->label_margins[1] = 0;
+    x->cursor = ECURSOR_LEFT_PTR;
 
     x->wis_canvas = nullptr;
 
@@ -557,7 +558,10 @@ bool ebox_isdrawable(t_ebox* x)
 
 void ebox_set_cursor(t_ebox* x, t_cursor cursor)
 {
-    sys_vgui("%s configure -cursor %s\n", x->b_drawing_id->s_name, my_cursorlist[cursor]);
+    if (x->cursor != cursor) {
+        sys_vgui("%s configure -cursor %s\n", x->b_drawing_id->s_name, my_cursorlist[cursor]);
+        x->cursor = cursor;
+    }
 }
 
 void ebox_attrprocess_viatoms(void* x, int argc, t_atom* argv)

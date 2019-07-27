@@ -43,7 +43,6 @@ class UIObject : t_ebox {
     std::vector<UILayer*> layer_stack_;
     t_symbol* name_;
     t_symbol* old_preset_id_;
-    t_cursor cursor_;
     bool use_presets_;
 
 protected:
@@ -146,7 +145,6 @@ public:
     float height() const;
 
     float zoom() const;
-    t_cursor cursor() const;
     void setCursor(t_cursor c);
 
     void presetInit();

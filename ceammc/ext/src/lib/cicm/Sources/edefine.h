@@ -795,6 +795,7 @@ typedef struct t_ebox {
     t_symbol* label_side; /*!< The UI label anchor side: top, left, right, or bottom */
     int label_inner;
     int label_margins[2];
+    t_cursor cursor;
 
     t_canvas* wis_canvas;
 } t_ebox;
