@@ -66,6 +66,7 @@ public:
     t_ebox* asEBox() const;
     t_eobj* asEObj() const;
     t_object* asPdObject() const;
+    t_gobj* asGObj() const;
     t_pd* asPd() const;
     t_outlet* createOutlet();
     t_canvas* canvas() const;

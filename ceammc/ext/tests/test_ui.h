@@ -182,6 +182,16 @@ public:
         p.y = y;
         (*this)->onDblClick(0, p, mod);
     }
+
+    void show()
+    {
+        ebox_wvis((*this)->asGObj(), (*this)->canvas(), 1);
+    }
+
+    void hide()
+    {
+        ebox_wvis((*this)->asGObj(), (*this)->canvas(), 0);
+    }
 };
 
 #define HAS_PROPERTY(t, name) REQUIRE(t->hasProperty(gensym(name)))

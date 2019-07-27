@@ -49,13 +49,16 @@ public:
     void onPopup(t_symbol* menu_name, long item_idx);
 
     void m_set(const AtomList& lst);
+    void m_polar(const AtomList& lst);
+    void m_cartesian(const AtomList& lst);
+    void m_rotate(t_float angle);
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
 
     bool setRealValue(const AtomList& lst);
     AtomList realValue() const;
     t_float realAngle() const;
-    t_float fromRealAngle(t_float a) const;
+    t_float realRadius() const;
 
     void output();
 
@@ -72,6 +75,7 @@ public:
 private:
     void redrawKnob();
     void redrawAll();
+    double directionAngleOffset() const;
 };
 
 void setup_ui_polar();

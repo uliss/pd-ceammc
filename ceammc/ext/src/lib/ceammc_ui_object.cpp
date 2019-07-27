@@ -89,6 +89,11 @@ t_object* UIObject::asPdObject() const
     return &(asEBox()->b_obj.o_obj);
 }
 
+t_gobj* UIObject::asGObj() const
+{
+    return &(asEBox()->b_obj.o_obj.te_g);
+}
+
 t_pd* UIObject::asPd() const
 {
     return &asPdObject()->te_g.g_pd;

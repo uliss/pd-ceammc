@@ -164,6 +164,7 @@ class UIPopupMenu {
 
 public:
     UIPopupMenu(t_eobj* x, const char* name, const t_pt& pos);
+    UIPopupMenu(t_eobj* x, t_symbol* name, const t_pt& pos);
     ~UIPopupMenu();
 
     void addSeparator();

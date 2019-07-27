@@ -400,6 +400,13 @@ UIPopupMenu::UIPopupMenu(t_eobj* x, const char* name, const t_pt& pos)
     menu_ = epopupmenu_create(x, gensym(name));
 }
 
+UIPopupMenu::UIPopupMenu(t_eobj* x, t_symbol* name, const t_pt& pos)
+    : menu_(nullptr)
+    , pos_(pos)
+{
+    menu_ = epopupmenu_create(x, name);
+}
+
 UIPopupMenu::~UIPopupMenu()
 {
     int cnt = 0;

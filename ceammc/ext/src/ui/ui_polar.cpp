@@ -35,6 +35,8 @@ static t_rgba KNOB_BORDER_ACTIVE = hex_to_rgba("#00C0FF");
 static t_rgba GUIDE_LINE_COLOR = hex_to_rgba("#00C0F0");
 static const float GUIDE_LINE_WIDTH = 0.5f;
 
+static t_symbol* SYM_POPUP_MAIN;
+
 enum Sides {
     S_NORTH = 1,
     S_EAST = 0,
@@ -57,9 +59,14 @@ static int sym2direction(t_symbol* s)
     }
 }
 
-static float direction2angle(t_symbol* s)
+static double direction2radians(t_symbol* s)
 {
-    return sym2direction(s) * -M_PI_2;
+    return sym2direction(s) * M_PI_2;
+}
+
+static double direction2degrees(t_symbol* s)
+{
+    return sym2direction(s) * 90;
 }
 
 UIPolar::UIPolar()
@@ -67,7 +74,7 @@ UIPolar::UIPolar()
     , txt_radius_(txt_font.font(), KNOB_BORDER, ETEXT_UP_LEFT, ETEXT_JLEFT)
     , txt_angle_(txt_font.font(), KNOB_BORDER, ETEXT_UP_RIGHT, ETEXT_JRIGHT)
     , knob_layer_(asEBox(), gensym("knob_layer"))
-    , radius_(1)
+    , radius_(0)
     , angle_(0)
     , prop_direction_(gensym("N"))
     , mouse_down_(false)
@@ -108,7 +115,7 @@ void UIPolar::paintBackground()
     const float r = bbox.width / 2;
     const float c = r;
 
-    auto color = rgba_addContrast(prop_color_border, 0.2);
+    auto color = rgba_addContrast(prop_color_background, -0.1);
 
     // draw circles
     for (int i = 5; i > 0; i--) {
@@ -164,7 +171,13 @@ void UIPolar::paintKnob()
     UIPainter p = knob_layer_.painter(bbox);
 
     if (p) {
-        auto xy = convert::polar2cartesian<float>(radius_, angle_);
+        float a = (prop_use_deg_) ? convert::degree2rad(angle_) : angle_;
+        if (prop_clockwise_)
+            a = -a;
+
+        a += direction2radians(prop_direction_);
+
+        auto xy = convert::polar2cartesian<float>(radius_, a);
         const float x = convert::lin2lin<float>(xy.first, -1, 1, 0, bbox.width);
         const float y = convert::lin2lin<float>(xy.second, 1, -1, 0, bbox.height);
 
@@ -212,24 +225,26 @@ void UIPolar::onList(const AtomList& lst)
 
 void UIPolar::onPopup(t_symbol* menu_name, long item_idx)
 {
-    if (menu_name != gensym("popup"))
+    if (menu_name != SYM_POPUP_MAIN)
         return;
+
+    const t_float ANG_OFF = directionAngleOffset() * (prop_clockwise_ ? 1 : -1);
 
     switch (item_idx) {
     case 0:
         onList({ 0.f, 0.f });
         break;
     case 1:
-        onList({ 1, 0.f });
+        onList({ 1, -ANG_OFF });
         break;
     case 2:
-        onList({ 1, M_PI });
+        onList({ 1, ANG_OFF });
         break;
     case 3:
-        onList({ 1, M_PI_2 });
+        onList({ 1, 4 * ANG_OFF });
         break;
     case 4:
-        onList({ 1, -M_PI_2 });
+        onList({ 1, 2 * ANG_OFF });
         break;
     }
 }
@@ -238,7 +253,7 @@ void UIPolar::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, lo
 {
     // right click
     if (modifiers & EMOD_RIGHT) {
-        UIPopupMenu menu(asEObj(), "popup", abs_pt);
+        UIPopupMenu menu(asEObj(), SYM_POPUP_MAIN, abs_pt);
         menu.addItem(_("center"));
         menu.addItem(_("left center"));
         menu.addItem(_("right center"));
@@ -288,6 +303,57 @@ void UIPolar::m_set(const AtomList& lst)
     redrawKnob();
 }
 
+void UIPolar::m_polar(const AtomList& lst)
+{
+    if (lst.size() != 2) {
+        UI_ERR << "invalid list given: polar RAD ANG expected";
+        return;
+    }
+
+    m_set(lst);
+    output();
+}
+
+void UIPolar::m_cartesian(const AtomList& lst)
+{
+    if (lst.size() != 2) {
+        UI_ERR << "invalid list given: polar RAD ANG expected";
+        return;
+    }
+
+    t_float x, y;
+    if (!lst[0].getFloat(&x) || !lst[1].getFloat(&y)) {
+        UI_ERR << "invalid value: " << lst;
+        return;
+    }
+
+    if (std::abs(x) > 1) {
+        UI_ERR << "clipping x value into [-1, 1] range";
+        x = clip<t_float, -1, 1>(x);
+    }
+
+    if (std::abs(y) > 1) {
+        UI_ERR << "clipping y value into [-1, 1] range";
+        y = clip<t_float, -1, 1>(y);
+    }
+
+    auto pos = convert::cartesian2polar<double>(x, y);
+
+    radius_ = clip<t_float>(pos.first, 0, 1);
+    if (prop_use_deg_)
+        angle_ = convert::rad2degree(pos.second);
+
+    redrawKnob();
+    output();
+}
+
+void UIPolar::m_rotate(t_float angle)
+{
+    angle_ += angle;
+    redrawKnob();
+    output();
+}
+
 void UIPolar::loadPreset(size_t idx)
 {
     setRealValue(PresetStorage::instance().listValueAt(presetId(), idx, AtomList(0.f, 0.f)));
@@ -315,7 +381,7 @@ bool UIPolar::setRealValue(const AtomList& lst)
         UI_DBG << "clipping radius into range: [0-1]";
 
     radius_ = clip<t_float>(r, 0, 1);
-    angle_ = fromRealAngle(a);
+    angle_ = a;
     return true;
 }
 
@@ -326,24 +392,23 @@ AtomList UIPolar::realValue() const
 
 t_float UIPolar::realAngle() const
 {
-    t_float theta = (angle_ + direction2angle(prop_direction_)) * (prop_clockwise_ ? -1 : 1);
+    if (prop_use_deg_) {
+        if (prop_positive_)
+            return wrapFloatMax<t_float>(angle_, 360);
+        else
+            return wrapFloatMinMax<t_float>(angle_, -180, 180);
 
-    if (prop_positive_)
-        theta = wrapFloatMax<t_float>(theta, 2 * M_PI);
-    else
-        theta = wrapFloatMinMax<t_float>(theta, -M_PI, M_PI);
-
-    return prop_use_deg_ ? (theta * (180 / M_PI)) : theta;
+    } else {
+        if (prop_positive_)
+            return wrapFloatMax<t_float>(angle_, 2 * M_PI);
+        else
+            return wrapFloatMinMax<t_float>(angle_, -M_PI, M_PI);
+    }
 }
 
-t_float UIPolar::fromRealAngle(t_float a) const
+t_float UIPolar::realRadius() const
 {
-    if (prop_use_deg_)
-        a *= (M_PI / 180);
-
-    a *= (prop_clockwise_ ? -1 : 1);
-    a -= direction2angle(prop_direction_);
-    return a;
+    return radius_;
 }
 
 void UIPolar::output()
@@ -372,7 +437,7 @@ void UIPolar::propSetRadius(const AtomList& lst)
         return;
     }
 
-    radius_ = clip<t_float>(r, 0, 1);
+    radius_ = clip<t_float, 0, 1>(r);
     redrawKnob();
 }
 
@@ -385,7 +450,7 @@ void UIPolar::propSetAngle(const AtomList& lst)
         return;
     }
 
-    angle_ = fromRealAngle(a);
+    angle_ = a;
     redrawKnob();
 }
 
@@ -402,14 +467,33 @@ void UIPolar::redrawAll()
     redraw();
 }
 
+double UIPolar::directionAngleOffset() const
+{
+    if (prop_use_deg_)
+        return direction2degrees(prop_direction_);
+    else
+        return direction2radians(prop_direction_);
+}
+
 void UIPolar::setMouse(float x, float y)
 {
     auto r = rect();
-    auto p = convert::cartesian2polar(
-        convert::lin2lin<float>(x, 0, r.width, -1, 1),
-        convert::lin2lin<float>(y, 0, r.height, 1, -1));
+    auto p = convert::cartesian2polar<double>(
+        convert::lin2lin<double>(x, 0, r.width, -1, 1),
+        convert::lin2lin<double>(y, 0, r.height, 1, -1));
+
     radius_ = clip<float>(p.first, 0, 1);
-    angle_ = p.second;
+
+    float angle = p.second;
+    if (prop_use_deg_)
+        angle = convert::rad2degree(angle);
+
+    if (prop_clockwise_)
+        angle = directionAngleOffset() - angle;
+    else
+        angle -= directionAngleOffset();
+
+    angle_ = angle;
 }
 
 void setup_ui_polar()
@@ -419,6 +503,8 @@ void setup_ui_polar()
 
 void UIPolar::setup()
 {
+    SYM_POPUP_MAIN = gensym("main");
+
     UIObjectFactory<UIPolar> obj("ui.polar", EBOX_GROWLINK);
 
     obj.setDefaultSize(100, 100);
@@ -438,4 +524,7 @@ void UIPolar::setup()
     obj.useMouseEvents(UI_MOUSE_UP | UI_MOUSE_DOWN | UI_MOUSE_DRAG);
 
     obj.addMethod("set", &UIPolar::m_set);
+    obj.addMethod("polar", &UIPolar::m_polar);
+    obj.addMethod("cartesian", &UIPolar::m_cartesian);
+    obj.addMethod("rotate", &UIPolar::m_rotate);
 }

@@ -808,7 +808,7 @@ static t_pt ebox_calc_pos(t_ebox* x, t_glist* glist)
         pos.x = x->b_obj.o_obj.te_xpix;
         pos.y = x->b_obj.o_obj.te_ypix;
 
-        while (!glist->gl_havewindow) {
+        while (glist && !glist->gl_havewindow) {
             pos.x -= glist->gl_xmargin;
             pos.y -= glist->gl_ymargin;
             pos.x += glist->gl_obj.te_xpix;
@@ -2202,8 +2202,6 @@ static void ebox_draw_iolets(t_ebox* x)
                     egraphics_set_color_hex(g, STYLE_IEM_BORDER_COLOR);
 
                 egraphics_rectangle(g, pos_x_inlet, 0, XW, (is_sig) ? XSIGH : XCTRLH);
-
-                egraphics_stroke_preserve(g);
                 egraphics_fill(g);
             }
 
@@ -2224,8 +2222,6 @@ static void ebox_draw_iolets(t_ebox* x)
                 }
 
                 egraphics_rectangle(g, pos_x_outlet, BOX_H - (outlet_h + 1) + bdsize * 2, XW, outlet_h);
-
-                egraphics_stroke_preserve(g);
                 egraphics_fill(g);
             }
         }
