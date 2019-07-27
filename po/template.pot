@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.49.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-04-09 22:10+0300\n"
+"POT-Creation-Date: 2019-07-28 00:21+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,6 +86,10 @@ msgstr ""
 msgid "Horizontal align"
 msgstr ""
 
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+msgid "Inner position"
+msgstr ""
+
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp ../tcl/dialog_gatom.tcl
 #: ../tcl/dialog_iemgui.tcl
 msgid "Label"
@@ -128,8 +132,8 @@ msgstr ""
 #: ../ceammc/ext/src/ui/ui_link.cpp ../ceammc/ext/src/ui/ui_matrix.cpp
 #: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_meter.cpp
 #: ../ceammc/ext/src/ui/ui_number.cpp ../ceammc/ext/src/ui/ui_number_tilde.cpp
-#: ../ceammc/ext/src/ui/ui_radio.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
-#: ../ceammc/ext/src/ui/ui_scope.cpp
+#: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_radio.cpp
+#: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Main"
 msgstr ""
 
@@ -176,7 +180,8 @@ msgid "normal"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-msgid "Inner position"
+#: ../ceammc/ext/src/ui/ui_label.cpp
+msgid "Text"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
@@ -250,6 +255,10 @@ msgstr ""
 #: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_preset.cpp
 #: ../ceammc/ext/src/ui/ui_slider.cpp ../ceammc/ext/src/ui/ui_tab.cpp
 msgid "Text Color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_dsp.cpp ../tcl/dialog_audio.tcl
+msgid "Audio Settings"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_env.cpp
@@ -358,7 +367,8 @@ msgstr ""
 msgid "Scale Color"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_polar.cpp
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "center"
 msgstr ""
 
@@ -390,10 +400,6 @@ msgstr ""
 msgid "Margin top"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_label.cpp
-msgid "Text"
-msgstr ""
-
 #: ../ceammc/ext/src/ui/ui_link.cpp ../ceammc/ext/src/ui/ui_tab.cpp
 msgid "Hover Color"
 msgstr ""
@@ -422,7 +428,7 @@ msgstr ""
 msgid "Rows"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_matrix.cpp
+#: ../ceammc/ext/src/ui/ui_matrix.cpp ../ceammc/ext/src/ui/ui_radio.cpp
 msgid "flip"
 msgstr ""
 
@@ -430,11 +436,11 @@ msgstr ""
 msgid "load"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_matrix.cpp
+#: ../ceammc/ext/src/ui/ui_matrix.cpp ../ceammc/ext/src/ui/ui_radio.cpp
 msgid "random"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_matrix.cpp
+#: ../ceammc/ext/src/ui/ui_matrix.cpp ../ceammc/ext/src/ui/ui_radio.cpp
 msgid "reset"
 msgstr ""
 
@@ -484,6 +490,38 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_number_tilde.cpp
 msgid "Decimal precision"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "left center"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "right center"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "top center"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "bottom center"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_polar.cpp
+msgid "Clockwise"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_polar.cpp
+msgid "Use degrees"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_polar.cpp
+msgid "Positive output"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_polar.cpp
+msgid "Direction"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_preset.cpp
@@ -555,19 +593,19 @@ msgid "Show grid"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "bottom center"
+msgid "Left X-value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "left center"
+msgid "Right X-value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "right center"
+msgid "Top Y-value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "top center"
+msgid "Bottom Y-value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
@@ -729,10 +767,6 @@ msgstr ""
 
 #: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl
 msgid "4:"
-msgstr ""
-
-#: ../tcl/dialog_audio.tcl
-msgid "Audio Settings"
 msgstr ""
 
 #: ../tcl/dialog_audio.tcl

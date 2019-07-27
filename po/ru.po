@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-04-09 22:10+0300\n"
-"PO-Revision-Date: 2019-04-09 22:11+0300\n"
+"POT-Creation-Date: 2019-07-28 00:21+0300\n"
+"PO-Revision-Date: 2019-07-28 00:29+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -232,7 +232,7 @@ msgstr "Сторона прикрепления"
 msgid "Audio I/O error"
 msgstr "Ошибка Audio I/O"
 
-#: ../tcl/dialog_audio.tcl
+#: ../ceammc/ext/src/ui/ui_dsp.cpp ../tcl/dialog_audio.tcl
 msgid "Audio Settings"
 msgstr "Настройки аудио"
 
@@ -297,6 +297,10 @@ msgstr "Цвет границы"
 #: ../tcl/dialog_gatom.tcl
 msgid "Bottom"
 msgstr "Снизу"
+
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "Bottom Y-value"
+msgstr "Нижнее Y-значение"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../ceammc/ext/src/ui/ui_gain.cpp
@@ -366,6 +370,10 @@ msgstr "Очистить консоль"
 #: ../tcl/pd_menus.tcl
 msgid "Clear Menu"
 msgstr "Очистить меню"
+
+#: ../ceammc/ext/src/ui/ui_polar.cpp
+msgid "Clockwise"
+msgstr "По часовой стрелке"
 
 #: ../tcl/dialog_find.tcl ../tcl/pd_menus.tcl
 msgid "Close"
@@ -511,6 +519,10 @@ msgstr "Удалить array"
 #: ../ceammc/ext/src/ui/ui_number.cpp
 msgid "Digits"
 msgstr "Число разрядов"
+
+#: ../ceammc/ext/src/ui/ui_polar.cpp
+msgid "Direction"
+msgstr "Направление"
 
 #: ../tcl/dialog_path.tcl
 msgid "Disable"
@@ -851,6 +863,10 @@ msgstr "Слева"
 msgid "Left   "
 msgstr "Слева "
 
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "Left X-value"
+msgstr "Левое X-значение"
+
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "Leftmost MIDI note"
 msgstr "Начальная MIDI нота"
@@ -940,8 +956,8 @@ msgstr "MIDI…"
 #: ../ceammc/ext/src/ui/ui_link.cpp ../ceammc/ext/src/ui/ui_matrix.cpp
 #: ../ceammc/ext/src/ui/ui_menu.cpp ../ceammc/ext/src/ui/ui_meter.cpp
 #: ../ceammc/ext/src/ui/ui_number.cpp ../ceammc/ext/src/ui/ui_number_tilde.cpp
-#: ../ceammc/ext/src/ui/ui_radio.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
-#: ../ceammc/ext/src/ui/ui_scope.cpp
+#: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_radio.cpp
+#: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Main"
 msgstr "Основные"
 
@@ -1216,7 +1232,7 @@ msgstr ""
 
 #: ../tcl/dialog_path.tcl
 msgid "Pd Documents Directory"
-msgstr ""
+msgstr "Каталог Pd документов"
 
 #: ../tcl/pd-gui.tcl
 msgid "Pd Files"
@@ -1281,6 +1297,10 @@ msgstr "Линиями"
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 msgid "Position"
 msgstr "Положение"
+
+#: ../ceammc/ext/src/ui/ui_polar.cpp
+msgid "Positive output"
+msgstr "Положительный вывод"
 
 #: ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "Precision"
@@ -1388,6 +1408,10 @@ msgstr "Сбросить"
 #: ../tcl/dialog_gatom.tcl
 msgid "Right"
 msgstr "Справа"
+
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "Right X-value"
+msgstr "Правое X-значение"
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
 msgid "Rows"
@@ -1612,6 +1636,7 @@ msgstr "Проверка аудио и MIDI..."
 msgid "Test label"
 msgstr ""
 
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/ui_label.cpp
 msgid "Text"
 msgstr "Текст"
@@ -1650,6 +1675,10 @@ msgstr "Режим переключателя"
 #: ../tcl/dialog_gatom.tcl
 msgid "Top"
 msgstr "Сверху"
+
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "Top Y-value"
+msgstr "Верхнее Y-значение"
 
 #: ../tcl/pd_menus.tcl
 msgid "Triggerize"
@@ -1761,6 +1790,10 @@ msgstr "Использовать несколько устройств"
 #: ../tcl/dialog_audio.tcl
 msgid "Use callbacks"
 msgstr "Использовать обратные вызовы"
+
+#: ../ceammc/ext/src/ui/ui_polar.cpp
+msgid "Use degrees"
+msgstr "Использовать градусы"
 
 #: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl
 msgid "Use multiple devices"
@@ -1974,7 +2007,7 @@ msgstr ""
 msgid "all"
 msgstr "все"
 
-#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+#: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "bottom center"
 msgstr "внизу по центру"
 
@@ -1982,7 +2015,8 @@ msgstr "внизу по центру"
 msgid "bottom:"
 msgstr "снизу:"
 
-#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_polar.cpp
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "center"
 msgstr "по центру"
 
@@ -2003,7 +2037,7 @@ msgstr "критические ошибки"
 msgid "fill with %f"
 msgstr "заполнить %f"
 
-#: ../ceammc/ext/src/ui/ui_matrix.cpp
+#: ../ceammc/ext/src/ui/ui_matrix.cpp ../ceammc/ext/src/ui/ui_radio.cpp
 msgid "flip"
 msgstr "инвертировать"
 
@@ -2023,7 +2057,7 @@ msgstr ""
 msgid "intrrpt:"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+#: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "left center"
 msgstr "по центре левой стороны"
 
@@ -2080,7 +2114,7 @@ msgstr "обычный"
 msgid "puredata.info"
 msgstr "puredata.info"
 
-#: ../ceammc/ext/src/ui/ui_matrix.cpp
+#: ../ceammc/ext/src/ui/ui_matrix.cpp ../ceammc/ext/src/ui/ui_radio.cpp
 msgid "random"
 msgstr "случайное значение"
 
@@ -2088,11 +2122,11 @@ msgstr "случайное значение"
 msgid "release all"
 msgstr "отпустить все"
 
-#: ../ceammc/ext/src/ui/ui_matrix.cpp
+#: ../ceammc/ext/src/ui/ui_matrix.cpp ../ceammc/ext/src/ui/ui_radio.cpp
 msgid "reset"
 msgstr "сбросить"
 
-#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+#: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "right center"
 msgstr "по центру правой стороны"
 
@@ -2117,7 +2151,7 @@ msgstr "размер:"
 msgid "to"
 msgstr "до"
 
-#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+#: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "top center"
 msgstr "вверху по центру"
 
@@ -2157,9 +2191,6 @@ msgstr "ширина:"
 #~ msgid "Label y-margin"
 #~ msgstr "Отступ ярлыка по y"
 
-#~ msgid "Leftmost value"
-#~ msgstr "Крайнее левое значение"
-
 #~ msgid "Number of decimal"
 #~ msgstr "Число разрядов"
 
@@ -2168,9 +2199,6 @@ msgstr "ширина:"
 
 #~ msgid "Shift"
 #~ msgstr "Смещение"
-
-#~ msgid "Topmost value"
-#~ msgstr "Крайнее верхнее значение"
 
 #~ msgid "Value range"
 #~ msgstr "Диапазон значений"
