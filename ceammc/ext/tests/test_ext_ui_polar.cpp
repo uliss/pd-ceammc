@@ -588,24 +588,198 @@ TEST_CASE("ui.polar", "[ui.polar]")
 
         SECTION("clockwise")
         {
-        }
 
+            SECTION("direction")
+            {
+                SECTION("N")
+                {
+                    TestExtPolar t("ui.polar", LA("@direction", "N", "@degrees", 1, "@clockwise", 1));
+                    t.mouseDown(0, 0);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, -45));
+                    t.mouseDown(50, 0);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0));
+                    t.mouseDown(100, 0);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, 45));
+                    t.mouseDown(0, 50);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, -90));
+                    t.mouseDown(50, 50);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(0, 90));
+                    t.mouseDown(100, 50);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, 90));
+                    t.mouseDown(0, 100);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, -135));
+                    t.mouseDown(50, 100);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, -180));
+                    t.mouseDown(100, 100);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, 135));
+                }
+
+                SECTION("E")
+                {
+                    TestExtPolar t("ui.polar", LA("@direction", "E", "@degrees", 1, "@clockwise", 1));
+                    t.mouseDown(0, 0);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, -135));
+                    t.mouseDown(50, 0);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, -90));
+                    t.mouseDown(100, 0);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, -45));
+                    t.mouseDown(0, 50);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, -180));
+                    t.mouseDown(50, 50);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(0, 0));
+                    t.mouseDown(100, 50);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0));
+                    t.mouseDown(0, 100);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, 135));
+                    t.mouseDown(50, 100);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, 90));
+                    t.mouseDown(100, 100);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, 45));
+                }
+
+                SECTION("S")
+                {
+                    TestExtPolar t("ui.polar", LA("@direction", "S", "@degrees", 1, "@clockwise", 1));
+                    t.mouseDown(0, 0);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, 135));
+                    t.mouseDown(50, 0);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, -180));
+                    t.mouseDown(100, 0);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, -135));
+                    t.mouseDown(0, 50);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, 90));
+                    t.mouseDown(50, 50);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(0, -90));
+                    t.mouseDown(100, 50);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, -90));
+                    t.mouseDown(0, 100);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, 45));
+                    t.mouseDown(50, 100);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0));
+                    t.mouseDown(100, 100);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, -45));
+                }
+
+                SECTION("W")
+                {
+                    TestExtPolar t("ui.polar", LA("@direction", "W", "@degrees", 1, "@clockwise", 1));
+                    t.mouseDown(0, 0);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, 45));
+                    t.mouseDown(50, 0);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, 90));
+                    t.mouseDown(100, 0);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, 135));
+                    t.mouseDown(0, 50);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0));
+                    t.mouseDown(50, 50);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(0, -180));
+                    t.mouseDown(100, 50);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, -180));
+                    t.mouseDown(0, 100);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, -45));
+                    t.mouseDown(50, 100);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, -90));
+                    t.mouseDown(100, 100);
+                    REQUIRE_OUTPUT_LIST(t, 0, LX(1, -135));
+                }
+            }
+        }
+    }
+
+    SECTION("counter clockwise")
+    {
         SECTION("direction")
         {
             SECTION("N")
             {
+                TestExtPolar t("ui.polar", LA("@direction", "N", "@degrees", 1, "@clockwise", 0.f));
+                t.mouseDown(0, 0);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, 45));
+                t.mouseDown(50, 0);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0));
+                t.mouseDown(100, 0);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, -45));
+                t.mouseDown(0, 50);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, 90));
+                t.mouseDown(50, 50);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(0, -90));
+                t.mouseDown(100, 50);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, -90));
+                t.mouseDown(0, 100);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, 135));
+                t.mouseDown(50, 100);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, -180));
+                t.mouseDown(100, 100);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, -135));
             }
 
             SECTION("E")
             {
+                TestExtPolar t("ui.polar", LA("@direction", "E", "@degrees", 1, "@clockwise", 0.f));
+                t.mouseDown(0, 0);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, 135));
+                t.mouseDown(50, 0);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, 90));
+                t.mouseDown(100, 0);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, 45));
+                t.mouseDown(0, 50);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, -180));
+                t.mouseDown(50, 50);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(0, 0));
+                t.mouseDown(100, 50);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0));
+                t.mouseDown(0, 100);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, -135));
+                t.mouseDown(50, 100);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, -90));
+                t.mouseDown(100, 100);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, -45));
             }
 
             SECTION("S")
             {
+                TestExtPolar t("ui.polar", LA("@direction", "S", "@degrees", 1, "@clockwise", 0.f));
+                t.mouseDown(0, 0);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, -135));
+                t.mouseDown(50, 0);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, -180));
+                t.mouseDown(100, 0);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, 135));
+                t.mouseDown(0, 50);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, -90));
+                t.mouseDown(50, 50);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(0, 90));
+                t.mouseDown(100, 50);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, 90));
+                t.mouseDown(0, 100);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, -45));
+                t.mouseDown(50, 100);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0));
+                t.mouseDown(100, 100);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, 45));
             }
 
             SECTION("W")
             {
+                TestExtPolar t("ui.polar", LA("@direction", "W", "@degrees", 1, "@clockwise", 0.f));
+                t.mouseDown(0, 0);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, -45));
+                t.mouseDown(50, 0);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, -90));
+                t.mouseDown(100, 0);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, -135));
+                t.mouseDown(0, 50);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0));
+                t.mouseDown(50, 50);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(0, -180));
+                t.mouseDown(100, 50);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, -180));
+                t.mouseDown(0, 100);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, 45));
+                t.mouseDown(50, 100);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, 90));
+                t.mouseDown(100, 100);
+                REQUIRE_OUTPUT_LIST(t, 0, LX(1, 135));
             }
         }
     }
