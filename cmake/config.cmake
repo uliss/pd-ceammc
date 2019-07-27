@@ -38,21 +38,20 @@ check_include_file(unistd.h HAVE_UNISTD_H)
 check_function_exists(nanosleep HAVE_NANOSLEEP)
 check_function_exists(setenv HAVE_SETENV)
 
-# FluidSynth
-find_package(GLIB)
-if(GLIB_FOUND)
-    set(CEAMMC_HAVE_FLUIDSYNTH ON)
-    set(WITH_FLUIDSYNTH TRUE)
-    #include paths
-    list(APPEND FLUIDSYNTH_INCLUDES
-        ${GLIB_INCLUDES}
-        ${PROJECT_BINARY_DIR}/ceammc/extra/fluidsynth
-        ${PROJECT_SOURCE_DIR}/ceammc/extra/fluidsynth/fluidsynth/include)
-    # libs
-    list(APPEND FLUIDSYNTH_LIBRARIES fluidsynth ${GLIB_LIBRARIES})
-else()
-    set(WITH_FLUIDSYNTH FALSE)
-    message(WARNING "Glib is not found: no fluidsynth build")
+if(WITH_FLUIDSYNTH)
+    find_package(GLIB REQUIRED)
+    if(GLIB_FOUND)
+        set(CEAMMC_HAVE_FLUIDSYNTH ON)
+        #include paths
+        list(APPEND FLUIDSYNTH_INCLUDES
+            ${GLIB_INCLUDES}
+            ${PROJECT_BINARY_DIR}/ceammc/extra/fluidsynth
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/fluidsynth/fluidsynth/include)
+        # libs
+        list(APPEND FLUIDSYNTH_LIBRARIES fluidsynth ${GLIB_LIBRARIES})
+    else()
+        message(FATAL "Glib is not found: no fluidsynth build")
+    endif()
 endif()
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
