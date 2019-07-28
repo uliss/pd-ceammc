@@ -12,6 +12,12 @@ addons:
     packages:
       - gcc-5
       - g++-5
+      - libasound2-dev
+      - libmodplug-dev
+      - libavahi-compat-libdnssd-dev
+      - libsndfile1-dev
+      - libjack-jackd2-dev
+      - libfftw3-dev
 
 env:
   global:
