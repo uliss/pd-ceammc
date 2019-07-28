@@ -280,14 +280,14 @@ void UIPolar::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, lo
 
     right_click_ = false;
     mouse_down_ = true;
-    setMouse(pt.x, pt.y);
+    setMouse(pt.x, pt.y, modifiers & EMOD_SHIFT);
     redrawKnob();
     output();
 }
 
 void UIPolar::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
-    setMouse(pt.x, pt.y);
+    setMouse(pt.x, pt.y, modifiers & EMOD_SHIFT);
     redrawKnob();
     output();
 }
@@ -300,7 +300,7 @@ void UIPolar::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
     }
 
     mouse_down_ = false;
-    setMouse(pt.x, pt.y);
+    setMouse(pt.x, pt.y, modifiers & EMOD_SHIFT);
     redrawKnob();
     output();
 }
@@ -490,14 +490,15 @@ double UIPolar::directionAngleOffset() const
         return direction2radians(prop_direction_);
 }
 
-void UIPolar::setMouse(float x, float y)
+void UIPolar::setMouse(float x, float y, bool angleOnly)
 {
     auto r = rect();
     auto p = convert::cartesian2polar<double>(
         convert::lin2lin<double>(x, 0, r.width, -1, 1),
         convert::lin2lin<double>(y, 0, r.height, 1, -1));
 
-    radius_ = clip<float>(p.first, 0, 1);
+    if (!angleOnly)
+        radius_ = clip<float>(p.first, 0, 1);
 
     float angle = p.second;
     if (prop_degrees_)

@@ -16,6 +16,12 @@
                 <see view="link">ui.slider2d</see>
             </also>
         </meta>
+        <mouse>
+            <event editmode="false" type="left-click">jump to coord under mouse pointer</event>
+            <event editmode="false" type="right-click">opens popup menu for quick settings of position: center, left, right, top, bottom</event>
+            <event editmode="false" type="drag">change slider coords</event>
+            <event editmode="false" type="drag" keys="Shift">change only angle coord</event>
+        </mouse>
         <properties>
             <property name="@clockwise" type="int" default="1" enum="0 1">clockwise positive direction</property>
             <property name="@direction" type="symbol" default="N" enum="N E S W">zero-angle direction</property>

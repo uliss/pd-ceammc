@@ -11,127 +11,141 @@
 #X obj 50 147 ui.polar @use_degrees 1;
 #X obj 50 262 ui.display @display_type 1 @size 150 18;
 #X obj 20 302 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 307 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 307 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 342 @angle;
-#X text 245 342 Get/Set angle. Type: float.;
-#X msg 110 371 @clockwise;
-#X text 245 371 Get/Set clockwise positive direction. Type: int. Default
+#X text 110 342 Left-click;
+#X text 285 342 jump to coord under mouse pointer.;
+#X text 110 362 Right-click;
+#X text 285 362 opens popup menu for quick settings of position: center
+\, left \, right \, top \, bottom.;
+#X text 110 397 Mouse-drag;
+#X text 285 397 change slider coords.;
+#X text 110 417 Mouse-drag + Shift;
+#X text 285 417 change only angle coord.;
+#X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 452 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 487 @angle;
+#X text 245 487 Get/Set angle. Type: float.;
+#X msg 110 516 @clockwise;
+#X text 245 516 Get/Set clockwise positive direction. Type: int. Default
 value: 1\. Allowed values: 0 \, 1\.;
-#X msg 110 413 @direction;
-#X text 245 413 Get/Set zero-angle direction. Type: symbol. Default
+#X msg 110 558 @degrees;
+#X text 245 558 Get/Set using degrees instead of radians. Type: int.
+Default value: 1\. Allowed values: 0 \, 1\.;
+#X msg 110 600 @direction;
+#X text 245 600 Get/Set zero-angle direction. Type: symbol. Default
 value: N. Allowed values: N \, E \, S \, W.;
-#X msg 110 455 @radius;
-#X text 245 455 Get/Set radius. Type: float.;
-#X msg 110 484 @receive;
-#X text 245 484 Get/Set receive source. Type: symbol.;
-#X msg 110 513 @send;
-#X text 245 513 Get/Set send destination. Type: symbol.;
-#X msg 110 542 @y_bottom;
-#X text 245 542 Get/Set bottom y-value. Type: float. Default value:
--1\.;
-#X msg 110 571 @y_top;
-#X text 245 571 Get/Set top y-value. Type: float. Default value: 1\.;
-#X msg 110 600 @background_color;
-#X text 245 600 Get/Set element background color (list of red \, green
+#X msg 110 642 @positive;
+#X text 245 642 Get/Set use positive output angle range. For example:
+[0\..360) when using degrees \, otherwise using [-180\..180) range.
+Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+#X msg 110 699 @radius;
+#X text 245 699 Get/Set radius. Type: float.;
+#X msg 110 728 @receive;
+#X text 245 728 Get/Set receive source. Type: symbol.;
+#X msg 110 757 @send;
+#X text 245 757 Get/Set send destination. Type: symbol.;
+#X msg 110 786 @background_color;
+#X text 245 786 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list.;
-#X msg 110 642 @border_color;
-#X text 245 642 Get/Set border color (list of red \, green \, blue
+#X msg 110 828 @border_color;
+#X text 245 828 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list.;
-#X msg 110 684 @fontname;
-#X text 245 684 Get/Set fontname. Type: symbol.;
-#X msg 110 713 @fontsize;
-#X text 245 713 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 870 @fontname;
+#X text 245 870 Get/Set fontname. Type: symbol.;
+#X msg 110 899 @fontsize;
+#X text 245 899 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...11\.;
-#X msg 110 755 @fontslant;
-#X text 245 755 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 941 @fontslant;
+#X text 245 941 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 797 @fontweight;
-#X text 245 797 Get/Set font weight. Type: symbol. Default value: normal.
+#X msg 110 983 @fontweight;
+#X text 245 983 Get/Set font weight. Type: symbol. Default value: normal.
 Allowed values: normal \, bold.;
-#X msg 110 839 @pinned;
-#X text 245 839 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1025 @pinned;
+#X text 245 1025 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 881 @presetname;
-#X text 245 881 Get/Set preset name for using with [ui.preset]. Type:
+#X msg 110 1067 @presetname;
+#X text 245 1067 Get/Set preset name for using with [ui.preset]. Type:
 symbol.;
-#X msg 110 910 @size;
-#X text 245 910 Get/Set element size (width \, height pair). Type:
+#X msg 110 1096 @size;
+#X text 245 1096 Get/Set element size (width \, height pair). Type:
 list.;
-#X obj 20 949 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 954 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1135 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1140 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 989 cartesian;
-#X text 245 989 sets slider position in cartesian coords and output.
+#X msg 110 1175 cartesian;
+#X text 245 1175 sets slider position in cartesian coords and output.
 Arguments are:;
-#X obj 255 1027 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1027 X: x-coord. Type: float. Range: -1\...1\.;
-#X obj 255 1050 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1050 Y: y-coord. Type: float. Range: -1\...1\.;
-#X msg 110 1075 clear;
-#X text 245 1075 clears specified preset. Arguments are:;
-#X obj 255 1098 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1098 IDX: preset index. Type: int.;
-#X msg 110 1123 load;
-#X text 245 1123 loads specified preset. Arguments are:;
-#X obj 255 1146 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1146 IDX: preset index. Type: int.;
-#X msg 110 1171 polar;
-#X text 245 1171 sets slider position in polar coords and output. Arguments
+#X obj 255 1213 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1213 X: x-coord. Type: float. Range: -1\...1\.;
+#X obj 255 1236 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1236 Y: y-coord. Type: float. Range: -1\...1\.;
+#X msg 110 1261 clear;
+#X text 245 1261 clears specified preset. Arguments are:;
+#X obj 255 1284 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1284 IDX: preset index. Type: int.;
+#X msg 110 1309 load;
+#X text 245 1309 loads specified preset. Arguments are:;
+#X obj 255 1332 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1332 IDX: preset index. Type: int.;
+#X msg 110 1357 polar;
+#X text 245 1357 sets slider position in polar coords and output. Arguments
 are:;
-#X obj 255 1209 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1209 RAD: radius. Type: float. Range: 0\...1\.;
-#X obj 255 1232 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1232 ANG: angle in degrees or radians (depends on @use_degrees
+#X obj 255 1395 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1395 RAD: radius. Type: float. Range: 0\...1\.;
+#X obj 255 1418 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1418 ANG: angle in degrees or radians (depends on @use_degrees
 property). Type: float.;
-#X msg 110 1272 pos;
-#X text 245 1272 set UI element position. Arguments are:;
-#X obj 255 1295 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1295 X: top left x-coord. Type: float.;
-#X obj 255 1318 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1318 Y: top right y-coord. Type: float.;
-#X msg 110 1343 rotate;
-#X text 245 1343 rotate slider by specified angle. Arguments are:;
-#X obj 255 1366 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1366 A: angle in degrees or radians (depends on @use_degrees
+#X msg 110 1458 pos;
+#X text 245 1458 set UI element position. Arguments are:;
+#X obj 255 1481 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1481 X: top left x-coord. Type: float.;
+#X obj 255 1504 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1504 Y: top right y-coord. Type: float.;
+#X msg 110 1529 rotate;
+#X text 245 1529 rotate slider by specified angle. Arguments are:;
+#X obj 255 1552 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1552 A: angle in degrees or radians (depends on @use_degrees
 property). Type: float.;
-#X msg 110 1406 set;
-#X text 245 1406 sets slider position without output. Arguments are:;
-#X obj 255 1429 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1429 RAD: radius. Type: float. Range: 0\...1\.;
-#X obj 255 1452 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1452 ANG: angle in degrees or radians (depends on @use_degrees
+#X msg 110 1592 set;
+#X text 245 1592 sets slider position without output. Arguments are:;
+#X obj 255 1615 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1615 RAD: radius. Type: float. Range: 0\...1\.;
+#X obj 255 1638 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1638 ANG: angle in degrees or radians (depends on @use_degrees
 property). Type: float.;
-#X msg 110 1492 store;
-#X text 245 1492 stores specified preset. Arguments are:;
-#X obj 255 1515 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1515 IDX: preset index. Type: int.;
-#X msg 110 1540 dump;
-#X text 245 1540 dumps all object info to Pd console window.;
-#X obj 20 1577 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1582 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1678 store;
+#X text 245 1678 stores specified preset. Arguments are:;
+#X obj 255 1701 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1701 IDX: preset index. Type: int.;
+#X msg 110 1726 dump;
+#X text 245 1726 dumps all object info to Pd console window.;
+#X obj 20 1763 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1768 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1583 1\.;
-#X text 150 1583 *bang*;
-#X text 245 1583 outputs slider position.;
-#X text 150 1603 *list*;
-#X text 245 1603 sets slider position and outputs it.;
-#X obj 20 1633 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1638 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1769 1\.;
+#X text 150 1769 *bang*;
+#X text 245 1769 outputs slider position.;
+#X text 150 1789 *list*;
+#X text 245 1789 sets slider position and outputs it.;
+#X obj 20 1819 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1824 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1639 1\.;
-#X text 245 1639 list output of two values: RADIUS and ANGLE.;
+#X text 110 1825 1\.;
+#X text 245 1825 list output of two values: RADIUS and ANGLE.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1689 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1692 library: ceammc v0.7.1;
-#X text 584 1704 see also:;
-#X obj 658 1707 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1875 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1878 library: ceammc v0.7.1;
+#X text 584 1890 see also:;
+#X obj 658 1893 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.slider2d] @url ui.slider2d-help.pd;
-#N canvas 10 1711 400 290 info 0;
+#N canvas 10 1897 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -155,7 +169,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1711 pd info;
+#X restore 10 1897 pd info;
 #X connect 4 0 6 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

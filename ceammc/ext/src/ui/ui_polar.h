@@ -70,7 +70,7 @@ public:
 public:
     static void setup();
 
-    void setMouse(float x, float y);
+    void setMouse(float x, float y, bool angleOnly = false);
 
 private:
     void redrawKnob();
