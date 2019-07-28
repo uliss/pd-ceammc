@@ -23,6 +23,10 @@
             <property name="@amp" type="float" default="0">gain as amplitude ratio</property>
             <property name="@output_value" type="int" enum="0 1" default="0">flag to output @db
             property after each knob move</property>
+            <property name="@relative" type="int" default="1" enum="0 1">relative input mode. When
+            set do not jump to value on click.</property>
+            <property name="@show_range" type="int" enum="0 1" default="1">if show slider
+            range</property>
             <property name="@presetname" type="symbol">preset name for using with
             [ui.preset]</property>
             <property name="@send" type="symbol">send destination</property>

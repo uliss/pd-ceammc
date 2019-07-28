@@ -18,6 +18,7 @@
 - popup menu added to ui.radio in check list mode
 - ui.hgain~ alias added to create horizontal ui.gain~
 - ui.hgain2~ alias added to create horizontal ui.gain2~
+- ui.gain~ and ui.gain2~ @relative property added for relative input mode (by default)
 - ui.polar added
 - popup menu added to ui.preset with read/write actions
 

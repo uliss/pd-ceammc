@@ -27,6 +27,7 @@ private:
     UITextLayout txt_min_;
     float knob_pos_;
     bool is_horizontal_;
+    float rel_mode_delta_;
 
 protected:
     SmoothControlValue smooth_;
@@ -36,6 +37,7 @@ protected:
     int prop_min;
     int prop_output_value;
     int prop_show_range;
+    int prop_relative_mode;
 
     void initHorizontal();
 

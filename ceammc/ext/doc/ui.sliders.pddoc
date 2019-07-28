@@ -20,7 +20,7 @@
         </meta>
         <mouse>
             <event editmode="true" type="double-click" keys="Cmd">changes slider
-        orientation</event>
+            orientation</event>
             <event editmode="false" type="right-click">opens popup menu for quick settings of
             values: fill, linup, lindown and random</event>
             <event editmode="false" type="drag">change slider values</event>

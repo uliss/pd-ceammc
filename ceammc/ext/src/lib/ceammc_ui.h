@@ -545,6 +545,11 @@ public:
         eclass_attr_redirect(pd_class, name, (t_gotfn)listPropRedirector);
     }
 
+    void setPropertyUnits(t_symbol* name, t_symbol* value)
+    {
+        eclass_attr_units(pd_class, name, 0, value);
+    }
+
     void addAlias(const char* name)
     {
         class_addcreator(reinterpret_cast<t_newmethod>(alloc), gensym(name), A_GIMME, A_NULL);

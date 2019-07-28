@@ -533,6 +533,7 @@ typedef struct t_eattr {
     t_symbol* category; /*!< The dummy category of the attribute. */
     t_symbol* label; /*!< The label of the attribute. */
     t_symbol* style; /*!< The style of the attribute (checkbutton, color, number, entry, menu). */
+    t_symbol* units; /*!< The units of the attribute. */
     long order; /*!< The dummy order of the attribute. */
     char save; /*!< If the attribute should be saved. */
     char paint; /*!< If the attribute should repaint the t_ebox when it has changed. */

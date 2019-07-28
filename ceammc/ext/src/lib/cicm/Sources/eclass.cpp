@@ -467,6 +467,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
             attr->category = c->c_class.c_name;
             attr->label = gensym("");
             attr->style = gensym(SYM_ENTRY);
+            attr->units = &s_;
             attr->order = c->c_nattr + 1;
             attr->save = 0;
             attr->paint = 0;
@@ -1381,6 +1382,16 @@ void eclass_attr_visible(t_eclass* c, const char* attrname, long flags)
     for (int i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == s_attrname) {
             c->c_attr[i]->invisible = 0;
+            return;
+        }
+    }
+}
+
+void eclass_attr_units(t_eclass* c, t_symbol* attrname, long, t_symbol* units)
+{
+    for (int i = 0; i < c->c_nattr; i++) {
+        if (c->c_attr[i]->name == attrname) {
+            c->c_attr[i]->units = units;
             return;
         }
     }

@@ -629,6 +629,13 @@ static PropertyInfo attr_to_prop(t_eattr* a)
     static t_symbol* SYM_SYMBOL = &s_symbol;
     static t_symbol* SYM_COLOR = gensym("color");
     static t_symbol* SYM_ATOM = gensym("atom");
+    static t_symbol* SYM_UNIT_DB = gensym("db");
+    static t_symbol* SYM_UNIT_MSEC = gensym("msec");
+    static t_symbol* SYM_UNIT_SEC = gensym("sec");
+    static t_symbol* SYM_UNIT_SAMP = gensym("samp");
+    static t_symbol* SYM_UNIT_DEG = gensym("deg");
+    static t_symbol* SYM_UNIT_RAD = gensym("rad");
+    static t_symbol* SYM_UNIT_HZ = gensym("hz");
 
     PropertyInfo res(std::string("@") + a->name->s_name, PropertyInfoType::VARIANT);
 
@@ -704,6 +711,25 @@ static PropertyInfo attr_to_prop(t_eattr* a)
         } else {
             std::cerr << "invalid atom property size: " << a->size << "\n";
         }
+    }
+
+    if (a->units != &s_) {
+        if (a->units == SYM_UNIT_DB)
+            res.setUnits(PropertyInfoUnits::DB);
+        else if (a->units == SYM_UNIT_MSEC)
+            res.setUnits(PropertyInfoUnits::MSEC);
+        else if (a->units == SYM_UNIT_SEC)
+            res.setUnits(PropertyInfoUnits::SEC);
+        else if (a->units == SYM_UNIT_SAMP)
+            res.setUnits(PropertyInfoUnits::SAMP);
+        else if (a->units == SYM_UNIT_DEG)
+            res.setUnits(PropertyInfoUnits::DEG);
+        else if (a->units == SYM_UNIT_RAD)
+            res.setUnits(PropertyInfoUnits::RAD);
+        else if (a->units == SYM_UNIT_HZ)
+            res.setUnits(PropertyInfoUnits::HZ);
+        else
+            std::cerr << "unknown unit: " << a->units->s_name << "\n";
     }
 
     if (a->getter != 0)

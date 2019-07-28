@@ -44,6 +44,10 @@ void UIGain2::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_out
 
 void UIGain2::setup()
 {
+    static t_symbol* SYM_DB = gensym("db");
+    static t_symbol* SYM_MAX = gensym("max");
+    static t_symbol* SYM_MIN = gensym("min");
+
     UIDspFactory<UIGain2> obj("ui.gain2~");
     obj.addAlias("ui.vgain2~");
     obj.addAlias("ui.hgain2~");
@@ -51,13 +55,17 @@ void UIGain2::setup()
     obj.addColorProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UIGain2::prop_color_knob);
     obj.addHiddenFloatCbProperty("db", &UIGain2::dbValue, &UIGain2::setDbValue);
     obj.setPropertyDefaultValue("db", "-60");
+    obj.setPropertyUnits(SYM_DB, SYM_DB);
     obj.addHiddenFloatCbProperty("amp", &UIGain2::ampValue, &UIGain2::setAmpValue);
     obj.addIntProperty("max", _("Maximum value"), 0, &UIGain2::prop_max, _("Bounds"));
     obj.addIntProperty("min", _("Minimum value"), -60, &UIGain2::prop_min, _("Bounds"));
     obj.setPropertyRange("max", -12, 12);
     obj.setPropertyRange("min", -90, -30);
+    obj.setPropertyUnits(SYM_MAX, SYM_DB);
+    obj.setPropertyUnits(SYM_MIN, SYM_DB);
     obj.addBoolProperty("show_range", _("Show range"), true, &UIGain2::prop_show_range, _("Misc"));
     obj.addBoolProperty("output_value", _("Output value"), false, &UIGain2::prop_output_value, _("Main"));
+    obj.addBoolProperty("relative", _("Relative mode"), true, &UIGain2::prop_relative_mode, _("Main"));
 
     obj.setDefaultSize(15, 120);
     obj.usePresets();

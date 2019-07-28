@@ -462,6 +462,11 @@ public:
         eclass_attr_default(pd_class, name, 0, def);
     }
 
+    void setPropertyUnits(t_symbol* name, t_symbol* value)
+    {
+        eclass_attr_units(pd_class, name, 0, value);
+    }
+
     void hideProperty(const char* name)
     {
         eclass_attr_invisible(pd_class, name, 0);
