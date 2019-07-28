@@ -41,14 +41,23 @@ public:
     void processBlock(const t_sample** in, t_sample** out) final;
 
     void processMultiSource();
+    void processIn1In2();
 
     void m_polar(t_symbol* s, const AtomList& l);
+    void m_mute(t_symbol* s, const AtomList& l);
 
 private:
     static t_int* dspPerformMultiSource(t_int* w)
     {
         HoaMap* ext = reinterpret_cast<HoaMap*>(w[1]);
         ext->processMultiSource();
+        return (w + 2);
+    }
+
+    static t_int* dspPerformIn1In2(t_int* w)
+    {
+        HoaMap* ext = reinterpret_cast<HoaMap*>(w[1]);
+        ext->processIn1In2();
         return (w + 2);
     }
 };

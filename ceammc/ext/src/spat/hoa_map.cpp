@@ -24,7 +24,7 @@ HoaMap::HoaMap(const PdArgs& args)
     , nins_(nullptr)
     , ramp_(nullptr)
 {
-    nins_ = new IntPropertyMinEq("@nsrc", positionalFloatArgument(1, 3), 1);
+    nins_ = new IntPropertyMinEq("@nsrc", positionalFloatArgument(1, 1), 1);
     createProperty(nins_);
 
     ramp_ = new RampProperty(
@@ -40,10 +40,9 @@ void HoaMap::parseProperties()
 {
     HoaBase::parseProperties();
 
-    const size_t NINS = nins_->value();
     nins_->setReadonly(true);
 
-    map_.reset(new MultiEncoder2d(order(), NINS));
+    map_.reset(new MultiEncoder2d(order(), nins_->value()));
     lines_.reset(new PolarLines2d(map_->getNumberOfSources()));
     lines_->setRamp(ramp_->value() / 1000. * sys_getsr());
 
@@ -52,6 +51,7 @@ void HoaMap::parseProperties()
         lines_->setAzimuthDirect(i, 0.);
     }
 
+    const size_t NINS = (nins_->value() == 1) ? 3 : nins_->value();
     createSignalInlets(NINS);
     createSignalOutlets(map_->getNumberOfHarmonics());
 
@@ -67,19 +67,11 @@ void HoaMap::setupDSP(t_signal** sp)
 
     lines_->setRamp(ramp_->value() / 1000. * samplerate());
 
-    //    if (map_->getNumberOfSources() == 1) {
-    //        if (count[1] && count[2])
-
-    //            object_method(dsp, gensym("dsp_add64"), x, (method)hoa_map_tilde_perform_in1_in2, 0, NULL);
-    //        else if (count[1] && !count[2])
-    //            object_method(dsp, gensym("dsp_add64"), x, (method)hoa_map_tilde_perform_in1, 0, NULL);
-    //        else if (!count[1] && count[2])
-    //            object_method(dsp, gensym("dsp_add64"), x, (method)hoa_map_tilde_perform_in2, 0, NULL);
-    //        else if (!count[1] && !count[2])
-    //            object_method(dsp, gensym("dsp_add"), x, (method)hoa_map_tilde_perform, 0, NULL);
-    //    } else {
-    dsp_add(dspPerformMultiSource, 1, static_cast<void*>(this));
-    //    }
+    if (map_->getNumberOfSources() == 1) {
+        dsp_add(dspPerformIn1In2, 1, static_cast<void*>(this));
+    } else {
+        dsp_add(dspPerformMultiSource, 1, static_cast<void*>(this));
+    }
 }
 
 void HoaMap::blockSizeChanged(size_t bs)
@@ -121,6 +113,24 @@ void HoaMap::processMultiSource()
         Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
 }
 
+void HoaMap::processIn1In2()
+{
+    const size_t NOUTS = numOutputChannels();
+    const size_t BS = blockSize();
+
+    t_sample** in = inputBlocks();
+    t_sample** out = outputBlocks();
+
+    for (size_t i = 0; i < BS; i++) {
+        map_->setRadius(0, in[1][i]);
+        map_->setAzimuth(0, in[2][i]);
+        map_->process(&in[0][i], &out_buf_[NOUTS * i]);
+    }
+
+    for (size_t i = 0; i < NOUTS; i++)
+        Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
+}
+
 void HoaMap::m_polar(t_symbol* s, const AtomList& l)
 {
     if (!checkArgs(l, ARG_INT, ARG_FLOAT, ARG_FLOAT)) {
@@ -138,10 +148,28 @@ void HoaMap::m_polar(t_symbol* s, const AtomList& l)
     lines_->setAzimuth(idx, l[2].asFloat() - M_PI_2);
 }
 
+void HoaMap::m_mute(t_symbol* s, const AtomList& l)
+{
+    if (!checkArgs(l, ARG_NATURAL, ARG_BOOL)) {
+        METHOD_ERR(s) << "SRC_IDX STATE expected: " << l;
+        return;
+    }
+
+    int idx = l[0].asInt();
+    if (idx < 0 || idx >= (int)map_->getNumberOfSources()) {
+        METHOD_ERR(s) << "invalid source index: " << idx;
+        return;
+    }
+
+    bool mute = l[1].asInt();
+    map_->setMute(idx, mute);
+}
+
 void setup_spat_hoa_map()
 {
     SoundExternalFactory<HoaMap> obj("hoa.2d.map~");
     obj.addAlias("hoa.map~");
 
     obj.addMethod("polar", &HoaMap::m_polar);
+    obj.addMethod("mute", &HoaMap::m_mute);
 }
