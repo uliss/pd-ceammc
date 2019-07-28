@@ -36,11 +36,11 @@
             readonly="true">number of input sources</property>
         </properties>
         <methods>
-            <method name="polar">set source mapping in polar coordinates
+            <method name="polar">set source mapping in polar coordinates 
             <param name="IDX" required="true" type="int" minvalue="0">source index</param>
             <param name="RAD" required="true" type="float" minvalue="0" maxvalue="1">radius</param>
-            <param name="ANG" required="true" type="float" minvalue="0" maxvalue="2π" units="radian">rotation angle</param>
-            </method>
+            <param name="ANG" required="true" type="float" minvalue="0" maxvalue="2π"
+            units="radian">rotation angle</param></method>
         </methods>
         <inlets dynamic="true">
             <inlet type="audio">
@@ -61,21 +61,21 @@
         <example>
             <pdascii>
 <![CDATA[
-/*radius*/ /*angle*/
-
-[ui.knob]  [ui.knob]    [ui.knob]  [ui.knob]
-|          |            |          |
-|          |            |          |
-|          |            |          |
-|          [phase->rad] |          [phase->rad]
-|          |.           |          |.
-[flow.pack 2 1 0]       [flow.pack 2 1 0]
-|                       |
-[msg polar 0 #a]        [msg polar 1 #b]
+[msg.onload        ] /*use Shift+drag to fix radius value*/
+|                  |
+[ui.polar #a]      [ui.polar #b]
+|                  |
+|                  |
+|                  |
+|                  |
+|                  |
+|                  |
+|                  |
+[msg polar 0 #c]   [msg polar 1 #d]
 
  [sig~ 1]        [sig~ -1]
  |               |.
-[hoa.2d.map~ 7 2 {w=23,i=3,o=15} #c]
+[hoa.2d.map~ 7 2 {w=23,i=3,o=15} #z]
 *|*
 [hoa.scope~ 7 @gain 4 @size 164 164 {i=15}]
 
@@ -89,9 +89,12 @@
 
 
 
+
 [ui.dsp~]
-[X a->c]
-[X b->c]
+[X c->z]
+[X d->z]
+#a @clockwise 0 @direction E @radians 1 @angle 0 @radius 0.5
+#b @clockwise 0 @direction E @radians 1 @angle -3.1415 @radius 0.5
 ]]>
             </pdascii>
         </example>
