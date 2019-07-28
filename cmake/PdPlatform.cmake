@@ -128,7 +128,7 @@ if(WIN32)
         set(CMAKE_C_STANDARD_LIBRARIES ${CMAKE_CXX_STANDARD_LIBRARIES})
     endif()
 
-    add_definitions(-DPD_INTERNAL -DWINVER=0x0502 -D_WIN32_WINNT=0x0502)
+    add_definitions(-DPD_INTERNAL -DWINVER=0x0502 -D_WIN32_WINNT=0x0502 -D_USE_MATH_DEFINES)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -mms-bitfields -Wno-incompatible-ms-struct")
 
