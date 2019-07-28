@@ -22,7 +22,7 @@
             <event editmode="true" type="double-click" keys="Cmd">changes slider
         orientation</event>
             <event editmode="false" type="right-click">opens popup menu for quick settings of
-            values</event>
+            values: fill, linup, lindown and random</event>
             <event editmode="false" type="drag">change slider values</event>
         </mouse>
         <arguments>
@@ -34,7 +34,7 @@
             sliders</property>
             <property name="@min" type="float" default="0">minimal value</property>
             <property name="@max" type="float" default="1">maximum value</property>
-            <property name="@range" type="float" default="1" readonly="true">value range</property>
+            <property name="@range" type="float" readonly="true">value range</property>
             <property name="@value" type="list" readonly="true">sliders value</property>
             <property name="@auto_range" type="int" enum="0 1" default="0">if set numbers of
             sliders equal to input list length</property>
@@ -69,6 +69,9 @@
             <method name="select">draws specified slider with select color 
             <param name="N" required="true" minvalue="0" type="int">slider index, starting from
             0.</param></method>
+            <method name="random">fill sliders with random values without output</method>
+            <method name="linup">fill sliders with increasing values without output</method>
+            <method name="lindown">fill sliders with decreasing values without output</method>
             <method name="fill">fill sliders value with specified value without output</method>
             <method name="set">sets sliders values without output 
             <param name="VALUES" type="list">slider values</param></method>
@@ -104,7 +107,7 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">outputs sliders position</xinfo>
-                <xinfo on="list">sets slider values and outputs it</xinfo>
+                <xinfo on="list">sets slider values and output them</xinfo>
             </inlet>
         </inlets>
         <outlets>

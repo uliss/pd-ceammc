@@ -250,13 +250,19 @@ void UISliders::onPopup(t_symbol* menu_name, long item_idx)
 
     switch (item_idx) {
     case 0:
-        m_fill(prop_max);
+        std::fill(std::begin(pos_values_), std::end(pos_values_), 1);
+        redrawAll();
+        outputList();
         break;
     case 1:
-        m_fill((prop_max + prop_min) * 0.5);
+        std::fill(std::begin(pos_values_), std::end(pos_values_), 0.5);
+        redrawAll();
+        outputList();
         break;
     case 2:
-        m_fill(prop_min);
+        std::fill(std::begin(pos_values_), std::end(pos_values_), 0);
+        redrawAll();
+        outputList();
         break;
     case 3:
         m_linup();
@@ -341,6 +347,7 @@ bool UISliders::setRealValues(const AtomList& l)
         prop_max = max;
         generateTxtLabels();
         pos_values_.resize(std::min<size_t>(MAX_SLIDERS_NUM, l.size()), min);
+        prop_count = l.size();
     } else if (range == 0.f) {
         UI_ERR << "zero value range";
         return false;
