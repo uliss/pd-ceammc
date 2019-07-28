@@ -18,6 +18,7 @@ addons:
       - libsndfile1-dev
       - libjack-jackd2-dev
       - libfftw3-dev
+      - libboost-dev
 
 env:
   global:
