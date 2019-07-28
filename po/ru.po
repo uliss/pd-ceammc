@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-07-28 00:21+0300\n"
-"PO-Revision-Date: 2019-07-28 00:29+0300\n"
+"POT-Creation-Date: 2019-07-28 10:14+0300\n"
+"PO-Revision-Date: 2019-07-28 10:15+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -1798,6 +1798,10 @@ msgstr "Использовать градусы"
 #: ../tcl/dialog_audio.tcl ../tcl/dialog_midi.tcl
 msgid "Use multiple devices"
 msgstr "Использовать несколько устройств"
+
+#: ../ceammc/ext/src/ui/ui_polar.cpp
+msgid "Use radians"
+msgstr "Использовать радианы"
 
 #: ../tcl/dialog_path.tcl
 msgid "Use standard extensions"

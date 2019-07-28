@@ -31,8 +31,8 @@
             <property name="@positive" type="int" default="0" enum="0 1">use positive output angle
             range. For example: [0..360) when using degrees, otherwise using [-180..180)
             range.</property>
-            <property name="@degrees" type="int" default="1" enum="0 1">using degrees instead of
-            radians</property>
+            <property name="@radians" type="int" default="0" enum="0 1">using radians instead of
+            degrees</property>
             <property name="@angle" type="float">angle</property>
             <property name="@radius" type="float">radius</property>
             <!-- common -->

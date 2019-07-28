@@ -80,7 +80,7 @@ UIPolar::UIPolar()
     , mouse_down_(false)
     , right_click_(false)
     , prop_clockwise_(1)
-    , prop_degrees_(1)
+    , prop_radians_(0)
     , prop_positive_(0)
 {
     createOutlet();
@@ -172,7 +172,7 @@ void UIPolar::paintKnob()
     UIPainter p = knob_layer_.painter(bbox);
 
     if (p) {
-        float a = (prop_degrees_) ? convert::degree2rad(angle_) : angle_;
+        float a = (prop_radians_) ? angle_ : convert::degree2rad(angle_);
         if (prop_clockwise_)
             a = -a;
 
@@ -232,10 +232,10 @@ void UIPolar::onPopup(t_symbol* menu_name, long item_idx)
     auto side2angle = [this](int angle_idx) {
         float angle = 0;
 
-        if (prop_degrees_)
-            angle = angle_idx * 90;
-        else
+        if (prop_radians_)
             angle = angle_idx * M_PI_2;
+        else
+            angle = angle_idx * 90;
 
         if (prop_clockwise_)
             angle = directionAngleOffset() - angle;
@@ -355,7 +355,7 @@ void UIPolar::m_cartesian(const AtomList& lst)
     auto pos = convert::cartesian2polar<double>(x, y);
 
     radius_ = clip<t_float>(pos.first, 0, 1);
-    if (prop_degrees_)
+    if (!prop_radians_)
         angle_ = convert::rad2degree(pos.second);
 
     redrawKnob();
@@ -407,17 +407,16 @@ AtomList UIPolar::realValue() const
 
 t_float UIPolar::realAngle() const
 {
-    if (prop_degrees_) {
-        if (prop_positive_)
-            return wrapFloatMax<t_float>(angle_, 360);
-        else
-            return wrapFloatMinMax<t_float>(angle_, -180, 180);
-
-    } else {
+    if (prop_radians_) {
         if (prop_positive_)
             return wrapFloatMax<t_float>(angle_, 2 * M_PI);
         else
             return wrapFloatMinMax<t_float>(angle_, -M_PI, M_PI);
+    } else {
+        if (prop_positive_)
+            return wrapFloatMax<t_float>(angle_, 360);
+        else
+            return wrapFloatMinMax<t_float>(angle_, -180, 180);
     }
 }
 
@@ -484,10 +483,10 @@ void UIPolar::redrawAll()
 
 double UIPolar::directionAngleOffset() const
 {
-    if (prop_degrees_)
-        return direction2degrees(prop_direction_);
-    else
+    if (prop_radians_)
         return direction2radians(prop_direction_);
+    else
+        return direction2degrees(prop_direction_);
 }
 
 void UIPolar::setMouse(float x, float y, bool angleOnly)
@@ -501,7 +500,7 @@ void UIPolar::setMouse(float x, float y, bool angleOnly)
         radius_ = clip<float>(p.first, 0, 1);
 
     float angle = p.second;
-    if (prop_degrees_)
+    if (!prop_radians_)
         angle = convert::rad2degree(angle);
 
     if (prop_clockwise_)
@@ -529,7 +528,7 @@ void UIPolar::setup()
     obj.setPropertyRange("radius", 0, 1);
     obj.addProperty("angle", &UIPolar::propAngle, &UIPolar::propSetAngle);
     obj.addProperty("clockwise", _("Clockwise"), true, &UIPolar::prop_clockwise_, _("Main"));
-    obj.addProperty("degrees", _("Use degrees"), true, &UIPolar::prop_degrees_, _("Main"));
+    obj.addProperty("radians", _("Use radians"), false, &UIPolar::prop_radians_, _("Main"));
     obj.addProperty("positive", _("Positive output"), false, &UIPolar::prop_positive_, _("Main"));
     obj.addProperty("direction", _("Direction"), "N", &UIPolar::prop_direction_, "N W S E", _("Main"));
 

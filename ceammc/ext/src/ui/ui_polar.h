@@ -29,7 +29,7 @@ class UIPolar : public UIObject {
     bool mouse_down_;
     bool right_click_;
     int prop_clockwise_;
-    int prop_degrees_;
+    int prop_radians_;
     int prop_positive_;
 
 public:

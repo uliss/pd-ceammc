@@ -30,16 +30,16 @@
 #X msg 110 516 @clockwise;
 #X text 245 516 Get/Set clockwise positive direction. Type: int. Default
 value: 1\. Allowed values: 0 \, 1\.;
-#X msg 110 558 @degrees;
-#X text 245 558 Get/Set using degrees instead of radians. Type: int.
-Default value: 1\. Allowed values: 0 \, 1\.;
-#X msg 110 600 @direction;
-#X text 245 600 Get/Set zero-angle direction. Type: symbol. Default
+#X msg 110 558 @direction;
+#X text 245 558 Get/Set zero-angle direction. Type: symbol. Default
 value: N. Allowed values: N \, E \, S \, W.;
-#X msg 110 642 @positive;
-#X text 245 642 Get/Set use positive output angle range. For example:
+#X msg 110 600 @positive;
+#X text 245 600 Get/Set use positive output angle range. For example:
 [0\..360) when using degrees \, otherwise using [-180\..180) range.
 Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
+#X msg 110 657 @radians;
+#X text 245 657 Get/Set using radians instead of degrees. Type: int.
+Default value: 0\. Allowed values: 0 \, 1\.;
 #X msg 110 699 @radius;
 #X text 245 699 Get/Set radius. Type: float.;
 #X msg 110 728 @receive;

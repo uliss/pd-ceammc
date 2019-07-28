@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.49.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-07-28 00:21+0300\n"
+"POT-Creation-Date: 2019-07-28 10:14+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -171,17 +171,17 @@ msgid "Send Symbol"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/ui/ui_label.cpp
+msgid "Text"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 msgid "Vertical align"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/pdwindow.tcl
 msgid "normal"
-msgstr ""
-
-#: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
-#: ../ceammc/ext/src/ui/ui_label.cpp
-msgid "Text"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
@@ -492,6 +492,26 @@ msgstr ""
 msgid "Decimal precision"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_polar.cpp
+msgid "Clockwise"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_polar.cpp
+msgid "Direction"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_polar.cpp
+msgid "Positive output"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_polar.cpp
+msgid "Use degrees"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "bottom center"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "left center"
 msgstr ""
@@ -504,24 +524,8 @@ msgstr ""
 msgid "top center"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "bottom center"
-msgstr ""
-
 #: ../ceammc/ext/src/ui/ui_polar.cpp
-msgid "Clockwise"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_polar.cpp
-msgid "Use degrees"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_polar.cpp
-msgid "Positive output"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_polar.cpp
-msgid "Direction"
+msgid "Use radians"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_preset.cpp
@@ -573,6 +577,14 @@ msgid "Value position"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "Bottom Y-value"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "Left X-value"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "Maximum X-value"
 msgstr ""
 
@@ -589,23 +601,15 @@ msgid "Minimum Y-value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "Show grid"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "Left X-value"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "Right X-value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "Top Y-value"
+msgid "Show grid"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
-msgid "Bottom Y-value"
+msgid "Top Y-value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
