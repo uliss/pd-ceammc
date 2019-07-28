@@ -98,7 +98,7 @@
 <![CDATA[
 [1 45( [rotate 45(
 |      |
-[ui.polar @use_degrees 1]
+[ui.polar]
 |
 |
 |

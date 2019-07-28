@@ -8,7 +8,7 @@
 [ui.polar] @url ui.polar-help.pd;
 #X msg 50 118 1 45;
 #X msg 117 118 rotate 45;
-#X obj 50 147 ui.polar @use_degrees 1;
+#X obj 50 147 ui.polar;
 #X obj 50 262 ui.display @display_type 1 @size 150 18;
 #X obj 20 302 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 307 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
