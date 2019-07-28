@@ -65,7 +65,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[msg.onload        ] /*use Shift+drag to fix radius value*/
+[msg.onload        ] /*use Alt+drag to fix radius value*/
 |                  |
 [ui.polar #a]      [ui.polar #b]
 |                  |

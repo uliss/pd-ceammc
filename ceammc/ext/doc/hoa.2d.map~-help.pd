@@ -10,7 +10,7 @@
 #X text 215 80 Encodes several sources in the circular harmonics domain
 with distance compensation and muting system;
 #X obj 50 158 msg.onload;
-#X text 251 158 use Shift+drag to fix radius value;
+#X text 251 158 use Alt+drag to fix radius value;
 #X obj 50 187 ui.polar @clockwise 0 @direction E @radians 1 @angle 0
 @radius 0.5;
 #X obj 232 187 ui.polar @clockwise 0 @direction E @radians 1 @angle

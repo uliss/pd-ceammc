@@ -21,7 +21,9 @@
             <event editmode="false" type="right-click">opens popup menu for quick settings of
             position: center, left, right, top, bottom</event>
             <event editmode="false" type="drag">change slider coords</event>
-            <event editmode="false" type="drag" keys="Shift">change only angle coord</event>
+            <event editmode="false" type="drag" keys="Alt">change only angle coord</event>
+            <event editmode="false" type="wheel">change only radius coord</event>
+            <event editmode="false" type="wheel" keys="Shift">change precisely radius coord</event>
         </mouse>
         <properties>
             <property name="@clockwise" type="int" default="1" enum="0 1">clockwise positive

@@ -264,6 +264,17 @@ void UIPolar::onPopup(t_symbol* menu_name, long item_idx)
     }
 }
 
+void UIPolar::onMouseWheel(t_object* view, const t_pt& pt, long modifiers, double delta)
+{
+    float k = 0.1;
+    if (modifiers & EMOD_SHIFT)
+        k = 0.025;
+
+    radius_ = clip<float, 0, 1>(radius_ + delta * k);
+    redrawKnob();
+    output();
+}
+
 void UIPolar::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     // right click
@@ -280,14 +291,14 @@ void UIPolar::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, lo
 
     right_click_ = false;
     mouse_down_ = true;
-    setMouse(pt.x, pt.y, modifiers & EMOD_SHIFT);
+    setMouse(pt.x, pt.y, modifiers & EMOD_ALT);
     redrawKnob();
     output();
 }
 
 void UIPolar::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
-    setMouse(pt.x, pt.y, modifiers & EMOD_SHIFT);
+    setMouse(pt.x, pt.y, modifiers & EMOD_ALT);
     redrawKnob();
     output();
 }
@@ -300,7 +311,7 @@ void UIPolar::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
     }
 
     mouse_down_ = false;
-    setMouse(pt.x, pt.y, modifiers & EMOD_SHIFT);
+    setMouse(pt.x, pt.y, modifiers & EMOD_ALT);
     redrawKnob();
     output();
 }
@@ -497,7 +508,7 @@ void UIPolar::setMouse(float x, float y, bool angleOnly)
         convert::lin2lin<double>(y, 0, r.height, 1, -1));
 
     if (!angleOnly)
-        radius_ = clip<float>(p.first, 0, 1);
+        radius_ = clip<float, 0, 1>(p.first);
 
     float angle = p.second;
     if (!prop_radians_)
@@ -536,7 +547,7 @@ void UIPolar::setup()
     obj.useList();
     obj.useBang();
 
-    obj.useMouseEvents(UI_MOUSE_UP | UI_MOUSE_DOWN | UI_MOUSE_DRAG);
+    obj.useMouseEvents(UI_MOUSE_UP | UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_WHEEL);
 
     obj.addMethod("set", &UIPolar::m_set);
     obj.addMethod("polar", &UIPolar::m_polar);
