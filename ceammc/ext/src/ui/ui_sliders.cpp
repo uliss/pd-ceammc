@@ -14,6 +14,8 @@
 
 #include <algorithm>
 #include <boost/algorithm/minmax_element.hpp>
+#include <chrono>
+#include <random>
 
 #include "ceammc_atomlist.h"
 #include "ceammc_convert.h"
@@ -27,6 +29,7 @@ using namespace ceammc;
 
 static const int MAX_SLIDERS_NUM = 1024;
 static t_symbol* SYM_SLIDER;
+static decltype(std::chrono::system_clock::now().time_since_epoch().count()) random_seed;
 
 UISliders::UISliders()
     : txt_font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
@@ -197,6 +200,10 @@ void UISliders::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, 
         menu.addItem(buf);
         snprintf(buf, sizeof(buf), _("fill with %f"), prop_min);
         menu.addItem(buf);
+        menu.addItem(_("linear up"));
+        menu.addItem(_("linear down"));
+        menu.addItem(_("random"));
+        return;
     }
 
     const t_rect r = rect();
@@ -251,6 +258,18 @@ void UISliders::onPopup(t_symbol* menu_name, long item_idx)
     case 2:
         m_fill(prop_min);
         break;
+    case 3:
+        m_linup();
+        outputList();
+        break;
+    case 4:
+        m_lindown();
+        outputList();
+        break;
+    case 5:
+        m_random();
+        outputList();
+        break;
     default:
         UI_ERR << "unknown popup menu item: " << item_idx;
         break;
@@ -291,7 +310,7 @@ AtomList UISliders::realValues() const
 
 void UISliders::setRealValueAt(size_t n, t_float v)
 {
-    pos_values_[n] = clip<float>((v - prop_min) / (prop_max - prop_min), 0, 1);
+    pos_values_[n] = clip<float, 0, 1>((v - prop_min) / (prop_max - prop_min));
 }
 
 float UISliders::realValueAt(size_t n) const
@@ -491,6 +510,31 @@ void UISliders::m_fill(t_float v)
     m_set(AtomList::filled(v, prop_count));
 }
 
+void UISliders::m_random()
+{
+    static std::uniform_real_distribution<t_float> dist(0, 1);
+    static std::default_random_engine gen(random_seed);
+
+    std::generate(std::begin(pos_values_), std::end(pos_values_), []() { return dist(gen); });
+    redrawAll();
+}
+
+void UISliders::m_linup()
+{
+    int i = 0;
+    int n = prop_count - 1;
+    std::generate(std::begin(pos_values_), std::end(pos_values_), [&i, &n]() { return t_float(i++) / n; });
+    redrawAll();
+}
+
+void UISliders::m_lindown()
+{
+    int n = prop_count - 1;
+    int i = n;
+    std::generate(std::begin(pos_values_), std::end(pos_values_), [&i, &n]() { return t_float(i--) / n; });
+    redrawAll();
+}
+
 void UISliders::outputList()
 {
     AtomList v = realValues();
@@ -501,6 +545,7 @@ void UISliders::outputList()
 void UISliders::setup()
 {
     SYM_SLIDER = gensym("slider");
+    random_seed = std::chrono::system_clock::now().time_since_epoch().count();
 
     UIObjectFactory<UISliders> obj("ui.sliders");
 
@@ -539,6 +584,9 @@ void UISliders::setup()
     obj.addMethod("++", &UISliders::m_increment);
     obj.addMethod("--", &UISliders::m_decrement);
     obj.addMethod("fill", &UISliders::m_fill);
+    obj.addMethod("random", &UISliders::m_random);
+    obj.addMethod("linup", &UISliders::m_linup);
+    obj.addMethod("lindown", &UISliders::m_lindown);
 }
 
 void UISliders::onPropChange(t_symbol* prop_name)

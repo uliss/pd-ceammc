@@ -18,9 +18,13 @@
                 <see view="link">ui.presets</see>
             </also>
         </meta>
-        <info>
-            <par>Double click in edit mode changes multislider orientation</par>
-        </info>
+        <mouse>
+            <event editmode="true" type="double-click" keys="Cmd">changes slider
+        orientation</event>
+            <event editmode="false" type="right-click">opens popup menu for quick settings of
+            values</event>
+            <event editmode="false" type="drag">change slider values</event>
+        </mouse>
         <arguments>
             <argument name="N" type="float" minvalue="1" maxvalue="1024">number of
             sliders</argument>
@@ -119,7 +123,7 @@
 |  |        | |                 |           |   |
 |  |        | |                 |           |   |  /*vertical slider*/
 |  |        | |                 |           |   |
-[ui.sliders       @max=10  @presetname=sl-help  ]  [ui.sliders @size=100x150]
+[ui.sliders       @max 10  @presetname=sl-help  ]  [ui.sliders @size 100 150]
 |
 |
 |
