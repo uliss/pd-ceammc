@@ -8,7 +8,7 @@
 #X obj 638 11 hoa.2d.rotate~;
 #X obj 50 118 sig~ 1;
 #X obj 194 118 sig~ 1.62;
-#X obj 376 118 sig~ 0.5;
+#X obj 376 118 sig~ -0.9;
 #X obj 50 147 hoa.encoder~ 5, f 21;
 #X obj 376 147 hoa.encoder~ 5, f 21;
 #X obj 510 176 lfo.saw~ 0.15;

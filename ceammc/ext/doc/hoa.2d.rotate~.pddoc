@@ -53,7 +53,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[sig~ 1]       [sig~ 1.62]        [sig~ 0.5]
+[sig~ 1]       [sig~ 1.62]        [sig~ -0.9]
 |              |.                 |
 [hoa.encoder~ 5 {w=21,i=11,o=11}] [hoa.encoder~ 5 {w=21,i=11,o=11}]
             *|*                   *|*
