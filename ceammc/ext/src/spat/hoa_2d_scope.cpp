@@ -195,6 +195,9 @@ void Hoa2dScope::drawHarmonics()
     p.setColor(prop_ph_color_);
     p.setSmooth(ESMOOTH_BEZIER);
 
+    int prev_x = -1;
+    int prev_y = -1;
+
     for (size_t i = 0; i < scope_->getNumberOfPoints(); i++) {
         if (scope_->getPointValue(i) >= 0) {
             if (!pathLength) {
@@ -203,7 +206,13 @@ void Hoa2dScope::drawHarmonics()
                 p.moveTo(start_pt.x, start_pt.y);
                 pathLength++;
             } else {
-                p.drawLineTo(scope_->getPointAbscissa(i) * radius, scope_->getPointOrdinate(i) * radius);
+                int x = scope_->getPointAbscissa(i) * radius;
+                int y = scope_->getPointOrdinate(i) * radius;
+                if (prev_x != x || prev_y != y) {
+                    p.drawLineTo(x, y);
+                    prev_x = x;
+                    prev_y = y;
+                }
             }
         }
     }
@@ -218,6 +227,9 @@ void Hoa2dScope::drawHarmonics()
     pathLength = 0;
     p.setColor(prop_nh_color_);
 
+    prev_x = -1;
+    prev_y = -1;
+
     for (size_t i = 0; i < scope_->getNumberOfPoints(); i++) {
         if (scope_->getPointValue(i) < 0) {
             if (!pathLength) {
@@ -226,7 +238,13 @@ void Hoa2dScope::drawHarmonics()
                 p.moveTo(start_pt.x, start_pt.y);
                 pathLength++;
             } else {
-                p.drawLineTo(scope_->getPointAbscissa(i) * radius, scope_->getPointOrdinate(i) * radius);
+                int x = scope_->getPointAbscissa(i) * radius;
+                int y = scope_->getPointOrdinate(i) * radius;
+                if (prev_x != x || prev_y != y) {
+                    p.drawLineTo(x, y);
+                    prev_x = x;
+                    prev_y = y;
+                }
             }
         }
     }
