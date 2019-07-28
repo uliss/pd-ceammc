@@ -16,6 +16,8 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 
+static t_symbol* SYM_POPUP;
+
 UIPreset::UIPreset()
     : prop_color_text(rgba_black)
     , prop_color_empty(rgba_grey)
@@ -113,6 +115,13 @@ void UIPreset::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, l
 {
     int index = buttonIndexAt(pt.x, pt.y);
 
+    if (modifiers & EMOD_RIGHT) {
+        UIPopupMenu p(asEObj(), SYM_POPUP, abs_pt);
+        p.addItem(_("read"));
+        p.addItem(_("write"));
+        return;
+    }
+
     if (index < 0 || index >= presets_.size())
         return;
 
@@ -138,6 +147,23 @@ void UIPreset::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
 {
     mouse_over_index_ = -1;
     redrawLayer(bg_layer_);
+}
+
+void UIPreset::onPopup(t_symbol* menu_name, long item_idx)
+{
+    if (menu_name != SYM_POPUP)
+        return;
+
+    switch (item_idx) {
+    case 0:
+        m_read(AtomList());
+        break;
+    case 1:
+        m_write(AtomList());
+        break;
+    default:
+        break;
+    }
 }
 
 int UIPreset::buttonIndexAt(float x, float y) const
@@ -185,6 +211,8 @@ AtomList UIPreset::propCurrent() const
 
 void UIPreset::setup()
 {
+    SYM_POPUP = gensym("main");
+
     UIObjectFactory<UIPreset> obj("ui.preset");
 
 #ifdef __WIN32

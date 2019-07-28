@@ -31,6 +31,8 @@
             specified preset slot</event>
             <event editmode="false" type="left-click" keys="Alt">clear all values from specified
             preset slot</event>
+            <event editmode="false" type="right-click">opens popup menu with read/write
+            actions</event>
         </mouse>
         <properties>
             <property name="@current" type="int" default="0">current preset index</property>
