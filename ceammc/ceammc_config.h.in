@@ -1,6 +1,8 @@
 #ifndef CEAMMC_CONFIG_H
 #define CEAMMC_CONFIG_H
 
+#define _USE_MATH_DEFINES
+
 #cmakedefine CEAMMC_LIB_VERSION "@CEAMMC_LIB_VERSION@"
 #cmakedefine CEAMMC_LIB_HOME "@CEAMMC_LIB_HOME@"
 #cmakedefine CEAMMC_HAVE_GLIB
