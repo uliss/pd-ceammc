@@ -23,7 +23,6 @@ typedef LambdaCallProperty<HoaMap, IntPropertyMinEq> RampProperty;
 class HoaMap : public HoaBase {
     IntPropertyMinEq* nins_;
     RampProperty* ramp_;
-    SymbolEnumProperty* mode_;
 
     std::unique_ptr<MultiEncoder2d> map_;
     std::unique_ptr<PolarLines2d> lines_;

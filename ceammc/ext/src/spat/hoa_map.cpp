@@ -19,14 +19,10 @@
 #include "ceammc_factory.h"
 #include "hoa_map.h"
 
-static t_symbol* SYM_POL;
-static t_symbol* SYM_CAR;
-
 HoaMap::HoaMap(const PdArgs& args)
     : HoaBase(args)
     , nins_(nullptr)
     , ramp_(nullptr)
-    , mode_(nullptr)
 {
     nins_ = new IntPropertyMinEq("@nsrc", positionalFloatArgument(1, 3), 1);
     createProperty(nins_);
@@ -38,10 +34,6 @@ HoaMap::HoaMap(const PdArgs& args)
         "@ramp", 100, 0);
 
     createProperty(ramp_);
-
-    mode_ = new SymbolEnumProperty("@mode", SYM_CAR);
-    mode_->appendEnum(SYM_POL);
-    createProperty(mode_);
 }
 
 void HoaMap::parseProperties()
@@ -148,9 +140,6 @@ void HoaMap::m_polar(t_symbol* s, const AtomList& l)
 
 void setup_spat_hoa_map()
 {
-    SYM_POL = gensym("sym");
-    SYM_CAR = gensym("car");
-
     SoundExternalFactory<HoaMap> obj("hoa.2d.map~");
     obj.addAlias("hoa.map~");
 
