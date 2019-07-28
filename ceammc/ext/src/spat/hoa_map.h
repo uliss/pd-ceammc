@@ -14,11 +14,15 @@
 #ifndef HOA_MAP_H
 #define HOA_MAP_H
 
+#include "ceammc_property_extra.h"
 #include "hoa_common.h"
 
+class HoaMap;
+typedef LambdaCallProperty<HoaMap, IntPropertyMinEq> RampProperty;
+
 class HoaMap : public HoaBase {
-    IntProperty* nins_;
-    IntProperty* ramp_;
+    IntPropertyMinEq* nins_;
+    RampProperty* ramp_;
     SymbolEnumProperty* mode_;
 
     std::unique_ptr<MultiEncoder2d> map_;

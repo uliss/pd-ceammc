@@ -11,8 +11,13 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "hoa_map.h"
+
+#define _USE_MATH_DEFINES
+#include <cmath>
+
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "hoa_map.h"
 
 static t_symbol* SYM_POL;
 static t_symbol* SYM_CAR;
@@ -23,10 +28,15 @@ HoaMap::HoaMap(const PdArgs& args)
     , ramp_(nullptr)
     , mode_(nullptr)
 {
-    nins_ = new IntProperty("@nsrc", positionalFloatArgument(1, 1));
+    nins_ = new IntPropertyMinEq("@nsrc", positionalFloatArgument(1, 3), 1);
     createProperty(nins_);
 
-    ramp_ = new IntProperty("@ramp", 100);
+    ramp_ = new RampProperty(
+        this, [](HoaMap* map, const AtomList& l) {
+            map->lines_->setRamp(l.floatAt(0, 0) / 1000. * sys_getsr());
+        },
+        "@ramp", 100, 0);
+
     createProperty(ramp_);
 
     mode_ = new SymbolEnumProperty("@mode", SYM_CAR);
@@ -38,20 +48,19 @@ void HoaMap::parseProperties()
 {
     HoaBase::parseProperties();
 
-    map_.reset(new MultiEncoder2d(order(), nins_->value()));
-    lines_.reset(new PolarLines2d(map_->getNumberOfSources()));
+    const size_t NINS = nins_->value();
+    nins_->setReadonly(true);
 
-    lines_->setRamp(0.1 * sys_getsr());
+    map_.reset(new MultiEncoder2d(order(), NINS));
+    lines_.reset(new PolarLines2d(map_->getNumberOfSources()));
+    lines_->setRamp(ramp_->value() / 1000. * sys_getsr());
 
     for (size_t i = 0; i < map_->getNumberOfSources(); i++) {
         lines_->setRadiusDirect(i, 1);
         lines_->setAzimuthDirect(i, 0.);
     }
 
-    const size_t nins = (map_->getNumberOfSources() == 1) ? 3 : map_->getNumberOfSources();
-    nins_->setReadonly(true);
-
-    createSignalInlets(nins);
+    createSignalInlets(NINS);
     createSignalOutlets(map_->getNumberOfHarmonics());
 
     in_buf_.resize(numInputChannels() * HOA_DEFAULT_BLOCK_SIZE);
@@ -134,7 +143,7 @@ void HoaMap::m_polar(t_symbol* s, const AtomList& l)
     }
 
     lines_->setRadius(idx, l[1].asFloat());
-    lines_->setAzimuth(idx, l[2].asFloat());
+    lines_->setAzimuth(idx, l[2].asFloat() - M_PI_2);
 }
 
 void setup_spat_hoa_map()
