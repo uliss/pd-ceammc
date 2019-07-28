@@ -18,16 +18,21 @@
         </meta>
         <mouse>
             <event editmode="false" type="left-click">jump to coord under mouse pointer</event>
-            <event editmode="false" type="right-click">opens popup menu for quick settings of position: center, left, right, top, bottom</event>
+            <event editmode="false" type="right-click">opens popup menu for quick settings of
+            position: center, left, right, top, bottom</event>
             <event editmode="false" type="drag">change slider coords</event>
             <event editmode="false" type="drag" keys="Shift">change only angle coord</event>
         </mouse>
         <properties>
-            <property name="@clockwise" type="int" default="1" enum="0 1">clockwise positive direction</property>
-            <property name="@direction" type="symbol" default="N" enum="N E S W">zero-angle direction</property>
-            <property name="@positive" type="int" default="0" enum="0 1">use positive output angle range. For example:
-            [0..360) when using degrees, otherwise using [-180..180) range.</property>
-            <property name="@degrees" type="int" default="1" enum="0 1">using degrees instead of radians</property>
+            <property name="@clockwise" type="int" default="1" enum="0 1">clockwise positive
+            direction</property>
+            <property name="@direction" type="symbol" default="N" enum="N E S W">zero-angle
+            direction</property>
+            <property name="@positive" type="int" default="0" enum="0 1">use positive output angle
+            range. For example: [0..360) when using degrees, otherwise using [-180..180)
+            range.</property>
+            <property name="@degrees" type="int" default="1" enum="0 1">using degrees instead of
+            radians</property>
             <property name="@angle" type="float">angle</property>
             <property name="@radius" type="float">radius</property>
             <!-- common -->
