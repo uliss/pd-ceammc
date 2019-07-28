@@ -138,9 +138,19 @@ void UISliders::paintSliders()
             w = r.width / N - 1;
         }
 
-        p.setColor(i == select_idx_ ? prop_select_color : prop_slider_color);
+        auto color = (i == select_idx_) ? prop_select_color : prop_slider_color;
+        p.setColor(color);
         p.drawRect(x, y, w, h);
         p.fill();
+
+        // draw bar knobs
+        p.setColor(rgba_addContrast(color, -0.2));
+        p.setLineWidth(2);
+
+        if (is_vertical_)
+            p.drawLine(w, y, w, y + h + 1);
+        else
+            p.drawLine(x, y, x + w + 1, y);
 
         if (i == select_idx_) {
             p.setLineWidth(2);

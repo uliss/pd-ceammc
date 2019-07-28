@@ -30,6 +30,7 @@
   - @x_max renamed to @x_right
   - @y_min renamed to @y_top
   - @y_max renamed to @y_bottom
+- in ui.sliders knobs are added
 
 ### Fixed:
 - ui.vrd - invalid draw in check list mode
