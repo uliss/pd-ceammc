@@ -34,6 +34,7 @@
             readonly="true">the order of decomposition</property>
             <property name="@nsrc" type="int" minvalue="1" maxvalue="63" default="3"
             readonly="true">number of input sources</property>
+            <property name="@ramp" type="int" minvalue="0" default="100">ramp time</property>
         </properties>
         <methods>
             <method name="polar">set source mapping in polar coordinates 
