@@ -5,7 +5,10 @@ include_directories(${CMAKE_BINARY_DIR}) # for config.h
 include(tests.cmake)
 add_definitions("-DTEST_DATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}\"")
 add_definitions("-DTEST_BIN_DIR=\"${CMAKE_CURRENT_BINARY_DIR}\"")
-#remove_definitions(-DPD_INTERNAL)
+
+if(WIN32)
+    remove_definitions(-DPD_INTERNAL)
+endif()
 
 add_library(tests_main_lib STATIC
     tests_main.cpp
