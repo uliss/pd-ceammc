@@ -11,14 +11,13 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#define _USE_MATH_DEFINES // for M_PI constants
-
 #include "ui_spectroscope.h"
 #include "ceammc_convert.h"
 #include "ceammc_dsp_ui.h"
 #include "ceammc_window.h"
 
 #include <algorithm>
+##include <cmath>
 
 static const size_t TXT_DB_COUNT = 10;
 static const char* TXT_DB[TXT_DB_COUNT] = {

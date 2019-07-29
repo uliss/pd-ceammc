@@ -14,7 +14,9 @@
 #ifndef CEAMMC_CONVERT_H
 #define CEAMMC_CONVERT_H
 
+#ifndef _USE_MATH_DEFINES
 #define _USE_MATH_DEFINES
+#endif
 
 #include <algorithm>
 #include <cmath>

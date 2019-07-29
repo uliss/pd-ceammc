@@ -13,8 +13,6 @@
  *****************************************************************************/
 #include "ceammc_convert.h"
 
-#define _USE_MATH_DEFINES
-
 #include <cctype>
 #include <cmath>
 #include <cstdio>

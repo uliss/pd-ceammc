@@ -15,9 +15,6 @@
 #include "../ui/ui_polar.h"
 #include "test_ui.h"
 
-#ifndef _USE_MATH_DEFINES
-#define _USE_MATH_DEFINES
-#endif
 #include <cmath>
 
 void test_print(const char* s)
