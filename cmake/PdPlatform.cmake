@@ -6,11 +6,13 @@ if(NOT ${IS_BIG_ENDIAN})
     add_definitions(-DLITTLE_ENDIAN=0x0001 -DBYTE_ORDER=LITTLE_ENDIAN)
 endif()
 
+# needed for math constants in <math.h>: M_PI etc.
+add_definitions(-D_USE_MATH_DEFINES)
+
 set(CMAKE_THREAD_PREFER_PTHREAD ON)
 find_package(Threads)
 
 set(PLATFORM_LINK_LIBRARIES)
-
 
 if(UNIX AND NOT APPLE)
     add_definitions(-D_GNU_SOURCE)
@@ -128,7 +130,7 @@ if(WIN32)
         set(CMAKE_C_STANDARD_LIBRARIES ${CMAKE_CXX_STANDARD_LIBRARIES})
     endif()
 
-    add_definitions(-DPD_INTERNAL -DWINVER=0x0502 -D_WIN32_WINNT=0x0502 -D_USE_MATH_DEFINES)
+    add_definitions(-DPD_INTERNAL -DWINVER=0x0502 -D_WIN32_WINNT=0x0502)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -mms-bitfields")
 
