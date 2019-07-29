@@ -1,3 +1,6 @@
+cmake_minimum_required(VERSION 3.1)
+project(puredata)
+
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
     message(FATAL_ERROR
         "CMake generation for pure-data is not allowed within the source directory!"
@@ -11,7 +14,6 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
         "\n")
 endif()
 
-cmake_minimum_required(VERSION 2.8)
 if(APPLE)
     if(ARCH)
         set(CMAKE_OSX_ARCHITECTURES ${ARCH})
@@ -40,13 +42,6 @@ elseif(WIN32)
     endif()
 endif()
 
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
-else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-endif()
-
-
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
 endif()
@@ -68,10 +63,10 @@ if(UNIX)
      endif()
 endif()
 
-project(puredata)
-
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99")
 enable_language(CXX C)
+set(CMAKE_CXX_STANDARD 11)
+
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 include(version)
 include(build_options)
