@@ -17,7 +17,7 @@
 #include "ceammc_window.h"
 
 #include <algorithm>
-##include <cmath>
+#include <cmath>
 
 static const size_t TXT_DB_COUNT = 10;
 static const char* TXT_DB[TXT_DB_COUNT] = {
