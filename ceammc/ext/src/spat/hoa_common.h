@@ -16,6 +16,12 @@
 
 #include <vector>
 
+// MSYS temp define hack
+#ifdef _WIN32
+#ifndef _WINDOWS
+#define _WINDOWS 1
+#endif
+#endif
 #include "Hoa.hpp"
 // temporal fix: this file not exists in newest Hoa-Library-Light
 #include "Hoa_Scope.hpp"
