@@ -143,6 +143,7 @@ if(WIN32)
     add_custom_target(prepare_win_tests
         COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:puredata-core>" "${PROJECT_BINARY_DIR}/ceammc/ext/tests"
         COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:ceammc_core>" "${PROJECT_BINARY_DIR}/ceammc/ext/tests"
+        COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:ceammc_sound>" "${PROJECT_BINARY_DIR}/ceammc/ext/tests"
     )
 endif()
 
