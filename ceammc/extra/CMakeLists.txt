@@ -17,11 +17,14 @@ add_subdirectory(speech)
 add_subdirectory(stk)
 add_subdirectory(subprocess)
 add_subdirectory(fmt)
-add_subdirectory(HoaLibrary-Light)
 
 option(RE2_BUILD_TESTING "" OFF)
 set(RE2_BUILD_TESTING OFF CACHE BOOL "" FORCE)
 add_subdirectory(re2)
+
+option(HOA_BUILD_TESTS "" OFF)
+set(HOA_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+add_subdirectory(HoaLibrary-Light)
 
 if(UNIX)
     set_target_properties(re2 PROPERTIES COMPILE_FLAGS "-fPIC")
