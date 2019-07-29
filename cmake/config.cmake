@@ -54,6 +54,15 @@ if(WITH_FLUIDSYNTH)
     endif()
 endif()
 
+if(WITH_TTS_FLITE)
+    set(CEAMMC_HAVE_TTS_FLITE ON)
+    #include paths
+    list(APPEND FLITE_INCLUDES
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/speech/flite/include)
+    # libs
+    list(APPEND FLITE_LIBRARIES flite)
+endif()
+
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
     set(PD_LONGINTTYPE "long long")
 endif()
