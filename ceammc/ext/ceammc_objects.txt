@@ -422,6 +422,7 @@ mix~
 ml
 mlist
 mlist.flatten
+modplug~
 msg
 msg.after
 msg.onload
