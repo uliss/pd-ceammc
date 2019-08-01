@@ -162,7 +162,7 @@ if(APPLE)
 
     set(BUNDLE "Pd-${PD_MACOSX_BUNDLE_SUFFIX}.app")
     set(BUNDLE_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${BUNDLE}")
-    set(MAKE_BUNDLE_SCRIPT ${PROJECT_BINARY_DIR}/dist/build_mac.sh)
+    set(MAKE_BUNDLE_SCRIPT ${PROJECT_BINARY_DIR}/dist/ceammc_build.sh)
 
     # copy and substitute variables to Info.plist
     file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/dist)
@@ -221,11 +221,11 @@ if(APPLE)
             -DTK_PATH=${TK_PATH}
             -DIS_SYSTEM_TK=${IS_SYSTEM_TK}
             -DTK_VERSION=${TK_VERSION}
-            -P ${PROJECT_SOURCE_DIR}/cmake/cmake-build-mac.cmake)
+            -P ${PROJECT_SOURCE_DIR}/cmake/cmake_build_mac.cmake)
 
     add_custom_command(
         OUTPUT ${BUNDLE_FULL_PATH}
-        COMMAND sh ${PROJECT_BINARY_DIR}/dist/build_mac.sh
+        COMMAND sh ${MAKE_BUNDLE_SCRIPT}
         COMMAND ${CMAKE_COMMAND}
             -DBUNDLE=${BUNDLE_FULL_PATH}
             -P ${PROJECT_SOURCE_DIR}/cmake/bundle.cmake
