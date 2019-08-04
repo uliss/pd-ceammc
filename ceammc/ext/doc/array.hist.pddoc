@@ -44,7 +44,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[array ahist size=512 w=330 h=100] [ui.sliders @size=40x100 @receive=ahist-r @auto_range=1]
+[array ahist size=512 w=330 h=100] [ui.sliders @size 40 100 @receive ahist-r @auto_range 1]
 
 
 
