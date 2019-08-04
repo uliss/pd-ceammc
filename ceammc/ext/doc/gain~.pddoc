@@ -64,7 +64,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[ui.sliders @count=4]     [ui.dsp~]
+[ui.sliders @count 4]     [ui.dsp~]
 |
 |
 |
