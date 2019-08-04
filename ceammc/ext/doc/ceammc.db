@@ -438,7 +438,7 @@ ui.colorpanel		.		.
 ui.display,ui.d		.		-
 ui.dsp~		.		-
 ui.env		.		.
-ui.gain2~		~~		~~
+ui.gain2~,ui.hgain2~,ui.vgain2~		~~		~~
 ui.gain~,ui.hgain~,ui.vgain~		~		~
 ui.icon		.		.
 ui.incdec		.		.

@@ -12,6 +12,10 @@
             <category view="link">ui</category>
             <keywords>ui gain</keywords>
             <since>0.7</since>
+            <aliases>
+                <alias>ui.hgain2~</alias>
+                <alias>ui.vgain2~</alias>
+            </aliases>
         </meta>
         <properties>
             <property name="@max" type="int" minvalue="-12" maxvalue="12" default="0"
