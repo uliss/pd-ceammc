@@ -14,8 +14,8 @@ or abstractions are supported.;
 *Shift-click* is disabled.;
 #X text 215 175 Active slot is highlighted \, available slots are dark
 gray;
-#X obj 50 238 ui.radio @presetname P-radio @size 127 15;
-#X obj 366 238 ui.sliders @presetname P-sliders @size 150 100;
+#X obj 50 238 ui.radio @presetname P-radio;
+#X obj 366 238 ui.sliders @presetname P-sliders;
 #X obj 50 282 ui.toggle @presetname P-toggle @size 17 17;
 #X obj 50 325 ui.rslider @presetname P-rslider @size 120 16;
 #X floatatom 50 354 5 0 0 0 - - -;
