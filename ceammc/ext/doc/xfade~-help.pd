@@ -8,7 +8,7 @@
 #X text 215 80 control float value in range [0-1) controls xfade between
 first and second signals \, [1-2) between second and third etc.;
 #X text 50 158 simple 2-channel crossfade;
-#X obj 491 158 ui.radio @nitems 3 @size 45 15;
+#X obj 491 158 ui.radio 3;
 #X obj 50 187 osc~ 440;
 #X obj 194 187 ui.knob @size 40 40;
 #X obj 338 187 osc~ 440;

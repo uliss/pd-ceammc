@@ -48,7 +48,7 @@
         <example>
             <pdascii>
 <![CDATA[
-/*simple 2-channel crossfade*/                [ui.radio @nitems=3 @size=45x15]
+/*simple 2-channel crossfade*/                [ui.radio 3]
                                               |
 [osc~ 440]     [ui.knob]      [osc~ 440]      [ui.knob @max=2]
 |              |              |               |
