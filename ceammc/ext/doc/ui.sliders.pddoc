@@ -126,7 +126,7 @@
 |  |        | |                 |           |   |
 |  |        | |                 |           |   |  /*vertical slider*/
 |  |        | |                 |           |   |
-[ui.sliders       @max 10  @presetname=sl-help  ]  [ui.sliders @size 100 150]
+[ui.sliders       @max 10  @presetname sl-help  ]  [ui.sliders @size 100 150]
 |
 |
 |

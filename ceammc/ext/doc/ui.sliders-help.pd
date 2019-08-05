@@ -19,7 +19,7 @@
 #X msg 510 190 select 4;
 #X msg 184 205 set slider 4 \$1;
 #X text 539 234 vertical slider;
-#X obj 50 262 ui.sliders @max 10 @presetname=sl-help;
+#X obj 50 262 ui.sliders @max 10 @presetname sl-help;
 #X obj 539 262 ui.sliders @size 100 150;
 #X obj 50 378 ui.display @display_type 1 @size 150 18;
 #X obj 20 418 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
