@@ -9,6 +9,7 @@
 
 static const int MAX_ITEMS = 128;
 static const char* MENU_NAME_CHECKLIST = "checklist-menu";
+static t_symbol* SYM_PROP_NITEMS;
 
 void setup_ui_radio()
 {
@@ -33,6 +34,7 @@ void UIRadio::init(t_symbol* name, const AtomList& args, bool usePresets)
     if (name == gensym("ui.vrd"))
         std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
 
+    // has positional arguments
     int n = args.intAt(0, -1);
     if (n > 0) {
         prop_nitems_ = clip<int>(n, 2, MAX_ITEMS);
@@ -44,6 +46,30 @@ void UIRadio::init(t_symbol* name, const AtomList& args, bool usePresets)
         } else {
             asEBox()->b_rect.width = dim2;
             asEBox()->b_rect.height = dim1;
+        }
+    } else {
+        const size_t N = args.size();
+        for (size_t i = 0; i < N; i++) {
+            const auto& a = args[i];
+            if (!a.isProperty())
+                continue;
+
+            if (a.asSymbol() != SYM_PROP_NITEMS)
+                continue;
+
+            size_t inext = i + 1;
+            if (inext >= N)
+                break;
+
+            prop_nitems_ = clip<int>(args[inext].asInt(0), 2, MAX_ITEMS);
+            int h = 15;
+            int w = ((h + 1) * prop_nitems_) - 1;
+            if (isVertical())
+                std::swap(h, w);
+
+            asEBox()->b_rect.width = w;
+            asEBox()->b_rect.height = h;
+            break;
         }
     }
 }
@@ -453,20 +479,20 @@ void UIRadio::okSize(t_rect* newrect)
 {
     assert(prop_nitems_ > 0);
 
-    if (isPatchLoading()) {
-        newrect->height = pd_clip_min(newrect->height, 8);
-        newrect->width = pd_clip_min(newrect->width, 8);
+    //    if (isPatchLoading()) {
+    //        newrect->height = pd_clip_min(newrect->height, 8);
+    //        newrect->width = pd_clip_min(newrect->width, 8);
+    //    } else {
+    if (isVertical()) {
+        const float box_size = pd_clip_min(static_cast<int>(newrect->height / prop_nitems_), 8);
+        newrect->height = prop_nitems_ * (box_size + 1) - 1;
+        newrect->width = box_size;
     } else {
-        if (isVertical()) {
-            const float box_size = pd_clip_min(static_cast<int>(newrect->height / prop_nitems_), 8);
-            newrect->height = prop_nitems_ * (box_size + 1) - 1;
-            newrect->width = box_size;
-        } else {
-            const float box_size = pd_clip_min(static_cast<int>(newrect->width / prop_nitems_), 8);
-            newrect->width = prop_nitems_ * (box_size + 1) - 1;
-            newrect->height = box_size;
-        }
+        const float box_size = pd_clip_min(static_cast<int>(newrect->width / prop_nitems_), 8);
+        newrect->width = prop_nitems_ * (box_size + 1) - 1;
+        newrect->height = box_size;
     }
+    //    }
 }
 
 void UIRadio::redrawAll()
@@ -489,6 +515,8 @@ void UIRadio::onPropChange(t_symbol* prop_name)
 
 void UIRadio::setup()
 {
+    SYM_PROP_NITEMS = gensym("@nitems");
+
     UIObjectFactory<UIRadio> obj("ui.radio");
     obj.addAlias("ui.hrd");
     obj.addAlias("ui.vrd");
