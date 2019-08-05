@@ -8,7 +8,7 @@
 #X obj 50 118 r $0s;
 #X floatatom 136 118 5 0 0 0 - - -;
 #X floatatom 242 118 5 0 0 0 - - -;
-#X obj 405 118 ui.sliders @size 150 100;
+#X obj 405 118 ui.sliders;
 #X msg 136 147 @freq \$1;
 #X msg 242 147 @detune \$1;
 #X obj 50 176 synth.risset_arp~;
