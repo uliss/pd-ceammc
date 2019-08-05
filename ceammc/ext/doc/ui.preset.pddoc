@@ -84,7 +84,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[ui.radio @presetname=P-radio]   [ui.sliders @presetname=P-sliders]
+[ui.radio @presetname P-radio]   [ui.sliders @presetname P-sliders]
 
 
 [ui.toggle @presetname=P-toggle]
