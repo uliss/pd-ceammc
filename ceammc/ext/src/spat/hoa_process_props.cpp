@@ -34,7 +34,6 @@ HoaProcessProps::HoaProcessProps(const PdArgs& args)
     createCbProperty("@pmode", &HoaProcessProps::propPMode);
     createCbProperty("@ptype", &HoaProcessProps::propPType);
     createCbProperty("@order", &HoaProcessProps::propOrder);
-    createCbProperty("@order", &HoaProcessProps::propOrder);
     createCbProperty("@total", &HoaProcessProps::propTotal);
     createCbProperty("@index", &HoaProcessProps::propIndex);
     createCbProperty("@hdegree", &HoaProcessProps::propHarmDegree);
