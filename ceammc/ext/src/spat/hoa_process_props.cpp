@@ -27,6 +27,7 @@ static t_symbol* SYM_PLANEWAVES;
 
 HoaProcessProps::HoaProcessProps(const PdArgs& args)
     : BaseObject(args)
+    , args_ { &s_, &s_, 0, 0, 0, 0, 0 }
 {
     createOutlet();
 
