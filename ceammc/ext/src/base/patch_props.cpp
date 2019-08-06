@@ -157,7 +157,7 @@ void PatchProps::dump() const
         if (x->g_pd != ObjectFactory<PropDeclare>::classPointer())
             continue;
 
-        PropertyPtr pprop(ObjectFactory<PropDeclare>::fromObject((t_object*)x)->fullName()->s_name);
+        PropertyPtr pprop(ObjectFactory<PropDeclare>::fromObject((t_object*)x)->fullName());
         if (pprop) {
             OBJ_DBG << "full name:   " << pprop->name()->s_name << "\n"
                     << "type:        " << pprop->propertyStrType() << "\n"

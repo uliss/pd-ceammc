@@ -114,15 +114,16 @@ public:
 
 public:
     static Dict& storage();
-    static std::string makeFullName(const std::string& name, t_canvas* cnv);
+    static t_symbol* makeFullName(const std::string& name, t_canvas* cnv);
+    static t_symbol* makeFullName(t_symbol* name, t_canvas* cnv);
 };
 
 class PropertyPtr {
-    std::string name_;
+    t_symbol* name_;
     DataTypeProperty* prop_;
 
 public:
-    PropertyPtr(const std::string& name);
+    PropertyPtr(t_symbol* name);
     ~PropertyPtr();
 
     DataTypeProperty* operator->()

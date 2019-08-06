@@ -22,7 +22,6 @@ using namespace ceammc;
 class PropDeclare : public BaseObject {
     t_symbol* sym_name_;
     t_symbol* sym_full_name_;
-    std::string full_name_;
     SymbolEnumProperty* type_;
     FloatProperty* min_;
     FloatProperty* max_;

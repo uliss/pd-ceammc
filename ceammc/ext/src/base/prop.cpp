@@ -35,10 +35,10 @@ static t_symbol* makePropName(const AtomList& l)
 BaseProp::BaseProp(const PdArgs& args)
     : BaseObject(args)
     , name_(makePropName(args.args))
-    , full_name_(PropertyStorage::makeFullName(name_->s_name, canvas()))
+    , full_name_(PropertyStorage::makeFullName(name_, canvas()))
 {
     createOutlet();
-    bindReceive(gensym(full_name_.c_str()));
+    bindReceive(full_name_);
 }
 
 void BaseProp::parseProperties()

@@ -21,7 +21,7 @@ using namespace ceammc;
 
 class BaseProp : public BaseObject {
     t_symbol* name_;
-    std::string full_name_;
+    t_symbol* full_name_;
 
 public:
     BaseProp(const PdArgs& args);

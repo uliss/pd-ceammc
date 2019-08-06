@@ -90,18 +90,18 @@ PropDeclare::PropDeclare(const PdArgs& args)
 {
     initName();
 
-    if (PropertyStorage::storage().contains(full_name_)) {
+    if (PropertyStorage::storage().contains(sym_full_name_)) {
         auto msg = tfm::format("\"%s\" is already declared", sym_name_->s_name);
         throw std::runtime_error(msg);
     }
 
-    auto pprop = new DataTypeProperty(gensym(full_name_.c_str()));
-    if (!PropertyStorage::storage().create(full_name_, pprop)) {
+    auto pprop = new DataTypeProperty(sym_full_name_);
+    if (!PropertyStorage::storage().create(sym_full_name_, pprop)) {
         delete pprop;
         throw std::runtime_error("can't create property");
     }
 
-    pprop_ = PropertyStorage::storage().acquire(full_name_);
+    pprop_ = PropertyStorage::storage().acquire(sym_full_name_);
 
     type_ = new SymbolEnumProperty("@type", &s_float);
     type_->appendEnum(SYM_BOOL);
@@ -130,7 +130,7 @@ PropDeclare::PropDeclare(const PdArgs& args)
 
 PropDeclare::~PropDeclare()
 {
-    PropertyStorage::storage().release(full_name_);
+    PropertyStorage::storage().release(sym_full_name_);
 }
 
 void PropDeclare::parseProperties()
@@ -208,7 +208,7 @@ void PropDeclare::onLoadBang()
         return;
     }
 
-    PropertyPtr pptr(full_name_);
+    PropertyPtr pptr(sym_full_name_);
     if (!pptr)
         return;
 
@@ -254,8 +254,7 @@ void PropDeclare::initName()
         sym_name_ = gensym(buf);
     }
 
-    full_name_ = PropertyStorage::makeFullName(sym_name_->s_name, canvas());
-    sym_full_name_ = gensym(full_name_.c_str());
+    sym_full_name_ = PropertyStorage::makeFullName(sym_name_->s_name, canvas());
 }
 
 void setup_prop_declare()

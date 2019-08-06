@@ -404,17 +404,27 @@ PropertyStorage::Dict& PropertyStorage::storage()
     return dict_;
 }
 
-std::string PropertyStorage::makeFullName(const std::string& name, _glist* cnv)
+t_symbol* PropertyStorage::makeFullName(const std::string& name, t_glist* cnv)
 {
     std::string res;
     char buf[30];
     snprintf(buf, sizeof(buf), "%p:", (void*)cnv);
     res += buf;
     res += name;
-    return res;
+    return gensym(res.c_str());
 }
 
-PropertyPtr::PropertyPtr(const std::string& name)
+t_symbol* PropertyStorage::makeFullName(t_symbol* name, t_glist* cnv)
+{
+    std::string res;
+    char buf[30];
+    snprintf(buf, sizeof(buf), "%p:", (void*)cnv);
+    res += buf;
+    res += name->s_name;
+    return gensym(res.c_str());
+}
+
+PropertyPtr::PropertyPtr(t_symbol* name)
     : name_(name)
     , prop_(PropertyStorage::storage().acquire(name_))
 {
