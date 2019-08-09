@@ -21,6 +21,21 @@
 - ui.gain~ and ui.gain2~ @relative property added for relative input mode (by default)
 - ui.polar added
 - popup menu added to ui.preset with read/write actions
+- math sync binary operations added (all inlets are hot):
+  - math.sync_add (math.+', +')
+  - math.sync_sub (math.-', -')
+  - math.sync_mul (math.*', *')
+  - math.sync_div (math./', /')
+  - math.sync_mod (math.%', %')
+  - math.sync_eq (math.==', ==')
+  - math.sync_ne (math.!=', !=')
+  - math.sync_lt (math.<', <')
+  - math.sync_le (math.<=', <=')
+  - math.sync_gt (math.>', >')
+  - math.sync_ge (math.>=', >=')
+  - math.sync_and (math.&&', &&')
+  - math.sync_or (math.||', ||')
+  - math.sync_xor (math.^', ^')
 
 ### Changed:
 - ui.tab in single mode outputs like ui.menu: list pair - INDEX TAB_NAME
