@@ -359,6 +359,10 @@ TEST_CASE("math.ops", "[externals]")
             REQUIRE_NON_COMM_OP(t, -3.5, 2, -1.5)
             REQUIRE_NON_COMM_OP(t, 3.5, -2, 1.5)
             REQUIRE_NON_COMM_OP(t, -3.5, -2, -1.5)
+
+            t.clearAll();
+            t.sendList(LF(1, 0));
+            REQUIRE_FALSE(t.hasOutput());
         }
 
         SECTION("do @int")
