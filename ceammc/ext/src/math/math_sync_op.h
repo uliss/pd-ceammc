@@ -16,6 +16,8 @@
 
 #include "math_sync_base.h"
 
+using namespace ceammc;
+
 class MathSyncMul : public MathSyncBase {
 public:
     MathSyncMul(const PdArgs& args);
@@ -36,6 +38,20 @@ public:
     MathSyncSub(const PdArgs& args);
 };
 
+class MathSyncEqual : public MathSyncBase {
+    FloatPropertyMinEq* epsilon_;
+
+public:
+    MathSyncEqual(const PdArgs& args);
+};
+
+class MathSyncNotEqual : public MathSyncBase {
+    FloatPropertyMinEq* epsilon_;
+
+public:
+    MathSyncNotEqual(const PdArgs& args);
+};
+
 class MathSyncLessThen : public MathSyncBase {
 public:
     MathSyncLessThen(const PdArgs& args);
@@ -54,6 +70,26 @@ public:
 class MathSyncGreaterEqual : public MathSyncBase {
 public:
     MathSyncGreaterEqual(const PdArgs& args);
+};
+
+class MathSyncMod : public MathSyncBase {
+public:
+    MathSyncMod(const PdArgs& args);
+};
+
+class MathSyncAnd : public MathSyncBool {
+public:
+    MathSyncAnd(const PdArgs& args);
+};
+
+class MathSyncOr : public MathSyncBool {
+public:
+    MathSyncOr(const PdArgs& args);
+};
+
+class MathSyncXor : public MathSyncBool {
+public:
+    MathSyncXor(const PdArgs& args);
 };
 
 void setup_math_sync_op();

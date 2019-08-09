@@ -162,7 +162,7 @@ std::vector<PropertyInfo> ceammc_base_properties(t_object* x)
 
     for (auto& kv : obj->properties()) {
         Property* p = kv.second;
-        if (!p)
+        if (!p || !p->visible())
             continue;
 
         res.push_back(p->info());

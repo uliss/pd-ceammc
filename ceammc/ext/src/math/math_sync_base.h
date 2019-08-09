@@ -17,14 +17,32 @@
 #include <type_traits>
 
 #include "ceammc_object.h"
-using namespace ceammc;
+
+namespace ceammc {
 
 typedef std::function<t_float(t_float, t_float)> FloatBinFn;
+typedef std::function<bool(bool, bool)> BoolBinFn;
+template <bool N>
+struct IntT {
+};
+
+template <>
+struct IntT<false> {
+    typedef std::int32_t type;
+};
+
+template <>
+struct IntT<true> {
+    typedef std::int64_t type;
+};
+
+typedef IntT<std::is_same<t_float, double>::value>::type IntType;
 
 class MathSyncBase : public BaseObject {
 protected:
     t_float v1_, v2_;
     FloatBinFn fn_;
+    FlagProperty* prop_int_;
 
 public:
     MathSyncBase(FloatBinFn fn, const PdArgs& args);
@@ -33,5 +51,23 @@ public:
     void onInlet(size_t n, const AtomList& lst) final;
     void onList(const AtomList& lst) final;
 };
+
+class MathSyncBool : public BaseObject {
+protected:
+    bool v1_, v2_;
+    BoolBinFn fn_;
+
+public:
+    MathSyncBool(BoolBinFn fn, const PdArgs& args);
+    void onBang() final;
+    void onFloat(t_float f) final;
+    void onInlet(size_t n, const AtomList& lst) final;
+    void onList(const AtomList& lst) final;
+
+private:
+    bool checkBool(t_float f) const;
+};
+
+}
 
 #endif // MATH_SYNC_BASE_H

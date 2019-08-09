@@ -14,13 +14,21 @@
 #include "math_sync_op.h"
 #include "ceammc_factory.h"
 
+#include <stdexcept>
+
 MathSyncMul::MathSyncMul(const PdArgs& args)
     : MathSyncBase([](t_float v1, t_float v2) { return v1 * v2; }, args)
 {
 }
 
 MathSyncDiv::MathSyncDiv(const PdArgs& args)
-    : MathSyncBase([](t_float v1, t_float v2) { return v1 / v2; }, args)
+    : MathSyncBase([](t_float v1, t_float v2) {
+        if (v2 == 0)
+            throw std::runtime_error("division by zero");
+
+        return v1 / v2;
+    },
+        args)
 {
 }
 
@@ -34,23 +42,94 @@ MathSyncSub::MathSyncSub(const PdArgs& args)
 {
 }
 
+MathSyncEqual::MathSyncEqual(const PdArgs& args)
+    : MathSyncBase([this](t_float v1, t_float v2) {
+        if (epsilon_->value() == 0)
+            return (v1 == v2) ? 1 : 0;
+        else
+            return (std::fabs(v1 - v2) < epsilon_->value()) ? 1 : 0;
+    },
+        args)
+    , epsilon_(nullptr)
+{
+    prop_int_->setReadonly(true);
+    prop_int_->setVisible(false);
+
+    epsilon_ = new FloatPropertyMinEq("@epsilon", 0, 0);
+    createProperty(epsilon_);
+}
+
+MathSyncNotEqual::MathSyncNotEqual(const PdArgs& args)
+    : MathSyncBase([this](t_float v1, t_float v2) {
+        if (epsilon_->value() == 0)
+            return (v1 != v2) ? 1 : 0;
+        else
+            return (std::fabs(v1 - v2) < epsilon_->value()) ? 0 : 1;
+    },
+        args)
+    , epsilon_(nullptr)
+{
+    prop_int_->setReadonly(true);
+    prop_int_->setVisible(false);
+
+    epsilon_ = new FloatPropertyMinEq("@epsilon", 0, 0);
+    createProperty(epsilon_);
+}
+
 MathSyncLessThen::MathSyncLessThen(const PdArgs& args)
     : MathSyncBase([](t_float v1, t_float v2) { return v1 < v2; }, args)
 {
+    prop_int_->setReadonly(true);
+    prop_int_->setVisible(false);
 }
 
 MathSyncLessEqual::MathSyncLessEqual(const PdArgs& args)
     : MathSyncBase([](t_float v1, t_float v2) { return v1 <= v2; }, args)
 {
+    prop_int_->setReadonly(true);
+    prop_int_->setVisible(false);
 }
 
 MathSyncGreaterThen::MathSyncGreaterThen(const PdArgs& args)
     : MathSyncBase([](t_float v1, t_float v2) { return v1 > v2; }, args)
 {
+    prop_int_->setReadonly(true);
+    prop_int_->setVisible(false);
 }
 
 MathSyncGreaterEqual::MathSyncGreaterEqual(const PdArgs& args)
     : MathSyncBase([](t_float v1, t_float v2) { return v1 >= v2; }, args)
+{
+    prop_int_->setReadonly(true);
+    prop_int_->setVisible(false);
+}
+
+MathSyncMod::MathSyncMod(const PdArgs& args)
+    : MathSyncBase([this](t_float v1, t_float v2) {
+        if (v2 == 0)
+            throw std::runtime_error("division by zero");
+
+        if (prop_int_->value())
+            return static_cast<t_float>(std::div(static_cast<IntType>(v1), static_cast<IntType>(v2)).rem);
+        else
+            return std::fmod(v1, v2);
+    },
+        args)
+{
+}
+
+MathSyncAnd::MathSyncAnd(const PdArgs& args)
+    : MathSyncBool([](bool v1, bool v2) { return v1 && v2; }, args)
+{
+}
+
+MathSyncOr::MathSyncOr(const PdArgs& args)
+    : MathSyncBool([](bool v1, bool v2) { return v1 || v2; }, args)
+{
+}
+
+MathSyncXor::MathSyncXor(const PdArgs& args)
+    : MathSyncBool([](bool v1, bool v2) { return v1 ^ v2; }, args)
 {
 }
 
@@ -67,8 +146,16 @@ void setup_math_sync_op()
     FACTORY_INIT(MathSyncDiv, "div", "/")
     FACTORY_INIT(MathSyncAdd, "add", "+")
     FACTORY_INIT(MathSyncSub, "sub", "-")
+    FACTORY_INIT(MathSyncSub, "mod", "%")
+
+    FACTORY_INIT(MathSyncEqual, "eq", "==")
+    FACTORY_INIT(MathSyncNotEqual, "ne", "!=")
     FACTORY_INIT(MathSyncLessThen, "lt", "<")
     FACTORY_INIT(MathSyncLessEqual, "le", "<=")
     FACTORY_INIT(MathSyncGreaterThen, "gt", ">")
     FACTORY_INIT(MathSyncGreaterEqual, "ge", ">=")
+
+    FACTORY_INIT(MathSyncAnd, "and", "&&")
+    FACTORY_INIT(MathSyncOr, "or", "||")
+    FACTORY_INIT(MathSyncXor, "xor", "^")
 }

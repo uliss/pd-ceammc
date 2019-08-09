@@ -19,10 +19,19 @@
 #include <random>
 
 PD_TEST_CANVAS();
+// arithmetic
 PD_TEST_TYPEDEF(MathSyncAdd);
 PD_TEST_TYPEDEF(MathSyncSub);
 PD_TEST_TYPEDEF(MathSyncMul);
 PD_TEST_TYPEDEF(MathSyncDiv);
+// compare
+PD_TEST_TYPEDEF(MathSyncEqual);
+PD_TEST_TYPEDEF(MathSyncNotEqual);
+PD_TEST_TYPEDEF(MathSyncLessThen);
+PD_TEST_TYPEDEF(MathSyncLessEqual);
+PD_TEST_TYPEDEF(MathSyncGreaterThen);
+PD_TEST_TYPEDEF(MathSyncGreaterEqual);
+
 PD_TEST_CORE_INIT()
 PD_TEST_MOD_INIT(math, sync_op)
 PD_TEST_FULL_INIT(math, sync_op)
@@ -40,6 +49,81 @@ PD_TEST_FULL_INIT(math, sync_op)
         obj.sendFloatTo(v, 0);                                               \
         obj.sendFloatTo(z, 1);                                               \
         REQUIRE(obj.outputFloatAt(0) == v);                                  \
+    }
+
+#define REQUIRE_REFLEX(obj)                                                  \
+    {                                                                        \
+        std::default_random_engine generator;                                \
+        std::uniform_real_distribution<t_float> distribution(-10000, 10000); \
+        obj.clearAll();                                                      \
+        t_float v = distribution(generator);                                 \
+        obj.sendFloatTo(v, 0);                                               \
+        obj.sendFloatTo(v, 1);                                               \
+        REQUIRE(obj.outputFloatAt(0) == 1);                                  \
+    }
+
+#define REQUIRE_TRANSITIONAL(obj, a, b, c)      \
+    {                                           \
+        obj.clearAll();                         \
+        obj.sendFloatTo(a, 0);                  \
+        obj.sendFloatTo(b, 1);                  \
+        auto res0 = obj.outputFloatAt(0);       \
+        obj.sendFloatTo(b, 0);                  \
+        obj.sendFloatTo(c, 1);                  \
+        auto res1 = obj.outputFloatAt(0);       \
+        obj.sendFloatTo(a, 0);                  \
+        obj.sendFloatTo(c, 1);                  \
+        if (res0 && res1)                       \
+            REQUIRE(obj.outputFloatAt(0) == 1); \
+    }
+
+#define REQUIRE_NON_TRANSITIONAL(obj, a, b, c)           \
+    {                                                    \
+        obj.clearAll();                                  \
+        obj.sendFloatTo(a, 0);                           \
+        obj.sendFloatTo(b, 1);                           \
+        auto res0 = obj.outputFloatAt(0);                \
+        obj.sendFloatTo(b, 0);                           \
+        obj.sendFloatTo(c, 1);                           \
+        auto res1 = obj.outputFloatAt(0);                \
+        obj.sendFloatTo(a, 0);                           \
+        obj.sendFloatTo(c, 1);                           \
+        REQUIRE(obj.outputFloatAt(0) != (res0 && res1)); \
+    }
+
+#define REQUIRE_SYMMETRIC(obj, a, b)      \
+    {                                     \
+        obj.clearAll();                   \
+        obj.sendFloatTo(a, 0);            \
+        obj.sendFloatTo(b, 1);            \
+        auto res0 = obj.outputFloatAt(0); \
+        obj.sendFloatTo(b, 0);            \
+        obj.sendFloatTo(a, 1);            \
+        auto res1 = obj.outputFloatAt(0); \
+        REQUIRE(res0 == res1);            \
+    }
+
+#define REQUIRE_NON_SYMMETRIC(obj, a, b)  \
+    {                                     \
+        obj.clearAll();                   \
+        obj.sendFloatTo(a, 0);            \
+        obj.sendFloatTo(b, 1);            \
+        auto res0 = obj.outputFloatAt(0); \
+        obj.sendFloatTo(b, 0);            \
+        obj.sendFloatTo(a, 1);            \
+        auto res1 = obj.outputFloatAt(0); \
+        REQUIRE_FALSE(res0 == res1);      \
+    }
+
+#define REQUIRE_NON_REFLEX(obj)                                              \
+    {                                                                        \
+        std::default_random_engine generator;                                \
+        std::uniform_real_distribution<t_float> distribution(-10000, 10000); \
+        obj.clearAll();                                                      \
+        t_float v = distribution(generator);                                 \
+        obj.sendFloatTo(v, 0);                                               \
+        obj.sendFloatTo(v, 1);                                               \
+        REQUIRE(obj.outputFloatAt(0) == 0.f);                                \
     }
 
 #define REQUIRE_COMM_OP(t, v0, v1, res)             \
@@ -61,9 +145,40 @@ PD_TEST_FULL_INIT(math, sync_op)
     {                                               \
         t.clearAll();                               \
         t.sendFloatTo(v0, 0);                       \
-        REQUIRE(t.hasOutputAt(0));                  \
         t.sendFloatTo(v1, 1);                       \
         REQUIRE(t.outputFloatAt(0) == Approx(res)); \
+    }
+
+#define REQUIRE_ASSOC_OP(t, a, b, c)          \
+    {                                         \
+        t.clearAll();                         \
+        t.sendFloatTo(a, 0);                  \
+        t.sendFloatTo(b, 1);                  \
+        t.sendFloatTo(t.outputFloatAt(0), 0); \
+        t.sendFloatTo(c, 1);                  \
+        auto res0 = t.outputFloatAt(0);       \
+        t.sendFloatTo(b, 0);                  \
+        t.sendFloatTo(c, 1);                  \
+        t.sendFloatTo(t.outputFloatAt(0), 1); \
+        t.sendFloatTo(a, 0);                  \
+        auto res1 = t.outputFloatAt(0);       \
+        REQUIRE(res0 == res1);                \
+    }
+
+#define REQUIRE_NON_ASSOC_OP(t, a, b, c)      \
+    {                                         \
+        t.clearAll();                         \
+        t.sendFloatTo(a, 0);                  \
+        t.sendFloatTo(b, 1);                  \
+        t.sendFloatTo(t.outputFloatAt(0), 0); \
+        t.sendFloatTo(c, 1);                  \
+        auto res0 = t.outputFloatAt(0);       \
+        t.sendFloatTo(b, 0);                  \
+        t.sendFloatTo(c, 1);                  \
+        t.sendFloatTo(t.outputFloatAt(0), 1); \
+        t.sendFloatTo(a, 0);                  \
+        auto res1 = t.outputFloatAt(0);       \
+        REQUIRE(res0 != res1);                \
     }
 
 TEST_CASE("math.ops", "[externals]")
@@ -80,6 +195,9 @@ TEST_CASE("math.ops", "[externals]")
 
             REQUIRE(t0.numInlets() == 2);
             REQUIRE(t1.numOutlets() == 1);
+            // clang-format off
+            REQUIRE_PROPERTY_FLOAT(t0, @int, 0);
+            // clang-format on
         }
 
         SECTION("do default")
@@ -91,11 +209,12 @@ TEST_CASE("math.ops", "[externals]")
             REQUIRE(t.outputFloatAt(0) == 0);
 
             CHECK_NEUTRAL_ELEMENT(t, 0)
+            REQUIRE_ASSOC_OP(t, 1, 2, 3)
 
             REQUIRE_COMM_OP(t, 0, 0, 0)
-            REQUIRE_COMM_OP(t, 1, 0, 1)
+            REQUIRE_COMM_OP(t, 1.1, 0, 1.1)
             REQUIRE_COMM_OP(t, 0, 1, 1)
-            REQUIRE_COMM_OP(t, 10, 10, 20)
+            REQUIRE_COMM_OP(t, 10, 10.5, 20.5)
             REQUIRE_COMM_OP(t, 10, -10, 0)
             REQUIRE_COMM_OP(t, 2, 3, 5)
         }
@@ -126,6 +245,8 @@ TEST_CASE("math.ops", "[externals]")
         {
             TestExtMathSyncSub t("math.-'");
 
+            REQUIRE_NON_ASSOC_OP(t, 1, 2, 3)
+
             REQUIRE_NON_COMM_OP(t, 0, 0, 0)
             REQUIRE_NON_COMM_OP(t, 1, 0, 1)
             REQUIRE_NON_COMM_OP(t, 0, 1, -1)
@@ -153,6 +274,7 @@ TEST_CASE("math.ops", "[externals]")
             TestExtMathSyncMul t("math.*'");
 
             CHECK_NEUTRAL_ELEMENT(t, 1)
+            REQUIRE_ASSOC_OP(t, 1, 2, 3)
 
             REQUIRE_COMM_OP(t, 0, 0, 0)
             REQUIRE_COMM_OP(t, 1, 0, 0)
@@ -180,13 +302,237 @@ TEST_CASE("math.ops", "[externals]")
         {
             TestExtMathSyncSub t("math./'");
 
-            REQUIRE_NON_COMM_OP(t, 0, 0, std::numeric_limits<t_float>::infinity())
-            REQUIRE_NON_COMM_OP(t, 1, 0, std::numeric_limits<t_float>::infinity())
-            REQUIRE_NON_COMM_OP(t, 0, 1, 0)
-            REQUIRE_NON_COMM_OP(t, 10, 10, 1)
+            t.sendFloatTo(0, 0);
+            REQUIRE_FALSE(t.hasOutput());
+            t.sendFloatTo(0, 1);
+            REQUIRE_FALSE(t.hasOutput());
+
+            REQUIRE_NON_ASSOC_OP(t, 1, 2, 4)
+
+            REQUIRE_NON_COMM_OP(t, 10, 2, 5)
             REQUIRE_NON_COMM_OP(t, 10, -10, -1)
             REQUIRE_NON_COMM_OP(t, 4, 2, 2)
             REQUIRE_NON_COMM_OP(t, 3, 2, 1.5)
+        }
+    }
+
+    SECTION("eq")
+    {
+        SECTION("create")
+        {
+            TestExtMathSyncEqual t0("math.sync_eq");
+            TestExtMathSyncEqual t1("math.=='");
+            TestExtMathSyncEqual t2("=='");
+
+            REQUIRE(t0.numInlets() == 2);
+            REQUIRE(t1.numOutlets() == 1);
+
+            REQUIRE_PROPERTY_FLOAT(t0, @epsilon, 0);
+        }
+
+        SECTION("@epsilon 0")
+        {
+            TestExtMathSyncEqual t("=='");
+
+            REQUIRE_REFLEX(t)
+            REQUIRE_TRANSITIONAL(t, 1, 1, 1)
+            REQUIRE_TRANSITIONAL(t, 1, 2, 3)
+            REQUIRE_SYMMETRIC(t, 1, 2)
+            REQUIRE_SYMMETRIC(t, 1, 1)
+
+            REQUIRE_COMM_OP(t, 10, 10, 1)
+            REQUIRE_COMM_OP(t, 10, -10, 0)
+            REQUIRE_COMM_OP(t, -0.5, -0.5, 1)
+            REQUIRE_COMM_OP(t, -0.5, -0.51, 0)
+        }
+
+        SECTION("@epsilon 0.01")
+        {
+            TestExtMathSyncEqual t("=='", LA("@epsilon", 0.01));
+
+            REQUIRE_REFLEX(t)
+            REQUIRE_COMM_OP(t, 1, 2, 0)
+            REQUIRE_COMM_OP(t, 1, 1.011, 0)
+            REQUIRE_COMM_OP(t, 1, 1.009, 1)
+            REQUIRE_COMM_OP(t, 1, 1.0009, 1)
+            REQUIRE_COMM_OP(t, 1, 1, 1)
+
+            REQUIRE_COMM_OP(t, -1, -2, 0)
+            REQUIRE_COMM_OP(t, -1, -1.011, 0)
+            REQUIRE_COMM_OP(t, -1, -1.009, 1)
+            REQUIRE_COMM_OP(t, -1, -1.0009, 1)
+
+            REQUIRE_COMM_OP(t, -0.01, 0.01, 0)
+            REQUIRE_COMM_OP(t, -0.003, 0.003, 1)
+            REQUIRE_COMM_OP(t, 0, 0, 1)
+        }
+    }
+
+    SECTION("ne")
+    {
+        SECTION("create")
+        {
+            TestExtMathSyncNotEqual t0("math.sync_ne");
+            TestExtMathSyncNotEqual t1("math.!='");
+            TestExtMathSyncNotEqual t2("!='");
+
+            REQUIRE(t0.numInlets() == 2);
+            REQUIRE(t1.numOutlets() == 1);
+
+            REQUIRE_PROPERTY_FLOAT(t0, @epsilon, 0);
+        }
+
+        SECTION("@epsilon 0")
+        {
+            TestExtMathSyncNotEqual t("!='");
+
+            REQUIRE_NON_REFLEX(t)
+            REQUIRE_SYMMETRIC(t, 1, 2)
+            REQUIRE_SYMMETRIC(t, 1, 1)
+            REQUIRE_TRANSITIONAL(t, 1, 2, 3)
+            REQUIRE_NON_TRANSITIONAL(t, 1, 2, 1)
+
+            REQUIRE_COMM_OP(t, 10, 10, 0)
+            REQUIRE_COMM_OP(t, 10, -10, 1)
+            REQUIRE_COMM_OP(t, -0.5, -0.5, 0)
+            REQUIRE_COMM_OP(t, -0.5, -0.51, 1)
+        }
+
+        SECTION("@epsilon 0.01")
+        {
+            TestExtMathSyncNotEqual t("!='", LA("@epsilon", 0.01));
+
+            REQUIRE_NON_REFLEX(t)
+            REQUIRE_COMM_OP(t, 1, 2, 1)
+            REQUIRE_COMM_OP(t, 1, 1.011, 1)
+            REQUIRE_COMM_OP(t, 1, 1.009, 0)
+            REQUIRE_COMM_OP(t, 1, 1.0009, 0)
+            REQUIRE_COMM_OP(t, 1, 1, 0)
+
+            REQUIRE_COMM_OP(t, -1, -2, 1)
+            REQUIRE_COMM_OP(t, -1, -1.011, 1)
+            REQUIRE_COMM_OP(t, -1, -1.009, 0)
+            REQUIRE_COMM_OP(t, -1, -1.0009, 0)
+
+            REQUIRE_COMM_OP(t, -0.01, 0.01, 1)
+            REQUIRE_COMM_OP(t, -0.003, 0.003, 0)
+            REQUIRE_COMM_OP(t, 0, 0, 0)
+        }
+    }
+
+    SECTION("lt")
+    {
+        SECTION("create")
+        {
+            TestExtMathSyncLessThen t0("math.sync_lt");
+            TestExtMathSyncLessThen t1("math.<'");
+            TestExtMathSyncLessThen t2("<'");
+
+            REQUIRE(t0.numInlets() == 2);
+            REQUIRE(t1.numOutlets() == 1);
+        }
+
+        SECTION("do")
+        {
+            TestExtMathSyncLessThen t("<'");
+
+            REQUIRE_NON_REFLEX(t)
+            REQUIRE_NON_SYMMETRIC(t, 1, 2)
+            REQUIRE_TRANSITIONAL(t, 1, 2, 3)
+            REQUIRE_TRANSITIONAL(t, 1, 1, 3)
+            REQUIRE_TRANSITIONAL(t, 1, 2, 2)
+            REQUIRE_TRANSITIONAL(t, 2, 2, 2)
+
+            REQUIRE_NON_COMM_OP(t, 2, 2.0001, 1)
+            REQUIRE_NON_COMM_OP(t, 2.0001, 2.0001, 0)
+            REQUIRE_NON_COMM_OP(t, 2.0001, 2, 0)
+        }
+    }
+
+    SECTION("le")
+    {
+        SECTION("create")
+        {
+            TestExtMathSyncLessEqual t0("math.sync_le");
+            TestExtMathSyncLessEqual t1("math.<='");
+            TestExtMathSyncLessEqual t2("<='");
+
+            REQUIRE(t0.numInlets() == 2);
+            REQUIRE(t1.numOutlets() == 1);
+        }
+
+        SECTION("do")
+        {
+            TestExtMathSyncLessEqual t("<='");
+
+            REQUIRE_REFLEX(t)
+            REQUIRE_NON_SYMMETRIC(t, 1, 2)
+            REQUIRE_TRANSITIONAL(t, 1, 2, 3)
+            REQUIRE_TRANSITIONAL(t, 1, 1, 3)
+            REQUIRE_TRANSITIONAL(t, 1, 2, 2)
+            REQUIRE_TRANSITIONAL(t, 2, 2, 2)
+
+            REQUIRE_NON_COMM_OP(t, 2, 2.0001, 1)
+            REQUIRE_NON_COMM_OP(t, 2.0001, 2.0001, 1)
+            REQUIRE_NON_COMM_OP(t, 2.0001, 2, 0)
+        }
+    }
+
+    SECTION("gt")
+    {
+        SECTION("create")
+        {
+            TestExtMathSyncGreaterThen t0("math.sync_gt");
+            TestExtMathSyncGreaterThen t1("math.>'");
+            TestExtMathSyncGreaterThen t2(">'");
+
+            REQUIRE(t0.numInlets() == 2);
+            REQUIRE(t1.numOutlets() == 1);
+        }
+
+        SECTION("do")
+        {
+            TestExtMathSyncGreaterThen t(">'");
+
+            REQUIRE_NON_REFLEX(t)
+            REQUIRE_NON_SYMMETRIC(t, 1, 2)
+            REQUIRE_TRANSITIONAL(t, 1, 2, 3)
+            REQUIRE_TRANSITIONAL(t, 1, 1, 3)
+            REQUIRE_TRANSITIONAL(t, 1, 2, 2)
+            REQUIRE_TRANSITIONAL(t, 2, 2, 2)
+
+            REQUIRE_NON_COMM_OP(t, 2, 2.0001, 0)
+            REQUIRE_NON_COMM_OP(t, 2.0001, 2.0001, 0)
+            REQUIRE_NON_COMM_OP(t, 2.0001, 2, 1)
+        }
+    }
+
+    SECTION("ge")
+    {
+        SECTION("create")
+        {
+            TestExtMathSyncLessEqual t0("math.sync_ge");
+            TestExtMathSyncLessEqual t1("math.>='");
+            TestExtMathSyncLessEqual t2(">='");
+
+            REQUIRE(t0.numInlets() == 2);
+            REQUIRE(t1.numOutlets() == 1);
+        }
+
+        SECTION("do")
+        {
+            TestExtMathSyncLessEqual t(">='");
+
+            REQUIRE_REFLEX(t)
+            REQUIRE_NON_SYMMETRIC(t, 1, 2)
+            REQUIRE_TRANSITIONAL(t, 1, 2, 3)
+            REQUIRE_TRANSITIONAL(t, 1, 1, 3)
+            REQUIRE_TRANSITIONAL(t, 1, 2, 2)
+            REQUIRE_TRANSITIONAL(t, 2, 2, 2)
+
+            REQUIRE_NON_COMM_OP(t, 2, 2.0001, 0)
+            REQUIRE_NON_COMM_OP(t, 2.0001, 2.0001, 1)
+            REQUIRE_NON_COMM_OP(t, 2.0001, 2, 1)
         }
     }
 }
