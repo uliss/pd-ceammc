@@ -14,6 +14,7 @@
 #include "math_sync_op.h"
 #include "ceammc_factory.h"
 
+#include <cmath>
 #include <stdexcept>
 
 MathSyncMul::MathSyncMul(const PdArgs& args)
