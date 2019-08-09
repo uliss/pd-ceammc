@@ -24,6 +24,7 @@ PD_TEST_TYPEDEF(MathSyncAdd);
 PD_TEST_TYPEDEF(MathSyncSub);
 PD_TEST_TYPEDEF(MathSyncMul);
 PD_TEST_TYPEDEF(MathSyncDiv);
+PD_TEST_TYPEDEF(MathSyncMod);
 // compare
 PD_TEST_TYPEDEF(MathSyncEqual);
 PD_TEST_TYPEDEF(MathSyncNotEqual);
@@ -332,6 +333,45 @@ TEST_CASE("math.ops", "[externals]")
             REQUIRE_NON_COMM_OP(t, 10, 4, 2)
             REQUIRE_NON_COMM_OP(t, 10, 3, 3)
             REQUIRE_NON_COMM_OP(t, 10.1, 3.1, 3)
+        }
+    }
+
+    SECTION("mod")
+    {
+        SECTION("create")
+        {
+            TestExtMathSyncMod t0("math.sync_mod");
+            TestExtMathSyncMod t1("math.%'");
+            TestExtMathSyncMod t2("%'");
+
+            REQUIRE(t0.numInlets() == 2);
+            REQUIRE(t1.numOutlets() == 1);
+        }
+
+        SECTION("do float")
+        {
+            TestExtMathSyncMod t("math.%'");
+
+            REQUIRE_NON_COMM_OP(t, 0, 1, 0)
+            REQUIRE_NON_COMM_OP(t, 10, 10, 0)
+            REQUIRE_NON_COMM_OP(t, 2.5, 2.5, 0)
+            REQUIRE_NON_COMM_OP(t, 3.5, 2, 1.5)
+            REQUIRE_NON_COMM_OP(t, -3.5, 2, -1.5)
+            REQUIRE_NON_COMM_OP(t, 3.5, -2, 1.5)
+            REQUIRE_NON_COMM_OP(t, -3.5, -2, -1.5)
+        }
+
+        SECTION("do @int")
+        {
+            TestExtMathSyncMod t("math.%'", LA("@int"));
+
+            REQUIRE_NON_COMM_OP(t, 0, 1, 0)
+            REQUIRE_NON_COMM_OP(t, 10, 10, 0)
+            REQUIRE_NON_COMM_OP(t, 2.5, 2.5, 0)
+            REQUIRE_NON_COMM_OP(t, 3.5, 2, 1)
+            REQUIRE_NON_COMM_OP(t, -3.5, 2.1, -1)
+            REQUIRE_NON_COMM_OP(t, 3.5, -2, 1)
+            REQUIRE_NON_COMM_OP(t, -3.5, -2, -1)
         }
     }
 

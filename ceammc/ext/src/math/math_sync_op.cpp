@@ -146,7 +146,7 @@ void setup_math_sync_op()
     FACTORY_INIT(MathSyncDiv, "div", "/")
     FACTORY_INIT(MathSyncAdd, "add", "+")
     FACTORY_INIT(MathSyncSub, "sub", "-")
-    FACTORY_INIT(MathSyncSub, "mod", "%")
+    FACTORY_INIT(MathSyncMod, "mod", "%")
 
     FACTORY_INIT(MathSyncEqual, "eq", "==")
     FACTORY_INIT(MathSyncNotEqual, "ne", "!=")
