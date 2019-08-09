@@ -31,7 +31,10 @@ PD_TEST_TYPEDEF(MathSyncLessThen);
 PD_TEST_TYPEDEF(MathSyncLessEqual);
 PD_TEST_TYPEDEF(MathSyncGreaterThen);
 PD_TEST_TYPEDEF(MathSyncGreaterEqual);
-
+// boolean
+PD_TEST_TYPEDEF(MathSyncAnd);
+PD_TEST_TYPEDEF(MathSyncOr);
+PD_TEST_TYPEDEF(MathSyncXor);
 PD_TEST_CORE_INIT()
 PD_TEST_MOD_INIT(math, sync_op)
 PD_TEST_FULL_INIT(math, sync_op)
@@ -217,6 +220,11 @@ TEST_CASE("math.ops", "[externals]")
             REQUIRE_COMM_OP(t, 10, 10.5, 20.5)
             REQUIRE_COMM_OP(t, 10, -10, 0)
             REQUIRE_COMM_OP(t, 2, 3, 5)
+
+            t.sendListTo(LF(1, 2), 0);
+            REQUIRE(t.outputFloatAt(0) == 3);
+            t.sendListTo(L(), 0);
+            REQUIRE(t.outputFloatAt(0) == 3);
         }
 
         SECTION("do arg")
@@ -310,9 +318,20 @@ TEST_CASE("math.ops", "[externals]")
             REQUIRE_NON_ASSOC_OP(t, 1, 2, 4)
 
             REQUIRE_NON_COMM_OP(t, 10, 2, 5)
+            REQUIRE_NON_COMM_OP(t, 10, 4, 2.5)
             REQUIRE_NON_COMM_OP(t, 10, -10, -1)
             REQUIRE_NON_COMM_OP(t, 4, 2, 2)
             REQUIRE_NON_COMM_OP(t, 3, 2, 1.5)
+        }
+
+        SECTION("do @int")
+        {
+            TestExtMathSyncSub t("math./'", LA("@int"));
+
+            REQUIRE_NON_COMM_OP(t, 10, 2, 5)
+            REQUIRE_NON_COMM_OP(t, 10, 4, 2)
+            REQUIRE_NON_COMM_OP(t, 10, 3, 3)
+            REQUIRE_NON_COMM_OP(t, 10.1, 3.1, 3)
         }
     }
 
@@ -533,6 +552,85 @@ TEST_CASE("math.ops", "[externals]")
             REQUIRE_NON_COMM_OP(t, 2, 2.0001, 0)
             REQUIRE_NON_COMM_OP(t, 2.0001, 2.0001, 1)
             REQUIRE_NON_COMM_OP(t, 2.0001, 2, 1)
+        }
+    }
+
+    SECTION("and")
+    {
+        SECTION("create")
+        {
+            TestExtMathSyncAnd t0("math.sync_and");
+            TestExtMathSyncAnd t1("math.&&'");
+            TestExtMathSyncAnd t2("&&'");
+
+            REQUIRE(t0.numInlets() == 2);
+            REQUIRE(t1.numOutlets() == 1);
+        }
+
+        SECTION("do")
+        {
+            TestExtMathSyncAnd t("&&'");
+
+            REQUIRE_COMM_OP(t, 0, 0, 0)
+            REQUIRE_COMM_OP(t, 0, 1, 0)
+            REQUIRE_COMM_OP(t, 1, 0, 0)
+            REQUIRE_COMM_OP(t, 1, 1, 1)
+
+            t.sendList(LF(0, 1));
+            REQUIRE(t.outputFloatAt(0) == 0);
+        }
+    }
+
+    SECTION("or")
+    {
+        SECTION("create")
+        {
+            TestExtMathSyncOr t0("math.sync_or");
+            TestExtMathSyncOr t1("math.||'");
+            TestExtMathSyncOr t2("||'");
+
+            REQUIRE(t0.numInlets() == 2);
+            REQUIRE(t1.numOutlets() == 1);
+        }
+
+        SECTION("do")
+        {
+            TestExtMathSyncOr t("||'");
+
+            REQUIRE_COMM_OP(t, 0, 0, 0)
+            REQUIRE_COMM_OP(t, 0, 1, 1)
+            REQUIRE_COMM_OP(t, 1, 0, 1)
+            REQUIRE_COMM_OP(t, 1, 1, 1)
+            REQUIRE_COMM_OP(t, 2, 3, 1)
+
+            t.sendList(LF(0, 0));
+            REQUIRE(t.outputFloatAt(0) == 0);
+        }
+    }
+
+    SECTION("xor")
+    {
+        SECTION("create")
+        {
+            TestExtMathSyncXor t0("math.sync_xor");
+            TestExtMathSyncXor t1("math.^'");
+            TestExtMathSyncXor t2("^'");
+
+            REQUIRE(t0.numInlets() == 2);
+            REQUIRE(t1.numOutlets() == 1);
+        }
+
+        SECTION("do")
+        {
+            TestExtMathSyncOr t("^'");
+
+            REQUIRE_COMM_OP(t, 0, 0, 0)
+            REQUIRE_COMM_OP(t, 0, 1, 1)
+            REQUIRE_COMM_OP(t, 1, 0, 1)
+            REQUIRE_COMM_OP(t, 1, 1, 0)
+
+            t.sendList(LF(1, 0));
+            REQUIRE(t.outputFloatAt(0) == 1);
         }
     }
 }

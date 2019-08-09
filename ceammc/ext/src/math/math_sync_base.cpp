@@ -77,33 +77,14 @@ void MathSyncBase::onList(const AtomList& lst)
     onBang();
 }
 
-enum BoolType {
-    BOOL_FALSE = 0,
-    BOOL_TRUE,
-    BOOL_FLOAT
-};
-
-static BoolType float2bool(t_float f)
-{
-    if (f == 0)
-        return BOOL_FALSE;
-    else if (f == 1)
-        return BOOL_TRUE;
-    else
-        return BOOL_FLOAT;
-}
-
 MathSyncBool::MathSyncBool(BoolBinFn fn, const PdArgs& args)
     : BaseObject(args)
     , v1_(false)
-    , v2_(float2bool(positionalFloatArgument(0, 0)) != BOOL_FALSE)
+    , v2_(checkBool(positionalFloatArgument(0, 0)))
     , fn_(fn)
 {
     createInlet();
     createOutlet();
-
-    if (float2bool(positionalFloatArgument(0, 0) == BOOL_FLOAT))
-        OBJ_ERR << "1 or 0 expected";
 }
 
 void MathSyncBool::onBang()
@@ -143,10 +124,13 @@ void MathSyncBool::onList(const AtomList& lst)
 
 bool MathSyncBool::checkBool(t_float f) const
 {
-    auto t = float2bool(f);
-    if (t == BOOL_FLOAT)
+    if (f == 0)
+        return false;
+    else if (f == 1)
+        return true;
+    else {
         OBJ_ERR << "1 or 0 expected";
-
-    return t != BOOL_FALSE;
+        return true;
+    }
 }
 }
