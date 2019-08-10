@@ -320,6 +320,7 @@ set(DOC_FILES
     math.sync_eq
     math.sync_ge
     math.sync_gt
+    math.sync_le
     math.sync_lt
     math.sync_mul
     math.sync_ne

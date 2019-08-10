@@ -973,6 +973,9 @@
     <entry descr="sync greater then numbers compare" name="math.sync_gt" ref_view="object">
       <xi:include href="math.sync_gt.pddoc" parse="xml"/>
     </entry>
+    <entry descr="sync less equal numbers compare" name="math.sync_le" ref_view="object">
+      <xi:include href="math.sync_le.pddoc" parse="xml"/>
+    </entry>
     <entry descr="sync less then numbers compare" name="math.sync_lt" ref_view="object">
       <xi:include href="math.sync_lt.pddoc" parse="xml"/>
     </entry>
