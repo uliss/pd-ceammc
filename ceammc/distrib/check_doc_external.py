@@ -250,7 +250,7 @@ if __name__ == '__main__':
             if "max" in p0 and "maxvalue" not in p1:
                 cprint(f"[{ext_name}] missing attribute maxvalue in \"{p}\"", 'magenta')
 
-            if "default" in p0 and "default" not in p1:
+            if ("default" in p0) and ("readonly" not in p0) and ("default" not in p1):
                 cprint(f"[{ext_name}] missing attribute default in \"{p}\"", 'magenta')
 
             if "default" in p0 and "default" in p1:

@@ -36,8 +36,21 @@ Matrix::Matrix(const PdArgs& args)
 
     blocks_.assign(nouts_, DSPBlock(64, 0));
 
-    createCbProperty("@outputs", &Matrix::propRows);
-    createCbProperty("@inputs", &Matrix::propColumns);
+    {
+        auto p = createCbProperty("@outputs", &Matrix::propRows);
+        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setDefault(2);
+        p->info().setMin(2);
+        p->info().setMax(16);
+    }
+
+    {
+        auto p = createCbProperty("@inputs", &Matrix::propColumns);
+        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setDefault(2);
+        p->info().setMin(2);
+        p->info().setMax(16);
+    }
 }
 
 void Matrix::processBlock(const t_sample** in, t_sample** out)
