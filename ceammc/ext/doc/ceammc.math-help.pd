@@ -96,7 +96,7 @@ direction;
 #X obj 30 1277 math.sync_div;
 #X text 200 1277 sync division;
 #X obj 30 1304 math.sync_eq;
-#X text 200 1304 sync equal check for numbers;
+#X text 200 1304 sync equal numbers check;
 #X obj 30 1331 math.sync_mul;
 #X text 200 1331 sync multiplication;
 #X obj 30 1358 math.sync_ne;
