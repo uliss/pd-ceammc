@@ -34,7 +34,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>result output: 1 if first number is greater or equal second, otherwise 0</outlet>
+            <outlet>result output: 1 if first number is greater or equal second, otherwise
+            0</outlet>
         </outlets>
         <example>
             <pdascii>
