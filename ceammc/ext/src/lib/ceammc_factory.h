@@ -172,11 +172,15 @@ public:
         class_addcreator(reinterpret_cast<t_newmethod>(createObject), gensym(name), A_GIMME, A_NULL);
     }
 
-    void addClick(MethodPtrList fn)
+    void useClick()
     {
-        fn_click_ = fn;
         class_addmethod(class_, reinterpret_cast<t_method>(processClick), gensym("click"),
             A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_NULL);
+    }
+
+    void useLoadBang()
+    {
+        class_addmethod(class_, reinterpret_cast<t_method>(processLoadBang), gensym("loadbang"), A_DEFFLOAT, 0);
     }
 
     void processData()
@@ -254,9 +258,14 @@ public:
     }
 
     static void processClick(ObjectProxy* x, t_symbol* sel,
-        t_floatarg a, t_floatarg b, t_floatarg c, t_floatarg d, t_floatarg e)
+        t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
     {
-        (x->impl->*(fn_click_))(sel, AtomList({ a, b, c, d, e }));
+        x->impl->onClick(xpos, ypos, shift, ctrl, alt);
+    }
+
+    static void processLoadBang(ObjectProxy* x, t_floatarg action)
+    {
+        x->impl->dispatchLoadBang(action);
     }
 
     static void processDataFn(ObjectProxy* x, t_symbol*, int argc, t_atom* argv)
@@ -358,7 +367,6 @@ private:
     static t_symbol* class_name_;
     static MethodListMap list_methods_;
     static int flags_;
-    static MethodPtrList fn_click_;
 
 private:
     PdBangFunction fn_bang_;
@@ -404,9 +412,6 @@ typename ObjectFactory<T>::MethodListMap ObjectFactory<T>::list_methods_;
 
 template <typename T>
 int ObjectFactory<T>::flags_ = 0;
-
-template <typename T>
-typename ObjectFactory<T>::MethodPtrList ObjectFactory<T>::fn_click_ = 0;
 
 #define CLASS_ADD_METHOD()
 

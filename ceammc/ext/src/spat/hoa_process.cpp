@@ -506,7 +506,7 @@ void HoaProcess::setupDSP(t_signal** sp)
     }
 }
 
-void HoaProcess::m_click(t_symbol* m, const AtomList& lst)
+void HoaProcess::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
 {
     if (instances_.size() > 0)
         instances_.front().show();
@@ -551,7 +551,7 @@ void setup_spat_hoa_process()
     HoaProcess::SYM_DSP = gensym("dsp");
 
     SoundExternalFactory<HoaProcess> obj("hoa.process~");
-    obj.addClick(&HoaProcess::m_click);
+    obj.useClick();
     obj.addMethod("debug", &HoaProcess::m_open_cnv);
     obj.addMethod("open", &HoaProcess::m_open);
 }

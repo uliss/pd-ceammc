@@ -167,6 +167,31 @@ public:
      */
     virtual void onInlet(size_t, const AtomList&) {}
 
+    /**
+     * This function called on object click  (should be enabled in factory)
+     * @param xpos - relative mouse x-pos
+     * @param ypos - relative mouse y-pos
+     * @param shift - if shift modifier is pressed
+     * @param ctrl - if control modifier is pressed
+     * @param alt - if alt modifier is pressed
+     */
+    virtual void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt);
+
+    /**
+     * called when loaded
+     */
+    virtual void onLoadBang() {}
+
+    /**
+     * called when loaded but not yet connected to parent patch
+     */
+    virtual void onInitBang() {}
+
+    /**
+     * called when about to close
+     */
+    virtual void onCloseBang() {}
+
     t_inlet* createInlet();
 
     /**
@@ -295,6 +320,12 @@ public:
      * Main dispatcher of *any* messages. (Not bang, symbol, pointer, list or registered method)
      */
     virtual void anyDispatch(t_symbol* s, const AtomList& lst);
+
+    /**
+     * Various load(close)bang dispatcher
+     * @param action
+     */
+    void dispatchLoadBang(int action);
 
     /**
      * Bind object to listen global signal bus

@@ -14,29 +14,6 @@
 #include "load_msg.h"
 #include "ceammc_factory.h"
 
-extern "C" {
-#include "g_canvas.h"
-}
-
-static LoadMsg* toObj(t_object* x)
-{
-    typedef ObjectFactory<LoadMsg>::ObjectProxy ObjectProxy;
-    ObjectProxy* obj = reinterpret_cast<ObjectProxy*>(x);
-    return obj->impl;
-}
-
-static void msg_loadbang(t_object* x, t_floatarg action)
-{
-    if (action == LB_LOAD)
-        toObj((t_object*)x)->output();
-}
-
-static void msg_click(t_object* x,
-    t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
-{
-    toObj((t_object*)x)->output();
-}
-
 LoadMsg::LoadMsg(const PdArgs& args)
     : BaseObject(args)
 {
@@ -69,12 +46,20 @@ bool LoadMsg::processAnyProps(t_symbol* sel, const AtomList& lst)
     return true;
 }
 
+void LoadMsg::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
+{
+    output();
+}
+
+void LoadMsg::onLoadBang()
+{
+    output();
+}
+
 void setup_load_msg()
 {
     ObjectFactory<LoadMsg> obj("msg.onload", OBJECT_FACTORY_NO_DEFAULT_INLET);
     obj.addAlias("loadmsg");
-
-    t_class* c = obj.classPointer();
-    class_addmethod(c, (t_method)msg_click, gensym("click"), A_FLOAT, A_FLOAT, A_FLOAT, A_FLOAT, A_FLOAT, 0);
-    class_addmethod(c, (t_method)msg_loadbang, gensym("loadbang"), A_DEFFLOAT, 0);
+    obj.useClick();
+    obj.useLoadBang();
 }

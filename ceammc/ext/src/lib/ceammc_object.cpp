@@ -674,6 +674,12 @@ void BaseObject::onAny(t_symbol* s, const AtomList&)
     OBJ_ERR << "unexpected message: " << s;
 }
 
+void BaseObject::onClick(t_floatarg /*xpos*/, t_floatarg /*ypos*/,
+    t_floatarg /*shift*/, t_floatarg /*ctrl*/, t_floatarg /*alt*/)
+{
+    OBJ_ERR << "not implemeneted";
+}
+
 void BaseObject::anyDispatch(t_symbol* s, const AtomList& lst)
 {
     if (processAnyInlets(s, lst))
@@ -683,6 +689,24 @@ void BaseObject::anyDispatch(t_symbol* s, const AtomList& lst)
         return;
 
     onAny(s, lst);
+}
+
+void BaseObject::dispatchLoadBang(int action)
+{
+    switch (action) {
+    case LB_LOAD:
+        onLoadBang();
+        break;
+    case LB_INIT:
+        onInitBang();
+        break;
+    case LB_CLOSE:
+        onCloseBang();
+        break;
+    default:
+        OBJ_ERR << "unknown loadbang type: " << action;
+        break;
+    }
 }
 
 void BaseObject::bindReceive(t_symbol* path)

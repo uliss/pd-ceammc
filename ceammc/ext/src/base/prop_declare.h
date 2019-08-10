@@ -37,7 +37,7 @@ public:
     t_symbol* name() const;
     t_symbol* fullName() const;
 
-    void onLoadBang();
+    void onLoadBang() override;
 
     bool isFloat() const;
     bool isInt() const;

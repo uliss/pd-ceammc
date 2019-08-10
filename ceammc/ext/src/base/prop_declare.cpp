@@ -70,14 +70,6 @@ public:
     }
 };
 
-static void prop_declare_loadbang(t_object* x, t_floatarg action)
-{
-    if (action == LB_LOAD) {
-        PropDeclare* prop = reinterpret_cast<PdObject<PropDeclare>*>(x)->impl;
-        prop->onLoadBang();
-    }
-}
-
 PropDeclare::PropDeclare(const PdArgs& args)
     : BaseObject(args)
     , sym_name_(&s_)
@@ -264,5 +256,5 @@ void setup_prop_declare()
     SYM_ENUM = gensym("enum");
 
     ObjectFactory<PropDeclare> obj("prop.declare", OBJECT_FACTORY_NO_DEFAULT_INLET);
-    class_addmethod(obj.classPointer(), (t_method)prop_declare_loadbang, gensym("loadbang"), A_DEFFLOAT, 0);
+    obj.useLoadBang();
 }

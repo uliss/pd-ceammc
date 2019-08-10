@@ -23,11 +23,11 @@ class BaseDac : public SoundExternal {
 
 public:
     BaseDac(const PdArgs& args);
-    void parseProperties() override;
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** sp) override;
+    void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
 
-    void m_click(t_symbol* s, const AtomList& l);
+    void m_tooltip(t_symbol* s, const AtomList& l);
 };
 
 void setup_base_dac();

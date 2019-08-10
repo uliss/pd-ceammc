@@ -22,6 +22,7 @@ extern "C" {
 #include "s_stuff.h"
 }
 
+#define OBJ_NAME "xdac~"
 #define DEFDACBLKSIZE 64
 
 static std::vector<t_int> parseRange(const std::string& str)
@@ -81,18 +82,6 @@ BaseDac::BaseDac(const PdArgs& args)
 
     for (size_t i = 1; i < vec_.size(); i++)
         createSignalInlet();
-
-    createOutlet();
-}
-
-void BaseDac::parseProperties()
-{
-    t_rtext* y = glist_findrtext(canvas(), owner());
-    if (y) {
-        OBJ_DBG << "erext found...";
-        for (int i = 0; i < vec_.size(); i++)
-            sys_vgui("tooltip::tooltip %so%d \"inlet %d\"", rtext_gettag(y), i, i + 1);
-    }
 }
 
 void BaseDac::processBlock(const t_sample** in, t_sample** out)
@@ -107,7 +96,7 @@ void BaseDac::setupDSP(t_signal** sp)
     for (size_t i = 0; i < vec_.size(); i++) {
         t_signal* sig = sp[i];
         if (sig->s_n != DEFDACBLKSIZE) {
-            error("hoa.dac~: bad vector size");
+            error(OBJ_NAME ": bad vector size");
             break;
         }
 
@@ -122,14 +111,30 @@ void BaseDac::setupDSP(t_signal** sp)
     }
 }
 
-void BaseDac::m_click(t_symbol* s, const AtomList& l)
+void BaseDac::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
 {
-    if (l.floatAt(2, 0) != 0)
-        sys_gui("pdsend \"pd audio-properties\"\n");
+    sys_gui("pdsend \"pd audio-properties\"\n");
+}
+
+void BaseDac::m_tooltip(t_symbol* s, const AtomList& l)
+{
+
+    t_rtext* y = glist_findrtext(canvas(), owner());
+    if (y) {
+        OBJ_DBG << "rtext found...";
+        for (int i = 0; i < vec_.size(); i++)
+            sys_vgui("tooltip::tooltip .x%lx.c -items %si%d \"inlet %d\"\n",
+                (t_int)canvas(),
+                rtext_gettag(y), i, i + 1);
+    } else {
+        OBJ_DBG << "rtext not found...";
+    }
 }
 
 void setup_base_dac()
 {
-    SoundExternalFactory<BaseDac> obj("xdac~");
-    obj.addClick(&BaseDac::m_click);
+    SoundExternalFactory<BaseDac> obj(OBJ_NAME);
+    obj.useClick();
+
+    obj.addMethod("tooltip", &BaseDac::m_tooltip);
 }

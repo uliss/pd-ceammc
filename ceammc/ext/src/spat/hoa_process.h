@@ -50,7 +50,7 @@ public:
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** sp) final;
 
-    void m_click(t_symbol* m, const AtomList& lst);
+    void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
     void m_open(t_symbol* m, const AtomList& lst);
     void m_open_cnv(t_symbol* m, const AtomList& lst);
 
