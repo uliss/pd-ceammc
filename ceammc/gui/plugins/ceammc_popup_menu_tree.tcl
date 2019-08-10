@@ -41,7 +41,7 @@
     }}
     {base {
         function function.call gain~ matrix~ metro.pattern metro.seq mix~
-        obj.props radio window xfade2~ xfade~
+        obj.props radio window xdac~ xfade2~ xfade~
     }}
     {conv {
         array.p2s array.s2p conv.amp2dbfs conv.bpm2hz conv.bpm2ms conv.bpm2sec
@@ -127,7 +127,10 @@
         math.expr math.floor math.gcd math.inf math.lcm math.log math.log10
         math.log2 math.mul math.nan math.neg math.or math.pi math.polyeval
         math.reciprocal math.round math.round~ math.sign math.sin math.sinh
-        math.sqrt math.squared math.tan math.tanh math.trunc
+        math.sqrt math.squared math.sync_add math.sync_and math.sync_div
+        math.sync_eq math.sync_ge math.sync_gt math.sync_le math.sync_lt
+        math.sync_mod math.sync_mul math.sync_ne math.sync_or math.sync_sub
+        math.sync_xor math.tan math.tanh math.trunc
     }}
     {midi {
         midi.ctl2str midi.event2ctl midi.event2note midi.event2prg midi.file
