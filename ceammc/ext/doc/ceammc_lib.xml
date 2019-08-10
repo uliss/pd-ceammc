@@ -958,6 +958,9 @@
     <entry descr="sync addition" name="math.sync_add" ref_view="object">
       <xi:include href="math.sync_add.pddoc" parse="xml"/>
     </entry>
+    <entry descr="sync logical AND operation" name="math.sync_and" ref_view="object">
+      <xi:include href="math.sync_and.pddoc" parse="xml"/>
+    </entry>
     <entry descr="sync division" name="math.sync_div" ref_view="object">
       <xi:include href="math.sync_div.pddoc" parse="xml"/>
     </entry>

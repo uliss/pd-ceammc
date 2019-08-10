@@ -315,6 +315,7 @@ set(DOC_FILES
     math.sqrt
     math.squared
     math.sync_add
+    math.sync_and
     math.sync_div
     math.sync_eq
     math.sync_mul
