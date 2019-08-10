@@ -318,6 +318,7 @@ math.sync_div,math./',/'		..		.
 math.sync_eq,math.==',=='		..		.
 math.sync_mul,math.*',*'		..		.
 math.sync_ne,math.!=',!='		..		.
+math.sync_or,math.||',||'		..		.
 math.sync_sub,math.-',-'		..		.
 math.tan		.		.
 math.tanh		.		.

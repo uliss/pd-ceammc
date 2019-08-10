@@ -320,6 +320,7 @@ set(DOC_FILES
     math.sync_eq
     math.sync_mul
     math.sync_ne
+    math.sync_or
     math.sync_sub
     math.tan
     math.tanh
