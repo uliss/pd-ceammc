@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>sync equal check for numbers</description>
+            <description>sync equal numbers check</description>
             <license>GPL3</license>
             <library>ceammc</library>
             <category>math</category>
@@ -24,7 +24,8 @@
             <argument name="F" type="float">second number</argument>
         </arguments>
         <properties>
-            <property name="@int" type="flag">operate on integers only</property>
+            <property name="@epsilon" type="float" default="0" minvalue="0">compare epsilon. If not
+            zero calculates expession: -epsilon &lt; abs(A-B) &lt; +epsilon</property>
         </properties>
         <inlets>
             <inlet>
@@ -48,7 +49,14 @@
 |     |.                 |    | ^|.
 [=='    ]                [==      ]
 |                        |
-[F]                      [F]
+[_]                      [_]
+
+[100 100.01( [100 101( [100 99.99(
+|            |         |
+|            |         |
+[==' @epsilon 0.1      ]
+|
+[_]
 ]]>
             </pdascii>
         </example>

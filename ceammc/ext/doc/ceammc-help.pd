@@ -692,7 +692,7 @@ direction;
 #X obj 30 9529 math.sync_div;
 #X text 200 9529 sync division;
 #X obj 30 9556 math.sync_eq;
-#X text 200 9556 sync equal check for numbers;
+#X text 200 9556 sync equal numbers check;
 #X obj 30 9583 math.sync_mul;
 #X text 200 9583 sync multiplication;
 #X obj 30 9610 math.sync_ne;
