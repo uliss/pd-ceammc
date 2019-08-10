@@ -316,6 +316,7 @@ set(DOC_FILES
     math.squared
     math.sync_add
     math.sync_div
+    math.sync_eq
     math.sync_mul
     math.sync_sub
     math.tan
