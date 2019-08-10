@@ -29,7 +29,8 @@
         <inlets>
             <inlet>
                 <xinfo on="float">set divident, calculate and output result</xinfo>
-                <xinfo on="list">pair: set divident and divisor, calculate and output result</xinfo>
+                <xinfo on="list">pair: set divident and divisor, calculate and output
+                result</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">change divisor, calculate and output result</xinfo>

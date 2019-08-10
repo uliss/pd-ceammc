@@ -26,7 +26,8 @@
         <inlets>
             <inlet>
                 <xinfo on="float">set multiplier, calculate and output result</xinfo>
-                <xinfo on="list">pair: set multipliers and multiplicand, calculate and output result</xinfo>
+                <xinfo on="list">pair: set multipliers and multiplicand, calculate and output
+                result</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">change multiplicand, calculate and output result</xinfo>

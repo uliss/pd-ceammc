@@ -17,9 +17,9 @@
             <event editmode="false" type="left-click">opens audio properties dialog</event>
         </mouse>
         <arguments>
-            <argument name="OUTS" type="list">list of output channels: single channel number or X:Y range, that means
-            from X channel to Y (including last one).
-            If not specified - using 1 and 2 out channels</argument>
+            <argument name="OUTS" type="list">list of output channels: single channel number or X:Y
+            range, that means from X channel to Y (including last one). If not specified - using 1
+            and 2 out channels</argument>
         </arguments>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
@@ -32,7 +32,7 @@
                 <xinfo>n-th specified channel</xinfo>
             </inlet>
         </inlets>
-        <outlets/>
+        <outlets />
         <example>
             <pdascii>
 <![CDATA[

@@ -26,7 +26,8 @@
         <inlets>
             <inlet>
                 <xinfo on="float">set first addend, calculate and output result</xinfo>
-                <xinfo on="list">pair: set first and second addends, calculate and output result</xinfo>
+                <xinfo on="list">pair: set first and second addends, calculate and output
+                result</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">change second addend, calculate and output result</xinfo>
