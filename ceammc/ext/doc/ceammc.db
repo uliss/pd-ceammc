@@ -312,6 +312,7 @@ math.sin		.		.
 math.sinh		.		.
 math.sqrt		.		.
 math.squared		.		.
+math.sync_add,math.+',+'		..		.
 math.sync_div,math./',/'		..		.
 math.sync_mul,math.*',*'		..		.
 math.tan		.		.
