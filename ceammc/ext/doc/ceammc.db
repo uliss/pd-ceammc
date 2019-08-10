@@ -316,6 +316,8 @@ math.sync_add,math.+',+'		..		.
 math.sync_and,math.&&',&&'		..		.
 math.sync_div,math./',/'		..		.
 math.sync_eq,math.==',=='		..		.
+math.sync_ge,math.>=',>='		..		.
+math.sync_gt,math.>',>'		..		.
 math.sync_lt,math.<',<'		..		.
 math.sync_mul,math.*',*'		..		.
 math.sync_ne,math.!=',!='		..		.
