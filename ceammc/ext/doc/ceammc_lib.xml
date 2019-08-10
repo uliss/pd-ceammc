@@ -964,6 +964,9 @@
     <entry descr="sync multiplication" name="math.sync_mul" ref_view="object">
       <xi:include href="math.sync_mul.pddoc" parse="xml"/>
     </entry>
+    <entry descr="sync subtraction" name="math.sync_sub" ref_view="object">
+      <xi:include href="math.sync_sub.pddoc" parse="xml"/>
+    </entry>
     <entry descr="tangent function" name="math.tan" ref_view="object">
       <xi:include href="math.tan.pddoc" parse="xml"/>
     </entry>

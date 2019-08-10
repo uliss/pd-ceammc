@@ -315,6 +315,7 @@ math.squared		.		.
 math.sync_add,math.+',+'		..		.
 math.sync_div,math./',/'		..		.
 math.sync_mul,math.*',*'		..		.
+math.sync_sub,math.-',-'		..		.
 math.tan		.		.
 math.tanh		.		.
 math.trunc		.		.
