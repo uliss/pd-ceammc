@@ -322,6 +322,7 @@ set(DOC_FILES
     math.sync_gt
     math.sync_le
     math.sync_lt
+    math.sync_mod
     math.sync_mul
     math.sync_ne
     math.sync_or

@@ -979,6 +979,9 @@
     <entry descr="sync less then numbers compare" name="math.sync_lt" ref_view="object">
       <xi:include href="math.sync_lt.pddoc" parse="xml"/>
     </entry>
+    <entry descr="sync remainder of modulo division (float or integer)" name="math.sync_mod" ref_view="object">
+      <xi:include href="math.sync_mod.pddoc" parse="xml"/>
+    </entry>
     <entry descr="sync multiplication" name="math.sync_mul" ref_view="object">
       <xi:include href="math.sync_mul.pddoc" parse="xml"/>
     </entry>

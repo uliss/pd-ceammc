@@ -320,6 +320,7 @@ math.sync_ge,math.>=',>='		..		.
 math.sync_gt,math.>',>'		..		.
 math.sync_le,math.<=',<='		..		.
 math.sync_lt,math.<',<'		..		.
+math.sync_mod,math.%',%'		..		.
 math.sync_mul,math.*',*'		..		.
 math.sync_ne,math.!=',!='		..		.
 math.sync_or,math.||',||'		..		.
