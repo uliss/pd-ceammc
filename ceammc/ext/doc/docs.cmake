@@ -314,6 +314,7 @@ set(DOC_FILES
     math.sinh
     math.sqrt
     math.squared
+    math.sync_mul
     math.tan
     math.tanh
     math.trunc
