@@ -464,5 +464,6 @@ ui.tab		.		.
 ui.toggle,ui.t		.		.
 vline2env,vline->env		.		.
 window,win		.		.
+xdac~		?		-
 xfade2~		?		~~
 xfade~		?		~

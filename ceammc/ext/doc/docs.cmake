@@ -467,4 +467,5 @@ set(DOC_FILES
     window
     xfade~
     xfade2~
+    xdac~
 )

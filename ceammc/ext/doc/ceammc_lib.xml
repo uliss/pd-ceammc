@@ -89,6 +89,9 @@
     <entry descr="returns window value by given window position" name="window" ref_view="object">
       <xi:include href="window.pddoc" parse="xml"/>
     </entry>
+    <entry descr="dac~ with channel ranges" name="xdac~" ref_view="object">
+      <xi:include href="xdac~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="multi stereo-signal crossfade" name="xfade2~" ref_view="object">
       <xi:include href="xfade2~.pddoc" parse="xml"/>
     </entry>
