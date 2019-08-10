@@ -967,6 +967,9 @@
     <entry descr="sync equal numbers check" name="math.sync_eq" ref_view="object">
       <xi:include href="math.sync_eq.pddoc" parse="xml"/>
     </entry>
+    <entry descr="sync less then numbers compare" name="math.sync_lt" ref_view="object">
+      <xi:include href="math.sync_lt.pddoc" parse="xml"/>
+    </entry>
     <entry descr="sync multiplication" name="math.sync_mul" ref_view="object">
       <xi:include href="math.sync_mul.pddoc" parse="xml"/>
     </entry>
