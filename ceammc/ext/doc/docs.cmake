@@ -322,6 +322,7 @@ set(DOC_FILES
     math.sync_ne
     math.sync_or
     math.sync_sub
+    math.sync_xor
     math.tan
     math.tanh
     math.trunc

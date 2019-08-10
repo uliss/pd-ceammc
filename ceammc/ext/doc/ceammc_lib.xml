@@ -979,6 +979,9 @@
     <entry descr="sync subtraction" name="math.sync_sub" ref_view="object">
       <xi:include href="math.sync_sub.pddoc" parse="xml"/>
     </entry>
+    <entry descr="sync logical XOR operation" name="math.sync_xor" ref_view="object">
+      <xi:include href="math.sync_xor.pddoc" parse="xml"/>
+    </entry>
     <entry descr="tangent function" name="math.tan" ref_view="object">
       <xi:include href="math.tan.pddoc" parse="xml"/>
     </entry>
