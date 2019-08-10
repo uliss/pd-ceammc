@@ -967,6 +967,9 @@
     <entry descr="sync multiplication" name="math.sync_mul" ref_view="object">
       <xi:include href="math.sync_mul.pddoc" parse="xml"/>
     </entry>
+    <entry descr="sync numbers for not equality" name="math.sync_ne" ref_view="object">
+      <xi:include href="math.sync_ne.pddoc" parse="xml"/>
+    </entry>
     <entry descr="sync subtraction" name="math.sync_sub" ref_view="object">
       <xi:include href="math.sync_sub.pddoc" parse="xml"/>
     </entry>

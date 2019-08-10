@@ -318,6 +318,7 @@ set(DOC_FILES
     math.sync_div
     math.sync_eq
     math.sync_mul
+    math.sync_ne
     math.sync_sub
     math.tan
     math.tanh
