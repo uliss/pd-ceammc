@@ -106,7 +106,7 @@ direction;
 #X obj 30 1412 math.sync_lt;
 #X text 200 1412 sync less then numbers compare;
 #X obj 30 1439 math.sync_mod;
-#X text 200 1439 sync modulo division (float or integer);
+#X text 200 1439 sync remainder of modulo division (float or integer);
 #X obj 30 1466 math.sync_mul;
 #X text 200 1466 sync multiplication;
 #X obj 30 1493 math.sync_ne;
