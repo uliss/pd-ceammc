@@ -18,7 +18,6 @@
 #include <regex>
 
 extern "C" {
-#include "g_canvas.h"
 #include "s_stuff.h"
 }
 
@@ -116,25 +115,8 @@ void BaseDac::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floa
     sys_gui("pdsend \"pd audio-properties\"\n");
 }
 
-void BaseDac::m_tooltip(t_symbol* s, const AtomList& l)
-{
-
-    t_rtext* y = glist_findrtext(canvas(), owner());
-    if (y) {
-        OBJ_DBG << "rtext found...";
-        for (int i = 0; i < vec_.size(); i++)
-            sys_vgui("tooltip::tooltip .x%lx.c -items %si%d \"inlet %d\"\n",
-                (t_int)canvas(),
-                rtext_gettag(y), i, i + 1);
-    } else {
-        OBJ_DBG << "rtext not found...";
-    }
-}
-
 void setup_base_dac()
 {
     SoundExternalFactory<BaseDac> obj(OBJ_NAME);
     obj.useClick();
-
-    obj.addMethod("tooltip", &BaseDac::m_tooltip);
 }
