@@ -14,7 +14,10 @@
 #ifndef HOA_PROCESS_PROPS_H
 #define HOA_PROCESS_PROPS_H
 
+#include <functional>
+
 #include "ceammc_object.h"
+#include "datatype_property.h"
 
 using namespace ceammc;
 
@@ -32,6 +35,7 @@ HoaProcessPropsData processHoaProps(const AtomList& lst);
 
 class HoaProcessProps : public BaseObject {
     HoaProcessPropsData args_;
+    std::string prop_canvas_id_;
 
 public:
     HoaProcessProps(const PdArgs& args);
@@ -43,6 +47,18 @@ public:
     AtomList propIndex() const;
     AtomList propHarmDegree() const;
     AtomList propHarmOrder() const;
+
+    bool processAnyProps(t_symbol* sel, const AtomList& lst) override;
+    void onBang() override;
+    void onFloat(t_float f) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& lst) override;
+
+private:
+    bool eachProperty(const AtomList& lst,
+        std::function<bool(t_symbol*)> is_valid_fn,
+        std::function<void(Property*, t_symbol*, const AtomList&)> inner_process,
+        std::function<void(DataTypeProperty*, const std::string&, const AtomList&)> declared_process);
 };
 
 void setup_spat_hoa_process_props();
