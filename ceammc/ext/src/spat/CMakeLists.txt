@@ -27,7 +27,6 @@ set(HOA_SOURCES
     hoa_projector.cpp
     hoa_recomposer.cpp
     hoa_rotate.cpp
-    hoa_thisprocess.cpp
     hoa_wider.cpp
 )
 

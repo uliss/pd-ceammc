@@ -246,7 +246,6 @@ hoa.projector~
 hoa.recomposer~
 hoa.rotate~
 hoa.scope~
-hoa.thisprocess~
 hoa.wider~
 hw.apple_smc
 hw.apple_sms
