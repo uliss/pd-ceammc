@@ -15,6 +15,7 @@
 - list->props second outlet added for non-props elements
 - list.at @default property added (that outputs if element is not found)
 - list.walk second outlet added (with bang after reaching list last element)
+- list.separate enumeration support added
 - popup menu added to ui.radio in check list mode
 - ui.hgain~ alias added to create horizontal ui.gain~
 - ui.hgain2~ alias added to create horizontal ui.gain2~
