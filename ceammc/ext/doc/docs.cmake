@@ -177,6 +177,7 @@ set(DOC_FILES
     hoa.2d.recomposer~
     hoa.2d.rotate~
     hoa.2d.wider~
+    hoa.in
     hoa.process~
     hw.apple_smc
     hw.apple_sms

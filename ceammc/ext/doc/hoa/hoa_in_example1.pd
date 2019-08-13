@@ -1,0 +1,6 @@
+#N canvas 339 264 501 159 12;
+#X floatatom 89 64 5 0 0 0 - - -;
+#X obj 89 90 hoa.out;
+#X obj 89 38 hoa.in;
+#X connect 0 0 1 0;
+#X connect 2 0 0 0;

@@ -1274,6 +1274,9 @@
     <entry descr="a 2d fractional ambisonic order simulator" name="hoa.2d.wider~" ref_view="object">
       <xi:include href="hoa.2d.wider~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="message inlet for a patcher loaded by hoa.process~" name="hoa.in" ref_view="object">
+      <xi:include href="hoa.in.pddoc" parse="xml"/>
+    </entry>
     <entry descr="patcher loader for multichannel processing" name="hoa.process~" ref_view="object">
       <xi:include href="hoa.process~.pddoc" parse="xml"/>
     </entry>

@@ -20,7 +20,7 @@
 using namespace ceammc;
 
 class HoaXlet : public BaseObject {
-    IntPropertyMin* extra_;
+    IntPropertyMinEq* extra_;
 
 public:
     HoaXlet(const PdArgs& args);
