@@ -182,6 +182,7 @@ set(DOC_FILES
     hoa.out
     hoa.out~
     hoa.process~
+    hoa.@process
     hw.apple_smc
     hw.apple_sms
     hw.arduino
