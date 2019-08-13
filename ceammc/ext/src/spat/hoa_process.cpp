@@ -273,22 +273,22 @@ void HoaProcess::allocOutlets()
 HoaProcess::InOutInfo HoaProcess::calcNumChannels() const
 {
     bool hasin = false, hasout = false;
-    size_t nins = 0, nouts = 0;
+    size_t nextra_ins = 0, nextra_outs = 0;
 
     for (auto& in : instances_) {
         hasin = std::max<bool>(hasin, in.hasStaticInputSignal());
         hasout = std::max<bool>(hasout, in.hasStaticOutputSignal());
-        nins = std::max(nins, in.numExtraSignalInputs());
-        nouts = std::max(nouts, in.numExtraSignalOutputs());
+        nextra_ins = std::max(nextra_ins, in.numExtraSignalInputs());
+        nextra_outs = std::max(nextra_outs, in.numExtraSignalOutputs());
     }
 
     const size_t N = instances_.size();
-    const size_t NSTATIC_IN = N * size_t(hasin);
-    const size_t NSTATIC_OUT = N * size_t(hasout);
+    const size_t NSTATIC_IN = N * (hasin ? 1 : 0);
+    const size_t NSTATIC_OUT = N * (hasout ? 1 : 0);
 
     return {
-        { NSTATIC_IN + nins, NSTATIC_IN, nins, hasin },
-        { NSTATIC_OUT + nouts, NSTATIC_OUT, nouts, hasout }
+        { NSTATIC_IN + nextra_ins, NSTATIC_IN, nextra_ins, hasin },
+        { NSTATIC_OUT + nextra_outs, NSTATIC_OUT, nextra_outs, hasout }
     };
 }
 
