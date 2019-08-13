@@ -40,15 +40,15 @@ HoaProcessProps::HoaProcessProps(const PdArgs& args)
     {
         Property* p = createCbProperty("@pmode", &HoaProcessProps::propPMode);
         p->info().setType(PropertyInfoType::SYMBOL);
-        p->info().addEnum("2d");
-        p->info().addEnum("3d");
+        p->info().addEnum(SYM_2D);
+        p->info().addEnum(SYM_3D);
     }
 
     {
         Property* p = createCbProperty("@ptype", &HoaProcessProps::propPType);
         p->info().setType(PropertyInfoType::SYMBOL);
-        p->info().addEnum("harmonics");
-        p->info().addEnum("planewaves");
+        p->info().addEnum(SYM_HARMONICS);
+        p->info().addEnum(SYM_PLANEWAVES);
     }
 
     {
