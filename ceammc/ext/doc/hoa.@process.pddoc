@@ -42,6 +42,10 @@
         <inlets>
             <inlet>
                 <xinfo>set or request properties</xinfo>
+                <xinfo on="bang">pass bang message thru</xinfo>
+                <xinfo on="float">pass float message thru</xinfo>
+                <xinfo on="symbol">pass symbol message thru</xinfo>
+                <xinfo on="list">pass list message thru</xinfo>
             </inlet>
         </inlets>
         <outlets>
