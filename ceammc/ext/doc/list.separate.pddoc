@@ -39,7 +39,7 @@
 |           |
 [list.separate]
 |             ^|
-[m insert 0] [flush(
+[m insert 0] [bang, clear(
 |            |
 [data.list   ]
 |

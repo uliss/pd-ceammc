@@ -11,7 +11,7 @@
 #X obj 165 147 ml;
 #X obj 50 176 list.separate;
 #X obj 50 205 m insert 0;
-#X msg 174 205 flush;
+#X msg 174 205 bang \, clear;
 #X obj 50 234 data.list;
 #X obj 50 262 m set;
 #X msg 50 291 ;
