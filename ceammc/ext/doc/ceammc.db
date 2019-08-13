@@ -178,6 +178,7 @@ hoa.2d.wider~,hoa.wider~		?		?
 hoa.in		-		.
 hoa.in~		-		~
 hoa.out		.		-
+hoa.out~		-		~
 hoa.process~		?		?
 hw.apple_smc		.		.
 hw.apple_sms		.		.

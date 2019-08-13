@@ -180,6 +180,7 @@ set(DOC_FILES
     hoa.in
     hoa.in~
     hoa.out
+    hoa.out~
     hoa.process~
     hw.apple_smc
     hw.apple_sms
