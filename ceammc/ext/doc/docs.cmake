@@ -178,6 +178,7 @@ set(DOC_FILES
     hoa.2d.rotate~
     hoa.2d.wider~
     hoa.in
+    hoa.in~
     hoa.out
     hoa.process~
     hw.apple_smc

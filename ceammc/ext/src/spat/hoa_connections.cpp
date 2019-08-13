@@ -134,7 +134,7 @@ HoaXletTilde::HoaXletTilde(const PdArgs& args)
     , extra_(nullptr)
     , signal_(nullptr)
 {
-    extra_ = new IntPropertyMinEq("@index", positionalFloatArgument(0, 0), 0);
+    extra_ = new IntPropertyMinEq("@extra", positionalFloatArgument(0, 0), 0);
     createProperty(extra_);
 }
 

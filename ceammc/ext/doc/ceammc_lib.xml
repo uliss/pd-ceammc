@@ -1277,6 +1277,9 @@
     <entry descr="message inlet for a patcher loaded by hoa.process~" name="hoa.in" ref_view="object">
       <xi:include href="hoa.in.pddoc" parse="xml"/>
     </entry>
+    <entry descr="signal inlet for a patcher loaded by hoa.process~" name="hoa.in~" ref_view="object">
+      <xi:include href="hoa.in~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="message outlet for a patcher loaded by hoa.process~" name="hoa.out" ref_view="object">
       <xi:include href="hoa.out.pddoc" parse="xml"/>
     </entry>
