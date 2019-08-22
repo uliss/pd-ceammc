@@ -13,7 +13,7 @@
             <keywords>list search find</keywords>
             <since>0.6</since>
             <also>
-                <see>list.index</see>
+                <see>list.^search</see>
             </also>
         </meta>
         <info>
