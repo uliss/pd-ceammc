@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "ui_meter.h"
 #include "ceammc_convert.h"
-#include "ceammc_dsp_ui.h"
+#include "ceammc_ui.h"
 
 static const t_float MIN_DB_VALUE = -90;
 static const int NUM_LEDS = 13;
@@ -200,7 +200,7 @@ void UIMeter::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_out
 
 void UIMeter::setup()
 {
-    UIDspFactory<UIMeter> obj("ui.meter~", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK);
+    UIObjectFactory<UIMeter> obj("ui.meter~", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK);
     obj.addAlias("ui.m~");
     obj.hideLabelInner();
 

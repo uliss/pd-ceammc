@@ -81,7 +81,6 @@ public:
     t_edspbox* asDspBox() const;
     t_object* asPdObject() const;
     t_pd* asPd() const;
-    t_outlet* createOutlet();
     t_canvas* canvas() const;
     bool isPatchLoading() const;
     bool isPatchEdited() const;
@@ -98,6 +97,7 @@ public:
     void updateSize();
     void resize(int w, int h);
     void onPropChange(t_symbol* prop_name);
+    void onZoom(t_float z);
     void okSize(t_rect* newrect);
     void setDrawParams(t_edrawparams* params);
     float zoom() const;
@@ -114,6 +114,7 @@ public:
     void onMouseWheel(t_object* view, const t_pt& pt, long modifiers, double delta);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
     void onPopup(t_symbol* menu_name, long item_idx);
+    bool outputMouseEvents() const;
 
     // input
     void onBang();
@@ -160,6 +161,8 @@ public:
     // outlets
     size_t numInlets() const;
     size_t numOutlets() const;
+    const std::vector<t_outlet*>& outlets() const { return outlets_; }
+    t_outlet* createOutlet();
 
     // properties
     bool hasProperty(t_symbol* name) const;

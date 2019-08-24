@@ -14,7 +14,7 @@
 #include "../ui/ui_gain.h"
 #include "test_ui.h"
 
-UI_COMPLETE_DSP_TEST_SETUP(Gain)
+UI_COMPLETE_TEST_SETUP(Gain)
 
 TEST_CASE("ui.gain~", "[ui.gain~]")
 {

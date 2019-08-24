@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "ui_gain.h"
 #include "ceammc_convert.h"
-#include "ceammc_dsp_ui.h"
+#include "ceammc_ui.h"
 #include "ceammc_preset.h"
 
 static const float SCALE_ALPHA_BLEND = 0.7;
@@ -265,7 +265,7 @@ void UIGain::setup()
     static t_symbol* SYM_MAX = gensym("max");
     static t_symbol* SYM_MIN = gensym("min");
 
-    UIDspFactory<UIGain> obj("ui.gain~");
+    UIObjectFactory<UIGain> obj("ui.gain~");
     obj.addAlias("ui.hgain~");
     obj.addAlias("ui.vgain~");
 

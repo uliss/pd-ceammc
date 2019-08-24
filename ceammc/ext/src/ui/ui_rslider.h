@@ -36,6 +36,7 @@ private:
     t_rgba prop_color_knob;
     float prop_min, prop_max;
     int prop_mouse_sync;
+    int prop_mouse_events;
 
 private:
     UILayer knob_layer_;

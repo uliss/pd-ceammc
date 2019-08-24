@@ -14,7 +14,7 @@
 
 #include "ui_scope.h"
 #include "ceammc_convert.h"
-#include "ceammc_dsp_ui.h"
+#include "ceammc_ui.h"
 
 static const size_t N_SAMPLES = 150;
 
@@ -185,7 +185,7 @@ void UIScope::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 
 void UIScope::setup()
 {
-    UIDspFactory<UIScope> obj("ui.scope~");
+    UIObjectFactory<UIScope> obj("ui.scope~");
     obj.setDefaultSize(150, 100);
 
     obj.useMouseEvents(UI_MOUSE_DBL_CLICK | UI_MOUSE_DOWN);

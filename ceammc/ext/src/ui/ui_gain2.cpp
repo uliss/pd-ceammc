@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_gain2.h"
-#include "ceammc_dsp_ui.h"
+#include "ceammc_ui.h"
 
 UIGain2::UIGain2()
 {
@@ -48,7 +48,7 @@ void UIGain2::setup()
     static t_symbol* SYM_MAX = gensym("max");
     static t_symbol* SYM_MIN = gensym("min");
 
-    UIDspFactory<UIGain2> obj("ui.gain2~");
+    UIObjectFactory<UIGain2> obj("ui.gain2~");
     obj.addAlias("ui.vgain2~");
     obj.addAlias("ui.hgain2~");
 

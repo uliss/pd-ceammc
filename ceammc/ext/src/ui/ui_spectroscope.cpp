@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "ui_spectroscope.h"
 #include "ceammc_convert.h"
-#include "ceammc_dsp_ui.h"
+#include "ceammc_ui.h"
 #include "ceammc_window.h"
 
 #include <algorithm>
@@ -413,7 +413,7 @@ void UISpectroscope::setup()
 {
     static const bool init = init_hann_window();
 
-    UIDspFactory<UISpectroscope> obj("ui.spectroscope~", EBOX_GROWINDI);
+    UIObjectFactory<UISpectroscope> obj("ui.spectroscope~", EBOX_GROWINDI);
     obj.useMouseEvents(UI_MOUSE_DOWN);
     obj.addAlias("ui.ssc~");
     obj.setDefaultSize(150, 100);

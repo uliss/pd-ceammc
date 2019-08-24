@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_ui_dsp_object.h"
-#include "ceammc_dsp_ui.h"
+#include "ceammc_ui.h"
 #include "ceammc_preset.h"
 
 #include "ceammc_cicm.h"
@@ -222,9 +222,18 @@ void UIDspObject::onPopup(t_symbol* menu_name, long item_idx)
 {
 }
 
+bool UIDspObject::outputMouseEvents() const
+{
+    return true;
+}
+
 void UIDspObject::onPropChange(t_symbol* /*prop_name*/)
 {
     redrawBGLayer();
+}
+
+void UIDspObject::onZoom(t_float z)
+{
 }
 
 void UIDspObject::okSize(t_rect* newrect)

@@ -2,7 +2,6 @@
 #define UI_EXTERNAL_TEST_H
 
 #include "ceammc_atomlist.h"
-#include "ceammc_dsp_ui.h"
 #include "ceammc_format.h"
 #include "ceammc_pd.h"
 #include "ceammc_ui.h"
@@ -27,19 +26,6 @@ using namespace ceammc;
     {                                                                               \
         pd_init();                                                                  \
         epd_init();                                                                 \
-        UI##T::setup();                                                             \
-        LogExternalOutput::setup();                                                 \
-        ListenerExternal::setup();                                                  \
-    }
-
-#define UI_COMPLETE_DSP_TEST_SETUP(T)                                               \
-    using namespace ceammc;                                                         \
-    typedef TestUIPtr<UI##T, UIDspFactory<UI##T> > Test##T;                         \
-    typedef TestUIExternal<UI##T> TestExt##T;                                       \
-    static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");     \
-    static void ui_test_init()                                                      \
-    {                                                                               \
-        pd_init();                                                                  \
         UI##T::setup();                                                             \
         LogExternalOutput::setup();                                                 \
         ListenerExternal::setup();                                                  \

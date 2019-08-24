@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_number_tilde.h"
-#include "ceammc_dsp_ui.h"
+#include "ceammc_ui.h"
 
 UINumberTilde::UINumberTilde()
     : clock_(this, &UINumberTilde::updateTextValue)
@@ -99,7 +99,7 @@ void UINumberTilde::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long
 
 void UINumberTilde::setup()
 {
-    UIDspFactory<UINumberTilde> obj("ui.number~", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK);
+    UIObjectFactory<UINumberTilde> obj("ui.number~", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK);
     obj.addAlias("ui.n~");
     obj.setDefaultSize(80, 15);
     obj.hideLabelInner();

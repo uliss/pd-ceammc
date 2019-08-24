@@ -20,6 +20,7 @@ using namespace ceammc;
 
 class HoaProcessRoute : public BaseObject {
     int index_;
+    t_symbol* prop_name_;
 
 public:
     HoaProcessRoute(const PdArgs& args);

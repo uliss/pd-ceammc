@@ -226,6 +226,11 @@ void UIObject::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
 }
 
+bool UIObject::outputMouseEvents() const
+{
+    return true;
+}
+
 void UIObject::okSize(t_rect* newrect)
 {
 }

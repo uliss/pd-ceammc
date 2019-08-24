@@ -67,7 +67,6 @@ public:
     t_object* asPdObject() const;
     t_gobj* asGObj() const;
     t_pd* asPd() const;
-    t_outlet* createOutlet();
     t_canvas* canvas() const;
     bool isPatchLoading() const;
     bool isPatchEdited() const;
@@ -99,11 +98,12 @@ public:
     void onMouseEnter(t_object* view, const t_pt& pt, long modifiers);
     void onMouseWheel(t_object* view, const t_pt& pt, long modifiers, double delta);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
+    void onPopup(t_symbol* menu_name, long item_idx);
+    bool outputMouseEvents() const;
 
     void okSize(t_rect* newrect);
     void setDrawParams(t_edrawparams* params);
     void onZoom(t_float z);
-    void onPopup(t_symbol* menu_name, long item_idx);
     void onPropChange(t_symbol* name);
     void write(const std::string& fname);
     void read(const std::string& fname);
@@ -147,14 +147,18 @@ public:
     float zoom() const;
     void setCursor(t_cursor c);
 
+    // presets
     void presetInit();
     void bindPreset(t_symbol* name);
     void unbindPreset(t_symbol* name);
     void rebindPreset(t_symbol* from, t_symbol* to);
     void handlePresetNameChange();
 
+    // xlets
     size_t numInlets() const;
     size_t numOutlets() const;
+    const std::vector<t_outlet*>& outlets() const { return outlets_; }
+    t_outlet* createOutlet();
 
     bool hasProperty(t_symbol* name) const;
     bool getProperty(t_symbol* name, t_float& f) const;
