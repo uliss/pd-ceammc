@@ -19,6 +19,13 @@
 using namespace ceammc;
 
 class UIRSlider : public UIObject {
+    enum EditMode {
+        CREATE = 0,
+        MOVE,
+        CHANGE_LOW,
+        CHANGE_HIGH
+    };
+
     enum DragMode {
         NONE = 0,
         LOW,
@@ -35,6 +42,7 @@ private:
     float vlow_, vhigh_;
     bool is_horizontal_;
     DragMode drag_mode_;
+    EditMode edit_mode_;
     t_pt click_pt_;
 
 public:
@@ -71,6 +79,7 @@ private:
     void redrawKnob();
     void output();
     bool setValue(const AtomList& lst);
+    EditMode keyMod2EditMode(long mod, float value) const;
 
 public:
     static void setup();
