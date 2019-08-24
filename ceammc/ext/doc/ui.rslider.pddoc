@@ -22,9 +22,16 @@
             </also>
         </meta>
         <info>
-            <par>Hold *Shift* to move ranges separately. When @sync property is true, outputs value
+            <par>When @sync property is true, outputs value
             on every mouse move</par>
         </info>
+        <mouse>
+            <event editmode="false" type="left-click">jump both ends to coord under mouse pointer</event>
+            <event editmode="false" type="left-click" keys="Alt">jump nearest border to coord under mouse pointer</event>
+            <event editmode="false" type="drag">increase slider range</event>
+            <event editmode="false" type="drag" keys="Alt">change nearest border coord</event>
+            <event editmode="false" type="drag" keys="Shift">move slider range</event>
+        </mouse>
         <properties>
             <property name="@min" type="float" default="0">minimum allowed slider value</property>
             <property name="@max" type="float" default="1">maximum allowed slider value</property>

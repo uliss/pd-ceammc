@@ -17,6 +17,7 @@
 - list.walk second outlet added (with bang after reaching list last element)
 - list.separate enumeration support added
 - popup menu added to ui.radio in check list mode
+- ui.rslider move added (with SHIFT, change with ALT)
 - ui.hgain~ alias added to create horizontal ui.gain~
 - ui.hgain2~ alias added to create horizontal ui.gain2~
 - ui.gain~ and ui.gain2~ @relative property added for relative input mode (by default)
