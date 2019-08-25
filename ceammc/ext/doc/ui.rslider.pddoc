@@ -22,7 +22,8 @@
             </also>
         </meta>
         <info>
-            <par>When @sync property is true, outputs value on every mouse move</par>
+            <par>By default outputs messages on mouse click, mouse up and dragging</par>
+            <par>To output messages only on specified event use: @mouse_events=1 and [ui.mouse_filter]</par>
         </info>
         <mouse>
             <event editmode="false" type="left-click">jump both ends to coord under mouse
