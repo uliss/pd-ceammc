@@ -23,12 +23,18 @@
             <par>pass only specified mouse events from ui.* objects</par>
         </info>
         <properties>
-            <property name="@mouse_up" type="int" default="0" enum="0 1">passing a @mouse_up events</property>
-            <property name="@mouse_down" type="int" default="0" enum="0 1">passing a @mouse_down events</property>
-            <property name="@mouse_leave" type="int" default="0" enum="0 1">passing a @mouse_leave events</property>
-            <property name="@mouse_enter" type="int" default="0" enum="0 1">passing a @mouse_enter events</property>
-            <property name="@mouse_move" type="int" default="0" enum="0 1">passing a @mouse_move events</property>
-            <property name="@mouse_drag" type="int" default="0" enum="0 1">passing a @mouse_drag events</property>
+            <property name="@mouse_up" type="int" default="0" enum="0 1">passing a @mouse_up
+            events</property>
+            <property name="@mouse_down" type="int" default="0" enum="0 1">passing a @mouse_down
+            events</property>
+            <property name="@mouse_leave" type="int" default="0" enum="0 1">passing a @mouse_leave
+            events</property>
+            <property name="@mouse_enter" type="int" default="0" enum="0 1">passing a @mouse_enter
+            events</property>
+            <property name="@mouse_move" type="int" default="0" enum="0 1">passing a @mouse_move
+            events</property>
+            <property name="@mouse_drag" type="int" default="0" enum="0 1">passing a @mouse_drag
+            events</property>
             <property name="@up" type="alias">alias to @mouse_up property</property>
             <property name="@down" type="alias">alias to @mouse_down property</property>
             <property name="@leave" type="alias">alias to @mouse_leave property</property>
