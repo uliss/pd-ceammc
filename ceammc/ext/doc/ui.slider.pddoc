@@ -46,8 +46,6 @@
             <property name="@midi_pickup" type="int" enum="0 1" default="1">pickup current value.
             If slider is binded to value, first time you should pass over this value to make
             binding. It prevents from sudden value change on first control change</property>
-            <property name="@mouse_up_output" type="int" enum="0 1" default="0">if output only on
-            mouse-up event</property>
             <property name="@active_scale" type="int" enum="0 1" default="0">if should draw active
             scale</property>
             <property name="@value" type="float" default="0">current value</property>
@@ -59,6 +57,8 @@
             <property name="@size" type="list">element size (width, height pair)</property>
             <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
             to the lowest level</property>
+            <property name="@mouse_events" type="int" enum="0 1" default="0">mouse events output mode. If on outputs
+            @mouse_down, @mouse_up and @mouse_drag events</property>
             <property name="@knob_color" type="list">knob color (list of red, green, blue values in
             0-1 range)</property>
             <property name="@background_color" type="list">element background color (list of red,

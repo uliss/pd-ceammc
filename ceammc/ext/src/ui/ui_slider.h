@@ -14,7 +14,6 @@ protected:
     t_rgba prop_knob_color;
     t_rgba prop_text_color;
     int prop_rel_mode;
-    int mouse_up_output;
     int prop_active_scale;
     t_symbol* prop_value_pos;
     int prop_value_precision;
