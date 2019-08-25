@@ -231,6 +231,11 @@ void UISliders::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, 
     redrawAll();
 }
 
+void UISliders::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
+{
+    outputList();
+}
+
 void UISliders::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
     onMouseDown(view, pt, pt, modifiers);
@@ -559,7 +564,8 @@ void UISliders::setup()
     obj.usePresets();
     obj.useList();
     obj.useBang();
-    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK);
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK);
+    obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
     obj.setDefaultSize(150, 100);
 
