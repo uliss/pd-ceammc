@@ -23,7 +23,8 @@ class UIRSlider : public UIObject {
         CREATE = 0,
         MOVE,
         CHANGE_LOW,
-        CHANGE_HIGH
+        CHANGE_HIGH,
+        OUTPUT
     };
 
     enum DragMode {
@@ -35,8 +36,6 @@ class UIRSlider : public UIObject {
 private:
     t_rgba prop_color_knob;
     float prop_min, prop_max;
-    int prop_mouse_sync;
-    int prop_mouse_events;
 
 private:
     UILayer knob_layer_;

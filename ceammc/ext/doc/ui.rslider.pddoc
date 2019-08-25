@@ -27,6 +27,7 @@
         </info>
         <mouse>
             <event editmode="false" type="left-click">jump both ends to coord under mouse pointer</event>
+            <event editmode="false" type="left-click" keys="Ctrl">outputs current slider value</event>
             <event editmode="false" type="left-click" keys="Alt">jump nearest border to coord under mouse pointer</event>
             <event editmode="false" type="drag">increase slider range</event>
             <event editmode="false" type="drag" keys="Alt">change nearest border coord</event>
@@ -35,8 +36,6 @@
         <properties>
             <property name="@min" type="float" default="0">minimum allowed slider value</property>
             <property name="@max" type="float" default="1">maximum allowed slider value</property>
-            <property name="@sync" type="int" enum="0 1" default="0">mouse sync. If true, outputs
-            while mouse dragging, otherwise outputs only on mouse down/up</property>
             <property name="@value" type="list">current slider value</property>
             <property name="@low" type="float" default="0">low (left) selection value</property>
             <property name="@high" type="float" default="0">max (right) selection value</property>

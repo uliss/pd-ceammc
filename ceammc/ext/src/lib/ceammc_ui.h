@@ -53,6 +53,11 @@ enum MouseEvents {
 };
 // clang-format on
 
+enum class MouseEventsOutput {
+    DEFAULT_OFF,
+    DEFAULT_ON
+};
+
 template <class UI>
 class UIObjectFactory {
     std::string name_;
@@ -314,6 +319,13 @@ public:
 
         if (events & UI_MOUSE_WHEEL)
             eclass_addmethod(pd_class, UI_METHOD_PTR(mouseWheel), "mousewheel", A_GIMME, 0);
+    }
+
+    void outputMouseEvents(MouseEventsOutput t = MouseEventsOutput::DEFAULT_OFF)
+    {
+        addBoolProperty("mouse_events", _("Output mouse events"),
+            t == MouseEventsOutput::DEFAULT_ON,
+            &UI::prop_mouse_events, _("Basic"));
     }
 
     void useKeys()
@@ -781,7 +793,7 @@ public:
         return v1 - v0;
     }
 
-    static void outputMouseEvent(UI* z, t_symbol* s, bool value)
+    static void outputMouse(UI* z, t_symbol* s, bool value)
     {
         if (z->outputMouseEvents() && !z->outlets().empty()) {
             t_atom a;
@@ -796,9 +808,9 @@ public:
 
         updateMousePos(pt);
 
-        outputMouseEvent(z, SYM, true);
+        outputMouse(z, SYM, true);
         z->onMouseMove(view, pt, modifiers);
-        outputMouseEvent(z, SYM, false);
+        outputMouse(z, SYM, false);
     }
 
     static void mouseDown(UI* z, t_object* view, t_pt pt, t_pt abs_pt, long modifiers)
@@ -807,9 +819,9 @@ public:
 
         updateMousePos(pt);
 
-        outputMouseEvent(z, SYM, true);
+        outputMouse(z, SYM, true);
         z->onMouseDown(view, pt, abs_pt, modifiers);
-        outputMouseEvent(z, SYM, false);
+        outputMouse(z, SYM, false);
     }
 
     static void mouseUp(UI* z, t_object* view, t_pt pt, long modifiers)
@@ -818,9 +830,9 @@ public:
 
         updateMousePos(pt);
 
-        outputMouseEvent(z, SYM, true);
+        outputMouse(z, SYM, true);
         z->onMouseUp(view, pt, modifiers);
-        outputMouseEvent(z, SYM, false);
+        outputMouse(z, SYM, false);
     }
 
     static void mouseDrag(UI* z, t_object* view, t_pt pt, long modifiers)
@@ -829,9 +841,9 @@ public:
 
         updateMousePos(pt);
 
-        outputMouseEvent(z, SYM, true);
+        outputMouse(z, SYM, true);
         z->onMouseDrag(view, pt, modifiers);
-        outputMouseEvent(z, SYM, false);
+        outputMouse(z, SYM, false);
     }
 
     static void mouseLeave(UI* z, t_object* view, t_pt pt, long modifiers)
@@ -845,9 +857,9 @@ public:
         pos.y = pos.x;
         updateMousePos(pos);
 
-        outputMouseEvent(z, SYM, true);
+        outputMouse(z, SYM, true);
         z->onMouseLeave(view, pt, modifiers);
-        outputMouseEvent(z, SYM, false);
+        outputMouse(z, SYM, false);
     }
 
     static void mouseEnter(UI* z, t_object* view, t_pt pt, long modifiers)
@@ -856,9 +868,9 @@ public:
 
         updateMousePos(pt);
 
-        outputMouseEvent(z, SYM, true);
+        outputMouse(z, SYM, true);
         z->onMouseEnter(view, pt, modifiers);
-        outputMouseEvent(z, SYM, false);
+        outputMouse(z, SYM, false);
     }
 
     static void mouseWheel(UI* z, t_object* view, t_pt pt, long modifiers, double delta)

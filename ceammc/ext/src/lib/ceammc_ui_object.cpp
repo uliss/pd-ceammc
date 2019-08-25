@@ -35,6 +35,7 @@ UIObject::UIObject()
     , prop_color_background(rgba_white)
     , prop_color_border(rgba_black)
     , prop_color_label(rgba_black)
+    , prop_mouse_events(0)
 {
     appendToLayerList(&bg_layer_);
 }
@@ -228,7 +229,7 @@ void UIObject::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 
 bool UIObject::outputMouseEvents() const
 {
-    return true;
+    return prop_mouse_events;
 }
 
 void UIObject::okSize(t_rect* newrect)

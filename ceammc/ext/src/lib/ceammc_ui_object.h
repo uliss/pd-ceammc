@@ -56,6 +56,7 @@ public:
     t_rgba prop_color_background;
     t_rgba prop_color_border;
     t_rgba prop_color_label;
+    int prop_mouse_events;
 
 public:
     UIObject();
