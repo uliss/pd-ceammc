@@ -112,6 +112,8 @@
 |
 |
 |
+[ui.mf @up]
+|
 [route @select_samp]
 |
 [flow.change #a]        [loadbang]

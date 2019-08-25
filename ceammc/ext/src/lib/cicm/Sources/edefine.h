@@ -722,17 +722,19 @@ typedef enum {
 typedef enum t_cursor {
     ECURSOR_LEFT_PTR = 0, /*!< The left_ptr string. */
     ECURSOR_CENTER_PTR = 1, /*!< The center_ptr string. */
-    ECURSOR_SDOUBLE_ARROW = 2, /*!< The sb_v_double_arrow string. */
-    ECURSOR_PLUS = 3, /*!< The plus string. */
-    ECURSOR_HAND = 4, /*!< The hand2 string. */
-    ECURSOR_CIRCLE = 5, /*!< The circle string. */
-    ECURSOR_X = 6, /*!< The X_cursor string. */
-    ECURSOR_BOTTOM = 7, /*!< The bottom_side string. */
-    ECURSOR_RIGHT_CORNER = 8, /*!< The bottom_right_corner string. */
-    ECURSOR_RIGHT_SIDE = 9, /*!< The right_side string. */
-    ECURSOR_DOUBLE_ARROW = 10, /*!< The double_arrow string. */
-    ECURSOR_EXCHANGE = 11, /*!< The exchange string. */
-    ECURSOR_XTERM = 12 /*!< The xterm string. */
+    ECURSOR_PLUS = 2, /*!< The plus string. */
+    ECURSOR_HAND = 3, /*!< The hand2 string. */
+    ECURSOR_CIRCLE = 4, /*!< The circle string. */
+    ECURSOR_X = 5, /*!< The X_cursor string. */
+    ECURSOR_BOTTOM = 6, /*!< The bottom_side string. */
+    ECURSOR_RIGHT_CORNER = 7, /*!< The bottom_right_corner string. */
+    ECURSOR_RIGHT_SIDE = 8, /*!< The right_side string. */
+    ECURSOR_LEFT_SIDE = 9, /*!< The left_side string. */
+    ECURSOR_EXCHANGE = 10, /*!< The exchange string. */
+    ECURSOR_XTERM = 11, /*!< The xterm string. */
+    ECURSOR_MOVE = 12, /*!< The move cursor */
+    ECURSOR_VDOUBLE_ARROW = 13, /*!< The sb_v_double_arrow string. */
+    ECURSOR_HDOUBLE_ARROW = 14 /*!< The sb_h_double_arrow string. */
 } ebox_cursors;
 
 /**
