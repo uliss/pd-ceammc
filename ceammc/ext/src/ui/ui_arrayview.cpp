@@ -1021,11 +1021,17 @@ void UIArrayView::setup()
     obj.addProperty("cursor_phase", &UIArrayView::cursorPosPhase, &UIArrayView::setCursorPosPhase);
     obj.addProperty("cursor_sec", &UIArrayView::cursorPosSec, &UIArrayView::setCursorPosSec);
     obj.addProperty("cursor_ms", &UIArrayView::cursorPosMs, &UIArrayView::setCursorPosMs);
+    obj.setPropertyUnits(gensym("cursor_samp"), gensym("samp"));
+    obj.setPropertyUnits(gensym("cursor_sec"), gensym("sec"));
+    obj.setPropertyUnits(gensym("cursor_ms"), gensym("msec"));
 
     obj.addProperty("select_samp", &UIArrayView::selectPosSample, &UIArrayView::setSelectPosSample);
     obj.addProperty("select_phase", &UIArrayView::selectPosPhase, &UIArrayView::setSelectPosPhase);
     obj.addProperty("select_sec", &UIArrayView::selectPosSec, &UIArrayView::setSelectPosSec);
     obj.addProperty("select_ms", &UIArrayView::selectPosMs, &UIArrayView::setSelectPosMs);
+    obj.setPropertyUnits(gensym("select_samp"), gensym("samp"));
+    obj.setPropertyUnits(gensym("select_sec"), gensym("sec"));
+    obj.setPropertyUnits(gensym("select_ms"), gensym("msec"));
 
     obj.addProperty("label_top", &UIArrayView::labelTopRight, &UIArrayView::setLabelTopRight);
     obj.addProperty("label_bottom", &UIArrayView::labelBottomRight, &UIArrayView::setLabelBottomRight);
@@ -1033,6 +1039,9 @@ void UIArrayView::setup()
     obj.addProperty("size_samp", &UIArrayView::sizeSamples, 0);
     obj.addProperty("size_sec", &UIArrayView::sizeSec, 0);
     obj.addProperty("size_ms", &UIArrayView::sizeMs, 0);
+    obj.setPropertyUnits(gensym("size_samp"), gensym("samp"));
+    obj.setPropertyUnits(gensym("size_sec"), gensym("sec"));
+    obj.setPropertyUnits(gensym("size_ms"), gensym("msec"));
 
     obj.addMethod("update", &UIArrayView::m_update);
     obj.addMethod("select", &UIArrayView::m_selectSamples);

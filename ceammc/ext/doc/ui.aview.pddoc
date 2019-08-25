@@ -16,7 +16,7 @@
         <properties>
             <property name="@array" type="symbol">array name</property>
             <!-- cursor-->
-            <property name="@cursor_samp" type="int" default="0">cursor position in
+            <property name="@cursor_samp" type="int" default="0" units="sample">cursor position in
             samples</property>
             <property name="@cursor_phase" type="float" minvalue="0" maxvalue="1" default="0">
             cursor position in 0-1 range</property>
@@ -25,11 +25,11 @@
             <property name="@cursor_ms" type="float" units="millisecond" default="0">cursor
             position in milliseconds</property>
             <!-- selection -->
-            <property name="@select_samp" type="list">selection range in samples, pair of values:
+            <property name="@select_samp" type="list" units="sample">selection range in samples, pair of values:
             begin, end</property>
-            <property name="@select_sec" type="list">selection range in seconds, pair of values:
+            <property name="@select_sec" type="list" units="second">selection range in seconds, pair of values:
             begin, end</property>
-            <property name="@select_ms" type="list">selection range in milliseconds, pair of
+            <property name="@select_ms" type="list" units="millisecond" >selection range in milliseconds, pair of
             values: begin, end</property>
             <property name="@select_phase" type="list">selection range noramlized to 0-1 range,
             pair of values: begin, end</property>
@@ -42,7 +42,7 @@
             <property name="@label_bottom" type="symbol">bottom right label if @show_labels is
             on</property>
             <!-- size -->
-            <property name="@size_samp" type="int" minvalue="0" readonly="true">array size in
+            <property name="@size_samp" type="int" minvalue="0" readonly="true" units="sample">array size in
             samples</property>
             <property name="@size_sec" type="float" minvalue="0" readonly="true" units="second">
             array size in seconds</property>
