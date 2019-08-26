@@ -13,6 +13,16 @@
             <keywords>ui array view</keywords>
             <since>0.6</since>
         </meta>
+        <mouse>
+            <event editmode="false" type="left-click">move view cursor under mouse
+            pointer</event>
+            <event editmode="false" type="left-click" keys="Ctrl">starts range selection</event>
+            <event editmode="false" type="left-click" keys="Alt">edit selection nearest border</event>
+            <event editmode="false" type="left-click" keys="Shift">starts moving selection</event>
+            <event editmode="false" type="drag">move view cursor</event>
+            <event editmode="false" type="drag" keys="Alt">change nearest selection border</event>
+            <event editmode="false" type="drag" keys="Shift">move selection</event>
+        </mouse>
         <properties>
             <property name="@array" type="symbol">array name</property>
             <!-- cursor-->
@@ -104,7 +114,7 @@
 |
 [snd.file]
 |
-[update(  /*Shift+drag - select region to play*/
+[update(  /*Ctrl+drag - select region to play*/
 |
 [ui.aview @array=array_view @show_labels=1 @size=300x80]
 |
