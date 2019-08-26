@@ -534,7 +534,7 @@ TEST_CASE("ui.knob", "[ui.knob]")
                                  "@knob_color", "@label", "@label_align", "@label_color")
             + LA("@label_inner", "@label_margins", "@label_side", "@label_valign",
                 "@max", "@midi_channel", "@midi_control")
-            + LA("@midi_pickup", "@min", "@pinned", "@presetname", "@receive",
+            + LA("@midi_pickup", "@min", "@mouse_events", "@pinned", "@presetname", "@receive",
                 "@scale_color", "@send", "@show_range", "@size", "@value");
         REQUIRE(props == desired);
 

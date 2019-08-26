@@ -1000,7 +1000,7 @@ void UIArrayView::setup()
 {
     UIObjectFactory<UIArrayView> obj("ui.aview");
 
-    obj.setDefaultSize(480, 120);
+    obj.setDefaultSize(300, 100);
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_MOVE | UI_MOUSE_LEAVE | UI_MOUSE_DRAG);
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_ON);
     obj.useFloat();

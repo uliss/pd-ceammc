@@ -34,7 +34,7 @@ TEST_CASE("ui.aview", "[ui.aview]")
         REQUIRE(t->numInlets() == 1);
         REQUIRE(t->numOutlets() == 1);
 
-        REQUIRE_UI_LIST_PROPERTY(t, "size", LF(480, 120));
+        REQUIRE_UI_LIST_PROPERTY(t, "size", LF(300, 100));
         REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_samp", 0);
         REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_phase", 0);
         REQUIRE_UI_FLOAT_PROPERTY(t, "cursor_sec", 0);
