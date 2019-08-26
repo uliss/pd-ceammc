@@ -14,7 +14,6 @@ UISlider::UISlider()
     , prop_knob_color(hex_to_rgba(DEFAULT_ACTIVE_COLOR))
     , prop_text_color(hex_to_rgba(DEFAULT_BORDER_COLOR))
     , prop_rel_mode(0)
-    , mouse_up_output(0)
     , prop_active_scale(0)
     , prop_value_pos(gensym("center"))
     , prop_value_precision(2)
@@ -114,8 +113,7 @@ void UISlider::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long)
         else
             setValue(1.0 - (pt.y / r.height));
 
-        if (!mouse_up_output)
-            output();
+        output();
 
         // redraw immidiately
         redrawKnob();
@@ -146,16 +144,13 @@ void UISlider::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
             setValue(1.0 - (pt.y / r.height));
     }
 
-    if (!mouse_up_output)
-        output();
-
+    output();
     redrawKnob();
 }
 
 void UISlider::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
-    if (mouse_up_output)
-        output();
+    output();
 }
 
 void UISlider::onDblClick(t_object* view, const t_pt& pt, long modifiers)
@@ -178,6 +173,7 @@ void UISlider::setup()
     obj.useFloat();
     obj.usePresets();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK | UI_MOUSE_UP);
+    obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
     obj.addMethod("+", &UISingleValue::m_plus);
     obj.addMethod("-", &UISingleValue::m_minus);
@@ -201,7 +197,6 @@ void UISlider::setup()
     obj.addProperty("midi_control", _("MIDI control"), 0, &UISingleValue::prop_midi_ctl, "MIDI");
     obj.setPropertyRange("midi_control", 0, 128);
     obj.addProperty("midi_pickup", _("MIDI pickup"), true, &UISingleValue::prop_midi_pickup, "MIDI");
-    obj.addProperty("mouse_up_output", _("Output on mouse up"), false, &UISlider::mouse_up_output, "Main");
     obj.addProperty("active_scale", _("Draw active scale"), false, &UISlider::prop_active_scale, "Main");
     obj.addProperty("show_value", _("Show value in horizontal mode"), false, &UISingleValue::prop_show_value, "Misc");
     obj.addProperty("value_pos", _("Value position"), "center", &UISlider::prop_value_pos, "left center right", "Misc");

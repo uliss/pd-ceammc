@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "hoa_2d_scope.h"
 #include "ceammc_convert.h"
-#include "ceammc_dsp_ui.h"
+#include "ceammc_ui.h"
 
 static const int MIN_SIZE = 20;
 static const int HOA_DISPLAY_NPOINTS = 65;
@@ -260,7 +260,7 @@ void Hoa2dScope::drawHarmonics()
 
 void Hoa2dScope::setup()
 {
-    UIDspFactory<Hoa2dScope> obj("hoa.scope~", EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
+    UIObjectFactory<Hoa2dScope> obj("hoa.scope~", EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
     obj.setDefaultSize(225, 225);
 
     // hide some properties

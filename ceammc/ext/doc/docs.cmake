@@ -467,6 +467,7 @@ set(DOC_FILES
     ui.knob
     ui.matrix
     ui.menu
+    ui.mouse_filter
     ui.number
     ui.label
     ui.link

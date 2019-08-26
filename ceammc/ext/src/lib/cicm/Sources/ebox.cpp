@@ -30,10 +30,9 @@ std::string ceammc_raute2dollar(const char* s);
 t_symbol* ceammc_dollar2raute(const char* s);
 std::string ceammc_quote_str(const std::string& str, char q = '\'');
 
-static std::array<const char*, ECURSOR_XTERM + 1> my_cursorlist = {
+static std::array<const char*, ECURSOR_HDOUBLE_ARROW + 1> my_cursorlist = {
     "left_ptr",
     "center_ptr",
-    "sb_v_double_arrow",
     "plus",
     "hand2",
     "circle",
@@ -41,9 +40,12 @@ static std::array<const char*, ECURSOR_XTERM + 1> my_cursorlist = {
     "bottom_side",
     "bottom_right_corner",
     "right_side",
-    "double_arrow",
+    "left_side",
     "exchange",
-    "xterm"
+    "xterm",
+    "fleur",
+    "sb_v_double_arrow",
+    "sb_h_double_arrow",
 };
 
 static std::array<const char*, ECAPSTYLE_SQUARE + 1> my_capstylelist = {

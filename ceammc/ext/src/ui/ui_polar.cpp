@@ -548,6 +548,7 @@ void UIPolar::setup()
     obj.useBang();
 
     obj.useMouseEvents(UI_MOUSE_UP | UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_WHEEL);
+    obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
     obj.addMethod("set", &UIPolar::m_set);
     obj.addMethod("polar", &UIPolar::m_polar);

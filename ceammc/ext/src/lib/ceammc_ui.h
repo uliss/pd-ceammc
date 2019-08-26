@@ -16,6 +16,9 @@
 
 namespace ceammc {
 
+class UIObject;
+class UIDspObject;
+
 static const char* DEFAULT_ACTIVE_COLOR = "0. 0.75 1. 1.";
 static const char* DEFAULT_BORDER_COLOR = "0.6 0.6 0.6 1.";
 static const char* DEFAULT_BACKGROUND_COLOR = "0.93 0.93 0.93 1.";
@@ -50,6 +53,11 @@ enum MouseEvents {
 };
 // clang-format on
 
+enum class MouseEventsOutput {
+    DEFAULT_OFF,
+    DEFAULT_ON
+};
+
 template <class UI>
 class UIObjectFactory {
     std::string name_;
@@ -64,6 +72,8 @@ public:
     typedef void (UI::*propListSet)(const AtomList&);
     typedef std::pair<propFloatGet, propFloatSet> propertyFloatAccess;
     typedef std::pair<propListGet, propListSet> propertyListAccess;
+    typedef std::is_base_of<UIObject, UI> isControlObject;
+    typedef std::is_base_of<UIDspObject, UI> isDSPObject;
 
     typedef std::unordered_map<t_symbol*, bangMethodPtr> BangMethodMap;
     typedef std::unordered_map<t_symbol*, floatMethodPtr> FloatMethodMap;
@@ -91,8 +101,9 @@ public:
             return;
         }
 
-        eclass_guiinit(pd_class, flags);
+        cicmInit();
         setupMethods();
+
         setupAttributes();
         register_ui_external(&pd_class->c_class);
     }
@@ -112,6 +123,7 @@ public:
             UI* x = new (mem) UI();
 
             ebox_new(x->asEBox(), 0 | flags);
+            dspInit(x);
             ebox_attrprocess_viabinbuf(x, d);
             ebox_ready((t_ebox*)x);
             binbuf_free(d);
@@ -131,17 +143,70 @@ public:
         }
     }
 
-    void setupMethods()
+    template <class X = void>
+    typename std::enable_if<isDSPObject::value, X>::type cicmInit()
+    {
+        eclass_dspinit(pd_class);
+        eclass_guiinit(pd_class, flags);
+    }
+
+    template <class X = void>
+    typename std::enable_if<isControlObject::value, X>::type cicmInit()
+    {
+        eclass_guiinit(pd_class, flags);
+    }
+
+    template <class X = void>
+    static typename std::enable_if<isDSPObject::value, X>::type dspInit(UI* x)
+    {
+        x->dspInit();
+    }
+
+    template <class X = void>
+    static typename std::enable_if<isControlObject::value, X>::type dspInit(UI*)
+    {
+    }
+
+    template <typename X = void>
+    typename std::enable_if<isDSPObject::value, X>::type setupMethods()
     {
         // clang-format off
+        eclass_addmethod(pd_class, UI_METHOD_PTR(dsp),           "dsp",           A_NULL,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(paint),         "paint",         A_GIMME, 0);
-
         eclass_addmethod(pd_class, UI_METHOD_PTR(notify),        "notify",        A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(okSize),        "oksize",        A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(onZoom),        "onzoom",        A_GIMME,  0);
-        eclass_addmethod(pd_class, UI_METHOD_PTR(setDrawParams), "getdrawparams", A_NULL, 0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(onPopup),       "popup",         A_GIMME,  0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(setDrawParams), "getdrawparams", A_NULL, 0);
         // clang-format on
+    }
+
+    template <typename X = void>
+    typename std::enable_if<isControlObject::value, X>::type setupMethods()
+    {
+        // clang-format off
+        eclass_addmethod(pd_class, UI_METHOD_PTR(paint),         "paint",         A_GIMME, 0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(notify),        "notify",        A_GIMME,  0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(okSize),        "oksize",        A_GIMME,  0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(onZoom),        "onzoom",        A_GIMME,  0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(onPopup),       "popup",         A_GIMME,  0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(setDrawParams), "getdrawparams", A_NULL, 0);
+        // clang-format on
+    }
+
+    static void dsp(UI* z, t_object* dsp,
+        short* count, double samplerate, long maxvectorsize, long flags)
+    {
+        z->dspOn(samplerate, maxvectorsize);
+        object_method(dsp, gensym("dsp_add"), z, UI_METHOD_PTR(dspProcess), 0, NULL);
+    }
+
+    static void dspProcess(UI* z, t_object* dsp,
+        t_sample** ins, long n_ins,
+        t_sample** outs, long n_outs,
+        long sampleframes, long flags, void* up)
+    {
+        z->dspProcess(ins, n_ins, outs, n_outs, sampleframes);
     }
 
     void setupAttributes()
@@ -256,6 +321,13 @@ public:
             eclass_addmethod(pd_class, UI_METHOD_PTR(mouseWheel), "mousewheel", A_GIMME, 0);
     }
 
+    void outputMouseEvents(MouseEventsOutput t = MouseEventsOutput::DEFAULT_OFF)
+    {
+        addBoolProperty("mouse_events", _("Output mouse events"),
+            t == MouseEventsOutput::DEFAULT_ON,
+            &UI::prop_mouse_events, _("Basic"));
+    }
+
     void useKeys()
     {
         eclass_addmethod(pd_class, UI_METHOD_PTR(key), "key", A_GIMME, 0);
@@ -329,6 +401,158 @@ public:
     {
         bang_map[name] = m;
         eclass_addmethod(pd_class, reinterpret_cast<t_typ_method>(customMethodBang), name->s_name, A_GIMME, 0);
+    }
+
+    /**
+     * @brief adds boolean property shown as toggle in properties dialog
+     * @param name - property name
+     * @param label - property display label
+     * @param def - default property value
+     * @param m - member pointer to property
+     * @param category - property category
+     */
+    void addBoolProperty(const char* name, const char* label, bool def, int UI::*m, const char* category = "Misc")
+    {
+        eclass_new_attr_typed(pd_class, name, "int", 1, 0, 0, offset(m));
+        eclass_attr_label(pd_class, name, 0, label);
+        eclass_attr_save(pd_class, name, 0);
+        eclass_attr_paint(pd_class, name, 0);
+        eclass_attr_default(pd_class, name, 0, def ? "1" : "0");
+        eclass_attr_style(pd_class, name, 0, "onoff");
+        eclass_attr_category(pd_class, name, 0, category);
+    }
+
+    /**
+     * @brief adds float property shown as number entry in property dialog
+     * @param name - property name
+     * @param label - property display label
+     * @param def - default property value
+     * @param m - member pointer to property
+     * @param category - property category
+     */
+    void addFloatProperty(const char* name, const char* label, float def, float UI::*m, const char* category = "Misc")
+    {
+        char buf[32];
+        snprintf(buf, 30, "%g", def);
+
+        eclass_new_attr_typed(pd_class, name, "float", 1, 0, 0, offset(m));
+        eclass_attr_label(pd_class, name, 0, label);
+        eclass_attr_save(pd_class, name, 0);
+        eclass_attr_paint(pd_class, name, 0);
+        eclass_attr_default(pd_class, name, 0, buf);
+        eclass_attr_style(pd_class, name, 0, "number");
+        eclass_attr_category(pd_class, name, 0, category);
+    }
+
+    /**
+     * @brief adds integer property shown as integer spinbox entry in properties dialog
+     * @param name - property name
+     * @param label - property display label
+     * @param def - default property value
+     * @param m - member pointer to property
+     * @param category - property category
+     */
+    void addIntProperty(const char* name, const char* label, int def, int UI::*m, const char* category = "Misc")
+    {
+        char buf[32];
+        snprintf(buf, 30, "%d", def);
+
+        eclass_new_attr_typed(pd_class, name, "int", 1, 0, 0, offset(m));
+        eclass_attr_label(pd_class, name, 0, label);
+        eclass_attr_save(pd_class, name, 0);
+        eclass_attr_paint(pd_class, name, 0);
+        eclass_attr_default(pd_class, name, 0, buf);
+        eclass_attr_style(pd_class, name, 0, "number");
+        eclass_attr_category(pd_class, name, 0, category);
+    }
+
+    /**
+     * @brief adds symbol enum property shown as dropout menu in properties dialog
+     * @param name - property name
+     * @param label - property display label
+     * @param def - default value
+     * @param m - member pointer to property
+     * @param items - list of items (space separated) "a b c"
+     * @param cat - category name
+     */
+    void addMenuProperty(const char* name, const char* label,
+        const char* def, t_symbol* UI::*m,
+        const char* items, const char* cat = "Misc")
+    {
+        eclass_new_attr_typed(pd_class, name, "symbol", 1, 0, 0, offset(m));
+        eclass_attr_label(pd_class, name, 0, label);
+        eclass_attr_save(pd_class, name, 0);
+        eclass_attr_paint(pd_class, name, 0);
+        eclass_attr_default(pd_class, name, 0, def);
+        eclass_attr_style(pd_class, name, 0, "menu");
+        eclass_attr_category(pd_class, name, 0, cat);
+        eclass_attr_itemlist(pd_class, name, 0, items);
+    }
+
+    /**
+     * @brief adds RGBA color property shown as color chooser in properties dialog
+     * @param name - property name
+     * @param label - property display label
+     * @param def - default value, like "1.0 0.5 0.3 1", in RGBA format
+     * @param m - member pointer to property
+     */
+    void addColorProperty(const char* name, const char* label, const char* def, t_rgba UI::*m)
+    {
+        eclass_new_attr_typed(pd_class, name, "float", 4, 0, 0, offset(m));
+        eclass_attr_label(pd_class, name, 0, label);
+        eclass_attr_save(pd_class, name, 0);
+        eclass_attr_paint(pd_class, name, 0);
+        eclass_attr_default(pd_class, name, 0, def);
+        eclass_attr_style(pd_class, name, 0, "color");
+        eclass_attr_category(pd_class, name, 0, "Colors");
+    }
+
+    /**
+     * @brief adds visible in dialog property with callbacks, but without member pointer
+     * @param name - property name
+     * @param label - property name
+     * @param def - default value
+     */
+    void addVirtualProperty(const char* name, const char* label, const char* def,
+        AtomList (UI::*getter)() const, void (UI::*setter)(const AtomList&))
+    {
+        eclass_new_attr_typed(pd_class, name, "symbol", 1, 0, 0, 0);
+        eclass_attr_label(pd_class, name, 0, label);
+        eclass_attr_save(pd_class, name, 0);
+        eclass_attr_paint(pd_class, name, 0);
+        eclass_attr_default(pd_class, name, 0, def);
+        eclass_attr_accessor(pd_class, name, (t_err_method)listPropGetter, (t_err_method)listPropSetter);
+        prop_list_map[gensym(name)] = std::make_pair(getter, setter);
+    }
+
+    /**
+     * @brief adds hidden float property with callbacks
+     * @param name - property name
+     * @param getter - member pointer to getter function
+     * @param setter - member pointer to setter function
+     */
+    void addHiddenFloatCbProperty(const char* name,
+        float (UI::*getter)() const,
+        void (UI::*setter)(float))
+    {
+        eclass_new_attr_typed(pd_class, name, "float", 1, 0, 0, 0);
+        eclass_attr_invisible(pd_class, name, 0);
+        setPropertyAccessor(name, getter, setter);
+    }
+
+    /**
+     * @brief adds hidden list property with callbacks
+     * @param name - property name
+     * @param getter - member pointer to getter function
+     * @param setter - member pointer to setter function
+     */
+    void addHiddenListCbProperty(const char* name,
+        AtomList (UI::*getter)() const,
+        void (UI::*setter)(const AtomList&))
+    {
+        eclass_new_attr_typed(pd_class, name, "atom", 1, 0, 0, 0);
+        eclass_attr_invisible(pd_class, name, 0);
+        setPropertyAccessor(name, getter, setter);
     }
 
     void addProperty(const char* name, const char* label, float def, float UI::*m, const char* category = "Misc")
@@ -432,6 +656,11 @@ public:
         setPropertyMax(name, max);
     }
 
+    void setPropertySave(const char* name, bool value = true)
+    {
+        eclass_attr_save(pd_class, name, 0, value);
+    }
+
     void setPropertyDefaultValue(const char* name, const char* def)
     {
         eclass_attr_default(pd_class, name, 0, def);
@@ -511,18 +740,6 @@ public:
         eclass_attr_itemlist(pd_class, name, 0, items);
     }
 
-    void addVirtualProperty(const char* name, const char* label, const char* def,
-        AtomList (UI::*getter)() const, void (UI::*setter)(const AtomList&))
-    {
-        eclass_new_attr_typed(pd_class, name, "symbol", 1, 0, 0, 0);
-        eclass_attr_label(pd_class, name, 0, label);
-        eclass_attr_save(pd_class, name, 0);
-        eclass_attr_paint(pd_class, name, 0);
-        eclass_attr_default(pd_class, name, 0, def);
-        eclass_attr_accessor(pd_class, name, (t_err_method)listPropGetter, (t_err_method)listPropSetter);
-        prop_list_map[gensym(name)] = std::make_pair(getter, setter);
-    }
-
     void setPropertyAccessor(const char* name, float (UI::*getter)() const, void (UI::*setter)(float))
     {
         eclass_attr_accessor(pd_class, name, (t_err_method)floatPropGetter, (t_err_method)floatPropSetter);
@@ -533,11 +750,6 @@ public:
     {
         eclass_attr_accessor(pd_class, name, (t_err_method)listPropGetter, (t_err_method)listPropSetter);
         prop_list_map[gensym(name)] = std::make_pair(getter, setter);
-    }
-
-    void setPropertySave(const char* name, bool value = true)
-    {
-        eclass_attr_save(pd_class, name, 0, value);
     }
 
     void setPropertyRedirect(const char* name)
@@ -581,32 +793,63 @@ public:
         return v1 - v0;
     }
 
+    static void outputMouse(UI* z, t_symbol* s, bool value)
+    {
+        if (z->outputMouseEvents() && !z->outlets().empty()) {
+            t_atom a;
+            SETFLOAT(&a, value ? 1 : 0);
+            outlet_anything(z->outlets().front(), s, 1, &a);
+        }
+    }
+
     static void mouseMove(UI* z, t_object* view, t_pt pt, long modifiers)
     {
+        static t_symbol* SYM = gensym("@mouse_move");
+
         updateMousePos(pt);
+
+        outputMouse(z, SYM, true);
         z->onMouseMove(view, pt, modifiers);
+        outputMouse(z, SYM, false);
     }
 
     static void mouseDown(UI* z, t_object* view, t_pt pt, t_pt abs_pt, long modifiers)
     {
+        static t_symbol* SYM = gensym("@mouse_down");
+
         updateMousePos(pt);
+
+        outputMouse(z, SYM, true);
         z->onMouseDown(view, pt, abs_pt, modifiers);
+        outputMouse(z, SYM, false);
     }
 
     static void mouseUp(UI* z, t_object* view, t_pt pt, long modifiers)
     {
+        static t_symbol* SYM = gensym("@mouse_up");
+
         updateMousePos(pt);
+
+        outputMouse(z, SYM, true);
         z->onMouseUp(view, pt, modifiers);
+        outputMouse(z, SYM, false);
     }
 
     static void mouseDrag(UI* z, t_object* view, t_pt pt, long modifiers)
     {
+        static t_symbol* SYM = gensym("@mouse_drag");
+
         updateMousePos(pt);
+
+        outputMouse(z, SYM, true);
         z->onMouseDrag(view, pt, modifiers);
+        outputMouse(z, SYM, false);
     }
 
     static void mouseLeave(UI* z, t_object* view, t_pt pt, long modifiers)
     {
+        static t_symbol* SYM = gensym("@mouse_leave");
+
         // invalidate mouse pointer coord on mouseLeave to prevent mouseWheel handle
         // when mouse is outside of widget
         t_pt pos;
@@ -614,13 +857,20 @@ public:
         pos.y = pos.x;
         updateMousePos(pos);
 
+        outputMouse(z, SYM, true);
         z->onMouseLeave(view, pt, modifiers);
+        outputMouse(z, SYM, false);
     }
 
     static void mouseEnter(UI* z, t_object* view, t_pt pt, long modifiers)
     {
+        static t_symbol* SYM = gensym("@mouse_enter");
+
         updateMousePos(pt);
+
+        outputMouse(z, SYM, true);
         z->onMouseEnter(view, pt, modifiers);
+        outputMouse(z, SYM, false);
     }
 
     static void mouseWheel(UI* z, t_object* view, t_pt pt, long modifiers, double delta)
@@ -966,6 +1216,7 @@ typename UIObjectFactory<UI>::FloatPropertyMap UIObjectFactory<UI>::prop_float_m
 
 template <class UI>
 typename UIObjectFactory<UI>::ListPropertyMap UIObjectFactory<UI>::prop_list_map;
+
 }
 
 #endif // CEAMMC_NEW_GUI_H

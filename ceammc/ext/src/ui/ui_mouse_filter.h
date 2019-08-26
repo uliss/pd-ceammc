@@ -11,32 +11,28 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef HOA_PROCESS_ROUTE_H
-#define HOA_PROCESS_ROUTE_H
+#ifndef UI_MOUSE_FILTER_H
+#define UI_MOUSE_FILTER_H
 
 #include "ceammc_object.h"
-
 using namespace ceammc;
 
-class HoaProcessRoute : public BaseObject {
-    int index_;
-    t_symbol* prop_name_;
+class UIMouseFilter : public BaseObject {
+    std::vector<BoolProperty*> mouse_events_;
+    bool closed_;
 
 public:
-    HoaProcessRoute(const PdArgs& args);
+    UIMouseFilter(const PdArgs& args);
 
-    void parseProperties() final;
-    bool processAnyProps(t_symbol*, const AtomList&) final;
+    bool processAnyProps(t_symbol* sel, const AtomList& lst) final;
 
+    void onBang() final;
     void onFloat(t_float f) final;
     void onSymbol(t_symbol* s) final;
-    void onList(const AtomList& lst) final;
-    void onAny(t_symbol* sel, const AtomList& lst) final;
-
-private:
-    void outputTo(size_t n, const AtomList& lst);
+    void onList(const AtomList& l) final;
+    void onAny(t_symbol* s, const AtomList& l) final;
 };
 
-void setup_spat_hoa_process_route();
+void setup_ui_mouse_filter();
 
-#endif // HOA_PROCESS_ROUTE_H
+#endif // UI_MOUSE_FILTER_H

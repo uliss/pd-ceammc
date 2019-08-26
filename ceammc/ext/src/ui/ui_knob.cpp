@@ -56,7 +56,8 @@ void UIKnob::setup()
     obj.useBang();
     obj.useFloat();
     obj.usePresets();
-    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK);
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK);
+    obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
     obj.addMethod("+", &UISingleValue::m_plus);
     obj.addMethod("-", &UISingleValue::m_minus);
@@ -164,6 +165,11 @@ void UIKnob::okSize(t_rect* newrect)
 {
     newrect->width = pd_clip_min(newrect->width, KNOB_MIN_SIZE);
     newrect->height = pd_clip_min(newrect->height, KNOB_MIN_SIZE);
+}
+
+void UIKnob::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
+{
+    output();
 }
 
 void UIKnob::onMouseDrag(t_object*, const t_pt& pt, long)

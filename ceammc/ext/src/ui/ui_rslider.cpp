@@ -24,7 +24,6 @@ UIRSlider::UIRSlider()
     : prop_color_knob(rgba_blue)
     , prop_min(0)
     , prop_max(1)
-    , prop_mouse_sync(0)
     , knob_layer_(asEBox(), gensym("knob_layer"))
     , vlow_(0)
     , vhigh_(0)
@@ -156,7 +155,9 @@ UIRSlider::EditMode UIRSlider::keyMod2EditMode(long mod, float value) const
             return CHANGE_HIGH;
         else
             return CHANGE_LOW;
-    } else
+    } else if (mod & EMOD_CTRL)
+        return OUTPUT;
+    else
         return CREATE;
 }
 
@@ -186,19 +187,19 @@ void UIRSlider::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, 
     case CHANGE_LOW:
         vlow_ = value;
         break;
+    default:
+    case OUTPUT:
+        break;
     }
 
     adjustValues();
     redrawKnob();
-    if (prop_mouse_sync)
-        output();
+    output();
 }
 
 void UIRSlider::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
-    if (!prop_mouse_sync)
-        output();
-
+    output();
     edit_mode_ = CREATE;
 }
 
@@ -255,12 +256,13 @@ void UIRSlider::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
     case CHANGE_HIGH: {
         vhigh_ = value;
     } break;
+    default:
+        break;
     }
 
     adjustValues();
     redrawKnob();
-    if (prop_mouse_sync)
-        output();
+    output();
 }
 
 AtomList UIRSlider::propValue() const
@@ -366,10 +368,10 @@ void UIRSlider::setup()
     obj.usePresets();
     obj.useBang();
     obj.useList();
+    obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
     obj.addProperty("min", _("Minimum Value"), 0.f, &UIRSlider::prop_min, _("Bounds"));
     obj.addProperty("max", _("Maximum Value"), 1.f, &UIRSlider::prop_max, _("Bounds"));
-    obj.addProperty("sync", _("Mouse sync"), false, &UIRSlider::prop_mouse_sync, _("Main"));
     obj.addProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UIRSlider::prop_color_knob);
 
     obj.addProperty("value", &UIRSlider::propValue, &UIRSlider::propSetValue);

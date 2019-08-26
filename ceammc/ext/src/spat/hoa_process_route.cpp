@@ -14,6 +14,7 @@
 #include "hoa_process_route.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
+#include "ceammc_property.h"
 #include "hoa_process_props.h"
 
 HoaProcessRoute::HoaProcessRoute(const PdArgs& args)

@@ -28,9 +28,9 @@
             <argument name="EXTRA" type="int" minvalue="1">shortcut for @extra property</argument>
         </arguments>
         <properties>
-            <property name="@extra" type="int" minvalue="0" default="0">extra inlet.
-            Extra inlet are added to the "normal" instance inlet and can be used to send signal to all instances
-            </property>
+            <property name="@extra" type="int" minvalue="0" default="0">extra inlet. Extra inlet
+            are added to the "normal" instance inlet and can be used to send signal to all
+            instances</property>
         </properties>
         <outlets>
             <outlet type="audio">output signal from a hoa.process~ object's inlet</outlet>

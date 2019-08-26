@@ -55,130 +55,163 @@ value: 0\.;
 #X msg 110 703 @mode;
 #X text 245 703 Get/Set relative mode. Do not jump on click to value.
 Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 745 @mouse_up_output;
-#X text 245 745 Get/Set if output only on mouse-up event. Type: int.
-Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 787 @receive;
-#X text 245 787 Get/Set receive source. Type: symbol.;
-#X msg 110 816 @send;
-#X text 245 816 Get/Set send destination. Type: symbol.;
-#X msg 110 845 @value;
-#X text 245 845 Get/Set current value. Type: float. Default value:
+#X msg 110 745 @mouse_events;
+#X text 245 745 Get/Set mouse events output mode. If on outputs @mouse_down
+\, @mouse_up and @mouse_drag events. Type: int. Default value: 0\.
+Allowed values: 0 \, 1\.;
+#X msg 110 802 @receive;
+#X text 245 802 Get/Set receive source. Type: symbol.;
+#X msg 110 831 @send;
+#X text 245 831 Get/Set send destination. Type: symbol.;
+#X msg 110 860 @show_value;
+#X text 245 860 Get/Set show value (in horizontal mode only). Type:
+int. Default value: 0\. Allowed values: 0 \, 1\.;
+#X msg 110 902 @value;
+#X text 245 902 Get/Set current value. Type: float. Default value:
 0\.;
-#X msg 110 874 @midi_channel;
-#X text 245 874 Get/Set binded MIDI channel. 0 means listen to all
+#X msg 110 931 @value_pos;
+#X text 245 931 Get/Set value position. Type: symbol. Default value:
+center. Allowed values: left \, center \, right.;
+#X msg 110 973 @value_precision;
+#X text 245 973 Get/Set number of digits shown after decimal point.
+Type: int. Default value: 2\. Range: 0\...7\.;
+#X msg 110 1015 @midi_channel;
+#X text 245 1015 Get/Set binded MIDI channel. 0 means listen to all
 channels. Type: int. Default value: 0\. Range: 0\...16\.;
-#X msg 110 916 @midi_control;
-#X text 245 916 Get/Set binded MIDI controller number. 0 means not
+#X msg 110 1057 @midi_control;
+#X text 245 1057 Get/Set binded MIDI controller number. 0 means not
 binded to any controller. Type: int. Default value: 0\. Range: 0\...128\.;
-#X msg 110 973 @midi_pickup;
-#X text 245 973 Get/Set pickup current value. If slider is binded to
-value \, first time you should pass over this value to make binding.
+#X msg 110 1114 @midi_pickup;
+#X text 245 1114 Get/Set pickup current value. If slider is binded
+to value \, first time you should pass over this value to make binding.
 It prevents from sudden value change on first control change. Type:
 int. Default value: 1\. Allowed values: 0 \, 1\.;
-#X msg 110 1045 @background_color;
-#X text 245 1045 Get/Set element background color (list of red \, green
+#X msg 110 1186 @background_color;
+#X text 245 1186 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list.;
-#X msg 110 1087 @border_color;
-#X text 245 1087 Get/Set border color (list of red \, green \, blue
+#X msg 110 1228 @border_color;
+#X text 245 1228 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list.;
-#X msg 110 1129 @knob_color;
-#X text 245 1129 Get/Set knob color (list of red \, green \, blue values
+#X msg 110 1270 @knob_color;
+#X text 245 1270 Get/Set knob color (list of red \, green \, blue values
 in 0-1 range). Type: list.;
-#X msg 110 1171 @fontname;
-#X text 245 1171 Get/Set fontname. Type: symbol.;
-#X msg 110 1200 @fontsize;
-#X text 245 1200 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 1312 @label_color;
+#X text 245 1312 Get/Set label color in RGB format within 0-1 range
+\, for example: 0.2 0.4 0.1\. Type: list.;
+#X msg 110 1354 @text_color;
+#X text 245 1354 Get/Set value text color (list of red \, green \,
+blue values in 0-1 range). Type: list.;
+#X msg 110 1396 @label;
+#X text 245 1396 Get/Set label text. Type: symbol.;
+#X msg 110 1425 @label_align;
+#X text 245 1425 Get/Set label horizontal align. Type: symbol. Default
+value: left. Allowed values: left \, center \, right.;
+#X msg 110 1467 @label_inner;
+#X text 245 1467 Get/Set label position (1 - inner \, 0 - outer). Type:
+int. Default value: 0\. Allowed values: 0 \, 1\.;
+#X msg 110 1509 @label_margins;
+#X text 245 1509 Get/Set label offset in pixels. Type: list. Default
+value: 0 0\.;
+#X msg 110 1551 @label_side;
+#X text 245 1551 Get/Set label snap side. Type: symbol. Default value:
+top. Allowed values: left \, top \, right \, bottom.;
+#X msg 110 1593 @label_valign;
+#X text 245 1593 Get/Set label vertical align. Type: symbol. Default
+value: top. Allowed values: top \, center \, bottom.;
+#X msg 110 1635 @fontname;
+#X text 245 1635 Get/Set fontname. Type: symbol.;
+#X msg 110 1664 @fontsize;
+#X text 245 1664 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...11\.;
-#X msg 110 1242 @fontslant;
-#X text 245 1242 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1706 @fontslant;
+#X text 245 1706 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1284 @fontweight;
-#X text 245 1284 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1748 @fontweight;
+#X text 245 1748 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1326 @pinned;
-#X text 245 1326 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1790 @pinned;
+#X text 245 1790 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 1368 @presetname;
-#X text 245 1368 Get/Set preset name for using with [ui.preset]. Type:
+#X msg 110 1832 @presetname;
+#X text 245 1832 Get/Set preset name for using with [ui.preset]. Type:
 symbol.;
-#X msg 110 1397 @size;
-#X text 245 1397 Get/Set element size (width \, height pair). Type:
+#X msg 110 1861 @size;
+#X text 245 1861 Get/Set element size (width \, height pair). Type:
 list.;
-#X obj 20 1436 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1441 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1900 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1905 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1476 clear;
-#X text 245 1476 clears specified preset. Arguments are:;
-#X obj 255 1499 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1499 IDX: preset index. Type: int.;
-#X msg 110 1524 load;
-#X text 245 1524 loads specified preset. Arguments are:;
-#X obj 255 1547 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1547 IDX: preset index. Type: int.;
-#X msg 110 1572 pos;
-#X text 245 1572 set UI element position. Arguments are:;
-#X obj 255 1595 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1595 X: top left x-coord. Type: float.;
-#X obj 255 1618 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1618 Y: top right y-coord. Type: float.;
-#X msg 110 1643 set;
-#X text 245 1643 sets slider value without output. Arguments are:;
-#X obj 255 1666 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1666 V: new value. Type: float.;
-#X msg 110 1691 store;
-#X text 245 1691 stores specified preset. Arguments are:;
-#X obj 255 1714 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1714 IDX: preset index. Type: int.;
-#X msg 110 1739 *;
-#X text 245 1739 multiply slider value without output. Arguments are:;
-#X obj 255 1762 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1762 V: multiplied value. Type: float.;
-#X msg 110 1787 +;
-#X text 245 1787 add value to slider without output. Arguments are:;
-#X obj 255 1810 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1810 V: added value. Type: float.;
-#X msg 110 1835 ++;
-#X text 245 1835 increment slider value without output.;
-#X msg 110 1862 -;
-#X text 245 1862 subtract value from slider without output. Arguments
+#X msg 110 1940 clear;
+#X text 245 1940 clears specified preset. Arguments are:;
+#X obj 255 1963 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1963 IDX: preset index. Type: int.;
+#X msg 110 1988 load;
+#X text 245 1988 loads specified preset. Arguments are:;
+#X obj 255 2011 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2011 IDX: preset index. Type: int.;
+#X msg 110 2036 pos;
+#X text 245 2036 set UI element position. Arguments are:;
+#X obj 255 2059 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2059 X: top left x-coord. Type: float.;
+#X obj 255 2082 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2082 Y: top right y-coord. Type: float.;
+#X msg 110 2107 set;
+#X text 245 2107 sets slider value without output. Arguments are:;
+#X obj 255 2130 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2130 V: new value. Type: float.;
+#X msg 110 2155 store;
+#X text 245 2155 stores specified preset. Arguments are:;
+#X obj 255 2178 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2178 IDX: preset index. Type: int.;
+#X msg 110 2203 *;
+#X text 245 2203 multiply slider value without output. Arguments are:;
+#X obj 255 2226 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2226 V: multiplied value. Type: float.;
+#X msg 110 2251 +;
+#X text 245 2251 add value to slider without output. Arguments are:;
+#X obj 255 2274 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2274 V: added value. Type: float.;
+#X msg 110 2299 ++;
+#X text 245 2299 increment slider value without output.;
+#X msg 110 2326 -;
+#X text 245 2326 subtract value from slider without output. Arguments
 are:;
-#X obj 255 1885 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1885 V: subtracted value. Type: float.;
-#X msg 110 1910 --;
-#X text 245 1910 decrement slider value without output.;
-#X msg 110 1937 /;
-#X text 245 1937 divide slider value without output. Arguments are:;
-#X obj 255 1960 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1960 V: denominator value. Type: float.;
-#X obj 20 1995 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2000 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 255 2349 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2349 V: subtracted value. Type: float.;
+#X msg 110 2374 --;
+#X text 245 2374 decrement slider value without output.;
+#X msg 110 2401 /;
+#X text 245 2401 divide slider value without output. Arguments are:;
+#X obj 255 2424 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2424 V: denominator value. Type: float.;
+#X obj 20 2459 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2464 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2001 1\.;
-#X text 150 2001 *bang*;
-#X text 245 2001 outputs current slider state.;
-#X text 150 2021 *float*;
-#X text 245 2021 set slider value and output.;
-#X obj 20 2051 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2056 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 2465 1\.;
+#X text 150 2465 *bang*;
+#X text 245 2465 outputs current slider state.;
+#X text 150 2485 *float*;
+#X text 245 2485 set slider value and output.;
+#X obj 20 2515 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2520 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2057 1\.;
-#X text 245 2057 output value.;
+#X text 110 2521 1\.;
+#X text 245 2521 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2107 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2110 library: ceammc v0.7.1;
-#X text 426 2122 see also:;
-#X obj 500 2125 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 2571 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2574 library: ceammc v0.7.1;
+#X text 426 2586 see also:;
+#X obj 500 2589 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.slider2d] @url ui.slider2d-help.pd;
-#X obj 597 2125 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 597 2589 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.sliders] @url ui.sliders-help.pd;
-#X obj 687 2125 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 687 2589 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.knob] @url ui.knob-help.pd;
-#N canvas 10 2129 400 290 info 0;
+#N canvas 10 2593 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -202,7 +235,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2129 pd info;
+#X restore 10 2593 pd info;
 #X connect 8 0 18 0;
 #X connect 9 0 18 0;
 #X connect 10 0 18 0;

@@ -397,6 +397,7 @@ void UISlider2D::setup()
     obj.useBang();
 
     obj.useMouseEvents(UI_MOUSE_UP | UI_MOUSE_DOWN | UI_MOUSE_DRAG);
+    obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
     obj.addMethod("set", &UISlider2D::m_set);
     obj.addMethod("move", &UISlider2D::m_move);

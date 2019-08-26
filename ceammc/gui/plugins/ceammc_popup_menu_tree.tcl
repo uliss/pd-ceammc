@@ -182,8 +182,8 @@
     {spat {
         hoa.2d.decoder~ hoa.2d.encoder~ hoa.2d.map~ hoa.2d.optim~
         hoa.2d.projector~ hoa.2d.recomposer~ hoa.2d.rotate~ hoa.2d.wider~
-        hoa.in hoa.in~ hoa.out hoa.out~ hoa.process~ pan.cos~ pan.linsig~
-        pan.lin~ pan.spread~ pan.sqrt~ spat.pan4~ spat.pan8~
+        hoa.@process hoa.in hoa.in~ hoa.out hoa.out~ hoa.process~ pan.cos~
+        pan.linsig~ pan.lin~ pan.spread~ pan.sqrt~ spat.pan4~ spat.pan8~
     }}
     {string {
         string string.contains string.ends_with string.equal string.format
@@ -208,9 +208,9 @@
     {ui {
         ui.aview ui.bang ui.colorpanel ui.display ui.dsp~ ui.env ui.gain2~
         ui.gain~ ui.icon ui.incdec ui.keyboard ui.knob ui.label ui.link
-        ui.matrix ui.menu ui.meter~ ui.number ui.number~ ui.polar ui.preset
-        ui.radio ui.rslider ui.scope~ ui.slider ui.slider2d ui.sliders
-        ui.spectroscope~ ui.tab ui.toggle
+        ui.matrix ui.menu ui.meter~ ui.mouse_filter ui.number ui.number~
+        ui.polar ui.preset ui.radio ui.rslider ui.scope~ ui.slider ui.slider2d
+        ui.sliders ui.spectroscope~ ui.tab ui.toggle
     }}
 }
 {extra

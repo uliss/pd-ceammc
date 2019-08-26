@@ -28,7 +28,6 @@ TEST_CASE("ui.rslider", "[ui.rslider]")
         REQUIRE_UI_LIST_PROPERTY(t, "size", LF(120, 16));
         REQUIRE_UI_FLOAT_PROPERTY(t, "min", 0);
         REQUIRE_UI_FLOAT_PROPERTY(t, "max", 1);
-        REQUIRE_UI_FLOAT_PROPERTY(t, "sync", 0);
         REQUIRE_UI_LIST_PROPERTY(t, "value", LF(0.4, 0.6));
         REQUIRE_UI_FLOAT_PROPERTY(t, "range", 0.2);
         REQUIRE_UI_FLOAT_PROPERTY(t, "low", 0.4);
@@ -95,7 +94,7 @@ TEST_CASE("ui.rslider", "[ui.rslider]")
         TestExtRSlider t("ui.rslider");
 
         t.mouseDown(0, 8);
-        REQUIRE_NO_OUTPUT(t);
+        REQUIRE(t.outputListAt(0) == LX(0, 0));
         REQUIRE_UI_LIST_PROPERTY(t, "value", LX(0, 0));
         t.mouseDown(120, 8);
         REQUIRE_UI_LIST_PROPERTY(t, "value", LX(1, 1));
@@ -103,7 +102,7 @@ TEST_CASE("ui.rslider", "[ui.rslider]")
         REQUIRE_UI_LIST_PROPERTY(t, "value", LX(0.5, 0.5));
 
         t.mouseDrag(120, 8);
-        REQUIRE_NO_OUTPUT(t);
+        REQUIRE(t.outputListAt(0) == LX(0.5, 1));
         REQUIRE_UI_LIST_PROPERTY(t, "value", LX(0.5, 1));
 
         t.mouseUp(120, 8);

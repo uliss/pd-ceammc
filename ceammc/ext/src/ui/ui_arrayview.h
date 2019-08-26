@@ -26,10 +26,13 @@ struct WaveInfo {
     float rms;
 };
 
-enum SelectionMode {
+enum EditMode {
     SELECTION_NONE = 0,
     SELECTION_CURSOR,
-    SELECTION_RANGE
+    SELECTION_RANGE,
+    MOVE_RANGE,
+    CHANGE_RANGE_LEFT,
+    CHANGE_RANGE_RIGHT
 };
 
 class SelectionRange {
@@ -86,7 +89,8 @@ class UIArrayView : public UIObject {
     std::string str_label_top_right_;
     std::string str_label_bottom_right_;
     SelectionRange selection_;
-    SelectionMode selection_mode_;
+    EditMode selection_mode_;
+    t_pt prev_mouse_pt_;
 
 public:
     t_symbol* prop_array;
@@ -168,6 +172,8 @@ private:
 
     void redrawSelection();
     void setSelection(long begin, long end);
+
+    EditMode keyMod2EditMode(long mod, int x) const;
 
 public:
     t_float sizeSamples() const;
