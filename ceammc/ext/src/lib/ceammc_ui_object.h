@@ -51,6 +51,8 @@ protected:
     void prependToLayerList(UILayer* l);
     void invalidateLayer(UILayer* l);
     void invalidateBox();
+    void invalidateXlets();
+    void invalidateBorder();
 
 public:
     t_rgba prop_color_background;
@@ -63,7 +65,7 @@ public:
     ~UIObject();
 
     // CICM and Pd
-    t_ebox* asEBox() const;
+    t_ebox* asEBox() const { return const_cast<UIObject*>(this); }
     t_eobj* asEObj() const;
     t_object* asPdObject() const;
     t_gobj* asGObj() const;

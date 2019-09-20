@@ -38,12 +38,13 @@ void UISlider::paint()
         kp.setLineWidth(2 * zoom());
 
         if (is_horizontal_) { // horizontal
-            float x = value() * r.width;
+            float x = value() * (r.width - 1);
             kp.drawLine(x, 0, x, r.height);
 
             if (prop_active_scale) {
+                kp.setLineWidth(0);
                 kp.setColor(rgba_color_sum(&prop_color_background, &prop_knob_color, ALPHA_BLEND));
-                kp.drawRect(0, 0, x, r.height);
+                kp.drawRect(0, 0, x, r.height - 1);
                 kp.fill();
             }
 
@@ -71,12 +72,13 @@ void UISlider::paint()
                 kp.drawText(txt_value_);
             }
         } else {
-            float y = (1.0 - value()) * r.height;
+            float y = (1.0 - value()) * (r.height - 1);
             kp.drawLine(0, y, r.width, y);
 
             if (prop_active_scale) {
+                kp.setLineWidth(0);
                 kp.setColor(rgba_color_sum(&prop_color_background, &prop_knob_color, ALPHA_BLEND));
-                kp.drawRect(0, y, r.width, r.height * value());
+                kp.drawRect(0, y, r.width - 1, r.height * value());
                 kp.fill();
             }
         }
@@ -161,6 +163,14 @@ void UISlider::onDblClick(t_object* view, const t_pt& pt, long modifiers)
     t_canvas* c = reinterpret_cast<t_canvas*>(view);
     if (c->gl_edit)
         resize(height() / zoom(), width() / zoom());
+}
+
+void UISlider::redrawKnob()
+{
+    if (prop_active_scale)
+        invalidateXlets();
+
+    UISingleValue::redrawKnob();
 }
 
 void UISlider::setup()

@@ -1837,8 +1837,8 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
 void ebox_redraw(t_ebox* x)
 {
     if (ebox_isvisible(x)) {
-        ebox_invalidate_layer(x, s_eboxbd);
-        ebox_invalidate_layer(x, s_eboxio);
+        ebox_invalidate_border(x);
+        ebox_invalidate_io(x);
         ebox_paint(x);
     }
 }
@@ -1977,6 +1977,16 @@ t_pd_err ebox_invalidate_layer(t_ebox* x, t_symbol* name)
 
     g->e_state = EGRAPHICS_INVALID;
     return 0;
+}
+
+t_pd_err ebox_invalidate_io(t_ebox* x)
+{
+    return ebox_invalidate_layer(x, s_eboxio);
+}
+
+t_pd_err ebox_invalidate_border(t_ebox* x)
+{
+    return ebox_invalidate_layer(x, s_eboxbd);
 }
 
 static void ebox_do_paint_rect(t_elayer* g, t_ebox* x, t_egobj const* gobj, float x_p, float y_p)

@@ -214,6 +214,9 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p);
  */
 t_pd_err ebox_invalidate_layer(t_ebox* x, t_symbol* name);
 
+t_pd_err ebox_invalidate_io(t_ebox* x);
+t_pd_err ebox_invalidate_border(t_ebox* x);
+
 /** @} */
 
 //! @cond

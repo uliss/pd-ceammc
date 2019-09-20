@@ -29,6 +29,8 @@ public:
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
 
+    void redrawKnob();
+
 public:
     static void setup();
 };

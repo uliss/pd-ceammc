@@ -73,11 +73,19 @@ void UIObject::invalidateLayer(UILayer* l)
 
 void UIObject::invalidateBox()
 {
-    ebox_invalidate_layer(asEBox(), s_eboxbd);
-    ebox_invalidate_layer(asEBox(), s_eboxio);
+    ebox_invalidate_border(asEBox());
+    ebox_invalidate_io(asEBox());
 }
 
-t_ebox* UIObject::asEBox() const { return const_cast<UIObject*>(this); }
+void UIObject::invalidateXlets()
+{
+    ebox_invalidate_io(asEBox());
+}
+
+void UIObject::invalidateBorder()
+{
+    ebox_invalidate_border(asEBox());
+}
 
 t_eobj* UIObject::asEObj() const
 {
