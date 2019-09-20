@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_ui_dsp_object.h"
-#include "ceammc_ui.h"
 #include "ceammc_preset.h"
+#include "ceammc_ui.h"
 
 #include "ceammc_cicm.h"
 #include "m_pd.h"
@@ -80,6 +80,7 @@ UIDspObject::UIDspObject()
     , prop_color_background(rgba_white)
     , prop_color_border(rgba_black)
     , prop_color_label(rgba_black)
+    , prop_mouse_events(0)
 {
 }
 
@@ -224,7 +225,7 @@ void UIDspObject::onPopup(t_symbol* menu_name, long item_idx)
 
 bool UIDspObject::outputMouseEvents() const
 {
-    return true;
+    return prop_mouse_events;
 }
 
 void UIDspObject::onPropChange(t_symbol* /*prop_name*/)

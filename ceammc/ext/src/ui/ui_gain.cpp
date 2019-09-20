@@ -289,6 +289,8 @@ void UIGain::setup()
     obj.useBang();
 
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK);
+    obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
+
     obj.addMethod("+", &UIGain::m_plus);
     obj.addMethod("-", &UIGain::m_minus);
     obj.addMethod("++", &UIGain::m_inc);
