@@ -5,8 +5,8 @@
 
 class UISlider : public UISingleValue {
     bool is_horizontal_;
-    float value_last_;
-    float value_ref_;
+    float value_prev_;
+    float click_value_;
     UIFont font_;
     UITextLayout txt_value_;
 

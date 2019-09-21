@@ -51,6 +51,8 @@ static void draw_knob_line(UIPainter& p, float cx, float cy, float r, float angl
 
 void UIKnob::setup()
 {
+    UISingleValue::setup();
+
     UIObjectFactory<UIKnob> obj("ui.knob", EBOX_GROWLINK);
 
     obj.useBang();
@@ -80,9 +82,9 @@ void UIKnob::setup()
     obj.setPropertyRange("midi_channel", 0, 16);
     obj.addProperty("midi_control", _("MIDI control"), 0, &UISingleValue::prop_midi_ctl, "MIDI");
     obj.setPropertyRange("midi_control", 0, 128);
-    obj.addProperty("midi_pickup", _("MIDI pickup"), true, &UISingleValue::prop_midi_pickup, "MIDI");
+    obj.addProperty("midi_pickup", _("MIDI pickup"), true, &UISingleValue::prop_pickup_midi, "MIDI");
 
-    obj.addProperty("value", &UISingleValue::realValue, &UISingleValue::setRealValue);
+    obj.addProperty("value", &UISingleValue::value, &UISingleValue::setValue);
 }
 
 UIKnob::UIKnob()
@@ -132,7 +134,7 @@ void UIKnob::paint()
         const float arc_angle_offset = -(EPD_PI2 + (1 - arc_scale) * EPD_PI);
         const float arc_begin = arc_angle_offset;
         const float arc_end = arc_full + arc_angle_offset;
-        const float value_angle = prop_value * arc_full + arc_angle_offset;
+        const float value_angle = knob_phase * arc_full + arc_angle_offset;
 
         // adjust knob
         float line_width = int(r.height / 20) + 1;
@@ -172,9 +174,12 @@ void UIKnob::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
     output();
 }
 
-void UIKnob::onMouseDrag(t_object*, const t_pt& pt, long)
+void UIKnob::onMouseDrag(t_object*, const t_pt& pt, long modifiers)
 {
-    t_float delta = (click_pos_.y - pt.y) / height();
+    t_float delta = convert::lin2lin<t_float>(click_pos_.y - pt.y, 0, height(), 0, range());
+    if (modifiers & EMOD_SHIFT)
+        delta *= 0.1;
+
     setValue(value() + delta);
     click_pos_ = pt;
     redrawKnob();
