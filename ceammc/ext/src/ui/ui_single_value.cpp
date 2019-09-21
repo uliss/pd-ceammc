@@ -89,6 +89,8 @@ void UISingleValue::init(t_symbol* name, const AtomList& args, bool usePresets)
 
     if (prop_midi_chn > 0 || prop_midi_ctl > 0)
         midi_proxy_.bind(midi_ctl_sym());
+
+    prop_value = prop_min;
 }
 
 void UISingleValue::onPropChange(t_symbol* prop_name)

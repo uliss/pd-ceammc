@@ -36,6 +36,7 @@ public:
     int midiControl() const;
 
     t_float knobPhase() const;
+    void setKnobPhase(t_float v);
 
     t_float value() const;
     void setValue(t_float v);
@@ -70,9 +71,6 @@ protected:
     UILayer knob_layer_;
 
     static void setup();
-
-private:
-    void setKnobPhase(t_float v);
 };
 
 #endif // UI_SINGLE_VALUE_H
