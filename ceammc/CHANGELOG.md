@@ -22,6 +22,8 @@
 - ui.hgain2~ alias added to create horizontal ui.gain2~
 - ui.gain~ and ui.gain2~ @relative property added for relative input mode (by default)
 - ui.polar added
+- ui.slider slow change with SHIFT added
+- ui.knob slow value change with SHIFT added
 - popup menu added to ui.preset with read/write actions
 - math sync binary operations added (all inlets are hot):
   - math.sync_add (math.+', +')
