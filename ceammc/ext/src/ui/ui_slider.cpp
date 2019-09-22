@@ -220,7 +220,7 @@ void UISlider::setup()
     obj.addProperty("active_scale", _("Draw active scale"), false, &UISlider::prop_active_scale, "Main");
     obj.addProperty("show_value", _("Show value in horizontal mode"), false, &UISingleValue::prop_show_value, "Misc");
     obj.addProperty("value_pos", _("Value position"), "center", &UISlider::prop_value_pos, "left center right", "Misc");
-    obj.addProperty("value_precision", _("Precision"), 2, &UISlider::prop_value_precision, "Main");
+    obj.addProperty("value_precision", _("Precision"), 2, &UISlider::prop_value_precision, "Misc");
     obj.setPropertyRange("value_precision", 0, 7);
 
     obj.addProperty("value", &UISingleValue::value, &UISingleValue::setValue);
