@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.49.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-07-28 10:14+0300\n"
+"POT-Creation-Date: 2019-09-22 18:14+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,6 +39,10 @@ msgstr ""
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c
 msgid "Preset Name"
+msgstr ""
+
+#: ../ceammc/ext/src/lib/ceammc_ui.h
+msgid "Output mouse events"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
@@ -303,6 +307,10 @@ msgstr ""
 msgid "Show range"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+msgid "Relative mode"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_icon.cpp
 msgid "Icon"
 msgstr ""
@@ -437,6 +445,7 @@ msgid "load"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp ../ceammc/ext/src/ui/ui_radio.cpp
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "random"
 msgstr ""
 
@@ -508,6 +517,10 @@ msgstr ""
 msgid "Use degrees"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_polar.cpp
+msgid "Use radians"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "bottom center"
 msgstr ""
@@ -524,16 +537,20 @@ msgstr ""
 msgid "top center"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_polar.cpp
-msgid "Use radians"
-msgstr ""
-
 #: ../ceammc/ext/src/ui/ui_preset.cpp
 msgid "Empty Button Color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_preset.cpp
 msgid "Stored Button Color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_preset.cpp
+msgid "read"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_preset.cpp
+msgid "write"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_radio.cpp
@@ -574,6 +591,10 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "Value position"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_slider.cpp
+msgid "Scale Mode"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
@@ -631,6 +652,14 @@ msgstr ""
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
 #, c-format
 msgid "fill with %f"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "linear up"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "linear down"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_spectroscope.cpp

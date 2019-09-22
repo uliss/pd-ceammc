@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-07-28 10:14+0300\n"
-"PO-Revision-Date: 2019-07-28 10:15+0300\n"
+"POT-Creation-Date: 2019-09-22 18:14+0300\n"
+"PO-Revision-Date: 2019-09-22 18:19+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -1189,6 +1189,10 @@ msgstr "Устройства вывода"
 msgid "Output Range"
 msgstr "Диапазон значений"
 
+#: ../ceammc/ext/src/lib/ceammc_ui.h
+msgid "Output mouse events"
+msgstr "Выводить события мыши"
+
 #: ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "Output on mouse up"
 msgstr "Выводить при отпускании мыши"
@@ -1397,6 +1401,10 @@ msgstr "Интервал обновления (мс)"
 msgid "Relative Mode"
 msgstr "Относительный режим"
 
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
+msgid "Relative mode"
+msgstr "Относительный режим"
+
 #: ../tcl/pd_menus.tcl
 msgid "Report a bug"
 msgstr "Сообщить об ошибке"
@@ -1460,6 +1468,10 @@ msgstr "Масштаб"
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_spectroscope.cpp
 msgid "Scale Color"
 msgstr "Цвет шкалы"
+
+#: ../ceammc/ext/src/ui/ui_slider.cpp
+msgid "Scale Mode"
+msgstr "Режим вывода"
 
 #: ../tcl/pd_deken.tcl
 msgid "Search"
@@ -2073,9 +2085,17 @@ msgstr "слева:"
 msgid "lin"
 msgstr "lin"
 
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "linear down"
+msgstr "линейно вниз"
+
 #: ../ceammc/ext/src/ui/ui_spectroscope.cpp
 msgid "linear scale"
 msgstr "линейная шкала"
+
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "linear up"
+msgstr "линейно наверх"
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp
 msgid "load"
@@ -2119,8 +2139,13 @@ msgid "puredata.info"
 msgstr "puredata.info"
 
 #: ../ceammc/ext/src/ui/ui_matrix.cpp ../ceammc/ext/src/ui/ui_radio.cpp
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "random"
 msgstr "случайное значение"
+
+#: ../ceammc/ext/src/ui/ui_preset.cpp
+msgid "read"
+msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_keyboard.cpp
 msgid "release all"
@@ -2170,6 +2195,10 @@ msgstr "значение:"
 #: iemgui_dynamic_strings.tcl
 msgid "width:"
 msgstr "ширина:"
+
+#: ../ceammc/ext/src/ui/ui_preset.cpp
+msgid "write"
+msgstr ""
 
 #~ msgid "Active Cell Color"
 #~ msgstr "Цвет активной ячейки"
