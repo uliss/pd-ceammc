@@ -178,24 +178,11 @@ void UIKnob::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 
 void UIKnob::onMouseDrag(t_object*, const t_pt& pt, long modifiers)
 {
-    switch (scaleMode()) {
-    case LINEAR: {
-        t_float delta = convert::lin2lin<t_float>(click_pos_.y - pt.y, 0, height(), 0, range());
-        if (modifiers & EMOD_SHIFT)
-            delta *= 0.1;
+    t_float delta = (click_pos_.y - pt.y) / height();
+    if (modifiers & EMOD_SHIFT)
+        delta *= 0.1;
 
-        setValue(value() + delta);
-    } break;
-    case LOG:
-        t_float delta = click_pos_.y - pt.y;
-        if (modifiers & EMOD_SHIFT)
-            delta *= 0.1;
-
-        t_float newv = convert::lin2exp(knobPhase() * height() + delta, 0, height(), prop_min, prop_max);
-        setValue(newv);
-        break;
-    }
-
+    setKnobPhase(knobPhase() + delta);
     click_pos_ = pt;
     redrawKnob();
     output();

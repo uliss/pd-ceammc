@@ -59,6 +59,18 @@ t_float UISingleValue::maxValue() const { return prop_max; }
 void UISingleValue::setKnobPhase(t_float v)
 {
     knob_phase = clip<t_float>(v, 0, 1);
+
+    if (prop_scale == SYM_LINEAR)
+        prop_value = convert::lin2lin<t_float, 0, 1>(knob_phase, prop_min, prop_max);
+    else if (prop_scale == SYM_LOG) {
+        const bool ok = (prop_min > 0) && (prop_max > prop_min);
+        if (!ok) {
+            UI_ERR << "invalid min/max bounds: " << prop_min << " " << prop_max << " in logarithm mode";
+            return;
+        }
+
+        prop_value = convert::lin2exp(knob_phase, 0, 1, prop_min, prop_max);
+    }
 }
 
 int UISingleValue::midiChannel() const { return prop_midi_chn; }
@@ -185,31 +197,31 @@ void UISingleValue::onMidiCtrl(const AtomList& l)
         if (prop_midi_chn > 0 && CTL_CHAN != prop_midi_chn)
             return;
 
-        float v = convert::lin2lin_clip<float>(CTL_VAL, 0, 127, prop_min, prop_max);
+        const float w = convert::lin2lin_clip<float, 0, 127>(CTL_VAL, 0, 1);
 
         // control value is set and we need to pickup midi control value
         // do it once
         if (prop_pickup_midi && !midi_pickup_done_) {
             // simple case - pickup equal value
-            if (v == prop_value) {
+            if (w == knob_phase) {
                 midi_pickup_done_ = true;
             } else {
                 // pickup when value is over
-                char side = (v < prop_value) ? -1 : 1;
+                char side = (w < knob_phase) ? -1 : 1;
                 // init state
                 if (pick_value_side_ == 0)
                     pick_value_side_ = side;
                 // pickup the value
                 else if (pick_value_side_ == -side) {
                     midi_pickup_done_ = true;
-                    setValue(v);
+                    setKnobPhase(w);
                     redrawKnob();
                     output();
                 }
             }
 
             if (midi_pickup_done_) {
-                setValue(v);
+                setKnobPhase(w);
 
                 asEBox()->b_boxparameters.d_bordercolor = prop_color_border;
                 invalidateBorder();
@@ -224,7 +236,7 @@ void UISingleValue::onMidiCtrl(const AtomList& l)
             return;
         }
 
-        setValue(v);
+        setKnobPhase(w);
         redrawKnob();
         output();
     }
@@ -332,6 +344,8 @@ UISingleValue::ScaleMode UISingleValue::scaleMode() const
         return LINEAR;
     else if (prop_scale == SYM_LOG)
         return LOG;
+    else
+        return LINEAR;
 }
 
 void UISingleValue::setup()

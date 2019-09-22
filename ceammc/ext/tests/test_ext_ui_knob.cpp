@@ -104,11 +104,6 @@ TEST_CASE("ui.knob", "[ui.knob]")
         REQUIRE(t->minValue() == 0);
         REQUIRE(t->maxValue());
 
-        t->setKnobPhase(-100);
-        REQUIRE(t->knobPhase() == 0);
-        t->setKnobPhase(1.1);
-        REQUIRE(t->knobPhase() == 1);
-
         SECTION("new one")
         {
             TestKnob t2("ui.knob");
@@ -166,11 +161,6 @@ TEST_CASE("ui.knob", "[ui.knob]")
                     REQUIRE(t->range() == 0);
                     REQUIRE(t->knobPhase() == 0.f);
                     REQUIRE(t->value() == 0.f);
-                    t->setKnobPhase(0);
-                    REQUIRE(t->knobPhase() == 0);
-                    t->setKnobPhase(1);
-                    REQUIRE(t->knobPhase() == 1);
-                    REQUIRE(t->value() == 0);
                     t->setValue(0);
                     REQUIRE(t->value() == 0);
                 }
