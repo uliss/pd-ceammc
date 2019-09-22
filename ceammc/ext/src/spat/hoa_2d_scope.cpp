@@ -260,8 +260,11 @@ void Hoa2dScope::drawHarmonics()
 
 void Hoa2dScope::setup()
 {
+    static t_symbol* SYM_REFRESH = gensym("refresh");
+    static t_symbol* SYM_MSEC = gensym("msec");
+
     UIObjectFactory<Hoa2dScope> obj("hoa.scope~", EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
-    obj.setDefaultSize(225, 225);
+    obj.setDefaultSize(120, 120);
 
     // hide some properties
     obj.hideProperty("send");
@@ -282,8 +285,9 @@ void Hoa2dScope::setup()
     obj.setPropertyMin("gain", 0);
 
     // @refresh
-    obj.addIntProperty("refresh", _("Refresh time (ms)"), 100, &Hoa2dScope::prop_refresh_, _("Main"));
-    obj.setPropertyRange("refresh", 20, 1000);
+    obj.addIntProperty(SYM_REFRESH->s_name, _("Refresh time (ms)"), 100, &Hoa2dScope::prop_refresh_, _("Main"));
+    obj.setPropertyRange(SYM_REFRESH->s_name, 20, 1000);
+    obj.setPropertyUnits(SYM_REFRESH, SYM_MSEC);
 
     // @ph_color
     obj.addColorProperty("ph_color", _("Positive Harmonics Color"), "1. 0. 0. 1.", &Hoa2dScope::prop_ph_color_);
