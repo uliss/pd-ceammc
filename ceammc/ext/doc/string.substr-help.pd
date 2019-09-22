@@ -22,7 +22,7 @@ one character from the end of stirng.;
 #X text 110 348 2\.;
 #X text 150 348 int;
 #X obj 246 349 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 348 LENGTH: substring lenght. If -1 given (by default)
+#X text 245 348 LENGTH: substring length. If -1 given (by default)
 \, means 'till string end'.. Min value: 0;
 #X obj 20 393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 398 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
