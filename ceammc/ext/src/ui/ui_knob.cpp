@@ -134,7 +134,7 @@ void UIKnob::paint()
         const float arc_angle_offset = -(EPD_PI2 + (1 - arc_scale) * EPD_PI);
         const float arc_begin = arc_angle_offset;
         const float arc_end = arc_full + arc_angle_offset;
-        const float value_angle = knob_phase * arc_full + arc_angle_offset;
+        const float value_angle = knobPhase() * arc_full + arc_angle_offset;
 
         // adjust knob
         float line_width = int(r.height / 20) + 1;

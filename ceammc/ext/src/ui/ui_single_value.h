@@ -13,6 +13,7 @@ class UISingleValue : public UIObject {
     char pick_value_side_;
     bool listen_midi_ctrl_;
     bool midi_pickup_done_;
+    t_float knob_phase;
 
 public:
     t_float prop_value;
@@ -22,8 +23,12 @@ public:
     int prop_midi_ctl;
     int prop_pickup_midi;
     int prop_show_value;
+    t_symbol* prop_scale;
 
-    t_float knob_phase;
+    enum ScaleMode {
+        LINEAR,
+        LOG
+    };
 
 public:
     UISingleValue();
@@ -67,10 +72,15 @@ public:
 
     void redrawKnob();
 
+    ScaleMode scaleMode() const;
+
 protected:
     UILayer knob_layer_;
 
     static void setup();
+
+private:
+    void setValueLin(t_float v);
 };
 
 #endif // UI_SINGLE_VALUE_H

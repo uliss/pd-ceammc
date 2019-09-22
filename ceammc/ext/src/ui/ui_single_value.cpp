@@ -18,6 +18,8 @@ static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
 static t_rgba PICKUP_MIDI_COLOR = hex_to_rgba("#3377FF");
 static t_symbol* SYM_MIN;
 static t_symbol* SYM_MAX;
+static t_symbol* SYM_LINEAR;
+static t_symbol* SYM_LOG;
 
 using namespace ceammc;
 
@@ -40,6 +42,7 @@ UISingleValue::UISingleValue()
     , prop_midi_ctl(0)
     , prop_pickup_midi(0)
     , prop_show_value(0)
+    , prop_scale(SYM_LINEAR)
     , knob_layer_(asEBox(), gensym("knob_layer"))
 {
     createOutlet();
@@ -67,7 +70,7 @@ t_float UISingleValue::value() const
     return prop_value;
 }
 
-void UISingleValue::setValue(t_float v)
+void UISingleValue::setValueLin(t_float v)
 {
     const t_float r = range();
     if (r < 0) {
@@ -80,6 +83,23 @@ void UISingleValue::setValue(t_float v)
         prop_value = prop_min;
         knob_phase = 0;
         UI_ERR << "zero range";
+    }
+}
+
+void UISingleValue::setValue(t_float v)
+{
+    if (prop_scale == SYM_LINEAR) {
+        setValueLin(v);
+    } else if (prop_scale == SYM_LOG) {
+        bool ok = prop_min > 0 && prop_max > prop_min;
+        if (!ok) {
+            UI_ERR << "invalid property range: " << prop_min << " " << prop_max
+                   << ". @min should be >0 in log mode";
+            return;
+        }
+
+        prop_value = clip(v, prop_min, prop_max);
+        knob_phase = convert::exp2lin(prop_value, prop_min, prop_max, 0, 1);
     }
 }
 
@@ -306,6 +326,14 @@ void UISingleValue::redrawKnob()
     redrawInnerArea();
 }
 
+UISingleValue::ScaleMode UISingleValue::scaleMode() const
+{
+    if (prop_scale == SYM_LINEAR)
+        return LINEAR;
+    else if (prop_scale == SYM_LOG)
+        return LOG;
+}
+
 void UISingleValue::setup()
 {
     if (!SYM_MIN)
@@ -313,4 +341,10 @@ void UISingleValue::setup()
 
     if (!SYM_MAX)
         SYM_MAX = gensym("max");
+
+    if (!SYM_LINEAR)
+        SYM_LINEAR = gensym("linear");
+
+    if (!SYM_LOG)
+        SYM_LOG = gensym("log");
 }

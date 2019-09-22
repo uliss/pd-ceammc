@@ -30,7 +30,8 @@
             <event editmode="true" type="double-click" keys="Cmd">changes slider
             orientation</event>
             <event editmode="0" type="drag">changes the slider value</event>
-            <event editmode="0" type="drag" keys="Shift">changes the slider value slowly</event>
+            <event editmode="0" type="drag" keys="Shift">changes the slider value slowly (only in
+            relative mode)</event>
             <event editmode="0" type="left-click">jump to value unless @mode property is on</event>
             <event editmode="0" type="double-click" keys="Shift">toggle MIDI-learn mode (red border
             displayed)</event>
@@ -56,6 +57,8 @@
             value position</property>
             <property name="@value_precision" type="int" default="2" minvalue="0" maxvalue="7">
             number of digits shown after decimal point</property>
+            <property name="@scale" type="symbol" default="linear" enum="linear log">scale mode.
+            Linear or logarithmic.</property>
             <!-- common -->
             <property name="@presetname" type="symbol">preset name for using with
             [ui.preset]</property>

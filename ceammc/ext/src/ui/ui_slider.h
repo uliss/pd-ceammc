@@ -5,8 +5,8 @@
 
 class UISlider : public UISingleValue {
     bool is_horizontal_;
-    float value_prev_;
-    float click_value_;
+    float knob_phase_prev_;
+    float click_phase_;
     UIFont font_;
     UITextLayout txt_value_;
 
@@ -24,7 +24,7 @@ public:
     void init(t_symbol* name, const AtomList& args, bool usePresets);
     void paint();
     void okSize(t_rect* newrect);
-    void onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long);
+    void onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
@@ -33,6 +33,9 @@ public:
 
 public:
     static void setup();
+
+private:
+    t_float calcValueAtMousePos(const t_pt& pt) const;
 };
 
 void setup_ui_slider();

@@ -3,12 +3,14 @@
 #include "ceammc_convert.h"
 #include "ceammc_ui.h"
 
+#include <tuple>
+
 static const float ALPHA_BLEND = 0.4;
 
 UISlider::UISlider()
     : is_horizontal_(false)
-    , value_prev_(0)
-    , click_value_(0)
+    , knob_phase_prev_(0)
+    , click_phase_(0)
     , font_(gensym(FONT_FAMILY), FONT_SIZE - 2)
     , txt_value_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
     , prop_knob_color(hex_to_rgba(DEFAULT_ACTIVE_COLOR))
@@ -52,7 +54,7 @@ void UISlider::paint()
                 char fmt[] = "%..f";
                 fmt[2] = char(prop_value_precision) + '0';
                 char buf[16];
-                snprintf(buf, sizeof(buf), fmt, knobPhase());
+                snprintf(buf, sizeof(buf), fmt, value());
 
                 txt_value_.setColor(prop_text_color);
                 if (prop_value_pos == gensym("left")) {
@@ -98,21 +100,16 @@ void UISlider::okSize(t_rect* newrect)
         newrect->height = pd_clip_min(newrect->height, 50.);
 }
 
-void UISlider::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long)
+void UISlider::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    t_rect r = rect();
-
     if (prop_rel_mode) {
-        value_prev_ = value();
-        click_value_ = (is_horizontal_)
-            ? convert::lin2lin<float>(pt.x, 0, r.width, prop_min, prop_max)
-            : convert::lin2lin<float>(pt.y, r.height, 0, prop_min, prop_max);
-    } else {
-        if (is_horizontal_)
-            setValue(convert::lin2lin<t_float>(pt.x, 0, r.width, prop_min, prop_max));
-        else
-            setValue(convert::lin2lin<t_float>(pt.y, r.height, 0, prop_min, prop_max));
+        knob_phase_prev_ = knobPhase();
 
+        click_phase_ = (is_horizontal_)
+            ? convert::lin2lin<t_float>(pt.x, 0, width(), 0, 1)
+            : convert::lin2lin<t_float>(pt.y, height(), 0, 0, 1);
+    } else {
+        setValue(calcValueAtMousePos(pt));
         output();
 
         // redraw immidiately
@@ -122,29 +119,41 @@ void UISlider::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long)
 
 void UISlider::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
-    t_rect r = rect();
+    t_pt pos(pt);
 
     if (prop_rel_mode) {
-        float new_value = (is_horizontal_)
-            ? convert::lin2lin<float>(pt.x, 0, r.width, prop_min, prop_max)
-            : convert::lin2lin<float>(pt.y, r.height, 0, prop_min, prop_max);
+        t_float new_click_phase = (is_horizontal_)
+            ? convert::lin2lin<t_float>(pt.x, 0, width(), 0, 1)
+            : convert::lin2lin<t_float>(pt.y, height(), 0, 0, 1);
 
-        float val_delta = new_value - click_value_;
+        const t_float delta = (new_click_phase - click_phase_) * ((modifiers & EMOD_SHIFT) ? 0.1 : 1);
+        const t_float new_phase = knob_phase_prev_ + delta;
 
-        // slow change
-        if (modifiers & EMOD_SHIFT)
-            val_delta *= 0.1;
-
-        setValue(value_prev_ + val_delta);
-    } else {
-        if (is_horizontal_)
-            setValue(convert::lin2lin<float>(pt.x, 0, r.width, prop_min, prop_max));
-        else
-            setValue(convert::lin2lin<float>(pt.y, r.height, 0, prop_min, prop_max));
+        pos.x = convert::lin2lin<t_float, 0, 1>(new_phase, 0, width());
+        pos.y = convert::lin2lin<t_float, 0, 1>(new_phase, height(), 0);
     }
 
+    setValue(calcValueAtMousePos(pos));
     output();
     redrawKnob();
+}
+
+t_float UISlider::calcValueAtMousePos(const t_pt& pt) const
+{
+    auto r = rect();
+    std::tuple<t_float, t_float, t_float> args;
+
+    if (is_horizontal_)
+        args = { pt.x, 0, r.width };
+    else
+        args = { pt.y, r.height, 0 };
+
+    switch (scaleMode()) {
+    case LINEAR:
+        return convert::lin2lin(std::get<0>(args), std::get<1>(args), std::get<2>(args), prop_min, prop_max);
+    case LOG:
+        return convert::lin2exp(std::get<0>(args), std::get<1>(args), std::get<2>(args), prop_min, prop_max);
+    };
 }
 
 void UISlider::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
@@ -198,6 +207,8 @@ void UISlider::setup()
     obj.addProperty("text_color", _("Text Color"), DEFAULT_TEXT_COLOR, &UISlider::prop_text_color);
 
     obj.addProperty("mode", _("Relative Mode"), false, &UISlider::prop_rel_mode, "Main");
+    obj.addProperty("scale", _("Scale Mode"), "linear", &UISlider::prop_scale, "linear log", "Main");
+
     obj.addProperty("min", _("Minimum Value"), 0, &UISingleValue::prop_min, "Bounds");
     obj.addProperty("max", _("Maximum Value"), 1, &UISingleValue::prop_max, "Bounds");
 
