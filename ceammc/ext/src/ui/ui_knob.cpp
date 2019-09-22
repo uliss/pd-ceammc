@@ -77,6 +77,8 @@ void UIKnob::setup()
     obj.addProperty("min", _("Minimum Value"), 0, &UISingleValue::prop_min, "Bounds");
     obj.addProperty("max", _("Maximum Value"), 1, &UISingleValue::prop_max, "Bounds");
     obj.addProperty("show_range", _("Show range"), false, &UIKnob::show_range_);
+    obj.addProperty("scale", _("Scale Mode"), "linear", &UISingleValue::prop_scale, "linear log", "Main");
+
     obj.addProperty("active_scale", _("Draw active scale"), false, &UIKnob::draw_active_scale_);
     obj.addProperty("midi_channel", _("MIDI channel"), 0, &UISingleValue::prop_midi_chn, "MIDI");
     obj.setPropertyRange("midi_channel", 0, 16);
@@ -176,11 +178,24 @@ void UIKnob::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 
 void UIKnob::onMouseDrag(t_object*, const t_pt& pt, long modifiers)
 {
-    t_float delta = convert::lin2lin<t_float>(click_pos_.y - pt.y, 0, height(), 0, range());
-    if (modifiers & EMOD_SHIFT)
-        delta *= 0.1;
+    switch (scaleMode()) {
+    case LINEAR: {
+        t_float delta = convert::lin2lin<t_float>(click_pos_.y - pt.y, 0, height(), 0, range());
+        if (modifiers & EMOD_SHIFT)
+            delta *= 0.1;
 
-    setValue(value() + delta);
+        setValue(value() + delta);
+    } break;
+    case LOG:
+        t_float delta = click_pos_.y - pt.y;
+        if (modifiers & EMOD_SHIFT)
+            delta *= 0.1;
+
+        t_float newv = convert::lin2exp(knobPhase() * height() + delta, 0, height(), prop_min, prop_max);
+        setValue(newv);
+        break;
+    }
+
     click_pos_ = pt;
     redrawKnob();
     output();

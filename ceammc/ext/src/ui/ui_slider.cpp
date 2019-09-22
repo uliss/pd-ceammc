@@ -207,7 +207,7 @@ void UISlider::setup()
     obj.addProperty("text_color", _("Text Color"), DEFAULT_TEXT_COLOR, &UISlider::prop_text_color);
 
     obj.addProperty("mode", _("Relative Mode"), false, &UISlider::prop_rel_mode, "Main");
-    obj.addProperty("scale", _("Scale Mode"), "linear", &UISlider::prop_scale, "linear log", "Main");
+    obj.addProperty("scale", _("Scale Mode"), "linear", &UISingleValue::prop_scale, "linear log", "Main");
 
     obj.addProperty("min", _("Minimum Value"), 0, &UISingleValue::prop_min, "Bounds");
     obj.addProperty("max", _("Maximum Value"), 1, &UISingleValue::prop_max, "Bounds");

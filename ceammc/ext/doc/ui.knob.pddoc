@@ -44,6 +44,8 @@
             <property name="@value" type="float" default="0">current value</property>
             <property name="@show_range" type="int" enum="0 1" default="0">show knob
             range</property>
+            <property name="@scale" type="symbol" default="linear" enum="linear log">scale mode.
+            Linear or logarithmic.</property>
             <!-- common -->
             <property name="@presetname" type="symbol" category="basic">preset name for using with
             [ui.preset]</property>
