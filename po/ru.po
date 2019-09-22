@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-09-22 18:14+0300\n"
-"PO-Revision-Date: 2019-09-22 18:19+0300\n"
+"POT-Creation-Date: 2019-09-23 02:33+0300\n"
+"PO-Revision-Date: 2019-09-23 02:37+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -185,6 +185,10 @@ msgstr "Выравнивание"
 #: ../tcl/pd_menus.tcl
 msgid "Align To Grid"
 msgstr "Выровнять по сетке"
+
+#: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
+msgid "Ambisonic Order"
+msgstr "Порядок Амбисоника"
 
 #: ../tcl/dialog_canvas.tcl
 msgid "Appearance on parent patch"
@@ -679,6 +683,10 @@ msgstr "Найдено ‘%1$s’ в %2$s"
 msgid "Front"
 msgstr "Передний план"
 
+#: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
+msgid "Gain"
+msgstr "Чувствительность"
+
 #: ../tcl/pd_menus.tcl
 msgid "Graph"
 msgstr ""
@@ -949,6 +957,7 @@ msgid "MIDI..."
 msgstr "MIDI…"
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp ../ceammc/ext/src/ui/ui_display.cpp
 #: ../ceammc/ext/src/ui/ui_env.cpp ../ceammc/ext/src/ui/ui_gain.cpp
 #: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_icon.cpp
@@ -1086,6 +1095,10 @@ msgstr "Синхронизировать с мышью"
 #: ../tcl/dialog_array.tcl
 msgid "Name:"
 msgstr "Имя:"
+
+#: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
+msgid "Negative Harmonics Color"
+msgstr "Цвет негативных гармоник"
 
 #: ../tcl/pd_menus.tcl
 msgid "New"
@@ -1302,6 +1315,10 @@ msgstr "Линиями"
 msgid "Position"
 msgstr "Положение"
 
+#: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
+msgid "Positive Harmonics Color"
+msgstr "Цвет позитивных гармоник"
+
 #: ../ceammc/ext/src/ui/ui_polar.cpp
 msgid "Positive output"
 msgstr "Положительный вывод"
@@ -1393,7 +1410,8 @@ msgstr "Повторить ввод"
 msgid "Refresh interval (ms)"
 msgstr "Интервал обновления (мс)"
 
-#: ../ceammc/ext/src/ui/ui_scope.cpp ../ceammc/ext/src/ui/ui_spectroscope.cpp
+#: ../ceammc/ext/src/spat/hoa_2d_scope.cpp ../ceammc/ext/src/ui/ui_scope.cpp
+#: ../ceammc/ext/src/ui/ui_spectroscope.cpp
 msgid "Refresh time (ms)"
 msgstr "Интервал обновления (мс)"
 
@@ -1469,7 +1487,7 @@ msgstr "Масштаб"
 msgid "Scale Color"
 msgstr "Цвет шкалы"
 
-#: ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "Scale Mode"
 msgstr "Режим вывода"
 
@@ -1850,6 +1868,10 @@ msgstr "Вертикально"
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 msgid "Vertical align"
 msgstr "Вертикальное выравнивание"
+
+#: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
+msgid "View rotation"
+msgstr "Поворот отображения"
 
 #: ../tcl/dialog_iemgui.tcl
 msgid "Visible Rectangle (pix)"

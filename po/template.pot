@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.49.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-09-22 18:14+0300\n"
+"POT-Creation-Date: 2019-09-23 02:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -129,6 +129,7 @@ msgid "MIDI"
 msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
+#: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp ../ceammc/ext/src/ui/ui_display.cpp
 #: ../ceammc/ext/src/ui/ui_env.cpp ../ceammc/ext/src/ui/ui_gain.cpp
 #: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_icon.cpp
@@ -186,6 +187,31 @@ msgstr ""
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/ui/cicm/Sources/eclass.c ../tcl/pdwindow.tcl
 msgid "normal"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
+msgid "Ambisonic Order"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
+msgid "Gain"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
+msgid "Negative Harmonics Color"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
+msgid "Positive Harmonics Color"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_2d_scope.cpp ../ceammc/ext/src/ui/ui_scope.cpp
+#: ../ceammc/ext/src/ui/ui_spectroscope.cpp
+msgid "Refresh time (ms)"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
+msgid "View rotation"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
@@ -302,13 +328,13 @@ msgid "Output value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
-#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
-#: ../ceammc/ext/src/ui/ui_sliders.cpp
-msgid "Show range"
+msgid "Relative mode"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
-msgid "Relative mode"
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "Show range"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_icon.cpp
@@ -373,6 +399,10 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_spectroscope.cpp
 msgid "Scale Color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
+msgid "Scale Mode"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_polar.cpp
@@ -565,10 +595,6 @@ msgstr ""
 msgid "Mouse sync"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_scope.cpp ../ceammc/ext/src/ui/ui_spectroscope.cpp
-msgid "Refresh time (ms)"
-msgstr ""
-
 #: ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Window size"
 msgstr ""
@@ -591,10 +617,6 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "Value position"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_slider.cpp
-msgid "Scale Mode"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
@@ -655,11 +677,11 @@ msgid "fill with %f"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
-msgid "linear up"
+msgid "linear down"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_sliders.cpp
-msgid "linear down"
+msgid "linear up"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_spectroscope.cpp
