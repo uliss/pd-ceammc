@@ -150,8 +150,9 @@
     {spat {
         hoa.2d.decoder~ hoa.2d.encoder~ hoa.2d.map~ hoa.2d.optim~
         hoa.2d.projector~ hoa.2d.recomposer~ hoa.2d.rotate~ hoa.2d.wider~
-        hoa.@process hoa.in hoa.in~ hoa.out hoa.out~ hoa.process~ pan.cos~
-        pan.linsig~ pan.lin~ pan.spread~ pan.sqrt~ spat.pan4~ spat.pan8~
+        hoa.@process hoa.in hoa.in~ hoa.out hoa.out~ hoa.process~ hoa.scope~
+        pan.cos~ pan.linsig~ pan.lin~ pan.spread~ pan.sqrt~ spat.pan4~
+        spat.pan8~
     }}
     {string {
         string string.contains string.ends_with string.equal string.format
