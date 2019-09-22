@@ -181,6 +181,7 @@ hoa.in~		-		~
 hoa.out		.		-
 hoa.out~		-		~
 hoa.process~		?		?
+hoa.scope~		?		-
 hw.apple_smc		.		.
 hw.apple_sms		.		.
 hw.arduino		.		.

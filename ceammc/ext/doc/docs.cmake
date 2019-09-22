@@ -182,6 +182,7 @@ set(DOC_FILES
     hoa.out
     hoa.out~
     hoa.process~
+    hoa.scope~
     hoa.@process
     hw.apple_smc
     hw.apple_sms
