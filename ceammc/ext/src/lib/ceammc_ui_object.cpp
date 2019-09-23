@@ -49,6 +49,8 @@ UIObject::~UIObject()
     unbindAll();
 }
 
+t_ebox *UIObject::asEBox() const { return const_cast<UIObject*>(this); }
+
 void UIObject::appendToLayerList(UILayer* l)
 {
     layer_stack_.push_back(l);

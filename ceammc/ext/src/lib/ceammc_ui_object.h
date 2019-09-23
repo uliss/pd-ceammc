@@ -65,7 +65,7 @@ public:
     ~UIObject();
 
     // CICM and Pd
-    t_ebox* asEBox() const { return const_cast<UIObject*>(this); }
+    t_ebox* asEBox() const;
     t_eobj* asEObj() const;
     t_object* asPdObject() const;
     t_gobj* asGObj() const;
