@@ -712,23 +712,22 @@ void ebox_wvis(t_gobj* z, t_glist* glist, int vis)
 //! Widget
 void ebox_wdisplace(t_gobj* z, t_glist* glist, int dx, int dy)
 {
-#ifdef _WINDOWS
     t_ebox* x = (t_ebox*)z;
+
+#ifdef _WINDOWS
     if (x->b_selected_box) {
+#endif
+
         x->b_rect.x += dx;
         x->b_rect.y += dy;
         x->b_obj.o_obj.te_xpix += dx;
         x->b_obj.o_obj.te_ypix += dy;
-        ebox_move(x);
-    }
-#else
-    t_ebox* x = (t_ebox*)z;
 
-    x->b_rect.x += dx;
-    x->b_rect.y += dy;
-    x->b_obj.o_obj.te_xpix += dx;
-    x->b_obj.o_obj.te_ypix += dy;
-    ebox_move(x);
+        sys_vgui("%s move %s %d %d\n", x->b_canvas_id->s_name, x->b_window_id->s_name, dx, dy);
+        ebox_move(x);
+
+#ifdef _WINDOWS
+    }
 #endif
 }
 
