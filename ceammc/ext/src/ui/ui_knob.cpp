@@ -20,6 +20,8 @@ static t_symbol* SYM_MUL;
 static t_symbol* SYM_DIV;
 static t_symbol* SYM_INC;
 static t_symbol* SYM_DEC;
+static t_symbol* SYM_POPUP_LINEAR;
+static t_symbol* SYM_POPUP_LOG;
 
 static const int KNOB_MIN_SIZE = 20;
 static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
@@ -191,9 +193,9 @@ void UIKnob::onMouseDrag(t_object*, const t_pt& pt, long modifiers)
 void UIKnob::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     if (modifiers & EMOD_RIGHT) {
-        UIPopupMenu menu(asEObj(), "popup", abs_pt);
+        UIPopupMenu menu(asEObj(), SYM_POPUP_LINEAR, abs_pt);
         menu.addItem(_("min"));
-        menu.addItem(_("center"));
+        menu.addItem(_("center"), scaleMode() == LINEAR);
         menu.addItem(_("max"));
         return;
     }
@@ -203,9 +205,6 @@ void UIKnob::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod
 
 void UIKnob::onPopup(t_symbol* menu_name, long item_idx)
 {
-    if (menu_name != gensym("popup"))
-        return;
-
     switch (item_idx) {
     case 0:
         onFloat(prop_min);
@@ -230,6 +229,9 @@ void setup_ui_knob()
     SYM_DIV = gensym("/");
     SYM_INC = gensym("++");
     SYM_DEC = gensym("--");
+
+    SYM_POPUP_LINEAR = gensym("popup_lin");
+    SYM_POPUP_LOG = gensym("popup_log");
 
     UIKnob::setup();
 }
