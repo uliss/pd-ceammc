@@ -153,6 +153,8 @@ t_float UISlider::calcValueAtMousePos(const t_pt& pt) const
         return convert::lin2lin(std::get<0>(args), std::get<1>(args), std::get<2>(args), prop_min, prop_max);
     case LOG:
         return convert::lin2exp(std::get<0>(args), std::get<1>(args), std::get<2>(args), prop_min, prop_max);
+    default:
+        return 0;
     };
 }
 
