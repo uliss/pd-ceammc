@@ -43,7 +43,7 @@
 	url = https://github.com/google/re2.git
 [submodule "ceammc/extra/HoaLibrary-Light"]
 	path = ceammc/extra/HoaLibrary-Light
-	url = https://github.com/CICM/HoaLibrary-Light.git
+	url = https://github.com/uliss/HoaLibrary-Light.git
 [submodule "ceammc/ext/src/proto/extra/hw_alpaca"]
 	path = ceammc/ext/src/proto/extra/hw_alpaca
 	url = https://github.com/uliss/hw_alpaca
