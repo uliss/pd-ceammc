@@ -1,20 +1,35 @@
 {
 	"name": "flt.eq_peak",
-	"filename": "flt_eq_peak",
-	"version": "2.15.10",
-	"compile_options": "cpp, -scal -ftz 0",
+	"filename": "flt_eq_peak.dsp",
+	"version": "2.18.7",
+	"compile_options": "-lang cpp -scal -ftz 0",
 	"library_list": ["/usr/local/share/faust/filters.lib","/usr/local/share/faust/signals.lib","/Users/serj/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/basics.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
-	"inputs": "1",
-	"outputs": "1",
+	"inputs": 1,
+	"outputs": 1,
 	"meta": [ 
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.0" },
+		{ "basics.lib/version": "0.1" },
 		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
 		{ "ceammc_ui.lib/version": "0.1.1" },
-		{ "filename": "flt_eq_peak" },
+		{ "filename": "flt_eq_peak.dsp" },
+		{ "filters.lib/fir:author": "Julius O. Smith III" },
+		{ "filters.lib/fir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/fir:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/iir:author": "Julius O. Smith III" },
+		{ "filters.lib/iir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/iir:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/name": "Faust Filters Library" },
-		{ "filters.lib/version": "0.0" },
+		{ "filters.lib/peak_eq:author": "Julius O. Smith III" },
+		{ "filters.lib/peak_eq:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/peak_eq:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/tf2:author": "Julius O. Smith III" },
+		{ "filters.lib/tf2:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf2:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/tf2s:author": "Julius O. Smith III" },
+		{ "filters.lib/tf2s:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf2s:license": "MIT-style STK-4.3 license" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
@@ -36,10 +51,10 @@
 					"meta": [
 						{ "unit": "Hz" }
 					],
-					"init": "100",
-					"min": "1",
-					"max": "5000",
-					"step": "0.1"
+					"init": 100,
+					"min": 1,
+					"max": 5000,
+					"step": 0.1
 				},
 				{
 					"type": "vslider",
@@ -48,10 +63,10 @@
 					"meta": [
 						{ "unit": "Hz" }
 					],
-					"init": "1000",
-					"min": "20",
-					"max": "20000",
-					"step": "0.1"
+					"init": 1000,
+					"min": 20,
+					"max": 20000,
+					"step": 0.1
 				},
 				{
 					"type": "vslider",
@@ -60,10 +75,10 @@
 					"meta": [
 						{ "unit": "db" }
 					],
-					"init": "0",
-					"min": "-15",
-					"max": "15",
-					"step": "0.1"
+					"init": 0,
+					"min": -15,
+					"max": 15,
+					"step": 0.1
 				}
 			]
 		}

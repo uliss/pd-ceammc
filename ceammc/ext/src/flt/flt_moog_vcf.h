@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt.moog_vcf"
-Code generated with Faust 2.15.0 (https://faust.grame.fr)
-Compilation options: cpp, -scal -ftz 0
+Code generated with Faust 2.18.7 (https://faust.grame.fr)
+Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_moog_vcf_H__
@@ -14,6 +14,7 @@ Compilation options: cpp, -scal -ftz 0
 #include <memory>
 #include <string>
 
+/************************** BEGIN dsp.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -96,23 +97,23 @@ class dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param samplingRate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hertz
          */
-        virtual void init(int samplingRate) = 0;
+        virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param samplingRate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hertz
          */
-        virtual void instanceInit(int samplingRate) = 0;
+        virtual void instanceInit(int sample_rate) = 0;
 
         /**
          * Init instance constant state
          *
-         * @param samplingRate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hertz
          */
-        virtual void instanceConstants(int samplingRate) = 0;
+        virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
@@ -149,8 +150,8 @@ class dsp {
          *
          * @param date_usec - the timestamp in microsec given by audio driver.
          * @param count - the number of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
          *
          */
         virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
@@ -169,16 +170,16 @@ class decorator_dsp : public dsp {
 
     public:
 
-        decorator_dsp(dsp* dsp = 0):fDSP(dsp) {}
+        decorator_dsp(dsp* dsp = nullptr):fDSP(dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
         virtual int getNumInputs() { return fDSP->getNumInputs(); }
         virtual int getNumOutputs() { return fDSP->getNumOutputs(); }
         virtual void buildUserInterface(UI* ui_interface) { fDSP->buildUserInterface(ui_interface); }
         virtual int getSampleRate() { return fDSP->getSampleRate(); }
-        virtual void init(int samplingRate) { fDSP->init(samplingRate); }
-        virtual void instanceInit(int samplingRate) { fDSP->instanceInit(samplingRate); }
-        virtual void instanceConstants(int samplingRate) { fDSP->instanceConstants(samplingRate); }
+        virtual void init(int sample_rate) { fDSP->init(sample_rate); }
+        virtual void instanceInit(int sample_rate) { fDSP->instanceInit(sample_rate); }
+        virtual void instanceConstants(int sample_rate) { fDSP->instanceConstants(sample_rate); }
         virtual void instanceResetUserInterface() { fDSP->instanceResetUserInterface(); }
         virtual void instanceClear() { fDSP->instanceClear(); }
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
@@ -233,6 +234,8 @@ class dsp_factory {
 #endif
 
 #endif
+/**************************  END  dsp.h **************************/
+/************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -272,45 +275,56 @@ class dsp_factory {
 
 struct Soundfile;
 
-class UI
+template <typename REAL>
+class UIReal
+{
+    
+    public:
+        
+        UIReal() {}
+        virtual ~UIReal() {}
+        
+        // -- widget's layouts
+        
+        virtual void openTabBox(const char* label) = 0;
+        virtual void openHorizontalBox(const char* label) = 0;
+        virtual void openVerticalBox(const char* label) = 0;
+        virtual void closeBox() = 0;
+        
+        // -- active widgets
+        
+        virtual void addButton(const char* label, REAL* zone) = 0;
+        virtual void addCheckButton(const char* label, REAL* zone) = 0;
+        virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+        virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+        virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+        
+        // -- passive widgets
+        
+        virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+        virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+        
+        // -- soundfiles
+        
+        virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
+        
+        // -- metadata declarations
+        
+        virtual void declare(REAL* zone, const char* key, const char* val) {}
+};
+
+class UI : public UIReal<FAUSTFLOAT>
 {
 
     public:
 
         UI() {}
-
         virtual ~UI() {}
-
-        // -- widget's layouts
-
-        virtual void openTabBox(const char* label) = 0;
-        virtual void openHorizontalBox(const char* label) = 0;
-        virtual void openVerticalBox(const char* label) = 0;
-        virtual void closeBox() = 0;
-
-        // -- active widgets
-
-        virtual void addButton(const char* label, FAUSTFLOAT* zone) = 0;
-        virtual void addCheckButton(const char* label, FAUSTFLOAT* zone) = 0;
-        virtual void addVerticalSlider(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step) = 0;
-        virtual void addHorizontalSlider(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step) = 0;
-        virtual void addNumEntry(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step) = 0;
-
-        // -- passive widgets
-
-        virtual void addHorizontalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max) = 0;
-        virtual void addVerticalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max) = 0;
-    
-        // -- soundfiles
-    
-        virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-
-        // -- metadata declarations
-
-        virtual void declare(FAUSTFLOAT*, const char*, const char*) {}
 };
 
 #endif
+/**************************  END  UI.h **************************/
+/************************** BEGIN meta.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -339,11 +353,14 @@ class UI
 
 struct Meta
 {
-    virtual void declare(const char* key, const char* value) = 0;
     virtual ~Meta() {};
+    virtual void declare(const char* key, const char* value) = 0;
+    
 };
 
 #endif
+/**************************  END  meta.h **************************/
+/************************** BEGIN misc.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -374,6 +391,8 @@ struct Meta
 #include <map>
 #include <cstdlib>
 #include <string.h>
+#include <fstream>
+#include <string>
 
 
 using std::max;
@@ -414,8 +433,29 @@ static const char* lopts(char* argv[], const char* name, const char* def)
 	return def;
 }
 
+static std::string pathToContent(const std::string& path)
+{
+    std::ifstream file(path.c_str(), std::ifstream::binary);
+    
+    file.seekg(0, file.end);
+    int size = int(file.tellg());
+    file.seekg(0, file.beg);
+    
+    // And allocate buffer to that a single line can be read...
+    char* buffer = new char[size + 1];
+    file.read(buffer, size);
+    
+    // Terminate the string
+    buffer[size] = 0;
+    std::string result = buffer;
+    file.close();
+    delete [] buffer;
+    return result;
+}
+
 #endif
 
+/**************************  END  misc.h **************************/
 
 #include "ceammc_faust.h"
 
@@ -464,22 +504,28 @@ class flt_moog_vcf : public dsp {
  private:
 	
 	FAUSTFLOAT fVslider0;
-	float fRec2[2];
-	int fSamplingFreq;
-	float fConst0;
-	float fRec5[2];
-	float fRec3[2];
-	float fRec6[2];
 	float fRec0[2];
+	int fSampleRate;
+	float fConst0;
+	float fRec3[2];
+	float fRec1[2];
+	float fRec6[2];
+	float fRec4[2];
 	
  public:
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.0");
-		m->declare("filename", "flt_moog_vcf");
+		m->declare("basics.lib/version", "0.1");
+		m->declare("filename", "flt_moog_vcf.dsp");
+		m->declare("filters.lib/allpassnnlt:author", "Julius O. Smith III");
+		m->declare("filters.lib/allpassnnlt:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/allpassnnlt:license", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/name", "Faust Filters Library");
-		m->declare("filters.lib/version", "0.0");
+		m->declare("filters.lib/tf2np:author", "Julius O. Smith III");
+		m->declare("filters.lib/tf2np:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/tf2np:license", "MIT-style STK-4.3 license");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
@@ -488,6 +534,9 @@ class flt_moog_vcf : public dsp {
 		m->declare("name", "flt.moog_vcf");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
+		m->declare("vaeffects.lib/moog_vcf_2bn:author", "Julius O. Smith III");
+		m->declare("vaeffects.lib/moog_vcf_2bn:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("vaeffects.lib/moog_vcf_2bn:license", "MIT-style STK-4.3 license");
 		m->declare("vaeffects.lib/name", "Faust Virtual Analog Filter Effect Library");
 		m->declare("vaeffects.lib/version", "0.0");
 	}
@@ -537,13 +586,13 @@ class flt_moog_vcf : public dsp {
 		
 	}
 	
-	static void classInit(int samplingFreq) {
+	static void classInit(int sample_rate) {
 		
 	}
 	
-	virtual void instanceConstants(int samplingFreq) {
-		fSamplingFreq = samplingFreq;
-		fConst0 = (3.14159274f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSamplingFreq))));
+	virtual void instanceConstants(int sample_rate) {
+		fSampleRate = sample_rate;
+		fConst0 = (3.14159274f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate))));
 		
 	}
 	
@@ -554,15 +603,15 @@ class flt_moog_vcf : public dsp {
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
-			fRec2[l0] = 0.0f;
+			fRec0[l0] = 0.0f;
 			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
-			fRec5[l1] = 0.0f;
+			fRec3[l1] = 0.0f;
 			
 		}
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
-			fRec3[l2] = 0.0f;
+			fRec1[l2] = 0.0f;
 			
 		}
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
@@ -570,18 +619,18 @@ class flt_moog_vcf : public dsp {
 			
 		}
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
-			fRec0[l4] = 0.0f;
+			fRec4[l4] = 0.0f;
 			
 		}
 		
 	}
 	
-	virtual void init(int samplingFreq) {
-		classInit(samplingFreq);
-		instanceInit(samplingFreq);
+	virtual void init(int sample_rate) {
+		classInit(sample_rate);
+		instanceInit(sample_rate);
 	}
-	virtual void instanceInit(int samplingFreq) {
-		instanceConstants(samplingFreq);
+	virtual void instanceInit(int sample_rate) {
+		instanceConstants(sample_rate);
 		instanceResetUserInterface();
 		instanceClear();
 	}
@@ -589,8 +638,9 @@ class flt_moog_vcf : public dsp {
 	virtual flt_moog_vcf* clone() {
 		return new flt_moog_vcf();
 	}
+	
 	virtual int getSampleRate() {
-		return fSamplingFreq;
+		return fSampleRate;
 		
 	}
 	
@@ -608,9 +658,9 @@ class flt_moog_vcf : public dsp {
 		float fSlow0 = (0.00100000005f * float(fVslider0));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
-			fRec2[0] = (fSlow0 + (0.999000013f * fRec2[1]));
-			float fTemp1 = flt_moog_vcf_faustpower2_f((1.41419947f * fRec2[0]));
-			float fTemp2 = (1.99997997f * fRec2[0]);
+			fRec0[0] = (fSlow0 + (0.999000013f * fRec0[1]));
+			float fTemp1 = flt_moog_vcf_faustpower2_f((1.41419947f * fRec0[0]));
+			float fTemp2 = (1.99997997f * fRec0[0]);
 			float fTemp3 = (fTemp1 + fTemp2);
 			float fTemp4 = (fTemp2 + 2.0f);
 			float fTemp5 = std::tan((fConst0 * std::max<float>(float(input1[i]), 20.0f)));
@@ -620,18 +670,18 @@ class flt_moog_vcf : public dsp {
 			float fTemp9 = std::max<float>(-0.999899983f, std::min<float>(0.999899983f, fTemp8));
 			float fTemp10 = (1.0f - flt_moog_vcf_faustpower2_f(fTemp9));
 			float fTemp11 = std::sqrt(std::max<float>(0.0f, fTemp10));
-			float fTemp12 = ((fTemp0 * fTemp11) - (fTemp9 * fRec3[1]));
+			float fTemp12 = ((fTemp0 * fTemp11) - (fTemp9 * fRec1[1]));
 			float fTemp13 = (1.0f / flt_moog_vcf_faustpower2_f(fTemp5));
 			float fTemp14 = (fTemp3 + (1.0f - fTemp13));
 			float fTemp15 = std::max<float>(-0.999899983f, std::min<float>(0.999899983f, (2.0f * (fTemp14 / (fTemp7 * (fTemp8 + 1.0f))))));
 			float fTemp16 = (1.0f - flt_moog_vcf_faustpower2_f(fTemp15));
 			float fTemp17 = std::sqrt(std::max<float>(0.0f, fTemp16));
-			fRec5[0] = ((fTemp12 * fTemp17) - (fTemp15 * fRec5[1]));
-			fRec3[0] = ((fTemp12 * fTemp15) + (fRec5[1] * fTemp17));
-			float fRec4 = fRec5[0];
+			fRec3[0] = ((fTemp12 * fTemp17) - (fTemp15 * fRec3[1]));
+			fRec1[0] = ((fTemp12 * fTemp15) + (fRec3[1] * fTemp17));
+			float fRec2 = fRec3[0];
 			float fTemp18 = (1.0f - (fTemp14 / fTemp7));
 			float fTemp19 = std::sqrt(fTemp10);
-			float fTemp20 = ((((fTemp0 * fTemp9) + (fRec3[1] * fTemp11)) + (2.0f * ((fRec3[0] * fTemp18) / fTemp19))) + ((fRec4 * ((1.0f - fTemp8) - (2.0f * (fTemp15 * fTemp18)))) / (fTemp19 * std::sqrt(fTemp16))));
+			float fTemp20 = ((((fTemp0 * fTemp9) + (fRec1[1] * fTemp11)) + (2.0f * ((fRec1[0] * fTemp18) / fTemp19))) + ((fRec2 * ((1.0f - fTemp8) - (2.0f * (fTemp15 * fTemp18)))) / (fTemp19 * std::sqrt(fTemp16))));
 			float fTemp21 = (2.0f - fTemp2);
 			float fTemp22 = (1.0f - fTemp2);
 			float fTemp23 = ((fTemp1 + ((fTemp6 + fTemp21) / fTemp5)) + fTemp22);
@@ -639,28 +689,27 @@ class flt_moog_vcf : public dsp {
 			float fTemp25 = std::max<float>(-0.999899983f, std::min<float>(0.999899983f, fTemp24));
 			float fTemp26 = (1.0f - flt_moog_vcf_faustpower2_f(fTemp25));
 			float fTemp27 = std::sqrt(std::max<float>(0.0f, fTemp26));
-			float fTemp28 = (((fTemp20 * fTemp27) / fTemp7) - (fTemp25 * fRec0[1]));
+			float fTemp28 = (((fTemp20 * fTemp27) / fTemp7) - (fTemp25 * fRec4[1]));
 			float fTemp29 = (fTemp1 + (1.0f - (fTemp2 + fTemp13)));
 			float fTemp30 = std::max<float>(-0.999899983f, std::min<float>(0.999899983f, (2.0f * (fTemp29 / (fTemp23 * (fTemp24 + 1.0f))))));
 			float fTemp31 = (1.0f - flt_moog_vcf_faustpower2_f(fTemp30));
 			float fTemp32 = std::sqrt(std::max<float>(0.0f, fTemp31));
 			fRec6[0] = ((fTemp28 * fTemp32) - (fTemp30 * fRec6[1]));
-			fRec0[0] = ((fTemp28 * fTemp30) + (fRec6[1] * fTemp32));
-			float fRec1 = fRec6[0];
+			fRec4[0] = ((fTemp28 * fTemp30) + (fRec6[1] * fTemp32));
+			float fRec5 = fRec6[0];
 			float fTemp33 = (1.0f - (fTemp29 / fTemp23));
 			float fTemp34 = std::sqrt(fTemp26);
-			output0[i] = FAUSTFLOAT(((((fRec1 * ((1.0f - fTemp24) - (2.0f * (fTemp30 * fTemp33)))) / (fTemp34 * std::sqrt(fTemp31))) + ((((fTemp20 * fTemp25) / fTemp7) + (fRec0[1] * fTemp27)) + (2.0f * ((fRec0[0] * fTemp33) / fTemp34)))) / fTemp23));
-			fRec2[1] = fRec2[0];
-			fRec5[1] = fRec5[0];
-			fRec3[1] = fRec3[0];
-			fRec6[1] = fRec6[0];
+			output0[i] = FAUSTFLOAT(((((((fTemp20 * fTemp25) / fTemp7) + (fRec4[1] * fTemp27)) + (2.0f * ((fRec4[0] * fTemp33) / fTemp34))) + ((fRec5 * ((1.0f - fTemp24) - (2.0f * (fTemp30 * fTemp33)))) / (fTemp34 * std::sqrt(fTemp31)))) / fTemp23));
 			fRec0[1] = fRec0[0];
+			fRec3[1] = fRec3[0];
+			fRec1[1] = fRec1[0];
+			fRec6[1] = fRec6[0];
+			fRec4[1] = fRec4[0];
 			
 		}
 		
 	}
 
-	
 };
 // clang-format on
 #endif

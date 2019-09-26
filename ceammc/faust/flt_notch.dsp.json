@@ -1,14 +1,14 @@
 {
 	"name": "flt.notch",
-	"filename": "flt_notch",
-	"version": "2.15.0",
-	"compile_options": "cpp, -scal -ftz 0",
+	"filename": "flt_notch.dsp",
+	"version": "2.18.7",
+	"compile_options": "-lang cpp -scal -ftz 0",
 	"library_list": ["/usr/local/share/faust/filter.lib","/usr/local/share/faust/music.lib","/usr/local/share/faust/math.lib","/usr/local/share/faust/signals.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
-	"inputs": "1",
-	"outputs": "1",
+	"inputs": 1,
+	"outputs": 1,
 	"meta": [ 
-		{ "filename": "flt_notch" },
+		{ "filename": "flt_notch.dsp" },
 		{ "filter.lib/author": "Julius O. Smith (jos at ccrma.stanford.edu)" },
 		{ "filter.lib/copyright": "Julius O. Smith III" },
 		{ "filter.lib/deprecated": "This library is deprecated and is not maintained anymore. It will be removed in August 2017." },
@@ -44,10 +44,10 @@
 					"meta": [
 						{ "unit": "Hz" }
 					],
-					"init": "1000",
-					"min": "20",
-					"max": "20000",
-					"step": "0.1"
+					"init": 1000,
+					"min": 20,
+					"max": 20000,
+					"step": 0.1
 				},
 				{
 					"type": "vslider",
@@ -56,10 +56,10 @@
 					"meta": [
 						{ "unit": "Hz" }
 					],
-					"init": "50",
-					"min": "1",
-					"max": "10000",
-					"step": "0.1"
+					"init": 50,
+					"min": 1,
+					"max": 10000,
+					"step": 0.1
 				}
 			]
 		}
