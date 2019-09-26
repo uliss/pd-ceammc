@@ -3,8 +3,8 @@ author: "Oli Larkin (contact@olilarkin.co.uk)"
 copyright: "Oliver Larkin"
 name: "synth.risset_tone"
 version: "0.1"
-Code generated with Faust 2.15.0 (https://faust.grame.fr)
-Compilation options: cpp, -scal -ftz 0
+Code generated with Faust 2.18.7 (https://faust.grame.fr)
+Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __synth_risset_tone_H__
@@ -17,6 +17,7 @@ Compilation options: cpp, -scal -ftz 0
 #include <memory>
 #include <string>
 
+/************************** BEGIN dsp.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -99,23 +100,23 @@ class dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param samplingRate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hertz
          */
-        virtual void init(int samplingRate) = 0;
+        virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param samplingRate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hertz
          */
-        virtual void instanceInit(int samplingRate) = 0;
+        virtual void instanceInit(int sample_rate) = 0;
 
         /**
          * Init instance constant state
          *
-         * @param samplingRate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hertz
          */
-        virtual void instanceConstants(int samplingRate) = 0;
+        virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
@@ -152,8 +153,8 @@ class dsp {
          *
          * @param date_usec - the timestamp in microsec given by audio driver.
          * @param count - the number of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
          *
          */
         virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
@@ -172,16 +173,16 @@ class decorator_dsp : public dsp {
 
     public:
 
-        decorator_dsp(dsp* dsp = 0):fDSP(dsp) {}
+        decorator_dsp(dsp* dsp = nullptr):fDSP(dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
         virtual int getNumInputs() { return fDSP->getNumInputs(); }
         virtual int getNumOutputs() { return fDSP->getNumOutputs(); }
         virtual void buildUserInterface(UI* ui_interface) { fDSP->buildUserInterface(ui_interface); }
         virtual int getSampleRate() { return fDSP->getSampleRate(); }
-        virtual void init(int samplingRate) { fDSP->init(samplingRate); }
-        virtual void instanceInit(int samplingRate) { fDSP->instanceInit(samplingRate); }
-        virtual void instanceConstants(int samplingRate) { fDSP->instanceConstants(samplingRate); }
+        virtual void init(int sample_rate) { fDSP->init(sample_rate); }
+        virtual void instanceInit(int sample_rate) { fDSP->instanceInit(sample_rate); }
+        virtual void instanceConstants(int sample_rate) { fDSP->instanceConstants(sample_rate); }
         virtual void instanceResetUserInterface() { fDSP->instanceResetUserInterface(); }
         virtual void instanceClear() { fDSP->instanceClear(); }
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
@@ -236,6 +237,8 @@ class dsp_factory {
 #endif
 
 #endif
+/**************************  END  dsp.h **************************/
+/************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -275,45 +278,56 @@ class dsp_factory {
 
 struct Soundfile;
 
-class UI
+template <typename REAL>
+class UIReal
+{
+    
+    public:
+        
+        UIReal() {}
+        virtual ~UIReal() {}
+        
+        // -- widget's layouts
+        
+        virtual void openTabBox(const char* label) = 0;
+        virtual void openHorizontalBox(const char* label) = 0;
+        virtual void openVerticalBox(const char* label) = 0;
+        virtual void closeBox() = 0;
+        
+        // -- active widgets
+        
+        virtual void addButton(const char* label, REAL* zone) = 0;
+        virtual void addCheckButton(const char* label, REAL* zone) = 0;
+        virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+        virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+        virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+        
+        // -- passive widgets
+        
+        virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+        virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+        
+        // -- soundfiles
+        
+        virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
+        
+        // -- metadata declarations
+        
+        virtual void declare(REAL* zone, const char* key, const char* val) {}
+};
+
+class UI : public UIReal<FAUSTFLOAT>
 {
 
     public:
 
         UI() {}
-
         virtual ~UI() {}
-
-        // -- widget's layouts
-
-        virtual void openTabBox(const char* label) = 0;
-        virtual void openHorizontalBox(const char* label) = 0;
-        virtual void openVerticalBox(const char* label) = 0;
-        virtual void closeBox() = 0;
-
-        // -- active widgets
-
-        virtual void addButton(const char* label, FAUSTFLOAT* zone) = 0;
-        virtual void addCheckButton(const char* label, FAUSTFLOAT* zone) = 0;
-        virtual void addVerticalSlider(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step) = 0;
-        virtual void addHorizontalSlider(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step) = 0;
-        virtual void addNumEntry(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step) = 0;
-
-        // -- passive widgets
-
-        virtual void addHorizontalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max) = 0;
-        virtual void addVerticalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max) = 0;
-    
-        // -- soundfiles
-    
-        virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-
-        // -- metadata declarations
-
-        virtual void declare(FAUSTFLOAT*, const char*, const char*) {}
 };
 
 #endif
+/**************************  END  UI.h **************************/
+/************************** BEGIN meta.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -342,11 +356,14 @@ class UI
 
 struct Meta
 {
-    virtual void declare(const char* key, const char* value) = 0;
     virtual ~Meta() {};
+    virtual void declare(const char* key, const char* value) = 0;
+    
 };
 
 #endif
+/**************************  END  meta.h **************************/
+/************************** BEGIN misc.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -377,6 +394,8 @@ struct Meta
 #include <map>
 #include <cstdlib>
 #include <string.h>
+#include <fstream>
+#include <string>
 
 
 using std::max;
@@ -417,8 +436,29 @@ static const char* lopts(char* argv[], const char* name, const char* def)
 	return def;
 }
 
+static std::string pathToContent(const std::string& path)
+{
+    std::ifstream file(path.c_str(), std::ifstream::binary);
+    
+    file.seekg(0, file.end);
+    int size = int(file.tellg());
+    file.seekg(0, file.beg);
+    
+    // And allocate buffer to that a single line can be read...
+    char* buffer = new char[size + 1];
+    file.read(buffer, size);
+    
+    // Terminate the string
+    buffer[size] = 0;
+    std::string result = buffer;
+    file.close();
+    delete [] buffer;
+    return result;
+}
+
 #endif
 
+/**************************  END  misc.h **************************/
 
 #include "ceammc_faust.h"
 
@@ -495,7 +535,7 @@ class synth_risset_toneSIG0 {
 		
 	}
 	
-	void instanceInitsynth_risset_toneSIG0(int samplingFreq) {
+	void instanceInitsynth_risset_toneSIG0(int sample_rate) {
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			iRec0[l0] = 0;
 			
@@ -503,15 +543,16 @@ class synth_risset_toneSIG0 {
 		
 	}
 	
-	void fillsynth_risset_toneSIG0(int count, float* output) {
+	void fillsynth_risset_toneSIG0(int count, float* table) {
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec0[0] = (iRec0[1] + 1);
-			output[i] = std::sin((9.58738019e-05f * float((iRec0[0] + -1))));
+			table[i] = std::sin((9.58738019e-05f * float((iRec0[0] + -1))));
 			iRec0[1] = iRec0[0];
 			
 		}
 		
 	}
+
 };
 
 synth_risset_toneSIG0* newsynth_risset_toneSIG0() { return (synth_risset_toneSIG0*)new synth_risset_toneSIG0(); }
@@ -563,7 +604,7 @@ class synth_risset_toneSIG1 {
 		
 	}
 	
-	void instanceInitsynth_risset_toneSIG1(int samplingFreq) {
+	void instanceInitsynth_risset_toneSIG1(int sample_rate) {
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			iRec3[l3] = 0;
 			
@@ -571,15 +612,16 @@ class synth_risset_toneSIG1 {
 		
 	}
 	
-	void fillsynth_risset_toneSIG1(int count, float* output) {
+	void fillsynth_risset_toneSIG1(int count, float* table) {
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec3[0] = (iRec3[1] + 1);
-			output[i] = std::exp((0.0f - (4.8283f * (1.0f - std::cos((9.58738019e-05f * (float((iRec3[0] + -1)) + -32768.0f)))))));
+			table[i] = std::exp((0.0f - (4.8283f * (1.0f - std::cos((9.58738019e-05f * (float((iRec3[0] + -1)) + -32768.0f)))))));
 			iRec3[1] = iRec3[0];
 			
 		}
 		
 	}
+
 };
 
 synth_risset_toneSIG1* newsynth_risset_toneSIG1() { return (synth_risset_toneSIG1*)new synth_risset_toneSIG1(); }
@@ -600,7 +642,7 @@ class synth_risset_tone : public dsp {
 	
  private:
 	
-	int fSamplingFreq;
+	int fSampleRate;
 	float fConst0;
 	float fConst1;
 	FAUSTFLOAT fHslider0;
@@ -624,12 +666,12 @@ class synth_risset_tone : public dsp {
 	void metadata(Meta* m) { 
 		m->declare("author", "Oli Larkin (contact@olilarkin.co.uk)");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.0");
+		m->declare("basics.lib/version", "0.1");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.1");
 		m->declare("copyright", "Oliver Larkin");
 		m->declare("description", "Jean Claude Risset's endless glissando");
-		m->declare("filename", "synth_risset_tone");
+		m->declare("filename", "synth_risset_tone.dsp");
 		m->declare("licence", "GPL");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
@@ -679,21 +721,21 @@ class synth_risset_tone : public dsp {
 		
 	}
 	
-	static void classInit(int samplingFreq) {
+	static void classInit(int sample_rate) {
 		synth_risset_toneSIG0* sig0 = newsynth_risset_toneSIG0();
-		sig0->instanceInitsynth_risset_toneSIG0(samplingFreq);
+		sig0->instanceInitsynth_risset_toneSIG0(sample_rate);
 		sig0->fillsynth_risset_toneSIG0(65536, ftbl0synth_risset_toneSIG0);
 		synth_risset_toneSIG1* sig1 = newsynth_risset_toneSIG1();
-		sig1->instanceInitsynth_risset_toneSIG1(samplingFreq);
+		sig1->instanceInitsynth_risset_toneSIG1(sample_rate);
 		sig1->fillsynth_risset_toneSIG1(65537, ftbl1synth_risset_toneSIG1);
 		deletesynth_risset_toneSIG0(sig0);
 		deletesynth_risset_toneSIG1(sig1);
 		
 	}
 	
-	virtual void instanceConstants(int samplingFreq) {
-		fSamplingFreq = samplingFreq;
-		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSamplingFreq)));
+	virtual void instanceConstants(int sample_rate) {
+		fSampleRate = sample_rate;
+		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = (440.0f / fConst0);
 		fConst2 = (1.0f / fConst0);
 		
@@ -754,12 +796,12 @@ class synth_risset_tone : public dsp {
 		
 	}
 	
-	virtual void init(int samplingFreq) {
-		classInit(samplingFreq);
-		instanceInit(samplingFreq);
+	virtual void init(int sample_rate) {
+		classInit(sample_rate);
+		instanceInit(sample_rate);
 	}
-	virtual void instanceInit(int samplingFreq) {
-		instanceConstants(samplingFreq);
+	virtual void instanceInit(int sample_rate) {
+		instanceConstants(sample_rate);
 		instanceResetUserInterface();
 		instanceClear();
 	}
@@ -767,8 +809,9 @@ class synth_risset_tone : public dsp {
 	virtual synth_risset_tone* clone() {
 		return new synth_risset_tone();
 	}
+	
 	virtual int getSampleRate() {
-		return fSamplingFreq;
+		return fSampleRate;
 		
 	}
 	
@@ -788,61 +831,61 @@ class synth_risset_tone : public dsp {
 		float fSlow2 = (fConst2 * float(fHslider2));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fRec2[0] = (fSlow2 + (fRec2[1] - std::floor((fSlow2 + fRec2[1]))));
-			float fTemp0 = std::fmod((fRec2[0] + 0.699999988f), 1.0f);
-			float fTemp1 = ((fConst1 * std::pow(2.0f, (0.0833333358f * (std::min<float>(120.0f, std::max<float>(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp0) + -1.0f)) + 7.0f)))) + -69.0f)))) + fRec1[1]);
+			float fTemp0 = std::fmod(fRec2[0], 1.0f);
+			float fTemp1 = (fRec1[1] + (fConst1 * std::pow(2.0f, (0.0833333358f * (std::min<float>(120.0f, std::max<float>(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp0) + -1.0f)) + 7.0f)))) + -69.0f)))));
 			fRec1[0] = (fTemp1 - std::floor(fTemp1));
 			float fTemp2 = (65536.0f * fTemp0);
 			int iTemp3 = int(fTemp2);
 			float fTemp4 = ftbl1synth_risset_toneSIG1[iTemp3];
-			float fTemp5 = std::fmod((fRec2[0] + 0.800000012f), 1.0f);
+			float fTemp5 = std::fmod((fRec2[0] + 0.100000001f), 1.0f);
 			float fTemp6 = (fRec4[1] + (fConst1 * std::pow(2.0f, (0.0833333358f * (std::min<float>(120.0f, std::max<float>(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp5) + -1.0f)) + 7.0f)))) + -69.0f)))));
 			fRec4[0] = (fTemp6 - std::floor(fTemp6));
 			float fTemp7 = (65536.0f * fTemp5);
 			int iTemp8 = int(fTemp7);
 			float fTemp9 = ftbl1synth_risset_toneSIG1[iTemp8];
-			float fTemp10 = std::fmod((fRec2[0] + 0.899999976f), 1.0f);
+			float fTemp10 = std::fmod((fRec2[0] + 0.200000003f), 1.0f);
 			float fTemp11 = (fRec5[1] + (fConst1 * std::pow(2.0f, (0.0833333358f * (std::min<float>(120.0f, std::max<float>(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp10) + -1.0f)) + 7.0f)))) + -69.0f)))));
 			fRec5[0] = (fTemp11 - std::floor(fTemp11));
 			float fTemp12 = (65536.0f * fTemp10);
 			int iTemp13 = int(fTemp12);
 			float fTemp14 = ftbl1synth_risset_toneSIG1[iTemp13];
-			float fTemp15 = std::fmod(fRec2[0], 1.0f);
+			float fTemp15 = std::fmod((fRec2[0] + 0.300000012f), 1.0f);
 			float fTemp16 = (fRec6[1] + (fConst1 * std::pow(2.0f, (0.0833333358f * (std::min<float>(120.0f, std::max<float>(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp15) + -1.0f)) + 7.0f)))) + -69.0f)))));
 			fRec6[0] = (fTemp16 - std::floor(fTemp16));
 			float fTemp17 = (65536.0f * fTemp15);
 			int iTemp18 = int(fTemp17);
 			float fTemp19 = ftbl1synth_risset_toneSIG1[iTemp18];
-			float fTemp20 = std::fmod((fRec2[0] + 0.100000001f), 1.0f);
+			float fTemp20 = std::fmod((fRec2[0] + 0.400000006f), 1.0f);
 			float fTemp21 = (fRec7[1] + (fConst1 * std::pow(2.0f, (0.0833333358f * (std::min<float>(120.0f, std::max<float>(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp20) + -1.0f)) + 7.0f)))) + -69.0f)))));
 			fRec7[0] = (fTemp21 - std::floor(fTemp21));
 			float fTemp22 = (65536.0f * fTemp20);
 			int iTemp23 = int(fTemp22);
 			float fTemp24 = ftbl1synth_risset_toneSIG1[iTemp23];
-			float fTemp25 = std::fmod((fRec2[0] + 0.200000003f), 1.0f);
+			float fTemp25 = std::fmod((fRec2[0] + 0.5f), 1.0f);
 			float fTemp26 = (fRec8[1] + (fConst1 * std::pow(2.0f, (0.0833333358f * (std::min<float>(120.0f, std::max<float>(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp25) + -1.0f)) + 7.0f)))) + -69.0f)))));
 			fRec8[0] = (fTemp26 - std::floor(fTemp26));
 			float fTemp27 = (65536.0f * fTemp25);
 			int iTemp28 = int(fTemp27);
 			float fTemp29 = ftbl1synth_risset_toneSIG1[iTemp28];
-			float fTemp30 = std::fmod((fRec2[0] + 0.300000012f), 1.0f);
+			float fTemp30 = std::fmod((fRec2[0] + 0.600000024f), 1.0f);
 			float fTemp31 = (fRec9[1] + (fConst1 * std::pow(2.0f, (0.0833333358f * (std::min<float>(120.0f, std::max<float>(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp30) + -1.0f)) + 7.0f)))) + -69.0f)))));
 			fRec9[0] = (fTemp31 - std::floor(fTemp31));
 			float fTemp32 = (65536.0f * fTemp30);
 			int iTemp33 = int(fTemp32);
 			float fTemp34 = ftbl1synth_risset_toneSIG1[iTemp33];
-			float fTemp35 = std::fmod((fRec2[0] + 0.400000006f), 1.0f);
+			float fTemp35 = std::fmod((fRec2[0] + 0.699999988f), 1.0f);
 			float fTemp36 = (fRec10[1] + (fConst1 * std::pow(2.0f, (0.0833333358f * (std::min<float>(120.0f, std::max<float>(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp35) + -1.0f)) + 7.0f)))) + -69.0f)))));
 			fRec10[0] = (fTemp36 - std::floor(fTemp36));
 			float fTemp37 = (65536.0f * fTemp35);
 			int iTemp38 = int(fTemp37);
 			float fTemp39 = ftbl1synth_risset_toneSIG1[iTemp38];
-			float fTemp40 = std::fmod((fRec2[0] + 0.5f), 1.0f);
+			float fTemp40 = std::fmod((fRec2[0] + 0.800000012f), 1.0f);
 			float fTemp41 = (fRec11[1] + (fConst1 * std::pow(2.0f, (0.0833333358f * (std::min<float>(120.0f, std::max<float>(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp40) + -1.0f)) + 7.0f)))) + -69.0f)))));
 			fRec11[0] = (fTemp41 - std::floor(fTemp41));
 			float fTemp42 = (65536.0f * fTemp40);
 			int iTemp43 = int(fTemp42);
 			float fTemp44 = ftbl1synth_risset_toneSIG1[iTemp43];
-			float fTemp45 = std::fmod((fRec2[0] + 0.600000024f), 1.0f);
+			float fTemp45 = std::fmod((fRec2[0] + 0.899999976f), 1.0f);
 			float fTemp46 = (fRec12[1] + (fConst1 * std::pow(2.0f, (0.0833333358f * (std::min<float>(120.0f, std::max<float>(20.0f, (fSlow0 + ((fSlow1 * ((2.0f * fTemp45) + -1.0f)) + 7.0f)))) + -69.0f)))));
 			fRec12[0] = (fTemp46 - std::floor(fTemp46));
 			float fTemp47 = (65536.0f * fTemp45);
@@ -865,7 +908,6 @@ class synth_risset_tone : public dsp {
 		
 	}
 
-	
 };
 // clang-format on
 #endif
