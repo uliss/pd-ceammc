@@ -1,14 +1,14 @@
 {
 	"name": "spat.pan8",
-	"filename": "spat_pan8",
-	"version": "2.15.10",
-	"compile_options": "cpp, -scal -ftz 0",
+	"filename": "spat_pan8.dsp",
+	"version": "2.18.7",
+	"compile_options": "-lang cpp -scal -ftz 0",
 	"library_list": ["/usr/local/share/faust/spats.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/signals.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
-	"inputs": "1",
-	"outputs": "8",
+	"inputs": 1,
+	"outputs": 8,
 	"meta": [ 
-		{ "filename": "spat_pan8" },
+		{ "filename": "spat_pan8.dsp" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
@@ -32,19 +32,19 @@
 					"meta": [
 						{ "unit": "rad" }
 					],
-					"init": "0",
-					"min": "0",
-					"max": "6.28319",
-					"step": "0.0001"
+					"init": 0,
+					"min": 0,
+					"max": 6.28319,
+					"step": 0.0001
 				},
 				{
 					"type": "vslider",
 					"label": "dist",
 					"address": "/spat.pan8/dist",
-					"init": "1",
-					"min": "0",
-					"max": "1",
-					"step": "0.0001"
+					"init": 1,
+					"min": 0,
+					"max": 1,
+					"step": 0.0001
 				}
 			]
 		}
