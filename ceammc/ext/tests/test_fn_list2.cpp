@@ -228,6 +228,57 @@ TEST_CASE("list functions", "[ceammc::list]")
         REQUIRE_RLE(LF(1, 1, 1, 1));
         REQUIRE_RLE(LF(1, 2, 3, 3, 2, 2, 1, 1, 1));
         REQUIRE_RLE(LA("a", "b", "a", "a"));
+    }
 
+    SECTION("canConvertToType")
+    {
+        REQUIRE_FALSE(list::canConvertToType<bool>(L()));
+        REQUIRE_FALSE(list::canConvertToType<bool>(LF(1, 2, 3)));
+        REQUIRE_FALSE(list::canConvertToType<bool>(LA("test")));
+        REQUIRE(list::canConvertToType<bool>(LF(1)));
+        REQUIRE(list::canConvertToType<bool>(LF(0)));
+        REQUIRE(list::canConvertToType<bool>(LF(-0.1)));
+        REQUIRE(list::canConvertToType<bool>(LA("true")));
+        REQUIRE(list::canConvertToType<bool>(LA("false")));
+
+        REQUIRE_FALSE(list::canConvertToType<float>(L()));
+        REQUIRE_FALSE(list::canConvertToType<float>(LF(1, 2)));
+        REQUIRE_FALSE(list::canConvertToType<float>(LA("abc")));
+        REQUIRE(list::canConvertToType<float>(LF(1.123)));
+
+        REQUIRE_FALSE(list::canConvertToType<double>(L()));
+        REQUIRE_FALSE(list::canConvertToType<double>(LF(1, 2)));
+        REQUIRE_FALSE(list::canConvertToType<double>(LA("abc")));
+        REQUIRE(list::canConvertToType<double>(LF(1.123)));
+
+        REQUIRE_FALSE(list::canConvertToType<int>(L()));
+        REQUIRE_FALSE(list::canConvertToType<int>(LF(1, 2)));
+        REQUIRE_FALSE(list::canConvertToType<int>(LA("abc")));
+        REQUIRE(list::canConvertToType<int>(LF(-100)));
+        REQUIRE(list::canConvertToType<int>(LF(1.123)));
+
+        REQUIRE_FALSE(list::canConvertToType<size_t>(L()));
+        REQUIRE_FALSE(list::canConvertToType<size_t>(LF(1, 2)));
+        REQUIRE_FALSE(list::canConvertToType<size_t>(LA("abc")));
+        REQUIRE_FALSE(list::canConvertToType<size_t>(LF(-100)));
+        REQUIRE(list::canConvertToType<size_t>(LF(100)));
+        REQUIRE(list::canConvertToType<size_t>(LF(1.123)));
+
+        REQUIRE_FALSE(list::canConvertToType<t_symbol*>(L()));
+        REQUIRE_FALSE(list::canConvertToType<t_symbol*>(LA(1)));
+        REQUIRE_FALSE(list::canConvertToType<t_symbol*>(LA(1, 2)));
+        REQUIRE_FALSE(list::canConvertToType<t_symbol*>(LA("abc", 1)));
+        REQUIRE_FALSE(list::canConvertToType<t_symbol*>(LA("abc", "def")));
+        REQUIRE(list::canConvertToType<t_symbol*>(LA("A")));
+
+        REQUIRE_FALSE(list::canConvertToType<Atom>(L()));
+        REQUIRE_FALSE(list::canConvertToType<Atom>(LA(1, 2)));
+        REQUIRE(list::canConvertToType<Atom>(LA(1)));
+        REQUIRE(list::canConvertToType<Atom>(LA("test")));
+
+        REQUIRE(list::canConvertToType<AtomList>(L()));
+        REQUIRE(list::canConvertToType<AtomList>(LA(1)));
+        REQUIRE(list::canConvertToType<AtomList>(LA(1, 2)));
+        REQUIRE(list::canConvertToType<AtomList>(LA(1, 2, "ABC")));
     }
 }

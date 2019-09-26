@@ -98,7 +98,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
     {
         BaseObject b(PdArgs(L(), gensym("testname"), 0, gensym("testname")));
         REQUIRE(b.owner() == 0);
-        REQUIRE(b.className() == "testname");
+        REQUIRE(b.className() == gensym("testname"));
         REQUIRE(b.receive() == 0);
         REQUIRE(b.numOutlets() == 0);
         REQUIRE(b.numInlets() == 0);

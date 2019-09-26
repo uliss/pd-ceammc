@@ -89,6 +89,9 @@
     <entry descr="returns window value by given window position" name="window" ref_view="object">
       <xi:include href="window.pddoc" parse="xml"/>
     </entry>
+    <entry descr="dac~ with channel ranges" name="xdac~" ref_view="object">
+      <xi:include href="xdac~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="multi stereo-signal crossfade" name="xfade2~" ref_view="object">
       <xi:include href="xfade2~.pddoc" parse="xml"/>
     </entry>
@@ -115,6 +118,9 @@
     <entry descr="convert frequency in BPM to period in seconds" name="conv.bpm2sec" ref_view="object">
       <xi:include href="conv.bpm2sec.pddoc" parse="xml"/>
     </entry>
+    <entry descr="convert cartesian coords to polar" name="conv.car2pol" ref_view="object">
+      <xi:include href="conv.car2pol.pddoc" parse="xml"/>
+    </entry>
     <entry descr="convert from MIDI Control Change range" name="conv.cc2amp" ref_view="object">
       <xi:include href="conv.cc2amp.pddoc" parse="xml"/>
     </entry>
@@ -136,8 +142,23 @@
     <entry descr="convert from midi pitch to frequency in hz (with various base A and temperament)" name="conv.midi2freq" ref_view="object">
       <xi:include href="conv.midi2freq.pddoc" parse="xml"/>
     </entry>
+    <entry descr="convert phase value [0-1] to radians" name="conv.phase2rad" ref_view="object">
+      <xi:include href="conv.phase2rad.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="convert phase value [0-1] to radians" name="conv.phase2rad~" ref_view="object">
+      <xi:include href="conv.phase2rad~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="converts symbol pitch name to MIDI note number" name="conv.pitch2midi" ref_view="object">
       <xi:include href="conv.pitch2midi.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="convert from polar coordinates to cartesian" name="conv.pol2car" ref_view="object">
+      <xi:include href="conv.pol2car.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="convert radians value to phase" name="conv.rad2phase" ref_view="object">
+      <xi:include href="conv.rad2phase.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="convert radians value to phase" name="conv.rad2phase~" ref_view="object">
+      <xi:include href="conv.rad2phase~.pddoc" parse="xml"/>
     </entry>
     <entry descr="convert samples to time according to samplerate" name="conv.samp2sec" ref_view="object">
       <xi:include href="conv.samp2sec.pddoc" parse="xml"/>
@@ -350,6 +371,9 @@
     </entry>
     <entry descr="one message pass thru" name="flow.once" ref_view="object">
       <xi:include href="flow.once.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="hot flow pack" name="flow.pack" ref_view="object">
+      <xi:include href="flow.pack.pddoc" parse="xml"/>
     </entry>
     <entry descr="pass specified values" name="flow.pass" ref_view="object">
       <xi:include href="flow.pass.pddoc" parse="xml"/>
@@ -931,6 +955,48 @@
     <entry descr="value square" name="math.squared" ref_view="object">
       <xi:include href="math.squared.pddoc" parse="xml"/>
     </entry>
+    <entry descr="sync addition" name="math.sync_add" ref_view="object">
+      <xi:include href="math.sync_add.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sync logical AND operation" name="math.sync_and" ref_view="object">
+      <xi:include href="math.sync_and.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sync division" name="math.sync_div" ref_view="object">
+      <xi:include href="math.sync_div.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sync equal numbers check" name="math.sync_eq" ref_view="object">
+      <xi:include href="math.sync_eq.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sync greater equal numbers compare" name="math.sync_ge" ref_view="object">
+      <xi:include href="math.sync_ge.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sync greater then numbers compare" name="math.sync_gt" ref_view="object">
+      <xi:include href="math.sync_gt.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sync less equal numbers compare" name="math.sync_le" ref_view="object">
+      <xi:include href="math.sync_le.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sync less then numbers compare" name="math.sync_lt" ref_view="object">
+      <xi:include href="math.sync_lt.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sync remainder of modulo division (float or integer)" name="math.sync_mod" ref_view="object">
+      <xi:include href="math.sync_mod.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sync multiplication" name="math.sync_mul" ref_view="object">
+      <xi:include href="math.sync_mul.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sync numbers for not equality" name="math.sync_ne" ref_view="object">
+      <xi:include href="math.sync_ne.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sync logical OR operation" name="math.sync_or" ref_view="object">
+      <xi:include href="math.sync_or.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sync subtraction" name="math.sync_sub" ref_view="object">
+      <xi:include href="math.sync_sub.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="sync logical XOR operation" name="math.sync_xor" ref_view="object">
+      <xi:include href="math.sync_xor.pddoc" parse="xml"/>
+    </entry>
     <entry descr="tangent function" name="math.tan" ref_view="object">
       <xi:include href="math.tan.pddoc" parse="xml"/>
     </entry>
@@ -1048,6 +1114,15 @@
     <entry descr="verbose information about current canvas" name="canvas.current" ref_view="object">
       <xi:include href="canvas.current.pddoc" parse="xml"/>
     </entry>
+    <entry descr="current canvas directory" name="canvas.dir" ref_view="object">
+      <xi:include href="canvas.dir.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="current canvas name" name="canvas.name" ref_view="object">
+      <xi:include href="canvas.name.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="current canvas fullpath" name="canvas.path" ref_view="object">
+      <xi:include href="canvas.path.pddoc" parse="xml"/>
+    </entry>
     <entry descr="verbose information about top-level canvas" name="canvas.top" ref_view="object">
       <xi:include href="canvas.top.pddoc" parse="xml"/>
     </entry>
@@ -1142,6 +1217,9 @@
     <entry descr="Firmata Arduino protocol support" name="proto.firmata" ref_view="object">
       <xi:include href="proto.firmata.pddoc" parse="xml"/>
     </entry>
+    <entry descr="protocol parser for Arduino-based CEAMMC footswitch" name="proto.sp.alpaca" ref_view="object">
+      <xi:include href="proto.sp.alpaca.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="random">
     <entry descr="random weighted integers on interval [0, n)" name="random.discrete" ref_view="object">
@@ -1172,6 +1250,51 @@
     </entry>
   </category>
   <category name="spat">
+    <entry descr="hoa 2d decoder" name="hoa.2d.decoder~" ref_view="object">
+      <xi:include href="hoa.2d.decoder~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="hoa 2d encoder" name="hoa.2d.encoder~" ref_view="object">
+      <xi:include href="hoa.2d.encoder~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="a 2d ambisonic multisource spatializer" name="hoa.2d.map~" ref_view="object">
+      <xi:include href="hoa.2d.map~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="a 2D ambisonic optimization tool" name="hoa.2d.optim~" ref_view="object">
+      <xi:include href="hoa.2d.optim~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="a plane waves decomposer from circular harmonics domain" name="hoa.2d.projector~" ref_view="object">
+      <xi:include href="hoa.2d.projector~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="recomposes a 2d plane wave decomposition into circular harmonics" name="hoa.2d.recomposer~" ref_view="object">
+      <xi:include href="hoa.2d.recomposer~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="a 2D ambisonic sound field rotation" name="hoa.2d.rotate~" ref_view="object">
+      <xi:include href="hoa.2d.rotate~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="a 2d fractional ambisonic order simulator" name="hoa.2d.wider~" ref_view="object">
+      <xi:include href="hoa.2d.wider~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="process properties manager for hoa.process~" name="hoa.@process" ref_view="object">
+      <xi:include href="hoa.%40process.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="message inlet for a patcher loaded by hoa.process~" name="hoa.in" ref_view="object">
+      <xi:include href="hoa.in.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="signal inlet for a patcher loaded by hoa.process~" name="hoa.in~" ref_view="object">
+      <xi:include href="hoa.in~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="message outlet for a patcher loaded by hoa.process~" name="hoa.out" ref_view="object">
+      <xi:include href="hoa.out.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="signal inlet for a patcher loaded by hoa.process~" name="hoa.out~" ref_view="object">
+      <xi:include href="hoa.out~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="patcher loader for multichannel processing" name="hoa.process~" ref_view="object">
+      <xi:include href="hoa.process~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="a 2d ambisonic harmonic scope" name="hoa.scope~" ref_view="object">
+      <xi:include href="hoa.scope~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="two channel equal power sine/cosine panner" name="pan.cos~" ref_view="object">
       <xi:include href="pan.cos~.pddoc" parse="xml"/>
     </entry>
@@ -1382,11 +1505,17 @@
     <entry descr="Shows peak and rms signal level" name="ui.meter~" ref_view="link">
       <xi:include href="ui.meter~.pddoc" parse="xml"/>
     </entry>
+    <entry descr="filter mouse events from ui objects" name="ui.mouse_filter" ref_view="link">
+      <xi:include href="ui.mouse_filter.pddoc" parse="xml"/>
+    </entry>
     <entry descr="counterpart of the vanilla [nbx]" name="ui.number" ref_view="link">
       <xi:include href="ui.number.pddoc" parse="xml"/>
     </entry>
     <entry descr="counterpart of the vanilla [nbx] for signal" name="ui.number~" ref_view="link">
       <xi:include href="ui.number~.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="2D slider in polar coordinates" name="ui.polar" ref_view="link">
+      <xi:include href="ui.polar.pddoc" parse="xml"/>
     </entry>
     <entry descr="Preset manager" name="ui.preset" ref_view="link">
       <xi:include href="ui.preset.pddoc" parse="xml"/>
@@ -1424,6 +1553,7 @@
     <authors>
       <author>Albert Graef</author>
       <author>Alex Nadzharov</author>
+      <author>Eliott Paris</author>
       <author>Hans-Christoph Steiner</author>
       <author>Julian Parker</author>
       <author>Katja Vetter</author>
@@ -1432,8 +1562,10 @@
       <author>Olli Parviainen</author>
       <author>Pierre Cochard</author>
       <author>Pierre Guillot</author>
+      <author>Serge Poltavski</author>
       <author>Serge Poltavsky</author>
       <author>Serge Potlavsky</author>
+      <author>Thomas Le Meur</author>
       <author>Till Bovermann</author>
       <author>Viacheslav Lotsmanov</author>
       <author>Yann Orlarey</author>

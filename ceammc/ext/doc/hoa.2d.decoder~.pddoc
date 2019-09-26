@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="hoa.2d.decoder~">
+        <title>hoa.2d.decoder~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+                <author>Pierre Guillot</author>
+                <author>Eliott Paris</author>
+                <author>Thomas Le Meur</author>
+            </authors>
+            <description>hoa 2d decoder</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>hoa decoder</keywords>
+            <since>0.8</since>
+            <also>
+                <see>hoa.encoder~</see>
+            </also>
+            <aliases>
+                <alias>hoa.decoder~</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Decodes an ambisonics soundfield for several loudspeakers configuration or for
+            headphones.</par>
+            <par>Mode:</par>
+            <par indent="1">• regular for a regular loudspeakers repartition over a circle.</par>
+            <par indent="1">• irregular if the loudspeakers are not equally spaced on a
+            circle.</par>
+            <par indent="1">• binaural for headphones</par>
+            <par>The default mode is regular for an array of 2 * order + 2 loudspeakers. The
+            default irregular configuration is 5.1 standard multichannel configuration.</par>
+            <a href="hoa/hoa.2d.decoder~-help.pd">CICM documentation</a>
+        </info>
+        <arguments>
+            <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
+            decomposition</argument>
+            <argument name="MODE" type="symbol" enum="ambisonic irregular binaural">decoding
+            mode</argument>
+            <argument name="N" type="int">number of loud speakers (minimum 2*ORDER+1 for ambisonic
+            mode)</argument>
+        </arguments>
+        <properties>
+            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
+            readonly="true">the order of decomposition</property>
+            <property name="@mode" type="symbol" enum="regular irregular binaural" readonly="true">
+            decoding mode</property>
+            <property name="@regular" type="alias">alias for @mode regular</property>
+            <property name="@irregular" type="alias">alias for @mode irregular</property>
+            <property name="@binaural" type="alias">alias for @mode binaural</property>
+            <property name="@crop" type="int" minvalue="0" units="sample" maxvalue="512"
+            default="0">crop HRIR response. Only in @binaural mode.</property>
+            <property name="@offset" type="float" units="degree" default="0">rotation of
+            loudspeakers. Only available for @regular and @irregular mode.</property>
+            <property name="@angles" type="list" units="degree">angles of loudspeakers. Only
+            available for @irregular mode.</property>
+            <property name="@pw_x" type="list" units="radian" minvalue="-1" maxvalue="1"
+            readonly="true">list of plain wave x-coordinates (abscissas). -1 is the left of the
+            soundfield, 0 is the center of the soundfield and 1 is the right of the
+            soundfield.</property>
+            <property name="@pw_y" type="list" units="radian" minvalue="-1" maxvalue="1"
+            readonly="true">list of plain wave y-coordinates (ordinatas). -1 is the back of the
+            soundfield, 0 is the center of the soundfield and 1 is the front of the
+            soundfield.</property>
+            <property name="@pw_z" type="list" units="radian" minvalue="-1" maxvalue="1"
+            readonly="true">list of plain wave z-coordinates (heights). -1 is the bottom of the
+            soundfield, 0 is the center of the soundfield and 1 is the top of the
+            soundfield.</property>
+            <property name="@nharm" type="int" minvalue="1" readonly="true" default="0">number of
+            circular harmonics.</property>
+            <property name="@nwaves" type="int" minvalue="1" readonly="true" default="0">number of
+            plain waves.</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet type="audio">
+                <xinfo>first input harmonic</xinfo>
+            </inlet>
+            <inlet type="audio" number="...">
+                <xinfo>... input harmonic</xinfo>
+            </inlet>
+            <inlet type="audio" number="n">
+                <xinfo>n-th input harmonic</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet type="audio">first loudspeaker output</outlet>
+            <outlet type="audio" number="...">... loudspeaker output</outlet>
+            <outlet type="audio" number="n">n-th loudspeaker output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[hoa/hoa.soundgrain]               [lfo.saw~ 0.15]
+|                                  |
+[ui.gain~ @size 120 14]            [phase->rad~]
+|                              .___/ |
+[hoa.encoder~ 5 {w=36,i=11,o=11}]  [ui.n~]
+*|*
+[hoa.decoder~ 5 binaural @crop 64 {w=36,i=11,o=2}]
+*|*
+[xdac~ 1:2 {w=36,i=2}]
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

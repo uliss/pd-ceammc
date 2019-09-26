@@ -14,7 +14,7 @@
 #include "test_external.h"
 #include "ceammc_format.h"
 #include "ceammc_message.h"
-#include "m_pd.h"
+#include "test_external_log_output.h"
 
 extern "C" {
 #include "s_stuff.h"
@@ -27,89 +27,15 @@ using namespace ceammc;
 
 const BANG__ BANG;
 
-static t_class* test_output_class;
-struct t_test_output {
-    t_object x_obj;
-    ceammc::Message* msg;
-};
-
-static void* test_output_new()
-{
-    t_test_output* x = reinterpret_cast<t_test_output*>(pd_new(test_output_class));
-    x->msg = new Message();
-    return static_cast<void*>(x);
-}
-
-static void test_output_free(t_test_output* x)
-{
-    delete x->msg;
-}
-
-static void test_output_bang(t_test_output* x)
-{
-    x->msg->setSymbol(&s_bang);
-}
-
-static void test_output_float(t_test_output* x, t_float f)
-{
-    x->msg->setFloat(f);
-}
-
-static void test_output_symbol(t_test_output* x, t_symbol* s)
-{
-    x->msg->setSymbol(s);
-}
-
-static void test_output_list(t_test_output* x, t_symbol*, int argc, t_atom* argv)
-{
-    x->msg->setList(argc, argv);
-}
-
-static void test_output_any(t_test_output* x, t_symbol* s, int argc, t_atom* argv)
-{
-    x->msg->setAny(s, argc, argv);
-}
-
 static bool setup_test_output()
 {
     pd_init();
-
-    test_output_class = class_new(gensym("test_output"),
-        reinterpret_cast<t_newmethod>(test_output_new),
-        reinterpret_cast<t_method>(test_output_free),
-        sizeof(t_test_output), 0, A_NULL);
-    class_addbang(test_output_class, test_output_bang);
-    class_addfloat(test_output_class, test_output_float);
-    class_addlist(test_output_class, test_output_list);
-    class_addsymbol(test_output_class, test_output_symbol);
-    class_addanything(test_output_class, test_output_any);
+    setup_log_output_single();
+    setup_log_output_multi();
     return true;
 }
 
 static bool test_output_init = setup_test_output();
-
-void ExternalOutput::setup()
-{
-    setup_test_output();
-}
-
-ExternalOutput::ExternalOutput()
-    : External("test_output")
-{
-}
-
-Message ExternalOutput::msg()
-{
-    t_test_output* obj = (t_test_output*)object();
-    return obj ? *obj->msg : Message();
-}
-
-void ExternalOutput::reset()
-{
-    t_test_output* obj = (t_test_output*)object();
-    if (obj)
-        *obj->msg = Message();
-}
 
 void setTestSampleRate(size_t sr)
 {

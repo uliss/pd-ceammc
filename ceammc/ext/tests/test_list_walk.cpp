@@ -16,20 +16,20 @@
 #include "catch.hpp"
 #include "ceammc.hpp"
 #include "test_base.h"
+#include "test_external.h"
 
-#include <stdio.h>
+PD_COMPLETE_TEST_SETUP(ListWalk, list, walk)
 
-typedef TestExternal<ListWalk> ListWalkTest;
-
-TEST_CASE("list.walk", "[PureData]")
+TEST_CASE("list.walk", "[externals]")
 {
+    pd_test_init();
+
     SECTION("test single")
     {
-        AtomList args;
-        ListWalkTest t("list.walk", args);
+        TestListWalk t("list.walk", L());
 
         REQUIRE(t.numInlets() == 1);
-        REQUIRE(t.numOutlets() == 1);
+        REQUIRE(t.numOutlets() == 2);
         REQUIRE(t.hasProperty("@direction"));
         REQUIRE(t.hasProperty("@index"));
         REQUIRE(t.hasProperty("@value"));
@@ -41,6 +41,7 @@ TEST_CASE("list.walk", "[PureData]")
         REQUIRE(t.hasProperty("@clip"));
         REQUIRE(t.hasProperty("@fold"));
         REQUIRE(t.hasProperty("@size"));
+        REQUIRE_PROPERTY_FLOAT(t, @single, 1);
         REQUIRE(t.property("@size")->readonly());
         REQUIRE(!t.property("@index")->readonly());
 
@@ -108,8 +109,7 @@ TEST_CASE("list.walk", "[PureData]")
 
         SECTION("test single step")
         {
-            AtomList args;
-            ListWalkTest t("list.walk", args);
+            TestListWalk t("list.walk");
 
             t.sendList(LF(1.0, 2.0, 3.0, 4.0, 5.0));
 
@@ -138,11 +138,9 @@ TEST_CASE("list.walk", "[PureData]")
 
         SECTION("test single length 2")
         {
-            AtomList args(gensym("@length"), 2);
-
             SECTION("step 1")
             {
-                ListWalkTest t("list.walk", args);
+                TestListWalk t("list.walk", LA("@length", 2));
 
                 t.sendList(LF(1.0, 2.0, 3.0, 4.0, 5.0));
 
@@ -183,7 +181,7 @@ TEST_CASE("list.walk", "[PureData]")
 
             SECTION("step 2")
             {
-                ListWalkTest t("list.walk", args);
+                TestListWalk t("list.walk", LA("@length", 2));
 
                 t.sendList(LF(1.0, 2.0, 3.0, 4.0, 5.0));
 
@@ -217,8 +215,7 @@ TEST_CASE("list.walk", "[PureData]")
     {
         SECTION("basic")
         {
-            AtomList args(gensym("@wrap"));
-            ListWalkTest t("list.walk", args);
+            TestListWalk t("list.walk", LA("@wrap"));
 
             CALL(t, current);
             REQUIRE_NO_MSG(t);
@@ -268,8 +265,7 @@ TEST_CASE("list.walk", "[PureData]")
 
         SECTION("step 2")
         {
-            AtomList args(gensym("@wrap"));
-            ListWalkTest t("list.walk", args);
+            TestListWalk t("list.walk", LA("@wrap"));
 
             CALL(t, current);
             REQUIRE_NO_MSG(t);
@@ -303,9 +299,7 @@ TEST_CASE("list.walk", "[PureData]")
 
         SECTION("length 2")
         {
-            AtomList args(gensym("@wrap"));
-            args.append(AtomList(gensym("@length"), 2));
-            ListWalkTest t("list.walk", args);
+            TestListWalk t("list.walk", LA("@wrap", "@length", 2));
 
             CALL(t, current);
             REQUIRE_NO_MSG(t);
@@ -341,8 +335,7 @@ TEST_CASE("list.walk", "[PureData]")
     {
         SECTION("basic")
         {
-            AtomList args(gensym("@clip"));
-            ListWalkTest t("list.walk", args);
+            TestListWalk t("list.walk", LA("@clip"));
 
             CALL(t, current);
             REQUIRE_NO_MSG(t);
@@ -395,8 +388,7 @@ TEST_CASE("list.walk", "[PureData]")
 
         SECTION("step 2")
         {
-            AtomList args(gensym("@clip"));
-            ListWalkTest t("list.walk", args);
+            TestListWalk t("list.walk", LA("@clip"));
 
             CALL(t, current);
             REQUIRE_NO_MSG(t);
@@ -426,9 +418,8 @@ TEST_CASE("list.walk", "[PureData]")
 
         SECTION("length 2")
         {
-            AtomList args(gensym("@clip"));
-            args.append(AtomList(gensym("@length"), 2));
-            ListWalkTest t("list.walk", args);
+            TestListWalk t("list.walk", LA("@clip", "@length", 2));
+            REQUIRE_PROPERTY_FLOAT(t, @clip, 1);
 
             CALL(t, current);
             REQUIRE_NO_MSG(t);

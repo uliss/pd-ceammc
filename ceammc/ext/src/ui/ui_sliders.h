@@ -59,6 +59,7 @@ public:
 
     // mouse
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
+    void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
     void onPopup(t_symbol* menu_name, long item_idx);
@@ -74,6 +75,9 @@ public:
     void m_increment();
     void m_decrement();
     void m_fill(t_float v);
+    void m_random();
+    void m_linup();
+    void m_lindown();
 
     void outputList();
     void normalize();

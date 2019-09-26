@@ -26,8 +26,8 @@ TEST_CASE("ui.knob", "[ui.knob]")
         REQUIRE(t->numOutlets() == 1);
         REQUIRE(t->midiChannel() == 0);
         REQUIRE(t->midiControl() == 0);
+        REQUIRE(t->knobPhase() == 0);
         REQUIRE(t->value() == 0);
-        REQUIRE(t->realValue() == 0);
 
         float prop_min, prop_max, f;
         AtomList l;
@@ -99,15 +99,10 @@ TEST_CASE("ui.knob", "[ui.knob]")
         pd_float(t->asPd(), 0.6);
         REQUIRE(t->getProperty(gensym("value"), f));
         REQUIRE(f == 0.6f);
-        REQUIRE(t->value() == 0.6f);
+        REQUIRE(t->knobPhase() == 0.6f);
         REQUIRE(t->range() == 1);
         REQUIRE(t->minValue() == 0);
         REQUIRE(t->maxValue());
-
-        t->setValue(-100);
-        REQUIRE(t->value() == 0);
-        t->setValue(1.1);
-        REQUIRE(t->value() == 1);
 
         SECTION("new one")
         {
@@ -124,16 +119,16 @@ TEST_CASE("ui.knob", "[ui.knob]")
                 REQUIRE(t->minValue() == -10);
                 REQUIRE(t->maxValue() == 10);
                 REQUIRE(t->range() == 20);
-                t->setValue(0.1f);
-                REQUIRE(t->value() == 0.1f);
-                REQUIRE(t->realValue() == -8.f);
+                t->setValue(-8);
+                REQUIRE(t->knobPhase() == 0.1f);
+                REQUIRE(t->value() == -8.f);
 
-                t->setRealValue(-11);
-                REQUIRE(t->realValue() == -10);
-                REQUIRE(t->value() == 0);
-                t->setRealValue(11);
-                REQUIRE(t->realValue() == 10);
-                REQUIRE(t->value() == 1);
+                t->setValue(-11);
+                REQUIRE(t->value() == -10);
+                REQUIRE(t->knobPhase() == 0);
+                t->setValue(11);
+                REQUIRE(t->value() == 10);
+                REQUIRE(t->knobPhase() == 1);
 
                 SECTION("reversed")
                 {
@@ -141,20 +136,21 @@ TEST_CASE("ui.knob", "[ui.knob]")
                     REQUIRE(t->maxValue() == -10);
                     REQUIRE(t->minValue() == 10);
                     REQUIRE(t->range() == -20);
-                    REQUIRE(t->value() == 0.f);
-                    REQUIRE(t->realValue() == 10);
-                    t->setValue(0.25);
-                    REQUIRE(t->value() == 0.25f);
-                    REQUIRE(t->realValue() == 5);
-                    t->setValue(1);
-                    REQUIRE(t->realValue() == -10);
+                    REQUIRE(t->knobPhase() == 0.f);
+                    REQUIRE(t->value() == 10);
+                    t->setValue(5);
+                    REQUIRE(t->knobPhase() == 0.25f);
+                    REQUIRE(t->value() == 5);
+                    t->setValue(-10);
+                    REQUIRE(t->knobPhase() == 1);
+                    REQUIRE(t->value() == -10);
 
-                    t->setRealValue(-11);
-                    REQUIRE(t->realValue() == -10);
-                    REQUIRE(t->value() == 1);
-                    t->setRealValue(12);
-                    REQUIRE(t->realValue() == 10);
-                    REQUIRE(t->value() == 0);
+                    t->setValue(-11);
+                    REQUIRE(t->value() == -10);
+                    REQUIRE(t->knobPhase() == 1);
+                    t->setValue(12);
+                    REQUIRE(t->value() == 10);
+                    REQUIRE(t->knobPhase() == 0);
                 }
 
                 SECTION("invalid range")
@@ -163,15 +159,10 @@ TEST_CASE("ui.knob", "[ui.knob]")
                     REQUIRE(t->maxValue() == 0);
                     REQUIRE(t->minValue() == 0);
                     REQUIRE(t->range() == 0);
+                    REQUIRE(t->knobPhase() == 0.f);
                     REQUIRE(t->value() == 0.f);
-                    REQUIRE(t->realValue() == 0.f);
                     t->setValue(0);
                     REQUIRE(t->value() == 0);
-                    t->setValue(1);
-                    REQUIRE(t->value() == 1);
-                    REQUIRE(t->realValue() == 0);
-                    t->setRealValue(0);
-                    REQUIRE(t->realValue() == 0);
                 }
             }
 
@@ -222,80 +213,80 @@ TEST_CASE("ui.knob", "[ui.knob]")
         SECTION("+")
         {
             TestKnob t("ui.knob");
-            REQUIRE(t->realValue() == 0.f);
+            REQUIRE(t->value() == 0.f);
             t.call("+", LF(0.1));
-            REQUIRE(t->realValue() == 0.1f);
+            REQUIRE(t->value() == 0.1f);
             t.call("+", LF(10));
-            REQUIRE(t->realValue() == 1);
+            REQUIRE(t->value() == 1);
         }
 
         SECTION("-")
         {
-            TestKnob t("ui.knob", LA("@value", 0.5f));
-            REQUIRE(t->realValue() == 0.5f);
+            TestKnob t("ui.knob");
+            t->setValue(0.5);
             t.call("-", LF(0.5));
-            REQUIRE(t->realValue() == 0.f);
+            REQUIRE(t->value() == 0.f);
             t.call("-", LF(0.1));
-            REQUIRE(t->realValue() == 0.f);
+            REQUIRE(t->value() == 0.f);
         }
 
         SECTION("++")
         {
             TestKnob t("ui.knob", LA("@min", -1, "@max", 2));
-            REQUIRE(t->realValue() == -1);
+            REQUIRE(t->value() == -1);
             t.call("++");
-            REQUIRE(t->realValue() == Approx(0.f));
+            REQUIRE(t->value() == Approx(0.f));
             t.call("++");
-            REQUIRE(t->realValue() == 1);
+            REQUIRE(t->value() == 1);
             t.call("++");
-            REQUIRE(t->realValue() == 2);
+            REQUIRE(t->value() == 2);
             t.call("++");
-            REQUIRE(t->realValue() == 2);
+            REQUIRE(t->value() == 2);
             t.call("++");
-            REQUIRE(t->realValue() == 2);
+            REQUIRE(t->value() == 2);
         }
 
         SECTION("--")
         {
             TestKnob t("ui.knob", LA("@min", -1, "@max", 2));
-            t->setRealValue(2);
-            REQUIRE(t->realValue() == 2);
+            t->setValue(2);
+            REQUIRE(t->value() == 2);
             t.call("--");
-            REQUIRE(t->realValue() == 1);
+            REQUIRE(t->value() == 1);
             t.call("--");
-            REQUIRE(t->realValue() == Approx(0.f));
+            REQUIRE(t->value() == Approx(0.f));
             t.call("--");
-            REQUIRE(t->realValue() == -1);
+            REQUIRE(t->value() == -1);
             t.call("--");
-            REQUIRE(t->realValue() == -1);
+            REQUIRE(t->value() == -1);
         }
 
         SECTION("mul")
         {
             TestKnob t("ui.knob", LA("@min", 1, "@max", 12));
-            REQUIRE(t->realValue() == 1);
+            REQUIRE(t->value() == 1);
             t.call("*", LF(2));
-            REQUIRE(t->realValue() == 2);
+            REQUIRE(t->value() == 2);
             t.call("*", LF(2));
-            REQUIRE(t->realValue() == 4);
+            REQUIRE(t->value() == 4);
             t.call("*", LF(2));
-            REQUIRE(t->realValue() == 8);
+            REQUIRE(t->value() == 8);
             t.call("*", LF(2));
-            REQUIRE(t->realValue() == 12);
+            REQUIRE(t->value() == 12);
             t.call("*", LF(2));
-            REQUIRE(t->realValue() == 12);
+            REQUIRE(t->value() == 12);
         }
 
         SECTION("div")
         {
             TestKnob t("ui.knob", LA("@min", 12, "@max", 1));
-            REQUIRE(t->realValue() == Approx(12));
+            REQUIRE(t->value() == Approx(12));
             t.call("/", LF(2));
-            REQUIRE(t->realValue() == Approx(6));
+            REQUIRE(t->value() == Approx(6));
             t.call("/", LF(2));
-            REQUIRE(t->realValue() == Approx(3));
+            REQUIRE(t->value() == Approx(3));
             t.call("/", LF(2));
-            REQUIRE(t->realValue() == Approx(1.5));
+            REQUIRE(t->value() == Approx(1.5));
             t.call("/", LF(0.f));
         }
     }
@@ -309,23 +300,23 @@ TEST_CASE("ui.knob", "[ui.knob]")
     SECTION("presets")
     {
         TestKnob t("ui.knob", LA("@min", 10, "@max", 100));
-        t->setRealValue(20);
+        t->setValue(20);
         t.call("store", LF(0.f));
-        t->setRealValue(40);
+        t->setValue(40);
         t.call("store", LF(1));
-        t->setRealValue(60);
+        t->setValue(60);
         t.call("store", LF(2));
 
         t.call("load", LF(0.f));
-        REQUIRE(t->realValue() == Approx(20));
+        REQUIRE(t->value() == Approx(20));
         t.call("load", LF(1));
-        REQUIRE(t->realValue() == Approx(40));
+        REQUIRE(t->value() == Approx(40));
         t.call("load", LF(2));
-        REQUIRE(t->realValue() == Approx(60));
+        REQUIRE(t->value() == Approx(60));
         t.call("load", LF(100));
-        REQUIRE(t->realValue() == Approx(10));
+        REQUIRE(t->value() == Approx(10));
         t.call("load");
-        REQUIRE(t->realValue() == Approx(20));
+        REQUIRE(t->value() == Approx(20));
     }
 
     SECTION("onMidi")
@@ -335,77 +326,77 @@ TEST_CASE("ui.knob", "[ui.knob]")
         t->onMidiCtrl(LF(1, 2));
 
         t->onMidiCtrl(LF(1, 2, 3));
-        REQUIRE(t->realValue() == 0);
+        REQUIRE(t->value() == 0);
 
         t->setProperty(gensym("midi_control"), LF(23));
         t->onMidiCtrl(LF(1, 2, 3));
-        REQUIRE(t->realValue() == 0);
+        REQUIRE(t->value() == 0);
 
         t->onMidiCtrl(LF(23, 64, 3));
-        REQUIRE(t->realValue() == Approx(0.50394f));
+        REQUIRE(t->value() == Approx(0.50394f));
 
         t->setProperty(gensym("midi_channel"), LF(2));
         t->onMidiCtrl(LF(23, 12, 3));
-        REQUIRE(t->realValue() == Approx(0.50394f));
+        REQUIRE(t->value() == Approx(0.50394f));
 
         t->onMidiCtrl(LF(23, 12, 2));
-        REQUIRE(t->realValue() == Approx(0.09449));
+        REQUIRE(t->value() == Approx(0.09449));
 
         t->onMidiCtrl(LF(1, 22, 2));
-        REQUIRE(t->realValue() == Approx(0.09449));
+        REQUIRE(t->value() == Approx(0.09449));
         t->onMidiCtrl(LF(23, 127, 2));
-        REQUIRE(t->realValue() == Approx(1));
+        REQUIRE(t->value() == Approx(1));
         t->onMidiCtrl(LF(23, 0.f, 2));
-        REQUIRE(t->realValue() == Approx(0));
+        REQUIRE(t->value() == Approx(0));
 
         SECTION("pickup over min->max")
         {
             TestKnob t2("ui.knob", LA("@midi_control", 10, "@max", 127));
-            t2->setRealValue(30);
-            REQUIRE(t2->realValue() == Approx(30));
+            t2->setValue(30);
+            REQUIRE(t2->value() == Approx(30));
 
             // not picked up
             t2->onMidiCtrl(LF(10, 2, 1));
             t2->onMidiCtrl(LF(10, 3, 1));
             t2->onMidiCtrl(LF(10, 4, 1));
-            REQUIRE(t2->realValue() == Approx(30));
+            REQUIRE(t2->value() == Approx(30));
 
             t2->onMidiCtrl(LF(10, 29, 1));
             // not picked
-            REQUIRE(t2->realValue() == Approx(30));
+            REQUIRE(t2->value() == Approx(30));
             // picked
             t2->onMidiCtrl(LF(10, 31, 1));
-            REQUIRE(t2->realValue() == Approx(31));
+            REQUIRE(t2->value() == Approx(31));
 
             t2->onMidiCtrl(LF(10, 60, 1));
-            REQUIRE(t2->realValue() == Approx(60));
+            REQUIRE(t2->value() == Approx(60));
             t2->onMidiCtrl(LF(10, 10, 1));
-            REQUIRE(t2->realValue() == Approx(10));
+            REQUIRE(t2->value() == Approx(10));
         }
 
         SECTION("pickup over max->min")
         {
             TestKnob t2("ui.knob", LA("@midi_control", 10, "@max", 127));
-            t2->setRealValue(30);
-            REQUIRE(t2->realValue() == Approx(30));
+            t2->setValue(30);
+            REQUIRE(t2->value() == Approx(30));
 
             // not picked up
             t2->onMidiCtrl(LF(10, 60, 1));
             t2->onMidiCtrl(LF(10, 61, 1));
             t2->onMidiCtrl(LF(10, 62, 1));
-            REQUIRE(t2->realValue() == Approx(30));
+            REQUIRE(t2->value() == Approx(30));
 
             t2->onMidiCtrl(LF(10, 31, 1));
             // not picked
-            REQUIRE(t2->realValue() == Approx(30));
+            REQUIRE(t2->value() == Approx(30));
             // picked
             t2->onMidiCtrl(LF(10, 29, 1));
-            REQUIRE(t2->realValue() == Approx(29));
+            REQUIRE(t2->value() == Approx(29));
 
             t2->onMidiCtrl(LF(10, 60, 1));
-            REQUIRE(t2->realValue() == Approx(60));
+            REQUIRE(t2->value() == Approx(60));
             t2->onMidiCtrl(LF(10, 10, 1));
-            REQUIRE(t2->realValue() == Approx(10));
+            REQUIRE(t2->value() == Approx(10));
         }
 
         SECTION("pickup over equal")
@@ -414,25 +405,25 @@ TEST_CASE("ui.knob", "[ui.knob]")
 
             // not picked up
             t2->onMidiCtrl(LF(10, 60, 1));
-            REQUIRE(t2->realValue() == Approx(0));
+            REQUIRE(t2->value() == Approx(0));
 
             t2->onMidiCtrl(LF(10, 30, 1));
             // not picked
-            REQUIRE(t2->realValue() == Approx(0));
+            REQUIRE(t2->value() == Approx(0));
             // picked
             t2->onMidiCtrl(LF(10, 0.f, 1));
-            REQUIRE(t2->realValue() == Approx(0));
+            REQUIRE(t2->value() == Approx(0));
             t2->onMidiCtrl(LF(10, 60, 1));
-            REQUIRE(t2->realValue() == Approx(60));
+            REQUIRE(t2->value() == Approx(60));
             t2->onMidiCtrl(LF(10, 10, 1));
-            REQUIRE(t2->realValue() == Approx(10));
+            REQUIRE(t2->value() == Approx(10));
         }
     }
 
     SECTION("send/receive test")
     {
         pd::External r1("receive", LA("r1"));
-        ExternalOutput out;
+        LogExternalOutput out;
         REQUIRE(r1.connectTo(0, out.object(), 0));
 
         TestKnob t("ui.knob", LA("@send", "r1", "@receive", "s1"));
@@ -466,17 +457,17 @@ TEST_CASE("ui.knob", "[ui.knob]")
     SECTION("output")
     {
         pd::External knob("ui.knob");
-        ExternalOutput out;
+        LogExternalOutput out;
         REQUIRE(knob.connectTo(0, out.object(), 0));
 
-        knob.bang();
+        knob.sendBang();
         REQUIRE(out.msg().atomValue().asFloat() == 0.f);
 
         knob.sendFloat(0.4);
         REQUIRE(out.msg().atomValue().asFloat() == 0.4f);
 
         out.reset();
-        knob.bang();
+        knob.sendBang();
         REQUIRE(out.msg().atomValue().asFloat() == 0.4f);
 
         // list auto convert test
@@ -488,7 +479,7 @@ TEST_CASE("ui.knob", "[ui.knob]")
         knob.sendMessage(gensym("@value"), LF(0.5));
         REQUIRE(out.msg().isNone());
 
-        knob.bang();
+        knob.sendBang();
         REQUIRE(out.msg().atomValue().asFloat() == 0.5f);
 
         knob.sendMessage(gensym("@value?"));
@@ -506,7 +497,7 @@ TEST_CASE("ui.knob", "[ui.knob]")
         out.reset();
         knob.sendMessage(gensym("set"), LF(0.1));
         REQUIRE(out.msg().isNone());
-        knob.bang();
+        knob.sendBang();
         REQUIRE(out.msg().atomValue().asFloat() == 0.1f);
     }
 
@@ -534,8 +525,8 @@ TEST_CASE("ui.knob", "[ui.knob]")
                                  "@knob_color", "@label", "@label_align", "@label_color")
             + LA("@label_inner", "@label_margins", "@label_side", "@label_valign",
                 "@max", "@midi_channel", "@midi_control")
-            + LA("@midi_pickup", "@min", "@pinned", "@presetname", "@receive",
-                "@scale_color", "@send", "@show_range", "@size", "@value");
+            + LA("@midi_pickup", "@min", "@mouse_events", "@pinned", "@presetname", "@receive",
+                "@scale", "@scale_color", "@send", "@show_range", "@size", "@value");
         REQUIRE(props == desired);
 
         t.call("@max?", LA("@min?", "@xxx?", "", "@non", "unknown", 100, "@receive?"));

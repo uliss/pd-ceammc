@@ -79,8 +79,9 @@ void FlowDemultiplex::onInlet(size_t n, const AtomList& l)
 bool FlowDemultiplex::processAnyProps(t_symbol* sel, const AtomList& lst)
 {
     static t_symbol* SYM_INDEX_GET = gensym("@index?");
+    static t_symbol* SYM_INDEX_SET = gensym("@index");
 
-    if (!no_props_->value() && sel == SYM_INDEX_GET)
+    if (!no_props_->value() && (sel == SYM_INDEX_GET || sel == SYM_INDEX_SET))
         return BaseObject::processAnyProps(sel, lst);
 
     return false;

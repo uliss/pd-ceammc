@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "ui_gain.h"
 #include "ceammc_convert.h"
-#include "ceammc_dsp_ui.h"
+#include "ceammc_ui.h"
 #include "ceammc_preset.h"
 
 static const float SCALE_ALPHA_BLEND = 0.7;
@@ -30,6 +30,8 @@ UIGain::UIGain()
     , txt_min_(font_.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT)
     , knob_pos_(0)
     , is_horizontal_(false)
+    , rel_mode_delta_(0)
+    , prop_relative_mode(0)
 {
 }
 
@@ -107,9 +109,20 @@ void UIGain::paint()
     }
 }
 
+void UIGain::initHorizontal()
+{
+    is_horizontal_ = true;
+    std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+    updateLabels();
+}
+
 void UIGain::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIDspObject::init(name, args, usePresets);
+
+    if (name == gensym("ui.hgain~"))
+        initHorizontal();
+
     dspSetup(1, 1);
 }
 
@@ -148,15 +161,32 @@ void UIGain::onBang()
 
 void UIGain::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    onMouseDrag(view, pt, modifiers);
+    const float new_value = (is_horizontal_) ? clip<float, 0, 1>(pt.x / width())
+                                             : clip<float, 0, 1>(1.0 - (pt.y / height()));
+
+    if (prop_relative_mode) {
+        rel_mode_delta_ = (new_value - knob_pos_);
+        return;
+    } else {
+        knob_pos_ = new_value;
+        redrawBGLayer();
+
+        if (prop_output_value)
+            onBang();
+    }
 }
 
 void UIGain::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
-    if (is_horizontal_)
-        knob_pos_ = clip<float>(pt.x / width(), 0, 1);
+    // NOTE: no clip - it's done later
+    const float new_value = (is_horizontal_) ? pt.x / width()
+                                             : 1.0 - (pt.y / height());
+
+    // clip only here
+    if (prop_relative_mode)
+        knob_pos_ = clip<float, 0, 1>(new_value - rel_mode_delta_);
     else
-        knob_pos_ = clip<float>(1 - pt.y / height(), 0, 1);
+        knob_pos_ = clip<float, 0, 1>(new_value);
 
     redrawBGLayer();
 
@@ -231,24 +261,36 @@ void UIGain::m_dec()
 
 void UIGain::setup()
 {
-    UIDspFactory<UIGain> obj("ui.gain~");
+    static t_symbol* SYM_DB = gensym("db");
+    static t_symbol* SYM_MAX = gensym("max");
+    static t_symbol* SYM_MIN = gensym("min");
 
-    obj.addProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UIGain::prop_color_knob);
-    obj.addProperty("db", &UIGain::dbValue, &UIGain::setDbValue);
+    UIObjectFactory<UIGain> obj("ui.gain~");
+    obj.addAlias("ui.hgain~");
+    obj.addAlias("ui.vgain~");
+
+    obj.addColorProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UIGain::prop_color_knob);
+    obj.addHiddenFloatCbProperty("db", &UIGain::dbValue, &UIGain::setDbValue);
     obj.setPropertyDefaultValue("db", "-60");
-    obj.addProperty("amp", &UIGain::ampValue, &UIGain::setAmpValue);
+    obj.setPropertyUnits(SYM_DB, SYM_DB);
+    obj.addHiddenFloatCbProperty("amp", &UIGain::ampValue, &UIGain::setAmpValue);
     obj.addIntProperty("max", _("Maximum value"), 0, &UIGain::prop_max, _("Bounds"));
     obj.addIntProperty("min", _("Minimum value"), -60, &UIGain::prop_min, _("Bounds"));
     obj.setPropertyRange("max", -12, 12);
     obj.setPropertyRange("min", -90, -30);
+    obj.setPropertyUnits(SYM_MAX, SYM_DB);
+    obj.setPropertyUnits(SYM_MIN, SYM_DB);
     obj.addBoolProperty("show_range", _("Show range"), true, &UIGain::prop_show_range, _("Misc"));
     obj.addBoolProperty("output_value", _("Output value"), false, &UIGain::prop_output_value, _("Main"));
+    obj.addBoolProperty("relative", _("Relative mode"), true, &UIGain::prop_relative_mode, _("Main"));
 
     obj.setDefaultSize(15, 120);
     obj.usePresets();
     obj.useBang();
 
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK);
+    obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
+
     obj.addMethod("+", &UIGain::m_plus);
     obj.addMethod("-", &UIGain::m_minus);
     obj.addMethod("++", &UIGain::m_inc);

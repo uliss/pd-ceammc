@@ -1,6 +1,7 @@
 #include "mod_base.h"
 
 #include "base_click.h"
+#include "base_dac.h"
 #include "canvas_current.h"
 #include "canvas_top.h"
 #include "function.h"
@@ -41,6 +42,9 @@ extern "C" void setup_test0x2edata();
 extern "C" void setup_test0x2eexpect();
 extern "C" void setup_prop0x2eget_tilde();
 
+void setup_base_canvas_dir();
+void setup_base_canvas_name();
+void setup_base_canvas_path();
 void setup_is_data();
 void setup_load_msg();
 
@@ -61,6 +65,10 @@ void ceammc_base_setup()
     is_symbol_setup();
     msg_setup();
     replace_setup();
+
+    setup_base_canvas_dir();
+    setup_base_canvas_name();
+    setup_base_canvas_path();
     setup_base_prop();
     setup_is_data();
     setup_load_msg();
@@ -82,6 +90,7 @@ void ceammc_base_setup()
     setup_test0x2edata();
     setup_test0x2eexpect();
 
+    setup_base_dac();
     setup_canvas_current();
     setup_canvas_top();
     setup_gain_tilde();

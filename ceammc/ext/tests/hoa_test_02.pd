@@ -1,0 +1,4 @@
+#N canvas 254 220 700 500 12;
+#X obj 92 42 hoa.in 2;
+#X obj 92 120 hoa.out 4;
+#X obj 172 120 hoa.out 3;

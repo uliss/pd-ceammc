@@ -1,0 +1,4 @@
+#N canvas 138 135 700 500 12;
+#X obj 92 42 hoa.in;
+#X obj 92 120 hoa.out;
+#X connect 0 0 1 0;

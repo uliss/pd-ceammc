@@ -6,6 +6,7 @@
 #include "math_lcm.h"
 #include "math_mul.h"
 #include "math_polyeval.h"
+#include "math_sync_op.h"
 
 extern "C" void setup_math0x2eabs();
 extern "C" void setup_math0x2eacos();
@@ -97,4 +98,6 @@ void ceammc_math_setup()
     setup_math_mul();
     setup_math_polyeval();
     setup_math_round_tilde();
+
+    setup_math_sync_op();
 }

@@ -14,7 +14,7 @@
 #include "../ui/ui_number_tilde.h"
 #include "test_ui.h"
 
-UI_COMPLETE_DSP_TEST_SETUP(NumberTilde)
+UI_COMPLETE_TEST_SETUP(NumberTilde)
 
 TEST_CASE("ui.number~", "[ui.number~]")
 {

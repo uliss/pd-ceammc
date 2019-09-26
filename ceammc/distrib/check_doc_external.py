@@ -182,19 +182,17 @@ if __name__ == '__main__':
             p0 = ext_props_dict[p]
             p1 = doc_props_dict[p]
 
-            # readonly checks
+            # readonly in external
             if p0.get("readonly", False):
-                # has external readonly but not in doc
+                # but not in doc
                 if not p1.get("readonly", False):
                     cprint(f"[{ext_name}] missing readonly attribute in \"{p}\"", 'magenta')
 
-                continue
-
+            # readonly in docs
             if "readonly" in p1 and p1["readonly"] == "true":
-                if p0.get("readonly", False):
+                # but not readonly in external
+                if not p0.get("readonly", False):
                     cprint(f"[{ext_name}] non-readonly attribute in \"{p}\"", 'red')
-
-                continue
 
             # units checks
             if p1.get("units", False):
@@ -252,7 +250,7 @@ if __name__ == '__main__':
             if "max" in p0 and "maxvalue" not in p1:
                 cprint(f"[{ext_name}] missing attribute maxvalue in \"{p}\"", 'magenta')
 
-            if "default" in p0 and "default" not in p1:
+            if ("default" in p0) and ("readonly" not in p0) and ("default" not in p1):
                 cprint(f"[{ext_name}] missing attribute default in \"{p}\"", 'magenta')
 
             if "default" in p0 and "default" in p1:

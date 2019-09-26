@@ -126,7 +126,7 @@ TEST_CASE("list.at", "[externals]")
         REQUIRE(t.hasOutput());
         auto props = t.outputAnyAt(0);
         props.sort();
-        REQUIRE(props == LA("@*", "@clip", "@fold", "@index", "@method", "@rel", "@wrap"));
+        REQUIRE(props == LA("@*", "@clip", "@default", "@fold", "@index", "@method", "@rel", "@wrap"));
 
         // single test
         t.call("@clip?");
@@ -142,5 +142,18 @@ TEST_CASE("list.at", "[externals]")
         t.call("@clip?", LA("", "@norequest", "non-prop", "@rel?", "@xxx?", 100));
         REQUIRE(t.hasOutput());
         REQUIRE(t.outputAnyAt(0) == LA("@clip", 0.f, "@rel", 1));
+    }
+
+    SECTION("@default")
+    {
+        TestExtListAt t("list.at", LA(2, "@default", "???"));
+
+        t.sendList(LF(1, 2, 3));
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputFloatAt(0) == 3);
+
+        t.sendList(LF(1, 2));
+        REQUIRE(t.hasOutput());
+        REQUIRE(t.outputSymbolAt(0) == S("???"));
     }
 }

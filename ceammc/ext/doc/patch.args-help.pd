@@ -27,9 +27,10 @@
 #X obj 131 48 ui.link @title patch @url ceammc.patch-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.7.1;
-#X text 478 520 see also:;
-#X obj 552 520 canvas.current;
-#X obj 668 520 canvas.top;
+#X text 384 520 see also:;
+#X obj 458 520 canvas.current;
+#X obj 574 520 canvas.top;
+#X obj 661 520 list->props;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

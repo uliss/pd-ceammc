@@ -19,7 +19,7 @@
 
 namespace ceammc {
 class SoundExternal : public BaseObject {
-    const static size_t MAX_SIG_NUM = 16;
+    const static size_t MAX_SIG_NUM = 64;
 
 private:
     size_t block_size_;
@@ -31,6 +31,11 @@ private:
 
 public:
     SoundExternal(const PdArgs& a);
+
+    /**
+     * @brief setup signal processing
+     * @param sp - pointer to signals vector
+     */
     virtual void setupDSP(t_signal** sp);
 
     /**
@@ -74,6 +79,35 @@ public:
      * @brief dump - dumps internal into to Pd window
      */
     void dump() const override;
+
+    /**
+     * @brief return pointer to input blocks
+     */
+    t_sample** inputBlocks() { return in_; }
+
+    /**
+     * @brief return pointer to output blocks
+     */
+    t_sample** outputBlocks() { return out_; }
+
+    /**
+     * @brief override this to get block size change notification while setupDSP step
+     * @param bs - new block size
+     */
+    virtual void blockSizeChanged(size_t bs);
+
+    /**
+     * @brief override this to get samplerate change notification while setupDSP step
+     * @param sr - new sample rate
+     */
+    virtual void samplerateChanged(size_t sr);
+
+protected:
+    /**
+     * @brief copy signals pointer
+     * @param sp
+     */
+    void signalInit(t_signal** sp);
 
 private:
     inline void _processBlock()

@@ -86,9 +86,8 @@ if(WITH_LIBSNDFILE)
 endif()
 
 # FFTW3
-option(WITH_FFTW "Use fftw3 library (http://www.fftw.org/)" ON)
 if(WITH_FFTW)
-    include(FindFFTW)
+    find_package(FFTW REQUIRED)
     if(NOT FFTW_FOUND)
         set(WITH_FFTW OFF CACHE BOOL "" FORCE)
     endif()
@@ -114,7 +113,7 @@ include(summary)
 include(package)
 
 if(APPLE)
-    add_custom_target(mac_deploy SOURCES mac/cmake-build-mac.sh.in mac/codesign.sh mac/dmg.sh)
+    add_custom_target(mac_deploy SOURCES mac/ceammc_build.sh.in mac/codesign.sh mac/dmg.sh)
 endif()
 
 add_custom_target(puredata_changelog SOURCES CHANGELOG.md)

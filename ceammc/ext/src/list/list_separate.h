@@ -20,6 +20,9 @@ using namespace ceammc;
 class DataTypeMList;
 
 class ListSeparate : public BaseObject {
+    BoolProperty* enumerate_;
+    IntProperty* from_;
+
 public:
     ListSeparate(const PdArgs& a);
     void onList(const AtomList& l);

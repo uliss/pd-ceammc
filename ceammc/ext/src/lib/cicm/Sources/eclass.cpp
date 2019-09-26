@@ -42,6 +42,8 @@ static const char* SYM_READ = "read";
 static const char* SYM_WRITE = "write";
 
 static const char* SYM_PAINT = "paint";
+static const char* SYM_WIDGET_CREATE = ".create";
+static const char* SYM_WIDGET_ERASE = ".erase";
 static const char* SYM_NOTIFY = "notify";
 static const char* SYM_GET_DRAW_PARAMS = "getdrawparams";
 static const char* SYM_OK_SIZE = "oksize";
@@ -159,8 +161,8 @@ t_eclass* eclass_new(const char* name, t_typ_method newm, t_typ_method freem, si
         memset(&c->c_widget, 0, sizeof(t_ewidget));
         c->c_attr = 0;
         c->c_nattr = 0;
-        c->c_dsp = 0;
-        c->c_box = 0;
+        c->c_dsp = false;
+        c->c_box = false;
         c->c_attr = NULL;
     } else {
         bug("Memory allocation failed for the class %s.", name);
@@ -317,7 +319,7 @@ void eclass_guiinit(t_eclass* c, long flags)
 
     class_addmethod((t_class*)c, (t_method)ebox_pos, gensym(SYM_POS), A_DEFFLOAT, A_DEFFLOAT, 0);
     class_addmethod((t_class*)c, (t_method)ebox_vis, gensym(SYM_VIS), A_DEFFLOAT, 0);
-    class_addmethod((t_class*)c, (t_method)ebox_setzoom, gensym(SYM_ZOOM), A_DEFFLOAT, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_setzoom, gensym(SYM_ZOOM), A_CANT, 0);
 
     class_setwidget((t_class*)&c->c_class, (t_widgetbehavior*)&c->c_widget);
     class_setsavefn((t_class*)&c->c_class, (t_savefn)eobj_save);
@@ -390,6 +392,10 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
             c->c_widget.w_keyfilter = m;
     } else if (sname == gensym(SYM_PAINT)) {
         c->c_widget.w_paint = m;
+    } else if (sname == gensym(SYM_WIDGET_CREATE)) {
+        c->c_widget.w_create = m;
+    } else if (sname == gensym(SYM_WIDGET_ERASE)) {
+        c->c_widget.w_erase = m;
     } else if (sname == gensym(SYM_NOTIFY)) {
         c->c_widget.w_notify = (t_err_method)m;
     } else if (sname == gensym(SYM_GET_DRAW_PARAMS)) {
@@ -461,6 +467,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
             attr->category = c->c_class.c_name;
             attr->label = gensym("");
             attr->style = gensym(SYM_ENTRY);
+            attr->units = &s_;
             attr->order = c->c_nattr + 1;
             attr->save = 0;
             attr->paint = 0;
@@ -1037,6 +1044,8 @@ static void ewidget_init(t_eclass* c)
     c->c_widget.w_clickfn = nullptr;
 
     c->c_widget.w_paint = nullptr;
+    c->c_widget.w_create = nullptr;
+    c->c_widget.w_erase = nullptr;
     c->c_widget.w_mouseenter = nullptr;
     c->c_widget.w_mouseleave = nullptr;
     c->c_widget.w_mousemove = nullptr;
@@ -1373,6 +1382,16 @@ void eclass_attr_visible(t_eclass* c, const char* attrname, long flags)
     for (int i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == s_attrname) {
             c->c_attr[i]->invisible = 0;
+            return;
+        }
+    }
+}
+
+void eclass_attr_units(t_eclass* c, t_symbol* attrname, long, t_symbol* units)
+{
+    for (int i = 0; i < c->c_nattr; i++) {
+        if (c->c_attr[i]->name == attrname) {
+            c->c_attr[i]->units = units;
             return;
         }
     }

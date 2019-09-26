@@ -26,7 +26,11 @@ public:
         size_ = args.args.asSizeT(DEFAULT_SIZE);
 
         createOutlet();
-        createCbProperty("@empty", &DataFifo::p_empty);
+        {
+            auto p = createCbProperty("@empty", &DataFifo::p_empty);
+            p->info().setType(PropertyInfoType::BOOLEAN);
+        }
+
         createCbProperty("@filled", &DataFifo::p_size);
         createCbProperty("@size", &DataFifo::p_max_size);
         createCbProperty("@free", &DataFifo::p_free);

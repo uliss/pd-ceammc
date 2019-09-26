@@ -864,7 +864,7 @@
                         "Complex number"
                     ],
                     "see": [
-                        "complex"
+                        "complex.new"
                     ],
                     "since": "0.1"
                 },

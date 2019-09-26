@@ -11,14 +11,13 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#define _USE_MATH_DEFINES // for M_PI constants
-
 #include "ui_spectroscope.h"
 #include "ceammc_convert.h"
-#include "ceammc_dsp_ui.h"
+#include "ceammc_ui.h"
 #include "ceammc_window.h"
 
 #include <algorithm>
+#include <cmath>
 
 static const size_t TXT_DB_COUNT = 10;
 static const char* TXT_DB[TXT_DB_COUNT] = {
@@ -414,13 +413,13 @@ void UISpectroscope::setup()
 {
     static const bool init = init_hann_window();
 
-    UIDspFactory<UISpectroscope> obj("ui.spectroscope~", EBOX_GROWINDI);
+    UIObjectFactory<UISpectroscope> obj("ui.spectroscope~", EBOX_GROWINDI);
     obj.useMouseEvents(UI_MOUSE_DOWN);
     obj.addAlias("ui.ssc~");
     obj.setDefaultSize(150, 100);
 
-    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UISpectroscope::prop_color_active);
-    obj.addProperty("scale_color", _("Scale Color"), "0.6 0.6 0.6 1", &UISpectroscope::prop_color_scale);
+    obj.addColorProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UISpectroscope::prop_color_active);
+    obj.addColorProperty("scale_color", _("Scale Color"), "0.6 0.6 0.6 1", &UISpectroscope::prop_color_scale);
     obj.addIntProperty("refresh", _("Refresh time (ms)"), 100, &UISpectroscope::prop_refresh, "Main");
     obj.setPropertyRange("refresh", 20, 1000);
     obj.addBoolProperty("log_scale", _("Log scale"), false, &UISpectroscope::prop_log_scale, "Main");

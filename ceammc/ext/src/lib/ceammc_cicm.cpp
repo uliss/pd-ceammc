@@ -325,6 +325,16 @@ void UIPainter::stroke()
     egraphics_stroke(layer_);
 }
 
+void UIPainter::strokePreserve()
+{
+    egraphics_stroke_preserve(layer_);
+}
+
+void UIPainter::closePath()
+{
+    egraphics_close_path(layer_);
+}
+
 void UIPainter::fillLayer(const t_rgba& color)
 {
     float w = layer_->e_rect.width;
@@ -355,6 +365,11 @@ void UIPainter::setDashStyle(t_dashstyle style)
     egraphics_set_line_dashstyle(layer_, style);
 }
 
+void UIPainter::setSmooth(t_smooth smooth)
+{
+    egraphics_set_line_smooth(layer_, smooth);
+}
+
 t_elayer* UIPainter::layer()
 {
     return layer_;
@@ -368,11 +383,28 @@ void UIPainter::raiseOver(UIPainter& painter)
     egraphics_raise(layer_, painter.layer());
 }
 
+void UIPainter::rotate(float angle)
+{
+    egraphics_rotate(layer_, angle);
+}
+
+void UIPainter::setMatrix(const t_matrix& mtx)
+{
+    egraphics_set_matrix(layer_, &mtx);
+}
+
 UIPopupMenu::UIPopupMenu(t_eobj* x, const char* name, const t_pt& pos)
     : menu_(nullptr)
     , pos_(pos)
 {
     menu_ = epopupmenu_create(x, gensym(name));
+}
+
+UIPopupMenu::UIPopupMenu(t_eobj* x, t_symbol* name, const t_pt& pos)
+    : menu_(nullptr)
+    , pos_(pos)
+{
+    menu_ = epopupmenu_create(x, name);
 }
 
 UIPopupMenu::~UIPopupMenu()

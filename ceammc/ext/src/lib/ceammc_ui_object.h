@@ -43,7 +43,6 @@ class UIObject : t_ebox {
     std::vector<UILayer*> layer_stack_;
     t_symbol* name_;
     t_symbol* old_preset_id_;
-    t_cursor cursor_;
     bool use_presets_;
 
 protected:
@@ -52,11 +51,14 @@ protected:
     void prependToLayerList(UILayer* l);
     void invalidateLayer(UILayer* l);
     void invalidateBox();
+    void invalidateXlets();
+    void invalidateBorder();
 
 public:
     t_rgba prop_color_background;
     t_rgba prop_color_border;
     t_rgba prop_color_label;
+    int prop_mouse_events;
 
 public:
     UIObject();
@@ -66,11 +68,12 @@ public:
     t_ebox* asEBox() const;
     t_eobj* asEObj() const;
     t_object* asPdObject() const;
+    t_gobj* asGObj() const;
     t_pd* asPd() const;
-    t_outlet* createOutlet();
     t_canvas* canvas() const;
     bool isPatchLoading() const;
     bool isPatchEdited() const;
+    bool isVisible() const;
     const AtomList& args() const { return args_; }
     AtomList& args() { return args_; }
 
@@ -79,6 +82,8 @@ public:
     t_symbol* presetId();
 
     void paint();
+    void create();
+    void erase();
 
     void redraw();
     void redrawInnerArea();
@@ -96,11 +101,12 @@ public:
     void onMouseEnter(t_object* view, const t_pt& pt, long modifiers);
     void onMouseWheel(t_object* view, const t_pt& pt, long modifiers, double delta);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
+    void onPopup(t_symbol* menu_name, long item_idx);
+    bool outputMouseEvents() const;
 
     void okSize(t_rect* newrect);
     void setDrawParams(t_edrawparams* params);
     void onZoom(t_float z);
-    void onPopup(t_symbol* menu_name, long item_idx);
     void onPropChange(t_symbol* name);
     void write(const std::string& fname);
     void read(const std::string& fname);
@@ -142,17 +148,20 @@ public:
     float height() const;
 
     float zoom() const;
-    t_cursor cursor() const;
     void setCursor(t_cursor c);
 
+    // presets
     void presetInit();
     void bindPreset(t_symbol* name);
     void unbindPreset(t_symbol* name);
     void rebindPreset(t_symbol* from, t_symbol* to);
     void handlePresetNameChange();
 
+    // xlets
     size_t numInlets() const;
     size_t numOutlets() const;
+    const std::vector<t_outlet*>& outlets() const { return outlets_; }
+    t_outlet* createOutlet();
 
     bool hasProperty(t_symbol* name) const;
     bool getProperty(t_symbol* name, t_float& f) const;

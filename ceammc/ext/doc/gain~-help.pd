@@ -4,7 +4,7 @@
 #X text 598 50 multislot signal gain;
 #X obj 1 1 cnv 5 765 40 empty empty gain~ 20 20 0 20 -104026 -4096 0;
 #X obj 703 11 gain~;
-#X obj 50 118 ui.sliders @count 4 @size 150 100;
+#X obj 50 118 ui.sliders @count 4;
 #X obj 299 118 ui.dsp~;
 #X obj 69 234 sig~ 1;
 #X msg 184 234 +all 0.1;

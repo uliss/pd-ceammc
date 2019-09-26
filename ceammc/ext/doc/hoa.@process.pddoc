@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="hoa.@process">
+        <title>hoa.@process</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+                <author>Pierre Guillot</author>
+                <author>Eliott Paris</author>
+                <author>Thomas Le Meur</author>
+            </authors>
+            <description>process properties manager for hoa.process~</description>
+            <license>GPL3</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>hoa process properties</keywords>
+            <since>0.8</since>
+            <also>
+                <see>hoa.process~</see>
+            </also>
+        </meta>
+        <info>
+            <par>With [hoa.@process] you can get [hoa.process~] instance properties and get/set
+            properties declared via [prop.declare]</par>
+        </info>
+        <properties>
+            <property name="@hdegree" type="int" readonly="true">current harmonic degree in
+            hoa.process~ instance (only in harmonics mode)</property>
+            <property name="@horder" type="int" readonly="true">current harmonic order in
+            hoa.process~ instance (only in harmonics mode)</property>
+            <property name="@index" type="int" readonly="true">current instance index starting from
+            0</property>
+            <property name="@order" type="int" readonly="true">order of parent
+            hoa.process~</property>
+            <property name="@pmode" type="symbol" enum="2d 3d" readonly="true">amibisonic
+            mode</property>
+            <property name="@ptype" type="symbol" enum="harmonics planewaves" readonly="true">
+            amibisonic type</property>
+            <property name="@total" type="int" readonly="true">total number of hoa.process~
+            instances</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>set or request properties</xinfo>
+                <xinfo on="bang">pass bang message thru</xinfo>
+                <xinfo on="float">pass float message thru</xinfo>
+                <xinfo on="symbol">pass symbol message thru</xinfo>
+                <xinfo on="list">pass list message thru</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>outputs properties</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open 0( [open 1( [open 2(     [@*?, @index? @order? @total? @hdegree? @horder? #a(
+|        |        |
+|        |        |              [@freq?, \#1 @freq 1000, @freq? #b(
+|        |        |
+|        |        |                [\#0 @freq 740, \#2 @freq 300 #c(
+|        |        |
+|        |        |                  [\#0 @freq 200, \#1 @freq 600, \#2 @freq 500 #d(
+|        |        |
+|        |        |                          [3(
+|        |        |                          |
+|        |        |                          [list.gen] X [random.int 100 1000]
+|        |        |                          |
+|        |        |   /*click me*/           [list.do #e] [\#$2 @freq $1 #x(
+|        |        |                                       |.
+[hoa.process~ 3 hoa/hoa_prop_example1 planewaves @freq 250 {w=60,i=2,o=4} #z]
+| ^| ^^|                                   ^^^|
+|  |   |                                      |
+|  |   |                                      |
+[ui.hgain~]   [ui.dsp~]                     [print]
+|\
+[dac~]
+
+[X a->z:1]
+[X b->z:1]
+[X c->z:1]
+[X d->z:1]
+[X e:1->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

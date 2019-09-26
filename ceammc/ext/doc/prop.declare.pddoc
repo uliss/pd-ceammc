@@ -35,7 +35,7 @@
             <property name="@max" type="float">maximum value (for float and int properties
             only)</property>
             <property name="@enum" type="list">allowed values (without default value) (for symbol
-            proeprties only)</property>
+            properties only)</property>
         </properties>
         <example>
             <pdascii>

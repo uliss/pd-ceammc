@@ -126,6 +126,8 @@ public:
     void fill();
     void fillPreserve();
     void stroke();
+    void strokePreserve();
+    void closePath();
 
     void fillLayer(const t_rgba& color);
 
@@ -133,9 +135,13 @@ public:
     void setLineWidth(float w);
     void setColor(const t_rgba& c);
     void setDashStyle(t_dashstyle style);
+    void setSmooth(t_smooth smooth);
 
     t_elayer* layer();
     void raiseOver(UIPainter& painter);
+
+    void rotate(float angle);
+    void setMatrix(const t_matrix& mtx);
 };
 
 class UILayer {
@@ -158,6 +164,7 @@ class UIPopupMenu {
 
 public:
     UIPopupMenu(t_eobj* x, const char* name, const t_pt& pos);
+    UIPopupMenu(t_eobj* x, t_symbol* name, const t_pt& pos);
     ~UIPopupMenu();
 
     void addSeparator();

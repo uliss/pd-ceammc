@@ -21,9 +21,15 @@
             </aliases>
         </meta>
         <info>
-            <par>Double click in edit mode changes slider orientation</par>
             <par>[ui.hrd] alias for horizontal radio, [ui.vrd] alias for vertical radio</par>
         </info>
+        <mouse>
+            <event editmode="true" type="double-click" keys="Cmd">changes slider
+            orientation</event>
+            <event editmode="0" type="left-click">select cell in radio mode, toggle cell in check
+            list mode</event>
+            <event editmode="0" type="right-click">show context menu</event>
+        </mouse>
         <arguments>
             <argument name="NCELLS" type="float" minvalue="2" maxvalue="128">number of
             cells</argument>
@@ -60,6 +66,7 @@
             <method name="set">sets radio without output 
             <param name="V" type="float" required="true">new value</param></method>
             <method name="reset">reset radio (only in checklist mode)</method>
+            <method name="random">check random cells</method>
             <method name="flip">flips radio (only in checklist mode)</method>
             <method name="next">moves to next position until last cell is reached (single mode
             only)</method>
@@ -96,9 +103,9 @@
 [F]  [set 2(         [flip( [reset( [1 1 0 1 0 0 1(
 |    |               |      |       |
 |    |               |      |       |
-[ui.radio ]          [ui.radio @mode=1]
+[ui.radio ]          [ui.radio @mode 1]
 |                    |
-[F]                  [ui.display @display_type 1]
+[F]                  [ui.display @display_type=1]
 
 [+ 3( [- 1( [prev( [next(
 |     |     |      |

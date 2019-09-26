@@ -21,12 +21,19 @@
         <info>
             <par>Saves presets value of UI objects that have @presetname property. Can handle UI
             objects only on the save canvas, no subpatches or abstractions are supported.</par>
-            <par>*Click* activates preset slot, *Shift+click* saves to specified preset slot,
-            *Alt+click* removes preset value;</par>
             <par>NOTE: if no UI widgets with @presetname on canvas - *Shift-click* is
             disabled.</par>
             <par>Active slot is highlighted, available slots are dark gray</par>
         </info>
+        <mouse>
+            <event editmode="false" type="left-click">select preset slot under cursor</event>
+            <event editmode="false" type="left-click" keys="Shift">saves current settings to
+            specified preset slot</event>
+            <event editmode="false" type="left-click" keys="Alt">clear all values from specified
+            preset slot</event>
+            <event editmode="false" type="right-click">opens popup menu with read/write
+            actions</event>
+        </mouse>
         <properties>
             <property name="@current" type="int" default="0">current preset index</property>
             <!-- common -->
@@ -77,7 +84,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[ui.radio @presetname=P-radio]   [ui.sliders @presetname=P-sliders]
+[ui.radio @presetname P-radio]   [ui.sliders @presetname P-sliders]
 
 
 [ui.toggle @presetname=P-toggle]

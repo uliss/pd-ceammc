@@ -38,26 +38,29 @@ check_include_file(unistd.h HAVE_UNISTD_H)
 check_function_exists(nanosleep HAVE_NANOSLEEP)
 check_function_exists(setenv HAVE_SETENV)
 
-find_package(ModPlug)
-if(MODPLUG_FOUND)
-    set(CEAMMC_HAVE_MODPLUG ON)
+if(WITH_FLUIDSYNTH)
+    find_package(GLIB REQUIRED)
+    if(GLIB_FOUND)
+        set(CEAMMC_HAVE_FLUIDSYNTH ON)
+        #include paths
+        list(APPEND FLUIDSYNTH_INCLUDES
+            ${GLIB_INCLUDES}
+            ${PROJECT_BINARY_DIR}/ceammc/extra/fluidsynth
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/fluidsynth/fluidsynth/include)
+        # libs
+        list(APPEND FLUIDSYNTH_LIBRARIES fluidsynth ${GLIB_LIBRARIES})
+    else()
+        message(FATAL "Glib is not found: no fluidsynth build")
+    endif()
 endif()
 
-# FluidSynth
-find_package(GLIB)
-if(GLIB_FOUND)
-    set(CEAMMC_HAVE_FLUIDSYNTH ON)
-    set(WITH_FLUIDSYNTH TRUE)
+if(WITH_TTS_FLITE)
+    set(CEAMMC_HAVE_TTS_FLITE ON)
     #include paths
-    list(APPEND FLUIDSYNTH_INCLUDES
-        ${GLIB_INCLUDES}
-        ${PROJECT_BINARY_DIR}/ceammc/extra/fluidsynth
-        ${PROJECT_SOURCE_DIR}/ceammc/extra/fluidsynth/fluidsynth/include)
+    list(APPEND FLITE_INCLUDES
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/speech/flite/include)
     # libs
-    list(APPEND FLUIDSYNTH_LIBRARIES fluidsynth ${GLIB_LIBRARIES})
-else()
-    set(WITH_FLUIDSYNTH FALSE)
-    message(WARNING "Glib is not found: no fluidsynth build")
+    list(APPEND FLITE_LIBRARIES flite)
 endif()
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)

@@ -62,12 +62,12 @@ TEST_CASE("ui.tab", "[ui.tab]")
             REQUIRE_NONE_WAS_SEND(t, "r1");
 
             t.mouseDown(25, 10);
-            REQUIRE_OUTPUT_FLOAT(t, 0, 0);
-            REQUIRE_FLOAT_WAS_SEND(t, "r1", 0);
+            REQUIRE_OUTPUT_LIST(t, 0, LF(0, 1));
+            REQUIRE_LIST_WAS_SEND(t, "r1", LF(0, 1));
 
             t.mouseDown(75, 10);
-            REQUIRE_OUTPUT_FLOAT(t, 0, 1);
-            REQUIRE_FLOAT_WAS_SEND(t, "r1", 1);
+            REQUIRE_OUTPUT_LIST(t, 0, LF(1, 2));
+            REQUIRE_LIST_WAS_SEND(t, "r1", LF(1, 2));
 
             // invalid
             t << -1;
@@ -78,12 +78,12 @@ TEST_CASE("ui.tab", "[ui.tab]")
             REQUIRE_NO_OUTPUT(t);
 
             t << 1;
-            REQUIRE_OUTPUT_FLOAT(t, 0, 1);
-            REQUIRE_FLOAT_WAS_SEND(t, "r1", 1);
+            REQUIRE_OUTPUT_LIST(t, 0, LF(1, 2));
+            REQUIRE_LIST_WAS_SEND(t, "r1", LF(1, 2));
 
             t << 0.f;
-            REQUIRE_OUTPUT_FLOAT(t, 0, 0);
-            REQUIRE_FLOAT_WAS_SEND(t, "r1", 0);
+            REQUIRE_OUTPUT_LIST(t, 0, LF(0, 1));
+            REQUIRE_LIST_WAS_SEND(t, "r1", LF(0, 1));
         }
     }
 
@@ -97,12 +97,12 @@ TEST_CASE("ui.tab", "[ui.tab]")
 
             t.mouseDown(25, 8);
             t << BANG;
-            REQUIRE_OUTPUT_FLOAT(t, 0, 0);
+            REQUIRE_OUTPUT_LIST(t, 0, LA(0.f, "A"));
             REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(1, 0.f));
 
             t.mouseDown(75, 8);
             t << BANG;
-            REQUIRE_OUTPUT_FLOAT(t, 0, 1);
+            REQUIRE_OUTPUT_LIST(t, 0, LA(1, "B"));
             REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(0.f, 1));
 
             t <<= LA("select", 0.f);
@@ -305,10 +305,10 @@ TEST_CASE("ui.tab", "[ui.tab]")
             t <<= LA("@items", "A", "B", "C", "D");
 
             t << "A";
-            REQUIRE_OUTPUT_FLOAT(t, 0, 0);
+            REQUIRE_OUTPUT_LIST(t, 0, LA(0.f, "A"));
             REQUIRE_UI_FLOAT_PROPERTY(t, "current", 0);
             t << "D";
-            REQUIRE_OUTPUT_FLOAT(t, 0, 3);
+            REQUIRE_OUTPUT_LIST(t, 0, LA(3, "D"));
             REQUIRE_UI_FLOAT_PROPERTY(t, "current", 3);
             t << "?";
             REQUIRE_NO_OUTPUT(t);

@@ -12,7 +12,8 @@ class UISingleValue : public UIObject {
 
     char pick_value_side_;
     bool listen_midi_ctrl_;
-    bool midi_value_picked_;
+    bool midi_pickup_done_;
+    t_float knob_phase;
 
 public:
     t_float prop_value;
@@ -20,22 +21,30 @@ public:
     t_float prop_max;
     int prop_midi_chn;
     int prop_midi_ctl;
-    int prop_midi_pickup;
+    int prop_pickup_midi;
     int prop_show_value;
+    t_symbol* prop_scale;
+
+    enum ScaleMode {
+        LINEAR,
+        LOG
+    };
 
 public:
     UISingleValue();
 
     t_float range() const;
-    t_float value() const;
     t_float minValue() const;
     t_float maxValue() const;
-    void setValue(t_float v);
+
     int midiChannel() const;
     int midiControl() const;
 
-    t_float realValue() const;
-    void setRealValue(t_float v);
+    t_float knobPhase() const;
+    void setKnobPhase(t_float v);
+
+    t_float value() const;
+    void setValue(t_float v);
 
     void init(t_symbol* name, const AtomList& args, bool usePresets);
     void onPropChange(t_symbol* prop_name);
@@ -63,8 +72,15 @@ public:
 
     void redrawKnob();
 
+    ScaleMode scaleMode() const;
+
 protected:
     UILayer knob_layer_;
+
+    static void setup();
+
+private:
+    void setValueLin(t_float v);
 };
 
 #endif // UI_SINGLE_VALUE_H

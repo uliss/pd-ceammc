@@ -13,13 +13,10 @@
  *****************************************************************************/
 
 #include "../list/list_walk.h"
-#include "catch.hpp"
-#include "ceammc.hpp"
 #include "test_base.h"
+#include "test_external.h"
 
-#include <stdio.h>
-
-typedef TestExternal<ListWalk> ListWalkTest;
+PD_COMPLETE_TEST_SETUP(ListWalk, list, walk)
 
 #define REQUIRE_LIST_MSG(obj, lst)                     \
     {                                                  \
@@ -42,15 +39,16 @@ typedef TestExternal<ListWalk> ListWalkTest;
 
 #define REQUIRE_NO_MSG(obj) REQUIRE_FALSE(obj.hasNewMessages())
 
-TEST_CASE("list.walk 2", "[PureData]")
+TEST_CASE("list.walk 2", "[externals]")
 {
+    pd_test_init();
 
     SECTION("test fold")
     {
         SECTION("basic")
         {
             AtomList args(gensym("@fold"));
-            ListWalkTest t("list.walk", args);
+            TestListWalk t("list.walk", args);
 
             CALL(t, current);
             REQUIRE_NO_MSG(t);
@@ -112,7 +110,7 @@ TEST_CASE("list.walk 2", "[PureData]")
         SECTION("step 2")
         {
             AtomList args(gensym("@fold"));
-            ListWalkTest t("list.walk", args);
+            TestListWalk t("list.walk", args);
 
             CALL(t, current);
             REQUIRE_NO_MSG(t);
@@ -146,7 +144,7 @@ TEST_CASE("list.walk 2", "[PureData]")
         {
             AtomList args(gensym("@fold"));
             args.append(AtomList(gensym("@length"), 2));
-            ListWalkTest t("list.walk", args);
+            TestListWalk t("list.walk", args);
 
             CALL(t, current);
             REQUIRE_NO_MSG(t);
@@ -177,7 +175,7 @@ TEST_CASE("list.walk 2", "[PureData]")
 
     SECTION("test length < 1")
     {
-        ListWalkTest t("list.walk", L());
+        TestListWalk t("list.walk", L());
         REQUIRE(t.setProperty("@length", AtomList(0.f)));
 
         CALL(t, current);
@@ -195,7 +193,7 @@ TEST_CASE("list.walk 2", "[PureData]")
 
     SECTION("test @size")
     {
-        ListWalkTest t("list.walk", L());
+        TestListWalk t("list.walk", L());
         REQUIRE_PROP(t, size, AtomList(0.f));
 
         t.sendList(LF(1.0, 2.0));
@@ -204,7 +202,7 @@ TEST_CASE("list.walk 2", "[PureData]")
 
     SECTION("test bang")
     {
-        ListWalkTest t("list.walk", AtomList(1, 2));
+        TestListWalk t("list.walk", AtomList(1, 2));
         REQUIRE(t.property("@mode")->get() == AtomList(gensym("single")));
         REQUIRE(t.setProperty("@loop", L()));
         REQUIRE(t.property("@mode")->get() == AtomList(gensym("wrap")));
@@ -219,7 +217,7 @@ TEST_CASE("list.walk 2", "[PureData]")
 
     SECTION("test @direction")
     {
-        ListWalkTest t("list.walk", LF(1.0, 2.0, 3.0));
+        TestListWalk t("list.walk", LF(1.0, 2.0, 3.0));
         REQUIRE_PROP(t, direction, AtomList(1.f));
         REQUIRE(t.setProperty("@direction", AtomList(0.f)));
         REQUIRE(t.setProperty("@loop", L()));
@@ -250,7 +248,7 @@ TEST_CASE("list.walk 2", "[PureData]")
     {
         SECTION("forward")
         {
-            ListWalkTest t("list.walk", LF(1.0, 2.0, 3.0, 4.0, 5.0));
+            TestListWalk t("list.walk", LF(1.0, 2.0, 3.0, 4.0, 5.0));
             REQUIRE_PROP(t, direction, AtomList(1.f));
             REQUIRE(t.setProperty("@loop", L()));
 
@@ -279,7 +277,7 @@ TEST_CASE("list.walk 2", "[PureData]")
 
         SECTION("backward")
         {
-            ListWalkTest t("list.walk", LF(1.0, 2.0, 3.0, 4.0, 5.0));
+            TestListWalk t("list.walk", LF(1.0, 2.0, 3.0, 4.0, 5.0));
             REQUIRE_PROP(t, direction, AtomList(1.f));
             REQUIRE(t.setProperty("@direction", AtomList(0.f)));
             REQUIRE(t.setProperty("@loop", L()));
@@ -308,7 +306,7 @@ TEST_CASE("list.walk 2", "[PureData]")
 
     SECTION("test set index")
     {
-        ListWalkTest t("list.walk", L());
+        TestListWalk t("list.walk", L());
         t.p_set_index(LF(2));
         REQUIRE_PROP(t, index, AtomList(0.0f));
         t.p_set_index(AtomList(-2));

@@ -74,6 +74,73 @@ namespace list {
 
     std::vector<std::pair<Atom, size_t>> rleEncode(const AtomList& l);
     AtomList rleDecode(const std::vector<std::pair<Atom, size_t>>& rle);
+
+    template <typename T>
+    static bool canConvertToType(const AtomList&) { return false; }
+
+    template <>
+    bool canConvertToType<bool>(const AtomList& l)
+    {
+        if (l.size() != 1)
+            return false;
+
+        if (l[0].isFloat())
+            return true;
+
+        if (l[0].isSymbol()
+            && (l[0].asSymbol() == gensym("true") || l[0].asSymbol() == gensym("false")))
+            return true;
+
+        return false;
+    }
+
+    template <>
+    bool canConvertToType<float>(const AtomList& l)
+    {
+        return l.isFloat();
+    }
+
+    template <>
+    bool canConvertToType<double>(const AtomList& l)
+    {
+        return l.isFloat();
+    }
+
+    template <>
+    bool canConvertToType<int>(const AtomList& l)
+    {
+        return l.isFloat();
+    }
+
+    template <>
+    bool canConvertToType<size_t>(const AtomList& l)
+    {
+        if (!l.isFloat())
+            return false;
+
+        if (l[0].asFloat() < 0)
+            return false;
+
+        return true;
+    }
+
+    template <>
+    bool canConvertToType<t_symbol*>(const AtomList& l)
+    {
+        return l.isSymbol();
+    }
+
+    template <>
+    bool canConvertToType<Atom>(const AtomList& l)
+    {
+        return l.size() == 1;
+    }
+
+    template <>
+    bool canConvertToType<AtomList>(const AtomList& l)
+    {
+        return true;
+    }
 }
 }
 

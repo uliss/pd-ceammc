@@ -69,7 +69,8 @@ public:
     bool set(const AtomList& lst);
     AtomList get() const;
 
-    Atom value() const { return v_; }
+    const Atom& value() const { return v_; }
+    Atom& value() { return v_; }
     void setValue(const Atom& v) { v_ = v; }
 };
 

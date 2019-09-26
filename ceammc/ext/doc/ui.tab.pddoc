@@ -87,12 +87,12 @@
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="bang">in single mode outputs @title TAB and index of selected tab. In
+                <xinfo on="bang">in single mode outputs tab state as list: INDEX TAB_NAME. In
                 toggle mode outputs current state like: @selected 0 1 0 1 0 etc. and list of two
                 values: [CHANGED_IDX CHANGED_VALUE]</xinfo>
-                <xinfo on="float">onle in single mode: change tab select tab by index and output
-                tab @title and new index</xinfo>
-                <xinfo on="any">selects item equal to given</xinfo>
+                <xinfo on="float">only in single mode: change tab by index and output list: INDEX
+                TAB_NAME</xinfo>
+                <xinfo on="any">selects item equal to given and output list: INDEX TAB_NAME</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -111,11 +111,7 @@
 | | |       |    |  | |    |        |
 [ui.tab      @items sin tri @size 350 15]
 |
-[prop-> @title]
-|      ^|
-[ui.d]  |
-        |
-        [ui.d]
+[ui.d]
 ]]>
             </pdascii>
         </example>

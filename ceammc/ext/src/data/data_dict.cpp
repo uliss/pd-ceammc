@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "data_dict.h"
-#include "ceammc_factory.h"
 
 DataDict::DataDict(const PdArgs& args)
     : DictIFace<BaseObject>(args)

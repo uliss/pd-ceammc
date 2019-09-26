@@ -106,13 +106,13 @@
  |   |       |       |      |
 [tl.timeline 20 @loop 1   #a]
 |
-[prop-> @current         ]
-|                       ^|
-[sel 0 1 2 begin end ]  [/ 1000]
-|   ^|  ^^| ^^^| ^^^^|  |
-[B] [B]  [B] [B]    [B] [sec->str @symbol @ms]
-                        |
-[X b->a]                [S digits=15]
+[prop-> @current {w=20}   ]
+|                        ^|
+[sel 0 1 2 begin end   ] [/ 1000]
+|    ^| ^^|  ^^^|  ^^^^| |
+[B] [B] [B]   [B]    [B] [sec->str @symbol @ms]
+                         |
+[X b->a]                 [S digits=15]
 [X c->a]
 [X d->a]
 ]]>

@@ -167,6 +167,13 @@ TEST_CASE("flow.demultiplex", "[externals]")
         REQUIRE(!t.hasOutputAt(1));
         REQUIRE(t.outputAnyAt(0) == LA("@index", 0.f));
 
+        t.call("@index", LF(1));
+        REQUIRE_FALSE(t.hasOutputAt(0));
+        REQUIRE(t->property("@index")->get() == LF(1));
+
+        //
+        // @noprops
+        //
         TestExtFlowDemultiplex t3("flow.demultiplex", LA("@noprops"));
         t3.call("@index?");
         REQUIRE(t3.hasOutputAt(0));
@@ -177,5 +184,10 @@ TEST_CASE("flow.demultiplex", "[externals]")
         REQUIRE(t3.hasOutputAt(0));
         REQUIRE(!t3.hasOutputAt(1));
         REQUIRE(t3.outputAnyAt(0) == LA("@size?"));
+
+        t3.call("@index", LF(1));
+        REQUIRE(t3.hasOutputAt(0));
+        REQUIRE(t3.outputAnyAt(0) == LA("@index", 1));
+        REQUIRE(t3->property("@index")->get() == LF(0));
     }
 }

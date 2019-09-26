@@ -6,11 +6,13 @@ if(NOT ${IS_BIG_ENDIAN})
     add_definitions(-DLITTLE_ENDIAN=0x0001 -DBYTE_ORDER=LITTLE_ENDIAN)
 endif()
 
+# needed for math constants in <math.h>: M_PI etc.
+add_definitions(-D_USE_MATH_DEFINES)
+
 set(CMAKE_THREAD_PREFER_PTHREAD ON)
 find_package(Threads)
 
 set(PLATFORM_LINK_LIBRARIES)
-
 
 if(UNIX AND NOT APPLE)
     add_definitions(-D_GNU_SOURCE)
@@ -19,17 +21,14 @@ if(UNIX AND NOT APPLE)
     set(LINUX True)
 endif()
 
-if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    option(WITH_ASAN "Use Address Sanitizer for Clang" OFF)
-
-    if(WITH_ASAN)
-        set (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")
-        set (CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_STATIC_LINKER_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")
-        set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fno-omit-frame-pointer -fsanitize=address")
-        set (CMAKE_LINKER_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fno-omit-frame-pointer -fsanitize=address")
-        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-omit-frame-pointer -fsanitize=address")
-        set (CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fno-omit-frame-pointer -fsanitize=address")
-    endif()
+# address sanitizer
+if(WITH_ASAN)
+    set (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")
+    set (CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_STATIC_LINKER_FLAGS_DEBUG} -fno-omit-frame-pointer -fsanitize=address")
+    set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fno-omit-frame-pointer -fsanitize=address")
+    set (CMAKE_LINKER_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fno-omit-frame-pointer -fsanitize=address")
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-omit-frame-pointer -fsanitize=address")
+    set (CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fno-omit-frame-pointer -fsanitize=address")
 endif()
 
 function(find_and_install_dll mask dir)
@@ -150,6 +149,7 @@ if(WIN32)
         COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:puredata-core>" "${PROJECT_BINARY_DIR}/ceammc/ext/tests"
         COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:ceammc_core>" "${PROJECT_BINARY_DIR}/ceammc/ext/tests"
         COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:ceammc_sound>" "${PROJECT_BINARY_DIR}/ceammc/ext/tests"
+        COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:wrapper_lib>" "${PROJECT_BINARY_DIR}/ceammc/ext/tests"
     )
 endif()
 
@@ -162,7 +162,7 @@ if(APPLE)
 
     set(BUNDLE "Pd-${PD_MACOSX_BUNDLE_SUFFIX}.app")
     set(BUNDLE_FULL_PATH "${PROJECT_BINARY_DIR}/dist/${BUNDLE}")
-    set(MAKE_BUNDLE_SCRIPT ${PROJECT_BINARY_DIR}/dist/build_mac.sh)
+    set(MAKE_BUNDLE_SCRIPT ${PROJECT_BINARY_DIR}/dist/ceammc_build.sh)
 
     # copy and substitute variables to Info.plist
     file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/dist)
@@ -221,11 +221,11 @@ if(APPLE)
             -DTK_PATH=${TK_PATH}
             -DIS_SYSTEM_TK=${IS_SYSTEM_TK}
             -DTK_VERSION=${TK_VERSION}
-            -P ${PROJECT_SOURCE_DIR}/cmake/cmake-build-mac.cmake)
+            -P ${PROJECT_SOURCE_DIR}/cmake/cmake_build_mac.cmake)
 
     add_custom_command(
         OUTPUT ${BUNDLE_FULL_PATH}
-        COMMAND sh ${PROJECT_BINARY_DIR}/dist/build_mac.sh
+        COMMAND sh ${MAKE_BUNDLE_SCRIPT}
         COMMAND ${CMAKE_COMMAND}
             -DBUNDLE=${BUNDLE_FULL_PATH}
             -P ${PROJECT_SOURCE_DIR}/cmake/bundle.cmake

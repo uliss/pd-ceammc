@@ -96,21 +96,18 @@ t_canvas* eobj_getcanvas(void* x)
     return z->o_canvas;
 }
 
-char eobj_isbox(void* x)
+bool eobj_isbox(void* x)
 {
     t_eobj* z = (t_eobj*)x;
     t_eclass* c = eobj_getclass(z);
     return c->c_box;
 }
 
-char eobj_isdsp(void* x)
+bool eobj_isdsp(void* x)
 {
     t_eobj* z = (t_eobj*)x;
     t_eclass* c = eobj_getclass(z);
-    if (c->c_dsp && c->c_widget.w_dsp)
-        return 1;
-    else
-        return 0;
+    return (c->c_dsp && c->c_widget.w_dsp);
 }
 
 void eobj_popup(t_eobj* x, t_symbol* s, float itemid)

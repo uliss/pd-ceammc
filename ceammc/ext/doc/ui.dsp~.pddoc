@@ -15,6 +15,7 @@
             <since>0.1</since>
         </meta>
         <mouse>
+            <event editmode="false" type="left-click">toggle DSP processing</event>
             <event editmode="false" type="right-click">opens popup menu with items: Audio
             Settings</event>
         </mouse>

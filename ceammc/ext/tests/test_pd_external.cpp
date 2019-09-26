@@ -25,7 +25,7 @@ static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 TEST_CASE("pd external", "[pd::External]")
 {
     pd_init();
-    ExternalOutput::setup();
+    LogExternalOutput::setup();
 
     SECTION("connectTo")
     {

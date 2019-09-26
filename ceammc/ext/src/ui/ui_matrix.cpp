@@ -37,7 +37,6 @@ UIMatrix::UIMatrix()
     , mouse_current_row_(-1)
     , current_col_(-1)
     , current_row_(-1)
-    , cells_are_created_(false)
 {
     static_assert(std::numeric_limits<CellIdxT>::max() > UI_MAX_MATRIX_SIZE, "check cell index type");
 
@@ -236,7 +235,7 @@ void UIMatrix::okSize(t_rect* newrect)
 
 void UIMatrix::drawActiveCells()
 {
-    if (!asEBox() || !asEBox()->b_drawing_id)
+    if (!isVisible())
         return;
 
     int color_inactive = rgba_to_hex_int(prop_color_background);
@@ -299,40 +298,34 @@ void UIMatrix::createCells()
     const int color_inactive = rgba_to_hex_int(prop_color_background);
     const int color_active = rgba_to_hex_int(prop_color_active_);
 
-    if (!cells_are_created_ && asEBox() && asEBox()->b_drawing_id) {
-        int color_cell_border = rgba_to_hex_int(prop_color_border);
-        for (int inc_x = CELL_MARGIN, col = 0; col < prop_cols_; col++, inc_x += w) {
-            for (int inc_y = CELL_MARGIN, row = 0; row < prop_rows_; row++, inc_y += h) {
-                int x0 = inc_x + CELL_MARGIN;
-                int y0 = inc_y + CELL_MARGIN;
-                int x1 = inc_x + w - CELL_MARGIN;
-                int y1 = inc_y + h - CELL_MARGIN;
-                sys_vgui("%s create rectangle %d %d %d %d -outline #%6.6x -fill #%6.6x"
-                         " -tags { " CELL_TAG_FMT " " ALL_CELLS_TAG_FMT " }\n",
-                    asEBox()->b_drawing_id->s_name,
-                    x0, y0, x1, y1,
-                    color_cell_border,
-                    cell(row, col)
-                        ? color_active
-                        : color_inactive,
-                    asEBox(),
-                    col, row,
-                    asEBox());
-            }
+    int color_cell_border = rgba_to_hex_int(prop_color_border);
+    for (int inc_x = CELL_MARGIN, col = 0; col < prop_cols_; col++, inc_x += w) {
+        for (int inc_y = CELL_MARGIN, row = 0; row < prop_rows_; row++, inc_y += h) {
+            int x0 = inc_x + CELL_MARGIN;
+            int y0 = inc_y + CELL_MARGIN;
+            int x1 = inc_x + w - CELL_MARGIN;
+            int y1 = inc_y + h - CELL_MARGIN;
+            sys_vgui("%s create rectangle %d %d %d %d -outline #%6.6x -fill #%6.6x"
+                     " -tags { " CELL_TAG_FMT " " ALL_CELLS_TAG_FMT " }\n",
+                asEBox()->b_drawing_id->s_name,
+                x0, y0, x1, y1,
+                color_cell_border,
+                cell(row, col)
+                    ? color_active
+                    : color_inactive,
+                asEBox(),
+                col, row,
+                asEBox());
         }
-
-        cells_are_created_ = true;
     }
 }
 
 void UIMatrix::eraseCells()
 {
-    if (cells_are_created_ && asEBox() && asEBox()->b_drawing_id) {
+    if (isVisible()) {
         sys_vgui("%s delete " ALL_CELLS_TAG_FMT "\n",
             asEBox()->b_drawing_id->s_name, asEBox());
     }
-
-    cells_are_created_ = false;
 }
 
 std::pair<int, int> UIMatrix::cellAt(const t_pt& pt)
@@ -374,9 +367,19 @@ void UIMatrix::paint()
             p.drawRect(0, current_row_ * cell_h, r.width, cell_h);
             p.stroke();
         }
-
-        createCells();
     }
+
+    drawActiveCells();
+}
+
+void UIMatrix::create()
+{
+    createCells();
+}
+
+void UIMatrix::erase()
+{
+    eraseCells();
 }
 
 void UIMatrix::outputCell(size_t row, size_t col)
@@ -758,7 +761,7 @@ void UIMatrix::updateCellsCoords()
     const int w = cellWidth();
     const int h = cellHeight();
 
-    if (cells_are_created_ && asEBox() && asEBox()->b_drawing_id) {
+    if (isVisible()) {
         for (int inc_x = CELL_MARGIN, col = 0; col < prop_cols_; col++, inc_x += w) {
             for (int inc_y = CELL_MARGIN, row = 0; row < prop_rows_; row++, inc_y += h) {
 
@@ -786,7 +789,6 @@ void UIMatrix::onPropChange(t_symbol* prop_name)
 void UIMatrix::onZoom(t_float z)
 {
     bg_layer_.invalidate();
-    cells_are_created_ = false;
 }
 
 void UIMatrix::onPopup(t_symbol* menu_name, long item_idx)
@@ -829,8 +831,11 @@ void UIMatrix::p_setRows(float n)
         prop_rows_ = num;
         matrix_.reset();
         updateSize();
-        eraseCells();
-        createCells();
+
+        if (isVisible()) {
+            eraseCells();
+            createCells();
+        }
     }
 }
 
@@ -841,8 +846,11 @@ void UIMatrix::p_setCols(float n)
         prop_cols_ = num;
         matrix_.reset();
         updateSize();
-        eraseCells();
-        createCells();
+
+        if (isVisible()) {
+            eraseCells();
+            createCells();
+        }
     }
 }
 
@@ -860,6 +868,7 @@ void UIMatrix::setup()
     obj.setDefaultSize(105, 53);
 
     obj.usePresets();
+    obj.useDrawCallbacks();
     obj.useList();
     obj.useBang();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_LEAVE);

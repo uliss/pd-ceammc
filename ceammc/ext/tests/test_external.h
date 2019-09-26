@@ -18,6 +18,7 @@
 #include "ceammc_pd.h"
 
 #include "test_base.h"
+#include "test_external_log_output.h"
 
 #include <type_traits>
 
@@ -52,7 +53,7 @@ extern "C" t_float* get_sys_dacsr();
     static void pd_test_core_init() \
     {                               \
         pd_init();                  \
-        ExternalOutput::setup();    \
+        LogExternalOutput::setup(); \
         ListenerExternal::setup();  \
     }
 
@@ -65,8 +66,23 @@ extern "C" t_float* get_sys_dacsr();
 #define PD_TEST_FULL_INIT(mod, name)       \
     static void pd_test_init()             \
     {                                      \
+        static bool done = false;          \
+        if (done)                          \
+            return;                        \
         pd_test_core_init();               \
         pd_test_mod_init_##mod##_##name(); \
+        done = true;                       \
+    }                                      \
+    template <typename F>                  \
+    static void pd_test_init(F fn)         \
+    {                                      \
+        static bool done = false;          \
+        if (done)                          \
+            return;                        \
+        pd_test_core_init();               \
+        pd_test_mod_init_##mod##_##name(); \
+        fn();                              \
+        done = true;                       \
     }
 
 #define PD_COMPLETE_TEST_SETUP(T, mod, name) \
@@ -89,16 +105,6 @@ struct BANG__ {
 };
 
 extern const BANG__ BANG;
-
-class ExternalOutput : public External {
-public:
-    ExternalOutput();
-    Message msg();
-    void reset();
-
-public:
-    static void setup();
-};
 
 class ListenerExternal : public External {
 public:
@@ -178,7 +184,7 @@ template <class T>
 class TestPdExternal : public pd::External {
     typedef std::map<t_symbol*, ListenerExternal*> ListenerMap;
 
-    std::vector<ExternalOutput*> outs_;
+    std::vector<LogExternalOutput*> outs_;
     ListenerMap listeners_;
 
 public:
@@ -188,7 +194,7 @@ public:
         REQUIRE(object());
 
         for (size_t i = 0; i < numOutlets(); i++) {
-            ExternalOutput* e = new ExternalOutput;
+            LogExternalOutput* e = new LogExternalOutput;
             connectTo(i, e->object(), 0);
             outs_.push_back(e);
         }
@@ -238,7 +244,7 @@ public:
     void bang()
     {
         clearAll();
-        External::bang();
+        sendBang();
     }
 
     void call(const char* method, float f)
@@ -281,6 +287,35 @@ public:
     {
         clearAll();
         sendList(AtomList(ptr.asAtom()));
+    }
+
+    void sendBangTo(size_t inlet)
+    {
+        clearAll();
+        pd::External::sendBangTo(inlet);
+    }
+
+    void sendFloatTo(t_float v, size_t inlet)
+    {
+        clearAll();
+        pd::External::sendFloatTo(v, inlet);
+    }
+
+    void sendSymbolTo(t_symbol* s, size_t inlet)
+    {
+        clearAll();
+        pd::External::sendSymbolTo(s, inlet);
+    }
+
+    void sendSymbolTo(const char* s, size_t inlet)
+    {
+        sendSymbolTo(gensym(s), inlet);
+    }
+
+    void sendListTo(const AtomList& l, size_t inlet)
+    {
+        clearAll();
+        pd::External::sendListTo(l, inlet);
     }
 
     ListenerExternal* addListener(const char* l)
@@ -410,6 +445,11 @@ public:
             return L();
 
         return it->second->msg().anyValue();
+    }
+
+    std::vector<Message> messagesAt(size_t n) const
+    {
+        return outs_.at(n)->msgList();
     }
 
     bool hasOutputAt(size_t n) const

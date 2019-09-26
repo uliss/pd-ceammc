@@ -1,0 +1,60 @@
+#N canvas 169 26 901 661 10;
+#X declare -path ..;
+#X text 15 152 2nd argument is the name of the patcher to instantiate.
+;
+#X text 15 102 1st argument is the order if you use hoa.process~ in
+the circular harmonics domain or the number of channels if you use
+it in the plane waves domain.;
+#X text 15 272 Extra arguments and attributes are sent to object hoa.this.process~
+if there is one inside the patcher. You should look at the help.;
+#X text 15 322 The number of inlets and outlets depends on the inlet
+and outlet configuration of the patcher. You should look at the help.
+;
+#X text 15 372 Important: If you edit the patcher \, you have recreate
+hoa.process~ to reflect the changes.;
+#X text 12 47 hoa.process~ helps the creation of processing in the
+circular or spherical harmonics and plane waves domains by instantiating
+several instances of a patcher.;
+#X text 15 172 3rd argument is the domain \, harmonics (default) or
+planewaves. Note that if you use hoa.process~ in the harmonics domain
+\, it instantiates 2 * order + 1 times (the number of harmonics in
+2D) or (order + 1) * (order + 1) (the number of harmonics in 3D) the
+partcher and if you use it in the plane waves domain \, it instanctiates
+the patcher as many times as the number of channels.;
+#X text 439 349 The hoa.process~ use of this patch is an example made
+to show how it works. You would prefer to look at the real uses of
+hoa.process~.;
+#X text 435 50 Open;
+#X text 435 70 Use open message to open a specific instance :;
+#X msg 436 94 open 1;
+#X msg 497 94 open all;
+#X text 433 153 Double-click open the 1st planewave intance \, or the
+harmonic 0 instance.;
+#X text 435 190 Target;
+#X text 435 210 Use target message to route the message to a specific
+instance :;
+#X msg 439 245 target 1;
+#X msg 510 245 target -2;
+#X msg 581 245 target all;
+#X obj 776 224 nbx 5 14 -1e+37 1e+37 0 0 empty empty empty 0 -8 0 10
+-262144 -1 -1 42 256;
+#X obj 12 424 declare -path ..;
+#X obj 12 447 hoa.credits;
+#X obj 92 447 hoa-help;
+#X msg 745 249 open 1 -1;
+#X obj 439 310 print outlet-1;
+#X obj 754 310 print outlet-2;
+#X obj 831 243 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 436 123 hoa.process~ 4 hoa.proc.plwav.ex planewaves;
+#X obj 439 281 hoa.process~ 3 hoa.proc.harmo.ex harmonics;
+#X connect 10 0 26 0;
+#X connect 11 0 26 0;
+#X connect 15 0 27 0;
+#X connect 16 0 27 0;
+#X connect 17 0 27 0;
+#X connect 18 0 27 8;
+#X connect 22 0 27 0;
+#X connect 25 0 27 9;
+#X connect 27 7 23 0;
+#X connect 27 8 24 0;

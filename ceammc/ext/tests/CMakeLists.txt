@@ -10,9 +10,14 @@ if(WIN32)
     remove_definitions(-DPD_INTERNAL)
 endif()
 
-add_library(tests_main_lib STATIC tests_main.cpp test_external test_datatypes.cpp
+add_library(tests_main_lib STATIC
+    tests_main.cpp
     test_approx.cpp
-    test_wrappers.cpp)
+    test_datatypes.cpp
+    test_external.cpp
+    test_external_log_output.cpp
+    test_wrappers.cpp
+)
 
 if(APPLE)
     set(CMAKE_INSTALL_RPATH "@loader_path/../src/lib")
@@ -80,6 +85,7 @@ ceammc_external_test(base gain)
 ceammc_external_test(base matrix)
 ceammc_external_test(base mix)
 ceammc_external_test(base obj_props)
+ceammc_external_test(base prop)
 ceammc_external_test(base prop_declare)
 ceammc_external_test(base prop_get)
 ceammc_external_test(base radio)
@@ -208,6 +214,8 @@ ceammc_external_test(list zip)
 
 ceammc_external_test(math and)
 ceammc_external_test(math approx)
+ceammc_external_test(math cdiv_tilde)
+ceammc_external_test(math cmul_tilde)
 ceammc_external_test(math div)
 ceammc_external_test(math expr)
 ceammc_external_test(math gcd)
@@ -215,9 +223,8 @@ ceammc_external_test(math lcm)
 ceammc_external_test(math mul)
 ceammc_external_test(math or)
 ceammc_external_test(math polyeval)
-ceammc_external_test(math cdiv_tilde)
-ceammc_external_test(math cmul_tilde)
 ceammc_external_test(math round_tilde)
+ceammc_external_test(math sync_ops)
 
 ceammc_external_test(midi file)
 ceammc_external_test(midi note)
@@ -255,6 +262,24 @@ ceammc_external_test(spat pan_lin)
 ceammc_external_test(spat pan_sqrt)
 ceammc_external_test(spat pan_cos)
 ceammc_external_test(spat pan_spread)
+ceammc_add_test_linked(
+    TITLE "hoa_process"
+    NAME test_ext_spat_hoa_process
+    LINK ceammc_spat ceammc_core puredata-core ceammc_core
+    INCLUDE_DIRECTORIES
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/HoaLibrary-Light/Sources
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/fmt/include
+        ${EIGEN3_DIR}
+)
+ceammc_add_test_linked(
+    TITLE "hoa_in"
+    NAME test_ext_spat_hoa_in
+    LINK ceammc_spat ceammc_core puredata-core ceammc_core
+    INCLUDE_DIRECTORIES
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/HoaLibrary-Light/Sources
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/fmt/include
+        ${EIGEN3_DIR}
+)
 
 ceammc_add_test_linked(TITLE "tl.transport"
     NAME test_ext_tl_transport
@@ -384,6 +409,7 @@ ceammc_ui_test("ui.number")
 ceammc_ui_test("ui.number_tilde")
 ceammc_ui_test("ui.radio")
 ceammc_ui_test("ui.rslider")
+ceammc_ui_test("ui.polar")
 ceammc_ui_test("ui.preset")
 ceammc_ui_test("ui.slider2d")
 ceammc_ui_test("ui.sliders")

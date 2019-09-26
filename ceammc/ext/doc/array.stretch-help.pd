@@ -43,7 +43,7 @@ source to destination array;
 #X obj 357 404 array.stretch A1 A2 @tempo -30 @speech;
 #X text 50 433 Play;
 #X obj 50 461 ui.tab @items A1 A2;
-#X msg 50 490 set \$1 \, bang;
+#X msg 50 490 set \$2 \, bang;
 #X msg 194 490 stop;
 #X obj 50 519 tabplay~ A2;
 #X obj 50 548 ui.gain~ @size 120 16;

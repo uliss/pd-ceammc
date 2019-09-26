@@ -20,6 +20,7 @@ UI_COMPLETE_TEST_SETUP(Slider2D)
 TEST_CASE("ui.slider2d", "[ui.slider2d]")
 {
     ui_test_init();
+    //    test::pdPrintToStdError(true);
 
     SECTION("construct")
     {
@@ -32,7 +33,7 @@ TEST_CASE("ui.slider2d", "[ui.slider2d]")
         REQUIRE_UI_FLOAT_PROPERTY(t, "x_value", 0);
         REQUIRE_UI_FLOAT_PROPERTY(t, "y_value", 0);
         REQUIRE(t->presetId() == gensym("ui.slider2d.0"));
-        REQUIRE(t->realValue() == LF(0.f, 0.f));
+        REQUIRE(t->realValue() == LF(0, 0));
         REQUIRE(t->realXValue() == 0);
         REQUIRE(t->realYValue() == 0);
         REQUIRE(t->xRange() == 2);
@@ -88,15 +89,15 @@ TEST_CASE("ui.slider2d", "[ui.slider2d]")
         REQUIRE(t->realValue() == LX(0.2, 0.4));
 
         // zero range
-        t->setProperty(gensym("x_min"), LF(2));
-        t->setProperty(gensym("x_max"), LF(2));
+        t->setProperty(gensym("x_left"), LF(2));
+        t->setProperty(gensym("x_right"), LF(2));
         REQUIRE(t->realValue() == LX(2, 0.4));
 
         REQUIRE_FALSE(t->setRealValue(LF(1, 1)));
         REQUIRE(t->realValue() == LX(2, 0.4));
 
-        t->setProperty(gensym("y_min"), LF(10));
-        t->setProperty(gensym("y_max"), LF(10));
+        t->setProperty(gensym("y_top"), LF(10));
+        t->setProperty(gensym("y_bottom"), LF(10));
         REQUIRE(t->realValue() == LF(2, 10));
 
         REQUIRE_FALSE(t->setRealValue(LF(1, 1)));
@@ -129,10 +130,11 @@ TEST_CASE("ui.slider2d", "[ui.slider2d]")
         t->setProperty(gensym("y_value"), LF(-20));
         REQUIRE(t->realYValue() == Approx(-1));
 
-        t->setProperty(gensym("x_min"), LF(1));
-        t->setProperty(gensym("x_max"), LF(1));
-        t->setProperty(gensym("y_min"), LF(10));
-        t->setProperty(gensym("y_max"), LF(10));
+        // set invalid ranges
+        t->setProperty(gensym("x_left"), LF(1));
+        t->setProperty(gensym("x_right"), LF(1));
+        t->setProperty(gensym("y_top"), LF(10));
+        t->setProperty(gensym("y_bottom"), LF(10));
 
         t->setProperty(gensym("x_value"), LF(1));
         REQUIRE(t->realXValue() == Approx(1));
@@ -170,11 +172,11 @@ TEST_CASE("ui.slider2d", "[ui.slider2d]")
     {
         TestExtSlider2D t("ui.slider2d");
         t.mouseDown(0, 0);
-        REQUIRE_OUTPUT_LIST(t, 0, LX(-1, -1));
+        REQUIRE_OUTPUT_LIST(t, 0, LX(-1, 1));
         t.mouseDown(50, 0);
-        REQUIRE_OUTPUT_LIST(t, 0, LX(0, -1));
+        REQUIRE_OUTPUT_LIST(t, 0, LX(0, 1));
         t.mouseDown(100, 0);
-        REQUIRE_OUTPUT_LIST(t, 0, LX(1, -1));
+        REQUIRE_OUTPUT_LIST(t, 0, LX(1, 1));
         t.mouseDown(0, 50);
         REQUIRE_OUTPUT_LIST(t, 0, LX(-1, 0));
         t.mouseDown(50, 50);
@@ -182,19 +184,19 @@ TEST_CASE("ui.slider2d", "[ui.slider2d]")
         t.mouseDown(100, 50);
         REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0));
         t.mouseDown(0, 100);
-        REQUIRE_OUTPUT_LIST(t, 0, LX(-1, 1));
+        REQUIRE_OUTPUT_LIST(t, 0, LX(-1, -1));
         t.mouseDown(50, 100);
-        REQUIRE_OUTPUT_LIST(t, 0, LX(0, 1));
+        REQUIRE_OUTPUT_LIST(t, 0, LX(0, -1));
         t.mouseDown(100, 100);
-        REQUIRE_OUTPUT_LIST(t, 0, LX(1, 1));
+        REQUIRE_OUTPUT_LIST(t, 0, LX(1, -1));
 
         t.mouseUp(0, 50);
         REQUIRE_OUTPUT_LIST(t, 0, LX(-1, 0));
 
         t.mouseDrag(50, 100);
-        REQUIRE_OUTPUT_LIST(t, 0, LX(0, 1));
+        REQUIRE_OUTPUT_LIST(t, 0, LX(0, -1));
         t.mouseDrag(5000, 100000);
-        REQUIRE_OUTPUT_LIST(t, 0, LX(1, 1));
+        REQUIRE_OUTPUT_LIST(t, 0, LX(1, -1));
     }
 
     SECTION("external")
@@ -263,6 +265,6 @@ TEST_CASE("ui.slider2d", "[ui.slider2d]")
         REQUIRE_LIST_WAS_SEND(t, "r1", LX(0.4, -0.6));
 
         t.mouseDown(30, 70);
-        REQUIRE_LIST_WAS_SEND(t, "r1", LX(-0.4, 0.4));
+        REQUIRE_LIST_WAS_SEND(t, "r1", LX(-0.4, -0.4));
     }
 }

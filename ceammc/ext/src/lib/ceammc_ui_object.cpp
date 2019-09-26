@@ -31,11 +31,11 @@ UIObject::UIObject()
     : name_(&s_)
     , bg_layer_(asEBox(), gensym(BG_LAYER))
     , old_preset_id_(s_null)
-    , cursor_(ECURSOR_LEFT_PTR)
     , use_presets_(false)
     , prop_color_background(rgba_white)
     , prop_color_border(rgba_black)
     , prop_color_label(rgba_black)
+    , prop_mouse_events(0)
 {
     appendToLayerList(&bg_layer_);
 }
@@ -48,6 +48,8 @@ UIObject::~UIObject()
     unbindPreset(presetId());
     unbindAll();
 }
+
+t_ebox *UIObject::asEBox() const { return const_cast<UIObject*>(this); }
 
 void UIObject::appendToLayerList(UILayer* l)
 {
@@ -73,11 +75,19 @@ void UIObject::invalidateLayer(UILayer* l)
 
 void UIObject::invalidateBox()
 {
-    ebox_invalidate_layer(asEBox(), s_eboxbd);
-    ebox_invalidate_layer(asEBox(), s_eboxio);
+    ebox_invalidate_border(asEBox());
+    ebox_invalidate_io(asEBox());
 }
 
-t_ebox* UIObject::asEBox() const { return const_cast<UIObject*>(this); }
+void UIObject::invalidateXlets()
+{
+    ebox_invalidate_io(asEBox());
+}
+
+void UIObject::invalidateBorder()
+{
+    ebox_invalidate_border(asEBox());
+}
 
 t_eobj* UIObject::asEObj() const
 {
@@ -87,6 +97,11 @@ t_eobj* UIObject::asEObj() const
 t_object* UIObject::asPdObject() const
 {
     return &(asEBox()->b_obj.o_obj);
+}
+
+t_gobj* UIObject::asGObj() const
+{
+    return &(asEBox()->b_obj.o_obj.te_g);
 }
 
 t_pd* UIObject::asPd() const
@@ -118,6 +133,11 @@ bool UIObject::isPatchEdited() const
     return c ? c->gl_edit : false;
 }
 
+bool UIObject::isVisible() const
+{
+    return asEBox() && ebox_isvisible(asEBox());
+}
+
 void UIObject::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     name_ = name;
@@ -142,6 +162,14 @@ void UIObject::paint()
 {
 }
 
+void UIObject::create()
+{
+}
+
+void UIObject::erase()
+{
+}
+
 void UIObject::redraw()
 {
     ebox_redraw(asEBox());
@@ -160,7 +188,8 @@ void UIObject::redrawBGLayer()
 
 void UIObject::updateSize()
 {
-    ebox_notify(asEBox(), s_size);
+    if (asEBox())
+        ebox_notify(asEBox(), s_size);
 }
 
 void UIObject::resize(int w, int h)
@@ -206,6 +235,11 @@ void UIObject::onMouseWheel(t_object* view, const t_pt& pt, long modifiers, doub
 
 void UIObject::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
+}
+
+bool UIObject::outputMouseEvents() const
+{
+    return prop_mouse_events;
 }
 
 void UIObject::okSize(t_rect* newrect)
@@ -417,17 +451,9 @@ float UIObject::zoom() const
     return ebox_getzoom(asEBox());
 }
 
-t_cursor UIObject::cursor() const
-{
-    return cursor_;
-}
-
 void UIObject::setCursor(t_cursor c)
 {
-    if (cursor_ != c) {
-        ebox_set_cursor(asEBox(), c);
-        cursor_ = c;
-    }
+    ebox_set_cursor(asEBox(), c);
 }
 
 void UIObject::presetInit()
@@ -619,6 +645,13 @@ static PropertyInfo attr_to_prop(t_eattr* a)
     static t_symbol* SYM_SYMBOL = &s_symbol;
     static t_symbol* SYM_COLOR = gensym("color");
     static t_symbol* SYM_ATOM = gensym("atom");
+    static t_symbol* SYM_UNIT_DB = gensym("db");
+    static t_symbol* SYM_UNIT_MSEC = gensym("msec");
+    static t_symbol* SYM_UNIT_SEC = gensym("sec");
+    static t_symbol* SYM_UNIT_SAMP = gensym("samp");
+    static t_symbol* SYM_UNIT_DEG = gensym("deg");
+    static t_symbol* SYM_UNIT_RAD = gensym("rad");
+    static t_symbol* SYM_UNIT_HZ = gensym("hz");
 
     PropertyInfo res(std::string("@") + a->name->s_name, PropertyInfoType::VARIANT);
 
@@ -694,6 +727,25 @@ static PropertyInfo attr_to_prop(t_eattr* a)
         } else {
             std::cerr << "invalid atom property size: " << a->size << "\n";
         }
+    }
+
+    if (a->units != &s_) {
+        if (a->units == SYM_UNIT_DB)
+            res.setUnits(PropertyInfoUnits::DB);
+        else if (a->units == SYM_UNIT_MSEC)
+            res.setUnits(PropertyInfoUnits::MSEC);
+        else if (a->units == SYM_UNIT_SEC)
+            res.setUnits(PropertyInfoUnits::SEC);
+        else if (a->units == SYM_UNIT_SAMP)
+            res.setUnits(PropertyInfoUnits::SAMP);
+        else if (a->units == SYM_UNIT_DEG)
+            res.setUnits(PropertyInfoUnits::DEG);
+        else if (a->units == SYM_UNIT_RAD)
+            res.setUnits(PropertyInfoUnits::RAD);
+        else if (a->units == SYM_UNIT_HZ)
+            res.setUnits(PropertyInfoUnits::HZ);
+        else
+            std::cerr << "unknown unit: " << a->units->s_name << "\n";
     }
 
     if (a->getter != 0)

@@ -98,18 +98,18 @@ t_canvas* eobj_getcanvas(void *x);
  * \brief       Retreives if a t_eobj is a GUI box or not.
  * \details     Check if the box flag is postive or null.
  * \param x     The t_eobj pointer.
- * \return      This function returns 1 if the t_eobj is a GUI and 0 if not.
+ * \return      This function returns true if the t_eobj is a GUI and false if not.
  */
-char eobj_isbox(void *x);
+bool eobj_isbox(void *x);
 
 /*!
  * \fn          char eobj_isdsp(void *x)
  * \brief       Retreives if a t_eobj is a DSP object or not
  * \details     Check if the dsp method has been initialized.
  * \param x     The t_eobj pointer.
- * \return      This function returns 1 if the t_eobj is a DSP object and 0 if not.
+ * \return      This function returns true if the t_eobj is a DSP object and false if not.
  */
-char eobj_isdsp(void *x);
+bool eobj_isdsp(void *x);
 
 /*!
  * \fn      void eobj_attrprocess_viabinbuf(void *x, t_binbuf *d)

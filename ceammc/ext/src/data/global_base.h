@@ -23,16 +23,32 @@ namespace ceammc {
 template <typename T>
 class GlobalBase : public BaseObject {
     GlobalData<T> data_;
-    GlobalBase(const GlobalBase&);
-    void operator=(const GlobalBase&);
+    GlobalBase(const GlobalBase&) = delete;
+    void operator=(const GlobalBase&) = delete;
+
+    static t_symbol* to_symbol(const Atom& a)
+    {
+        if (a.isSymbol())
+            return a.asSymbol();
+        else
+            return gensym(to_string(a).c_str());
+    }
+
+    static t_symbol* arg_id(const AtomList& args)
+    {
+        if (args.empty())
+            return gensym("default");
+        else
+            return to_symbol(args[0]);
+    }
 
 public:
     GlobalBase(const PdArgs& a)
         : BaseObject(a)
-        , data_(a.args.empty() ? "default" : to_string(a.args[0]), a.className->s_name)
+        , data_(arg_id(a.args), a.className->s_name)
     {
         if (positionalArguments().empty())
-            OBJ_DBG << "global object ID required! Using default id: \"" << data_.name() << '"';
+            OBJ_DBG << "global object ID required! Using default id: \"" << data_.name()->s_name << '"';
 
         createOutlet();
         createCbProperty("@id", &GlobalBase::m_id);
@@ -52,9 +68,15 @@ public:
 
     AtomList m_keys() const
     {
-        std::vector<std::string> keys;
+        std::vector<t_symbol*> keys;
         data_.keys(keys);
-        return listFrom(keys);
+
+        AtomList res;
+        res.reserve(keys.size());
+        for (auto s : keys)
+            res.append(Atom(s));
+
+        return res;
     }
 
     AtomList m_refs() const

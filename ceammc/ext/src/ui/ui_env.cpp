@@ -94,6 +94,7 @@ void UIEnv::drawCursor(const t_rect& r)
             cp.drawLine(cursor_pos_.x, 0, cursor_pos_.x, height());
         }
 
+        // draw cursor position text
         if (draw_cursor_pos_) {
             char buf[100];
 
@@ -255,6 +256,58 @@ void UIEnv::drawEnvelope(const t_rect& r)
     }
 }
 
+void UIEnv::makeCommonPopup(const t_pt& abs_pt)
+{
+    // context menu
+    UIPopupMenu menu(asEObj(), "adsr_select", abs_pt);
+    menu.addItem("ADSR (10 20 30 500)");
+    menu.addItem("ASR (500 500)");
+    menu.addItem("AR (500 500)");
+}
+
+void UIEnv::addNode(const t_pt& pt)
+{
+    const float z = zoom();
+    const float x_norm = pt.x / z;
+    const float y_norm = pt.y / z;
+
+    long insert_idx = 0;
+    for (size_t i = 1; i < nodes_.size(); i++) {
+        // prevent to close insertion
+        if (fabsf(nodes_[i].x - x_norm) < 2)
+            return;
+
+        // find node index to insert before
+        if (nodes_[i].x > x_norm) {
+            insert_idx = i;
+            break;
+        }
+    }
+
+    Node n;
+    n.x = x_norm;
+    n.y = y_norm;
+    n.is_selected = true;
+
+    // insert new selected node
+    nodes_.insert(nodes_.begin() + insert_idx, n);
+    redrawLayer(envelope_layer_);
+}
+
+long UIEnv::findSelectedNodeIdx() const
+{
+    // find selected node index
+    long idx = -1;
+    for (size_t i = 0; i < nodes_.size(); i++) {
+        if (nodes_[i].is_selected) {
+            idx = static_cast<long>(i);
+            break;
+        }
+    }
+
+    return idx;
+}
+
 void UIEnv::paint()
 {
     const t_rect r = rect();
@@ -353,72 +406,38 @@ void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long)
     redrawInnerArea();
 }
 
+void UIEnv::toggleSelectedNodeStop()
+{
+    auto idx = findSelectedNodeIdx();
+    if (idx > 0) {
+        nodes_[idx].is_stop = !nodes_[idx].is_stop;
+        redrawLayer(envelope_layer_);
+    }
+}
+
+void UIEnv::removeSelectedNode()
+{
+    auto idx = findSelectedNodeIdx();
+
+    long n = nodes_.size();
+    if (idx < 1 || idx >= n - 1)
+        return;
+
+    nodes_.erase(nodes_.begin() + idx);
+    delete_mode_ = false;
+    redrawLayer(envelope_layer_);
+}
+
 void UIEnv::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
 {
-    const float z = zoom();
-    const float x_norm = pt.x / z;
-    const float y_norm = pt.y / z;
-
     if (mod & EMOD_SHIFT) {
-
-        long insert_idx = 0;
-        for (size_t i = 1; i < nodes_.size(); i++) {
-            // prevent to close insertion
-            if (fabsf(nodes_[i].x - x_norm) < 2)
-                return;
-
-            // find node index to insert before
-            if (nodes_[i].x > x_norm) {
-                insert_idx = i;
-                break;
-            }
-        }
-
-        Node n;
-        n.x = x_norm;
-        n.y = y_norm;
-        n.is_selected = true;
-
-        // insert new selected node
-        nodes_.insert(nodes_.begin() + insert_idx, n);
-        redrawLayer(cursor_layer_);
-        return;
+        addNode(pt);
     } else if (mod & EMOD_RIGHT) {
-        // context menu
-        UIPopupMenu menu(asEObj(), "adsr_select", abs_pt);
-        menu.addItem("ADSR (10 20 30 500)");
-        menu.addItem("ASR (500 500)");
-        menu.addItem("AR (500 500)");
-    }
-
-    // find selected node index
-    long idx = -1;
-    for (size_t i = 0; i < nodes_.size(); i++) {
-        if (nodes_[i].is_selected) {
-            idx = i;
-            break;
-        }
-    }
-
-    // no selected node
-    if (idx < 0)
-        return;
-
-    if (mod & EMOD_CTRL) {
-        nodes_[idx].is_stop = !nodes_[idx].is_stop;
-        redrawLayer(cursor_layer_);
-        return;
-    }
-
-    if (mod & EMOD_ALT) {
-        long n = nodes_.size();
-        if (idx < 1 || idx >= n - 1)
-            return;
-
-        nodes_.erase(nodes_.begin() + idx);
-        delete_mode_ = false;
-        redrawLayer(cursor_layer_);
-        return;
+        makeCommonPopup(abs_pt);
+    } else if (mod & EMOD_CTRL) {
+        toggleSelectedNodeStop();
+    } else if (mod & EMOD_ALT) {
+        removeSelectedNode();
     }
 }
 

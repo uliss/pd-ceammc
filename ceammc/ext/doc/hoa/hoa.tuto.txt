@@ -1,0 +1,12 @@
+Tutorial_1.pd Tutorial\ 1 Introduction;
+Tutorial_2.pd Tutorial\ 2 Space Representation;
+Tutorial_3.pd Tutorial\ 3 Harmonics;
+Tutorial_4.pd Tutorial\ 4 Planewaves;
+Tutorial_5.pd Tutorial\ 5 Spatial Resolution;
+Tutorial_6.pd Tutorial\ 6 Encoding;
+Tutorial_7.pd Tutorial\ 7 Decoding;
+Tutorial_8.pd Tutorial\ 8 Optimization;
+Tutorial_9.pd Tutorial\ 9 Rotation;
+Tutorial_10.pd Tutorial\ 10 Wider;
+hoa.tools.2d.pd Tools\ 2D Order degree and channels numbering for 2D.;
+hoa.tools.3d.pd Tools\ 3D Order degree and channels numbering for 3D.;

@@ -46,22 +46,43 @@ ArrayVlinePlay::ArrayVlinePlay(const PdArgs& args)
     createOutlet();
     createOutlet();
 
-    createCbProperty("@state", &ArrayVlinePlay::propState);
-    createCbProperty("@speed", &ArrayVlinePlay::propSpeed, &ArrayVlinePlay::propSetSpeed);
-    property("@speed")->info().setType(PropertyInfoType::FLOAT);
-    property("@speed")->info().setMin(0.1);
-    property("@speed")->info().setDefault(1.f);
+    {
+        auto p = createCbProperty("@state", &ArrayVlinePlay::propState);
+        p->info().setType(PropertyInfoType::SYMBOL);
+        p->info().addEnum("play");
+        p->info().addEnum("stop");
+    }
 
-    createCbProperty("@begin", &ArrayVlinePlay::propBeginSample, &ArrayVlinePlay::propSetBeginSample);
-    property("@begin")->info().setType(PropertyInfoType::INTEGER);
-    property("@begin")->info().setUnits(PropertyInfoUnits::SAMP);
-    createCbProperty("@end", &ArrayVlinePlay::propEndSample, &ArrayVlinePlay::propSetEndSample);
-    property("@end")->info().setType(PropertyInfoType::INTEGER);
-    property("@end")->info().setUnits(PropertyInfoUnits::SAMP);
-    createCbProperty("@abs_begin", &ArrayVlinePlay::propAbsBeginSample);
-    property("@abs_begin")->info().setType(PropertyInfoType::FLOAT);
-    createCbProperty("@abs_end", &ArrayVlinePlay::propAbsEndSample);
-    property("@abs_end")->info().setType(PropertyInfoType::FLOAT);
+    {
+        auto p = createCbProperty("@speed", &ArrayVlinePlay::propSpeed, &ArrayVlinePlay::propSetSpeed);
+        p->info().setType(PropertyInfoType::FLOAT);
+        p->info().setMin(0.1);
+        p->info().setDefault(1.f);
+    }
+
+    {
+        auto p = createCbProperty("@begin", &ArrayVlinePlay::propBeginSample, &ArrayVlinePlay::propSetBeginSample);
+        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setUnits(PropertyInfoUnits::SAMP);
+    }
+
+    {
+        auto p = createCbProperty("@end", &ArrayVlinePlay::propEndSample, &ArrayVlinePlay::propSetEndSample);
+        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setUnits(PropertyInfoUnits::SAMP);
+    }
+
+    {
+        auto p = createCbProperty("@abs_begin", &ArrayVlinePlay::propAbsBeginSample);
+        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setUnits(PropertyInfoUnits::SAMP);
+    }
+
+    {
+        auto p = createCbProperty("@abs_end", &ArrayVlinePlay::propAbsEndSample);
+        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setUnits(PropertyInfoUnits::SAMP);
+    }
 
     reversed_ = new BoolProperty("@reversed", false);
     createProperty(reversed_);

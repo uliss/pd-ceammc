@@ -12,6 +12,10 @@
             <category view="link">ui</category>
             <keywords>ui gain</keywords>
             <since>0.5</since>
+            <aliases>
+                <alias>ui.hgain~</alias>
+                <alias>ui.vgain~</alias>
+            </aliases>
         </meta>
         <properties>
             <property name="@max" type="int" minvalue="-12" maxvalue="12" default="0"
@@ -23,8 +27,12 @@
             <property name="@amp" type="float" default="0">gain as amplitude ratio</property>
             <property name="@output_value" type="int" enum="0 1" default="0">flag to output @db
             property after each knob move</property>
+            <property name="@relative" type="int" default="1" enum="0 1">relative input mode. When
+            set do not jump to value on click</property>
             <property name="@presetname" type="symbol">preset name for using with
             [ui.preset]</property>
+            <property name="@show_range" type="int" enum="0 1" default="1">if show slider
+            range</property>
             <!-- common -->
             <property name="@send" type="symbol">send destination</property>
             <property name="@receive" type="symbol">receive source</property>
@@ -75,6 +83,9 @@
         <example>
             <pdascii>
 <![CDATA[
+/*use [ui.hgain~] to create horizontal control]*/
+[ui.hgain~]
+
 [osc~ 440]
 |
 |  [@db -30( [@amp 0.25( [- 3( [+ 3( [++( [--(

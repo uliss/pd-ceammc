@@ -91,13 +91,13 @@ TEST_CASE("ui.toggle", "[ui.toggle]")
     }
 
         pd::External tgl("ui.toggle");
-        ExternalOutput out;
+        LogExternalOutput out;
         REQUIRE(tgl.connectTo(0, out.object(), 0));
 
-        tgl.bang();
+        tgl.sendBang();
         REQUIRE_OUTPUT_VALUE(1);
 
-        tgl.bang();
+        tgl.sendBang();
         REQUIRE_OUTPUT_VALUE(0);
 
         tgl.sendFloat(1);
@@ -121,7 +121,7 @@ TEST_CASE("ui.toggle", "[ui.toggle]")
         out.reset();
         tgl.sendMessage(gensym("set"), LF(1));
         REQUIRE(out.msg().isNone());
-        tgl.bang();
+        tgl.sendBang();
         REQUIRE_OUTPUT_VALUE(0);
     }
 

@@ -49,12 +49,20 @@ Mix::Mix(const PdArgs& args)
     solo_.assign(n_, t_smooth(0, 1));
     solo_values_.assign(n_, 0);
 
-    createCbProperty("@xfade_time", &Mix::propXFadeTime, &Mix::setPropXFadeTime);
-    property("@xfade_time")->info().setType(PropertyInfoType::FLOAT);
-    property("@xfade_time")->info().setDefault(DEFAULT_XFADE);
+    {
+        auto p = createCbProperty("@xfade_time", &Mix::propXFadeTime, &Mix::setPropXFadeTime);
+        p->info().setType(PropertyInfoType::FLOAT);
+        p->info().setDefault(DEFAULT_XFADE);
+        p->info().setUnits(PropertyInfoUnits::MSEC);
+    }
+
+    {
+        auto p = createCbProperty("@db", &Mix::propDb, &Mix::setPropDb);
+        p->info().setType(PropertyInfoType::LIST);
+        p->info().setUnits(PropertyInfoUnits::DB);
+    }
 
     createCbProperty("@value", &Mix::propValue, &Mix::setPropValue);
-    createCbProperty("@db", &Mix::propDb, &Mix::setPropDb);
     createCbProperty("@mute", &Mix::propMute, &Mix::setPropMute);
     createCbProperty("@solo", &Mix::propSolo, &Mix::setPropSolo);
 }

@@ -25,7 +25,7 @@ static const long IMAX = std::numeric_limits<long>::max();
 class TestPdAbstraction : public pd::External {
     typedef std::map<t_symbol*, ListenerExternal*> ListenerMap;
 
-    std::vector<ExternalOutput*> outs_;
+    std::vector<LogExternalOutput*> outs_;
     ListenerMap listeners_;
 
 public:
@@ -35,7 +35,7 @@ public:
         REQUIRE(object());
 
         for (size_t i = 0; i < numOutlets(); i++) {
-            ExternalOutput* e = new ExternalOutput;
+            LogExternalOutput* e = new LogExternalOutput;
             connectTo(i, e->object(), 0);
             outs_.push_back(e);
         }
@@ -99,10 +99,10 @@ TEST_CASE("radio", "[externals]")
             REQUIRE(t->name() == SYM("@default"));
             fn = t->fullName();
 
-            REQUIRE(PropertyStorage::storage().contains(fn->s_name));
+            REQUIRE(PropertyStorage::storage().contains(fn));
         }
 
-        REQUIRE_FALSE(PropertyStorage::storage().contains(fn->s_name));
+        REQUIRE_FALSE(PropertyStorage::storage().contains(fn));
 
         {
             // invalid name
@@ -203,9 +203,9 @@ TEST_CASE("radio", "[externals]")
     {
         // symbol type
         TestExtPropDeclare t("prop.declare", LA("s", "@s", "@enum", "A", "B", "C"));
-        auto p = PropertyStorage::storage().acquire(t->fullName()->s_name);
+        auto p = PropertyStorage::storage().acquire(t->fullName());
         REQUIRE(p->enumValues() == LA("", "A", "B", "C"));
-        PropertyStorage::storage().release(t->fullName()->s_name);
+        PropertyStorage::storage().release(t->fullName());
     }
 
     SECTION("min/max float")
@@ -213,49 +213,49 @@ TEST_CASE("radio", "[externals]")
         {
             // float default
             TestExtPropDeclare t("prop.declare", LA("f"));
-            auto p = PropertyStorage::storage().acquire(t->fullName()->s_name);
+            auto p = PropertyStorage::storage().acquire(t->fullName());
             REQUIRE(p->floatRange() == std::make_pair(FMIN, FMAX));
-            PropertyStorage::storage().release(t->fullName()->s_name);
+            PropertyStorage::storage().release(t->fullName());
         }
 
         {
             // float min
             TestExtPropDeclare t("prop.declare", LA("f", "@min", 2.1));
-            auto p = PropertyStorage::storage().acquire(t->fullName()->s_name);
+            auto p = PropertyStorage::storage().acquire(t->fullName());
             auto r = p->floatRange();
             REQUIRE(r.first == Approx(2.1));
             REQUIRE(r.second == FMAX);
-            PropertyStorage::storage().release(t->fullName()->s_name);
+            PropertyStorage::storage().release(t->fullName());
         }
 
         {
             // float max
             TestExtPropDeclare t("prop.declare", LA("f", "@max", 16.1));
-            auto p = PropertyStorage::storage().acquire(t->fullName()->s_name);
+            auto p = PropertyStorage::storage().acquire(t->fullName());
             auto r = p->floatRange();
             REQUIRE(r.second == Approx(16.1));
             REQUIRE(r.first == FMIN);
-            PropertyStorage::storage().release(t->fullName()->s_name);
+            PropertyStorage::storage().release(t->fullName());
         }
 
         {
             // float both
             TestExtPropDeclare t("prop.declare", LA("f", "@max", 16.1, "@min", 1.1));
-            auto p = PropertyStorage::storage().acquire(t->fullName()->s_name);
+            auto p = PropertyStorage::storage().acquire(t->fullName());
             auto r = p->floatRange();
             REQUIRE(r.second == Approx(16.1));
             REQUIRE(r.first == Approx(1.1));
-            PropertyStorage::storage().release(t->fullName()->s_name);
+            PropertyStorage::storage().release(t->fullName());
         }
 
         {
             // float both invalid
             TestExtPropDeclare t("prop.declare", LA("f", "@min", 16.1, "@max", 1.1));
-            auto p = PropertyStorage::storage().acquire(t->fullName()->s_name);
+            auto p = PropertyStorage::storage().acquire(t->fullName());
             auto r = p->floatRange();
             REQUIRE(r.second == Approx(16.1));
             REQUIRE(r.first == Approx(1.1));
-            PropertyStorage::storage().release(t->fullName()->s_name);
+            PropertyStorage::storage().release(t->fullName());
         }
     }
 
@@ -264,41 +264,41 @@ TEST_CASE("radio", "[externals]")
         {
             // int default
             TestExtPropDeclare t("prop.declare", LA("i", "@i"));
-            auto p = PropertyStorage::storage().acquire(t->fullName()->s_name);
+            auto p = PropertyStorage::storage().acquire(t->fullName());
             REQUIRE(p->intRange() == std::make_pair(IMIN, IMAX));
-            PropertyStorage::storage().release(t->fullName()->s_name);
+            PropertyStorage::storage().release(t->fullName());
         }
 
         {
             // int min
             TestExtPropDeclare t("prop.declare", LA("i", "@i", "@min", 2));
-            auto p = PropertyStorage::storage().acquire(t->fullName()->s_name);
+            auto p = PropertyStorage::storage().acquire(t->fullName());
             REQUIRE(p->intRange() == std::make_pair(long(2), IMAX));
-            PropertyStorage::storage().release(t->fullName()->s_name);
+            PropertyStorage::storage().release(t->fullName());
         }
 
         {
             // int max
             TestExtPropDeclare t("prop.declare", LA("i", "@i", "@max", 20));
-            auto p = PropertyStorage::storage().acquire(t->fullName()->s_name);
+            auto p = PropertyStorage::storage().acquire(t->fullName());
             REQUIRE(p->intRange() == std::make_pair(IMIN, long(20)));
-            PropertyStorage::storage().release(t->fullName()->s_name);
+            PropertyStorage::storage().release(t->fullName());
         }
 
         {
             // int both
             TestExtPropDeclare t("prop.declare", LA("i", "@i", "@max", 20, "@min", -2));
-            auto p = PropertyStorage::storage().acquire(t->fullName()->s_name);
+            auto p = PropertyStorage::storage().acquire(t->fullName());
             REQUIRE(p->intRange() == std::make_pair(long(-2), long(20)));
-            PropertyStorage::storage().release(t->fullName()->s_name);
+            PropertyStorage::storage().release(t->fullName());
         }
 
         {
             // int both invalid order
             TestExtPropDeclare t("prop.declare", LA("i", "@i", "@max", -2, "@min", 20));
-            auto p = PropertyStorage::storage().acquire(t->fullName()->s_name);
+            auto p = PropertyStorage::storage().acquire(t->fullName());
             REQUIRE(p->intRange() == std::make_pair(long(-2), long(20)));
-            PropertyStorage::storage().release(t->fullName()->s_name);
+            PropertyStorage::storage().release(t->fullName());
         }
     }
 

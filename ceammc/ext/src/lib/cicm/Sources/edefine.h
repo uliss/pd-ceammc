@@ -332,6 +332,16 @@ typedef enum t_dashstyle {
     EDASHSTYLE_64 = 2 /*!<  */
 } t_dashstyle;
 
+/**
+ * @struct t_dashstyle
+ * @brief A dashstyle enum
+ */
+typedef enum t_smooth {
+    ESMOOTH_NONE = 0, /*!< Default. No dash line pattern */
+    ESMOOTH_RAW = 1, /*!<  */
+    ESMOOTH_BEZIER = 2 /*!<  */
+} t_smooth;
+
 //! The pre-defined black t_rgba
 extern const t_rgba rgba_black;
 //! The pre-defined grey dark t_rgba
@@ -409,6 +419,7 @@ typedef struct t_egobj {
 
     t_capstyle e_capstyle; /*!< The line capstyle of the graphical object. */
     t_dashstyle e_dashstyle; /*!< The line dashstyle of the graphical object. */
+    t_smooth e_smooth; /*!< The line smooth of the graphical object. */
 
     etextanchor_flags e_anchor; /*!< The anchor of the graphical object. */
     etextjustify_flags e_justify; /*!< The justification of the graphical object. */
@@ -437,6 +448,7 @@ typedef struct t_elayer {
     elayer_flags e_state; /*!< The layer state. */
     t_capstyle e_line_capstyle; /*!< The layer line capstyle. */
     t_dashstyle e_line_dashstyle; /*!< The layer line dashstyle. */
+    t_smooth e_line_smooth; /*!< The layer line dashstyle. */
 } t_elayer;
 
 /** @} */
@@ -485,6 +497,8 @@ typedef struct t_ewidget {
     t_clickfn w_clickfn; /*!< The native Pd click method. */
     t_typ_method w_assist; /*!< The dummy iolets assist method. */
     t_typ_method w_paint; /*!< The paint method. */
+    t_typ_method w_create; /*!< The widget after create method. */
+    t_typ_method w_erase; /*!< The widget before erase method. */
     t_typ_method w_mouseenter; /*!< The mouse enter method. */
     t_typ_method w_mouseleave; /*!< The mouse leave method. */
     t_typ_method w_mousemove; /*!< The mouse move method. */
@@ -519,6 +533,7 @@ typedef struct t_eattr {
     t_symbol* category; /*!< The dummy category of the attribute. */
     t_symbol* label; /*!< The label of the attribute. */
     t_symbol* style; /*!< The style of the attribute (checkbutton, color, number, entry, menu). */
+    t_symbol* units; /*!< The units of the attribute. */
     long order; /*!< The dummy order of the attribute. */
     char save; /*!< If the attribute should be saved. */
     char paint; /*!< If the attribute should repaint the t_ebox when it has changed. */
@@ -550,8 +565,8 @@ typedef struct t_eclass {
     // in Pd 0.48 t_class* next added into t_class, and sizeof(t_class) grown to 8 bytes on x86_64
     // this padding added to prevent field rewriting values
     char c_padding[8];
-    char c_box; /*!< The marker if the class is GUI. */
-    char c_dsp; /*!< The marker if the class is DSP. */
+    bool c_box; /*!< The marker if the class is GUI. */
+    bool c_dsp; /*!< The marker if the class is DSP. */
     t_ewidget c_widget; /*!< The extra widget methods. */
     t_eattr** c_attr; /*!< The attributes. */
     long c_nattr; /*!< The number of attributes. */
@@ -707,17 +722,19 @@ typedef enum {
 typedef enum t_cursor {
     ECURSOR_LEFT_PTR = 0, /*!< The left_ptr string. */
     ECURSOR_CENTER_PTR = 1, /*!< The center_ptr string. */
-    ECURSOR_SDOUBLE_ARROW = 2, /*!< The sb_v_double_arrow string. */
-    ECURSOR_PLUS = 3, /*!< The plus string. */
-    ECURSOR_HAND = 4, /*!< The hand2 string. */
-    ECURSOR_CIRCLE = 5, /*!< The circle string. */
-    ECURSOR_X = 6, /*!< The X_cursor string. */
-    ECURSOR_BOTTOM = 7, /*!< The bottom_side string. */
-    ECURSOR_RIGHT_CORNER = 8, /*!< The bottom_right_corner string. */
-    ECURSOR_RIGHT_SIDE = 9, /*!< The right_side string. */
-    ECURSOR_DOUBLE_ARROW = 10, /*!< The double_arrow string. */
-    ECURSOR_EXCHANGE = 11, /*!< The exchange string. */
-    ECURSOR_XTERM = 12 /*!< The xterm string. */
+    ECURSOR_PLUS = 2, /*!< The plus string. */
+    ECURSOR_HAND = 3, /*!< The hand2 string. */
+    ECURSOR_CIRCLE = 4, /*!< The circle string. */
+    ECURSOR_X = 5, /*!< The X_cursor string. */
+    ECURSOR_BOTTOM = 6, /*!< The bottom_side string. */
+    ECURSOR_RIGHT_CORNER = 7, /*!< The bottom_right_corner string. */
+    ECURSOR_RIGHT_SIDE = 8, /*!< The right_side string. */
+    ECURSOR_LEFT_SIDE = 9, /*!< The left_side string. */
+    ECURSOR_EXCHANGE = 10, /*!< The exchange string. */
+    ECURSOR_XTERM = 11, /*!< The xterm string. */
+    ECURSOR_MOVE = 12, /*!< The move cursor */
+    ECURSOR_VDOUBLE_ARROW = 13, /*!< The sb_v_double_arrow string. */
+    ECURSOR_HDOUBLE_ARROW = 14 /*!< The sb_h_double_arrow string. */
 } ebox_cursors;
 
 /**
@@ -766,15 +783,14 @@ typedef struct t_ebox {
     char b_mouse_down; /*!< The mouse state. */
     char b_resize; /*!< Widget is in resize state */
 
-    char b_visible; /*!< The visible state. */
-    char b_ready_to_draw; /*!< The ebox state for drawing. */
-    char b_have_window; /*!< The ebox window state. */
-    char b_isinsubcanvas; /*!< If the box is in a sub canvas. */
+    bool b_visible; /*!< The visible state. */
+    bool b_ready_to_draw; /*!< The ebox state for drawing. */
+    bool b_have_window; /*!< The ebox window state. */
+    bool b_isinsubcanvas; /*!< If the box is in a sub canvas. */
     t_edrawparams b_boxparameters; /*!< The ebox parameters. */
 
     t_elayer* b_layers; /*!< The ebox layers. */
     long b_number_of_layers; /*!< The ebox number of layers. */
-    char b_force_redraw; /*!< Force ebox redraw. */
 
     t_symbol* b_label; /*!< The UI label. */
     t_symbol* label_align; /*!< The UI label align: left center or right */
@@ -782,6 +798,9 @@ typedef struct t_ebox {
     t_symbol* label_side; /*!< The UI label anchor side: top, left, right, or bottom */
     int label_inner;
     int label_margins[2];
+    t_cursor cursor;
+
+    t_canvas* wis_canvas;
 } t_ebox;
 
 /** @} */

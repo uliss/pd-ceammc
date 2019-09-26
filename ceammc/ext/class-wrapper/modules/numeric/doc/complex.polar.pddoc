@@ -14,7 +14,7 @@
             <version>0.1</version>
             <since>0.1</since>
             <also>
-                <see>complex</see>
+                <see>complex.new</see>
             </also>
         </meta>
         <arguments>

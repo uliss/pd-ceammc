@@ -78,7 +78,7 @@ public:
         unsetClocks();
     }
 
-    void m_click(t_symbol*, const AtomList& l)
+    void onClick(t_floatarg, t_floatarg, t_floatarg, t_floatarg, t_floatarg) override
     {
         onBang();
     }
@@ -139,5 +139,5 @@ void setup_env_ar_tilde()
     obj.processData<DataTypeEnv>();
     obj.addMethod("play", &EnvAr::m_play);
     obj.addMethod("reset", &EnvAr::m_reset);
-    obj.addClick(&EnvAr::m_click);
+    obj.useClick();
 }

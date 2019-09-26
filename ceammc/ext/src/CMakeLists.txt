@@ -4,7 +4,7 @@ include(cppcheck.cmake)
 
 if(WITH_COVERAGE)
     if(APPLE)
-        if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+        if (NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") # Clang or AppleClang
             set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage")
             set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
         endif()

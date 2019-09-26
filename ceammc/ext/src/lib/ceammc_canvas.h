@@ -16,9 +16,10 @@
 
 #include "ceammc_array.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_pd.h"
 
-#include <boost/shared_ptr.hpp>
 #include <map>
+#include <memory>
 #include <string>
 
 struct _glist;
@@ -27,6 +28,10 @@ struct _text;
 typedef struct _text t_object;
 
 namespace ceammc {
+
+namespace pd {
+    class External;
+}
 
 /**
  * Checks if given canvas is top level (window)
@@ -89,7 +94,7 @@ struct t_rect {
 t_rect canvas_info_rect(const t_canvas* c);
 
 class BaseObject;
-typedef boost::shared_ptr<Array> ArrayPtr;
+typedef std::shared_ptr<Array> ArrayPtr;
 typedef std::map<_symbol*, ArrayPtr> ArrayMap;
 
 class Canvas {
@@ -103,6 +108,12 @@ public:
 
     static bool connect(t_object* src, size_t nout, t_object* dest, size_t ninl);
     static bool connect(const BaseObject& src, size_t nout, BaseObject& dest, size_t ninl);
+
+    std::vector<const t_object*> objectList() const;
+    std::vector<const t_object*> findObjectByClassName(t_symbol* name);
+
+    void addExternal(pd::External& ext);
+    std::shared_ptr<pd::External> createObject(const char* name, const AtomList& args);
 
 public:
     _glist* pd_canvas() { return canvas_; }

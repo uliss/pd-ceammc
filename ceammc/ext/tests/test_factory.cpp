@@ -14,11 +14,10 @@
 
 #include <stdexcept>
 
-#include "../base/debug_gensym.h"
-#include "test_base.h"
 #include "catch.hpp"
-#include "ceammc.hpp"
 #include "ceammc_factory.h"
+#include "ceammc_pd.h"
+#include "test_base.h"
 
 using namespace ceammc;
 
@@ -57,6 +56,45 @@ public:
     }
 };
 
+class TestListMethodClass : public TestClass {
+    int method_called_;
+    t_symbol* sel_;
+    AtomList args_;
+
+public:
+    TestListMethodClass(const PdArgs& a)
+        : TestClass(a)
+        , method_called_(0)
+        , sel_(nullptr)
+    {
+    }
+
+    int methodCalled() const { return method_called_; }
+    t_symbol* methodSel() { return sel_; }
+    const AtomList& methodArgs() const { return args_; }
+
+    void m_method(t_symbol* sel, const AtomList& args)
+    {
+        method_called_++;
+        args_ = args;
+        sel_ = sel;
+    }
+};
+
+template <typename T>
+class PdExternalT : public ceammc::pd::External {
+public:
+    PdExternalT(const char* name, const AtomList& args = AtomList())
+        : ceammc::pd::External(name, args)
+    {
+    }
+
+    T* operator->()
+    {
+        return reinterpret_cast<PdObject<T>*>(object())->impl;
+    }
+};
+
 TEST_CASE("ceammc_factory", "[PureData]")
 {
     obj_init();
@@ -76,7 +114,8 @@ TEST_CASE("ceammc_factory", "[PureData]")
         REQUIRE(ext != 0);
         REQUIRE(ext->impl != 0);
         REQUIRE(ext->impl->owner() == &ext->pd_obj);
-        REQUIRE(ext->impl->className() == "test.new");
+        REQUIRE(ext->impl->className() == gensym("test.new"));
+        REQUIRE(ext->impl->classPointer() == ext->pd_obj.te_g.g_pd);
         REQUIRE(ext->impl->positionalArguments() == LA(2, "a"));
         REQUIRE_PROPERTY((*ext->impl), @test_prop, -1);
 
@@ -119,12 +158,33 @@ TEST_CASE("ceammc_factory", "[PureData]")
         REQUIRE(ext != 0);
         REQUIRE(ext->impl != 0);
         REQUIRE(ext->impl->owner() == &ext->pd_obj);
-        REQUIRE(ext->impl->className() == "test.new");
+        REQUIRE(ext->impl->className() == gensym("test.new"));
         REQUIRE(ext->impl->positionalArguments() == LA(2, "a"));
         REQUIRE_PROPERTY((*ext->impl), @test_prop, 33);
 
         pd_free(&ext->pd_obj.te_g.g_pd);
 
         REQUIRE(destructor_called);
+    }
+
+    SECTION("list method")
+    {
+        test::pdPrintToStdError(true);
+
+        ObjectFactory<TestListMethodClass> f("test.list_method");
+
+        typedef PdExternalT<TestListMethodClass> External;
+        External t("test.list_method");
+        REQUIRE(!t.isNull());
+        REQUIRE(t->methodCalled() == 0);
+
+        t.sendMessage(gensym("msg"), LA(1, 2, 3));
+        REQUIRE(t->methodCalled() == 0);
+
+        f.addMethod("msg", &TestListMethodClass::m_method);
+        t.sendMessage(gensym("msg"), LA(1, 2, 3));
+        REQUIRE(t->methodCalled() == 1);
+        REQUIRE(t->methodSel() == gensym("msg"));
+        REQUIRE(t->methodArgs() == LA(1, 2, 3));
     }
 }

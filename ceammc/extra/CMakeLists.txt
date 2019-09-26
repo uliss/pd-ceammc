@@ -13,13 +13,17 @@ add_subdirectory(lyonpotpourri)
 add_subdirectory(midifile)
 add_subdirectory(serial)
 add_subdirectory(sf2)
-add_subdirectory(speech)
 add_subdirectory(stk)
 add_subdirectory(subprocess)
 add_subdirectory(fmt)
 
 option(RE2_BUILD_TESTING "" OFF)
+set(RE2_BUILD_TESTING OFF CACHE BOOL "" FORCE)
 add_subdirectory(re2)
+
+option(HOA_BUILD_TESTS "" OFF)
+set(HOA_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+add_subdirectory(HoaLibrary-Light)
 
 if(UNIX)
     set_target_properties(re2 PROPERTIES COMPILE_FLAGS "-fPIC")
@@ -37,6 +41,9 @@ if(WITH_FLUIDSYNTH)
     add_subdirectory(fluidsynth)
 endif()
 
+if(WITH_TTS_FLITE)
+    add_subdirectory(speech)
+endif()
 
 set(EXTRA_COMPLETION "extra_objects.txt")
 add_custom_target(_ceammc_extra_misc SOURCES ${EXTRA_COMPLETION})

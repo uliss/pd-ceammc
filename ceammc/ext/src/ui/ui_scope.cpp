@@ -14,7 +14,7 @@
 
 #include "ui_scope.h"
 #include "ceammc_convert.h"
-#include "ceammc_dsp_ui.h"
+#include "ceammc_ui.h"
 
 static const size_t N_SAMPLES = 150;
 
@@ -185,16 +185,16 @@ void UIScope::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 
 void UIScope::setup()
 {
-    UIDspFactory<UIScope> obj("ui.scope~");
+    UIObjectFactory<UIScope> obj("ui.scope~");
     obj.setDefaultSize(150, 100);
 
     obj.useMouseEvents(UI_MOUSE_DBL_CLICK | UI_MOUSE_DOWN);
     obj.addMethod("freeze", &UIScope::m_freeze);
     obj.addMethod("scale", &UIScope::m_scale);
 
-    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIScope::prop_color_active);
-    obj.addProperty("max", _("Maximum value"), 1, &UIScope::prop_max, _("Bounds"));
-    obj.addProperty("min", _("Minimum value"), -1, &UIScope::prop_min, _("Bounds"));
+    obj.addColorProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIScope::prop_color_active);
+    obj.addFloatProperty("max", _("Maximum value"), 1, &UIScope::prop_max, _("Bounds"));
+    obj.addFloatProperty("min", _("Minimum value"), -1, &UIScope::prop_min, _("Bounds"));
     obj.addIntProperty("window", _("Window size"), 2048, &UIScope::prop_window, _("Main"));
     obj.setPropertyRange("window", 512, 4096);
     obj.addIntProperty("refresh", _("Refresh time (ms)"), 40, &UIScope::prop_refresh, _("Main"));

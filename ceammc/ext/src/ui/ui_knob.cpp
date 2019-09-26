@@ -20,6 +20,8 @@ static t_symbol* SYM_MUL;
 static t_symbol* SYM_DIV;
 static t_symbol* SYM_INC;
 static t_symbol* SYM_DEC;
+static t_symbol* SYM_POPUP_LINEAR;
+static t_symbol* SYM_POPUP_LOG;
 
 static const int KNOB_MIN_SIZE = 20;
 static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
@@ -51,12 +53,15 @@ static void draw_knob_line(UIPainter& p, float cx, float cy, float r, float angl
 
 void UIKnob::setup()
 {
+    UISingleValue::setup();
+
     UIObjectFactory<UIKnob> obj("ui.knob", EBOX_GROWLINK);
 
     obj.useBang();
     obj.useFloat();
     obj.usePresets();
-    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK);
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK);
+    obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
     obj.addMethod("+", &UISingleValue::m_plus);
     obj.addMethod("-", &UISingleValue::m_minus);
@@ -74,14 +79,16 @@ void UIKnob::setup()
     obj.addProperty("min", _("Minimum Value"), 0, &UISingleValue::prop_min, "Bounds");
     obj.addProperty("max", _("Maximum Value"), 1, &UISingleValue::prop_max, "Bounds");
     obj.addProperty("show_range", _("Show range"), false, &UIKnob::show_range_);
+    obj.addProperty("scale", _("Scale Mode"), "linear", &UISingleValue::prop_scale, "linear log", "Main");
+
     obj.addProperty("active_scale", _("Draw active scale"), false, &UIKnob::draw_active_scale_);
     obj.addProperty("midi_channel", _("MIDI channel"), 0, &UISingleValue::prop_midi_chn, "MIDI");
     obj.setPropertyRange("midi_channel", 0, 16);
     obj.addProperty("midi_control", _("MIDI control"), 0, &UISingleValue::prop_midi_ctl, "MIDI");
     obj.setPropertyRange("midi_control", 0, 128);
-    obj.addProperty("midi_pickup", _("MIDI pickup"), true, &UISingleValue::prop_midi_pickup, "MIDI");
+    obj.addProperty("midi_pickup", _("MIDI pickup"), true, &UISingleValue::prop_pickup_midi, "MIDI");
 
-    obj.addProperty("value", &UISingleValue::realValue, &UISingleValue::setRealValue);
+    obj.addProperty("value", &UISingleValue::value, &UISingleValue::setValue);
 }
 
 UIKnob::UIKnob()
@@ -131,7 +138,7 @@ void UIKnob::paint()
         const float arc_angle_offset = -(EPD_PI2 + (1 - arc_scale) * EPD_PI);
         const float arc_begin = arc_angle_offset;
         const float arc_end = arc_full + arc_angle_offset;
-        const float value_angle = prop_value * arc_full + arc_angle_offset;
+        const float value_angle = knobPhase() * arc_full + arc_angle_offset;
 
         // adjust knob
         float line_width = int(r.height / 20) + 1;
@@ -166,10 +173,18 @@ void UIKnob::okSize(t_rect* newrect)
     newrect->height = pd_clip_min(newrect->height, KNOB_MIN_SIZE);
 }
 
-void UIKnob::onMouseDrag(t_object*, const t_pt& pt, long)
+void UIKnob::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
+{
+    output();
+}
+
+void UIKnob::onMouseDrag(t_object*, const t_pt& pt, long modifiers)
 {
     t_float delta = (click_pos_.y - pt.y) / height();
-    setValue(value() + delta);
+    if (modifiers & EMOD_SHIFT)
+        delta *= 0.1;
+
+    setKnobPhase(knobPhase() + delta);
     click_pos_ = pt;
     redrawKnob();
     output();
@@ -178,9 +193,9 @@ void UIKnob::onMouseDrag(t_object*, const t_pt& pt, long)
 void UIKnob::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     if (modifiers & EMOD_RIGHT) {
-        UIPopupMenu menu(asEObj(), "popup", abs_pt);
+        UIPopupMenu menu(asEObj(), SYM_POPUP_LINEAR, abs_pt);
         menu.addItem(_("min"));
-        menu.addItem(_("center"));
+        menu.addItem(_("center"), scaleMode() == LINEAR);
         menu.addItem(_("max"));
         return;
     }
@@ -190,9 +205,6 @@ void UIKnob::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod
 
 void UIKnob::onPopup(t_symbol* menu_name, long item_idx)
 {
-    if (menu_name != gensym("popup"))
-        return;
-
     switch (item_idx) {
     case 0:
         onFloat(prop_min);
@@ -217,6 +229,9 @@ void setup_ui_knob()
     SYM_DIV = gensym("/");
     SYM_INC = gensym("++");
     SYM_DEC = gensym("--");
+
+    SYM_POPUP_LINEAR = gensym("popup_lin");
+    SYM_POPUP_LOG = gensym("popup_log");
 
     UIKnob::setup();
 }

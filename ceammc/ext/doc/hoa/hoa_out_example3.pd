@@ -1,0 +1,14 @@
+#N canvas 404 267 634 212 12;
+#X obj 89 17 hoa.in~;
+#X obj 89 114 ui.number~ @size 80 15 @receive "(null)" @send "(null)"
+@pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color
+0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname
+"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @decimal 6 @interval 50;
+#X obj 89 150 hoa.out~;
+#X obj 204 151 hoa.out~ @extra 1;
+#X text 244 119 sum output;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 1 0 3 0;

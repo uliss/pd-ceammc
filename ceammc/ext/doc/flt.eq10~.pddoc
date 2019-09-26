@@ -60,7 +60,7 @@
 <![CDATA[
 [fill 0.5, bang(        [r~ ssc #a]
 |                       |
-[ui.sliders @count=10]  [ui.spectroscope~ @size=300x100 @log_scale=1]
+[ui.sliders @count 10]  [ui.spectroscope~ @size=300x100 @log_scale=1]
 |
 |
 |
@@ -68,7 +68,7 @@
 |
 |
 |
-[list.each]X[l->l 0 1 -10 10]
+[lin->lin 0 1 -10 10]
 |
 |
 |                 [F]

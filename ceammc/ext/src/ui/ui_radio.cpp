@@ -4,8 +4,12 @@
 #include "ceammc_ui.h"
 
 #include <cassert>
+#include <chrono>
+#include <random>
 
 static const int MAX_ITEMS = 128;
+static const char* MENU_NAME_CHECKLIST = "checklist-menu";
+static t_symbol* SYM_PROP_NITEMS;
 
 void setup_ui_radio()
 {
@@ -30,6 +34,7 @@ void UIRadio::init(t_symbol* name, const AtomList& args, bool usePresets)
     if (name == gensym("ui.vrd"))
         std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
 
+    // has positional arguments
     int n = args.intAt(0, -1);
     if (n > 0) {
         prop_nitems_ = clip<int>(n, 2, MAX_ITEMS);
@@ -41,6 +46,30 @@ void UIRadio::init(t_symbol* name, const AtomList& args, bool usePresets)
         } else {
             asEBox()->b_rect.width = dim2;
             asEBox()->b_rect.height = dim1;
+        }
+    } else {
+        const size_t N = args.size();
+        for (size_t i = 0; i < N; i++) {
+            const auto& a = args[i];
+            if (!a.isProperty())
+                continue;
+
+            if (a.asSymbol() != SYM_PROP_NITEMS)
+                continue;
+
+            size_t inext = i + 1;
+            if (inext >= N)
+                break;
+
+            prop_nitems_ = clip<int>(args[inext].asInt(0), 2, MAX_ITEMS);
+            int h = 15;
+            int w = ((h + 1) * prop_nitems_) - 1;
+            if (isVertical())
+                std::swap(h, w);
+
+            asEBox()->b_rect.width = w;
+            asEBox()->b_rect.height = h;
+            break;
         }
     }
 }
@@ -86,6 +115,16 @@ void UIRadio::onList(const AtomList& lst)
 
 void UIRadio::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
 {
+    if (mod == EMOD_RIGHT) {
+        if (prop_checklist_mode_) {
+            UIPopupMenu menu(asEObj(), MENU_NAME_CHECKLIST, abs_pt);
+            menu.addItem(_("reset"));
+            menu.addItem(_("flip"));
+            menu.addItem(_("random"));
+            return;
+        }
+    }
+
     t_rect r = rect();
     const int idx = isVertical() ? (pt.y / r.height * prop_nitems_) : (pt.x / r.width * prop_nitems_);
 
@@ -203,6 +242,25 @@ void UIRadio::m_next()
     }
 }
 
+void UIRadio::m_random()
+{
+    auto seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine gen(seed);
+
+    if (prop_checklist_mode_) {
+        std::uniform_int_distribution<int> dist(0, 1);
+
+        for (int i = 0; i < prop_nitems_; i++)
+            items_.set(i, dist(gen));
+
+        output();
+        redrawItems();
+    } else {
+        std::uniform_int_distribution<int> dist(0, prop_nitems_ - 1);
+        onFloat(dist(gen));
+    }
+}
+
 void UIRadio::m_prev()
 {
     if (prop_checklist_mode_) {
@@ -260,6 +318,26 @@ void UIRadio::storePreset(size_t idx)
         PresetStorage::instance().setListValueAt(presetId(), idx, listValue());
     else
         PresetStorage::instance().setFloatValueAt(presetId(), idx, singleValue());
+}
+
+void UIRadio::onPopup(t_symbol* menu_name, long item_idx)
+{
+    if (menu_name == gensym(MENU_NAME_CHECKLIST) && prop_checklist_mode_) {
+        switch (item_idx) {
+        case 0:
+            m_reset();
+            break;
+        case 1:
+            m_flip();
+            break;
+        case 2:
+            m_random();
+            break;
+        default:
+            UI_ERR << "unknown menu item: " << item_idx;
+            break;
+        }
+    }
 }
 
 AtomList UIRadio::listValue() const
@@ -344,10 +422,10 @@ void UIRadio::drawItems()
                 if (items_[i]) {
                     const int offset = i * (cell_size + zoom());
 
-                    const int x0 = offset + 1;
-                    const int y0 = 1;
-                    const int x1 = offset + cell_size - 1;
-                    const int y1 = cell_size - 1;
+                    const int x0 = 1;
+                    const int y0 = offset + 1;
+                    const int x1 = cell_size - 1;
+                    const int y1 = offset + cell_size - 1;
 
                     // draw cross
                     p.drawLine(x0, y0, x1, y1);
@@ -401,20 +479,20 @@ void UIRadio::okSize(t_rect* newrect)
 {
     assert(prop_nitems_ > 0);
 
-    if (isPatchLoading()) {
-        newrect->height = pd_clip_min(newrect->height, 8);
-        newrect->width = pd_clip_min(newrect->width, 8);
+    //    if (isPatchLoading()) {
+    //        newrect->height = pd_clip_min(newrect->height, 8);
+    //        newrect->width = pd_clip_min(newrect->width, 8);
+    //    } else {
+    if (isVertical()) {
+        const float box_size = pd_clip_min(static_cast<int>(newrect->height / prop_nitems_), 8);
+        newrect->height = prop_nitems_ * (box_size + 1) - 1;
+        newrect->width = box_size;
     } else {
-        if (isVertical()) {
-            const float box_size = pd_clip_min(static_cast<int>(newrect->height / prop_nitems_), 8);
-            newrect->height = prop_nitems_ * (box_size + 1) - 1;
-            newrect->width = box_size;
-        } else {
-            const float box_size = pd_clip_min(static_cast<int>(newrect->width / prop_nitems_), 8);
-            newrect->width = prop_nitems_ * (box_size + 1) - 1;
-            newrect->height = box_size;
-        }
+        const float box_size = pd_clip_min(static_cast<int>(newrect->width / prop_nitems_), 8);
+        newrect->width = prop_nitems_ * (box_size + 1) - 1;
+        newrect->height = box_size;
     }
+    //    }
 }
 
 void UIRadio::redrawAll()
@@ -437,6 +515,8 @@ void UIRadio::onPropChange(t_symbol* prop_name)
 
 void UIRadio::setup()
 {
+    SYM_PROP_NITEMS = gensym("@nitems");
+
     UIObjectFactory<UIRadio> obj("ui.radio");
     obj.addAlias("ui.hrd");
     obj.addAlias("ui.vrd");
@@ -457,11 +537,12 @@ void UIRadio::setup()
     obj.setPropertyAccessor("mode", &UIRadio::p_mode, &UIRadio::p_setMode);
     obj.addProperty("value", &UIRadio::p_value, &UIRadio::p_setValue);
 
+    obj.addMethod("+", &UIRadio::m_plus);
+    obj.addMethod("-", &UIRadio::m_minus);
     obj.addMethod("flip", &UIRadio::m_flip);
     obj.addMethod("next", &UIRadio::m_next);
     obj.addMethod("prev", &UIRadio::m_prev);
-    obj.addMethod("+", &UIRadio::m_plus);
-    obj.addMethod("-", &UIRadio::m_minus);
-    obj.addMethod("set", &UIRadio::p_setValue);
+    obj.addMethod("random", &UIRadio::m_random);
     obj.addMethod("reset", &UIRadio::m_reset);
+    obj.addMethod("set", &UIRadio::p_setValue);
 }

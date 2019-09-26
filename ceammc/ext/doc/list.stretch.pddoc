@@ -51,7 +51,15 @@
 |            |.
 [list.stretch 32]
 |
-[ui.sliders @count=32]
+[ui.sliders @count 32]
+|
+|
+|
+|
+|
+|
+|
+[print]
 ]]>
             </pdascii>
         </example>

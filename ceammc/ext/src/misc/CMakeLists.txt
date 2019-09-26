@@ -5,11 +5,14 @@ endmacro()
 
 ceammc_misc_external(live capture)
 
-find_package(ModPlug)
-if(MODPLUG_FOUND)
-    include_directories(${MODPLUG_INCLUDES})
-    list(APPEND MISC_SOURCES misc_modplug.cpp)
-    list(APPEND MISC_LIBRARIES ${MODPLUG_LIBRARIES})
+if(WITH_MODPLUG)
+    find_package(ModPlug REQUIRED)
+    if(MODPLUG_FOUND)
+        include_directories(${MODPLUG_INCLUDES})
+        list(APPEND MISC_SOURCES misc_modplug.cpp)
+        list(APPEND MISC_LIBRARIES ${MODPLUG_LIBRARIES})
+        add_definitions(-DWITH_MODPLUG)
+    endif()
 endif()
 
 if(WITH_FLUIDSYNTH)
@@ -18,12 +21,14 @@ if(WITH_FLUIDSYNTH)
     list(APPEND MISC_LIBRARIES ${FLUIDSYNTH_LIBRARIES})
 endif()
 
-# flite TTS engine
-include_directories("${CMAKE_SOURCE_DIR}/ceammc/extra/speech/flite/include")
-list(APPEND MISC_SOURCES speech_flite.cpp fliterender.cpp)
+if(WITH_TTS_FLITE)
+    include_directories(${FLITE_INCLUDES})
+    list(APPEND MISC_SOURCES speech_flite.cpp fliterender.cpp)
+    list(APPEND MISC_LIBRARIES ${FLITE_LIBRARIES})
+endif()
 
 add_library(ceammc_misc STATIC mod_misc.cpp ${MISC_SOURCES})
-target_link_libraries(ceammc_misc flite ${MISC_LIBRARIES})
+target_link_libraries(ceammc_misc ${MISC_LIBRARIES})
 
 set_target_properties(ceammc_misc PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
 

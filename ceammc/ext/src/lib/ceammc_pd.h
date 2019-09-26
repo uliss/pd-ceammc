@@ -18,8 +18,8 @@
 #include "ceammc_canvas.h"
 #include "ceammc_property_info.h"
 
-#include <boost/shared_ptr.hpp>
 #include <map>
+#include <memory>
 #include <string>
 
 struct _text;
@@ -27,6 +27,7 @@ typedef struct _text t_object;
 
 namespace ceammc {
 
+class Canvas;
 class BaseObject;
 class UIObject;
 
@@ -34,6 +35,7 @@ namespace pd {
     class External {
     private:
         t_object* obj_;
+        t_canvas* parent_;
 
     public:
         External(const char* name, const AtomList& lst = AtomList());
@@ -50,12 +52,17 @@ namespace pd {
         bool connectFrom(int outn, External& ext, int inln);
 
         t_object* object();
+        t_pd* pd() { return &obj_->te_g.g_pd; }
+        void setParent(t_canvas* cnv);
 
-        void bang();
         void sendBang();
         void sendFloat(t_float v);
         void sendSymbol(t_symbol* s);
         void sendList(const AtomList& l);
+        void sendBangTo(size_t inlet);
+        void sendFloatTo(t_float v, size_t inlet);
+        void sendSymbolTo(t_symbol* s, size_t inlet);
+        void sendListTo(const AtomList& l, size_t inlet);
         void sendMessage(t_symbol* msg, const AtomList& args = AtomList());
 
         int numOutlets() const;
@@ -81,7 +88,7 @@ namespace pd {
     };
 }
 
-typedef boost::shared_ptr<Canvas> CanvasPtr;
+typedef std::shared_ptr<Canvas> CanvasPtr;
 typedef std::map<std::string, CanvasPtr> CanvasMap;
 
 class PureData {
