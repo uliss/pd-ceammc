@@ -7,6 +7,7 @@
 #include "m_imp.h"
 #include "m_pd.h"
 #include "s_stuff.h"
+#include "g_canvas.h"
 #include <stdlib.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
@@ -66,43 +67,8 @@ void s_stuff_freepdinstance(void)
     freebytes(STUFF, sizeof(*STUFF));
 }
 
-static t_pdinstance* pdinstance_init(t_pdinstance* x)
-{
-    int i;
-    x->pd_systime = 0;
-    x->pd_clock_setlist = 0;
-    x->pd_canvaslist = 0;
-    x->pd_templatelist = 0;
-    x->pd_symhash = getbytes(SYMTABHASHSIZE * sizeof(*x->pd_symhash));
-    for (i = 0; i < SYMTABHASHSIZE; i++)
-        x->pd_symhash[i] = 0;
-#ifdef PDINSTANCE
-    dogensym("pointer", &x->pd_s_pointer, x);
-    dogensym("float", &x->pd_s_float, x);
-    dogensym("symbol", &x->pd_s_symbol, x);
-    dogensym("bang", &x->pd_s_bang, x);
-    dogensym("list", &x->pd_s_list, x);
-    dogensym("anything", &x->pd_s_anything, x);
-    dogensym("signal", &x->pd_s_signal, x);
-    dogensym("#N", &x->pd_s__N, x);
-    dogensym("#X", &x->pd_s__X, x);
-    dogensym("x", &x->pd_s_x, x);
-    dogensym("y", &x->pd_s_y, x);
-    dogensym("", &x->pd_s_, x);
-    pd_this = x;
-#else
-    dogensym("pointer", &s_pointer, x);
-    dogensym("float", &s_float, x);
-    dogensym("symbol", &s_symbol, x);
-    dogensym("bang", &s_bang, x);
-    dogensym("list", &s_list, x);
-    dogensym("anything", &s_anything, x);
-    dogensym("signal", &s_signal, x);
-    dogensym("#N", &s__N, x);
-    dogensym("#X", &s__X, x);
-    dogensym("x", &s_x, x);
-    dogensym("y", &s_y, x);
-    dogensym("", &s_, x);
+#ifdef _MSC_VER  /* This is only for Microsoft's compiler, not cygwin, e.g. */
+#define snprintf _snprintf
 #endif
     x_midi_newpdinstance();
     g_canvas_newpdinstance();
@@ -192,53 +158,236 @@ EXTERN t_pdinstance* pdinstance_new(void)
     return (x);
 }
 
-EXTERN void pdinstance_free(t_pdinstance* x)
+static t_symbol *class_extern_dir;
+
+#ifdef PDINSTANCE
+static t_class *class_list = 0;
+PERTHREAD t_pdinstance *pd_this;
+t_pdinstance **pd_instances;
+int pd_ninstances;
+#else
+t_symbol s_pointer, s_float, s_symbol, s_bang, s_list, s_anything,
+   s_signal, s__N, s__X, s_x, s_y, s_;
+#endif
+t_pdinstance pd_maininstance;
+
+static t_symbol *dogensym(const char *s, t_symbol *oldsym,
+    t_pdinstance *pdinstance);
+void x_midi_newpdinstance( void);
+void x_midi_freepdinstance( void);
+void s_inter_newpdinstance( void);
+void s_inter_free(t_instanceinter *inter);
+void g_canvas_newpdinstance( void);
+void g_canvas_freepdinstance( void);
+void d_ugen_newpdinstance( void);
+void d_ugen_freepdinstance( void);
+void new_anything(void *dummy, t_symbol *s, int argc, t_atom *argv);
+
+void s_stuff_newpdinstance(void)
 {
-    t_symbol* s;
-    t_canvas* canvas;
+    STUFF = getbytes(sizeof(*STUFF));
+    STUFF->st_externlist = STUFF->st_searchpath =
+        STUFF->st_staticpath = STUFF->st_helppath = STUFF->st_temppath = 0;
+    STUFF->st_schedblocksize = STUFF->st_blocksize = DEFDACBLKSIZE;
+}
+
+void s_stuff_freepdinstance(void)
+{
+    freebytes(STUFF, sizeof(*STUFF));
+}
+
+static t_pdinstance *pdinstance_init(t_pdinstance *x)
+{
+    int i;
+    x->pd_systime = 0;
+    x->pd_clock_setlist = 0;
+    x->pd_canvaslist = 0;
+    x->pd_templatelist = 0;
+    x->pd_symhash = getbytes(SYMTABHASHSIZE * sizeof(*x->pd_symhash));
+    for (i = 0; i < SYMTABHASHSIZE; i++)
+        x->pd_symhash[i] = 0;
+#ifdef PDINSTANCE
+    dogensym("pointer",   &x->pd_s_pointer,  x);
+    dogensym("float",     &x->pd_s_float,    x);
+    dogensym("symbol",    &x->pd_s_symbol,   x);
+    dogensym("bang",      &x->pd_s_bang,     x);
+    dogensym("list",      &x->pd_s_list,     x);
+    dogensym("anything",  &x->pd_s_anything, x);
+    dogensym("signal",    &x->pd_s_signal,   x);
+    dogensym("#N",        &x->pd_s__N,       x);
+    dogensym("#X",        &x->pd_s__X,       x);
+    dogensym("x",         &x->pd_s_x,        x);
+    dogensym("y",         &x->pd_s_y,        x);
+    dogensym("",          &x->pd_s_,         x);
+    pd_this = x;
+#else
+    dogensym("pointer",   &s_pointer,  x);
+    dogensym("float",     &s_float,    x);
+    dogensym("symbol",    &s_symbol,   x);
+    dogensym("bang",      &s_bang,     x);
+    dogensym("list",      &s_list,     x);
+    dogensym("anything",  &s_anything, x);
+    dogensym("signal",    &s_signal,   x);
+    dogensym("#N",        &s__N,       x);
+    dogensym("#X",        &s__X,       x);
+    dogensym("x",         &s_x,        x);
+    dogensym("y",         &s_y,        x);
+    dogensym("",          &s_,         x);
+#endif
+    x_midi_newpdinstance();
+    g_canvas_newpdinstance();
+    d_ugen_newpdinstance();
+    s_stuff_newpdinstance();
+    return (x);
+}
+
+static void class_addmethodtolist(t_class *c, t_methodentry **methodlist,
+    int nmethod, t_gotfn fn, t_symbol *sel, t_atomtype *args,
+        t_pdinstance *pdinstance)
+{
+    int i;
+    t_methodentry *m;
+    for (i = 0; i < nmethod; i++)
+        if ((*methodlist)[i].me_name == sel)
+    {
+        char nbuf[80];
+        snprintf(nbuf, 80, "%s_aliased", sel->s_name);
+        nbuf[79] = 0;
+        (*methodlist)[i].me_name = dogensym(nbuf, 0, pdinstance);
+        if (c == pd_objectmaker)
+            verbose(1, "warning: class '%s' overwritten; old one renamed '%s'",
+                sel->s_name, nbuf);
+        else verbose(1, "warning: old method '%s' for class '%s' renamed '%s'",
+            sel->s_name, c->c_name->s_name, nbuf);
+    }
+    (*methodlist) = t_resizebytes((*methodlist),
+        nmethod * sizeof(**methodlist),
+        (nmethod + 1) * sizeof(**methodlist));
+    m = (*methodlist) + nmethod;
+    m->me_name = sel;
+    m->me_fun = (t_gotfn)fn;
+    i = 0;
+    while ((m->me_arg[i] = args[i]))
+        i++;
+}
+
+#ifdef PDINSTANCE
+EXTERN void pd_setinstance(t_pdinstance *x)
+{
+    pd_this = x;
+}
+
+static void pdinstance_renumber(void)
+{
+    int i;
+    for (i = 0; i < pd_ninstances; i++)
+        pd_instances[i]->pd_instanceno = i;
+}
+
+extern void text_template_init(void);
+extern void garray_init(void);
+
+EXTERN t_pdinstance *pdinstance_new(void)
+{
+    t_pdinstance *x = (t_pdinstance *)getbytes(sizeof(t_pdinstance));
+    t_class *c;
+    int i;
+    pd_this = x;
+    s_inter_newpdinstance();
+    pdinstance_init(x);
+    sys_lock();
+    pd_globallock();
+    pd_instances = (t_pdinstance **)resizebytes(pd_instances,
+        pd_ninstances * sizeof(*pd_instances),
+        (pd_ninstances+1) * sizeof(*pd_instances));
+    pd_instances[pd_ninstances] = x;
+    for (c = class_list; c; c = c->c_next)
+    {
+        c->c_methods = (t_methodentry **)t_resizebytes(c->c_methods,
+            pd_ninstances * sizeof(*c->c_methods),
+            (pd_ninstances + 1) * sizeof(*c->c_methods));
+        c->c_methods[pd_ninstances] = t_getbytes(0);
+        for (i = 0; i < c->c_nmethod; i++)
+            class_addmethodtolist(c, &c->c_methods[pd_ninstances], i,
+                c->c_methods[0][i].me_fun,
+                dogensym(c->c_methods[0][i].me_name->s_name, 0, x),
+                    c->c_methods[0][i].me_arg, x);
+    }
+    pd_ninstances++;
+    pdinstance_renumber();
+    pd_bind(&glob_pdobject, gensym("pd"));
+    text_template_init();
+    garray_init();
+    pd_globalunlock();
+    sys_unlock();
+    return (x);
+}
+
+EXTERN void pdinstance_free(t_pdinstance *x)
+{
+    t_symbol *s;
+    t_canvas *canvas;
     int i, instanceno = x->pd_instanceno;
-    t_class* c;
+    t_class *c;
+    t_instanceinter *inter = x->pd_inter;
     pd_setinstance(x);
     sys_lock();
     pd_globallock();
 
     canvas_suspend_dsp();
     while (x->pd_canvaslist)
-        pd_free((t_pd*)x->pd_canvaslist);
+        pd_free((t_pd *)x->pd_canvaslist);
     while (x->pd_templatelist)
-        pd_free((t_pd*)x->pd_templatelist);
-    for (c = class_list; c; c = c->c_next) {
+        pd_free((t_pd *)x->pd_templatelist);
+    for (c = class_list; c; c = c->c_next)
+    {
         freebytes(c->c_methods[instanceno],
-            c->c_nmethod * sizeof(*c->c_methods));
-        for (i = instanceno; i < pd_ninstances - 1; i++)
-            c->c_methods[i] = c->c_methods[i + 1];
-        c->c_methods = (t_methodentry**)t_resizebytes(c->c_methods,
+            c->c_nmethod * sizeof(**c->c_methods));
+        for (i = instanceno; i < pd_ninstances-1; i++)
+            c->c_methods[i] = c->c_methods[i+1];
+        c->c_methods = (t_methodentry **)t_resizebytes(c->c_methods,
             pd_ninstances * sizeof(*c->c_methods),
             (pd_ninstances - 1) * sizeof(*c->c_methods));
     }
-    for (i = 0; i < SYMTABHASHSIZE; i++) {
-        while ((s = x->pd_symhash[i])) {
+    for (i =0; i < SYMTABHASHSIZE; i++)
+    {
+        while ((s = x->pd_symhash[i]))
+        {
             x->pd_symhash[i] = s->s_next;
-            if (s != &x->pd_s_pointer && s != &x->pd_s_float && s != &x->pd_s_symbol && s != &x->pd_s_bang && s != &x->pd_s_list && s != &x->pd_s_anything && s != &x->pd_s_signal && s != &x->pd_s__N && s != &x->pd_s__X && s != &x->pd_s_x && s != &x->pd_s_y && s != &x->pd_s_)
+            if(s != &x->pd_s_pointer &&
+               s != &x->pd_s_float &&
+               s != &x->pd_s_symbol &&
+               s != &x->pd_s_bang &&
+               s != &x->pd_s_list &&
+               s != &x->pd_s_anything &&
+               s != &x->pd_s_signal &&
+               s != &x->pd_s__N &&
+               s != &x->pd_s__X &&
+               s != &x->pd_s_x &&
+               s != &x->pd_s_y &&
+               s != &x->pd_s_)
+            {
+                freebytes(s->s_name, strlen(s->s_name)+1);
                 freebytes(s, sizeof(*s));
+            }
         }
     }
-    freebytes(x->pd_symhash, SYMTABHASHSIZE * sizeof(*x->pd_symhash));
+    freebytes(x->pd_symhash, SYMTABHASHSIZE * sizeof (*x->pd_symhash));
     x_midi_freepdinstance();
     g_canvas_freepdinstance();
     d_ugen_freepdinstance();
     s_stuff_freepdinstance();
-    s_inter_freepdinstance();
-    for (i = instanceno; i < pd_ninstances - 1; i++)
-        pd_instances[i] = pd_instances[i + 1];
-    pd_instances = (t_pdinstance**)resizebytes(pd_instances,
+    for (i = instanceno; i < pd_ninstances-1; i++)
+        pd_instances[i] = pd_instances[i+1];
+    pd_instances = (t_pdinstance **)resizebytes(pd_instances,
         pd_ninstances * sizeof(*pd_instances),
-        (pd_ninstances - 1) * sizeof(*pd_instances));
+        (pd_ninstances-1) * sizeof(*pd_instances));
     pd_ninstances--;
     pdinstance_renumber();
     pd_globalunlock();
     sys_unlock();
     pd_setinstance(&pd_maininstance);
+    s_inter_free(inter);  /* must happen after sys_unlock() */
 }
 
 #endif /* PDINSTANCE */
@@ -413,15 +562,16 @@ t_class* class_new(t_symbol* s, t_newmethod newmethod, t_method freemethod,
     }
     va_end(ap);
 
-    if (pd_objectmaker && newmethod) {
-        /* add a "new" method by the name specified by the object */
+    if (pd_objectmaker && newmethod)
+    {
+            /* add a "new" method by the name specified by the object */
         class_addmethod(pd_objectmaker, (t_method)newmethod, s,
             vec[0], vec[1], vec[2], vec[3], vec[4], vec[5]);
         if (class_loadsym) {
             /* if we're loading an extern it might have been invoked by a
                 longer file name; in this case, make this an admissible name
                 too. */
-            const char* loadstring = class_loadsym->s_name;
+            const char *loadstring = class_loadsym->s_name;
             size_t l1 = strlen(s->s_name), l2 = strlen(loadstring);
             if (l2 > l1 && !strcmp(s->s_name, loadstring + (l2 - l1)))
                 class_addmethod(pd_objectmaker, (t_method)newmethod,
@@ -449,8 +599,9 @@ t_class* class_new(t_symbol* s, t_newmethod newmethod, t_method freemethod,
     c->c_floatsignalin = 0;
     c->c_externdir = class_extern_dir;
     c->c_savefn = (typeflag == CLASS_PATCHABLE ? text_save : class_nosavefn);
+    c->c_classfreefn = 0;
 #if PDINSTANCE
-    c->c_methods = (t_methodentry**)t_getbytes(
+    c->c_methods = (t_methodentry **)t_getbytes(
         pd_ninstances * sizeof(*c->c_methods));
     for (i = 0; i < pd_ninstances; i++)
         c->c_methods[i] = t_getbytes(0);
@@ -459,13 +610,52 @@ t_class* class_new(t_symbol* s, t_newmethod newmethod, t_method freemethod,
 #else
     c->c_methods = t_getbytes(0);
 #endif
-#if 0 /* enable this if you want to see a list of all classes */
+#if 0       /* enable this if you want to see a list of all classes */
     post("class: %s", c->c_name->s_name);
 #endif
     return (c);
 }
 
-/* add a creation method, which is a function that returns a Pd object
+void class_free(t_class *c)
+{
+    int i;
+#if PDINSTANCE
+    t_class *prev;
+    if (class_list == c)
+        class_list = c->c_next;
+    else
+    {
+        prev = class_list;
+        while (prev->c_next != c)
+          prev = prev->c_next;
+        prev->c_next = c->c_next;
+    }
+#endif
+    if (c->c_classfreefn)
+        c->c_classfreefn(c);
+#if PDINSTANCE
+    for (i = 0; i < pd_ninstances; i++)
+        freebytes(c->c_methods[i], c->c_nmethod * sizeof(*c->c_methods[i]));
+    freebytes(c->c_methods, pd_ninstances * sizeof(*c->c_methods));
+#else
+    freebytes(c->c_methods, c->c_nmethod * sizeof(*c->c_methods));
+#endif
+    freebytes(c, sizeof(*c));
+}
+
+void class_setfreefn(t_class *c, t_classfreefn fn)
+{
+    c->c_classfreefn = fn;
+}
+
+#if PDINSTANCE
+t_class *class_getfirst(void)
+{
+    return class_list;
+}
+#endif
+
+    /* add a creation method, which is a function that returns a Pd object
     suitable for putting in an object box.  We presume you've got a class it
     can belong to, but this won't be used until the newmethod is actually
     called back (and the new method explicitly takes care of this.) */
@@ -498,10 +688,9 @@ void class_addmethod(t_class* c, t_method fn, t_symbol* sel,
     t_atomtype arg1, ...)
 {
     va_list ap;
-    t_methodentry* m;
     t_atomtype argtype = arg1;
     int nargs, i;
-    if (!c)
+    if(!c)
         return;
     va_start(ap, arg1);
     /* "signal" method specifies that we take audio signals but
@@ -534,10 +723,13 @@ void class_addmethod(t_class* c, t_method fn, t_symbol* sel,
         if (argtype != A_GIMME)
             goto phooey;
         class_addanything(c, fn);
-    } else {
-        t_atomtype argvec[MAXPDARG + 1];
+    }
+    else
+    {
+        t_atomtype argvec[MAXPDARG+1];
         nargs = 0;
-        while (argtype != A_NULL && nargs < MAXPDARG) {
+        while (argtype != A_NULL && nargs < MAXPDARG)
+        {
             argvec[nargs++] = argtype;
             argtype = va_arg(ap, t_atomtype);
         }
@@ -546,10 +738,11 @@ void class_addmethod(t_class* c, t_method fn, t_symbol* sel,
                 c->c_name->s_name, sel->s_name);
         argvec[nargs] = 0;
 #ifdef PDINSTANCE
-        for (i = 0; i < pd_ninstances; i++) {
+        for (i = 0; i < pd_ninstances; i++)
+        {
             class_addmethodtolist(c, &c->c_methods[i], c->c_nmethod,
                 (t_gotfn)fn, dogensym(sel->s_name, 0, pd_instances[i]),
-                argvec, pd_instances[i]);
+                    argvec, pd_instances[i]);
         }
 #else
         class_addmethodtolist(c, &c->c_methods, c->c_nmethod,
@@ -569,96 +762,96 @@ done:
 /* Instead of these, see the "class_addfloat", etc.,  macros in m_pd.h */
 void class_addbang(t_class* c, t_method fn)
 {
-    if (!c)
+    if(!c)
         return;
     c->c_bangmethod = (t_bangmethod)fn;
 }
 
 void class_addpointer(t_class* c, t_method fn)
 {
-    if (!c)
+    if(!c)
         return;
     c->c_pointermethod = (t_pointermethod)fn;
 }
 
 void class_doaddfloat(t_class* c, t_method fn)
 {
-    if (!c)
+    if(!c)
         return;
     c->c_floatmethod = (t_floatmethod)fn;
 }
 
 void class_addsymbol(t_class* c, t_method fn)
 {
-    if (!c)
+    if(!c)
         return;
     c->c_symbolmethod = (t_symbolmethod)fn;
 }
 
 void class_addlist(t_class* c, t_method fn)
 {
-    if (!c)
+    if(!c)
         return;
     c->c_listmethod = (t_listmethod)fn;
 }
 
 void class_addanything(t_class* c, t_method fn)
 {
-    if (!c)
+    if(!c)
         return;
     c->c_anymethod = (t_anymethod)fn;
 }
 
-void class_setwidget(t_class* c, const t_widgetbehavior* w)
+void class_setwidget(t_class *c, const t_widgetbehavior *w)
 {
-    if (!c)
+    if(!c)
         return;
     c->c_wb = w;
 }
 
-void class_setparentwidget(t_class* c, const t_parentwidgetbehavior* pw)
+void class_setparentwidget(t_class *c, const t_parentwidgetbehavior *pw)
 {
-    if (!c)
+    if(!c)
         return;
     c->c_pwb = pw;
 }
 
-const char* class_getname(const t_class* c)
+const char *class_getname(const t_class *c)
 {
-    if (!c)
+    if(!c)
         return 0;
     return (c->c_name->s_name);
 }
 
-const char* class_gethelpname(const t_class* c)
+const char *class_gethelpname(const t_class *c)
 {
-    if (!c)
+    if(!c)
         return 0;
     return (c->c_helpname->s_name);
 }
 
 void class_sethelpsymbol(t_class* c, t_symbol* s)
 {
-    if (!c)
+    if(!c)
         return;
     c->c_helpname = s;
 }
 
-const t_parentwidgetbehavior* pd_getparentwidget(t_pd* x)
+const t_parentwidgetbehavior *pd_getparentwidget(t_pd *x)
 {
     return ((*x)->c_pwb);
 }
 
 void class_setdrawcommand(t_class* c)
 {
-    if (!c)
+    if(!c)
         return;
     c->c_drawcommand = 1;
 }
 
-int class_isdrawcommand(const t_class* c)
+int class_isdrawcommand(const t_class *c)
 {
-    if (!c)
+    if(!c)
         return 0;
     return (c->c_drawcommand);
 }
@@ -675,11 +868,11 @@ static void pd_floatforsignal(t_pd* x, t_float f)
 
 void class_domainsignalin(t_class* c, int onset)
 {
-    if (!c)
+    if(!c)
         return;
-    if (onset <= 0)
-        onset = -1;
-    else {
+    if (onset <= 0) onset = -1;
+    else
+    {
         if (c->c_floatmethod != pd_defaultfloat)
             post("warning: %s: float method overwritten", c->c_name->s_name);
         c->c_floatmethod = (t_floatmethod)pd_floatforsignal;
@@ -692,9 +885,9 @@ void class_set_extern_dir(t_symbol* s)
     class_extern_dir = s;
 }
 
-const char* class_gethelpdir(const t_class* c)
+const char *class_gethelpdir(const t_class *c)
 {
-    if (!c)
+    if(!c)
         return 0;
     return (c->c_externdir->s_name);
 }
@@ -706,28 +899,28 @@ static void class_nosavefn(t_gobj* z, t_binbuf* b)
 
 void class_setsavefn(t_class* c, t_savefn f)
 {
-    if (!c)
+    if(!c)
         return;
     c->c_savefn = f;
 }
 
-t_savefn class_getsavefn(const t_class* c)
+t_savefn class_getsavefn(const t_class *c)
 {
-    if (!c)
+    if(!c)
         return 0;
     return (c->c_savefn);
 }
 
 void class_setpropertiesfn(t_class* c, t_propertiesfn f)
 {
-    if (!c)
+    if(!c)
         return;
     c->c_propertiesfn = f;
 }
 
-t_propertiesfn class_getpropertiesfn(const t_class* c)
+t_propertiesfn class_getpropertiesfn(const t_class *c)
 {
-    if (!c)
+    if(!c)
         return 0;
     return (c->c_propertiesfn);
 }
@@ -744,13 +937,11 @@ t_symbol** pd_ceammc_gensym_hash_table()
 }
 // end ceammc
 
-/* ---------------- the symbol table ------------------------ */
-
-static t_symbol* dogensym(const char* s, t_symbol* oldsym,
-    t_pdinstance* pdinstance)
+static t_symbol *dogensym(const char *s, t_symbol *oldsym,
+    t_pdinstance *pdinstance)
 {
-    char* sym = 0;
-    t_symbol **sym1, *sym2;
+    char *symname = 0;
+    t_symbol **symhashloc, *sym2;
     unsigned int hash = 5381;
     int length = 0;
     const char* s2 = s;
@@ -760,22 +951,22 @@ static t_symbol* dogensym(const char* s, t_symbol* oldsym,
         length++;
         s2++;
     }
-    sym1 = pdinstance->pd_symhash + (hash & (SYMTABHASHSIZE - 1));
-    while ((sym2 = *sym1)) {
+    symhashloc = pdinstance->pd_symhash + (hash & (SYMTABHASHSIZE-1));
+    while ((sym2 = *symhashloc))
+    {
         if (!strcmp(sym2->s_name, s))
-            return (sym2);
-        sym1 = &sym2->s_next;
+            return(sym2);
+        symhashloc = &sym2->s_next;
     }
     if (oldsym)
         sym2 = oldsym;
-    else
-        sym2 = (t_symbol*)t_getbytes(sizeof(*sym2));
-    sym = t_getbytes(length + 1);
+    else sym2 = (t_symbol *)t_getbytes(sizeof(*sym2));
+    symname = t_getbytes(length+1);
     sym2->s_next = 0;
     sym2->s_thing = 0;
-    strcpy(sym, s);
-    sym2->s_name = sym;
-    *sym1 = sym2;
+    strcpy(symname, s);
+    sym2->s_name = symname;
+    *symhashloc = sym2;
     return (sym2);
 }
 
@@ -787,10 +978,9 @@ t_symbol* gensym(const char* s)
 static t_symbol* addfileextent(t_symbol* s)
 {
     char namebuf[MAXPDSTRING];
-    const char* str = s->s_name;
+    const char *str = s->s_name;
     int ln = (int)strlen(str);
-    if (!strcmp(str + ln - 3, ".pd"))
-        return (s);
+    if (!strcmp(str + ln - 3, ".pd")) return (s);
     strcpy(namebuf, str);
     strcpy(namebuf + ln, ".pd");
     return (gensym(namebuf));
@@ -799,7 +989,7 @@ static t_symbol* addfileextent(t_symbol* s)
 #define MAXOBJDEPTH 1000
 static int tryingalready;
 
-void canvas_popabstraction(t_canvas* x);
+void canvas_popabstraction(t_canvas *x);
 
 t_symbol* pathsearch(t_symbol* s, char* ext);
 int pd_setloadingabstraction(t_symbol* sym);
@@ -818,10 +1008,15 @@ void new_anything(void* dummy, t_symbol* s, int argc, t_atom* argv)
         error("object name \"%s\" not allowed", s->s_name);
         return;
     }
+    if (s == &s_anything){
+      error("object name \"%s\" not allowed", s->s_name);
+      return;
+    }
     pd_this->pd_newest = 0;
     class_loadsym = s;
     pd_globallock();
-    if (sys_load_lib(canvas_getcurrent(), s->s_name)) {
+    if (sys_load_lib(canvas_getcurrent(), s->s_name))
+    {
         tryingalready++;
         typedmess(dummy, s, argc, argv);
         tryingalready--;
@@ -860,8 +1055,8 @@ typedef t_pd* (*t_fun6)(t_int i1, t_int i2, t_int i3, t_int i4, t_int i5, t_int 
 
 void pd_typedmess(t_pd* x, t_symbol* s, int argc, t_atom* argv)
 {
-    t_method* f;
-    t_class* c = *x;
+    t_method *f;
+    t_class *c = *x;
     t_methodentry *m, *mlist;
     t_atomtype *wp, wanttype;
     int i;
@@ -903,11 +1098,54 @@ void pd_typedmess(t_pd* x, t_symbol* s, int argc, t_atom* argv)
     mlist = c->c_methods;
 #endif
     for (i = c->c_nmethod, m = mlist; i--; m++)
-        if (m->me_name == s) {
-            wp = m->me_arg;
-            if (*wp == A_GIMME) {
-                if (x == &pd_objectmaker)
-                    pd_this->pd_newest = (*((t_newgimme)(m->me_fun)))(s, argc, argv);
+        if (m->me_name == s)
+    {
+        wp = m->me_arg;
+        if (*wp == A_GIMME)
+        {
+            if (x == &pd_objectmaker)
+                pd_this->pd_newest =
+                    (*((t_newgimme)(m->me_fun)))(s, argc, argv);
+            else (*((t_messgimme)(m->me_fun)))(x, s, argc, argv);
+            return;
+        }
+        if (argc > MAXPDARG) argc = MAXPDARG;
+        if (x != &pd_objectmaker) *(ap++) = (t_int)x, narg++;
+        while ((wanttype = *wp++))
+        {
+            switch (wanttype)
+            {
+            case A_POINTER:
+                if (!argc) goto badarg;
+                else
+                {
+                    if (argv->a_type == A_POINTER)
+                        *ap = (t_int)(argv->a_w.w_gpointer);
+                    else goto badarg;
+                    argc--;
+                    argv++;
+                }
+                narg++;
+                ap++;
+                break;
+            case A_FLOAT:
+                if (!argc) goto badarg;  /* falls through */
+            case A_DEFFLOAT:
+                if (!argc) *dp = 0;
+                else
+                {
+                    if (argv->a_type == A_FLOAT)
+                        *dp = argv->a_w.w_float;
+                    else goto badarg;
+                    argc--;
+                    argv++;
+                }
+                dp++;
+                break;
+            case A_SYMBOL:
+                if (!argc) goto badarg;  /* falls through */
+            case A_DEFSYM:
+                if (!argc) *ap = (t_int)(&s_);
                 else
                     (*((t_messgimme)(m->me_fun)))(x, s, argc, argv);
                 return;
@@ -1008,6 +1246,32 @@ void pd_typedmess(t_pd* x, t_symbol* s, int argc, t_atom* argv)
                 pd_this->pd_newest = bonzo;
             return;
         }
+
+        switch (narg)
+        {
+        case 0 : bonzo = (*(t_fun0)(m->me_fun))
+            (ad[0], ad[1], ad[2], ad[3], ad[4]); break;
+        case 1 : bonzo = (*(t_fun1)(m->me_fun))
+            (ai[0], ad[0], ad[1], ad[2], ad[3], ad[4]); break;
+        case 2 : bonzo = (*(t_fun2)(m->me_fun))
+            (ai[0], ai[1], ad[0], ad[1], ad[2], ad[3], ad[4]); break;
+        case 3 : bonzo = (*(t_fun3)(m->me_fun))
+            (ai[0], ai[1], ai[2], ad[0], ad[1], ad[2], ad[3], ad[4]); break;
+        case 4 : bonzo = (*(t_fun4)(m->me_fun))
+            (ai[0], ai[1], ai[2], ai[3],
+                ad[0], ad[1], ad[2], ad[3], ad[4]); break;
+        case 5 : bonzo = (*(t_fun5)(m->me_fun))
+            (ai[0], ai[1], ai[2], ai[3], ai[4],
+                ad[0], ad[1], ad[2], ad[3], ad[4]); break;
+        case 6 : bonzo = (*(t_fun6)(m->me_fun))
+            (ai[0], ai[1], ai[2], ai[3], ai[4], ai[5],
+                ad[0], ad[1], ad[2], ad[3], ad[4]); break;
+        default: bonzo = 0;
+        }
+        if (x == &pd_objectmaker)
+            pd_this->pd_newest = bonzo;
+        return;
+    }
     (*c->c_anymethod)(x, s, argc, argv);
     return;
 badarg:
@@ -1078,9 +1342,9 @@ void pd_forwardmess(t_pd* x, int argc, t_atom* argv)
 
 void nullfn(void) {}
 
-t_gotfn getfn(const t_pd* x, t_symbol* s)
+t_gotfn getfn(const t_pd *x, t_symbol *s)
 {
-    const t_class* c = *x;
+    const t_class *c = *x;
     t_methodentry *m, *mlist;
     int i;
 
@@ -1090,15 +1354,15 @@ t_gotfn getfn(const t_pd* x, t_symbol* s)
     mlist = c->c_methods;
 #endif
     for (i = c->c_nmethod, m = mlist; i--; m++)
-        if (m->me_name == s)
-            return (m->me_fun);
+        if (m->me_name == s) return(m->me_fun);
+
     pd_error(x, "%s: no method for message '%s'", c->c_name->s_name, s->s_name);
     return ((t_gotfn)nullfn);
 }
 
-t_gotfn zgetfn(const t_pd* x, t_symbol* s)
+t_gotfn zgetfn(const t_pd *x, t_symbol *s)
 {
-    const t_class* c = *x;
+    const t_class *c = *x;
     t_methodentry *m, *mlist;
     int i;
 
@@ -1108,18 +1372,18 @@ t_gotfn zgetfn(const t_pd* x, t_symbol* s)
     mlist = c->c_methods;
 #endif
     for (i = c->c_nmethod, m = mlist; i--; m++)
-        if (m->me_name == s)
-            return (m->me_fun);
-    return (0);
+
+        if (m->me_name == s) return(m->me_fun);
+    return(0);
 }
 
-void c_extern(t_externclass* cls, t_newmethod newroutine,
-    t_method freeroutine, t_symbol* name, size_t size, int tiny,
+void c_extern(t_externclass *cls, t_newmethod newroutine,
+    t_method freeroutine, t_symbol *name, size_t size, int tiny, \
     t_atomtype arg1, ...)
 {
     bug("'c_extern' not implemented.");
 }
-void c_addmess(t_method fn, t_symbol* sel, t_atomtype arg1, ...)
+void c_addmess(t_method fn, t_symbol *sel, t_atomtype arg1, ...)
 {
     bug("'c_addmess' not implemented.");
 }

@@ -787,4 +787,3 @@ external GUI object uses obsolete Pd function iemgui_all_colfromload()");
         iemgui->x_lcol = iemgui_color_hex[bflcol[2]];
     }
 }
-

@@ -66,4 +66,3 @@ deploy:
   on:
     branch: deploy
     condition: ${CEAMMC_BUILD_TYPE} = Release
-
