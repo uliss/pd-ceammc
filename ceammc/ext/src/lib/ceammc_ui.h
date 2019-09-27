@@ -875,6 +875,11 @@ public:
 
     static void mouseWheel(UI* z, t_object* view, t_pt pt, long modifiers, double delta)
     {
+// fix win32 mouse wheel value on TCL 8.6
+#ifdef  __WIN32
+        delta /= 120;
+#endif
+
 #ifdef __APPLE__
         z->onMouseWheel(view, pt, modifiers, delta);
 #else
