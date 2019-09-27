@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>dac~ with channel ranges</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>base</category>
             <keywords>base</keywords>

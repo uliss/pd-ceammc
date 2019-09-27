@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>get list of dict keys</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>data</category>
             <keywords>list keys dictionary</keywords>

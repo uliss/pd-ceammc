@@ -10,7 +10,7 @@
                 <author>Thomas Le Meur</author>
             </authors>
             <description>signal inlet for a patcher loaded by hoa.process~</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>spat</category>
             <keywords>hoa outlet</keywords>

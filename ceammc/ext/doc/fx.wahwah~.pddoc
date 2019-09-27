@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>digitized CryBaby wah pedal</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>fx</category>
             <keywords>wahwah guitar crybaby</keywords>

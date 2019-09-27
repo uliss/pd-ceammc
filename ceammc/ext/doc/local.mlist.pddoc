@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>local named mlist object</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>local</category>
             <keywords>mlist local global</keywords>

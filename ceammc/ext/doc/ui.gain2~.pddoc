@@ -7,7 +7,7 @@
                 <author>Serge Potlavsky</author>
             </authors>
             <description>UI stereo gain control</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category view="link">ui</category>
             <keywords>ui gain</keywords>

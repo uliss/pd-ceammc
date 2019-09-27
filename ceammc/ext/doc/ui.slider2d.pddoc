@@ -8,7 +8,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>2D slider widget</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category view="link">ui</category>
             <keywords>ui slider</keywords>

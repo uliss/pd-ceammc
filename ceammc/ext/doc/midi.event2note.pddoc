@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>convert MidiEvent message to midi note/velocity pair</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>midi</category>
             <keywords>midi track</keywords>

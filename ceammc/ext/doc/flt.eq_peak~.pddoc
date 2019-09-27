@@ -9,7 +9,7 @@
             </authors>
             <description>second order "peaking equalizer" section (gain boost or cut near some
             frequency). Also called a "parametric equalizer" section.</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>flt</category>
             <keywords>filter equalizer</keywords>

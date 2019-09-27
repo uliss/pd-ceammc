@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>Wurlitzer electric piano FM synthesis instrument</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>synth</category>
             <keywords>wurlitzer synth fm</keywords>

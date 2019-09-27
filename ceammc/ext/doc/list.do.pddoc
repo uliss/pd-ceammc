@@ -7,7 +7,7 @@
                 <author>Alex Nadzharov</author>
             </authors>
             <description>iterate and modify list contents via side-chain</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>
             <keywords>list</keywords>

@@ -8,7 +8,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>frequency shifter or single-sideband ring modulation</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>fx</category>
             <keywords>fx freqshift</keywords>

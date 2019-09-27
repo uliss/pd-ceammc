@@ -7,7 +7,7 @@
                 <author>Pierre Guillot</author>
             </authors>
             <description>A bang... that's all</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category view="link">ui</category>
             <keywords>ui bang</keywords>

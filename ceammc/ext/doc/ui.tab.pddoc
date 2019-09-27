@@ -8,7 +8,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>displays a list of text buttons or text toggles</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category view="link">ui</category>
             <keywords>ui tab</keywords>

@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>noise.lfreq0~ smoothed with no overshoot</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>noise</category>
             <keywords>noise lfreq</keywords>

@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>map linear to exponential range with 0 allowed.</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>conv</category>
             <keywords>convert exponential curve</keywords>
