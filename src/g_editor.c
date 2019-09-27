@@ -2658,9 +2658,8 @@ static void canvas_doconnect(t_canvas *x, int xpos, int ypos, int mod, int doit)
     int xwas = x->gl_editor->e_xwas,
         ywas = x->gl_editor->e_ywas;
 #if 0
-    post("canvas_doconnect(%p, %d, %d, %d, %d)", x, xpos, ypos, which, doit);
+    post("canvas_doconnect(%p, %d, %d, %d, %d)", x, xpos, ypos, mod, doit);
 #endif
-
     if (doit)
         g_selection_clear(x);
     else
@@ -3387,7 +3386,7 @@ static void canvas_zoom(t_canvas *x, t_floatarg zoom)
                 (!(pd_class(&obj->te_pd) == canvas_class) ||
                  (((t_glist *)obj)->gl_isgraph)))
                     (*(t_zoomfn)zoommethod)(&obj->te_pd, zoom);
-            }
+        }
         x->gl_zoom = zoom;
         if (x->gl_havewindow)
         {
