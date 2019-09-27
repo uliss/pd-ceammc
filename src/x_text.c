@@ -2349,3 +2349,4 @@ void x_qlist_setup(void)
         A_DEFSYM, 0);
     class_addbang(textfile_class, textfile_bang);
 }
+

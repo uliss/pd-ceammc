@@ -3510,3 +3510,4 @@ void dstsub(int n, FFTFLT *a, int nc, FFTFLT *c)
     }
     a[m] *= c[0];
 }
+

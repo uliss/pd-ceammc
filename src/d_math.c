@@ -801,3 +801,4 @@ void d_math_setup(void)
     class_sethelpsymbol(dbtopow_tilde_class, s);
     class_sethelpsymbol(powtodb_tilde_class, s);
 }
+
