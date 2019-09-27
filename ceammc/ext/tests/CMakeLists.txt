@@ -421,9 +421,11 @@ ceammc_add_test_linked(TITLE "[env->to_array]"
     NAME test_ext_env_to_array
     LINK tests_main_lib ceammc_array ceammc_env ceammc_array ceammc_core puredata-core)
 
-ceammc_add_test_linked(TITLE "[speech.flite]"
-    NAME test_ext_misc_speech_flite
-    LINK ceammc_core ceammc_misc ceammc_string puredata-core ${FLUIDSYNTH_LIBRARIES})
+if(WITH_TTS_FLITE)
+    ceammc_add_test_linked(TITLE "[speech.flite]"
+        NAME test_ext_misc_speech_flite
+        LINK ceammc_core ceammc_misc ceammc_string puredata-core ${FLUIDSYNTH_LIBRARIES})
+endif()
 
 add_executable(test_pd_core test_pd_core.cpp)
 target_link_libraries(test_pd_core puredata-core)
