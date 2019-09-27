@@ -1538,3 +1538,4 @@ void binbuf_savetext(const t_binbuf *bfrom, t_binbuf *bto)
     }
     binbuf_addsemi(bto);
 }
+
