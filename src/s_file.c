@@ -33,7 +33,7 @@
 #define snprintf _snprintf
 #endif
 
-void sys_doflags( void);
+void sys_doflags(void);
 
 static PERTHREAD char *sys_prefbuf;
 static PERTHREAD int sys_prefbufsize;
@@ -106,7 +106,7 @@ static int sys_getpreference_file(const char *key, char *value, int size)
     return (1);
 }
 
-static void sys_doneloadpreferences_file( void)
+static void sys_doneloadpreferences_file(void)
 {
     if (sys_prefbuf)
         free(sys_prefbuf);
@@ -125,7 +125,7 @@ static void sys_putpreference_file(const char *key, const char *value)
             key, value);
 }
 
-static void sys_donesavepreferences_file( void)
+static void sys_donesavepreferences_file(void)
 {
     if (sys_prefsavefp)
     {
@@ -138,7 +138,7 @@ static void sys_donesavepreferences_file( void)
 /*****  linux/android/BSD etc: read and write to ~/.pd_ceammc_settings file ******/
 #if !defined(_WIN32) && !defined(__APPLE__)
 
-static void sys_initloadpreferences( void)
+static void sys_initloadpreferences(void)
 {
     char filenamebuf[MAXPDSTRING], *homedir = getenv("HOME");
     int fd, length;
@@ -165,12 +165,12 @@ static int sys_getpreference(const char *key, char *value, int size)
     return (sys_getpreference_file(key, value, size));
 }
 
-static void sys_doneloadpreferences( void)
+static void sys_doneloadpreferences(void)
 {
     sys_doneloadpreferences_file();
 }
 
-static void sys_initsavepreferences( void)
+static void sys_initsavepreferences(void)
 {
     char filenamebuf[MAXPDSTRING],
         *homedir = getenv("HOME");
@@ -188,14 +188,14 @@ static void sys_putpreference(const char *key, const char *value)
     sys_putpreference_file(key, value);
 }
 
-static void sys_donesavepreferences( void)
+static void sys_donesavepreferences(void)
 {
     sys_donesavepreferences_file();
 }
 
 #else  /* !defined(_WIN32) && !defined(__APPLE__) */
 
-static void sys_initloadpreferences( void)
+static void sys_initloadpreferences(void)
 {
     if (sys_prefbuf)
         bug("sys_initloadpreferences");

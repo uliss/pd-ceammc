@@ -251,8 +251,8 @@ proc ::dialog_audio::pdtk_audio_dialog {mytoplevel \
         pack $mytoplevel.inputs.in4f -side top
 
         checkbutton $mytoplevel.inputs.in4f.x0 -variable audio_inenable4 \
-            -text [_ "4:"] -anchor e
-        button $mytoplevel.inputs.in4f.x1 -text [lindex $audio_indevlist $audio_indev4] -width 20 \
+            -text "4:" -anchor e
+        button $mytoplevel.inputs.in4f.x1 -text [lindex $audio_indevlist $audio_indev4] \
             -command [list audio_popup $mytoplevel $mytoplevel.inputs.in4f.x1 audio_indev4 \
                 $audio_indevlist]
         label $mytoplevel.inputs.in4f.l2 -text [_ "Channels:"]
@@ -271,7 +271,7 @@ proc ::dialog_audio::pdtk_audio_dialog {mytoplevel \
     pack $mytoplevel.outputs.out1f -side top -fill x
 
     checkbutton $mytoplevel.outputs.out1f.x0 -variable audio_outenable1 \
-        -text [_ "1:"] -anchor e
+        -text "1:" -anchor e
     if {$multi == 0} {
         label $mytoplevel.outputs.out1f.l1 \
             -text [_ "(same as input device)..."]
@@ -346,8 +346,8 @@ proc ::dialog_audio::pdtk_audio_dialog {mytoplevel \
     # restart with longform set.
     if {$longform == 0 && $multi > 1} {
         frame $mytoplevel.longbutton
-        pack $mytoplevel.longbutton -side top
-        button $mytoplevel.longbutton.b -text [_ "Use multiple devices"] \
+        pack $mytoplevel.longbutton -side top -fill x
+        button $mytoplevel.longbutton.b -text [_ "Use Multiple Devices"] \
             -command  {pdsend "pd audio-properties 1"}
         pack $mytoplevel.longbutton.b -expand 1 -ipadx 10 -pady 5
     }
@@ -359,7 +359,7 @@ proc ::dialog_audio::pdtk_audio_dialog {mytoplevel \
 
     # buttons
     frame $mytoplevel.buttonframe
-    pack $mytoplevel.buttonframe -side top -after $mytoplevel.saveall -fill x -pady 2m
+    pack $mytoplevel.buttonframe -side top -after $mytoplevel.saveall -pady 2m
     button $mytoplevel.buttonframe.cancel -text [_ "Cancel"] \
         -command "::dialog_audio::cancel $mytoplevel"
     pack $mytoplevel.buttonframe.cancel -side left -expand 1 -fill x -padx 15 -ipadx 10

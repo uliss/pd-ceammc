@@ -17,7 +17,7 @@ namespace eval ::dialog_message:: {
 proc ::dialog_message::get_history {direction} {
     variable message_history
     variable history_position
-    
+
     incr history_position $direction
     if {$history_position < 0} {set history_position 0}
     if {$history_position > [llength $message_history]} {

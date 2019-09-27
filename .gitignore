@@ -1,7 +1,13 @@
-*.o
-TAGS
-*.o
-TAGS
+# binaries
+bin
+src/pd
+src/pd-watchdog
+src/pdreceive
+src/pdsend
+*.app
+*.exe
+
+# autotools
 autom4te.cache
 Makefile
 Makefile.in
@@ -15,22 +21,35 @@ libtool
 m4/generated
 m4/config
 makefile.dependencies
+dist
+tags
+tcl/pd-gui
+
+# build
+*.o
+lib*.a
+
+# libtool
 .deps
 .libs
 *.lo
 *.la
+
+# externals
 *.pd_linux
 *.pd_darwin
 *.d_fat
 *.d_fat_o
-po/*.msg
-bin
-src/makefile
-src/pd
-src/pd-watchdog
-src/pdreceive
-src/pdsend
-ASIOSDK2
+*.dll
+
+# windows build artifacts
+src/*.com
+src/*.def
+src/*.lib
+src/*.res
+src/*.a
+
+# distribution tarballs
 pd-0.*
 dist
 *.creator

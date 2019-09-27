@@ -17,7 +17,8 @@ release checklist
             scp tarballs back to linux
         ... compile on windows:
             cd msw
-            ./send-msw.sh <version>
+            ./sbuild-msw-64.sh <version>
+            ./sbuild-msw-32.sh <version>
     git tag (to see existing tags)
     git tag 0.43-3test1 (e.g.)
     git push origin
@@ -42,6 +43,6 @@ rpm building (inactive)
     rpmbuild -bb rpmspec-alsa
     check size of compressed files:
         /usr/src/redhat/SRPMS/pd-0.36-0.src.rpm
-        /usr/src/redhat/RPMS/i386/pd-0.36-0.i386.rpm 
+        /usr/src/redhat/RPMS/i386/pd-0.36-0.i386.rpm
         /usr/src/redhat/RPMS/i386/pd-alsa-0.36-0.i386.rpm
     copy from /usr/src/redhat/RPMS/i386 and /usr/src/redhat/SRPMS
