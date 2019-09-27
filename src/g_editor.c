@@ -1511,26 +1511,6 @@ void *canvas_undo_set_create(t_canvas *x)
             }
         }
     }
-
-        /* instantiate num_obj and fill array of positions of selected objects */
-    if (mode == UCUT_CUT || mode == UCUT_CLEAR)
-    {
-        if (x->gl_list)
-        {
-            int i = 0, j = 0;
-            t_gobj *y;
-            for (y = x->gl_list; y; y = y->g_next)
-            {
-                if (glist_isselected(x, y))
-                {
-                    buf->p_a[i] = j;
-                    i++;
-                }
-                j++;
-            }
-        }
-    }
-
     return (buf);
 }
 
@@ -1694,17 +1674,6 @@ void *canvas_undo_set_font(t_canvas *x, int font, t_float resize, int which)
     u_f->which = which;
     return (u_f);
 }
-void *canvas_undo_set_pastebinbuf(t_canvas *x, t_binbuf *b,
-    int numpasted, int duplicate, int d_offset)
-{
-    t_binbuf*tmpbuf = EDITOR->copy_binbuf;
-    void*ret=0;
-    EDITOR->copy_binbuf = b;
-    ret = canvas_undo_set_paste(x, numpasted, duplicate, d_offset);
-    EDITOR->copy_binbuf = tmpbuf;
-    return ret;
-}
-
 
 int canvas_undo_font(t_canvas *x, void *z, int action)
 {
