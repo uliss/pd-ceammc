@@ -3,9 +3,8 @@
 * WARRANTIES, see the file, "LICENSE.txt," in this distribution.  */
 
 #define PD_CLASS_DEF
-#include "g_canvas.h"
-#include "m_imp.h"
 #include "m_pd.h"
+#include "m_imp.h"
 #include "s_stuff.h"
 #include "g_canvas.h"
 #include <stdlib.h>
