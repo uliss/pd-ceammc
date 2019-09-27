@@ -1,6 +1,6 @@
 # pm_common
 
-# set the build directory for libportmidi.a to be in portmidi, not in 
+# set the build directory for libportmidi.a to be in portmidi, not in
 #    portmidi/pm_common
 if(APPLE OR WIN32)
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
@@ -32,7 +32,7 @@ macro(prepend_path RESULT PATH)
     endforeach()
 endmacro()
 
-set(CMAKE_C_FLAGS_DEBUG 
+set(CMAKE_C_FLAGS_DEBUG
     "${DEFAULT_DEBUG_FLAGS} -DPM_CHECK_ERRORS=1 -DDEBUG ${LINUX_FLAGS}"
     CACHE STRING "enable extra checks for debugging" FORCE)
 
@@ -80,7 +80,6 @@ else(UNIX)
     if(WIN32)
         # /MDd is multithread debug DLL, /MTd is multithread debug
         # /MD is multithread DLL, /MT is multithread. Change to static:
-        include(../pm_win/static.cmake)
         include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../porttime)
 
         set(WINSRC pmwin pmwinmm)
