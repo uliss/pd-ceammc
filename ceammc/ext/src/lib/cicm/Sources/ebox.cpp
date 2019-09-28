@@ -825,6 +825,9 @@ static t_pt ebox_calc_pos(t_ebox* x, t_glist* glist)
         pos.y = x->b_obj.o_obj.te_ypix;
     }
 
+    pos.x *= x->b_zoom;
+    pos.y *= x->b_zoom;
+
     return pos;
 }
 
