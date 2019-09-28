@@ -1,6 +1,6 @@
 # CEAMMC external library changelog
 
-## [Unreleased]
+## [0.8]
 ### Added:
 - conv.car2pol converter from Cartesian to Polar coordinates added (with alias car->pol)
 - conv.pol2car converter from Polar to Cartesian coordinates added (with alias pol->car)

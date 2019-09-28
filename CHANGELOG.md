@@ -1,7 +1,9 @@
 # CEAMMC Pd distribution changelog
 
-## [Unreleased]
+## [2019.10]
 ### Added:
+- migration to Pd version 0.50 done
+- **CEAMMC** external library v0.8 - [ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)
 
 ## [2019.04]
 - migration to Pd version 0.49 done

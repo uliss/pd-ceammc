@@ -226,6 +226,7 @@ void canvas_obj(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
 
 /* make an object box for an object that's already there. */
 
+// ceammc
 void canvas_ceammcgui(t_glist *gl, t_symbol *guiobjname)
 {
     t_atom at;
@@ -237,8 +238,10 @@ void canvas_ceammcgui(t_glist *gl, t_symbol *guiobjname)
     SETSYMBOL(&at, guiobjname);
     binbuf_restore(b, 1, &at);
     glist_getnextxy(gl, &xpix, &ypix);
-    canvas_objtext(gl, xpix, ypix, 0, 1, b);
+    canvas_objtext(gl, xpix/gl->gl_zoom, ypix/gl->gl_zoom, 0, 1, b);
     canvas_startmotion(glist_getcanvas(gl));
+    canvas_undo_add(glist_getcanvas(gl), UNDO_CREATE, "create",
+        (void *)canvas_undo_set_create(glist_getcanvas(gl)));
 }
 
 void canvas_knob(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
@@ -285,6 +288,7 @@ void canvas_preset(t_glist *gl, t_symbol *s, int argc, t_atom *argv)
 {
     canvas_ceammcgui(gl, gensym("ui.preset"));
 }
+// ceammc end
 
 
 /* iemlib */
