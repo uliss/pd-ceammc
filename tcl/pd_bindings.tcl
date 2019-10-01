@@ -393,38 +393,37 @@ proc ::pd_bindings::sendkey {window state key iso shift {keycode ""} } {
         catch {set iso [dict get $::pd_bindings::key2iso $keycode] }
     }
 
-    switch -- [string length $iso] {
-        0 {
-            switch -- $key {
-                "BackSpace" { set key   8 }
-                "Tab"       { set key   9 }
-                "Return"    { set key  10 }
-                "Escape"    { set key  27 }
-                "Space"     { set key  32 }
-                "space"     { set key  32 }
-                "Delete"    { set key 127 }
-                "KP_Delete" { set key 127 }
-                "KP_Enter"  { set key  10 }
-                default     {             }
-            }
-        }
-        1 {
-            scan $iso %c key
-            if { "$key" eq "13" } { set key 10 }
-            catch {
-                if { "" eq "${::pd_bindings::key2iso}" } {
-                    set ::pd_bindings::key2iso [dict create]
+    switch -- $key {
+        "BackSpace" { set key   8 }
+        "Tab"       { set key   9 }
+        "Return"    { set key  10 }
+        "Escape"    { set key  27 }
+        "Space"     { set key  32 }
+        "space"     { set key  32 }
+        "Delete"    { set key 127 }
+        "KP_Delete" { set key 127 }
+        "KP_Enter"  { set key  10 }
+        default     {
+            switch -- [string length $iso] {
+                1 {
+                    scan $iso %c key
+                    if { "$key" eq "13" } { set key 10 }
+                    catch {
+                        if { "" eq "${::pd_bindings::key2iso}" } {
+                            set ::pd_bindings::key2iso [dict create]
+                        }
+                        # store the key2iso mapping
+                        dict set ::pd_bindings::key2iso $keycode $iso
+                    }
                 }
-                # store the key2iso mapping
-                dict set ::pd_bindings::key2iso $keycode $iso
+                default {
+                    # split a multi-char $iso in single chars
+                    foreach k [split $iso {}] {
+                        ::pd_bindings::sendkey $window $state $key $k $shift $keycode
+                    }
+                    return
+                }
             }
-        }
-        default {
-            # split a multi-char $iso in single chars
-            foreach k [split $iso {}] {
-                ::pd_bindings::sendkey $window $state $key $k $shift $keycode
-            }
-            return
         }
     }
 
