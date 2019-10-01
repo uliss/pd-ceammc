@@ -82,7 +82,8 @@ TEST_CASE("net.host->ip", "[externals]")
         t.sendSymbol(gensym("localhost"));
         test::pdRunMainLoopMs(100);
         REQUIRE(t.hasOutputAt(0));
-        REQUIRE(t.outputSymbolAt(0)->s_name == std::string("::1"));
+        REQUIRE(t.isOutputListAt(0));
+        REQUIRE(t.outputListAt(0).contains(A("::1")));
 #endif
     }
 }
