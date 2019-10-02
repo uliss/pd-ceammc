@@ -23,8 +23,8 @@
 -49933 0;
 #X msg 110 341 @relative;
 #X text 245 341 Get/Set relative output mode: if on output coords relative
-to window \, otherwise output screen coordinates. Type: int. Allowed
-values: 0 \, 1\.;
+to window \, otherwise output screen coordinates. Type: int. Default
+value: 0\. Allowed values: 0 \, 1\.;
 #X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 413 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
