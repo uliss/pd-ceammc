@@ -42,6 +42,7 @@
   - math.sync_and (math.&&', &&')
   - math.sync_or (math.||', ||')
   - math.sync_xor (math.^', ^')
+- system.cursor @relative property added to output coords relative to window
 
 ### Changed:
 - ui.tab in single mode outputs like ui.menu: list pair - INDEX TAB_NAME

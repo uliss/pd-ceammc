@@ -22,6 +22,7 @@ using namespace ceammc;
 class SystemCursor : public BaseObject {
     bool is_polling_;
     ClockMemberFunction<SystemCursor> clock_;
+    BoolProperty* relative_;
 
 public:
     SystemCursor(const PdArgs& args);

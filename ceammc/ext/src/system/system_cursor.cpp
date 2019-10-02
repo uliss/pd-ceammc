@@ -12,12 +12,14 @@
  * this file belongs to.
  *****************************************************************************/
 #include "system_cursor.h"
+#include "ceammc_canvas.h"
 #include "ceammc_factory.h"
 #include "system_cursor_tcl.h"
 
 #include <cinttypes>
 
 extern "C" {
+#include "g_canvas.h"
 #include "m_imp.h"
 }
 
@@ -29,12 +31,16 @@ SystemCursor::SystemCursor(const PdArgs& args)
     : BaseObject(args)
     , is_polling_(false)
     , clock_(this, &SystemCursor::clockTick)
+    , relative_(nullptr)
 {
     createOutlet();
 
     char buf[MAXPDSTRING];
     sprintf(buf, "#%" PRIxPTR, reinterpret_cast<uintptr_t>(this));
     bindReceive(gensym(buf));
+
+    relative_ = new BoolProperty("@relative", false);
+    createProperty(relative_);
 }
 
 SystemCursor::~SystemCursor()
@@ -76,7 +82,15 @@ void SystemCursor::m_button(t_symbol* s, const AtomList& args)
 
 void SystemCursor::m_motion(t_symbol* s, const AtomList& args)
 {
-    anyTo(0, s, args);
+    if (!relative_->value()) {
+        anyTo(0, s, args);
+    } else {
+        if (checkArgs(args, ARG_FLOAT, ARG_FLOAT)) {
+            t_canvas* cnv = canvas_getrootfor(canvas());
+            auto r = canvas_info_rect(cnv);
+            anyTo(0, s, { args[0].asFloat() - r.x, args[1].asFloat() - r.y });
+        }
+    }
 }
 
 void SystemCursor::m_wheel(t_symbol* s, const AtomList& args)

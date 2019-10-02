@@ -1414,7 +1414,7 @@
     </entry>
   </category>
   <category name="system">
-    <entry descr="Get information about cursor motion, mousewheel and buttonclick" name="system.cursor" ref_view="object">
+    <entry descr="Output cursor motion, mousewheel and buttonclicks" name="system.cursor" ref_view="object">
       <xi:include href="system.cursor.pddoc" parse="xml"/>
     </entry>
     <entry descr="Get system environment variables" name="system.getenv" ref_view="object">

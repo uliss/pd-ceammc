@@ -5,15 +5,19 @@
         <meta>
             <authors>
                 <author>Hans-Christoph Steiner</author>
+                <author>Serge Poltavski</author>
             </authors>
-            <description>Get information about cursor motion, mousewheel and
-            buttonclick</description>
+            <description>Output cursor motion, mousewheel and buttonclicks</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>system</category>
-            <keywords>cursor mouse</keywords>
+            <keywords>cursor mouse mousewheel</keywords>
             <since>0.1</since>
         </meta>
+        <properties>
+            <property name="@relative" type="int" enum="0 1">relative output mode: if on output
+            coords relative to window, otherwise output screen coordinates</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">output cursor position</xinfo>
@@ -22,16 +26,16 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>messages: motion, mousewheel, button</outlet>
+            <outlet>messages: motion X Y, mousewheel DELTA, button IDX STATE</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[T]
-|
-|  [bang(
-|  |
-[system.cursor]
+[T]             [T]
+|               |
+|  [bang(       [@relative $1(
+|  |            |
+[system.cursor  ]
 |
 [route motion mousewheel button]
 |          ^|   ^^|
