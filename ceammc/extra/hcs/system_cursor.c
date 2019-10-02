@@ -31,7 +31,7 @@ typedef struct _cursor {
 
 static void cursor_bang(t_cursor* x)
 {
-    sys_vgui("pdsend \"%s motion [winfo pointerxy .]\"",
+    sys_vgui("pdsend \"%s motion [winfo pointerxy .]\"\n",
         x->receive_symbol->s_name);
 }
 
