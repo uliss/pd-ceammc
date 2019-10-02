@@ -5,6 +5,9 @@
 - migration to Pd version 0.50 done
 - **CEAMMC** external library v0.8 - [ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)
 
+### Removed:
+- hcs external removed (because system.cursor and system.colorpanel are moved into ceammc library)
+
 ## [2019.04]
 - migration to Pd version 0.49 done
 - **CEAMMC** external library v0.7.1 - [ceammc/CHANGELOG.md](ceammc/CHANGELOG.md)
