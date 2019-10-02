@@ -4,7 +4,6 @@ include(../../ext/src/ceammc_pd.cmake)
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
 ceammc_c_extension(system colorpanel)
-ceammc_c_extension(system cursor)
 
 file(GLOB _hcs_tcl_files "*.tcl")
 file(GLOB _hcs_help_files "*.pd")
