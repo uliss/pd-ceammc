@@ -3,15 +3,12 @@ include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/subprocess/tiny-process-l
 
 set(SYSTEM_SOURCES "")
 set(SYSTEM_CURSOR_TCL system_cursor.tcl)
-set(SYSTEM_CURSOR_TCL_H system_cursor_tcl.h)
-set(SYSTEM_CURSOR_TCL_INIT system_cursor_tcl_init)
-
-add_compile_definitions(SYSTEM_CURSOR_TCL_INIT=${SYSTEM_CURSOR_TCL_INIT})
+set(SYSTEM_CURSOR_TCL_H system_cursor.tcl.h)
 
 add_custom_target(system_cursor_tcl
     DEPENDS ${SYSTEM_CURSOR_TCL}
     SOURCES ${SYSTEM_CURSOR_TCL} ${SYSTEM_CURSOR_TCL_H}
-    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/../ui/tcl_to_c.sh ${SYSTEM_CURSOR_TCL} ${SYSTEM_CURSOR_TCL_INIT} > ${SYSTEM_CURSOR_TCL_H}
+    COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh ${SYSTEM_CURSOR_TCL}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
 macro(ceammc_system_extension name)

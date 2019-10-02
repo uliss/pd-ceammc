@@ -14,7 +14,7 @@
 #include "system_cursor.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
-#include "system_cursor_tcl.h"
+#include "system_cursor.tcl.h".
 
 #include <cinttypes>
 
@@ -135,6 +135,6 @@ void setup_system_cursor()
     obj.addMethod("motion", &SystemCursor::m_motion);
     obj.addMethod("mousewheel", &SystemCursor::m_wheel);
 
-    SYSTEM_CURSOR_TCL_INIT();
+    sys_gui(system_cursor_tcl);
     sys_vgui("::ceammc::cursor::setup %s\n", SYM_CURSOR_BIND->s_name);
 }
