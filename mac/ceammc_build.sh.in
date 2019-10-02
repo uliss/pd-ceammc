@@ -1,303 +1,458 @@
 #!/bin/bash
-SRC_DIR=@PROJECT_SOURCE_DIR@
-BUILD_DIR=@PROJECT_BINARY_DIR@
-WISH=wish-shell.tgz
+
+##############
+# VARS
+##############
+
+# from CMake
+SRC_DIR="@PROJECT_SOURCE_DIR@"
+BUILD_DIR="@PROJECT_BINARY_DIR@"
+DIST_DIR="@PROJECT_BINARY_DIR@/dist"
 DYLIBBUNDLER="@DYLIBBUNDLER@"
-
-PD_APP=$(basename @BUNDLE@)
-PD_CONTENT=$BUILD_DIR/dist/$PD_APP/Contents
-PD_RESOURCES=$PD_CONTENT/Resources
-PD_EXTRA=$PD_RESOURCES/extra
-PD_BIN=$PD_RESOURCES/bin
-PD_TCL=$PD_RESOURCES/tcl
-PD_CEAMMC=$PD_EXTRA/ceammc
-PD_SF2=$PD_CEAMMC/sf2
-
-SRC_CEAMMC=$SRC_DIR/ceammc
-
-PD_INFO="$BUILD_DIR/dist/Info.plist"
-PD_ICON="$SRC_DIR/ceammc/gui/icons/pd_ceammc.icns"
-PD_ICON_FILE="$SRC_DIR/ceammc/gui/icons/pd_doc.icns"
+BUNDLE="@BUNDLE@"
 WISH_APP="@WISH_APP@"
 TK_PATH="@TK_PATH@"
 TCL_PATH="@TCL_PATH@"
 TK_VERSION="@TK_VERSION@"
 IS_SYSTEM_TK=@IS_SYSTEM_TK@
+LIB_LEAPMOTION="@LEAPMOTION_LIBRARY@"
 
+# relative dir names
+PD_APP=$(basename $BUNDLE)
+PD_CONTENT=$PD_APP/Contents
+PD_RESOURCES=$PD_CONTENT/Resources
+PD_FRAMEWORKS=$PD_CONTENT/Frameworks
+PD_EXTRA=$PD_RESOURCES/extra
+PD_INCLUDE=$PD_RESOURCES/include
+PD_BIN=$PD_RESOURCES/bin
+PD_TCL=$PD_RESOURCES/tcl
+PD_PO=$PD_RESOURCES/po
+PD_CEAMMC=$PD_EXTRA/ceammc
+PD_SF2=$PD_CEAMMC/sf2
+
+# absolute dir names
+BUNDLE_APP="${DIST_DIR}/${PD_APP}"
+BUNDLE_CONTENT="${DIST_DIR}/${PD_CONTENT}"
+BUNDLE_RESOURCES="${DIST_DIR}/${PD_RESOURCES}"
+BUNDLE_FRAMEWORKS="${DIST_DIR}/${PD_FRAMEWORKS}"
+BUNDLE_PO="${DIST_DIR}/${PD_PO}"
+BUNDLE_EXTRA="${DIST_DIR}/${PD_EXTRA}"
+BUNDLE_BIN="${DIST_DIR}/${PD_BIN}"
+BUNDLE_TCL="${DIST_DIR}/${PD_TCL}"
+BUNDLE_CEAMMC="${DIST_DIR}/${PD_CEAMMC}"
+BUNDLE_SF2="${DIST_DIR}/${PD_SF2}"
+BUNDLE_INCLUDE="${DIST_DIR}/${PD_INCLUDE}"
+
+# resources paths
+PD_INFO_PLIST="${BUILD_DIR}/dist/Info.plist"
+PD_ICON="${SRC_DIR}/ceammc/gui/icons/pd_ceammc.icns"
+PD_ICON_FILE="${SRC_DIR}/ceammc/gui/icons/pd_doc.icns"
+
+# git vars
 CURRENT_DATE=$(LANG=C date -u '+%d %h %Y %Z %H:%M:%S')
 GIT_BRANCH=$(git --git-dir $SRC_DIR/.git symbolic-ref --short HEAD)
 GIT_COMMIT=$(git --git-dir $SRC_DIR/.git describe --tags)
 
-echo "$TK_PATH"
-echo "$TCL_PATH"
+# source paths
+SRC_CEAMMC="${SRC_DIR}/ceammc"
+SRC_TCL="${SRC_DIR}/tcl"
+CEAMMC_EXT_SRC_DIR="${SRC_DIR}/ceammc/ext/src"
+CEAMMC_EXT_BIN_DIR="${BUILD_DIR}/ceammc/ext/src"
 
-CEAMMC_EXT_SRC_DIR="$SRC_DIR/ceammc/ext/src"
-CEAMMC_EXT_BIN_DIR="$BUILD_DIR/ceammc/ext/src"
+echo "TK_PATH: ${TK_PATH}"
+echo "TCL_PATH: ${TCL_PATH}"
 
-LIB_LEAPMOTION="@LEAPMOTION_LIBRARY@"
+#############
+# FUNCTIONS
+#############
 
-# set globbing
-shopt -s extglob
-
-cd "$BUILD_DIR"
-mkdir -p dist
-cd dist
-
-echo "Copy Wish Shell to $PD_APP"
-cp -R "${WISH_APP}" "$PD_APP"
-cd "$PD_APP/Contents"
-
-echo "Copying Info.plist..."
-cp -p "$PD_INFO" .
-
-cd Resources
-rm -f Wish.icns
-cp -p "$PD_ICON" "$PD_ICON_FILE" .
-#mv "Wish.rsrc" Pd.rsrc
-mkdir bin
-
-echo "Copying binaries..."
-cp "$BUILD_DIR/src/pd" bin
-cp "$BUILD_DIR/src/pdsend" bin
-cp "$BUILD_DIR/src/pdreceive" bin
-
-
-echo "Copying tcl files..."
-rsync -a --exclude="CMake*" --exclude="Make*" "$SRC_DIR/tcl" .
-ln -s tcl Scripts
-mkdir -p tcl/ceammc
-
-echo "Copying plugins..."
-cp -R $SRC_DIR/ceammc/gui/plugins/*.tcl tcl/ceammc
-cp -R $SRC_DIR/ceammc/gui/plugins/*.cfg tcl/ceammc
-
-echo "Copying docs..."
-rsync -a --exclude=.DS_Store --exclude=CMake* "$SRC_DIR/doc" .
-echo "Copying translations..."
-mkdir -p po
-cp $BUILD_DIR/po/*.msg "$PD_RESOURCES/po"
-
-echo "Copying extensions:"
-mkdir -p extra
-
-cp $SRC_DIR/extra/*.pd extra
-
-function extension_files() {
+# find all Pd externals in specified directory
+# usage: external_files DIR
+function external_files() {
     find "$1" -type f | grep -e 'd_fat' -e 'd_amd64' -e 'd_i386' -e 'pd_darwin' -e '\.pd' -e '\.tcl'
 }
-
-find $BUILD_DIR/extra -maxdepth 1 -type d | sed 1d | grep -v -i cmake | while read ext_dir
-do
-    EXT_NAME=$(basename $ext_dir)
-    echo "\t$EXT_NAME"
-    mkdir extra/$EXT_NAME
-    find "$ext_dir" -type f | grep -v -i cmake | grep -v Makefile | while read target
-    do
-        echo "\t\tCopying $(basename $target) ..."
-        cp $target extra/$EXT_NAME
-    done
-#    cp -R "$ext_dir" extra
-done
-
-# CEAMMC staff
-mkdir -p $PD_EXTRA/ceammc
-
-echo "Copying CEAMMC dll:"
-cp $CEAMMC_EXT_BIN_DIR/lib/libceammc*.dylib $PD_EXTRA/ceammc
-#cp $CEAMMC_EXT_BIN_DIR/*.dylib $PD_EXTRA/ceammc
-
-echo "Copying CEAMMC extension:"
-extension_files $CEAMMC_EXT_BIN_DIR | while read f
-do
-    echo "\t$(basename $f)"
-    cp "$f" $PD_EXTRA/ceammc
-    $DYLIBBUNDLER -x $PD_EXTRA/ceammc/$(basename $f) -b -cd -d $PD_EXTRA/ceammc -p @loader_path/ -of
-done
 
 function dylib_external_fix() {
     exec=$1
     dir=$2
 
-    $DYLIBBUNDLER -x "$exec" -b -cd -d "$dir" -p @loader_path/ -of
+    echo "\t- fixing @loader_path for $(basename $exec) ..."
+    $DYLIBBUNDLER -x "${exec}" -b -cd -d "${dir}" -p @loader_path/ -of > /dev/null
 }
 
-echo "Copying Additional extra:"
-cp $BUILD_DIR/ceammc/extra/comport/system.serial.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/ceammc
-cp $BUILD_DIR/ceammc/extra/hcs/*.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/ceammc
-cp $SRC_DIR/ceammc/extra/hcs/*.tcl $PD_EXTRA/ceammc
-dylib_external_fix $PD_EXTRA/ceammc/system.serial.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/ceammc
-dylib_external_fix $PD_EXTRA/ceammc/system.cursor.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/ceammc
-dylib_external_fix $PD_EXTRA/ceammc/system.colorpanel.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/ceammc
+function copy()
+{
+    file=$1
+    dest=$2
+    rel_dest=${dest#$BUNDLE_APP}
+    rel_dest=${rel_dest:1}
 
-echo "Copying zconf..."
-mkdir -p $PD_EXTRA/zconf
-cp $BUILD_DIR/ceammc/extra/flext/zconf/zconf.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/zconf
-cp $SRC_DIR/ceammc/extra/flext/zconf/zconf/zconf-help.pd $PD_EXTRA/zconf
+    cp -f "${file}" "${dest}"
+    if [ $? -eq 0 ];
+    then
+        echo "\t- copying $(basename $1) to \"${rel_dest}\""
+    fi
+}
 
-echo "Copying libdir..."
-mkdir -p $PD_EXTRA/libdir
-cp $BUILD_DIR/ceammc/extra/libdir/libdir.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/libdir
-cp $SRC_DIR/ceammc/extra/libdir/libdir/libdir-help.pd $PD_EXTRA/libdir
-cp $SRC_DIR/ceammc/extra/libdir/libdir/libdir-meta.pd $PD_EXTRA/libdir
-cp $SRC_DIR/ceammc/extra/libdir/libdir/LICENSE.txt $PD_EXTRA/libdir
+function copy_and_fix_dll()
+{
+    file=$1
+    dir=$2
 
-echo "Copying import..."
-mkdir -p $PD_EXTRA/import
-cp $BUILD_DIR/ceammc/extra/import/import.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/import
-cp $SRC_DIR/ceammc/extra/import/import-help.pd $PD_EXTRA/import
-cp $SRC_DIR/ceammc/extra/import/import-meta.pd $PD_EXTRA/import
-cp $SRC_DIR/ceammc/extra/import/LICENSE.txt $PD_EXTRA/import
+    copy "${file}" "${dir}"
+    dylib_external_fix "${dir}/$(basename $file)"  "${dir}"
+}
 
-echo "Copying VASP..."
-mkdir -p $PD_EXTRA/vasp
-cp $BUILD_DIR/ceammc/extra/flext/vasp.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/vasp
-cp $SRC_DIR/ceammc/extra/flext/vasp/pd/* $PD_EXTRA/vasp
-cp $SRC_DIR/ceammc/extra/flext/vasp/pd-help/* $PD_EXTRA/vasp
-cp $SRC_DIR/ceammc/extra/flext/vasp/gpl.txt $PD_EXTRA/vasp
-cp $SRC_DIR/ceammc/extra/flext/vasp/license.txt $PD_EXTRA/vasp
-
-echo "Copying xsample..."
-mkdir -p $PD_EXTRA/xsample
-cp $BUILD_DIR/ceammc/extra/flext/xsample/xsample.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/xsample
-cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/pd/* $PD_EXTRA/xsample
-cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/pd-ex/* $PD_EXTRA/xsample
-cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/gpl.txt $PD_EXTRA/xsample
-cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/license.txt $PD_EXTRA/xsample
-
-echo "Copying LyonPotpourri..."
-mkdir -p $PD_EXTRA/lyonpotpourri/sound
-cp $BUILD_DIR/ceammc/extra/lyonpotpourri/*.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/lyonpotpourri
-cp $SRC_DIR/ceammc/extra/lyonpotpourri/*-help.pd $PD_EXTRA/lyonpotpourri
-cp $SRC_DIR/ceammc/extra/lyonpotpourri/LICENSE.txt $PD_EXTRA/lyonpotpourri
-cp $SRC_DIR/ceammc/extra/lyonpotpourri/examples/* $PD_EXTRA/lyonpotpourri/sound
-
-echo "Copying FFTease..."
-mkdir -p $PD_EXTRA/fftease/sound
-cp $BUILD_DIR/ceammc/extra/fftease/*.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/fftease
-cp $SRC_DIR/ceammc/extra/fftease/fftease/help/*.pd $PD_EXTRA/fftease
-cp $SRC_DIR/ceammc/extra/fftease/fftease/LICENSE.txt $PD_EXTRA/fftease
-cp $SRC_DIR/ceammc/extra/fftease/fftease/sound/* $PD_EXTRA/fftease/sound
-
-exists() {
+function exists() {
     [ -e "$1" ]
 }
 
-if exists $BUILD_DIR/ceammc/extra/flext/leapmotion/leapmotion.@(d_fat|d_amd64|d_i386|pd_darwin)
-then
-    echo "Copying LeapMotion"
-    mkdir $PD_EXTRA/leapmotion
-    cp $BUILD_DIR/ceammc/extra/flext/leapmotion/leapmotion.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/leapmotion
-    cp $SRC_DIR/ceammc/extra/flext/leapmotion/*.pd $PD_EXTRA/leapmotion
-    cp $LIB_LEAPMOTION $PD_EXTRA/leapmotion
-fi
+function section() {
+    echo
+    tput setaf 2
+    echo $1 "..."
+    tput sgr0
+}
 
-# install soundtouch~ to ceammc
-echo "Copying SoundTouch external..."
-cp $BUILD_DIR/ceammc/extra/SoundTouch/pd/*.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/ceammc
-cp $SRC_DIR/ceammc/extra/SoundTouch/pd/*-help.pd $PD_EXTRA/ceammc
-dylib_external_fix $PD_EXTRA/ceammc/soundtouch~.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/ceammc
+##############
+# MAIN
+##############
 
-echo "Copying autotune external..."
-mkdir $PD_EXTRA/autotune
-cp $BUILD_DIR/ceammc/extra/autotune/*.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/autotune
-cp $SRC_DIR/ceammc/extra/autotune/*-help.pd $PD_EXTRA/autotune
+# set globbing
+shopt -s extglob
+mkdir -p "${DIST_DIR}"
+cd "${DIST_DIR}"
 
-echo "Copying disis_munger~ external..."
-mkdir $PD_EXTRA/disis_munger~
-cp $BUILD_DIR/ceammc/extra/flext/disis_munger/*.@(d_fat|d_amd64|d_i386|pd_darwin) $PD_EXTRA/disis_munger~
-cp $SRC_DIR/ceammc/extra/flext/disis_munger/*-help.pd $PD_EXTRA/disis_munger~
+##############
+# TCL/TK/WISH
+##############
 
-echo "Copying CEAMMC help files:"
-cp $SRC_DIR/ceammc/ext/doc/*-help.pd $PD_EXTRA/ceammc
-cp $SRC_DIR/ceammc/ext/doc/*.mod $PD_EXTRA/ceammc
-cp $SRC_DIR/ceammc/ext/doc/*.txt $PD_EXTRA/ceammc
-cp $SRC_DIR/ceammc/ext/doc/*.wav $PD_EXTRA/ceammc
-# handle index file
-rm $PD_EXTRA/ceammc/index-help.pd
-chmod 0444 $PD_EXTRA/ceammc/*-help.pd
-cp $SRC_DIR/ceammc/ext/doc/index-help.pd $PD_EXTRA
-chmod 0444 $PD_EXTRA/index-help.pd
-cp $SRC_DIR/ceammc/ext/ceammc_objects.txt $PD_TCL/ceammc
-cp $SRC_DIR/ceammc/ext/extra_objects.txt $PD_TCL/ceammc
+section "Copy Wish Shell to ${PD_APP}"
+cp -R "${WISH_APP}" "${BUNDLE_APP}"
 
-mkdir -p $PD_TCL/ceammc/user_objects
-cp $(find $SRC_DIR/ceammc/ext/class-wrapper/modules -name 'completion_*.txt') $PD_TCL/ceammc/user_objects
+copy "${PD_INFO_PLIST}" "${BUNDLE_CONTENT}"
 
-echo "Copy about file..."
-cat $BUILD_DIR/ceammc/ext/doc/about.pd | sed "s/%GIT_BRANCH%/$GIT_BRANCH/g" | \
-   sed "s/%GIT_COMMIT%/$GIT_COMMIT/g" | \
-   sed "s/%BUILD_DATE%/$CURRENT_DATE/g" > $PD_EXTRA/ceammc/about.pd
-chmod 0444 $PD_EXTRA/ceammc/about.pd
+section "Update Wish icon"
+cd "${BUNDLE_RESOURCES}"
+rm -f Wish.icns
+cp -p "${PD_ICON}" "${PD_ICON_FILE}" .
+mkdir -p "${BUNDLE_BIN}"
 
-echo "Copying license..."
-cp $SRC_DIR/License.txt Scripts
-
-echo "Copying STK rawwaves..."
-mkdir -p $PD_EXTRA/ceammc/stk
-cp $SRC_DIR/ceammc/extra/stk/stk/rawwaves/*.raw $PD_EXTRA/ceammc/stk
-
-echo "Copying libs..."
-NEWLIBPATH="@executable_path/../lib"
-EXECFILE="Resources/bin/pd"
-LIBDIR="Resources/lib"
-cd ..
-# to make codesign happy
-mkdir -p Frameworks
-mkdir -p $LIBDIR
-
-$DYLIBBUNDLER -x $EXECFILE -b -cd -d $LIBDIR -p $NEWLIBPATH -of
-$DYLIBBUNDLER -x "Resources/bin/pdsend" -b -cd -d $LIBDIR -p $NEWLIBPATH -of
-$DYLIBBUNDLER -x "Resources/bin/pdreceive" -b -cd -d $LIBDIR -p $NEWLIBPATH -of
-
-#copy Tcl${TK_VERSION}
 if [ $IS_SYSTEM_TK -eq 0 ]
 then
-    echo "Copying TCL/Tk Frameworks..."
-    cp -R "${TK_PATH}" Frameworks
-    cp -R "${TCL_PATH}" Frameworks
-    rm -rf "./Frameworks/Tk.framework/Versions/${TK_VERSION}/Resources/Wish.app"
-    rm -rf "./Frameworks/Tcl.framework/Versions/${TK_VERSION}/Resources/Documentation"
+    section "Copying TCL/Tk Frameworks"
+    mkdir -p "${BUNDLE_FRAMEWORKS}"
 
-    echo "Tk link fix..."
-    /usr/bin/otool -LX $PD_CONTENT/MacOS/Wish | cut -f2 | cut -d ' ' -f1 | grep -e Tk -e Tcl | while read framework
+    cp -R "${TK_PATH}" "${BUNDLE_FRAMEWORKS}"
+    cp -R "${TCL_PATH}" "${BUNDLE_FRAMEWORKS}"
+    # remove unused Tcl files
+    rm -rf "${BUNDLE_FRAMEWORKS}/Tcl.framework/Versions/${TK_VERSION}/Headers"
+    rm -rf "${BUNDLE_FRAMEWORKS}/Tcl.framework/Versions/${TK_VERSION}/PrivateHeaders"
+    rm -rf "${BUNDLE_FRAMEWORKS}/Tcl.framework/Versions/${TK_VERSION}/Resources/Documentation"
+    # remove unused Tk files
+    rm -rf "${BUNDLE_FRAMEWORKS}/Tk.framework/Versions/${TK_VERSION}/Headers"
+    rm -rf "${BUNDLE_FRAMEWORKS}/Tk.framework/Versions/${TK_VERSION}/PrivateHeaders"
+    rm -rf "${BUNDLE_FRAMEWORKS}/Tk.framework/Versions/${TK_VERSION}/Resources/Scripts/demos"
+    rm -rf "${BUNDLE_FRAMEWORKS}/Tk.framework/Versions/${TK_VERSION}/Resources/Wish.app"
+
+    section "Tk link fix"
+    /usr/bin/otool -LX "${BUNDLE_CONTENT}/MacOS/Wish" | cut -f2 | cut -d ' ' -f1 | grep -e Tk -e Tcl | while read framework
     do
         newpath=$(echo $framework | sed 's|/Library/Frameworks/||')
-        install_name_tool -change $framework "@executable_path/../Frameworks/$newpath" $PD_CONTENT/MacOS/Wish
+        install_name_tool -change $framework "@executable_path/../Frameworks/$newpath" "${BUNDLE_CONTENT}/MacOS/Wish" > /dev/null
     done
 fi
 
-echo "Copying headers..."
-mkdir -p $PD_RESOURCES/include
-cp $SRC_DIR/src/m_pd.h $PD_RESOURCES/include
+############
+# Pd files
+############
 
-echo "Copying cmake files..."
-CMAKE_DIR=$PD_RESOURCES/share/pd/cmake
-echo $CMAKE_DIR
-mkdir -p $CMAKE_DIR
-cp $SRC_DIR/cmake/PdExternal.cmake $CMAKE_DIR
+section "Copying vanilla binaries"
+copy_and_fix_dll "$BUILD_DIR/src/pd" "${BUNDLE_BIN}"
+copy_and_fix_dll "$BUILD_DIR/src/pdsend" "${BUNDLE_BIN}"
+copy_and_fix_dll "$BUILD_DIR/src/pdreceive" "${BUNDLE_BIN}"
 
-echo "Copying abstractions..."
-cp $SRC_DIR/ceammc/ext/abstractions/*.pd $PD_CEAMMC
+section "Copying vanilla tcl files"
+cd "${BUNDLE_TCL}/.."
+rsync -a --exclude="CMake*" --exclude="Make*" "${SRC_TCL}" .
+# link
+ln -s tcl Scripts
+mkdir -p "${BUNDLE_TCL}/ceammc"
 
-echo "Copying class wrapper objects..."
+section "Copying vanilla docs"
+cd "${BUNDLE_RESOURCES}"
+rsync -a --exclude=.DS_Store --exclude=CMake* "${SRC_DIR}/doc" .
+
+section "Copying compiled PO translations"
+mkdir -p "${BUNDLE_PO}"
+cd "${BUNDLE_PO}"
+for msg in ${BUILD_DIR}/po/*.msg
+do
+    copy "${msg}" "${BUNDLE_PO}"
+done
+
+section "Copying source PO translations"
+cd "${BUNDLE_PO}"
+for po in ${SRC_DIR}/po/*.po
+do
+    copy "${po}" "${BUNDLE_PO}"
+done
+
+section "Copying vanilla abstractions and help"
+mkdir -p "${BUNDLE_EXTRA}"
+for pd in ${SRC_DIR}/extra/*.pd
+do
+    copy "${pd}" "${BUNDLE_EXTRA}"
+done
+
+section "Copying vanilla externals"
+find $BUILD_DIR/extra -maxdepth 1 -type d | sed 1d | grep -v -i cmake | while read ext_dir
+do
+    EXT_NAME=$(basename $ext_dir)
+    mkdir -p "${BUNDLE_EXTRA}/${EXT_NAME}"
+    find "${ext_dir}" -type f | grep -v -i cmake | grep -v Makefile | while read target
+    do
+        copy "${target}" "${BUNDLE_EXTRA}/${EXT_NAME}"
+    done
+done
+
+section "Copying vanilla headers"
+mkdir -p "${BUNDLE_INCLUDE}"
+copy "${SRC_DIR}/src/m_pd.h" "${BUNDLE_INCLUDE}"
+
+############
+# CEAMMC
+############
+
+section "Copying CEAMMC tcl plugins"
+mkdir -p "${BUNDLE_TCL}/ceammc"
+for tcl in ${SRC_DIR}/ceammc/gui/plugins/*.tcl
+do
+    copy ${tcl} "${BUNDLE_TCL}/ceammc"
+done
+
+for cfg in ${SRC_DIR}/ceammc/gui/plugins/*.cfg
+do
+    copy ${cfg} "${BUNDLE_TCL}/ceammc"
+done
+
+section "Copying CEAMMC tcl completion"
+copy $SRC_DIR/ceammc/ext/ceammc_objects.txt "${BUNDLE_TCL}/ceammc"
+copy $SRC_DIR/ceammc/ext/extra_objects.txt "${BUNDLE_TCL}/ceammc"
+
+section "Copying CEAMMC dll"
+mkdir -p "${BUNDLE_CEAMMC}"
+for dll in $CEAMMC_EXT_BIN_DIR/lib/libceammc*.dylib
+do
+    copy ${dll} "${BUNDLE_CEAMMC}"
+done
+
+section "Copying CEAMMC abstractions"
+for abs in $SRC_DIR/ceammc/ext/abstractions/*.pd
+do
+    copy ${abs} "${BUNDLE_CEAMMC}"
+done
+
+section "Copying CEAMMC externals"
+external_files $CEAMMC_EXT_BIN_DIR | while read f
+do
+    copy_and_fix_dll ${f} "${BUNDLE_CEAMMC}"
+done
+
+section "Copying CEAMMC STK rawwaves"
+mkdir -p "${BUNDLE_CEAMMC}/stk"
+for wave in $SRC_DIR/ceammc/extra/stk/stk/rawwaves/*.raw
+do
+    copy ${wave} "${BUNDLE_CEAMMC}/stk"
+done
+
+section "Copying CEAMMC fluidsynth soundfonts"
+mkdir -p "${BUNDLE_SF2}"
+for sf in $SRC_CEAMMC/extra/fluidsynth/fluidsynth/sf2/*
+do
+    copy ${sf} "${BUNDLE_SF2}"
+done
+
+section "Copying CEAMMC cmake files"
+mkdir -p "${BUNDLE_INCLUDE}"
+copy "${SRC_DIR}/cmake/PdExternal.cmake" "${BUNDLE_INCLUDE}"
+
+section "Copying CEAMMC class wrappers"
 for wrapper in $BUILD_DIR/ceammc/ext/class-wrapper/*.@(d_fat|d_amd64|d_i386|pd_darwin)
 do
     fname=$(basename $wrapper)
     mod_name=$(echo $fname | cut -d. -f1)
-    mod_path=$PD_CEAMMC
-    mkdir $mod_path
-    cp $wrapper $mod_path
-    dylib_external_fix $mod_path/$fname $PD_CEAMMC
-    cp -R $SRC_DIR/ceammc/ext/class-wrapper/modules/$mod_name/help/*.pd $mod_path
+    copy_and_fix_dll ${wrapper} "${BUNDLE_CEAMMC}"
+    for pdhelp in $SRC_DIR/ceammc/ext/class-wrapper/modules/$mod_name/help/*-help.pd
+    do
+        copy ${pdhelp} "${BUNDLE_CEAMMC}"
+    done
 done
 
+section "Copying CEAMMC class wrappers completion"
+mkdir -p "${BUNDLE_TCL}/ceammc/user_objects"
+find ${SRC_CEAMMC}/ext/class-wrapper/modules -name 'completion_*.txt' | while read txt
+do
+    copy $txt "${BUNDLE_TCL}/ceammc/user_objects"
+done
 
-echo "Sound fonts..."
-mkdir -p $PD_SF2
-cp $SRC_CEAMMC/extra/sf2/* $PD_SF2
+section "Copying CEAMMC help files"
+for pdhelp in ${SRC_CEAMMC}/ext/doc/*-help.pd
+do
+    copy ${pdhelp} "${BUNDLE_CEAMMC}"
+    chmod 0444 "${BUNDLE_CEAMMC}/$(basename $pdhelp)"
+done
 
-echo "Hoa help files..."
-mkdir $PD_CEAMMC/hoa
-cp $SRC_CEAMMC/ext/doc/hoa/* $PD_CEAMMC/hoa
+section "Copying CEAMMC help additional files"
+for f in ${SRC_CEAMMC}/ext/doc/*.@(mod|txt|wav)
+do
+    copy ${f} "${BUNDLE_CEAMMC}"
+    chmod 0444 "${BUNDLE_CEAMMC}/$(basename $f)"
+done
 
-cd ../../..
+section "Copying CEAMMC HOA help files"
+mkdir -p "${BUNDLE_CEAMMC}/hoa"
+for f in $SRC_CEAMMC/ext/doc/hoa/*.@(pd|txt)
+do
+    copy ${f} "${BUNDLE_CEAMMC}"
+    chmod 0444 "${BUNDLE_CEAMMC}/$(basename $f)"
+done
+
+section "Change Pd help file"
+rm -f "${BUNDLE_CEAMMC}/index-help.pd"
+rm -f "${BUNDLE_EXTRA}/index-help.pd"
+copy $SRC_DIR/ceammc/ext/doc/index-help.pd "${BUNDLE_EXTRA}"
+chmod 0444 "${BUNDLE_EXTRA}/index-help.pd"
+
+section "Copying CEAMMC about file"
+cat $BUILD_DIR/ceammc/ext/doc/about.pd | sed "s/%GIT_BRANCH%/$GIT_BRANCH/g" | \
+   sed "s/%GIT_COMMIT%/$GIT_COMMIT/g" | \
+   sed "s/%BUILD_DATE%/$CURRENT_DATE/g" > "${BUNDLE_CEAMMC}/about.pd"
+chmod 0444 "${BUNDLE_CEAMMC}/about.pd"
+
+section "Copying license"
+copy $SRC_DIR/License.txt "${BUNDLE_RESOURCES}/Scripts"
+
+##############
+# 3RD PARTY
+##############
+
+section "Copying CEAMMC extra"
+copy_and_fix_dll ${BUILD_DIR}/ceammc/extra/comport/system.serial.@(d_fat|d_amd64|d_i386|pd_darwin) "${BUNDLE_CEAMMC}"
+
+# install soundtouch~ to ceammc
+section "Copying SoundTouch external"
+for ext in $BUILD_DIR/ceammc/extra/SoundTouch/pd/*.@(d_fat|d_amd64|d_i386|pd_darwin)
+do
+    copy_and_fix_dll ${ext} "${BUNDLE_CEAMMC}"
+done
+
+for pdhelp in $SRC_DIR/ceammc/extra/SoundTouch/pd/*-help.pd
+do
+    copy ${pdhelp} "${BUNDLE_CEAMMC}"
+done
+
+section "Copying zconf"
+mkdir -p "${BUNDLE_EXTRA}/zconf"
+copy ${BUILD_DIR}/ceammc/extra/flext/zconf/zconf.@(d_fat|d_amd64|d_i386|pd_darwin) "${BUNDLE_EXTRA}/zconf"
+copy ${SRC_DIR}/ceammc/extra/flext/zconf/zconf-help.pd "${BUNDLE_EXTRA}/zconf"
+
+section "Copying libdir"
+mkdir -p "${BUNDLE_EXTRA}/libdir"
+copy $BUILD_DIR/ceammc/extra/libdir/libdir.@(d_fat|d_amd64|d_i386|pd_darwin) "${BUNDLE_EXTRA}/libdir"
+copy $SRC_DIR/ceammc/extra/libdir/libdir/libdir-help.pd "${BUNDLE_EXTRA}/libdir"
+copy $SRC_DIR/ceammc/extra/libdir/libdir/libdir-meta.pd "${BUNDLE_EXTRA}/libdir"
+copy $SRC_DIR/ceammc/extra/libdir/libdir/LICENSE.txt "${BUNDLE_EXTRA}/libdir"
+
+section "Copying import"
+mkdir -p "${BUNDLE_EXTRA}/import"
+copy $BUILD_DIR/ceammc/extra/import/import.@(d_fat|d_amd64|d_i386|pd_darwin) "${BUNDLE_EXTRA}/import"
+copy $SRC_DIR/ceammc/extra/import/import-help.pd "${BUNDLE_EXTRA}/import"
+copy $SRC_DIR/ceammc/extra/import/import-meta.pd "${BUNDLE_EXTRA}/import"
+copy $SRC_DIR/ceammc/extra/import/LICENSE.txt "${BUNDLE_EXTRA}/import"
+
+section "Copying VASP"
+mkdir -p "${BUNDLE_EXTRA}/vasp"
+copy $BUILD_DIR/ceammc/extra/flext/vasp.@(d_fat|d_amd64|d_i386|pd_darwin) "${BUNDLE_EXTRA}/vasp"
+cp $SRC_DIR/ceammc/extra/flext/vasp/pd/* "${BUNDLE_EXTRA}/vasp"
+cp $SRC_DIR/ceammc/extra/flext/vasp/pd-help/* "${BUNDLE_EXTRA}/vasp"
+copy $SRC_DIR/ceammc/extra/flext/vasp/gpl.txt "${BUNDLE_EXTRA}/vasp"
+copy $SRC_DIR/ceammc/extra/flext/vasp/license.txt "${BUNDLE_EXTRA}/vasp"
+
+section "Copying xsample"
+mkdir -p "${BUNDLE_EXTRA}/xsample"
+copy $BUILD_DIR/ceammc/extra/flext/xsample/xsample.@(d_fat|d_amd64|d_i386|pd_darwin) "${BUNDLE_EXTRA}/xsample"
+cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/pd/* "${BUNDLE_EXTRA}/xsample"
+cp $SRC_DIR/ceammc/extra/flext/xsample/xsample/pd-ex/* "${BUNDLE_EXTRA}/xsample"
+copy $SRC_DIR/ceammc/extra/flext/xsample/xsample/gpl.txt "${BUNDLE_EXTRA}/xsample"
+copy $SRC_DIR/ceammc/extra/flext/xsample/xsample/license.txt "${BUNDLE_EXTRA}/xsample"
+
+section "Copying LyonPotpourri"
+mkdir -p "${BUNDLE_EXTRA}/lyonpotpourri/sound"
+for ext in $BUILD_DIR/ceammc/extra/lyonpotpourri/*.@(d_fat|d_amd64|d_i386|pd_darwin)
+do
+    copy ${ext} "${BUNDLE_EXTRA}/lyonpotpourri"
+done
+
+for pdhelp in $SRC_DIR/ceammc/extra/lyonpotpourri/*-help.pd
+do
+    copy ${pdhelp} "${BUNDLE_EXTRA}/lyonpotpourri"
+done
+
+copy $SRC_DIR/ceammc/extra/lyonpotpourri/LICENSE.txt "${BUNDLE_EXTRA}/lyonpotpourri"
+cp $SRC_DIR/ceammc/extra/lyonpotpourri/examples/* "${BUNDLE_EXTRA}/lyonpotpourri"
+
+section "Copying FFTease"
+mkdir -p "${BUNDLE_EXTRA}/fftease/sound"
+for ext in $BUILD_DIR/ceammc/extra/fftease/*.@(d_fat|d_amd64|d_i386|pd_darwin)
+do
+    copy ${ext} "${BUNDLE_EXTRA}/fftease"
+done
+
+for pdhelp in $SRC_DIR/ceammc/extra/fftease/fftease/help/*.pd
+do
+    copy ${pdhelp} "${BUNDLE_EXTRA}/fftease"
+done
+
+copy $SRC_DIR/ceammc/extra/fftease/fftease/LICENSE.txt "${BUNDLE_EXTRA}/fftease"
+cp $SRC_DIR/ceammc/extra/fftease/fftease/sound/* "${BUNDLE_EXTRA}/fftease"
+
+# LeapMotion
+if exists $BUILD_DIR/ceammc/extra/flext/leapmotion/leapmotion.@(d_fat|d_amd64|d_i386|pd_darwin)
+then
+    section "Copying LeapMotion"
+    mkdir -p "$BUNDLE_EXTRA/leapmotion"
+    copy $BUILD_DIR/ceammc/extra/flext/leapmotion/leapmotion.@(d_fat|d_amd64|d_i386|pd_darwin) "$BUNDLE_EXTRA/leapmotion"
+    copy $LIB_LEAPMOTION "$BUNDLE_EXTRA/leapmotion"
+
+    for pdhelp in $SRC_DIR/ceammc/extra/flext/leapmotion/*.pd
+    do
+        copy ${pdhelp} "$BUNDLE_EXTRA/leapmotion"
+    done
+fi
+
+section "Copying autotune external"
+mkdir -p "$BUNDLE_EXTRA/autotune"
+for ext in $BUILD_DIR/ceammc/extra/autotune/*.@(d_fat|d_amd64|d_i386|pd_darwin)
+do
+    copy ${ext} "$BUNDLE_EXTRA/autotune"
+done
+
+for pdhelp in $SRC_DIR/ceammc/extra/autotune/*-help.pd
+do
+    copy ${pdhelp} "$BUNDLE_EXTRA/autotune"
+done
+
+section "Copying disis_munger~ external"
+mkdir -p "$BUNDLE_EXTRA/disis_munger~"
+for ext in $BUILD_DIR/ceammc/extra/flext/disis_munger/*.@(d_fat|d_amd64|d_i386|pd_darwin)
+do
+    copy ${ext} "$BUNDLE_EXTRA/disis_munger~"
+done
+
+for pdhelp in $SRC_DIR/ceammc/extra/flext/disis_munger/*-help.pd
+do
+    copy ${pdhelp} "$BUNDLE_EXTRA/disis_munger~"
+done
+
+cd "${BUILD_DIR}"
