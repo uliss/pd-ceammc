@@ -47,7 +47,11 @@ SystemColorpanel::SystemColorpanel(const PdArgs& args)
 
     createCbProperty("@float", &SystemColorpanel::propFloat, &SystemColorpanel::propSetFloat);
     createCbProperty("@int", &SystemColorpanel::propInt, &SystemColorpanel::propSetInt);
-    createCbProperty("@hex", &SystemColorpanel::propHex, &SystemColorpanel::propSetHex);
+
+    {
+        Property* p = createCbProperty("@hex", &SystemColorpanel::propHex, &SystemColorpanel::propSetHex);
+        p->info().setType(PropertyInfoType::SYMBOL);
+    }
 }
 
 void SystemColorpanel::onBang()
