@@ -43,6 +43,7 @@
   - math.sync_or (math.||', ||')
   - math.sync_xor (math.^', ^')
 - system.cursor @relative property added to output coords relative to window
+- system.colorpanel moved into ceammc library and @float, @int and @hex properties are added
 
 ### Changed:
 - ui.tab in single mode outputs like ui.menu: list pair - INDEX TAB_NAME

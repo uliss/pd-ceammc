@@ -442,6 +442,7 @@ set(DOC_FILES
     synth.risset_tone~
     synth.shakers~
     synth.wurley~
+    system.colorpanel
     system.cursor
     system.getenv
     system.hostname

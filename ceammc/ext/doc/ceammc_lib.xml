@@ -1414,6 +1414,9 @@
     </entry>
   </category>
   <category name="system">
+    <entry descr="System color panel dialog popup" name="system.colorpanel" ref_view="object">
+      <xi:include href="system.colorpanel.pddoc" parse="xml"/>
+    </entry>
     <entry descr="Output cursor motion, mousewheel and buttonclicks" name="system.cursor" ref_view="object">
       <xi:include href="system.cursor.pddoc" parse="xml"/>
     </entry>

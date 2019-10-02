@@ -150,6 +150,7 @@ outlet~
 pack
 page
 pd
+pdcontrol
 pgmin
 pgmout
 phasor~
@@ -201,6 +202,7 @@ set
 setsize
 sig~
 sin
+slop~
 snapshot~
 soundfiler
 spigot

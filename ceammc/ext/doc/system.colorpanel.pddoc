@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="system.colorpanel">
+        <title>system.colorpanel</title>
+        <meta>
+            <authors>
+                <author>Hans-Christoph Steiner</author>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>System color panel dialog popup</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>system</category>
+            <keywords>colorpanel</keywords>
+            <since>0.1</since>
+        </meta>
+        <properties>
+            <property name="@mode" type="symbol" enum="float int hex" default="float">output
+            mode</property>
+            <property name="@f" type="alias">alias for @mode float. Output values as RGB list in
+            0-1 range.</property>
+            <property name="@i" type="alias">alias for @mode int. Output values as RGB list in
+            0-255 range.</property>
+            <property name="@h" type="alias">alias for @mode hex. Output value as #RRGGBB
+            symbol.</property>
+            <property name="@float" type="list">RGB color value in float range (0-1)</property>
+            <property name="@int" type="list">RGB color value in int range (0-255)</property>
+            <property name="@hex" type="symbol">color value as #RRGGBB symbol</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">opens colorpanel</xinfo>
+                <xinfo on="symbol">opens colorpanel with selected color. The hex format #RRGGBB is
+                expected.</xinfo>
+                <xinfo on="list">opens colorpanel with selected color. RGB color triplet expected
+                in float (0-1) or int (0-255) range, depending from @mode</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>messages: hex color symbol in format #RRGGBB or RGB color triplet in float
+            (0-1) or int (0-255) range depending from @mode</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang(                [ui.menu float int hex]
+|                     |
+|  [symbol #FFAA77(   [@mode $2(
+|  |                  |
+[system.colorpanel  @f]
+|
+[ui.display]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
