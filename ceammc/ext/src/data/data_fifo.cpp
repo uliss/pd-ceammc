@@ -31,9 +31,20 @@ public:
             p->info().setType(PropertyInfoType::BOOLEAN);
         }
 
-        createCbProperty("@filled", &DataFifo::p_size);
-        createCbProperty("@size", &DataFifo::p_max_size);
-        createCbProperty("@free", &DataFifo::p_free);
+        {
+            Property* p = createCbProperty("@filled", &DataFifo::p_size);
+            p->info().setType(PropertyInfoType::INTEGER);
+        }
+
+        {
+            Property* p = createCbProperty("@size", &DataFifo::p_max_size);
+            p->info().setType(PropertyInfoType::INTEGER);
+        }
+
+        {
+            Property* p = createCbProperty("@free", &DataFifo::p_free);
+            p->info().setType(PropertyInfoType::INTEGER);
+        }
     }
 
     void onBang() { flush(); }
