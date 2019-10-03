@@ -46,4 +46,3 @@ endif()
 
 set(EXTRA_COMPLETION "extra_objects.txt")
 add_custom_target(_ceammc_extra_misc SOURCES ${EXTRA_COMPLETION})
-install(FILES ${EXTRA_COMPLETION} DESTINATION ${PD_GUI_PLUGINS_PATH}/ceammc)
