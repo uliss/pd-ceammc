@@ -24,7 +24,11 @@ public:
     {
         bindPositionalArgsToProps({ gensym("@attack"), gensym("@release") });
         createProperty(new CombinedProperty("@ar", { property(gensym("@attack")), property(gensym("@release")) }));
-        createCbProperty("@length", &EnvAr::propLength);
+        {
+            Property* p = createCbProperty("@length", &EnvAr::propLength);
+            p->info().setType(PropertyInfoType::FLOAT);
+            p->info().setUnits(PropertyInfoUnits::MSEC);
+        }
 
         createOutlet();
     }

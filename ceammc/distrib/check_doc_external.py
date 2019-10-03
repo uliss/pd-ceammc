@@ -215,10 +215,10 @@ if __name__ == '__main__':
                     cprint(f"[{ext_name}] missing attribute enum for bool in \"{p}\"", 'magenta')
 
                 # no default bool value
-                if "default" in p0 and "default" not in p1:
-                    cprint(f"[{ext_name}] missing attribute default in \"{p}\"", 'magenta')
+                if ("default" in p0) and ("readonly" not in p0) and ("default" not in p1):
+                    cprint(f"[{ext_name}] missing attribute default for bool in \"{p}\"", 'magenta')
 
-                # invalid default bool value
+                # non-equal default bool values
                 if "default" in p0 and "default" in p1:
                     v0 = str(p0["default"])
                     v1 = str(p1["default"])
