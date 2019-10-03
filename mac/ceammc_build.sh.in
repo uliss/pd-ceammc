@@ -173,11 +173,11 @@ copy_and_fix_dll "$BUILD_DIR/src/pdsend" "${BUNDLE_BIN}"
 copy_and_fix_dll "$BUILD_DIR/src/pdreceive" "${BUNDLE_BIN}"
 
 section "Copying vanilla tcl files"
+mkdir -p "${BUNDLE_TCL}/ceammc"
 cd "${BUNDLE_TCL}/.."
 rsync -a --exclude="CMake*" --exclude="Make*" "${SRC_TCL}" .
 # link
 ln -s tcl Scripts
-mkdir -p "${BUNDLE_TCL}/ceammc"
 
 section "Copying vanilla docs"
 cd "${BUNDLE_RESOURCES}"
@@ -225,7 +225,7 @@ copy "${SRC_DIR}/src/m_pd.h" "${BUNDLE_INCLUDE}"
 ############
 
 section "Copying CEAMMC tcl plugins"
-mkdir -p "${BUNDLE_TCL}/ceammc"
+mkdir -p "${BUNDLE_TCL}/ceammc/custom_completions"
 for tcl in ${SRC_DIR}/ceammc/gui/plugins/*.tcl
 do
     copy ${tcl} "${BUNDLE_TCL}/ceammc"
@@ -236,9 +236,20 @@ do
     copy ${cfg} "${BUNDLE_TCL}/ceammc"
 done
 
+mkdir -p "${BUNDLE_TCL}/completion-plugin"
+for tcl in ${SRC_DIR}/ceammc/gui/plugins/completion-plugin/*.tcl
+do
+    copy ${tcl} "${BUNDLE_TCL}/ceammc"
+done
+
+for cfg in ${SRC_DIR}/ceammc/gui/plugins/completion-plugin/*.cfg
+do
+    copy ${cfg} "${BUNDLE_TCL}/ceammc"
+done
+
 section "Copying CEAMMC tcl completion"
-copy $SRC_DIR/ceammc/ext/ceammc_objects.txt "${BUNDLE_TCL}/ceammc"
-copy $SRC_DIR/ceammc/ext/extra_objects.txt "${BUNDLE_TCL}/ceammc"
+copy $SRC_DIR/ceammc/ext/ceammc_objects.txt "${BUNDLE_TCL}/ceammc/custom_completions"
+copy $SRC_DIR/ceammc/ext/extra_objects.txt "${BUNDLE_TCL}/ceammc/custom_completions"
 
 section "Copying CEAMMC dll"
 mkdir -p "${BUNDLE_CEAMMC}"
