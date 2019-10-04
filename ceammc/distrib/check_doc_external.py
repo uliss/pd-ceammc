@@ -178,6 +178,26 @@ if __name__ == '__main__':
         if len(unknown_props):
             cprint(f"[{ext_name}] unknown properties in doc: {unknown_props}", 'yellow')
 
+        HAVE_PDDOC = -1
+        HAVE_EXTERNAL = 1
+        HAVE_NONE = 0
+        HAVE_BOTH = 2
+
+        def check_attr(name, p0, p1):
+            a0 = name in p0
+            a1 = name in p1
+
+            if a0 == a1:
+                if a0:
+                    return HAVE_BOTH
+                else:
+                    return HAVE_NONE
+            else:
+                if a0:
+                    return HAVE_EXTERNAL
+                else:
+                    return HAVE_PDDOC
+
         for p in exists_props:
             p0 = ext_props_dict[p]
             p1 = doc_props_dict[p]
@@ -227,22 +247,18 @@ if __name__ == '__main__':
 
                 continue
 
-            if p0["type"] not in ("float", "int"):
-                if p0["type"] == "bool" and p1["type"] != "int":
-                    cprint(f"[{ext_name}] invalid bool type (not int) in \"{p}\"", 'magenta')
-
-                if p0["type"] == "symbol" and p1["type"] not in ("symbol", "alias"):
-                    cprint(f"[{ext_name}] invalid symbol type in \"{p}\"", 'magenta')
-
-                if p0["type"] == "list" and p1["type"] != "list":
-                    cprint(f"[{ext_name}] invalid list type in \"{p}\"", 'magenta')
-
-                continue
-
             if p0["type"] != p1["type"]:
-                t0 = p0["type"]
-                t1 = p1["type"]
-                cprint(f"[{ext_name}] different attr types: {t0} != {t1} in \"{p}\"", 'magenta')
+                if p0["type"] == "symbol":
+                    if p1["type"] not in ("symbol", "alias"):
+                        cprint(f"[{ext_name}] invalid symbol type in \"{p}\"", 'magenta')
+                    else:
+                        pass
+                elif p0["type"] == "bool" and p1["type"] != "int":
+                    cprint(f"[{ext_name}] invalid bool type (not int) in \"{p}\"", 'magenta')
+                else:
+                    t0 = p0["type"]
+                    t1 = p1["type"]
+                    cprint(f"[{ext_name}] different attr types: {t0} != {t1} in \"{p}\"", 'magenta')
 
             if "min" in p0 and "minvalue" not in p1:
                 cprint(f"[{ext_name}] missing attribute minvalue in \"{p}\"", 'magenta')
@@ -270,6 +286,18 @@ if __name__ == '__main__':
                 v1 = str(p1["maxvalue"])
                 if v0 != v1:
                     cprint(f"[{ext_name}] invalid value for maxvalue attribute \"{p}\": {v0} != {v1}", 'magenta')
+
+            attr = check_attr("enum", p0, p1)
+            if attr == HAVE_BOTH:
+                v0 = set(p0["enum"])
+                v1 = set(p1["enum"].split(" "))
+
+                if v0 != v1:
+                    cprint(f"[{ext_name}] invalid value for enum attribute \"{p}\": {v0} != {v1}", 'magenta')
+            elif attr == HAVE_EXTERNAL:
+                cprint(f"[{ext_name}] missing enum attribute in pddoc \"{p}\"", 'magenta')
+            elif attr == HAVE_PDDOC:
+                    cprint(f"[{ext_name}] pddoc enum for attribute \"{p}\" not exists", 'magenta')
 
 
     if args.spell:
