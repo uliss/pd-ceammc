@@ -58,8 +58,8 @@ Default value: 0\.;
 \, @mouse_up and @mouse_drag events. Type: int. Default value: 0\.
 Allowed values: 0 \, 1\.;
 #X msg 110 875 @range;
-#X text 245 875 Get/Set selected slider value. Type: float. Default
-value: 0\. Min value: 0\.;
+#X text 245 875 (readonly) Get selected slider value. Type: float.
+Default value: 0\. Min value: 0\.;
 #X msg 110 917 @receive;
 #X text 245 917 Get/Set receive source. Type: symbol.;
 #X msg 110 946 @send;

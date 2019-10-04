@@ -43,8 +43,8 @@
             <property name="@value" type="list">current slider value</property>
             <property name="@low" type="float" default="0">low (left) selection value</property>
             <property name="@high" type="float" default="0">max (right) selection value</property>
-            <property name="@range" type="float" minvalue="0" default="0">selected slider
-            value</property>
+            <property name="@range" type="float" minvalue="0" default="0" readonly="true">selected
+            slider value</property>
             <!-- common -->
             <property name="@presetname" type="symbol">preset name for using with
             [ui.preset]</property>
