@@ -13,9 +13,17 @@
             <keywords>hot flow pack</keywords>
             <since>0.8</since>
             <also>
+                <see>pack</see>
                 <see>flow.sync</see>
             </also>
         </meta>
+        <arguments>
+            <argument name="N" type="int" minvalue="1">number of inputs</argument>
+            <argument name="VALS" type="list">default values for all inlets</argument>
+        </arguments>
+        <properties>
+            <property name="@n" type="int" minvalue="1" default="1">number of inlets</property>
+        </properties>
         <inlets dynamic="true">
             <inlet number="1">
                 <xinfo on="bang">output current value</xinfo>
