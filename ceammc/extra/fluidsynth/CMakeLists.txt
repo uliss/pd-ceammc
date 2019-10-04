@@ -199,7 +199,7 @@ add_executable(fluidsynth_make_table
     fluidsynth/src/gentables/gen_rvoice_dsp.c
     fluidsynth/src/gentables/make_tables.c
     fluidsynth/src/gentables/make_tables.h)
-
+target_link_libraries(fluidsynth_make_table m)
 
 add_custom_command(OUTPUT fluid_conv_tables.c
     DEPENDS fluidsynth_make_table
