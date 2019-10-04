@@ -742,13 +742,15 @@ public:
 
     void setPropertyAccessor(const char* name, float (UI::*getter)() const, void (UI::*setter)(float))
     {
-        eclass_attr_accessor(pd_class, name, (t_err_method)floatPropGetter, (t_err_method)floatPropSetter);
+        t_err_method m = reinterpret_cast<t_err_method>(setter != nullptr ? floatPropSetter : nullptr);
+        eclass_attr_accessor(pd_class, name, (t_err_method)floatPropGetter, m);
         prop_float_map[gensym(name)] = std::make_pair(getter, setter);
     }
 
     void setPropertyAccessor(const char* name, AtomList (UI::*getter)() const, void (UI::*setter)(const AtomList&))
     {
-        eclass_attr_accessor(pd_class, name, (t_err_method)listPropGetter, (t_err_method)listPropSetter);
+        t_err_method m = reinterpret_cast<t_err_method>(setter != nullptr ? floatPropSetter : nullptr);
+        eclass_attr_accessor(pd_class, name, (t_err_method)listPropGetter, m);
         prop_list_map[gensym(name)] = std::make_pair(getter, setter);
     }
 
@@ -876,7 +878,7 @@ public:
     static void mouseWheel(UI* z, t_object* view, t_pt pt, long modifiers, double delta)
     {
 // fix win32 mouse wheel value on TCL 8.6
-#ifdef  __WIN32
+#ifdef __WIN32
         delta /= 120;
 #endif
 
