@@ -967,8 +967,12 @@ void eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
                 }
             }
 
-            if (c->c_attr[i]->setter) {
-                c->c_attr[i]->setter(x, c->c_attr[i], argc, argv);
+            if (c->c_attr[i]->getter) {
+                if (c->c_attr[i]->setter) {
+                    c->c_attr[i]->setter(x, c->c_attr[i], argc, argv);
+                } else {
+                    pd_error(x, "[%s] readonly property: @%s", c->c_class.c_name->s_name, c->c_attr[i]->name->s_name);
+                }
             } else if (type == s_int) {
                 int* pointor = (int*)point;
                 for (int j = 0; j < size && j < argc; j++) {
