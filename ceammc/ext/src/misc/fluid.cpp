@@ -130,7 +130,7 @@ AtomList Fluid::propSoundFonts() const
     AtomList res;
     const int N = fluid_synth_sfcount(synth_);
 
-    for (int i = 0; i < N; i++) {
+    for (unsigned int i = 0; int(i) < N; i++) {
         fluid_sfont_t* sf = fluid_synth_get_sfont(synth_, i);
         const char* name = fluid_sfont_get_name(sf);
         res.append(Atom(gensym(name)));
@@ -203,9 +203,9 @@ void Fluid::m_bank(t_symbol* s, const AtomList& lst)
         int bank = lst[1].asInt();
         fluid_synth_bank_select(synth_, chan - 1, bank);
 
-        unsigned int sf_id;
-        unsigned int bank_num;
-        unsigned int prog_num;
+        int sf_id;
+        int bank_num;
+        int prog_num;
 
         fluid_synth_get_program(synth_, chan - 1, &sf_id, &bank_num, &prog_num);
         fluid_synth_program_change(synth_, chan - 1, prog_num);
@@ -323,9 +323,9 @@ void Fluid::dump() const
 
         if (preset != NULL) {
             const char* preset_name = fluid_preset_get_name(preset);
-            unsigned int sf_id;
-            unsigned int bank_num;
-            unsigned int prog_num;
+            int sf_id;
+            int bank_num;
+            int prog_num;
             fluid_sfont_t* sf;
 
             fluid_synth_get_program(synth_, i, &sf_id, &bank_num, &prog_num);
