@@ -26,7 +26,7 @@ lineary;
 -49933 0;
 #X msg 110 518 @by;
 #X text 245 518 Get/Set normalization mode. Type: symbol. Default value:
-range. Allowed values: sum \, range.;
+sum. Allowed values: sum \, range.;
 #X msg 110 560 @range;
 #X text 245 560 alias to @by range.;
 #X msg 110 589 @sum;
