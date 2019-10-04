@@ -201,11 +201,13 @@ add_executable(fluidsynth_make_table
     fluidsynth/src/gentables/make_tables.h)
 
 
-add_custom_target(fluidsynth_gen_table
+add_custom_command(OUTPUT fluid_conv_tables.c
     DEPENDS fluidsynth_make_table
     COMMAND ${CMAKE_CURRENT_BINARY_DIR}/fluidsynth_make_table "${CMAKE_CURRENT_BINARY_DIR}/"
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
-add_dependencies(fluidsynth fluidsynth_gen_table)
+
+add_custom_target(fluid_gen_tables DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/fluid_conv_tables.c")
+add_dependencies(fluidsynth fluid_gen_tables)
 
 if(UNIX)
     set_target_properties(fluidsynth PROPERTIES COMPILE_FLAGS "-fPIC")
