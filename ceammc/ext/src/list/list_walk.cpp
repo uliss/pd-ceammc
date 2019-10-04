@@ -38,7 +38,11 @@ ListWalk::ListWalk(const PdArgs& a)
     createProperty(new SymbolEnumAlias("@clip", walk_mode_, SYM_CLIP));
     createProperty(new SymbolEnumAlias("@fold", walk_mode_, SYM_FOLD));
 
-    createCbProperty("@size", &ListWalk::p_size);
+    {
+        Property* p = createCbProperty("@size", &ListWalk::p_size);
+        p->info().setType(PropertyInfoType::INTEGER);
+    }
+
     createCbProperty("@index", &ListWalk::p_index, &ListWalk::p_set_index);
     property("@index")->info().setType(PropertyInfoType::INTEGER);
 
