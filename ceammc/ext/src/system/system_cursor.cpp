@@ -14,7 +14,7 @@
 #include "system_cursor.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
-#include "system_cursor.tcl.h".
+#include "system_cursor.tcl.h"
 
 #include <cinttypes>
 
