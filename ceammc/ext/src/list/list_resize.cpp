@@ -73,7 +73,10 @@ void ListResize::initProperties()
     createProperty(new SymbolEnumAlias("@wrap", method_, SYM_WRAP));
     createProperty(new SymbolEnumAlias("@fold", method_, SYM_FOLD));
 
-    createCbProperty("@pad", &ListResize::getPadValue, &ListResize::setPadValue);
+    {
+        Property* p = createCbProperty("@pad", &ListResize::getPadValue, &ListResize::setPadValue);
+        p->info().setType(PropertyInfoType::VARIANT);
+    }
 }
 
 AtomList ListResize::getPadValue() const
