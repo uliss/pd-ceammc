@@ -749,7 +749,7 @@ public:
 
     void setPropertyAccessor(const char* name, AtomList (UI::*getter)() const, void (UI::*setter)(const AtomList&))
     {
-        t_err_method m = reinterpret_cast<t_err_method>(setter != nullptr ? floatPropSetter : nullptr);
+        t_err_method m = reinterpret_cast<t_err_method>(setter != nullptr ? listPropSetter : nullptr);
         eclass_attr_accessor(pd_class, name, (t_err_method)listPropGetter, m);
         prop_list_map[gensym(name)] = std::make_pair(getter, setter);
     }
