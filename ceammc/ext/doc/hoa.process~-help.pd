@@ -46,7 +46,7 @@ a patch/effect/operator \, then parallelize it with the hoa.process~;
 -49933 0;
 #X msg 110 843 @domain;
 #X text 245 843 (readonly) Get process domain: harmonics or planewaves.
-Type: symbol. Default value: harmonic. Allowed values: harmonics \,
+Type: symbol. Default value: harmonics. Allowed values: harmonics \,
 planewaves.;
 #X msg 110 900 @n;
 #X text 245 900 (readonly) Get the order of decomposition/number of

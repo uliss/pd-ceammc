@@ -46,7 +46,7 @@
             readonly="true">the order of decomposition</property>
             <property name="@n" type="int" minvalue="0" maxvalue="63" default="0" readonly="true">
             number of channels (planewaves)</property>
-            <property name="@mode" type="symbol" enum="fixe fisheye free" default="fixe"
+            <property name="@mode" type="symbol" enum="fixe fisheye free" default="free"
             readonly="true">recomposition mode. There is three modes: *fixe* - simply recomposes a
             plane wave decomposition into circular harmonics. *fisheye* - allows you to perform an
             operation similar to the visual "fisheye" effect by distorsion of the sound field

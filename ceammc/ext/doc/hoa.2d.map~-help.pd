@@ -45,7 +45,7 @@ with distance compensation and muting system;
 -49933 0;
 #X msg 110 765 @nsrc;
 #X text 245 765 (readonly) Get number of input sources. Type: int.
-Default value: 3\. Range: 1\...63\.;
+Default value: 1\. Range: 1\...63\.;
 #X msg 110 807 @order;
 #X text 245 807 (readonly) Get the order of decomposition. Type: int.
 Default value: 1\. Range: 1\...63\.;

@@ -24,9 +24,9 @@
             <argument name="TO" type="symbol">substring to replace</argument>
         </arguments>
         <properties>
-            <property name="@from" type="list" default="">replace from</property>
-            <property name="@to" type="list" default="">replace to</property>
-            <property name="@mode" type="symbol" enum="all,first,last" default="all">replace
+            <property name="@from" type="list">replace from</property>
+            <property name="@to" type="list">replace to</property>
+            <property name="@mode" type="symbol" enum="all first last" default="all">replace
             mode</property>
             <property name="@all" type="alias">alias to @mode all - replace all occurences in input
             string</property>

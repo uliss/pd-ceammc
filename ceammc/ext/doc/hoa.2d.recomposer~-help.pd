@@ -60,7 +60,7 @@ harmonics. *fisheye* - allows you to perform an operation similar to
 the visual "fisheye" effect by distorsion of the sound field perspective
 to the front of the scene. *free* - allows you to change the angles
 and the widening value for each channels. Type: symbol. Default value:
-fixe. Allowed values: fixe \, fisheye \, free.;
+free. Allowed values: fixe \, fisheye \, free.;
 #X msg 110 1144 @n;
 #X text 245 1144 (readonly) Get number of channels (planewaves). Type:
 int. Default value: 0\. Range: 0\...63\.;
