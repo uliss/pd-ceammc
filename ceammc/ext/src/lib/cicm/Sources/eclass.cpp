@@ -38,9 +38,6 @@ static const char* SYM_MOUSE_DBL_CLICK = "dblclick";
 static const char* SYM_KEY = "key";
 static const char* SYM_KEY_FILTER = "keyfilter";
 
-static const char* SYM_READ = "read";
-static const char* SYM_WRITE = "write";
-
 static const char* SYM_PAINT = "paint";
 static const char* SYM_WIDGET_CREATE = ".create";
 static const char* SYM_WIDGET_ERASE = ".erase";
@@ -82,21 +79,23 @@ enum CategoryType {
     CAT_MISC = 600
 };
 
-static void eclass_properties_dialog(t_eclass* c);
-static void ewidget_init(t_eclass* c);
-static void eclass_attr_ceammc_setter(t_object* x, t_symbol* s, int argc, t_atom* argv);
-
-static t_class* tcl_version_class = 0;
 typedef struct tcl_version {
     t_object x_obj;
     char minor;
     char major;
 } t_tcl_version;
 
-t_tcl_version* tcl_version_instance;
+static void eclass_properties_dialog(t_eclass* c);
+static void ewidget_init(t_eclass* c);
+static void eclass_attr_ceammc_setter(t_object* x, t_symbol* s, int argc, t_atom* argv);
+static t_tcl_version* tcl_version_new();
+
+static t_class* tcl_version_class = nullptr;
+static t_tcl_version* tcl_version_instance = nullptr;
+
 t_tcl_version* tcl_version_new()
 {
-    t_tcl_version* x = (t_tcl_version*)pd_new(tcl_version_class);
+    t_tcl_version* x = reinterpret_cast<t_tcl_version*>(pd_new(tcl_version_class));
     if (x) {
         x->minor = 0;
         x->major = 0;
@@ -333,12 +332,12 @@ void eclass_dspinit(t_eclass* c)
     class_addmethod((t_class*)c, (t_method)eobj_dsp_add, gensym(SYM_DSP_ADD64), A_NULL, 0);
 }
 
-static t_pd_err is_cicm(t_eobj* x)
+static t_pd_err is_cicm(t_eobj* /*x*/)
 {
     return 1;
 }
 
-t_pd_err eclass_register(t_symbol* name, t_eclass* c)
+t_pd_err eclass_register(t_symbol* /*name*/, t_eclass* c)
 {
     if (c->c_dsp) {
         long diff = 0;
@@ -361,7 +360,7 @@ t_pd_err eclass_register(t_symbol* name, t_eclass* c)
     return 0;
 }
 
-void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type, long dummy)
+void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type, long /*dummy*/)
 {
     t_symbol* sname = gensym(name);
     t_class* cx = &c->c_class;
@@ -446,20 +445,17 @@ static t_symbol* gentype(const char* name)
 
 void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, long size, long maxsize, long flags, long offset)
 {
-    int i;
-    t_eattr* attr;
-    t_eattr** attrs;
     if (size >= 1) {
         t_symbol* name = gensym(attrname);
 
-        for (i = 0; i < c->c_nattr; i++) {
+        for (int i = 0; i < c->c_nattr; i++) {
             if (c->c_attr[i]->name == name) {
                 error("%s already have %s attribute.", c->c_class.c_name->s_name, attrname);
                 return;
             }
         }
 
-        attr = (t_eattr*)getbytes(sizeof(t_eattr));
+        t_eattr* attr = (t_eattr*)getbytes(sizeof(t_eattr));
 
         if (attr) {
             attr->name = name;
@@ -487,16 +483,16 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
             attr->itemssize = 0;
 
             size_t new_sz = (size_t)(c->c_nattr + 1) * sizeof(t_eattr*);
-            attrs = (t_eattr**)resizebytes(c->c_attr, new_sz, new_sz);
+            t_eattr** attrs = (t_eattr**)resizebytes(c->c_attr, new_sz, new_sz);
 
             if (attrs) {
                 char buf[MAXPDSTRING];
                 c->c_attr = attrs;
                 c->c_attr[c->c_nattr] = attr;
                 sprintf(buf, "@%s", attrname);
-                class_addmethod((t_class*)c, (t_method)eclass_attr_ceammc_setter, gensym(buf), A_GIMME, 0);
+                class_addmethod(&c->c_class, (t_method)eclass_attr_ceammc_setter, gensym(buf), A_GIMME, 0);
                 sprintf(buf, "@%s?", attrname);
-                class_addmethod((t_class*)c, (t_method)eclass_attr_ceammc_getter, gensym(buf), A_GIMME, 0);
+                class_addmethod(&c->c_class, (t_method)eclass_attr_ceammc_getter, gensym(buf), A_GIMME, 0);
                 c->c_nattr++;
             } else {
                 error("%s can't increase memory for %s attribute.", c->c_class.c_name->s_name, attrname);
@@ -525,7 +521,7 @@ void eclass_attr_redirect(t_eclass* c, const char* attrname, t_gotfn fn)
     }
 }
 
-void eclass_attr_default(t_eclass* c, const char* attrname, long flags, const char* value)
+void eclass_attr_default(t_eclass* c, const char* attrname, long /*flags*/, const char* value)
 {
     for (int i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == gensym(attrname)) {
@@ -537,7 +533,7 @@ void eclass_attr_default(t_eclass* c, const char* attrname, long flags, const ch
     pd_error(nullptr, "[%s] property not found: %s", c->c_class.c_name->s_name, attrname);
 }
 
-void eclass_attr_category(t_eclass* c, const char* attrname, long flags, const char* category)
+void eclass_attr_category(t_eclass* c, const char* attrname, long /*flags*/, const char* category)
 {
     t_symbol* cat = gensym(category);
     t_symbol* sel = gensym(attrname);
@@ -566,7 +562,7 @@ void eclass_attr_category(t_eclass* c, const char* attrname, long flags, const c
     }
 }
 
-void eclass_attr_order(t_eclass* c, const char* attrname, long flags, const char* order)
+void eclass_attr_order(t_eclass* c, const char* attrname, long /*flags*/, const char* order)
 {
     t_symbol* sel = gensym(attrname);
 
@@ -581,7 +577,7 @@ void eclass_attr_order(t_eclass* c, const char* attrname, long flags, const char
     }
 }
 
-void eclass_attr_label(t_eclass* c, const char* attrname, long flags, const char* label)
+void eclass_attr_label(t_eclass* c, const char* attrname, long /*flags*/, const char* label)
 {
     t_symbol* sel = gensym(attrname);
 
@@ -593,7 +589,7 @@ void eclass_attr_label(t_eclass* c, const char* attrname, long flags, const char
     }
 }
 
-void eclass_attr_style(t_eclass* c, const char* attrname, long flags, const char* style)
+void eclass_attr_style(t_eclass* c, const char* attrname, long /*flags*/, const char* style)
 {
     t_symbol* sel = gensym(attrname);
     t_symbol* s_style = gensym(style);
@@ -618,13 +614,13 @@ void eclass_attr_style(t_eclass* c, const char* attrname, long flags, const char
     }
 }
 
-void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const char* list)
+void eclass_attr_itemlist(t_eclass* c, const char* attrname, long /*flags*/, const char* list)
 {
-    int i, j = 0;
+    int j = 0;
     char* pch;
     int size = 0;
     t_symbol* s_attrname = gensym(attrname);
-    for (i = 0; i < c->c_nattr; i++) {
+    for (int i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == s_attrname) {
             auto plist = strdup(list);
             if (!plist)
@@ -717,7 +713,7 @@ void eclass_attr_step(t_eclass* c, const char* attrname, float value)
     }
 }
 
-void eclass_attr_save(t_eclass* c, const char* attrname, long flags, bool value)
+void eclass_attr_save(t_eclass* c, const char* attrname, long /*flags*/, bool value)
 {
     t_symbol* s_attrname = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
@@ -728,7 +724,7 @@ void eclass_attr_save(t_eclass* c, const char* attrname, long flags, bool value)
     }
 }
 
-void eclass_attr_paint(t_eclass* c, const char* attrname, long flags)
+void eclass_attr_paint(t_eclass* c, const char* attrname, long /*flags*/)
 {
     t_symbol* s_attrname = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
@@ -739,7 +735,7 @@ void eclass_attr_paint(t_eclass* c, const char* attrname, long flags)
     }
 }
 
-void eclass_attr_invisible(t_eclass* c, const char* attrname, long flags)
+void eclass_attr_invisible(t_eclass* c, const char* attrname, long /*flags*/)
 {
     t_symbol* s_attrname = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
@@ -876,8 +872,6 @@ static bool request_property(t_object* x, t_symbol* s, std::vector<t_atom>& res)
 
 void eclass_attr_ceammc_getter(t_object* x, t_symbol* s, int argc, t_atom* argv)
 {
-    int argc_ = 0;
-    t_atom* argv_ = NULL;
     t_ebox* z = (t_ebox*)x;
     if (!z->b_obj.o_obj.te_outlet) {
         pd_error(x, "[%s] can't get property: class has no outlets.", class_getname(x->te_pd));
@@ -955,14 +949,14 @@ void eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
             if (c->c_attr[i]->clipped == 1 || c->c_attr[i]->clipped == 3) {
                 for (int j = 0; j < argc; j++) {
                     if (atom_gettype(argv + j) == A_FLOAT) {
-                        atom_setfloat(argv + j, (float)pd_clip_min(atom_getfloat(argv + j), c->c_attr[i]->minimum));
+                        atom_setfloat(argv + j, pd_clip_min(atom_getfloat(argv + j), c->c_attr[i]->minimum));
                     }
                 }
             }
             if (c->c_attr[i]->clipped == 2 || c->c_attr[i]->clipped == 3) {
                 for (int j = 0; j < argc; j++) {
                     if (atom_gettype(argv + j) == A_FLOAT) {
-                        atom_setfloat(argv + j, (float)pd_clip_max(atom_getfloat(argv + j), c->c_attr[i]->maximum));
+                        atom_setfloat(argv + j, pd_clip_max(atom_getfloat(argv + j), c->c_attr[i]->maximum));
                     }
                 }
             }
