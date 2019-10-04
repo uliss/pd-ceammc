@@ -19,11 +19,11 @@
         <properties>
             <property name="@capacity" type="float" minvalue="0" maxvalue="120" default="5"
             units="second">max loop time</property>
-            <property name="@length" type="float" units="second" readonly="true">recorded loop
+            <property name="@length" type="float" units="second" minvalue="0" readonly="true">recorded loop
             length</property>
             <property name="@array" type="symbol" default="">use specified array for record instead
             of internal buffer</property>
-            <property name="@play_pos" type="float" units="second" readonly="true">current playing
+            <property name="@play_pos" type="float" units="second" minvalue="0" readonly="true">current playing
             position</property>
             <property name="@play_phase" type="float" minvalue="0" maxvalue="1" readonly="true">
             current playing phase position</property>
