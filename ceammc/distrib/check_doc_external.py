@@ -292,6 +292,9 @@ if __name__ == '__main__':
                 v0 = set(p0["enum"])
                 v1 = set(p1["enum"].split(" "))
 
+                if len(p0["enum"]) > 0 and isinstance(p0["enum"][0], int):
+                    v1 = set(map(lambda x: int(x), p1["enum"].split(" ")))
+
                 if v0 != v1:
                     cprint(f"[{ext_name}] invalid value for enum attribute \"{p}\": {v0} != {v1}", 'magenta')
             elif attr == HAVE_EXTERNAL:
