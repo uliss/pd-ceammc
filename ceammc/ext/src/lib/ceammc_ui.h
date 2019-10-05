@@ -759,6 +759,11 @@ public:
         eclass_attr_redirect(pd_class, name, (t_gotfn)listPropRedirector);
     }
 
+    void setPropertyUnits(const char* name, const char* value)
+    {
+        setPropertyUnits(gensym(name), gensym(value));
+    }
+
     void setPropertyUnits(t_symbol* name, t_symbol* value)
     {
         eclass_attr_units(pd_class, name, 0, value);

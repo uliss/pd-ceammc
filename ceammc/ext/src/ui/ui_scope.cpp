@@ -199,6 +199,7 @@ void UIScope::setup()
     obj.setPropertyRange("window", 512, 4096);
     obj.addIntProperty("refresh", _("Refresh time (ms)"), 40, &UIScope::prop_refresh, _("Main"));
     obj.setPropertyRange("refresh", 10, 1000);
+    obj.setPropertyUnits("refresh", "msec");
 
     obj.hideProperty("send");
 }
