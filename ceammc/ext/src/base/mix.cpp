@@ -63,8 +63,18 @@ Mix::Mix(const PdArgs& args)
     }
 
     createCbProperty("@value", &Mix::propValue, &Mix::setPropValue);
-    createCbProperty("@mute", &Mix::propMute, &Mix::setPropMute);
-    createCbProperty("@solo", &Mix::propSolo, &Mix::setPropSolo);
+
+    {
+        Property* p = createCbProperty("@mute", &Mix::propMute, &Mix::setPropMute);
+        p->info().addEnum(0);
+        p->info().addEnum(1);
+    }
+
+    {
+        Property* p = createCbProperty("@solo", &Mix::propSolo, &Mix::setPropSolo);
+        p->info().addEnum(0);
+        p->info().addEnum(1);
+    }
 }
 
 void Mix::onList(const AtomList& lst)
