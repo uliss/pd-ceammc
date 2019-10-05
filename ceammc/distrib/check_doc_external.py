@@ -298,7 +298,8 @@ if __name__ == '__main__':
                 if v0 != v1:
                     cprint(f"[{ext_name}] invalid value for enum attribute \"{p}\": {v0} != {v1}", 'magenta')
             elif attr == HAVE_EXTERNAL:
-                cprint(f"[{ext_name}] missing enum attribute in pddoc \"{p}\"", 'magenta')
+                if ext_name.startswith("ui.") and p not in ("@fontname"):
+                    cprint(f"[{ext_name}] missing enum attribute in pddoc \"{p}\"", 'magenta')
             elif attr == HAVE_PDDOC:
                     cprint(f"[{ext_name}] pddoc enum for attribute \"{p}\" not exists", 'magenta')
 
