@@ -165,7 +165,7 @@ if __name__ == '__main__':
             cprint(f"[{ext_name}] unknown methods in doc: {unknown_methods}", 'yellow')
 
     if args.props:
-        ignored_props = {'@*'}
+        ignored_props = {'@*', '@label', '@label_margins', '@label_valign', '@label_align', '@label_inner', '@label_side', '@label_color'}
 
         ext_props_set, ext_props_dict = read_props(ext_name)
         undoc_props_set = ext_props_set - doc_props_set - ignored_props
