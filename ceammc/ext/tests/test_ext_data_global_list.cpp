@@ -42,9 +42,9 @@ TEST_CASE("[global.list]", "[externals]")
         TestExtGlobalList t3("global.list", LA("a2"));
         REQUIRE(t2.object());
 
-        REQUIRE_PROPERTY_FLOAT(t1, @obj_refs, 2);
-        REQUIRE_PROPERTY_FLOAT(t1, @obj_refs, 2);
-        REQUIRE_PROPERTY_FLOAT(t3, @obj_refs, 1);
+        REQUIRE_PROPERTY_FLOAT(t1, @.obj_refs, 2);
+        REQUIRE_PROPERTY_FLOAT(t1, @.obj_refs, 2);
+        REQUIRE_PROPERTY_FLOAT(t3, @.obj_refs, 1);
 
         t1 << BANG;
         REQUIRE(t1.outputListAt(0) == L());

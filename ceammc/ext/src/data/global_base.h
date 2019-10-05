@@ -51,9 +51,9 @@ public:
             OBJ_DBG << "global object ID required! Using default id: \"" << data_.name()->s_name << '"';
 
         createOutlet();
-        createCbProperty("@id", &GlobalBase::m_id);
-        createCbProperty("@obj_refs", &GlobalBase::m_refs);
-        createCbProperty("@obj_keys", &GlobalBase::m_keys);
+        createCbProperty("@.id", &GlobalBase::m_id);
+        createCbProperty("@.obj_refs", &GlobalBase::m_refs);
+        createCbProperty("@.obj_keys", &GlobalBase::m_keys);
     }
 
     T& ref() { return data_.ref(); }

@@ -188,6 +188,9 @@ int main(int argc, char* argv[])
     cout << "{\n";
 
     for (auto& p : ext.properties()) {
+        if (p.name().size() > 1 && p.name()[1] == '.')
+            continue;
+
         if (!first)
             cout << ",\n";
 
