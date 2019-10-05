@@ -266,15 +266,6 @@ if __name__ == '__main__':
             if "max" in p0 and "maxvalue" not in p1:
                 cprint(f"[{ext_name}] missing attribute maxvalue in \"{p}\"", 'magenta')
 
-            if ("default" in p0) and ("readonly" not in p0) and ("default" not in p1):
-                cprint(f"[{ext_name}] missing attribute default in \"{p}\"", 'magenta')
-
-            if "default" in p0 and "default" in p1:
-                v0 = str(p0["default"])
-                v1 = str(p1["default"])
-                if v0 != v1:
-                    cprint(f"[{ext_name}] invalid value for default attribute \"{p}\": {v0} != {v1}", 'magenta')
-
             if "min" in p0 and "minvalue" in p1:
                 v0 = str(p0["min"])
                 v1 = str(p1["minvalue"])
@@ -286,6 +277,23 @@ if __name__ == '__main__':
                 v1 = str(p1["maxvalue"])
                 if v0 != v1:
                     cprint(f"[{ext_name}] invalid value for maxvalue attribute \"{p}\": {v0} != {v1}", 'magenta')
+
+            attr = check_attr("default", p0, p1)
+            if attr == HAVE_BOTH:
+                if isinstance(p0["default"], list):
+                    v0 = p0["default"]
+                    v1 = p1["default"].split(" ")
+
+                    if len(v0) > 0 and isinstance(v0[0], int):
+                        v1 = list(map(int, v1))
+                else:
+                    v0 = str(p0["default"])
+                    v1 = p1["default"]
+
+                if v0 != v1:
+                    cprint(f"[{ext_name}] invalid value for default attribute \"{p}\": {v0} != {v1}", 'magenta')
+            elif attr == HAVE_EXTERNAL and "readonly" not in p0:
+                cprint(f"[{ext_name}] missing attribute default in \"{p}\"", 'magenta')
 
             attr = check_attr("enum", p0, p1)
             if attr == HAVE_BOTH:
