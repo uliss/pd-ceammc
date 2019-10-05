@@ -36,7 +36,7 @@
             <property name="@radians" type="int" default="0" enum="0 1">using radians instead of
             degrees</property>
             <property name="@angle" type="float">angle</property>
-            <property name="@radius" type="float">radius</property>
+            <property name="@radius" type="float" minvalue="0" maxvalue="1">radius</property>
             <!-- common -->
             <property name="@presetname" type="symbol">preset name for using with
             [ui.preset]</property>

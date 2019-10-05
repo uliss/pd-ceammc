@@ -49,7 +49,7 @@ Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
 #X text 245 754 Get/Set using radians instead of degrees. Type: int.
 Default value: 0\. Allowed values: 0 \, 1\.;
 #X msg 110 796 @radius;
-#X text 245 796 Get/Set radius. Type: float.;
+#X text 245 796 Get/Set radius. Type: float. Range: 0\...1\.;
 #X msg 110 825 @receive;
 #X text 245 825 Get/Set receive source. Type: symbol.;
 #X msg 110 854 @send;
