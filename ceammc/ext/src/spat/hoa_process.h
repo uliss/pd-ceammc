@@ -37,7 +37,6 @@ class HoaProcess : public SoundExternal {
 
     SymbolEnumProperty* domain_;
     IntPropertyMinEq* num_;
-    int target_value_;
 
     // used to send loadbang to instances
     ClockMemberFunction<HoaProcess> clock_;
