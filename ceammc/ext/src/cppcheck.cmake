@@ -34,6 +34,7 @@ if(CPPCHECK)
         -i lib/mlist_parser_impl.cpp
         -i exp/
         -i rtmidi/
+        -i spat/Hoa_Tools.hpp
         ${_CPPCHECK_FLAGS}
         --std=c++11
         --xml
