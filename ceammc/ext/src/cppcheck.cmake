@@ -32,6 +32,7 @@ if(CPPCHECK)
         -i math/math_expr.tab.c
         -i lib/dict_parser_impl.cpp
         -i lib/mlist_parser_impl.cpp
+        -i exp/
         ${_CPPCHECK_FLAGS}
         --std=c++11
         --xml
