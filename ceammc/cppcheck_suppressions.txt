@@ -1,3 +1,2 @@
-ConfigurationNotChecked
-toomanyconfigs
+cppcheckError
 *:*tl_lexer.cpp

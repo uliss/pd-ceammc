@@ -413,10 +413,11 @@ CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)
 
     assert(l.size() == 5);
     t_canvas* cnv = canvas_new(0, gensym(name), l.size(), l.toPdData());
-    cnv->gl_loading = 0;
 
     if (!cnv)
         return ptr;
+
+    cnv->gl_loading = 0;
 
     ptr.reset(new Canvas(cnv));
     canvas_map_[name] = ptr;

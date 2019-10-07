@@ -11,7 +11,7 @@ if(CPPCHECK)
 
     set(_CPPCHECK_FLAGS "-DPD_FLOATSIZE=32")
     if(APPLE)
-        set(_CPPCHECK_FLAGS "${_CPPCHECK_FLAGS} -U_WINDOWS -U_MSC_VER -U_WIN32 -U__WIN32")
+        set(_CPPCHECK_FLAGS "${_CPPCHECK_FLAGS} -U_WINDOWS -U_MSC_VER -U_WIN32 -U__WIN32 -D__MACH__ -D__APPLE__")
     endif()
 
     add_custom_target(

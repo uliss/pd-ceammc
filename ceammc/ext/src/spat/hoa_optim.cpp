@@ -27,7 +27,7 @@ class LambdaProperty : public Prop {
 
 public:
     template <typename Fn, typename... Args>
-    LambdaProperty(Owner* obj, Fn fn, Args... args)
+    LambdaProperty(Owner* obj, const Fn& fn, Args... args)
         : Prop(args...)
         , this_(obj)
         , fn_(fn)
