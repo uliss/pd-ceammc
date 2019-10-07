@@ -39,103 +39,103 @@ value: 0\. Range: -12\...12\.;
 #X text 245 612 Get/Set minimal gain value. Type: int. Units: db. Default
 value: -60\. Range: -90\...-30\.;
 #X msg 110 654 @mouse_events;
-#X text 245 654 Get/Set if outputs @mouse_up \, @mouse_down \, @mouse_drag
-\, @mouse_enter \, @mouse_leave \, @mouse_move \, @dlbclick \, @mouse_wheel.
-Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 726 @output_value;
-#X text 245 726 Get/Set flag to output @db property after each knob
+#X text 245 654 Get/Set mouse events output mode. If on outputs @mouse_down
+\, @mouse_up and @mouse_drag events. Type: int. Default value: 0\.
+Allowed values: 0 \, 1\.;
+#X msg 110 711 @output_value;
+#X text 245 711 Get/Set flag to output @db property after each knob
 move. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 768 @receive;
-#X text 245 768 Get/Set receive source. Type: symbol.;
-#X msg 110 797 @relative;
-#X text 245 797 Get/Set relative input mode. When set do not jump to
+#X msg 110 753 @receive;
+#X text 245 753 Get/Set receive source. Type: symbol.;
+#X msg 110 782 @relative;
+#X text 245 782 Get/Set relative input mode. When set do not jump to
 value on click. Type: int. Default value: 1\. Allowed values: 0 \,
 1\.;
-#X msg 110 839 @send;
-#X text 245 839 Get/Set send destination. Type: symbol.;
-#X msg 110 868 @show_range;
-#X text 245 868 Get/Set if show slider range. Type: int. Default value:
+#X msg 110 824 @send;
+#X text 245 824 Get/Set send destination. Type: symbol.;
+#X msg 110 853 @show_range;
+#X text 245 853 Get/Set if show slider range. Type: int. Default value:
 1\. Allowed values: 0 \, 1\.;
-#X msg 110 910 @background_color;
-#X text 245 910 Get/Set element background color (list of red \, green
+#X msg 110 895 @background_color;
+#X text 245 895 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list.;
-#X msg 110 952 @border_color;
-#X text 245 952 Get/Set border color (list of red \, green \, blue
+#X msg 110 937 @border_color;
+#X text 245 937 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list.;
-#X msg 110 994 @knob_color;
-#X text 245 994 Get/Set knob color (list of red \, green \, blue values
+#X msg 110 979 @knob_color;
+#X text 245 979 Get/Set knob color (list of red \, green \, blue values
 in 0-1 range). Type: list.;
-#X msg 110 1036 @fontname;
-#X text 245 1036 Get/Set fontname. Type: symbol.;
-#X msg 110 1065 @fontsize;
-#X text 245 1065 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 1021 @fontname;
+#X text 245 1021 Get/Set fontname. Type: symbol.;
+#X msg 110 1050 @fontsize;
+#X text 245 1050 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...11\.;
-#X msg 110 1107 @fontslant;
-#X text 245 1107 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1092 @fontslant;
+#X text 245 1092 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1149 @fontweight;
-#X text 245 1149 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1134 @fontweight;
+#X text 245 1134 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1191 @pinned;
-#X text 245 1191 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1176 @pinned;
+#X text 245 1176 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 1233 @presetname;
-#X text 245 1233 Get/Set preset name for using with [ui.preset]. Type:
+#X msg 110 1218 @presetname;
+#X text 245 1218 Get/Set preset name for using with [ui.preset]. Type:
 symbol.;
-#X msg 110 1262 @size;
-#X text 245 1262 Get/Set element size (width \, height pair). Type:
+#X msg 110 1247 @size;
+#X text 245 1247 Get/Set element size (width \, height pair). Type:
 list.;
-#X obj 20 1301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1306 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1286 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1291 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1341 clear;
-#X text 245 1341 clears specified preset. Arguments are:;
-#X obj 255 1364 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1364 IDX: preset index. Type: int.;
-#X msg 110 1389 load;
-#X text 245 1389 loads specified preset. Arguments are:;
-#X obj 255 1412 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1412 IDX: preset index. Type: int.;
-#X msg 110 1437 pos;
-#X text 245 1437 set UI element position. Arguments are:;
-#X obj 255 1460 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1460 X: top left x-coord. Type: float.;
-#X obj 255 1483 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1483 Y: top right y-coord. Type: float.;
-#X msg 110 1508 set N;
-#X text 245 1508 set current gain to N db.;
-#X msg 110 1535 store;
-#X text 245 1535 stores specified preset. Arguments are:;
-#X obj 255 1558 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1558 IDX: preset index. Type: int.;
-#X msg 110 1583 + N;
-#X text 245 1583 increase current gain by N db.;
-#X msg 110 1610 ++;
-#X text 245 1610 decrease current gain by 1 db.;
-#X msg 110 1637 - N;
-#X text 245 1637 decrease current gain by N db.;
-#X msg 110 1664 --;
-#X text 245 1664 decrease current gain by 1 db.;
-#X obj 20 1701 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1706 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1326 clear;
+#X text 245 1326 clears specified preset. Arguments are:;
+#X obj 255 1349 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1349 IDX: preset index. Type: int.;
+#X msg 110 1374 load;
+#X text 245 1374 loads specified preset. Arguments are:;
+#X obj 255 1397 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1397 IDX: preset index. Type: int.;
+#X msg 110 1422 pos;
+#X text 245 1422 set UI element position. Arguments are:;
+#X obj 255 1445 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1445 X: top left x-coord. Type: float.;
+#X obj 255 1468 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1468 Y: top right y-coord. Type: float.;
+#X msg 110 1493 set N;
+#X text 245 1493 set current gain to N db.;
+#X msg 110 1520 store;
+#X text 245 1520 stores specified preset. Arguments are:;
+#X obj 255 1543 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1543 IDX: preset index. Type: int.;
+#X msg 110 1568 + N;
+#X text 245 1568 increase current gain by N db.;
+#X msg 110 1595 ++;
+#X text 245 1595 decrease current gain by 1 db.;
+#X msg 110 1622 - N;
+#X text 245 1622 decrease current gain by N db.;
+#X msg 110 1649 --;
+#X text 245 1649 decrease current gain by 1 db.;
+#X obj 20 1686 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1691 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1707 1\.;
-#X text 245 1707 input signal.;
-#X text 150 1727 *bang*;
-#X text 245 1727 output current gain @db property.;
-#X obj 20 1757 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1762 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1692 1\.;
+#X text 245 1692 input signal.;
+#X text 150 1712 *bang*;
+#X text 245 1712 output current gain @db property.;
+#X obj 20 1742 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1747 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1763 1\.;
-#X text 245 1763 output signal.;
+#X text 110 1748 1\.;
+#X text 245 1748 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1813 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1816 library: ceammc v0.8.0;
-#N canvas 10 1835 400 290 info 0;
+#X obj 1 1798 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1801 library: ceammc v0.8.0;
+#N canvas 10 1820 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -159,7 +159,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1835 pd info;
+#X restore 10 1820 pd info;
 #X connect 8 0 16 0;
 #X connect 9 0 16 0;
 #X connect 15 0 16 0;

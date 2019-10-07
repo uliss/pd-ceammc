@@ -33,9 +33,8 @@
             [ui.preset]</property>
             <property name="@show_range" type="int" enum="0 1" default="1">if show slider
             range</property>
-            <property name="@mouse_events" type="int" enum="0 1" default="0">if outputs @mouse_up,
-            @mouse_down, @mouse_drag, @mouse_enter, @mouse_leave, @mouse_move, @dlbclick,
-            @mouse_wheel.</property>
+            <property name="@mouse_events" type="int" enum="0 1" default="0">mouse events output
+            mode. If on outputs @mouse_down, @mouse_up and @mouse_drag events</property>
             <!-- common -->
             <property name="@send" type="symbol">send destination</property>
             <property name="@receive" type="symbol">receive source</property>

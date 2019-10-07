@@ -33,9 +33,8 @@
             range</property>
             <property name="@presetname" type="symbol">preset name for using with
             [ui.preset]</property>
-            <property name="@mouse_events" type="int" enum="0 1" default="0">if outputs @mouse_up,
-            @mouse_down, @mouse_drag, @mouse_enter, @mouse_leave, @mouse_move, @dlbclick,
-            @mouse_wheel.</property>
+            <property name="@mouse_events" type="int" enum="0 1" default="0">mouse events output
+            mode. If on outputs @mouse_down, @mouse_up and @mouse_drag events</property>
             <property name="@send" type="symbol">send destination</property>
             <property name="@receive" type="symbol">receive source</property>
             <property name="@size" type="list">element size (width, height pair)</property>
