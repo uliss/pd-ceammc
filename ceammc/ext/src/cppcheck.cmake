@@ -33,6 +33,7 @@ if(CPPCHECK)
         -i lib/dict_parser_impl.cpp
         -i lib/mlist_parser_impl.cpp
         -i exp/
+        -i rtmidi/
         ${_CPPCHECK_FLAGS}
         --std=c++11
         --xml
