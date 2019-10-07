@@ -36,6 +36,7 @@ UIMeter::UIMeter()
     , rms_dbfs_(-90)
     , peak_dbfs_(-90)
     , is_horizontal_(false)
+    , start_clock_(false)
 {
     createOutlet();
 }
