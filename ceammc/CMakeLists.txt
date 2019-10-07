@@ -45,6 +45,6 @@ if(XGETTEXT)
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 endif()
 
-add_custom_target(ceammc_extra_files SOURCES CHANGELOG.md)
+add_custom_target(ceammc_extra_files SOURCES CHANGELOG.md cppcheck_suppressions.txt)
 
 
