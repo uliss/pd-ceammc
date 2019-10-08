@@ -432,7 +432,8 @@ static t_symbol* gentype(const char* name)
         return gensym(name);
 }
 
-void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, long size, long maxsize, long offset)
+void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
+    size_t size, size_t maxsize, size_t offset)
 {
     if (size >= 1) {
         t_symbol* name = gensym(attrname);
@@ -462,7 +463,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
             attr->sizemax = maxsize;
             attr->getter = NULL;
             attr->setter = NULL;
-            attr->clipped = 0;
+            attr->clipped = E_CLIP_NONE;
             attr->minimum = 0;
             attr->maximum = 1;
             attr->step = 1;
@@ -662,14 +663,10 @@ void eclass_attr_itemlist(t_eclass* c, const char* attrname, const char* list)
 
 void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value)
 {
-    t_symbol* s_attrname = gensym(attrname);
+    t_symbol* sel = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
-        if (c->c_attr[i]->name == s_attrname) {
-            if (c->c_attr[i]->clipped == 0)
-                c->c_attr[i]->clipped = 1;
-            else if (c->c_attr[i]->clipped == 2)
-                c->c_attr[i]->clipped = 3;
-
+        if (c->c_attr[i]->name == sel) {
+            c->c_attr[i]->clipped = static_cast<eclip_flags>(c->c_attr[i]->clipped | E_CLIP_MIN);
             c->c_attr[i]->minimum = value;
             return;
         }
@@ -678,14 +675,10 @@ void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value)
 
 void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value)
 {
-    t_symbol* s_attrname = gensym(attrname);
+    t_symbol* sel = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
-        if (c->c_attr[i]->name == s_attrname) {
-            if (c->c_attr[i]->clipped == 0)
-                c->c_attr[i]->clipped = 2;
-            else if (c->c_attr[i]->clipped == 1)
-                c->c_attr[i]->clipped = 3;
-
+        if (c->c_attr[i]->name == sel) {
+            c->c_attr[i]->clipped = static_cast<eclip_flags>(c->c_attr[i]->clipped | E_CLIP_MAX);
             c->c_attr[i]->maximum = value;
             return;
         }
@@ -936,14 +929,14 @@ void eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
 
             point = (char*)(x) + c->c_attr[i]->offset;
 
-            if (c->c_attr[i]->clipped == 1 || c->c_attr[i]->clipped == 3) {
+            if (c->c_attr[i]->clipped & E_CLIP_MIN) {
                 for (int j = 0; j < argc; j++) {
                     if (atom_gettype(argv + j) == A_FLOAT) {
                         atom_setfloat(argv + j, pd_clip_min(atom_getfloat(argv + j), c->c_attr[i]->minimum));
                     }
                 }
             }
-            if (c->c_attr[i]->clipped == 2 || c->c_attr[i]->clipped == 3) {
+            if (c->c_attr[i]->clipped & E_CLIP_MAX) {
                 for (int j = 0; j < argc; j++) {
                     if (atom_gettype(argv + j) == A_FLOAT) {
                         atom_setfloat(argv + j, pd_clip_max(atom_getfloat(argv + j), c->c_attr[i]->maximum));

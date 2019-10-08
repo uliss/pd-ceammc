@@ -49,7 +49,7 @@ UIObject::~UIObject()
     unbindAll();
 }
 
-t_ebox *UIObject::asEBox() const { return const_cast<UIObject*>(this); }
+t_ebox* UIObject::asEBox() const { return const_cast<UIObject*>(this); }
 
 void UIObject::appendToLayerList(UILayer* l)
 {
@@ -621,10 +621,10 @@ static void set_constrains(PropertyInfo& info, t_eattr* a)
     if (a->step)
         info.setStep(a->step);
 
-    if (a->clipped & 0x1)
+    if (a->clipped & E_CLIP_MIN)
         info.setMin(a->minimum);
 
-    if (a->clipped & 0x2)
+    if (a->clipped & E_CLIP_MAX)
         info.setMax(a->maximum);
 
     if (a->itemssize > 0) {

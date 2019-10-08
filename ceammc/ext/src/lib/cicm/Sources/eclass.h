@@ -99,7 +99,7 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
  * \param maxsize   The attribute max size
  * \param offset    The attribute bit offset in the object structure
  */
-void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, long size, long maxsize, long offset);
+void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, size_t size, size_t maxsize, size_t offset);
 
 //! @cond
 /*!
