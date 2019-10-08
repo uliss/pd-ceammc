@@ -9,7 +9,7 @@
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Shows waveform. Double-click toggles freeze mode. Shift+Click
 - zoomin \, Ctrl+Click - zoomout;
-#X obj 50 158 ui.dsp~ @size=40x40;
+#X obj 50 158 ui.dsp~ @size 40 40;
 #X msg 50 202 300;
 #X msg 107 202 660;
 #X floatatom 165 202 5 0 0 0 - - -;

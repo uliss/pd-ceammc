@@ -60,7 +60,7 @@
 [flow.match freq`d amp`d]
 |              ^|     ^^|
 |               |       |
-[S]           [S]       [ui.d @display_type=1]
+[S]           [S]       [ui.display @display_type=1]
 ]]>
             </pdascii>
         </example>

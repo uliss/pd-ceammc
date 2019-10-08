@@ -67,7 +67,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[ui.dsp~ @size=40x40]
+[ui.dsp~ @size 40 40]
 
 
 [300( [660( [F]
