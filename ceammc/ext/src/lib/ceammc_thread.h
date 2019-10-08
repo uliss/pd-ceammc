@@ -127,6 +127,9 @@ class ThreadPollClockExternal : public ThreadExternalBase {
     ClockMemberFunction<ThreadPollClockExternal> clock_;
     IntPropertyMin* poll_time_;
 
+    ThreadPollClockExternal(const ThreadPollPipeExternal&) = delete;
+    void operator=(const ThreadPollPipeExternal&) = delete;
+
 public:
     ThreadPollClockExternal(const PdArgs& args, thread::Task* task);
     ~ThreadPollClockExternal();

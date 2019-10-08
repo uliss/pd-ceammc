@@ -9,9 +9,9 @@ endif()
 if(CPPCHECK)
     message(STATUS "CppCheck found: ${CPPCHECK}. The 'cppcheck' make target is available.")
 
-    set(_CPPCHECK_FLAGS "-DPD_FLOATSIZE=32")
+    list(APPEND _CPPCHECK_FLAGS -DHAVE_DIRENT_H -DPD_FLOATSIZE=32)
     if(APPLE)
-        set(_CPPCHECK_FLAGS "${_CPPCHECK_FLAGS} -U_WINDOWS -U_MSC_VER -U_WIN32 -U__WIN32 -D__MACH__ -D__APPLE__")
+        list(APPEND _CPPCHECK_FLAGS -U_WINDOWS -U_MSC_VER -U_WIN32 -U__WIN32 -D__MACH__ -D__APPLE__ -D__MAC_OS_X_VERSION_MIN_REQUIRED=1090)
     endif()
 
     add_custom_target(
