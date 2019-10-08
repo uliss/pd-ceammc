@@ -542,12 +542,12 @@ typedef struct t_eattr {
     t_err_method getter; /*!< The getter method of the attribute. */
     t_err_method setter; /*!< The setter method of the attribute. */
     long clipped; /*!< If the attribute is clipped if it's value or an array of numerical values. */
-    float minimum; /*!< The minimum value of the attribute. */
-    float maximum; /*!< The maximum value of the attribute. */
     float step; /*!< The increment or decrement step calue of the attribute. */
     t_symbol* defvals; /*!< The default value of the attribute. */
     t_symbol** itemslist; /*!< The available items of an attribute if it is a menu. */
     long itemssize; /*!< The number of available items of an attribute if it is a menu. */
+    float minimum; /*!< The minimum value of the attribute. */
+    float maximum; /*!< The maximum value of the attribute. */
     bool save; /*!< If the attribute should be saved. */
     bool paint; /*!< If the attribute should repaint the t_ebox when it has changed. */
     bool invisible; /*!< If the attribute is invisible. */
