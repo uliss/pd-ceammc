@@ -454,9 +454,9 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
             attr->style = gensym(SYM_ENTRY);
             attr->units = &s_;
             attr->order = c->c_nattr + 1;
-            attr->save = 0;
-            attr->paint = 0;
-            attr->invisible = 0;
+            attr->save = false;
+            attr->paint = false;
+            attr->invisible = false;
             attr->flags = flags;
             attr->offset = offset;
             attr->size = size;
@@ -706,10 +706,10 @@ void eclass_attr_step(t_eclass* c, const char* attrname, float value)
 
 void eclass_attr_save(t_eclass* c, const char* attrname, long /*flags*/, bool value)
 {
-    t_symbol* s_attrname = gensym(attrname);
+    t_symbol* sel = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
-        if (c->c_attr[i]->name == s_attrname) {
-            c->c_attr[i]->save = value ? 1 : 0;
+        if (c->c_attr[i]->name == sel) {
+            c->c_attr[i]->save = value;
             return;
         }
     }
@@ -720,7 +720,7 @@ void eclass_attr_paint(t_eclass* c, const char* attrname, long /*flags*/)
     t_symbol* s_attrname = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == s_attrname) {
-            c->c_attr[i]->paint = 1;
+            c->c_attr[i]->paint = true;
             return;
         }
     }
@@ -731,7 +731,7 @@ void eclass_attr_invisible(t_eclass* c, const char* attrname, long /*flags*/)
     t_symbol* s_attrname = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == s_attrname) {
-            c->c_attr[i]->invisible = 1;
+            c->c_attr[i]->invisible = true;
             return;
         }
     }
@@ -1373,7 +1373,7 @@ void eclass_attr_visible(t_eclass* c, const char* attrname, long flags)
     t_symbol* s_attrname = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == s_attrname) {
-            c->c_attr[i]->invisible = 0;
+            c->c_attr[i]->invisible = false;
             return;
         }
     }

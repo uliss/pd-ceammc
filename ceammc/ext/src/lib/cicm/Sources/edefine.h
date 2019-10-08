@@ -535,14 +535,10 @@ typedef struct t_eattr {
     t_symbol* style; /*!< The style of the attribute (checkbutton, color, number, entry, menu). */
     t_symbol* units; /*!< The units of the attribute. */
     long order; /*!< The dummy order of the attribute. */
-    char save; /*!< If the attribute should be saved. */
-    char paint; /*!< If the attribute should repaint the t_ebox when it has changed. */
-    char invisible; /*!< If the attribute is invisible. */
     long flags; /*!< The dummy flags of the attribute. */
     long offset; /*!< The offset of the attribute in the object structure. */
     long sizemax; /*!< The maximum size of the attribute if the attribute is an array. */
     long size; /*!< The size of the attribute if the attribute is an array. */
-
     t_err_method getter; /*!< The getter method of the attribute. */
     t_err_method setter; /*!< The setter method of the attribute. */
     long clipped; /*!< If the attribute is clipped if it's value or an array of numerical values. */
@@ -552,6 +548,9 @@ typedef struct t_eattr {
     t_symbol* defvals; /*!< The default value of the attribute. */
     t_symbol** itemslist; /*!< The available items of an attribute if it is a menu. */
     long itemssize; /*!< The number of available items of an attribute if it is a menu. */
+    bool save; /*!< If the attribute should be saved. */
+    bool paint; /*!< If the attribute should repaint the t_ebox when it has changed. */
+    bool invisible; /*!< If the attribute is invisible. */
 } t_eattr;
 
 /**
