@@ -70,6 +70,7 @@ endif()
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/list_all_doc_externals.sh ${PROJECT_BINARY_DIR} @ONLY)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/check_doc_external.py ${PROJECT_BINARY_DIR} @ONLY)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doc_check_methods.sh ${PROJECT_BINARY_DIR} @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/check_all_pddoc_refs.sh ${PROJECT_BINARY_DIR} @ONLY)
 
 add_custom_target(ceammc_doc_check_methods
     COMMAND ${PROJECT_BINARY_DIR}/doc_check_methods.sh
