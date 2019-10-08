@@ -541,19 +541,19 @@ typedef struct t_eattr {
     t_symbol* label; /*!< The label of the attribute. */
     t_symbol* style; /*!< The style of the attribute (checkbutton, color, number, entry, menu). */
     t_symbol* units; /*!< The units of the attribute. */
-    long order; /*!< The dummy order of the attribute. */
-    size_t offset; /*!< The offset of the attribute in the object structure. */
-    size_t sizemax; /*!< The maximum size of the attribute if the attribute is an array. */
-    size_t size; /*!< The size of the attribute if the attribute is an array. */
-    t_err_method getter; /*!< The getter method of the attribute. */
-    t_err_method setter; /*!< The setter method of the attribute. */
-    eclip_flags clipped; /*!< If the attribute is clipped if it's value or an array of numerical values. */
     t_symbol* defvals; /*!< The default value of the attribute. */
     t_symbol** itemslist; /*!< The available items of an attribute if it is a menu. */
     long itemssize; /*!< The number of available items of an attribute if it is a menu. */
+    t_err_method getter; /*!< The getter method of the attribute. */
+    t_err_method setter; /*!< The setter method of the attribute. */
+    size_t offset; /*!< The offset of the attribute in the object structure. */
+    size_t sizemax; /*!< The maximum size of the attribute if the attribute is an array. */
+    size_t size; /*!< The size of the attribute if the attribute is an array. */
     float minimum; /*!< The minimum value of the attribute. */
     float maximum; /*!< The maximum value of the attribute. */
     float step; /*!< The increment or decrement step calue of the attribute. */
+    int order; /*!< The dummy order of the attribute. */
+    eclip_flags clipped; /*!< If the attribute is clipped if it's value or an array of numerical values. */
     bool save; /*!< If the attribute should be saved. */
     bool paint; /*!< If the attribute should repaint the t_ebox when it has changed. */
     bool invisible; /*!< If the attribute is invisible. */
