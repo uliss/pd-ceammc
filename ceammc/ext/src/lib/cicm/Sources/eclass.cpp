@@ -15,8 +15,8 @@
 #include "eobj.h"
 #include "epopup.h"
 
-#include "../ceammc/extra/fmt/include/fmt/core.h"
-#include "../ceammc/extra/fmt/include/fmt/format.h"
+#include "fmt/core.h"
+#include "fmt/format.h"
 
 #include <iostream>
 #include <vector>
