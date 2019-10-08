@@ -25,8 +25,6 @@
 #include <string>
 #include <tuple>
 
-int egraphics_smooth();
-
 std::string ceammc_raute2dollar(const char* s);
 t_symbol* ceammc_dollar2raute(const char* s);
 std::string ceammc_quote_str(const std::string& str, char q = '\'');
@@ -460,7 +458,6 @@ void ebox_new(t_ebox* x, long flags)
     x->b_objpreset_id = s_null;
     x->b_visible = true;
     x->b_zoom = 1;
-    x->b_smooth_method = egraphics_smooth();
 
     x->b_label = s_null;
     x->label_align = s_value_label_align_left;
