@@ -535,7 +535,6 @@ typedef struct t_eattr {
     t_symbol* style; /*!< The style of the attribute (checkbutton, color, number, entry, menu). */
     t_symbol* units; /*!< The units of the attribute. */
     long order; /*!< The dummy order of the attribute. */
-    long flags; /*!< The dummy flags of the attribute. */
     long offset; /*!< The offset of the attribute in the object structure. */
     long sizemax; /*!< The maximum size of the attribute if the attribute is an array. */
     long size; /*!< The size of the attribute if the attribute is an array. */

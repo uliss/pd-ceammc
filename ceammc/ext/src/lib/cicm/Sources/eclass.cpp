@@ -171,127 +171,127 @@ void eclass_guiinit(t_eclass* c, long flags)
     c->c_box = 1;
 
     // DEFAULT ATTRIBUTES //
-    CLASS_ATTR_FLOAT_ARRAY(c, "size", 0, t_ebox, b_rect.width, 2);
-    CLASS_ATTR_SYMBOL(c, "fontname", 0, t_ebox, b_font.c_family);
-    CLASS_ATTR_SYMBOL(c, "fontweight", 0, t_ebox, b_font.c_weight);
-    CLASS_ATTR_SYMBOL(c, "fontslant", 0, t_ebox, b_font.c_slant);
-    CLASS_ATTR_INT(c, "fontsize", 0, t_ebox, b_font.c_sizereal);
-    CLASS_ATTR_SYMBOL(c, "receive", 0, t_ebox, b_receive_id);
-    CLASS_ATTR_SYMBOL(c, "send", 0, t_ebox, b_send_id);
-    CLASS_ATTR_SYMBOL(c, "label", 0, t_ebox, b_label);
-    CLASS_ATTR_INT(c, "label_inner", 0, t_ebox, label_inner);
-    CLASS_ATTR_SYMBOL(c, "label_side", 0, t_ebox, label_side);
-    CLASS_ATTR_SYMBOL(c, "label_align", 0, t_ebox, label_align);
-    CLASS_ATTR_SYMBOL(c, "label_valign", 0, t_ebox, label_valign);
-    CLASS_ATTR_INT_ARRAY(c, "label_margins", 0, t_ebox, label_margins, 2);
+    CLASS_ATTR_FLOAT_ARRAY(c, "size", t_ebox, b_rect.width, 2);
+    CLASS_ATTR_SYMBOL(c, "fontname", t_ebox, b_font.c_family);
+    CLASS_ATTR_SYMBOL(c, "fontweight", t_ebox, b_font.c_weight);
+    CLASS_ATTR_SYMBOL(c, "fontslant", t_ebox, b_font.c_slant);
+    CLASS_ATTR_INT(c, "fontsize", t_ebox, b_font.c_sizereal);
+    CLASS_ATTR_SYMBOL(c, "receive", t_ebox, b_receive_id);
+    CLASS_ATTR_SYMBOL(c, "send", t_ebox, b_send_id);
+    CLASS_ATTR_SYMBOL(c, "label", t_ebox, b_label);
+    CLASS_ATTR_INT(c, "label_inner", t_ebox, label_inner);
+    CLASS_ATTR_SYMBOL(c, "label_side", t_ebox, label_side);
+    CLASS_ATTR_SYMBOL(c, "label_align", t_ebox, label_align);
+    CLASS_ATTR_SYMBOL(c, "label_valign", t_ebox, label_valign);
+    CLASS_ATTR_INT_ARRAY(c, "label_margins", t_ebox, label_margins, 2);
 
-    CLASS_ATTR_DEFAULT(c, "size", 0, "100. 100.");
+    CLASS_ATTR_DEFAULT(c, "size", "100. 100.");
     CLASS_ATTR_FILTER_MIN(c, "size", 4);
-    CLASS_ATTR_SAVE(c, "size", 0);
-    CLASS_ATTR_PAINT(c, "size", 0);
-    CLASS_ATTR_CATEGORY(c, "size", 0, _("Basic"));
-    CLASS_ATTR_LABEL(c, "size", 0, _("Patching Size"));
+    CLASS_ATTR_SAVE(c, "size");
+    CLASS_ATTR_PAINT(c, "size");
+    CLASS_ATTR_CATEGORY(c, "size", _("Basic"));
+    CLASS_ATTR_LABEL(c, "size", _("Patching Size"));
     CLASS_ATTR_ACCESSORS(c, "size", NULL, (t_err_method)ebox_size_set);
 
-    CLASS_ATTR_INT(c, "pinned", 0, t_ebox, b_pinned);
-    CLASS_ATTR_DEFAULT(c, "pinned", 0, "0");
+    CLASS_ATTR_INT(c, "pinned", t_ebox, b_pinned);
+    CLASS_ATTR_DEFAULT(c, "pinned", "0");
     CLASS_ATTR_FILTER_CLIP(c, "pinned", 0, 1);
-    CLASS_ATTR_SAVE(c, "pinned", 0);
-    CLASS_ATTR_CATEGORY(c, "pinned", 0, _("Basic"));
-    CLASS_ATTR_LABEL(c, "pinned", 0, _("Pinned"));
-    CLASS_ATTR_STYLE(c, "pinned", 0, "onoff");
+    CLASS_ATTR_SAVE(c, "pinned");
+    CLASS_ATTR_CATEGORY(c, "pinned", _("Basic"));
+    CLASS_ATTR_LABEL(c, "pinned", _("Pinned"));
+    CLASS_ATTR_STYLE(c, "pinned", "onoff");
 
-    CLASS_ATTR_DEFAULT(c, "fontname", 0, "Helvetica");
-    CLASS_ATTR_SAVE(c, "fontname", 0);
-    CLASS_ATTR_PAINT(c, "fontname", 0);
-    CLASS_ATTR_CATEGORY(c, "fontname", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "fontname", 0, _("Font Name"));
+    CLASS_ATTR_DEFAULT(c, "fontname", "Helvetica");
+    CLASS_ATTR_SAVE(c, "fontname");
+    CLASS_ATTR_PAINT(c, "fontname");
+    CLASS_ATTR_CATEGORY(c, "fontname", _("Label"));
+    CLASS_ATTR_LABEL(c, "fontname", _("Font Name"));
     CLASS_ATTR_ACCESSORS(c, "fontname", NULL, (t_err_method)ebox_set_font);
-    CLASS_ATTR_STYLE(c, "fontname", 0, "menu");
-    CLASS_ATTR_ITEMS(c, "fontname", 0, "Helvetica Monaco Courier Times DejaVu");
+    CLASS_ATTR_STYLE(c, "fontname", "menu");
+    CLASS_ATTR_ITEMS(c, "fontname", "Helvetica Monaco Courier Times DejaVu");
 
-    CLASS_ATTR_DEFAULT(c, "fontweight", 0, _("normal"));
-    CLASS_ATTR_SAVE(c, "fontweight", 0);
-    CLASS_ATTR_PAINT(c, "fontweight", 0);
-    CLASS_ATTR_CATEGORY(c, "fontweight", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "fontweight", 0, _("Font Weight"));
+    CLASS_ATTR_DEFAULT(c, "fontweight", _("normal"));
+    CLASS_ATTR_SAVE(c, "fontweight");
+    CLASS_ATTR_PAINT(c, "fontweight");
+    CLASS_ATTR_CATEGORY(c, "fontweight", _("Label"));
+    CLASS_ATTR_LABEL(c, "fontweight", _("Font Weight"));
     CLASS_ATTR_ACCESSORS(c, "fontweight", NULL, (t_err_method)ebox_set_fontweight);
-    CLASS_ATTR_STYLE(c, "fontweight", 0, "menu");
-    CLASS_ATTR_ITEMS(c, "fontweight", 0, "normal bold");
+    CLASS_ATTR_STYLE(c, "fontweight", "menu");
+    CLASS_ATTR_ITEMS(c, "fontweight", "normal bold");
 
-    CLASS_ATTR_DEFAULT(c, "fontslant", 0, "roman");
-    CLASS_ATTR_SAVE(c, "fontslant", 0);
-    CLASS_ATTR_PAINT(c, "fontslant", 0);
-    CLASS_ATTR_CATEGORY(c, "fontslant", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "fontslant", 0, _("Font Slant"));
+    CLASS_ATTR_DEFAULT(c, "fontslant", "roman");
+    CLASS_ATTR_SAVE(c, "fontslant");
+    CLASS_ATTR_PAINT(c, "fontslant");
+    CLASS_ATTR_CATEGORY(c, "fontslant", _("Label"));
+    CLASS_ATTR_LABEL(c, "fontslant", _("Font Slant"));
     CLASS_ATTR_ACCESSORS(c, "fontslant", NULL, (t_err_method)ebox_set_fontslant);
-    CLASS_ATTR_STYLE(c, "fontslant", 0, "menu");
-    CLASS_ATTR_ITEMS(c, "fontslant", 0, "roman italic");
+    CLASS_ATTR_STYLE(c, "fontslant", "menu");
+    CLASS_ATTR_ITEMS(c, "fontslant", "roman italic");
 
-    CLASS_ATTR_DEFAULT(c, "fontsize", 0, "11");
+    CLASS_ATTR_DEFAULT(c, "fontsize", "11");
     CLASS_ATTR_FILTER_MIN(c, "fontsize", 4);
-    CLASS_ATTR_SAVE(c, "fontsize", 0);
-    CLASS_ATTR_PAINT(c, "fontsize", 0);
-    CLASS_ATTR_CATEGORY(c, "fontsize", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "fontsize", 0, _("Font Size"));
+    CLASS_ATTR_SAVE(c, "fontsize");
+    CLASS_ATTR_PAINT(c, "fontsize");
+    CLASS_ATTR_CATEGORY(c, "fontsize", _("Label"));
+    CLASS_ATTR_LABEL(c, "fontsize", _("Font Size"));
     CLASS_ATTR_ACCESSORS(c, "fontsize", NULL, ebox_set_fontsize);
-    CLASS_ATTR_STYLE(c, "fontsize", 0, "number");
+    CLASS_ATTR_STYLE(c, "fontsize", "number");
 
-    CLASS_ATTR_DEFAULT(c, "receive", 0, "(null)");
+    CLASS_ATTR_DEFAULT(c, "receive", "(null)");
     CLASS_ATTR_ACCESSORS(c, "receive", NULL, ebox_set_receiveid);
-    CLASS_ATTR_SAVE(c, "receive", 0);
-    CLASS_ATTR_CATEGORY(c, "receive", 0, _("Basic"));
-    CLASS_ATTR_LABEL(c, "receive", 0, _("Receive Symbol"));
+    CLASS_ATTR_SAVE(c, "receive");
+    CLASS_ATTR_CATEGORY(c, "receive", _("Basic"));
+    CLASS_ATTR_LABEL(c, "receive", _("Receive Symbol"));
 
-    CLASS_ATTR_DEFAULT(c, "send", 0, "(null)");
+    CLASS_ATTR_DEFAULT(c, "send", "(null)");
     CLASS_ATTR_ACCESSORS(c, "send", NULL, ebox_set_sendid);
-    CLASS_ATTR_SAVE(c, "send", 0);
-    CLASS_ATTR_CATEGORY(c, "send", 0, _("Basic"));
-    CLASS_ATTR_LABEL(c, "send", 0, _("Send Symbol"));
+    CLASS_ATTR_SAVE(c, "send");
+    CLASS_ATTR_CATEGORY(c, "send", _("Basic"));
+    CLASS_ATTR_LABEL(c, "send", _("Send Symbol"));
 
-    CLASS_ATTR_DEFAULT(c, "label", 0, "(null)");
+    CLASS_ATTR_DEFAULT(c, "label", "(null)");
     CLASS_ATTR_ACCESSORS(c, "label", NULL, ebox_set_label);
-    CLASS_ATTR_SAVE(c, "label", 0);
-    CLASS_ATTR_CATEGORY(c, "label", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label", 0, _("Text"));
+    CLASS_ATTR_SAVE(c, "label");
+    CLASS_ATTR_CATEGORY(c, "label", _("Label"));
+    CLASS_ATTR_LABEL(c, "label", _("Text"));
 
-    CLASS_ATTR_DEFAULT(c, "label_align", 0, "left");
+    CLASS_ATTR_DEFAULT(c, "label_align", "left");
     CLASS_ATTR_ACCESSORS(c, "label_align", NULL, ebox_set_label_align);
-    CLASS_ATTR_SAVE(c, "label_align", 0);
-    CLASS_ATTR_CATEGORY(c, "label_align", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label_align", 0, _("Horizontal align"));
-    CLASS_ATTR_STYLE(c, "label_align", 0, "menu");
-    CLASS_ATTR_ITEMS(c, "label_align", 0, "left center right");
+    CLASS_ATTR_SAVE(c, "label_align");
+    CLASS_ATTR_CATEGORY(c, "label_align", _("Label"));
+    CLASS_ATTR_LABEL(c, "label_align", _("Horizontal align"));
+    CLASS_ATTR_STYLE(c, "label_align", "menu");
+    CLASS_ATTR_ITEMS(c, "label_align", "left center right");
 
-    CLASS_ATTR_DEFAULT(c, "label_valign", 0, "top");
+    CLASS_ATTR_DEFAULT(c, "label_valign", "top");
     CLASS_ATTR_ACCESSORS(c, "label_valign", NULL, ebox_set_label_valign);
-    CLASS_ATTR_SAVE(c, "label_valign", 0);
-    CLASS_ATTR_CATEGORY(c, "label_valign", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label_valign", 0, _("Vertical align"));
-    CLASS_ATTR_STYLE(c, "label_valign", 0, "menu");
-    CLASS_ATTR_ITEMS(c, "label_valign", 0, "top center bottom");
+    CLASS_ATTR_SAVE(c, "label_valign");
+    CLASS_ATTR_CATEGORY(c, "label_valign", _("Label"));
+    CLASS_ATTR_LABEL(c, "label_valign", _("Vertical align"));
+    CLASS_ATTR_STYLE(c, "label_valign", "menu");
+    CLASS_ATTR_ITEMS(c, "label_valign", "top center bottom");
 
-    CLASS_ATTR_DEFAULT(c, "label_side", 0, "top");
+    CLASS_ATTR_DEFAULT(c, "label_side", "top");
     CLASS_ATTR_ACCESSORS(c, "label_side", NULL, ebox_set_label_side);
-    CLASS_ATTR_SAVE(c, "label_side", 0);
-    CLASS_ATTR_CATEGORY(c, "label_side", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label_side", 0, _("Attach side"));
-    CLASS_ATTR_STYLE(c, "label_side", 0, "menu");
-    CLASS_ATTR_ITEMS(c, "label_side", 0, "left top right bottom");
+    CLASS_ATTR_SAVE(c, "label_side");
+    CLASS_ATTR_CATEGORY(c, "label_side", _("Label"));
+    CLASS_ATTR_LABEL(c, "label_side", _("Attach side"));
+    CLASS_ATTR_STYLE(c, "label_side", "menu");
+    CLASS_ATTR_ITEMS(c, "label_side", "left top right bottom");
 
-    CLASS_ATTR_DEFAULT(c, "label_inner", 0, "0");
+    CLASS_ATTR_DEFAULT(c, "label_inner", "0");
     CLASS_ATTR_ACCESSORS(c, "label_inner", NULL, ebox_set_label_position);
-    CLASS_ATTR_SAVE(c, "label_inner", 0);
-    CLASS_ATTR_CATEGORY(c, "label_inner", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label_inner", 0, _("Inner position"));
-    CLASS_ATTR_STYLE(c, "label_inner", 0, "onoff");
+    CLASS_ATTR_SAVE(c, "label_inner");
+    CLASS_ATTR_CATEGORY(c, "label_inner", _("Label"));
+    CLASS_ATTR_LABEL(c, "label_inner", _("Inner position"));
+    CLASS_ATTR_STYLE(c, "label_inner", "onoff");
     CLASS_ATTR_FILTER_CLIP(c, "label_inner", 0, 1);
 
-    CLASS_ATTR_DEFAULT(c, "label_margins", 0, "0 0");
-    CLASS_ATTR_SAVE(c, "label_margins", 0);
-    CLASS_ATTR_PAINT(c, "label_margins", 0);
-    CLASS_ATTR_CATEGORY(c, "label_margins", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label_margins", 0, _("Margins"));
+    CLASS_ATTR_DEFAULT(c, "label_margins", "0 0");
+    CLASS_ATTR_SAVE(c, "label_margins");
+    CLASS_ATTR_PAINT(c, "label_margins");
+    CLASS_ATTR_CATEGORY(c, "label_margins", _("Label"));
+    CLASS_ATTR_LABEL(c, "label_margins", _("Margins"));
     CLASS_ATTR_ACCESSORS(c, "label_margins", NULL, ebox_set_label_margins);
 
     // GUI always need this methods //
@@ -410,11 +410,11 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
     } else if (sname == &s_symbol) {
         class_addsymbol(cx, m);
     } else if (sname == gensym(SYM_PRESET)) {
-        CLASS_ATTR_SYMBOL(c, "presetname", 0, t_ebox, b_objpreset_id);
-        CLASS_ATTR_DEFAULT(c, "presetname", 0, "(null)");
-        CLASS_ATTR_SAVE(c, "presetname", 0);
-        CLASS_ATTR_CATEGORY(c, "presetname", 0, _("Basic"));
-        CLASS_ATTR_LABEL(c, "presetname", 0, _("Preset Name"));
+        CLASS_ATTR_SYMBOL(c, "presetname", t_ebox, b_objpreset_id);
+        CLASS_ATTR_DEFAULT(c, "presetname", "(null)");
+        CLASS_ATTR_SAVE(c, "presetname");
+        CLASS_ATTR_CATEGORY(c, "presetname", _("Basic"));
+        CLASS_ATTR_LABEL(c, "presetname", _("Preset Name"));
         CLASS_ATTR_ACCESSORS(c, "presetname", NULL, ebox_set_presetid);
         class_addmethod(cx, (t_method)m, sname, type, 0);
     } else {
@@ -432,7 +432,7 @@ static t_symbol* gentype(const char* name)
         return gensym(name);
 }
 
-void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, long size, long maxsize, long flags, long offset)
+void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, long size, long maxsize, long offset)
 {
     if (size >= 1) {
         t_symbol* name = gensym(attrname);
@@ -457,7 +457,6 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
             attr->save = false;
             attr->paint = false;
             attr->invisible = false;
-            attr->flags = flags;
             attr->offset = offset;
             attr->size = size;
             attr->sizemax = maxsize;
@@ -510,7 +509,7 @@ void eclass_attr_redirect(t_eclass* c, const char* attrname, t_gotfn fn)
     }
 }
 
-void eclass_attr_default(t_eclass* c, const char* attrname, long /*flags*/, const char* value)
+void eclass_attr_default(t_eclass* c, const char* attrname, const char* value)
 {
     t_symbol* sel = gensym(attrname);
 
@@ -524,7 +523,7 @@ void eclass_attr_default(t_eclass* c, const char* attrname, long /*flags*/, cons
     pd_error(nullptr, "[%s] property not found: %s", c->c_class.c_name->s_name, attrname);
 }
 
-void eclass_attr_category(t_eclass* c, const char* attrname, long /*flags*/, const char* category)
+void eclass_attr_category(t_eclass* c, const char* attrname, const char* category)
 {
     t_symbol* cat = gensym(category);
     t_symbol* sel = gensym(attrname);
@@ -553,7 +552,7 @@ void eclass_attr_category(t_eclass* c, const char* attrname, long /*flags*/, con
     }
 }
 
-void eclass_attr_order(t_eclass* c, const char* attrname, long /*flags*/, const char* order)
+void eclass_attr_order(t_eclass* c, const char* attrname, const char* order)
 {
     t_symbol* sel = gensym(attrname);
 
@@ -568,7 +567,7 @@ void eclass_attr_order(t_eclass* c, const char* attrname, long /*flags*/, const 
     }
 }
 
-void eclass_attr_label(t_eclass* c, const char* attrname, long /*flags*/, const char* label)
+void eclass_attr_label(t_eclass* c, const char* attrname, const char* label)
 {
     t_symbol* sel = gensym(attrname);
 
@@ -580,7 +579,7 @@ void eclass_attr_label(t_eclass* c, const char* attrname, long /*flags*/, const 
     }
 }
 
-void eclass_attr_style(t_eclass* c, const char* attrname, long /*flags*/, const char* style)
+void eclass_attr_style(t_eclass* c, const char* attrname, const char* style)
 {
     t_symbol* sel = gensym(attrname);
     t_symbol* s_style = gensym(style);
@@ -605,7 +604,7 @@ void eclass_attr_style(t_eclass* c, const char* attrname, long /*flags*/, const 
     }
 }
 
-void eclass_attr_itemlist(t_eclass* c, const char* attrname, long /*flags*/, const char* list)
+void eclass_attr_itemlist(t_eclass* c, const char* attrname, const char* list)
 {
     int j = 0;
     char* pch;
@@ -704,7 +703,7 @@ void eclass_attr_step(t_eclass* c, const char* attrname, float value)
     }
 }
 
-void eclass_attr_save(t_eclass* c, const char* attrname, long /*flags*/, bool value)
+void eclass_attr_save(t_eclass* c, const char* attrname, bool value)
 {
     t_symbol* sel = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
@@ -715,7 +714,7 @@ void eclass_attr_save(t_eclass* c, const char* attrname, long /*flags*/, bool va
     }
 }
 
-void eclass_attr_paint(t_eclass* c, const char* attrname, long /*flags*/)
+void eclass_attr_paint(t_eclass* c, const char* attrname)
 {
     t_symbol* s_attrname = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
@@ -726,7 +725,7 @@ void eclass_attr_paint(t_eclass* c, const char* attrname, long /*flags*/)
     }
 }
 
-void eclass_attr_invisible(t_eclass* c, const char* attrname, long /*flags*/)
+void eclass_attr_invisible(t_eclass* c, const char* attrname)
 {
     t_symbol* s_attrname = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
@@ -1368,7 +1367,7 @@ void eclass_attr_sort(t_eclass* c)
     qsort(c->c_attr, c->c_nattr, sizeof(t_eattr*), attr_cmp);
 }
 
-void eclass_attr_visible(t_eclass* c, const char* attrname, long flags)
+void eclass_attr_visible(t_eclass* c, const char* attrname)
 {
     t_symbol* s_attrname = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
@@ -1379,7 +1378,7 @@ void eclass_attr_visible(t_eclass* c, const char* attrname, long flags)
     }
 }
 
-void eclass_attr_units(t_eclass* c, t_symbol* attrname, long, t_symbol* units)
+void eclass_attr_units(t_eclass* c, t_symbol* attrname, t_symbol* units)
 {
     for (int i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == attrname) {

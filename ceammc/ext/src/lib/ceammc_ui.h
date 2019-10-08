@@ -232,7 +232,7 @@ public:
                     &UI::prop_color_label);
 
         // default
-        CLASS_ATTR_DEFAULT              (pd_class, "size", 0, "45. 15.");
+        CLASS_ATTR_DEFAULT              (pd_class, "size", "45. 15.");
         // clang-format on
     }
 
@@ -246,11 +246,11 @@ public:
         eclass_addmethod(pd_class, UI_METHOD_PTR(storePreset),     "store",         A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(clearPreset),     "clear",         A_GIMME,  0);
 
-        CLASS_ATTR_SYMBOL   (pd_class, PROP_PRESET_NAME, 0, t_ebox, b_objpreset_id);
-        CLASS_ATTR_DEFAULT  (pd_class, PROP_PRESET_NAME, 0, "(null)");
-        CLASS_ATTR_SAVE     (pd_class, PROP_PRESET_NAME, 0);
-        CLASS_ATTR_CATEGORY (pd_class, PROP_PRESET_NAME, 0, _("Basic"));
-        CLASS_ATTR_LABEL    (pd_class, PROP_PRESET_NAME, 0, _("Preset Name"));
+        CLASS_ATTR_SYMBOL   (pd_class, PROP_PRESET_NAME, t_ebox, b_objpreset_id);
+        CLASS_ATTR_DEFAULT  (pd_class, PROP_PRESET_NAME,  "(null)");
+        CLASS_ATTR_SAVE     (pd_class, PROP_PRESET_NAME);
+        CLASS_ATTR_CATEGORY (pd_class, PROP_PRESET_NAME, _("Basic"));
+        CLASS_ATTR_LABEL    (pd_class, PROP_PRESET_NAME, _("Preset Name"));
         CLASS_ATTR_ACCESSORS(pd_class, PROP_PRESET_NAME, NULL, ebox_set_presetid);
 
         // clang-format on
@@ -413,13 +413,13 @@ public:
      */
     void addBoolProperty(const char* name, const char* label, bool def, int UI::*m, const char* category = "Misc")
     {
-        eclass_new_attr_typed(pd_class, name, "int", 1, 0, 0, offset(m));
-        eclass_attr_label(pd_class, name, 0, label);
-        eclass_attr_save(pd_class, name, 0);
-        eclass_attr_paint(pd_class, name, 0);
-        eclass_attr_default(pd_class, name, 0, def ? "1" : "0");
-        eclass_attr_style(pd_class, name, 0, "onoff");
-        eclass_attr_category(pd_class, name, 0, category);
+        eclass_new_attr_typed(pd_class, name, "int", 1, 0, offset(m));
+        eclass_attr_label(pd_class, name, label);
+        eclass_attr_save(pd_class, name);
+        eclass_attr_paint(pd_class, name);
+        eclass_attr_default(pd_class, name, def ? "1" : "0");
+        eclass_attr_style(pd_class, name, "onoff");
+        eclass_attr_category(pd_class, name, category);
     }
 
     /**
@@ -435,13 +435,13 @@ public:
         char buf[32];
         snprintf(buf, 30, "%g", def);
 
-        eclass_new_attr_typed(pd_class, name, "float", 1, 0, 0, offset(m));
-        eclass_attr_label(pd_class, name, 0, label);
-        eclass_attr_save(pd_class, name, 0);
-        eclass_attr_paint(pd_class, name, 0);
-        eclass_attr_default(pd_class, name, 0, buf);
-        eclass_attr_style(pd_class, name, 0, "number");
-        eclass_attr_category(pd_class, name, 0, category);
+        eclass_new_attr_typed(pd_class, name, "float", 1, 0, offset(m));
+        eclass_attr_label(pd_class, name, label);
+        eclass_attr_save(pd_class, name);
+        eclass_attr_paint(pd_class, name);
+        eclass_attr_default(pd_class, name, buf);
+        eclass_attr_style(pd_class, name, "number");
+        eclass_attr_category(pd_class, name, category);
     }
 
     /**
@@ -457,13 +457,13 @@ public:
         char buf[32];
         snprintf(buf, 30, "%d", def);
 
-        eclass_new_attr_typed(pd_class, name, "int", 1, 0, 0, offset(m));
-        eclass_attr_label(pd_class, name, 0, label);
-        eclass_attr_save(pd_class, name, 0);
-        eclass_attr_paint(pd_class, name, 0);
-        eclass_attr_default(pd_class, name, 0, buf);
-        eclass_attr_style(pd_class, name, 0, "number");
-        eclass_attr_category(pd_class, name, 0, category);
+        eclass_new_attr_typed(pd_class, name, "int", 1, 0, offset(m));
+        eclass_attr_label(pd_class, name, label);
+        eclass_attr_save(pd_class, name);
+        eclass_attr_paint(pd_class, name);
+        eclass_attr_default(pd_class, name, buf);
+        eclass_attr_style(pd_class, name, "number");
+        eclass_attr_category(pd_class, name, category);
     }
 
     /**
@@ -479,14 +479,14 @@ public:
         const char* def, t_symbol* UI::*m,
         const char* items, const char* cat = "Misc")
     {
-        eclass_new_attr_typed(pd_class, name, "symbol", 1, 0, 0, offset(m));
-        eclass_attr_label(pd_class, name, 0, label);
-        eclass_attr_save(pd_class, name, 0);
-        eclass_attr_paint(pd_class, name, 0);
-        eclass_attr_default(pd_class, name, 0, def);
-        eclass_attr_style(pd_class, name, 0, "menu");
-        eclass_attr_category(pd_class, name, 0, cat);
-        eclass_attr_itemlist(pd_class, name, 0, items);
+        eclass_new_attr_typed(pd_class, name, "symbol", 1, 0, offset(m));
+        eclass_attr_label(pd_class, name, label);
+        eclass_attr_save(pd_class, name);
+        eclass_attr_paint(pd_class, name);
+        eclass_attr_default(pd_class, name, def);
+        eclass_attr_style(pd_class, name, "menu");
+        eclass_attr_category(pd_class, name, cat);
+        eclass_attr_itemlist(pd_class, name, items);
     }
 
     /**
@@ -498,13 +498,13 @@ public:
      */
     void addColorProperty(const char* name, const char* label, const char* def, t_rgba UI::*m)
     {
-        eclass_new_attr_typed(pd_class, name, "float", 4, 0, 0, offset(m));
-        eclass_attr_label(pd_class, name, 0, label);
-        eclass_attr_save(pd_class, name, 0);
-        eclass_attr_paint(pd_class, name, 0);
-        eclass_attr_default(pd_class, name, 0, def);
-        eclass_attr_style(pd_class, name, 0, "color");
-        eclass_attr_category(pd_class, name, 0, "Colors");
+        eclass_new_attr_typed(pd_class, name, "float", 4, 0, offset(m));
+        eclass_attr_label(pd_class, name, label);
+        eclass_attr_save(pd_class, name);
+        eclass_attr_paint(pd_class, name);
+        eclass_attr_default(pd_class, name, def);
+        eclass_attr_style(pd_class, name, "color");
+        eclass_attr_category(pd_class, name, "Colors");
     }
 
     /**
@@ -516,11 +516,11 @@ public:
     void addVirtualProperty(const char* name, const char* label, const char* def,
         AtomList (UI::*getter)() const, void (UI::*setter)(const AtomList&))
     {
-        eclass_new_attr_typed(pd_class, name, "symbol", 1, 0, 0, 0);
-        eclass_attr_label(pd_class, name, 0, label);
-        eclass_attr_save(pd_class, name, 0);
-        eclass_attr_paint(pd_class, name, 0);
-        eclass_attr_default(pd_class, name, 0, def);
+        eclass_new_attr_typed(pd_class, name, "symbol", 1, 0, 0);
+        eclass_attr_label(pd_class, name, label);
+        eclass_attr_save(pd_class, name);
+        eclass_attr_paint(pd_class, name);
+        eclass_attr_default(pd_class, name, def);
         eclass_attr_accessor(pd_class, name, (t_err_method)listPropGetter, (t_err_method)listPropSetter);
         prop_list_map[gensym(name)] = std::make_pair(getter, setter);
     }
@@ -535,8 +535,8 @@ public:
         float (UI::*getter)() const,
         void (UI::*setter)(float))
     {
-        eclass_new_attr_typed(pd_class, name, "float", 1, 0, 0, 0);
-        eclass_attr_invisible(pd_class, name, 0);
+        eclass_new_attr_typed(pd_class, name, "float", 1, 0, 0);
+        eclass_attr_invisible(pd_class, name);
         setPropertyAccessor(name, getter, setter);
     }
 
@@ -550,8 +550,8 @@ public:
         AtomList (UI::*getter)() const,
         void (UI::*setter)(const AtomList&))
     {
-        eclass_new_attr_typed(pd_class, name, "atom", 1, 0, 0, 0);
-        eclass_attr_invisible(pd_class, name, 0);
+        eclass_new_attr_typed(pd_class, name, "atom", 1, 0, 0);
+        eclass_attr_invisible(pd_class, name);
         setPropertyAccessor(name, getter, setter);
     }
 
@@ -560,13 +560,13 @@ public:
         char buf[32];
         snprintf(buf, 30, "%g", def);
 
-        eclass_new_attr_typed(pd_class, name, "float", 1, 0, 0, offset(m));
-        eclass_attr_label(pd_class, name, 0, label);
-        eclass_attr_save(pd_class, name, 0);
-        eclass_attr_paint(pd_class, name, 0);
-        eclass_attr_default(pd_class, name, 0, buf);
-        eclass_attr_style(pd_class, name, 0, "number");
-        eclass_attr_category(pd_class, name, 0, category);
+        eclass_new_attr_typed(pd_class, name, "float", 1, 0, offset(m));
+        eclass_attr_label(pd_class, name, label);
+        eclass_attr_save(pd_class, name);
+        eclass_attr_paint(pd_class, name);
+        eclass_attr_default(pd_class, name, buf);
+        eclass_attr_style(pd_class, name, "number");
+        eclass_attr_category(pd_class, name, category);
     }
 
     void addProperty(const char* name, const char* label, int def, int UI::*m, const char* category = "Misc")
@@ -574,35 +574,35 @@ public:
         char buf[32];
         snprintf(buf, 30, "%d", def);
 
-        eclass_new_attr_typed(pd_class, name, "int", 1, 0, 0, offset(m));
-        eclass_attr_label(pd_class, name, 0, label);
-        eclass_attr_save(pd_class, name, 0);
-        eclass_attr_paint(pd_class, name, 0);
-        eclass_attr_default(pd_class, name, 0, buf);
-        eclass_attr_style(pd_class, name, 0, "number");
-        eclass_attr_category(pd_class, name, 0, category);
+        eclass_new_attr_typed(pd_class, name, "int", 1, 0, offset(m));
+        eclass_attr_label(pd_class, name, label);
+        eclass_attr_save(pd_class, name);
+        eclass_attr_paint(pd_class, name);
+        eclass_attr_default(pd_class, name, buf);
+        eclass_attr_style(pd_class, name, "number");
+        eclass_attr_category(pd_class, name, category);
     }
 
     void addProperty(const char* name, const char* label, bool def, int UI::*m, const char* category = "Misc")
     {
-        eclass_new_attr_typed(pd_class, name, "int", 1, 0, 0, offset(m));
-        eclass_attr_label(pd_class, name, 0, label);
-        eclass_attr_save(pd_class, name, 0);
-        eclass_attr_paint(pd_class, name, 0);
-        eclass_attr_default(pd_class, name, 0, def ? "1" : "0");
-        eclass_attr_style(pd_class, name, 0, "onoff");
-        eclass_attr_category(pd_class, name, 0, category);
+        eclass_new_attr_typed(pd_class, name, "int", 1, 0, offset(m));
+        eclass_attr_label(pd_class, name, label);
+        eclass_attr_save(pd_class, name);
+        eclass_attr_paint(pd_class, name);
+        eclass_attr_default(pd_class, name, def ? "1" : "0");
+        eclass_attr_style(pd_class, name, "onoff");
+        eclass_attr_category(pd_class, name, category);
     }
 
     void addProperty(const char* name, const char* label, const char* def, t_rgba UI::*m)
     {
-        eclass_new_attr_typed(pd_class, name, "float", 4, 0, 0, offset(m));
-        eclass_attr_label(pd_class, name, 0, label);
-        eclass_attr_save(pd_class, name, 0);
-        eclass_attr_paint(pd_class, name, 0);
-        eclass_attr_default(pd_class, name, 0, def);
-        eclass_attr_style(pd_class, name, 0, "color");
-        eclass_attr_category(pd_class, name, 0, "Colors");
+        eclass_new_attr_typed(pd_class, name, "float", 4, 0, offset(m));
+        eclass_attr_label(pd_class, name, label);
+        eclass_attr_save(pd_class, name);
+        eclass_attr_paint(pd_class, name);
+        eclass_attr_default(pd_class, name, def);
+        eclass_attr_style(pd_class, name, "color");
+        eclass_attr_category(pd_class, name, "Colors");
     }
 
     void addSymbolProperty(const char* name,
@@ -611,13 +611,13 @@ public:
         t_symbol* UI::*m,
         const char* category = "Misc")
     {
-        eclass_new_attr_typed(pd_class, name, "symbol", 1, 0, 0, offset(m));
-        eclass_attr_label(pd_class, name, 0, label);
-        eclass_attr_save(pd_class, name, 0);
-        eclass_attr_paint(pd_class, name, 0);
-        eclass_attr_default(pd_class, name, 0, def);
-        eclass_attr_style(pd_class, name, 0, "entry");
-        eclass_attr_category(pd_class, name, 0, category);
+        eclass_new_attr_typed(pd_class, name, "symbol", 1, 0, offset(m));
+        eclass_attr_label(pd_class, name, label);
+        eclass_attr_save(pd_class, name);
+        eclass_attr_paint(pd_class, name);
+        eclass_attr_default(pd_class, name, def);
+        eclass_attr_style(pd_class, name, "entry");
+        eclass_attr_category(pd_class, name, category);
     }
 
     void addPathProperty(const char* name,
@@ -626,13 +626,13 @@ public:
         t_symbol* UI::*m,
         const char* category = "Misc")
     {
-        eclass_new_attr_typed(pd_class, name, "symbol", 1, 0, 0, offset(m));
-        eclass_attr_label(pd_class, name, 0, label);
-        eclass_attr_save(pd_class, name, 0);
-        eclass_attr_paint(pd_class, name, 0);
-        eclass_attr_default(pd_class, name, 0, def);
-        eclass_attr_style(pd_class, name, 0, "path");
-        eclass_attr_category(pd_class, name, 0, category);
+        eclass_new_attr_typed(pd_class, name, "symbol", 1, 0, offset(m));
+        eclass_attr_label(pd_class, name, label);
+        eclass_attr_save(pd_class, name);
+        eclass_attr_paint(pd_class, name);
+        eclass_attr_default(pd_class, name, def);
+        eclass_attr_style(pd_class, name, "path");
+        eclass_attr_category(pd_class, name, category);
     }
 
     void setPropertyMin(const char* name, float v)
@@ -647,7 +647,7 @@ public:
 
     void setPropertyLabel(const char* name, const char* label)
     {
-        eclass_attr_label(pd_class, name, 0, label);
+        eclass_attr_label(pd_class, name, label);
     }
 
     void setPropertyRange(const char* name, float min, float max)
@@ -658,12 +658,12 @@ public:
 
     void setPropertySave(const char* name, bool value = true)
     {
-        eclass_attr_save(pd_class, name, 0, value);
+        eclass_attr_save(pd_class, name, value);
     }
 
     void setPropertyDefaultValue(const char* name, const char* def)
     {
-        eclass_attr_default(pd_class, name, 0, def);
+        eclass_attr_default(pd_class, name, def);
     }
 
     void setPropertyStep(const char* name, float step)
@@ -673,12 +673,12 @@ public:
 
     void hideProperty(const char* name)
     {
-        eclass_attr_invisible(pd_class, name, 0);
+        eclass_attr_invisible(pd_class, name);
     }
 
     void showProperty(const char* name)
     {
-        eclass_attr_visible(pd_class, name, 0);
+        eclass_attr_visible(pd_class, name);
     }
 
     void setDefaultSize(int w, int h)
@@ -686,20 +686,20 @@ public:
         char buf[32];
         snprintf(buf, 30, "%d. %d.", w, h);
 
-        CLASS_ATTR_DEFAULT(pd_class, "size", 0, buf);
+        CLASS_ATTR_DEFAULT(pd_class, "size", buf);
     }
 
     void setPropertyCategory(const char* name, const char* cat_name)
     {
-        eclass_attr_category(pd_class, name, 0, cat_name);
+        eclass_attr_category(pd_class, name, cat_name);
     }
 
     void addProperty(const char* name,
         float (UI::*getter)() const,
         void (UI::*setter)(float))
     {
-        eclass_new_attr_typed(pd_class, name, "float", 1, 0, 0, 0);
-        eclass_attr_invisible(pd_class, name, 0);
+        eclass_new_attr_typed(pd_class, name, "float", 1, 0, 0);
+        eclass_attr_invisible(pd_class, name);
         setPropertyAccessor(name, getter, setter);
     }
 
@@ -707,8 +707,8 @@ public:
         AtomList (UI::*getter)() const,
         void (UI::*setter)(const AtomList&) = 0)
     {
-        eclass_new_attr_typed(pd_class, name, "atom", 1, 0, 0, 0);
-        eclass_attr_invisible(pd_class, name, 0);
+        eclass_new_attr_typed(pd_class, name, "atom", 1, 0, 0);
+        eclass_attr_invisible(pd_class, name);
         setPropertyAccessor(name, getter, setter);
     }
 
@@ -716,28 +716,28 @@ public:
         const char* def, t_symbol* UI::*m,
         const char* items, const char* cat = "Misc")
     {
-        eclass_new_attr_typed(pd_class, name, "symbol", 1, 0, 0, offset(m));
-        eclass_attr_label(pd_class, name, 0, label);
-        eclass_attr_save(pd_class, name, 0);
-        eclass_attr_paint(pd_class, name, 0);
-        eclass_attr_default(pd_class, name, 0, def);
-        eclass_attr_style(pd_class, name, 0, "menu");
-        eclass_attr_category(pd_class, name, 0, cat);
-        eclass_attr_itemlist(pd_class, name, 0, items);
+        eclass_new_attr_typed(pd_class, name, "symbol", 1, 0, offset(m));
+        eclass_attr_label(pd_class, name, label);
+        eclass_attr_save(pd_class, name);
+        eclass_attr_paint(pd_class, name);
+        eclass_attr_default(pd_class, name, def);
+        eclass_attr_style(pd_class, name, "menu");
+        eclass_attr_category(pd_class, name, cat);
+        eclass_attr_itemlist(pd_class, name, items);
     }
 
     void addPropertyIntMenu(const char* name, const char* label,
         const char* def, int UI::*m,
         const char* items, const char* cat = "Misc")
     {
-        eclass_new_attr_typed(pd_class, name, "int", 1, 0, 0, offset(m));
-        eclass_attr_label(pd_class, name, 0, label);
-        eclass_attr_save(pd_class, name, 0);
-        eclass_attr_paint(pd_class, name, 0);
-        eclass_attr_default(pd_class, name, 0, def);
-        eclass_attr_style(pd_class, name, 0, "menu");
-        eclass_attr_category(pd_class, name, 0, cat);
-        eclass_attr_itemlist(pd_class, name, 0, items);
+        eclass_new_attr_typed(pd_class, name, "int", 1, 0, offset(m));
+        eclass_attr_label(pd_class, name, label);
+        eclass_attr_save(pd_class, name);
+        eclass_attr_paint(pd_class, name);
+        eclass_attr_default(pd_class, name, def);
+        eclass_attr_style(pd_class, name, "menu");
+        eclass_attr_category(pd_class, name, cat);
+        eclass_attr_itemlist(pd_class, name, items);
     }
 
     void setPropertyAccessor(const char* name, float (UI::*getter)() const, void (UI::*setter)(float))
@@ -766,7 +766,7 @@ public:
 
     void setPropertyUnits(t_symbol* name, t_symbol* value)
     {
-        eclass_attr_units(pd_class, name, 0, value);
+        eclass_attr_units(pd_class, name, value);
     }
 
     void addAlias(const char* name)
