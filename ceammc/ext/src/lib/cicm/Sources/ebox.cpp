@@ -15,6 +15,7 @@
 
 #include <algorithm>
 #include <array>
+#include <boost/algorithm/string.hpp>
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
@@ -606,39 +607,73 @@ void ebox_attrprocess_viabinbuf(void* x, t_binbuf* d)
 
 static void ebox_attrprocess_default(void* x)
 {
-    int i, j, k;
-    long defc = 0;
-    t_atom* defv = NULL;
     t_eclass* c = eobj_getclass(x);
 
-    for (i = 0; i < c->c_nattr; i++) {
-        if (c->c_attr[i]->defvals) {
-            defc = c->c_attr[i]->size;
-            defv = (t_atom*)calloc((unsigned long)defc, sizeof(t_atom));
-            if (defc && defv) {
-                char check = 0;
-                const char* str_start = c->c_attr[i]->defvals->s_name;
-                char* str_end = nullptr;
-                for (j = 0; j < defc; j++) {
-                    for (k = 0; k < (int)(strlen(str_start)); k++) {
-                        if (isalpha(str_start[k]))
-                            check = 1;
-                    }
-                    if (check || strpbrk(str_start, "<>()'\"")) {
-                        atom_setsym(defv + j, gensym(str_start));
-                    } else {
-                        float val = std::strtof(str_start, &str_end);
-                        atom_setfloat(defv + j, val);
-                        str_start = str_end;
-                    }
-                }
-                eobj_attr_setvalueof(x, c->c_attr[i]->name, (int)defc, defv);
+    for (int i = 0; i < c->c_nattr; i++) {
+        // skip if default is not set
+        if (!c->c_attr[i]->defvals)
+            continue;
+
+        if (c->c_attr[i]->size < 1) {
+            pd_error(x, "[%s] invalid attribute size: %ld", c->c_class.c_name->s_name, c->c_attr[i]->size);
+            return;
+        }
+
+        const size_t N = c->c_attr[i]->size;
+        t_atom defv[N];
+        memset(defv, 0, sizeof(defv));
+
+        const std::string str = c->c_attr[i]->defvals->s_name;
+        const bool has_alpha = (bool)std::any_of(str.begin(), str.end(), ::isalpha);
+        const bool has_special = (str.find_first_of("<>()'\"") != std::string::npos);
+        const bool is_symbol = has_alpha || has_special;
+
+        // list of numbers
+        if (!is_symbol) {
+            std::vector<std::string> result;
+            boost::split(result, c->c_attr[i]->defvals->s_name, boost::is_any_of(" "), boost::token_compress_on);
+
+            if (N != result.size()) {
+                pd_error(x, "[%s] mismatched size of default values: %d != %d",
+                    c->c_class.c_name->s_name, (int)N, (int)result.size());
+                return;
             }
-            if (defv) {
-                free(defv);
-                defv = NULL;
+
+            for (size_t j = 0; j < N; j++) {
+                const char* s = result[j].c_str();
+                char* e = nullptr;
+                float f = std::strtof(s, &e);
+                if (f == HUGE_VALF) {
+                    pd_error(x, "[%s] value is too big: %s", c->c_class.c_name->s_name, s);
+                    return;
+                } else if (f == 0 && e == s) {
+                    pd_error(x, "[%s] can't parse value: %s", c->c_class.c_name->s_name, s);
+                    return;
+                } else {
+                    atom_setfloat(&defv[j], f);
+                }
+            }
+        } else {
+            // single symbol
+            if (N == 1) {
+                atom_setsym(&defv[0], gensym(str.c_str()));
+            } else {
+                // symbol list
+                std::vector<std::string> result;
+                boost::split(result, c->c_attr[i]->defvals->s_name, boost::is_any_of(" "), boost::token_compress_on);
+
+                if (N != result.size()) {
+                    pd_error(x, "[%s] mismatched size of default values: %d != %d",
+                        c->c_class.c_name->s_name, (int)N, (int)result.size());
+                    return;
+                }
+
+                for (size_t j = 0; j < N; j++)
+                    atom_setsym(&defv[j], gensym(result[j].c_str()));
             }
         }
+
+        eobj_attr_setvalueof(x, c->c_attr[i]->name, (int)N, defv);
     }
 }
 
