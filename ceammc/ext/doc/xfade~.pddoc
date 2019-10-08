@@ -50,7 +50,7 @@
 <![CDATA[
 /*simple 2-channel crossfade*/                [ui.radio 3]
                                               |
-[osc~ 440]     [ui.knob]      [osc~ 440]      [ui.knob @max=2]
+[osc~ 440]     [ui.knob]      [osc~ 440]      [ui.knob @max 2]
 |              |              |               |
 |  [osc~ 1000] |              | [osc~ 1000]   |
 |  |           |              | |             |

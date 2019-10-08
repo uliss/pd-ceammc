@@ -19,7 +19,7 @@ flite TTS engine.;
 #X obj 50 270 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 299 metro 1000;
 #X obj 184 299 ui.menu kal16 slt rms awb;
-#X obj 453 299 ui.knob @max 4 @min 1 @size 40 40;
+#X obj 453 299 ui.knob @min 1 @max 4;
 #X obj 50 327 flow.count;
 #X msg 184 327 @voice \$2;
 #X floatatom 299 327 5 0 0 0 - - -;

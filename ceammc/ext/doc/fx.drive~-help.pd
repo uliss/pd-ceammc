@@ -7,7 +7,7 @@
 #X obj 674 11 fx.drive~;
 #X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
 #X obj 50 147 expand_env;
-#X obj 174 147 ui.knob @max 10 @min 1 @size 40 40;
+#X obj 174 147 ui.knob @min 1 @max 10;
 #X obj 50 205 readsf~;
 #X msg 174 205 @drive \$1;
 #X obj 50 262 fx.drive~;

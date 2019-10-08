@@ -38,7 +38,7 @@
 <![CDATA[
 [open %CEAMMC%/guitar1.wav, 1(
 |
-[expand_env] [ui.knob @min=1 @max=10]
+[expand_env] [ui.knob @min 1 @max 10]
 |            |
 |            |
 |            |

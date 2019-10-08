@@ -37,7 +37,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]                          [ui.knob @size=32x32]
+[F]                          [ui.knob @size 32 32]
 |                            |
 [phasor~ 50] [lfo.+tri~ 1]   |
 |            |               |
