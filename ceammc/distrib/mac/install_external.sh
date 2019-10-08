@@ -1,0 +1,26 @@
+#!/bin/sh
+
+BIN_DIR="@PROJECT_BINARY_DIR@"
+DIST_DIR="@PROJECT_BINARY_DIR@/dist"
+VERSION="@CEAMMC_LIB_VERSION@"
+SYSVER=$(sw_vers | grep ProductVersion | cut -f2 | cut -f1,2 -d.)
+OUTFILE="ceammc-${VERSION}-macosx-${SYSVER}-pd-@PD_TEXT_VERSION_SHORT@.tar.gz"
+DEST="${HOME}/Documents/Pd/externals"
+
+if [ ! -f "${BIN_DIR}/${OUTFILE}" ]
+then
+    echo "file not found: ${OUTFILE}"
+    echo 'you have to run `make ceammc_lib` first'
+    exit 1
+fi
+
+mkdir -p "${DEST}"
+
+if [ -d "${DEST}/ceammc" ]
+then
+    echo "renaming ceammc directory to ceammc.old ..."
+    mv "${DEST}/ceammc" "${DEST}/ceammc.old"
+fi
+
+tar -C "${DEST}" -xzf "${BIN_DIR}/${OUTFILE}"
+echo "Done"
