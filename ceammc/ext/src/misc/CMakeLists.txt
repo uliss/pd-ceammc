@@ -23,6 +23,7 @@ endif()
 
 if(WITH_TTS_FLITE)
     include_directories(${FLITE_INCLUDES})
+    include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra)
     list(APPEND MISC_SOURCES speech_flite.cpp fliterender.cpp)
     list(APPEND MISC_LIBRARIES ${FLITE_LIBRARIES})
 endif()

@@ -2,6 +2,7 @@ add_subdirectory(arduino)
 include_directories(${PROJECT_BINARY_DIR}/ceammc/extra/libusb)
 include_directories(${CMAKE_SOURCE_DIR}/ceammc/extra/serial/serial/include)
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/SMSLib)
+include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra) # for readerwriterqueue
 
 macro(ceammc_hw_external name)
     list(APPEND HW_SOURCES "hw_${name}.cpp")

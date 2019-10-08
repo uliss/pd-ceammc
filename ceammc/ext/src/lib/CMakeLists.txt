@@ -1,5 +1,6 @@
 include_directories(${CMAKE_BINARY_DIR}) # for config.h
 include_directories(${PROJECT_SOURCE_DIR}/src)
+include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/utf8rewind)
 

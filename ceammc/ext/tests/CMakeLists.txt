@@ -234,6 +234,7 @@ ceammc_external_test(midi key_to_str)
 ceammc_external_test(midi prg_to_str)
 
 ceammc_external_test(net host)
+target_include_directories(test_ext_net_host PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/extra)
 
 ceammc_external_test(random discrete)
 ceammc_external_test(random linear)
@@ -255,6 +256,7 @@ ceammc_external_test(string to_symbol)
 
 ceammc_external_test(system getenv)
 ceammc_external_test(system shell)
+target_include_directories(test_ext_system_shell PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/extra)
 
 ceammc_external_test(path lsdir)
 

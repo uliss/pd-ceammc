@@ -1,4 +1,5 @@
 include_directories(${CMAKE_BINARY_DIR})
+include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra) # for readerwriterqueue
 include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/subprocess/tiny-process-library)
 
 set(SYSTEM_SOURCES "")

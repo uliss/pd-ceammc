@@ -11,7 +11,7 @@
 #include "ceammc_object.h"
 #include "ceammc_pollfd.h"
 
-#include "../../../extra/readerwriterqueue/readerwriterqueue.h"
+#include "readerwriterqueue/readerwriterqueue.h"
 
 namespace ceammc {
 
