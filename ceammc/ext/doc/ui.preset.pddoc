@@ -91,7 +91,7 @@
 [ui.toggle @presetname=P-toggle]
 
 
-[ui.rslider @presetname=P-rslider]
+[ui.rslider @presetname P-rslider]
 
 [F]
 |

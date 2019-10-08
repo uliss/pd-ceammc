@@ -17,7 +17,7 @@ gray;
 #X obj 50 238 ui.radio @presetname P-radio;
 #X obj 366 238 ui.sliders @presetname P-sliders;
 #X obj 50 282 ui.toggle @presetname P-toggle @size 17 17;
-#X obj 50 325 ui.rslider @presetname=P-rslider;
+#X obj 50 325 ui.rslider @presetname P-rslider;
 #X floatatom 50 354 5 0 0 0 - - -;
 #X msg 50 382 load \$1;
 #X msg 69 411 clear 1;
