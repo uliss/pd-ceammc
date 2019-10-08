@@ -523,8 +523,10 @@ void eclass_attr_redirect(t_eclass* c, const char* attrname, t_gotfn fn)
 
 void eclass_attr_default(t_eclass* c, const char* attrname, long /*flags*/, const char* value)
 {
+    t_symbol* sel = gensym(attrname);
+
     for (int i = 0; i < c->c_nattr; i++) {
-        if (c->c_attr[i]->name == gensym(attrname)) {
+        if (c->c_attr[i]->name == sel) {
             c->c_attr[i]->defvals = gensym(value);
             return;
         }
