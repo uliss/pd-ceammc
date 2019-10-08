@@ -59,6 +59,7 @@
 ### Fixed:
 - ui.vrd - invalid draw in check list mode
 - ui.* - various label fixes
+- ui.* @label property handles space in property dialog without entering ''
 
 ## [0.7.1]
 ### Added:

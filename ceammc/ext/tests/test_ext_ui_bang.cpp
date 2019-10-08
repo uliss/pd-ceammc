@@ -31,6 +31,22 @@ TEST_CASE("ui.bang", "[ui.bang]")
         REQUIRE_UI_LIST_PROPERTY(t, "background_color", LX(0.93, 0.93, 0.93, 1));
     }
 
+    SECTION("label")
+    {
+        TestExtBang t("ui.bang");
+        t.call("@label", LA("ABC"));
+        REQUIRE_UI_LIST_PROPERTY(t, "label", LA("ABC"));
+
+        t.call("@label", LA("A B"));
+        REQUIRE_UI_LIST_PROPERTY(t, "label", LA("A B"));
+
+        t.call("@label", LA("A", "B", "C"));
+        REQUIRE_UI_LIST_PROPERTY(t, "label", LA("A B C"));
+
+        t.call("@label", LA("A", 1.5, 2));
+        REQUIRE_UI_LIST_PROPERTY(t, "label", LA("A 1.5 2"));
+    }
+
     SECTION("external")
     {
         TestExtBang t("ui.bang");

@@ -1336,7 +1336,30 @@ t_pd_err ebox_set_label(t_ebox* x, t_object* attr, int argc, t_atom* argv)
                 ebox_create_label(x);
         } else {
             // change label text
-            x->b_label = atom_getsymbol(argv);
+            if (argc == 1)
+                x->b_label = atom_getsymbol(argv);
+            else {
+                auto to_str = [](const t_atom& a) -> std::string {
+                    auto t = atom_gettype(&a);
+                    if (t == A_SYMBOL)
+                        return atom_getsymbol(&a)->s_name;
+                    else if (t == A_FLOAT) {
+                        return atom_gensym(&a)->s_name;
+                    }
+                    else
+                        return {};
+                };
+
+                std::string res;
+                for (int j = 0; j < argc; j++) {
+                    if (j != 0)
+                        res.push_back(' ');
+
+                    res += to_str(argv[j]);
+                }
+
+                x->b_label = gensym(res.c_str());
+            }
 
             if (ebox_isvisible(x)) {
                 sys_vgui("%s itemconfigure " LABEL_TAG " -text {%s}\n",
