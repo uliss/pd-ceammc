@@ -1124,7 +1124,7 @@ void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
             x->b_rect_last = br;
         }
     }
-    x->b_mouse_down = 1;
+    x->b_mouse_down = true;
 }
 
 void ebox_mouse_up(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
@@ -1141,7 +1141,7 @@ void ebox_mouse_up(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
     } else {
         sys_vgui("eobj_canvas_up %s\n", x->b_canvas_id->s_name);
     }
-    x->b_mouse_down = 0;
+    x->b_mouse_down = false;
 }
 
 void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom* argv)

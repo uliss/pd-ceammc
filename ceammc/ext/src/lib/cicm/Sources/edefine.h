@@ -779,7 +779,7 @@ typedef struct t_ebox {
     int b_selected_outlet; /*!< The outlet selected. */
     float b_zoom;
 
-    char b_mouse_down; /*!< The mouse state. */
+    bool b_mouse_down; /*!< The mouse state. */
     bool b_resize; /*!< Widget is in resize state */
 
     bool b_visible; /*!< The visible state. */
