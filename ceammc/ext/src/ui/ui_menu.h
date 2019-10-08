@@ -16,11 +16,11 @@
 
 #include "ceammc_ui_object.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 using namespace ceammc;
 
-typedef boost::shared_ptr<UITextLayout> TextPtr;
+typedef std::shared_ptr<UITextLayout> TextPtr;
 typedef std::vector<std::string> LabelList;
 
 class UIMenu : public UIObject {
@@ -35,7 +35,6 @@ private:
 
 private:
     bool is_open_;
-    int close_height_;
     int item_height_;
     int current_idx_;
     int hover_idx_;
