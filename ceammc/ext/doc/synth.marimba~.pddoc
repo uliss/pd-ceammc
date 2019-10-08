@@ -51,13 +51,13 @@
 |                    |                       |
 [@pitch $1, @gate 1( [@pos $1 #b(            [@sharp $1 #c(
 |
-[flow.append gate 0 @msg @delay 10]
+[flow.append @gate 0 @msg @delay 10]
 |
 |
 |
 [synth.marimba~ #a]
 |
-[fx.freeverb~ @roomsize 0.95 @drywet 0.001]
+[fx.freeverb~ @room 0.95 @drywet 0.001]
 |
 [ui.gain~ @size 120 16]
 |\
