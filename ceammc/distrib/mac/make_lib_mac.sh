@@ -97,7 +97,7 @@ echo "Copying wrapper help files to ${OUTDIR} ..."
 find "${SRCDIR}/ext/class-wrapper/modules" -name *-help\\.pd | while read file
 do
     help=$(basename $file)
-    cat "$file" | sed -e 's/ceammc\/ceammc-help\.pd/ceammc-help.pd/'
+    cat "$file" | sed -e 's/ceammc\/ceammc-help\.pd/ceammc-help.pd/' \
         -e 's/\.\.\/index-help\.pd/index-help.pd/' > "${OUTDIR}/${help}"
     echo "+ Help: '$help'"
 done
