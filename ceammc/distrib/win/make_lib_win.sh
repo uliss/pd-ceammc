@@ -1,17 +1,19 @@
 #!/bin/bash
 
-if [ $# -ne 5 ]
+if [ $# -ne 1 ]
 then
-    echo "Usage: $0 SRCDIR BINDIR OUTDIR VERSION ARCH"
+    echo "Usage: $0 OUTDIR"
     exit 1
 fi
 
-SRCDIR="$1"
-BINDIR="$2"
-VERSION="$4"
-OUTDIR="$3/ceammc"
-ARCH="$5"
-OUTFILE="ceammc-${VERSION}-win-pd-0.49-${ARCH}.zip"
+OUTDIR="$1/ceammc"
+SRCDIR="@PROJECT_SOURCE_DIR@/ceammc"
+BINDIR="@CMAKE_INSTALL_PREFIX@"
+VERSION="@CEAMMC_LIB_VERSION@"
+ARCH="@CEAMMC_DISTRIB_ARCH@"
+PD_VERSION="@PD_TEXT_VERSION_FULL@"
+OUTFILE="ceammc-${VERSION}-win-pd-${PD_VERSION}-${ARCH}.zip"
+P7Z_EXE="@7Z_EXE@"
 
 echo "    - source dir:  ${SRCDIR}"
 echo "    - binary dir:  ${BINDIR}"
@@ -29,6 +31,12 @@ function skip_ext {
         return 0
     fi
 }
+
+if [ ! -d "${BINDIR}" ]
+then
+    echo "ERROR: directory with installed binaries not exists: ${BINDIR} ..."
+    exit 1
+fi
 
 echo "Making CEAMMC library from build directory: $BINDIR"
 mkdir -p "${OUTDIR}"
@@ -137,6 +145,11 @@ cp "${SRCDIR}/extra/SoundTouch/pd/soundtouch~-help.pd" "${OUTDIR}"
 cat "${OUTDIR}/index-help.pd" | sed 's/ceammc\/soundtouch-help\.pd/soundtouch-help.pd/' > tmp
 mv tmp "${OUTDIR}/index-help.pd"
 
-cd "$3"
-7z a "${OUTFILE}" $(basename $OUTDIR)
-mv "${OUTFILE}" ..
+if [ -x "${P7Z_EXE}" ]
+then
+    cd "${OUTDIR}/.."
+    ${P7Z_EXE} a "${OUTFILE}" $(basename $OUTDIR)
+    mv "${OUTFILE}" ..
+else
+    echo "7z is not found. Create zip archive manually..."
+fi

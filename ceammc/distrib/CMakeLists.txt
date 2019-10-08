@@ -5,6 +5,12 @@ add_subdirectory(docker)
 
 set(MAKELIB_SCRIPT "")
 
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(CEAMMC_DISTRIB_ARCH "64-bit")
+elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+    set(CEAMMC_DISTRIB_ARCH "32-bit")
+endif()
+
 if(APPLE)
     set(DYLIBBUNDLER "${CMAKE_CURRENT_BINARY_DIR}/mac/dylibbundler")
     set(MAKELIB_SCRIPT "${CMAKE_CURRENT_BINARY_DIR}/mac/make_lib_mac.sh")
@@ -20,6 +26,10 @@ if(UNIX AND NOT APPLE)
 endif()
 
 if(WIN32 OR MSYS)
+    find_program(7Z_EXE NAMES "7z" "7z.exe")
+    if(7Z_EXE)
+        message(STATUS "7z found at: ${7Z_EXE}")
+    endif()
     set(MAKELIB_SCRIPT "${PROJECT_BINARY_DIR}/dist/make_lib_win.sh")
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win/make_lib_win.sh ${MAKELIB_SCRIPT} @ONLY)
 endif()
@@ -34,19 +44,9 @@ if(MAKELIB_SCRIPT)
                 "${CEAMMC_LIB_VERSION}"
             SOURCES mac/make_lib_mac.sh)
     elseif(WIN32)
-        if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-            set(CEAMMC_DISTRIB_ARCH "64-bit")
-        elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
-            set(CEAMMC_DISTRIB_ARCH "32-bit")
-        endif()
-
         add_custom_target(ceammc_lib
             COMMAND "${MAKELIB_SCRIPT}"
-                "${CMAKE_SOURCE_DIR}/ceammc"
-                "${CMAKE_INSTALL_PREFIX}"
                 "${CMAKE_BINARY_DIR}/dist"
-                "${CEAMMC_LIB_VERSION}"
-                "${CEAMMC_DISTRIB_ARCH}"
             SOURCES win/make_lib_win.sh)
     endif()
 endif()
