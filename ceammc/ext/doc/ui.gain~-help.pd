@@ -4,9 +4,11 @@
 #X text 644 50 UI gain control;
 #X obj 1 1 cnv 5 765 40 empty empty ui.gain~ 20 20 0 20 -104026 -4096
 0;
-#X obj 498 11 ui.hgain~;
-#X obj 589 11 ui.vgain~;
-#X obj 680 14 ui.link @background_color 0.39216 0.39216 0.39216 @title
+#X obj 494 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.hgain~] @url ui.gain~-help.pd;
+#X obj 587 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.vgain~] @url ui.gain~-help.pd;
+#X obj 680 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.gain~] @url ui.gain~-help.pd;
 #X text 50 118 use [ui.hgain~] to create horizontal control];
 #X obj 50 133 ui.hgain~;

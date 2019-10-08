@@ -13,8 +13,8 @@
             <keywords>ui gain</keywords>
             <since>0.5</since>
             <aliases>
-                <alias>ui.hgain~</alias>
-                <alias>ui.vgain~</alias>
+                <alias view="link">ui.hgain~</alias>
+                <alias view="link">ui.vgain~</alias>
             </aliases>
         </meta>
         <properties>

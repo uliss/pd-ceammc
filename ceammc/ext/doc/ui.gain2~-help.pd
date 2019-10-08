@@ -4,9 +4,11 @@
 #X text 591 50 UI stereo gain control;
 #X obj 1 1 cnv 5 765 40 empty empty ui.gain2~ 20 20 0 20 -104026 -4096
 0;
-#X obj 476 11 ui.hgain2~;
-#X obj 574 11 ui.vgain2~;
-#X obj 672 14 ui.link @background_color 0.39216 0.39216 0.39216 @title
+#X obj 472 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.hgain2~] @url ui.gain2~-help.pd;
+#X obj 572 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[ui.vgain2~] @url ui.gain2~-help.pd;
+#X obj 672 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.gain2~] @url ui.gain2~-help.pd;
 #X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
 #X obj 50 147 expand_env;
