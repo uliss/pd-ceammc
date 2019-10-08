@@ -7,7 +7,7 @@
 #X obj 526 11 flow.demux;
 #X obj 624 11 flow.demultiplex;
 #X floatatom 50 118 5 0 0 0 - - -;
-#X obj 222 147 ui.radio @nitems=4;
+#X obj 222 147 ui.radio @nitems 4;
 #X obj 50 190 flow.demultiplex 4;
 #X floatatom 50 219 5 0 0 0 - - -;
 #X floatatom 98 219 5 0 0 0 - - -;

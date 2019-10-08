@@ -8,7 +8,7 @@
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Easy way to build beat machines;
 #X msg 50 143 1 0 1 1 0 1 0 1;
-#X obj 50 172 ui.radio @mode=1;
+#X obj 50 172 ui.radio @mode 1;
 #X obj 50 201 msg @pattern;
 #X obj 78 230 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 259 metro.seq 100 1 0 0 1;

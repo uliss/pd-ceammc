@@ -46,7 +46,7 @@
 <![CDATA[
 [F]
 |
-|                 [ui.radio @nitems=4]
+|                 [ui.radio @nitems 4]
 |                 |
 |                 |.
 [flow.demultiplex 4]

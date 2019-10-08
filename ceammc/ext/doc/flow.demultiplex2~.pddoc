@@ -50,7 +50,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[sig~ 1]            [ui.radio @nitems=2] [ui.dsp~]
+[sig~ 1]            [ui.radio @nitems 2] [ui.dsp~]
 |                   |
 |    [sig~ 0.125]   |
 |    |              |

@@ -38,7 +38,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[ui.radio @nitems=4]
+[ui.radio @nitems 4]
 |
 |
 |

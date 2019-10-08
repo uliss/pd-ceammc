@@ -48,7 +48,7 @@
 [osc~ 400] [osc~ 800] [osc~ 1600]     [ui.dsp~]
 |          |          |
 |          |          |
-|          |          |    [ui.radio @nitems=3]
+|          |          |    [ui.radio @nitems 3]
 |          |          |    |
 |          |          |    |
 |          |.         |..  |...

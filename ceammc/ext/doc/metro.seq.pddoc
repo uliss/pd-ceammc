@@ -47,7 +47,7 @@
 <![CDATA[
 [1 0 1 1 0 1 0 1(
 |
-[ui.radio @mode=1]
+[ui.radio @mode 1]
 |
 [msg @pattern]
 |

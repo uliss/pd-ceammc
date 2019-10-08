@@ -44,7 +44,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[osc~ 440]    [ui.radio @nitems=4] [ui.dsp~]
+[osc~ 440]    [ui.radio @nitems 4] [ui.dsp~]
 |             |
 | [@value?(   |
 | |           |.

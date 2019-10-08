@@ -8,7 +8,7 @@
 #X obj 532 11 demux2~;
 #X obj 609 11 flow.demultiplex2~;
 #X obj 50 118 sig~ 1;
-#X obj 242 118 ui.radio @nitems=2;
+#X obj 242 118 ui.radio @nitems 2;
 #X obj 443 118 ui.dsp~;
 #X obj 98 147 sig~ 0.125;
 #X msg 290 190 @value?;

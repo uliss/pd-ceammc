@@ -11,7 +11,7 @@
 #X obj 155 118 osc~ 800;
 #X obj 261 118 osc~ 1600;
 #X obj 414 118 ui.dsp~;
-#X obj 309 162 ui.radio @nitems=3;
+#X obj 309 162 ui.radio @nitems 3;
 #X obj 50 219 flow.multiplex~ 3;
 #X obj 50 248 ui.gain~ @size 120 16;
 #X obj 50 277 dac~;

@@ -58,7 +58,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[osc~ 440]             [ui.radio @nitems=2] [ui.dsp~]
+[osc~ 440]             [ui.radio @nitems 2] [ui.dsp~]
 |                      |
 | [osc~ 442]           |
 | |                    |

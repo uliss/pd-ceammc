@@ -8,7 +8,7 @@
 #X obj 562 11 mux2~;
 #X obj 624 11 flow.multiplex2~;
 #X obj 50 118 osc~ 440;
-#X obj 270 118 ui.radio @nitems=2;
+#X obj 270 118 ui.radio @nitems 2;
 #X obj 472 118 ui.dsp~;
 #X obj 69 147 osc~ 442;
 #X obj 98 176 osc~ 660;
