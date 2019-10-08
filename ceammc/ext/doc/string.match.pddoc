@@ -15,9 +15,6 @@
             <aliases>
                 <alias>str.match</alias>
             </aliases>
-            <also>
-                <see>str.grep</see>
-            </also>
         </meta>
         <info>
             <par>Used syntax: re2 (like pcre). Some characters are non-supported in Pd. Use `
