@@ -1,5 +1,5 @@
-package provide pd_bindings 0.1
 
+package provide pd_bindings 0.1
 package require pd_menucommands
 package require dialog_find
 
@@ -125,6 +125,16 @@ proc ::pd_bindings::global_bindings {} {
             bind all <$::modifier-Key-m>       {menu_minimize %W}
             bind all <$::modifier-quoteleft>   {menu_raisenextwindow}
         }
+        # BackSpace/Delete report the wrong isos (unicode representations) on OSX,
+        # so we set them to the empty string and let ::pd_bindings::sendkey guess the correct values
+        bind all <KeyPress-BackSpace>      {::pd_bindings::sendkey %W 1 %K "" 1 %k}
+        bind all <KeyRelease-BackSpace>    {::pd_bindings::sendkey %W 0 %K "" 1 %k}
+        bind all <KeyPress-Delete>         {::pd_bindings::sendkey %W 1 %K "" 1 %k}
+        bind all <KeyRelease-Delete>       {::pd_bindings::sendkey %W 0 %K "" 1 %k}
+        bind all <KeyPress-KP_Enter>       {::pd_bindings::sendkey %W 1 %K "" 1 %k}
+        bind all <KeyRelease-KP_Enter>     {::pd_bindings::sendkey %W 0 %K "" 1 %k}
+        bind all <KeyPress-Clear>          {::pd_bindings::sendkey %W 1 %K "" 1 %k}
+        bind all <KeyRelease-Clear>        {::pd_bindings::sendkey %W 0 %K "" 1 %k}
     } else {
         bind all <$::modifier-Key-q>       {pdsend "pd verifyquit"}
         bind all <$::modifier-Key-m>       {menu_minimize %W}
@@ -393,37 +403,38 @@ proc ::pd_bindings::sendkey {window state key iso shift {keycode ""} } {
         catch {set iso [dict get $::pd_bindings::key2iso $keycode] }
     }
 
-    switch -- $key {
-        "BackSpace" { set key   8 }
-        "Tab"       { set key   9 }
-        "Return"    { set key  10 }
-        "Escape"    { set key  27 }
-        "Space"     { set key  32 }
-        "space"     { set key  32 }
-        "Delete"    { set key 127 }
-        "KP_Delete" { set key 127 }
-        "KP_Enter"  { set key  10 }
-        default     {
-            switch -- [string length $iso] {
-                1 {
-                    scan $iso %c key
-                    if { "$key" eq "13" } { set key 10 }
-                    catch {
-                        if { "" eq "${::pd_bindings::key2iso}" } {
-                            set ::pd_bindings::key2iso [dict create]
-                        }
-                        # store the key2iso mapping
-                        dict set ::pd_bindings::key2iso $keycode $iso
-                    }
-                }
-                default {
-                    # split a multi-char $iso in single chars
-                    foreach k [split $iso {}] {
-                        ::pd_bindings::sendkey $window $state $key $k $shift $keycode
-                    }
-                    return
-                }
+    switch -- [string length $iso] {
+        0 {
+            switch -- $key {
+                "BackSpace" { set key   8 }
+                "Tab"       { set key   9 }
+                "Return"    { set key  10 }
+                "Escape"    { set key  27 }
+                "Space"     { set key  32 }
+                "space"     { set key  32 }
+                "Delete"    { set key 127 }
+                "KP_Delete" { set key 127 }
+                "KP_Enter"  { set key  10 }
+                default     {             }
             }
+        }
+        1 {
+            scan $iso %c key
+            if { "$key" eq "13" } { set key 10 }
+            catch {
+                if { "" eq "${::pd_bindings::key2iso}" } {
+                    set ::pd_bindings::key2iso [dict create]
+                }
+                # store the key2iso mapping
+                dict set ::pd_bindings::key2iso $keycode $iso
+            }
+        }
+        default {
+            # split a multi-char $iso in single chars
+            foreach k [split $iso {}] {
+                ::pd_bindings::sendkey $window $state $key $k $shift $keycode
+            }
+            return
         }
     }
 
