@@ -1,3 +1,4 @@
 cppcheckError
 *:*tl_lexer.cpp
 uninitMemberVar:*Hoa_Tools.hpp
+pureVirtualCall:*Hoa_Scope.hpp
