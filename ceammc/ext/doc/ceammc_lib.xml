@@ -1292,7 +1292,7 @@
     <entry descr="patcher loader for multichannel processing" name="hoa.process~" ref_view="object">
       <xi:include href="hoa.process~.pddoc" parse="xml"/>
     </entry>
-    <entry descr="a 2d ambisonic harmonic scope" name="hoa.scope~" ref_view="object">
+    <entry descr="a 2d ambisonic harmonic scope" name="hoa.scope~" ref_view="link">
       <xi:include href="hoa.scope~.pddoc" parse="xml"/>
     </entry>
     <entry descr="two channel equal power sine/cosine panner" name="pan.cos~" ref_view="object">
