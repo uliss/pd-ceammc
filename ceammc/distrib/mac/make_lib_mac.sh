@@ -102,6 +102,14 @@ do
     echo "+ Help: '$help'"
 done
 
+echo "Copying HOA help files to ${OUTDIR} ..."
+find "${SRCDIR}/ext/doc/hoa" | while read file
+do
+    help=$(basename $file)
+    cp "$file" "${OUTDIR}/hoa/${help}"
+    echo "+ HOA:  '$help'"
+done
+
 echo "Copying about.pd to ${OUTDIR} ..."
 cat "@PROJECT_BINARY_DIR@/ceammc/ext/doc/about.pd" | sed  -e "s/%GIT_BRANCH%/$GIT_BRANCH/g" \
     -e "s/%GIT_COMMIT%/$GIT_COMMIT/g" \
@@ -145,12 +153,14 @@ soundtouch_ext=$(find_ext "${BINDIR}/../extra/SoundTouch/pd" "soundtouch~")
 cp "$soundtouch_ext" "${OUTDIR}"
 ${DYLIBBUNDLER} -x ${OUTDIR}/$(basename $soundtouch_ext) -b -d ${OUTDIR} -p @loader_path/ -of
 echo "    soundtouch~-help.pd"
-cp "${BINDIR}/../extra/SoundTouch/pd/soundtouch~-help.pd" "${OUTDIR}"
+cp "@PROJECT_SOURCE_DIR@/ceammc/extra/SoundTouch/pd/soundtouch~-help.pd" "${OUTDIR}"
 echo "    soundtouch-help.pd"
-cp "${BINDIR}/../extra/SoundTouch/pd/soundtouch-help.pd" "${OUTDIR}"
+cp "@PROJECT_SOURCE_DIR@/ceammc/extra/SoundTouch/pd/soundtouch-help.pd" "${OUTDIR}"
 
 echo "+ Fix soundtouch link in index-help.pd..."
 sed -i "" 's/ceammc\/soundtouch-help\.pd/soundtouch-help.pd/' "${OUTDIR}/index-help.pd"
+sed -i -e 's|\.\./index-help\.pd|index-help.pd|' "${OUTDIR}/soundtouch-help.pd"
+sed -i -e 's|\.\./index-help\.pd|index-help.pd|' "${OUTDIR}/soundtouch~-help.pd"
 
 cd "$3"
 tar cfvz "${OUTFILE}" $(basename $OUTDIR)

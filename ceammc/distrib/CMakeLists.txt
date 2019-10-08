@@ -45,7 +45,7 @@ if(MAKELIB_SCRIPT)
                 "${CMAKE_BINARY_DIR}/dist"
             SOURCES mac/make_lib_mac.sh)
 
-        add_custom_target(install_external COMMAND ${CMAKE_CURRENT_BINARY_DIR}/dist/install_external.sh)
+        add_custom_target(install_external COMMAND ${PROJECT_BINARY_DIR}/dist/install_external.sh)
     elseif(WIN32)
         add_custom_target(ceammc_lib
             COMMAND "${MAKELIB_SCRIPT}"
