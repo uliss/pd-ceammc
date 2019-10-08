@@ -1,17 +1,21 @@
 #!/bin/sh
 
-if [ $# -ne 4 ]
+if [ $# -ne 3 ]
 then
-    echo "Usage: $0 SRCDIR BINDIR OUTDIR VERSION"
+    echo "Usage: $0 SRCDIR BINDIR OUTDIR"
 fi
 
 SRCDIR="$1"
 BINDIR="$2"
-VERSION="$4"
 OUTDIR="$3/ceammc"
+VERSION="@CEAMMC_LIB_VERSION@"
 SYSVER=$(sw_vers | grep ProductVersion | cut -f2 | cut -f1,2 -d.)
 OUTFILE="ceammc-${VERSION}-macosx-${SYSVER}-pd-@PD_TEXT_VERSION_SHORT@.tar.gz"
 DYLIBBUNDLER="@DYLIBBUNDLER@"
+
+CURRENT_DATE=$(LANG=C date -u '+%d %h %Y %Z %H:%M:%S')
+GIT_BRANCH=$(git --git-dir '@PROJECT_SOURCE_DIR@/.git' symbolic-ref --short HEAD)
+GIT_COMMIT=$(git --git-dir '@PROJECT_SOURCE_DIR@/.git' describe --tags)
 
 
 function skip_ext {
@@ -84,9 +88,8 @@ echo "Copying help files to ${OUTDIR} ..."
 find "${SRCDIR}/ext/doc" -name *-help\\.pd | while read file
 do
     help=$(basename $file)
-    cat "$file" |
-        sed 's/ceammc\/ceammc-help\.pd/ceammc-help.pd/' |
-        sed 's/\.\.\/index-help\.pd/index-help.pd/' > "${OUTDIR}/${help}"
+    cat "$file" | sed -e 's/ceammc\/ceammc-help\.pd/ceammc-help.pd/' \
+        -e 's/\.\.\/index-help\.pd/index-help.pd/' > "${OUTDIR}/${help}"
     echo "+ Help: '$help'"
 done
 
@@ -94,11 +97,16 @@ echo "Copying wrapper help files to ${OUTDIR} ..."
 find "${SRCDIR}/ext/class-wrapper/modules" -name *-help\\.pd | while read file
 do
     help=$(basename $file)
-    cat "$file" |
-        sed 's/ceammc\/ceammc-help\.pd/ceammc-help.pd/' |
-        sed 's/\.\.\/index-help\.pd/index-help.pd/' > "${OUTDIR}/${help}"
+    cat "$file" | sed -e 's/ceammc\/ceammc-help\.pd/ceammc-help.pd/'
+        -e 's/\.\.\/index-help\.pd/index-help.pd/' > "${OUTDIR}/${help}"
     echo "+ Help: '$help'"
 done
+
+echo "Copying about.pd to ${OUTDIR} ..."
+cat "@PROJECT_BINARY_DIR@/ceammc/ext/doc/about.pd" | sed  -e "s/%GIT_BRANCH%/$GIT_BRANCH/g" \
+    -e "s/%GIT_COMMIT%/$GIT_COMMIT/g" \
+    -e "s/%BUILD_DATE%/$CURRENT_DATE/g" > ${OUTDIR}/about.pd
+echo "+ Help: 'about.pd'"
 
 echo "Copying STK rawwaves files to ${OUTDIR}/stk ..."
 mkdir -p "${OUTDIR}/stk"

@@ -41,7 +41,6 @@ if(MAKELIB_SCRIPT)
                 "${CMAKE_CURRENT_SOURCE_DIR}/.."
                 "${CMAKE_CURRENT_BINARY_DIR}/../ext"
                 "${CMAKE_BINARY_DIR}/dist"
-                "${CEAMMC_LIB_VERSION}"
             SOURCES mac/make_lib_mac.sh)
     elseif(WIN32)
         add_custom_target(ceammc_lib
