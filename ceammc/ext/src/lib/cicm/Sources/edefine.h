@@ -780,7 +780,7 @@ typedef struct t_ebox {
     float b_zoom;
 
     char b_mouse_down; /*!< The mouse state. */
-    char b_resize; /*!< Widget is in resize state */
+    bool b_resize; /*!< Widget is in resize state */
 
     bool b_visible; /*!< The visible state. */
     bool b_ready_to_draw; /*!< The ebox state for drawing. */

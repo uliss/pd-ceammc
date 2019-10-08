@@ -482,7 +482,7 @@ void ebox_ready(t_ebox* x)
     x->b_selected_inlet = -1;
     x->b_selected_outlet = -1;
     x->b_mouse_down = 0;
-    x->b_resize = 0;
+    x->b_resize = false;
     x->b_zoom = 1;
 
     x->b_boxparameters.d_borderthickness = 1;
@@ -1076,9 +1076,9 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                         atom_setfloat(av + 1, mouse.y);
                     }
                 }
-                x->b_resize = 1;
+                x->b_resize = true;
                 mess3((t_pd*)x, s_attr_size, s_attr_size, (void*)2, (void*)av);
-                x->b_resize = 0;
+                x->b_resize = false;
             }
         } else {
             sys_vgui("eobj_canvas_motion %s 1\n", x->b_canvas_id->s_name);
