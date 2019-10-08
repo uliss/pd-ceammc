@@ -101,10 +101,13 @@ public:
     virtual bool onThreadCommand(int code);
     virtual void start();
     virtual void stop();
+    virtual void waitStop();
 
     bool isRunning() const;
-    void wait();
-    void waitStop();
+
+protected:
+    void threadWait();
+    void threadStop();
 };
 
 class ThreadPollPipeExternal : public ThreadExternalBase {

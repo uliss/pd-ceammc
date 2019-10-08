@@ -65,7 +65,8 @@ ThreadExternalBase::ThreadExternalBase(const PdArgs& args, thread::Task* task)
 
 ThreadExternalBase::~ThreadExternalBase()
 {
-    waitStop();
+    threadStop();
+    threadWait();
 }
 
 bool ThreadExternalBase::onThreadCommand(int code)
@@ -93,12 +94,7 @@ void ThreadExternalBase::start()
 
 void ThreadExternalBase::stop()
 {
-    if (task_->stopRequested()) {
-        OBJ_DBG << "already stopping....";
-        return;
-    }
-
-    task_->stop();
+    threadStop();
 }
 
 bool ThreadExternalBase::isRunning() const
@@ -110,7 +106,7 @@ bool ThreadExternalBase::isRunning() const
     return st != std::future_status::ready;
 }
 
-void ThreadExternalBase::wait()
+void ThreadExternalBase::threadWait()
 {
     if (!thread_result_.valid())
         return;
@@ -124,10 +120,20 @@ void ThreadExternalBase::wait()
     }
 }
 
+void ThreadExternalBase::threadStop()
+{
+    if (task_->stopRequested()) {
+        OBJ_DBG << "already stopping....";
+        return;
+    }
+
+    task_->stop();
+}
+
 void ThreadExternalBase::waitStop()
 {
     stop();
-    wait();
+    threadWait();
 }
 
 thread::Task::Task(ThreadExternalBase* caller)
@@ -247,7 +253,7 @@ ThreadPollClockExternal::ThreadPollClockExternal(const PdArgs& args, thread::Tas
 ThreadPollClockExternal::~ThreadPollClockExternal()
 {
     clock_.unset();
-    waitStop();
+    // waitStop() is called in ~ThreadExternalBase()
 }
 
 void ThreadPollClockExternal::start()
@@ -285,7 +291,6 @@ ThreadPollPipeExternal::ThreadPollPipeExternal(const PdArgs& args, thread::Task*
 
 ThreadPollPipeExternal::~ThreadPollPipeExternal()
 {
-    waitStop();
 }
 
 void ThreadPollPipeExternal::start()
