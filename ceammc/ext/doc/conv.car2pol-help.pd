@@ -8,18 +8,18 @@
 #X obj 653 11 conv.car2pol;
 #X obj 50 118 ui.slider2d @size 100 100;
 #X obj 50 234 car->pol;
-#X obj 50 262 ui.d @display_type 1;
-#X obj 20 301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 306 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 50 262 ui.display @display_type 1 @size 150 18;
+#X obj 20 302 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 307 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 307 1\.;
-#X text 150 307 *list*;
-#X text 245 307 x \, y coord pair.;
-#X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 342 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 308 1\.;
+#X text 150 308 *list*;
+#X text 245 308 x \, y coord pair.;
+#X obj 20 338 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 343 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 343 1\.;
-#X text 245 343 radius and angle (in radians) pair.;
+#X text 110 344 1\.;
+#X text 245 344 radius and angle (in radians) pair.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
