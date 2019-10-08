@@ -14,7 +14,7 @@
             <keywords>ui keyboard</keywords>
             <since>0.1</since>
             <also>
-                <see view="link">ui.presets</see>
+                <see view="link">ui.preset</see>
             </also>
         </meta>
         <info>

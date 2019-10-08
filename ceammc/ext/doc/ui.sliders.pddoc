@@ -15,7 +15,7 @@
             <since>0.1</since>
             <also>
                 <see view="link">ui.slider</see>
-                <see view="link">ui.presets</see>
+                <see view="link">ui.preset</see>
             </also>
         </meta>
         <mouse>
