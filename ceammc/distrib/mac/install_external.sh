@@ -19,6 +19,7 @@ mkdir -p "${DEST}"
 if [ -d "${DEST}/ceammc" ]
 then
     echo "renaming ceammc directory to ceammc.old ..."
+    rm -rf "${DEST}/ceammc.old"
     mv -f "${DEST}/ceammc" "${DEST}/ceammc.old"
 fi
 
