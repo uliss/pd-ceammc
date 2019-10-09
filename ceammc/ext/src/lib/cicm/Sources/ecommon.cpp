@@ -44,7 +44,10 @@ t_symbol* s_value_label_side_bottom;
 
 void epd_init(void)
 {
-    t_symbol* epd_symbol = gensym("epd1572");
+    static bool done = false;
+    if (done)
+        return;
+
     s_null = gensym("(null)");
     s_atom = gensym("atom");
     s_obj = gensym("obj");
@@ -76,10 +79,9 @@ void epd_init(void)
     s_value_label_side_right = gensym("right");
     s_value_label_side_bottom = gensym("bottom");
 
-    if (!epd_symbol->s_thing) {
-        sys_gui(cicm_common_tcl);
-        epd_symbol->s_thing = (t_class**)1;
-    }
+    sys_gui(cicm_common_tcl);
+
+    done = true;
 }
 
 void object_method(void* x, t_symbol* s, void* z, t_typ_method method, long number, void* other)
