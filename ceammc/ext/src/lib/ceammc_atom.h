@@ -21,11 +21,13 @@
 #include <utility>
 
 #if defined(__has_feature)
-#  if __has_feature(address_sanitizer)
-#define CEAMMC_NO_ASAN __attribute__((no_sanitize("address"))) __attribute__((no_sanitize("undefined")))
+#   if __has_feature(address_sanitizer)
+#       define CEAMMC_NO_ASAN __attribute__((no_sanitize("address"))) __attribute__((no_sanitize("undefined")))
+#   else
+#       define CEAMMC_NO_ASAN
+#   endif
 #else
-#define CEAMMC_NO_ASAN
-#  endif
+#   define CEAMMC_NO_ASAN
 #endif
 
 namespace ceammc {
