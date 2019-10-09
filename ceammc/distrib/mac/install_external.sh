@@ -19,7 +19,7 @@ mkdir -p "${DEST}"
 if [ -d "${DEST}/ceammc" ]
 then
     echo "renaming ceammc directory to ceammc.old ..."
-    mv "${DEST}/ceammc" "${DEST}/ceammc.old"
+    mv -f "${DEST}/ceammc" "${DEST}/ceammc.old"
 fi
 
 tar -C "${DEST}" -xzf "${BIN_DIR}/${OUTFILE}"

@@ -163,6 +163,6 @@ sed -i "" 's/ceammc\/soundtouch-help\.pd/soundtouch-help.pd/' "${OUTDIR}/index-h
 sed -i -e 's|\.\./index-help\.pd|index-help.pd|' "${OUTDIR}/soundtouch-help.pd"
 sed -i -e 's|\.\./index-help\.pd|index-help.pd|' "${OUTDIR}/soundtouch~-help.pd"
 
-cd "$3"
+cd "$1"
 tar cfvz "${OUTFILE}" $(basename $OUTDIR)
-mv "${OUTFILE}" ..
+mv "${OUTFILE}" "@PROJECT_BINARY_DIR@"
