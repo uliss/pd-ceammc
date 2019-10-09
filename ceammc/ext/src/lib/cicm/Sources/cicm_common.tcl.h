@@ -116,7 +116,13 @@ const char* cicm_common_tcl =
 "        -data \"R0lGODlhEgASAPAAAAAAAAAAACH5BAEAAAAAIf8LSW1hZ2VNYWdpY2sOZ2FtbWE9MC40NTQ1NDUALAAAAAASABIAAAIYhI+py+0PowpBHmoNzjt2+D2hmJXmiToFADs=\"\n"
 "}\n"
 "ceammc_create_label_font_bold CICMCategoryFont\n"
-"package require tooltip\n"
+"if { [catch {package require tooltip} ] } {\n"
+"    proc ceammc_tooltip {id msg} {}\n"
+"} {\n"
+"    proc ceammc_tooltip {id msg} {\n"
+"        tooltip::tooltip $id $msg\n"
+"    }\n"
+"}\n"
 ;
 #endif
 // clang-format on

@@ -140,4 +140,10 @@ if { $::tcl_version >= 8.6 } {
 ceammc_create_label_font_bold CICMCategoryFont
 
 # show tooltips
-package require tooltip
+if { [catch {package require tooltip} ] } {
+    proc ceammc_tooltip {id msg} {}
+} {
+    proc ceammc_tooltip {id msg} {
+        tooltip::tooltip $id $msg
+    }
+}
