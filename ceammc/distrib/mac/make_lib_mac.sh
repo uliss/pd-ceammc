@@ -1,13 +1,13 @@
 #!/bin/sh
 
-if [ $# -ne 3 ]
+if [ $# -ne 1 ]
 then
-    echo "Usage: $0 SRCDIR BINDIR OUTDIR"
+    echo "Usage: $0 OUTDIR"
 fi
 
-SRCDIR="$1"
-BINDIR="$2"
-OUTDIR="$3/ceammc"
+SRCDIR="@PROJECT_SOURCE_DIR@/ceammc"
+BINDIR="@PROJECT_BINARY_DIR@"
+OUTDIR="$1/ceammc"
 VERSION="@CEAMMC_LIB_VERSION@"
 SYSVER=$(sw_vers | grep ProductVersion | cut -f2 | cut -f1,2 -d.)
 OUTFILE="ceammc-${VERSION}-macosx-${SYSVER}-pd-@PD_TEXT_VERSION_SHORT@.tar.gz"
@@ -34,7 +34,7 @@ mkdir -p "${OUTDIR}"
 rm -f "${OUTDIR}/*"
 
 echo "Copying libraries to ${OUTDIR} ..."
-find "${BINDIR}" -name *.dylib -print0 | while read -r -d '' file
+find "${BINDIR}/ceammc/ext" -name *.dylib -print0 | while read -r -d '' file
 do
     cp "$file" "${OUTDIR}"
     echo "+ Lib:  $(basename $file)"
@@ -49,7 +49,7 @@ find_ext() {
 
 
 echo "Copying extension files to ${OUTDIR} ..."
-find_ext ${BINDIR} "*" | while read file
+find_ext ${BINDIR}/ceammc/ext "*" | while read file
 do
     ext_name=$(basename $file)
     skip_ext $file
@@ -65,7 +65,7 @@ do
 done
 
 echo "Copying [system.serial] extension files to ${OUTDIR} ..."
-find_ext "${BINDIR}/../extra/comport" "*" | while read file
+find_ext "${BINDIR}/ceammc/extra/comport" "*" | while read file
 do
     ext_name=$(basename $file)
     skip_ext $file
@@ -80,12 +80,12 @@ do
     ${DYLIBBUNDLER} -x ${OUTDIR}/$ext_name -b -d ${OUTDIR} -p @loader_path/ -of
 done
 
-ceammc_lib=$(find_ext "${BINDIR}" ceammc)
+ceammc_lib=$(find_ext "${BINDIR}/ceammc/ext" ceammc)
 cp $ceammc_lib "${OUTDIR}"
 ${DYLIBBUNDLER} -x ${OUTDIR}/$(basename $ceammc_lib) -b -d ${OUTDIR} -p @loader_path/ -of
 
 echo "Copying help files to ${OUTDIR} ..."
-find "${SRCDIR}/ext/doc" -name *-help\\.pd | while read file
+find "@PROJECT_SOURCE_DIR@/ceammc/ext/doc" -name *-help\\.pd -maxdepth 1 | while read file
 do
     help=$(basename $file)
     cat "$file" | sed -e 's/ceammc\/ceammc-help\.pd/ceammc-help.pd/' \
@@ -103,10 +103,11 @@ do
 done
 
 echo "Copying HOA help files to ${OUTDIR} ..."
-find "${SRCDIR}/ext/doc/hoa" | while read file
+mkdir -p "${OUTDIR}/hoa"
+find "@PROJECT_SOURCE_DIR@/ceammc/ext/doc/hoa" -type f | while read file
 do
     help=$(basename $file)
-    cp "$file" "${OUTDIR}/hoa/${help}"
+    cp "$file" "${OUTDIR}/hoa"
     echo "+ HOA:  '$help'"
 done
 
@@ -149,7 +150,7 @@ cp "${SRCDIR}/ext/doc/stargazing.mod" "${OUTDIR}"
 echo "    prs.txt"
 cp "${SRCDIR}/ext/doc/prs.txt" "${OUTDIR}"
 echo "    soundtouch~"
-soundtouch_ext=$(find_ext "${BINDIR}/../extra/SoundTouch/pd" "soundtouch~")
+soundtouch_ext=$(find_ext "${BINDIR}/ceammc/extra/SoundTouch/pd" "soundtouch~")
 cp "$soundtouch_ext" "${OUTDIR}"
 ${DYLIBBUNDLER} -x ${OUTDIR}/$(basename $soundtouch_ext) -b -d ${OUTDIR} -p @loader_path/ -of
 echo "    soundtouch~-help.pd"

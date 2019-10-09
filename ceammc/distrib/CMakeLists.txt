@@ -39,17 +39,13 @@ endif()
 if(MAKELIB_SCRIPT)
     if(APPLE)
         add_custom_target(ceammc_lib
-            COMMAND "${MAKELIB_SCRIPT}"
-                "${CMAKE_CURRENT_SOURCE_DIR}/.."
-                "${CMAKE_CURRENT_BINARY_DIR}/../ext"
-                "${CMAKE_BINARY_DIR}/dist"
+            COMMAND "${MAKELIB_SCRIPT}" "${CMAKE_BINARY_DIR}/dist"
             SOURCES mac/make_lib_mac.sh)
 
         add_custom_target(install_external COMMAND ${PROJECT_BINARY_DIR}/dist/install_external.sh)
     elseif(WIN32)
         add_custom_target(ceammc_lib
-            COMMAND "${MAKELIB_SCRIPT}"
-                "${CMAKE_BINARY_DIR}/dist"
+            COMMAND "${MAKELIB_SCRIPT}" "${CMAKE_BINARY_DIR}/dist"
             SOURCES win/make_lib_win.sh)
     endif()
 endif()
