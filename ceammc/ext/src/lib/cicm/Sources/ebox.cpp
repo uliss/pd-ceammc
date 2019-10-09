@@ -808,9 +808,14 @@ static void ebox_tk_ids(t_ebox* x, t_canvas* canvas)
 static void ebox_bind_events(t_ebox* x)
 {
     t_eclass* c = (t_eclass*)eobj_getclass(x);
-    sys_vgui("bind %s <Button-3> {+pdsend {%s mousedown %%x %%y %%X %%Y %i}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name, EMOD_RIGHT);
-    sys_vgui("bind %s <Button-2> {+pdsend {%s mousedown %%x %%y %%X %%Y %i}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name, EMOD_RIGHT);
-    sys_vgui("bind %s <Button-1> {+pdsend {%s mousedown %%x %%y %%X %%Y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
+    sys_vgui("bind %s <ButtonPress-3> {+pdsend {%s mousedown %%x %%y %%X %%Y %i}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name, EMOD_RIGHT);
+
+// right-click only on macos, on X11 this is paste event
+#ifdef __APPLE__
+    sys_vgui("bind %s <ButtonPress-2> {+pdsend {%s mousedown %%x %%y %%X %%Y %i}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name, EMOD_RIGHT);
+#endif
+
+    sys_vgui("bind %s <ButtonPress-1> {+pdsend \"%s mousedown %%x %%y %%X %%Y [ceammc_os_button_state %%s]\"}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
     sys_vgui("bind %s <ButtonRelease> {+pdsend {%s mouseup %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
     sys_vgui("bind %s <Motion> {+pdsend {%s mousemove %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
 
