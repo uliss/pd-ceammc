@@ -750,6 +750,10 @@ void ebox_wdisplace(t_gobj* z, t_glist* glist, int dx, int dy)
     if (x->b_selected_box) {
 #endif
 
+        // prevents crash on early call
+        if(!x->b_canvas_id || !x->b_window_id)
+            return;
+
         x->b_rect.x += dx;
         x->b_rect.y += dy;
         x->b_obj.o_obj.te_xpix += dx;
