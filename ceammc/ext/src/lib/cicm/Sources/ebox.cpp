@@ -71,7 +71,6 @@ static const char* SYM_SW = "sw";
 static const char* SYM_W = "w";
 static const char* SYM_NW = "nw";
 
-static const char* SYM_SIZE = "size";
 static const char* SYM_DEFAULT_FONT_FAMILY = "Helvetica";
 static const char* SYM_BOLD = "bold";
 static const char* SYM_NORMAL = "normal";
@@ -82,7 +81,6 @@ static const char* SYM_ALL_PROPS = "@*";
 static const char* SYM_CHECKBUTTON = "checkbutton";
 static const char* SYM_MENU = "menu";
 static const char* SYM_COLOR = "color";
-static const char* SYM_ENTRY = "entry";
 
 #define LABEL_TAG "label_%s"
 
