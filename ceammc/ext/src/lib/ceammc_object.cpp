@@ -759,18 +759,23 @@ std::string BaseObject::findInStdPaths(const char* fname) const
 
 t_symbol* BaseObject::tryGetPropKey(t_symbol* sel)
 {
-    t_symbol* res = nullptr;
+    if (!sel)
+        return nullptr;
+
     const char* str = sel->s_name;
+    if (!str || !str[0])
+        return nullptr;
+
     const size_t last_idx = strlen(str) - 1;
 
     if (str[last_idx] == '?') {
         char buf[MAXPDSTRING] = { 0 };
         memcpy(&buf, str, last_idx);
         buf[last_idx] = '\0';
-        res = gensym(buf);
+        return gensym(buf);
     }
 
-    return res;
+    return nullptr;
 }
 
 bool BaseObject::isAbsolutePath(const char* path)
