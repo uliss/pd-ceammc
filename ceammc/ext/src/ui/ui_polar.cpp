@@ -33,7 +33,6 @@ static t_rgba KNOB_BORDER = hex_to_rgba("#707070");
 static t_rgba KNOB_FILL_ACTIVE = hex_to_rgba("#003070");
 static t_rgba KNOB_BORDER_ACTIVE = hex_to_rgba("#00C0FF");
 static t_rgba GUIDE_LINE_COLOR = hex_to_rgba("#00C0F0");
-static const float GUIDE_LINE_WIDTH = 0.5f;
 
 static t_symbol* SYM_POPUP_MAIN;
 
