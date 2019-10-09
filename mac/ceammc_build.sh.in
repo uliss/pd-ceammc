@@ -42,6 +42,7 @@ BUNDLE_TCL="${DIST_DIR}/${PD_TCL}"
 BUNDLE_CEAMMC="${DIST_DIR}/${PD_CEAMMC}"
 BUNDLE_SF2="${DIST_DIR}/${PD_SF2}"
 BUNDLE_INCLUDE="${DIST_DIR}/${PD_INCLUDE}"
+BUNDLE_COMPLETIONS="${BUNDLE_TCL}/ceammc/custom_completions"
 
 # resources paths
 PD_INFO_PLIST="${BUILD_DIR}/dist/Info.plist"
@@ -225,7 +226,7 @@ copy "${SRC_DIR}/src/m_pd.h" "${BUNDLE_INCLUDE}"
 ############
 
 section "Copying CEAMMC tcl plugins"
-mkdir -p "${BUNDLE_TCL}/ceammc/custom_completions"
+mkdir -p "${BUNDLE_COMPLETIONS}"
 for tcl in ${SRC_DIR}/ceammc/gui/plugins/*.tcl
 do
     copy ${tcl} "${BUNDLE_TCL}/ceammc"
@@ -248,8 +249,8 @@ do
 done
 
 section "Copying CEAMMC tcl completion"
-copy $SRC_DIR/ceammc/ext/ceammc_objects.txt "${BUNDLE_TCL}/ceammc/custom_completions"
-copy $SRC_DIR/ceammc/ext/extra_objects.txt "${BUNDLE_TCL}/ceammc/custom_completions"
+copy $SRC_DIR/ceammc/ext/ceammc_objects.txt "${BUNDLE_COMPLETIONS}"
+copy $SRC_DIR/ceammc/ext/extra_objects.txt "${BUNDLE_COMPLETIONS}"
 
 section "Copying CEAMMC dll"
 mkdir -p "${BUNDLE_CEAMMC}"
@@ -300,11 +301,11 @@ do
     done
 done
 
-section "Copying CEAMMC class wrappers completion"
-mkdir -p "${BUNDLE_TCL}/ceammc/user_objects"
+section "Copying CEAMMC class wrappers completions"
+mkdir -p "${BUNDLE_COMPLETIONS}"
 find ${SRC_CEAMMC}/ext/class-wrapper/modules -name 'completion_*.txt' | while read txt
 do
-    copy $txt "${BUNDLE_TCL}/ceammc/user_objects"
+    copy $txt "${BUNDLE_COMPLETIONS}"
 done
 
 section "Copying CEAMMC help files"
