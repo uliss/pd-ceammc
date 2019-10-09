@@ -81,7 +81,7 @@ const T* DataAtom::as() const
     return data_->as<T>();
 }
 
-size_t hash_value(const DataAtom& d);
+CEAMMC_NO_ASAN size_t hash_value(const DataAtom& d);
 }
 
 #endif // CEAMMC_DATAATOM_H

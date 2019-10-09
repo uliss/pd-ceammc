@@ -20,6 +20,14 @@
 #include <string>
 #include <utility>
 
+#if defined(__has_feature)
+#  if __has_feature(address_sanitizer)
+#define CEAMMC_NO_ASAN __attribute__((no_sanitize("address"))) __attribute__((no_sanitize("undefined")))
+#else
+#define CEAMMC_NO_ASAN
+#  endif
+#endif
+
 namespace ceammc {
 
 class Atom;
@@ -56,7 +64,7 @@ public:
 
 public:
     Atom();
-    Atom(const t_atom& a);
+    CEAMMC_NO_ASAN Atom(const t_atom& a);
     Atom(t_float v);
     Atom(t_symbol* s);
     Atom(const DataDesc& d);
@@ -94,7 +102,7 @@ public:
     /**
      * @returns atom logical type
      */
-    Type type() const;
+    CEAMMC_NO_ASAN Type type() const;
 
     /**
      * Tries to get float from atom - writes to destination only if atom type if float
@@ -124,7 +132,7 @@ public:
      * compare atoms of same type.
      * @note now only floats and symbols
      */
-    bool operator<(const Atom& a) const;
+    CEAMMC_NO_ASAN bool operator<(const Atom& a) const;
 
     /**
      * @brief outputs atom to given outlet
@@ -173,8 +181,8 @@ public:
      */
     DataId dataId() const;
 
-    DataDesc getData() const;
-    void setData(const DataDesc& d);
+    CEAMMC_NO_ASAN DataDesc getData() const;
+    CEAMMC_NO_ASAN void setData(const DataDesc& d);
 
     /**
      * @returns true if atom is a data structure
@@ -191,7 +199,7 @@ public:
     friend bool operator!=(const Atom& a1, const Atom& a2);
 };
 
-bool operator==(const Atom& a1, const Atom& a2);
+CEAMMC_NO_ASAN bool operator==(const Atom& a1, const Atom& a2);
 bool operator!=(const Atom& a1, const Atom& a2);
 std::ostream& operator<<(std::ostream& os, const Atom& a);
 
