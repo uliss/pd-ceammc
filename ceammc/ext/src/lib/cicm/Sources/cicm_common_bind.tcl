@@ -50,11 +50,18 @@ proc ceammc_bind_mouse_up {id obj} {
     }
 }
 
-# sends #obj mousemove X Y MOD
-proc ceammc_bind_mouse_move {id obj} { bind $id <Motion> [subst {+ceammc_send_motion $obj %x %y %s}] }
-proc ceammc_bind_mouse_enter {id obj} { bind $id <Enter> [subst {+pdsend "$obj mouseenter"}] }
-proc ceammc_bind_mouse_leave {id obj} { bind $id <Leave> [subst {+pdsend "$obj mouseleave"}] }
-proc ceammc_bind_mouse_double_click {id obj} { bind $id <Double-Button-1> [subst {+pdsend "$obj dblclick %x %y %s"}] }
+# sends #obj dblclick X Y MOD
+proc ceammc_bind_mouse_double_click {id obj} {
+    switch -- $::windowingsystem {
+        "aqua" {
+            bind $id <Double-Button-1> [subst -nocommands {+pdsend "$obj dblclick %x %y [ceammc_fix_macos_state %s]"}]
+        } "win32" {
+            bind $id <Double-Button-1> [subst -nocommands {+pdsend "$obj dblclick %x %y [ceammc_fix_win32_state %s]"}]
+        } "default" {
+            bind $id <Double-Button-1> [subst {+pdsend "$obj dblclick %x %y %s"}]
+        }
+    }
+}
 
 # sends #obj mouseup X Y ABSX ABSY MOD
 proc ceammc_bind_mouse_right_click {id obj} {
@@ -80,3 +87,8 @@ proc ceammc_bind_mouse_wheel {id obj} {
         }
     }
 }
+
+# sends #obj mousemove X Y MOD
+proc ceammc_bind_mouse_move {id obj} { bind $id <Motion> [subst {+ceammc_send_motion $obj %x %y %s}] }
+proc ceammc_bind_mouse_enter {id obj} { bind $id <Enter> [subst {+pdsend "$obj mouseenter"}] }
+proc ceammc_bind_mouse_leave {id obj} { bind $id <Leave> [subst {+pdsend "$obj mouseleave"}] }
