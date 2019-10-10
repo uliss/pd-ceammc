@@ -18,9 +18,10 @@
             <event editmode="false" type="left-click">toggle DSP processing</event>
             <event editmode="false" type="right-click">opens popup menu with items: Audio
             Settings</event>
-            <event editmode="false" type="right-click" keys="Shift">opens object help</event>
-            <event editmode="true" type="right-click" keys="Shift">opens object help</event>
-            <event editmode="true" type="right-click" keys="Alt">opens properties dialog</event>
+            <event editmode="false" type="right-click" keys="&#8679;">open object help</event>
+            <event editmode="false" type="right-click" keys="&#8997;">open properties dialog</event>
+            <event editmode="true" type="right-click" keys="&#8679;">open object help</event>
+            <event editmode="true" type="right-click" keys="&#8997;">open properties dialog</event>
         </mouse>
         <methods>
             <method name="start">starts audio processing</method>
