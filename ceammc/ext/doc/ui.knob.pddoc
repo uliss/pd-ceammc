@@ -21,18 +21,18 @@
             <par>Simple knob widget with default range 0-1.</par>
         </info>
         <mouse>
-            <event editmode="true" type="drag" keys="Cmd">changes the knob value</event>
-            <event editmode="false" type="drag">changes the knob value</event>
-            <event editmode="false" type="drag" keys="Shift">changes the knob value slowly</event>
-            <event editmode="false" type="right-click">opens popup menu</event>
+            <event editmode="false" type="drag">change the knob value (with &#8679; change slowly)</event>
+            <event editmode="false" type="wheel">change the knob value (with &#8679; change slowly)</event>
             <event editmode="false" type="double-click">set knob to the middle position</event>
-            <event editmode="false" type="double-click" keys="Shift">toggle MIDI-learn mode (red border
+            <event editmode="false" type="double-click" keys="&#8679;">toggle MIDI-learn mode (red border
             displayed)</event>
-            <event editmode="false" type="right-click" keys="Shift">opens object help</event>
-            <event editmode="true" type="right-click" keys="Shift">opens object help</event>
-            <event editmode="true" type="right-click" keys="Alt">opens properties dialog</event>
-            <event editmode="false" type="wheel">changes the knob value</event>
-            <event editmode="false" type="wheel" keys="Shift">changes the knob value slowly</event>
+            <event editmode="false" type="right-click">open popup menu</event>
+            <event editmode="false" type="right-click" keys="&#8679;">open object help</event>
+            <event editmode="true" type="right-click" keys="&#8997;">open properties dialog</event>
+            <event editmode="true" type="drag" keys="&#8984;">change the knob value (with &#8679; change slowly)</event>
+            <event editmode="true" type="wheel" keys="&#8984;">change the knob value (with &#8679; change slowly)</event>
+            <event editmode="true" type="right-click" keys="&#8679;">open object help</event>
+            <event editmode="true" type="right-click" keys="&#8997;">open properties dialog</event>
         </mouse>
         <properties>
             <property name="@min" type="float" default="0">minimum knob value</property>
