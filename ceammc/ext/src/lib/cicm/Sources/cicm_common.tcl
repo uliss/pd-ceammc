@@ -150,15 +150,15 @@ if { [catch {package require tooltip} ] } {
 
 proc ceammc_fix_macos_state {n} { if { $n > 256 } { return [expr $n & 0xFF ] } { return $n } }
 
-proc ceammc_fix_win_state {n} {
-# fix offset
+proc ceammc_fix_win32_state {n} {
+# unset bit
     incr n -32
-# hangle ALT modifier
-    if { $n >= 131072 } {
+# handle ALT modifier
+    if { $n & 131072 } {
         incr n -131072
         set n [expr $n | 16]
     }
-    return $n
+    return [expr $n & 0xFF]
 }
 
 proc ceammc_fix_x11_state {n} {
@@ -169,6 +169,8 @@ proc ceammc_send_motion {obj x y mod} {
         "aqua" {
             # disable mouse dragging for buttons other then first
             if { $mod < 512 } { pdsend "$obj mousemove $x $y [ceammc_fix_macos_state $mod]" }
+        } "win32" {
+            if { $mod < 512 } { pdsend "$obj mousemove $x $y [ceammc_fix_win32_state $mod]" }
         } "default" {
             pdsend "$obj mousemove $x $y $mod"
         }
@@ -178,7 +180,7 @@ proc ceammc_send_motion {obj x y mod} {
 proc ceammc_bind_mouse_down {id obj} {
     switch -- $::windowingsystem {
         "win32" {
-            bind $id <ButtonPress-1> [subst -nocommands {+pdsend "$obj mousedown %x %y %X %Y [ceammc_fix_win_state %s]"}]
+            bind $id <ButtonPress-1> [subst -nocommands {+pdsend "$obj mousedown %x %y %X %Y [ceammc_fix_win32_state %s]"}]
         } "default" {
             bind $id <ButtonPress-1> [subst {+pdsend "$obj mousedown %x %y %X %Y %s"}]
         }
@@ -191,7 +193,7 @@ proc ceammc_bind_mouse_up {id obj} {
         "aqua" {
             bind $id <ButtonRelease-1> [subst -nocommands {+pdsend "$obj mouseup %x %y [ceammc_fix_macos_state %s]"}]
         } "win32" {
-            bind $id <ButtonRelease-1> [subst -nocommands {+pdsend "$obj mouseup %x %y [ceammc_fix_win_state %s]"}]
+            bind $id <ButtonRelease-1> [subst -nocommands {+pdsend "$obj mouseup %x %y [ceammc_fix_win32_state %s]"}]
         } "default" {
             bind $id <ButtonRelease-1> [subst {+pdsend "$obj mouseup %x %y %s"}]
         }
@@ -220,7 +222,7 @@ proc ceammc_bind_mouse_right_click {id obj} {
 proc ceammc_bind_mouse_wheel {id obj} {
     switch -- $::windowingsystem {
         "win32" {
-            bind $id <MouseWheel> [subst -nocommands {+pdsend "$obj mousewheel %x %y [expr %D / 120.0] [ceammc_fix_win_state %s]"}]
+            bind $id <MouseWheel> [subst -nocommands {+pdsend "$obj mousewheel %x %y [expr %D / 120.0] [ceammc_fix_win32_state %s]"}]
         } "default" {
             bind $id <MouseWheel> [subst {+pdsend "$obj mousewheel %x %y %D %s"}]
         }
