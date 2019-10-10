@@ -14,6 +14,11 @@ if(WIN32)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/pd.iss ${CMAKE_BINARY_DIR})
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fix_dll_deps.sh ${CMAKE_BINARY_DIR} @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win_upload_to_github.sh ${CMAKE_BINARY_DIR} @ONLY)
+
+    add_custom_target(run0
+        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:ceammc> "${CMAKE_INSTALL_PREFIX}/${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc"
+    COMMAND "${CMAKE_INSTALL_PREFIX}/${PD_EXE_INSTALL_PATH}/$<TARGET_FILE_NAME:pd>")
+    add_dependencies(run0 ceammc)
 endif()
 
 
