@@ -36,7 +36,6 @@
 #X text 285 481 open object help.;
 #X text 110 501 Right-click + ⌥;
 #X text 285 501 open properties dialog.;
-#X text 61 501 [Edit];
 #X text 110 521 Mouse-drag + ⌘;
 #X text 285 521 change the knob value (with ⇧ change slowly).;
 #X text 61 521 [Edit];

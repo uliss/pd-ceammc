@@ -28,7 +28,7 @@
             displayed)</event>
             <event editmode="false" type="right-click">open popup menu</event>
             <event editmode="false" type="right-click" keys="&#8679;">open object help</event>
-            <event editmode="true" type="right-click" keys="&#8997;">open properties dialog</event>
+            <event editmode="false" type="right-click" keys="&#8997;">open properties dialog</event>
             <event editmode="true" type="drag" keys="&#8984;">change the knob value (with &#8679; change slowly)</event>
             <event editmode="true" type="wheel" keys="&#8984;">change the knob value (with &#8679; change slowly)</event>
             <event editmode="true" type="right-click" keys="&#8679;">open object help</event>
