@@ -175,6 +175,8 @@ const char* cicm_common_tcl =
 "        \"aqua\" {\n"
 "            bind $id <ButtonPress-2> [subst {+pdsend \"$obj rightclick %x %y %X %Y %s\"}]\n"
 "            bind $id <Control-ButtonPress-1> [subst {+pdsend \"$obj rightclick %x %y %X %Y %s\"}]\n"
+"        } \"win32\" {\n"
+"            bind $id <ButtonPress-3> [subst -nocommands {+pdsend \"$obj rightclick %x %y %X %Y [ceammc_fix_win32_state %s]\"}]\n"
 "        } \"default\" {\n"
 "            bind $id <ButtonPress-3> [subst {+pdsend \"$obj rightclick %x %y %X %Y %s\"}]\n"
 "        }\n"

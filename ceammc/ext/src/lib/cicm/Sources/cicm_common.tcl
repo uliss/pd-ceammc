@@ -212,6 +212,8 @@ proc ceammc_bind_mouse_right_click {id obj} {
         "aqua" {
             bind $id <ButtonPress-2> [subst {+pdsend "$obj rightclick %x %y %X %Y %s"}]
             bind $id <Control-ButtonPress-1> [subst {+pdsend "$obj rightclick %x %y %X %Y %s"}]
+        } "win32" {
+            bind $id <ButtonPress-3> [subst -nocommands {+pdsend "$obj rightclick %x %y %X %Y [ceammc_fix_win32_state %s]"}]
         } "default" {
             bind $id <ButtonPress-3> [subst {+pdsend "$obj rightclick %x %y %X %Y %s"}]
         }
