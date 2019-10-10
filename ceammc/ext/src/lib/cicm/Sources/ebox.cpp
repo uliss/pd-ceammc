@@ -904,7 +904,7 @@ static void ebox_create_window(t_ebox* x, t_glist* glist)
 
 static char is_platform_control(long mod)
 {
-#ifdef _WINDOWS
+#ifdef __WIN32
     return mod & EMOD_CTRL;
 #else
     return mod == EMOD_CMD;

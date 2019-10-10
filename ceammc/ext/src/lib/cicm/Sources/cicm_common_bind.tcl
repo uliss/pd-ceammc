@@ -20,7 +20,6 @@ proc ceammc_send_motion {obj x y mod} {
             if { $mod < 512 } { pdsend "$obj mousemove $x $y [ceammc_fix_macos_state $mod]" }
         } "win32" {
             set mod [ceammc_fix_win32_alt $mod]
-            puts "motions: $obj $x $y $mod \n"
             if { $mod < 512 } { pdsend "$obj mousemove $x $y [ceammc_fix_win32_state $mod]" }
         } "default" {
             pdsend "$obj mousemove $x $y $mod"

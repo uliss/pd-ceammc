@@ -23,7 +23,6 @@ const char* cicm_common_bind_tcl =
 "            if { $mod < 512 } { pdsend \"$obj mousemove $x $y [ceammc_fix_macos_state $mod]\" }\n"
 "        } \"win32\" {\n"
 "            set mod [ceammc_fix_win32_alt $mod]\n"
-"            puts \"motions: $obj $x $y $mod \\n\"\n"
 "            if { $mod < 512 } { pdsend \"$obj mousemove $x $y [ceammc_fix_win32_state $mod]\" }\n"
 "        } \"default\" {\n"
 "            pdsend \"$obj mousemove $x $y $mod\"\n"
