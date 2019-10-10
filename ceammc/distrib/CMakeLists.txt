@@ -34,6 +34,8 @@ if(WIN32 OR MSYS)
     endif()
     set(MAKELIB_SCRIPT "${PROJECT_BINARY_DIR}/dist/make_lib_win.sh")
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win/make_lib_win.sh ${MAKELIB_SCRIPT} @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win/install_external.sh
+                   ${PROJECT_BINARY_DIR}/dist/install_external.sh @ONLY)
 endif()
 
 if(MAKELIB_SCRIPT)
@@ -47,6 +49,8 @@ if(MAKELIB_SCRIPT)
         add_custom_target(ceammc_lib
             COMMAND "${MAKELIB_SCRIPT}" "${CMAKE_BINARY_DIR}/dist"
             SOURCES win/make_lib_win.sh)
+
+        add_custom_target(install_external COMMAND ${PROJECT_BINARY_DIR}/dist/install_external.sh)
     endif()
 endif()
 
