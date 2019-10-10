@@ -22,12 +22,15 @@
         </info>
         <mouse>
             <event editmode="true" type="drag" keys="Cmd">changes the knob value</event>
-            <event editmode="0" type="drag">changes the knob value</event>
-            <event editmode="0" type="drag" keys="Shift">changes the knob value slowly</event>
-            <event editmode="0" type="right-click">opens popup menu</event>
-            <event editmode="0" type="double-click">set knob to the middle position</event>
-            <event editmode="0" type="double-click" keys="Shift">toggle MIDI-learn mode (red border
+            <event editmode="false" type="drag">changes the knob value</event>
+            <event editmode="false" type="drag" keys="Shift">changes the knob value slowly</event>
+            <event editmode="false" type="right-click">opens popup menu</event>
+            <event editmode="false" type="double-click">set knob to the middle position</event>
+            <event editmode="false" type="double-click" keys="Shift">toggle MIDI-learn mode (red border
             displayed)</event>
+            <event editmode="false" type="right-click" keys="Shift">opens object help</event>
+            <event editmode="true" type="right-click" keys="Shift">opens object help</event>
+            <event editmode="true" type="right-click" keys="Alt">opens properties dialog</event>
         </mouse>
         <properties>
             <property name="@min" type="float" default="0">minimum knob value</property>

@@ -148,7 +148,7 @@ if { [catch {package require tooltip} ] } {
     }
 }
 
-proc ceammc_fix_macos_state_release {n} { return [expr $n - 256] }
+proc ceammc_fix_macos_state {n} { if { $n > 256 } { return [expr $n & 0xFF ] } { return $n } }
 
 proc ceammc_fix_win_state {n} {
 # fix offset
@@ -168,7 +168,7 @@ proc ceammc_send_motion {obj x y mod} {
     switch -- $::windowingsystem {
         "aqua" {
             # disable mouse dragging for buttons other then first
-            if { $mod < 512 } { pdsend "$obj mousemove $x $y $mod" }
+            if { $mod < 512 } { pdsend "$obj mousemove $x $y [ceammc_fix_macos_state $mod]" }
         } "default" {
             pdsend "$obj mousemove $x $y $mod"
         }
@@ -189,7 +189,7 @@ proc ceammc_bind_mouse_down {id obj} {
 proc ceammc_bind_mouse_up {id obj} {
     switch -- $::windowingsystem {
         "aqua" {
-            bind $id <ButtonRelease-1> [subst -nocommands {+pdsend "$obj mouseup %x %y [ceammc_fix_macos_state_release %s]"}]
+            bind $id <ButtonRelease-1> [subst -nocommands {+pdsend "$obj mouseup %x %y [ceammc_fix_macos_state %s]"}]
         } "win32" {
             bind $id <ButtonRelease-1> [subst -nocommands {+pdsend "$obj mouseup %x %y [ceammc_fix_win_state %s]"}]
         } "default" {
