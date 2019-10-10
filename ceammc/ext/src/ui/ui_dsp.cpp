@@ -47,12 +47,6 @@ void UIDsp::paint()
 
 void UIDsp::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    if (modifiers & EMOD_RIGHT) {
-        UIPopupMenu menu(asEObj(), "menu", abs_pt);
-        menu.addItem(_("Audio Settings"));
-        return;
-    }
-
     if (canvas_dspstate)
         m_stop(AtomList());
     else
@@ -76,6 +70,12 @@ void UIDsp::onPopup(t_symbol* menu_name, long item_idx)
     default:
         break;
     }
+}
+
+void UIDsp::showPopup(const t_pt& pt, const t_pt& abs_pt)
+{
+    UIPopupMenu menu(asEObj(), "menu", abs_pt);
+    menu.addItem(_("Audio Settings"));
 }
 
 void UIDsp::m_start(const AtomList&)
@@ -109,6 +109,7 @@ void UIDsp::setup()
     obj.hideLabelInner();
 
     obj.useAny();
+    obj.usePopup();
     obj.setDefaultSize(30, 30);
     obj.useMouseEvents(UI_MOUSE_DOWN);
     obj.addProperty("active_color", _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIDsp::prop_color_active);

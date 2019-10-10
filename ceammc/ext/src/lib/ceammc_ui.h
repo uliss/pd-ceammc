@@ -176,7 +176,6 @@ public:
         eclass_addmethod(pd_class, UI_METHOD_PTR(notify),        "notify",        A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(okSize),        "oksize",        A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(onZoom),        "onzoom",        A_GIMME,  0);
-        eclass_addmethod(pd_class, UI_METHOD_PTR(onPopup),       "popup",         A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(setDrawParams), "getdrawparams", A_NULL, 0);
         // clang-format on
     }
@@ -189,7 +188,6 @@ public:
         eclass_addmethod(pd_class, UI_METHOD_PTR(notify),        "notify",        A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(okSize),        "oksize",        A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(onZoom),        "onzoom",        A_GIMME,  0);
-        eclass_addmethod(pd_class, UI_METHOD_PTR(onPopup),       "popup",         A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(setDrawParams), "getdrawparams", A_NULL, 0);
         // clang-format on
     }
@@ -253,6 +251,14 @@ public:
         CLASS_ATTR_LABEL    (pd_class, PROP_PRESET_NAME, _("Preset Name"));
         CLASS_ATTR_ACCESSORS(pd_class, PROP_PRESET_NAME, NULL, ebox_set_presetid);
 
+        // clang-format on
+    }
+
+    void usePopup()
+    {
+        // clang-format off
+        eclass_addmethod(pd_class, UI_METHOD_PTR(showPopup),      "rightclick",    A_GIMME, 0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(processPopup),   "popup",         A_GIMME, 0);
         // clang-format on
     }
 
@@ -880,13 +886,8 @@ public:
         outputMouse(z, SYM, false);
     }
 
-    static void mouseWheel(UI* z, t_object* view, t_pt pt, long modifiers, double delta)
+    static void mouseWheel(UI* z, t_object* view, t_pt pt, long modifiers, float delta)
     {
-// fix win32 mouse wheel value on TCL 8.6
-#ifdef __WIN32
-        delta /= 120;
-#endif
-
 #ifdef __APPLE__
         z->onMouseWheel(view, pt, modifiers, delta);
 #else
@@ -946,9 +947,14 @@ public:
         z->onZoom(zoom);
     }
 
-    static void onPopup(UI* z, t_symbol* menu_name, long itemIdx)
+    static void processPopup(UI* z, t_symbol* menu_name, long itemIdx)
     {
         z->onPopup(menu_name, itemIdx);
+    }
+
+    static void showPopup(UI* z, t_pt pos, t_pt abs_pos)
+    {
+        z->showPopup(pos, abs_pos);
     }
 
     static void onBang(UI* z)

@@ -102,6 +102,7 @@ public:
     void onMouseWheel(t_object* view, const t_pt& pt, long modifiers, double delta);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
     void onPopup(t_symbol* menu_name, long item_idx);
+    void showPopup(const t_pt& pt, const t_pt& abs_pt);
     bool outputMouseEvents() const;
 
     void okSize(t_rect* newrect);

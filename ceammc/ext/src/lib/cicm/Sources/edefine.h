@@ -489,6 +489,15 @@ typedef struct t_epopup {
 //! Macros that define the a GUI box
 #define CLASS_BOX gensym("box")
 
+typedef void (*t_mouseenter_method)(void* x);
+typedef void (*t_mouseleave_method)(void* x);
+typedef void (*t_mousemove_method)(void* x, t_glist*, t_pt, long);
+typedef void (*t_mousedown_method)(void* x, t_glist*, t_pt, t_pt, long);
+typedef void (*t_mouseup_method)(void* x, t_glist*, t_pt, long);
+typedef void (*t_mousewheel_method)(void* x, t_glist*, t_pt, long, float);
+typedef void (*t_dblclick_method)(void* x, t_glist*, t_pt, long);
+typedef void (*t_rightclick_method)(void* x, t_pt, t_pt);
+
 /**
  * @struct t_ewidget
  * @brief The default method of a class.
@@ -506,14 +515,15 @@ typedef struct t_ewidget {
     t_typ_method w_paint; /*!< The paint method. */
     t_typ_method w_create; /*!< The widget after create method. */
     t_typ_method w_erase; /*!< The widget before erase method. */
-    t_typ_method w_mouseenter; /*!< The mouse enter method. */
-    t_typ_method w_mouseleave; /*!< The mouse leave method. */
-    t_typ_method w_mousemove; /*!< The mouse move method. */
-    t_typ_method w_mousedown; /*!< The mouse down method. */
+    t_mouseenter_method w_mouseenter; /*!< The mouse enter method. */
+    t_mouseleave_method w_mouseleave; /*!< The mouse leave method. */
+    t_mousemove_method w_mousemove; /*!< The mouse move method. */
+    t_mousedown_method w_mousedown; /*!< The mouse down method. */
     t_typ_method w_mousedrag; /*!< The mouse drag method. */
-    t_typ_method w_mouseup; /*!< The mouse up method. */
-    t_typ_method w_mousewheel; /*!< The mouse wheel method. */
-    t_typ_method w_dblclick; /*!< The mouse double click method. */
+    t_mouseup_method w_mouseup; /*!< The mouse up method. */
+    t_mousewheel_method w_mousewheel; /*!< The mouse wheel method. */
+    t_dblclick_method w_dblclick; /*!< The mouse double click method. */
+    t_rightclick_method w_rightclick; /*!< The mouse double click method. */
     t_typ_method w_key; /*!< The key method. */
     t_typ_method w_keyfilter; /*!< The key filter method. */
     t_typ_method w_getdrawparameters; /*!< The get draw parameter method. */

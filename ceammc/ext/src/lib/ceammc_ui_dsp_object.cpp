@@ -223,6 +223,10 @@ void UIDspObject::onPopup(t_symbol* menu_name, long item_idx)
 {
 }
 
+void UIDspObject::showPopup(const t_pt& pt, const t_pt& abs_pt)
+{
+}
+
 bool UIDspObject::outputMouseEvents() const
 {
     return prop_mouse_events;

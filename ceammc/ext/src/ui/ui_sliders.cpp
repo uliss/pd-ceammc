@@ -190,22 +190,6 @@ void UISliders::storePreset(size_t idx)
 
 void UISliders::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    // right click
-    if (modifiers & EMOD_RIGHT) {
-        UIPopupMenu menu(asEObj(), "popup", abs_pt);
-        char buf[64];
-        snprintf(buf, sizeof(buf), _("fill with %f"), prop_max);
-        menu.addItem(buf);
-        snprintf(buf, sizeof(buf), _("fill with %f"), (prop_max + prop_min) * 0.5);
-        menu.addItem(buf);
-        snprintf(buf, sizeof(buf), _("fill with %f"), prop_min);
-        menu.addItem(buf);
-        menu.addItem(_("linear up"));
-        menu.addItem(_("linear down"));
-        menu.addItem(_("random"));
-        return;
-    }
-
     const t_rect r = rect();
     const size_t N = pos_values_.size();
 
@@ -285,6 +269,21 @@ void UISliders::onPopup(t_symbol* menu_name, long item_idx)
         UI_ERR << "unknown popup menu item: " << item_idx;
         break;
     }
+}
+
+void UISliders::showPopup(const t_pt& pt, const t_pt& abs_pt)
+{
+    UIPopupMenu menu(asEObj(), "popup", abs_pt);
+    char buf[64];
+    snprintf(buf, sizeof(buf), _("fill with %f"), prop_max);
+    menu.addItem(buf);
+    snprintf(buf, sizeof(buf), _("fill with %f"), (prop_max + prop_min) * 0.5);
+    menu.addItem(buf);
+    snprintf(buf, sizeof(buf), _("fill with %f"), prop_min);
+    menu.addItem(buf);
+    menu.addItem(_("linear up"));
+    menu.addItem(_("linear down"));
+    menu.addItem(_("random"));
 }
 
 void UISliders::m_get(const AtomList& l)
@@ -564,6 +563,7 @@ void UISliders::setup()
     obj.usePresets();
     obj.useList();
     obj.useBang();
+    obj.usePopup();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK);
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 

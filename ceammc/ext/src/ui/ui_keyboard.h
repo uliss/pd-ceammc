@@ -16,7 +16,6 @@ class UIKeyboard : public UIObject {
     t_rgba prop_color_active_;
     std::unordered_set<int> sustained_keys_;
     UILayer key_layer_;
-    bool popup_;
 
 public:
     UIKeyboard();
@@ -30,6 +29,7 @@ public:
     void onMouseLeave(t_object* view, const t_pt& pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onPopup(t_symbol* menu_name, long item_idx);
+    void showPopup(const t_pt& pt, const t_pt& abs_pt);
 
     int findPressedKey(const t_pt& pt) const;
 
@@ -43,6 +43,7 @@ private:
     void drawBackground();
     void drawActive();
     void releaseAllNotes();
+    void resetAllNotes();
 };
 
 /**

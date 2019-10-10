@@ -262,6 +262,10 @@ void UIObject::onPopup(t_symbol* menu_name, long item_idx)
 {
 }
 
+void UIObject::showPopup(const t_pt& pt, const t_pt& abs_pt)
+{
+}
+
 void UIObject::onPropChange(t_symbol* name)
 {
     redrawLayer(bg_layer_);

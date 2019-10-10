@@ -60,6 +60,7 @@ void UIKnob::setup()
     obj.useBang();
     obj.useFloat();
     obj.usePresets();
+    obj.usePopup();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK);
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
@@ -192,14 +193,6 @@ void UIKnob::onMouseDrag(t_object*, const t_pt& pt, long modifiers)
 
 void UIKnob::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    if (modifiers & EMOD_RIGHT) {
-        UIPopupMenu menu(asEObj(), SYM_POPUP_LINEAR, abs_pt);
-        menu.addItem(_("min"));
-        menu.addItem(_("center"), scaleMode() == LINEAR);
-        menu.addItem(_("max"));
-        return;
-    }
-
     click_pos_ = pt;
 }
 
@@ -219,6 +212,14 @@ void UIKnob::onPopup(t_symbol* menu_name, long item_idx)
         UI_ERR << "unknown popup menu index: " << item_idx;
         break;
     }
+}
+
+void UIKnob::showPopup(const t_pt& pt, const t_pt& abs_pt)
+{
+    UIPopupMenu menu(asEObj(), SYM_POPUP_LINEAR, abs_pt);
+    menu.addItem(_("min"));
+    menu.addItem(_("center"), scaleMode() == LINEAR);
+    menu.addItem(_("max"));
 }
 
 void setup_ui_knob()

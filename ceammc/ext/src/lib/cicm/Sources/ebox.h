@@ -240,34 +240,31 @@ void ebox_mouse_leave(t_ebox* x);
 /*
  * \memberof        ebox
  * \param x         The ebox pointer
- * \param s         The message selector
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \return          Nothing
+ * \param xpos      relative mouse x-coord
+ * \param ypos      relative mouse y-coord
+ * \param mod       keyboard modifiers
  */
-void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom* argv);
+void ebox_mouse_move(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod);
 
 //! The mouse up method called by tcl/tk (PRIVATE)
 /*
  * \memberof        ebox
  * \param x         The ebox pointer
- * \param s         The message selector
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \return          Nothing
+ * \param xpos      relative mouse x-coord
+ * \param ypos      relative mouse y-coord
+ * \param mod       keyboard modifiers
  */
-void ebox_mouse_up(t_ebox* x, t_symbol* s, int argc, t_atom* argv);
+void ebox_mouse_up(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod);
 
 //! The mouse down method called by tcl/tk (PRIVATE)
 /*
  * \memberof        ebox
  * \param x         The ebox pointer
- * \param s         The message selector
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \return          Nothing
+ * \param xpos      relative mouse x-coord
+ * \param ypos      relative mouse y-coord
+ * \param mod       keyboard modifiers
  */
-void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom* argv);
+void ebox_mouse_down(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg absx, t_floatarg absy, t_floatarg mod);
 
 //! The mouse double click method called by tcl/tk (PRIVATE)
 /*
@@ -279,17 +276,18 @@ void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom* argv);
  * \return          Nothing
  */
 void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom* argv);
+void ebox_mouse_rightclick(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg absx, t_floatarg absy, t_floatarg mod);
 
 //! The mouse wheel method called by tcl/tk (PRIVATE)
 /*
  * \memberof        ebox
  * \param x         The ebox pointer
- * \param s         The message selector
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \return          Nothing
+ * \param xpos      relative mouse x-coord
+ * \param ypos      relative mouse y-coord
+ * \param delta     mousewheel delta
+ * \param mod       keyboard modifiers
  */
-void ebox_mouse_wheel(t_ebox* x, t_symbol* s, int argc, t_atom* argv);
+void ebox_mouse_wheel(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg delta, t_floatarg mod);
 
 //! The key down method called by tcl/tk (PRIVATE AND NOT READY)
 /*

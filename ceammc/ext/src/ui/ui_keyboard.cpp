@@ -175,7 +175,6 @@ UIKeyboard::UIKeyboard()
     , mouse_pressed_(false)
     , prop_color_active_(rgba_black)
     , key_layer_(asEBox(), gensym("keys_layer"))
-    , popup_(false)
 {
     appendToLayerList(&key_layer_);
     createOutlet();
@@ -205,6 +204,12 @@ void UIKeyboard::releaseAllNotes()
     }
 
     sustained_keys_.clear();
+}
+
+void UIKeyboard::resetAllNotes()
+{
+    releaseAllNotes();
+
     velocity_ = 0;
     current_key_ = -1;
 
@@ -213,30 +218,9 @@ void UIKeyboard::releaseAllNotes()
 
 void UIKeyboard::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    if (modifiers & EMOD_RIGHT) {
-        UIPopupMenu menu(asEObj(), "popup", abs_pt);
-        menu.addItem(_("release all"));
-        menu.addSeparator();
-        menu.addItem("maj"); // 1
-        menu.addItem("min"); // 2
-        menu.addItem("aug"); // 3
-        menu.addItem("dim"); // 4
-        menu.addItem("7"); // 5
-        menu.addItem("maj7"); // 6
-        menu.addItem("min7"); // 7
-        menu.addItem("aug7"); // 8
-
-        velocity_ = std::min<int>(127, int(pt.y / height() * 100.f) + 27);
-        current_key_ = findPressedKey(pt);
-        popup_ = true;
-        return;
-    }
-
     // release all notes
-    if (modifiers & EMOD_ALT) {
-        releaseAllNotes();
-        return;
-    }
+    if (modifiers & EMOD_ALT)
+        return resetAllNotes();
 
     // calc velocity
     velocity_ = std::min<int>(127, int(pt.y / height() * 100.f) + 27);
@@ -267,9 +251,6 @@ void UIKeyboard::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt,
 
 void UIKeyboard::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
-    if(popup_)
-        return;
-
     if (current_key_ == -1)
         return;
 
@@ -288,9 +269,6 @@ void UIKeyboard::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
 
 void UIKeyboard::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
 {
-    if(popup_)
-        return;
-
     current_key_ = -1;
     mouse_pressed_ = false;
 
@@ -323,9 +301,12 @@ void UIKeyboard::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 void UIKeyboard::onPopup(t_symbol* menu_name, long item_idx)
 {
     if (menu_name == gensym("popup")) {
+        if (item_idx != 0)
+            releaseAllNotes();
+
         switch (item_idx) {
         case 0:
-            releaseAllNotes();
+            resetAllNotes();
             break;
         case 1: {
             playChord({ 0, 4, 7 });
@@ -364,8 +345,24 @@ void UIKeyboard::onPopup(t_symbol* menu_name, long item_idx)
             break;
         }
     }
+}
 
-    popup_ = false;
+void UIKeyboard::showPopup(const t_pt& pt, const t_pt& abs_pt)
+{
+    UIPopupMenu menu(asEObj(), "popup", abs_pt);
+    menu.addItem(_("release all"));
+    menu.addSeparator();
+    menu.addItem("maj"); // 1
+    menu.addItem("min"); // 2
+    menu.addItem("aug"); // 3
+    menu.addItem("dim"); // 4
+    menu.addItem("7"); // 5
+    menu.addItem("maj7"); // 6
+    menu.addItem("min7"); // 7
+    menu.addItem("aug7"); // 8
+
+    velocity_ = std::min<int>(127, int(pt.y / height() * 100.f) + 27);
+    current_key_ = findPressedKey(pt);
 }
 
 void UIKeyboard::playChord(const std::unordered_set<int>& keys)
@@ -421,6 +418,7 @@ void UIKeyboard::setup()
 
     obj.hideLabelInner();
     obj.useBang();
+    obj.usePopup();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG
         | UI_MOUSE_MOVE | UI_MOUSE_LEAVE
         | UI_MOUSE_WHEEL | UI_MOUSE_UP);
