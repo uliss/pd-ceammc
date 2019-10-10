@@ -26,85 +26,87 @@
 -49933 0;
 #X text 110 385 Double-click;
 #X text 285 385 show/hide message type.;
-#X text 110 405 Right-click + Shift;
-#X text 285 405 opens object help.;
-#X text 110 425 Right-click + Shift;
-#X text 285 425 opens object help.;
-#X text 61 425 [Edit];
-#X text 110 445 Right-click + Alt;
-#X text 285 445 opens properties dialog.;
+#X text 110 405 Right-click + ⇧;
+#X text 285 405 open object help.;
+#X text 110 425 Right-click + ⌥;
+#X text 285 425 open properties dialog.;
+#X text 110 445 Right-click + ⇧;
+#X text 285 445 open object help.;
 #X text 61 445 [Edit];
-#X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 480 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 465 Right-click + ⌥;
+#X text 285 465 open properties dialog.;
+#X text 61 465 [Edit];
+#X obj 20 495 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 500 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 515 @auto_size;
-#X text 245 515 Get/Set flag if automatically resize contents to feet
+#X msg 110 535 @auto_size;
+#X text 245 535 Get/Set flag if automatically resize contents to feet
 incoming message. Type: int. Default value: 1\. Allowed values: 0 \,
 1\.;
-#X msg 110 572 @display_events;
-#X text 245 572 Get/Set flag for blinking on incoming messages. Type:
+#X msg 110 592 @display_events;
+#X text 245 592 Get/Set flag for blinking on incoming messages. Type:
 int. Default value: 1\. Allowed values: 0 \, 1\.;
-#X msg 110 614 @display_type;
-#X text 245 614 Get/Set flag for displaying incoming message type.
+#X msg 110 634 @display_type;
+#X text 245 634 Get/Set flag for displaying incoming message type.
 Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 656 @receive;
-#X text 245 656 Get/Set receive source. Type: symbol.;
-#X msg 110 685 @send;
-#X text 245 685 Get/Set send destination. Type: symbol.;
-#X msg 110 714 @active_color;
-#X text 245 714 Get/Set element active color (list of red \, green
+#X msg 110 676 @receive;
+#X text 245 676 Get/Set receive source. Type: symbol.;
+#X msg 110 705 @send;
+#X text 245 705 Get/Set send destination. Type: symbol.;
+#X msg 110 734 @active_color;
+#X text 245 734 Get/Set element active color (list of red \, green
 \, blue values in 0-1 range). Type: list.;
-#X msg 110 756 @background_color;
-#X text 245 756 Get/Set element background color (list of red \, green
+#X msg 110 776 @background_color;
+#X text 245 776 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list.;
-#X msg 110 798 @border_color;
-#X text 245 798 Get/Set border color (list of red \, green \, blue
+#X msg 110 818 @border_color;
+#X text 245 818 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list.;
-#X msg 110 840 @text_color;
-#X text 245 840 Get/Set text color (list of red \, green \, blue values
+#X msg 110 860 @text_color;
+#X text 245 860 Get/Set text color (list of red \, green \, blue values
 in 0-1 range). Type: list.;
-#X msg 110 882 @fontname;
-#X text 245 882 Get/Set fontname. Type: symbol.;
-#X msg 110 911 @fontsize;
-#X text 245 911 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 902 @fontname;
+#X text 245 902 Get/Set fontname. Type: symbol.;
+#X msg 110 931 @fontsize;
+#X text 245 931 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...11\.;
-#X msg 110 953 @fontslant;
-#X text 245 953 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 973 @fontslant;
+#X text 245 973 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 995 @fontweight;
-#X text 245 995 Get/Set font weight. Type: symbol. Default value: normal.
-Allowed values: normal \, bold.;
-#X msg 110 1037 @pinned;
-#X text 245 1037 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1015 @fontweight;
+#X text 245 1015 Get/Set font weight. Type: symbol. Default value:
+normal. Allowed values: normal \, bold.;
+#X msg 110 1057 @pinned;
+#X text 245 1057 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: int. Default value: 0\. Allowed values: 0 \, 1\.;
-#X msg 110 1079 @size;
-#X text 245 1079 Get/Set element size (width \, height pair). Type:
+#X msg 110 1099 @size;
+#X text 245 1099 Get/Set element size (width \, height pair). Type:
 list.;
-#X obj 20 1118 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1123 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1138 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1143 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1158 pos;
-#X text 245 1158 set UI element position. Arguments are:;
-#X obj 255 1181 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1181 X: top left x-coord. Type: float.;
-#X obj 255 1204 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1204 Y: top right y-coord. Type: float.;
-#X obj 20 1239 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1244 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1178 pos;
+#X text 245 1178 set UI element position. Arguments are:;
+#X obj 255 1201 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1201 X: top left x-coord. Type: float.;
+#X obj 255 1224 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1224 Y: top right y-coord. Type: float.;
+#X obj 20 1259 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1264 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1245 1\.;
-#X text 150 1245 *list*;
-#X text 245 1245 accepts any messages and displays it.;
+#X text 110 1265 1\.;
+#X text 150 1265 *list*;
+#X text 245 1265 accepts any messages and displays it.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1295 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1298 library: ceammc v0.8.0;
-#X text 644 1310 see also:;
-#X obj 718 1310 msg;
-#N canvas 10 1317 400 290 info 0;
+#X obj 1 1315 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1318 library: ceammc v0.8.0;
+#X text 644 1330 see also:;
+#X obj 718 1330 msg;
+#N canvas 10 1337 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -128,7 +130,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1317 pd info;
+#X restore 10 1337 pd info;
 #X connect 5 0 10 0;
 #X connect 6 0 10 0;
 #X connect 7 0 10 0;
