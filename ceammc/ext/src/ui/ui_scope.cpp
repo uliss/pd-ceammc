@@ -169,7 +169,7 @@ void UIScope::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, lo
     if (modifiers == EMOD_SHIFT) {
         setProperty(gensym("min"), AtomList(prop_min * 0.8));
         setProperty(gensym("max"), AtomList(prop_max * 0.8));
-    } else if (modifiers == EMOD_CTRL) {
+    } else if (modifiers == EMOD_ALT) {
         setProperty(gensym("min"), AtomList(prop_min * 1.2));
         setProperty(gensym("max"), AtomList(prop_max * 1.2));
     }
@@ -177,10 +177,58 @@ void UIScope::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, lo
 
 void UIScope::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
+    // if modifiers - use single click
     if (modifiers != 0)
         onMouseDown(view, pt, pt, modifiers);
     else
         freeze_ = !freeze_;
+}
+
+void UIScope::onMouseWheel(const t_pt& pt, long modifiers, float delta)
+{
+    static t_symbol* SYM_MIN = gensym("min");
+    static t_symbol* SYM_MAX = gensym("max");
+    static t_symbol* SYM_WINDOW = gensym("window");
+
+    if (modifiers == EMOD_SHIFT) {
+        float k = (1 + delta * 0.05);
+        setProperty(SYM_WINDOW, AtomList(prop_window * k));
+    } else {
+        float k = (1 + delta * 0.05);
+        setProperty(SYM_MIN, AtomList(prop_min * k));
+        setProperty(SYM_MAX, AtomList(prop_max * k));
+    }
+}
+
+void UIScope::onPopup(t_symbol* menu_name, long item_idx)
+{
+    static t_symbol* SYM_MIN = gensym("min");
+    static t_symbol* SYM_MAX = gensym("max");
+
+    switch (item_idx) {
+    case 0:
+        setProperty(SYM_MIN, AtomList(-1));
+        setProperty(SYM_MAX, AtomList(1));
+        break;
+    case 1:
+        setProperty(SYM_MIN, AtomList(-0.5));
+        setProperty(SYM_MAX, AtomList(0.5));
+        break;
+    case 2:
+        setProperty(SYM_MIN, AtomList(-2));
+        setProperty(SYM_MAX, AtomList(2));
+        break;
+    default:
+        break;
+    }
+}
+
+void UIScope::showPopup(const t_pt& pt, const t_pt& abs_pt)
+{
+    UIPopupMenu menu(asEObj(), "main", abs_pt);
+    menu.addItem(_("Zoom 100%"));
+    menu.addItem(_("Zoom 200%"));
+    menu.addItem(_("Zoom 50%"));
 }
 
 void UIScope::setup()
@@ -188,7 +236,8 @@ void UIScope::setup()
     UIObjectFactory<UIScope> obj("ui.scope~");
     obj.setDefaultSize(150, 100);
 
-    obj.useMouseEvents(UI_MOUSE_DBL_CLICK | UI_MOUSE_DOWN);
+    obj.useMouseEvents(UI_MOUSE_DBL_CLICK | UI_MOUSE_DOWN | UI_MOUSE_WHEEL);
+    obj.usePopup();
     obj.addMethod("freeze", &UIScope::m_freeze);
     obj.addMethod("scale", &UIScope::m_scale);
 

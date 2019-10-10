@@ -60,6 +60,9 @@ public:
 
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseWheel(const t_pt& pt, long modifiers, float delta);
+    void onPopup(t_symbol* menu_name, long item_idx);
+    void showPopup(const t_pt& pt, const t_pt& abs_pt);
 
 public:
     static void setup();
