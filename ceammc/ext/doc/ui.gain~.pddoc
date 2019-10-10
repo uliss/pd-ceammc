@@ -17,6 +17,15 @@
                 <alias view="link">ui.vgain~</alias>
             </aliases>
         </meta>
+        <mouse>
+            <event editmode="false" type="drag">relative gain change</event>
+            <event editmode="false" type="right-click" keys="Shift">open object help</event>
+            <event editmode="false" type="right-click" keys="Alt">open properties dialog</event>
+            <event editmode="true" type="drag" keys="Cmd">relative gain change</event>
+            <event editmode="true" type="double-click" keys="Cmd">toggle horizontal/vertical orientation</event>
+            <event editmode="true" type="right-click" keys="Shift">open object help</event>
+            <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
+        </mouse>
         <properties>
             <property name="@max" type="int" minvalue="-12" maxvalue="12" default="0"
             units="decibel">maximum gain value</property>
@@ -86,6 +95,7 @@
             <pdascii>
 <![CDATA[
 /*use [ui.hgain~] to create horizontal control]*/
+
 [ui.hgain~]
 
 [osc~ 440]

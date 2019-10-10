@@ -13,8 +13,8 @@
  *****************************************************************************/
 #include "ui_gain.h"
 #include "ceammc_convert.h"
-#include "ceammc_ui.h"
 #include "ceammc_preset.h"
+#include "ceammc_ui.h"
 
 static const float SCALE_ALPHA_BLEND = 0.7;
 
@@ -183,9 +183,10 @@ void UIGain::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
                                              : 1.0 - (pt.y / height());
 
     // clip only here
-    if (prop_relative_mode)
-        knob_pos_ = clip<float, 0, 1>(new_value - rel_mode_delta_);
-    else
+    if (prop_relative_mode) {
+        float delta = rel_mode_delta_;
+        knob_pos_ = clip<float, 0, 1>(new_value - delta);
+    } else
         knob_pos_ = clip<float, 0, 1>(new_value);
 
     redrawBGLayer();
@@ -196,12 +197,12 @@ void UIGain::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 
 void UIGain::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
-    t_canvas* c = reinterpret_cast<t_canvas*>(view);
-    if (c->gl_edit) {
+    if (isPatchEdited()) {
         resize(height() / zoom(), width() / zoom());
         updateLabels();
         redrawBGLayer();
-    }
+    } else
+        onMouseDown(view, pt, {}, modifiers);
 }
 
 t_float UIGain::dbValue() const
