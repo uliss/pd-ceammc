@@ -886,12 +886,12 @@ public:
         outputMouse(z, SYM, false);
     }
 
-    static void mouseWheel(UI* z, t_object* view, t_pt pt, long modifiers, float delta)
+    static void mouseWheel(UI* z, t_pt pt, long modifiers, float delta)
     {
 #ifdef __APPLE__
-        z->onMouseWheel(view, pt, modifiers, delta);
+        z->onMouseWheel(pt, modifiers, delta);
 #else
-        z->onMouseWheel(view, mouse_pos_, modifiers, delta);
+        z->onMouseWheel(mouse_pos_, modifiers, delta);
 #endif
     }
 

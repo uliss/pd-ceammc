@@ -61,7 +61,7 @@ void UIKnob::setup()
     obj.useFloat();
     obj.usePresets();
     obj.usePopup();
-    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK);
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK | UI_MOUSE_WHEEL);
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
     obj.addMethod("+", &UISingleValue::m_plus);
@@ -194,6 +194,17 @@ void UIKnob::onMouseDrag(t_object*, const t_pt& pt, long modifiers)
 void UIKnob::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     click_pos_ = pt;
+}
+
+void UIKnob::onMouseWheel(const t_pt& pt, long modifiers, double delta)
+{
+    float k = 0.01;
+    if (modifiers & EMOD_SHIFT)
+        k *= 0.1;
+
+    setKnobPhase(knobPhase() + delta * k);
+    redrawKnob();
+    output();
 }
 
 void UIKnob::onPopup(t_symbol* menu_name, long item_idx)

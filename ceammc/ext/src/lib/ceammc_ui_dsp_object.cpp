@@ -211,7 +211,7 @@ void UIDspObject::onMouseEnter(t_object* view, const t_pt& pt, long modifiers)
 {
 }
 
-void UIDspObject::onMouseWheel(t_object* view, const t_pt& pt, long modifiers, double delta)
+void UIDspObject::onMouseWheel(const t_pt& pt, long modifiers, float delta)
 {
 }
 

@@ -220,9 +220,9 @@ proc ceammc_bind_mouse_right_click {id obj} {
 proc ceammc_bind_mouse_wheel {id obj} {
     switch -- $::windowingsystem {
         "win32" {
-            bind $id <MouseWheel> [subst -nocommands {+pdsend "$obj mousewheel %x %y [expr %%D / 120.0] [ceammc_fix_win_state %s]"}]
+            bind $id <MouseWheel> [subst -nocommands {+pdsend "$obj mousewheel %x %y [expr %D / 120.0] [ceammc_fix_win_state %s]"}]
         } "default" {
-            bind $id <MouseWheel> [subst {+pdsend "$obj mousewheel %x %y %%D %s"}]
+            bind $id <MouseWheel> [subst {+pdsend "$obj mousewheel %x %y %D %s"}]
         }
     }
 }

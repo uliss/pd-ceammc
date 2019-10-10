@@ -112,7 +112,7 @@ public:
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseLeave(t_object* view, const t_pt& pt, long modifiers);
     void onMouseEnter(t_object* view, const t_pt& pt, long modifiers);
-    void onMouseWheel(t_object* view, const t_pt& pt, long modifiers, double delta);
+    void onMouseWheel(const t_pt& pt, long modifiers, float delta);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
     void onPopup(t_symbol* menu_name, long item_idx);
     void showPopup(const t_pt& pt, const t_pt& abs_pt);

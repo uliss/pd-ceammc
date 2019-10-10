@@ -263,7 +263,7 @@ void UIPolar::onPopup(t_symbol* menu_name, long item_idx)
     }
 }
 
-void UIPolar::onMouseWheel(t_object* view, const t_pt& pt, long modifiers, double delta)
+void UIPolar::onMouseWheel(const t_pt& pt, long modifiers, double delta)
 {
     float k = 0.1;
     if (modifiers & EMOD_SHIFT)

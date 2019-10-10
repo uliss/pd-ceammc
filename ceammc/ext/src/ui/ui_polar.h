@@ -47,7 +47,7 @@ public:
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
     void onPopup(t_symbol* menu_name, long item_idx);
-    void onMouseWheel(t_object* view, const t_pt& pt, long modifiers, double delta);
+    void onMouseWheel(const t_pt& pt, long modifiers, double delta);
 
     void m_set(const AtomList& lst);
     void m_polar(const AtomList& lst);

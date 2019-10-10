@@ -1172,10 +1172,8 @@ void ebox_mouse_wheel(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg de
 {
     long modif = modifier_wrapper(mod);
     t_eclass* c = eobj_getclass(x);
-    if (is_for_box(x, modif) && c->c_widget.w_mousewheel && !(x->b_flags & EBOX_IGNORELOCKCLICK)) {
-        t_pt mouse { xpos, ypos };
-        c->c_widget.w_mousewheel(x, x->b_obj.o_canvas, mouse, modif, delta);
-    }
+    if (is_for_box(x, modif) && c->c_widget.w_mousewheel && !(x->b_flags & EBOX_IGNORELOCKCLICK))
+        c->c_widget.w_mousewheel(x, { xpos, ypos }, modif, delta);
 }
 
 void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom* argv)

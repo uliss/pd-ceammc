@@ -448,7 +448,7 @@ void UIEnv::onMouseLeave(t_object*, const t_pt& pt, long)
     redrawLayer(cursor_layer_);
 }
 
-void UIEnv::onMouseWheel(t_object*, const t_pt& pt, long, double delta)
+void UIEnv::onMouseWheel(const t_pt& pt, long, double delta)
 {
     const float z = zoom();
     const float x_norm = pt.x / z;

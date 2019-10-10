@@ -31,6 +31,8 @@
             <event editmode="false" type="right-click" keys="Shift">opens object help</event>
             <event editmode="true" type="right-click" keys="Shift">opens object help</event>
             <event editmode="true" type="right-click" keys="Alt">opens properties dialog</event>
+            <event editmode="false" type="wheel">changes the knob value</event>
+            <event editmode="false" type="wheel" keys="Shift">changes the knob value slowly</event>
         </mouse>
         <properties>
             <property name="@min" type="float" default="0">minimum knob value</property>
