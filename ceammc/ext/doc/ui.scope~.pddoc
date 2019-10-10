@@ -17,10 +17,19 @@
                 <see view="link">ui.spectroscope~</see>
             </also>
         </meta>
-        <info>
-            <par>Shows waveform. Double-click toggles freeze mode. Shift+Click - zoomin, Ctrl+Click
-            - zoomout</par>
-        </info>
+        <mouse>
+            <event editmode="false" type="left-click" keys="Shift">Y-axis zoomin</event>
+            <event editmode="false" type="left-click" keys="Alt">Y-axis zoomout</event>
+            <event editmode="false" type="wheel">Y-axis zoom</event>
+            <event editmode="false" type="wheel" keys="Shift">X-axis zoom</event>
+            <event editmode="false" type="wheel">Y-axis zoom</event>
+            <event editmode="false" type="double-click">toggle freeze mode</event>
+            <event editmode="false" type="right-click">open object popup menu with zoom options</event>
+            <event editmode="false" type="right-click" keys="Shift">open object help</event>
+            <event editmode="false" type="right-click" keys="Alt">open properties dialog</event>
+            <event editmode="true" type="right-click" keys="Shift">open object help</event>
+            <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
+        </mouse>
         <properties>
             <property name="@max" type="float" default="1">maximum (top) graph value</property>
             <property name="@min" type="float" default="-1">minimum (bottom) graph value</property>
