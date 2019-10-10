@@ -1136,21 +1136,33 @@ void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
     }
 }
 
+static void ebox_open_help(t_ebox* x)
+{
+    t_eclass* c = eobj_getclass(x);
+    open_via_helppath(class_gethelpname(&c->c_class), class_gethelpdir(&c->c_class));
+}
+
 void ebox_mouse_rightclick(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg absx, t_floatarg absy, t_floatarg mod)
 {
     t_eclass* c = eobj_getclass(x);
+    const auto modif = modifier_wrapper(mod);
+
+    // show help menu in all modes (edit/performance) with pressed Shift
+    if (modif & EMOD_SHIFT)
+        return ebox_open_help(x);
 
     if (x->b_obj.o_canvas->gl_edit) {
-        sys_vgui("eobj_canvas_right %s\n", x->b_canvas_id->s_name);
+        // in edit mode show Properties dialog when Alt pressed
+        // or standart Pd popup otherwise
+        if (modif & EMOD_ALT)
+            ebox_properties(x, nullptr);
+        else
+            sys_vgui("eobj_canvas_right %s\n", x->b_canvas_id->s_name);
     } else {
+        // in performance mode if widget defines right click reactions use them
+        // or show standart Pd popup otherwise
         if (c->c_widget.w_rightclick && !(x->b_flags & EBOX_IGNORELOCKCLICK)) {
-            if (modifier_wrapper(mod) & EMOD_SHIFT) {
-                sys_vgui("eobj_canvas_right %s\n", x->b_canvas_id->s_name);
-            } else {
-                t_pt mouse { xpos, ypos };
-                t_pt abs_mouse { absx, absy };
-                c->c_widget.w_rightclick(x, mouse, abs_mouse);
-            }
+            c->c_widget.w_rightclick(x, { xpos, ypos }, { absx, absy });
         } else
             sys_vgui("eobj_canvas_right %s\n", x->b_canvas_id->s_name);
     }
