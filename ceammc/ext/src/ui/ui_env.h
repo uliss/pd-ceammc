@@ -67,6 +67,7 @@ public:
     void onMouseUp(t_object*, const t_pt&, long);
     void onDblClick(t_object*, const t_pt& pt, long modifiers);
     void onPopup(t_symbol* msg, long itemIdx);
+    void showPopup(const t_pt& pt, const t_pt& abs_pt);
 
     void updateNodes();
     void updateEnvelope();

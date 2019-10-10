@@ -432,8 +432,6 @@ void UIEnv::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
 {
     if (mod & EMOD_SHIFT) {
         addNode(pt);
-    } else if (mod & EMOD_RIGHT) {
-        makeCommonPopup(abs_pt);
     } else if (mod & EMOD_CTRL) {
         toggleSelectedNodeStop();
     } else if (mod & EMOD_ALT) {
@@ -489,7 +487,7 @@ void UIEnv::onDblClick(t_object*, const t_pt& pt, long modifiers)
     const float z = zoom();
     const float x_norm = pt.x / z;
 
-    if (!(modifiers & EMOD_CTRL))
+    if (!(modifiers & EMOD_ALT))
         return;
 
     long idx = -1;
@@ -512,7 +510,7 @@ void UIEnv::onDblClick(t_object*, const t_pt& pt, long modifiers)
         }
     }
 
-    redrawLayer(cursor_layer_);
+    redrawLayer(envelope_layer_);
 }
 
 void UIEnv::onPopup(t_symbol* msg, long itemIdx)
@@ -548,6 +546,11 @@ void UIEnv::onPopup(t_symbol* msg, long itemIdx)
         }
         }
     }
+}
+
+void UIEnv::showPopup(const t_pt& pt, const t_pt& abs_pt)
+{
+    makeCommonPopup(abs_pt);
 }
 
 void UIEnv::updateNodes()
@@ -713,6 +716,7 @@ void UIEnv::setup()
 
     obj.usePresets();
     obj.useBang();
+    obj.usePopup();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG
         | UI_MOUSE_MOVE | UI_MOUSE_LEAVE
         | UI_MOUSE_WHEEL | UI_MOUSE_UP | UI_MOUSE_DBL_CLICK);
