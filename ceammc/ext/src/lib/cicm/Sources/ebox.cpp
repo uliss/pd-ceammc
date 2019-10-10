@@ -1151,19 +1151,19 @@ void ebox_mouse_rightclick(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floata
     if (modif & EMOD_SHIFT)
         return ebox_open_help(x);
 
+    // show object properties in all modes (edit/performance) with pressed Alt
+    if (modif & EMOD_ALT)
+        return ebox_properties(x, nullptr);
+
     if (x->b_obj.o_canvas->gl_edit) {
-        // in edit mode show Properties dialog when Alt pressed
-        // or standart Pd popup otherwise
-        if (modif & EMOD_ALT)
-            ebox_properties(x, nullptr);
-        else
-            sys_vgui("eobj_canvas_right %s\n", x->b_canvas_id->s_name);
+        // in edit mode show standart Pd popup
+        sys_vgui("eobj_canvas_right %s\n", x->b_canvas_id->s_name);
     } else {
-        // in performance mode if widget defines right click reactions use them
+        // in performance mode if widget defines their own popup dialogs: show them
         // or show standart Pd popup otherwise
-        if (c->c_widget.w_rightclick && !(x->b_flags & EBOX_IGNORELOCKCLICK)) {
+        if (c->c_widget.w_rightclick && !(x->b_flags & EBOX_IGNORELOCKCLICK))
             c->c_widget.w_rightclick(x, { xpos, ypos }, { absx, absy });
-        } else
+        else
             sys_vgui("eobj_canvas_right %s\n", x->b_canvas_id->s_name);
     }
 }
