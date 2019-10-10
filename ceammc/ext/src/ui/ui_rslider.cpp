@@ -155,8 +155,14 @@ UIRSlider::EditMode UIRSlider::keyMod2EditMode(long mod, float value) const
             return CHANGE_HIGH;
         else
             return CHANGE_LOW;
-    } else if (mod & EMOD_CTRL)
+    }
+#ifdef __APPLE__
+    else if (mod & EMOD_CMD)
         return OUTPUT;
+#else
+    else if (mod & EMOD_CTRL)
+        return OUTPUT;
+#endif
     else
         return CREATE;
 }
