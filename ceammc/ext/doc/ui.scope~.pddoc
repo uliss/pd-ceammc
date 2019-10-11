@@ -24,7 +24,8 @@
             <event editmode="false" type="wheel" keys="Shift">X-axis zoom</event>
             <event editmode="false" type="wheel">Y-axis zoom</event>
             <event editmode="false" type="double-click">toggle freeze mode</event>
-            <event editmode="false" type="right-click">open object popup menu with zoom options</event>
+            <event editmode="false" type="right-click">open object popup menu with zoom
+            options</event>
             <event editmode="false" type="right-click" keys="Shift">open object help</event>
             <event editmode="false" type="right-click" keys="Alt">open properties dialog</event>
             <event editmode="true" type="right-click" keys="Shift">open object help</event>
