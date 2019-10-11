@@ -220,6 +220,39 @@ void UIGain::onMouseWheel(const t_pt& pt, long modifiers, float delta)
         onBang();
 }
 
+void UIGain::onPopup(t_symbol* menu_name, long item_idx)
+{
+    switch (item_idx) {
+    case 0:
+        setDbValue(dbValue() + 3);
+        break;
+    case 1:
+        setDbValue(dbValue() - 3);
+        break;
+    case 2:
+        setDbValue(dbValue() - 6);
+        break;
+    case 3:
+        setDbValue(dbValue() - 12);
+        break;
+    case 4:
+        setDbValue(dbValue() - 24);
+        break;
+    default:
+        break;
+    }
+}
+
+void UIGain::showPopup(const t_pt& pt, const t_pt& abs_pt)
+{
+    UIPopupMenu menu(asEObj(), "popup", abs_pt);
+    menu.addItem("+3db");
+    menu.addItem("-3db");
+    menu.addItem("-6db");
+    menu.addItem("-12db");
+    menu.addItem("-24db");
+}
+
 t_float UIGain::dbValue() const
 {
     return convert::lin2lin<t_float>(knob_phase_, 1, 0, prop_max, prop_min);
@@ -306,6 +339,7 @@ void UIGain::setup()
 
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK | UI_MOUSE_WHEEL);
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
+    obj.usePopup();
 
     obj.addMethod("+", &UIGain::m_plus);
     obj.addMethod("-", &UIGain::m_minus);
