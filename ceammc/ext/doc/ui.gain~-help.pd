@@ -31,8 +31,8 @@
 #X text 110 501 Left-click;
 #X text 285 501 jump to click position if @relative property is off.;
 #X text 110 521 Mouse-drag;
-#X text 285 521 relative gain change if @relative is on otherwise follows
-mouse pointer.;
+#X text 285 521 relative gain change if @relative is on \, otherwise
+follows mouse pointer.;
 #X text 110 556 Mouse-drag + ⇧;
 #X text 285 556 slow relative gain change if @relative is on.;
 #X text 110 576 Right-click + ⇧;
