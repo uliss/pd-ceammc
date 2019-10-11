@@ -28,9 +28,9 @@ UIGain::UIGain()
     , font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , txt_max_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
     , txt_min_(font_.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT)
-    , knob_pos_(0)
+    , click_pos_ { 0, 0 }
+    , knob_phase_(0)
     , is_horizontal_(false)
-    , rel_mode_delta_(0)
     , prop_relative_mode(0)
 {
 }
@@ -61,7 +61,7 @@ void UIGain::paint()
     p.setLineWidth(3);
 
     if (is_horizontal_) {
-        float x = r.width * knob_pos_;
+        float x = r.width * knob_phase_;
         // scale
         p.setColor(prop_color_scale);
         p.drawRect(0, 0, x, r.height);
@@ -84,7 +84,7 @@ void UIGain::paint()
             p.drawText(txt_min_);
         }
     } else {
-        float y = r.height * (1 - knob_pos_);
+        float y = r.height * (1 - knob_phase_);
         // scale
         p.setColor(prop_color_scale);
         p.drawRect(0, y, r.width, r.height - y);
@@ -133,9 +133,8 @@ void UIGain::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs
 
     const float v = ampValue();
 
-    for (long i = 0; i < sampleframes; i++) {
+    for (long i = 0; i < sampleframes; i++)
         out[i] = in[i] * smooth_.get(v);
-    }
 }
 
 void UIGain::onPropChange(t_symbol* prop_name)
@@ -153,22 +152,23 @@ void UIGain::onPropChange(t_symbol* prop_name)
 
 void UIGain::onBang()
 {
-    t_symbol* s_db = gensym("@db");
+    static t_symbol* SYM_DB = gensym("@db");
+
     AtomList v(dbValue());
-    anyTo(0, s_db, v);
-    send(s_db, v);
+    anyTo(0, SYM_DB, v);
+    send(SYM_DB, v);
 }
 
 void UIGain::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    const float new_value = (is_horizontal_) ? clip<float, 0, 1>(pt.x / width())
-                                             : clip<float, 0, 1>(1.0 - (pt.y / height()));
-
     if (prop_relative_mode) {
-        rel_mode_delta_ = (new_value - knob_pos_);
+        click_pos_ = pt;
         return;
     } else {
-        knob_pos_ = new_value;
+        // jump to click position
+        knob_phase_ = (is_horizontal_) ? clip<float, 0, 1>(pt.x / width())
+                                       : clip<float, 0, 1>(1.0 - (pt.y / height()));
+
         redrawBGLayer();
 
         if (prop_output_value)
@@ -178,16 +178,18 @@ void UIGain::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, lon
 
 void UIGain::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
-    // NOTE: no clip - it's done later
-    const float new_value = (is_horizontal_) ? pt.x / width()
-                                             : 1.0 - (pt.y / height());
-
-    // clip only here
     if (prop_relative_mode) {
-        float delta = rel_mode_delta_;
-        knob_pos_ = clip<float, 0, 1>(new_value - delta);
-    } else
-        knob_pos_ = clip<float, 0, 1>(new_value);
+        float delta = (is_horizontal_) ? (click_pos_.x - pt.x) / width() : (click_pos_.y - pt.y) / height();
+        if (modifiers & EMOD_SHIFT)
+            delta *= 0.1;
+
+        knob_phase_ = clip<float, 0, 1>(knob_phase_ + delta);
+        click_pos_ = pt;
+    } else {
+        // jump to click position
+        knob_phase_ = (is_horizontal_) ? clip<float, 0, 1>(pt.x / width())
+                                       : clip<float, 0, 1>(1.0 - (pt.y / height()));
+    }
 
     redrawBGLayer();
 
@@ -207,7 +209,7 @@ void UIGain::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 
 t_float UIGain::dbValue() const
 {
-    return convert::lin2lin<t_float>(knob_pos_, 1, 0, prop_max, prop_min);
+    return convert::lin2lin<t_float>(knob_phase_, 1, 0, prop_max, prop_min);
 }
 
 t_float UIGain::ampValue() const
@@ -221,7 +223,7 @@ t_float UIGain::ampValue() const
 
 void UIGain::setDbValue(t_float db)
 {
-    knob_pos_ = clip<t_float>(convert::lin2lin<t_float>(db, prop_max, prop_min, 1, 0), 0, 1);
+    knob_phase_ = clip<t_float>(convert::lin2lin<t_float>(db, prop_max, prop_min, 1, 0), 0, 1);
     redrawBGLayer();
 }
 

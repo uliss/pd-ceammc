@@ -21,6 +21,7 @@
 - ui.hgain~ alias added to create horizontal ui.gain~
 - ui.hgain2~ alias added to create horizontal ui.gain2~
 - ui.gain~ and ui.gain2~ @relative property added for relative input mode (by default)
+- ui.gain~ and ui.gain2~ slow value change added in relative mode while holding SHIFT
 - ui.polar added
 - ui.slider slow change with SHIFT added
 - ui.slider log scale support added with @scale property

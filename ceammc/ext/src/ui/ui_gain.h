@@ -25,9 +25,9 @@ private:
     UIFont font_;
     UITextLayout txt_max_;
     UITextLayout txt_min_;
-    float knob_pos_;
+    t_pt click_pos_;
+    float knob_phase_;
     bool is_horizontal_;
-    float rel_mode_delta_;
 
 protected:
     SmoothControlValue smooth_;
