@@ -24,6 +24,8 @@
             follows mouse pointer</event>
             <event editmode="false" type="drag" keys="Shift">slow relative gain change if @relative
             is on</event>
+            <event editmode="false" type="wheel">change the knob value</event>
+            <event editmode="false" type="wheel" keys="Shift">change the knob value slowly</event>
             <event editmode="false" type="right-click" keys="Shift">open object help</event>
             <event editmode="false" type="right-click" keys="Alt">open properties dialog</event>
             <event editmode="true" type="drag" keys="Cmd">relative gain change</event>

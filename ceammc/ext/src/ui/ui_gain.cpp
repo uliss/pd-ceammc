@@ -207,6 +207,19 @@ void UIGain::onDblClick(t_object* view, const t_pt& pt, long modifiers)
         onMouseDown(view, pt, {}, modifiers);
 }
 
+void UIGain::onMouseWheel(const t_pt& pt, long modifiers, float delta)
+{
+    float k = 0.01;
+    if (modifiers & EMOD_SHIFT)
+        k *= 0.1;
+
+    knob_phase_ = clip<float, 0, 1>(knob_phase_ + delta * k);
+    redrawBGLayer();
+
+    if (prop_output_value)
+        onBang();
+}
+
 t_float UIGain::dbValue() const
 {
     return convert::lin2lin<t_float>(knob_phase_, 1, 0, prop_max, prop_min);
@@ -291,7 +304,7 @@ void UIGain::setup()
     obj.usePresets();
     obj.useBang();
 
-    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK);
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK | UI_MOUSE_WHEEL);
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
     obj.addMethod("+", &UIGain::m_plus);
