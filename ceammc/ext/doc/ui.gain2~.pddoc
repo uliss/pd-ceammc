@@ -32,6 +32,8 @@
             <event editmode="true" type="drag" keys="Cmd">relative gain change</event>
             <event editmode="true" type="double-click" keys="Cmd">toggle horizontal/vertical
             orientation</event>
+            <event editmode="0" type="double-click" keys="Shift">toggle MIDI-learn mode (red border
+            displayed)</event>
             <event editmode="true" type="right-click" keys="Shift">open object help</event>
             <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
         </mouse>
