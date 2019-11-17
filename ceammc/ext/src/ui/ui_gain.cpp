@@ -198,7 +198,7 @@ void UIGain::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, lon
 void UIGain::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
     if (prop_relative_mode) {
-        float delta = (is_horizontal_) ? (click_pos_.x - pt.x) / width() : (click_pos_.y - pt.y) / height();
+        float delta = (is_horizontal_) ? (pt.x - click_pos_.x) / width() : (click_pos_.y - pt.y) / height();
         if (modifiers & EMOD_SHIFT)
             delta *= 0.1;
 
