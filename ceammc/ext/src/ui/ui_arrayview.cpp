@@ -905,8 +905,13 @@ void UIArrayView::setSelection(long begin, long end)
 
 EditMode UIArrayView::keyMod2EditMode(long mod, int x) const
 {
+#ifdef __APPLE__
+    if (mod & EMOD_CMD)
+        return SELECTION_RANGE;
+#else
     if (mod & EMOD_CTRL)
         return SELECTION_RANGE;
+#endif
     else if (mod & EMOD_SHIFT)
         return MOVE_RANGE;
     else if (mod & EMOD_ALT) {
