@@ -115,16 +115,6 @@ void UIRadio::onList(const AtomList& lst)
 
 void UIRadio::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
 {
-    if (mod == EMOD_RIGHT) {
-        if (prop_checklist_mode_) {
-            UIPopupMenu menu(asEObj(), MENU_NAME_CHECKLIST, abs_pt);
-            menu.addItem(_("reset"));
-            menu.addItem(_("flip"));
-            menu.addItem(_("random"));
-            return;
-        }
-    }
-
     t_rect r = rect();
     const int idx = isVertical() ? (pt.y / r.height * prop_nitems_) : (pt.x / r.width * prop_nitems_);
 
@@ -320,7 +310,7 @@ void UIRadio::storePreset(size_t idx)
         PresetStorage::instance().setFloatValueAt(presetId(), idx, singleValue());
 }
 
-void UIRadio::onPopup(t_symbol* menu_name, long item_idx)
+void UIRadio::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt)
 {
     if (menu_name == gensym(MENU_NAME_CHECKLIST) && prop_checklist_mode_) {
         switch (item_idx) {
@@ -337,6 +327,16 @@ void UIRadio::onPopup(t_symbol* menu_name, long item_idx)
             UI_ERR << "unknown menu item: " << item_idx;
             break;
         }
+    }
+}
+
+void UIRadio::showPopup(const t_pt& pt, const t_pt& abs_pt)
+{
+    if (prop_checklist_mode_) {
+        UIPopupMenu menu(asEObj(), MENU_NAME_CHECKLIST, abs_pt, pt);
+        menu.addItem(_("reset"));
+        menu.addItem(_("flip"));
+        menu.addItem(_("random"));
     }
 }
 

@@ -200,7 +200,7 @@ void UIScope::onMouseWheel(const t_pt& pt, long modifiers, float delta)
     }
 }
 
-void UIScope::onPopup(t_symbol* menu_name, long item_idx)
+void UIScope::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt)
 {
     static t_symbol* SYM_MIN = gensym("min");
     static t_symbol* SYM_MAX = gensym("max");
@@ -225,7 +225,7 @@ void UIScope::onPopup(t_symbol* menu_name, long item_idx)
 
 void UIScope::showPopup(const t_pt& pt, const t_pt& abs_pt)
 {
-    UIPopupMenu menu(asEObj(), "main", abs_pt);
+    UIPopupMenu menu(asEObj(), "main", abs_pt, pt);
     menu.addItem(_("Zoom 100%"));
     menu.addItem(_("Zoom 200%"));
     menu.addItem(_("Zoom 50%"));

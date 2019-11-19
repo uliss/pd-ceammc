@@ -393,16 +393,18 @@ void UIPainter::setMatrix(const t_matrix& mtx)
     egraphics_set_matrix(layer_, &mtx);
 }
 
-UIPopupMenu::UIPopupMenu(t_eobj* x, const char* name, const t_pt& pos)
+UIPopupMenu::UIPopupMenu(t_eobj* x, const char* name, const t_pt& absPos, const t_pt& relPos)
     : menu_(nullptr)
-    , pos_(pos)
+    , abs_pos_(absPos)
+    , rel_pos_(relPos)
 {
     menu_ = epopupmenu_create(x, gensym(name));
 }
 
-UIPopupMenu::UIPopupMenu(t_eobj* x, t_symbol* name, const t_pt& pos)
+UIPopupMenu::UIPopupMenu(t_eobj* x, t_symbol* name, const t_pt& absPos, const t_pt& relPos)
     : menu_(nullptr)
-    , pos_(pos)
+    , abs_pos_(absPos)
+    , rel_pos_(relPos)
 {
     menu_ = epopupmenu_create(x, name);
 }
@@ -414,10 +416,10 @@ UIPopupMenu::~UIPopupMenu()
         if (m.first.empty())
             epopupmenu_addseparator(menu_);
         else
-            epopupmenu_additem(menu_, cnt++, m.first.c_str(), m.second);
+            epopupmenu_additem(menu_, cnt++, m.first.c_str(), m.second, rel_pos_);
     }
 
-    epopupmenu_popup(menu_, pos_);
+    epopupmenu_popup(menu_, abs_pos_);
 
     free(menu_);
 }

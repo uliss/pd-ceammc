@@ -47,7 +47,8 @@ public:
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
 
-    void onPopup(t_symbol* menu_name, long item_idx);
+    void onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt);
+    void showPopup(const t_pt& pt, const t_pt& abs_pt);
 
     // props
     float p_numItems() const;

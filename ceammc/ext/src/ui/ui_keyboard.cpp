@@ -298,7 +298,7 @@ void UIKeyboard::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
     }
 }
 
-void UIKeyboard::onPopup(t_symbol* menu_name, long item_idx)
+void UIKeyboard::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt)
 {
     if (menu_name == gensym("popup")) {
         if (item_idx != 0)
@@ -349,7 +349,7 @@ void UIKeyboard::onPopup(t_symbol* menu_name, long item_idx)
 
 void UIKeyboard::showPopup(const t_pt& pt, const t_pt& abs_pt)
 {
-    UIPopupMenu menu(asEObj(), "popup", abs_pt);
+    UIPopupMenu menu(asEObj(), "popup", abs_pt, pt);
     menu.addItem(_("release all"));
     menu.addSeparator();
     menu.addItem("maj"); // 1

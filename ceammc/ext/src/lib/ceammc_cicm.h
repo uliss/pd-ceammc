@@ -158,13 +158,14 @@ bool contains_point(const t_rect& r, const t_pt& pt);
 
 class UIPopupMenu {
     t_epopup* menu_;
-    t_pt pos_;
+    t_pt abs_pos_;
+    t_pt rel_pos_;
     typedef std::pair<std::string, bool> MenuEntry;
     std::vector<MenuEntry> menu_items_;
 
 public:
-    UIPopupMenu(t_eobj* x, const char* name, const t_pt& pos);
-    UIPopupMenu(t_eobj* x, t_symbol* name, const t_pt& pos);
+    UIPopupMenu(t_eobj* x, const char* name, const t_pt& absPos, const t_pt& relPos);
+    UIPopupMenu(t_eobj* x, t_symbol* name, const t_pt& absPos, const t_pt& relPos);
     ~UIPopupMenu();
 
     void addSeparator();

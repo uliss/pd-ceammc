@@ -48,7 +48,6 @@ UISlider2D::UISlider2D()
     , x_pos_(convert::lin2lin<float, 0, 1>(0.5, prop_x_left, prop_x_right))
     , y_pos_(convert::lin2lin<float, 0, 1>(0.5, prop_y_top, prop_y_bottom))
     , mouse_down_(false)
-    , right_click_(false)
 {
     createOutlet();
 }
@@ -162,7 +161,7 @@ void UISlider2D::onList(const AtomList& lst)
     output();
 }
 
-void UISlider2D::onPopup(t_symbol* menu_name, long item_idx)
+void UISlider2D::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt)
 {
     if (menu_name != gensym("popup"))
         return;
@@ -189,21 +188,18 @@ void UISlider2D::onPopup(t_symbol* menu_name, long item_idx)
     }
 }
 
+void UISlider2D::showPopup(const t_pt& pt, const t_pt& abs_pt)
+{
+    UIPopupMenu menu(asEObj(), "popup", abs_pt, pt);
+    menu.addItem(_("center"));
+    menu.addItem(_("left center"));
+    menu.addItem(_("right center"));
+    menu.addItem(_("top center"));
+    menu.addItem(_("bottom center"));
+}
+
 void UISlider2D::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    // right click
-    if (modifiers & EMOD_RIGHT) {
-        UIPopupMenu menu(asEObj(), "popup", abs_pt);
-        menu.addItem(_("center"));
-        menu.addItem(_("left center"));
-        menu.addItem(_("right center"));
-        menu.addItem(_("top center"));
-        menu.addItem(_("bottom center"));
-        right_click_ = true;
-        return;
-    }
-
-    right_click_ = false;
     mouse_down_ = true;
     setMouse(pt.x, pt.y);
     redrawKnob();
@@ -219,11 +215,6 @@ void UISlider2D::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 
 void UISlider2D::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
-    if (right_click_) {
-        right_click_ = false;
-        return;
-    }
-
     mouse_down_ = false;
     setMouse(pt.x, pt.y);
     redrawKnob();
@@ -398,6 +389,7 @@ void UISlider2D::setup()
 
     obj.useMouseEvents(UI_MOUSE_UP | UI_MOUSE_DOWN | UI_MOUSE_DRAG);
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
+    obj.usePopup();
 
     obj.addMethod("set", &UISlider2D::m_set);
     obj.addMethod("move", &UISlider2D::m_move);

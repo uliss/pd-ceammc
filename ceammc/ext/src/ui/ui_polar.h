@@ -27,7 +27,6 @@ class UIPolar : public UIObject {
     float angle_;
     t_symbol* prop_direction_;
     bool mouse_down_;
-    bool right_click_;
     int prop_clockwise_;
     int prop_radians_;
     int prop_positive_;
@@ -46,8 +45,9 @@ public:
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
-    void onPopup(t_symbol* menu_name, long item_idx);
+    void onPopup(t_symbol* menu_name, long item_idx, const t_pt &pt);
     void onMouseWheel(const t_pt& pt, long modifiers, double delta);
+    void showPopup(const t_pt& pt, const t_pt& abs_pt);
 
     void m_set(const AtomList& lst);
     void m_polar(const AtomList& lst);

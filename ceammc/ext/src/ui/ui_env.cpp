@@ -256,10 +256,10 @@ void UIEnv::drawEnvelope(const t_rect& r)
     }
 }
 
-void UIEnv::makeCommonPopup(const t_pt& abs_pt)
+void UIEnv::makeCommonPopup(const t_pt& pt, const t_pt& abs_pt)
 {
     // context menu
-    UIPopupMenu menu(asEObj(), "adsr_select", abs_pt);
+    UIPopupMenu menu(asEObj(), "adsr_select", abs_pt, pt);
     menu.addItem("ADSR (10 20 30 500)");
     menu.addItem("ASR (500 500)");
     menu.addItem("AR (500 500)");
@@ -446,21 +446,34 @@ void UIEnv::onMouseLeave(t_object*, const t_pt& pt, long)
     redrawLayer(cursor_layer_);
 }
 
-void UIEnv::onMouseWheel(const t_pt& pt, long, double delta)
+void UIEnv::onMouseWheel(const t_pt& pt, long mod, float delta)
 {
     const float z = zoom();
     const float x_norm = pt.x / z;
 
-    long idx = -1;
-    for (size_t i = 1; i < nodes_.size(); i++) {
-        if (x_norm < nodes_[i].x) {
-            idx = i - 1;
-            break;
-        }
-    }
+    long idx = findSelectedNodeIdx();
 
-    if (idx < 0)
+    if (idx >= 0) {
+        auto& n = nodes_[idx];
+        float k = 0.01 * delta;
+
+        // update coordinates
+        if (!n.fixed_y)
+            n.y = clip<float>(n.y * (1 + k), 0, height() / z);
+
+        redrawLayer(envelope_layer_);
         return;
+    } else {
+        for (size_t i = 1; i < nodes_.size(); i++) {
+            if (x_norm < nodes_[i].x) {
+                idx = i - 1;
+                break;
+            }
+        }
+
+        if (idx < 0)
+            return;
+    }
 
     switch (nodes_[idx].type) {
     case CURVE_EXP:
@@ -473,7 +486,7 @@ void UIEnv::onMouseWheel(const t_pt& pt, long, double delta)
         return;
     }
 
-    redrawLayer(cursor_layer_);
+    redrawLayer(envelope_layer_);
 }
 
 void UIEnv::onMouseUp(t_object*, const t_pt& pt, long)
@@ -513,7 +526,7 @@ void UIEnv::onDblClick(t_object*, const t_pt& pt, long modifiers)
     redrawLayer(envelope_layer_);
 }
 
-void UIEnv::onPopup(t_symbol* msg, long itemIdx)
+void UIEnv::onPopup(t_symbol* msg, long itemIdx, const t_pt& pt)
 {
     if (msg == gensym("adsr_select")) {
         switch (itemIdx) {
@@ -550,7 +563,7 @@ void UIEnv::onPopup(t_symbol* msg, long itemIdx)
 
 void UIEnv::showPopup(const t_pt& pt, const t_pt& abs_pt)
 {
-    makeCommonPopup(abs_pt);
+    makeCommonPopup(pt, abs_pt);
 }
 
 void UIEnv::updateNodes()

@@ -947,9 +947,9 @@ public:
         z->onZoom(zoom);
     }
 
-    static void processPopup(UI* z, t_symbol* menu_name, long itemIdx)
+    static void processPopup(UI* z, t_symbol* menu_name, long itemIdx, t_pt rel_pos)
     {
-        z->onPopup(menu_name, itemIdx);
+        z->onPopup(menu_name, itemIdx, rel_pos);
     }
 
     static void showPopup(UI* z, t_pt pos, t_pt abs_pos)

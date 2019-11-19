@@ -114,14 +114,6 @@ void UIPreset::paint()
 void UIPreset::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     int index = buttonIndexAt(pt.x, pt.y);
-
-    if (modifiers & EMOD_RIGHT) {
-        UIPopupMenu p(asEObj(), SYM_POPUP, abs_pt);
-        p.addItem(_("read"));
-        p.addItem(_("write"));
-        return;
-    }
-
     if (index < 0 || index >= presets_.size())
         return;
 
@@ -149,7 +141,7 @@ void UIPreset::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
     redrawLayer(bg_layer_);
 }
 
-void UIPreset::onPopup(t_symbol* menu_name, long item_idx)
+void UIPreset::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pos)
 {
     if (menu_name != SYM_POPUP)
         return;
@@ -164,6 +156,14 @@ void UIPreset::onPopup(t_symbol* menu_name, long item_idx)
     default:
         break;
     }
+}
+
+void UIPreset::showPopup(const t_pt& pt, const t_pt& abs_pt)
+{
+    UIPopupMenu p(asEObj(), SYM_POPUP, abs_pt, pt);
+    p.addItem(_("read"));
+    p.addItem(_("write"));
+    return;
 }
 
 int UIPreset::buttonIndexAt(float x, float y) const

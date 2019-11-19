@@ -258,7 +258,7 @@ void UIObject::onZoom(t_float z)
 {
 }
 
-void UIObject::onPopup(t_symbol* menu_name, long item_idx)
+void UIObject::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt)
 {
 }
 

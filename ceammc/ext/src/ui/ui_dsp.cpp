@@ -61,7 +61,7 @@ void UIDsp::onAny(t_symbol* s, const AtomList& lst)
     }
 }
 
-void UIDsp::onPopup(t_symbol* menu_name, long item_idx)
+void UIDsp::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt)
 {
     switch (item_idx) {
     case 0:
@@ -74,7 +74,7 @@ void UIDsp::onPopup(t_symbol* menu_name, long item_idx)
 
 void UIDsp::showPopup(const t_pt& pt, const t_pt& abs_pt)
 {
-    UIPopupMenu menu(asEObj(), "menu", abs_pt);
+    UIPopupMenu menu(asEObj(), "menu", abs_pt, pt);
     menu.addItem(_("Audio Settings"));
 }
 

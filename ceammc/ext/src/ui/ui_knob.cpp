@@ -207,7 +207,7 @@ void UIKnob::onMouseWheel(const t_pt& pt, long modifiers, double delta)
     output();
 }
 
-void UIKnob::onPopup(t_symbol* menu_name, long item_idx)
+void UIKnob::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt)
 {
     switch (item_idx) {
     case 0:
@@ -227,7 +227,7 @@ void UIKnob::onPopup(t_symbol* menu_name, long item_idx)
 
 void UIKnob::showPopup(const t_pt& pt, const t_pt& abs_pt)
 {
-    UIPopupMenu menu(asEObj(), SYM_POPUP_LINEAR, abs_pt);
+    UIPopupMenu menu(asEObj(), SYM_POPUP_LINEAR, abs_pt, pt);
     menu.addItem(_("min"));
     menu.addItem(_("center"), scaleMode() == LINEAR);
     menu.addItem(_("max"));

@@ -497,6 +497,7 @@ typedef void (*t_mouseup_method)(void* x, t_glist*, t_pt, long);
 typedef void (*t_mousewheel_method)(void* x, t_pt, long, float);
 typedef void (*t_dblclick_method)(void* x, t_glist*, t_pt, long);
 typedef void (*t_rightclick_method)(void* x, t_pt, t_pt);
+typedef void (*t_popup_method)(void* x, t_symbol*, long, t_pt);
 
 /**
  * @struct t_ewidget
@@ -529,7 +530,7 @@ typedef struct t_ewidget {
     t_typ_method w_getdrawparameters; /*!< The get draw parameter method. */
     t_typ_method w_save; /*!< The save method. */
     t_typ_method w_dosave; /*!< The real save method. */
-    t_typ_method w_popup; /*!< The popup method. */
+    t_popup_method w_popup; /*!< The popup method. */
     t_typ_method w_dsp; /*!< The dsp method. */
     t_typ_method w_oksize; /*!< The size validation method. */
     t_err_method w_notify; /*!< The notification method. */

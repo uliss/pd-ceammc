@@ -255,7 +255,7 @@ void UIGain::onMouseWheel(const t_pt& pt, long modifiers, float delta)
         doOutput();
 }
 
-void UIGain::onPopup(t_symbol* menu_name, long item_idx)
+void UIGain::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt)
 {
     switch (item_idx) {
     case 0:
@@ -283,7 +283,7 @@ void UIGain::onPopup(t_symbol* menu_name, long item_idx)
 
 void UIGain::showPopup(const t_pt& pt, const t_pt& abs_pt)
 {
-    UIPopupMenu menu(asEObj(), "popup", abs_pt);
+    UIPopupMenu menu(asEObj(), "popup", abs_pt, pt);
     menu.addItem("+3db");
     menu.addItem("-3db");
     menu.addItem("-6db");

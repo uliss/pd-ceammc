@@ -232,7 +232,7 @@ void UISliders::onDblClick(t_object* view, const t_pt& pt, long modifiers)
         resize(height() / zoom(), width() / zoom());
 }
 
-void UISliders::onPopup(t_symbol* menu_name, long item_idx)
+void UISliders::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt)
 {
     if (menu_name != gensym("popup"))
         return;
@@ -273,7 +273,7 @@ void UISliders::onPopup(t_symbol* menu_name, long item_idx)
 
 void UISliders::showPopup(const t_pt& pt, const t_pt& abs_pt)
 {
-    UIPopupMenu menu(asEObj(), "popup", abs_pt);
+    UIPopupMenu menu(asEObj(), "popup", abs_pt, pt);
     char buf[64];
     snprintf(buf, sizeof(buf), _("fill with %f"), prop_max);
     menu.addItem(buf);

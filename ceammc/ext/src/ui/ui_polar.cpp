@@ -77,7 +77,6 @@ UIPolar::UIPolar()
     , angle_(0)
     , prop_direction_(gensym("N"))
     , mouse_down_(false)
-    , right_click_(false)
     , prop_clockwise_(1)
     , prop_radians_(0)
     , prop_positive_(0)
@@ -223,7 +222,7 @@ void UIPolar::onList(const AtomList& lst)
     output();
 }
 
-void UIPolar::onPopup(t_symbol* menu_name, long item_idx)
+void UIPolar::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt)
 {
     if (menu_name != SYM_POPUP_MAIN)
         return;
@@ -274,21 +273,19 @@ void UIPolar::onMouseWheel(const t_pt& pt, long modifiers, double delta)
     output();
 }
 
-void UIPolar::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
+void UIPolar::showPopup(const t_pt& pt, const t_pt& abs_pt)
 {
     // right click
-    if (modifiers & EMOD_RIGHT) {
-        UIPopupMenu menu(asEObj(), SYM_POPUP_MAIN, abs_pt);
-        menu.addItem(_("center"));
-        menu.addItem(_("left center"));
-        menu.addItem(_("right center"));
-        menu.addItem(_("top center"));
-        menu.addItem(_("bottom center"));
-        right_click_ = true;
-        return;
-    }
+    UIPopupMenu menu(asEObj(), SYM_POPUP_MAIN, abs_pt, pt);
+    menu.addItem(_("center"));
+    menu.addItem(_("left center"));
+    menu.addItem(_("right center"));
+    menu.addItem(_("top center"));
+    menu.addItem(_("bottom center"));
+}
 
-    right_click_ = false;
+void UIPolar::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
+{
     mouse_down_ = true;
     setMouse(pt.x, pt.y, modifiers & EMOD_ALT);
     redrawKnob();
@@ -304,11 +301,6 @@ void UIPolar::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 
 void UIPolar::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
-    if (right_click_) {
-        right_click_ = false;
-        return;
-    }
-
     mouse_down_ = false;
     setMouse(pt.x, pt.y, modifiers & EMOD_ALT);
     redrawKnob();
@@ -545,6 +537,7 @@ void UIPolar::setup()
     obj.usePresets();
     obj.useList();
     obj.useBang();
+    obj.usePopup();
 
     obj.useMouseEvents(UI_MOUSE_UP | UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_WHEEL);
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);

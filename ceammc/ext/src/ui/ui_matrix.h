@@ -88,7 +88,8 @@ public:
 
     void onPropChange(t_symbol* prop_name);
     void onZoom(t_float z);
-    void onPopup(t_symbol* menu_name, long item_idx);
+    void onPopup(t_symbol* menu_name, long item_idx, const t_pt &pt);
+    void showPopup(const t_pt& pt, const t_pt& abs_pt);
 
 public:
     static void setup();

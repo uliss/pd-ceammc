@@ -399,8 +399,8 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
     } else if (sname == gensym(SYM_SAVE)) {
         c->c_widget.w_save = m;
     } else if (sname == gensym(SYM_POPUP)) {
-        class_addmethod(cx, (t_method)eobj_popup, gensym(SYM_POPUP), A_SYMBOL, A_DEFFLOAT, 0);
-        c->c_widget.w_popup = m;
+        class_addmethod(cx, (t_method)eobj_popup, gensym(SYM_POPUP), A_SYMBOL, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+        c->c_widget.w_popup = reinterpret_cast<t_popup_method>(m);;
     } else if (sname == gensym(SYM_DSP)) {
         c->c_widget.w_dsp = m;
     } else if (sname == &s_bang) {
