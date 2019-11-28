@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
 "POT-Creation-Date: 2019-11-19 03:38+0300\n"
-"PO-Revision-Date: 2019-11-19 03:38+0300\n"
+"PO-Revision-Date: 2019-11-28 13:34+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -1965,18 +1965,16 @@ msgid "Zoom"
 msgstr "Раскрыть"
 
 #: ../ceammc/ext/src/ui/ui_scope.cpp
-#, fuzzy
 msgid "Zoom 100%"
-msgstr "Увеличить"
+msgstr "Масштаб 100%"
 
 #: ../ceammc/ext/src/ui/ui_scope.cpp
-#, fuzzy
 msgid "Zoom 200%"
-msgstr "Увеличить"
+msgstr "Масштаб 200%"
 
 #: ../ceammc/ext/src/ui/ui_scope.cpp
 msgid "Zoom 50%"
-msgstr "Увеличить"
+msgstr "Масштаб 50%"
 
 #: ../tcl/pd_menus.tcl
 msgid "Zoom In"
