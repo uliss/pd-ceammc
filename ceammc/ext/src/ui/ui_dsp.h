@@ -20,8 +20,6 @@ public:
 
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onAny(t_symbol* s, const AtomList& lst);
-    void onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt);
-    void showPopup(const t_pt& pt, const t_pt& abs_pt);
 
     void m_start(const AtomList&);
     void m_stop(const AtomList&);

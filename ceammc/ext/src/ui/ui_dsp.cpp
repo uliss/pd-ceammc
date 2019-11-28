@@ -6,6 +6,7 @@ UIDsp::UIDsp()
     , init_(false)
     , prop_color_active(rgba_black)
 {
+    initPopupMenu("main", { { _("Audio Settings"), [this](const t_pt&) { openSoundSettingsDialog(); } } });
 }
 
 void UIDsp::init(t_symbol* name, const AtomList& args, bool)
@@ -59,23 +60,6 @@ void UIDsp::onAny(t_symbol* s, const AtomList& lst)
         state_ = lst[0].asInt(0);
         redrawAll();
     }
-}
-
-void UIDsp::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt)
-{
-    switch (item_idx) {
-    case 0:
-        openSoundSettingsDialog();
-        break;
-    default:
-        break;
-    }
-}
-
-void UIDsp::showPopup(const t_pt& pt, const t_pt& abs_pt)
-{
-    UIPopupMenu menu(asEObj(), "menu", abs_pt, pt);
-    menu.addItem(_("Audio Settings"));
 }
 
 void UIDsp::m_start(const AtomList&)

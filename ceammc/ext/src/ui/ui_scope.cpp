@@ -38,6 +38,19 @@ UIScope::UIScope()
     , prop_window(2048)
     , prop_refresh(50)
 {
+    initPopupMenu("scope",
+        { { _("Zoom 100%"), [this](const t_pt&) {
+               setProperty(gensym("min"), AtomList(-1));
+               setProperty(gensym("max"), AtomList(1));
+           } },
+            { _("Zoom 200%"), [this](const t_pt&) {
+                 setProperty(gensym("min"), AtomList(-0.5));
+                 setProperty(gensym("max"), AtomList(0.5));
+             } },
+            { _("Zoom 50%"), [this](const t_pt&) {
+                 setProperty(gensym("min"), AtomList(-2));
+                 setProperty(gensym("max"), AtomList(2));
+             } } });
 }
 
 void UIScope::okSize(t_rect* newrect)
@@ -95,7 +108,7 @@ void UIScope::paintScope()
 {
     // zero range error check
     if (prop_max - prop_min == 0) {
-        DSP_ERR << "zero value range";
+        UI_ERR << "zero value range";
         return;
     }
 
@@ -156,7 +169,7 @@ void UIScope::m_freeze(t_float f)
 void UIScope::m_scale(t_float f)
 {
     if (f <= 0) {
-        DSP_ERR << "invalid scale value: " << f;
+        UI_ERR << "invalid scale value: " << f;
         return;
     }
 
@@ -198,37 +211,6 @@ void UIScope::onMouseWheel(const t_pt& pt, long modifiers, float delta)
         setProperty(SYM_MIN, AtomList(prop_min * k));
         setProperty(SYM_MAX, AtomList(prop_max * k));
     }
-}
-
-void UIScope::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt)
-{
-    static t_symbol* SYM_MIN = gensym("min");
-    static t_symbol* SYM_MAX = gensym("max");
-
-    switch (item_idx) {
-    case 0:
-        setProperty(SYM_MIN, AtomList(-1));
-        setProperty(SYM_MAX, AtomList(1));
-        break;
-    case 1:
-        setProperty(SYM_MIN, AtomList(-0.5));
-        setProperty(SYM_MAX, AtomList(0.5));
-        break;
-    case 2:
-        setProperty(SYM_MIN, AtomList(-2));
-        setProperty(SYM_MAX, AtomList(2));
-        break;
-    default:
-        break;
-    }
-}
-
-void UIScope::showPopup(const t_pt& pt, const t_pt& abs_pt)
-{
-    UIPopupMenu menu(asEObj(), "main", abs_pt, pt);
-    menu.addItem(_("Zoom 100%"));
-    menu.addItem(_("Zoom 200%"));
-    menu.addItem(_("Zoom 50%"));
 }
 
 void UIScope::setup()

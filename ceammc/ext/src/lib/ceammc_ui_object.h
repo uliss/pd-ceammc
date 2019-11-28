@@ -6,6 +6,7 @@
 #include "ceammc_data.h"
 #include "ceammc_property_info.h"
 
+#include <initializer_list>
 #include <sstream>
 #include <unordered_map>
 #include <unordered_set>
@@ -13,22 +14,22 @@
 
 namespace ceammc {
 
-class UIObject;
+class UIObjectImpl;
 
 class UIError : public std::ostringstream {
-    const UIObject* obj_;
+    const UIObjectImpl* obj_;
 
 public:
-    UIError(const UIObject* obj = NULL);
+    UIError(const UIObjectImpl* obj = nullptr);
     ~UIError();
     UIError& stream() { return *this; }
 };
 
 class UIDebug : public std::ostringstream {
-    const UIObject* obj_;
+    const UIObjectImpl* obj_;
 
 public:
-    UIDebug(const UIObject* obj = NULL);
+    UIDebug(const UIObjectImpl* obj = nullptr);
     ~UIDebug();
     UIDebug& stream() { return *this; }
 };
@@ -36,9 +37,9 @@ public:
 #define UI_ERR UIError(this).stream()
 #define UI_DBG UIDebug(this).stream()
 
-class UIObject : t_ebox {
+class UIObjectImpl {
+    t_ebox* const box_;
     AtomList args_;
-    std::vector<t_outlet*> outlets_;
     std::unordered_set<t_symbol*> binded_signals_;
     std::vector<UILayer*> layer_stack_;
     t_symbol* name_;
@@ -47,12 +48,18 @@ class UIObject : t_ebox {
 
 protected:
     UILayer bg_layer_;
+    std::vector<PopupMenuCallbacks> popup_menu_list_;
+    std::vector<t_outlet*> outlets_;
+
     void appendToLayerList(UILayer* l);
     void prependToLayerList(UILayer* l);
     void invalidateLayer(UILayer* l);
     void invalidateBox();
     void invalidateXlets();
     void invalidateBorder();
+    void initPopupMenu(const std::string& n, std::initializer_list<PopupMenuCallbacks::Entry> args);
+    void showDefaultPopupMenu(const t_pt& pt, const t_pt& abs_pt);
+    void showPopupMenu(const std::string& n, const t_pt& pt, const t_pt& abs_pt);
 
 public:
     t_rgba prop_color_background;
@@ -61,11 +68,11 @@ public:
     int prop_mouse_events;
 
 public:
-    UIObject();
-    ~UIObject();
+    UIObjectImpl(t_ebox* x);
+    ~UIObjectImpl();
 
     // CICM and Pd
-    t_ebox* asEBox() const;
+    t_ebox* asEBox() const { return box_; }
     t_eobj* asEObj() const;
     t_object* asPdObject() const;
     t_gobj* asGObj() const;
@@ -196,6 +203,28 @@ private:
     typedef std::unordered_map<t_symbol*, int> PresetNameMap;
     static PresetNameMap presets_;
 };
+
+class UIObject : public t_ebox, public UIObjectImpl {
+public:
+    UIObject();
+};
+
+class UIDspObject : public t_edspbox, public UIObjectImpl {
+    t_float samplerate_;
+    long blocksize_;
+
+public:
+    UIDspObject();
+
+    // DSP
+    void dspInit();
+    void dspSetup(size_t n_in, size_t n_out);
+    void dspOn(double samplerate, long blocksize);
+    void dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes);
+    float samplerate() const { return samplerate_; }
+    long blocksize() const { return blocksize_; }
+};
+
 }
 
 #endif // CEAMMC_UI_OBJECT_H

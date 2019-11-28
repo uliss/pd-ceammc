@@ -43,6 +43,18 @@ UIGain::UIGain()
     , control_state_(NORMAL)
     , pick_value_state_(PICK_VALUE_START)
 {
+    auto fn = [this](float db) {
+        setDbValue(dbValue() + db);
+        if (prop_output_value)
+            doOutput();
+    };
+
+    initPopupMenu("gain",
+        { { "+3db", [fn](const t_pt&) { fn(3); } },
+            { "-3db", [fn](const t_pt&) { fn(-3); } },
+            { "-6db", [fn](const t_pt&) { fn(-6); } },
+            { "-12db", [fn](const t_pt&) { fn(-12); } },
+            { "-24db", [fn](const t_pt&) { fn(-24); } } });
 }
 
 void UIGain::okSize(t_rect* newrect)
@@ -255,42 +267,6 @@ void UIGain::onMouseWheel(const t_pt& pt, long modifiers, float delta)
         doOutput();
 }
 
-void UIGain::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt)
-{
-    switch (item_idx) {
-    case 0:
-        setDbValue(dbValue() + 3);
-        break;
-    case 1:
-        setDbValue(dbValue() - 3);
-        break;
-    case 2:
-        setDbValue(dbValue() - 6);
-        break;
-    case 3:
-        setDbValue(dbValue() - 12);
-        break;
-    case 4:
-        setDbValue(dbValue() - 24);
-        break;
-    default:
-        break;
-    }
-
-    if (prop_output_value)
-        doOutput();
-}
-
-void UIGain::showPopup(const t_pt& pt, const t_pt& abs_pt)
-{
-    UIPopupMenu menu(asEObj(), "popup", abs_pt, pt);
-    menu.addItem("+3db");
-    menu.addItem("-3db");
-    menu.addItem("-6db");
-    menu.addItem("-12db");
-    menu.addItem("-24db");
-}
-
 void UIGain::onMidiCtrl(const AtomList& l)
 {
     // invalid format
@@ -317,7 +293,7 @@ void UIGain::onMidiCtrl(const AtomList& l)
             doOutput();
     } break;
     case LEARN: {
-        DSP_DBG << "binded to CTL #" << CTL_NUM;
+        UI_DBG << "binded to CTL #" << CTL_NUM;
         prop_midi_ctl = CTL_NUM;
 
         if (prop_pickup_midi) {
@@ -416,9 +392,9 @@ void UIGain::printPickupInfo()
 {
     if (prop_pickup_midi) {
         if (prop_midi_chn > 0)
-            DSP_DBG << "pickup mode is ON for CTL #" << prop_midi_ctl << " on channel " << prop_midi_chn;
+            UI_DBG << "pickup mode is ON for CTL #" << prop_midi_ctl << " on channel " << prop_midi_chn;
         else
-            DSP_DBG << "pickup mode is ON for CTL #" << prop_midi_ctl << " on all channels";
+            UI_DBG << "pickup mode is ON for CTL #" << prop_midi_ctl << " on all channels";
     }
 }
 
@@ -430,7 +406,7 @@ void UIGain::gotoNormalState()
 
 void UIGain::finishPickup()
 {
-    DSP_DBG << "pickup is done for CTL #" << prop_midi_ctl;
+    UI_DBG << "pickup is done for CTL #" << prop_midi_ctl;
     gotoNormalState();
 }
 

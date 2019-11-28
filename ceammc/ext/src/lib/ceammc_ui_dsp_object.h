@@ -11,7 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_UI_DSP_OBJECT_H
+#include "ceammc_ui_object.h"
+#ifdef CEAMMC_UI_DSP_OBJECT_H
 #define CEAMMC_UI_DSP_OBJECT_H
 
 #include "ceammc_atomlist.h"

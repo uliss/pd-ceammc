@@ -31,6 +31,13 @@ class UIPolar : public UIObject {
     int prop_radians_;
     int prop_positive_;
 
+    enum SideT {
+        RIGHT = 0,
+        TOP = 1,
+        LEFT = 2,
+        BOTTOM = 3
+    };
+
 public:
     UIPolar();
 
@@ -45,9 +52,7 @@ public:
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
-    void onPopup(t_symbol* menu_name, long item_idx, const t_pt &pt);
     void onMouseWheel(const t_pt& pt, long modifiers, double delta);
-    void showPopup(const t_pt& pt, const t_pt& abs_pt);
 
     void m_set(const AtomList& lst);
     void m_polar(const AtomList& lst);
@@ -77,6 +82,7 @@ private:
     void redrawKnob();
     void redrawAll();
     double directionAngleOffset() const;
+    float side2Angle(SideT side);
 };
 
 void setup_ui_polar();

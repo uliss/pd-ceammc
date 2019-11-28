@@ -50,6 +50,26 @@ UISlider2D::UISlider2D()
     , mouse_down_(false)
 {
     createOutlet();
+
+    auto xmid = [this] { return convert::lin2lin<t_float, 0, 1>(0.5, prop_x_left, prop_x_right); };
+    auto ymid = [this] { return convert::lin2lin<t_float, 0, 1>(0.5, prop_y_top, prop_y_bottom); };
+
+    initPopupMenu("slider2d",
+        { { _("center"), [this, xmid, ymid](const t_pt&) {
+               onList(AtomList(xmid(), ymid()));
+           } },
+            { _("left center"), [this, ymid](const t_pt&) {
+                 onList(AtomList(prop_x_left, ymid()));
+             } },
+            { _("right center"), [this, ymid](const t_pt&) {
+                 onList(AtomList(prop_x_right, ymid()));
+             } },
+            { _("top center"), [this, xmid](const t_pt&) {
+                 onList(AtomList(xmid(), prop_y_top));
+             } },
+            { _("bottom center"), [this, xmid](const t_pt&) {
+                 onList(AtomList(xmid(), prop_y_bottom));
+             } } });
 }
 
 void UISlider2D::okSize(t_rect* newrect)
@@ -159,43 +179,6 @@ void UISlider2D::onList(const AtomList& lst)
 
     redrawKnob();
     output();
-}
-
-void UISlider2D::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt)
-{
-    if (menu_name != gensym("popup"))
-        return;
-
-    t_float xcenter = convert::lin2lin<t_float, 0, 1>(0.5, prop_x_left, prop_x_right);
-    t_float ycenter = convert::lin2lin<t_float, 0, 1>(0.5, prop_y_top, prop_y_bottom);
-
-    switch (item_idx) {
-    case 0:
-        onList(AtomList(xcenter, ycenter));
-        break;
-    case 1:
-        onList(AtomList(prop_x_left, ycenter));
-        break;
-    case 2:
-        onList(AtomList(prop_x_right, ycenter));
-        break;
-    case 3:
-        onList(AtomList(xcenter, prop_y_top));
-        break;
-    case 4:
-        onList(AtomList(xcenter, prop_y_bottom));
-        break;
-    }
-}
-
-void UISlider2D::showPopup(const t_pt& pt, const t_pt& abs_pt)
-{
-    UIPopupMenu menu(asEObj(), "popup", abs_pt, pt);
-    menu.addItem(_("center"));
-    menu.addItem(_("left center"));
-    menu.addItem(_("right center"));
-    menu.addItem(_("top center"));
-    menu.addItem(_("bottom center"));
 }
 
 void UISlider2D::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)

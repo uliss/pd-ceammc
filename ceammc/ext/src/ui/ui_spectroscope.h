@@ -63,7 +63,6 @@ public:
     void drawGraphLog(UIPainter& p);
     void drawHGrid(UIPainter& p);
 
-    void onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt);
     void showPopup(const t_pt& pt, const t_pt& abs_pt);
 
     void dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes);

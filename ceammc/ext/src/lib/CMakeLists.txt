@@ -90,8 +90,8 @@ set(CEAMMC_UI_SRC
     ceammc_ui.h
     ceammc_ui_object.h
     ceammc_ui_object.cpp
-    ceammc_ui_dsp_object.h
-    ceammc_ui_dsp_object.cpp
+#    ceammc_ui_dsp_object.h
+#    ceammc_ui_dsp_object.cpp
     image_detect.cpp)
 
 if(UNIX)

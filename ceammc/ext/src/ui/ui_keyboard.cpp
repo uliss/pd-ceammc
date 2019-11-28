@@ -178,6 +178,50 @@ UIKeyboard::UIKeyboard()
 {
     appendToLayerList(&key_layer_);
     createOutlet();
+
+    initPopupMenu("keyboard",
+        { { _("release all"), [this](const t_pt&) { resetAllNotes(); } },
+            PopupMenuCallbacks::sep(),
+            { _("maj"),
+                [this](const t_pt&) {
+                  releaseAllNotes();
+                  playChord({ 0, 4, 7 });
+                  redrawLayer(key_layer_); } },
+            { _("min"), [this](const t_pt&) {
+                 releaseAllNotes();
+                 playChord({ 0, 3, 7 });
+                 redrawLayer(key_layer_);
+             } },
+            { _("aug"), [this](const t_pt&) {
+                 releaseAllNotes();
+                 playChord({ 0, 4, 8 });
+                 redrawLayer(key_layer_);
+             } },
+            { _("dim"), [this](const t_pt&) {
+                 releaseAllNotes();
+                 playChord({ 0, 3, 6 });
+                 redrawLayer(key_layer_);
+             } },
+            { _("7"), [this](const t_pt&) {
+                 releaseAllNotes();
+                 playChord({ 0, 4, 7, 10 });
+                 redrawLayer(key_layer_);
+             } },
+            { _("maj7"), [this](const t_pt&) {
+                 releaseAllNotes();
+                 playChord({ 0, 4, 7, 11 });
+                 redrawLayer(key_layer_);
+             } },
+            { _("min7"), [this](const t_pt&) {
+                 releaseAllNotes();
+                 playChord({ 0, 3, 7, 10 });
+                 redrawLayer(key_layer_);
+             } },
+            { _("aug7"), [this](const t_pt&) {
+                 releaseAllNotes();
+                 playChord({ 0, 4, 8, 10 });
+                 redrawLayer(key_layer_);
+             } } });
 }
 
 bool UIKeyboard::okSize(t_rect* newrect)
@@ -298,68 +342,9 @@ void UIKeyboard::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
     }
 }
 
-void UIKeyboard::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt)
-{
-    if (menu_name == gensym("popup")) {
-        if (item_idx != 0)
-            releaseAllNotes();
-
-        switch (item_idx) {
-        case 0:
-            resetAllNotes();
-            break;
-        case 1: {
-            playChord({ 0, 4, 7 });
-            redrawLayer(key_layer_);
-        } break;
-        case 2: {
-            playChord({ 0, 3, 7 });
-            redrawLayer(key_layer_);
-        } break;
-        case 3: {
-            playChord({ 0, 4, 8 });
-            redrawLayer(key_layer_);
-        } break;
-        case 4: {
-            playChord({ 0, 3, 6 });
-            redrawLayer(key_layer_);
-        } break;
-        case 5: {
-            playChord({ 0, 4, 7, 10 });
-            redrawLayer(key_layer_);
-        } break;
-        case 6: {
-            playChord({ 0, 4, 7, 11 });
-            redrawLayer(key_layer_);
-        } break;
-        case 7: {
-            playChord({ 0, 3, 7, 10 });
-            redrawLayer(key_layer_);
-        } break;
-        case 8: {
-            playChord({ 0, 4, 8, 10 });
-            redrawLayer(key_layer_);
-        } break;
-        default:
-            UI_ERR << "popup menu unknown index: " << item_idx;
-            break;
-        }
-    }
-}
-
 void UIKeyboard::showPopup(const t_pt& pt, const t_pt& abs_pt)
 {
-    UIPopupMenu menu(asEObj(), "popup", abs_pt, pt);
-    menu.addItem(_("release all"));
-    menu.addSeparator();
-    menu.addItem("maj"); // 1
-    menu.addItem("min"); // 2
-    menu.addItem("aug"); // 3
-    menu.addItem("dim"); // 4
-    menu.addItem("7"); // 5
-    menu.addItem("maj7"); // 6
-    menu.addItem("min7"); // 7
-    menu.addItem("aug7"); // 8
+    UIPopupMenu menu(asEObj(), popup_menu_list_.front(), abs_pt, pt);
 
     velocity_ = std::min<int>(127, int(pt.y / height() * 100.f) + 27);
     current_key_ = findPressedKey(pt);

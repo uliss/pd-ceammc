@@ -772,7 +772,7 @@ typedef struct t_edrawparams {
  * @details It contains the t_eobj with all the members for graphical behavior.
  * This should be used for graphical object that don't have signal processing methods.
  */
-typedef struct t_ebox {
+typedef struct t_ebox_ {
     t_eobj b_obj; ///<The  object.
 
     t_symbol* b_receive_id; /*!< The object user ID. */

@@ -103,6 +103,11 @@ UIKnob::UIKnob()
 {
     click_pos_.x = 0;
     click_pos_.y = 0;
+
+    initPopupMenu("knob",
+        { { _("min"), [this](const t_pt&) { onFloat(prop_min); } },
+            { _("center"), [this](const t_pt&) { onFloat(convert::lin2lin<t_float>(0.5, 0, 1, prop_min, prop_max)); } },
+            { _("max"), [this](const t_pt&) { onFloat(prop_max); } } });
 }
 
 void UIKnob::paint()
@@ -207,30 +212,11 @@ void UIKnob::onMouseWheel(const t_pt& pt, long modifiers, double delta)
     output();
 }
 
-void UIKnob::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt)
-{
-    switch (item_idx) {
-    case 0:
-        onFloat(prop_min);
-        break;
-    case 1:
-        onFloat(convert::lin2lin<t_float>(0.5, 0, 1, prop_min, prop_max));
-        break;
-    case 2:
-        onFloat(prop_max);
-        break;
-    default:
-        UI_ERR << "unknown popup menu index: " << item_idx;
-        break;
-    }
-}
-
 void UIKnob::showPopup(const t_pt& pt, const t_pt& abs_pt)
 {
-    UIPopupMenu menu(asEObj(), SYM_POPUP_LINEAR, abs_pt, pt);
-    menu.addItem(_("min"));
-    menu.addItem(_("center"), scaleMode() == LINEAR);
-    menu.addItem(_("max"));
+    UIPopupMenu menu(asEObj(), popup_menu_list_.front(), abs_pt, pt);
+    if (scaleMode() != LINEAR)
+        menu.disable(_("center"));
 }
 
 void setup_ui_knob()

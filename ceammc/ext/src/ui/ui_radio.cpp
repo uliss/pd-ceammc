@@ -25,6 +25,11 @@ UIRadio::UIRadio()
     , items_layer_(asEBox(), gensym("items_layer"))
 {
     createOutlet();
+
+    initPopupMenu("checklist",
+        { { _("reset"), [this](const t_pt&) { if(prop_checklist_mode_) m_reset(); } },
+            { _("flip"), [this](const t_pt&) { if(prop_checklist_mode_) m_flip(); } },
+            { _("random"), [this](const t_pt&) { if(prop_checklist_mode_) m_random(); } } });
 }
 
 void UIRadio::init(t_symbol* name, const AtomList& args, bool usePresets)
@@ -310,34 +315,10 @@ void UIRadio::storePreset(size_t idx)
         PresetStorage::instance().setFloatValueAt(presetId(), idx, singleValue());
 }
 
-void UIRadio::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt)
-{
-    if (menu_name == gensym(MENU_NAME_CHECKLIST) && prop_checklist_mode_) {
-        switch (item_idx) {
-        case 0:
-            m_reset();
-            break;
-        case 1:
-            m_flip();
-            break;
-        case 2:
-            m_random();
-            break;
-        default:
-            UI_ERR << "unknown menu item: " << item_idx;
-            break;
-        }
-    }
-}
-
 void UIRadio::showPopup(const t_pt& pt, const t_pt& abs_pt)
 {
-    if (prop_checklist_mode_) {
-        UIPopupMenu menu(asEObj(), MENU_NAME_CHECKLIST, abs_pt, pt);
-        menu.addItem(_("reset"));
-        menu.addItem(_("flip"));
-        menu.addItem(_("random"));
-    }
+    if (prop_checklist_mode_)
+        showPopupMenu("checklist", pt, abs_pt);
 }
 
 AtomList UIRadio::listValue() const

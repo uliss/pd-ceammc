@@ -66,8 +66,6 @@ public:
     void onMouseWheel(const t_pt& pt, long mod, float delta);
     void onMouseUp(t_object*, const t_pt&, long);
     void onDblClick(t_object*, const t_pt& pt, long modifiers);
-    void onPopup(t_symbol* msg, long itemIdx, const t_pt &pt);
-    void showPopup(const t_pt& pt, const t_pt& abs_pt);
 
     void updateNodes();
     void updateEnvelope();
@@ -96,7 +94,6 @@ private:
     void drawCursor(const t_rect& r);
     void drawEnvelope(const t_rect& r);
 
-    void makeCommonPopup(const t_pt& pt, const t_pt& abs_pt);
     void addNode(const t_pt& pt);
     long findSelectedNodeIdx() const;
 

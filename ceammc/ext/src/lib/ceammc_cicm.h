@@ -3,8 +3,11 @@
 
 #include "cicm/Sources/cicm_wrapper.h"
 
+#include <functional>
+#include <initializer_list>
 #include <memory>
 #include <string>
+#include <tuple>
 #include <vector>
 
 namespace ceammc {
@@ -156,20 +159,51 @@ public:
 
 bool contains_point(const t_rect& r, const t_pt& pt);
 
+class PopupMenuCallbacks {
+public:
+    typedef std::function<void(const t_pt&)> MenuEntryFn;
+    typedef std::tuple<std::string, MenuEntryFn> Entry;
+    typedef std::vector<Entry> MenuItems;
+
+private:
+    MenuItems items_;
+    std::string name_;
+
+public:
+    PopupMenuCallbacks(const std::string& name, std::initializer_list<Entry> args = {});
+    MenuItems& items() { return items_; }
+    const MenuItems& items() const { return items_; }
+    const std::string& name() const { return name_; }
+
+    void addSeparator();
+    void addItem(const std::string& name, MenuEntryFn fn);
+
+    bool process(t_symbol* name, size_t idx, const t_pt& pt);
+
+public:
+    static Entry sep()
+    {
+        return { "", [](const t_pt&) {} };
+    }
+};
+
 class UIPopupMenu {
     t_epopup* menu_;
     t_pt abs_pos_;
     t_pt rel_pos_;
-    typedef std::pair<std::string, bool> MenuEntry;
-    std::vector<MenuEntry> menu_items_;
+    PopupMenuCallbacks menu_items_;
+    std::vector<std::string> disabled_items_;
 
 public:
-    UIPopupMenu(t_eobj* x, const char* name, const t_pt& absPos, const t_pt& relPos);
-    UIPopupMenu(t_eobj* x, t_symbol* name, const t_pt& absPos, const t_pt& relPos);
+    UIPopupMenu(t_eobj* x,
+        const PopupMenuCallbacks& items,
+        const t_pt& absPos,
+        const t_pt& relPos);
+
     ~UIPopupMenu();
 
-    void addSeparator();
-    void addItem(const std::string& name, bool enabled = true);
+    void disable(const std::string& name);
+    void disable(const std::vector<std::string>& names);
 };
 
 }

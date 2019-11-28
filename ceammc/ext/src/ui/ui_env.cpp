@@ -50,6 +50,11 @@ UIEnv::UIEnv()
     createOutlet();
     env_.setADSR(40 * 1000, 60 * 1000, 0.3, 400 * 1000);
     updateNodes();
+
+    initPopupMenu("adsr_select",
+        { { "ADSR(10 20 30 500)", [this](const t_pt&) { setNamedEnvelope(SYM_ADSR, { 10, 20, 30, 500 }); } },
+            { "ASR (500 500)", [this](const t_pt&) { setNamedEnvelope(SYM_ASR, { 500, 500 }); } },
+            { "AR (500 500)", [this](const t_pt&) { setNamedEnvelope(SYM_AR, { 500, 500 }); } } });
 }
 
 void UIEnv::onBang()
@@ -254,15 +259,6 @@ void UIEnv::drawEnvelope(const t_rect& r)
             }
         }
     }
-}
-
-void UIEnv::makeCommonPopup(const t_pt& pt, const t_pt& abs_pt)
-{
-    // context menu
-    UIPopupMenu menu(asEObj(), "adsr_select", abs_pt, pt);
-    menu.addItem("ADSR (10 20 30 500)");
-    menu.addItem("ASR (500 500)");
-    menu.addItem("AR (500 500)");
 }
 
 void UIEnv::addNode(const t_pt& pt)
@@ -524,46 +520,6 @@ void UIEnv::onDblClick(t_object*, const t_pt& pt, long modifiers)
     }
 
     redrawLayer(envelope_layer_);
-}
-
-void UIEnv::onPopup(t_symbol* msg, long itemIdx, const t_pt& pt)
-{
-    if (msg == gensym("adsr_select")) {
-        switch (itemIdx) {
-        case 0: {
-            AtomList lst;
-            lst.append(10);
-            lst.append(20);
-            lst.append(30);
-            lst.append(500);
-            setNamedEnvelope(SYM_ADSR, lst);
-            break;
-        }
-        case 1: {
-            AtomList lst;
-            lst.append(500);
-            lst.append(500);
-            setNamedEnvelope(SYM_ASR, lst);
-            break;
-        }
-        case 2: {
-            AtomList lst;
-            lst.append(500);
-            lst.append(500);
-            setNamedEnvelope(SYM_AR, lst);
-            break;
-        }
-        default: {
-            UI_ERR << "popup menu inconsistance " << msg << ", index not exists: " << itemIdx;
-            break;
-        }
-        }
-    }
-}
-
-void UIEnv::showPopup(const t_pt& pt, const t_pt& abs_pt)
-{
-    makeCommonPopup(pt, abs_pt);
 }
 
 void UIEnv::updateNodes()

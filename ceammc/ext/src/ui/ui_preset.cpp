@@ -27,6 +27,9 @@ UIPreset::UIPreset()
     , selected_index_(-1)
     , mouse_over_index_(-1)
 {
+    initPopupMenu("preset",
+        { { _("read"), [this](const t_pt&) {m_read(AtomList());} },
+            { _("write"), [this](const t_pt&) { m_write(AtomList());} } });
 }
 
 void UIPreset::init(t_symbol* name, const AtomList& args, bool usePresets)
@@ -139,31 +142,6 @@ void UIPreset::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
 {
     mouse_over_index_ = -1;
     redrawLayer(bg_layer_);
-}
-
-void UIPreset::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pos)
-{
-    if (menu_name != SYM_POPUP)
-        return;
-
-    switch (item_idx) {
-    case 0:
-        m_read(AtomList());
-        break;
-    case 1:
-        m_write(AtomList());
-        break;
-    default:
-        break;
-    }
-}
-
-void UIPreset::showPopup(const t_pt& pt, const t_pt& abs_pt)
-{
-    UIPopupMenu p(asEObj(), SYM_POPUP, abs_pt, pt);
-    p.addItem(_("read"));
-    p.addItem(_("write"));
-    return;
 }
 
 int UIPreset::buttonIndexAt(float x, float y) const
