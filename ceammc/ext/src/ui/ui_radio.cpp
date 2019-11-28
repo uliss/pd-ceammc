@@ -507,6 +507,7 @@ void UIRadio::setup()
     obj.useList();
     obj.usePresets();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DBL_CLICK);
+    obj.usePopup();
     obj.setDefaultSize(127, 15);
     obj.hideLabelInner();
 

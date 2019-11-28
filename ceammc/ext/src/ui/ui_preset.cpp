@@ -209,6 +209,7 @@ void UIPreset::setup()
     obj.addProperty("current", &UIPreset::propCurrent, 0);
 
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_MOVE | UI_MOUSE_LEAVE);
+    obj.usePopup();
     obj.addMethod(PresetStorage::SYM_PRESET_INDEX_ADD, &UIPreset::indexAdd);
     obj.addMethod(PresetStorage::SYM_PRESET_INDEX_REMOVE, &UIPreset::indexRemove);
 
