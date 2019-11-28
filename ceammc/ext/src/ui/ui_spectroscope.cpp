@@ -50,14 +50,14 @@ UISpectroscope::UISpectroscope()
     , prop_log_scale(0)
 {
 
-    initPopupMenu("ss_log", { { _("linear scale"), [this](const t_pt&) {
-                                   prop_log_scale = false;
+    initPopupMenu("ss_log", { { _("log scale"), [this](const t_pt&) {
+                                   prop_log_scale = true;
                                    bg_layer_.invalidate();
                                    graph_layer_.invalidate();
                                    redraw();
                                } } });
-    initPopupMenu("ss_lin", { { _("log scale"), [this](const t_pt&) {
-                                   prop_log_scale = true;
+    initPopupMenu("ss_lin", { { _("linear scale"), [this](const t_pt&) {
+                                   prop_log_scale = false;
                                    bg_layer_.invalidate();
                                    graph_layer_.invalidate();
                                    redraw();
