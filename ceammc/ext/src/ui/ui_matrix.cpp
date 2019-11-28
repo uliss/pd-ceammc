@@ -41,6 +41,51 @@ UIMatrix::UIMatrix()
     static_assert(std::numeric_limits<CellIdxT>::max() > UI_MAX_MATRIX_SIZE, "check cell index type");
 
     createOutlet();
+
+    initPopupMenu("matrix",
+        { { _("reset"), [this](const t_pt&) {
+               m_reset();
+           } },
+            { _("reset row"), [this](const t_pt& pt) {
+                 auto c = cellAt(pt);
+                 if (c.second >= 0) {
+                     setRow(c.second, AtomList::zeroes(prop_cols_));
+                     drawActiveCells();
+                 }
+             } },
+            { _("reset column"), [this](const t_pt& pt) {
+                 auto c = cellAt(pt);
+                 if (c.first >= 0) {
+                     setColumn(c.first, AtomList::zeroes(prop_rows_));
+                     drawActiveCells();
+                 }
+             } },
+            { _("flip"), [this](const t_pt&) {
+                 m_flip(AtomList());
+             } },
+            { _("flip row"), [this](const t_pt& pt) {
+                 auto c = cellAt(pt);
+                 if (c.second >= 0) {
+                     flipRow(c.second);
+                     drawActiveCells();
+                 }
+             } },
+            { _("flip column"), [this](const t_pt& pt) {
+                 auto c = cellAt(pt);
+                 if (c.first >= 0) {
+                     flipColumn(c.first);
+                     drawActiveCells();
+                 }
+             } },
+            { _("random"), [this](const t_pt&) {
+                 m_random();
+             } },
+            PopupMenuCallbacks::sep(), { _("load"), [this](const t_pt&) {
+                                            eobj_read(asEObj(), gensym("read"), 0, nullptr);
+                                        } },
+            { _("save"), [this](const t_pt&) {
+                 eobj_write(asEObj(), gensym("write"), 0, nullptr);
+             } } });
 }
 
 void UIMatrix::init(t_symbol* name, const AtomList& args, bool usePresets)
@@ -778,56 +823,6 @@ void UIMatrix::onPropChange(t_symbol* prop_name)
 void UIMatrix::onZoom(t_float z)
 {
     bg_layer_.invalidate();
-}
-
-void UIMatrix::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt)
-{
-    if (menu_name == gensym("menu")) {
-        switch (item_idx) {
-        case 0:
-            m_reset();
-            break;
-        case 1:
-            m_flip(AtomList());
-            break;
-        case 2: {
-            auto c = cellAt(pt);
-            if (c.second >= 0) {
-                flipRow(c.second);
-                drawActiveCells();
-            }
-        } break;
-        case 3: {
-            auto c = cellAt(pt);
-            if (c.first >= 0) {
-                flipColumn(c.first);
-                drawActiveCells();
-            }
-        } break;
-        case 4:
-            m_random();
-            break;
-        case 5:
-            eobj_read(asEObj(), gensym("read"), 0, nullptr);
-            break;
-        case 6:
-            eobj_write(asEObj(), gensym("write"), 0, nullptr);
-            break;
-        }
-    }
-}
-
-void UIMatrix::showPopup(const t_pt& pt, const t_pt& abs_pt)
-{
-    UIPopupMenu menu(asEObj(), "menu", abs_pt, pt);
-    menu.addItem(_("reset"));
-    menu.addItem(_("flip"));
-    menu.addItem(_("flip row"));
-    menu.addItem(_("flip column"));
-    menu.addItem(_("random"));
-    menu.addSeparator();
-    menu.addItem(_("load"));
-    menu.addItem(_("save"));
 }
 
 float UIMatrix::p_rows() const
