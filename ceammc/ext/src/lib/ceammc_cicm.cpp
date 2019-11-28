@@ -1,5 +1,7 @@
 #include "ceammc_cicm.h"
 
+#include <algorithm>
+
 namespace ceammc {
 
 static const char* SYM_DECORATION_NONE = "roman";
