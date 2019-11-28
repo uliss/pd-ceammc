@@ -413,8 +413,11 @@ UIPopupMenu::~UIPopupMenu()
             epopupmenu_addseparator(menu_);
         else {
             auto it = std::find(disabled_items_.begin(), disabled_items_.end(), std::get<0>(m));
-            epopupmenu_additem(menu_, cnt++, std::get<0>(m).c_str(), it == disabled_items_.end(), rel_pos_);
+            epopupmenu_additem(menu_, cnt, std::get<0>(m).c_str(), it == disabled_items_.end(), rel_pos_);
         }
+
+        // counter increment
+        cnt++;
     }
 
     epopupmenu_popup(menu_, abs_pos_);
