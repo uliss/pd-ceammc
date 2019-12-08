@@ -865,10 +865,7 @@ public:
 
         // invalidate mouse pointer coord on mouseLeave to prevent mouseWheel handle
         // when mouse is outside of widget
-        t_pt pos;
-        pos.x = std::numeric_limits<t_float>::max();
-        pos.y = pos.x;
-        updateMousePos(pos);
+        updateMousePos({std::numeric_limits<decltype(t_pt::x)>::max(), std::numeric_limits<decltype(t_pt::y)>::max()});
 
         outputMouse(z, SYM, true);
         z->onMouseLeave(view, pt, modifiers);
@@ -888,18 +885,12 @@ public:
 
     static void mouseWheel(UI* z, t_pt pt, long modifiers, float delta)
     {
-#ifdef __APPLE__
-        z->onMouseWheel(pt, modifiers, delta);
-#else
         z->onMouseWheel(mouse_pos_, modifiers, delta);
-#endif
     }
 
     static void updateMousePos(const t_pt& pt)
     {
-#ifndef __APPLE__
         mouse_pos_ = pt;
-#endif
     }
 
     static void dblClick(UI* z, t_object* view, t_pt pt, long modifiers)
@@ -1199,11 +1190,7 @@ public:
     static ListMethodMap list_map;
     static FloatPropertyMap prop_float_map;
     static ListPropertyMap prop_list_map;
-
-    // trick to get valid mouse pointer coordinates on MouseWheel event on Linux and Windows
-#ifndef __APPLE__
     static t_pt mouse_pos_;
-#endif
 };
 
 template <class UI>
@@ -1215,10 +1202,8 @@ bool UIObjectFactory<UI>::use_presets = false;
 template <class UI>
 long UIObjectFactory<UI>::flags = 0;
 
-#ifndef __APPLE__
 template <class UI>
 t_pt UIObjectFactory<UI>::mouse_pos_;
-#endif
 
 template <class UI>
 typename UIObjectFactory<UI>::BangMethodMap UIObjectFactory<UI>::bang_map;
