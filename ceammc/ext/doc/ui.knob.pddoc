@@ -26,8 +26,8 @@
             <event editmode="false" type="wheel">change the knob value (with ⇧ change
             slowly)</event>
             <event editmode="false" type="double-click">set knob to the middle position</event>
-            <event editmode="false" type="double-click" keys="Shift">toggle MIDI-learn mode (red border
-            displayed)</event>
+            <event editmode="false" type="double-click" keys="Shift">toggle MIDI-learn mode (red
+            border displayed)</event>
             <event editmode="false" type="right-click">open popup menu</event>
             <event editmode="false" type="right-click" keys="Shift">open object help</event>
             <event editmode="false" type="right-click" keys="Alt">open properties dialog</event>
