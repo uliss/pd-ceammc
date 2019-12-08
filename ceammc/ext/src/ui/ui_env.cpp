@@ -622,37 +622,6 @@ void UIEnv::onMouseUp(t_object*, const t_pt& pt, long)
     dataTo(0, DataPtr(env_.clone()));
 }
 
-void UIEnv::onDblClick(t_object*, const t_pt& pt, long modifiers)
-{
-    const float z = zoom();
-    const float x_norm = pt.x / z;
-
-    if (!(modifiers & EMOD_ALT))
-        return;
-
-    long idx = -1;
-    for (size_t i = 1; i < nodes_.size(); i++) {
-        if (x_norm < nodes_[i].x) {
-            idx = i - 1;
-            break;
-        }
-    }
-
-    if (idx < 0)
-        return;
-
-    Node& n = nodes_[idx];
-    CurveType types[] = { CURVE_STEP, CURVE_LINE, CURVE_EXP, CURVE_SIN2, CURVE_SIGMOID };
-    for (size_t i = 0; i < boost::size(types); i++) {
-        if (n.type == types[i]) {
-            n.type = types[(i + 1) % boost::size(types)];
-            break;
-        }
-    }
-
-    redrawLayer(envelope_layer_);
-}
-
 void UIEnv::showPopup(const t_pt& pt, const t_pt& abs_pt)
 {
     auto idx = findSelectedNodeIdx();
