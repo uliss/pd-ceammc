@@ -8,12 +8,19 @@
 
 using namespace ceammc;
 
+enum class SelectType {
+    NONE = 0,
+    POINT,
+    LINE
+};
+
 struct Node {
     float x, y;
     float curve;
     float sigmoid_skew;
     CurveType type;
-    bool is_selected, is_stop;
+    SelectType select;
+    bool is_stop;
     bool fixed_x, fixed_y;
 
     Node()
@@ -22,7 +29,7 @@ struct Node {
         , curve(0)
         , sigmoid_skew(0)
         , type(CURVE_LINE)
-        , is_selected(false)
+        , select(SelectType::NONE)
         , is_stop(false)
         , fixed_x(false)
         , fixed_y(false)
@@ -66,6 +73,7 @@ public:
     void onMouseWheel(const t_pt& pt, long mod, float delta);
     void onMouseUp(t_object*, const t_pt&, long);
     void onDblClick(t_object*, const t_pt& pt, long modifiers);
+    void showPopup(const t_pt& pt, const t_pt& abs_pt);
 
     void updateNodes();
     void updateEnvelope();
@@ -99,6 +107,10 @@ private:
 
     void toggleSelectedNodeStop();
     void removeSelectedNode();
+
+    long findNodeLine(const t_pt& pt);
+    void deselectAll();
+    bool hasSelectedEdge() const;
 
 public:
     static void setup();
