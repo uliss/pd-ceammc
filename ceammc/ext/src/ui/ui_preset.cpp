@@ -192,12 +192,7 @@ void UIPreset::setup()
     SYM_POPUP = gensym("main");
 
     UIObjectFactory<UIPreset> obj("ui.preset");
-
-#ifdef __WIN32
     obj.setDefaultSize(102, 42);
-#else
-    obj.setDefaultSize(102, 42);
-#endif
 
     obj.hideProperty("send");
     obj.hideLabelInner();
