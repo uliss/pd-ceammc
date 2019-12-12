@@ -425,7 +425,7 @@ void UIEnv::onMouseMove(t_object*, const t_pt& pt, long modifiers)
     redrawInnerArea();
 }
 
-void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long)
+void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long mod)
 {
     const float z = zoom();
     const float x_norm = pt.x / z;
@@ -464,15 +464,9 @@ void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long)
     envelope_layer_.invalidate();
     cursor_layer_.invalidate();
     redrawInnerArea();
-}
 
-void UIEnv::toggleSelectedNodeStop()
-{
-    auto idx = findSelectedNodeIdx();
-    if (idx > 0) {
-        nodes_[idx].is_stop = !nodes_[idx].is_stop;
-        redrawLayer(envelope_layer_);
-    }
+    if (shouldOutput(mod))
+        outputEnvelope();
 }
 
 void UIEnv::removeSelectedNode()
@@ -503,7 +497,7 @@ long UIEnv::findNodeLine(const t_pt& pt)
     for (size_t i = 1; i < nodes_.size(); i++) {
         auto& n0 = nodes_[i - 1];
         auto& n1 = nodes_[i];
-        if (x_norm < n1.x && in_between(y_norm, n0.y, n1.y))
+        if (in_between(x_norm, n0.x, n1.x) && in_between(y_norm, n0.y, n1.y))
             return i - 1;
     }
 
@@ -522,17 +516,25 @@ bool UIEnv::hasSelectedEdge() const
     return std::find_if(nodes_.begin(), nodes_.end(), [](const Node& n) { return n.select == SelectType::LINE; }) != nodes_.end();
 }
 
+void UIEnv::outputEnvelope()
+{
+    updateEnvelope();
+    dataTo(0, DataPtr(env_.clone()));
+}
+
+bool UIEnv::shouldOutput(long mod)
+{
+#ifndef __APPLE__
+    return (mod & EMOD_CTRL);
+#else
+    return (mod & EMOD_CMD);
+#endif
+}
+
 void UIEnv::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
 {
     if (mod & EMOD_SHIFT) {
         addNode(pt);
-#ifndef __APPLE__
-    } else if (mod & EMOD_CTRL) {
-        toggleSelectedNodeStop();
-#else
-    } else if (mod & EMOD_CMD) {
-        toggleSelectedNodeStop();
-#endif
     } else if (mod & EMOD_ALT) {
         removeSelectedNode();
     } else {
@@ -564,6 +566,9 @@ void UIEnv::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
             redrawLayer(envelope_layer_);
         }
     }
+
+    if (shouldOutput(mod))
+        outputEnvelope();
 }
 
 void UIEnv::onMouseLeave(t_object*, const t_pt& pt, long)
@@ -571,6 +576,12 @@ void UIEnv::onMouseLeave(t_object*, const t_pt& pt, long)
     draw_cursor_cross_ = false;
     draw_cursor_pos_ = false;
     redrawLayer(cursor_layer_);
+}
+
+void UIEnv::onMouseUp(t_object* view, const t_pt& pt, long mod)
+{
+    if (shouldOutput(mod))
+        outputEnvelope();
 }
 
 void UIEnv::onMouseWheel(const t_pt& pt, long mod, float delta)
@@ -614,12 +625,6 @@ void UIEnv::onMouseWheel(const t_pt& pt, long mod, float delta)
     }
 
     redrawLayer(envelope_layer_);
-}
-
-void UIEnv::onMouseUp(t_object*, const t_pt& pt, long)
-{
-    updateEnvelope();
-    dataTo(0, DataPtr(env_.clone()));
 }
 
 void UIEnv::showPopup(const t_pt& pt, const t_pt& abs_pt)
@@ -810,6 +815,7 @@ void UIEnv::setup()
         | UI_MOUSE_MOVE | UI_MOUSE_LEAVE
         | UI_MOUSE_WHEEL | UI_MOUSE_UP);
     obj.useData();
+    obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIEnv::prop_active_color);
     obj.addProperty("line_color", _("Line Color"), DEFAULT_LINE_COLOR, &UIEnv::prop_line_color);

@@ -67,11 +67,11 @@ public:
     void paint();
     void okSize(t_rect* newrect);
     void onMouseMove(t_object*, const t_pt& pt, long modifiers);
-    void onMouseDrag(t_object*, const t_pt& pt, long);
+    void onMouseDrag(t_object*, const t_pt& pt, long mod);
     void onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod);
     void onMouseLeave(t_object*, const t_pt&, long);
+    void onMouseUp(t_object* view, const t_pt& pt, long mod);
     void onMouseWheel(const t_pt& pt, long mod, float delta);
-    void onMouseUp(t_object*, const t_pt&, long);
     void showPopup(const t_pt& pt, const t_pt& abs_pt);
 
     void updateNodes();
@@ -104,12 +104,14 @@ private:
     void addNode(const t_pt& pt);
     long findSelectedNodeIdx() const;
 
-    void toggleSelectedNodeStop();
     void removeSelectedNode();
 
     long findNodeLine(const t_pt& pt);
     void deselectAll();
     bool hasSelectedEdge() const;
+
+    void outputEnvelope();
+    static bool shouldOutput(long mod);
 
 public:
     static void setup();
