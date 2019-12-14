@@ -542,28 +542,27 @@ void UIEnv::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
         const float x_norm = pt.x / z;
         const float y_norm = pt.y / z;
 
-        // node is found: stop search
-        if (findNearestNode(x_norm, y_norm) >= 0)
-            return;
+        // not a node click
+        if (findNearestNode(x_norm, y_norm) < 0) {
+            long idx = findNodeLine(pt);
 
-        long idx = findNodeLine(pt);
+            // reset all others nodes
+            if (idx >= 0) {
+                // toggle selection
+                if (nodes_[idx].select != SelectType::NONE)
+                    nodes_[idx].select = SelectType::NONE;
+                else
+                    nodes_[idx].select = SelectType::LINE;
 
-        // reset all others nodes
-        if (idx >= 0) {
-            // toggle selection
-            if (nodes_[idx].select != SelectType::NONE)
-                nodes_[idx].select = SelectType::NONE;
-            else
-                nodes_[idx].select = SelectType::LINE;
+                for (size_t i = 0; i < nodes_.size(); i++) {
+                    if (i == idx)
+                        continue;
 
-            for (size_t i = 0; i < nodes_.size(); i++) {
-                if (i == idx)
-                    continue;
+                    nodes_[i].select = SelectType::NONE;
+                }
 
-                nodes_[i].select = SelectType::NONE;
+                redrawLayer(envelope_layer_);
             }
-
-            redrawLayer(envelope_layer_);
         }
     }
 
