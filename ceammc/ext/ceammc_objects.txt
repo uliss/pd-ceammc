@@ -664,6 +664,8 @@ ui.menu
 ui.meter~
 ui.mf
 ui.mouse_filter
+ui.mouse_route
+ui.mr
 ui.m~
 ui.n
 ui.number
