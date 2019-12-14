@@ -29,16 +29,16 @@
         <mouse>
             <event editmode="false" type="left-click">jump both ends to coord under mouse
             pointer</event>
-            <event editmode="false" type="left-click" keys="⌘">outputs current slider value</event>
-            <event editmode="false" type="left-click" keys="⌥">jump nearest border to coord under
+            <event editmode="false" type="left-click" keys="Cmd">outputs current slider value</event>
+            <event editmode="false" type="left-click" keys="Alt">jump nearest border to coord under
             mouse pointer</event>
             <event editmode="false" type="drag">increase slider range</event>
-            <event editmode="false" type="drag" keys="⌥">change nearest border coord</event>
-            <event editmode="false" type="drag" keys="⇧">move slider range</event>
-            <event editmode="false" type="right-click" keys="⇧">open object help</event>
-            <event editmode="false" type="right-click" keys="⌥">open properties dialog</event>
-            <event editmode="true" type="right-click" keys="⇧">open object help</event>
-            <event editmode="true" type="right-click" keys="⌥">open properties dialog</event>
+            <event editmode="false" type="drag" keys="Alt">change nearest border coord</event>
+            <event editmode="false" type="drag" keys="Shift">move slider range</event>
+            <event editmode="false" type="right-click" keys="Shift">open object help</event>
+            <event editmode="false" type="right-click" keys="Alt">open properties dialog</event>
+            <event editmode="true" type="right-click" keys="Shift">open object help</event>
+            <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
             <property name="@min" type="float" default="0">minimum allowed slider value</property>
