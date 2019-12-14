@@ -475,7 +475,7 @@ ui.number,ui.n		.		.
 ui.number~,ui.n~		~		~
 ui.polar		.		.
 ui.preset		.		-
-ui.radio,ui.hrd,ui.vrd		.		.
+ui.radio,ui.hrd,ui.hrd*,ui.vrd,ui.vrd*		.		.
 ui.rslider,ui.rsl		.		.
 ui.scope~		.		-
 ui.slider,ui.hsl,ui.vsl		.		.
