@@ -651,6 +651,7 @@ ui.gain~
 ui.hgain2~
 ui.hgain~
 ui.hrd
+ui.hrd*
 ui.hsl
 ui.icon
 ui.incdec
@@ -671,6 +672,7 @@ ui.n~
 ui.polar
 ui.preset
 ui.radio
+ui.radio*
 ui.rsl
 ui.rslider
 ui.scope~
@@ -685,6 +687,7 @@ ui.toggle
 ui.vgain2~
 ui.vgain~
 ui.vrd
+ui.vrd*
 ui.vsl
 vline->env
 vline2env
