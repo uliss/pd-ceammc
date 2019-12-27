@@ -27,13 +27,14 @@ class ListRemove : public BaseObject {
 public:
     ListRemove(const PdArgs& args);
 
-    void onInlet(size_t, const AtomList&) override;
-    void onList(const AtomList& lst) override;
+    void onInlet(size_t, const AtomList&) final;
+    void onList(const AtomList& lst) final;
 
     void onDataT(const DataTPtr<DataTypeMList>& l);
 
 private:
     void precalcIndexes(size_t N);
+    void setRemoveList(const AtomList& lst);
 };
 
 void setup_list_remove();
