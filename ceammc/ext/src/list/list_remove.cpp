@@ -23,16 +23,21 @@ ListRemove::ListRemove(const PdArgs& args)
     createInlet();
     createOutlet();
 
-    onInlet(1, positionalArguments());
+    setRemoveList(positionalArguments());
 }
 
-void ListRemove::onInlet(size_t, const AtomList& lst)
+void ListRemove::setRemoveList(const AtomList& lst)
 {
     auto l = list::uniqueSorted(lst);
     idx_.clear();
     idx_.reserve(l.size());
     for (auto& el : l)
         idx_.push_back(el.asInt());
+}
+
+void ListRemove::onInlet(size_t, const AtomList& lst)
+{
+    setRemoveList(lst);
 }
 
 void ListRemove::onList(const AtomList& lst)
