@@ -290,14 +290,14 @@ information.;
 #X text 245 4009 Get/Set enabled property. Type: int. Allowed values:
 0 \, 1\.;
 #X msg 110 4038 @icon;
-#X text 245 4038 Get/Set icon name. Type: symbol. Default value: default.
+#X text 245 4038 Get/Set icon name. Type: symbol. Default value: help.
 Allowed values: add \, add_circle \, add_circle_outline \, add_to_queue
 \, alarm \, alarm_off \, alarm_on \, album \, arrow_down \, arrow_left
 \, arrow_right \, arrow_up \, audio \, backspace \, block \, bluetooth
 \, blur_on \, bookmark \, bookmark_border \, build \, cached \, capslock
-\, check_circle \, clear \, clock \, computer \, content_cut \, copy
-\, copyright \, delete \, delete_forever \, done \, eject \, equalizer
-\, exit \, fast_forward \, fast_rewind \, favorite \, favorite_border
+\, check_circle \, ceammc \, clear \, clock \, computer \, content_cut
+\, copy \, copyright \, delete \, delete_forever \, done \, eject \,
+equalizer \, exit \, fast_forward \, fast_rewind \, favorite \, favorite_border
 \, fingerprint \, flag \, folder \, folder_open \, functions \, gamepad
 \, get_app \, grade \, grain \, group \, hdmi \, headset \, headset_mic
 \, hearing \, help \, help_outline \, history \, home \, hourglass
@@ -312,8 +312,7 @@ notifications \, open_with \, pause \, pause_circle_filled \, pause_circle_outli
 \, shuffle \, skip_next \, skip_previous \, speaker \, speaker_group
 \, stars \, stop \, tape \, timeline \, touch_app \, trending_flat
 \, undo \, videocam \, visibility \, visibility_off \, volume_down
-\, volume_mute \, volume_off \, volume_up \, zoom_in \, zoom_out \,
-default.;
+\, volume_mute \, volume_off \, volume_up \, zoom_in \, zoom_out.;
 #X msg 110 4427 @icon_size;
 #X text 245 4427 Get/Set icons size. Type: int. Default value: 24\.
 Allowed values: 18 \, 24 \, 36 \, 48\.;

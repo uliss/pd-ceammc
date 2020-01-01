@@ -81,8 +81,15 @@ void UIMouseFilter::onAny(t_symbol* s, const AtomList& l)
         anyTo(0, s, l);
 }
 
+void UIMouseFilter::onData(const DataPtr& ptr)
+{
+    if (!closed_)
+        dataTo(0, ptr);
+}
+
 void setup_ui_mouse_filter()
 {
     ObjectFactory<UIMouseFilter> obj("ui.mouse_filter");
     obj.addAlias("ui.mf");
+    obj.processData();
 }

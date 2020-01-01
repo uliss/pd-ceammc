@@ -9,6 +9,7 @@
 static const int ENV_MIN_WIDTH = 40;
 static const int ENV_MIN_HEIGHT = 30;
 static t_rgba DELETE_COLOR = hex_to_rgba("#F00030");
+static t_rgba LINE_SELECTION_COLOR = hex_to_rgba("#AAFFFF");
 static const char* DEFAULT_LINE_COLOR = "0.1 0.1 0.1 1.0";
 static const char* PROP_LENGTH = "length";
 
@@ -50,6 +51,78 @@ UIEnv::UIEnv()
     createOutlet();
     env_.setADSR(40 * 1000, 60 * 1000, 0.3, 400 * 1000);
     updateNodes();
+
+    initPopupMenu("env",
+        { { "ADSR(10 20 30 500)", [this](const t_pt&) { setNamedEnvelope(SYM_ADSR, { 10, 20, 30, 500 }); } },
+            { "ASR (500 500)", [this](const t_pt&) { setNamedEnvelope(SYM_ASR, { 500, 500 }); } },
+            { "AR (500 500)", [this](const t_pt&) { setNamedEnvelope(SYM_AR, { 500, 500 }); } } });
+
+    initPopupMenu("point",
+        { { "toggle stop", [this](const t_pt& pt) {
+               auto idx = findSelectedNodeIdx();
+               // ignore first node too
+               if (idx < 1)
+                   return;
+
+               nodes_[idx].is_stop = !nodes_[idx].is_stop;
+               redrawLayer(envelope_layer_);
+           } },
+            { "toggle fixed Y", [this](const t_pt& pt) {
+                 auto idx = findSelectedNodeIdx();
+                 // ignore first node too
+                 if (idx < 1)
+                     return;
+
+                 nodes_[idx].fixed_y = !nodes_[idx].fixed_y;
+                 redrawLayer(envelope_layer_);
+             } } });
+
+    initPopupMenu("line",
+        { { "linear", [this](const t_pt& pt) {
+               auto idx = findNodeLine(pt);
+               if (idx < 0)
+                   return;
+
+               nodes_[idx].type = CURVE_LINE;
+               nodes_[idx].select = SelectType::NONE;
+               redrawLayer(envelope_layer_);
+           } },
+            { "exp", [this](const t_pt& pt) {
+                 auto idx = findNodeLine(pt);
+                 if (idx < 0)
+                     return;
+
+                 nodes_[idx].type = CURVE_EXP;
+                 nodes_[idx].select = SelectType::NONE;
+                 redrawLayer(envelope_layer_);
+             } },
+            { "sin2", [this](const t_pt& pt) {
+                 auto idx = findNodeLine(pt);
+                 if (idx < 0)
+                     return;
+
+                 nodes_[idx].type = CURVE_SIN2;
+                 nodes_[idx].select = SelectType::NONE;
+                 redrawLayer(envelope_layer_);
+             } },
+            { "sigmoid", [this](const t_pt& pt) {
+                 auto idx = findNodeLine(pt);
+                 if (idx < 0)
+                     return;
+
+                 nodes_[idx].type = CURVE_SIGMOID;
+                 nodes_[idx].select = SelectType::NONE;
+                 redrawLayer(envelope_layer_);
+             } },
+            { "step", [this](const t_pt& pt) {
+                 auto idx = findNodeLine(pt);
+                 if (idx < 0)
+                     return;
+
+                 nodes_[idx].type = CURVE_STEP;
+                 nodes_[idx].select = SelectType::NONE;
+                 redrawLayer(envelope_layer_);
+             } } });
 }
 
 void UIEnv::onBang()
@@ -170,7 +243,10 @@ void UIEnv::drawEnvelope(const t_rect& r)
         for (size_t i = 0; i < total; i++) {
             const Node& n = nodes_[i];
 
-            ep.setColor(prop_line_color);
+            if (n.select == SelectType::LINE)
+                ep.setColor(LINE_SELECTION_COLOR);
+            else
+                ep.setColor(prop_line_color);
 
             // draw segments
             if (i != (total - 1)) { // skip last point
@@ -232,7 +308,7 @@ void UIEnv::drawEnvelope(const t_rect& r)
             }
 
             // draw selection rectangle
-            if (n.is_selected) {
+            if (n.select == SelectType::POINT) {
                 bool is_inner_node = ((i != 0) && (i != (total - 1)));
                 if (delete_mode_ && is_inner_node)
                     ep.setColor(DELETE_COLOR);
@@ -254,15 +330,6 @@ void UIEnv::drawEnvelope(const t_rect& r)
             }
         }
     }
-}
-
-void UIEnv::makeCommonPopup(const t_pt& abs_pt)
-{
-    // context menu
-    UIPopupMenu menu(asEObj(), "adsr_select", abs_pt);
-    menu.addItem("ADSR (10 20 30 500)");
-    menu.addItem("ASR (500 500)");
-    menu.addItem("AR (500 500)");
 }
 
 void UIEnv::addNode(const t_pt& pt)
@@ -287,7 +354,7 @@ void UIEnv::addNode(const t_pt& pt)
     Node n;
     n.x = x_norm;
     n.y = y_norm;
-    n.is_selected = true;
+    n.select = SelectType::POINT;
 
     // insert new selected node
     nodes_.insert(nodes_.begin() + insert_idx, n);
@@ -296,16 +363,8 @@ void UIEnv::addNode(const t_pt& pt)
 
 long UIEnv::findSelectedNodeIdx() const
 {
-    // find selected node index
-    long idx = -1;
-    for (size_t i = 0; i < nodes_.size(); i++) {
-        if (nodes_[i].is_selected) {
-            idx = static_cast<long>(i);
-            break;
-        }
-    }
-
-    return idx;
+    auto it = std::find_if(nodes_.begin(), nodes_.end(), [](const Node& n) { return n.select == SelectType::POINT; });
+    return (it == nodes_.end()) ? -1 : std::distance(nodes_.begin(), it);
 }
 
 void UIEnv::paint()
@@ -331,47 +390,48 @@ void UIEnv::onMouseMove(t_object*, const t_pt& pt, long modifiers)
     const float x_norm = pt.x / z;
     const float y_norm = pt.y / z;
 
-    int idx = findNearestNode(x_norm, y_norm);
-
-    if (selectNode(idx < 0 ? nodes_.size() : idx))
-        envelope_layer_.invalidate();
+    int node_idx = findNearestNode(x_norm, y_norm);
+    if (node_idx >= 0) {
+        if (selectNode(node_idx))
+            envelope_layer_.invalidate();
+    } else {
+        if (!hasSelectedEdge()) {
+            deselectAll();
+            envelope_layer_.invalidate();
+        }
+    }
 
     // draw cursor position
     if (modifiers == EMOD_SHIFT) {
         draw_cursor_pos_ = true;
         draw_cursor_cross_ = true;
         cursor_pos_ = pt;
+        cursor_layer_.invalidate();
     } else if (modifiers == EMOD_ALT) {
         delete_mode_ = true;
         envelope_layer_.invalidate();
     } else {
         delete_mode_ = false;
         draw_cursor_cross_ = false;
-        draw_cursor_pos_ = (idx >= 0);
+        draw_cursor_pos_ = (node_idx >= 0);
 
-        if (idx >= 0) {
-            cursor_pos_.x = nodes_[idx].x * z;
-            cursor_pos_.y = nodes_[idx].y * z;
+        if (node_idx >= 0) {
+            cursor_pos_.x = nodes_[node_idx].x * z;
+            cursor_pos_.y = nodes_[node_idx].y * z;
+            cursor_layer_.invalidate();
         }
     }
 
-    redrawLayer(cursor_layer_);
+    redrawInnerArea();
 }
 
-void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long)
+void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long mod)
 {
     const float z = zoom();
     const float x_norm = pt.x / z;
     const float y_norm = pt.y / z;
 
-    long idx = -1;
-    for (size_t i = 0; i < nodes_.size(); i++) {
-        if (nodes_[i].is_selected) {
-            idx = i;
-            break;
-        }
-    }
-
+    long idx = findSelectedNodeIdx();
     // no selected node
     if (idx < 0)
         return;
@@ -404,15 +464,9 @@ void UIEnv::onMouseDrag(t_object*, const t_pt& pt, long)
     envelope_layer_.invalidate();
     cursor_layer_.invalidate();
     redrawInnerArea();
-}
 
-void UIEnv::toggleSelectedNodeStop()
-{
-    auto idx = findSelectedNodeIdx();
-    if (idx > 0) {
-        nodes_[idx].is_stop = !nodes_[idx].is_stop;
-        redrawLayer(envelope_layer_);
-    }
+    if (shouldOutput(mod))
+        outputEnvelope();
 }
 
 void UIEnv::removeSelectedNode()
@@ -428,17 +482,92 @@ void UIEnv::removeSelectedNode()
     redrawLayer(envelope_layer_);
 }
 
+long UIEnv::findNodeLine(const t_pt& pt)
+{
+    const float z = zoom();
+    const float x_norm = pt.x / z;
+    const float y_norm = pt.y / z;
+
+    auto in_between = [](float y, float y0, float y1) {
+        auto mm = std::minmax(y0, y1);
+        return mm.first <= y && y < mm.second;
+    };
+
+    // find selected node line
+    for (size_t i = 1; i < nodes_.size(); i++) {
+        auto& n0 = nodes_[i - 1];
+        auto& n1 = nodes_[i];
+        if (in_between(x_norm, n0.x, n1.x) && in_between(y_norm, n0.y, n1.y))
+            return i - 1;
+    }
+
+    return -1;
+}
+
+void UIEnv::deselectAll()
+{
+    for (auto& n : nodes_) {
+        n.select = SelectType::NONE;
+    }
+}
+
+bool UIEnv::hasSelectedEdge() const
+{
+    return std::find_if(nodes_.begin(), nodes_.end(), [](const Node& n) { return n.select == SelectType::LINE; }) != nodes_.end();
+}
+
+void UIEnv::outputEnvelope()
+{
+    updateEnvelope();
+    dataTo(0, DataPtr(env_.clone()));
+}
+
+bool UIEnv::shouldOutput(long mod)
+{
+#ifndef __APPLE__
+    return (mod & EMOD_CTRL);
+#else
+    return (mod & EMOD_CMD);
+#endif
+}
+
 void UIEnv::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
 {
     if (mod & EMOD_SHIFT) {
         addNode(pt);
-    } else if (mod & EMOD_RIGHT) {
-        makeCommonPopup(abs_pt);
-    } else if (mod & EMOD_CTRL) {
-        toggleSelectedNodeStop();
     } else if (mod & EMOD_ALT) {
         removeSelectedNode();
+    } else {
+        const float z = zoom();
+        const float x_norm = pt.x / z;
+        const float y_norm = pt.y / z;
+
+        // not a node click
+        if (findNearestNode(x_norm, y_norm) < 0) {
+            long idx = findNodeLine(pt);
+
+            // reset all others nodes
+            if (idx >= 0) {
+                // toggle selection
+                if (nodes_[idx].select != SelectType::NONE)
+                    nodes_[idx].select = SelectType::NONE;
+                else
+                    nodes_[idx].select = SelectType::LINE;
+
+                for (size_t i = 0; i < nodes_.size(); i++) {
+                    if (i == idx)
+                        continue;
+
+                    nodes_[i].select = SelectType::NONE;
+                }
+
+                redrawLayer(envelope_layer_);
+            }
+        }
     }
+
+    if (shouldOutput(mod))
+        outputEnvelope();
 }
 
 void UIEnv::onMouseLeave(t_object*, const t_pt& pt, long)
@@ -448,21 +577,40 @@ void UIEnv::onMouseLeave(t_object*, const t_pt& pt, long)
     redrawLayer(cursor_layer_);
 }
 
-void UIEnv::onMouseWheel(t_object*, const t_pt& pt, long, double delta)
+void UIEnv::onMouseUp(t_object* view, const t_pt& pt, long mod)
+{
+    if (shouldOutput(mod))
+        outputEnvelope();
+}
+
+void UIEnv::onMouseWheel(const t_pt& pt, long mod, float delta)
 {
     const float z = zoom();
-    const float x_norm = pt.x / z;
+    long idx = findSelectedNodeIdx();
 
-    long idx = -1;
-    for (size_t i = 1; i < nodes_.size(); i++) {
-        if (x_norm < nodes_[i].x) {
-            idx = i - 1;
-            break;
+    // move node
+    if (idx >= 0) {
+        auto& n = nodes_[idx];
+        float k = 0.01 * delta;
+
+        // update coordinates
+        if (!n.fixed_y)
+            n.y = clip<float>(n.y * (1 + k), 0, height() / z);
+
+        redrawLayer(envelope_layer_);
+        return;
+    } else {
+        for (size_t i = 1; i < nodes_.size(); i++) {
+            if (pt.x < nodes_[i].x) {
+                idx = (i - 1);
+                break;
+            }
+        }
+
+        if (idx < 0) {
+            return;
         }
     }
-
-    if (idx < 0)
-        return;
 
     switch (nodes_[idx].type) {
     case CURVE_EXP:
@@ -475,78 +623,23 @@ void UIEnv::onMouseWheel(t_object*, const t_pt& pt, long, double delta)
         return;
     }
 
-    redrawLayer(cursor_layer_);
+    redrawLayer(envelope_layer_);
 }
 
-void UIEnv::onMouseUp(t_object*, const t_pt& pt, long)
+void UIEnv::showPopup(const t_pt& pt, const t_pt& abs_pt)
 {
-    updateEnvelope();
-    dataTo(0, DataPtr(env_.clone()));
-}
-
-void UIEnv::onDblClick(t_object*, const t_pt& pt, long modifiers)
-{
-    const float z = zoom();
-    const float x_norm = pt.x / z;
-
-    if (!(modifiers & EMOD_CTRL))
+    auto idx = findSelectedNodeIdx();
+    if (idx >= 0) {
+        showPopupMenu("point", pt, abs_pt);
         return;
-
-    long idx = -1;
-    for (size_t i = 1; i < nodes_.size(); i++) {
-        if (x_norm < nodes_[i].x) {
-            idx = i - 1;
-            break;
-        }
     }
 
-    if (idx < 0)
-        return;
-
-    Node& n = nodes_[idx];
-    CurveType types[] = { CURVE_STEP, CURVE_LINE, CURVE_EXP, CURVE_SIN2, CURVE_SIGMOID };
-    for (size_t i = 0; i < boost::size(types); i++) {
-        if (n.type == types[i]) {
-            n.type = types[(i + 1) % boost::size(types)];
-            break;
-        }
-    }
-
-    redrawLayer(cursor_layer_);
-}
-
-void UIEnv::onPopup(t_symbol* msg, long itemIdx)
-{
-    if (msg == gensym("adsr_select")) {
-        switch (itemIdx) {
-        case 0: {
-            AtomList lst;
-            lst.append(10);
-            lst.append(20);
-            lst.append(30);
-            lst.append(500);
-            setNamedEnvelope(SYM_ADSR, lst);
-            break;
-        }
-        case 1: {
-            AtomList lst;
-            lst.append(500);
-            lst.append(500);
-            setNamedEnvelope(SYM_ASR, lst);
-            break;
-        }
-        case 2: {
-            AtomList lst;
-            lst.append(500);
-            lst.append(500);
-            setNamedEnvelope(SYM_AR, lst);
-            break;
-        }
-        default: {
-            UI_ERR << "popup menu inconsistance " << msg << ", index not exists: " << itemIdx;
-            break;
-        }
-        }
+    auto it = std::find_if(nodes_.begin(), nodes_.end(), [](const Node& n) { return n.select == SelectType::LINE; });
+    if (it != nodes_.end()) {
+        showPopupMenu("line", pt, abs_pt);
+        it->select = SelectType::NONE;
+    } else {
+        showPopupMenu("env", pt, abs_pt);
     }
 }
 
@@ -615,10 +708,13 @@ bool UIEnv::selectNode(size_t idx)
     int num_changes = 0;
 
     for (size_t i = 0; i < nodes_.size(); i++) {
-        bool v = (i == idx);
-
-        if (v != nodes_[i].is_selected) {
-            nodes_[i].is_selected = v;
+        if (i == idx) { // select specified node
+            if (nodes_[i].select != SelectType::POINT) {
+                nodes_[i].select = SelectType::POINT;
+                num_changes++;
+            }
+        } else if (nodes_[i].select != SelectType::NONE) { // deselect others
+            nodes_[i].select = SelectType::NONE;
             num_changes++;
         }
     }
@@ -713,15 +809,18 @@ void UIEnv::setup()
 
     obj.usePresets();
     obj.useBang();
+    obj.usePopup();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG
         | UI_MOUSE_MOVE | UI_MOUSE_LEAVE
-        | UI_MOUSE_WHEEL | UI_MOUSE_UP | UI_MOUSE_DBL_CLICK);
+        | UI_MOUSE_WHEEL | UI_MOUSE_UP);
     obj.useData();
+    obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIEnv::prop_active_color);
     obj.addProperty("line_color", _("Line Color"), DEFAULT_LINE_COLOR, &UIEnv::prop_line_color);
     obj.addProperty(PROP_LENGTH, _("Length (ms)"), 400, &UIEnv::prop_length, _("Main"));
     obj.setPropertyMin(PROP_LENGTH, 10);
+    obj.setPropertyUnits(gensym(PROP_LENGTH), gensym("msec"));
 
     obj.addMethod(SYM_ADSR, &UIEnv::m_adsr);
     obj.addMethod(SYM_ASR, &UIEnv::m_asr);
@@ -753,7 +852,7 @@ Node Node::fromEnvelope(const EnvelopePoint& pt, size_t total_us, float w, float
     n.curve = pt.data;
     n.sigmoid_skew = pt.sigmoid_skew;
     n.type = pt.type;
-    n.is_selected = false;
+    n.select = SelectType::NONE;
     n.is_stop = pt.stop;
     n.fixed_x = fixed_x;
     n.fixed_y = false;

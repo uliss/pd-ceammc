@@ -27,10 +27,10 @@ void epopupmenu_setfont(t_epopup* popup, t_efont* font)
     sys_vgui(".eboxpopup%s configure -font {%s %d %s italic}\n", popup->c_name->s_name, font[0].c_family->s_name, (int)font[0].c_size, font[0].c_weight->s_name, font[0].c_slant->s_name);
 }
 
-void epopupmenu_additem(t_epopup* popup, int itemid, const char* text, bool enabled)
+void epopupmenu_additem(t_epopup* popup, int itemid, const char* text, bool enabled, const t_pt& pos)
 {
     sys_vgui(".eboxpopup%s add command ", popup->c_name->s_name);
-    sys_vgui("-command {pdsend {%s popup %s %d}} ", popup->c_send->s_name, popup->c_name->s_name, itemid);
+    sys_vgui("-command {pdsend {%s popup %s %d %i %i}} ", popup->c_send->s_name, popup->c_name->s_name, itemid, (int)pos.x, (int)pos.y);
     sys_vgui("-label [_ {%s} ] ", text);
     if (enabled)
         sys_vgui("-state active\n");

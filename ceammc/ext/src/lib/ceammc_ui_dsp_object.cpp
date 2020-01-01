@@ -211,7 +211,7 @@ void UIDspObject::onMouseEnter(t_object* view, const t_pt& pt, long modifiers)
 {
 }
 
-void UIDspObject::onMouseWheel(t_object* view, const t_pt& pt, long modifiers, double delta)
+void UIDspObject::onMouseWheel(const t_pt& pt, long modifiers, float delta)
 {
 }
 
@@ -220,6 +220,10 @@ void UIDspObject::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 }
 
 void UIDspObject::onPopup(t_symbol* menu_name, long item_idx)
+{
+}
+
+void UIDspObject::showPopup(const t_pt& pt, const t_pt& abs_pt)
 {
 }
 

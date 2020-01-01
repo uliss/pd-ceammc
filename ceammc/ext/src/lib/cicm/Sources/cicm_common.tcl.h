@@ -123,20 +123,6 @@ const char* cicm_common_tcl =
 "        tooltip::tooltip $id $msg\n"
 "    }\n"
 "}\n"
-"proc ceammc_os_button_state {n} {\n"
-"    switch -- $::windowingsystem {\n"
-"        \"aqua\" {\n"
-"            if { $n > 256 } { incr n -256 }\n"
-"        } \"win32\" {\n"
-"            incr n -32\n"
-"            if { $n >= 131072 } {\n"
-"                incr n -131072\n"
-"                set n [expr $n | 16]\n"
-"            }\n"
-"        }\n"
-"    }\n"
-"    return $n\n"
-"}\n"
 ;
 #endif
 // clang-format on

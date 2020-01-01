@@ -90,8 +90,8 @@ set(CEAMMC_UI_SRC
     ceammc_ui.h
     ceammc_ui_object.h
     ceammc_ui_object.cpp
-    ceammc_ui_dsp_object.h
-    ceammc_ui_dsp_object.cpp
+#    ceammc_ui_dsp_object.h
+#    ceammc_ui_dsp_object.cpp
     image_detect.cpp)
 
 if(UNIX)
@@ -214,5 +214,6 @@ endif()
 
 add_custom_target(ceammc_cicm_tcl_gen
     COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh cicm/Sources/cicm_common.tcl
-    SOURCES cicm/Sources/cicm_common.tcl
+    COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh cicm/Sources/cicm_common_bind.tcl
+    SOURCES cicm/Sources/cicm_common.tcl cicm/Sources/cicm_common_bind.tcl
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})

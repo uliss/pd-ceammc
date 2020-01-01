@@ -7,8 +7,8 @@
 #X obj 605 11 pan8~;
 #X obj 667 11 spat.pan8~;
 #X obj 50 118 osc~ 1000;
-#X obj 165 118 ui.knob @size 40 40;
-#X obj 299 118 ui.knob @size 40 40;
+#X obj 165 118 ui.knob;
+#X obj 299 118 ui.knob;
 #X obj 165 162 * 6.2831852;
 #X msg 165 190 @angle \$1;
 #X msg 299 190 @dist \$1;

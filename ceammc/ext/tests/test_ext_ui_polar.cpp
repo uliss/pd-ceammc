@@ -786,32 +786,27 @@ TEST_CASE("ui.polar", "[ui.polar]")
         SECTION("N clockwise")
         {
             TestExtPolar t("ui.polar");
-            t.mouseDown(0, 0, EMOD_RIGHT);
-            REQUIRE_NO_OUTPUT(t);
-            t.mouseUp(0, 0);
-            REQUIRE_NO_OUTPUT(t);
-
             t.mouseUp(0, 50);
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, -90));
 
-            t->onPopup(SYM("unknown"), 1);
+            t->onPopup(SYM("unknown"), 1, {});
             REQUIRE_NO_OUTPUT(t);
 
-            t->onPopup(SYM("main"), 0);
+            t->onPopup(SYM("polar"), 0, {});
             REQUIRE_OUTPUT_LIST(t, 0, LX(0, 0));
-            t->onPopup(SYM("main"), 1);
+            t->onPopup(SYM("polar"), 1, {});
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, -90));
-            t->onPopup(SYM("main"), 2);
+            t->onPopup(SYM("polar"), 2, {});
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, 90));
-            t->onPopup(SYM("main"), 3);
+            t->onPopup(SYM("polar"), 3, {});
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0));
-            t->onPopup(SYM("main"), 4);
+            t->onPopup(SYM("polar"), 4, {});
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, -180));
 
             // invalid indexes
-            t->onPopup(SYM("main"), -1);
+            t->onPopup(SYM("polar"), -1, {});
             REQUIRE_NO_OUTPUT(t);
-            t->onPopup(SYM("main"), 5);
+            t->onPopup(SYM("polar"), 5, {});
             REQUIRE_NO_OUTPUT(t);
         }
 
@@ -819,15 +814,15 @@ TEST_CASE("ui.polar", "[ui.polar]")
         {
             TestExtPolar t("ui.polar", LA("@direction", "N", "@clockwise", 0.f));
 
-            t->onPopup(SYM("main"), 0); // center
+            t->onPopup(SYM("polar"), 0, {}); // center
             REQUIRE_OUTPUT_LIST(t, 0, LX(0, 0));
-            t->onPopup(SYM("main"), 1); // left
+            t->onPopup(SYM("polar"), 1, {}); // left
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, 90));
-            t->onPopup(SYM("main"), 2); // right
+            t->onPopup(SYM("polar"), 2, {}); // right
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, -90));
-            t->onPopup(SYM("main"), 3); // top
+            t->onPopup(SYM("polar"), 3, {}); // top
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0));
-            t->onPopup(SYM("main"), 4); // bottom
+            t->onPopup(SYM("polar"), 4, {}); // bottom
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, -180));
         }
 
@@ -835,15 +830,15 @@ TEST_CASE("ui.polar", "[ui.polar]")
         {
             TestExtPolar t("ui.polar", LA("@direction", "E", "@clockwise", 0.f));
 
-            t->onPopup(SYM("main"), 0); // center
+            t->onPopup(SYM("polar"), 0, {}); // center
             REQUIRE_OUTPUT_LIST(t, 0, LX(0, 0));
-            t->onPopup(SYM("main"), 1); // left
+            t->onPopup(SYM("polar"), 1, {}); // left
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, -180));
-            t->onPopup(SYM("main"), 2); // right
+            t->onPopup(SYM("polar"), 2, {}); // right
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0));
-            t->onPopup(SYM("main"), 3); // top
+            t->onPopup(SYM("polar"), 3, {}); // top
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, 90));
-            t->onPopup(SYM("main"), 4); // bottom
+            t->onPopup(SYM("polar"), 4, {}); // bottom
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, -90));
         }
 
@@ -851,15 +846,15 @@ TEST_CASE("ui.polar", "[ui.polar]")
         {
             TestExtPolar t("ui.polar", LA("@direction", "E", "@clockwise", 1));
 
-            t->onPopup(SYM("main"), 0); // center
+            t->onPopup(SYM("polar"), 0, {}); // center
             REQUIRE_OUTPUT_LIST(t, 0, LX(0, 0));
-            t->onPopup(SYM("main"), 1); // left
+            t->onPopup(SYM("polar"), 1, {}); // left
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, -180));
-            t->onPopup(SYM("main"), 2); // right
+            t->onPopup(SYM("polar"), 2, {}); // right
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0));
-            t->onPopup(SYM("main"), 3); // top
+            t->onPopup(SYM("polar"), 3, {}); // top
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, -90));
-            t->onPopup(SYM("main"), 4); // bottom
+            t->onPopup(SYM("polar"), 4, {}); // bottom
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, 90));
         }
 
@@ -867,15 +862,15 @@ TEST_CASE("ui.polar", "[ui.polar]")
         {
             TestExtPolar t("ui.polar", LA("@direction", "S", "@clockwise", 0.f));
 
-            t->onPopup(SYM("main"), 0); // center
+            t->onPopup(SYM("polar"), 0, {}); // center
             REQUIRE_OUTPUT_LIST(t, 0, LX(0, 0));
-            t->onPopup(SYM("main"), 1); // left
+            t->onPopup(SYM("polar"), 1, {}); // left
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, -90));
-            t->onPopup(SYM("main"), 2); // right
+            t->onPopup(SYM("polar"), 2, {}); // right
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, 90));
-            t->onPopup(SYM("main"), 3); // top
+            t->onPopup(SYM("polar"), 3, {}); // top
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, -180));
-            t->onPopup(SYM("main"), 4); // bottom
+            t->onPopup(SYM("polar"), 4, {}); // bottom
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0));
         }
 
@@ -883,15 +878,15 @@ TEST_CASE("ui.polar", "[ui.polar]")
         {
             TestExtPolar t("ui.polar", LA("@direction", "S", "@clockwise", 1));
 
-            t->onPopup(SYM("main"), 0); // center
+            t->onPopup(SYM("polar"), 0, {}); // center
             REQUIRE_OUTPUT_LIST(t, 0, LX(0, 0));
-            t->onPopup(SYM("main"), 1); // left
+            t->onPopup(SYM("polar"), 1, {}); // left
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, 90));
-            t->onPopup(SYM("main"), 2); // right
+            t->onPopup(SYM("polar"), 2, {}); // right
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, -90));
-            t->onPopup(SYM("main"), 3); // top
+            t->onPopup(SYM("polar"), 3, {}); // top
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, -180));
-            t->onPopup(SYM("main"), 4); // bottom
+            t->onPopup(SYM("polar"), 4, {}); // bottom
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0));
         }
 
@@ -899,15 +894,15 @@ TEST_CASE("ui.polar", "[ui.polar]")
         {
             TestExtPolar t("ui.polar", LA("@direction", "W", "@clockwise", 0.f));
 
-            t->onPopup(SYM("main"), 0); // center
+            t->onPopup(SYM("polar"), 0, {}); // center
             REQUIRE_OUTPUT_LIST(t, 0, LX(0, 0));
-            t->onPopup(SYM("main"), 1); // left
+            t->onPopup(SYM("polar"), 1, {}); // left
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0));
-            t->onPopup(SYM("main"), 2); // right
+            t->onPopup(SYM("polar"), 2, {}); // right
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, -180));
-            t->onPopup(SYM("main"), 3); // top
+            t->onPopup(SYM("polar"), 3, {}); // top
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, -90));
-            t->onPopup(SYM("main"), 4); // bottom
+            t->onPopup(SYM("polar"), 4, {}); // bottom
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, 90));
         }
 
@@ -915,15 +910,15 @@ TEST_CASE("ui.polar", "[ui.polar]")
         {
             TestExtPolar t("ui.polar", LA("@direction", "W", "@clockwise", 1));
 
-            t->onPopup(SYM("main"), 0); // center
+            t->onPopup(SYM("polar"), 0, {}); // center
             REQUIRE_OUTPUT_LIST(t, 0, LX(0, 0));
-            t->onPopup(SYM("main"), 1); // left
+            t->onPopup(SYM("polar"), 1, {}); // left
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0));
-            t->onPopup(SYM("main"), 2); // right
+            t->onPopup(SYM("polar"), 2, {}); // right
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, -180));
-            t->onPopup(SYM("main"), 3); // top
+            t->onPopup(SYM("polar"), 3, {}); // top
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, 90));
-            t->onPopup(SYM("main"), 4); // bottom
+            t->onPopup(SYM("polar"), 4, {}); // bottom
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, -90));
         }
     }
@@ -931,6 +926,12 @@ TEST_CASE("ui.polar", "[ui.polar]")
     SECTION("paint")
     {
         TestExtPolar t("ui.polar");
+        REQUIRE(t->asEBox());
+        REQUIRE(t->asEObj());
+        REQUIRE(t->asGObj());
+        REQUIRE(t->asPd());
+        REQUIRE(t->asPdObject());
+        REQUIRE(t->canvas());
         t.show();
     }
 

@@ -20,11 +20,11 @@
 \, left \, right \, top \, bottom.;
 #X text 110 397 Mouse-drag;
 #X text 285 397 change slider coords.;
-#X text 110 417 Mouse-drag + Alt;
+#X text 110 417 Mouse-drag + ⌥;
 #X text 285 417 change only angle coord.;
 #X text 110 437 Mouse-wheel;
 #X text 285 437 change only radius coord.;
-#X text 110 457 Mouse-wheel + Shift;
+#X text 110 457 Mouse-wheel + ⇧;
 #X text 285 457 change precisely radius coord.;
 #X obj 20 487 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 492 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144

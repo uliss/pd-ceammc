@@ -110,11 +110,11 @@ bool eobj_isdsp(void* x)
     return (c->c_dsp && c->c_widget.w_dsp);
 }
 
-void eobj_popup(t_eobj* x, t_symbol* s, float itemid)
+void eobj_popup(t_eobj* x, t_symbol* s, t_float itemid, t_float xpos, t_float ypos)
 {
     t_eclass* c = eobj_getclass(x);
     if (c->c_widget.w_popup) {
-        c->c_widget.w_popup(x, s, (long)itemid);
+        c->c_widget.w_popup(x, s, (long)itemid, { xpos, ypos });
     }
 }
 

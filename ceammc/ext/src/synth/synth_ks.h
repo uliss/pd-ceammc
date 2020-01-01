@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "synth.ks"
-Code generated with Faust 2.18.7 (https://faust.grame.fr)
+Code generated with Faust 2.21.1 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -383,7 +383,7 @@ struct Meta
  that work under terms of your choice, so long as this FAUST
  architecture section is not modified.
  ************************************************************************/
- 
+
 #ifndef __misc__
 #define __misc__
 
@@ -414,23 +414,40 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-	int	i;
-    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    return def;
 }
 
-static bool isopt(char* argv[], const char* name)
+static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
-	return false;
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return atoi(argv[i]);
+        }
+    }
+    return def;
 }
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    return def;
+}
+
+static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
+{
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return argv[i];
+        }
+    }
+    return def;
+}
+
+static bool isopt(char* argv[], const char* name)
+{
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
+    return false;
 }
 
 static std::string pathToContent(const std::string& path)
@@ -488,12 +505,12 @@ struct synth_ks : public dsp {
 
 static float synth_ks_faustpower2_f(float value) {
 	return (value * value);
-	
 }
 
 #ifndef FAUSTCLASS 
 #define FAUSTCLASS synth_ks
 #endif
+
 #ifdef __APPLE__ 
 #define exp10f __exp10f
 #define exp10 __exp10
@@ -522,12 +539,10 @@ class synth_ks : public dsp {
 	FAUSTFLOAT fButton0;
 	float fVec0[2];
 	int iRec13[2];
-	int iRec14[2];
 	float fConst5;
 	FAUSTFLOAT fHslider6;
-	float fRec16[3];
 	float fRec15[3];
-	int iRec17[2];
+	float fRec14[3];
 	float fVec1[2048];
 	float fRec3[2];
 	float fRec0[3];
@@ -540,7 +555,7 @@ class synth_ks : public dsp {
 		m->declare("basics.lib/version", "0.1");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
-		m->declare("envelopes.lib/ar:author", "Stéphane Letz");
+		m->declare("envelopes.lib/ar:author", "Yann Orlarey, Stéphane Letz");
 		m->declare("envelopes.lib/author", "GRAME");
 		m->declare("envelopes.lib/copyright", "GRAME");
 		m->declare("envelopes.lib/license", "LGPL with exception");
@@ -583,27 +598,23 @@ class synth_ks : public dsp {
 
 	virtual int getNumInputs() {
 		return 0;
-		
 	}
 	virtual int getNumOutputs() {
 		return 1;
-		
 	}
 	virtual int getInputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			default: {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	virtual int getOutputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 1;
 				break;
@@ -612,14 +623,11 @@ class synth_ks : public dsp {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	
 	static void classInit(int sample_rate) {
-		
 	}
 	
 	virtual void instanceConstants(int sample_rate) {
@@ -630,7 +638,6 @@ class synth_ks : public dsp {
 		fConst3 = (6911.50391f / fConst0);
 		fConst4 = (0.00200000009f * fConst0);
 		fConst5 = (3.14159274f / fConst0);
-		
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -642,64 +649,43 @@ class synth_ks : public dsp {
 		fHslider5 = FAUSTFLOAT(0.25f);
 		fButton0 = FAUSTFLOAT(0.0f);
 		fHslider6 = FAUSTFLOAT(0.69999999999999996f);
-		
 	}
 	
 	virtual void instanceClear() {
 		IOTA = 0;
 		for (int l0 = 0; (l0 < 2048); l0 = (l0 + 1)) {
 			fRec7[l0] = 0.0f;
-			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			iRec12[l1] = 0;
-			
 		}
 		for (int l2 = 0; (l2 < 3); l2 = (l2 + 1)) {
 			fRec11[l2] = 0.0f;
-			
 		}
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			fVec0[l3] = 0.0f;
-			
 		}
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			iRec13[l4] = 0;
-			
 		}
-		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
-			iRec14[l5] = 0;
-			
+		for (int l5 = 0; (l5 < 3); l5 = (l5 + 1)) {
+			fRec15[l5] = 0.0f;
 		}
 		for (int l6 = 0; (l6 < 3); l6 = (l6 + 1)) {
-			fRec16[l6] = 0.0f;
-			
+			fRec14[l6] = 0.0f;
 		}
-		for (int l7 = 0; (l7 < 3); l7 = (l7 + 1)) {
-			fRec15[l7] = 0.0f;
-			
+		for (int l7 = 0; (l7 < 2048); l7 = (l7 + 1)) {
+			fVec1[l7] = 0.0f;
 		}
 		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
-			iRec17[l8] = 0;
-			
+			fRec3[l8] = 0.0f;
 		}
-		for (int l9 = 0; (l9 < 2048); l9 = (l9 + 1)) {
-			fVec1[l9] = 0.0f;
-			
+		for (int l9 = 0; (l9 < 3); l9 = (l9 + 1)) {
+			fRec0[l9] = 0.0f;
 		}
-		for (int l10 = 0; (l10 < 2); l10 = (l10 + 1)) {
-			fRec3[l10] = 0.0f;
-			
+		for (int l10 = 0; (l10 < 3); l10 = (l10 + 1)) {
+			fRec1[l10] = 0.0f;
 		}
-		for (int l11 = 0; (l11 < 3); l11 = (l11 + 1)) {
-			fRec0[l11] = 0.0f;
-			
-		}
-		for (int l12 = 0; (l12 < 3); l12 = (l12 + 1)) {
-			fRec1[l12] = 0.0f;
-			
-		}
-		
 	}
 	
 	virtual void init(int sample_rate) {
@@ -718,7 +704,6 @@ class synth_ks : public dsp {
 	
 	virtual int getSampleRate() {
 		return fSampleRate;
-		
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
@@ -732,7 +717,6 @@ class synth_ks : public dsp {
 		ui_interface->addHorizontalSlider("pos", &fHslider6, 0.699999988f, 0.0f, 1.0f, 0.00999999978f);
 		ui_interface->addHorizontalSlider("sharp", &fHslider5, 0.25f, 0.00999999978f, 1.0f, 0.00100000005f);
 		ui_interface->closeBox();
-		
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
@@ -796,21 +780,18 @@ class synth_ks : public dsp {
 			float fTemp1 = (4.65661287e-10f * float(iRec12[0]));
 			fRec11[0] = (fTemp1 - (fSlow28 * ((fSlow29 * fRec11[2]) + (fSlow30 * fRec11[1]))));
 			fVec0[0] = fSlow33;
-			iRec13[0] = (((fVec0[1] >= fSlow33) * iRec13[1]) + 1);
+			iRec13[0] = ((fSlow33 > fVec0[1]) + ((fSlow33 <= fVec0[1]) * (iRec13[1] + (iRec13[1] > 0))));
 			float fTemp2 = float(iRec13[0]);
-			float fTemp3 = std::min<float>((fSlow32 * fTemp2), 1.0f);
-			iRec14[0] = ((iRec14[1] + 1) * (fTemp3 >= 1.0f));
-			fRec16[0] = (fTemp1 - (fSlow41 * ((fSlow44 * fRec16[2]) + (fSlow45 * fRec16[1]))));
-			fRec15[0] = ((fSlow41 * (((fSlow43 * fRec16[0]) + (fSlow46 * fRec16[1])) + (fSlow43 * fRec16[2]))) - (fSlow47 * ((fSlow48 * fRec15[2]) + (fSlow49 * fRec15[1]))));
-			float fTemp4 = std::min<float>((fSlow50 * fTemp2), 1.0f);
-			iRec17[0] = ((iRec17[1] + 1) * (fTemp4 >= 1.0f));
-			float fTemp5 = (iSlow22 ? (fSlow38 * ((fRec15[2] + (fRec15[0] + (2.0f * fRec15[1]))) * std::max<float>(0.0f, (fTemp4 - (fSlow50 * float(iRec17[0])))))) : (fSlow27 * ((fRec11[2] + (fRec11[0] + (2.0f * fRec11[1]))) * std::max<float>(0.0f, (fTemp3 - (fSlow32 * float(iRec14[0])))))));
+			float fTemp3 = (fSlow32 * fTemp2);
+			fRec15[0] = (fTemp1 - (fSlow41 * ((fSlow44 * fRec15[2]) + (fSlow45 * fRec15[1]))));
+			fRec14[0] = ((fSlow41 * (((fSlow43 * fRec15[0]) + (fSlow46 * fRec15[1])) + (fSlow43 * fRec15[2]))) - (fSlow47 * ((fSlow48 * fRec14[2]) + (fSlow49 * fRec14[1]))));
+			float fTemp4 = (fSlow50 * fTemp2);
+			float fTemp5 = (iSlow22 ? (fSlow38 * ((fRec14[2] + (fRec14[0] + (2.0f * fRec14[1]))) * std::max<float>(0.0f, std::min<float>(fTemp4, (2.0f - fTemp4))))) : (fSlow27 * ((fRec11[2] + (fRec11[0] + (2.0f * fRec11[1]))) * std::max<float>(0.0f, std::min<float>(fTemp3, (2.0f - fTemp3))))));
 			float fTemp6 = (fRec0[2] + fTemp5);
 			fVec1[(IOTA & 2047)] = fTemp6;
-			float fTemp7 = (fSlow9 * fVec1[((IOTA - iSlow11) & 2047)]);
-			float fTemp8 = (fSlow12 * ((((fSlow13 * fVec1[((IOTA - iSlow14) & 2047)]) + (fSlow15 * fVec1[((IOTA - iSlow16) & 2047)])) + (fSlow18 * fVec1[((IOTA - iSlow19) & 2047)])) + (fSlow20 * fVec1[((IOTA - iSlow21) & 2047)])));
-			float fRec9 = (fTemp7 + fTemp8);
-			float fRec10 = (fTemp8 + (fTemp0 + fTemp7));
+			float fTemp7 = ((fSlow9 * fVec1[((IOTA - iSlow11) & 2047)]) + (fSlow12 * ((((fSlow13 * fVec1[((IOTA - iSlow14) & 2047)]) + (fSlow15 * fVec1[((IOTA - iSlow16) & 2047)])) + (fSlow18 * fVec1[((IOTA - iSlow19) & 2047)])) + (fSlow20 * fVec1[((IOTA - iSlow21) & 2047)]))));
+			float fRec9 = fTemp7;
+			float fRec10 = (fTemp0 + fTemp7);
 			fRec3[0] = fRec8;
 			float fRec4 = (fTemp5 + fRec3[1]);
 			float fRec5 = fRec9;
@@ -825,20 +806,16 @@ class synth_ks : public dsp {
 			fRec11[1] = fRec11[0];
 			fVec0[1] = fVec0[0];
 			iRec13[1] = iRec13[0];
-			iRec14[1] = iRec14[0];
-			fRec16[2] = fRec16[1];
-			fRec16[1] = fRec16[0];
 			fRec15[2] = fRec15[1];
 			fRec15[1] = fRec15[0];
-			iRec17[1] = iRec17[0];
+			fRec14[2] = fRec14[1];
+			fRec14[1] = fRec14[0];
 			fRec3[1] = fRec3[0];
 			fRec0[2] = fRec0[1];
 			fRec0[1] = fRec0[0];
 			fRec1[2] = fRec1[1];
 			fRec1[1] = fRec1[0];
-			
 		}
-		
 	}
 
 };

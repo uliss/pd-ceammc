@@ -17,11 +17,14 @@
             </also>
             <aliases>
                 <alias view="link">ui.hrd</alias>
+                <alias view="link">ui.hrd*</alias>
                 <alias view="link">ui.vrd</alias>
+                <alias view="link">ui.vrd*</alias>
             </aliases>
         </meta>
         <info>
-            <par>[ui.hrd] alias for horizontal radio, [ui.vrd] alias for vertical radio</par>
+            <par>[ui.hrd] alias for horizontal radio, [ui.vrd] alias for vertical radio, [ui.hrd*]
+            alias for horizontal radio checklist.</par>
         </info>
         <mouse>
             <event editmode="true" type="double-click" keys="Cmd">changes slider
@@ -61,6 +64,8 @@
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
+            <property name="@mouse_events" type="int" enum="0 1" default="0">mouse events output
+            mode. If on outputs @mouse_down and @mouse_drag events</property>
         </properties>
         <methods>
             <method name="set">sets radio without output 

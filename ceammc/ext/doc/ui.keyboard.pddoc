@@ -19,8 +19,22 @@
         </meta>
         <info>
             <par>Piano keyboard widget</par>
-            <par>Shift+click allows multiple selection. Alt+Click release sustained notes</par>
         </info>
+        <mouse>
+            <event editmode="false" type="left-click">play selected note: output [NOTE VELOCITY( on
+            mouse press and [NOTE 0( on mouse release. Velocity depends on click position: lower
+            position produces higher velocity</event>
+            <event editmode="false" type="left-click" keys="Shift">play/stop sustained
+            note.</event>
+            <event editmode="false" type="left-click" keys="Alt">release all note (send [NOTE 0(
+            message for each sustained note)</event>
+            <event editmode="false" type="drag">play notes under cursor and release others</event>
+            <event editmode="false" type="right-click">open popup menu with various chords</event>
+            <event editmode="false" type="right-click" keys="Shift">open object help</event>
+            <event editmode="false" type="right-click" keys="Alt">open properties dialog</event>
+            <event editmode="true" type="right-click" keys="Shift">open object help</event>
+            <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
+        </mouse>
         <properties>
             <property name="@keys" type="int" default="61" minvalue="5" maxvalue="88">number of
             keys</property>

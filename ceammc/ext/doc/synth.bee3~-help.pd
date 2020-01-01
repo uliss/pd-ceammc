@@ -24,22 +24,21 @@ also referred to as algorithm 8 of the TX81Z;
 #X obj 20 447 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 482 @adsr;
-#X text 245 482 Get/Set ADSR 2 & 4 Target. Type: float. Range: 0\...127\.;
+#X text 245 482 Get/Set ADSR 2 & 4 Target. Type: int. Range: 0\...127\.;
 #X msg 110 511 @freq;
-#X text 245 511 Get/Set maximum speed of whistles. Type: float. Default
-value: 240\. Range: 20\...480\.;
+#X text 245 511 Get/Set maximum speed of whistles. Type: float. Units:
+Hz. Default value: 220\. Range: 0\...480\.;
 #X msg 110 553 @gate;
 #X text 245 553 Get/Set synth gate (>0 - play). Type: float. Default
 value: 0\. Range: 0\...1\.;
 #X msg 110 595 @lfo_depth;
-#X text 245 595 Get/Set LFO Speed (cc1). Type: float. Range: 0\...127\.;
+#X text 245 595 Get/Set LFO Speed (cc1). Type: int. Range: 0\...127\.;
 #X msg 110 624 @lfo_speed;
-#X text 245 624 Get/Set LFO Speed (cc11). Type: float. Range: 0\...127\.;
+#X text 245 624 Get/Set LFO Speed (cc11). Type: int. Range: 0\...127\.;
 #X msg 110 653 @op3;
-#X text 245 653 Get/Set operator 3 gain (cc4). Type: float. Range:
-0\...127\.;
+#X text 245 653 Get/Set operator 3 gain (cc4). Type: int. Range: 0\...127\.;
 #X msg 110 682 @op4;
-#X text 245 682 Get/Set operator 4 (feedback) gain (cc2). Type: float.
+#X text 245 682 Get/Set operator 4 (feedback) gain (cc2). Type: int.
 Range: 0\...127\.;
 #X obj 20 734 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 739 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144

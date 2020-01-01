@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "synth_rhodey.h"
-#include "ceammc_factory.h"
+#include "stk_synth_factory.h"
 
 #include "Rhodey.h"
 #include "stksynth_p.h"
@@ -31,5 +31,5 @@ SynthRhodey::SynthRhodey(const PdArgs& args)
 
 void setup_synth_rhodey()
 {
-    SoundExternalFactory<SynthRhodey> obj("synth.rhodey~", OBJECT_FACTORY_DEFAULT);
+    StkSynthFactory<SynthRhodey> obj("synth.rhodey~");
 }

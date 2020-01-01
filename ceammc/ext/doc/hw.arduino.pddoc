@@ -38,8 +38,8 @@
             and product ids are specified at creation, tries to connect to devices only with such
             properties. Note: product id is specified in decimal mode, not in hex</property>
             <property name="@reconnect" type="flag">enables hot-pluggin</property>
-            <property name="@connected" type="int" readonly="true">state of connection to
-            device</property>
+            <property name="@connected" type="int" enum="0 1" readonly="true">state of connection
+            to device</property>
             <property name="@devices" type="list" readonly="true">list of found Arduino
             devices</property>
             <property name="@on_connect" type="symbol">function called every time on

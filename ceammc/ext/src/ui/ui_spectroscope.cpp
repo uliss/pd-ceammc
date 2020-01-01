@@ -49,6 +49,19 @@ UISpectroscope::UISpectroscope()
     , prop_refresh(100)
     , prop_log_scale(0)
 {
+
+    initPopupMenu("ss_log", { { _("log scale"), [this](const t_pt&) {
+                                   prop_log_scale = true;
+                                   bg_layer_.invalidate();
+                                   graph_layer_.invalidate();
+                                   redraw();
+                               } } });
+    initPopupMenu("ss_lin", { { _("linear scale"), [this](const t_pt&) {
+                                   prop_log_scale = false;
+                                   bg_layer_.invalidate();
+                                   graph_layer_.invalidate();
+                                   redraw();
+                               } } });
 }
 
 UISpectroscope::~UISpectroscope()
@@ -352,31 +365,12 @@ void UISpectroscope::drawHGrid(UIPainter& p)
     p.drawText(*x_labels_[0]);
 }
 
-void UISpectroscope::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
+void UISpectroscope::showPopup(const t_pt& pt, const t_pt& abs_pt)
 {
-    if (modifiers == EMOD_RIGHT) {
-        UIPopupMenu menu(asEObj(), "popup", abs_pt);
-        if (prop_log_scale)
-            menu.addItem(_("linear scale"));
-        else
-            menu.addItem(_("log scale"));
-    }
-}
-
-void UISpectroscope::onPopup(t_symbol* menu_name, long item_idx)
-{
-    if (menu_name == gensym("popup")) {
-        switch (item_idx) {
-        case 0:
-            prop_log_scale = !(prop_log_scale);
-            bg_layer_.invalidate();
-            graph_layer_.invalidate();
-            redraw();
-            break;
-        default:
-            break;
-        }
-    }
+    if (prop_log_scale)
+        showPopupMenu("ss_lin", pt, abs_pt);
+    else
+        showPopupMenu("ss_log", pt, abs_pt);
 }
 
 void UISpectroscope::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes)
@@ -414,7 +408,7 @@ void UISpectroscope::setup()
     static const bool init = init_hann_window();
 
     UIObjectFactory<UISpectroscope> obj("ui.spectroscope~", EBOX_GROWINDI);
-    obj.useMouseEvents(UI_MOUSE_DOWN);
+    obj.usePopup();
     obj.addAlias("ui.ssc~");
     obj.setDefaultSize(150, 100);
 

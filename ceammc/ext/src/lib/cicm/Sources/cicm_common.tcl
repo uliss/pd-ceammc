@@ -147,18 +147,3 @@ if { [catch {package require tooltip} ] } {
         tooltip::tooltip $id $msg
     }
 }
-
-proc ceammc_os_button_state {n} {
-    switch -- $::windowingsystem {
-        "aqua" {
-            if { $n > 256 } { incr n -256 }
-        } "win32" {
-            incr n -32
-            if { $n >= 131072 } {
-                incr n -131072
-                set n [expr $n | 16]
-            }
-        }
-    }
-    return $n
-}

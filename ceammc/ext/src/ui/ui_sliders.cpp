@@ -50,6 +50,33 @@ UISliders::UISliders()
 {
     prependToLayerList(&sliders_layer_);
     createOutlet();
+
+    initPopupMenu("sliders",
+        { { _("fill with max"), [this](const t_pt&) {
+                std::fill(std::begin(pos_values_), std::end(pos_values_), 1);
+                redrawAll();
+                outputList(); } },
+            { _("fill with mean"), [this](const t_pt&) {
+                 std::fill(std::begin(pos_values_), std::end(pos_values_), 0.5);
+                 redrawAll();
+                 outputList();
+             } },
+            { _("fill with min"), [this](const t_pt&) {
+                 std::fill(std::begin(pos_values_), std::end(pos_values_), 0);
+                 redrawAll();
+                 outputList();
+             } },
+            { _("linear up"), [this](const t_pt&) {
+                 m_linup();
+                 outputList();
+             } },
+            { _("linear down"), [this](const t_pt&) {
+                 m_lindown();
+                 outputList();
+             } },
+            { _("random"), [this](const t_pt&) {
+                  m_random();
+                  outputList(); } } });
 }
 
 void UISliders::init(t_symbol* name, const AtomList& args, bool usePresets)
@@ -190,22 +217,6 @@ void UISliders::storePreset(size_t idx)
 
 void UISliders::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    // right click
-    if (modifiers & EMOD_RIGHT) {
-        UIPopupMenu menu(asEObj(), "popup", abs_pt);
-        char buf[64];
-        snprintf(buf, sizeof(buf), _("fill with %f"), prop_max);
-        menu.addItem(buf);
-        snprintf(buf, sizeof(buf), _("fill with %f"), (prop_max + prop_min) * 0.5);
-        menu.addItem(buf);
-        snprintf(buf, sizeof(buf), _("fill with %f"), prop_min);
-        menu.addItem(buf);
-        menu.addItem(_("linear up"));
-        menu.addItem(_("linear down"));
-        menu.addItem(_("random"));
-        return;
-    }
-
     const t_rect r = rect();
     const size_t N = pos_values_.size();
 
@@ -246,45 +257,6 @@ void UISliders::onDblClick(t_object* view, const t_pt& pt, long modifiers)
     t_canvas* c = reinterpret_cast<t_canvas*>(view);
     if (c->gl_edit)
         resize(height() / zoom(), width() / zoom());
-}
-
-void UISliders::onPopup(t_symbol* menu_name, long item_idx)
-{
-    if (menu_name != gensym("popup"))
-        return;
-
-    switch (item_idx) {
-    case 0:
-        std::fill(std::begin(pos_values_), std::end(pos_values_), 1);
-        redrawAll();
-        outputList();
-        break;
-    case 1:
-        std::fill(std::begin(pos_values_), std::end(pos_values_), 0.5);
-        redrawAll();
-        outputList();
-        break;
-    case 2:
-        std::fill(std::begin(pos_values_), std::end(pos_values_), 0);
-        redrawAll();
-        outputList();
-        break;
-    case 3:
-        m_linup();
-        outputList();
-        break;
-    case 4:
-        m_lindown();
-        outputList();
-        break;
-    case 5:
-        m_random();
-        outputList();
-        break;
-    default:
-        UI_ERR << "unknown popup menu item: " << item_idx;
-        break;
-    }
 }
 
 void UISliders::m_get(const AtomList& l)
@@ -564,6 +536,7 @@ void UISliders::setup()
     obj.usePresets();
     obj.useList();
     obj.useBang();
+    obj.usePopup();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK);
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 

@@ -1,5 +1,7 @@
 #include "ceammc_cicm.h"
 
+#include <algorithm>
+
 namespace ceammc {
 
 static const char* SYM_DECORATION_NONE = "roman";
@@ -393,43 +395,79 @@ void UIPainter::setMatrix(const t_matrix& mtx)
     egraphics_set_matrix(layer_, &mtx);
 }
 
-UIPopupMenu::UIPopupMenu(t_eobj* x, const char* name, const t_pt& pos)
+UIPopupMenu::UIPopupMenu(t_eobj* x,
+    const PopupMenuCallbacks& items,
+    const t_pt& absPos,
+    const t_pt& relPos)
     : menu_(nullptr)
-    , pos_(pos)
+    , abs_pos_(absPos)
+    , rel_pos_(relPos)
+    , menu_items_(items)
 {
-    menu_ = epopupmenu_create(x, gensym(name));
-}
-
-UIPopupMenu::UIPopupMenu(t_eobj* x, t_symbol* name, const t_pt& pos)
-    : menu_(nullptr)
-    , pos_(pos)
-{
-    menu_ = epopupmenu_create(x, name);
+    menu_ = epopupmenu_create(x, gensym(items.name().c_str()));
 }
 
 UIPopupMenu::~UIPopupMenu()
 {
     int cnt = 0;
-    for (MenuEntry& m : menu_items_) {
-        if (m.first.empty())
+    for (auto& m : menu_items_.items()) {
+        if (std::get<0>(m).empty())
             epopupmenu_addseparator(menu_);
-        else
-            epopupmenu_additem(menu_, cnt++, m.first.c_str(), m.second);
+        else {
+            auto it = std::find(disabled_items_.begin(), disabled_items_.end(), std::get<0>(m));
+            epopupmenu_additem(menu_, cnt, std::get<0>(m).c_str(), it == disabled_items_.end(), rel_pos_);
+        }
+
+        // counter increment
+        cnt++;
     }
 
-    epopupmenu_popup(menu_, pos_);
+    epopupmenu_popup(menu_, abs_pos_);
 
     free(menu_);
 }
 
-void UIPopupMenu::addSeparator()
+void UIPopupMenu::disable(const std::string& name)
 {
-    menu_items_.emplace_back("", false);
+    disabled_items_.push_back(name);
 }
 
-void UIPopupMenu::addItem(const std::string& name, bool enabled)
+void UIPopupMenu::disable(const std::vector<std::string>& names)
 {
-    menu_items_.emplace_back(name, enabled);
+    disabled_items_.insert(disabled_items_.end(), names.begin(), names.end());
+}
+
+PopupMenuCallbacks::PopupMenuCallbacks(const std::string& name,
+    std::initializer_list<PopupMenuCallbacks::Entry> args)
+    : name_(name)
+    , items_(args)
+{
+}
+
+void PopupMenuCallbacks::addSeparator()
+{
+    items_.emplace_back("", MenuEntryFn());
+}
+
+void PopupMenuCallbacks::addItem(const std::string& name, PopupMenuCallbacks::MenuEntryFn fn)
+{
+    items_.emplace_back(name, fn);
+}
+
+bool PopupMenuCallbacks::process(t_symbol* name, size_t idx, const t_pt& pt)
+{
+    if (name_ != name->s_name)
+        return false;
+
+    if (idx >= items_.size())
+        return false;
+
+    if (!std::get<1>(items_[idx]))
+        return false;
+
+    auto fn = std::get<1>(items_[idx]);
+    fn(pt);
+    return true;
 }
 
 }

@@ -224,6 +224,7 @@ gfx.freeverb~
 gfx.granulator~
 gfx.greyhole~
 gfx.pitchshift~
+gfx.sdelay~
 gfx.vocoder~
 gfx.wahwah~
 gfx.zita_rev1~

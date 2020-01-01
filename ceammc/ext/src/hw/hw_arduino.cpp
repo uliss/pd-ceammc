@@ -186,7 +186,10 @@ void ArduinoExternal::processMessages()
 
 void ArduinoExternal::initProperties()
 {
-    createCbProperty("@connected", &ArduinoExternal::p_connected);
+    {
+        Property* p = createCbProperty("@connected", &ArduinoExternal::p_connected);
+        p->info().setType(PropertyInfoType::BOOLEAN);
+    }
 
     port_ = new SymbolProperty("@port", positionalSymbolArgument(0, &s_), true);
     createProperty(port_);

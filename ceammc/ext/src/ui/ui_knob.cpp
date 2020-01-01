@@ -60,7 +60,8 @@ void UIKnob::setup()
     obj.useBang();
     obj.useFloat();
     obj.usePresets();
-    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK);
+    obj.usePopup();
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK | UI_MOUSE_WHEEL);
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
     obj.addMethod("+", &UISingleValue::m_plus);
@@ -102,6 +103,11 @@ UIKnob::UIKnob()
 {
     click_pos_.x = 0;
     click_pos_.y = 0;
+
+    initPopupMenu("knob",
+        { { _("min"), [this](const t_pt&) { onFloat(prop_min); } },
+            { _("center"), [this](const t_pt&) { onFloat(convert::lin2lin<t_float>(0.5, 0, 1, prop_min, prop_max)); } },
+            { _("max"), [this](const t_pt&) { onFloat(prop_max); } } });
 }
 
 void UIKnob::paint()
@@ -192,33 +198,25 @@ void UIKnob::onMouseDrag(t_object*, const t_pt& pt, long modifiers)
 
 void UIKnob::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    if (modifiers & EMOD_RIGHT) {
-        UIPopupMenu menu(asEObj(), SYM_POPUP_LINEAR, abs_pt);
-        menu.addItem(_("min"));
-        menu.addItem(_("center"), scaleMode() == LINEAR);
-        menu.addItem(_("max"));
-        return;
-    }
-
     click_pos_ = pt;
 }
 
-void UIKnob::onPopup(t_symbol* menu_name, long item_idx)
+void UIKnob::onMouseWheel(const t_pt& pt, long modifiers, double delta)
 {
-    switch (item_idx) {
-    case 0:
-        onFloat(prop_min);
-        break;
-    case 1:
-        onFloat(convert::lin2lin<t_float>(0.5, 0, 1, prop_min, prop_max));
-        break;
-    case 2:
-        onFloat(prop_max);
-        break;
-    default:
-        UI_ERR << "unknown popup menu index: " << item_idx;
-        break;
-    }
+    float k = 0.01;
+    if (modifiers & EMOD_SHIFT)
+        k *= 0.1;
+
+    setKnobPhase(knobPhase() + delta * k);
+    redrawKnob();
+    output();
+}
+
+void UIKnob::showPopup(const t_pt& pt, const t_pt& abs_pt)
+{
+    UIPopupMenu menu(asEObj(), popup_menu_list_.front(), abs_pt, pt);
+    if (scaleMode() != LINEAR)
+        menu.disable(_("center"));
 }
 
 void setup_ui_knob()

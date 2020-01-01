@@ -36,7 +36,6 @@ private:
     float x_pos_;
     float y_pos_;
     bool mouse_down_;
-    bool right_click_;
 
 public:
     UISlider2D();
@@ -52,7 +51,6 @@ public:
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
-    void onPopup(t_symbol* menu_name, long item_idx);
 
     void m_set(const AtomList& lst);
     void m_move(const AtomList& lst);

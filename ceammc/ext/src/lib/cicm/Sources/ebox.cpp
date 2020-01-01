@@ -749,7 +749,7 @@ void ebox_wdisplace(t_gobj* z, t_glist* glist, int dx, int dy)
 #endif
 
         // prevents crash on early call
-        if(!x->b_canvas_id || !x->b_window_id)
+        if (!x->b_canvas_id || !x->b_window_id)
             return;
 
         x->b_rect.x += dx;
@@ -805,29 +805,29 @@ static void ebox_tk_ids(t_ebox* x, t_canvas* canvas)
     x->b_all_id = gensym(buffer);
 }
 
+static void ebox_bind_event(t_ebox* x, const char* name)
+{
+    sys_vgui("%s %s %s\n", name, x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
+}
+
 static void ebox_bind_events(t_ebox* x)
 {
     t_eclass* c = (t_eclass*)eobj_getclass(x);
-    sys_vgui("bind %s <ButtonPress-3> {+pdsend {%s mousedown %%x %%y %%X %%Y %i}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name, EMOD_RIGHT);
 
-// right-click only on macos, on X11 this is paste event
-#ifdef __APPLE__
-    sys_vgui("bind %s <ButtonPress-2> {+pdsend {%s mousedown %%x %%y %%X %%Y %i}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name, EMOD_RIGHT);
-#endif
+    ebox_bind_event(x, "ceammc_bind_mouse_down");
+    ebox_bind_event(x, "ceammc_bind_mouse_up");
 
-    sys_vgui("bind %s <ButtonPress-1> {+pdsend \"%s mousedown %%x %%y %%X %%Y [ceammc_os_button_state %%s]\"}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
-    sys_vgui("bind %s <ButtonRelease> {+pdsend {%s mouseup %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
-    sys_vgui("bind %s <Motion> {+pdsend {%s mousemove %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
+    ebox_bind_event(x, "ceammc_bind_mouse_move");
+    ebox_bind_event(x, "ceammc_bind_mouse_enter");
+    ebox_bind_event(x, "ceammc_bind_mouse_leave");
+    ebox_bind_event(x, "ceammc_bind_mouse_right_click");
 
-    sys_vgui("bind %s <Enter> {+pdsend {%s mouseenter}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
-    sys_vgui("bind %s <Leave> {+pdsend {%s mouseleave}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
+    if (c->c_widget.w_dblclick)
+        ebox_bind_event(x, "ceammc_bind_mouse_double_click");
 
-    if (c->c_widget.w_dblclick) {
-        sys_vgui("bind %s <Double-Button-1> {+pdsend {%s dblclick %%x %%y %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
-    }
-    if (c->c_widget.w_mousewheel) {
-        sys_vgui("bind %s <MouseWheel> {+pdsend {%s mousewheel  %%x %%y %%D %%s}}\n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
-    }
+    if (c->c_widget.w_mousewheel)
+        ebox_bind_event(x, "ceammc_bind_mouse_wheel");
+
     if (c->c_widget.w_key || c->c_widget.w_keyfilter) {
         sys_vgui("bind %s <Key>  {+pdsend {%s key  %%k %%N}} \n", x->b_drawing_id->s_name, x->b_obj.o_id->s_name);
     }
@@ -904,7 +904,7 @@ static void ebox_create_window(t_ebox* x, t_glist* glist)
 
 static char is_platform_control(long mod)
 {
-#ifdef _WINDOWS
+#ifdef __WIN32
     return mod & EMOD_CTRL;
 #else
     return mod == EMOD_CMD;
@@ -919,15 +919,7 @@ static char is_for_box(t_ebox* x, long mod)
 static long modifier_wrapper(long mod)
 {
 #ifdef __APPLE__
-    if (mod >= 256) {
-        mod -= 256;
-    }
 #elif __WIN32
-
-    if (mod >= 131072) {
-        mod -= 131072;
-        mod |= EMOD_ALT;
-    }
 #else
     if (mod == 24) //right click
         mod = EMOD_CMD;
@@ -966,11 +958,11 @@ void ebox_mouse_leave(t_ebox* x)
     }
 }
 
-void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
+void ebox_mouse_move(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod)
 {
-    t_pt mouse;
+    const t_pt mouse { xpos, ypos };
     t_atom av[2];
-    long modif = modifier_wrapper((long)atom_getfloat(argv + 2));
+    long modif = modifier_wrapper(mod);
     t_eclass* c = eobj_getclass(x);
 
     // mouse move
@@ -979,16 +971,12 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
             if (!(x->b_flags & EBOX_IGNORELOCKCLICK)) {
                 ebox_set_cursor(x, ECURSOR_CENTER_PTR);
                 if (c->c_widget.w_mousemove) {
-                    mouse.x = atom_getfloat(argv);
-                    mouse.y = atom_getfloat(argv + 1);
                     c->c_widget.w_mousemove(x, x->b_obj.o_canvas, mouse, modif);
                 }
             } else {
                 ebox_set_cursor(x, ECURSOR_LEFT_PTR);
             }
         } else if (!x->b_isinsubcanvas) {
-            mouse.x = atom_getfloat(argv);
-            mouse.y = atom_getfloat(argv + 1);
             x->b_selected_outlet = -1;
             x->b_selected_inlet = -1;
             x->b_selected_item = EITEM_NONE;
@@ -1045,13 +1033,9 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
     } else { // mouse drag
         if (is_for_box(x, modif)) {
             if (c->c_widget.w_mousedrag && !(x->b_flags & EBOX_IGNORELOCKCLICK)) {
-                mouse.x = atom_getfloat(argv);
-                mouse.y = atom_getfloat(argv + 1);
                 c->c_widget.w_mousedrag(x, x->b_obj.o_canvas, mouse, modif);
             }
         } else if (!x->b_isinsubcanvas) {
-            mouse.x = atom_getfloat(argv);
-            mouse.y = atom_getfloat(argv + 1);
             if (x->b_selected_item == EITEM_NONE) {
                 sys_vgui("eobj_canvas_motion %s 0\n", x->b_canvas_id->s_name);
             } else if (!(x->b_flags & EBOX_GROWNO)) {
@@ -1093,24 +1077,15 @@ void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
     }
 }
 
-void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
+void ebox_mouse_down(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg absx, t_floatarg absy, t_floatarg mod)
 {
-    if (argc != 5) {
-        fprintf(stderr, "[ebox_mouse_down] warning: not enough arguments: %d", argc);
-        return;
-    }
+    long modif = modifier_wrapper(mod);
 
-    long modif = modifier_wrapper((long)atom_getfloat(argv + 4));
     t_eclass* c = eobj_getclass(x);
     if (is_for_box(x, modif)) {
         if (c->c_widget.w_mousedown && !(x->b_flags & EBOX_IGNORELOCKCLICK)) {
-            t_pt mouse;
-            mouse.x = atom_getfloat(argv);
-            mouse.y = atom_getfloat(argv + 1);
-
-            t_pt mouse_abs;
-            mouse_abs.x = atom_getfloat(argv + 2);
-            mouse_abs.y = atom_getfloat(argv + 3);
+            t_pt mouse { xpos, ypos };
+            t_pt mouse_abs { absx, absy };
 
             c->c_widget.w_mousedown(x, x->b_obj.o_canvas, mouse, mouse_abs, modif);
         }
@@ -1134,15 +1109,13 @@ void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
     x->b_mouse_down = true;
 }
 
-void ebox_mouse_up(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
+void ebox_mouse_up(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod)
 {
-    t_pt mouse;
-    long modif = modifier_wrapper((long)atom_getfloat(argv + 2));
+    long modif = modifier_wrapper(mod);
     t_eclass* c = eobj_getclass(x);
     if (is_for_box(x, modif)) {
         if (c->c_widget.w_mouseup && !(x->b_flags & EBOX_IGNORELOCKCLICK)) {
-            mouse.x = atom_getfloat(argv);
-            mouse.y = atom_getfloat(argv + 1);
+            t_pt mouse { xpos, ypos };
             c->c_widget.w_mouseup(x, x->b_obj.o_canvas, mouse, modif);
         }
     } else {
@@ -1163,18 +1136,44 @@ void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
     }
 }
 
-void ebox_mouse_wheel(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
+static void ebox_open_help(t_ebox* x)
 {
-    t_pt mouse;
-    long modif = modifier_wrapper((long)atom_getfloat(argv + 3));
     t_eclass* c = eobj_getclass(x);
-    if (is_for_box(x, modif) && c->c_widget.w_mousewheel && !(x->b_flags & EBOX_IGNORELOCKCLICK)) {
-        // map mouse window coords to widget coords
-        mouse.x = atom_getfloat(argv) - x->b_rect.x;
-        mouse.y = atom_getfloat(argv + 1) - x->b_rect.y;
-        double delta = atom_getfloat(argv + 2);
-        c->c_widget.w_mousewheel(x, x->b_obj.o_canvas, mouse, modif, delta);
+    open_via_helppath(class_gethelpname(&c->c_class), class_gethelpdir(&c->c_class));
+}
+
+void ebox_mouse_rightclick(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg absx, t_floatarg absy, t_floatarg mod)
+{
+    t_eclass* c = eobj_getclass(x);
+    const auto modif = modifier_wrapper(mod);
+
+    // show help menu in all modes (edit/performance) with pressed Shift
+    if (modif & EMOD_SHIFT)
+        return ebox_open_help(x);
+
+    // show object properties in all modes (edit/performance) with pressed Alt
+    if (modif & EMOD_ALT)
+        return ebox_properties(x, nullptr);
+
+    if (x->b_obj.o_canvas->gl_edit) {
+        // in edit mode show standart Pd popup
+        sys_vgui("eobj_canvas_right %s\n", x->b_canvas_id->s_name);
+    } else {
+        // in performance mode if widget defines their own popup dialogs: show them
+        // or show standart Pd popup otherwise
+        if (c->c_widget.w_rightclick && !(x->b_flags & EBOX_IGNORELOCKCLICK))
+            c->c_widget.w_rightclick(x, { xpos, ypos }, { absx, absy });
+        else
+            sys_vgui("eobj_canvas_right %s\n", x->b_canvas_id->s_name);
     }
+}
+
+void ebox_mouse_wheel(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg delta, t_floatarg mod)
+{
+    long modif = modifier_wrapper(mod);
+    t_eclass* c = eobj_getclass(x);
+    if (is_for_box(x, modif) && c->c_widget.w_mousewheel && !(x->b_flags & EBOX_IGNORELOCKCLICK))
+        c->c_widget.w_mousewheel(x, { xpos, ypos }, modif, delta);
 }
 
 void ebox_key(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
@@ -1349,8 +1348,7 @@ t_pd_err ebox_set_label(t_ebox* x, t_object* attr, int argc, t_atom* argv)
                         return atom_getsymbol(&a)->s_name;
                     else if (t == A_FLOAT) {
                         return atom_gensym(&a)->s_name;
-                    }
-                    else
+                    } else
                         return {};
                 };
 

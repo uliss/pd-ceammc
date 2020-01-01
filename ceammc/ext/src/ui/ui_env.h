@@ -8,12 +8,19 @@
 
 using namespace ceammc;
 
+enum class SelectType {
+    NONE = 0,
+    POINT,
+    LINE
+};
+
 struct Node {
     float x, y;
     float curve;
     float sigmoid_skew;
     CurveType type;
-    bool is_selected, is_stop;
+    SelectType select;
+    bool is_stop;
     bool fixed_x, fixed_y;
 
     Node()
@@ -22,7 +29,7 @@ struct Node {
         , curve(0)
         , sigmoid_skew(0)
         , type(CURVE_LINE)
-        , is_selected(false)
+        , select(SelectType::NONE)
         , is_stop(false)
         , fixed_x(false)
         , fixed_y(false)
@@ -60,13 +67,12 @@ public:
     void paint();
     void okSize(t_rect* newrect);
     void onMouseMove(t_object*, const t_pt& pt, long modifiers);
-    void onMouseDrag(t_object*, const t_pt& pt, long);
+    void onMouseDrag(t_object*, const t_pt& pt, long mod);
     void onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod);
     void onMouseLeave(t_object*, const t_pt&, long);
-    void onMouseWheel(t_object*, const t_pt& pt, long, double delta);
-    void onMouseUp(t_object*, const t_pt&, long);
-    void onDblClick(t_object*, const t_pt& pt, long modifiers);
-    void onPopup(t_symbol* msg, long itemIdx);
+    void onMouseUp(t_object* view, const t_pt& pt, long mod);
+    void onMouseWheel(const t_pt& pt, long mod, float delta);
+    void showPopup(const t_pt& pt, const t_pt& abs_pt);
 
     void updateNodes();
     void updateEnvelope();
@@ -95,12 +101,17 @@ private:
     void drawCursor(const t_rect& r);
     void drawEnvelope(const t_rect& r);
 
-    void makeCommonPopup(const t_pt& abs_pt);
     void addNode(const t_pt& pt);
     long findSelectedNodeIdx() const;
 
-    void toggleSelectedNodeStop();
     void removeSelectedNode();
+
+    long findNodeLine(const t_pt& pt);
+    void deselectAll();
+    bool hasSelectedEdge() const;
+
+    void outputEnvelope();
+    static bool shouldOutput(long mod);
 
 public:
     static void setup();

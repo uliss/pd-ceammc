@@ -8,7 +8,7 @@
 #X obj 639 11 conv.rad2phase;
 #X obj 50 118 ui.hsl @min 0 @max 7;
 #X obj 50 147 rad->phase;
-#X obj 50 176 ui.knob @size 40 40;
+#X obj 50 176 ui.knob;
 #X obj 50 234 phase->rad;
 #X floatatom 50 262 5 0 0 0 - - -;
 #X obj 20 301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -7,9 +7,9 @@
 #X obj 638 11 fx.pitchshift~;
 #X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
 #X obj 50 147 expand_env;
-#X obj 203 147 ui.knob @size 40 40;
-#X obj 328 147 ui.knob @size 40 40;
-#X obj 434 176 ui.knob @size 40 40;
+#X obj 203 147 ui.knob;
+#X obj 328 147 ui.knob;
+#X obj 434 176 ui.knob;
 #X obj 50 205 readsf~;
 #X obj 203 205 * 2000;
 #X obj 328 205 * 1000;

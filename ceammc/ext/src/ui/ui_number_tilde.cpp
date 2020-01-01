@@ -110,6 +110,7 @@ void UINumberTilde::setup()
     obj.setPropertyRange("precision", 0, 6);
     obj.addIntProperty("interval", _("Refresh interval (ms)"), 50, &UINumberTilde::prop_interval, _("Main"));
     obj.setPropertyRange("interval", 20, 1000);
+    obj.setPropertyUnits("interval", "msec");
 
     obj.setPropertyDefaultValue(PROP_BACKGROUND_COLOR, "0.3 0.3 0.3 1");
     obj.setPropertyDefaultValue(PROP_BORDER_COLOR, DEFAULT_TEXT_COLOR);

@@ -77,12 +77,35 @@ UIPolar::UIPolar()
     , angle_(0)
     , prop_direction_(gensym("N"))
     , mouse_down_(false)
-    , right_click_(false)
     , prop_clockwise_(1)
     , prop_radians_(0)
     , prop_positive_(0)
 {
     createOutlet();
+
+    initPopupMenu("polar",
+        { { _("center"), [this](const t_pt&) { onList({ 0.f, 0.f }); } },
+            { _("left center"), [this](const t_pt&) { onList({ 1, side2Angle(LEFT) }); } },
+            { _("right center"), [this](const t_pt&) { onList({ 1, side2Angle(RIGHT) }); } },
+            { _("top center"), [this](const t_pt&) { onList({ 1, side2Angle(TOP) }); } },
+            { _("bottom center"), [this](const t_pt&) { onList({ 1, side2Angle(BOTTOM) }); } } });
+}
+
+float UIPolar::side2Angle(SideT side)
+{
+    float angle = 0;
+
+    if (prop_radians_)
+        angle = side * M_PI_2;
+    else
+        angle = side * 90;
+
+    if (prop_clockwise_)
+        angle = directionAngleOffset() - angle;
+    else
+        angle -= directionAngleOffset();
+
+    return angle;
 }
 
 void UIPolar::okSize(t_rect* newrect)
@@ -223,47 +246,7 @@ void UIPolar::onList(const AtomList& lst)
     output();
 }
 
-void UIPolar::onPopup(t_symbol* menu_name, long item_idx)
-{
-    if (menu_name != SYM_POPUP_MAIN)
-        return;
-
-    auto side2angle = [this](int angle_idx) {
-        float angle = 0;
-
-        if (prop_radians_)
-            angle = angle_idx * M_PI_2;
-        else
-            angle = angle_idx * 90;
-
-        if (prop_clockwise_)
-            angle = directionAngleOffset() - angle;
-        else
-            angle -= directionAngleOffset();
-
-        return angle;
-    };
-
-    switch (item_idx) {
-    case 0:
-        onList({ 0.f, 0.f });
-        break;
-    case 1:
-        onList({ 1, side2angle(2) });
-        break;
-    case 2:
-        onList({ 1, side2angle(0) });
-        break;
-    case 3:
-        onList({ 1, side2angle(1) });
-        break;
-    case 4:
-        onList({ 1, side2angle(3) });
-        break;
-    }
-}
-
-void UIPolar::onMouseWheel(t_object* view, const t_pt& pt, long modifiers, double delta)
+void UIPolar::onMouseWheel(const t_pt& pt, long modifiers, double delta)
 {
     float k = 0.1;
     if (modifiers & EMOD_SHIFT)
@@ -276,19 +259,6 @@ void UIPolar::onMouseWheel(t_object* view, const t_pt& pt, long modifiers, doubl
 
 void UIPolar::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    // right click
-    if (modifiers & EMOD_RIGHT) {
-        UIPopupMenu menu(asEObj(), SYM_POPUP_MAIN, abs_pt);
-        menu.addItem(_("center"));
-        menu.addItem(_("left center"));
-        menu.addItem(_("right center"));
-        menu.addItem(_("top center"));
-        menu.addItem(_("bottom center"));
-        right_click_ = true;
-        return;
-    }
-
-    right_click_ = false;
     mouse_down_ = true;
     setMouse(pt.x, pt.y, modifiers & EMOD_ALT);
     redrawKnob();
@@ -304,11 +274,6 @@ void UIPolar::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 
 void UIPolar::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
-    if (right_click_) {
-        right_click_ = false;
-        return;
-    }
-
     mouse_down_ = false;
     setMouse(pt.x, pt.y, modifiers & EMOD_ALT);
     redrawKnob();
@@ -545,6 +510,7 @@ void UIPolar::setup()
     obj.usePresets();
     obj.useList();
     obj.useBang();
+    obj.usePopup();
 
     obj.useMouseEvents(UI_MOUSE_UP | UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_WHEEL);
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
