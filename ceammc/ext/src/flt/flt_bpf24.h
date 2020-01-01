@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt.bpf24"
-Code generated with Faust 2.18.7 (https://faust.grame.fr)
+Code generated with Faust 2.21.1 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -383,7 +383,7 @@ struct Meta
  that work under terms of your choice, so long as this FAUST
  architecture section is not modified.
  ************************************************************************/
- 
+
 #ifndef __misc__
 #define __misc__
 
@@ -414,23 +414,40 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-	int	i;
-    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    return def;
 }
 
-static bool isopt(char* argv[], const char* name)
+static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
-	return false;
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return atoi(argv[i]);
+        }
+    }
+    return def;
 }
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    return def;
+}
+
+static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
+{
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return argv[i];
+        }
+    }
+    return def;
+}
+
+static bool isopt(char* argv[], const char* name)
+{
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
+    return false;
 }
 
 static std::string pathToContent(const std::string& path)
@@ -488,20 +505,18 @@ struct flt_bpf24 : public dsp {
 
 static float flt_bpf24_faustpower2_f(float value) {
 	return (value * value);
-	
 }
 static float flt_bpf24_faustpower3_f(float value) {
 	return ((value * value) * value);
-	
 }
 static float flt_bpf24_faustpower4_f(float value) {
 	return (((value * value) * value) * value);
-	
 }
 
 #ifndef FAUSTCLASS 
 #define FAUSTCLASS flt_bpf24
 #endif
+
 #ifdef __APPLE__ 
 #define exp10f __exp10f
 #define exp10 __exp10
@@ -566,15 +581,13 @@ class flt_bpf24 : public dsp {
 
 	virtual int getNumInputs() {
 		return 1;
-		
 	}
 	virtual int getNumOutputs() {
 		return 1;
-		
 	}
 	virtual int getInputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 1;
 				break;
@@ -583,14 +596,12 @@ class flt_bpf24 : public dsp {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	virtual int getOutputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 1;
 				break;
@@ -599,14 +610,11 @@ class flt_bpf24 : public dsp {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	
 	static void classInit(int sample_rate) {
-		
 	}
 	
 	virtual void instanceConstants(int sample_rate) {
@@ -624,29 +632,23 @@ class flt_bpf24 : public dsp {
 		fConst10 = (22.6274166f / fConst0);
 		fConst11 = (6.0f * fConst2);
 		fConst12 = (11.3137083f / fConst0);
-		
 	}
 	
 	virtual void instanceResetUserInterface() {
 		fVslider0 = FAUSTFLOAT(1000.0f);
 		fVslider1 = FAUSTFLOAT(2.0f);
-		
 	}
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec1[l0] = 0.0f;
-			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec2[l1] = 0.0f;
-			
 		}
 		for (int l2 = 0; (l2 < 5); l2 = (l2 + 1)) {
 			fRec0[l2] = 0.0f;
-			
 		}
-		
 	}
 	
 	virtual void init(int sample_rate) {
@@ -665,7 +667,6 @@ class flt_bpf24 : public dsp {
 	
 	virtual int getSampleRate() {
 		return fSampleRate;
-		
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
@@ -674,7 +675,6 @@ class flt_bpf24 : public dsp {
 		ui_interface->addVerticalSlider("freq", &fVslider0, 1000.0f, 20.0f, 20000.0f, 0.100000001f);
 		ui_interface->addVerticalSlider("q", &fVslider1, 2.0f, 0.00999999978f, 100.0f, 0.100000001f);
 		ui_interface->closeBox();
-		
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
@@ -706,11 +706,8 @@ class flt_bpf24 : public dsp {
 			fRec2[1] = fRec2[0];
 			for (int j0 = 4; (j0 > 0); j0 = (j0 - 1)) {
 				fRec0[j0] = fRec0[(j0 - 1)];
-				
 			}
-			
 		}
-		
 	}
 
 };
