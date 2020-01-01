@@ -228,7 +228,7 @@ if __name__ == '__main__':
                     cprint(f"[{ext_name}] missing units attribute in pddoc \"{p}\"", 'magenta')
 
             if p0["type"] == "bool":
-                if p1["type"] == "flag":
+                if p1["type"] in ("flag", "alias"):
                     continue
 
                 if "enum" not in p1:
