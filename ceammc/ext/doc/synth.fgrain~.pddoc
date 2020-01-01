@@ -60,7 +60,7 @@
 <![CDATA[
 [loadbang]
 |
-[open %DOC%/sound/voice.wav(
+[open %CEAMMC%/guitar1.wav(
 |
 [expand_env]                  [ui.knob]
 |                             |

@@ -2,7 +2,7 @@
 author: "Yann Orlarey"
 copyright: "Grame"
 license: "STK-4.3"
-name: "sdelay"
+name: "fx.sdelay"
 version: "1.0"
 Code generated with Faust 2.21.1 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
@@ -561,7 +561,7 @@ class fx_sdelay : public dsp {
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
 		m->declare("maths.lib/version", "2.1");
-		m->declare("name", "sdelay");
+		m->declare("name", "fx.sdelay");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
 		m->declare("version", "1.0");
@@ -668,7 +668,7 @@ class fx_sdelay : public dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("sdelay");
+		ui_interface->openVerticalBox("fx.sdelay");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->addHorizontalSlider("delay", &fHslider1, 1.0f, 0.0f, 6000.0f, 0.100000001f);
 		ui_interface->declare(&fHslider0, "style", "knob");

@@ -1,5 +1,5 @@
 {
-	"name": "sdelay",
+	"name": "fx.sdelay",
 	"filename": "fx_sdelay.dsp",
 	"version": "2.21.1",
 	"compile_options": "-lang cpp -scal -ftz 0",
@@ -25,7 +25,7 @@
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
 		{ "maths.lib/version": "2.1" },
-		{ "name": "sdelay" },
+		{ "name": "fx.sdelay" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
 		{ "signals.lib/version": "0.0" },
 		{ "version": "1.0" }
@@ -33,17 +33,17 @@
 	"ui": [ 
 		{
 			"type": "vgroup",
-			"label": "sdelay",
+			"label": "fx.sdelay",
 			"items": [ 
 				{
 					"type": "checkbox",
 					"label": "bypass",
-					"address": "/sdelay/bypass"
+					"address": "/fx.sdelay/bypass"
 				},
 				{
 					"type": "hslider",
 					"label": "delay",
-					"address": "/sdelay/delay",
+					"address": "/fx.sdelay/delay",
 					"init": 1,
 					"min": 0,
 					"max": 6000,
@@ -52,7 +52,7 @@
 				{
 					"type": "hslider",
 					"label": "drywet",
-					"address": "/sdelay/drywet",
+					"address": "/fx.sdelay/drywet",
 					"meta": [
 						{ "style": "knob" }
 					],
@@ -64,7 +64,7 @@
 				{
 					"type": "hslider",
 					"label": "feedback",
-					"address": "/sdelay/feedback",
+					"address": "/fx.sdelay/feedback",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -73,7 +73,7 @@
 				{
 					"type": "hslider",
 					"label": "interpolation",
-					"address": "/sdelay/interpolation",
+					"address": "/fx.sdelay/interpolation",
 					"init": 20,
 					"min": 1,
 					"max": 200,
