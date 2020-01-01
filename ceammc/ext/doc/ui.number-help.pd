@@ -36,10 +36,10 @@ input \, BACKSPACE removes last character.;
 Type: int. Default value: -1\. Range: -1\...8\.;
 #X msg 110 536 @max;
 #X text 245 536 Get/Set maximum value. Type: float. Default value:
--inf.;
++inf.;
 #X msg 110 565 @min;
 #X text 245 565 Get/Set minimum value. Type: float. Default value:
-+inf.;
+-inf.;
 #X msg 110 594 @receive;
 #X text 245 594 Get/Set receive source. Type: symbol.;
 #X msg 110 623 @send;
