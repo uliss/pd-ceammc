@@ -53,8 +53,10 @@ def read_props(name):
         s = subprocess.check_output([EXT_PROPS, name], stderr=subprocess.DEVNULL).decode()
         js = json.loads(s)
         return set(js.keys()), js
-    except(subprocess.CalledProcessError):
-        cprint(f"[{name}] can't get properties", "red")
+    except(subprocess.CalledProcessError) as e:
+        if e.returncode != 4:
+            cprint(f"[{name}] can't get properties", "red")
+
         return set(), dict()
 
 def check_spell(obj):
