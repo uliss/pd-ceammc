@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "env_ar"
-Code generated with Faust 2.18.7 (https://faust.grame.fr)
+Code generated with Faust 2.21.1 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -383,7 +383,7 @@ struct Meta
  that work under terms of your choice, so long as this FAUST
  architecture section is not modified.
  ************************************************************************/
- 
+
 #ifndef __misc__
 #define __misc__
 
@@ -414,23 +414,40 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-	int	i;
-    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    return def;
 }
 
-static bool isopt(char* argv[], const char* name)
+static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
-	return false;
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return atoi(argv[i]);
+        }
+    }
+    return def;
 }
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    return def;
+}
+
+static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
+{
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return argv[i];
+        }
+    }
+    return def;
+}
+
+static bool isopt(char* argv[], const char* name)
+{
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
+    return false;
 }
 
 static std::string pathToContent(const std::string& path)
@@ -490,6 +507,7 @@ struct env_ar : public dsp {
 #ifndef FAUSTCLASS 
 #define FAUSTCLASS env_ar
 #endif
+
 #ifdef __APPLE__ 
 #define exp10f __exp10f
 #define exp10 __exp10
@@ -506,9 +524,8 @@ class env_ar : public dsp {
 	float fConst0;
 	FAUSTFLOAT fHslider0;
 	float fRec1[2];
-	int iRec2[2];
 	FAUSTFLOAT fHslider1;
-	float fRec3[2];
+	float fRec2[2];
 	
  public:
 	
@@ -517,7 +534,7 @@ class env_ar : public dsp {
 		m->declare("ceammc.lib/version", "0.1.1");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.1");
-		m->declare("envelopes.lib/ar:author", "Stéphane Letz");
+		m->declare("envelopes.lib/ar:author", "Yann Orlarey, Stéphane Letz");
 		m->declare("envelopes.lib/author", "GRAME");
 		m->declare("envelopes.lib/copyright", "GRAME");
 		m->declare("envelopes.lib/license", "LGPL with exception");
@@ -536,15 +553,13 @@ class env_ar : public dsp {
 
 	virtual int getNumInputs() {
 		return 1;
-		
 	}
 	virtual int getNumOutputs() {
 		return 1;
-		
 	}
 	virtual int getInputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 1;
 				break;
@@ -553,14 +568,12 @@ class env_ar : public dsp {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	virtual int getOutputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 1;
 				break;
@@ -569,51 +582,37 @@ class env_ar : public dsp {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	
 	static void classInit(int sample_rate) {
-		
 	}
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
 		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		
 	}
 	
 	virtual void instanceResetUserInterface() {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(10.0f);
 		fHslider1 = FAUSTFLOAT(300.0f);
-		
 	}
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fVec0[l0] = 0.0f;
-			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			iRec0[l1] = 0;
-			
 		}
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec1[l2] = 0.0f;
-			
 		}
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
-			iRec2[l3] = 0;
-			
+			fRec2[l3] = 0.0f;
 		}
-		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
-			fRec3[l4] = 0.0f;
-			
-		}
-		
 	}
 	
 	virtual void init(int sample_rate) {
@@ -632,7 +631,6 @@ class env_ar : public dsp {
 	
 	virtual int getSampleRate() {
 		return fSampleRate;
-		
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
@@ -645,7 +643,6 @@ class env_ar : public dsp {
 		ui_interface->declare(&fHslider1, "unit", "ms");
 		ui_interface->addHorizontalSlider("release", &fHslider1, 300.0f, 0.0f, 100000.0f, 1.0f);
 		ui_interface->closeBox();
-		
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
@@ -656,20 +653,17 @@ class env_ar : public dsp {
 		float fSlow2 = (9.99999997e-07f * float(fHslider1));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			fVec0[0] = fSlow0;
-			iRec0[0] = ((iRec0[1] * (fVec0[1] >= fSlow0)) + 1);
+			iRec0[0] = (((iRec0[1] + (iRec0[1] > 0)) * (fSlow0 <= fVec0[1])) + (fSlow0 > fVec0[1]));
+			float fTemp0 = float(iRec0[0]);
 			fRec1[0] = (fSlow1 + (0.999000013f * fRec1[1]));
-			float fTemp0 = std::min<float>((float(iRec0[0]) / std::max<float>(1.0f, (fConst0 * fRec1[0]))), 1.0f);
-			iRec2[0] = ((iRec2[1] + 1) * (fTemp0 >= 1.0f));
-			fRec3[0] = (fSlow2 + (0.999000013f * fRec3[1]));
-			output0[i] = FAUSTFLOAT((float(input0[i]) * std::max<float>(0.0f, (fTemp0 - (float(iRec2[0]) / std::max<float>(1.0f, (fConst0 * fRec3[0])))))));
+			float fTemp1 = std::max<float>(1.0f, (fConst0 * fRec1[0]));
+			fRec2[0] = (fSlow2 + (0.999000013f * fRec2[1]));
+			output0[i] = FAUSTFLOAT((float(input0[i]) * std::max<float>(0.0f, std::min<float>((fTemp0 / fTemp1), (((fTemp1 - fTemp0) / std::max<float>(1.0f, (fConst0 * fRec2[0]))) + 1.0f)))));
 			fVec0[1] = fVec0[0];
 			iRec0[1] = iRec0[0];
 			fRec1[1] = fRec1[0];
-			iRec2[1] = iRec2[0];
-			fRec3[1] = fRec3[0];
-			
+			fRec2[1] = fRec2[0];
 		}
-		
 	}
 
 };
