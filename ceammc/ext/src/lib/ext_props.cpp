@@ -140,7 +140,7 @@ static void printInfo(std::ostream& os, const PropertyInfo& pi)
         os << "    \"default\": " << pi.defaultList() << ",\n";
         break;
     case PropertyInfoType::SYMBOL:
-        os << "    \"default\": \"" << pi.defaultSymbol()->s_name << "\",\n";
+        os << "    \"default\": \"" << pi.defaultSymbol(&s_)->s_name << "\",\n";
         break;
     case PropertyInfoType::VARIANT:
         if (!pi.defaultAtom().isNone())

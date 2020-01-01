@@ -289,7 +289,8 @@ t_symbol* PropertyInfo::defaultSymbol(t_symbol* def) const
     if (val.type() != typeid(t_symbol*))
         return def;
 
-    return boost::get<t_symbol*>(val);
+    auto ret = boost::get<t_symbol*>(val);
+    return (ret == nullptr) ? def : ret;
 }
 
 Atom PropertyInfo::defaultAtom(const Atom& def) const
