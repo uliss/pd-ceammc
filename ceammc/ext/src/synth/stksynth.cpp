@@ -77,10 +77,15 @@ StkSynth::StkSynth(const PdArgs& args, stk::Instrmnt* instr)
     , freq_(nullptr)
     , gate_(0)
 {
-    freq_ = new FloatPropertyMin("@freq", mtof(48), 0);
+    freq_ = new FloatPropertyMin("@freq", mtof(57), 0);
+    freq_->info().setUnits(PropertyInfoUnits::HZ);
     createProperty(freq_);
 
-    createCbProperty("@gate", &StkSynth::propGate, &StkSynth::propSetGate);
+    {
+        Property* p = createCbProperty("@gate", &StkSynth::propGate, &StkSynth::propSetGate);
+        p->info().setType(PropertyInfoType::FLOAT);
+        p->info().setRange(0, 1);
+    }
 }
 
 AtomList StkSynth::propGate() const
