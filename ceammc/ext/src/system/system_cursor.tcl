@@ -17,12 +17,12 @@ proc ::ceammc::cursor::unbind {tag event script} {
 
 proc ::ceammc::cursor::button {button state} {
     variable receive_symbol
-    pdsend "$receive_symbol button $button $state"
+    pdsend "$receive_symbol .button $button $state"
 }
 
 proc ::ceammc::cursor::mousewheel {delta} {
     variable receive_symbol
-    pdsend "$receive_symbol mousewheel $delta"
+    pdsend "$receive_symbol .mousewheel $delta"
 } 
 
 proc ::ceammc::cursor::motion {x y} {
@@ -30,7 +30,7 @@ proc ::ceammc::cursor::motion {x y} {
     variable last_y
     variable receive_symbol
     if { $x != $last_x || $y != $last_y} {
-        pdsend "$receive_symbol motion $x $y"
+        pdsend "$receive_symbol .motion $x $y"
         set last_x $x
         set last_y $y
     }
