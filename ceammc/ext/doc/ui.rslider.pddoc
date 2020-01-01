@@ -29,7 +29,8 @@
         <mouse>
             <event editmode="false" type="left-click">jump both ends to coord under mouse
             pointer</event>
-            <event editmode="false" type="left-click" keys="Cmd">outputs current slider value</event>
+            <event editmode="false" type="left-click" keys="Cmd">outputs current slider
+            value</event>
             <event editmode="false" type="left-click" keys="Alt">jump nearest border to coord under
             mouse pointer</event>
             <event editmode="false" type="drag">increase slider range</event>
