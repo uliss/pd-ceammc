@@ -820,6 +820,7 @@ void UIEnv::setup()
     obj.addProperty("line_color", _("Line Color"), DEFAULT_LINE_COLOR, &UIEnv::prop_line_color);
     obj.addProperty(PROP_LENGTH, _("Length (ms)"), 400, &UIEnv::prop_length, _("Main"));
     obj.setPropertyMin(PROP_LENGTH, 10);
+    obj.setPropertyUnits(gensym(PROP_LENGTH), gensym("msec"));
 
     obj.addMethod(SYM_ADSR, &UIEnv::m_adsr);
     obj.addMethod(SYM_ASR, &UIEnv::m_asr);
