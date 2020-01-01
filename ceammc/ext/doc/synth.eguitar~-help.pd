@@ -9,8 +9,8 @@
 #X obj 50 147 metro 130;
 #X msg 50 176 0 12 0 36 7 12;
 #X obj 50 205 list.choice;
-#X obj 251 205 ui.knob @size 40 40;
-#X obj 376 205 ui.knob @size 40 40;
+#X obj 251 205 ui.knob;
+#X obj 376 205 ui.knob;
 #X obj 50 234 + 36;
 #X msg 50 262 @pitch \$1 \, @gate 1;
 #X msg 251 262 @pos \$1;

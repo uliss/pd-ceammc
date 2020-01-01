@@ -6,7 +6,7 @@
 -4096 0;
 #X obj 570 11 pol->car;
 #X obj 653 11 conv.pol2car;
-#X obj 50 118 ui.knob @size 40 40;
+#X obj 50 118 ui.knob;
 #X floatatom 50 176 5 0 0 0 - - -;
 #X obj 50 205 phase->rad;
 #X msg 50 234 1 \$1;

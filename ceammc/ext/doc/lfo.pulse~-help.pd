@@ -6,7 +6,7 @@
 -4096 0;
 #X obj 667 11 lfo.pulse~;
 #X obj 50 118 osc.saw~ 100;
-#X obj 280 118 ui.knob @size 40 40;
+#X obj 280 118 ui.knob;
 #X obj 50 147 ui.gain~ @size 120 14;
 #X floatatom 194 176 5 0 0 0 - - -;
 #X msg 280 176 @duty \$1;

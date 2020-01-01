@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty synth.birds~ 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 synth.birds~;
-#X obj 50 118 ui.knob @size 40 40;
-#X obj 270 118 ui.knob @size 40 40;
+#X obj 50 118 ui.knob;
+#X obj 270 118 ui.knob;
 #X obj 50 176 lin->lin 0 1 120 480;
 #X obj 270 176 lin->lin 0 1 25 100;
 #X msg 50 205 @speed \$1;
