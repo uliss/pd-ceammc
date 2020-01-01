@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 author: "Pierre Cochard"
 name: "synth.birds"
-Code generated with Faust 2.18.7 (https://faust.grame.fr)
+Code generated with Faust 2.21.1 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -384,7 +384,7 @@ struct Meta
  that work under terms of your choice, so long as this FAUST
  architecture section is not modified.
  ************************************************************************/
- 
+
 #ifndef __misc__
 #define __misc__
 
@@ -415,23 +415,40 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-	int	i;
-    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    return def;
 }
 
-static bool isopt(char* argv[], const char* name)
+static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
-	return false;
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return atoi(argv[i]);
+        }
+    }
+    return def;
 }
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    return def;
+}
+
+static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
+{
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return argv[i];
+        }
+    }
+    return def;
+}
+
+static bool isopt(char* argv[], const char* name)
+{
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
+    return false;
 }
 
 static std::string pathToContent(const std::string& path)
@@ -487,7 +504,6 @@ struct synth_birds : public dsp {
 #include <cmath>
 #include <math.h>
 
-
 class synth_birdsSIG0 {
 	
   private:
@@ -498,27 +514,23 @@ class synth_birdsSIG0 {
 	
 	int getNumInputssynth_birdsSIG0() {
 		return 0;
-		
 	}
 	int getNumOutputssynth_birdsSIG0() {
 		return 1;
-		
 	}
 	int getInputRatesynth_birdsSIG0(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			default: {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	int getOutputRatesynth_birdsSIG0(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 0;
 				break;
@@ -527,18 +539,14 @@ class synth_birdsSIG0 {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	
 	void instanceInitsynth_birdsSIG0(int sample_rate) {
 		for (int l16 = 0; (l16 < 2); l16 = (l16 + 1)) {
 			iRec14[l16] = 0;
-			
 		}
-		
 	}
 	
 	void fillsynth_birdsSIG0(int count, float* table) {
@@ -546,29 +554,26 @@ class synth_birdsSIG0 {
 			iRec14[0] = (iRec14[1] + 1);
 			table[i] = std::sin((9.58738019e-05f * float((iRec14[0] + -1))));
 			iRec14[1] = iRec14[0];
-			
 		}
-		
 	}
 
 };
 
-synth_birdsSIG0* newsynth_birdsSIG0() { return (synth_birdsSIG0*)new synth_birdsSIG0(); }
-void deletesynth_birdsSIG0(synth_birdsSIG0* dsp) { delete dsp; }
+static synth_birdsSIG0* newsynth_birdsSIG0() { return (synth_birdsSIG0*)new synth_birdsSIG0(); }
+static void deletesynth_birdsSIG0(synth_birdsSIG0* dsp) { delete dsp; }
 
 static float ftbl0synth_birdsSIG0[65537];
 static float synth_birds_faustpower2_f(float value) {
 	return (value * value);
-	
 }
 static float synth_birds_faustpower3_f(float value) {
 	return ((value * value) * value);
-	
 }
 
 #ifndef FAUSTCLASS 
 #define FAUSTCLASS synth_birds
 #endif
+
 #ifdef __APPLE__ 
 #define exp10f __exp10f
 #define exp10 __exp10
@@ -727,27 +732,23 @@ class synth_birds : public dsp {
 
 	virtual int getNumInputs() {
 		return 0;
-		
 	}
 	virtual int getNumOutputs() {
 		return 2;
-		
 	}
 	virtual int getInputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			default: {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	virtual int getOutputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 1;
 				break;
@@ -760,10 +761,8 @@ class synth_birds : public dsp {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	
 	static void classInit(int sample_rate) {
@@ -771,7 +770,6 @@ class synth_birds : public dsp {
 		sig0->instanceInitsynth_birdsSIG0(sample_rate);
 		sig0->fillsynth_birdsSIG0(65537, ftbl0synth_birdsSIG0);
 		deletesynth_birdsSIG0(sig0);
-		
 	}
 	
 	virtual void instanceConstants(int sample_rate) {
@@ -844,170 +842,129 @@ class synth_birds : public dsp {
 		fConst65 = (0.000147750994f * fConst0);
 		fConst66 = (21996.3926f / fConst0);
 		fConst67 = (6768.14355f / fConst0);
-		
 	}
 	
 	virtual void instanceResetUserInterface() {
 		fHslider0 = FAUSTFLOAT(240.0f);
 		fHslider1 = FAUSTFLOAT(50.0f);
-		
 	}
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; (l0 < 3); l0 = (l0 + 1)) {
 			iVec0[l0] = 0;
-			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec8[l1] = 0.0f;
-			
 		}
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			iRec7[l2] = 0;
-			
 		}
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			iRec9[l3] = 0;
-			
 		}
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fRec10[l4] = 0.0f;
-			
 		}
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
 			iVec1[l5] = 0;
-			
 		}
 		for (int l6 = 0; (l6 < 2); l6 = (l6 + 1)) {
 			fRec6[l6] = 0.0f;
-			
 		}
 		for (int l7 = 0; (l7 < 4); l7 = (l7 + 1)) {
 			fRec11[l7] = 0.0f;
-			
 		}
 		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
 			fRec5[l8] = 0.0f;
-			
 		}
 		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
 			iVec2[l9] = 0;
-			
 		}
 		for (int l10 = 0; (l10 < 2); l10 = (l10 + 1)) {
 			iRec4[l10] = 0;
-			
 		}
 		for (int l11 = 0; (l11 < 4); l11 = (l11 + 1)) {
 			fRec13[l11] = 0.0f;
-			
 		}
 		for (int l12 = 0; (l12 < 2); l12 = (l12 + 1)) {
 			fRec12[l12] = 0.0f;
-			
 		}
 		for (int l13 = 0; (l13 < 2); l13 = (l13 + 1)) {
 			iRec3[l13] = 0;
-			
 		}
 		for (int l14 = 0; (l14 < 2); l14 = (l14 + 1)) {
 			fRec2[l14] = 0.0f;
-			
 		}
 		for (int l15 = 0; (l15 < 2); l15 = (l15 + 1)) {
 			fRec1[l15] = 0.0f;
-			
 		}
 		for (int l17 = 0; (l17 < 4); l17 = (l17 + 1)) {
 			fRec17[l17] = 0.0f;
-			
 		}
 		for (int l18 = 0; (l18 < 2); l18 = (l18 + 1)) {
 			fRec16[l18] = 0.0f;
-			
 		}
 		for (int l19 = 0; (l19 < 2); l19 = (l19 + 1)) {
 			iRec22[l19] = 0;
-			
 		}
 		for (int l20 = 0; (l20 < 2); l20 = (l20 + 1)) {
 			fRec21[l20] = 0.0f;
-			
 		}
 		for (int l21 = 0; (l21 < 2); l21 = (l21 + 1)) {
 			fRec20[l21] = 0.0f;
-			
 		}
 		for (int l22 = 0; (l22 < 2); l22 = (l22 + 1)) {
 			fVec3[l22] = 0.0f;
-			
 		}
 		for (int l23 = 0; (l23 < 2); l23 = (l23 + 1)) {
 			fRec19[l23] = 0.0f;
-			
 		}
 		for (int l24 = 0; (l24 < 2); l24 = (l24 + 1)) {
 			fVec4[l24] = 0.0f;
-			
 		}
 		for (int l25 = 0; (l25 < 2); l25 = (l25 + 1)) {
 			fVec5[l25] = 0.0f;
-			
 		}
 		IOTA = 0;
 		for (int l26 = 0; (l26 < 4096); l26 = (l26 + 1)) {
 			fVec6[l26] = 0.0f;
-			
 		}
 		for (int l27 = 0; (l27 < 2); l27 = (l27 + 1)) {
 			fRec18[l27] = 0.0f;
-			
 		}
 		for (int l28 = 0; (l28 < 2); l28 = (l28 + 1)) {
 			iRec25[l28] = 0;
-			
 		}
 		for (int l29 = 0; (l29 < 2); l29 = (l29 + 1)) {
 			fRec24[l29] = 0.0f;
-			
 		}
 		for (int l30 = 0; (l30 < 2); l30 = (l30 + 1)) {
 			fRec23[l30] = 0.0f;
-			
 		}
 		for (int l31 = 0; (l31 < 2); l31 = (l31 + 1)) {
 			iRec28[l31] = 0;
-			
 		}
 		for (int l32 = 0; (l32 < 4); l32 = (l32 + 1)) {
 			fRec30[l32] = 0.0f;
-			
 		}
 		for (int l33 = 0; (l33 < 2); l33 = (l33 + 1)) {
 			fRec29[l33] = 0.0f;
-			
 		}
 		for (int l34 = 0; (l34 < 2); l34 = (l34 + 1)) {
 			fRec27[l34] = 0.0f;
-			
 		}
 		for (int l35 = 0; (l35 < 2); l35 = (l35 + 1)) {
 			fRec26[l35] = 0.0f;
-			
 		}
 		for (int l36 = 0; (l36 < 2); l36 = (l36 + 1)) {
 			fRec15[l36] = 0.0f;
-			
 		}
 		for (int l37 = 0; (l37 < 2); l37 = (l37 + 1)) {
 			fVec7[l37] = 0.0f;
-			
 		}
 		for (int l38 = 0; (l38 < 2); l38 = (l38 + 1)) {
 			fRec0[l38] = 0.0f;
-			
 		}
-		
 	}
 	
 	virtual void init(int sample_rate) {
@@ -1026,7 +983,6 @@ class synth_birds : public dsp {
 	
 	virtual int getSampleRate() {
 		return fSampleRate;
-		
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
@@ -1039,7 +995,6 @@ class synth_birds : public dsp {
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("speed", &fHslider0, 240.0f, 120.0f, 480.0f, 0.100000001f);
 		ui_interface->closeBox();
-		
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
@@ -1168,14 +1123,12 @@ class synth_birds : public dsp {
 			fRec6[1] = fRec6[0];
 			for (int j0 = 3; (j0 > 0); j0 = (j0 - 1)) {
 				fRec11[j0] = fRec11[(j0 - 1)];
-				
 			}
 			fRec5[1] = fRec5[0];
 			iVec2[1] = iVec2[0];
 			iRec4[1] = iRec4[0];
 			for (int j1 = 3; (j1 > 0); j1 = (j1 - 1)) {
 				fRec13[j1] = fRec13[(j1 - 1)];
-				
 			}
 			fRec12[1] = fRec12[0];
 			iRec3[1] = iRec3[0];
@@ -1183,7 +1136,6 @@ class synth_birds : public dsp {
 			fRec1[1] = fRec1[0];
 			for (int j2 = 3; (j2 > 0); j2 = (j2 - 1)) {
 				fRec17[j2] = fRec17[(j2 - 1)];
-				
 			}
 			fRec16[1] = fRec16[0];
 			iRec22[1] = iRec22[0];
@@ -1201,7 +1153,6 @@ class synth_birds : public dsp {
 			iRec28[1] = iRec28[0];
 			for (int j3 = 3; (j3 > 0); j3 = (j3 - 1)) {
 				fRec30[j3] = fRec30[(j3 - 1)];
-				
 			}
 			fRec29[1] = fRec29[0];
 			fRec27[1] = fRec27[0];
@@ -1209,9 +1160,7 @@ class synth_birds : public dsp {
 			fRec15[1] = fRec15[0];
 			fVec7[1] = fVec7[0];
 			fRec0[1] = fRec0[0];
-			
 		}
-		
 	}
 
 };
