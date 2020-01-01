@@ -209,8 +209,7 @@
         <properties>
             <property name="@npoints" type="int" readonly="true" minvalue="0">number of
             points</property>
-            <property name="@length" type="float" readonly="true">total envelope time length
-            (ms)</property>
+            <property name="@length" type="float" units="millisecond" readonly="true">total envelope time length</property>
             <property name="@points" type="list" readonly="true">list of point times
             (ms)</property>
             <property name="@values" type="list" readonly="true">list of point values</property>
