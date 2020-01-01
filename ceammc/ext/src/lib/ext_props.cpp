@@ -162,7 +162,7 @@ int main(int argc, char* argv[])
     ceammc_init();
 
     if (argc < 2) {
-        cerr << "usage: " << platform::basename(argv[0]) << " OBJECT_NAME" << endl;
+        cerr << "usage: " << platform::basename(argv[0]) << " OBJECT_NAME [ARGS]" << endl;
         return 1;
     }
 
@@ -173,7 +173,24 @@ int main(int argc, char* argv[])
         return 2;
     }
 
-    pd::External ext(argv[1], AtomList());
+    AtomList pd_args;
+    if (argc > 2) {
+        for (int i = 2; i < argc; i++) {
+            t_binbuf* b = binbuf_new();
+            if (b) {
+                binbuf_text(b, argv[i], strlen(argv[i]));
+                auto n = binbuf_getnatom(b);
+                auto v = binbuf_getvec(b);
+
+                for (int j = 0; j < n; j++)
+                    pd_args.append(Atom(v[j]));
+
+                binbuf_free(b);
+            }
+        }
+    }
+
+    pd::External ext(argv[1], pd_args);
     if (!ext.object()) {
         cerr << "can't create object: " << argv[1] << endl;
         return 3;
