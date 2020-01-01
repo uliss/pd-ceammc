@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "synth_shakers.h"
-#include "ceammc_factory.h"
+#include "stk_synth_factory.h"
 
 #include "Shakers.h"
 
@@ -68,29 +68,10 @@ SynthShakers::SynthShakers(const PdArgs& args)
     {
         Property* p = createCbProperty("@type", &SynthShakers::propType, &SynthShakers::propSetType);
         p->info().setType(PropertyInfoType::SYMBOL);
-        p->info().addEnum("maraca");
-        p->info().addEnum("cabasa");
-        p->info().addEnum("sekere");
-        p->info().addEnum("tambourine");
-        p->info().addEnum("sleigh_bells");
-        p->info().addEnum("bamboo_chimes");
-        p->info().addEnum("sand_paper");
-        p->info().addEnum("coke_can");
-        p->info().addEnum("sticks");
-        p->info().addEnum("crunch");
-        p->info().addEnum("big_rocks");
-        p->info().addEnum("little_rocks");
-        p->info().addEnum("next_mug");
-        p->info().addEnum("penny_mug");
-        p->info().addEnum("nickle_mug");
-        p->info().addEnum("dime_mug");
-        p->info().addEnum("quarter_mug");
-        p->info().addEnum("franc_mug");
-        p->info().addEnum("peso_mug");
-        p->info().addEnum("guiro");
-        p->info().addEnum("wrench");
-        p->info().addEnum("water_drops");
-        p->info().addEnum("tuned_bamboo_chimes");
+
+        for (auto t : type_list)
+            p->info().addEnum(t.first);
+
         p->info().setDefault(gensym("maraca"));
     }
 
@@ -213,6 +194,5 @@ void setup_synth_shakers()
         { gensym("tuned_bamboo_chimes"), TUNED_BAMBOO_CHIMES }
     };
 
-    SoundExternalFactory<SynthShakers> obj("synth.shakers~", OBJECT_FACTORY_DEFAULT);
-    obj.addMethod("cc", &SynthShakers::m_cc);
+    StkSynthFactory<SynthShakers> obj("synth.shakers~");
 }

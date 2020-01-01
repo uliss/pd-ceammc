@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2018 Serge Poltavsky. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,25 +11,26 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "synth_rhodey.h"
-#include "stk_synth_factory.h"
+#ifndef STK_SYNTH_FACTORY_H
+#define STK_SYNTH_FACTORY_H
 
-#include "Rhodey.h"
-#include "stksynth_p.h"
+#include "ceammc_factory.h"
 
-typedef StkFMSynth<stk::Rhodey> Synth;
+namespace ceammc {
 
-SynthRhodey::SynthRhodey(const PdArgs& args)
-    : StkSynth(args, new Synth())
-{
-    createProperty(new Synth::CCProperty("@mod", 2, *this));
-    createProperty(new Synth::CCProperty("@xfade", 4, *this));
-    createProperty(new Synth::CCProperty("@lfo_speed", 11, *this));
-    createProperty(new Synth::CCProperty("@lfo_depth", 1, *this));
-    createProperty(new Synth::CCProperty("@adsr", 128, *this));
+template <typename T>
+class StkSynthFactory : public SoundExternalFactory<T> {
+    bool rawpath_init_;
+
+public:
+    StkSynthFactory(const char* name, int flags = OBJECT_FACTORY_DEFAULT)
+        : SoundExternalFactory<T>(name, flags)
+        , rawpath_init_(false)
+    {
+        SoundExternalFactory<T>::addMethod("cc", &T::m_cc);
+        T::initRawWaves(SoundExternalFactory<T>::classPointer());
+    }
+};
 }
 
-void setup_synth_rhodey()
-{
-    StkSynthFactory<SynthRhodey> obj("synth.rhodey~");
-}
+#endif // STK_SYNTH_FACTORY_H

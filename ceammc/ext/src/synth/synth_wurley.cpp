@@ -1,9 +1,5 @@
 #include "synth_wurley.h"
-#include "ceammc_factory.h"
-
-extern "C" {
-#include "m_imp.h"
-}
+#include "stk_synth_factory.h"
 
 #include "Wurley.h"
 #include "stksynth_p.h"
@@ -22,6 +18,5 @@ SynthWurley::SynthWurley(const PdArgs& args)
 
 void setup_synth_wurley()
 {
-    SoundExternalFactory<SynthWurley> obj("synth.wurley~", OBJECT_FACTORY_DEFAULT);
-    stk::Stk::setRawwavePath(std::string(obj.classPointer()->c_externdir->s_name) + "/stk/");
+    StkSynthFactory<SynthWurley> obj("synth.wurley~");
 }

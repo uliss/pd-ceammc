@@ -7,6 +7,34 @@
 
 #include "stksynth_p.h"
 
+extern "C" {
+#include "m_imp.h"
+}
+
+class RawpathInitializer {
+    bool done_;
+    RawpathInitializer()
+        : done_(false)
+    {
+    }
+
+public:
+    static RawpathInitializer& instance()
+    {
+        static RawpathInitializer instance_;
+        return instance_;
+    }
+
+    void init(t_class* c)
+    {
+        if (done_)
+            return;
+
+        stk::Stk::setRawwavePath(std::string(c->c_externdir->s_name) + "/stk/");
+        done_ = true;
+    }
+};
+
 StkBase::StkBase(const PdArgs& args, stk::Instrmnt* instr)
     : SoundExternal(args)
     , synth_(instr)
@@ -88,6 +116,11 @@ void StkBase::m_cc(t_symbol* s, const AtomList& lst)
     OBJ_DBG << lst;
 
     synth_->controlChange(ctl_num, ctl_val);
+}
+
+void StkBase::initRawWaves(t_class* c)
+{
+    RawpathInitializer::instance().init(c);
 }
 
 class FreqGetter : public stk::SineWave {
