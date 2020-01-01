@@ -59,8 +59,41 @@ SynthShakers::SynthShakers(const PdArgs& args)
     , type_(typeFromArgs(positionalSymbolArgument(0, gensym("maraca"))))
     , gate_(0)
 {
-    createCbProperty("@gate", &SynthShakers::propGate, &SynthShakers::propSetGate);
-    createCbProperty("@type", &SynthShakers::propType, &SynthShakers::propSetType);
+    {
+        Property* p = createCbProperty("@gate", &SynthShakers::propGate, &SynthShakers::propSetGate);
+        p->info().setType(PropertyInfoType::FLOAT);
+        p->info().setRange(0, 1);
+    }
+
+    {
+        Property* p = createCbProperty("@type", &SynthShakers::propType, &SynthShakers::propSetType);
+        p->info().setType(PropertyInfoType::SYMBOL);
+        p->info().addEnum("maraca");
+        p->info().addEnum("cabasa");
+        p->info().addEnum("sekere");
+        p->info().addEnum("tambourine");
+        p->info().addEnum("sleigh_bells");
+        p->info().addEnum("bamboo_chimes");
+        p->info().addEnum("sand_paper");
+        p->info().addEnum("coke_can");
+        p->info().addEnum("sticks");
+        p->info().addEnum("crunch");
+        p->info().addEnum("big_rocks");
+        p->info().addEnum("little_rocks");
+        p->info().addEnum("next_mug");
+        p->info().addEnum("penny_mug");
+        p->info().addEnum("nickle_mug");
+        p->info().addEnum("dime_mug");
+        p->info().addEnum("quarter_mug");
+        p->info().addEnum("franc_mug");
+        p->info().addEnum("peso_mug");
+        p->info().addEnum("guiro");
+        p->info().addEnum("wrench");
+        p->info().addEnum("water_drops");
+        p->info().addEnum("tuned_bamboo_chimes");
+        p->info().setDefault(gensym("maraca"));
+    }
+
     createCbProperty("@types", &SynthShakers::propTypes);
 }
 
