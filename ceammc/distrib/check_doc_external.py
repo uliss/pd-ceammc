@@ -16,8 +16,10 @@ from termcolor import colored, cprint
 import json
 import jamspell
 
+SRC_PATH = "@PROJECT_SOURCE_DIR@/"
 BIN_PATH = "@PROJECT_BINARY_DIR@/ceammc/ext/src/lib/"
 DOC_PATH = "@PROJECT_SOURCE_DIR@/ceammc/ext/doc/"
+STK_RAWWAVES_PATH = "@PROJECT_SOURCE_DIR@/ceammc/extra/stk/stk/rawwaves"
 
 EXT_LIST = BIN_PATH + "ext_list"
 EXT_METHODS = BIN_PATH + "ext_methods"
@@ -43,7 +45,7 @@ def read_methods(name):
             args.append(SPECIAL_OBJ[name])
 
         return set(filter(valid_method,
-            subprocess.check_output(args, stderr=subprocess.DEVNULL).decode().split('\n')))
+            subprocess.check_output(args, stderr=subprocess.DEVNULL, env={"RAWWAVES": STK_RAWWAVES_PATH}).decode().split('\n')))
     except(subprocess.CalledProcessError):
         cprint(f"[{name}] can't get methods", "red")
         return set()
@@ -54,7 +56,7 @@ def read_props(name):
         if name in SPECIAL_OBJ:
             args.append(SPECIAL_OBJ[name])
 
-        s = subprocess.check_output(args, stderr=subprocess.DEVNULL).decode()
+        s = subprocess.check_output(args, stderr=subprocess.DEVNULL, env={"RAWWAVES": STK_RAWWAVES_PATH}).decode()
         js = json.loads(s)
         return set(js.keys()), js
     except(subprocess.CalledProcessError) as e:

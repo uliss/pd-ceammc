@@ -16,6 +16,7 @@
 #include "ceammc_pd.h"
 #include "ceammc_platform.h"
 #include "m_pd.h"
+#include "stk/stk/include/Stk.h"
 
 #include <algorithm>
 #include <iostream>
@@ -64,6 +65,11 @@ int main(int argc, char* argv[])
             args.append(binbuf_getvec(b)[i]);
 
         binbuf_free(b);
+    }
+
+    // stk rawwaves path
+    if (getenv("RAWWAVES") != nullptr) {
+        stk::Stk::setRawwavePath(getenv("RAWWAVES"));
     }
 
     pd::External ext(argv[1], args);
