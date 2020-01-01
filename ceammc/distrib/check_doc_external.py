@@ -313,6 +313,13 @@ if __name__ == '__main__':
 
                 if v0 != v1:
                     cprint(f"[{ext_name}] invalid value for enum attribute \"{p}\": {v0} != {v1}", 'magenta')
+                    d0 = v0 - v1
+                    d1 = v1 - v0
+                    if len(d0):
+                        cprint(f"[{ext_name}] non-documented elements are: {d0}", 'magenta')
+                    if len(d1):
+                        cprint(f"[{ext_name}] invalid elements in doc are: {d1}", 'magenta')
+
             elif attr == HAVE_EXTERNAL:
                 if ext_name.startswith("ui.") and p not in ("@fontname"):
                     cprint(f"[{ext_name}] missing enum attribute in pddoc \"{p}\"", 'magenta')
