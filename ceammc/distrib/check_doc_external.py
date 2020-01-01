@@ -50,7 +50,11 @@ def read_methods(name):
 
 def read_props(name):
     try:
-        s = subprocess.check_output([EXT_PROPS, name], stderr=subprocess.DEVNULL).decode()
+        args = [EXT_PROPS, name]
+        if name in SPECIAL_OBJ:
+            args.append(SPECIAL_OBJ[name])
+
+        s = subprocess.check_output(args, stderr=subprocess.DEVNULL).decode()
         js = json.loads(s)
         return set(js.keys()), js
     except(subprocess.CalledProcessError) as e:
