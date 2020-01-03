@@ -16,6 +16,7 @@
                 <see view="link">ui.matrix</see>
             </also>
             <aliases>
+                <alias view="link">ui.radio*</alias>
                 <alias view="link">ui.hrd</alias>
                 <alias view="link">ui.hrd*</alias>
                 <alias view="link">ui.vrd</alias>
