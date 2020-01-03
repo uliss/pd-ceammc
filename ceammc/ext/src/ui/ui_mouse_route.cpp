@@ -32,8 +32,14 @@ UIMouseRoute::UIMouseRoute(const PdArgs& args)
     static t_symbol* SYM_FULL_PROP_MOVE = gensym("@mouse_move");
     static t_symbol* SYM_FULL_PROP_ENTER = gensym("@mouse_enter");
     static t_symbol* SYM_FULL_PROP_LEAVE = gensym("@mouse_leave");
-    static std::array<t_symbol*, 6> ALL_PROPS { SYM_PROP_UP, SYM_PROP_DOWN, SYM_PROP_DRAG, SYM_PROP_MOVE, SYM_PROP_ENTER, SYM_PROP_LEAVE };
-    static std::array<t_symbol*, 6> ALL_FULL_PROPS { SYM_FULL_PROP_UP, SYM_FULL_PROP_DOWN, SYM_FULL_PROP_DRAG, SYM_FULL_PROP_MOVE, SYM_FULL_PROP_ENTER, SYM_FULL_PROP_LEAVE };
+    static const std::array<t_symbol*, 6> ALL_PROPS { SYM_PROP_UP, SYM_PROP_DOWN, SYM_PROP_DRAG, SYM_PROP_MOVE, SYM_PROP_ENTER, SYM_PROP_LEAVE };
+    static const std::array<t_symbol*, 6> ALL_FULL_PROPS { SYM_FULL_PROP_UP, SYM_FULL_PROP_DOWN, SYM_FULL_PROP_DRAG, SYM_FULL_PROP_MOVE, SYM_FULL_PROP_ENTER, SYM_FULL_PROP_LEAVE };
+
+    for (size_t i = 0; i < ALL_PROPS.size(); i++) {
+        BoolProperty* b = new BoolProperty(ALL_FULL_PROPS[i]->s_name, false);
+        createProperty(b);
+        createProperty(new AliasProperty<BoolProperty, bool>(ALL_PROPS[i]->s_name, b, true));
+    }
 
     auto toProp = [this](t_symbol* s) {
         auto it = std::find(ALL_PROPS.begin(), ALL_PROPS.end(), s);

@@ -470,6 +470,7 @@ set(DOC_FILES
     ui.matrix
     ui.menu
     ui.mouse_filter
+    ui.mouse_route
     ui.number
     ui.label
     ui.link

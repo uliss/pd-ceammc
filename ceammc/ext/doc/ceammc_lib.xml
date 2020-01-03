@@ -1511,6 +1511,9 @@
     <entry descr="filter mouse events from ui objects" name="ui.mouse_filter" ref_view="link">
       <xi:include href="ui.mouse_filter.pddoc" parse="xml"/>
     </entry>
+    <entry descr="routes mouse events from ui objects" name="ui.mouse_route" ref_view="link">
+      <xi:include href="ui.mouse_route.pddoc" parse="xml"/>
+    </entry>
     <entry descr="counterpart of the vanilla [nbx]" name="ui.number" ref_view="link">
       <xi:include href="ui.number.pddoc" parse="xml"/>
     </entry>

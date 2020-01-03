@@ -1098,35 +1098,38 @@ ui.colorpanel-help.pd;
 #X obj 30 15174 ui.link @title [ui.mouse_filter] @url
 ui.mouse_filter-help.pd;
 #X text 200 15171 filter mouse events from ui objects;
-#X obj 30 15199 ui.link @title [ui.number] @url ui.number-help.pd;
-#X text 200 15196 counterpart of the vanilla [nbx];
-#X obj 30 15224 ui.link @title [ui.number~] @url ui.number~-help.pd;
-#X text 200 15221 counterpart of the vanilla [nbx] for signal;
-#X obj 30 15249 ui.link @title [ui.polar] @url ui.polar-help.pd;
-#X text 200 15246 2D slider in polar coordinates;
-#X obj 30 15274 ui.link @title [ui.preset] @url ui.preset-help.pd;
-#X text 200 15271 Preset manager;
-#X obj 30 15299 ui.link @title [ui.radio] @url ui.radio-help.pd;
-#X text 200 15296 counterpart of the vanilla radio toggle;
-#X obj 30 15324 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
-#X text 200 15321 range slider;
-#X obj 30 15349 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
-#X text 200 15346 Scope GUI object;
-#X obj 30 15374 ui.link @title [ui.slider] @url ui.slider-help.pd;
-#X text 200 15371 counterpart of the vanilla slider;
-#X obj 30 15399 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
-#X text 200 15396 2D slider widget;
-#X obj 30 15424 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
-#X text 200 15421 Multiple slider widget;
-#X obj 30 15449 ui.link @title [ui.spectroscope~] @url
+#X obj 30 15199 ui.link @title [ui.mouse_route] @url
+ui.mouse_route-help.pd;
+#X text 200 15196 routes mouse events from ui objects;
+#X obj 30 15224 ui.link @title [ui.number] @url ui.number-help.pd;
+#X text 200 15221 counterpart of the vanilla [nbx];
+#X obj 30 15249 ui.link @title [ui.number~] @url ui.number~-help.pd;
+#X text 200 15246 counterpart of the vanilla [nbx] for signal;
+#X obj 30 15274 ui.link @title [ui.polar] @url ui.polar-help.pd;
+#X text 200 15271 2D slider in polar coordinates;
+#X obj 30 15299 ui.link @title [ui.preset] @url ui.preset-help.pd;
+#X text 200 15296 Preset manager;
+#X obj 30 15324 ui.link @title [ui.radio] @url ui.radio-help.pd;
+#X text 200 15321 counterpart of the vanilla radio toggle;
+#X obj 30 15349 ui.link @title [ui.rslider] @url ui.rslider-help.pd;
+#X text 200 15346 range slider;
+#X obj 30 15374 ui.link @title [ui.scope~] @url ui.scope~-help.pd;
+#X text 200 15371 Scope GUI object;
+#X obj 30 15399 ui.link @title [ui.slider] @url ui.slider-help.pd;
+#X text 200 15396 counterpart of the vanilla slider;
+#X obj 30 15424 ui.link @title [ui.slider2d] @url ui.slider2d-help.pd;
+#X text 200 15421 2D slider widget;
+#X obj 30 15449 ui.link @title [ui.sliders] @url ui.sliders-help.pd;
+#X text 200 15446 Multiple slider widget;
+#X obj 30 15474 ui.link @title [ui.spectroscope~] @url
 ui.spectroscope~-help.pd;
-#X text 200 15446 Spectroscope GUI object;
-#X obj 30 15474 ui.link @title [ui.tab] @url ui.tab-help.pd;
-#X text 200 15471 displays a list of text buttons or text toggles;
-#X obj 30 15499 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
-#X text 200 15496 modern toggle widget;
+#X text 200 15471 Spectroscope GUI object;
+#X obj 30 15499 ui.link @title [ui.tab] @url ui.tab-help.pd;
+#X text 200 15496 displays a list of text buttons or text toggles;
+#X obj 30 15524 ui.link @title [ui.toggle] @url ui.toggle-help.pd;
+#X text 200 15521 modern toggle widget;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
-#X obj 1 15521 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 15521 version: v0.8.0 \, license: GPL3;
-#X obj 20 15542 ui.link @title https://github.com/uliss/pure-data @url
+#X obj 1 15546 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 15546 version: v0.8.0 \, license: GPL3;
+#X obj 20 15567 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;

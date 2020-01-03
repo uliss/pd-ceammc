@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="ui.mouse_filter">
-        <title>ui.mouse_filter</title>
+    <object name="ui.mouse_route">
+        <title>ui.mouse_route</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>filter mouse events from ui objects</description>
+            <description>routes mouse events from ui objects</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category view="link">ui</category>
             <keywords>ui mouse filter events</keywords>
             <since>0.8</since>
             <aliases>
-                <alias>ui.mf</alias>
+                <alias>ui.mr</alias>
             </aliases>
             <also>
-                <see>ui.mouse_route</see>
+                <see>ui.mouse_filter</see>
                 <see view="link">ui.rslider</see>
             </also>
         </meta>
         <info>
-            <par>pass only specified mouse events from ui.* objects</par>
+            <par>routes only specified mouse events from ui.* objects</par>
         </info>
         <properties>
             <property name="@mouse_up" type="int" default="0" enum="0 1">passing a @mouse_up
@@ -48,23 +48,19 @@
                 <xinfo>input messages from ui object</xinfo>
             </inlet>
         </inlets>
-        <outlets>
-            <outlet>passed messages from ui object</outlet>
+        <outlets dynamic="true">
+            <outlet number="1">first mouse event type match output</outlet>
+            <outlet number="...">... mouse event type match output</outlet>
+            <outlet number="n">n-th mouse event type match output</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[ui.rslider @mouse_events 1] [ui.rslider @mouse_events 1]
-|                            |
-[ui.mouse_filter @up]        [ui.mouse_filter @drag]
-|                            |
-[ui.display @display_type=1] [ui.display @display_type=1]
-
-[ui.rslider @mouse_events 1]
+[ui.hsl @mouse_events 1]
 |
-[ui.mouse_filter @down]
-|
-[ui.display @display_type=1]
+[ui.mouse_route @down @up @drag]
+|         ^|         ^^|
+[F]       [F]        [F]
 ]]>
             </pdascii>
         </example>
