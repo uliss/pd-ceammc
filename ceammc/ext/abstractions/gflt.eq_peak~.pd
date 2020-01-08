@@ -13,19 +13,19 @@
 -262144 0;
 #X text 10 218 bandwidth(Hz):;
 #X obj 12 237 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/flt.eq_peak~/slider0 @min 1 @max 5000;
+/gui/$1/flt.eq_peak~/slider0 @min 1 @max 5000;
 #X obj 140 237 ui.number @size 40 12 @digits 3 @min 1 @max 5000;
 #X obj 190 237 msg set;
 #X msg 260 237 @bandwidth \$1;
 #X text 10 251 freq(Hz):;
 #X obj 12 270 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/flt.eq_peak~/slider1 @min 20 @max 20000;
+/gui/$1/flt.eq_peak~/slider1 @min 20 @max 20000;
 #X obj 140 270 ui.number @size 40 12 @digits 3 @min 20 @max 20000;
 #X obj 190 270 msg set;
 #X msg 260 270 @freq \$1;
 #X text 10 284 gain(db):;
 #X obj 12 303 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/flt.eq_peak~/slider2 @min -15 @max 15;
+/gui/$1/flt.eq_peak~/slider2 @min -15 @max 15;
 #X obj 140 303 ui.number @size 40 12 @digits 3 @min -15 @max 15;
 #X obj 190 303 msg set;
 #X msg 260 303 @gain \$1;

@@ -15,54 +15,54 @@
 #X obj 3 202 cnv 8 198 18 empty empty [fx.greyhole~] 3 9 0 12 -104026
 -262144 0;
 #X obj 12 226 ui.toggle @size 12 12 @presetname
-/gui/fx.greyhole~/checkbox0;
+/gui/$1/fx.greyhole~/checkbox0;
 #X text 26 221 bypass;
 #X msg 260 218 @bypass \$1;
 #X text 10 238 damping:;
 #X obj 12 257 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/fx.greyhole~/slider1 @min 0 @max 0.99;
+/gui/$1/fx.greyhole~/slider1 @min 0 @max 0.99;
 #X obj 140 257 ui.number @size 40 12 @digits 3 @min 0 @max 0.99;
 #X obj 190 257 msg set;
 #X msg 260 257 @damping \$1;
 #X text 10 271 delaytime:;
 #X obj 12 290 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/fx.greyhole~/slider2 @min 0.001 @max 1.45;
+/gui/$1/fx.greyhole~/slider2 @min 0.001 @max 1.45;
 #X obj 140 290 ui.number @size 40 12 @digits 3 @min 0.001 @max 1.45;
 #X obj 190 290 msg set;
 #X msg 260 290 @delaytime \$1;
 #X text 10 304 diffusion:;
 #X obj 12 323 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/fx.greyhole~/slider3 @min 0 @max 0.99;
+/gui/$1/fx.greyhole~/slider3 @min 0 @max 0.99;
 #X obj 140 323 ui.number @size 40 12 @digits 3 @min 0 @max 0.99;
 #X obj 190 323 msg set;
 #X msg 260 323 @diffusion \$1;
 #X text 10 337 drywet:;
 #X obj 12 356 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/fx.greyhole~/slider4 @min 0 @max 1;
+/gui/$1/fx.greyhole~/slider4 @min 0 @max 1;
 #X obj 140 356 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 356 msg set;
 #X msg 260 356 @drywet \$1;
 #X text 10 370 feedback:;
 #X obj 12 389 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/fx.greyhole~/slider5 @min 0 @max 1;
+/gui/$1/fx.greyhole~/slider5 @min 0 @max 1;
 #X obj 140 389 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 389 msg set;
 #X msg 260 389 @feedback \$1;
 #X text 10 403 moddepth:;
 #X obj 12 422 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/fx.greyhole~/slider6 @min 0 @max 1;
+/gui/$1/fx.greyhole~/slider6 @min 0 @max 1;
 #X obj 140 422 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 422 msg set;
 #X msg 260 422 @moddepth \$1;
 #X text 10 436 modfreq:;
 #X obj 12 455 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/fx.greyhole~/slider7 @min 0 @max 10;
+/gui/$1/fx.greyhole~/slider7 @min 0 @max 10;
 #X obj 140 455 ui.number @size 40 12 @digits 3 @min 0 @max 10;
 #X obj 190 455 msg set;
 #X msg 260 455 @modfreq \$1;
 #X text 10 469 size:;
 #X obj 12 488 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/fx.greyhole~/slider8 @min 0.5 @max 3;
+/gui/$1/fx.greyhole~/slider8 @min 0.5 @max 3;
 #X obj 140 488 ui.number @size 40 12 @digits 3 @min 0.5 @max 3;
 #X obj 190 488 msg set;
 #X msg 260 488 @size \$1;

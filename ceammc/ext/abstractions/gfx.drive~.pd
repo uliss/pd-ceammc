@@ -12,12 +12,12 @@
 #X obj 3 202 cnv 8 198 18 empty empty [fx.drive~] 3 9 0 12 -104026
 -262144 0;
 #X obj 12 226 ui.toggle @size 12 12 @presetname
-/gui/fx.drive~/checkbox0;
+/gui/$1/fx.drive~/checkbox0;
 #X text 26 221 bypass;
 #X msg 260 218 @bypass \$1;
 #X text 10 238 drive:;
 #X obj 12 257 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/fx.drive~/slider1 @min 1 @max 10;
+/gui/$1/fx.drive~/slider1 @min 1 @max 10;
 #X obj 140 257 ui.number @size 40 12 @digits 3 @min 1 @max 10;
 #X obj 190 257 msg set;
 #X msg 260 257 @drive \$1;

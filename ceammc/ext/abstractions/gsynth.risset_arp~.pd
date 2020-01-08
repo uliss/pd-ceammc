@@ -14,67 +14,67 @@
 -104026 -262144 0;
 #X text 10 218 detune:;
 #X obj 12 237 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.risset_arp~/slider0 @min 0 @max 1000;
+/gui/$1/synth.risset_arp~/slider0 @min 0 @max 1000;
 #X obj 140 237 ui.number @size 40 12 @digits 3 @min 0 @max 1000;
 #X obj 190 237 msg set;
 #X msg 260 237 @detune \$1;
 #X text 10 251 freq:;
 #X obj 12 270 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.risset_arp~/slider1 @min 40 @max 500;
+/gui/$1/synth.risset_arp~/slider1 @min 40 @max 500;
 #X obj 140 270 ui.number @size 40 12 @digits 3 @min 40 @max 500;
 #X obj 190 270 msg set;
 #X msg 260 270 @freq \$1;
 #X text 10 284 harmonic1:;
 #X obj 12 303 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.risset_arp~/slider2 @min 0 @max 1;
+/gui/$1/synth.risset_arp~/slider2 @min 0 @max 1;
 #X obj 140 303 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 303 msg set;
 #X msg 260 303 @harmonic1 \$1;
 #X text 10 317 harmonic2:;
 #X obj 12 336 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.risset_arp~/slider3 @min 0 @max 1;
+/gui/$1/synth.risset_arp~/slider3 @min 0 @max 1;
 #X obj 140 336 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 336 msg set;
 #X msg 260 336 @harmonic2 \$1;
 #X text 10 350 harmonic3:;
 #X obj 12 369 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.risset_arp~/slider4 @min 0 @max 1;
+/gui/$1/synth.risset_arp~/slider4 @min 0 @max 1;
 #X obj 140 369 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 369 msg set;
 #X msg 260 369 @harmonic3 \$1;
 #X text 10 383 harmonic4:;
 #X obj 12 402 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.risset_arp~/slider5 @min 0 @max 1;
+/gui/$1/synth.risset_arp~/slider5 @min 0 @max 1;
 #X obj 140 402 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 402 msg set;
 #X msg 260 402 @harmonic4 \$1;
 #X text 10 416 harmonic5:;
 #X obj 12 435 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.risset_arp~/slider6 @min 0 @max 1;
+/gui/$1/synth.risset_arp~/slider6 @min 0 @max 1;
 #X obj 140 435 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 435 msg set;
 #X msg 260 435 @harmonic5 \$1;
 #X text 10 449 harmonic6:;
 #X obj 12 468 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.risset_arp~/slider7 @min 0 @max 1;
+/gui/$1/synth.risset_arp~/slider7 @min 0 @max 1;
 #X obj 140 468 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 468 msg set;
 #X msg 260 468 @harmonic6 \$1;
 #X text 10 482 harmonic7:;
 #X obj 12 501 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.risset_arp~/slider8 @min 0 @max 1;
+/gui/$1/synth.risset_arp~/slider8 @min 0 @max 1;
 #X obj 140 501 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 501 msg set;
 #X msg 260 501 @harmonic7 \$1;
 #X text 10 515 harmonic8:;
 #X obj 12 534 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.risset_arp~/slider9 @min 0 @max 1;
+/gui/$1/synth.risset_arp~/slider9 @min 0 @max 1;
 #X obj 140 534 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 534 msg set;
 #X msg 260 534 @harmonic8 \$1;
 #X text 10 548 spread:;
 #X obj 12 567 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.risset_arp~/slider10 @min 0 @max 1;
+/gui/$1/synth.risset_arp~/slider10 @min 0 @max 1;
 #X obj 140 567 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 567 msg set;
 #X msg 260 567 @spread \$1;

@@ -13,23 +13,23 @@
 -262144 0;
 #X text 10 218 angle:;
 #X obj 12 237 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/fx.wahwah~/slider0 @min 0 @max 1;
+/gui/$1/fx.wahwah~/slider0 @min 0 @max 1;
 #X obj 140 237 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 237 msg set;
 #X msg 260 237 @angle \$1;
 #X obj 12 259 ui.toggle @size 12 12 @presetname
-/gui/fx.wahwah~/checkbox1;
+/gui/$1/fx.wahwah~/checkbox1;
 #X text 26 254 bypass;
 #X msg 260 251 @bypass \$1;
 #X text 10 271 drywet:;
 #X obj 12 290 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/fx.wahwah~/slider2 @min 0 @max 1;
+/gui/$1/fx.wahwah~/slider2 @min 0 @max 1;
 #X obj 140 290 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 290 msg set;
 #X msg 260 290 @drywet \$1;
 #X text 10 304 speed(bpm):;
 #X obj 12 323 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/fx.wahwah~/slider3 @min 360 @max 780;
+/gui/$1/fx.wahwah~/slider3 @min 360 @max 780;
 #X obj 140 323 ui.number @size 40 12 @digits 3 @min 360 @max 780;
 #X obj 190 323 msg set;
 #X msg 260 323 @speed \$1;

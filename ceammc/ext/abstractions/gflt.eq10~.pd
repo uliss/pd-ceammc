@@ -14,61 +14,61 @@
 -262144 0;
 #X text 10 218 f1000(db):;
 #X obj 12 237 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/flt.eq10~/slider0 @min -70 @max 10;
+/gui/$1/flt.eq10~/slider0 @min -70 @max 10;
 #X obj 140 237 ui.number @size 40 12 @digits 3 @min -70 @max 10;
 #X obj 190 237 msg set;
 #X msg 260 237 @f1000 \$1;
 #X text 10 251 f125(db):;
 #X obj 12 270 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/flt.eq10~/slider1 @min -70 @max 10;
+/gui/$1/flt.eq10~/slider1 @min -70 @max 10;
 #X obj 140 270 ui.number @size 40 12 @digits 3 @min -70 @max 10;
 #X obj 190 270 msg set;
 #X msg 260 270 @f125 \$1;
 #X text 10 284 f16000(db):;
 #X obj 12 303 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/flt.eq10~/slider2 @min -70 @max 10;
+/gui/$1/flt.eq10~/slider2 @min -70 @max 10;
 #X obj 140 303 ui.number @size 40 12 @digits 3 @min -70 @max 10;
 #X obj 190 303 msg set;
 #X msg 260 303 @f16000 \$1;
 #X text 10 317 f2000(db):;
 #X obj 12 336 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/flt.eq10~/slider3 @min -70 @max 10;
+/gui/$1/flt.eq10~/slider3 @min -70 @max 10;
 #X obj 140 336 ui.number @size 40 12 @digits 3 @min -70 @max 10;
 #X obj 190 336 msg set;
 #X msg 260 336 @f2000 \$1;
 #X text 10 350 f250(db):;
 #X obj 12 369 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/flt.eq10~/slider4 @min -70 @max 10;
+/gui/$1/flt.eq10~/slider4 @min -70 @max 10;
 #X obj 140 369 ui.number @size 40 12 @digits 3 @min -70 @max 10;
 #X obj 190 369 msg set;
 #X msg 260 369 @f250 \$1;
 #X text 10 383 f31(db):;
 #X obj 12 402 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/flt.eq10~/slider5 @min -70 @max 10;
+/gui/$1/flt.eq10~/slider5 @min -70 @max 10;
 #X obj 140 402 ui.number @size 40 12 @digits 3 @min -70 @max 10;
 #X obj 190 402 msg set;
 #X msg 260 402 @f31 \$1;
 #X text 10 416 f4000(db):;
 #X obj 12 435 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/flt.eq10~/slider6 @min -70 @max 10;
+/gui/$1/flt.eq10~/slider6 @min -70 @max 10;
 #X obj 140 435 ui.number @size 40 12 @digits 3 @min -70 @max 10;
 #X obj 190 435 msg set;
 #X msg 260 435 @f4000 \$1;
 #X text 10 449 f500(db):;
 #X obj 12 468 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/flt.eq10~/slider7 @min -70 @max 10;
+/gui/$1/flt.eq10~/slider7 @min -70 @max 10;
 #X obj 140 468 ui.number @size 40 12 @digits 3 @min -70 @max 10;
 #X obj 190 468 msg set;
 #X msg 260 468 @f500 \$1;
 #X text 10 482 f62(db):;
 #X obj 12 501 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/flt.eq10~/slider8 @min -70 @max 10;
+/gui/$1/flt.eq10~/slider8 @min -70 @max 10;
 #X obj 140 501 ui.number @size 40 12 @digits 3 @min -70 @max 10;
 #X obj 190 501 msg set;
 #X msg 260 501 @f62 \$1;
 #X text 10 515 f8000(db):;
 #X obj 12 534 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/flt.eq10~/slider9 @min -70 @max 10;
+/gui/$1/flt.eq10~/slider9 @min -70 @max 10;
 #X obj 140 534 ui.number @size 40 12 @digits 3 @min -70 @max 10;
 #X obj 190 534 msg set;
 #X msg 260 534 @f8000 \$1;

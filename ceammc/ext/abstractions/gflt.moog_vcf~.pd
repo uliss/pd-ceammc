@@ -14,7 +14,7 @@
 -262144 0;
 #X text 10 218 res:;
 #X obj 12 237 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/flt.moog_vcf~/slider0 @min 0 @max 1;
+/gui/$1/flt.moog_vcf~/slider0 @min 0 @max 1;
 #X obj 140 237 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 237 msg set;
 #X msg 260 237 @res \$1;

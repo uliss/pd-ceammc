@@ -12,19 +12,19 @@
 -104026 -262144 0;
 #X text 10 218 centroid:;
 #X obj 12 237 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.risset_tone~/slider0 @min 20 @max 120;
+/gui/$1/synth.risset_tone~/slider0 @min 20 @max 120;
 #X obj 140 237 ui.number @size 40 12 @digits 3 @min 20 @max 120;
 #X obj 190 237 msg set;
 #X msg 260 237 @centroid \$1;
 #X text 10 251 range:;
 #X obj 12 270 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.risset_tone~/slider1 @min 1 @max 120;
+/gui/$1/synth.risset_tone~/slider1 @min 1 @max 120;
 #X obj 140 270 ui.number @size 40 12 @digits 3 @min 1 @max 120;
 #X obj 190 270 msg set;
 #X msg 260 270 @range \$1;
 #X text 10 284 rate:;
 #X obj 12 303 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.risset_tone~/slider2 @min -2 @max 2;
+/gui/$1/synth.risset_tone~/slider2 @min -2 @max 2;
 #X obj 140 303 ui.number @size 40 12 @digits 3 @min -2 @max 2;
 #X obj 190 303 msg set;
 #X msg 260 303 @rate \$1;
