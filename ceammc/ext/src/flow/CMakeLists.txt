@@ -32,6 +32,7 @@ ceammc_flow_extension(route)
 ceammc_flow_extension(speedlim)
 ceammc_flow_extension(split)
 ceammc_flow_extension(sync)
+ceammc_flow_extension(sync_pack)
 ceammc_flow_extension(tee_tilde)
 
 add_library(ceammc_flow STATIC mod_flow.h mod_flow.cpp ${FLOW_SOURCES})
