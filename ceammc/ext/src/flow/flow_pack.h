@@ -20,7 +20,7 @@ using namespace ceammc;
 
 class FlowPack : public BaseObject {
     AtomList msg_;
-    IntPropertyMinEq* n_;
+    size_t n_;
 
 public:
     FlowPack(const PdArgs& args);
@@ -31,6 +31,8 @@ public:
     void onSymbol(t_symbol* s) final;
     void onInlet(size_t idx, const AtomList& l) final;
     void onList(const AtomList& l) final;
+    void onAny(t_symbol* s, const AtomList& l) final;
+    bool processAnyProps(t_symbol* s, const AtomList& l) final;
 };
 
 void setup_flow_pack();
