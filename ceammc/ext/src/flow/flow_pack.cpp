@@ -50,34 +50,35 @@ void FlowPack::parseProperties()
 
 void FlowPack::onBang()
 {
-    listTo(0, msg_);
+    output(0);
 }
 
 void FlowPack::onFloat(t_float f)
 {
     msg_[0] = Atom(f);
-    onBang();
+    output(0);
 }
 
 void FlowPack::onSymbol(t_symbol* s)
 {
     msg_[0] = Atom(s);
-    onBang();
+    output(0);
 }
 
 void FlowPack::onInlet(size_t idx, const AtomList& l)
 {
-    if (l.empty())
-        return;
+    if (!l.empty()) {
+        if (idx >= msg_.size()) {
+            OBJ_ERR << "invalid inlet index: " << idx;
+            return;
+        }
 
-    if (idx >= msg_.size()) {
-        OBJ_ERR << "invalid inlet index: " << idx;
-        return;
+        const size_t N = std::min<size_t>(idx + l.size(), msg_.size());
+        for (size_t i = idx; i < N; i++)
+            msg_[i] = l[i - idx];
     }
 
-    const size_t N = std::min<size_t>(idx + l.size(), msg_.size());
-    for (size_t i = idx; i < N; i++)
-        msg_[i] = l[i - idx];
+    output(idx);
 }
 
 void FlowPack::onList(const AtomList& l)
@@ -89,7 +90,7 @@ void FlowPack::onList(const AtomList& l)
     for (size_t i = 0; i < N; i++)
         msg_[i] = l[i];
 
-    onBang();
+    output(0);
 }
 
 void FlowPack::onAny(t_symbol* s, const AtomList& l)
@@ -109,6 +110,12 @@ void FlowPack::onAny(t_symbol* s, const AtomList& l)
 bool FlowPack::processAnyProps(t_symbol* s, const AtomList& l)
 {
     return false;
+}
+
+void FlowPack::output(size_t inlet_idx)
+{
+    if (inlet_idx == 0)
+        listTo(0, msg_);
 }
 
 void setup_flow_pack()
