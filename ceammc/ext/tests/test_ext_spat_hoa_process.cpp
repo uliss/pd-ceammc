@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "../src/spat/hoa_process.h"
 #include "../src/spat/mod_spat.h"
+
 #include "catch.hpp"
 #include "test_base.h"
 #include "test_external.h"
@@ -526,7 +527,7 @@ TEST_CASE("hoa.process~", "[externals]")
         }
 
         // send float to @target 1
-        t1.sendMessage(gensym("#1"), LF(1000));
+        t1.sendMessage("#1", 1000);
         canvas_resume_dsp(1);
         t.schedTicks(1);
         canvas_suspend_dsp();
@@ -541,7 +542,7 @@ TEST_CASE("hoa.process~", "[externals]")
         }
 
         // send float to @target 0
-        t1.sendMessage(gensym("#0"), LF(500));
+        t1.sendMessage("#0", 500);
         canvas_resume_dsp(1);
         t.schedTicks(1);
         canvas_suspend_dsp();
@@ -566,90 +567,398 @@ TEST_CASE("hoa.process~", "[externals]")
         REQUIRE(tr.connectTo(0, t, 1));
 
         // invalid instance index
-        tr.sendMessage(gensym("#100"));
+        tr.sendMessage("#100");
         REQUIRE(t.messagesAt(0).empty());
 
         // invalid instance index
-        tr.sendMessage(gensym("#5"));
+        tr.sendMessage("#5");
         REQUIRE(t.messagesAt(0).empty());
 
         // bang
         t.clearAll();
-        tr.sendMessage(gensym("#1"));
+        tr.sendMessage("#1");
         REQUIRE(t.messagesAt(0) == messageList(&s_bang));
 
         t.clearAll();
-        tr.sendMessage(gensym("#1"), LA("bang"));
+        tr.sendMessage("#1", "bang");
         REQUIRE(t.messagesAt(0) == messageList(&s_bang));
 
         // float
         t.clearAll();
-        tr.sendMessage(gensym("#1"), LF(-10));
+        tr.sendMessage("#1", -10);
         REQUIRE(t.messagesAt(0) == messageList(-10));
 
         t.clearAll();
-        tr.sendMessage(gensym("#1"), LA("float", -10));
+        tr.sendMessage("#1", "float", -10);
         REQUIRE(t.messagesAt(0) == messageList(-10));
 
         // symbol
         t.clearAll();
-        tr.sendMessage(gensym("#1"), LA("symbol", "ABC"));
+        tr.sendMessage("#1", "symbol", "ABC");
         REQUIRE(t.messagesAt(0) == messageList(gensym("ABC")));
 
         // list
         t.clearAll();
-        tr.sendMessage(gensym("#1"), LA("list", 1, 2, 3));
+        tr.sendMessage("#1", "list", 1, 2, 3);
         REQUIRE(t.messagesAt(0) == messageList(LF(1, 2, 3)));
 
         t.clearAll();
-        tr.sendMessage(gensym("#1"), LA("list", 1));
+        tr.sendMessage("#1", "list", 1);
         REQUIRE(t.messagesAt(0) == messageList(LF(1)));
 
         t.clearAll();
-        tr.sendMessage(gensym("#1"), LA("list"));
+        tr.sendMessage("#1", "list");
         REQUIRE(t.messagesAt(0) == messageList(AtomList()));
 
         t.clearAll();
-        tr.sendMessage(gensym("#1"), LF(1, 2));
+        tr.sendMessage("#1", 1, 2);
         REQUIRE(t.messagesAt(0) == messageList(LF(1, 2)));
 
         // any
         t.clearAll();
-        tr.sendMessage(gensym("#1"), LA("msg"));
+        tr.sendMessage("#1", "msg");
         REQUIRE(t.messagesAt(0) == messageList(Message(gensym("msg"), L())));
 
         t.clearAll();
-        tr.sendMessage(gensym("#1"), LA("msg", "A", -100));
-        REQUIRE(t.messagesAt(0) == messageList(Message(gensym("msg"), LA("A", -100))));
+        tr.sendMessage("#1", "msg", "A", -100);
+        REQUIRE(t.messagesAt(0) == messageList(Message("msg", "A", -100)));
 
-        // any - to all
+        // any - to all: ok
         t.clearAll();
         Message m0(gensym("msg"), L());
         tr.sendMessage(gensym("msg"));
         REQUIRE(t.messagesAt(0) == messageList(m0, m0, m0, m0, m0));
 
-        // any - to all
+        // bang - to all: ok
         t.clearAll();
-        Message m1(gensym("#-10"), L());
-        tr.sendMessage(gensym("#-10"));
+        tr.sendBang();
+        REQUIRE(t.messagesAt(0) == messageList(L(), L(), L(), L(), L()));
+
+        // float - to all: ok
+        t.clearAll();
+        tr.sendFloat(111);
+        REQUIRE(t.messagesAt(0) == messageList(LF(111), LF(111), LF(111), LF(111), LF(111)));
+
+        // float - to all: ok
+        t.clearAll();
+        tr.sendMessage(&s_float, LF(100));
+        REQUIRE(t.messagesAt(0) == messageList(LF(100), LF(100), LF(100), LF(100), LF(100)));
+
+        // symbol - to all: ok
+        t.clearAll();
+        tr.sendSymbol(gensym("A"));
+        REQUIRE(t.messagesAt(0) == messageList(gensym("A"), gensym("A"), gensym("A"), gensym("A"), gensym("A")));
+
+        // symbol - to all: ok
+        t.clearAll();
+        tr.sendMessage(&s_symbol, LA("B"));
+        REQUIRE(t.messagesAt(0) == messageList(gensym("B"), gensym("B"), gensym("B"), gensym("B"), gensym("B")));
+
+        // list - to all: ok
+        t.clearAll();
+        tr.sendList(LF(1, 2, 3));
+        REQUIRE(t.messagesAt(0) == messageList(LF(1, 2, 3), LF(1, 2, 3), LF(1, 2, 3), LF(1, 2, 3), LF(1, 2, 3)));
+
+        // list - to all: ok
+        t.clearAll();
+        tr.sendMessage(&s_list, LF(3, 4));
+        REQUIRE(t.messagesAt(0) == messageList(LF(3, 4), LF(3, 4), LF(3, 4), LF(3, 4), LF(3, 4)));
+
+        // any - to all: ok
+        t.clearAll();
+        Message m1(gensym("msg1"), L());
+        tr.sendMessage(m1);
         REQUIRE(t.messagesAt(0) == messageList(m1, m1, m1, m1, m1));
 
-        // any - to all
+        // any - to all: ok
         t.clearAll();
-        Message m2(gensym("#10000"), L());
-        tr.sendMessage(gensym("#10000"));
+        Message m2(gensym("msg2"), LF(1, 2));
+        tr.sendMessage(m2);
         REQUIRE(t.messagesAt(0) == messageList(m2, m2, m2, m2, m2));
 
-        // any - to all
+        // any - to all: error
         t.clearAll();
-        Message m3(gensym("#"), L());
-        tr.sendMessage(gensym("#"));
-        REQUIRE(t.messagesAt(0) == messageList(m3, m3, m3, m3, m3));
+        tr.sendMessage("#-10");
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        // any - to all: error
+        t.clearAll();
+        tr.sendMessage("#");
+        REQUIRE_FALSE(t.hasOutputAt(0));
 
         // any - to all
         t.clearAll();
-        Message m4(gensym("#msg"), L());
-        tr.sendMessage(gensym("#msg"));
-        REQUIRE(t.messagesAt(0) == messageList(m4, m4, m4, m4, m4));
+        tr.sendMessage("#msg");
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        ///// SEND TO ALL
+        /// BANG
+        t.clearAll();
+        tr.sendMessage("#*");
+        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang, &s_bang, &s_bang));
+
+        t.clearAll();
+        tr.sendMessage("#*1");
+        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang, &s_bang));
+
+        t.clearAll();
+        tr.sendMessage("#*3");
+        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang));
+
+        t.clearAll();
+        tr.sendMessage("#*4");
+        REQUIRE(t.messagesAt(0) == messageList(&s_bang));
+
+        t.clearAll();
+        tr.sendMessage("#*5");
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        t.clearAll();
+        tr.sendMessage("#*asdsad");
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        /// BANG s_bang
+        t.clearAll();
+        tr.sendMessage("#*", &s_bang);
+        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang, &s_bang, &s_bang));
+
+        t.clearAll();
+        tr.sendMessage("#*2", &s_bang);
+        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang));
+
+        /// FLOAT
+        t.clearAll();
+        tr.sendMessage("#*", 100);
+        REQUIRE(t.messagesAt(0) == messageList(LF(100), LF(100), LF(100), LF(100), LF(100)));
+
+        t.clearAll();
+        tr.sendMessage("#*1", "float", 100);
+        REQUIRE(t.messagesAt(0) == messageList(LF(100), LF(100), LF(100), LF(100)));
+
+        t.clearAll();
+        tr.sendMessage("#*5", "float", 100);
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        /// SYMBOL
+        t.clearAll();
+        tr.sendMessage("#*2", "symbol", "X");
+        REQUIRE(t.messagesAt(0) == messageList(LA("X"), LA("X"), LA("X")));
+
+        /// LIST
+        t.clearAll();
+        tr.sendMessage("#*3", 1, 2, 3);
+        REQUIRE(t.messagesAt(0) == messageList(LF(1, 2, 3), LF(1, 2, 3)));
+
+        t.clearAll();
+        tr.sendMessage("#*4", "list", 1, 2, 3);
+        REQUIRE(t.messagesAt(0) == messageList(LF(1, 2, 3)));
+
+        /// ANY
+        t.clearAll();
+        Message m20a(gensym("msg"), L());
+        tr.sendMessage("#*3", "msg");
+        REQUIRE(t.messagesAt(0) == messageList(m20a, m20a));
+
+        t.clearAll();
+        tr.sendMessage("#*3", "msg", 1, 2);
+        REQUIRE(t.messagesAt(0) == messageList(Message("msg", 1, 2), Message("msg", 1, 2)));
+
+        ///// SEND TO >
+        /// BANG
+        t.clearAll();
+        tr.sendMessage("#>");
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        t.clearAll();
+        tr.sendMessage("#>NAN");
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        t.clearAll();
+        tr.sendMessage("#>-10");
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        t.clearAll();
+        tr.sendMessage("#>0");
+        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang, &s_bang));
+
+        /// FLOAT
+        t.clearAll();
+        tr.sendMessage("#>2", 100);
+        REQUIRE(t.messagesAt(0) == messageList(LF(100), LF(100)));
+
+        t.clearAll();
+        tr.sendMessage("#>3", "float", 100);
+        REQUIRE(t.messagesAt(0) == messageList(LF(100)));
+
+        t.clearAll();
+        tr.sendMessage("#>4", 100);
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        /// SYMBOL
+        t.clearAll();
+        tr.sendMessage("#>3", "symbol", "ABC");
+        REQUIRE(t.messagesAt(0) == messageList(LA("ABC")));
+
+        t.clearAll();
+        tr.sendMessage("#>4", "symbol", "ABC");
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        /// LIST
+        t.clearAll();
+        tr.sendMessage("#>3", 1, 2, 3);
+        REQUIRE(t.messagesAt(0) == messageList(LF(1, 2, 3)));
+
+        t.clearAll();
+        tr.sendMessage("#>2", "list", 1, 2, 3);
+        REQUIRE(t.messagesAt(0) == messageList(LF(1, 2, 3), LF(1, 2, 3)));
+
+        t.clearAll();
+        tr.sendMessage("#>4", "list", 1, 2, 3);
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        /// ANY
+        t.clearAll();
+        tr.sendMessage("#>3", "msg", 1, 2);
+        REQUIRE(t.messagesAt(0) == messageList(Message("msg", 1, 2)));
+
+        t.clearAll();
+        tr.sendMessage("#>4", "msg", 1, 2);
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        ///// SEND TO <
+        /// BANG
+        t.clearAll();
+        tr.sendMessage("#<");
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        t.clearAll();
+        tr.sendMessage("#<NAN");
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        t.clearAll();
+        tr.sendMessage("#<0");
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        t.clearAll();
+        tr.sendMessage("#<2");
+        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang));
+
+        /// FLOAT
+        t.clearAll();
+        tr.sendMessage("#<2", 100);
+        REQUIRE(t.messagesAt(0) == messageList(LF(100), LF(100)));
+
+        t.clearAll();
+        tr.sendMessage("#<3", "float", 100);
+        REQUIRE(t.messagesAt(0) == messageList(LF(100), LF(100), LF(100)));
+
+        t.clearAll();
+        tr.sendMessage("#<10", 100);
+        REQUIRE(t.messagesAt(0) == messageList(LF(100), LF(100), LF(100), LF(100), LF(100)));
+
+        /// SYMBOL
+        t.clearAll();
+        tr.sendMessage("#<3", "symbol", "ABC");
+        REQUIRE(t.messagesAt(0) == messageList(LA("ABC"), LA("ABC"), LA("ABC")));
+
+        t.clearAll();
+        tr.sendMessage("#<0", "symbol", "ABC");
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        /// LIST
+        t.clearAll();
+        tr.sendMessage("#<1", 1, 2, 3);
+        REQUIRE(t.messagesAt(0) == messageList(LF(1, 2, 3)));
+
+        t.clearAll();
+        tr.sendMessage("#<2", "list", 1, 2, 3);
+        REQUIRE(t.messagesAt(0) == messageList(LF(1, 2, 3), LF(1, 2, 3)));
+
+        t.clearAll();
+        tr.sendMessage("#<0", "list", 1, 2, 3);
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        /// ANY
+        t.clearAll();
+        tr.sendMessage("#<1", "msg", 1, 2);
+        REQUIRE(t.messagesAt(0) == messageList(Message("msg", 1, 2)));
+
+        t.clearAll();
+        tr.sendMessage("#<0", "msg", 1, 2);
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        ///// SEND TO RANGE
+        /// BANG
+        t.clearAll();
+        tr.sendMessage("#2-");
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        t.clearAll();
+        tr.sendMessage("#2-???");
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        t.clearAll();
+        tr.sendMessage("#3-2");
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        t.clearAll();
+        tr.sendMessage("#5-6");
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        t.clearAll();
+        tr.sendMessage("#2-2");
+        REQUIRE(t.messagesAt(0) == messageList(&s_bang));
+
+        t.clearAll();
+        tr.sendMessage("#2-3");
+        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang));
+
+        t.clearAll();
+        tr.sendMessage("#2-10");
+        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang));
+
+        /// FLOAT
+        t.clearAll();
+        tr.sendMessage("#1-2", 100);
+        REQUIRE(t.messagesAt(0) == messageList(LF(100), LF(100)));
+
+        t.clearAll();
+        tr.sendMessage("#4-5", "float", 100);
+        REQUIRE(t.messagesAt(0) == messageList(LF(100)));
+
+        t.clearAll();
+        tr.sendMessage("#0-5", 100);
+        REQUIRE(t.messagesAt(0) == messageList(LF(100), LF(100), LF(100), LF(100), LF(100)));
+
+        /// SYMBOL
+        t.clearAll();
+        tr.sendMessage("#4-4", "symbol", "ABC");
+        REQUIRE(t.messagesAt(0) == messageList(LA("ABC")));
+
+        t.clearAll();
+        tr.sendMessage("#5-5", "symbol", "ABC");
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        /// LIST
+        t.clearAll();
+        tr.sendMessage("#1-2", 1, 2, 3);
+        REQUIRE(t.messagesAt(0) == messageList(LF(1, 2, 3), LF(1, 2, 3)));
+
+        t.clearAll();
+        tr.sendMessage("#2-4", "list", 1, 2, 3);
+        REQUIRE(t.messagesAt(0) == messageList(LF(1, 2, 3), LF(1, 2, 3), LF(1, 2, 3)));
+
+        t.clearAll();
+        tr.sendMessage("#5-5", "list", 1, 2, 3);
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        /// ANY
+        t.clearAll();
+        tr.sendMessage("#0-1", "msg", 1, 2);
+        REQUIRE(t.messagesAt(0) == messageList(Message("msg", 1, 2), Message("msg", 1, 2)));
+
+        t.clearAll();
+        tr.sendMessage("#5-10", "msg", 1, 2);
+        REQUIRE_FALSE(t.hasOutputAt(0));
     }
 }

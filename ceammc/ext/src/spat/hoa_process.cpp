@@ -292,84 +292,193 @@ HoaProcess::InOutInfo HoaProcess::calcNumChannels() const
     };
 }
 
-void HoaProcess::sendBangToInstance(size_t inst_idx, size_t inlet_idx)
+void HoaProcess::sendToN(std::function<void(ProcessInstance*)> fn, size_t inst_idx)
 {
     if (inst_idx >= instances_.size()) {
         OBJ_ERR << "invalid instance index: " << inst_idx;
         return;
     }
 
-    instances_[inst_idx].bangTo(inlet_idx);
+    fn(&instances_[inst_idx]);
+}
+
+void HoaProcess::sendToAll(std::function<void(ProcessInstance*)> fn)
+{
+    for (auto& inst : instances_)
+        fn(&inst);
+}
+
+void HoaProcess::sendToRange(std::function<void(ProcessInstance*)> fn, size_t from, size_t to)
+{
+    if (from > to) {
+        OBJ_ERR << "start index should be less equal then last: " << from << ' ' << to;
+        return;
+    }
+
+    if (from >= instances_.size()) {
+        OBJ_ERR << "invalid instance start index: " << from;
+        return;
+    }
+
+    const size_t N = std::min(to + 1, instances_.size());
+
+    for (size_t i = from; i < N; i++)
+        fn(&instances_[i]);
+}
+
+void HoaProcess::sendToLessThen(std::function<void(ProcessInstance*)> fn, size_t inst_idx)
+{
+    const size_t N = std::min(inst_idx, instances_.size());
+
+    for (size_t i = 0; i < N; i++)
+        fn(&instances_[i]);
+}
+
+void HoaProcess::sendToGreaterThen(std::function<void(ProcessInstance*)> fn, size_t inst_idx)
+{
+    if ((inst_idx + 1) >= instances_.size()) {
+        OBJ_ERR << "invalid instance index: " << inst_idx;
+        return;
+    }
+
+    for (size_t i = inst_idx + 1; i < instances_.size(); i++)
+        fn(&instances_[i]);
+}
+
+void HoaProcess::sendToGreaterEq(std::function<void(ProcessInstance*)> fn, size_t inst_idx)
+{
+    if (inst_idx >= instances_.size()) {
+        OBJ_ERR << "invalid instance index: " << inst_idx;
+        return;
+    }
+
+    for (size_t i = inst_idx; i < instances_.size(); i++)
+        fn(&instances_[i]);
+}
+
+void HoaProcess::sendBangToInstance(size_t inst_idx, size_t inlet_idx)
+{
+    sendToN([=](ProcessInstance* p) { p->bangTo(inlet_idx); }, inst_idx);
 }
 
 void HoaProcess::sendBangToAll(size_t inlet_idx)
 {
-    for (auto& inst : instances_)
-        inst.bangTo(inlet_idx);
+    sendToAll([=](ProcessInstance* p) { p->bangTo(inlet_idx); });
+}
+
+void HoaProcess::sendBangToRange(size_t from, size_t to, size_t inlet_idx)
+{
+    sendToRange([=](ProcessInstance* p) { p->bangTo(inlet_idx); }, from, to);
+}
+
+void HoaProcess::sendBangToLessThen(size_t inst_idx, size_t inlet_idx)
+{
+    sendToLessThen([=](ProcessInstance* p) { p->bangTo(inlet_idx); }, inst_idx);
+}
+
+void HoaProcess::sendBangToGreaterEq(size_t inst_idx, size_t inlet_idx)
+{
+    sendToGreaterEq([=](ProcessInstance* p) { p->bangTo(inlet_idx); }, inst_idx);
 }
 
 void HoaProcess::sendFloatToInstance(size_t inst_idx, size_t inlet_idx, t_float v)
 {
-    if (inst_idx >= instances_.size()) {
-        OBJ_ERR << "invalid instance index: " << inst_idx;
-        return;
-    }
-
-    instances_[inst_idx].floatTo(inlet_idx, v);
+    sendToN([=](ProcessInstance* p) { p->floatTo(inlet_idx, v); }, inst_idx);
 }
 
 void HoaProcess::sendFloatToAll(size_t inlet_idx, t_float v)
 {
-    for (auto& inst : instances_)
-        inst.floatTo(inlet_idx, v);
+    sendToAll([=](ProcessInstance* p) { p->floatTo(inlet_idx, v); });
+}
+
+void HoaProcess::sendFloatToLessThen(size_t inst_idx, size_t inlet_idx, t_float v)
+{
+    sendToLessThen([=](ProcessInstance* p) { p->floatTo(inlet_idx, v); }, inst_idx);
+}
+
+void HoaProcess::sendFloatToGreaterEq(size_t inst_idx, size_t inlet_idx, t_float v)
+{
+    sendToGreaterEq([=](ProcessInstance* p) { p->floatTo(inlet_idx, v); }, inst_idx);
+}
+
+void HoaProcess::sendFloatToRange(size_t from, size_t to, size_t inlet_idx, t_float v)
+{
+    sendToRange([=](ProcessInstance* p) { p->floatTo(inlet_idx, v); }, from, to);
 }
 
 void HoaProcess::sendSymbolToInstance(size_t inst_idx, size_t inlet_idx, t_symbol* s)
 {
-    if (inst_idx >= instances_.size()) {
-        OBJ_ERR << "invalid instance index: " << inst_idx;
-        return;
-    }
-
-    instances_[inst_idx].symbolTo(inlet_idx, s);
+    sendToN([=](ProcessInstance* p) { p->symbolTo(inlet_idx, s); }, inst_idx);
 }
 
 void HoaProcess::sendSymbolToAll(size_t inlet_idx, t_symbol* s)
 {
-    for (auto& inst : instances_)
-        inst.symbolTo(inlet_idx, s);
+    sendToAll([=](ProcessInstance* p) { p->symbolTo(inlet_idx, s); });
+}
+
+void HoaProcess::sendSymbolToLessThen(size_t inst_idx, size_t inlet_idx, t_symbol* s)
+{
+    sendToLessThen([=](ProcessInstance* p) { p->symbolTo(inlet_idx, s); }, inst_idx);
+}
+
+void HoaProcess::sendSymbolToGreaterEq(size_t inst_idx, size_t inlet_idx, t_symbol* s)
+{
+    sendToGreaterEq([=](ProcessInstance* p) { p->symbolTo(inlet_idx, s); }, inst_idx);
+}
+
+void HoaProcess::sendSymbolToRange(size_t from, size_t to, size_t inlet_idx, t_symbol* s)
+{
+    sendToRange([=](ProcessInstance* p) { p->symbolTo(inlet_idx, s); }, from, to);
 }
 
 void HoaProcess::sendListToInstance(size_t inst_idx, size_t inlet_idx, const AtomList& l)
 {
-    if (inst_idx >= instances_.size()) {
-        OBJ_ERR << "invalid instance index: " << inst_idx;
-        return;
-    }
-
-    instances_[inst_idx].listTo(inlet_idx, l);
+    sendToN([&l, &inlet_idx](ProcessInstance* p) { p->listTo(inlet_idx, l); }, inst_idx);
 }
 
 void HoaProcess::sendListToAll(size_t inlet_idx, const AtomList& l)
 {
-    for (auto& inst : instances_)
-        inst.listTo(inlet_idx, l);
+    sendToAll([&l, &inlet_idx](ProcessInstance* p) { p->listTo(inlet_idx, l); });
+}
+
+void HoaProcess::sendListToLessThen(size_t inst_idx, size_t inlet_idx, const AtomList& l)
+{
+    sendToLessThen([&l, &inlet_idx](ProcessInstance* p) { p->listTo(inlet_idx, l); }, inst_idx);
+}
+
+void HoaProcess::sendListToGreaterEq(size_t inst_idx, size_t inlet_idx, const AtomList& l)
+{
+    sendToGreaterEq([&l, &inlet_idx](ProcessInstance* p) { p->listTo(inlet_idx, l); }, inst_idx);
+}
+
+void HoaProcess::sendListToRange(size_t from, size_t to, size_t inlet_idx, const AtomList& l)
+{
+    sendToRange([=](ProcessInstance* p) { p->listTo(inlet_idx, l); }, from, to);
 }
 
 void HoaProcess::sendAnyToInstance(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l)
 {
-    if (inst_idx >= instances_.size()) {
-        OBJ_ERR << "invalid instance index: " << inst_idx;
-        return;
-    }
-
-    instances_[inst_idx].anyTo(inlet_idx, s, l);
+    sendToN([&l, &inlet_idx, s](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); }, inst_idx);
 }
 
 void HoaProcess::sendAnyToAll(size_t inlet_idx, t_symbol* s, const AtomList& l)
 {
-    for (auto& inst : instances_)
-        inst.anyTo(inlet_idx, s, l);
+    sendToAll([&l, &inlet_idx, s](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); });
+}
+
+void HoaProcess::sendAnyToLessThen(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l)
+{
+    sendToLessThen([&l, &inlet_idx, s](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); }, inst_idx);
+}
+
+void HoaProcess::sendAnyToGreaterEq(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l)
+{
+    sendToGreaterEq([&l, &inlet_idx, s](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); }, inst_idx);
+}
+
+void HoaProcess::sendAnyToRange(size_t from, size_t to, size_t inlet_idx, t_symbol* s, const AtomList& l)
+{
+    sendToRange([=](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); }, from, to);
 }
 
 bool HoaProcess::loadHarmonics(t_symbol* name, const AtomList& patch_args)

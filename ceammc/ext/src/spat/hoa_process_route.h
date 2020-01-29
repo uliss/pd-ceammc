@@ -14,6 +14,8 @@
 #ifndef HOA_PROCESS_ROUTE_H
 #define HOA_PROCESS_ROUTE_H
 
+#include <functional>
+
 #include "ceammc_object.h"
 
 using namespace ceammc;
@@ -33,6 +35,7 @@ public:
     void onAny(t_symbol* sel, const AtomList& lst) final;
 
 private:
+    bool outputToMatchedRoute(std::function<bool(Atom)> pred, std::function<void(size_t)> out_fn);
     void outputTo(size_t n, const AtomList& lst);
 };
 

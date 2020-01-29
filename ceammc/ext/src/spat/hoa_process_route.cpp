@@ -17,6 +17,8 @@
 #include "ceammc_property.h"
 #include "hoa_process_props.h"
 
+#include <cctype>
+
 HoaProcessRoute::HoaProcessRoute(const PdArgs& args)
     : BaseObject(args)
     , index_(-1)
@@ -51,34 +53,22 @@ void HoaProcessRoute::onFloat(t_float f)
 {
     const size_t N = args().size();
 
-    for (size_t i = 0; i < N; i++) {
-        size_t k = N - (i + 1);
-        auto a = args()[k];
-        // float symbol selector
-        if (a.asSymbol() == &s_float) {
-            floatTo(k, f);
-            return;
-        }
-    }
+    auto route_match = [](Atom a) { return a.asSymbol() == &s_float; };
+    auto out_fn = [f, this](size_t k) { floatTo(k, f); };
 
-    floatTo(N, f);
+    if (!outputToMatchedRoute(route_match, out_fn))
+        floatTo(N, f);
 }
 
 void HoaProcessRoute::onSymbol(t_symbol* s)
 {
     const size_t N = args().size();
 
-    for (size_t i = 0; i < N; i++) {
-        size_t k = N - (i + 1);
-        auto a = args()[k];
-        // symbol selector
-        if (a.asSymbol() == &s_symbol) {
-            symbolTo(k, s);
-            return;
-        }
-    }
+    auto route_match = [](Atom a) { return a.asSymbol() == &s_symbol; };
+    auto out_fn = [s, this](size_t k) { symbolTo(k, s); };
 
-    symbolTo(N, s);
+    if (!outputToMatchedRoute(route_match, out_fn))
+        symbolTo(N, s);
 }
 
 void HoaProcessRoute::onList(const AtomList& lst)
@@ -89,54 +79,55 @@ void HoaProcessRoute::onList(const AtomList& lst)
     const size_t N = args().size();
 
     if (lst[0].isFloat()) {
-        // search "float" selector
-        for (size_t i = 0; i < N; i++) {
-            size_t k = N - (i + 1);
-            auto a = args()[k];
+        auto route_match = [&lst, this](Atom a) { return a.asSymbol() == &s_float
+                                                      && index_ >= 0 && index_ < lst.size()
+                                                      && lst[index_].isFloat(); };
+        auto out_fn = [&lst, this](size_t k) { floatTo(k, lst[index_].asFloat()); };
 
-            // float selector found
-            if (a.asSymbol() == &s_float
-                && index_ >= 0 && index_ < lst.size()
-                && lst[index_].isFloat()) {
+        if (outputToMatchedRoute(route_match, out_fn))
+            return;
 
-                floatTo(k, lst[index_].asFloat());
-                return;
-            }
-        }
     } else if (lst[0].isSymbol()) {
-        // search "symbol" selector
-        for (size_t i = 0; i < N; i++) {
-            size_t k = N - (i + 1);
-            auto a = args()[k];
+        auto route_match = [&lst, this](Atom a) { return a.asSymbol() == &s_symbol
+                                                      && index_ >= 0 && index_ < lst.size()
+                                                      && lst[index_].isSymbol(); };
+        auto out_fn = [&lst, this](size_t k) { symbolTo(k, lst[index_].asSymbol()); };
 
-            // symbol selector found
-            if (a.asSymbol() == &s_symbol
-                && index_ >= 0 && index_ < lst.size()
-                && lst[index_].isSymbol()) {
+        if (outputToMatchedRoute(route_match, out_fn))
+            return;
 
-                symbolTo(k, lst[index_].asSymbol());
-                return;
-            }
-        }
-    } else
+    } else // no route matched
         listTo(N, lst);
 }
 
 void HoaProcessRoute::onAny(t_symbol* sel, const AtomList& lst)
 {
+//    static t_symbol* MATCH_ALL = gensym("*");
+
+    auto route_match = [sel](Atom a) { return a.asSymbol() == sel; };
+    auto out_fn = [&lst, this](size_t k) { outputTo(k, lst); };
+
+    if (!outputToMatchedRoute(route_match, out_fn))
+        anyTo(args().size(), sel, lst);
+}
+
+bool HoaProcessRoute::outputToMatchedRoute(std::function<bool(Atom)> pred, std::function<void(size_t)> out_fn)
+{
     const size_t N = args().size();
+    if (N == 0)
+        return false;
+
+    // search backwards
     for (size_t i = 0; i < N; i++) {
         size_t k = N - (i + 1);
-        auto a = args()[k];
 
-        // symbol selector
-        if (a.asSymbol() == sel) {
-            outputTo(k, lst);
-            return;
+        if (pred(args()[k])) {
+            out_fn(k);
+            return true;
         }
     }
 
-    anyTo(N, sel, lst);
+    return false;
 }
 
 void HoaProcessRoute::outputTo(size_t n, const AtomList& lst)
