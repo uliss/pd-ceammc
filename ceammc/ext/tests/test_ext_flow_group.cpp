@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../flow/flow_group.h"
-#include "test_base.h"
 #include "catch.hpp"
+#include "test_base.h"
 
 #include <stdio.h>
 
@@ -85,10 +85,10 @@ TEST_CASE("flow.group", "[externals]")
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         WHEN_SEND_SYMBOL_TO(0, t, "B");
-        REQUIRE_LIST_AT_OUTLET(0, t, LA("A"));
+        REQUIRE_SYMBOL_AT_OUTLET(0, t, "A");
 
         WHEN_SEND_SYMBOL_TO(0, t, "C");
-        REQUIRE_LIST_AT_OUTLET(0, t, LA("B"));
+        REQUIRE_SYMBOL_AT_OUTLET(0, t, "B");
     }
 
     SECTION("onList")

@@ -32,7 +32,7 @@ TEST_CASE("flow.pack", "[externals]")
             REQUIRE(t.numOutlets() == 1);
 
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_LIST_AT_OUTLET(0, t, LX(0));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
         }
 
         SECTION("wrong args")
@@ -42,7 +42,7 @@ TEST_CASE("flow.pack", "[externals]")
             REQUIRE(t.numOutlets() == 1);
 
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_LIST_AT_OUTLET(0, t, LX(0));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
         }
 
         SECTION("args")
@@ -52,7 +52,7 @@ TEST_CASE("flow.pack", "[externals]")
             REQUIRE(t.numOutlets() == 1);
 
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_LIST_AT_OUTLET(0, t, LX(0));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
         }
 
         SECTION("args")
@@ -62,7 +62,7 @@ TEST_CASE("flow.pack", "[externals]")
             REQUIRE(t.numOutlets() == 1);
 
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_LIST_AT_OUTLET(0, t, LX(0));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
         }
 
         SECTION("args")

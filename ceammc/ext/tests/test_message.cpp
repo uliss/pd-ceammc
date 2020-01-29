@@ -59,6 +59,14 @@ TEST_CASE("Message", "[ceammc::Message]")
     Message v12(&s_bang);
     REQUIRE(v12.isBang());
 
+    SECTION("template")
+    {
+        Message m("msg", 1, 2, 3);
+        REQUIRE(m.isAny());
+        REQUIRE(m.atomValue() == A("msg"));
+        REQUIRE(m.listValue() == LF(1, 2, 3));
+    }
+
     SECTION("compare")
     {
         REQUIRE(v1 == v1);

@@ -86,7 +86,7 @@ TEST_CASE("flow.route", "[externals]")
         REQUIRE_NO_MESSAGES_AT_OUTLET(3, t);
 
         WHEN_SEND_LIST_TO(0, t, LA("a", "b"));
-        REQUIRE_LIST_AT_OUTLET(0, t, LA("b"));
+        REQUIRE_SYMBOL_AT_OUTLET(0, t, "b");
         REQUIRE_NO_MESSAGES_AT_OUTLET(1, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(2, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(3, t);
@@ -106,7 +106,7 @@ TEST_CASE("flow.route", "[externals]")
 
         WHEN_SEND_LIST_TO(0, t, LA("b", "c"));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
-        REQUIRE_LIST_AT_OUTLET(1, t, LA("c"));
+        REQUIRE_SYMBOL_AT_OUTLET(1, t, "c");
         REQUIRE_NO_MESSAGES_AT_OUTLET(2, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(3, t);
 
@@ -126,7 +126,7 @@ TEST_CASE("flow.route", "[externals]")
         WHEN_SEND_LIST_TO(0, t, LA(500, "message"));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(1, t);
-        REQUIRE_LIST_AT_OUTLET(2, t, LA("message"));
+        REQUIRE_SYMBOL_AT_OUTLET(2, t, "message");
         REQUIRE_NO_MESSAGES_AT_OUTLET(3, t);
 
         WHEN_SEND_LIST_TO(0, t, LA(500, "a", 2));

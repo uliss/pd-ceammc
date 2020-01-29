@@ -266,6 +266,23 @@ void pd::External::sendMessage(t_symbol* msg, const AtomList& args)
     pd_typedmess(&obj_->te_g.g_pd, msg, args.size(), args.toPdData());
 }
 
+void pd::External::sendMessage(const Message& m)
+{
+    if (!obj_)
+        return;
+
+    if (m.isBang())
+        sendBang();
+    else if (m.isFloat())
+        sendFloat(m.atomValue().asFloat());
+    else if (m.isSymbol())
+        sendSymbol(m.atomValue().asSymbol());
+    else if (m.isList())
+        sendList(m.listValue());
+    else
+        sendMessage(m.atomValue().asSymbol(), m.listValue());
+}
+
 int pd::External::numOutlets() const
 {
     if (!obj_)

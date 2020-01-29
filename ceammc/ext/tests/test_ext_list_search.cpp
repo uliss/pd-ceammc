@@ -88,10 +88,10 @@ TEST_CASE("list.search", "[externals]")
 
             WHEN_SEND_LIST_TO(1, t, LF(8));
             WHEN_SEND_LIST_TO(0, t, LA(5, 6, 7, 8, 9));
-            REQUIRE_LIST_AT_OUTLET(0, t, LF(3));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
 
             WHEN_SEND_LIST_TO(0, t, LA(5, 8, 7, 8, 9));
-            REQUIRE_LIST_AT_OUTLET(0, t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
         }
 
         SECTION("data")

@@ -149,7 +149,7 @@ TEST_CASE("list.route", "[externals]")
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "A");
 
             WHEN_SEND_LIST_TO(0, t, LA("C"));
-            REQUIRE_LIST_AT_OUTLET(2, t, LA("C"));
+            REQUIRE_SYMBOL_AT_OUTLET(2, t, "C");
         }
 
         SECTION("as any")

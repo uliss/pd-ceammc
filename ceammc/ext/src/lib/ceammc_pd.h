@@ -16,6 +16,7 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_canvas.h"
+#include "ceammc_message.h"
 #include "ceammc_property_info.h"
 
 #include <map>
@@ -64,6 +65,18 @@ namespace pd {
         void sendSymbolTo(t_symbol* s, size_t inlet);
         void sendListTo(const AtomList& l, size_t inlet);
         void sendMessage(t_symbol* msg, const AtomList& args = AtomList());
+        void sendMessage(const Message& m);
+
+        template <typename... Args>
+        void sendMessage(const char* msg, Args... args)
+        {
+            sendMessage({ msg, args... });
+        }
+
+        void sendMessage(const char* msg, const AtomList& args = AtomList())
+        {
+            sendMessage(gensym(msg), args);
+        }
 
         int numOutlets() const;
         int numInlets() const;

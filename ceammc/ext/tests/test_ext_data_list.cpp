@@ -26,6 +26,12 @@
         REQUIRE_LIST_AT_OUTLET(0, obj, lst); \
     }
 
+#define REQUIRE_FLOAT(obj, f)               \
+    {                                       \
+        WHEN_SEND_BANG_TO(0, obj);          \
+        REQUIRE_FLOAT_AT_OUTLET(0, obj, f); \
+    }
+
 typedef TestExternal<DataList> DataListTest;
 
 TEST_CASE("data.list", "[externals]")
@@ -100,7 +106,7 @@ TEST_CASE("data.list", "[externals]")
         REQUIRE_LIST(t, LF(100, 200));
 
         WHEN_CALL_N(t, removeAt, 1.f);
-        REQUIRE_LIST(t, LF(100));
+        REQUIRE_FLOAT(t, 100);
 
         WHEN_CALL_N(t, removeAt, 0.f);
         REQUIRE_LIST(t, L());
@@ -112,7 +118,7 @@ TEST_CASE("data.list", "[externals]")
         REQUIRE_LIST(t, L());
 
         WHEN_CALL_N(t, insert, 0.f, 100);
-        REQUIRE_LIST(t, LF(100));
+        REQUIRE_FLOAT(t, 100);
 
         WHEN_CALL_N(t, insert, 0.f, 200);
         REQUIRE_LIST(t, LF(200, 100));
