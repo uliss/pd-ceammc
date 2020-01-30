@@ -70,6 +70,13 @@ TEST_CASE("prop", "[externals]")
         REQUIRE_FALSE(p0.hasOutput());
         REQUIRE_FALSE(p1.hasOutput());
 
+        // but react on list with single float
+        p0.sendList(LF(500));
+        REQUIRE(p0.hasOutput());
+        REQUIRE(p0.outputFloatAt(0) == 500);
+        REQUIRE(p1.hasOutput());
+        REQUIRE(p1.outputFloatAt(0) == 500);
+
         p0.call("default");
         REQUIRE(p0.hasOutput());
         REQUIRE(p0.outputFloatAt(0) == 10);
@@ -112,6 +119,13 @@ TEST_CASE("prop", "[externals]")
         p0.sendList(LF(1, 2, 3));
         REQUIRE_FALSE(p0.hasOutput());
         REQUIRE_FALSE(p1.hasOutput());
+
+        // but react on list with single float
+        p0.sendList(LA("c"));
+        REQUIRE(p0.hasOutput());
+        REQUIRE(p0.outputSymbolAt(0) == gensym("c"));
+        REQUIRE(p1.hasOutput());
+        REQUIRE(p1.outputSymbolAt(0) == gensym("c"));
 
         p1.call("default");
         REQUIRE(p0.hasOutput());
@@ -200,6 +214,13 @@ TEST_CASE("prop", "[externals]")
         REQUIRE_FALSE(p0.hasOutput());
         REQUIRE_FALSE(p1.hasOutput());
 
+        // but react on list with single float
+        p0.sendList(LF(500));
+        REQUIRE(p0.hasOutput());
+        REQUIRE(p0.outputFloatAt(0) == 500);
+        REQUIRE(p1.hasOutput());
+        REQUIRE(p1.outputFloatAt(0) == 500);
+
         p0.call("default");
         REQUIRE(p0.hasOutput());
         REQUIRE(p0.outputFloatAt(0) == 10);
@@ -272,6 +293,19 @@ TEST_CASE("prop", "[externals]")
         p0.sendList(LF(1, 2, 3));
         REQUIRE_FALSE(p0.hasOutput());
         REQUIRE_FALSE(p1.hasOutput());
+
+        // but react on list with single value
+        p0.sendList(LF(1));
+        REQUIRE(p0.hasOutput());
+        REQUIRE(p0.outputFloatAt(0) == 1);
+        REQUIRE(p1.hasOutput());
+        REQUIRE(p1.outputFloatAt(0) == 1);
+
+        p0.sendList(LA("false"));
+        REQUIRE(p0.hasOutput());
+        REQUIRE(p0.outputFloatAt(0) == 0);
+        REQUIRE(p1.hasOutput());
+        REQUIRE(p1.outputFloatAt(0) == 0);
 
         p0.call("default");
         REQUIRE(p0.hasOutput());
