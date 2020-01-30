@@ -111,12 +111,14 @@ public:
     void sendListToLessThen(size_t inst_idx, size_t inlet_idx, const AtomList& l);
     void sendListToGreaterEq(size_t inst_idx, size_t inlet_idx, const AtomList& l);
     void sendListToRange(size_t from, size_t to, size_t inlet_idx, const AtomList& l);
+    void sendListToSpread(size_t from, size_t inlet_idx, const AtomList& l);
 
     void sendAnyToInstance(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l);
     void sendAnyToAll(size_t inlet_idx, t_symbol* s, const AtomList& l);
     void sendAnyToLessThen(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l);
     void sendAnyToGreaterEq(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l);
     void sendAnyToRange(size_t from, size_t to, size_t inlet_idx, t_symbol* s, const AtomList& l);
+    void sendAnyToSpread(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l);
 
 public:
     static t_symbol* SYM_SWITCH;

@@ -960,5 +960,83 @@ TEST_CASE("hoa.process~", "[externals]")
         t.clearAll();
         tr.sendMessage("#5-10", "msg", 1, 2);
         REQUIRE_FALSE(t.hasOutputAt(0));
+
+        ///// SPREAD
+        /// BANG
+        t.clearAll();
+        tr.sendMessage("#:NAN");
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        t.clearAll();
+        tr.sendMessage("#:-1");
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        t.clearAll();
+        tr.sendMessage("#:");
+        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang, &s_bang, &s_bang));
+
+        t.clearAll();
+        tr.sendMessage("#:2");
+        REQUIRE(t.messagesAt(0) == messageList(&s_bang, &s_bang, &s_bang));
+
+        /// FLOAT
+        t.clearAll();
+        tr.sendMessage("#:3", 100);
+        REQUIRE(t.messagesAt(0) == messageList(LF(100), LF(100)));
+
+        t.clearAll();
+        tr.sendMessage("#:3", "float", 100);
+        REQUIRE(t.messagesAt(0) == messageList(LF(100), LF(100)));
+
+        /// SYMBOL
+        t.clearAll();
+        tr.sendMessage("#:3", "symbol", "ABC");
+        REQUIRE(t.messagesAt(0) == messageList(LA("ABC"), LA("ABC")));
+
+        t.clearAll();
+        tr.sendMessage("#:5", "symbol", "ABC");
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        /// LIST
+        t.clearAll();
+        tr.sendMessage("#:", 1, 2, 3);
+        REQUIRE(t.messagesAt(0) == messageList(LF(1), LF(2), LF(3)));
+
+        t.clearAll();
+        tr.sendMessage("#:2", 1, 2, 3);
+        REQUIRE(t.messagesAt(0) == messageList(LF(1), LF(2), LF(3)));
+
+        t.clearAll();
+        tr.sendMessage("#:3", 1, 2, 3);
+        REQUIRE(t.messagesAt(0) == messageList(LF(1), LF(2)));
+
+        t.clearAll();
+        tr.sendMessage("#:4", 1, 2, 3);
+        REQUIRE(t.messagesAt(0) == messageList(LF(1)));
+
+        t.clearAll();
+        tr.sendMessage("#:5", 1, 2, 3);
+        REQUIRE_FALSE(t.hasOutputAt(0));
+
+        t.clearAll();
+        tr.sendMessage("#:", 1, 2, 3, 4, 5, 6, 7, 8, 9);
+        REQUIRE(t.messagesAt(0) == messageList(LF(1), LF(2), LF(3), LF(4), LF(5)));
+
+        t.clearAll();
+        tr.sendMessage("#:", "list", 1, 2, 3, 4, 5, 6, 7, 8, 9);
+        REQUIRE(t.messagesAt(0) == messageList(LF(1), LF(2), LF(3), LF(4), LF(5)));
+
+        t.clearAll();
+        tr.sendMessage("#:", "list", "A", "B", "C", "D");
+        REQUIRE(t.messagesAt(0) == messageList(LA("A"), LA("B"), LA("C"), LA("D")));
+
+        /// ANY
+        t.clearAll();
+        tr.sendMessage("#:", "@msg", 1, 2);
+        REQUIRE(t.messagesAt(0) == messageList(Message("@msg", 1), Message("@msg", 2)));
+
+        t.clearAll();
+        tr.sendMessage("#:2", "@msg", 1, 2, 3, 4, 5, 6, 7);
+        REQUIRE(t.messagesAt(0) == messageList(Message("@msg", 1), Message("@msg", 2), Message("@msg", 3)));
     }
 }

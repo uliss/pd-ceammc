@@ -456,6 +456,20 @@ void HoaProcess::sendListToRange(size_t from, size_t to, size_t inlet_idx, const
     sendToRange([=](ProcessInstance* p) { p->listTo(inlet_idx, l); }, from, to);
 }
 
+void HoaProcess::sendListToSpread(size_t from, size_t inlet_idx, const AtomList& l)
+{
+    const auto N = std::min(l.size() + from, instances_.size());
+
+    for (size_t i = from; i < N; i++) {
+        const auto& a = l[i - from];
+        ProcessInstance& inst = instances_[i];
+        if (a.isFloat())
+            inst.floatTo(inlet_idx, a.asFloat());
+        else if (a.isSymbol())
+            inst.symbolTo(inlet_idx, a.asSymbol());
+    }
+}
+
 void HoaProcess::sendAnyToInstance(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l)
 {
     sendToN([&l, &inlet_idx, s](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); }, inst_idx);
@@ -479,6 +493,14 @@ void HoaProcess::sendAnyToGreaterEq(size_t inst_idx, size_t inlet_idx, t_symbol*
 void HoaProcess::sendAnyToRange(size_t from, size_t to, size_t inlet_idx, t_symbol* s, const AtomList& l)
 {
     sendToRange([=](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); }, from, to);
+}
+
+void HoaProcess::sendAnyToSpread(size_t from, size_t inlet_idx, t_symbol* s, const AtomList& l)
+{
+    const auto N = std::min(l.size() + from, instances_.size());
+
+    for (size_t i = from; i < N; i++)
+        instances_[i].anyTo(inlet_idx, s, l[i - from]);
 }
 
 bool HoaProcess::loadHarmonics(t_symbol* name, const AtomList& patch_args)

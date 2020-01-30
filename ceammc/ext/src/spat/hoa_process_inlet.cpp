@@ -124,6 +124,21 @@ static Maybe<t_target> parseTarget(t_symbol* s)
             return Maybe<t_target>({ static_cast<uint8_t>(val), 0, TargetType::GT });
 
     } break;
+    case ':': { // #:INT
+
+        auto val = parseByte(str + 2);
+        switch (val) {
+        case PARSE_ERROR_NEGATIVE:
+        case PARSE_ERROR_NAN:
+            return err;
+        case PARSE_ERROR_EMPTY:
+        case PARSE_ERROR_TOOBIG:
+            return Maybe<t_target>({ 0, 0, TargetType::SPREAD });
+        default:
+            return Maybe<t_target>({ static_cast<uint8_t>(val), 0, TargetType::SPREAD });
+        }
+
+    } break;
     default: {
         if (isdigit(str[1])) {
             auto range_start = str + 1;
@@ -208,7 +223,7 @@ static void message_handler(size_t idx, size_t inlet, int argc, t_atom* argv, co
     /** FLOAT */
     else if (argc == 1 && is_float(argv[0]))
         cb.fn_float(idx, inlet, argv[0].a_w.w_float);
-    else if (argc == 2 && is_sym_symbol(argv[0]) && is_float(argv[1]))
+    else if (argc == 2 && is_sym_float(argv[0]) && is_float(argv[1]))
         cb.fn_float(idx, inlet, argv[1].a_w.w_float);
     /** SYMBOL */
     else if (argc == 2 && is_sym_symbol(argv[0]) && is_symbol(argv[1]))
@@ -292,9 +307,6 @@ static void hoa_process_inlet_anything(ProcessInlet* x, t_symbol* s, int argc, t
             message_handler(maybe_target.value().from, x->x_index, argc, argv, cb);
 
         } break;
-        case TargetType::NONE: {
-            obj->sendAnyToAll(x->x_index, s, AtomList(argc, argv));
-        } break;
         case TargetType::ALL: {
 
             MsgCallbacks cb {
@@ -308,6 +320,24 @@ static void hoa_process_inlet_anything(ProcessInlet* x, t_symbol* s, int argc, t
             message_handler(maybe_target.value().from, x->x_index, argc, argv, cb);
 
         } break;
+        case TargetType::SPREAD: {
+
+            MsgCallbacks cb {
+                [obj](size_t idx, size_t inlet) { obj->sendBangToGreaterEq(idx, inlet); },
+                [obj](size_t idx, size_t inlet, t_float f) { obj->sendFloatToGreaterEq(idx, inlet, f); },
+                [obj](size_t idx, size_t inlet, t_symbol* s) { obj->sendSymbolToGreaterEq(idx, inlet, s); },
+                [obj](size_t idx, size_t inlet, const AtomList& l) { obj->sendListToSpread(idx, inlet, l); },
+                [obj](size_t idx, size_t inlet, t_symbol* s, const AtomList& l) { obj->sendAnyToSpread(idx, inlet, s, l); }
+            };
+
+            message_handler(maybe_target.value().from, x->x_index, argc, argv, cb);
+
+        } break;
+        case TargetType::NONE: {
+            obj->sendAnyToAll(x->x_index, s, AtomList(argc, argv));
+        } break;
+
+        default:
         case TargetType::ERROR: {
             pd_error(x, "[hoa.process~] invalid instance target: %s", s->s_name);
         } break;
