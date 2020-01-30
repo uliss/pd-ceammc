@@ -112,6 +112,7 @@ set(DOC_FILES
     flow.speedlim
     flow.split
     flow.sync
+    flow.sync_pack
     flow.tee~
     flt.biquad~
     flt.bpf12~

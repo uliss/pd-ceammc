@@ -110,6 +110,7 @@ flow.route		.		?
 flow.speedlim,speedlim		.		.
 flow.split,split		..		...
 flow.sync		?		?
+flow.sync_pack,flow.pack'		?		.
 flow.tee~,tee~,~->		~		~.
 flt.biquad~		~~~~~~		~
 flt.bpf12~		~		~
@@ -180,6 +181,7 @@ hoa.in		-		.
 hoa.in~		-		~
 hoa.out		.		-
 hoa.out~		-		~
+hoa.process.route		.		?
 hoa.process~		?		?
 hoa.scope~		?		-
 hw.apple_smc		.		.

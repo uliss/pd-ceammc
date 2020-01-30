@@ -372,7 +372,7 @@
     <entry descr="one message pass thru" name="flow.once" ref_view="object">
       <xi:include href="flow.once.pddoc" parse="xml"/>
     </entry>
-    <entry descr="hot flow pack" name="flow.pack" ref_view="object">
+    <entry descr="flow pack" name="flow.pack" ref_view="object">
       <xi:include href="flow.pack.pddoc" parse="xml"/>
     </entry>
     <entry descr="pass specified values" name="flow.pass" ref_view="object">
@@ -398,6 +398,9 @@
     </entry>
     <entry descr="bus with only hot inlets" name="flow.sync" ref_view="object">
       <xi:include href="flow.sync.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="flow pack with all hot inlets" name="flow.sync_pack" ref_view="object">
+      <xi:include href="flow.sync_pack.pddoc" parse="xml"/>
     </entry>
     <entry descr="separate audio and control streams" name="flow.tee~" ref_view="object">
       <xi:include href="flow.tee~.pddoc" parse="xml"/>

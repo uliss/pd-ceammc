@@ -152,6 +152,7 @@ flow.mux2~
 flow.mux~
 flow.once
 flow.pack
+flow.pack'
 flow.pass
 flow.pass_if
 flow.reject
@@ -160,6 +161,7 @@ flow.route
 flow.speedlim
 flow.split
 flow.sync
+flow.sync_pack
 flow.tee~
 flt.biquad~
 flt.bpf12~
@@ -240,7 +242,6 @@ hoa.map~
 hoa.optim~
 hoa.out
 hoa.out~
-hoa.process.route
 hoa.process~
 hoa.projector~
 hoa.recomposer~
