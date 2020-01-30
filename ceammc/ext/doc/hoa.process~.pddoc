@@ -63,7 +63,7 @@
 |                       |                |
 [ui.gain~ @size 120 14] [phase->rad~]    |
 |                       |.               |
-[hoa.encoder~ 5 {w=33,i=11,o=11}]        [msg @db #b]
+[hoa.encoder~ 5 {w=33,i=11,o=11}]        [msg \#: @db #b]/*spread*/
 *|*
 [hoa.process~ 11 hoa/hoa.fx.gain~ planewaves {w=35,i=12,o=11} #z]
 *|* *|*
