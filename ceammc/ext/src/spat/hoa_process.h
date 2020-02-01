@@ -43,6 +43,8 @@ class HoaProcess : public SoundExternal {
     // used to send loadbang to instances
     ClockMemberFunction<HoaProcess> clock_;
 
+    bool dsp_on_;
+
 public:
     HoaProcess(const PdArgs& args);
     ~HoaProcess();
@@ -54,6 +56,8 @@ public:
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
     void m_open(t_symbol* m, const AtomList& lst);
     void m_open_cnv(t_symbol* m, const AtomList& lst);
+    void m_dsp_on(t_symbol* m, const AtomList& lst);
+    void m_dsp_off(t_symbol* m, const AtomList& lst);
 
 private:
     bool init();

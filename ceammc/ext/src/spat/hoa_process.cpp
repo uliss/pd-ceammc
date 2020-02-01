@@ -44,6 +44,7 @@ HoaProcess::HoaProcess(const PdArgs& args)
     , domain_(nullptr)
     , num_(nullptr)
     , clock_(this, &HoaProcess::clockTick)
+    , dsp_on_(true)
 {
     domain_ = new SymbolEnumProperty("@domain", SYM_HARMONICS);
     domain_->appendEnum(SYM_PLANEWAVES);
@@ -564,12 +565,15 @@ void HoaProcess::processBlock(const t_sample** in, t_sample** out)
 
     std::fill(out_buf_.begin(), out_buf_.end(), 0);
 
-    for (size_t i = 0; i < NINS; i++) {
-        memcpy(&in_buf_[i * BS], in[i], BS * sizeof(t_sample));
-    }
+    if (dsp_on_) {
+        for (size_t i = 0; i < NINS; i++) {
+            memcpy(&in_buf_[i * BS], in[i], BS * sizeof(t_sample));
+        }
 
-    if (block_obj_method_ && block_obj_)
-        block_obj_method_(&block_obj_->te_g.g_pd);
+        // calc dsp
+        if (block_obj_method_ && block_obj_)
+            block_obj_method_(&block_obj_->te_g.g_pd);
+    }
 
     for (size_t i = 0; i < NOUTS; i++) {
         memcpy(out[i], &out_buf_[i * BS], BS * sizeof(t_sample));
@@ -670,6 +674,22 @@ void HoaProcess::m_open_cnv(t_symbol* m, const AtomList& lst)
     canvas_vis(canvas_, 1);
 }
 
+void HoaProcess::m_dsp_on(t_symbol* m, const AtomList& lst)
+{
+    if (block_obj_) {
+        dsp_on_ = atomlistToValue<bool>(lst, true);
+        pd_float(&block_obj_->te_g.g_pd, dsp_on_ ? 0 : 1);
+    }
+}
+
+void HoaProcess::m_dsp_off(t_symbol* m, const AtomList& lst)
+{
+    if (block_obj_) {
+        dsp_on_ = !atomlistToValue<bool>(lst, true);
+        pd_float(&block_obj_->te_g.g_pd, dsp_on_ ? 0 : 1);
+    }
+}
+
 void setup_spat_hoa_process()
 {
     HoaProcess::SYM_SWITCH = gensym("switch~");
@@ -685,4 +705,6 @@ void setup_spat_hoa_process()
     obj.useClick();
     obj.addMethod("debug", &HoaProcess::m_open_cnv);
     obj.addMethod("open", &HoaProcess::m_open);
+    obj.addMethod("on", &HoaProcess::m_dsp_on);
+    obj.addMethod("off", &HoaProcess::m_dsp_off);
 }
