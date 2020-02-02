@@ -99,6 +99,11 @@ namespace pd {
 
         std::vector<PropertyInfo> properties() const;
     };
+
+    t_class* object_class(t_object* x);
+    t_symbol* object_name(t_object* x);
+    t_symbol* object_dir(t_object* x);
+    void object_bang(t_object* x);
 }
 
 typedef std::shared_ptr<Canvas> CanvasPtr;

@@ -151,7 +151,7 @@ bool pd::External::connectFrom(int outn, t_object* src, int inln)
     }
 
     if (inln >= numInlets()) {
-        printf("[%s: connectFrom %s] invalid destination inlet: %dn",
+        printf("[%s: connectFrom %s] invalid destination inlet: %d\n",
             OBJ_NAME(obj_), OBJ_NAME(src), inln);
         return false;
     }
@@ -457,4 +457,36 @@ PureData& PureData::instance()
 {
     static PureData pd;
     return pd;
+}
+
+t_class* pd::object_class(t_object* x)
+{
+    if (!x)
+        return nullptr;
+
+    return x->te_g.g_pd;
+}
+
+t_symbol* pd::object_name(t_object* x)
+{
+    if (!x)
+        return &s_;
+
+    return x->te_g.g_pd->c_name;
+}
+
+t_symbol* pd::object_dir(t_object* x)
+{
+    if (!x)
+        return &s_;
+
+    return x->te_g.g_pd->c_externdir;
+}
+
+void pd::object_bang(t_object* x)
+{
+    if (!x)
+        return;
+
+    pd_bang(&x->te_g.g_pd);
 }

@@ -27,6 +27,13 @@ TEST_CASE("pd external", "[pd::External]")
     pd_init();
     LogExternalOutput::setup();
 
+    SECTION("coords")
+    {
+        External t("*");
+        REQUIRE(t.xPos() == 0);
+        REQUIRE(t.yPos() == 0);
+    }
+
     SECTION("connectTo")
     {
         External t("+");
@@ -72,5 +79,56 @@ TEST_CASE("pd external", "[pd::External]")
         REQUIRE_FALSE(t2.connectFrom(0, t1, 1));
         REQUIRE_FALSE(t2.connectFrom(2, t3, 0));
         REQUIRE_FALSE(t2.connectFrom(0, t3, 2));
+    }
+
+    SECTION("abstraction")
+    {
+        External t1(TEST_DATA_DIR "/test_canvas_01");
+        REQUIRE_FALSE(t1.isNull());
+        REQUIRE(t1.numInlets() == 1);
+        REQUIRE(t1.numOutlets() == 2);
+    }
+
+    SECTION("object functions")
+    {
+        REQUIRE(pd::object_class(nullptr) == nullptr);
+        REQUIRE(pd::object_name(nullptr) == &s_);
+        REQUIRE(pd::object_dir(nullptr) == &s_);
+
+        External t("+");
+        REQUIRE(pd::object_class(t.object()));
+        REQUIRE(pd::object_name(t.object()) == gensym("+"));
+        REQUIRE(pd::object_dir(t.object()) == &s_);
+    }
+
+    SECTION("methods")
+    {
+        External t("delwrite~");
+        REQUIRE_FALSE(t.isNull());
+        REQUIRE_FALSE(t.methods().empty());
+        REQUIRE(t.methods().size() == 2);
+        REQUIRE(t.methods()[0]->s_name == std::string("dsp"));
+        REQUIRE(t.methods()[1]->s_name == std::string("clear"));
+    }
+
+    SECTION("ceammc")
+    {
+        External t("prop");
+        REQUIRE_FALSE(t.isNull());
+    }
+
+    SECTION("send")
+    {
+        External t("+");
+        t.sendBang();
+        t.sendFloat(10);
+        t.sendList(LF(10, 20));
+
+        t.sendBangTo(0);
+        t.sendBangTo(1);
+        t.sendFloatTo(-1, 0);
+        t.sendFloatTo(-1, 1);
+        t.sendListTo(LF(10, 20), 0);
+        t.sendListTo(LF(10, 20), 1);
     }
 }
