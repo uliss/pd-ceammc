@@ -209,9 +209,10 @@ bool Canvas::connect(const BaseObject& src, size_t nout, BaseObject& dest, size_
 
 std::vector<const t_object*> Canvas::objectList() const
 {
-    std::vector<const t_object*> res;
     if (!canvas_)
-        return res;
+        return {};
+
+    std::vector<const t_object*> res;
 
     for (const t_gobj* y = canvas_->gl_list; y; y = y->g_next) {
         // skip non t_object's
@@ -240,6 +241,34 @@ std::vector<const t_object*> Canvas::findObjectByClassName(t_symbol* name)
     return res;
 }
 
+t_gobj* Canvas::findIf(std::function<bool(t_gobj*)> pred)
+{
+    if (!canvas_)
+        return nullptr;
+
+    for (t_gobj* y = canvas_->gl_list; y; y = y->g_next) {
+        if (pred(y))
+            return y;
+    }
+
+    return nullptr;
+}
+
+t_object* Canvas::findIf(std::function<bool(t_object*)> pred)
+{
+    if (!canvas_)
+        return nullptr;
+
+    for (t_gobj* y = canvas_->gl_list; y; y = y->g_next) {
+        auto x = reinterpret_cast<t_object*>(y);
+
+        if (y->g_pd->c_patchable && pred(x))
+            return x;
+    }
+
+    return nullptr;
+}
+
 void Canvas::addExternal(pd::External& ext)
 {
     glist_add(canvas_, &ext.object()->te_g);
@@ -256,14 +285,70 @@ std::shared_ptr<pd::External> Canvas::createObject(const char* name, const AtomL
     return ptr;
 }
 
+void Canvas::createPdObject(int x, int y, t_symbol* name, const AtomList& args)
+{
+    if (!canvas_)
+        return;
+
+    static t_symbol* SYM_OBJ = gensym("obj");
+
+    AtomList xargs({ t_float(x), t_float(y) });
+    xargs.reserve(args.size() + 3);
+    xargs.append(Atom(name));
+    xargs.append(args);
+
+    pd_typedmess(&canvas_->gl_obj.te_g.g_pd, SYM_OBJ, xargs.size(), xargs.toPdData());
+}
+
+_glist* Canvas::createAbstraction(int x, int y, t_symbol* name, const AtomList& args)
+{
+    static t_symbol* SYM_CANVAS = gensym("canvas");
+
+    if (!canvas_)
+        return nullptr;
+
+    createPdObject(x, y, name, args);
+
+    t_gobj* z;
+    for (z = canvas_->gl_list; z->g_next; z = z->g_next) {
+        // find last created object
+    }
+
+    // load abstraction
+    if (z && z->g_pd->c_name == SYM_CANVAS)
+        return reinterpret_cast<t_canvas*>(z);
+    else {
+        LIB_ERR << "can't create abstraction: " << name << ' ' << args;
+        return nullptr;
+    }
+}
+
 _glist* Canvas::owner()
 {
-    return canvas_->gl_owner;
+    return canvas_ ? canvas_->gl_owner : nullptr;
+}
+
+void Canvas::loadBang()
+{
+    if (canvas_)
+        canvas_loadbang(canvas_);
+}
+
+void Canvas::show()
+{
+    if (canvas_)
+        canvas_vis(canvas_, 1);
+}
+
+void Canvas::hide()
+{
+    if (canvas_)
+        canvas_vis(canvas_, 0);
 }
 
 t_symbol* Canvas::name()
 {
-    return canvas_->gl_name;
+    return canvas_ ? canvas_->gl_name : &s_;
 }
 
 void Canvas::setName(const char* str)

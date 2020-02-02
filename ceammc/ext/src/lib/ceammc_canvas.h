@@ -18,6 +18,7 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_pd.h"
 
+#include <functional>
 #include <map>
 #include <memory>
 #include <string>
@@ -111,13 +112,29 @@ public:
 
     std::vector<const t_object*> objectList() const;
     std::vector<const t_object*> findObjectByClassName(t_symbol* name);
+    t_gobj* findIf(std::function<bool(t_gobj*)> pred);
+    t_object* findIf(std::function<bool(t_object*)> pred);
 
     void addExternal(pd::External& ext);
     std::shared_ptr<pd::External> createObject(const char* name, const AtomList& args);
 
+    void createPdObject(int x, int y, t_symbol* name, const AtomList& args = AtomList());
+    _glist* createAbstraction(int x, int y, t_symbol* name, const AtomList& args = AtomList());
+
+    void loadBang();
+    void show();
+    void hide();
+
+    operator bool() { return canvas_ != nullptr; }
+
 public:
     _glist* pd_canvas() { return canvas_; }
     _glist* owner();
+
+    /**
+     * canvas name
+     * @return canvas name or &s_ on null canvas
+     */
     t_symbol* name();
     void setName(const char* str);
     std::string parentName() const;
