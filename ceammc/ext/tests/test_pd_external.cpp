@@ -113,8 +113,6 @@ TEST_CASE("pd external", "[pd::External]")
 
     SECTION("ceammc")
     {
-        External t("prop");
-        REQUIRE_FALSE(t.isNull());
     }
 
     SECTION("send")
