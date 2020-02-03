@@ -637,10 +637,10 @@ void HoaProcess::m_open_cnv(t_symbol* m, const AtomList& lst)
 void HoaProcess::m_dsp_on(t_symbol* m, const AtomList& lst)
 {
     static t_symbol* SYM_ALL = gensym("all");
-    auto usage = [this,m]() {
+    auto usage = [this, m]() {
         METHOD_DBG(m) << "usage: \n"
-                         "\t all 1|0 - to switch on/off all instances\n"
-                         "\t or INST_IDX 1|0 - to switch on/off specified instance";
+                         "\t all 1|0 - to switch on/off all instances or\n"
+                         "\t INST_IDX 1|0 - to switch on/off specified instance";
     };
 
     if (lst.size() != 2) {
@@ -648,14 +648,14 @@ void HoaProcess::m_dsp_on(t_symbol* m, const AtomList& lst)
         return;
     }
 
-    if (checkArgs(lst, ARG_SYMBOL, ARG_NATURAL)) {
+    if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
         if (lst[0].asSymbol() == SYM_ALL) {
             bool v = (lst[1].asInt() != 0);
             for (auto& i : instances_)
                 i.dspOn(v);
         } else
             usage();
-    } else if (checkArgs(lst, ARG_NATURAL, ARG_NATURAL)) {
+    } else if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
         auto idx = lst[0].asInt();
         auto v = lst[1].asInt();
         if (idx < 0 || idx >= instances_.size()) {
