@@ -14,6 +14,8 @@
 #include "hoa_process_instance.h"
 #include "hoa_process.h"
 
+#include "ceammc_canvas.h"
+
 #include <algorithm>
 
 extern "C" {
@@ -45,35 +47,13 @@ void ProcessInstance::setOutletBuffer(t_sample* s, size_t idx)
     }
 }
 
-ProcessInstance::ProcessInstance()
-    : canvas_(nullptr)
-{
-}
-
-void ProcessInstance::setCanvas(t_canvas* c)
-{
-    canvas_ = c;
-}
-
-void ProcessInstance::loadBang()
-{
-    if (canvas_)
-        canvas_loadbang(canvas_);
-}
-
-void ProcessInstance::show()
-{
-    if (canvas_)
-        canvas_vis(canvas_, 1);
-}
-
-void ProcessInstance::scanCanvas(t_canvas* cnv)
+void ProcessInstance::doScanCanvas(t_canvas* cnv)
 {
     for (t_gobj* y = cnv->gl_list; y; y = y->g_next) {
         const t_symbol* name = y->g_pd->c_name;
         if (name == HoaProcess::SYM_CANVAS) {
             // recursive load
-            scanCanvas((t_canvas*)y);
+            doScanCanvas((t_canvas*)y);
         } else if (HoaIn::isA(y)) {
             f_ins.emplace_front(HoaIn::fromObject(y));
         } else if (HoaOut::isA(y)) {
@@ -84,6 +64,71 @@ void ProcessInstance::scanCanvas(t_canvas* cnv)
             f_outs_sig.emplace_front(HoaOutTilde::fromObject(y));
         }
     }
+}
+
+void ProcessInstance::createSwitch()
+{
+    if (!canvas_)
+        return;
+
+    Canvas cnv(canvas_);
+
+    // find [switch~]
+    switch_ = cnv.findIf([](t_object* x) { return pd::object_name(x) == HoaProcess::SYM_BLOCK; });
+    if (switch_)
+        return;
+
+    // create [switch~] object on instance canvas
+    cnv.createPdObject(10, 10, HoaProcess::SYM_SWITCH);
+
+    // find [switch~] again
+    switch_ = cnv.findIf([](t_object* x) { return pd::object_name(x) == HoaProcess::SYM_BLOCK; });
+
+    if (!switch_) {
+        LIB_ERR << "[hoa.process~] can't create [switch~] for instance";
+        return;
+    }
+
+    dspOn(true);
+}
+
+void ProcessInstance::dspOn(bool state)
+{
+    if (switch_)
+        dsp_state_ = state;
+}
+
+void ProcessInstance::dspCalc()
+{
+    if (switch_ && dsp_state_)
+        pd::object_bang(switch_);
+}
+
+ProcessInstance::ProcessInstance()
+    : canvas_(nullptr)
+    , switch_(nullptr)
+    , dsp_state_(true)
+{
+}
+
+void ProcessInstance::setCanvas(t_canvas* c)
+{
+    canvas_ = Canvas(c);
+}
+
+void ProcessInstance::loadBang()
+{
+    canvas_.loadBang();
+}
+
+void ProcessInstance::show()
+{
+    canvas_.show();
+}
+
+void ProcessInstance::scanCanvas()
+{
+    doScanCanvas(canvas_.pd_canvas());
 }
 
 void ProcessInstance::bangTo(size_t inlet_idx)

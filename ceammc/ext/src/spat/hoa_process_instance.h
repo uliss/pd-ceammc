@@ -16,27 +16,33 @@
 
 #include <forward_list>
 
+#include "ceammc_canvas.h"
 #include "hoa_connections.h"
 
 class ProcessInstance {
-    t_canvas* canvas_;
+    Canvas canvas_;
+    t_object* switch_;
     std::forward_list<HoaIn*> f_ins;
     std::forward_list<HoaOut*> f_outs;
     std::forward_list<HoaInTilde*> f_ins_sig;
     std::forward_list<HoaOutTilde*> f_outs_sig;
     AtomList args_;
+    bool dsp_state_;
 
 public:
     ProcessInstance();
 
 public:
     void setCanvas(t_canvas* c);
-    const t_canvas* canvas() const { return canvas_; }
-    t_canvas* canvas() { return canvas_; }
+    const Canvas& canvas() const { return canvas_; }
+    Canvas& canvas() { return canvas_; }
 
     void loadBang();
     void show();
-    void scanCanvas(t_canvas* cnv);
+    void scanCanvas();
+    void createSwitch();
+    void dspOn(bool state);
+    void dspCalc();
 
     void bangTo(size_t inlet_idx);
     void floatTo(size_t inlet_idx, t_float v);
@@ -56,6 +62,9 @@ public:
 
     const AtomList& args() const { return args_; }
     void setArgs(const AtomList& args) { args_ = args; }
+
+private:
+    void doScanCanvas(t_canvas* cnv);
 };
 
 #endif // HOA_PROCESS_INSTANCE_H

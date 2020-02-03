@@ -29,8 +29,6 @@ class HoaProcess : public SoundExternal {
     std::vector<ProcessInlet> ins_;
 
     t_canvas* canvas_;
-    t_object* block_obj_;
-    t_bangmethod block_obj_method_;
 
     t_float canvas_yoff_;
 
@@ -42,8 +40,6 @@ class HoaProcess : public SoundExternal {
 
     // used to send loadbang to instances
     ClockMemberFunction<HoaProcess> clock_;
-
-    bool dsp_on_;
 
 public:
     HoaProcess(const PdArgs& args);
@@ -57,7 +53,6 @@ public:
     void m_open(t_symbol* m, const AtomList& lst);
     void m_open_cnv(t_symbol* m, const AtomList& lst);
     void m_dsp_on(t_symbol* m, const AtomList& lst);
-    void m_dsp_off(t_symbol* m, const AtomList& lst);
 
 private:
     bool init();
