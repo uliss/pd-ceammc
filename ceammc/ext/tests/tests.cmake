@@ -101,13 +101,13 @@ if(${WITH_COVERAGE})
                 COMMAND mkdir -p ${CMAKE_BINARY_DIR}/coverage
                 COMMAND ${GCOVR} --html --html-details
                     --output "${CMAKE_BINARY_DIR}/coverage/index.html"
-                    --exclude "ceammc/ext/src/tests/*"
-                    --exclude "ceammc/ext/src/lib/utf8rewind*"
-                    --exclude "firmata_bison*"
+                    --exclude-directories "lib/utf8rewind"
+                    --exclude-directories "lib/json"
                     --sort-percentage
-                    --use-gcov-files
-                    -k
-                    --root "${CMAKE_SOURCE_DIR}"
+#                    --use-gcov-files
+#                    --verbose
+                    --object-directory "${CMAKE_BINARY_DIR}"
+                    --root "${CMAKE_SOURCE_DIR}/ceammc/ext/src"
                 COMMAND open ${CMAKE_BINARY_DIR}/coverage/index.html)
         endif()
     else()
