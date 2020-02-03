@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "env_follow"
-Code generated with Faust 2.21.1 (https://faust.grame.fr)
+Code generated with Faust 2.22.1 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -313,10 +313,8 @@ class UIReal
         virtual void declare(REAL* zone, const char* key, const char* val) {}
 };
 
-class UI : public UIReal<FAUSTFLOAT>
+struct UI : public UIReal<FAUSTFLOAT>
 {
-
-    public:
 
         UI() {}
         virtual ~UI() {}
@@ -517,9 +515,9 @@ class env_follow : public dsp {
 	
  private:
 	
+	FAUSTFLOAT fHslider0;
 	int fSampleRate;
 	float fConst0;
-	FAUSTFLOAT fHslider0;
 	FAUSTFLOAT fHslider1;
 	float fRec1[2];
 	float fRec0[2];
@@ -584,7 +582,7 @@ class env_follow : public dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = (1000.0f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate))));
+		fConst0 = (1.0f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate))));
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -629,11 +627,15 @@ class env_follow : public dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = std::exp((0.0f - (fConst0 / float(fHslider0))));
-		float fSlow1 = std::exp((0.0f - (fConst0 / float(fHslider1))));
+		float fSlow0 = (0.00100000005f * float(fHslider0));
+		int iSlow1 = (std::fabs(fSlow0) < 1.19999996e-07f);
+		float fSlow2 = (iSlow1 ? 0.0f : std::exp((0.0f - (fConst0 / (iSlow1 ? 1.0f : fSlow0)))));
+		float fSlow3 = (0.00100000005f * float(fHslider1));
+		int iSlow4 = (std::fabs(fSlow3) < 1.19999996e-07f);
+		float fSlow5 = (iSlow4 ? 0.0f : std::exp((0.0f - (fConst0 / (iSlow4 ? 1.0f : fSlow3)))));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = std::fabs(float(input0[i]));
-			float fTemp1 = ((fRec0[1] > fTemp0) ? fSlow1 : fSlow0);
+			float fTemp1 = ((fRec0[1] > fTemp0) ? fSlow5 : fSlow2);
 			fRec1[0] = ((fRec1[1] * fTemp1) + (fTemp0 * (1.0f - fTemp1)));
 			fRec0[0] = fRec1[0];
 			output0[i] = FAUSTFLOAT(fRec0[0]);

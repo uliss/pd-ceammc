@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "osc_impulse"
-Code generated with Faust 2.21.1 (https://faust.grame.fr)
+Code generated with Faust 2.22.1 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -313,10 +313,8 @@ class UIReal
         virtual void declare(REAL* zone, const char* key, const char* val) {}
 };
 
-class UI : public UIReal<FAUSTFLOAT>
+struct UI : public UIReal<FAUSTFLOAT>
 {
-
-    public:
 
         UI() {}
         virtual ~UI() {}
@@ -585,7 +583,7 @@ class osc_impulse : public dsp {
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
 		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = (0.125f * fConst0);
+		fConst1 = (0.25f * fConst0);
 		fConst2 = (1.0f / fConst0);
 	}
 	
@@ -646,7 +644,7 @@ class osc_impulse : public dsp {
 			fVec2[0] = fTemp2;
 			float fTemp3 = ((float(iVec0[1]) * (fTemp2 - fVec2[1])) / fTemp0);
 			fVec3[0] = fTemp3;
-			output0[i] = FAUSTFLOAT((float((1 - iVec0[1])) + (fConst1 * (fVec3[1] - fTemp3))));
+			output0[i] = FAUSTFLOAT((float((1 - iVec0[1])) + (0.5f * (0.0f - (fConst1 * (fTemp3 - fVec3[1]))))));
 			iVec0[1] = iVec0[0];
 			fVec1[1] = fVec1[0];
 			fRec0[1] = fRec0[0];

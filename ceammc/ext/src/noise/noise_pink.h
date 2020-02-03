@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "noise_pink"
-Code generated with Faust 2.21.1 (https://faust.grame.fr)
+Code generated with Faust 2.22.1 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -338,10 +338,8 @@ class UIReal
         virtual void declare(REAL* zone, const char* key, const char* val) {}
 };
 
-class UI : public UIReal<FAUSTFLOAT>
+struct UI : public UIReal<FAUSTFLOAT>
 {
-
-    public:
 
         UI() {}
         virtual ~UI() {}
@@ -671,7 +669,7 @@ class pink : public dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec1[0] = ((1103515245 * iRec1[1]) + 12345);
-			fRec0[0] = (((0.522189379f * fRec0[3]) + ((4.65661287e-10f * float(iRec1[0])) + (2.49495602f * fRec0[1]))) - (2.0172658f * fRec0[2]));
+			fRec0[0] = (((2.49495602f * fRec0[1]) + ((4.65661287e-10f * float(iRec1[0])) + (0.522189379f * fRec0[3]))) - (2.0172658f * fRec0[2]));
 			output0[i] = FAUSTFLOAT((((0.0499220341f * fRec0[0]) + (0.0506126992f * fRec0[2])) - ((0.0959935337f * fRec0[1]) + (0.00440878607f * fRec0[3]))));
 			iRec1[1] = iRec1[0];
 			for (int j0 = 3; (j0 > 0); j0 = (j0 - 1)) {

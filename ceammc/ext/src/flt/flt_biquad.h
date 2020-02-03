@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "flt_biquad"
-Code generated with Faust 2.21.1 (https://faust.grame.fr)
+Code generated with Faust 2.22.1 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -338,10 +338,8 @@ class UIReal
         virtual void declare(REAL* zone, const char* key, const char* val) {}
 };
 
-class UI : public UIReal<FAUSTFLOAT>
+struct UI : public UIReal<FAUSTFLOAT>
 {
-
-    public:
 
         UI() {}
         virtual ~UI() {}
@@ -692,7 +690,7 @@ class biquad : public dsp {
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			fVec0[0] = fTemp0;
-			fRec0[0] = (((fTemp0 * float(input1[i])) + ((float(input3[i]) * fVec0[2]) + (float(input2[i]) * fVec0[1]))) - ((float(input4[i]) * fRec0[1]) + (float(input5[i]) * fRec0[2])));
+			fRec0[0] = (((float(input2[i]) * fVec0[1]) + ((fTemp0 * float(input1[i])) + (float(input3[i]) * fVec0[2]))) - ((float(input4[i]) * fRec0[1]) + (float(input5[i]) * fRec0[2])));
 			output0[i] = FAUSTFLOAT(fRec0[0]);
 			fVec0[2] = fVec0[1];
 			fVec0[1] = fVec0[0];

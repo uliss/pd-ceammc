@@ -1,7 +1,7 @@
 {
 	"name": "fx.zita_rev1",
 	"filename": "fx_zita_rev1.dsp",
-	"version": "2.21.1",
+	"version": "2.22.1",
 	"compile_options": "-lang cpp -scal -ftz 0",
 	"library_list": ["/Users/serj/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/reverbs.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/routes.lib","/Users/serj/work/music/pure-data/ceammc/faust/ceammc_ui.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],

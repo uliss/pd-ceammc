@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "env_smooth"
-Code generated with Faust 2.21.1 (https://faust.grame.fr)
+Code generated with Faust 2.22.1 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -313,10 +313,8 @@ class UIReal
         virtual void declare(REAL* zone, const char* key, const char* val) {}
 };
 
-class UI : public UIReal<FAUSTFLOAT>
+struct UI : public UIReal<FAUSTFLOAT>
 {
-
-    public:
 
         UI() {}
         virtual ~UI() {}
@@ -517,10 +515,10 @@ class env_smooth : public dsp {
 	
  private:
 	
-	FAUSTFLOAT fCheckbox0;
+	FAUSTFLOAT fHslider0;
 	int fSampleRate;
 	float fConst0;
-	FAUSTFLOAT fHslider0;
+	FAUSTFLOAT fCheckbox0;
 	float fRec0[2];
 	
  public:
@@ -588,12 +586,12 @@ class env_smooth : public dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = (6910.0f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate))));
+		fConst0 = (1.0f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate))));
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fCheckbox0 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(100.0f);
+		fCheckbox0 = FAUSTFLOAT(0.0f);
 	}
 	
 	virtual void instanceClear() {
@@ -630,10 +628,12 @@ class env_smooth : public dsp {
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = std::exp((0.0f - (fConst0 / float(fHslider0))));
-		float fSlow1 = (float(fCheckbox0) * (1.0f - fSlow0));
+		float fSlow0 = (0.000144717807f * float(fHslider0));
+		int iSlow1 = (std::fabs(fSlow0) < 1.19999996e-07f);
+		float fSlow2 = (iSlow1 ? 0.0f : std::exp((0.0f - (fConst0 / (iSlow1 ? 1.0f : fSlow0)))));
+		float fSlow3 = (float(fCheckbox0) * (1.0f - fSlow2));
 		for (int i = 0; (i < count); i = (i + 1)) {
-			fRec0[0] = (fSlow1 + (fSlow0 * fRec0[1]));
+			fRec0[0] = ((fRec0[1] * fSlow2) + fSlow3);
 			output0[i] = FAUSTFLOAT((float(input0[i]) * fRec0[0]));
 			fRec0[1] = fRec0[0];
 		}

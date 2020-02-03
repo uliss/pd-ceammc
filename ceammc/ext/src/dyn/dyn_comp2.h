@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "dyn.comp2"
-Code generated with Faust 2.21.1 (https://faust.grame.fr)
+Code generated with Faust 2.22.1 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -313,10 +313,8 @@ class UIReal
         virtual void declare(REAL* zone, const char* key, const char* val) {}
 };
 
-class UI : public UIReal<FAUSTFLOAT>
+struct UI : public UIReal<FAUSTFLOAT>
 {
-
-    public:
 
         UI() {}
         virtual ~UI() {}
@@ -517,12 +515,10 @@ class dyn_comp2 : public dsp {
 	
  private:
 	
+	FAUSTFLOAT fVslider0;
 	int fSampleRate;
 	float fConst0;
-	float fConst1;
-	FAUSTFLOAT fVslider0;
 	FAUSTFLOAT fVslider1;
-	float fConst2;
 	FAUSTFLOAT fVslider2;
 	float fRec2[2];
 	float fRec1[2];
@@ -599,9 +595,7 @@ class dyn_comp2 : public dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = (2000.0f / fConst0);
-		fConst2 = (1000.0f / fConst0);
+		fConst0 = (1.0f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate))));
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -659,19 +653,26 @@ class dyn_comp2 : public dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		FAUSTFLOAT* output1 = outputs[1];
 		float fSlow0 = float(fVslider0);
-		float fSlow1 = std::exp((0.0f - (fConst1 / fSlow0)));
-		float fSlow2 = (((1.0f / float(fVslider1)) + -1.0f) * (1.0f - fSlow1));
-		float fSlow3 = std::exp((0.0f - (fConst2 / fSlow0)));
-		float fSlow4 = std::exp((0.0f - (fConst2 / float(fVslider2))));
-		float fSlow5 = float(fVslider3);
+		float fSlow1 = (0.000500000024f * fSlow0);
+		int iSlow2 = (std::fabs(fSlow1) < 1.19999996e-07f);
+		float fSlow3 = (iSlow2 ? 0.0f : std::exp((0.0f - (fConst0 / (iSlow2 ? 1.0f : fSlow1)))));
+		float fSlow4 = ((1.0f / float(fVslider1)) + -1.0f);
+		float fSlow5 = (0.00100000005f * fSlow0);
+		int iSlow6 = (std::fabs(fSlow5) < 1.19999996e-07f);
+		float fSlow7 = (iSlow6 ? 0.0f : std::exp((0.0f - (fConst0 / (iSlow6 ? 1.0f : fSlow5)))));
+		float fSlow8 = (0.00100000005f * float(fVslider2));
+		int iSlow9 = (std::fabs(fSlow8) < 1.19999996e-07f);
+		float fSlow10 = (iSlow9 ? 0.0f : std::exp((0.0f - (fConst0 / (iSlow9 ? 1.0f : fSlow8)))));
+		float fSlow11 = float(fVslider3);
+		float fSlow12 = (1.0f - fSlow3);
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = float(input1[i]);
 			float fTemp2 = std::fabs((std::fabs(fTemp0) + std::fabs(fTemp1)));
-			float fTemp3 = ((fRec1[1] > fTemp2) ? fSlow4 : fSlow3);
+			float fTemp3 = ((fRec1[1] > fTemp2) ? fSlow10 : fSlow7);
 			fRec2[0] = ((fRec2[1] * fTemp3) + (fTemp2 * (1.0f - fTemp3)));
 			fRec1[0] = fRec2[0];
-			fRec0[0] = ((fSlow1 * fRec0[1]) + (fSlow2 * std::max<float>((((20.0f * std::log10(fRec1[0])) + 100.0f) - fSlow5), 0.0f)));
+			fRec0[0] = ((fRec0[1] * fSlow3) + (fSlow4 * (std::max<float>((((20.0f * std::log10(fRec1[0])) + 100.0f) - fSlow11), 0.0f) * fSlow12)));
 			float fTemp4 = std::pow(10.0f, (0.0500000007f * fRec0[0]));
 			output0[i] = FAUSTFLOAT((fTemp0 * fTemp4));
 			output1[i] = FAUSTFLOAT((fTemp1 * fTemp4));

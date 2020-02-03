@@ -4,7 +4,7 @@ copyright: "(c) Julian Parker 2013"
 license: "GPL2+"
 name: "fx.greyhole"
 version: "1.0"
-Code generated with Faust 2.21.1 (https://faust.grame.fr)
+Code generated with Faust 2.22.1 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -317,10 +317,8 @@ class UIReal
         virtual void declare(REAL* zone, const char* key, const char* val) {}
 };
 
-class UI : public UIReal<FAUSTFLOAT>
+struct UI : public UIReal<FAUSTFLOAT>
 {
-
-    public:
 
         UI() {}
         virtual ~UI() {}
@@ -1483,7 +1481,7 @@ class fx_greyhole : public dsp {
 			float fTemp95 = fVec32[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp94)))) & 16383)];
 			fVec33[0] = fTemp95;
 			float fTemp96 = std::floor(fTemp94);
-			fRec21[0] = (fVec33[1] - (((fTemp96 + (2.0f - fRec64[0])) * (fRec21[1] - fTemp95)) / (fRec64[0] - fTemp96)));
+			fRec21[0] = (fVec33[1] + (((fTemp96 + (2.0f - fRec64[0])) * (fTemp95 - fRec21[1])) / (fRec64[0] - fTemp96)));
 			fRec19[0] = fRec21[0];
 			fVec34[(IOTA & 16383)] = ((fRec22[1] * fTemp7) + (fTemp74 * fTemp83));
 			fRec66[0] = (fSlow42 + (0.999000013f * (fRec66[1] + float((iSlow41 * iTemp17)))));
