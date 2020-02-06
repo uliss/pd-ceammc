@@ -1,5 +1,9 @@
 # CEAMMC Pd distribution changelog
 
+## [2020.02]
+### Added:
+- migration to Pd version 0.51 done
+
 ## [2019.10]
 ### Added:
 - migration to Pd version 0.50 done
