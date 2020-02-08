@@ -3,7 +3,7 @@ os: Visual Studio 2015
 
 version: 2020.02.{build}
 
-clone_depth: 5
+clone_depth: 1
 
 environment:
   CTEST_OUTPUT_ON_FAILURE: 1
@@ -20,10 +20,13 @@ cache:
   - C:\msys64\var\cache
   - C:\msys64\mingw64\var\cache
 
+artifacts:
+  - path: inno\*.exe
+    name: Installer
 
 before_build:
   - git submodule init
-  - git submodule update --init --recursive
+  - git submodule update --init --recursive --depth 1
 
 build_script:
   - set VERBOSE=1
