@@ -19,7 +19,7 @@ bash -lc "pacman -Syu --noconfirm"
 REM build tools
 bash -lc "pacman -S --needed --noconfirm mingw-w64-${MSYS2_ARCH}-toolchain make patch"
 REM dependencies
-bash -lc "pacman -S --needed --noconfirm mingw-w64-${MSYS2_ARCH}-{cmake,glib2,libmodplug,tcllib,tcl,tk,tklib,portaudio,fftw,libsndfile,boost}"
+bash -lc "pacman -S --needed --noconfirm mingw-w64-${MSYS2_ARCH}-{cmake,glib2,libmodplug,tcllib,tcl,tk,tklib,portaudio,fftw,libsndfile,boost,dlfcn}"
 
 bash -lc "echo ${APPVEYOR_BUILD_FOLDER}"
 bash -lc "ls ${APPVEYOR_BUILD_FOLDER}"
