@@ -485,8 +485,8 @@ t_symbol* pd::object_dir(t_object* x)
 
 void pd::object_bang(t_object* x)
 {
-    if (!x)
+    if (!x || !x->te_g.g_pd->c_bangmethod)
         return;
 
-    pd_bang(&x->te_g.g_pd);
+    x->te_g.g_pd->c_bangmethod(&x->te_g.g_pd);
 }
