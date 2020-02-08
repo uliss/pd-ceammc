@@ -19,11 +19,6 @@
 #include <cmath>
 #include <stdexcept>
 
-extern "C" {
-#include "g_canvas.h"
-#include "m_imp.h"
-}
-
 static const t_float YOFF = 30;
 
 t_symbol* HoaProcess::SYM_SWITCH;
@@ -37,7 +32,6 @@ t_symbol* HoaProcess::SYM_DSP;
 
 HoaProcess::HoaProcess(const PdArgs& args)
     : SoundExternal(args)
-    , canvas_(nullptr)
     , canvas_yoff_(10)
     , domain_(nullptr)
     , num_(nullptr)
@@ -51,17 +45,8 @@ HoaProcess::HoaProcess(const PdArgs& args)
     createProperty(num_);
 }
 
-HoaProcess::~HoaProcess()
-{
-    if (canvas_)
-        canvas_free(canvas_);
-}
-
 void HoaProcess::parseProperties()
 {
-    // store current canvas
-    t_canvas* current = canvas_getcurrent();
-
     try {
         // handle position patch name
         t_symbol* patch = positionalArguments().symbolAt(1, nullptr);
@@ -115,22 +100,19 @@ void HoaProcess::parseProperties()
     // set prop readonly
     num_->setReadonly(true);
     domain_->setReadonly(true);
-
-    // restore canvas
-    canvas_setcurrent(current);
     clock_.delay(5);
 }
 
 bool HoaProcess::init()
 {
-    canvas_ = canvas_new(NULL, gensym(""), 0, NULL);
-    if (!canvas_) {
-        OBJ_ERR << "can't create canvas";
-        return false;
-    }
+    //    canvas_ = canvas_new(NULL, gensym(""), 0, NULL);
+    //    if (!canvas_) {
+    //        OBJ_ERR << "can't create canvas";
+    //        return false;
+    //    }
 
-    pd_popsym((t_pd*)canvas_);
-    canvas_vis(canvas_, 0);
+    //    pd_popsym((t_pd*)canvas_);
+    //    canvas_vis(canvas_, 0);
 
     return true;
 }
@@ -179,23 +161,6 @@ size_t HoaProcess::calcNumHarm2d(size_t order)
 size_t HoaProcess::calcNumHarm3d(size_t order)
 {
     return (order + 1) * (order + 1);
-}
-
-bool HoaProcess::processInstanceInit(ProcessInstance& x, t_canvas* parent, t_symbol* name, const AtomList& args)
-{
-    Canvas cnv(parent);
-    // create abstraction [name args...]
-
-    t_canvas* new_c = cnv.createAbstraction(10, canvas_yoff_ += YOFF, name, args);
-    if (new_c != nullptr) {
-        x.setCanvas(new_c);
-        x.setArgs(args);
-        x.scanCanvas();
-        x.createSwitch();
-        return true;
-    }
-
-    return false;
 }
 
 void HoaProcess::allocSignals()
@@ -492,7 +457,7 @@ bool HoaProcess::loadHarmonics(t_symbol* name, const AtomList& patch_args)
         load_args[3].setFloat(calcHarmDegree2d(i), true);
         load_args[4].setFloat(calcAzimuthalOrder2d(i), true);
 
-        if (!processInstanceInit(instances_[i], canvas_, name, load_args)) {
+        if (!instances_[i].init(name, load_args)) {
             instances_.clear();
             return false;
         }
@@ -518,7 +483,7 @@ bool HoaProcess::loadPlaneWaves(t_symbol* name, const AtomList& patch_args)
         load_args[3].setFloat(i, true);
         load_args[4].setFloat(i, true);
 
-        if (!processInstanceInit(instances_[i], canvas_, name, load_args)) {
+        if (!instances_[i].init(name, load_args)) {
             instances_.clear();
             return false;
         }
@@ -598,7 +563,8 @@ void HoaProcess::setupDSP(t_signal** sp)
         }
     }
 
-    mess0((t_pd*)canvas_, SYM_DSP);
+    for (auto& i : instances_)
+        i.canvas().setupDsp();
 }
 
 void HoaProcess::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
@@ -627,11 +593,6 @@ void HoaProcess::m_open(t_symbol* m, const AtomList& lst)
 
         instances_[idx].show();
     }
-}
-
-void HoaProcess::m_open_cnv(t_symbol* m, const AtomList& lst)
-{
-    canvas_vis(canvas_, 1);
 }
 
 void HoaProcess::m_dsp_on(t_symbol* m, const AtomList& lst)
@@ -681,7 +642,6 @@ void setup_spat_hoa_process()
 
     SoundExternalFactory<HoaProcess> obj("hoa.process~");
     obj.useClick();
-    obj.addMethod("debug", &HoaProcess::m_open_cnv);
     obj.addMethod("open", &HoaProcess::m_open);
     obj.addMethod("on", &HoaProcess::m_dsp_on);
 }

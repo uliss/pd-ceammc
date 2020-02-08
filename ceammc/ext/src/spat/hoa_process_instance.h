@@ -31,6 +31,7 @@ class ProcessInstance {
 
 public:
     ProcessInstance();
+    ~ProcessInstance();
 
 public:
     void setCanvas(t_canvas* c);
@@ -43,6 +44,7 @@ public:
     void createSwitch();
     void dspOn(bool state);
     void dspCalc();
+    bool init(t_symbol* name, const AtomList& args);
 
     void bangTo(size_t inlet_idx);
     void floatTo(size_t inlet_idx, t_float v);

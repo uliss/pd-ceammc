@@ -15,6 +15,7 @@
 #include "hoa_process.h"
 
 #include "ceammc_canvas.h"
+#include "fmt/format.h"
 
 #include <algorithm>
 
@@ -104,11 +105,45 @@ void ProcessInstance::dspCalc()
         pd::object_bang(switch_);
 }
 
+bool ProcessInstance::init(t_symbol* name, const AtomList& args)
+{
+    pd_this->pd_newest = nullptr;
+    typedmess(&pd_objectmaker, name, (int)args.size(), args.toPdData());
+    if (!pd_this->pd_newest) {
+        LIB_ERR << fmt::format("can't create subpatch '{}'", name->s_name);
+        return false;
+    }
+
+    if (*pd_this->pd_newest != canvas_class) {
+        LIB_ERR << fmt::format("can't init instance '{}' because it's not an abstraction", name->s_name);
+        pd_free(pd_this->pd_newest);
+        pd_this->pd_newest = nullptr;
+        return false;
+    }
+
+    t_canvas* new_c = (t_canvas*)pd_this->pd_newest;
+    pd_this->pd_newest = nullptr;
+
+    new_c->gl_owner = 0;
+    new_c->gl_isclone = 1;
+
+    setCanvas(new_c);
+    setArgs(args);
+    scanCanvas();
+    createSwitch();
+    return true;
+}
+
 ProcessInstance::ProcessInstance()
     : canvas_(nullptr)
     , switch_(nullptr)
     , dsp_state_(true)
 {
+}
+
+ProcessInstance::~ProcessInstance()
+{
+    canvas_.free();
 }
 
 void ProcessInstance::setCanvas(t_canvas* c)

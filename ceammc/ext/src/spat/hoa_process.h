@@ -28,8 +28,6 @@ class HoaProcess : public SoundExternal {
     std::vector<ProcessInstance> instances_;
     std::vector<ProcessInlet> ins_;
 
-    t_canvas* canvas_;
-
     t_float canvas_yoff_;
 
     Buffer in_buf_;
@@ -43,7 +41,6 @@ class HoaProcess : public SoundExternal {
 
 public:
     HoaProcess(const PdArgs& args);
-    ~HoaProcess();
 
     void parseProperties() override;
     void processBlock(const t_sample** in, t_sample** out) override;
@@ -51,7 +48,6 @@ public:
 
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
     void m_open(t_symbol* m, const AtomList& lst);
-    void m_open_cnv(t_symbol* m, const AtomList& lst);
     void m_dsp_on(t_symbol* m, const AtomList& lst);
 
 private:
@@ -60,7 +56,6 @@ private:
 
     bool loadHarmonics(t_symbol* name, const AtomList& patch_args);
     bool loadPlaneWaves(t_symbol* name, const AtomList& patch_args);
-    bool processInstanceInit(ProcessInstance& x, t_canvas* parent, t_symbol* name, const AtomList& args);
 
     void allocSignals();
     void allocInlets();
