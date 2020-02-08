@@ -18,7 +18,7 @@ environment:
 
 before_build:
   - git submodule init
-  - git submodule update
+  - git submodule update --init --recursive
 
 build_script:
   - set VERBOSE=1
