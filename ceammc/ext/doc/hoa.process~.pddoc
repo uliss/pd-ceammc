@@ -87,6 +87,24 @@
 *|*
 [dac~ {w=35}]
 
+/* multiple [osc~] */
+
+[60 90 2.1( [50 120 4.1(
+|           |
+[list.seq 60 90 2.01]
+|
+[list.each] X [mtof]
+|
+[msg \#:]
+|.
+[hoa.process~ 11 hoa/hoa.syn.osc~ planewaves {w=45,i=12,o=11}]
+*|*
+[pan.spread~ 11 {w=45,i=12,o=2}]
+*|*
+[ui.hgain2~ @size 15 318]
+*|*
+[dac~ {w=45}]
+
 [ui.dsp~]
 [X b->z:11]
 #a @count 11 @min -60 @max 0 @size 200 55
