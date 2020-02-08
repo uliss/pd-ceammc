@@ -12,7 +12,7 @@
 -104026 -262144 0;
 #X text 10 218 gain:;
 #X obj 12 237 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.eguitar~/slider0 @min 0 @max 1;
+/gui/$1/synth.eguitar~/slider0 @min 0 @max 1;
 #X obj 140 237 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 237 msg set;
 #X msg 260 237 @gain \$1;
@@ -21,19 +21,19 @@
 #X msg 260 251 @gate \$1;
 #X text 10 271 mute:;
 #X obj 12 290 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.eguitar~/slider2 @min 0 @max 1;
+/gui/$1/synth.eguitar~/slider2 @min 0 @max 1;
 #X obj 140 290 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 290 msg set;
 #X msg 260 290 @mute \$1;
 #X text 10 304 pitch:;
 #X obj 12 323 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.eguitar~/slider3 @min 36 @max 84;
+/gui/$1/synth.eguitar~/slider3 @min 36 @max 84;
 #X obj 140 323 ui.number @size 40 12 @digits 3 @min 36 @max 84;
 #X obj 190 323 msg set;
 #X msg 260 323 @pitch \$1;
 #X text 10 337 pos:;
 #X obj 12 356 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.eguitar~/slider4 @min 0 @max 1;
+/gui/$1/synth.eguitar~/slider4 @min 0 @max 1;
 #X obj 140 356 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 356 msg set;
 #X msg 260 356 @pos \$1;

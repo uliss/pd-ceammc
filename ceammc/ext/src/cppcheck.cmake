@@ -6,37 +6,50 @@ if(APPLE)
     set(HTML_OPEN "open")
 endif()
 
-file(GLOB_RECURSE CEAMMC_ALL_SOURCE_FILES "*.cpp" "*.h")
-
 if(CPPCHECK)
-    message(STATUS "CppCheck found: ${CPPCHECK}. The 'ceammc_cppcheck' make target is available.")
+    message(STATUS "CppCheck found: ${CPPCHECK}. The 'cppcheck' make target is available.")
 
-    add_custom_command(
-        OUTPUT cppcheck_result.xml
-        DEPENDS ${CEAMMC_ALL_SOURCE_FILES}
-        COMMAND ${CPPCHECK}
-        ${CMAKE_CURRENT_SOURCE_DIR}
-        --enable=warning,performance,portability,information,missingInclude
-        -i tests/Catch
-        -i src/rtmidi
-        -i src/proto/firmata/firmata_bison.tab.c
-        -i src/data/rapidjson
-        -i src/data/rapidjson/document.h
-        -i src/lib/utf8rewind
-        -i src/exp
-        --std=c++03
-        --xml
-        --xml-version=2
-        2> cppcheck_result.xml
-    )
+    list(APPEND _CPPCHECK_FLAGS -DHAVE_DIRENT_H -DPD_FLOATSIZE=32)
+    if(APPLE)
+        list(APPEND _CPPCHECK_FLAGS -U_WINDOWS -U_MSC_VER -U_WIN32 -U__WIN32 -D__MACH__ -D__APPLE__ -D__MAC_OS_X_VERSION_MIN_REQUIRED=1090)
+    endif()
 
     add_custom_target(
         ceammc_cppcheck
-        DEPENDS cppcheck_result.xml
+        COMMAND ${CPPCHECK}
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        --enable=warning,performance,portability,information,missingInclude
+        --suppressions-list=${PROJECT_SOURCE_DIR}/ceammc/cppcheck_suppressions.txt
+        -i src/proto/firmata/firmata_bison.tab.c
+        -i data/rapidjson
+        -i data/rapidjson/document.h
+        -i lib/dict_parser.tab.c
+        -i lib/lex.dict_parser.c
+        -i lib/lex.mlist_parser.c
+        -i lib/mlist_parser.tab.c
+        -i lib/utf8rewind
+        -i math/lex.math_expr.c
+        -i math/math_expr.tab.c
+        -i lib/dict_parser_impl.cpp
+        -i lib/mlist_parser_impl.cpp
+        -i exp/
+        -i rtmidi/
+        -i spat/Hoa_Tools.hpp
+        ${_CPPCHECK_FLAGS}
+        --std=c++11
+        --xml
+        --xml-version=2
+        --output-file=${CMAKE_BINARY_DIR}/cppcheck_result.xml
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+
+    add_custom_target(
+        cppcheck
+        DEPENDS ceammc_cppcheck
         COMMAND ${CPPCHECK_HTML}
-        --file cppcheck_result.xml
+        --file ${CMAKE_BINARY_DIR}/cppcheck_result.xml
         --source-dir "${CMAKE_CURRENT_SOURCE_DIR}"
-        --report-dir cppcheck_html
-        COMMAND ${HTML_OPEN} cppcheck_html/index.html
+        --report-dir ${CMAKE_BINARY_DIR}/cppcheck_html
+        COMMAND ${HTML_OPEN} ${CMAKE_BINARY_DIR}/cppcheck_html/index.html
     )
 endif()

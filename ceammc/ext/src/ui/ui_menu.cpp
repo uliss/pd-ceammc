@@ -25,6 +25,7 @@ UIMenu::UIMenu()
     , prop_color_active(rgba_blue)
     , prop_max_item_length(100)
     , is_open_(false)
+    , item_height_(16)
     , current_idx_(-1)
     , hover_idx_(-1)
 {
@@ -50,7 +51,7 @@ void UIMenu::okSize(t_rect* newrect)
     newrect->height += 4;
 #endif
 
-    item_height_ = close_height_ = newrect->height;
+    item_height_ = newrect->height;
 
     if (newrect->width < newrect->height * 2)
         newrect->width = newrect->height * 2;
@@ -436,7 +437,7 @@ void UIMenu::syncLabels()
 
     t_efont* f = &asEBox()->b_font;
     for (size_t i = layouts_.size(); i < items_.size(); i++) {
-        layouts_.emplace_back(boost::make_shared<UITextLayout>(f, ColorRGBA::black(),
+        layouts_.emplace_back(std::make_shared<UITextLayout>(f, ColorRGBA::black(),
             ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP));
     }
 

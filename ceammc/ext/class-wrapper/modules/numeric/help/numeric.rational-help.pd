@@ -13,8 +13,7 @@
 #X obj 30 224 rational.div;
 #X text 200 224 divide rational numbers;
 #X obj 30 251 rational.from_float;
-#X text 200 251 converts input float to rational with specified
-precision;
+#X text 200 251 converts input float to rational with specified precision;
 #X obj 30 278 rational.ge;
 #X text 200 278 greater equal compare operator;
 #X obj 30 305 rational.gt;

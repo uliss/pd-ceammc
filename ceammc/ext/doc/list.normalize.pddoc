@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>normalizes float list values to get their sum = 1.0</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>
             <keywords>list normalize</keywords>
@@ -25,7 +25,7 @@
             </inlet>
         </inlets>
         <properties>
-            <property name="@by" enum="sum range" default="range" type="symbol">normalization
+            <property name="@by" enum="sum range" default="sum" type="symbol">normalization
             mode</property>
             <property name="@sum" type="alias">alias to @by sum</property>
             <property name="@range" type="alias">alias to @by range</property>

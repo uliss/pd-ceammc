@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>metro sequencer</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>base</category>
             <keywords>metro sequencer</keywords>
@@ -47,7 +47,7 @@
 <![CDATA[
 [1 0 1 1 0 1 0 1(
 |
-[ui.radio @mode=1]
+[ui.radio @mode 1]
 |
 [msg @pattern]
 |

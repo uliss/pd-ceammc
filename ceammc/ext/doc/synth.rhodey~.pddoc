@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>STK Fender Rhodes electric piano FM synthesis instrument</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>synth</category>
             <keywords>rhodes fender synth fm</keywords>
@@ -18,19 +18,19 @@
             algorithm 5 of the TX81Z</par>
         </info>
         <properties>
-            <property name="@freq" type="float" minvalue="20" maxvalue="480" default="240">maximum
-            speed of whistles</property>
+            <property name="@freq" type="float" minvalue="0" maxvalue="480" default="220"
+            units="herz">maximum speed of whistles</property>
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">synth gate
             (&gt;0 - play)</property>
-            <property name="@mod" type="float" minvalue="0" maxvalue="127">modulator index one
+            <property name="@mod" type="int" minvalue="0" maxvalue="127">modulator index one
             (cc2)</property>
-            <property name="@xfade" type="float" minvalue="0" maxvalue="127">crossfade of outputs
+            <property name="@xfade" type="int" minvalue="0" maxvalue="127">crossfade of outputs
             (cc4)</property>
-            <property name="@lfo_speed" type="float" minvalue="0" maxvalue="127">LFO Speed
+            <property name="@lfo_speed" type="int" minvalue="0" maxvalue="127">LFO Speed
             (cc11)</property>
-            <property name="@lfo_depth" type="float" minvalue="0" maxvalue="127">LFO Speed
+            <property name="@lfo_depth" type="int" minvalue="0" maxvalue="127">LFO Speed
             (cc1)</property>
-            <property name="@adsr" type="float" minvalue="0" maxvalue="127">ADSR 2 &amp; 4
+            <property name="@adsr" type="int" minvalue="0" maxvalue="127">ADSR 2 &amp; 4
             Target</property>
         </properties>
         <methods>

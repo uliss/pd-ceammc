@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "synth.church_bell"
-Code generated with Faust 2.15.0 (https://faust.grame.fr)
-Compilation options: cpp, -scal -ftz 0
+Code generated with Faust 2.22.1 (https://faust.grame.fr)
+Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __synth_church_bell_H__
@@ -14,6 +14,7 @@ Compilation options: cpp, -scal -ftz 0
 #include <memory>
 #include <string>
 
+/************************** BEGIN dsp.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -96,23 +97,23 @@ class dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param samplingRate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hertz
          */
-        virtual void init(int samplingRate) = 0;
+        virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param samplingRate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hertz
          */
-        virtual void instanceInit(int samplingRate) = 0;
+        virtual void instanceInit(int sample_rate) = 0;
 
         /**
          * Init instance constant state
          *
-         * @param samplingRate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hertz
          */
-        virtual void instanceConstants(int samplingRate) = 0;
+        virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
@@ -149,8 +150,8 @@ class dsp {
          *
          * @param date_usec - the timestamp in microsec given by audio driver.
          * @param count - the number of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
          *
          */
         virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
@@ -169,16 +170,16 @@ class decorator_dsp : public dsp {
 
     public:
 
-        decorator_dsp(dsp* dsp = 0):fDSP(dsp) {}
+        decorator_dsp(dsp* dsp = nullptr):fDSP(dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
         virtual int getNumInputs() { return fDSP->getNumInputs(); }
         virtual int getNumOutputs() { return fDSP->getNumOutputs(); }
         virtual void buildUserInterface(UI* ui_interface) { fDSP->buildUserInterface(ui_interface); }
         virtual int getSampleRate() { return fDSP->getSampleRate(); }
-        virtual void init(int samplingRate) { fDSP->init(samplingRate); }
-        virtual void instanceInit(int samplingRate) { fDSP->instanceInit(samplingRate); }
-        virtual void instanceConstants(int samplingRate) { fDSP->instanceConstants(samplingRate); }
+        virtual void init(int sample_rate) { fDSP->init(sample_rate); }
+        virtual void instanceInit(int sample_rate) { fDSP->instanceInit(sample_rate); }
+        virtual void instanceConstants(int sample_rate) { fDSP->instanceConstants(sample_rate); }
         virtual void instanceResetUserInterface() { fDSP->instanceResetUserInterface(); }
         virtual void instanceClear() { fDSP->instanceClear(); }
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
@@ -233,6 +234,8 @@ class dsp_factory {
 #endif
 
 #endif
+/**************************  END  dsp.h **************************/
+/************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -272,45 +275,54 @@ class dsp_factory {
 
 struct Soundfile;
 
-class UI
+template <typename REAL>
+class UIReal
 {
-
+    
     public:
-
-        UI() {}
-
-        virtual ~UI() {}
-
+        
+        UIReal() {}
+        virtual ~UIReal() {}
+        
         // -- widget's layouts
-
+        
         virtual void openTabBox(const char* label) = 0;
         virtual void openHorizontalBox(const char* label) = 0;
         virtual void openVerticalBox(const char* label) = 0;
         virtual void closeBox() = 0;
-
+        
         // -- active widgets
-
-        virtual void addButton(const char* label, FAUSTFLOAT* zone) = 0;
-        virtual void addCheckButton(const char* label, FAUSTFLOAT* zone) = 0;
-        virtual void addVerticalSlider(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step) = 0;
-        virtual void addHorizontalSlider(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step) = 0;
-        virtual void addNumEntry(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step) = 0;
-
+        
+        virtual void addButton(const char* label, REAL* zone) = 0;
+        virtual void addCheckButton(const char* label, REAL* zone) = 0;
+        virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+        virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+        virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+        
         // -- passive widgets
-
-        virtual void addHorizontalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max) = 0;
-        virtual void addVerticalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max) = 0;
-    
+        
+        virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+        virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+        
         // -- soundfiles
-    
+        
         virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-
+        
         // -- metadata declarations
+        
+        virtual void declare(REAL* zone, const char* key, const char* val) {}
+};
 
-        virtual void declare(FAUSTFLOAT*, const char*, const char*) {}
+struct UI : public UIReal<FAUSTFLOAT>
+{
+
+        UI() {}
+        virtual ~UI() {}
 };
 
 #endif
+/**************************  END  UI.h **************************/
+/************************** BEGIN meta.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -339,11 +351,14 @@ class UI
 
 struct Meta
 {
-    virtual void declare(const char* key, const char* value) = 0;
     virtual ~Meta() {};
+    virtual void declare(const char* key, const char* value) = 0;
+    
 };
 
 #endif
+/**************************  END  meta.h **************************/
+/************************** BEGIN misc.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -366,7 +381,7 @@ struct Meta
  that work under terms of your choice, so long as this FAUST
  architecture section is not modified.
  ************************************************************************/
- 
+
 #ifndef __misc__
 #define __misc__
 
@@ -374,6 +389,8 @@ struct Meta
 #include <map>
 #include <cstdlib>
 #include <string.h>
+#include <fstream>
+#include <string>
 
 
 using std::max;
@@ -395,27 +412,65 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-	int	i;
-    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    return def;
 }
 
-static bool isopt(char* argv[], const char* name)
+static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
-	return false;
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return atoi(argv[i]);
+        }
+    }
+    return def;
 }
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    return def;
+}
+
+static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
+{
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return argv[i];
+        }
+    }
+    return def;
+}
+
+static bool isopt(char* argv[], const char* name)
+{
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
+    return false;
+}
+
+static std::string pathToContent(const std::string& path)
+{
+    std::ifstream file(path.c_str(), std::ifstream::binary);
+    
+    file.seekg(0, file.end);
+    int size = int(file.tellg());
+    file.seekg(0, file.beg);
+    
+    // And allocate buffer to that a single line can be read...
+    char* buffer = new char[size + 1];
+    file.read(buffer, size);
+    
+    // Terminate the string
+    buffer[size] = 0;
+    std::string result = buffer;
+    file.close();
+    delete [] buffer;
+    return result;
 }
 
 #endif
 
+/**************************  END  misc.h **************************/
 
 #include "ceammc_faust.h"
 
@@ -446,8 +501,7 @@ struct synth_church_bell : public dsp {
 #include <cmath>
 #include <math.h>
 
-static float fsynth_church_bellSIG0Wave0[350] = {0.525285006f,0.814173996f,0.483260989f,0.296745002f,0.975055993f,0.472243994f,0.409500986f,0.425363988f,0.687559009f,0.28838101f,0.309285015f,0.123053998f,0.286332995f,0.576705992f,0.908321977f,0.626973987f,0.0801851973f,0.309834987f,0.451429993f,0.132844999f,0.470634997f,0.417008013f,0.265112013f,0.075280197f,0.463470012f,0.471810013f,0.275323987f,0.547026992f,0.512519002f,0.394077986f,0.595404029f,0.941305995f,0.392500997f,0.381435007f,0.391232014f,0.118923999f,0.339495003f,0.101420999f,0.241754994f,0.0873254985f,0.37894401f,0.637705028f,0.171946004f,0.149858996f,0.233290002f,0.541809976f,1.0f,0.115553997f,0.244172007f,0.574329019f,0.606171012f,0.93839699f,0.392554998f,0.277359009f,0.86857003f,0.432489008f,0.408856004f,0.407932013f,0.299814999f,0.256659001f,0.549571991f,0.406347007f,0.312330991f,0.62757802f,0.670167029f,0.524648011f,0.406926006f,0.637524009f,0.555836976f,1.0f,0.818979025f,0.705347002f,0.678140998f,0.427381992f,0.674404025f,0.636105001f,0.643634975f,0.699136019f,0.836201012f,0.613084972f,0.31901899f,0.725259006f,0.545518994f,0.479860991f,0.498360008f,0.488653988f,0.861671984f,0.314287007f,0.671051979f,0.531904995f,0.421781003f,0.81506598f,0.772032022f,0.488721997f,0.0896674022f,0.291285992f,0.65872997f,0.635631979f,0.679356992f,0.459497005f,0.360240012f,0.58228898f,0.650605023f,0.490949988f,0.381909996f,0.157260999f,0.479624003f,0.477490991f,0.174435005f,0.0130939996f,0.879113019f,0.608069003f,0.268877f,0.604479015f,0.245130002f,0.170506999f,0.292887986f,0.545849025f,0.476646006f,0.922316015f,0.669192016f,0.578094006f,0.578796983f,0.311396003f,0.601209998f,0.54995501f,1.0f,0.66573f,0.980114996f,0.537847996f,0.0740531012f,0.252472013f,0.25575f,0.223974004f,0.0865103006f,0.138209f,0.198623002f,0.0453034006f,0.432453007f,0.292407006f,0.394410014f,0.857658982f,0.271667987f,0.201545f,0.583993971f,0.0602377988f,0.190617993f,0.849505007f,0.975542009f,0.173140004f,0.206471995f,0.344792992f,0.761011004f,0.558125019f,0.117245004f,0.0338485017f,0.337597013f,0.336645991f,0.174253002f,0.230169997f,0.934872985f,0.593647003f,0.393225014f,0.683704019f,0.056609299f,0.0405011997f,0.148972005f,0.338721991f,0.283419013f,0.394006997f,0.237474993f,0.26996401f,0.428312987f,0.177498996f,0.462585002f,0.443962991f,0.981792986f,0.408239007f,0.676527023f,0.402864993f,0.0163302999f,0.0515113994f,0.341390014f,0.311134994f,0.613276005f,0.805884004f,0.953289986f,0.406091005f,0.578705013f,0.386785001f,0.434103012f,0.775259972f,1.0f,0.635909021f,0.78205198f,0.0137182996f,0.0387725011f,0.618964016f,0.857070982f,0.131522f,0.184988007f,0.299495012f,0.789211988f,0.603114009f,0.0704988986f,0.0129338996f,0.252481014f,0.254121006f,0.189206004f,0.357713014f,0.950308025f,0.552573025f,0.466453999f,0.777360022f,0.0307886004f,0.0251943003f,0.378886014f,0.740186989f,0.247637004f,0.235201001f,0.493045002f,0.517849982f,0.883953989f,0.429473013f,0.409433007f,0.415266007f,0.940198004f,0.282334f,0.437889993f,0.375384986f,0.0157366004f,0.0171763003f,0.485554993f,0.461014986f,0.858958006f,0.907990992f,0.935190976f,0.375510007f,1.0f,0.585493028f,0.269980997f,0.423052996f,0.666067004f,0.435090005f,0.79025197f,0.00889586005f,0.0208844002f,0.449734986f,0.790808022f,0.159856007f,0.0895989984f,0.161546007f,0.528168023f,0.380641997f,0.0206275992f,0.0072642602f,0.0315352008f,0.0315840989f,0.197649002f,0.475057006f,0.517232001f,0.360922009f,0.421204001f,0.631340027f,0.00952139031f,0.0161049999f,0.499615014f,0.922958016f,0.214983001f,0.0655141026f,0.503970027f,0.514847994f,1.0f,0.483619004f,0.254027009f,0.228371993f,0.436105013f,0.233125001f,0.152242005f,0.279513001f,0.00906739011f,0.0132331997f,0.45125699f,0.388565987f,0.737226009f,0.479378015f,0.233036995f,0.103767f,0.845609009f,0.644127011f,0.261359006f,0.371457011f,0.527229011f,0.381372988f,0.334491998f,0.00833749026f,0.00861981977f,0.255919009f,0.254197001f,0.0872332975f,0.0461511984f,0.113017999f,0.345986009f,0.236343995f,0.0107800001f,0.00816505961f,0.405180991f,0.387180001f,0.343681008f,0.816492975f,0.25908199f,0.211906001f,0.432455003f,0.696886003f,0.00576223992f,0.0131310001f,0.455969006f,0.81160903f,0.426544011f,0.128489003f,0.215937003f,0.233934f,0.723070025f,0.351622999f,0.394230992f,0.323765993f,0.168803006f,0.276932001f,0.264683992f,0.227703005f,0.0068093501f,0.0170703009f,0.603017986f,0.476460993f,0.585924983f,0.716960013f,1.0f,0.576526999f,0.475524008f,0.447322011f,0.356902003f,0.597572982f,0.697246015f,0.505333006f,0.285421014f,0.0147193f,0.0141618f,0.136188f,0.0336536989f,0.216436997f};
-
+const static float fsynth_church_bellSIG0Wave0[350] = {0.525285006f,0.814173996f,0.483260989f,0.296745002f,0.975055993f,0.472243994f,0.409500986f,0.425363988f,0.687559009f,0.28838101f,0.309285015f,0.123053998f,0.286332995f,0.576705992f,0.908321977f,0.626973987f,0.0801851973f,0.309834987f,0.451429993f,0.132844999f,0.470634997f,0.417008013f,0.265112013f,0.075280197f,0.463470012f,0.471810013f,0.275323987f,0.547026992f,0.512519002f,0.394077986f,0.595404029f,0.941305995f,0.392500997f,0.381435007f,0.391232014f,0.118923999f,0.339495003f,0.101420999f,0.241754994f,0.0873254985f,0.37894401f,0.637705028f,0.171946004f,0.149858996f,0.233290002f,0.541809976f,1.0f,0.115553997f,0.244172007f,0.574329019f,0.606171012f,0.93839699f,0.392554998f,0.277359009f,0.86857003f,0.432489008f,0.408856004f,0.407932013f,0.299814999f,0.256659001f,0.549571991f,0.406347007f,0.312330991f,0.62757802f,0.670167029f,0.524648011f,0.406926006f,0.637524009f,0.555836976f,1.0f,0.818979025f,0.705347002f,0.678140998f,0.427381992f,0.674404025f,0.636105001f,0.643634975f,0.699136019f,0.836201012f,0.613084972f,0.31901899f,0.725259006f,0.545518994f,0.479860991f,0.498360008f,0.488653988f,0.861671984f,0.314287007f,0.671051979f,0.531904995f,0.421781003f,0.81506598f,0.772032022f,0.488721997f,0.0896674022f,0.291285992f,0.65872997f,0.635631979f,0.679356992f,0.459497005f,0.360240012f,0.58228898f,0.650605023f,0.490949988f,0.381909996f,0.157260999f,0.479624003f,0.477490991f,0.174435005f,0.0130939996f,0.879113019f,0.608069003f,0.268877f,0.604479015f,0.245130002f,0.170506999f,0.292887986f,0.545849025f,0.476646006f,0.922316015f,0.669192016f,0.578094006f,0.578796983f,0.311396003f,0.601209998f,0.54995501f,1.0f,0.66573f,0.980114996f,0.537847996f,0.0740531012f,0.252472013f,0.25575f,0.223974004f,0.0865103006f,0.138209f,0.198623002f,0.0453034006f,0.432453007f,0.292407006f,0.394410014f,0.857658982f,0.271667987f,0.201545f,0.583993971f,0.0602377988f,0.190617993f,0.849505007f,0.975542009f,0.173140004f,0.206471995f,0.344792992f,0.761011004f,0.558125019f,0.117245004f,0.0338485017f,0.337597013f,0.336645991f,0.174253002f,0.230169997f,0.934872985f,0.593647003f,0.393225014f,0.683704019f,0.056609299f,0.0405011997f,0.148972005f,0.338721991f,0.283419013f,0.394006997f,0.237474993f,0.26996401f,0.428312987f,0.177498996f,0.462585002f,0.443962991f,0.981792986f,0.408239007f,0.676527023f,0.402864993f,0.0163302999f,0.0515113994f,0.341390014f,0.311134994f,0.613276005f,0.805884004f,0.953289986f,0.406091005f,0.578705013f,0.386785001f,0.434103012f,0.775259972f,1.0f,0.635909021f,0.78205198f,0.0137182996f,0.0387725011f,0.618964016f,0.857070982f,0.131522f,0.184988007f,0.299495012f,0.789211988f,0.603114009f,0.0704988986f,0.0129338996f,0.252481014f,0.254121006f,0.189206004f,0.357713014f,0.950308025f,0.552573025f,0.466453999f,0.777360022f,0.0307886004f,0.0251943003f,0.378886014f,0.740186989f,0.247637004f,0.235201001f,0.493045002f,0.517849982f,0.883953989f,0.429473013f,0.409433007f,0.415266007f,0.940198004f,0.282334f,0.437889993f,0.375384986f,0.0157366004f,0.0171763003f,0.485554993f,0.461014986f,0.858958006f,0.907990992f,0.935190976f,0.375510007f,1.0f,0.585493028f,0.269980997f,0.423052996f,0.666067004f,0.435090005f,0.79025197f,0.00889586005f,0.0208844002f,0.449734986f,0.790808022f,0.159856007f,0.0895989984f,0.161546007f,0.528168023f,0.380641997f,0.0206275992f,0.0072642602f,0.0315352008f,0.0315840989f,0.197649002f,0.475057006f,0.517232001f,0.360922009f,0.421204001f,0.631340027f,0.00952139031f,0.0161049999f,0.499615014f,0.922958016f,0.214983001f,0.0655141026f,0.503970027f,0.514847994f,1.0f,0.483619004f,0.254027009f,0.228371993f,0.436105013f,0.233125001f,0.152242005f,0.279513001f,0.00906739011f,0.0132331997f,0.45125699f,0.388565987f,0.737226009f,0.479378015f,0.233036995f,0.103767f,0.845609009f,0.644127011f,0.261359006f,0.371457011f,0.527229011f,0.381372988f,0.334491998f,0.00833749026f,0.00861981977f,0.255919009f,0.254197001f,0.0872332975f,0.0461511984f,0.113017999f,0.345986009f,0.236343995f,0.0107800001f,0.00816505961f,0.405180991f,0.387180001f,0.343681008f,0.816492975f,0.25908199f,0.211906001f,0.432455003f,0.696886003f,0.00576223992f,0.0131310001f,0.455969006f,0.81160903f,0.426544011f,0.128489003f,0.215937003f,0.233934f,0.723070025f,0.351622999f,0.394230992f,0.323765993f,0.168803006f,0.276932001f,0.264683992f,0.227703005f,0.0068093501f,0.0170703009f,0.603017986f,0.476460993f,0.585924983f,0.716960013f,1.0f,0.576526999f,0.475524008f,0.447322011f,0.356902003f,0.597572982f,0.697246015f,0.505333006f,0.285421014f,0.0147193f,0.0141618f,0.136188f,0.0336536989f,0.216436997f};
 class synth_church_bellSIG0 {
 	
   private:
@@ -458,27 +512,23 @@ class synth_church_bellSIG0 {
 	
 	int getNumInputssynth_church_bellSIG0() {
 		return 0;
-		
 	}
 	int getNumOutputssynth_church_bellSIG0() {
 		return 1;
-		
 	}
 	int getInputRatesynth_church_bellSIG0(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			default: {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	int getOutputRatesynth_church_bellSIG0(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 0;
 				break;
@@ -487,39 +537,35 @@ class synth_church_bellSIG0 {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	
-	void instanceInitsynth_church_bellSIG0(int samplingFreq) {
+	void instanceInitsynth_church_bellSIG0(int sample_rate) {
 		fsynth_church_bellSIG0Wave0_idx = 0;
-		
 	}
 	
-	void fillsynth_church_bellSIG0(int count, float* output) {
+	void fillsynth_church_bellSIG0(int count, float* table) {
 		for (int i = 0; (i < count); i = (i + 1)) {
-			output[i] = fsynth_church_bellSIG0Wave0[fsynth_church_bellSIG0Wave0_idx];
+			table[i] = fsynth_church_bellSIG0Wave0[fsynth_church_bellSIG0Wave0_idx];
 			fsynth_church_bellSIG0Wave0_idx = ((1 + fsynth_church_bellSIG0Wave0_idx) % 350);
-			
 		}
-		
 	}
+
 };
 
-synth_church_bellSIG0* newsynth_church_bellSIG0() { return (synth_church_bellSIG0*)new synth_church_bellSIG0(); }
-void deletesynth_church_bellSIG0(synth_church_bellSIG0* dsp) { delete dsp; }
+static synth_church_bellSIG0* newsynth_church_bellSIG0() { return (synth_church_bellSIG0*)new synth_church_bellSIG0(); }
+static void deletesynth_church_bellSIG0(synth_church_bellSIG0* dsp) { delete dsp; }
 
-static float ftbl0synth_church_bellSIG0[350];
 static float synth_church_bell_faustpower2_f(float value) {
 	return (value * value);
-	
 }
+static float ftbl0synth_church_bellSIG0[350];
 
 #ifndef FAUSTCLASS 
 #define FAUSTCLASS synth_church_bell
 #endif
+
 #ifdef __APPLE__ 
 #define exp10f __exp10f
 #define exp10 __exp10
@@ -529,9 +575,8 @@ class synth_church_bell : public dsp {
 	
  private:
 	
-	FAUSTFLOAT fEntry0;
 	FAUSTFLOAT fHslider0;
-	int fSamplingFreq;
+	int fSampleRate;
 	float fConst0;
 	float fConst1;
 	FAUSTFLOAT fHslider1;
@@ -546,228 +591,245 @@ class synth_church_bell : public dsp {
 	float fRec2[3];
 	float fConst9;
 	float fRec1[3];
-	FAUSTFLOAT fButton0;
-	float fVec0[2];
 	float fConst10;
 	FAUSTFLOAT fHslider2;
-	float fVec1[2];
-	float fRec4[2];
+	FAUSTFLOAT fButton0;
+	float fVec0[2];
+	int iRec4[2];
 	float fConst11;
 	float fConst12;
 	float fConst13;
+	float fRec0[3];
+	FAUSTFLOAT fEntry0;
 	float fConst14;
 	float fConst15;
-	float fRec0[3];
 	float fConst16;
+	float fRec5[3];
 	float fConst17;
 	float fConst18;
-	float fRec5[3];
 	float fConst19;
+	float fRec6[3];
 	float fConst20;
 	float fConst21;
-	float fRec6[3];
 	float fConst22;
+	float fRec7[3];
 	float fConst23;
 	float fConst24;
-	float fRec7[3];
 	float fConst25;
+	float fRec8[3];
 	float fConst26;
 	float fConst27;
-	float fRec8[3];
 	float fConst28;
+	float fRec9[3];
 	float fConst29;
 	float fConst30;
-	float fRec9[3];
 	float fConst31;
+	float fRec10[3];
 	float fConst32;
 	float fConst33;
-	float fRec10[3];
 	float fConst34;
+	float fRec11[3];
 	float fConst35;
 	float fConst36;
-	float fRec11[3];
 	float fConst37;
+	float fRec12[3];
 	float fConst38;
 	float fConst39;
-	float fRec12[3];
 	float fConst40;
+	float fRec13[3];
 	float fConst41;
 	float fConst42;
-	float fRec13[3];
 	float fConst43;
+	float fRec14[3];
 	float fConst44;
 	float fConst45;
-	float fRec14[3];
 	float fConst46;
+	float fRec15[3];
 	float fConst47;
 	float fConst48;
-	float fRec15[3];
 	float fConst49;
+	float fRec16[3];
 	float fConst50;
 	float fConst51;
-	float fRec16[3];
 	float fConst52;
+	float fRec17[3];
 	float fConst53;
 	float fConst54;
-	float fRec17[3];
 	float fConst55;
+	float fRec18[3];
 	float fConst56;
 	float fConst57;
-	float fRec18[3];
 	float fConst58;
+	float fRec19[3];
 	float fConst59;
 	float fConst60;
-	float fRec19[3];
 	float fConst61;
+	float fRec20[3];
 	float fConst62;
 	float fConst63;
-	float fRec20[3];
 	float fConst64;
+	float fRec21[3];
 	float fConst65;
 	float fConst66;
-	float fRec21[3];
 	float fConst67;
+	float fRec22[3];
 	float fConst68;
 	float fConst69;
-	float fRec22[3];
 	float fConst70;
+	float fRec23[3];
 	float fConst71;
 	float fConst72;
-	float fRec23[3];
 	float fConst73;
+	float fRec24[3];
 	float fConst74;
 	float fConst75;
-	float fRec24[3];
 	float fConst76;
+	float fRec25[3];
 	float fConst77;
 	float fConst78;
-	float fRec25[3];
 	float fConst79;
+	float fRec26[3];
 	float fConst80;
 	float fConst81;
-	float fRec26[3];
 	float fConst82;
+	float fRec27[3];
 	float fConst83;
 	float fConst84;
-	float fRec27[3];
 	float fConst85;
+	float fRec28[3];
 	float fConst86;
 	float fConst87;
-	float fRec28[3];
 	float fConst88;
+	float fRec29[3];
 	float fConst89;
 	float fConst90;
-	float fRec29[3];
 	float fConst91;
+	float fRec30[3];
 	float fConst92;
 	float fConst93;
-	float fRec30[3];
 	float fConst94;
+	float fRec31[3];
 	float fConst95;
 	float fConst96;
-	float fRec31[3];
 	float fConst97;
+	float fRec32[3];
 	float fConst98;
 	float fConst99;
-	float fRec32[3];
 	float fConst100;
+	float fRec33[3];
 	float fConst101;
 	float fConst102;
-	float fRec33[3];
 	float fConst103;
+	float fRec34[3];
 	float fConst104;
 	float fConst105;
-	float fRec34[3];
 	float fConst106;
+	float fRec35[3];
 	float fConst107;
 	float fConst108;
-	float fRec35[3];
 	float fConst109;
+	float fRec36[3];
 	float fConst110;
 	float fConst111;
-	float fRec36[3];
 	float fConst112;
+	float fRec37[3];
 	float fConst113;
 	float fConst114;
-	float fRec37[3];
 	float fConst115;
+	float fRec38[3];
 	float fConst116;
 	float fConst117;
-	float fRec38[3];
 	float fConst118;
+	float fRec39[3];
 	float fConst119;
 	float fConst120;
-	float fRec39[3];
 	float fConst121;
+	float fRec40[3];
 	float fConst122;
 	float fConst123;
-	float fRec40[3];
 	float fConst124;
+	float fRec41[3];
 	float fConst125;
 	float fConst126;
-	float fRec41[3];
 	float fConst127;
+	float fRec42[3];
 	float fConst128;
 	float fConst129;
-	float fRec42[3];
 	float fConst130;
+	float fRec43[3];
 	float fConst131;
 	float fConst132;
-	float fRec43[3];
 	float fConst133;
+	float fRec44[3];
 	float fConst134;
 	float fConst135;
-	float fRec44[3];
 	float fConst136;
+	float fRec45[3];
 	float fConst137;
 	float fConst138;
-	float fRec45[3];
 	float fConst139;
+	float fRec46[3];
 	float fConst140;
 	float fConst141;
-	float fRec46[3];
 	float fConst142;
+	float fRec47[3];
 	float fConst143;
 	float fConst144;
-	float fRec47[3];
 	float fConst145;
+	float fRec48[3];
 	float fConst146;
 	float fConst147;
-	float fRec48[3];
 	float fConst148;
+	float fRec49[3];
 	float fConst149;
 	float fConst150;
-	float fRec49[3];
 	float fConst151;
+	float fRec50[3];
 	float fConst152;
 	float fConst153;
-	float fRec50[3];
 	float fConst154;
+	float fRec51[3];
 	float fConst155;
 	float fConst156;
-	float fRec51[3];
 	float fConst157;
+	float fRec52[3];
 	float fConst158;
 	float fConst159;
-	float fRec52[3];
 	float fConst160;
-	float fConst161;
-	float fConst162;
 	float fRec53[3];
 	
  public:
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.0");
+		m->declare("basics.lib/version", "0.1");
+		m->declare("envelopes.lib/ar:author", "Yann Orlarey, Stéphane Letz");
 		m->declare("envelopes.lib/author", "GRAME");
 		m->declare("envelopes.lib/copyright", "GRAME");
 		m->declare("envelopes.lib/license", "LGPL with exception");
 		m->declare("envelopes.lib/name", "Faust Envelope Library");
 		m->declare("envelopes.lib/version", "0.0");
-		m->declare("filename", "synth_church_bell");
+		m->declare("filename", "synth_church_bell.dsp");
+		m->declare("filters.lib/fir:author", "Julius O. Smith III");
+		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/fir:license", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/highpass:author", "Julius O. Smith III");
+		m->declare("filters.lib/highpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/iir:author", "Julius O. Smith III");
+		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
+		m->declare("filters.lib/lowpass:author", "Julius O. Smith III");
+		m->declare("filters.lib/lowpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass:license", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/name", "Faust Filters Library");
-		m->declare("filters.lib/version", "0.0");
+		m->declare("filters.lib/tf2:author", "Julius O. Smith III");
+		m->declare("filters.lib/tf2:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/tf2:license", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/tf2s:author", "Julius O. Smith III");
+		m->declare("filters.lib/tf2s:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/tf2s:license", "MIT-style STK-4.3 license");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
@@ -780,27 +842,23 @@ class synth_church_bell : public dsp {
 
 	virtual int getNumInputs() {
 		return 0;
-		
 	}
 	virtual int getNumOutputs() {
 		return 1;
-		
 	}
 	virtual int getInputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			default: {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	virtual int getOutputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 1;
 				break;
@@ -809,23 +867,20 @@ class synth_church_bell : public dsp {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	
-	static void classInit(int samplingFreq) {
+	static void classInit(int sample_rate) {
 		synth_church_bellSIG0* sig0 = newsynth_church_bellSIG0();
-		sig0->instanceInitsynth_church_bellSIG0(samplingFreq);
+		sig0->instanceInitsynth_church_bellSIG0(sample_rate);
 		sig0->fillsynth_church_bellSIG0(350, ftbl0synth_church_bellSIG0);
 		deletesynth_church_bellSIG0(sig0);
-		
 	}
 	
-	virtual void instanceConstants(int samplingFreq) {
-		fSamplingFreq = samplingFreq;
-		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSamplingFreq)));
+	virtual void instanceConstants(int sample_rate) {
+		fSampleRate = sample_rate;
+		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = (3.14159274f / fConst0);
 		fConst2 = std::tan((31.415926f / fConst0));
 		fConst3 = (1.0f / fConst2);
@@ -835,405 +890,341 @@ class synth_church_bell : public dsp {
 		fConst7 = (((fConst3 + -1.41421354f) / fConst2) + 1.0f);
 		fConst8 = (2.0f * (1.0f - fConst6));
 		fConst9 = (0.0f - (2.0f / fConst5));
-		fConst10 = (0.00400000019f * fConst0);
-		fConst11 = (0.00200000009f * fConst0);
-		fConst12 = (500.0f / fConst0);
-		fConst13 = std::pow(0.00100000005f, (0.0448570587f / fConst0));
-		fConst14 = (std::cos((2839.48462f / fConst0)) * (0.0f - (2.0f * fConst13)));
-		fConst15 = synth_church_bell_faustpower2_f(fConst13);
-		fConst16 = std::pow(0.00100000005f, (0.0449536517f / fConst0));
-		fConst17 = (std::cos((2858.84937f / fConst0)) * (0.0f - (2.0f * fConst16)));
-		fConst18 = synth_church_bell_faustpower2_f(fConst16);
-		fConst19 = std::pow(0.00100000005f, (0.0609094799f / fConst0));
-		fConst20 = (std::cos((5432.7124f / fConst0)) * (0.0f - (2.0f * fConst19)));
-		fConst21 = synth_church_bell_faustpower2_f(fConst19);
-		fConst22 = std::pow(0.00100000005f, (0.0612352863f / fConst0));
-		fConst23 = (std::cos((5475.18018f / fConst0)) * (0.0f - (2.0f * fConst22)));
-		fConst24 = synth_church_bell_faustpower2_f(fConst22);
-		fConst25 = std::pow(0.00100000005f, (0.0721585602f / fConst0));
-		fConst26 = (std::cos((6738.52783f / fConst0)) * (0.0f - (2.0f * fConst25)));
-		fConst27 = synth_church_bell_faustpower2_f(fConst25);
-		fConst28 = std::pow(0.00100000005f, (0.0722505748f / fConst0));
-		fConst29 = (std::cos((6748.01514f / fConst0)) * (0.0f - (2.0f * fConst28)));
-		fConst30 = synth_church_bell_faustpower2_f(fConst28);
-		fConst31 = std::pow(0.00100000005f, (0.0874899849f / fConst0));
-		fConst32 = (std::cos((8119.32031f / fConst0)) * (0.0f - (2.0f * fConst31)));
-		fConst33 = synth_church_bell_faustpower2_f(fConst31);
-		fConst34 = std::pow(0.00100000005f, (0.0875099227f / fConst0));
-		fConst35 = (std::cos((8120.89111f / fConst0)) * (0.0f - (2.0f * fConst34)));
-		fConst36 = synth_church_bell_faustpower2_f(fConst34);
-		fConst37 = std::pow(0.00100000005f, (0.107014902f / fConst0));
-		fConst38 = (std::cos((9453.68066f / fConst0)) * (0.0f - (2.0f * fConst37)));
-		fConst39 = synth_church_bell_faustpower2_f(fConst37);
-		fConst40 = std::pow(0.00100000005f, (0.110012196f / fConst0));
-		fConst41 = (std::cos((9628.41602f / fConst0)) * (0.0f - (2.0f * fConst40)));
-		fConst42 = synth_church_bell_faustpower2_f(fConst40);
-		fConst43 = std::pow(0.00100000005f, (0.123582378f / fConst0));
-		fConst44 = (std::cos((10343.3799f / fConst0)) * (0.0f - (2.0f * fConst43)));
-		fConst45 = synth_church_bell_faustpower2_f(fConst43);
-		fConst46 = std::pow(0.00100000005f, (0.123685889f / fConst0));
-		fConst47 = (std::cos((10348.4062f / fConst0)) * (0.0f - (2.0f * fConst46)));
-		fConst48 = synth_church_bell_faustpower2_f(fConst46);
-		fConst49 = std::pow(0.00100000005f, (0.127769172f / fConst0));
-		fConst50 = (std::cos((10542.1172f / fConst0)) * (0.0f - (2.0f * fConst49)));
-		fConst51 = synth_church_bell_faustpower2_f(fConst49);
-		fConst52 = std::pow(0.00100000005f, (0.127809823f / fConst0));
-		fConst53 = (std::cos((10544.002f / fConst0)) * (0.0f - (2.0f * fConst52)));
-		fConst54 = synth_church_bell_faustpower2_f(fConst52);
-		fConst55 = std::pow(0.00100000005f, (0.157417208f / fConst0));
-		fConst56 = (std::cos((11728.3818f / fConst0)) * (0.0f - (2.0f * fConst55)));
-		fConst57 = synth_church_bell_faustpower2_f(fConst55);
-		fConst58 = std::pow(0.00100000005f, (0.160256028f / fConst0));
-		fConst59 = (std::cos((11825.457f / fConst0)) * (0.0f - (2.0f * fConst58)));
-		fConst60 = synth_church_bell_faustpower2_f(fConst58);
-		fConst61 = std::pow(0.00100000005f, (0.18117331f / fConst0));
-		fConst62 = (std::cos((12473.3799f / fConst0)) * (0.0f - (2.0f * fConst61)));
-		fConst63 = synth_church_bell_faustpower2_f(fConst61);
-		fConst64 = std::pow(0.00100000005f, (0.182209119f / fConst0));
-		fConst65 = (std::cos((12502.7217f / fConst0)) * (0.0f - (2.0f * fConst64)));
-		fConst66 = synth_church_bell_faustpower2_f(fConst64);
-		fConst67 = std::pow(0.00100000005f, (0.2133362f / fConst0));
-		fConst68 = (std::cos((13288.4971f / fConst0)) * (0.0f - (2.0f * fConst67)));
-		fConst69 = synth_church_bell_faustpower2_f(fConst67);
-		fConst70 = std::pow(0.00100000005f, (0.298688531f / fConst0));
-		fConst71 = (std::cos((14808.2744f / fConst0)) * (0.0f - (2.0f * fConst70)));
-		fConst72 = synth_church_bell_faustpower2_f(fConst70);
-		fConst73 = std::pow(0.00100000005f, (0.341466933f / fConst0));
-		fConst74 = (std::cos((15358.1152f / fConst0)) * (0.0f - (2.0f * fConst73)));
-		fConst75 = synth_church_bell_faustpower2_f(fConst73);
-		fConst76 = std::pow(0.00100000005f, (0.342488438f / fConst0));
-		fConst77 = (std::cos((15370.0537f / fConst0)) * (0.0f - (2.0f * fConst76)));
-		fConst78 = synth_church_bell_faustpower2_f(fConst76);
-		fConst79 = std::pow(0.00100000005f, (0.391345769f / fConst0));
-		fConst80 = (std::cos((15888.7305f / fConst0)) * (0.0f - (2.0f * fConst79)));
-		fConst81 = synth_church_bell_faustpower2_f(fConst79);
-		fConst82 = std::pow(0.00100000005f, (0.392745376f / fConst0));
-		fConst83 = (std::cos((15902.2393f / fConst0)) * (0.0f - (2.0f * fConst82)));
-		fConst84 = synth_church_bell_faustpower2_f(fConst82);
-		fConst85 = std::pow(0.00100000005f, (0.499480247f / fConst0));
-		fConst86 = (std::cos((16768.9414f / fConst0)) * (0.0f - (2.0f * fConst85)));
-		fConst87 = synth_church_bell_faustpower2_f(fConst85);
-		fConst88 = std::pow(0.00100000005f, (0.500184536f / fConst0));
-		fConst89 = (std::cos((16773.7793f / fConst0)) * (0.0f - (2.0f * fConst88)));
-		fConst90 = synth_church_bell_faustpower2_f(fConst88);
-		fConst91 = std::pow(0.00100000005f, (0.56877172f / fConst0));
-		fConst92 = (std::cos((17203.7383f / fConst0)) * (0.0f - (2.0f * fConst91)));
-		fConst93 = synth_church_bell_faustpower2_f(fConst91);
-		fConst94 = std::pow(0.00100000005f, (0.580974996f / fConst0));
-		fConst95 = (std::cos((17272.6641f / fConst0)) * (0.0f - (2.0f * fConst94)));
-		fConst96 = synth_church_bell_faustpower2_f(fConst94);
-		fConst97 = std::pow(0.00100000005f, (0.58267206f / fConst0));
-		fConst98 = (std::cos((17282.0898f / fConst0)) * (0.0f - (2.0f * fConst97)));
-		fConst99 = synth_church_bell_faustpower2_f(fConst97);
-		fConst100 = std::pow(0.00100000005f, (0.58560729f / fConst0));
-		fConst101 = (std::cos((17298.3008f / fConst0)) * (0.0f - (2.0f * fConst100)));
-		fConst102 = synth_church_bell_faustpower2_f(fConst100);
-		fConst103 = std::pow(0.00100000005f, (0.679538369f / fConst0));
-		fConst104 = (std::cos((17763.7578f / fConst0)) * (0.0f - (2.0f * fConst103)));
-		fConst105 = synth_church_bell_faustpower2_f(fConst103);
-		fConst106 = std::pow(0.00100000005f, (0.701286793f / fConst0));
-		fConst107 = (std::cos((17858.8242f / fConst0)) * (0.0f - (2.0f * fConst106)));
-		fConst108 = synth_church_bell_faustpower2_f(fConst106);
-		fConst109 = std::pow(0.00100000005f, (0.981793463f / fConst0));
-		fConst110 = (std::cos((18802.8086f / fConst0)) * (0.0f - (2.0f * fConst109)));
-		fConst111 = synth_church_bell_faustpower2_f(fConst109);
-		fConst112 = std::pow(0.00100000005f, (0.991939485f / fConst0));
-		fConst113 = (std::cos((18829.7012f / fConst0)) * (0.0f - (2.0f * fConst112)));
-		fConst114 = synth_church_bell_faustpower2_f(fConst112);
-		fConst115 = std::pow(0.00100000005f, (1.57685912f / fConst0));
-		fConst116 = (std::cos((19934.0957f / fConst0)) * (0.0f - (2.0f * fConst115)));
-		fConst117 = synth_church_bell_faustpower2_f(fConst115);
-		fConst118 = std::pow(0.00100000005f, (2.61620831f / fConst0));
-		fConst119 = (std::cos((20927.9707f / fConst0)) * (0.0f - (2.0f * fConst118)));
-		fConst120 = synth_church_bell_faustpower2_f(fConst118);
-		fConst121 = std::pow(0.00100000005f, (3.26228237f / fConst0));
-		fConst122 = (std::cos((21302.0723f / fConst0)) * (0.0f - (2.0f * fConst121)));
-		fConst123 = synth_church_bell_faustpower2_f(fConst121);
-		fConst124 = std::pow(0.00100000005f, (3.42948842f / fConst0));
-		fConst125 = (std::cos((21382.3086f / fConst0)) * (0.0f - (2.0f * fConst124)));
-		fConst126 = synth_church_bell_faustpower2_f(fConst124);
-		fConst127 = std::pow(0.00100000005f, (5.61909866f / fConst0));
-		fConst128 = (std::cos((22094.3809f / fConst0)) * (0.0f - (2.0f * fConst127)));
-		fConst129 = synth_church_bell_faustpower2_f(fConst127);
-		fConst130 = std::pow(0.00100000005f, (6.26517916f / fConst0));
-		fConst131 = (std::cos((22233.3027f / fConst0)) * (0.0f - (2.0f * fConst130)));
-		fConst132 = synth_church_bell_faustpower2_f(fConst130);
-		fConst133 = std::pow(0.00100000005f, (7.91042233f / fConst0));
-		fConst134 = (std::cos((22511.334f / fConst0)) * (0.0f - (2.0f * fConst133)));
-		fConst135 = synth_church_bell_faustpower2_f(fConst133);
-		fConst136 = std::pow(0.00100000005f, (7.95560217f / fConst0));
-		fConst137 = (std::cos((22517.8047f / fConst0)) * (0.0f - (2.0f * fConst136)));
-		fConst138 = synth_church_bell_faustpower2_f(fConst136);
-		fConst139 = std::pow(0.00100000005f, (21.1559925f / fConst0));
-		fConst140 = (std::cos((23436.5332f / fConst0)) * (0.0f - (2.0f * fConst139)));
-		fConst141 = synth_church_bell_faustpower2_f(fConst139);
-		fConst142 = std::pow(0.00100000005f, (22.8584423f / fConst0));
-		fConst143 = (std::cos((23495.0293f / fConst0)) * (0.0f - (2.0f * fConst142)));
-		fConst144 = synth_church_bell_faustpower2_f(fConst142);
-		fConst145 = std::pow(0.00100000005f, (27.0563507f / fConst0));
-		fConst146 = (std::cos((23616.3574f / fConst0)) * (0.0f - (2.0f * fConst145)));
-		fConst147 = synth_church_bell_faustpower2_f(fConst145);
-		fConst148 = std::pow(0.00100000005f, (173.368958f / fConst0));
-		fConst149 = (std::cos((24528.1738f / fConst0)) * (0.0f - (2.0f * fConst148)));
-		fConst150 = synth_church_bell_faustpower2_f(fConst148);
-		fConst151 = std::pow(0.00100000005f, (415.098541f / fConst0));
-		fConst152 = (std::cos((24772.0234f / fConst0)) * (0.0f - (2.0f * fConst151)));
-		fConst153 = synth_church_bell_faustpower2_f(fConst151);
-		fConst154 = std::pow(0.00100000005f, (1631.8125f / fConst0));
-		fConst155 = (std::cos((25018.0098f / fConst0)) * (0.0f - (2.0f * fConst154)));
-		fConst156 = synth_church_bell_faustpower2_f(fConst154);
-		fConst157 = std::pow(0.00100000005f, (1752.41809f / fConst0));
-		fConst158 = (std::cos((25027.498f / fConst0)) * (0.0f - (2.0f * fConst157)));
-		fConst159 = synth_church_bell_faustpower2_f(fConst157);
-		fConst160 = std::pow(0.00100000005f, (13161720.0f / fConst0));
-		fConst161 = (std::cos((25346.1816f / fConst0)) * (0.0f - (2.0f * fConst160)));
-		fConst162 = synth_church_bell_faustpower2_f(fConst160);
-		
+		fConst10 = (0.00200000009f * fConst0);
+		fConst11 = std::pow(0.00100000005f, (3.26228237f / fConst0));
+		fConst12 = (std::cos((21302.0723f / fConst0)) * (0.0f - (2.0f * fConst11)));
+		fConst13 = synth_church_bell_faustpower2_f(fConst11);
+		fConst14 = std::pow(0.00100000005f, (2.61620831f / fConst0));
+		fConst15 = (std::cos((20927.9707f / fConst0)) * (0.0f - (2.0f * fConst14)));
+		fConst16 = synth_church_bell_faustpower2_f(fConst14);
+		fConst17 = std::pow(0.00100000005f, (0.701286793f / fConst0));
+		fConst18 = (std::cos((17858.8242f / fConst0)) * (0.0f - (2.0f * fConst17)));
+		fConst19 = synth_church_bell_faustpower2_f(fConst17);
+		fConst20 = std::pow(0.00100000005f, (0.679538369f / fConst0));
+		fConst21 = (std::cos((17763.7578f / fConst0)) * (0.0f - (2.0f * fConst20)));
+		fConst22 = synth_church_bell_faustpower2_f(fConst20);
+		fConst23 = std::pow(0.00100000005f, (0.58560729f / fConst0));
+		fConst24 = (std::cos((17298.3008f / fConst0)) * (0.0f - (2.0f * fConst23)));
+		fConst25 = synth_church_bell_faustpower2_f(fConst23);
+		fConst26 = std::pow(0.00100000005f, (0.58267206f / fConst0));
+		fConst27 = (std::cos((17282.0898f / fConst0)) * (0.0f - (2.0f * fConst26)));
+		fConst28 = synth_church_bell_faustpower2_f(fConst26);
+		fConst29 = std::pow(0.00100000005f, (0.580974996f / fConst0));
+		fConst30 = (std::cos((17272.6641f / fConst0)) * (0.0f - (2.0f * fConst29)));
+		fConst31 = synth_church_bell_faustpower2_f(fConst29);
+		fConst32 = std::pow(0.00100000005f, (0.56877172f / fConst0));
+		fConst33 = (std::cos((17203.7383f / fConst0)) * (0.0f - (2.0f * fConst32)));
+		fConst34 = synth_church_bell_faustpower2_f(fConst32);
+		fConst35 = std::pow(0.00100000005f, (0.500184536f / fConst0));
+		fConst36 = (std::cos((16773.7793f / fConst0)) * (0.0f - (2.0f * fConst35)));
+		fConst37 = synth_church_bell_faustpower2_f(fConst35);
+		fConst38 = std::pow(0.00100000005f, (0.499480247f / fConst0));
+		fConst39 = (std::cos((16768.9414f / fConst0)) * (0.0f - (2.0f * fConst38)));
+		fConst40 = synth_church_bell_faustpower2_f(fConst38);
+		fConst41 = std::pow(0.00100000005f, (0.392745376f / fConst0));
+		fConst42 = (std::cos((15902.2393f / fConst0)) * (0.0f - (2.0f * fConst41)));
+		fConst43 = synth_church_bell_faustpower2_f(fConst41);
+		fConst44 = std::pow(0.00100000005f, (0.391345769f / fConst0));
+		fConst45 = (std::cos((15888.7305f / fConst0)) * (0.0f - (2.0f * fConst44)));
+		fConst46 = synth_church_bell_faustpower2_f(fConst44);
+		fConst47 = std::pow(0.00100000005f, (0.342488438f / fConst0));
+		fConst48 = (std::cos((15370.0537f / fConst0)) * (0.0f - (2.0f * fConst47)));
+		fConst49 = synth_church_bell_faustpower2_f(fConst47);
+		fConst50 = std::pow(0.00100000005f, (0.341466933f / fConst0));
+		fConst51 = (std::cos((15358.1152f / fConst0)) * (0.0f - (2.0f * fConst50)));
+		fConst52 = synth_church_bell_faustpower2_f(fConst50);
+		fConst53 = std::pow(0.00100000005f, (0.298688531f / fConst0));
+		fConst54 = (std::cos((14808.2744f / fConst0)) * (0.0f - (2.0f * fConst53)));
+		fConst55 = synth_church_bell_faustpower2_f(fConst53);
+		fConst56 = std::pow(0.00100000005f, (0.2133362f / fConst0));
+		fConst57 = (std::cos((13288.4971f / fConst0)) * (0.0f - (2.0f * fConst56)));
+		fConst58 = synth_church_bell_faustpower2_f(fConst56);
+		fConst59 = std::pow(0.00100000005f, (0.182209119f / fConst0));
+		fConst60 = (std::cos((12502.7217f / fConst0)) * (0.0f - (2.0f * fConst59)));
+		fConst61 = synth_church_bell_faustpower2_f(fConst59);
+		fConst62 = std::pow(0.00100000005f, (0.18117331f / fConst0));
+		fConst63 = (std::cos((12473.3799f / fConst0)) * (0.0f - (2.0f * fConst62)));
+		fConst64 = synth_church_bell_faustpower2_f(fConst62);
+		fConst65 = std::pow(0.00100000005f, (0.160256028f / fConst0));
+		fConst66 = (std::cos((11825.457f / fConst0)) * (0.0f - (2.0f * fConst65)));
+		fConst67 = synth_church_bell_faustpower2_f(fConst65);
+		fConst68 = std::pow(0.00100000005f, (0.157417208f / fConst0));
+		fConst69 = (std::cos((11728.3818f / fConst0)) * (0.0f - (2.0f * fConst68)));
+		fConst70 = synth_church_bell_faustpower2_f(fConst68);
+		fConst71 = std::pow(0.00100000005f, (0.127809823f / fConst0));
+		fConst72 = (std::cos((10544.002f / fConst0)) * (0.0f - (2.0f * fConst71)));
+		fConst73 = synth_church_bell_faustpower2_f(fConst71);
+		fConst74 = std::pow(0.00100000005f, (0.127769172f / fConst0));
+		fConst75 = (std::cos((10542.1172f / fConst0)) * (0.0f - (2.0f * fConst74)));
+		fConst76 = synth_church_bell_faustpower2_f(fConst74);
+		fConst77 = std::pow(0.00100000005f, (0.123685889f / fConst0));
+		fConst78 = (std::cos((10348.4062f / fConst0)) * (0.0f - (2.0f * fConst77)));
+		fConst79 = synth_church_bell_faustpower2_f(fConst77);
+		fConst80 = std::pow(0.00100000005f, (0.123582378f / fConst0));
+		fConst81 = (std::cos((10343.3799f / fConst0)) * (0.0f - (2.0f * fConst80)));
+		fConst82 = synth_church_bell_faustpower2_f(fConst80);
+		fConst83 = std::pow(0.00100000005f, (0.110012196f / fConst0));
+		fConst84 = (std::cos((9628.41602f / fConst0)) * (0.0f - (2.0f * fConst83)));
+		fConst85 = synth_church_bell_faustpower2_f(fConst83);
+		fConst86 = std::pow(0.00100000005f, (0.107014902f / fConst0));
+		fConst87 = (std::cos((9453.68066f / fConst0)) * (0.0f - (2.0f * fConst86)));
+		fConst88 = synth_church_bell_faustpower2_f(fConst86);
+		fConst89 = std::pow(0.00100000005f, (0.0875099227f / fConst0));
+		fConst90 = (std::cos((8120.89111f / fConst0)) * (0.0f - (2.0f * fConst89)));
+		fConst91 = synth_church_bell_faustpower2_f(fConst89);
+		fConst92 = std::pow(0.00100000005f, (0.0874899849f / fConst0));
+		fConst93 = (std::cos((8119.32031f / fConst0)) * (0.0f - (2.0f * fConst92)));
+		fConst94 = synth_church_bell_faustpower2_f(fConst92);
+		fConst95 = std::pow(0.00100000005f, (0.0722505748f / fConst0));
+		fConst96 = (std::cos((6748.01514f / fConst0)) * (0.0f - (2.0f * fConst95)));
+		fConst97 = synth_church_bell_faustpower2_f(fConst95);
+		fConst98 = std::pow(0.00100000005f, (0.0721585602f / fConst0));
+		fConst99 = (std::cos((6738.52783f / fConst0)) * (0.0f - (2.0f * fConst98)));
+		fConst100 = synth_church_bell_faustpower2_f(fConst98);
+		fConst101 = std::pow(0.00100000005f, (0.0612352863f / fConst0));
+		fConst102 = (std::cos((5475.18018f / fConst0)) * (0.0f - (2.0f * fConst101)));
+		fConst103 = synth_church_bell_faustpower2_f(fConst101);
+		fConst104 = std::pow(0.00100000005f, (0.0609094799f / fConst0));
+		fConst105 = (std::cos((5432.7124f / fConst0)) * (0.0f - (2.0f * fConst104)));
+		fConst106 = synth_church_bell_faustpower2_f(fConst104);
+		fConst107 = std::pow(0.00100000005f, (0.0449536517f / fConst0));
+		fConst108 = (std::cos((2858.84937f / fConst0)) * (0.0f - (2.0f * fConst107)));
+		fConst109 = synth_church_bell_faustpower2_f(fConst107);
+		fConst110 = std::pow(0.00100000005f, (0.0448570587f / fConst0));
+		fConst111 = (std::cos((2839.48462f / fConst0)) * (0.0f - (2.0f * fConst110)));
+		fConst112 = synth_church_bell_faustpower2_f(fConst110);
+		fConst113 = std::pow(0.00100000005f, (0.981793463f / fConst0));
+		fConst114 = (std::cos((18802.8086f / fConst0)) * (0.0f - (2.0f * fConst113)));
+		fConst115 = synth_church_bell_faustpower2_f(fConst113);
+		fConst116 = std::pow(0.00100000005f, (0.991939485f / fConst0));
+		fConst117 = (std::cos((18829.7012f / fConst0)) * (0.0f - (2.0f * fConst116)));
+		fConst118 = synth_church_bell_faustpower2_f(fConst116);
+		fConst119 = std::pow(0.00100000005f, (1.57685912f / fConst0));
+		fConst120 = (std::cos((19934.0957f / fConst0)) * (0.0f - (2.0f * fConst119)));
+		fConst121 = synth_church_bell_faustpower2_f(fConst119);
+		fConst122 = std::pow(0.00100000005f, (3.42948842f / fConst0));
+		fConst123 = (std::cos((21382.3086f / fConst0)) * (0.0f - (2.0f * fConst122)));
+		fConst124 = synth_church_bell_faustpower2_f(fConst122);
+		fConst125 = std::pow(0.00100000005f, (5.61909866f / fConst0));
+		fConst126 = (std::cos((22094.3809f / fConst0)) * (0.0f - (2.0f * fConst125)));
+		fConst127 = synth_church_bell_faustpower2_f(fConst125);
+		fConst128 = std::pow(0.00100000005f, (6.26517916f / fConst0));
+		fConst129 = (std::cos((22233.3027f / fConst0)) * (0.0f - (2.0f * fConst128)));
+		fConst130 = synth_church_bell_faustpower2_f(fConst128);
+		fConst131 = std::pow(0.00100000005f, (7.91042233f / fConst0));
+		fConst132 = (std::cos((22511.334f / fConst0)) * (0.0f - (2.0f * fConst131)));
+		fConst133 = synth_church_bell_faustpower2_f(fConst131);
+		fConst134 = std::pow(0.00100000005f, (7.95560217f / fConst0));
+		fConst135 = (std::cos((22517.8047f / fConst0)) * (0.0f - (2.0f * fConst134)));
+		fConst136 = synth_church_bell_faustpower2_f(fConst134);
+		fConst137 = std::pow(0.00100000005f, (21.1559925f / fConst0));
+		fConst138 = (std::cos((23436.5332f / fConst0)) * (0.0f - (2.0f * fConst137)));
+		fConst139 = synth_church_bell_faustpower2_f(fConst137);
+		fConst140 = std::pow(0.00100000005f, (22.8584423f / fConst0));
+		fConst141 = (std::cos((23495.0293f / fConst0)) * (0.0f - (2.0f * fConst140)));
+		fConst142 = synth_church_bell_faustpower2_f(fConst140);
+		fConst143 = std::pow(0.00100000005f, (27.0563507f / fConst0));
+		fConst144 = (std::cos((23616.3574f / fConst0)) * (0.0f - (2.0f * fConst143)));
+		fConst145 = synth_church_bell_faustpower2_f(fConst143);
+		fConst146 = std::pow(0.00100000005f, (173.368958f / fConst0));
+		fConst147 = (std::cos((24528.1738f / fConst0)) * (0.0f - (2.0f * fConst146)));
+		fConst148 = synth_church_bell_faustpower2_f(fConst146);
+		fConst149 = std::pow(0.00100000005f, (415.098541f / fConst0));
+		fConst150 = (std::cos((24772.0234f / fConst0)) * (0.0f - (2.0f * fConst149)));
+		fConst151 = synth_church_bell_faustpower2_f(fConst149);
+		fConst152 = std::pow(0.00100000005f, (1631.8125f / fConst0));
+		fConst153 = (std::cos((25018.0098f / fConst0)) * (0.0f - (2.0f * fConst152)));
+		fConst154 = synth_church_bell_faustpower2_f(fConst152);
+		fConst155 = std::pow(0.00100000005f, (1752.41809f / fConst0));
+		fConst156 = (std::cos((25027.498f / fConst0)) * (0.0f - (2.0f * fConst155)));
+		fConst157 = synth_church_bell_faustpower2_f(fConst155);
+		fConst158 = std::pow(0.00100000005f, (13161720.0f / fConst0));
+		fConst159 = (std::cos((25346.1816f / fConst0)) * (0.0f - (2.0f * fConst158)));
+		fConst160 = synth_church_bell_faustpower2_f(fConst158);
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fEntry0 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(1.0f);
 		fHslider1 = FAUSTFLOAT(6500.0f);
-		fButton0 = FAUSTFLOAT(0.0f);
 		fHslider2 = FAUSTFLOAT(0.5f);
-		
+		fButton0 = FAUSTFLOAT(0.0f);
+		fEntry0 = FAUSTFLOAT(0.0f);
 	}
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			iRec3[l0] = 0;
-			
 		}
 		for (int l1 = 0; (l1 < 3); l1 = (l1 + 1)) {
 			fRec2[l1] = 0.0f;
-			
 		}
 		for (int l2 = 0; (l2 < 3); l2 = (l2 + 1)) {
 			fRec1[l2] = 0.0f;
-			
 		}
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			fVec0[l3] = 0.0f;
-			
 		}
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
-			fVec1[l4] = 0.0f;
-			
+			iRec4[l4] = 0;
 		}
-		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
-			fRec4[l5] = 0.0f;
-			
+		for (int l5 = 0; (l5 < 3); l5 = (l5 + 1)) {
+			fRec0[l5] = 0.0f;
 		}
 		for (int l6 = 0; (l6 < 3); l6 = (l6 + 1)) {
-			fRec0[l6] = 0.0f;
-			
+			fRec5[l6] = 0.0f;
 		}
 		for (int l7 = 0; (l7 < 3); l7 = (l7 + 1)) {
-			fRec5[l7] = 0.0f;
-			
+			fRec6[l7] = 0.0f;
 		}
 		for (int l8 = 0; (l8 < 3); l8 = (l8 + 1)) {
-			fRec6[l8] = 0.0f;
-			
+			fRec7[l8] = 0.0f;
 		}
 		for (int l9 = 0; (l9 < 3); l9 = (l9 + 1)) {
-			fRec7[l9] = 0.0f;
-			
+			fRec8[l9] = 0.0f;
 		}
 		for (int l10 = 0; (l10 < 3); l10 = (l10 + 1)) {
-			fRec8[l10] = 0.0f;
-			
+			fRec9[l10] = 0.0f;
 		}
 		for (int l11 = 0; (l11 < 3); l11 = (l11 + 1)) {
-			fRec9[l11] = 0.0f;
-			
+			fRec10[l11] = 0.0f;
 		}
 		for (int l12 = 0; (l12 < 3); l12 = (l12 + 1)) {
-			fRec10[l12] = 0.0f;
-			
+			fRec11[l12] = 0.0f;
 		}
 		for (int l13 = 0; (l13 < 3); l13 = (l13 + 1)) {
-			fRec11[l13] = 0.0f;
-			
+			fRec12[l13] = 0.0f;
 		}
 		for (int l14 = 0; (l14 < 3); l14 = (l14 + 1)) {
-			fRec12[l14] = 0.0f;
-			
+			fRec13[l14] = 0.0f;
 		}
 		for (int l15 = 0; (l15 < 3); l15 = (l15 + 1)) {
-			fRec13[l15] = 0.0f;
-			
+			fRec14[l15] = 0.0f;
 		}
 		for (int l16 = 0; (l16 < 3); l16 = (l16 + 1)) {
-			fRec14[l16] = 0.0f;
-			
+			fRec15[l16] = 0.0f;
 		}
 		for (int l17 = 0; (l17 < 3); l17 = (l17 + 1)) {
-			fRec15[l17] = 0.0f;
-			
+			fRec16[l17] = 0.0f;
 		}
 		for (int l18 = 0; (l18 < 3); l18 = (l18 + 1)) {
-			fRec16[l18] = 0.0f;
-			
+			fRec17[l18] = 0.0f;
 		}
 		for (int l19 = 0; (l19 < 3); l19 = (l19 + 1)) {
-			fRec17[l19] = 0.0f;
-			
+			fRec18[l19] = 0.0f;
 		}
 		for (int l20 = 0; (l20 < 3); l20 = (l20 + 1)) {
-			fRec18[l20] = 0.0f;
-			
+			fRec19[l20] = 0.0f;
 		}
 		for (int l21 = 0; (l21 < 3); l21 = (l21 + 1)) {
-			fRec19[l21] = 0.0f;
-			
+			fRec20[l21] = 0.0f;
 		}
 		for (int l22 = 0; (l22 < 3); l22 = (l22 + 1)) {
-			fRec20[l22] = 0.0f;
-			
+			fRec21[l22] = 0.0f;
 		}
 		for (int l23 = 0; (l23 < 3); l23 = (l23 + 1)) {
-			fRec21[l23] = 0.0f;
-			
+			fRec22[l23] = 0.0f;
 		}
 		for (int l24 = 0; (l24 < 3); l24 = (l24 + 1)) {
-			fRec22[l24] = 0.0f;
-			
+			fRec23[l24] = 0.0f;
 		}
 		for (int l25 = 0; (l25 < 3); l25 = (l25 + 1)) {
-			fRec23[l25] = 0.0f;
-			
+			fRec24[l25] = 0.0f;
 		}
 		for (int l26 = 0; (l26 < 3); l26 = (l26 + 1)) {
-			fRec24[l26] = 0.0f;
-			
+			fRec25[l26] = 0.0f;
 		}
 		for (int l27 = 0; (l27 < 3); l27 = (l27 + 1)) {
-			fRec25[l27] = 0.0f;
-			
+			fRec26[l27] = 0.0f;
 		}
 		for (int l28 = 0; (l28 < 3); l28 = (l28 + 1)) {
-			fRec26[l28] = 0.0f;
-			
+			fRec27[l28] = 0.0f;
 		}
 		for (int l29 = 0; (l29 < 3); l29 = (l29 + 1)) {
-			fRec27[l29] = 0.0f;
-			
+			fRec28[l29] = 0.0f;
 		}
 		for (int l30 = 0; (l30 < 3); l30 = (l30 + 1)) {
-			fRec28[l30] = 0.0f;
-			
+			fRec29[l30] = 0.0f;
 		}
 		for (int l31 = 0; (l31 < 3); l31 = (l31 + 1)) {
-			fRec29[l31] = 0.0f;
-			
+			fRec30[l31] = 0.0f;
 		}
 		for (int l32 = 0; (l32 < 3); l32 = (l32 + 1)) {
-			fRec30[l32] = 0.0f;
-			
+			fRec31[l32] = 0.0f;
 		}
 		for (int l33 = 0; (l33 < 3); l33 = (l33 + 1)) {
-			fRec31[l33] = 0.0f;
-			
+			fRec32[l33] = 0.0f;
 		}
 		for (int l34 = 0; (l34 < 3); l34 = (l34 + 1)) {
-			fRec32[l34] = 0.0f;
-			
+			fRec33[l34] = 0.0f;
 		}
 		for (int l35 = 0; (l35 < 3); l35 = (l35 + 1)) {
-			fRec33[l35] = 0.0f;
-			
+			fRec34[l35] = 0.0f;
 		}
 		for (int l36 = 0; (l36 < 3); l36 = (l36 + 1)) {
-			fRec34[l36] = 0.0f;
-			
+			fRec35[l36] = 0.0f;
 		}
 		for (int l37 = 0; (l37 < 3); l37 = (l37 + 1)) {
-			fRec35[l37] = 0.0f;
-			
+			fRec36[l37] = 0.0f;
 		}
 		for (int l38 = 0; (l38 < 3); l38 = (l38 + 1)) {
-			fRec36[l38] = 0.0f;
-			
+			fRec37[l38] = 0.0f;
 		}
 		for (int l39 = 0; (l39 < 3); l39 = (l39 + 1)) {
-			fRec37[l39] = 0.0f;
-			
+			fRec38[l39] = 0.0f;
 		}
 		for (int l40 = 0; (l40 < 3); l40 = (l40 + 1)) {
-			fRec38[l40] = 0.0f;
-			
+			fRec39[l40] = 0.0f;
 		}
 		for (int l41 = 0; (l41 < 3); l41 = (l41 + 1)) {
-			fRec39[l41] = 0.0f;
-			
+			fRec40[l41] = 0.0f;
 		}
 		for (int l42 = 0; (l42 < 3); l42 = (l42 + 1)) {
-			fRec40[l42] = 0.0f;
-			
+			fRec41[l42] = 0.0f;
 		}
 		for (int l43 = 0; (l43 < 3); l43 = (l43 + 1)) {
-			fRec41[l43] = 0.0f;
-			
+			fRec42[l43] = 0.0f;
 		}
 		for (int l44 = 0; (l44 < 3); l44 = (l44 + 1)) {
-			fRec42[l44] = 0.0f;
-			
+			fRec43[l44] = 0.0f;
 		}
 		for (int l45 = 0; (l45 < 3); l45 = (l45 + 1)) {
-			fRec43[l45] = 0.0f;
-			
+			fRec44[l45] = 0.0f;
 		}
 		for (int l46 = 0; (l46 < 3); l46 = (l46 + 1)) {
-			fRec44[l46] = 0.0f;
-			
+			fRec45[l46] = 0.0f;
 		}
 		for (int l47 = 0; (l47 < 3); l47 = (l47 + 1)) {
-			fRec45[l47] = 0.0f;
-			
+			fRec46[l47] = 0.0f;
 		}
 		for (int l48 = 0; (l48 < 3); l48 = (l48 + 1)) {
-			fRec46[l48] = 0.0f;
-			
+			fRec47[l48] = 0.0f;
 		}
 		for (int l49 = 0; (l49 < 3); l49 = (l49 + 1)) {
-			fRec47[l49] = 0.0f;
-			
+			fRec48[l49] = 0.0f;
 		}
 		for (int l50 = 0; (l50 < 3); l50 = (l50 + 1)) {
-			fRec48[l50] = 0.0f;
-			
+			fRec49[l50] = 0.0f;
 		}
 		for (int l51 = 0; (l51 < 3); l51 = (l51 + 1)) {
-			fRec49[l51] = 0.0f;
-			
+			fRec50[l51] = 0.0f;
 		}
 		for (int l52 = 0; (l52 < 3); l52 = (l52 + 1)) {
-			fRec50[l52] = 0.0f;
-			
+			fRec51[l52] = 0.0f;
 		}
 		for (int l53 = 0; (l53 < 3); l53 = (l53 + 1)) {
-			fRec51[l53] = 0.0f;
-			
+			fRec52[l53] = 0.0f;
 		}
 		for (int l54 = 0; (l54 < 3); l54 = (l54 + 1)) {
-			fRec52[l54] = 0.0f;
-			
+			fRec53[l54] = 0.0f;
 		}
-		for (int l55 = 0; (l55 < 3); l55 = (l55 + 1)) {
-			fRec53[l55] = 0.0f;
-			
-		}
-		
 	}
 	
-	virtual void init(int samplingFreq) {
-		classInit(samplingFreq);
-		instanceInit(samplingFreq);
+	virtual void init(int sample_rate) {
+		classInit(sample_rate);
+		instanceInit(sample_rate);
 	}
-	virtual void instanceInit(int samplingFreq) {
-		instanceConstants(samplingFreq);
+	virtual void instanceInit(int sample_rate) {
+		instanceConstants(sample_rate);
 		instanceResetUserInterface();
 		instanceClear();
 	}
@@ -1241,9 +1232,9 @@ class synth_church_bell : public dsp {
 	virtual synth_church_bell* clone() {
 		return new synth_church_bell();
 	}
+	
 	virtual int getSampleRate() {
-		return fSamplingFreq;
-		
+		return fSampleRate;
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
@@ -1254,142 +1245,136 @@ class synth_church_bell : public dsp {
 		ui_interface->addNumEntry("pos", &fEntry0, 0.0f, 0.0f, 6.0f, 1.0f);
 		ui_interface->addHorizontalSlider("sharp", &fHslider2, 0.5f, 0.00999999978f, 5.0f, 0.00999999978f);
 		ui_interface->closeBox();
-		
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* output0 = outputs[0];
-		int iSlow0 = (50 * int(float(fEntry0)));
-		float fSlow1 = ftbl0synth_church_bellSIG0[iSlow0];
-		float fSlow2 = std::tan((fConst1 * float(fHslider1)));
-		float fSlow3 = (1.0f / fSlow2);
-		float fSlow4 = (((fSlow3 + 1.41421354f) / fSlow2) + 1.0f);
-		float fSlow5 = (float(fHslider0) / fSlow4);
-		float fSlow6 = (1.0f / fSlow4);
-		float fSlow7 = (((fSlow3 + -1.41421354f) / fSlow2) + 1.0f);
-		float fSlow8 = (2.0f * (1.0f - (1.0f / synth_church_bell_faustpower2_f(fSlow2))));
-		float fSlow9 = float(fButton0);
-		float fSlow10 = float(fHslider2);
-		float fSlow11 = (fConst10 * fSlow10);
-		float fSlow12 = (fConst11 * fSlow10);
-		float fSlow13 = (fConst12 / fSlow10);
-		float fSlow14 = ftbl0synth_church_bellSIG0[(iSlow0 + 1)];
-		float fSlow15 = ftbl0synth_church_bellSIG0[(iSlow0 + 2)];
-		float fSlow16 = ftbl0synth_church_bellSIG0[(iSlow0 + 3)];
-		float fSlow17 = ftbl0synth_church_bellSIG0[(iSlow0 + 4)];
-		float fSlow18 = ftbl0synth_church_bellSIG0[(iSlow0 + 5)];
-		float fSlow19 = ftbl0synth_church_bellSIG0[(iSlow0 + 6)];
-		float fSlow20 = ftbl0synth_church_bellSIG0[(iSlow0 + 7)];
-		float fSlow21 = ftbl0synth_church_bellSIG0[(iSlow0 + 8)];
-		float fSlow22 = ftbl0synth_church_bellSIG0[(iSlow0 + 9)];
-		float fSlow23 = ftbl0synth_church_bellSIG0[(iSlow0 + 10)];
-		float fSlow24 = ftbl0synth_church_bellSIG0[(iSlow0 + 11)];
-		float fSlow25 = ftbl0synth_church_bellSIG0[(iSlow0 + 12)];
-		float fSlow26 = ftbl0synth_church_bellSIG0[(iSlow0 + 13)];
-		float fSlow27 = ftbl0synth_church_bellSIG0[(iSlow0 + 14)];
-		float fSlow28 = ftbl0synth_church_bellSIG0[(iSlow0 + 15)];
-		float fSlow29 = ftbl0synth_church_bellSIG0[(iSlow0 + 16)];
-		float fSlow30 = ftbl0synth_church_bellSIG0[(iSlow0 + 17)];
-		float fSlow31 = ftbl0synth_church_bellSIG0[(iSlow0 + 18)];
-		float fSlow32 = ftbl0synth_church_bellSIG0[(iSlow0 + 19)];
-		float fSlow33 = ftbl0synth_church_bellSIG0[(iSlow0 + 20)];
-		float fSlow34 = ftbl0synth_church_bellSIG0[(iSlow0 + 21)];
-		float fSlow35 = ftbl0synth_church_bellSIG0[(iSlow0 + 22)];
-		float fSlow36 = ftbl0synth_church_bellSIG0[(iSlow0 + 23)];
-		float fSlow37 = ftbl0synth_church_bellSIG0[(iSlow0 + 24)];
-		float fSlow38 = ftbl0synth_church_bellSIG0[(iSlow0 + 25)];
-		float fSlow39 = ftbl0synth_church_bellSIG0[(iSlow0 + 26)];
-		float fSlow40 = ftbl0synth_church_bellSIG0[(iSlow0 + 27)];
-		float fSlow41 = ftbl0synth_church_bellSIG0[(iSlow0 + 28)];
-		float fSlow42 = ftbl0synth_church_bellSIG0[(iSlow0 + 29)];
-		float fSlow43 = ftbl0synth_church_bellSIG0[(iSlow0 + 30)];
-		float fSlow44 = ftbl0synth_church_bellSIG0[(iSlow0 + 31)];
-		float fSlow45 = ftbl0synth_church_bellSIG0[(iSlow0 + 32)];
-		float fSlow46 = ftbl0synth_church_bellSIG0[(iSlow0 + 33)];
-		float fSlow47 = ftbl0synth_church_bellSIG0[(iSlow0 + 34)];
-		float fSlow48 = ftbl0synth_church_bellSIG0[(iSlow0 + 35)];
-		float fSlow49 = ftbl0synth_church_bellSIG0[(iSlow0 + 36)];
-		float fSlow50 = ftbl0synth_church_bellSIG0[(iSlow0 + 37)];
-		float fSlow51 = ftbl0synth_church_bellSIG0[(iSlow0 + 38)];
-		float fSlow52 = ftbl0synth_church_bellSIG0[(iSlow0 + 39)];
-		float fSlow53 = ftbl0synth_church_bellSIG0[(iSlow0 + 40)];
-		float fSlow54 = ftbl0synth_church_bellSIG0[(iSlow0 + 41)];
-		float fSlow55 = ftbl0synth_church_bellSIG0[(iSlow0 + 42)];
-		float fSlow56 = ftbl0synth_church_bellSIG0[(iSlow0 + 43)];
-		float fSlow57 = ftbl0synth_church_bellSIG0[(iSlow0 + 44)];
-		float fSlow58 = ftbl0synth_church_bellSIG0[(iSlow0 + 45)];
-		float fSlow59 = ftbl0synth_church_bellSIG0[(iSlow0 + 46)];
-		float fSlow60 = ftbl0synth_church_bellSIG0[(iSlow0 + 47)];
-		float fSlow61 = ftbl0synth_church_bellSIG0[(iSlow0 + 48)];
-		float fSlow62 = ftbl0synth_church_bellSIG0[(iSlow0 + 49)];
+		float fSlow0 = std::tan((fConst1 * float(fHslider1)));
+		float fSlow1 = (1.0f / fSlow0);
+		float fSlow2 = (((fSlow1 + 1.41421354f) / fSlow0) + 1.0f);
+		float fSlow3 = (float(fHslider0) / fSlow2);
+		float fSlow4 = (1.0f / fSlow2);
+		float fSlow5 = (((fSlow1 + -1.41421354f) / fSlow0) + 1.0f);
+		float fSlow6 = (2.0f * (1.0f - (1.0f / synth_church_bell_faustpower2_f(fSlow0))));
+		float fSlow7 = (1.0f / std::max<float>(1.0f, (fConst10 * float(fHslider2))));
+		float fSlow8 = float(fButton0);
+		int iSlow9 = (50 * int(float(fEntry0)));
+		float fSlow10 = ftbl0synth_church_bellSIG0[(iSlow9 + 36)];
+		float fSlow11 = ftbl0synth_church_bellSIG0[(iSlow9 + 35)];
+		float fSlow12 = ftbl0synth_church_bellSIG0[(iSlow9 + 31)];
+		float fSlow13 = ftbl0synth_church_bellSIG0[(iSlow9 + 30)];
+		float fSlow14 = ftbl0synth_church_bellSIG0[(iSlow9 + 29)];
+		float fSlow15 = ftbl0synth_church_bellSIG0[(iSlow9 + 28)];
+		float fSlow16 = ftbl0synth_church_bellSIG0[(iSlow9 + 27)];
+		float fSlow17 = ftbl0synth_church_bellSIG0[(iSlow9 + 26)];
+		float fSlow18 = ftbl0synth_church_bellSIG0[(iSlow9 + 25)];
+		float fSlow19 = ftbl0synth_church_bellSIG0[(iSlow9 + 24)];
+		float fSlow20 = ftbl0synth_church_bellSIG0[(iSlow9 + 23)];
+		float fSlow21 = ftbl0synth_church_bellSIG0[(iSlow9 + 22)];
+		float fSlow22 = ftbl0synth_church_bellSIG0[(iSlow9 + 21)];
+		float fSlow23 = ftbl0synth_church_bellSIG0[(iSlow9 + 20)];
+		float fSlow24 = ftbl0synth_church_bellSIG0[(iSlow9 + 19)];
+		float fSlow25 = ftbl0synth_church_bellSIG0[(iSlow9 + 18)];
+		float fSlow26 = ftbl0synth_church_bellSIG0[(iSlow9 + 17)];
+		float fSlow27 = ftbl0synth_church_bellSIG0[(iSlow9 + 16)];
+		float fSlow28 = ftbl0synth_church_bellSIG0[(iSlow9 + 15)];
+		float fSlow29 = ftbl0synth_church_bellSIG0[(iSlow9 + 14)];
+		float fSlow30 = ftbl0synth_church_bellSIG0[(iSlow9 + 13)];
+		float fSlow31 = ftbl0synth_church_bellSIG0[(iSlow9 + 12)];
+		float fSlow32 = ftbl0synth_church_bellSIG0[(iSlow9 + 11)];
+		float fSlow33 = ftbl0synth_church_bellSIG0[(iSlow9 + 10)];
+		float fSlow34 = ftbl0synth_church_bellSIG0[(iSlow9 + 9)];
+		float fSlow35 = ftbl0synth_church_bellSIG0[(iSlow9 + 8)];
+		float fSlow36 = ftbl0synth_church_bellSIG0[(iSlow9 + 7)];
+		float fSlow37 = ftbl0synth_church_bellSIG0[(iSlow9 + 6)];
+		float fSlow38 = ftbl0synth_church_bellSIG0[(iSlow9 + 5)];
+		float fSlow39 = ftbl0synth_church_bellSIG0[(iSlow9 + 4)];
+		float fSlow40 = ftbl0synth_church_bellSIG0[(iSlow9 + 3)];
+		float fSlow41 = ftbl0synth_church_bellSIG0[(iSlow9 + 2)];
+		float fSlow42 = ftbl0synth_church_bellSIG0[(iSlow9 + 1)];
+		float fSlow43 = ftbl0synth_church_bellSIG0[iSlow9];
+		float fSlow44 = ftbl0synth_church_bellSIG0[(iSlow9 + 32)];
+		float fSlow45 = ftbl0synth_church_bellSIG0[(iSlow9 + 33)];
+		float fSlow46 = ftbl0synth_church_bellSIG0[(iSlow9 + 34)];
+		float fSlow47 = ftbl0synth_church_bellSIG0[(iSlow9 + 37)];
+		float fSlow48 = ftbl0synth_church_bellSIG0[(iSlow9 + 38)];
+		float fSlow49 = ftbl0synth_church_bellSIG0[(iSlow9 + 39)];
+		float fSlow50 = ftbl0synth_church_bellSIG0[(iSlow9 + 40)];
+		float fSlow51 = ftbl0synth_church_bellSIG0[(iSlow9 + 41)];
+		float fSlow52 = ftbl0synth_church_bellSIG0[(iSlow9 + 42)];
+		float fSlow53 = ftbl0synth_church_bellSIG0[(iSlow9 + 43)];
+		float fSlow54 = ftbl0synth_church_bellSIG0[(iSlow9 + 44)];
+		float fSlow55 = ftbl0synth_church_bellSIG0[(iSlow9 + 45)];
+		float fSlow56 = ftbl0synth_church_bellSIG0[(iSlow9 + 46)];
+		float fSlow57 = ftbl0synth_church_bellSIG0[(iSlow9 + 47)];
+		float fSlow58 = ftbl0synth_church_bellSIG0[(iSlow9 + 48)];
+		float fSlow59 = ftbl0synth_church_bellSIG0[(iSlow9 + 49)];
 		for (int i = 0; (i < count); i = (i + 1)) {
 			iRec3[0] = ((1103515245 * iRec3[1]) + 12345);
 			fRec2[0] = ((4.65661287e-10f * float(iRec3[0])) - (fConst4 * ((fConst7 * fRec2[2]) + (fConst8 * fRec2[1]))));
-			fRec1[0] = ((fConst4 * (((fConst6 * fRec2[0]) + (fConst9 * fRec2[1])) + (fConst6 * fRec2[2]))) - (fSlow6 * ((fSlow7 * fRec1[2]) + (fSlow8 * fRec1[1]))));
-			fVec0[0] = fSlow9;
-			fVec1[0] = fSlow10;
-			fRec4[0] = ((((fSlow9 - fVec0[1]) > 0.0f) > 0)?0.0f:std::min<float>(fSlow11, ((fRec4[1] + (fConst10 * (fSlow10 - fVec1[1]))) + 1.0f)));
-			int iTemp0 = (fRec4[0] < fSlow12);
-			float fTemp1 = (fSlow5 * ((fRec1[2] + (fRec1[0] + (2.0f * fRec1[1]))) * (iTemp0?((fRec4[0] < 0.0f)?0.0f:(iTemp0?(fSlow13 * fRec4[0]):1.0f)):((fRec4[0] < fSlow11)?((fSlow13 * (0.0f - (fRec4[0] - fSlow12))) + 1.0f):0.0f))));
-			fRec0[0] = (fTemp1 - ((fConst14 * fRec0[1]) + (fConst15 * fRec0[2])));
-			fRec5[0] = (fTemp1 - ((fConst17 * fRec5[1]) + (fConst18 * fRec5[2])));
-			fRec6[0] = (fTemp1 - ((fConst20 * fRec6[1]) + (fConst21 * fRec6[2])));
-			fRec7[0] = (fTemp1 - ((fConst23 * fRec7[1]) + (fConst24 * fRec7[2])));
-			fRec8[0] = (fTemp1 - ((fConst26 * fRec8[1]) + (fConst27 * fRec8[2])));
-			fRec9[0] = (fTemp1 - ((fConst29 * fRec9[1]) + (fConst30 * fRec9[2])));
-			fRec10[0] = (fTemp1 - ((fConst32 * fRec10[1]) + (fConst33 * fRec10[2])));
-			fRec11[0] = (fTemp1 - ((fConst35 * fRec11[1]) + (fConst36 * fRec11[2])));
-			fRec12[0] = (fTemp1 - ((fConst38 * fRec12[1]) + (fConst39 * fRec12[2])));
-			fRec13[0] = (fTemp1 - ((fConst41 * fRec13[1]) + (fConst42 * fRec13[2])));
-			fRec14[0] = (fTemp1 - ((fConst44 * fRec14[1]) + (fConst45 * fRec14[2])));
-			fRec15[0] = (fTemp1 - ((fConst47 * fRec15[1]) + (fConst48 * fRec15[2])));
-			fRec16[0] = (fTemp1 - ((fConst50 * fRec16[1]) + (fConst51 * fRec16[2])));
-			fRec17[0] = (fTemp1 - ((fConst53 * fRec17[1]) + (fConst54 * fRec17[2])));
-			fRec18[0] = (fTemp1 - ((fConst56 * fRec18[1]) + (fConst57 * fRec18[2])));
-			fRec19[0] = (fTemp1 - ((fConst59 * fRec19[1]) + (fConst60 * fRec19[2])));
-			fRec20[0] = (fTemp1 - ((fConst62 * fRec20[1]) + (fConst63 * fRec20[2])));
-			fRec21[0] = (fTemp1 - ((fConst65 * fRec21[1]) + (fConst66 * fRec21[2])));
-			fRec22[0] = (fTemp1 - ((fConst68 * fRec22[1]) + (fConst69 * fRec22[2])));
-			fRec23[0] = (fTemp1 - ((fConst71 * fRec23[1]) + (fConst72 * fRec23[2])));
-			fRec24[0] = (fTemp1 - ((fConst74 * fRec24[1]) + (fConst75 * fRec24[2])));
-			fRec25[0] = (fTemp1 - ((fConst77 * fRec25[1]) + (fConst78 * fRec25[2])));
-			fRec26[0] = (fTemp1 - ((fConst80 * fRec26[1]) + (fConst81 * fRec26[2])));
-			fRec27[0] = (fTemp1 - ((fConst83 * fRec27[1]) + (fConst84 * fRec27[2])));
-			fRec28[0] = (fTemp1 - ((fConst86 * fRec28[1]) + (fConst87 * fRec28[2])));
-			fRec29[0] = (fTemp1 - ((fConst89 * fRec29[1]) + (fConst90 * fRec29[2])));
-			fRec30[0] = (fTemp1 - ((fConst92 * fRec30[1]) + (fConst93 * fRec30[2])));
-			fRec31[0] = (fTemp1 - ((fConst95 * fRec31[1]) + (fConst96 * fRec31[2])));
-			fRec32[0] = (fTemp1 - ((fConst98 * fRec32[1]) + (fConst99 * fRec32[2])));
-			fRec33[0] = (fTemp1 - ((fConst101 * fRec33[1]) + (fConst102 * fRec33[2])));
-			fRec34[0] = (fTemp1 - ((fConst104 * fRec34[1]) + (fConst105 * fRec34[2])));
-			fRec35[0] = (fTemp1 - ((fConst107 * fRec35[1]) + (fConst108 * fRec35[2])));
-			fRec36[0] = (fTemp1 - ((fConst110 * fRec36[1]) + (fConst111 * fRec36[2])));
-			fRec37[0] = (fTemp1 - ((fConst113 * fRec37[1]) + (fConst114 * fRec37[2])));
-			fRec38[0] = (fTemp1 - ((fConst116 * fRec38[1]) + (fConst117 * fRec38[2])));
-			fRec39[0] = (fTemp1 - ((fConst119 * fRec39[1]) + (fConst120 * fRec39[2])));
-			fRec40[0] = (fTemp1 - ((fConst122 * fRec40[1]) + (fConst123 * fRec40[2])));
-			fRec41[0] = (fTemp1 - ((fConst125 * fRec41[1]) + (fConst126 * fRec41[2])));
-			fRec42[0] = (fTemp1 - ((fConst128 * fRec42[1]) + (fConst129 * fRec42[2])));
-			fRec43[0] = (fTemp1 - ((fConst131 * fRec43[1]) + (fConst132 * fRec43[2])));
-			fRec44[0] = (fTemp1 - ((fConst134 * fRec44[1]) + (fConst135 * fRec44[2])));
-			fRec45[0] = (fTemp1 - ((fConst137 * fRec45[1]) + (fConst138 * fRec45[2])));
-			fRec46[0] = (fTemp1 - ((fConst140 * fRec46[1]) + (fConst141 * fRec46[2])));
-			fRec47[0] = (fTemp1 - ((fConst143 * fRec47[1]) + (fConst144 * fRec47[2])));
-			fRec48[0] = (fTemp1 - ((fConst146 * fRec48[1]) + (fConst147 * fRec48[2])));
-			fRec49[0] = (fTemp1 - ((fConst149 * fRec49[1]) + (fConst150 * fRec49[2])));
-			fRec50[0] = (fTemp1 - ((fConst152 * fRec50[1]) + (fConst153 * fRec50[2])));
-			fRec51[0] = (fTemp1 - ((fConst155 * fRec51[1]) + (fConst156 * fRec51[2])));
-			fRec52[0] = (fTemp1 - ((fConst158 * fRec52[1]) + (fConst159 * fRec52[2])));
-			fRec53[0] = (fTemp1 - ((fConst161 * fRec53[1]) + (fConst162 * fRec53[2])));
-			output0[i] = FAUSTFLOAT((0.0199999996f * ((((((((((((((((((((((((((((((((((((((((((((((((((fSlow1 * (fRec0[0] - fRec0[2])) + (fSlow14 * (fRec5[0] - fRec5[2]))) + (fSlow15 * (fRec6[0] - fRec6[2]))) + (fSlow16 * (fRec7[0] - fRec7[2]))) + (fSlow17 * (fRec8[0] - fRec8[2]))) + (fSlow18 * (fRec9[0] - fRec9[2]))) + (fSlow19 * (fRec10[0] - fRec10[2]))) + (fSlow20 * (fRec11[0] - fRec11[2]))) + (fSlow21 * (fRec12[0] - fRec12[2]))) + (fSlow22 * (fRec13[0] - fRec13[2]))) + (fSlow23 * (fRec14[0] - fRec14[2]))) + (fSlow24 * (fRec15[0] - fRec15[2]))) + (fSlow25 * (fRec16[0] - fRec16[2]))) + (fSlow26 * (fRec17[0] - fRec17[2]))) + (fSlow27 * (fRec18[0] - fRec18[2]))) + (fSlow28 * (fRec19[0] - fRec19[2]))) + (fSlow29 * (fRec20[0] - fRec20[2]))) + (fSlow30 * (fRec21[0] - fRec21[2]))) + (fSlow31 * (fRec22[0] - fRec22[2]))) + (fSlow32 * (fRec23[0] - fRec23[2]))) + (fSlow33 * (fRec24[0] - fRec24[2]))) + (fSlow34 * (fRec25[0] - fRec25[2]))) + (fSlow35 * (fRec26[0] - fRec26[2]))) + (fSlow36 * (fRec27[0] - fRec27[2]))) + (fSlow37 * (fRec28[0] - fRec28[2]))) + (fSlow38 * (fRec29[0] - fRec29[2]))) + (fSlow39 * (fRec30[0] - fRec30[2]))) + (fSlow40 * (fRec31[0] - fRec31[2]))) + (fSlow41 * (fRec32[0] - fRec32[2]))) + (fSlow42 * (fRec33[0] - fRec33[2]))) + (fSlow43 * (fRec34[0] - fRec34[2]))) + (fSlow44 * (fRec35[0] - fRec35[2]))) + (fSlow45 * (fRec36[0] - fRec36[2]))) + (fSlow46 * (fRec37[0] - fRec37[2]))) + (fSlow47 * (fRec38[0] - fRec38[2]))) + (fSlow48 * (fRec39[0] - fRec39[2]))) + (fSlow49 * (fRec40[0] - fRec40[2]))) + ((fRec41[0] - fRec41[2]) * fSlow50)) + ((fRec42[0] - fRec42[2]) * fSlow51)) + (fSlow52 * (fRec43[0] - fRec43[2]))) + (fSlow53 * (fRec44[0] - fRec44[2]))) + (fSlow54 * (fRec45[0] - fRec45[2]))) + (fSlow55 * (fRec46[0] - fRec46[2]))) + (fSlow56 * (fRec47[0] - fRec47[2]))) + (fSlow57 * (fRec48[0] - fRec48[2]))) + (fSlow58 * (fRec49[0] - fRec49[2]))) + (fSlow59 * (fRec50[0] - fRec50[2]))) + (fSlow60 * (fRec51[0] - fRec51[2]))) + (fSlow61 * (fRec52[0] - fRec52[2]))) + (fSlow62 * (fRec53[0] - fRec53[2])))));
+			fRec1[0] = ((fConst4 * (((fConst6 * fRec2[0]) + (fConst9 * fRec2[1])) + (fConst6 * fRec2[2]))) - (fSlow4 * ((fSlow5 * fRec1[2]) + (fSlow6 * fRec1[1]))));
+			fVec0[0] = fSlow8;
+			iRec4[0] = (((iRec4[1] + (iRec4[1] > 0)) * (fSlow8 <= fVec0[1])) + (fSlow8 > fVec0[1]));
+			float fTemp0 = (fSlow7 * float(iRec4[0]));
+			float fTemp1 = (fSlow3 * ((fRec1[2] + (fRec1[0] + (2.0f * fRec1[1]))) * std::max<float>(0.0f, std::min<float>(fTemp0, (2.0f - fTemp0)))));
+			fRec0[0] = (fTemp1 - ((fConst12 * fRec0[1]) + (fConst13 * fRec0[2])));
+			fRec5[0] = (fTemp1 - ((fConst15 * fRec5[1]) + (fConst16 * fRec5[2])));
+			fRec6[0] = (fTemp1 - ((fConst18 * fRec6[1]) + (fConst19 * fRec6[2])));
+			fRec7[0] = (fTemp1 - ((fConst21 * fRec7[1]) + (fConst22 * fRec7[2])));
+			fRec8[0] = (fTemp1 - ((fConst24 * fRec8[1]) + (fConst25 * fRec8[2])));
+			fRec9[0] = (fTemp1 - ((fConst27 * fRec9[1]) + (fConst28 * fRec9[2])));
+			fRec10[0] = (fTemp1 - ((fConst30 * fRec10[1]) + (fConst31 * fRec10[2])));
+			fRec11[0] = (fTemp1 - ((fConst33 * fRec11[1]) + (fConst34 * fRec11[2])));
+			fRec12[0] = (fTemp1 - ((fConst36 * fRec12[1]) + (fConst37 * fRec12[2])));
+			fRec13[0] = (fTemp1 - ((fConst39 * fRec13[1]) + (fConst40 * fRec13[2])));
+			fRec14[0] = (fTemp1 - ((fConst42 * fRec14[1]) + (fConst43 * fRec14[2])));
+			fRec15[0] = (fTemp1 - ((fConst45 * fRec15[1]) + (fConst46 * fRec15[2])));
+			fRec16[0] = (fTemp1 - ((fConst48 * fRec16[1]) + (fConst49 * fRec16[2])));
+			fRec17[0] = (fTemp1 - ((fConst51 * fRec17[1]) + (fConst52 * fRec17[2])));
+			fRec18[0] = (fTemp1 - ((fConst54 * fRec18[1]) + (fConst55 * fRec18[2])));
+			fRec19[0] = (fTemp1 - ((fConst57 * fRec19[1]) + (fConst58 * fRec19[2])));
+			fRec20[0] = (fTemp1 - ((fConst60 * fRec20[1]) + (fConst61 * fRec20[2])));
+			fRec21[0] = (fTemp1 - ((fConst63 * fRec21[1]) + (fConst64 * fRec21[2])));
+			fRec22[0] = (fTemp1 - ((fConst66 * fRec22[1]) + (fConst67 * fRec22[2])));
+			fRec23[0] = (fTemp1 - ((fConst69 * fRec23[1]) + (fConst70 * fRec23[2])));
+			fRec24[0] = (fTemp1 - ((fConst72 * fRec24[1]) + (fConst73 * fRec24[2])));
+			fRec25[0] = (fTemp1 - ((fConst75 * fRec25[1]) + (fConst76 * fRec25[2])));
+			fRec26[0] = (fTemp1 - ((fConst78 * fRec26[1]) + (fConst79 * fRec26[2])));
+			fRec27[0] = (fTemp1 - ((fConst81 * fRec27[1]) + (fConst82 * fRec27[2])));
+			fRec28[0] = (fTemp1 - ((fConst84 * fRec28[1]) + (fConst85 * fRec28[2])));
+			fRec29[0] = (fTemp1 - ((fConst87 * fRec29[1]) + (fConst88 * fRec29[2])));
+			fRec30[0] = (fTemp1 - ((fConst90 * fRec30[1]) + (fConst91 * fRec30[2])));
+			fRec31[0] = (fTemp1 - ((fConst93 * fRec31[1]) + (fConst94 * fRec31[2])));
+			fRec32[0] = (fTemp1 - ((fConst96 * fRec32[1]) + (fConst97 * fRec32[2])));
+			fRec33[0] = (fTemp1 - ((fConst99 * fRec33[1]) + (fConst100 * fRec33[2])));
+			fRec34[0] = (fTemp1 - ((fConst102 * fRec34[1]) + (fConst103 * fRec34[2])));
+			fRec35[0] = (fTemp1 - ((fConst105 * fRec35[1]) + (fConst106 * fRec35[2])));
+			fRec36[0] = (fTemp1 - ((fConst108 * fRec36[1]) + (fConst109 * fRec36[2])));
+			fRec37[0] = (fTemp1 - ((fConst111 * fRec37[1]) + (fConst112 * fRec37[2])));
+			fRec38[0] = (fTemp1 - ((fConst114 * fRec38[1]) + (fConst115 * fRec38[2])));
+			fRec39[0] = (fTemp1 - ((fConst117 * fRec39[1]) + (fConst118 * fRec39[2])));
+			fRec40[0] = (fTemp1 - ((fConst120 * fRec40[1]) + (fConst121 * fRec40[2])));
+			fRec41[0] = (fTemp1 - ((fConst123 * fRec41[1]) + (fConst124 * fRec41[2])));
+			fRec42[0] = (fTemp1 - ((fConst126 * fRec42[1]) + (fConst127 * fRec42[2])));
+			fRec43[0] = (fTemp1 - ((fConst129 * fRec43[1]) + (fConst130 * fRec43[2])));
+			fRec44[0] = (fTemp1 - ((fConst132 * fRec44[1]) + (fConst133 * fRec44[2])));
+			fRec45[0] = (fTemp1 - ((fConst135 * fRec45[1]) + (fConst136 * fRec45[2])));
+			fRec46[0] = (fTemp1 - ((fConst138 * fRec46[1]) + (fConst139 * fRec46[2])));
+			fRec47[0] = (fTemp1 - ((fConst141 * fRec47[1]) + (fConst142 * fRec47[2])));
+			fRec48[0] = (fTemp1 - ((fConst144 * fRec48[1]) + (fConst145 * fRec48[2])));
+			fRec49[0] = (fTemp1 - ((fConst147 * fRec49[1]) + (fConst148 * fRec49[2])));
+			fRec50[0] = (fTemp1 - ((fConst150 * fRec50[1]) + (fConst151 * fRec50[2])));
+			fRec51[0] = (fTemp1 - ((fConst153 * fRec51[1]) + (fConst154 * fRec51[2])));
+			fRec52[0] = (fTemp1 - ((fConst156 * fRec52[1]) + (fConst157 * fRec52[2])));
+			fRec53[0] = (fTemp1 - ((fConst159 * fRec53[1]) + (fConst160 * fRec53[2])));
+			output0[i] = FAUSTFLOAT((0.0199999996f * (((fRec0[0] - fRec0[2]) * fSlow10) + (((fRec5[0] - fRec5[2]) * fSlow11) + ((((((((((((((((fRec6[0] - fRec6[2]) * fSlow12) + (((fRec7[0] - fRec7[2]) * fSlow13) + (((fRec8[0] - fRec8[2]) * fSlow14) + (((fRec9[0] - fRec9[2]) * fSlow15) + (((fRec10[0] - fRec10[2]) * fSlow16) + (((fRec11[0] - fRec11[2]) * fSlow17) + (((fRec12[0] - fRec12[2]) * fSlow18) + (((fRec13[0] - fRec13[2]) * fSlow19) + (((fRec14[0] - fRec14[2]) * fSlow20) + (((fRec15[0] - fRec15[2]) * fSlow21) + (((fRec16[0] - fRec16[2]) * fSlow22) + (((fRec17[0] - fRec17[2]) * fSlow23) + (((fRec18[0] - fRec18[2]) * fSlow24) + (((fRec19[0] - fRec19[2]) * fSlow25) + (((fRec20[0] - fRec20[2]) * fSlow26) + (((fRec21[0] - fRec21[2]) * fSlow27) + (((fRec22[0] - fRec22[2]) * fSlow28) + (((fRec23[0] - fRec23[2]) * fSlow29) + (((fRec24[0] - fRec24[2]) * fSlow30) + (((fRec25[0] - fRec25[2]) * fSlow31) + (((fRec26[0] - fRec26[2]) * fSlow32) + (((fRec27[0] - fRec27[2]) * fSlow33) + (((fRec28[0] - fRec28[2]) * fSlow34) + (((fRec29[0] - fRec29[2]) * fSlow35) + (((fRec30[0] - fRec30[2]) * fSlow36) + (((fRec31[0] - fRec31[2]) * fSlow37) + (((fRec32[0] - fRec32[2]) * fSlow38) + (((fRec33[0] - fRec33[2]) * fSlow39) + (((fRec34[0] - fRec34[2]) * fSlow40) + (((fRec35[0] - fRec35[2]) * fSlow41) + (((fRec36[0] - fRec36[2]) * fSlow42) + (((fRec37[0] - fRec37[2]) * fSlow43) + ((((fRec38[0] - fRec38[2]) * fSlow44) + ((fRec39[0] - fRec39[2]) * fSlow45)) + ((fRec40[0] - fRec40[2]) * fSlow46)))))))))))))))))))))))))))))))))) + ((fRec41[0] - fRec41[2]) * fSlow47)) + ((fRec42[0] - fRec42[2]) * fSlow48)) + ((fRec43[0] - fRec43[2]) * fSlow49)) + ((fRec44[0] - fRec44[2]) * fSlow50)) + ((fRec45[0] - fRec45[2]) * fSlow51)) + ((fRec46[0] - fRec46[2]) * fSlow52)) + ((fRec47[0] - fRec47[2]) * fSlow53)) + ((fRec48[0] - fRec48[2]) * fSlow54)) + ((fRec49[0] - fRec49[2]) * fSlow55)) + ((fRec50[0] - fRec50[2]) * fSlow56)) + ((fRec51[0] - fRec51[2]) * fSlow57)) + ((fRec52[0] - fRec52[2]) * fSlow58)) + ((fRec53[0] - fRec53[2]) * fSlow59))))));
 			iRec3[1] = iRec3[0];
 			fRec2[2] = fRec2[1];
 			fRec2[1] = fRec2[0];
 			fRec1[2] = fRec1[1];
 			fRec1[1] = fRec1[0];
 			fVec0[1] = fVec0[0];
-			fVec1[1] = fVec1[0];
-			fRec4[1] = fRec4[0];
+			iRec4[1] = iRec4[0];
 			fRec0[2] = fRec0[1];
 			fRec0[1] = fRec0[0];
 			fRec5[2] = fRec5[1];
@@ -1490,12 +1475,9 @@ class synth_church_bell : public dsp {
 			fRec52[1] = fRec52[0];
 			fRec53[2] = fRec53[1];
 			fRec53[1] = fRec53[0];
-			
 		}
-		
 	}
 
-	
 };
 // clang-format on
 #endif

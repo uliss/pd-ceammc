@@ -230,6 +230,13 @@ typedef enum {
     E_SHAPE_RECT = 3 /*!< This shape is rectangle. */
 } eshape_types;
 
+enum eclip_flags {
+    E_CLIP_NONE = 0x0,
+    E_CLIP_MIN = 0x1,
+    E_CLIP_MAX = 0x2,
+    E_CLIP_MINMAX = E_CLIP_MIN & E_CLIP_MAX
+};
+
 /**
  * @struct t_pt
  * @brief A point structure.
@@ -332,6 +339,16 @@ typedef enum t_dashstyle {
     EDASHSTYLE_64 = 2 /*!<  */
 } t_dashstyle;
 
+/**
+ * @struct t_dashstyle
+ * @brief A dashstyle enum
+ */
+typedef enum t_smooth {
+    ESMOOTH_NONE = 0, /*!< Default. No dash line pattern */
+    ESMOOTH_RAW = 1, /*!<  */
+    ESMOOTH_BEZIER = 2 /*!<  */
+} t_smooth;
+
 //! The pre-defined black t_rgba
 extern const t_rgba rgba_black;
 //! The pre-defined grey dark t_rgba
@@ -409,6 +426,7 @@ typedef struct t_egobj {
 
     t_capstyle e_capstyle; /*!< The line capstyle of the graphical object. */
     t_dashstyle e_dashstyle; /*!< The line dashstyle of the graphical object. */
+    t_smooth e_smooth; /*!< The line smooth of the graphical object. */
 
     etextanchor_flags e_anchor; /*!< The anchor of the graphical object. */
     etextjustify_flags e_justify; /*!< The justification of the graphical object. */
@@ -437,6 +455,7 @@ typedef struct t_elayer {
     elayer_flags e_state; /*!< The layer state. */
     t_capstyle e_line_capstyle; /*!< The layer line capstyle. */
     t_dashstyle e_line_dashstyle; /*!< The layer line dashstyle. */
+    t_smooth e_line_smooth; /*!< The layer line dashstyle. */
 } t_elayer;
 
 /** @} */
@@ -470,6 +489,16 @@ typedef struct t_epopup {
 //! Macros that define the a GUI box
 #define CLASS_BOX gensym("box")
 
+typedef void (*t_mouseenter_method)(void* x);
+typedef void (*t_mouseleave_method)(void* x);
+typedef void (*t_mousemove_method)(void* x, t_glist*, t_pt, long);
+typedef void (*t_mousedown_method)(void* x, t_glist*, t_pt, t_pt, long);
+typedef void (*t_mouseup_method)(void* x, t_glist*, t_pt, long);
+typedef void (*t_mousewheel_method)(void* x, t_pt, long, float);
+typedef void (*t_dblclick_method)(void* x, t_glist*, t_pt, long);
+typedef void (*t_rightclick_method)(void* x, t_pt, t_pt);
+typedef void (*t_popup_method)(void* x, t_symbol*, long, t_pt);
+
 /**
  * @struct t_ewidget
  * @brief The default method of a class.
@@ -485,20 +514,23 @@ typedef struct t_ewidget {
     t_clickfn w_clickfn; /*!< The native Pd click method. */
     t_typ_method w_assist; /*!< The dummy iolets assist method. */
     t_typ_method w_paint; /*!< The paint method. */
-    t_typ_method w_mouseenter; /*!< The mouse enter method. */
-    t_typ_method w_mouseleave; /*!< The mouse leave method. */
-    t_typ_method w_mousemove; /*!< The mouse move method. */
-    t_typ_method w_mousedown; /*!< The mouse down method. */
+    t_typ_method w_create; /*!< The widget after create method. */
+    t_typ_method w_erase; /*!< The widget before erase method. */
+    t_mouseenter_method w_mouseenter; /*!< The mouse enter method. */
+    t_mouseleave_method w_mouseleave; /*!< The mouse leave method. */
+    t_mousemove_method w_mousemove; /*!< The mouse move method. */
+    t_mousedown_method w_mousedown; /*!< The mouse down method. */
     t_typ_method w_mousedrag; /*!< The mouse drag method. */
-    t_typ_method w_mouseup; /*!< The mouse up method. */
-    t_typ_method w_mousewheel; /*!< The mouse wheel method. */
-    t_typ_method w_dblclick; /*!< The mouse double click method. */
+    t_mouseup_method w_mouseup; /*!< The mouse up method. */
+    t_mousewheel_method w_mousewheel; /*!< The mouse wheel method. */
+    t_dblclick_method w_dblclick; /*!< The mouse double click method. */
+    t_rightclick_method w_rightclick; /*!< The mouse double click method. */
     t_typ_method w_key; /*!< The key method. */
     t_typ_method w_keyfilter; /*!< The key filter method. */
     t_typ_method w_getdrawparameters; /*!< The get draw parameter method. */
     t_typ_method w_save; /*!< The save method. */
     t_typ_method w_dosave; /*!< The real save method. */
-    t_typ_method w_popup; /*!< The popup method. */
+    t_popup_method w_popup; /*!< The popup method. */
     t_typ_method w_dsp; /*!< The dsp method. */
     t_typ_method w_oksize; /*!< The size validation method. */
     t_err_method w_notify; /*!< The notification method. */
@@ -519,24 +551,23 @@ typedef struct t_eattr {
     t_symbol* category; /*!< The dummy category of the attribute. */
     t_symbol* label; /*!< The label of the attribute. */
     t_symbol* style; /*!< The style of the attribute (checkbutton, color, number, entry, menu). */
-    long order; /*!< The dummy order of the attribute. */
-    char save; /*!< If the attribute should be saved. */
-    char paint; /*!< If the attribute should repaint the t_ebox when it has changed. */
-    char invisible; /*!< If the attribute is invisible. */
-    long flags; /*!< The dummy flags of the attribute. */
-    long offset; /*!< The offset of the attribute in the object structure. */
-    long sizemax; /*!< The maximum size of the attribute if the attribute is an array. */
-    long size; /*!< The size of the attribute if the attribute is an array. */
-
-    t_err_method getter; /*!< The getter method of the attribute. */
-    t_err_method setter; /*!< The setter method of the attribute. */
-    long clipped; /*!< If the attribute is clipped if it's value or an array of numerical values. */
-    float minimum; /*!< The minimum value of the attribute. */
-    float maximum; /*!< The maximum value of the attribute. */
-    float step; /*!< The increment or decrement step calue of the attribute. */
+    t_symbol* units; /*!< The units of the attribute. */
     t_symbol* defvals; /*!< The default value of the attribute. */
     t_symbol** itemslist; /*!< The available items of an attribute if it is a menu. */
     long itemssize; /*!< The number of available items of an attribute if it is a menu. */
+    t_err_method getter; /*!< The getter method of the attribute. */
+    t_err_method setter; /*!< The setter method of the attribute. */
+    size_t offset; /*!< The offset of the attribute in the object structure. */
+    size_t sizemax; /*!< The maximum size of the attribute if the attribute is an array. */
+    size_t size; /*!< The size of the attribute if the attribute is an array. */
+    float minimum; /*!< The minimum value of the attribute. */
+    float maximum; /*!< The maximum value of the attribute. */
+    float step; /*!< The increment or decrement step calue of the attribute. */
+    int order; /*!< The dummy order of the attribute. */
+    eclip_flags clipped; /*!< If the attribute is clipped if it's value or an array of numerical values. */
+    bool save; /*!< If the attribute should be saved. */
+    bool paint; /*!< If the attribute should repaint the t_ebox when it has changed. */
+    bool invisible; /*!< If the attribute is invisible. */
 } t_eattr;
 
 /**
@@ -550,8 +581,8 @@ typedef struct t_eclass {
     // in Pd 0.48 t_class* next added into t_class, and sizeof(t_class) grown to 8 bytes on x86_64
     // this padding added to prevent field rewriting values
     char c_padding[8];
-    char c_box; /*!< The marker if the class is GUI. */
-    char c_dsp; /*!< The marker if the class is DSP. */
+    bool c_box; /*!< The marker if the class is GUI. */
+    bool c_dsp; /*!< The marker if the class is DSP. */
     t_ewidget c_widget; /*!< The extra widget methods. */
     t_eattr** c_attr; /*!< The attributes. */
     long c_nattr; /*!< The number of attributes. */
@@ -707,17 +738,19 @@ typedef enum {
 typedef enum t_cursor {
     ECURSOR_LEFT_PTR = 0, /*!< The left_ptr string. */
     ECURSOR_CENTER_PTR = 1, /*!< The center_ptr string. */
-    ECURSOR_SDOUBLE_ARROW = 2, /*!< The sb_v_double_arrow string. */
-    ECURSOR_PLUS = 3, /*!< The plus string. */
-    ECURSOR_HAND = 4, /*!< The hand2 string. */
-    ECURSOR_CIRCLE = 5, /*!< The circle string. */
-    ECURSOR_X = 6, /*!< The X_cursor string. */
-    ECURSOR_BOTTOM = 7, /*!< The bottom_side string. */
-    ECURSOR_RIGHT_CORNER = 8, /*!< The bottom_right_corner string. */
-    ECURSOR_RIGHT_SIDE = 9, /*!< The right_side string. */
-    ECURSOR_DOUBLE_ARROW = 10, /*!< The double_arrow string. */
-    ECURSOR_EXCHANGE = 11, /*!< The exchange string. */
-    ECURSOR_XTERM = 12 /*!< The xterm string. */
+    ECURSOR_PLUS = 2, /*!< The plus string. */
+    ECURSOR_HAND = 3, /*!< The hand2 string. */
+    ECURSOR_CIRCLE = 4, /*!< The circle string. */
+    ECURSOR_X = 5, /*!< The X_cursor string. */
+    ECURSOR_BOTTOM = 6, /*!< The bottom_side string. */
+    ECURSOR_RIGHT_CORNER = 7, /*!< The bottom_right_corner string. */
+    ECURSOR_RIGHT_SIDE = 8, /*!< The right_side string. */
+    ECURSOR_LEFT_SIDE = 9, /*!< The left_side string. */
+    ECURSOR_EXCHANGE = 10, /*!< The exchange string. */
+    ECURSOR_XTERM = 11, /*!< The xterm string. */
+    ECURSOR_MOVE = 12, /*!< The move cursor */
+    ECURSOR_VDOUBLE_ARROW = 13, /*!< The sb_v_double_arrow string. */
+    ECURSOR_HDOUBLE_ARROW = 14 /*!< The sb_h_double_arrow string. */
 } ebox_cursors;
 
 /**
@@ -739,7 +772,7 @@ typedef struct t_edrawparams {
  * @details It contains the t_eobj with all the members for graphical behavior.
  * This should be used for graphical object that don't have signal processing methods.
  */
-typedef struct t_ebox {
+typedef struct t_ebox_ {
     t_eobj b_obj; ///<The  object.
 
     t_symbol* b_receive_id; /*!< The object user ID. */
@@ -762,19 +795,17 @@ typedef struct t_ebox {
     int b_selected_outlet; /*!< The outlet selected. */
     float b_zoom;
 
-    char b_smooth_method; /*!< Tk canvas line smooth method */
-    char b_mouse_down; /*!< The mouse state. */
-    char b_resize; /*!< Widget is in resize state */
+    bool b_mouse_down; /*!< The mouse state. */
+    bool b_resize; /*!< Widget is in resize state */
 
-    char b_visible; /*!< The visible state. */
-    char b_ready_to_draw; /*!< The ebox state for drawing. */
-    char b_have_window; /*!< The ebox window state. */
-    char b_isinsubcanvas; /*!< If the box is in a sub canvas. */
+    bool b_visible; /*!< The visible state. */
+    bool b_ready_to_draw; /*!< The ebox state for drawing. */
+    bool b_have_window; /*!< The ebox window state. */
+    bool b_isinsubcanvas; /*!< If the box is in a sub canvas. */
     t_edrawparams b_boxparameters; /*!< The ebox parameters. */
 
     t_elayer* b_layers; /*!< The ebox layers. */
     long b_number_of_layers; /*!< The ebox number of layers. */
-    char b_force_redraw; /*!< Force ebox redraw. */
 
     t_symbol* b_label; /*!< The UI label. */
     t_symbol* label_align; /*!< The UI label align: left center or right */
@@ -782,6 +813,9 @@ typedef struct t_ebox {
     t_symbol* label_side; /*!< The UI label anchor side: top, left, right, or bottom */
     int label_inner;
     int label_margins[2];
+    t_cursor cursor;
+
+    t_canvas* wis_canvas;
 } t_ebox;
 
 /** @} */

@@ -35,7 +35,7 @@ TEST_CASE("msg", "[extension]")
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
             WHEN_SEND_FLOAT_TO(0, t, 12);
-            REQUIRE_LIST_AT_OUTLET(0, t, LF(12));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 12);
 
             WHEN_SEND_SYMBOL_TO(0, t, "abc");
             REQUIRE_ANY_AT_OUTLET(0, t, LA("abc"));
@@ -74,7 +74,7 @@ TEST_CASE("msg", "[extension]")
             WHEN_SEND_FLOAT_TO(1, t, 123);
 
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_LIST_AT_OUTLET(0, t, LF(123));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 123);
 
             WHEN_SEND_FLOAT_TO(0, t, 124);
             REQUIRE_LIST_AT_OUTLET(0, t, LF(123, 124));

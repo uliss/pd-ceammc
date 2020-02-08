@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>control flow demultiplexer</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>flow</category>
             <keywords>demultiplex</keywords>
@@ -34,7 +34,8 @@
             <property name="@index" type="int" minvalue="0" default="0">current demultiplexer
             output index</property>
             <property name="@noprops" type="flag">pass all properties requests. When this flag is
-            specified you can't get @index property of current object</property>
+            specified you can't get or set @index property of current object: use right
+            inlet</property>
         </properties>
         <outlets dynamic="true">
             <outlet>demultiplexer first output</outlet>
@@ -45,7 +46,7 @@
 <![CDATA[
 [F]
 |
-|                 [ui.radio @nitems=4]
+|                 [ui.radio @nitems 4]
 |                 |
 |                 |.
 [flow.demultiplex 4]

@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>Moog Voltage Controlled Filter</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>flt</category>
             <keywords>moog vcf</keywords>
@@ -37,7 +37,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]                          [ui.knob @size=32x32]
+[F]                          [ui.knob @size 32 32]
 |                            |
 [phasor~ 50] [lfo.+tri~ 1]   |
 |            |               |

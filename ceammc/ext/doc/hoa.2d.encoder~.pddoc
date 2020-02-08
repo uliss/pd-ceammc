@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="hoa.2d.encoder~">
+        <title>hoa.2d.encoder~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+                <author>Pierre Guillot</author>
+                <author>Eliott Paris</author>
+                <author>Thomas Le Meur</author>
+            </authors>
+            <description>hoa 2d encoder</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>hoa encoder</keywords>
+            <since>0.8</since>
+            <also>
+                <see>hoa.2d.decoder~</see>
+            </also>
+            <aliases>
+                <alias>hoa.encoder~</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Creates the circular harmonics of a signal depending of a given order and a
+            position on a circle given in radians (θ).</par>
+            <a href="hoa/hoa.2d.encoder~-help.pd">CICM documentation</a>
+        </info>
+        <arguments>
+            <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
+            decomposition</argument>
+        </arguments>
+        <properties>
+            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
+            readonly="true">the order of decomposition</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>position on a circle in radians</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet type="audio">first circular harmonics output</outlet>
+            <outlet type="audio" number="...">... circular harmonics output</outlet>
+            <outlet type="audio" number="n">n-th circular harmonics output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[lfo.square~ 1]                    [phasor~ 0.15]
+|                                  |
+[ui.gain~ @size 120 14]            [phase->rad~]
+|                              .___/ |
+[hoa.encoder~ 5 {w=24,i=11,o=11}]  [ui.n~]
+*|*
+[hoa.scope~ @order 5 {i=11} @size 171 171]
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -238,6 +238,7 @@ struct Ast {
 
     Ast()
         : root(CONTAINTER)
+        , vars {}
         , ok(1)
     {
     }

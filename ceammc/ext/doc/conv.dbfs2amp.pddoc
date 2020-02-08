@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>convert decibel full scale to amplitude</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>conv</category>
             <keywords>conv amp dbfs decibel</keywords>
@@ -34,17 +34,17 @@
         <example>
             <pdascii>
 <![CDATA[
-[ui.hsl]
+[ui.hsl @min -144 @max 6]
 |
-[F]
+[F digits=8]
 |
 [dbfs->amp]
 |
-[F]
+[F digits=8]
 |
 [amp->dbfs]
 |
-[F]
+[F digits=8]
 ]]>
             </pdascii>
         </example>

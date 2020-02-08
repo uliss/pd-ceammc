@@ -44,8 +44,9 @@ TlTimeLine::TlTimeLine(const PdArgs& args)
 void TlTimeLine::dump() const
 {
     OBJ_DBG << "absolute events:";
+    int idx = 0;
     for (auto& t : tl_.events()) {
-        OBJ_DBG << "    " << t.name << " " << t.abs_time << " " << t.next_time;
+        OBJ_DBG << "    [" << (idx++) << "] " << t.name << " " << t.abs_time << " " << t.next_time;
     }
 
     BaseObject::dump();

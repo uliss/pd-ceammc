@@ -318,18 +318,18 @@ proc ::dialog_array::create_dialog {mytoplevel newone xabs yabs} {
 
     # buttons
     frame $mytoplevel.buttonframe
-    pack $mytoplevel.buttonframe -side bottom -expand 1 -fill x -pady 2m
+    pack $mytoplevel.buttonframe -side bottom -pady 2m
     button $mytoplevel.buttonframe.cancel -text [_ "Cancel"] \
         -command "::dialog_array::cancel $mytoplevel"
-    pack $mytoplevel.buttonframe.cancel -side left -expand 1 -fill x -padx 10
+    pack $mytoplevel.buttonframe.cancel -side left -expand 1 -fill x -padx 15 -ipadx 10
     if {$newone == 0 && $::windowingsystem ne "aqua"} {
         button $mytoplevel.buttonframe.apply -text [_ "Apply"] \
             -command "::dialog_array::apply $mytoplevel"
-        pack $mytoplevel.buttonframe.apply -side left -expand 1 -fill x -padx 10
+        pack $mytoplevel.buttonframe.apply -side left -expand 1 -fill x -padx 15 -ipadx 10
     }
     button $mytoplevel.buttonframe.ok -text [_ "OK"]\
         -command "::dialog_array::ok $mytoplevel" -default active
-    pack $mytoplevel.buttonframe.ok -side left -expand 1 -fill x -padx 10
+    pack $mytoplevel.buttonframe.ok -side left -expand 1 -fill x -padx 15 -ipadx 10
 
     # live widget updates on OSX in lieu of Apply button
     if {$::windowingsystem eq "aqua"} {

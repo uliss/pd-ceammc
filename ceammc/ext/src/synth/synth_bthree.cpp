@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "synth_bthree.h"
-#include "ceammc_factory.h"
+#include "stk_synth_factory.h"
 
 #include "BeeThree.h"
 #include "stksynth_p.h"
@@ -31,5 +31,5 @@ SynthBThree::SynthBThree(const PdArgs& args)
 
 void setup_synth_bthree()
 {
-    SoundExternalFactory<SynthBThree> obj("synth.bee3~", OBJECT_FACTORY_DEFAULT);
+    StkSynthFactory<SynthBThree> obj("synth.bee3~");
 }

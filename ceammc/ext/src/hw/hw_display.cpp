@@ -18,7 +18,9 @@ HwDisplay::HwDisplay(const PdArgs& args)
     : BaseObject(args)
 {
     createOutlet();
-    createCbProperty("@brightness", &HwDisplay::propBrightness, &HwDisplay::setPropBrightness);
+    createCbProperty("@brightness", &HwDisplay::propBrightness, &HwDisplay::setPropBrightness)
+        ->info()
+        .setType(PropertyInfoType::FLOAT);
 }
 
 AtomList HwDisplay::propBrightness() const
@@ -33,7 +35,7 @@ AtomList HwDisplay::propBrightness() const
 
 #ifdef WITH_X11DISPLAY
     float v = 0;
-    if(!display_.getBrightness(&v))
+    if (!display_.getBrightness(&v))
         OBJ_ERR << "can't get brightness";
 
     return AtomList(v);

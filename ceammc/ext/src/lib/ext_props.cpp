@@ -16,6 +16,7 @@
 #include "ceammc_format.h"
 #include "ceammc_pd.h"
 #include "ceammc_platform.h"
+#include "stk/stk/include/Stk.h"
 
 #include <algorithm>
 #include <iostream>
@@ -140,7 +141,7 @@ static void printInfo(std::ostream& os, const PropertyInfo& pi)
         os << "    \"default\": " << pi.defaultList() << ",\n";
         break;
     case PropertyInfoType::SYMBOL:
-        os << "    \"default\": \"" << pi.defaultSymbol()->s_name << "\",\n";
+        os << "    \"default\": \"" << pi.defaultSymbol(&s_)->s_name << "\",\n";
         break;
     case PropertyInfoType::VARIANT:
         if (!pi.defaultAtom().isNone())
@@ -162,7 +163,7 @@ int main(int argc, char* argv[])
     ceammc_init();
 
     if (argc < 2) {
-        cerr << "usage: " << platform::basename(argv[0]) << " OBJECT_NAME" << endl;
+        cerr << "usage: " << platform::basename(argv[0]) << " OBJECT_NAME [ARGS]" << endl;
         return 1;
     }
 
@@ -173,7 +174,29 @@ int main(int argc, char* argv[])
         return 2;
     }
 
-    pd::External ext(argv[1], AtomList());
+    AtomList pd_args;
+    if (argc > 2) {
+        for (int i = 2; i < argc; i++) {
+            t_binbuf* b = binbuf_new();
+            if (b) {
+                binbuf_text(b, argv[i], strlen(argv[i]));
+                auto n = binbuf_getnatom(b);
+                auto v = binbuf_getvec(b);
+
+                for (int j = 0; j < n; j++)
+                    pd_args.append(Atom(v[j]));
+
+                binbuf_free(b);
+            }
+        }
+    }
+
+    // stk rawwaves path
+    if (getenv("RAWWAVES") != nullptr) {
+        stk::Stk::setRawwavePath(getenv("RAWWAVES"));
+    }
+
+    pd::External ext(argv[1], pd_args);
     if (!ext.object()) {
         cerr << "can't create object: " << argv[1] << endl;
         return 3;
@@ -188,6 +211,9 @@ int main(int argc, char* argv[])
     cout << "{\n";
 
     for (auto& p : ext.properties()) {
+        if (p.name().size() > 1 && p.name()[1] == '.')
+            continue;
+
         if (!first)
             cout << ",\n";
 

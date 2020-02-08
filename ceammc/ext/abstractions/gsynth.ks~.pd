@@ -13,13 +13,13 @@
 -262144 0;
 #X text 10 218 cutoff:;
 #X obj 12 237 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.ks~/slider0 @min 0.1 @max 1;
+/gui/$1/synth.ks~/slider0 @min 0.1 @max 1;
 #X obj 140 237 ui.number @size 40 12 @digits 3 @min 0.1 @max 1;
 #X obj 190 237 msg set;
 #X msg 260 237 @cutoff \$1;
 #X text 10 251 gain:;
 #X obj 12 270 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.ks~/slider1 @min 0 @max 1;
+/gui/$1/synth.ks~/slider1 @min 0 @max 1;
 #X obj 140 270 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 270 msg set;
 #X msg 260 270 @gain \$1;
@@ -28,31 +28,31 @@
 #X msg 260 284 @gate \$1;
 #X text 10 304 mode:;
 #X obj 12 323 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.ks~/slider3 @min 0 @max 1;
+/gui/$1/synth.ks~/slider3 @min 0 @max 1;
 #X obj 140 323 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 323 msg set;
 #X msg 260 323 @mode \$1;
 #X text 10 337 mute:;
 #X obj 12 356 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.ks~/slider4 @min 0 @max 1;
+/gui/$1/synth.ks~/slider4 @min 0 @max 1;
 #X obj 140 356 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 356 msg set;
 #X msg 260 356 @mute \$1;
 #X text 10 370 pitch:;
 #X obj 12 389 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.ks~/slider5 @min 36 @max 84;
+/gui/$1/synth.ks~/slider5 @min 36 @max 84;
 #X obj 140 389 ui.number @size 40 12 @digits 3 @min 36 @max 84;
 #X obj 190 389 msg set;
 #X msg 260 389 @pitch \$1;
 #X text 10 403 pos:;
 #X obj 12 422 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.ks~/slider6 @min 0 @max 1;
+/gui/$1/synth.ks~/slider6 @min 0 @max 1;
 #X obj 140 422 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 422 msg set;
 #X msg 260 422 @pos \$1;
 #X text 10 436 sharp:;
 #X obj 12 455 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.ks~/slider7 @min 0.01 @max 1;
+/gui/$1/synth.ks~/slider7 @min 0.01 @max 1;
 #X obj 140 455 ui.number @size 40 12 @digits 3 @min 0.01 @max 1;
 #X obj 190 455 msg set;
 #X msg 260 455 @sharp \$1;

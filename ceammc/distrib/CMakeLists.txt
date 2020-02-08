@@ -5,13 +5,21 @@ add_subdirectory(docker)
 
 set(MAKELIB_SCRIPT "")
 
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(CEAMMC_DISTRIB_ARCH "64-bit")
+elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+    set(CEAMMC_DISTRIB_ARCH "32-bit")
+endif()
+
 if(APPLE)
     set(DYLIBBUNDLER "${CMAKE_CURRENT_BINARY_DIR}/mac/dylibbundler")
-    set(MAKELIB_SCRIPT "${CMAKE_CURRENT_BINARY_DIR}/mac/make_lib_mac.sh")
+    set(MAKELIB_SCRIPT "${PROJECT_BINARY_DIR}/dist/make_lib_mac.sh")
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/mac/make_lib_mac.sh
-                   ${CMAKE_CURRENT_BINARY_DIR}/mac/make_lib_mac.sh @ONLY)
+                   ${MAKELIB_SCRIPT} @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/mac/github_upload_release.sh
                    ${PROJECT_BINARY_DIR}/dist/github_upload_release.sh @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/mac/install_external.sh
+                   ${PROJECT_BINARY_DIR}/dist/install_external.sh @ONLY)
 endif()
 
 if(UNIX AND NOT APPLE)
@@ -20,6 +28,10 @@ if(UNIX AND NOT APPLE)
 endif()
 
 if(WIN32 OR MSYS)
+    find_program(7Z_EXE NAMES "7z" "7z.exe")
+    if(7Z_EXE)
+        message(STATUS "7z found at: ${7Z_EXE}")
+    endif()
     set(MAKELIB_SCRIPT "${PROJECT_BINARY_DIR}/dist/make_lib_win.sh")
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win/make_lib_win.sh ${MAKELIB_SCRIPT} @ONLY)
 endif()
@@ -27,26 +39,13 @@ endif()
 if(MAKELIB_SCRIPT)
     if(APPLE)
         add_custom_target(ceammc_lib
-            COMMAND "${MAKELIB_SCRIPT}"
-                "${CMAKE_CURRENT_SOURCE_DIR}/.."
-                "${CMAKE_CURRENT_BINARY_DIR}/../ext"
-                "${CMAKE_BINARY_DIR}/dist"
-                "${CEAMMC_LIB_VERSION}"
+            COMMAND "${MAKELIB_SCRIPT}" "${CMAKE_BINARY_DIR}/dist"
             SOURCES mac/make_lib_mac.sh)
-    elseif(WIN32)
-        if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-            set(CEAMMC_DISTRIB_ARCH "64-bit")
-        elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
-            set(CEAMMC_DISTRIB_ARCH "32-bit")
-        endif()
 
+        add_custom_target(install_external COMMAND ${PROJECT_BINARY_DIR}/dist/install_external.sh)
+    elseif(WIN32)
         add_custom_target(ceammc_lib
-            COMMAND "${MAKELIB_SCRIPT}"
-                "${CMAKE_SOURCE_DIR}/ceammc"
-                "${CMAKE_INSTALL_PREFIX}"
-                "${CMAKE_BINARY_DIR}/dist"
-                "${CEAMMC_LIB_VERSION}"
-                "${CEAMMC_DISTRIB_ARCH}"
+            COMMAND "${MAKELIB_SCRIPT}" "${CMAKE_BINARY_DIR}/dist"
             SOURCES win/make_lib_win.sh)
     endif()
 endif()
@@ -70,6 +69,7 @@ endif()
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/list_all_doc_externals.sh ${PROJECT_BINARY_DIR} @ONLY)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/check_doc_external.py ${PROJECT_BINARY_DIR} @ONLY)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/doc_check_methods.sh ${PROJECT_BINARY_DIR} @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/check_all_pddoc_refs.sh ${PROJECT_BINARY_DIR} @ONLY)
 
 add_custom_target(ceammc_doc_check_methods
     COMMAND ${PROJECT_BINARY_DIR}/doc_check_methods.sh

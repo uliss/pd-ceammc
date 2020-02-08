@@ -615,8 +615,8 @@ bool BaseObject::checkArgs(const AtomList& lst, BaseObject::ArgumentType a1,
 void BaseObject::dump() const
 {
     // cast from size_t -> int; for all supported OS-platform to be happy
-    post("[%s] inlets: %i", className().c_str(), static_cast<int>(numInlets()));
-    post("[%s] outlets: %i", className().c_str(), static_cast<int>(numOutlets()));
+    post("[%s] inlets: %i", className()->s_name, static_cast<int>(numInlets()));
+    post("[%s] outlets: %i", className()->s_name, static_cast<int>(numOutlets()));
 
     Properties::const_iterator it;
     for (it = props_.begin(); it != props_.end(); ++it) {
@@ -624,7 +624,7 @@ void BaseObject::dump() const
             continue;
 
         post("[%s] property: %s = %s",
-            className().c_str(),
+            className()->s_name,
             it->first->s_name,
             to_string(it->second->get()).c_str());
     }
@@ -674,6 +674,12 @@ void BaseObject::onAny(t_symbol* s, const AtomList&)
     OBJ_ERR << "unexpected message: " << s;
 }
 
+void BaseObject::onClick(t_floatarg /*xpos*/, t_floatarg /*ypos*/,
+    t_floatarg /*shift*/, t_floatarg /*ctrl*/, t_floatarg /*alt*/)
+{
+    OBJ_ERR << "not implemeneted";
+}
+
 void BaseObject::anyDispatch(t_symbol* s, const AtomList& lst)
 {
     if (processAnyInlets(s, lst))
@@ -683,6 +689,24 @@ void BaseObject::anyDispatch(t_symbol* s, const AtomList& lst)
         return;
 
     onAny(s, lst);
+}
+
+void BaseObject::dispatchLoadBang(int action)
+{
+    switch (action) {
+    case LB_LOAD:
+        onLoadBang();
+        break;
+    case LB_INIT:
+        onInitBang();
+        break;
+    case LB_CLOSE:
+        onCloseBang();
+        break;
+    default:
+        OBJ_ERR << "unknown loadbang type: " << action;
+        break;
+    }
 }
 
 void BaseObject::bindReceive(t_symbol* path)
@@ -735,18 +759,23 @@ std::string BaseObject::findInStdPaths(const char* fname) const
 
 t_symbol* BaseObject::tryGetPropKey(t_symbol* sel)
 {
-    t_symbol* res = nullptr;
+    if (!sel)
+        return nullptr;
+
     const char* str = sel->s_name;
+    if (!str || !str[0])
+        return nullptr;
+
     const size_t last_idx = strlen(str) - 1;
 
     if (str[last_idx] == '?') {
         char buf[MAXPDSTRING] = { 0 };
         memcpy(&buf, str, last_idx);
         buf[last_idx] = '\0';
-        res = gensym(buf);
+        return gensym(buf);
     }
 
-    return res;
+    return nullptr;
 }
 
 bool BaseObject::isAbsolutePath(const char* path)

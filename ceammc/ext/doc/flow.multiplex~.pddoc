@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>audio stream multiplexer</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>flow</category>
             <keywords>flow multiplex</keywords>
@@ -48,7 +48,7 @@
 [osc~ 400] [osc~ 800] [osc~ 1600]     [ui.dsp~]
 |          |          |
 |          |          |
-|          |          |    [ui.radio @nitems=3]
+|          |          |    [ui.radio @nitems 3]
 |          |          |    |
 |          |          |    |
 |          |.         |..  |...

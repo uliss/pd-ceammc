@@ -1,5 +1,75 @@
 # CEAMMC external library changelog
 
+## [0.8]
+### Added:
+- conv.car2pol converter from Cartesian to Polar coordinates added (with alias car->pol)
+- conv.pol2car converter from Polar to Cartesian coordinates added (with alias pol->car)
+- conv.rad2phase added (with alias rad->phase)
+- conv.rad2phase~ added (with alias rad->phase~)
+- conv.phase2rad added (with alias phase->rad)
+- conv.phase2rad~ added (with alias phase->rad~)
+- canvas.dir added
+- canvas.name added
+- canvas.path added
+- flow.pack added
+- flow.sync_pack (flow.pack') added
+- list->props second outlet added for non-props elements
+- list.at @default property added (that outputs if element is not found)
+- list.walk second outlet added (with bang after reaching list last element)
+- list.separate enumeration support added
+- popup menu added to ui.radio in check list mode
+- @mouse_events property added to some UI object, that allows do some tricky user interaction things
+- ui.rslider move added (with SHIFT, change with ALT)
+- ui.hgain~ alias added to create horizontal ui.gain~
+- ui.hgain2~ alias added to create horizontal ui.gain2~
+- ui.gain~/ui.gain2~ @relative property added for relative input mode (by default)
+- ui.gain~/ui.gain2~ slow value change added in relative mode while holding SHIFT
+- ui.gain~/ui.gain2~ mouse wheel support added (with slow on SHIFT)
+- ui.gain~/ui.gain2~ popup added
+- ui.gain~/ui.gain2~ MIDI learn added (double-click + SHIFT)
+- ui.polar added
+- ui.slider slow change with SHIFT added
+- ui.slider log scale support added with @scale property
+- ui.knob slow value change with SHIFT added
+- ui.knob log scale support added with @scale property
+- ui.knob mouse wheel support added (with slow on SHIFT)
+- ui.mouse_filter added to filter specified mouse event types
+- ui.mouse_route added to route specified mouse event types
+- popup menu added to ui.preset with read/write actions
+- math sync binary operations added (all inlets are hot):
+  - math.sync_add (math.+', +')
+  - math.sync_sub (math.-', -')
+  - math.sync_mul (math.*', *')
+  - math.sync_div (math./', /')
+  - math.sync_mod (math.%', %')
+  - math.sync_eq (math.==', ==')
+  - math.sync_ne (math.!=', !=')
+  - math.sync_lt (math.<', <')
+  - math.sync_le (math.<=', <=')
+  - math.sync_gt (math.>', >')
+  - math.sync_ge (math.>=', >=')
+  - math.sync_and (math.&&', &&')
+  - math.sync_or (math.||', ||')
+  - math.sync_xor (math.^', ^')
+- system.cursor @relative property added to output coords relative to window
+- system.colorpanel moved into ceammc library and @float, @int and @hex properties are added
+
+### Changed:
+- ui.tab in single mode outputs like ui.menu: list pair - INDEX TAB_NAME
+- flow.demux by default handles @index and @index? properties. To pass this values use @noprops flag
+- default range for ui.slider2d now is from -1 (left) to 1 (right) and from 1 (top) to -1 (bottom)
+- in ui.slider2d following properties are renamed:
+  - @x_min renamed to @x_left
+  - @x_max renamed to @x_right
+  - @y_min renamed to @y_top
+  - @y_max renamed to @y_bottom
+- in ui.sliders knobs are added
+
+### Fixed:
+- ui.vrd - invalid draw in check list mode
+- ui.* - various label fixes
+- ui.* @label property handles space in property dialog without entering ''
+
 ## [0.7.1]
 ### Added:
 - properties dialogs for ui.* objects are improved:

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="hoa.out">
+        <title>hoa.out</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+                <author>Pierre Guillot</author>
+                <author>Eliott Paris</author>
+                <author>Thomas Le Meur</author>
+            </authors>
+            <description>message outlet for a patcher loaded by hoa.process~</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>hoa outlet</keywords>
+            <since>0.8</since>
+            <also>
+                <see>hoa.out~</see>
+                <see>hoa.in</see>
+                <see>hoa.in~</see>
+            </also>
+        </meta>
+        <info>
+            <par>hoa.out defines a message outlet for a patcher loaded by a hoa.process~
+            object.</par>
+        </info>
+        <arguments>
+            <argument name="INDEX" type="int" minvalue="1">outlet index</argument>
+        </arguments>
+        <properties>
+            <property name="@index" type="int" minvalue="1" default="1">outlet index</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output bang message in the corresponding hoa.process~ object's
+                message outlet</xinfo>
+                <xinfo on="float">output float message in the corresponding hoa.process~ object's
+                message outlet</xinfo>
+                <xinfo on="symbol">output symbol message in the corresponding hoa.process~ object's
+                message outlet</xinfo>
+                <xinfo on="list">output list message in the corresponding hoa.process~ object's
+                message outlet</xinfo>
+                <xinfo on="any">output any message in the corresponding hoa.process~ object's
+                message outlet</xinfo>
+            </inlet>
+        </inlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open 0( [open 1(  [42( [\#0 43( [\#1 44(
+|        |         |    |        |
+|        |         |.   |.       |.
+[hoa.process~ 2 hoa/hoa_in_example1 planewaves]
+|
+[print A]
+
+[open 0(     [42( [\#0 43( [\#1 44( [45( [\#0 46( [\#1 47(
+|            |    |        |        |    |        |
+| [open 1(   |    |        |        |    |        |
+| |          |.   |.       |.       |... |...     |...
+[hoa.process~ 2 hoa/hoa_in_example2 planewaves       ]
+|                                ^|
+[print B]                        [print C]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

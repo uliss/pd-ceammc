@@ -8,19 +8,23 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>Multiple slider widget</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category view="link">ui</category>
             <keywords>ui slider</keywords>
             <since>0.1</since>
             <also>
                 <see view="link">ui.slider</see>
-                <see view="link">ui.presets</see>
+                <see view="link">ui.preset</see>
             </also>
         </meta>
-        <info>
-            <par>Double click in edit mode changes multislider orientation</par>
-        </info>
+        <mouse>
+            <event editmode="true" type="double-click" keys="Cmd">changes slider
+            orientation</event>
+            <event editmode="false" type="right-click">opens popup menu for quick settings of
+            values: fill, linup, lindown and random</event>
+            <event editmode="false" type="drag">change slider values</event>
+        </mouse>
         <arguments>
             <argument name="N" type="float" minvalue="1" maxvalue="1024">number of
             sliders</argument>
@@ -30,7 +34,7 @@
             sliders</property>
             <property name="@min" type="float" default="0">minimal value</property>
             <property name="@max" type="float" default="1">maximum value</property>
-            <property name="@range" type="float" default="1" readonly="true">value range</property>
+            <property name="@range" type="float" readonly="true">value range</property>
             <property name="@value" type="list" readonly="true">sliders value</property>
             <property name="@auto_range" type="int" enum="0 1" default="0">if set numbers of
             sliders equal to input list length</property>
@@ -44,6 +48,8 @@
             <property name="@size" type="list">element size (width, height pair)</property>
             <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
             to the lowest level</property>
+            <property name="@mouse_events" type="int" enum="0 1" default="0">mouse events output
+            mode. If on outputs @mouse_down, @mouse_up and @mouse_drag events</property>
             <property name="@slider_color" type="list">slider color (list of red, green, blue
             values in 0-1 range)</property>
             <property name="@select_color" type="list">selection color (list of red, green, blue
@@ -59,12 +65,29 @@
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
+            <!-- label -->
+            <property name="@label" type="symbol">label text</property>
+            <property name="@label_color" type="list">label color in RGB format within 0-1 range,
+            for example: 0.2 0.4 0.1</property>
+            <property name="@label_inner" type="int" enum="0 1" default="0">label position (1 -
+            inner, 0 - outer).</property>
+            <property name="@label_align" type="symbol" enum="left center right" default="left">
+            label horizontal align</property>
+            <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
+            label vertical align</property>
+            <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
+            label snap side</property>
+            <property name="@label_margins" type="list" default="0 0">label offset in
+            pixels</property>
         </properties>
         <methods>
             <method name="dump">dumps all object info to Pd console window</method>
             <method name="select">draws specified slider with select color 
             <param name="N" required="true" minvalue="0" type="int">slider index, starting from
             0.</param></method>
+            <method name="random">fill sliders with random values without output</method>
+            <method name="linup">fill sliders with increasing values without output</method>
+            <method name="lindown">fill sliders with decreasing values without output</method>
             <method name="fill">fill sliders value with specified value without output</method>
             <method name="set">sets sliders values without output 
             <param name="VALUES" type="list">slider values</param></method>
@@ -100,7 +123,7 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">outputs sliders position</xinfo>
-                <xinfo on="list">sets slider values and outputs it</xinfo>
+                <xinfo on="list">sets slider values and output them</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -119,7 +142,7 @@
 |  |        | |                 |           |   |
 |  |        | |                 |           |   |  /*vertical slider*/
 |  |        | |                 |           |   |
-[ui.sliders       @max=10  @presetname=sl-help  ]  [ui.sliders @size=100x150]
+[ui.sliders       @max 10  @presetname sl-help  ]  [ui.sliders @size 100 150]
 |
 |
 |

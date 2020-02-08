@@ -7,6 +7,7 @@
 /* changes and additions for FFTW3 by Thomas Grill                      */
 
 #include "m_pd.h"
+#include "m_imp.h"
 #include <fftw3.h>
 
 int ilog2(int n);
@@ -250,4 +251,3 @@ void pd_fft(t_float *buf, int npoints, int inverse)
     for (i = 0, fz = (float *)(p->out); i < 2 * npoints; i++)
         buf[i] = *fz++;
 }
-

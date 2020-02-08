@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>send message when patch loads</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>msg</category>
             <keywords>message loadbang onload</keywords>
@@ -39,7 +39,7 @@
 [loadmsg load message]
 |   |       |
 |   |       |
-[B] [print] [ui.d]
+[B] [print] [ui.display @display_type=1]
 ]]>
             </pdascii>
         </example>

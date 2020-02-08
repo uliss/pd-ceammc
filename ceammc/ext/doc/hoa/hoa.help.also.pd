@@ -1,0 +1,10 @@
+#N canvas 405 374 250 144 10;
+#X obj 1 1 cnv 15 130 40 empty \$0-hoa.header empty 3 12 0 18 -212212
+-1 0;
+#X obj 14 12 ui.link @size 93 17 @receive "(null)" @send "(null)" @pinned
+0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color
+0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname
+"Menlo" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
+"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
+"top" @label_margins 0 0 @url "hoa-help.pd" @title "hoa.overview";
+#X coords 0 -1 1 1 132 42 2 0 0;

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="canvas.path">
+        <title>canvas.path</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>current canvas fullpath</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>patch</category>
+            <keywords>canvas path</keywords>
+            <also>
+                <see>canvas.name</see>
+                <see>canvas.dir</see>
+            </also>
+            <since>0.8</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output current canvas fullpath</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>current canvas fullpath as symbol</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[canvas.path] [B]
+|             |
+[ui.display   ]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

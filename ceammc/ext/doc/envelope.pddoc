@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>Envelope data type</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>env</category>
             <keywords>envelope</keywords>
@@ -209,8 +209,8 @@
         <properties>
             <property name="@npoints" type="int" readonly="true" minvalue="0">number of
             points</property>
-            <property name="@length" type="float" readonly="true">total envelope time length
-            (ms)</property>
+            <property name="@length" type="float" units="millisecond" readonly="true">total
+            envelope time length</property>
             <property name="@points" type="list" readonly="true">list of point times
             (ms)</property>
             <property name="@values" type="list" readonly="true">list of point values</property>

@@ -13,48 +13,47 @@
 #X obj 30 224 complex.arg;
 #X text 200 224 the phase angle of the complex number x \, expressed
 in radians;
-#X obj 30 261 complex.conj;
-#X text 200 261 the complex conjugate;
-#X obj 30 288 complex.cos;
-#X text 200 288 cosine of complex number;
-#X obj 30 315 complex.div;
-#X text 200 315 divide complex numbers;
-#X obj 30 342 complex.exp;
-#X text 200 342 complex base e exponential;
-#X obj 30 369 complex.imag;
-#X text 200 369 get imaginary part of complex number;
-#X obj 30 396 complex.log;
-#X text 200 396 complex natural logarithm with the branch cuts along
+#X obj 30 251 complex.conj;
+#X text 200 251 the complex conjugate;
+#X obj 30 278 complex.cos;
+#X text 200 278 cosine of complex number;
+#X obj 30 305 complex.div;
+#X text 200 305 divide complex numbers;
+#X obj 30 332 complex.exp;
+#X text 200 332 complex base e exponential;
+#X obj 30 359 complex.imag;
+#X text 200 359 get imaginary part of complex number;
+#X obj 30 386 complex.log;
+#X text 200 386 complex natural logarithm with the branch cuts along
 the negative real axis;
-#X obj 30 433 complex.log10;
-#X text 200 433 complex common logarithm with the branch cuts along
+#X obj 30 426 complex.log10;
+#X text 200 426 complex common logarithm with the branch cuts along
 the negative real axis;
-#X obj 30 470 complex.mul;
-#X text 200 470 multiply complex numbers;
-#X obj 30 497 complex.new;
-#X text 200 497 Complex data;
-#X obj 30 524 complex.norm;
-#X text 200 524 the squared magnitude;
-#X obj 30 551 complex.polar;
-#X text 200 551 creates Complex number in polar coordinates;
-#X obj 30 578 complex.pow;
-#X text 200 578 complex power;
-#X obj 30 605 complex.real;
-#X text 200 605 get real part of complex number;
-#X obj 30 632 complex.sin;
-#X text 200 632 sine of complex number;
-#X obj 30 659 complex.sqrt;
-#X text 200 659 complex square root in the range of the right half-
-plane;
-#X obj 30 686 complex.sub;
-#X text 200 686 substruct complex numbers;
-#X obj 30 713 complex.tan;
-#X text 200 713 tangent of complex number;
-#X obj 30 740 complex.to_list;
-#X text 200 740 real and imaginary part as list;
-#X obj 30 767 complex.unpack;
-#X text 200 767 unpacks complex number to real and imaginary parts;
+#X obj 30 466 complex.mul;
+#X text 200 466 multiply complex numbers;
+#X obj 30 493 complex.new;
+#X text 200 493 Complex data;
+#X obj 30 520 complex.norm;
+#X text 200 520 the squared magnitude;
+#X obj 30 547 complex.polar;
+#X text 200 547 creates Complex number in polar coordinates;
+#X obj 30 574 complex.pow;
+#X text 200 574 complex power;
+#X obj 30 601 complex.real;
+#X text 200 601 get real part of complex number;
+#X obj 30 628 complex.sin;
+#X text 200 628 sine of complex number;
+#X obj 30 655 complex.sqrt;
+#X text 200 655 complex square root in the range of the right half-plane;
+#X obj 30 682 complex.sub;
+#X text 200 682 substruct complex numbers;
+#X obj 30 709 complex.tan;
+#X text 200 709 tangent of complex number;
+#X obj 30 736 complex.to_list;
+#X text 200 736 real and imaginary part as list;
+#X obj 30 763 complex.unpack;
+#X text 200 763 unpacks complex number to real and imaginary parts;
 #X obj 1 1 cnv 5 740 40 empty empty numeric::complex 20 20 0 20
 -104026 -4096 0;
-#X obj 1 794 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 804 library: numeric;
+#X obj 1 790 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 800 library: numeric;

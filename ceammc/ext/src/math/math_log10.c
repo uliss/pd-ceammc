@@ -1,9 +1,8 @@
 #include "ceammc.h"
-#include <m_pd.h>
+#include "m_pd.h"
 #include <math.h>
 
 #define OBJ_NAME "math.log10"
-#define MSG_PREFIX "[" OBJ_NAME "]"
 
 static t_class* math_log10_class;
 typedef struct math_log10 {

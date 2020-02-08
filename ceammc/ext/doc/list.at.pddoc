@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>on input list outputs element(s) at specified index(es)</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>
             <keywords>list</keywords>
@@ -43,6 +43,8 @@
             <property name="@wrap" type="alias">alias to @method wrap. In range [0, LIST_SIZE)
             ordinal elements are returned. Other indexes are wrapped by modulo division.</property>
             <property name="@index" type="list">indexes</property>
+            <property name="@default" type="atom">default output value if not found. If not set,
+            outputs error message to console</property>
         </properties>
         <inlets>
             <inlet>
@@ -54,7 +56,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>element(s) at the given index position(s)</outlet>
+            <outlet>element(s) at the given index position(s). If element not found at specified
+            position and @default property is set, output that default value</outlet>
         </outlets>
         <example>
             <pdascii>

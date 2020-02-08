@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="canvas.dir">
+        <title>canvas.dir</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>current canvas directory</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>patch</category>
+            <keywords>canvas directory</keywords>
+            <also>
+                <see>canvas.name</see>
+                <see>canvas.path</see>
+            </also>
+            <since>0.8</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output current canvas directory</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>current canvas directory as symbol</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[canvas.dir] [B]
+|             |
+[ui.display   ]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

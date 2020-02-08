@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>One track looper</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>fx</category>
             <keywords>fx looper</keywords>
@@ -19,12 +19,12 @@
         <properties>
             <property name="@capacity" type="float" minvalue="0" maxvalue="120" default="5"
             units="second">max loop time</property>
-            <property name="@length" type="float" units="second" readonly="true">recorded loop
-            length</property>
+            <property name="@length" type="float" units="second" minvalue="0" readonly="true">
+            recorded loop length</property>
             <property name="@array" type="symbol" default="">use specified array for record instead
             of internal buffer</property>
-            <property name="@play_pos" type="float" units="second" readonly="true">current playing
-            position</property>
+            <property name="@play_pos" type="float" units="second" minvalue="0" readonly="true">
+            current playing position</property>
             <property name="@play_phase" type="float" minvalue="0" maxvalue="1" readonly="true">
             current playing phase position</property>
             <property name="@state" type="symbol" enum="init stop record play overdub"

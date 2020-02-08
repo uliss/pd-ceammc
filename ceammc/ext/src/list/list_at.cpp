@@ -5,6 +5,7 @@
 
 ListAt::ListAt(const PdArgs& a)
     : ListBase(a)
+    , default_(nullptr)
 {
     static t_symbol* SYM_REL = gensym("rel");
     static t_symbol* SYM_CLIP = gensym("clip");
@@ -30,6 +31,9 @@ ListAt::ListAt(const PdArgs& a)
     createProperty(new SymbolEnumAlias("@clip", at_method_, SYM_CLIP));
     createProperty(new SymbolEnumAlias("@wrap", at_method_, SYM_WRAP));
     createProperty(new SymbolEnumAlias("@fold", at_method_, SYM_FOLD));
+
+    default_ = new AtomProperty("@default", Atom());
+    createProperty(default_);
 }
 
 void ListAt::onInlet(size_t idx, const AtomList& l)
@@ -93,8 +97,12 @@ const Atom* ListAt::at(const AtomList& l, const Atom& p)
     else
         a = l.relativeAt(pos);
 
-    if (a == 0)
-        OBJ_ERR << "invalid index value: " << p;
+    if (a == 0) {
+        if (default_->value().isNone())
+            OBJ_ERR << "invalid index value: " << p;
+        else
+            a = &(default_->value());
+    }
 
     return a;
 }

@@ -8,7 +8,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>bird singing generator</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>synth</category>
             <keywords>birds</keywords>
@@ -19,6 +19,8 @@
             maximum speed of whistles</property>
             <property name="@probability" type="float" minvalue="25" maxvalue="100" default="50">
             whistles probability</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
         </properties>
         <inlets>
             <inlet>

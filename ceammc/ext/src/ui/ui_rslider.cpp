@@ -16,18 +16,20 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 
-#include <boost/algorithm/minmax.hpp>
+#include <tuple>
+
+// CREATE_MODE -> MOVE_MOVE -> CHANGE_MODE
 
 UIRSlider::UIRSlider()
     : prop_color_knob(rgba_blue)
     , prop_min(0)
     , prop_max(1)
-    , prop_mouse_sync(0)
     , knob_layer_(asEBox(), gensym("knob_layer"))
     , vlow_(0)
     , vhigh_(0)
     , is_horizontal_(true)
     , drag_mode_(NONE)
+    , edit_mode_(CREATE)
 {
     createOutlet();
 }
@@ -144,6 +146,27 @@ void UIRSlider::onList(const AtomList& lst)
     output();
 }
 
+UIRSlider::EditMode UIRSlider::keyMod2EditMode(long mod, float value) const
+{
+    if (mod & EMOD_SHIFT)
+        return MOVE;
+    else if (mod & EMOD_ALT) {
+        if (std::abs(vhigh_ - value) < std::abs(vlow_ - value))
+            return CHANGE_HIGH;
+        else
+            return CHANGE_LOW;
+    }
+#ifdef __APPLE__
+    else if (mod & EMOD_CMD)
+        return OUTPUT;
+#else
+    else if (mod & EMOD_CTRL)
+        return OUTPUT;
+#endif
+    else
+        return CREATE;
+}
+
 void UIRSlider::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     const t_rect r = rect();
@@ -155,30 +178,35 @@ void UIRSlider::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, 
     else
         value = convert::lin2lin_clip<float>(pt.y, 0, r.height, prop_min, prop_max);
 
-    if (modifiers == EMOD_SHIFT) {
-        if (fabs(vhigh_ - value) < fabs(vlow_ - value)) {
-            vhigh_ = value;
-            drag_mode_ = HIGH;
-        } else {
-            vlow_ = value;
-            drag_mode_ = LOW;
-        }
-    } else {
+    edit_mode_ = keyMod2EditMode(modifiers, value);
+    switch (edit_mode_) {
+    case CREATE:
         vlow_ = vhigh_ = value;
-        drag_mode_ = NONE;
         click_pt_ = pt;
+        break;
+    case MOVE:
+        click_pt_ = pt;
+        break;
+    case CHANGE_HIGH:
+        vhigh_ = value;
+        break;
+    case CHANGE_LOW:
+        vlow_ = value;
+        break;
+    default:
+    case OUTPUT:
+        break;
     }
 
     adjustValues();
     redrawKnob();
-    if (prop_mouse_sync)
-        output();
+    output();
 }
 
 void UIRSlider::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
-    if (!prop_mouse_sync)
-        output();
+    output();
+    edit_mode_ = CREATE;
 }
 
 void UIRSlider::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
@@ -192,11 +220,8 @@ void UIRSlider::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
     else
         value = convert::lin2lin_clip<float>(pt.y, 0, r.height, prop_min, prop_max);
 
-    if (drag_mode_ == LOW)
-        vlow_ = value;
-    else if (drag_mode_ == HIGH)
-        vhigh_ = value;
-    else {
+    switch (edit_mode_) {
+    case CREATE: {
         bool backward = false;
 
         // right -> left selection
@@ -210,12 +235,40 @@ void UIRSlider::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
             vlow_ = value;
         else
             vhigh_ = value;
+    } break;
+    case MOVE: {
+        const float pix_delta = is_horizontal_ ? (pt.x - click_pt_.x) : (pt.y - click_pt_.y);
+        const float val_delta = (pix_delta / r.width) * (prop_max - prop_min);
+
+        const float new_low = vlow_ + val_delta;
+        const float new_high = vhigh_ + val_delta;
+
+        auto in_range = [](float v, const std::pair<float, float>& range) {
+            return range.first <= v && v <= range.second;
+        };
+
+        const auto range = std::minmax(prop_min, prop_max);
+        if (in_range(new_low, range)
+            && in_range(new_high, range)) {
+            vhigh_ = new_high;
+            vlow_ = new_low;
+        }
+
+        click_pt_ = pt;
+    } break;
+    case CHANGE_LOW: {
+        vlow_ = value;
+    } break;
+    case CHANGE_HIGH: {
+        vhigh_ = value;
+    } break;
+    default:
+        break;
     }
 
     adjustValues();
     redrawKnob();
-    if (prop_mouse_sync)
-        output();
+    output();
 }
 
 AtomList UIRSlider::propValue() const
@@ -272,15 +325,10 @@ void UIRSlider::storePreset(size_t idx)
 
 void UIRSlider::adjustValues()
 {
-    boost::tuple<float, float> v = boost::minmax(vlow_, vhigh_);
-
-    if (prop_min < prop_max) {
-        vlow_ = v.get<0>();
-        vhigh_ = v.get<1>();
-    } else {
-        vlow_ = v.get<1>();
-        vhigh_ = v.get<0>();
-    }
+    if (prop_min < prop_max && vhigh_ < vlow_)
+        std::swap(vlow_, vhigh_);
+    else if (prop_min > prop_max && vhigh_ > vlow_)
+        std::swap(vlow_, vhigh_);
 }
 
 void UIRSlider::redrawKnob()
@@ -305,13 +353,11 @@ bool UIRSlider::setValue(const AtomList& lst)
 
     const size_t N = lst.size();
 
-    boost::tuple<float, float> range = boost::minmax(prop_min, prop_max);
-
     if (N > 0 && lst[0].isFloat())
-        vlow_ = clip<float>(lst[0].asFloat(), range.get<0>(), range.get<1>());
+        vlow_ = clip_any<float>(lst[0].asFloat(), prop_min, prop_max);
 
     if (N > 1 && lst[1].isFloat())
-        vhigh_ = clip<float>(lst[1].asFloat(), range.get<0>(), range.get<1>());
+        vhigh_ = clip_any<float>(lst[1].asFloat(), prop_min, prop_max);
 
     adjustValues();
 
@@ -328,10 +374,10 @@ void UIRSlider::setup()
     obj.usePresets();
     obj.useBang();
     obj.useList();
+    obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
     obj.addProperty("min", _("Minimum Value"), 0.f, &UIRSlider::prop_min, _("Bounds"));
     obj.addProperty("max", _("Maximum Value"), 1.f, &UIRSlider::prop_max, _("Bounds"));
-    obj.addProperty("sync", _("Mouse sync"), false, &UIRSlider::prop_mouse_sync, _("Main"));
     obj.addProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UIRSlider::prop_color_knob);
 
     obj.addProperty("value", &UIRSlider::propValue, &UIRSlider::propSetValue);

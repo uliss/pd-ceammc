@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_gain2.h"
-#include "ceammc_dsp_ui.h"
+#include "ceammc_ui.h"
 
 UIGain2::UIGain2()
 {
@@ -21,6 +21,10 @@ UIGain2::UIGain2()
 void UIGain2::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIDspObject::init(name, args, usePresets);
+
+    if (name == gensym("ui.hgain2~"))
+        initHorizontal();
+
     dspSetup(2, 2);
 }
 
@@ -40,24 +44,42 @@ void UIGain2::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_out
 
 void UIGain2::setup()
 {
-    UIDspFactory<UIGain2> obj("ui.gain2~");
+    static t_symbol* SYM_DB = gensym("db");
+    static t_symbol* SYM_MAX = gensym("max");
+    static t_symbol* SYM_MIN = gensym("min");
 
-    obj.addProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UIGain2::prop_color_knob);
-    obj.addProperty("db", &UIGain2::dbValue, &UIGain2::setDbValue);
+    UIObjectFactory<UIGain2> obj("ui.gain2~");
+    obj.addAlias("ui.vgain2~");
+    obj.addAlias("ui.hgain2~");
+
+    obj.addColorProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UIGain2::prop_color_knob);
+    obj.addHiddenFloatCbProperty("db", &UIGain2::dbValue, &UIGain2::setDbValue);
     obj.setPropertyDefaultValue("db", "-60");
-    obj.addProperty("amp", &UIGain2::ampValue, &UIGain2::setAmpValue);
+    obj.setPropertyUnits(SYM_DB, SYM_DB);
+    obj.addHiddenFloatCbProperty("amp", &UIGain2::ampValue, &UIGain2::setAmpValue);
     obj.addIntProperty("max", _("Maximum value"), 0, &UIGain2::prop_max, _("Bounds"));
     obj.addIntProperty("min", _("Minimum value"), -60, &UIGain2::prop_min, _("Bounds"));
     obj.setPropertyRange("max", -12, 12);
-    obj.setPropertyRange("min", -90, -30);
+    obj.setPropertyRange("min", -90, -15);
+    obj.setPropertyUnits(SYM_MAX, SYM_DB);
+    obj.setPropertyUnits(SYM_MIN, SYM_DB);
     obj.addBoolProperty("show_range", _("Show range"), true, &UIGain2::prop_show_range, _("Misc"));
     obj.addBoolProperty("output_value", _("Output value"), false, &UIGain2::prop_output_value, _("Main"));
+    obj.addBoolProperty("relative", _("Relative mode"), true, &UIGain2::prop_relative_mode, _("Main"));
+
+    obj.addProperty("midi_channel", _("MIDI channel"), 0, &UIGain2::prop_midi_chn, "MIDI");
+    obj.setPropertyRange("midi_channel", 0, 16);
+    obj.addProperty("midi_control", _("MIDI control"), 0, &UIGain2::prop_midi_ctl, "MIDI");
+    obj.setPropertyRange("midi_control", 0, 128);
+    obj.addProperty("midi_pickup", _("MIDI pickup"), true, &UIGain2::prop_pickup_midi, "MIDI");
 
     obj.setDefaultSize(15, 120);
     obj.usePresets();
     obj.useBang();
 
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK);
+    obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
+
     obj.addMethod("+", &UIGain2::m_plus);
     obj.addMethod("-", &UIGain2::m_minus);
     obj.addMethod("++", &UIGain2::m_inc);

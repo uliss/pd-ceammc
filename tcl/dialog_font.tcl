@@ -114,7 +114,7 @@ proc ::dialog_font::create_dialog {gfxstub} {
     bind .font <Down> "::dialog_font::arrow_fontchange 1"
 
     frame .font.buttonframe
-    pack .font.buttonframe -side bottom -fill x -pady 2m
+    pack .font.buttonframe -side bottom -pady 2m
     button .font.buttonframe.ok -text [_ "OK"] \
         -command "::dialog_font::ok $gfxstub" -default active
     pack .font.buttonframe.ok -side left -expand 1 -fill x -ipadx 10

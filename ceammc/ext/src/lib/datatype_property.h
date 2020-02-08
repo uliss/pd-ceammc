@@ -76,9 +76,17 @@ public:
 
     t_symbol* name() const { return name_; }
     Type propertyType() const { return type_; }
+    const std::string& propertyStrType() const;
+    std::string propertyStrValue() const;
+    std::string propertyStrMinValue() const;
+    std::string propertyStrMaxValue() const;
     std::pair<t_float, t_float> floatRange() const { return { fmin_, fmax_ }; }
     std::pair<long, long> intRange() const { return { lmin_, lmax_ }; }
     const AtomList& enumValues() const { return enum_; }
+
+    bool hasMinValue() const;
+    bool hasMaxValue() const;
+    bool hasEnumValues() const;
 
     PropertyInfo info() const;
 
@@ -106,15 +114,16 @@ public:
 
 public:
     static Dict& storage();
-    static std::string makeFullName(const std::string& name, t_canvas* cnv);
+    static t_symbol* makeFullName(const std::string& name, t_canvas* cnv);
+    static t_symbol* makeFullName(t_symbol* name, t_canvas* cnv);
 };
 
 class PropertyPtr {
-    std::string name_;
+    t_symbol* name_;
     DataTypeProperty* prop_;
 
 public:
-    PropertyPtr(const std::string& name);
+    PropertyPtr(t_symbol* name);
     ~PropertyPtr();
 
     DataTypeProperty* operator->()

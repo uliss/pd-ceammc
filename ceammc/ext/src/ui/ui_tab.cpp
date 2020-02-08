@@ -424,17 +424,14 @@ void UITab::output()
         listTo(0, sel);
         send(sel);
     } else {
-        if (item_selected_ < 0 || item_selected_ >= items_.size())
+        if (item_selected_ < 0 || item_selected_ >= items_.size()) {
+            UI_ERR << "no item selected";
             return;
+        }
 
-        AtomList sel(items_[item_selected_]);
-
-        t_symbol* SYM_PROP_TITLE = gensym("@title");
-        anyTo(0, SYM_PROP_TITLE, sel);
-        send(SYM_PROP_TITLE, sel);
-
-        floatTo(0, item_selected_);
-        send(item_selected_);
+        AtomList res(Atom(item_selected_), items_[item_selected_]);
+        listTo(0, res);
+        send(res);
     }
 }
 

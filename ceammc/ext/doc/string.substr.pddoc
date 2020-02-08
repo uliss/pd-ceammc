@@ -8,7 +8,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>extract substring from input string</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>string</category>
             <keywords>substring</keywords>
@@ -23,7 +23,7 @@
         <arguments>
             <argument name="FROM" type="int">substring position. May be relative: -1 means one
             character from the end of stirng</argument>
-            <argument name="LENGTH" type="int" minvalue="0">substring lenght. If -1 given (by
+            <argument name="LENGTH" type="int" minvalue="0">substring length. If -1 given (by
             default), means 'till string end'.</argument>
         </arguments>
         <properties>

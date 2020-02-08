@@ -65,15 +65,15 @@ if args.module == 'math':
         if not func32:
             code = ' '
 
-        g = ceammc.PdMathUnaryExtension(args.name, func32, func64, code)
+        g = ceammc.PdMathUnaryExternal(args.name, func32, func64, code)
         g.gen_cpp = args.cpp
         g.generate()
     elif args.type == 'const':
-        g = ceammc.PdMathConstExtension(args.name, args.code)
+        g = ceammc.PdMathConstExternal(args.name, args.code)
         g.generate()
     elif args.type == 'empty':
         code = ' '
-        g = ceammc.PdMathUnaryExtension(args.name, None, None, code)
+        g = ceammc.PdMathUnaryExternal(args.name, None, None, code)
         g.generate()
     else:
         generate_common(args)

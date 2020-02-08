@@ -16,9 +16,11 @@
 
 #include "ceammc_array.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_pd.h"
 
-#include <boost/shared_ptr.hpp>
+#include <functional>
 #include <map>
+#include <memory>
 #include <string>
 
 struct _glist;
@@ -27,6 +29,10 @@ struct _text;
 typedef struct _text t_object;
 
 namespace ceammc {
+
+namespace pd {
+    class External;
+}
 
 /**
  * Checks if given canvas is top level (window)
@@ -86,14 +92,12 @@ struct t_rect {
  * Returns canvas rect, for root canvas - windows, for others - GOP
  * @param c - pointer to canvas
  */
-t_rect canvas_info_rect(const t_canvas* c);
+t_rect canvas_info_rect(const _glist* c);
 
 class BaseObject;
-typedef boost::shared_ptr<Array> ArrayPtr;
-typedef std::map<_symbol*, ArrayPtr> ArrayMap;
+typedef std::shared_ptr<Array> ArrayPtr;
 
 class Canvas {
-    ArrayMap array_list_;
     _glist* canvas_;
 
 public:
@@ -104,9 +108,33 @@ public:
     static bool connect(t_object* src, size_t nout, t_object* dest, size_t ninl);
     static bool connect(const BaseObject& src, size_t nout, BaseObject& dest, size_t ninl);
 
+    std::vector<const t_object*> objectList() const;
+    std::vector<const t_object*> findObjectByClassName(t_symbol* name);
+    t_gobj* findIf(std::function<bool(t_gobj*)> pred);
+    t_object* findIf(std::function<bool(t_object*)> pred);
+
+    void addExternal(pd::External& ext);
+    std::shared_ptr<pd::External> createObject(const char* name, const AtomList& args);
+
+    void createPdObject(int x, int y, t_symbol* name, const AtomList& args = AtomList());
+    _glist* createAbstraction(int x, int y, t_symbol* name, const AtomList& args = AtomList());
+
+    void loadBang();
+    void show();
+    void hide();
+    void free();
+    void setupDsp();
+
+    operator bool() { return canvas_ != nullptr; }
+
 public:
     _glist* pd_canvas() { return canvas_; }
     _glist* owner();
+
+    /**
+     * canvas name
+     * @return canvas name or &s_ on null canvas
+     */
     t_symbol* name();
     void setName(const char* str);
     std::string parentName() const;

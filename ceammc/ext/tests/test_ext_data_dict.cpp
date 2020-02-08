@@ -186,12 +186,12 @@ TEST_CASE("data.mlist", "[externals]")
         WHEN_CALL(t, write);
         REQUIRE_SIZE(t, 4);
 
-        WHEN_CALL_N(t, write, TEST_DATA_DIR "/data_dict.json");
-        REQUIRE(platform::path_exists(TEST_DATA_DIR "/data_dict.json"));
+        WHEN_CALL_N(t, write, TEST_BIN_DIR "/data_dict.json");
+        REQUIRE(platform::path_exists(TEST_BIN_DIR "/data_dict.json"));
 
         // read to other dict
         TestDataDict t2("data.dict");
-        WHEN_CALL_N(t2, read, TEST_DATA_DIR "/data_dict.json");
+        WHEN_CALL_N(t2, read, TEST_BIN_DIR "/data_dict.json");
         REQUIRE_SIZE(t2, 4);
         REQUIRE_CONTAINS_ATOM(t2, 1, 2000);
         REQUIRE_CONTAINS_ATOM(t2, "float", 1000);
@@ -199,19 +199,19 @@ TEST_CASE("data.mlist", "[externals]")
         REQUIRE_CONTAINS_LIST(t2, "list", LF(1, 2, 3));
 
         // remove json file
-        REQUIRE(platform::remove(TEST_DATA_DIR "/data_dict.json"));
+        REQUIRE(platform::remove(TEST_BIN_DIR "/data_dict.json"));
 
         // clear source
         WHEN_CALL(t, clear);
         // write empty JSON file
-        WHEN_CALL_N(t, write, TEST_DATA_DIR "/data_dict.json");
-        REQUIRE(platform::path_exists(TEST_DATA_DIR "/data_dict.json"));
+        WHEN_CALL_N(t, write, TEST_BIN_DIR "/data_dict.json");
+        REQUIRE(platform::path_exists(TEST_BIN_DIR "/data_dict.json"));
 
         // read empty JSON file
-        WHEN_CALL_N(t2, read, TEST_DATA_DIR "/data_dict.json");
+        WHEN_CALL_N(t2, read, TEST_BIN_DIR "/data_dict.json");
         REQUIRE_SIZE(t2, 0);
 
-        REQUIRE(platform::remove(TEST_DATA_DIR "/data_dict.json"));
+        REQUIRE(platform::remove(TEST_BIN_DIR "/data_dict.json"));
     }
 
     SECTION("ext")

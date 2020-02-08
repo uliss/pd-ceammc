@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>multislot signal gain</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>base</category>
             <keywords>gain amplitude decibel</keywords>
@@ -64,7 +64,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[ui.sliders @count=4]     [ui.dsp~]
+[ui.sliders @count 4]     [ui.dsp~]
 |
 |
 |

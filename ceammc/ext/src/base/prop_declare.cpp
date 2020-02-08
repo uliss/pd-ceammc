@@ -70,14 +70,6 @@ public:
     }
 };
 
-static void prop_declare_loadbang(t_object* x, t_floatarg action)
-{
-    if (action == LB_LOAD) {
-        PropDeclare* prop = reinterpret_cast<PdObject<PropDeclare>*>(x)->impl;
-        prop->onLoadBang();
-    }
-}
-
 PropDeclare::PropDeclare(const PdArgs& args)
     : BaseObject(args)
     , sym_name_(&s_)
@@ -90,18 +82,18 @@ PropDeclare::PropDeclare(const PdArgs& args)
 {
     initName();
 
-    if (PropertyStorage::storage().contains(full_name_)) {
+    if (PropertyStorage::storage().contains(sym_full_name_)) {
         auto msg = tfm::format("\"%s\" is already declared", sym_name_->s_name);
-        throw std::runtime_error(msg.c_str());
+        throw std::runtime_error(msg);
     }
 
-    auto pprop = new DataTypeProperty(gensym(full_name_.c_str()));
-    if (!PropertyStorage::storage().create(full_name_, pprop)) {
+    auto pprop = new DataTypeProperty(sym_full_name_);
+    if (!PropertyStorage::storage().create(sym_full_name_, pprop)) {
         delete pprop;
         throw std::runtime_error("can't create property");
     }
 
-    pprop_ = PropertyStorage::storage().acquire(full_name_);
+    pprop_ = PropertyStorage::storage().acquire(sym_full_name_);
 
     type_ = new SymbolEnumProperty("@type", &s_float);
     type_->appendEnum(SYM_BOOL);
@@ -130,7 +122,7 @@ PropDeclare::PropDeclare(const PdArgs& args)
 
 PropDeclare::~PropDeclare()
 {
-    PropertyStorage::storage().release(full_name_);
+    PropertyStorage::storage().release(sym_full_name_);
 }
 
 void PropDeclare::parseProperties()
@@ -177,7 +169,8 @@ void PropDeclare::parseProperties()
         pprop_->setTypeList(default_->value());
     } else if (isSymbol()) {
         pprop_->setTypeSymbol(atomlistToValue<t_symbol*>(default_->value(), &s_));
-        pprop_->setEnumValues(enum_->get());
+        if (!enum_->value().empty())
+            pprop_->setEnumValues(enum_->get());
     }
 }
 
@@ -198,6 +191,7 @@ void PropDeclare::onLoadBang()
         return;
 
     AtomList pv;
+    // no property defined in canvas arguments
     if (!canvas_info_args(cnv).property(sym_name_->s_name, &pv)) {
         // output default values
         if (sym_full_name_->s_thing)
@@ -206,12 +200,15 @@ void PropDeclare::onLoadBang()
         return;
     }
 
-    PropertyPtr pptr(full_name_);
+    PropertyPtr pptr(sym_full_name_);
     if (!pptr)
         return;
 
     if (!pptr->setFromPdArgs(pv))
         OBJ_ERR << "error setting property: " << sym_name_;
+
+    if (sym_full_name_->s_thing)
+        pd_bang(sym_full_name_->s_thing);
 }
 
 bool PropDeclare::isFloat() const
@@ -249,8 +246,7 @@ void PropDeclare::initName()
         sym_name_ = gensym(buf);
     }
 
-    full_name_ = PropertyStorage::makeFullName(sym_name_->s_name, canvas());
-    sym_full_name_ = gensym(full_name_.c_str());
+    sym_full_name_ = PropertyStorage::makeFullName(sym_name_->s_name, canvas());
 }
 
 void setup_prop_declare()
@@ -260,5 +256,5 @@ void setup_prop_declare()
     SYM_ENUM = gensym("enum");
 
     ObjectFactory<PropDeclare> obj("prop.declare", OBJECT_FACTORY_NO_DEFAULT_INLET);
-    class_addmethod(obj.classPointer(), (t_method)prop_declare_loadbang, gensym("loadbang"), A_DEFFLOAT, 0);
+    obj.useLoadBang();
 }

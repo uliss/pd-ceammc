@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_number_tilde.h"
-#include "ceammc_dsp_ui.h"
+#include "ceammc_ui.h"
 
 UINumberTilde::UINumberTilde()
     : clock_(this, &UINumberTilde::updateTextValue)
@@ -99,17 +99,18 @@ void UINumberTilde::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long
 
 void UINumberTilde::setup()
 {
-    UIDspFactory<UINumberTilde> obj("ui.number~", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK);
+    UIObjectFactory<UINumberTilde> obj("ui.number~", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK);
     obj.addAlias("ui.n~");
     obj.setDefaultSize(80, 15);
     obj.hideLabelInner();
 
-    obj.addProperty(PROP_TEXT_COLOR, _("Text color"), "0.9 0.9 0.9 1", &UINumberTilde::prop_color_text);
-    obj.addProperty(PROP_ACTIVE_COLOR, _("Text color"), DEFAULT_ACTIVE_COLOR, &UINumberTilde::prop_color_active);
+    obj.addColorProperty(PROP_TEXT_COLOR, _("Text color"), "0.9 0.9 0.9 1", &UINumberTilde::prop_color_text);
+    obj.addColorProperty(PROP_ACTIVE_COLOR, _("Text color"), DEFAULT_ACTIVE_COLOR, &UINumberTilde::prop_color_active);
     obj.addIntProperty("decimal", _("Decimal precision"), 6, &UINumberTilde::prop_max_decimal, _("Main"));
     obj.setPropertyRange("precision", 0, 6);
     obj.addIntProperty("interval", _("Refresh interval (ms)"), 50, &UINumberTilde::prop_interval, _("Main"));
     obj.setPropertyRange("interval", 20, 1000);
+    obj.setPropertyUnits("interval", "msec");
 
     obj.setPropertyDefaultValue(PROP_BACKGROUND_COLOR, "0.3 0.3 0.3 1");
     obj.setPropertyDefaultValue(PROP_BORDER_COLOR, DEFAULT_TEXT_COLOR);

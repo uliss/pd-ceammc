@@ -1,17 +1,21 @@
 #!/bin/sh
 
-if [ $# -ne 4 ]
+if [ $# -ne 1 ]
 then
-    echo "Usage: $0 SRCDIR BINDIR OUTDIR VERSION"
+    echo "Usage: $0 OUTDIR"
 fi
 
-SRCDIR="$1"
-BINDIR="$2"
-VERSION="$4"
-OUTDIR="$3/ceammc"
+SRCDIR="@PROJECT_SOURCE_DIR@/ceammc"
+BINDIR="@PROJECT_BINARY_DIR@"
+OUTDIR="$1/ceammc"
+VERSION="@CEAMMC_LIB_VERSION@"
 SYSVER=$(sw_vers | grep ProductVersion | cut -f2 | cut -f1,2 -d.)
 OUTFILE="ceammc-${VERSION}-macosx-${SYSVER}-pd-@PD_TEXT_VERSION_SHORT@.tar.gz"
 DYLIBBUNDLER="@DYLIBBUNDLER@"
+
+CURRENT_DATE=$(LANG=C date -u '+%d %h %Y %Z %H:%M:%S')
+GIT_BRANCH=$(git --git-dir '@PROJECT_SOURCE_DIR@/.git' symbolic-ref --short HEAD)
+GIT_COMMIT=$(git --git-dir '@PROJECT_SOURCE_DIR@/.git' describe --tags)
 
 
 function skip_ext {
@@ -30,7 +34,7 @@ mkdir -p "${OUTDIR}"
 rm -f "${OUTDIR}/*"
 
 echo "Copying libraries to ${OUTDIR} ..."
-find "${BINDIR}" -name *.dylib -print0 | while read -r -d '' file
+find "${BINDIR}/ceammc/ext" -name *.dylib -print0 | while read -r -d '' file
 do
     cp "$file" "${OUTDIR}"
     echo "+ Lib:  $(basename $file)"
@@ -45,7 +49,7 @@ find_ext() {
 
 
 echo "Copying extension files to ${OUTDIR} ..."
-find_ext ${BINDIR} "*" | while read file
+find_ext ${BINDIR}/ceammc/ext "*" | while read file
 do
     ext_name=$(basename $file)
     skip_ext $file
@@ -61,7 +65,7 @@ do
 done
 
 echo "Copying [system.serial] extension files to ${OUTDIR} ..."
-find_ext "${BINDIR}/../extra/comport" "*" | while read file
+find_ext "${BINDIR}/ceammc/extra/comport" "*" | while read file
 do
     ext_name=$(basename $file)
     skip_ext $file
@@ -76,17 +80,16 @@ do
     ${DYLIBBUNDLER} -x ${OUTDIR}/$ext_name -b -d ${OUTDIR} -p @loader_path/ -of
 done
 
-ceammc_lib=$(find_ext "${BINDIR}" ceammc)
+ceammc_lib=$(find_ext "${BINDIR}/ceammc/ext" ceammc)
 cp $ceammc_lib "${OUTDIR}"
 ${DYLIBBUNDLER} -x ${OUTDIR}/$(basename $ceammc_lib) -b -d ${OUTDIR} -p @loader_path/ -of
 
 echo "Copying help files to ${OUTDIR} ..."
-find "${SRCDIR}/ext/doc" -name *-help\\.pd | while read file
+find "@PROJECT_SOURCE_DIR@/ceammc/ext/doc" -name *-help\\.pd -maxdepth 1 | while read file
 do
     help=$(basename $file)
-    cat "$file" |
-        sed 's/ceammc\/ceammc-help\.pd/ceammc-help.pd/' |
-        sed 's/\.\.\/index-help\.pd/index-help.pd/' > "${OUTDIR}/${help}"
+    cat "$file" | sed -e 's/ceammc\/ceammc-help\.pd/ceammc-help.pd/' \
+        -e 's/\.\.\/index-help\.pd/index-help.pd/' > "${OUTDIR}/${help}"
     echo "+ Help: '$help'"
 done
 
@@ -94,11 +97,25 @@ echo "Copying wrapper help files to ${OUTDIR} ..."
 find "${SRCDIR}/ext/class-wrapper/modules" -name *-help\\.pd | while read file
 do
     help=$(basename $file)
-    cat "$file" |
-        sed 's/ceammc\/ceammc-help\.pd/ceammc-help.pd/' |
-        sed 's/\.\.\/index-help\.pd/index-help.pd/' > "${OUTDIR}/${help}"
+    cat "$file" | sed -e 's/ceammc\/ceammc-help\.pd/ceammc-help.pd/' \
+        -e 's/\.\.\/index-help\.pd/index-help.pd/' > "${OUTDIR}/${help}"
     echo "+ Help: '$help'"
 done
+
+echo "Copying HOA help files to ${OUTDIR} ..."
+mkdir -p "${OUTDIR}/hoa"
+find "@PROJECT_SOURCE_DIR@/ceammc/ext/doc/hoa" -type f | while read file
+do
+    help=$(basename $file)
+    cp "$file" "${OUTDIR}/hoa"
+    echo "+ HOA:  '$help'"
+done
+
+echo "Copying about.pd to ${OUTDIR} ..."
+cat "@PROJECT_BINARY_DIR@/ceammc/ext/doc/about.pd" | sed  -e "s/%GIT_BRANCH%/$GIT_BRANCH/g" \
+    -e "s/%GIT_COMMIT%/$GIT_COMMIT/g" \
+    -e "s/%BUILD_DATE%/$CURRENT_DATE/g" > ${OUTDIR}/about.pd
+echo "+ Help: 'about.pd'"
 
 echo "Copying STK rawwaves files to ${OUTDIR}/stk ..."
 mkdir -p "${OUTDIR}/stk"
@@ -133,17 +150,19 @@ cp "${SRCDIR}/ext/doc/stargazing.mod" "${OUTDIR}"
 echo "    prs.txt"
 cp "${SRCDIR}/ext/doc/prs.txt" "${OUTDIR}"
 echo "    soundtouch~"
-soundtouch_ext=$(find_ext "${BINDIR}/../extra/SoundTouch/pd" "soundtouch~")
+soundtouch_ext=$(find_ext "${BINDIR}/ceammc/extra/SoundTouch/pd" "soundtouch~")
 cp "$soundtouch_ext" "${OUTDIR}"
 ${DYLIBBUNDLER} -x ${OUTDIR}/$(basename $soundtouch_ext) -b -d ${OUTDIR} -p @loader_path/ -of
 echo "    soundtouch~-help.pd"
-cp "${BINDIR}/../extra/SoundTouch/pd/soundtouch~-help.pd" "${OUTDIR}"
+cp "@PROJECT_SOURCE_DIR@/ceammc/extra/SoundTouch/pd/soundtouch~-help.pd" "${OUTDIR}"
 echo "    soundtouch-help.pd"
-cp "${BINDIR}/../extra/SoundTouch/pd/soundtouch-help.pd" "${OUTDIR}"
+cp "@PROJECT_SOURCE_DIR@/ceammc/extra/SoundTouch/pd/soundtouch-help.pd" "${OUTDIR}"
 
 echo "+ Fix soundtouch link in index-help.pd..."
 sed -i "" 's/ceammc\/soundtouch-help\.pd/soundtouch-help.pd/' "${OUTDIR}/index-help.pd"
+sed -i -e 's|\.\./index-help\.pd|index-help.pd|' "${OUTDIR}/soundtouch-help.pd"
+sed -i -e 's|\.\./index-help\.pd|index-help.pd|' "${OUTDIR}/soundtouch~-help.pd"
 
-cd "$3"
+cd "$1"
 tar cfvz "${OUTFILE}" $(basename $OUTDIR)
-mv "${OUTFILE}" ..
+mv "${OUTFILE}" "@PROJECT_BINARY_DIR@"

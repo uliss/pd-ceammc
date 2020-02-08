@@ -9,7 +9,7 @@
             </authors>
             <description>returns the sum of the previously stored list and the current one then
             stores this sum</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>
             <keywords>list integrator</keywords>

@@ -8,7 +8,7 @@
             </authors>
             <description>record up to 32s of sound and playback the recorded sound in
             loop</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>live</category>
             <keywords>live record</keywords>

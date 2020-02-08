@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "dyn.gate2"
-Code generated with Faust 2.15.10 (https://faust.grame.fr)
-Compilation options: cpp, -scal -ftz 0
+Code generated with Faust 2.22.1 (https://faust.grame.fr)
+Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __dyn_gate2_H__
@@ -14,6 +14,7 @@ Compilation options: cpp, -scal -ftz 0
 #include <memory>
 #include <string>
 
+/************************** BEGIN dsp.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -96,23 +97,23 @@ class dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param samplingRate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hertz
          */
-        virtual void init(int samplingRate) = 0;
+        virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param samplingRate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hertz
          */
-        virtual void instanceInit(int samplingRate) = 0;
+        virtual void instanceInit(int sample_rate) = 0;
 
         /**
          * Init instance constant state
          *
-         * @param samplingRate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hertz
          */
-        virtual void instanceConstants(int samplingRate) = 0;
+        virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
@@ -149,8 +150,8 @@ class dsp {
          *
          * @param date_usec - the timestamp in microsec given by audio driver.
          * @param count - the number of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
          *
          */
         virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
@@ -169,16 +170,16 @@ class decorator_dsp : public dsp {
 
     public:
 
-        decorator_dsp(dsp* dsp = 0):fDSP(dsp) {}
+        decorator_dsp(dsp* dsp = nullptr):fDSP(dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
         virtual int getNumInputs() { return fDSP->getNumInputs(); }
         virtual int getNumOutputs() { return fDSP->getNumOutputs(); }
         virtual void buildUserInterface(UI* ui_interface) { fDSP->buildUserInterface(ui_interface); }
         virtual int getSampleRate() { return fDSP->getSampleRate(); }
-        virtual void init(int samplingRate) { fDSP->init(samplingRate); }
-        virtual void instanceInit(int samplingRate) { fDSP->instanceInit(samplingRate); }
-        virtual void instanceConstants(int samplingRate) { fDSP->instanceConstants(samplingRate); }
+        virtual void init(int sample_rate) { fDSP->init(sample_rate); }
+        virtual void instanceInit(int sample_rate) { fDSP->instanceInit(sample_rate); }
+        virtual void instanceConstants(int sample_rate) { fDSP->instanceConstants(sample_rate); }
         virtual void instanceResetUserInterface() { fDSP->instanceResetUserInterface(); }
         virtual void instanceClear() { fDSP->instanceClear(); }
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
@@ -233,6 +234,8 @@ class dsp_factory {
 #endif
 
 #endif
+/**************************  END  dsp.h **************************/
+/************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -272,45 +275,54 @@ class dsp_factory {
 
 struct Soundfile;
 
-class UI
+template <typename REAL>
+class UIReal
 {
-
+    
     public:
-
-        UI() {}
-
-        virtual ~UI() {}
-
+        
+        UIReal() {}
+        virtual ~UIReal() {}
+        
         // -- widget's layouts
-
+        
         virtual void openTabBox(const char* label) = 0;
         virtual void openHorizontalBox(const char* label) = 0;
         virtual void openVerticalBox(const char* label) = 0;
         virtual void closeBox() = 0;
-
+        
         // -- active widgets
-
-        virtual void addButton(const char* label, FAUSTFLOAT* zone) = 0;
-        virtual void addCheckButton(const char* label, FAUSTFLOAT* zone) = 0;
-        virtual void addVerticalSlider(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step) = 0;
-        virtual void addHorizontalSlider(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step) = 0;
-        virtual void addNumEntry(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step) = 0;
-
+        
+        virtual void addButton(const char* label, REAL* zone) = 0;
+        virtual void addCheckButton(const char* label, REAL* zone) = 0;
+        virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+        virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+        virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+        
         // -- passive widgets
-
-        virtual void addHorizontalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max) = 0;
-        virtual void addVerticalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max) = 0;
-    
+        
+        virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+        virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+        
         // -- soundfiles
-    
+        
         virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-
+        
         // -- metadata declarations
+        
+        virtual void declare(REAL* zone, const char* key, const char* val) {}
+};
 
-        virtual void declare(FAUSTFLOAT*, const char*, const char*) {}
+struct UI : public UIReal<FAUSTFLOAT>
+{
+
+        UI() {}
+        virtual ~UI() {}
 };
 
 #endif
+/**************************  END  UI.h **************************/
+/************************** BEGIN meta.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -339,11 +351,14 @@ class UI
 
 struct Meta
 {
-    virtual void declare(const char* key, const char* value) = 0;
     virtual ~Meta() {};
+    virtual void declare(const char* key, const char* value) = 0;
+    
 };
 
 #endif
+/**************************  END  meta.h **************************/
+/************************** BEGIN misc.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -366,7 +381,7 @@ struct Meta
  that work under terms of your choice, so long as this FAUST
  architecture section is not modified.
  ************************************************************************/
- 
+
 #ifndef __misc__
 #define __misc__
 
@@ -374,6 +389,8 @@ struct Meta
 #include <map>
 #include <cstdlib>
 #include <string.h>
+#include <fstream>
+#include <string>
 
 
 using std::max;
@@ -395,27 +412,65 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-	int	i;
-    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    return def;
 }
 
-static bool isopt(char* argv[], const char* name)
+static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
-	return false;
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return atoi(argv[i]);
+        }
+    }
+    return def;
 }
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    return def;
+}
+
+static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
+{
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return argv[i];
+        }
+    }
+    return def;
+}
+
+static bool isopt(char* argv[], const char* name)
+{
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
+    return false;
+}
+
+static std::string pathToContent(const std::string& path)
+{
+    std::ifstream file(path.c_str(), std::ifstream::binary);
+    
+    file.seekg(0, file.end);
+    int size = int(file.tellg());
+    file.seekg(0, file.beg);
+    
+    // And allocate buffer to that a single line can be read...
+    char* buffer = new char[size + 1];
+    file.read(buffer, size);
+    
+    // Terminate the string
+    buffer[size] = 0;
+    std::string result = buffer;
+    file.close();
+    delete [] buffer;
+    return result;
 }
 
 #endif
 
+/**************************  END  misc.h **************************/
 
 #include "ceammc_faust.h"
 
@@ -450,6 +505,7 @@ struct dyn_gate2 : public dsp {
 #ifndef FAUSTCLASS 
 #define FAUSTCLASS dyn_gate2
 #endif
+
 #ifdef __APPLE__ 
 #define exp10f __exp10f
 #define exp10 __exp10
@@ -459,11 +515,11 @@ class dyn_gate2 : public dsp {
 	
  private:
 	
-	int fSamplingFreq;
-	float fConst0;
-	float fConst1;
 	FAUSTFLOAT fVslider0;
 	FAUSTFLOAT fVslider1;
+	int fSampleRate;
+	float fConst0;
+	float fConst1;
 	float fRec3[2];
 	FAUSTFLOAT fVslider2;
 	float fRec4[2];
@@ -471,7 +527,6 @@ class dyn_gate2 : public dsp {
 	float fConst2;
 	FAUSTFLOAT fVslider3;
 	int iRec5[2];
-	float fConst3;
 	float fRec1[2];
 	float fRec0[2];
 	
@@ -481,10 +536,10 @@ class dyn_gate2 : public dsp {
 		m->declare("analyzers.lib/name", "Faust Analyzer Library");
 		m->declare("analyzers.lib/version", "0.0");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.0");
+		m->declare("basics.lib/version", "0.1");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.1");
-		m->declare("filename", "dyn_gate2");
+		m->declare("filename", "dyn_gate2.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
@@ -499,15 +554,13 @@ class dyn_gate2 : public dsp {
 
 	virtual int getNumInputs() {
 		return 2;
-		
 	}
 	virtual int getNumOutputs() {
 		return 2;
-		
 	}
 	virtual int getInputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 1;
 				break;
@@ -520,14 +573,12 @@ class dyn_gate2 : public dsp {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	virtual int getOutputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 1;
 				break;
@@ -540,23 +591,18 @@ class dyn_gate2 : public dsp {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	
-	static void classInit(int samplingFreq) {
-		
+	static void classInit(int sample_rate) {
 	}
 	
-	virtual void instanceConstants(int samplingFreq) {
-		fSamplingFreq = samplingFreq;
-		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSamplingFreq)));
+	virtual void instanceConstants(int sample_rate) {
+		fSampleRate = sample_rate;
+		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = (1.0f / fConst0);
 		fConst2 = (0.00100000005f * fConst0);
-		fConst3 = (1000.0f / fConst0);
-		
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -564,44 +610,35 @@ class dyn_gate2 : public dsp {
 		fVslider1 = FAUSTFLOAT(20.0f);
 		fVslider2 = FAUSTFLOAT(40.0f);
 		fVslider3 = FAUSTFLOAT(100.0f);
-		
 	}
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec3[l0] = 0.0f;
-			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec4[l1] = 0.0f;
-			
 		}
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			iVec0[l2] = 0;
-			
 		}
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			iRec5[l3] = 0;
-			
 		}
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fRec1[l4] = 0.0f;
-			
 		}
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
 			fRec0[l5] = 0.0f;
-			
 		}
-		
 	}
 	
-	virtual void init(int samplingFreq) {
-		classInit(samplingFreq);
-		instanceInit(samplingFreq);
+	virtual void init(int sample_rate) {
+		classInit(sample_rate);
+		instanceInit(sample_rate);
 	}
-	
-	virtual void instanceInit(int samplingFreq) {
-		instanceConstants(samplingFreq);
+	virtual void instanceInit(int sample_rate) {
+		instanceConstants(sample_rate);
 		instanceResetUserInterface();
 		instanceClear();
 	}
@@ -611,8 +648,7 @@ class dyn_gate2 : public dsp {
 	}
 	
 	virtual int getSampleRate() {
-		return fSamplingFreq;
-		
+		return fSampleRate;
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
@@ -626,7 +662,6 @@ class dyn_gate2 : public dsp {
 		ui_interface->declare(&fVslider2, "unit", "db");
 		ui_interface->addVerticalSlider("threshold", &fVslider2, 40.0f, 0.0f, 100.0f, 0.100000001f);
 		ui_interface->closeBox();
-		
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
@@ -634,25 +669,29 @@ class dyn_gate2 : public dsp {
 		FAUSTFLOAT* input1 = inputs[1];
 		FAUSTFLOAT* output0 = outputs[0];
 		FAUSTFLOAT* output1 = outputs[1];
-		float fSlow0 = float(fVslider0);
-		float fSlow1 = float(fVslider1);
-		float fSlow2 = std::exp((0.0f - (fConst1 / std::min<float>((0.00100000005f * fSlow0), (0.00100000005f * fSlow1)))));
-		float fSlow3 = (1.0f - fSlow2);
-		float fSlow4 = (0.00100000005f * (float(fVslider2) + -100.0f));
-		int iSlow5 = int((fConst2 * float(fVslider3)));
-		float fSlow6 = std::exp((0.0f - (fConst3 / fSlow0)));
-		float fSlow7 = std::exp((0.0f - (fConst3 / fSlow1)));
+		float fSlow0 = (0.00100000005f * float(fVslider0));
+		float fSlow1 = (0.00100000005f * float(fVslider1));
+		float fSlow2 = std::min<float>(fSlow0, fSlow1);
+		int iSlow3 = (std::fabs(fSlow2) < 1.19999996e-07f);
+		float fSlow4 = (iSlow3 ? 0.0f : std::exp((0.0f - (fConst1 / (iSlow3 ? 1.0f : fSlow2)))));
+		float fSlow5 = (1.0f - fSlow4);
+		float fSlow6 = (0.00100000005f * (float(fVslider2) + -100.0f));
+		int iSlow7 = int((fConst2 * float(fVslider3)));
+		int iSlow8 = (std::fabs(fSlow0) < 1.19999996e-07f);
+		float fSlow9 = (iSlow8 ? 0.0f : std::exp((0.0f - (fConst1 / (iSlow8 ? 1.0f : fSlow0)))));
+		int iSlow10 = (std::fabs(fSlow1) < 1.19999996e-07f);
+		float fSlow11 = (iSlow10 ? 0.0f : std::exp((0.0f - (fConst1 / (iSlow10 ? 1.0f : fSlow1)))));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = float(input1[i]);
-			fRec3[0] = ((fSlow2 * fRec3[1]) + (fSlow3 * std::fabs((std::fabs(fTemp0) + std::fabs(fTemp1)))));
+			fRec3[0] = ((fRec3[1] * fSlow4) + (std::fabs((std::fabs(fTemp0) + std::fabs(fTemp1))) * fSlow5));
 			float fRec2 = fRec3[0];
-			fRec4[0] = (fSlow4 + (0.999000013f * fRec4[1]));
+			fRec4[0] = (fSlow6 + (0.999000013f * fRec4[1]));
 			int iTemp2 = (fRec2 > std::pow(10.0f, (0.0500000007f * fRec4[0])));
 			iVec0[0] = iTemp2;
-			iRec5[0] = std::max<int>(int((iSlow5 * (iTemp2 < iVec0[1]))), int((iRec5[1] + -1)));
+			iRec5[0] = std::max<int>(int((iSlow7 * (iTemp2 < iVec0[1]))), int((iRec5[1] + -1)));
 			float fTemp3 = std::fabs(std::max<float>(float(iTemp2), float((iRec5[0] > 0))));
-			float fTemp4 = ((fRec0[1] > fTemp3)?fSlow7:fSlow6);
+			float fTemp4 = ((fRec0[1] > fTemp3) ? fSlow11 : fSlow9);
 			fRec1[0] = ((fRec1[1] * fTemp4) + (fTemp3 * (1.0f - fTemp4)));
 			fRec0[0] = fRec1[0];
 			output0[i] = FAUSTFLOAT((fTemp0 * fRec0[0]));
@@ -663,9 +702,7 @@ class dyn_gate2 : public dsp {
 			iRec5[1] = iRec5[0];
 			fRec1[1] = fRec1[0];
 			fRec0[1] = fRec0[0];
-			
 		}
-		
 	}
 
 };

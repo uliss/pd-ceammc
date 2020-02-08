@@ -52,4 +52,6 @@ private:
 };
 }
 
+void setup_list_walk();
+
 #endif // LIST_WALK_H

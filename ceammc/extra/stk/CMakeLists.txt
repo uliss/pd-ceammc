@@ -54,6 +54,7 @@ set(STK_SOURCES
     stk/src/Plucked.cpp
     stk/src/PoleZero.cpp
     stk/src/PRCRev.cpp
+    stk/src/Recorder.cpp
     stk/src/Resonate.cpp
     stk/src/Rhodey.cpp
     stk/src/Sampler.cpp

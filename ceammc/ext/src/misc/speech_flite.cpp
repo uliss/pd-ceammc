@@ -39,6 +39,10 @@ SpeechFlite::SpeechFlite(const PdArgs& args)
     createProperty(new PointerProperty<t_symbol*>("@array", &name_, false));
 
     voice_name_ = new SymbolProperty("@voice", gensym("kal16"));
+    voice_name_->info().addEnum("slt");
+    voice_name_->info().addEnum("rms");
+    voice_name_->info().addEnum("awb");
+    voice_name_->info().addEnum("kal16");
     createProperty(voice_name_);
 
     speed_ = new FloatPropertyClosedRange("@speed", 1, 1, 4);

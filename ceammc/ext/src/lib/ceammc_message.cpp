@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_message.h"
+#include "ceammc_format.h"
 #include <cassert>
 #include <cstring>
 
@@ -57,7 +58,7 @@ Message::Message(const AtomList& l)
     , data_(Atom())
     , v_list_(l)
 {
-    if (l.size() == 1 && l[0].isData())
+    if (l.size() == 1)
         setAtom(l[0]);
 }
 
@@ -67,7 +68,7 @@ Message::Message(int argc, t_atom* argv)
     , data_(Atom())
     , v_list_(argc, argv)
 {
-    if (argc == 1 && Atom(*argv).isData())
+    if (argc == 1)
         setAtom(*argv);
 }
 
@@ -253,6 +254,23 @@ bool operator==(const Message& c1, const Message& c2)
 bool operator!=(const Message& c1, const Message& c2)
 {
     return !(c1 == c2);
+}
+
+std::ostream& operator<<(std::ostream& os, const Message& m)
+{
+    os << '[';
+
+    if (m.isBang())
+        ;
+    else if (m.isFloat())
+        os << "float ";
+    else if (m.isSymbol())
+        os << "symbol ";
+    else if (m.isList())
+        os << "list ";
+
+    os << to_string(m, " ") << '(';
+    return os;
 }
 
 } // namespace ceammc

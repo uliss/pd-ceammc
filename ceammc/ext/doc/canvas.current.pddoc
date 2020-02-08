@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>verbose information about current canvas</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>patch</category>
             <keywords>canvas</keywords>
@@ -22,13 +22,13 @@
             <property name="@dir" readonly="true" type="symbol">canvas directory (only if top level
             or abstraction)</property>
             <property name="@args" readonly="true" type="list">canvas creation arguments</property>
-            <property name="@root" readonly="true" type="int">1 if canvas is top-level
+            <property name="@root" readonly="true" type="int" enum="0 1">1 if canvas is top-level
             (window)</property>
-            <property name="@abstraction" readonly="true" type="int">1 if canvas is
+            <property name="@abstraction" readonly="true" type="int" enum="0 1">1 if canvas is
             abstraction</property>
             <property name="@size" readonly="true" type="list">canvas dimensions. If root canvas
             (window) return window size, if subpatch return Graph on Parent size</property>
-            <property name="@font" readonly="true" type="float">canvas font size</property>
+            <property name="@font" readonly="true" type="int">canvas font size</property>
             <property name="@paths" readonly="true" type="list">canvas search paths</property>
             <property name="@width" readonly="true" type="int">canvas width (window or
             GOP)</property>

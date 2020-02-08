@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>Unit-amplitude nonnegative low frequency pulse train</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>lfo</category>
             <keywords>lfo oscillator pulse train</keywords>

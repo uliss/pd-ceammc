@@ -1,10 +1,9 @@
 #!/bin/bash
 
-
 # Text color variables
-red=$(tput setaf 1) #  red
-blu=$(tput setaf 4) #  blue
-rst=$(tput sgr0)             # Reset
+red=$(tput setaf 1) # red
+blu=$(tput setaf 4) # blue
+rst=$(tput sgr0)    # reset
 
 if [ $# -ne 1 ]; then
 	echo "${red}Usage: $(basename $0) APP_BUNDLE${rst}"
@@ -21,7 +20,13 @@ fi
 find $BUNDLE -name *.d_fat | while read external
 do
 	short_name=$(basename $external)
-	dep=`otool -L $external | grep -v '/System/Library' | grep -v '@loader_path' | grep -v $short_name | grep -v libc++ | grep -v libSystem`
+    dep=$(otool -L $external | grep -v -e '/System/Library' \
+            -e '@loader_path' \
+            -e $short_name \
+            -e 'libc++' \
+            -e 'libSystem' \
+            -e 'libgcc')
+
 	if [ "$dep" ]; then
 		echo "${red}WARNING:${rst} external ${blu}${short_name}${rst} has this dependency:"
 		echo "         $dep"

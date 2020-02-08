@@ -1,3 +1,6 @@
+cmake_minimum_required(VERSION 3.1)
+project(puredata)
+
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
     message(FATAL_ERROR
         "CMake generation for pure-data is not allowed within the source directory!"
@@ -11,13 +14,8 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
         "\n")
 endif()
 
-cmake_minimum_required(VERSION 2.8)
 if(APPLE)
-    if(ARCH)
-        set(CMAKE_OSX_ARCHITECTURES ${ARCH})
-    else()
-        set(CMAKE_OSX_ARCHITECTURES "x86_64;i386")
-    endif()
+    set(CMAKE_OSX_ARCHITECTURES "x86_64")
     if(MACOSX_SDK)
         set(CMAKE_OSX_SYSROOT ${MACOSX_SDK})
     endif()
@@ -40,13 +38,6 @@ elseif(WIN32)
     endif()
 endif()
 
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
-else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-endif()
-
-
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
 endif()
@@ -68,10 +59,10 @@ if(UNIX)
      endif()
 endif()
 
-project(puredata)
-
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99")
 enable_language(CXX C)
+set(CMAKE_CXX_STANDARD 11)
+
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 include(version)
 include(build_options)
@@ -91,9 +82,8 @@ if(WITH_LIBSNDFILE)
 endif()
 
 # FFTW3
-option(WITH_FFTW "Use fftw3 library (http://www.fftw.org/)" ON)
 if(WITH_FFTW)
-    include(FindFFTW)
+    find_package(FFTW REQUIRED)
     if(NOT FFTW_FOUND)
         set(WITH_FFTW OFF CACHE BOOL "" FORCE)
     endif()
@@ -119,7 +109,7 @@ include(summary)
 include(package)
 
 if(APPLE)
-    add_custom_target(mac_deploy SOURCES mac/cmake-build-mac.sh.in mac/codesign.sh mac/dmg.sh)
+    add_custom_target(mac_deploy SOURCES mac/ceammc_build.sh.in mac/codesign.sh mac/dmg.sh)
 endif()
 
 add_custom_target(puredata_changelog SOURCES CHANGELOG.md)

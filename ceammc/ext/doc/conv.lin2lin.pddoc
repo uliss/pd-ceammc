@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>convert from one linear range to another</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>conv</category>
             <keywords>convert linear</keywords>
@@ -40,11 +40,12 @@
         </arguments>
         <inlets>
             <inlet>
-                <xinfo on="float">input value</xinfo>
+                <xinfo on="float">input float</xinfo>
+                <xinfo on="list">input list</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>converted value</outlet>
+            <outlet>converted float/list</outlet>
         </outlets>
         <example>
             <pdascii>

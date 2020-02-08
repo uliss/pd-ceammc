@@ -17,23 +17,43 @@
 
 ListSeparate::ListSeparate(const PdArgs& a)
     : BaseObject(a)
+    , enumerate_(nullptr)
+    , from_(nullptr)
 {
+    enumerate_ = new BoolProperty("@enumerate", false);
+    createProperty(enumerate_);
+
+    from_ = new IntProperty("@from", 0);
+    createProperty(from_);
+
     createOutlet();
     createOutlet();
 }
 
 void ListSeparate::onList(const AtomList& l)
 {
-    for (auto& el : l)
-        atomTo(0, el);
+    if (!enumerate_->value()) {
+        for (auto& el : l)
+            atomTo(0, el);
+    } else {
+        int idx = from_->value();
+        for (auto& el : l)
+            listTo(0, AtomList(Atom(idx++), el));
+    }
 
     bangTo(1);
 }
 
 void ListSeparate::onDataT(const DataTPtr<DataTypeMList>& l)
 {
-    for (auto& el : *l)
-        atomTo(0, el.toAtom());
+    if (!enumerate_->value()) {
+        for (auto& el : *l)
+            atomTo(0, el.toAtom());
+    } else {
+        int idx = from_->value();
+        for (auto& el : *l)
+            listTo(0, AtomList(Atom(idx++), el.toAtom()));
+    }
 
     bangTo(1);
 }

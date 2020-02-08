@@ -35,6 +35,23 @@ void Lin2Lin::onFloat(float value)
     floatTo(0, convert::lin2lin<t_float>(value, x0, x1, y0, y1));
 }
 
+void Lin2Lin::onList(const AtomList& l)
+{
+    const t_float x0 = in_from();
+    const t_float x1 = in_to();
+    const t_float y0 = out_from();
+    const t_float y1 = out_to();
+
+    auto fn = [this, x0, x1, y0, y1](t_float value) {
+        if (doClip(value))
+            return value;
+
+        return convert::lin2lin<t_float>(value, x0, x1, y0, y1);
+    };
+
+    listTo(0, l.mapFloat(fn));
+}
+
 extern "C" void setup_conv0x2elin2lin()
 {
     ObjectFactory<Lin2Lin> obj("conv.lin2lin");

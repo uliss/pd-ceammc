@@ -16,17 +16,38 @@
 
 #include "ceammc_control.h"
 #include "ceammc_object.h"
+#include "ceammc_proxy.h"
 #include "ceammc_ui_dsp_object.h"
+
+#include <functional>
+#include <unordered_map>
 
 using namespace ceammc;
 
 class UIGain : public UIDspObject {
-private:
+    PdListProxy<UIGain> midi_proxy_;
     UIFont font_;
     UITextLayout txt_max_;
     UITextLayout txt_min_;
-    float knob_pos_;
+    t_pt click_pos_;
+    float knob_phase_;
     bool is_horizontal_;
+
+    enum ControlState {
+        NORMAL = 0,
+        LEARN,
+        PICKUP
+    };
+
+    enum PickValueState {
+        PICK_VALUE_START = 0,
+        PICK_VALUE_LESS = -1,
+        PICK_VALUE_MORE = 1,
+        PICK_VALUE_DONE = 2
+    };
+
+    ControlState control_state_;
+    PickValueState pick_value_state_;
 
 protected:
     SmoothControlValue smooth_;
@@ -36,6 +57,12 @@ protected:
     int prop_min;
     int prop_output_value;
     int prop_show_range;
+    int prop_relative_mode;
+    int prop_midi_chn;
+    int prop_midi_ctl;
+    int prop_pickup_midi;
+
+    void initHorizontal();
 
 public:
     UIGain();
@@ -51,6 +78,7 @@ public:
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseWheel(const t_pt& pt, long modifiers, float delta);
 
     t_float dbValue() const;
     t_float ampValue() const;
@@ -70,6 +98,13 @@ public:
 
 private:
     void updateLabels();
+    void onMidiCtrl(const AtomList& l);
+    void doOutput();
+    void updateIndicators();
+    bool isMidiMatched(int num, int ch) const;
+    void printPickupInfo();
+    void gotoNormalState();
+    void finishPickup();
 };
 
 void setup_ui_gain();

@@ -16,20 +16,20 @@
 #include "catch.hpp"
 #include "ceammc.hpp"
 #include "test_base.h"
+#include "test_external.h"
 
-#include <stdio.h>
+PD_COMPLETE_TEST_SETUP(ListWalk, list, walk)
 
-typedef TestExternal<ListWalk> ListWalkTest;
-
-TEST_CASE("list.walk", "[PureData]")
+TEST_CASE("list.walk", "[externals]")
 {
+    pd_test_init();
+
     SECTION("test single")
     {
-        AtomList args;
-        ListWalkTest t("list.walk", args);
+        TestListWalk t("list.walk", L());
 
         REQUIRE(t.numInlets() == 1);
-        REQUIRE(t.numOutlets() == 1);
+        REQUIRE(t.numOutlets() == 2);
         REQUIRE(t.hasProperty("@direction"));
         REQUIRE(t.hasProperty("@index"));
         REQUIRE(t.hasProperty("@value"));
@@ -41,6 +41,7 @@ TEST_CASE("list.walk", "[PureData]")
         REQUIRE(t.hasProperty("@clip"));
         REQUIRE(t.hasProperty("@fold"));
         REQUIRE(t.hasProperty("@size"));
+        REQUIRE_PROPERTY_FLOAT(t, @single, 1);
         REQUIRE(t.property("@size")->readonly());
         REQUIRE(!t.property("@index")->readonly());
 
@@ -49,20 +50,20 @@ TEST_CASE("list.walk", "[PureData]")
         t.sendList(LF(1.0, 2.0, 3.0));
 
         CALL(t, current);
-        REQUIRE_LIST_MSG(t, LF(1));
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
         REQUIRE_INDEX(t, 0);
 
         CALL(t, next);
-        REQUIRE_LIST_MSG(t, LF(2));
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
         REQUIRE_INDEX(t, 1);
         CALL(t, current);
-        REQUIRE_LIST_MSG(t, LF(2));
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
 
         CALL(t, next);
-        REQUIRE_LIST_MSG(t, LF(3));
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
         REQUIRE_INDEX(t, 2);
         CALL(t, current);
-        REQUIRE_LIST_MSG(t, LF(3));
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
 
         CALL(t, next);
         REQUIRE_NO_MSG(t);
@@ -74,11 +75,11 @@ TEST_CASE("list.walk", "[PureData]")
         CALL(t, reset);
         REQUIRE_INDEX(t, 0);
         CALL(t, current);
-        REQUIRE_LIST_MSG(t, LF(1));
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
         CALL(t, next);
-        REQUIRE_LIST_MSG(t, LF(2));
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
         CALL(t, next);
-        REQUIRE_LIST_MSG(t, LF(3));
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
 
         CALL(t, next);
         REQUIRE_NO_MSG(t);
@@ -91,9 +92,9 @@ TEST_CASE("list.walk", "[PureData]")
         REQUIRE_INDEX(t, 2);
 
         CALL(t, prev);
-        REQUIRE_LIST_MSG(t, LF(2));
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
         CALL(t, prev);
-        REQUIRE_LIST_MSG(t, LF(1));
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
         CALL(t, prev);
         REQUIRE_NO_MSG(t);
@@ -103,33 +104,32 @@ TEST_CASE("list.walk", "[PureData]")
         REQUIRE_INDEX(t, 0);
 
         CALL(t, next);
-        REQUIRE_LIST_MSG(t, LF(2));
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
         REQUIRE_INDEX(t, 1);
 
         SECTION("test single step")
         {
-            AtomList args;
-            ListWalkTest t("list.walk", args);
+            TestListWalk t("list.walk");
 
             t.sendList(LF(1.0, 2.0, 3.0, 4.0, 5.0));
 
             CALL(t, current);
-            REQUIRE_LIST_MSG(t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
             CALL_N(t, next, 2);
-            REQUIRE_LIST_MSG(t, LF(3));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
 
             CALL_N(t, next, 2);
-            REQUIRE_LIST_MSG(t, LF(5));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 5);
 
             CALL_N(t, next, 2);
             REQUIRE_NO_MSG(t);
 
             CALL_N(t, prev, 2);
-            REQUIRE_LIST_MSG(t, LF(3));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
 
             CALL_N(t, prev, 2);
-            REQUIRE_LIST_MSG(t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
             CALL_N(t, prev, 2);
             REQUIRE_NO_MSG(t);
@@ -138,11 +138,9 @@ TEST_CASE("list.walk", "[PureData]")
 
         SECTION("test single length 2")
         {
-            AtomList args(gensym("@length"), 2);
-
             SECTION("step 1")
             {
-                ListWalkTest t("list.walk", args);
+                TestListWalk t("list.walk", LA("@length", 2));
 
                 t.sendList(LF(1.0, 2.0, 3.0, 4.0, 5.0));
 
@@ -159,7 +157,7 @@ TEST_CASE("list.walk", "[PureData]")
                 REQUIRE_LIST_MSG(t, AtomList(4, 5));
 
                 CALL(t, next);
-                REQUIRE_LIST_MSG(t, LF(5));
+                REQUIRE_FLOAT_AT_OUTLET(0, t, 5);
 
                 CALL(t, next);
                 REQUIRE_NO_MSG(t);
@@ -183,7 +181,7 @@ TEST_CASE("list.walk", "[PureData]")
 
             SECTION("step 2")
             {
-                ListWalkTest t("list.walk", args);
+                TestListWalk t("list.walk", LA("@length", 2));
 
                 t.sendList(LF(1.0, 2.0, 3.0, 4.0, 5.0));
 
@@ -194,7 +192,7 @@ TEST_CASE("list.walk", "[PureData]")
                 REQUIRE_LIST_MSG(t, AtomList(3, 4));
 
                 CALL_N(t, next, 2);
-                REQUIRE_LIST_MSG(t, LF(5));
+                REQUIRE_FLOAT_AT_OUTLET(0, t, 5);
 
                 CALL_N(t, next, 2);
                 REQUIRE_NO_MSG(t);
@@ -217,8 +215,7 @@ TEST_CASE("list.walk", "[PureData]")
     {
         SECTION("basic")
         {
-            AtomList args(gensym("@wrap"));
-            ListWalkTest t("list.walk", args);
+            TestListWalk t("list.walk", LA("@wrap"));
 
             CALL(t, current);
             REQUIRE_NO_MSG(t);
@@ -229,47 +226,46 @@ TEST_CASE("list.walk", "[PureData]")
             t.sendList(LF(1.0, 2.0, 3.0));
 
             CALL(t, current);
-            REQUIRE_LIST_MSG(t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
             REQUIRE_INDEX(t, 0);
 
             CALL(t, next);
-            REQUIRE_LIST_MSG(t, LF(2));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
             REQUIRE_INDEX(t, 1);
             CALL(t, next);
-            REQUIRE_LIST_MSG(t, LF(3));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
             REQUIRE_INDEX(t, 2);
             CALL(t, next);
-            REQUIRE_LIST_MSG(t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
             REQUIRE_INDEX(t, 0);
             CALL(t, next);
-            REQUIRE_LIST_MSG(t, LF(2));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
             REQUIRE_INDEX(t, 1);
             CALL(t, next);
-            REQUIRE_LIST_MSG(t, LF(3));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
             REQUIRE_INDEX(t, 2);
 
             CALL(t, prev);
-            REQUIRE_LIST_MSG(t, LF(2));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
             CALL(t, prev);
-            REQUIRE_LIST_MSG(t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
             CALL(t, prev);
-            REQUIRE_LIST_MSG(t, LF(3));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
             CALL(t, prev);
-            REQUIRE_LIST_MSG(t, LF(2));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
 
             CALL(t, reset);
             CALL(t, prev);
-            REQUIRE_LIST_MSG(t, LF(3));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
             CALL(t, prev);
-            REQUIRE_LIST_MSG(t, LF(2));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
             CALL(t, prev);
-            REQUIRE_LIST_MSG(t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
         }
 
         SECTION("step 2")
         {
-            AtomList args(gensym("@wrap"));
-            ListWalkTest t("list.walk", args);
+            TestListWalk t("list.walk", LA("@wrap"));
 
             CALL(t, current);
             REQUIRE_NO_MSG(t);
@@ -279,33 +275,31 @@ TEST_CASE("list.walk", "[PureData]")
             t.sendList(LF(1.0, 2.0, 3.0));
 
             CALL(t, current);
-            REQUIRE_LIST_MSG(t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
             REQUIRE_INDEX(t, 0);
 
             CALL_N(t, next, 2);
-            REQUIRE_LIST_MSG(t, LF(3));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
             REQUIRE_INDEX(t, 2);
             CALL_N(t, next, 2);
-            REQUIRE_LIST_MSG(t, LF(2));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
             REQUIRE_INDEX(t, 1);
             CALL_N(t, next, 2);
-            REQUIRE_LIST_MSG(t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
             REQUIRE_INDEX(t, 0);
 
             CALL_N(t, prev, 3);
-            REQUIRE_LIST_MSG(t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
             REQUIRE_INDEX(t, 0);
 
             CALL_N(t, prev, 4);
-            REQUIRE_LIST_MSG(t, LF(3));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
             REQUIRE_INDEX(t, 2);
         }
 
         SECTION("length 2")
         {
-            AtomList args(gensym("@wrap"));
-            args.append(AtomList(gensym("@length"), 2));
-            ListWalkTest t("list.walk", args);
+            TestListWalk t("list.walk", LA("@wrap", "@length", 2));
 
             CALL(t, current);
             REQUIRE_NO_MSG(t);
@@ -341,8 +335,7 @@ TEST_CASE("list.walk", "[PureData]")
     {
         SECTION("basic")
         {
-            AtomList args(gensym("@clip"));
-            ListWalkTest t("list.walk", args);
+            TestListWalk t("list.walk", LA("@clip"));
 
             CALL(t, current);
             REQUIRE_NO_MSG(t);
@@ -353,50 +346,49 @@ TEST_CASE("list.walk", "[PureData]")
             t.sendList(LF(1.0, 2.0, 3.0));
 
             CALL(t, current);
-            REQUIRE_LIST_MSG(t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
             REQUIRE_INDEX(t, 0);
 
             CALL(t, next);
-            REQUIRE_LIST_MSG(t, LF(2));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
             REQUIRE_INDEX(t, 1);
             CALL(t, next);
-            REQUIRE_LIST_MSG(t, LF(3));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
             REQUIRE_INDEX(t, 2);
             CALL(t, next);
-            REQUIRE_LIST_MSG(t, LF(3));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
             REQUIRE_INDEX(t, 2);
             CALL(t, next);
-            REQUIRE_LIST_MSG(t, LF(3));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
             REQUIRE_INDEX(t, 2);
             CALL(t, next);
-            REQUIRE_LIST_MSG(t, LF(3));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
             REQUIRE_INDEX(t, 2);
 
             CALL(t, prev);
-            REQUIRE_LIST_MSG(t, LF(2));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
             CALL(t, prev);
-            REQUIRE_LIST_MSG(t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
             REQUIRE_INDEX(t, 0);
             CALL(t, prev);
-            REQUIRE_LIST_MSG(t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
             REQUIRE_INDEX(t, 0);
             CALL(t, prev);
-            REQUIRE_LIST_MSG(t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
             REQUIRE_INDEX(t, 0);
 
             CALL(t, reset);
             CALL(t, prev);
-            REQUIRE_LIST_MSG(t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
             CALL(t, prev);
-            REQUIRE_LIST_MSG(t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
             CALL(t, prev);
-            REQUIRE_LIST_MSG(t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
         }
 
         SECTION("step 2")
         {
-            AtomList args(gensym("@clip"));
-            ListWalkTest t("list.walk", args);
+            TestListWalk t("list.walk", LA("@clip"));
 
             CALL(t, current);
             REQUIRE_NO_MSG(t);
@@ -406,29 +398,28 @@ TEST_CASE("list.walk", "[PureData]")
             t.sendList(LF(1.0, 2.0, 3.0));
 
             CALL(t, current);
-            REQUIRE_LIST_MSG(t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
             CALL_N(t, next, 2);
-            REQUIRE_LIST_MSG(t, LF(3));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
             CALL_N(t, next, 2);
-            REQUIRE_LIST_MSG(t, LF(3));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
             CALL_N(t, next, 2);
-            REQUIRE_LIST_MSG(t, LF(3));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
             REQUIRE_INDEX(t, 2);
 
             CALL_N(t, prev, 2);
-            REQUIRE_LIST_MSG(t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
             CALL_N(t, prev, 4);
-            REQUIRE_LIST_MSG(t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
             REQUIRE_INDEX(t, 0);
         }
 
         SECTION("length 2")
         {
-            AtomList args(gensym("@clip"));
-            args.append(AtomList(gensym("@length"), 2));
-            ListWalkTest t("list.walk", args);
+            TestListWalk t("list.walk", LA("@clip", "@length", 2));
+            REQUIRE_PROPERTY_FLOAT(t, @clip, 1);
 
             CALL(t, current);
             REQUIRE_NO_MSG(t);

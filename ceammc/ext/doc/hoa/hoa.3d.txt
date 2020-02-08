@@ -1,0 +1,8 @@
+hoa.3d.decoder~-help.pd hoa.3d.decoder~ An ambisonic decoder.;
+hoa.3d.encoder~-help.pd hoa.3d.encoder~ An ambisonic encoder.;
+hoa.3d.map~-help.pd hoa.3d.map~ An ambisonic sources spatializer.;
+hoa.3d.meter~-help.pd hoa.3d.meter~ A multi spherical meter with sound field descriptor.;
+hoa.3d.optim~-help.pd hoa.3d.optim~ An ambisonic sound field optimization.;
+hoa.3d.wider~-help.pd hoa.3d.wider~ An ambisonic fractional orders simulator.;
+hoa.3d.scope~-help.pd hoa.3d.scope~ An ambisonic harmonics visualizer.;
+hoa.3d.exchanger~-help.pd hoa.3d.exchanger~ An ambisonic standards exchanger.;

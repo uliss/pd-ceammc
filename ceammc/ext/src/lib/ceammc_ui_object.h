@@ -6,6 +6,7 @@
 #include "ceammc_data.h"
 #include "ceammc_property_info.h"
 
+#include <initializer_list>
 #include <sstream>
 #include <unordered_map>
 #include <unordered_set>
@@ -13,22 +14,22 @@
 
 namespace ceammc {
 
-class UIObject;
+class UIObjectImpl;
 
 class UIError : public std::ostringstream {
-    const UIObject* obj_;
+    const UIObjectImpl* obj_;
 
 public:
-    UIError(const UIObject* obj = NULL);
+    UIError(const UIObjectImpl* obj = nullptr);
     ~UIError();
     UIError& stream() { return *this; }
 };
 
 class UIDebug : public std::ostringstream {
-    const UIObject* obj_;
+    const UIObjectImpl* obj_;
 
 public:
-    UIDebug(const UIObject* obj = NULL);
+    UIDebug(const UIObjectImpl* obj = nullptr);
     ~UIDebug();
     UIDebug& stream() { return *this; }
 };
@@ -36,41 +37,50 @@ public:
 #define UI_ERR UIError(this).stream()
 #define UI_DBG UIDebug(this).stream()
 
-class UIObject : t_ebox {
+class UIObjectImpl {
+    t_ebox* const box_;
     AtomList args_;
-    std::vector<t_outlet*> outlets_;
     std::unordered_set<t_symbol*> binded_signals_;
     std::vector<UILayer*> layer_stack_;
     t_symbol* name_;
     t_symbol* old_preset_id_;
-    t_cursor cursor_;
     bool use_presets_;
 
 protected:
     UILayer bg_layer_;
+    std::vector<PopupMenuCallbacks> popup_menu_list_;
+    std::vector<t_outlet*> outlets_;
+
     void appendToLayerList(UILayer* l);
     void prependToLayerList(UILayer* l);
     void invalidateLayer(UILayer* l);
     void invalidateBox();
+    void invalidateXlets();
+    void invalidateBorder();
+    void initPopupMenu(const std::string& n, std::initializer_list<PopupMenuCallbacks::Entry> args);
+    void showDefaultPopupMenu(const t_pt& pt, const t_pt& abs_pt);
+    void showPopupMenu(const std::string& n, const t_pt& pt, const t_pt& abs_pt);
 
 public:
     t_rgba prop_color_background;
     t_rgba prop_color_border;
     t_rgba prop_color_label;
+    int prop_mouse_events;
 
 public:
-    UIObject();
-    ~UIObject();
+    UIObjectImpl(t_ebox* x);
+    ~UIObjectImpl();
 
     // CICM and Pd
-    t_ebox* asEBox() const;
+    t_ebox* asEBox() const { return box_; }
     t_eobj* asEObj() const;
     t_object* asPdObject() const;
+    t_gobj* asGObj() const;
     t_pd* asPd() const;
-    t_outlet* createOutlet();
     t_canvas* canvas() const;
     bool isPatchLoading() const;
     bool isPatchEdited() const;
+    bool isVisible() const;
     const AtomList& args() const { return args_; }
     AtomList& args() { return args_; }
 
@@ -79,6 +89,8 @@ public:
     t_symbol* presetId();
 
     void paint();
+    void create();
+    void erase();
 
     void redraw();
     void redrawInnerArea();
@@ -94,13 +106,15 @@ public:
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseLeave(t_object* view, const t_pt& pt, long modifiers);
     void onMouseEnter(t_object* view, const t_pt& pt, long modifiers);
-    void onMouseWheel(t_object* view, const t_pt& pt, long modifiers, double delta);
+    void onMouseWheel(const t_pt& pt, long modifiers, double delta);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
+    void onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt);
+    void showPopup(const t_pt& pt, const t_pt& abs_pt);
+    bool outputMouseEvents() const;
 
     void okSize(t_rect* newrect);
     void setDrawParams(t_edrawparams* params);
     void onZoom(t_float z);
-    void onPopup(t_symbol* menu_name, long item_idx);
     void onPropChange(t_symbol* name);
     void write(const std::string& fname);
     void read(const std::string& fname);
@@ -142,17 +156,20 @@ public:
     float height() const;
 
     float zoom() const;
-    t_cursor cursor() const;
     void setCursor(t_cursor c);
 
+    // presets
     void presetInit();
     void bindPreset(t_symbol* name);
     void unbindPreset(t_symbol* name);
     void rebindPreset(t_symbol* from, t_symbol* to);
     void handlePresetNameChange();
 
+    // xlets
     size_t numInlets() const;
     size_t numOutlets() const;
+    const std::vector<t_outlet*>& outlets() const { return outlets_; }
+    t_outlet* createOutlet();
 
     bool hasProperty(t_symbol* name) const;
     bool getProperty(t_symbol* name, t_float& f) const;
@@ -186,6 +203,28 @@ private:
     typedef std::unordered_map<t_symbol*, int> PresetNameMap;
     static PresetNameMap presets_;
 };
+
+class UIObject : public t_ebox, public UIObjectImpl {
+public:
+    UIObject();
+};
+
+class UIDspObject : public t_edspbox, public UIObjectImpl {
+    t_float samplerate_;
+    long blocksize_;
+
+public:
+    UIDspObject();
+
+    // DSP
+    void dspInit();
+    void dspSetup(size_t n_in, size_t n_out);
+    void dspOn(double samplerate, long blocksize);
+    void dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes);
+    float samplerate() const { return samplerate_; }
+    long blocksize() const { return blocksize_; }
+};
+
 }
 
 #endif // CEAMMC_UI_OBJECT_H

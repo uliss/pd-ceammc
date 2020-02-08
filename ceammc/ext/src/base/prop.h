@@ -21,7 +21,7 @@ using namespace ceammc;
 
 class BaseProp : public BaseObject {
     t_symbol* name_;
-    std::string full_name_;
+    t_symbol* full_name_;
 
 public:
     BaseProp(const PdArgs& args);
@@ -33,6 +33,8 @@ public:
     void onList(const AtomList& l) override;
 
     void m_default(t_symbol*, const AtomList&);
+
+    void dump() const override;
 };
 
 void setup_base_prop();

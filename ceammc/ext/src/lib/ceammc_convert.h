@@ -14,6 +14,10 @@
 #ifndef CEAMMC_CONVERT_H
 #define CEAMMC_CONVERT_H
 
+#ifndef _USE_MATH_DEFINES
+#define _USE_MATH_DEFINES
+#endif
+
 #include <algorithm>
 #include <cmath>
 #include <string>
@@ -34,6 +38,19 @@ T clip_any(T v, T v0, T v1)
 {
     auto r = std::minmax(v0, v1);
     return clip<T>(v, r.first, r.second);
+}
+
+template <typename T, int Min, int Max>
+T clip(T v)
+{
+    static_assert(Min < Max, "Min should be less then Max");
+    return std::min<T>(T(Max), std::max<T>(v, T(Min)));
+}
+
+template <typename T>
+T clip01(T v)
+{
+    return clip<T, 0, 1>(v);
 }
 
 /**
@@ -110,6 +127,26 @@ T relativeIndex(T v, typename std::make_unsigned<T>::type n)
     return (v < 0) ? v + N : v;
 }
 
+/**
+ * wrap x -> [0,max)
+ */
+template <typename T>
+T wrapFloatMax(T x, T max)
+{
+    static_assert(std::is_floating_point<T>(), "Floating point type expected");
+    /* integer math: `(max + x % max) % max` */
+    return std::fmod(max + std::fmod(x, max), max);
+}
+
+/**
+ * wrap x -> [min,max)
+ */
+template <typename T>
+T wrapFloatMinMax(T x, T min, T max)
+{
+    return min + wrapFloatMax<T>(x - min, max - min);
+}
+
 namespace convert {
     namespace time {
         /**
@@ -126,11 +163,25 @@ namespace convert {
         return (v - x0) / (x1 - x0) * (y1 - y0) + y0;
     }
 
+    template <class T, int x0, int x1>
+    T lin2lin(T v, T y0, T y1)
+    {
+        static_assert(x0 != x1, "Zero input range");
+        return (v - T(x0)) / (T(x1) - T(x0)) * (y1 - y0) + y0;
+    }
+
     template <class T>
     T lin2lin_clip(T v, T x0, T x1, T y0, T y1)
     {
         auto yr = std::minmax(y0, y1);
         return clip<T>(lin2lin<T>(v, x0, x1, y0, y1), yr.first, yr.second);
+    }
+
+    template <class T, int x0, int x1>
+    T lin2lin_clip(T v, T y0, T y1)
+    {
+        static_assert(x0 != x1, "Zero input range");
+        return (clip<T, x0, x1>(v) - T(x0)) / (T(x1) - T(x0)) * (y1 - y0) + y0;
     }
 
     float lin2exp(float x, float x0, float x1, float y0, float y1);
@@ -162,6 +213,81 @@ namespace convert {
      */
     float freq2midi(float freq, float a_freq = 440.f);
     double freq2midi(double freq, double a_freq = 440);
+
+    /**
+     * x -> [0, 2pi)
+     */
+    template <typename T>
+    T phase2rad(T x)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return wrapFloatMax<T>(x, 1) * (2 * M_PI);
+    }
+
+    /**
+     * x -> [0, 360)
+     */
+    template <typename T>
+    T phase2degree(T x)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return wrapFloatMax<T>(x * 360, 360);
+    }
+
+    /**
+     * x -> [0, 1)
+     */
+    template <typename T>
+    T degree2phase(T x)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return wrapFloatMax<T>(x, 360) / 360;
+    }
+
+    /**
+     * x -> [0, 2pi)
+     */
+    template <typename T>
+    T degree2rad(T x)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return (wrapFloatMax<T>(x, 360) / 360) * (2 * M_PI);
+    }
+
+    /**
+     * x -> [0, 1)
+     */
+    template <typename T>
+    T rad2phase(T x)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return wrapFloatMax<T>(x / (2 * M_PI), 1);
+    }
+
+    /**
+     * x -> [0, 360)
+     */
+    template <typename T>
+    T rad2degree(T x)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return wrapFloatMax<T>(x * 360 / (2 * M_PI), 360);
+    }
+
+    template <typename T>
+    std::pair<T, T> cartesian2polar(T x, T y)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return { std::hypot(x, y), std::atan2(y, x) };
+    }
+
+    template <typename T>
+    std::pair<T, T> polar2cartesian(T r, T theta)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return { r * std::cos(theta), r * std::sin(theta) };
+    }
+
 }
 }
 

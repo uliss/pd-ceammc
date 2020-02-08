@@ -8,7 +8,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>pitch tracker</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>an</category>
             <keywords>pitchtrack</keywords>
@@ -26,15 +26,15 @@
             function (SNAC)</par>
         </info>
         <arguments>
-            <argument name="FRAME" type="int" enum="126 256 512 1024 2048">frame size in
+            <argument name="FRAME" type="int" enum="128 256 512 1024 2048">frame size in
             samples</argument>
             <argument name="OVERLAP" type="int" enum="1 2 4 8">overlap of analysis
             frames</argument>
         </arguments>
         <properties>
-            <property name="@framesize" type="int" enum="126 256 512 1024 2048" default="1024"
+            <property name="@framesize" type="int" enum="128 256 512 1024 2048" default="1024"
             units="sample">frame size in samples</property>
-            <property name="@overlap" type="int" enum="1 2 3 4 8" default="1">overlap of analysis
+            <property name="@overlap" type="int" enum="1 2 4 8" default="1">overlap of analysis
             frames</property>
             <property name="@bias" type="float" minvalue="0" maxvalue="1" default="0.2">bias which
             favours small lags over large lags in the period detection, thereby avoiding low-octave

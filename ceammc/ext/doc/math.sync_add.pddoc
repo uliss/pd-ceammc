@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.sync_add">
+        <title>math.sync_add</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sync addition</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math add sync</keywords>
+            <aliases>
+                <alias>math.+'</alias>
+                <alias>+'</alias>
+            </aliases>
+            <since>0.8</since>
+            <also>
+                <see>math.sync_sub</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="F" type="float">second addend</argument>
+        </arguments>
+        <properties>
+            <property name="@int" type="flag">operate on integers only</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">set first addend, calculate and output result</xinfo>
+                <xinfo on="list">pair: set first and second addends, calculate and output
+                result</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">change second addend, calculate and output result</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]   [F]   /*same as:*/ [F]  [F]
+|     |                  |    |
+|     |                  |    [t b f]
+|     |.                 |    | ^|.
+[+'    ]                 [+       ]
+|                        |
+[F]                      [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

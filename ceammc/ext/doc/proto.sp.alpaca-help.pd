@@ -1,0 +1,171 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 369 50 cnv 1 396 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 369 50 protocol parser for Arduino-based CEAMMC footswitch;
+#X obj 1 1 cnv 5 765 40 empty empty proto.sp.alpaca 20 20 0 20 -104026
+-4096 0;
+#X obj 632 11 proto.sp.alpaca;
+#X obj 50 118 ui.knob;
+#X msg 146 118 version?;
+#X msg 146 147 clear;
+#X msg 251 147 fill;
+#X obj 347 147 ui.hrd @mode 1;
+#X floatatom 510 147 5 0 0 0 - - -;
+#X symbolatom 626 147 5 0 0 0 - - -;
+#X msg 50 176 brightness \$1;
+#X obj 347 176 msg row 2;
+#X msg 510 176 str \$1;
+#X msg 626 176 char \$1;
+#X obj 347 205 ui.menu none digital1 digital2 analog;
+#X msg 347 234 mode 0 \$2;
+#X obj 50 262 proto.sp.alpaca;
+#X obj 50 291 hw.arduino @rate 9600 @reconnect;
+#X obj 50 320 proto.sp.alpaca;
+#X obj 50 349 route digital analog;
+#X obj 50 378 route 0 1 2 3;
+#X obj 232 378 route 0 1;
+#X obj 50 406 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 98 406 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 146 406 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 194 406 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X floatatom 232 406 5 0 0 0 - - -;
+#X floatatom 290 406 5 0 0 0 - - -;
+#X obj 20 445 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 450 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 485 brightness;
+#X text 245 485 set LED brightness. Arguments are:;
+#X obj 255 508 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 508 VAL: value. Type: float. Range: 0\...1\.;
+#X msg 110 533 char;
+#X text 245 533 draw char at specified position. Arguments are:;
+#X obj 255 556 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 556 CH: char symbol or int value from 0 to 9\. Type: atom.;
+#X obj 255 579 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 579 [XOFF]: horizontal character offset. Type: int. Range:
+0\...7\.;
+#X msg 110 619 char;
+#X text 245 619 draw char at specified position. Arguments are:;
+#X obj 255 642 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 642 CH: char symbol or int value from 0 to 9\. Type: atom.;
+#X obj 255 665 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 665 [XOFF]: horizontal character offset. Type: int. Range:
+0\...7\.;
+#X msg 110 705 clear;
+#X text 245 705 clear LED display.;
+#X msg 110 732 col;
+#X text 245 732 draw column pixels. Arguments are:;
+#X obj 255 755 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 755 N: column index. Type: int. Range: 0\...7\.;
+#X obj 255 778 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 778 BITS: list of 0 and 1\. Type: list.;
+#X msg 110 803 fill;
+#X text 245 803 fill LED display.;
+#X msg 110 830 invert;
+#X text 245 830 invert LED display.;
+#X msg 110 857 mode;
+#X text 245 857 set device jack mode. Arguments are:;
+#X obj 255 880 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 880 IDX: left (0) or right (1) device side. Type: int.
+Allowed values: 0 \, 1\.;
+#X obj 255 918 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 918 MODE: output mode: none - no output \, digital1 - send
+only first button press \, digital2 - send only second button press
+\, digital - send both buttons press \, analog - send analog value
+(from pedal) \, analog_row - send raw analog values (pair). Type: symbol.
+Allowed values: digital1 \, digital2 \, digital \, analog \, analog_raw
+\, none.;
+#X msg 110 1018 pixel;
+#X text 245 1018 draw/clear pixel on display matrix (6x8). Arguments
+are:;
+#X obj 255 1041 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1041 X: x-pixel coordinate. Type: int. Range: 0\...7\.;
+#X obj 255 1064 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1064 Y: y-pixel coordinate. Type: int. Range: 0\...5\.;
+#X obj 255 1087 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1087 ON/OFF: draw (1) or clear (0). Type: int. Allowed
+values: 0 \, 1\.;
+#X msg 110 1127 row;
+#X text 245 1127 draw row pixels. Arguments are:;
+#X obj 255 1150 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1150 N: row index. Type: int. Range: 0\...5\.;
+#X obj 255 1173 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1173 BITS: list of 0 and 1\. Type: list.;
+#X msg 110 1198 str;
+#X text 245 1198 draw string. Arguments are:;
+#X obj 255 1221 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1221 STR: string or int value from -9 to 99\. Type: atom.;
+#X msg 110 1246 sync;
+#X text 245 1246 force device to send it's button and mode state.;
+#X msg 110 1273 version?;
+#X text 245 1273 outputs device protocol version as message: [version
+N].;
+#X msg 110 1300 dump;
+#X text 245 1300 dumps all object info to Pd console window.;
+#X obj 20 1337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1342 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1343 1\.;
+#X text 150 1343 *float*;
+#X text 245 1343 input byte value from arduino.;
+#X obj 20 1373 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1378 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1379 1\.;
+#X text 245 1379 output parsed messages from device.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 115 45 ::;
+#X obj 131 48 ui.link @title proto @url ceammc.proto-help.pd;
+#X obj 1 1429 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1432 library: ceammc v0.8.0;
+#N canvas 10 1451 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.8.0;
+#X text 10 54 object:;
+#X text 120 54 proto.sp.alpaca;
+#X text 10 76 category:;
+#X text 120 76 proto;
+#X text 10 98 since:;
+#X text 120 98 0.8;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavski;
+#X text 10 142 license:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 keywords:;
+#X text 120 164 protocol \, diy \, alpaca \, footswitch;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 1451 pd info;
+#X connect 4 0 11 0;
+#X connect 8 0 12 0;
+#X connect 9 0 13 0;
+#X connect 10 0 14 0;
+#X connect 15 0 16 0;
+#X connect 11 0 17 0;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;
+#X connect 19 0 20 0;
+#X connect 20 0 21 0;
+#X connect 20 1 22 0;
+#X connect 21 0 23 0;
+#X connect 21 1 24 0;
+#X connect 21 2 25 0;
+#X connect 21 3 26 0;
+#X connect 22 0 27 0;
+#X connect 22 1 28 0;
+#X connect 6 0 17 0;
+#X connect 7 0 17 0;
+#X connect 12 0 17 0;
+#X connect 5 0 17 0;
+#X connect 13 0 17 0;
+#X connect 14 0 17 0;
+#X connect 16 0 17 0;

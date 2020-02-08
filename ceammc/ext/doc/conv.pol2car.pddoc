@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.pol2car">
+        <title>conv.pol2car</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert from polar coordinates to cartesian</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv polar cartesian</keywords>
+            <since>0.8</since>
+            <also>
+                <see>conv.car2pol</see>
+            </also>
+            <aliases>
+                <alias>pol-&gt;car</alias>
+            </aliases>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="list">radius and angle (in radians) pair</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>x, y coordinates pair</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.knob]
+|
+|
+|
+[F]
+|
+[phase->rad]
+|
+[1 $1(
+|
+[pol->car]
+|
+[ui.slider2d]
+
+
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

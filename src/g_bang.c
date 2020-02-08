@@ -72,7 +72,7 @@ void bng_draw_move(t_bng* x, t_glist* glist)
 
 void bng_draw_erase(t_bng* x, t_glist* glist)
 {
-    t_canvas* canvas = glist_getcanvas(glist);
+    t_canvas *canvas = glist_getcanvas(glist);
 
     g_iem_box_erase(canvas, &x->x_gui);
     g_figure_erase(canvas, x, "BTN");
@@ -131,8 +131,8 @@ void bng_draw(t_bng* x, t_glist* glist, int mode)
 
 /* ------------------------ bng widgetbehaviour----------------------------- */
 
-static void bng_getrect(t_gobj* z, t_glist* glist,
-    int* xp1, int* yp1, int* xp2, int* yp2)
+static void bng_getrect(t_gobj *z, t_glist *glist,
+                        int *xp1, int *yp1, int *xp2, int *yp2)
 {
     t_bng* x = (t_bng*)z;
 
@@ -149,15 +149,15 @@ static void bng_save(t_gobj* z, t_binbuf* b)
     t_symbol* srl[3];
 
     iemgui_save(&x->x_gui, srl, bflcol);
-    binbuf_addv(b, "ssiisiiiisssiiiisss", gensym("#X"), gensym("obj"),
-        (int)x->x_gui.x_obj.te_xpix, (int)x->x_gui.x_obj.te_ypix,
-        gensym("bng"), x->x_gui.x_w / IEMGUI_ZOOM(x),
-        x->x_flashtime_hold, x->x_flashtime_break,
-        iem_symargstoint(&x->x_gui.x_isa),
-        srl[0], srl[1], srl[2],
-        x->x_gui.x_ldx, x->x_gui.x_ldy,
-        iem_fstyletoint(&x->x_gui.x_fsf), x->x_gui.x_fontsize,
-        bflcol[0], bflcol[1], bflcol[2]);
+    binbuf_addv(b, "ssiisiiiisssiiiisss", gensym("#X"),gensym("obj"),
+                (int)x->x_gui.x_obj.te_xpix, (int)x->x_gui.x_obj.te_ypix,
+                gensym("bng"), x->x_gui.x_w/IEMGUI_ZOOM(x),
+                x->x_flashtime_hold, x->x_flashtime_break,
+                iem_symargstoint(&x->x_gui.x_isa),
+                srl[0], srl[1], srl[2],
+                x->x_gui.x_ldx, x->x_gui.x_ldy,
+                iem_fstyletoint(&x->x_gui.x_fsf), x->x_gui.x_fontsize,
+                bflcol[0], bflcol[1], bflcol[2]);
     binbuf_addv(b, ";");
 }
 
@@ -193,13 +193,13 @@ static void bng_properties(t_gobj* z, t_glist* owner)
             %s %d %d \
             %d %d \
             #%06x #%06x #%06x\n",
-        x->x_gui.x_w / IEMGUI_ZOOM(x), IEM_GUI_MINSIZE,
-        x->x_flashtime_break, x->x_flashtime_hold, 2, /*min_max_schedule+clip*/
-        -1, x->x_gui.x_isa.x_loadinit, -1, -1, /*no linlog, no multi*/
-        srl[0]->s_name, srl[1]->s_name,
-        srl[2]->s_name, x->x_gui.x_ldx, x->x_gui.x_ldy,
-        x->x_gui.x_fsf.x_font_style, x->x_gui.x_fontsize,
-        0xffffff & x->x_gui.x_bcol, 0xffffff & x->x_gui.x_fcol, 0xffffff & x->x_gui.x_lcol);
+            x->x_gui.x_w/IEMGUI_ZOOM(x), IEM_GUI_MINSIZE,
+            x->x_flashtime_break, x->x_flashtime_hold, 2,/*min_max_schedule+clip*/
+            -1, x->x_gui.x_isa.x_loadinit, -1, -1,/*no linlog, no multi*/
+            srl[0]->s_name, srl[1]->s_name,
+            srl[2]->s_name, x->x_gui.x_ldx, x->x_gui.x_ldy,
+            x->x_gui.x_fsf.x_font_style, x->x_gui.x_fontsize,
+            0xffffff & x->x_gui.x_bcol, 0xffffff & x->x_gui.x_fcol, 0xffffff & x->x_gui.x_lcol);
     gfxstub_new(&x->x_gui.x_obj.ob_pd, x, buf);
 }
 
@@ -217,7 +217,7 @@ static void bng_set(t_bng* x)
     clock_delay(x->x_clock_hld, holdtime);
 }
 
-static void bng_bout1(t_bng* x) /*wird nur mehr gesendet, wenn snd != rcv*/
+static void bng_bout1(t_bng *x) /*wird nur mehr gesendet, wenn snd != rcv*/
 {
     if (!x->x_gui.x_fsf.x_put_in2out) {
         x->x_gui.x_isa.x_locked = 1;
@@ -228,7 +228,7 @@ static void bng_bout1(t_bng* x) /*wird nur mehr gesendet, wenn snd != rcv*/
         pd_bang(x->x_gui.x_snd->s_thing);
 }
 
-static void bng_bout2(t_bng* x) /*wird immer gesendet, wenn moeglich*/
+static void bng_bout2(t_bng *x) /*wird immer gesendet, wenn moeglich*/
 {
     if (!x->x_gui.x_fsf.x_put_in2out) {
         x->x_gui.x_isa.x_locked = 1;
@@ -239,7 +239,7 @@ static void bng_bout2(t_bng* x) /*wird immer gesendet, wenn moeglich*/
         pd_bang(x->x_gui.x_snd->s_thing);
 }
 
-static void bng_bang(t_bng* x) /*wird nur mehr gesendet, wenn snd != rcv*/
+static void bng_bang(t_bng *x) /*wird nur mehr gesendet, wenn snd != rcv*/
 {
     if (!x->x_gui.x_isa.x_locked) {
         bng_set(x);
@@ -247,7 +247,7 @@ static void bng_bang(t_bng* x) /*wird nur mehr gesendet, wenn snd != rcv*/
     }
 }
 
-static void bng_bang2(t_bng* x) /*wird immer gesendet, wenn moeglich*/
+static void bng_bang2(t_bng *x) /*wird immer gesendet, wenn moeglich*/
 {
     if (!x->x_gui.x_isa.x_locked) {
         bng_set(x);
@@ -257,7 +257,7 @@ static void bng_bang2(t_bng* x) /*wird immer gesendet, wenn moeglich*/
 
 static void bng_dialog(t_bng* x, t_symbol* s, int argc, t_atom* argv)
 {
-    t_symbol* srl[3];
+    t_symbol *srl[3];
     int a = (int)atom_getfloatarg(0, argc, argv);
     int fthold = (int)atom_getfloatarg(2, argc, argv);
     int ftbreak = (int)atom_getfloatarg(3, argc, argv);
@@ -338,7 +338,7 @@ static void bng_pos(t_bng* x, t_symbol* s, int ac, t_atom* av)
 static void bng_flashtime(t_bng* x, t_symbol* s, int ac, t_atom* av)
 {
     bng_check_minmax(x, (int)atom_getfloatarg(0, ac, av),
-        (int)atom_getfloatarg(1, ac, av));
+                        (int)atom_getfloatarg(1, ac, av));
 }
 
 static void bng_color(t_bng* x, t_symbol* s, int ac, t_atom* av)
@@ -389,7 +389,7 @@ static void bng_tick_lck(t_bng* x)
 
 static void* bng_new(t_symbol* s, int argc, t_atom* argv)
 {
-    t_bng* x = (t_bng*)pd_new(bng_class);
+    t_bng *x = (t_bng *)pd_new(bng_class);
     int a = IEM_GUI_DEFAULTSIZE;
     int ldx = 17, ldy = 7;
     int fs = 10;
@@ -403,14 +403,15 @@ static void* bng_new(t_symbol* s, int argc, t_atom* argv)
     x->x_gui.x_fcol = 0x00;
     x->x_gui.x_lcol = 0x00;
 
-    if ((argc == 14) && IS_A_FLOAT(argv, 0)
-        && IS_A_FLOAT(argv, 1) && IS_A_FLOAT(argv, 2)
-        && IS_A_FLOAT(argv, 3)
-        && (IS_A_SYMBOL(argv, 4) || IS_A_FLOAT(argv, 4))
-        && (IS_A_SYMBOL(argv, 5) || IS_A_FLOAT(argv, 5))
-        && (IS_A_SYMBOL(argv, 6) || IS_A_FLOAT(argv, 6))
-        && IS_A_FLOAT(argv, 7) && IS_A_FLOAT(argv, 8)
-        && IS_A_FLOAT(argv, 9) && IS_A_FLOAT(argv, 10)) {
+    if((argc == 14)&&IS_A_FLOAT(argv,0)
+       &&IS_A_FLOAT(argv,1)&&IS_A_FLOAT(argv,2)
+       &&IS_A_FLOAT(argv,3)
+       &&(IS_A_SYMBOL(argv,4)||IS_A_FLOAT(argv,4))
+       &&(IS_A_SYMBOL(argv,5)||IS_A_FLOAT(argv,5))
+       &&(IS_A_SYMBOL(argv,6)||IS_A_FLOAT(argv,6))
+       &&IS_A_FLOAT(argv,7)&&IS_A_FLOAT(argv,8)
+       &&IS_A_FLOAT(argv,9)&&IS_A_FLOAT(argv,10))
+    {
 
         a = (int)atom_getfloatarg(0, argc, argv);
         fthold = (int)atom_getfloatarg(1, argc, argv);

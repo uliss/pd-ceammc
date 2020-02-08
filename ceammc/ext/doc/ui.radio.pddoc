@@ -7,7 +7,7 @@
                 <author>Pierre Guillot</author>
             </authors>
             <description>counterpart of the vanilla radio toggle</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category view="link">ui</category>
             <keywords>ui radio</keywords>
@@ -16,14 +16,24 @@
                 <see view="link">ui.matrix</see>
             </also>
             <aliases>
+                <alias view="link">ui.radio*</alias>
                 <alias view="link">ui.hrd</alias>
+                <alias view="link">ui.hrd*</alias>
                 <alias view="link">ui.vrd</alias>
+                <alias view="link">ui.vrd*</alias>
             </aliases>
         </meta>
         <info>
-            <par>Double click in edit mode changes slider orientation</par>
-            <par>[ui.hrd] alias for horizontal radio, [ui.vrd] alias for vertical radio</par>
+            <par>[ui.hrd] alias for horizontal radio, [ui.vrd] alias for vertical radio, [ui.hrd*]
+            alias for horizontal radio checklist.</par>
         </info>
+        <mouse>
+            <event editmode="true" type="double-click" keys="Cmd">changes slider
+            orientation</event>
+            <event editmode="0" type="left-click">select cell in radio mode, toggle cell in check
+            list mode</event>
+            <event editmode="0" type="right-click">show context menu</event>
+        </mouse>
         <arguments>
             <argument name="NCELLS" type="float" minvalue="2" maxvalue="128">number of
             cells</argument>
@@ -55,11 +65,14 @@
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
+            <property name="@mouse_events" type="int" enum="0 1" default="0">mouse events output
+            mode. If on outputs @mouse_down and @mouse_drag events</property>
         </properties>
         <methods>
             <method name="set">sets radio without output 
             <param name="V" type="float" required="true">new value</param></method>
             <method name="reset">reset radio (only in checklist mode)</method>
+            <method name="random">check random cells</method>
             <method name="flip">flips radio (only in checklist mode)</method>
             <method name="next">moves to next position until last cell is reached (single mode
             only)</method>
@@ -96,9 +109,9 @@
 [F]  [set 2(         [flip( [reset( [1 1 0 1 0 0 1(
 |    |               |      |       |
 |    |               |      |       |
-[ui.radio ]          [ui.radio @mode=1]
+[ui.radio ]          [ui.radio @mode 1]
 |                    |
-[F]                  [ui.display @display_type 1]
+[F]                  [ui.display @display_type=1]
 
 [+ 3( [- 1( [prev( [next(
 |     |     |      |

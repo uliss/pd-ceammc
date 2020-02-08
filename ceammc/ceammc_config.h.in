@@ -3,9 +3,9 @@
 
 #cmakedefine CEAMMC_LIB_VERSION "@CEAMMC_LIB_VERSION@"
 #cmakedefine CEAMMC_LIB_HOME "@CEAMMC_LIB_HOME@"
-#cmakedefine CEAMMC_HAVE_MODPLUG
 #cmakedefine CEAMMC_HAVE_GLIB
 #cmakedefine CEAMMC_HAVE_FLUIDSYNTH
+#cmakedefine CEAMMC_HAVE_TTS_FLITE
 
 /* Define if building for Mac OS X Darwin */
 #cmakedefine DARWIN @DARWIN@

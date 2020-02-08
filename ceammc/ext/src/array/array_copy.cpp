@@ -119,9 +119,6 @@ void ArrayCopy::copyRange(t_symbol* src, const Range& range, t_symbol* dest, siz
     }
 
     // clip to source size
-    Range clip_in_range = range.clip(in.size());
-
-    size_t n = 0;
     if (!resize_->value()) {
         if (destpos >= out.size()) {
             OBJ_ERR << "invalid destination position: " << destpos;

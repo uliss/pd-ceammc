@@ -37,11 +37,55 @@ UIMatrix::UIMatrix()
     , mouse_current_row_(-1)
     , current_col_(-1)
     , current_row_(-1)
-    , cells_are_created_(false)
 {
     static_assert(std::numeric_limits<CellIdxT>::max() > UI_MAX_MATRIX_SIZE, "check cell index type");
 
     createOutlet();
+
+    initPopupMenu("matrix",
+        { { _("reset"), [this](const t_pt&) {
+               m_reset();
+           } },
+            { _("reset row"), [this](const t_pt& pt) {
+                 auto c = cellAt(pt);
+                 if (c.second >= 0) {
+                     setRow(c.second, AtomList::zeroes(prop_cols_));
+                     drawActiveCells();
+                 }
+             } },
+            { _("reset column"), [this](const t_pt& pt) {
+                 auto c = cellAt(pt);
+                 if (c.first >= 0) {
+                     setColumn(c.first, AtomList::zeroes(prop_rows_));
+                     drawActiveCells();
+                 }
+             } },
+            { _("flip"), [this](const t_pt&) {
+                 m_flip(AtomList());
+             } },
+            { _("flip row"), [this](const t_pt& pt) {
+                 auto c = cellAt(pt);
+                 if (c.second >= 0) {
+                     flipRow(c.second);
+                     drawActiveCells();
+                 }
+             } },
+            { _("flip column"), [this](const t_pt& pt) {
+                 auto c = cellAt(pt);
+                 if (c.first >= 0) {
+                     flipColumn(c.first);
+                     drawActiveCells();
+                 }
+             } },
+            { _("random"), [this](const t_pt&) {
+                 m_random();
+             } },
+            PopupMenuCallbacks::sep(), { _("load"), [this](const t_pt&) {
+                                            eobj_read(asEObj(), gensym("read"), 0, nullptr);
+                                        } },
+            { _("save"), [this](const t_pt&) {
+                 eobj_write(asEObj(), gensym("write"), 0, nullptr);
+             } } });
 }
 
 void UIMatrix::init(t_symbol* name, const AtomList& args, bool usePresets)
@@ -236,7 +280,7 @@ void UIMatrix::okSize(t_rect* newrect)
 
 void UIMatrix::drawActiveCells()
 {
-    if (!asEBox() || !asEBox()->b_drawing_id)
+    if (!isVisible())
         return;
 
     int color_inactive = rgba_to_hex_int(prop_color_background);
@@ -299,40 +343,34 @@ void UIMatrix::createCells()
     const int color_inactive = rgba_to_hex_int(prop_color_background);
     const int color_active = rgba_to_hex_int(prop_color_active_);
 
-    if (!cells_are_created_ && asEBox() && asEBox()->b_drawing_id) {
-        int color_cell_border = rgba_to_hex_int(prop_color_border);
-        for (int inc_x = CELL_MARGIN, col = 0; col < prop_cols_; col++, inc_x += w) {
-            for (int inc_y = CELL_MARGIN, row = 0; row < prop_rows_; row++, inc_y += h) {
-                int x0 = inc_x + CELL_MARGIN;
-                int y0 = inc_y + CELL_MARGIN;
-                int x1 = inc_x + w - CELL_MARGIN;
-                int y1 = inc_y + h - CELL_MARGIN;
-                sys_vgui("%s create rectangle %d %d %d %d -outline #%6.6x -fill #%6.6x"
-                         " -tags { " CELL_TAG_FMT " " ALL_CELLS_TAG_FMT " }\n",
-                    asEBox()->b_drawing_id->s_name,
-                    x0, y0, x1, y1,
-                    color_cell_border,
-                    cell(row, col)
-                        ? color_active
-                        : color_inactive,
-                    asEBox(),
-                    col, row,
-                    asEBox());
-            }
+    int color_cell_border = rgba_to_hex_int(prop_color_border);
+    for (int inc_x = CELL_MARGIN, col = 0; col < prop_cols_; col++, inc_x += w) {
+        for (int inc_y = CELL_MARGIN, row = 0; row < prop_rows_; row++, inc_y += h) {
+            int x0 = inc_x + CELL_MARGIN;
+            int y0 = inc_y + CELL_MARGIN;
+            int x1 = inc_x + w - CELL_MARGIN;
+            int y1 = inc_y + h - CELL_MARGIN;
+            sys_vgui("%s create rectangle %d %d %d %d -outline #%6.6x -fill #%6.6x"
+                     " -tags { " CELL_TAG_FMT " " ALL_CELLS_TAG_FMT " }\n",
+                asEBox()->b_drawing_id->s_name,
+                x0, y0, x1, y1,
+                color_cell_border,
+                cell(row, col)
+                    ? color_active
+                    : color_inactive,
+                asEBox(),
+                col, row,
+                asEBox());
         }
-
-        cells_are_created_ = true;
     }
 }
 
 void UIMatrix::eraseCells()
 {
-    if (cells_are_created_ && asEBox() && asEBox()->b_drawing_id) {
+    if (isVisible()) {
         sys_vgui("%s delete " ALL_CELLS_TAG_FMT "\n",
             asEBox()->b_drawing_id->s_name, asEBox());
     }
-
-    cells_are_created_ = false;
 }
 
 std::pair<int, int> UIMatrix::cellAt(const t_pt& pt)
@@ -374,9 +412,19 @@ void UIMatrix::paint()
             p.drawRect(0, current_row_ * cell_h, r.width, cell_h);
             p.stroke();
         }
-
-        createCells();
     }
+
+    drawActiveCells();
+}
+
+void UIMatrix::create()
+{
+    createCells();
+}
+
+void UIMatrix::erase()
+{
+    eraseCells();
 }
 
 void UIMatrix::outputCell(size_t row, size_t col)
@@ -496,17 +544,6 @@ void UIMatrix::onList(const AtomList& lst)
 
 void UIMatrix::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    if (modifiers == EMOD_RIGHT) {
-        UIPopupMenu menu(asEObj(), "menu", abs_pt);
-        menu.addItem(_("reset"));
-        menu.addItem(_("flip"));
-        menu.addItem(_("random"));
-        menu.addSeparator();
-        menu.addItem(_("load"));
-        menu.addItem(_("save"));
-        return;
-    }
-
     auto c = cellAt(pt);
     mouse_current_col_ = c.first;
     mouse_current_row_ = c.second;
@@ -758,7 +795,7 @@ void UIMatrix::updateCellsCoords()
     const int w = cellWidth();
     const int h = cellHeight();
 
-    if (cells_are_created_ && asEBox() && asEBox()->b_drawing_id) {
+    if (isVisible()) {
         for (int inc_x = CELL_MARGIN, col = 0; col < prop_cols_; col++, inc_x += w) {
             for (int inc_y = CELL_MARGIN, row = 0; row < prop_rows_; row++, inc_y += h) {
 
@@ -786,30 +823,6 @@ void UIMatrix::onPropChange(t_symbol* prop_name)
 void UIMatrix::onZoom(t_float z)
 {
     bg_layer_.invalidate();
-    cells_are_created_ = false;
-}
-
-void UIMatrix::onPopup(t_symbol* menu_name, long item_idx)
-{
-    if (menu_name == gensym("menu")) {
-        switch (item_idx) {
-        case 0:
-            m_reset();
-            break;
-        case 1:
-            m_flip(AtomList());
-            break;
-        case 2:
-            m_random();
-            break;
-        case 3:
-            eobj_read(asEObj(), gensym("read"), 0, nullptr);
-            break;
-        case 4:
-            eobj_write(asEObj(), gensym("write"), 0, nullptr);
-            break;
-        }
-    }
 }
 
 float UIMatrix::p_rows() const
@@ -829,8 +842,11 @@ void UIMatrix::p_setRows(float n)
         prop_rows_ = num;
         matrix_.reset();
         updateSize();
-        eraseCells();
-        createCells();
+
+        if (isVisible()) {
+            eraseCells();
+            createCells();
+        }
     }
 }
 
@@ -841,8 +857,11 @@ void UIMatrix::p_setCols(float n)
         prop_cols_ = num;
         matrix_.reset();
         updateSize();
-        eraseCells();
-        createCells();
+
+        if (isVisible()) {
+            eraseCells();
+            createCells();
+        }
     }
 }
 
@@ -860,11 +879,13 @@ void UIMatrix::setup()
     obj.setDefaultSize(105, 53);
 
     obj.usePresets();
+    obj.useDrawCallbacks();
     obj.useList();
     obj.useBang();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_LEAVE);
     obj.readWrite();
     obj.hideLabelInner();
+    obj.usePopup();
 
     obj.addProperty("rows", _("Rows"), 4, &UIMatrix::prop_rows_, _("Main"));
     obj.setPropertyRange("rows", 1, UI_MAX_MATRIX_SIZE);

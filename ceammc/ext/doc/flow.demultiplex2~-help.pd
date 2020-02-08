@@ -8,7 +8,7 @@
 #X obj 532 11 demux2~;
 #X obj 609 11 flow.demultiplex2~;
 #X obj 50 118 sig~ 1;
-#X obj 242 118 ui.radio @nitems 2 @size 127 15;
+#X obj 242 118 ui.radio @nitems 2;
 #X obj 443 118 ui.dsp~;
 #X obj 98 147 sig~ 0.125;
 #X msg 290 190 @value?;
@@ -65,7 +65,7 @@
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 754 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 757 library: ceammc v0.7.1;
+#X text 10 757 library: ceammc v0.8.0;
 #X text 411 769 see also:;
 #X obj 485 769 flow.demultiplex~;
 #X obj 624 769 flow.demultiplex;
@@ -74,7 +74,7 @@
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.7.1;
+#X text 120 32 0.8.0;
 #X text 10 54 object:;
 #X text 120 54 flow.demultiplex2~;
 #X text 10 76 category:;
@@ -84,7 +84,7 @@
 #X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
 #X text 10 142 license:;
-#X text 120 142 GPL3;
+#X text 120 142 GPL3 or later;
 #X text 10 164 keywords:;
 #X text 120 164 flow \, demultiplex;
 #X text 10 186 website:;

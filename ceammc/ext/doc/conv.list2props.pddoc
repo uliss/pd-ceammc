@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>converts list to series of property messages</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>conv</category>
             <keywords>conv properties</keywords>
@@ -25,15 +25,16 @@
         </inlets>
         <outlets>
             <outlet>sequence of @prop messages</outlet>
+            <outlet>list of non prop arguments</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[@prop1 100 @prop2 A B C @prop3(
+[list 1 2 3 @prop1 100 @prop2 A B C @prop3(
 |
-[list->props    ]
-|               |
-[route @prop1]  [print]
+[list->props {w=20}      ]
+|               |       ^|
+[route @prop1]  [print] [ui.display]
 |
 [F]
 ]]>

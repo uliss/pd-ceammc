@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="hoa.2d.rotate~">
+        <title>hoa.2d.rotate~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+                <author>Pierre Guillot</author>
+                <author>Eliott Paris</author>
+                <author>Thomas Le Meur</author>
+            </authors>
+            <description>a 2D ambisonic sound field rotation</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>hoa rotate</keywords>
+            <since>0.8</since>
+            <also>
+                <see>hoa.encoder~</see>
+            </also>
+            <aliases>
+                <alias>hoa.rotate~</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
+            decomposition</argument>
+        </arguments>
+        <properties>
+            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
+            readonly="true">the order of decomposition</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet type="audio">
+                <xinfo>first input harmonic</xinfo>
+            </inlet>
+            <inlet type="audio" number="...">
+                <xinfo>... input harmonic</xinfo>
+            </inlet>
+            <inlet type="audio" number="n">
+                <xinfo>n-th input harmonic</xinfo>
+            </inlet>
+            <inlet type="audio" number="n+1">
+                <xinfo>Set the angle of the rotation of the soundfield in radian. The rotation
+                angle is anti-clockwise and wrapped between 0 and 2π.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet type="audio">first output harmonic</outlet>
+            <outlet type="audio" number="...">... output harmonic</outlet>
+            <outlet type="audio" number="n">n-th output harmonic</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[sig~ 1]       [sig~ 1.62]        [sig~ -0.9]
+|              |.                 |
+[hoa.encoder~ 5 {w=21,i=11,o=11}] [hoa.encoder~ 5 {w=21,i=11,o=11}]
+            *|*                   *|*
+            *|*                   *|*           [lfo.saw~ 0.15]
+            *|*                   *|*           |
+            *|*                   *|*           [phase->rad~ #a]
+            *|*                   *|*           |
+            [hoa.rotate~ 5 {w=23,i=12,o=11} #b] [ui.n~]
+            *|*
+            [hoa.scope~ 5 @gain 4 @size 164 164 {i=11}]
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+[X a->b:11]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

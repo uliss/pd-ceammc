@@ -1,0 +1,44 @@
+#N canvas 456 124 747 487 10;
+#X obj 37 37 hoa.in~;
+#X obj 37 283 hoa.out~;
+#X obj 344 84 hoa.in extra 1;
+#X obj 52 194 line~;
+#X obj 37 247 *~;
+#X text 340 60 Extra 1 retreive the right inlet messages.;
+#X text 90 37 Receive the signal;
+#X text 90 285 Output the signal;
+#X text 476 83 Input messages selector;
+#X text 342 24 This hoa.processing control the gains of a sound field.
+;
+#X text 342 349 float : set the amplitudes of all the instances (except
+if the target is used).;
+#X obj 345 300 prop.declare db @min -144 @max 12 @default 0;
+#X obj 345 320 prop.declare ramp @min 0 @max 1000 @default 100;
+#X obj 165 89 prop @ramp;
+#X obj 102 67 prop @db;
+#X obj 344 249 prop @db;
+#X obj 426 155 prop @ramp;
+#X obj 102 118 flow.sync 2;
+#X obj 102 89 dbfs->amp;
+#X obj 344 175 amp->dbfs;
+#X obj 102 150 pack f f, f 11;
+#X floatatom 344 271 5 0 0 0 - - -;
+#X obj 344 128 route float @db @ramp;
+#X text 342 379 @db/float : set the amplitudes of all the instances
+with a logarithmic scale (except if the target is used).;
+#X text 345 418 @ramp : set the ramp time in ms.;
+#X connect 0 0 4 0;
+#X connect 2 0 22 0;
+#X connect 3 0 4 1;
+#X connect 4 0 1 0;
+#X connect 13 0 17 1;
+#X connect 14 0 18 0;
+#X connect 15 0 21 0;
+#X connect 17 0 20 0;
+#X connect 17 1 20 1;
+#X connect 18 0 17 0;
+#X connect 19 0 15 0;
+#X connect 20 0 3 0;
+#X connect 22 0 19 0;
+#X connect 22 1 15 0;
+#X connect 22 2 16 0;

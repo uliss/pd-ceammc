@@ -1,17 +1,17 @@
 {
 	"name": "synth.dx7",
-	"filename": "synth_dx7",
-	"inputs": "0",
-	"outputs": "1",
+	"filename": "synth_dx7.dsp",
+	"inputs": 0,
+	"outputs": 1,
 	"meta": [ 
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.0" },
+		{ "basics.lib/version": "0.1" },
 		{ "envelopes.lib/author": "GRAME" },
 		{ "envelopes.lib/copyright": "GRAME" },
 		{ "envelopes.lib/license": "LGPL with exception" },
 		{ "envelopes.lib/name": "Faust Envelope Library" },
 		{ "envelopes.lib/version": "0.0" },
-		{ "filename": "synth_dx7" },
+		{ "filename": "synth_dx7.dsp" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
@@ -30,37 +30,37 @@
 					"type": "nentry",
 					"label": "algorithm",
 					"address": "/synth.dx7/algorithm",
-					"init": "0",
-					"min": "0",
-					"max": "31",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 31,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "feedback",
 					"address": "/synth.dx7/feedback",
-					"init": "0",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "hslider",
 					"label": "freq",
 					"address": "/synth.dx7/freq",
-					"init": "400",
-					"min": "50",
-					"max": "1000",
-					"step": "0.01"
+					"init": 400,
+					"min": 50,
+					"max": 1000,
+					"step": 0.01
 				},
 				{
 					"type": "hslider",
 					"label": "gain",
 					"address": "/synth.dx7/gain",
-					"init": "0.8",
-					"min": "0",
-					"max": "1",
-					"step": "0.01"
+					"init": 0.8,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
 				},
 				{
 					"type": "button",
@@ -71,757 +71,757 @@
 					"type": "nentry",
 					"label": "op0:egL1",
 					"address": "/synth.dx7/op0:egL1",
-					"init": "0",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op0:egL2",
 					"address": "/synth.dx7/op0:egL2",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op0:egL3",
 					"address": "/synth.dx7/op0:egL3",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op0:egL4",
 					"address": "/synth.dx7/op0:egL4",
-					"init": "0",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op0:egR1",
 					"address": "/synth.dx7/op0:egR1",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op0:egR2",
 					"address": "/synth.dx7/op0:egR2",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op0:egR3",
 					"address": "/synth.dx7/op0:egR3",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op0:egR4",
 					"address": "/synth.dx7/op0:egR4",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op0:keyVelSens",
 					"address": "/synth.dx7/op0:keyVelSens",
-					"init": "1",
-					"min": "0",
-					"max": "8",
-					"step": "1"
+					"init": 1,
+					"min": 0,
+					"max": 8,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op0:level",
 					"address": "/synth.dx7/op0:level",
-					"init": "95",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 95,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op0:opDetune",
 					"address": "/synth.dx7/op0:opDetune",
-					"init": "1",
-					"min": "-10",
-					"max": "10",
-					"step": "1"
+					"init": 1,
+					"min": -10,
+					"max": 10,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op0:opFreq",
 					"address": "/synth.dx7/op0:opFreq",
-					"init": "1",
-					"min": "0",
-					"max": "2",
-					"step": "0.01"
+					"init": 1,
+					"min": 0,
+					"max": 2,
+					"step": 0.01
 				},
 				{
 					"type": "nentry",
 					"label": "op0:opMode",
 					"address": "/synth.dx7/op0:opMode",
-					"init": "0",
-					"min": "0",
-					"max": "1",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op0:opRateScale",
 					"address": "/synth.dx7/op0:opRateScale",
-					"init": "0",
-					"min": "0",
-					"max": "10",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 10,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op1:egL1",
 					"address": "/synth.dx7/op1:egL1",
-					"init": "0",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op1:egL2",
 					"address": "/synth.dx7/op1:egL2",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op1:egL3",
 					"address": "/synth.dx7/op1:egL3",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op1:egL4",
 					"address": "/synth.dx7/op1:egL4",
-					"init": "0",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op1:egR1",
 					"address": "/synth.dx7/op1:egR1",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op1:egR2",
 					"address": "/synth.dx7/op1:egR2",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op1:egR3",
 					"address": "/synth.dx7/op1:egR3",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op1:egR4",
 					"address": "/synth.dx7/op1:egR4",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op1:keyVelSens",
 					"address": "/synth.dx7/op1:keyVelSens",
-					"init": "1",
-					"min": "0",
-					"max": "8",
-					"step": "1"
+					"init": 1,
+					"min": 0,
+					"max": 8,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op1:level",
 					"address": "/synth.dx7/op1:level",
-					"init": "95",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 95,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op1:opDetune",
 					"address": "/synth.dx7/op1:opDetune",
-					"init": "1",
-					"min": "-10",
-					"max": "10",
-					"step": "1"
+					"init": 1,
+					"min": -10,
+					"max": 10,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op1:opFreq",
 					"address": "/synth.dx7/op1:opFreq",
-					"init": "1",
-					"min": "0",
-					"max": "2",
-					"step": "0.01"
+					"init": 1,
+					"min": 0,
+					"max": 2,
+					"step": 0.01
 				},
 				{
 					"type": "nentry",
 					"label": "op1:opMode",
 					"address": "/synth.dx7/op1:opMode",
-					"init": "0",
-					"min": "0",
-					"max": "1",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op1:opRateScale",
 					"address": "/synth.dx7/op1:opRateScale",
-					"init": "0",
-					"min": "0",
-					"max": "10",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 10,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op2:egL1",
 					"address": "/synth.dx7/op2:egL1",
-					"init": "0",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op2:egL2",
 					"address": "/synth.dx7/op2:egL2",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op2:egL3",
 					"address": "/synth.dx7/op2:egL3",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op2:egL4",
 					"address": "/synth.dx7/op2:egL4",
-					"init": "0",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op2:egR1",
 					"address": "/synth.dx7/op2:egR1",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op2:egR2",
 					"address": "/synth.dx7/op2:egR2",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op2:egR3",
 					"address": "/synth.dx7/op2:egR3",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op2:egR4",
 					"address": "/synth.dx7/op2:egR4",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op2:keyVelSens",
 					"address": "/synth.dx7/op2:keyVelSens",
-					"init": "1",
-					"min": "0",
-					"max": "8",
-					"step": "1"
+					"init": 1,
+					"min": 0,
+					"max": 8,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op2:level",
 					"address": "/synth.dx7/op2:level",
-					"init": "95",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 95,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op2:opDetune",
 					"address": "/synth.dx7/op2:opDetune",
-					"init": "1",
-					"min": "-10",
-					"max": "10",
-					"step": "1"
+					"init": 1,
+					"min": -10,
+					"max": 10,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op2:opFreq",
 					"address": "/synth.dx7/op2:opFreq",
-					"init": "1",
-					"min": "0",
-					"max": "2",
-					"step": "0.01"
+					"init": 1,
+					"min": 0,
+					"max": 2,
+					"step": 0.01
 				},
 				{
 					"type": "nentry",
 					"label": "op2:opMode",
 					"address": "/synth.dx7/op2:opMode",
-					"init": "0",
-					"min": "0",
-					"max": "1",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op2:opRateScale",
 					"address": "/synth.dx7/op2:opRateScale",
-					"init": "0",
-					"min": "0",
-					"max": "10",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 10,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op3:egL1",
 					"address": "/synth.dx7/op3:egL1",
-					"init": "0",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op3:egL2",
 					"address": "/synth.dx7/op3:egL2",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op3:egL3",
 					"address": "/synth.dx7/op3:egL3",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op3:egL4",
 					"address": "/synth.dx7/op3:egL4",
-					"init": "0",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op3:egR1",
 					"address": "/synth.dx7/op3:egR1",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op3:egR2",
 					"address": "/synth.dx7/op3:egR2",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op3:egR3",
 					"address": "/synth.dx7/op3:egR3",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op3:egR4",
 					"address": "/synth.dx7/op3:egR4",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op3:keyVelSens",
 					"address": "/synth.dx7/op3:keyVelSens",
-					"init": "1",
-					"min": "0",
-					"max": "8",
-					"step": "1"
+					"init": 1,
+					"min": 0,
+					"max": 8,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op3:level",
 					"address": "/synth.dx7/op3:level",
-					"init": "95",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 95,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op3:opDetune",
 					"address": "/synth.dx7/op3:opDetune",
-					"init": "1",
-					"min": "-10",
-					"max": "10",
-					"step": "1"
+					"init": 1,
+					"min": -10,
+					"max": 10,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op3:opFreq",
 					"address": "/synth.dx7/op3:opFreq",
-					"init": "1",
-					"min": "0",
-					"max": "2",
-					"step": "0.01"
+					"init": 1,
+					"min": 0,
+					"max": 2,
+					"step": 0.01
 				},
 				{
 					"type": "nentry",
 					"label": "op3:opMode",
 					"address": "/synth.dx7/op3:opMode",
-					"init": "0",
-					"min": "0",
-					"max": "1",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op3:opRateScale",
 					"address": "/synth.dx7/op3:opRateScale",
-					"init": "0",
-					"min": "0",
-					"max": "10",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 10,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op4:egL1",
 					"address": "/synth.dx7/op4:egL1",
-					"init": "0",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op4:egL2",
 					"address": "/synth.dx7/op4:egL2",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op4:egL3",
 					"address": "/synth.dx7/op4:egL3",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op4:egL4",
 					"address": "/synth.dx7/op4:egL4",
-					"init": "0",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op4:egR1",
 					"address": "/synth.dx7/op4:egR1",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op4:egR2",
 					"address": "/synth.dx7/op4:egR2",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op4:egR3",
 					"address": "/synth.dx7/op4:egR3",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op4:egR4",
 					"address": "/synth.dx7/op4:egR4",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op4:keyVelSens",
 					"address": "/synth.dx7/op4:keyVelSens",
-					"init": "1",
-					"min": "0",
-					"max": "8",
-					"step": "1"
+					"init": 1,
+					"min": 0,
+					"max": 8,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op4:level",
 					"address": "/synth.dx7/op4:level",
-					"init": "95",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 95,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op4:opDetune",
 					"address": "/synth.dx7/op4:opDetune",
-					"init": "1",
-					"min": "-10",
-					"max": "10",
-					"step": "1"
+					"init": 1,
+					"min": -10,
+					"max": 10,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op4:opFreq",
 					"address": "/synth.dx7/op4:opFreq",
-					"init": "1",
-					"min": "0",
-					"max": "2",
-					"step": "0.01"
+					"init": 1,
+					"min": 0,
+					"max": 2,
+					"step": 0.01
 				},
 				{
 					"type": "nentry",
 					"label": "op4:opMode",
 					"address": "/synth.dx7/op4:opMode",
-					"init": "0",
-					"min": "0",
-					"max": "1",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op4:opRateScale",
 					"address": "/synth.dx7/op4:opRateScale",
-					"init": "0",
-					"min": "0",
-					"max": "10",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 10,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op5:egL1",
 					"address": "/synth.dx7/op5:egL1",
-					"init": "0",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op5:egL2",
 					"address": "/synth.dx7/op5:egL2",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op5:egL3",
 					"address": "/synth.dx7/op5:egL3",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op5:egL4",
 					"address": "/synth.dx7/op5:egL4",
-					"init": "0",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op5:egR1",
 					"address": "/synth.dx7/op5:egR1",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op5:egR2",
 					"address": "/synth.dx7/op5:egR2",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op5:egR3",
 					"address": "/synth.dx7/op5:egR3",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op5:egR4",
 					"address": "/synth.dx7/op5:egR4",
-					"init": "90",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 90,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op5:keyVelSens",
 					"address": "/synth.dx7/op5:keyVelSens",
-					"init": "1",
-					"min": "0",
-					"max": "8",
-					"step": "1"
+					"init": 1,
+					"min": 0,
+					"max": 8,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op5:level",
 					"address": "/synth.dx7/op5:level",
-					"init": "95",
-					"min": "0",
-					"max": "99",
-					"step": "1"
+					"init": 95,
+					"min": 0,
+					"max": 99,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op5:opDetune",
 					"address": "/synth.dx7/op5:opDetune",
-					"init": "1",
-					"min": "-10",
-					"max": "10",
-					"step": "1"
+					"init": 1,
+					"min": -10,
+					"max": 10,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op5:opFreq",
 					"address": "/synth.dx7/op5:opFreq",
-					"init": "1",
-					"min": "0",
-					"max": "2",
-					"step": "0.01"
+					"init": 1,
+					"min": 0,
+					"max": 2,
+					"step": 0.01
 				},
 				{
 					"type": "nentry",
 					"label": "op5:opMode",
 					"address": "/synth.dx7/op5:opMode",
-					"init": "0",
-					"min": "0",
-					"max": "1",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 1
 				},
 				{
 					"type": "nentry",
 					"label": "op5:opRateScale",
 					"address": "/synth.dx7/op5:opRateScale",
-					"init": "0",
-					"min": "0",
-					"max": "10",
-					"step": "1"
+					"init": 0,
+					"min": 0,
+					"max": 10,
+					"step": 1
 				}
 			]
 		}

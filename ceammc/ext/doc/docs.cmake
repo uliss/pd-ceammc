@@ -20,12 +20,16 @@ set(DOC_FILES
     array.vplay
     array.window
     canvas.current
+    canvas.dir
+    canvas.name
+    canvas.path
     canvas.top
     click~
     conv.amp2dbfs
     conv.bpm2hz
     conv.bpm2ms
     conv.bpm2sec
+    conv.car2pol
     conv.cc2amp
     conv.dbfs2amp
     conv.lin2curve
@@ -33,7 +37,12 @@ set(DOC_FILES
     conv.lin2lin
     conv.list2props
     conv.midi2freq
+    conv.phase2rad
+    conv.phase2rad~
     conv.pitch2midi
+    conv.pol2car
+    conv.rad2phase
+    conv.rad2phase~
     conv.samp2sec
     conv.sec2samp
     conv.sec2str
@@ -94,6 +103,7 @@ set(DOC_FILES
     flow.multiplex~
     flow.multiplex2~
     flow.once
+    flow.pack
     flow.pass
     flow.pass_if
     flow.reject
@@ -102,6 +112,7 @@ set(DOC_FILES
     flow.speedlim
     flow.split
     flow.sync
+    flow.sync_pack
     flow.tee~
     flt.biquad~
     flt.bpf12~
@@ -159,6 +170,21 @@ set(DOC_FILES
     global.list
     global.mlist
     global.set
+    hoa.2d.decoder~
+    hoa.2d.encoder~
+    hoa.2d.map~
+    hoa.2d.optim~
+    hoa.2d.projector~
+    hoa.2d.recomposer~
+    hoa.2d.rotate~
+    hoa.2d.wider~
+    hoa.in
+    hoa.in~
+    hoa.out
+    hoa.out~
+    hoa.process~
+    hoa.scope~
+    hoa.@process
     hw.apple_smc
     hw.apple_sms
     hw.arduino
@@ -295,6 +321,20 @@ set(DOC_FILES
     math.sinh
     math.sqrt
     math.squared
+    math.sync_add
+    math.sync_and
+    math.sync_div
+    math.sync_eq
+    math.sync_ge
+    math.sync_gt
+    math.sync_le
+    math.sync_lt
+    math.sync_mod
+    math.sync_mul
+    math.sync_ne
+    math.sync_or
+    math.sync_sub
+    math.sync_xor
     math.tan
     math.tanh
     math.trunc
@@ -347,6 +387,7 @@ set(DOC_FILES
     preset.storage
     preset.symbol
     proto.firmata
+    proto.sp.alpaca
     prop
     prop.declare
     prop.get
@@ -402,6 +443,7 @@ set(DOC_FILES
     synth.risset_tone~
     synth.shakers~
     synth.wurley~
+    system.colorpanel
     system.cursor
     system.getenv
     system.hostname
@@ -428,10 +470,13 @@ set(DOC_FILES
     ui.knob
     ui.matrix
     ui.menu
+    ui.mouse_filter
+    ui.mouse_route
     ui.number
     ui.label
     ui.link
     ui.number~
+    ui.polar
     ui.preset
     ui.scope~
     ui.slider
@@ -446,4 +491,5 @@ set(DOC_FILES
     window
     xfade~
     xfade2~
+    xdac~
 )

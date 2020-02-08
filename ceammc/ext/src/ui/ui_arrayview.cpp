@@ -44,6 +44,7 @@ UIArrayView::UIArrayView()
     , render_clock_(this, &UIArrayView::renderTick)
     , render_index_(0)
     , selection_mode_(SELECTION_NONE)
+    , prev_mouse_pt_ { 0, 0 }
     , prop_array(&s_)
     , prop_color_wave(rgba_blue)
     , prop_color_cursor(rgba_blue)
@@ -223,26 +224,44 @@ void UIArrayView::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt
     if (!isValidArray())
         return;
 
-    if (modifiers & EMOD_SHIFT)
-        selection_mode_ = SELECTION_RANGE;
-    else
-        selection_mode_ = SELECTION_CURSOR;
-
     auto x = clip<float>(pt.x, 0, width());
+    auto sample_pos = (x * array_.size()) / width();
+    selection_mode_ = keyMod2EditMode(modifiers, x);
 
     switch (selection_mode_) {
     case SELECTION_CURSOR:
-        cursor_sample_pos_ = ((x * array_.size()) / width());
+        cursor_sample_pos_ = sample_pos;
         cursor_layer_.invalidate();
         redraw();
-        output();
         break;
     case SELECTION_RANGE:
-        selection_.from() = ((x * array_.size()) / width());
+        selection_.from() = sample_pos;
+        break;
+    case CHANGE_RANGE_LEFT:
+        selection_.from() = sample_pos;
+        selection_.normalize();
+        invalidateCursor();
+        invalidateWaveform();
+        redraw();
+        setCursor(ECURSOR_LEFT_SIDE);
+        break;
+    case CHANGE_RANGE_RIGHT:
+        selection_.to() = sample_pos;
+        selection_.normalize();
+        invalidateCursor();
+        invalidateWaveform();
+        redraw();
+        setCursor(ECURSOR_RIGHT_SIDE);
+        break;
+    case MOVE_RANGE:
+        prev_mouse_pt_ = pt;
+        setCursor(ECURSOR_MOVE);
         break;
     default:
         break;
     }
+
+    output();
 }
 
 void UIArrayView::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
@@ -256,18 +275,45 @@ void UIArrayView::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
         invalidateCursor();
         redraw();
     } break;
+    case CHANGE_RANGE_LEFT:
+    case CHANGE_RANGE_RIGHT:
+    case MOVE_RANGE:
+        selection_.normalize();
+        invalidateWaveform();
+        invalidateCursor();
+        redraw();
+        break;
     default:
         break;
     }
 
     output();
     selection_mode_ = SELECTION_NONE;
+    setCursor(ECURSOR_LEFT_PTR);
 }
 
 void UIArrayView::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
 {
     if (!isValidArray())
         return;
+
+    auto x = clip<float>(pt.x, 0, width());
+    auto sample_pos = (x * array_.size()) / width();
+
+    switch (keyMod2EditMode(modifiers, x)) {
+    case MOVE_RANGE: {
+        if (selection_.from() <= sample_pos && sample_pos <= selection_.to())
+            setCursor(ECURSOR_MOVE);
+    } break;
+    case CHANGE_RANGE_LEFT: {
+        setCursor(ECURSOR_LEFT_SIDE);
+    } break;
+    case CHANGE_RANGE_RIGHT: {
+        setCursor(ECURSOR_RIGHT_SIDE);
+    } break;
+    default:
+        break;
+    }
 }
 
 void UIArrayView::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
@@ -280,12 +326,12 @@ void UIArrayView::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
         invalidateWaveform();
         invalidateCursor();
         redraw();
+        selection_mode_ = SELECTION_NONE;
     } break;
     default:
         break;
     }
 
-    selection_mode_ = SELECTION_NONE;
     setCursor(ECURSOR_LEFT_PTR);
 }
 
@@ -308,11 +354,43 @@ void UIArrayView::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
         cursor_sample_pos_ = samp_pos;
         invalidateCursor();
         redraw();
-        output();
+    } break;
+    case CHANGE_RANGE_LEFT:
+        selection_.from() = samp_pos;
+        selection_.normalize();
+        invalidateWaveform();
+        invalidateCursor();
+        redraw();
+        break;
+    case CHANGE_RANGE_RIGHT:
+        selection_.to() = samp_pos;
+        selection_.normalize();
+        invalidateWaveform();
+        invalidateCursor();
+        redraw();
+        break;
+    case MOVE_RANGE: {
+        long sample_delta = ((pt.x - prev_mouse_pt_.x) * array_.size()) / width();
+        long new_from = selection_.from() + sample_delta;
+        long new_to = selection_.to() + sample_delta;
+        long N = array_.size();
+
+        if (new_from >= 0 && new_from <= N
+            && new_to >= 0 && new_to <= N) {
+            selection_.from() = new_from;
+            selection_.to() = new_to;
+            invalidateWaveform();
+            invalidateCursor();
+            redraw();
+        }
+
+        prev_mouse_pt_ = pt;
     } break;
     default:
         break;
     }
+
+    output();
 }
 
 void UIArrayView::onBang()
@@ -825,6 +903,26 @@ void UIArrayView::setSelection(long begin, long end)
     selection_.normalize();
 }
 
+EditMode UIArrayView::keyMod2EditMode(long mod, int x) const
+{
+#ifdef __APPLE__
+    if (mod & EMOD_CMD)
+        return SELECTION_RANGE;
+#else
+    if (mod & EMOD_CTRL)
+        return SELECTION_RANGE;
+#endif
+    else if (mod & EMOD_SHIFT)
+        return MOVE_RANGE;
+    else if (mod & EMOD_ALT) {
+        long sel_samp = (x * array_.size()) / width();
+        auto dx0 = std::abs(selection_.from() - sel_samp);
+        auto dx1 = std::abs(selection_.to() - sel_samp);
+        return (dx0 < dx1) ? CHANGE_RANGE_LEFT : CHANGE_RANGE_RIGHT;
+    } else
+        return SELECTION_CURSOR;
+}
+
 void UIArrayView::invalidateWaveform()
 {
     wave_layer_.invalidate();
@@ -907,8 +1005,9 @@ void UIArrayView::setup()
 {
     UIObjectFactory<UIArrayView> obj("ui.aview");
 
-    obj.setDefaultSize(480, 120);
+    obj.setDefaultSize(300, 100);
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_MOVE | UI_MOUSE_LEAVE | UI_MOUSE_DRAG);
+    obj.outputMouseEvents(MouseEventsOutput::DEFAULT_ON);
     obj.useFloat();
     obj.useBang();
     obj.hideLabelInner();
@@ -927,11 +1026,17 @@ void UIArrayView::setup()
     obj.addProperty("cursor_phase", &UIArrayView::cursorPosPhase, &UIArrayView::setCursorPosPhase);
     obj.addProperty("cursor_sec", &UIArrayView::cursorPosSec, &UIArrayView::setCursorPosSec);
     obj.addProperty("cursor_ms", &UIArrayView::cursorPosMs, &UIArrayView::setCursorPosMs);
+    obj.setPropertyUnits(gensym("cursor_samp"), gensym("samp"));
+    obj.setPropertyUnits(gensym("cursor_sec"), gensym("sec"));
+    obj.setPropertyUnits(gensym("cursor_ms"), gensym("msec"));
 
     obj.addProperty("select_samp", &UIArrayView::selectPosSample, &UIArrayView::setSelectPosSample);
     obj.addProperty("select_phase", &UIArrayView::selectPosPhase, &UIArrayView::setSelectPosPhase);
     obj.addProperty("select_sec", &UIArrayView::selectPosSec, &UIArrayView::setSelectPosSec);
     obj.addProperty("select_ms", &UIArrayView::selectPosMs, &UIArrayView::setSelectPosMs);
+    obj.setPropertyUnits(gensym("select_samp"), gensym("samp"));
+    obj.setPropertyUnits(gensym("select_sec"), gensym("sec"));
+    obj.setPropertyUnits(gensym("select_ms"), gensym("msec"));
 
     obj.addProperty("label_top", &UIArrayView::labelTopRight, &UIArrayView::setLabelTopRight);
     obj.addProperty("label_bottom", &UIArrayView::labelBottomRight, &UIArrayView::setLabelBottomRight);
@@ -939,6 +1044,9 @@ void UIArrayView::setup()
     obj.addProperty("size_samp", &UIArrayView::sizeSamples, 0);
     obj.addProperty("size_sec", &UIArrayView::sizeSec, 0);
     obj.addProperty("size_ms", &UIArrayView::sizeMs, 0);
+    obj.setPropertyUnits(gensym("size_samp"), gensym("samp"));
+    obj.setPropertyUnits(gensym("size_sec"), gensym("sec"));
+    obj.setPropertyUnits(gensym("size_ms"), gensym("msec"));
 
     obj.addMethod("update", &UIArrayView::m_update);
     obj.addMethod("select", &UIArrayView::m_selectSamples);

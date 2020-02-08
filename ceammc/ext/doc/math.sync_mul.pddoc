@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.sync_mul">
+        <title>math.sync_mul</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sync multiplication</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math mul sync</keywords>
+            <aliases>
+                <alias>math.*'</alias>
+                <alias>*'</alias>
+            </aliases>
+            <since>0.8</since>
+        </meta>
+        <arguments>
+            <argument name="MUL" type="float">multiplicand</argument>
+        </arguments>
+        <properties>
+            <property name="@int" type="flag">operate on integers only</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">set multiplier, calculate and output result</xinfo>
+                <xinfo on="list">pair: set multipliers and multiplicand, calculate and output
+                result</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">change multiplicand, calculate and output result</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>multiplication result</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]   [F]   /*same as:*/ [F]  [F]
+|     |                  |    |
+|     |                  |    [t b f]
+|     |.                 |    | ^|.
+[*' 2  ]                 [* 2      ]
+|                        |
+[F]                      [F]
+
+[3.1415 5.1( [-3.1415 5.9(
+|            |
+|            |
+[*'      @int]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

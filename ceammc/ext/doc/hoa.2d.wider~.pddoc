@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="hoa.2d.wider~">
+        <title>hoa.2d.wider~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+                <author>Pierre Guillot</author>
+                <author>Eliott Paris</author>
+                <author>Thomas Le Meur</author>
+            </authors>
+            <description>a 2d fractional ambisonic order simulator</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>hoa wider</keywords>
+            <since>0.8</since>
+            <aliases>
+                <alias>hoa.wider~</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>hoa.2d.wider~ can be used to wide the diffusion of a localised sound. The order
+            depending signals are weighted and appear in a logarithmic way to have linear
+            changes.</par>
+            <a href="hoa/hoa.2d.wider~-help.pd">CICM documentation</a>
+        </info>
+        <arguments>
+            <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
+            decomposition</argument>
+        </arguments>
+        <properties>
+            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
+            readonly="true">the order of decomposition</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet type="audio">
+                <xinfo>first input signal</xinfo>
+            </inlet>
+            <inlet type="audio" number="...">
+                <xinfo>... input signal</xinfo>
+            </inlet>
+            <inlet type="audio" number="n">
+                <xinfo>n-th input signal</xinfo>
+            </inlet>
+            <inlet type="audio" number="n+1">
+                <xinfo>widening signal in [0-1] range.</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet type="audio">first circular harmonics output</outlet>
+            <outlet type="audio" number="...">... circular harmonics output</outlet>
+            <outlet type="audio" number="n">n-th circular harmonics output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[lfo.square~ 1]
+|
+[ui.gain~ @size 120 14] [ui.knob #a]
+|
+[hoa.encoder~ 5 {w=24,i=11,o=11}]
+*|*
+[hoa.wider~ 5 {w=24,i=12,o=11} #b]
+*|*
+[hoa.scope~ @order 5 {i=11} @size 171 171]
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+[X a->b:11]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

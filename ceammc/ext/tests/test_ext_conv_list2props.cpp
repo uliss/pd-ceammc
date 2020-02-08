@@ -26,7 +26,7 @@ TEST_CASE("conv.list2props", "[externals]")
     {
         TestConvList2Props t("list->props");
         REQUIRE(t.numInlets() == 1);
-        REQUIRE(t.numOutlets() == 1);
+        REQUIRE(t.numOutlets() == 2);
     }
 
     SECTION("list")

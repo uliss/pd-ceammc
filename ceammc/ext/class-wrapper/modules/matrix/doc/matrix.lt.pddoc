@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="matrix.lt">
+        <title>matrix.lt</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>element-wise less then comparasion</description>
+            <license>GPLv3</license>
+            <library>matrix</library>
+            <category>matrix</category>
+            <version>0.1</version>
+            <since>0.1</since>
+            <aliases>
+                <alias>matrix.&lt;</alias>
+            </aliases>
+            <also>
+                <see>matrix.&lt;=</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument type="list" name="B">matrix to compare (Matrix NROWS NCOLS ...) or float to compare</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="list">Matrix data constructor: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">Matrix data</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">matrix to compare: NROWS NCOLS ...</xinfo>
+                <xinfo on="data">matrix to compare</xinfo>
+                <xinfo on="float">float to compare</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output compare result - matrix with 1 and 0 (Matrix)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[declare -lib matrix]
+
+
+[2 2 1 2 3 4(         [F]
+|                     |.
+[matrix.< Matrix 2 2 4 3 2 1]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

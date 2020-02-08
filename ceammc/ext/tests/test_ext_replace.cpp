@@ -244,7 +244,7 @@ TEST_CASE("replace", "[PureData]")
             REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2, 4, 5));
 
             WHEN_SEND_LIST_TO(0, t, LF(3, 3, 4));
-            REQUIRE_LIST_AT_OUTLET(0, t, LF(4));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 4);
 
             // replace mode
             t.setProperty("@from", F(3));

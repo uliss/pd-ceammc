@@ -71,6 +71,7 @@ set(config_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 set(libfluidsynth_SOURCES
     fluidsynth/src/utils/fluid_conv.c
     fluidsynth/src/utils/fluid_conv.h
+    fluidsynth/src/utils/fluid_conv_tables.h
     fluidsynth/src/utils/fluid_hash.c
     fluidsynth/src/utils/fluid_hash.h
     fluidsynth/src/utils/fluid_list.c
@@ -79,13 +80,11 @@ set(libfluidsynth_SOURCES
     fluidsynth/src/utils/fluid_ringbuffer.h
     fluidsynth/src/utils/fluid_settings.c
     fluidsynth/src/utils/fluid_settings.h
-    fluidsynth/src/utils/fluidsynth_priv.h
     fluidsynth/src/utils/fluid_sys.c
     fluidsynth/src/utils/fluid_sys.h
+    fluidsynth/src/utils/fluidsynth_priv.h
     fluidsynth/src/sfloader/fluid_defsfont.c
     fluidsynth/src/sfloader/fluid_defsfont.h
-    fluidsynth/src/sfloader/fluid_ramsfont.c
-    fluidsynth/src/sfloader/fluid_ramsfont.h
     fluidsynth/src/sfloader/fluid_sfont.h
     fluidsynth/src/sfloader/fluid_sfont.c
     fluidsynth/src/sfloader/fluid_sffile.c
@@ -113,7 +112,6 @@ set(libfluidsynth_SOURCES
     fluidsynth/src/synth/fluid_chan.c
     fluidsynth/src/synth/fluid_chan.h
     fluidsynth/src/synth/fluid_event.c
-    fluidsynth/src/synth/fluid_event_priv.h
     fluidsynth/src/synth/fluid_gen.c
     fluidsynth/src/synth/fluid_gen.h
     fluidsynth/src/synth/fluid_mod.c
@@ -155,7 +153,6 @@ set(public_HEADERS
     fluidsynth/include/fluidsynth/midi.h
     fluidsynth/include/fluidsynth/misc.h
     fluidsynth/include/fluidsynth/mod.h
-    fluidsynth/include/fluidsynth/ramsfont.h
     fluidsynth/include/fluidsynth/seq.h
     fluidsynth/include/fluidsynth/seqbind.h
     fluidsynth/include/fluidsynth/settings.h
@@ -191,11 +188,30 @@ if(LIBFLUID_CPPFLAGS)
     set_target_properties (fluidsynth PROPERTIES COMPILE_FLAGS ${LIBFLUID_CPPFLAGS})
 endif()
 
+if(APPLE)
+    target_link_directories(fluidsynth PUBLIC ${GLIB_LIBRARY_DIRS})
+endif()
+
 target_link_libraries(fluidsynth
     ${GLIB_LIBRARIES}
     ${WINDOWS_LIBS}
     ${LIBFLUID_LIBS}
 )
+
+add_executable(fluidsynth_make_table
+    fluidsynth/src/gentables/gen_conv.c
+    fluidsynth/src/gentables/gen_rvoice_dsp.c
+    fluidsynth/src/gentables/make_tables.c
+    fluidsynth/src/gentables/make_tables.h)
+target_link_libraries(fluidsynth_make_table m)
+
+add_custom_command(OUTPUT fluid_conv_tables.c
+    DEPENDS fluidsynth_make_table
+    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/fluidsynth_make_table "${CMAKE_CURRENT_BINARY_DIR}/"
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+
+add_custom_target(fluid_gen_tables DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/fluid_conv_tables.c")
+add_dependencies(fluidsynth fluid_gen_tables)
 
 if(UNIX)
     set_target_properties(fluidsynth PROPERTIES COMPILE_FLAGS "-fPIC")

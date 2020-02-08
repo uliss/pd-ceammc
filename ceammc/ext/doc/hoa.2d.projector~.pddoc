@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="hoa.2d.projector~">
+        <title>hoa.2d.projector~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+                <author>Pierre Guillot</author>
+                <author>Eliott Paris</author>
+                <author>Thomas Le Meur</author>
+            </authors>
+            <description>a plane waves decomposer from circular harmonics domain</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>hoa recomposer projector</keywords>
+            <since>0.8</since>
+            <also>
+                <see>hoa.2d.recomposer~</see>
+            </also>
+            <aliases>
+                <alias>hoa.projector~</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Discretizes the ambisonic sound field into the plane waves domain.</par>
+        </info>
+        <arguments>
+            <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
+            decomposition</argument>
+            <argument name="NCH" type="int" minvalue="1" maxvalue="63">number of
+            channels</argument>
+        </arguments>
+        <properties>
+            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
+            readonly="true">the order of decomposition</property>
+            <property name="@n" type="int" minvalue="0" maxvalue="63" default="0" readonly="true">
+            number of channels (planewaves)</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet type="audio">
+                <xinfo>input harmonic</xinfo>
+            </inlet>
+            <inlet type="audio" number="...">
+                <xinfo>... input harmonic</xinfo>
+            </inlet>
+            <inlet type="audio" number="n">
+                <xinfo>n-th input harmonic</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet type="audio">first plane wave output</outlet>
+            <outlet type="audio" number="...">... plane wave output</outlet>
+            <outlet type="audio" number="n">n-th plane wave output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[sig~ 1]              [lfo.saw~ 0.05]
+|                     |
+|                     [phase->rad~]
+|                     |.
+[hoa.2d.encoder~ 3 {w=30,o=7,i=2}]
+*|*
+[hoa.2d.projector~ 3 7 {w=30,i=7,o=7} #z]
+
+
+
+[ui.m~ #a] [ui.m~ #b] [ui.m~ #c] [ui.m~ #d] [ui.m~ #e] [ui.m~ #f] [ui.m~ #g]
+
+[X z:0->a]
+[X z:1->b]
+[X z:2->c]
+[X z:3->d]
+[X z:4->e]
+[X z:5->f]
+[X z:6->g]
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

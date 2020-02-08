@@ -7,7 +7,7 @@
                 <author>Alex Nadzharov</author>
             </authors>
             <description>soft signal clip</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>dyn</category>
             <keywords>dyn clip limiter</keywords>

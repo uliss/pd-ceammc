@@ -5,11 +5,19 @@ include_directories(${CMAKE_BINARY_DIR}) # for config.h
 include(tests.cmake)
 add_definitions("-DTEST_DATA_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}\"")
 add_definitions("-DTEST_BIN_DIR=\"${CMAKE_CURRENT_BINARY_DIR}\"")
-#remove_definitions(-DPD_INTERNAL)
 
-add_library(tests_main_lib STATIC tests_main.cpp test_external test_datatypes.cpp
+if(WIN32)
+    remove_definitions(-DPD_INTERNAL)
+endif()
+
+add_library(tests_main_lib STATIC
+    tests_main.cpp
     test_approx.cpp
-    test_wrappers.cpp)
+    test_datatypes.cpp
+    test_external.cpp
+    test_external_log_output.cpp
+    test_wrappers.cpp
+)
 
 if(APPLE)
     set(CMAKE_INSTALL_RPATH "@loader_path/../src/lib")
@@ -77,6 +85,7 @@ ceammc_external_test(base gain)
 ceammc_external_test(base matrix)
 ceammc_external_test(base mix)
 ceammc_external_test(base obj_props)
+ceammc_external_test(base prop)
 ceammc_external_test(base prop_declare)
 ceammc_external_test(base prop_get)
 ceammc_external_test(base radio)
@@ -107,6 +116,7 @@ ceammc_external_test(flow demux_tilde)
 ceammc_external_test(flow demux2_tilde)
 ceammc_external_test(flow multiplex)
 ceammc_external_test(flow once)
+ceammc_external_test(flow pack)
 ceammc_external_test(flow pass)
 ceammc_external_test(flow pass_if)
 ceammc_external_test(flow reject)
@@ -205,6 +215,8 @@ ceammc_external_test(list zip)
 
 ceammc_external_test(math and)
 ceammc_external_test(math approx)
+ceammc_external_test(math cdiv_tilde)
+ceammc_external_test(math cmul_tilde)
 ceammc_external_test(math div)
 ceammc_external_test(math expr)
 ceammc_external_test(math gcd)
@@ -212,9 +224,8 @@ ceammc_external_test(math lcm)
 ceammc_external_test(math mul)
 ceammc_external_test(math or)
 ceammc_external_test(math polyeval)
-ceammc_external_test(math cdiv_tilde)
-ceammc_external_test(math cmul_tilde)
 ceammc_external_test(math round_tilde)
+ceammc_external_test(math sync_ops)
 
 ceammc_external_test(midi file)
 ceammc_external_test(midi note)
@@ -224,6 +235,7 @@ ceammc_external_test(midi key_to_str)
 ceammc_external_test(midi prg_to_str)
 
 ceammc_external_test(net host)
+target_include_directories(test_ext_net_host PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/extra)
 
 ceammc_external_test(random discrete)
 ceammc_external_test(random linear)
@@ -245,6 +257,7 @@ ceammc_external_test(string to_symbol)
 
 ceammc_external_test(system getenv)
 ceammc_external_test(system shell)
+target_include_directories(test_ext_system_shell PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/extra)
 
 ceammc_external_test(path lsdir)
 
@@ -252,6 +265,24 @@ ceammc_external_test(spat pan_lin)
 ceammc_external_test(spat pan_sqrt)
 ceammc_external_test(spat pan_cos)
 ceammc_external_test(spat pan_spread)
+ceammc_add_test_linked(
+    TITLE "hoa_process"
+    NAME test_ext_spat_hoa_process
+    LINK ceammc_spat ceammc_core puredata-core ceammc_core
+    INCLUDE_DIRECTORIES
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/HoaLibrary-Light/Sources
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/fmt/include
+        ${EIGEN3_DIR}
+)
+ceammc_add_test_linked(
+    TITLE "hoa_in"
+    NAME test_ext_spat_hoa_in
+    LINK ceammc_spat ceammc_core puredata-core ceammc_core
+    INCLUDE_DIRECTORIES
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/HoaLibrary-Light/Sources
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/fmt/include
+        ${EIGEN3_DIR}
+)
 
 ceammc_add_test_linked(TITLE "tl.transport"
     NAME test_ext_tl_transport
@@ -381,6 +412,7 @@ ceammc_ui_test("ui.number")
 ceammc_ui_test("ui.number_tilde")
 ceammc_ui_test("ui.radio")
 ceammc_ui_test("ui.rslider")
+ceammc_ui_test("ui.polar")
 ceammc_ui_test("ui.preset")
 ceammc_ui_test("ui.slider2d")
 ceammc_ui_test("ui.sliders")
@@ -392,9 +424,11 @@ ceammc_add_test_linked(TITLE "[env->to_array]"
     NAME test_ext_env_to_array
     LINK tests_main_lib ceammc_array ceammc_env ceammc_array ceammc_core puredata-core)
 
-ceammc_add_test_linked(TITLE "[speech.flite]"
-    NAME test_ext_misc_speech_flite
-    LINK ceammc_core ceammc_misc ceammc_string puredata-core ${FLUIDSYNTH_LIBRARIES})
+if(WITH_TTS_FLITE)
+    ceammc_add_test_linked(TITLE "[speech.flite]"
+        NAME test_ext_misc_speech_flite
+        LINK ceammc_core ceammc_misc ceammc_string puredata-core ${FLUIDSYNTH_LIBRARIES})
+endif()
 
 add_executable(test_pd_core test_pd_core.cpp)
 target_link_libraries(test_pd_core puredata-core)

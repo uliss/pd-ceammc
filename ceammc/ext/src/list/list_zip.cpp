@@ -127,7 +127,10 @@ void ListZip::initProperties()
     createProperty(new SymbolEnumAlias("@wrap", method_, SYM_WRAP));
     createProperty(new SymbolEnumAlias("@fold", method_, SYM_FOLD));
 
-    createCbProperty("@pad", &ListZip::getPadValue, &ListZip::setPadValue);
+    {
+        Property* p = createCbProperty("@pad", &ListZip::getPadValue, &ListZip::setPadValue);
+        p->info().setType(PropertyInfoType::VARIANT);
+    }
 }
 
 AtomList ListZip::getPadValue() const

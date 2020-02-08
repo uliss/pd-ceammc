@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>sparse noise generator</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>noise</category>
             <keywords>noise crackle</keywords>
@@ -24,6 +24,8 @@
         <properties>
             <property name="@freq" type="float" minvalue="0" maxvalue="100" default="10">average
             frequency of noise impulses per second</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
         </properties>
         <inlets>
             <inlet>

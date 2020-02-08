@@ -35,7 +35,7 @@ public:
      * @param theta - phase angle in radians
      * @return Complex number
      * @since 0.1
-     * @see complex
+     * @see complex.new
      * @keywords polar
      * @example
      * [bang( [1 3.1415926( [1 6.2831852(

@@ -9,13 +9,14 @@
     }}
     {base {
         function function.call gain~ matrix~ metro.pattern metro.seq mix~
-        obj.props radio window xfade2~ xfade~
+        obj.props radio window xdac~ xfade2~ xfade~
     }}
     {conv {
         array.p2s array.s2p conv.amp2dbfs conv.bpm2hz conv.bpm2ms conv.bpm2sec
-        conv.cc2amp conv.dbfs2amp conv.lin2curve conv.lin2exp conv.lin2lin
-        conv.list2props conv.midi2freq conv.pitch2midi conv.samp2sec
-        conv.sec2samp conv.sec2str conv.str2sec
+        conv.car2pol conv.cc2amp conv.dbfs2amp conv.lin2curve conv.lin2exp
+        conv.lin2lin conv.list2props conv.midi2freq conv.phase2rad
+        conv.phase2rad~ conv.pitch2midi conv.pol2car conv.rad2phase
+        conv.rad2phase~ conv.samp2sec conv.sec2samp conv.sec2str conv.str2sec
     }}
     {data {
         data.dict data.fifo data.float data.int data.list data.mlist data.set
@@ -36,10 +37,10 @@
     {flow {
         expand_env flow.append flow.change flow.count flow.demultiplex
         flow.demultiplex2~ flow.demultiplex~ flow.gate flow.group
-        flow.interval flow.less flow.less_eq flow.multiplex flow.multiplex2~
-        flow.multiplex~ flow.once flow.pass flow.pass_if flow.reject
-        flow.reject_if flow.route flow.speedlim flow.split flow.sync flow.tee~
-        replace
+        flow.interval flow.less flow.less_eq flow.match flow.multiplex
+        flow.multiplex2~ flow.multiplex~ flow.once flow.pack flow.pass
+        flow.pass_if flow.reject flow.reject_if flow.route flow.speedlim
+        flow.split flow.sync flow.sync_pack flow.tee~ replace
     }}
     {flt {
         flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_bpf~ flt.c_highshelf~
@@ -94,7 +95,10 @@
         math.expr math.floor math.gcd math.inf math.lcm math.log math.log10
         math.log2 math.mul math.nan math.neg math.or math.pi math.polyeval
         math.reciprocal math.round math.round~ math.sign math.sin math.sinh
-        math.sqrt math.squared math.tan math.tanh math.trunc
+        math.sqrt math.squared math.sync_add math.sync_and math.sync_div
+        math.sync_eq math.sync_ge math.sync_gt math.sync_le math.sync_lt
+        math.sync_mod math.sync_mul math.sync_ne math.sync_or math.sync_sub
+        math.sync_xor math.tan math.tanh math.trunc
     }}
     {midi {
         midi.ctl2str midi.event2ctl midi.event2note midi.event2prg midi.file
@@ -117,7 +121,8 @@
         osc.sin~ osc.square~ osc.tri~
     }}
     {patch {
-        canvas.current canvas.top patch.args
+        canvas.current canvas.dir canvas.name canvas.path canvas.top
+        patch.args
     }}
     {path {
         path.basename path.dirname path.exists path.lsdir
@@ -133,7 +138,7 @@
         patch.props prop prop.declare prop.get prop.get~ prop.set
     }}
     {proto {
-        proto.firmata
+        proto.firmata proto.sp.alpaca
     }}
     {random {
         random.discrete random.float random.gauss random.int random.linear
@@ -143,6 +148,9 @@
         snd.file
     }}
     {spat {
+        hoa.2d.decoder~ hoa.2d.encoder~ hoa.2d.map~ hoa.2d.optim~
+        hoa.2d.projector~ hoa.2d.recomposer~ hoa.2d.rotate~ hoa.2d.wider~
+        hoa.@process hoa.in hoa.in~ hoa.out hoa.out~ hoa.process~ hoa.scope~
         pan.cos~ pan.linsig~ pan.lin~ pan.spread~ pan.sqrt~ spat.pan4~
         spat.pan8~
     }}
@@ -160,8 +168,8 @@
         synth.risset_arp~ synth.risset_tone~ synth.shakers~ synth.wurley~
     }}
     {system {
-        system.cursor system.getenv system.hostname system.memsize
-        system.memused system.screen_size system.shell
+        system.colorpanel system.cursor system.getenv system.hostname
+        system.memsize system.memused system.screen_size system.shell
     }}
     {tl {
         tl.bang tl.cue tl.timeline tl.toggle tl.transport
@@ -169,8 +177,8 @@
     {ui {
         ui.aview ui.bang ui.colorpanel ui.display ui.dsp~ ui.env ui.gain2~
         ui.gain~ ui.icon ui.incdec ui.keyboard ui.knob ui.label ui.link
-        ui.matrix ui.menu ui.meter~ ui.number ui.number~ ui.preset ui.radio
-        ui.rslider ui.scope~ ui.slider ui.slider2d ui.sliders ui.spectroscope~
-        ui.tab ui.toggle
+        ui.matrix ui.menu ui.meter~ ui.mouse_filter ui.mouse_route ui.number
+        ui.number~ ui.polar ui.preset ui.radio ui.rslider ui.scope~ ui.slider
+        ui.slider2d ui.sliders ui.spectroscope~ ui.tab ui.toggle
     }}
 }

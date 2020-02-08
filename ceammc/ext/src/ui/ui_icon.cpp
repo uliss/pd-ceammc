@@ -62,7 +62,7 @@ UIIcon::UIIcon()
     , image_layer_(asEBox(), gensym("image_layer"))
     , image_(0)
     , current_(&icons_list[0])
-    , prop_icon(gensym("default"))
+    , prop_icon(gensym("help"))
     , prop_mode(SYM_MODE_BUTTON)
     , prop_color_active(rgba_blue)
     , prop_size(24)
@@ -289,7 +289,7 @@ void UIIcon::m_set(const AtomList& lst)
 
 void UIIcon::loadPreset(size_t idx)
 {
-    prop_icon = PresetStorage::instance().symbolValueAt(presetId(), idx, gensym("default"));
+    prop_icon = PresetStorage::instance().symbolValueAt(presetId(), idx, gensym("help"));
     updateIconProp();
 }
 
@@ -312,7 +312,7 @@ void UIIcon::setup()
     obj.setPropertyDefaultValue(PROP_BACKGROUND_COLOR, "1 1 1 1");
     obj.setPropertyDefaultValue(PROP_BORDER_COLOR, "1 1 1 1");
 
-    obj.addProperty("icon", _("Icon"), "default", &UIIcon::prop_icon, icons_string, _("Main"));
+    obj.addProperty("icon", _("Icon"), "help", &UIIcon::prop_icon, icons_string, _("Main"));
     obj.addPropertyIntMenu("icon_size", _("Size"), "24", &UIIcon::prop_size, "48 36 24 18", _("Basic"));
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIIcon::prop_color_active);
 

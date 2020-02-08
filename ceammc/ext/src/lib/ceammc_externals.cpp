@@ -162,7 +162,7 @@ std::vector<PropertyInfo> ceammc_base_properties(t_object* x)
 
     for (auto& kv : obj->properties()) {
         Property* p = kv.second;
-        if (!p)
+        if (!p || !p->visible())
             continue;
 
         res.push_back(p->info());
@@ -181,13 +181,15 @@ const UIObject* ceammc_to_ui_object(t_object* x)
 
 std::vector<PropertyInfo> ceammc_ui_properties(t_object* x)
 {
-    const UIObject* obj = ceammc_to_ui_object(x);
-    if (!obj) {
-        std::cerr << "corrupted CEAMMC UI object: " << obj << "\n";
+    if (!is_ceammc_ui(x))
         return {};
-    }
 
-    return obj->propsInfo();
+    auto* c = reinterpret_cast<t_eclass*>(x->te_g.g_pd);
+
+    if (c->c_dsp)
+        return static_cast<UIDspObject*>(reinterpret_cast<t_edspbox*>(x))->propsInfo();
+    else
+        return static_cast<UIObject*>(reinterpret_cast<t_ebox*>(x))->propsInfo();
 }
 
 std::vector<PropertyInfo> ceammc_faust_properties(t_object* x)

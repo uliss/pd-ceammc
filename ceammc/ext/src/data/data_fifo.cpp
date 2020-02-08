@@ -26,10 +26,25 @@ public:
         size_ = args.args.asSizeT(DEFAULT_SIZE);
 
         createOutlet();
-        createCbProperty("@empty", &DataFifo::p_empty);
-        createCbProperty("@filled", &DataFifo::p_size);
-        createCbProperty("@size", &DataFifo::p_max_size);
-        createCbProperty("@free", &DataFifo::p_free);
+        {
+            auto p = createCbProperty("@empty", &DataFifo::p_empty);
+            p->info().setType(PropertyInfoType::BOOLEAN);
+        }
+
+        {
+            Property* p = createCbProperty("@filled", &DataFifo::p_size);
+            p->info().setType(PropertyInfoType::INTEGER);
+        }
+
+        {
+            Property* p = createCbProperty("@size", &DataFifo::p_max_size);
+            p->info().setType(PropertyInfoType::INTEGER);
+        }
+
+        {
+            Property* p = createCbProperty("@free", &DataFifo::p_free);
+            p->info().setType(PropertyInfoType::INTEGER);
+        }
     }
 
     void onBang() { flush(); }

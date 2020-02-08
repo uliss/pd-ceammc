@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "synth.eguitar"
-Code generated with Faust 2.15.0 (https://faust.grame.fr)
-Compilation options: cpp, -scal -ftz 0
+Code generated with Faust 2.22.1 (https://faust.grame.fr)
+Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __synth_eguitar_H__
@@ -14,6 +14,7 @@ Compilation options: cpp, -scal -ftz 0
 #include <memory>
 #include <string>
 
+/************************** BEGIN dsp.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -96,23 +97,23 @@ class dsp {
          * - static class 'classInit': static tables initialization
          * - 'instanceInit': constants and instance state initialization
          *
-         * @param samplingRate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hertz
          */
-        virtual void init(int samplingRate) = 0;
+        virtual void init(int sample_rate) = 0;
 
         /**
          * Init instance state
          *
-         * @param samplingRate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hertz
          */
-        virtual void instanceInit(int samplingRate) = 0;
+        virtual void instanceInit(int sample_rate) = 0;
 
         /**
          * Init instance constant state
          *
-         * @param samplingRate - the sampling rate in Hertz
+         * @param sample_rate - the sampling rate in Hertz
          */
-        virtual void instanceConstants(int samplingRate) = 0;
+        virtual void instanceConstants(int sample_rate) = 0;
     
         /* Init default control parameters values */
         virtual void instanceResetUserInterface() = 0;
@@ -149,8 +150,8 @@ class dsp {
          *
          * @param date_usec - the timestamp in microsec given by audio driver.
          * @param count - the number of frames to compute
-         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
-         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (eiher float, double or quad)
+         * @param inputs - the input audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
+         * @param outputs - the output audio buffers as an array of non-interleaved FAUSTFLOAT samples (either float, double or quad)
          *
          */
         virtual void compute(double /*date_usec*/, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) { compute(count, inputs, outputs); }
@@ -169,16 +170,16 @@ class decorator_dsp : public dsp {
 
     public:
 
-        decorator_dsp(dsp* dsp = 0):fDSP(dsp) {}
+        decorator_dsp(dsp* dsp = nullptr):fDSP(dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
         virtual int getNumInputs() { return fDSP->getNumInputs(); }
         virtual int getNumOutputs() { return fDSP->getNumOutputs(); }
         virtual void buildUserInterface(UI* ui_interface) { fDSP->buildUserInterface(ui_interface); }
         virtual int getSampleRate() { return fDSP->getSampleRate(); }
-        virtual void init(int samplingRate) { fDSP->init(samplingRate); }
-        virtual void instanceInit(int samplingRate) { fDSP->instanceInit(samplingRate); }
-        virtual void instanceConstants(int samplingRate) { fDSP->instanceConstants(samplingRate); }
+        virtual void init(int sample_rate) { fDSP->init(sample_rate); }
+        virtual void instanceInit(int sample_rate) { fDSP->instanceInit(sample_rate); }
+        virtual void instanceConstants(int sample_rate) { fDSP->instanceConstants(sample_rate); }
         virtual void instanceResetUserInterface() { fDSP->instanceResetUserInterface(); }
         virtual void instanceClear() { fDSP->instanceClear(); }
         virtual decorator_dsp* clone() { return new decorator_dsp(fDSP->clone()); }
@@ -233,6 +234,8 @@ class dsp_factory {
 #endif
 
 #endif
+/**************************  END  dsp.h **************************/
+/************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -272,45 +275,54 @@ class dsp_factory {
 
 struct Soundfile;
 
-class UI
+template <typename REAL>
+class UIReal
 {
-
+    
     public:
-
-        UI() {}
-
-        virtual ~UI() {}
-
+        
+        UIReal() {}
+        virtual ~UIReal() {}
+        
         // -- widget's layouts
-
+        
         virtual void openTabBox(const char* label) = 0;
         virtual void openHorizontalBox(const char* label) = 0;
         virtual void openVerticalBox(const char* label) = 0;
         virtual void closeBox() = 0;
-
+        
         // -- active widgets
-
-        virtual void addButton(const char* label, FAUSTFLOAT* zone) = 0;
-        virtual void addCheckButton(const char* label, FAUSTFLOAT* zone) = 0;
-        virtual void addVerticalSlider(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step) = 0;
-        virtual void addHorizontalSlider(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step) = 0;
-        virtual void addNumEntry(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step) = 0;
-
+        
+        virtual void addButton(const char* label, REAL* zone) = 0;
+        virtual void addCheckButton(const char* label, REAL* zone) = 0;
+        virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+        virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+        virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+        
         // -- passive widgets
-
-        virtual void addHorizontalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max) = 0;
-        virtual void addVerticalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max) = 0;
-    
+        
+        virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+        virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+        
         // -- soundfiles
-    
+        
         virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-
+        
         // -- metadata declarations
+        
+        virtual void declare(REAL* zone, const char* key, const char* val) {}
+};
 
-        virtual void declare(FAUSTFLOAT*, const char*, const char*) {}
+struct UI : public UIReal<FAUSTFLOAT>
+{
+
+        UI() {}
+        virtual ~UI() {}
 };
 
 #endif
+/**************************  END  UI.h **************************/
+/************************** BEGIN meta.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -339,11 +351,14 @@ class UI
 
 struct Meta
 {
-    virtual void declare(const char* key, const char* value) = 0;
     virtual ~Meta() {};
+    virtual void declare(const char* key, const char* value) = 0;
+    
 };
 
 #endif
+/**************************  END  meta.h **************************/
+/************************** BEGIN misc.h **************************/
 /************************************************************************
  FAUST Architecture File
  Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
@@ -366,7 +381,7 @@ struct Meta
  that work under terms of your choice, so long as this FAUST
  architecture section is not modified.
  ************************************************************************/
- 
+
 #ifndef __misc__
 #define __misc__
 
@@ -374,6 +389,8 @@ struct Meta
 #include <map>
 #include <cstdlib>
 #include <string.h>
+#include <fstream>
+#include <string>
 
 
 using std::max;
@@ -395,27 +412,65 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-	int	i;
-    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    return def;
 }
 
-static bool isopt(char* argv[], const char* name)
+static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
-	return false;
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return atoi(argv[i]);
+        }
+    }
+    return def;
 }
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    return def;
+}
+
+static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
+{
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return argv[i];
+        }
+    }
+    return def;
+}
+
+static bool isopt(char* argv[], const char* name)
+{
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
+    return false;
+}
+
+static std::string pathToContent(const std::string& path)
+{
+    std::ifstream file(path.c_str(), std::ifstream::binary);
+    
+    file.seekg(0, file.end);
+    int size = int(file.tellg());
+    file.seekg(0, file.beg);
+    
+    // And allocate buffer to that a single line can be read...
+    char* buffer = new char[size + 1];
+    file.read(buffer, size);
+    
+    // Terminate the string
+    buffer[size] = 0;
+    std::string result = buffer;
+    file.close();
+    delete [] buffer;
+    return result;
 }
 
 #endif
 
+/**************************  END  misc.h **************************/
 
 #include "ceammc_faust.h"
 
@@ -448,12 +503,12 @@ struct synth_eguitar : public dsp {
 
 static float synth_eguitar_faustpower2_f(float value) {
 	return (value * value);
-	
 }
 
 #ifndef FAUSTCLASS 
 #define FAUSTCLASS synth_eguitar
 #endif
+
 #ifdef __APPLE__ 
 #define exp10f __exp10f
 #define exp10 __exp10
@@ -464,7 +519,7 @@ class synth_eguitar : public dsp {
  private:
 	
 	FAUSTFLOAT fHslider0;
-	int fSamplingFreq;
+	int fSampleRate;
 	float fConst0;
 	float fConst1;
 	FAUSTFLOAT fHslider1;
@@ -480,14 +535,11 @@ class synth_eguitar : public dsp {
 	float fConst3;
 	int iRec34[2];
 	float fRec33[3];
+	float fConst4;
 	FAUSTFLOAT fButton0;
 	float fVec1[2];
-	float fConst4;
-	float fVec2[2];
-	float fRec35[2];
-	float fConst5;
-	float fConst6;
-	float fVec3[3];
+	int iRec35[2];
+	float fVec2[3];
 	float fRec30[2048];
 	float fRec21[2];
 	float fRec17[2];
@@ -502,17 +554,34 @@ class synth_eguitar : public dsp {
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
-		m->declare("basics.lib/version", "0.0");
+		m->declare("basics.lib/version", "0.1");
 		m->declare("delays.lib/name", "Faust Delay Library");
-		m->declare("delays.lib/version", "0.0");
+		m->declare("delays.lib/version", "0.1");
+		m->declare("envelopes.lib/ar:author", "Yann Orlarey, Stéphane Letz");
 		m->declare("envelopes.lib/author", "GRAME");
 		m->declare("envelopes.lib/copyright", "GRAME");
 		m->declare("envelopes.lib/license", "LGPL with exception");
 		m->declare("envelopes.lib/name", "Faust Envelope Library");
 		m->declare("envelopes.lib/version", "0.0");
-		m->declare("filename", "synth_eguitar");
+		m->declare("filename", "synth_eguitar.dsp");
+		m->declare("filters.lib/fir:author", "Julius O. Smith III");
+		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/fir:license", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/iir:author", "Julius O. Smith III");
+		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
+		m->declare("filters.lib/lowpass:author", "Julius O. Smith III");
+		m->declare("filters.lib/lowpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass:license", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/name", "Faust Filters Library");
-		m->declare("filters.lib/version", "0.0");
+		m->declare("filters.lib/tf2:author", "Julius O. Smith III");
+		m->declare("filters.lib/tf2:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/tf2:license", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/tf2s:author", "Julius O. Smith III");
+		m->declare("filters.lib/tf2s:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/tf2s:license", "MIT-style STK-4.3 license");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
@@ -522,7 +591,7 @@ class synth_eguitar : public dsp {
 		m->declare("noises.lib/name", "Faust Noise Generator Library");
 		m->declare("noises.lib/version", "0.0");
 		m->declare("routes.lib/name", "Faust Signal Routing Library");
-		m->declare("routes.lib/version", "0.0");
+		m->declare("routes.lib/version", "0.1");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/version", "0.0");
 		m->declare("spn.lib/name", "Standart Pitch Notation constants");
@@ -531,27 +600,23 @@ class synth_eguitar : public dsp {
 
 	virtual int getNumInputs() {
 		return 0;
-		
 	}
 	virtual int getNumOutputs() {
 		return 1;
-		
 	}
 	virtual int getInputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			default: {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	virtual int getOutputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 1;
 				break;
@@ -560,26 +625,20 @@ class synth_eguitar : public dsp {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	
-	static void classInit(int samplingFreq) {
-		
+	static void classInit(int sample_rate) {
 	}
 	
-	virtual void instanceConstants(int samplingFreq) {
-		fSamplingFreq = samplingFreq;
-		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSamplingFreq)));
+	virtual void instanceConstants(int sample_rate) {
+		fSampleRate = sample_rate;
+		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = (0.00147058826f * fConst0);
 		fConst2 = (0.00882352982f * fConst0);
 		fConst3 = (6911.50391f / fConst0);
-		fConst4 = (0.00400000019f * fConst0);
-		fConst5 = (0.00200000009f * fConst0);
-		fConst6 = (500.0f / fConst0);
-		
+		fConst4 = (0.00200000009f * fConst0);
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -588,100 +647,75 @@ class synth_eguitar : public dsp {
 		fHslider2 = FAUSTFLOAT(0.5f);
 		fHslider3 = FAUSTFLOAT(1.0f);
 		fButton0 = FAUSTFLOAT(0.0f);
-		
 	}
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec25[l0] = 0.0f;
-			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec29[l1] = 0.0f;
-			
 		}
 		for (int l2 = 0; (l2 < 4); l2 = (l2 + 1)) {
 			fRec31[l2] = 0.0f;
-			
 		}
 		IOTA = 0;
 		for (int l3 = 0; (l3 < 2048); l3 = (l3 + 1)) {
 			fRec32[l3] = 0.0f;
-			
 		}
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fVec0[l4] = 0.0f;
-			
 		}
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
 			iRec34[l5] = 0;
-			
 		}
 		for (int l6 = 0; (l6 < 3); l6 = (l6 + 1)) {
 			fRec33[l6] = 0.0f;
-			
 		}
 		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
 			fVec1[l7] = 0.0f;
-			
 		}
 		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
-			fVec2[l8] = 0.0f;
-			
+			iRec35[l8] = 0;
 		}
-		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
-			fRec35[l9] = 0.0f;
-			
+		for (int l9 = 0; (l9 < 3); l9 = (l9 + 1)) {
+			fVec2[l9] = 0.0f;
 		}
-		for (int l10 = 0; (l10 < 3); l10 = (l10 + 1)) {
-			fVec3[l10] = 0.0f;
-			
+		for (int l10 = 0; (l10 < 2048); l10 = (l10 + 1)) {
+			fRec30[l10] = 0.0f;
 		}
-		for (int l11 = 0; (l11 < 2048); l11 = (l11 + 1)) {
-			fRec30[l11] = 0.0f;
-			
+		for (int l11 = 0; (l11 < 2); l11 = (l11 + 1)) {
+			fRec21[l11] = 0.0f;
 		}
 		for (int l12 = 0; (l12 < 2); l12 = (l12 + 1)) {
-			fRec21[l12] = 0.0f;
-			
+			fRec17[l12] = 0.0f;
 		}
-		for (int l13 = 0; (l13 < 2); l13 = (l13 + 1)) {
-			fRec17[l13] = 0.0f;
-			
+		for (int l13 = 0; (l13 < 2048); l13 = (l13 + 1)) {
+			fRec13[l13] = 0.0f;
 		}
-		for (int l14 = 0; (l14 < 2048); l14 = (l14 + 1)) {
-			fRec13[l14] = 0.0f;
-			
+		for (int l14 = 0; (l14 < 2); l14 = (l14 + 1)) {
+			fRec15[l14] = 0.0f;
 		}
-		for (int l15 = 0; (l15 < 2); l15 = (l15 + 1)) {
-			fRec15[l15] = 0.0f;
-			
+		for (int l15 = 0; (l15 < 4); l15 = (l15 + 1)) {
+			fRec11[l15] = 0.0f;
 		}
-		for (int l16 = 0; (l16 < 4); l16 = (l16 + 1)) {
-			fRec11[l16] = 0.0f;
-			
+		for (int l16 = 0; (l16 < 2); l16 = (l16 + 1)) {
+			fRec6[l16] = 0.0f;
 		}
-		for (int l17 = 0; (l17 < 2); l17 = (l17 + 1)) {
-			fRec6[l17] = 0.0f;
-			
+		for (int l17 = 0; (l17 < 2048); l17 = (l17 + 1)) {
+			fRec2[l17] = 0.0f;
 		}
-		for (int l18 = 0; (l18 < 2048); l18 = (l18 + 1)) {
-			fRec2[l18] = 0.0f;
-			
+		for (int l18 = 0; (l18 < 2); l18 = (l18 + 1)) {
+			fRec0[l18] = 0.0f;
 		}
-		for (int l19 = 0; (l19 < 2); l19 = (l19 + 1)) {
-			fRec0[l19] = 0.0f;
-			
-		}
-		
 	}
 	
-	virtual void init(int samplingFreq) {
-		classInit(samplingFreq);
-		instanceInit(samplingFreq);
+	virtual void init(int sample_rate) {
+		classInit(sample_rate);
+		instanceInit(sample_rate);
 	}
-	virtual void instanceInit(int samplingFreq) {
-		instanceConstants(samplingFreq);
+	virtual void instanceInit(int sample_rate) {
+		instanceConstants(sample_rate);
 		instanceResetUserInterface();
 		instanceClear();
 	}
@@ -689,9 +723,9 @@ class synth_eguitar : public dsp {
 	virtual synth_eguitar* clone() {
 		return new synth_eguitar();
 	}
+	
 	virtual int getSampleRate() {
-		return fSamplingFreq;
-		
+		return fSampleRate;
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
@@ -702,7 +736,6 @@ class synth_eguitar : public dsp {
 		ui_interface->addHorizontalSlider("pitch", &fHslider1, 48.0f, 36.0f, 84.0f, 0.00100000005f);
 		ui_interface->addHorizontalSlider("pos", &fHslider2, 0.5f, 0.0f, 1.0f, 0.00999999978f);
 		ui_interface->closeBox();
-		
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
@@ -768,16 +801,13 @@ class synth_eguitar : public dsp {
 		float fSlow58 = (1.0f / fSlow56);
 		float fSlow59 = (((fSlow55 + -1.41421354f) / fSlow54) + 1.0f);
 		float fSlow60 = (2.0f * (1.0f - (1.0f / synth_eguitar_faustpower2_f(fSlow54))));
-		float fSlow61 = float(fButton0);
-		float fSlow62 = synth_eguitar_faustpower2_f((1.0f - (0.219999999f * fSlow1)));
-		float fSlow63 = (fConst4 * fSlow62);
-		float fSlow64 = (fConst5 * fSlow62);
-		float fSlow65 = (fConst6 / fSlow62);
-		int iSlow66 = (iSlow38 + 1);
-		int iSlow67 = (iSlow42 + 1);
-		int iSlow68 = (iSlow45 + 1);
-		int iSlow69 = (iSlow49 + 1);
-		int iSlow70 = (iSlow52 + 1);
+		float fSlow61 = (1.0f / std::max<float>(1.0f, (fConst4 * synth_eguitar_faustpower2_f((1.0f - (0.219999999f * fSlow1))))));
+		float fSlow62 = float(fButton0);
+		int iSlow63 = (iSlow38 + 1);
+		int iSlow64 = (iSlow42 + 1);
+		int iSlow65 = (iSlow45 + 1);
+		int iSlow66 = (iSlow49 + 1);
+		int iSlow67 = (iSlow52 + 1);
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fRec10 = (-1.0f * (0.997305274f * ((0.899999976f * fRec11[2]) + (0.0500000007f * (fRec11[1] + fRec11[3])))));
 			fRec25[0] = ((fSlow11 * fRec2[((IOTA - iSlow14) & 2047)]) + (fSlow15 * ((((fSlow16 * fRec2[((IOTA - iSlow18) & 2047)]) + (fSlow19 * fRec2[((IOTA - iSlow21) & 2047)])) + (fSlow23 * fRec2[((IOTA - iSlow25) & 2047)])) + (fSlow26 * fRec2[((IOTA - iSlow28) & 2047)]))));
@@ -788,16 +818,15 @@ class synth_eguitar : public dsp {
 			fVec0[0] = ((fSlow36 * fRec32[((IOTA - iSlow39) & 2047)]) + (fSlow40 * ((((fSlow41 * fRec32[((IOTA - iSlow43) & 2047)]) + (fSlow44 * fRec32[((IOTA - iSlow46) & 2047)])) + (fSlow48 * fRec32[((IOTA - iSlow50) & 2047)])) + (fSlow51 * fRec32[((IOTA - iSlow53) & 2047)]))));
 			iRec34[0] = ((1103515245 * iRec34[1]) + 12345);
 			fRec33[0] = ((4.65661287e-10f * float(iRec34[0])) - (fSlow58 * ((fSlow59 * fRec33[2]) + (fSlow60 * fRec33[1]))));
-			fVec1[0] = fSlow61;
-			fVec2[0] = fSlow62;
-			fRec35[0] = ((((fSlow61 - fVec1[1]) > 0.0f) > 0)?0.0f:std::min<float>(fSlow63, ((fRec35[1] + (fConst4 * (fSlow62 - fVec2[1]))) + 1.0f)));
-			int iTemp0 = (fRec35[0] < fSlow64);
-			float fTemp1 = (fSlow57 * ((fRec33[2] + (fRec33[0] + (2.0f * fRec33[1]))) * (iTemp0?((fRec35[0] < 0.0f)?0.0f:(iTemp0?(fSlow65 * fRec35[0]):1.0f)):((fRec35[0] < fSlow63)?((fSlow65 * (0.0f - (fRec35[0] - fSlow64))) + 1.0f):0.0f))));
+			fVec1[0] = fSlow62;
+			iRec35[0] = (((iRec35[1] + (iRec35[1] > 0)) * (fSlow62 <= fVec1[1])) + (fSlow62 > fVec1[1]));
+			float fTemp0 = (fSlow61 * float(iRec35[0]));
+			float fTemp1 = (fSlow57 * ((fRec33[2] + (fRec33[0] + (2.0f * fRec33[1]))) * std::max<float>(0.0f, std::min<float>(fTemp0, (2.0f - fTemp0)))));
 			float fTemp2 = (fVec0[1] + fTemp1);
-			fVec3[0] = fTemp2;
-			fRec30[(IOTA & 2047)] = ((0.0500000007f * fRec30[((IOTA - 1) & 2047)]) + (0.949999988f * fVec3[2]));
-			float fRec27 = ((fSlow11 * fRec30[((IOTA - iSlow13) & 2047)]) + (fSlow15 * ((((fSlow19 * fRec30[((IOTA - iSlow20) & 2047)]) + (fSlow16 * fRec30[((IOTA - iSlow17) & 2047)])) + (fSlow23 * fRec30[((IOTA - iSlow24) & 2047)])) + (fSlow26 * fRec30[((IOTA - iSlow27) & 2047)]))));
-			float fRec28 = (fVec3[1] + fRec21[1]);
+			fVec2[0] = fTemp2;
+			fRec30[(IOTA & 2047)] = ((0.0500000007f * fRec30[((IOTA - 1) & 2047)]) + (0.949999988f * fVec2[2]));
+			float fRec27 = ((fSlow11 * fRec30[((IOTA - iSlow13) & 2047)]) + (fSlow15 * ((((fSlow16 * fRec30[((IOTA - iSlow17) & 2047)]) + (fSlow19 * fRec30[((IOTA - iSlow20) & 2047)])) + (fSlow23 * fRec30[((IOTA - iSlow24) & 2047)])) + (fSlow26 * fRec30[((IOTA - iSlow27) & 2047)]))));
+			float fRec28 = (fVec2[1] + fRec21[1]);
 			fRec21[0] = fRec26;
 			float fRec22 = fRec21[1];
 			float fRec23 = fRec27;
@@ -807,7 +836,7 @@ class synth_eguitar : public dsp {
 			float fRec19 = fRec23;
 			float fRec20 = fRec24;
 			fRec13[(IOTA & 2047)] = fRec18;
-			float fRec14 = ((fSlow36 * fRec13[((IOTA - iSlow66) & 2047)]) + (fSlow40 * ((((fSlow41 * fRec13[((IOTA - iSlow67) & 2047)]) + (fSlow44 * fRec13[((IOTA - iSlow68) & 2047)])) + (fSlow48 * fRec13[((IOTA - iSlow69) & 2047)])) + (fSlow51 * fRec13[((IOTA - iSlow70) & 2047)]))));
+			float fRec14 = ((fSlow36 * fRec13[((IOTA - iSlow63) & 2047)]) + (fSlow40 * ((((fSlow41 * fRec13[((IOTA - iSlow64) & 2047)]) + (fSlow44 * fRec13[((IOTA - iSlow65) & 2047)])) + (fSlow48 * fRec13[((IOTA - iSlow66) & 2047)])) + (fSlow51 * fRec13[((IOTA - iSlow67) & 2047)]))));
 			fRec15[0] = fRec19;
 			float fRec16 = fRec20;
 			fRec11[0] = (fSlow0 * fRec15[1]);
@@ -827,7 +856,6 @@ class synth_eguitar : public dsp {
 			fRec29[1] = fRec29[0];
 			for (int j0 = 3; (j0 > 0); j0 = (j0 - 1)) {
 				fRec31[j0] = fRec31[(j0 - 1)];
-				
 			}
 			IOTA = (IOTA + 1);
 			fVec0[1] = fVec0[0];
@@ -835,25 +863,20 @@ class synth_eguitar : public dsp {
 			fRec33[2] = fRec33[1];
 			fRec33[1] = fRec33[0];
 			fVec1[1] = fVec1[0];
+			iRec35[1] = iRec35[0];
+			fVec2[2] = fVec2[1];
 			fVec2[1] = fVec2[0];
-			fRec35[1] = fRec35[0];
-			fVec3[2] = fVec3[1];
-			fVec3[1] = fVec3[0];
 			fRec21[1] = fRec21[0];
 			fRec17[1] = fRec17[0];
 			fRec15[1] = fRec15[0];
 			for (int j1 = 3; (j1 > 0); j1 = (j1 - 1)) {
 				fRec11[j1] = fRec11[(j1 - 1)];
-				
 			}
 			fRec6[1] = fRec6[0];
 			fRec0[1] = fRec0[0];
-			
 		}
-		
 	}
 
-	
 };
 // clang-format on
 #endif

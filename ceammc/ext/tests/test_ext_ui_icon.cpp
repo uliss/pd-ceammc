@@ -28,7 +28,7 @@ TEST_CASE("ui.icon", "[ui.icon]")
         REQUIRE(t->numInlets() == 1);
         REQUIRE_UI_LIST_PROPERTY(t, "size", LF(24, 24));
         REQUIRE_UI_LIST_PROPERTY(t, "presetname", LA("ui.icon.0"));
-        REQUIRE_UI_LIST_PROPERTY(t, "icon", LA("default"));
+        REQUIRE_UI_LIST_PROPERTY(t, "icon", LA("help"));
         REQUIRE_UI_LIST_PROPERTY(t, "mode", LA("button"));
         REQUIRE_UI_FLOAT_PROPERTY(t, "enabled", 1);
     }

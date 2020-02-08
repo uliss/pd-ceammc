@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="hoa.in">
+        <title>hoa.in</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+                <author>Pierre Guillot</author>
+                <author>Eliott Paris</author>
+                <author>Thomas Le Meur</author>
+            </authors>
+            <description>message inlet for a patcher loaded by hoa.process~</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>hoa inlet</keywords>
+            <since>0.8</since>
+            <also>
+                <see>hoa.in~</see>
+                <see>hoa.out</see>
+                <see>hoa.out~</see>
+            </also>
+        </meta>
+        <info>
+            <par>hoa.in defines a message inlet for a patcher loaded by a hoa.process~
+            object.</par>
+        </info>
+        <arguments>
+            <argument name="INDEX" type="int" minvalue="1">shortcut for @index property</argument>
+        </arguments>
+        <properties>
+            <property name="@index" type="int" minvalue="1" default="1">Defines an inlet
+            index</property>
+        </properties>
+        <outlets>
+            <outlet>output messages received from a hoa.process~ input.</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open 0( [open 1(  [42( [\#0 43( [\#1 44(
+|        |         |    |        |
+|        |         |.   |.       |.
+[hoa.process~ 2 hoa/hoa_in_example1 planewaves]
+|
+[print A]
+
+[open 0(     [42( [\#0 43( [\#1 44( [45( [\#0 46( [\#1 47(
+|            |    |        |        |    |        |
+| [open 1(   |    |        |        |    |        |
+| |          |.   |.       |.       |... |...     |...
+[hoa.process~ 2 hoa/hoa_in_example2 planewaves       ]
+|                                ^|
+[print B]                        [print C]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

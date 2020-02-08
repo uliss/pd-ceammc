@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.sync_eq">
+        <title>math.sync_eq</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sync equal numbers check</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math sync equal</keywords>
+            <aliases>
+                <alias>math.=='</alias>
+                <alias>=='</alias>
+            </aliases>
+            <since>0.8</since>
+            <also>
+                <see>math.!='</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="F" type="float">second number</argument>
+        </arguments>
+        <properties>
+            <property name="@epsilon" type="float" default="0" minvalue="0">compare epsilon. If not
+            zero calculates expession: -epsilon &lt; abs(A-B) &lt; +epsilon</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">set first number, calculate and output result</xinfo>
+                <xinfo on="list">pair: set first and second numbers, calculate and output
+                result</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">change second number, calculate and output result</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result output: 1 if numbers are equal otherwise 0</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]   [F]   /*same as:*/ [F]  [F]
+|     |                  |    |
+|     |                  |    [t b f]
+|     |.                 |    | ^|.
+[=='    ]                [==      ]
+|                        |
+[_]                      [_]
+
+[100 100.01( [100 101( [100 99.99(
+|            |         |
+|            |         |
+[==' @epsilon 0.1      ]
+|
+[_]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

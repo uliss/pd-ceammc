@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>noise.lfreq0~ smoothed with no overshoot</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>noise</category>
             <keywords>noise lfreq</keywords>
@@ -22,6 +22,8 @@
         <properties>
             <property name="@freq" type="float" minvalue="5" maxvalue="22050" default="1000">noise
             generation freq</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
         </properties>
         <inlets>
             <inlet>

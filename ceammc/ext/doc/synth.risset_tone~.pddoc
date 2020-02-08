@@ -8,7 +8,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>Jean Claude Risset's endless glissando</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>synth</category>
             <keywords>risset</keywords>
@@ -21,6 +21,8 @@
             frequency. Units: MIDI note</property>
             <property name="@range" type="float" minvalue="1" maxvalue="120" default="120">
             glissando range in MIDI note units</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
         </properties>
         <inlets>
             <inlet>

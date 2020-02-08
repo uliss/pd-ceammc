@@ -160,7 +160,7 @@ proc ::dialog_gatom::create_dialog {mytoplevel} {
     pack $mytoplevel.s_r.receive.entry $mytoplevel.s_r.receive.label -side right
 
     frame $mytoplevel.buttonframe -pady 5
-    pack $mytoplevel.buttonframe -side top -fill x -expand 1 -pady 2m
+    pack $mytoplevel.buttonframe -side top -pady 2m
     button $mytoplevel.buttonframe.cancel -text [_ "Cancel"] \
         -command "::dialog_gatom::cancel $mytoplevel" -highlightcolor green
     pack $mytoplevel.buttonframe.cancel -side left -expand 1 -fill x -padx 15 -ipadx 10

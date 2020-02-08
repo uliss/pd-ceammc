@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>check if string match regular expression</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>string</category>
             <keywords>match regex</keywords>
@@ -15,9 +15,6 @@
             <aliases>
                 <alias>str.match</alias>
             </aliases>
-            <also>
-                <see>str.grep</see>
-            </also>
         </meta>
         <info>
             <par>Used syntax: re2 (like pcre). Some characters are non-supported in Pd. Use `
@@ -52,7 +49,7 @@
 |                                                |.
 [str.match \[a-z\]+`.mp\[34\]                     ]
 |
-[ui.d @display_type=1]
+[ui.display @display_type=1]
 ]]>
             </pdascii>
         </example>

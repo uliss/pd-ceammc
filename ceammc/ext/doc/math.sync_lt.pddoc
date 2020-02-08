@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.sync_lt">
+        <title>math.sync_lt</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sync less then numbers compare</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math sync less then</keywords>
+            <aliases>
+                <alias>math.&lt;'</alias>
+                <alias>&lt;'</alias>
+            </aliases>
+            <since>0.8</since>
+            <also>
+                <see>math.&gt;'</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="F" type="float">second number</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="float">set first number, calculate and output result</xinfo>
+                <xinfo on="list">pair: set first and second numbers, calculate and output
+                result</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">change second number, calculate and output result</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>result output: 1 if first number is less then second, otherwise 0</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]   [F]   /*same as:*/ [F]  [F]
+|     |                  |    |
+|     |                  |    [t b f]
+|     |.                 |    | ^|.
+[<'    ]                 [<      ]
+|                        |
+[_]                      [_]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

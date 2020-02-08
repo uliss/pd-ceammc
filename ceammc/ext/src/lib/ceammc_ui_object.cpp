@@ -5,42 +5,43 @@
 
 namespace ceammc {
 
-const char* UIObject::BG_LAYER = "background_layer";
+const char* UIObjectImpl::BG_LAYER = "background_layer";
 
 #ifdef __APPLE__
-const char* UIObject::FONT_FAMILY = "Helvetica";
-const int UIObject::FONT_SIZE = 12;
-const int UIObject::FONT_SIZE_SMALL = 8;
+const char* UIObjectImpl::FONT_FAMILY = "Helvetica";
+const int UIObjectImpl::FONT_SIZE = 12;
+const int UIObjectImpl::FONT_SIZE_SMALL = 8;
 #elif _WIN32
-const char* UIObject::FONT_FAMILY = "DejaVu Sans Mono";
-const int UIObject::FONT_SIZE = 9;
-const int UIObject::FONT_SIZE_SMALL = 6;
+const char* UIObjectImpl::FONT_FAMILY = "DejaVu Sans Mono";
+const int UIObjectImpl::FONT_SIZE = 9;
+const int UIObjectImpl::FONT_SIZE_SMALL = 6;
 #else
-const char* UIObject::FONT_FAMILY = "DejaVu Sans Mono";
-const int UIObject::FONT_SIZE = 9;
-const int UIObject::FONT_SIZE_SMALL = 6;
+const char* UIObjectImpl::FONT_FAMILY = "DejaVu Sans Mono";
+const int UIObjectImpl::FONT_SIZE = 9;
+const int UIObjectImpl::FONT_SIZE_SMALL = 6;
 #endif
 
-const char* UIObject::FONT_STYLE = "roman";
-const char* UIObject::FONT_WEIGHT = "normal";
-const char* UIObject::COLOR_ACTIVE = "#00C0FF";
+const char* UIObjectImpl::FONT_STYLE = "roman";
+const char* UIObjectImpl::FONT_WEIGHT = "normal";
+const char* UIObjectImpl::COLOR_ACTIVE = "#00C0FF";
 
-UIObject::PresetNameMap UIObject::presets_;
+UIObjectImpl::PresetNameMap UIObjectImpl::presets_;
 
-UIObject::UIObject()
-    : name_(&s_)
-    , bg_layer_(asEBox(), gensym(BG_LAYER))
+UIObjectImpl::UIObjectImpl(t_ebox* x)
+    : box_(x)
+    , name_(&s_)
+    , bg_layer_(box_, gensym(BG_LAYER))
     , old_preset_id_(s_null)
-    , cursor_(ECURSOR_LEFT_PTR)
     , use_presets_(false)
     , prop_color_background(rgba_white)
     , prop_color_border(rgba_black)
     , prop_color_label(rgba_black)
+    , prop_mouse_events(0)
 {
     appendToLayerList(&bg_layer_);
 }
 
-UIObject::~UIObject()
+UIObjectImpl::~UIObjectImpl()
 {
     for (size_t i = 0; i < outlets_.size(); i++)
         outlet_free(outlets_[i]);
@@ -49,17 +50,17 @@ UIObject::~UIObject()
     unbindAll();
 }
 
-void UIObject::appendToLayerList(UILayer* l)
+void UIObjectImpl::appendToLayerList(UILayer* l)
 {
     layer_stack_.push_back(l);
 }
 
-void UIObject::prependToLayerList(UILayer* l)
+void UIObjectImpl::prependToLayerList(UILayer* l)
 {
     layer_stack_.insert(layer_stack_.begin(), l);
 }
 
-void UIObject::invalidateLayer(UILayer* l)
+void UIObjectImpl::invalidateLayer(UILayer* l)
 {
     bool found = false;
     for (UILayer* x : layer_stack_) {
@@ -71,54 +72,104 @@ void UIObject::invalidateLayer(UILayer* l)
     }
 }
 
-void UIObject::invalidateBox()
+void UIObjectImpl::invalidateBox()
 {
-    ebox_invalidate_layer(asEBox(), s_eboxbd);
-    ebox_invalidate_layer(asEBox(), s_eboxio);
+    ebox_invalidate_border(box_);
+    ebox_invalidate_io(box_);
 }
 
-t_ebox* UIObject::asEBox() const { return const_cast<UIObject*>(this); }
-
-t_eobj* UIObject::asEObj() const
+void UIObjectImpl::invalidateXlets()
 {
-    return &const_cast<UIObject*>(this)->b_obj;
+    ebox_invalidate_io(box_);
 }
 
-t_object* UIObject::asPdObject() const
+void UIObjectImpl::invalidateBorder()
 {
-    return &(asEBox()->b_obj.o_obj);
+    ebox_invalidate_border(box_);
 }
 
-t_pd* UIObject::asPd() const
+void UIObjectImpl::initPopupMenu(const std::string& n, std::initializer_list<PopupMenuCallbacks::Entry> args)
 {
-    return &asPdObject()->te_g.g_pd;
+    auto it = std::find_if(popup_menu_list_.begin(), popup_menu_list_.end(), [&n](const PopupMenuCallbacks& c) { return c.name() == n; });
+    if (it != popup_menu_list_.end()) {
+        UI_ERR << "menu already exists: " << n;
+        return;
+    }
+
+    popup_menu_list_.emplace_back(n, args);
 }
 
-t_outlet* UIObject::createOutlet()
+void UIObjectImpl::showDefaultPopupMenu(const t_pt& pt, const t_pt& abs_pt)
+{
+    if (popup_menu_list_.empty()) {
+        UI_ERR << "no default popup menu exists";
+        return;
+    }
+
+    UIPopupMenu menu(asEObj(), popup_menu_list_.front(), abs_pt, pt);
+}
+
+void UIObjectImpl::showPopupMenu(const std::string& n, const t_pt& pt, const t_pt& abs_pt)
+{
+    auto it = std::find_if(popup_menu_list_.begin(), popup_menu_list_.end(), [&n](const PopupMenuCallbacks& c) { return c.name() == n; });
+    if (it == popup_menu_list_.end()) {
+        UI_ERR << "menu not found: " << n;
+        return;
+    }
+
+    UIPopupMenu menu(asEObj(), *it, abs_pt, pt);
+}
+
+t_eobj* UIObjectImpl::asEObj() const
+{
+    return &(box_->b_obj);
+}
+
+t_object* UIObjectImpl::asPdObject() const
+{
+    return &(box_->b_obj.o_obj);
+}
+
+t_gobj* UIObjectImpl::asGObj() const
+{
+    return &(box_->b_obj.o_obj.te_g);
+}
+
+t_pd* UIObjectImpl::asPd() const
+{
+    return &(asPdObject()->te_g.g_pd);
+}
+
+t_outlet* UIObjectImpl::createOutlet()
 {
     t_outlet* out = outlet_new(asPdObject(), &s_list);
     outlets_.push_back(out);
     return out;
 }
 
-t_canvas* UIObject::canvas() const
+t_canvas* UIObjectImpl::canvas() const
 {
-    return eobj_getcanvas((void*)this);
+    return asEObj()->o_canvas;
 }
 
-bool UIObject::isPatchLoading() const
+bool UIObjectImpl::isPatchLoading() const
 {
     t_canvas* c = canvas();
     return c ? c->gl_loading : false;
 }
 
-bool UIObject::isPatchEdited() const
+bool UIObjectImpl::isPatchEdited() const
 {
     t_canvas* c = canvas();
     return c ? c->gl_edit : false;
 }
 
-void UIObject::init(t_symbol* name, const AtomList& args, bool usePresets)
+bool UIObjectImpl::isVisible() const
+{
+    return box_ && ebox_isvisible(box_);
+}
+
+void UIObjectImpl::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     name_ = name;
     args_ = args;
@@ -128,91 +179,105 @@ void UIObject::init(t_symbol* name, const AtomList& args, bool usePresets)
         presetInit();
 }
 
-t_symbol* UIObject::name() const
+t_symbol* UIObjectImpl::name() const
 {
     return name_;
 }
 
-t_symbol* UIObject::presetId()
+t_symbol* UIObjectImpl::presetId()
 {
-    return b_objpreset_id;
+    return box_->b_objpreset_id;
 }
 
-void UIObject::paint()
+void UIObjectImpl::paint()
 {
 }
 
-void UIObject::redraw()
+void UIObjectImpl::create()
 {
-    ebox_redraw(asEBox());
 }
 
-void UIObject::redrawInnerArea()
+void UIObjectImpl::erase()
 {
-    ebox_redraw_inner(asEBox());
 }
 
-void UIObject::redrawBGLayer()
+void UIObjectImpl::redraw()
+{
+    ebox_redraw(box_);
+}
+
+void UIObjectImpl::redrawInnerArea()
+{
+    ebox_redraw_inner(box_);
+}
+
+void UIObjectImpl::redrawBGLayer()
 {
     bg_layer_.invalidate();
     redraw();
 }
 
-void UIObject::updateSize()
+void UIObjectImpl::updateSize()
 {
-    ebox_notify(asEBox(), s_size);
+    if (box_)
+        ebox_notify(box_, s_size);
 }
 
-void UIObject::resize(int w, int h)
+void UIObjectImpl::resize(int w, int h)
 {
-    b_rect.width = w;
-    b_rect.height = h;
+    box_->b_rect.width = w;
+    box_->b_rect.height = h;
     updateSize();
 }
 
-void UIObject::redrawLayer(UILayer& l)
+void UIObjectImpl::redrawLayer(UILayer& l)
 {
     invalidateLayer(&l);
     redrawInnerArea();
 }
 
-void UIObject::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
+void UIObjectImpl::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
 {
 }
 
-void UIObject::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
+void UIObjectImpl::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
 }
 
-void UIObject::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
+void UIObjectImpl::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
 }
 
-void UIObject::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
+void UIObjectImpl::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
 }
 
-void UIObject::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
+void UIObjectImpl::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
 {
 }
 
-void UIObject::onMouseEnter(t_object* view, const t_pt& pt, long modifiers)
+void UIObjectImpl::onMouseEnter(t_object* view, const t_pt& pt, long modifiers)
 {
 }
 
-void UIObject::onMouseWheel(t_object* view, const t_pt& pt, long modifiers, double delta)
+void UIObjectImpl::onMouseWheel(const t_pt& pt, long modifiers, double delta)
 {
 }
 
-void UIObject::onDblClick(t_object* view, const t_pt& pt, long modifiers)
+void UIObjectImpl::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
 }
 
-void UIObject::okSize(t_rect* newrect)
+bool UIObjectImpl::outputMouseEvents() const
+{
+    return prop_mouse_events;
+}
+
+void UIObjectImpl::okSize(t_rect* newrect)
 {
 }
 
-void UIObject::setDrawParams(t_edrawparams* params)
+void UIObjectImpl::setDrawParams(t_edrawparams* params)
 {
     params->d_borderthickness = 1;
     params->d_bordercolor = prop_color_border;
@@ -220,82 +285,97 @@ void UIObject::setDrawParams(t_edrawparams* params)
     params->d_labelcolor = prop_color_label;
 }
 
-void UIObject::onZoom(t_float z)
+void UIObjectImpl::onZoom(t_float z)
 {
 }
 
-void UIObject::onPopup(t_symbol* menu_name, long item_idx)
+void UIObjectImpl::onPopup(t_symbol* menu_name, long item_idx, const t_pt& pt)
 {
+    auto it = std::find_if(popup_menu_list_.begin(), popup_menu_list_.end(), [menu_name](const PopupMenuCallbacks& cb) { return cb.name() == menu_name->s_name; });
+    if (it == popup_menu_list_.end()) {
+        UI_ERR << "popup menu not found: " << menu_name->s_name;
+        return;
+    }
+
+    if (!it->process(menu_name, item_idx, pt)) {
+        UI_ERR << "popup menu item processing error: " << item_idx;
+        return;
+    }
 }
 
-void UIObject::onPropChange(t_symbol* name)
+void UIObjectImpl::showPopup(const t_pt& pt, const t_pt& abs_pt)
+{
+    showDefaultPopupMenu(pt, abs_pt);
+}
+
+void UIObjectImpl::onPropChange(t_symbol* name)
 {
     redrawLayer(bg_layer_);
 }
 
-void UIObject::write(const std::string& fname)
+void UIObjectImpl::write(const std::string& fname)
 {
 }
 
-void UIObject::read(const std::string& fname)
+void UIObjectImpl::read(const std::string& fname)
 {
 }
 
-void UIObject::m_custom(t_symbol* sel, const AtomList& lst)
+void UIObjectImpl::m_custom(t_symbol* sel, const AtomList& lst)
 {
 }
 
-void UIObject::onBang()
+void UIObjectImpl::onBang()
 {
 }
 
-void UIObject::onFloat(t_float f)
+void UIObjectImpl::onFloat(t_float f)
 {
 }
 
-void UIObject::onSymbol(t_symbol* s)
+void UIObjectImpl::onSymbol(t_symbol* s)
 {
 }
 
-void UIObject::onList(const AtomList& lst)
+void UIObjectImpl::onList(const AtomList& lst)
 {
 }
 
-void UIObject::onAny(t_symbol* s, const AtomList& lst)
+void UIObjectImpl::onAny(t_symbol* s, const AtomList& lst)
 {
     LIB_ERR << "unknown message: " << s->s_name;
 }
 
-void UIObject::onKey(int k, long modifiers)
+void UIObjectImpl::onKey(int k, long modifiers)
 {
 }
 
-void UIObject::onKeyFilter(int k, long modifiers)
+void UIObjectImpl::onKeyFilter(int k, long modifiers)
 {
 }
 
-void UIObject::onData(const DataPtr& ptr)
+void UIObjectImpl::onData(const DataPtr& ptr)
 {
 }
 
-void UIObject::onProperty(t_symbol* s, const AtomList& lst)
+void UIObjectImpl::onProperty(t_symbol* s, const AtomList& lst)
 {
 }
 
-void UIObject::loadPreset(size_t idx)
+void UIObjectImpl::loadPreset(size_t idx)
 {
 }
 
-void UIObject::storePreset(size_t idx)
+void UIObjectImpl::storePreset(size_t idx)
 {
 }
 
-void UIObject::clearPreset(size_t idx)
+void UIObjectImpl::clearPreset(size_t idx)
 {
     PresetStorage::instance().clearValueAt(presetId(), idx);
 }
 
-void UIObject::bangTo(size_t n)
+void UIObjectImpl::bangTo(size_t n)
 {
     if (n >= outlets_.size())
         return;
@@ -303,7 +383,7 @@ void UIObject::bangTo(size_t n)
     outlet_bang(outlets_[n]);
 }
 
-void UIObject::floatTo(size_t n, t_float f)
+void UIObjectImpl::floatTo(size_t n, t_float f)
 {
     if (n >= outlets_.size())
         return;
@@ -311,7 +391,7 @@ void UIObject::floatTo(size_t n, t_float f)
     outlet_float(outlets_[n], f);
 }
 
-void UIObject::symbolTo(size_t n, t_symbol* s)
+void UIObjectImpl::symbolTo(size_t n, t_symbol* s)
 {
     if (n >= outlets_.size())
         return;
@@ -319,7 +399,7 @@ void UIObject::symbolTo(size_t n, t_symbol* s)
     outlet_symbol(outlets_[n], s);
 }
 
-void UIObject::listTo(size_t n, const AtomList& lst)
+void UIObjectImpl::listTo(size_t n, const AtomList& lst)
 {
     if (n >= outlets_.size())
         return;
@@ -327,7 +407,7 @@ void UIObject::listTo(size_t n, const AtomList& lst)
     outlet_list(outlets_[n], &s_list, lst.size(), lst.toPdData());
 }
 
-void UIObject::anyTo(size_t n, t_symbol* s, const AtomList& args)
+void UIObjectImpl::anyTo(size_t n, t_symbol* s, const AtomList& args)
 {
     if (n >= outlets_.size())
         return;
@@ -335,7 +415,7 @@ void UIObject::anyTo(size_t n, t_symbol* s, const AtomList& args)
     outlet_anything(outlets_[n], s, args.size(), args.toPdData());
 }
 
-void UIObject::anyTo(size_t n, const AtomList& msg)
+void UIObjectImpl::anyTo(size_t n, const AtomList& msg)
 {
     if (n >= outlets_.size())
         return;
@@ -349,7 +429,7 @@ void UIObject::anyTo(size_t n, const AtomList& msg)
     outlet_anything(outlets_[n], msg[0].asSymbol(), msg.size() - 1, msg.toPdData() + 1);
 }
 
-void UIObject::dataTo(size_t n, const DataPtr& ptr)
+void UIObjectImpl::dataTo(size_t n, const DataPtr& ptr)
 {
     if (n >= outlets_.size())
         return;
@@ -360,89 +440,81 @@ void UIObject::dataTo(size_t n, const DataPtr& ptr)
     ptr.asAtom().output(outlets_[n]);
 }
 
-void UIObject::sendBang()
+void UIObjectImpl::sendBang()
 {
-    t_pd* send = ebox_getsender(asEBox());
+    t_pd* send = ebox_getsender(box_);
     if (send)
         pd_bang(send);
 }
 
-void UIObject::send(t_float f)
+void UIObjectImpl::send(t_float f)
 {
-    t_pd* send = ebox_getsender(asEBox());
+    t_pd* send = ebox_getsender(box_);
     if (send)
         pd_float(send, f);
 }
 
-void UIObject::send(t_symbol* s)
+void UIObjectImpl::send(t_symbol* s)
 {
-    t_pd* send = ebox_getsender(asEBox());
+    t_pd* send = ebox_getsender(box_);
     if (send)
         pd_symbol(send, s);
 }
 
-void UIObject::send(const AtomList& lst)
+void UIObjectImpl::send(const AtomList& lst)
 {
-    t_pd* send = ebox_getsender(asEBox());
+    t_pd* send = ebox_getsender(box_);
     if (send)
         pd_list(send, &s_list, lst.size(), lst.toPdData());
 }
 
-void UIObject::send(t_symbol* s, const AtomList& lst)
+void UIObjectImpl::send(t_symbol* s, const AtomList& lst)
 {
-    t_pd* send = ebox_getsender(asEBox());
+    t_pd* send = ebox_getsender(box_);
     if (send)
         pd_typedmess(send, s, lst.size(), lst.toPdData());
 }
 
-t_rect UIObject::rect() const
+t_rect UIObjectImpl::rect() const
 {
-    auto z = asEBox()->b_zoom;
-    auto r = asEBox()->b_rect;
+    auto z = box_->b_zoom;
+    auto r = box_->b_rect;
     r.width *= z;
     r.height *= z;
     return r;
 }
 
-float UIObject::x() const { return asEBox()->b_rect.x; }
+float UIObjectImpl::x() const { return box_->b_rect.x; }
 
-float UIObject::y() const { return asEBox()->b_rect.y; }
+float UIObjectImpl::y() const { return box_->b_rect.y; }
 
-float UIObject::width() const { return asEBox()->b_rect.width * asEBox()->b_zoom; }
+float UIObjectImpl::width() const { return box_->b_rect.width * box_->b_zoom; }
 
-float UIObject::height() const { return asEBox()->b_rect.height * asEBox()->b_zoom; }
+float UIObjectImpl::height() const { return box_->b_rect.height * box_->b_zoom; }
 
-float UIObject::zoom() const
+float UIObjectImpl::zoom() const
 {
-    return ebox_getzoom(asEBox());
+    return ebox_getzoom(box_);
 }
 
-t_cursor UIObject::cursor() const
+void UIObjectImpl::setCursor(t_cursor c)
 {
-    return cursor_;
+    ebox_set_cursor(box_, c);
 }
 
-void UIObject::setCursor(t_cursor c)
-{
-    if (cursor_ != c) {
-        ebox_set_cursor(asEBox(), c);
-        cursor_ = c;
-    }
-}
-
-void UIObject::presetInit()
+void UIObjectImpl::presetInit()
 {
     old_preset_id_ = s_null;
     if ((!presetId() || presetId() == s_null) && !isPatchLoading()) {
         t_symbol* name = genPresetName(name_);
-        b_objpreset_id = name;
-        bindPreset(b_objpreset_id);
+        box_->b_objpreset_id = name;
+        bindPreset(box_->b_objpreset_id);
     } else if (isPatchEdited() && !isPatchLoading()) {
-        PresetNameMap::iterator it = presets_.find(b_objpreset_id);
+        PresetNameMap::iterator it = presets_.find(box_->b_objpreset_id);
         if (it != presets_.end() && it->second > 1) {
             t_symbol* name = genPresetName(name_);
-            rebindPreset(b_objpreset_id, name);
-            b_objpreset_id = name;
+            rebindPreset(box_->b_objpreset_id, name);
+            box_->b_objpreset_id = name;
         }
     }
 
@@ -450,7 +522,7 @@ void UIObject::presetInit()
     old_preset_id_ = presetId();
 }
 
-void UIObject::bindPreset(t_symbol* name)
+void UIObjectImpl::bindPreset(t_symbol* name)
 {
     if (!name || name == s_null)
         return;
@@ -464,7 +536,7 @@ void UIObject::bindPreset(t_symbol* name)
     acquirePresetName(name);
 }
 
-void UIObject::unbindPreset(t_symbol* name)
+void UIObjectImpl::unbindPreset(t_symbol* name)
 {
     if (!name || name == s_null)
         return;
@@ -478,7 +550,7 @@ void UIObject::unbindPreset(t_symbol* name)
     releasePresetName(name);
 }
 
-void UIObject::rebindPreset(t_symbol* from, t_symbol* to)
+void UIObjectImpl::rebindPreset(t_symbol* from, t_symbol* to)
 {
     if (from == to)
         return;
@@ -496,7 +568,7 @@ void UIObject::rebindPreset(t_symbol* from, t_symbol* to)
     acquirePresetName(to);
 }
 
-void UIObject::handlePresetNameChange()
+void UIObjectImpl::handlePresetNameChange()
 {
     if (old_preset_id_ != presetId()) {
         if (old_preset_id_ == s_null)
@@ -507,23 +579,23 @@ void UIObject::handlePresetNameChange()
             rebindPreset(old_preset_id_, presetId());
 
         // sync
-        old_preset_id_ = b_objpreset_id;
+        old_preset_id_ = box_->b_objpreset_id;
     }
 }
 
-size_t UIObject::numInlets() const
+size_t UIObjectImpl::numInlets() const
 {
     return obj_ninlets(asPdObject());
 }
 
-size_t UIObject::numOutlets() const
+size_t UIObjectImpl::numOutlets() const
 {
     return outlets_.size();
 }
 
-bool UIObject::hasProperty(t_symbol* name) const
+bool UIObjectImpl::hasProperty(t_symbol* name) const
 {
-    t_eclass* c = (t_eclass*)b_obj.o_obj.te_g.g_pd;
+    t_eclass* c = (t_eclass*)asPdObject()->te_g.g_pd;
 
     for (int i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == name)
@@ -533,7 +605,7 @@ bool UIObject::hasProperty(t_symbol* name) const
     return false;
 }
 
-bool UIObject::getProperty(t_symbol* name, t_float& f) const
+bool UIObjectImpl::getProperty(t_symbol* name, t_float& f) const
 {
     int argc = 0;
     t_atom* argv = 0;
@@ -558,7 +630,7 @@ bool UIObject::getProperty(t_symbol* name, t_float& f) const
     return false;
 }
 
-bool UIObject::getProperty(t_symbol* name, AtomList& lst) const
+bool UIObjectImpl::getProperty(t_symbol* name, AtomList& lst) const
 {
     int argc = 0;
     t_atom* argv = 0;
@@ -573,7 +645,7 @@ bool UIObject::getProperty(t_symbol* name, AtomList& lst) const
     return false;
 }
 
-void UIObject::setProperty(t_symbol* name, const AtomList& lst)
+void UIObjectImpl::setProperty(t_symbol* name, const AtomList& lst)
 {
     eclass_attr_setter(asPdObject(), name, lst.size(), lst.toPdData());
 }
@@ -595,10 +667,10 @@ static void set_constrains(PropertyInfo& info, t_eattr* a)
     if (a->step)
         info.setStep(a->step);
 
-    if (a->clipped & 0x1)
+    if (a->clipped & E_CLIP_MIN)
         info.setMin(a->minimum);
 
-    if (a->clipped & 0x2)
+    if (a->clipped & E_CLIP_MAX)
         info.setMax(a->maximum);
 
     if (a->itemssize > 0) {
@@ -619,6 +691,13 @@ static PropertyInfo attr_to_prop(t_eattr* a)
     static t_symbol* SYM_SYMBOL = &s_symbol;
     static t_symbol* SYM_COLOR = gensym("color");
     static t_symbol* SYM_ATOM = gensym("atom");
+    static t_symbol* SYM_UNIT_DB = gensym("db");
+    static t_symbol* SYM_UNIT_MSEC = gensym("msec");
+    static t_symbol* SYM_UNIT_SEC = gensym("sec");
+    static t_symbol* SYM_UNIT_SAMP = gensym("samp");
+    static t_symbol* SYM_UNIT_DEG = gensym("deg");
+    static t_symbol* SYM_UNIT_RAD = gensym("rad");
+    static t_symbol* SYM_UNIT_HZ = gensym("hz");
 
     PropertyInfo res(std::string("@") + a->name->s_name, PropertyInfoType::VARIANT);
 
@@ -696,15 +775,34 @@ static PropertyInfo attr_to_prop(t_eattr* a)
         }
     }
 
+    if (a->units != &s_) {
+        if (a->units == SYM_UNIT_DB)
+            res.setUnits(PropertyInfoUnits::DB);
+        else if (a->units == SYM_UNIT_MSEC)
+            res.setUnits(PropertyInfoUnits::MSEC);
+        else if (a->units == SYM_UNIT_SEC)
+            res.setUnits(PropertyInfoUnits::SEC);
+        else if (a->units == SYM_UNIT_SAMP)
+            res.setUnits(PropertyInfoUnits::SAMP);
+        else if (a->units == SYM_UNIT_DEG)
+            res.setUnits(PropertyInfoUnits::DEG);
+        else if (a->units == SYM_UNIT_RAD)
+            res.setUnits(PropertyInfoUnits::RAD);
+        else if (a->units == SYM_UNIT_HZ)
+            res.setUnits(PropertyInfoUnits::HZ);
+        else
+            std::cerr << "unknown unit: " << a->units->s_name << "\n";
+    }
+
     if (a->getter != 0)
         res.setReadonly(a->setter == 0);
 
     return res;
 }
 
-std::vector<PropertyInfo> UIObject::propsInfo() const
+std::vector<PropertyInfo> UIObjectImpl::propsInfo() const
 {
-    const t_eclass* c = reinterpret_cast<const t_eclass*>(asEBox()->b_obj.o_obj.te_g.g_pd);
+    const t_eclass* c = reinterpret_cast<const t_eclass*>(box_->b_obj.o_obj.te_g.g_pd);
 
     std::vector<PropertyInfo> res;
     res.reserve(c->c_nattr);
@@ -715,7 +813,7 @@ std::vector<PropertyInfo> UIObject::propsInfo() const
     return res;
 }
 
-void UIObject::bindTo(t_symbol* s)
+void UIObjectImpl::bindTo(t_symbol* s)
 {
     if (binded_signals_.find(s) == binded_signals_.end()) {
         pd_bind(asPd(), s);
@@ -723,7 +821,7 @@ void UIObject::bindTo(t_symbol* s)
     }
 }
 
-void UIObject::unbindFrom(t_symbol* s)
+void UIObjectImpl::unbindFrom(t_symbol* s)
 {
     if (binded_signals_.find(s) != binded_signals_.end()) {
         pd_unbind(asPd(), s);
@@ -731,24 +829,24 @@ void UIObject::unbindFrom(t_symbol* s)
     }
 }
 
-void UIObject::unbindAll()
+void UIObjectImpl::unbindAll()
 {
     for (t_symbol* s : binded_signals_) {
         pd_unbind(asPd(), s);
     }
 }
 
-float UIObject::fontSize() const
+float UIObjectImpl::fontSize() const
 {
-    return ebox_getfontsize(asEBox());
+    return ebox_getfontsize(box_);
 }
 
-float UIObject::fontSizeZoomed() const
+float UIObjectImpl::fontSizeZoomed() const
 {
-    return ebox_getzoomfontsize(asEBox());
+    return ebox_getzoomfontsize(box_);
 }
 
-t_symbol* UIObject::genPresetName(t_symbol* prefix)
+t_symbol* UIObjectImpl::genPresetName(t_symbol* prefix)
 {
     char buf[64];
 
@@ -764,7 +862,7 @@ t_symbol* UIObject::genPresetName(t_symbol* prefix)
     return s_null;
 }
 
-void UIObject::releasePresetName(t_symbol* s)
+void UIObjectImpl::releasePresetName(t_symbol* s)
 {
     PresetNameMap::iterator it = presets_.find(s);
     if (it != presets_.end()) {
@@ -785,7 +883,7 @@ void UIObject::releasePresetName(t_symbol* s)
     }
 }
 
-void UIObject::acquirePresetName(t_symbol* s)
+void UIObjectImpl::acquirePresetName(t_symbol* s)
 {
     presets_[s] += 1;
 
@@ -794,7 +892,7 @@ void UIObject::acquirePresetName(t_symbol* s)
 #endif
 }
 
-UIError::UIError(const UIObject* obj)
+UIError::UIError(const UIObjectImpl* obj)
     : obj_(obj)
 {
 }
@@ -837,7 +935,7 @@ UIError::~UIError()
         pdError(0, "ceammc", str());
 }
 
-UIDebug::UIDebug(const UIObject* obj)
+UIDebug::UIDebug(const UIObjectImpl* obj)
     : obj_(obj)
 {
 }
@@ -849,4 +947,41 @@ UIDebug::~UIDebug()
     else
         pdDebug("ceammc", str());
 }
+
+UIObject::UIObject()
+    : UIObjectImpl(this)
+{
+}
+
+UIDspObject::UIDspObject()
+    : UIObjectImpl(&e_box)
+    , samplerate_(44100)
+    , blocksize_(0)
+{
+}
+
+void UIDspObject::dspInit()
+{
+}
+
+void UIDspObject::dspSetup(size_t n_in, size_t n_out)
+{
+    std::vector<t_outlet*> outs(n_out, 0);
+
+    eobj_dspsetup(asEBox(), n_in, n_out, 0, outs.data());
+    std::copy(outs.begin(), outs.end(), std::back_inserter(outlets_));
+}
+
+void UIDspObject::dspOn(double samplerate, long blocksize)
+{
+    samplerate_ = samplerate;
+    blocksize_ = blocksize;
+}
+
+void UIDspObject::dspProcess(t_sample** ins, long n_ins,
+    t_sample** outs, long n_outs,
+    long sampleframes)
+{
+}
+
 }

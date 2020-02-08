@@ -1,0 +1,4 @@
+#N canvas 324 151 700 500 12;
+#X obj 216 144 inlet;
+#X obj 216 249 outlet;
+#X coords 0 -1 1 1 85 60 1 100 100;

@@ -3,18 +3,19 @@
 #include "ceammc_convert.h"
 #include "ceammc_ui.h"
 
+#include <tuple>
+
 static const float ALPHA_BLEND = 0.4;
 
 UISlider::UISlider()
     : is_horizontal_(false)
-    , value_last_(0)
-    , value_ref_(0)
+    , knob_phase_prev_(0)
+    , click_phase_(0)
     , font_(gensym(FONT_FAMILY), FONT_SIZE - 2)
     , txt_value_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
     , prop_knob_color(hex_to_rgba(DEFAULT_ACTIVE_COLOR))
     , prop_text_color(hex_to_rgba(DEFAULT_BORDER_COLOR))
     , prop_rel_mode(0)
-    , mouse_up_output(0)
     , prop_active_scale(0)
     , prop_value_pos(gensym("center"))
     , prop_value_precision(2)
@@ -39,12 +40,13 @@ void UISlider::paint()
         kp.setLineWidth(2 * zoom());
 
         if (is_horizontal_) { // horizontal
-            float x = value() * r.width;
+            float x = knobPhase() * (r.width - 1);
             kp.drawLine(x, 0, x, r.height);
 
             if (prop_active_scale) {
+                kp.setLineWidth(0);
                 kp.setColor(rgba_color_sum(&prop_color_background, &prop_knob_color, ALPHA_BLEND));
-                kp.drawRect(0, 0, x, r.height);
+                kp.drawRect(0, 0, x, r.height - 1);
                 kp.fill();
             }
 
@@ -72,12 +74,13 @@ void UISlider::paint()
                 kp.drawText(txt_value_);
             }
         } else {
-            float y = (1.0 - value()) * r.height;
+            float y = (1.0 - knobPhase()) * (r.height - 1);
             kp.drawLine(0, y, r.width, y);
 
             if (prop_active_scale) {
+                kp.setLineWidth(0);
                 kp.setColor(rgba_color_sum(&prop_color_background, &prop_knob_color, ALPHA_BLEND));
-                kp.drawRect(0, y, r.width, r.height * value());
+                kp.drawRect(0, y, r.width - 1, r.height * knobPhase());
                 kp.fill();
             }
         }
@@ -97,25 +100,17 @@ void UISlider::okSize(t_rect* newrect)
         newrect->height = pd_clip_min(newrect->height, 50.);
 }
 
-void UISlider::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long)
+void UISlider::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    t_rect r = rect();
-
     if (prop_rel_mode) {
-        value_last_ = prop_value;
+        knob_phase_prev_ = knobPhase();
 
-        if (is_horizontal_)
-            value_ref_ = clip<float>(pt.x / r.width, 0, 1);
-        else
-            value_ref_ = clip<float>(1.0 - (pt.y / r.height), 0, 1);
+        click_phase_ = (is_horizontal_)
+            ? convert::lin2lin<t_float>(pt.x, 0, width(), 0, 1)
+            : convert::lin2lin<t_float>(pt.y, height(), 0, 0, 1);
     } else {
-        if (is_horizontal_)
-            setValue(pt.x / r.width);
-        else
-            setValue(1.0 - (pt.y / r.height));
-
-        if (!mouse_up_output)
-            output();
+        setValue(calcValueAtMousePos(pt));
+        output();
 
         // redraw immidiately
         redrawKnob();
@@ -124,38 +119,48 @@ void UISlider::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long)
 
 void UISlider::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
-    t_rect r = rect();
+    t_pt pos(pt);
 
     if (prop_rel_mode) {
-        float newvalue;
-        if (is_horizontal_)
-            newvalue = pt.x / r.width;
-        else
-            newvalue = (1.0 - (pt.y / r.height));
+        t_float new_click_phase = (is_horizontal_)
+            ? convert::lin2lin<t_float>(pt.x, 0, width(), 0, 1)
+            : convert::lin2lin<t_float>(pt.y, height(), 0, 0, 1);
 
-        setValue(value_last_ + newvalue - value_ref_);
+        const t_float delta = (new_click_phase - click_phase_) * ((modifiers & EMOD_SHIFT) ? 0.1 : 1);
+        const t_float new_phase = knob_phase_prev_ + delta;
 
-        if (prop_value == prop_min || prop_value == prop_max) {
-            value_last_ = prop_value;
-            value_ref_ = newvalue;
-        }
-    } else {
-        if (is_horizontal_)
-            setValue(pt.x / r.width);
-        else
-            setValue(1.0 - (pt.y / r.height));
+        pos.x = convert::lin2lin<t_float, 0, 1>(new_phase, 0, width());
+        pos.y = convert::lin2lin<t_float, 0, 1>(new_phase, height(), 0);
     }
 
-    if (!mouse_up_output)
-        output();
-
+    setValue(calcValueAtMousePos(pos));
+    output();
     redrawKnob();
+}
+
+t_float UISlider::calcValueAtMousePos(const t_pt& pt) const
+{
+    auto r = rect();
+    std::tuple<t_float, t_float, t_float> args;
+
+    if (is_horizontal_)
+        args = { pt.x, 0, r.width };
+    else
+        args = { pt.y, r.height, 0 };
+
+    switch (scaleMode()) {
+    case LINEAR:
+        return convert::lin2lin(std::get<0>(args), std::get<1>(args), std::get<2>(args), prop_min, prop_max);
+    case LOG:
+        return convert::lin2exp(std::get<0>(args), std::get<1>(args), std::get<2>(args), prop_min, prop_max);
+    default:
+        return 0;
+    };
 }
 
 void UISlider::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
-    if (mouse_up_output)
-        output();
+    output();
 }
 
 void UISlider::onDblClick(t_object* view, const t_pt& pt, long modifiers)
@@ -168,8 +173,18 @@ void UISlider::onDblClick(t_object* view, const t_pt& pt, long modifiers)
         resize(height() / zoom(), width() / zoom());
 }
 
+void UISlider::redrawKnob()
+{
+    if (prop_active_scale)
+        invalidateXlets();
+
+    UISingleValue::redrawKnob();
+}
+
 void UISlider::setup()
 {
+    UISingleValue::setup();
+
     UIObjectFactory<UISlider> obj("ui.slider", EBOX_GROWINDI);
     obj.addAlias("ui.hsl");
     obj.addAlias("ui.vsl");
@@ -178,6 +193,7 @@ void UISlider::setup()
     obj.useFloat();
     obj.usePresets();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK | UI_MOUSE_UP);
+    obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
     obj.addMethod("+", &UISingleValue::m_plus);
     obj.addMethod("-", &UISingleValue::m_minus);
@@ -193,6 +209,8 @@ void UISlider::setup()
     obj.addProperty("text_color", _("Text Color"), DEFAULT_TEXT_COLOR, &UISlider::prop_text_color);
 
     obj.addProperty("mode", _("Relative Mode"), false, &UISlider::prop_rel_mode, "Main");
+    obj.addProperty("scale", _("Scale Mode"), "linear", &UISingleValue::prop_scale, "linear log", "Main");
+
     obj.addProperty("min", _("Minimum Value"), 0, &UISingleValue::prop_min, "Bounds");
     obj.addProperty("max", _("Maximum Value"), 1, &UISingleValue::prop_max, "Bounds");
 
@@ -200,15 +218,14 @@ void UISlider::setup()
     obj.setPropertyRange("midi_channel", 0, 16);
     obj.addProperty("midi_control", _("MIDI control"), 0, &UISingleValue::prop_midi_ctl, "MIDI");
     obj.setPropertyRange("midi_control", 0, 128);
-    obj.addProperty("midi_pickup", _("MIDI pickup"), true, &UISingleValue::prop_midi_pickup, "MIDI");
-    obj.addProperty("mouse_up_output", _("Output on mouse up"), false, &UISlider::mouse_up_output, "Main");
+    obj.addProperty("midi_pickup", _("MIDI pickup"), true, &UISingleValue::prop_pickup_midi, "MIDI");
     obj.addProperty("active_scale", _("Draw active scale"), false, &UISlider::prop_active_scale, "Main");
     obj.addProperty("show_value", _("Show value in horizontal mode"), false, &UISingleValue::prop_show_value, "Misc");
     obj.addProperty("value_pos", _("Value position"), "center", &UISlider::prop_value_pos, "left center right", "Misc");
-    obj.addProperty("value_precision", _("Precision"), 2, &UISlider::prop_value_precision, "Main");
+    obj.addProperty("value_precision", _("Precision"), 2, &UISlider::prop_value_precision, "Misc");
     obj.setPropertyRange("value_precision", 0, 7);
 
-    obj.addProperty("value", &UISingleValue::realValue, &UISingleValue::setRealValue);
+    obj.addProperty("value", &UISingleValue::value, &UISingleValue::setValue);
 }
 
 void setup_ui_slider()

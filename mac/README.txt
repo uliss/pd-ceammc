@@ -61,11 +61,11 @@ argument, a "Pd.app" is built. The version argument is only used as a suffix to
 the file name and contextual version info is pulled from configure script
 output.
 
-An older copy of Tk 8.4 Wish is included with the Pd source distribution and
-works across the majority of macOS versions up to 10.12. This is the default
-Wish.app when using osx-app.sh. If you want to use a different Wish.app (a newer
-version, a custom build, a system version), you can specify the donor via
-commandline options, for example:
+A pre-built universal (32/64 bit) Tk 8.5.19 Wish with patches applied is
+included with the Pd source distribution and works across the majority of macOS
+versions up to 10.14. This is the default Wish.app when using osx-app.sh. If you
+want to use a different Wish.app (a newer version, a custom build, a system
+version), you can specify the donor via commandline options, for example:
 
     # build Pd-0.47-1.app using Tk 8.6 installed to the system
     mac/osx-app.sh --system-tk 8.6 0.47-1
@@ -103,7 +103,7 @@ embedded Wish.apps you need with tcltk-wish.sh can save you some time as they
 can be reused when (re)making the Pd .app bundle.
 
 Usually, it's best to use stable releases of Tcl/Tk. However, there are times
-when building from the current development version is useful. For instance, 
+when building from the current development version is useful. For instance,
 if there is a bug in the Tcl/Tk sources and the generated Wish.app crashes on
 your system, you can then see if there is a fix for this in the Tcl/Tk
 development version on GitHub. If so, then you can test by using the

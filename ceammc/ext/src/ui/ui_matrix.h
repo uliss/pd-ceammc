@@ -29,7 +29,6 @@ class UIMatrix : public UIObject {
     int mouse_current_row_;
     int current_col_;
     int current_row_;
-    bool cells_are_created_;
 
 public:
     UIMatrix();
@@ -53,6 +52,8 @@ public:
 
     void okSize(t_rect* newrect);
     void paint();
+    void create();
+    void erase();
     void outputCell(size_t row, size_t column);
     void outputCell(const AtomList& args);
     void outputCol(size_t column);
@@ -87,7 +88,6 @@ public:
 
     void onPropChange(t_symbol* prop_name);
     void onZoom(t_float z);
-    void onPopup(t_symbol* menu_name, long item_idx);
 
 public:
     static void setup();

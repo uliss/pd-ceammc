@@ -98,10 +98,9 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
  * \param type      The attribute type
  * \param size      The attribute size
  * \param maxsize   The attribute max size
- * \param flags     The attribute flags (dummy)
  * \param offset    The attribute bit offset in the object structure
  */
-void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, long size, long maxsize, long flags, long offset);
+void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, size_t size, size_t maxsize, size_t offset);
 
 //! @cond
 /*!
@@ -142,10 +141,9 @@ void eclass_attr_ceammc_getter(t_object* x, t_symbol* s, int argc, t_atom* argv)
  * \details         For the moment the category is a dummy member of the attribute. You should prefer to use the MACROS.
  * \param c         The t_eclass pointer
  * \param attrname  The attribute name
- * \param flags     The flags of the attribute (dummy)
  * \param category  The category of the attribute
  */
-void eclass_attr_category(t_eclass* c, const char* attrname, long flags, const char* category);
+void eclass_attr_category(t_eclass* c, const char* attrname, const char* category);
 
 /*!
  * \fn          void eclass_attr_order(t_eclass* c, const char* attrname, long flags, const char* order)
@@ -153,10 +151,9 @@ void eclass_attr_category(t_eclass* c, const char* attrname, long flags, const c
  * \details         For the moment the order is a dummy member of the attribute. You should prefer to use the MACROS.
  * \param c         The t_eclass pointer
  * \param attrname  The attribute name
- * \param flags     The flags of the attribute (dummy)
  * \param order     The order of the attribute
  */
-void eclass_attr_order(t_eclass* c, const char* attrname, long flags, const char* order);
+void eclass_attr_order(t_eclass* c, const char* attrname, const char* order);
 
 /*!
  * \fn          void eclass_attr_label(t_eclass* c, const char* attrname, long flags, const char* label)
@@ -164,10 +161,9 @@ void eclass_attr_order(t_eclass* c, const char* attrname, long flags, const char
  * \details         The label is the message that will be displayed in the properties window of the object. You should prefer to use the MACROS.
  * \param c         The t_eclass pointer
  * \param attrname  The attribute name
- * \param flags     The flags of the attribute (dummy)
  * \param label     The label of the attribute
  */
-void eclass_attr_label(t_eclass* c, const char* attrname, long flags, const char* label);
+void eclass_attr_label(t_eclass* c, const char* attrname, const char* label);
 
 /*!
  * \fn          void eclass_attr_style(t_eclass* c, const char* attrname, long flags, const char* style)
@@ -175,10 +171,18 @@ void eclass_attr_label(t_eclass* c, const char* attrname, long flags, const char
  * \details         The style is how the attribute will be displayed in the properties window of the object. it could be \"onoff\", \"color\", \"number\", \"menu\" or \"entry\". You should prefer to use the MACROS.
  * \param c         The t_eclass pointer
  * \param attrname  The attribute name
- * \param flags     The flags of the attribute (dummy)
  * \param style     The style of the attribute
  */
-void eclass_attr_style(t_eclass* c, const char* attrname, long flags, const char* style);
+void eclass_attr_style(t_eclass* c, const char* attrname, const char* style);
+
+/*!
+ * \fn          void eclass_attr_units(t_eclass* c, const char* attrname, long flags, const char* style)
+ * \brief           Sets the units of an attribute.
+ * \param c         The t_eclass pointer
+ * \param attrname  The attribute name
+ * \param units     The units of the attribute
+ */
+void eclass_attr_units(t_eclass* c, t_symbol* attrname, t_symbol* units);
 
 /*!
  * \fn          void eclass_attr_default(t_eclass* c, const char* attrname, long flags, const char* value)
@@ -186,10 +190,9 @@ void eclass_attr_style(t_eclass* c, const char* attrname, long flags, const char
  * \details         The default value is a string that will be parse into an array of atoms or a array of number if needed. You should prefer to use the MACROS.
  * \param c         The t_eclass pointer
  * \param attrname  The attribute name
- * \param flags     The flags of the attribute (dummy)
  * \param value     The default value
  */
-void eclass_attr_default(t_eclass* c, const char* attrname, long flags, const char* value);
+void eclass_attr_default(t_eclass* c, const char* attrname, const char* value);
 
 /*!
  * \fn          void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value)
@@ -229,7 +232,7 @@ void eclass_attr_step(t_eclass* c, const char* attrname, float value);
  * \param attrname  The attribute name
  * \param value     The save or not save
  */
-void eclass_attr_save(t_eclass* c, const char* attrname, long flags, bool value = true);
+void eclass_attr_save(t_eclass* c, const char* attrname, bool value = true);
 
 /*!
  * \fn          void eclass_attr_paint(t_eclass* c, const char* attrname, long flags)
@@ -237,9 +240,8 @@ void eclass_attr_save(t_eclass* c, const char* attrname, long flags, bool value 
  * \details         If the method has been called, when the attribute has changed it call the ebox_redraw function to redraw the object. Only GUI can be repainted. You should prefer to use the MACROS.
  * \param c         The t_eclass pointer
  * \param attrname  The attribute name
- * \param flags     The flags of the attribute (dummy)
  */
-void eclass_attr_paint(t_eclass* c, const char* attrname, long flags);
+void eclass_attr_paint(t_eclass* c, const char* attrname);
 
 /*!
  * \fn          void eclass_attr_invisible(t_eclass* c, const char* attrname, long flags)
@@ -247,9 +249,8 @@ void eclass_attr_paint(t_eclass* c, const char* attrname, long flags);
  * \details         You should prefer to use the MACROS.
  * \param c         The t_eclass pointer
  * \param attrname  The attribute name
- * \param flags     The flags of the attribute (dummy)
  */
-void eclass_attr_invisible(t_eclass* c, const char* attrname, long flags);
+void eclass_attr_invisible(t_eclass* c, const char* attrname);
 
 /*!
  * \fn          void eclass_attr_visible(t_eclass* c, const char* attrname, long flags)
@@ -257,9 +258,8 @@ void eclass_attr_invisible(t_eclass* c, const char* attrname, long flags);
  * \details         You should prefer to use the MACROS.
  * \param c         The t_eclass pointer
  * \param attrname  The attribute name
- * \param flags     The flags of the attribute (dummy)
  */
-void eclass_attr_visible(t_eclass* c, const char* attrname, long flags);
+void eclass_attr_visible(t_eclass* c, const char* attrname);
 
 /*!
  * \fn          void eclass_attr_accessor(t_eclass* c, const char* attrname, t_err_method getter, t_err_method setter)
@@ -278,10 +278,9 @@ void eclass_attr_accessor(t_eclass* c, const char* attrname, t_err_method getter
  * \details         For example, the font weight attribute offers \"normal\" and \"bold\". You should prefer to use the MACROS.
  * \param c         The t_eclass pointer
  * \param attrname  The attribute name
- * \param flags     The flags of the attribute (dummy)
  * \param list      The list of items.
  */
-void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const char* list);
+void eclass_attr_itemlist(t_eclass* c, const char* attrname, const char* list);
 
 void eclass_attr_sort(t_eclass* c);
 
@@ -297,83 +296,83 @@ std::pair<int, int> eclass_tcl_version();
 //! @endcond
 
 //! Macros that create an int attribute
-#define CLASS_ATTR_INT(c, name, flags, struct, member) \
-    eclass_new_attr_typed(c, name, "int", 1, 0, flags, calcoffset(struct, member))
+#define CLASS_ATTR_INT(c, name, struct, member) \
+    eclass_new_attr_typed(c, name, "int", 1, 0, calcoffset(struct, member))
 //! Macros that create a long attribute
-#define CLASS_ATTR_LONG(c, name, flags, struct, member) \
-    eclass_new_attr_typed(c, name, "long", 1, 0, flags, calcoffset(struct, member))
+#define CLASS_ATTR_LONG(c, name, struct, member) \
+    eclass_new_attr_typed(c, name, "long", 1, 0, calcoffset(struct, member))
 //! Macros that create a float attribute
-#define CLASS_ATTR_FLOAT(c, name, flags, struct, member) \
-    eclass_new_attr_typed(c, name, "float", 1, 0, flags, calcoffset(struct, member))
+#define CLASS_ATTR_FLOAT(c, name, struct, member) \
+    eclass_new_attr_typed(c, name, "float", 1, 0, calcoffset(struct, member))
 //! Macros that create a double attribute
-#define CLASS_ATTR_DOUBLE(c, name, flags, struct, member) \
-    eclass_new_attr_typed(c, name, "double", 1, 0, flags, calcoffset(struct, member))
+#define CLASS_ATTR_DOUBLE(c, name, struct, member) \
+    eclass_new_attr_typed(c, name, "double", 1, 0, calcoffset(struct, member))
 //! Macros that create a rgb attribute
-#define CLASS_ATTR_RGB(c, name, flags, struct, member) \
-    eclass_new_attr_typed(c, name, "float", 3, 0, flags, calcoffset(struct, member))
+#define CLASS_ATTR_RGB(c, name, struct, member) \
+    eclass_new_attr_typed(c, name, "float", 3, 0, calcoffset(struct, member))
 //! Macros that create a rgba attribute
-#define CLASS_ATTR_RGBA(c, name, flags, struct, member) \
-    eclass_new_attr_typed(c, name, "float", 4, 0, flags, calcoffset(struct, member))
+#define CLASS_ATTR_RGBA(c, name, struct, member) \
+    eclass_new_attr_typed(c, name, "float", 4, 0, calcoffset(struct, member))
 //! Macros that create a symbol attribute
-#define CLASS_ATTR_SYMBOL(c, name, flags, struct, member) \
-    eclass_new_attr_typed(c, name, "symbol", 1, 0, flags, calcoffset(struct, member))
+#define CLASS_ATTR_SYMBOL(c, name, struct, member) \
+    eclass_new_attr_typed(c, name, "symbol", 1, 0, calcoffset(struct, member))
 //! Macros that create a atom attribute
-#define CLASS_ATTR_ATOM(c, name, flags, struct, member) \
-    eclass_new_attr_typed(c, name, "atom", 1, 0, flags, calcoffset(struct, member))
+#define CLASS_ATTR_ATOM(c, name, struct, member) \
+    eclass_new_attr_typed(c, name, "atom", 1, 0, calcoffset(struct, member))
 //! Macros that create an int array attribute
-#define CLASS_ATTR_INT_ARRAY(c, name, flags, struct, member, size) \
-    eclass_new_attr_typed(c, name, "int", size, 0, flags, calcoffset(struct, member))
+#define CLASS_ATTR_INT_ARRAY(c, name, struct, member, size) \
+    eclass_new_attr_typed(c, name, "int", size, 0, calcoffset(struct, member))
 //! Macros that create a long array attribute
-#define CLASS_ATTR_LONG_ARRAY(c, name, flags, struct, member, size) \
-    eclass_new_attr_typed(c, name, "long", size, 0, flags, calcoffset(struct, member))
+#define CLASS_ATTR_LONG_ARRAY(c, name, struct, member, size) \
+    eclass_new_attr_typed(c, name, "long", size, 0, calcoffset(struct, member))
 //! Macros that create a float array attribute
-#define CLASS_ATTR_FLOAT_ARRAY(c, name, flags, struct, member, size) \
-    eclass_new_attr_typed(c, name, "float", size, 0, flags, calcoffset(struct, member))
+#define CLASS_ATTR_FLOAT_ARRAY(c, name, struct, member, size) \
+    eclass_new_attr_typed(c, name, "float", size, 0, calcoffset(struct, member))
 //! Macros that create a double array attribute
-#define CLASS_ATTR_DOUBLE_ARRAY(c, name, flags, struct, member, size) \
-    eclass_new_attr_typed(c, name, "double", size, 0, flags, calcoffset(struct, member))
+#define CLASS_ATTR_DOUBLE_ARRAY(c, name, struct, member, size) \
+    eclass_new_attr_typed(c, name, "double", size, 0, calcoffset(struct, member))
 //! Macros that create a symbol array attribute
-#define CLASS_ATTR_SYMBOL_ARRAY(c, name, flags, struct, member, size) \
-    eclass_new_attr_typed(c, name, "symbol", size, 0, flags, calcoffset(struct, member))
+#define CLASS_ATTR_SYMBOL_ARRAY(c, name, struct, member, size) \
+    eclass_new_attr_typed(c, name, "symbol", size, 0, calcoffset(struct, member))
 //! Macros that create a atom array attribute
-#define CLASS_ATTR_ATOM_ARRAY(c, name, flags, struct, member, size) \
-    eclass_new_attr_typed(c, name, "atom", size, 0, flags, calcoffset(struct, member))
+#define CLASS_ATTR_ATOM_ARRAY(c, name, struct, member, size) \
+    eclass_new_attr_typed(c, name, "atom", size, 0, calcoffset(struct, member))
 //! Macros that create an int array with a variable size attribute
-#define CLASS_ATTR_INT_VARSIZE(c, name, flags, struct, member, size, maxsize) \
-    eclass_new_attr_typed(c, name, "int", calcoffset(struct, size), maxsize, flags, calcoffset(struct, member))
+#define CLASS_ATTR_INT_VARSIZE(c, name, struct, member, size, maxsize) \
+    eclass_new_attr_typed(c, name, "int", calcoffset(struct, size), maxsize, calcoffset(struct, member))
 //! Macros that create a long array with a variable size attribute
-#define CLASS_ATTR_LONG_VARSIZE(c, name, flags, struct, member, size, maxsize) \
-    eclass_new_attr_typed(c, name, "long", calcoffset(struct, size), maxsize, flags, calcoffset(struct, member))
+#define CLASS_ATTR_LONG_VARSIZE(c, name, struct, member, size, maxsize) \
+    eclass_new_attr_typed(c, name, "long", calcoffset(struct, size), maxsize, calcoffset(struct, member))
 //! Macros that create a float array with a variable size attribute
-#define CLASS_ATTR_FLOAT_VARSIZE(c, name, flags, struct, member, size, maxsize) \
-    eclass_new_attr_typed(c, name, "float", calcoffset(struct, size), maxsize, flags, calcoffset(struct, member))
+#define CLASS_ATTR_FLOAT_VARSIZE(c, name, struct, member, size, maxsize) \
+    eclass_new_attr_typed(c, name, "float", calcoffset(struct, size), maxsize, calcoffset(struct, member))
 //! Macros that create a double array with a variable size attribute
-#define CLASS_ATTR_DOUBLE_VARSIZE(c, name, flags, struct, member, size, maxsize) \
-    eclass_new_attr_typed(c, name, "double", calcoffset(struct, size), maxsize, flags, calcoffset(struct, member))
+#define CLASS_ATTR_DOUBLE_VARSIZE(c, name, struct, member, size, maxsize) \
+    eclass_new_attr_typed(c, name, "double", calcoffset(struct, size), maxsize, calcoffset(struct, member))
 //! Macros that create a symbol array with a variable size attribute
-#define CLASS_ATTR_SYMBOL_VARSIZE(c, name, flags, struct, member, size, maxsize) \
-    eclass_new_attr_typed(c, name, "symbol", calcoffset(struct, size), maxsize, flags, calcoffset(struct, member))
+#define CLASS_ATTR_SYMBOL_VARSIZE(c, name, struct, member, size, maxsize) \
+    eclass_new_attr_typed(c, name, "symbol", calcoffset(struct, size), maxsize, calcoffset(struct, member))
 //! Macros that create a atom array with a variable size attribute
-#define CLASS_ATTR_ATOM_VARSIZE(c, name, flags, struct, member, size, maxsize) \
-    eclass_new_attr_typed(c, name, "atom", calcoffset(struct, size), maxsize, flags, calcoffset(struct, member))
+#define CLASS_ATTR_ATOM_VARSIZE(c, name, struct, member, size, maxsize) \
+    eclass_new_attr_typed(c, name, "atom", calcoffset(struct, size), maxsize, calcoffset(struct, member))
 
 //! CEAMMC
 //! Macros that creates virtual invisible attribute only with getter and setter access
-#define CLASS_ATTR_VIRTUAL(c, name, getter, setter)      \
-    eclass_new_attr_typed(c, name, "float", 1, 0, 0, 0); \
-    eclass_attr_invisible(c, name, 0);                   \
+#define CLASS_ATTR_VIRTUAL(c, name, getter, setter)   \
+    eclass_new_attr_typed(c, name, "float", 1, 0, 0); \
+    eclass_attr_invisible(c, name, 0);                \
     eclass_attr_accessor(c, name, (t_err_method)getter, (t_err_method)setter)
 
 //! Macros that define the category of the attributes
-#define CLASS_ATTR_CATEGORY(c, name, flags, categoryname) eclass_attr_category(c, name, flags, categoryname)
+#define CLASS_ATTR_CATEGORY(c, name, categoryname) eclass_attr_category(c, name, categoryname)
 //! Macros that define the order of the attributes
-#define CLASS_ATTR_ORDER(c, name, flags, order) eclass_attr_order(c, name, flags, order)
+#define CLASS_ATTR_ORDER(c, name, order) eclass_attr_order(c, name, order)
 //! Macros that define the label of the attributes
-#define CLASS_ATTR_LABEL(c, name, flags, label) eclass_attr_label(c, name, flags, label)
+#define CLASS_ATTR_LABEL(c, name, label) eclass_attr_label(c, name, label)
 //! Macros that define the style of the attributes
-#define CLASS_ATTR_STYLE(c, name, flags, style) eclass_attr_style(c, name, flags, style)
+#define CLASS_ATTR_STYLE(c, name, style) eclass_attr_style(c, name, style)
 //! Macros that define the default value of the attributes
-#define CLASS_ATTR_DEFAULT(c, name, flags, val) eclass_attr_default(c, name, flags, val)
+#define CLASS_ATTR_DEFAULT(c, name, val) eclass_attr_default(c, name, val)
 //! Macros that define the minimum value of the attributes
 #define CLASS_ATTR_FILTER_MIN(c, name, value) eclass_attr_filter_min(c, name, value)
 //! Macros that define the maximum value of the attributes
@@ -385,21 +384,21 @@ std::pair<int, int> eclass_tcl_version();
 //! Macros that define the step value of the attributes
 #define CLASS_ATTR_STEP(c, name, value) eclass_attr_step(c, name, value)
 //! Macros that define the save behavior of the attributes
-#define CLASS_ATTR_SAVE(c, name, flags) eclass_attr_save(c, name, flags)
+#define CLASS_ATTR_SAVE(c, name) eclass_attr_save(c, name)
 //! Macros that define the paint behavior of the attributes
-#define CLASS_ATTR_PAINT(c, name, flags) eclass_attr_paint(c, name, flags)
+#define CLASS_ATTR_PAINT(c, name) eclass_attr_paint(c, name)
 //! Macros that define the visible behavior of the attributes
-#define CLASS_ATTR_INVISIBLE(c, name, flags) eclass_attr_invisible(c, name, flags)
+#define CLASS_ATTR_INVISIBLE(c, name) eclass_attr_invisible(c, name)
 //! Macros that define the setter and getter of the attributes
 #define CLASS_ATTR_ACCESSORS(c, name, getter, setter) eclass_attr_accessor(c, name, (t_err_method)getter, (t_err_method)setter)
 //! Macros that define the items list of the attributes
-#define CLASS_ATTR_ITEMS(c, name, flags, list) eclass_attr_itemlist(c, name, flags, list)
+#define CLASS_ATTR_ITEMS(c, name, list) eclass_attr_itemlist(c, name, list)
 //! Macros that define the deault value, save and paint bbehavior of the attributes
-#define CLASS_ATTR_DEFAULT_SAVE_PAINT(c, attrname, flags, parsestr) \
-    {                                                               \
-        CLASS_ATTR_DEFAULT(c, attrname, flags, parsestr);           \
-        CLASS_ATTR_SAVE(c, attrname, flags);                        \
-        CLASS_ATTR_PAINT(c, attrname, flags);                       \
+#define CLASS_ATTR_DEFAULT_SAVE_PAINT(c, attrname, parsestr) \
+    {                                                        \
+        CLASS_ATTR_DEFAULT(c, attrname, parsestr);           \
+        CLASS_ATTR_SAVE(c, attrname);                        \
+        CLASS_ATTR_PAINT(c, attrname);                       \
     }
 
 /** @} */

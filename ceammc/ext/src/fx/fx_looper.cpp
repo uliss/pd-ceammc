@@ -92,6 +92,7 @@ FxLooper::FxLooper(const PdArgs& args)
     initTansitionTable();
 
     capacity_sec_ = new FloatProperty("@capacity", positionalFloatArgument(0, DEFAULT_CAPACITY_SEC));
+    capacity_sec_->info().setUnits(PropertyInfoUnits::SEC);
     createProperty(capacity_sec_);
 
     loop_bang_ = new BoolProperty("@loop_bang", false);
@@ -121,10 +122,35 @@ FxLooper::FxLooper(const PdArgs& args)
     round_ = new IntProperty("@round", 0);
     createProperty(round_);
 
-    createCbProperty("@length", &FxLooper::p_length);
-    createCbProperty("@play_pos", &FxLooper::p_play_pos);
-    createCbProperty("@play_phase", &FxLooper::p_play_phase);
-    createCbProperty("@state", &FxLooper::p_state);
+    {
+        PropertyInfo& pi = createCbProperty("@length", &FxLooper::p_length)->info();
+        pi.setType(PropertyInfoType::FLOAT);
+        pi.setMin(0);
+        pi.setUnits(PropertyInfoUnits::SEC);
+    }
+
+    {
+        PropertyInfo& pi = createCbProperty("@play_pos", &FxLooper::p_play_pos)->info();
+        pi.setUnits(PropertyInfoUnits::SEC);
+        pi.setMin(0);
+        pi.setType(PropertyInfoType::FLOAT);
+    }
+
+    {
+        PropertyInfo& pi = createCbProperty("@play_phase", &FxLooper::p_play_phase)->info();
+        pi.setType(PropertyInfoType::FLOAT);
+        pi.setRange(0, 1);
+    }
+
+    {
+        PropertyInfo& pi = createCbProperty("@state", &FxLooper::p_state)->info();
+        pi.setType(PropertyInfoType::SYMBOL);
+        pi.addEnum("record");
+        pi.addEnum("init");
+        pi.addEnum("overdub");
+        pi.addEnum("stop");
+        pi.addEnum("play");
+    }
 
     array_name_ = new SymbolProperty("@array", &s_);
     createProperty(array_name_);

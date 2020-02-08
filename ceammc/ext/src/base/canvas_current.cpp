@@ -8,18 +8,55 @@ CanvasCurrent::CanvasCurrent(const PdArgs& a)
 {
     createOutlet();
 
-    createCbProperty("@name", &CanvasCurrent::p_name);
-    createCbProperty("@dir", &CanvasCurrent::p_dir);
-    createCbProperty("@root", &CanvasCurrent::p_root);
-    createCbProperty("@abstraction", &CanvasCurrent::p_abstraction);
+    {
+        Property* p = createCbProperty("@name", &CanvasCurrent::p_name);
+        p->info().setType(PropertyInfoType::SYMBOL);
+    }
+
+    {
+        Property* p = createCbProperty("@dir", &CanvasCurrent::p_dir);
+        p->info().setType(PropertyInfoType::SYMBOL);
+    }
+
+    {
+        Property* p = createCbProperty("@root", &CanvasCurrent::p_root);
+        p->info().setType(PropertyInfoType::BOOLEAN);
+    }
+
+    {
+        Property* p = createCbProperty("@abstraction", &CanvasCurrent::p_abstraction);
+        p->info().setType(PropertyInfoType::BOOLEAN);
+    }
+
     createCbProperty("@args", &CanvasCurrent::p_args);
-    createCbProperty("@font", &CanvasCurrent::p_font);
+
+    {
+        Property* p = createCbProperty("@font", &CanvasCurrent::p_font);
+        p->info().setType(PropertyInfoType::INTEGER);
+    }
+
     createCbProperty("@paths", &CanvasCurrent::p_paths);
     createCbProperty("@size", &CanvasCurrent::p_size);
-    createCbProperty("@x", &CanvasCurrent::p_x);
-    createCbProperty("@y", &CanvasCurrent::p_y);
-    createCbProperty("@width", &CanvasCurrent::p_width);
-    createCbProperty("@height", &CanvasCurrent::p_height);
+
+    {
+        Property* p = createCbProperty("@x", &CanvasCurrent::p_x);
+        p->info().setType(PropertyInfoType::INTEGER);
+    }
+
+    {
+        Property* p = createCbProperty("@y", &CanvasCurrent::p_y);
+        p->info().setType(PropertyInfoType::INTEGER);
+    }
+
+    {
+        Property* p = createCbProperty("@width", &CanvasCurrent::p_width);
+        p->info().setType(PropertyInfoType::INTEGER);
+    }
+
+    {
+        Property* p = createCbProperty("@height", &CanvasCurrent::p_height);
+        p->info().setType(PropertyInfoType::INTEGER);
+    }
 }
 
 void CanvasCurrent::onBang()

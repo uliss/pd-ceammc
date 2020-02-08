@@ -14,7 +14,7 @@
 #include "../ui/ui_meter.h"
 #include "test_ui.h"
 
-UI_COMPLETE_DSP_TEST_SETUP(Meter)
+UI_COMPLETE_TEST_SETUP(Meter)
 
 TEST_CASE("ui.meter~", "[ui.meter~]")
 {

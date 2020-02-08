@@ -15,8 +15,8 @@
 #include "eobj.h"
 #include "epopup.h"
 
-#include "../ceammc/extra/fmt/include/fmt/core.h"
-#include "../ceammc/extra/fmt/include/fmt/format.h"
+#include "fmt/core.h"
+#include "fmt/format.h"
 
 #include <iostream>
 #include <vector>
@@ -35,13 +35,13 @@ static const char* SYM_MOUSE_DRAG = "mousedrag";
 static const char* SYM_MOUSE_UP = "mouseup";
 static const char* SYM_MOUSE_WHEEL = "mousewheel";
 static const char* SYM_MOUSE_DBL_CLICK = "dblclick";
+static const char* SYM_MOUSE_RIGHT_CLICK = "rightclick";
 static const char* SYM_KEY = "key";
 static const char* SYM_KEY_FILTER = "keyfilter";
 
-static const char* SYM_READ = "read";
-static const char* SYM_WRITE = "write";
-
 static const char* SYM_PAINT = "paint";
+static const char* SYM_WIDGET_CREATE = ".create";
+static const char* SYM_WIDGET_ERASE = ".erase";
 static const char* SYM_NOTIFY = "notify";
 static const char* SYM_GET_DRAW_PARAMS = "getdrawparams";
 static const char* SYM_OK_SIZE = "oksize";
@@ -80,48 +80,29 @@ enum CategoryType {
     CAT_MISC = 600
 };
 
-static void eclass_properties_dialog(t_eclass* c);
-static void ewidget_init(t_eclass* c);
-static void eclass_attr_ceammc_setter(t_object* x, t_symbol* s, int argc, t_atom* argv);
-
-static t_class* tcl_version_class = 0;
 typedef struct tcl_version {
     t_object x_obj;
     char minor;
     char major;
 } t_tcl_version;
 
-t_tcl_version* tcl_version_instance;
+static void eclass_properties_dialog(t_eclass* c);
+static void ewidget_init(t_eclass* c);
+static void eclass_attr_ceammc_setter(t_object* x, t_symbol* s, int argc, t_atom* argv);
+static t_tcl_version* tcl_version_new();
+
+static t_class* tcl_version_class = nullptr;
+static t_tcl_version* tcl_version_instance = nullptr;
+
 t_tcl_version* tcl_version_new()
 {
-    t_tcl_version* x = (t_tcl_version*)pd_new(tcl_version_class);
+    t_tcl_version* x = reinterpret_cast<t_tcl_version*>(pd_new(tcl_version_class));
     if (x) {
         x->minor = 0;
         x->major = 0;
     }
 
     return x;
-}
-
-std::pair<int, int> eclass_tcl_version()
-{
-    std::pair<int, int> res({ 0, 0 });
-    if (!tcl_version_class || !tcl_version_instance)
-        return res;
-
-    res.first = tcl_version_instance->major;
-    res.second = tcl_version_instance->minor;
-    return res;
-}
-
-int egraphics_smooth()
-{
-    auto ver = eclass_tcl_version();
-
-    if (ver.first == 8 && ver.second == 6)
-        return 1;
-    else
-        return 0;
 }
 
 void tcl_version_set(t_tcl_version* x, t_float v)
@@ -170,8 +151,8 @@ t_eclass* eclass_new(const char* name, t_typ_method newm, t_typ_method freem, si
         memset(&c->c_widget, 0, sizeof(t_ewidget));
         c->c_attr = 0;
         c->c_nattr = 0;
-        c->c_dsp = 0;
-        c->c_box = 0;
+        c->c_dsp = false;
+        c->c_box = false;
         c->c_attr = NULL;
     } else {
         bug("Memory allocation failed for the class %s.", name);
@@ -192,127 +173,127 @@ void eclass_guiinit(t_eclass* c, long flags)
     c->c_box = 1;
 
     // DEFAULT ATTRIBUTES //
-    CLASS_ATTR_FLOAT_ARRAY(c, "size", 0, t_ebox, b_rect.width, 2);
-    CLASS_ATTR_SYMBOL(c, "fontname", 0, t_ebox, b_font.c_family);
-    CLASS_ATTR_SYMBOL(c, "fontweight", 0, t_ebox, b_font.c_weight);
-    CLASS_ATTR_SYMBOL(c, "fontslant", 0, t_ebox, b_font.c_slant);
-    CLASS_ATTR_INT(c, "fontsize", 0, t_ebox, b_font.c_sizereal);
-    CLASS_ATTR_SYMBOL(c, "receive", 0, t_ebox, b_receive_id);
-    CLASS_ATTR_SYMBOL(c, "send", 0, t_ebox, b_send_id);
-    CLASS_ATTR_SYMBOL(c, "label", 0, t_ebox, b_label);
-    CLASS_ATTR_INT(c, "label_inner", 0, t_ebox, label_inner);
-    CLASS_ATTR_SYMBOL(c, "label_side", 0, t_ebox, label_side);
-    CLASS_ATTR_SYMBOL(c, "label_align", 0, t_ebox, label_align);
-    CLASS_ATTR_SYMBOL(c, "label_valign", 0, t_ebox, label_valign);
-    CLASS_ATTR_INT_ARRAY(c, "label_margins", 0, t_ebox, label_margins, 2);
+    CLASS_ATTR_FLOAT_ARRAY(c, "size", t_ebox, b_rect.width, 2);
+    CLASS_ATTR_SYMBOL(c, "fontname", t_ebox, b_font.c_family);
+    CLASS_ATTR_SYMBOL(c, "fontweight", t_ebox, b_font.c_weight);
+    CLASS_ATTR_SYMBOL(c, "fontslant", t_ebox, b_font.c_slant);
+    CLASS_ATTR_INT(c, "fontsize", t_ebox, b_font.c_sizereal);
+    CLASS_ATTR_SYMBOL(c, "receive", t_ebox, b_receive_id);
+    CLASS_ATTR_SYMBOL(c, "send", t_ebox, b_send_id);
+    CLASS_ATTR_SYMBOL(c, "label", t_ebox, b_label);
+    CLASS_ATTR_INT(c, "label_inner", t_ebox, label_inner);
+    CLASS_ATTR_SYMBOL(c, "label_side", t_ebox, label_side);
+    CLASS_ATTR_SYMBOL(c, "label_align", t_ebox, label_align);
+    CLASS_ATTR_SYMBOL(c, "label_valign", t_ebox, label_valign);
+    CLASS_ATTR_INT_ARRAY(c, "label_margins", t_ebox, label_margins, 2);
 
-    CLASS_ATTR_DEFAULT(c, "size", 0, "100. 100.");
+    CLASS_ATTR_DEFAULT(c, "size", "100. 100.");
     CLASS_ATTR_FILTER_MIN(c, "size", 4);
-    CLASS_ATTR_SAVE(c, "size", 0);
-    CLASS_ATTR_PAINT(c, "size", 0);
-    CLASS_ATTR_CATEGORY(c, "size", 0, _("Basic"));
-    CLASS_ATTR_LABEL(c, "size", 0, _("Patching Size"));
+    CLASS_ATTR_SAVE(c, "size");
+    CLASS_ATTR_PAINT(c, "size");
+    CLASS_ATTR_CATEGORY(c, "size", _("Basic"));
+    CLASS_ATTR_LABEL(c, "size", _("Patching Size"));
     CLASS_ATTR_ACCESSORS(c, "size", NULL, (t_err_method)ebox_size_set);
 
-    CLASS_ATTR_INT(c, "pinned", 0, t_ebox, b_pinned);
-    CLASS_ATTR_DEFAULT(c, "pinned", 0, "0");
+    CLASS_ATTR_INT(c, "pinned", t_ebox, b_pinned);
+    CLASS_ATTR_DEFAULT(c, "pinned", "0");
     CLASS_ATTR_FILTER_CLIP(c, "pinned", 0, 1);
-    CLASS_ATTR_SAVE(c, "pinned", 0);
-    CLASS_ATTR_CATEGORY(c, "pinned", 0, _("Basic"));
-    CLASS_ATTR_LABEL(c, "pinned", 0, _("Pinned"));
-    CLASS_ATTR_STYLE(c, "pinned", 0, "onoff");
+    CLASS_ATTR_SAVE(c, "pinned");
+    CLASS_ATTR_CATEGORY(c, "pinned", _("Basic"));
+    CLASS_ATTR_LABEL(c, "pinned", _("Pinned"));
+    CLASS_ATTR_STYLE(c, "pinned", "onoff");
 
-    CLASS_ATTR_DEFAULT(c, "fontname", 0, "Helvetica");
-    CLASS_ATTR_SAVE(c, "fontname", 0);
-    CLASS_ATTR_PAINT(c, "fontname", 0);
-    CLASS_ATTR_CATEGORY(c, "fontname", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "fontname", 0, _("Font Name"));
+    CLASS_ATTR_DEFAULT(c, "fontname", "Helvetica");
+    CLASS_ATTR_SAVE(c, "fontname");
+    CLASS_ATTR_PAINT(c, "fontname");
+    CLASS_ATTR_CATEGORY(c, "fontname", _("Label"));
+    CLASS_ATTR_LABEL(c, "fontname", _("Font Name"));
     CLASS_ATTR_ACCESSORS(c, "fontname", NULL, (t_err_method)ebox_set_font);
-    CLASS_ATTR_STYLE(c, "fontname", 0, "menu");
-    CLASS_ATTR_ITEMS(c, "fontname", 0, "Helvetica Monaco Courier Times DejaVu");
+    CLASS_ATTR_STYLE(c, "fontname", "menu");
+    CLASS_ATTR_ITEMS(c, "fontname", "Helvetica Monaco Courier Times DejaVu");
 
-    CLASS_ATTR_DEFAULT(c, "fontweight", 0, _("normal"));
-    CLASS_ATTR_SAVE(c, "fontweight", 0);
-    CLASS_ATTR_PAINT(c, "fontweight", 0);
-    CLASS_ATTR_CATEGORY(c, "fontweight", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "fontweight", 0, _("Font Weight"));
+    CLASS_ATTR_DEFAULT(c, "fontweight", _("normal"));
+    CLASS_ATTR_SAVE(c, "fontweight");
+    CLASS_ATTR_PAINT(c, "fontweight");
+    CLASS_ATTR_CATEGORY(c, "fontweight", _("Label"));
+    CLASS_ATTR_LABEL(c, "fontweight", _("Font Weight"));
     CLASS_ATTR_ACCESSORS(c, "fontweight", NULL, (t_err_method)ebox_set_fontweight);
-    CLASS_ATTR_STYLE(c, "fontweight", 0, "menu");
-    CLASS_ATTR_ITEMS(c, "fontweight", 0, "normal bold");
+    CLASS_ATTR_STYLE(c, "fontweight", "menu");
+    CLASS_ATTR_ITEMS(c, "fontweight", "normal bold");
 
-    CLASS_ATTR_DEFAULT(c, "fontslant", 0, "roman");
-    CLASS_ATTR_SAVE(c, "fontslant", 0);
-    CLASS_ATTR_PAINT(c, "fontslant", 0);
-    CLASS_ATTR_CATEGORY(c, "fontslant", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "fontslant", 0, _("Font Slant"));
+    CLASS_ATTR_DEFAULT(c, "fontslant", "roman");
+    CLASS_ATTR_SAVE(c, "fontslant");
+    CLASS_ATTR_PAINT(c, "fontslant");
+    CLASS_ATTR_CATEGORY(c, "fontslant", _("Label"));
+    CLASS_ATTR_LABEL(c, "fontslant", _("Font Slant"));
     CLASS_ATTR_ACCESSORS(c, "fontslant", NULL, (t_err_method)ebox_set_fontslant);
-    CLASS_ATTR_STYLE(c, "fontslant", 0, "menu");
-    CLASS_ATTR_ITEMS(c, "fontslant", 0, "roman italic");
+    CLASS_ATTR_STYLE(c, "fontslant", "menu");
+    CLASS_ATTR_ITEMS(c, "fontslant", "roman italic");
 
-    CLASS_ATTR_DEFAULT(c, "fontsize", 0, "11");
+    CLASS_ATTR_DEFAULT(c, "fontsize", "11");
     CLASS_ATTR_FILTER_MIN(c, "fontsize", 4);
-    CLASS_ATTR_SAVE(c, "fontsize", 0);
-    CLASS_ATTR_PAINT(c, "fontsize", 0);
-    CLASS_ATTR_CATEGORY(c, "fontsize", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "fontsize", 0, _("Font Size"));
+    CLASS_ATTR_SAVE(c, "fontsize");
+    CLASS_ATTR_PAINT(c, "fontsize");
+    CLASS_ATTR_CATEGORY(c, "fontsize", _("Label"));
+    CLASS_ATTR_LABEL(c, "fontsize", _("Font Size"));
     CLASS_ATTR_ACCESSORS(c, "fontsize", NULL, ebox_set_fontsize);
-    CLASS_ATTR_STYLE(c, "fontsize", 0, "number");
+    CLASS_ATTR_STYLE(c, "fontsize", "number");
 
-    CLASS_ATTR_DEFAULT(c, "receive", 0, "(null)");
+    CLASS_ATTR_DEFAULT(c, "receive", "(null)");
     CLASS_ATTR_ACCESSORS(c, "receive", NULL, ebox_set_receiveid);
-    CLASS_ATTR_SAVE(c, "receive", 0);
-    CLASS_ATTR_CATEGORY(c, "receive", 0, _("Basic"));
-    CLASS_ATTR_LABEL(c, "receive", 0, _("Receive Symbol"));
+    CLASS_ATTR_SAVE(c, "receive");
+    CLASS_ATTR_CATEGORY(c, "receive", _("Basic"));
+    CLASS_ATTR_LABEL(c, "receive", _("Receive Symbol"));
 
-    CLASS_ATTR_DEFAULT(c, "send", 0, "(null)");
+    CLASS_ATTR_DEFAULT(c, "send", "(null)");
     CLASS_ATTR_ACCESSORS(c, "send", NULL, ebox_set_sendid);
-    CLASS_ATTR_SAVE(c, "send", 0);
-    CLASS_ATTR_CATEGORY(c, "send", 0, _("Basic"));
-    CLASS_ATTR_LABEL(c, "send", 0, _("Send Symbol"));
+    CLASS_ATTR_SAVE(c, "send");
+    CLASS_ATTR_CATEGORY(c, "send", _("Basic"));
+    CLASS_ATTR_LABEL(c, "send", _("Send Symbol"));
 
-    CLASS_ATTR_DEFAULT(c, "label", 0, "(null)");
+    CLASS_ATTR_DEFAULT(c, "label", "(null)");
     CLASS_ATTR_ACCESSORS(c, "label", NULL, ebox_set_label);
-    CLASS_ATTR_SAVE(c, "label", 0);
-    CLASS_ATTR_CATEGORY(c, "label", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label", 0, _("Text"));
+    CLASS_ATTR_SAVE(c, "label");
+    CLASS_ATTR_CATEGORY(c, "label", _("Label"));
+    CLASS_ATTR_LABEL(c, "label", _("Text"));
 
-    CLASS_ATTR_DEFAULT(c, "label_align", 0, "left");
+    CLASS_ATTR_DEFAULT(c, "label_align", "left");
     CLASS_ATTR_ACCESSORS(c, "label_align", NULL, ebox_set_label_align);
-    CLASS_ATTR_SAVE(c, "label_align", 0);
-    CLASS_ATTR_CATEGORY(c, "label_align", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label_align", 0, _("Horizontal align"));
-    CLASS_ATTR_STYLE(c, "label_align", 0, "menu");
-    CLASS_ATTR_ITEMS(c, "label_align", 0, "left center right");
+    CLASS_ATTR_SAVE(c, "label_align");
+    CLASS_ATTR_CATEGORY(c, "label_align", _("Label"));
+    CLASS_ATTR_LABEL(c, "label_align", _("Horizontal align"));
+    CLASS_ATTR_STYLE(c, "label_align", "menu");
+    CLASS_ATTR_ITEMS(c, "label_align", "left center right");
 
-    CLASS_ATTR_DEFAULT(c, "label_valign", 0, "top");
+    CLASS_ATTR_DEFAULT(c, "label_valign", "top");
     CLASS_ATTR_ACCESSORS(c, "label_valign", NULL, ebox_set_label_valign);
-    CLASS_ATTR_SAVE(c, "label_valign", 0);
-    CLASS_ATTR_CATEGORY(c, "label_valign", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label_valign", 0, _("Vertical align"));
-    CLASS_ATTR_STYLE(c, "label_valign", 0, "menu");
-    CLASS_ATTR_ITEMS(c, "label_valign", 0, "top center bottom");
+    CLASS_ATTR_SAVE(c, "label_valign");
+    CLASS_ATTR_CATEGORY(c, "label_valign", _("Label"));
+    CLASS_ATTR_LABEL(c, "label_valign", _("Vertical align"));
+    CLASS_ATTR_STYLE(c, "label_valign", "menu");
+    CLASS_ATTR_ITEMS(c, "label_valign", "top center bottom");
 
-    CLASS_ATTR_DEFAULT(c, "label_side", 0, "top");
+    CLASS_ATTR_DEFAULT(c, "label_side", "top");
     CLASS_ATTR_ACCESSORS(c, "label_side", NULL, ebox_set_label_side);
-    CLASS_ATTR_SAVE(c, "label_side", 0);
-    CLASS_ATTR_CATEGORY(c, "label_side", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label_side", 0, _("Attach side"));
-    CLASS_ATTR_STYLE(c, "label_side", 0, "menu");
-    CLASS_ATTR_ITEMS(c, "label_side", 0, "left top right bottom");
+    CLASS_ATTR_SAVE(c, "label_side");
+    CLASS_ATTR_CATEGORY(c, "label_side", _("Label"));
+    CLASS_ATTR_LABEL(c, "label_side", _("Attach side"));
+    CLASS_ATTR_STYLE(c, "label_side", "menu");
+    CLASS_ATTR_ITEMS(c, "label_side", "left top right bottom");
 
-    CLASS_ATTR_DEFAULT(c, "label_inner", 0, "0");
+    CLASS_ATTR_DEFAULT(c, "label_inner", "0");
     CLASS_ATTR_ACCESSORS(c, "label_inner", NULL, ebox_set_label_position);
-    CLASS_ATTR_SAVE(c, "label_inner", 0);
-    CLASS_ATTR_CATEGORY(c, "label_inner", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label_inner", 0, _("Inner position"));
-    CLASS_ATTR_STYLE(c, "label_inner", 0, "onoff");
+    CLASS_ATTR_SAVE(c, "label_inner");
+    CLASS_ATTR_CATEGORY(c, "label_inner", _("Label"));
+    CLASS_ATTR_LABEL(c, "label_inner", _("Inner position"));
+    CLASS_ATTR_STYLE(c, "label_inner", "onoff");
     CLASS_ATTR_FILTER_CLIP(c, "label_inner", 0, 1);
 
-    CLASS_ATTR_DEFAULT(c, "label_margins", 0, "0 0");
-    CLASS_ATTR_SAVE(c, "label_margins", 0);
-    CLASS_ATTR_PAINT(c, "label_margins", 0);
-    CLASS_ATTR_CATEGORY(c, "label_margins", 0, _("Label"));
-    CLASS_ATTR_LABEL(c, "label_margins", 0, _("Margins"));
+    CLASS_ATTR_DEFAULT(c, "label_margins", "0 0");
+    CLASS_ATTR_SAVE(c, "label_margins");
+    CLASS_ATTR_PAINT(c, "label_margins");
+    CLASS_ATTR_CATEGORY(c, "label_margins", _("Label"));
+    CLASS_ATTR_LABEL(c, "label_margins", _("Margins"));
     CLASS_ATTR_ACCESSORS(c, "label_margins", NULL, ebox_set_label_margins);
 
     // GUI always need this methods //
@@ -322,13 +303,14 @@ void eclass_guiinit(t_eclass* c, long flags)
 
     class_addmethod((t_class*)c, (t_method)ebox_mouse_enter, gensym(SYM_MOUSE_ENTER), A_NULL, 0);
     class_addmethod((t_class*)c, (t_method)ebox_mouse_leave, gensym(SYM_MOUSE_LEAVE), A_NULL, 0);
-    class_addmethod((t_class*)c, (t_method)ebox_mouse_move, gensym(SYM_MOUSE_MOVE), A_GIMME, 0);
-    class_addmethod((t_class*)c, (t_method)ebox_mouse_down, gensym(SYM_MOUSE_DOWN), A_GIMME, 0);
-    class_addmethod((t_class*)c, (t_method)ebox_mouse_up, gensym(SYM_MOUSE_UP), A_GIMME, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_mouse_move, gensym(SYM_MOUSE_MOVE), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_mouse_down, gensym(SYM_MOUSE_DOWN), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_mouse_up, gensym(SYM_MOUSE_UP), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_mouse_rightclick, gensym(SYM_MOUSE_RIGHT_CLICK), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
 
     class_addmethod((t_class*)c, (t_method)ebox_pos, gensym(SYM_POS), A_DEFFLOAT, A_DEFFLOAT, 0);
     class_addmethod((t_class*)c, (t_method)ebox_vis, gensym(SYM_VIS), A_DEFFLOAT, 0);
-    class_addmethod((t_class*)c, (t_method)ebox_setzoom, gensym(SYM_ZOOM), A_DEFFLOAT, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_setzoom, gensym(SYM_ZOOM), A_CANT, 0);
 
     class_setwidget((t_class*)&c->c_class, (t_widgetbehavior*)&c->c_widget);
     class_setsavefn((t_class*)&c->c_class, (t_savefn)eobj_save);
@@ -342,12 +324,12 @@ void eclass_dspinit(t_eclass* c)
     class_addmethod((t_class*)c, (t_method)eobj_dsp_add, gensym(SYM_DSP_ADD64), A_NULL, 0);
 }
 
-static t_pd_err is_cicm(t_eobj* x)
+static t_pd_err is_cicm(t_eobj* /*x*/)
 {
     return 1;
 }
 
-t_pd_err eclass_register(t_symbol* name, t_eclass* c)
+t_pd_err eclass_register(t_symbol* /*name*/, t_eclass* c)
 {
     if (c->c_dsp) {
         long diff = 0;
@@ -370,28 +352,30 @@ t_pd_err eclass_register(t_symbol* name, t_eclass* c)
     return 0;
 }
 
-void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type, long dummy)
+void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype type, long /*dummy*/)
 {
     t_symbol* sname = gensym(name);
     t_class* cx = &c->c_class;
     if (sname == gensym(SYM_MOUSE_ENTER)) {
-        c->c_widget.w_mouseenter = m;
+        c->c_widget.w_mouseenter = reinterpret_cast<t_mouseenter_method>(m);
     } else if (sname == gensym(SYM_MOUSE_LEAVE)) {
-        c->c_widget.w_mouseleave = m;
+        c->c_widget.w_mouseleave = reinterpret_cast<t_mouseleave_method>(m);
     } else if (sname == gensym(SYM_MOUSE_MOVE)) {
-        c->c_widget.w_mousemove = m;
+        c->c_widget.w_mousemove = reinterpret_cast<t_mousemove_method>(m);
     } else if (sname == gensym(SYM_MOUSE_DOWN)) {
-        c->c_widget.w_mousedown = m;
+        c->c_widget.w_mousedown = reinterpret_cast<t_mousedown_method>(m);
     } else if (sname == gensym(SYM_MOUSE_DRAG)) {
         c->c_widget.w_mousedrag = m;
     } else if (sname == gensym(SYM_MOUSE_UP)) {
-        c->c_widget.w_mouseup = m;
+        c->c_widget.w_mouseup = reinterpret_cast<t_mouseup_method>(m);
+    } else if (sname == gensym(SYM_MOUSE_RIGHT_CLICK)) {
+        c->c_widget.w_rightclick = reinterpret_cast<t_rightclick_method>(m);
     } else if (sname == gensym(SYM_MOUSE_WHEEL)) {
-        class_addmethod(cx, (t_method)ebox_mouse_wheel, gensym(SYM_MOUSE_WHEEL), A_GIMME, 0);
-        c->c_widget.w_mousewheel = m;
+        class_addmethod(cx, (t_method)ebox_mouse_wheel, gensym(SYM_MOUSE_WHEEL), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+        c->c_widget.w_mousewheel = reinterpret_cast<t_mousewheel_method>(m);
     } else if (sname == gensym(SYM_MOUSE_DBL_CLICK)) {
         class_addmethod(cx, (t_method)ebox_mouse_dblclick, gensym(SYM_MOUSE_DBL_CLICK), A_GIMME, 0);
-        c->c_widget.w_dblclick = m;
+        c->c_widget.w_dblclick = reinterpret_cast<t_dblclick_method>(m);
     } else if (sname == gensym(SYM_KEY) || sname == gensym(SYM_KEY_FILTER)) {
         if (c->c_widget.w_key == NULL && c->c_widget.w_keyfilter == NULL)
             class_addmethod(cx, (t_method)ebox_key, gensym(SYM_KEY), A_GIMME, 0);
@@ -401,6 +385,10 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
             c->c_widget.w_keyfilter = m;
     } else if (sname == gensym(SYM_PAINT)) {
         c->c_widget.w_paint = m;
+    } else if (sname == gensym(SYM_WIDGET_CREATE)) {
+        c->c_widget.w_create = m;
+    } else if (sname == gensym(SYM_WIDGET_ERASE)) {
+        c->c_widget.w_erase = m;
     } else if (sname == gensym(SYM_NOTIFY)) {
         c->c_widget.w_notify = (t_err_method)m;
     } else if (sname == gensym(SYM_GET_DRAW_PARAMS)) {
@@ -412,8 +400,8 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
     } else if (sname == gensym(SYM_SAVE)) {
         c->c_widget.w_save = m;
     } else if (sname == gensym(SYM_POPUP)) {
-        class_addmethod(cx, (t_method)eobj_popup, gensym(SYM_POPUP), A_SYMBOL, A_DEFFLOAT, 0);
-        c->c_widget.w_popup = m;
+        class_addmethod(cx, (t_method)eobj_popup, gensym(SYM_POPUP), A_SYMBOL, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+        c->c_widget.w_popup = reinterpret_cast<t_popup_method>(m);;
     } else if (sname == gensym(SYM_DSP)) {
         c->c_widget.w_dsp = m;
     } else if (sname == &s_bang) {
@@ -427,11 +415,11 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
     } else if (sname == &s_symbol) {
         class_addsymbol(cx, m);
     } else if (sname == gensym(SYM_PRESET)) {
-        CLASS_ATTR_SYMBOL(c, "presetname", 0, t_ebox, b_objpreset_id);
-        CLASS_ATTR_DEFAULT(c, "presetname", 0, "(null)");
-        CLASS_ATTR_SAVE(c, "presetname", 0);
-        CLASS_ATTR_CATEGORY(c, "presetname", 0, _("Basic"));
-        CLASS_ATTR_LABEL(c, "presetname", 0, _("Preset Name"));
+        CLASS_ATTR_SYMBOL(c, "presetname", t_ebox, b_objpreset_id);
+        CLASS_ATTR_DEFAULT(c, "presetname", "(null)");
+        CLASS_ATTR_SAVE(c, "presetname");
+        CLASS_ATTR_CATEGORY(c, "presetname", _("Basic"));
+        CLASS_ATTR_LABEL(c, "presetname", _("Preset Name"));
         CLASS_ATTR_ACCESSORS(c, "presetname", NULL, ebox_set_presetid);
         class_addmethod(cx, (t_method)m, sname, type, 0);
     } else {
@@ -449,22 +437,20 @@ static t_symbol* gentype(const char* name)
         return gensym(name);
 }
 
-void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, long size, long maxsize, long flags, long offset)
+void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
+    size_t size, size_t maxsize, size_t offset)
 {
-    int i;
-    t_eattr* attr;
-    t_eattr** attrs;
     if (size >= 1) {
         t_symbol* name = gensym(attrname);
 
-        for (i = 0; i < c->c_nattr; i++) {
+        for (int i = 0; i < c->c_nattr; i++) {
             if (c->c_attr[i]->name == name) {
                 error("%s already have %s attribute.", c->c_class.c_name->s_name, attrname);
                 return;
             }
         }
 
-        attr = (t_eattr*)getbytes(sizeof(t_eattr));
+        t_eattr* attr = (t_eattr*)getbytes(sizeof(t_eattr));
 
         if (attr) {
             attr->name = name;
@@ -472,17 +458,17 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
             attr->category = c->c_class.c_name;
             attr->label = gensym("");
             attr->style = gensym(SYM_ENTRY);
+            attr->units = &s_;
             attr->order = c->c_nattr + 1;
-            attr->save = 0;
-            attr->paint = 0;
-            attr->invisible = 0;
-            attr->flags = flags;
+            attr->save = false;
+            attr->paint = false;
+            attr->invisible = false;
             attr->offset = offset;
             attr->size = size;
             attr->sizemax = maxsize;
             attr->getter = NULL;
             attr->setter = NULL;
-            attr->clipped = 0;
+            attr->clipped = E_CLIP_NONE;
             attr->minimum = 0;
             attr->maximum = 1;
             attr->step = 1;
@@ -491,16 +477,16 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type, 
             attr->itemssize = 0;
 
             size_t new_sz = (size_t)(c->c_nattr + 1) * sizeof(t_eattr*);
-            attrs = (t_eattr**)resizebytes(c->c_attr, new_sz, new_sz);
+            t_eattr** attrs = (t_eattr**)resizebytes(c->c_attr, new_sz, new_sz);
 
             if (attrs) {
                 char buf[MAXPDSTRING];
                 c->c_attr = attrs;
                 c->c_attr[c->c_nattr] = attr;
                 sprintf(buf, "@%s", attrname);
-                class_addmethod((t_class*)c, (t_method)eclass_attr_ceammc_setter, gensym(buf), A_GIMME, 0);
+                class_addmethod(&c->c_class, (t_method)eclass_attr_ceammc_setter, gensym(buf), A_GIMME, 0);
                 sprintf(buf, "@%s?", attrname);
-                class_addmethod((t_class*)c, (t_method)eclass_attr_ceammc_getter, gensym(buf), A_GIMME, 0);
+                class_addmethod(&c->c_class, (t_method)eclass_attr_ceammc_getter, gensym(buf), A_GIMME, 0);
                 c->c_nattr++;
             } else {
                 error("%s can't increase memory for %s attribute.", c->c_class.c_name->s_name, attrname);
@@ -529,10 +515,12 @@ void eclass_attr_redirect(t_eclass* c, const char* attrname, t_gotfn fn)
     }
 }
 
-void eclass_attr_default(t_eclass* c, const char* attrname, long flags, const char* value)
+void eclass_attr_default(t_eclass* c, const char* attrname, const char* value)
 {
+    t_symbol* sel = gensym(attrname);
+
     for (int i = 0; i < c->c_nattr; i++) {
-        if (c->c_attr[i]->name == gensym(attrname)) {
+        if (c->c_attr[i]->name == sel) {
             c->c_attr[i]->defvals = gensym(value);
             return;
         }
@@ -541,7 +529,7 @@ void eclass_attr_default(t_eclass* c, const char* attrname, long flags, const ch
     pd_error(nullptr, "[%s] property not found: %s", c->c_class.c_name->s_name, attrname);
 }
 
-void eclass_attr_category(t_eclass* c, const char* attrname, long flags, const char* category)
+void eclass_attr_category(t_eclass* c, const char* attrname, const char* category)
 {
     t_symbol* cat = gensym(category);
     t_symbol* sel = gensym(attrname);
@@ -570,7 +558,7 @@ void eclass_attr_category(t_eclass* c, const char* attrname, long flags, const c
     }
 }
 
-void eclass_attr_order(t_eclass* c, const char* attrname, long flags, const char* order)
+void eclass_attr_order(t_eclass* c, const char* attrname, const char* order)
 {
     t_symbol* sel = gensym(attrname);
 
@@ -585,7 +573,7 @@ void eclass_attr_order(t_eclass* c, const char* attrname, long flags, const char
     }
 }
 
-void eclass_attr_label(t_eclass* c, const char* attrname, long flags, const char* label)
+void eclass_attr_label(t_eclass* c, const char* attrname, const char* label)
 {
     t_symbol* sel = gensym(attrname);
 
@@ -597,7 +585,7 @@ void eclass_attr_label(t_eclass* c, const char* attrname, long flags, const char
     }
 }
 
-void eclass_attr_style(t_eclass* c, const char* attrname, long flags, const char* style)
+void eclass_attr_style(t_eclass* c, const char* attrname, const char* style)
 {
     t_symbol* sel = gensym(attrname);
     t_symbol* s_style = gensym(style);
@@ -622,13 +610,13 @@ void eclass_attr_style(t_eclass* c, const char* attrname, long flags, const char
     }
 }
 
-void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const char* list)
+void eclass_attr_itemlist(t_eclass* c, const char* attrname, const char* list)
 {
-    int i, j = 0;
+    int j = 0;
     char* pch;
     int size = 0;
     t_symbol* s_attrname = gensym(attrname);
-    for (i = 0; i < c->c_nattr; i++) {
+    for (int i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == s_attrname) {
             auto plist = strdup(list);
             if (!plist)
@@ -680,14 +668,10 @@ void eclass_attr_itemlist(t_eclass* c, const char* attrname, long flags, const c
 
 void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value)
 {
-    t_symbol* s_attrname = gensym(attrname);
+    t_symbol* sel = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
-        if (c->c_attr[i]->name == s_attrname) {
-            if (c->c_attr[i]->clipped == 0)
-                c->c_attr[i]->clipped = 1;
-            else if (c->c_attr[i]->clipped == 2)
-                c->c_attr[i]->clipped = 3;
-
+        if (c->c_attr[i]->name == sel) {
+            c->c_attr[i]->clipped = static_cast<eclip_flags>(c->c_attr[i]->clipped | E_CLIP_MIN);
             c->c_attr[i]->minimum = value;
             return;
         }
@@ -696,14 +680,10 @@ void eclass_attr_filter_min(t_eclass* c, const char* attrname, float value)
 
 void eclass_attr_filter_max(t_eclass* c, const char* attrname, float value)
 {
-    t_symbol* s_attrname = gensym(attrname);
+    t_symbol* sel = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
-        if (c->c_attr[i]->name == s_attrname) {
-            if (c->c_attr[i]->clipped == 0)
-                c->c_attr[i]->clipped = 2;
-            else if (c->c_attr[i]->clipped == 1)
-                c->c_attr[i]->clipped = 3;
-
+        if (c->c_attr[i]->name == sel) {
+            c->c_attr[i]->clipped = static_cast<eclip_flags>(c->c_attr[i]->clipped | E_CLIP_MAX);
             c->c_attr[i]->maximum = value;
             return;
         }
@@ -721,34 +701,34 @@ void eclass_attr_step(t_eclass* c, const char* attrname, float value)
     }
 }
 
-void eclass_attr_save(t_eclass* c, const char* attrname, long flags, bool value)
+void eclass_attr_save(t_eclass* c, const char* attrname, bool value)
 {
-    t_symbol* s_attrname = gensym(attrname);
+    t_symbol* sel = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
-        if (c->c_attr[i]->name == s_attrname) {
-            c->c_attr[i]->save = value ? 1 : 0;
+        if (c->c_attr[i]->name == sel) {
+            c->c_attr[i]->save = value;
             return;
         }
     }
 }
 
-void eclass_attr_paint(t_eclass* c, const char* attrname, long flags)
+void eclass_attr_paint(t_eclass* c, const char* attrname)
 {
     t_symbol* s_attrname = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == s_attrname) {
-            c->c_attr[i]->paint = 1;
+            c->c_attr[i]->paint = true;
             return;
         }
     }
 }
 
-void eclass_attr_invisible(t_eclass* c, const char* attrname, long flags)
+void eclass_attr_invisible(t_eclass* c, const char* attrname)
 {
     t_symbol* s_attrname = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == s_attrname) {
-            c->c_attr[i]->invisible = 1;
+            c->c_attr[i]->invisible = true;
             return;
         }
     }
@@ -880,8 +860,6 @@ static bool request_property(t_object* x, t_symbol* s, std::vector<t_atom>& res)
 
 void eclass_attr_ceammc_getter(t_object* x, t_symbol* s, int argc, t_atom* argv)
 {
-    int argc_ = 0;
-    t_atom* argv_ = NULL;
     t_ebox* z = (t_ebox*)x;
     if (!z->b_obj.o_obj.te_outlet) {
         pd_error(x, "[%s] can't get property: class has no outlets.", class_getname(x->te_pd));
@@ -956,22 +934,29 @@ void eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
 
             point = (char*)(x) + c->c_attr[i]->offset;
 
-            if (c->c_attr[i]->clipped == 1 || c->c_attr[i]->clipped == 3) {
+            if (c->c_attr[i]->clipped & E_CLIP_MIN) {
                 for (int j = 0; j < argc; j++) {
                     if (atom_gettype(argv + j) == A_FLOAT) {
-                        atom_setfloat(argv + j, (float)pd_clip_min(atom_getfloat(argv + j), c->c_attr[i]->minimum));
+                        atom_setfloat(argv + j, pd_clip_min(atom_getfloat(argv + j), c->c_attr[i]->minimum));
                     }
                 }
             }
-            if (c->c_attr[i]->clipped == 2 || c->c_attr[i]->clipped == 3) {
+            if (c->c_attr[i]->clipped & E_CLIP_MAX) {
                 for (int j = 0; j < argc; j++) {
                     if (atom_gettype(argv + j) == A_FLOAT) {
-                        atom_setfloat(argv + j, (float)pd_clip_max(atom_getfloat(argv + j), c->c_attr[i]->maximum));
+                        atom_setfloat(argv + j, pd_clip_max(atom_getfloat(argv + j), c->c_attr[i]->maximum));
                     }
                 }
             }
 
-            if (c->c_attr[i]->setter) {
+            if (c->c_attr[i]->getter) {
+                if (c->c_attr[i]->setter) { // getter and setter
+                    c->c_attr[i]->setter(x, c->c_attr[i], argc, argv);
+                } else { // getter only (readonly)
+                    pd_error(x, "[%s] readonly property: @%s", c->c_class.c_name->s_name, c->c_attr[i]->name->s_name);
+                }
+            } else if (c->c_attr[i]->getter == nullptr
+                && c->c_attr[i]->setter != nullptr) { // setter only (using default set method)
                 c->c_attr[i]->setter(x, c->c_attr[i], argc, argv);
             } else if (type == s_int) {
                 int* pointor = (int*)point;
@@ -1048,6 +1033,8 @@ static void ewidget_init(t_eclass* c)
     c->c_widget.w_clickfn = nullptr;
 
     c->c_widget.w_paint = nullptr;
+    c->c_widget.w_create = nullptr;
+    c->c_widget.w_erase = nullptr;
     c->c_widget.w_mouseenter = nullptr;
     c->c_widget.w_mouseleave = nullptr;
     c->c_widget.w_mousemove = nullptr;
@@ -1056,6 +1043,7 @@ static void ewidget_init(t_eclass* c)
     c->c_widget.w_mouseup = nullptr;
     c->c_widget.w_mousewheel = nullptr;
     c->c_widget.w_dblclick = nullptr;
+    c->c_widget.w_rightclick = nullptr;
     c->c_widget.w_key = nullptr;
     c->c_widget.w_keyfilter = nullptr;
     c->c_widget.w_getdrawparameters = nullptr;
@@ -1256,7 +1244,7 @@ static void eclass_properties_dialog(t_eclass* c)
             /** ATTRIBUTES NAMES **/
             auto str = fmt::format("   # property: @{2}\n"
                                    "   ttk::label {0} -justify left -text [join [list [_ \"{1}\" ] {{:}}] {{}}]\n"
-                                   "   tooltip::tooltip {0} \"@{2}\"\n",
+                                   "   ceammc_tooltip {0} \"@{2}\"\n",
                 LABEL_ID, c->c_attr[i]->label->s_name, ATTR_NAME);
             sys_gui(str.c_str());
 
@@ -1378,12 +1366,22 @@ void eclass_attr_sort(t_eclass* c)
     qsort(c->c_attr, c->c_nattr, sizeof(t_eattr*), attr_cmp);
 }
 
-void eclass_attr_visible(t_eclass* c, const char* attrname, long flags)
+void eclass_attr_visible(t_eclass* c, const char* attrname)
 {
     t_symbol* s_attrname = gensym(attrname);
     for (int i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == s_attrname) {
-            c->c_attr[i]->invisible = 0;
+            c->c_attr[i]->invisible = false;
+            return;
+        }
+    }
+}
+
+void eclass_attr_units(t_eclass* c, t_symbol* attrname, t_symbol* units)
+{
+    for (int i = 0; i < c->c_nattr; i++) {
+        if (c->c_attr[i]->name == attrname) {
+            c->c_attr[i]->units = units;
             return;
         }
     }

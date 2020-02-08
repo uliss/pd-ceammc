@@ -1,0 +1,33 @@
+; put in here any extra object that you would like to add to your completion list.
+
+; one line per object, no commas or special characters.
+
+; all lines starting with a semi-colon are comments.
+
+;some useful stuff used in message boxes
+
+set
+add
+add2
+addcomma
+addsemi
+adddollar
+adddollsym
+
+;general keywords
+
+anything
+set
+clear
+start
+stop
+
+;some useful constants
+
+;pi
+1.57079632679489661923
+3.14159265358979323846
+6.28318530717958647692
+
+;golden ratio
+1.6180339887498948

@@ -11,7 +11,7 @@
 #include "ceammc_object.h"
 #include "ceammc_pollfd.h"
 
-#include "../../../extra/readerwriterqueue/readerwriterqueue.h"
+#include "readerwriterqueue/readerwriterqueue.h"
 
 namespace ceammc {
 
@@ -101,10 +101,13 @@ public:
     virtual bool onThreadCommand(int code);
     virtual void start();
     virtual void stop();
+    virtual void waitStop();
 
     bool isRunning() const;
-    void wait();
-    void waitStop();
+
+protected:
+    void threadWait();
+    void threadStop();
 };
 
 class ThreadPollPipeExternal : public ThreadExternalBase {
@@ -126,6 +129,9 @@ class ThreadPollClockExternal : public ThreadExternalBase {
     std::unique_ptr<thread::Pipe> pipe_cmd_;
     ClockMemberFunction<ThreadPollClockExternal> clock_;
     IntPropertyMin* poll_time_;
+
+    ThreadPollClockExternal(const ThreadPollPipeExternal&) = delete;
+    void operator=(const ThreadPollPipeExternal&) = delete;
 
 public:
     ThreadPollClockExternal(const PdArgs& args, thread::Task* task);

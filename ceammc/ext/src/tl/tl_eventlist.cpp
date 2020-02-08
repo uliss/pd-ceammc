@@ -190,8 +190,6 @@ void EventList::calcNextEvents()
 
 void EventList::calcRelEvents()
 {
-    const size_t N = vec_.size();
-
     // calc rel times
     for (auto& ev : vec_) {
         if (ev.type == EVENT_RELATIVE) {

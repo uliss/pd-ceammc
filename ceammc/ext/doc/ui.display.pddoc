@@ -8,7 +8,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>Display GUI object</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category view="link">ui</category>
             <keywords>display</keywords>
@@ -20,9 +20,13 @@
                 <see>msg</see>
             </also>
         </meta>
-        <info>
-            <par>Double click to show/hide message type display</par>
-        </info>
+        <mouse>
+            <event editmode="false" type="double-click">show/hide message type</event>
+            <event editmode="false" type="right-click" keys="Shift">open object help</event>
+            <event editmode="false" type="right-click" keys="Alt">open properties dialog</event>
+            <event editmode="true" type="right-click" keys="Shift">open object help</event>
+            <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
+        </mouse>
         <inlets>
             <inlet>
                 <xinfo on="list">accepts any messages and displays it.</xinfo>

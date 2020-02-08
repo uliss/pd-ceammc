@@ -11,7 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_UI_DSP_OBJECT_H
+#include "ceammc_ui_object.h"
+#ifdef CEAMMC_UI_DSP_OBJECT_H
 #define CEAMMC_UI_DSP_OBJECT_H
 
 #include "ceammc_atomlist.h"
@@ -56,7 +57,6 @@ class UIDspObject : t_edspbox {
     std::unordered_set<t_symbol*> binded_signals_;
     t_symbol* name_;
     t_symbol* old_preset_id_;
-    t_cursor cursor_;
     t_float samplerate_;
     long blocksize_;
     bool use_presets_;
@@ -68,6 +68,7 @@ public:
     t_rgba prop_color_background;
     t_rgba prop_color_border;
     t_rgba prop_color_label;
+    int prop_mouse_events;
 
 public:
     UIDspObject();
@@ -82,7 +83,6 @@ public:
     t_edspbox* asDspBox() const;
     t_object* asPdObject() const;
     t_pd* asPd() const;
-    t_outlet* createOutlet();
     t_canvas* canvas() const;
     bool isPatchLoading() const;
     bool isPatchEdited() const;
@@ -99,10 +99,10 @@ public:
     void updateSize();
     void resize(int w, int h);
     void onPropChange(t_symbol* prop_name);
+    void onZoom(t_float z);
     void okSize(t_rect* newrect);
     void setDrawParams(t_edrawparams* params);
     float zoom() const;
-    t_cursor cursor() const;
     void setCursor(t_cursor c);
 
     // user input
@@ -113,9 +113,11 @@ public:
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseLeave(t_object* view, const t_pt& pt, long modifiers);
     void onMouseEnter(t_object* view, const t_pt& pt, long modifiers);
-    void onMouseWheel(t_object* view, const t_pt& pt, long modifiers, double delta);
+    void onMouseWheel(const t_pt& pt, long modifiers, float delta);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
     void onPopup(t_symbol* menu_name, long item_idx);
+    void showPopup(const t_pt& pt, const t_pt& abs_pt);
+    bool outputMouseEvents() const;
 
     // input
     void onBang();
@@ -162,6 +164,8 @@ public:
     // outlets
     size_t numInlets() const;
     size_t numOutlets() const;
+    const std::vector<t_outlet*>& outlets() const { return outlets_; }
+    t_outlet* createOutlet();
 
     // properties
     bool hasProperty(t_symbol* name) const;

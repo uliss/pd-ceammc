@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>audio stream stereo demultiplexer</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>flow</category>
             <keywords>flow demultiplex</keywords>
@@ -50,7 +50,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[sig~ 1]            [ui.radio @nitems=2] [ui.dsp~]
+[sig~ 1]            [ui.radio @nitems 2] [ui.dsp~]
 |                   |
 |    [sig~ 0.125]   |
 |    |              |

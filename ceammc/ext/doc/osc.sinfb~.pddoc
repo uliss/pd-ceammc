@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>Sine oscilator with feedback</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>osc</category>
             <keywords>osc feedback</keywords>
@@ -39,7 +39,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]     [ui.knob @min=0 @max=6.28]
+[F]     [ui.knob @min 0 @max 6.28]
 |       |
 |       |
 |       |

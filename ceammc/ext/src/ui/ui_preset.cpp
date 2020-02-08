@@ -16,6 +16,8 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 
+static t_symbol* SYM_POPUP;
+
 UIPreset::UIPreset()
     : prop_color_text(rgba_black)
     , prop_color_empty(rgba_grey)
@@ -25,6 +27,9 @@ UIPreset::UIPreset()
     , selected_index_(-1)
     , mouse_over_index_(-1)
 {
+    initPopupMenu("preset",
+        { { _("read"), [this](const t_pt&) {m_read(AtomList());} },
+            { _("write"), [this](const t_pt&) { m_write(AtomList());} } });
 }
 
 void UIPreset::init(t_symbol* name, const AtomList& args, bool usePresets)
@@ -112,7 +117,6 @@ void UIPreset::paint()
 void UIPreset::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     int index = buttonIndexAt(pt.x, pt.y);
-
     if (index < 0 || index >= presets_.size())
         return;
 
@@ -185,13 +189,10 @@ AtomList UIPreset::propCurrent() const
 
 void UIPreset::setup()
 {
-    UIObjectFactory<UIPreset> obj("ui.preset");
+    SYM_POPUP = gensym("main");
 
-#ifdef __WIN32
+    UIObjectFactory<UIPreset> obj("ui.preset");
     obj.setDefaultSize(102, 42);
-#else
-    obj.setDefaultSize(102, 42);
-#endif
 
     obj.hideProperty("send");
     obj.hideLabelInner();
@@ -203,6 +204,7 @@ void UIPreset::setup()
     obj.addProperty("current", &UIPreset::propCurrent, 0);
 
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_MOVE | UI_MOUSE_LEAVE);
+    obj.usePopup();
     obj.addMethod(PresetStorage::SYM_PRESET_INDEX_ADD, &UIPreset::indexAdd);
     obj.addMethod(PresetStorage::SYM_PRESET_INDEX_REMOVE, &UIPreset::indexRemove);
 

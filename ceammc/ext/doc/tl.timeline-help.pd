@@ -28,21 +28,21 @@ last user event);
 #X obj 318 399 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 318 427 @loop \$1;
 #X obj 50 456 tl.timeline 20 @loop 1;
-#X obj 50 485 prop-> @current;
+#X obj 50 485 prop-> @current, f 20;
 #X obj 50 514 sel 0 1 2 begin end;
-#X obj 280 514 / 1000;
+#X obj 290 514 / 1000;
 #X obj 50 543 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 88 543 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 136 543 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 126 543 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 174 543 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 184 543 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 242 543 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 251 543 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 280 543 sec->str @symbol @ms;
-#X symbolatom 280 571 15 0 0 0 - - -;
+#X obj 290 543 sec->str @symbol @ms;
+#X symbolatom 290 571 15 0 0 0 - - -;
 #X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 615 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
@@ -140,7 +140,7 @@ Type: list.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title tl @url ceammc.tl-help.pd;
 #X obj 1 1762 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1765 library: ceammc v0.7.1;
+#X text 10 1765 library: ceammc v0.8.0;
 #X text 620 1777 see also:;
 #X obj 694 1780 ui.link @background_color 0.78431 0.78431 0.78431
 @title [tl.cue] @url tl.cue-help.pd;
@@ -149,7 +149,7 @@ Type: list.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.7.1;
+#X text 120 32 0.8.0;
 #X text 10 54 object:;
 #X text 120 54 tl.timeline;
 #X text 10 76 category:;
@@ -159,7 +159,7 @@ Type: list.;
 #X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
 #X text 10 142 license:;
-#X text 120 142 GPL3;
+#X text 120 142 GPL3 or later;
 #X text 10 164 keywords:;
 #X text 120 164 timeline;
 #X text 10 186 website:;
@@ -183,7 +183,7 @@ https://github.com/uliss/pure-data;
 #X connect 22 0 24 0;
 #X connect 22 1 25 0;
 #X connect 22 2 26 0;
-#X connect 22 3 26 0;
+#X connect 22 3 27 0;
 #X connect 22 4 28 0;
 #X connect 23 0 29 0;
 #X connect 29 0 30 0;

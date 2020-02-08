@@ -8,7 +8,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>knob widget</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category view="link">ui</category>
             <keywords>ui knob</keywords>
@@ -21,12 +21,22 @@
             <par>Simple knob widget with default range 0-1.</par>
         </info>
         <mouse>
-            <event editmode="true" type="drag" keys="Cmd">changes the knob value</event>
-            <event editmode="0" type="drag">changes the knob value</event>
-            <event editmode="0" type="right-click">opens popup menu</event>
-            <event editmode="0" type="double-click">set knob to the middle position</event>
-            <event editmode="0" type="double-click" keys="Shift">toggle MIDI-learn mode (red border
-            displayed)</event>
+            <event editmode="false" type="drag">change the knob value (with ⇧ change
+            slowly)</event>
+            <event editmode="false" type="wheel">change the knob value (with ⇧ change
+            slowly)</event>
+            <event editmode="false" type="double-click">set knob to the middle position</event>
+            <event editmode="false" type="double-click" keys="Shift">toggle MIDI-learn mode (red
+            border displayed)</event>
+            <event editmode="false" type="right-click">open popup menu</event>
+            <event editmode="false" type="right-click" keys="Shift">open object help</event>
+            <event editmode="false" type="right-click" keys="Alt">open properties dialog</event>
+            <event editmode="true" type="drag" keys="Cmd">change the knob value (with ⇧ change
+            slowly)</event>
+            <event editmode="true" type="wheel" keys="Cmd">change the knob value (with ⇧ change
+            slowly)</event>
+            <event editmode="true" type="right-click" keys="Shift">open object help</event>
+            <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
             <property name="@min" type="float" default="0">minimum knob value</property>
@@ -43,6 +53,8 @@
             <property name="@value" type="float" default="0">current value</property>
             <property name="@show_range" type="int" enum="0 1" default="0">show knob
             range</property>
+            <property name="@scale" type="symbol" default="linear" enum="linear log">scale mode.
+            Linear or logarithmic.</property>
             <!-- common -->
             <property name="@presetname" type="symbol" category="basic">preset name for using with
             [ui.preset]</property>
@@ -52,6 +64,8 @@
             pair)</property>
             <property name="@pinned" type="int" enum="0 1" default="0" category="basic">pin mode.
             if 1 - put element to the lowest level</property>
+            <property name="@mouse_events" type="int" enum="0 1" default="0">mouse events output
+            mode. If on outputs @mouse_down, @mouse_up and @mouse_drag events</property>
             <property name="@knob_color" type="list" category="color">knob color (list of red,
             green, blue values in 0-1 range)</property>
             <property name="@scale_color" type="list" category="color">scale color (list of red,
@@ -67,6 +81,20 @@
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
+            <!-- label -->
+            <property name="@label" type="symbol">label text</property>
+            <property name="@label_color" type="list">label color in RGB format within 0-1 range,
+            for example: 0.2 0.4 0.1</property>
+            <property name="@label_inner" type="int" enum="0 1" default="0">label position (1 -
+            inner, 0 - outer).</property>
+            <property name="@label_align" type="symbol" enum="left center right" default="left">
+            label horizontal align</property>
+            <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
+            label vertical align</property>
+            <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
+            label snap side</property>
+            <property name="@label_margins" type="list" default="0 0">label offset in
+            pixels</property>
         </properties>
         <methods>
             <method name="set">sets knob state without output</method>
@@ -112,7 +140,7 @@
 |     |       |       |     |     |          |
 |     |       |       |     |     |          |
 |     |       |       |     |     |          |
-[ui.knob @size=30x30 @max=10                 ]
+[ui.knob @size 30 30 @max 10                 ]
 |
 |
 |

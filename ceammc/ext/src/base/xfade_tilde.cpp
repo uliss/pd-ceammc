@@ -60,10 +60,13 @@ XFadeTilde::XFadeTilde(const PdArgs& args)
     createProperty(new SymbolEnumAlias("@pow", prop_type_, SYM_POW));
     createProperty(new SymbolEnumAlias("@lin", prop_type_, SYM_LIN));
 
-    createCbProperty("@smooth", &XFadeTilde::propSmooth, &XFadeTilde::propSetSmooth);
-    property("@smooth")->info().setType(PropertyInfoType::FLOAT);
-    property("@smooth")->info().setDefault(DEFAULT_SMOOTH_MS);
-    property("@smooth")->info().setMin(1);
+    {
+        auto p = createCbProperty("@smooth", &XFadeTilde::propSmooth, &XFadeTilde::propSetSmooth);
+        p->info().setType(PropertyInfoType::FLOAT);
+        p->info().setDefault(DEFAULT_SMOOTH_MS);
+        p->info().setMin(1);
+        p->info().setUnits(PropertyInfoUnits::MSEC);
+    }
 
     gain_.assign(n_, t_smooth(0));
     gain_[0].setTargetValue(1);

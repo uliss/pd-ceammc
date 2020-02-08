@@ -14,12 +14,11 @@
 #ifndef CEAMMC_OBJECTCLASS_H
 #define CEAMMC_OBJECTCLASS_H
 
-#include <m_pd.h>
+#include "m_pd.h"
 
 #include <exception>
-#include <map>
-#include <set>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include "ceammc_externals.h"
@@ -60,20 +59,12 @@ public:
     typedef void (*PdListFunction)(ObjectProxy*, t_symbol*, int argc, t_atom* argv);
     typedef void (*PdAnyFunction)(ObjectProxy*, t_symbol*, int argc, t_atom* argv);
 
-    typedef void (T::*MethodPtrBang)();
-    typedef void (T::*MethodPtrFloat)(float);
-    typedef void (T::*MethodPrtSymbol)(t_symbol*);
-    typedef void (T::*MethodPtrList)(t_symbol* s, const AtomList& l);
-
-    typedef std::map<t_symbol*, MethodPtrBang> MethodBangMap;
-    typedef std::map<t_symbol*, MethodPtrFloat> MethodFloatMap;
-    typedef std::map<t_symbol*, MethodPrtSymbol> MethodSymbolMap;
-    typedef std::map<t_symbol*, MethodPtrList> MethodListMap;
+    typedef void (T::*MethodPtrList)(t_symbol*, const AtomList&);
+    typedef std::unordered_map<t_symbol*, MethodPtrList> MethodListMap;
 
 public:
     ObjectFactory(const char* name, int flags = OBJECT_FACTORY_DEFAULT)
-        : name_(name)
-        , fn_bang_(nullptr)
+        : fn_bang_(nullptr)
         , fn_float_(nullptr)
         , fn_symbol_(nullptr)
         , fn_list_(nullptr)
@@ -112,10 +103,13 @@ public:
         if (!(flags & OBJECT_FACTORY_NO_ANY))
             setAnyFn(processAny);
 
+        // add [dump( method to dump to Pd console
         class_addmethod(c, reinterpret_cast<t_method>(dumpMethodList), SYM_DUMP(), A_NULL);
+        // add [@*?( method to output all properties
         class_addmethod(c, reinterpret_cast<t_method>(queryPropNames), SYM_PROPS_ALL_Q(), A_NULL);
 
         class_name_ = s_name;
+        // add to database
         register_base_external(class_);
     }
 
@@ -170,7 +164,7 @@ public:
     {
         t_symbol* s = gensym(name);
         class_addmethod(class_, reinterpret_cast<t_method>(defaultListMethod), s, A_GIMME, A_NULL);
-        methods_[s] = fn;
+        list_methods_[s] = fn;
     }
 
     void addAlias(const char* name)
@@ -178,11 +172,15 @@ public:
         class_addcreator(reinterpret_cast<t_newmethod>(createObject), gensym(name), A_GIMME, A_NULL);
     }
 
-    void addClick(MethodPtrList fn)
+    void useClick()
     {
-        fn_click_ = fn;
         class_addmethod(class_, reinterpret_cast<t_method>(processClick), gensym("click"),
             A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_NULL);
+    }
+
+    void useLoadBang()
+    {
+        class_addmethod(class_, reinterpret_cast<t_method>(processLoadBang), gensym("loadbang"), A_DEFFLOAT, 0);
     }
 
     void processData()
@@ -198,31 +196,33 @@ public:
 
     static void* createObject(t_symbol* name, int argc, t_atom* argv)
     {
-        ObjectProxy* x = 0;
+        ObjectProxy* x = nullptr;
+
         try {
             x = reinterpret_cast<ObjectProxy*>(pd_new(class_));
+            if (x == nullptr)
+                throw std::runtime_error("can't allocate memory for object");
 
             PdArgs args(AtomList(argc, argv), class_name_, &x->pd_obj, name);
             args.noDefaultInlet = flags_ & OBJECT_FACTORY_NO_DEFAULT_INLET;
             args.mainSignalInlet = flags_ & OBJECT_FACTORY_MAIN_SIGNAL_INLET;
 
             x->impl = new T(args);
-            x->impl->parseProperties();
         } catch (std::exception& e) {
-            x->impl = 0;
-            pd_free(&x->pd_obj.te_g.g_pd);
-            x = 0;
+            pd_error(0, "[ceammc] can't create object [%s]: %s", class_name_->s_name, e.what());
 
-            char buf[200];
-            snprintf(buf, 199, "%s", e.what());
-            pd_error(0, "[ceammc] can't create object [%s]: %s", class_name_->s_name, buf);
+            x->impl = nullptr;
+            pd_free(&x->pd_obj.te_g.g_pd);
+            return nullptr;
         } catch (...) {
-            x->impl = 0;
-            pd_free(&x->pd_obj.te_g.g_pd);
-            x = 0;
-
             pd_error(0, "[ceammc] can't create object [%s]", class_name_->s_name);
+
+            x->impl = nullptr;
+            pd_free(&x->pd_obj.te_g.g_pd);
+            return nullptr;
         }
+
+        x->impl->parseProperties();
 
         return x;
     }
@@ -258,9 +258,14 @@ public:
     }
 
     static void processClick(ObjectProxy* x, t_symbol* sel,
-        t_floatarg a, t_floatarg b, t_floatarg c, t_floatarg d, t_floatarg e)
+        t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
     {
-        (x->impl->*(fn_click_))(sel, AtomList({ a, b, c, d, e }));
+        x->impl->onClick(xpos, ypos, shift, ctrl, alt);
+    }
+
+    static void processLoadBang(ObjectProxy* x, t_floatarg action)
+    {
+        x->impl->dispatchLoadBang(action);
     }
 
     static void processDataFn(ObjectProxy* x, t_symbol*, int argc, t_atom* argv)
@@ -298,8 +303,8 @@ public:
 
     static void dumpMethodList(ObjectProxy* x)
     {
-        for (auto it = methods_.begin(); it != methods_.end(); ++it) {
-            post("[%s] method: %s", class_name_->s_name, it->first->s_name);
+        for (auto m : list_methods_) {
+            post("[%s] method: %s", class_name_->s_name, m.first->s_name);
         }
 
         x->impl->dump();
@@ -312,8 +317,8 @@ public:
 
     static void defaultListMethod(ObjectProxy* x, t_symbol* sel, int argc, t_atom* argv)
     {
-        auto it = methods_.find(sel);
-        if (it == methods_.end()) {
+        auto it = list_methods_.find(sel);
+        if (it == list_methods_.end()) {
             pd_error(x, "unknown method: %s", sel->s_name);
             return;
         }
@@ -321,7 +326,30 @@ public:
         (x->impl->*(it->second))(sel, AtomList(argc, argv));
     }
 
+    /**
+     * @brief classPointer
+     * @return pointer to Pd class
+     */
     static t_class* classPointer() { return class_; }
+
+    /**
+     * @brief className
+     * @return Pd class name
+     */
+    static t_symbol* className() { return class_name_; }
+
+    /**
+     * convert from Pd object pointer to pointer to ceammc class
+     * @param x - pd object pointer
+     * @return - pointer to ceammc object or nullptr on error
+     */
+    static T* fromObject(t_object* x)
+    {
+        if (!x)
+            return nullptr;
+
+        return reinterpret_cast<ObjectProxy*>(x)->impl;
+    }
 
 private:
     static void defaultFloatToList(ObjectProxy* x, t_floatarg f)
@@ -337,12 +365,10 @@ private:
 private:
     static t_class* class_;
     static t_symbol* class_name_;
-    static MethodListMap methods_;
+    static MethodListMap list_methods_;
     static int flags_;
-    static MethodPtrList fn_click_;
 
 private:
-    const char* name_;
     PdBangFunction fn_bang_;
     PdFloatFunction fn_float_;
     PdSymbolFunction fn_symbol_;
@@ -382,13 +408,10 @@ template <typename T>
 t_symbol* ObjectFactory<T>::class_name_ = 0;
 
 template <typename T>
-typename ObjectFactory<T>::MethodListMap ObjectFactory<T>::methods_;
+typename ObjectFactory<T>::MethodListMap ObjectFactory<T>::list_methods_;
 
 template <typename T>
 int ObjectFactory<T>::flags_ = 0;
-
-template <typename T>
-typename ObjectFactory<T>::MethodPtrList ObjectFactory<T>::fn_click_ = 0;
 
 #define CLASS_ADD_METHOD()
 

@@ -55,7 +55,7 @@ void *pd_tilde_class;
 #include "m_pd.h"
 #include "s_stuff.h"
 static t_class *pd_tilde_class;
-#define PDERROR pd_error(x, 
+#define PDERROR pd_error(x,
 
 #endif
 
@@ -292,13 +292,13 @@ gotone:
     /* but in the argument vector paths must be quoted if they contain whitespace */
     if (strchr(pdexecbuf, ' ') && *pdexecbuf != '"' && *pdexecbuf != '\'')
     {
-        snprintf(tmpbuf, MAXPDSTRING, "\"%s\"", pdexecbuf);
-        strcpy(pdexecbuf, tmpbuf);
+        if (snprintf(tmpbuf, MAXPDSTRING, "\"%s\"", pdexecbuf) >= 0)
+            strcpy(pdexecbuf, tmpbuf);
     }
     if (strchr(schedbuf, ' ') && *schedbuf != '"' && *schedbuf != '\'')
     {
-        snprintf(tmpbuf, MAXPDSTRING, "\"%s\"", schedbuf);
-        strcpy(schedbuf, tmpbuf);
+        if (snprintf(tmpbuf, MAXPDSTRING, "\"%s\"", schedbuf) >= 0)
+            strcpy(schedbuf, tmpbuf);
     }
     if (strchr(patchdir_c, ' ') && *patchdir_c != '"' && *patchdir_c != '\'')
         snprintf(patchdir, MAXPDSTRING, "\"%s\"", patchdir_c);
@@ -347,18 +347,18 @@ gotone:
     fprintf(stderr, "\n");
 #endif
 #ifdef _WIN32
-    if (_pipe(pipe1, 65536, O_BINARY | O_NOINHERIT) < 0)   
+    if (_pipe(pipe1, 65536, O_BINARY | O_NOINHERIT) < 0)
 #else
-    if (pipe(pipe1) < 0)   
+    if (pipe(pipe1) < 0)
 #endif
     {
         PDERROR "pd~: can't create pipe");
         goto fail1;
     }
 #ifdef _WIN32
-    if (_pipe(pipe2, 65536, O_BINARY | O_NOINHERIT) < 0)   
+    if (_pipe(pipe2, 65536, O_BINARY | O_NOINHERIT) < 0)
 #else
-    if (pipe(pipe2) < 0)   
+    if (pipe(pipe2) < 0)
 #endif
     {
         PDERROR "pd~: can't create pipe");
@@ -415,12 +415,8 @@ gotone:
         execv(cmdbuf, execargv);
         _exit(1);
     }
-    do {
-      unsigned int i;
-      for(i=FIXEDARG; execargv[i]; i++) {
+    for (i=FIXEDARG; execargv[i]; i++)
         free(execargv[i]);
-      }
-    } while(0);
 
 #endif /* _WIN32 */
         /* done with fork/exec or spawn; parent continues here */
@@ -601,7 +597,7 @@ static void pd_tilde_dsp(t_pd_tilde *x, t_signal **sp)
 {
     int i, n = (x->x_ninsig || x->x_noutsig ? sp[0]->s_n : 1);
     t_sample **g;
-        
+
     for (i = 0, g = x->x_insig; i < x->x_ninsig; i++, g++)
         *g = (*(sp++))->s_vec;
         /* if there were no input signals Pd still provided us with one,
@@ -610,7 +606,7 @@ static void pd_tilde_dsp(t_pd_tilde *x, t_signal **sp)
         sp++;
     for (i = 0, g = x->x_outsig; i < x->x_noutsig; i++, g++)
         *g = (*(sp++))->s_vec;
-    
+
     dsp_add(pd_tilde_perform, 2, x, n);
 }
 
@@ -897,7 +893,7 @@ static void pd_tilde_anything(t_pd_tilde *x, t_symbol *s,
 }
 
 int main()
-{       
+{
     t_class *c;
 
     c = class_new("pd_tilde~", (method)pd_tilde_new, (method)pd_tilde_free, sizeof(t_pd_tilde), (method)0L, A_GIMME, 0);

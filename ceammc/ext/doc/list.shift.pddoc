@@ -8,7 +8,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>shifts the contents of the list with linear interpolation</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>
             <keywords>list</keywords>
@@ -39,23 +39,25 @@
         <example>
             <pdascii>
 <![CDATA[
-/*change shift*/
-
 [F]  [0, 30 2000(
 |    |
 |    [line]
 |    |
 [t b f #a]   /*change list values*/
 |
-[ui.sliders @count=30 @size=200x80]
-|
+[ui.sliders @count 30 @size 200 60]
 |
 |
 |
 |
 [list.shift 10 #b]
 |
-[ui.sliders @count=30 @size=200x80]
+[ui.sliders @count 30 @size 200 60]
+|
+|
+|
+|
+[print]
 
 [X a:1->b:1]
 ]]>

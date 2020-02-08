@@ -1,4 +1,4 @@
-declare name 	"sdelay";
+declare name 	"fx.sdelay";
 declare author 	"Yann Orlarey";
 declare copyright "Grame";
 declare version "1.0";

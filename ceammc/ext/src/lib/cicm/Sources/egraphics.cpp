@@ -88,6 +88,7 @@ static void egraphics_paint(t_elayer* g, bool filled, int preserved)
             nobj->e_width = g->e_line_width;
             nobj->e_capstyle = g->e_line_capstyle;
             nobj->e_dashstyle = g->e_line_dashstyle;
+            nobj->e_smooth = g->e_line_smooth;
             nobj->e_justify = g->e_new_objects.e_justify;
             nobj->e_anchor = g->e_new_objects.e_anchor;
             nobj->e_text = g->e_new_objects.e_text;
@@ -846,6 +847,17 @@ static void egraphics_apply_matrix(t_elayer* g, t_egobj* gobj)
                 i++;
             }
         }
+    } else if (gobj->e_type == E_GOBJ_SHAPE) {
+        if (gobj->e_points[0].x == E_SHAPE_OVAL) {
+            x_p = gobj->e_points[1].x * g->e_matrix.xx + gobj->e_points[1].y * g->e_matrix.xy + g->e_matrix.x0;
+            y_p = gobj->e_points[1].x * g->e_matrix.yx + gobj->e_points[1].y * g->e_matrix.yy + g->e_matrix.y0;
+            gobj->e_points[1].x = x_p;
+            gobj->e_points[1].y = y_p;
+            x_p = gobj->e_points[2].x * g->e_matrix.xx + gobj->e_points[2].y * g->e_matrix.xy + g->e_matrix.x0;
+            y_p = gobj->e_points[2].x * g->e_matrix.yx + gobj->e_points[2].y * g->e_matrix.yy + g->e_matrix.y0;
+            gobj->e_points[2].x = x_p;
+            gobj->e_points[2].y = y_p;
+        }
     } else {
         for (i = 0; i < gobj->e_npoints; i++) {
             x_p = gobj->e_points[i].x * g->e_matrix.xx + gobj->e_points[i].y * g->e_matrix.xy + g->e_matrix.x0;
@@ -1072,4 +1084,9 @@ void egraphics_set_color_hex(t_elayer* g, uint32_t c)
 void egraphics_raise(t_elayer* over, t_elayer* l)
 {
     sys_vgui("raise %s %s\n", over->e_id->s_name, l->e_id->s_name);
+}
+
+void egraphics_set_line_smooth(t_elayer* g, t_smooth smooth)
+{
+    g->e_line_smooth = smooth;
 }

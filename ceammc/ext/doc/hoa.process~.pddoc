@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="hoa.process~">
+        <title>hoa.process~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+                <author>Pierre Guillot</author>
+                <author>Eliott Paris</author>
+                <author>Thomas Le Meur</author>
+            </authors>
+            <description>patcher loader for multichannel processing</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>hoa process 2d</keywords>
+            <since>0.8</since>
+            <also>
+                <see>hoa.2d.decoder~</see>
+            </also>
+        </meta>
+        <info>
+            <par>hoa.process~ helps the modularization of patches for ambisonic or plane waves
+            processing.</par>
+            <par>hoa.process~ is a kind of poly~ object particulary suitable for multichannel
+            ambisonic or plane wave processing. Create a patch/effect/operator, then parallelize it
+            with the hoa.process~</par>
+            <a href="hoa/hoa.2d.process~-help.pd">CICM documentation</a>
+        </info>
+        <arguments>
+            <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
+            decomposition</argument>
+            <argument name="PNAME" type="symbol">patch name</argument>
+            <argument name="DOMAIN" type="symbol" enum="harmonics planewaves">process domain:
+            harmonics or planewaves</argument>
+        </arguments>
+        <properties>
+            <property name="@n" type="int" minvalue="0" maxvalue="63" default="0" readonly="true">
+            the order of decomposition/number of planewaves</property>
+            <property name="@domain" type="symbol" readonly="true" default="harmonics"
+            enum="harmonics planewaves">process domain: harmonics or planewaves</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet type="audio">
+                <xinfo>first input harmonic/planewave</xinfo>
+            </inlet>
+            <inlet type="audio" number="...">
+                <xinfo>... input harmonic/planewave</xinfo>
+            </inlet>
+            <inlet type="audio" number="n">
+                <xinfo>n-th input harmonic/planewave</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet type="audio">first harmonic/planewave output</outlet>
+            <outlet type="audio" number="...">... harmonic/planewave output</outlet>
+            <outlet type="audio" number="n">n-th harmonic/planewave output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[hoa/hoa.soundrone]     [phasor~ 0.15]   [ui.sliders #a]
+|                       |                |
+[ui.gain~ @size 120 14] [phase->rad~]    |
+|                       |.               |
+[hoa.encoder~ 5 {w=33,i=11,o=11}]        [msg \#: @db #b]/*spread*/
+*|*
+[hoa.process~ 11 hoa/hoa.fx.gain~ planewaves {w=35,i=12,o=11} #z]
+*|* *|*
+*|* *|*
+*|* *|*
+*|* [hoa.scope~ 5 @gain 4 {i=11} @size 164 164]
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+[hoa.recomposer~ 5 11 {w=35,i=11,o=11}]
+*|*
+[hoa.decoder~ 5 binaural {w=35,i=11,o=11}]
+*|*
+[dac~ {w=35}]
+
+/* multiple [osc~] */
+
+[60 90 2.1( [50 120 4.1(
+|           |
+[list.seq 60 90 2.01]
+|
+[list.each] X [mtof]
+|
+[msg \#:]
+|.
+[hoa.process~ 11 hoa/hoa.syn.osc~ planewaves {w=45,i=12,o=11}]
+*|*
+[pan.spread~ 11 {w=45,i=12,o=2}]
+*|*
+[ui.hgain2~ @size 15 318]
+*|*
+[dac~ {w=45}]
+
+[ui.dsp~]
+[X b->z:11]
+#a @count 11 @min -60 @max 0 @size 200 55
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

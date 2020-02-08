@@ -8,7 +8,7 @@
             </authors>
             <description>convert from midi pitch to frequency in hz (with various base A and
             temperament)</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>conv</category>
             <keywords>conv freq midi</keywords>
@@ -29,7 +29,7 @@
             <property name="@a" type="float" default="440" minvalue="200" maxvalue="600">A pitch
             frequency</property>
             <property name="@t" type="symbol" default="eq"
-            enum="eq just ganassi meantone kirnberger3 pythagorean rameau valotti zarlino">
+            enum="eq just ganassi meantone kirnberger3 pythagorean valotti zarlino">
             temperament</property>
         </properties>
         <inlets>

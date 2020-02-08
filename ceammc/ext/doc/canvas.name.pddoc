@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="canvas.name">
+        <title>canvas.name</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>current canvas name</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>patch</category>
+            <keywords>canvas name</keywords>
+            <also>
+                <see>canvas.current</see>
+            </also>
+            <since>0.8</since>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output current canvas name</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>current canvas name</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[canvas.name]
+|
+[S digits=20]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

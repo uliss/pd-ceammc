@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.sync_pack">
+        <title>flow.sync_pack</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>flow pack with all hot inlets</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>flow pack hot</keywords>
+            <since>0.8</since>
+            <aliases>
+                <alias>flow.pack'</alias>
+            </aliases>
+            <also>
+                <see>pack</see>
+                <see>flow.pack</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="N" type="int" minvalue="1">number of inputs</argument>
+            <argument name="VALS" type="list">default values for all inlets. If not enough default values given it sets to 0.</argument>
+        </arguments>
+        <inlets dynamic="true">
+            <inlet number="1">
+                <xinfo on="bang">output current value</xinfo>
+                <xinfo on="float">change first packed value and output</xinfo>
+                <xinfo on="symbol">change first packed value and output</xinfo>
+                <xinfo on="list">propagate list values to other inlets and output</xinfo>
+                <xinfo on="any">propagate message values to other inlets and output</xinfo>
+            </inlet>
+            <inlet number="...">
+                <xinfo on="bang">output current value</xinfo>
+                <xinfo on="float">change ... packed value and output</xinfo>
+                <xinfo on="symbol">change ... packed value and output</xinfo>
+                <xinfo on="list">propagate ... list values among rest inlets and output</xinfo>
+            </inlet>
+            <inlet number="n">
+                <xinfo on="bang">output current value and output</xinfo>
+                <xinfo on="float">change n-th packed value and output</xinfo>
+                <xinfo on="symbol">change n-th packed value and output</xinfo>
+                <xinfo on="list">propagate n-th list values among rest inlets and output</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>packed list or message (if message input)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]  [F]   [F]  [1 2(   [1 2 3( [F]
+|    |     |    |       |       |
+|    |     |.   |       |       |..
+[flow.pack' 3 0 0 ABC {w=20}       ]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

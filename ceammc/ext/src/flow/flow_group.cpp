@@ -22,7 +22,10 @@ FlowGroup::FlowGroup(const PdArgs& a)
 
     group_size_ = new IntProperty("@by", positionalFloatArgument(0, 1));
     createProperty(group_size_);
-    createCbProperty("@free", &FlowGroup::propFree);
+
+    createCbProperty("@free", &FlowGroup::propFree)
+        ->info()
+        .setType(PropertyInfoType::INTEGER);
 }
 
 void FlowGroup::onFloat(float v)

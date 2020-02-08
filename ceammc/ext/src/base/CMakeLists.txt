@@ -2,6 +2,9 @@ include_directories(${CMAKE_BINARY_DIR}) # for config.h
 
 set(BASE_SOURCES
     canvas_current.cpp
+    canvas_dir.cpp
+    canvas_name.cpp
+    canvas_path.cpp
     canvas_top.cpp
     expand_env.cpp
     function.cpp
@@ -44,6 +47,7 @@ list(APPEND BASE_SOURCES
 # sound
 list(APPEND BASE_SOURCES
     base_click.cpp
+    base_dac.cpp
     gain.cpp
     matrix.cpp
     mix.cpp

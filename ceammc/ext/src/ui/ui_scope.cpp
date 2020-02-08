@@ -14,7 +14,7 @@
 
 #include "ui_scope.h"
 #include "ceammc_convert.h"
-#include "ceammc_dsp_ui.h"
+#include "ceammc_ui.h"
 
 static const size_t N_SAMPLES = 150;
 
@@ -38,6 +38,19 @@ UIScope::UIScope()
     , prop_window(2048)
     , prop_refresh(50)
 {
+    initPopupMenu("scope",
+        { { _("Zoom 100%"), [this](const t_pt&) {
+               setProperty(gensym("min"), AtomList(-1));
+               setProperty(gensym("max"), AtomList(1));
+           } },
+            { _("Zoom 200%"), [this](const t_pt&) {
+                 setProperty(gensym("min"), AtomList(-0.5));
+                 setProperty(gensym("max"), AtomList(0.5));
+             } },
+            { _("Zoom 50%"), [this](const t_pt&) {
+                 setProperty(gensym("min"), AtomList(-2));
+                 setProperty(gensym("max"), AtomList(2));
+             } } });
 }
 
 void UIScope::okSize(t_rect* newrect)
@@ -95,7 +108,7 @@ void UIScope::paintScope()
 {
     // zero range error check
     if (prop_max - prop_min == 0) {
-        DSP_ERR << "zero value range";
+        UI_ERR << "zero value range";
         return;
     }
 
@@ -156,7 +169,7 @@ void UIScope::m_freeze(t_float f)
 void UIScope::m_scale(t_float f)
 {
     if (f <= 0) {
-        DSP_ERR << "invalid scale value: " << f;
+        UI_ERR << "invalid scale value: " << f;
         return;
     }
 
@@ -169,7 +182,7 @@ void UIScope::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, lo
     if (modifiers == EMOD_SHIFT) {
         setProperty(gensym("min"), AtomList(prop_min * 0.8));
         setProperty(gensym("max"), AtomList(prop_max * 0.8));
-    } else if (modifiers == EMOD_CTRL) {
+    } else if (modifiers == EMOD_ALT) {
         setProperty(gensym("min"), AtomList(prop_min * 1.2));
         setProperty(gensym("max"), AtomList(prop_max * 1.2));
     }
@@ -177,28 +190,47 @@ void UIScope::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, lo
 
 void UIScope::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
+    // if modifiers - use single click
     if (modifiers != 0)
         onMouseDown(view, pt, pt, modifiers);
     else
         freeze_ = !freeze_;
 }
 
+void UIScope::onMouseWheel(const t_pt& pt, long modifiers, float delta)
+{
+    static t_symbol* SYM_MIN = gensym("min");
+    static t_symbol* SYM_MAX = gensym("max");
+    static t_symbol* SYM_WINDOW = gensym("window");
+
+    if (modifiers == EMOD_SHIFT) {
+        float k = (1 + delta * 0.05);
+        setProperty(SYM_WINDOW, AtomList(prop_window * k));
+    } else {
+        float k = (1 + delta * 0.05);
+        setProperty(SYM_MIN, AtomList(prop_min * k));
+        setProperty(SYM_MAX, AtomList(prop_max * k));
+    }
+}
+
 void UIScope::setup()
 {
-    UIDspFactory<UIScope> obj("ui.scope~");
+    UIObjectFactory<UIScope> obj("ui.scope~");
     obj.setDefaultSize(150, 100);
 
-    obj.useMouseEvents(UI_MOUSE_DBL_CLICK | UI_MOUSE_DOWN);
+    obj.useMouseEvents(UI_MOUSE_DBL_CLICK | UI_MOUSE_DOWN | UI_MOUSE_WHEEL);
+    obj.usePopup();
     obj.addMethod("freeze", &UIScope::m_freeze);
     obj.addMethod("scale", &UIScope::m_scale);
 
-    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIScope::prop_color_active);
-    obj.addProperty("max", _("Maximum value"), 1, &UIScope::prop_max, _("Bounds"));
-    obj.addProperty("min", _("Minimum value"), -1, &UIScope::prop_min, _("Bounds"));
+    obj.addColorProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIScope::prop_color_active);
+    obj.addFloatProperty("max", _("Maximum value"), 1, &UIScope::prop_max, _("Bounds"));
+    obj.addFloatProperty("min", _("Minimum value"), -1, &UIScope::prop_min, _("Bounds"));
     obj.addIntProperty("window", _("Window size"), 2048, &UIScope::prop_window, _("Main"));
     obj.setPropertyRange("window", 512, 4096);
     obj.addIntProperty("refresh", _("Refresh time (ms)"), 40, &UIScope::prop_refresh, _("Main"));
     obj.setPropertyRange("refresh", 10, 1000);
+    obj.setPropertyUnits("refresh", "msec");
 
     obj.hideProperty("send");
 }

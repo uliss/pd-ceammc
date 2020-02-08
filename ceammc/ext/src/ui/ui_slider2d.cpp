@@ -35,22 +35,41 @@ static t_rgba GUIDE_LINE_COLOR = hex_to_rgba("#00C0F0");
 static const float GUIDE_LINE_WIDTH = 0.5f;
 
 UISlider2D::UISlider2D()
-    : prop_x_min(-1)
-    , prop_x_max(1)
-    , prop_y_min(-1)
-    , prop_y_max(1)
+    : prop_x_left(-1)
+    , prop_x_right(1)
+    , prop_y_top(1)
+    , prop_y_bottom(-1)
     , prop_show_range(1)
     , prop_show_grid(0)
     , txt_font(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , txt_xrange_(txt_font.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
     , txt_yrange_(txt_font.font(), ColorRGBA::black(), ETEXT_DOWN_RIGHT, ETEXT_JRIGHT)
     , knob_layer_(asEBox(), gensym("knob_layer"))
-    , x_pos_(0.5f)
-    , y_pos_(0.5f)
+    , x_pos_(convert::lin2lin<float, 0, 1>(0.5, prop_x_left, prop_x_right))
+    , y_pos_(convert::lin2lin<float, 0, 1>(0.5, prop_y_top, prop_y_bottom))
     , mouse_down_(false)
-    , right_click_(false)
 {
     createOutlet();
+
+    auto xmid = [this] { return convert::lin2lin<t_float, 0, 1>(0.5, prop_x_left, prop_x_right); };
+    auto ymid = [this] { return convert::lin2lin<t_float, 0, 1>(0.5, prop_y_top, prop_y_bottom); };
+
+    initPopupMenu("slider2d",
+        { { _("center"), [this, xmid, ymid](const t_pt&) {
+               onList(AtomList(xmid(), ymid()));
+           } },
+            { _("left center"), [this, ymid](const t_pt&) {
+                 onList(AtomList(prop_x_left, ymid()));
+             } },
+            { _("right center"), [this, ymid](const t_pt&) {
+                 onList(AtomList(prop_x_right, ymid()));
+             } },
+            { _("top center"), [this, xmid](const t_pt&) {
+                 onList(AtomList(xmid(), prop_y_top));
+             } },
+            { _("bottom center"), [this, xmid](const t_pt&) {
+                 onList(AtomList(xmid(), prop_y_bottom));
+             } } });
 }
 
 void UISlider2D::okSize(t_rect* newrect)
@@ -80,13 +99,22 @@ void UISlider2D::paintBackground()
         return;
 
     if (prop_show_grid) {
-        p.setColor(prop_color_border);
         const float X_GRID_STEP = r.width / 10;
         const float Y_GRID_STEP = r.height / 10;
 
+        // draw center cross
+        p.setLineWidth(3);
+        p.setColor(rgba_addContrast(prop_color_background, 0.1));
+        p.drawLine(5 * X_GRID_STEP, -1, 5 * X_GRID_STEP, r.height + 2);
+        p.drawLine(-1, 5 * Y_GRID_STEP, r.width + 2, 5 * Y_GRID_STEP);
+        p.setLineWidth(1);
+        p.setColor(rgba_addContrast(prop_color_background, -0.1));
+
+        // draw horizontal lines
         for (int i = 1; i < 10; i++)
             p.drawLine(i * X_GRID_STEP, -1, i * X_GRID_STEP, r.height + 2);
 
+        // draw vertical lines
         for (int i = 1; i < 10; i++)
             p.drawLine(-1, i * Y_GRID_STEP, r.width + 2, i * Y_GRID_STEP);
     }
@@ -108,8 +136,8 @@ void UISlider2D::paintKnob()
     UIPainter p = knob_layer_.painter(r);
 
     if (p) {
-        const float x = x_pos_ * r.width;
-        const float y = y_pos_ * r.height;
+        const float x = convert::lin2lin_clip<float>(x_pos_, prop_x_left, prop_x_right, 0, r.width);
+        const float y = convert::lin2lin<float>(y_pos_, prop_y_top, prop_y_bottom, 0, r.height);
 
         // when grid shown - no guide lines are needed
         if (!prop_show_grid) {
@@ -153,48 +181,8 @@ void UISlider2D::onList(const AtomList& lst)
     output();
 }
 
-void UISlider2D::onPopup(t_symbol* menu_name, long item_idx)
-{
-    if (menu_name != gensym("popup"))
-        return;
-
-    t_float xcenter = convert::lin2lin<t_float>(0.5, 0, 1, prop_x_min, prop_x_max);
-    t_float ycenter = convert::lin2lin<t_float>(0.5, 0, 1, prop_y_min, prop_y_max);
-
-    switch (item_idx) {
-    case 0:
-        onList(AtomList(xcenter, ycenter));
-        break;
-    case 1:
-        onList(AtomList(prop_x_min, ycenter));
-        break;
-    case 2:
-        onList(AtomList(prop_x_max, ycenter));
-        break;
-    case 3:
-        onList(AtomList(xcenter, prop_y_min));
-        break;
-    case 4:
-        onList(AtomList(xcenter, prop_y_max));
-        break;
-    }
-}
-
 void UISlider2D::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    // right click
-    if (modifiers & EMOD_RIGHT) {
-        UIPopupMenu menu(asEObj(), "popup", abs_pt);
-        menu.addItem(_("center"));
-        menu.addItem(_("left center"));
-        menu.addItem(_("right center"));
-        menu.addItem(_("top center"));
-        menu.addItem(_("bottom center"));
-        right_click_ = true;
-        return;
-    }
-
-    right_click_ = false;
     mouse_down_ = true;
     setMouse(pt.x, pt.y);
     redrawKnob();
@@ -210,11 +198,6 @@ void UISlider2D::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 
 void UISlider2D::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
-    if (right_click_) {
-        right_click_ = false;
-        return;
-    }
-
     mouse_down_ = false;
     setMouse(pt.x, pt.y);
     redrawKnob();
@@ -281,8 +264,8 @@ bool UISlider2D::setRealValue(const AtomList& lst)
         return false;
     }
 
-    x_pos_ = clip<t_float>((x - prop_x_min) / xRange(), 0, 1);
-    y_pos_ = clip<t_float>((y - prop_y_min) / yRange(), 0, 1);
+    x_pos_ = clip_any<t_float>(x, prop_x_left, prop_x_right);
+    y_pos_ = clip_any<t_float>(y, prop_y_top, prop_y_bottom);
     return true;
 }
 
@@ -293,12 +276,12 @@ AtomList UISlider2D::realValue() const
 
 t_float UISlider2D::realXValue() const
 {
-    return xRange() * x_pos_ + prop_x_min;
+    return clip_any<float>(x_pos_, prop_x_left, prop_x_right);
 }
 
 t_float UISlider2D::realYValue() const
 {
-    return yRange() * y_pos_ + prop_y_min;
+    return clip_any<float>(y_pos_, prop_y_top, prop_y_bottom);
 }
 
 void UISlider2D::output()
@@ -336,12 +319,12 @@ void UISlider2D::propSetXValue(const AtomList& lst)
         return;
     }
 
-    x_pos_ = clip<t_float>((x - prop_x_min) / xRange(), 0, 1);
-
     if (xRange() == 0) {
         UI_ERR << "invalid x-range: " << xRange();
         return;
     }
+
+    x_pos_ = clip_any<t_float>(x, prop_x_left, prop_x_right);
 
     redrawKnob();
 }
@@ -359,7 +342,8 @@ void UISlider2D::propSetYValue(const AtomList& lst)
         return;
     }
 
-    y_pos_ = clip<t_float>((y - prop_y_min) / yRange(), 0, 1);
+    y_pos_ = clip_any<t_float>(y, prop_y_top, prop_y_bottom);
+
     redrawKnob();
 }
 
@@ -369,10 +353,10 @@ void UISlider2D::setup()
 
     obj.setDefaultSize(100, 100);
 
-    obj.addProperty("x_min", _("Minimum X-value"), -1, &UISlider2D::prop_x_min, "Bounds");
-    obj.addProperty("x_max", _("Maximum X-value"), 1, &UISlider2D::prop_x_max, "Bounds");
-    obj.addProperty("y_min", _("Minimum Y-value"), -1, &UISlider2D::prop_y_min, "Bounds");
-    obj.addProperty("y_max", _("Maximum Y-value"), 1, &UISlider2D::prop_y_max, "Bounds");
+    obj.addProperty("x_left", _("Left X-value"), -1, &UISlider2D::prop_x_left, "Bounds");
+    obj.addProperty("x_right", _("Right X-value"), 1, &UISlider2D::prop_x_right, "Bounds");
+    obj.addProperty("y_top", _("Top Y-value"), 1, &UISlider2D::prop_y_top, "Bounds");
+    obj.addProperty("y_bottom", _("Bottom Y-value"), -1, &UISlider2D::prop_y_bottom, "Bounds");
 
     obj.addProperty("x_range", &UISlider2D::propXRange, 0);
     obj.addProperty("y_range", &UISlider2D::propYRange, 0);
@@ -387,6 +371,8 @@ void UISlider2D::setup()
     obj.useBang();
 
     obj.useMouseEvents(UI_MOUSE_UP | UI_MOUSE_DOWN | UI_MOUSE_DRAG);
+    obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
+    obj.usePopup();
 
     obj.addMethod("set", &UISlider2D::m_set);
     obj.addMethod("move", &UISlider2D::m_move);
@@ -407,20 +393,20 @@ void UISlider2D::redrawAll()
 
 void UISlider2D::setMouse(float x, float y)
 {
-    x_pos_ = clip<float>(x / width(), 0, 1);
-    y_pos_ = clip<float>(y / height(), 0, 1);
+    x_pos_ = convert::lin2lin_clip<float>(x, 0, width(), prop_x_left, prop_x_right);
+    y_pos_ = convert::lin2lin_clip<float>(y, 0, height(), prop_y_top, prop_y_bottom);
 }
 
 void UISlider2D::updateLabels()
 {
     char buf[64];
-    snprintf(buf, 64, "X: [%g..%g]", prop_x_min, prop_x_max);
+    snprintf(buf, 64, "X: [%g..%g]", prop_x_left, prop_x_right);
 
     const float xoff = 2 * zoom();
     const float yoff = 3 * zoom();
     txt_xrange_.set(buf, xoff, yoff, 100, 20);
 
-    snprintf(buf, 64, "Y: [%g..%g]", prop_y_min, prop_y_max);
+    snprintf(buf, 64, "Y: [%g..%g]", prop_y_top, prop_y_bottom);
     txt_yrange_.set(buf, width() - xoff, height() - yoff, 100, 20);
 }
 

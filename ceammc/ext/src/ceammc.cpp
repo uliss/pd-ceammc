@@ -22,7 +22,7 @@ t_class* ceammc_class = 0;
 static void ceammc_info_message()
 {
     post("\nCEAMMC library\n"
-         "       Centre for Electroacoustic Music Moscow Conservatory, © 2016-2019\n"
+         "       Centre for Electroacoustic Music Moscow Conservatory, © 2016-2020\n"
          "       authors: Serge Poltavsky and Alex Nadzharov\n"
          "       version: %s\n"
          "       url: %s\n"

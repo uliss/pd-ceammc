@@ -23,6 +23,7 @@ extern "C" {
 #include "g_canvas.h"
 #include "m_imp.h"
 void pd_init();
+void obj_sendinlet(t_object* x, int n, t_symbol* s, int argc, t_atom* argv);
 }
 
 #include <exception>
@@ -36,7 +37,8 @@ typedef t_object* (*t_newgimme)(t_symbol* s, int argc, t_atom* argv);
 using namespace ceammc;
 
 pd::External::External(const char* name, const AtomList& lst)
-    : obj_(0)
+    : obj_(nullptr)
+    , parent_(nullptr)
 {
     try {
         t_symbol* OBJ_NAME = gensym(name);
@@ -64,6 +66,21 @@ pd::External::External(const char* name, const AtomList& lst)
 pd::External::~External()
 {
     if (obj_) {
+        if (parent_) {
+            t_gobj* y = &obj_->te_g;
+
+            if (parent_->gl_list == y) {
+                parent_->gl_list = y->g_next;
+            } else {
+                for (auto g = parent_->gl_list; g; g = g->g_next) {
+                    if (g->g_next == y) {
+                        g->g_next = y->g_next;
+                        break;
+                    }
+                }
+            }
+        }
+
         pd_free(&obj_->te_g.g_pd);
     }
 }
@@ -134,7 +151,7 @@ bool pd::External::connectFrom(int outn, t_object* src, int inln)
     }
 
     if (inln >= numInlets()) {
-        printf("[%s: connectFrom %s] invalid destination inlet: %dn",
+        printf("[%s: connectFrom %s] invalid destination inlet: %d\n",
             OBJ_NAME(obj_), OBJ_NAME(src), inln);
         return false;
     }
@@ -160,17 +177,17 @@ t_object* pd::External::object()
     return obj_;
 }
 
-void pd::External::bang()
+void pd::External::setParent(t_canvas* cnv)
 {
-    if (!obj_)
-        return;
-
-    pd_bang(&obj_->te_g.g_pd);
+    parent_ = cnv;
 }
 
 void pd::External::sendBang()
 {
-    bang();
+    if (!obj_)
+        return;
+
+    pd_bang(pd());
 }
 
 void pd::External::sendFloat(t_float v)
@@ -178,7 +195,7 @@ void pd::External::sendFloat(t_float v)
     if (!obj_)
         return;
 
-    pd_float(&obj_->te_g.g_pd, v);
+    pd_float(pd(), v);
 }
 
 void pd::External::sendSymbol(t_symbol* s)
@@ -186,7 +203,7 @@ void pd::External::sendSymbol(t_symbol* s)
     if (!obj_)
         return;
 
-    pd_symbol(&obj_->te_g.g_pd, s);
+    pd_symbol(pd(), s);
 }
 
 void pd::External::sendList(const AtomList& l)
@@ -194,7 +211,51 @@ void pd::External::sendList(const AtomList& l)
     if (!obj_)
         return;
 
-    pd_list(&obj_->te_g.g_pd, &s_list, l.size(), l.toPdData());
+    pd_list(pd(), &s_list, l.size(), l.toPdData());
+}
+
+void pd::External::sendBangTo(size_t inlet)
+{
+    if (inlet == 0)
+        sendBang();
+    else {
+        External pd_b("bang");
+        if (pd_b.connectTo(0, *this, inlet))
+            pd_bang(pd_b.pd());
+    }
+}
+
+void pd::External::sendFloatTo(t_float v, size_t inlet)
+{
+    if (inlet == 0)
+        sendFloat(v);
+    else {
+        External pd_f("float");
+        if (pd_f.connectTo(0, *this, inlet))
+            pd_float(pd_f.pd(), v);
+    }
+}
+
+void pd::External::sendSymbolTo(t_symbol* s, size_t inlet)
+{
+    if (inlet == 0)
+        sendSymbol(s);
+    else {
+        External pd_s("symbol");
+        if (pd_s.connectTo(0, *this, inlet))
+            pd_symbol(pd_s.pd(), s);
+    }
+}
+
+void pd::External::sendListTo(const AtomList& l, size_t inlet)
+{
+    if (inlet == 0)
+        sendList(l);
+    else {
+        External pd_l("list");
+        if (pd_l.connectTo(0, *this, inlet))
+            pd_list(pd_l.pd(), &s_list, l.size(), l.toPdData());
+    }
 }
 
 void pd::External::sendMessage(t_symbol* msg, const AtomList& args)
@@ -203,6 +264,23 @@ void pd::External::sendMessage(t_symbol* msg, const AtomList& args)
         return;
 
     pd_typedmess(&obj_->te_g.g_pd, msg, args.size(), args.toPdData());
+}
+
+void pd::External::sendMessage(const Message& m)
+{
+    if (!obj_)
+        return;
+
+    if (m.isBang())
+        sendBang();
+    else if (m.isFloat())
+        sendFloat(m.atomValue().asFloat());
+    else if (m.isSymbol())
+        sendSymbol(m.atomValue().asSymbol());
+    else if (m.isList())
+        sendList(m.listValue());
+    else
+        sendMessage(m.atomValue().asSymbol(), m.listValue());
 }
 
 int pd::External::numOutlets() const
@@ -336,7 +414,8 @@ CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)
     l.append(400); // height
     l.append(10); // font size
 
-    canvas_setcurrent(0);
+    if (canvas_getcurrent())
+        canvas_unsetcurrent(canvas_getcurrent());
 
     if (platform::is_path_relative(name)) {
         glob_setfilename(0, gensym(name), gensym("~"));
@@ -351,10 +430,11 @@ CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)
 
     assert(l.size() == 5);
     t_canvas* cnv = canvas_new(0, gensym(name), l.size(), l.toPdData());
-    cnv->gl_loading = 0;
 
     if (!cnv)
         return ptr;
+
+    cnv->gl_loading = 0;
 
     ptr.reset(new Canvas(cnv));
     canvas_map_[name] = ptr;
@@ -377,4 +457,36 @@ PureData& PureData::instance()
 {
     static PureData pd;
     return pd;
+}
+
+t_class* pd::object_class(t_object* x)
+{
+    if (!x)
+        return nullptr;
+
+    return x->te_g.g_pd;
+}
+
+t_symbol* pd::object_name(t_object* x)
+{
+    if (!x)
+        return &s_;
+
+    return x->te_g.g_pd->c_name;
+}
+
+t_symbol* pd::object_dir(t_object* x)
+{
+    if (!x)
+        return &s_;
+
+    return x->te_g.g_pd->c_externdir;
+}
+
+void pd::object_bang(t_object* x)
+{
+    if (!x || !x->te_g.g_pd->c_bangmethod)
+        return;
+
+    x->te_g.g_pd->c_bangmethod(&x->te_g.g_pd);
 }

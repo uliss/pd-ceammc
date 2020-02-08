@@ -18,7 +18,7 @@ def allExternalsWithAliases():
     return res
 
 def allDocFilesInCmake():
-    r_obj = re.compile(r'\s*([\w\d\.~^+-]+)\s*')
+    r_obj = re.compile(r'\s*([\w\d\.~^+-@]+)\s*')
     doc_obj = set()
     with open("docs.cmake", "r") as f:
         for l in f.readlines():

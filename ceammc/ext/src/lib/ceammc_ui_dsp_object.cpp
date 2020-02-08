@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_ui_dsp_object.h"
-#include "ceammc_dsp_ui.h"
 #include "ceammc_preset.h"
+#include "ceammc_ui.h"
 
 #include "ceammc_cicm.h"
 #include "m_pd.h"
@@ -74,13 +74,13 @@ UIDspObject::UIDspObject()
     : name_(&s_)
     , bg_layer_(asEBox(), gensym(BG_LAYER))
     , old_preset_id_(s_null)
-    , cursor_(ECURSOR_LEFT_PTR)
     , samplerate_(44100)
     , blocksize_(0)
     , use_presets_(false)
     , prop_color_background(rgba_white)
     , prop_color_border(rgba_black)
     , prop_color_label(rgba_black)
+    , prop_mouse_events(0)
 {
 }
 
@@ -211,7 +211,7 @@ void UIDspObject::onMouseEnter(t_object* view, const t_pt& pt, long modifiers)
 {
 }
 
-void UIDspObject::onMouseWheel(t_object* view, const t_pt& pt, long modifiers, double delta)
+void UIDspObject::onMouseWheel(const t_pt& pt, long modifiers, float delta)
 {
 }
 
@@ -223,9 +223,22 @@ void UIDspObject::onPopup(t_symbol* menu_name, long item_idx)
 {
 }
 
+void UIDspObject::showPopup(const t_pt& pt, const t_pt& abs_pt)
+{
+}
+
+bool UIDspObject::outputMouseEvents() const
+{
+    return prop_mouse_events;
+}
+
 void UIDspObject::onPropChange(t_symbol* /*prop_name*/)
 {
     redrawBGLayer();
+}
+
+void UIDspObject::onZoom(t_float z)
+{
 }
 
 void UIDspObject::okSize(t_rect* newrect)
@@ -400,17 +413,9 @@ float UIDspObject::zoom() const
     return ebox_getzoom(asEBox());
 }
 
-t_cursor UIDspObject::cursor() const
-{
-    return cursor_;
-}
-
 void UIDspObject::setCursor(t_cursor c)
 {
-    if (cursor_ != c) {
-        ebox_set_cursor(asEBox(), c);
-        cursor_ = c;
-    }
+    ebox_set_cursor(asEBox(), c);
 }
 
 void UIDspObject::presetInit()

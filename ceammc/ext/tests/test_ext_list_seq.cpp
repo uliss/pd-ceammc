@@ -151,7 +151,7 @@ TEST_CASE("list.seq", "[externals]")
     {
         ListSeqTest t("list.seq", L());
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_LIST_AT_OUTLET(0, t, LF(0.f));
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
 
         WHEN_SEND_LIST_TO(0, t, LF(4));
         REQUIRE_LIST_AT_OUTLET(0, t, LA(0.f, 1, 2, 3));

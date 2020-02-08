@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>remove substring from input string</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>string</category>
             <keywords>remove</keywords>
@@ -20,7 +20,7 @@
             <argument name="STR" type="symbol">substring to remove</argument>
         </arguments>
         <properties>
-            <property name="@mode" type="symbol" enum="all,first,last" default="all">remove
+            <property name="@mode" type="symbol" enum="all first last" default="all">remove
             mode</property>
             <property name="@all" type="alias">alias to @mode all - remove all occurences in input
             string</property>

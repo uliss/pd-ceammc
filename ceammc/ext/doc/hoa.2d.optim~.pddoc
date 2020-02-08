@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="hoa.2d.optim~">
+        <title>hoa.2d.optim~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+                <author>Pierre Guillot</author>
+                <author>Eliott Paris</author>
+                <author>Thomas Le Meur</author>
+            </authors>
+            <description>a 2D ambisonic optimization tool</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>hoa optim 2d</keywords>
+            <since>0.8</since>
+            <also>
+                <see>hoa.2d.decoder~</see>
+            </also>
+            <aliases>
+                <alias>hoa.optim~</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Weights the circular harmonics signals depending on the ambisonic optimization. It
+            can be "basic" for no optimization, "maxre" or "inphase".</par>
+            <par>If no optimization-mode is specified, the optimization will be inphase.</par>
+            <par>Maxre optimization is used when audience is confined to the center of the
+            circle.</par>
+            <par>Inphase optimization is used when the audience covers all the circle.</par>
+            <par>NB: This is theoretical, the best choice is to trust your ears.</par>
+            <a href="hoa/hoa.2d.optim~-help.pd">CICM documentation</a>
+        </info>
+        <arguments>
+            <argument name="ORDER" type="int" minvalue="1">the order of decomposition</argument>
+            <argument name="MODE" type="symbol" enum="basic maxre inphase">optimization
+            mode</argument>
+        </arguments>
+        <properties>
+            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
+            readonly="true">the order of decomposition</property>
+            <property name="@mode" type="symbol" enum="basic maxre inphase" default="basic">
+            optimization mode</property>
+            <property name="@basic" type="alias">alias for @mode basic.</property>
+            <property name="@maxre" type="alias">alias for @mode maxre.</property>
+            <property name="@inphase" type="alias">alias for @mode inphase.</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet type="audio">
+                <xinfo>first input harmonic</xinfo>
+            </inlet>
+            <inlet type="audio" number="...">
+                <xinfo>... input harmonic</xinfo>
+            </inlet>
+            <inlet type="audio" number="n">
+                <xinfo>n-th input harmonic</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet type="audio">first harmonic output</outlet>
+            <outlet type="audio" number="...">... harmonic output</outlet>
+            <outlet type="audio" number="n">n-th harmonic output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[hoa/hoa.soundrone]     [phasor~ 0.15]
+|                       |
+[ui.gain~ @size 120 14] [phase->rad~] [ui.menu basic maxre inphase]
+|                       |.            |
+[hoa.encoder~ 5 {w=25,i=11,o=11}]     [@mode $2(
+*|*                                   |
+[hoa.optim~ 5 inphase {w=25,i=11,o=11}]
+*|* *|*
+*|* [hoa.scope~ 5 @gain 4 {i=11} @size 164 164]
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+[hoa.decoder~ 5 regular 11 {w=25,i=11,o=11}]
+*|*
+[xdac~ 1:11 {w=25,i=11}]
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

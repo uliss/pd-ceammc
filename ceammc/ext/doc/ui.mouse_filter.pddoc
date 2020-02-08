@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.mouse_filter">
+        <title>ui.mouse_filter</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>filter mouse events from ui objects</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui mouse filter events</keywords>
+            <since>0.8</since>
+            <aliases>
+                <alias>ui.mf</alias>
+            </aliases>
+            <also>
+                <see>ui.mouse_route</see>
+                <see view="link">ui.rslider</see>
+            </also>
+        </meta>
+        <info>
+            <par>pass only specified mouse events from ui.* objects</par>
+        </info>
+        <properties>
+            <property name="@mouse_up" type="int" default="0" enum="0 1">passing a @mouse_up
+            events</property>
+            <property name="@mouse_down" type="int" default="0" enum="0 1">passing a @mouse_down
+            events</property>
+            <property name="@mouse_leave" type="int" default="0" enum="0 1">passing a @mouse_leave
+            events</property>
+            <property name="@mouse_enter" type="int" default="0" enum="0 1">passing a @mouse_enter
+            events</property>
+            <property name="@mouse_move" type="int" default="0" enum="0 1">passing a @mouse_move
+            events</property>
+            <property name="@mouse_drag" type="int" default="0" enum="0 1">passing a @mouse_drag
+            events</property>
+            <property name="@up" type="alias">alias to @mouse_up 1 property</property>
+            <property name="@down" type="alias">alias to @mouse_down 1 property</property>
+            <property name="@leave" type="alias">alias to @mouse_leave 1 property</property>
+            <property name="@enter" type="alias">alias to @mouse_enter 1 property</property>
+            <property name="@move" type="alias">alias to @mouse_move 1 property</property>
+            <property name="@drag" type="alias">alias to @mouse_drag 1 property</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo>input messages from ui object</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>passed messages from ui object</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.rslider @mouse_events 1] [ui.rslider @mouse_events 1]
+|                            |
+[ui.mouse_filter @up]        [ui.mouse_filter @drag]
+|                            |
+[ui.display @display_type=1] [ui.display @display_type=1]
+
+[ui.rslider @mouse_events 1]
+|
+[ui.mouse_filter @down]
+|
+[ui.display @display_type=1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

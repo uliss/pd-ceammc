@@ -7,13 +7,13 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>search specified items in input list</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>list</category>
             <keywords>list search find</keywords>
             <since>0.6</since>
             <also>
-                <see>list.index</see>
+                <see>list.^search</see>
             </also>
         </meta>
         <info>

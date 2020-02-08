@@ -8,15 +8,20 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>GUI for turning DSP on/off</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category view="link">ui</category>
             <keywords>ui dsp</keywords>
             <since>0.1</since>
         </meta>
         <mouse>
+            <event editmode="false" type="left-click">toggle DSP processing</event>
             <event editmode="false" type="right-click">opens popup menu with items: Audio
             Settings</event>
+            <event editmode="false" type="right-click" keys="Shift">open object help</event>
+            <event editmode="false" type="right-click" keys="Alt">open properties dialog</event>
+            <event editmode="true" type="right-click" keys="Shift">open object help</event>
+            <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
         </mouse>
         <methods>
             <method name="start">starts audio processing</method>

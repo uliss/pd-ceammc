@@ -10,10 +10,27 @@ if(WIN32)
     elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
         set(CEAMMC_DISTRIB_ARCH "32-bit")
     endif()
+
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/pd.iss ${CMAKE_BINARY_DIR})
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fix_dll_deps.sh ${CMAKE_BINARY_DIR} @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win_upload_to_github.sh ${CMAKE_BINARY_DIR} @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win_fix_pddoc_key_modifiers.sh ${CMAKE_BINARY_DIR} @ONLY)
+
+    add_custom_target(install0
+        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:ceammc_core> "${CMAKE_INSTALL_PREFIX}/${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc"
+        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:ceammc> "${CMAKE_INSTALL_PREFIX}/${PD_INTERNAL_EXT_INSTALL_PATH}/ceammc")
+    add_dependencies(install0 ceammc ceammc_core)
+
+    add_custom_target(run0 COMMAND "${CMAKE_INSTALL_PREFIX}/${PD_EXE_INSTALL_PATH}/$<TARGET_FILE_NAME:pd>")
+    add_dependencies(run0 install0)
+    add_custom_target(run1 COMMAND "${CMAKE_INSTALL_PREFIX}/${PD_EXE_INSTALL_PATH}/$<TARGET_FILE_NAME:pd>" -d 1)
+    add_dependencies(run1 install0)
+    add_custom_target(run2 COMMAND "${CMAKE_INSTALL_PREFIX}/${PD_EXE_INSTALL_PATH}/$<TARGET_FILE_NAME:pd>" -d 2)
+    add_dependencies(run2 install0)
+    add_custom_target(run3 COMMAND "${CMAKE_INSTALL_PREFIX}/${PD_EXE_INSTALL_PATH}/$<TARGET_FILE_NAME:pd>" -d 3)
+    add_dependencies(run3 install0)
 endif()
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/pd.iss ${CMAKE_BINARY_DIR})
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fix_dll_deps.sh ${CMAKE_BINARY_DIR})
 
 if(WIN32 OR MSYS OR MINGW)
     install(FILES fonts/DejaVuSansMono.ttf
@@ -48,4 +65,4 @@ if(WIN32)
     install(DIRECTORY fonts DESTINATION ${CMAKE_INSTALL_PREFIX})
 endif()
 
-add_custom_target(window_installer SOURCES pd.iss)
+add_custom_target(window_installer SOURCES fix_dll_deps.sh win_upload_to_github.sh pd.iss)

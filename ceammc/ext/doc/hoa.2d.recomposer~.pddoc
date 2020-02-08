@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="hoa.2d.recomposer~">
+        <title>hoa.2d.recomposer~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+                <author>Pierre Guillot</author>
+                <author>Eliott Paris</author>
+                <author>Thomas Le Meur</author>
+            </authors>
+            <description>recomposes a 2d plane wave decomposition into circular
+            harmonics</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>hoa recomposer</keywords>
+            <since>0.8</since>
+            <also>
+                <see>hoa.2d.projector~</see>
+            </also>
+            <aliases>
+                <alias>hoa.recomposer~</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Recomposes a plane wave decomposition into circular harmonics. There's three
+            modes, fixe (default), fisheye and free.</par>
+            <par>The hoa.2d.recomposer~ can be controlled either by message or with the help of its
+            dedicated graphical user interface hoa.2d.recomposer.</par>
+        </info>
+        <arguments>
+            <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
+            decomposition</argument>
+            <argument name="NCH" type="int" minvalue="1" maxvalue="63">number of
+            channels</argument>
+            <argument name="MODE" type="symbol" enum="fixe fisheye free">recomposition mode. There
+            is three modes: *fixe* - simply recomposes a plane wave decomposition into circular
+            harmonics. *fisheye* - allows you to perform an operation similar to the visual
+            "fisheye" effect by distorsion of the sound field perspective to the front of the
+            scene. *free* - allows you to change the angles and the widening value for each
+            channels.</argument>
+        </arguments>
+        <properties>
+            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
+            readonly="true">the order of decomposition</property>
+            <property name="@n" type="int" minvalue="0" maxvalue="63" default="0" readonly="true">
+            number of channels (planewaves)</property>
+            <property name="@mode" type="symbol" enum="fixe fisheye free" default="free"
+            readonly="true">recomposition mode. There is three modes: *fixe* - simply recomposes a
+            plane wave decomposition into circular harmonics. *fisheye* - allows you to perform an
+            operation similar to the visual "fisheye" effect by distorsion of the sound field
+            perspective to the front of the scene. *free* - allows you to change the angles and the
+            widening value for each channels.</property>
+            <property name="@fixe" type="alias">alias for @mode fixe</property>
+            <property name="@fisheye" type="alias">alias for @mode fisheye</property>
+            <property name="@free" type="alias">alias for @mode free</property>
+            <property name="@ramp" type="float" default="0" minvalue="0">ramp time</property>
+        </properties>
+        <methods>
+            <method name="angles">set the angles of channels. Angles are in radians, wrapped
+            between 0 and 2π 
+            <param name="VALS" type="list" required="true" units="radian">list of
+            angles</param></method>
+            <method name="wide">set the widening value of channels. Widening value is clipped
+            between 0. (omnidirectional) and 1. (directional) 
+            <param name="VALS" type="list" required="true">list of values per
+            channel</param></method>
+        </methods>
+        <inlets dynamic="true">
+            <inlet type="audio">
+                <xinfo>input harmonic</xinfo>
+            </inlet>
+            <inlet type="audio" number="...">
+                <xinfo>input harmonic</xinfo>
+            </inlet>
+            <inlet type="audio" number="n">
+                <xinfo>input harmonic. If @fisheye mode is used: fisheye factor [0-1] in last
+                inlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet type="audio">first planewave output</outlet>
+            <outlet type="audio" number="...">... planewave output</outlet>
+            <outlet type="audio" number="n">n-th planewave output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[hoa/hoa.soundgrain]
+|
+[ui.gain~ @size 120 14]
+|
+[hoa.2d.encoder~ 7 16 {w=46}]
+*|*
+[hoa.projector~ 7 16 {w=46,i=16,o=16}]
+*|*
+[hoa.process~ 16 hoa/hoa.fx.delay2~ planewaves {w=46,i=17,o=16}]
+*|*
+[hoa.process~ 16 hoa/hoa.fx.gain~ planewaves 1 {w=46,i=17,o=16}]
+*|*
+[hoa.2d.recomposer~ 7 16 {w=46,i=16,o=15}]
+*|* *|*
+*|* *|*
+*|* [hoa.scope~ 7 @gain 4 @size 164 164 {i=15}]
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+*|*
+[hoa.decoder~ 7 regular {w=46,i=15,o=16}] [ui.dsp~]
+*|*
+[xdac~ 1:16 {w=46,i=16}]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

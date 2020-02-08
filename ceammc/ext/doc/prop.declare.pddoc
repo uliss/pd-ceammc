@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>declare named property for subpatch or abstraction</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>property</category>
             <keywords>property declare</keywords>
@@ -22,7 +22,7 @@
             current canvas)</argument>
         </arguments>
         <properties>
-            <property name="@type" type="symbol" enum="float int bool symbol list">property
+            <property name="@type" type="symbol" enum="float int bool enum symbol list">property
             type</property>
             <property name="@f" type="alias">alias to @type float</property>
             <property name="@i" type="alias">alias to @type int</property>
@@ -35,7 +35,7 @@
             <property name="@max" type="float">maximum value (for float and int properties
             only)</property>
             <property name="@enum" type="list">allowed values (without default value) (for symbol
-            proeprties only)</property>
+            properties only)</property>
         </properties>
         <example>
             <pdascii>

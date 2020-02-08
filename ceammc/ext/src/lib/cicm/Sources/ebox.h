@@ -100,13 +100,19 @@ float ebox_getzoomfontsize(t_ebox* x);
 t_pd* ebox_getsender(t_ebox* x);
 
 /*!
- * \fn          char ebox_isdrawable(t_ebox* x)
+ * \fn          bool ebox_isdrawable(t_ebox* x)
  * \brief       Retrieves if a t_ebox is drawable.
  * \details     Checks several things that ensure that the t_ebox can be drawn;
  * \param x     The t_ebox pointer.
  * \return      The function returns true if the box is drawable otherwise false.
  */
 bool ebox_isdrawable(t_ebox* x);
+
+/**
+ * @brief       Check if a t_ebox is drawable and visible
+ * @param x     The t_ebox pointer
+ */
+bool ebox_isvisible(t_ebox* x);
 
 /*!
  * \fn      void ebox_attrprocess_viabinbuf(void *x, t_binbuf *d)
@@ -208,6 +214,9 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p);
  */
 t_pd_err ebox_invalidate_layer(t_ebox* x, t_symbol* name);
 
+t_pd_err ebox_invalidate_io(t_ebox* x);
+t_pd_err ebox_invalidate_border(t_ebox* x);
+
 /** @} */
 
 //! @cond
@@ -231,34 +240,31 @@ void ebox_mouse_leave(t_ebox* x);
 /*
  * \memberof        ebox
  * \param x         The ebox pointer
- * \param s         The message selector
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \return          Nothing
+ * \param xpos      relative mouse x-coord
+ * \param ypos      relative mouse y-coord
+ * \param mod       keyboard modifiers
  */
-void ebox_mouse_move(t_ebox* x, t_symbol* s, int argc, t_atom* argv);
+void ebox_mouse_move(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod);
 
 //! The mouse up method called by tcl/tk (PRIVATE)
 /*
  * \memberof        ebox
  * \param x         The ebox pointer
- * \param s         The message selector
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \return          Nothing
+ * \param xpos      relative mouse x-coord
+ * \param ypos      relative mouse y-coord
+ * \param mod       keyboard modifiers
  */
-void ebox_mouse_up(t_ebox* x, t_symbol* s, int argc, t_atom* argv);
+void ebox_mouse_up(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod);
 
 //! The mouse down method called by tcl/tk (PRIVATE)
 /*
  * \memberof        ebox
  * \param x         The ebox pointer
- * \param s         The message selector
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \return          Nothing
+ * \param xpos      relative mouse x-coord
+ * \param ypos      relative mouse y-coord
+ * \param mod       keyboard modifiers
  */
-void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom* argv);
+void ebox_mouse_down(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg absx, t_floatarg absy, t_floatarg mod);
 
 //! The mouse double click method called by tcl/tk (PRIVATE)
 /*
@@ -270,17 +276,18 @@ void ebox_mouse_down(t_ebox* x, t_symbol* s, int argc, t_atom* argv);
  * \return          Nothing
  */
 void ebox_mouse_dblclick(t_ebox* x, t_symbol* s, int argc, t_atom* argv);
+void ebox_mouse_rightclick(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg absx, t_floatarg absy, t_floatarg mod);
 
 //! The mouse wheel method called by tcl/tk (PRIVATE)
 /*
  * \memberof        ebox
  * \param x         The ebox pointer
- * \param s         The message selector
- * \param argc      The size of the array of atoms
- * \param argv      The array of atoms
- * \return          Nothing
+ * \param xpos      relative mouse x-coord
+ * \param ypos      relative mouse y-coord
+ * \param delta     mousewheel delta
+ * \param mod       keyboard modifiers
  */
-void ebox_mouse_wheel(t_ebox* x, t_symbol* s, int argc, t_atom* argv);
+void ebox_mouse_wheel(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg delta, t_floatarg mod);
 
 //! The key down method called by tcl/tk (PRIVATE AND NOT READY)
 /*
@@ -315,7 +322,7 @@ void ebox_pos(t_ebox* x, float newx, float newy);
  * \param x         The ebox pointer
  * \param vis       The visible state
  */
-void ebox_vis(t_ebox* x, int vis);
+void ebox_vis(t_ebox* x, t_float vis);
 
 //! The default user id method for all ebox called by PD (PRIVATE)
 /*
@@ -461,7 +468,6 @@ t_pd_err ebox_set_label_valign(t_ebox* x, t_object* attr, int argc, t_atom* argv
 t_pd_err ebox_set_label_side(t_ebox* x, t_object* attr, int argc, t_atom* argv);
 t_pd_err ebox_set_label_position(t_ebox* x, t_object* attr, int argc, t_atom* argv);
 t_pd_err ebox_set_label_margins(t_ebox* x, t_object* attr, int argc, t_atom* argv);
-
 
 // The defaults pd widgets
 void ebox_wgetrect(t_gobj* z, t_glist* glist, int* xp1, int* yp1, int* xp2, int* yp2);

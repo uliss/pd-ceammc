@@ -125,14 +125,19 @@ public:
     bool checkArgs(const AtomList& lst, ArgumentType a1, ArgumentType a2, ArgumentType a3, ArgumentType a4, t_symbol* method = 0) const;
 
     /**
-     * Returns object class name as string.
+     * Returns object class name
      */
-    inline std::string className() const { return pd_.className->s_name; }
+    t_symbol* className() const { return pd_.className; }
+
+    /**
+     * Returns object class pointer
+     */
+    t_class* classPointer() const { return pd_.owner->te_g.g_pd; }
 
     /**
      * Returns pointer to pd object struct, if you need manually call pd fuctions.
      */
-    inline t_object* owner() const { return pd_.owner; }
+    t_object* owner() const { return pd_.owner; }
 
     /**
      * Dumps object info to Pd window
@@ -161,6 +166,31 @@ public:
      * @param - incoming message
      */
     virtual void onInlet(size_t, const AtomList&) {}
+
+    /**
+     * This function called on object click  (should be enabled in factory)
+     * @param xpos - relative mouse x-pos
+     * @param ypos - relative mouse y-pos
+     * @param shift - if shift modifier is pressed
+     * @param ctrl - if control modifier is pressed
+     * @param alt - if alt modifier is pressed
+     */
+    virtual void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt);
+
+    /**
+     * called when loaded
+     */
+    virtual void onLoadBang() {}
+
+    /**
+     * called when loaded but not yet connected to parent patch
+     */
+    virtual void onInitBang() {}
+
+    /**
+     * called when about to close
+     */
+    virtual void onCloseBang() {}
 
     t_inlet* createInlet();
 
@@ -290,6 +320,12 @@ public:
      * Main dispatcher of *any* messages. (Not bang, symbol, pointer, list or registered method)
      */
     virtual void anyDispatch(t_symbol* s, const AtomList& lst);
+
+    /**
+     * Various load(close)bang dispatcher
+     * @param action
+     */
+    void dispatchLoadBang(int action);
 
     /**
      * Bind object to listen global signal bus

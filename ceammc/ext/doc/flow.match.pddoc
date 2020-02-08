@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>route data flow by regexp match</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>flow</category>
             <keywords>regexp</keywords>
@@ -17,10 +17,12 @@
             </also>
         </meta>
         <arguments>
-            <argument name="RE_LST" type="list" required="true">list of regular expressions</argument>
+            <argument name="RE_LST" type="list" required="true">list of regular
+            expressions</argument>
         </arguments>
         <properties>
-            <property name="@cut" type="int" default="0" enum="0 1">cut or pass message selector</property>
+            <property name="@cut" type="int" default="0" enum="0 1">cut or pass message
+            selector</property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
@@ -58,7 +60,7 @@
 [flow.match freq`d amp`d]
 |              ^|     ^^|
 |               |       |
-[S]           [S]       [ui.d @display_type=1]
+[S]           [S]       [ui.display @display_type=1]
 ]]>
             </pdascii>
         </example>

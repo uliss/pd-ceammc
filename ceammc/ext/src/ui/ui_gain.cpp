@@ -13,13 +13,18 @@
  *****************************************************************************/
 #include "ui_gain.h"
 #include "ceammc_convert.h"
-#include "ceammc_dsp_ui.h"
 #include "ceammc_preset.h"
+#include "ceammc_ui.h"
 
 static const float SCALE_ALPHA_BLEND = 0.7;
 
+// see ui_single_value.cpp
+static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
+static t_rgba PICKUP_MIDI_COLOR = hex_to_rgba("#3377FF");
+
 UIGain::UIGain()
-    : prop_color_knob(rgba_blue)
+    : midi_proxy_(this, &UIGain::onMidiCtrl)
+    , prop_color_knob(rgba_blue)
     , prop_color_scale(rgba_blue)
     , prop_max(0)
     , prop_min(-60)
@@ -28,9 +33,28 @@ UIGain::UIGain()
     , font_(gensym(FONT_FAMILY), FONT_SIZE_SMALL)
     , txt_max_(font_.font(), ColorRGBA::black(), ETEXT_UP_LEFT, ETEXT_JLEFT)
     , txt_min_(font_.font(), ColorRGBA::black(), ETEXT_DOWN_LEFT, ETEXT_JLEFT)
-    , knob_pos_(0)
+    , click_pos_ { 0, 0 }
+    , knob_phase_(0)
     , is_horizontal_(false)
+    , prop_relative_mode(0)
+    , prop_midi_chn(0)
+    , prop_midi_ctl(0)
+    , prop_pickup_midi(0)
+    , control_state_(NORMAL)
+    , pick_value_state_(PICK_VALUE_START)
 {
+    auto fn = [this](float db) {
+        setDbValue(dbValue() + db);
+        if (prop_output_value)
+            doOutput();
+    };
+
+    initPopupMenu("gain",
+        { { "+3db", [fn](const t_pt&) { fn(3); } },
+            { "-3db", [fn](const t_pt&) { fn(-3); } },
+            { "-6db", [fn](const t_pt&) { fn(-6); } },
+            { "-12db", [fn](const t_pt&) { fn(-12); } },
+            { "-24db", [fn](const t_pt&) { fn(-24); } } });
 }
 
 void UIGain::okSize(t_rect* newrect)
@@ -59,7 +83,7 @@ void UIGain::paint()
     p.setLineWidth(3);
 
     if (is_horizontal_) {
-        float x = r.width * knob_pos_;
+        float x = r.width * knob_phase_;
         // scale
         p.setColor(prop_color_scale);
         p.drawRect(0, 0, x, r.height);
@@ -82,7 +106,7 @@ void UIGain::paint()
             p.drawText(txt_min_);
         }
     } else {
-        float y = r.height * (1 - knob_pos_);
+        float y = r.height * (1 - knob_phase_);
         // scale
         p.setColor(prop_color_scale);
         p.drawRect(0, y, r.width, r.height - y);
@@ -107,10 +131,35 @@ void UIGain::paint()
     }
 }
 
+void UIGain::initHorizontal()
+{
+    is_horizontal_ = true;
+    std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+    updateLabels();
+}
+
 void UIGain::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
     UIDspObject::init(name, args, usePresets);
+
+    if (name == gensym("ui.hgain~"))
+        initHorizontal();
+
     dspSetup(1, 1);
+
+    // if listen MIDI
+    if (prop_midi_ctl > 0) {
+        midi_proxy_.bind(gensym("#ctlin"));
+
+        // init pickup
+        if (prop_pickup_midi) {
+            printPickupInfo();
+            pick_value_state_ = PICK_VALUE_START;
+            control_state_ = PICKUP;
+
+            updateIndicators();
+        }
+    }
 }
 
 void UIGain::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes)
@@ -120,9 +169,8 @@ void UIGain::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs
 
     const float v = ampValue();
 
-    for (long i = 0; i < sampleframes; i++) {
+    for (long i = 0; i < sampleframes; i++)
         out[i] = in[i] * smooth_.get(v);
-    }
 }
 
 void UIGain::onPropChange(t_symbol* prop_name)
@@ -140,49 +188,237 @@ void UIGain::onPropChange(t_symbol* prop_name)
 
 void UIGain::onBang()
 {
-    t_symbol* s_db = gensym("@db");
-    AtomList v(dbValue());
-    anyTo(0, s_db, v);
-    send(s_db, v);
+    doOutput();
 }
 
 void UIGain::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    onMouseDrag(view, pt, modifiers);
+    if (prop_relative_mode) {
+        click_pos_ = pt;
+    } else {
+        // jump to click position
+        knob_phase_ = (is_horizontal_) ? clip<float, 0, 1>(pt.x / width())
+                                       : clip<float, 0, 1>(1.0 - (pt.y / height()));
+
+        redrawBGLayer();
+
+        if (prop_output_value)
+            doOutput();
+    }
 }
 
 void UIGain::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
-    if (is_horizontal_)
-        knob_pos_ = clip<float>(pt.x / width(), 0, 1);
-    else
-        knob_pos_ = clip<float>(1 - pt.y / height(), 0, 1);
+    if (prop_relative_mode) {
+        float delta = (is_horizontal_) ? (pt.x - click_pos_.x) / width() : (click_pos_.y - pt.y) / height();
+        if (modifiers & EMOD_SHIFT)
+            delta *= 0.1;
+
+        knob_phase_ = clip<float, 0, 1>(knob_phase_ + delta);
+        click_pos_ = pt;
+    } else {
+        // jump to click position
+        knob_phase_ = (is_horizontal_) ? clip<float, 0, 1>(pt.x / width())
+                                       : clip<float, 0, 1>(1.0 - (pt.y / height()));
+    }
 
     redrawBGLayer();
 
     if (prop_output_value)
-        onBang();
+        doOutput();
 }
 
 void UIGain::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
-    t_canvas* c = reinterpret_cast<t_canvas*>(view);
-    if (c->gl_edit) {
+    if (modifiers & EMOD_SHIFT) {
+        switch (control_state_) {
+        case LEARN:
+            midi_proxy_.unbind();
+            gotoNormalState();
+            break;
+        default:
+            midi_proxy_.bind(gensym("#ctlin"));
+            control_state_ = LEARN;
+            break;
+        }
+
+        updateIndicators();
+        return;
+    }
+
+    if (isPatchEdited()) {
         resize(height() / zoom(), width() / zoom());
         updateLabels();
         redrawBGLayer();
+    } else
+        onMouseDown(view, pt, {}, modifiers);
+}
+
+void UIGain::onMouseWheel(const t_pt& pt, long modifiers, float delta)
+{
+    float k = 0.01;
+    if (modifiers & EMOD_SHIFT)
+        k *= 0.1;
+
+    knob_phase_ = clip<float, 0, 1>(knob_phase_ + delta * k);
+    redrawBGLayer();
+
+    if (prop_output_value)
+        doOutput();
+}
+
+void UIGain::onMidiCtrl(const AtomList& l)
+{
+    // invalid format
+    if (l.size() != 3)
+        return;
+
+    const int CTL_NUM = l[0].asInt();
+    const int CTL_CHAN = l[2].asInt();
+    const t_float CTL_VAL = l[1].asFloat();
+    const float w = convert::lin2lin_clip<float, 0, 127>(CTL_VAL, 0, 1);
+
+    switch (control_state_) {
+    case NORMAL: {
+        if (!isMidiMatched(CTL_NUM, CTL_CHAN))
+            return;
+
+        updateIndicators();
+
+        knob_phase_ = w;
+        redrawBGLayer();
+
+        // do output if config property is set
+        if (prop_output_value)
+            doOutput();
+    } break;
+    case LEARN: {
+        UI_DBG << "binded to CTL #" << CTL_NUM;
+        prop_midi_ctl = CTL_NUM;
+
+        if (prop_pickup_midi) {
+            // change to pickup
+            control_state_ = PICKUP;
+            pick_value_state_ = PICK_VALUE_START;
+            printPickupInfo();
+            updateIndicators();
+            return onMidiCtrl(l);
+        }
+
+        gotoNormalState();
+        return onMidiCtrl(l);
+    } break;
+    case PICKUP: {
+        updateIndicators();
+
+        if (!isMidiMatched(CTL_NUM, CTL_CHAN))
+            return;
+
+        // simple case: pickup equal value -> change to normal state
+        if (w == knob_phase_) {
+            finishPickup();
+            return onMidiCtrl(l);
+        } else {
+            // pickup when value is over
+            PickValueState st = (w < knob_phase_) ? PICK_VALUE_LESS : PICK_VALUE_MORE;
+
+            switch (pick_value_state_) {
+            case PICK_VALUE_START: {
+                // save current state
+                pick_value_state_ = st;
+            } break;
+            case PICK_VALUE_DONE: {
+                finishPickup();
+                return onMidiCtrl(l);
+            } break;
+            default: {
+                if (pick_value_state_ == -st) {
+                    finishPickup();
+                    return onMidiCtrl(l);
+                }
+
+            } break;
+            }
+        }
+    } break;
     }
+}
+
+void UIGain::doOutput()
+{
+    static t_symbol* SYM_DB = gensym("@db");
+
+    AtomList v(dbValue());
+    anyTo(0, SYM_DB, v);
+    send(SYM_DB, v);
+}
+
+void UIGain::updateIndicators()
+{
+    switch (control_state_) {
+    case LEARN:
+        asEBox()->b_boxparameters.d_bordercolor = BIND_MIDI_COLOR;
+        break;
+    case PICKUP:
+        asEBox()->b_boxparameters.d_bordercolor = PICKUP_MIDI_COLOR;
+        break;
+    default:
+        asEBox()->b_boxparameters.d_bordercolor = prop_color_border;
+        break;
+    }
+
+    ebox_invalidate_border(asEBox());
+    redrawInnerArea();
+}
+
+bool UIGain::isMidiMatched(int num, int ch) const
+{
+    // MIDI control is not binded: skip
+    if (prop_midi_ctl == 0)
+        return false;
+
+    // MIDI control not matches: skip
+    if (num != prop_midi_ctl)
+        return false;
+
+    // MIDI channel is specified, but not matches
+    if (prop_midi_chn > 0 && ch != prop_midi_chn)
+        return false;
+
+    return true;
+}
+
+void UIGain::printPickupInfo()
+{
+    if (prop_pickup_midi) {
+        if (prop_midi_chn > 0)
+            UI_DBG << "pickup mode is ON for CTL #" << prop_midi_ctl << " on channel " << prop_midi_chn;
+        else
+            UI_DBG << "pickup mode is ON for CTL #" << prop_midi_ctl << " on all channels";
+    }
+}
+
+void UIGain::gotoNormalState()
+{
+    control_state_ = NORMAL;
+    pick_value_state_ = PICK_VALUE_DONE;
+}
+
+void UIGain::finishPickup()
+{
+    UI_DBG << "pickup is done for CTL #" << prop_midi_ctl;
+    gotoNormalState();
 }
 
 t_float UIGain::dbValue() const
 {
-    return convert::lin2lin<t_float>(knob_pos_, 1, 0, prop_max, prop_min);
+    return convert::lin2lin<t_float>(knob_phase_, 1, 0, prop_max, prop_min);
 }
 
 t_float UIGain::ampValue() const
 {
     t_float db = dbValue();
-    if (db <= prop_min)
+    if (db <= -60)
         return 0;
 
     return convert::dbfs2amp(db);
@@ -190,7 +426,7 @@ t_float UIGain::ampValue() const
 
 void UIGain::setDbValue(t_float db)
 {
-    knob_pos_ = clip<t_float>(convert::lin2lin<t_float>(db, prop_max, prop_min, 1, 0), 0, 1);
+    knob_phase_ = clip<t_float>(convert::lin2lin<t_float>(db, prop_max, prop_min, 1, 0), 0, 1);
     redrawBGLayer();
 }
 
@@ -231,24 +467,43 @@ void UIGain::m_dec()
 
 void UIGain::setup()
 {
-    UIDspFactory<UIGain> obj("ui.gain~");
+    static t_symbol* SYM_DB = gensym("db");
+    static t_symbol* SYM_MAX = gensym("max");
+    static t_symbol* SYM_MIN = gensym("min");
 
-    obj.addProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UIGain::prop_color_knob);
-    obj.addProperty("db", &UIGain::dbValue, &UIGain::setDbValue);
+    UIObjectFactory<UIGain> obj("ui.gain~");
+    obj.addAlias("ui.hgain~");
+    obj.addAlias("ui.vgain~");
+
+    obj.addColorProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &UIGain::prop_color_knob);
+    obj.addHiddenFloatCbProperty("db", &UIGain::dbValue, &UIGain::setDbValue);
     obj.setPropertyDefaultValue("db", "-60");
-    obj.addProperty("amp", &UIGain::ampValue, &UIGain::setAmpValue);
+    obj.setPropertyUnits(SYM_DB, SYM_DB);
+    obj.addHiddenFloatCbProperty("amp", &UIGain::ampValue, &UIGain::setAmpValue);
     obj.addIntProperty("max", _("Maximum value"), 0, &UIGain::prop_max, _("Bounds"));
     obj.addIntProperty("min", _("Minimum value"), -60, &UIGain::prop_min, _("Bounds"));
     obj.setPropertyRange("max", -12, 12);
-    obj.setPropertyRange("min", -90, -30);
+    obj.setPropertyRange("min", -90, -15);
+    obj.setPropertyUnits(SYM_MAX, SYM_DB);
+    obj.setPropertyUnits(SYM_MIN, SYM_DB);
     obj.addBoolProperty("show_range", _("Show range"), true, &UIGain::prop_show_range, _("Misc"));
     obj.addBoolProperty("output_value", _("Output value"), false, &UIGain::prop_output_value, _("Main"));
+    obj.addBoolProperty("relative", _("Relative mode"), true, &UIGain::prop_relative_mode, _("Main"));
+
+    obj.addProperty("midi_channel", _("MIDI channel"), 0, &UIGain::prop_midi_chn, "MIDI");
+    obj.setPropertyRange("midi_channel", 0, 16);
+    obj.addProperty("midi_control", _("MIDI control"), 0, &UIGain::prop_midi_ctl, "MIDI");
+    obj.setPropertyRange("midi_control", 0, 128);
+    obj.addProperty("midi_pickup", _("MIDI pickup"), true, &UIGain::prop_pickup_midi, "MIDI");
 
     obj.setDefaultSize(15, 120);
     obj.usePresets();
     obj.useBang();
 
-    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK);
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK | UI_MOUSE_WHEEL);
+    obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
+    obj.usePopup();
+
     obj.addMethod("+", &UIGain::m_plus);
     obj.addMethod("-", &UIGain::m_minus);
     obj.addMethod("++", &UIGain::m_inc);

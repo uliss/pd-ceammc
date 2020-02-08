@@ -8,7 +8,7 @@
             </authors>
             <description>simple synth based on a sawtooth wave filtered by a resonant
             lowpass</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>synth</category>
             <keywords>dubdub saw</keywords>
@@ -23,6 +23,8 @@
             - 1: on, 0: off</property>
             <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.1">quality
             factor</property>
+            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
+            processing</property>
         </properties>
         <inlets>
             <inlet>

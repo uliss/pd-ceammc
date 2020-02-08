@@ -4,6 +4,7 @@
 LocalFloat::LocalFloat(const PdArgs& a)
     : LocalFloatBase(a)
 {
+    property("@value")->info().setType(PropertyInfoType::FLOAT);
 }
 
 void setup_local_float()

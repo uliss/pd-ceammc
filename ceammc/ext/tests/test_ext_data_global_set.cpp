@@ -58,9 +58,9 @@ TEST_CASE("[global.set]", "[externals]")
         TestExtGlobalSet t3("global.set", LA("s2"));
         REQUIRE(t2.object());
 
-        REQUIRE_PROPERTY_FLOAT(t1, @obj_refs, 2);
-        REQUIRE_PROPERTY_FLOAT(t1, @obj_refs, 2);
-        REQUIRE_PROPERTY_FLOAT(t3, @obj_refs, 1);
+        REQUIRE_PROPERTY_FLOAT(t1, @.obj_refs, 2);
+        REQUIRE_PROPERTY_FLOAT(t1, @.obj_refs, 2);
+        REQUIRE_PROPERTY_FLOAT(t3, @.obj_refs, 1);
 
         t1 << BANG;
         REQUIRE_EMPTY_SET(t1);

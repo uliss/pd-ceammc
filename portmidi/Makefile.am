@@ -1,46 +1,64 @@
-# this is built as a "libtool convenience library"
-# http://sources.redhat.com/automake/automake.html#Libtool-Convenience-Libraries
+# this is built as a static convenience library
+
+#########################################
+##### Defaults & Paths #####
+
 AUTOMAKE_OPTIONS = foreign
 AM_CFLAGS = -DNEWBUFFER
-INCLUDES = -Ipm_common -Iporttime
+AM_CPPFLAGS += \
+    -I$(top_srcdir)/portmidi/portmidi/pm_common \
+    -I$(top_srcdir)/portmidi/portmidi/porttime
 
-noinst_LTLIBRARIES = libportmidi.la
+#########################################
+##### Files, Binaries, & Libs #####
 
-libportmidi_la_SOURCES = pm_common/pmutil.c pm_common/portmidi.c
+noinst_LIBRARIES = libportmidi.a
+
+libportmidi_a_SOURCES = \
+    portmidi/pm_common/pmutil.c \
+    portmidi/pm_common/portmidi.c
 
 if LINUX
-INCLUDES +=  -Ipm_linux
-libportmidi_la_SOURCES += porttime/ptlinux.c \
-		pm_linux/pmlinux.c \
-		pm_linux/pmlinuxalsa.c
+AM_CPPFLAGS += -I$(top_srcdir)/portmidi/portmidi/pm_linux
+libportmidi_a_SOURCES += \
+    portmidi/porttime/ptlinux.c \
+    portmidi/pm_linux/pmlinux.c \
+    portmidi/pm_linux/pmlinuxalsa.c
 endif
 
+# disable portmidi rate limiting on macos
 if MACOSX
-INCLUDES +=  -Ipm_mac
-libportmidi_la_SOURCES += porttime/ptmacosx_cf.c \
-        pm_mac/pmmac.c \
-        pm_mac/pmmacosxcm.c \
-        pm_mac/finddefault.c \
-        pm_mac/readbinaryplist.c
+AM_CPPFLAGS += -I$(top_srcdir)/portmidi/portmidi/pm_mac -DLIMIT_RATE=0
+libportmidi_a_SOURCES += \
+    portmidi/porttime/ptmacosx_mach.c \
+    portmidi/pm_mac/pmmac.c \
+    portmidi/pm_mac/pmmacosxcm.c \
+    portmidi/pm_mac/finddefault.c \
+    portmidi/pm_mac/readbinaryplist.c
 endif
 
 if WINDOWS
-INCLUDES +=  -Ipm_win
-libportmidi_la_SOURCES += porttime/porttime.c \
-        porttime/ptwinmm.c \
-        pm_win/pmwin.c \
-        pm_win/pmwinmm.c
+AM_CPPFLAGS += -I$(top_srcdir)/portmidi/portmidi/pm_win
+libportmidi_a_SOURCES += \
+    portmidi/porttime/ptwinmm.c \
+    portmidi/pm_win/pmwin.c \
+    portmidi/pm_win/pmwinmm.c
 endif
 
+# empty var for headers list footer
+empty=
+
 # include the headers in the dist so you can build
+# find portmidi -type file -name *.h | sort | awk '{print "   ", $1, "\\"}'; echo '     $(empty)'
 nobase_noinst_HEADERS = \
-	pm_common/pminternal.h \
-	pm_common/pmutil.h \
-	pm_common/portmidi.h \
-	pm_linux/pmlinux.h \
-	pm_linux/pmlinuxalsa.h \
-	pm_mac/pmmac.h \
-	pm_mac/pmmacosxcm.h \
-	pm_win/pmdll.h \
-	pm_win/pmwinmm.h \
-	porttime/porttime.h
+    portmidi/pm_common/pminternal.h \
+    portmidi/pm_common/pmutil.h \
+    portmidi/pm_common/portmidi.h \
+    portmidi/pm_linux/pmlinux.h \
+    portmidi/pm_linux/pmlinuxalsa.h \
+    portmidi/pm_mac/pmmac.h \
+    portmidi/pm_mac/pmmacosxcm.h \
+    portmidi/pm_mac/readbinaryplist.h \
+    portmidi/pm_win/pmwinmm.h \
+    portmidi/porttime/porttime.h \
+     $(empty)

@@ -6,6 +6,8 @@ extern "C" void setup_system0x2ememsize();
 extern "C" void setup_system0x2ememused();
 extern "C" void setup_system0x2escreen_size();
 
+void setup_system_colorpanel();
+void setup_system_cursor();
 void setup_system_shell();
 
 void ceammc_system_setup()
@@ -16,5 +18,7 @@ void ceammc_system_setup()
     setup_system0x2ememused();
     setup_system0x2escreen_size();
 
+    setup_system_colorpanel();
+    setup_system_cursor();
     setup_system_shell();
 }

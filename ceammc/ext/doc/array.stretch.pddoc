@@ -8,7 +8,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>array time-stretch, pitch-shift or rate-change</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>array</category>
             <keywords>array stretch</keywords>
@@ -96,7 +96,7 @@
 
 [ui.tab @items A1 A2]
 |
-[set $1, bang( [stop(
+[set $2, bang( [stop(
 |              |
 [tabplay~    A2]
 |

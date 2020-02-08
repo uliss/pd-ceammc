@@ -44,17 +44,62 @@ SynthFGrain::SynthFGrain(const PdArgs& args)
     , randomness_(0.1)
     , fname_(&s_)
 {
-    createCbProperty("@file", &SynthFGrain::propFile, &SynthFGrain::propSetFile);
-    createCbProperty("@voices", &SynthFGrain::propVoices, &SynthFGrain::propSetVoices);
-    createCbProperty("@stretch", &SynthFGrain::propStretch, &SynthFGrain::propSetStretch);
-    createCbProperty("@random", &SynthFGrain::propRandom, &SynthFGrain::propSetRandom);
-    createCbProperty("@gramp", &SynthFGrain::propGrainRamp, &SynthFGrain::propSetGrainRamp);
-    createCbProperty("@gdur", &SynthFGrain::propGrainDuration, &SynthFGrain::propSetGrainDuration);
-    createCbProperty("@goffset", &SynthFGrain::propGrainOffset, &SynthFGrain::propSetGrainOffset);
-    createCbProperty("@gdelay", &SynthFGrain::propGrainDelay, &SynthFGrain::propSetGrainDelay);
+    const size_t DEFAULT_STRETCH = 1;
+    const size_t DEFAULT_VOICES = 1;
 
-    synth_->setVoices(1);
-    synth_->setStretch(1);
+    {
+        Property* p = createCbProperty("@file", &SynthFGrain::propFile, &SynthFGrain::propSetFile);
+        p->info().setType(PropertyInfoType::SYMBOL);
+    }
+
+    {
+        Property* p = createCbProperty("@voices", &SynthFGrain::propVoices, &SynthFGrain::propSetVoices);
+        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setRange(0, 200);
+        p->info().setDefault(DEFAULT_VOICES);
+    }
+
+    {
+        Property* p = createCbProperty("@stretch", &SynthFGrain::propStretch, &SynthFGrain::propSetStretch);
+        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setRange(1, 1000);
+        p->info().setDefault(DEFAULT_STRETCH);
+    }
+
+    {
+        Property* p = createCbProperty("@random", &SynthFGrain::propRandom, &SynthFGrain::propSetRandom);
+        p->info().setType(PropertyInfoType::FLOAT);
+        p->info().setRange(0, 0.97);
+        p->info().setDefault(0.1f);
+    }
+
+    createCbProperty("@gramp", &SynthFGrain::propGrainRamp, &SynthFGrain::propSetGrainRamp);
+
+    {
+        Property* p = createCbProperty("@gdur", &SynthFGrain::propGrainDuration, &SynthFGrain::propSetGrainDuration);
+        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setMin(1);
+        p->info().setUnits(PropertyInfoUnits::MSEC);
+        p->info().setDefault(30);
+    }
+
+    {
+        Property* p = createCbProperty("@goffset", &SynthFGrain::propGrainOffset, &SynthFGrain::propSetGrainOffset);
+        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setDefault(int(0));
+        p->info().setUnits(PropertyInfoUnits::MSEC);
+    }
+
+    {
+        Property* p = createCbProperty("@gdelay", &SynthFGrain::propGrainDelay, &SynthFGrain::propSetGrainDelay);
+        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setDefault(int(0));
+        p->info().setUnits(PropertyInfoUnits::MSEC);
+        p->info().setMin(0);
+    }
+
+    synth_->setVoices(DEFAULT_VOICES);
+    synth_->setStretch(DEFAULT_STRETCH);
     synth_->setRandomFactor(randomness_);
 
     createSignalOutlet();

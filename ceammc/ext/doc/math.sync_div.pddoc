@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.sync_div">
+        <title>math.sync_div</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sync division</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math division sync</keywords>
+            <aliases>
+                <alias>math./'</alias>
+                <alias>/'</alias>
+            </aliases>
+            <since>0.8</since>
+        </meta>
+        <info>
+            <par>on division by zero outputs nothing: just put error message into console</par>
+        </info>
+        <arguments>
+            <argument name="DIV" type="float">divisor</argument>
+        </arguments>
+        <properties>
+            <property name="@int" type="flag">operate on integers only</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">set divident, calculate and output result</xinfo>
+                <xinfo on="list">pair: set divident and divisor, calculate and output
+                result</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">change divisor, calculate and output result</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>division result</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]   [F]   /*same as:*/ [F]  [F]
+|     |                  |    |
+|     |                  |    [t b f]
+|     |.                 |    | ^|.
+[math.sync_div 2]        [/ 2      ]
+|                        |
+[F]                      [F]
+
+[3.1415 5.1( [13 0(
+|            |
+|            |
+[math.sync_div @int]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

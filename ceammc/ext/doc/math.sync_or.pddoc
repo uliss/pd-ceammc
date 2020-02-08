@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="math.sync_or">
+        <title>math.sync_or</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>sync logical OR operation</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>math</category>
+            <keywords>math sync logical or</keywords>
+            <aliases>
+                <alias>math.||'</alias>
+                <alias>||'</alias>
+            </aliases>
+            <since>0.8</since>
+            <also>
+                <see>math.&amp;&amp;'</see>
+            </also>
+        </meta>
+        <info>
+            <par>Only 1 and 0 values are accepted. Any other number treat as 1, but print error to
+            console.</par>
+        </info>
+        <arguments>
+            <argument name="V" type="int" enum="0 1">second value</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="float">set first value, calculate and output result</xinfo>
+                <xinfo on="list">pair: set first and second values, calculate and output
+                result</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">change second value, calculate and output result</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output 1 or 0, according logical OR operation</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[_]   [_]   /*same as:*/ [_]  [_]     /*0 0 | 0*/
+|     |                  |    |
+|     |                  |    [t b f] /*0 1 | 1*/
+|     |.                 |    | ^|.
+[||'    ]                [||      ]   /*1 0 | 1*/
+|                        |
+[_]                      [_]          /*1 1 | 1*/
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

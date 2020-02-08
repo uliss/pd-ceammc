@@ -7,7 +7,7 @@
                 <author>Serge Poltavsky</author>
             </authors>
             <description>render speech to array</description>
-            <license>GPL3</license>
+            <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>misc</category>
             <keywords>speak speech flite</keywords>
@@ -53,7 +53,7 @@
 
 [T]
 |
-[metro 1000]  [ui.menu kal16 slt rms awb] [ui.knob @min=1 @max=4]
+[metro 1000]  [ui.menu kal16 slt rms awb] [ui.knob @min 1 @max 4]
 |             |                           |
 [flow.count]  [@voice $2( [F]             |
 |             |           |               |

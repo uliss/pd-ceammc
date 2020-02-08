@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="hoa.out~">
+        <title>hoa.out~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+                <author>Pierre Guillot</author>
+                <author>Eliott Paris</author>
+                <author>Thomas Le Meur</author>
+            </authors>
+            <description>signal inlet for a patcher loaded by hoa.process~</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>hoa outlet</keywords>
+            <since>0.8</since>
+            <also>
+                <see>hoa.out</see>
+                <see>hoa.in</see>
+                <see>hoa.in~</see>
+            </also>
+        </meta>
+        <info>
+            <par>defines a signal outlet for a patcher loaded by a hoa.process~ object</par>
+        </info>
+        <arguments>
+            <argument name="EXTRA" type="int" minvalue="0">shortcut for @extra property</argument>
+        </arguments>
+        <properties>
+            <property name="@extra" type="int" minvalue="0" default="0">extra inlet. Extra inlet
+            are added to the "normal" instance inlet and can be used to send signal to all
+            instances</property>
+        </properties>
+        <outlets>
+            <outlet type="audio">output signal in the corresponding hoa.process~ object's signal
+            outlet</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+    [open 0 #a( [open 1 #b(
+
+[sig~ 0.5]                       [sig~ 1]
+|                                |.
+[hoa.process~ 2 hoa/hoa_out_example3 planewaves #z]
+|               ^|               ^^|
+[ui.n~]         [ui.n~]          [ui.n~]
+
+[X a->z]
+[X b->z]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

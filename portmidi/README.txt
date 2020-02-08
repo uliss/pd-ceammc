@@ -1,84 +1,58 @@
-README for PortMidi
+# PortMidi
 
-Roger B. Dannenberg
+The cross-platform PortMidi library is included with the PureData distribution
+so that Pd can be built without any main external dependencies.
 
-VERSION: please use "svn info" to get info.
+It is built as a libtool convenience library when using autotools to build Pd:
 
-Documentation for PortMidi is found in pm_common/portmidi.h.
+    ./configure
+    make
 
-Additional documentation:
-  - Windows: see pm_win/README_WIN.txt and pm_win/debugging_dlls.txt
-  - Linux: see pm_linux/README_LINUX.txt
-  - Mac OSX: see pm_mac/README_MAC.txt
-  - Common Lisp: see pm_cl/README_CL.txt
-  - Eclipse: see portmidi_cdt.zip (this was contributed as is; the dlls here
-        are now -- Sep 09 -- out of date. What is really needed is a script
-        to generate this release automatically so we can maintain it.)
-  - C-Sharp: see pm_csharp.zip (also contributed as is)
+For more info on PortMidi, see http://portmedia.sourceforge.net/portmidi
 
----------- some notes on the design of PortMidi ----------
+## Updating
 
-POINTERS VS DEVICE NUMBERS
+If you want to update to a newer version of PortMidi, simply use the
+"update.sh" script:
 
-When you open a MIDI port, PortMidi allocates a structure to
-maintain the state of the open device. Since every device is
-also listed in a table, you might think it would be simpler to
-use the table index rather than a pointer to identify a device.
-This would also help with error checking (it's hard to make
-sure a pointer is valid). PortMidi's design parallels that of
-PortAudio.
+    cd portmidi
+    
+    # update to latest PortMidi svn trunk
+    ./update.sh
 
-ERROR HANDLING
+    # update to a specific trunk revision
+    ./update.sh 239
 
-Error handling turned out to be much more complicated than expected.
-PortMidi functions return error codes that the caller can check.
-In addition, errors may occur asynchronously due to MIDI input.
-However, for Windows, there are virtually no errors that can
-occur if the code is correct and not passing bogus values. One
-exception is an error that the system is out of memory, but my
-guess is that one is unlikely to recover gracefully from that.
-Therefore, all errors in callbacks are guarded by assert(), which
-means not guarded at all in release configurations.
+You *may* need to add or remove source file or header lines in the Makefile.am,
+if the source or include files have changed in PortMidi.
 
-Ordinarily, the caller checks for an error code. If the error is
-system-dependent, pmHostError is returned and the caller can
-call Pm_GetHostErrorText to get a text description of the error.
+## System-installed PortMidi
 
-Host error codes are system-specific and are recorded in the
-system-specific data allocated for each open MIDI port.
-However, if an error occurs on open or close,
-we cannot store the error with the device because there will be
-no device data (assuming PortMidi cleans up after devices that
-are not open). For open and close, we will convert the error
-to text, copy it to a global string, and set pm_hosterror, a
-global flag.
+As a second option, you can build Pd using a system-installed PortMidi via:
 
-Similarly, whenever a Read or Write operation returns pmHostError,
-the corresponding error string is copied to a global string
-and pm_hosterror is set. This makes getting error strings
-simple and uniform, although it does cost a string copy and some
-overhead even if the user does not want to look at the error data.
+    ./configure --without-local-portmidi
+    make
 
-The system-specific Read, Write, Poll, etc. implementations should
-check for asynchronous errors and return immediately if one is
-found so that these get reported. This happens in the Mac OS X
-code, where lots of things are happening in callbacks, but again,
-in Windows, there are no error codes recorded in callbacks.
+## Patches
 
-DEBUGGING
+There may be custom patches to apply to the PortMidi sources in the "patches"
+directory which are applied by the "update.sh" script automatically using:
 
-If you are building a console application for research, we suggest
-compiling with the option PM_CHECK_ERRORS. This will insert a
-check for error return values at the end of each PortMidi
-function. If an error is encountered, a text message is printed
-using printf(), the user is asked to type ENTER, and then exit(-1)
-is called to clean up and terminate the program.
+    patch -p0 < ../patches/some_unreleased_fix.patch
 
-You should not use PM_CHECK_ERRORS if printf() does not work
-(e.g. this is not a console application under Windows, or there
-is no visible console on some other OS), and you should not use
-PM_CHECK_ERRORS if you intend to recover from errors rather than
-abruptly terminate the program.
+To generate a patch file from a PortMidi svn checkout:
 
-The Windows version (and perhaps others) also offers a DEBUG
-compile-time option. See README_WIN.txt.
+    svn diff > some_newfix.patch
+
+## macOS LIMIT_RATE
+
+Newer versions of Portmidi include automatic message rate limiting for macOS
+which has a rather low buffer size when using the internal IAC virtual device
+for message routing and could lead to messages being dropped. As this limit
+may affect timing and cause issues when sending *large* amounts of MIDI data,
+it is disabled when building the Portmidi sources included with Pd.
+
+If you want to re-enable the rate limit, set the LIMIT_RATE define before
+building:
+
+    ./configure CFLAGS="-DLIMIT_RATE=1"

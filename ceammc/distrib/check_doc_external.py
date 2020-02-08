@@ -16,8 +16,10 @@ from termcolor import colored, cprint
 import json
 import jamspell
 
+SRC_PATH = "@PROJECT_SOURCE_DIR@/"
 BIN_PATH = "@PROJECT_BINARY_DIR@/ceammc/ext/src/lib/"
 DOC_PATH = "@PROJECT_SOURCE_DIR@/ceammc/ext/doc/"
+STK_RAWWAVES_PATH = "@PROJECT_SOURCE_DIR@/ceammc/extra/stk/stk/rawwaves"
 
 EXT_LIST = BIN_PATH + "ext_list"
 EXT_METHODS = BIN_PATH + "ext_methods"
@@ -43,18 +45,24 @@ def read_methods(name):
             args.append(SPECIAL_OBJ[name])
 
         return set(filter(valid_method,
-            subprocess.check_output(args, stderr=subprocess.DEVNULL).decode().split('\n')))
+            subprocess.check_output(args, stderr=subprocess.DEVNULL, env={"RAWWAVES": STK_RAWWAVES_PATH}).decode().split('\n')))
     except(subprocess.CalledProcessError):
         cprint(f"[{name}] can't get methods", "red")
         return set()
 
 def read_props(name):
     try:
-        s = subprocess.check_output([EXT_PROPS, name], stderr=subprocess.DEVNULL).decode()
+        args = [EXT_PROPS, name]
+        if name in SPECIAL_OBJ:
+            args.append(SPECIAL_OBJ[name])
+
+        s = subprocess.check_output(args, stderr=subprocess.DEVNULL, env={"RAWWAVES": STK_RAWWAVES_PATH}).decode()
         js = json.loads(s)
         return set(js.keys()), js
-    except(subprocess.CalledProcessError):
-        cprint(f"[{name}] can't get properties", "red")
+    except(subprocess.CalledProcessError) as e:
+        if e.returncode != 4:
+            cprint(f"[{name}] can't get properties", "red")
+
         return set(), dict()
 
 def check_spell(obj):
@@ -155,7 +163,7 @@ if __name__ == '__main__':
         ignored_methods = {'dump', 'dsp', 'signal', 'mouseup', 'mouseenter', 'dialog', 'iscicm',
         'zoom', 'mousewheel', 'mousemove', 'mousedown', 'mouseleave',
         'symbol', 'float', 'bang', 'dblclick', 'list', 'dsp_add', 'loadbang',
-        'click', 'dsp_add_aliased', 'vis', 'popup', 'eobjreadfrom', 'eobjwriteto'}
+        'click', 'dsp_add_aliased', 'vis', 'popup', 'eobjreadfrom', 'eobjwriteto', 'rightclick', 'key' }
         undoc_methods_set = ext_methods - doc_methods_set - ignored_methods
         unknown_methods = doc_methods_set - ext_methods
         if len(undoc_methods_set):
@@ -165,7 +173,7 @@ if __name__ == '__main__':
             cprint(f"[{ext_name}] unknown methods in doc: {unknown_methods}", 'yellow')
 
     if args.props:
-        ignored_props = {'@*'}
+        ignored_props = {'@*', '@label', '@label_margins', '@label_valign', '@label_align', '@label_inner', '@label_side', '@label_color'}
 
         ext_props_set, ext_props_dict = read_props(ext_name)
         undoc_props_set = ext_props_set - doc_props_set - ignored_props
@@ -178,23 +186,41 @@ if __name__ == '__main__':
         if len(unknown_props):
             cprint(f"[{ext_name}] unknown properties in doc: {unknown_props}", 'yellow')
 
+        HAVE_PDDOC = -1
+        HAVE_EXTERNAL = 1
+        HAVE_NONE = 0
+        HAVE_BOTH = 2
+
+        def check_attr(name, p0, p1):
+            a0 = name in p0
+            a1 = name in p1
+
+            if a0 == a1:
+                if a0:
+                    return HAVE_BOTH
+                else:
+                    return HAVE_NONE
+            else:
+                if a0:
+                    return HAVE_EXTERNAL
+                else:
+                    return HAVE_PDDOC
+
         for p in exists_props:
             p0 = ext_props_dict[p]
             p1 = doc_props_dict[p]
 
-            # readonly checks
+            # readonly in external
             if p0.get("readonly", False):
-                # has external readonly but not in doc
+                # but not in doc
                 if not p1.get("readonly", False):
                     cprint(f"[{ext_name}] missing readonly attribute in \"{p}\"", 'magenta')
 
-                continue
-
+            # readonly in docs
             if "readonly" in p1 and p1["readonly"] == "true":
-                if p0.get("readonly", False):
+                # but not readonly in external
+                if not p0.get("readonly", False):
                     cprint(f"[{ext_name}] non-readonly attribute in \"{p}\"", 'red')
-
-                continue
 
             # units checks
             if p1.get("units", False):
@@ -210,17 +236,17 @@ if __name__ == '__main__':
                     cprint(f"[{ext_name}] missing units attribute in pddoc \"{p}\"", 'magenta')
 
             if p0["type"] == "bool":
-                if p1["type"] == "flag":
+                if p1["type"] in ("flag", "alias"):
                     continue
 
                 if "enum" not in p1:
                     cprint(f"[{ext_name}] missing attribute enum for bool in \"{p}\"", 'magenta')
 
                 # no default bool value
-                if "default" in p0 and "default" not in p1:
-                    cprint(f"[{ext_name}] missing attribute default in \"{p}\"", 'magenta')
+                if ("default" in p0) and ("readonly" not in p0) and ("default" not in p1):
+                    cprint(f"[{ext_name}] missing attribute default for bool in \"{p}\"", 'magenta')
 
-                # invalid default bool value
+                # non-equal default bool values
                 if "default" in p0 and "default" in p1:
                     v0 = str(p0["default"])
                     v1 = str(p1["default"])
@@ -229,37 +255,24 @@ if __name__ == '__main__':
 
                 continue
 
-            if p0["type"] not in ("float", "int"):
-                if p0["type"] == "bool" and p1["type"] != "int":
-                    cprint(f"[{ext_name}] invalid bool type (not int) in \"{p}\"", 'magenta')
-
-                if p0["type"] == "symbol" and p1["type"] not in ("symbol", "alias"):
-                    cprint(f"[{ext_name}] invalid symbol type in \"{p}\"", 'magenta')
-
-                if p0["type"] == "list" and p1["type"] != "list":
-                    cprint(f"[{ext_name}] invalid list type in \"{p}\"", 'magenta')
-
-                continue
-
             if p0["type"] != p1["type"]:
-                t0 = p0["type"]
-                t1 = p1["type"]
-                cprint(f"[{ext_name}] different attr types: {t0} != {t1} in \"{p}\"", 'magenta')
+                if p0["type"] == "symbol":
+                    if p1["type"] not in ("symbol", "alias"):
+                        cprint(f"[{ext_name}] invalid symbol type in \"{p}\"", 'magenta')
+                    else:
+                        pass
+                elif p0["type"] == "bool" and p1["type"] != "int":
+                    cprint(f"[{ext_name}] invalid bool type (not int) in \"{p}\"", 'magenta')
+                else:
+                    t0 = p0["type"]
+                    t1 = p1["type"]
+                    cprint(f"[{ext_name}] different attr types: {t0} != {t1} in \"{p}\"", 'magenta')
 
             if "min" in p0 and "minvalue" not in p1:
                 cprint(f"[{ext_name}] missing attribute minvalue in \"{p}\"", 'magenta')
 
             if "max" in p0 and "maxvalue" not in p1:
                 cprint(f"[{ext_name}] missing attribute maxvalue in \"{p}\"", 'magenta')
-
-            if "default" in p0 and "default" not in p1:
-                cprint(f"[{ext_name}] missing attribute default in \"{p}\"", 'magenta')
-
-            if "default" in p0 and "default" in p1:
-                v0 = str(p0["default"])
-                v1 = str(p1["default"])
-                if v0 != v1:
-                    cprint(f"[{ext_name}] invalid value for default attribute \"{p}\": {v0} != {v1}", 'magenta')
 
             if "min" in p0 and "minvalue" in p1:
                 v0 = str(p0["min"])
@@ -272,6 +285,46 @@ if __name__ == '__main__':
                 v1 = str(p1["maxvalue"])
                 if v0 != v1:
                     cprint(f"[{ext_name}] invalid value for maxvalue attribute \"{p}\": {v0} != {v1}", 'magenta')
+
+            attr = check_attr("default", p0, p1)
+            if attr == HAVE_BOTH:
+                if isinstance(p0["default"], list):
+                    v0 = p0["default"]
+                    v1 = p1["default"].split(" ")
+
+                    if len(v0) > 0 and isinstance(v0[0], int):
+                        v1 = list(map(int, v1))
+                else:
+                    v0 = str(p0["default"])
+                    v1 = p1["default"]
+
+                if v0 != v1:
+                    cprint(f"[{ext_name}] invalid value for default attribute \"{p}\": {v0} != {v1}", 'magenta')
+            elif attr == HAVE_EXTERNAL and "readonly" not in p0:
+                cprint(f"[{ext_name}] missing attribute default in \"{p}\"", 'magenta')
+
+            attr = check_attr("enum", p0, p1)
+            if attr == HAVE_BOTH:
+                v0 = set(p0["enum"])
+                v1 = set(p1["enum"].split(" "))
+
+                if len(p0["enum"]) > 0 and isinstance(p0["enum"][0], int):
+                    v1 = set(map(lambda x: int(x), p1["enum"].split(" ")))
+
+                if v0 != v1:
+                    cprint(f"[{ext_name}] invalid value for enum attribute \"{p}\": {v0} != {v1}", 'magenta')
+                    d0 = v0 - v1
+                    d1 = v1 - v0
+                    if len(d0):
+                        cprint(f"[{ext_name}] non-documented elements are: {d0}", 'magenta')
+                    if len(d1):
+                        cprint(f"[{ext_name}] invalid elements in doc are: {d1}", 'magenta')
+
+            elif attr == HAVE_EXTERNAL:
+                if ext_name.startswith("ui.") and p not in ("@fontname"):
+                    cprint(f"[{ext_name}] missing enum attribute in pddoc \"{p}\"", 'magenta')
+            elif attr == HAVE_PDDOC:
+                    cprint(f"[{ext_name}] pddoc enum for attribute \"{p}\" not exists", 'magenta')
 
 
     if args.spell:
