@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/uliss/pure-data.svg?branch=ceammc)](https://travis-ci.org/uliss/pure-data)
+[![Build status](https://ci.appveyor.com/api/projects/status/mfc2ahj8ttexapsj?svg=true)](https://ci.appveyor.com/project/uliss/pure-data)
 [![Coverage Status](https://coveralls.io/repos/github/uliss/pure-data/badge.svg?branch=ceammc)](https://coveralls.io/github/uliss/pure-data?branch=ceammc)
 [![Snap Status](https://build.snapcraft.io/badge/uliss/pure-data.svg)](https://build.snapcraft.io/user/uliss/pure-data)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fuliss%2Fpure-data.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fuliss%2Fpure-data?ref=badge_shield)
