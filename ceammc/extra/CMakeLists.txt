@@ -14,7 +14,7 @@ add_subdirectory(serial)
 add_subdirectory(sf2)
 add_subdirectory(stk)
 add_subdirectory(subprocess)
-add_subdirectory(fmt)
+add_subdirectory(fmt EXCLUDE_FROM_ALL)
 
 option(RE2_BUILD_TESTING "" OFF)
 set(RE2_BUILD_TESTING OFF CACHE BOOL "" FORCE)

@@ -271,7 +271,6 @@ ceammc_add_test_linked(
     LINK ceammc_spat ceammc_core puredata-core ceammc_core
     INCLUDE_DIRECTORIES
         ${PROJECT_SOURCE_DIR}/ceammc/extra/HoaLibrary-Light/Sources
-        ${PROJECT_SOURCE_DIR}/ceammc/extra/fmt/include
         ${EIGEN3_DIR}
 )
 ceammc_add_test_linked(
@@ -280,7 +279,6 @@ ceammc_add_test_linked(
     LINK ceammc_spat ceammc_core puredata-core ceammc_core
     INCLUDE_DIRECTORIES
         ${PROJECT_SOURCE_DIR}/ceammc/extra/HoaLibrary-Light/Sources
-        ${PROJECT_SOURCE_DIR}/ceammc/extra/fmt/include
         ${EIGEN3_DIR}
 )
 

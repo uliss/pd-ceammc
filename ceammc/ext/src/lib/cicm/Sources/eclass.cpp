@@ -15,7 +15,6 @@
 #include "eobj.h"
 #include "epopup.h"
 
-#include "fmt/core.h"
 #include "fmt/format.h"
 
 #include <iostream>

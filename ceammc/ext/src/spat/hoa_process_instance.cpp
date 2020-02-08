@@ -12,10 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "hoa_process_instance.h"
-#include "hoa_process.h"
-
 #include "ceammc_canvas.h"
 #include "fmt/format.h"
+#include "hoa_process.h"
 
 #include <algorithm>
 
