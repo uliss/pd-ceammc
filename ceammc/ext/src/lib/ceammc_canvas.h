@@ -92,14 +92,12 @@ struct t_rect {
  * Returns canvas rect, for root canvas - windows, for others - GOP
  * @param c - pointer to canvas
  */
-t_rect canvas_info_rect(const t_canvas* c);
+t_rect canvas_info_rect(const _glist* c);
 
 class BaseObject;
 typedef std::shared_ptr<Array> ArrayPtr;
-typedef std::map<_symbol*, ArrayPtr> ArrayMap;
 
 class Canvas {
-    ArrayMap array_list_;
     _glist* canvas_;
 
 public:
@@ -124,6 +122,8 @@ public:
     void loadBang();
     void show();
     void hide();
+    void free();
+    void setupDsp();
 
     operator bool() { return canvas_ != nullptr; }
 

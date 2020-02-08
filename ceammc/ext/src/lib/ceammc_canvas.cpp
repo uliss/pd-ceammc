@@ -155,7 +155,7 @@ bool ceammc::canvas_info_is_abstraction(const t_canvas* c)
     return c ? canvas_isabstraction(const_cast<t_canvas*>(c)) : false;
 }
 
-t_rect ceammc::canvas_info_rect(const t_canvas* c)
+t_rect ceammc::canvas_info_rect(const _glist* c)
 {
     if (!c)
         return t_rect(0, 0, 0, 0);
@@ -344,6 +344,23 @@ void Canvas::hide()
 {
     if (canvas_)
         canvas_vis(canvas_, 0);
+}
+
+void Canvas::free()
+{
+    if (canvas_) {
+        canvas_free(canvas_);
+        canvas_ = nullptr;
+    }
+}
+
+void Canvas::setupDsp()
+{
+    static t_symbol* SYM_DSP = gensym("dsp");
+
+    if (canvas_) {
+        mess0(&canvas_->gl_obj.te_g.g_pd, SYM_DSP);
+    }
 }
 
 t_symbol* Canvas::name()
