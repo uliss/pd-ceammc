@@ -15,6 +15,11 @@ environment:
       MSYSTEM: MINGW32
       BIT: 32
       BUILDTOOL: cmake
+      MSYS_CACHE: C:\msys64\var\cache\pacman\pkg
+
+# cache MSYS files to speed up build
+cache:
+    - '%MSYS_CACHE%'
 
 before_build:
   - git submodule init
