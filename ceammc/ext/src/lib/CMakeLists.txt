@@ -138,14 +138,15 @@ add_library(ceammc_core SHARED
     ${CEAMMC_MLIST_SRC}
     ${CEAMMC_DICT_SRC}
     ${CEAMMC_UI_SRC})
-target_link_libraries(ceammc_core puredata-core fmt)
+target_link_libraries(ceammc_core PUBLIC puredata-core)
+target_link_libraries(ceammc_core PRIVATE fmt::fmt-header-only)
 
 set_target_properties(ceammc_core PROPERTIES
     COMPILE_FLAGS "${LIBCEAMMC_COMPILE_FLAGS}"
     LINK_FLAGS    "${LIBCEAMMC_LINK_FLAGS}")
 
 if(WIN32)
-    target_link_libraries(ceammc_core psapi shlwapi userenv puredata-core)
+    target_link_libraries(ceammc_core PUBLIC psapi shlwapi userenv puredata-core)
 
     # copy library to tests folder
     add_custom_command(TARGET ceammc_core POST_BUILD

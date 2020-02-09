@@ -1,9 +1,9 @@
 ---
 os: Visual Studio 2015
 
-version: 2019.03.{build}
+version: 2020.02.{build}
 
-clone_depth: 5
+clone_depth: 1
 
 environment:
   CTEST_OUTPUT_ON_FAILURE: 1
@@ -15,10 +15,27 @@ environment:
       MSYSTEM: MINGW32
       BIT: 32
       BUILDTOOL: cmake
+    - COMPILER: msys2
+      PLATFORM: x64
+      MSYS2_ARCH: x86_64
+      MSYS2_DIR: msys64
+      MSYSTEM: MINGW64
+      BIT: 64
+      BUILDTOOL: cmake
+
+cache:
+  - C:\msys64\var\cache
+  - C:\msys64\mingw64\var\cache
+
+artifacts:
+  - path: build\inno\*.exe
+    name: SetupExe
+  - path: ceammc-*.zip
+    name: externals
 
 before_build:
   - git submodule init
-  - git submodule update
+  - git submodule update --init --recursive
 
 build_script:
   - set VERBOSE=1

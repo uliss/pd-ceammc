@@ -15,7 +15,6 @@
 #include "eobj.h"
 #include "epopup.h"
 
-#include "fmt/core.h"
 #include "fmt/format.h"
 
 #include <iostream>
@@ -131,6 +130,14 @@ void tcl_version_init()
         pd_bind(&tcl_version_instance->x_obj.te_g.g_pd, gensym("tcl_version"));
         sys_gui("pdsend \"tcl_version tcl_version $tk_version\"\n");
     }
+}
+
+std::pair<int, int> eclass_tcl_version()
+{
+    if (!tcl_version_instance)
+        return { 0, 0 };
+    else
+        return { tcl_version_instance->major, tcl_version_instance->minor };
 }
 
 t_eclass* eclass_new(const char* name, t_typ_method newm, t_typ_method freem, size_t size, int flags, t_atomtype arg1, int arg2)
@@ -401,7 +408,8 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
         c->c_widget.w_save = m;
     } else if (sname == gensym(SYM_POPUP)) {
         class_addmethod(cx, (t_method)eobj_popup, gensym(SYM_POPUP), A_SYMBOL, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
-        c->c_widget.w_popup = reinterpret_cast<t_popup_method>(m);;
+        c->c_widget.w_popup = reinterpret_cast<t_popup_method>(m);
+        ;
     } else if (sname == gensym(SYM_DSP)) {
         c->c_widget.w_dsp = m;
     } else if (sname == &s_bang) {
