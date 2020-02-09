@@ -21,8 +21,8 @@ cache:
   - C:\msys64\mingw64\var\cache
 
 artifacts:
-  - path: inno\*.exe
-    name: Installer
+  - path: build\inno\*.exe
+    name: SetupExe
 
 before_build:
   - git submodule init
