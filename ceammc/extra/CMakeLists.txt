@@ -1,6 +1,7 @@
 include(library_pddoc.cmake)
 
 add_subdirectory(SoundTouch)
+add_subdirectory(aubio)
 add_subdirectory(autotune)
 add_subdirectory(comport)
 add_subdirectory(fftease)
