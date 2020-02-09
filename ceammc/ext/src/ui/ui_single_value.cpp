@@ -14,6 +14,7 @@ extern "C" {
 #include "m_imp.h"
 }
 
+// see ui_gain.cpp
 static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
 static t_rgba PICKUP_MIDI_COLOR = hex_to_rgba("#3377FF");
 static t_symbol* SYM_MIN;

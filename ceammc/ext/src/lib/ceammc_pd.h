@@ -16,6 +16,7 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_canvas.h"
+#include "ceammc_message.h"
 #include "ceammc_property_info.h"
 
 #include <map>
@@ -35,7 +36,7 @@ namespace pd {
     class External {
     private:
         t_object* obj_;
-        t_canvas* parent_;
+        _glist* parent_;
 
     public:
         External(const char* name, const AtomList& lst = AtomList());
@@ -53,7 +54,7 @@ namespace pd {
 
         t_object* object();
         t_pd* pd() { return &obj_->te_g.g_pd; }
-        void setParent(t_canvas* cnv);
+        void setParent(_glist* cnv);
 
         void sendBang();
         void sendFloat(t_float v);
@@ -64,6 +65,18 @@ namespace pd {
         void sendSymbolTo(t_symbol* s, size_t inlet);
         void sendListTo(const AtomList& l, size_t inlet);
         void sendMessage(t_symbol* msg, const AtomList& args = AtomList());
+        void sendMessage(const Message& m);
+
+        template <typename... Args>
+        void sendMessage(const char* msg, Args... args)
+        {
+            sendMessage({ msg, args... });
+        }
+
+        void sendMessage(const char* msg, const AtomList& args = AtomList())
+        {
+            sendMessage(gensym(msg), args);
+        }
 
         int numOutlets() const;
         int numInlets() const;
@@ -86,6 +99,11 @@ namespace pd {
 
         std::vector<PropertyInfo> properties() const;
     };
+
+    t_class* object_class(t_object* x);
+    t_symbol* object_name(t_object* x);
+    t_symbol* object_dir(t_object* x);
+    void object_bang(t_object* x);
 }
 
 typedef std::shared_ptr<Canvas> CanvasPtr;

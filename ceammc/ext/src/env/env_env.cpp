@@ -29,8 +29,18 @@ Envelope::Envelope(const PdArgs& args)
     else if (method != 0)
         OBJ_ERR << "unknown arguments: " << positionalArguments();
 
-    createCbProperty("@npoints", &Envelope::p_npoints);
-    createCbProperty("@length", &Envelope::p_length);
+    {
+        Property* p = createCbProperty("@npoints", &Envelope::p_npoints);
+        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setMin(0);
+    }
+
+    {
+        Property* p = createCbProperty("@length", &Envelope::p_length);
+        p->info().setType(PropertyInfoType::FLOAT);
+        p->info().setUnits(PropertyInfoUnits::MSEC);
+    }
+
     createCbProperty("@points", &Envelope::p_points);
     createCbProperty("@values", &Envelope::p_values);
     createCbProperty("@stops", &Envelope::p_stops);

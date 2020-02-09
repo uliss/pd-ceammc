@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2019-09-23 02:33+0300\n"
-"PO-Revision-Date: 2019-09-23 02:37+0300\n"
+"POT-Creation-Date: 2019-11-19 03:38+0300\n"
+"PO-Revision-Date: 2019-11-28 13:34+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -940,15 +940,18 @@ msgstr "Настройки MIDI"
 msgid "MIDI Settings..."
 msgstr "Настройки MIDI..."
 
-#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_knob.cpp
+#: ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "MIDI channel"
 msgstr "MIDI канал"
 
-#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_knob.cpp
+#: ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "MIDI control"
 msgstr "MIDI контроллер"
 
-#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_knob.cpp
+#: ../ceammc/ext/src/ui/ui_slider.cpp
 msgid "MIDI pickup"
 msgstr "Подхват MIDI значения"
 
@@ -1961,6 +1964,18 @@ msgstr "Y единиц на пиксель:"
 msgid "Zoom"
 msgstr "Раскрыть"
 
+#: ../ceammc/ext/src/ui/ui_scope.cpp
+msgid "Zoom 100%"
+msgstr "Масштаб 100%"
+
+#: ../ceammc/ext/src/ui/ui_scope.cpp
+msgid "Zoom 200%"
+msgstr "Масштаб 200%"
+
+#: ../ceammc/ext/src/ui/ui_scope.cpp
+msgid "Zoom 50%"
+msgstr "Масштаб 50%"
+
 #: ../tcl/pd_menus.tcl
 msgid "Zoom In"
 msgstr "Увеличить"
@@ -2079,6 +2094,14 @@ msgstr "заполнить %f"
 msgid "flip"
 msgstr "инвертировать"
 
+#: ../ceammc/ext/src/ui/ui_matrix.cpp
+msgid "flip column"
+msgstr "инвертировать столбец"
+
+#: ../ceammc/ext/src/ui/ui_matrix.cpp
+msgid "flip row"
+msgstr "инвертировать строку"
+
 #: ../tcl/dialog_find.tcl
 msgid "for:"
 msgstr ":"
@@ -2176,6 +2199,14 @@ msgstr "отпустить все"
 #: ../ceammc/ext/src/ui/ui_matrix.cpp ../ceammc/ext/src/ui/ui_radio.cpp
 msgid "reset"
 msgstr "сбросить"
+
+#: ../ceammc/ext/src/ui/ui_matrix.cpp
+msgid "reset column"
+msgstr "сбросить столбец"
+
+#: ../ceammc/ext/src/ui/ui_matrix.cpp
+msgid "reset row"
+msgstr "сбросить строку"
 
 #: ../ceammc/ext/src/ui/ui_polar.cpp ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "right center"

@@ -257,7 +257,7 @@ TEST_CASE("list.^at", "[externals]")
             REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 3, 3));
 
             WHEN_SEND_LIST_TO(0, t, LF(0, 100, -100));
-            REQUIRE_LIST_AT_OUTLET(0, t, LF(1));
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
         }
 
         SECTION("rel + default")

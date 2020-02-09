@@ -13,13 +13,13 @@
 -262144 0;
 #X text 10 218 freq(Hz):;
 #X obj 12 237 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/flt.notch~/slider0 @min 20 @max 20000;
+/gui/$1/flt.notch~/slider0 @min 20 @max 20000;
 #X obj 140 237 ui.number @size 40 12 @digits 3 @min 20 @max 20000;
 #X obj 190 237 msg set;
 #X msg 260 237 @freq \$1;
 #X text 10 251 width(Hz):;
 #X obj 12 270 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/flt.notch~/slider1 @min 1 @max 10000;
+/gui/$1/flt.notch~/slider1 @min 1 @max 10000;
 #X obj 140 270 ui.number @size 40 12 @digits 3 @min 1 @max 10000;
 #X obj 190 270 msg set;
 #X msg 260 270 @width \$1;

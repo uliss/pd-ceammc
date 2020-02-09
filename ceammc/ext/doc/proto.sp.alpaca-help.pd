@@ -5,7 +5,7 @@
 #X obj 1 1 cnv 5 765 40 empty empty proto.sp.alpaca 20 20 0 20 -104026
 -4096 0;
 #X obj 632 11 proto.sp.alpaca;
-#X obj 50 118 ui.knob @size 40 40;
+#X obj 50 118 ui.knob;
 #X msg 146 118 version?;
 #X msg 146 147 clear;
 #X msg 251 147 fill;

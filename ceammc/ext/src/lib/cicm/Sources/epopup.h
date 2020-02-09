@@ -49,8 +49,9 @@ void epopupmenu_setfont(t_epopup* popup, t_efont* font);
  * \param itemid The id of the item.
  * \param text   The text of the item.
  * \param enabled If the item is marked as enabled or not.
+ * \param pos    popup menu position
  */
-void epopupmenu_additem(t_epopup* popup, int itemid, const char* text, bool enabled);
+void epopupmenu_additem(t_epopup* popup, int itemid, const char* text, bool enabled, const t_pt& pos);
 
 /*!
  * \fn          void epopupmenu_addseparator(t_epopup *popup)

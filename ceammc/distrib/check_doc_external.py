@@ -16,8 +16,10 @@ from termcolor import colored, cprint
 import json
 import jamspell
 
+SRC_PATH = "@PROJECT_SOURCE_DIR@/"
 BIN_PATH = "@PROJECT_BINARY_DIR@/ceammc/ext/src/lib/"
 DOC_PATH = "@PROJECT_SOURCE_DIR@/ceammc/ext/doc/"
+STK_RAWWAVES_PATH = "@PROJECT_SOURCE_DIR@/ceammc/extra/stk/stk/rawwaves"
 
 EXT_LIST = BIN_PATH + "ext_list"
 EXT_METHODS = BIN_PATH + "ext_methods"
@@ -43,18 +45,24 @@ def read_methods(name):
             args.append(SPECIAL_OBJ[name])
 
         return set(filter(valid_method,
-            subprocess.check_output(args, stderr=subprocess.DEVNULL).decode().split('\n')))
+            subprocess.check_output(args, stderr=subprocess.DEVNULL, env={"RAWWAVES": STK_RAWWAVES_PATH}).decode().split('\n')))
     except(subprocess.CalledProcessError):
         cprint(f"[{name}] can't get methods", "red")
         return set()
 
 def read_props(name):
     try:
-        s = subprocess.check_output([EXT_PROPS, name], stderr=subprocess.DEVNULL).decode()
+        args = [EXT_PROPS, name]
+        if name in SPECIAL_OBJ:
+            args.append(SPECIAL_OBJ[name])
+
+        s = subprocess.check_output(args, stderr=subprocess.DEVNULL, env={"RAWWAVES": STK_RAWWAVES_PATH}).decode()
         js = json.loads(s)
         return set(js.keys()), js
-    except(subprocess.CalledProcessError):
-        cprint(f"[{name}] can't get properties", "red")
+    except(subprocess.CalledProcessError) as e:
+        if e.returncode != 4:
+            cprint(f"[{name}] can't get properties", "red")
+
         return set(), dict()
 
 def check_spell(obj):
@@ -155,7 +163,7 @@ if __name__ == '__main__':
         ignored_methods = {'dump', 'dsp', 'signal', 'mouseup', 'mouseenter', 'dialog', 'iscicm',
         'zoom', 'mousewheel', 'mousemove', 'mousedown', 'mouseleave',
         'symbol', 'float', 'bang', 'dblclick', 'list', 'dsp_add', 'loadbang',
-        'click', 'dsp_add_aliased', 'vis', 'popup', 'eobjreadfrom', 'eobjwriteto'}
+        'click', 'dsp_add_aliased', 'vis', 'popup', 'eobjreadfrom', 'eobjwriteto', 'rightclick', 'key' }
         undoc_methods_set = ext_methods - doc_methods_set - ignored_methods
         unknown_methods = doc_methods_set - ext_methods
         if len(undoc_methods_set):
@@ -228,7 +236,7 @@ if __name__ == '__main__':
                     cprint(f"[{ext_name}] missing units attribute in pddoc \"{p}\"", 'magenta')
 
             if p0["type"] == "bool":
-                if p1["type"] == "flag":
+                if p1["type"] in ("flag", "alias"):
                     continue
 
                 if "enum" not in p1:
@@ -305,6 +313,13 @@ if __name__ == '__main__':
 
                 if v0 != v1:
                     cprint(f"[{ext_name}] invalid value for enum attribute \"{p}\": {v0} != {v1}", 'magenta')
+                    d0 = v0 - v1
+                    d1 = v1 - v0
+                    if len(d0):
+                        cprint(f"[{ext_name}] non-documented elements are: {d0}", 'magenta')
+                    if len(d1):
+                        cprint(f"[{ext_name}] invalid elements in doc are: {d1}", 'magenta')
+
             elif attr == HAVE_EXTERNAL:
                 if ext_name.startswith("ui.") and p not in ("@fontname"):
                     cprint(f"[{ext_name}] missing enum attribute in pddoc \"{p}\"", 'magenta')

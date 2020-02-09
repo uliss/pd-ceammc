@@ -60,12 +60,18 @@ void UIGain2::setup()
     obj.addIntProperty("max", _("Maximum value"), 0, &UIGain2::prop_max, _("Bounds"));
     obj.addIntProperty("min", _("Minimum value"), -60, &UIGain2::prop_min, _("Bounds"));
     obj.setPropertyRange("max", -12, 12);
-    obj.setPropertyRange("min", -90, -30);
+    obj.setPropertyRange("min", -90, -15);
     obj.setPropertyUnits(SYM_MAX, SYM_DB);
     obj.setPropertyUnits(SYM_MIN, SYM_DB);
     obj.addBoolProperty("show_range", _("Show range"), true, &UIGain2::prop_show_range, _("Misc"));
     obj.addBoolProperty("output_value", _("Output value"), false, &UIGain2::prop_output_value, _("Main"));
     obj.addBoolProperty("relative", _("Relative mode"), true, &UIGain2::prop_relative_mode, _("Main"));
+
+    obj.addProperty("midi_channel", _("MIDI channel"), 0, &UIGain2::prop_midi_chn, "MIDI");
+    obj.setPropertyRange("midi_channel", 0, 16);
+    obj.addProperty("midi_control", _("MIDI control"), 0, &UIGain2::prop_midi_ctl, "MIDI");
+    obj.setPropertyRange("midi_control", 0, 128);
+    obj.addProperty("midi_pickup", _("MIDI pickup"), true, &UIGain2::prop_pickup_midi, "MIDI");
 
     obj.setDefaultSize(15, 120);
     obj.usePresets();

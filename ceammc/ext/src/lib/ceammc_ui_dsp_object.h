@@ -11,7 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_UI_DSP_OBJECT_H
+#include "ceammc_ui_object.h"
+#ifdef CEAMMC_UI_DSP_OBJECT_H
 #define CEAMMC_UI_DSP_OBJECT_H
 
 #include "ceammc_atomlist.h"
@@ -112,9 +113,10 @@ public:
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseLeave(t_object* view, const t_pt& pt, long modifiers);
     void onMouseEnter(t_object* view, const t_pt& pt, long modifiers);
-    void onMouseWheel(t_object* view, const t_pt& pt, long modifiers, double delta);
+    void onMouseWheel(const t_pt& pt, long modifiers, float delta);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
     void onPopup(t_symbol* menu_name, long item_idx);
+    void showPopup(const t_pt& pt, const t_pt& abs_pt);
     bool outputMouseEvents() const;
 
     // input

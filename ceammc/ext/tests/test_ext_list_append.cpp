@@ -37,10 +37,10 @@ TEST_CASE("list.append", "[externals]")
         REQUIRE_LIST_AT_OUTLET(0, t, L());
 
         WHEN_SEND_FLOAT_TO(0, t, 10);
-        REQUIRE_LIST_AT_OUTLET(0, t, LF(10));
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 10);
 
         WHEN_SEND_SYMBOL_TO(0, t, "ABC");
-        REQUIRE_LIST_AT_OUTLET(0, t, LA("ABC"));
+        REQUIRE_SYMBOL_AT_OUTLET(0, t, "ABC");
 
         DataPtr d0(new IntData(12));
         WHEN_SEND_DATA_TO(0, t, d0);

@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "synth.eguitar"
-Code generated with Faust 2.18.7 (https://faust.grame.fr)
+Code generated with Faust 2.22.1 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -313,10 +313,8 @@ class UIReal
         virtual void declare(REAL* zone, const char* key, const char* val) {}
 };
 
-class UI : public UIReal<FAUSTFLOAT>
+struct UI : public UIReal<FAUSTFLOAT>
 {
-
-    public:
 
         UI() {}
         virtual ~UI() {}
@@ -383,7 +381,7 @@ struct Meta
  that work under terms of your choice, so long as this FAUST
  architecture section is not modified.
  ************************************************************************/
- 
+
 #ifndef __misc__
 #define __misc__
 
@@ -414,23 +412,40 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-	int	i;
-    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    return def;
 }
 
-static bool isopt(char* argv[], const char* name)
+static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
-	return false;
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return atoi(argv[i]);
+        }
+    }
+    return def;
 }
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    return def;
+}
+
+static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
+{
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return argv[i];
+        }
+    }
+    return def;
+}
+
+static bool isopt(char* argv[], const char* name)
+{
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
+    return false;
 }
 
 static std::string pathToContent(const std::string& path)
@@ -488,12 +503,12 @@ struct synth_eguitar : public dsp {
 
 static float synth_eguitar_faustpower2_f(float value) {
 	return (value * value);
-	
 }
 
 #ifndef FAUSTCLASS 
 #define FAUSTCLASS synth_eguitar
 #endif
+
 #ifdef __APPLE__ 
 #define exp10f __exp10f
 #define exp10 __exp10
@@ -524,7 +539,6 @@ class synth_eguitar : public dsp {
 	FAUSTFLOAT fButton0;
 	float fVec1[2];
 	int iRec35[2];
-	int iRec36[2];
 	float fVec2[3];
 	float fRec30[2048];
 	float fRec21[2];
@@ -543,7 +557,7 @@ class synth_eguitar : public dsp {
 		m->declare("basics.lib/version", "0.1");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
-		m->declare("envelopes.lib/ar:author", "Stéphane Letz");
+		m->declare("envelopes.lib/ar:author", "Yann Orlarey, Stéphane Letz");
 		m->declare("envelopes.lib/author", "GRAME");
 		m->declare("envelopes.lib/copyright", "GRAME");
 		m->declare("envelopes.lib/license", "LGPL with exception");
@@ -586,27 +600,23 @@ class synth_eguitar : public dsp {
 
 	virtual int getNumInputs() {
 		return 0;
-		
 	}
 	virtual int getNumOutputs() {
 		return 1;
-		
 	}
 	virtual int getInputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			default: {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	virtual int getOutputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 1;
 				break;
@@ -615,14 +625,11 @@ class synth_eguitar : public dsp {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	
 	static void classInit(int sample_rate) {
-		
 	}
 	
 	virtual void instanceConstants(int sample_rate) {
@@ -632,7 +639,6 @@ class synth_eguitar : public dsp {
 		fConst2 = (0.00882352982f * fConst0);
 		fConst3 = (6911.50391f / fConst0);
 		fConst4 = (0.00200000009f * fConst0);
-		
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -641,92 +647,67 @@ class synth_eguitar : public dsp {
 		fHslider2 = FAUSTFLOAT(0.5f);
 		fHslider3 = FAUSTFLOAT(1.0f);
 		fButton0 = FAUSTFLOAT(0.0f);
-		
 	}
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec25[l0] = 0.0f;
-			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec29[l1] = 0.0f;
-			
 		}
 		for (int l2 = 0; (l2 < 4); l2 = (l2 + 1)) {
 			fRec31[l2] = 0.0f;
-			
 		}
 		IOTA = 0;
 		for (int l3 = 0; (l3 < 2048); l3 = (l3 + 1)) {
 			fRec32[l3] = 0.0f;
-			
 		}
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fVec0[l4] = 0.0f;
-			
 		}
 		for (int l5 = 0; (l5 < 2); l5 = (l5 + 1)) {
 			iRec34[l5] = 0;
-			
 		}
 		for (int l6 = 0; (l6 < 3); l6 = (l6 + 1)) {
 			fRec33[l6] = 0.0f;
-			
 		}
 		for (int l7 = 0; (l7 < 2); l7 = (l7 + 1)) {
 			fVec1[l7] = 0.0f;
-			
 		}
 		for (int l8 = 0; (l8 < 2); l8 = (l8 + 1)) {
 			iRec35[l8] = 0;
-			
 		}
-		for (int l9 = 0; (l9 < 2); l9 = (l9 + 1)) {
-			iRec36[l9] = 0;
-			
+		for (int l9 = 0; (l9 < 3); l9 = (l9 + 1)) {
+			fVec2[l9] = 0.0f;
 		}
-		for (int l10 = 0; (l10 < 3); l10 = (l10 + 1)) {
-			fVec2[l10] = 0.0f;
-			
+		for (int l10 = 0; (l10 < 2048); l10 = (l10 + 1)) {
+			fRec30[l10] = 0.0f;
 		}
-		for (int l11 = 0; (l11 < 2048); l11 = (l11 + 1)) {
-			fRec30[l11] = 0.0f;
-			
+		for (int l11 = 0; (l11 < 2); l11 = (l11 + 1)) {
+			fRec21[l11] = 0.0f;
 		}
 		for (int l12 = 0; (l12 < 2); l12 = (l12 + 1)) {
-			fRec21[l12] = 0.0f;
-			
+			fRec17[l12] = 0.0f;
 		}
-		for (int l13 = 0; (l13 < 2); l13 = (l13 + 1)) {
-			fRec17[l13] = 0.0f;
-			
+		for (int l13 = 0; (l13 < 2048); l13 = (l13 + 1)) {
+			fRec13[l13] = 0.0f;
 		}
-		for (int l14 = 0; (l14 < 2048); l14 = (l14 + 1)) {
-			fRec13[l14] = 0.0f;
-			
+		for (int l14 = 0; (l14 < 2); l14 = (l14 + 1)) {
+			fRec15[l14] = 0.0f;
 		}
-		for (int l15 = 0; (l15 < 2); l15 = (l15 + 1)) {
-			fRec15[l15] = 0.0f;
-			
+		for (int l15 = 0; (l15 < 4); l15 = (l15 + 1)) {
+			fRec11[l15] = 0.0f;
 		}
-		for (int l16 = 0; (l16 < 4); l16 = (l16 + 1)) {
-			fRec11[l16] = 0.0f;
-			
+		for (int l16 = 0; (l16 < 2); l16 = (l16 + 1)) {
+			fRec6[l16] = 0.0f;
 		}
-		for (int l17 = 0; (l17 < 2); l17 = (l17 + 1)) {
-			fRec6[l17] = 0.0f;
-			
+		for (int l17 = 0; (l17 < 2048); l17 = (l17 + 1)) {
+			fRec2[l17] = 0.0f;
 		}
-		for (int l18 = 0; (l18 < 2048); l18 = (l18 + 1)) {
-			fRec2[l18] = 0.0f;
-			
+		for (int l18 = 0; (l18 < 2); l18 = (l18 + 1)) {
+			fRec0[l18] = 0.0f;
 		}
-		for (int l19 = 0; (l19 < 2); l19 = (l19 + 1)) {
-			fRec0[l19] = 0.0f;
-			
-		}
-		
 	}
 	
 	virtual void init(int sample_rate) {
@@ -745,7 +726,6 @@ class synth_eguitar : public dsp {
 	
 	virtual int getSampleRate() {
 		return fSampleRate;
-		
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
@@ -756,7 +736,6 @@ class synth_eguitar : public dsp {
 		ui_interface->addHorizontalSlider("pitch", &fHslider1, 48.0f, 36.0f, 84.0f, 0.00100000005f);
 		ui_interface->addHorizontalSlider("pos", &fHslider2, 0.5f, 0.0f, 1.0f, 0.00999999978f);
 		ui_interface->closeBox();
-		
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
@@ -840,10 +819,9 @@ class synth_eguitar : public dsp {
 			iRec34[0] = ((1103515245 * iRec34[1]) + 12345);
 			fRec33[0] = ((4.65661287e-10f * float(iRec34[0])) - (fSlow58 * ((fSlow59 * fRec33[2]) + (fSlow60 * fRec33[1]))));
 			fVec1[0] = fSlow62;
-			iRec35[0] = ((iRec35[1] * (fVec1[1] >= fSlow62)) + 1);
-			float fTemp0 = std::min<float>((fSlow61 * float(iRec35[0])), 1.0f);
-			iRec36[0] = ((iRec36[1] + 1) * (fTemp0 >= 1.0f));
-			float fTemp1 = (fSlow57 * ((fRec33[2] + (fRec33[0] + (2.0f * fRec33[1]))) * std::max<float>(0.0f, (fTemp0 - (fSlow61 * float(iRec36[0]))))));
+			iRec35[0] = (((iRec35[1] + (iRec35[1] > 0)) * (fSlow62 <= fVec1[1])) + (fSlow62 > fVec1[1]));
+			float fTemp0 = (fSlow61 * float(iRec35[0]));
+			float fTemp1 = (fSlow57 * ((fRec33[2] + (fRec33[0] + (2.0f * fRec33[1]))) * std::max<float>(0.0f, std::min<float>(fTemp0, (2.0f - fTemp0)))));
 			float fTemp2 = (fVec0[1] + fTemp1);
 			fVec2[0] = fTemp2;
 			fRec30[(IOTA & 2047)] = ((0.0500000007f * fRec30[((IOTA - 1) & 2047)]) + (0.949999988f * fVec2[2]));
@@ -878,7 +856,6 @@ class synth_eguitar : public dsp {
 			fRec29[1] = fRec29[0];
 			for (int j0 = 3; (j0 > 0); j0 = (j0 - 1)) {
 				fRec31[j0] = fRec31[(j0 - 1)];
-				
 			}
 			IOTA = (IOTA + 1);
 			fVec0[1] = fVec0[0];
@@ -887,7 +864,6 @@ class synth_eguitar : public dsp {
 			fRec33[1] = fRec33[0];
 			fVec1[1] = fVec1[0];
 			iRec35[1] = iRec35[0];
-			iRec36[1] = iRec36[0];
 			fVec2[2] = fVec2[1];
 			fVec2[1] = fVec2[0];
 			fRec21[1] = fRec21[0];
@@ -895,13 +871,10 @@ class synth_eguitar : public dsp {
 			fRec15[1] = fRec15[0];
 			for (int j1 = 3; (j1 > 0); j1 = (j1 - 1)) {
 				fRec11[j1] = fRec11[(j1 - 1)];
-				
 			}
 			fRec6[1] = fRec6[0];
 			fRec0[1] = fRec0[0];
-			
 		}
-		
 	}
 
 };

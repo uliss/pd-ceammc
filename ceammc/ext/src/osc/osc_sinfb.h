@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "osc_sinfb"
-Code generated with Faust 2.18.7 (https://faust.grame.fr)
+Code generated with Faust 2.22.1 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -313,10 +313,8 @@ class UIReal
         virtual void declare(REAL* zone, const char* key, const char* val) {}
 };
 
-class UI : public UIReal<FAUSTFLOAT>
+struct UI : public UIReal<FAUSTFLOAT>
 {
-
-    public:
 
         UI() {}
         virtual ~UI() {}
@@ -383,7 +381,7 @@ struct Meta
  that work under terms of your choice, so long as this FAUST
  architecture section is not modified.
  ************************************************************************/
- 
+
 #ifndef __misc__
 #define __misc__
 
@@ -414,23 +412,40 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-	int	i;
-    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    return def;
 }
 
-static bool isopt(char* argv[], const char* name)
+static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
-	return false;
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return atoi(argv[i]);
+        }
+    }
+    return def;
 }
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    return def;
+}
+
+static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
+{
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return argv[i];
+        }
+    }
+    return def;
+}
+
+static bool isopt(char* argv[], const char* name)
+{
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
+    return false;
 }
 
 static std::string pathToContent(const std::string& path)
@@ -486,7 +501,6 @@ struct osc_sinfb : public dsp {
 #include <cmath>
 #include <math.h>
 
-
 class osc_sinfbSIG0 {
 	
   private:
@@ -497,27 +511,23 @@ class osc_sinfbSIG0 {
 	
 	int getNumInputsosc_sinfbSIG0() {
 		return 0;
-		
 	}
 	int getNumOutputsosc_sinfbSIG0() {
 		return 1;
-		
 	}
 	int getInputRateosc_sinfbSIG0(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			default: {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	int getOutputRateosc_sinfbSIG0(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 0;
 				break;
@@ -526,18 +536,14 @@ class osc_sinfbSIG0 {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	
 	void instanceInitosc_sinfbSIG0(int sample_rate) {
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			iRec1[l0] = 0;
-			
 		}
-		
 	}
 	
 	void fillosc_sinfbSIG0(int count, float* table) {
@@ -545,16 +551,13 @@ class osc_sinfbSIG0 {
 			iRec1[0] = (iRec1[1] + 1);
 			table[i] = std::sin((9.58738019e-05f * float((iRec1[0] + -1))));
 			iRec1[1] = iRec1[0];
-			
 		}
-		
 	}
 
 };
 
-osc_sinfbSIG0* newosc_sinfbSIG0() { return (osc_sinfbSIG0*)new osc_sinfbSIG0(); }
-void deleteosc_sinfbSIG0(osc_sinfbSIG0* dsp) { delete dsp; }
-
+static osc_sinfbSIG0* newosc_sinfbSIG0() { return (osc_sinfbSIG0*)new osc_sinfbSIG0(); }
+static void deleteosc_sinfbSIG0(osc_sinfbSIG0* dsp) { delete dsp; }
 
 class osc_sinfbSIG1 {
 	
@@ -566,27 +569,23 @@ class osc_sinfbSIG1 {
 	
 	int getNumInputsosc_sinfbSIG1() {
 		return 0;
-		
 	}
 	int getNumOutputsosc_sinfbSIG1() {
 		return 1;
-		
 	}
 	int getInputRateosc_sinfbSIG1(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			default: {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	int getOutputRateosc_sinfbSIG1(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 0;
 				break;
@@ -595,18 +594,14 @@ class osc_sinfbSIG1 {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	
 	void instanceInitosc_sinfbSIG1(int sample_rate) {
 		for (int l3 = 0; (l3 < 2); l3 = (l3 + 1)) {
 			iRec4[l3] = 0;
-			
 		}
-		
 	}
 	
 	void fillosc_sinfbSIG1(int count, float* table) {
@@ -614,15 +609,13 @@ class osc_sinfbSIG1 {
 			iRec4[0] = (iRec4[1] + 1);
 			table[i] = std::cos((9.58738019e-05f * float((iRec4[0] + -1))));
 			iRec4[1] = iRec4[0];
-			
 		}
-		
 	}
 
 };
 
-osc_sinfbSIG1* newosc_sinfbSIG1() { return (osc_sinfbSIG1*)new osc_sinfbSIG1(); }
-void deleteosc_sinfbSIG1(osc_sinfbSIG1* dsp) { delete dsp; }
+static osc_sinfbSIG1* newosc_sinfbSIG1() { return (osc_sinfbSIG1*)new osc_sinfbSIG1(); }
+static void deleteosc_sinfbSIG1(osc_sinfbSIG1* dsp) { delete dsp; }
 
 static float ftbl0osc_sinfbSIG0[65536];
 static float ftbl1osc_sinfbSIG1[65536];
@@ -630,6 +623,7 @@ static float ftbl1osc_sinfbSIG1[65536];
 #ifndef FAUSTCLASS 
 #define FAUSTCLASS osc_sinfb
 #endif
+
 #ifdef __APPLE__ 
 #define exp10f __exp10f
 #define exp10 __exp10
@@ -666,15 +660,13 @@ class osc_sinfb : public dsp {
 
 	virtual int getNumInputs() {
 		return 1;
-		
 	}
 	virtual int getNumOutputs() {
 		return 1;
-		
 	}
 	virtual int getInputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 1;
 				break;
@@ -683,14 +675,12 @@ class osc_sinfb : public dsp {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	virtual int getOutputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 1;
 				break;
@@ -699,10 +689,8 @@ class osc_sinfb : public dsp {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	
 	static void classInit(int sample_rate) {
@@ -714,34 +702,27 @@ class osc_sinfb : public dsp {
 		sig1->fillosc_sinfbSIG1(65536, ftbl1osc_sinfbSIG1);
 		deleteosc_sinfbSIG0(sig0);
 		deleteosc_sinfbSIG1(sig1);
-		
 	}
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
 		fConst0 = (1.0f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate))));
-		
 	}
 	
 	virtual void instanceResetUserInterface() {
 		fHslider0 = FAUSTFLOAT(0.0f);
-		
 	}
 	
 	virtual void instanceClear() {
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec2[l1] = 0.0f;
-			
 		}
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec3[l2] = 0.0f;
-			
 		}
 		for (int l4 = 0; (l4 < 2); l4 = (l4 + 1)) {
 			fRec0[l4] = 0.0f;
-			
 		}
-		
 	}
 	
 	virtual void init(int sample_rate) {
@@ -760,14 +741,12 @@ class osc_sinfb : public dsp {
 	
 	virtual int getSampleRate() {
 		return fSampleRate;
-		
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("osc_sinfb");
 		ui_interface->addHorizontalSlider("feedback", &fHslider0, 0.0f, 0.0f, 6.28318548f, 0.100000001f);
 		ui_interface->closeBox();
-		
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
@@ -785,9 +764,7 @@ class osc_sinfb : public dsp {
 			fRec2[1] = fRec2[0];
 			fRec3[1] = fRec3[0];
 			fRec0[1] = fRec0[0];
-			
 		}
-		
 	}
 
 };

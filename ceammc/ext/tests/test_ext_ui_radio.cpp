@@ -35,6 +35,45 @@ TEST_CASE("ui.radio", "[ui.radio]")
         HAS_UI_PROPERTY(t, "active_color");
         REQUIRE_UI_FLOAT_PROPERTY(t, "mode", 0);
         REQUIRE_PRESETS(t);
+
+        SECTION("aliases")
+        {
+            SECTION("ui.hrd")
+            {
+                TestExtRadio t("ui.hrd");
+                REQUIRE(t.object());
+                REQUIRE(t->width() == 127);
+                REQUIRE(t->height() == 15);
+                REQUIRE(t->p_mode() == 0);
+            }
+
+            SECTION("ui.hrd*")
+            {
+                TestExtRadio t("ui.hrd*");
+                REQUIRE(t.object());
+                REQUIRE(t->width() == 127);
+                REQUIRE(t->height() == 15);
+                REQUIRE(t->p_mode() == 1);
+            }
+
+            SECTION("ui.vrd")
+            {
+                TestExtRadio t("ui.vrd");
+                REQUIRE(t.object());
+                REQUIRE(t->width() == 15);
+                REQUIRE(t->height() == 127);
+                REQUIRE(t->p_mode() == 0);
+            }
+
+            SECTION("ui.vrd*")
+            {
+                TestExtRadio t("ui.vrd*");
+                REQUIRE(t.object());
+                REQUIRE(t->width() == 15);
+                REQUIRE(t->height() == 127);
+                REQUIRE(t->p_mode() == 1);
+            }
+        }
     }
 
     SECTION("nitems")

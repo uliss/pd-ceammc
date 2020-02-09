@@ -52,6 +52,15 @@ public:
     Message(t_symbol* s, const AtomList& l);
     Message(t_symbol* s, int argc, t_atom* argv);
 
+    template <typename... Args>
+    Message(const char* s, Args... args)
+        : type_(ANY)
+        , value_(gensym(s))
+        , data_(Atom())
+        , v_list_({ wrap_atom(args)... })
+    {
+    }
+
     // copy/move
     Message(const Message& m);
     Message(Message&& m);
@@ -89,10 +98,19 @@ public:
     }
 
     const DataPtr& dataValue() const;
+
+private:
+    static Atom wrap_atom(const char* str) { return Atom(gensym(str)); }
+    static Atom wrap_atom(t_symbol* s) { return Atom(s); }
+    static Atom wrap_atom(double f) { return Atom(f); }
+    static Atom wrap_atom(float f) { return Atom(f); }
+    static Atom wrap_atom(int i) { return Atom(i); }
+    static Atom wrap_atom(long l) { return Atom(l); }
 };
 
 bool operator==(const Message& c1, const Message& c2);
 bool operator!=(const Message& c1, const Message& c2);
+std::ostream& operator<<(std::ostream& os, const Message& m);
 
 } // namespace ceammc
 

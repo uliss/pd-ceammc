@@ -28,7 +28,7 @@
 #X msg 50 305 fill @from 20 @to -10 -0.5;
 #X msg 366 305 saw 60 0.9;
 #X msg 530 305 tri 80 0.6;
-#X obj 155 334 ui.knob @size 40 40;
+#X obj 155 334 ui.knob;
 #X msg 155 392 sin 100 0.8 \$1;
 #X obj 50 421 array.fill @array afill;
 #X obj 50 449 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1

@@ -1,7 +1,7 @@
 //----------------------------------------------------------
 // name: "synth.dx7"
 //
-// Code generated with Faust 2.18.7 (https://faust.grame.fr)
+// Code generated with Faust 2.22.1 (https://faust.grame.fr)
 //----------------------------------------------------------
 
 /* link with  */
@@ -324,10 +324,8 @@ class UIReal
         virtual void declare(REAL* zone, const char* key, const char* val) {}
 };
 
-class UI : public UIReal<FAUSTFLOAT>
+struct UI : public UIReal<FAUSTFLOAT>
 {
-
-    public:
 
         UI() {}
         virtual ~UI() {}
@@ -394,7 +392,7 @@ struct Meta
  that work under terms of your choice, so long as this FAUST
  architecture section is not modified.
  ************************************************************************/
- 
+
 #ifndef __misc__
 #define __misc__
 
@@ -425,23 +423,40 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-	int	i;
-    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    return def;
 }
 
-static bool isopt(char* argv[], const char* name)
+static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
-	return false;
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return atoi(argv[i]);
+        }
+    }
+    return def;
 }
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    return def;
+}
+
+static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
+{
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return argv[i];
+        }
+    }
+    return def;
+}
+
+static bool isopt(char* argv[], const char* name)
+{
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
+    return false;
 }
 
 static std::string pathToContent(const std::string& path)
@@ -1106,7 +1121,7 @@ class synth_dx7 : public dsp {
 		float 	fSlow140 = (fConst1 * (0 - (fSlow139 * (fSlow106 - fSlow119))));
 		float 	fSlow141 = (0 - (fSlow139 * (fSlow119 - fSlow126)));
 		float 	fSlow142 = (0 - (fConst0 * (fSlow125 - fSlow132)));
-		float 	fSlow143 = (fSlow102 - fSlow126);
+		float 	fSlow143 = (0 - (fSlow139 * (fSlow126 - fSlow102)));
 		float 	fSlow144 = (0 - (fConst0 * (fSlow132 - fSlow135)));
 		float 	fSlow145 = (fConst1 * fSlow110);
 		float 	fSlow146 = float(fentry43);
@@ -1223,7 +1238,7 @@ class synth_dx7 : public dsp {
 		float 	fSlow257 = (0.007874015748031496f * (127.0f - min((float)99, (float(fentry81) + fSlow246))));
 		float 	fSlow258 = powf((0.014705882352941176f * (float((fSlow255 >= 30.0f)) * min((fSlow255 + -30.0f), (float)68))),1.8f);
 		float 	fSlow259 = powf((0.010101010101010102f * min((float)99, fSlow255)),0.69999999999999996f);
-		float 	fSlow260 = max(0.001f, fabsf((((iSlow256)?max(0.0030000000000000001f, (38.0f * faustpower<12>(fSlow257))):max(0.0080000000000000002f, (318.0f * powf(fSlow257,12.6f)))) * (((iSlow256)?fSlow250:fSlow251) - ((iSlow256)?fSlow258:fSlow259)))));
+		float 	fSlow260 = max(0.001f, fabsf((0 - (((iSlow256)?max(0.0030000000000000001f, (38.0f * faustpower<12>(fSlow257))):max(0.0080000000000000002f, (318.0f * powf(fSlow257,12.6f)))) * (((iSlow256)?fSlow258:fSlow259) - ((iSlow256)?fSlow250:fSlow251))))));
 		float 	fSlow261 = float(fentry82);
 		float 	fSlow262 = ((fSlow236 * fSlow261) * fSlow239);
 		int 	iSlow263 = int((fSlow262 > fSlow255));
@@ -1239,9 +1254,9 @@ class synth_dx7 : public dsp {
 		float 	fSlow273 = (fConst0 * fSlow260);
 		float 	fSlow274 = (fSlow236 * fSlow239);
 		float 	fSlow275 = (fConst1 * (0 - (fSlow274 * (fSlow241 - fSlow254))));
-		float 	fSlow276 = (0 - (fSlow274 * (fSlow254 - fSlow261)));
+		float 	fSlow276 = (fSlow261 - fSlow254);
 		float 	fSlow277 = (0 - (fConst0 * (fSlow260 - fSlow267)));
-		float 	fSlow278 = (fSlow237 - fSlow261);
+		float 	fSlow278 = (0 - (fSlow274 * (fSlow261 - fSlow237)));
 		float 	fSlow279 = (0 - (fConst0 * (fSlow267 - fSlow270)));
 		float 	fSlow280 = (fConst1 * fSlow245);
 		float 	fSlow281 = (1825.3162113323297f * float(fentry85));
@@ -1272,7 +1287,7 @@ class synth_dx7 : public dsp {
 				fRec11[0] = ((iSlow28)?0.0f:min(fSlow136, (fRec11[1] + 1.0f)));
 				iTempPerm10 = int((fRec11[0] < fSlow137));
 				iTempPerm11 = int((fRec11[0] < fSlow138));
-				fRec10[0] = ((iSlow26)?(fSlow27 * ((iTempPerm10)?((iTempPerm11)?((int((fRec11[0] < 0.0f)))?fSlow107:((iTempPerm11)?(fSlow107 + (fSlow140 * (fRec11[0] / fSlow125))):fSlow120)):((iTempPerm10)?(fSlow120 + (fSlow141 * ((fRec11[0] - fSlow138) / fSlow142))):fSlow127)):((int((fRec11[0] < fSlow136)))?(fSlow139 * (fSlow126 + (fSlow143 * ((fRec11[0] - fSlow137) / fSlow144)))):fSlow105))):fRec10[1]);
+				fRec10[0] = ((iSlow26)?(fSlow27 * ((iTempPerm10)?((iTempPerm11)?((int((fRec11[0] < 0.0f)))?fSlow107:((iTempPerm11)?(fSlow107 + (fSlow140 * (fRec11[0] / fSlow125))):fSlow120)):((iTempPerm10)?(fSlow120 + (fSlow141 * ((fRec11[0] - fSlow138) / fSlow142))):fSlow127)):((int((fRec11[0] < fSlow136)))?(fSlow127 + (fSlow143 * ((fRec11[0] - fSlow137) / fSlow144))):fSlow105))):fRec10[1]);
 				fTempPerm12 = faustpower<8>((0.01020408163265306f * min((float)98, ((int((fRec9[0] < 0.0f)))?fRec10[0]:((int((fRec9[0] < fSlow118)))?(fRec10[0] + (fConst1 * ((fRec9[0] * (fSlow107 - fRec10[0])) / fSlow117))):fSlow107)))));
 				fTempPerm13 = (fRec12[1] + fSlow145);
 				fRec12[0] = (fTempPerm13 - floorf(fTempPerm13));
@@ -1296,7 +1311,7 @@ class synth_dx7 : public dsp {
 				fRec24[0] = ((iSlow28)?0.0f:min(fSlow271, (fRec24[1] + 1.0f)));
 				iTempPerm22 = int((fRec24[0] < fSlow272));
 				iTempPerm23 = int((fRec24[0] < fSlow273));
-				fRec23[0] = ((iSlow26)?(fSlow27 * ((iTempPerm22)?((iTempPerm23)?((int((fRec24[0] < 0.0f)))?fSlow242:((iTempPerm23)?(fSlow242 + (fSlow275 * (fRec24[0] / fSlow260))):fSlow255)):((iTempPerm22)?(fSlow255 + (fSlow276 * ((fRec24[0] - fSlow273) / fSlow277))):fSlow262)):((int((fRec24[0] < fSlow271)))?(fSlow274 * (fSlow261 + (fSlow278 * ((fRec24[0] - fSlow272) / fSlow279)))):fSlow240))):fRec23[1]);
+				fRec23[0] = ((iSlow26)?(fSlow27 * ((iTempPerm22)?((iTempPerm23)?((int((fRec24[0] < 0.0f)))?fSlow242:((iTempPerm23)?(fSlow242 + (fSlow275 * (fRec24[0] / fSlow260))):fSlow255)):((iTempPerm22)?(fSlow274 * (fSlow254 + (fSlow276 * ((fRec24[0] - fSlow273) / fSlow277)))):fSlow262)):((int((fRec24[0] < fSlow271)))?(fSlow262 + (fSlow278 * ((fRec24[0] - fSlow272) / fSlow279))):fSlow240))):fRec23[1]);
 				fTempPerm24 = faustpower<8>((0.01020408163265306f * min((float)98, ((int((fRec22[0] < 0.0f)))?fRec23[0]:((int((fRec22[0] < fSlow253)))?(fRec23[0] + (fConst1 * ((fRec22[0] * (fSlow242 - fRec23[0])) / fSlow252))):fSlow242)))));
 				fTempPerm25 = (fRec25[1] + fSlow280);
 				fRec25[0] = (fTempPerm25 - floorf(fTempPerm25));

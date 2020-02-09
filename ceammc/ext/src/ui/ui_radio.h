@@ -43,11 +43,12 @@ public:
     void onFloat(t_float f);
     void onList(const AtomList& lst);
     void onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod);
+    void onMouseDrag(t_object* view, const t_pt& pt, long mod);
     void onDblClick(t_object* view, const t_pt& pt, long modifiers);
     void loadPreset(size_t idx);
     void storePreset(size_t idx);
 
-    void onPopup(t_symbol* menu_name, long item_idx);
+    void showPopup(const t_pt& pt, const t_pt& abs_pt);
 
     // props
     float p_numItems() const;
@@ -68,6 +69,8 @@ public:
 
 public:
     static void setup();
+private:
+    const int click2Cell(const t_pt& pt);
 };
 
 void setup_ui_radio();

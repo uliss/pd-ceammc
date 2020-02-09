@@ -10,6 +10,7 @@
 #include "ceammc_platform.h"
 #include "m_pd.h"
 
+#include <stdexcept>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -176,7 +177,6 @@ public:
         eclass_addmethod(pd_class, UI_METHOD_PTR(notify),        "notify",        A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(okSize),        "oksize",        A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(onZoom),        "onzoom",        A_GIMME,  0);
-        eclass_addmethod(pd_class, UI_METHOD_PTR(onPopup),       "popup",         A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(setDrawParams), "getdrawparams", A_NULL, 0);
         // clang-format on
     }
@@ -189,7 +189,6 @@ public:
         eclass_addmethod(pd_class, UI_METHOD_PTR(notify),        "notify",        A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(okSize),        "oksize",        A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(onZoom),        "onzoom",        A_GIMME,  0);
-        eclass_addmethod(pd_class, UI_METHOD_PTR(onPopup),       "popup",         A_GIMME,  0);
         eclass_addmethod(pd_class, UI_METHOD_PTR(setDrawParams), "getdrawparams", A_NULL, 0);
         // clang-format on
     }
@@ -253,6 +252,14 @@ public:
         CLASS_ATTR_LABEL    (pd_class, PROP_PRESET_NAME, _("Preset Name"));
         CLASS_ATTR_ACCESSORS(pd_class, PROP_PRESET_NAME, NULL, ebox_set_presetid);
 
+        // clang-format on
+    }
+
+    void usePopup()
+    {
+        // clang-format off
+        eclass_addmethod(pd_class, UI_METHOD_PTR(showPopup),      "rightclick",    A_GIMME, 0);
+        eclass_addmethod(pd_class, UI_METHOD_PTR(processPopup),   "popup",         A_GIMME, 0);
         // clang-format on
     }
 
@@ -859,10 +866,7 @@ public:
 
         // invalidate mouse pointer coord on mouseLeave to prevent mouseWheel handle
         // when mouse is outside of widget
-        t_pt pos;
-        pos.x = std::numeric_limits<t_float>::max();
-        pos.y = pos.x;
-        updateMousePos(pos);
+        updateMousePos({std::numeric_limits<decltype(t_pt::x)>::max(), std::numeric_limits<decltype(t_pt::y)>::max()});
 
         outputMouse(z, SYM, true);
         z->onMouseLeave(view, pt, modifiers);
@@ -880,25 +884,14 @@ public:
         outputMouse(z, SYM, false);
     }
 
-    static void mouseWheel(UI* z, t_object* view, t_pt pt, long modifiers, double delta)
+    static void mouseWheel(UI* z, t_pt pt, long modifiers, float delta)
     {
-// fix win32 mouse wheel value on TCL 8.6
-#ifdef __WIN32
-        delta /= 120;
-#endif
-
-#ifdef __APPLE__
-        z->onMouseWheel(view, pt, modifiers, delta);
-#else
-        z->onMouseWheel(view, mouse_pos_, modifiers, delta);
-#endif
+        z->onMouseWheel(mouse_pos_, modifiers, delta);
     }
 
     static void updateMousePos(const t_pt& pt)
     {
-#ifndef __APPLE__
         mouse_pos_ = pt;
-#endif
     }
 
     static void dblClick(UI* z, t_object* view, t_pt pt, long modifiers)
@@ -946,9 +939,14 @@ public:
         z->onZoom(zoom);
     }
 
-    static void onPopup(UI* z, t_symbol* menu_name, long itemIdx)
+    static void processPopup(UI* z, t_symbol* menu_name, long itemIdx, t_pt rel_pos)
     {
-        z->onPopup(menu_name, itemIdx);
+        z->onPopup(menu_name, itemIdx, rel_pos);
+    }
+
+    static void showPopup(UI* z, t_pt pos, t_pt abs_pos)
+    {
+        z->showPopup(pos, abs_pos);
     }
 
     static void onBang(UI* z)
@@ -1193,11 +1191,7 @@ public:
     static ListMethodMap list_map;
     static FloatPropertyMap prop_float_map;
     static ListPropertyMap prop_list_map;
-
-    // trick to get valid mouse pointer coordinates on MouseWheel event on Linux and Windows
-#ifndef __APPLE__
     static t_pt mouse_pos_;
-#endif
 };
 
 template <class UI>
@@ -1209,10 +1203,8 @@ bool UIObjectFactory<UI>::use_presets = false;
 template <class UI>
 long UIObjectFactory<UI>::flags = 0;
 
-#ifndef __APPLE__
 template <class UI>
 t_pt UIObjectFactory<UI>::mouse_pos_;
-#endif
 
 template <class UI>
 typename UIObjectFactory<UI>::BangMethodMap UIObjectFactory<UI>::bang_map;

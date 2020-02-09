@@ -214,6 +214,7 @@ void UIMeter::setup()
     obj.addColorProperty("over_color", _("Overload signal color"), "1 0 0 1", &UIMeter::prop_color_over);
 
     obj.addIntProperty("interval", _("Refresh interval (ms)"), 50, &UIMeter::prop_interval_ms, _("Main"));
+    obj.setPropertyUnits("interval", "msec");
 }
 
 void UIMeter::calc()

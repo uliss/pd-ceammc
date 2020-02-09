@@ -10,6 +10,7 @@
 
 #include "ecommon.h"
 #include "cicm_common.tcl.h"
+#include "cicm_common_bind.tcl.h"
 #include "egraphics.h"
 
 t_symbol* s_null;
@@ -80,6 +81,7 @@ void epd_init(void)
     s_value_label_side_bottom = gensym("bottom");
 
     sys_gui(cicm_common_tcl);
+    sys_gui(cicm_common_bind_tcl);
 
     done = true;
 }

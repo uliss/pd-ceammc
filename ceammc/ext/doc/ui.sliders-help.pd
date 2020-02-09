@@ -30,7 +30,7 @@
 \, linup \, lindown and random.;
 #X text 110 493 Mouse-drag;
 #X text 285 493 change slider values.;
-#X text 110 513 Double-click + Cmd;
+#X text 110 513 Double-click + ⌘;
 #X text 285 513 changes slider orientation.;
 #X text 61 513 [Edit];
 #X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

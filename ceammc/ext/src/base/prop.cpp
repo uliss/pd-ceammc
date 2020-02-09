@@ -132,6 +132,12 @@ void BaseProp::onList(const AtomList& l)
         return;
     }
 
+    if (l.isFloat() && (prop->isFloat() || prop->isInt() || prop->isBool()))
+        return onFloat(l[0].asFloat());
+
+    if (l.isSymbol() && (prop->isSymbol() || prop->isBool()))
+        return onSymbol(l[0].asSymbol());
+
     if (!prop->isList()) {
         OBJ_ERR << "not a list property";
         return;

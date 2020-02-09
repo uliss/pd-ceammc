@@ -24,6 +24,9 @@ public:
 
     template <class T>
     T* synth() { return static_cast<T*>(synth_); }
+
+public:
+    static void initRawWaves(t_class* c);
 };
 
 class StkSynth : public StkBase {

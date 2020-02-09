@@ -14,7 +14,7 @@ in a logarithmic way to have linear changes.;
 @title CICM documentation @url hoa/hoa.2d.wider~-help.pd;
 #X obj 50 196 lfo.square~ 1;
 #X obj 50 225 ui.gain~ @size 120 14;
-#X obj 280 225 ui.knob @size 40 40;
+#X obj 280 225 ui.knob;
 #X obj 50 254 hoa.encoder~ 5, f 24;
 #X obj 50 283 hoa.wider~ 5, f 24;
 #X obj 50 312 hoa.scope~ @order 5 @size 171 171;

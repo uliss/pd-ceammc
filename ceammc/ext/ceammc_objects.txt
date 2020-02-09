@@ -152,6 +152,7 @@ flow.mux2~
 flow.mux~
 flow.once
 flow.pack
+flow.pack'
 flow.pass
 flow.pass_if
 flow.reject
@@ -160,6 +161,7 @@ flow.route
 flow.speedlim
 flow.split
 flow.sync
+flow.sync_pack
 flow.tee~
 flt.biquad~
 flt.bpf12~
@@ -240,7 +242,6 @@ hoa.map~
 hoa.optim~
 hoa.out
 hoa.out~
-hoa.process.route
 hoa.process~
 hoa.projector~
 hoa.recomposer~
@@ -651,6 +652,7 @@ ui.gain~
 ui.hgain2~
 ui.hgain~
 ui.hrd
+ui.hrd*
 ui.hsl
 ui.icon
 ui.incdec
@@ -663,6 +665,8 @@ ui.menu
 ui.meter~
 ui.mf
 ui.mouse_filter
+ui.mouse_route
+ui.mr
 ui.m~
 ui.n
 ui.number
@@ -671,6 +675,7 @@ ui.n~
 ui.polar
 ui.preset
 ui.radio
+ui.radio*
 ui.rsl
 ui.rslider
 ui.scope~
@@ -685,6 +690,7 @@ ui.toggle
 ui.vgain2~
 ui.vgain~
 ui.vrd
+ui.vrd*
 ui.vsl
 vline->env
 vline2env

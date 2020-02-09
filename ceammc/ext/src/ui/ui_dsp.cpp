@@ -6,6 +6,7 @@ UIDsp::UIDsp()
     , init_(false)
     , prop_color_active(rgba_black)
 {
+    initPopupMenu("main", { { _("Audio Settings"), [this](const t_pt&) { openSoundSettingsDialog(); } } });
 }
 
 void UIDsp::init(t_symbol* name, const AtomList& args, bool)
@@ -47,12 +48,6 @@ void UIDsp::paint()
 
 void UIDsp::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    if (modifiers & EMOD_RIGHT) {
-        UIPopupMenu menu(asEObj(), "menu", abs_pt);
-        menu.addItem(_("Audio Settings"));
-        return;
-    }
-
     if (canvas_dspstate)
         m_stop(AtomList());
     else
@@ -64,17 +59,6 @@ void UIDsp::onAny(t_symbol* s, const AtomList& lst)
     if (s == gensym("dsp") && lst.size() > 0 && lst[0].isFloat()) {
         state_ = lst[0].asInt(0);
         redrawAll();
-    }
-}
-
-void UIDsp::onPopup(t_symbol* menu_name, long item_idx)
-{
-    switch (item_idx) {
-    case 0:
-        openSoundSettingsDialog();
-        break;
-    default:
-        break;
     }
 }
 
@@ -109,6 +93,7 @@ void UIDsp::setup()
     obj.hideLabelInner();
 
     obj.useAny();
+    obj.usePopup();
     obj.setDefaultSize(30, 30);
     obj.useMouseEvents(UI_MOUSE_DOWN);
     obj.addProperty("active_color", _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIDsp::prop_color_active);

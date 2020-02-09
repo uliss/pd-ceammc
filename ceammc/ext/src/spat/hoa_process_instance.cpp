@@ -12,6 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "hoa_process_instance.h"
+#include "ceammc_canvas.h"
+#include "fmt/format.h"
 #include "hoa_process.h"
 
 #include <algorithm>
@@ -45,35 +47,13 @@ void ProcessInstance::setOutletBuffer(t_sample* s, size_t idx)
     }
 }
 
-ProcessInstance::ProcessInstance()
-    : canvas_(nullptr)
-{
-}
-
-void ProcessInstance::setCanvas(t_canvas* c)
-{
-    canvas_ = c;
-}
-
-void ProcessInstance::loadBang()
-{
-    if (canvas_)
-        canvas_loadbang(canvas_);
-}
-
-void ProcessInstance::show()
-{
-    if (canvas_)
-        canvas_vis(canvas_, 1);
-}
-
-void ProcessInstance::scanCanvas(t_canvas* cnv)
+void ProcessInstance::doScanCanvas(t_canvas* cnv)
 {
     for (t_gobj* y = cnv->gl_list; y; y = y->g_next) {
         const t_symbol* name = y->g_pd->c_name;
         if (name == HoaProcess::SYM_CANVAS) {
             // recursive load
-            scanCanvas((t_canvas*)y);
+            doScanCanvas((t_canvas*)y);
         } else if (HoaIn::isA(y)) {
             f_ins.emplace_front(HoaIn::fromObject(y));
         } else if (HoaOut::isA(y)) {
@@ -84,6 +64,105 @@ void ProcessInstance::scanCanvas(t_canvas* cnv)
             f_outs_sig.emplace_front(HoaOutTilde::fromObject(y));
         }
     }
+}
+
+void ProcessInstance::createSwitch()
+{
+    if (!canvas_)
+        return;
+
+    Canvas cnv(canvas_);
+
+    // find [switch~]
+    switch_ = cnv.findIf([](t_object* x) { return pd::object_name(x) == HoaProcess::SYM_BLOCK; });
+    if (switch_)
+        return;
+
+    // create [switch~] object on instance canvas
+    cnv.createPdObject(10, 10, HoaProcess::SYM_SWITCH);
+
+    // find [switch~] again
+    switch_ = cnv.findIf([](t_object* x) { return pd::object_name(x) == HoaProcess::SYM_BLOCK; });
+
+    if (!switch_) {
+        LIB_ERR << "[hoa.process~] can't create [switch~] for instance";
+        return;
+    }
+
+    dspOn(true);
+}
+
+void ProcessInstance::dspOn(bool state)
+{
+    if (switch_)
+        dsp_state_ = state;
+}
+
+void ProcessInstance::dspCalc()
+{
+    if (switch_ && dsp_state_)
+        pd::object_bang(switch_);
+}
+
+bool ProcessInstance::init(t_symbol* name, const AtomList& args)
+{
+    pd_this->pd_newest = nullptr;
+    typedmess(&pd_objectmaker, name, (int)args.size(), args.toPdData());
+    if (!pd_this->pd_newest) {
+        LIB_ERR << fmt::format("can't create subpatch '{}'", name->s_name);
+        return false;
+    }
+
+    if (*pd_this->pd_newest != canvas_class) {
+        LIB_ERR << fmt::format("can't init instance '{}' because it's not an abstraction", name->s_name);
+        pd_free(pd_this->pd_newest);
+        pd_this->pd_newest = nullptr;
+        return false;
+    }
+
+    t_canvas* new_c = (t_canvas*)pd_this->pd_newest;
+    pd_this->pd_newest = nullptr;
+
+    new_c->gl_owner = 0;
+    new_c->gl_isclone = 1;
+
+    setCanvas(new_c);
+    setArgs(args);
+    scanCanvas();
+    createSwitch();
+    return true;
+}
+
+ProcessInstance::ProcessInstance()
+    : canvas_(nullptr)
+    , switch_(nullptr)
+    , dsp_state_(true)
+{
+}
+
+ProcessInstance::~ProcessInstance()
+{
+    canvas_.free();
+}
+
+void ProcessInstance::setCanvas(t_canvas* c)
+{
+    canvas_ = Canvas(c);
+}
+
+void ProcessInstance::loadBang()
+{
+    canvas_.loadBang();
+}
+
+void ProcessInstance::show()
+{
+    canvas_.show();
+}
+
+void ProcessInstance::scanCanvas()
+{
+    doScanCanvas(canvas_.pd_canvas());
 }
 
 void ProcessInstance::bangTo(size_t inlet_idx)

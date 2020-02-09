@@ -11,11 +11,11 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "datatype_mlist.h"
 #include "../list/list_rlencode.h"
+#include "datatype_mlist.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(ListRLEncode, list, rlencode);
+PD_COMPLETE_TEST_SETUP(ListRLEncode, list, rlencode)
 
 TEST_CASE("list.rlencode", "[externals]")
 {
@@ -32,11 +32,13 @@ TEST_CASE("list.rlencode", "[externals]")
     {
         TestListRLEncode t("list.rlencode");
 
-#define REQUIRE_ENCODE(t, in, out1, out2)   \
-    {                                       \
-        WHEN_SEND_LIST_TO(0, t, in);        \
-        REQUIRE_LIST_AT_OUTLET(0, t, out1); \
-        REQUIRE_LIST_AT_OUTLET(1, t, out2); \
+#define REQUIRE_ENCODE(t, in, out1, out2)           \
+    {                                               \
+        WHEN_SEND_LIST_TO(0, t, in);                \
+        REQUIRE(t.hasNewMessages(0));               \
+        REQUIRE(t.lastMessage(0) == Message(out1)); \
+        REQUIRE(t.hasNewMessages(1));               \
+        REQUIRE(t.lastMessage(1) == Message(out2)); \
     }
 
         REQUIRE_ENCODE(t, L(), L(), L());

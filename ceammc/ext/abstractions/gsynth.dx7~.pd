@@ -27,21 +27,21 @@
 -262144 0;
 #X text 10 218 algorithm:;
 #X obj 12 237 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox0 @min 0 @max 31 @step 1;
+/gui/$1/synth.dx7~/numbox0 @min 0 @max 31 @step 1;
 #X msg 260 237 @algorithm \$1;
 #X text 10 251 feedback:;
 #X obj 12 270 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox1 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox1 @min 0 @max 99 @step 1;
 #X msg 260 270 @feedback \$1;
 #X text 10 284 freq:;
 #X obj 12 303 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.dx7~/slider2 @min 50 @max 1000;
+/gui/$1/synth.dx7~/slider2 @min 50 @max 1000;
 #X obj 140 303 ui.number @size 40 12 @digits 3 @min 50 @max 1000;
 #X obj 190 303 msg set;
 #X msg 260 303 @freq \$1;
 #X text 10 317 gain:;
 #X obj 12 336 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.dx7~/slider3 @min 0 @max 1;
+/gui/$1/synth.dx7~/slider3 @min 0 @max 1;
 #X obj 140 336 ui.number @size 40 12 @digits 3 @min 0 @max 1;
 #X obj 190 336 msg set;
 #X msg 260 336 @gain \$1;
@@ -50,339 +50,339 @@
 #X msg 260 350 @gate \$1;
 #X text 10 370 op0:egL1:;
 #X obj 12 389 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox5 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox5 @min 0 @max 99 @step 1;
 #X msg 260 389 @op0:egL1 \$1;
 #X text 10 403 op0:egL2:;
 #X obj 12 422 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox6 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox6 @min 0 @max 99 @step 1;
 #X msg 260 422 @op0:egL2 \$1;
 #X text 10 436 op0:egL3:;
 #X obj 12 455 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox7 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox7 @min 0 @max 99 @step 1;
 #X msg 260 455 @op0:egL3 \$1;
 #X text 10 469 op0:egL4:;
 #X obj 12 488 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox8 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox8 @min 0 @max 99 @step 1;
 #X msg 260 488 @op0:egL4 \$1;
 #X text 10 502 op0:egR1:;
 #X obj 12 521 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox9 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox9 @min 0 @max 99 @step 1;
 #X msg 260 521 @op0:egR1 \$1;
 #X text 10 535 op0:egR2:;
 #X obj 12 554 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox10 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox10 @min 0 @max 99 @step 1;
 #X msg 260 554 @op0:egR2 \$1;
 #X text 10 568 op0:egR3:;
 #X obj 12 587 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox11 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox11 @min 0 @max 99 @step 1;
 #X msg 260 587 @op0:egR3 \$1;
 #X text 10 601 op0:egR4:;
 #X obj 12 620 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox12 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox12 @min 0 @max 99 @step 1;
 #X msg 260 620 @op0:egR4 \$1;
 #X text 10 634 op0:keyVelSens:;
 #X obj 12 653 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox13 @min 0 @max 8 @step 1;
+/gui/$1/synth.dx7~/numbox13 @min 0 @max 8 @step 1;
 #X msg 260 653 @op0:keyVelSens \$1;
 #X text 10 667 op0:level:;
 #X obj 12 686 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox14 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox14 @min 0 @max 99 @step 1;
 #X msg 260 686 @op0:level \$1;
 #X text 10 700 op0:opDetune:;
 #X obj 12 719 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox15 @min -10 @max 10 @step 1;
+/gui/$1/synth.dx7~/numbox15 @min -10 @max 10 @step 1;
 #X msg 260 719 @op0:opDetune \$1;
 #X text 10 733 op0:opFreq:;
 #X obj 12 752 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox16 @min 0 @max 2 @step 0.01;
+/gui/$1/synth.dx7~/numbox16 @min 0 @max 2 @step 0.01;
 #X msg 260 752 @op0:opFreq \$1;
 #X text 10 766 op0:opMode:;
 #X obj 12 785 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox17 @min 0 @max 1 @step 1;
+/gui/$1/synth.dx7~/numbox17 @min 0 @max 1 @step 1;
 #X msg 260 785 @op0:opMode \$1;
 #X text 10 799 op0:opRateScale:;
 #X obj 12 818 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox18 @min 0 @max 10 @step 1;
+/gui/$1/synth.dx7~/numbox18 @min 0 @max 10 @step 1;
 #X msg 260 818 @op0:opRateScale \$1;
 #X text 10 832 op1:egL1:;
 #X obj 12 851 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox19 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox19 @min 0 @max 99 @step 1;
 #X msg 260 851 @op1:egL1 \$1;
 #X text 10 865 op1:egL2:;
 #X obj 12 884 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox20 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox20 @min 0 @max 99 @step 1;
 #X msg 260 884 @op1:egL2 \$1;
 #X text 10 898 op1:egL3:;
 #X obj 12 917 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox21 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox21 @min 0 @max 99 @step 1;
 #X msg 260 917 @op1:egL3 \$1;
 #X text 10 931 op1:egL4:;
 #X obj 12 950 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox22 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox22 @min 0 @max 99 @step 1;
 #X msg 260 950 @op1:egL4 \$1;
 #X text 10 964 op1:egR1:;
 #X obj 12 983 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox23 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox23 @min 0 @max 99 @step 1;
 #X msg 260 983 @op1:egR1 \$1;
 #X text 10 997 op1:egR2:;
 #X obj 12 1016 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox24 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox24 @min 0 @max 99 @step 1;
 #X msg 260 1016 @op1:egR2 \$1;
 #X text 10 1030 op1:egR3:;
 #X obj 12 1049 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox25 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox25 @min 0 @max 99 @step 1;
 #X msg 260 1049 @op1:egR3 \$1;
 #X text 10 1063 op1:egR4:;
 #X obj 12 1082 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox26 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox26 @min 0 @max 99 @step 1;
 #X msg 260 1082 @op1:egR4 \$1;
 #X text 10 1096 op1:keyVelSens:;
 #X obj 12 1115 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox27 @min 0 @max 8 @step 1;
+/gui/$1/synth.dx7~/numbox27 @min 0 @max 8 @step 1;
 #X msg 260 1115 @op1:keyVelSens \$1;
 #X text 10 1129 op1:level:;
 #X obj 12 1148 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox28 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox28 @min 0 @max 99 @step 1;
 #X msg 260 1148 @op1:level \$1;
 #X text 10 1162 op1:opDetune:;
 #X obj 12 1181 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox29 @min -10 @max 10 @step 1;
+/gui/$1/synth.dx7~/numbox29 @min -10 @max 10 @step 1;
 #X msg 260 1181 @op1:opDetune \$1;
 #X text 10 1195 op1:opFreq:;
 #X obj 12 1214 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox30 @min 0 @max 2 @step 0.01;
+/gui/$1/synth.dx7~/numbox30 @min 0 @max 2 @step 0.01;
 #X msg 260 1214 @op1:opFreq \$1;
 #X text 10 1228 op1:opMode:;
 #X obj 12 1247 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox31 @min 0 @max 1 @step 1;
+/gui/$1/synth.dx7~/numbox31 @min 0 @max 1 @step 1;
 #X msg 260 1247 @op1:opMode \$1;
 #X text 10 1261 op1:opRateScale:;
 #X obj 12 1280 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox32 @min 0 @max 10 @step 1;
+/gui/$1/synth.dx7~/numbox32 @min 0 @max 10 @step 1;
 #X msg 260 1280 @op1:opRateScale \$1;
 #X text 10 1294 op2:egL1:;
 #X obj 12 1313 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox33 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox33 @min 0 @max 99 @step 1;
 #X msg 260 1313 @op2:egL1 \$1;
 #X text 10 1327 op2:egL2:;
 #X obj 12 1346 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox34 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox34 @min 0 @max 99 @step 1;
 #X msg 260 1346 @op2:egL2 \$1;
 #X text 10 1360 op2:egL3:;
 #X obj 12 1379 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox35 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox35 @min 0 @max 99 @step 1;
 #X msg 260 1379 @op2:egL3 \$1;
 #X text 10 1393 op2:egL4:;
 #X obj 12 1412 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox36 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox36 @min 0 @max 99 @step 1;
 #X msg 260 1412 @op2:egL4 \$1;
 #X text 10 1426 op2:egR1:;
 #X obj 12 1445 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox37 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox37 @min 0 @max 99 @step 1;
 #X msg 260 1445 @op2:egR1 \$1;
 #X text 10 1459 op2:egR2:;
 #X obj 12 1478 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox38 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox38 @min 0 @max 99 @step 1;
 #X msg 260 1478 @op2:egR2 \$1;
 #X text 10 1492 op2:egR3:;
 #X obj 12 1511 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox39 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox39 @min 0 @max 99 @step 1;
 #X msg 260 1511 @op2:egR3 \$1;
 #X text 10 1525 op2:egR4:;
 #X obj 12 1544 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox40 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox40 @min 0 @max 99 @step 1;
 #X msg 260 1544 @op2:egR4 \$1;
 #X text 10 1558 op2:keyVelSens:;
 #X obj 12 1577 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox41 @min 0 @max 8 @step 1;
+/gui/$1/synth.dx7~/numbox41 @min 0 @max 8 @step 1;
 #X msg 260 1577 @op2:keyVelSens \$1;
 #X text 10 1591 op2:level:;
 #X obj 12 1610 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox42 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox42 @min 0 @max 99 @step 1;
 #X msg 260 1610 @op2:level \$1;
 #X text 10 1624 op2:opDetune:;
 #X obj 12 1643 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox43 @min -10 @max 10 @step 1;
+/gui/$1/synth.dx7~/numbox43 @min -10 @max 10 @step 1;
 #X msg 260 1643 @op2:opDetune \$1;
 #X text 10 1657 op2:opFreq:;
 #X obj 12 1676 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox44 @min 0 @max 2 @step 0.01;
+/gui/$1/synth.dx7~/numbox44 @min 0 @max 2 @step 0.01;
 #X msg 260 1676 @op2:opFreq \$1;
 #X text 10 1690 op2:opMode:;
 #X obj 12 1709 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox45 @min 0 @max 1 @step 1;
+/gui/$1/synth.dx7~/numbox45 @min 0 @max 1 @step 1;
 #X msg 260 1709 @op2:opMode \$1;
 #X text 10 1723 op2:opRateScale:;
 #X obj 12 1742 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox46 @min 0 @max 10 @step 1;
+/gui/$1/synth.dx7~/numbox46 @min 0 @max 10 @step 1;
 #X msg 260 1742 @op2:opRateScale \$1;
 #X text 10 1756 op3:egL1:;
 #X obj 12 1775 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox47 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox47 @min 0 @max 99 @step 1;
 #X msg 260 1775 @op3:egL1 \$1;
 #X text 10 1789 op3:egL2:;
 #X obj 12 1808 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox48 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox48 @min 0 @max 99 @step 1;
 #X msg 260 1808 @op3:egL2 \$1;
 #X text 10 1822 op3:egL3:;
 #X obj 12 1841 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox49 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox49 @min 0 @max 99 @step 1;
 #X msg 260 1841 @op3:egL3 \$1;
 #X text 10 1855 op3:egL4:;
 #X obj 12 1874 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox50 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox50 @min 0 @max 99 @step 1;
 #X msg 260 1874 @op3:egL4 \$1;
 #X text 10 1888 op3:egR1:;
 #X obj 12 1907 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox51 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox51 @min 0 @max 99 @step 1;
 #X msg 260 1907 @op3:egR1 \$1;
 #X text 10 1921 op3:egR2:;
 #X obj 12 1940 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox52 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox52 @min 0 @max 99 @step 1;
 #X msg 260 1940 @op3:egR2 \$1;
 #X text 10 1954 op3:egR3:;
 #X obj 12 1973 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox53 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox53 @min 0 @max 99 @step 1;
 #X msg 260 1973 @op3:egR3 \$1;
 #X text 10 1987 op3:egR4:;
 #X obj 12 2006 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox54 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox54 @min 0 @max 99 @step 1;
 #X msg 260 2006 @op3:egR4 \$1;
 #X text 10 2020 op3:keyVelSens:;
 #X obj 12 2039 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox55 @min 0 @max 8 @step 1;
+/gui/$1/synth.dx7~/numbox55 @min 0 @max 8 @step 1;
 #X msg 260 2039 @op3:keyVelSens \$1;
 #X text 10 2053 op3:level:;
 #X obj 12 2072 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox56 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox56 @min 0 @max 99 @step 1;
 #X msg 260 2072 @op3:level \$1;
 #X text 10 2086 op3:opDetune:;
 #X obj 12 2105 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox57 @min -10 @max 10 @step 1;
+/gui/$1/synth.dx7~/numbox57 @min -10 @max 10 @step 1;
 #X msg 260 2105 @op3:opDetune \$1;
 #X text 10 2119 op3:opFreq:;
 #X obj 12 2138 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox58 @min 0 @max 2 @step 0.01;
+/gui/$1/synth.dx7~/numbox58 @min 0 @max 2 @step 0.01;
 #X msg 260 2138 @op3:opFreq \$1;
 #X text 10 2152 op3:opMode:;
 #X obj 12 2171 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox59 @min 0 @max 1 @step 1;
+/gui/$1/synth.dx7~/numbox59 @min 0 @max 1 @step 1;
 #X msg 260 2171 @op3:opMode \$1;
 #X text 10 2185 op3:opRateScale:;
 #X obj 12 2204 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox60 @min 0 @max 10 @step 1;
+/gui/$1/synth.dx7~/numbox60 @min 0 @max 10 @step 1;
 #X msg 260 2204 @op3:opRateScale \$1;
 #X text 10 2218 op4:egL1:;
 #X obj 12 2237 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox61 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox61 @min 0 @max 99 @step 1;
 #X msg 260 2237 @op4:egL1 \$1;
 #X text 10 2251 op4:egL2:;
 #X obj 12 2270 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox62 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox62 @min 0 @max 99 @step 1;
 #X msg 260 2270 @op4:egL2 \$1;
 #X text 10 2284 op4:egL3:;
 #X obj 12 2303 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox63 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox63 @min 0 @max 99 @step 1;
 #X msg 260 2303 @op4:egL3 \$1;
 #X text 10 2317 op4:egL4:;
 #X obj 12 2336 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox64 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox64 @min 0 @max 99 @step 1;
 #X msg 260 2336 @op4:egL4 \$1;
 #X text 10 2350 op4:egR1:;
 #X obj 12 2369 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox65 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox65 @min 0 @max 99 @step 1;
 #X msg 260 2369 @op4:egR1 \$1;
 #X text 10 2383 op4:egR2:;
 #X obj 12 2402 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox66 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox66 @min 0 @max 99 @step 1;
 #X msg 260 2402 @op4:egR2 \$1;
 #X text 10 2416 op4:egR3:;
 #X obj 12 2435 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox67 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox67 @min 0 @max 99 @step 1;
 #X msg 260 2435 @op4:egR3 \$1;
 #X text 10 2449 op4:egR4:;
 #X obj 12 2468 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox68 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox68 @min 0 @max 99 @step 1;
 #X msg 260 2468 @op4:egR4 \$1;
 #X text 10 2482 op4:keyVelSens:;
 #X obj 12 2501 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox69 @min 0 @max 8 @step 1;
+/gui/$1/synth.dx7~/numbox69 @min 0 @max 8 @step 1;
 #X msg 260 2501 @op4:keyVelSens \$1;
 #X text 10 2515 op4:level:;
 #X obj 12 2534 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox70 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox70 @min 0 @max 99 @step 1;
 #X msg 260 2534 @op4:level \$1;
 #X text 10 2548 op4:opDetune:;
 #X obj 12 2567 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox71 @min -10 @max 10 @step 1;
+/gui/$1/synth.dx7~/numbox71 @min -10 @max 10 @step 1;
 #X msg 260 2567 @op4:opDetune \$1;
 #X text 10 2581 op4:opFreq:;
 #X obj 12 2600 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox72 @min 0 @max 2 @step 0.01;
+/gui/$1/synth.dx7~/numbox72 @min 0 @max 2 @step 0.01;
 #X msg 260 2600 @op4:opFreq \$1;
 #X text 10 2614 op4:opMode:;
 #X obj 12 2633 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox73 @min 0 @max 1 @step 1;
+/gui/$1/synth.dx7~/numbox73 @min 0 @max 1 @step 1;
 #X msg 260 2633 @op4:opMode \$1;
 #X text 10 2647 op4:opRateScale:;
 #X obj 12 2666 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox74 @min 0 @max 10 @step 1;
+/gui/$1/synth.dx7~/numbox74 @min 0 @max 10 @step 1;
 #X msg 260 2666 @op4:opRateScale \$1;
 #X text 10 2680 op5:egL1:;
 #X obj 12 2699 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox75 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox75 @min 0 @max 99 @step 1;
 #X msg 260 2699 @op5:egL1 \$1;
 #X text 10 2713 op5:egL2:;
 #X obj 12 2732 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox76 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox76 @min 0 @max 99 @step 1;
 #X msg 260 2732 @op5:egL2 \$1;
 #X text 10 2746 op5:egL3:;
 #X obj 12 2765 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox77 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox77 @min 0 @max 99 @step 1;
 #X msg 260 2765 @op5:egL3 \$1;
 #X text 10 2779 op5:egL4:;
 #X obj 12 2798 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox78 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox78 @min 0 @max 99 @step 1;
 #X msg 260 2798 @op5:egL4 \$1;
 #X text 10 2812 op5:egR1:;
 #X obj 12 2831 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox79 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox79 @min 0 @max 99 @step 1;
 #X msg 260 2831 @op5:egR1 \$1;
 #X text 10 2845 op5:egR2:;
 #X obj 12 2864 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox80 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox80 @min 0 @max 99 @step 1;
 #X msg 260 2864 @op5:egR2 \$1;
 #X text 10 2878 op5:egR3:;
 #X obj 12 2897 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox81 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox81 @min 0 @max 99 @step 1;
 #X msg 260 2897 @op5:egR3 \$1;
 #X text 10 2911 op5:egR4:;
 #X obj 12 2930 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox82 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox82 @min 0 @max 99 @step 1;
 #X msg 260 2930 @op5:egR4 \$1;
 #X text 10 2944 op5:keyVelSens:;
 #X obj 12 2963 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox83 @min 0 @max 8 @step 1;
+/gui/$1/synth.dx7~/numbox83 @min 0 @max 8 @step 1;
 #X msg 260 2963 @op5:keyVelSens \$1;
 #X text 10 2977 op5:level:;
 #X obj 12 2996 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox84 @min 0 @max 99 @step 1;
+/gui/$1/synth.dx7~/numbox84 @min 0 @max 99 @step 1;
 #X msg 260 2996 @op5:level \$1;
 #X text 10 3010 op5:opDetune:;
 #X obj 12 3029 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox85 @min -10 @max 10 @step 1;
+/gui/$1/synth.dx7~/numbox85 @min -10 @max 10 @step 1;
 #X msg 260 3029 @op5:opDetune \$1;
 #X text 10 3043 op5:opFreq:;
 #X obj 12 3062 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox86 @min 0 @max 2 @step 0.01;
+/gui/$1/synth.dx7~/numbox86 @min 0 @max 2 @step 0.01;
 #X msg 260 3062 @op5:opFreq \$1;
 #X text 10 3076 op5:opMode:;
 #X obj 12 3095 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox87 @min 0 @max 1 @step 1;
+/gui/$1/synth.dx7~/numbox87 @min 0 @max 1 @step 1;
 #X msg 260 3095 @op5:opMode \$1;
 #X text 10 3109 op5:opRateScale:;
 #X obj 12 3128 ui.number @size 60 12 @presetname
-/gui/synth.dx7~/numbox88 @min 0 @max 10 @step 1;
+/gui/$1/synth.dx7~/numbox88 @min 0 @max 10 @step 1;
 #X msg 260 3128 @op5:opRateScale \$1;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;

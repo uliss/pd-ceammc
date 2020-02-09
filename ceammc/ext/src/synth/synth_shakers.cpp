@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "synth_shakers.h"
-#include "ceammc_factory.h"
+#include "stk_synth_factory.h"
 
 #include "Shakers.h"
 
@@ -59,8 +59,22 @@ SynthShakers::SynthShakers(const PdArgs& args)
     , type_(typeFromArgs(positionalSymbolArgument(0, gensym("maraca"))))
     , gate_(0)
 {
-    createCbProperty("@gate", &SynthShakers::propGate, &SynthShakers::propSetGate);
-    createCbProperty("@type", &SynthShakers::propType, &SynthShakers::propSetType);
+    {
+        Property* p = createCbProperty("@gate", &SynthShakers::propGate, &SynthShakers::propSetGate);
+        p->info().setType(PropertyInfoType::FLOAT);
+        p->info().setRange(0, 1);
+    }
+
+    {
+        Property* p = createCbProperty("@type", &SynthShakers::propType, &SynthShakers::propSetType);
+        p->info().setType(PropertyInfoType::SYMBOL);
+
+        for (auto t : type_list)
+            p->info().addEnum(t.first);
+
+        p->info().setDefault(gensym("maraca"));
+    }
+
     createCbProperty("@types", &SynthShakers::propTypes);
 }
 
@@ -180,6 +194,5 @@ void setup_synth_shakers()
         { gensym("tuned_bamboo_chimes"), TUNED_BAMBOO_CHIMES }
     };
 
-    SoundExternalFactory<SynthShakers> obj("synth.shakers~", OBJECT_FACTORY_DEFAULT);
-    obj.addMethod("cc", &SynthShakers::m_cc);
+    StkSynthFactory<SynthShakers> obj("synth.shakers~");
 }

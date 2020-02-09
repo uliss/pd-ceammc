@@ -25,14 +25,29 @@ UIRadio::UIRadio()
     , items_layer_(asEBox(), gensym("items_layer"))
 {
     createOutlet();
+
+    initPopupMenu("checklist",
+        { { _("reset"), [this](const t_pt&) { if(prop_checklist_mode_) m_reset(); } },
+            { _("flip"), [this](const t_pt&) { if(prop_checklist_mode_) m_flip(); } },
+            { _("random"), [this](const t_pt&) { if(prop_checklist_mode_) m_random(); } } });
 }
 
 void UIRadio::init(t_symbol* name, const AtomList& args, bool usePresets)
 {
+    static t_symbol* SYM_VRD = gensym("ui.vrd");
+    static t_symbol* SYM_VRD_MULT = gensym("ui.vrd*");
+    static t_symbol* SYM_HRD_MULT = gensym("ui.hrd*");
+    static t_symbol* SYM_RADIO_MULT = gensym("ui.radio*");
+
     UIObject::init(name, args, usePresets);
 
-    if (name == gensym("ui.vrd"))
+    // check for vertical aliases and change orientation
+    if (name == SYM_VRD || name == SYM_VRD_MULT)
         std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+
+    // check checklist mode
+    if (name == SYM_VRD_MULT || name == SYM_HRD_MULT || name == SYM_RADIO_MULT)
+        setProperty(gensym("mode"), { 1 });
 
     // has positional arguments
     int n = args.intAt(0, -1);
@@ -113,29 +128,49 @@ void UIRadio::onList(const AtomList& lst)
     redrawItems();
 }
 
+const int UIRadio::click2Cell(const t_pt& pt)
+{
+    auto r = rect();
+    return isVertical() ? (pt.y / r.height * prop_nitems_) : (pt.x / r.width * prop_nitems_);
+}
+
 void UIRadio::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
 {
-    if (mod == EMOD_RIGHT) {
-        if (prop_checklist_mode_) {
-            UIPopupMenu menu(asEObj(), MENU_NAME_CHECKLIST, abs_pt);
-            menu.addItem(_("reset"));
-            menu.addItem(_("flip"));
-            menu.addItem(_("random"));
-            return;
-        }
-    }
-
-    t_rect r = rect();
-    const int idx = isVertical() ? (pt.y / r.height * prop_nitems_) : (pt.x / r.width * prop_nitems_);
+    const int idx = click2Cell(pt);
 
     if (idx >= 0 && idx < prop_nitems_) {
         if (prop_checklist_mode_) {
-            items_.flip(idx);
+            if (mod & EMOD_SHIFT)
+                items_.set(idx, true);
+            else if (mod & EMOD_ALT)
+                items_.set(idx, false);
+            else
+                items_.flip(idx);
         } else {
             setSingleValue(idx);
             items_.reset();
             items_.set(idx, true);
         }
+
+        output();
+        redrawItems();
+    }
+}
+
+void UIRadio::onMouseDrag(t_object* view, const t_pt& pt, long mod)
+{
+    if (!prop_checklist_mode_)
+        return;
+
+    const int idx = click2Cell(pt);
+
+    if (0 <= idx && idx < prop_nitems_) {
+        if (mod & EMOD_SHIFT)
+            items_.set(idx, true);
+        else if (mod & EMOD_ALT)
+            items_.set(idx, false);
+        else
+            return;
 
         output();
         redrawItems();
@@ -320,24 +355,10 @@ void UIRadio::storePreset(size_t idx)
         PresetStorage::instance().setFloatValueAt(presetId(), idx, singleValue());
 }
 
-void UIRadio::onPopup(t_symbol* menu_name, long item_idx)
+void UIRadio::showPopup(const t_pt& pt, const t_pt& abs_pt)
 {
-    if (menu_name == gensym(MENU_NAME_CHECKLIST) && prop_checklist_mode_) {
-        switch (item_idx) {
-        case 0:
-            m_reset();
-            break;
-        case 1:
-            m_flip();
-            break;
-        case 2:
-            m_random();
-            break;
-        default:
-            UI_ERR << "unknown menu item: " << item_idx;
-            break;
-        }
-    }
+    if (prop_checklist_mode_)
+        showPopupMenu("checklist", pt, abs_pt);
 }
 
 AtomList UIRadio::listValue() const
@@ -520,12 +541,18 @@ void UIRadio::setup()
     UIObjectFactory<UIRadio> obj("ui.radio");
     obj.addAlias("ui.hrd");
     obj.addAlias("ui.vrd");
+    obj.addAlias("ui.hrd*");
+    obj.addAlias("ui.vrd*");
+    obj.addAlias("ui.radio*");
 
     obj.useBang();
     obj.useFloat();
     obj.useList();
     obj.usePresets();
-    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DBL_CLICK);
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DBL_CLICK | UI_MOUSE_DRAG);
+    obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
+    obj.usePopup();
+
     obj.setDefaultSize(127, 15);
     obj.hideLabelInner();
 

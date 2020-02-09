@@ -90,8 +90,8 @@ set(CEAMMC_UI_SRC
     ceammc_ui.h
     ceammc_ui_object.h
     ceammc_ui_object.cpp
-    ceammc_ui_dsp_object.h
-    ceammc_ui_dsp_object.cpp
+#    ceammc_ui_dsp_object.h
+#    ceammc_ui_dsp_object.cpp
     image_detect.cpp)
 
 if(UNIX)
@@ -138,14 +138,15 @@ add_library(ceammc_core SHARED
     ${CEAMMC_MLIST_SRC}
     ${CEAMMC_DICT_SRC}
     ${CEAMMC_UI_SRC})
-target_link_libraries(ceammc_core puredata-core fmt)
+target_link_libraries(ceammc_core PUBLIC puredata-core)
+target_link_libraries(ceammc_core PRIVATE fmt::fmt-header-only)
 
 set_target_properties(ceammc_core PROPERTIES
     COMPILE_FLAGS "${LIBCEAMMC_COMPILE_FLAGS}"
     LINK_FLAGS    "${LIBCEAMMC_LINK_FLAGS}")
 
 if(WIN32)
-    target_link_libraries(ceammc_core psapi shlwapi userenv puredata-core)
+    target_link_libraries(ceammc_core PUBLIC psapi shlwapi userenv puredata-core)
 
     # copy library to tests folder
     add_custom_command(TARGET ceammc_core POST_BUILD
@@ -214,5 +215,6 @@ endif()
 
 add_custom_target(ceammc_cicm_tcl_gen
     COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh cicm/Sources/cicm_common.tcl
-    SOURCES cicm/Sources/cicm_common.tcl
+    COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh cicm/Sources/cicm_common_bind.tcl
+    SOURCES cicm/Sources/cicm_common.tcl cicm/Sources/cicm_common_bind.tcl
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})

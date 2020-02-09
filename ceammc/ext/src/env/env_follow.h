@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "env_follow"
-Code generated with Faust 2.18.7 (https://faust.grame.fr)
+Code generated with Faust 2.22.1 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -313,10 +313,8 @@ class UIReal
         virtual void declare(REAL* zone, const char* key, const char* val) {}
 };
 
-class UI : public UIReal<FAUSTFLOAT>
+struct UI : public UIReal<FAUSTFLOAT>
 {
-
-    public:
 
         UI() {}
         virtual ~UI() {}
@@ -383,7 +381,7 @@ struct Meta
  that work under terms of your choice, so long as this FAUST
  architecture section is not modified.
  ************************************************************************/
- 
+
 #ifndef __misc__
 #define __misc__
 
@@ -414,23 +412,40 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-	int	i;
-    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    return def;
 }
 
-static bool isopt(char* argv[], const char* name)
+static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
-	return false;
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return atoi(argv[i]);
+        }
+    }
+    return def;
 }
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    return def;
+}
+
+static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
+{
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return argv[i];
+        }
+    }
+    return def;
+}
+
+static bool isopt(char* argv[], const char* name)
+{
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
+    return false;
 }
 
 static std::string pathToContent(const std::string& path)
@@ -490,6 +505,7 @@ struct env_follow : public dsp {
 #ifndef FAUSTCLASS 
 #define FAUSTCLASS env_follow
 #endif
+
 #ifdef __APPLE__ 
 #define exp10f __exp10f
 #define exp10 __exp10
@@ -499,9 +515,9 @@ class env_follow : public dsp {
 	
  private:
 	
+	FAUSTFLOAT fHslider0;
 	int fSampleRate;
 	float fConst0;
-	FAUSTFLOAT fHslider0;
 	FAUSTFLOAT fHslider1;
 	float fRec1[2];
 	float fRec0[2];
@@ -528,15 +544,13 @@ class env_follow : public dsp {
 
 	virtual int getNumInputs() {
 		return 1;
-		
 	}
 	virtual int getNumOutputs() {
 		return 1;
-		
 	}
 	virtual int getInputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 1;
 				break;
@@ -545,14 +559,12 @@ class env_follow : public dsp {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	virtual int getOutputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 1;
 				break;
@@ -561,38 +573,30 @@ class env_follow : public dsp {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	
 	static void classInit(int sample_rate) {
-		
 	}
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = (1000.0f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate))));
-		
+		fConst0 = (1.0f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate))));
 	}
 	
 	virtual void instanceResetUserInterface() {
 		fHslider0 = FAUSTFLOAT(200.0f);
 		fHslider1 = FAUSTFLOAT(200.0f);
-		
 	}
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec1[l0] = 0.0f;
-			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec0[l1] = 0.0f;
-			
 		}
-		
 	}
 	
 	virtual void init(int sample_rate) {
@@ -611,7 +615,6 @@ class env_follow : public dsp {
 	
 	virtual int getSampleRate() {
 		return fSampleRate;
-		
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
@@ -619,25 +622,26 @@ class env_follow : public dsp {
 		ui_interface->addHorizontalSlider("attack", &fHslider0, 200.0f, 1.0f, 1000.0f, 0.100000001f);
 		ui_interface->addHorizontalSlider("release", &fHslider1, 200.0f, 1.0f, 1000.0f, 0.100000001f);
 		ui_interface->closeBox();
-		
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = std::exp((0.0f - (fConst0 / float(fHslider0))));
-		float fSlow1 = std::exp((0.0f - (fConst0 / float(fHslider1))));
+		float fSlow0 = (0.00100000005f * float(fHslider0));
+		int iSlow1 = (std::fabs(fSlow0) < 1.19999996e-07f);
+		float fSlow2 = (iSlow1 ? 0.0f : std::exp((0.0f - (fConst0 / (iSlow1 ? 1.0f : fSlow0)))));
+		float fSlow3 = (0.00100000005f * float(fHslider1));
+		int iSlow4 = (std::fabs(fSlow3) < 1.19999996e-07f);
+		float fSlow5 = (iSlow4 ? 0.0f : std::exp((0.0f - (fConst0 / (iSlow4 ? 1.0f : fSlow3)))));
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = std::fabs(float(input0[i]));
-			float fTemp1 = ((fRec0[1] > fTemp0) ? fSlow1 : fSlow0);
+			float fTemp1 = ((fRec0[1] > fTemp0) ? fSlow5 : fSlow2);
 			fRec1[0] = ((fRec1[1] * fTemp1) + (fTemp0 * (1.0f - fTemp1)));
 			fRec0[0] = fRec1[0];
 			output0[i] = FAUSTFLOAT(fRec0[0]);
 			fRec1[1] = fRec1[0];
 			fRec0[1] = fRec0[0];
-			
 		}
-		
 	}
 
 };

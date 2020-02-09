@@ -13,7 +13,6 @@ extern void setup_spat_hoa_optim();
 extern void setup_spat_hoa_process();
 extern void setup_spat_hoa_process_inlet();
 extern void setup_spat_hoa_process_props();
-extern void setup_spat_hoa_process_route();
 extern void setup_spat_hoa_projector();
 extern void setup_spat_hoa_recomposer();
 extern void setup_spat_hoa_rotate();
@@ -37,7 +36,6 @@ void ceammc_spat_setup()
     setup_spat_hoa_process();
     setup_spat_hoa_process_inlet();
     setup_spat_hoa_process_props();
-    setup_spat_hoa_process_route();
     setup_spat_hoa_projector();
     setup_spat_hoa_recomposer();
     setup_spat_hoa_rotate();

@@ -112,6 +112,7 @@ set(DOC_FILES
     flow.speedlim
     flow.split
     flow.sync
+    flow.sync_pack
     flow.tee~
     flt.biquad~
     flt.bpf12~
@@ -470,6 +471,7 @@ set(DOC_FILES
     ui.matrix
     ui.menu
     ui.mouse_filter
+    ui.mouse_route
     ui.number
     ui.label
     ui.link

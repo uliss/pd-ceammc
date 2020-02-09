@@ -47,9 +47,16 @@ Fluid::Fluid(const PdArgs& args)
     if (synth_ == nullptr)
         OBJ_ERR << "couldn't create synth";
 
-    createCbProperty("@sf", &Fluid::propSoundFont, &Fluid::propSetSoundFont);
-    property("@sf")->info().setType(PropertyInfoType::SYMBOL);
-    createCbProperty("@version", &Fluid::propVersion);
+    {
+        Property* p = createCbProperty("@sf", &Fluid::propSoundFont, &Fluid::propSetSoundFont);
+        p->info().setType(PropertyInfoType::SYMBOL);
+    }
+
+    {
+        Property* p = createCbProperty("@version", &Fluid::propVersion);
+        p->info().setType(PropertyInfoType::SYMBOL);
+    }
+
     createCbProperty("@soundfonts", &Fluid::propSoundFonts);
 }
 

@@ -75,7 +75,7 @@ else() # search via pkg-config
         pkg_check_modules(PKGCONFIG_ICONV iconv QUIET)
     endif()
 
-    if(PKGCONFIG_GLIB_FOUND AND PKGCONFIG_GTHREAD_FOUND AND PKGCONFIG_ICONV_FOUND)
+    if(PKGCONFIG_GLIB_FOUND AND PKGCONFIG_GTHREAD_FOUND)
         set(GLIB_CONFIG_INCLUDE_DIR ${PKGCONFIG_GLIB_INCLUDEDIR} ${PKGCONFIG_GLIB_INCLUDE_DIRS})
 
         set(GLIB_INCLUDE_DIR ${PKGCONFIG_GLIB_INCLUDEDIR} ${PKGCONFIG_GLIB_INCLUDE_DIRS})
@@ -85,8 +85,6 @@ else() # search via pkg-config
         set(GTHREAD_INCLUDE_DIR ${PKGCONFIG_GTHREAD_INCLUDEDIR} ${PKGCONFIG_GTHREAD_INCLUDE_DIRS})
         set(GTHREAD_LIBRARIES ${PKGCONFIG_GTHREAD_LIBRARIES})
         set(GTHREAD_LIBRARY_DIRS ${PKGCONFIG_GTHREAD_LIBRARY_DIRS})
-
-        set(ICONV_INCLUDE_DIR ${PKGCONFIG_ICONV_INCLUDEDIR} ${PKGCONFIG_ICONV_INCLUDE_DIRS})
     else()
         set(_include_paths
             ${INCLUDE_INSTALL_DIR}
@@ -108,12 +106,6 @@ else() # search via pkg-config
             HINTS ${PKGCONFIG_GLIB_INCLUDEDIR} ${PKGCONFIG_GLIB_INCLUDE_DIRS}
             PATHS ${_include_paths} ${_lib_paths}
             PATH_SUFFIXES glib-2.0 glib-2.0/include glib-2.0/include/glib include/glib-2.0
-            NO_DEFAULT_PATH)
-
-        find_path(ICONV_INCLUDE_DIR
-            NAMES iconv.h
-            HINTS ${PKGCONFIG_GLIB_INCLUDEDIR} ${PKGCONFIG_GLIB_INCLUDE_DIRS}
-            PATHS ${_include_paths} ${_lib_paths}
             NO_DEFAULT_PATH)
 
         find_path(GLIB_CONFIG_INCLUDE_DIR
@@ -144,19 +136,41 @@ else() # search via pkg-config
             NO_DEFAULT_PATH
         )
 
-        find_library(ICONV_LIBRARIES
-            NAMES libiconv iconv
-            HINTS ${PKGCONFIG_GLIB_INCLUDEDIR} ${PKGCONFIG_GLIB_LIBRARY_DIRS}
-            PATHS ${_lib_paths}
-            NO_DEFAULT_PATH
-        )
-
         find_library(INTL_LIBRARIES
             NAMES intl
             HINTS ${PKGCONFIG_GLIB_INCLUDEDIR} ${PKGCONFIG_GLIB_LIBRARY_DIRS}
             PATHS ${_lib_paths}
             NO_DEFAULT_PATH
         )
+    endif()
+
+    if(PKGCONFIG_ICONV_FOUND)
+        set(ICONV_INCLUDE_DIR ${PKGCONFIG_ICONV_INCLUDEDIR} ${PKGCONFIG_ICONV_INCLUDE_DIRS})
+    else()
+        set(_include_paths
+            ${INCLUDE_INSTALL_DIR}
+            /usr/include
+            /opt/local/include
+            /sw/include
+            /usr/local/mingw/i686-w64-mingw32/include)
+
+        set(_lib_paths
+            ${LIB_INSTALL_DIR}
+            /usr/lib
+            /usr/local/lib
+            /opt/local/lib
+            /sw/lib
+            /usr/local/mingw/i686-w64-mingw32/lib)
+
+        find_path(ICONV_INCLUDE_DIR
+            NAMES iconv.h
+            HINTS ${PKGCONFIG_GLIB_INCLUDEDIR} ${PKGCONFIG_GLIB_INCLUDE_DIRS}
+            PATHS ${_include_paths} ${_lib_paths})
+
+        find_library(ICONV_LIBRARIES
+            NAMES libiconv iconv
+            HINTS ${PKGCONFIG_GLIB_INCLUDEDIR} ${PKGCONFIG_GLIB_LIBRARY_DIRS}
+            PATHS ${_lib_paths})
     endif()
 endif()
 

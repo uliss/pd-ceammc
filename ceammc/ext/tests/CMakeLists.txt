@@ -116,6 +116,7 @@ ceammc_external_test(flow demux_tilde)
 ceammc_external_test(flow demux2_tilde)
 ceammc_external_test(flow multiplex)
 ceammc_external_test(flow once)
+ceammc_external_test(flow pack)
 ceammc_external_test(flow pass)
 ceammc_external_test(flow pass_if)
 ceammc_external_test(flow reject)
@@ -270,7 +271,6 @@ ceammc_add_test_linked(
     LINK ceammc_spat ceammc_core puredata-core ceammc_core
     INCLUDE_DIRECTORIES
         ${PROJECT_SOURCE_DIR}/ceammc/extra/HoaLibrary-Light/Sources
-        ${PROJECT_SOURCE_DIR}/ceammc/extra/fmt/include
         ${EIGEN3_DIR}
 )
 ceammc_add_test_linked(
@@ -279,7 +279,6 @@ ceammc_add_test_linked(
     LINK ceammc_spat ceammc_core puredata-core ceammc_core
     INCLUDE_DIRECTORIES
         ${PROJECT_SOURCE_DIR}/ceammc/extra/HoaLibrary-Light/Sources
-        ${PROJECT_SOURCE_DIR}/ceammc/extra/fmt/include
         ${EIGEN3_DIR}
 )
 

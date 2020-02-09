@@ -19,11 +19,6 @@
 #include <cmath>
 #include <stdexcept>
 
-extern "C" {
-#include "g_canvas.h"
-#include "m_imp.h"
-}
-
 static const t_float YOFF = 30;
 
 t_symbol* HoaProcess::SYM_SWITCH;
@@ -37,9 +32,6 @@ t_symbol* HoaProcess::SYM_DSP;
 
 HoaProcess::HoaProcess(const PdArgs& args)
     : SoundExternal(args)
-    , block_obj_(nullptr)
-    , block_obj_method_(nullptr)
-    , canvas_(nullptr)
     , canvas_yoff_(10)
     , domain_(nullptr)
     , num_(nullptr)
@@ -53,17 +45,8 @@ HoaProcess::HoaProcess(const PdArgs& args)
     createProperty(num_);
 }
 
-HoaProcess::~HoaProcess()
-{
-    if (canvas_)
-        canvas_free(canvas_);
-}
-
 void HoaProcess::parseProperties()
 {
-    // store current canvas
-    t_canvas* current = canvas_getcurrent();
-
     try {
         // handle position patch name
         t_symbol* patch = positionalArguments().symbolAt(1, nullptr);
@@ -96,15 +79,11 @@ void HoaProcess::parseProperties()
 
         if (domain_->value() == SYM_HARMONICS) {
             if (!loadHarmonics(patch, patch_args)) {
-                std::ostringstream ss;
-                ss << "can't load the patch " << patch->s_name << ".pd";
-                throw std::runtime_error(ss.str());
+                throw std::runtime_error(fmt::format("can't load the patch {0}.pd", patch->s_name));
             }
         } else {
             if (!loadPlaneWaves(patch, patch_args)) {
-                std::ostringstream ss;
-                ss << "can't load the patch " << patch->s_name << ".pd";
-                throw std::runtime_error(ss.str());
+                throw std::runtime_error(fmt::format("can't load the patch {0}.pd", patch->s_name));
             }
         }
 
@@ -121,36 +100,21 @@ void HoaProcess::parseProperties()
     // set prop readonly
     num_->setReadonly(true);
     domain_->setReadonly(true);
-
-    // restore canvas
-    canvas_setcurrent(current);
     clock_.delay(5);
 }
 
 bool HoaProcess::init()
 {
-    canvas_ = canvas_new(NULL, gensym(""), 0, NULL);
-    if (!canvas_) {
-        OBJ_ERR << "can't create canvas";
-        return false;
-    }
+    //    canvas_ = canvas_new(NULL, gensym(""), 0, NULL);
+    //    if (!canvas_) {
+    //        OBJ_ERR << "can't create canvas";
+    //        return false;
+    //    }
 
-    pd_popsym((t_pd*)canvas_);
-    canvas_vis(canvas_, 0);
+    //    pd_popsym((t_pd*)canvas_);
+    //    canvas_vis(canvas_, 0);
 
-    AtomList args(Atom(10), Atom(canvas_yoff_));
-    args.append(Atom(SYM_SWITCH));
-    canvas_yoff_ += YOFF;
-
-    // create switch~ object on canvas
-    pd_typedmess((t_pd*)canvas_, SYM_OBJ, args.size(), args.toPdData());
-    if (canvas_->gl_list->g_pd->c_name == SYM_BLOCK) {
-        block_obj_ = (t_object*)canvas_->gl_list;
-        block_obj_method_ = block_obj_->te_g.g_pd->c_bangmethod;
-        return true;
-    }
-
-    return false;
+    return true;
 }
 
 void HoaProcess::clockTick()
@@ -197,34 +161,6 @@ size_t HoaProcess::calcNumHarm2d(size_t order)
 size_t HoaProcess::calcNumHarm3d(size_t order)
 {
     return (order + 1) * (order + 1);
-}
-
-bool HoaProcess::processInstanceInit(ProcessInstance& x, t_canvas* parent, t_symbol* name, const AtomList& args)
-{
-    AtomList create_abs;
-    create_abs.append(Atom(10)); // x
-    create_abs.append(Atom(canvas_yoff_)); // y
-    create_abs.append(Atom(name)); // name
-    create_abs.append(args);
-    canvas_yoff_ += YOFF;
-
-    // create abstraction [name args...]
-    pd_typedmess((t_pd*)parent, SYM_OBJ, create_abs.size(), create_abs.toPdData());
-
-    t_gobj* z;
-    for (z = parent->gl_list; z->g_next; z = z->g_next) {
-        // find last created object
-    }
-
-    // load abstraction
-    if (z && z->g_pd->c_name == SYM_CANVAS) {
-        x.setCanvas((t_canvas*)z);
-        x.setArgs(args);
-        x.scanCanvas(x.canvas());
-        return true;
-    }
-
-    return false;
 }
 
 void HoaProcess::allocSignals()
@@ -292,84 +228,215 @@ HoaProcess::InOutInfo HoaProcess::calcNumChannels() const
     };
 }
 
-void HoaProcess::sendBangToInstance(size_t inst_idx, size_t inlet_idx)
+void HoaProcess::sendToN(std::function<void(ProcessInstance*)> fn, size_t inst_idx)
 {
     if (inst_idx >= instances_.size()) {
         OBJ_ERR << "invalid instance index: " << inst_idx;
         return;
     }
 
-    instances_[inst_idx].bangTo(inlet_idx);
+    fn(&instances_[inst_idx]);
+}
+
+void HoaProcess::sendToAll(std::function<void(ProcessInstance*)> fn)
+{
+    for (auto& inst : instances_)
+        fn(&inst);
+}
+
+void HoaProcess::sendToRange(std::function<void(ProcessInstance*)> fn, size_t from, size_t to)
+{
+    if (from > to) {
+        OBJ_ERR << "start index should be less equal then last: " << from << ' ' << to;
+        return;
+    }
+
+    if (from >= instances_.size()) {
+        OBJ_ERR << "invalid instance start index: " << from;
+        return;
+    }
+
+    const size_t N = std::min(to + 1, instances_.size());
+
+    for (size_t i = from; i < N; i++)
+        fn(&instances_[i]);
+}
+
+void HoaProcess::sendToLessThen(std::function<void(ProcessInstance*)> fn, size_t inst_idx)
+{
+    const size_t N = std::min(inst_idx, instances_.size());
+
+    for (size_t i = 0; i < N; i++)
+        fn(&instances_[i]);
+}
+
+void HoaProcess::sendToGreaterThen(std::function<void(ProcessInstance*)> fn, size_t inst_idx)
+{
+    if ((inst_idx + 1) >= instances_.size()) {
+        OBJ_ERR << "invalid instance index: " << inst_idx;
+        return;
+    }
+
+    for (size_t i = inst_idx + 1; i < instances_.size(); i++)
+        fn(&instances_[i]);
+}
+
+void HoaProcess::sendToGreaterEq(std::function<void(ProcessInstance*)> fn, size_t inst_idx)
+{
+    if (inst_idx >= instances_.size()) {
+        OBJ_ERR << "invalid instance index: " << inst_idx;
+        return;
+    }
+
+    for (size_t i = inst_idx; i < instances_.size(); i++)
+        fn(&instances_[i]);
+}
+
+void HoaProcess::sendBangToInstance(size_t inst_idx, size_t inlet_idx)
+{
+    sendToN([=](ProcessInstance* p) { p->bangTo(inlet_idx); }, inst_idx);
 }
 
 void HoaProcess::sendBangToAll(size_t inlet_idx)
 {
-    for (auto& inst : instances_)
-        inst.bangTo(inlet_idx);
+    sendToAll([=](ProcessInstance* p) { p->bangTo(inlet_idx); });
+}
+
+void HoaProcess::sendBangToRange(size_t from, size_t to, size_t inlet_idx)
+{
+    sendToRange([=](ProcessInstance* p) { p->bangTo(inlet_idx); }, from, to);
+}
+
+void HoaProcess::sendBangToLessThen(size_t inst_idx, size_t inlet_idx)
+{
+    sendToLessThen([=](ProcessInstance* p) { p->bangTo(inlet_idx); }, inst_idx);
+}
+
+void HoaProcess::sendBangToGreaterEq(size_t inst_idx, size_t inlet_idx)
+{
+    sendToGreaterEq([=](ProcessInstance* p) { p->bangTo(inlet_idx); }, inst_idx);
 }
 
 void HoaProcess::sendFloatToInstance(size_t inst_idx, size_t inlet_idx, t_float v)
 {
-    if (inst_idx >= instances_.size()) {
-        OBJ_ERR << "invalid instance index: " << inst_idx;
-        return;
-    }
-
-    instances_[inst_idx].floatTo(inlet_idx, v);
+    sendToN([=](ProcessInstance* p) { p->floatTo(inlet_idx, v); }, inst_idx);
 }
 
 void HoaProcess::sendFloatToAll(size_t inlet_idx, t_float v)
 {
-    for (auto& inst : instances_)
-        inst.floatTo(inlet_idx, v);
+    sendToAll([=](ProcessInstance* p) { p->floatTo(inlet_idx, v); });
+}
+
+void HoaProcess::sendFloatToLessThen(size_t inst_idx, size_t inlet_idx, t_float v)
+{
+    sendToLessThen([=](ProcessInstance* p) { p->floatTo(inlet_idx, v); }, inst_idx);
+}
+
+void HoaProcess::sendFloatToGreaterEq(size_t inst_idx, size_t inlet_idx, t_float v)
+{
+    sendToGreaterEq([=](ProcessInstance* p) { p->floatTo(inlet_idx, v); }, inst_idx);
+}
+
+void HoaProcess::sendFloatToRange(size_t from, size_t to, size_t inlet_idx, t_float v)
+{
+    sendToRange([=](ProcessInstance* p) { p->floatTo(inlet_idx, v); }, from, to);
 }
 
 void HoaProcess::sendSymbolToInstance(size_t inst_idx, size_t inlet_idx, t_symbol* s)
 {
-    if (inst_idx >= instances_.size()) {
-        OBJ_ERR << "invalid instance index: " << inst_idx;
-        return;
-    }
-
-    instances_[inst_idx].symbolTo(inlet_idx, s);
+    sendToN([=](ProcessInstance* p) { p->symbolTo(inlet_idx, s); }, inst_idx);
 }
 
 void HoaProcess::sendSymbolToAll(size_t inlet_idx, t_symbol* s)
 {
-    for (auto& inst : instances_)
-        inst.symbolTo(inlet_idx, s);
+    sendToAll([=](ProcessInstance* p) { p->symbolTo(inlet_idx, s); });
+}
+
+void HoaProcess::sendSymbolToLessThen(size_t inst_idx, size_t inlet_idx, t_symbol* s)
+{
+    sendToLessThen([=](ProcessInstance* p) { p->symbolTo(inlet_idx, s); }, inst_idx);
+}
+
+void HoaProcess::sendSymbolToGreaterEq(size_t inst_idx, size_t inlet_idx, t_symbol* s)
+{
+    sendToGreaterEq([=](ProcessInstance* p) { p->symbolTo(inlet_idx, s); }, inst_idx);
+}
+
+void HoaProcess::sendSymbolToRange(size_t from, size_t to, size_t inlet_idx, t_symbol* s)
+{
+    sendToRange([=](ProcessInstance* p) { p->symbolTo(inlet_idx, s); }, from, to);
 }
 
 void HoaProcess::sendListToInstance(size_t inst_idx, size_t inlet_idx, const AtomList& l)
 {
-    if (inst_idx >= instances_.size()) {
-        OBJ_ERR << "invalid instance index: " << inst_idx;
-        return;
-    }
-
-    instances_[inst_idx].listTo(inlet_idx, l);
+    sendToN([&l, &inlet_idx](ProcessInstance* p) { p->listTo(inlet_idx, l); }, inst_idx);
 }
 
 void HoaProcess::sendListToAll(size_t inlet_idx, const AtomList& l)
 {
-    for (auto& inst : instances_)
-        inst.listTo(inlet_idx, l);
+    sendToAll([&l, &inlet_idx](ProcessInstance* p) { p->listTo(inlet_idx, l); });
+}
+
+void HoaProcess::sendListToLessThen(size_t inst_idx, size_t inlet_idx, const AtomList& l)
+{
+    sendToLessThen([&l, &inlet_idx](ProcessInstance* p) { p->listTo(inlet_idx, l); }, inst_idx);
+}
+
+void HoaProcess::sendListToGreaterEq(size_t inst_idx, size_t inlet_idx, const AtomList& l)
+{
+    sendToGreaterEq([&l, &inlet_idx](ProcessInstance* p) { p->listTo(inlet_idx, l); }, inst_idx);
+}
+
+void HoaProcess::sendListToRange(size_t from, size_t to, size_t inlet_idx, const AtomList& l)
+{
+    sendToRange([=](ProcessInstance* p) { p->listTo(inlet_idx, l); }, from, to);
+}
+
+void HoaProcess::sendListToSpread(size_t from, size_t inlet_idx, const AtomList& l)
+{
+    const auto N = std::min(l.size() + from, instances_.size());
+
+    for (size_t i = from; i < N; i++) {
+        const auto& a = l[i - from];
+        ProcessInstance& inst = instances_[i];
+        if (a.isFloat())
+            inst.floatTo(inlet_idx, a.asFloat());
+        else if (a.isSymbol())
+            inst.symbolTo(inlet_idx, a.asSymbol());
+    }
 }
 
 void HoaProcess::sendAnyToInstance(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l)
 {
-    if (inst_idx >= instances_.size()) {
-        OBJ_ERR << "invalid instance index: " << inst_idx;
-        return;
-    }
-
-    instances_[inst_idx].anyTo(inlet_idx, s, l);
+    sendToN([&l, &inlet_idx, s](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); }, inst_idx);
 }
 
 void HoaProcess::sendAnyToAll(size_t inlet_idx, t_symbol* s, const AtomList& l)
 {
-    for (auto& inst : instances_)
-        inst.anyTo(inlet_idx, s, l);
+    sendToAll([&l, &inlet_idx, s](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); });
+}
+
+void HoaProcess::sendAnyToLessThen(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l)
+{
+    sendToLessThen([&l, &inlet_idx, s](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); }, inst_idx);
+}
+
+void HoaProcess::sendAnyToGreaterEq(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l)
+{
+    sendToGreaterEq([&l, &inlet_idx, s](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); }, inst_idx);
+}
+
+void HoaProcess::sendAnyToRange(size_t from, size_t to, size_t inlet_idx, t_symbol* s, const AtomList& l)
+{
+    sendToRange([=](ProcessInstance* p) { p->anyTo(inlet_idx, s, l); }, from, to);
+}
+
+void HoaProcess::sendAnyToSpread(size_t from, size_t inlet_idx, t_symbol* s, const AtomList& l)
+{
+    const auto N = std::min(l.size() + from, instances_.size());
+
+    for (size_t i = from; i < N; i++)
+        instances_[i].anyTo(inlet_idx, s, l[i - from]);
 }
 
 bool HoaProcess::loadHarmonics(t_symbol* name, const AtomList& patch_args)
@@ -390,7 +457,7 @@ bool HoaProcess::loadHarmonics(t_symbol* name, const AtomList& patch_args)
         load_args[3].setFloat(calcHarmDegree2d(i), true);
         load_args[4].setFloat(calcAzimuthalOrder2d(i), true);
 
-        if (!processInstanceInit(instances_[i], canvas_, name, load_args)) {
+        if (!instances_[i].init(name, load_args)) {
             instances_.clear();
             return false;
         }
@@ -416,7 +483,7 @@ bool HoaProcess::loadPlaneWaves(t_symbol* name, const AtomList& patch_args)
         load_args[3].setFloat(i, true);
         load_args[4].setFloat(i, true);
 
-        if (!processInstanceInit(instances_[i], canvas_, name, load_args)) {
+        if (!instances_[i].init(name, load_args)) {
             instances_.clear();
             return false;
         }
@@ -437,8 +504,8 @@ void HoaProcess::processBlock(const t_sample** in, t_sample** out)
         memcpy(&in_buf_[i * BS], in[i], BS * sizeof(t_sample));
     }
 
-    if (block_obj_method_ && block_obj_)
-        block_obj_method_(&block_obj_->te_g.g_pd);
+    for (auto& i : instances_)
+        i.dspCalc();
 
     for (size_t i = 0; i < NOUTS; i++) {
         memcpy(out[i], &out_buf_[i * BS], BS * sizeof(t_sample));
@@ -449,61 +516,55 @@ void HoaProcess::setupDSP(t_signal** sp)
 {
     SoundExternal::setupDSP(sp);
 
-    if (block_obj_ && block_obj_method_) {
-        const size_t BS = (size_t)sp[0]->s_n;
-        const size_t NINST = instances_.size();
-        auto info = calcNumChannels();
+    const size_t BS = (size_t)sp[0]->s_n;
+    const size_t NINST = instances_.size();
+    auto info = calcNumChannels();
 
-        if (info.in.num_chan > 0) {
-            in_buf_.resize(info.in.num_chan * BS);
+    if (info.in.num_chan > 0) {
+        in_buf_.resize(info.in.num_chan * BS);
 
-            if (info.in.has_static_ch) {
-                for (size_t i = 0; i < NINST; i++) {
-                    instances_[i].setInletBuffer(&in_buf_[i * BS], 0);
-                }
-            }
-
-            if (info.in.num_extra_chan) {
-                size_t offset = info.in.num_static_chan;
-                for (size_t j = 0; j < info.in.num_extra_chan; ++j) {
-                    t_sample* inbuf = &in_buf_[(offset + j) * BS];
-
-                    for (size_t i = 0; i < NINST; ++i) {
-                        instances_[i].setInletBuffer(inbuf, j + 1);
-                    }
-                }
+        if (info.in.has_static_ch) {
+            for (size_t i = 0; i < NINST; i++) {
+                instances_[i].setInletBuffer(&in_buf_[i * BS], 0);
             }
         }
 
-        if (info.out.num_chan > 0) {
-            out_buf_.resize(info.out.num_chan * BS);
+        if (info.in.num_extra_chan) {
+            size_t offset = info.in.num_static_chan;
+            for (size_t j = 0; j < info.in.num_extra_chan; ++j) {
+                t_sample* inbuf = &in_buf_[(offset + j) * BS];
 
-            if (info.out.has_static_ch) {
                 for (size_t i = 0; i < NINST; ++i) {
-                    size_t nsamples = i * BS;
-                    instances_[i].setOutletBuffer(&out_buf_[nsamples], 0);
-                }
-            }
-
-            if (info.out.num_extra_chan > 0) {
-                size_t offset = info.out.num_static_chan;
-                for (size_t j = 0; j < info.out.num_extra_chan; ++j) {
-                    t_sample* outbuf = &out_buf_[(offset + j) * BS];
-
-                    for (size_t i = 0; i < NINST; ++i) {
-                        instances_[i].setOutletBuffer(outbuf, j + 1);
-                    }
+                    instances_[i].setInletBuffer(inbuf, j + 1);
                 }
             }
         }
-
-        mess0((t_pd*)canvas_, SYM_DSP);
-    } else {
-        if (args().size() > 1)
-            OBJ_ERR << "not initialized: can't compile DSP chain";
-        else
-            OBJ_LOG << "not initialized: can't compile DSP chain";
     }
+
+    if (info.out.num_chan > 0) {
+        out_buf_.resize(info.out.num_chan * BS);
+
+        if (info.out.has_static_ch) {
+            for (size_t i = 0; i < NINST; ++i) {
+                size_t nsamples = i * BS;
+                instances_[i].setOutletBuffer(&out_buf_[nsamples], 0);
+            }
+        }
+
+        if (info.out.num_extra_chan > 0) {
+            size_t offset = info.out.num_static_chan;
+            for (size_t j = 0; j < info.out.num_extra_chan; ++j) {
+                t_sample* outbuf = &out_buf_[(offset + j) * BS];
+
+                for (size_t i = 0; i < NINST; ++i) {
+                    instances_[i].setOutletBuffer(outbuf, j + 1);
+                }
+            }
+        }
+    }
+
+    for (auto& i : instances_)
+        i.canvas().setupDsp();
 }
 
 void HoaProcess::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
@@ -534,9 +595,38 @@ void HoaProcess::m_open(t_symbol* m, const AtomList& lst)
     }
 }
 
-void HoaProcess::m_open_cnv(t_symbol* m, const AtomList& lst)
+void HoaProcess::m_dsp_on(t_symbol* m, const AtomList& lst)
 {
-    canvas_vis(canvas_, 1);
+    static t_symbol* SYM_ALL = gensym("all");
+    auto usage = [this, m]() {
+        METHOD_DBG(m) << "usage: \n"
+                         "\t all 1|0 - to switch on/off all instances or\n"
+                         "\t INST_IDX 1|0 - to switch on/off specified instance";
+    };
+
+    if (lst.size() != 2) {
+        usage();
+        return;
+    }
+
+    if (lst.size() == 2 && lst[0].isSymbol() && lst[1].isFloat()) {
+        if (lst[0].asSymbol() == SYM_ALL) {
+            bool v = (lst[1].asInt() != 0);
+            for (auto& i : instances_)
+                i.dspOn(v);
+        } else
+            usage();
+    } else if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
+        auto idx = lst[0].asInt();
+        auto v = lst[1].asInt();
+        if (idx < 0 || idx >= instances_.size()) {
+            METHOD_ERR(m) << "invalid instance index: " << idx;
+            return;
+        }
+
+        instances_[idx].dspOn(v != 0);
+    } else
+        usage();
 }
 
 void setup_spat_hoa_process()
@@ -552,6 +642,6 @@ void setup_spat_hoa_process()
 
     SoundExternalFactory<HoaProcess> obj("hoa.process~");
     obj.useClick();
-    obj.addMethod("debug", &HoaProcess::m_open_cnv);
     obj.addMethod("open", &HoaProcess::m_open);
+    obj.addMethod("on", &HoaProcess::m_dsp_on);
 }

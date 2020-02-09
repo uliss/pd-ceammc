@@ -12,20 +12,29 @@
 - canvas.name added
 - canvas.path added
 - flow.pack added
+- flow.sync_pack (flow.pack') added
 - list->props second outlet added for non-props elements
 - list.at @default property added (that outputs if element is not found)
 - list.walk second outlet added (with bang after reaching list last element)
 - list.separate enumeration support added
 - popup menu added to ui.radio in check list mode
+- @mouse_events property added to some UI object, that allows do some tricky user interaction things
 - ui.rslider move added (with SHIFT, change with ALT)
 - ui.hgain~ alias added to create horizontal ui.gain~
 - ui.hgain2~ alias added to create horizontal ui.gain2~
-- ui.gain~ and ui.gain2~ @relative property added for relative input mode (by default)
+- ui.gain~/ui.gain2~ @relative property added for relative input mode (by default)
+- ui.gain~/ui.gain2~ slow value change added in relative mode while holding SHIFT
+- ui.gain~/ui.gain2~ mouse wheel support added (with slow on SHIFT)
+- ui.gain~/ui.gain2~ popup added
+- ui.gain~/ui.gain2~ MIDI learn added (double-click + SHIFT)
 - ui.polar added
 - ui.slider slow change with SHIFT added
 - ui.slider log scale support added with @scale property
 - ui.knob slow value change with SHIFT added
 - ui.knob log scale support added with @scale property
+- ui.knob mouse wheel support added (with slow on SHIFT)
+- ui.mouse_filter added to filter specified mouse event types
+- ui.mouse_route added to route specified mouse event types
 - popup menu added to ui.preset with read/write actions
 - math sync binary operations added (all inlets are hot):
   - math.sync_add (math.+', +')

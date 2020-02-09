@@ -188,6 +188,10 @@ if(LIBFLUID_CPPFLAGS)
     set_target_properties (fluidsynth PROPERTIES COMPILE_FLAGS ${LIBFLUID_CPPFLAGS})
 endif()
 
+if(APPLE)
+    target_link_directories(fluidsynth PUBLIC ${GLIB_LIBRARY_DIRS})
+endif()
+
 target_link_libraries(fluidsynth
     ${GLIB_LIBRARIES}
     ${WINDOWS_LIBS}

@@ -7,7 +7,7 @@
 #X obj 667 11 fx.chorus~;
 #X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
 #X obj 50 147 expand_env;
-#X obj 174 147 ui.knob @size 40 40;
+#X obj 174 147 ui.knob;
 #X floatatom 290 147 5 0 0 0 - - -;
 #X floatatom 405 147 5 0 0 0 - - -;
 #X obj 50 205 readsf~;

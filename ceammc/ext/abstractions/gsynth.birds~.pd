@@ -13,13 +13,13 @@
 -262144 0;
 #X text 10 218 probability(%):;
 #X obj 12 237 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.birds~/slider0 @min 25 @max 100;
+/gui/$1/synth.birds~/slider0 @min 25 @max 100;
 #X obj 140 237 ui.number @size 40 12 @digits 3 @min 25 @max 100;
 #X obj 190 237 msg set;
 #X msg 260 237 @probability \$1;
 #X text 10 251 speed:;
 #X obj 12 270 ui.slider @size 120 12 @active_scale 1 @presetname
-/gui/synth.birds~/slider1 @min 120 @max 480;
+/gui/$1/synth.birds~/slider1 @min 120 @max 480;
 #X obj 140 270 ui.number @size 40 12 @digits 3 @min 120 @max 480;
 #X obj 190 270 msg set;
 #X msg 260 270 @speed \$1;

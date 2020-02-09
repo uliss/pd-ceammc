@@ -15,7 +15,6 @@
 #include "eobj.h"
 #include "epopup.h"
 
-#include "fmt/core.h"
 #include "fmt/format.h"
 
 #include <iostream>
@@ -35,6 +34,7 @@ static const char* SYM_MOUSE_DRAG = "mousedrag";
 static const char* SYM_MOUSE_UP = "mouseup";
 static const char* SYM_MOUSE_WHEEL = "mousewheel";
 static const char* SYM_MOUSE_DBL_CLICK = "dblclick";
+static const char* SYM_MOUSE_RIGHT_CLICK = "rightclick";
 static const char* SYM_KEY = "key";
 static const char* SYM_KEY_FILTER = "keyfilter";
 
@@ -125,10 +125,19 @@ void tcl_version_init()
 
         class_addmethod(tcl_version_class, (t_method)&tcl_version_set,
             gensym("tcl_version"), A_DEFFLOAT, A_NULL);
-        pd_bind(&tcl_version_class, gensym("tcl_version"));
+
         tcl_version_instance = tcl_version_new();
+        pd_bind(&tcl_version_instance->x_obj.te_g.g_pd, gensym("tcl_version"));
         sys_gui("pdsend \"tcl_version tcl_version $tk_version\"\n");
     }
+}
+
+std::pair<int, int> eclass_tcl_version()
+{
+    if (!tcl_version_instance)
+        return { 0, 0 };
+    else
+        return { tcl_version_instance->major, tcl_version_instance->minor };
 }
 
 t_eclass* eclass_new(const char* name, t_typ_method newm, t_typ_method freem, size_t size, int flags, t_atomtype arg1, int arg2)
@@ -301,9 +310,10 @@ void eclass_guiinit(t_eclass* c, long flags)
 
     class_addmethod((t_class*)c, (t_method)ebox_mouse_enter, gensym(SYM_MOUSE_ENTER), A_NULL, 0);
     class_addmethod((t_class*)c, (t_method)ebox_mouse_leave, gensym(SYM_MOUSE_LEAVE), A_NULL, 0);
-    class_addmethod((t_class*)c, (t_method)ebox_mouse_move, gensym(SYM_MOUSE_MOVE), A_GIMME, 0);
-    class_addmethod((t_class*)c, (t_method)ebox_mouse_down, gensym(SYM_MOUSE_DOWN), A_GIMME, 0);
-    class_addmethod((t_class*)c, (t_method)ebox_mouse_up, gensym(SYM_MOUSE_UP), A_GIMME, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_mouse_move, gensym(SYM_MOUSE_MOVE), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_mouse_down, gensym(SYM_MOUSE_DOWN), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_mouse_up, gensym(SYM_MOUSE_UP), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+    class_addmethod((t_class*)c, (t_method)ebox_mouse_rightclick, gensym(SYM_MOUSE_RIGHT_CLICK), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
 
     class_addmethod((t_class*)c, (t_method)ebox_pos, gensym(SYM_POS), A_DEFFLOAT, A_DEFFLOAT, 0);
     class_addmethod((t_class*)c, (t_method)ebox_vis, gensym(SYM_VIS), A_DEFFLOAT, 0);
@@ -354,23 +364,25 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
     t_symbol* sname = gensym(name);
     t_class* cx = &c->c_class;
     if (sname == gensym(SYM_MOUSE_ENTER)) {
-        c->c_widget.w_mouseenter = m;
+        c->c_widget.w_mouseenter = reinterpret_cast<t_mouseenter_method>(m);
     } else if (sname == gensym(SYM_MOUSE_LEAVE)) {
-        c->c_widget.w_mouseleave = m;
+        c->c_widget.w_mouseleave = reinterpret_cast<t_mouseleave_method>(m);
     } else if (sname == gensym(SYM_MOUSE_MOVE)) {
-        c->c_widget.w_mousemove = m;
+        c->c_widget.w_mousemove = reinterpret_cast<t_mousemove_method>(m);
     } else if (sname == gensym(SYM_MOUSE_DOWN)) {
-        c->c_widget.w_mousedown = m;
+        c->c_widget.w_mousedown = reinterpret_cast<t_mousedown_method>(m);
     } else if (sname == gensym(SYM_MOUSE_DRAG)) {
         c->c_widget.w_mousedrag = m;
     } else if (sname == gensym(SYM_MOUSE_UP)) {
-        c->c_widget.w_mouseup = m;
+        c->c_widget.w_mouseup = reinterpret_cast<t_mouseup_method>(m);
+    } else if (sname == gensym(SYM_MOUSE_RIGHT_CLICK)) {
+        c->c_widget.w_rightclick = reinterpret_cast<t_rightclick_method>(m);
     } else if (sname == gensym(SYM_MOUSE_WHEEL)) {
-        class_addmethod(cx, (t_method)ebox_mouse_wheel, gensym(SYM_MOUSE_WHEEL), A_GIMME, 0);
-        c->c_widget.w_mousewheel = m;
+        class_addmethod(cx, (t_method)ebox_mouse_wheel, gensym(SYM_MOUSE_WHEEL), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+        c->c_widget.w_mousewheel = reinterpret_cast<t_mousewheel_method>(m);
     } else if (sname == gensym(SYM_MOUSE_DBL_CLICK)) {
         class_addmethod(cx, (t_method)ebox_mouse_dblclick, gensym(SYM_MOUSE_DBL_CLICK), A_GIMME, 0);
-        c->c_widget.w_dblclick = m;
+        c->c_widget.w_dblclick = reinterpret_cast<t_dblclick_method>(m);
     } else if (sname == gensym(SYM_KEY) || sname == gensym(SYM_KEY_FILTER)) {
         if (c->c_widget.w_key == NULL && c->c_widget.w_keyfilter == NULL)
             class_addmethod(cx, (t_method)ebox_key, gensym(SYM_KEY), A_GIMME, 0);
@@ -395,8 +407,9 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
     } else if (sname == gensym(SYM_SAVE)) {
         c->c_widget.w_save = m;
     } else if (sname == gensym(SYM_POPUP)) {
-        class_addmethod(cx, (t_method)eobj_popup, gensym(SYM_POPUP), A_SYMBOL, A_DEFFLOAT, 0);
-        c->c_widget.w_popup = m;
+        class_addmethod(cx, (t_method)eobj_popup, gensym(SYM_POPUP), A_SYMBOL, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+        c->c_widget.w_popup = reinterpret_cast<t_popup_method>(m);
+        ;
     } else if (sname == gensym(SYM_DSP)) {
         c->c_widget.w_dsp = m;
     } else if (sname == &s_bang) {
@@ -1038,6 +1051,7 @@ static void ewidget_init(t_eclass* c)
     c->c_widget.w_mouseup = nullptr;
     c->c_widget.w_mousewheel = nullptr;
     c->c_widget.w_dblclick = nullptr;
+    c->c_widget.w_rightclick = nullptr;
     c->c_widget.w_key = nullptr;
     c->c_widget.w_keyfilter = nullptr;
     c->c_widget.w_getdrawparameters = nullptr;

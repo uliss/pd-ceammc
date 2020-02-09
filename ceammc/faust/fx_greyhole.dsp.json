@@ -1,26 +1,32 @@
 {
 	"name": "fx.greyhole",
-	"filename": "fx_greyhole",
-	"version": "2.15.0",
-	"compile_options": "cpp, -scal -ftz 0",
+	"filename": "fx_greyhole.dsp",
+	"version": "2.22.1",
+	"compile_options": "-lang cpp -scal -ftz 0",
 	"library_list": ["/usr/local/share/faust/stdfaust.lib","/Users/serj/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/oscillators.lib","/usr/local/share/faust/filters.lib","/Users/serj/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/routes.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],
-	"inputs": "2",
-	"outputs": "2",
+	"inputs": 2,
+	"outputs": 2,
 	"meta": [ 
 		{ "author": "Julian Parker, bug fixes by Till Bovermann" },
 		{ "basics.lib/name": "Faust Basic Element Library" },
-		{ "basics.lib/version": "0.0" },
+		{ "basics.lib/version": "0.1" },
 		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
 		{ "ceammc.lib/version": "0.1.1" },
 		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
 		{ "ceammc_ui.lib/version": "0.1.1" },
 		{ "copyright": "(c) Julian Parker 2013" },
 		{ "delays.lib/name": "Faust Delay Library" },
-		{ "delays.lib/version": "0.0" },
-		{ "filename": "fx_greyhole" },
+		{ "delays.lib/version": "0.1" },
+		{ "filename": "fx_greyhole.dsp" },
+		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/name": "Faust Filters Library" },
-		{ "filters.lib/version": "0.0" },
+		{ "filters.lib/nlf2:author": "Julius O. Smith III" },
+		{ "filters.lib/nlf2:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/nlf2:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/tf1:author": "Julius O. Smith III" },
+		{ "filters.lib/tf1:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf1:license": "MIT-style STK-4.3 license" },
 		{ "license": "GPL2+" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
@@ -31,7 +37,7 @@
 		{ "oscillators.lib/name": "Faust Oscillator Library" },
 		{ "oscillators.lib/version": "0.0" },
 		{ "routes.lib/name": "Faust Signal Routing Library" },
-		{ "routes.lib/version": "0.0" },
+		{ "routes.lib/version": "0.1" },
 		{ "signals.lib/name": "Faust Signal Routing Library" },
 		{ "signals.lib/version": "0.0" },
 		{ "version": "1.0" }
@@ -50,28 +56,28 @@
 					"type": "hslider",
 					"label": "damping",
 					"address": "/fx.greyhole/damping",
-					"init": "0",
-					"min": "0",
-					"max": "0.99",
-					"step": "0.001"
+					"init": 0,
+					"min": 0,
+					"max": 0.99,
+					"step": 0.001
 				},
 				{
 					"type": "hslider",
 					"label": "delaytime",
 					"address": "/fx.greyhole/delaytime",
-					"init": "0.2",
-					"min": "0.001",
-					"max": "1.45",
-					"step": "0.0001"
+					"init": 0.2,
+					"min": 0.001,
+					"max": 1.45,
+					"step": 0.0001
 				},
 				{
 					"type": "hslider",
 					"label": "diffusion",
 					"address": "/fx.greyhole/diffusion",
-					"init": "0.5",
-					"min": "0",
-					"max": "0.99",
-					"step": "0.0001"
+					"init": 0.5,
+					"min": 0,
+					"max": 0.99,
+					"step": 0.0001
 				},
 				{
 					"type": "hslider",
@@ -80,46 +86,46 @@
 					"meta": [
 						{ "style": "knob" }
 					],
-					"init": "1",
-					"min": "0",
-					"max": "1",
-					"step": "0.01"
+					"init": 1,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
 				},
 				{
 					"type": "hslider",
 					"label": "feedback",
 					"address": "/fx.greyhole/feedback",
-					"init": "0.9",
-					"min": "0",
-					"max": "1",
-					"step": "0.01"
+					"init": 0.9,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
 				},
 				{
 					"type": "hslider",
 					"label": "moddepth",
 					"address": "/fx.greyhole/moddepth",
-					"init": "0.1",
-					"min": "0",
-					"max": "1",
-					"step": "0.001"
+					"init": 0.1,
+					"min": 0,
+					"max": 1,
+					"step": 0.001
 				},
 				{
 					"type": "hslider",
 					"label": "modfreq",
 					"address": "/fx.greyhole/modfreq",
-					"init": "2",
-					"min": "0",
-					"max": "10",
-					"step": "0.01"
+					"init": 2,
+					"min": 0,
+					"max": 10,
+					"step": 0.01
 				},
 				{
 					"type": "hslider",
 					"label": "size",
 					"address": "/fx.greyhole/size",
-					"init": "1",
-					"min": "0.5",
-					"max": "3",
-					"step": "0.0001"
+					"init": 1,
+					"min": 0.5,
+					"max": 3,
+					"step": 0.0001
 				}
 			]
 		}

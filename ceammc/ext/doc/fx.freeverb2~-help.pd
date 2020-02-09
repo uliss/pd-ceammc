@@ -13,9 +13,9 @@ Schroeder-Moorer filtered-feedback comb-filters for each audio channel
 \, and is said to be especially well tuned.;
 #X msg 50 203 open %CEAMMC%/guitar1.wav \, 1;
 #X obj 50 232 expand_env;
-#X obj 174 261 ui.knob @size 40 40;
-#X obj 280 261 ui.knob @size 40 40;
-#X obj 386 261 ui.knob @size 40 40;
+#X obj 174 261 ui.knob;
+#X obj 280 261 ui.knob;
+#X obj 386 261 ui.knob;
 #X obj 50 290 readsf~;
 #X msg 174 319 @room \$1;
 #X msg 280 319 @damp \$1;

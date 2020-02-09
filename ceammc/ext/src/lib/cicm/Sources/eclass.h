@@ -20,6 +20,7 @@
 #include "edefine.h"
 
 #include <stddef.h>
+#include <utility>
 
 /*! @addtogroup groupclass
  *  @{
@@ -284,6 +285,11 @@ void eclass_attr_itemlist(t_eclass* c, const char* attrname, const char* list);
 void eclass_attr_sort(t_eclass* c);
 
 void eclass_attr_redirect(t_eclass* c, const char* attrname, t_gotfn fn);
+
+/**
+ * @brief return tcl version
+ */
+std::pair<int, int> eclass_tcl_version();
 
 //! @cond
 #define calcoffset(x, y) ((ptrdiff_t)(&(((x*)0L)->y)))

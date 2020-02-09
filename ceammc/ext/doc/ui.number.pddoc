@@ -27,8 +27,8 @@
             ENTER or TAB key to finish. ESCAPE undo input, BACKSPACE removes last character.</par>
         </info>
         <properties>
-            <property name="@min" type="float" default="+inf">minimum value</property>
-            <property name="@max" type="float" default="-inf">maximum value</property>
+            <property name="@min" type="float" default="-inf">minimum value</property>
+            <property name="@max" type="float" default="+inf">maximum value</property>
             <property name="@value" type="float" default="0">widget value</property>
             <property name="@digits" type="int" default="-1" minvalue="-1" maxvalue="8">number of
             digits. If -1 - no fixed digits used</property>

@@ -72,7 +72,7 @@
         flow.interval flow.less flow.less_eq flow.match flow.multiplex
         flow.multiplex2~ flow.multiplex~ flow.once flow.pack flow.pass
         flow.pass_if flow.reject flow.reject_if flow.route flow.speedlim
-        flow.split flow.sync flow.tee~ replace
+        flow.split flow.sync flow.sync_pack flow.tee~ replace
     }}
     {flt {
         flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_bpf~ flt.c_highshelf~
@@ -209,9 +209,9 @@
     {ui {
         ui.aview ui.bang ui.colorpanel ui.display ui.dsp~ ui.env ui.gain2~
         ui.gain~ ui.icon ui.incdec ui.keyboard ui.knob ui.label ui.link
-        ui.matrix ui.menu ui.meter~ ui.mouse_filter ui.number ui.number~
-        ui.polar ui.preset ui.radio ui.rslider ui.scope~ ui.slider ui.slider2d
-        ui.sliders ui.spectroscope~ ui.tab ui.toggle
+        ui.matrix ui.menu ui.meter~ ui.mouse_filter ui.mouse_route ui.number
+        ui.number~ ui.polar ui.preset ui.radio ui.rslider ui.scope~ ui.slider
+        ui.slider2d ui.sliders ui.spectroscope~ ui.tab ui.toggle
     }}
 }
 {extra

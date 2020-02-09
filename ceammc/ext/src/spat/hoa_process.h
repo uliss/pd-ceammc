@@ -20,15 +20,13 @@
 #include "hoa_process_inlet.h"
 #include "hoa_process_instance.h"
 
+#include <functional>
+
 typedef void (*t_bangmethod)(t_pd* x);
 
 class HoaProcess : public SoundExternal {
     std::vector<ProcessInstance> instances_;
     std::vector<ProcessInlet> ins_;
-
-    t_canvas* canvas_;
-    t_object* block_obj_;
-    t_bangmethod block_obj_method_;
 
     t_float canvas_yoff_;
 
@@ -43,7 +41,6 @@ class HoaProcess : public SoundExternal {
 
 public:
     HoaProcess(const PdArgs& args);
-    ~HoaProcess();
 
     void parseProperties() override;
     void processBlock(const t_sample** in, t_sample** out) override;
@@ -51,7 +48,7 @@ public:
 
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
     void m_open(t_symbol* m, const AtomList& lst);
-    void m_open_cnv(t_symbol* m, const AtomList& lst);
+    void m_dsp_on(t_symbol* m, const AtomList& lst);
 
 private:
     bool init();
@@ -59,7 +56,6 @@ private:
 
     bool loadHarmonics(t_symbol* name, const AtomList& patch_args);
     bool loadPlaneWaves(t_symbol* name, const AtomList& patch_args);
-    bool processInstanceInit(ProcessInstance& x, t_canvas* parent, t_symbol* name, const AtomList& args);
 
     void allocSignals();
     void allocInlets();
@@ -79,16 +75,44 @@ private:
     InOutInfo calcNumChannels() const;
 
 public:
+    void sendToN(std::function<void(ProcessInstance*)> fn, size_t inst_idx);
+    void sendToAll(std::function<void(ProcessInstance*)> fn);
+    void sendToRange(std::function<void(ProcessInstance*)> fn, size_t from, size_t to);
+    void sendToLessThen(std::function<void(ProcessInstance*)> fn, size_t inst_idx);
+    void sendToGreaterThen(std::function<void(ProcessInstance*)> fn, size_t inst_idx);
+    void sendToGreaterEq(std::function<void(ProcessInstance*)> fn, size_t inst_idx);
+
     void sendBangToInstance(size_t inst_idx, size_t inlet_idx);
     void sendBangToAll(size_t inlet_idx);
+    void sendBangToRange(size_t from, size_t to, size_t inlet_idx);
+    void sendBangToLessThen(size_t inst_idx, size_t inlet_idx);
+    void sendBangToGreaterEq(size_t inst_idx, size_t inlet_idx);
+
     void sendFloatToInstance(size_t inst_idx, size_t inlet_idx, t_float v);
     void sendFloatToAll(size_t inlet_idx, t_float v);
+    void sendFloatToLessThen(size_t inst_idx, size_t inlet_idx, t_float v);
+    void sendFloatToGreaterEq(size_t inst_idx, size_t inlet_idx, t_float v);
+    void sendFloatToRange(size_t from, size_t to, size_t inlet_idx, t_float v);
+
     void sendSymbolToInstance(size_t inst_idx, size_t inlet_idx, t_symbol* s);
     void sendSymbolToAll(size_t inlet_idx, t_symbol* s);
+    void sendSymbolToLessThen(size_t inst_idx, size_t inlet_idx, t_symbol* s);
+    void sendSymbolToGreaterEq(size_t inst_idx, size_t inlet_idx, t_symbol* s);
+    void sendSymbolToRange(size_t from, size_t to, size_t inlet_idx, t_symbol* s);
+
     void sendListToInstance(size_t inst_idx, size_t inlet_idx, const AtomList& l);
     void sendListToAll(size_t inlet_idx, const AtomList& l);
+    void sendListToLessThen(size_t inst_idx, size_t inlet_idx, const AtomList& l);
+    void sendListToGreaterEq(size_t inst_idx, size_t inlet_idx, const AtomList& l);
+    void sendListToRange(size_t from, size_t to, size_t inlet_idx, const AtomList& l);
+    void sendListToSpread(size_t from, size_t inlet_idx, const AtomList& l);
+
     void sendAnyToInstance(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l);
     void sendAnyToAll(size_t inlet_idx, t_symbol* s, const AtomList& l);
+    void sendAnyToLessThen(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l);
+    void sendAnyToGreaterEq(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l);
+    void sendAnyToRange(size_t from, size_t to, size_t inlet_idx, t_symbol* s, const AtomList& l);
+    void sendAnyToSpread(size_t inst_idx, size_t inlet_idx, t_symbol* s, const AtomList& l);
 
 public:
     static t_symbol* SYM_SWITCH;

@@ -12,14 +12,14 @@
 #X floatatom 174 205 5 0 0 0 - - -;
 #X floatatom 290 205 5 0 0 0 - - -;
 #X floatatom 405 205 5 0 0 0 - - -;
-#X obj 530 205 ui.knob @size 40 40;
+#X obj 530 205 ui.knob;
 #X obj 50 262 readsf~;
 #X msg 174 262 @speed \$1;
 #X msg 290 262 @delay \$1;
 #X msg 405 262 @offset \$1;
 #X msg 530 262 @feedback \$1;
 #X obj 174 291 s flng;
-#X obj 434 320 ui.knob @size 40 40;
+#X obj 434 320 ui.knob;
 #X obj 78 349 r flng;
 #X obj 184 349 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 309 349 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;

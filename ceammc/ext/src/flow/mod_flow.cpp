@@ -24,6 +24,7 @@
 #include "flow_speedlim.h"
 #include "flow_split.h"
 #include "flow_sync.h"
+#include "flow_sync_pack.h"
 #include "flow_tee_tilde.h"
 
 void setup_flow_match();
@@ -57,4 +58,5 @@ void ceammc_flow_setup()
     setup_flow_pack();
     setup_flow_route();
     setup_flow_speedlim();
+    setup_flow_sync_pack();
 }

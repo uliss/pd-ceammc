@@ -9,7 +9,7 @@
 #X obj 69 234 sig~ 1;
 #X msg 184 234 +all 0.1;
 #X msg 290 234 -db 6 3;
-#X obj 309 262 ui.knob @size 40 40;
+#X obj 309 262 ui.knob;
 #X obj 50 320 gain~ 4 . . . . . . .;
 #X obj 50 349 env~;
 #X obj 117 349 env~;

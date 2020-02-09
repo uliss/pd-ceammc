@@ -12,85 +12,110 @@
  * this file belongs to.
  *****************************************************************************/
 #include "flow_pack.h"
+#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
 #include <algorithm>
 
+static const size_t MIN_INLETS = 1;
+static const size_t MAX_INLETS = 256;
+static const size_t DEF_INLETS = 1;
+
 FlowPack::FlowPack(const PdArgs& args)
     : BaseObject(args)
-    , n_(nullptr)
+    , n_(DEF_INLETS)
 {
-    n_ = new IntPropertyMinEq("@n", positionalFloatArgument(0, 1), 1);
-    createProperty(n_);
-}
+    n_ = static_cast<size_t>(clip<int, MIN_INLETS, MAX_INLETS>(positionalFloatArgument(0, MIN_INLETS)));
 
-void FlowPack::parseProperties()
-{
-    BaseObject::parseProperties();
-
-    for (int i = 1; i < n_->value(); i++)
+    // (in/out)lets
+    for (size_t i = 1; i < n_; i++)
         createInlet();
 
     createOutlet();
 
     // fill all with zeroes
-    msg_.fill(Atom(0.f), n_->value());
+    msg_.fill(Atom(0.f), n_);
 
     // fill default values from positiona arguments (starting from index 1)
-    const auto& args = positionalArguments();
-    if (!args.empty()) {
-        const size_t N = std::min<size_t>(msg_.size(), args.size() - 1);
+    if (!args.args.empty()) {
+        const size_t N = std::min<size_t>(msg_.size(), args.args.size() - 1);
         for (size_t i = 0; i < N; i++)
-            msg_[i] = args[i + 1];
+            msg_[i] = args.args[i + 1];
     }
+}
+
+void FlowPack::parseProperties()
+{
 }
 
 void FlowPack::onBang()
 {
-    listTo(0, msg_);
+    output(0);
 }
 
 void FlowPack::onFloat(t_float f)
 {
     msg_[0] = Atom(f);
-    onBang();
+    output(0);
 }
 
 void FlowPack::onSymbol(t_symbol* s)
 {
     msg_[0] = Atom(s);
-    onBang();
+    output(0);
 }
 
 void FlowPack::onInlet(size_t idx, const AtomList& l)
 {
-    if (idx >= msg_.size()) {
-        OBJ_ERR << "invalid inlet index: " << idx;
-        return;
+    if (!l.empty()) {
+        if (idx >= msg_.size()) {
+            OBJ_ERR << "invalid inlet index: " << idx;
+            return;
+        }
+
+        const size_t N = std::min<size_t>(idx + l.size(), msg_.size());
+        for (size_t i = idx; i < N; i++)
+            msg_[i] = l[i - idx];
     }
 
-    if (l.empty())
-        return onBang();
-    else if (l.size() != 1) {
-        OBJ_ERR << "only single element expected at " << idx << " inlet";
-        return;
-    }
-
-    msg_[idx] = l[0];
-    onBang();
+    output(idx);
 }
 
 void FlowPack::onList(const AtomList& l)
 {
-    if (l.size() > msg_.size()) {
-        OBJ_ERR << "too many values in list: " << l.size();
-        return;
-    }
+    if (l.size() > msg_.size())
+        OBJ_ERR << "too many values in list: " << l.size() << ". Using only first " << msg_.size();
 
-    for (size_t i = 0; i < l.size(); i++)
+    const size_t N = std::min<size_t>(l.size(), msg_.size());
+    for (size_t i = 0; i < N; i++)
         msg_[i] = l[i];
 
-    onBang();
+    output(0);
+}
+
+void FlowPack::onAny(t_symbol* s, const AtomList& l)
+{
+    if ((l.size() + 1) > msg_.size())
+        OBJ_ERR << "too many atoms in message: " << (l.size() + 1);
+
+    const size_t N = std::min<size_t>(l.size() + 1, msg_.size());
+
+    msg_[0] = s;
+    for (size_t i = 1; i < N; i++)
+        msg_[i] = l[i - 1];
+
+    anyTo(0, msg_);
+}
+
+bool FlowPack::processAnyProps(t_symbol* s, const AtomList& l)
+{
+    return false;
+}
+
+void FlowPack::output(size_t inlet_idx)
+{
+    if (inlet_idx == 0)
+        listTo(0, msg_);
 }
 
 void setup_flow_pack()

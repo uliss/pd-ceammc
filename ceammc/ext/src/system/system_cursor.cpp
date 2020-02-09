@@ -55,7 +55,7 @@ SystemCursor::~SystemCursor()
 
 void SystemCursor::onBang()
 {
-    sys_vgui("pdsend \"%s motion [winfo pointerxy .]\"\n", receive()->s_name);
+    sys_vgui("pdsend \"%s .motion [winfo pointerxy .]\"\n", receive()->s_name);
 }
 
 void SystemCursor::onFloat(t_float f)
@@ -76,27 +76,33 @@ void SystemCursor::onFloat(t_float f)
 
 void SystemCursor::m_button(t_symbol* s, const AtomList& args)
 {
+    static t_symbol* SYM = gensym("button");
+
     if (is_polling_)
-        anyTo(0, s, args);
+        anyTo(0, SYM, args);
 }
 
 void SystemCursor::m_motion(t_symbol* s, const AtomList& args)
 {
+    static t_symbol* SYM = gensym("motion");
+
     if (!relative_->value()) {
-        anyTo(0, s, args);
+        anyTo(0, SYM, args);
     } else {
         if (checkArgs(args, ARG_FLOAT, ARG_FLOAT)) {
             t_canvas* cnv = canvas_getrootfor(canvas());
             auto r = canvas_info_rect(cnv);
-            anyTo(0, s, { args[0].asFloat() - r.x, args[1].asFloat() - r.y });
+            anyTo(0, SYM, { args[0].asFloat() - r.x, args[1].asFloat() - r.y });
         }
     }
 }
 
 void SystemCursor::m_wheel(t_symbol* s, const AtomList& args)
 {
+    static t_symbol* SYM = gensym("mousewheel");
+
     if (is_polling_)
-        anyTo(0, s, args);
+        anyTo(0, SYM, args);
 }
 
 void SystemCursor::clockTick()
@@ -131,9 +137,9 @@ void setup_system_cursor()
     SYM_CURSOR_BIND = gensym("#ceammc_cursor_class_receive");
 
     ObjectFactory<SystemCursor> obj("system.cursor");
-    obj.addMethod("button", &SystemCursor::m_button);
-    obj.addMethod("motion", &SystemCursor::m_motion);
-    obj.addMethod("mousewheel", &SystemCursor::m_wheel);
+    obj.addMethod(".button", &SystemCursor::m_button);
+    obj.addMethod(".motion", &SystemCursor::m_motion);
+    obj.addMethod(".mousewheel", &SystemCursor::m_wheel);
 
     sys_gui(system_cursor_tcl);
     sys_vgui("::ceammc::cursor::setup %s\n", SYM_CURSOR_BIND->s_name);

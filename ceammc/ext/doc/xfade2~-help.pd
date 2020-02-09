@@ -10,7 +10,7 @@
 first and second signals \, [1-2) between second and third etc.;
 #X obj 50 158 osc~ 440;
 #X obj 184 158 osc~ 1000;
-#X obj 318 158 ui.knob @size 40 40;
+#X obj 318 158 ui.knob;
 #X obj 69 187 osc~ 441;
 #X obj 203 187 osc~ 1002;
 #X floatatom 318 216 5 0 0 0 - - -;

@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------
 name: "dyn.comp"
-Code generated with Faust 2.18.7 (https://faust.grame.fr)
+Code generated with Faust 2.22.1 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -313,10 +313,8 @@ class UIReal
         virtual void declare(REAL* zone, const char* key, const char* val) {}
 };
 
-class UI : public UIReal<FAUSTFLOAT>
+struct UI : public UIReal<FAUSTFLOAT>
 {
-
-    public:
 
         UI() {}
         virtual ~UI() {}
@@ -383,7 +381,7 @@ struct Meta
  that work under terms of your choice, so long as this FAUST
  architecture section is not modified.
  ************************************************************************/
- 
+
 #ifndef __misc__
 #define __misc__
 
@@ -414,23 +412,40 @@ static int int2pow2(int x) { int r = 0; while ((1<<r) < x) r++; return r; }
 
 static long lopt(char* argv[], const char* name, long def)
 {
-	int	i;
-    for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return std::atoi(argv[i+1]);
+    return def;
 }
 
-static bool isopt(char* argv[], const char* name)
+static long lopt1(int argc, char* argv[], const char* longname, const char* shortname, long def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
-	return false;
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return atoi(argv[i]);
+        }
+    }
+    return def;
 }
 
 static const char* lopts(char* argv[], const char* name, const char* def)
 {
-	int	i;
-	for (i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
-	return def;
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return argv[i+1];
+    return def;
+}
+
+static const char* lopts1(int argc, char* argv[], const char* longname, const char* shortname, const char* def)
+{
+    for (int i = 2; i < argc; i++) {
+        if (strcmp(argv[i-1], shortname) == 0 || strcmp(argv[i-1], longname) == 0) {
+            return argv[i];
+        }
+    }
+    return def;
+}
+
+static bool isopt(char* argv[], const char* name)
+{
+    for (int i = 0; argv[i]; i++) if (!strcmp(argv[i], name)) return true;
+    return false;
 }
 
 static std::string pathToContent(const std::string& path)
@@ -490,6 +505,7 @@ struct dyn_comp : public dsp {
 #ifndef FAUSTCLASS 
 #define FAUSTCLASS dyn_comp
 #endif
+
 #ifdef __APPLE__ 
 #define exp10f __exp10f
 #define exp10 __exp10
@@ -499,12 +515,10 @@ class dyn_comp : public dsp {
 	
  private:
 	
+	FAUSTFLOAT fVslider0;
 	int fSampleRate;
 	float fConst0;
-	float fConst1;
-	FAUSTFLOAT fVslider0;
 	FAUSTFLOAT fVslider1;
-	float fConst2;
 	FAUSTFLOAT fVslider2;
 	float fRec2[2];
 	float fRec1[2];
@@ -535,15 +549,13 @@ class dyn_comp : public dsp {
 
 	virtual int getNumInputs() {
 		return 1;
-		
 	}
 	virtual int getNumOutputs() {
 		return 1;
-		
 	}
 	virtual int getInputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 1;
 				break;
@@ -552,14 +564,12 @@ class dyn_comp : public dsp {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	virtual int getOutputRate(int channel) {
 		int rate;
-		switch (channel) {
+		switch ((channel)) {
 			case 0: {
 				rate = 1;
 				break;
@@ -568,22 +578,16 @@ class dyn_comp : public dsp {
 				rate = -1;
 				break;
 			}
-			
 		}
 		return rate;
-		
 	}
 	
 	static void classInit(int sample_rate) {
-		
 	}
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = (2000.0f / fConst0);
-		fConst2 = (1000.0f / fConst0);
-		
+		fConst0 = (1.0f / std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate))));
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -591,23 +595,18 @@ class dyn_comp : public dsp {
 		fVslider1 = FAUSTFLOAT(1.0f);
 		fVslider2 = FAUSTFLOAT(50.0f);
 		fVslider3 = FAUSTFLOAT(100.0f);
-		
 	}
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; (l0 < 2); l0 = (l0 + 1)) {
 			fRec2[l0] = 0.0f;
-			
 		}
 		for (int l1 = 0; (l1 < 2); l1 = (l1 + 1)) {
 			fRec1[l1] = 0.0f;
-			
 		}
 		for (int l2 = 0; (l2 < 2); l2 = (l2 + 1)) {
 			fRec0[l2] = 0.0f;
-			
 		}
-		
 	}
 	
 	virtual void init(int sample_rate) {
@@ -626,7 +625,6 @@ class dyn_comp : public dsp {
 	
 	virtual int getSampleRate() {
 		return fSampleRate;
-		
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
@@ -639,32 +637,36 @@ class dyn_comp : public dsp {
 		ui_interface->declare(&fVslider3, "unit", "db");
 		ui_interface->addVerticalSlider("threshold", &fVslider3, 100.0f, 0.0f, 100.0f, 0.100000001f);
 		ui_interface->closeBox();
-		
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = float(fVslider0);
-		float fSlow1 = std::exp((0.0f - (fConst1 / fSlow0)));
-		float fSlow2 = (((1.0f / float(fVslider1)) + -1.0f) * (1.0f - fSlow1));
-		float fSlow3 = std::exp((0.0f - (fConst2 / fSlow0)));
-		float fSlow4 = std::exp((0.0f - (fConst2 / float(fVslider2))));
-		float fSlow5 = float(fVslider3);
+		float fSlow1 = (0.000500000024f * fSlow0);
+		int iSlow2 = (std::fabs(fSlow1) < 1.19999996e-07f);
+		float fSlow3 = (iSlow2 ? 0.0f : std::exp((0.0f - (fConst0 / (iSlow2 ? 1.0f : fSlow1)))));
+		float fSlow4 = ((1.0f / float(fVslider1)) + -1.0f);
+		float fSlow5 = (0.00100000005f * fSlow0);
+		int iSlow6 = (std::fabs(fSlow5) < 1.19999996e-07f);
+		float fSlow7 = (iSlow6 ? 0.0f : std::exp((0.0f - (fConst0 / (iSlow6 ? 1.0f : fSlow5)))));
+		float fSlow8 = (0.00100000005f * float(fVslider2));
+		int iSlow9 = (std::fabs(fSlow8) < 1.19999996e-07f);
+		float fSlow10 = (iSlow9 ? 0.0f : std::exp((0.0f - (fConst0 / (iSlow9 ? 1.0f : fSlow8)))));
+		float fSlow11 = float(fVslider3);
+		float fSlow12 = (1.0f - fSlow3);
 		for (int i = 0; (i < count); i = (i + 1)) {
 			float fTemp0 = float(input0[i]);
 			float fTemp1 = std::fabs(fTemp0);
-			float fTemp2 = ((fRec1[1] > fTemp1) ? fSlow4 : fSlow3);
+			float fTemp2 = ((fRec1[1] > fTemp1) ? fSlow10 : fSlow7);
 			fRec2[0] = ((fRec2[1] * fTemp2) + (fTemp1 * (1.0f - fTemp2)));
 			fRec1[0] = fRec2[0];
-			fRec0[0] = ((fSlow1 * fRec0[1]) + (fSlow2 * std::max<float>((((20.0f * std::log10(fRec1[0])) + 100.0f) - fSlow5), 0.0f)));
+			fRec0[0] = ((fRec0[1] * fSlow3) + (fSlow4 * (std::max<float>((((20.0f * std::log10(fRec1[0])) + 100.0f) - fSlow11), 0.0f) * fSlow12)));
 			output0[i] = FAUSTFLOAT((fTemp0 * std::pow(10.0f, (0.0500000007f * fRec0[0]))));
 			fRec2[1] = fRec2[0];
 			fRec1[1] = fRec1[0];
 			fRec0[1] = fRec0[0];
-			
 		}
-		
 	}
 
 };

@@ -8,6 +8,7 @@ EnvTimeShift::EnvTimeShift(const PdArgs& args)
 
     shift_ = new FloatProperty("@shift", positionalFloatArgument(0, 0));
     createProperty(shift_);
+    shift_->info().setUnits(PropertyInfoUnits::MSEC);
 
     createOutlet();
 }

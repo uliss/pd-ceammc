@@ -23,19 +23,19 @@
         <properties>
             <property name="@file" type="symbol">path file to granulate. Only WAV and AIFF formats
             are supported.</property>
-            <property name="@voices" type="int" minvalue="0" maxvalue="1000" default="1">number of
+            <property name="@voices" type="int" minvalue="0" maxvalue="200" default="1">number of
             simultaneous grain "voices" to use</property>
-            <property name="@stretch" type="int" minvalue="1" maxvalue="100" default="1">stretch
+            <property name="@stretch" type="int" minvalue="1" maxvalue="1000" default="1">stretch
             factor used for grain playback (1 - 1000). Granular synthesis allows for time-stetching
             without affecting the original pitch of a sound. A stretch factor of 4 will produce a
             resulting sound of length 4 times the orignal sound. The default parameter of 1
             produces no stretching.</property>
-            <property name="@random" type="float" minvalue="0" maxvalue="1" default="0.1">factor
+            <property name="@random" type="float" minvalue="0" maxvalue="0.97" default="0.1">factor
             used when setting individual grain parameters. This random factor is applied when all
             grain state durations are calculated. If set to 0.0, no randomness occurs. When
-            @random=1.0, a grain segment of length duration will be randomly augmented by up to
+            @random=0.5, a grain segment of length duration will be randomly augmented by up to
             +-duration seconds (i.e., a 30 millisecond length will be augmented by an extra length
-            of up to +30 or -30 milliseconds)</property>
+            of up to +15 or -15 milliseconds)</property>
             <property name="@gramp" type="float" minvalue="0" maxvalue="1" default="0.5">grain
             ramp. For values of @gramp greater than zero, a linear envelope will be applied to each
             grain. If @gramp = 1, the resultant grain "window" is triangular while @gramp = 0.5
@@ -60,7 +60,7 @@
 <![CDATA[
 [loadbang]
 |
-[open %DOC%/sound/voice.wav(
+[open %CEAMMC%/guitar1.wav(
 |
 [expand_env]                  [ui.knob]
 |                             |
