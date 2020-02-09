@@ -30,6 +30,8 @@ cache:
 artifacts:
   - path: build\inno\*.exe
     name: SetupExe
+  - path: ceammc-*.zip
+    name: externals
 
 before_build:
   - git submodule init
