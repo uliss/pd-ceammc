@@ -61,6 +61,8 @@ ceammc_add_test("ceammc::units" test_units)
 ceammc_add_test("class_wrapper::tuple" test_wrapper_tuple)
 ceammc_add_test("class_wrapper::fn_traits" test_wrapper_fn_traits)
 
+ceammc_external_test(analyze onset)
+
 ceammc_external_test(array bpm)
 ceammc_external_test(array copy)
 ceammc_external_test(array do)

@@ -70,7 +70,7 @@ macro(ceammc_external_test external name)
     set(_target "test_ext_${external}_${name}")
     add_executable(${_target} "${_target}.cpp")
     # library repeats are done to make mingw linker happy
-    target_link_libraries(${_target}
+    target_link_libraries(${_target} PUBLIC
         tests_main_lib puredata-core
         "ceammc_${external}" ceammc_array ceammc_data ceammc_string ceammc_core ceammc_sound puredata-core)
     set(_exec_cmd ${_target})
