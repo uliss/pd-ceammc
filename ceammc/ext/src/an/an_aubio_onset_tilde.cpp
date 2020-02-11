@@ -53,6 +53,7 @@ AubioOnset::AubioOnset(const PdArgs& args)
     , silence_threshold_(nullptr)
     , compression_(nullptr)
     , awhitening_(nullptr)
+    , active_(true)
     , dsp_pos_(0)
     , last_ms_(0)
     , tick_(this, &AubioOnset::clock_tick)
@@ -106,11 +107,30 @@ AubioOnset::AubioOnset(const PdArgs& args)
     createProperty(awhitening_);
 
     method_ = new SymbolEnumProperty("@method", gensym("default"));
-    method_->appendEnum(gensym("energy"));
-    method_->appendEnum(gensym("hfc"));
+#define S(a) gensym(a)
+    method_->appendEnum(S("energy"));
+    method_->appendEnum(S("hfc"));
+    method_->appendEnum(S("specdiff"));
+    method_->appendEnum(S("complexdomain"));
+    method_->appendEnum(S("complex"));
+    method_->appendEnum(S("phase"));
+    method_->appendEnum(S("wphase"));
+    method_->appendEnum(S("mkl"));
+    method_->appendEnum(S("kl"));
+    method_->appendEnum(S("specflux"));
+    method_->appendEnum(S("centroid"));
+    method_->appendEnum(S("spread"));
+    method_->appendEnum(S("skewness"));
+    method_->appendEnum(S("kurtosis"));
+    method_->appendEnum(S("slope"));
+    method_->appendEnum(S("decrease"));
+    method_->appendEnum(S("rolloff"));
+#undef S
     if (positionalSymbolArgument(1))
         method_->set(Atom(positionalSymbolArgument(1)));
     createProperty(method_);
+
+    createProperty(new PointerProperty<bool>("@active", &active_, false));
 
     createOutlet();
     createOutlet();
@@ -150,7 +170,7 @@ void AubioOnset::parseProperties()
 
 void AubioOnset::processBlock(const t_sample** in, t_sample** out)
 {
-    if (!in_ || !out_ || !onset_)
+    if (!in_ || !out_ || !onset_ || !active_)
         return;
 
     const auto BS = blockSize();

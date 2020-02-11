@@ -110,6 +110,7 @@ class AubioOnset : public SoundExternal {
     OnsetFloatProperty* compression_;
     OnsetUIntProperty* awhitening_;
     SymbolEnumProperty* method_;
+    bool active_;
 
     int dsp_pos_;
     t_float last_ms_;
