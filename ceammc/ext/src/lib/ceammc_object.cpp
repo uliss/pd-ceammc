@@ -434,12 +434,11 @@ t_symbol* BaseObject::positionalSymbolArgument(size_t pos, t_symbol* def) const
 
 void BaseObject::parseProperties()
 {
-    std::deque<AtomList> p = pd_.args.properties();
-    for (size_t i = 0; i < p.size(); i++) {
-        if (p[i].size() < 1)
+    for (auto& plist : pd_.args.properties()) {
+        if (plist.empty())
             continue;
 
-        t_symbol* pname = p[i][0].asSymbol();
+        t_symbol* pname = plist[0].asSymbol();
 
         if (!hasProperty(pname)) {
             OBJ_ERR << "unknown property in argument list: " << pname->s_name;
@@ -450,7 +449,7 @@ void BaseObject::parseProperties()
         if (props_[pname]->readonly())
             continue;
 
-        bool rc = props_[pname]->set(p[i].slice(1));
+        bool rc = props_[pname]->set(plist.slice(1));
         if (rc && prop_set_callback_)
             prop_set_callback_(this, pname);
     }
