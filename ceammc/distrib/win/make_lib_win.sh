@@ -7,6 +7,7 @@ then
 fi
 
 OUTDIR="$1/ceammc"
+BASEOUTDIR="ceammc"
 SRCDIR="@PROJECT_SOURCE_DIR@/ceammc"
 BINDIR="@CMAKE_INSTALL_PREFIX@"
 VERSION="@CEAMMC_LIB_VERSION@"
@@ -148,7 +149,7 @@ mv tmp "${OUTDIR}/index-help.pd"
 if [ -x "${P7Z_EXE}" ]
 then
     cd "${OUTDIR}/.."
-    ${P7Z_EXE} a "${OUTFILE}" $(basename $OUTDIR)
+    ${P7Z_EXE} a "${OUTFILE}" "${BASEOUTDIR}"
     mv "${OUTFILE}" ..
 else
     echo "7z is not found. Create zip archive manually..."
