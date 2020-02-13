@@ -149,7 +149,7 @@ mv tmp "${OUTDIR}/index-help.pd"
 if [ -x "${P7Z_EXE}" ]
 then
     cd "${OUTDIR}/.."
-    ${P7Z_EXE} a "${OUTFILE}" "${BASEOUTDIR}"
+    "${P7Z_EXE}" a "${OUTFILE}" "${BASEOUTDIR}"
     mv "${OUTFILE}" ..
 else
     echo "7z is not found. Create zip archive manually..."
