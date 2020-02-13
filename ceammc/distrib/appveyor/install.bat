@@ -19,12 +19,12 @@ bash -lc "pacman -Syu --noconfirm"
 REM build tools
 bash -lc "pacman -S --needed --noconfirm mingw-w64-${MSYS2_ARCH}-toolchain make patch"
 REM dependencies
-bash -lc "pacman -S --needed --noconfirm mingw-w64-${MSYS2_ARCH}-{cmake,glib2,libmodplug,tcllib,tcl,tk,tklib,portaudio,fftw,libsndfile,boost,dlfcn}"
+bash -lc "pacman -S --needed --noconfirm mingw-w64-${MSYS2_ARCH}-{cmake,glib2,libmodplug,tcllib,tcl,tk,tklib,portaudio,fftw,libsndfile,boost,dlfcn,armadillo}"
 
 bash -lc "echo ${APPVEYOR_BUILD_FOLDER}"
 bash -lc "ls ${APPVEYOR_BUILD_FOLDER}"
 bash -lc "mkdir ${APPVEYOR_BUILD_FOLDER}/build"
 bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && cmake -G 'MSYS Makefiles' -DCMAKE_BUILD_TYPE=Release -DWITH_FFTW=ON -DCMAKE_INSTALL_PREFIX=/opt/local/release/pd ${APPVEYOR_BUILD_FOLDER}"
 bash -lc "ls ${APPVEYOR_BUILD_FOLDER}/build"
-bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && make -j3 && make -j3 install && ./fix_dll_deps.sh"
-bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && make inno"
+bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && make -j3 && make -j3 install && ./fix_dll_deps.sh && ./win_fix_pddoc_key_modifiers.sh"
+bash -lc "cd ${APPVEYOR_BUILD_FOLDER}/build && make inno && make ceammc_lib"

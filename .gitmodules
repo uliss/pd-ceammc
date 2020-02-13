@@ -47,3 +47,6 @@
 [submodule "ceammc/ext/src/proto/extra/hw_alpaca"]
 	path = ceammc/ext/src/proto/extra/hw_alpaca
 	url = https://github.com/uliss/hw_alpaca
+[submodule "ceammc/extra/aubio/aubio"]
+	path = ceammc/extra/aubio/aubio
+	url = https://github.com/aubio/aubio
