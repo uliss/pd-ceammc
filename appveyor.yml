@@ -30,7 +30,7 @@ cache:
 artifacts:
   - path: build\inno\*.exe
     name: SetupExe
-  - path: ceammc-*.zip
+  - path: build\dist\ceammc-*.zip
     name: externals
 
 before_build:
