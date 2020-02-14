@@ -42,7 +42,7 @@ void restoreValues(Args... args)
     (void)expand_type { (args->restore(), 0)... };
 }
 
-AubioOnset::AubioOnset(const PdArgs& args)
+AubioOnsetTilde::AubioOnsetTilde(const PdArgs& args)
     : SoundExternal(args)
     , buffer_size_(nullptr)
     , hop_size_(nullptr)
@@ -56,7 +56,7 @@ AubioOnset::AubioOnset(const PdArgs& args)
     , active_(true)
     , dsp_pos_(0)
     , last_ms_(0)
-    , tick_(this, &AubioOnset::clock_tick)
+    , tick_(this, &AubioOnsetTilde::clock_tick)
 {
     buffer_size_ = new IntPropertyMinEq("@bs", positionalFloatArgument(0, 1024), 64);
     createProperty(buffer_size_);
@@ -136,7 +136,7 @@ AubioOnset::AubioOnset(const PdArgs& args)
     createOutlet();
 }
 
-void AubioOnset::parseProperties()
+void AubioOnsetTilde::parseProperties()
 {
     SoundExternal::parseProperties();
 
@@ -168,7 +168,7 @@ void AubioOnset::parseProperties()
     out_.reset(new_fvec(1));
 }
 
-void AubioOnset::processBlock(const t_sample** in, t_sample** out)
+void AubioOnsetTilde::processBlock(const t_sample** in, t_sample** out)
 {
     if (!in_ || !out_ || !onset_ || !active_)
         return;
@@ -193,7 +193,7 @@ void AubioOnset::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
-void AubioOnset::samplerateChanged(size_t sr)
+void AubioOnsetTilde::samplerateChanged(size_t sr)
 {
     saveValues(CEAMMC_AUBIO_ONSET_PLIST);
     initOnset(sr);
@@ -201,19 +201,19 @@ void AubioOnset::samplerateChanged(size_t sr)
     restoreValues(CEAMMC_AUBIO_ONSET_PLIST);
 }
 
-void AubioOnset::m_reset(t_symbol* m, const AtomList&)
+void AubioOnsetTilde::m_reset(t_symbol* m, const AtomList&)
 {
     if (onset_)
         aubio_onset_reset(onset_.get());
 }
 
-void AubioOnset::clock_tick()
+void AubioOnsetTilde::clock_tick()
 {
     floatTo(1, last_ms_);
     bangTo(0);
 }
 
-void AubioOnset::initOnset(uint_t sr)
+void AubioOnsetTilde::initOnset(uint_t sr)
 {
     if (sr == 0)
         sr = 44100;
@@ -227,7 +227,7 @@ void AubioOnset::initOnset(uint_t sr)
         del_aubio_onset);
 }
 
-void AubioOnset::updateMethodProperty()
+void AubioOnsetTilde::updateMethodProperty()
 {
     saveValues(CEAMMC_AUBIO_ONSET_RESTORE);
     initOnset(sys_getsr());
@@ -235,9 +235,9 @@ void AubioOnset::updateMethodProperty()
     restoreValues(CEAMMC_AUBIO_ONSET_RESTORE);
 }
 
-void AubioOnset::propCallback(BaseObject* this_, t_symbol* name)
+void AubioOnsetTilde::propCallback(BaseObject* this_, t_symbol* name)
 {
-    AubioOnset* this__ = dynamic_cast<AubioOnset*>(this_);
+    AubioOnsetTilde* this__ = dynamic_cast<AubioOnsetTilde*>(this_);
     if (!this__)
         return;
 
@@ -247,6 +247,6 @@ void AubioOnset::propCallback(BaseObject* this_, t_symbol* name)
 
 void setup_an_onset_tilde()
 {
-    SoundExternalFactory<AubioOnset> obj("an.onset~");
-    obj.addMethod("reset", &AubioOnset::m_reset);
+    SoundExternalFactory<AubioOnsetTilde> obj("an.onset~");
+    obj.addMethod("reset", &AubioOnsetTilde::m_reset);
 }

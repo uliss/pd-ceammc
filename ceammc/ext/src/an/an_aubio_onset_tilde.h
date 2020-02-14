@@ -100,7 +100,7 @@ struct FVecDeleter {
 typedef std::unique_ptr<fvec_t, FVecDeleter> FVecPtr;
 typedef std::shared_ptr<aubio_onset_t> OnsetPtr;
 
-class AubioOnset : public SoundExternal {
+class AubioOnsetTilde : public SoundExternal {
     IntPropertyMinEq* buffer_size_;
     IntProperty* hop_size_;
     OnsetFloatProperty* threshold_;
@@ -118,10 +118,10 @@ class AubioOnset : public SoundExternal {
     FVecPtr in_, out_;
     OnsetPtr onset_;
 
-    ClockMemberFunction<AubioOnset> tick_;
+    ClockMemberFunction<AubioOnsetTilde> tick_;
 
 public:
-    AubioOnset(const PdArgs& args);
+    AubioOnsetTilde(const PdArgs& args);
 
     void parseProperties() final;
 

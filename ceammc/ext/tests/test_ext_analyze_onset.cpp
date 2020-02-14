@@ -20,7 +20,7 @@ extern "C" {
 #include "s_stuff.h"
 }
 
-PD_COMPLETE_SND_TEST_SETUP(AubioOnset, an, onset_tilde)
+PD_COMPLETE_SND_TEST_SETUP(AubioOnsetTilde, an, onset_tilde)
 
 TEST_CASE("an.onset~", "[externals]")
 {
@@ -31,7 +31,7 @@ TEST_CASE("an.onset~", "[externals]")
     {
         SECTION("empty")
         {
-            TestExtAubioOnset t("an.onset~");
+            TestExtAubioOnsetTilde t("an.onset~");
             REQUIRE_PROPERTY_FLOAT(t, @bs, 1024);
             REQUIRE_PROPERTY_FLOAT(t, @hs, 512);
             REQUIRE_PROPERTY_LIST(t, @method, LA("default"));
@@ -48,7 +48,7 @@ TEST_CASE("an.onset~", "[externals]")
 
         SECTION("bs")
         {
-            TestExtAubioOnset t("an.onset~", LF(512));
+            TestExtAubioOnsetTilde t("an.onset~", LF(512));
             REQUIRE_PROPERTY_FLOAT(t, @bs, 512);
             REQUIRE_PROPERTY_FLOAT(t, @hs, 256);
             REQUIRE_PROPERTY_LIST(t, @method, LA("default"));
@@ -62,7 +62,7 @@ TEST_CASE("an.onset~", "[externals]")
 
         SECTION("bs method")
         {
-            TestExtAubioOnset t("an.onset~", LA(512, "energy"));
+            TestExtAubioOnsetTilde t("an.onset~", LA(512, "energy"));
             REQUIRE_PROPERTY_FLOAT(t, @bs, 512);
             REQUIRE_PROPERTY_FLOAT(t, @hs, 256);
             REQUIRE_PROPERTY_LIST(t, @method, LA("energy"));
@@ -76,7 +76,7 @@ TEST_CASE("an.onset~", "[externals]")
 
         SECTION("bs method hop")
         {
-            TestExtAubioOnset t("an.onset~", LA(512, "energy", 64));
+            TestExtAubioOnsetTilde t("an.onset~", LA(512, "energy", 64));
             REQUIRE_PROPERTY_FLOAT(t, @bs, 512);
             REQUIRE_PROPERTY_FLOAT(t, @hs, 64);
             REQUIRE_PROPERTY_LIST(t, @method, LA("energy"));
@@ -90,23 +90,23 @@ TEST_CASE("an.onset~", "[externals]")
 
         SECTION("error bs")
         {
-            TestExtAubioOnset t("an.onset~", LF(63));
+            TestExtAubioOnsetTilde t("an.onset~", LF(63));
             REQUIRE_PROPERTY_FLOAT(t, @bs, 64);
 
-            TestExtAubioOnset t1("an.onset~", LF(0));
+            TestExtAubioOnsetTilde t1("an.onset~", LF(0));
             REQUIRE_PROPERTY_FLOAT(t1, @bs, 64);
 
-            TestExtAubioOnset t2("an.onset~", LF(-10));
+            TestExtAubioOnsetTilde t2("an.onset~", LF(-10));
             REQUIRE_PROPERTY_FLOAT(t2, @bs, 64);
         }
 
         SECTION("error hs")
         {
-            TestExtAubioOnset t("an.onset~", LA(64, "default", 100));
+            TestExtAubioOnsetTilde t("an.onset~", LA(64, "default", 100));
             REQUIRE_PROPERTY_FLOAT(t, @bs, 64);
             REQUIRE_PROPERTY_FLOAT(t, @hs, 32);
 
-            TestExtAubioOnset t1("an.onset~", LA(64, "default", 64));
+            TestExtAubioOnsetTilde t1("an.onset~", LA(64, "default", 64));
             REQUIRE_PROPERTY_FLOAT(t1, @bs, 64);
             REQUIRE_PROPERTY_FLOAT(t1, @hs, 64);
         }
@@ -114,7 +114,7 @@ TEST_CASE("an.onset~", "[externals]")
 
     SECTION("method")
     {
-        TestExtAubioOnset t("an.onset~");
+        TestExtAubioOnsetTilde t("an.onset~");
 
         REQUIRE_PROPERTY_FLOAT(t, @bs, 1024);
         REQUIRE_PROPERTY_FLOAT(t, @hs, 512);
