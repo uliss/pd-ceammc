@@ -7,6 +7,7 @@ then
 fi
 
 OUTDIR="$1/ceammc"
+BASEOUTDIR="ceammc"
 SRCDIR="@PROJECT_SOURCE_DIR@/ceammc"
 BINDIR="@CMAKE_INSTALL_PREFIX@"
 VERSION="@CEAMMC_LIB_VERSION@"
@@ -72,13 +73,6 @@ done
 
 rm -f "${OUTDIR}/debug.gensym.dll"
 
-echo "Copying TCL files to ${OUTDIR} ..."
-find "${SRCDIR}/extra/hcs" -name *\\.tcl | while read file
-do
-    cp "$file" "${OUTDIR}"
-    echo "+ Tcl:  $(basename $file)"
-done
-
 echo "Copying help files to ${OUTDIR} ..."
 find "${SRCDIR}/ext/doc" -name *-help\\.pd | while read file
 do
@@ -94,6 +88,15 @@ find "${SRCDIR}/ext/doc" -name *\\.wav | while read file
 do
     cp "$file" "${OUTDIR}"
     echo "+ WAV:  $(basename $file)"
+done
+
+echo "Copying HOA help files to ${OUTDIR} ..."
+mkdir -p "${OUTDIR}/hoa"
+find "@PROJECT_SOURCE_DIR@/ceammc/ext/doc/hoa" -type f | while read file
+do
+    help=$(basename $file)
+    cp "$file" "${OUTDIR}/hoa"
+    echo "+ HOA:  '$help'"
 done
 
 echo "Copying STK raw files to ${OUTDIR}/stk ..."
@@ -148,7 +151,7 @@ mv tmp "${OUTDIR}/index-help.pd"
 if [ -x "${P7Z_EXE}" ]
 then
     cd "${OUTDIR}/.."
-    ${P7Z_EXE} a "${OUTFILE}" $(basename $OUTDIR)
+    "${P7Z_EXE}" a "${OUTFILE}" "${BASEOUTDIR}"
     mv "${OUTFILE}" ..
 else
     echo "7z is not found. Create zip archive manually..."

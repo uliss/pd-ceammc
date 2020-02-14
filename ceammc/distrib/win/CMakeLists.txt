@@ -65,4 +65,9 @@ if(WIN32)
     install(DIRECTORY fonts DESTINATION ${CMAKE_INSTALL_PREFIX})
 endif()
 
-add_custom_target(window_installer SOURCES fix_dll_deps.sh win_upload_to_github.sh pd.iss)
+add_custom_target(window_installer SOURCES
+    fix_dll_deps.sh
+    make_lib_win.sh
+    win_upload_to_github.sh
+    win_fix_pddoc_key_modifiers.sh
+    pd.iss)

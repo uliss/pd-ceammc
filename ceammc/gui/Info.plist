@@ -43,6 +43,8 @@
     <string>pd_ceammc.icns</string>
 	<key>CFBundleVersion</key>
     <string>${PD_TEXT_VERSION_SHORT}</string>
+    <key>NSHighResolutionCapable</key>
+    <true/>
     <key>UTExportedTypeDeclarations</key>
     <array>
         <dict>
