@@ -279,4 +279,19 @@ TEST_CASE("ceammc_preset", "[PureData]")
             REQUIRE(s.floatValueAt(SYM("C"), i) == Approx(3000));
         }
     }
+
+    SECTION("clear value")
+    {
+        PresetStorage& s = PresetStorage::instance();
+        s.clearAll();
+
+        REQUIRE_FALSE(s.clearValueAt(SYM("A"), 0));
+        s.setFloatValueAt(SYM("A"), 0, 1000);
+        REQUIRE(s.hasFloatValueAt(SYM("A"), 0));
+
+        REQUIRE(s.clearValueAt(SYM("A"), 1));
+        REQUIRE_FALSE(s.clearValueAt(SYM("A"), 1000));
+        REQUIRE(s.clearValueAt(SYM("A"), 0));
+        REQUIRE_FALSE(s.hasFloatValueAt(SYM("A"), 0));
+    }
 }
