@@ -4,6 +4,7 @@
 ### Added:
 - flow.< alias added for flow.less
 - flow.<= alias added for flow.less_eq
+- flow.greater added (with flow.> alias)
 
 ## [0.8]
 ### Added:

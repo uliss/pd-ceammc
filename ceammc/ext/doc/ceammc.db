@@ -92,6 +92,7 @@ flow.demultiplex,flow.demux		..		?
 flow.demultiplex2~,flow.demux2~,demux2~		~~.		?
 flow.demultiplex~,flow.demux~,demux~		~.		?
 flow.gate,gate		..		.
+flow.greater,flow.>		.		?
 flow.group,group		.		.
 flow.interval		.		.
 flow.less,flow.<		.		?

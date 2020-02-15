@@ -7,6 +7,7 @@
 #include "flow_demultiplex2_tilde.h"
 #include "flow_demultiplex_tilde.h"
 #include "flow_gate.h"
+#include "flow_greater.h"
 #include "flow_group.h"
 #include "flow_interval.h"
 #include "flow_less.h"
@@ -47,6 +48,7 @@ void ceammc_flow_setup()
     setup_flow_demultiplex2_tilde();
     setup_flow_demultiplex_tilde();
     setup_flow_gate();
+    setup_flow_greater();
     setup_flow_interval();
     setup_flow_less();
     setup_flow_less_eq();

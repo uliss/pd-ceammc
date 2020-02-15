@@ -91,6 +91,7 @@ set(DOC_FILES
     flow.change
     flow.count
     flow.gate
+    flow.greater
     flow.group
     flow.less
     flow.less_eq

@@ -133,6 +133,7 @@ envelope
 expand_env
 flow.<
 flow.<=
+flow.>
 flow.append
 flow.change
 flow.count
@@ -143,6 +144,7 @@ flow.demux
 flow.demux2~
 flow.demux~
 flow.gate
+flow.greater
 flow.group
 flow.interval
 flow.less

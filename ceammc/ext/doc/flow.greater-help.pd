@@ -1,16 +1,16 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 456 50 cnv 1 309 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 456 50 numeric stream router \, like many [moses];
-#X obj 1 1 cnv 5 765 40 empty empty flow.less 20 20 0 20 -104026 -4096
-0;
-#X obj 606 11 flow.<;
-#X obj 675 11 flow.less;
+#X obj 598 50 cnv 1 167 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 598 50 numeric stream router;
+#X obj 1 1 cnv 5 765 40 empty empty flow.greater 20 20 0 20 -104026
+-4096 0;
+#X obj 584 11 flow.>;
+#X obj 653 11 flow.greater;
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Numbers thar are *less* then N-th argument are passed
-to N-th inlet;
+#X text 215 80 Numbers thar are *less* or *equal* then first argument
+are passed to N-th inlet;
 #X floatatom 50 158 5 0 0 0 - - -;
-#X obj 50 216 flow.less 0 10 20 30;
+#X obj 50 216 flow.greater 1 10 100;
 #X floatatom 50 245 5 0 0 0 - - -;
 #X floatatom 107 245 5 0 0 0 - - -;
 #X floatatom 165 245 5 0 0 0 - - -;
@@ -22,7 +22,8 @@ to N-th inlet;
 #X text 110 324 1\.;
 #X text 150 324 list;
 #X obj 246 325 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 324 LIST: compare values: list of floats in ascending order.;
+#X text 245 324 LIST: compare values: list of floats in descending
+order.;
 #X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 359 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
@@ -33,11 +34,11 @@ to N-th inlet;
 #X obj 20 395 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 110 396 1\.;
-#X text 245 396 numbers that are less then 1st argument.;
+#X text 245 396 numbers that are greater then 1st argument.;
 #X text 110 416 ....;
-#X text 245 416 numbers that are less than N-th argument.;
+#X text 245 416 numbers that are greater than N-th argument.;
 #X text 110 436 n.;
-#X text 245 436 numbers that are greater or equal than last argument.;
+#X text 245 436 numbers that are less or equal than first argument.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -45,9 +46,8 @@ to N-th inlet;
 #X obj 131 48 ui.link @title flow @url ceammc.flow-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.8.0;
-#X text 477 520 see also:;
-#X obj 551 520 flow.greater;
-#X obj 653 520 flow.less_eq;
+#X text 601 520 see also:;
+#X obj 675 520 flow.less;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
@@ -55,11 +55,11 @@ to N-th inlet;
 #X text 10 32 version:;
 #X text 120 32 0.8.0;
 #X text 10 54 object:;
-#X text 120 54 flow.less;
+#X text 120 54 flow.greater;
 #X text 10 76 category:;
 #X text 120 76 flow;
 #X text 10 98 since:;
-#X text 120 98 0.4;
+#X text 120 98 0.9;
 #X text 10 120 authors:;
 #X text 120 120 Serge Poltavsky;
 #X text 10 142 license:;
