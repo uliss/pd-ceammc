@@ -51,6 +51,7 @@ public:
     void m_load(const AtomList& lst);
     void m_store(const AtomList& lst);
     void m_clear(const AtomList& lst);
+    void m_duplicate(const AtomList& lst);
     AtomList propCurrent() const;
 
 public:

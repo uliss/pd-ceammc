@@ -7,6 +7,7 @@ extern "C" {
 #include "g_canvas.h"
 }
 
+#include <algorithm>
 #include <cmath>
 #include <cstring>
 
@@ -452,6 +453,31 @@ void PresetStorage::updateAll()
     pd_typedmess(SYM_PRESET_ALL->s_thing, SYM_UPDATE, 0, NULL);
 }
 
+void PresetStorage::duplicateAll()
+{
+    // all indexed keys
+    PresetNameSet u;
+    for (auto& p : indexes_)
+        u.insert(p.begin(), p.end());
+
+    for (auto& p : u) {
+        for (size_t i = 0; i < indexes_.size(); i++) {
+            auto& idx_set = indexes_[i];
+            if (idx_set.empty())
+                continue;
+
+            if (idx_set.find(p) == idx_set.end()) {
+                auto it = params_.find(p);
+                if (it != params_.end()) {
+                    LIB_ERR << "duplicate " << p << " at " << i;
+                    (*it).second->duplicate();
+                    idx_set.insert(p);
+                }
+            }
+        }
+    }
+}
+
 PresetPtr PresetStorage::getOrCreate(t_symbol* name)
 {
     auto it = params_.find(name);
@@ -533,6 +559,34 @@ bool Preset::hasDataTypeAt(size_t idx, Message::Type t) const
         return false;
 
     return data_[idx].type() == t;
+}
+
+bool Preset::copyData(size_t src_idx, size_t dst_idx)
+{
+    if (src_idx >= data_.size() || dst_idx >= data_.size())
+        return false;
+
+    if (src_idx != dst_idx)
+        data_[src_idx] = data_[dst_idx];
+
+    return true;
+}
+
+bool Preset::duplicate()
+{
+    auto b = data_.begin();
+    auto e = data_.end();
+    auto it = std::find_if(b, e, [](decltype(data_.front())& el) { return !el.isNone(); });
+
+    if (it == e)
+        return false;
+
+    for (auto& el : data_) {
+        if (el.isNone())
+            el = *it;
+    }
+
+    return true;
 }
 
 float Preset::floatAt(size_t idx, float def) const

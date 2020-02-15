@@ -31,7 +31,7 @@
             specified preset slot</event>
             <event editmode="false" type="left-click" keys="Alt">clear all values from specified
             preset slot</event>
-            <event editmode="false" type="right-click">opens popup menu with read/write
+            <event editmode="false" type="right-click">opens popup menu with read/write/duplicate
             actions</event>
         </mouse>
         <properties>
@@ -74,6 +74,7 @@
             <param type="symbol" name="PATH" required="true">path to preset file</param></method>
             <method name="write">read presets from file 
             <param type="symbol" name="PATH" required="true">path to preset file</param></method>
+            <method name="duplicate">fill empty presets by coping exiting values</method>
             <!-- common-->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>

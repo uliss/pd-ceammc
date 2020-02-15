@@ -7,6 +7,7 @@
 - flow.greater added (with flow.> alias)
 - tl.t alias added for tl.toggle
 - tl.b alias added for tl.bang
+- duplicate method added to ui.preset and preset.storage
 
 ## [0.8]
 ### Added:

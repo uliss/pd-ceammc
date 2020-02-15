@@ -70,6 +70,12 @@ void PresetExternal::m_update(t_symbol*, const AtomList&)
     PresetStorage::instance().updateAll();
 }
 
+void PresetExternal::m_duplicate(t_symbol*, const AtomList& l)
+{
+    if (l.empty())
+        PresetStorage::instance().duplicateAll();
+}
+
 std::string PresetExternal::makeDefaultPresetPath() const
 {
     std::string res;
@@ -91,4 +97,5 @@ void setup_preset_storage()
     obj.addMethod("write", &PresetExternal::m_write);
     obj.addMethod("clear", &PresetExternal::m_clear);
     obj.addMethod("update", &PresetExternal::m_update);
+    obj.addMethod("duplicate", &PresetExternal::m_duplicate);
 }

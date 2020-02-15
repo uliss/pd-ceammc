@@ -209,4 +209,74 @@ TEST_CASE("ceammc_preset", "[PureData]")
         REQUIRE(s.floatValueAt(gensym("test"), 2) == 0);
         REQUIRE(s.floatValueAt(gensym("test"), 2, -100) == 0);
     }
+
+    SECTION("preset duplicate")
+    {
+        Preset p(SYM("a"));
+
+        REQUIRE_FALSE(p.duplicate());
+
+        p.setFloatAt(0, 11);
+        REQUIRE(p.duplicate());
+        for (size_t i = 0; i < p.data().size(); i++) {
+            REQUIRE(p.hasFloatAt(i));
+            REQUIRE(p.floatAt(i) == Approx(11));
+        }
+
+        // clear
+        for (size_t i = 0; i < p.data().size(); i++)
+            p.clearAt(i);
+
+        for (size_t i = 0; i < p.data().size(); i++) {
+            REQUIRE_FALSE(p.hasFloatAt(i));
+        }
+
+        p.setFloatAt(2, 12);
+        p.setFloatAt(3, 11);
+        REQUIRE(p.floatAt(2) == Approx(12));
+        REQUIRE(p.floatAt(3) == Approx(11));
+
+        REQUIRE(p.duplicate());
+        REQUIRE(p.floatAt(0) == Approx(12));
+        REQUIRE(p.floatAt(1) == Approx(12));
+
+        for (size_t i = 4; i < p.data().size(); i++) {
+            REQUIRE(p.hasFloatAt(i));
+            REQUIRE(p.floatAt(i) == Approx(12));
+        }
+    }
+
+    SECTION("storage duplicate")
+    {
+        PresetStorage& s = PresetStorage::instance();
+        s.clearAll();
+
+        REQUIRE(s.setFloatValueAt(SYM("A"), 0, 1000));
+        REQUIRE(s.setFloatValueAt(SYM("B"), 1, 2000));
+        REQUIRE(s.setFloatValueAt(SYM("C"), 2, 3000));
+
+        REQUIRE_FALSE(s.hasFloatValueAt(SYM("A"), 1));
+        REQUIRE_FALSE(s.hasFloatValueAt(SYM("A"), 2));
+        REQUIRE_FALSE(s.hasFloatValueAt(SYM("B"), 0));
+        REQUIRE_FALSE(s.hasFloatValueAt(SYM("B"), 2));
+        REQUIRE_FALSE(s.hasFloatValueAt(SYM("C"), 0));
+        REQUIRE_FALSE(s.hasFloatValueAt(SYM("C"), 1));
+
+        s.duplicateAll();
+
+        for (size_t i = 0; i < 3; i++) {
+            REQUIRE(s.hasFloatValueAt(SYM("A"), i));
+            REQUIRE(s.floatValueAt(SYM("A"), i) == Approx(1000));
+        }
+
+        for (size_t i = 0; i < 3; i++) {
+            REQUIRE(s.hasFloatValueAt(SYM("B"), i));
+            REQUIRE(s.floatValueAt(SYM("B"), i) == Approx(2000));
+        }
+
+        for (size_t i = 0; i < 3; i++) {
+            REQUIRE(s.hasFloatValueAt(SYM("C"), i));
+            REQUIRE(s.floatValueAt(SYM("C"), i) == Approx(3000));
+        }
+    }
 }

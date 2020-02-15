@@ -28,8 +28,9 @@ UIPreset::UIPreset()
     , mouse_over_index_(-1)
 {
     initPopupMenu("preset",
-        { { _("read"), [this](const t_pt&) {m_read(AtomList());} },
-            { _("write"), [this](const t_pt&) { m_write(AtomList());} } });
+        { { _("read"), [this](const t_pt&) { m_read(AtomList()); } },
+            { _("write"), [this](const t_pt&) { m_write(AtomList()); } },
+            { _("duplicate all"), [this](const t_pt&) { m_duplicate(AtomList()); } } });
 }
 
 void UIPreset::init(t_symbol* name, const AtomList& args, bool usePresets)
@@ -182,6 +183,12 @@ void UIPreset::m_clear(const AtomList& lst)
     clearIndex(lst.floatAt(0, 0));
 }
 
+void UIPreset::m_duplicate(const AtomList& lst)
+{
+    if (lst.empty())
+        PresetStorage::instance().duplicateAll();
+}
+
 AtomList UIPreset::propCurrent() const
 {
     return Atom(selected_index_);
@@ -213,6 +220,7 @@ void UIPreset::setup()
     obj.addMethod("clear", &UIPreset::m_clear);
     obj.addMethod("load", &UIPreset::m_load);
     obj.addMethod("store", &UIPreset::m_store);
+    obj.addMethod("duplicate", &UIPreset::m_duplicate);
 }
 
 void UIPreset::indexAdd(const AtomList& lst)
