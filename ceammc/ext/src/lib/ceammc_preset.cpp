@@ -469,7 +469,6 @@ void PresetStorage::duplicateAll()
             if (idx_set.find(p) == idx_set.end()) {
                 auto it = params_.find(p);
                 if (it != params_.end()) {
-                    LIB_ERR << "duplicate " << p << " at " << i;
                     (*it).second->duplicate();
                     idx_set.insert(p);
                 }
