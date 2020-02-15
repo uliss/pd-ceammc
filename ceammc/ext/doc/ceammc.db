@@ -94,8 +94,8 @@ flow.demultiplex~,flow.demux~,demux~		~.		?
 flow.gate,gate		..		.
 flow.group,group		.		.
 flow.interval		.		.
-flow.less		.		?
-flow.less_eq		.		?
+flow.less,flow.<		.		?
+flow.less_eq,flow.<=		.		?
 flow.match		?		?
 flow.multiplex,flow.mux		?		.
 flow.multiplex2~,flow.mux2~,mux2~		?		~~
@@ -181,7 +181,6 @@ hoa.in		-		.
 hoa.in~		-		~
 hoa.out		.		-
 hoa.out~		-		~
-hoa.process.route		.		?
 hoa.process~		?		?
 hoa.scope~		?		-
 hw.apple_smc		.		.

@@ -73,4 +73,5 @@ void FlowLessEq::onFloat(t_float f)
 void setup_flow_less_eq()
 {
     ObjectFactory<FlowLessEq> obj("flow.less_eq");
+    obj.addAlias("flow.<=");
 }

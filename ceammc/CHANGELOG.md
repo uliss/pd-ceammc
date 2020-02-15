@@ -1,5 +1,10 @@
 # CEAMMC external library changelog
 
+## [unreleased]
+### Added:
+- flow.< alias added for flow.less
+- flow.<= alias added for flow.less_eq
+
 ## [0.8]
 ### Added:
 - conv.car2pol converter from Cartesian to Polar coordinates added (with alias car->pol)

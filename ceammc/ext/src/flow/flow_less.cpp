@@ -70,4 +70,5 @@ void FlowLess::onFloat(t_float f)
 void setup_flow_less()
 {
     ObjectFactory<FlowLess> obj("flow.less");
+    obj.addAlias("flow.<");
 }

@@ -20,6 +20,7 @@
 ^'
 _tcl.version
 amp->dbfs
+an.onset
 an.onset~
 an.pitchtrack~
 and
@@ -130,6 +131,8 @@ env2array
 env2vline
 envelope
 expand_env
+flow.<
+flow.<=
 flow.append
 flow.change
 flow.count
