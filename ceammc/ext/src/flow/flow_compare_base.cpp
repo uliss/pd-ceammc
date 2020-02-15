@@ -13,10 +13,10 @@
  *****************************************************************************/
 #include "flow_compare_base.h"
 
-FlowCompareBase::FlowCompareBase(const PdArgs& args, FlowCompareFn fn, const char* cmp_str)
+FlowCompareBase::FlowCompareBase(const PdArgs& args, FlowCompareFn fn)
     : BaseObject(args)
     , cmp_(fn)
-    , cmp_str_(cmp_str)
+    , ascending_order_(cmp_(1, 2))
 {
     const AtomList& pos_args = positionalArguments();
 
@@ -25,14 +25,17 @@ FlowCompareBase::FlowCompareBase(const PdArgs& args, FlowCompareFn fn, const cha
 
     args_.reserve(pos_args.size());
 
+    auto arg_cmp = ascending_order_ ? [](t_float f0, t_float f1) { return f0 < f1; }
+                                    : [](t_float f0, t_float f1) { return f0 > f1; };
+
     for (auto& a : pos_args) {
         if (a.isFloat()) {
             auto f = a.asFloat();
-            if (args_.empty() || cmp_(args_.back(), f)) {
+            if (args_.empty() || arg_cmp(args_.back(), f)) {
                 createOutlet();
                 args_.push_back(f);
             } else {
-                OBJ_ERR << "invalid argument order: " << args_.back() << ' ' << cmp_str_ << ' ' << f << " is expected,";
+                OBJ_ERR << "invalid argument order: " << args_.back() << (ascending_order_ ? " < " : " > ") << f << " is expected,";
                 OBJ_ERR << "\tabort other arguments processing";
                 usage(true);
                 createOutlet();
@@ -60,8 +63,8 @@ void FlowCompareBase::onFloat(t_float f)
 void FlowCompareBase::usage(bool err)
 {
     if (err) {
-        OBJ_ERR << "Usage: FLOAT1 [FLOAT2] ... [FLOAT-N] (in " << (cmp_(1, 2) ? "ascending" : "descending") << " order)";
+        OBJ_ERR << "Usage: FLOAT1 [FLOAT2] ... [FLOAT-N] (in " << (ascending_order_ ? "ascending" : "descending") << " order)";
     } else {
-        OBJ_DBG << "Usage: FLOAT1 [FLOAT2] ... [FLOAT-N] (in " << (cmp_(1, 2) ? "ascending" : "descending") << " order)";
+        OBJ_DBG << "Usage: FLOAT1 [FLOAT2] ... [FLOAT-N] (in " << (ascending_order_ ? "ascending" : "descending") << " order)";
     }
 }

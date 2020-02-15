@@ -12,9 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../flow/flow_less_eq.h"
-#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
+#include "test_base.h"
 
 #include <stdio.h>
 
@@ -24,6 +24,8 @@ static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("flow.less_eq", "[externals]")
 {
+    test::pdPrintToStdError();
+
     SECTION("init")
     {
         setup_flow_less_eq();
@@ -94,6 +96,12 @@ TEST_CASE("flow.less_eq", "[externals]")
             // 4th
             WHEN_SEND_FLOAT_TO(0, t, 10.1);
             REQUIRE_FLOAT_AT_OUTLET(3, t, 10.1);
+        }
+
+        SECTION("wrong args")
+        {
+            FlowLessEqTest t("flow.less_eq", LF(1, 10, 10)); // [. -10 . 1 . 10 .]
+            REQUIRE(t.numOutlets() == 3);
         }
     }
 }

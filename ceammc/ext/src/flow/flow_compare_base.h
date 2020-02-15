@@ -22,10 +22,10 @@ typedef bool (*FlowCompareFn)(t_float, t_float);
 class FlowCompareBase : public BaseObject {
     FlowCompareFn cmp_;
     std::vector<t_float> args_;
-    const char* cmp_str_;
+    const bool ascending_order_;
 
 public:
-    FlowCompareBase(const PdArgs& args, FlowCompareFn fn, const char* cmp_str);
+    FlowCompareBase(const PdArgs& args, FlowCompareFn fn);
 
     void onFloat(t_float f) final;
 
