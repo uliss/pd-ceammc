@@ -10,7 +10,7 @@
 #X text 215 80 Numbers thar are *less* or *equal* then first argument
 are passed to N-th inlet;
 #X floatatom 50 158 5 0 0 0 - - -;
-#X obj 50 216 flow.greater 1 10 100;
+#X obj 50 216 flow.greater 100 10 1;
 #X floatatom 50 245 5 0 0 0 - - -;
 #X floatatom 107 245 5 0 0 0 - - -;
 #X floatatom 165 245 5 0 0 0 - - -;
