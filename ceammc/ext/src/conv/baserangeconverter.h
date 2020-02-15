@@ -29,12 +29,10 @@ protected:
     FloatProperty* output_from_;
     FloatProperty* output_to_;
     SymbolEnumProperty* clip_;
-
-private:
-    static t_symbol* SYM_NO_CLIP;
-    static t_symbol* SYM_MIN;
-    static t_symbol* SYM_MAX;
-    static t_symbol* SYM_MINMAX;
+    t_symbol* SYM_NO_CLIP;
+    t_symbol* SYM_MIN;
+    t_symbol* SYM_MAX;
+    t_symbol* SYM_MINMAX;
 
 public:
     enum ClipType {
@@ -52,6 +50,11 @@ public:
         , output_to_(nullptr)
         , clip_(nullptr)
     {
+        SYM_NO_CLIP = gensym("noclip");
+        SYM_MIN = gensym("min");
+        SYM_MAX = gensym("max");
+        SYM_MINMAX = gensym("minmax");
+
         input_from_ = new FloatProperty("@in_from", T::positionalFloatArgument(0, iMin));
         input_to_ = new FloatProperty("@in_to", T::positionalFloatArgument(1, iMax));
         output_from_ = new FloatProperty("@out_from", T::positionalFloatArgument(2, oMin));
@@ -132,15 +135,6 @@ public:
         return false;
     }
 };
-
-template <typename T>
-t_symbol* BaseRangeConverterT<T>::SYM_NO_CLIP = gensym("noclip");
-template <typename T>
-t_symbol* BaseRangeConverterT<T>::SYM_MIN = gensym("min");
-template <typename T>
-t_symbol* BaseRangeConverterT<T>::SYM_MAX = gensym("max");
-template <typename T>
-t_symbol* BaseRangeConverterT<T>::SYM_MINMAX = gensym("minmax");
 
 typedef BaseRangeConverterT<ceammc::BaseObject> BaseRangeConverter;
 typedef BaseRangeConverterT<ceammc::SoundExternal> BaseRangeConverterTilde;

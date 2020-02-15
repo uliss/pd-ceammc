@@ -5,6 +5,8 @@
 - flow.< alias added for flow.less
 - flow.<= alias added for flow.less_eq
 - flow.greater added (with flow.> alias)
+- tl.t alias added for tl.toggle
+- tl.b alias added for tl.bang
 
 ## [0.8]
 ### Added:

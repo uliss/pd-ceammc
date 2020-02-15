@@ -32,5 +32,6 @@ void TlBang::onCueLeave()
 void setup_tl_bang()
 {
     ObjectFactory<TlBang> obj("tl.bang");
+    obj.addAlias("tl.b");
     TlBang::setDisplaceFn(obj.classPointer());
 }

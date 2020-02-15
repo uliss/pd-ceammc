@@ -72,6 +72,7 @@ conv.dbfs2amp
 conv.lin2curve
 conv.lin2exp
 conv.lin2lin
+conv.lin2lin~
 conv.list2props
 conv.midi2freq
 conv.phase2rad
@@ -274,6 +275,7 @@ is_odd
 is_pointer
 is_symbol
 l->l
+l->l~
 lfo.+pulse~
 lfo.+saw~
 lfo.+square~
@@ -286,6 +288,7 @@ lfo.tri~
 lin->curve
 lin->exp
 lin->lin
+lin->lin~
 list->array
 list->dict
 list->props
@@ -640,8 +643,10 @@ tee~
 test.data
 test.expect
 timeline
+tl.b
 tl.bang
 tl.cue
+tl.t
 tl.timeline
 tl.toggle
 tl.transport

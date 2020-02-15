@@ -450,10 +450,10 @@ system.memsize		.		.
 system.memused		.		..
 system.screen_size		.		.
 system.shell		.		..
-tl.bang		.		.
+tl.bang,tl.b		.		.
 tl.cue		-		-
 tl.timeline,timeline		.		.
-tl.toggle		.		.
+tl.toggle,tl.t		.		.
 tl.transport		.		-
 ui.aview		.		.
 ui.bang,ui.b		.		.
