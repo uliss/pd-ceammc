@@ -24,7 +24,7 @@ void Lin2Exp::onFloat(float value)
     const t_float y0 = out_from();
     const t_float y1 = out_to();
 
-    if (doClip(value))
+    if (doClip(value, clipType()))
         return floatTo(0, value);
 
     if (x0 == x1) {

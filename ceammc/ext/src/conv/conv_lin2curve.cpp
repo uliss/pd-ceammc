@@ -35,7 +35,7 @@ void Lin2Curve::onFloat(float value)
     const t_float y1 = out_to();
     const t_float curve = curve_->value();
 
-    if (doClip(value))
+    if (doClip(value, clipType()))
         return floatTo(0, value);
 
     if (x0 == x1) {

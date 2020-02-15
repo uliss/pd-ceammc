@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../conv/conv_lin2lin.h"
-#include "test_base.h"
 #include "catch.hpp"
+#include "test_base.h"
 
 typedef TestExternal<Lin2Lin> Lin2LinTest;
 
@@ -217,6 +217,50 @@ TEST_CASE("conv.lin2lin", "[externals]")
             REQUIRE_L2E(t, +5, 2);
         }
 
+        SECTION("conv @clip minmax")
+        {
+            Lin2LinTest t("conv.lin2lin", LA(-5, 5, 1, 2, "@minmax"));
+            REQUIRE_L2E(t, -5.1, 1);
+            REQUIRE_L2E(t, -5, 1);
+            REQUIRE_L2E(t, -4, 1.1);
+            REQUIRE_L2E(t, +4, 1.9);
+            REQUIRE_L2E(t, +5, 2);
+            REQUIRE_L2E(t, +5, 2);
+        }
+
+        SECTION("conv @clip min")
+        {
+            Lin2LinTest t("conv.lin2lin", LA(-5, 5, 1, 2, "@min"));
+            REQUIRE_L2E(t, -5.1, 1);
+            REQUIRE_L2E(t, -5, 1);
+            REQUIRE_L2E(t, -4, 1.1);
+            REQUIRE_L2E(t, +4, 1.9);
+            REQUIRE_L2E(t, +5, 2);
+            REQUIRE_L2E(t, +6, 2.1);
+        }
+
+        SECTION("conv @clip max")
+        {
+            Lin2LinTest t("conv.lin2lin", LA(-5, 5, 1, 2, "@max"));
+            REQUIRE_L2E(t, -6, 0.9);
+            REQUIRE_L2E(t, -5, 1);
+            REQUIRE_L2E(t, -4, 1.1);
+            REQUIRE_L2E(t, +4, 1.9);
+            REQUIRE_L2E(t, +5, 2);
+            REQUIRE_L2E(t, +6, 2);
+        }
+
+        SECTION("conv @clip noclip")
+        {
+            Lin2LinTest t("conv.lin2lin", LA(-5, 5, 1, 2, "@noclip"));
+            REQUIRE_L2E(t, -6, 0.9);
+            REQUIRE_L2E(t, -5, 1);
+            REQUIRE_L2E(t, -4, 1.1);
+            REQUIRE_L2E(t, +4, 1.9);
+            REQUIRE_L2E(t, +5, 2);
+            REQUIRE_L2E(t, +6, 2.1);
+        }
+
         SECTION("invalid range")
         {
             Lin2LinTest t("conv.lin2lin", LA(2, 2, 1, 100, "@noclip"));
@@ -231,6 +275,45 @@ TEST_CASE("conv.lin2lin", "[externals]")
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
             WHEN_SEND_FLOAT_TO(0, t, -1);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        }
+    }
+
+    SECTION("list")
+    {
+#define REQUIRE_L2L(t, in, out)            \
+    {                                      \
+        WHEN_SEND_LIST_TO(0, t, in);       \
+        REQUIRE_LIST_AT_OUTLET(0, t, out); \
+    }
+
+        SECTION("conv")
+        {
+            Lin2LinTest t("conv.lin2lin", LF(-5, 5, 1, 2));
+            REQUIRE_L2L(t, LF(-5, -4, -3, -2, -1), LX(1, 1.1, 1.2, 1.3, 1.4));
+        }
+
+        SECTION("conv @clip minmax")
+        {
+            Lin2LinTest t("conv.lin2lin", LA(-5, 5, 1, 2, "@minmax"));
+            REQUIRE_L2L(t, LF(-5.1, -5, 0, 5, 5.1), LX(1, 1, 1.5, 2, 2));
+        }
+
+        SECTION("conv @clip min")
+        {
+            Lin2LinTest t("conv.lin2lin", LA(-5, 5, 1, 2, "@min"));
+            REQUIRE_L2L(t, LF(-5.1, -5, 0, 5, 6), LX(1, 1, 1.5, 2, 2.1));
+        }
+
+        SECTION("conv @clip max")
+        {
+            Lin2LinTest t("conv.lin2lin", LA(-5, 5, 1, 2, "@max"));
+            REQUIRE_L2L(t, LF(-6, -5, 0, 5, 6), LX(0.9, 1, 1.5, 2, 2));
+        }
+
+        SECTION("conv @clip noclip")
+        {
+            Lin2LinTest t("conv.lin2lin", LA(-5, 5, 1, 2, "@noclip"));
+            REQUIRE_L2L(t, LF(-6, -5, 0, 5, 6), LX(0.9, 1, 1.5, 2, 2.1));
         }
     }
 }
