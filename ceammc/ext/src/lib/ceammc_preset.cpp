@@ -43,7 +43,7 @@ bool PresetStorage::setFloatValueAt(t_symbol* name, size_t presetIdx, float v)
 
 bool PresetStorage::clearValueAt(t_symbol* name, size_t presetIdx)
 {
-    PresetMap::iterator it = params_.find(name);
+    auto it = params_.find(name);
     if (it == params_.end())
         return false;
 
@@ -60,7 +60,7 @@ bool PresetStorage::setSymbolValueAt(t_symbol* name, size_t presetIdx, t_symbol*
 
 t_symbol* PresetStorage::symbolValueAt(t_symbol* name, size_t presetIdx, t_symbol* def) const
 {
-    PresetMap::const_iterator it = params_.find(name);
+    auto it = params_.find(name);
     if (it == params_.end())
         return def;
 
@@ -76,7 +76,7 @@ bool PresetStorage::setListValueAt(t_symbol* name, size_t presetIdx, const AtomL
 
 AtomList PresetStorage::listValueAt(t_symbol* name, size_t presetIdx, const AtomList& def) const
 {
-    PresetMap::const_iterator it = params_.find(name);
+    auto it = params_.find(name);
     if (it == params_.end())
         return def;
 
@@ -92,7 +92,7 @@ bool PresetStorage::setAnyValueAt(t_symbol* name, size_t presetIdx, t_symbol* se
 
 AtomList PresetStorage::anyValueAt(t_symbol* name, size_t presetIdx, const AtomList& def) const
 {
-    PresetMap::const_iterator it = params_.find(name);
+    auto it = params_.find(name);
     if (it == params_.end())
         return def;
 
@@ -101,7 +101,7 @@ AtomList PresetStorage::anyValueAt(t_symbol* name, size_t presetIdx, const AtomL
 
 float PresetStorage::floatValueAt(t_symbol* name, size_t presetIdx, float def) const
 {
-    PresetMap::const_iterator it = params_.find(name);
+    auto it = params_.find(name);
     if (it == params_.end())
         return def;
 
@@ -110,7 +110,7 @@ float PresetStorage::floatValueAt(t_symbol* name, size_t presetIdx, float def) c
 
 bool PresetStorage::hasValueAt(t_symbol* name, size_t presetIdx) const
 {
-    PresetMap::const_iterator it = params_.find(name);
+    auto it = params_.find(name);
     if (it == params_.end())
         return false;
 
@@ -119,7 +119,7 @@ bool PresetStorage::hasValueAt(t_symbol* name, size_t presetIdx) const
 
 bool PresetStorage::hasValueTypeAt(t_symbol* name, Message::Type t, size_t presetIdx) const
 {
-    PresetMap::const_iterator it = params_.find(name);
+    auto it = params_.find(name);
     if (it == params_.end())
         return false;
 
@@ -191,9 +191,8 @@ bool PresetStorage::write(const char* path) const
 
     t_binbuf* content = binbuf_new();
 
-    PresetMap::const_iterator it;
-    for (it = params_.begin(); it != params_.end(); ++it) {
-        PresetPtr ptr = it->second;
+    for (auto& p : params_) {
+        auto& ptr = p.second;
 
         for (size_t i = 0; i < maxPresetCount(); i++) {
             if (!ptr->hasDataAt(i))
@@ -225,7 +224,7 @@ bool PresetStorage::write(const char* path) const
         }
     }
 
-    int rc = binbuf_write(content, (char*)path, (char*)"", 0);
+    int rc = binbuf_write(content, path, "", 0);
     binbuf_free(content);
 
     return rc == 0;
@@ -320,9 +319,8 @@ AtomList PresetStorage::keys() const
     AtomList res;
     res.reserve(params_.size());
 
-    PresetMap::const_iterator it;
-    for (it = params_.begin(); it != params_.end(); ++it)
-        res.append(it->first);
+    for (auto& p : params_)
+        res.append(p.first);
 
     return res;
 }
@@ -342,12 +340,12 @@ bool PresetStorage::hasPreset(t_symbol* name)
 
 void PresetStorage::bindPreset(t_symbol* name)
 {
-    PresetMap::iterator it = params_.find(name);
+    auto it = params_.find(name);
 
     // create new preset
     if (it == params_.end()) {
         PresetPtr ptr = std::make_shared<Preset>(name);
-        std::pair<PresetMap::iterator, bool> res = params_.insert(PresetMap::value_type(name, ptr));
+        auto res = params_.insert(PresetMap::value_type(name, ptr));
         if (!res.second) {
             LIB_ERR << "can't create preset: " << name;
             return;
@@ -361,7 +359,7 @@ void PresetStorage::bindPreset(t_symbol* name)
 
 void PresetStorage::unbindPreset(t_symbol* name)
 {
-    PresetMap::iterator it = params_.find(name);
+    auto it = params_.find(name);
 
     if (it == params_.end()) {
         LIB_ERR << "preset is not found: " << name;
@@ -456,7 +454,7 @@ void PresetStorage::updateAll()
 
 PresetPtr PresetStorage::getOrCreate(t_symbol* name)
 {
-    PresetMap::iterator it = params_.find(name);
+    auto it = params_.find(name);
     if (it != params_.end())
         return it->second;
 
