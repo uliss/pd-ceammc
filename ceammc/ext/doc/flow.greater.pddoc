@@ -20,7 +20,8 @@
             </also>
         </meta>
         <info>
-            <par>Numbers thar are *less* or *equal* then first argument are passed to N-th inlet</par>
+            <par>Numbers thar are *less* or *equal* then first argument are passed to N-th
+            inlet</par>
         </info>
         <arguments>
             <argument name="LIST" type="list">compare values: list of floats in descending
