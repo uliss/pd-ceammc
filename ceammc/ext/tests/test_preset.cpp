@@ -294,4 +294,41 @@ TEST_CASE("ceammc_preset", "[PureData]")
         REQUIRE(s.clearValueAt(SYM("A"), 0));
         REQUIRE_FALSE(s.hasFloatValueAt(SYM("A"), 0));
     }
+
+    SECTION("indexes")
+    {
+        Preset p(SYM("A"));
+        REQUIRE(p.anyAt(1000, LF(1)) == LF(1));
+        REQUIRE(p.floatAt(1000, -100) == Approx(-100));
+        REQUIRE(p.symbolAt(1000, &s_bang) == &s_bang);
+        REQUIRE(p.listAt(1000, LF(1, 2)) == LF(1, 2));
+
+        REQUIRE_FALSE(p.setAnyAt(1000, SYM("a"), L()));
+        REQUIRE_FALSE(p.setFloatAt(1000, -1000));
+        REQUIRE_FALSE(p.setSymbolAt(1000, SYM("a")));
+        REQUIRE_FALSE(p.setListAt(1000, LF(1, 2, 3)));
+    }
+
+    SECTION("types")
+    {
+        Preset p(SYM("A"));
+        p.setFloatAt(0, 1000);
+
+        REQUIRE_FALSE(p.hasDataTypeAt(0, Message::ANY));
+        REQUIRE_FALSE(p.hasDataTypeAt(0, Message::DATA));
+        REQUIRE_FALSE(p.hasDataTypeAt(0, Message::SYMBOL));
+        REQUIRE_FALSE(p.hasDataTypeAt(0, Message::LIST));
+        REQUIRE(p.hasDataTypeAt(0, Message::FLOAT));
+
+        PresetStorage& s = PresetStorage::instance();
+        s.clearAll();
+
+        s.setFloatValueAt(SYM("A"), 0, 100);
+        REQUIRE(s.floatValueAt(SYM("B"), 0, -100) == Approx(-100));
+        REQUIRE(s.symbolValueAt(SYM("B"), 0, &s_symbol) == &s_symbol);
+        REQUIRE(s.anyValueAt(SYM("B"), 0, LA("a", "b", "c")) == LA("a", "b", "c"));
+        REQUIRE(s.listValueAt(SYM("B"), 0, LF(1, 2, 3)) == LF(1, 2, 3));
+
+        REQUIRE(s.floatValueAt(SYM("B"), 0, -100) == Approx(-100));
+    }
 }
