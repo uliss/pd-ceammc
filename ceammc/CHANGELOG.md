@@ -8,6 +8,8 @@
 - tl.t alias added for tl.toggle
 - tl.b alias added for tl.bang
 - duplicate method added to ui.preset and preset.storage
+- random.i alias added for random.int
+- random.f alias added for random.float
 
 ## [0.8]
 ### Added:

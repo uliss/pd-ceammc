@@ -16,6 +16,9 @@
                 <see>random.gauss</see>
             </also>
             <since>0.1</since>
+            <aliases>
+                <alias>random.i</alias>
+            </aliases>
         </meta>
         <info>
             <par>Generates pseudo-random number in specified closed interval.</par>

@@ -16,6 +16,9 @@
                 <see>random.int</see>
                 <see>random.gauss</see>
             </also>
+            <aliases>
+                <alias>random.f</alias>
+            </aliases>
         </meta>
         <info>
             <par>generates a random floating-point value uniformly distributed in the range

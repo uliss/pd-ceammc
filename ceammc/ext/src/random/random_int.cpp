@@ -59,6 +59,8 @@ extern "C" void setup_random0x2eint()
         reinterpret_cast<t_newmethod>(random_uniform_int_new),
         reinterpret_cast<t_method>(random_uniform_int_free),
         sizeof(t_random_uniform_int), 0, A_DEFFLOAT, A_DEFFLOAT, 0);
+    class_addcreator(reinterpret_cast<t_newmethod>(random_uniform_int_new),
+        gensym("random.i"), A_DEFFLOAT, A_DEFFLOAT, 0);
     class_addbang(random_uniform_int_class, random_uniform_int_bang);
     class_addfloat(random_uniform_int_class, random_uniform_int_float);
 }

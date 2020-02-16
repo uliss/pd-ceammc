@@ -51,4 +51,5 @@ void RandomFloat::onBang()
 extern "C" void setup_random0x2efloat()
 {
     ObjectFactory<RandomFloat> obj("random.float");
+    obj.addAlias("random.f");
 }
