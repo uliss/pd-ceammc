@@ -10,6 +10,6 @@ do
     ${PDDOC_LS} "$pddoc" | sort | uniq | while read line
     do
         echo "    - $line"
-        ${OBJ_CHECK} --xlet-db "${DB}" $line 1>/dev/null
+        ${OBJ_CHECK} --xlet-db "${DB}" "$line" 1>/dev/null
     done
 done
