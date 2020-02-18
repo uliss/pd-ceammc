@@ -2,6 +2,7 @@
 #include "data_dict.h"
 #include "data_float.h"
 #include "data_int.h"
+#include "data_json.h"
 #include "data_list.h"
 #include "data_mlist.h"
 #include "data_set.h"
@@ -22,6 +23,7 @@
 #include "global_list.h"
 #include "global_mlist.h"
 #include "global_set.h"
+#include "json_size.h"
 #include "local_dict.h"
 #include "local_float.h"
 #include "local_int.h"
@@ -55,6 +57,7 @@ void ceammc_data_setup()
 
     setup_data_dict();
     setup_data_float();
+    setup_data_json();
     setup_data_int();
     setup_data_list();
     setup_data_mlist();
@@ -71,6 +74,8 @@ void ceammc_data_setup()
     setup_dict_to_list();
     setup_dict_values();
     setup_is_dict();
+
+    setup_json_size();
 
     setup_local_dict();
     setup_local_float();

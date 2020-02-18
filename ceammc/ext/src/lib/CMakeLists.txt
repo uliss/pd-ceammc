@@ -118,6 +118,11 @@ set(CEAMMC_DICT_SRC
     dict_parser_impl.cpp
     )
 
+set(CEAMMC_JSON_SRC
+    datatype_json.cpp
+    datatype_json_imp.cpp
+    )
+
 if(BISON_FOUND AND FLEX_FOUND)
     add_custom_target(data_mlist_parser_gen
         COMMAND ${FLEX_EXECUTABLE} --header-file=lex.mlist_parser.h mlist_parser.lex
@@ -137,6 +142,7 @@ add_library(ceammc_core SHARED
     ${CEAMMC_LIB_SOURCES}
     ${CEAMMC_MLIST_SRC}
     ${CEAMMC_DICT_SRC}
+    ${CEAMMC_JSON_SRC}
     ${CEAMMC_UI_SRC})
 target_link_libraries(ceammc_core PUBLIC puredata-core)
 target_link_libraries(ceammc_core PRIVATE fmt::fmt-header-only)
