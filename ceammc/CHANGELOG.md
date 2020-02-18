@@ -10,6 +10,8 @@
 - duplicate method added to ui.preset and preset.storage
 - random.i alias added for random.int
 - random.f alias added for random.float
+- json data type added (data.json object)
+- json.size added
 
 ## [0.8]
 ### Added:
