@@ -120,7 +120,7 @@ set(CEAMMC_DICT_SRC
 
 set(CEAMMC_TREE_SRC
     datatype_tree.cpp
-    datatype_json_imp.cpp
+    datatype_tree_imp.cpp
     )
 
 if(BISON_FOUND AND FLEX_FOUND)

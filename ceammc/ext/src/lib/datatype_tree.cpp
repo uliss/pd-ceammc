@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "datatype_tree.h"
 #include "ceammc_datatypes.h"
-#include "datatype_json_imp.h"
+#include "datatype_tree_imp.h"
 
 namespace ceammc {
 
