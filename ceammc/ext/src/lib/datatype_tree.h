@@ -32,8 +32,8 @@ class DataTypeTree : public AbstractData {
 public:
     DataTypeTree();
     ~DataTypeTree();
-    DataTypeTree(const DataTypeTree& json);
-    DataTypeTree(DataTypeTree&& json);
+    DataTypeTree(const DataTypeTree& tree);
+    DataTypeTree(DataTypeTree&& tree);
     DataTypeTree(const DataTypeTreeImpl& imp);
     DataTypeTree(t_float f);
     DataTypeTree(t_symbol* s);
@@ -56,7 +56,7 @@ public:
     bool addFloat(t_float f);
     bool addSymbol(t_symbol* s);
     bool addList(const AtomList& l);
-    bool addJson(const DataTypeTree& json);
+    bool addTree(const DataTypeTree& tree);
 
     void setFloat(t_float f);
     void setSymbol(t_symbol* s);
@@ -68,7 +68,7 @@ public:
 
     bool insertFloat(const char* key, t_float f);
     bool insertSymbol(const char* key, t_symbol* s);
-    bool insertJson(const char* key, const DataTypeTree& json);
+    bool insertTree(const char* key, const DataTypeTree& tree);
 
 public:
     bool parse(const char* str);

@@ -29,15 +29,15 @@ DataTypeTree::~DataTypeTree()
     delete pimpl_;
 }
 
-DataTypeTree::DataTypeTree(const DataTypeTree& json)
-    : pimpl_(new DataTypeTreeImpl(*json.pimpl_))
+DataTypeTree::DataTypeTree(const DataTypeTree& tree)
+    : pimpl_(new DataTypeTreeImpl(*tree.pimpl_))
 {
 }
 
-DataTypeTree::DataTypeTree(DataTypeTree&& json)
-    : pimpl_(json.pimpl_)
+DataTypeTree::DataTypeTree(DataTypeTree&& tree)
+    : pimpl_(tree.pimpl_)
 {
-    json.pimpl_ = nullptr;
+    tree.pimpl_ = nullptr;
 }
 
 DataTypeTree::DataTypeTree(const DataTypeTreeImpl& imp)
@@ -140,9 +140,9 @@ bool DataTypeTree::addList(const AtomList& l)
     return pimpl_->addList(l);
 }
 
-bool DataTypeTree::addJson(const DataTypeTree& json)
+bool DataTypeTree::addTree(const DataTypeTree& tree)
 {
-    return pimpl_->addJson(*json.pimpl_);
+    return pimpl_->addJson(*tree.pimpl_);
 }
 
 void DataTypeTree::setFloat(t_float f)
@@ -189,9 +189,9 @@ bool DataTypeTree::insertSymbol(const char* key, t_symbol* s)
     return pimpl_->insertSymbol(key, s);
 }
 
-bool DataTypeTree::insertJson(const char* key, const DataTypeTree& json)
+bool DataTypeTree::insertTree(const char* key, const DataTypeTree& tree)
 {
-    return pimpl_->insertJson(key, *json.pimpl_);
+    return pimpl_->insertJson(key, *tree.pimpl_);
 }
 
 bool DataTypeTree::parse(const char* str)
