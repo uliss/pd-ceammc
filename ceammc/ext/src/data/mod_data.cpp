@@ -75,7 +75,7 @@ void ceammc_data_setup()
     setup_dict_values();
     setup_is_dict();
 
-    setup_json_size();
+    setup_tree_size();
 
     setup_local_dict();
     setup_local_float();

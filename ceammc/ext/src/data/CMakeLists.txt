@@ -25,7 +25,7 @@ ceammc_data_external(dict size)
 ceammc_data_external(dict to_list)
 ceammc_data_external(dict values)
 
-ceammc_data_external(json size)
+ceammc_data_external(tree size)
 
 ceammc_data_external(mlist flatten)
 

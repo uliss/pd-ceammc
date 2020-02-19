@@ -11,22 +11,20 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "json_size.h"
-#include "ceammc_factory.h"
+#ifndef TREE_SIZE_H
+#define TREE_SIZE_H
 
-JsonSize::JsonSize(const PdArgs& args)
-    : BaseObject(args)
-{
-    createOutlet();
-}
+#include "ceammc_object.h"
+#include "datatype_json.h"
 
-void JsonSize::onDataT(const DataTPtr<DataTypeTree>& j)
-{
-    floatTo(0, j->size());
-}
+using namespace ceammc;
 
-void setup_json_size()
-{
-    ObjectFactory<JsonSize> obj("tree.size");
-    obj.processData<DataTypeTree>();
-}
+class TreeSize : public BaseObject {
+public:
+    TreeSize(const PdArgs& args);
+    void onDataT(const DataTPtr<DataTypeTree>& j);
+};
+
+void setup_tree_size();
+
+#endif // TREE_SIZE_H
