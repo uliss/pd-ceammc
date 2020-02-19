@@ -19,21 +19,21 @@
 
 DataJson::DataJson(const PdArgs& args)
     : CollectionIFace<BaseObject>(args)
-    , json_(nullptr)
+    , tree_(nullptr)
 {
     createOutlet();
 
     auto str = to_string(args.args, " ");
     if (!str.empty())
-        json_ = TreePtr(new DataTypeTree(str.c_str()));
+        tree_ = TreePtr(new DataTypeTree(str.c_str()));
     else
-        json_ = TreePtr(new DataTypeTree());
+        tree_ = TreePtr(new DataTypeTree());
 }
 
 void DataJson::proto_add(const AtomList& lst)
 {
-    if (json_->isArray() || json_->isNull()) {
-        auto p = json_->cloneT<DataTypeTree>();
+    if (tree_->isArray() || tree_->isNull()) {
+        auto p = tree_->cloneT<DataTypeTree>();
         TreePtr j(p);
 
         if (lst.isFloat()) {
@@ -41,18 +41,18 @@ void DataJson::proto_add(const AtomList& lst)
             if (!p->addFloat(f))
                 OBJ_ERR << "can't add float to json: " << f;
             else
-                json_ = j;
+                tree_ = j;
         } else if (lst.isSymbol()) {
             auto s = atomlistToValue<t_symbol*>(lst, &s_);
             if (!p->addSymbol(s))
                 OBJ_ERR << "can't add symbol to json: " << s;
             else
-                json_ = j;
+                tree_ = j;
         } else if (lst.isList() && lst.allOf(isFloat)) {
             if (!p->addList(lst))
                 OBJ_ERR << "can't add list to json: " << lst;
             else
-                json_ = j;
+                tree_ = j;
         } else if (lst.isDataType(data::DATA_TREE)) {
             TreePtr jptr(lst[0]);
             if (jptr.isNull()) {
@@ -66,13 +66,13 @@ void DataJson::proto_add(const AtomList& lst)
             if (!p->addJson(*jptr))
                 OBJ_ERR << "can't add json to json: " << lst;
             else
-                json_ = j;
+                tree_ = j;
         } else {
             auto str = to_string(lst, " ");
             if (!p->addJson(DataTypeTree(str.c_str())))
                 OBJ_ERR << "can't add json to json: " << lst;
             else
-                json_ = j;
+                tree_ = j;
         }
     }
 }
@@ -84,50 +84,50 @@ bool DataJson::proto_remove(const AtomList& lst)
 void DataJson::proto_set(const AtomList& lst)
 {
     if (lst.isFloat())
-        json_ = TreePtr(new DataTypeTree(atomlistToValue<t_float>(lst, 0)));
+        tree_ = TreePtr(new DataTypeTree(atomlistToValue<t_float>(lst, 0)));
     else if (lst.isSymbol())
-        json_ = TreePtr(new DataTypeTree(atomlistToValue<t_symbol*>(lst, &s_)));
+        tree_ = TreePtr(new DataTypeTree(atomlistToValue<t_symbol*>(lst, &s_)));
     else if (lst.isDataType(data::DATA_TREE))
-        json_ = TreePtr(lst[0]);
+        tree_ = TreePtr(lst[0]);
     else if (lst.allOf(isFloat))
-        json_ = TreePtr(new DataTypeTree(lst.asFloats()));
+        tree_ = TreePtr(new DataTypeTree(lst.asFloats()));
     else {
         auto str = to_string(lst, " ");
-        json_ = TreePtr(new DataTypeTree(str.c_str()));
+        tree_ = TreePtr(new DataTypeTree(str.c_str()));
     }
 }
 
 void DataJson::proto_clear()
 {
-    if (!json_->isNull())
-        json_ = TreePtr(new DataTypeTree);
+    if (!tree_->isNull())
+        tree_ = TreePtr(new DataTypeTree);
 }
 
 size_t DataJson::proto_size() const
 {
-    return json_->size();
+    return tree_->size();
 }
 
 void DataJson::onBang()
 {
-    this->dataTo(0, json_);
+    this->dataTo(0, tree_);
 }
 
 void DataJson::dump() const
 {
     CollectionIFace<BaseObject>::dump();
-    OBJ_DBG << json_->toString();
+    OBJ_DBG << tree_->toString();
 }
 
 void DataJson::onDataT(const DataTPtr<DataTypeTree>& j)
 {
-    json_ = j;
+    tree_ = j;
     dataTo(0, j);
 }
 
 void DataJson::m_find(t_symbol* s, const AtomList& l)
 {
-    dataTo(0, json_->match(to_string(l).c_str()));
+    dataTo(0, tree_->match(to_string(l).c_str()));
 }
 
 void DataJson::m_at(t_symbol* s, const AtomList& l)
@@ -139,9 +139,9 @@ void DataJson::m_at(t_symbol* s, const AtomList& l)
             return;
         }
 
-        dataTo(0, json_->at(f));
+        dataTo(0, tree_->at(f));
     } else if (l.isSymbol()) {
-        dataTo(0, json_->at(atomlistToValue<t_symbol*>(l, 0)));
+        dataTo(0, tree_->at(atomlistToValue<t_symbol*>(l, 0)));
     }
 }
 
@@ -152,7 +152,7 @@ void DataJson::m_key(t_symbol* s, const AtomList& l)
 
 void DataJson::m_insert(t_symbol* s, const AtomList& lst)
 {
-    DataTypeTree* p = json_->cloneT<DataTypeTree>();
+    DataTypeTree* p = tree_->cloneT<DataTypeTree>();
     TreePtr j(p);
 
     if (lst.size() < 1 || !lst[0].isSymbol()) {
@@ -170,13 +170,13 @@ void DataJson::m_insert(t_symbol* s, const AtomList& lst)
             if (!p->insertFloat(key, f))
                 OBJ_ERR << "can't insert float to json: " << key << " " << f;
             else
-                json_ = j;
+                tree_ = j;
         } else if (lst[1].isSymbol()) {
             auto s = lst[1].asSymbol();
             if (!p->insertSymbol(key, s))
                 OBJ_ERR << "can't insert symbol to json: " << key << " " << s;
             else
-                json_ = j;
+                tree_ = j;
         } /*else if (lst.isList() && lst.allOf(isFloat)) {
         if (!p->insert(lst))
             OBJ_ERR << "can't add list to json: " << lst;

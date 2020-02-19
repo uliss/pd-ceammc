@@ -22,7 +22,7 @@ using namespace ceammc;
 
 class DataJson : public CollectionIFace<BaseObject> {
     typedef DataTPtr<DataTypeTree> TreePtr;
-    TreePtr json_;
+    TreePtr tree_;
 
 public:
     DataJson(const PdArgs& args);
