@@ -142,7 +142,7 @@ bool DataTypeTree::addList(const AtomList& l)
 
 bool DataTypeTree::addTree(const DataTypeTree& tree)
 {
-    return pimpl_->addJson(*tree.pimpl_);
+    return pimpl_->addTree(*tree.pimpl_);
 }
 
 void DataTypeTree::setFloat(t_float f)
@@ -191,7 +191,7 @@ bool DataTypeTree::insertSymbol(const char* key, t_symbol* s)
 
 bool DataTypeTree::insertTree(const char* key, const DataTypeTree& tree)
 {
-    return pimpl_->insertJson(key, *tree.pimpl_);
+    return pimpl_->insertTree(key, *tree.pimpl_);
 }
 
 bool DataTypeTree::parse(const char* str)

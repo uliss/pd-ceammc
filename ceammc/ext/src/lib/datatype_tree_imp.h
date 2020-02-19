@@ -47,7 +47,7 @@ public:
     bool addFloat(t_float f);
     bool addSymbol(t_symbol* s);
     bool addList(const AtomList& l);
-    bool addJson(const DataTypeTreeImpl& impl);
+    bool addTree(const DataTypeTreeImpl& impl);
 
     void setFloat(t_float f);
     void setSymbol(t_symbol* s);
@@ -59,7 +59,7 @@ public:
 
     bool insertFloat(const char* key, t_float f);
     bool insertSymbol(const char* key, t_symbol* s);
-    bool insertJson(const char* key, const DataTypeTreeImpl& json);
+    bool insertTree(const char* key, const DataTypeTreeImpl& tree);
 };
 }
 

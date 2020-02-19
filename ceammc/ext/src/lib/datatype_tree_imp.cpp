@@ -189,7 +189,7 @@ bool DataTypeTreeImpl::addList(const AtomList& l)
         return false;
 }
 
-bool DataTypeTreeImpl::addJson(const DataTypeTreeImpl& impl)
+bool DataTypeTreeImpl::addTree(const DataTypeTreeImpl& impl)
 {
     if (json_.is_array()) {
         json_.push_back(impl.json_);
@@ -272,13 +272,13 @@ bool DataTypeTreeImpl::insertSymbol(const char* key, t_symbol* s)
         return false;
 }
 
-bool DataTypeTreeImpl::insertJson(const char* key, const DataTypeTreeImpl& json)
+bool DataTypeTreeImpl::insertTree(const char* key, const DataTypeTreeImpl& tree)
 {
     if (json_.is_object()) {
-        json_[key] = json.json_;
+        json_[key] = tree.json_;
         return true;
     } else if (json_.is_null()) {
-        json_[key] = json.json_;
+        json_[key] = tree.json_;
         return true;
     } else
         return false;
