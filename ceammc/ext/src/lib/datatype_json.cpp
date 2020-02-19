@@ -17,72 +17,72 @@
 
 namespace ceammc {
 
-const DataType DataTypeJson::dataType = data::DATA_TREE;
+const DataType DataTypeTree::dataType = data::DATA_TREE;
 
-DataTypeJson::DataTypeJson()
+DataTypeTree::DataTypeTree()
     : pimpl_(new DataTypeJsonImpl)
 {
 }
 
-DataTypeJson::~DataTypeJson()
+DataTypeTree::~DataTypeTree()
 {
     delete pimpl_;
 }
 
-DataTypeJson::DataTypeJson(const DataTypeJson& json)
+DataTypeTree::DataTypeTree(const DataTypeTree& json)
     : pimpl_(new DataTypeJsonImpl(*json.pimpl_))
 {
 }
 
-DataTypeJson::DataTypeJson(DataTypeJson&& json)
+DataTypeTree::DataTypeTree(DataTypeTree&& json)
     : pimpl_(json.pimpl_)
 {
     json.pimpl_ = nullptr;
 }
 
-DataTypeJson::DataTypeJson(const DataTypeJsonImpl& imp)
+DataTypeTree::DataTypeTree(const DataTypeJsonImpl& imp)
     : pimpl_(new DataTypeJsonImpl(imp))
 {
 }
 
-DataTypeJson::DataTypeJson(t_float f)
+DataTypeTree::DataTypeTree(t_float f)
     : pimpl_(new DataTypeJsonImpl(f))
 {
 }
 
-DataTypeJson::DataTypeJson(t_symbol* s)
+DataTypeTree::DataTypeTree(t_symbol* s)
     : pimpl_(new DataTypeJsonImpl(s))
 {
 }
 
-DataTypeJson::DataTypeJson(const FloatList& lst)
+DataTypeTree::DataTypeTree(const FloatList& lst)
     : pimpl_(new DataTypeJsonImpl(lst))
 {
 }
 
-DataTypeJson::DataTypeJson(const char* str)
+DataTypeTree::DataTypeTree(const char* str)
     : pimpl_(new DataTypeJsonImpl(str))
 {
 }
 
-DataTypeJson* DataTypeJson::clone() const
+DataTypeTree* DataTypeTree::clone() const
 {
-    return new DataTypeJson(*this);
+    return new DataTypeTree(*this);
 }
 
-DataType DataTypeJson::type() const
+DataType DataTypeTree::type() const
 {
     return data::DATA_TREE;
 }
 
-std::string DataTypeJson::toString() const
+std::string DataTypeTree::toString() const
 {
     return pimpl_->toString();
 }
 
-bool DataTypeJson::isEqual(const AbstractData* d) const
+bool DataTypeTree::isEqual(const AbstractData* d) const
 {
-    auto data = d->as<DataTypeJson>();
+    auto data = d->as<DataTypeTree>();
 
     // not a dict
     if (!data)
@@ -95,72 +95,67 @@ bool DataTypeJson::isEqual(const AbstractData* d) const
     return *data == *this;
 }
 
-bool DataTypeJson::operator==(const DataTypeJson& d) const
+bool DataTypeTree::operator==(const DataTypeTree& d) const
 {
     return *pimpl_ == *d.pimpl_;
 }
 
-size_t DataTypeJson::size() const
+size_t DataTypeTree::size() const
 {
     return pimpl_->size();
 }
 
-bool DataTypeJson::empty() const
+bool DataTypeTree::empty() const
 {
     return pimpl_->empty();
 }
 
-bool DataTypeJson::isArray() const
+bool DataTypeTree::isArray() const
 {
     return pimpl_->isArray();
 }
 
-bool DataTypeJson::isNull() const
+bool DataTypeTree::isNull() const
 {
     return pimpl_->isNull();
 }
 
-JsonValue DataTypeJson::valueAt(size_t idx) const
-{
-    return pimpl_->valueAt(idx);
-}
-
-void DataTypeJson::clear()
+void DataTypeTree::clear()
 {
     pimpl_->clear();
 }
 
-bool DataTypeJson::addFloat(t_float f)
+bool DataTypeTree::addFloat(t_float f)
 {
     return pimpl_->addFloat(f);
 }
 
-bool DataTypeJson::addSymbol(t_symbol* s)
+bool DataTypeTree::addSymbol(t_symbol* s)
 {
     return pimpl_->addSymbol(s);
 }
 
-bool DataTypeJson::addList(const AtomList& l)
+bool DataTypeTree::addList(const AtomList& l)
 {
     return pimpl_->addList(l);
 }
 
-bool DataTypeJson::addJson(const DataTypeJson& json)
+bool DataTypeTree::addJson(const DataTypeTree& json)
 {
     return pimpl_->addJson(*json.pimpl_);
 }
 
-void DataTypeJson::setFloat(t_float f)
+void DataTypeTree::setFloat(t_float f)
 {
     pimpl_->setFloat(f);
 }
 
-void DataTypeJson::setSymbol(t_symbol* s)
+void DataTypeTree::setSymbol(t_symbol* s)
 {
     pimpl_->setSymbol(s);
 }
 
-bool DataTypeJson::set(const DataTPtr<DataTypeJson>& ptr)
+bool DataTypeTree::set(const DataTPtr<DataTypeTree>& ptr)
 {
     if (ptr.isValid()) {
         pimpl_->set(*ptr.data()->pimpl_);
@@ -169,37 +164,37 @@ bool DataTypeJson::set(const DataTPtr<DataTypeJson>& ptr)
         return false;
 }
 
-DataTPtr<DataTypeJson> DataTypeJson::match(const char* pattern) const
+DataTPtr<DataTypeTree> DataTypeTree::match(const char* pattern) const
 {
-    return new DataTypeJson(pimpl_->match(pattern));
+    return new DataTypeTree(pimpl_->match(pattern));
 }
 
-DataTPtr<DataTypeJson> DataTypeJson::at(size_t idx) const
+DataTPtr<DataTypeTree> DataTypeTree::at(size_t idx) const
 {
-    return new DataTypeJson(pimpl_->at(idx));
+    return new DataTypeTree(pimpl_->at(idx));
 }
 
-DataTPtr<DataTypeJson> DataTypeJson::at(t_symbol* key) const
+DataTPtr<DataTypeTree> DataTypeTree::at(t_symbol* key) const
 {
-    return new DataTypeJson(pimpl_->at(key->s_name));
+    return new DataTypeTree(pimpl_->at(key->s_name));
 }
 
-bool DataTypeJson::insertFloat(const char* key, t_float f)
+bool DataTypeTree::insertFloat(const char* key, t_float f)
 {
     return pimpl_->insertFloat(key, f);
 }
 
-bool DataTypeJson::insertSymbol(const char* key, t_symbol* s)
+bool DataTypeTree::insertSymbol(const char* key, t_symbol* s)
 {
     return pimpl_->insertSymbol(key, s);
 }
 
-bool DataTypeJson::insertJson(const char* key, const DataTypeJson& json)
+bool DataTypeTree::insertJson(const char* key, const DataTypeTree& json)
 {
     return pimpl_->insertJson(key, *json.pimpl_);
 }
 
-bool DataTypeJson::parse(const char* str)
+bool DataTypeTree::parse(const char* str)
 {
     return pimpl_->parse(str);
 }

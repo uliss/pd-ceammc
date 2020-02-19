@@ -22,54 +22,53 @@
 
 namespace ceammc {
 
-class DataTypeJson;
-typedef boost::variant<boost::blank, DataTypeJson, Atom, AtomList> JsonValue;
+class DataTypeTree;
+typedef boost::variant<boost::blank, DataTypeTree, Atom, AtomList> JsonValue;
 class DataTypeJsonImpl;
 
-class DataTypeJson : public AbstractData {
+class DataTypeTree : public AbstractData {
     DataTypeJsonImpl* pimpl_;
 
 public:
-    DataTypeJson();
-    ~DataTypeJson();
-    DataTypeJson(const DataTypeJson& json);
-    DataTypeJson(DataTypeJson&& json);
-    DataTypeJson(const DataTypeJsonImpl& imp);
-    DataTypeJson(t_float f);
-    DataTypeJson(t_symbol* s);
-    DataTypeJson(const FloatList& lst);
-    DataTypeJson(const char* str);
+    DataTypeTree();
+    ~DataTypeTree();
+    DataTypeTree(const DataTypeTree& json);
+    DataTypeTree(DataTypeTree&& json);
+    DataTypeTree(const DataTypeJsonImpl& imp);
+    DataTypeTree(t_float f);
+    DataTypeTree(t_symbol* s);
+    DataTypeTree(const FloatList& lst);
+    DataTypeTree(const char* str);
 
-    DataTypeJson* clone() const final;
+    DataTypeTree* clone() const final;
     DataType type() const final;
     std::string toString() const final;
     bool isEqual(const AbstractData* d) const final;
-    bool operator==(const DataTypeJson& d) const;
+    bool operator==(const DataTypeTree& d) const;
 
     size_t size() const;
     bool empty() const;
     bool isArray() const;
     bool isNull() const;
 
-    JsonValue valueAt(size_t idx) const;
     void clear();
 
     bool addFloat(t_float f);
     bool addSymbol(t_symbol* s);
     bool addList(const AtomList& l);
-    bool addJson(const DataTypeJson& json);
+    bool addJson(const DataTypeTree& json);
 
     void setFloat(t_float f);
     void setSymbol(t_symbol* s);
-    bool set(const DataTPtr<DataTypeJson>& ptr);
+    bool set(const DataTPtr<DataTypeTree>& ptr);
 
-    DataTPtr<DataTypeJson> match(const char* pattern) const;
-    DataTPtr<DataTypeJson> at(size_t idx) const;
-    DataTPtr<DataTypeJson> at(t_symbol* key) const;
+    DataTPtr<DataTypeTree> match(const char* pattern) const;
+    DataTPtr<DataTypeTree> at(size_t idx) const;
+    DataTPtr<DataTypeTree> at(t_symbol* key) const;
 
     bool insertFloat(const char* key, t_float f);
     bool insertSymbol(const char* key, t_symbol* s);
-    bool insertJson(const char* key, const DataTypeJson& json);
+    bool insertJson(const char* key, const DataTypeTree& json);
 
 public:
     bool parse(const char* str);

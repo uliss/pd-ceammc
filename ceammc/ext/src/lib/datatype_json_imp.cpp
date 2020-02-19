@@ -170,7 +170,7 @@ JsonValue DataTypeJsonImpl::valueAt(size_t idx) const
                 });
 
             if (it != j.end()) {
-                return DataTypeJson(DataTypeJsonImpl(j));
+                return DataTypeTree(DataTypeJsonImpl(j));
             } else {
                 AtomList lst;
                 lst.reserve(j.size());
@@ -188,7 +188,7 @@ JsonValue DataTypeJsonImpl::valueAt(size_t idx) const
                 }
             }
         } else {
-            return DataTypeJson(DataTypeJsonImpl(j));
+            return DataTypeTree(DataTypeJsonImpl(j));
         }
     } catch (std::exception& e) {
         LIB_ERR << e.what();

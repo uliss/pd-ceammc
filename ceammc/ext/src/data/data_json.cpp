@@ -25,15 +25,15 @@ DataJson::DataJson(const PdArgs& args)
 
     auto str = to_string(args.args, " ");
     if (!str.empty())
-        json_ = JsonPtr(new DataTypeJson(str.c_str()));
+        json_ = JsonPtr(new DataTypeTree(str.c_str()));
     else
-        json_ = JsonPtr(new DataTypeJson());
+        json_ = JsonPtr(new DataTypeTree());
 }
 
 void DataJson::proto_add(const AtomList& lst)
 {
     if (json_->isArray() || json_->isNull()) {
-        auto p = json_->cloneT<DataTypeJson>();
+        auto p = json_->cloneT<DataTypeTree>();
         JsonPtr j(p);
 
         if (lst.isFloat()) {
@@ -69,7 +69,7 @@ void DataJson::proto_add(const AtomList& lst)
                 json_ = j;
         } else {
             auto str = to_string(lst, " ");
-            if (!p->addJson(DataTypeJson(str.c_str())))
+            if (!p->addJson(DataTypeTree(str.c_str())))
                 OBJ_ERR << "can't add json to json: " << lst;
             else
                 json_ = j;
@@ -84,23 +84,23 @@ bool DataJson::proto_remove(const AtomList& lst)
 void DataJson::proto_set(const AtomList& lst)
 {
     if (lst.isFloat())
-        json_ = JsonPtr(new DataTypeJson(atomlistToValue<t_float>(lst, 0)));
+        json_ = JsonPtr(new DataTypeTree(atomlistToValue<t_float>(lst, 0)));
     else if (lst.isSymbol())
-        json_ = JsonPtr(new DataTypeJson(atomlistToValue<t_symbol*>(lst, &s_)));
+        json_ = JsonPtr(new DataTypeTree(atomlistToValue<t_symbol*>(lst, &s_)));
     else if (lst.isDataType(data::DATA_TREE))
         json_ = JsonPtr(lst[0]);
     else if (lst.allOf(isFloat))
-        json_ = JsonPtr(new DataTypeJson(lst.asFloats()));
+        json_ = JsonPtr(new DataTypeTree(lst.asFloats()));
     else {
         auto str = to_string(lst, " ");
-        json_ = JsonPtr(new DataTypeJson(str.c_str()));
+        json_ = JsonPtr(new DataTypeTree(str.c_str()));
     }
 }
 
 void DataJson::proto_clear()
 {
     if (!json_->isNull())
-        json_ = JsonPtr(new DataTypeJson);
+        json_ = JsonPtr(new DataTypeTree);
 }
 
 size_t DataJson::proto_size() const
@@ -119,7 +119,7 @@ void DataJson::dump() const
     OBJ_DBG << json_->toString();
 }
 
-void DataJson::onDataT(const DataTPtr<DataTypeJson>& j)
+void DataJson::onDataT(const DataTPtr<DataTypeTree>& j)
 {
     json_ = j;
     dataTo(0, j);
@@ -152,7 +152,7 @@ void DataJson::m_key(t_symbol* s, const AtomList& l)
 
 void DataJson::m_insert(t_symbol* s, const AtomList& lst)
 {
-    DataTypeJson* p = json_->cloneT<DataTypeJson>();
+    DataTypeTree* p = json_->cloneT<DataTypeTree>();
     JsonPtr j(p);
 
     if (lst.size() < 1 || !lst[0].isSymbol()) {
@@ -189,7 +189,7 @@ void DataJson::m_insert(t_symbol* s, const AtomList& lst)
 void setup_data_json()
 {
     ColectionIFaceFactory<DataJson> obj("data.json");
-    obj.processData<DataTypeJson>();
+    obj.processData<DataTypeTree>();
     obj.addMethod("at", &DataJson::m_at);
     obj.addMethod("find", &DataJson::m_find);
     obj.addMethod("insert", &DataJson::m_insert);

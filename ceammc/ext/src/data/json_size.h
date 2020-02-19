@@ -22,7 +22,7 @@ using namespace ceammc;
 class JsonSize : public BaseObject {
 public:
     JsonSize(const PdArgs& args);
-    void onDataT(const DataTPtr<DataTypeJson>& j);
+    void onDataT(const DataTPtr<DataTypeTree>& j);
 };
 
 void setup_json_size();

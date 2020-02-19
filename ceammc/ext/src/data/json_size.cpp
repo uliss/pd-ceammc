@@ -20,7 +20,7 @@ JsonSize::JsonSize(const PdArgs& args)
     createOutlet();
 }
 
-void JsonSize::onDataT(const DataTPtr<DataTypeJson>& j)
+void JsonSize::onDataT(const DataTPtr<DataTypeTree>& j)
 {
     floatTo(0, j->size());
 }
@@ -28,5 +28,5 @@ void JsonSize::onDataT(const DataTPtr<DataTypeJson>& j)
 void setup_json_size()
 {
     ObjectFactory<JsonSize> obj("json.size");
-    obj.processData<DataTypeJson>();
+    obj.processData<DataTypeTree>();
 }
