@@ -17,7 +17,7 @@
 
 namespace ceammc {
 
-const DataType DataTypeJson::dataType = data::DATA_JSON;
+const DataType DataTypeJson::dataType = data::DATA_TREE;
 
 DataTypeJson::DataTypeJson()
     : pimpl_(new DataTypeJsonImpl)
@@ -72,7 +72,7 @@ DataTypeJson* DataTypeJson::clone() const
 
 DataType DataTypeJson::type() const
 {
-    return data::DATA_JSON;
+    return data::DATA_TREE;
 }
 
 std::string DataTypeJson::toString() const

@@ -53,7 +53,7 @@ void DataJson::proto_add(const AtomList& lst)
                 OBJ_ERR << "can't add list to json: " << lst;
             else
                 json_ = j;
-        } else if (lst.isDataType(data::DATA_JSON)) {
+        } else if (lst.isDataType(data::DATA_TREE)) {
             JsonPtr jptr(lst[0]);
             if (jptr.isNull()) {
                 OBJ_ERR << "invalid json data: " << lst;
@@ -87,7 +87,7 @@ void DataJson::proto_set(const AtomList& lst)
         json_ = JsonPtr(new DataTypeJson(atomlistToValue<t_float>(lst, 0)));
     else if (lst.isSymbol())
         json_ = JsonPtr(new DataTypeJson(atomlistToValue<t_symbol*>(lst, &s_)));
-    else if (lst.isDataType(data::DATA_JSON))
+    else if (lst.isDataType(data::DATA_TREE))
         json_ = JsonPtr(lst[0]);
     else if (lst.allOf(isFloat))
         json_ = JsonPtr(new DataTypeJson(lst.asFloats()));
