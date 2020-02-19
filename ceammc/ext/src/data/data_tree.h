@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef DATAJSON_H
-#define DATAJSON_H
+#ifndef DATA_TREE_H
+#define DATA_TREE_H
 
 #include "ceammc_data.h"
 #include "data_protocol.h"
@@ -48,4 +48,4 @@ public:
 
 void setup_data_tree();
 
-#endif // DATAJSON_H
+#endif // DATA_TREE_H
