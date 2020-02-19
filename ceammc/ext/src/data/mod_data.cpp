@@ -57,7 +57,7 @@ void ceammc_data_setup()
 
     setup_data_dict();
     setup_data_float();
-    setup_data_json();
+    setup_data_tree();
     setup_data_int();
     setup_data_list();
     setup_data_mlist();

@@ -20,12 +20,12 @@
 
 using namespace ceammc;
 
-class DataJson : public CollectionIFace<BaseObject> {
+class DataTree : public CollectionIFace<BaseObject> {
     typedef DataTPtr<DataTypeTree> TreePtr;
     TreePtr tree_;
 
 public:
-    DataJson(const PdArgs& args);
+    DataTree(const PdArgs& args);
 
 public:
     void proto_add(const AtomList& lst) final;
@@ -46,6 +46,6 @@ public:
     void m_insert(t_symbol* s, const AtomList& lst);
 };
 
-void setup_data_json();
+void setup_data_tree();
 
 #endif // DATAJSON_H

@@ -17,7 +17,7 @@
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 
-DataJson::DataJson(const PdArgs& args)
+DataTree::DataTree(const PdArgs& args)
     : CollectionIFace<BaseObject>(args)
     , tree_(nullptr)
 {
@@ -30,7 +30,7 @@ DataJson::DataJson(const PdArgs& args)
         tree_ = TreePtr(new DataTypeTree());
 }
 
-void DataJson::proto_add(const AtomList& lst)
+void DataTree::proto_add(const AtomList& lst)
 {
     if (tree_->isArray() || tree_->isNull()) {
         auto p = tree_->cloneT<DataTypeTree>();
@@ -77,11 +77,11 @@ void DataJson::proto_add(const AtomList& lst)
     }
 }
 
-bool DataJson::proto_remove(const AtomList& lst)
+bool DataTree::proto_remove(const AtomList& lst)
 {
 }
 
-void DataJson::proto_set(const AtomList& lst)
+void DataTree::proto_set(const AtomList& lst)
 {
     if (lst.isFloat())
         tree_ = TreePtr(new DataTypeTree(atomlistToValue<t_float>(lst, 0)));
@@ -97,40 +97,40 @@ void DataJson::proto_set(const AtomList& lst)
     }
 }
 
-void DataJson::proto_clear()
+void DataTree::proto_clear()
 {
     if (!tree_->isNull())
         tree_ = TreePtr(new DataTypeTree);
 }
 
-size_t DataJson::proto_size() const
+size_t DataTree::proto_size() const
 {
     return tree_->size();
 }
 
-void DataJson::onBang()
+void DataTree::onBang()
 {
     this->dataTo(0, tree_);
 }
 
-void DataJson::dump() const
+void DataTree::dump() const
 {
     CollectionIFace<BaseObject>::dump();
     OBJ_DBG << tree_->toString();
 }
 
-void DataJson::onDataT(const DataTPtr<DataTypeTree>& j)
+void DataTree::onDataT(const DataTPtr<DataTypeTree>& j)
 {
     tree_ = j;
     dataTo(0, j);
 }
 
-void DataJson::m_find(t_symbol* s, const AtomList& l)
+void DataTree::m_find(t_symbol* s, const AtomList& l)
 {
     dataTo(0, tree_->match(to_string(l).c_str()));
 }
 
-void DataJson::m_at(t_symbol* s, const AtomList& l)
+void DataTree::m_at(t_symbol* s, const AtomList& l)
 {
     if (l.isFloat()) {
         auto f = atomlistToValue<t_float>(l, 0);
@@ -145,12 +145,12 @@ void DataJson::m_at(t_symbol* s, const AtomList& l)
     }
 }
 
-void DataJson::m_key(t_symbol* s, const AtomList& l)
+void DataTree::m_key(t_symbol* s, const AtomList& l)
 {
     //    dataTo(0, json_->key());
 }
 
-void DataJson::m_insert(t_symbol* s, const AtomList& lst)
+void DataTree::m_insert(t_symbol* s, const AtomList& lst)
 {
     DataTypeTree* p = tree_->cloneT<DataTypeTree>();
     TreePtr j(p);
@@ -186,11 +186,11 @@ void DataJson::m_insert(t_symbol* s, const AtomList& lst)
     }
 }
 
-void setup_data_json()
+void setup_data_tree()
 {
-    ColectionIFaceFactory<DataJson> obj("data.tree");
+    ColectionIFaceFactory<DataTree> obj("data.tree");
     obj.processData<DataTypeTree>();
-    obj.addMethod("at", &DataJson::m_at);
-    obj.addMethod("find", &DataJson::m_find);
-    obj.addMethod("insert", &DataJson::m_insert);
+    obj.addMethod("at", &DataTree::m_at);
+    obj.addMethod("find", &DataTree::m_find);
+    obj.addMethod("insert", &DataTree::m_insert);
 }
