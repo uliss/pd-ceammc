@@ -24,17 +24,17 @@ namespace ceammc {
 
 class DataTypeTree;
 typedef boost::variant<boost::blank, DataTypeTree, Atom, AtomList> JsonValue;
-class DataTypeJsonImpl;
+class DataTypeTreeImpl;
 
 class DataTypeTree : public AbstractData {
-    DataTypeJsonImpl* pimpl_;
+    DataTypeTreeImpl* pimpl_;
 
 public:
     DataTypeTree();
     ~DataTypeTree();
     DataTypeTree(const DataTypeTree& json);
     DataTypeTree(DataTypeTree&& json);
-    DataTypeTree(const DataTypeJsonImpl& imp);
+    DataTypeTree(const DataTypeTreeImpl& imp);
     DataTypeTree(t_float f);
     DataTypeTree(t_symbol* s);
     DataTypeTree(const FloatList& lst);

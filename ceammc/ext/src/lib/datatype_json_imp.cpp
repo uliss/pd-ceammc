@@ -22,59 +22,59 @@ namespace ceammc {
 #define DBG(msg)
 #endif
 
-DataTypeJsonImpl::DataTypeJsonImpl()
+DataTypeTreeImpl::DataTypeTreeImpl()
 {
     DBG("empty - DataTypeJsonImpl()");
 }
 
-DataTypeJsonImpl::~DataTypeJsonImpl()
+DataTypeTreeImpl::~DataTypeTreeImpl()
 {
     DBG("~DataTypeJsonImpl()");
 }
 
-DataTypeJsonImpl::DataTypeJsonImpl(const DataTypeJsonImpl& imp)
+DataTypeTreeImpl::DataTypeTreeImpl(const DataTypeTreeImpl& imp)
     : json_(imp.json_)
 {
     DBG("copy - DataTypeJsonImpl(const DataTypeJsonImpl&)");
 }
 
-DataTypeJsonImpl::DataTypeJsonImpl(const nlohmann::json& json)
+DataTypeTreeImpl::DataTypeTreeImpl(const nlohmann::json& json)
     : json_(json)
 {
     DBG("copy - DataTypeJsonImpl(const nlohmann::json& json)");
 }
 
-DataTypeJsonImpl::DataTypeJsonImpl(nlohmann::json&& json)
+DataTypeTreeImpl::DataTypeTreeImpl(nlohmann::json&& json)
     : json_(std::move(json))
 {
     DBG("move - DataTypeJsonImpl(nlohmann::json&& json)");
 }
 
-DataTypeJsonImpl::DataTypeJsonImpl(t_float f)
+DataTypeTreeImpl::DataTypeTreeImpl(t_float f)
     : json_(f)
 {
     DBG("float - DataTypeJsonImpl(t_float f): " << f);
 }
 
-DataTypeJsonImpl::DataTypeJsonImpl(t_symbol* s)
+DataTypeTreeImpl::DataTypeTreeImpl(t_symbol* s)
     : json_(s->s_name)
 {
     DBG("symbol - DataTypeJsonImpl(t_symbol* s): " << s);
 }
 
-DataTypeJsonImpl::DataTypeJsonImpl(const char* str)
+DataTypeTreeImpl::DataTypeTreeImpl(const char* str)
 {
     DBG("parse - DataTypeJsonImpl(const char* str): " << str);
     parse(str);
 }
 
-DataTypeJsonImpl::DataTypeJsonImpl(const FloatList& l)
+DataTypeTreeImpl::DataTypeTreeImpl(const FloatList& l)
     : json_(l)
 {
     DBG("float list - DataTypeJsonImpl(const FloatList &l)");
 }
 
-std::string DataTypeJsonImpl::toString() const
+std::string DataTypeTreeImpl::toString() const
 {
     try {
         return json_.dump();
@@ -84,7 +84,7 @@ std::string DataTypeJsonImpl::toString() const
     }
 }
 
-bool DataTypeJsonImpl::parse(const char* str)
+bool DataTypeTreeImpl::parse(const char* str)
 {
     try {
         std::string esc_str(str);
@@ -109,94 +109,37 @@ bool DataTypeJsonImpl::parse(const char* str)
     }
 }
 
-size_t DataTypeJsonImpl::size() const
+size_t DataTypeTreeImpl::size() const
 {
     return json_.size();
 }
 
-bool DataTypeJsonImpl::empty() const
+bool DataTypeTreeImpl::empty() const
 {
     return json_.empty();
 }
 
-std::string DataTypeJsonImpl::stringAt(size_t idx) const
-{
-    try {
-        return json_.at(idx).dump();
-    } catch (std::exception& e) {
-        LIB_ERR << e.what();
-        return {};
-    }
-}
-
-bool DataTypeJsonImpl::isArray() const
+bool DataTypeTreeImpl::isArray() const
 {
     return json_.is_array();
 }
 
-bool DataTypeJsonImpl::isNull() const
+bool DataTypeTreeImpl::isNull() const
 {
     return json_.is_null();
 }
 
-void DataTypeJsonImpl::clear()
+void DataTypeTreeImpl::clear()
 {
     json_.clear();
 }
 
-bool DataTypeJsonImpl::operator==(const DataTypeJsonImpl& impl) const
+bool DataTypeTreeImpl::operator==(const DataTypeTreeImpl& impl) const
 {
     return json_ == impl.json_;
 }
 
-JsonValue DataTypeJsonImpl::valueAt(size_t idx) const
-{
-    if (json_.empty())
-        return JsonValue();
-
-    try {
-        auto j = json_.at(idx);
-        if (j.is_boolean())
-            return Atom(j.get<bool>() ? 1 : 0);
-        else if (j.is_number())
-            return Atom(j.get<t_float>());
-        else if (j.is_string())
-            return Atom(gensym(j.get<std::string>().c_str()));
-        else if (j.is_array()) {
-            // find non simple array
-            auto it = std::find_if(j.begin(), j.end(),
-                [](decltype(j)& el) {
-                    return !el.is_primitive();
-                });
-
-            if (it != j.end()) {
-                return DataTypeTree(DataTypeJsonImpl(j));
-            } else {
-                AtomList lst;
-                lst.reserve(j.size());
-                for (auto& el : j) {
-                    if (el.is_boolean())
-                        return Atom(el.get<bool>() ? 1 : 0);
-                    else if (el.is_number())
-                        return Atom(el.get<t_float>());
-                    else if (el.is_string())
-                        return Atom(gensym(el.get<std::string>().c_str()));
-                    else {
-                        LIB_ERR << "unknown non-simple type";
-                        return JsonValue();
-                    }
-                }
-            }
-        } else {
-            return DataTypeTree(DataTypeJsonImpl(j));
-        }
-    } catch (std::exception& e) {
-        LIB_ERR << e.what();
-        return JsonValue();
-    }
-}
-
-bool DataTypeJsonImpl::addFloat(t_float f)
+bool DataTypeTreeImpl::addFloat(t_float f)
 {
     if (json_.is_array()) {
         json_.push_back(f);
@@ -208,7 +151,7 @@ bool DataTypeJsonImpl::addFloat(t_float f)
         return false;
 }
 
-bool DataTypeJsonImpl::addSymbol(t_symbol* s)
+bool DataTypeTreeImpl::addSymbol(t_symbol* s)
 {
     if (json_.is_array()) {
         json_.push_back(s->s_name);
@@ -220,7 +163,7 @@ bool DataTypeJsonImpl::addSymbol(t_symbol* s)
         return false;
 }
 
-bool DataTypeJsonImpl::addList(const AtomList& l)
+bool DataTypeTreeImpl::addList(const AtomList& l)
 {
     auto add_list = [](const AtomList& l, nlohmann::json& j) {
         for (auto& a : l) {
@@ -246,7 +189,7 @@ bool DataTypeJsonImpl::addList(const AtomList& l)
         return false;
 }
 
-bool DataTypeJsonImpl::addJson(const DataTypeJsonImpl& impl)
+bool DataTypeTreeImpl::addJson(const DataTypeTreeImpl& impl)
 {
     if (json_.is_array()) {
         json_.push_back(impl.json_);
@@ -258,33 +201,33 @@ bool DataTypeJsonImpl::addJson(const DataTypeJsonImpl& impl)
         return false;
 }
 
-void DataTypeJsonImpl::setFloat(t_float f)
+void DataTypeTreeImpl::setFloat(t_float f)
 {
     json_ = f;
 }
 
-void DataTypeJsonImpl::setSymbol(t_symbol* s)
+void DataTypeTreeImpl::setSymbol(t_symbol* s)
 {
     json_ = s->s_name;
 }
 
-void DataTypeJsonImpl::set(const DataTypeJsonImpl& imp)
+void DataTypeTreeImpl::set(const DataTypeTreeImpl& imp)
 {
     json_ = imp.json_;
 }
 
-DataTypeJsonImpl DataTypeJsonImpl::match(const char* pattern) const
+DataTypeTreeImpl DataTypeTreeImpl::match(const char* pattern) const
 {
     try {
         auto ptr = nlohmann::json::json_pointer(pattern);
-        return DataTypeJsonImpl(json_.at(ptr));
+        return DataTypeTreeImpl(json_.at(ptr));
     } catch (std::exception& e) {
         LIB_ERR << e.what();
         return {};
     }
 }
 
-DataTypeJsonImpl DataTypeJsonImpl::at(size_t idx) const
+DataTypeTreeImpl DataTypeTreeImpl::at(size_t idx) const
 {
     try {
         return json_.at(idx);
@@ -294,7 +237,7 @@ DataTypeJsonImpl DataTypeJsonImpl::at(size_t idx) const
     }
 }
 
-DataTypeJsonImpl DataTypeJsonImpl::at(const char* key) const
+DataTypeTreeImpl DataTypeTreeImpl::at(const char* key) const
 {
     try {
         return json_.at(key);
@@ -304,7 +247,7 @@ DataTypeJsonImpl DataTypeJsonImpl::at(const char* key) const
     }
 }
 
-bool DataTypeJsonImpl::insertFloat(const char* key, t_float f)
+bool DataTypeTreeImpl::insertFloat(const char* key, t_float f)
 {
     if (json_.is_object()) {
         json_[key] = f;
@@ -317,7 +260,7 @@ bool DataTypeJsonImpl::insertFloat(const char* key, t_float f)
         return false;
 }
 
-bool DataTypeJsonImpl::insertSymbol(const char* key, t_symbol* s)
+bool DataTypeTreeImpl::insertSymbol(const char* key, t_symbol* s)
 {
     if (json_.is_object()) {
         json_[key] = s->s_name;
@@ -329,7 +272,7 @@ bool DataTypeJsonImpl::insertSymbol(const char* key, t_symbol* s)
         return false;
 }
 
-bool DataTypeJsonImpl::insertJson(const char* key, const DataTypeJsonImpl& json)
+bool DataTypeTreeImpl::insertJson(const char* key, const DataTypeTreeImpl& json)
 {
     if (json_.is_object()) {
         json_[key] = json.json_;

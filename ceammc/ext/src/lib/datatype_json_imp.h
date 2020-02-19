@@ -14,56 +14,52 @@
 #ifndef DATATYPE_JSON_IMP_H
 #define DATATYPE_JSON_IMP_H
 
-#include "ceammc_atom.h"
-#include "datatype_json.h"
+#include "ceammc_atomlist.h"
 #include "json/json.hpp"
 
 namespace ceammc {
 
-class DataTypeJsonImpl {
+class DataTypeTreeImpl {
     nlohmann::json json_;
 
 public:
-    DataTypeJsonImpl();
-    ~DataTypeJsonImpl();
+    DataTypeTreeImpl();
+    ~DataTypeTreeImpl();
 
-    DataTypeJsonImpl(const DataTypeJsonImpl& imp);
-    DataTypeJsonImpl(const nlohmann::json& json);
-    DataTypeJsonImpl(nlohmann::json&& json);
-    DataTypeJsonImpl(t_float f);
-    DataTypeJsonImpl(t_symbol* s);
-    DataTypeJsonImpl(const char* str);
-    DataTypeJsonImpl(const FloatList& l);
+    DataTypeTreeImpl(const DataTypeTreeImpl& imp);
+    DataTypeTreeImpl(const nlohmann::json& json);
+    DataTypeTreeImpl(nlohmann::json&& json);
+    DataTypeTreeImpl(t_float f);
+    DataTypeTreeImpl(t_symbol* s);
+    DataTypeTreeImpl(const char* str);
+    DataTypeTreeImpl(const FloatList& l);
     std::string toString() const;
     bool parse(const char* str);
     size_t size() const;
     bool empty() const;
-    std::string stringAt(size_t idx) const;
+
     bool isArray() const;
     bool isNull() const;
 
     void clear();
 
-    bool operator==(const DataTypeJsonImpl& json) const;
-
-    JsonValue valueAt(size_t idx) const;
-
+    bool operator==(const DataTypeTreeImpl& json) const;
     bool addFloat(t_float f);
     bool addSymbol(t_symbol* s);
     bool addList(const AtomList& l);
-    bool addJson(const DataTypeJsonImpl& impl);
+    bool addJson(const DataTypeTreeImpl& impl);
 
     void setFloat(t_float f);
     void setSymbol(t_symbol* s);
-    void set(const DataTypeJsonImpl& imp);
+    void set(const DataTypeTreeImpl& imp);
 
-    DataTypeJsonImpl match(const char* pattern) const;
-    DataTypeJsonImpl at(size_t idx) const;
-    DataTypeJsonImpl at(const char* key) const;
+    DataTypeTreeImpl match(const char* pattern) const;
+    DataTypeTreeImpl at(size_t idx) const;
+    DataTypeTreeImpl at(const char* key) const;
 
     bool insertFloat(const char* key, t_float f);
     bool insertSymbol(const char* key, t_symbol* s);
-    bool insertJson(const char* key, const DataTypeJsonImpl& json);
+    bool insertJson(const char* key, const DataTypeTreeImpl& json);
 };
 }
 

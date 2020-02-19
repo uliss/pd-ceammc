@@ -20,7 +20,7 @@ namespace ceammc {
 const DataType DataTypeTree::dataType = data::DATA_TREE;
 
 DataTypeTree::DataTypeTree()
-    : pimpl_(new DataTypeJsonImpl)
+    : pimpl_(new DataTypeTreeImpl)
 {
 }
 
@@ -30,7 +30,7 @@ DataTypeTree::~DataTypeTree()
 }
 
 DataTypeTree::DataTypeTree(const DataTypeTree& json)
-    : pimpl_(new DataTypeJsonImpl(*json.pimpl_))
+    : pimpl_(new DataTypeTreeImpl(*json.pimpl_))
 {
 }
 
@@ -40,28 +40,28 @@ DataTypeTree::DataTypeTree(DataTypeTree&& json)
     json.pimpl_ = nullptr;
 }
 
-DataTypeTree::DataTypeTree(const DataTypeJsonImpl& imp)
-    : pimpl_(new DataTypeJsonImpl(imp))
+DataTypeTree::DataTypeTree(const DataTypeTreeImpl& imp)
+    : pimpl_(new DataTypeTreeImpl(imp))
 {
 }
 
 DataTypeTree::DataTypeTree(t_float f)
-    : pimpl_(new DataTypeJsonImpl(f))
+    : pimpl_(new DataTypeTreeImpl(f))
 {
 }
 
 DataTypeTree::DataTypeTree(t_symbol* s)
-    : pimpl_(new DataTypeJsonImpl(s))
+    : pimpl_(new DataTypeTreeImpl(s))
 {
 }
 
 DataTypeTree::DataTypeTree(const FloatList& lst)
-    : pimpl_(new DataTypeJsonImpl(lst))
+    : pimpl_(new DataTypeTreeImpl(lst))
 {
 }
 
 DataTypeTree::DataTypeTree(const char* str)
-    : pimpl_(new DataTypeJsonImpl(str))
+    : pimpl_(new DataTypeTreeImpl(str))
 {
 }
 
