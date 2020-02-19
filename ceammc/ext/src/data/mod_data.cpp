@@ -23,7 +23,6 @@
 #include "global_list.h"
 #include "global_mlist.h"
 #include "global_set.h"
-#include "json_size.h"
 #include "local_dict.h"
 #include "local_float.h"
 #include "local_int.h"
@@ -39,6 +38,7 @@
 #include "set_symdiff.h"
 #include "set_to_list.h"
 #include "set_union.h"
+#include "tree_size.h"
 
 extern "C" void setup_data0x2efifo();
 
