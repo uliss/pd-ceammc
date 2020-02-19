@@ -16,7 +16,7 @@
 
 #include "ceammc_data.h"
 #include "data_protocol.h"
-#include "datatype_json.h"
+#include "datatype_tree.h"
 
 using namespace ceammc;
 

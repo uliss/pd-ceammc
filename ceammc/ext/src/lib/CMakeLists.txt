@@ -118,8 +118,8 @@ set(CEAMMC_DICT_SRC
     dict_parser_impl.cpp
     )
 
-set(CEAMMC_JSON_SRC
-    datatype_json.cpp
+set(CEAMMC_TREE_SRC
+    datatype_tree.cpp
     datatype_json_imp.cpp
     )
 
@@ -142,7 +142,7 @@ add_library(ceammc_core SHARED
     ${CEAMMC_LIB_SOURCES}
     ${CEAMMC_MLIST_SRC}
     ${CEAMMC_DICT_SRC}
-    ${CEAMMC_JSON_SRC}
+    ${CEAMMC_TREE_SRC}
     ${CEAMMC_UI_SRC})
 target_link_libraries(ceammc_core PUBLIC puredata-core)
 target_link_libraries(ceammc_core PRIVATE fmt::fmt-header-only)

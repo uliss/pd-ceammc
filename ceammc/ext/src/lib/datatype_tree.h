@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef DATATYPE_JSON_H
-#define DATATYPE_JSON_H
+#ifndef DATATYPE_TREE_H
+#define DATATYPE_TREE_H
 
 #include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
@@ -78,4 +78,4 @@ public:
 };
 }
 
-#endif // DATATYPE_JSON_H
+#endif // DATATYPE_TREE_H

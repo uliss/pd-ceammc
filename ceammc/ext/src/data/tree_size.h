@@ -15,7 +15,7 @@
 #define TREE_SIZE_H
 
 #include "ceammc_object.h"
-#include "datatype_json.h"
+#include "datatype_tree.h"
 
 using namespace ceammc;
 
