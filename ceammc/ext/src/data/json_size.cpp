@@ -27,6 +27,6 @@ void JsonSize::onDataT(const DataTPtr<DataTypeTree>& j)
 
 void setup_json_size()
 {
-    ObjectFactory<JsonSize> obj("json.size");
+    ObjectFactory<JsonSize> obj("tree.size");
     obj.processData<DataTypeTree>();
 }

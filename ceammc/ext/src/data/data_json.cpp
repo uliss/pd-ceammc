@@ -188,7 +188,7 @@ void DataJson::m_insert(t_symbol* s, const AtomList& lst)
 
 void setup_data_json()
 {
-    ColectionIFaceFactory<DataJson> obj("data.json");
+    ColectionIFaceFactory<DataJson> obj("data.tree");
     obj.processData<DataTypeTree>();
     obj.addMethod("at", &DataJson::m_at);
     obj.addMethod("find", &DataJson::m_find);
