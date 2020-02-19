@@ -21,7 +21,8 @@
 using namespace ceammc;
 
 class DataJson : public CollectionIFace<BaseObject> {
-    DataTypeJson json_;
+    typedef DataTPtr<DataTypeJson> JsonPtr;
+    JsonPtr json_;
 
 public:
     DataJson(const PdArgs& args);
@@ -36,6 +37,13 @@ public:
 
     void onBang() final;
     void dump() const final;
+
+    void onDataT(const DataTPtr<DataTypeJson>& j);
+
+    void m_find(t_symbol* s, const AtomList& l);
+    void m_at(t_symbol* s, const AtomList& l);
+    void m_key(t_symbol* s, const AtomList& l);
+    void m_insert(t_symbol* s, const AtomList& lst);
 };
 
 void setup_data_json();

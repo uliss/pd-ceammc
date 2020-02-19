@@ -45,6 +45,26 @@ DataTypeJson::DataTypeJson(const DataTypeJsonImpl& imp)
 {
 }
 
+DataTypeJson::DataTypeJson(t_float f)
+    : pimpl_(new DataTypeJsonImpl(f))
+{
+}
+
+DataTypeJson::DataTypeJson(t_symbol* s)
+    : pimpl_(new DataTypeJsonImpl(s))
+{
+}
+
+DataTypeJson::DataTypeJson(const FloatList& lst)
+    : pimpl_(new DataTypeJsonImpl(lst))
+{
+}
+
+DataTypeJson::DataTypeJson(const char* str)
+    : pimpl_(new DataTypeJsonImpl(str))
+{
+}
+
 DataTypeJson* DataTypeJson::clone() const
 {
     return new DataTypeJson(*this);
@@ -123,6 +143,60 @@ bool DataTypeJson::addSymbol(t_symbol* s)
 bool DataTypeJson::addList(const AtomList& l)
 {
     return pimpl_->addList(l);
+}
+
+bool DataTypeJson::addJson(const DataTypeJson& json)
+{
+    return pimpl_->addJson(*json.pimpl_);
+}
+
+void DataTypeJson::setFloat(t_float f)
+{
+    pimpl_->setFloat(f);
+}
+
+void DataTypeJson::setSymbol(t_symbol* s)
+{
+    pimpl_->setSymbol(s);
+}
+
+bool DataTypeJson::set(const DataTPtr<DataTypeJson>& ptr)
+{
+    if (ptr.isValid()) {
+        pimpl_->set(*ptr.data()->pimpl_);
+        return true;
+    } else
+        return false;
+}
+
+DataTPtr<DataTypeJson> DataTypeJson::match(const char* pattern) const
+{
+    return new DataTypeJson(pimpl_->match(pattern));
+}
+
+DataTPtr<DataTypeJson> DataTypeJson::at(size_t idx) const
+{
+    return new DataTypeJson(pimpl_->at(idx));
+}
+
+DataTPtr<DataTypeJson> DataTypeJson::at(t_symbol* key) const
+{
+    return new DataTypeJson(pimpl_->at(key->s_name));
+}
+
+bool DataTypeJson::insertFloat(const char* key, t_float f)
+{
+    return pimpl_->insertFloat(key, f);
+}
+
+bool DataTypeJson::insertSymbol(const char* key, t_symbol* s)
+{
+    return pimpl_->insertSymbol(key, s);
+}
+
+bool DataTypeJson::insertJson(const char* key, const DataTypeJson& json)
+{
+    return pimpl_->insertJson(key, *json.pimpl_);
 }
 
 bool DataTypeJson::parse(const char* str)

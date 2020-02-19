@@ -16,23 +16,62 @@
 
 namespace ceammc {
 
+#if 1
+#define DBG(msg) LIB_DBG << "|||" << msg
+#else
+#define DBG(msg)
+#endif
+
 DataTypeJsonImpl::DataTypeJsonImpl()
 {
+    DBG("empty - DataTypeJsonImpl()");
+}
+
+DataTypeJsonImpl::~DataTypeJsonImpl()
+{
+    DBG("~DataTypeJsonImpl()");
 }
 
 DataTypeJsonImpl::DataTypeJsonImpl(const DataTypeJsonImpl& imp)
     : json_(imp.json_)
 {
+    DBG("copy - DataTypeJsonImpl(const DataTypeJsonImpl&)");
 }
 
 DataTypeJsonImpl::DataTypeJsonImpl(const nlohmann::json& json)
     : json_(json)
 {
+    DBG("copy - DataTypeJsonImpl(const nlohmann::json& json)");
 }
 
 DataTypeJsonImpl::DataTypeJsonImpl(nlohmann::json&& json)
     : json_(std::move(json))
 {
+    DBG("move - DataTypeJsonImpl(nlohmann::json&& json)");
+}
+
+DataTypeJsonImpl::DataTypeJsonImpl(t_float f)
+    : json_(f)
+{
+    DBG("float - DataTypeJsonImpl(t_float f): " << f);
+}
+
+DataTypeJsonImpl::DataTypeJsonImpl(t_symbol* s)
+    : json_(s->s_name)
+{
+    DBG("symbol - DataTypeJsonImpl(t_symbol* s): " << s);
+}
+
+DataTypeJsonImpl::DataTypeJsonImpl(const char* str)
+{
+    DBG("parse - DataTypeJsonImpl(const char* str): " << str);
+    parse(str);
+}
+
+DataTypeJsonImpl::DataTypeJsonImpl(const FloatList& l)
+    : json_(l)
+{
+    DBG("float list - DataTypeJsonImpl(const FloatList &l)");
 }
 
 std::string DataTypeJsonImpl::toString() const
@@ -48,17 +87,26 @@ std::string DataTypeJsonImpl::toString() const
 bool DataTypeJsonImpl::parse(const char* str)
 {
     try {
-        json_ = nlohmann::json::parse(str);
+        std::string esc_str(str);
+        for (size_t i = 0; i < esc_str.length(); i++) {
+            switch (esc_str[i]) {
+            case '(':
+                esc_str[i] = '{';
+                break;
+            case ')':
+                esc_str[i] = '}';
+                break;
+            default:
+                break;
+            }
+        }
+
+        json_ = nlohmann::json::parse(esc_str);
         return true;
     } catch (std::exception& e) {
         LIB_ERR << e.what();
         return false;
     }
-}
-
-bool DataTypeJsonImpl::append(const Atom& a)
-{
-    //    json_.
 }
 
 size_t DataTypeJsonImpl::size() const
@@ -174,21 +222,120 @@ bool DataTypeJsonImpl::addSymbol(t_symbol* s)
 
 bool DataTypeJsonImpl::addList(const AtomList& l)
 {
-    auto add_list = [this](const AtomList& l) {
+    auto add_list = [](const AtomList& l, nlohmann::json& j) {
         for (auto& a : l) {
-            if (a.isFloat())
-                json_.push_back(a.asFloat());
+            if (a.isInteger())
+                j.push_back(static_cast<long>(a.asFloat()));
+            else if (a.isFloat())
+                j.push_back(a.asFloat());
             else if (a.isSymbol())
-                json_.push_back(a.asSymbol()->s_name);
+                j.push_back(a.asSymbol()->s_name);
         }
     };
 
     if (json_.is_array()) {
-        add_list(l);
+        auto j = json_.array();
+        add_list(l, j);
+        json_.push_back(j);
         return true;
     } else if (json_.is_null()) {
         json_ = json_.array();
-        add_list(l);
+        add_list(l, json_);
+        return true;
+    } else
+        return false;
+}
+
+bool DataTypeJsonImpl::addJson(const DataTypeJsonImpl& impl)
+{
+    if (json_.is_array()) {
+        json_.push_back(impl.json_);
+        return true;
+    } else if (json_.is_null()) {
+        json_ = impl.json_;
+        return true;
+    } else
+        return false;
+}
+
+void DataTypeJsonImpl::setFloat(t_float f)
+{
+    json_ = f;
+}
+
+void DataTypeJsonImpl::setSymbol(t_symbol* s)
+{
+    json_ = s->s_name;
+}
+
+void DataTypeJsonImpl::set(const DataTypeJsonImpl& imp)
+{
+    json_ = imp.json_;
+}
+
+DataTypeJsonImpl DataTypeJsonImpl::match(const char* pattern) const
+{
+    try {
+        auto ptr = nlohmann::json::json_pointer(pattern);
+        return DataTypeJsonImpl(json_.at(ptr));
+    } catch (std::exception& e) {
+        LIB_ERR << e.what();
+        return {};
+    }
+}
+
+DataTypeJsonImpl DataTypeJsonImpl::at(size_t idx) const
+{
+    try {
+        return json_.at(idx);
+    } catch (std::exception& e) {
+        LIB_ERR << e.what();
+        return {};
+    }
+}
+
+DataTypeJsonImpl DataTypeJsonImpl::at(const char* key) const
+{
+    try {
+        return json_.at(key);
+    } catch (std::exception& e) {
+        LIB_ERR << e.what();
+        return {};
+    }
+}
+
+bool DataTypeJsonImpl::insertFloat(const char* key, t_float f)
+{
+    if (json_.is_object()) {
+        json_[key] = f;
+        return true;
+    } else if (json_.is_null()) {
+        json_ = json_.object();
+        json_[key] = f;
+        return true;
+    } else
+        return false;
+}
+
+bool DataTypeJsonImpl::insertSymbol(const char* key, t_symbol* s)
+{
+    if (json_.is_object()) {
+        json_[key] = s->s_name;
+        return true;
+    } else if (json_.is_null()) {
+        json_[key] = s->s_name;
+        return true;
+    } else
+        return false;
+}
+
+bool DataTypeJsonImpl::insertJson(const char* key, const DataTypeJsonImpl& json)
+{
+    if (json_.is_object()) {
+        json_[key] = json.json_;
+        return true;
+    } else if (json_.is_null()) {
+        json_[key] = json.json_;
         return true;
     } else
         return false;

@@ -25,12 +25,17 @@ class DataTypeJsonImpl {
 
 public:
     DataTypeJsonImpl();
+    ~DataTypeJsonImpl();
+
     DataTypeJsonImpl(const DataTypeJsonImpl& imp);
     DataTypeJsonImpl(const nlohmann::json& json);
     DataTypeJsonImpl(nlohmann::json&& json);
+    DataTypeJsonImpl(t_float f);
+    DataTypeJsonImpl(t_symbol* s);
+    DataTypeJsonImpl(const char* str);
+    DataTypeJsonImpl(const FloatList& l);
     std::string toString() const;
     bool parse(const char* str);
-    bool append(const Atom& a);
     size_t size() const;
     bool empty() const;
     std::string stringAt(size_t idx) const;
@@ -46,6 +51,19 @@ public:
     bool addFloat(t_float f);
     bool addSymbol(t_symbol* s);
     bool addList(const AtomList& l);
+    bool addJson(const DataTypeJsonImpl& impl);
+
+    void setFloat(t_float f);
+    void setSymbol(t_symbol* s);
+    void set(const DataTypeJsonImpl& imp);
+
+    DataTypeJsonImpl match(const char* pattern) const;
+    DataTypeJsonImpl at(size_t idx) const;
+    DataTypeJsonImpl at(const char* key) const;
+
+    bool insertFloat(const char* key, t_float f);
+    bool insertSymbol(const char* key, t_symbol* s);
+    bool insertJson(const char* key, const DataTypeJsonImpl& json);
 };
 }
 

@@ -35,6 +35,10 @@ public:
     DataTypeJson(const DataTypeJson& json);
     DataTypeJson(DataTypeJson&& json);
     DataTypeJson(const DataTypeJsonImpl& imp);
+    DataTypeJson(t_float f);
+    DataTypeJson(t_symbol* s);
+    DataTypeJson(const FloatList& lst);
+    DataTypeJson(const char* str);
 
     DataTypeJson* clone() const final;
     DataType type() const final;
@@ -53,6 +57,19 @@ public:
     bool addFloat(t_float f);
     bool addSymbol(t_symbol* s);
     bool addList(const AtomList& l);
+    bool addJson(const DataTypeJson& json);
+
+    void setFloat(t_float f);
+    void setSymbol(t_symbol* s);
+    bool set(const DataTPtr<DataTypeJson>& ptr);
+
+    DataTPtr<DataTypeJson> match(const char* pattern) const;
+    DataTPtr<DataTypeJson> at(size_t idx) const;
+    DataTPtr<DataTypeJson> at(t_symbol* key) const;
+
+    bool insertFloat(const char* key, t_float f);
+    bool insertSymbol(const char* key, t_symbol* s);
+    bool insertJson(const char* key, const DataTypeJson& json);
 
 public:
     bool parse(const char* str);
