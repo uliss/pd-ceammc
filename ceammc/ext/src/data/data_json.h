@@ -21,8 +21,8 @@
 using namespace ceammc;
 
 class DataJson : public CollectionIFace<BaseObject> {
-    typedef DataTPtr<DataTypeTree> JsonPtr;
-    JsonPtr json_;
+    typedef DataTPtr<DataTypeTree> TreePtr;
+    TreePtr json_;
 
 public:
     DataJson(const PdArgs& args);

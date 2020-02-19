@@ -25,16 +25,16 @@ DataJson::DataJson(const PdArgs& args)
 
     auto str = to_string(args.args, " ");
     if (!str.empty())
-        json_ = JsonPtr(new DataTypeTree(str.c_str()));
+        json_ = TreePtr(new DataTypeTree(str.c_str()));
     else
-        json_ = JsonPtr(new DataTypeTree());
+        json_ = TreePtr(new DataTypeTree());
 }
 
 void DataJson::proto_add(const AtomList& lst)
 {
     if (json_->isArray() || json_->isNull()) {
         auto p = json_->cloneT<DataTypeTree>();
-        JsonPtr j(p);
+        TreePtr j(p);
 
         if (lst.isFloat()) {
             auto f = atomlistToValue<t_float>(lst, 0);
@@ -54,7 +54,7 @@ void DataJson::proto_add(const AtomList& lst)
             else
                 json_ = j;
         } else if (lst.isDataType(data::DATA_TREE)) {
-            JsonPtr jptr(lst[0]);
+            TreePtr jptr(lst[0]);
             if (jptr.isNull()) {
                 OBJ_ERR << "invalid json data: " << lst;
                 return;
@@ -84,23 +84,23 @@ bool DataJson::proto_remove(const AtomList& lst)
 void DataJson::proto_set(const AtomList& lst)
 {
     if (lst.isFloat())
-        json_ = JsonPtr(new DataTypeTree(atomlistToValue<t_float>(lst, 0)));
+        json_ = TreePtr(new DataTypeTree(atomlistToValue<t_float>(lst, 0)));
     else if (lst.isSymbol())
-        json_ = JsonPtr(new DataTypeTree(atomlistToValue<t_symbol*>(lst, &s_)));
+        json_ = TreePtr(new DataTypeTree(atomlistToValue<t_symbol*>(lst, &s_)));
     else if (lst.isDataType(data::DATA_TREE))
-        json_ = JsonPtr(lst[0]);
+        json_ = TreePtr(lst[0]);
     else if (lst.allOf(isFloat))
-        json_ = JsonPtr(new DataTypeTree(lst.asFloats()));
+        json_ = TreePtr(new DataTypeTree(lst.asFloats()));
     else {
         auto str = to_string(lst, " ");
-        json_ = JsonPtr(new DataTypeTree(str.c_str()));
+        json_ = TreePtr(new DataTypeTree(str.c_str()));
     }
 }
 
 void DataJson::proto_clear()
 {
     if (!json_->isNull())
-        json_ = JsonPtr(new DataTypeTree);
+        json_ = TreePtr(new DataTypeTree);
 }
 
 size_t DataJson::proto_size() const
@@ -153,7 +153,7 @@ void DataJson::m_key(t_symbol* s, const AtomList& l)
 void DataJson::m_insert(t_symbol* s, const AtomList& lst)
 {
     DataTypeTree* p = json_->cloneT<DataTypeTree>();
-    JsonPtr j(p);
+    TreePtr j(p);
 
     if (lst.size() < 1 || !lst[0].isSymbol()) {
         METHOD_ERR(s) << "usage: " << s->s_name << " KEY [VALUES]";
