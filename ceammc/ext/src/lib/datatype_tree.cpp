@@ -55,13 +55,18 @@ DataTypeTree::DataTypeTree(t_symbol* s)
 {
 }
 
-DataTypeTree::DataTypeTree(const FloatList& lst)
-    : pimpl_(new DataTypeTreeImpl(lst))
+DataTypeTree::DataTypeTree(const char* s)
+    : pimpl_(new DataTypeTreeImpl(s))
 {
 }
 
-DataTypeTree::DataTypeTree(const char* str)
-    : pimpl_(new DataTypeTreeImpl(str))
+DataTypeTree::DataTypeTree(const std::string& s)
+    : pimpl_(new DataTypeTreeImpl(s.c_str()))
+{
+}
+
+DataTypeTree::DataTypeTree(const FloatList& lst)
+    : pimpl_(new DataTypeTreeImpl(lst))
 {
 }
 
@@ -77,7 +82,7 @@ DataType DataTypeTree::type() const
 
 std::string DataTypeTree::toString() const
 {
-    return pimpl_->toString();
+    return DataTypeTreeImpl::jsonToTree(pimpl_->toString());
 }
 
 bool DataTypeTree::isEqual(const AbstractData* d) const
@@ -194,9 +199,31 @@ bool DataTypeTree::insertTree(const char* key, const DataTypeTree& tree)
     return pimpl_->insertTree(key, *tree.pimpl_);
 }
 
-bool DataTypeTree::parse(const char* str)
+DataTPtr<DataTypeTree> DataTypeTree::newFromString(const char* str)
 {
-    return pimpl_->parse(str);
+    DataTypeTree* p = new DataTypeTree;
+    p->pimpl_->parse(str);
+    return p;
+}
+
+DataTPtr<DataTypeTree> DataTypeTree::newFromString(const std::string& str)
+{
+    return newFromString(str.c_str());
+}
+
+DataTPtr<DataTypeTree> DataTypeTree::newEmpty()
+{
+    return new DataTypeTree;
+}
+
+DataTypeTree DataTypeTree::fromString(const std::string& str)
+{
+    return fromString(str.c_str());
+}
+
+DataTypeTree DataTypeTree::fromString(const char* str)
+{
+    return { DataTypeTreeImpl::fromString(str) };
 }
 
 }

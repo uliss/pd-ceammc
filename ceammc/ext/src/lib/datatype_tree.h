@@ -37,8 +37,9 @@ public:
     DataTypeTree(const DataTypeTreeImpl& imp);
     DataTypeTree(t_float f);
     DataTypeTree(t_symbol* s);
+    DataTypeTree(const char* s);
+    DataTypeTree(const std::string& s);
     DataTypeTree(const FloatList& lst);
-    DataTypeTree(const char* str);
 
     DataTypeTree* clone() const final;
     DataType type() const final;
@@ -75,6 +76,12 @@ public:
 
 public:
     static const DataType dataType;
+    static DataTPtr<DataTypeTree> newFromString(const char* str);
+    static DataTPtr<DataTypeTree> newFromString(const std::string& str);
+    static DataTPtr<DataTypeTree> newEmpty();
+
+    static DataTypeTree fromString(const std::string& str);
+    static DataTypeTree fromString(const char* str);
 };
 }
 

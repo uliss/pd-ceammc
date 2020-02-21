@@ -62,10 +62,10 @@ DataTypeTreeImpl::DataTypeTreeImpl(t_symbol* s)
     DBG("symbol - DataTypeJsonImpl(t_symbol* s): " << s);
 }
 
-DataTypeTreeImpl::DataTypeTreeImpl(const char* str)
+DataTypeTreeImpl::DataTypeTreeImpl(const char* s)
+    : json_(s)
 {
-    DBG("parse - DataTypeJsonImpl(const char* str): " << str);
-    parse(str);
+    DBG("string - DataTypeJsonImpl(const char* s): " << s);
 }
 
 DataTypeTreeImpl::DataTypeTreeImpl(const FloatList& l)
@@ -84,24 +84,89 @@ std::string DataTypeTreeImpl::toString() const
     }
 }
 
+DataTypeTreeImpl DataTypeTreeImpl::fromString(const char* str)
+{
+    try {
+        return { nlohmann::json::parse(treeToJson(str)) };
+    } catch (std::exception& e) {
+        LIB_ERR << e.what();
+        return {};
+    }
+}
+
+std::string DataTypeTreeImpl::treeToJson(const char* tree_str)
+{
+    std::string res(tree_str);
+
+    bool in_string = false;
+    bool escape = false;
+
+    for (size_t i = 0; i < res.length(); i++) {
+        switch (res[i]) {
+        case '"':
+            if (in_string && !escape)
+                in_string = false;
+            else
+                in_string = true;
+
+            break;
+        case '(':
+            if (!in_string)
+                res[i] = '{';
+            break;
+        case ')':
+            if (!in_string)
+                res[i] = '}';
+            break;
+        case '\\':
+            escape = !escape;
+            continue;
+        }
+
+        escape = false;
+    }
+
+    return res;
+}
+
+std::string DataTypeTreeImpl::jsonToTree(const std::string& json_str)
+{
+    std::string res;
+    res.reserve(json_str.length());
+
+    bool in_string = false;
+
+    for (size_t i = 0; i < json_str.length(); i++) {
+        switch (json_str[i]) {
+        case '"':
+            in_string = !in_string;
+            break;
+        case '{':
+            if (!in_string) {
+                res.push_back('(');
+                continue;
+            }
+            break;
+        case '}':
+            if (!in_string) {
+                res.push_back(')');
+                continue;
+            }
+            break;
+        default:
+            break;
+        }
+
+        res.push_back(json_str[i]);
+    }
+
+    return res;
+}
+
 bool DataTypeTreeImpl::parse(const char* str)
 {
     try {
-        std::string esc_str(str);
-        for (size_t i = 0; i < esc_str.length(); i++) {
-            switch (esc_str[i]) {
-            case '(':
-                esc_str[i] = '{';
-                break;
-            case ')':
-                esc_str[i] = '}';
-                break;
-            default:
-                break;
-            }
-        }
-
-        json_ = nlohmann::json::parse(esc_str);
+        json_ = nlohmann::json::parse(treeToJson(str));
         return true;
     } catch (std::exception& e) {
         LIB_ERR << e.what();

@@ -16,6 +16,9 @@
 
 #include "ceammc_data.h"
 #include "data_protocol.h"
+#include "datatype_dict.h"
+#include "datatype_set.h"
+#include "datatype_string.h"
 #include "datatype_tree.h"
 
 using namespace ceammc;
@@ -36,14 +39,24 @@ public:
     size_t proto_size() const final;
 
     void onBang() final;
+    void onFloat(t_float f) final;
+    void onSymbol(t_symbol* s) final;
+    void onList(const AtomList& lst) final;
     void dump() const final;
 
-    void onDataT(const DataTPtr<DataTypeTree>& j);
+    void onDataT(const DataTPtr<DataTypeTree>& ptr);
+    void onDataT(const DataTPtr<DataTypeString>& ptr);
+    void onDataT(const DataTPtr<DataTypeSet>& ptr);
+    void onDataT(const DataTPtr<DataTypeDict>& ptr);
 
-    void m_find(t_symbol* s, const AtomList& l);
-    void m_at(t_symbol* s, const AtomList& l);
-    void m_key(t_symbol* s, const AtomList& l);
+    void m_find(t_symbol* s, const AtomList& lst);
+    void m_at(t_symbol* s, const AtomList& lst);
+    void m_key(t_symbol* s, const AtomList& lst);
     void m_insert(t_symbol* s, const AtomList& lst);
+
+private:
+    void setFromSymbol(t_symbol* s);
+    void setFromFloat(t_float f);
 };
 
 void setup_data_tree();

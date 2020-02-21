@@ -17,6 +17,9 @@
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 
+#include <array>
+#include <tuple>
+
 DataTree::DataTree(const PdArgs& args)
     : CollectionIFace<BaseObject>(args)
     , tree_(nullptr)
@@ -25,9 +28,9 @@ DataTree::DataTree(const PdArgs& args)
 
     auto str = to_string(args.args, " ");
     if (!str.empty())
-        tree_ = TreePtr(new DataTypeTree(str.c_str()));
+        tree_ = DataTypeTree::newFromString(str);
     else
-        tree_ = TreePtr(new DataTypeTree());
+        tree_ = DataTypeTree::newEmpty();
 }
 
 void DataTree::proto_add(const AtomList& lst)
@@ -54,22 +57,21 @@ void DataTree::proto_add(const AtomList& lst)
             else
                 tree_ = j;
         } else if (lst.isDataType(data::DATA_TREE)) {
-            TreePtr jptr(lst[0]);
-            if (jptr.isNull()) {
+            TreePtr ptr(lst[0]);
+            if (ptr.isNull()) {
                 OBJ_ERR << "invalid json data: " << lst;
                 return;
             }
 
-            if (jptr->isNull())
+            if (ptr->isNull())
                 return;
 
-            if (!p->addTree(*jptr))
+            if (!p->addTree(*ptr))
                 OBJ_ERR << "can't add json to json: " << lst;
             else
                 tree_ = j;
         } else {
-            auto str = to_string(lst, " ");
-            if (!p->addTree(DataTypeTree(str.c_str())))
+            if (!p->addTree(DataTypeTree::fromString(to_string(lst, " "))))
                 OBJ_ERR << "can't add json to json: " << lst;
             else
                 tree_ = j;
@@ -84,17 +86,18 @@ bool DataTree::proto_remove(const AtomList& lst)
 void DataTree::proto_set(const AtomList& lst)
 {
     if (lst.isFloat())
-        tree_ = TreePtr(new DataTypeTree(atomlistToValue<t_float>(lst, 0)));
+        setFromFloat(atomlistToValue<t_float>(lst, 0));
     else if (lst.isSymbol())
-        tree_ = TreePtr(new DataTypeTree(atomlistToValue<t_symbol*>(lst, &s_)));
+        setFromSymbol(atomlistToValue<t_symbol*>(lst, &s_));
     else if (lst.isDataType(data::DATA_TREE))
         tree_ = TreePtr(lst[0]);
-    else if (lst.allOf(isFloat))
+    else if (lst.isDataType(data::DATA_STRING)) {
+        DataTPtr<DataTypeString> str_ptr(lst[0]);
+        tree_ = TreePtr(new DataTypeTree(str_ptr->str()));
+    } else if (lst.allOf(isFloat))
         tree_ = TreePtr(new DataTypeTree(lst.asFloats()));
-    else {
-        auto str = to_string(lst, " ");
-        tree_ = TreePtr(new DataTypeTree(str.c_str()));
-    }
+    else
+        tree_ = DataTypeTree::fromString(to_string(lst, " "));
 }
 
 void DataTree::proto_clear()
@@ -110,7 +113,25 @@ size_t DataTree::proto_size() const
 
 void DataTree::onBang()
 {
-    this->dataTo(0, tree_);
+    dataTo(0, tree_);
+}
+
+void DataTree::onFloat(t_float f)
+{
+    setFromFloat(f);
+    onBang();
+}
+
+void DataTree::onSymbol(t_symbol* s)
+{
+    setFromSymbol(s);
+    onBang();
+}
+
+void DataTree::onList(const AtomList& lst)
+{
+    proto_set(lst);
+    onBang();
 }
 
 void DataTree::dump() const
@@ -119,10 +140,46 @@ void DataTree::dump() const
     OBJ_DBG << tree_->toString();
 }
 
-void DataTree::onDataT(const DataTPtr<DataTypeTree>& j)
+void DataTree::onDataT(const DataTPtr<DataTypeTree>& ptr)
 {
-    tree_ = j;
-    dataTo(0, j);
+    tree_ = ptr;
+    onBang();
+}
+
+void DataTree::onDataT(const DataTPtr<DataTypeString>& ptr)
+{
+    tree_ = TreePtr(new DataTypeTree(ptr->str()));
+    onBang();
+}
+
+void DataTree::onDataT(const DataTPtr<DataTypeSet>& ptr)
+{
+    auto* p = new DataTypeTree;
+    tree_ = TreePtr(p);
+    for (auto& a : ptr->toList()) {
+        if (a.isFloat())
+            p->addFloat(a.asFloat());
+        else if (a.isSymbol())
+            p->addSymbol(a.asSymbol());
+    }
+}
+
+void DataTree::onDataT(const DataTPtr<DataTypeDict>& ptr)
+{
+    auto* p = new DataTypeTree;
+    tree_ = TreePtr(p);
+    for (auto& a : ptr->innerData()) {
+        auto& k = a.first;
+        const DictValue& v = a.second;
+
+        if (v.type() == typeid(Atom)) {
+            auto a = boost::get<Atom>(v);
+            if (a.isFloat())
+                p->insertFloat(k.asSymbol()->s_name, a.asFloat());
+            else if (a.isSymbol())
+                p->insertSymbol(k.asSymbol()->s_name, a.asSymbol());
+        }
+    }
 }
 
 void DataTree::m_find(t_symbol* s, const AtomList& l)
@@ -186,10 +243,75 @@ void DataTree::m_insert(t_symbol* s, const AtomList& lst)
     }
 }
 
+void DataTree::setFromSymbol(t_symbol* s)
+{
+    tree_ = TreePtr(new DataTypeTree(s));
+}
+
+void DataTree::setFromFloat(t_float f)
+{
+    tree_ = TreePtr(new DataTypeTree(f));
+}
+
+class TreeFactory : public ColectionIFaceFactory<DataTree> {
+    typedef std::tuple<DataTypeSet, DataTypeString, DataTypeDict, DataTypeTree> TypeList;
+
+public:
+    TreeFactory(const char* name, int flags = OBJECT_FACTORY_DEFAULT)
+        : ColectionIFaceFactory<DataTree>(name, flags)
+    {
+        setListFn(processDataTyped);
+    }
+
+    template <typename T>
+    static bool processSingleData(ObjectProxy* x, const Atom& a)
+    {
+        DataTPtr<T> ptr(a);
+        if (ptr.isValid()) {
+            x->impl->onDataT(ptr);
+            return true;
+        } else
+            return false;
+    }
+
+    template <int index>
+    struct iterate_pred {
+        static bool next(ObjectProxy* x, const Atom& a)
+        {
+            using T = typename std::tuple_element<index - 1, TypeList>::type;
+            if (iterate_pred<index - 1>::next(x, a))
+                return true;
+            else
+                return processSingleData<T>(x, a);
+        }
+    };
+
+    static void processDataTyped(ObjectProxy* x, t_symbol*, int argc, t_atom* argv)
+    {
+        if (argc == 1 && Atom(*argv).isData()) {
+            if (!iterate_pred<std::tuple_size<TypeList>::value>::next(x, Atom(*argv))) {
+                DataPtr dptr(*argv);
+                LIB_ERR << "unsupported data with type=" << dptr.desc().type;
+            }
+        } else {
+            x->impl->onList(AtomList(argc, argv));
+        }
+    }
+};
+
+template <>
+bool TreeFactory::iterate_pred<0>::next(ObjectFactory::ObjectProxy* x, const Atom& a)
+{
+    using T = typename std::tuple_element<0, TypeList>::type;
+    if (processSingleData<T>(x, a))
+        return true;
+
+    return false;
+}
+
 void setup_data_tree()
 {
-    ColectionIFaceFactory<DataTree> obj("data.tree");
-    obj.processData<DataTypeTree>();
+    TreeFactory obj("data.tree");
     obj.addMethod("at", &DataTree::m_at);
     obj.addMethod("find", &DataTree::m_find);
     obj.addMethod("insert", &DataTree::m_insert);

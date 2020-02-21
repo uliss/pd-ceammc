@@ -162,6 +162,7 @@ ceammc_external_test(data set_intersection)
 ceammc_external_test(data set_size)
 ceammc_external_test(data set_symdiff)
 ceammc_external_test(data set_union)
+ceammc_external_test(data tree)
 
 ceammc_external_test(proto firmata)
 

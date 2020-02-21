@@ -29,11 +29,13 @@ public:
     DataTypeTreeImpl(const DataTypeTreeImpl& imp);
     DataTypeTreeImpl(const nlohmann::json& json);
     DataTypeTreeImpl(nlohmann::json&& json);
-    DataTypeTreeImpl(t_float f);
-    DataTypeTreeImpl(t_symbol* s);
-    DataTypeTreeImpl(const char* str);
-    DataTypeTreeImpl(const FloatList& l);
+    explicit DataTypeTreeImpl(t_float f);
+    explicit DataTypeTreeImpl(t_symbol* s);
+    explicit DataTypeTreeImpl(const char* s);
+    explicit DataTypeTreeImpl(const FloatList& l);
+
     std::string toString() const;
+
     bool parse(const char* str);
     size_t size() const;
     bool empty() const;
@@ -60,6 +62,11 @@ public:
     bool insertFloat(const char* key, t_float f);
     bool insertSymbol(const char* key, t_symbol* s);
     bool insertTree(const char* key, const DataTypeTreeImpl& tree);
+
+public:
+    static DataTypeTreeImpl fromString(const char* str);
+    static std::string treeToJson(const char* tree_str);
+    static std::string jsonToTree(const std::string& json_str);
 };
 }
 
