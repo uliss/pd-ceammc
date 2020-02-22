@@ -12,11 +12,14 @@
  * this file belongs to.
  *****************************************************************************/
 #include "datatype_tree_imp.h"
+#include "ceammc_dataatom.h"
 #include "ceammc_log.h"
+#include "datatype_tree.h"
+#include "fmt/format.h"
 
 namespace ceammc {
 
-#if 1
+#if 0
 #define DBG(msg) LIB_DBG << "|||" << msg
 #else
 #define DBG(msg)
@@ -29,25 +32,31 @@ DataTypeTreeImpl::DataTypeTreeImpl()
 
 DataTypeTreeImpl::~DataTypeTreeImpl()
 {
-    DBG("~DataTypeJsonImpl()");
+    DBG("~DataTypeJsonImpl() " << toString());
 }
 
 DataTypeTreeImpl::DataTypeTreeImpl(const DataTypeTreeImpl& imp)
     : json_(imp.json_)
 {
-    DBG("copy - DataTypeJsonImpl(const DataTypeJsonImpl&)");
+    DBG("copy - DataTypeJsonImpl(const DataTypeJsonImpl&) " << imp.toString());
+}
+
+DataTypeTreeImpl::DataTypeTreeImpl(DataTypeTreeImpl&& imp)
+    : json_(std::move(imp.json_))
+{
+    DBG("move - DataTypeJsonImpl(DataTypeTreeImpl&&) " << json_.dump());
 }
 
 DataTypeTreeImpl::DataTypeTreeImpl(const nlohmann::json& json)
     : json_(json)
 {
-    DBG("copy - DataTypeJsonImpl(const nlohmann::json& json)");
+    DBG("copy - DataTypeJsonImpl(const nlohmann::json& json) " << json_.dump());
 }
 
 DataTypeTreeImpl::DataTypeTreeImpl(nlohmann::json&& json)
     : json_(std::move(json))
 {
-    DBG("move - DataTypeJsonImpl(nlohmann::json&& json)");
+    DBG("move - DataTypeJsonImpl(nlohmann::json&& json) " << json_.dump());
 }
 
 DataTypeTreeImpl::DataTypeTreeImpl(t_float f)
@@ -74,6 +83,19 @@ DataTypeTreeImpl::DataTypeTreeImpl(const FloatList& l)
     DBG("float list - DataTypeJsonImpl(const FloatList &l)");
 }
 
+DataTypeTreeImpl::DataTypeTreeImpl(const AtomList& l)
+    : json_(nlohmann::json::array())
+{
+    for (auto& a : l) {
+        if (a.isFloat())
+            json_.push_back(a.asFloat());
+        else if (a.isSymbol())
+            json_.push_back(a.asSymbol()->s_name);
+    }
+
+    DBG("atom list - DataTypeJsonImpl(const AtomList &l)");
+}
+
 std::string DataTypeTreeImpl::toString() const
 {
     try {
@@ -90,6 +112,7 @@ DataTypeTreeImpl DataTypeTreeImpl::fromString(const char* str)
         return { nlohmann::json::parse(treeToJson(str)) };
     } catch (std::exception& e) {
         LIB_ERR << e.what();
+        LIB_ERR << "\tjson: " << treeToJson(str);
         return {};
     }
 }
@@ -163,6 +186,33 @@ std::string DataTypeTreeImpl::jsonToTree(const std::string& json_str)
     return res;
 }
 
+AtomList DataTypeTreeImpl::toList(const nlohmann::json& json)
+{
+    AtomList res;
+    res.reserve(json.size());
+
+    for (auto& el : json)
+        res.append(toAtom(el));
+
+    return res;
+}
+
+Atom DataTypeTreeImpl::toAtom(const nlohmann::json& json)
+{
+    if (json.is_number())
+        return Atom(json.get<t_float>());
+    else if (json.is_string())
+        return Atom(gensym(json.get<std::string>().c_str()));
+    else if (json.is_boolean())
+        return Atom(json.get<bool>() ? 1 : 0.f);
+    else if (json.is_array())
+        return DataPtr(new DataTypeTree(DataTypeTreeImpl(json))).asAtom();
+    else if (json.is_object())
+        return DataPtr(new DataTypeTree(DataTypeTreeImpl(json))).asAtom();
+    else
+        return Atom();
+}
+
 bool DataTypeTreeImpl::parse(const char* str)
 {
     try {
@@ -189,9 +239,115 @@ bool DataTypeTreeImpl::isArray() const
     return json_.is_array();
 }
 
+bool DataTypeTreeImpl::isSimpleArray() const
+{
+    for (auto& e : json_) {
+        if (!e.is_primitive())
+            return false;
+    }
+
+    return true;
+}
+
 bool DataTypeTreeImpl::isNull() const
 {
     return json_.is_null();
+}
+
+bool DataTypeTreeImpl::isFloat() const
+{
+    return json_.is_number() || json_.is_boolean();
+}
+
+bool DataTypeTreeImpl::isString() const
+{
+    return json_.is_string();
+}
+
+bool DataTypeTreeImpl::isObject() const
+{
+    return json_.is_object();
+}
+
+const char* DataTypeTreeImpl::typeName() const
+{
+    return json_.type_name();
+}
+
+t_float DataTypeTreeImpl::asFloat() const
+{
+    return json_.get<t_float>();
+}
+
+t_symbol* DataTypeTreeImpl::asSymbol() const
+{
+    return gensym(json_.get<std::string>().c_str());
+}
+
+AtomList DataTypeTreeImpl::asAtomList() const
+{
+    AtomList res;
+    if (!json_.is_array())
+        return res;
+
+    res.reserve(json_.size());
+
+    for (auto& j : json_) {
+        if (j.is_number())
+            res.append(Atom(j.get<t_float>()));
+        else if (j.is_boolean())
+            res.append(Atom(j.get<bool>() ? 1 : 0));
+        else if (j.is_string())
+            res.append(Atom(gensym(j.get<std::string>().c_str())));
+    }
+
+    return res;
+}
+
+EitherImpTreeFloat DataTypeTreeImpl::getFloat() const
+{
+    if (json_.is_number() || json_.is_boolean())
+        return json_.get<t_float>();
+    else
+        return EitherImpTreeFloat::makeError(fmt::format("float expected instead of {0}", json_.type_name()));
+}
+
+EitherImpTreeString DataTypeTreeImpl::getString() const
+{
+    if (json_.is_string())
+        return json_.get<std::string>();
+    else
+        return EitherImpTreeString::makeError(fmt::format("string expected instead of {0}", json_.type_name()));
+}
+
+EitherImpTree DataTypeTreeImpl::getArray() const
+{
+    if (json_.is_array())
+        return json_;
+    else
+        return EitherImpTree::makeError(fmt::format("list expected instead of {0}", json_.type_name()));
+}
+
+EitherImpTree DataTypeTreeImpl::getObject() const
+{
+    if (json_.is_object())
+        return json_;
+    else
+        return EitherImpTree::makeError(fmt::format("dict expected instead of {0}", json_.type_name()));
+}
+
+TreeImpKeyList DataTypeTreeImpl::keys() const
+{
+    TreeImpKeyList keys;
+
+    if (json_.is_object()) {
+        keys.reserve(json_.size());
+
+        for (auto it = json_.begin(); it != json_.end(); ++it)
+            keys.push_back(it.key());
+    }
+
+    return keys;
 }
 
 void DataTypeTreeImpl::clear()
@@ -297,7 +453,7 @@ DataTypeTreeImpl DataTypeTreeImpl::at(size_t idx) const
     try {
         return json_.at(idx);
     } catch (std::exception& e) {
-        LIB_ERR << e.what();
+        LIB_ERR << "can't get element at " << idx << ":\n\t" << e.what();
         return {};
     }
 }
@@ -307,7 +463,7 @@ DataTypeTreeImpl DataTypeTreeImpl::at(const char* key) const
     try {
         return json_.at(key);
     } catch (std::exception& e) {
-        LIB_ERR << e.what();
+        LIB_ERR << "can't get key '" << key << "':\n\t" << e.what();
         return {};
     }
 }

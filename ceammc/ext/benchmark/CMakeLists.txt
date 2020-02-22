@@ -17,10 +17,12 @@ function(add_benchmark name)
     set(_REPORT "${BM_HTML_DIR}/benchmark_${name}.html")
     add_custom_target(benchmark_${name}
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/bm_${name} -r html -o ${_REPORT}
-        COMMAND open ${_REPORT})
+        COMMAND open ${_REPORT}
+        DEPENDS bm_${name})
 endfunction()
 
-add_benchmark(atomlist)
-add_benchmark(dataptr)
-add_benchmark(control_externals)
 add_benchmark(array)
+add_benchmark(atomlist)
+add_benchmark(control_externals)
+add_benchmark(data_tree)
+add_benchmark(dataptr)

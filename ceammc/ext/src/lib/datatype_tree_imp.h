@@ -15,9 +15,18 @@
 #define DATATYPE_TREE_IMP_H
 
 #include "ceammc_atomlist.h"
+#include "ceammc_either.h"
+
 #include "json/json.hpp"
 
+#include <vector>
+
 namespace ceammc {
+
+using EitherImpTreeFloat = Either<t_float>;
+using EitherImpTreeString = Either<std::string>;
+using EitherImpTree = Either<nlohmann::json>;
+using TreeImpKeyList = std::vector<std::string>;
 
 class DataTypeTreeImpl {
     nlohmann::json json_;
@@ -27,12 +36,14 @@ public:
     ~DataTypeTreeImpl();
 
     DataTypeTreeImpl(const DataTypeTreeImpl& imp);
+    DataTypeTreeImpl(DataTypeTreeImpl&& imp);
     DataTypeTreeImpl(const nlohmann::json& json);
     DataTypeTreeImpl(nlohmann::json&& json);
     explicit DataTypeTreeImpl(t_float f);
     explicit DataTypeTreeImpl(t_symbol* s);
     explicit DataTypeTreeImpl(const char* s);
     explicit DataTypeTreeImpl(const FloatList& l);
+    explicit DataTypeTreeImpl(const AtomList& l);
 
     std::string toString() const;
 
@@ -41,7 +52,24 @@ public:
     bool empty() const;
 
     bool isArray() const;
+    bool isSimpleArray() const;
     bool isNull() const;
+    bool isFloat() const;
+    bool isString() const;
+    bool isObject() const;
+
+    const char* typeName() const;
+
+    t_float asFloat() const;
+    t_symbol* asSymbol() const;
+    AtomList asAtomList() const;
+
+    EitherImpTreeFloat getFloat() const;
+    EitherImpTreeString getString() const;
+    EitherImpTree getArray() const;
+    EitherImpTree getObject() const;
+
+    TreeImpKeyList keys() const;
 
     void clear();
 
@@ -67,6 +95,9 @@ public:
     static DataTypeTreeImpl fromString(const char* str);
     static std::string treeToJson(const char* tree_str);
     static std::string jsonToTree(const std::string& json_str);
+
+    static AtomList toList(const nlohmann::json& json);
+    static Atom toAtom(const nlohmann::json& json);
 };
 }
 

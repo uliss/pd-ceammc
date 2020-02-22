@@ -190,21 +190,23 @@ void DataTree::m_find(t_symbol* s, const AtomList& l)
 void DataTree::m_at(t_symbol* s, const AtomList& l)
 {
     if (l.isFloat()) {
-        auto f = atomlistToValue<t_float>(l, 0);
-        if (f < 0) {
-            METHOD_ERR(s) << "invalid index: " << f;
+        auto idx = atomlistToValue<int>(l, 0);
+        if (idx < 0 || idx >= tree_->size()) {
+            METHOD_ERR(s) << "invalid index: " << idx;
             return;
         }
 
-        dataTo(0, tree_->at(f));
+        dataTo(0, tree_->at(idx).asDataPtr());
     } else if (l.isSymbol()) {
-        dataTo(0, tree_->at(atomlistToValue<t_symbol*>(l, 0)));
-    }
+        auto idx = atomlistToValue<t_symbol*>(l, &s_);
+        dataTo(0, tree_->at(idx).asDataPtr());
+    } else
+        METHOD_ERR(s) << "integer index or symbol key is expected: " << l;
 }
 
 void DataTree::m_key(t_symbol* s, const AtomList& l)
 {
-    //    dataTo(0, json_->key());
+    //        dataTo(0, json_->key());
 }
 
 void DataTree::m_insert(t_symbol* s, const AtomList& lst)

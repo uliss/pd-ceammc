@@ -17,29 +17,47 @@
 #include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_dataatom.h"
+#include "ceammc_either.h"
 
 #include <boost/variant.hpp>
+#include <iostream>
+#include <memory>
 
 namespace ceammc {
 
 class DataTypeTree;
-typedef boost::variant<boost::blank, DataTypeTree, Atom, AtomList> JsonValue;
 class DataTypeTreeImpl;
 
+using JsonValue = boost::variant<boost::blank, DataTypeTree, Atom, AtomList>;
+using EitherTreeFloat = Either<t_float>;
+using EitherTreeSymbol = Either<t_symbol*>;
+using EitherTree = Either<DataTypeTree>;
+
 class DataTypeTree : public AbstractData {
-    DataTypeTreeImpl* pimpl_;
+    using PimplPtr = std::shared_ptr<DataTypeTreeImpl>;
+
+private:
+    PimplPtr pimpl_;
+    bool copy_on_write_;
+
+    DataTypeTree(DataTypeTreeImpl* pimpl);
 
 public:
     DataTypeTree();
-    ~DataTypeTree();
     DataTypeTree(const DataTypeTree& tree);
     DataTypeTree(DataTypeTree&& tree);
     DataTypeTree(const DataTypeTreeImpl& imp);
+    DataTypeTree(DataTypeTreeImpl&& imp);
     DataTypeTree(t_float f);
     DataTypeTree(t_symbol* s);
     DataTypeTree(const char* s);
     DataTypeTree(const std::string& s);
     DataTypeTree(const FloatList& lst);
+    DataTypeTree(const AtomList& lst);
+
+    ~DataTypeTree();
+
+    DataTypeTree& operator=(const DataTypeTree& t);
 
     DataTypeTree* clone() const final;
     DataType type() const final;
@@ -50,7 +68,18 @@ public:
     size_t size() const;
     bool empty() const;
     bool isArray() const;
+    bool isSimpleArray() const;
     bool isNull() const;
+    bool isFloat() const;
+    bool isString() const;
+    bool isObject() const;
+
+    EitherTreeFloat getFloat() const;
+    EitherTreeSymbol getSymbol() const;
+    EitherTree getList() const;
+    EitherTree getObject() const;
+
+    AtomList keys() const;
 
     void clear();
 
@@ -64,12 +93,17 @@ public:
     bool set(const DataTPtr<DataTypeTree>& ptr);
 
     DataTPtr<DataTypeTree> match(const char* pattern) const;
-    DataTPtr<DataTypeTree> at(size_t idx) const;
-    DataTPtr<DataTypeTree> at(t_symbol* key) const;
+    DataTypeTree at(size_t idx) const;
+    DataTypeTree at(t_symbol* key) const;
 
     bool insertFloat(const char* key, t_float f);
     bool insertSymbol(const char* key, t_symbol* s);
     bool insertTree(const char* key, const DataTypeTree& tree);
+
+    void outputTo(t_outlet* o) const;
+    Atom asAtom() const;
+    AtomList asAtomList() const;
+    DataTPtr<DataTypeTree> asDataPtr() const;
 
 public:
     bool parse(const char* str);
@@ -82,7 +116,14 @@ public:
 
     static DataTypeTree fromString(const std::string& str);
     static DataTypeTree fromString(const char* str);
+
+private:
+    void detach_pimpl();
+    bool is_null() const;
+    static DataTypeTree& nullInstance();
 };
+
+std::ostream& operator<<(std::ostream& os, const DataTypeTree& t);
 }
 
 #endif // DATATYPE_TREE_H
