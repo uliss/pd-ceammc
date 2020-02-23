@@ -47,12 +47,12 @@ void DataTree::proto_add(const AtomList& lst)
                 tree_ = j;
         } else if (lst.isSymbol()) {
             auto s = atomlistToValue<t_symbol*>(lst, &s_);
-            if (!p->addSymbol(s))
+            if (!p->arrayAdd(s))
                 OBJ_ERR << "can't add symbol to json: " << s;
             else
                 tree_ = j;
         } else if (lst.isList() && lst.allOf(isFloat)) {
-            if (!p->addList(lst))
+            if (!p->arrayAdd(lst))
                 OBJ_ERR << "can't add list to json: " << lst;
             else
                 tree_ = j;
@@ -160,7 +160,7 @@ void DataTree::onDataT(const DataTPtr<DataTypeSet>& ptr)
         if (a.isFloat())
             p->arrayAdd(a.asFloat());
         else if (a.isSymbol())
-            p->addSymbol(a.asSymbol());
+            p->arrayAdd(a.asSymbol());
     }
 }
 

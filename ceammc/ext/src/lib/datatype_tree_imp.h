@@ -76,8 +76,8 @@ public:
     bool operator==(const DataTypeTreeImpl& json) const;
 
     bool arrayAdd(t_float f);
-    bool addSymbol(t_symbol* s);
-    bool addList(const AtomList& l);
+    bool arrayAdd(t_symbol* s);
+    bool arrayAdd(const AtomList& l);
     bool addTree(const DataTypeTreeImpl& impl);
 
     void setFloat(t_float f);

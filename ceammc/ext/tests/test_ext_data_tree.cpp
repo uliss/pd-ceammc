@@ -256,9 +256,9 @@ TEST_CASE("data.tree", "[externals]")
             DataTypeTree t0;
             REQUIRE(t0.arrayAdd(1));
             REQUIRE(t0.toString() == R"([1.0])");
-            REQUIRE(t0.addSymbol(gensym("A")));
+            REQUIRE(t0.arrayAdd(gensym("A")));
             REQUIRE(t0.toString() == R"([1.0,"A"])");
-            REQUIRE(t0.addList(LF(2, 3)));
+            REQUIRE(t0.arrayAdd(LF(2, 3)));
             REQUIRE(t0.toString() == R"([1.0,"A",[2,3]])");
             REQUIRE(t0.addTree(t0));
 
@@ -268,14 +268,14 @@ TEST_CASE("data.tree", "[externals]")
 
             DataTypeTree t1(100);
             REQUIRE_FALSE(t1.arrayAdd(1));
-            REQUIRE_FALSE(t1.addSymbol(gensym("A")));
-            REQUIRE_FALSE(t1.addList(LF(1, 2)));
+            REQUIRE_FALSE(t1.arrayAdd(gensym("A")));
+            REQUIRE_FALSE(t1.arrayAdd(LF(1, 2)));
             REQUIRE_FALSE(t1.addTree(t1));
 
             DataTypeTree t2(gensym("B"));
             REQUIRE_FALSE(t2.arrayAdd(1));
-            REQUIRE_FALSE(t2.addSymbol(gensym("A")));
-            REQUIRE_FALSE(t2.addList(LF(1, 2)));
+            REQUIRE_FALSE(t2.arrayAdd(gensym("A")));
+            REQUIRE_FALSE(t2.arrayAdd(LF(1, 2)));
             REQUIRE_FALSE(t2.addTree(t2));
 
             DataTypeTree t3(FloatList({}));

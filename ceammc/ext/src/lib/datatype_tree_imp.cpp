@@ -372,7 +372,7 @@ bool DataTypeTreeImpl::arrayAdd(t_float f)
         return false;
 }
 
-bool DataTypeTreeImpl::addSymbol(t_symbol* s)
+bool DataTypeTreeImpl::arrayAdd(t_symbol* s)
 {
     if (json_.is_array()) {
         json_.push_back(s->s_name);
@@ -384,7 +384,7 @@ bool DataTypeTreeImpl::addSymbol(t_symbol* s)
         return false;
 }
 
-bool DataTypeTreeImpl::addList(const AtomList& l)
+bool DataTypeTreeImpl::arrayAdd(const AtomList& l)
 {
     auto add_list = [](const AtomList& l, nlohmann::json& j) {
         for (auto& a : l) {

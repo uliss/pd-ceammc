@@ -208,13 +208,31 @@ public:
     void clear();
 
     /**
-     * Adds float to the end tree array or creates array with single element if null tree
+     * Adds float to the end of tree array or creates array with single element if null tree
      * @param f - value to add
      * @return true on success, false on error (if value if not an array or null)
+     * @example adding 10 to [1,2] = [1,2,10]
+     * @example adding 10 to null = [10]
      */
     bool arrayAdd(t_float f);
-    bool addSymbol(t_symbol* s);
-    bool addList(const AtomList& l);
+
+    /**
+     * Adds symbol to the end of tree array or creates array with single element if null tree
+     * @param s - symbol to add
+     * @return true on success, false on error (if value if not an array or null)
+     */
+    bool arrayAdd(t_symbol* s);
+
+    /**
+     * Adds array to the end of tree array or creates array with single element if null tree
+     * @param l - array to add
+     * @return true on success, false on error (if value if not an array or null)
+     *
+     * @example adding [1,2] to [1,2,3] = [1,2,3,[1,2]]
+     * @example adding [1,2] to null = [[1,2]]
+     */
+    bool arrayAdd(const AtomList& l);
+
     bool addTree(const DataTypeTree& tree);
 
     void setFloat(t_float f);

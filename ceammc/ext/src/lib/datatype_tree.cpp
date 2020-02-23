@@ -259,16 +259,16 @@ bool DataTypeTree::arrayAdd(t_float f)
     return pimpl_->arrayAdd(f);
 }
 
-bool DataTypeTree::addSymbol(t_symbol* s)
+bool DataTypeTree::arrayAdd(t_symbol* s)
 {
     detachPimpl();
-    return pimpl_->addSymbol(s);
+    return pimpl_->arrayAdd(s);
 }
 
-bool DataTypeTree::addList(const AtomList& l)
+bool DataTypeTree::arrayAdd(const AtomList& l)
 {
     detachPimpl();
-    return pimpl_->addList(l);
+    return pimpl_->arrayAdd(l);
 }
 
 bool DataTypeTree::addTree(const DataTypeTree& tree)
