@@ -217,9 +217,10 @@ TEST_CASE("data.tree", "[externals]")
             DataTypeTree t0;
             REQUIRE(t0.empty());
             t0.clear();
+            REQUIRE(t0.isNull());
 
-            t0.addFloat(100);
-            t0.addFloat(200);
+            t0.arrayAdd(100);
+            t0.arrayAdd(200);
             REQUIRE(t0.isArray());
             REQUIRE_FALSE(t0.empty());
             REQUIRE(t0.size() == 2);
@@ -227,12 +228,33 @@ TEST_CASE("data.tree", "[externals]")
 
             t0.clear();
             REQUIRE(t0.empty());
+            REQUIRE(t0.isArray());
+
+            t0.setFloat(100);
+            REQUIRE(t0.isFloat());
+            REQUIRE(t0.asFloat(-1000) == 100);
+            t0.clear();
+            REQUIRE(t0.isFloat());
+            REQUIRE(t0.asFloat(-1000) == 0);
+
+            t0.setSymbol(SYM("ABC"));
+            REQUIRE(t0.isString());
+            t0.clear();
+            REQUIRE(t0.isString());
+            REQUIRE(t0.asAtom() == S(""));
+
+            t0 = DataTypeTree::fromString(R"(("a": 1100))");
+            REQUIRE(t0.isObject());
+            REQUIRE(t0.size() == 1);
+            t0.clear();
+            REQUIRE(t0.isObject());
+            REQUIRE(t0.empty());
         }
 
         SECTION("add")
         {
             DataTypeTree t0;
-            REQUIRE(t0.addFloat(1));
+            REQUIRE(t0.arrayAdd(1));
             REQUIRE(t0.toString() == R"([1.0])");
             REQUIRE(t0.addSymbol(gensym("A")));
             REQUIRE(t0.toString() == R"([1.0,"A"])");
@@ -245,20 +267,20 @@ TEST_CASE("data.tree", "[externals]")
             REQUIRE(t0.toString() == R"([1.0,"A",[2,3],[1.0,"A",[2,3]]])");
 
             DataTypeTree t1(100);
-            REQUIRE_FALSE(t1.addFloat(1));
+            REQUIRE_FALSE(t1.arrayAdd(1));
             REQUIRE_FALSE(t1.addSymbol(gensym("A")));
             REQUIRE_FALSE(t1.addList(LF(1, 2)));
             REQUIRE_FALSE(t1.addTree(t1));
 
             DataTypeTree t2(gensym("B"));
-            REQUIRE_FALSE(t2.addFloat(1));
+            REQUIRE_FALSE(t2.arrayAdd(1));
             REQUIRE_FALSE(t2.addSymbol(gensym("A")));
             REQUIRE_FALSE(t2.addList(LF(1, 2)));
             REQUIRE_FALSE(t2.addTree(t2));
 
             DataTypeTree t3(FloatList({}));
             REQUIRE(t3.toString() == "[]");
-            REQUIRE(t3.addFloat(1));
+            REQUIRE(t3.arrayAdd(1));
             REQUIRE(t3.toString() == "[1.0]");
         }
 

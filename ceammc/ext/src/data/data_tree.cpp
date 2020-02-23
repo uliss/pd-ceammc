@@ -41,7 +41,7 @@ void DataTree::proto_add(const AtomList& lst)
 
         if (lst.isFloat()) {
             auto f = atomlistToValue<t_float>(lst, 0);
-            if (!p->addFloat(f))
+            if (!p->arrayAdd(f))
                 OBJ_ERR << "can't add float to json: " << f;
             else
                 tree_ = j;
@@ -158,7 +158,7 @@ void DataTree::onDataT(const DataTPtr<DataTypeSet>& ptr)
     tree_ = TreePtr(p);
     for (auto& a : ptr->toList()) {
         if (a.isFloat())
-            p->addFloat(a.asFloat());
+            p->arrayAdd(a.asFloat());
         else if (a.isSymbol())
             p->addSymbol(a.asSymbol());
     }

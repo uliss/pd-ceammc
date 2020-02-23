@@ -32,10 +32,6 @@ DataTypeTree::DataTypeTree()
 {
 }
 
-DataTypeTree::~DataTypeTree()
-{
-}
-
 DataTypeTree::DataTypeTree(const DataTypeTree& tree)
     : pimpl_(tree.pimpl_)
     , copy_on_write_(true)
@@ -200,6 +196,15 @@ bool DataTypeTree::getFloat(t_float& f) const
         return false;
 }
 
+bool DataTypeTree::getSymbol(t_symbol** s) const
+{
+    if (s && pimpl_->isString()) {
+        *s = pimpl_->asSymbol();
+        return true;
+    } else
+        return false;
+}
+
 EitherTreeFloat DataTypeTree::getFloat() const
 {
     return pimpl_->getFloat();
@@ -242,52 +247,52 @@ AtomList DataTypeTree::keys() const
 
 void DataTypeTree::clear()
 {
-    if (!is_null()) {
-        detach_pimpl();
+    if (!nullPimpl()) {
+        detachPimpl();
         pimpl_->clear();
     }
 }
 
-bool DataTypeTree::addFloat(t_float f)
+bool DataTypeTree::arrayAdd(t_float f)
 {
-    detach_pimpl();
-    return pimpl_->addFloat(f);
+    detachPimpl();
+    return pimpl_->arrayAdd(f);
 }
 
 bool DataTypeTree::addSymbol(t_symbol* s)
 {
-    detach_pimpl();
+    detachPimpl();
     return pimpl_->addSymbol(s);
 }
 
 bool DataTypeTree::addList(const AtomList& l)
 {
-    detach_pimpl();
+    detachPimpl();
     return pimpl_->addList(l);
 }
 
 bool DataTypeTree::addTree(const DataTypeTree& tree)
 {
-    detach_pimpl();
+    detachPimpl();
     return pimpl_->addTree(*tree.pimpl_);
 }
 
 void DataTypeTree::setFloat(t_float f)
 {
-    detach_pimpl();
+    detachPimpl();
     pimpl_->setFloat(f);
 }
 
 void DataTypeTree::setSymbol(t_symbol* s)
 {
-    detach_pimpl();
+    detachPimpl();
     pimpl_->setSymbol(s);
 }
 
 bool DataTypeTree::set(const DataTPtr<DataTypeTree>& ptr)
 {
     if (ptr.isValid()) {
-        detach_pimpl();
+        detachPimpl();
         *this = *ptr.data();
         return true;
     } else
@@ -311,19 +316,19 @@ DataTypeTree DataTypeTree::at(t_symbol* key) const
 
 bool DataTypeTree::insertFloat(const char* key, t_float f)
 {
-    detach_pimpl();
+    detachPimpl();
     return pimpl_->insertFloat(key, f);
 }
 
 bool DataTypeTree::insertSymbol(const char* key, t_symbol* s)
 {
-    detach_pimpl();
+    detachPimpl();
     return pimpl_->insertSymbol(key, s);
 }
 
 bool DataTypeTree::insertTree(const char* key, const DataTypeTree& tree)
 {
-    detach_pimpl();
+    detachPimpl();
     return pimpl_->insertTree(key, *tree.pimpl_);
 }
 
@@ -376,7 +381,7 @@ DataTPtr<DataTypeTree> DataTypeTree::asDataPtr() const
 
 bool DataTypeTree::parse(const char* str)
 {
-    detach_pimpl();
+    detachPimpl();
     return pimpl_->parse(str);
 }
 
@@ -407,7 +412,7 @@ DataTypeTree DataTypeTree::fromString(const char* str)
     return { DataTypeTreeImpl::fromString(str) };
 }
 
-void DataTypeTree::detach_pimpl()
+void DataTypeTree::detachPimpl()
 {
     if (copy_on_write_) {
         pimpl_.reset(new DataTypeTreeImpl(*pimpl_));
@@ -415,7 +420,7 @@ void DataTypeTree::detach_pimpl()
     }
 }
 
-bool DataTypeTree::is_null() const
+bool DataTypeTree::nullPimpl() const
 {
     return pimpl_ == nullInstance().pimpl_;
 }

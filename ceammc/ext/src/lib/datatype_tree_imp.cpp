@@ -360,7 +360,7 @@ bool DataTypeTreeImpl::operator==(const DataTypeTreeImpl& impl) const
     return json_ == impl.json_;
 }
 
-bool DataTypeTreeImpl::addFloat(t_float f)
+bool DataTypeTreeImpl::arrayAdd(t_float f)
 {
     if (json_.is_array()) {
         json_.push_back(f);
