@@ -422,6 +422,11 @@ bool DataTypeTreeImpl::arrayAdd(const DataTypeTreeImpl& impl)
         return false;
 }
 
+void DataTypeTreeImpl::setArray()
+{
+    json_ = nlohmann::json::array();
+}
+
 void DataTypeTreeImpl::setFloat(t_float f)
 {
     json_ = f;

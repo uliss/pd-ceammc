@@ -277,6 +277,12 @@ bool DataTypeTree::arrayAdd(const DataTypeTree& tree)
     return pimpl_->arrayAdd(*tree.pimpl_);
 }
 
+void DataTypeTree::setArray()
+{
+    detachPimpl();
+    pimpl_->setArray();
+}
+
 void DataTypeTree::setFloat(t_float f)
 {
     detachPimpl();

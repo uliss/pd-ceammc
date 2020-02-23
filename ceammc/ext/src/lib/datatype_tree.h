@@ -243,6 +243,12 @@ public:
      */
     bool arrayAdd(const DataTypeTree& tree);
 
+    /**
+     * Remove tree content and create empty array
+     */
+    void setArray();
+    void setObject();
+
     void setFloat(t_float f);
     void setSymbol(t_symbol* s);
     bool set(const DataTPtr<DataTypeTree>& ptr);

@@ -284,6 +284,18 @@ TEST_CASE("data.tree", "[externals]")
             REQUIRE(t3.toString() == "[1.0]");
         }
 
+        SECTION("set array")
+        {
+            DataTypeTree t;
+            t.setArray();
+            REQUIRE(t.isArray());
+
+            t.setFloat(100);
+            REQUIRE(t.isFloat());
+            t.setArray();
+            REQUIRE(t.isArray());
+        }
+
         SECTION("set")
         {
             using TreePtr = DataTPtr<DataTypeTree>;

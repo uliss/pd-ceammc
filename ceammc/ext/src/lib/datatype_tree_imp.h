@@ -75,10 +75,12 @@ public:
 
     bool operator==(const DataTypeTreeImpl& json) const;
 
+    // array functions
     bool arrayAdd(t_float f);
     bool arrayAdd(t_symbol* s);
     bool arrayAdd(const AtomList& l);
     bool arrayAdd(const DataTypeTreeImpl& impl);
+    void setArray();
 
     void setFloat(t_float f);
     void setSymbol(t_symbol* s);
