@@ -410,7 +410,7 @@ bool DataTypeTreeImpl::arrayAdd(const AtomList& l)
         return false;
 }
 
-bool DataTypeTreeImpl::addTree(const DataTypeTreeImpl& impl)
+bool DataTypeTreeImpl::arrayAdd(const DataTypeTreeImpl& impl)
 {
     if (json_.is_array()) {
         json_.push_back(impl.json_);

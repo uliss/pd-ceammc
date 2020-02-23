@@ -78,7 +78,7 @@ public:
     bool arrayAdd(t_float f);
     bool arrayAdd(t_symbol* s);
     bool arrayAdd(const AtomList& l);
-    bool addTree(const DataTypeTreeImpl& impl);
+    bool arrayAdd(const DataTypeTreeImpl& impl);
 
     void setFloat(t_float f);
     void setSymbol(t_symbol* s);

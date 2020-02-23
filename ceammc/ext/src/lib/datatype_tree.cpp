@@ -271,10 +271,10 @@ bool DataTypeTree::arrayAdd(const AtomList& l)
     return pimpl_->arrayAdd(l);
 }
 
-bool DataTypeTree::addTree(const DataTypeTree& tree)
+bool DataTypeTree::arrayAdd(const DataTypeTree& tree)
 {
     detachPimpl();
-    return pimpl_->addTree(*tree.pimpl_);
+    return pimpl_->arrayAdd(*tree.pimpl_);
 }
 
 void DataTypeTree::setFloat(t_float f)

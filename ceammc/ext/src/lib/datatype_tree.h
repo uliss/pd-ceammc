@@ -233,7 +233,15 @@ public:
      */
     bool arrayAdd(const AtomList& l);
 
-    bool addTree(const DataTypeTree& tree);
+    /**
+     * Adds object to the end of tree array or creates array with single element if null tree
+     * @param tree - object to add
+     * @return true on success, false on error (if value if not an array or null)
+     *
+     * @example adding () to [1,2,3] = [1,2,3,()]
+     * @example adding () to null = [()]
+     */
+    bool arrayAdd(const DataTypeTree& tree);
 
     void setFloat(t_float f);
     void setSymbol(t_symbol* s);

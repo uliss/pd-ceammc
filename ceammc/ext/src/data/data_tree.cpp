@@ -66,12 +66,12 @@ void DataTree::proto_add(const AtomList& lst)
             if (ptr->isNull())
                 return;
 
-            if (!p->addTree(*ptr))
+            if (!p->arrayAdd(*ptr))
                 OBJ_ERR << "can't add json to json: " << lst;
             else
                 tree_ = j;
         } else {
-            if (!p->addTree(DataTypeTree::fromString(to_string(lst, " "))))
+            if (!p->arrayAdd(DataTypeTree::fromString(to_string(lst, " "))))
                 OBJ_ERR << "can't add json to json: " << lst;
             else
                 tree_ = j;
