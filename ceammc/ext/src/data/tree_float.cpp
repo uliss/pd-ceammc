@@ -11,41 +11,29 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "tree_at.h"
+#include "tree_float.h"
 #include "ceammc_factory.h"
 
-TreeAt::TreeAt(const PdArgs& args)
+TreeFloat::TreeFloat(const PdArgs& args)
     : BaseObject(args)
+    , ptr_(nullptr)
 {
-    for (size_t i = 0; i < args.args.size(); i++)
-        createOutlet();
+    createOutlet();
 }
 
-void TreeAt::onDataT(const DataTPtr<DataTypeTree>& dptr)
+void TreeFloat::onDataT(const DataTPtr<DataTypeTree>& ptr)
 {
-    auto N = args().size();
-    for (size_t i = N; i > 0; i--) {
-        auto n = i - 1;
-        auto& key = args()[n];
-
-        if (key.isFloat()) {
-            auto idx = key.asInt();
-            if (idx < 0 || idx >= N) {
-                OBJ_ERR << "invalid index: " << key;
-                continue;
-            }
-
-            dataTo(n, dptr->at(idx).asDataPtr());
-        } else if (key.isSymbol()) {
-            auto idx = key.asSymbol();
-            dataTo(n, dptr->at(idx).asDataPtr());
-        } else
-            OBJ_ERR << "invalid key: " << key;
-    }
+    ptr_ = ptr;
+    t_float f;
+    if (ptr.isValid() && ptr->getFloat(f))
+        floatTo(0, f);
+    else
+        OBJ_ERR << "not a float tree value given";
 }
 
-void setup_tree_at()
+void setup_tree_float()
 {
-    ObjectFactory<TreeAt> obj("tree.at");
+    ObjectFactory<TreeFloat> obj("tree.float");
+    obj.addAlias("tree.f");
     obj.processData<DataTypeTree>();
 }

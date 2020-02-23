@@ -191,6 +191,15 @@ bool DataTypeTree::isObject() const
     return pimpl_->isObject();
 }
 
+bool DataTypeTree::getFloat(t_float& f) const
+{
+    if (pimpl_->isFloat()) {
+        f = pimpl_->asFloat();
+        return true;
+    } else
+        return false;
+}
+
 EitherTreeFloat DataTypeTree::getFloat() const
 {
     return pimpl_->getFloat();
@@ -335,6 +344,14 @@ void DataTypeTree::outputTo(_outlet* o) const
             dptr.asAtom().output(o);
         }
     }
+}
+
+t_float DataTypeTree::asFloat(t_float def) const
+{
+    if (isFloat())
+        return pimpl_->asFloat();
+    else
+        return def;
 }
 
 Atom DataTypeTree::asAtom() const

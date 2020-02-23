@@ -39,6 +39,7 @@
 #include "set_to_list.h"
 #include "set_union.h"
 #include "tree_at.h"
+#include "tree_float.h"
 #include "tree_size.h"
 
 extern "C" void setup_data0x2efifo();
@@ -77,6 +78,7 @@ void ceammc_data_setup()
     setup_is_dict();
 
     setup_tree_at();
+    setup_tree_float();
     setup_tree_size();
 
     setup_local_dict();

@@ -74,6 +74,8 @@ public:
     bool isString() const;
     bool isObject() const;
 
+    bool getFloat(t_float& f) const;
+
     EitherTreeFloat getFloat() const;
     EitherTreeSymbol getSymbol() const;
     EitherTree getList() const;
@@ -101,6 +103,7 @@ public:
     bool insertTree(const char* key, const DataTypeTree& tree);
 
     void outputTo(t_outlet* o) const;
+    t_float asFloat(t_float def = 0) const;
     Atom asAtom() const;
     AtomList asAtomList() const;
     DataTPtr<DataTypeTree> asDataPtr() const;
