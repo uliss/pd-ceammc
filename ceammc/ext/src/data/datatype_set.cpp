@@ -184,10 +184,10 @@ void DataTypeSet::set_union(DataTypeSet& out, const DataTypeSet& s0, const DataT
     out.clear();
 
     for (auto& el : s0.data_)
-        out.data_.insert(el);
+        out.add(el.toAtom());
 
     for (auto& el : s1.data_)
-        out.data_.insert(el);
+        out.add(el.toAtom());
 }
 
 void DataTypeSet::difference(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1)
