@@ -16,32 +16,36 @@
 
 TreeAt::TreeAt(const PdArgs& args)
     : BaseObject(args)
+    , index_(nullptr)
+    , ptr_(new DataTypeTree)
 {
-    for (size_t i = 0; i < args.args.size(); i++)
-        createOutlet();
+    index_ = new IntProperty("@index", positionalFloatArgument(0, 0));
+    createProperty(index_);
+
+    createOutlet();
+    createInlet();
+}
+
+void TreeAt::onBang()
+{
+    onDataT(ptr_);
 }
 
 void TreeAt::onDataT(const DataTPtr<DataTypeTree>& dptr)
 {
-    auto N = args().size();
-    for (size_t i = N; i > 0; i--) {
-        auto n = i - 1;
-        auto& key = args()[n];
+    ptr_ = dptr;
 
-        if (key.isFloat()) {
-            auto idx = key.asInt();
-            if (idx < 0 || idx >= N) {
-                OBJ_ERR << "invalid index: " << key;
-                continue;
-            }
+    if (!ptr_->isArray())
+        OBJ_ERR << "tree list expected";
+    else if (index_->value() >= 0 && index_->value() < ptr_->size())
+        dataTo(0, ptr_->atPtr(index_->value()));
+    else
+        OBJ_ERR << "invalid index: " << index_->value();
+}
 
-            dataTo(n, dptr->at(idx).asDataPtr());
-        } else if (key.isSymbol()) {
-            auto idx = key.asSymbol();
-            dataTo(n, dptr->at(idx).asDataPtr());
-        } else
-            OBJ_ERR << "invalid key: " << key;
-    }
+void TreeAt::onInlet(size_t idx, const AtomList& lst)
+{
+    index_->setValue(atomlistToValue<int>(lst, 0));
 }
 
 void setup_tree_at()

@@ -20,8 +20,13 @@
 using namespace ceammc;
 
 class TreeAt : public BaseObject {
+    IntProperty* index_;
+    DataTPtr<DataTypeTree> ptr_;
+
 public:
     TreeAt(const PdArgs& args);
+    void onBang() final;
+    void onInlet(size_t idx, const AtomList& lst) final;
     void onDataT(const DataTPtr<DataTypeTree>& dptr);
 };
 
