@@ -12,6 +12,10 @@
 - random.f alias added for random.float
 - data tree type added (data.tree object)
 - tree.size added
+- tree.at added
+- preset.f alias added for preset.float
+- preset.s alias added for preset.symbol
+- preset.l alias added for preset.list
 
 ## [0.8]
 ### Added:

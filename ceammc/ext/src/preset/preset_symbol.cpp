@@ -31,4 +31,5 @@ void PresetSymbol::storeAt(size_t idx)
 void setup_preset_symbol()
 {
     PresetIFaceFactory<PresetSymbol> obj("preset.symbol");
+    obj.addAlias("preset.s");
 }

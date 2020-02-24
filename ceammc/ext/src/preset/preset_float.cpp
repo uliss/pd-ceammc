@@ -32,4 +32,5 @@ void PresetFloat::storeAt(size_t idx)
 void setup_preset_float()
 {
     PresetIFaceFactory<PresetFloat> obj("preset.float");
+    obj.addAlias("preset.f");
 }

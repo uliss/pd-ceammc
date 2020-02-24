@@ -32,4 +32,5 @@ void PresetList::storeAt(size_t idx)
 void setup_preset_list()
 {
     PresetIFaceFactory<PresetList> obj("preset.list");
+    obj.addAlias("preset.l");
 }
