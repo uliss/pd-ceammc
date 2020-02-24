@@ -41,6 +41,7 @@
 #include "tree_at.h"
 #include "tree_float.h"
 #include "tree_size.h"
+#include "tree_symbol.h"
 
 extern "C" void setup_data0x2efifo();
 
@@ -80,6 +81,7 @@ void ceammc_data_setup()
     setup_tree_at();
     setup_tree_float();
     setup_tree_size();
+    setup_tree_symbol();
 
     setup_local_dict();
     setup_local_float();

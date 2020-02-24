@@ -11,34 +11,34 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "tree_float.h"
+#include "tree_symbol.h"
 #include "ceammc_factory.h"
 
-TreeFloat::TreeFloat(const PdArgs& args)
+TreeSymbol::TreeSymbol(const PdArgs& args)
     : BaseObject(args)
     , ptr_(nullptr)
 {
     createOutlet();
 }
 
-void TreeFloat::onBang()
+void TreeSymbol::onBang()
 {
     onDataT(ptr_);
 }
 
-void TreeFloat::onDataT(const DataTPtr<DataTypeTree>& ptr)
+void TreeSymbol::onDataT(const DataTPtr<DataTypeTree>& ptr)
 {
     ptr_ = ptr;
-    t_float f;
-    if (ptr.isValid() && ptr->getFloat(f))
-        floatTo(0, f);
+    t_symbol* s = &s_;
+    if (ptr.isValid() && ptr->getSymbol(&s))
+        symbolTo(0, s);
     else
-        OBJ_ERR << "not a float tree value";
+        OBJ_ERR << "not a symbol tree value";
 }
 
-void setup_tree_float()
+void setup_tree_symbol()
 {
-    ObjectFactory<TreeFloat> obj("tree.float");
-    obj.addAlias("tree.f");
+    ObjectFactory<TreeSymbol> obj("tree.symbol");
+    obj.addAlias("tree.s");
     obj.processData<DataTypeTree>();
 }

@@ -658,7 +658,9 @@ tl.transport
 tree.at
 tree.f
 tree.float
+tree.s
 tree.size
+tree.symbol
 ui.aview
 ui.b
 ui.bang

@@ -23,6 +23,8 @@ class TreeFloat : public BaseObject {
 
 public:
     TreeFloat(const PdArgs& args);
+
+    void onBang() final;
     void onDataT(const DataTPtr<DataTypeTree>& ptr);
 };
 
