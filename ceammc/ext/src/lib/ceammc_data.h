@@ -102,6 +102,9 @@ const T* DataPtr::as() const
 /// compare operator
 bool operator<(const DataPtr& d0, const DataPtr& d1);
 
+/// output operator
+std::ostream& operator<<(std::ostream& os, const DataPtr& d0);
+
 template <class T>
 class DataTPtr : public DataPtr {
 public:

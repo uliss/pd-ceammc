@@ -19,6 +19,7 @@
 #include "catch.hpp"
 
 #include <algorithm>
+#include <sstream>
 #include <vector>
 
 using namespace ceammc;
@@ -192,6 +193,17 @@ TEST_CASE("XData", "[ceammc::XData]")
         REQUIRE(p2.isValid());
         REQUIRE_FALSE(p0.isValid());
         REQUIRE(p2->as<IntData>()->value() == 6);
+    }
+
+    SECTION("operator<<")
+    {
+        std::ostringstream ss;
+        ss << DataPtr(nullptr);
+        REQUIRE(ss.str() == "DataPtr: null");
+        ss.str("");
+
+        ss << DataPtr(new IntData(100));
+        REQUIRE(ss.str() == "DataPtr(type=1001): 100");
     }
 
     SECTION("dataT")

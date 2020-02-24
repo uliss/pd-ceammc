@@ -16,6 +16,7 @@
 #include "test_base.h"
 
 #include "catch.hpp"
+#include <sstream>
 
 using namespace ceammc;
 

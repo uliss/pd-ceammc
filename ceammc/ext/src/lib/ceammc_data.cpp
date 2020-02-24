@@ -128,3 +128,13 @@ bool ceammc::operator<(const DataPtr& d0, const DataPtr& d1)
         return true;
     }
 }
+
+std::ostream& ceammc::operator<<(std::ostream& os, const DataPtr& d0)
+{
+    if (d0.isValid())
+        os << "DataPtr(type=" << d0->type() << "): " << d0->toString();
+    else
+        os << "DataPtr: null";
+
+    return os;
+}
