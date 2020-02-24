@@ -43,6 +43,7 @@ public:
 
     std::string& str() { return str_; }
     const std::string& str() const { return str_; }
+    t_symbol* asSymbol() const { return gensym(str_.c_str()); }
 
     DataType type() const override;
     DataTypeString* clone() const override;
