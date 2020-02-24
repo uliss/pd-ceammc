@@ -11,7 +11,7 @@
 #X msg 184 118 at 2;
 #X obj 50 147 data.tree \["ABC"\, "with spaces"\, 100\];
 #X obj 50 176 tree.symbol;
-#X floatatom 50 205 5 0 0 0 - - -;
+#X symbolatom 50 205 10 0 0 0 - - -;
 #X obj 20 244 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 249 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
