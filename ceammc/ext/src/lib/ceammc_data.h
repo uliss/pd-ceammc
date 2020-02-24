@@ -26,10 +26,16 @@ class DataPtr {
 
 public:
     /**
-     * Creates new data pointer
+     * Creates new data pointer (should be allocated via new)
      * Takes ownership on the specified pointer
+     * @param data - data pointer (if nullptr given returns null DataPtr)
      */
     DataPtr(AbstractData* data);
+
+    /**
+     * Unpacks pointer from atom
+     * If atom is not a pointer - null DataPtr is created
+     */
     DataPtr(const Atom& data);
 
     // copy/move
@@ -38,23 +44,47 @@ public:
     DataPtr& operator=(const DataPtr& d);
     DataPtr& operator=(DataPtr&& d);
 
+    /**
+     * Removes owned data if reference counter equal 1
+     */
     ~DataPtr();
 
     bool isValid() const;
-    bool isNull() const;
-    ceammc::DataDesc desc() const;
+    bool isNull() const { return !isValid(); }
+
+    /**
+     * Returns pointed data description
+     */
+    const DataDesc& desc() const { return desc_; }
+
+    /**
+     * Number of references pointed data
+     */
     size_t refCount() const;
 
-    const AbstractData* data() const;
-    const AbstractData* operator->() const;
+    /**
+     * Returns data pointer
+     */
+    const AbstractData* data() const { return data_; }
+    const AbstractData* operator->() const { return data_; }
 
+    /**
+     * Return pointer to specified data type
+     * On type mismatch returns nullptr
+     */
     template <class T>
     const T* as() const;
 
-    Atom asAtom() const;
+    /**
+     * Return data pointer packed as Atom
+     */
+    Atom asAtom() const { return Atom(desc_); }
 
+    /**
+     * compare pointed data
+     */
     bool operator==(const DataPtr& d) const;
-    bool operator!=(const DataPtr& d) const;
+    bool operator!=(const DataPtr& d) const { return !this->operator==(d); }
 
 protected:
     void invalidate();

@@ -88,29 +88,9 @@ bool DataPtr::isValid() const
     return desc_ != INVALID && data_ != nullptr;
 }
 
-DataDesc DataPtr::desc() const
-{
-    return desc_;
-}
-
 size_t DataPtr::refCount() const
 {
     return DataStorage::instance().refCount(desc_);
-}
-
-const AbstractData* DataPtr::data() const
-{
-    return data_;
-}
-
-const AbstractData* DataPtr::operator->() const
-{
-    return data_;
-}
-
-Atom DataPtr::asAtom() const
-{
-    return Atom(desc_);
 }
 
 bool DataPtr::operator==(const DataPtr& d) const
@@ -122,11 +102,6 @@ bool DataPtr::operator==(const DataPtr& d) const
         return data_->isEqual(d.data_);
 
     return false;
-}
-
-bool DataPtr::operator!=(const DataPtr& d) const
-{
-    return !this->operator==(d);
 }
 
 void DataPtr::invalidate()
@@ -152,9 +127,4 @@ bool ceammc::operator<(const DataPtr& d0, const DataPtr& d1)
     } else {
         return true;
     }
-}
-
-bool ceammc::DataPtr::isNull() const
-{
-    return desc_ == INVALID || data_ == nullptr;
 }
