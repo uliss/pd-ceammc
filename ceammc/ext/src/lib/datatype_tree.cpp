@@ -65,7 +65,7 @@ DataTypeTree::DataTypeTree(t_float f)
 }
 
 DataTypeTree::DataTypeTree(t_symbol* s)
-    : DataTypeTree(s->s_name)
+    : DataTypeTree(s ? s->s_name : "")
 {
 }
 

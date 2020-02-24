@@ -207,6 +207,19 @@ TEST_CASE("data.tree", "[externals]")
                 REQUIRE(t.size() == 2);
                 REQUIRE(t.toString() == R"(("a":"b","c":("d":[1,2,3])))");
             }
+
+            SECTION("AbstractData*")
+            {
+                AbstractData* p = nullptr;
+                DataTypeTree t(p);
+                REQUIRE(t.isNull());
+
+                DataTypeString s("str");
+                p = &s;
+                DataTypeTree t1(p);
+                REQUIRE(t1.isString());
+                REQUIRE(t1.asSymbol() == SYM("str"));
+            }
         }
 
         SECTION("==")
