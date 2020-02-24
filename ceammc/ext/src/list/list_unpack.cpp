@@ -29,7 +29,7 @@ void ListUnpack::onDataT(const DataTPtr<DataTypeMList>& dptr)
 {
     const size_t N = std::min<size_t>(dptr->size(), n_);
     for (size_t i = N; i > 0; i--)
-        atomTo(i - 1, (*dptr)[i - 1].toAtom());
+        atomTo(i - 1, (*dptr)[i - 1].asAtom());
 }
 
 void setup_list_unpack()

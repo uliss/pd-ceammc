@@ -47,7 +47,7 @@ public:
         if (it == end)
             return;
 
-        atomTo(0, it->toAtom());
+        atomTo(0, it->asAtom());
     }
 };
 

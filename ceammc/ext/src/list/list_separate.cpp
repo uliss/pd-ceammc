@@ -48,11 +48,11 @@ void ListSeparate::onDataT(const DataTPtr<DataTypeMList>& l)
 {
     if (!enumerate_->value()) {
         for (auto& el : *l)
-            atomTo(0, el.toAtom());
+            atomTo(0, el.asAtom());
     } else {
         int idx = from_->value();
         for (auto& el : *l)
-            listTo(0, AtomList(Atom(idx++), el.toAtom()));
+            listTo(0, AtomList(Atom(idx++), el.asAtom()));
     }
 
     bangTo(1);
