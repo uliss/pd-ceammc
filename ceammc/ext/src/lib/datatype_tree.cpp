@@ -108,6 +108,24 @@ DataTypeTree::DataTypeTree(const DataTypeMList& lst)
     }
 }
 
+DataTypeTree::DataTypeTree(const DataTypeDict& dict)
+    : DataTypeTree()
+{
+    for (auto& kv : dict.innerData()) {
+        const char* k = kv.first.asSymbol()->s_name;
+        const DictValue& v = kv.second;
+        if (DataTypeDict::isNull(v))
+            insertTree(k, DataTypeTree());
+        else if (DataTypeDict::isAtom(v))
+            insertAtom(k, boost::get<Atom>(v));
+        else if (DataTypeDict::isAtomList(v))
+            insertTree(k, DataTypeTree(boost::get<AtomList>(v)));
+        else if (DataTypeDict::isDataAtom(v)) {
+            insertTree(k, DataTypeTree(boost::get<DataAtom>(v).data().data()));
+        }
+    }
+}
+
 DataTypeTree::DataTypeTree(const AbstractData* dptr)
     : DataTypeTree()
 {
@@ -121,6 +139,9 @@ DataTypeTree::DataTypeTree(const AbstractData* dptr)
     case data::DATA_MLIST:
         *this = DataTypeTree(*dptr->as<DataTypeMList>());
         break;
+    case data::DATA_DICT: {
+        *this = DataTypeTree(*dptr->as<DataTypeDict>());
+    } break;
     default:
         break;
     }
@@ -377,6 +398,12 @@ bool DataTypeTree::insertSymbol(const char* key, t_symbol* s)
 {
     detachPimpl();
     return pimpl_->insertSymbol(key, s);
+}
+
+bool DataTypeTree::insertAtom(const char* key, const Atom& a)
+{
+    detachPimpl();
+    return pimpl_->insertAtom(key, a);
 }
 
 bool DataTypeTree::insertTree(const char* key, const DataTypeTree& tree)

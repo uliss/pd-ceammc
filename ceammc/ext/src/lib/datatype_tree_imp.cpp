@@ -89,7 +89,9 @@ DataTypeTreeImpl::DataTypeTreeImpl(const AtomList& l)
     : json_(nlohmann::json::array())
 {
     for (auto& a : l) {
-        if (a.isFloat())
+        if (a.isInteger())
+            json_.push_back(static_cast<long>(a.asFloat()));
+        else if (a.isFloat())
             json_.push_back(a.asFloat());
         else if (a.isSymbol())
             json_.push_back(a.asSymbol()->s_name);
@@ -506,6 +508,21 @@ bool DataTypeTreeImpl::insertSymbol(const char* key, t_symbol* s)
         return true;
     } else if (json_.is_null()) {
         json_[key] = s->s_name;
+        return true;
+    } else
+        return false;
+}
+
+bool DataTypeTreeImpl::insertAtom(const char* key, const Atom& a)
+{
+    if (a.isInteger()) {
+        json_[key] = a.asInt();
+        return true;
+    } else if (a.isFloat()) {
+        json_[key] = a.asFloat();
+        return true;
+    } else if (a.isSymbol()) {
+        json_[key] = a.asSymbol()->s_name;
         return true;
     } else
         return false;

@@ -189,6 +189,24 @@ TEST_CASE("data.tree", "[externals]")
                 REQUIRE_FALSE(t.isSimpleArray());
                 REQUIRE(t.toString() == "[1,[2,[3,[4,[5]]]]]");
             }
+
+            SECTION("DataTypeDict")
+            {
+                DataTypeDict dict(R"([a:b] [c: 1 2 3])");
+                DataTypeTree t(dict);
+                REQUIRE(t.isObject());
+                REQUIRE(t.size() == 2);
+                REQUIRE(t.toString() == R"(("a":"b","c":[1,2,3]))");
+            }
+
+            SECTION("DataTypeDict 2")
+            {
+                DataTypeDict dict(R"([a:b] [c: ([d: 1 2 3])])");
+                DataTypeTree t(dict);
+                REQUIRE(t.isObject());
+                REQUIRE(t.size() == 2);
+                REQUIRE(t.toString() == R"(("a":"b","c":("d":[1,2,3])))");
+            }
         }
 
         SECTION("==")

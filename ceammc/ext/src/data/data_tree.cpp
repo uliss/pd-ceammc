@@ -148,7 +148,7 @@ void DataTree::onDataT(const DataTPtr<DataTypeTree>& ptr)
 
 void DataTree::onDataT(const DataTPtr<DataTypeString>& ptr)
 {
-    tree_ = TreePtr(new DataTypeTree(ptr->str()));
+    tree_ = TreePtr(new DataTypeTree(*ptr));
     onBang();
 }
 
@@ -157,10 +157,16 @@ void DataTree::onDataT(const DataTPtr<DataTypeSet>& ptr)
     auto* p = new DataTypeTree;
     tree_ = TreePtr(p);
     for (auto& a : ptr->toList()) {
-        if (a.isFloat())
-            p->arrayAdd(a.asFloat());
-        else if (a.isSymbol())
-            p->arrayAdd(a.asSymbol());
+        if (!a.isData())
+            p->arrayAdd(a);
+        else {
+            DataPtr ptr(a);
+            if (ptr.isValid()) {
+                DataTypeTree data(ptr.data());
+                if (!data.isNull())
+                    p->arrayAdd(data);
+            }
+        }
     }
 }
 
@@ -184,7 +190,7 @@ void DataTree::onDataT(const DataTPtr<DataTypeDict>& ptr)
 
 void DataTree::onDataT(const DataTPtr<DataTypeMList>& ptr)
 {
-    setFromMList(*ptr);
+    tree_ = TreePtr(new DataTypeTree(*ptr));
     onBang();
 }
 
@@ -254,15 +260,17 @@ void DataTree::m_insert(t_symbol* s, const AtomList& lst)
 void DataTree::m_set_list(t_symbol* s, const AtomList& lst)
 {
     if (lst.isData()) {
-        if (lst[0].isDataType(data::DATA_MLIST)) {
-            DataTPtr<DataTypeMList> ptr(lst[0]);
-            if (ptr.isValid()) {
-                setFromMList(*ptr);
-            } else
-                METHOD_ERR(s) << "invalid data pointer";
-        } else {
-            METHOD_ERR(s) << "unsupported datatype: " << lst[0].dataType();
+        DataPtr ptr(lst[0]);
+        if (ptr.isNull()) {
+            METHOD_ERR(s) << "invalid data pointer";
+            return;
         }
+
+        auto data = DataTypeTree(ptr.data());
+        if (!data.isNull())
+            tree_ = TreePtr(data.clone());
+        else
+            METHOD_ERR(s) << "unsupported data type: " << ptr->type();
     } else
         tree_ = TreePtr(new DataTypeTree(lst));
 }
@@ -275,11 +283,6 @@ void DataTree::setFromSymbol(t_symbol* s)
 void DataTree::setFromFloat(t_float f)
 {
     tree_ = TreePtr(new DataTypeTree(f));
-}
-
-void DataTree::setFromMList(const DataTypeMList& mlist)
-{
-    tree_ = TreePtr(new DataTypeTree(mlist));
 }
 
 class TreeFactory : public ColectionIFaceFactory<DataTree> {

@@ -18,6 +18,7 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_dataatom.h"
 #include "ceammc_either.h"
+#include "datatype_dict.h"
 #include "datatype_mlist.h"
 #include "datatype_string.h"
 
@@ -90,6 +91,7 @@ public:
 
     DataTypeTree(const DataTypeString& s);
     DataTypeTree(const DataTypeMList& lst);
+    DataTypeTree(const DataTypeDict& dict);
     DataTypeTree(const AbstractData* dptr);
 
     /**
@@ -272,6 +274,7 @@ public:
 
     bool insertFloat(const char* key, t_float f);
     bool insertSymbol(const char* key, t_symbol* s);
+    bool insertAtom(const char* key, const Atom& a);
     bool insertTree(const char* key, const DataTypeTree& tree);
 
     void outputTo(t_outlet* o) const;

@@ -60,7 +60,6 @@ public:
 private:
     void setFromSymbol(t_symbol* s);
     void setFromFloat(t_float f);
-    void setFromMList(const DataTypeMList& mlist);
 };
 
 void setup_data_tree();

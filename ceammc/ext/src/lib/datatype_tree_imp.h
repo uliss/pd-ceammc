@@ -92,6 +92,7 @@ public:
 
     bool insertFloat(const char* key, t_float f);
     bool insertSymbol(const char* key, t_symbol* s);
+    bool insertAtom(const char* key, const Atom& a);
     bool insertTree(const char* key, const DataTypeTreeImpl& tree);
 
 public:
