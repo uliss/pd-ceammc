@@ -143,9 +143,15 @@ public:
     {
     }
 
-    /// create from data copy/move
+    /// create from data move
     DataTPtr(T&& d)
-        : DataPtr(new T(std::forward<T>(d)))
+        : DataPtr(new T(std::move(d)))
+    {
+    }
+
+    /// create from data copy
+    DataTPtr(const T& d)
+        : DataPtr(new T(d))
     {
     }
 
