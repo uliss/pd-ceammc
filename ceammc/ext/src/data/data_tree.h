@@ -39,27 +39,43 @@ public:
 
     size_t proto_size() const final;
 
+    // output tree
     void onBang() final;
+    // set tree to float and output
     void onFloat(t_float f) final;
+    // set tree to string and output, no parsing performed
     void onSymbol(t_symbol* s) final;
+    // set tree to array and output, no parsing performed
+    // only simple atoms are expected: floats ans symbols
     void onList(const AtomList& lst) final;
-    void dump() const final;
-
-    void onDataT(const DataTPtr<DataTypeTree>& ptr);
-    void onDataT(const DataTPtr<DataTypeString>& ptr);
-    void onDataT(const DataTPtr<DataTypeSet>& ptr);
+    // set tree to object and output
     void onDataT(const DataTPtr<DataTypeDict>& ptr);
+    // set tree to array and output, no parsing performed
+    // nested data are allowed
     void onDataT(const DataTPtr<DataTypeMList>& ptr);
+    // set tree to array of set elements. data atoms supported
+    void onDataT(const DataTPtr<DataTypeSet>& ptr);
+    // same as onSymbol(), no parsing performed
+    void onDataT(const DataTPtr<DataTypeString>& ptr);
+    // set new tree and output
+    void onDataT(const DataTPtr<DataTypeTree>& ptr);
 
     void m_find(t_symbol* s, const AtomList& lst);
     void m_at(t_symbol* s, const AtomList& lst);
     void m_key(t_symbol* s, const AtomList& lst);
     void m_insert(t_symbol* s, const AtomList& lst);
-    void m_set_list(t_symbol* s, const AtomList& lst);
+
+    // create object from key value list and output, no parsing performed
+    void m_object(t_symbol* s, const AtomList& lst);
+
+    void dump() const final;
 
 private:
     void setFromSymbol(t_symbol* s);
     void setFromFloat(t_float f);
+    // set object from KEY VAL KEY1 VAL1 list
+    static DataTypeTree fromKeyValueList(const AtomList& lst);
+    static DataTypeTree fromKeyValueList(const DataTypeMList& mlist);
 };
 
 void setup_data_tree();

@@ -15,6 +15,7 @@
 #include "ceammc_datatypes.h"
 #include "datatype_tree_imp.h"
 #include "fmt/format.h"
+#include "ceammc_convert.h"
 
 namespace ceammc {
 
@@ -100,9 +101,11 @@ DataTypeTree::DataTypeTree(const AtomList& lst)
 DataTypeTree::DataTypeTree(const DataTypeMList& lst)
     : DataTypeTree()
 {
+    setArray();
+
     for (const DataAtom& el : lst) {
         if (el.isAtom())
-            arrayAdd(el.toAtom());
+            arrayAdd(el.asAtom());
         else
             arrayAdd(DataTypeTree(el.data().data()));
     }
@@ -111,6 +114,8 @@ DataTypeTree::DataTypeTree(const DataTypeMList& lst)
 DataTypeTree::DataTypeTree(const DataTypeDict& dict)
     : DataTypeTree()
 {
+    setObject();
+
     for (auto& kv : dict.innerData()) {
         const char* k = kv.first.asSymbol()->s_name;
         const DictValue& v = kv.second;
@@ -349,6 +354,12 @@ void DataTypeTree::setArray()
 {
     detachPimpl();
     pimpl_->setArray();
+}
+
+void DataTypeTree::setObject()
+{
+    detachPimpl();
+    pimpl_->setObject();
 }
 
 void DataTypeTree::setFloat(t_float f)

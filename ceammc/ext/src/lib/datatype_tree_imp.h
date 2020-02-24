@@ -90,10 +90,12 @@ public:
     DataTypeTreeImpl at(size_t idx) const;
     DataTypeTreeImpl at(const char* key) const;
 
+    // object functions
     bool insertFloat(const char* key, t_float f);
     bool insertSymbol(const char* key, t_symbol* s);
     bool insertAtom(const char* key, const Atom& a);
     bool insertTree(const char* key, const DataTypeTreeImpl& tree);
+    void setObject();
 
 public:
     static DataTypeTreeImpl fromString(const char* str);

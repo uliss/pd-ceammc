@@ -262,6 +262,10 @@ public:
      * Remove tree content and create empty array
      */
     void setArray();
+
+    /**
+     * Remove tree content and create empty object
+     */
     void setObject();
 
     void setFloat(t_float f);

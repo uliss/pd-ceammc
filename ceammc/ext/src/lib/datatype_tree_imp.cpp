@@ -88,13 +88,15 @@ DataTypeTreeImpl::DataTypeTreeImpl(const FloatList& l)
 DataTypeTreeImpl::DataTypeTreeImpl(const AtomList& l)
     : json_(nlohmann::json::array())
 {
-    for (auto& a : l) {
+    for (const Atom& a : l) {
         if (a.isInteger())
             json_.push_back(static_cast<long>(a.asFloat()));
         else if (a.isFloat())
             json_.push_back(a.asFloat());
         else if (a.isSymbol())
             json_.push_back(a.asSymbol()->s_name);
+        else
+            LIB_ERR << "unsupported atom type: " << a.type();
     }
 
     DBG("atom list - DataTypeJsonImpl(const AtomList &l)");
@@ -538,6 +540,11 @@ bool DataTypeTreeImpl::insertTree(const char* key, const DataTypeTreeImpl& tree)
         return true;
     } else
         return false;
+}
+
+void DataTypeTreeImpl::setObject()
+{
+    json_ = nlohmann::json::object();
 }
 
 }

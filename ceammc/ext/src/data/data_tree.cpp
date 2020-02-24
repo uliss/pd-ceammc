@@ -20,6 +20,8 @@
 #include <array>
 #include <tuple>
 
+#define EXT_ERR LIB_ERR << "[data.tree] "
+
 DataTree::DataTree(const PdArgs& args)
     : CollectionIFace<BaseObject>(args)
     , tree_(nullptr)
@@ -130,7 +132,7 @@ void DataTree::onSymbol(t_symbol* s)
 
 void DataTree::onList(const AtomList& lst)
 {
-    proto_set(lst);
+    tree_ = TreePtr(new DataTypeTree(lst));
     onBang();
 }
 
@@ -257,22 +259,29 @@ void DataTree::m_insert(t_symbol* s, const AtomList& lst)
     }
 }
 
-void DataTree::m_set_list(t_symbol* s, const AtomList& lst)
+/*
+ * Syntax is [object KEY VAL KEY VAL(
+ *        or
+ *           [object DICT(
+ */
+void DataTree::m_object(t_symbol* s, const AtomList& lst)
 {
-    if (lst.isData()) {
-        DataPtr ptr(lst[0]);
-        if (ptr.isNull()) {
-            METHOD_ERR(s) << "invalid data pointer";
-            return;
-        }
+    auto ptree = new DataTypeTree(DataTypeDict());
+    tree_ = TreePtr(ptree);
 
-        auto data = DataTypeTree(ptr.data());
-        if (!data.isNull())
-            tree_ = TreePtr(data.clone());
-        else
-            METHOD_ERR(s) << "unsupported data type: " << ptr->type();
+    if (lst.isData()) {
+        if (lst[0].isDataType(data::DATA_MLIST))
+            ;
+    }
+
+    if (lst.size() % 2 != 0) {
+        METHOD_ERR(s) << "even number or args expected,"
+                      << "\t usage: [" << s->s_name << " KEY VAL etc.(";
+        return;
     } else
-        tree_ = TreePtr(new DataTypeTree(lst));
+        tree_ = TreePtr(fromKeyValueList(lst));
+
+    onBang();
 }
 
 void DataTree::setFromSymbol(t_symbol* s)
@@ -283,6 +292,54 @@ void DataTree::setFromSymbol(t_symbol* s)
 void DataTree::setFromFloat(t_float f)
 {
     tree_ = TreePtr(new DataTypeTree(f));
+}
+
+DataTypeTree DataTree::fromKeyValueList(const AtomList& lst)
+{
+    DataTypeTree res;
+    res.setObject();
+
+    if (lst.size() % 2)
+        return res;
+
+    for (size_t i = 0; i < lst.size(); i += 2) {
+        auto k = lst[i];
+        auto v = lst[i + 1];
+
+        if (!k.isSymbol()) {
+            EXT_ERR << "key should be a symbol: " << k << ", skipping...";
+            continue;
+        }
+
+        if (!res.insertAtom(k.asSymbol()->s_name, v))
+            EXT_ERR << "can't insert " << k << ' ' << v;
+    }
+
+    return res;
+}
+
+DataTypeTree DataTree::fromKeyValueList(const DataTypeMList& mlist)
+{
+    DataTypeTree res;
+    res.setObject();
+
+    if (mlist.size() % 2)
+        return res;
+
+    for (size_t i = 0; i < mlist.size(); i += 2) {
+        auto k = mlist[i];
+        auto v = mlist[i + 1];
+
+        if (!k.isSymbol()) {
+            EXT_ERR << "key should be a symbol: " << k << ", skipping...";
+            continue;
+        }
+
+        if (!res.insertAtom(k.asSymbol()->s_name, v.asAtom()))
+            EXT_ERR << "can't insert " << k << ' ' << v;
+    }
+
+    return res;
 }
 
 class TreeFactory : public ColectionIFaceFactory<DataTree> {
@@ -347,5 +404,5 @@ void setup_data_tree()
     obj.addMethod("at", &DataTree::m_at);
     obj.addMethod("find", &DataTree::m_find);
     obj.addMethod("insert", &DataTree::m_insert);
-    obj.addMethod("set_list", &DataTree::m_set_list);
+    obj.addMethod("object", &DataTree::m_object);
 }
