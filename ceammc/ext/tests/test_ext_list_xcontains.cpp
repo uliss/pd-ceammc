@@ -106,7 +106,7 @@ TEST_CASE("list.^contains", "[externals]")
 
         DataAtom d0(new IntData(1000));
         DataAtom d1(new StrData("ABC"));
-        AtomList l0(d0.toAtom(), d1.toAtom());
+        AtomList l0(d0.asAtom(), d1.asAtom());
 
         WHEN_SEND_LIST_TO(1, t, l0);
         REQUIRE_NO_MSG(t);
