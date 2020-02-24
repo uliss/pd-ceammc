@@ -75,9 +75,9 @@ void ListApplyTo::onDataT(const DataTPtr<DataTypeMList>& dptr)
 
         // no proccessing required
         if (it == norm_idxs_.end())
-            mapped_.append((*dptr)[cur_idx_].toAtom());
+            mapped_.append((*dptr)[cur_idx_].asAtom());
         else
-            atomTo(1, (*dptr)[cur_idx_].toAtom());
+            atomTo(1, (*dptr)[cur_idx_].asAtom());
     }
 
     on_loop_ = false;
