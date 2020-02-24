@@ -19,7 +19,7 @@
                 <see>tree.symbol</see>
             </also>
         </meta>
-        <arguments/>
+        <arguments />
         <inlets>
             <inlet>
                 <xinfo on="bang">output last float value</xinfo>

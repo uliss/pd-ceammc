@@ -198,7 +198,7 @@
     <entry descr="converts set to list" name="data.set2list" ref_view="object">
       <xi:include href="data.set2list.pddoc" parse="xml"/>
     </entry>
-    <entry descr="JSON like structure for storing values, with parenthesis instead of curly braces" name="data.tree" ref_view="object">
+    <entry descr="JSON like structure for storing values" name="data.tree" ref_view="object">
       <xi:include href="data.tree.pddoc" parse="xml"/>
     </entry>
     <entry descr="predicate to check dict contains key" name="dict.contains" ref_view="object">

@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>JSON like structure for storing values, with parenthesis instead of curly braces</description>
+            <description>JSON like structure for storing values</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>data</category>
@@ -14,14 +14,21 @@
             <since>0.9</since>
         </meta>
         <arguments>
-            <argument name="X" type="any">tree syntax</argument>
+            <argument name="X" type="any">tree syntax: like JSON, but with parenthesis instead of
+            curly braces</argument>
         </arguments>
         <properties>
-            <property name="@empty" readonly="true" enum="0 1" type="int">1 if tree is empty</property>
+            <property name="@empty" readonly="true" enum="0 1" type="int">1 if tree is
+            empty</property>
             <property name="@size" readonly="true" minvalue="0" type="int">number of elements in
             tree</property>
         </properties>
-        <methods/>
+        <methods>
+            <method name="object">
+            <param name="KEY" type="symbol">key</param>
+            <param name="VAL" type="atom">value</param>creates tree dictionary with specified key
+            values. No output. No parsing performed.</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="bang">output tree</xinfo>
@@ -34,11 +41,18 @@
         <example>
             <pdascii>
 <![CDATA[
-[bang( [at $1(
-|      |
-[data.tree ("a": 100\, "b": "A B C"\, "c": \[1\,2\,3\]\, "d": (5000))]
+[object, bang #a(
+
+[object a 1 b 2, bang #b(
+
+[data.tree ("a": 100\, "b": "A B C"\, "c": \[1\,2\,3\]\, "d": (5000)) #z]
+|
+|
 |
 [ui.d]
+
+[X a->z]
+[X b->z]
 ]]>
             </pdascii>
         </example>
