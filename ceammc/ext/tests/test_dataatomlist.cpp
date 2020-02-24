@@ -32,7 +32,7 @@ TEST_CASE("DataAtomList", "[ceammc::DataAtomList]")
         {
             DataAtomList lst(Atom(123));
             REQUIRE(lst.size() == 1);
-            REQUIRE(lst[0].toAtom() == Atom(123));
+            REQUIRE(lst[0].asAtom() == Atom(123));
         }
 
         SECTION("list")
@@ -50,8 +50,8 @@ TEST_CASE("DataAtomList", "[ceammc::DataAtomList]")
 
         lst.set(LF(10, 12));
         REQUIRE(lst.size() == 2);
-        REQUIRE(lst[0].toAtom() == Atom(10));
-        REQUIRE(lst[1].toAtom() == Atom(12));
+        REQUIRE(lst[0].asAtom() == Atom(10));
+        REQUIRE(lst[1].asAtom() == Atom(12));
         REQUIRE(lst.toList() == LF(10, 12));
     }
 
@@ -64,7 +64,7 @@ TEST_CASE("DataAtomList", "[ceammc::DataAtomList]")
 
         lst.append(Atom(24));
         REQUIRE(lst.size() == 2);
-        REQUIRE(lst[1].toAtom() == Atom(24));
+        REQUIRE(lst[1].asAtom() == Atom(24));
     }
 
     SECTION("search")
@@ -340,7 +340,7 @@ TEST_CASE("DataAtomList", "[ceammc::DataAtomList]")
         DataAtom int444(new IntData(444));
         REQUIRE(lst.contains(int444));
 
-        REQUIRE(lst.contains(LA(100, int444.toAtom())));
+        REQUIRE(lst.contains(LA(100, int444.asAtom())));
 
         // 100, INT(444)
         lst.append(Atom(gensym("a")));

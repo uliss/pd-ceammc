@@ -32,6 +32,7 @@ TEST_CASE("XData", "[ceammc::XData]")
         SECTION("invalid pointer")
         {
             REQUIRE_FALSE(DataPtr(0).isValid());
+            REQUIRE(DataPtr(0).isNull());
 
             DataPtr p(0);
             REQUIRE(p.desc() == INVALID);
@@ -177,6 +178,22 @@ TEST_CASE("XData", "[ceammc::XData]")
         REQUIRE(vec[4].as<IntData>()->value() == 5);
     }
 
+    SECTION("move ctor")
+    {
+        DataPtr p0(new IntData(4));
+        DataPtr p1(new IntData(6));
+        std::swap(p0, p1);
+
+        REQUIRE(p0->as<IntData>()->value() == 6);
+        REQUIRE(p1->as<IntData>()->value() == 4);
+
+        REQUIRE(p0.isValid());
+        DataPtr p2(std::move(p0));
+        REQUIRE(p2.isValid());
+        REQUIRE_FALSE(p0.isValid());
+        REQUIRE(p2->as<IntData>()->value() == 6);
+    }
+
     SECTION("dataT")
     {
         DataTPtr<IntData> p(0);
@@ -196,5 +213,55 @@ TEST_CASE("XData", "[ceammc::XData]")
         REQUIRE(p3.refCount() == 0);
         REQUIRE(p3.isNull());
         REQUIRE(!p3.isValid());
+
+        SECTION("move ctor")
+        {
+            using IntPtr = DataTPtr<IntData>;
+
+            IntPtr p0(IntData(100));
+            IntPtr p1(p0);
+            REQUIRE(p0->value() == 100);
+            REQUIRE(p1->value() == 100);
+
+            REQUIRE(p0 == p1);
+            REQUIRE(p0 == p0);
+            REQUIRE(p1 == p0);
+
+            IntPtr p2(std::move(p0));
+            REQUIRE(p2 != p0);
+            REQUIRE(p0.isNull());
+            REQUIRE(p2->value() == 100);
+        }
+
+        SECTION("move =")
+        {
+            using IntPtr = DataTPtr<IntData>;
+
+            IntPtr p0(IntData(100));
+            IntPtr p1(IntData(1000));
+
+            REQUIRE(p0.isValid());
+            p0 = std::move(p1);
+            REQUIRE(p0->value() == 1000);
+            REQUIRE(p1.isNull());
+        }
+
+        SECTION("from atom")
+        {
+            using IntPtr = DataTPtr<IntData>;
+            using StrPtr = DataTPtr<StrData>;
+
+            StrPtr p0(StrData("str"));
+            // invalid type
+            IntPtr p1(p0.asAtom());
+            // ok
+            StrPtr p2(p0.asAtom());
+
+            REQUIRE(p0.isValid());
+            REQUIRE(p1.isNull());
+            REQUIRE(p2.isValid());
+            REQUIRE(p0 == p2);
+            REQUIRE(p0.data() == p2.data());
+        }
     }
 }

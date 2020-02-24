@@ -37,6 +37,8 @@ public:
 
     static void init();
 
+    bool operator==(const IntData& d) const;
+
 public:
     static ceammc::DataType dataType;
     static int constructor_called;
@@ -57,6 +59,8 @@ public:
     std::string toString() const;
     ceammc::DataType type() const;
     StrData* clone() const;
+
+    bool operator==(const StrData& d) const;
 
 public:
     static ceammc::DataType dataType;

@@ -192,4 +192,16 @@ bool to_outlet(t_outlet* x, const DataAtom& a)
     return to_outlet(x, a.asAtom());
 }
 
+std::ostream& operator<<(std::ostream& os, const DataAtom& a)
+{
+    if (a.isAtom() && !a.asAtom().isNone())
+        os << a.asAtom();
+    else if (a.data().isValid())
+        os << a.data()->toString();
+    else
+        os << "null";
+
+    return os;
+}
+
 }

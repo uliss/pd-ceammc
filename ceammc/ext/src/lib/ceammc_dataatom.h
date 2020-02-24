@@ -145,6 +145,11 @@ public:
  */
 bool to_outlet(t_outlet* x, const DataAtom& a);
 
+/**
+ * Output operator
+ */
+std::ostream& operator<<(std::ostream& os, const DataAtom& a);
+
 template <typename T>
 bool DataAtom::isDataType() const
 {

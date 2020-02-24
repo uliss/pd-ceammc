@@ -129,7 +129,7 @@ bool DataTypeSet::isEqual(const AbstractData* d) const
         return false;
 
     for (auto& el : data_) {
-        if (!ds->contains(el.toAtom()))
+        if (!ds->contains(el.asAtom()))
             return false;
     }
 
@@ -142,7 +142,7 @@ AtomList DataTypeSet::toList() const
     res.reserve(size());
 
     for (auto a : data_)
-        res.append(a.toAtom());
+        res.append(a.asAtom());
 
     return res;
 }
@@ -184,10 +184,10 @@ void DataTypeSet::set_union(DataTypeSet& out, const DataTypeSet& s0, const DataT
     out.clear();
 
     for (auto& el : s0.data_)
-        out.add(el.toAtom());
+        out.add(el.asAtom());
 
     for (auto& el : s1.data_)
-        out.add(el.toAtom());
+        out.add(el.asAtom());
 }
 
 void DataTypeSet::difference(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1)
@@ -195,7 +195,7 @@ void DataTypeSet::difference(DataTypeSet& out, const DataTypeSet& s0, const Data
     out.clear();
 
     for (auto& el : s0.data_) {
-        if (!s1.contains(el.toAtom()))
+        if (!s1.contains(el.asAtom()))
             out.data_.insert(el);
     }
 }
@@ -205,12 +205,12 @@ void DataTypeSet::sym_difference(DataTypeSet& out, const DataTypeSet& s0, const 
     out.clear();
 
     for (auto& el : s0.data_) {
-        if (!s1.contains(el.toAtom()))
+        if (!s1.contains(el.asAtom()))
             out.data_.insert(el);
     }
 
     for (auto& el : s1.data_) {
-        if (!s0.contains(el.toAtom()))
+        if (!s0.contains(el.asAtom()))
             out.data_.insert(el);
     }
 }

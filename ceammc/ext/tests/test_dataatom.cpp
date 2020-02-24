@@ -281,4 +281,27 @@ TEST_CASE("DataAtom", "[ceammc::DataAtom]")
         REQUIRE(ctor == StrData::constructor_called);
         REQUIRE(dtor == StrData::destructor_called);
     }
+
+    SECTION("operator<<")
+    {
+        std::ostringstream ss;
+        ss << DataAtom(100);
+        REQUIRE(ss.str() == "100");
+        ss.str("");
+
+        ss << DataAtom(SYM("ABC"));
+        REQUIRE(ss.str() == "ABC");
+        ss.str("");
+
+        ss << DataAtom(DataPtr(new IntData(10)));
+        REQUIRE(ss.str() == "10");
+        ss.str("");
+
+        ss << DataAtom();
+        REQUIRE(ss.str() == "null");
+        ss.str("");
+
+        ss << DataAtom(nullptr);
+        REQUIRE(ss.str() == "null");
+    }
 }

@@ -87,6 +87,11 @@ void IntData::init()
     ceammc::ObjectFactory<TestInt> obj("test.int");
 }
 
+bool IntData::operator==(const IntData& d) const
+{
+    return v_ == d.v_;
+}
+
 StrData::StrData(const std::string& v)
     : v_(v)
 {
@@ -119,3 +124,8 @@ std::string StrData::toString() const
 ceammc::DataType StrData::type() const { return dataType; }
 
 StrData* StrData::clone() const { return new StrData(v_); }
+
+bool StrData::operator==(const StrData& d) const
+{
+    return v_ == d.v_;
+}
