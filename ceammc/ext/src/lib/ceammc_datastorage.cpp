@@ -42,7 +42,7 @@ size_t DataStorage::size() const
 
 DataDesc DataStorage::add(const AbstractData* data)
 {
-    if (data == 0)
+    if (data == nullptr)
         return DataDesc(data::DATA_INVALID, DataId(-1));
 
     DataDesc desc(data->type(), generateId(data));
@@ -52,10 +52,7 @@ DataDesc DataStorage::add(const AbstractData* data)
         return desc;
     }
 
-    Entry entry;
-    entry.ref_count = 1;
-    entry.data = data;
-    map_[desc] = entry;
+    map_.emplace(desc, Entry { 1, data });
     return desc;
 }
 
@@ -77,6 +74,7 @@ void DataStorage::release(const DataDesc& desc)
 
     it->second.ref_count--;
     if (it->second.ref_count == 0) {
+        // free memory
         delete it->second.data;
         map_.erase(desc);
     }

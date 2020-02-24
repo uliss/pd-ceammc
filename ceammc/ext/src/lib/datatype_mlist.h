@@ -123,7 +123,7 @@ AtomList DataTypeMList::toList(Fn pred) const
 
     for (auto& el : data_) {
         if (pred(el))
-            res.append(el.toAtom());
+            res.append(el.asAtom());
     }
 
     return res;

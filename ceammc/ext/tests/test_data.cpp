@@ -11,10 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "test_base.h"
-#include "ceammc_datatypes.h"
 #include "ceammc_data.h"
 #include "ceammc_datastorage.h"
+#include "ceammc_datatypes.h"
+#include "test_base.h"
 
 #include "catch.hpp"
 
@@ -84,6 +84,9 @@ TEST_CASE("XData", "[ceammc::XData]")
         DataPtr p(new IntData(200));
         p = p;
         REQUIRE(p.refCount() == 1);
+
+        p = std::move(p);
+        REQUIRE(p.refCount() == 1);
     }
 
     SECTION("container")
@@ -134,6 +137,9 @@ TEST_CASE("XData", "[ceammc::XData]")
         REQUIRE(p0 != p2);
         REQUIRE(DataPtr(INVALID) == DataPtr(INVALID));
         REQUIRE(DataPtr(INVALID) == DataPtr(Atom()));
+
+        REQUIRE(p0 != DataPtr(Atom()));
+        REQUIRE(DataPtr(Atom()) != p0);
     }
 
     SECTION("compare")

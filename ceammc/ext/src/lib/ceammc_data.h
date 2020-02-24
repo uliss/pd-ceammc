@@ -23,9 +23,12 @@ namespace ceammc {
 class DataPtr {
     DataDesc desc_;
     const AbstractData* data_;
-    DataPtr();
 
 public:
+    /**
+     * Creates new data pointer
+     * Takes ownership on the specified pointer
+     */
     DataPtr(AbstractData* data);
     DataPtr(const Atom& data);
 

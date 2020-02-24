@@ -104,7 +104,7 @@ std::string DataTypeMList::toString() const
         if (i != 0)
             res.push_back(' ');
 
-        res += to_string_quoted(data_[i].toAtom());
+        res += to_string_quoted(data_[i].asAtom());
     }
 
     res.push_back(')');
@@ -243,7 +243,7 @@ DataTypeMList DataTypeMList::flatten() const
 
     for (auto& el : data_) {
         if (el.isAtom()) {
-            res.data_.append(el.toAtom());
+            res.data_.append(el.asAtom());
         } else {
             auto data = el.data();
             // skipping null pointer
@@ -319,7 +319,7 @@ void DataTypeMList::sort()
 {
     auto pred = [](const DataAtom& a0, const DataAtom& a1) {
         if (a0.isAtom() && a1.isAtom())
-            return a0.toAtom() < a1.toAtom();
+            return a0.asAtom() < a1.asAtom();
 
         return false;
     };

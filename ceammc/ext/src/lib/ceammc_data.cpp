@@ -19,12 +19,6 @@ using namespace ceammc;
 
 static const DataDesc INVALID(data::DATA_INVALID, DataId(-1));
 
-DataPtr::DataPtr()
-    : desc_(INVALID)
-    , data_(nullptr)
-{
-}
-
 DataPtr::DataPtr(AbstractData* data)
     : desc_(INVALID)
     , data_(data)
