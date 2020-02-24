@@ -65,8 +65,7 @@ DataTypeTree::DataTypeTree(t_float f)
 }
 
 DataTypeTree::DataTypeTree(t_symbol* s)
-    : pimpl_(new DataTypeTreeImpl(s))
-    , copy_on_write_(false)
+    : DataTypeTree(s->s_name)
 {
 }
 
@@ -77,8 +76,12 @@ DataTypeTree::DataTypeTree(const char* s)
 }
 
 DataTypeTree::DataTypeTree(const std::string& s)
-    : pimpl_(new DataTypeTreeImpl(s.c_str()))
-    , copy_on_write_(false)
+    : DataTypeTree(s.c_str())
+{
+}
+
+DataTypeTree::DataTypeTree(const DataTypeString& s)
+    : DataTypeTree(s.str().c_str())
 {
 }
 
@@ -92,6 +95,35 @@ DataTypeTree::DataTypeTree(const AtomList& lst)
     : pimpl_(new DataTypeTreeImpl(lst))
     , copy_on_write_(false)
 {
+}
+
+DataTypeTree::DataTypeTree(const DataTypeMList& lst)
+    : DataTypeTree()
+{
+    for (const DataAtom& el : lst) {
+        if (el.isAtom())
+            arrayAdd(el.toAtom());
+        else
+            arrayAdd(DataTypeTree(el.data().data()));
+    }
+}
+
+DataTypeTree::DataTypeTree(const AbstractData* dptr)
+    : DataTypeTree()
+{
+    if (!dptr)
+        return;
+
+    switch (dptr->type()) {
+    case data::DATA_STRING:
+        *this = DataTypeTree(*dptr->as<DataTypeString>());
+        break;
+    case data::DATA_MLIST:
+        *this = DataTypeTree(*dptr->as<DataTypeMList>());
+        break;
+    default:
+        break;
+    }
 }
 
 DataTypeTree& DataTypeTree::operator=(const DataTypeTree& t)
@@ -265,6 +297,21 @@ bool DataTypeTree::arrayAdd(t_symbol* s)
     return pimpl_->arrayAdd(s);
 }
 
+bool DataTypeTree::arrayAdd(const Atom& a)
+{
+    t_float f = 0;
+    t_symbol* s = nullptr;
+
+    if (a.getFloat(&f)) {
+        detachPimpl();
+        return pimpl_->arrayAdd(f);
+    } else if (a.getSymbol(&s)) {
+        detachPimpl();
+        return pimpl_->arrayAdd(s);
+    } else
+        return false;
+}
+
 bool DataTypeTree::arrayAdd(const AtomList& l)
 {
     detachPimpl();
@@ -361,6 +408,14 @@ t_float DataTypeTree::asFloat(t_float def) const
 {
     if (isFloat())
         return pimpl_->asFloat();
+    else
+        return def;
+}
+
+t_symbol* DataTypeTree::asSymbol(t_symbol* def) const
+{
+    if (isString())
+        return pimpl_->asSymbol();
     else
         return def;
 }

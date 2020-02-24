@@ -17,6 +17,7 @@
 #include "ceammc_data.h"
 #include "data_protocol.h"
 #include "datatype_dict.h"
+#include "datatype_mlist.h"
 #include "datatype_set.h"
 #include "datatype_string.h"
 #include "datatype_tree.h"
@@ -48,15 +49,18 @@ public:
     void onDataT(const DataTPtr<DataTypeString>& ptr);
     void onDataT(const DataTPtr<DataTypeSet>& ptr);
     void onDataT(const DataTPtr<DataTypeDict>& ptr);
+    void onDataT(const DataTPtr<DataTypeMList>& ptr);
 
     void m_find(t_symbol* s, const AtomList& lst);
     void m_at(t_symbol* s, const AtomList& lst);
     void m_key(t_symbol* s, const AtomList& lst);
     void m_insert(t_symbol* s, const AtomList& lst);
+    void m_set_list(t_symbol* s, const AtomList& lst);
 
 private:
     void setFromSymbol(t_symbol* s);
     void setFromFloat(t_float f);
+    void setFromMList(const DataTypeMList& mlist);
 };
 
 void setup_data_tree();

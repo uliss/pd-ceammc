@@ -17,6 +17,8 @@
 #include "datatype_tree.h"
 #include "fmt/format.h"
 
+#include <cmath>
+
 namespace ceammc {
 
 #if 0
@@ -360,13 +362,24 @@ bool DataTypeTreeImpl::operator==(const DataTypeTreeImpl& impl) const
     return json_ == impl.json_;
 }
 
+static bool is_integer(t_float f)
+{
+    return std::ceil(f) == f;
+}
+
 bool DataTypeTreeImpl::arrayAdd(t_float f)
 {
     if (json_.is_array()) {
-        json_.push_back(f);
+        if (is_integer(f))
+            json_.push_back(std::llround(f));
+        else
+            json_.push_back(f);
         return true;
     } else if (json_.is_null()) {
-        json_ = json_.array({ f });
+        if (is_integer(f))
+            json_ = json_.array({ std::llround(f) });
+        else
+            json_ = json_.array({ f });
         return true;
     } else
         return false;

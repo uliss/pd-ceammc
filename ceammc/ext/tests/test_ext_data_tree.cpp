@@ -162,6 +162,35 @@ TEST_CASE("data.tree", "[externals]")
             REQUIRE(t9.toString() == "[1.0,2.0,3.0,4.0,5.0]");
         }
 
+        SECTION("create from data")
+        {
+            SECTION("DataTypeString")
+            {
+                DataTypeString str("ABC");
+                DataTypeTree t(str);
+                REQUIRE(t.isString());
+                REQUIRE(t.asSymbol() == SYM("ABC"));
+            }
+
+            SECTION("DataTypeMList")
+            {
+                DataTypeMList ml("(1 2 3 4)");
+                DataTypeTree t(ml);
+                REQUIRE(t.isArray());
+                REQUIRE(t.isSimpleArray());
+                REQUIRE(t.toString() == "[1,2,3,4]");
+            }
+
+            SECTION("DataTypeMList 2")
+            {
+                DataTypeMList ml("(1 (2 (3 (4 (5)))))");
+                DataTypeTree t(ml);
+                REQUIRE(t.isArray());
+                REQUIRE_FALSE(t.isSimpleArray());
+                REQUIRE(t.toString() == "[1,[2,[3,[4,[5]]]]]");
+            }
+        }
+
         SECTION("==")
         {
             DataTypeTree t0;
@@ -224,7 +253,7 @@ TEST_CASE("data.tree", "[externals]")
             REQUIRE(t0.isArray());
             REQUIRE_FALSE(t0.empty());
             REQUIRE(t0.size() == 2);
-            REQUIRE(t0.toString() == "[100.0,200.0]");
+            REQUIRE(t0.toString() == "[100,200]");
 
             t0.clear();
             REQUIRE(t0.empty());
@@ -255,16 +284,16 @@ TEST_CASE("data.tree", "[externals]")
         {
             DataTypeTree t0;
             REQUIRE(t0.arrayAdd(1));
-            REQUIRE(t0.toString() == R"([1.0])");
+            REQUIRE(t0.toString() == R"([1])");
             REQUIRE(t0.arrayAdd(gensym("A")));
-            REQUIRE(t0.toString() == R"([1.0,"A"])");
+            REQUIRE(t0.toString() == R"([1,"A"])");
             REQUIRE(t0.arrayAdd(LF(2, 3)));
-            REQUIRE(t0.toString() == R"([1.0,"A",[2,3]])");
+            REQUIRE(t0.toString() == R"([1,"A",[2,3]])");
             REQUIRE(t0.arrayAdd(t0));
 
             REQUIRE(t0.isArray());
             REQUIRE(t0.size() == 4);
-            REQUIRE(t0.toString() == R"([1.0,"A",[2,3],[1.0,"A",[2,3]]])");
+            REQUIRE(t0.toString() == R"([1,"A",[2,3],[1,"A",[2,3]]])");
 
             DataTypeTree t1(100);
             REQUIRE_FALSE(t1.arrayAdd(1));
@@ -281,7 +310,12 @@ TEST_CASE("data.tree", "[externals]")
             DataTypeTree t3(FloatList({}));
             REQUIRE(t3.toString() == "[]");
             REQUIRE(t3.arrayAdd(1));
-            REQUIRE(t3.toString() == "[1.0]");
+            REQUIRE(t3.toString() == "[1]");
+
+            DataTypeTree t4;
+            REQUIRE(t4.arrayAdd(Atom(120)));
+            REQUIRE(t4.arrayAdd(S("ABC")));
+            REQUIRE(t4.toString() == R"([120,"ABC"])");
         }
 
         SECTION("set array")

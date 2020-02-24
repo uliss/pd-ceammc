@@ -18,6 +18,8 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_dataatom.h"
 #include "ceammc_either.h"
+#include "datatype_mlist.h"
+#include "datatype_string.h"
 
 #include <boost/variant.hpp>
 #include <iostream>
@@ -85,6 +87,10 @@ public:
      * @param lst - list floats or symbols
      */
     DataTypeTree(const AtomList& lst);
+
+    DataTypeTree(const DataTypeString& s);
+    DataTypeTree(const DataTypeMList& lst);
+    DataTypeTree(const AbstractData* dptr);
 
     /**
      * assign operator
@@ -224,6 +230,13 @@ public:
     bool arrayAdd(t_symbol* s);
 
     /**
+     * Adds atom value to the end of tree array or creates array with single element if null tree
+     * @param a - atom to add (float or symbol expected, otherwise returns false)
+     * @return true on success, false on error (if value if not an array or null)
+     */
+    bool arrayAdd(const Atom& a);
+
+    /**
      * Adds array to the end of tree array or creates array with single element if null tree
      * @param l - array to add
      * @return true on success, false on error (if value if not an array or null)
@@ -263,6 +276,7 @@ public:
 
     void outputTo(t_outlet* o) const;
     t_float asFloat(t_float def = 0) const;
+    t_symbol* asSymbol(t_symbol* def = &s_) const;
     Atom asAtom() const;
     AtomList asAtomList() const;
     DataTPtr<DataTypeTree> asDataPtr() const;
