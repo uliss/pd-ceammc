@@ -93,6 +93,7 @@ data.list
 data.mlist
 data.set
 data.set2list
+data.tree
 dbfs->amp
 demux2~
 demux~
@@ -262,7 +263,6 @@ hw.cpu_temp
 hw.display
 hw.kbd_light
 hw.serial
-hw.usb
 is_any
 is_bang
 is_data
@@ -540,8 +540,11 @@ phase->rad~
 pitch->midi
 pol->car
 prepend
+preset.f
 preset.float
+preset.l
 preset.list
+preset.s
 preset.storage
 preset.symbol
 prop
@@ -652,6 +655,10 @@ tl.t
 tl.timeline
 tl.toggle
 tl.transport
+tree.at
+tree.f
+tree.float
+tree.size
 ui.aview
 ui.b
 ui.bang
