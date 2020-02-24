@@ -41,11 +41,11 @@ public:
 
     // output tree
     void onBang() final;
-    // set tree to float and output
+    // set tree to float and no output
     void onFloat(t_float f) final;
-    // set tree to string and output, no parsing performed
+    // set tree to string and no output, no parsing performed
     void onSymbol(t_symbol* s) final;
-    // set tree to array and output, no parsing performed
+    // set tree to array and no output, no parsing performed
     // only simple atoms are expected: floats ans symbols
     void onList(const AtomList& lst) final;
     // set tree to object and output
@@ -65,7 +65,7 @@ public:
     void m_key(t_symbol* s, const AtomList& lst);
     void m_insert(t_symbol* s, const AtomList& lst);
 
-    // create object from key value list and output, no parsing performed
+    // create object from key value list and no output, no parsing performed
     void m_object(t_symbol* s, const AtomList& lst);
 
     void dump() const final;

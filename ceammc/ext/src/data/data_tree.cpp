@@ -121,19 +121,16 @@ void DataTree::onBang()
 void DataTree::onFloat(t_float f)
 {
     setFromFloat(f);
-    onBang();
 }
 
 void DataTree::onSymbol(t_symbol* s)
 {
     setFromSymbol(s);
-    onBang();
 }
 
 void DataTree::onList(const AtomList& lst)
 {
     tree_ = TreePtr(new DataTypeTree(lst));
-    onBang();
 }
 
 void DataTree::dump() const
@@ -280,8 +277,6 @@ void DataTree::m_object(t_symbol* s, const AtomList& lst)
         return;
     } else
         tree_ = TreePtr(fromKeyValueList(lst));
-
-    onBang();
 }
 
 void DataTree::setFromSymbol(t_symbol* s)

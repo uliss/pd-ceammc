@@ -32,6 +32,9 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">output tree</xinfo>
+                <xinfo on="float">set tree to float. no output</xinfo>
+                <xinfo on="symbol">set tree to symbol. no output, no parsing performed</xinfo>
+                <xinfo on="list">set tree to list. no output, no parsing performed</xinfo>
                 <xinfo on="data:tree">set new tree content and output</xinfo>
             </inlet>
         </inlets>
@@ -45,6 +48,10 @@
 
 [object a 1 b 2, bang #b(
 
+[list, bang #c(
+
+[list A B C 1 2 3, bang #d(
+
 [data.tree ("a": 100\, "b": "A B C"\, "c": \[1\,2\,3\]\, "d": (5000)) #z]
 |
 |
@@ -53,6 +60,8 @@
 
 [X a->z]
 [X b->z]
+[X c->z]
+[X d->z]
 ]]>
             </pdascii>
         </example>
