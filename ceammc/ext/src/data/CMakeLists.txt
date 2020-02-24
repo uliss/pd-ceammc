@@ -26,7 +26,10 @@ ceammc_data_external(dict to_list)
 ceammc_data_external(dict values)
 
 ceammc_data_external(tree at)
+ceammc_data_external(tree float)
+ceammc_data_external(tree keys)
 ceammc_data_external(tree size)
+ceammc_data_external(tree symbol)
 
 ceammc_data_external(mlist flatten)
 

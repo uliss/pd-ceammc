@@ -40,6 +40,7 @@
 #include "set_union.h"
 #include "tree_at.h"
 #include "tree_float.h"
+#include "tree_keys.h"
 #include "tree_size.h"
 #include "tree_symbol.h"
 
@@ -80,6 +81,7 @@ void ceammc_data_setup()
 
     setup_tree_at();
     setup_tree_float();
+    setup_tree_keys();
     setup_tree_size();
     setup_tree_symbol();
 
