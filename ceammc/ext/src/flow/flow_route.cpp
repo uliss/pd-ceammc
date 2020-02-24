@@ -160,7 +160,7 @@ void FlowRoute::onData(const DataPtr& ptr)
         if (!first.isAtom())
             return;
 
-        auto atom = first.toAtom();
+        auto atom = first.asAtom();
         auto& slots = args();
 
         // iterate from end
