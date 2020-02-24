@@ -12,10 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "datatype_tree.h"
+#include "ceammc_convert.h"
 #include "ceammc_datatypes.h"
 #include "datatype_tree_imp.h"
 #include "fmt/format.h"
-#include "ceammc_convert.h"
 
 namespace ceammc {
 
@@ -387,6 +387,16 @@ bool DataTypeTree::set(const DataTPtr<DataTypeTree>& ptr)
 DataTPtr<DataTypeTree> DataTypeTree::match(const char* pattern) const
 {
     return new DataTypeTree(pimpl_->match(pattern));
+}
+
+DataTPtr<DataTypeTree> DataTypeTree::atPtr(size_t idx) const
+{
+    return new DataTypeTree(pimpl_->at(idx));
+}
+
+DataTPtr<DataTypeTree> DataTypeTree::keyPtr(t_symbol* key) const
+{
+    return new DataTypeTree(pimpl_->at(key->s_name));
 }
 
 DataTypeTree DataTypeTree::at(size_t idx) const

@@ -202,24 +202,25 @@ void DataTree::m_find(t_symbol* s, const AtomList& l)
 
 void DataTree::m_at(t_symbol* s, const AtomList& l)
 {
-    if (l.isFloat()) {
-        auto idx = atomlistToValue<int>(l, 0);
-        if (idx < 0 || idx >= tree_->size()) {
-            METHOD_ERR(s) << "invalid index: " << idx;
-            return;
-        }
+    if (!checkArgs(l, ARG_NATURAL, s))
+        return;
 
-        dataTo(0, tree_->at(idx).asDataPtr());
-    } else if (l.isSymbol()) {
-        auto idx = atomlistToValue<t_symbol*>(l, &s_);
-        dataTo(0, tree_->at(idx).asDataPtr());
-    } else
-        METHOD_ERR(s) << "integer index or symbol key is expected: " << l;
+    auto idx = atomlistToValue<int>(l, 0);
+
+    if (idx < 0 || idx >= tree_->size()) {
+        METHOD_ERR(s) << "invalid index: " << idx;
+        return;
+    }
+
+    dataTo(0, tree_->atPtr(idx));
 }
 
 void DataTree::m_key(t_symbol* s, const AtomList& l)
 {
-    //        dataTo(0, json_->key());
+    if (!checkArgs(l, ARG_SYMBOL, s))
+        return;
+
+    dataTo(0, tree_->keyPtr(atomlistToValue<t_symbol*>(l, &s_)));
 }
 
 void DataTree::m_insert(t_symbol* s, const AtomList& lst)
@@ -419,11 +420,14 @@ bool TreeFactory::iterate_pred<0>::next(ObjectFactory::ObjectProxy* x, const Ato
 void setup_data_tree()
 {
     TreeFactory obj("data.tree");
-    obj.addMethod("at", &DataTree::m_at);
+
     obj.addMethod("find", &DataTree::m_find);
     obj.addMethod("insert", &DataTree::m_insert);
 
 #define ADD_METHOD(name) obj.addMethod(#name, &DataTree::m_##name);
+
+    ADD_METHOD(at)
+    ADD_METHOD(key)
 
     ADD_METHOD(dict)
 

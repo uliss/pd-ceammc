@@ -273,6 +273,8 @@ public:
     bool set(const DataTPtr<DataTypeTree>& ptr);
 
     DataTPtr<DataTypeTree> match(const char* pattern) const;
+    DataTPtr<DataTypeTree> atPtr(size_t idx) const;
+    DataTPtr<DataTypeTree> keyPtr(t_symbol* key) const;
     DataTypeTree at(size_t idx) const;
     DataTypeTree at(t_symbol* key) const;
 
