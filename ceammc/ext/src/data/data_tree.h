@@ -41,13 +41,14 @@ public:
 
     // output tree
     void onBang() final;
-    // set tree to float and no output
+    // set tree to float and output
     void onFloat(t_float f) final;
-    // set tree to string and no output, no parsing performed
+    // set tree to string and output, no parsing performed
     void onSymbol(t_symbol* s) final;
-    // set tree to array and no output, no parsing performed
+    // set tree to array and output, no parsing performed
     // only simple atoms are expected: floats ans symbols
     void onList(const AtomList& lst) final;
+
     // set tree to object and output
     void onDataT(const DataTPtr<DataTypeDict>& ptr);
     // set tree to array and output, no parsing performed
@@ -65,14 +66,25 @@ public:
     void m_key(t_symbol* s, const AtomList& lst);
     void m_insert(t_symbol* s, const AtomList& lst);
 
-    // create object from key value list and no output, no parsing performed
-    void m_object(t_symbol* s, const AtomList& lst);
+    // create dict from key value list and output, no parsing performed
+    void m_dict(t_symbol* s, const AtomList& lst);
+
+    // set float, no output
+    void m_set_float(t_symbol* s, const AtomList& lst);
+    // set symbol, no output, no parse
+    void m_set_symbol(t_symbol* s, const AtomList& lst);
+    // set list, no output, no parse
+    void m_set_list(t_symbol* s, const AtomList& lst);
+    // set dict, no output
+    void m_set_dict(t_symbol* s, const AtomList& lst);
 
     void dump() const final;
 
 private:
     void setFromSymbol(t_symbol* s);
     void setFromFloat(t_float f);
+    void setFromList(const AtomList& lst);
+    void setFromDict(const AtomList& lst);
     // set object from KEY VAL KEY1 VAL1 list
     static DataTypeTree fromKeyValueList(const AtomList& lst);
     static DataTypeTree fromKeyValueList(const DataTypeMList& mlist);

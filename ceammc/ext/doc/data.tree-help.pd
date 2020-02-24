@@ -5,66 +5,91 @@
 #X obj 1 1 cnv 5 765 40 empty empty data.tree 20 20 0 20 -104026 -4096
 0;
 #X obj 674 11 data.tree;
-#X msg 50 118 object \, bang;
-#X msg 50 147 object a 1 b 2 \, bang;
-#X msg 50 176 list \, bang;
-#X msg 50 205 list A B C 1 2 3 \, bang;
-#X obj 50 234 data.tree ("a": 100\, "b": "A B C"\, "c": \[1\,2\,3\]\,
+#X msg 50 118 dict;
+#X msg 50 147 dict a 1 b 2;
+#X msg 50 176 list;
+#X msg 50 205 list A B C 1 2 3;
+#X msg 50 234 bang;
+#X msg 117 234 clear \, bang;
+#X obj 50 262 data.tree ("a": 100\, "b": "A B C"\, "c": \[1\,2\,3\]\,
 "d": (5000));
-#X obj 50 291 ui.d;
-#X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 335 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 320 ui.d;
+#X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 364 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 370 1\.;
-#X text 150 370 any;
-#X obj 246 371 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 370 X: tree syntax: like JSON \, but with parenthesis instead
+#X text 110 399 1\.;
+#X text 150 399 any;
+#X obj 246 400 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 399 X: tree syntax: like JSON \, but with parenthesis instead
 of curly braces.;
-#X obj 20 415 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 420 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 444 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 449 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 455 @empty;
-#X text 245 455 (readonly) Get 1 if tree is empty. Type: int. Allowed
+#X msg 110 484 @empty;
+#X text 245 484 (readonly) Get 1 if tree is empty. Type: int. Allowed
 values: 0 \, 1\.;
-#X msg 110 497 @size;
-#X text 245 497 (readonly) Get number of elements in tree. Type: int.
+#X msg 110 526 @size;
+#X text 245 526 (readonly) Get number of elements in tree. Type: int.
 Min value: 0\.;
-#X obj 20 549 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 554 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 578 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 583 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 589 object;
-#X text 245 589 Arguments are:;
-#X obj 255 612 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 612 [KEY]: key. Type: symbol.;
-#X obj 255 635 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 635 [VAL]: value. Type: atom.;
-#X obj 20 670 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 675 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 618 clear;
+#X text 245 618 removes tree content \, set string to empty string
+\, list to empty list \, float to 0 \, dict to empty dict.;
+#X msg 110 658 dict;
+#X text 245 658 Arguments are:;
+#X obj 255 681 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 681 [KEY]: key. Type: symbol.;
+#X obj 255 704 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 704 [VAL]: value. Type: atom.;
+#X msg 110 729 set_dict;
+#X text 245 729 Arguments are:;
+#X obj 255 752 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 752 [KEY]: key. Type: symbol.;
+#X obj 255 775 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 775 [VAL]: value. Type: atom.;
+#X msg 110 800 set_float;
+#X text 245 800 Arguments are:;
+#X obj 255 823 cnv 1 13 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 823 F: value. Type: float.;
+#X msg 110 848 set_list;
+#X text 245 848 Arguments are:;
+#X obj 255 871 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 871 [V]: key. Type: atom.;
+#X msg 110 896 set_symbol;
+#X text 245 896 Arguments are:;
+#X obj 255 919 cnv 1 13 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 919 S: value. Type: symbol.;
+#X obj 20 954 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 959 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 676 1\.;
-#X text 150 676 *bang*;
-#X text 245 676 output tree.;
-#X text 150 696 *float*;
-#X text 245 696 set tree to float. no output.;
-#X text 150 716 *symbol*;
-#X text 245 716 set tree to symbol. no output \, no parsing performed.;
-#X text 150 736 *list*;
-#X text 245 736 set tree to list. no output \, no parsing performed.;
-#X text 150 756 *data:tree*;
-#X text 245 756 set new tree content and output.;
-#X obj 20 786 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 791 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 960 1\.;
+#X text 150 960 *bang*;
+#X text 245 960 output tree.;
+#X text 150 980 *float*;
+#X text 245 980 set tree to float and output.;
+#X text 150 1000 *symbol*;
+#X text 245 1000 set tree to symbol and output \, no parsing performed.;
+#X text 150 1020 *list*;
+#X text 245 1020 set tree to list and output \, no parsing performed.;
+#X text 150 1040 *data:mlist*;
+#X text 245 1040 set new tree list content and output.;
+#X text 150 1060 *data:tree*;
+#X text 245 1060 set new tree content and output.;
+#X obj 20 1090 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1095 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 792 1\.;
-#X text 245 792 tree output.;
+#X text 110 1096 1\.;
+#X text 245 1096 tree output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 842 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 845 library: ceammc v0.8.0;
-#N canvas 10 864 400 290 info 0;
+#X obj 1 1146 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1149 library: ceammc v0.8.0;
+#N canvas 10 1168 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -88,9 +113,11 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 864 pd info;
-#X connect 8 0 9 0;
-#X connect 4 0 8 0;
-#X connect 5 0 8 0;
-#X connect 6 0 8 0;
-#X connect 7 0 8 0;
+#X restore 10 1168 pd info;
+#X connect 8 0 10 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 0;
+#X connect 4 0 10 0;
+#X connect 5 0 10 0;
+#X connect 6 0 10 0;
+#X connect 7 0 10 0;

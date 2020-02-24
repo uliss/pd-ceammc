@@ -24,7 +24,22 @@
             tree</property>
         </properties>
         <methods>
-            <method name="object">
+            <method name="clear">removes tree content, set string to empty string, list to empty
+            list, float to 0, dict to empty dict</method>
+            <method name="dict">
+            <param name="KEY" type="symbol">key</param>
+            <param name="VAL" type="atom">value</param>creates tree dictionary with specified key
+            values and output. No parsing performed.</method>
+            <method name="set_float">
+            <param name="F" type="float" required="true">value</param>creates tree float with
+            specified value. No output. No parsing performed.</method>
+            <method name="set_symbol">
+            <param name="S" type="symbol" required="true">value</param>creates tree symbol with
+            specified value. No output. No parsing performed.</method>
+            <method name="set_list">
+            <param name="V" type="atom">key</param>creates tree list with specified values. No
+            output. No parsing performed.</method>
+            <method name="set_dict">
             <param name="KEY" type="symbol">key</param>
             <param name="VAL" type="atom">value</param>creates tree dictionary with specified key
             values. No output. No parsing performed.</method>
@@ -32,9 +47,10 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">output tree</xinfo>
-                <xinfo on="float">set tree to float. no output</xinfo>
-                <xinfo on="symbol">set tree to symbol. no output, no parsing performed</xinfo>
-                <xinfo on="list">set tree to list. no output, no parsing performed</xinfo>
+                <xinfo on="float">set tree to float and output</xinfo>
+                <xinfo on="symbol">set tree to symbol and output, no parsing performed</xinfo>
+                <xinfo on="list">set tree to list and output, no parsing performed</xinfo>
+                <xinfo on="data:mlist">set new tree list content and output</xinfo>
                 <xinfo on="data:tree">set new tree content and output</xinfo>
             </inlet>
         </inlets>
@@ -44,14 +60,16 @@
         <example>
             <pdascii>
 <![CDATA[
-[object, bang #a(
+[dict #a(
 
-[object a 1 b 2, bang #b(
+[dict a 1 b 2 #b(
 
-[list, bang #c(
+[list #c(
 
-[list A B C 1 2 3, bang #d(
+[list A B C 1 2 3 #d(
 
+[bang( [clear, bang(
+|      |
 [data.tree ("a": 100\, "b": "A B C"\, "c": \[1\,2\,3\]\, "d": (5000)) #z]
 |
 |

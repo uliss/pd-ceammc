@@ -104,8 +104,9 @@ void DataTree::proto_set(const AtomList& lst)
 
 void DataTree::proto_clear()
 {
-    if (!tree_->isNull())
-        tree_ = TreePtr(new DataTypeTree);
+    auto t = tree_->clone();
+    t->clear();
+    tree_ = TreePtr(t);
 }
 
 size_t DataTree::proto_size() const
@@ -121,16 +122,19 @@ void DataTree::onBang()
 void DataTree::onFloat(t_float f)
 {
     setFromFloat(f);
+    onBang();
 }
 
 void DataTree::onSymbol(t_symbol* s)
 {
     setFromSymbol(s);
+    onBang();
 }
 
 void DataTree::onList(const AtomList& lst)
 {
-    tree_ = TreePtr(new DataTypeTree(lst));
+    setFromList(lst);
+    onBang();
 }
 
 void DataTree::dump() const
@@ -142,7 +146,6 @@ void DataTree::dump() const
 void DataTree::onDataT(const DataTPtr<DataTypeTree>& ptr)
 {
     tree_ = ptr;
-    onBang();
 }
 
 void DataTree::onDataT(const DataTPtr<DataTypeString>& ptr)
@@ -190,7 +193,6 @@ void DataTree::onDataT(const DataTPtr<DataTypeDict>& ptr)
 void DataTree::onDataT(const DataTPtr<DataTypeMList>& ptr)
 {
     tree_ = TreePtr(new DataTypeTree(*ptr));
-    onBang();
 }
 
 void DataTree::m_find(t_symbol* s, const AtomList& l)
@@ -256,37 +258,58 @@ void DataTree::m_insert(t_symbol* s, const AtomList& lst)
     }
 }
 
-/*
- * Syntax is [object KEY VAL KEY VAL(
- *        or
- *           [object DICT(
- */
-void DataTree::m_object(t_symbol* s, const AtomList& lst)
+void DataTree::m_dict(t_symbol* s, const AtomList& lst)
 {
-    auto ptree = new DataTypeTree(DataTypeDict());
-    tree_ = TreePtr(ptree);
+    setFromDict(lst);
+    onBang();
+}
 
-    if (lst.isData()) {
-        if (lst[0].isDataType(data::DATA_MLIST))
-            ;
-    }
-
-    if (lst.size() % 2 != 0) {
-        METHOD_ERR(s) << "even number or args expected,"
-                      << "\t usage: [" << s->s_name << " KEY VAL etc.(";
+void DataTree::m_set_float(t_symbol* s, const AtomList& lst)
+{
+    if (!checkArgs(lst, ARG_FLOAT, s))
         return;
-    } else
-        tree_ = TreePtr(fromKeyValueList(lst));
+
+    setFromFloat(atomlistToValue<t_float>(lst, 0));
+}
+
+void DataTree::m_set_symbol(t_symbol* s, const AtomList& lst)
+{
+    if (!checkArgs(lst, ARG_SYMBOL, s))
+        return;
+
+    setFromSymbol(atomlistToValue<t_symbol*>(lst, &s_));
+}
+
+void DataTree::m_set_list(t_symbol* s, const AtomList& lst)
+{
+    setFromList(lst);
+}
+
+void DataTree::m_set_dict(t_symbol* s, const AtomList& lst)
+{
+    setFromDict(lst);
 }
 
 void DataTree::setFromSymbol(t_symbol* s)
 {
-    tree_ = TreePtr(new DataTypeTree(s));
+    tree_ = TreePtr(DataTypeTree(s));
 }
 
 void DataTree::setFromFloat(t_float f)
 {
-    tree_ = TreePtr(new DataTypeTree(f));
+    tree_ = TreePtr(DataTypeTree(f));
+}
+
+void DataTree::setFromList(const AtomList& lst)
+{
+    tree_ = TreePtr(DataTypeTree(lst));
+}
+
+void DataTree::setFromDict(const AtomList& lst)
+{
+    auto tree = fromKeyValueList(lst);
+    if (!tree.isNull())
+        tree_ = TreePtr(tree);
 }
 
 DataTypeTree DataTree::fromKeyValueList(const AtomList& lst)
@@ -399,5 +422,13 @@ void setup_data_tree()
     obj.addMethod("at", &DataTree::m_at);
     obj.addMethod("find", &DataTree::m_find);
     obj.addMethod("insert", &DataTree::m_insert);
-    obj.addMethod("object", &DataTree::m_object);
+
+#define ADD_METHOD(name) obj.addMethod(#name, &DataTree::m_##name);
+
+    ADD_METHOD(dict)
+
+    ADD_METHOD(set_float)
+    ADD_METHOD(set_symbol)
+    ADD_METHOD(set_list)
+    ADD_METHOD(set_dict)
 }
