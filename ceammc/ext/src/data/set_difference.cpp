@@ -30,7 +30,7 @@ void SetDifference::onList(const AtomList& l)
 void SetDifference::onDataT(const DataTPtr<DataTypeSet>& dptr)
 {
     DataTypeSet res;
-    DataTypeSet::set_difference(res, *dptr, set1_);
+    DataTypeSet::difference(res, *dptr, set1_);
     dataTo(0, DataTPtr<DataTypeSet>(res));
 }
 

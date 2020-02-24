@@ -64,7 +64,6 @@ public:
      * Checks if set contains element
      */
     bool contains(const Atom& a) const;
-    bool contains(const DataAtom& a) const;
 
     /**
      * Returns true if set contains *one* of given values
@@ -107,7 +106,7 @@ public:
      * @param s0 - first set
      * @param s1 - second set
      */
-    static void set_difference(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1);
+    static void difference(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1);
 
     /**
      * Set symmetric difference
@@ -116,6 +115,9 @@ public:
      * @param s1 - second set
      */
     static void sym_difference(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1);
+
+private:
+    bool contains(const DataAtom& a) const;
 };
 
 #endif // DATATYPE_SET_H

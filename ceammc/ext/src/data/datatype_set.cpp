@@ -172,9 +172,9 @@ void DataTypeSet::intersection(DataTypeSet& out, const DataTypeSet& s0, const Da
 
     out.clear();
 
-    for (auto it = s0.data_.begin(); it != s0.data_.end(); ++it) {
-        DataAtom elem(it->toAtom());
-        if (s1.data_.find(elem) != s0.data_.end())
+    for (auto& s0_el : s0.data_) {
+        DataAtom elem(s0_el);
+        if (s1.contains(elem.toAtom()))
             out.data_.insert(elem);
     }
 }
@@ -184,19 +184,19 @@ void DataTypeSet::set_union(DataTypeSet& out, const DataTypeSet& s0, const DataT
     out.clear();
 
     for (auto& el : s0.data_)
-        out.add(el.toAtom());
+        out.data_.insert(el);
 
     for (auto& el : s1.data_)
-        out.add(el.toAtom());
+        out.data_.insert(el);
 }
 
-void DataTypeSet::set_difference(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1)
+void DataTypeSet::difference(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1)
 {
     out.clear();
 
-    for (DataSet::const_iterator it = s0.data_.begin(); it != s0.data_.end(); ++it) {
-        if (!s1.contains(it->toAtom()))
-            out.add(it->toAtom());
+    for (auto& el : s0.data_) {
+        if (!s1.contains(el.toAtom()))
+            out.data_.insert(el);
     }
 }
 
@@ -204,14 +204,14 @@ void DataTypeSet::sym_difference(DataTypeSet& out, const DataTypeSet& s0, const 
 {
     out.clear();
 
-    for (DataSet::const_iterator it = s0.data_.begin(); it != s0.data_.end(); ++it) {
-        if (!s1.contains(it->toAtom()))
-            out.add(it->toAtom());
+    for (auto& el : s0.data_) {
+        if (!s1.contains(el.toAtom()))
+            out.data_.insert(el);
     }
 
-    for (DataSet::const_iterator it = s1.data_.begin(); it != s1.data_.end(); ++it) {
-        if (!s0.contains(it->toAtom()))
-            out.add(it->toAtom());
+    for (auto& el : s1.data_) {
+        if (!s0.contains(el.toAtom()))
+            out.data_.insert(el);
     }
 }
 
