@@ -46,7 +46,7 @@ void ListInsert::onList(const AtomList& lst)
 
     // main insert
     for (size_t i = 0; i < lst_.size(); i++)
-        res.append(lst_[i].toAtom());
+        res.append(lst_[i].asAtom());
 
     // insert after
     for (size_t i = N; i < lst.size(); i++)

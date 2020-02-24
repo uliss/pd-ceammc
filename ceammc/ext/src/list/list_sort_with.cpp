@@ -65,7 +65,7 @@ void ListSortWith::onDataT(const DataTPtr<DataTypeMList>& dptr)
 
     DataTypeMList res(*dptr);
     std::sort(res.begin(), res.end(), [this](const DataAtom& a0, const DataAtom& a1) {
-        this->listTo(1, AtomList(a0.toAtom(), a1.toAtom()));
+        this->listTo(1, AtomList(a0.asAtom(), a1.asAtom()));
         return !this->less_;
     });
 

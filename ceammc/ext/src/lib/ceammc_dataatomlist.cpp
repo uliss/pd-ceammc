@@ -207,7 +207,7 @@ AtomList DataAtomList::toList() const
     res.reserve(list_.size());
 
     for (size_t i = 0; i < list_.size(); i++)
-        res.append(list_[i].toAtom());
+        res.append(list_[i].asAtom());
 
     return res;
 }
@@ -335,7 +335,7 @@ std::ostream& operator<<(std::ostream& os, const DataAtomList& l)
         if (i != 0)
             os << " ";
 
-        os << to_string(l[i].toAtom());
+        os << to_string(l[i].asAtom());
     }
 
     return os;

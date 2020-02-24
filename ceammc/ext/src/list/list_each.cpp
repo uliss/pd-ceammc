@@ -88,7 +88,7 @@ void ListEach::onDataT(const DataTPtr<DataTypeMList>& dptr)
     // output single values
     if (step == 1) {
         for (size_t i = 0; i < dptr->size(); i += step)
-            atomTo(1, dptr->at(i).toAtom());
+            atomTo(1, dptr->at(i).asAtom());
 
     } else { // output as sublist
         AtomList l = dptr->toList();

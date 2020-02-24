@@ -35,12 +35,12 @@ void ListMax::onList(const AtomList& l)
 // predicates
 static bool is_float(const DataAtom& d)
 {
-    return d.isAtom() && d.toAtom().isFloat();
+    return d.isAtom() && d.asAtom().isFloat();
 }
 
 static bool is_symbol(const DataAtom& d)
 {
-    return d.isAtom() && d.toAtom().isSymbol();
+    return d.isAtom() && d.asAtom().isSymbol();
 }
 
 static bool is_atom(const DataAtom& d)

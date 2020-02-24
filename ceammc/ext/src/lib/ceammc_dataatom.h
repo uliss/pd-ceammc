@@ -30,6 +30,8 @@ class DataAtom {
 
 public:
     DataAtom();
+    explicit DataAtom(t_float f);
+    explicit DataAtom(t_symbol* s);
     explicit DataAtom(const Atom& a);
     explicit DataAtom(const DataPtr& d);
 
@@ -39,25 +41,102 @@ public:
     DataAtom& operator=(const DataAtom& d);
     DataAtom& operator=(DataAtom&& d);
 
+    /**
+     * Set to float
+     */
+    void set(t_float f);
+
+    /**
+     * Set to symbol
+     */
+    void set(t_symbol* s);
+
+    /**
+     * Set via raw atom
+     */
     void set(const Atom& a);
+
+    /**
+     * Set via data pointer
+     */
     void set(const DataPtr& d);
-    Atom toAtom() const;
+
+    /**
+     * Check if simple type: float or symbol
+     */
     bool isAtom() const;
+
+    /**
+     * Check if pointer to data
+     */
     bool isData() const;
-    bool isDataType(DataType t) const;
+
+    /**
+     * Check if float
+     */
+    bool isFloat() const;
+
+    /**
+     * Check if symbol
+     */
+    bool isSymbol() const;
+
+    /**
+     * Check if data atom of specified type
+     */
     template <class T>
     bool isDataType() const;
+    bool isDataType(DataType t) const;
 
+    /**
+     * Return as data pointer to specified type
+     * @return nullptr on error
+     */
     template <class T>
     const T* as() const;
 
-    bool operator==(const DataAtom& d) const;
+    /**
+     * Return as atom value
+     */
+    const Atom& asAtom() const { return atom_; }
+
+    /**
+     * Return float value
+     * @param def - returns this if not a float
+     */
+    t_float asFloat(t_float def = 0) const;
+
+    /**
+     * Return symbol value
+     * @param def - returns this, if not a symbol
+     */
+    t_symbol* asSymbol(t_symbol* def = &s_) const;
+
+    /**
+     * Return data pointer value
+     * @return null DataPtr if not a data pointer
+     */
     DataPtr data() const;
 
-    bool isValid() const;
+    /**
+     * Compare data atoms for equality,
+     * if not data - usese standart atom compare
+     * otherwise - compare corresponding DataTypes
+     */
+    bool operator==(const DataAtom& d) const;
 
-public:
-    friend size_t hash_value(const DataAtom& d);
+    /**
+     * Returns true if valid atom or data pointer
+     */
+    bool isValid() const;
+    bool isNull() const { return !isValid(); }
+
+    /**
+     * Returns hash value for data atom, used in std::unordered_set etc...
+     */
+    CEAMMC_NO_ASAN size_t hash_value() const;
+
+    CEAMMC_DEPRECATED Atom toAtom() const;
 };
 
 /**
@@ -83,7 +162,6 @@ const T* DataAtom::as() const
     return data_->as<T>();
 }
 
-CEAMMC_NO_ASAN size_t hash_value(const DataAtom& d);
 }
 
 // std::hash<DataAtom> specialization
@@ -93,7 +171,7 @@ class hash<ceammc::DataAtom> {
 public:
     size_t operator()(const ceammc::DataAtom& d) const
     {
-        return ceammc::hash_value(d);
+        return d.hash_value();
     }
 };
 }

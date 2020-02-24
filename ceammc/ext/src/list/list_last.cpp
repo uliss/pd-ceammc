@@ -21,7 +21,7 @@ void ListLast::onDataT(const DataTPtr<DataTypeMList>& dptr)
     if (dptr->empty())
         return;
 
-    atomTo(0, dptr->at(dptr->size() - 1).toAtom());
+    atomTo(0, dptr->at(dptr->size() - 1).asAtom());
 }
 
 void setup_list_last()

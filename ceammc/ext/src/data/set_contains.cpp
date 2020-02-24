@@ -29,7 +29,7 @@ void SetContains::onDataT(const DataTPtr<DataTypeSet>& dptr)
         return;
 
     if (n == 1) {
-        floatTo(0, dptr->contains(patterns_[0].toAtom()));
+        floatTo(0, dptr->contains(patterns_[0].asAtom()));
     } else {
         floatTo(0, dptr->contains(patterns_.toList()));
     }

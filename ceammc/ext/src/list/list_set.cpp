@@ -41,7 +41,7 @@ void ListSet::onList(const AtomList& lst)
     }
 
     AtomList res(lst);
-    res[idx] = value_.toAtom();
+    res[idx] = value_.asAtom();
     listTo(0, res);
 }
 

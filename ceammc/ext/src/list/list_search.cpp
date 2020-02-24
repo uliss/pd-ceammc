@@ -23,7 +23,7 @@ void ListSearch::onList(const AtomList& lst)
     for (size_t i = 0; i < subj_.size(); i++) {
         if (subj_[i].isAtom()) {
             // search raw atom
-            idxs.append(lst.findPos(subj_[i].toAtom()));
+            idxs.append(lst.findPos(subj_[i].asAtom()));
         } else {
             int idx = -1;
             for (size_t k = 0; k < lst.size(); k++) {

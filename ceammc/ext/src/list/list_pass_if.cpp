@@ -55,7 +55,7 @@ void ListPassIf::onDataT(const DataTPtr<DataTypeMList>& lst)
     for (size_t i = 0; i < lst->size(); i++) {
         pass_flag_ = false;
 
-        atomTo(1, lst->at(i).toAtom());
+        atomTo(1, lst->at(i).asAtom());
 
         if (pass_flag_)
             res.append(lst->at(i));

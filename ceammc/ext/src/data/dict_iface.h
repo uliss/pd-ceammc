@@ -88,7 +88,7 @@ public:
         else if (v.type() == typeid(AtomList))
             this->listTo(0, boost::get<AtomList>(v));
         else if (v.type() == typeid(DataAtom))
-            this->atomTo(0, boost::get<DataAtom>(v).toAtom());
+            this->atomTo(0, boost::get<DataAtom>(v).asAtom());
         else
             METHOD_ERR(s) << "unknown value type";
     }

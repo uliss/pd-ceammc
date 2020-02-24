@@ -24,6 +24,16 @@ DataAtom::DataAtom()
 {
 }
 
+DataAtom::DataAtom(t_float f)
+    : DataAtom(Atom(f))
+{
+}
+
+DataAtom::DataAtom(t_symbol* s)
+    : DataAtom(Atom(s))
+{
+}
+
 DataAtom::DataAtom(const Atom& a)
     : data_(a)
     , atom_(a)
@@ -60,7 +70,7 @@ void DataAtom::set(const Atom& a)
         }
     } else {
         atom_ = a;
-        data_ = DataPtr(0);
+        data_ = DataPtr(nullptr);
     }
 }
 
@@ -90,6 +100,26 @@ bool DataAtom::isDataType(DataType t) const
     return atom_.isData() && atom_.dataType() == t;
 }
 
+bool DataAtom::isFloat() const
+{
+    return atom_.isFloat();
+}
+
+bool DataAtom::isSymbol() const
+{
+    return atom_.isSymbol();
+}
+
+t_float DataAtom::asFloat(t_float def) const
+{
+    return atom_.asFloat(def);
+}
+
+t_symbol* DataAtom::asSymbol(t_symbol* def) const
+{
+    return atom_.isSymbol() ? atom_.asSymbol() : def;
+}
+
 bool DataAtom::operator==(const DataAtom& d) const
 {
     if (this == &d)
@@ -106,24 +136,38 @@ bool DataAtom::operator==(const DataAtom& d) const
 
 DataAtom& DataAtom::operator=(const DataAtom& d)
 {
-    data_ = d.data_;
-    atom_ = d.atom_;
+    if (this != &d) {
+        data_ = d.data_;
+        atom_ = d.atom_;
+    }
+
     return *this;
 }
 
 DataAtom& DataAtom::operator=(DataAtom&& d)
 {
-    if (this == &d)
-        return *this;
+    if (this != &d) {
+        data_ = std::move(d.data_);
+        atom_ = d.atom_;
+        d.atom_ = Atom();
+    }
 
-    data_ = std::move(d.data_);
-    atom_ = d.atom_;
     return *this;
+}
+
+void DataAtom::set(t_float f)
+{
+    *this = DataAtom(f);
+}
+
+void DataAtom::set(t_symbol* s)
+{
+    *this = DataAtom(s);
 }
 
 DataPtr DataAtom::data() const
 {
-    return isAtom() ? DataPtr(0) : data_;
+    return isAtom() ? DataPtr(nullptr) : data_;
 }
 
 bool DataAtom::isValid() const
@@ -131,12 +175,12 @@ bool DataAtom::isValid() const
     return isAtom() ? !atom_.isNone() : data_.isValid();
 }
 
-size_t hash_value(const DataAtom& d)
+size_t DataAtom::hash_value() const
 {
-    const t_atom* a = reinterpret_cast<const t_atom*>(&d.atom_);
+    auto a = atom_.atom();
     size_t hash = 0;
-    boost::hash_combine(hash, boost::hash_value(a->a_type));
-    boost::hash_combine(hash, boost::hash_value(a->a_w.w_index));
+    boost::hash_combine(hash, boost::hash_value(a.a_type));
+    boost::hash_combine(hash, boost::hash_value(a.a_w.w_index));
     return hash;
 }
 
@@ -145,7 +189,7 @@ bool to_outlet(t_outlet* x, const DataAtom& a)
     if (!x || !a.isValid())
         return false;
 
-    return to_outlet(x, a.toAtom());
+    return to_outlet(x, a.asAtom());
 }
 
 }

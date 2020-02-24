@@ -50,7 +50,7 @@ void ListXAt::onFloat(t_float f)
     auto atom = at(int(f));
 
     if (atom)
-        atomTo(0, atom->toAtom());
+        atomTo(0, atom->asAtom());
     else if (!def_->value().isNone())
         atomTo(0, def_->value());
     else
@@ -66,7 +66,7 @@ void ListXAt::onList(const AtomList& lst)
         auto atom = at(el.asInt(std::numeric_limits<int>::max()));
 
         if (atom)
-            res.append(atom->toAtom());
+            res.append(atom->asAtom());
         else if (!def_->value().isNone())
             res.append(def_->value());
         else

@@ -174,7 +174,7 @@ void DataTypeSet::intersection(DataTypeSet& out, const DataTypeSet& s0, const Da
 
     for (auto& s0_el : s0.data_) {
         DataAtom elem(s0_el);
-        if (s1.contains(elem.toAtom()))
+        if (s1.contains(elem.asAtom()))
             out.data_.insert(elem);
     }
 }

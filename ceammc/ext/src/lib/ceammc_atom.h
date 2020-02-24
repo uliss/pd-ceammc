@@ -21,13 +21,22 @@
 #include <utility>
 
 #if defined(__has_feature)
-#   if __has_feature(address_sanitizer)
-#       define CEAMMC_NO_ASAN __attribute__((no_sanitize("address"))) __attribute__((no_sanitize("undefined")))
-#   else
-#       define CEAMMC_NO_ASAN
-#   endif
+#if __has_feature(address_sanitizer)
+#define CEAMMC_NO_ASAN __attribute__((no_sanitize("address"))) __attribute__((no_sanitize("undefined")))
 #else
-#   define CEAMMC_NO_ASAN
+#define CEAMMC_NO_ASAN
+#endif
+#else
+#define CEAMMC_NO_ASAN
+#endif
+
+#if defined(__GNUC__) || defined(__clang__)
+#define CEAMMC_DEPRECATED __attribute__((deprecated))
+#elif defined(_MSC_VER)
+#define CEAMMC_DEPRECATED __declspec(deprecated)
+#else
+#pragma message("WARNING: You need to implement CEAMMC_DEPRECATED for this compiler")
+#define CEAMMC_DEPRECATED
 #endif
 
 namespace ceammc {
@@ -124,10 +133,12 @@ public:
     size_t asSizeT(size_t def = 0) const;
     t_symbol* asSymbol() const;
 
+    const t_atom& atom() const { return *static_cast<const t_atom*>(this); }
+
     /**
      * @deprecated
      */
-    std::string asString() const;
+    CEAMMC_DEPRECATED std::string asString() const;
 
     /**
      * compare operator

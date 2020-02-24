@@ -56,7 +56,7 @@ void ListRemoveIf::onDataT(const DataTPtr<DataTypeMList>& dptr)
     for (size_t i = 0; i < dptr->size(); i++) {
         remove_ = true;
 
-        atomTo(1, dptr->at(i).toAtom());
+        atomTo(1, dptr->at(i).asAtom());
         if (!remove_)
             res.append(dptr->at(i));
     }

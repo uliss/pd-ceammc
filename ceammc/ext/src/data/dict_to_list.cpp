@@ -34,7 +34,7 @@ void DictToList::onDataT(const DataTPtr<DataTypeDict>& dptr)
         else if (v.type() == typeid(AtomList))
             res.append(boost::get<AtomList>(v));
         else if (v.type() == typeid(DataAtom))
-            res.append(boost::get<DataAtom>(v).toAtom());
+            res.append(boost::get<DataAtom>(v).asAtom());
     }
 
     listTo(0, res);

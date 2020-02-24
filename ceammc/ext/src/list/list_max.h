@@ -42,7 +42,7 @@ public:
     template <typename Iterator>
     void maxData(Iterator begin, Iterator end)
     {
-        auto less = [](const DataAtom& d0, const DataAtom& d1) { return d0.toAtom() < d1.toAtom(); };
+        auto less = [](const DataAtom& d0, const DataAtom& d1) { return d0.asAtom() < d1.asAtom(); };
         auto it = std::max_element(begin, end, less);
         if (it == end)
             return;

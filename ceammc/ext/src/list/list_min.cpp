@@ -34,7 +34,7 @@ void ListMin::onList(const AtomList& l)
 
 void ListMin::onDataT(const DataTPtr<DataTypeMList>& lst)
 {
-    auto pred = [](const DataAtom& a) { return a.isAtom() && (a.toAtom().isFloat() || a.toAtom().isSymbol()); };
+    auto pred = [](const DataAtom& a) { return a.isAtom() && (a.asAtom().isFloat() || a.asAtom().isSymbol()); };
     onList(lst->toList(pred));
 }
 

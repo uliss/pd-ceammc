@@ -21,7 +21,7 @@ void ListFirst::onDataT(const DataTPtr<DataTypeMList>& dptr)
     if (dptr->empty())
         return;
 
-    atomTo(0, dptr->at(0).toAtom());
+    atomTo(0, dptr->at(0).asAtom());
 }
 
 void setup_list_first()

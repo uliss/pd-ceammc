@@ -26,7 +26,7 @@ void ListShift::onInlet(size_t n, const AtomList& lst)
 
 void ListShift::onDataT(const DataTPtr<DataTypeMList>& dptr)
 {
-    auto is_float = [](const DataAtom& a) { return a.isAtom() && a.toAtom().isFloat(); };
+    auto is_float = [](const DataAtom& a) { return a.isAtom() && a.asAtom().isFloat(); };
     auto floats = dptr->toList(is_float);
 
     dataTo(0, DataTPtr<DataTypeMList>(DataTypeMList(list::shift(floats, shift_->value()))));

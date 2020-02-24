@@ -65,7 +65,7 @@ void StringSplit::output()
     AtomList res;
 
     for (size_t i = 0; i < tokens_.size(); i++)
-        res.append(tokens_[i].toAtom());
+        res.append(tokens_[i].asAtom());
 
     listTo(0, res);
 }
