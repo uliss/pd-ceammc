@@ -18,7 +18,7 @@
                 <see>preset.symbol</see>
             </also>
             <aliases>
-                <alias>preset.l</preset>
+                <alias>preset.l</alias>
             </aliases>
         </meta>
         <info>

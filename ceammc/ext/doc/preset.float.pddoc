@@ -18,7 +18,7 @@
                 <see>preset.list</see>
             </also>
             <aliases>
-                <alias>preset.f</preset>
+                <alias>preset.f</alias>
             </aliases>
         </meta>
         <info>
