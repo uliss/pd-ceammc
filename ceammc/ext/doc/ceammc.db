@@ -381,10 +381,10 @@ path.basename		.		.
 path.dirname		.		.
 path.exists		.		.
 path.lsdir,path.ls		.		.
-preset.float		.		.
-preset.list		.		.
+preset.float,preset.f		.		.
+preset.list,preset.l		.		.
 preset.storage		.		.
-preset.symbol		.		.
+preset.symbol,preset.s		.		.
 prop		.		.
 prop.declare		-		-
 prop.get,prop->,@->		.		?
@@ -394,9 +394,9 @@ proto.firmata		.		.
 proto.sp.alpaca		.		.
 radio		.		?
 random.discrete		.		.
-random.float		.		.
+random.float,random.f		.		.
 random.gauss		.		.
-random.int		.		.
+random.int,random.i		.		.
 random.linear		.		.
 random.pw_const		.		.
 random.pw_lin		.		.
