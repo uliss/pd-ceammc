@@ -115,7 +115,7 @@ public:
      * @param s0 - first set
      * @param s1 - second set
      */
-    static void set_sym_difference(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1);
+    static void sym_difference(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1);
 };
 
 #endif // DATATYPE_SET_H

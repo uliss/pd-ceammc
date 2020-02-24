@@ -307,19 +307,42 @@ TEST_CASE("data.set", "[externals]")
 
             DataTypeSet diff;
 
-            DataTypeSet::set_sym_difference(diff, d0, DataTypeSet());
+            DataTypeSet::sym_difference(diff, d0, DataTypeSet());
             REQUIRE(diff == d0);
 
-            DataTypeSet::set_sym_difference(diff, DataTypeSet(), d0);
+            DataTypeSet::sym_difference(diff, DataTypeSet(), d0);
             REQUIRE(diff == d0);
 
-            DataTypeSet::set_sym_difference(diff, d0, d0);
+            DataTypeSet::sym_difference(diff, d0, d0);
             REQUIRE(diff == DataTypeSet());
 
-            DataTypeSet::set_sym_difference(diff, d1, d0);
+            DataTypeSet::sym_difference(diff, d1, d0);
             REQUIRE(diff == DataTypeSet(LF(1, 4)));
 
-            DataTypeSet::set_sym_difference(diff, d0, d1);
+            DataTypeSet::sym_difference(diff, d0, d1);
+            REQUIRE(diff == DataTypeSet(LF(1, 4)));
+        }
+
+        SECTION("intersection")
+        {
+            DataTypeSet d0(LF(1, 2, 3));
+            DataTypeSet d1(LF(2, 3, 4));
+
+            DataTypeSet diff;
+
+            DataTypeSet::intersection(diff, d0, DataTypeSet());
+            REQUIRE(diff == d0);
+
+            DataTypeSet::sym_difference(diff, DataTypeSet(), d0);
+            REQUIRE(diff == d0);
+
+            DataTypeSet::sym_difference(diff, d0, d0);
+            REQUIRE(diff == DataTypeSet());
+
+            DataTypeSet::sym_difference(diff, d1, d0);
+            REQUIRE(diff == DataTypeSet(LF(1, 4)));
+
+            DataTypeSet::sym_difference(diff, d0, d1);
             REQUIRE(diff == DataTypeSet(LF(1, 4)));
         }
 
