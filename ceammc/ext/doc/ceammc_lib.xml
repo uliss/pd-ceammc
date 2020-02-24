@@ -198,6 +198,9 @@
     <entry descr="converts set to list" name="data.set2list" ref_view="object">
       <xi:include href="data.set2list.pddoc" parse="xml"/>
     </entry>
+    <entry descr="JSON like structure for storing values, with parenthesis instead of curly braces" name="data.tree" ref_view="object">
+      <xi:include href="data.tree.pddoc" parse="xml"/>
+    </entry>
     <entry descr="predicate to check dict contains key" name="dict.contains" ref_view="object">
       <xi:include href="dict.contains.pddoc" parse="xml"/>
     </entry>
@@ -251,6 +254,12 @@
     </entry>
     <entry descr="output union of given sets" name="set.union" ref_view="object">
       <xi:include href="set.union.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="convert tree node to float value" name="tree.float" ref_view="object">
+      <xi:include href="tree.float.pddoc" parse="xml"/>
+    </entry>
+    <entry descr="convert tree node to symbol value" name="tree.symbol" ref_view="object">
+      <xi:include href="tree.symbol.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="dyn">

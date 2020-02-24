@@ -55,6 +55,7 @@ set(DOC_FILES
     data.mlist
     data.set
     data.set2list
+    data.tree
     dict.contains
     dict.each
     dict.from_list
@@ -457,6 +458,8 @@ set(DOC_FILES
     tl.timeline
     tl.toggle
     tl.transport
+    tree.float
+    tree.symbol
     ui.aview
     ui.bang
     ui.colorpanel

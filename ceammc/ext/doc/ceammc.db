@@ -54,6 +54,7 @@ data.list		..		.
 data.mlist,mlist,ml		.		.
 data.set		.		.
 data.set2list,set->list		.		.
+data.tree		.		.
 dict.contains		..		.
 dict.each		..		..
 dict.from_list,list->dict		.		.
@@ -455,6 +456,8 @@ tl.cue		-		-
 tl.timeline,timeline		.		.
 tl.toggle,tl.t		.		.
 tl.transport		.		-
+tree.float,tree.f		.		.
+tree.symbol,tree.s		.		.
 ui.aview		.		.
 ui.bang,ui.b		.		.
 ui.colorpanel		.		.

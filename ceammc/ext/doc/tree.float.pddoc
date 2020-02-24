@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="tree.float">
+        <title>tree.float</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert tree node to float value</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>tree float</keywords>
+            <since>0.9</since>
+            <aliases>
+                <alias>tree.f</alias>
+            </aliases>
+            <also>
+                <see>tree.symbol</see>
+            </also>
+        </meta>
+        <arguments/>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output last float value</xinfo>
+                <xinfo on="data:tree">float tree node expected</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[at 0( [at 1( [at 2(
+|      |      |
+[data.tree \[100\, -4.5\, "ABC"\]]
+|
+[tree.float]
+|
+[F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

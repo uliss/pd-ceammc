@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="data.tree">
+        <title>data.tree</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>JSON like structure for storing values, with parenthesis instead of curly braces</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data tree json</keywords>
+            <since>0.9</since>
+        </meta>
+        <arguments>
+            <argument name="X" type="any">tree syntax</argument>
+        </arguments>
+        <properties>
+            <property name="@empty" readonly="true" enum="0 1" type="int">1 if tree is empty</property>
+            <property name="@size" readonly="true" minvalue="0" type="int">number of elements in
+            tree</property>
+        </properties>
+        <methods/>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output tree</xinfo>
+                <xinfo on="data:tree">set new tree content and output</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>tree output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang( [at $1(
+|      |
+[data.tree ("a": 100\, "b": "A B C"\, "c": \[1\,2\,3\]\, "d": (5000))]
+|
+[ui.d]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
