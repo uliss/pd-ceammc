@@ -17,6 +17,8 @@
 #include "ceammc_atom.h"
 #include "ceammc_data.h"
 
+#include <functional>
+
 namespace ceammc {
 
 /**
@@ -82,6 +84,18 @@ const T* DataAtom::as() const
 }
 
 CEAMMC_NO_ASAN size_t hash_value(const DataAtom& d);
+}
+
+// std::hash<DataAtom> specialization
+namespace std {
+template <>
+class hash<ceammc::DataAtom> {
+public:
+    size_t operator()(const ceammc::DataAtom& d) const
+    {
+        return ceammc::hash_value(d);
+    }
+};
 }
 
 #endif // CEAMMC_DATAATOM_H

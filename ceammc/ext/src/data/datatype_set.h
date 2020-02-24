@@ -17,13 +17,13 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_dataatom.h"
 
-#include <boost/unordered_set.hpp>
+#include <unordered_set>
 
 using namespace ceammc;
 
 class DataTypeSet : public AbstractData {
 private:
-    typedef boost::unordered_set<DataAtom> DataSet;
+    using DataSet = std::unordered_set<DataAtom>;
     DataSet data_;
 
 public:

@@ -83,12 +83,11 @@ bool DataTypeSet::contains(const Atom& a) const
     if (!a.isData())
         return contains(DataAtom(a));
 
-    DataSet::const_iterator it = data_.begin();
-    for (; it != data_.end(); ++it) {
-        if (!it->isData())
+    for (auto& el : data_) {
+        if (!el.isData())
             continue;
 
-        if (*it == DataAtom(a))
+        if (el == DataAtom(a))
             return true;
     }
 
@@ -97,14 +96,13 @@ bool DataTypeSet::contains(const Atom& a) const
 
 bool DataTypeSet::contains(const DataAtom& a) const
 {
-    DataSet::const_iterator it = data_.find(a);
-    return it != data_.end();
+    return data_.find(a) != data_.end();
 }
 
 bool DataTypeSet::contains(const AtomList& lst) const
 {
-    for (size_t i = 0; i < lst.size(); i++) {
-        if (contains(lst[i]))
+    for (auto& a : lst) {
+        if (contains(a))
             return true;
     }
 
@@ -143,10 +141,8 @@ AtomList DataTypeSet::toList() const
     AtomList res;
     res.reserve(size());
 
-    DataSet::const_iterator it = data_.begin();
-    for (; it != data_.end(); ++it) {
-        res.append(it->toAtom());
-    }
+    for (auto a : data_)
+        res.append(a.toAtom());
 
     return res;
 }
