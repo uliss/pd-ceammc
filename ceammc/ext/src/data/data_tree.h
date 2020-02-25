@@ -85,6 +85,7 @@ private:
     void setFromFloat(t_float f);
     void setFromList(const AtomList& lst);
     void setFromDict(const AtomList& lst);
+    static bool looksLikeParseString(const AtomList& lst);
     // set object from KEY VAL KEY1 VAL1 list
     static DataTypeTree fromKeyValueList(const AtomList& lst);
     static DataTypeTree fromKeyValueList(const DataTypeMList& mlist);

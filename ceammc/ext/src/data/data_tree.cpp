@@ -87,8 +87,12 @@ bool DataTree::proto_remove(const AtomList& lst)
 
 void DataTree::proto_set(const AtomList& lst)
 {
-    if (lst.isFloat())
+    if (lst.empty())
+        tree_ = DataTypeTree::newEmpty();
+    else if (lst.isFloat())
         setFromFloat(atomlistToValue<t_float>(lst, 0));
+    else if (looksLikeParseString(lst))
+        tree_ = DataTypeTree::newFromString(to_string(lst, " "));
     else if (lst.isSymbol())
         setFromSymbol(atomlistToValue<t_symbol*>(lst, &s_));
     else if (lst.isDataType(data::DATA_TREE))
@@ -96,10 +100,8 @@ void DataTree::proto_set(const AtomList& lst)
     else if (lst.isDataType(data::DATA_STRING)) {
         DataTPtr<DataTypeString> str_ptr(lst[0]);
         tree_ = TreePtr(new DataTypeTree(str_ptr->str()));
-    } else if (lst.allOf(isFloat))
-        tree_ = TreePtr(new DataTypeTree(lst.asFloats()));
-    else
-        tree_ = DataTypeTree::fromString(to_string(lst, " "));
+    } else
+        tree_ = TreePtr(new DataTypeTree(lst));
 }
 
 void DataTree::proto_clear()
@@ -311,6 +313,33 @@ void DataTree::setFromDict(const AtomList& lst)
     auto tree = fromKeyValueList(lst);
     if (!tree.isNull())
         tree_ = TreePtr(tree);
+}
+
+bool DataTree::looksLikeParseString(const AtomList& lst)
+{
+    auto check = [](const Atom& a0, const Atom& a1) {
+        if (!a0.isSymbol() || !a1.isSymbol())
+            return false;
+
+        const char* s0 = a0.asSymbol()->s_name;
+        const char* s1 = a1.asSymbol()->s_name;
+        auto c0 = s0[0];
+        auto c1 = s1[strlen(s1) - 1];
+
+        if (c0 == '"' && c1 == '"')
+            return true;
+        else if (c0 == '[' && c1 == ']')
+            return true;
+        else if (c0 == '(' && c1 == ')')
+            return true;
+        else
+            return false;
+    };
+
+    if (lst.empty())
+        return false;
+
+    return check(*lst.first(), *lst.last());
 }
 
 DataTypeTree DataTree::fromKeyValueList(const AtomList& lst)

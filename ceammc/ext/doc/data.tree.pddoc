@@ -66,13 +66,13 @@
         <example>
             <pdascii>
 <![CDATA[
-[dict #a(         [at 1 #e(
+[dict #a(         [at 1 #e(  [set, bang #g( [set \("a":100\), bang #k(
 
-[dict a 1 b 2 #b( [key b #f(
+[dict a 1 b 2 #b( [key b #f( [set 1 2 3, bang #h( [set \["x"\,"y"\], bang #l(
 
-[list #c(
+[list #c(                    [set "a string", bang #i(
 
-[list A B C 1 2 3 #d(
+[list A B C 1 2 3 #d(        [set A_STRING, bang #j(
 
 [bang( [clear, bang(
 |      |
@@ -88,6 +88,12 @@
 [X d->z]
 [X e->z]
 [X f->z]
+[X g->z]
+[X h->z]
+[X i->z]
+[X j->z]
+[X k->z]
+[X l->z]
 ]]>
             </pdascii>
         </example>
