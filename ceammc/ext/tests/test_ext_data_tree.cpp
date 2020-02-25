@@ -662,22 +662,22 @@ TEST_CASE("data.tree", "[externals]")
             REQUIRE_PROPERTY_FLOAT(t, @empty, 1);
         }
 
-        SECTION("at")
+        SECTION("key")
         {
             SECTION("object")
             {
                 TestDataTree t("data.tree", LA(R"(("a": 1, "b": "ABC", "c": [1,2], "d": ("a'": 100), "e": true))"));
 
-                WHEN_CALL_N(t, at, "a");
+                WHEN_CALL_N(t, key, "a");
                 REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, TreePtr(DataTypeTree(1)));
 
-                WHEN_CALL_N(t, at, "b");
+                WHEN_CALL_N(t, key, "b");
                 REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, TreePtr(DataTypeTree("ABC")));
 
-                WHEN_CALL_N(t, at, "c");
+                WHEN_CALL_N(t, key, "c");
                 REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, TreePtr(DataTypeTree::fromString("[1, 2]")));
 
-                WHEN_CALL_N(t, at, "d");
+                WHEN_CALL_N(t, key, "d");
                 REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, TreePtr(DataTypeTree::fromString(R"(("a'":100))")));
             }
         }
