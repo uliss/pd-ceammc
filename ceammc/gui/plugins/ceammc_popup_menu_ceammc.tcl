@@ -8,8 +8,8 @@
         array.sum array.sum2 array.variance array.vplay array.window
     }}
     {base {
-        function function.call gain~ matrix~ metro.pattern metro.seq mix~
-        obj.props radio window xdac~ xfade2~ xfade~
+        function function.call gain~ matrix~ metro.pattern metro.random
+        metro.seq mix~ obj.props radio window xdac~ xfade2~ xfade~
     }}
     {conv {
         array.p2s array.s2p conv.amp2dbfs conv.bpm2hz conv.bpm2ms conv.bpm2sec
@@ -20,10 +20,10 @@
     }}
     {data {
         data.dict data.fifo data.float data.int data.list data.mlist data.set
-        data.set2list dict.contains dict.each dict.from_list dict.get
-        dict.keys dict.pass dict.reject dict.size dict.to_list dict.values
-        mlist.flatten set.contains set.diff set.equal set.intersect set.size
-        set.symdiff set.union
+        data.set2list data.tree dict.contains dict.each dict.from_list
+        dict.get dict.keys dict.pass dict.reject dict.size dict.to_list
+        dict.values mlist.flatten set.contains set.diff set.equal
+        set.intersect set.size set.symdiff set.union tree.float tree.symbol
     }}
     {dyn {
         dyn.comp2~ dyn.comp~ dyn.gate2~ dyn.gate~ dyn.limit2~ dyn.limit~
