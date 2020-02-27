@@ -11,9 +11,6 @@
             <library>ceammc</library>
             <category view="link">base</category>
             <keywords>function</keywords>
-            <aliases>
-                <alias>func</alias>
-            </aliases>
             <also>
                 <see>function.call</see>
             </also>
