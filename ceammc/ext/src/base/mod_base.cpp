@@ -9,6 +9,7 @@
 #include "gain.h"
 #include "matrix.h"
 #include "metro_pattern.h"
+#include "metro_random.h"
 #include "metro_seq.h"
 #include "mix.h"
 #include "msg_after.h"
@@ -73,6 +74,7 @@ void ceammc_base_setup()
     setup_is_data();
     setup_load_msg();
     setup_metro_pattern();
+    setup_metro_random();
     setup_metro_seq();
     setup_msg_after();
     setup_obj_info();

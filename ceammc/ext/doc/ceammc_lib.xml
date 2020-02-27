@@ -74,6 +74,9 @@
     <entry descr="metro with rhythmic patterns" name="metro.pattern" ref_view="object">
       <xi:include href="metro.pattern.pddoc" parse="xml"/>
     </entry>
+    <entry descr="metro random bang with specified range" name="metro.random" ref_view="object">
+      <xi:include href="metro.random.pddoc" parse="xml"/>
+    </entry>
     <entry descr="metro sequencer" name="metro.seq" ref_view="object">
       <xi:include href="metro.seq.pddoc" parse="xml"/>
     </entry>

@@ -11,6 +11,7 @@ set(BASE_SOURCES
     function_call.cpp
     load_msg.cpp
     metro_pattern.cpp
+    metro_random.cpp
     metro_seq.cpp
     msg.cpp
     msg_after.cpp

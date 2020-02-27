@@ -342,6 +342,7 @@ set(DOC_FILES
     math.trunc
     matrix~
     metro.pattern
+    metro.random
     metro.seq
     midi.ctl2str
     midi.file

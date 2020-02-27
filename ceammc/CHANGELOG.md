@@ -18,6 +18,7 @@
 - preset.f alias added for preset.float
 - preset.s alias added for preset.symbol
 - preset.l alias added for preset.list
+- metro.random added
 
 ## [0.8]
 ### Added:

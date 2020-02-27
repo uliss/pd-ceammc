@@ -340,6 +340,7 @@ math.tanh		.		.
 math.trunc		.		.
 matrix~		?		?
 metro.pattern		.		..
+metro.random		..		.
 metro.seq		.		.
 midi.ctl2str,midi.ctl->str		.		.
 midi.event2ctl,midi.ev->ctl		.		..

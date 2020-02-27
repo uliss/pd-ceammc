@@ -453,6 +453,7 @@ math.trunc
 math.||'
 matrix~
 metro.pattern
+metro.random
 metro.seq
 midi->freq
 midi.ctl->str
@@ -658,6 +659,7 @@ tl.transport
 tree.at
 tree.f
 tree.float
+tree.keys
 tree.s
 tree.size
 tree.symbol

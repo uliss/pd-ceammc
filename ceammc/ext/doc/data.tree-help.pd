@@ -7,16 +7,16 @@
 #X obj 674 11 data.tree;
 #X msg 50 118 dict;
 #X msg 222 118 at 1;
-#X msg 338 118 set \, bang;
-#X msg 491 118 set ("a":100) \, bang;
+#X msg 328 118 set \, bang;
+#X msg 472 118 set ("a":100) \, bang;
 #X msg 50 147 dict a 1 b 2;
 #X msg 222 147 key b;
-#X msg 338 147 set 1 2 3 \, bang;
-#X msg 549 147 set ["x"\ \,"y"] \, bang;
+#X msg 328 147 set 1 2 3 \, bang;
+#X msg 530 147 set ["x"\ \,"y"] \, bang;
 #X msg 50 176 list;
-#X msg 338 176 set "a string" \, bang;
+#X msg 328 176 set "a string" \, bang;
 #X msg 50 205 list A B C 1 2 3;
-#X msg 338 205 set A_STRING \, bang;
+#X msg 328 205 set A_STRING \, bang;
 #X msg 50 234 bang;
 #X msg 117 234 clear \, bang;
 #X obj 50 262 data.tree ("a": 100\, "b": "A B C"\, "c": \[1\,2\,3\]\,
