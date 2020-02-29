@@ -4,8 +4,9 @@ macro(ceammc_an_external name)
     list(APPEND ANALYZE_SOURCES "an_${name}.cpp")
 endmacro()
 
-ceammc_an_external(pitchtrack)
+ceammc_an_external(aubio_onset)
 ceammc_an_external(aubio_onset_tilde)
+ceammc_an_external(pitchtrack)
 
 add_library(ceammc_analyze STATIC ${ANALYZE_SOURCES})
 target_include_directories(ceammc_analyze

@@ -11,16 +11,37 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef AN_AUBIO_ONSET_TILDE_H
-#define AN_AUBIO_ONSET_TILDE_H
+#ifndef AN_AUBIO_ONSET_H
+#define AN_AUBIO_ONSET_H
 
 #include "aubio_base.h"
-#include "ceammc_clock.h"
+#include "ceammc_array.h"
 #include "ceammc_sound_external.h"
 
 using namespace ceammc;
 
-class AubioOnsetTilde : public SoundExternal {
+class AubioOnset : public BaseObject {
+public:
+    AubioOnset(const PdArgs& args);
+
+    bool setArray(t_symbol* s);
+    bool checkArray();
+
+    void onBang() final;
+    void parseProperties() final;
+
+private:
+    AtomList propArray() const;
+    void propSetArray(const AtomList& l);
+    void initOnset(uint_t sr);
+    void updateMethodProperty();
+    static void propCallback(BaseObject* this_, t_symbol* name);
+
+private:
+    t_symbol* array_name_;
+    FVecPtr in_, out_;
+    OnsetPtr onset_;
+
     IntPropertyMinEq* buffer_size_;
     IntProperty* hop_size_;
     OnsetFloatProperty* threshold_;
@@ -30,33 +51,11 @@ class AubioOnsetTilde : public SoundExternal {
     OnsetFloatProperty* compression_;
     OnsetUIntProperty* awhitening_;
     SymbolEnumProperty* method_;
-    bool active_;
 
-    int dsp_pos_;
-    t_float last_ms_;
-
-    FVecPtr in_, out_;
-    OnsetPtr onset_;
-
-    ClockMemberFunction<AubioOnsetTilde> tick_;
-
-public:
-    AubioOnsetTilde(const PdArgs& args);
-
-    void parseProperties() final;
-
-    void processBlock(const t_sample** in, t_sample** out) final;
-    void samplerateChanged(size_t sr) final;
-
-    void m_reset(t_symbol* m, const AtomList&);
-
-private:
-    void clock_tick();
-    void initOnset(uint_t sr);
-    void updateMethodProperty();
-    static void propCallback(BaseObject* this_, t_symbol* name);
+protected:
+    Array array_;
 };
 
-void setup_an_onset_tilde();
+void setup_an_onset();
 
-#endif // AN_AUBIO_ONSET_TILDE_H
+#endif // AN_AUBIO_ONSET_H
