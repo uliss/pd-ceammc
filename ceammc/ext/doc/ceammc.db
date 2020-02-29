@@ -311,7 +311,7 @@ math.mul,math.*		..		.
 math.nan		.		.
 math.neg		.		.
 math.or,or		?		.
-math.pi		.		.
+math.pi,pi		.		.
 math.polyeval		..		.
 math.reciprocal,1/x		.		.
 math.round		.		.

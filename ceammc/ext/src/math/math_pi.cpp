@@ -1,0 +1,60 @@
+/*****************************************************************************
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
+ *
+ * This file may be distributed under the terms of GNU Public License version
+ * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
+ * license should have been included with this file, or the project in which
+ * this file belongs to. You may also find the details of GPL v3 at:
+ * http://www.gnu.org/licenses/gpl-3.0.txt
+ *
+ * If you have any questions regarding the use of this file, feel free to
+ * contact the author of this file, or the owner of the project in which
+ * this file belongs to.
+ *****************************************************************************/
+#include "math_pi.h"
+#include "ceammc_factory.h"
+
+constexpr t_float PI = 3.14159265359;
+
+MathPi::MathPi(const PdArgs& args)
+    : BaseObject(args)
+    , mpi_(positionalFloatArgument(0, 1) * PI)
+{
+    createOutlet();
+}
+
+void MathPi::onBang()
+{
+    floatTo(0, mpi_);
+}
+
+MathPiTilde::MathPiTilde(const PdArgs& args)
+    : SoundExternal(args)
+    , mpi_(positionalFloatArgument(0, 1) * PI)
+{
+    createSignalOutlet();
+}
+
+void MathPiTilde::processBlock(const t_sample** in, t_sample** out)
+{
+    auto const BS = blockSize();
+    for (size_t i = 0; i < BS; i += 8) {
+        out[0][0 + i] = mpi_;
+        out[0][1 + i] = mpi_;
+        out[0][2 + i] = mpi_;
+        out[0][3 + i] = mpi_;
+        out[0][4 + i] = mpi_;
+        out[0][5 + i] = mpi_;
+        out[0][6 + i] = mpi_;
+        out[0][7 + i] = mpi_;
+    }
+}
+
+void setup_math_pi()
+{
+    ObjectFactory<MathPi> obj("math.pi");
+    obj.addAlias("pi");
+
+    SoundExternalFactory<MathPiTilde> obj_tilde("math.pi~", OBJECT_FACTORY_DEFAULT | OBJECT_FACTORY_NO_DEFAULT_INLET);
+    obj_tilde.addAlias("pi~");
+}

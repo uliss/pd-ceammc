@@ -19,6 +19,8 @@
 - preset.s alias added for preset.symbol
 - preset.l alias added for preset.list
 - metro.random added
+- pi alias added for math.pi and argument added [pi 2] means two-pi value
+- math.pi~ added (with pi~ alias)
 
 ## [0.8]
 ### Added:

@@ -15,7 +15,13 @@
                 <see>math.e</see>
             </also>
             <since>0.1</since>
+            <aliases>
+                <alias>pi</alias>
+            </aliases>
         </meta>
+        <arguments>
+            <argument name="MUL" type="float">multiplier. default is 1</argument>
+        </arguments>
         <info>
             <par>The number PI is a mathematical constant, the ratio of a circle's circumference to
             its diameter, commonly approximated as 3.14159.</par>
@@ -31,11 +37,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[B]
-|
-[math.pi]
-|
-[floatatom digits=10]
+[B]             [B]
+|               |
+[math.pi]       [math.pi 2]
+|               |
+[F digits=10]   [F digits=10]
 ]]>
             </pdascii>
         </example>

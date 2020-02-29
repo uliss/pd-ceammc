@@ -29,4 +29,3 @@ void setup_math0x2epi()
         sizeof(t_math_pi), 0, A_NULL);
     class_addbang(math_pi_class, math_pi_bang);
 }
-

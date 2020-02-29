@@ -5,6 +5,7 @@
 #include "math_gcd.h"
 #include "math_lcm.h"
 #include "math_mul.h"
+#include "math_pi.h"
 #include "math_polyeval.h"
 #include "math_sync_op.h"
 
@@ -29,7 +30,6 @@ extern "C" void setup_math0x2elog10();
 extern "C" void setup_math0x2elog2();
 extern "C" void setup_math0x2enan();
 extern "C" void setup_math0x2eneg();
-extern "C" void setup_math0x2epi();
 extern "C" void setup_math0x2ereciprocal();
 extern "C" void setup_math0x2eround();
 extern "C" void setup_math0x2esign();
@@ -72,7 +72,6 @@ void ceammc_math_setup()
     setup_math0x2elog2();
     setup_math0x2enan();
     setup_math0x2eneg();
-    setup_math0x2epi();
     setup_math0x2ereciprocal();
     setup_math0x2eround();
     setup_math0x2esign();
@@ -96,6 +95,7 @@ void ceammc_math_setup()
     setup_math_div();
     setup_math_expr();
     setup_math_mul();
+    setup_math_pi();
     setup_math_polyeval();
     setup_math_round_tilde();
 
