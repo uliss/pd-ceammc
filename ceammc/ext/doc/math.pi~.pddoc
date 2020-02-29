@@ -35,7 +35,8 @@
 <![CDATA[
 [ui.dsp~]
 
-[math.pi~]      [math.pi 2]
+
+[math.pi~]      [math.pi~ 2]
 |               |
 [ui.n~]         [ui.n~]
 ]]>
