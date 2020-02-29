@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="math.pi">
-        <title>math.pi</title>
+    <object name="math.pi~">
+        <title>math.pi~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -12,12 +12,11 @@
             <category>math</category>
             <keywords>math pi</keywords>
             <also>
-                <see>math.e</see>
-                <see>math.pi~</see>
+                <see>math.pi</see>
             </also>
-            <since>0.1</since>
+            <since>0.9</since>
             <aliases>
-                <alias>pi</alias>
+                <alias>pi~</alias>
             </aliases>
         </meta>
         <arguments>
@@ -27,22 +26,18 @@
             <par>The number PI is a mathematical constant, the ratio of a circle's circumference to
             its diameter, commonly approximated as 3.14159.</par>
         </info>
-        <inlets>
-            <inlet>
-                <xinfo on="bang">outputs value</xinfo>
-            </inlet>
-        </inlets>
+        <inlets/>
         <outlets>
             <outlet>output value</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[B]             [B]
+[ui.dsp~]
+
+[math.pi~]      [math.pi 2]
 |               |
-[math.pi]       [math.pi 2]
-|               |
-[F digits=10]   [F digits=10]
+[ui.n~]         [ui.n~]
 ]]>
             </pdascii>
         </example>

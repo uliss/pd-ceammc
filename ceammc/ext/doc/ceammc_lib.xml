@@ -946,6 +946,9 @@
     <entry descr="mathematical constant" name="math.pi" ref_view="object">
       <xi:include href="math.pi.pddoc" parse="xml"/>
     </entry>
+    <entry descr="mathematical constant" name="math.pi~" ref_view="object">
+      <xi:include href="math.pi~.pddoc" parse="xml"/>
+    </entry>
     <entry descr="evaluates the polynomial described by the coefficients list" name="math.polyeval" ref_view="object">
       <xi:include href="math.polyeval.pddoc" parse="xml"/>
     </entry>

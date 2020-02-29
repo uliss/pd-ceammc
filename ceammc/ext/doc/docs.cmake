@@ -314,6 +314,7 @@ set(DOC_FILES
     math.neg
     math.or
     math.pi
+    math.pi~
     math.polyeval
     math.reciprocal
     math.round
