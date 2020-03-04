@@ -76,6 +76,17 @@ include(config)
 include(sound)
 include(cmake_uninstall)
 
+if(WITH_CLANG_TIDY)
+    find_program(CLANG_TIDY_COMMAND NAMES clang-tidy)
+        if(NOT CLANG_TIDY_COMMAND)
+            message(WARNING "WITH_CLANG_TIDY is ON but clang-tidy is not found!")
+            set(CMAKE_CXX_CLANG_TIDY "" CACHE STRING "" FORCE)
+        else()
+            set(CLANG_TIDY_CHECKS "-*,modernize-*")
+            set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
+      endif()
+endif()
+
 # libsndfile backend
 if(WITH_LIBSNDFILE)
     include(FindLibSndFile)

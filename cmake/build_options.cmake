@@ -1,6 +1,7 @@
 option(WITH_COVERAGE  "Build with coverage and profiling flags" OFF)
 option(WITH_EXPERIMENTAL "Build with experimental objects" OFF)
 option(WITH_BENCHMARK "Build with benchmarks" ON)
+option(WITH_CLANG_TIDY "Build with clang-tidy checks" OFF)
 
 option(WITH_TTS_FLITE "Build with Flite TTS support" ON)
 option(WITH_FLUIDSYNTH "Build with FluidSynth support" ON)
@@ -12,3 +13,4 @@ if(UNIX)
 endif()
 
 option(ENABLE_TESTS "Enable tests" ON)
+
