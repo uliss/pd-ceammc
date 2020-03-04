@@ -2,6 +2,11 @@ include(faust)
 include(ceammc_pd.cmake)
 include(cppcheck.cmake)
 
+# debug warning flags
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${CEAMMC_COMPILER_WARNING_FLAGS}")
+endif()
+
 if(WITH_COVERAGE)
     if(APPLE)
         if (NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") # Clang or AppleClang

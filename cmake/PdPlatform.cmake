@@ -1,9 +1,24 @@
 include(TestBigEndian)
 include(FindLibDL)
 include(windres)
+
+function(ceammc_remove_duplicate_substring stringIn stringOut)
+    separate_arguments(stringIn)
+    list(REMOVE_DUPLICATES stringIn)
+    string(REPLACE ";" " " stringIn "${stringIn}")
+    set(${stringOut} "${stringIn}" PARENT_SCOPE)
+endfunction()
+
+
+# big endian check
 test_big_endian(IS_BIG_ENDIAN)
 if(NOT ${IS_BIG_ENDIAN})
     add_definitions(-DLITTLE_ENDIAN=0x0001 -DBYTE_ORDER=LITTLE_ENDIAN)
+endif()
+
+set(CEAMMC_COMPILER_WARNING_FLAGS "-Wall -Wextra")
+if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(CEAMMC_COMPILER_WARNING_FLAGS "${CEAMMC_COMPILER_WARNING_FLAGS} -Wcast-align -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wduplicate-enum -Wextra-semi -Wfloat-equal -Wlong-long -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wsign-conversion -Wsign-promo")
 endif()
 
 # needed for math constants in <math.h>: M_PI etc.
@@ -20,13 +35,6 @@ if(UNIX AND NOT APPLE)
     list(APPEND PLATFORM_LINK_LIBRARIES ${CMAKE_THREAD_LIBS_INIT})
     set(LINUX True)
 endif()
-
-function(ceammc_remove_duplicate_substring stringIn stringOut)
-    separate_arguments(stringIn)
-    list(REMOVE_DUPLICATES stringIn)
-    string(REPLACE ";" " " stringIn "${stringIn}")
-    set(${stringOut} "${stringIn}" PARENT_SCOPE)
-endfunction()
 
 # address sanitizer
 if(WITH_ASAN)
