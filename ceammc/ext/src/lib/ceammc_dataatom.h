@@ -172,7 +172,7 @@ const T* DataAtom::as() const
 // std::hash<DataAtom> specialization
 namespace std {
 template <>
-class hash<ceammc::DataAtom> {
+struct hash<ceammc::DataAtom> {
 public:
     size_t operator()(const ceammc::DataAtom& d) const
     {
