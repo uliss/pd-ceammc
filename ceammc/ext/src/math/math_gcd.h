@@ -27,6 +27,6 @@ public:
     void onList(const AtomList& l);
 };
 
-extern "C" void setup_math0x2egcd();
+void setup_math_gcd();
 
 #endif // MATH_GCD_H

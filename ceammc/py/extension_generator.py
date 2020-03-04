@@ -7,7 +7,7 @@ import argparse
 
 CWD = os.path.dirname(__file__)
 ceammc = imp.load_source('module.name', os.path.join(CWD, 'ceammc/template.py'))
-ceammc_cpp = imp.load_source('module.name2', os.path.join(CWD, 'ceammc/cppextension.py'))
+ceammc_cpp = imp.load_source('module.name2', os.path.join(CWD, 'ceammc/cppexternal.py'))
 
 parser = argparse.ArgumentParser(description='Generate PureData ceammc math extensions.')
 parser.add_argument('module', metavar='MODULE', help='Module name')
@@ -36,7 +36,7 @@ def generate_common(args):
         headers = args.headers.split(',')
 
     g = ceammc.PdExternal(args.module, args.name, headers=headers)
-    cpp = ceammc_cpp.CppExtension(args.module, args.name)
+    cpp = ceammc_cpp.MathUnaryCppExternalBoth(args.module, args.func64)
     methods = ['float', 'list']
     if args.methods:
         methods = args.methods.split(',')
@@ -65,11 +65,10 @@ if args.module == 'math':
         if not func32:
             code = ' '
 
-        g = ceammc.PdMathUnaryExternal(args.name, func32, func64, code)
-        g.gen_cpp = args.cpp
-        g.generate()
+        g = ceammc_cpp.MathUnaryCppExternalBoth(args.name, func64)
+        g.generate(['float', 'list'])
     elif args.type == 'const':
-        g = ceammc.PdMathConstExternal(args.name, args.code)
+        g = ceammc.PdMathConstExternal(args.name, args.code, cpp=args.cpp)
         g.generate()
     elif args.type == 'empty':
         code = ' '

@@ -4,7 +4,7 @@ copyright: "(c)brummer 2008"
 license: "BSD"
 name: "fx.distortion1"
 version: "0.01"
-Code generated with Faust 2.22.1 (https://faust.grame.fr)
+Code generated with Faust 2.22.5 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -52,7 +52,7 @@ Compilation options: -lang cpp -scal -ftz 0
 #define FAUSTFLOAT float
 #endif
 
-class UI;
+struct UI;
 struct Meta;
 
 /**
@@ -242,7 +242,7 @@ class dsp_factory {
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
- Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ Copyright (C) 2003-2020 GRAME, Centre National de Creation Musicale
  ---------------------------------------------------------------------
  This Architecture section is free software; you can redistribute it
  and/or modify it under the terms of the GNU General Public License
@@ -280,48 +280,44 @@ class dsp_factory {
 struct Soundfile;
 
 template <typename REAL>
-class UIReal
+struct UIReal
 {
+    UIReal() {}
+    virtual ~UIReal() {}
     
-    public:
-        
-        UIReal() {}
-        virtual ~UIReal() {}
-        
-        // -- widget's layouts
-        
-        virtual void openTabBox(const char* label) = 0;
-        virtual void openHorizontalBox(const char* label) = 0;
-        virtual void openVerticalBox(const char* label) = 0;
-        virtual void closeBox() = 0;
-        
-        // -- active widgets
-        
-        virtual void addButton(const char* label, REAL* zone) = 0;
-        virtual void addCheckButton(const char* label, REAL* zone) = 0;
-        virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        
-        // -- passive widgets
-        
-        virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-        virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-        
-        // -- soundfiles
-        
-        virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-        
-        // -- metadata declarations
-        
-        virtual void declare(REAL* zone, const char* key, const char* val) {}
+    // -- widget's layouts
+    
+    virtual void openTabBox(const char* label) = 0;
+    virtual void openHorizontalBox(const char* label) = 0;
+    virtual void openVerticalBox(const char* label) = 0;
+    virtual void closeBox() = 0;
+    
+    // -- active widgets
+    
+    virtual void addButton(const char* label, REAL* zone) = 0;
+    virtual void addCheckButton(const char* label, REAL* zone) = 0;
+    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    
+    // -- passive widgets
+    
+    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+    
+    // -- soundfiles
+    
+    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
+    
+    // -- metadata declarations
+    
+    virtual void declare(REAL* zone, const char* key, const char* val) {}
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
 {
-
-        UI() {}
-        virtual ~UI() {}
+    UI() {}
+    virtual ~UI() {}
 };
 
 #endif
@@ -653,15 +649,17 @@ class fx_distortion1 : public dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.1");
+		m->declare("maths.lib/version", "2.2");
 		m->declare("maxmsp.lib/author", "GRAME");
 		m->declare("maxmsp.lib/copyright", "GRAME");
-		m->declare("maxmsp.lib/license", "LGPL");
+		m->declare("maxmsp.lib/license", "LGPL with exception");
 		m->declare("maxmsp.lib/name", "MaxMSP compatibility Library");
 		m->declare("maxmsp.lib/version", "1.1");
 		m->declare("misceffects.lib/name", "Faust Math Library");
 		m->declare("misceffects.lib/version", "2.0");
 		m->declare("name", "fx.distortion1");
+		m->declare("platform.lib/name", "Generic Platform Library");
+		m->declare("platform.lib/version", "0.1");
 		m->declare("version", "0.01");
 	}
 
@@ -1010,8 +1008,8 @@ class fx_distortion1 : public dsp {
 		float fSlow69 = (fSlow64 + 1.0f);
 		float fSlow70 = (0.0f - (1.0f / (fSlow63 * fSlow69)));
 		float fSlow71 = (1.0f / fSlow69);
-		float fSlow72 = (1.0f - fSlow64);
-		float fSlow73 = (1.0f / (fSlow63 * fSlow48));
+		float fSlow72 = (1.0f / (fSlow63 * fSlow48));
+		float fSlow73 = (1.0f - fSlow64);
 		float fSlow74 = (1.0f / fSlow65);
 		float fSlow75 = (((fSlow64 + -1.0f) / fSlow63) + 1.0f);
 		float fSlow76 = (2.0f * (1.0f - fSlow68));
@@ -1056,16 +1054,16 @@ class fx_distortion1 : public dsp {
 			fRec19[0] = (fRec20[0] - (fSlow58 * ((fSlow59 * fRec19[2]) + (fSlow60 * fRec19[1]))));
 			float fTemp10 = std::max<float>(-1.0f, std::min<float>(1.0f, (fSlow9 + (fSlow49 * (((fSlow51 * fRec19[0]) + (fSlow61 * fRec19[1])) + (fSlow51 * fRec19[2]))))));
 			fRec23[0] = (fSlow62 + (0.999000013f * fRec23[1]));
-			fRec27[0] = (0.0f - (fSlow55 * ((fSlow56 * fRec27[1]) - (fTemp9 + fVec6[1]))));
+			fRec27[0] = (fSlow55 * ((fTemp9 + fVec6[1]) - (fSlow56 * fRec27[1])));
 			fRec26[0] = (fRec27[0] - (fSlow58 * ((fSlow59 * fRec26[2]) + (fSlow60 * fRec26[1]))));
 			float fTemp11 = (fRec26[2] + (fRec26[0] + (2.0f * fRec26[1])));
 			float fTemp12 = (fSlow58 * fTemp11);
 			fVec7[0] = fTemp12;
-			fRec25[0] = ((fSlow70 * fVec7[1]) - (fSlow71 * ((fSlow72 * fRec25[1]) - (fSlow73 * fTemp11))));
+			fRec25[0] = ((fSlow70 * fVec7[1]) + (fSlow71 * ((fSlow72 * fTemp11) - (fSlow73 * fRec25[1]))));
 			fRec24[0] = (fRec25[0] - (fSlow74 * ((fSlow75 * fRec24[2]) + (fSlow76 * fRec24[1]))));
 			float fTemp13 = std::max<float>(-1.0f, std::min<float>(1.0f, (fSlow9 + (fSlow66 * (((fSlow68 * fRec24[0]) + (fSlow77 * fRec24[1])) + (fSlow68 * fRec24[2]))))));
 			fRec28[0] = (fSlow78 + (0.999000013f * fRec28[1]));
-			fRec30[0] = (0.0f - (fSlow71 * ((fSlow72 * fRec30[1]) - (fTemp12 + fVec7[1]))));
+			fRec30[0] = (0.0f - (fSlow71 * ((fSlow73 * fRec30[1]) - (fTemp12 + fVec7[1]))));
 			fRec29[0] = (fRec30[0] - (fSlow74 * ((fSlow75 * fRec29[2]) + (fSlow76 * fRec29[1]))));
 			float fTemp14 = std::max<float>(-1.0f, std::min<float>(1.0f, (fSlow9 + (fSlow79 * (fRec29[2] + (fRec29[0] + (2.0f * fRec29[1])))))));
 			fRec5[0] = ((fRec6[0] * (((((fRec7[0] * fTemp7) * (1.0f - (0.333333343f * fx_distortion1_faustpower2_f(fTemp7)))) + ((fRec18[0] * fTemp10) * (1.0f - (0.333333343f * fx_distortion1_faustpower2_f(fTemp10))))) + ((fRec23[0] * fTemp13) * (1.0f - (0.333333343f * fx_distortion1_faustpower2_f(fTemp13))))) + ((fRec28[0] * fTemp14) * (1.0f - (0.333333343f * fx_distortion1_faustpower2_f(fTemp14)))))) - (fConst7 * ((fConst10 * fRec5[2]) + (fConst11 * fRec5[1]))));

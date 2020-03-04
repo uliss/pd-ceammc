@@ -32,5 +32,5 @@ extern "C" void setup_system0x2ememused()
         reinterpret_cast<t_newmethod>(system_memused_new),
         reinterpret_cast<t_method>(system_memused_free),
         sizeof(t_system_memused), 0, A_NULL);
-    class_addbang(system_memused_class, system_memused_bang);
+    class_addbang(system_memused_class, reinterpret_cast<t_method>(system_memused_bang));
 }

@@ -54,7 +54,7 @@ extern "C" {
 
 //! @cond
 #define atom_setfloat(a, f) SETFLOAT(a, f)
-#define atom_setlong(a, l) SETFLOAT(a, (float)l)
+#define atom_setlong(a, l) SETFLOAT(a, (t_float)l)
 #define atom_setsym(a, s) SETSYMBOL(a, s)
 #define atom_getlong(a) (long)atom_getfloat(a)
 #define atom_gettype(a) (a)[0].a_type
@@ -554,7 +554,7 @@ typedef struct t_eattr {
     t_symbol* units; /*!< The units of the attribute. */
     t_symbol* defvals; /*!< The default value of the attribute. */
     t_symbol** itemslist; /*!< The available items of an attribute if it is a menu. */
-    long itemssize; /*!< The number of available items of an attribute if it is a menu. */
+    size_t itemssize; /*!< The number of available items of an attribute if it is a menu. */
     t_err_method getter; /*!< The getter method of the attribute. */
     t_err_method setter; /*!< The setter method of the attribute. */
     size_t offset; /*!< The offset of the attribute in the object structure. */
@@ -585,7 +585,7 @@ typedef struct t_eclass {
     bool c_dsp; /*!< The marker if the class is DSP. */
     t_ewidget c_widget; /*!< The extra widget methods. */
     t_eattr** c_attr; /*!< The attributes. */
-    long c_nattr; /*!< The number of attributes. */
+    size_t c_nattr; /*!< The number of attributes. */
 } t_eclass;
 
 /** @} */

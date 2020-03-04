@@ -18,7 +18,7 @@ endif()
 
 set(CEAMMC_COMPILER_WARNING_FLAGS "-Wall -Wextra")
 if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    set(CEAMMC_COMPILER_WARNING_FLAGS "${CEAMMC_COMPILER_WARNING_FLAGS} -Wcast-align -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wduplicate-enum -Wextra-semi -Wfloat-equal -Wlong-long -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wsign-conversion -Wsign-promo")
+    set(CEAMMC_COMPILER_WARNING_FLAGS "${CEAMMC_COMPILER_WARNING_FLAGS} -Wno-unused-function -Wcast-align -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wduplicate-enum -Wextra-semi -Wfloat-equal -Wlong-long -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wsign-conversion -Wsign-promo")
 endif()
 
 # needed for math constants in <math.h>: M_PI etc.

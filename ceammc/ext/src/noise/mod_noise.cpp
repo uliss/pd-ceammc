@@ -26,6 +26,8 @@ extern "C" void setup_noise0x2everhulst();
 extern void setup_noise_crackle_tilde();
 extern void setup_noise_lfreq_tilde();
 extern void setup_noise_lfreq0_tilde();
+extern void setup_chaos_standard();
+extern void setup_chaos_gbman();
 
 void ceammc_noise_setup()
 {
@@ -54,6 +56,9 @@ void ceammc_noise_setup()
     setup_noise_crackle_tilde();
     setup_noise_lfreq_tilde();
     setup_noise_lfreq0_tilde();
+
+    setup_chaos_gbman();
+    setup_chaos_standard();
 
     post("[ceammc] A-Chaos library, (c) 2004 André Sier");
 }

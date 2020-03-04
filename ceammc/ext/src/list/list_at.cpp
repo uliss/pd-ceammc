@@ -79,6 +79,10 @@ void ListAt::onList(const AtomList& l)
 
 const Atom* ListAt::at(const AtomList& l, const Atom& p)
 {
+    static t_symbol* SYM_CLIP = gensym("clip");
+    static t_symbol* SYM_WRAP = gensym("wrap");
+    static t_symbol* SYM_FOLD = gensym("fold");
+
     const Atom* a = 0;
 
     if (!p.isInteger()) {
@@ -88,11 +92,11 @@ const Atom* ListAt::at(const AtomList& l, const Atom& p)
 
     int pos = p.asInt(0);
 
-    if (at_method_->is("clip"))
+    if (at_method_->value() == SYM_CLIP)
         a = l.clipAt(pos);
-    else if (at_method_->is("wrap"))
+    else if (at_method_->value() == SYM_WRAP)
         a = l.wrapAt(pos);
-    else if (at_method_->is("fold"))
+    else if (at_method_->value() == SYM_FOLD)
         a = l.foldAt(pos);
     else
         a = l.relativeAt(pos);

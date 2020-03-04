@@ -42,7 +42,7 @@ pd::External::External(const char* name, const AtomList& lst)
 {
     try {
         t_symbol* OBJ_NAME = gensym(name);
-        pd_typedmess(&pd_objectmaker, OBJ_NAME, lst.size(), lst.toPdData());
+        pd_typedmess(&pd_objectmaker, OBJ_NAME, int(lst.size()), lst.toPdData());
 
         t_pd* ptr = pd_newest();
         if (!ptr) {
@@ -90,7 +90,7 @@ bool pd::External::isNull() const
     return obj_ == 0;
 }
 
-bool pd::External::connectTo(int outn, t_object* dest, int inln)
+bool pd::External::connectTo(size_t outn, t_object* dest, size_t inln)
 {
     if (!obj_) {
         printf("[connectTo] NULL object\n");
@@ -109,29 +109,29 @@ bool pd::External::connectTo(int outn, t_object* dest, int inln)
         return false;
     }
 
-    if (inln >= obj_ninlets(dest)) {
+    if (int(inln) >= obj_ninlets(dest)) {
         printf("[%s: connectTo %s] invalid destination inlet: %d\n",
-            OBJ_NAME(obj_), OBJ_NAME(dest), inln);
+            OBJ_NAME(obj_), OBJ_NAME(dest), int(inln));
         return false;
     }
 
-    if (outn >= numOutlets()) {
+    if (int(outn) >= numOutlets()) {
         printf("[%s: connectTo %s] invalid source outlet: %d\n",
-            OBJ_NAME(obj_), OBJ_NAME(dest), outn);
+            OBJ_NAME(obj_), OBJ_NAME(dest), int(outn));
         return false;
     }
 
 #undef OBJ_NAME
 
-    return obj_connect(obj_, outn, dest, inln) != 0;
+    return obj_connect(obj_, int(outn), dest, int(inln)) != 0;
 }
 
-bool pd::External::connectTo(int outn, pd::External& ext, int inln)
+bool pd::External::connectTo(size_t outn, pd::External& ext, size_t inln)
 {
     return connectTo(outn, ext.object(), inln);
 }
 
-bool pd::External::connectFrom(int outn, t_object* src, int inln)
+bool pd::External::connectFrom(size_t outn, t_object* src, size_t inln)
 {
     if (!obj_) {
         printf("[connectFrom] NULL object\n");
@@ -150,24 +150,24 @@ bool pd::External::connectFrom(int outn, t_object* src, int inln)
         return false;
     }
 
-    if (inln >= numInlets()) {
+    if (int(inln) >= numInlets()) {
         printf("[%s: connectFrom %s] invalid destination inlet: %d\n",
-            OBJ_NAME(obj_), OBJ_NAME(src), inln);
+            OBJ_NAME(obj_), OBJ_NAME(src), int(inln));
         return false;
     }
 
-    if (outn >= obj_noutlets(src)) {
+    if (int(outn) >= obj_noutlets(src)) {
         printf("[%s: connectFrom %s] invalid source outlet: %d\n",
-            OBJ_NAME(obj_), OBJ_NAME(src), outn);
+            OBJ_NAME(obj_), OBJ_NAME(src), int(outn));
         return false;
     }
 
 #undef OBJ_NAME
 
-    return obj_connect(src, outn, obj_, inln) != 0;
+    return obj_connect(src, int(outn), obj_, int(inln)) != 0;
 }
 
-bool pd::External::connectFrom(int outn, pd::External& ext, int inln)
+bool pd::External::connectFrom(size_t outn, pd::External& ext, size_t inln)
 {
     return connectFrom(outn, ext.object(), inln);
 }
@@ -211,7 +211,7 @@ void pd::External::sendList(const AtomList& l)
     if (!obj_)
         return;
 
-    pd_list(pd(), &s_list, l.size(), l.toPdData());
+    pd_list(pd(), &s_list, int(l.size()), l.toPdData());
 }
 
 void pd::External::sendBangTo(size_t inlet)
@@ -254,7 +254,7 @@ void pd::External::sendListTo(const AtomList& l, size_t inlet)
     else {
         External pd_l("list");
         if (pd_l.connectTo(0, *this, inlet))
-            pd_list(pd_l.pd(), &s_list, l.size(), l.toPdData());
+            pd_list(pd_l.pd(), &s_list, int(l.size()), l.toPdData());
     }
 }
 
@@ -263,7 +263,7 @@ void pd::External::sendMessage(t_symbol* msg, const AtomList& args)
     if (!obj_)
         return;
 
-    pd_typedmess(&obj_->te_g.g_pd, msg, args.size(), args.toPdData());
+    pd_typedmess(&obj_->te_g.g_pd, msg, int(args.size()), args.toPdData());
 }
 
 void pd::External::sendMessage(const Message& m)
@@ -320,7 +320,7 @@ void pd::External::setXPos(int x)
     if (!obj_)
         return;
 
-    obj_->te_xpix = x;
+    obj_->te_xpix = short(x);
 }
 
 void pd::External::setYPos(int y)
@@ -328,7 +328,7 @@ void pd::External::setYPos(int y)
     if (!obj_)
         return;
 
-    obj_->te_ypix = y;
+    obj_->te_ypix = short(y);
 }
 
 std::vector<t_symbol*> pd::External::methods() const
@@ -426,10 +426,10 @@ CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)
     }
 
     if (!args.empty())
-        canvas_setargs(args.size(), args.toPdData());
+        canvas_setargs(int(args.size()), args.toPdData());
 
     assert(l.size() == 5);
-    t_canvas* cnv = canvas_new(0, gensym(name), l.size(), l.toPdData());
+    t_canvas* cnv = canvas_new(0, gensym(name), int(l.size()), l.toPdData());
 
     if (!cnv)
         return ptr;

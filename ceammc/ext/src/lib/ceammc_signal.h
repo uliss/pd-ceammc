@@ -24,10 +24,10 @@ namespace ceammc {
 
 template <class T>
 class SmoothLinT {
-    T step_;
     T current_;
     T target_;
-    uint32_t N_;
+    T step_;
+    size_t N_;
     bool done_;
 
 public:
@@ -38,6 +38,7 @@ public:
         , N_(std::max<size_t>(duration, 1))
         , done_(false)
     {
+        static_assert(std::is_floating_point<T>::value, "not floating point type");
         setTargetValue(target);
     }
 

@@ -70,7 +70,7 @@ public:
 public:
     static void setup();
 private:
-    const int click2Cell(const t_pt& pt);
+    int click2Cell(const t_pt& pt) const;
 };
 
 void setup_ui_radio();

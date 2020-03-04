@@ -41,7 +41,7 @@ void MathLCM::onList(const AtomList& l)
     onFloat(l[0].asFloat());
 }
 
-extern "C" void setup_math0x2elcm()
+void setup_math_lcm()
 {
     ObjectFactory<MathLCM> obj("math.lcm");
 }

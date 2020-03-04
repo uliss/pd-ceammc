@@ -4,7 +4,7 @@ copyright: "(c) Julian Parker 2013"
 license: "GPL2+"
 name: "fx.greyhole"
 version: "1.0"
-Code generated with Faust 2.22.1 (https://faust.grame.fr)
+Code generated with Faust 2.22.5 (https://faust.grame.fr)
 Compilation options: -lang cpp -scal -ftz 0
 ------------------------------------------------------------ */
 
@@ -52,7 +52,7 @@ Compilation options: -lang cpp -scal -ftz 0
 #define FAUSTFLOAT float
 #endif
 
-class UI;
+struct UI;
 struct Meta;
 
 /**
@@ -242,7 +242,7 @@ class dsp_factory {
 /************************** BEGIN UI.h **************************/
 /************************************************************************
  FAUST Architecture File
- Copyright (C) 2003-2017 GRAME, Centre National de Creation Musicale
+ Copyright (C) 2003-2020 GRAME, Centre National de Creation Musicale
  ---------------------------------------------------------------------
  This Architecture section is free software; you can redistribute it
  and/or modify it under the terms of the GNU General Public License
@@ -280,48 +280,44 @@ class dsp_factory {
 struct Soundfile;
 
 template <typename REAL>
-class UIReal
+struct UIReal
 {
+    UIReal() {}
+    virtual ~UIReal() {}
     
-    public:
-        
-        UIReal() {}
-        virtual ~UIReal() {}
-        
-        // -- widget's layouts
-        
-        virtual void openTabBox(const char* label) = 0;
-        virtual void openHorizontalBox(const char* label) = 0;
-        virtual void openVerticalBox(const char* label) = 0;
-        virtual void closeBox() = 0;
-        
-        // -- active widgets
-        
-        virtual void addButton(const char* label, REAL* zone) = 0;
-        virtual void addCheckButton(const char* label, REAL* zone) = 0;
-        virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-        
-        // -- passive widgets
-        
-        virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-        virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-        
-        // -- soundfiles
-        
-        virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-        
-        // -- metadata declarations
-        
-        virtual void declare(REAL* zone, const char* key, const char* val) {}
+    // -- widget's layouts
+    
+    virtual void openTabBox(const char* label) = 0;
+    virtual void openHorizontalBox(const char* label) = 0;
+    virtual void openVerticalBox(const char* label) = 0;
+    virtual void closeBox() = 0;
+    
+    // -- active widgets
+    
+    virtual void addButton(const char* label, REAL* zone) = 0;
+    virtual void addCheckButton(const char* label, REAL* zone) = 0;
+    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
+    
+    // -- passive widgets
+    
+    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
+    
+    // -- soundfiles
+    
+    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
+    
+    // -- metadata declarations
+    
+    virtual void declare(REAL* zone, const char* key, const char* val) {}
 };
 
 struct UI : public UIReal<FAUSTFLOAT>
 {
-
-        UI() {}
-        virtual ~UI() {}
+    UI() {}
+    virtual ~UI() {}
 };
 
 #endif
@@ -702,10 +698,12 @@ class fx_greyhole : public dsp {
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
-		m->declare("maths.lib/version", "2.1");
+		m->declare("maths.lib/version", "2.2");
 		m->declare("name", "fx.greyhole");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
 		m->declare("oscillators.lib/version", "0.0");
+		m->declare("platform.lib/name", "Generic Platform Library");
+		m->declare("platform.lib/version", "0.1");
 		m->declare("routes.lib/name", "Faust Signal Routing Library");
 		m->declare("routes.lib/version", "0.1");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
@@ -1465,7 +1463,7 @@ class fx_greyhole : public dsp {
 			float fTemp89 = fVec28[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp88)))) & 16383)];
 			fVec29[0] = fTemp89;
 			float fTemp90 = std::floor(fTemp88);
-			fRec24[0] = (fVec29[1] - (((fTemp90 + (2.0f - fRec61[0])) * (fRec24[1] - fTemp89)) / (fRec61[0] - fTemp90)));
+			fRec24[0] = (fVec29[1] + (((fTemp90 + (2.0f - fRec61[0])) * (fTemp89 - fRec24[1])) / (fRec61[0] - fTemp90)));
 			fRec22[0] = fRec24[0];
 			fVec30[(IOTA & 16383)] = ((fRec25[1] * fTemp7) + (fTemp74 * fTemp84));
 			fRec63[0] = (fSlow37 + (0.999000013f * (fRec63[1] + float((iSlow36 * iTemp17)))));
@@ -1497,7 +1495,7 @@ class fx_greyhole : public dsp {
 			float fTemp101 = fVec36[((IOTA - std::min<int>(8192, std::max<int>(0, int(fTemp100)))) & 16383)];
 			fVec37[0] = fTemp101;
 			float fTemp102 = std::floor(fTemp100);
-			fRec18[0] = (fVec37[1] - (((fTemp102 + (2.0f - fRec67[0])) * (fRec18[1] - fTemp101)) / (fRec67[0] - fTemp102)));
+			fRec18[0] = (fVec37[1] + (((fTemp102 + (2.0f - fRec67[0])) * (fTemp101 - fRec18[1])) / (fRec67[0] - fTemp102)));
 			fRec16[0] = fRec18[0];
 			fVec38[(IOTA & 16383)] = ((fRec19[1] * fTemp7) + (fTemp74 * fTemp82));
 			fRec69[0] = (fSlow47 + (0.999000013f * (fRec69[1] + float((iSlow46 * iTemp17)))));

@@ -41,7 +41,7 @@ void MathGCD::onList(const AtomList& l)
     onFloat(l[0].asFloat());
 }
 
-extern "C" void setup_math0x2egcd()
+void setup_math_gcd()
 {
     ObjectFactory<MathGCD> obj("math.gcd");
 }

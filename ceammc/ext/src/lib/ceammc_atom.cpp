@@ -13,8 +13,10 @@
  *****************************************************************************/
 
 #include "ceammc_atom.h"
+
 #include <cmath>
 #include <cstring>
+#include <functional>
 #include <iostream>
 #include <limits>
 #include <sstream>
@@ -33,6 +35,9 @@ static const unsigned int TYPE_SHIFT = std::numeric_limits<data_id_type>::digits
 static const t_atomtype DATA_TYPE = t_atomtype(A_GIMME + 11);
 
 namespace ceammc {
+
+// safe-check
+static_assert(sizeof(Atom) == sizeof(t_atom), "Atom and t_atom size mismatch");
 
 Atom::Atom()
 {
@@ -174,7 +179,7 @@ bool Atom::setSymbol(t_symbol* s, bool force)
     return true;
 }
 
-t_float Atom::asFloat(float def) const
+t_float Atom::asFloat(t_float def) const
 {
     return isFloat() ? a_w.w_float : def;
 }
@@ -204,7 +209,7 @@ std::string Atom::asString() const
         return a_w.w_symbol->s_name;
     if (isFloat()) {
         char buf[16];
-        if ((a_w.w_float - (int)(a_w.w_float)) < 0.001)
+        if ((a_w.w_float - static_cast<int>(a_w.w_float)) < 0.001)
             sprintf(buf, "%.0f", a_w.w_float);
         else
             sprintf(buf, "%.4f", a_w.w_float);
@@ -338,7 +343,7 @@ void Atom::setData(const DataDesc& d)
     data_id_type t = static_cast<unsigned int>(d.type) << TYPE_SHIFT;
     data_id_type id = d.id & ID_MASK;
     data_id_type value = t | id;
-    a_w.w_index = value;
+    a_w.w_index = static_cast<decltype(a_w.w_index)>(value);
 }
 
 void Atom::outputAsAny(t_outlet* x, t_symbol* sel) const
@@ -355,7 +360,7 @@ bool operator==(const Atom& a1, const Atom& a2)
         return false;
 
     if (a1.isFloat())
-        return a1.a_w.w_float == a2.a_w.w_float;
+        return std::equal_to<t_float>()(a1.a_w.w_float, a2.a_w.w_float);
 
     if (a1.isSymbol())
         return a1.a_w.w_symbol == a2.a_w.w_symbol;
@@ -395,12 +400,14 @@ std::ostream& operator<<(std::ostream& os, const Atom& a)
 {
     if (a.isFloat())
         os << a.asFloat();
-    if (a.isSymbol())
-        os << a.asString();
-    if (a.isNone())
+    else if (a.isSymbol())
+        os << a.asSymbol()->s_name;
+    else if (a.isNone())
         os << "NONE";
-    if (a.isData())
+    else if (a.isData())
         os << "Data[" << a.dataType() << '#' << a.dataId() << ']';
+    else
+        os << "???";
 
     return os;
 }

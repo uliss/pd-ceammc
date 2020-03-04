@@ -43,9 +43,9 @@ public:
     bool operator<(const ArrayIterator& it) const { return data_ < it.data_; }
     bool operator<=(const ArrayIterator& it) const { return data_ <= it.data_; }
 
-    float& operator*();
-    const float& operator*() const;
-    float& operator[](const size_t n);
+    t_float& operator*();
+    const t_float& operator*() const;
+    t_float& operator[](const size_t n);
 
     ArrayIterator& operator++();
     ArrayIterator& operator--();
@@ -62,7 +62,7 @@ public:
 
 ArrayIterator operator+(ArrayIterator::difference_type, const ArrayIterator& it);
 
-typedef float (*FloatValueGenerator)(size_t n);
+typedef t_float (*FloatValueGenerator)(size_t n);
 
 class Array {
     _symbol* name_;
@@ -114,8 +114,8 @@ public:
      * @return reference to sample
      * @throw Exception if invalid array or invalid sample number
      */
-    const float& at(size_t n) const;
-    float& at(size_t n);
+    const t_float& at(size_t n) const;
+    t_float& at(size_t n);
 
     /**
      * @brief get reference to sample with at position
@@ -123,20 +123,20 @@ public:
      * @return reference to sample
      * @note no checks are performed
      */
-    const float& operator[](size_t n) const;
-    float& operator[](size_t n);
+    const t_float& operator[](size_t n) const;
+    t_float& operator[](size_t n);
 
     bool resize(size_t n);
 
-    void copyFrom(const float* src, size_t n);
-    void copyTo(float* dest, size_t n);
-    void fillWith(float v);
+    void copyFrom(const t_float* src, size_t n);
+    void copyTo(t_float *dest, size_t n);
+    void fillWith(t_float v);
     void fillWith(FloatValueGenerator gen);
 
     bool set(const AtomList& l);
     bool set(std::initializer_list<t_sample> l);
 
-    bool setYBounds(float yBottom, float yTop);
+    bool setYBounds(float yBottom, t_float yTop);
 
 public:
     struct Exception : public std::runtime_error {

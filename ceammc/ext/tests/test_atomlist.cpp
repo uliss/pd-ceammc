@@ -131,35 +131,35 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         l.append(Atom(gensym("a")));
         REQUIRE(l.size() == 5);
 
-        REQUIRE(l.at(0).asString() == "a");
+        REQUIRE(l.at(0).asSymbol() == SYM("a"));
         REQUIRE(l.at(1).asFloat() == 2.0f);
         REQUIRE(l.at(2).asFloat() == -3.0f);
-        REQUIRE(l.at(3).asString() == "b");
-        REQUIRE(l.at(4).asString() == "a");
+        REQUIRE(l.at(3).asSymbol() == SYM("b"));
+        REQUIRE(l.at(4).asSymbol() == SYM("a"));
 
         l.sort();
 
         REQUIRE(l.at(0).asFloat() == -3.0f);
         REQUIRE(l.at(1).asFloat() == 2.0f);
-        REQUIRE(l.at(2).asString() == "a");
-        REQUIRE(l.at(3).asString() == "a");
-        REQUIRE(l.at(4).asString() == "b");
+        REQUIRE(l.at(2).asSymbol() == SYM("a"));
+        REQUIRE(l.at(3).asSymbol() == SYM("a"));
+        REQUIRE(l.at(4).asSymbol() == SYM("b"));
 
         REQUIRE(l.max() != 0);
-        REQUIRE(l.max()->asString() == "b");
+        REQUIRE(l.max()->asSymbol() == SYM("b"));
         REQUIRE(l.min() != 0);
         REQUIRE(l.min()->asFloat() == -3.0f);
 
         const AtomList c1 = l;
         REQUIRE(c1.max() != 0);
-        REQUIRE(c1.max()->asString() == "b");
+        REQUIRE(c1.max()->asSymbol() == SYM("b"));
         REQUIRE(c1.min() != 0);
         REQUIRE(c1.min()->asFloat() == -3.0f);
         REQUIRE(c1.first()->asFloat() == -3.0f);
-        REQUIRE(c1.last()->asString() == "b");
+        REQUIRE(c1.last()->asSymbol() == SYM("b"));
 
         REQUIRE(c1.relativeAt(0)->asFloat() == -3.0f);
-        REQUIRE(c1.relativeAt(-1)->asString() == "b");
+        REQUIRE(c1.relativeAt(-1)->asSymbol() == SYM("b"));
         REQUIRE(c1.relativeAt(1000) == 0);
     }
 
@@ -189,7 +189,7 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         l2 = l1.filtered(isSymbol);
         REQUIRE(l1 != l2);
         REQUIRE(l2.size() == 1);
-        REQUIRE(l2.at(0).asString() == "a");
+        REQUIRE(l2.at(0).asSymbol() == SYM("a"));
     }
 
     SECTION("clear")
@@ -292,8 +292,8 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
 
         REQUIRE(l2.find(isFloat)->asFloat() == 1.f);
         REQUIRE(l2.findLast(isFloat)->asFloat() == 3.f);
-        REQUIRE(l2.find(isSymbol)->asString() == "a");
-        REQUIRE(l2.findLast(isSymbol)->asString() == "b");
+        REQUIRE(l2.find(isSymbol)->asSymbol() == SYM("a"));
+        REQUIRE(l2.findLast(isSymbol)->asSymbol() == SYM("b"));
     }
 
     SECTION("count")
@@ -414,7 +414,7 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
 
         l.removeAll(isFloat);
         REQUIRE(l.size() == 1);
-        REQUIRE(l.at(0).asString() == "a");
+        REQUIRE(l.at(0).asSymbol() == SYM("a"));
     }
 
     SECTION("replaceAll")

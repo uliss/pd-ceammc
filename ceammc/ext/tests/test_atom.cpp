@@ -64,7 +64,6 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         REQUIRE(atom.isProperty());
         REQUIRE_FALSE(notProperty(atom));
         REQUIRE(atom.isSymbol());
-        REQUIRE(atom.asString() == "@attr");
         REQUIRE(atom.asSymbol() == gensym("@attr"));
 
         atom.setFloat(1.f, true);
@@ -113,7 +112,6 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         REQUIRE_FALSE(satom.isFloat());
         REQUIRE(satom.type() == Atom::SYMBOL);
         REQUIRE(satom.asSymbol() == gensym("test"));
-        REQUIRE(satom.asString() == "test");
         t_symbol* s;
         REQUIRE(satom.getSymbol(&s));
         REQUIRE_FALSE(satom.getSymbol(NULL));

@@ -57,10 +57,10 @@ extern "C" void is_list_setup()
         reinterpret_cast<t_newmethod>(is_list_new),
         reinterpret_cast<t_method>(is_list_free),
         sizeof(t_is_list), 0, A_NULL);
-    class_addanything(is_list_class, is_list_anything);
-    class_addbang(is_list_class, is_list_bang);
-    class_addfloat(is_list_class, is_list_float);
-    class_addlist(is_list_class, is_list_list);
-    class_addpointer(is_list_class, is_list_pointer);
-    class_addsymbol(is_list_class, is_list_symbol);
+    class_addanything(is_list_class, reinterpret_cast<t_method>(is_list_anything));
+    class_addbang(is_list_class, reinterpret_cast<t_method>(is_list_bang));
+    class_doaddfloat(is_list_class, reinterpret_cast<t_method>(is_list_float));
+    class_addlist(is_list_class, reinterpret_cast<t_method>(is_list_list));
+    class_addpointer(is_list_class, reinterpret_cast<t_method>(is_list_pointer));
+    class_addsymbol(is_list_class, reinterpret_cast<t_method>(is_list_symbol));
 }

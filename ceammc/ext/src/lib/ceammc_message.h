@@ -102,8 +102,8 @@ public:
 private:
     static Atom wrap_atom(const char* str) { return Atom(gensym(str)); }
     static Atom wrap_atom(t_symbol* s) { return Atom(s); }
-    static Atom wrap_atom(double f) { return Atom(f); }
-    static Atom wrap_atom(float f) { return Atom(f); }
+    static Atom wrap_atom(double d) { return Atom(static_cast<t_float>(d)); }
+    static Atom wrap_atom(float f) { return Atom(static_cast<t_float>(f)); }
     static Atom wrap_atom(int i) { return Atom(i); }
     static Atom wrap_atom(long l) { return Atom(l); }
 };

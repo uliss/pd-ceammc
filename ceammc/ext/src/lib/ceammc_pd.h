@@ -45,12 +45,12 @@ namespace pd {
         bool isNull() const;
 
         // connect this object outlet to external object inlet
-        bool connectTo(int outn, t_object* dest, int inln);
-        bool connectTo(int outn, External& ext, int inln);
+        bool connectTo(size_t outn, t_object* dest, size_t inln);
+        bool connectTo(size_t outn, External& ext, size_t inln);
 
         // connect external source outlet to this object inlet
-        bool connectFrom(int outn, t_object* src, int inln);
-        bool connectFrom(int outn, External& ext, int inln);
+        bool connectFrom(size_t outn, t_object* src, size_t inln);
+        bool connectFrom(size_t outn, External& ext, size_t inln);
 
         t_object* object();
         t_pd* pd() { return &obj_->te_g.g_pd; }

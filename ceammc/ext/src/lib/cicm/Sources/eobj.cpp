@@ -18,7 +18,7 @@
 
 static t_eproxy* eproxy_new(void* owner, t_symbol* s);
 static void eproxy_free(void* owner, t_eproxy* proxy);
-void eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv);
+void eclass_attr_setter(t_object* x, t_symbol* s, size_t argc, t_atom* argv);
 void eclass_attr_getter(t_object* x, t_symbol* s, int* argc, t_atom** argv);
 
 void* eobj_new(t_eclass* c)
@@ -172,13 +172,12 @@ void eobj_write(t_eobj* x, t_symbol* s, int argc, t_atom* argv)
 
 void eobj_attrprocess_viatoms(void* x, int argc, t_atom* argv)
 {
-    int i;
     char buffer[MAXPDSTRING];
     int defc = 0;
     t_atom* defv = NULL;
     t_eclass* c = eobj_getclass(x);
 
-    for (i = 0; i < c->c_nattr; i++) {
+    for (size_t i = 0; i < c->c_nattr; i++) {
         sprintf(buffer, "@%s", c->c_attr[i]->name->s_name);
         atoms_get_attribute(argc, argv, gensym(buffer), &defc, &defv);
         if (defc && defv) {
@@ -192,13 +191,12 @@ void eobj_attrprocess_viatoms(void* x, int argc, t_atom* argv)
 
 void eobj_attrprocess_viabinbuf(void* x, t_binbuf* d)
 {
-    int i;
     char attr_name[MAXPDSTRING];
 
     int defc = 0;
-    t_atom* defv = NULL;
+    t_atom* defv = nullptr;
     t_eclass* c = eobj_getclass(x);
-    for (i = 0; i < c->c_nattr; i++) {
+    for (size_t i = 0; i < c->c_nattr; i++) {
         sprintf(attr_name, "@%s", c->c_attr[i]->name->s_name);
         binbuf_get_attribute(d, gensym(attr_name), &defc, &defv);
         if (defc && defv) {
@@ -210,7 +208,7 @@ void eobj_attrprocess_viabinbuf(void* x, t_binbuf* d)
     }
 }
 
-void eobj_attr_setvalueof(void* x, t_symbol* s, int argc, t_atom* argv)
+void eobj_attr_setvalueof(void* x, t_symbol* s, size_t argc, t_atom* argv)
 {
     eclass_attr_setter((t_object*)x, s, argc, argv);
 }
@@ -220,7 +218,7 @@ void eobj_attr_getvalueof(void* x, t_symbol* s, int* argc, t_atom** argv)
     eclass_attr_getter((t_object*)x, s, argc, argv);
 }
 
-void eobj_read(t_eobj* x, t_symbol* s, int argc, t_atom* argv)
+void eobj_read(t_eobj* x, t_symbol* s, size_t argc, t_atom* argv)
 {
     t_eclass* c = eobj_getclass(x);
 
@@ -739,7 +737,7 @@ static t_class* eproxy_setup()
         eproxy1572_sym->s_thing = (t_class**)eproxy_class;
         class_addanything(eproxy_class, (t_method)eproxy_anything);
         class_addbang(eproxy_class, (t_method)eproxy_bang);
-        class_addfloat(eproxy_class, (t_method)eproxy_float);
+        class_doaddfloat(eproxy_class, (t_method)eproxy_float);
         class_addsymbol(eproxy_class, (t_method)eproxy_symbol);
         class_addlist(eproxy_class, (t_method)eproxy_list);
         return eproxy_class;

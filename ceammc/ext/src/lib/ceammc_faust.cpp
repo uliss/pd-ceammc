@@ -333,7 +333,7 @@ namespace faust {
         if (N_IN == N_OUT) {
             // in non-active state - just pass thru samples
             copy_samples(N_IN, BS, in, faust_buf_.data());
-            copy_samples(N_OUT, BS, (const t_sample**)faust_buf_.data(), out);
+            copy_samples(N_OUT, BS, const_cast<const t_sample**>(faust_buf_.data()), out);
         } else {
             // if state is non-active and different inputs and outputs count
             // fill outs with zero
@@ -365,13 +365,13 @@ namespace faust {
 
     void FaustExternalBase::initSignalInputs(size_t n)
     {
-        for (int i = 1; i < n; i++)
+        for (size_t i = 1; i < n; i++)
             createSignalInlet();
     }
 
     void FaustExternalBase::initSignalOutputs(size_t n)
     {
-        for (int i = 0; i < n; i++)
+        for (size_t i = 0; i < n; i++)
             createSignalOutlet();
 
         faust_buf_.assign(n, nullptr);
@@ -401,8 +401,8 @@ namespace faust {
         float f = (xfade_--) * d;
         d = d / BS;
 
-        for (int j = 0; j < BS; j++, f -= d) {
-            for (int i = 0; i < N_OUT; i++)
+        for (size_t j = 0; j < BS; j++, f -= d) {
+            for (size_t i = 0; i < N_OUT; i++)
                 out[i][j] = k0 * f * in[i][j] + (1.0f - f) * faust_buf_[i][j];
         }
     }
@@ -416,8 +416,8 @@ namespace faust {
         float f = (xfade_--) * d;
         d = d / BS;
 
-        for (int j = 0; j < BS; j++, f -= d) {
-            for (int i = 0; i < N_OUT; i++)
+        for (size_t j = 0; j < BS; j++, f -= d) {
+            for (size_t i = 0; i < N_OUT; i++)
                 out[i][j] = f * faust_buf_[i][j] + k0 * (1.0f - f) * in[i][j];
         }
     }
@@ -449,17 +449,17 @@ namespace faust {
         return Atom(el_->value());
     }
 
-    float UIProperty::value() const
+    t_float UIProperty::value() const
     {
         return el_->value(el_->init());
     }
 
-    void UIProperty::setValue(float v, bool clip) const
+    void UIProperty::setValue(t_float v, bool clip) const
     {
         el_->setValue(v, clip);
     }
 
-    void UIElement::setContraints(float init, float min, float max, float step)
+    void UIElement::setContraints(FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
     {
         assert(min <= init && init <= max);
 

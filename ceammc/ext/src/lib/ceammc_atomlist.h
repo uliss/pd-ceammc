@@ -19,6 +19,7 @@
 #include <boost/iterator/filter_iterator.hpp>
 #include <boost/optional.hpp>
 #include <deque>
+#include <functional>
 #include <initializer_list>
 #include <string>
 #include <vector>
@@ -339,8 +340,8 @@ public:
     MaybeFloat product() const;
 
     bool contains(const Atom& a) const;
-    int findPos(const Atom& a) const;
-    int findPos(AtomPredicate pred) const;
+    long findPos(const Atom& a) const;
+    long findPos(AtomPredicate pred) const;
     size_t count(const Atom& a) const;
     size_t count(AtomPredicate pred) const;
 
@@ -544,7 +545,7 @@ bool atomlistToValue(const AtomList& l, const bool& def)
         return def;
 
     if (l[0].isFloat())
-        return l[0].asFloat(0.f) != 0.f;
+        return !std::equal_to<t_float>()(l[0].asFloat(0), 0);
 
     if (l[0].isSymbol())
         return l[0].asSymbol() == gensym("true");

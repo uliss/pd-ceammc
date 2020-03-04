@@ -27,6 +27,6 @@ public:
     void onList(const AtomList& l);
 };
 
-extern "C" void setup_math0x2elcm();
+void setup_math_lcm();
 
 #endif // MATH_LCM_H

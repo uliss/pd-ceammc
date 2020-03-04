@@ -1,7 +1,7 @@
 {
 	"name": "fx.distortion",
 	"filename": "fx_distortion.dsp",
-	"version": "2.22.1",
+	"version": "2.22.5",
 	"compile_options": "-lang cpp -scal -ftz 0",
 	"library_list": ["/Users/serj/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/misceffects.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/filters.lib","/Users/serj/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/basics.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serj/work/music/pure-data/ceammc/faust","/Users/serj/work/music/pure-data/ceammc/faust"],

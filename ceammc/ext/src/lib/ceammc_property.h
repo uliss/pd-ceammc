@@ -139,8 +139,8 @@ public:
 public:
     EnumProperty(const std::string& name, T def, bool readonly = false)
         : Property(PropertyInfo(name, PropertyInfoType::LIST), readonly)
-        , idx_(0)
         , def_(def)
+        , current_idx_(0)
     {
         info().setDefault(def);
         info().addEnum(def);
@@ -162,7 +162,7 @@ public:
             return false;
         }
 
-        idx_ = idx;
+        current_idx_ = static_cast<decltype(current_idx_)>(idx);
         return true;
     }
 
@@ -175,9 +175,7 @@ public:
 
     T value() const
     {
-        if (idx_ < 0)
-            return def_;
-        return allowed_[idx_];
+        return allowed_[current_idx_];
     }
 
     bool setValue(T v)
@@ -186,7 +184,7 @@ public:
         if (idx < 0)
             return false;
 
-        idx_ = idx;
+        current_idx_ = static_cast<decltype(current_idx_)>(idx);
         return true;
     }
 
@@ -200,18 +198,16 @@ public:
 
     long enumIndex(T v) const
     {
-        for (auto it = allowed_.begin(); it != allowed_.end(); ++it) {
-            if (*it == v)
-                return std::distance(allowed_.begin(), it);
-        }
-
-        return -1;
+        auto b = allowed_.begin();
+        auto e = allowed_.end();
+        auto it = std::find(b, e, v);
+        return (it == e) ? -1 : std::distance(b, it);
     }
 
 private:
     ValueList allowed_;
     T def_;
-    int idx_;
+    size_t current_idx_;
 };
 
 class SymbolProperty : public Property {
@@ -347,8 +343,8 @@ class TypedCbProperty : public CallbackProperty<TypedCbProperty<T, B>> {
 public:
     TypedCbProperty(const std::string& name, B* obj, TGetterFn gf, SGetterFn sf = 0)
         : CallbackProperty<TypedCbProperty<T, B>>(name,
-              this,
-              &TypedCbProperty::defGetter, sf == 0 ? 0 : &TypedCbProperty::defSetter)
+            this,
+            &TypedCbProperty::defGetter, sf == 0 ? 0 : &TypedCbProperty::defSetter)
         , bobj_(obj)
         , tgetter_(gf)
         , tsetter_(sf)
@@ -612,8 +608,8 @@ class GreaterThenProperty : public CheckedProperty<P, V, ValidateGT<V>> {
 public:
     GreaterThenProperty(const std::string& name, V initValue, V minValue)
         : CheckedProperty<P, V, ValidateGT<V>>(name,
-              ValidateGT<V>(minValue)(initValue) ? initValue : minValue + 1,
-              minValue)
+            ValidateGT<V>(minValue)(initValue) ? initValue : minValue + 1,
+            minValue)
     {
         Property::info().setMin(minValue);
     }
@@ -648,7 +644,7 @@ class LessThenProperty : public CheckedProperty<P, V, ValidateLT<V>> {
 public:
     LessThenProperty(const std::string& name, V initValue, V maxValue)
         : CheckedProperty<P, V, ValidateLT<V>>(name,
-              ValidateLT<V>(maxValue)(initValue) ? initValue : maxValue - 1, maxValue)
+            ValidateLT<V>(maxValue)(initValue) ? initValue : maxValue - 1, maxValue)
     {
         Property::info().setMax(maxValue);
     }
@@ -683,8 +679,8 @@ class OpenRangeProperty : public CheckedProperty<P, V, ValidateRangeOpen<V>> {
 public:
     OpenRangeProperty(const std::string& name, V initValue, V minValue, V maxValue)
         : CheckedProperty<P, V, ValidateRangeOpen<V>>(name,
-              ValidateRangeOpen<V>(minValue, maxValue)(initValue) ? initValue : (minValue + maxValue) / 2,
-              ValidateRangeOpen<V>(minValue, maxValue))
+            ValidateRangeOpen<V>(minValue, maxValue)(initValue) ? initValue : (minValue + maxValue) / 2,
+            ValidateRangeOpen<V>(minValue, maxValue))
     {
         Property::info().setRange(minValue, maxValue);
     }
@@ -704,8 +700,8 @@ class ClosedRangeProperty : public CheckedProperty<P, V, ValidateRangeClosed<V>>
 public:
     ClosedRangeProperty(const std::string& name, V initValue, V minValue, V maxValue)
         : CheckedProperty<P, V, ValidateRangeClosed<V>>(name,
-              std::min(std::max(initValue, minValue), maxValue),
-              ValidateRangeClosed<V>(minValue, maxValue))
+            std::min(std::max(initValue, minValue), maxValue),
+            ValidateRangeClosed<V>(minValue, maxValue))
     {
         Property::info().setRange(minValue, maxValue);
     }

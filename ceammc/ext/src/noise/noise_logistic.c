@@ -144,7 +144,7 @@ void setup_noise0x2elogistic()
 
     class_addmethod(logistic_class, (t_method)logistic_reset, gensym("reset"), A_GIMME, 0);
     class_addmethod(logistic_class, (t_method)logistic_set, gensym("set"), A_GIMME, 0);
-    class_addfloat(logistic_class, (t_method)logistic_float);
+    class_doaddfloat(logistic_class, (t_method)logistic_float);
     class_addmethod(logistic_class, (t_method)logistic_lambda, gensym("lambda"), A_DEFFLOAT, 0);
     class_addmethod(logistic_class, (t_method)logistic_seed, gensym("seed"), A_DEFFLOAT, 0);
     class_addmethod(logistic_class, (t_method)logistic_om, gensym("om"), A_DEFFLOAT, 0);

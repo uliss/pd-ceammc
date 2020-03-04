@@ -1,6 +1,5 @@
-include_directories(${CMAKE_SOURCE_DIR}/src)
+set(NOISE_SOURCES mod_noise.h mod_noise.cpp)
 
-set(NOISE_SOURCES "")
 macro(ceammc_noise_extension name)
     list(APPEND NOISE_SOURCES "noise_${name}.c")
 endmacro()
@@ -43,8 +42,12 @@ ceammc_faust_noise_obj(crackle)
 ceammc_faust_noise_obj(lfreq)
 ceammc_faust_noise_obj(lfreq0)
 
-add_library(ceammc_noise STATIC mod_noise.h mod_noise.cpp ${NOISE_SOURCES})
-set_target_properties(ceammc_noise PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
+list(APPEND NOISE_SOURCES chaos_standard.cpp chaos_gbman.cpp)
+
+add_library(ceammc_noise STATIC ${NOISE_SOURCES})
+target_include_directories(ceammc_noise PUBLIC ${PROJECT_SOURCE_DIR}/src)
+target_compile_definitions(ceammc_noise PUBLIC "FAUST_MACRO")
+
 if(UNIX)
     set_target_properties(ceammc_noise PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()

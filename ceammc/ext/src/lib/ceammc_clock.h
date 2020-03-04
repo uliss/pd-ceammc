@@ -18,7 +18,7 @@ protected:
 
 public:
     ClockFunction(FunPtr fn, T* arg)
-        : clock_(0)
+        : clock_(nullptr)
         , fn_(fn)
         , arg_(arg)
     {
@@ -48,7 +48,7 @@ public:
 
 public:
     ClockMemberFunction(T* this__, MemberFunPtr fn)
-        : clock_(0)
+        : clock_(nullptr)
         , this_(this__)
         , mem_fn_(fn)
     {
@@ -84,9 +84,9 @@ private:
     }
 
 private:
-    MemberFunPtr mem_fn_;
-    T* this_;
     t_clock* clock_;
+    T* this_;
+    MemberFunPtr mem_fn_;
 };
 }
 

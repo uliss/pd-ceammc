@@ -134,7 +134,7 @@ std::string Array::name() const
     return name_ == 0 ? std::string() : std::string(name_->s_name);
 }
 
-const float& Array::at(size_t n) const
+const t_float& Array::at(size_t n) const
 {
     if (array_ == 0)
         throw Exception("invalid array");
@@ -145,7 +145,7 @@ const float& Array::at(size_t n) const
     return data_[n].w_float;
 }
 
-float& Array::at(size_t n)
+t_float& Array::at(size_t n)
 {
     if (array_ == 0)
         throw Exception("invalid array");
@@ -156,12 +156,12 @@ float& Array::at(size_t n)
     return data_[n].w_float;
 }
 
-const float& Array::operator[](size_t n) const
+const t_float& Array::operator[](size_t n) const
 {
     return data_[n].w_float;
 }
 
-float& Array::operator[](size_t n)
+t_float& Array::operator[](size_t n)
 {
     return data_[n].w_float;
 }
@@ -171,21 +171,21 @@ bool Array::resize(size_t n)
     if (!isValid())
         return false;
 
-    garray_resize_long(array_, n);
+    garray_resize_long(array_, static_cast<long>(n));
     return update();
 }
 
-void Array::copyFrom(const float* src, size_t n)
+void Array::copyFrom(const t_float* src, size_t n)
 {
     std::copy(src, src + std::min(n, size_), begin());
 }
 
-void Array::copyTo(float* dest, size_t n)
+void Array::copyTo(t_float* dest, size_t n)
 {
-    std::copy(begin(), begin() + n, dest);
+    std::copy(begin(), begin() + long(n), dest);
 }
 
-void Array::fillWith(float v)
+void Array::fillWith(t_float v)
 {
     std::fill(begin(), end(), v);
 }
@@ -229,7 +229,7 @@ bool Array::set(std::initializer_list<t_sample> l)
     return true;
 }
 
-bool Array::setYBounds(float yBottom, float yTop)
+bool Array::setYBounds(float yBottom, t_float yTop)
 {
     static t_symbol* SYM_BOUNDS = gensym("bounds");
 
@@ -271,17 +271,17 @@ ArrayIterator& ArrayIterator::operator=(const ArrayIterator& i)
     return *this;
 }
 
-float& ArrayIterator::operator*()
+t_float& ArrayIterator::operator*()
 {
     return data_->w_float;
 }
 
-const float& ArrayIterator::operator*() const
+const t_float& ArrayIterator::operator*() const
 {
     return data_->w_float;
 }
 
-float& ArrayIterator::operator[](const size_t n)
+t_float& ArrayIterator::operator[](const size_t n)
 {
     return data_[n].w_float;
 }

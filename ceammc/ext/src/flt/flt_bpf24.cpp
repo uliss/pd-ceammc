@@ -1,8 +1,6 @@
 #include "flt_bpf24.h"
 #include "ceammc_factory.h"
 
-#include "ceammc_factory.h"
-
 using namespace ceammc;
 
 class FltBpf24 : public faust_flt_bpf24_tilde {

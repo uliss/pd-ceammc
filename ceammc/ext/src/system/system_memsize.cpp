@@ -24,5 +24,5 @@ extern "C" void setup_system0x2ememsize()
         reinterpret_cast<t_newmethod>(system_memsize_new),
         reinterpret_cast<t_method>(0),
         sizeof(t_system_memsize), 0, A_NULL);
-    class_addbang(system_memsize_class, system_memsize_bang);
+    class_addbang(system_memsize_class, reinterpret_cast<t_method>(system_memsize_bang));
 }

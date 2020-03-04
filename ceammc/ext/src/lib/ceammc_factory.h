@@ -116,13 +116,13 @@ public:
     void mapFloatToList()
     {
         fn_float_ = defaultFloatToList;
-        class_addfloat(class_, fn_float_);
+        class_doaddfloat(class_, reinterpret_cast<t_method>(fn_float_));
     }
 
     void mapSymbolToList()
     {
         fn_symbol_ = defaultSymbolToList;
-        class_addsymbol(class_, fn_symbol_);
+        class_addsymbol(class_, reinterpret_cast<t_method>(fn_symbol_));
     }
 
     void setHelp(const char* name)
@@ -133,31 +133,31 @@ public:
     void setBangFn(PdBangFunction fn)
     {
         fn_bang_ = fn;
-        class_addbang(class_, fn);
+        class_addbang(class_, reinterpret_cast<t_method>(fn));
     }
 
     void setFloatFn(PdFloatFunction fn)
     {
         fn_float_ = fn;
-        class_addfloat(class_, fn);
+        class_doaddfloat(class_, reinterpret_cast<t_method>(fn));
     }
 
     void setSymbolFn(PdSymbolFunction fn)
     {
         fn_symbol_ = fn;
-        class_addsymbol(class_, fn);
+        class_addsymbol(class_, reinterpret_cast<t_method>(fn));
     }
 
     void setListFn(PdListFunction fn)
     {
         fn_list_ = fn;
-        class_addlist(class_, fn);
+        class_addlist(class_, reinterpret_cast<t_method>(fn));
     }
 
     void setAnyFn(PdAnyFunction fn)
     {
         fn_any_ = fn;
-        class_addanything(class_, fn);
+        class_addanything(class_, reinterpret_cast<t_method>(fn));
     }
 
     void addMethod(const char* name, MethodPtrList fn)
@@ -239,7 +239,7 @@ public:
 
     static void processFloat(ObjectProxy* x, t_floatarg f)
     {
-        x->impl->onFloat(static_cast<double>(f));
+        x->impl->onFloat(static_cast<t_float>(f));
     }
 
     static void processSymbol(ObjectProxy* x, t_symbol* s)
@@ -257,7 +257,7 @@ public:
         x->impl->anyDispatch(s, AtomList(argc, argv));
     }
 
-    static void processClick(ObjectProxy* x, t_symbol* sel,
+    static void processClick(ObjectProxy* x, t_symbol* /*sel*/,
         t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
     {
         x->impl->onClick(xpos, ypos, shift, ctrl, alt);
@@ -265,7 +265,7 @@ public:
 
     static void processLoadBang(ObjectProxy* x, t_floatarg action)
     {
-        x->impl->dispatchLoadBang(action);
+        x->impl->dispatchLoadBang(static_cast<int>(action));
     }
 
     static void processDataFn(ObjectProxy* x, t_symbol*, int argc, t_atom* argv)
@@ -390,8 +390,9 @@ public:
         if (!(flags & OBJECT_FACTORY_NO_DEFAULT_INLET)
             && (flags & OBJECT_FACTORY_MAIN_SIGNAL_INLET)) {
 
-            CLASS_MAINSIGNALIN(SoundExternalFactory::classPointer(),
-                typename SoundExternalFactory::ObjectProxy, f);
+            using Object = typename SoundExternalFactory::ObjectProxy;
+            int offset = static_cast<int>(offsetof(Object, f));
+            class_domainsignalin(SoundExternalFactory::classPointer(), offset);
         }
     }
 

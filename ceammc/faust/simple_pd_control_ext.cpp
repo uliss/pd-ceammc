@@ -25,9 +25,10 @@
    Please note that this is to be compiled as a shared library, which is
    then loaded dynamically by Pd as an external. */
 
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cmath>
+#include <cstdint>
+#include <cstdio>
+#include <cstdlib>
 #include <string>
 
 #include "faust/dsp/dsp.h"
@@ -37,7 +38,8 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_externals.h"
-#include "m_pd.h"
+#include "ceammc_faust.h"
+using namespace ceammc::faust;
 
 /******************************************************************************
 *******************************************************************************
@@ -66,9 +68,6 @@ struct mydsp : public dsp {
 };
 #endif
 // clang-format on
-
-#include "ceammc_faust.h"
-using namespace ceammc::faust;
 
 /******************************************************************************
 *******************************************************************************
@@ -112,84 +111,74 @@ struct t_faust_mydsp {
 #endif
     mydsp* dsp;
     PdUI<mydsp_UI>* ui;
-    int active, xfade, n_xfade, rate, n_in, n_out;
+    uint16_t n_in, n_out;
+    bool active;
+    int xfade, n_xfade, rate;
     t_sample **inputs, **outputs, **buf;
     t_outlet* out;
     t_sample f;
 };
 
-static inline void zero_samples(int k, int n, t_sample** out)
-{
-    for (int i = 0; i < k; i++)
-#ifdef __STDC_IEC_559__
-        /* IEC 559 a.k.a. IEEE 754 floats can be initialized faster like this */
-        memset(out[i], 0, n * sizeof(t_sample));
-#else
-        for (int j = 0; j < n; j++)
-            out[i][j] = 0.0f;
-#endif
-}
-
-static inline void copy_samples(int k, int n, t_sample** out, t_sample** in)
-{
-    for (int i = 0; i < k; i++)
-        memcpy(out[i], in[i], n * sizeof(t_sample));
-}
-
 static t_int* faust_perform(t_int* w)
 {
     t_faust_mydsp* x = reinterpret_cast<t_faust_mydsp*>(w[1]);
-    int n = static_cast<int>(w[2]);
     if (!x->dsp || !x->buf)
         return (w + 3);
 
+    // blocksize
+    const size_t bs = size_t(w[2]);
+
     AVOIDDENORMALS;
+
     if (x->xfade > 0) {
-        float d = 1.0f / x->n_xfade, f = (x->xfade--) * d;
-        d = d / n;
-        x->dsp->compute(n, x->inputs, x->buf);
+        t_sample d = 1.0 / x->n_xfade;
+        t_sample f = (x->xfade--) * d;
+        d = d / bs;
+        x->dsp->compute(bs, x->inputs, x->buf);
+
         if (x->active) {
             if (x->n_in == x->n_out) {
                 /* xfade inputs -> buf */
-                for (int j = 0; j < n; j++, f -= d) {
-                    for (int i = 0; i < x->n_out; i++)
-                        x->outputs[i][j] = f * x->inputs[i][j] + (1.0f - f) * x->buf[i][j];
+                for (size_t j = 0; j < bs; j++, f -= d) {
+                    for (uint16_t i = 0; i < x->n_out; i++)
+                        x->outputs[i][j] = f * x->inputs[i][j] + (t_sample(1) - f) * x->buf[i][j];
                 }
             } else {
                 /* xfade 0 -> buf */
-                for (int j = 0; j < n; j++, f -= d) {
-                    for (int i = 0; i < x->n_out; i++)
-                        x->outputs[i][j] = (1.0f - f) * x->buf[i][j];
+                for (size_t j = 0; j < bs; j++, f -= d) {
+                    for (uint16_t i = 0; i < x->n_out; i++)
+                        x->outputs[i][j] = (t_sample(1) - f) * x->buf[i][j];
                 }
             }
         } else if (x->n_in == x->n_out) {
             /* xfade buf -> inputs */
-            for (int j = 0; j < n; j++, f -= d) {
-                for (int i = 0; i < x->n_out; i++)
-                    x->outputs[i][j] = f * x->buf[i][j] + (1.0f - f) * x->inputs[i][j];
+            for (size_t j = 0; j < bs; j++, f -= d) {
+                for (uint16_t i = 0; i < x->n_out; i++)
+                    x->outputs[i][j] = f * x->buf[i][j] + (t_sample(1) - f) * x->inputs[i][j];
             }
         } else {
             /* xfade buf -> 0 */
-            for (int j = 0; j < n; j++, f -= d) {
-                for (int i = 0; i < x->n_out; i++)
+            for (size_t j = 0; j < bs; j++, f -= d) {
+                for (uint16_t i = 0; i < x->n_out; i++)
                     x->outputs[i][j] = f * x->buf[i][j];
             }
         }
     } else if (x->active) {
-        x->dsp->compute(n, x->inputs, x->buf);
-        copy_samples(x->n_out, n, x->outputs, x->buf);
+        x->dsp->compute(bs, x->inputs, x->buf);
+        copy_samples(x->n_out, bs, const_cast<const t_sample**>(x->outputs), x->buf);
     } else if (x->n_in == x->n_out) {
-        copy_samples(x->n_out, n, x->buf, x->inputs);
-        copy_samples(x->n_out, n, x->outputs, x->buf);
+        copy_samples(x->n_out, bs, const_cast<const t_sample**>(x->buf), x->inputs);
+        copy_samples(x->n_out, bs, const_cast<const t_sample**>(x->outputs), x->buf);
     } else
-        zero_samples(x->n_out, n, x->outputs);
+        zero_samples(x->n_out, bs, x->outputs);
 
     return (w + 3);
 }
 
 static void mydsp_faust_dsp(t_faust_mydsp* x, t_signal** sp)
 {
-    const int n = sp[0]->s_n;
+    // blocksize
+    const int bs = sp[0]->s_n;
     const int sr = static_cast<int>(sp[0]->s_sr);
 
     if (x->rate <= 0) {
@@ -201,20 +190,22 @@ static void mydsp_faust_dsp(t_faust_mydsp* x, t_signal** sp)
         x->dsp->init(sr);
         ui->setUIValues(z);
     }
-    if (n > 0)
-        x->n_xfade = static_cast<int>(x->rate * XFADE_TIME / n);
+    if (bs > 0)
+        x->n_xfade = static_cast<int>(x->rate * XFADE_TIME / bs);
 
-    dsp_add(faust_perform, 2, x, n);
+    dsp_add(faust_perform, 2, x, bs);
 
-    for (int i = 0; i < x->n_in; i++)
+    // copy input pointers
+    for (uint16_t i = 0; i < x->n_in; i++)
         x->inputs[i] = sp[i]->s_vec;
 
-    for (int i = 0; i < x->n_out; i++)
+    // copy output pointers
+    for (uint16_t i = 0; i < x->n_out; i++)
         x->outputs[i] = sp[x->n_in + i]->s_vec;
 
     if (x->buf != NULL) {
-        for (int i = 0; i < x->n_out; i++) {
-            x->buf[i] = static_cast<t_sample*>(malloc(n * sizeof(t_sample)));
+        for (uint16_t i = 0; i < x->n_out; i++) {
+            x->buf[i] = static_cast<t_sample*>(malloc(bs * sizeof(t_sample)));
             if (x->buf[i] == NULL) {
                 for (int j = 0; j < i; j++)
                     free(x->buf[j]);
@@ -246,6 +237,8 @@ static void mydsp_dump_to_console(t_faust_mydsp* x)
 
 static void mydsp_faust_any(t_faust_mydsp* x, t_symbol* s, int argc, t_atom* argv)
 {
+    static t_symbol* SYM_ACTIVE = gensym("active");
+
     if (!x->dsp)
         return;
 
@@ -276,16 +269,17 @@ static void mydsp_faust_any(t_faust_mydsp* x, t_symbol* s, int argc, t_atom* arg
             }
         }
 
-        if (count == 0 && strcmp(label, "active") == 0) {
+        if (count == 0 && s == SYM_ACTIVE) {
+            // request state
             if (argc == 0) {
                 t_atom arg;
-                SETFLOAT(&arg, (float)x->active);
+                SETFLOAT(&arg, (x->active ? 1 : 0));
                 if (x->out) {
-                    outlet_anything(x->out, gensym("active"), 1, &arg);
+                    outlet_anything(x->out, SYM_ACTIVE, 1, &arg);
                 }
             } else if (argc == 1 && (argv[0].a_type == A_FLOAT || argv[0].a_type == A_DEFFLOAT)) {
-                float f = atom_getfloat(argv);
-                x->active = (int)f;
+                t_float f = atom_getfloat(argv);
+                x->active = (f != 0);
                 x->xfade = x->n_xfade;
             }
         }
@@ -403,7 +397,7 @@ static bool faust_init_outputs(t_faust_mydsp* x, bool info_outlet)
 static bool faust_new_internal(t_faust_mydsp* x, const std::string& objId = "", bool info_outlet = true)
 {
     int sr = 44100;
-    x->active = 1;
+    x->active = true;
     x->xfade = 0;
     x->rate = sr;
     x->n_xfade = static_cast<int>(sr * XFADE_TIME / 64);
@@ -646,7 +640,7 @@ static void internal_setup(t_symbol* s, bool soundIn = true)
 
     class_addmethod(mydsp_faust_class, reinterpret_cast<t_method>(mydsp_faust_dsp), gensym("dsp"), A_NULL);
     class_addmethod(mydsp_faust_class, reinterpret_cast<t_method>(mydsp_dump_to_console), gensym("dump"), A_NULL);
-    class_addanything(mydsp_faust_class, mydsp_faust_any);
+    class_addanything(mydsp_faust_class, reinterpret_cast<t_method>(mydsp_faust_any));
     ceammc::register_faust_external(mydsp_faust_class);
 }
 

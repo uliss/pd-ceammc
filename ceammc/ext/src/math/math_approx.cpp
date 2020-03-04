@@ -65,7 +65,7 @@ void MathApprox::onInlet(size_t n, const AtomList& l)
     }
 }
 
-extern "C" void setup_math0x2eaapprox()
+void setup_math_approx()
 {
     ObjectFactory<MathApprox> obj("math.approx");
     obj.addAlias("approx");

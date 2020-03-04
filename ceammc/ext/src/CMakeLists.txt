@@ -2,6 +2,9 @@ include(faust)
 include(ceammc_pd.cmake)
 include(cppcheck.cmake)
 
+# do no use pd macroses in our code
+add_definitions(-DPD_CLASS_DEF)
+
 # debug warning flags
 if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${CEAMMC_COMPILER_WARNING_FLAGS}")

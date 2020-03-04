@@ -223,7 +223,7 @@ std::vector<PropertyInfo> ceammc_abstraction_properties(t_object* x)
         if (y->g_pd->c_name != SYM_PROP_DECL)
             continue;
 
-        t_object* prop_declare = (t_object*)y;
+        t_object* prop_declare = reinterpret_cast<t_object*>(y);
         int argc = binbuf_getnatom(prop_declare->te_binbuf);
         t_atom* argv = binbuf_getvec(prop_declare->te_binbuf);
 

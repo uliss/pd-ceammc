@@ -82,7 +82,7 @@ extern "C" void ceammc_setup()
         reinterpret_cast<t_newmethod>(ceammc_new), 0,
         sizeof(t_object), CLASS_DEFAULT, A_NULL);
 
-    class_addbang(ceammc_class, ceammc_bang);
+    class_addbang(ceammc_class, reinterpret_cast<t_method>(ceammc_bang));
 
     if (!ceammc_class) {
         pd_error(0, "[ceammc] can't create library class");

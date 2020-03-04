@@ -597,7 +597,7 @@ bool UIObjectImpl::hasProperty(t_symbol* name) const
 {
     t_eclass* c = (t_eclass*)asPdObject()->te_g.g_pd;
 
-    for (int i = 0; i < c->c_nattr; i++) {
+    for (size_t i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == name)
             return true;
     }
@@ -676,7 +676,7 @@ static void set_constrains(PropertyInfo& info, t_eattr* a)
     if (a->itemssize > 0) {
         info.setView(PropertyInfoView::MENU);
 
-        for (int i = 0; i < a->itemssize; i++)
+        for (size_t i = 0; i < a->itemssize; i++)
             info.addEnum(a->itemslist[i]);
     }
 }
@@ -807,7 +807,7 @@ std::vector<PropertyInfo> UIObjectImpl::propsInfo() const
     std::vector<PropertyInfo> res;
     res.reserve(c->c_nattr);
 
-    for (int i = 0; i < c->c_nattr; i++)
+    for (size_t i = 0; i < c->c_nattr; i++)
         res.push_back(attr_to_prop(c->c_attr[i]));
 
     return res;

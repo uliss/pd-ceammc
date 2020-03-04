@@ -10,16 +10,18 @@
 		{ "envelopes.lib/copyright": "GRAME" },
 		{ "envelopes.lib/license": "LGPL with exception" },
 		{ "envelopes.lib/name": "Faust Envelope Library" },
-		{ "envelopes.lib/version": "0.0" },
+		{ "envelopes.lib/version": "0.1" },
 		{ "filename": "synth_dx7.dsp" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
-		{ "maths.lib/version": "2.1" },
+		{ "maths.lib/version": "2.2" },
 		{ "name": "synth.dx7" },
 		{ "oscillators.lib/name": "Faust Oscillator Library" },
-		{ "oscillators.lib/version": "0.0" }
+		{ "oscillators.lib/version": "0.0" },
+		{ "platform.lib/name": "Generic Platform Library" },
+		{ "platform.lib/version": "0.1" }
 	],
 	"ui": [ 
 		{

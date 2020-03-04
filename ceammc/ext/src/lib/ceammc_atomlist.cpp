@@ -164,7 +164,7 @@ Atom* AtomList::relativeAt(int pos)
     if (idx < 0)
         return nullptr;
 
-    return &atoms_[idx];
+    return &atoms_[static_cast<size_t>(idx)];
 }
 
 const Atom* AtomList::relativeAt(int pos) const
@@ -178,7 +178,8 @@ Atom* AtomList::clipAt(int pos)
         return nullptr;
 
     const size_t N = atoms_.size();
-    return &atoms_[clip<long>(pos, 0, N - 1)];
+    auto idx = static_cast<size_t>(clip<long>(pos, 0, long(N - 1)));
+    return &atoms_[idx];
 }
 
 const Atom* AtomList::clipAt(int pos) const
@@ -205,7 +206,7 @@ Atom* AtomList::foldAt(int pos)
     if (N == 0)
         return nullptr;
 
-    return &atoms_[foldInteger<int>(pos, N)];
+    return &atoms_[foldInteger<long>(pos, N)];
 }
 
 const Atom* AtomList::foldAt(int pos) const
@@ -406,16 +407,17 @@ AtomList AtomList::map(AtomMapFunction f) const
 
 static size_t normalizeIdx(int idx, size_t N, bool clip)
 {
-    const bool is_negative = idx < 0;
-    int abs_idx = idx;
+    assert(N > 0);
 
-    if (is_negative)
-        abs_idx = -(idx + 1);
+    const auto last_idx = N - 1;
+    const bool is_negative = idx < 0;
+
+    size_t abs_idx = is_negative ? size_t((-idx) - 1) : size_t(idx);
 
     if (clip)
-        abs_idx = std::min<int>(abs_idx, N - 1);
+        abs_idx = std::min<size_t>(abs_idx, last_idx);
 
-    return is_negative ? (N - 1 - abs_idx) : abs_idx;
+    return is_negative ? (last_idx - abs_idx) : abs_idx;
 }
 
 AtomList AtomList::slice(int start, int end, size_t step) const
@@ -429,18 +431,19 @@ AtomList AtomList::slice(int start, int end, size_t step) const
         return res;
 
     const size_t N = atoms_.size();
-    size_t nfirst = normalizeIdx(start, N, false);
+
+    const size_t nfirst = normalizeIdx(start, N, false);
     if (nfirst >= N)
         return AtomList();
 
-    size_t last = normalizeIdx(end, N, true);
+    const size_t last = normalizeIdx(end, N, true);
 
     if (nfirst <= last) {
         for (size_t i = nfirst; i <= last; i += step)
             res.append(atoms_[i]);
     } else {
-        for (long i = nfirst; i >= long(last); i -= step)
-            res.append(atoms_[i]);
+        for (long i = static_cast<long>(nfirst); i >= static_cast<long>(last); i -= step)
+            res.append(atoms_[static_cast<size_t>(i)]);
     }
 
     return res;
@@ -480,7 +483,7 @@ bool AtomList::insert(size_t pos, const Atom& a)
     if (pos > atoms_.size())
         return false;
 
-    atoms_.insert(atoms_.begin() + pos, a);
+    atoms_.insert(atoms_.begin() + static_cast<long>(pos), a);
     return true;
 }
 
@@ -488,7 +491,7 @@ bool AtomList::insert(size_t pos, const AtomList& l)
 {
     if (pos > atoms_.size())
         return false;
-    atoms_.insert(atoms_.begin() + pos, l.atoms_.begin(), l.atoms_.end());
+    atoms_.insert(atoms_.begin() + static_cast<long>(pos), l.atoms_.begin(), l.atoms_.end());
     return true;
 }
 
@@ -497,7 +500,7 @@ bool AtomList::remove(size_t pos)
     if (pos >= size())
         return false;
 
-    atoms_.erase(atoms_.begin() + pos);
+    atoms_.erase(atoms_.begin() + static_cast<long>(pos));
     return true;
 }
 
@@ -693,7 +696,7 @@ bool AtomList::contains(const Atom& a) const
     return find(a) != 0;
 }
 
-int AtomList::findPos(const Atom& a) const
+long AtomList::findPos(const Atom& a) const
 {
     ConstIterator it = std::find(atoms_.begin(), atoms_.end(), a);
     if (it == atoms_.end())
@@ -702,7 +705,7 @@ int AtomList::findPos(const Atom& a) const
     return std::distance(atoms_.begin(), it);
 }
 
-int AtomList::findPos(AtomPredicate pred) const
+long AtomList::findPos(AtomPredicate pred) const
 {
     ConstIterator it = std::find_if(atoms_.begin(), atoms_.end(), pred);
     if (it == atoms_.end())
@@ -714,24 +717,24 @@ int AtomList::findPos(AtomPredicate pred) const
 size_t AtomList::count(const Atom& a) const
 {
     if (!a.isData()) {
-        return std::count(atoms_.begin(), atoms_.end(), a);
+        return static_cast<size_t>(std::count(atoms_.begin(), atoms_.end(), a));
     } else {
         DataPtr dptr(a);
         if (dptr.isNull())
             return 0;
 
-        return std::count_if(atoms_.begin(), atoms_.end(), [&dptr](const Atom& el) {
+        return static_cast<size_t>(std::count_if(atoms_.begin(), atoms_.end(), [&dptr](const Atom& el) {
             if (!el.isData())
                 return false;
 
             return DataPtr(el) == dptr;
-        });
+        }));
     }
 }
 
 size_t AtomList::count(AtomPredicate pred) const
 {
-    return std::count_if(atoms_.begin(), atoms_.end(), pred);
+    return static_cast<size_t>(std::count_if(atoms_.begin(), atoms_.end(), pred));
 }
 
 bool AtomList::allOf(AtomPredicate pred) const
@@ -850,7 +853,7 @@ bool AtomList::normalizeFloats()
         return false;
 
     auto s = sum();
-    if (s == boost::none || *s == 0)
+    if (s == boost::none || std::equal_to<t_float>()(*s, 0))
         return false;
 
     for (auto& it : atoms_) {

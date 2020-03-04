@@ -69,7 +69,6 @@ typename std::make_unsigned<T>::type wrapInteger(T v, typename std::make_unsigne
     static_assert(std::is_signed<T>(), "Signed type expected");
 
     typedef typename std::make_unsigned<T>::type Unsigned;
-    typedef typename std::make_signed<T>::type Signed;
 
     if (v >= 0)
         return Unsigned(v) % n;
@@ -93,7 +92,6 @@ typename std::make_unsigned<T>::type foldInteger(T v, typename std::make_unsigne
     static_assert(std::is_signed<T>(), "Signed type expected");
 
     typedef typename std::make_unsigned<T>::type Unsigned;
-    typedef typename std::make_signed<T>::type Signed;
 
     if (n == 1)
         return 0;
@@ -111,15 +109,14 @@ typename std::make_unsigned<T>::type foldInteger(T v, typename std::make_unsigne
 }
 
 template <typename T>
-T relativeIndex(T v, typename std::make_unsigned<T>::type n)
+T relativeIndex(T v, size_t n)
 {
     static_assert(std::is_integral<T>(), "Integral type expected");
     static_assert(std::is_signed<T>(), "Signed type expected");
 
-    typedef typename std::make_unsigned<T>::type Unsigned;
     typedef typename std::make_signed<T>::type Signed;
 
-    const Signed N(n);
+    const Signed N(static_cast<Signed>(n));
 
     if (v >= N || v < -N)
         return -1;

@@ -149,7 +149,7 @@ bool DataAtomList::insert(size_t pos, const DataAtomList& lst)
     if (pos > list_.size())
         return false;
 
-    list_.insert(list_.begin() + pos, lst.begin(), lst.end());
+    list_.insert(list_.begin() + long(pos), lst.begin(), lst.end());
     return true;
 }
 
@@ -192,7 +192,7 @@ bool DataAtomList::remove(size_t pos)
     if (pos >= list_.size())
         return false;
 
-    list_.erase(list_.begin() + pos);
+    list_.erase(list_.begin() + long(pos));
     return true;
 }
 
@@ -276,7 +276,7 @@ bool DataAtomList::contains(const AtomList& p) const
 }
 
 template <class T, class U>
-long search_list(const DataAtomList::container& lst, const T& needle, size_t from, size_t to, U pred)
+long search_list(const DataAtomList::container& lst, const T& /*needle*/, size_t from, size_t to, U pred)
 {
     if (from >= lst.size())
         return -1;
@@ -286,8 +286,8 @@ long search_list(const DataAtomList::container& lst, const T& needle, size_t fro
     if (from >= to)
         return -1;
 
-    auto start = lst.begin() + from;
-    auto end = lst.begin() + to;
+    auto start = lst.begin() + long(from);
+    auto end = lst.begin() + long(to);
     auto it = std::find_if(start, end, pred);
     // distance from very beginning or -1
     return it != end ? std::distance(lst.begin(), it) : -1;
@@ -321,8 +321,8 @@ long DataAtomList::search(const AtomList& p, size_t from, size_t to) const
     if (from >= to)
         return -1;
 
-    auto b = begin() + from;
-    auto e = begin() + to;
+    auto b = begin() + long(from);
+    auto e = begin() + long(to);
 
     auto it = std::search(b, e, p.begin(), p.end(),
         [](const value_type& v1, const Atom& v2) { return v1 == DataAtom(v2); });
