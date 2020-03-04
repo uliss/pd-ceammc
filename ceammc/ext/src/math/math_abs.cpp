@@ -41,14 +41,14 @@ public:
     {
         const auto BS = blockSize();
         for(size_t i = 0; i < BS; i += 8) {
-            out[0][i+0] = std::abs(in[0][i+0]);
-            out[0][i+1] = std::abs(in[0][i+1]);
-            out[0][i+2] = std::abs(in[0][i+2]);
-            out[0][i+3] = std::abs(in[0][i+3]);
-            out[0][i+4] = std::abs(in[0][i+4]);
-            out[0][i+5] = std::abs(in[0][i+5]);
-            out[0][i+6] = std::abs(in[0][i+6]);
-            out[0][i+7] = std::abs(in[0][i+7]);
+            out[0][i+0] = std::fabs(in[0][i+0]);
+            out[0][i+1] = std::fabs(in[0][i+1]);
+            out[0][i+2] = std::fabs(in[0][i+2]);
+            out[0][i+3] = std::fabs(in[0][i+3]);
+            out[0][i+4] = std::fabs(in[0][i+4]);
+            out[0][i+5] = std::fabs(in[0][i+5]);
+            out[0][i+6] = std::fabs(in[0][i+6]);
+            out[0][i+7] = std::fabs(in[0][i+7]);
         }
     }
 };

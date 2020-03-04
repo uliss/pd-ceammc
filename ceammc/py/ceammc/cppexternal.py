@@ -125,13 +125,14 @@ void setup_{0}_{1}()\n{{
 
 
 class CppSoundExternal(object):
-    def __init__(self, module, name, include_headers=None):
+    def __init__(self, module, name, include_headers=None, func_name=None):
         # default arguments
         if include_headers is None:
             include_headers = []
 
         self.module = module
         self.name = name
+        self.func_name = func_name
         self.class_ = self.module.title() + self.name.title() + "Tilde";
         self.include_headers = include_headers
 
@@ -178,7 +179,7 @@ public:
         }}
     }}'''
 
-        print res.format(self.class_, self.name)
+        print res.format(self.class_, self.func_name)
 
     def generate_class_end(self):
         print '''};
@@ -212,8 +213,7 @@ class MathUnaryCppExternalTilde(CppSoundExternal):
         if headers is None:
             headers = ["cmath"]
 
-        super(self.__class__, self).__init__("math", name, headers)
-        self.func_name = func_name
+        super(self.__class__, self).__init__("math", name, headers, func_name=func_name)
 
 
 class MathUnaryCppExternalBoth:
