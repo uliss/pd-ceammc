@@ -156,16 +156,6 @@ t_float& Array::at(size_t n)
     return data_[n].w_float;
 }
 
-const t_float& Array::operator[](size_t n) const
-{
-    return data_[n].w_float;
-}
-
-t_float& Array::operator[](size_t n)
-{
-    return data_[n].w_float;
-}
-
 bool Array::resize(size_t n)
 {
     if (!isValid())

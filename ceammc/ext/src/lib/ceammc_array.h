@@ -158,8 +158,8 @@ public:
      * @return reference to sample
      * @throw Exception if invalid array or invalid sample number
      */
-    const t_float& at(size_t n) const;
-    t_float& at(size_t n);
+    inline const t_float& at(size_t n) const;
+    inline t_float& at(size_t n);
 
     /**
      * @brief get reference to sample with at position
@@ -167,8 +167,8 @@ public:
      * @return reference to sample
      * @note no checks are performed
      */
-    const t_float& operator[](size_t n) const;
-    t_float& operator[](size_t n);
+    const t_float& operator[](size_t n) const { return data_[n].w_float; }
+    t_float& operator[](size_t n) { return data_[n].w_float; }
 
     /**
      * @brief resize array to new size
