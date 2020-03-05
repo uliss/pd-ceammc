@@ -40,7 +40,7 @@ class ArrayCopy : public BaseObject {
 
 public:
     ArrayCopy(const PdArgs& a);
-    void onList(const AtomList& l);
+    void onList(const AtomList& l) override;
     void m_copy(t_symbol*, const AtomList& lst);
 
 private:

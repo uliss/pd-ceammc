@@ -31,13 +31,13 @@ void ArrayFill::onSymbol(t_symbol* s)
     setArray(s);
 }
 
-void ArrayFill::onFloat(float f)
+void ArrayFill::onFloat(t_float f)
 {
     if (!checkArray())
         return;
 
-    for (size_t i = 0; i < array_.size(); i++)
-        array_[i] = f;
+    for (float & i : array_)
+        i = f;
 
     finish();
 }

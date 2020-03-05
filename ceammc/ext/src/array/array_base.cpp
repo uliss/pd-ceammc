@@ -15,7 +15,7 @@
 
 ArrayBase::ArrayBase(const PdArgs& a)
     : BaseObject(a)
-    , array_name_(positionalSymbolArgument(0, 0))
+    , array_name_(positionalSymbolArgument(0, nullptr))
 {
     if (array_name_)
         array_.open(array_name_);
@@ -53,7 +53,7 @@ void ArrayBase::propSetArray(const AtomList& l)
 
 bool ArrayBase::checkArray()
 {
-    if (array_name_ == 0 || !array_.open(array_name_)) {
+    if (array_name_ == nullptr || !array_.open(array_name_)) {
         OBJ_ERR << "invalid array: " << array_.name();
         return false;
     }
@@ -63,7 +63,7 @@ bool ArrayBase::checkArray()
 
 ArrayMod::ArrayMod(const PdArgs& a)
     : ArrayBase(a)
-    , redraw_(0)
+    , redraw_(nullptr)
 {
     redraw_ = new BoolProperty("@redraw", true);
     createProperty(redraw_);

@@ -21,7 +21,7 @@
 
 ArrayCopy::ArrayCopy(const PdArgs& a)
     : BaseObject(a)
-    , resize_(0)
+    , resize_(nullptr)
 {
     createOutlet();
 
@@ -155,7 +155,7 @@ void ArrayCopy::copyRange(t_symbol* src, const Range& range, t_symbol* dest, siz
 
 Range Range::clip(size_t max) const
 {
-    return Range(from, std::min(to, max));
+    return { from, std::min(to, max) };
 }
 
 bool ArrayCopy::checkArrays(const Array& src, const Array& dest) const

@@ -23,7 +23,7 @@ class ArrayFill : public ArrayMod {
 public:
     ArrayFill(const PdArgs& a);
     void onSymbol(t_symbol* s);
-    void onFloat(float f);
+    void onFloat(t_float f);
     void onList(const AtomList& l);
 
     void m_gauss(t_symbol* m, const AtomList& l);
