@@ -190,22 +190,10 @@ void Array::fillWith(t_float v)
     std::fill(begin(), end(), v);
 }
 
-struct SampleGenerator {
-    size_t n;
-    FloatValueGenerator g;
-    SampleGenerator(FloatValueGenerator gen)
-        : n(0)
-        , g(gen)
-    {
-    }
-
-    float operator()() { return g(n++); }
-};
-
 void Array::fillWith(FloatValueGenerator gen)
 {
-    SampleGenerator g(gen);
-    std::generate(begin(), end(), g);
+    size_t n = 0;
+    std::generate(begin(), end(), [&n, gen]() { return gen(n++); });
 }
 
 bool Array::set(const AtomList& l)
@@ -229,7 +217,7 @@ bool Array::set(std::initializer_list<t_sample> l)
     return true;
 }
 
-bool Array::setYBounds(float yBottom, t_float yTop)
+bool Array::setYBounds(t_float yBottom, t_float yTop)
 {
     static t_symbol* SYM_BOUNDS = gensym("bounds");
 
@@ -269,69 +257,6 @@ ArrayIterator& ArrayIterator::operator=(const ArrayIterator& i)
 {
     data_ = i.data_;
     return *this;
-}
-
-t_float& ArrayIterator::operator*()
-{
-    return data_->w_float;
-}
-
-const t_float& ArrayIterator::operator*() const
-{
-    return data_->w_float;
-}
-
-t_float& ArrayIterator::operator[](const size_t n)
-{
-    return data_[n].w_float;
-}
-
-ceammc::ArrayIterator& ceammc::ArrayIterator::operator++()
-{
-    ++data_;
-    return *this;
-}
-
-ArrayIterator& ArrayIterator::operator--()
-{
-    --data_;
-    return *this;
-}
-
-ArrayIterator ArrayIterator::operator++(int)
-{
-    ArrayIterator tmp(*this);
-    ++data_;
-    return tmp;
-}
-
-ArrayIterator ArrayIterator::operator--(int)
-{
-    ArrayIterator tmp(*this);
-    --data_;
-    return tmp;
-}
-
-ArrayIterator& ArrayIterator::operator+=(difference_type v)
-{
-    data_ += v;
-    return *this;
-}
-
-ArrayIterator& ArrayIterator::operator-=(difference_type v)
-{
-    data_ -= v;
-    return *this;
-}
-
-ArrayIterator ArrayIterator::operator+(difference_type v)
-{
-    return ArrayIterator(data_ + v);
-}
-
-ArrayIterator ArrayIterator::operator-(difference_type v)
-{
-    return ArrayIterator(data_ - v);
 }
 
 ArrayIterator::difference_type ArrayIterator::operator-(const ArrayIterator& it) const

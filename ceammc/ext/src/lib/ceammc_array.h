@@ -25,7 +25,7 @@ namespace ceammc {
 
 class Array;
 
-class ArrayIterator : public std::iterator<std::random_access_iterator_tag, float> {
+class ArrayIterator : public std::iterator<std::random_access_iterator_tag, t_float> {
     word* data_;
 
     ArrayIterator(word* ptr);
@@ -43,19 +43,52 @@ public:
     bool operator<(const ArrayIterator& it) const { return data_ < it.data_; }
     bool operator<=(const ArrayIterator& it) const { return data_ <= it.data_; }
 
-    t_float& operator*();
-    const t_float& operator*() const;
-    t_float& operator[](const size_t n);
+    t_float& operator*() { return data_->w_float; }
+    const t_float& operator*() const { return data_->w_float; }
+    t_float& operator[](const size_t n) { return data_[n].w_float; }
 
-    ArrayIterator& operator++();
-    ArrayIterator& operator--();
-    ArrayIterator operator++(int);
-    ArrayIterator operator--(int);
+    inline ArrayIterator& operator++()
+    {
+        ++data_;
+        return *this;
+    }
+
+    inline ArrayIterator& operator--()
+    {
+        --data_;
+        return *this;
+    }
+
+    inline ArrayIterator operator++(int)
+    {
+        ArrayIterator tmp(*this);
+        ++data_;
+        return tmp;
+    }
+
+    inline ArrayIterator operator--(int)
+    {
+        ArrayIterator tmp(*this);
+        --data_;
+        return tmp;
+    }
+
     difference_type operator-(const ArrayIterator& it) const;
-    ArrayIterator& operator+=(difference_type v);
-    ArrayIterator& operator-=(difference_type v);
-    ArrayIterator operator+(difference_type v);
-    ArrayIterator operator-(difference_type v);
+
+    inline ArrayIterator& operator+=(difference_type v)
+    {
+        data_ += v;
+        return *this;
+    }
+
+    inline ArrayIterator& operator-=(difference_type v)
+    {
+        data_ -= v;
+        return *this;
+    }
+
+    inline ArrayIterator operator+(difference_type v) { return ArrayIterator(data_ + v); }
+    inline ArrayIterator operator-(difference_type v) { return ArrayIterator(data_ - v); }
 
     friend ArrayIterator operator+(difference_type, const ArrayIterator& it);
 };
@@ -65,7 +98,7 @@ ArrayIterator operator+(ArrayIterator::difference_type, const ArrayIterator& it)
 typedef t_float (*FloatValueGenerator)(size_t n);
 
 class Array {
-    _symbol* name_;
+    t_symbol* name_;
     _garray* array_;
     size_t size_;
     word* data_;
@@ -77,9 +110,11 @@ public:
 
 public:
     Array();
-    Array(_symbol* name);
+    Array(t_symbol* name);
     Array(const char* name);
     Array(const char* name, std::initializer_list<t_sample> l);
+
+    Array(const Array&) = delete;
 
     /** iterators */
     iterator begin();
@@ -89,7 +124,8 @@ public:
 
     /**
      * You should call this function every time before other function, to assure that array was not
-     * resized or deleted.
+     * resized or deleted
+     * @return false if array is invalid and can not be opened
      */
     bool update();
 
@@ -98,8 +134,16 @@ public:
      */
     void redraw();
 
+    /**
+     * Check if array is opened
+     */
     bool isValid() const;
-    bool open(_symbol* name);
+
+    /**
+     * Tries to open array specified by name
+     * @return true on success, false on error
+     */
+    bool open(t_symbol* name);
     bool open(const char* name);
 
     /**
@@ -126,17 +170,54 @@ public:
     const t_float& operator[](size_t n) const;
     t_float& operator[](size_t n);
 
+    /**
+     * @brief resize array to new size
+     * @param n - new size
+     * @return true on success, false on error
+     */
     bool resize(size_t n);
 
+    /**
+     * @brief copyFrom source array
+     * @param src - pointer to source array
+     * @param n - number of samples to copy (performs array bound check)
+     */
     void copyFrom(const t_float* src, size_t n);
-    void copyTo(t_float *dest, size_t n);
+
+    /**
+     * @brief copyTo dest array
+     * @param dest - pointer to destination
+     * @param n - number of samples to copy
+     */
+    void copyTo(t_float* dest, size_t n);
+
+    /**
+     * @brief fillWith - fill all array with specified value
+     * @param v - fill value
+     */
     void fillWith(t_float v);
+
+    /**
+     * @brief fillWith - fill all array with generated values
+     * @param gen - generator function, first argument is current array index
+     */
     void fillWith(FloatValueGenerator gen);
 
+    /**
+     * @brief set array content from list
+     * @param l - list of values
+     * @return true on success, false on error
+     */
     bool set(const AtomList& l);
+
+    /**
+     * @brief set array content with initializer list
+     * @param l - list of values
+     * @return true on success, false on error
+     */
     bool set(std::initializer_list<t_sample> l);
 
-    bool setYBounds(float yBottom, t_float yTop);
+    bool setYBounds(t_float yBottom, t_float yTop);
 
 public:
     struct Exception : public std::runtime_error {
