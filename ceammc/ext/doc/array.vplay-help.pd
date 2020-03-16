@@ -52,10 +52,10 @@
 -49933 0;
 #X msg 110 541 @abs_begin;
 #X text 245 541 (readonly) Get absolute start position in samples.
-Type: int. Units: samp.;
+Type: int. Units: samp. Default value: 0\.;
 #X msg 110 583 @abs_end;
 #X text 245 583 (readonly) Get absolute stop position in samples. Type:
-int. Units: samp.;
+int. Units: samp. Default value: 0\.;
 #X msg 110 625 @array;
 #X text 245 625 Get/Set array name. Type: symbol.;
 #X msg 110 654 @begin;
@@ -71,8 +71,8 @@ Default value: 0\. Allowed values: 0 \, 1\.;
 #X text 245 780 Get/Set play speed. Type: float. Default value: 1\.
 Min value: 0.1\.;
 #X msg 110 822 @state;
-#X text 245 822 (readonly) Get player state. Type: symbol. Allowed
-values: play \, stop.;
+#X text 245 822 (readonly) Get player state. Type: symbol. Default
+value: stop. Allowed values: play \, stop.;
 #X obj 20 874 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 879 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
