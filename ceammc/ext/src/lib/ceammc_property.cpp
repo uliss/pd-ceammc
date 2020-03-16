@@ -135,10 +135,20 @@ bool Property::getDefault(AtomList& l) const
     return info_.getDefault(l);
 }
 
+void Property::updateDefault()
+{
+    // empty call
+}
+
 bool Property::reset()
 {
     if (!isReadWrite()) {
         PROP_ERR() << "can't reset readonly property";
+        return false;
+    }
+
+    if (info_.noDefault()) {
+        PROP_ERR() << "no default value. Can't reset";
         return false;
     }
 

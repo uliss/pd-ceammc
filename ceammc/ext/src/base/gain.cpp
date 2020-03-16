@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "gain.h"
-#include "ceammc_callback_property.h"
+#include "ceammc_property_callback.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_signal.h"

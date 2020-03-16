@@ -146,7 +146,6 @@ ArrayStretch::ArrayStretch(const PdArgs& a)
         PROP_ANTIALIAS_LENGTH->s_name,
         [this]() -> int { return soundtouch_->getSetting(SETTING_AA_FILTER_LENGTH); },
         [this](int v) -> bool { return soundtouch_->setSetting(SETTING_AA_FILTER_LENGTH, v); });
-    alen->setDefault(8);
     alen->setIntCheck(PropValueConstraints::CLOSED_RANGE, 8, 128);
 
     // optimise for speech

@@ -13,7 +13,7 @@
  *****************************************************************************/
 
 #include "ceammc_object.h"
-#include "ceammc_callback_property.h"
+#include "ceammc_property_callback.h"
 #include "ceammc_convert.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"

@@ -111,6 +111,11 @@ public:
     bool getDefault(t_symbol*& s) const;
     bool getDefault(Atom& a) const;
     bool getDefault(AtomList& l) const;
+    // some types of properties (callbacks for example)
+    // can call virtual methods to get default value (and storing it info property info)
+    // so to prevent them from calling such methods
+    // when object is still constructing - we can update default info later with this call
+    virtual void updateDefault();
 
     template <typename T>
     inline void setDefault(T v) { info_.setDefault(v); }
@@ -131,8 +136,6 @@ public:
     inline bool isSymbol() const { return info_.isSymbol(); }
     inline bool isAtom() const { return info_.isVariant(); }
     inline bool isList() const { return info_.isList(); }
-
-    inline PropertyInfo& info() { return info_; }
 
     bool setFloatCheckFn(PropFloatCheckFn fn, const std::string& err = std::string());
     bool setIntCheckFn(PropIntCheckFn fn, const std::string& err = std::string());
@@ -188,14 +191,15 @@ public:
     const void* owner() const { return owner_; }
 
 protected:
-    bool writeCheck() const;
-    bool initCheck() const;
-    bool emptyCheck(const AtomList& v) const;
+    PropertyInfo& info() { return info_; }
+    bool checkAtom(const Atom& a) const;
     bool checkFloat(t_float v) const;
     bool checkInt(int v) const;
-    bool checkSymbol(t_symbol* s) const;
-    bool checkAtom(const Atom& a) const;
     bool checkList(const AtomList& l) const;
+    bool checkSymbol(t_symbol* s) const;
+    bool emptyCheck(const AtomList& v) const;
+    bool initCheck() const;
+    bool writeCheck() const;
     std::string errorPrefix() const;
 
     template <typename V>

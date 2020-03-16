@@ -13,7 +13,7 @@
  *****************************************************************************/
 
 #include "catch.hpp"
-#include "ceammc_callback_property.h"
+#include "ceammc_property_callback.h"
 #include "ceammc_property_enum.h"
 
 #include "test_base.h"

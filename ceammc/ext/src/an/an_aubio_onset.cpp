@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "an_aubio_onset.h"
-#include "ceammc_callback_property.h"
+#include "ceammc_property_callback.h"
 #include "ceammc_factory.h"
 
 constexpr int DEFAULT_BUFFER_SIZE = 1024;

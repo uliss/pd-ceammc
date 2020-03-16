@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_vline_play.h"
-#include "ceammc_callback_property.h"
+#include "ceammc_property_callback.h"
 #include "ceammc_factory.h"
 
 #include <boost/none.hpp>

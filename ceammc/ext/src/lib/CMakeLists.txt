@@ -33,7 +33,6 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_array.cpp
     ceammc_atom.cpp
     ceammc_atomlist.cpp
-    ceammc_callback_property.cpp
     ceammc_canvas.cpp
     ceammc_control.cpp
     ceammc_convert.cpp
@@ -60,6 +59,7 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_platform.cpp
     ceammc_preset.cpp
     ceammc_property.cpp
+    ceammc_property_callback.cpp
     ceammc_property_enum.cpp
     ceammc_property_info.cpp
     ceammc_regexp.cpp

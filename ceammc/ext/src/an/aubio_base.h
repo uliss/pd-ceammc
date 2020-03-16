@@ -19,7 +19,7 @@
 #include <stack>
 
 #include "aubio.h"
-#include "ceammc_callback_property.h"
+#include "ceammc_property_callback.h"
 #include "ceammc_property.h"
 #include "ceammc_property_enum.h"
 

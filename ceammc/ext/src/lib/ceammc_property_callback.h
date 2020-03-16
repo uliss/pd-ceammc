@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_CALLBACK_PROPERTY_H
-#define CEAMMC_CALLBACK_PROPERTY_H
+#ifndef CEAMMC_PROPERTY_CALLBACK_H
+#define CEAMMC_PROPERTY_CALLBACK_H
 
 #include "ceammc_property.h"
 
@@ -145,4 +145,4 @@ private:
 
 }
 
-#endif // CEAMMC_CALLBACK_PROPERTY_H
+#endif // CEAMMC_PROPERTY_CALLBACK_H

@@ -211,16 +211,17 @@ if __name__ == '__main__':
             p1 = doc_props_dict[p]
 
             # readonly in external
-            if p0.get("readonly", False):
+            if p0.get("access", "") == "readonly":
                 # but not in doc
-                if not p1.get("readonly", False):
-                    cprint(f"[{ext_name}] missing readonly attribute in \"{p}\"", 'magenta')
+                if "readonly" not in p1 and p1["readonly"] != "true":
+                    print(p1)
+                    cprint(f"DOC [{ext_name}] missing readonly attribute in \"{p}\"", 'magenta')
 
             # readonly in docs
-            if "readonly" in p1 and p1["readonly"] == "true":
+            if "readonly" in p1 and p1["readonly"]:
                 # but not readonly in external
-                if not p0.get("readonly", False):
-                    cprint(f"[{ext_name}] non-readonly attribute in \"{p}\"", 'red')
+                if p0.get("access", "") != "readonly":
+                    cprint(f"EXT [{ext_name}] non-readonly attribute in \"{p}\"", 'red')
 
             # units checks
             if p1.get("units", False):
@@ -278,7 +279,7 @@ if __name__ == '__main__':
                 v0 = str(p0["min"])
                 v1 = str(p1["minvalue"])
                 if v0 != v1:
-                    cprint(f"[{ext_name}] invalid value for minvalue attribute \"{p}\": {v0} != {v1}", 'magenta')
+                    cprint(f"DOC [{ext_name}] invalid minvalue \"{p}\": {v1}, in external: {v0}", 'magenta')
 
             if "max" in p0 and "maxvalue" in p1:
                 v0 = str(p0["max"])
@@ -299,8 +300,8 @@ if __name__ == '__main__':
                     v1 = p1["default"]
 
                 if v0 != v1:
-                    cprint(f"[{ext_name}] invalid value for default attribute \"{p}\": {v0} != {v1}", 'magenta')
-            elif attr == HAVE_EXTERNAL and "readonly" not in p0:
+                    cprint(f"DOC [{ext_name}] invalid default \"{p}\": {v1}, in external: {v0}", 'magenta')
+            elif attr == HAVE_EXTERNAL and p0.get("access", "") != "readonly":
                 cprint(f"[{ext_name}] missing attribute default in \"{p}\"", 'magenta')
 
             attr = check_attr("enum", p0, p1)
@@ -324,7 +325,7 @@ if __name__ == '__main__':
                 if ext_name.startswith("ui.") and p not in ("@fontname"):
                     cprint(f"[{ext_name}] missing enum attribute in pddoc \"{p}\"", 'magenta')
             elif attr == HAVE_PDDOC:
-                    cprint(f"[{ext_name}] pddoc enum for attribute \"{p}\" not exists", 'magenta')
+                    cprint(f"DOC [{ext_name}] no enum for attribute \"{p}\" in external", 'magenta')
 
 
     if args.spell:

@@ -14,7 +14,7 @@
 
 #include <array>
 
-#include "ceammc_callback_property.h"
+#include "ceammc_property_callback.h"
 #include "ceammc_faust.h"
 
 namespace ceammc {

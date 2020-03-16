@@ -164,6 +164,7 @@ std::vector<PropertyInfo> ceammc_base_properties(t_object* x)
         if (!p)
             continue;
 
+        p->get();
         res.push_back(p->info());
     }
 

@@ -14,7 +14,7 @@
 #include "matrix.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
-#include "ceammc_callback_property.h"
+#include "ceammc_property_callback.h"
 
 static const int DEFAULT_INS = 2;
 static const int MIN_INS = 2;

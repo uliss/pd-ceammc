@@ -1,5 +1,5 @@
 #include "canvas_current.h"
-#include "ceammc_callback_property.h"
+#include "ceammc_property_callback.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
 #include "datatype_dict.h"
