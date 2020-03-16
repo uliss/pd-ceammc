@@ -302,7 +302,8 @@ if __name__ == '__main__':
                 if v0 != v1:
                     cprint(f"DOC [{ext_name}] invalid default \"{p}\": {v1}, in external: {v0}", 'magenta')
             elif attr == HAVE_EXTERNAL and p0.get("access", "") != "readonly":
-                cprint(f"[{ext_name}] missing attribute default in \"{p}\"", 'magenta')
+                if not (isinstance(p0["default"] , list) and len(p0["default"]) == 0):
+                    cprint(f"EXT [{ext_name}] missing default in doc \"{p}\"", 'magenta')
 
             attr = check_attr("enum", p0, p1)
             if attr == HAVE_BOTH:

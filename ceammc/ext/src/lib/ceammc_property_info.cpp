@@ -608,7 +608,7 @@ void PropertyInfo::setType(PropValueType t)
 
 bool PropertyInfo::setUnits(PropValueUnits u)
 {
-    if (isInt() || isFloat() || u == PropValueUnits::UNKNOWN) {
+    if (isInt() || isFloat() || isList() || u == PropValueUnits::UNKNOWN) {
         units_ = u;
         return true;
     } else {

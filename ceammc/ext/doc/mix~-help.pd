@@ -29,7 +29,7 @@
 -49933 0;
 #X msg 110 483 @db;
 #X text 245 483 Get/Set amplitude values in decibels. Type: list. Units:
-db. Min value: -144\.;
+db. Default value: -144 -144\. Min value: -144\.;
 #X msg 110 525 @mute;
 #X text 245 525 Get/Set mute channel list. Type: list. Allowed values:
 0 \, 1\.;
