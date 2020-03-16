@@ -1,7 +1,7 @@
 #include "canvas_current.h"
-#include "ceammc_property_callback.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
+#include "ceammc_property_callback.h"
 #include "datatype_dict.h"
 
 CanvasCurrent::CanvasCurrent(const PdArgs& a)
@@ -9,73 +9,28 @@ CanvasCurrent::CanvasCurrent(const PdArgs& a)
 {
     createOutlet();
 
-    {
-        Property* p = createCbProperty("@name", &CanvasCurrent::p_name);
-        p->setType(PropValueType::SYMBOL);
-    }
+    createCbSymbolProperty("@name", [this]() -> t_symbol* { return canvas_info_name(canvas()); });
+    createCbSymbolProperty("@dir", [this]() -> t_symbol* { return canvas_info_dir(canvas()); });
+    createCbBoolProperty("@root", [this]() -> bool { return canvas_info_is_root(canvas()); });
+    createCbBoolProperty("@abstraction", [this]() -> bool { return canvas_info_is_abstraction(canvas()); });
+    createCbListProperty("@args", [this]() -> AtomList { return canvas_info_args(canvas()); });
+    createCbIntProperty("@font", [this]() -> int { return canvas_info_font(canvas()); });
+    createCbListProperty("@paths", [this]() -> AtomList { return canvas_info_paths(canvas()); });
+    createCbListProperty("@size", [this]() -> AtomList { return p_size(); });
 
-    {
-        Property* p = createCbProperty("@dir", &CanvasCurrent::p_dir);
-        p->setType(PropValueType::SYMBOL);
-    }
-
-    {
-        Property* p = createCbProperty("@root", &CanvasCurrent::p_root);
-        p->setType(PropValueType::BOOLEAN);
-    }
-
-    {
-        Property* p = createCbProperty("@abstraction", &CanvasCurrent::p_abstraction);
-        p->setType(PropValueType::BOOLEAN);
-    }
-
-    createCbProperty("@args", &CanvasCurrent::p_args);
-
-    {
-        Property* p = createCbProperty("@font", &CanvasCurrent::p_font);
-        p->setType(PropValueType::INTEGER);
-    }
-
-    createCbProperty("@paths", &CanvasCurrent::p_paths);
-    createCbProperty("@size", &CanvasCurrent::p_size);
-
-    {
-        Property* p = createCbProperty("@x", &CanvasCurrent::p_x);
-        p->setType(PropValueType::INTEGER);
-    }
-
-    {
-        Property* p = createCbProperty("@y", &CanvasCurrent::p_y);
-        p->setType(PropValueType::INTEGER);
-    }
-
-    {
-        Property* p = createCbProperty("@width", &CanvasCurrent::p_width);
-        p->setType(PropValueType::INTEGER);
-    }
-
-    {
-        Property* p = createCbProperty("@height", &CanvasCurrent::p_height);
-        p->setType(PropValueType::INTEGER);
-    }
+    createCbIntProperty("@x", [this]() -> int { return canvas_info_rect(canvas()).x; });
+    createCbIntProperty("@y", [this]() -> int { return canvas_info_rect(canvas()).y; });
+    createCbIntProperty("@width", [this]() -> int { return canvas_info_rect(canvas()).w; });
+    createCbIntProperty("@height", [this]() -> int { return canvas_info_rect(canvas()).h; });
 }
 
 void CanvasCurrent::onBang()
 {
     DataTypeDict* dict = new DataTypeDict;
 
-    dict->insert("name", p_name());
-    dict->insert("dir", p_dir());
-    dict->insert("root", p_root());
-    dict->insert("abstraction", p_abstraction());
-    dict->insert("args", p_args());
-    dict->insert("font", p_font());
-    dict->insert("paths", p_paths());
-    dict->insert("size", p_size());
-    dict->insert("x", p_x());
-    dict->insert("y", p_y());
-    dict->insert("width", p_width());
-    dict->insert("height", p_height());
+    for (auto c : { "name", "dir", "root", "abstraction", "args", "font", "paths", "size", "x", "y", "width", "height" }) {
+        dict->insert(c, property(c)->get());
+    }
 
     dataTo(0, DataPtr(dict));
 }
