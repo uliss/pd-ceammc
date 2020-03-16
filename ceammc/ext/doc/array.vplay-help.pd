@@ -63,7 +63,7 @@ int. Units: samp.;
 samp. Default value: 0\.;
 #X msg 110 696 @end;
 #X text 245 696 Get/Set end position in samples. Type: int. Units:
-samp. Default value: 0\.;
+samp. Default value: -1\.;
 #X msg 110 738 @reversed;
 #X text 245 738 Get/Set playing backwards (if set to 1). Type: int.
 Default value: 0\. Allowed values: 0 \, 1\.;

@@ -21,18 +21,20 @@
             <par>Random distribution: uniform</par>
         </info>
         <arguments>
-            <argument name="MIN" units="millisecond" minvalue="1" type="int">minimal bang interval</argument>
-            <argument name="MAX" units="millisecond" minvalue="1" type="int">maximum bang interval</argument>
+            <argument name="MIN" units="millisecond" minvalue="1" type="int">minimal bang
+            interval</argument>
+            <argument name="MAX" units="millisecond" minvalue="1" type="int">maximum bang
+            interval</argument>
         </arguments>
         <properties>
-            <property name="@min" units="millisecond" minvalue="1" type="int">
-            minimal bang interval</property>
-            <property name="@max" units="millisecond" minvalue="1" type="int">
-            maximum bang interval</property>
+            <property name="@min" units="millisecond" minvalue="1" type="int">minimal bang
+            interval</property>
+            <property name="@max" units="millisecond" minvalue="1" type="int">maximum bang
+            interval</property>
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float">starts (on > 0) or stops (on &lt;= 0) metro</xinfo>
+                <xinfo on="float">starts (on &gt; 0) or stops (on &lt;= 0) metro</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="list">set random range. min max pair expected.</xinfo>

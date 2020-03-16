@@ -79,7 +79,7 @@ sound sequences are mixed back together \, to form a continuous sound
 stream \, this parameter defines over how long period the two consecutive
 sequences are let to overlap each other. Increasing this value increases
 computational burden & vice versa. Type: int. Units: ms. Default value:
-8\. Range: 1\...100\.;
+8\. Range: 0\...100\.;
 #X msg 110 1005 @pitch;
 #X text 245 1005 Get/Set relative pitch change while keeping the original
 tempo. Type: float. Units: semitone. Default value: 0\.;

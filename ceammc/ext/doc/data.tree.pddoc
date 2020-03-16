@@ -25,11 +25,11 @@
         </properties>
         <methods>
             <method name="at">
-            <param name="IDX" type="int" minvalue="0">key</param>outputs tree list entry by given index.
-            If not found output empty tree</method>
+            <param name="IDX" type="int" minvalue="0">key</param>outputs tree list entry by given
+            index. If not found output empty tree</method>
             <method name="key">
-            <param name="KEY" type="symbol">key</param>outputs tree dict entry by given key.
-            If not found output empty tree</method>
+            <param name="KEY" type="symbol">key</param>outputs tree dict entry by given key. If not
+            found output empty tree</method>
             <method name="clear">removes tree content, set string to empty string, list to empty
             list, float to 0, dict to empty dict</method>
             <method name="dict">

@@ -57,7 +57,7 @@
             reducing this setting. Increasing this value increases computational burden &amp; vice
             versa. Giving *0* value for the seek window length sets automatic parameter value
             according to tempo setting (recommended)</property>
-            <property name="@overlap" type="int" units="millisecond" minvalue="1" maxvalue="100"
+            <property name="@overlap" type="int" units="millisecond" minvalue="0" maxvalue="100"
             default="8">Overlap length in milliseconds. When the chopped sound sequences are mixed
             back together, to form a continuous sound stream, this parameter defines over how long
             period the two consecutive sequences are let to overlap each other. Increasing this
