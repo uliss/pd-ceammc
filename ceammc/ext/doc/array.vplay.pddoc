@@ -20,7 +20,7 @@
             <argument name="NAME" type="symbol">array name</argument>
         </arguments>
         <properties>
-            <property name="@array" type="symbol">array name</property>
+            <property name="@array" type="symbol" default="">array name</property>
             <property name="@state" type="symbol" enum="play stop" readonly="true">player
             state</property>
             <property name="@speed" type="float" minvalue="0.1" default="1">play speed</property>

@@ -23,8 +23,8 @@
             <argument name="DEST" type="symbol">destination array</argument>
         </arguments>
         <properties>
-            <property name="@src" type="symbol">source array</property>
-            <property name="@dest" type="symbol">destination array</property>
+            <property name="@src" type="symbol" default="">source array</property>
+            <property name="@dest" type="symbol" default="">destination array</property>
             <property name="@tempo" type="float" units="percent" minvalue="-50" maxvalue="100"
             default="0">relative tempo change without affecting the sound pitch</property>
             <property name="@pitch" type="float" default="0" units="semitone">relative pitch change
