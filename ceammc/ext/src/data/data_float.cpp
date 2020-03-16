@@ -19,8 +19,6 @@ DataFloat::DataFloat(const PdArgs& a)
 {
     createInlet();
     createOutlet();
-
-    property("@value")->info().setType(PropValueType::FLOAT);
 }
 
 void setup_data_float()

@@ -103,6 +103,8 @@ AubioOnsetTilde::AubioOnsetTilde(const PdArgs& args)
 
 void AubioOnsetTilde::initDone()
 {
+    BaseObject::initDone();
+
     // save this properties values to restore them later
     saveSteadyProperties();
 

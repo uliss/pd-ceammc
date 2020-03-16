@@ -16,17 +16,17 @@
 #include "ceammc_factory.h"
 #include "ceammc_property_callback.h"
 
-static const int DEFAULT_INS = 2;
-static const int MIN_INS = 2;
-static const int MAX_INS = 16;
-static const int DEFAULT_OUTS = 2;
-static const int MIN_OUTS = 2;
-static const int MAX_OUTS = 16;
+constexpr size_t DEFAULT_INS = 2;
+constexpr size_t MIN_INS = 2;
+constexpr size_t MAX_INS = 16;
+constexpr size_t DEFAULT_OUTS = DEFAULT_INS;
+constexpr size_t MIN_OUTS = MIN_INS;
+constexpr size_t MAX_OUTS = MAX_INS;
 
 Matrix::Matrix(const PdArgs& args)
     : SoundExternal(args)
-    , nouts_(clip<int>(positionalFloatArgumentT(1, DEFAULT_OUTS), MIN_OUTS, MAX_OUTS))
-    , nins_(clip<int>(positionalFloatArgumentT(0, DEFAULT_INS), MIN_INS, MAX_INS))
+    , nouts_(positionalConstant<DEFAULT_OUTS, MIN_OUTS, MAX_OUTS>(1))
+    , nins_(positionalConstant<DEFAULT_INS, MIN_INS, MAX_INS>(0))
     , matrix_(boost::extents[nouts_][nins_])
 {
     for (size_t i = 1; i < nins_; i++)
@@ -37,21 +37,11 @@ Matrix::Matrix(const PdArgs& args)
 
     blocks_.assign(nouts_, DSPBlock(64, 0));
 
-    {
-        auto p = createCbProperty("@outputs", &Matrix::propRows);
-        p->info().setType(PropValueType::INTEGER);
-        p->info().setDefault(2);
-        p->info().setRangeInt(2, 16);
-        p->info().setConstraints(PropValueConstraints::CLOSED_RANGE);
-    }
+    createCbIntProperty("@outputs", [this]() -> int { return nouts_; })
+        ->setIntCheck(PropValueConstraints::CLOSED_RANGE, MIN_OUTS, MAX_OUTS);
 
-    {
-        auto p = createCbProperty("@inputs", &Matrix::propColumns);
-        p->info().setType(PropValueType::INTEGER);
-        p->info().setDefault(2);
-        p->info().setRangeInt(2, 16);
-        p->info().setConstraints(PropValueConstraints::CLOSED_RANGE);
-    }
+    createCbIntProperty("@inputs", [this]() -> int { return nins_; })
+        ->setIntCheck(PropValueConstraints::CLOSED_RANGE, MIN_INS, MAX_INS);
 }
 
 void Matrix::processBlock(const t_sample** in, t_sample** out)
@@ -114,16 +104,6 @@ void Matrix::m_cell(t_symbol* s, const AtomList& lst)
     }
 
     matrix_[cell_row][cell_col].setTargetValue(cell_val ? 1 : 0);
-}
-
-AtomList Matrix::propRows() const
-{
-    return Atom(nouts_);
-}
-
-AtomList Matrix::propColumns() const
-{
-    return Atom(nins_);
 }
 
 void setup_base_matrix()

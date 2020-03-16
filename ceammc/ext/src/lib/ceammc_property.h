@@ -146,6 +146,8 @@ public:
 
     bool setFloatCheck(PropValueConstraints type, t_float a = 0, t_float b = 0);
     bool setIntCheck(PropValueConstraints type, int a = 0, int b = 0);
+    bool setSymbolEnumCheck(std::initializer_list<t_symbol*> l);
+    bool setSymbolEnumCheck(std::initializer_list<const char*> l);
     void setCheckErrorMsg(const std::string& str);
 
     virtual bool checkPositive();
@@ -189,6 +191,8 @@ public:
 
     void setOwner(void* p) { owner_ = p; }
     const void* owner() const { return owner_; }
+
+    PropertyInfo& infoT() { return info_; }
 
 protected:
     PropertyInfo& info() { return info_; }

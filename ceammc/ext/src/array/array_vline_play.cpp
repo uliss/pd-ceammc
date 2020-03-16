@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_vline_play.h"
-#include "ceammc_property_callback.h"
 #include "ceammc_factory.h"
+#include "ceammc_property_callback.h"
 
 #include <boost/none.hpp>
 #include <cmath>
@@ -58,9 +58,8 @@ ArrayVlinePlay::ArrayVlinePlay(const PdArgs& args)
     createOutlet();
     createOutlet();
 
-    createCbSymbolProperty("@state", [this]() -> t_symbol* { return stateToSym(state_); });
-    //        p->info().addEnum("play");
-    //        p->info().addEnum("stop");
+    createCbSymbolProperty("@state", [this]() -> t_symbol* { return stateToSym(state_); })
+        ->setSymbolEnumCheck({ "play", "stop" });
 
     createCbFloatProperty(
         "@speed",

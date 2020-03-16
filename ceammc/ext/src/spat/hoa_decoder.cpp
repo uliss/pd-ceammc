@@ -67,9 +67,8 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
     createCbListProperty(
         "@angles",
         [this]() -> AtomList { return propAngles(); },
-        [this](const AtomList& l) -> bool { return propSetAngles(l); });
-    property("@angles")->info().setType(PropValueType::LIST);
-    property("@angles")->setUnits(PropValueUnits::DEG);
+        [this](const AtomList& l) -> bool { return propSetAngles(l); })
+        ->setUnits(PropValueUnits::DEG);
 
     createCbFloatProperty(
         "@offset",

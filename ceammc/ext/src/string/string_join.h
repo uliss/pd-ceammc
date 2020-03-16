@@ -25,13 +25,10 @@ class StringJoin : public BaseObject {
 
 public:
     StringJoin(const PdArgs& a);
-    void onBang();
-    void onSymbol(t_symbol* s);
-    void onData(const DataPtr& d);
-    void onList(const AtomList& l);
-
-    AtomList propGetSeparator() const;
-    void propSetSeparator(const AtomList& l);
+    void onBang() override;
+    void onSymbol(t_symbol* s) override;
+    void onData(const DataPtr& d) override;
+    void onList(const AtomList& l) override;
 
 private:
     void parseArgs();

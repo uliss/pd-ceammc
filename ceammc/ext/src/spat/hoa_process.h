@@ -28,8 +28,6 @@ class HoaProcess : public SoundExternal {
     std::vector<ProcessInstance> instances_;
     std::vector<ProcessInlet> ins_;
 
-    t_float canvas_yoff_;
-
     Buffer in_buf_;
     Buffer out_buf_;
 

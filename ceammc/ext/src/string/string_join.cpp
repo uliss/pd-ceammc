@@ -22,8 +22,11 @@ StringJoin::StringJoin(const PdArgs& a)
 {
     createOutlet();
 
-    createCbProperty("@sep", &StringJoin::propGetSeparator, &StringJoin::propSetSeparator);
-    property("@sep")->info().setType(PropValueType::VARIANT);
+    createCbAtomProperty(
+        "@sep",
+        [this]() -> Atom { return gensym(str_.c_str()); },
+        [this](const Atom& a) -> bool { sep_ = to_string(a); return true; });
+
     parseArgs();
 }
 
@@ -48,21 +51,6 @@ void StringJoin::onList(const AtomList& l)
 {
     str_ = to_string(l, sep_);
     onBang();
-}
-
-AtomList StringJoin::propGetSeparator() const
-{
-    return Atom(gensym(sep_.c_str()));
-}
-
-void StringJoin::propSetSeparator(const AtomList& l)
-{
-    if (l.size() != 1) {
-        OBJ_ERR << "single separator value required";
-        return;
-    }
-
-    sep_ = to_string(l[0]);
 }
 
 void StringJoin::parseArgs()

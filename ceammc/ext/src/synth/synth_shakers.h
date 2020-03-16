@@ -51,10 +51,8 @@ class SynthShakers : public StkBase {
 public:
     SynthShakers(const PdArgs& args);
 
-    AtomList propGate() const;
-    void propSetGate(const AtomList& lst);
-    AtomList propType() const;
-    void propSetType(const AtomList& lst);
+    Atom propType() const;
+    bool propSetType(const Atom& a);
     AtomList propTypes() const;
 
 public:

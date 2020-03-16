@@ -466,6 +466,38 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
     }
 }
 
+bool Property::setSymbolEnumCheck(std::initializer_list<t_symbol*> l)
+{
+    if (!isSymbol()) {
+        PROP_ERR() << "attempt to set enum check for non symbol type";
+        return false;
+    }
+
+    info_.setConstraints(PropValueConstraints::ENUM);
+    info_.clearEnum();
+    for (auto s : l)
+        info_.addEnum(s);
+
+    setSymbolCheckFn([this](t_symbol* s) -> bool { return info_.enumContains(s); });
+    return true;
+}
+
+bool Property::setSymbolEnumCheck(std::initializer_list<const char*> l)
+{
+    if (!isSymbol()) {
+        PROP_ERR() << "attempt to set enum check for non symbol type";
+        return false;
+    }
+
+    info_.setConstraints(PropValueConstraints::ENUM);
+    info_.clearEnum();
+    for (auto s : l)
+        info_.addEnum(gensym(s));
+
+    setSymbolCheckFn([this](t_symbol* s) -> bool { return info_.enumContains(s); });
+    return true;
+}
+
 void Property::setCheckErrorMsg(const std::string& str)
 {
     err_msg_ = str;

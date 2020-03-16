@@ -162,6 +162,24 @@ bool CallbackProperty::checkNonNegative()
     }
 }
 
+void CallbackProperty::updateDefault()
+{
+    if (isBool() && getter_.fn_bool)
+        setDefault(getter_.fn_bool());
+    else if (isFloat() && getter_.fn_float)
+        setDefault(getter_.fn_float());
+    else if (isInt() && getter_.fn_int)
+        setDefault(getter_.fn_int());
+    else if (isSymbol() && getter_.fn_symbol)
+        setDefault(getter_.fn_symbol());
+    else if (isAtom() && getter_.fn_atom)
+        setDefault(getter_.fn_atom());
+    else if (isList() && getter_.fn_list)
+        setDefault(getter_.fn_list());
+    else
+        PROP_ERR << "can't update default info in callback property";
+}
+
 bool CallbackProperty::hasBoolCb(CallbackType t) const
 {
     if (!isBool()) {
@@ -254,18 +272,14 @@ bool CallbackProperty::hasListCb(CallbackType t) const
 
 AtomList CallbackProperty::get() const
 {
-#define CHECKED_GETTER_CALL(m)                            \
-    {                                                     \
-        if (!getter_.m) {                                 \
-            PROP_ERR << "getter is not set";              \
-            return AtomList();                            \
-        } else {                                          \
-            auto tval = getter_.m();                      \
-            auto p = const_cast<CallbackProperty*>(this); \
-            if (p->info().noDefault())                    \
-                p->info().setDefault(tval);               \
-            return atomFrom(tval);                        \
-        }                                                 \
+#define CHECKED_GETTER_CALL(m)               \
+    {                                        \
+        if (!getter_.m) {                    \
+            PROP_ERR << "getter is not set"; \
+            return AtomList();               \
+        } else {                             \
+            return atomFrom(getter_.m());    \
+        }                                    \
     }
 
     switch (getter_.type) {
@@ -284,12 +298,7 @@ AtomList CallbackProperty::get() const
             PROP_ERR << "getter is not set";
             return AtomList();
         } else {
-            AtomList l = getter_.fn_list();
-            auto p = const_cast<CallbackProperty*>(this);
-            if (p->info().noDefault())
-                p->info().setDefault(l);
-
-            return l;
+            return getter_.fn_list();
         }
     }
 

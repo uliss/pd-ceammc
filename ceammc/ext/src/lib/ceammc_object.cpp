@@ -13,11 +13,11 @@
  *****************************************************************************/
 
 #include "ceammc_object.h"
-#include "ceammc_property_callback.h"
 #include "ceammc_convert.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "ceammc_platform.h"
+#include "ceammc_property_callback.h"
 #include "ceammc_property_enum.h"
 
 #include <cstdarg>
@@ -638,6 +638,8 @@ void BaseObject::parseProperties()
 
 void BaseObject::initDone()
 {
+    for (auto p : props_)
+        p->updateDefault();
 }
 
 bool BaseObject::checkArg(const Atom& atom, BaseObject::ArgumentType type, int pos) const

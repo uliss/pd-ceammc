@@ -19,8 +19,6 @@
 #include <cmath>
 #include <stdexcept>
 
-static const t_float YOFF = 30;
-
 t_symbol* HoaProcess::SYM_SWITCH;
 t_symbol* HoaProcess::SYM_BLOCK;
 t_symbol* HoaProcess::SYM_OBJ;
@@ -32,7 +30,6 @@ t_symbol* HoaProcess::SYM_DSP;
 
 HoaProcess::HoaProcess(const PdArgs& args)
     : SoundExternal(args)
-    , canvas_yoff_(10)
     , domain_(nullptr)
     , num_(nullptr)
     , clock_(this, &HoaProcess::clockTick)

@@ -20,35 +20,21 @@
 
 namespace ceammc {
 
+constexpr const char* DEFAULT_ID = "default";
+
 template <typename T>
 class GlobalBase : public BaseObject {
     GlobalData<T> data_;
     GlobalBase(const GlobalBase&) = delete;
     void operator=(const GlobalBase&) = delete;
 
-    static t_symbol* to_symbol(const Atom& a)
-    {
-        if (a.isSymbol())
-            return a.asSymbol();
-        else
-            return gensym(to_string(a).c_str());
-    }
-
-    static t_symbol* arg_id(const AtomList& args)
-    {
-        if (args.empty())
-            return gensym("default");
-        else
-            return to_symbol(args[0]);
-    }
-
 public:
     GlobalBase(const PdArgs& a)
         : BaseObject(a)
-        , data_(arg_id(a.args), a.className->s_name)
+        , data_(positionalSymbolConstant(0, gensym(DEFAULT_ID)), a.className->s_name)
     {
-        if (positionalArguments().empty())
-            OBJ_DBG << "global object ID required! Using default id: \"" << data_.name()->s_name << '"';
+        if (data_.name() == gensym(DEFAULT_ID))
+            OBJ_DBG << "global object ID required! Using default id: " << data_.name();
 
         createOutlet();
 

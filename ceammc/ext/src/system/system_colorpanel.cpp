@@ -46,10 +46,10 @@ SystemColorpanel::SystemColorpanel(const PdArgs& args)
     createCbProperty("@float", &SystemColorpanel::propFloat, &SystemColorpanel::propSetFloat);
     createCbProperty("@int", &SystemColorpanel::propInt, &SystemColorpanel::propSetInt);
 
-    {
-        Property* p = createCbProperty("@hex", &SystemColorpanel::propHex, &SystemColorpanel::propSetHex);
-        p->info().setType(PropValueType::SYMBOL);
-    }
+    createCbSymbolProperty(
+        "@hex",
+        [this]() -> t_symbol* { return gensym(hex_); },
+        [this](t_symbol* s) -> bool { return setHex(s); });
 }
 
 void SystemColorpanel::onBang()
@@ -133,16 +133,6 @@ void SystemColorpanel::propSetInt(const AtomList& v)
     r_ = v[0].asFloat();
     g_ = v[1].asFloat();
     b_ = v[2].asFloat();
-}
-
-void SystemColorpanel::propSetHex(const AtomList& v)
-{
-    if (!checkArgs(v, ARG_SYMBOL)) {
-        OBJ_ERR << "color hex value expected in #xxxxxx format: " << v;
-        return;
-    }
-
-    setHex(v[0].asSymbol());
 }
 
 void setup_system_colorpanel()

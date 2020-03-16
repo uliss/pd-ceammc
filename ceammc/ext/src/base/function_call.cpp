@@ -18,13 +18,10 @@
 
 FunctionCall::FunctionCall(const PdArgs& a)
     : BaseObject(a)
-    , name_(0)
+    , name_(positionalSymbolConstant(0, &s_))
 {
     createInlet(&name_);
     createOutlet();
-
-    if (!positionalArguments().empty() && positionalArguments()[0].isSymbol())
-        name_ = positionalArguments()[0].asSymbol();
 }
 
 void FunctionCall::onBang()

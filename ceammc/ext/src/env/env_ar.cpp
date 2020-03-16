@@ -23,12 +23,11 @@ public:
         , prop_gate_((UIProperty*)property(gensym("@gate")))
     {
         bindPositionalArgsToProps({ gensym("@attack"), gensym("@release") });
-        createProperty(new CombinedProperty("@ar", { property(gensym("@attack")), property(gensym("@release")) }));
-        {
-            Property* p = createCbProperty("@length", &EnvAr::propLength);
-            p->info().setType(PropValueType::FLOAT);
-            p->info().setUnits(PropValueUnits::MSEC);
-        }
+        createProperty(new CombinedProperty("@ar",
+            { property(gensym("@attack")), property(gensym("@release")) }));
+
+        createCbFloatProperty("@length", [this]() -> t_float { return length(); })
+            ->setUnitsMs();
 
         createOutlet();
     }
@@ -90,11 +89,6 @@ public:
     void m_play(t_symbol*, const AtomList&)
     {
         onBang();
-    }
-
-    AtomList propLength() const
-    {
-        return Atom(length());
     }
 
 private:

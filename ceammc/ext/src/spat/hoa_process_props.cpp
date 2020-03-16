@@ -37,83 +37,21 @@ HoaProcessProps::HoaProcessProps(const PdArgs& args)
 
     createOutlet();
 
-    {
-        Property* p = createCbProperty("@pmode", &HoaProcessProps::propPMode);
-        p->info().setType(PropValueType::SYMBOL);
-        p->info().addEnum(SYM_2D);
-        p->info().addEnum(SYM_3D);
-    }
+    createCbSymbolProperty("@pmode", [this]() -> t_symbol* { return args_.mode; })
+        ->setSymbolEnumCheck({ SYM_2D, SYM_3D });
 
-    {
-        Property* p = createCbProperty("@ptype", &HoaProcessProps::propPType);
-        p->info().setType(PropValueType::SYMBOL);
-        p->info().addEnum(SYM_HARMONICS);
-        p->info().addEnum(SYM_PLANEWAVES);
-    }
+    createCbSymbolProperty("@ptype", [this]() -> t_symbol* { return args_.type; })
+        ->setSymbolEnumCheck({ SYM_HARMONICS, SYM_PLANEWAVES });
 
-    {
-        Property* p = createCbProperty("@order", &HoaProcessProps::propOrder);
-        p->info().setType(PropValueType::INTEGER);
-    }
-
-    {
-        Property* p = createCbProperty("@total", &HoaProcessProps::propTotal);
-        p->info().setType(PropValueType::INTEGER);
-    }
-
-    {
-        Property* p = createCbProperty("@index", &HoaProcessProps::propIndex);
-        p->info().setType(PropValueType::INTEGER);
-    }
-
-    {
-        Property* p = createCbProperty("@hdegree", &HoaProcessProps::propHarmDegree);
-        p->info().setType(PropValueType::INTEGER);
-    }
-
-    {
-        Property* p = createCbProperty("@horder", &HoaProcessProps::propHarmOrder);
-        p->info().setType(PropValueType::INTEGER);
-    }
+    createCbIntProperty("@order", [this]() -> int { return args_.order; });
+    createCbIntProperty("@total", [this]() -> int { return args_.total; });
+    createCbIntProperty("@index", [this]() -> int { return args_.index; });
+    createCbIntProperty("@hdegree", [this]() -> int { return args_.harm_degree; });
+    createCbIntProperty("@horder", [this]() -> int { return args_.harm_order; });
 
     auto cnv_args = canvas_info_args(canvas());
     if (!cnv_args.empty())
         args_ = processHoaProps(cnv_args);
-}
-
-AtomList HoaProcessProps::propPMode() const
-{
-    return Atom(args_.mode);
-}
-
-AtomList HoaProcessProps::propPType() const
-{
-    return Atom(args_.type);
-}
-
-AtomList HoaProcessProps::propOrder() const
-{
-    return Atom(args_.order);
-}
-
-AtomList HoaProcessProps::propTotal() const
-{
-    return Atom(args_.total);
-}
-
-AtomList HoaProcessProps::propIndex() const
-{
-    return Atom(args_.index);
-}
-
-AtomList HoaProcessProps::propHarmDegree() const
-{
-    return Atom(args_.harm_degree);
-}
-
-AtomList HoaProcessProps::propHarmOrder() const
-{
-    return Atom(args_.harm_order);
 }
 
 static void propToList(DataTypeProperty* prop, AtomList& out)

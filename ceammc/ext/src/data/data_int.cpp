@@ -19,8 +19,6 @@ DataInt::DataInt(const PdArgs& a)
 {
     createInlet();
     createOutlet();
-
-    property("@value")->info().setType(PropValueType::INTEGER);
 }
 
 void setup_data_int()

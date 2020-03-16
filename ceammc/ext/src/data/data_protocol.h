@@ -18,6 +18,7 @@
 #include "ceammc_format.h"
 #include "ceammc_object.h"
 #include "ceammc_platform.h"
+#include "ceammc_property_callback.h"
 
 #include <fstream>
 
@@ -46,18 +47,18 @@ public:
     NumericIFace(const PdArgs& args)
         : BaseIFace<T>(args)
     {
-        T::createCbProperty("@value", &NumericIFace::propValue)
-            ->setType(PropertyInfo::toType<NumType>());
+        using F = std::function<NumType()>;
+        T::addProperty(new CallbackProperty("@value", F([this]() -> NumType { return value(); }), nullptr));
     }
 
     void onBang() override
     {
-        this->floatTo(0, value());
+        this->floatTo(0, static_cast<NumType>(value()));
     }
 
     void onFloat(t_float f) override
     {
-        value() = f;
+        value() = static_cast<NumType>(f);
         onBang();
     }
 
@@ -149,7 +150,7 @@ public:
             return;
         }
 
-        value() = lst[0].asFloat();
+        value() = static_cast<NumType>(lst[0].asFloat());
     }
 };
 

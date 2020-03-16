@@ -6,13 +6,13 @@
 
 #include <list>
 
-#define OBJ_NAME "data.fifo"
-
 using namespace ceammc;
 
-typedef std::list<Message> MessageFifo;
+using MessageFifo = std::list<Message>;
 
-static size_t DEFAULT_SIZE = 1024;
+constexpr size_t DEFAULT_SIZE = 32;
+constexpr size_t MIN_SIZE = 1;
+constexpr size_t MAX_SIZE = 1024;
 
 class DataFifo : public BaseObject {
     MessageFifo fifo_;
@@ -21,37 +21,24 @@ class DataFifo : public BaseObject {
 public:
     DataFifo(const PdArgs& args)
         : BaseObject(args)
-        , size_(DEFAULT_SIZE)
+        , size_(positionalConstant<DEFAULT_SIZE, MIN_SIZE, MAX_SIZE>(0))
     {
-        size_ = args.args.asSizeT(DEFAULT_SIZE);
+        createCbBoolProperty("@empty", [this]() -> bool { return fifo_.empty(); });
+        createCbIntProperty("@filled", [this]() -> int { return fifo_.size(); })
+            ->checkNonNegative();
+        createCbIntProperty("@size", [this]() -> int { return fifo_.max_size(); })
+            ->checkNonNegative();
+        createCbIntProperty("@free", [this]() -> int { return size_ - fifo_.size(); })
+            ->checkNonNegative();
 
         createOutlet();
-        {
-            auto p = createCbProperty("@empty", &DataFifo::p_empty);
-            p->info().setType(PropValueType::BOOLEAN);
-        }
-
-        {
-            Property* p = createCbProperty("@filled", &DataFifo::p_size);
-            p->info().setType(PropValueType::INTEGER);
-        }
-
-        {
-            Property* p = createCbProperty("@size", &DataFifo::p_max_size);
-            p->info().setType(PropValueType::INTEGER);
-        }
-
-        {
-            Property* p = createCbProperty("@free", &DataFifo::p_free);
-            p->info().setType(PropValueType::INTEGER);
-        }
     }
 
-    void onBang() { flush(); }
-    void onFloat(float v) { add(Atom(v)); }
-    void onSymbol(t_symbol* s) { add(Atom(s)); }
-    void onList(const AtomList& lst) { add(lst); }
-    void onAny(t_symbol* s, const AtomList& lst) { add(Message(s, lst)); }
+    void onBang() override { flush(); }
+    void onFloat(float v) override { add(Atom(v)); }
+    void onSymbol(t_symbol* s) override { add(Atom(s)); }
+    void onList(const AtomList& lst) override { add(lst); }
+    void onAny(t_symbol* s, const AtomList& lst) override { add(Message(s, lst)); }
 
     void m_flush(t_symbol*, const AtomList&) { flush(); }
     void m_clear(t_symbol*, const AtomList&) { clear(); }
@@ -67,9 +54,6 @@ public:
         resize(static_cast<size_t>(sz));
     }
 
-    AtomList p_empty() const { return listFrom(fifo_.empty() ? 1 : 0); }
-    AtomList p_size() const { return listFrom(fifo_.size()); }
-    AtomList p_max_size() const { return listFrom(size_); }
     AtomList p_free() const { return listFrom(size_ - fifo_.size()); }
 
     void add(const Message& msg)
@@ -89,8 +73,8 @@ public:
     // output all, remove all
     void flush()
     {
-        for (MessageFifo::iterator it = fifo_.begin(); it != fifo_.end(); ++it)
-            messageTo(0, *it);
+        for (auto& m : fifo_)
+            messageTo(0, m);
 
         fifo_.clear();
     }
@@ -111,12 +95,12 @@ public:
         size_ = std::min(sz, DEFAULT_SIZE);
     }
 
-    void dump() const
+    void dump() const override
     {
         BaseObject::dump();
 
         post("values:");
-        for (MessageFifo::const_reverse_iterator it = fifo_.rbegin(); it != fifo_.rend(); ++it) {
+        for (auto it = fifo_.rbegin(); it != fifo_.rend(); ++it) {
             post("    %s", to_string(*it).c_str());
         }
     }
@@ -124,7 +108,7 @@ public:
 
 extern "C" void setup_data0x2efifo()
 {
-    ObjectFactory<DataFifo> obj(OBJ_NAME);
+    ObjectFactory<DataFifo> obj("data.fifo");
     obj.addMethod("flush", &DataFifo::m_flush);
     obj.addMethod("clear", &DataFifo::m_clear);
     obj.addMethod("pop", &DataFifo::m_pop);

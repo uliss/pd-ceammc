@@ -11,11 +11,11 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../base/matrix.h"
-#include "test_sound.h"
+#include "matrix.h"
 #include "test_external.h"
+#include "test_sound.h"
 
-PD_COMPLETE_SND_TEST_SETUP(Matrix, base, matrix);
+PD_COMPLETE_SND_TEST_SETUP(Matrix, base, matrix)
 
 TEST_CASE("matrix~", "[externals]")
 {

@@ -129,6 +129,8 @@ public:
     bool checkNegative() final;
     bool checkNonNegative() final;
 
+    void updateDefault() override;
+
 private:
     enum CallbackType {
         GETTER = 0,

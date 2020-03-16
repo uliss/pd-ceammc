@@ -42,6 +42,8 @@ PanSpread::PanSpread(const PdArgs& args)
 
 void PanSpread::initDone()
 {
+    BaseObject::initDone();
+
     const size_t N = channels_->value();
     assert(N > 1);
 

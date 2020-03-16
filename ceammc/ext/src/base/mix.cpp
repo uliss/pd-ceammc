@@ -12,9 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "mix.h"
-#include "ceammc_property_callback.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "ceammc_property_callback.h"
 
 constexpr t_float DEFAULT_XFADE = 20;
 constexpr size_t DEF_NCHAN = 2;
@@ -59,25 +59,12 @@ Mix::Mix(const PdArgs& args)
         p->setUnitsMs();
     }
 
-    {
-        auto p = createCbProperty("@db", &Mix::propDb, &Mix::setPropDb);
-        p->info().setType(PropValueType::LIST);
-        p->info().setUnits(PropValueUnits::DB);
-    }
-
+    createCbProperty("@db", &Mix::propDb, &Mix::setPropDb)
+        ->setUnitsDb();
     createCbProperty("@value", &Mix::propValue, &Mix::setPropValue);
 
-    {
-        Property* p = createCbProperty("@mute", &Mix::propMute, &Mix::setPropMute);
-        p->info().addEnum(0);
-        p->info().addEnum(1);
-    }
-
-    {
-        Property* p = createCbProperty("@solo", &Mix::propSolo, &Mix::setPropSolo);
-        p->info().addEnum(0);
-        p->info().addEnum(1);
-    }
+    createCbProperty("@mute", &Mix::propMute, &Mix::setPropMute);
+    createCbProperty("@solo", &Mix::propSolo, &Mix::setPropSolo);
 }
 
 void Mix::onList(const AtomList& lst)

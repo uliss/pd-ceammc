@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "an_aubio_onset.h"
-#include "ceammc_property_callback.h"
 #include "ceammc_factory.h"
+#include "ceammc_property_callback.h"
 
 constexpr int DEFAULT_BUFFER_SIZE = 1024;
 constexpr int MIN_BUFFER_SIZE = 64;
@@ -157,6 +157,8 @@ void AubioOnset::onBang()
 
 void AubioOnset::initDone()
 {
+    BaseObject::initDone();
+
     // save this properties values to restore them later
     saveSteadyProperties();
 

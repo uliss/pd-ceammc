@@ -58,17 +58,13 @@ public:
 
 Function::Function(const PdArgs& a)
     : BaseObject(a)
-    , name_(0)
+    , name_(positionalSymbolConstant(0, nullptr))
 {
-    if (positionalArguments().empty() || !positionalArguments()[0].isSymbol()) {
+    if (!name_)
         throw std::runtime_error("function name required!");
-    }
 
-    name_ = positionalArguments()[0].asSymbol();
-
-    if (FunctionMap::instance().exists(name_)) {
+    if (FunctionMap::instance().exists(name_))
         throw std::runtime_error("function already exists");
-    }
 
     FunctionMap::instance().add(name_, this);
 
