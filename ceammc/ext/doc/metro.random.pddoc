@@ -27,10 +27,10 @@
             interval</argument>
         </arguments>
         <properties>
-            <property name="@min" units="millisecond" minvalue="1" type="int">minimal bang
-            interval</property>
-            <property name="@max" units="millisecond" minvalue="1" type="int">maximum bang
-            interval</property>
+            <property name="@min" units="millisecond" minvalue="1" type="int" default="100">minimal
+            bang interval</property>
+            <property name="@max" units="millisecond" minvalue="1" type="int" default="200">maximum
+            bang interval</property>
         </properties>
         <inlets>
             <inlet>

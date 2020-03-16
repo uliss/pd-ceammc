@@ -31,10 +31,10 @@
 -49933 0;
 #X msg 110 456 @max;
 #X text 245 456 Get/Set maximum bang interval. Type: int. Units: ms.
-Min value: 1\.;
+Default value: 200\. Min value: 1\.;
 #X msg 110 498 @min;
 #X text 245 498 Get/Set minimal bang interval. Type: int. Units: ms.
-Min value: 1\.;
+Default value: 100\. Min value: 1\.;
 #X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 555 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
