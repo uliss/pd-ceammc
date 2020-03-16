@@ -32,12 +32,12 @@ pythagorean rameau valotti zarlino;
 #X obj 20 506 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 541 @a;
-#X text 245 541 Get/Set A pitch frequency. Type: float. Default value:
-440\. Range: 200\...600\.;
+#X text 245 541 Get/Set A pitch frequency. Type: float. Units: Hz.
+Default value: 440\. Range: 200\...600\.;
 #X msg 110 583 @t;
 #X text 245 583 Get/Set temperament. Type: symbol. Default value: eq.
 Allowed values: eq \, just \, ganassi \, meantone \, kirnberger3 \,
-pythagorean \, valotti \, zarlino.;
+pythagorean \, rameau \, valotti \, zarlino.;
 #X obj 20 650 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 655 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

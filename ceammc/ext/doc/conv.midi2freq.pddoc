@@ -26,10 +26,10 @@
             standard</argument>
         </arguments>
         <properties>
-            <property name="@a" type="float" default="440" minvalue="200" maxvalue="600">A pitch
-            frequency</property>
+            <property name="@a" type="float" default="440" minvalue="200" maxvalue="600"
+            units="herz">A pitch frequency</property>
             <property name="@t" type="symbol" default="eq"
-            enum="eq just ganassi meantone kirnberger3 pythagorean valotti zarlino">
+            enum="eq just ganassi meantone kirnberger3 pythagorean rameau valotti zarlino">
             temperament</property>
         </properties>
         <inlets>
