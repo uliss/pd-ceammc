@@ -14,6 +14,8 @@
 #include "ceammc_callback_property.h"
 #include "ceammc_log.h"
 
+#include <cmath>
+
 #define PROP_ERR LIB_ERR << '[' << name()->s_name << "] "
 #define PROP_CHECK_ERR(v)                                              \
     {                                                                  \
@@ -27,7 +29,6 @@ CallbackProperty::CallbackProperty(const std::string& name, PropertyBoolGetter g
     , getter_(getter)
     , setter_(setter)
 {
-    setDefault(getter());
 }
 
 CallbackProperty::CallbackProperty(const std::string& name, PropertyFloatGetter getter, PropertyFloatSetter setter, tag<t_float>)
@@ -35,7 +36,6 @@ CallbackProperty::CallbackProperty(const std::string& name, PropertyFloatGetter 
     , getter_(getter)
     , setter_(setter)
 {
-    setDefault(getter());
 }
 
 CallbackProperty::CallbackProperty(const std::string& name, PropertyIntGetter getter, PropertyIntSetter setter, tag<int>)
@@ -43,7 +43,6 @@ CallbackProperty::CallbackProperty(const std::string& name, PropertyIntGetter ge
     , getter_(getter)
     , setter_(setter)
 {
-    setDefault(getter());
 }
 
 CallbackProperty::CallbackProperty(const std::string& name, PropertySymbolGetter getter, PropertySymbolSetter setter, tag<t_symbol*>)
@@ -51,7 +50,6 @@ CallbackProperty::CallbackProperty(const std::string& name, PropertySymbolGetter
     , getter_(getter)
     , setter_(setter)
 {
-    setDefault(getter());
 }
 
 CallbackProperty::CallbackProperty(const std::string& name, PropertyAtomGetter getter, PropertyAtomSetter setter, tag<Atom>)
@@ -59,7 +57,6 @@ CallbackProperty::CallbackProperty(const std::string& name, PropertyAtomGetter g
     , getter_(getter)
     , setter_(setter)
 {
-    setDefault(getter());
 }
 
 CallbackProperty::CallbackProperty(const std::string& name, PropertyListGetter getter, PropertyListSetter setter, tag<AtomList>)
@@ -67,7 +64,6 @@ CallbackProperty::CallbackProperty(const std::string& name, PropertyListGetter g
     , getter_(getter)
     , setter_(setter)
 {
-    setDefault(getter());
 }
 
 bool CallbackProperty::setList(const AtomList& lst)
@@ -258,13 +254,18 @@ bool CallbackProperty::hasListCb(CallbackType t) const
 
 AtomList CallbackProperty::get() const
 {
-#define CHECKED_GETTER_CALL(m)               \
-    {                                        \
-        if (!getter_.m) {                    \
-            PROP_ERR << "getter is not set"; \
-            return AtomList();               \
-        } else                               \
-            return atomFrom(getter_.m());    \
+#define CHECKED_GETTER_CALL(m)                            \
+    {                                                     \
+        if (!getter_.m) {                                 \
+            PROP_ERR << "getter is not set";              \
+            return AtomList();                            \
+        } else {                                          \
+            auto tval = getter_.m();                      \
+            auto p = const_cast<CallbackProperty*>(this); \
+            if (p->info().noDefault())                    \
+                p->info().setDefault(tval);               \
+            return atomFrom(tval);                        \
+        }                                                 \
     }
 
     switch (getter_.type) {
@@ -282,8 +283,14 @@ AtomList CallbackProperty::get() const
         if (!getter_.fn_list) {
             PROP_ERR << "getter is not set";
             return AtomList();
-        } else
-            return getter_.fn_list();
+        } else {
+            AtomList l = getter_.fn_list();
+            auto p = const_cast<CallbackProperty*>(this);
+            if (p->info().noDefault())
+                p->info().setDefault(l);
+
+            return l;
+        }
     }
 
 #undef CHECKED_GETTER_CALL

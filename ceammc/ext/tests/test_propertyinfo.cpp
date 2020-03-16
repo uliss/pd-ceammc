@@ -55,8 +55,9 @@ TEST_CASE("PropertyInfo", "[ceammc::core]")
             REQUIRE_FALSE(pi.hasConstraintsMax());
             REQUIRE(pi.enumValues().empty());
 
+            REQUIRE(pi.noDefault());
             REQUIRE(pi.defaultFloat(-100) == -100);
-            REQUIRE(pi.defaultBool(false) == true);
+            REQUIRE(pi.defaultBool(false) == false);
             REQUIRE(pi.defaultBool(true) == true);
             REQUIRE(pi.defaultInt(-100) == -100);
             REQUIRE(pi.defaultAtom().isNone());
@@ -64,11 +65,11 @@ TEST_CASE("PropertyInfo", "[ceammc::core]")
             REQUIRE(pi.defaultSymbol() == &s_);
 
             pi.setDefault(1000);
-            REQUIRE(pi.defaultBool(false) == true);
+            REQUIRE(pi.defaultBool(false) == false);
             pi.setDefault(4.f);
-            REQUIRE(pi.defaultBool(false) == true);
+            REQUIRE(pi.defaultBool(false) == false);
             pi.setDefault(2.0);
-            REQUIRE(pi.defaultBool(false) == true);
+            REQUIRE(pi.defaultBool(false) == false);
             pi.setDefault(false);
             REQUIRE(pi.defaultBool(true) == false);
             pi.setDefault(&s_list);
@@ -135,7 +136,7 @@ TEST_CASE("PropertyInfo", "[ceammc::core]")
             REQUIRE_FALSE(pi.hasConstraintsMin());
             REQUIRE(pi.enumValues().empty());
 
-            REQUIRE(pi.defaultFloat(-100) == 0);
+            REQUIRE(pi.defaultFloat(-100) == -100);
             REQUIRE(pi.defaultBool(false) == false);
             REQUIRE(pi.defaultBool(true) == true);
             REQUIRE(pi.defaultInt(-100) == -100);
@@ -282,10 +283,11 @@ TEST_CASE("PropertyInfo", "[ceammc::core]")
             REQUIRE_FALSE(pi.hasConstraintsMin());
             REQUIRE(pi.enumValues().empty());
 
+            REQUIRE(pi.noDefault());
             REQUIRE(pi.defaultFloat(-100) == -100);
             REQUIRE(pi.defaultBool(false) == false);
             REQUIRE(pi.defaultBool(true) == true);
-            REQUIRE(pi.defaultInt(-100) == 0);
+            REQUIRE(pi.defaultInt(-200) == -200);
             REQUIRE(pi.defaultAtom().isNone());
             REQUIRE(pi.defaultList().empty());
             REQUIRE(pi.defaultSymbol() == &s_);
@@ -425,13 +427,14 @@ TEST_CASE("PropertyInfo", "[ceammc::core]")
             REQUIRE_FALSE(pi.hasConstraintsMin());
             REQUIRE(pi.enumValues().empty());
 
+            REQUIRE(pi.noDefault());
             REQUIRE(pi.defaultFloat(-100) == -100);
             REQUIRE(pi.defaultBool(false) == false);
             REQUIRE(pi.defaultBool(true) == true);
             REQUIRE(pi.defaultInt(-100) == -100);
             REQUIRE(pi.defaultAtom().isNone());
             REQUIRE(pi.defaultList().empty());
-            REQUIRE(pi.defaultSymbol(SYM("test")) == &s_);
+            REQUIRE(pi.defaultSymbol(SYM("test")) == SYM("test"));
 
             pi.setDefault(1000);
             REQUIRE(pi.defaultSymbol() == &s_);

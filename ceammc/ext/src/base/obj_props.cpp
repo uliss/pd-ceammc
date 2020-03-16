@@ -90,26 +90,32 @@ void ObjProps::onBang()
             val->insert("type", typeToSymbol(p.type()));
             val->insert("view", viewToSymbol(p.view()));
 
-            PropertyValue defval = p.defaultValue();
-            if (defval.type() == typeid(AtomList))
-                val->insert("default", boost::get<AtomList>(defval));
-            else if (defval.type() == typeid(PropertySingleValue)) {
-                PropertySingleValue sv = boost::get<PropertySingleValue>(defval);
-                Atom def;
+            const Atom KEY_DEF(gensym("default"));
 
-                if (sv.type() == typeid(bool))
-                    def.setFloat(boost::get<bool>(sv) ? 1 : 0, true);
-                else if (sv.type() == typeid(int))
-                    def.setFloat(boost::get<int>(sv), true);
-                else if (sv.type() == typeid(float))
-                    def.setFloat(boost::get<float>(sv), true);
-                else if (sv.type() == typeid(t_symbol*))
-                    def.setSymbol(boost::get<t_symbol*>(sv), true);
-                else if (sv.type() == typeid(Atom))
-                    def = boost::get<Atom>(sv);
-
-                if (!def.isNone())
-                    val->insert("default", def);
+            if (p.isBool()) {
+                bool b;
+                if (p.getDefault(b))
+                    val->insert(KEY_DEF, Atom(b ? 1 : 0));
+            } else if (p.isFloat()) {
+                t_float f;
+                if (p.getDefault(f))
+                    val->insert(KEY_DEF, f);
+            } else if (p.isInt()) {
+                int i;
+                if (p.getDefault(i))
+                    val->insert(KEY_DEF, Atom(i));
+            } else if (p.isSymbol()) {
+                t_symbol* s;
+                if (p.getDefault(s))
+                    val->insert(KEY_DEF, Atom(s));
+            } else if (p.isVariant()) {
+                Atom a;
+                if (p.getDefault(a))
+                    val->insert(KEY_DEF, a);
+            } else if (p.isList()) {
+                AtomList l;
+                if (p.getDefault(l))
+                    val->insert(KEY_DEF, l);
             }
 
             if (p.hasConstraintsMin()) {

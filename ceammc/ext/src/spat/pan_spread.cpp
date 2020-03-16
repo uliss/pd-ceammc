@@ -131,7 +131,7 @@ void PanSpread::calcCoefficents()
 
 AtomList PanSpread::propCoeffs() const
 {
-    const size_t N = channels_->value();
+    const size_t N = std::min<size_t>(coefs_l_.size(), channels_->value());
     AtomList res;
     res.reserve(N * 2);
 

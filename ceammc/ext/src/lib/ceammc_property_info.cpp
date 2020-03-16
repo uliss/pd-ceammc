@@ -28,26 +28,6 @@ constexpr t_float FLOAT_INF_MAX = std::numeric_limits<t_float>::max();
 constexpr int INT_INF_MIN = std::numeric_limits<int>::lowest();
 constexpr int INT_INF_MAX = std::numeric_limits<int>::max();
 
-static PropertyValue defaultInitValue(PropValueType type)
-{
-    switch (type) {
-    case PropValueType::INTEGER:
-        return PropertySingleValue(int(0));
-    case PropValueType::FLOAT:
-        return PropertySingleValue(t_float(0));
-    case PropValueType::BOOLEAN:
-        return PropertySingleValue(true);
-    case PropValueType::SYMBOL:
-        return PropertySingleValue(&s_);
-    case PropValueType::VARIANT:
-        return PropertySingleValue(Atom());
-    case PropValueType::LIST:
-        return AtomList();
-    default:
-        return PropertySingleValue(int(0));
-    }
-}
-
 static PropValueView defaultView(PropValueType type)
 {
     switch (type) {
@@ -70,7 +50,6 @@ static PropValueView defaultView(PropValueType type)
 
 PropertyInfo::PropertyInfo(t_symbol* name, PropValueType type, PropValueAccess access)
     : name_(name)
-    , default_(defaultInitValue(type))
     , min_(FLOAT_INF_MIN)
     , max_(FLOAT_INF_MAX)
     , step_(0)
@@ -142,13 +121,13 @@ bool PropertyInfo::hasStep() const
 void PropertyInfo::setDefault(bool v)
 {
     if (isBool())
-        default_ = PropertySingleValue(v);
+        default_ = v;
 }
 
 void PropertyInfo::setDefault(int v)
 {
     if (isInt())
-        default_ = PropertySingleValue(v);
+        default_ = v;
     else if (isFloat())
         setDefault(static_cast<t_float>(v));
 }
@@ -161,31 +140,25 @@ void PropertyInfo::setDefault(size_t v)
 void PropertyInfo::setDefault(float v)
 {
     if (isFloat())
-        default_ = PropertySingleValue(v);
+        default_ = static_cast<t_float>(v);
 }
 
 void PropertyInfo::setDefault(double v)
 {
     if (isFloat())
-        default_ = PropertySingleValue(static_cast<t_float>(v));
+        default_ = static_cast<t_float>(v);
 }
 
 void PropertyInfo::setDefault(t_symbol* s)
 {
     if (isSymbol())
-        default_ = PropertySingleValue(s);
+        default_ = s;
 }
 
 void PropertyInfo::setDefault(const Atom& a)
 {
     if (isVariant())
-        default_ = PropertySingleValue(a);
-}
-
-void PropertyInfo::setDefault(const PropertySingleValue& v)
-{
-    if (!isList())
-        default_ = v;
+        default_ = a;
 }
 
 void PropertyInfo::setDefault(const AtomList& lst)
@@ -197,6 +170,11 @@ void PropertyInfo::setDefault(const AtomList& lst)
 void PropertyInfo::setDefault(const PropertyValue& v)
 {
     default_ = v;
+}
+
+bool PropertyInfo::noDefault() const
+{
+    return default_.type() == typeid(boost::blank);
 }
 
 bool PropertyInfo::setMinFloat(t_float v)

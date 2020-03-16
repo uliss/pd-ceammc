@@ -18,6 +18,7 @@
 #include "ceammc_atomlist.h"
 #include "m_pd.h"
 
+#include <boost/blank.hpp>
 #include <boost/variant.hpp>
 #include <cstddef>
 #include <cstdint>
@@ -36,8 +37,7 @@
 
 namespace ceammc {
 
-using PropertySingleValue = boost::variant<bool, int, t_float, t_symbol*, Atom>;
-using PropertyValue = boost::variant<PropertySingleValue, AtomList>;
+using PropertyValue = boost::variant<boost::blank, bool, int, t_float, t_symbol*, Atom, AtomList>;
 
 enum class PropValueType : uint8_t {
     BOOLEAN = 0,
@@ -231,9 +231,6 @@ public:
     bool addEnums(std::initializer_list<const char*> c_list) CEAMMC_WARN_UNUSED;
     void clearEnum();
 
-    /// default values
-    const PropertyValue& defaultValue() const { return default_; }
-
     void setDefault(bool v);
     void setDefault(int v);
     void setDefault(size_t v);
@@ -241,7 +238,6 @@ public:
     void setDefault(double v);
     void setDefault(t_symbol* s);
     void setDefault(const Atom& a);
-    void setDefault(const PropertySingleValue& v);
     void setDefault(const AtomList& lst);
     void setDefault(const PropertyValue& v);
 
@@ -253,6 +249,7 @@ public:
         return getT<T>(default_, v);
     }
 
+    bool noDefault() const;
     bool defaultBool(bool def = false) const;
     int defaultInt(int def = 0) const;
     t_float defaultFloat(t_float def = 0) const;
@@ -265,14 +262,10 @@ public:
     template <typename T>
     static bool getT(const PropertyValue& v, T& out)
     {
-        if (v.type() != typeid(PropertySingleValue))
+        if (v.type() != typeid(T))
             return false;
 
-        auto& scalar = boost::get<PropertySingleValue>(v);
-        if (scalar.type() != typeid(T))
-            return false;
-
-        out = boost::get<T>(scalar);
+        out = boost::get<T>(v);
         return true;
     }
 

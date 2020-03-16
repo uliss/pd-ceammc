@@ -136,6 +136,8 @@ TEST_CASE("Properties", "[ceammc::properties]")
                 REQUIRE(!p.isInternal());
 
                 bool b = false;
+                REQUIRE_FALSE(p.getDefault(b));
+                REQUIRE(p.get() == LF(1));
                 REQUIRE(p.getDefault(b));
                 REQUIRE(b == value);
 
@@ -213,7 +215,10 @@ TEST_CASE("Properties", "[ceammc::properties]")
             REQUIRE(p.isReadWrite());
             REQUIRE(!p.isInitOnly());
             REQUIRE(!p.isReadOnly());
+
             t_float def = -1;
+            REQUIRE_FALSE(p.getDefault(def));
+            REQUIRE(p.get() == LF(100));
             REQUIRE(p.getDefault(def));
             REQUIRE(def == 100);
 
@@ -242,7 +247,10 @@ TEST_CASE("Properties", "[ceammc::properties]")
             REQUIRE(p.isReadWrite());
             REQUIRE(!p.isInitOnly());
             REQUIRE(!p.isReadOnly());
+
             int def = 1000;
+            REQUIRE_FALSE(p.getDefault(def));
+            REQUIRE(p.get() == LF(-1));
             REQUIRE(p.getDefault(def));
             REQUIRE(def == -1);
 
@@ -314,7 +322,10 @@ TEST_CASE("Properties", "[ceammc::properties]")
             REQUIRE(p.isReadWrite());
             REQUIRE(!p.isInitOnly());
             REQUIRE(!p.isReadOnly());
+
             t_symbol* def = 0;
+            REQUIRE_FALSE(p.getDefault(def));
+            REQUIRE(p.get() == LA("ABC"));
             REQUIRE(p.getDefault(def));
             REQUIRE(def == SYM("ABC"));
 
@@ -347,7 +358,10 @@ TEST_CASE("Properties", "[ceammc::properties]")
             REQUIRE(p.isReadWrite());
             REQUIRE(!p.isInitOnly());
             REQUIRE(!p.isReadOnly());
+
             Atom def;
+            REQUIRE_FALSE(p.getDefault(def));
+            REQUIRE(p.get() == LA(-200));
             REQUIRE(p.getDefault(def));
             REQUIRE(def == Atom(-200));
 
@@ -432,7 +446,10 @@ TEST_CASE("Properties", "[ceammc::properties]")
             REQUIRE(p.isReadWrite());
             REQUIRE(!p.isInitOnly());
             REQUIRE(!p.isReadOnly());
+
             AtomList def;
+            REQUIRE_FALSE(p.getDefault(def));
+            REQUIRE(p.get() == LF(1, 2, 3));
             REQUIRE(p.getDefault(def));
             REQUIRE(def == LF(1, 2, 3));
 
