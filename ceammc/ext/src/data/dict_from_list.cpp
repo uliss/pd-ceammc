@@ -15,14 +15,16 @@
 #include "ceammc_factory.h"
 #include "datatype_dict.h"
 
-static const int MIN_STEP = 2;
-static const int DEFAULT_STEP = 2;
+constexpr int MIN_STEP = 2;
+constexpr int DEFAULT_STEP = 2;
 
 DictFromList::DictFromList(const PdArgs& args)
     : BaseObject(args)
     , n_(nullptr)
 {
-    n_ = new IntPropertyMinEq("@step", positionalFloatArgument(0, DEFAULT_STEP), MIN_STEP);
+    n_ = new IntProperty("@step", DEFAULT_STEP);
+    n_->setArgIndex(0);
+    n_->checkMinEq(MIN_STEP);
     createProperty(n_);
 
     createOutlet();

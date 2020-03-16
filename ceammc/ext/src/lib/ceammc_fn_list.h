@@ -137,7 +137,7 @@ namespace list {
     }
 
     template <>
-    bool canConvertToType<AtomList>(const AtomList& l)
+    bool canConvertToType<AtomList>(const AtomList&)
     {
         return true;
     }

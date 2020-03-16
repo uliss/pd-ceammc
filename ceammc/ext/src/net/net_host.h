@@ -14,6 +14,7 @@
 #ifndef NET_HOST_H
 #define NET_HOST_H
 
+#include "ceammc_property_enum.h"
 #include "ceammc_thread.h"
 
 using namespace ceammc;

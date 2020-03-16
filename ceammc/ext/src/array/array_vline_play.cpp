@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_vline_play.h"
+#include "ceammc_callback_property.h"
 #include "ceammc_factory.h"
 
 #include <boost/none.hpp>
@@ -34,6 +35,17 @@ static t_symbol* SYM_SELECT_PHASE;
 static t_symbol* SYM_SELECT_MS;
 static t_symbol* SYM_SELECT_SEC;
 
+static t_symbol* stateToSym(PlayerState state)
+{
+    switch (state) {
+    case STATE_PLAY:
+        return SYM_PLAY;
+    case STATE_STOP:
+    default:
+        return SYM_STOP;
+    }
+}
+
 ArrayVlinePlay::ArrayVlinePlay(const PdArgs& args)
     : ArrayBase(args)
     , state_(STATE_STOP)
@@ -46,43 +58,46 @@ ArrayVlinePlay::ArrayVlinePlay(const PdArgs& args)
     createOutlet();
     createOutlet();
 
-    {
-        auto p = createCbProperty("@state", &ArrayVlinePlay::propState);
-        p->info().setType(PropertyInfoType::SYMBOL);
-        p->info().addEnum("play");
-        p->info().addEnum("stop");
-    }
+    createCbSymbolProperty("@state", [this]() -> t_symbol* { return stateToSym(state_); });
+    //        p->info().addEnum("play");
+    //        p->info().addEnum("stop");
 
-    {
-        auto p = createCbProperty("@speed", &ArrayVlinePlay::propSpeed, &ArrayVlinePlay::propSetSpeed);
-        p->info().setType(PropertyInfoType::FLOAT);
-        p->info().setMin(0.1);
-        p->info().setDefault(1.f);
-    }
+    createCbFloatProperty(
+        "@speed",
+        [this]() { return speed_; },
+        [this](t_float f) { speed_ = f; return true; })
+        ->setFloatCheck(PropValueConstraints::GREATER_THEN, 0.1);
 
-    {
-        auto p = createCbProperty("@begin", &ArrayVlinePlay::propBeginSample, &ArrayVlinePlay::propSetBeginSample);
-        p->info().setType(PropertyInfoType::INTEGER);
-        p->info().setUnits(PropertyInfoUnits::SAMP);
-    }
+    createCbIntProperty(
+        "@begin",
+        [this]() -> int { return begin_pos_; },
+        [this](int v) -> bool {
+            if (!checkArray())
+                return false;
+            else {
+                begin_pos_ = v;
+                return true;
+            }
+        })
+        ->setUnitsSamp();
 
-    {
-        auto p = createCbProperty("@end", &ArrayVlinePlay::propEndSample, &ArrayVlinePlay::propSetEndSample);
-        p->info().setType(PropertyInfoType::INTEGER);
-        p->info().setUnits(PropertyInfoUnits::SAMP);
-    }
+    createCbIntProperty(
+        "@end",
+        [this]() -> int { return end_pos_; },
+        [this](int v) -> bool {
+            if (!checkArray())
+                return false;
 
-    {
-        auto p = createCbProperty("@abs_begin", &ArrayVlinePlay::propAbsBeginSample);
-        p->info().setType(PropertyInfoType::INTEGER);
-        p->info().setUnits(PropertyInfoUnits::SAMP);
-    }
+            end_pos_ = v;
+            return true;
+        })
+        ->setUnitsSamp();
 
-    {
-        auto p = createCbProperty("@abs_end", &ArrayVlinePlay::propAbsEndSample);
-        p->info().setType(PropertyInfoType::INTEGER);
-        p->info().setUnits(PropertyInfoUnits::SAMP);
-    }
+    createCbIntProperty("@abs_begin", [this]() -> int { checkArray(); return toAbsPosition(begin_pos_); })
+        ->setUnits(PropValueUnits::SAMP);
+
+    createCbIntProperty("@abs_end", [this]() -> int { checkArray(); return toAbsPosition(end_pos_); })
+        ->setUnits(PropValueUnits::SAMP);
 
     reversed_ = new BoolProperty("@reversed", false);
     createProperty(reversed_);
@@ -101,82 +116,6 @@ bool ArrayVlinePlay::processAnyProps(t_symbol* s, const AtomList& args)
         return true;
 
     return BaseObject::processAnyProps(s, args);
-}
-
-AtomList ArrayVlinePlay::propState() const
-{
-    if (state_ == STATE_PLAY)
-        return Atom(SYM_PLAY);
-    else if (state_ == STATE_STOP)
-        return Atom(SYM_STOP);
-    else
-        return Atom(SYM_STOP);
-}
-
-AtomList ArrayVlinePlay::propSpeed() const
-{
-    return Atom(speed_);
-}
-
-void ArrayVlinePlay::propSetSpeed(const AtomList& lst)
-{
-    float new_speed = lst.floatAt(0, 1);
-    if (new_speed < 0.1) {
-        OBJ_ERR << "playback speed is too low: " << new_speed;
-        return;
-    }
-
-    speed_ = new_speed;
-}
-
-AtomList ArrayVlinePlay::propBeginSample() const
-{
-    return Atom(begin_pos_);
-}
-
-AtomList ArrayVlinePlay::propEndSample() const
-{
-    return Atom(end_pos_);
-}
-
-void ArrayVlinePlay::propSetBeginSample(const AtomList& pos)
-{
-    if (!checkArray())
-        return;
-
-    if (!checkArgs(pos, ARG_FLOAT))
-        return;
-
-    begin_pos_ = pos[0].asFloat();
-}
-
-void ArrayVlinePlay::propSetEndSample(const AtomList& pos)
-{
-    if (!checkArray())
-        return;
-
-    if (!checkArgs(pos, ARG_FLOAT))
-        return;
-
-    end_pos_ = pos[0].asFloat();
-}
-
-AtomList ArrayVlinePlay::propAbsBeginSample() const
-{
-    // dirty const cast
-    ArrayVlinePlay* mthis = const_cast<ArrayVlinePlay*>(this);
-    mthis->checkArray();
-
-    return Atom(toAbsPosition(begin_pos_));
-}
-
-AtomList ArrayVlinePlay::propAbsEndSample() const
-{
-    // dirty const cast
-    ArrayVlinePlay* mthis = const_cast<ArrayVlinePlay*>(this);
-    mthis->checkArray();
-
-    return Atom(toAbsPosition(end_pos_));
 }
 
 void ArrayVlinePlay::onBang()

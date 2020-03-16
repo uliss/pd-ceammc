@@ -16,6 +16,7 @@
 
 #include "ceammc_dataatomlist.h"
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 
 using namespace ceammc;
 

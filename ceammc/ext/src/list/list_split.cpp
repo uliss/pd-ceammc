@@ -6,7 +6,8 @@ ListSplit::ListSplit(const ceammc::PdArgs& args)
     : BaseObject(args)
     , index_(nullptr)
 {
-    index_ = new SizeTProperty("@at", positionalFloatArgument(0));
+    index_ = new SizeTProperty("@at", 0);
+    index_->setArgIndex(0);
     createProperty(index_);
 
     createOutlet();

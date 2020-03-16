@@ -51,20 +51,23 @@ public:
             OBJ_DBG << "global object ID required! Using default id: \"" << data_.name()->s_name << '"';
 
         createOutlet();
-        createCbProperty("@.id", &GlobalBase::m_id);
-        createCbProperty("@.obj_refs", &GlobalBase::m_refs);
-        createCbProperty("@.obj_keys", &GlobalBase::m_keys);
+
+        createCbSymbolProperty("@.id", [this]() -> t_symbol* { return data_.name(); })
+            ->setInternal();
+
+        createCbListProperty("@.obj_refs",
+            [this]() -> AtomList { return m_refs(); })
+            ->setInternal();
+
+        createCbListProperty("@.obj_keys",
+            [this]() -> AtomList { return m_keys(); })
+            ->setInternal();
     }
 
     T& ref() { return data_.ref(); }
     const T& ref() const { return data_.ref(); }
 
     size_t refCount() const { return data_.refCount(); }
-
-    AtomList m_id() const
-    {
-        return listFrom(data_.name());
-    }
 
     AtomList m_keys() const
     {

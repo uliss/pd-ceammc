@@ -68,9 +68,39 @@ Atom::Atom(const DataDesc& d)
     setData(d);
 }
 
+bool Atom::isBool() const
+{
+    static t_symbol* SYM_TRUE = gensym("true");
+    static t_symbol* SYM_FALSE = gensym("false");
+
+    switch (a_type) {
+    case A_DEFFLOAT:
+    case A_FLOAT: {
+        return std::equal_to<t_float>()(a_w.w_float, 1)
+            || std::equal_to<t_float>()(a_w.w_float, 0);
+    }
+    case A_SYMBOL: {
+        t_symbol* s = a_w.w_symbol;
+        return (s == SYM_TRUE) || (s == SYM_FALSE);
+    };
+    default:
+        return false;
+    }
+}
+
 bool Atom::isFloat() const
 {
     return type() == FLOAT;
+}
+
+bool Atom::isNonNegative() const
+{
+    return type() == FLOAT && a_w.w_float >= 0;
+}
+
+bool Atom::isPositive() const
+{
+    return type() == FLOAT && a_w.w_float > 0;
 }
 
 bool Atom::isNone() const
@@ -90,12 +120,13 @@ bool Atom::isProperty() const
 
 bool Atom::isInteger() const
 {
-    return isFloat() && ceilf(a_w.w_float) == a_w.w_float;
+    return isFloat()
+        && std::equal_to<t_float>()(std::ceil(a_w.w_float), a_w.w_float);
 }
 
 bool Atom::isNatural() const
 {
-    return isInteger() && a_w.w_float >= 0.f;
+    return isInteger() && a_w.w_float >= t_float(0);
 }
 
 bool Atom::isData() const
@@ -130,7 +161,7 @@ Atom::Type Atom::type() const
 
 bool Atom::getFloat(t_float* v) const
 {
-    if (v == 0)
+    if (!v)
         return false;
 
     if (!isFloat())
@@ -179,6 +210,27 @@ bool Atom::setSymbol(t_symbol* s, bool force)
     return true;
 }
 
+bool Atom::asBool(bool def) const
+{
+    static t_symbol* SYM_TRUE = gensym("true");
+    static t_symbol* SYM_FALSE = gensym("false");
+
+    switch (a_type) {
+    case A_DEFFLOAT:
+    case A_FLOAT:
+        return !std::equal_to<t_float>()(a_w.w_float, 0);
+    case A_SYMBOL:
+        if (a_w.w_symbol == SYM_TRUE)
+            return true;
+        else if (a_w.w_symbol == SYM_FALSE)
+            return false;
+        else
+            return def;
+    default:
+        return def;
+    }
+}
+
 t_float Atom::asFloat(t_float def) const
 {
     return isFloat() ? a_w.w_float : def;
@@ -207,16 +259,9 @@ std::string Atom::asString() const
 {
     if (isSymbol())
         return a_w.w_symbol->s_name;
-    if (isFloat()) {
-        char buf[16];
-        if ((a_w.w_float - static_cast<int>(a_w.w_float)) < 0.001)
-            sprintf(buf, "%.0f", a_w.w_float);
-        else
-            sprintf(buf, "%.4f", a_w.w_float);
-        std::string ret = buf;
-        return ret;
-    }
-    return "";
+    else if (isFloat())
+        return std::to_string(a_w.w_float);
+    return {};
 }
 
 bool Atom::operator<(const Atom& a) const
@@ -251,7 +296,7 @@ void Atom::output(_outlet* x) const
     to_outlet(x, *this);
 }
 
-Atom& Atom::operator+=(double v)
+Atom& Atom::operator+=(t_float v)
 {
     if (isFloat())
         a_w.w_float += v;
@@ -259,7 +304,7 @@ Atom& Atom::operator+=(double v)
     return *this;
 }
 
-Atom& Atom::operator-=(double v)
+Atom& Atom::operator-=(t_float v)
 {
     if (isFloat())
         a_w.w_float -= v;
@@ -267,7 +312,7 @@ Atom& Atom::operator-=(double v)
     return *this;
 }
 
-Atom& Atom::operator*=(double v)
+Atom& Atom::operator*=(t_float v)
 {
     if (isFloat())
         a_w.w_float *= v;
@@ -275,7 +320,7 @@ Atom& Atom::operator*=(double v)
     return *this;
 }
 
-Atom& Atom::operator/=(double v)
+Atom& Atom::operator/=(t_float v)
 {
     if (isFloat() && v != 0.0)
         a_w.w_float /= v;
@@ -283,22 +328,22 @@ Atom& Atom::operator/=(double v)
     return *this;
 }
 
-Atom Atom::operator+(double v) const
+Atom Atom::operator+(t_float v) const
 {
     return Atom(*this) += v;
 }
 
-Atom Atom::operator-(double v) const
+Atom Atom::operator-(t_float v) const
 {
     return Atom(*this) -= v;
 }
 
-Atom Atom::operator*(double v) const
+Atom Atom::operator*(t_float v) const
 {
     return Atom(*this) *= v;
 }
 
-Atom Atom::operator/(double v) const
+Atom Atom::operator/(t_float v) const
 {
     return Atom(*this) /= v;
 }
@@ -427,4 +472,5 @@ bool DataDesc::operator!=(const DataDesc& d) const
 {
     return !(this->operator==(d));
 }
+
 }

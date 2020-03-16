@@ -28,7 +28,7 @@ FlowMatch::FlowMatch(const PdArgs& args)
         createInlet();
         createOutlet();
 
-        re_.emplace_back(Re2Ptr(new re2::RE2(regexp::escape(to_string(positionalArgument(i))))));
+        re_.emplace_back(Re2Ptr(new re2::RE2(regexp::escape(to_string(args.args[i])))));
     }
 
     createOutlet();

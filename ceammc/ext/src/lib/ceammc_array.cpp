@@ -56,6 +56,14 @@ Array::Array(const char* name, std::initializer_list<t_sample> l)
     }
 }
 
+Array::Array(const Array& array)
+    : name_(array.name_)
+    , array_(array.array_)
+    , size_(array.size_)
+    , data_(array.data_)
+{
+}
+
 Array::iterator Array::begin()
 {
     return ArrayIterator(data_);

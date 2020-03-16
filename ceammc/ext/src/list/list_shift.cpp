@@ -10,7 +10,8 @@ ListShift::ListShift(const PdArgs& args)
     createInlet();
     createOutlet();
 
-    shift_ = new FloatProperty("@shift", positionalFloatArgument(0, 0));
+    shift_ = new FloatProperty("@shift", 0);
+    shift_->setArgIndex(0);
     createProperty(shift_);
 }
 

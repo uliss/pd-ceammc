@@ -374,6 +374,25 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
             REQUIRE_FALSE(LF(1).isBang());
         }
 
+        SECTION("isAtom")
+        {
+            REQUIRE_FALSE(L().isAtom());
+            REQUIRE_FALSE(LF(1, 2).isAtom());
+            REQUIRE(LA("ABC").isAtom());
+            REQUIRE(LA(100).isAtom());
+        }
+
+        SECTION("isBool")
+        {
+            REQUIRE_FALSE(L().isBool());
+            REQUIRE_FALSE(LF(1, 2).isBool());
+            REQUIRE_FALSE(LA("True").isBool());
+            REQUIRE(LA("true").isBool());
+            REQUIRE(LA("false").isBool());
+            REQUIRE(LA(1).isBool());
+            REQUIRE(LA(0.0).isBool());
+        }
+
         SECTION("isFloat")
         {
             REQUIRE_FALSE(L().isFloat());
@@ -444,6 +463,93 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
             REQUIRE(prop.isSymbol());
             REQUIRE(prop.isProperty());
             REQUIRE(lst.isList());
+        }
+
+        SECTION("isA<>")
+        {
+            REQUIRE_FALSE(L().isA<bool>());
+            REQUIRE_FALSE(L().isA<t_float>());
+            REQUIRE_FALSE(L().isA<int>());
+            REQUIRE_FALSE(L().isA<t_symbol*>());
+            REQUIRE_FALSE(L().isA<Atom>());
+            REQUIRE(L().isA<AtomList>());
+
+            // bool
+            REQUIRE(LA("true").isA<bool>());
+            REQUIRE(LA("false").isA<bool>());
+            REQUIRE(LA(1).isA<bool>());
+            REQUIRE(LF(0).isA<bool>());
+
+            REQUIRE_FALSE(LA("True").isA<bool>());
+            REQUIRE_FALSE(LA("False").isA<bool>());
+            REQUIRE_FALSE(LA("ABC").isA<bool>());
+            REQUIRE_FALSE(LA("@true").isA<bool>());
+            REQUIRE_FALSE(LF(-1).isA<bool>());
+            REQUIRE_FALSE(LF(0.0001).isA<bool>());
+            REQUIRE_FALSE(LF(1.0001).isA<bool>());
+            REQUIRE_FALSE(LA("true", "true").isA<bool>());
+            REQUIRE_FALSE(LA("false", "B").isA<bool>());
+            REQUIRE_FALSE(LF(1, 2).isA<bool>());
+            REQUIRE_FALSE(LF(0, 0).isA<bool>());
+
+            // float
+            REQUIRE(LA(1).isA<t_float>());
+            REQUIRE(LF(0).isA<t_float>());
+            REQUIRE(LA(-1).isA<t_float>());
+            REQUIRE(LF(0.5).isA<t_float>());
+            REQUIRE(LA(-0.1).isA<t_float>());
+
+            REQUIRE_FALSE(LF(1, 2).isA<t_float>());
+            REQUIRE_FALSE(LA("").isA<t_float>());
+            REQUIRE_FALSE(LA("100").isA<t_float>());
+            REQUIRE_FALSE(LA("ABC").isA<t_float>());
+            REQUIRE_FALSE(LA("@prop").isA<t_float>());
+
+            // int
+            REQUIRE(LA(1).isA<int>());
+            REQUIRE(LF(0).isA<int>());
+            REQUIRE(LA(-1).isA<int>());
+            REQUIRE_FALSE(LF(0.0001).isA<int>());
+            REQUIRE_FALSE(LA(-0.0001).isA<int>());
+            REQUIRE_FALSE(LA(1.0001).isA<int>());
+            REQUIRE_FALSE(LA(-1.0001).isA<int>());
+            REQUIRE_FALSE(LA(-0.9999).isA<int>());
+            REQUIRE_FALSE(LA(0.9999).isA<int>());
+
+            REQUIRE_FALSE(LF(1, 2).isA<int>());
+            REQUIRE_FALSE(LA("").isA<int>());
+            REQUIRE_FALSE(LA("100").isA<int>());
+            REQUIRE_FALSE(LA("ABC").isA<int>());
+            REQUIRE_FALSE(LA("@prop").isA<int>());
+
+            // symbol
+            REQUIRE(LA("").isA<t_symbol*>());
+            REQUIRE(LA("100").isA<t_symbol*>());
+            REQUIRE(LA("ABC").isA<t_symbol*>());
+            REQUIRE(LA("@prop").isA<t_symbol*>());
+
+            REQUIRE_FALSE(L().isA<t_symbol*>());
+            REQUIRE_FALSE(LF(0).isA<t_symbol*>());
+            REQUIRE_FALSE(LA("A", "B").isA<t_symbol*>());
+
+            // atom
+            REQUIRE(LA(1).isA<Atom>());
+            REQUIRE(LA(1.6).isA<Atom>());
+            REQUIRE(LA("A").isA<Atom>());
+            REQUIRE(LA("@prop").isA<Atom>());
+            REQUIRE(LA("").isA<Atom>());
+
+            REQUIRE_FALSE(L().isA<Atom>());
+            REQUIRE_FALSE(LA(1, 2).isA<Atom>());
+            REQUIRE_FALSE(LA("A", 1).isA<Atom>());
+
+            // list
+            REQUIRE(L().isA<AtomList>());
+            REQUIRE(LA("A").isA<AtomList>());
+            REQUIRE(LF(1).isA<AtomList>());
+            REQUIRE(LA("true").isA<AtomList>());
+            REQUIRE(LF(1, 2).isA<AtomList>());
+            REQUIRE(LA("Ab", 1, 2).isA<AtomList>());
         }
     }
 
@@ -595,5 +701,91 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
         AtomList a3(LF(1, 2, 3));
         REQUIRE(std::min_element(a3.beginFilter(isSymbol), a3.endFilter()) == a3.endFilter());
         REQUIRE(std::max_element(a3.beginFilter(isSymbol), a3.endFilter()) == a3.endFilter());
+    }
+
+    SECTION("has property")
+    {
+        REQUIRE_FALSE(L().hasProperty("@name"));
+        REQUIRE_FALSE(LF(1, 2, 3).hasProperty("@name"));
+        REQUIRE_FALSE(LA(1, 2, "abc").hasProperty("@name"));
+        REQUIRE_FALSE(LA(1, 2, "@abc").hasProperty("@name"));
+        REQUIRE(LA(1, "@name", "abc").hasProperty("@name"));
+    }
+
+    SECTION("t_atom")
+    {
+        t_atom a[3];
+        SETFLOAT(a + 0, 0);
+        SETFLOAT(a + 1, 1);
+        SETFLOAT(a + 2, 2);
+        REQUIRE(AtomList(int(3), a) == LF(0, 1, 2));
+        REQUIRE(AtomList(size_t(2), a + 1) == LF(1, 2));
+    }
+
+    SECTION("*At")
+    {
+        REQUIRE(LF(1.1, 2).intAt(0, -100) == 1);
+        REQUIRE(LF(1, 2.999).intAt(1, -100) == 2);
+        REQUIRE(LF(1, 2).intAt(2, -100) == -100);
+        REQUIRE(LA("A", 2).intAt(0, -1) == -1);
+        REQUIRE(L().intAt(0, -100) == -100);
+
+        REQUIRE(LF(1.5, 2).floatAt(0, -100) == Approx(1.5));
+        REQUIRE(LF(1, 2.25).floatAt(1, -100) == Approx(2.25));
+        REQUIRE(LF(1, 2).floatAt(2, -1) == -1);
+        REQUIRE(L().floatAt(0, -100) == -100);
+
+        REQUIRE(LA("A", 1, 3.5).symbolAt(0, SYM("?")) == LA("A"));
+        REQUIRE(LA("A", 1, 3.5).symbolAt(1, SYM("?")) == LA("?"));
+        REQUIRE(LA("A", 1, 3.5).symbolAt(2, SYM("?")) == LA("?"));
+        REQUIRE(LA("A", 1, 3.5).symbolAt(3, SYM("?")) == LA("?"));
+        REQUIRE(L().symbolAt(0, nullptr) == nullptr);
+    }
+
+    SECTION("isA")
+    {
+        REQUIRE_FALSE(L().isA<t_symbol*>());
+        REQUIRE_FALSE(L().isA<Atom>());
+        REQUIRE(L().isA<AtomList>());
+
+        REQUIRE(LA("true").isA<bool>());
+        REQUIRE(LA("false").isA<bool>());
+        REQUIRE_FALSE(LA("abc").isA<bool>());
+        REQUIRE(LF(1).isA<bool>());
+        REQUIRE(LF(0).isA<bool>());
+        REQUIRE_FALSE(L().isA<bool>());
+        REQUIRE_FALSE(LF(0.999).isA<bool>());
+        REQUIRE_FALSE(LF(1, 1).isA<bool>());
+        REQUIRE_FALSE(LF(0.001).isA<bool>());
+
+        REQUIRE(LF(1).isA<t_float>());
+        REQUIRE(LF(0.001).isA<t_float>());
+        REQUIRE_FALSE(L().isA<t_float>());
+        REQUIRE_FALSE(LA("abc").isA<t_float>());
+        REQUIRE_FALSE(LF(1, 2).isA<t_float>());
+
+        REQUIRE(LF(1).isA<int>());
+        REQUIRE(LF(-100).isA<int>());
+        REQUIRE_FALSE(L().isA<int>());
+        REQUIRE_FALSE(LF(0.5).isA<int>());
+        REQUIRE_FALSE(LA("abc").isA<int>());
+        REQUIRE_FALSE(LF(1, 2).isA<int>());
+
+        REQUIRE(LA("abc").isA<t_symbol*>());
+        REQUIRE(LA("@prop").isA<t_symbol*>());
+        REQUIRE_FALSE(L().isA<t_symbol*>());
+        REQUIRE_FALSE(LF(0.5).isA<t_symbol*>());
+        REQUIRE_FALSE(LF(1, 2).isA<t_symbol*>());
+
+        REQUIRE(LA("abc").isA<Atom>());
+        REQUIRE(LA("@prop").isA<Atom>());
+        REQUIRE(LF(0.5).isA<Atom>());
+        REQUIRE_FALSE(L().isA<Atom>());
+        REQUIRE_FALSE(LF(1, 2).isA<Atom>());
+
+        REQUIRE_FALSE(L().isInteger());
+        REQUIRE_FALSE(LF(1, 2).isInteger());
+        REQUIRE(LF(1).isInteger());
+        REQUIRE_FALSE(LF(0.5).isInteger());
     }
 }

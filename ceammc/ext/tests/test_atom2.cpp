@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "test_base.h"
 #include "ceammc_atom.h"
+#include "test_base.h"
 
 #include "catch.hpp"
 
@@ -70,5 +70,48 @@ TEST_CASE("Atom2", "[ceammc::Atom]")
         REQUIRE(D(1, 1) != D(2, 1));
         REQUIRE(D(1, 1) != D(1, 2));
         REQUIRE(D(1, 2) != D(3, 4));
+    }
+
+    SECTION("isA")
+    {
+        REQUIRE_FALSE(Atom().isA<bool>());
+        REQUIRE(Atom(1).isA<bool>());
+        REQUIRE(Atom(0.f).isA<bool>());
+        REQUIRE_FALSE(Atom(-1).isA<bool>());
+        REQUIRE_FALSE(Atom(0.001).isA<bool>());
+        REQUIRE_FALSE(S("A").isA<bool>());
+        REQUIRE(S("true").isA<bool>());
+        REQUIRE(S("false").isA<bool>());
+        REQUIRE_FALSE(S("True").isA<bool>());
+        REQUIRE_FALSE(S("False").isA<bool>());
+
+        REQUIRE_FALSE(Atom().isA<t_float>());
+        REQUIRE(Atom(1).isA<t_float>());
+        REQUIRE(Atom(0.f).isA<t_float>());
+        REQUIRE(Atom(-1).isA<t_float>());
+        REQUIRE(Atom(0.001).isA<t_float>());
+        REQUIRE_FALSE(S("A").isA<t_float>());
+        REQUIRE_FALSE(S("0.001").isA<t_float>());
+
+        REQUIRE_FALSE(Atom().isA<int>());
+        REQUIRE(Atom(1).isA<int>());
+        REQUIRE(Atom(0.f).isA<int>());
+        REQUIRE(Atom(-1).isA<int>());
+        REQUIRE_FALSE(Atom(0.0001).isA<int>());
+        REQUIRE_FALSE(Atom(0.999999).isA<int>());
+        REQUIRE_FALSE(Atom(-0.0001).isA<int>());
+        REQUIRE_FALSE(Atom(-0.999999).isA<int>());
+        REQUIRE_FALSE(S("A").isA<int>());
+        REQUIRE_FALSE(S("100").isA<int>());
+
+        REQUIRE_FALSE(Atom().isA<t_symbol*>());
+        REQUIRE_FALSE(Atom(1).isA<t_symbol*>());
+        REQUIRE_FALSE(Atom(0.f).isA<t_symbol*>());
+        REQUIRE_FALSE(Atom(-1).isA<t_symbol*>());
+        REQUIRE_FALSE(Atom(0.0001).isA<t_symbol*>());
+        REQUIRE_FALSE(Atom(0.999999).isA<t_symbol*>());
+        REQUIRE(S("A").isA<t_symbol*>());
+        REQUIRE(S("@A").isA<t_symbol*>());
+        REQUIRE(S("100").isA<t_symbol*>());
     }
 }

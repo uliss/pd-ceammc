@@ -153,7 +153,7 @@ void ArrayFill::m_pulse(t_symbol* m, const AtomList& l)
 
     const t_float period = l.floatAt(0, 0);
     const t_float amp = l.floatAt(1, 1);
-    const t_float duty = clip<t_float>(l.floatAt(2, 0.5), 0.001, 0.999);
+    const t_float duty = clip<t_float>(l.floatAt(2, 0.5), t_float(0.001), t_float(0.999));
 
     if (period <= 1) {
         METHOD_ERR(m) << "invalid period value: " << period;

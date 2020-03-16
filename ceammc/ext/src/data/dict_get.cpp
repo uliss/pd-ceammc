@@ -37,7 +37,7 @@ void DictGet::parseProperties()
 {
 }
 
-bool DictGet::processAnyProps(t_symbol* sel, const AtomList& lst)
+bool DictGet::processAnyProps(t_symbol* /*sel*/, const AtomList& /*lst*/)
 {
     return true;
 }

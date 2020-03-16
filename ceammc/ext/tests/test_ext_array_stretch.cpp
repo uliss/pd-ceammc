@@ -27,6 +27,7 @@ static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 TEST_CASE("array.stretch", "[externals]")
 {
     setup_array0x2estretch();
+    test::pdPrintToStdError();
 
     SECTION("create")
     {
@@ -38,8 +39,8 @@ TEST_CASE("array.stretch", "[externals]")
             ArrayStretchTest t("array.stretch");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY_NONE(t, @src);
-            REQUIRE_PROPERTY_NONE(t, @dest);
+            REQUIRE_PROPERTY(t, @src, "");
+            REQUIRE_PROPERTY(t, @dest, "");
             REQUIRE_PROPERTY(t, @pitch, 0.f);
             REQUIRE_PROPERTY(t, @tempo, 0.f);
             REQUIRE_PROPERTY(t, @rate, 1);
@@ -56,7 +57,7 @@ TEST_CASE("array.stretch", "[externals]")
 
         SECTION("@speech")
         {
-            ArrayStretchTest t("array.stretch", LA("@speech"));
+            ArrayStretchTest t("array.stretch", LA("@speech", 1));
             REQUIRE_PROPERTY(t, @sequence, 40);
             REQUIRE_PROPERTY(t, @seekwindow, 15);
             REQUIRE_PROPERTY(t, @overlap, 8);
@@ -69,7 +70,7 @@ TEST_CASE("array.stretch", "[externals]")
             {
                 ArrayStretchTest t("array.stretch", LA("non-exists"));
                 REQUIRE_PROPERTY(t, @src, "non-exists");
-                REQUIRE_PROPERTY_NONE(t, @dest);
+                REQUIRE_PROPERTY(t, @dest, "");
 
                 WHEN_SEND_BANG_TO(0, t);
                 REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -89,7 +90,7 @@ TEST_CASE("array.stretch", "[externals]")
             {
                 ArrayStretchTest t("array.stretch", LA("@src", "non-exists"));
                 REQUIRE_PROPERTY(t, @src, "non-exists");
-                REQUIRE_PROPERTY_NONE(t, @dest);
+                REQUIRE_PROPERTY(t, @dest, "");
 
                 WHEN_SEND_BANG_TO(0, t);
                 REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -98,7 +99,7 @@ TEST_CASE("array.stretch", "[externals]")
             SECTION("invalid dest")
             {
                 ArrayStretchTest t("array.stretch", LA("@dest", "non-exists"));
-                REQUIRE_PROPERTY_NONE(t, @src);
+                REQUIRE_PROPERTY(t, @src, "");
                 REQUIRE_PROPERTY(t, @dest, "non-exists");
 
                 WHEN_SEND_BANG_TO(0, t);
@@ -122,7 +123,7 @@ TEST_CASE("array.stretch", "[externals]")
             t.setProperty("@sequence", A(101));
             REQUIRE_PROPERTY(t, @sequence, 100);
             t.setProperty("@sequence", A(-1));
-            REQUIRE_PROPERTY(t, @sequence, 0.f);
+            REQUIRE_PROPERTY(t, @sequence, 100.f);
         }
 
         SECTION("@seekwindow")
@@ -138,7 +139,7 @@ TEST_CASE("array.stretch", "[externals]")
             t.setProperty("@seekwindow", A(101));
             REQUIRE_PROPERTY(t, @seekwindow, 100);
             t.setProperty("@seekwindow", A(-1));
-            REQUIRE_PROPERTY(t, @seekwindow, 0.f);
+            REQUIRE_PROPERTY(t, @seekwindow, 100.f);
         }
 
         SECTION("@overlap")
@@ -150,7 +151,7 @@ TEST_CASE("array.stretch", "[externals]")
             REQUIRE_PROPERTY(t, @overlap, 100);
             // clip
             t.setProperty("@overlap", A(0.f));
-            REQUIRE_PROPERTY(t, @overlap, 1);
+            REQUIRE_PROPERTY(t, @overlap, 100);
             t.setProperty("@overlap", A(101));
             REQUIRE_PROPERTY(t, @overlap, 100);
         }
@@ -164,7 +165,7 @@ TEST_CASE("array.stretch", "[externals]")
             REQUIRE_PROPERTY(t, @aalength, 128);
             // clip
             t.setProperty("@aalength", A(7));
-            REQUIRE_PROPERTY(t, @aalength, 8);
+            REQUIRE_PROPERTY(t, @aalength, 128);
             t.setProperty("@aalength", A(129));
             REQUIRE_PROPERTY(t, @aalength, 128);
         }

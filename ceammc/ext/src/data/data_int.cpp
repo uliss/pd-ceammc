@@ -15,12 +15,12 @@
 
 DataInt::DataInt(const PdArgs& a)
     : DataIntBase(a)
-    , value_(positionalFloatArgument(0))
+    , value_(0)
 {
     createInlet();
     createOutlet();
 
-    property("@value")->info().setType(PropertyInfoType::INTEGER);
+    property("@value")->info().setType(PropValueType::INTEGER);
 }
 
 void setup_data_int()

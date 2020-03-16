@@ -23,9 +23,8 @@ FunctionCall::FunctionCall(const PdArgs& a)
     createInlet(&name_);
     createOutlet();
 
-    Atom name = positionalArgument(0, Atom());
-    if (name.isSymbol())
-        name_ = name.asSymbol();
+    if (!positionalArguments().empty() && positionalArguments()[0].isSymbol())
+        name_ = positionalArguments()[0].asSymbol();
 }
 
 void FunctionCall::onBang()

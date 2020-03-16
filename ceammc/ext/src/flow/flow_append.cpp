@@ -20,8 +20,9 @@ FlowAppend::FlowAppend(const PdArgs& args)
     , as_msg_(0)
     , clock_(this, &FlowAppend::tick)
 {
-    delay_time_ = new FloatProperty("@delay", 0, 0);
-    delay_time_->info().setUnits(PropertyInfoUnits::MSEC);
+    delay_time_ = new FloatProperty("@delay", 0);
+    delay_time_->setFloatCheck(PropValueConstraints::GREATER_THEN, 0);
+    delay_time_->setUnits(PropValueUnits::MSEC);
     createProperty(delay_time_);
 
     as_msg_ = new FlagProperty("@msg");
@@ -102,10 +103,10 @@ void FlowAppend::parseProperties()
         }
 
         // skip readonly properties
-        if (property(pname)->readonly())
+        if (property(pname)->isReadOnly())
             continue;
 
-        property(pname)->set(p[i].slice(1));
+        property(pname)->setInit(p[i].slice(1));
     }
 }
 

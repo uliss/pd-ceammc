@@ -42,13 +42,13 @@ TEST_CASE("xfade~", "[externals]")
             REQUIRE_PROPERTY_FLOAT(t, @smooth, 10000);
 
             t.setProperty("@smooth", LF(0.f));
-            REQUIRE_PROPERTY_FLOAT(t, @smooth, 1);
+            REQUIRE_PROPERTY_FLOAT(t, @smooth, 10000);
 
             t.setProperty("@smooth", LF(-10));
-            REQUIRE_PROPERTY_FLOAT(t, @smooth, 1);
+            REQUIRE_PROPERTY_FLOAT(t, @smooth, 10000);
 
             t.setProperty("@smooth", LA("NONE"));
-            REQUIRE_PROPERTY_FLOAT(t, @smooth, 20);
+            REQUIRE_PROPERTY_FLOAT(t, @smooth, 10000);
         }
 
         SECTION("args")

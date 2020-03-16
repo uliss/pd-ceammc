@@ -16,84 +16,50 @@
 
 #include <functional>
 #include <memory>
+#include <stack>
 
 #include "aubio.h"
-#include "ceammc_property_extra.h"
+#include "ceammc_callback_property.h"
+#include "ceammc_property.h"
+#include "ceammc_property_enum.h"
+
+using namespace ceammc;
 
 struct FVecDeleter {
     void operator()(fvec_t* v) { del_fvec(v); }
 };
 
-typedef std::unique_ptr<fvec_t, FVecDeleter> FVecPtr;
-typedef std::shared_ptr<aubio_onset_t> OnsetPtr;
+using FVecPtr = std::unique_ptr<fvec_t, FVecDeleter>;
+using OnsetPtr = std::shared_ptr<aubio_onset_t>;
 
-template <typename T, typename AubioStruct>
-class AubioProperty : public ceammc::Property {
-public:
-    typedef AubioStruct* AubioPtr;
-    typedef std::function<T(AubioStruct*)> AubioGetter;
-    typedef std::function<uint_t(AubioStruct*, T)> AubioSetter;
+class HopSizeProperty : public IntProperty {
+    IntProperty* bs_;
 
 public:
-    AubioProperty(const std::string& name, AubioPtr onset,
-        AubioGetter getter,
-        AubioSetter setter)
-        : Property(ceammc::PropertyInfo(name, ceammc::PropertyInfo::toType<T>()))
-        , aubio_ptr_(onset)
-        , getter_(getter)
-        , setter_(setter)
-    {
-    }
-
-    bool set(const ceammc::AtomList& lst) final
-    {
-        return setValue(ceammc::atomlistToValue<T>(lst, T()));
-    }
-
-    ceammc::AtomList get() const final
-    {
-        return ceammc::AtomList(ceammc::Atom(value()));
-    }
-
-    T value() const
-    {
-        if (aubio_ptr_)
-            return getter_(aubio_ptr_);
-        else
-            return T();
-    }
-
-    bool setValue(T v)
-    {
-        if (aubio_ptr_)
-            return setter_(aubio_ptr_, v) == 0;
-
-        return false;
-    }
-
-    void setAubioPtr(const AubioPtr& p)
-    {
-        aubio_ptr_ = p;
-    }
-
-    void save()
-    {
-        saved_value_ = value();
-    }
-
-    void restore()
-    {
-        setValue(saved_value_);
-    }
-
-private:
-    AubioPtr aubio_ptr_;
-    AubioGetter getter_;
-    AubioSetter setter_;
-    T saved_value_;
+    HopSizeProperty(IntProperty* buf_size);
+    int value() const;
+    AtomList get() const override;
 };
 
-typedef AubioProperty<smpl_t, aubio_onset_t> OnsetFloatProperty;
-typedef AubioProperty<int, aubio_onset_t> OnsetUIntProperty;
+class OnsetFloatProperty : public CallbackProperty {
+    PropertyFloatGetter fget_;
+    PropertyFloatSetter fset_;
+    t_float v_;
+    bool setter_was_called_;
+
+public:
+    OnsetFloatProperty(const std::string& name, PropertyFloatGetter getter, PropertyFloatSetter setter);
+
+    void save() { v_ = fget_(); }
+    void restore() { fset_(v_); }
+    bool wasChanged() const { return setter_was_called_; }
+};
+
+constexpr const char* DEFAULT_METHOD = "default";
+
+class OnsetMethodProperty : public SymbolEnumProperty {
+public:
+    OnsetMethodProperty();
+};
 
 #endif // AUBIO_BASE_H

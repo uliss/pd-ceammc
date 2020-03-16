@@ -231,7 +231,7 @@ TEST_CASE("fx.looper~", "[externals]")
         t.setProperty("@loop_smooth", LF(0.f));
         t.setProperty("@rec_to_stop_time", LF(0.f));
         REQUIRE(t.state() == STATE_INIT);
-        REQUIRE(t.prop<FloatPropertyMinEq>("@loop_smooth")->value() == 0);
+        REQUIRE(t.prop<FloatProperty>("@loop_smooth")->value() == 0);
 
         // record loop
         t.record();
@@ -453,12 +453,12 @@ TEST_CASE("fx.looper~", "[externals]")
         t << sigLin(64, 0, 63);
         t.play();
         t << Signal(16, 1);
-        REQUIRE(t.p_play_pos().floatAt(0, 0) == Approx(16 / 512.0));
+        REQUIRE(t.property("@play_pos")->get().floatAt(0, -1) == Approx(16 / 512.0));
         REQUIRE_EQ(t.output, sigLin(16, 0, 15));
 
         // bang
         t.onBang();
-        REQUIRE(t.p_play_pos().floatAt(0, 0) == 0.f);
+        REQUIRE(t.property("@play_pos")->get().floatAt(0, -1) == 0.f);
         t << Signal(16, 1);
         REQUIRE_EQ(t.output, sigLin(16, 0, 15));
     }
@@ -496,11 +496,11 @@ TEST_CASE("fx.looper~", "[externals]")
         LinFadeinProperty p("@p");
         REQUIRE_FALSE(p.isRunning());
         REQUIRE(p.phase() == 0);
-        REQUIRE(p.name() == "@p");
+        REQUIRE(p.name() == SYM("@p"));
         REQUIRE(p.samples() == 0);
         REQUIRE(p.value() == 0);
-        REQUIRE_FALSE(p.readonly());
-        REQUIRE(p.visible());
+        REQUIRE_FALSE(p.isReadOnly());
+        REQUIRE(p.isPublic());
 
         static const size_t SR = 1000;
         static const size_t BS = 10;

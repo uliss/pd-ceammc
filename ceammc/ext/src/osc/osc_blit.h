@@ -14,6 +14,8 @@
 #ifndef OSC_BLIT_H
 #define OSC_BLIT_H
 
+#include <memory>
+
 #include "ceammc_sound_external.h"
 
 using namespace ceammc;
@@ -23,23 +25,19 @@ class Blit;
 }
 
 class OscBlit : public SoundExternal {
-    stk::Blit* osc_;
-    t_float freq_;
-    size_t num_harmonics_;
+    using BlipPtr = std::unique_ptr<stk::Blit>;
+
+private:
+    BlipPtr osc_;
+    SizeTProperty* nharm_;
 
 public:
     OscBlit(const PdArgs& args);
-    ~OscBlit() override;
 
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** sp) override;
 
     void onInlet(size_t, const AtomList&) override;
-
-    AtomList propFreq() const;
-    void propSetFreq(const AtomList& lst);
-    AtomList propHarm() const;
-    void propSetHarm(const AtomList& lst);
 };
 
 void setup_osc_blit();

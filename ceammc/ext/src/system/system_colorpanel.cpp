@@ -36,21 +36,19 @@ SystemColorpanel::SystemColorpanel(const PdArgs& args)
 
     createOutlet();
 
-    mode_ = new SymbolEnumProperty("@mode", SYM_FLOAT);
-    mode_->appendEnum(SYM_INT);
-    mode_->appendEnum(SYM_HEX);
+    mode_ = new SymbolEnumProperty("@mode", { SYM_FLOAT, SYM_INT, SYM_HEX });
     createProperty(mode_);
 
-    createProperty(new SymbolEnumAlias("@f", mode_, SYM_FLOAT));
-    createProperty(new SymbolEnumAlias("@i", mode_, SYM_INT));
-    createProperty(new SymbolEnumAlias("@h", mode_, SYM_HEX));
+    addProperty(new SymbolEnumAlias("@f", mode_, SYM_FLOAT));
+    addProperty(new SymbolEnumAlias("@i", mode_, SYM_INT));
+    addProperty(new SymbolEnumAlias("@h", mode_, SYM_HEX));
 
     createCbProperty("@float", &SystemColorpanel::propFloat, &SystemColorpanel::propSetFloat);
     createCbProperty("@int", &SystemColorpanel::propInt, &SystemColorpanel::propSetInt);
 
     {
         Property* p = createCbProperty("@hex", &SystemColorpanel::propHex, &SystemColorpanel::propSetHex);
-        p->info().setType(PropertyInfoType::SYMBOL);
+        p->info().setType(PropValueType::SYMBOL);
     }
 }
 

@@ -7,7 +7,7 @@
 using namespace ceammc;
 
 class EnvTimeScale : public BaseObject {
-    FloatPropertyMin* scale_;
+    FloatProperty* scale_;
 
 public:
     EnvTimeScale(const PdArgs& a);

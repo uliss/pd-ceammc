@@ -26,9 +26,9 @@ class ListSeq : public BaseObject {
 
 public:
     ListSeq(const PdArgs& a);
-    void onBang();
-    void onFloat(float f);
-    void onList(const AtomList& lst);
+    void onBang() final;
+    void onFloat(t_float f) final;
+    void onList(const AtomList& lst) final;
 };
 
 #endif // LIST_SEQ_H

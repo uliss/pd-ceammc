@@ -19,8 +19,8 @@
 
 using namespace ceammc;
 
-typedef long DataIntType;
-typedef NumericIFace<BaseObject, DataIntType> DataIntBase;
+typedef int DataIntType;
+using DataIntBase = NumericIFace<BaseObject, DataIntType>;
 
 class DataInt : public DataIntBase {
     DataIntType value_;

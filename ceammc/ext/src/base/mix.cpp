@@ -12,13 +12,14 @@
  * this file belongs to.
  *****************************************************************************/
 #include "mix.h"
+#include "ceammc_callback_property.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
-static const int DEFAULT_INLETS = 2;
-static const t_float DEFAULT_XFADE = 20;
-static const int MIN_INLETS = 2;
-static const int MAX_INLETS = 16;
+constexpr t_float DEFAULT_XFADE = 20;
+constexpr size_t DEF_NCHAN = 2;
+constexpr size_t MIN_NCHAN = 2;
+constexpr size_t MAX_NCHAN = 16;
 
 static t_float toDb(t_float amp)
 {
@@ -36,7 +37,7 @@ static t_float fromDb(t_float db)
 Mix::Mix(const PdArgs& args)
     : SoundExternal(args)
     , is_solo_(false)
-    , n_(clip<int>(positionalFloatArgument(0, DEFAULT_INLETS), MIN_INLETS, MAX_INLETS))
+    , n_(positionalConstant<DEF_NCHAN, MIN_NCHAN, MAX_NCHAN>(0))
     , xfade_time_(DEFAULT_XFADE)
 {
     for (size_t i = 1; i < n_; i++)
@@ -50,16 +51,18 @@ Mix::Mix(const PdArgs& args)
     solo_values_.assign(n_, 0);
 
     {
-        auto p = createCbProperty("@xfade_time", &Mix::propXFadeTime, &Mix::setPropXFadeTime);
-        p->info().setType(PropertyInfoType::FLOAT);
-        p->info().setDefault(DEFAULT_XFADE);
-        p->info().setUnits(PropertyInfoUnits::MSEC);
+        Property* p = createCbFloatProperty(
+            "@xfade_time",
+            [this]() -> t_float { return xfade_time_; },
+            [this](t_float f) -> bool { xfade_time_ = f; return true; });
+        p->setFloatCheck(PropValueConstraints::GREATER_EQUAL, 1);
+        p->setUnitsMs();
     }
 
     {
         auto p = createCbProperty("@db", &Mix::propDb, &Mix::setPropDb);
-        p->info().setType(PropertyInfoType::LIST);
-        p->info().setUnits(PropertyInfoUnits::DB);
+        p->info().setType(PropValueType::LIST);
+        p->info().setUnits(PropValueUnits::DB);
     }
 
     createCbProperty("@value", &Mix::propValue, &Mix::setPropValue);
@@ -114,16 +117,6 @@ void Mix::processBlock(const t_sample** in, t_sample** out)
 
         out[0][i] = v;
     }
-}
-
-AtomList Mix::propXFadeTime() const
-{
-    return Atom(xfade_time_);
-}
-
-void Mix::setPropXFadeTime(const AtomList& ms)
-{
-    xfade_time_ = std::max<t_float>(1, ms.floatAt(0, DEFAULT_XFADE));
 }
 
 AtomList Mix::propValue() const

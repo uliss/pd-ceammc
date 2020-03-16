@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_slice.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 ListSlice::ListSlice(const PdArgs& a)
     : BaseObject(a)
@@ -23,9 +23,12 @@ ListSlice::ListSlice(const PdArgs& a)
 {
     createOutlet();
 
-    from_ = new IntProperty("@from", int(positionalFloatArgument(0, 0)));
-    to_ = new IntProperty("@to", positionalFloatArgument(1, -1));
-    step_ = new SizeTProperty("@step", positionalFloatArgument(2, 1));
+    from_ = new IntProperty("@from", 0);
+    from_->setArgIndex(0);
+    to_ = new IntProperty("@to", -1);
+    to_->setArgIndexNext(from_);
+    step_ = new SizeTProperty("@step", 1);
+    step_->setArgIndexNext(to_);
 
     createProperty(from_);
     createProperty(to_);

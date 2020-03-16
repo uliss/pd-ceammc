@@ -1,12 +1,13 @@
 #include "list_repeat.h"
-#include "datatype_mlist.h"
 #include "ceammc_convert.h"
 #include "ceammc_dataatomlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "datatype_mlist.h"
 
-const static int REPEAT_MIN = 0;
-const static int REPEAT_MAX = 10000;
+constexpr int REPEAT_DEF = 1;
+constexpr int REPEAT_MIN = 0;
+constexpr int REPEAT_MAX = 10000;
 
 ListRepeat::ListRepeat(const ceammc::PdArgs& a)
     : BaseObject(a)
@@ -15,7 +16,9 @@ ListRepeat::ListRepeat(const ceammc::PdArgs& a)
     createInlet();
     createOutlet();
 
-    times_ = new IntPropertyClosedRange("@times", positionalFloatArgument(0, 1), REPEAT_MIN, REPEAT_MAX);
+    times_ = new IntProperty("@times", REPEAT_DEF);
+    times_->setArgIndex(0);
+    times_->checkClosedRange(REPEAT_MIN, REPEAT_MAX);
     createProperty(times_);
 }
 

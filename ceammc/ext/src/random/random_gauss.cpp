@@ -17,8 +17,11 @@ RandomGauss::RandomGauss(const PdArgs& a)
 {
     createOutlet();
 
-    mu_ = new FloatProperty("@mu", positionalFloatArgument(0, 0));
-    sigma_ = new FloatPropertyMinEq("@sigma", positionalFloatArgument(1, 0), 0);
+    mu_ = new FloatProperty("@mu", 0);
+    mu_->setArgIndex(0);
+    sigma_ = new FloatProperty("@sigma", 0);
+    sigma_->setArgIndexNext(mu_);
+    sigma_->checkNonNegative();
 
     createProperty(mu_);
     createProperty(sigma_);

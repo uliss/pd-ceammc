@@ -31,13 +31,9 @@ public:
     void onSymbol(t_symbol* s);
     void onDataT(const DataTPtr<DataTypeString>& dptr);
 
-    AtomList propGetSeparator() const;
-    void propSetSeparator(const AtomList& l);
-
 private:
     void split(const DataTypeString& s);
     void output();
-    void parseArgs();
 };
 
 extern "C" void setup_string0x2esplit();

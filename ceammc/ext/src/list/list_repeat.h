@@ -19,7 +19,7 @@
 using namespace ceammc;
 
 class ListRepeat : public BaseObject {
-    IntPropertyClosedRange* times_;
+    IntProperty* times_;
 
 public:
     ListRepeat(const PdArgs& a);

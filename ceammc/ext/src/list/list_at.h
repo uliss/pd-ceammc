@@ -14,6 +14,7 @@
 #ifndef LIST_AT_H
 #define LIST_AT_H
 
+#include "ceammc_property_enum.h"
 #include "list_base.h"
 
 using namespace ceammc;

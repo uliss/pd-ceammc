@@ -12,9 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_enumerate.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "datatype_mlist.h"
 
 ListEnumerate::ListEnumerate(const PdArgs& a)
     : ListBase(a)
@@ -23,7 +23,8 @@ ListEnumerate::ListEnumerate(const PdArgs& a)
 {
     createOutlet();
 
-    from_ = new IntProperty("@from", int(positionalFloatArgument(0, 0)));
+    from_ = new IntProperty("@from", 0);
+    from_->setArgIndex(0);
     createProperty(from_);
 
     append_ = new FlagProperty("@append");

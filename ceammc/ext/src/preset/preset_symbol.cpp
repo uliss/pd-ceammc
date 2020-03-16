@@ -6,8 +6,10 @@ PresetSymbol::PresetSymbol(const PdArgs& args)
     : PresetBase(args)
 {
     // 1st positionalSymbolArgument is preset name - in base class
-    // 2nd positionalSymbolArgument weare using as init value
-    init_ = new SymbolProperty("@init", positionalSymbolArgument(1, &s_), true);
+    // 2nd positionalSymbolArgument we are using as init value
+    init_ = new SymbolProperty("@init", &s_);
+    init_->setArgIndex(1);
+    init_->setInitOnly();
     current_value_ = init_->value();
     createProperty(init_);
 }

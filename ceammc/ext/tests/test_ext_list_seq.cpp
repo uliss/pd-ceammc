@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../list/list_seq.h"
-#include "test_base.h"
 #include "catch.hpp"
+#include "test_base.h"
 
 #include <stdio.h>
 
@@ -22,6 +22,7 @@ typedef TestExternal<ListSeq> ListSeqTest;
 TEST_CASE("list.seq", "[externals]")
 {
     obj_init();
+    test::pdPrintToStdError();
 
     SECTION("test create with:")
     {

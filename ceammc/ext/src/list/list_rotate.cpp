@@ -11,7 +11,8 @@ ListRotate::ListRotate(const PdArgs& a)
     createInlet();
     createOutlet();
 
-    step_ = new IntProperty("@step", int(positionalFloatArgument(0, 1)));
+    step_ = new IntProperty("@step", 1);
+    step_->setArgIndex(0);
     createProperty(step_);
 }
 

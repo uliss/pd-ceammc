@@ -29,14 +29,18 @@ extern void unregister_cmu_us_kal16();
 
 SpeechFlite::SpeechFlite(const PdArgs& args)
     : BaseObject(args)
-    , name_(positionalSymbolArgument(0, &s_))
+    , name_(&s_)
     , voice_name_(nullptr)
     , speed_(nullptr)
     , pitch_(nullptr)
     , render_(new FliteThread())
     , clock_(this, &SpeechFlite::clockTick)
 {
-    createProperty(new PointerProperty<t_symbol*>("@array", &name_, false));
+    createCbSymbolProperty(
+        "@array",
+        [this]() -> t_symbol* { return name_; },
+        [this](t_symbol* s) -> bool { name_ = s; return true; })
+        ->setArgIndex(0);
 
     voice_name_ = new SymbolProperty("@voice", gensym("kal16"));
     voice_name_->info().addEnum("slt");
@@ -45,7 +49,8 @@ SpeechFlite::SpeechFlite(const PdArgs& args)
     voice_name_->info().addEnum("kal16");
     createProperty(voice_name_);
 
-    speed_ = new FloatPropertyClosedRange("@speed", 1, 1, 4);
+    speed_ = new FloatProperty("@speed", 1);
+    speed_->checkClosedRange(1, 4);
     createProperty(speed_);
 
     pitch_ = new FloatProperty("@pitch", -1);

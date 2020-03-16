@@ -15,60 +15,160 @@
 #include "ceammc_log.h"
 #include "ceammc_object.h"
 
-#include "m_pd.h"
-
 namespace ceammc {
 
-Error::Error(const BaseObject* obj)
-    : obj_(obj)
+#define PD_LOG_FMT "[%s] %s"
+constexpr size_t PD_MAXLOGSTRLENGTH = MAXPDSTRING - (sizeof(PD_LOG_FMT) + 16);
+// see s_print.c for details, 16 seems to be enough for all cases
+
+static const char* pd_object_name(const void* x)
 {
+    if (!x)
+        return "ceammc";
+    else
+        return class_getname(pd_class(&static_cast<const t_gobj*>(x)->g_pd));
 }
 
-Error::~Error()
+void pdPost(const char* name, const std::string& s)
 {
-    if (obj_ != 0)
-        pd_error(static_cast<void*>(obj_->owner()), "[%s] %s", obj_->className()->s_name, str().c_str());
-    else
-        pd_error(0, "[ceammc] %s", str().c_str());
+    const size_t N = PD_MAXLOGSTRLENGTH - strlen(name);
+    assert(N < MAXPDSTRING);
+
+    if (s.size() < N) {
+        post(PD_LOG_FMT, name, s.c_str());
+    } else {
+        char buf[MAXPDSTRING] = { 0 };
+        for (size_t i = 0; i < s.size(); i += N) {
+            const auto len = s.copy(buf, N, i);
+            buf[len] = '\0';
+            post(PD_LOG_FMT, name, buf);
+        }
+    }
+}
+
+void pdDebug(const void* pd_obj, const std::string& s)
+{
+    pdLog(pd_obj, LogLevel::DEBUG, s);
+}
+
+void pdLog(const void* pd_obj, LogLevel level, const std::string& s)
+{
+    const char* name = pd_object_name(pd_obj);
+    const size_t N = PD_MAXLOGSTRLENGTH - strlen(name);
+    assert(N < MAXPDSTRING);
+
+    if (s.size() < N) {
+        logpost(pd_obj, static_cast<int>(level), PD_LOG_FMT, name, s.c_str());
+    } else {
+        char buf[MAXPDSTRING] = { 0 };
+        for (size_t i = 0; i < s.size(); i += N) {
+            const auto len = s.copy(buf, N, i);
+            buf[len] = '\0';
+
+            logpost(pd_obj, static_cast<int>(level), PD_LOG_FMT, name, s.c_str());
+        }
+    }
+}
+
+void pdError(const void* pd_obj, const std::string& s)
+{
+    const char* name = pd_object_name(pd_obj);
+    const size_t N = PD_MAXLOGSTRLENGTH - strlen(name);
+    assert(N < MAXPDSTRING);
+
+    if (s.size() < N) {
+        pd_error(pd_obj, PD_LOG_FMT, name, s.c_str());
+    } else {
+        char buf[MAXPDSTRING] = { 0 };
+        for (size_t i = 0; i < s.size(); i += N) {
+            const auto len = s.copy(buf, N, i);
+            buf[len] = '\0';
+
+            pd_error(pd_obj, PD_LOG_FMT, name, buf);
+        }
+    }
+}
+
+Error::Error(const BaseObject* obj)
+    : LogBaseObject(obj, LogLevel::ERROR)
+{
 }
 
 Debug::Debug(const BaseObject* obj)
-    : obj_(obj)
+    : LogBaseObject(obj, LogLevel::DEBUG)
 {
 }
 
-Debug::~Debug()
+Log::Log(const BaseObject* obj)
+    : LogBaseObject(obj, LogLevel::ALL)
 {
-    if (obj_ != 0)
-        post("[%s] %s", obj_->className()->s_name, str().c_str());
-    else
-        post("[ceammc] %s", str().c_str());
 }
 
-Log::Log(const BaseObject* obj, int level)
+LogPdObject::LogPdObject(const void* obj, LogLevel level)
     : obj_(obj)
     , level_(level)
 {
 }
 
-Log::~Log()
+LogPdObject::~LogPdObject()
 {
-    if (obj_ != 0)
-        logpost(static_cast<void*>(obj_->owner()), level_ + 4, "[%s] %s", obj_->className()->s_name, str().c_str());
+    flush();
+}
+
+void LogPdObject::error(const std::string& str) const
+{
+    pdError(obj_, str);
+}
+
+void LogPdObject::post(const std::string& str) const
+{
+    pdPost(pd_object_name(obj_), str);
+}
+
+void LogPdObject::debug(const std::string& str) const
+{
+    pdDebug(obj_, str);
+}
+
+void LogPdObject::flush()
+{
+    switch (level_) {
+    case LogLevel::FATAL:
+    case LogLevel::ERROR:
+        error(str());
+        break;
+    case LogLevel::DEBUG:
+        debug(str());
+        break;
+    case LogLevel::ALL:
+        pdLog(obj_, level_, str());
+        break;
+    case LogLevel::POST:
+        post(str());
+        break;
+    }
+
+    str("");
+}
+
+void LogPdObject::endl()
+{
+    flush();
+}
+
+LogBaseObject::LogBaseObject(const BaseObject* obj, LogLevel level)
+    : LogPdObject(obj ? static_cast<void*>(obj->owner()) : nullptr, level)
+{
+}
+
+}
+
+std::ostream& operator<<(std::ostream& os, t_symbol* s)
+{
+    if (s == nullptr)
+        os << "NULLSYM";
     else
-        logpost(nullptr, level_ + 4, "[ceammc] %s", str().c_str());
-}
+        os << '"' << s->s_name << '"';
 
-}
-
-std::ostream& operator<<(std::ostream& os, t_symbol*& s)
-{
-    os << '"' << s->s_name << '"';
-    return os;
-}
-
-std::ostream& operator<<(std::ostream& os, const t_symbol* const& s)
-{
-    os << '"' << s->s_name << '"';
     return os;
 }

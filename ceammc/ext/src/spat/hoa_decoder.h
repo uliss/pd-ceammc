@@ -27,7 +27,7 @@ class HoaDecoder : public HoaBase {
     size_t crop_size_;
     // decoder_ is not available while parsing properties
     // this members store initial values
-    AtomList init_offset_;
+    t_float init_offset_;
     AtomList init_angles_;
 
 public:
@@ -41,16 +41,14 @@ public:
     AtomList propPlaneWavesX() const;
     AtomList propPlaneWavesY() const;
     AtomList propPlaneWavesZ() const;
-    AtomList propNumHarmonics() const;
 
-    AtomList propCropSize() const;
-    void propSetCropSize(const AtomList& lst);
+    int propCropSize() const;
+    bool propSetCropSize(int lst);
 
     AtomList propAngles() const;
-    void propSetAngles(const AtomList& lst);
+    bool propSetAngles(const AtomList& lst);
 
-    AtomList propOffset() const;
-    void propSetOffset(const AtomList& lst);
+    bool propSetOffset(t_float lst);
 
 private:
     void processCommon();

@@ -19,13 +19,13 @@
 
 SymbolNumCompare::SymbolNumCompare(const PdArgs& a)
     : BaseObject(a)
-    , cmp_with_(0)
+    , cmp_with_(nullptr)
 {
     createInlet(&cmp_with_);
     createOutlet();
 
-    createProperty(new PointerProperty<t_symbol*>("@with", &cmp_with_, false));
-    cmp_with_ = positionalSymbolArgument(0, 0);
+    addProperty(new PointerProperty<t_symbol*>("@with", &cmp_with_, PropValueAccess::READWRITE))
+        ->setArgIndex(0);
 }
 
 void SymbolNumCompare::onSymbol(t_symbol* s)

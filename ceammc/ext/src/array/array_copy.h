@@ -36,7 +36,7 @@ struct Range {
 };
 
 class ArrayCopy : public BaseObject {
-    FlagProperty* resize_;
+    BoolProperty* resize_;
 
 public:
     ArrayCopy(const PdArgs& a);

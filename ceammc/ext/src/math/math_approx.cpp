@@ -25,18 +25,20 @@ MathApprox::MathApprox(const PdArgs& a)
     createInlet();
     createOutlet();
 
-    value_ = new FloatProperty("@value", positionalFloatArgument(0, 0));
-    epsilon_ = new FloatProperty("@epsilon", positionalFloatArgument(1, 0.01f));
+    value_ = new FloatProperty("@value", 0);
+    value_->setArgIndex(0);
+    epsilon_ = new FloatProperty("@epsilon", t_float(0.01));
+    epsilon_->setArgIndexNext(value_);
 
     createProperty(value_);
     createProperty(epsilon_);
 }
 
-void MathApprox::onFloat(float f)
+void MathApprox::onFloat(t_float f)
 {
     const t_float v = value_->value();
     const t_float e = epsilon_->value();
-    floatTo(0, fabsf(f - v) <= fabsf(e) ? 1 : 0);
+    floatTo(0, std::fabs(f - v) <= std::fabs(e) ? 1 : 0);
 }
 
 void MathApprox::onList(const AtomList& l)

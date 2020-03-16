@@ -71,8 +71,8 @@ void HoaOptim::parseProperties()
 {
     HoaBase::parseProperties();
 
-    if (positionalSymbolArgument(1, nullptr))
-        mode_->setValue(positionalSymbolArgument(1));
+    if (positionalSymbolConstant(1, nullptr))
+        mode_->setValue(positionalSymbolConstant(1, &s_));
 
     optim_.reset(new Optim2d(order()));
 

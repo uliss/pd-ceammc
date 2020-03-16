@@ -114,7 +114,7 @@ public:
     Array(const char* name);
     Array(const char* name, std::initializer_list<t_sample> l);
 
-    Array(const Array&) = delete;
+    Array(const Array& array);
 
     /** iterators */
     iterator begin();

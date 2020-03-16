@@ -21,9 +21,6 @@
 
 using namespace ceammc;
 
-typedef bool (*StepPropertyCheck)(int);
-typedef CheckedProperty<IntProperty, int, StepPropertyCheck> StepProperty;
-
 enum ListMode {
     MODE_NORMAL = 0,
     MODE_MLIST,
@@ -34,7 +31,7 @@ class ListEach : public BaseObject {
     AtomList mapped_list_;
     DataAtomList mapped_dlist_;
     DataTypeMList mapped_mlist_;
-    StepProperty* step_prop_;
+    IntProperty* step_prop_;
     ListMode mode_;
 
 public:

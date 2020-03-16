@@ -49,12 +49,12 @@ Fluid::Fluid(const PdArgs& args)
 
     {
         Property* p = createCbProperty("@sf", &Fluid::propSoundFont, &Fluid::propSetSoundFont);
-        p->info().setType(PropertyInfoType::SYMBOL);
+        p->info().setType(PropValueType::SYMBOL);
     }
 
     {
         Property* p = createCbProperty("@version", &Fluid::propVersion);
-        p->info().setType(PropertyInfoType::SYMBOL);
+        p->info().setType(PropValueType::SYMBOL);
     }
 
     createCbProperty("@soundfonts", &Fluid::propSoundFonts);

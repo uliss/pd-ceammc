@@ -22,7 +22,7 @@ Envelope::Envelope(const PdArgs& args)
 {
     createOutlet();
 
-    t_symbol* method = positionalSymbolArgument(0);
+    t_symbol* method = positionalSymbolConstant(0, &s_);
 
     if (env_.isNamedEnvelope(method))
         env_.setNamedEnvelope(method, positionalArguments().slice(1));
@@ -30,20 +30,21 @@ Envelope::Envelope(const PdArgs& args)
         OBJ_ERR << "unknown arguments: " << positionalArguments();
 
     {
-        Property* p = createCbProperty("@npoints", &Envelope::p_npoints);
-        p->info().setType(PropertyInfoType::INTEGER);
-        p->info().setMin(0);
+        Property* p = createCbIntProperty("@npoints",
+            [this]() -> int { return env_.numPoints(); });
+        p->checkNonNegative();
     }
 
     {
-        Property* p = createCbProperty("@length", &Envelope::p_length);
-        p->info().setType(PropertyInfoType::FLOAT);
-        p->info().setUnits(PropertyInfoUnits::MSEC);
+        Property* p = createCbFloatProperty("@length",
+            [this]() -> t_float { return env_.totalLength() / t_float(1000); });
+        p->setUnitsMs();
+        p->checkNonNegative();
     }
 
-    createCbProperty("@points", &Envelope::p_points);
-    createCbProperty("@values", &Envelope::p_values);
-    createCbProperty("@stops", &Envelope::p_stops);
+    createCbListProperty("@points", [this]() -> AtomList { return p_points(); });
+    createCbListProperty("@values", [this]() -> AtomList { return p_values(); });
+    createCbListProperty("@stops", [this]() -> AtomList { return p_stops(); });
 }
 
 void Envelope::dump() const
@@ -345,11 +346,6 @@ void Envelope::m_sigmoid(t_symbol* s, const AtomList& lst)
 void Envelope::m_clear(t_symbol*, const AtomList&)
 {
     env_.clear();
-}
-
-AtomList Envelope::p_npoints() const
-{
-    return AtomList(Atom(env_.numPoints()));
 }
 
 AtomList Envelope::p_length() const

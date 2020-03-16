@@ -19,7 +19,7 @@
 using namespace ceammc;
 
 class FlowCount : public BaseObject {
-    SizeTProperty* counter_;
+    IntProperty* counter_;
 
 public:
     FlowCount(const PdArgs& a);

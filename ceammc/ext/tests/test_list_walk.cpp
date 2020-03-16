@@ -42,8 +42,8 @@ TEST_CASE("list.walk", "[externals]")
         REQUIRE(t.hasProperty("@fold"));
         REQUIRE(t.hasProperty("@size"));
         REQUIRE_PROPERTY_FLOAT(t, @single, 1);
-        REQUIRE(t.property("@size")->readonly());
-        REQUIRE(!t.property("@index")->readonly());
+        REQUIRE(t.property("@size")->isReadOnly());
+        REQUIRE(!t.property("@index")->isReadOnly());
 
         REQUIRE(t.messageCount() == 0);
 

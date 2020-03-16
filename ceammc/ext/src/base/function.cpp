@@ -60,12 +60,11 @@ Function::Function(const PdArgs& a)
     : BaseObject(a)
     , name_(0)
 {
-    Atom name = positionalArgument(0, Atom());
-    if (name.isNone() || !name.isSymbol()) {
+    if (positionalArguments().empty() || !positionalArguments()[0].isSymbol()) {
         throw std::runtime_error("function name required!");
     }
 
-    name_ = name.asSymbol();
+    name_ = positionalArguments()[0].asSymbol();
 
     if (FunctionMap::instance().exists(name_)) {
         throw std::runtime_error("function already exists");

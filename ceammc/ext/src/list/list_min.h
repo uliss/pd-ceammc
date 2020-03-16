@@ -15,6 +15,7 @@
 #define LIST_MIN_H
 
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 
 #include <algorithm>
 

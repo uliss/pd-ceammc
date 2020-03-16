@@ -5,7 +5,9 @@ EnvTimeScale::EnvTimeScale(const PdArgs& a)
     : BaseObject(a)
     , scale_(0)
 {
-    scale_ = new FloatPropertyMin("@scale", positionalFloatArgument(0, 1), 0);
+    scale_ = new FloatProperty("@scale", 1);
+    scale_->setArgIndex(0);
+    scale_->checkPositive();
     createProperty(scale_);
 
     createOutlet();

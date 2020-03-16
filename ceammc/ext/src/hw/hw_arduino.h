@@ -34,8 +34,6 @@ public:
     void tick();
 
 public:
-    AtomList p_connected() const;
-    AtomList p_devices() const;
     void m_connect(t_symbol*, const AtomList& args);
     void m_disconnect(t_symbol*, const AtomList& args);
 

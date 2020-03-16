@@ -25,6 +25,7 @@ using namespace ceammc;
 TEST_CASE("pan.spread~", "[externals]")
 {
     pd_test_init();
+    test::pdPrintToStdError();
 
     SECTION("init")
     {
@@ -97,7 +98,7 @@ TEST_CASE("pan.spread~", "[externals]")
             SECTION("mixed")
             {
                 PanSpreadTest t("pan.spread~", LA(5, "@ch", 3), true);
-                REQUIRE_PROPERTY(t, @ch, 5);
+                REQUIRE_PROPERTY(t, @ch, 3);
             }
         }
     }

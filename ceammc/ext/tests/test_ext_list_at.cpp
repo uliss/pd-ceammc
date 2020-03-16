@@ -19,13 +19,14 @@
 
 #include <stdio.h>
 
-PD_COMPLETE_TEST_SETUP(ListAt, list, at);
+PD_COMPLETE_TEST_SETUP(ListAt, list, at)
 
 typedef TestExternal<ListAt> ListAtTest;
 
 TEST_CASE("list.at", "[externals]")
 {
     pd_test_init();
+    test::pdPrintToStdError();
 
     SECTION("test create with:")
     {
@@ -61,13 +62,13 @@ TEST_CASE("list.at", "[externals]")
             SECTION("props")
             {
                 ListAtTest t("list.at", LA("@index", "none"));
-                REQUIRE_PROPERTY_LIST(t, @index, LA("none"));
+                REQUIRE_PROPERTY_LIST(t, @index, LF(0));
             }
 
             SECTION("positional")
             {
                 ListAtTest t("list.at", LA("none"));
-                REQUIRE_PROPERTY(t, @index, 0.f);
+                REQUIRE_PROPERTY_LIST(t, @index, LF(0));
             }
         }
     }
@@ -91,7 +92,8 @@ TEST_CASE("list.at", "[externals]")
 
         SECTION("many")
         {
-            ListAtTest t("list.at", LA(1, 1, ""));
+            ListAtTest t("list.at", LA(1, 1));
+            REQUIRE_PROPERTY_LIST(t, @index, LF(1, 1));
 
             WHEN_SEND_LIST_TO(0, t, LA("a", "b", "c", "d"));
             REQUIRE_LIST_AT_OUTLET(0, t, LA("b", "b"));
@@ -147,6 +149,7 @@ TEST_CASE("list.at", "[externals]")
     SECTION("@default")
     {
         TestExtListAt t("list.at", LA(2, "@default", "???"));
+        REQUIRE_PROPERTY_LIST(t, @index, LF(2));
 
         t.sendList(LF(1, 2, 3));
         REQUIRE(t.hasOutput());

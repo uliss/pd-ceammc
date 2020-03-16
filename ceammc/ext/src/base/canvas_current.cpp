@@ -1,4 +1,5 @@
 #include "canvas_current.h"
+#include "ceammc_callback_property.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
 #include "datatype_dict.h"
@@ -10,29 +11,29 @@ CanvasCurrent::CanvasCurrent(const PdArgs& a)
 
     {
         Property* p = createCbProperty("@name", &CanvasCurrent::p_name);
-        p->info().setType(PropertyInfoType::SYMBOL);
+        p->setType(PropValueType::SYMBOL);
     }
 
     {
         Property* p = createCbProperty("@dir", &CanvasCurrent::p_dir);
-        p->info().setType(PropertyInfoType::SYMBOL);
+        p->setType(PropValueType::SYMBOL);
     }
 
     {
         Property* p = createCbProperty("@root", &CanvasCurrent::p_root);
-        p->info().setType(PropertyInfoType::BOOLEAN);
+        p->setType(PropValueType::BOOLEAN);
     }
 
     {
         Property* p = createCbProperty("@abstraction", &CanvasCurrent::p_abstraction);
-        p->info().setType(PropertyInfoType::BOOLEAN);
+        p->setType(PropValueType::BOOLEAN);
     }
 
     createCbProperty("@args", &CanvasCurrent::p_args);
 
     {
         Property* p = createCbProperty("@font", &CanvasCurrent::p_font);
-        p->info().setType(PropertyInfoType::INTEGER);
+        p->setType(PropValueType::INTEGER);
     }
 
     createCbProperty("@paths", &CanvasCurrent::p_paths);
@@ -40,22 +41,22 @@ CanvasCurrent::CanvasCurrent(const PdArgs& a)
 
     {
         Property* p = createCbProperty("@x", &CanvasCurrent::p_x);
-        p->info().setType(PropertyInfoType::INTEGER);
+        p->setType(PropValueType::INTEGER);
     }
 
     {
         Property* p = createCbProperty("@y", &CanvasCurrent::p_y);
-        p->info().setType(PropertyInfoType::INTEGER);
+        p->setType(PropValueType::INTEGER);
     }
 
     {
         Property* p = createCbProperty("@width", &CanvasCurrent::p_width);
-        p->info().setType(PropertyInfoType::INTEGER);
+        p->setType(PropValueType::INTEGER);
     }
 
     {
         Property* p = createCbProperty("@height", &CanvasCurrent::p_height);
-        p->info().setType(PropertyInfoType::INTEGER);
+        p->setType(PropValueType::INTEGER);
     }
 }
 

@@ -23,7 +23,8 @@ Lin2Curve::Lin2Curve(const PdArgs& a)
 {
     createOutlet();
 
-    curve_ = new FloatProperty("@curve", positionalFloatArgument(4, -4));
+    curve_ = new FloatProperty("@curve", -4);
+    curve_->setArgIndexNext(output_to_);
     createProperty(curve_);
 }
 

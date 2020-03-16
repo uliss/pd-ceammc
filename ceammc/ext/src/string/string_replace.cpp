@@ -29,14 +29,12 @@ StringReplace::StringReplace(const PdArgs& a)
     createInlet();
     createOutlet();
 
-    mode_ = new SymbolEnumProperty("@mode", REPLACE_ALL);
-    mode_->appendEnum(REPLACE_FIRST);
-    mode_->appendEnum(REPLACE_LAST);
-    createProperty(mode_);
+    mode_ = new SymbolEnumProperty("@mode", { REPLACE_ALL, REPLACE_FIRST, REPLACE_LAST });
+    addProperty(mode_);
 
-    createProperty(new SymbolEnumAlias("@all", mode_, REPLACE_ALL));
-    createProperty(new SymbolEnumAlias("@first", mode_, REPLACE_FIRST));
-    createProperty(new SymbolEnumAlias("@last", mode_, REPLACE_LAST));
+    addProperty(new SymbolEnumAlias("@all", mode_, REPLACE_ALL));
+    addProperty(new SymbolEnumAlias("@first", mode_, REPLACE_FIRST));
+    addProperty(new SymbolEnumAlias("@last", mode_, REPLACE_LAST));
 
     createCbProperty("@from", &StringReplace::propFrom, &StringReplace::setPropFrom);
     createCbProperty("@to", &StringReplace::propTo, &StringReplace::setPropTo);

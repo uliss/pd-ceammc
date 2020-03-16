@@ -354,19 +354,19 @@ bool DataTypeProperty::hasEnumValues() const
     return !enum_.empty();
 }
 
-static PropertyInfoType type2type(DataTypeProperty::Type t)
+static PropValueType type2type(DataTypeProperty::Type t)
 {
     switch (t) {
     case DataTypeProperty::T_FLOAT:
-        return PropertyInfoType::FLOAT;
+        return PropValueType::FLOAT;
     case DataTypeProperty::T_INT:
-        return PropertyInfoType::INTEGER;
+        return PropValueType::INTEGER;
     case DataTypeProperty::T_BOOL:
-        return PropertyInfoType::BOOLEAN;
+        return PropValueType::BOOLEAN;
     case DataTypeProperty::T_SYMBOL:
-        return PropertyInfoType::SYMBOL;
+        return PropValueType::SYMBOL;
     case DataTypeProperty::T_LIST:
-        return PropertyInfoType::LIST;
+        return PropValueType::LIST;
     }
 }
 
@@ -376,12 +376,11 @@ PropertyInfo DataTypeProperty::info() const
     PropertyInfo res(name, type2type(type_));
 
     if (isFloat()) {
-        res.setRange(fmin_, fmax_);
+        res.setRangeFloat(fmin_, fmax_);
         res.setDefault(boost::get<t_float>(default_));
     } else if (isInt()) {
         res.setDefault((int)boost::get<long>(default_));
     } else if (isBool()) {
-        res.setRange(0, 1);
         res.setDefault(boost::get<bool>(default_) ? 1 : 0);
     } else if (isSymbol()) {
         res.setDefault(boost::get<t_symbol*>(default_));

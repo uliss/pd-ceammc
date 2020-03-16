@@ -48,7 +48,7 @@ void ObjectInfo::m_props(t_symbol* s, const AtomList& l)
             props = ceammc_faust_properties(o);
 
         for (const PropertyInfo& p : props)
-            res.append(gensym(p.name().c_str()));
+            res.append(p.name());
     }
 
     listTo(0, res);

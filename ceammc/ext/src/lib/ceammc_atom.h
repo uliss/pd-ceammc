@@ -81,9 +81,24 @@ public:
     Atom(const DataDesc& d);
 
     /**
+     * Checks if atom is (0|1|true|false)
+     */
+    bool isBool() const;
+
+    /**
      * @returns true if atom has logical type Atom::FLOAT
      */
     bool isFloat() const;
+
+    /**
+     * @return true if atom has logical type Atom::FLOAT and >= 0
+     */
+    bool isNonNegative() const;
+
+    /**
+     * @return true if atom has logical type Atom::FLOAT and > 0
+     */
+    bool isPositive() const;
 
     /**
      * @returns true if atom has logical type Atom::NONE
@@ -111,6 +126,26 @@ public:
     bool isNatural() const;
 
     /**
+     * template parameterized atom type check
+     */
+    template <typename T>
+    inline bool isA() const;
+
+    /**
+     * template parameterized atom value as typed value
+     * @note no type checks are done
+     */
+    template <typename T>
+    inline T asT() const;
+
+    /**
+     *template parameterized atom value as typed value
+     * @return valid atom typed value or def value, if type is invalid
+     */
+    template <typename T>
+    inline T toT(T def) const { return (isA<T>()) ? asT<T>() : def; }
+
+    /**
      * @returns atom logical type
      */
     CEAMMC_NO_ASAN Type type() const;
@@ -128,6 +163,7 @@ public:
     bool setFloat(t_float v, bool force = false);
     bool setSymbol(t_symbol* s, bool force = false);
 
+    bool asBool(bool def = false) const;
     t_float asFloat(t_float def = 0.f) const;
     int asInt(int def = 0) const;
     size_t asSizeT(size_t def = 0) const;
@@ -158,15 +194,15 @@ public:
     /**
      * Operators
      */
-    Atom& operator+=(double v);
-    Atom& operator-=(double v);
-    Atom& operator*=(double v);
-    Atom& operator/=(double v);
+    Atom& operator+=(t_float v);
+    Atom& operator-=(t_float v);
+    Atom& operator*=(t_float v);
+    Atom& operator/=(t_float v);
 
-    Atom operator+(double v) const;
-    Atom operator-(double v) const;
-    Atom operator*(double v) const;
-    Atom operator/(double v) const;
+    Atom operator+(t_float v) const;
+    Atom operator-(t_float v) const;
+    Atom operator*(t_float v) const;
+    Atom operator/(t_float v) const;
 
     /**
      * Apply function
@@ -212,6 +248,40 @@ public:
     friend bool operator!=(const Atom& a1, const Atom& a2);
 };
 
+template <>
+inline bool Atom::isA<bool>() const { return isBool(); }
+template <>
+inline bool Atom::isA<t_float>() const { return isFloat(); }
+template <>
+inline bool Atom::isA<int>() const { return isInteger(); }
+template <>
+inline bool Atom::isA<t_symbol*>() const { return isSymbol(); }
+
+template <>
+inline bool Atom::asT<bool>() const { return asBool(); }
+template <>
+inline t_float Atom::asT<t_float>() const { return a_w.w_float; }
+template <>
+inline int Atom::asT<int>() const { return static_cast<int>(a_w.w_float); }
+template <>
+inline t_symbol* Atom::asT<t_symbol*>() const { return a_w.w_symbol; }
+
+template <class F>
+inline void Atom::apply(F fn) { *this = fn(*this); }
+template <class F>
+inline void Atom::applyFloat(F fn)
+{
+    if (isFloat())
+        a_w.w_float = fn(a_w.w_float);
+}
+
+template <typename T>
+static inline Atom atomFrom(T v) { return Atom(v); }
+template <>
+Atom atomFrom(const char* s) { return Atom(gensym(s)); }
+template <>
+Atom atomFrom(std::string v) { return Atom(gensym(v.c_str())); }
+
 CEAMMC_NO_ASAN bool operator==(const Atom& a1, const Atom& a2);
 bool operator!=(const Atom& a1, const Atom& a2);
 std::ostream& operator<<(std::ostream& os, const Atom& a);
@@ -226,18 +296,6 @@ static inline bool notSymbol(const Atom& a) { return !a.isSymbol(); }
 static inline bool notProperty(const Atom& a) { return !a.isProperty(); }
 static inline bool isData(const Atom& a) { return a.isData(); }
 
-template <class F>
-void Atom::apply(F fn)
-{
-    *this = fn(*this);
-}
-
-template <class F>
-void Atom::applyFloat(F fn)
-{
-    if (isFloat())
-        a_w.w_float = fn(a_w.w_float);
-}
 }
 
 #endif // CEAMMC_ATOM_H

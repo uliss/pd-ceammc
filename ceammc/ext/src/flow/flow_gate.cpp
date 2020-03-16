@@ -4,7 +4,8 @@
 FlowGate::FlowGate(const PdArgs& args)
     : BaseObject(args)
 {
-    state_ = new BoolProperty("@state", positionalFloatArgument(0, 0) != 0);
+    state_ = new BoolProperty("@state", false);
+    state_->setArgIndex(0);
     createProperty(state_);
 
     createInlet();

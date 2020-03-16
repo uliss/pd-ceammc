@@ -19,6 +19,7 @@ HoaProjector::HoaProjector(const PdArgs& args)
     , plane_waves_(nullptr)
 {
     plane_waves_ = new IntProperty("@n", 0);
+    plane_waves_->setInitOnly();
     createProperty(plane_waves_);
 }
 
@@ -26,7 +27,7 @@ void HoaProjector::parseNumPlainWaves()
 {
     const int MIN_PW_COUNT = 2 * order() + 1;
 
-    auto pos_arg = positionalFloatArgument(1, 0);
+    auto pos_arg = positionalFloatArgumentT(1, 0);
     if (pos_arg != 0)
         plane_waves_->setValue(pos_arg);
 
@@ -39,8 +40,6 @@ void HoaProjector::parseNumPlainWaves()
 
         plane_waves_->setValue(MIN_PW_COUNT);
     }
-
-    plane_waves_->setReadonly(true);
 }
 
 void HoaProjector::parseProperties()

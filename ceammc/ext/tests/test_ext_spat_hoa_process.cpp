@@ -43,7 +43,7 @@ TEST_CASE("hoa.process~", "[externals]")
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 0);
             REQUIRE_PROPERTY(t, @domain, S("harmonics"));
-            REQUIRE_PROPERTY_FLOAT(t, @n, 5);
+            REQUIRE_PROPERTY_FLOAT(t, @n, 0);
         }
 
         SECTION("invalid patch name")

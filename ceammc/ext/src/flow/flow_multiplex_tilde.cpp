@@ -15,23 +15,20 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
-static const int DEFAULT_INLETS = 2;
-static const int MIN_INLETS = 2;
-static const int MAX_INLETS = 16;
+constexpr size_t DEF_INLETS = 2;
+constexpr size_t MIN_NCHAN = 2;
+constexpr size_t MAX_NCHAN = 16;
 
-static int outMultiplier(const PdArgs& args)
+static size_t chanMuliplier(const PdArgs& args)
 {
     return (args.flags & MULTIPLEX_STEREO) ? 2 : 1;
 }
 
 MultiplexTilde::MultiplexTilde(const PdArgs& args)
     : SoundExternal(args)
-    , n_(clip<int>(
-          positionalFloatArgument(0, DEFAULT_INLETS),
-          MIN_INLETS,
-          MAX_INLETS / outMultiplier(args)))
 {
-    for (size_t i = 1; i < n_ * outMultiplier(args); i++)
+    const size_t NCHAN = positionalConstant<DEF_INLETS, MIN_NCHAN, MAX_NCHAN>(0);
+    for (size_t i = 1; i < NCHAN * chanMuliplier(args); i++)
         createSignalInlet();
 
     // control inlet
@@ -42,7 +39,7 @@ MultiplexTilde::MultiplexTilde(const PdArgs& args)
     if (args.flags == MULTIPLEX_STEREO)
         createSignalOutlet();
 
-    gain_.assign(n_, t_smooth(0));
+    gain_.assign(NCHAN, t_smooth(0));
     gain_[0].setTargetValue(1);
 
     createCbProperty("@value", &MultiplexTilde::propValue, &MultiplexTilde::propSetValue);

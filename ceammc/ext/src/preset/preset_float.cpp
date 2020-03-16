@@ -8,7 +8,9 @@ PresetFloat::PresetFloat(const PdArgs& args)
 {
     // 1st positionalSymbolArgument is preset name - in base class
     // 2nd positionalFloatArgument we are using as init value
-    init_ = new FloatProperty("@init", positionalFloatArgument(1, 0), true);
+    init_ = new FloatProperty("@init", 0);
+    init_->setArgIndex(1);
+    init_->setInitOnly();
     current_value_ = init_->value();
     createProperty(init_);
 }

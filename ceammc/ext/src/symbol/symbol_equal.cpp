@@ -16,12 +16,12 @@
 
 SymbolEqual::SymbolEqual(const PdArgs& a)
     : BaseObject(a)
-    , pattern_(0)
+    , pattern_(nullptr)
 {
     createInlet(&pattern_);
     createOutlet();
 
-    pattern_ = positionalSymbolArgument(0, 0);
+    pattern_ = positionalSymbolConstant(0, nullptr);
 }
 
 void SymbolEqual::onSymbol(t_symbol* s)

@@ -30,7 +30,7 @@ class ArrayVlinePlay : public ArrayBase {
     PlayerState state_;
     long begin_pos_;
     long end_pos_;
-    float speed_;
+    t_float speed_;
     BoolProperty* reversed_;
     ClockMemberFunction<ArrayVlinePlay> clock_;
 
@@ -38,16 +38,6 @@ public:
     ArrayVlinePlay(const PdArgs& args);
 
     bool processAnyProps(t_symbol* s, const AtomList& args) override;
-
-    AtomList propState() const;
-    AtomList propSpeed() const;
-    void propSetSpeed(const AtomList& lst);
-    AtomList propBeginSample() const;
-    AtomList propEndSample() const;
-    void propSetBeginSample(const AtomList& pos);
-    void propSetEndSample(const AtomList& pos);
-    AtomList propAbsBeginSample() const;
-    AtomList propAbsEndSample() const;
 
     void onBang() override;
     void onFloat(t_float f) override;

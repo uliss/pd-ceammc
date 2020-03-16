@@ -19,8 +19,10 @@ StringSubstr::StringSubstr(const PdArgs& a)
 {
     createOutlet();
 
-    from_ = new IntProperty("@from", positionalArgument(0).asInt(0));
-    len_ = new SizeTProperty("@len", positionalArgument(1).asInt(-1));
+    from_ = new IntProperty("@from", 0);
+    from_->setArgIndex(0);
+    len_ = new SizeTProperty("@len", size_t(-1));
+    len_->setArgIndexNext(from_);
 
     createProperty(from_);
     createProperty(len_);

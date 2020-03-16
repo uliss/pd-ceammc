@@ -6,29 +6,42 @@
 
 #include <cassert>
 
+constexpr int DEF_NCHAN = 2;
+constexpr int MIN_NCHAN = 2;
+constexpr int MAX_NCHAN = 16;
+
 PanSpread::PanSpread(const PdArgs& args)
     : SoundExternal(args)
-    , channels_(0)
-    , compensate_(0)
+    , channels_(nullptr)
+    , compensate_(nullptr)
 {
-    channels_ = new InitIntPropertyClosedRange(new IntPropertyClosedRange("@ch", 2, 2, 16));
-    setPropertyFromPositionalArg(channels_, 0);
+    channels_ = new IntProperty("@ch", DEF_NCHAN);
+    channels_->checkClosedRange(MIN_NCHAN, MAX_NCHAN);
+    channels_->setArgIndex(0);
     createProperty(channels_);
 
-    createCbProperty("@center", &PanSpread::propCenter, &PanSpread::propSetCenter);
-    property("@center")->info().setType(PropertyInfoType::FLOAT);
-    createCbProperty("@spread", &PanSpread::propSpread, &PanSpread::propSetSpread);
-    property("@spread")->info().setType(PropertyInfoType::FLOAT);
-    property("@spread")->info().setDefault(1);
-    property("@spread")->info().setRange(0, 1);
+    createCbFloatProperty(
+        "@center",
+        [this]() -> t_float { return center_.target(); },
+        [this](t_float v) -> bool { center_.setTargetValue(v); return true; })
+        ->setFloatCheck(PropValueConstraints::CLOSED_RANGE, -0.5, 0.5);
+
+    createCbFloatProperty(
+        "@spread",
+        [this]() -> t_float { return spread_.target(); },
+        [this](t_float f) -> bool { spread_.setTargetValue(f); return true; })
+        ->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 0, 1);
+
+    spread_.setTargetValue(1);
 
     compensate_ = new BoolProperty("@compensate", false);
     createProperty(compensate_);
 
     createCbProperty("@coeffs", &PanSpread::propCoeffs);
+}
 
-    parseProperties();
-
+void PanSpread::initDone()
+{
     const size_t N = channels_->value();
     assert(N > 1);
 
@@ -41,7 +54,7 @@ PanSpread::PanSpread(const PdArgs& args)
     block_r_.assign(64, 0);
 
     // create inlets
-    for (size_t i = 0; i < N - 1; i++)
+    for (size_t i = 1; i < N; i++)
         createSignalInlet();
 
     createSignalOutlet();
@@ -128,28 +141,6 @@ AtomList PanSpread::propCoeffs() const
     }
 
     return res;
-}
-
-AtomList PanSpread::propSpread() const
-{
-    return Atom(spread_.target());
-}
-
-void PanSpread::propSetSpread(const AtomList& lst)
-{
-    t_float v = clip<t_float>(lst.floatAt(0, 0), 0, 1);
-    spread_.setTargetValue(v);
-}
-
-AtomList PanSpread::propCenter() const
-{
-    return Atom(center_.target());
-}
-
-void PanSpread::propSetCenter(const AtomList& lst)
-{
-    t_float v = clip<t_float>(lst.floatAt(0, 0), -0.5, 0.5);
-    center_.setTargetValue(v);
 }
 
 void setup_pan_spread()

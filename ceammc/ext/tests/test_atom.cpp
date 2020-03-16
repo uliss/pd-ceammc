@@ -14,6 +14,8 @@
 #include "catch.hpp"
 #include "ceammc_atom.h"
 
+#include "test_macro.h"
+
 #include <algorithm>
 #include <cctype>
 #include <cmath>
@@ -45,6 +47,8 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         Atom fatom(a);
         REQUIRE(fatom.isFloat());
         REQUIRE_FALSE(fatom.isSymbol());
+        REQUIRE_FALSE(fatom.isBool());
+        REQUIRE_FALSE(fatom.isInteger());
         REQUIRE(fatom.type() == Atom::FLOAT);
         std::string s;
         REQUIRE_FALSE(fatom.getString(s));
@@ -360,6 +364,25 @@ TEST_CASE("Atom", "[ceammc::Atom]")
             REQUIRE((b /= 3.0) == c);
             REQUIRE((b /= 0.0) == c);
         }
+    }
+
+    SECTION("bool")
+    {
+        REQUIRE(Atom(1).isBool());
+        REQUIRE(Atom(t_float(0)).isBool());
+        REQUIRE(S("true").isBool());
+        REQUIRE_FALSE(Atom(t_float(0.1)).isBool());
+        REQUIRE_FALSE(Atom(t_float(-1)).isBool());
+
+        REQUIRE(Atom().asBool() == false);
+        REQUIRE(Atom(true).asBool() == true);
+        REQUIRE(Atom(1).asBool() == true);
+        REQUIRE(Atom(-1).asBool() == true);
+        REQUIRE(Atom(0.f).asBool() == false);
+        REQUIRE(Atom(SYM("true")).asBool() == true);
+        REQUIRE(Atom(SYM("false")).asBool() == false);
+        REQUIRE(Atom(SYM("???")).asBool(true) == true);
+        REQUIRE(Atom(SYM("???")).asBool(false) == false);
     }
 
     SECTION("test apply")

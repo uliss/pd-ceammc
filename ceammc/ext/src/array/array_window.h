@@ -15,6 +15,7 @@
 #define ARRAY_WINDOW_H
 
 #include "array_base.h"
+#include "ceammc_property_enum.h"
 
 typedef float (*WindowFuncPtr)(size_t, size_t);
 

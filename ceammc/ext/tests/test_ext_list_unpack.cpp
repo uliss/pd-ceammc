@@ -16,11 +16,12 @@
 #include "test_base.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(ListUnpack, list, unpack);
+PD_COMPLETE_TEST_SETUP(ListUnpack, list, unpack)
 
 TEST_CASE("list.unpack", "[externals]")
 {
     pd_test_init();
+    test::pdPrintToStdError();
 
     SECTION("create")
     {

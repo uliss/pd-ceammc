@@ -15,25 +15,22 @@ ListAt::ListAt(const PdArgs& a)
     createInlet();
     createOutlet();
 
-    pos_ = new ListProperty("@index", positionalArguments().filtered(isFloat));
-    if (pos_->value().empty())
-        pos_->set(AtomList(0.0));
+    pos_ = new ListProperty("@index", AtomList(Atom(0.f)));
+    pos_->setFloatCheckFn([](t_float) { return true; });
+    pos_->setArgIndex(0);
 
-    createProperty(pos_);
+    addProperty(pos_);
 
-    at_method_ = new SymbolEnumProperty("@method", SYM_REL);
-    at_method_->appendEnum(SYM_CLIP);
-    at_method_->appendEnum(SYM_WRAP);
-    at_method_->appendEnum(SYM_FOLD);
-    createProperty(at_method_);
+    at_method_ = new SymbolEnumProperty("@method", { SYM_REL, SYM_CLIP, SYM_WRAP, SYM_FOLD });
+    addProperty(at_method_);
 
-    createProperty(new SymbolEnumAlias("@rel", at_method_, SYM_REL));
-    createProperty(new SymbolEnumAlias("@clip", at_method_, SYM_CLIP));
-    createProperty(new SymbolEnumAlias("@wrap", at_method_, SYM_WRAP));
-    createProperty(new SymbolEnumAlias("@fold", at_method_, SYM_FOLD));
+    addProperty(new SymbolEnumAlias("@rel", at_method_, SYM_REL));
+    addProperty(new SymbolEnumAlias("@clip", at_method_, SYM_CLIP));
+    addProperty(new SymbolEnumAlias("@wrap", at_method_, SYM_WRAP));
+    addProperty(new SymbolEnumAlias("@fold", at_method_, SYM_FOLD));
 
     default_ = new AtomProperty("@default", Atom());
-    createProperty(default_);
+    addProperty(default_);
 }
 
 void ListAt::onInlet(size_t idx, const AtomList& l)

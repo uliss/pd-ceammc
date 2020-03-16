@@ -16,6 +16,7 @@
 
 #include "aubio_base.h"
 #include "ceammc_array.h"
+#include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 
 using namespace ceammc;
@@ -28,29 +29,26 @@ public:
     bool checkArray();
 
     void onBang() final;
-    void parseProperties() final;
+    void initDone() final;
 
 private:
     AtomList propArray() const;
     void propSetArray(const AtomList& l);
-    void initOnset(uint_t sr);
-    void updateMethodProperty();
-    static void propCallback(BaseObject* this_, t_symbol* name);
+    void resetAubioOnset(uint_t sr);
+    void saveSteadyProperties();
+    void restoreSteadyProperties();
 
 private:
     t_symbol* array_name_;
     FVecPtr in_, out_;
     OnsetPtr onset_;
 
-    IntPropertyMinEq* buffer_size_;
-    IntProperty* hop_size_;
+    IntProperty* buffer_size_;
+    HopSizeProperty* hop_size_;
+    OnsetMethodProperty* method_;
     OnsetFloatProperty* threshold_;
-    OnsetFloatProperty* delay_;
-    OnsetFloatProperty* speedlim_;
     OnsetFloatProperty* silence_threshold_;
-    OnsetFloatProperty* compression_;
-    OnsetUIntProperty* awhitening_;
-    SymbolEnumProperty* method_;
+    OnsetFloatProperty* speedlim_;
 
 protected:
     Array array_;

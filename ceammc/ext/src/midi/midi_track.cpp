@@ -15,9 +15,16 @@ MidiTrack::MidiTrack(const PdArgs& args)
 {
     // properties
     join_ = new FlagProperty("@join");
-    track_idx_ = new SizeTProperty("@track", positionalFloatArgument(0, 0));
-    tempo_ = new IntProperty("@tempo", 120, true);
-    speed_ = new FloatPropertyMin("@speed", 1, 0.01);
+    track_idx_ = new SizeTProperty("@track", 0);
+    track_idx_->setArgIndex(0);
+    tempo_ = new IntProperty("@tempo", 120);
+    tempo_->setInitOnly();
+//    tempo_->setUnits(PropValueUnits::BPM);
+
+    constexpr t_float DEFAULT_SPEED = 1;
+    constexpr t_float MIN_SPEED = 0.01;
+    speed_ = new FloatProperty("@speed", DEFAULT_SPEED);
+    speed_->checkMin(MIN_SPEED);
 
     createProperty(join_);
     createProperty(track_idx_);

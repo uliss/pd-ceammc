@@ -7,7 +7,7 @@
 using namespace ceammc;
 
 class PanSpread : public SoundExternal {
-    InitIntPropertyClosedRange* channels_;
+    IntProperty* channels_;
     BoolProperty* compensate_;
     std::vector<t_float> positions_;
     std::vector<t_float> block_l_;
@@ -19,16 +19,12 @@ class PanSpread : public SoundExternal {
 
 public:
     PanSpread(const PdArgs& args);
+    void initDone() final;
     void setupDSP(t_signal** sp);
     void processBlock(const t_sample** in, t_sample** out);
 
     void calcCoefficents();
     AtomList propCoeffs() const;
-
-    AtomList propSpread() const;
-    void propSetSpread(const AtomList& lst);
-    AtomList propCenter() const;
-    void propSetCenter(const AtomList& lst);
 };
 
 void setup_pan_spread();

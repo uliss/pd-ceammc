@@ -19,10 +19,13 @@ MidiKey2Str::MidiKey2Str(const PdArgs& args)
             OBJ_ERR << "can't parse tonality: " << str;
     }
 
-    createCbProperty("@tonality", &MidiKey2Str::p_tonality, &MidiKey2Str::p_setTonality);
-    property("@tonality")->info().setType(PropertyInfoType::SYMBOL);
+    createCbListProperty(
+        "@tonality",
+        [this]() -> AtomList { return p_tonality(); },
+        [this](const AtomList& l) -> bool { return p_setTonality(l); });
+
     as_symbol_ = new FlagProperty("@symbol");
-    createProperty(as_symbol_);
+    addProperty(as_symbol_);
 
     createOutlet();
 }
@@ -52,15 +55,16 @@ AtomList MidiKey2Str::p_tonality() const
     return Atom(gensym(name.c_str()));
 }
 
-void MidiKey2Str::p_setTonality(const AtomList& l)
+bool MidiKey2Str::p_setTonality(const AtomList& l)
 {
     std::string str = to_string(l);
     if (!music::from_string(str, tonality_, music::NAMING_SCHEME_SPN)) {
         OBJ_ERR << "can't parse tonality: " << str;
-        return;
+        return false;
     }
 
     clearCache();
+    return true;
 }
 
 void MidiKey2Str::clearCache()

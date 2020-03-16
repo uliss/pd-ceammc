@@ -12,14 +12,12 @@ ListMax::ListMax(const PdArgs& a)
 {
     createOutlet();
 
-    type_ = new SymbolEnumProperty("@type", SYM_FLOAT);
-    type_->appendEnum(SYM_SYMBOL);
-    type_->appendEnum(SYM_ANY);
-    createProperty(type_);
+    type_ = new SymbolEnumProperty("@type", { SYM_FLOAT, SYM_SYMBOL, SYM_ANY });
+    addProperty(type_);
 
-    createProperty(new SymbolEnumAlias("@float", type_, SYM_FLOAT));
-    createProperty(new SymbolEnumAlias("@symbol", type_, SYM_SYMBOL));
-    createProperty(new SymbolEnumAlias("@any", type_, SYM_ANY));
+    addProperty(new SymbolEnumAlias("@float", type_, SYM_FLOAT));
+    addProperty(new SymbolEnumAlias("@symbol", type_, SYM_SYMBOL));
+    addProperty(new SymbolEnumAlias("@any", type_, SYM_ANY));
 }
 
 void ListMax::onList(const AtomList& l)

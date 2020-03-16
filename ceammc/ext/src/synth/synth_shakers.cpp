@@ -56,18 +56,19 @@ static ShakerType typeFromArgs(t_symbol* s)
 
 SynthShakers::SynthShakers(const PdArgs& args)
     : StkBase(args, new MyShakers())
-    , type_(typeFromArgs(positionalSymbolArgument(0, gensym("maraca"))))
+    , type_(typeFromArgs(positionalSymbolConstant(0, gensym("maraca"))))
     , gate_(0)
 {
     {
         Property* p = createCbProperty("@gate", &SynthShakers::propGate, &SynthShakers::propSetGate);
-        p->info().setType(PropertyInfoType::FLOAT);
-        p->info().setRange(0, 1);
+        p->info().setType(PropValueType::FLOAT);
+        p->info().setRangeFloat(0, 1);
+        p->info().setConstraints(PropValueConstraints::CLOSED_RANGE);
     }
 
     {
         Property* p = createCbProperty("@type", &SynthShakers::propType, &SynthShakers::propSetType);
-        p->info().setType(PropertyInfoType::SYMBOL);
+        p->info().setType(PropValueType::SYMBOL);
 
         for (auto t : type_list)
             p->info().addEnum(t.first);

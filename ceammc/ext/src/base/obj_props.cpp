@@ -20,20 +20,20 @@ extern "C" {
 #include "m_imp.h"
 }
 
-static t_symbol* typeToSymbol(PropertyInfoType t)
+static t_symbol* typeToSymbol(PropValueType t)
 {
     static t_symbol* TYPE_NAMES[] = {
         gensym("bool"), gensym("int"), gensym("float"),
         gensym("symbol"), gensym("variant"), gensym("list")
     };
 
-    static_assert(sizeof(TYPE_NAMES) / sizeof(TYPE_NAMES[0]) == int(PropertyInfoType::LIST) + 1,
+    static_assert(sizeof(TYPE_NAMES) / sizeof(TYPE_NAMES[0]) == int(PropValueType::LIST) + 1,
         "type to symbol table size mismatch");
 
     return TYPE_NAMES[int(t)];
 }
 
-static t_symbol* viewToSymbol(PropertyInfoView v)
+static t_symbol* viewToSymbol(PropValueView v)
 {
     static t_symbol* VIEW_NAMES[] = {
         gensym("slider"), gensym("knob"), gensym("numbox"),
@@ -41,7 +41,7 @@ static t_symbol* viewToSymbol(PropertyInfoView v)
         gensym("entry"), gensym("color")
     };
 
-    static_assert(sizeof(VIEW_NAMES) / sizeof(VIEW_NAMES[0]) == int(PropertyInfoView::COLOR) + 1,
+    static_assert(sizeof(VIEW_NAMES) / sizeof(VIEW_NAMES[0]) == int(PropValueView::COLOR) + 1,
         "view to symbol table size mismatch");
 
     return VIEW_NAMES[int(v)];
@@ -84,7 +84,7 @@ void ObjProps::onBang()
         for (PropertyInfo& p : props) {
 
             DataTypeDict* val = new DataTypeDict;
-            dict->insert(Atom(gensym(p.name().c_str())), DataAtom(DataPtr(val)));
+            dict->insert(Atom(p.name()), DataAtom(DataPtr(val)));
 
             val->insert("name", p.name());
             val->insert("type", typeToSymbol(p.type()));
@@ -112,11 +112,19 @@ void ObjProps::onBang()
                     val->insert("default", def);
             }
 
-            if (p.hasMinLimit())
-                val->insert("min", p.min());
+            if (p.hasConstraintsMin()) {
+                if (p.isFloat())
+                    val->insert("min", p.minFloat());
+                else if (p.isInt())
+                    val->insert("min", p.minInt());
+            }
 
-            if (p.hasMaxLimit())
-                val->insert("max", p.max());
+            if (p.hasConstraintsMax()) {
+                if (p.isFloat())
+                    val->insert("max", p.maxFloat());
+                else if (p.isInt())
+                    val->insert("max", p.maxInt());
+            }
 
             if (p.hasStep())
                 val->insert("step", p.step());

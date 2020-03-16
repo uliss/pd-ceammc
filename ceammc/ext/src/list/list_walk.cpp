@@ -1,4 +1,5 @@
 #include "list_walk.h"
+#include "ceammc_property_enum.h"
 
 #include <cstdlib>
 
@@ -21,30 +22,27 @@ ListWalk::ListWalk(const PdArgs& a)
     createOutlet();
     createOutlet();
 
-    createProperty(new PointerProperty<bool>("@direction", &forward_, false));
-    createProperty(new PointerProperty<int>("@length", &length_, false));
-    createProperty(new PointerProperty<AtomList>("@value", &lst_));
+    addProperty(new PointerProperty<bool>("@direction", &forward_, PropValueAccess::READWRITE));
+    addProperty(new PointerProperty<int>("@length", &length_, PropValueAccess::READWRITE));
+    addProperty(new PointerProperty<AtomList>("@value", &lst_, PropValueAccess::READONLY));
 
-    walk_mode_ = new SymbolEnumProperty("@mode", SYM_SINGLE);
-    walk_mode_->appendEnum(SYM_WRAP);
-    walk_mode_->appendEnum(SYM_CLIP);
-    walk_mode_->appendEnum(SYM_FOLD);
-    createProperty(walk_mode_);
+    walk_mode_ = new SymbolEnumProperty("@mode",
+        { SYM_SINGLE, SYM_WRAP, SYM_CLIP, SYM_FOLD });
+    addProperty(walk_mode_);
 
     // aliases
-    createProperty(new SymbolEnumAlias("@single", walk_mode_, SYM_SINGLE));
-    createProperty(new SymbolEnumAlias("@loop", walk_mode_, SYM_WRAP));
-    createProperty(new SymbolEnumAlias("@wrap", walk_mode_, SYM_WRAP));
-    createProperty(new SymbolEnumAlias("@clip", walk_mode_, SYM_CLIP));
-    createProperty(new SymbolEnumAlias("@fold", walk_mode_, SYM_FOLD));
+    addProperty(new SymbolEnumAlias("@single", walk_mode_, SYM_SINGLE));
+    addProperty(new SymbolEnumAlias("@loop", walk_mode_, SYM_WRAP));
+    addProperty(new SymbolEnumAlias("@wrap", walk_mode_, SYM_WRAP));
+    addProperty(new SymbolEnumAlias("@clip", walk_mode_, SYM_CLIP));
+    addProperty(new SymbolEnumAlias("@fold", walk_mode_, SYM_FOLD));
 
-    {
-        Property* p = createCbProperty("@size", &ListWalk::p_size);
-        p->info().setType(PropertyInfoType::INTEGER);
-    }
+    createCbIntProperty(
+        "@size",
+        [this]() -> int { return lst_.size(); })
+        ->setIntCheck(PropValueConstraints::GREATER_EQUAL, 0);
 
     createCbProperty("@index", &ListWalk::p_index, &ListWalk::p_set_index);
-    property("@index")->info().setType(PropertyInfoType::INTEGER);
 
     lst_ = positionalArguments();
 }
@@ -81,8 +79,6 @@ void ListWalk::m_reset(t_symbol*, const AtomList&)
     current_pos_ = 0;
     single_done_ = false;
 }
-
-AtomList ListWalk::p_size() const { return AtomList(lst_.size()); }
 
 AtomList ListWalk::p_index() const
 {

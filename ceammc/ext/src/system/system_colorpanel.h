@@ -14,9 +14,10 @@
 #ifndef SYSTEM_COLORPANEL_H
 #define SYSTEM_COLORPANEL_H
 
-#include <cinttypes>
+#include <cstdint>
 
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 using namespace ceammc;
 
 class SystemColorpanel : public BaseObject {

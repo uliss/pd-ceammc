@@ -23,20 +23,18 @@ static t_symbol* REMOVE_LAST;
 
 StringRemove::StringRemove(const PdArgs& a)
     : BaseObject(a)
-    , mode_(0)
+    , mode_(nullptr)
     , str_to_remove_(to_string(positionalArguments()))
 {
     createInlet();
     createOutlet();
 
-    mode_ = new SymbolEnumProperty("@mode", REMOVE_ALL);
-    mode_->appendEnum(REMOVE_FIRST);
-    mode_->appendEnum(REMOVE_LAST);
-    createProperty(mode_);
+    mode_ = new SymbolEnumProperty("@mode", { REMOVE_ALL, REMOVE_FIRST, REMOVE_LAST });
+    addProperty(mode_);
 
-    createProperty(new SymbolEnumAlias("@all", mode_, REMOVE_ALL));
-    createProperty(new SymbolEnumAlias("@first", mode_, REMOVE_FIRST));
-    createProperty(new SymbolEnumAlias("@last", mode_, REMOVE_LAST));
+    addProperty(new SymbolEnumAlias("@all", mode_, REMOVE_ALL));
+    addProperty(new SymbolEnumAlias("@first", mode_, REMOVE_FIRST));
+    addProperty(new SymbolEnumAlias("@last", mode_, REMOVE_LAST));
 }
 
 void StringRemove::onSymbol(t_symbol* s)

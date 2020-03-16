@@ -26,3 +26,13 @@ add_benchmark(atomlist)
 add_benchmark(control_externals)
 add_benchmark(data_tree)
 add_benchmark(dataptr)
+
+
+# lowlevel tests
+add_executable(bm_lowlevel bm_lowlevel.cpp)
+target_link_libraries(bm_lowlevel bm_main fmt)
+
+add_custom_target(benchmark_lowlevel
+    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/bm_lowlevel -r html -o "${BM_HTML_DIR}/benchmark_lowlevel.html"
+    COMMAND open "${BM_HTML_DIR}/benchmark_lowlevel.html"
+    DEPENDS bm_lowlevel)

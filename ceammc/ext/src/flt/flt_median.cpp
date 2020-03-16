@@ -30,8 +30,9 @@ FltMedian::FltMedian(const PdArgs& args)
     , window_size_(nullptr)
     , window_idx_(-1)
 {
-    window_size_ = new IntPropertyClosedRange("@size", 9, 1, 128);
-    window_size_->info().setUnits(PropertyInfoUnits::SAMP);
+    window_size_ = new IntProperty("@size", 9);
+    window_size_->checkClosedRange(1, 128);
+    window_size_->setUnitsSamp();
     createProperty(window_size_);
 
     setPropertyCallback(updatePropSize);

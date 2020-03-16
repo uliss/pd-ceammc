@@ -223,6 +223,7 @@ public:
         }
 
         x->impl->parseProperties();
+        x->impl->initDone();
 
         return x;
     }

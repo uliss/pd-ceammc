@@ -20,7 +20,9 @@ HoaXlet::HoaXlet(const PdArgs& args)
     : BaseObject(args)
     , extra_(nullptr)
 {
-    extra_ = new IntPropertyMinEq("@index", positionalFloatArgument(0, 1), 1);
+    extra_ = new IntProperty("@index", 1);
+    extra_->setArgIndex(0);
+    extra_->checkMinEq(1);
     createProperty(extra_);
 }
 
@@ -134,7 +136,9 @@ HoaXletTilde::HoaXletTilde(const PdArgs& args)
     , extra_(nullptr)
     , signal_(nullptr)
 {
-    extra_ = new IntPropertyMinEq("@extra", positionalFloatArgument(0, 0), 0);
+    extra_ = new IntProperty("@extra", 0);
+    extra_->setArgIndex(0);
+    extra_->checkMinEq(0);
     createProperty(extra_);
 }
 

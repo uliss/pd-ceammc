@@ -3,8 +3,9 @@
 #include "ceammc_factory.h"
 #include "ceammc_log.h"
 
-static const int MIN_COUNT = 1;
-static const int MAX_COUNT = 1024;
+constexpr int DEF_COUNT = 1;
+constexpr int MIN_COUNT = 1;
+constexpr int MAX_COUNT = 1024;
 
 ListGenerate::ListGenerate(const PdArgs& a)
     : BaseObject(a)
@@ -15,7 +16,9 @@ ListGenerate::ListGenerate(const PdArgs& a)
     createOutlet();
     createOutlet();
 
-    count_ = new IntPropertyClosedRange("@count", positionalFloatArgument(0, 1), MIN_COUNT, MAX_COUNT);
+    count_ = new IntProperty("@count", 1);
+    count_->setArgIndex(0);
+    count_->checkClosedRange(MIN_COUNT, MAX_COUNT);
     createProperty(count_);
 }
 

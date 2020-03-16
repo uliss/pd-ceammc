@@ -57,7 +57,7 @@ namespace faust {
 
     class UIElement;
 
-    PropertyInfoUnits to_units(const char* u);
+    PropValueUnits to_units(const char* u);
 
     class UIProperty : public Property {
         UIElement* el_;
@@ -65,7 +65,7 @@ namespace faust {
     public:
         UIProperty(UIElement* el);
 
-        bool set(const AtomList& lst) override;
+        bool setList(const AtomList& lst) override;
         AtomList get() const override;
         t_float value() const;
         void setValue(t_float v, bool clip = false) const;
@@ -111,8 +111,6 @@ namespace faust {
         void initSignalInputs(size_t n);
         void initSignalOutputs(size_t n);
         float xfadeTime() const;
-        void propSetActive(const AtomList& lst);
-        AtomList propActive() const;
 
     private:
         void bufFadeIn(const t_sample** in, t_sample** out, float k0);
@@ -172,7 +170,7 @@ namespace faust {
         void dump(t_outlet* out);
 
         const PropertyInfo& propInfo() const { return pinfo_; }
-        void setUnits(PropertyInfoUnits u) { pinfo_.setUnits(u); }
+        void setUnits(PropValueUnits u) { pinfo_.setUnits(u); }
     };
 
     inline const std::string& UIElement::label() const

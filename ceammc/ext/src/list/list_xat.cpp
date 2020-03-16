@@ -12,9 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_xat.h"
-#include "datatype_mlist.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "ceammc_property_enum.h"
+#include "datatype_mlist.h"
 
 static t_symbol* SYM_REL;
 static t_symbol* SYM_CLIP;
@@ -31,18 +32,16 @@ ListXAt::ListXAt(const PdArgs& args)
     createOutlet();
 
     def_ = new AtomProperty("@default", Atom());
-    createProperty(def_);
+    addProperty(def_);
 
-    at_method_ = new SymbolEnumProperty("@method", SYM_REL);
-    at_method_->appendEnum(SYM_CLIP);
-    at_method_->appendEnum(SYM_WRAP);
-    at_method_->appendEnum(SYM_FOLD);
-    createProperty(at_method_);
+    at_method_ = new SymbolEnumProperty("@method",
+        { SYM_REL, SYM_CLIP, SYM_WRAP, SYM_FOLD });
+    addProperty(at_method_);
 
-    createProperty(new SymbolEnumAlias("@rel", at_method_, SYM_REL));
-    createProperty(new SymbolEnumAlias("@clip", at_method_, SYM_CLIP));
-    createProperty(new SymbolEnumAlias("@wrap", at_method_, SYM_WRAP));
-    createProperty(new SymbolEnumAlias("@fold", at_method_, SYM_FOLD));
+    addProperty(new SymbolEnumAlias("@rel", at_method_, SYM_REL));
+    addProperty(new SymbolEnumAlias("@clip", at_method_, SYM_CLIP));
+    addProperty(new SymbolEnumAlias("@wrap", at_method_, SYM_WRAP));
+    addProperty(new SymbolEnumAlias("@fold", at_method_, SYM_FOLD));
 }
 
 void ListXAt::onFloat(t_float f)

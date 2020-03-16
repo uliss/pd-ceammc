@@ -22,7 +22,7 @@ class uDMX_Handle;
 
 class uDMX : public BaseObject {
     uDMX_Handle* udmx_;
-    IntPropertyClosedRange* channel_;
+    IntProperty* channel_;
 
 public:
     uDMX(const PdArgs& args);

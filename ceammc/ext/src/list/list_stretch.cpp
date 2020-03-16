@@ -1,7 +1,7 @@
 #include "list_stretch.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "datatype_mlist.h"
 
 ListStretch::ListStretch(const PdArgs& args)
     : BaseObject(args)
@@ -10,7 +10,9 @@ ListStretch::ListStretch(const PdArgs& args)
     createInlet();
     createOutlet();
 
-    n_ = new IntPropertyMinEq("@size", positionalFloatArgument(0, 1), 1);
+    n_ = new IntProperty("@size", 1);
+    n_->setArgIndex(0);
+    n_->checkPositive();
     createProperty(n_);
 }
 

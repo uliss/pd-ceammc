@@ -1,4 +1,5 @@
 #include "array_load_pattern.h"
+#include "ceammc_callback_property.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_object.h"

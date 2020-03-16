@@ -21,8 +21,10 @@ CC2Amp::CC2Amp(const PdArgs& a)
 {
     createOutlet();
 
-    from_ = new FloatProperty("@from", positionalFloatArgument(0, 0));
-    to_ = new FloatProperty("@to", positionalFloatArgument(1, 1));
+    from_ = new FloatProperty("@from", 0);
+    from_->setArgIndex(0);
+    to_ = new FloatProperty("@to", 1);
+    to_->setArgIndexNext(from_);
 
     createProperty(from_);
     createProperty(to_);

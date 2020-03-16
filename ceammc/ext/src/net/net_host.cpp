@@ -90,15 +90,15 @@ NetHost::NetHost(const PdArgs& args)
     : ThreadExternal(args, new HostTask(this))
     , addr_type_(nullptr)
 {
-    task()->setName(positionalSymbolArgument(0, &s_));
+    task()->setName(positionalSymbolConstant(0, &s_));
     createOutlet();
 
-    addr_type_ = new SymbolEnumProperty("@type", SYM_IPV4);
-    addr_type_->appendEnum(SYM_IPV6);
-    createProperty(addr_type_);
+    addr_type_ = new SymbolEnumProperty("@type", { SYM_IPV4, SYM_IPV6 });
+    addr_type_->setArgIndex(1);
+    addProperty(addr_type_);
 
-    createProperty(new SymbolEnumAlias("@ipv4", addr_type_, SYM_IPV4));
-    createProperty(new SymbolEnumAlias("@ipv6", addr_type_, SYM_IPV6));
+    addProperty(new SymbolEnumAlias("@ipv4", addr_type_, SYM_IPV4));
+    addProperty(new SymbolEnumAlias("@ipv6", addr_type_, SYM_IPV6));
 }
 
 void NetHost::onSymbol(t_symbol* s)

@@ -26,8 +26,7 @@ class Gain : public SoundExternal {
     std::vector<t_smooth> gain_;
     OutBlocks outs_;
     size_t prev_bs_; // previous block size
-    const size_t n_;
-    FloatPropertyMin* smooth_;
+    FloatProperty* smooth_;
 
 public:
     Gain(const PdArgs& args);

@@ -10,8 +10,8 @@ static boost::random::mt19937 random_gen(std::time(0));
 
 RandomFloat::RandomFloat(const PdArgs& a)
     : BaseObject(a)
-    , min_(0)
-    , max_(0)
+    , min_(nullptr)
+    , max_(nullptr)
 {
     createOutlet();
 
@@ -21,14 +21,16 @@ RandomFloat::RandomFloat(const PdArgs& a)
     createProperty(min_);
     createProperty(max_);
 
-    if (positionalArguments().size() == 2) {
-        min_->setValue(positionalArgument(0).asFloat(0));
-        max_->setValue(positionalArgument(1).asFloat(1));
-    }
-
-    if (positionalArguments().size() == 1) {
-        min_->setValue(0);
-        max_->setValue(positionalArgument(0).asFloat(1));
+    switch (positionalArguments().size()) {
+    case 2:
+        min_->setArgIndex(0);
+        max_->setArgIndex(1);
+        break;
+    case 1:
+        max_->setArgIndex(0);
+        break;
+    default:
+        break;
     }
 }
 

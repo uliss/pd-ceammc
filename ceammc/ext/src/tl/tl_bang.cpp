@@ -9,8 +9,10 @@ TlBang::TlBang(const PdArgs& args)
     , delay_(nullptr)
     , clock_(this, &TlBang::tick)
 {
-    delay_ = new FloatPropertyMinEq("@delay", 0, 0);
-    delay_->info().setUnits(PropertyInfoUnits::MSEC);
+    delay_ = new FloatProperty("@delay", 0);
+    delay_->checkNonNegative();
+    delay_->setArgIndex(0);
+    delay_->setUnitsMs();
     createProperty(delay_);
 }
 

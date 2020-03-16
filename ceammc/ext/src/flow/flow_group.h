@@ -30,8 +30,6 @@ public:
     void onList(const AtomList& l);
     void onData(const DataPtr& d);
 
-    AtomList propFree() const;
-
     void m_flush(t_symbol*, const AtomList& l);
     void m_clear(t_symbol*, const AtomList& l);
 

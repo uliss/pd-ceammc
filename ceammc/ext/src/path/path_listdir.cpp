@@ -21,7 +21,7 @@ PathListDir::PathListDir(const PdArgs& a)
 {
     createOutlet();
 
-    createProperty(new PointerProperty<t_symbol*>("@match", &match_, false));
+    createProperty(new PointerProperty<t_symbol*>("@match", &match_, PropValueAccess::READWRITE));
 
     path_ = to_string(positionalArguments());
 }

@@ -14,6 +14,7 @@
 
 #include <array>
 
+#include "ceammc_callback_property.h"
 #include "ceammc_faust.h"
 
 namespace ceammc {
@@ -59,27 +60,35 @@ namespace faust {
         // set type and view
         switch (type_) {
         case UI_CHECK_BUTTON:
-            pinfo_.setType(PropertyInfoType::BOOLEAN);
-            pinfo_.setView(PropertyInfoView::TOGGLE);
+            pinfo_.setType(PropValueType::BOOLEAN);
+            pinfo_.setView(PropValueView::TOGGLE);
+            pinfo_.setDefault(init_ != 0);
             break;
         case UI_V_SLIDER:
         case UI_H_SLIDER:
-            pinfo_.setType(PropertyInfoType::FLOAT);
-            pinfo_.setView(PropertyInfoView::SLIDER);
+            pinfo_.setType(PropValueType::FLOAT);
+            pinfo_.setView(PropValueView::SLIDER);
             break;
         case UI_NUM_ENTRY:
-            pinfo_.setType(PropertyInfoType::FLOAT);
-            pinfo_.setView(PropertyInfoView::NUMBOX);
+            pinfo_.setType(PropValueType::FLOAT);
+            pinfo_.setView(PropValueView::NUMBOX);
             break;
         default:
-            pinfo_.setType(PropertyInfoType::FLOAT);
-            pinfo_.setView(PropertyInfoView::SLIDER);
+            pinfo_.setType(PropValueType::FLOAT);
+            pinfo_.setView(PropValueView::SLIDER);
             break;
         }
 
-        pinfo_.setDefault(init_);
-        pinfo_.setStep(step_);
-        pinfo_.setRange(min_, max_);
+        if (type_ != UI_CHECK_BUTTON) {
+            if (!pinfo_.setConstraints(PropValueConstraints::CLOSED_RANGE))
+                LIB_ERR << set_prop_symbol_ << " can't set constraints";
+
+            if (!pinfo_.setRangeFloat(min_, max_))
+                LIB_ERR << set_prop_symbol_ << " can't set range: " << min_ << " - " << max_;
+
+            pinfo_.setDefault(init_);
+            pinfo_.setStep(step_);
+        }
     }
 
     void UIElement::outputProperty(t_outlet* out)
@@ -117,7 +126,7 @@ namespace faust {
         , value_(0)
         , set_prop_symbol_(0)
         , get_prop_symbol_(0)
-        , pinfo_(std::string("@") + label, PropertyInfoType::FLOAT)
+        , pinfo_(std::string("@") + label, PropValueType::FLOAT)
     {
         initProperty(label);
     }
@@ -267,10 +276,10 @@ namespace faust {
         , xfade_(0)
         , n_xfade_(static_cast<int>(rate_ * xfadeTime() / 64))
     {
-        createCbProperty("@active", &FaustExternalBase::propActive, &FaustExternalBase::propSetActive);
-        auto& info = property("@active")->info();
-        info.setDefault(true);
-        info.setType(PropertyInfoType::BOOLEAN);
+        createCbBoolProperty(
+            "@active",
+            [this]() -> bool { return active_; },
+            [this](bool b) -> bool { active_ = b; return true; });
     }
 
     FaustExternalBase::~FaustExternalBase()
@@ -281,26 +290,20 @@ namespace faust {
 
     void FaustExternalBase::bindPositionalArgToProperty(size_t idx, t_symbol* propName)
     {
-        if (idx >= positionalArguments().size())
-            return;
-
-        const Atom& a = positionalArguments()[idx];
-
         if (!hasProperty(propName)) {
             OBJ_ERR << "invalid property name: " << propName;
             return;
         }
 
-        if (!property(propName)->set(a)) {
-            OBJ_ERR << "can't set " << propName << " from positional argument " << a;
+        if (!property(propName)->setArgIndex(idx)) {
+            OBJ_ERR << "can't set " << propName << " from positional argument " << idx;
             return;
         }
     }
 
     void FaustExternalBase::bindPositionalArgsToProps(std::initializer_list<t_symbol*> lst)
     {
-        size_t n = std::min(lst.size(), positionalArguments().size());
-        for (size_t i = 0; i < n; i++) {
+        for (size_t i = 0; i < lst.size(); i++) {
             t_symbol* p = lst.begin()[i];
             bindPositionalArgToProperty(i, p);
         }
@@ -382,16 +385,6 @@ namespace faust {
         return 0.1f;
     }
 
-    void FaustExternalBase::propSetActive(const AtomList& lst)
-    {
-        active_ = atomlistToValue<bool>(lst, false);
-    }
-
-    AtomList FaustExternalBase::propActive() const
-    {
-        return Atom(active_ ? 1 : 0);
-    }
-
     void FaustExternalBase::bufFadeIn(const t_sample** in, t_sample** out, float k0)
     {
         const size_t BS = blockSize();
@@ -428,12 +421,9 @@ namespace faust {
     {
     }
 
-    bool UIProperty::set(const AtomList& lst)
+    bool UIProperty::setList(const AtomList& lst)
     {
-        if (!readonlyCheck())
-            return false;
-
-        if (!emptyValueCheck(lst))
+        if (!emptyCheck(lst))
             return false;
 
         if (!lst[0].isFloat())
@@ -467,18 +457,26 @@ namespace faust {
         min_ = min;
         max_ = max;
         step_ = step;
-        pinfo_.setDefault(init_);
-        pinfo_.setRange(min_, max_);
-        pinfo_.setStep(step_);
+
+        if (type() != UI_CHECK_BUTTON) {
+            if (!pinfo_.setConstraints(PropValueConstraints::CLOSED_RANGE))
+                LIB_ERR << set_prop_symbol_ << " can't set constraints";
+
+            if (!pinfo_.setRangeFloat(min_, max_))
+                LIB_ERR << set_prop_symbol_ << " can't set range: " << min_ << " - " << max_;
+
+            pinfo_.setDefault(init_);
+            pinfo_.setStep(step_);
+        }
     }
 
-    PropertyInfoUnits to_units(const char* u)
+    PropValueUnits to_units(const char* u)
     {
-        static std::pair<const char*, PropertyInfoUnits> umap[] = {
-            { "Hz", PropertyInfoUnits::HZ },
-            { "ms", PropertyInfoUnits::MSEC },
-            { "percent", PropertyInfoUnits::PERCENT },
-            { "db", PropertyInfoUnits::DB }
+        static std::pair<const char*, PropValueUnits> umap[] = {
+            { "Hz", PropValueUnits::HZ },
+            { "ms", PropValueUnits::MSEC },
+            { "percent", PropValueUnits::PERCENT },
+            { "db", PropValueUnits::DB }
         };
 
         for (auto& p : umap) {
@@ -486,7 +484,7 @@ namespace faust {
                 return p.second;
         }
 
-        return PropertyInfoUnits::UNKNOWN;
+        return PropValueUnits::UNKNOWN;
     }
 
 }

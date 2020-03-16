@@ -12,9 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../env/env_env.h"
-#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
+#include "test_base.h"
 
 #include <stdio.h>
 
@@ -143,12 +143,12 @@ TEST_CASE("env.env", "[externals]")
     {
         EnvelopeTest t("env");
         t.m_ADSR(gensym("adsr"), LF(10, 20, 70, 200));
-        REQUIRE(t.p_npoints() == LF(4));
+        REQUIRE_PROPERTY(t, @npoints, 4);
 
         t.cleanAllMessages();
         WHEN_CALL(t, clear);
         REQUIRE_NO_MSG(t);
-        REQUIRE(t.p_npoints() == LF(0.f));
+        REQUIRE_PROPERTY(t, @npoints, 0.f);
     }
 
     SECTION("asr")
@@ -157,12 +157,12 @@ TEST_CASE("env.env", "[externals]")
 
         WHEN_CALL_N(t, ASR, 10, 20);
         REQUIRE_NO_MSG(t);
-        REQUIRE(t.p_npoints() == LF(3));
+        REQUIRE_PROPERTY(t, @npoints, 3);
         REQUIRE(t.p_points() == LF(0.f, 10, 30));
 
         WHEN_CALL_N(t, ASR, 100, 200);
         REQUIRE_NO_MSG(t);
-        REQUIRE(t.p_npoints() == LF(3));
+        REQUIRE_PROPERTY(t, @npoints, 3);
         REQUIRE(t.p_points() == LF(0.f, 100, 300));
 
         // invalid
@@ -181,12 +181,12 @@ TEST_CASE("env.env", "[externals]")
 
         WHEN_CALL_N(t, AR, 10, 20);
         REQUIRE_NO_MSG(t);
-        REQUIRE(t.p_npoints() == LF(3));
+        REQUIRE_PROPERTY(t, @npoints, 3);
         REQUIRE(t.p_points() == LF(0.f, 10, 30));
 
         WHEN_CALL_N(t, AR, 100, 200);
         REQUIRE_NO_MSG(t);
-        REQUIRE(t.p_npoints() == LF(3));
+        REQUIRE_PROPERTY(t, @npoints, 3);
         REQUIRE(t.p_points() == LF(0.f, 100, 300));
 
         // invalid
@@ -205,12 +205,12 @@ TEST_CASE("env.env", "[externals]")
 
         WHEN_CALL_N(t, ADSR, 10, 20, 90, 100);
         REQUIRE_NO_MSG(t);
-        REQUIRE(t.p_npoints() == LF(4));
+        REQUIRE_PROPERTY(t, @npoints, 4);
         REQUIRE(t.p_points() == LA(0.f, 10, 30, 130));
 
         WHEN_CALL_N(t, ADSR, 1, 2, 80, 10);
         REQUIRE_NO_MSG(t);
-        REQUIRE(t.p_npoints() == LF(4));
+        REQUIRE_PROPERTY(t, @npoints, 4);
         REQUIRE(t.p_points() == LA(0.f, 1, 3, 13));
 
         // invalid
@@ -228,27 +228,27 @@ TEST_CASE("env.env", "[externals]")
         EnvelopeTest t("env");
 
         t.m_addPoint(0, LF(100));
-        REQUIRE(t.p_npoints() == LF(0.f));
+        REQUIRE_PROPERTY(t, @npoints, 0.f);
 
         t.m_addPoint(0, LF(10, 200));
-        REQUIRE(t.p_npoints() == LF(1));
+        REQUIRE_PROPERTY(t, @npoints, 1);
         REQUIRE(t.p_values() == LF(200));
 
         t.m_addPoint(0, LF(10, 200));
-        REQUIRE(t.p_npoints() == LF(1));
+        REQUIRE_PROPERTY(t, @npoints, 1);
         REQUIRE(t.p_values() == LF(200));
 
         t.m_addPoint(0, LF(10, 300));
-        REQUIRE(t.p_npoints() == LF(1));
+        REQUIRE_PROPERTY(t, @npoints, 1);
         REQUIRE(t.p_values() == LF(300));
 
         t.m_addPoint(0, LF(9, 300));
-        REQUIRE(t.p_npoints() == LF(2));
+        REQUIRE_PROPERTY(t, @npoints, 2);
         REQUIRE(t.p_points() == LF(9, 10));
         REQUIRE(t.p_values() == LF(300, 300));
 
         t.m_addPoint(0, LA(-1, 1));
-        REQUIRE(t.p_npoints() == LF(2));
+        REQUIRE_PROPERTY(t, @npoints, 2);
         REQUIRE(t.p_points() == LF(9, 10));
         REQUIRE(t.p_values() == LF(300, 300));
         REQUIRE(t.envelope().pointAt(0).timeMs() == 9);

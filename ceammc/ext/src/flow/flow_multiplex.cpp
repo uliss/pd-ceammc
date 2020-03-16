@@ -2,18 +2,19 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
-static const size_t MIN_INLETS = 2;
-static const size_t MAX_INLETS = 24;
+constexpr size_t DEF_INLETS = 2;
+constexpr size_t MIN_NCHAN = 2;
+constexpr size_t MAX_NCHAN = 24;
 
 FlowMultiplex::FlowMultiplex(const PdArgs& args)
     : BaseObject(args)
     , index_(0)
 {
-    size_t n = clip((size_t)positionalFloatArgument(0, 2), MIN_INLETS, MAX_INLETS);
     index_ = new SizeTProperty("@index", 0);
     createProperty(index_);
 
-    for (size_t i = 1; i < n; i++)
+    const size_t N = positionalConstant<DEF_INLETS, MIN_NCHAN, MAX_NCHAN>(0);
+    for (size_t i = 1; i < N; i++)
         createInlet();
 
     createOutlet();

@@ -32,6 +32,39 @@
 
 namespace ceammc {
 
+template <typename T, typename Prop>
+class CallbackMemFnProperty : public Property {
+    std::unique_ptr<Prop> prop_;
+    std::function<void(T*, Prop*)> fn_;
+    T* this_;
+
+public:
+    CallbackMemFnProperty(Prop* prop, T* t, void fn(T*, Prop*))
+        : Property(prop->info(), prop->access())
+        , prop_(prop)
+        , fn_(fn)
+        , this_(t)
+    {
+        setVisible(prop->visible());
+        fn_(this_, prop_.get());
+    }
+
+    AtomList get() const override
+    {
+        return prop_->get();
+    }
+
+    bool set(const AtomList& l) override
+    {
+        bool ok = prop_->set(l);
+
+        if (ok)
+            fn_(this_, prop_.get());
+
+        return ok;
+    }
+};
+
 template <typename V>
 class LambdaCheckProperty : public Property {
     typedef Either<V, InvalidValue<V>> EitherValue;
@@ -42,7 +75,7 @@ class LambdaCheckProperty : public Property {
 public:
     template <typename CheckFn>
     LambdaCheckProperty(const std::string& name, V defaultVal, CheckFn check_fn)
-        : Property(PropertyInfo(name, PropertyInfo::toType<V>()), false)
+        : Property(PropertyInfo(name, PropertyInfo::toType<V>()), PropValueAccess::READONLY)
         , check_fn_(check_fn)
         , default_value_(defaultVal)
     {
@@ -54,7 +87,7 @@ public:
 
     bool set(const AtomList& lst)
     {
-        if (!readonlyCheck())
+        if (!writeCheck())
             return false;
 
         if (!convertCheck(lst))

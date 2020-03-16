@@ -5,7 +5,8 @@ EnvValueScale::EnvValueScale(const PdArgs& args)
     : BaseObject(args)
     , scale_(0)
 {
-    scale_ = new FloatProperty("@scale", positionalFloatArgument(0, 1));
+    scale_ = new FloatProperty("@scale", 1);
+    scale_->setArgIndex(0);
     createProperty(scale_);
 
     createOutlet();

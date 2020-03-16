@@ -30,10 +30,6 @@ public:
 
 protected:
     Array array_;
-
-private:
-    AtomList propArray() const;
-    void propSetArray(const AtomList& l);
 };
 
 class ArrayMod : public ArrayBase {

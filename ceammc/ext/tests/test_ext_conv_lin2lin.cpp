@@ -20,6 +20,7 @@ typedef TestExternal<Lin2Lin> Lin2LinTest;
 TEST_CASE("conv.lin2lin", "[externals]")
 {
     obj_init();
+    test::pdPrintToStdError();
 
     SECTION("test create with:")
     {

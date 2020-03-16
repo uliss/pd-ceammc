@@ -22,7 +22,7 @@ UIMouseFilter::UIMouseFilter(const PdArgs& args)
         BoolProperty* b = new BoolProperty(sym, false);
         createProperty(b);
         mouse_events_.push_back(b);
-        createProperty(new AliasProperty<BoolProperty, bool>(alias, b, true));
+        createProperty(new AliasProperty<BoolProperty>(alias, b, true));
     };
 
     makeProp("@mouse_up", "@up");

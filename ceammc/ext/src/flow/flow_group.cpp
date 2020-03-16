@@ -16,16 +16,17 @@
 
 FlowGroup::FlowGroup(const PdArgs& a)
     : BaseObject(a)
-    , group_size_(0)
+    , group_size_(nullptr)
 {
     createOutlet();
 
-    group_size_ = new IntProperty("@by", positionalFloatArgument(0, 1));
+    group_size_ = new IntProperty("@by", 1);
+    group_size_->setArgIndex(0);
     createProperty(group_size_);
 
-    createCbProperty("@free", &FlowGroup::propFree)
-        ->info()
-        .setType(PropertyInfoType::INTEGER);
+    createCbIntProperty("@free",
+        [this]() -> int { return atoms_.size(); })
+        ->checkNonNegative();
 }
 
 void FlowGroup::onFloat(float v)
@@ -52,11 +53,6 @@ void FlowGroup::onData(const DataPtr& d)
 {
     checkFull();
     atoms_.append(d);
-}
-
-AtomList FlowGroup::propFree() const
-{
-    return Atom(atoms_.size());
 }
 
 void FlowGroup::m_flush(t_symbol*, const AtomList& l)

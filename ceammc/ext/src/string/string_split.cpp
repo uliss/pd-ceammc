@@ -32,9 +32,28 @@ StringSplit::StringSplit(const PdArgs& a)
 {
     createOutlet();
 
-    createCbProperty("@sep", &StringSplit::propGetSeparator, &StringSplit::propSetSeparator);
-    property("@sep")->info().setType(PropertyInfoType::VARIANT);
-    parseArgs();
+    createCbListProperty(
+        "@sep",
+        [this]() -> AtomList { return AtomList(gensym(sep_.c_str())); },
+        [this](const AtomList& l) -> bool {
+            switch (l.size()) {
+            case 0:
+                sep_ = "";
+                break;
+            case 1:
+                sep_ = to_string(l[0]);
+                break;
+            default: {
+                if (isSpace(l))
+                    sep_ = " ";
+                else
+                    sep_ = to_string(l[0]);
+                break;
+            }
+            }
+            return true;
+        })
+        ->setArgIndex(0);
 }
 
 void StringSplit::onSymbol(t_symbol* s)
@@ -68,42 +87,6 @@ void StringSplit::output()
         res.append(tokens_[i].asAtom());
 
     listTo(0, res);
-}
-
-void StringSplit::parseArgs()
-{
-    if (isSpace(positionalArguments())) {
-        sep_ = " ";
-        return;
-    }
-
-    if (positionalArguments().size() > 0) {
-        const Atom& a = positionalArguments()[0];
-        sep_ = to_string(a);
-    }
-}
-
-AtomList StringSplit::propGetSeparator() const
-{
-    return Atom(gensym(sep_.c_str()));
-}
-
-void StringSplit::propSetSeparator(const AtomList& l)
-{
-    switch (l.size()) {
-    case 0:
-        sep_ = "";
-        return;
-    case 1:
-        sep_ = to_string(l[0]);
-        return;
-    default: {
-        if (isSpace(l))
-            sep_ = " ";
-        else
-            sep_ = to_string(l[0]);
-    }
-    }
 }
 
 extern "C" void setup_string0x2esplit()

@@ -54,7 +54,7 @@ TEST_CASE("an.onset~", "[externals]")
             REQUIRE_PROPERTY_LIST(t, @method, LA("default"));
             REQUIRE_PROPERTY_FLOAT(t, @threshold, 0.058);
             REQUIRE_PROPERTY_FLOAT(t, @awhitening, 0);
-            REQUIRE_PROPERTY_FLOAT(t, @delay, 22.91667);
+            REQUIRE_PROPERTY_FLOAT(t, @delay, 24.94331);
             REQUIRE_PROPERTY_FLOAT(t, @speedlim, 50);
             REQUIRE_PROPERTY_FLOAT(t, @silence, -70);
             REQUIRE_PROPERTY_FLOAT(t, @compression, 1);
@@ -68,7 +68,7 @@ TEST_CASE("an.onset~", "[externals]")
             REQUIRE_PROPERTY_LIST(t, @method, LA("energy"));
             REQUIRE_PROPERTY_FLOAT(t, @threshold, 0.3);
             REQUIRE_PROPERTY_FLOAT(t, @awhitening, 0);
-            REQUIRE_PROPERTY_FLOAT(t, @delay, 22.91667);
+            REQUIRE_PROPERTY_FLOAT(t, @delay, 24.94331);
             REQUIRE_PROPERTY_FLOAT(t, @speedlim, 50);
             REQUIRE_PROPERTY_FLOAT(t, @silence, -70);
             REQUIRE_PROPERTY_FLOAT(t, @compression, 0);
@@ -82,7 +82,7 @@ TEST_CASE("an.onset~", "[externals]")
             REQUIRE_PROPERTY_LIST(t, @method, LA("energy"));
             REQUIRE_PROPERTY_FLOAT(t, @threshold, 0.3);
             REQUIRE_PROPERTY_FLOAT(t, @awhitening, 0);
-            REQUIRE_PROPERTY_FLOAT(t, @delay, 5.72917);
+            REQUIRE_PROPERTY_FLOAT(t, @delay, 6.23583);
             REQUIRE_PROPERTY_FLOAT(t, @speedlim, 50);
             REQUIRE_PROPERTY_FLOAT(t, @silence, -70);
             REQUIRE_PROPERTY_FLOAT(t, @compression, 0);
@@ -91,13 +91,13 @@ TEST_CASE("an.onset~", "[externals]")
         SECTION("error bs")
         {
             TestExtAubioOnsetTilde t("an.onset~", LF(63));
-            REQUIRE_PROPERTY_FLOAT(t, @bs, 64);
+            REQUIRE_PROPERTY_FLOAT(t, @bs, 1024);
 
             TestExtAubioOnsetTilde t1("an.onset~", LF(0));
-            REQUIRE_PROPERTY_FLOAT(t1, @bs, 64);
+            REQUIRE_PROPERTY_FLOAT(t1, @bs, 1024);
 
             TestExtAubioOnsetTilde t2("an.onset~", LF(-10));
-            REQUIRE_PROPERTY_FLOAT(t2, @bs, 64);
+            REQUIRE_PROPERTY_FLOAT(t2, @bs, 1024);
         }
 
         SECTION("error hs")
@@ -110,6 +110,17 @@ TEST_CASE("an.onset~", "[externals]")
             REQUIRE_PROPERTY_FLOAT(t1, @bs, 64);
             REQUIRE_PROPERTY_FLOAT(t1, @hs, 64);
         }
+
+        SECTION("all props")
+        {
+            TestExtAubioOnsetTilde t("an.onset~", LA(64, "energy", 16, "@threshold", 0.01, "@speedlim", 200, "@delay", 72, "@silence", -32, "@compression", 1));
+
+            REQUIRE_PROPERTY_FLOAT(t, @bs, 64);
+            REQUIRE_PROPERTY_FLOAT(t, @hs, 16);
+            REQUIRE_PROPERTY_FLOAT(t, @threshold, 0.01);
+            REQUIRE_PROPERTY_FLOAT(t, @speedlim, 200);
+            REQUIRE_PROPERTY_FLOAT(t, @silence, -32);
+        }
     }
 
     SECTION("method")
@@ -121,7 +132,7 @@ TEST_CASE("an.onset~", "[externals]")
         REQUIRE_PROPERTY_LIST(t, @method, LA("default"));
         REQUIRE_PROPERTY_FLOAT(t, @threshold, 0.058);
         REQUIRE_PROPERTY_FLOAT(t, @awhitening, 0);
-        REQUIRE_PROPERTY_FLOAT(t, @delay, 45.85417);
+        REQUIRE_PROPERTY_FLOAT(t, @delay, 49.9093);
         REQUIRE_PROPERTY_FLOAT(t, @speedlim, 50);
         REQUIRE_PROPERTY_FLOAT(t, @silence, -70);
         REQUIRE_PROPERTY_FLOAT(t, @compression, 1);
@@ -131,14 +142,42 @@ TEST_CASE("an.onset~", "[externals]")
         t.setProperty("@speedlim", LF(44));
 
         t.setProperty("@method", LA("energy"));
+
         REQUIRE_PROPERTY_FLOAT(t, @bs, 1024);
         REQUIRE_PROPERTY_FLOAT(t, @hs, 512);
         REQUIRE_PROPERTY_LIST(t, @method, LA("energy"));
-        REQUIRE_PROPERTY_FLOAT(t, @threshold, 0.7);
         REQUIRE_PROPERTY_FLOAT(t, @awhitening, 0);
         REQUIRE_PROPERTY_FLOAT(t, @delay, 45.85417);
+        REQUIRE_PROPERTY_FLOAT(t, @compression, 0);
+
+        // steady
+        REQUIRE_PROPERTY_FLOAT(t, @threshold, 0.7);
         REQUIRE_PROPERTY_FLOAT(t, @speedlim, 44);
         REQUIRE_PROPERTY_FLOAT(t, @silence, -55);
+
+        t.samplerateChanged(24000);
+
+        REQUIRE_PROPERTY_FLOAT(t, @bs, 1024);
+        REQUIRE_PROPERTY_FLOAT(t, @hs, 512);
+        REQUIRE_PROPERTY_LIST(t, @method, LA("energy"));
+        REQUIRE_PROPERTY_FLOAT(t, @delay, 91.70834); // delay increased
+        REQUIRE_PROPERTY_FLOAT(t, @awhitening, 0);
         REQUIRE_PROPERTY_FLOAT(t, @compression, 0);
+        // steady
+        REQUIRE_PROPERTY_FLOAT(t, @threshold, 0.7);
+        REQUIRE_PROPERTY_FLOAT(t, @speedlim, 44);
+        REQUIRE_PROPERTY_FLOAT(t, @silence, -55);
+
+        t.setProperty("@method", LA("hfc"));
+        REQUIRE_PROPERTY_FLOAT(t, @bs, 1024);
+        REQUIRE_PROPERTY_FLOAT(t, @hs, 512);
+        REQUIRE_PROPERTY_LIST(t, @method, LA("hfc"));
+        REQUIRE_PROPERTY_FLOAT(t, @delay, 45.85417); // delay increased
+        REQUIRE_PROPERTY_FLOAT(t, @awhitening, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @compression, 1); // changed
+        // steady
+        REQUIRE_PROPERTY_FLOAT(t, @threshold, 0.7);
+        REQUIRE_PROPERTY_FLOAT(t, @speedlim, 44);
+        REQUIRE_PROPERTY_FLOAT(t, @silence, -55);
     }
 }

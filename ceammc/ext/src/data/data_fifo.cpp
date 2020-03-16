@@ -28,22 +28,22 @@ public:
         createOutlet();
         {
             auto p = createCbProperty("@empty", &DataFifo::p_empty);
-            p->info().setType(PropertyInfoType::BOOLEAN);
+            p->info().setType(PropValueType::BOOLEAN);
         }
 
         {
             Property* p = createCbProperty("@filled", &DataFifo::p_size);
-            p->info().setType(PropertyInfoType::INTEGER);
+            p->info().setType(PropValueType::INTEGER);
         }
 
         {
             Property* p = createCbProperty("@size", &DataFifo::p_max_size);
-            p->info().setType(PropertyInfoType::INTEGER);
+            p->info().setType(PropValueType::INTEGER);
         }
 
         {
             Property* p = createCbProperty("@free", &DataFifo::p_free);
-            p->info().setType(PropertyInfoType::INTEGER);
+            p->info().setType(PropValueType::INTEGER);
         }
     }
 

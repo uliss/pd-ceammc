@@ -12,9 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../flow/flow_multiplex.h"
-#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
+#include "test_base.h"
 
 #include <stdio.h>
 
@@ -24,6 +24,8 @@ static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("flow.multiplex", "[externals]")
 {
+    test::pdPrintToStdError();
+
     SECTION("init")
     {
         FlowMultiplexTest t("flow.multiplex");
@@ -44,6 +46,15 @@ TEST_CASE("flow.multiplex", "[externals]")
         SECTION("number")
         {
             FlowMultiplexTest t("flow.multiplex", LF(-1));
+            REQUIRE(t.numInlets() == 2);
+            REQUIRE(t.numOutlets() == 1);
+            REQUIRE_PROPERTY(t, @index, 0.f);
+        }
+
+        // invalid
+        SECTION("number")
+        {
+            FlowMultiplexTest t("flow.demultiplex", LF(1000));
             REQUIRE(t.numInlets() == 24);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @index, 0.f);

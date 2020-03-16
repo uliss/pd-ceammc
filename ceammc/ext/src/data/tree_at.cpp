@@ -19,7 +19,9 @@ TreeAt::TreeAt(const PdArgs& args)
     , index_(nullptr)
     , ptr_(new DataTypeTree)
 {
-    index_ = new IntProperty("@index", positionalFloatArgument(0, 0));
+    index_ = new IntProperty("@index", 0);
+    index_->setArgIndex(0);
+    index_->checkMinEq(0);
     createProperty(index_);
 
     createOutlet();
@@ -43,7 +45,7 @@ void TreeAt::onDataT(const DataTPtr<DataTypeTree>& dptr)
         OBJ_ERR << "invalid index: " << index_->value();
 }
 
-void TreeAt::onInlet(size_t idx, const AtomList& lst)
+void TreeAt::onInlet(size_t /*idx*/, const AtomList& lst)
 {
     index_->setValue(atomlistToValue<int>(lst, 0));
 }

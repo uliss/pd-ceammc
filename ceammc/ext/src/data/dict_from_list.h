@@ -18,7 +18,7 @@
 using namespace ceammc;
 
 class DictFromList : public BaseObject {
-    IntPropertyMinEq* n_;
+    IntProperty* n_;
 
 public:
     DictFromList(const PdArgs& args);

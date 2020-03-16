@@ -1,11 +1,6 @@
 #include "list_each.h"
 #include "datatype_mlist.h"
 
-static bool is_valid_step(int v)
-{
-    return v > 0 && v < 1024;
-}
-
 ListEach::ListEach(const PdArgs& a)
     : BaseObject(a)
     , mode_(MODE_NORMAL)
@@ -14,7 +9,8 @@ ListEach::ListEach(const PdArgs& a)
     createOutlet();
     createOutlet();
 
-    step_prop_ = new StepProperty("@step", 1, is_valid_step);
+    step_prop_ = new IntProperty("@step", 1);
+    step_prop_->checkClosedRange(1, 1024);
     createProperty(step_prop_);
 
     // if we have positional step argument without @step

@@ -17,7 +17,7 @@
 #include "array_base.h"
 
 class ArrayHist : public ArrayBase {
-    SizeTPropertyClosedRange* nbins_;
+    IntProperty* nbins_;
     FloatProperty* min_;
     FloatProperty* max_;
 

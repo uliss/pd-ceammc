@@ -20,8 +20,8 @@ using namespace ceammc;
 
 class MetroRandom : public BaseObject {
     ClockMemberFunction<MetroRandom> clock_;
-    IntPropertyMin* min_;
-    IntPropertyMin* max_;
+    IntProperty* min_;
+    IntProperty* max_;
 
 public:
     MetroRandom(const PdArgs& args);

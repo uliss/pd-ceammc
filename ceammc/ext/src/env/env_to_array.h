@@ -4,13 +4,13 @@
 #include "../array/array_base.h"
 #include "ceammc_array.h"
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 #include "datatype_env.h"
 
 using namespace ceammc;
 
 class Env2Array : public ArrayMod {
     SymbolEnumProperty* mode_;
-    SymbolEnumAlias* mode_alias_;
 
 public:
     Env2Array(const PdArgs& args);

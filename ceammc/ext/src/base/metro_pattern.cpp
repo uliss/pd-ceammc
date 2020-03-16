@@ -1,4 +1,5 @@
 #include "metro_pattern.h"
+#include "ceammc_callback_property.h"
 #include "ceammc_factory.h"
 
 static bool validTime(const Atom& a)
@@ -23,7 +24,9 @@ MetroPattern::MetroPattern(const PdArgs& args)
     sync_ = new BoolProperty("@sync", false);
     createProperty(sync_);
 
-    createCbProperty("@pattern", &MetroPattern::p_pattern, &MetroPattern::p_set_pattern);
+    createCbListProperty(
+        "@pattern", [this]() -> AtomList { return pattern_; },
+        [this](const AtomList& lst) -> bool { return p_set_pattern(lst); });
 }
 
 void MetroPattern::onFloat(t_float on)
@@ -35,16 +38,11 @@ void MetroPattern::onFloat(t_float on)
         clock_.unset();
 }
 
-AtomList MetroPattern::p_pattern() const
-{
-    return pattern_;
-}
-
-void MetroPattern::p_set_pattern(const AtomList& l)
+bool MetroPattern::p_set_pattern(const AtomList& l)
 {
     if (l.empty() || (!l.allOf(validTime))) {
         OBJ_ERR << "invalid pattern: " << l;
-        return;
+        return false;
     }
 
     if (sync_->value()) {
@@ -61,6 +59,8 @@ void MetroPattern::p_set_pattern(const AtomList& l)
         // keep in sync - to handle @sync property change while running
         new_pattern_ = l;
     }
+
+    return true;
 }
 
 void MetroPattern::tick()

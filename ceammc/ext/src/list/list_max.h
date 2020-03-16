@@ -15,6 +15,7 @@
 #define LIST_MAX_H
 
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 
 using namespace ceammc;
 

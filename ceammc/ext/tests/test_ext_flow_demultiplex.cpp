@@ -41,6 +41,15 @@ TEST_CASE("flow.demultiplex", "[externals]")
         {
             TestFlowDemultiplex t("flow.demultiplex", LF(-1));
             REQUIRE(t.numInlets() == 2);
+            REQUIRE(t.numOutlets() == 2);
+            REQUIRE_PROPERTY(t, @index, 0.f);
+        }
+
+        // invalid
+        SECTION("number")
+        {
+            TestFlowDemultiplex t("flow.demultiplex", LF(1000));
+            REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 24);
             REQUIRE_PROPERTY(t, @index, 0.f);
         }

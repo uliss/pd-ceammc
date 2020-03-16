@@ -12,9 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../array/array_copy.h"
-#include "test_base.h"
 #include "ceammc_factory.h"
 #include "ceammc_pd.h"
+#include "test_base.h"
 
 #include "catch.hpp"
 
@@ -37,6 +37,8 @@ static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("array.copy", "[externals]")
 {
+    test::pdPrintToStdError();
+
     SECTION("empty")
     {
         ArrayCopyTest t("array.copy");
@@ -187,7 +189,7 @@ TEST_CASE("array.copy", "[externals]")
 
         SECTION("resize")
         {
-            ArrayCopyTest t("array.copy", LA("@resize"));
+            ArrayCopyTest t("array.copy", LA("@resize", 1));
             Array a("a");
             Array b("b");
 
@@ -290,7 +292,7 @@ TEST_CASE("array.copy", "[externals]")
 
         SECTION("resize")
         {
-            ArrayCopyTest t("array.copy", LA("@resize"));
+            ArrayCopyTest t("array.copy", LA("@resize", 1));
             Array a("a");
             Array b("b");
 

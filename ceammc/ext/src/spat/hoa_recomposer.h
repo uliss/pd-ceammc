@@ -36,8 +36,7 @@ public:
     void m_angles(t_symbol* s, const AtomList& lst);
     void m_wide(t_symbol* s, const AtomList& lst);
 
-    AtomList propRamp() const;
-    void propSetRamp(const AtomList& lst);
+    bool propSetRamp(t_float f);
 
 private:
     void parseNumPlaneWaves();

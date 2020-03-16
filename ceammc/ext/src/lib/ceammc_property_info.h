@@ -20,15 +20,26 @@
 
 #include <boost/variant.hpp>
 #include <cstddef>
+#include <cstdint>
+#include <initializer_list>
+#include <memory>
 #include <string>
 #include <vector>
 
+#if defined(__GNUC__) || defined(__clang__)
+#define CEAMMC_WARN_UNUSED __attribute__((warn_unused_result))
+#define CEAMMC_PACKED __attribute__((packed))
+#else
+#define CEAMMC_WARN_UNUSED
+#define CEAMMC_PACKED
+#endif
+
 namespace ceammc {
 
-typedef boost::variant<bool, int, float, t_symbol*, Atom> PropertySingleValue;
-typedef boost::variant<PropertySingleValue, AtomList> PropertyValue;
+using PropertySingleValue = boost::variant<bool, int, t_float, t_symbol*, Atom>;
+using PropertyValue = boost::variant<PropertySingleValue, AtomList>;
 
-enum class PropertyInfoType {
+enum class PropValueType : uint8_t {
     BOOLEAN = 0,
     INTEGER,
     FLOAT,
@@ -37,7 +48,13 @@ enum class PropertyInfoType {
     LIST
 };
 
-enum class PropertyInfoView {
+enum class PropValueAccess : uint8_t {
+    READONLY = 0,
+    INITONLY,
+    READWRITE
+};
+
+enum class PropValueView : uint8_t {
     SLIDER = 0,
     KNOB,
     NUMBOX,
@@ -48,7 +65,7 @@ enum class PropertyInfoView {
     COLOR
 };
 
-enum class PropertyInfoUnits {
+enum class PropValueUnits : uint8_t {
     UNKNOWN = 0,
     MSEC, // milliseconds
     SEC, // seconds
@@ -63,122 +80,263 @@ enum class PropertyInfoUnits {
     TONE // tone
 };
 
+enum class PropValueVis : uint8_t {
+    PUBLIC = 0, // settable and shown in UI
+    HIDDEN, // settable and hidden from UI
+    INTERNAL // settable and hidden everywhere
+};
+
+enum class PropValueConstraints : uint8_t {
+    NONE = 0,
+    GREATER_THEN,
+    GREATER_EQUAL,
+    LESS_THEN,
+    LESS_EQUAL,
+    CLOSED_RANGE,
+    OPEN_RANGE,
+    OPEN_CLOSED_RANGE,
+    CLOSED_OPEN_RANGE,
+    NON_ZERO,
+    ENUM
+};
+
 class PropertyInfo {
-    std::string name_;
-    PropertyInfoType type_;
-    PropertyInfoView view_;
-    float min_, max_;
-    float step_;
+    using AtomListPtr = std::unique_ptr<AtomList>;
+
+    union NumericUnion {
+        NumericUnion(t_float f_)
+            : f(f_)
+        {
+        }
+
+        NumericUnion(int i_)
+            : i(i_)
+        {
+        }
+
+        t_float f;
+        int i;
+    };
+
+private:
+    t_symbol* name_;
+    // name
     PropertyValue default_;
-    AtomList enum_;
-    PropertyInfoUnits units_;
-    bool readonly_;
+    // constrains
+    AtomListPtr enum_;
+    NumericUnion min_, max_;
+    t_float step_;
+    int8_t arg_index_;
+    // info
+    PropValueType type_;
+    PropValueUnits units_;
+    PropValueView view_;
+    PropValueAccess access_;
+    PropValueVis vis_;
+    PropValueConstraints constraints_;
 
 public:
-    PropertyInfo(const std::string& name, PropertyInfoType type, bool readonly = false);
+    PropertyInfo(t_symbol* name, PropValueType type, PropValueAccess access = PropValueAccess::READWRITE);
+    PropertyInfo(const std::string& name, PropValueType type, PropValueAccess access = PropValueAccess::READWRITE);
+    PropertyInfo(const PropertyInfo& info);
+    ~PropertyInfo();
 
-    const std::string& name() const { return name_; }
-    PropertyInfoType type() const { return type_; }
-    PropertyInfoView view() const { return view_; }
-    float min() const { return min_; }
-    float max() const { return max_; }
-    float step() const { return step_; }
+    t_symbol* name() const { return name_; }
 
-    bool hasMinLimit() const;
-    bool hasMaxLimit() const;
-    bool hasEnumLimit() const;
+    /// value info
+    /// get
+    inline PropValueType type() const { return type_; }
+    inline PropValueUnits units() const { return units_; }
+    inline PropValueView view() const { return view_; }
+    inline PropValueAccess access() const { return access_; }
+    inline PropValueVis visibility() const { return vis_; }
+    inline PropValueConstraints constraints() const { return constraints_; }
+    inline int8_t argIndex() const { return arg_index_; }
+    inline bool hasArgIndex() const { return arg_index_ >= 0; }
+    /// checks
+    inline bool isPublic() const { return vis_ == PropValueVis::PUBLIC; }
+    inline bool isHidden() const { return vis_ == PropValueVis::HIDDEN; }
+    inline bool isInternal() const { return vis_ == PropValueVis::INTERNAL; }
+    inline bool isReadOnly() const { return access_ == PropValueAccess::READONLY; }
+    inline bool isInitOnly() const { return access_ == PropValueAccess::INITONLY; }
+    inline bool isReadWrite() const { return access_ == PropValueAccess::READWRITE; }
+    inline bool isBool() const { return type_ == PropValueType::BOOLEAN; }
+    inline bool isFloat() const { return type_ == PropValueType::FLOAT; }
+    inline bool isInt() const { return type_ == PropValueType::INTEGER; }
+    inline bool isNumeric() const { return (isFloat() || isInt()); }
+    inline bool isSymbol() const { return type_ == PropValueType::SYMBOL; }
+    inline bool isVariant() const { return type_ == PropValueType::VARIANT; }
+    inline bool isList() const { return type_ == PropValueType::LIST; }
+
+    /// set
+    bool setView(PropValueView v);
+    void setType(PropValueType t);
+    bool setUnits(PropValueUnits u);
+    void setAccess(PropValueAccess a);
+    void setVisibility(PropValueVis v);
+    bool setConstraints(PropValueConstraints c);
+    void setArgIndex(int8_t idx);
+
+    /// ui hints
+    // step ui hint, eg. for spinbox
+    t_float step() const { return step_; }
     bool hasStep() const;
+    bool setStep(t_float step);
 
-    bool readonly() const;
-    void setReadonly(bool v);
+    /// constrains
+    bool hasConstraintsMin() const;
+    bool hasConstraintsMax() const;
+    bool hasEnumLimit() const;
 
+    // float range
+    t_float minFloat() const { return min_.f; }
+    t_float maxFloat() const { return max_.f; }
+    bool setMinFloat(t_float v) CEAMMC_WARN_UNUSED;
+    bool setMaxFloat(t_float v) CEAMMC_WARN_UNUSED;
+    bool setRangeFloat(t_float min, t_float max) CEAMMC_WARN_UNUSED;
+    void clearMinFloat();
+    void clearMaxFloat();
+    void clearRangeFloat();
+
+    // int range
+    int minInt() const { return min_.i; }
+    int maxInt() const { return max_.i; }
+    bool setMinInt(int new_min) CEAMMC_WARN_UNUSED;
+    bool setMaxInt(int new_max) CEAMMC_WARN_UNUSED;
+    bool setRangeInt(int min, int max) CEAMMC_WARN_UNUSED;
+    void clearMinInt();
+    void clearMaxInt();
+    void clearRangeInt();
+
+    // typed min/max/range
+    template <typename V>
+    inline bool setMinT(V v) CEAMMC_WARN_UNUSED;
+    template <typename V>
+    inline bool setMaxT(V v) CEAMMC_WARN_UNUSED;
+    template <typename V>
+    inline bool setRangeT(V min, V max) CEAMMC_WARN_UNUSED;
+
+    // enum
+    bool enumContains(t_float v) const;
+    bool enumContains(int v) const;
+    bool enumContains(t_symbol* s) const;
+    const AtomList& enumValues() const;
+    size_t enumCount() const;
+    Atom enumAt(size_t idx) const;
+    bool addEnum(int v) CEAMMC_WARN_UNUSED;
+    bool addEnum(const char* s) CEAMMC_WARN_UNUSED;
+    bool addEnum(t_symbol* s) CEAMMC_WARN_UNUSED;
+    bool addEnums(std::initializer_list<int> i_list) CEAMMC_WARN_UNUSED;
+    bool addEnums(std::initializer_list<t_symbol*> s_list) CEAMMC_WARN_UNUSED;
+    bool addEnums(std::initializer_list<const char*> c_list) CEAMMC_WARN_UNUSED;
+    void clearEnum();
+
+    /// default values
     const PropertyValue& defaultValue() const { return default_; }
-    const AtomList& enumValues() const { return enum_; }
 
     void setDefault(bool v);
     void setDefault(int v);
     void setDefault(size_t v);
     void setDefault(float v);
+    void setDefault(double v);
     void setDefault(t_symbol* s);
     void setDefault(const Atom& a);
     void setDefault(const PropertySingleValue& v);
     void setDefault(const AtomList& lst);
     void setDefault(const PropertyValue& v);
 
-    bool setMin(float v);
-    bool setMax(float v);
-    void setRange(float min, float max);
-
-    bool setStep(float step);
-    bool setView(PropertyInfoView v);
-
-    void addEnum(int v);
-    void addEnum(const char* s);
-    void addEnum(t_symbol* s);
-
-    void setType(PropertyInfoType t);
-
-    const PropertyInfoUnits& units() const { return units_; }
-    void setUnits(const PropertyInfoUnits& u);
+    template <typename T>
+    inline bool isA() const;
+    template <typename T>
+    inline bool getDefault(T& v) const
+    {
+        return getT<T>(default_, v);
+    }
 
     bool defaultBool(bool def = false) const;
     int defaultInt(int def = 0) const;
-    float defaultFloat(float def = 0) const;
+    t_float defaultFloat(t_float def = 0) const;
     t_symbol* defaultSymbol(t_symbol* def = &s_) const;
     Atom defaultAtom(const Atom& def = Atom()) const;
-    AtomList defaultList() const;
+    const AtomList& defaultList() const;
 
-    template <class T>
-    static PropertyInfoType toType();
-};
+    template <typename T>
+    static PropValueType toType();
+    template <typename T>
+    static bool getT(const PropertyValue& v, T& out)
+    {
+        if (v.type() != typeid(PropertySingleValue))
+            return false;
 
-template <>
-inline PropertyInfoType PropertyInfo::toType<bool>()
-{
-    return PropertyInfoType::BOOLEAN;
-}
+        auto& scalar = boost::get<PropertySingleValue>(v);
+        if (scalar.type() != typeid(T))
+            return false;
 
-template <>
-inline PropertyInfoType PropertyInfo::toType<int>()
-{
-    return PropertyInfoType::INTEGER;
-}
+        out = boost::get<T>(scalar);
+        return true;
+    }
 
-template <>
-inline PropertyInfoType PropertyInfo::toType<size_t>()
-{
-    return PropertyInfoType::INTEGER;
-}
+    bool validate() const;
+} CEAMMC_PACKED;
 
 template <>
-inline PropertyInfoType PropertyInfo::toType<float>()
-{
-    return PropertyInfoType::FLOAT;
-}
+inline bool PropertyInfo::setMinT<int>(int v) { return setMinInt(v); }
+template <>
+inline bool PropertyInfo::setMinT<t_float>(t_float v) { return setMinFloat(v); }
 
 template <>
-inline PropertyInfoType PropertyInfo::toType<double>()
-{
-    return PropertyInfoType::FLOAT;
-}
+inline bool PropertyInfo::setMaxT<int>(int v) { return setMaxInt(v); }
+template <>
+inline bool PropertyInfo::setMaxT<t_float>(t_float v) { return setMaxFloat(v); }
 
 template <>
-inline PropertyInfoType PropertyInfo::toType<t_symbol*>()
-{
-    return PropertyInfoType::SYMBOL;
-}
+inline bool PropertyInfo::setRangeT<int>(int min, int max) { return setRangeInt(min, max); }
+template <>
+inline bool PropertyInfo::setRangeT<t_float>(t_float min, t_float max) { return setRangeFloat(min, max); }
 
 template <>
-inline PropertyInfoType PropertyInfo::toType<Atom>()
-{
-    return PropertyInfoType::VARIANT;
-}
+inline PropValueType PropertyInfo::toType<bool>() { return PropValueType::BOOLEAN; }
+template <>
+inline PropValueType PropertyInfo::toType<int>() { return PropValueType::INTEGER; }
+template <>
+inline PropValueType PropertyInfo::toType<size_t>() { return PropValueType::INTEGER; }
+template <>
+inline PropValueType PropertyInfo::toType<float>() { return PropValueType::FLOAT; }
+template <>
+inline PropValueType PropertyInfo::toType<double>() { return PropValueType::FLOAT; }
+template <>
+inline PropValueType PropertyInfo::toType<t_symbol*>() { return PropValueType::SYMBOL; }
+template <>
+inline PropValueType PropertyInfo::toType<Atom>() { return PropValueType::VARIANT; }
+template <>
+inline PropValueType PropertyInfo::toType<AtomList>() { return PropValueType::LIST; }
 
 template <>
-inline PropertyInfoType PropertyInfo::toType<AtomList>()
+inline bool PropertyInfo::isA<bool>() const { return isBool(); }
+template <>
+inline bool PropertyInfo::isA<t_float>() const { return isFloat(); }
+template <>
+inline bool PropertyInfo::isA<int>() const { return isInt(); }
+template <>
+inline bool PropertyInfo::isA<t_symbol*>() const { return isSymbol(); }
+template <>
+inline bool PropertyInfo::isA<Atom>() const { return isVariant(); }
+template <>
+inline bool PropertyInfo::isA<AtomList>() const { return isList(); }
+
+template <>
+inline bool PropertyInfo::getT<AtomList>(const PropertyValue& v, AtomList& out)
 {
-    return PropertyInfoType::LIST;
+    if (v.type() != typeid(AtomList))
+        return false;
+
+    out = boost::get<AtomList>(v);
+    return true;
 }
+
+t_symbol* unitToSymbol(PropValueUnits u);
+t_symbol* propTypeToSymbol(PropValueType t);
+
 }
 
 #endif // CEAMMC_PROPERTY_INFO_H

@@ -22,7 +22,7 @@ StrToSec::StrToSec(const PdArgs& a)
 {
     createOutlet();
 
-    on_err_ = new FloatProperty("@on_err", -1.f);
+    on_err_ = new FloatProperty("@on_err", -1);
     createProperty(on_err_);
 }
 
@@ -31,7 +31,7 @@ void StrToSec::onSymbol(t_symbol* s)
     floatTo(0, convert::time::str2sec(s->s_name, on_err_->value()));
 }
 
-void StrToSec::onAny(t_symbol* s, const AtomList& v)
+void StrToSec::onAny(t_symbol* s, const AtomList& /*v*/)
 {
     floatTo(0, convert::time::str2sec(s->s_name, on_err_->value()));
 }

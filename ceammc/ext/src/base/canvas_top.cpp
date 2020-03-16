@@ -1,4 +1,5 @@
 #include "canvas_top.h"
+#include "ceammc_callback_property.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
 #include "datatype_dict.h"

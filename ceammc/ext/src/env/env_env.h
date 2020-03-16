@@ -46,7 +46,6 @@ public:
 
     void m_clear(t_symbol*, const AtomList&);
 
-    AtomList p_npoints() const;
     AtomList p_length() const;
     AtomList p_values() const;
     AtomList p_points() const;

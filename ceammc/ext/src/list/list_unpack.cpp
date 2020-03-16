@@ -5,13 +5,13 @@
 
 #include <algorithm>
 
-const static size_t MIN_OUTLETS = 1;
-const static size_t MAX_OUTLETS = 32;
-const static size_t DEFAULT_OUTLETS = 1;
+constexpr size_t MIN_OUTLETS = 1;
+constexpr size_t MAX_OUTLETS = 32;
+constexpr size_t DEFAULT_OUTLETS = 1;
 
 ListUnpack::ListUnpack(const PdArgs& a)
     : BaseObject(a)
-    , n_(clip<int>(positionalFloatArgument(0, DEFAULT_OUTLETS), MIN_OUTLETS, MAX_OUTLETS))
+    , n_(positionalConstant<DEFAULT_OUTLETS, MIN_OUTLETS, MAX_OUTLETS>(0))
 {
     for (size_t i = 0; i < n_; i++)
         createOutlet();

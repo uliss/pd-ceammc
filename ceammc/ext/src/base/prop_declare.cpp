@@ -114,6 +114,11 @@ PropDeclare::PropDeclare(const PdArgs& args)
     enum_ = new ListProperty("@enum", AtomList());
     default_ = new ListProperty("@default", AtomList());
 
+    min_->setInitOnly();
+    max_->setInitOnly();
+    enum_->setInitOnly();
+    default_->setInitOnly();
+
     createProperty(min_);
     createProperty(max_);
     createProperty(enum_);
@@ -128,11 +133,6 @@ PropDeclare::~PropDeclare()
 void PropDeclare::parseProperties()
 {
     BaseObject::parseProperties();
-
-    max_->setReadonly(true);
-    min_->setReadonly(true);
-    enum_->setReadonly(true);
-    default_->setReadonly(true);
 
     if (isFloat()) {
         pprop_->setTypeFloat(atomlistToValue<t_float>(default_->value(), 0.f));

@@ -25,7 +25,7 @@ ArrayCopy::ArrayCopy(const PdArgs& a)
 {
     createOutlet();
 
-    resize_ = new FlagProperty("@resize");
+    resize_ = new BoolProperty("@resize", false);
     createProperty(resize_);
 }
 

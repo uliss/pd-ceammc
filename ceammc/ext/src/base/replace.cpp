@@ -9,11 +9,11 @@ Replace::Replace(const PdArgs& a)
     createInlet();
     createOutlet();
 
-    createProperty(new PointerProperty<Atom>("@from", &from_, false));
-    createProperty(new PointerProperty<Atom>("@to", &to_, false));
+    createProperty(new PointerProperty<Atom>("@from", &from_, PropValueAccess::READWRITE));
+    createProperty(new PointerProperty<Atom>("@to", &to_, PropValueAccess::READWRITE));
 
-    from_ = positionalArgument(0);
-    to_ = positionalArgument(1);
+    property("@from")->setArgIndex(0);
+    property("@to")->setArgIndex(1);
 }
 
 void Replace::onInlet(size_t n, const AtomList& l)

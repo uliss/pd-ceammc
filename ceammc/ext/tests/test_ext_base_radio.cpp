@@ -15,11 +15,12 @@
 #include "ceammc_format.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(Radio, base, radio);
+PD_COMPLETE_TEST_SETUP(Radio, base, radio)
 
 TEST_CASE("radio", "[externals]")
 {
     pd_test_init();
+    test::pdPrintToStdError();
 
     SECTION("init")
     {
@@ -65,7 +66,7 @@ TEST_CASE("radio", "[externals]")
         {
             TestRadio t("radio", LF(25));
             REQUIRE(t.numInlets() == 1);
-            REQUIRE(t.numOutlets() == 24);
+            REQUIRE(t.numOutlets() == 2);
         }
     }
 

@@ -25,13 +25,13 @@ PresetBase::PresetBase(const PdArgs& args)
     createProperty(subpatch_);
 
     // virtual @path property
-    createProperty(new PointerProperty<t_symbol*>("@path", &preset_path_, true));
-    createProperty(new PointerProperty<t_symbol*>("@id", &name_, true));
+    createProperty(new PointerProperty<t_symbol*>("@path", &preset_path_));
+    createProperty(new PointerProperty<t_symbol*>("@id", &name_));
 
     // to get @global and @subpatch flags before makeName() call
     parseProperties();
 
-    name_ = positionalSymbolArgument(0, &s_);
+    name_ = positionalSymbolConstant(0, &s_);
     path_ = makePath();
     preset_path_ = makePresetPath();
 

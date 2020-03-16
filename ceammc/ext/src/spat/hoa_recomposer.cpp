@@ -25,9 +25,11 @@ HoaRecomposer::HoaRecomposer(const PdArgs& args)
     , ramp_(100)
 {
     plane_waves_ = new IntProperty("@n", 0);
+    plane_waves_->setInitOnly();
     createProperty(plane_waves_);
 
     mode_ = new SymbolEnumProperty("@mode", SYM_FREE);
+    mode_->setInitOnly();
     mode_->appendEnum(SYM_FIXE);
     mode_->appendEnum(SYM_FISHEYE);
     createProperty(mode_);
@@ -36,17 +38,17 @@ HoaRecomposer::HoaRecomposer(const PdArgs& args)
     createProperty(new SymbolEnumAlias("@fixe", mode_, SYM_FIXE));
     createProperty(new SymbolEnumAlias("@fisheye", mode_, SYM_FISHEYE));
 
-    createCbProperty("@ramp", &HoaRecomposer::propRamp, &HoaRecomposer::propSetRamp);
-    Property* pramp = property("@ramp");
-    pramp->info().setType(PropertyInfoType::FLOAT);
-    pramp->info().setMin(0);
+    createCbFloatProperty(
+        "@ramp",
+        [this]() -> t_float { return ramp_; },
+        [this](t_float f) -> bool { return propSetRamp(f); })
+        ->setIntCheck(PropValueConstraints::GREATER_EQUAL, 0);
 }
 
 void HoaRecomposer::parseProperties()
 {
     HoaBase::parseProperties();
     parseNumPlaneWaves();
-    mode_->setReadonly(true);
 
     processor_.reset(new MultiEncoder2d(order(), plane_waves_->value()));
 
@@ -111,33 +113,18 @@ void HoaRecomposer::m_wide(t_symbol* s, const AtomList& lst)
         lines_->setRadius(i, lst[i].asFloat());
 }
 
-AtomList HoaRecomposer::propRamp() const
+bool HoaRecomposer::propSetRamp(t_float f)
 {
-    return Atom(ramp_);
-}
-
-void HoaRecomposer::propSetRamp(const AtomList& lst)
-{
-    if (!lst.isFloat()) {
-        OBJ_ERR << "ramp: float value expected: " << lst;
-        return;
-    }
-
-    auto v = lst.floatAt(0, 0);
-    if (v < 0) {
-        OBJ_ERR << "ramp: >= 0 value expected: " << v;
-        return;
-    }
-
-    ramp_ = v;
+    ramp_ = f;
     lines_->setRamp(ramp_ / 1000 * sys_getsr());
+    return true;
 }
 
 void HoaRecomposer::parseNumPlaneWaves()
 {
     const int MIN_PW_COUNT = 2 * order() + 1;
 
-    auto pos_arg = positionalFloatArgument(1, 0);
+    auto pos_arg = positionalFloatArgumentT(1, 0);
     if (pos_arg != 0)
         plane_waves_->setValue(pos_arg);
 
@@ -150,8 +137,6 @@ void HoaRecomposer::parseNumPlaneWaves()
 
         plane_waves_->setValue(MIN_PW_COUNT);
     }
-
-    plane_waves_->setReadonly(true);
 }
 
 void HoaRecomposer::processFixE()

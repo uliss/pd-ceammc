@@ -21,7 +21,7 @@ using namespace ceammc;
 
 class ListGenerate : public BaseObject {
     DataAtomList gen_values_;
-    IntPropertyClosedRange* count_;
+    IntProperty* count_;
     bool in_process_;
 
 public:

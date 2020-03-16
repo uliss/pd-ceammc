@@ -19,8 +19,8 @@
 
 using namespace ceammc;
 
-typedef long LocalIntType;
-typedef NumericIFace<LocalBase<LocalIntType>, LocalIntType> LocalIntBase;
+typedef int LocalIntType;
+using LocalIntBase = NumericIFace<LocalBase<LocalIntType>, LocalIntType>;
 
 class LocalInt : public LocalIntBase {
 public:

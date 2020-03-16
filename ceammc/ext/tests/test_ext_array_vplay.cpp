@@ -120,10 +120,10 @@ TEST_CASE("array.vplay", "[externals]")
         REQUIRE_NO_MSG(t);
 
         // different speed
-        t.setProperty("@speed", LF(2));
+        REQUIRE(t.setProperty("@speed", LF(2)));
         REQUIRE_VLINE_MSG(t, 0, 99, 500);
         REQUIRE_PROPERTY(t, @speed, 2);
-        t.setProperty("@speed", LF(0.001));
+        REQUIRE_FALSE(t.setProperty("@speed", LF(0.001)));
         REQUIRE_PROPERTY(t, @speed, 2);
 
         // reverse playback

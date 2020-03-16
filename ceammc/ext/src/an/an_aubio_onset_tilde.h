@@ -15,21 +15,20 @@
 #define AN_AUBIO_ONSET_TILDE_H
 
 #include "aubio_base.h"
+#include "ceammc_callback_property.h"
 #include "ceammc_clock.h"
+#include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 
 using namespace ceammc;
 
 class AubioOnsetTilde : public SoundExternal {
-    IntPropertyMinEq* buffer_size_;
-    IntProperty* hop_size_;
+    IntProperty* buffer_size_;
+    HopSizeProperty* hop_size_;
+    OnsetMethodProperty* method_;
     OnsetFloatProperty* threshold_;
-    OnsetFloatProperty* delay_;
-    OnsetFloatProperty* speedlim_;
     OnsetFloatProperty* silence_threshold_;
-    OnsetFloatProperty* compression_;
-    OnsetUIntProperty* awhitening_;
-    SymbolEnumProperty* method_;
+    OnsetFloatProperty* speedlim_;
     bool active_;
 
     int dsp_pos_;
@@ -43,7 +42,7 @@ class AubioOnsetTilde : public SoundExternal {
 public:
     AubioOnsetTilde(const PdArgs& args);
 
-    void parseProperties() final;
+    void initDone() final;
 
     void processBlock(const t_sample** in, t_sample** out) final;
     void samplerateChanged(size_t sr) final;
@@ -52,9 +51,9 @@ public:
 
 private:
     void clock_tick();
-    void initOnset(uint_t sr);
-    void updateMethodProperty();
-    static void propCallback(BaseObject* this_, t_symbol* name);
+    void resetAubioOnset(uint_t sr);
+    void saveSteadyProperties();
+    void restoreSteadyProperties();
 };
 
 void setup_an_onset_tilde();

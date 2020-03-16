@@ -6,10 +6,10 @@
 using namespace ceammc;
 
 class PanBase : public SoundExternal {
-    InitIntPropertyClosedRange* smooth_;
+    IntProperty* smooth_;
 
 protected:
-    FloatPropertyClosedRange* pos_;
+    FloatProperty* pos_;
     SmoothControlValue smooth_pos_;
 
 public:

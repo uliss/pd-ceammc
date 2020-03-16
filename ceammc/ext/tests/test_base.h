@@ -327,6 +327,7 @@ TestExternal<T>::TestExternal(const char* name, const AtomList& args, bool mainS
     msg_count_.assign(N, -1);
     data_.assign(N, DataPtrList());
     T::parseProperties();
+    T::initDone();
     // fix CLASS_NOINLET flag
     if (T::owner() && ObjectFactory<T>::classPointer()) {
         T::owner()->te_g.g_pd->c_firstin = ObjectFactory<T>::classPointer()->c_firstin;

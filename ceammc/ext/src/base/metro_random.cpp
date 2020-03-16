@@ -24,12 +24,16 @@ MetroRandom::MetroRandom(const PdArgs& args)
     , min_(nullptr)
     , max_(nullptr)
 {
-    min_ = new IntPropertyMin("@min", positionalFloatArgument(0, 100), 0);
-    min_->info().setUnits(PropertyInfoUnits::MSEC);
+    min_ = new IntProperty("@min", 100);
+    min_->setArgIndex(0);
+    min_->checkMin(0);
+    min_->setUnitsMs();
     createProperty(min_);
 
-    max_ = new IntPropertyMin("@max", positionalFloatArgument(1, 200), 0);
-    max_->info().setUnits(PropertyInfoUnits::MSEC);
+    max_ = new IntProperty("@max", 200);
+    max_->setArgIndex(1);
+    max_->checkMin(0);
+    max_->setUnitsMs();
     createProperty(max_);
 
     createInlet();
@@ -47,7 +51,7 @@ void MetroRandom::onFloat(t_float f)
 void MetroRandom::onInlet(size_t n, const AtomList& lst)
 {
     if (lst.isFloat())
-        return min_->setValue(lst[0].asFloat());
+        min_->setValue(lst[0].asFloat());
     else if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
         min_->setValue(lst[0].asFloat());
         max_->setValue(lst[1].asFloat());

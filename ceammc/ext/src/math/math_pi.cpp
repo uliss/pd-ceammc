@@ -18,7 +18,7 @@ constexpr t_float PI = 3.14159265359;
 
 MathPi::MathPi(const PdArgs& args)
     : BaseObject(args)
-    , mpi_(positionalFloatArgument(0, 1) * PI)
+    , mpi_(positionalFloatArgumentT(0, 1) * PI)
 {
     createOutlet();
 }
@@ -30,7 +30,7 @@ void MathPi::onBang()
 
 MathPiTilde::MathPiTilde(const PdArgs& args)
     : SoundExternal(args)
-    , mpi_(positionalFloatArgument(0, 1) * PI)
+    , mpi_(positionalFloatArgumentT(0, 1) * PI)
 {
     createSignalOutlet();
 }

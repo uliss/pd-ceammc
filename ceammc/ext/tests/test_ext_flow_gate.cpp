@@ -12,9 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../flow/flow_gate.h"
-#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
+#include "test_base.h"
 
 #include <stdio.h>
 
@@ -24,6 +24,8 @@ static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("flow.gate", "[externals]")
 {
+    test::pdPrintToStdError();
+
     SECTION("init")
     {
         SECTION("default")
@@ -44,6 +46,24 @@ TEST_CASE("flow.gate", "[externals]")
         {
             FlowGateTest t("flow.gate", LF(1));
             REQUIRE_PROPERTY(t, @state, 1);
+        }
+
+        SECTION("open")
+        {
+            FlowGateTest t("flow.gate", LA("true"));
+            REQUIRE_PROPERTY(t, @state, 1);
+        }
+
+        SECTION("unknown")
+        {
+            FlowGateTest t("flow.gate", LA("???"));
+            REQUIRE_PROPERTY(t, @state, 0.f);
+        }
+
+        SECTION("float")
+        {
+            FlowGateTest t("flow.gate", LA(-0.5));
+            REQUIRE_PROPERTY(t, @state, 0.f);
         }
     }
 

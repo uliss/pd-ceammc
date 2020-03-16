@@ -20,7 +20,7 @@ using namespace ceammc;
 
 class RandomGauss : public BaseObject {
     FloatProperty* mu_;
-    FloatPropertyMinEq* sigma_;
+    FloatProperty* sigma_;
 
 public:
     RandomGauss(const PdArgs& a);

@@ -26,8 +26,8 @@ public:
         createProperty(new CombinedProperty("@ar", { property(gensym("@attack")), property(gensym("@release")) }));
         {
             Property* p = createCbProperty("@length", &EnvAr::propLength);
-            p->info().setType(PropertyInfoType::FLOAT);
-            p->info().setUnits(PropertyInfoUnits::MSEC);
+            p->info().setType(PropValueType::FLOAT);
+            p->info().setUnits(PropValueUnits::MSEC);
         }
 
         createOutlet();

@@ -13,162 +13,137 @@
  *****************************************************************************/
 #include "an_aubio_onset_tilde.h"
 #include "ceammc_factory.h"
-#include "ceammc_property_extra.h"
+#include "fmt/include/fmt/format.h"
 
-#define CEAMMC_AUBIO_ONSET_PLIST threshold_, delay_, speedlim_, silence_threshold_, compression_
-#define CEAMMC_AUBIO_ONSET_RESTORE threshold_, silence_threshold_, speedlim_
-
-template <typename P, typename... Args>
-void updatePtr(P ptr, Args... args)
-{
-    using expand_type = int[];
-    // compiler warning unused suppress via cast to (void)
-    (void)expand_type { (args->setAubioPtr(ptr), 0)... };
-}
-
-template <typename... Args>
-void saveValues(Args... args)
-{
-    using expand_type = int[];
-    // compiler warning unused suppress via cast to (void)
-    (void)expand_type { (args->save(), 0)... };
-}
-
-template <typename... Args>
-void restoreValues(Args... args)
-{
-    using expand_type = int[];
-    // compiler warning unused suppress via cast to (void)
-    (void)expand_type { (args->restore(), 0)... };
-}
+constexpr int DEFAULT_BUFFER_SIZE = 1024;
+constexpr int MIN_BUFFER_SIZE = 64;
+constexpr uint_t AUBIO_OK = 0;
 
 AubioOnsetTilde::AubioOnsetTilde(const PdArgs& args)
     : SoundExternal(args)
     , buffer_size_(nullptr)
     , hop_size_(nullptr)
-    , threshold_(nullptr)
-    , delay_(nullptr)
     , method_(nullptr)
-    , speedlim_(nullptr)
+    , threshold_(nullptr)
     , silence_threshold_(nullptr)
-    , compression_(nullptr)
-    , awhitening_(nullptr)
+    , speedlim_(nullptr)
     , active_(true)
     , dsp_pos_(0)
     , last_ms_(0)
+    , onset_(new_aubio_onset(
+                 DEFAULT_METHOD,
+                 DEFAULT_BUFFER_SIZE,
+                 DEFAULT_BUFFER_SIZE / 2,
+                 44100),
+          del_aubio_onset)
     , tick_(this, &AubioOnsetTilde::clock_tick)
 {
-    buffer_size_ = new IntPropertyMinEq("@bs", positionalFloatArgument(0, 1024), 64);
-    createProperty(buffer_size_);
+    buffer_size_ = new IntProperty("@bs", DEFAULT_BUFFER_SIZE);
+    buffer_size_->checkMinEq(MIN_BUFFER_SIZE);
+    buffer_size_->setUnitsSamp();
+    buffer_size_->setInitOnly();
+    buffer_size_->setArgIndex(0);
 
-    hop_size_ = new IntProperty("@hs", positionalFloatArgument(2, -1), -1);
-    createProperty(hop_size_);
+    hop_size_ = new HopSizeProperty(buffer_size_);
+    hop_size_->setArgIndex(2);
+
+    method_ = new OnsetMethodProperty();
+    method_->setArgIndex(1);
+
+    // order is important
+    addProperty(buffer_size_);
+    addProperty(hop_size_);
+    addProperty(method_);
 
     threshold_ = new OnsetFloatProperty(
         "@threshold",
-        nullptr,
-        [](aubio_onset_t* o) { return aubio_onset_get_threshold(o); },
-        [](aubio_onset_t* o, smpl_t t) { return aubio_onset_set_threshold(o, t); });
-    createProperty(threshold_);
-
-    delay_ = new OnsetFloatProperty(
-        "@delay", nullptr,
-        [](aubio_onset_t* o) { return aubio_onset_get_delay_ms(o); },
-        [](aubio_onset_t* o, smpl_t ms) { return aubio_onset_set_delay_ms(o, ms); });
-    delay_->info().setUnits(PropertyInfoUnits::MSEC);
-    createProperty(delay_);
+        [this]() -> t_float { return aubio_onset_get_threshold(onset_.get()); },
+        [this](t_float t) -> bool { return aubio_onset_set_threshold(onset_.get(), t) == AUBIO_OK; });
+    addProperty(threshold_);
 
     speedlim_ = new OnsetFloatProperty(
-        "@speedlim", nullptr,
-        [](aubio_onset_t* o) { return aubio_onset_get_minioi_ms(o); },
-        [](aubio_onset_t* o, smpl_t ms) { return aubio_onset_set_minioi_ms(o, ms); });
-    speedlim_->info().setUnits(PropertyInfoUnits::MSEC);
-    createProperty(speedlim_);
+        "@speedlim",
+        [this]() -> t_float { return aubio_onset_get_minioi_ms(onset_.get()); },
+        [this](t_float ms) -> bool { return aubio_onset_set_minioi_ms(onset_.get(), ms) == AUBIO_OK; });
+    speedlim_->setUnits(PropValueUnits::MSEC);
+    speedlim_->setFloatCheck(PropValueConstraints::GREATER_EQUAL, 1);
+    addProperty(speedlim_);
 
     silence_threshold_ = new OnsetFloatProperty(
-        "@silence", nullptr,
-        [](aubio_onset_t* o) { return aubio_onset_get_silence(o); },
-        [](aubio_onset_t* o, smpl_t t) { return aubio_onset_set_silence(o, t); });
-    silence_threshold_->info().setUnits(PropertyInfoUnits::DB);
-    createProperty(silence_threshold_);
+        "@silence",
+        [this]() -> t_float { return aubio_onset_get_silence(onset_.get()); },
+        [this](t_float t) -> bool { return aubio_onset_set_silence(onset_.get(), t) == AUBIO_OK; });
+    silence_threshold_->setUnits(PropValueUnits::DB);
+    silence_threshold_->setFloatCheck(PropValueConstraints::CLOSED_RANGE, -80, 0);
+    addProperty(silence_threshold_);
 
-    compression_ = new OnsetFloatProperty(
-        "@compression", nullptr,
-        [](aubio_onset_t* o) { return aubio_onset_get_compression(o); },
-        [](aubio_onset_t* o, smpl_t v) { return aubio_onset_set_compression(o, v); });
-    compression_->info().setMin(0);
-    createProperty(compression_);
+    auto delay = createCbFloatProperty(
+        "@delay",
+        [this]() -> t_float { return aubio_onset_get_delay_ms(onset_.get()); },
+        [this](t_float ms) -> bool { return aubio_onset_set_delay_ms(onset_.get(), ms) == AUBIO_OK; });
+    delay->setUnits(PropValueUnits::MSEC);
+    delay->setFloatCheck(PropValueConstraints::GREATER_EQUAL, 0);
 
-    awhitening_ = new OnsetUIntProperty(
-        "@awhitening", nullptr,
-        [](aubio_onset_t* o) { return aubio_onset_get_awhitening(o); },
-        [](aubio_onset_t* o, uint_t v) { return aubio_onset_set_awhitening(o, v); });
-    awhitening_->info().setType(PropertyInfoType::BOOLEAN);
-    createProperty(awhitening_);
+    createCbFloatProperty(
+        "@compression",
+        [this]() -> t_float { return aubio_onset_get_compression(onset_.get()); },
+        [this](t_sample v) -> bool { return aubio_onset_set_compression(onset_.get(), v) == AUBIO_OK; })
+        ->setFloatCheck(PropValueConstraints::GREATER_EQUAL, 0);
 
-    method_ = new SymbolEnumProperty("@method", gensym("default"));
-#define S(a) gensym(a)
-    method_->appendEnum(S("energy"));
-    method_->appendEnum(S("hfc"));
-    method_->appendEnum(S("specdiff"));
-    method_->appendEnum(S("complexdomain"));
-    method_->appendEnum(S("complex"));
-    method_->appendEnum(S("phase"));
-    method_->appendEnum(S("wphase"));
-    method_->appendEnum(S("mkl"));
-    method_->appendEnum(S("kl"));
-    method_->appendEnum(S("specflux"));
-    method_->appendEnum(S("centroid"));
-    method_->appendEnum(S("spread"));
-    method_->appendEnum(S("skewness"));
-    method_->appendEnum(S("kurtosis"));
-    method_->appendEnum(S("slope"));
-    method_->appendEnum(S("decrease"));
-    method_->appendEnum(S("rolloff"));
-#undef S
-    if (positionalSymbolArgument(1))
-        method_->set(Atom(positionalSymbolArgument(1)));
-    createProperty(method_);
+    createCbBoolProperty(
+        "@awhitening",
+        [this]() -> bool { return aubio_onset_get_awhitening(onset_.get()); },
+        [this](bool v) -> bool { return aubio_onset_set_awhitening(onset_.get(), v) == AUBIO_OK; });
 
-    createProperty(new PointerProperty<bool>("@active", &active_, false));
+    addProperty(new PointerProperty<bool>("@active", &active_, PropValueAccess::READWRITE));
 
     createOutlet();
     createOutlet();
 }
 
-void AubioOnsetTilde::parseProperties()
+void AubioOnsetTilde::initDone()
 {
-    SoundExternal::parseProperties();
+    // save this properties values to restore them later
+    saveSteadyProperties();
 
-    if (hop_size_->value() <= 0)
-        hop_size_->setValue(buffer_size_->value() / 2);
+    // here we create new aubio onset object and
+    // some of our defined properties are reset with default values
+    resetAubioOnset(samplerate());
 
-    if (hop_size_->value() > buffer_size_->value()) {
-        OBJ_ERR << "invalid value: " << hop_size_->value() << ". should be <= " << buffer_size_->value();
-        hop_size_->setValue(buffer_size_->value() / 2);
-    }
-
-    initOnset(sys_getsr());
-
+    // consistency check
     if (!onset_) {
-        OBJ_ERR << "can't init aubio";
+        OBJ_ERR << "can't create aubio onset object";
         return;
     }
 
-    updatePtr(onset_.get(), CEAMMC_AUBIO_ONSET_PLIST);
+    // restore properties if it was explictly specified in creation arguments
+    // each property have information if setter callback was called
+    if (threshold_->wasChanged())
+        threshold_->restore();
 
-    SoundExternal::parseProperties();
+    if (silence_threshold_->wasChanged())
+        silence_threshold_->restore();
 
-    setPropertyCallback(propCallback);
+    if (speedlim_->wasChanged())
+        speedlim_->restore();
 
-    buffer_size_->setReadonly(true);
-    hop_size_->setReadonly(true);
+    // set success callback for changing onset method
+    // we need to delete old and create new Onset object every time
+    // also we need to save and restore properties
+    method_->setSuccessFn([this](Property*) {
+        // save properties that should be steady
+        saveSteadyProperties();
+        // steady properties are changed after this call
+        resetAubioOnset(samplerate());
+        // restore
+        restoreSteadyProperties();
+    });
 
     in_.reset(new_fvec(hop_size_->value()));
     out_.reset(new_fvec(1));
 }
 
-void AubioOnsetTilde::processBlock(const t_sample** in, t_sample** out)
+void AubioOnsetTilde::processBlock(const t_sample** in, t_sample** /*out*/)
 {
     if (!in_ || !out_ || !onset_ || !active_)
         return;
@@ -195,13 +170,12 @@ void AubioOnsetTilde::processBlock(const t_sample** in, t_sample** out)
 
 void AubioOnsetTilde::samplerateChanged(size_t sr)
 {
-    saveValues(CEAMMC_AUBIO_ONSET_PLIST);
-    initOnset(sr);
-    updatePtr(onset_.get(), CEAMMC_AUBIO_ONSET_PLIST);
-    restoreValues(CEAMMC_AUBIO_ONSET_PLIST);
+    saveSteadyProperties();
+    resetAubioOnset(sr);
+    restoreSteadyProperties();
 }
 
-void AubioOnsetTilde::m_reset(t_symbol* m, const AtomList&)
+void AubioOnsetTilde::m_reset(t_symbol* /*m*/, const AtomList&)
 {
     if (onset_)
         aubio_onset_reset(onset_.get());
@@ -213,7 +187,7 @@ void AubioOnsetTilde::clock_tick()
     bangTo(0);
 }
 
-void AubioOnsetTilde::initOnset(uint_t sr)
+void AubioOnsetTilde::resetAubioOnset(uint_t sr)
 {
     if (sr == 0)
         sr = 44100;
@@ -227,22 +201,18 @@ void AubioOnsetTilde::initOnset(uint_t sr)
         del_aubio_onset);
 }
 
-void AubioOnsetTilde::updateMethodProperty()
+void AubioOnsetTilde::saveSteadyProperties()
 {
-    saveValues(CEAMMC_AUBIO_ONSET_RESTORE);
-    initOnset(sys_getsr());
-    updatePtr(onset_.get(), CEAMMC_AUBIO_ONSET_PLIST);
-    restoreValues(CEAMMC_AUBIO_ONSET_RESTORE);
+    threshold_->save();
+    silence_threshold_->save();
+    speedlim_->save();
 }
 
-void AubioOnsetTilde::propCallback(BaseObject* this_, t_symbol* name)
+void AubioOnsetTilde::restoreSteadyProperties()
 {
-    AubioOnsetTilde* this__ = dynamic_cast<AubioOnsetTilde*>(this_);
-    if (!this__)
-        return;
-
-    if (name == gensym("@method"))
-        this__->updateMethodProperty();
+    threshold_->restore();
+    silence_threshold_->restore();
+    speedlim_->restore();
 }
 
 void setup_an_onset_tilde()

@@ -17,12 +17,9 @@
 #include "ceammc_property_extra.h"
 #include "hoa_common.h"
 
-class HoaMap;
-typedef LambdaCallProperty<HoaMap, IntPropertyMinEq> RampProperty;
-
 class HoaMap : public HoaBase {
-    IntPropertyMinEq* nins_;
-    RampProperty* ramp_;
+    IntProperty* nins_;
+    FloatProperty* ramp_;
 
     std::unique_ptr<MultiEncoder2d> map_;
     std::unique_ptr<PolarLines2d> lines_;

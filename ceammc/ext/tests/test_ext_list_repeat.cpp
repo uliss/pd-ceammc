@@ -61,7 +61,7 @@ TEST_CASE("list.repeat", "[externals]")
             TestListRepeat t("list.repeat", LF(-1));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY_FLOAT(t, @times, 0);
+            REQUIRE_PROPERTY_FLOAT(t, @times, 1);
         }
 
         SECTION("huge")
@@ -77,7 +77,7 @@ TEST_CASE("list.repeat", "[externals]")
             TestListRepeat t("list.repeat", LF(10001));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY_FLOAT(t, @times, 10000);
+            REQUIRE_PROPERTY_FLOAT(t, @times, 1);
         }
     }
 

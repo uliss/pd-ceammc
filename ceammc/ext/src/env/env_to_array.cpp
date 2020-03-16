@@ -7,19 +7,16 @@ static t_symbol* SYM_RESIZE;
 
 Env2Array::Env2Array(const PdArgs& args)
     : ArrayMod(args)
-    , mode_(0)
-    , mode_alias_(0)
+    , mode_(nullptr)
 {
     createOutlet();
 
-    mode_ = new SymbolEnumProperty("@mode", SYM_FIT);
-    mode_->appendEnum(SYM_RAW);
-    mode_->appendEnum(SYM_RESIZE);
-    createProperty(mode_);
+    mode_ = new SymbolEnumProperty("@mode", { SYM_FIT, SYM_RAW, SYM_RESIZE });
+    addProperty(mode_);
 
-    createProperty(new SymbolEnumAlias("@fit", mode_, SYM_FIT));
-    createProperty(new SymbolEnumAlias("@raw", mode_, SYM_RAW));
-    createProperty(new SymbolEnumAlias("@resize", mode_, SYM_RESIZE));
+    addProperty(new SymbolEnumAlias("@fit", mode_, SYM_FIT));
+    addProperty(new SymbolEnumAlias("@raw", mode_, SYM_RAW));
+    addProperty(new SymbolEnumAlias("@resize", mode_, SYM_RESIZE));
 }
 
 void Env2Array::onDataT(const DataTPtr<DataTypeEnv>& dptr)

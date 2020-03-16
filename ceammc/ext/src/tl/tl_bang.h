@@ -19,7 +19,7 @@
 
 class TlBang : public TlBaseObject {
     ClockMemberFunction<TlBang> clock_;
-    FloatPropertyMinEq* delay_;
+    FloatProperty* delay_;
 
 public:
     TlBang(const PdArgs& args);

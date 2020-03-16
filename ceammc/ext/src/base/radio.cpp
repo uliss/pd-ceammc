@@ -14,15 +14,17 @@
 #include "radio.h"
 #include "ceammc_factory.h"
 
-static const int DEFAULT_OUTLETS = 2;
-static const int MIN_OUTLETS = 2;
-static const int MAX_OUTLETS = 24;
+constexpr int DEFAULT_OUTLETS = 2;
+constexpr int MIN_OUTLETS = 2;
+constexpr int MAX_OUTLETS = 24;
 
 Radio::Radio(const PdArgs& args)
     : BaseObject(args)
     , n_(nullptr)
 {
-    n_ = new IntPropertyClosedRange("@n", positionalFloatArgument(0, DEFAULT_OUTLETS), MIN_OUTLETS, MAX_OUTLETS);
+    n_ = new IntProperty("@n", DEFAULT_OUTLETS);
+    n_->setArgIndex(0);
+    n_->checkClosedRange(MIN_OUTLETS, MAX_OUTLETS);
     createProperty(n_);
 
     parseProperties();

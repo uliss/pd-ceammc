@@ -12,9 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../base/metro_seq.h"
-#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
+#include "test_base.h"
 
 #include <stdio.h>
 
@@ -24,6 +24,8 @@ static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("metro.seq", "[externals]")
 {
+    test::pdPrintToStdError();
+
     SECTION("init")
     {
         SECTION("default")

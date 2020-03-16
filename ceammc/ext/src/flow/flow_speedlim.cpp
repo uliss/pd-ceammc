@@ -5,14 +5,15 @@
 
 FlowSpeedLimit::FlowSpeedLimit(const PdArgs& a)
     : BaseObject(a)
-    , period_(0)
+    , period_(nullptr)
     , is_closed_(false)
     , clock_(this, &FlowSpeedLimit::clock_handler)
 {
     createOutlet();
 
-    period_ = new IntProperty("@limit", positionalFloatArgument(0, 0));
-    period_->info().setUnits(PropertyInfoUnits::MSEC);
+    period_ = new IntProperty("@limit", 0);
+    period_->setArgIndex(0);
+    period_->setUnitsMs();
     createProperty(period_);
 }
 

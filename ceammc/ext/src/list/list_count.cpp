@@ -5,12 +5,13 @@
 
 ListCount::ListCount(const PdArgs& a)
     : ListBase(a)
-    , pattern_(0)
+    , pattern_(nullptr)
 {
     createInlet();
     createOutlet();
 
-    pattern_ = new AtomProperty("@pattern", positionalArgument(0));
+    pattern_ = new AtomProperty("@pattern", Atom());
+    pattern_->setArgIndex(0);
     createProperty(pattern_);
 }
 

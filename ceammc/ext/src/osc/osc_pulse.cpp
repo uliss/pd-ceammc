@@ -9,7 +9,7 @@ public:
         : faust_osc_pulse_tilde(args)
     {
         createInlet();
-        setInitSignalValue(positionalFloatArgument(0, 0));
+        setInitSignalValue(positionalFloatArgumentT(0, 0));
         bindPositionalArgToProperty(1, gensym("@duty"));
     }
 

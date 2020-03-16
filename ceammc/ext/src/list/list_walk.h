@@ -17,6 +17,7 @@
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 
 namespace ceammc {
 
@@ -40,7 +41,6 @@ public:
     void m_prev(t_symbol*, const AtomList& l);
     void m_reset(t_symbol*, const AtomList&);
 
-    AtomList p_size() const;
     AtomList p_index() const;
     void p_set_index(const AtomList& l);
 

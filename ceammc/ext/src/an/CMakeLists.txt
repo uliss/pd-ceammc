@@ -1,4 +1,4 @@
-set(ANALYZE_SOURCES mod_analyze.h mod_analyze.cpp)
+set(ANALYZE_SOURCES mod_analyze.h mod_analyze.cpp aubio_base.cpp)
 
 macro(ceammc_an_external name)
     list(APPEND ANALYZE_SOURCES "an_${name}.cpp")

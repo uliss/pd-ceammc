@@ -39,16 +39,15 @@ public:
     void m_stop(t_symbol*, const AtomList&);
     void m_pause(t_symbol*, const AtomList&);
 
-    AtomList p_pos() const;
-    void p_set_pos(const AtomList& pos);
-    AtomList p_name() const;
-    AtomList p_len() const;
+    t_float p_pos() const;
+    bool p_set_pos(t_float pos);
+    t_symbol* p_name() const;
+    t_float p_len() const;
 
-    AtomList p_rel_pos() const;
-    void p_set_rel_pos(const AtomList& pos);
+    t_float p_rel_pos() const;
+    bool p_set_rel_pos(t_float pos);
 
-    AtomList p_on_end() const;
-    void p_set_on_end(const AtomList& fn);
+    bool p_set_on_end(t_symbol* s);
 
 private:
     void load();

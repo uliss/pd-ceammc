@@ -17,11 +17,13 @@
 
 typedef TestSoundExternal<XFade2Tilde> XFade2TildeTest;
 
-PD_COMPLETE_TEST_SETUP(XFade2Tilde, base, xfade2_tilde);
+PD_COMPLETE_TEST_SETUP(XFade2Tilde, base, xfade2_tilde)
 
 TEST_CASE("xfade~", "[externals]")
 {
+    setup_base_xfade_tilde();
     pd_test_mod_init_base_xfade2_tilde();
+    test::pdPrintToStdError();
 
     SECTION("construct")
     {
@@ -42,13 +44,13 @@ TEST_CASE("xfade~", "[externals]")
             REQUIRE_PROPERTY_FLOAT(t, @smooth, 10000);
 
             t.setProperty("@smooth", LF(0.f));
-            REQUIRE_PROPERTY_FLOAT(t, @smooth, 1);
+            REQUIRE_PROPERTY_FLOAT(t, @smooth, 10000);
 
             t.setProperty("@smooth", LF(-10));
-            REQUIRE_PROPERTY_FLOAT(t, @smooth, 1);
+            REQUIRE_PROPERTY_FLOAT(t, @smooth, 10000);
 
             t.setProperty("@smooth", LA("NONE"));
-            REQUIRE_PROPERTY_FLOAT(t, @smooth, 20);
+            REQUIRE_PROPERTY_FLOAT(t, @smooth, 10000);
         }
 
         SECTION("args")

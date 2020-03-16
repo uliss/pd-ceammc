@@ -38,7 +38,7 @@ private:
 
 protected:
     FlagProperty* sync_;
-    size_t arg_num_;
+    const size_t arg_num_;
     std::vector<bool> vars_;
 };
 

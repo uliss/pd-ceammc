@@ -15,6 +15,7 @@
 #define STRING_REMOVE_H
 
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 #include "datatype_string.h"
 
 using namespace std;

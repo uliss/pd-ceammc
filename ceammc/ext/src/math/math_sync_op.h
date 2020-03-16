@@ -39,14 +39,14 @@ public:
 };
 
 class MathSyncEqual : public MathSyncBase {
-    FloatPropertyMinEq* epsilon_;
+    FloatProperty* epsilon_;
 
 public:
     MathSyncEqual(const PdArgs& args);
 };
 
 class MathSyncNotEqual : public MathSyncBase {
-    FloatPropertyMinEq* epsilon_;
+    FloatProperty* epsilon_;
 
 public:
     MathSyncNotEqual(const PdArgs& args);

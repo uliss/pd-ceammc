@@ -69,7 +69,7 @@ TEST_CASE("list.gen", "[externals]")
 
             {
                 TestListGenerate t("list.gen", LF(100000));
-                REQUIRE_PROPERTY(t, @count, 1024);
+                REQUIRE_PROPERTY(t, @count, 1);
             }
 
             {

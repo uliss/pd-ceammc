@@ -18,8 +18,8 @@
 
 ListSet::ListSet(const PdArgs& args)
     : BaseObject(args)
-    , idx_(positionalFloatArgument(0))
-    , value_(positionalArgument(1))
+    , idx_(positionalFloatArgumentT(0))
+    , value_(positionalArguments().size() < 2 ? Atom() : positionalArguments()[1])
 {
     createInlet(&idx_);
     createInlet();

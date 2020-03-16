@@ -3,12 +3,13 @@
 
 EnvTimeShift::EnvTimeShift(const PdArgs& args)
     : BaseObject(args)
-    , shift_(0)
+    , shift_(nullptr)
 {
+    shift_ = new FloatProperty("@shift", 0);
+    shift_->setArgIndex(0);
+    shift_->setUnitsMs();
 
-    shift_ = new FloatProperty("@shift", positionalFloatArgument(0, 0));
-    createProperty(shift_);
-    shift_->info().setUnits(PropertyInfoUnits::MSEC);
+    addProperty(shift_);
 
     createOutlet();
 }

@@ -15,7 +15,7 @@ public:
     void onFloat(float f);
 
     AtomList p_tonality() const;
-    void p_setTonality(const AtomList& l);
+    bool p_setTonality(const AtomList& l);
 
 private:
     bool isMajor() const;

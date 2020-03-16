@@ -18,8 +18,7 @@ public:
     MetroPattern(const PdArgs& args);
 
     void onFloat(t_float on);
-    AtomList p_pattern() const;
-    void p_set_pattern(const AtomList& l);
+    bool p_set_pattern(const AtomList& l);
 
 public:
     void tick();

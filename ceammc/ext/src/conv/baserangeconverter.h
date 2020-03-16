@@ -17,6 +17,7 @@
 #include <type_traits>
 
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 
 using namespace ceammc;
@@ -55,26 +56,27 @@ public:
         SYM_MAX = gensym("max");
         SYM_MINMAX = gensym("minmax");
 
-        input_from_ = new FloatProperty("@in_from", T::positionalFloatArgument(0, iMin));
-        input_to_ = new FloatProperty("@in_to", T::positionalFloatArgument(1, iMax));
-        output_from_ = new FloatProperty("@out_from", T::positionalFloatArgument(2, oMin));
-        output_to_ = new FloatProperty("@out_to", T::positionalFloatArgument(3, oMax));
+        input_from_ = new FloatProperty("@in_from", iMin);
+        input_from_->setArgIndex(0);
+        input_to_ = new FloatProperty("@in_to", iMax);
+        input_to_->setArgIndex(1);
+        output_from_ = new FloatProperty("@out_from", oMin);
+        output_from_->setArgIndex(2);
+        output_to_ = new FloatProperty("@out_to", oMax);
+        output_to_->setArgIndex(3);
 
-        clip_ = new SymbolEnumProperty("@clip", gensym("minmax"));
-        clip_->appendEnum(gensym("noclip"));
-        clip_->appendEnum(gensym("min"));
-        clip_->appendEnum(gensym("max"));
+        clip_ = new SymbolEnumProperty("@clip", { SYM_MINMAX, SYM_NO_CLIP, SYM_MIN, SYM_MAX });
 
-        T::createProperty(input_from_);
-        T::createProperty(input_to_);
-        T::createProperty(output_from_);
-        T::createProperty(output_to_);
-        T::createProperty(clip_);
+        T::addProperty(input_from_);
+        T::addProperty(input_to_);
+        T::addProperty(output_from_);
+        T::addProperty(output_to_);
+        T::addProperty(clip_);
 
-        T::createProperty(new SymbolEnumAlias("@noclip", clip_, SYM_NO_CLIP));
-        T::createProperty(new SymbolEnumAlias("@min", clip_, SYM_MIN));
-        T::createProperty(new SymbolEnumAlias("@max", clip_, SYM_MAX));
-        T::createProperty(new SymbolEnumAlias("@minmax", clip_, SYM_MINMAX));
+        T::addProperty(new SymbolEnumAlias("@noclip", clip_, SYM_NO_CLIP));
+        T::addProperty(new SymbolEnumAlias("@min", clip_, SYM_MIN));
+        T::addProperty(new SymbolEnumAlias("@max", clip_, SYM_MAX));
+        T::addProperty(new SymbolEnumAlias("@minmax", clip_, SYM_MINMAX));
     }
 
     inline t_float in_from() const { return input_from_->value(); }

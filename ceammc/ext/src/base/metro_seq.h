@@ -17,12 +17,6 @@ public:
 
     void onFloat(t_float f);
     void clockTick();
-
-public:
-    AtomList p_current() const;
-    void p_set_current(const AtomList& l);
-    AtomList p_pattern() const;
-    void p_set_pattern(const AtomList& l);
 };
 
 void setup_metro_seq();

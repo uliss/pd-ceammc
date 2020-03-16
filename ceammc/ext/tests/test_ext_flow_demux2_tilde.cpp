@@ -69,13 +69,13 @@ TEST_CASE("flow.demux2~", "[externals]")
 
         SECTION("too many")
         {
-            TestDemux t("demux2~", LF(10), true);
+            TestDemux t("demux2~", LF(20), true);
             REQUIRE(t.blockSize() == 64);
             REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numInputChannels() == 2);
-            REQUIRE(t.numOutlets() == 16);
-            REQUIRE(t.numOutputChannels() == 16);
-            REQUIRE_PROPERTY_LIST(t, @value, LX(1, 0, 0, 0, 0, 0, 0, 0));
+            REQUIRE(t.numOutlets() == 32);
+            REQUIRE(t.numOutputChannels() == 32);
+            REQUIRE_PROPERTY_LIST(t, @value, LX(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
         }
     }
 

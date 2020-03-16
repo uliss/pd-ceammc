@@ -3,10 +3,8 @@
 #include "arduino/arduino.h"
 #include "ceammc_factory.h"
 
-#include <math.h>
-#include <stdint.h>
-
-#include <boost/foreach.hpp>
+#include <cmath>
+#include <cstdint>
 #include <sstream>
 
 using namespace ceammc::hw;
@@ -118,22 +116,6 @@ void ArduinoExternal::tick()
     }
 }
 
-AtomList ArduinoExternal::p_connected() const
-{
-    return Atom(arduino_->isConnected() ? 1.f : 0.f);
-}
-
-AtomList ArduinoExternal::p_devices() const
-{
-    AtomList res;
-
-    BOOST_FOREACH (const std::string& dev, arduino_->allDevices()) {
-        res.append(gensym(dev.c_str()));
-    }
-
-    return res;
-}
-
 void ArduinoExternal::m_connect(t_symbol*, const AtomList& args)
 {
     size_t on = args.asSizeT(1);
@@ -186,12 +168,11 @@ void ArduinoExternal::processMessages()
 
 void ArduinoExternal::initProperties()
 {
-    {
-        Property* p = createCbProperty("@connected", &ArduinoExternal::p_connected);
-        p->info().setType(PropertyInfoType::BOOLEAN);
-    }
+    createCbBoolProperty("@connected", [this]() -> bool { return arduino_ && arduino_->isConnected(); });
 
-    port_ = new SymbolProperty("@port", positionalSymbolArgument(0, &s_), true);
+    port_ = new SymbolProperty("@port", &s_);
+    port_->setArgIndex(0);
+    port_->setInitOnly();
     createProperty(port_);
 
     on_connect_ = new SymbolProperty("@on_connect", &s_);
@@ -212,7 +193,14 @@ void ArduinoExternal::initProperties()
     reconnect_ = new FlagProperty("@reconnect");
     createProperty(reconnect_);
 
-    createCbProperty("@devices", &ArduinoExternal::p_devices);
+    createCbListProperty("@devices", [this]() -> AtomList {
+        AtomList res;
+
+        for (auto& s : arduino_->allDevices())
+            res.append(gensym(s.c_str()));
+
+        return res;
+    });
 }
 
 void hw_setup_arduino()

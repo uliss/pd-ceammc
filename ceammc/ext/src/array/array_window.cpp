@@ -44,7 +44,7 @@ static void propCallback(BaseObject* b, t_symbol* sel)
 ArrayWindow::ArrayWindow(const PdArgs& args)
     : ArrayMod(args)
     , type_(nullptr)
-    , gen_fn_(window::hann<float>)
+    , gen_fn_(window::hann<t_float>)
 {
     createOutlet();
 
@@ -151,17 +151,17 @@ void setup_array_window()
     PROP_TYPE = gensym("@type");
 
     fn_map = {
-        { WIN_TRIANGLE, window::triangle<float> },
-        { WIN_GAUSS, window::gauss<1> },
-        { WIN_HANN, window::hann<float> },
-        { WIN_RECT, window::rect<float> },
-        { WIN_SINE, window::sine<float> },
-        { WIN_HAMMING, window::hamming<float> },
-        { WIN_BLACKMAN, window::blackman<float> },
-        { WIN_NUTTALL, window::nuttall<float> },
-        { WIN_BLACKMAN_HARRIS, window::blackman_harris<float> },
-        { WIN_FLATTOP, window::flattop<float> },
-        { WIN_WELCH, window::welch<float> }
+        { WIN_TRIANGLE, window::triangle<t_float> },
+        { WIN_GAUSS, window::gauss<t_float, 1> },
+        { WIN_HANN, window::hann<t_float> },
+        { WIN_RECT, window::rect<t_float> },
+        { WIN_SINE, window::sine<t_float> },
+        { WIN_HAMMING, window::hamming<t_float> },
+        { WIN_BLACKMAN, window::blackman<t_float> },
+        { WIN_NUTTALL, window::nuttall<t_float> },
+        { WIN_BLACKMAN_HARRIS, window::blackman_harris<t_float> },
+        { WIN_FLATTOP, window::flattop<t_float> },
+        { WIN_WELCH, window::welch<t_float> }
     };
 
     ObjectFactory<ArrayWindow> obj("array.window");

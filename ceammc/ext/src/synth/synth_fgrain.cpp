@@ -49,27 +49,30 @@ SynthFGrain::SynthFGrain(const PdArgs& args)
 
     {
         Property* p = createCbProperty("@file", &SynthFGrain::propFile, &SynthFGrain::propSetFile);
-        p->info().setType(PropertyInfoType::SYMBOL);
+        p->info().setType(PropValueType::SYMBOL);
     }
 
     {
         Property* p = createCbProperty("@voices", &SynthFGrain::propVoices, &SynthFGrain::propSetVoices);
-        p->info().setType(PropertyInfoType::INTEGER);
-        p->info().setRange(0, 200);
+        p->info().setType(PropValueType::INTEGER);
+        p->info().setRangeInt(0, 200);
+        p->info().setConstraints(PropValueConstraints::CLOSED_RANGE);
         p->info().setDefault(DEFAULT_VOICES);
     }
 
     {
         Property* p = createCbProperty("@stretch", &SynthFGrain::propStretch, &SynthFGrain::propSetStretch);
-        p->info().setType(PropertyInfoType::INTEGER);
-        p->info().setRange(1, 1000);
+        p->info().setType(PropValueType::INTEGER);
+        p->info().setRangeInt(1, 1000);
+        p->info().setConstraints(PropValueConstraints::CLOSED_RANGE);
         p->info().setDefault(DEFAULT_STRETCH);
     }
 
     {
         Property* p = createCbProperty("@random", &SynthFGrain::propRandom, &SynthFGrain::propSetRandom);
-        p->info().setType(PropertyInfoType::FLOAT);
-        p->info().setRange(0, 0.97);
+        p->info().setType(PropValueType::FLOAT);
+        p->info().setRangeFloat(0, 0.97);
+        p->info().setConstraints(PropValueConstraints::CLOSED_RANGE);
         p->info().setDefault(0.1f);
     }
 
@@ -77,25 +80,26 @@ SynthFGrain::SynthFGrain(const PdArgs& args)
 
     {
         Property* p = createCbProperty("@gdur", &SynthFGrain::propGrainDuration, &SynthFGrain::propSetGrainDuration);
-        p->info().setType(PropertyInfoType::INTEGER);
-        p->info().setMin(1);
-        p->info().setUnits(PropertyInfoUnits::MSEC);
+        p->info().setType(PropValueType::INTEGER);
+        p->info().setUnits(PropValueUnits::MSEC);
         p->info().setDefault(30);
+        p->info().setMinInt(1);
+        p->info().setConstraints(PropValueConstraints::GREATER_EQUAL);
     }
 
     {
         Property* p = createCbProperty("@goffset", &SynthFGrain::propGrainOffset, &SynthFGrain::propSetGrainOffset);
-        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setType(PropValueType::INTEGER);
         p->info().setDefault(int(0));
-        p->info().setUnits(PropertyInfoUnits::MSEC);
+        p->info().setUnits(PropValueUnits::MSEC);
     }
 
     {
         Property* p = createCbProperty("@gdelay", &SynthFGrain::propGrainDelay, &SynthFGrain::propSetGrainDelay);
-        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setType(PropValueType::INTEGER);
         p->info().setDefault(int(0));
-        p->info().setUnits(PropertyInfoUnits::MSEC);
-        p->info().setMin(0);
+        p->info().setUnits(PropValueUnits::MSEC);
+        p->info().setMinFloat(0);
     }
 
     synth_->setVoices(DEFAULT_VOICES);

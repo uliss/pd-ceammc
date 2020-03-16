@@ -18,7 +18,7 @@
 
 MathGCD::MathGCD(const PdArgs& a)
     : BaseObject(a)
-    , b_(positionalFloatArgument(0, 0))
+    , b_(positionalFloatArgumentT(0, 0))
 {
     createInlet(&b_);
     createOutlet();

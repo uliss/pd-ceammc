@@ -365,13 +365,16 @@ std::deque<AtomList> AtomList::properties() const
 
 bool AtomList::hasProperty(const std::string& name) const
 {
-    for (size_t i = 0; i < atoms_.size(); i++) {
-        if (!atoms_[i].isProperty())
+    const t_symbol* sname = gensym(name.c_str());
+
+    for (auto& a : atoms_) {
+        if (!a.isProperty())
             continue;
 
-        if (name == atoms_[i].asSymbol()->s_name)
+        if (sname == a.asSymbol())
             return true;
     }
+
     return false;
 }
 
@@ -389,8 +392,8 @@ AtomList AtomList::map(AtomSymbolMapFunction f) const
 {
     AtomList res(*this);
 
-    for (size_t i = 0; i < res.size(); i++)
-        res[i].apply(f);
+    for (auto& a : res.atoms_)
+        a.apply(f);
 
     return res;
 }
@@ -506,13 +509,13 @@ bool AtomList::remove(size_t pos)
 
 void AtomList::removeAll(const Atom& a)
 {
-    Iterator nend = std::remove(atoms_.begin(), atoms_.end(), a);
+    auto nend = std::remove(atoms_.begin(), atoms_.end(), a);
     atoms_.erase(nend, atoms_.end());
 }
 
 void AtomList::removeAll(AtomPredicate pred)
 {
-    Iterator nend = std::remove_if(atoms_.begin(), atoms_.end(), pred);
+    auto nend = std::remove_if(atoms_.begin(), atoms_.end(), pred);
     atoms_.erase(nend, atoms_.end());
 }
 
@@ -555,34 +558,49 @@ bool AtomList::isBang() const
     return empty();
 }
 
+bool AtomList::isBool() const
+{
+    return atoms_.size() == 1 && atoms_[0].isBool();
+}
+
 bool AtomList::isFloat() const
 {
-    return size() == 1 && atoms_.front().isFloat();
+    return atoms_.size() == 1 && atoms_[0].isFloat();
+}
+
+bool AtomList::isInteger() const
+{
+    return atoms_.size() == 1 && atoms_[0].isInteger();
 }
 
 bool AtomList::isSymbol() const
 {
-    return size() == 1 && atoms_.front().isSymbol();
+    return atoms_.size() == 1 && atoms_[0].isSymbol();
 }
 
 bool AtomList::isProperty() const
 {
-    return size() == 1 && atoms_.front().isProperty();
+    return atoms_.size() == 1 && atoms_[0].isProperty();
+}
+
+bool AtomList::isAtom() const
+{
+    return atoms_.size() == 1;
 }
 
 bool AtomList::isList() const
 {
-    return size() > 1;
+    return atoms_.size() > 1;
 }
 
 bool AtomList::isData() const
 {
-    return size() == 1 && atoms_.front().isData();
+    return atoms_.size() == 1 && atoms_.front().isData();
 }
 
 bool AtomList::isDataType(DataType t) const
 {
-    return size() == 1 && atoms_.front().isDataType(t);
+    return atoms_.size() == 1 && atoms_.front().isDataType(t);
 }
 
 void AtomList::clear()
@@ -621,11 +639,12 @@ AtomList AtomList::filtered(AtomPredicate pred) const
         return *this;
     AtomList res;
     res.atoms_.reserve(size());
-    for (size_t i = 0; i < atoms_.size(); i++) {
-        const Atom& a = atoms_[i];
+
+    for (auto& a : atoms_) {
         if (pred(a))
             res.atoms_.push_back(a);
     }
+
     return res;
 }
 
@@ -656,7 +675,7 @@ Atom* AtomList::find(const Atom& a)
     if (empty())
         return nullptr;
 
-    Iterator it = std::find(atoms_.begin(), atoms_.end(), a);
+    auto it = std::find(atoms_.begin(), atoms_.end(), a);
     return it == atoms_.end() ? 0 : &(*it);
 }
 
@@ -665,7 +684,7 @@ Atom* AtomList::findLast(const Atom& a)
     if (empty())
         return nullptr;
 
-    ReverseIterator it = std::find(atoms_.rbegin(), atoms_.rend(), a);
+    auto it = std::find(atoms_.rbegin(), atoms_.rend(), a);
     return it == atoms_.rend() ? 0 : &(*it);
 }
 
@@ -674,7 +693,7 @@ Atom* AtomList::findLast(AtomPredicate pred)
     if (empty())
         return nullptr;
 
-    ReverseIterator it = std::find_if(atoms_.rbegin(), atoms_.rend(), pred);
+    auto it = std::find_if(atoms_.rbegin(), atoms_.rend(), pred);
     return it == atoms_.rend() ? 0 : &(*it);
 }
 
@@ -698,7 +717,7 @@ bool AtomList::contains(const Atom& a) const
 
 long AtomList::findPos(const Atom& a) const
 {
-    ConstIterator it = std::find(atoms_.begin(), atoms_.end(), a);
+    auto it = std::find(atoms_.begin(), atoms_.end(), a);
     if (it == atoms_.end())
         return -1;
 
@@ -707,7 +726,7 @@ long AtomList::findPos(const Atom& a) const
 
 long AtomList::findPos(AtomPredicate pred) const
 {
-    ConstIterator it = std::find_if(atoms_.begin(), atoms_.end(), pred);
+    auto it = std::find_if(atoms_.begin(), atoms_.end(), pred);
     if (it == atoms_.end())
         return -1;
 
@@ -760,8 +779,8 @@ Atom* AtomList::find(AtomPredicate pred)
     if (empty())
         return nullptr;
 
-    Iterator it = std::find_if(atoms_.begin(), atoms_.end(), pred);
-    return it == atoms_.end() ? 0 : &(*it);
+    auto it = std::find_if(atoms_.begin(), atoms_.end(), pred);
+    return (it == atoms_.end()) ? 0 : &(*it);
 }
 
 const Atom* AtomList::max() const
@@ -857,7 +876,7 @@ bool AtomList::normalizeFloats()
         return false;
 
     for (auto& it : atoms_) {
-        t_float f = 0.f;
+        t_float f = 0;
         if (!it.getFloat(&f))
             continue;
 
@@ -870,9 +889,9 @@ bool AtomList::normalizeFloats()
 static AtomList listAdd(const AtomList& a, const AtomList& b, ElementAccessFn fn)
 {
     AtomList res;
-    const size_t min_sz = std::min(a.size(), b.size());
+    const size_t N = std::min(a.size(), b.size());
     // protect agains empty list
-    if (min_sz == 0)
+    if (N == 0)
         return res;
 
     const size_t sz = std::max(a.size(), b.size());
@@ -887,21 +906,22 @@ AtomList AtomList::add(const AtomList& a, const AtomList& b, NonEqualLengthBehai
 {
     switch (lb) {
     case MINSIZE: {
-        AtomList res;
-        size_t sz = std::min(a.size(), b.size());
-        res.atoms_.reserve(sz);
+        const size_t N = std::min(a.size(), b.size());
 
-        for (size_t i = 0; i < sz; i++)
+        AtomList res;
+        res.atoms_.reserve(N);
+
+        for (size_t i = 0; i < N; i++)
             res.append(a[i].asFloat() + b[i].asFloat());
 
         return res;
     }
     case PADZERO: {
-        size_t sz = std::max(a.size(), b.size());
+        const size_t N = std::max(a.size(), b.size());
         AtomList l1(a);
         AtomList l2(b);
-        l1.resizePad(sz, 0.f);
-        l2.resizePad(sz, 0.f);
+        l1.resizePad(N, t_float(0));
+        l2.resizePad(N, t_float(0));
         return add(l1, l2, MINSIZE);
     }
     case CLIP:
@@ -915,12 +935,12 @@ AtomList AtomList::add(const AtomList& a, const AtomList& b, NonEqualLengthBehai
 
 AtomList AtomList::zeroes(size_t n)
 {
-    return filled(Atom(0.f), n);
+    return filled(Atom(t_float(0)), n);
 }
 
 AtomList AtomList::ones(size_t n)
 {
-    return filled(1.f, n);
+    return filled(t_float(1), n);
 }
 
 AtomList AtomList::filled(const Atom& a, size_t n)
@@ -933,9 +953,9 @@ AtomList AtomList::filled(const Atom& a, size_t n)
 static AtomList listSubstract(const AtomList& a, const AtomList& b, ElementAccessFn fn)
 {
     AtomList res;
-    const size_t min_sz = std::min(a.size(), b.size());
+    const size_t N = std::min(a.size(), b.size());
     // protect agains empty list
-    if (min_sz == 0)
+    if (N == 0)
         return res;
 
     const size_t sz = std::max(a.size(), b.size());
@@ -951,20 +971,20 @@ AtomList AtomList::sub(const AtomList& a, const AtomList& b, AtomList::NonEqualL
     switch (lb) {
     case MINSIZE: {
         AtomList res;
-        size_t sz = std::min(a.size(), b.size());
-        res.atoms_.reserve(sz);
+        const size_t N = std::min(a.size(), b.size());
+        res.atoms_.reserve(N);
 
-        for (size_t i = 0; i < sz; i++)
+        for (size_t i = 0; i < N; i++)
             res.append(a[i].asFloat() - b[i].asFloat());
 
         return res;
     }
     case PADZERO: {
-        size_t sz = std::max(a.size(), b.size());
+        const size_t N = std::max(a.size(), b.size());
         AtomList l1(a);
         AtomList l2(b);
-        l1.resizePad(sz, 0.f);
-        l2.resizePad(sz, 0.f);
+        l1.resizePad(N, t_float(0));
+        l2.resizePad(N, t_float(0));
         return sub(l1, l2, MINSIZE);
     }
     case CLIP:
@@ -976,65 +996,65 @@ AtomList AtomList::sub(const AtomList& a, const AtomList& b, AtomList::NonEqualL
     }
 }
 
-AtomList& AtomList::operator+=(double v)
+AtomList& AtomList::operator+=(t_float v)
 {
-    for (size_t i = 0; i < size(); i++)
-        atoms_[i] += v;
+    for (auto& a : atoms_)
+        a += v;
 
     return *this;
 }
 
-AtomList& AtomList::operator-=(double v)
+AtomList& AtomList::operator-=(t_float v)
 {
-    for (size_t i = 0; i < size(); i++)
-        atoms_[i] -= v;
+    for (auto& a : atoms_)
+        a -= v;
 
     return *this;
 }
 
-AtomList& AtomList::operator*=(double v)
+AtomList& AtomList::operator*=(t_float v)
 {
-    for (size_t i = 0; i < size(); i++)
-        atoms_[i] *= v;
+    for (auto& a : atoms_)
+        a *= v;
 
     return *this;
 }
 
-AtomList& AtomList::operator/=(double v)
+AtomList& AtomList::operator/=(t_float v)
 {
-    if (v == 0.0) {
+    if (std::equal_to<t_float>()(v, 0)) {
         LIB_ERR << "division by zero";
         return *this;
     }
 
-    for (size_t i = 0; i < size(); i++)
-        atoms_[i] /= v;
+    for (auto& a : atoms_)
+        a /= v;
 
     return *this;
 }
 
-AtomList AtomList::operator+(double v) const
+AtomList AtomList::operator+(t_float v) const
 {
     AtomList res(*this);
     res += v;
     return res;
 }
 
-AtomList AtomList::operator-(double v) const
+AtomList AtomList::operator-(t_float v) const
 {
     AtomList res(*this);
     res -= v;
     return res;
 }
 
-AtomList AtomList::operator*(double v) const
+AtomList AtomList::operator*(t_float v) const
 {
     AtomList res(*this);
     res *= v;
     return res;
 }
 
-AtomList AtomList::operator/(double v) const
+AtomList AtomList::operator/(t_float v) const
 {
     AtomList res(*this);
     res /= v;
@@ -1097,8 +1117,11 @@ std::ostream& operator<<(std::ostream& os, const AtomList& l)
 AtomList listFrom(const std::vector<std::string>& v)
 {
     AtomList res;
-    for (size_t i = 0; i < v.size(); i++)
-        res.append(atomFrom(v[i]));
+    res.reserve(v.size());
+
+    for (auto& s : v)
+        res.append(atomFrom(s));
+
     return res;
 }
 
@@ -1116,14 +1139,10 @@ AtomList listFrom(const AtomList& v)
 
 AtomList listFrom(bool v)
 {
-    AtomList res;
-    res.append(Atom(v ? 1.f : 0.f));
-    return res;
-}
+    constexpr t_float FALSE = 0;
+    constexpr t_float TRUE = 1;
 
-Atom atomFrom(const std::string& v)
-{
-    return Atom(gensym(v.c_str()));
+    return Atom(v ? TRUE : FALSE);
 }
 
 AtomList operator+(const AtomList& l1, const AtomList& l2)

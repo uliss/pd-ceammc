@@ -18,7 +18,7 @@
 using namespace ceammc;
 
 class Radio : public BaseObject {
-    IntPropertyClosedRange* n_;
+    IntProperty* n_;
 
 public:
     Radio(const PdArgs& args);

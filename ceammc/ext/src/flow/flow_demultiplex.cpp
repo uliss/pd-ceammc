@@ -10,7 +10,6 @@ FlowDemultiplex::FlowDemultiplex(const PdArgs& a)
     , index_(nullptr)
     , no_props_(nullptr)
 {
-    size_t n = clip((size_t)positionalFloatArgument(0, 2), MIN_OUTLETS, MAX_OUTLETS);
     index_ = new SizeTProperty("@index", 0);
     createProperty(index_);
 
@@ -19,7 +18,8 @@ FlowDemultiplex::FlowDemultiplex(const PdArgs& a)
 
     createInlet();
 
-    for (size_t i = 0; i < n; i++)
+    const size_t N = positionalConstant<MIN_OUTLETS, MIN_OUTLETS, MAX_OUTLETS>(0);
+    for (size_t i = 0; i < N; i++)
         createOutlet();
 }
 
@@ -71,7 +71,7 @@ void FlowDemultiplex::onData(const DataPtr& d)
     dataTo(index_->value(), d);
 }
 
-void FlowDemultiplex::onInlet(size_t n, const AtomList& l)
+void FlowDemultiplex::onInlet(size_t /*n*/, const AtomList& l)
 {
     index_->set(l);
 }

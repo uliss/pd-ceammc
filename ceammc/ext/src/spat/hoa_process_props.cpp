@@ -39,41 +39,41 @@ HoaProcessProps::HoaProcessProps(const PdArgs& args)
 
     {
         Property* p = createCbProperty("@pmode", &HoaProcessProps::propPMode);
-        p->info().setType(PropertyInfoType::SYMBOL);
+        p->info().setType(PropValueType::SYMBOL);
         p->info().addEnum(SYM_2D);
         p->info().addEnum(SYM_3D);
     }
 
     {
         Property* p = createCbProperty("@ptype", &HoaProcessProps::propPType);
-        p->info().setType(PropertyInfoType::SYMBOL);
+        p->info().setType(PropValueType::SYMBOL);
         p->info().addEnum(SYM_HARMONICS);
         p->info().addEnum(SYM_PLANEWAVES);
     }
 
     {
         Property* p = createCbProperty("@order", &HoaProcessProps::propOrder);
-        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setType(PropValueType::INTEGER);
     }
 
     {
         Property* p = createCbProperty("@total", &HoaProcessProps::propTotal);
-        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setType(PropValueType::INTEGER);
     }
 
     {
         Property* p = createCbProperty("@index", &HoaProcessProps::propIndex);
-        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setType(PropValueType::INTEGER);
     }
 
     {
         Property* p = createCbProperty("@hdegree", &HoaProcessProps::propHarmDegree);
-        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setType(PropValueType::INTEGER);
     }
 
     {
         Property* p = createCbProperty("@horder", &HoaProcessProps::propHarmOrder);
-        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setType(PropValueType::INTEGER);
     }
 
     auto cnv_args = canvas_info_args(canvas());
@@ -204,10 +204,10 @@ bool HoaProcessProps::eachProperty(const AtomList& lst,
             continue;
 
         // search inner property
-        for (auto& inner_prop : properties()) {
+        for (auto inner_prop : properties()) {
             // found inner property
-            if (prop_equal(inner_prop.first->s_name, p->s_name)) {
-                inner_process(inner_prop.second, inner_prop.first, args.slice(1));
+            if (prop_equal(inner_prop->name()->s_name, p->s_name)) {
+                inner_process(inner_prop, inner_prop->name(), args.slice(1));
                 cnt++;
                 goto continue_label;
             }

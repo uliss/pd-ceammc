@@ -20,7 +20,7 @@ HwDisplay::HwDisplay(const PdArgs& args)
     createOutlet();
     createCbProperty("@brightness", &HwDisplay::propBrightness, &HwDisplay::setPropBrightness)
         ->info()
-        .setType(PropertyInfoType::FLOAT);
+        .setType(PropValueType::FLOAT);
 }
 
 AtomList HwDisplay::propBrightness() const

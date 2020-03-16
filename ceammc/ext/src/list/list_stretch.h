@@ -20,7 +20,7 @@ using namespace ceammc;
 class DataTypeMList;
 
 class ListStretch : public BaseObject {
-    IntPropertyMinEq* n_;
+    IntProperty* n_;
 
 public:
     ListStretch(const PdArgs& args);

@@ -21,7 +21,9 @@ MathDiv::MathDiv(const PdArgs& args)
     createInlet();
     createOutlet();
 
-    div_ = new FloatProperty("@div", positionalFloatArgument(0, 1));
+    div_ = new FloatProperty("@div", 1);
+    div_->setArgIndex(0);
+    div_->checkNonZero();
     createProperty(div_);
 }
 
@@ -52,7 +54,7 @@ bool MathDiv::zeroCheck() const
     return true;
 }
 
-void MathDiv::onInlet(const size_t n, const AtomList& lst)
+void MathDiv::onInlet(const size_t /*n*/, const AtomList& lst)
 {
     div_->set(lst);
 }

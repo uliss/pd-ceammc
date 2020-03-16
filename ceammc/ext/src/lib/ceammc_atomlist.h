@@ -290,15 +290,23 @@ public:
     Atom* last();
     const Atom* last() const;
 
+    /**
+     * types
+     */
     bool isBang() const;
+    bool isBool() const;
     bool isFloat() const;
+    bool isInteger() const;
     bool isSymbol() const;
     bool isProperty() const;
+    bool isAtom() const;
     bool isList() const;
     bool isData() const;
     bool isDataType(DataType t) const;
     template <class T>
     bool isDataType() const;
+    template <typename T>
+    inline bool isA() const { return atoms_.size() == 1 && atoms_[0].isA<T>(); }
 
     /**
      * Sorts list values
@@ -416,15 +424,15 @@ public:
     /**
      * arithmetic operators
      */
-    AtomList& operator+=(double v);
-    AtomList& operator-=(double v);
-    AtomList& operator*=(double v);
-    AtomList& operator/=(double v);
+    AtomList& operator+=(t_float v);
+    AtomList& operator-=(t_float v);
+    AtomList& operator*=(t_float v);
+    AtomList& operator/=(t_float v);
 
-    AtomList operator+(double v) const;
-    AtomList operator-(double v) const;
-    AtomList operator*(double v) const;
-    AtomList operator/(double v) const;
+    AtomList operator+(t_float v) const;
+    AtomList operator-(t_float v) const;
+    AtomList operator*(t_float v) const;
+    AtomList operator/(t_float v) const;
 
 public:
     friend bool operator==(const AtomList& l1, const AtomList& l2);
@@ -433,6 +441,11 @@ public:
 private:
     Container atoms_;
 };
+
+template <>
+inline bool AtomList::isA<Atom>() const { return size() == 1; }
+template <>
+inline bool AtomList::isA<AtomList>() const { return true; }
 
 template <class F>
 MaybeFloat AtomList::reduceFloat(t_float init, F fn) const
@@ -518,11 +531,6 @@ std::ostream& operator<<(std::ostream& os, const AtomList& l);
 bool to_outlet(t_outlet* x, const AtomList& a, bool typeConversion = false);
 
 template <typename T>
-static Atom atomFrom(T v) { return Atom(v); }
-
-Atom atomFrom(const std::string& v);
-
-template <typename T>
 static AtomList listFrom(T v)
 {
     AtomList res;
@@ -544,11 +552,11 @@ bool atomlistToValue(const AtomList& l, const bool& def)
     if (l.empty())
         return def;
 
+    if (l[0].isBool())
+        return l[0].asBool(def);
+
     if (l[0].isFloat())
         return !std::equal_to<t_float>()(l[0].asFloat(0), 0);
-
-    if (l[0].isSymbol())
-        return l[0].asSymbol() == gensym("true");
 
     return false;
 }

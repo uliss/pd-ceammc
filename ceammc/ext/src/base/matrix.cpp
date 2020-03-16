@@ -14,6 +14,7 @@
 #include "matrix.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "ceammc_callback_property.h"
 
 static const int DEFAULT_INS = 2;
 static const int MIN_INS = 2;
@@ -24,8 +25,8 @@ static const int MAX_OUTS = 16;
 
 Matrix::Matrix(const PdArgs& args)
     : SoundExternal(args)
-    , nouts_(clip<int>(positionalFloatArgument(1, DEFAULT_OUTS), MIN_OUTS, MAX_OUTS))
-    , nins_(clip<int>(positionalFloatArgument(0, DEFAULT_INS), MIN_INS, MAX_INS))
+    , nouts_(clip<int>(positionalFloatArgumentT(1, DEFAULT_OUTS), MIN_OUTS, MAX_OUTS))
+    , nins_(clip<int>(positionalFloatArgumentT(0, DEFAULT_INS), MIN_INS, MAX_INS))
     , matrix_(boost::extents[nouts_][nins_])
 {
     for (size_t i = 1; i < nins_; i++)
@@ -38,18 +39,18 @@ Matrix::Matrix(const PdArgs& args)
 
     {
         auto p = createCbProperty("@outputs", &Matrix::propRows);
-        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setType(PropValueType::INTEGER);
         p->info().setDefault(2);
-        p->info().setMin(2);
-        p->info().setMax(16);
+        p->info().setRangeInt(2, 16);
+        p->info().setConstraints(PropValueConstraints::CLOSED_RANGE);
     }
 
     {
         auto p = createCbProperty("@inputs", &Matrix::propColumns);
-        p->info().setType(PropertyInfoType::INTEGER);
+        p->info().setType(PropValueType::INTEGER);
         p->info().setDefault(2);
-        p->info().setMin(2);
-        p->info().setMax(16);
+        p->info().setRangeInt(2, 16);
+        p->info().setConstraints(PropValueConstraints::CLOSED_RANGE);
     }
 }
 

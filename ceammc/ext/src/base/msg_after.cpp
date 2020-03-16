@@ -17,7 +17,7 @@
 MessageAfter::MessageAfter(const PdArgs& args)
     : BaseObject(args)
     , clock_(this, &MessageAfter::tick)
-    , delay_(positionalFloatArgument(0, 0))
+    , delay_(positionalArguments().empty() ? 0 : positionalArguments()[0].asFloat(0))
     , msg_(args.args.slice(1))
 {
     if (delay_ < 0) {
