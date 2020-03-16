@@ -42,11 +42,7 @@ SpeechFlite::SpeechFlite(const PdArgs& args)
         [this](t_symbol* s) -> bool { name_ = s; return true; })
         ->setArgIndex(0);
 
-    voice_name_ = new SymbolProperty("@voice", gensym("kal16"));
-    voice_name_->info().addEnum("slt");
-    voice_name_->info().addEnum("rms");
-    voice_name_->info().addEnum("awb");
-    voice_name_->info().addEnum("kal16");
+    voice_name_ = new SymbolEnumProperty("@voice", { "kal16", "slt", "rms", "awb", "kal16" });
     createProperty(voice_name_);
 
     speed_ = new FloatProperty("@speed", 1);

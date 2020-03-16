@@ -14,10 +14,11 @@
 #ifndef SPEECH_FLITE_H
 #define SPEECH_FLITE_H
 
-#include "datatype_string.h"
 #include "ceammc_array.h"
 #include "ceammc_clock.h"
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
+#include "datatype_string.h"
 
 using namespace ceammc;
 
@@ -26,7 +27,7 @@ class FliteThread;
 class SpeechFlite : public BaseObject {
     Array array_;
     t_symbol* name_;
-    SymbolProperty* voice_name_;
+    SymbolEnumProperty* voice_name_;
     FloatProperty* speed_;
     FloatProperty* pitch_;
     FliteThread* render_;

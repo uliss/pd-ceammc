@@ -34,7 +34,6 @@ TEST_CASE("Properties", "[ceammc::properties]")
             {
                 REQUIRE(p.isReadWrite());
                 REQUIRE(p.isPublic());
-                REQUIRE(p.info().view() == PropValueView::MENU);
                 REQUIRE(p.isSymbol());
 
                 REQUIRE(p.get() == LA("a"));
@@ -137,7 +136,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
                 bool b = false;
                 REQUIRE_FALSE(p.getDefault(b));
-                REQUIRE(p.get() == LF(1));
+                p.updateDefault();
                 REQUIRE(p.getDefault(b));
                 REQUIRE(b == value);
 
@@ -218,7 +217,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
             t_float def = -1;
             REQUIRE_FALSE(p.getDefault(def));
-            REQUIRE(p.get() == LF(100));
+            p.updateDefault();
             REQUIRE(p.getDefault(def));
             REQUIRE(def == 100);
 
@@ -250,7 +249,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
             int def = 1000;
             REQUIRE_FALSE(p.getDefault(def));
-            REQUIRE(p.get() == LF(-1));
+            p.updateDefault();
             REQUIRE(p.getDefault(def));
             REQUIRE(def == -1);
 
@@ -325,7 +324,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
             t_symbol* def = 0;
             REQUIRE_FALSE(p.getDefault(def));
-            REQUIRE(p.get() == LA("ABC"));
+            p.updateDefault();
             REQUIRE(p.getDefault(def));
             REQUIRE(def == SYM("ABC"));
 
@@ -361,7 +360,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
             Atom def;
             REQUIRE_FALSE(p.getDefault(def));
-            REQUIRE(p.get() == LA(-200));
+            p.updateDefault();
             REQUIRE(p.getDefault(def));
             REQUIRE(def == Atom(-200));
 
@@ -449,7 +448,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
             AtomList def;
             REQUIRE_FALSE(p.getDefault(def));
-            REQUIRE(p.get() == LF(1, 2, 3));
+            p.updateDefault();
             REQUIRE(p.getDefault(def));
             REQUIRE(def == LF(1, 2, 3));
 

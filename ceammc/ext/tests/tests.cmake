@@ -69,6 +69,8 @@ endmacro()
 macro(ceammc_external_test external name)
     set(_target "test_ext_${external}_${name}")
     add_executable(${_target} "${_target}.cpp")
+    target_compile_definitions(${_target} PRIVATE -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}")
+    target_include_directories(${_target} PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/ext/src/${external})
     # library repeats are done to make mingw linker happy
     target_link_libraries(${_target} PUBLIC
         tests_main_lib puredata-core
