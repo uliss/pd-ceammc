@@ -9,6 +9,7 @@ public:
         : faust_flt_c_highshelf_tilde(args)
     {
         bindPositionalArgsToProps({ gensym("@freq"), gensym("@gain") });
+        property("@q")->setVisibility(PropValueVis::INTERNAL);
     }
 };
 
