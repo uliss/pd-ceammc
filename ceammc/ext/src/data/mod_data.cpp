@@ -1,5 +1,6 @@
 #include "mod_data.h"
 #include "data_dict.h"
+#include "data_fifo.h"
 #include "data_float.h"
 #include "data_int.h"
 #include "data_list.h"
@@ -44,11 +45,8 @@
 #include "tree_size.h"
 #include "tree_symbol.h"
 
-extern "C" void setup_data0x2efifo();
-
 void ceammc_data_setup()
 {
-    setup_data0x2efifo();
 
     setup_set0x2econtains();
     setup_set0x2edifference();
@@ -60,6 +58,7 @@ void ceammc_data_setup()
     setup_set0x2esymdiff();
 
     setup_data_dict();
+    setup_data_fifo();
     setup_data_float();
     setup_data_tree();
     setup_data_int();

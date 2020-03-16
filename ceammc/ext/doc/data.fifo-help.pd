@@ -37,17 +37,17 @@ first value in queue.;
 #X obj 20 446 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 481 @empty;
-#X text 245 481 (readonly) Get if queue is empty. Type: int. Allowed
-values: 0 \, 1\.;
+#X text 245 481 (readonly) Get if queue is empty. Type: int. Default
+value: 1\. Allowed values: 0 \, 1\.;
 #X msg 110 523 @filled;
 #X text 245 523 (readonly) Get current number of elements in queue.
-Type: int. Min value: 0\.;
+Type: int. Default value: 0\. Min value: 0\.;
 #X msg 110 565 @free;
 #X text 245 565 (readonly) Get number of elements you can add to queue
-until it full. Type: int. Min value: 0\.;
+until it full. Type: int. Default value: 32\. Min value: 0\.;
 #X msg 110 607 @size;
-#X text 245 607 (readonly) Get max number of elements in queue. Type:
-int. Min value: 0\.;
+#X text 245 607 Get/Set size of queue. Type: int. Default value: 32\.
+Range: 1\...1024\.;
 #X obj 20 659 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 664 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

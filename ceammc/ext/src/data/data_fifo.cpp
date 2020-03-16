@@ -1,112 +1,103 @@
+#include "data_fifo.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
-#include "ceammc_message.h"
-#include "ceammc_object.h"
-
-#include <list>
-
-using namespace ceammc;
-
-using MessageFifo = std::list<Message>;
 
 constexpr size_t DEFAULT_SIZE = 32;
 constexpr size_t MIN_SIZE = 1;
 constexpr size_t MAX_SIZE = 1024;
 
-class DataFifo : public BaseObject {
-    MessageFifo fifo_;
-    size_t size_;
+DataFifo::DataFifo(const PdArgs& args)
+    : BaseObject(args)
+    , size_(positionalConstant<DEFAULT_SIZE, MIN_SIZE, MAX_SIZE>(0))
+{
+    createCbBoolProperty("@empty", [this]() -> bool { return fifo_.empty(); });
+    createCbIntProperty("@filled", [this]() -> int { return fifo_.size(); })
+        ->checkNonNegative();
+    createCbIntProperty(
+        "@size", [this]() -> int { return size_; },
+        [this](int v) -> bool { clear(); size_ = v; return true; })
+        ->setIntCheck(PropValueConstraints::CLOSED_RANGE, MIN_SIZE, MAX_SIZE);
+    createCbIntProperty("@free", [this]() -> int { return size_ - fifo_.size(); })
+        ->checkNonNegative();
 
-public:
-    DataFifo(const PdArgs& args)
-        : BaseObject(args)
-        , size_(positionalConstant<DEFAULT_SIZE, MIN_SIZE, MAX_SIZE>(0))
-    {
-        createCbBoolProperty("@empty", [this]() -> bool { return fifo_.empty(); });
-        createCbIntProperty("@filled", [this]() -> int { return fifo_.size(); })
-            ->checkNonNegative();
-        createCbIntProperty("@size", [this]() -> int { return fifo_.max_size(); })
-            ->checkNonNegative();
-        createCbIntProperty("@free", [this]() -> int { return size_ - fifo_.size(); })
-            ->checkNonNegative();
+    createOutlet();
+}
 
-        createOutlet();
+void DataFifo::onBang() { flush(); }
+
+void DataFifo::onFloat(float v) { add(Atom(v)); }
+
+void DataFifo::onSymbol(t_symbol* s) { add(Atom(s)); }
+
+void DataFifo::onList(const AtomList& lst) { add(lst); }
+
+void DataFifo::onAny(t_symbol* s, const AtomList& lst) { add(Message(s, lst)); }
+
+void DataFifo::m_flush(t_symbol*, const AtomList&) { flush(); }
+
+void DataFifo::m_clear(t_symbol*, const AtomList&) { clear(); }
+
+void DataFifo::m_pop(t_symbol*, const AtomList&) { pop(); }
+
+void DataFifo::m_resize(t_symbol*, const AtomList& l)
+{
+    size_t sz = l.asSizeT(0);
+    if (sz < 1) {
+        OBJ_ERR << "invalid size value: " << sz << ". Using default size: " << DEFAULT_SIZE;
+        return;
     }
 
-    void onBang() override { flush(); }
-    void onFloat(float v) override { add(Atom(v)); }
-    void onSymbol(t_symbol* s) override { add(Atom(s)); }
-    void onList(const AtomList& lst) override { add(lst); }
-    void onAny(t_symbol* s, const AtomList& lst) override { add(Message(s, lst)); }
+    resize(static_cast<size_t>(sz));
+}
 
-    void m_flush(t_symbol*, const AtomList&) { flush(); }
-    void m_clear(t_symbol*, const AtomList&) { clear(); }
-    void m_pop(t_symbol*, const AtomList&) { pop(); }
-    void m_resize(t_symbol*, const AtomList& l)
-    {
-        size_t sz = l.asSizeT(0);
-        if (sz < 1) {
-            OBJ_ERR << "invalid size value: " << sz << ". Using default size: " << DEFAULT_SIZE;
-            return;
-        }
+void DataFifo::add(const Message& msg)
+{
+    if (fifo_.size() >= size_)
+        pop();
 
-        resize(static_cast<size_t>(sz));
+    fifo_.push_back(msg);
+}
+
+void DataFifo::clear()
+{
+    fifo_.clear();
+}
+
+void DataFifo::flush()
+{
+    for (auto& m : fifo_)
+        messageTo(0, m);
+
+    fifo_.clear();
+}
+
+void DataFifo::pop()
+{
+    if (fifo_.empty())
+        return;
+
+    messageTo(0, fifo_.front());
+    fifo_.pop_front();
+}
+
+void DataFifo::resize(size_t sz)
+{
+    clear();
+    size_ = std::min<size_t>(sz, MAX_SIZE);
+}
+
+void DataFifo::dump() const
+{
+    BaseObject::dump();
+
+    post("values:");
+    for (auto it = fifo_.rbegin(); it != fifo_.rend(); ++it) {
+        post("    %s", to_string(*it).c_str());
     }
+}
 
-    AtomList p_free() const { return listFrom(size_ - fifo_.size()); }
-
-    void add(const Message& msg)
-    {
-        if (fifo_.size() >= size_)
-            pop();
-
-        fifo_.push_back(msg);
-    }
-
-    // remove all, no output
-    void clear()
-    {
-        fifo_.clear();
-    }
-
-    // output all, remove all
-    void flush()
-    {
-        for (auto& m : fifo_)
-            messageTo(0, m);
-
-        fifo_.clear();
-    }
-
-    // output and remove first in queue
-    void pop()
-    {
-        if (fifo_.empty())
-            return;
-
-        messageTo(0, fifo_.front());
-        fifo_.pop_front();
-    }
-
-    void resize(size_t sz)
-    {
-        clear();
-        size_ = std::min(sz, DEFAULT_SIZE);
-    }
-
-    void dump() const override
-    {
-        BaseObject::dump();
-
-        post("values:");
-        for (auto it = fifo_.rbegin(); it != fifo_.rend(); ++it) {
-            post("    %s", to_string(*it).c_str());
-        }
-    }
-};
-
-extern "C" void setup_data0x2efifo()
+void setup_data_fifo()
 {
     ObjectFactory<DataFifo> obj("data.fifo");
     obj.addMethod("flush", &DataFifo::m_flush);

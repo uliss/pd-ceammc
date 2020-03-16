@@ -234,7 +234,7 @@ if __name__ == '__main__':
 
             if p0.get("units", False):
                 if not p1.get("units", False):
-                    cprint(f"[{ext_name}] missing units attribute in pddoc \"{p}\"", 'magenta')
+                    cprint(f"DOC [{ext_name}] missing units \"{p}\"", 'magenta')
 
             if p0["type"] == "bool":
                 if p1["type"] in ("flag", "alias"):
@@ -302,7 +302,8 @@ if __name__ == '__main__':
                 if v0 != v1:
                     cprint(f"DOC [{ext_name}] invalid default \"{p}\": {v1}, in external: {v0}", 'magenta')
             elif attr == HAVE_EXTERNAL:
-                is_empty = len(p0["default"]) == 0
+                vdef = p0["default"]
+                is_empty = hasattr(vdef, '__len__') and len(vdef) == 0
                 if not is_empty:
                     cprint(f"EXT [{ext_name}] missing default in doc \"{p}\"", 'magenta')
 

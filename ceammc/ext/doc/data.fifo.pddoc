@@ -34,14 +34,14 @@
             </method>
         </methods>
         <properties>
-            <property name="@empty" type="int" enum="0 1" readonly="true">if queue is
+            <property name="@empty" type="int" enum="0 1" readonly="true" default="1">if queue is
             empty</property>
-            <property name="@filled" type="int" minvalue="0" readonly="true">current number of
-            elements in queue</property>
-            <property name="@size" type="int" minvalue="0" readonly="true">max number of elements
-            in queue</property>
-            <property name="@free" type="int" minvalue="0" readonly="true">number of elements you
-            can add to queue until it full</property>
+            <property name="@filled" type="int" minvalue="0" readonly="true" default="0">current
+            number of elements in queue</property>
+            <property name="@size" type="int" minvalue="1" maxvalue="1024" default="32">size of
+            queue</property>
+            <property name="@free" type="int" minvalue="0" readonly="true" default="32">number of
+            elements you can add to queue until it full</property>
         </properties>
         <inlets>
             <inlet>
