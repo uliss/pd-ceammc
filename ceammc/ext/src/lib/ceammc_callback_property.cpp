@@ -27,6 +27,7 @@ CallbackProperty::CallbackProperty(const std::string& name, PropertyBoolGetter g
     , getter_(getter)
     , setter_(setter)
 {
+    setDefault(getter());
 }
 
 CallbackProperty::CallbackProperty(const std::string& name, PropertyFloatGetter getter, PropertyFloatSetter setter, tag<t_float>)
@@ -34,6 +35,7 @@ CallbackProperty::CallbackProperty(const std::string& name, PropertyFloatGetter 
     , getter_(getter)
     , setter_(setter)
 {
+    setDefault(getter());
 }
 
 CallbackProperty::CallbackProperty(const std::string& name, PropertyIntGetter getter, PropertyIntSetter setter, tag<int>)
@@ -41,6 +43,7 @@ CallbackProperty::CallbackProperty(const std::string& name, PropertyIntGetter ge
     , getter_(getter)
     , setter_(setter)
 {
+    setDefault(getter());
 }
 
 CallbackProperty::CallbackProperty(const std::string& name, PropertySymbolGetter getter, PropertySymbolSetter setter, tag<t_symbol*>)
@@ -48,6 +51,7 @@ CallbackProperty::CallbackProperty(const std::string& name, PropertySymbolGetter
     , getter_(getter)
     , setter_(setter)
 {
+    setDefault(getter());
 }
 
 CallbackProperty::CallbackProperty(const std::string& name, PropertyAtomGetter getter, PropertyAtomSetter setter, tag<Atom>)
@@ -55,6 +59,7 @@ CallbackProperty::CallbackProperty(const std::string& name, PropertyAtomGetter g
     , getter_(getter)
     , setter_(setter)
 {
+    setDefault(getter());
 }
 
 CallbackProperty::CallbackProperty(const std::string& name, PropertyListGetter getter, PropertyListSetter setter, tag<AtomList>)
@@ -62,6 +67,7 @@ CallbackProperty::CallbackProperty(const std::string& name, PropertyListGetter g
     , getter_(getter)
     , setter_(setter)
 {
+    setDefault(getter());
 }
 
 bool CallbackProperty::setList(const AtomList& lst)
