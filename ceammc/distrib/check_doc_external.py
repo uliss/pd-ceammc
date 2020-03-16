@@ -301,8 +301,9 @@ if __name__ == '__main__':
 
                 if v0 != v1:
                     cprint(f"DOC [{ext_name}] invalid default \"{p}\": {v1}, in external: {v0}", 'magenta')
-            elif attr == HAVE_EXTERNAL and p0.get("access", "") != "readonly":
-                if not (isinstance(p0["default"] , list) and len(p0["default"]) == 0):
+            elif attr == HAVE_EXTERNAL:
+                is_empty = len(p0["default"]) == 0
+                if not is_empty:
                     cprint(f"EXT [{ext_name}] missing default in doc \"{p}\"", 'magenta')
 
             attr = check_attr("enum", p0, p1)
@@ -324,9 +325,9 @@ if __name__ == '__main__':
 
             elif attr == HAVE_EXTERNAL:
                 if ext_name.startswith("ui.") and p not in ("@fontname"):
-                    cprint(f"[{ext_name}] missing enum attribute in pddoc \"{p}\"", 'magenta')
+                    cprint(f"DOC [{ext_name}] missing enum attribute\"{p}\"", 'magenta')
             elif attr == HAVE_PDDOC:
-                    cprint(f"DOC [{ext_name}] no enum for attribute \"{p}\" in external", 'magenta')
+                    cprint(f"DOC [{ext_name}] no enum for attribute \"{p}\" (in external)", 'magenta')
 
 
     if args.spell:

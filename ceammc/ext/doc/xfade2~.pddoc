@@ -27,8 +27,8 @@
         <properties>
             <property name="@smooth" type="float" minvalue="1" default="20" units="millisecond">
             signal change smooth time</property>
-            <property name="@type" type="symbol" enum="lin pow">fade curve type: linear or
-            power</property>
+            <property name="@type" type="symbol" enum="lin pow" default="pow">fade curve type:
+            linear or power</property>
             <property name="@lin" type="alias">alias to @type lin</property>
             <property name="@pow" type="alias">alias to @type pow</property>
         </properties>

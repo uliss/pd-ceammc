@@ -43,7 +43,7 @@ first and second signals \, [1-2) between second and third etc.;
 ms. Default value: 20\. Min value: 1\.;
 #X msg 110 580 @type;
 #X text 245 580 Get/Set fade curve type: linear or power. Type: symbol.
-Allowed values: lin \, pow.;
+Default value: pow. Allowed values: lin \, pow.;
 #X obj 20 632 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 637 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

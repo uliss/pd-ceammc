@@ -14,7 +14,7 @@
 #X msg 290 176 @rpos?;
 #X obj 50 205 modplug~ @done on_done;
 #X obj 50 234 ~->;
-#X obj 366 234 func on_done;
+#X obj 366 234 function on_done;
 #X obj 50 262 ui.gain2~ @size 120 16;
 #X obj 328 262 route @rpos;
 #X obj 491 262 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;

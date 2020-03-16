@@ -50,7 +50,7 @@
 | |      |       |       |
 [modplug~   @done on_done #x1]
 |
-[~->                          ]  [func on_done]
+[~->                          ]  [function on_done]
 |                            ^|              ^|
 [ui.gain2~ #x2 @size 120 16] [route @rpos]    [T]
 | ^|.                        |
