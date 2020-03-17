@@ -32,7 +32,7 @@
 -49933 0;
 #X msg 110 438 @state;
 #X text 245 438 (readonly) Get internal logic state as list of 1 and
-0\. Type: list.;
+0\. Type: list. Default value: 0 0 0\.;
 #X msg 110 480 @sync;
 #X text 245 480 Get/Set if specified - all inlets are 'hot'. Type:
 int. Default value: 0\. Allowed values: 0 \, 1\.;

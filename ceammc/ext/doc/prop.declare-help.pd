@@ -37,10 +37,10 @@ symbol properties only). Type: list.;
 #X text 245 527 alias to @type list.;
 #X msg 110 556 @max;
 #X text 245 556 Get/Set maximum value (for float and int properties
-only). Type: float.;
+only). Type: float. Default value: 3.40282e+38\.;
 #X msg 110 598 @min;
 #X text 245 598 Get/Set minimal value (for float and int properties
-only). Type: float.;
+only). Type: float. Default value: -3.40282e+38\.;
 #X msg 110 640 @s;
 #X text 245 640 alias to @type symbol.;
 #X msg 110 669 @type;
