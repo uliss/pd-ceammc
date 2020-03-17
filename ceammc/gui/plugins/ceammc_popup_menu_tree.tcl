@@ -32,7 +32,7 @@
 }
 {ceammc
     {an {
-        an.pitchtrack~
+        an.onset~ an.pitchtrack~
     }}
     {array {
         array.bpm array.copy array.do array.each array.fill array.hist
@@ -46,9 +46,10 @@
     {conv {
         array.p2s array.s2p conv.amp2dbfs conv.bpm2hz conv.bpm2ms conv.bpm2sec
         conv.car2pol conv.cc2amp conv.dbfs2amp conv.lin2curve conv.lin2exp
-        conv.lin2lin conv.list2props conv.midi2freq conv.phase2rad
-        conv.phase2rad~ conv.pitch2midi conv.pol2car conv.rad2phase
-        conv.rad2phase~ conv.samp2sec conv.sec2samp conv.sec2str conv.str2sec
+        conv.lin2lin conv.lin2lin~ conv.list2props conv.midi2freq
+        conv.phase2rad conv.phase2rad~ conv.pitch2midi conv.pol2car
+        conv.rad2phase conv.rad2phase~ conv.samp2sec conv.sec2samp
+        conv.sec2str conv.str2sec
     }}
     {data {
         data.dict data.fifo data.float data.int data.list data.mlist data.set
@@ -125,12 +126,12 @@
         math.asinh math.atan math.atanh math.cbrt math.cdiv~ math.ceil
         math.cmul~ math.cos math.cosh math.div math.e math.exp math.exp2
         math.expr math.floor math.gcd math.inf math.lcm math.log math.log10
-        math.log2 math.mul math.nan math.neg math.or math.pi math.polyeval
-        math.reciprocal math.round math.round~ math.sign math.sin math.sinh
-        math.sqrt math.squared math.sync_add math.sync_and math.sync_div
-        math.sync_eq math.sync_ge math.sync_gt math.sync_le math.sync_lt
-        math.sync_mod math.sync_mul math.sync_ne math.sync_or math.sync_sub
-        math.sync_xor math.tan math.tanh math.trunc
+        math.log2 math.mul math.nan math.neg math.or math.pi math.pi~
+        math.polyeval math.reciprocal math.round math.round~ math.sign
+        math.sin math.sinh math.sqrt math.squared math.sync_add math.sync_and
+        math.sync_div math.sync_eq math.sync_ge math.sync_gt math.sync_le
+        math.sync_lt math.sync_mod math.sync_mul math.sync_ne math.sync_or
+        math.sync_sub math.sync_xor math.tan math.tanh math.trunc
     }}
     {midi {
         midi.ctl2str midi.event2ctl midi.event2note midi.event2prg midi.file
