@@ -40,6 +40,7 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--default', help='update default attributes', action='store_true')
     parser.add_argument('-u', '--units', help='update units attributes', action='store_true')
     parser.add_argument('-l', '--limits', help='update limit attributes (min/max)', action='store_true')
+    parser.add_argument('-g', '--generate', help='generate doc templates', action='store_true')
     parser.add_argument('-a', '--all', help='update all supported attributes', action='store_true')
     parser.add_argument('external', metavar='EXT_NAME', type=str, help='external name')
 
@@ -77,11 +78,13 @@ if __name__ == '__main__':
     doc_props_dict = dict()
 
     doc_props_nodes = dict()
+    xml_props_node = None
 
     # read external properties
     for appt in root:
         for x in appt:
             if x.tag == "properties":
+                xml_props_node = x
                 for p in x:
                     if p.tag != "property":
                         continue
@@ -108,6 +111,27 @@ if __name__ == '__main__':
 
     ext_props_set, ext_props_dict = read_props(ext_name)
     exists_props = ext_props_set & doc_props_set
+
+    if args.generate:
+        for p in ext_props_set:
+            if not p in doc_props_dict:
+                p_ext = ext_props_dict[p]
+
+                cprint(f"[{ext_name}] generate template entry for \"{p}\"", 'magenta')
+                x = etree.SubElement(xml_props_node, "property")
+                x.attrib["name"] = p
+                x.attrib["type"] = p_ext["type"]
+                if "min" in p_ext:
+                    x.attrib["minvalue"] = str(p_ext["min"])
+                if "max" in p_ext:
+                    x.attrib["maxvalue"] = str(p_ext["max"])
+                if "default" in p_ext:
+                    x.attrib["default"] = str(p_ext["default"])
+                if "units" in p_ext:
+                    x.attrib["units"] = str(p_ext["units"])
+
+                x.text = "...."
+
 
     for p in exists_props:
         p_ext = ext_props_dict[p]
