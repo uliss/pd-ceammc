@@ -295,8 +295,8 @@ if __name__ == '__main__':
                     v0 = p0["default"]
                     v1 = p1["default"].split(" ")
 
-                    if len(v0) > 0 and isinstance(v0[0], int):
-                        v1 = list(map(int, v1))
+                    if len(v0) > 0 and (isinstance(v0[0], float) or isinstance(v0[0], int)):
+                        v1 = list(map(float, v1))
                 else:
                     v0 = str(p0["default"])
                     v1 = p1["default"]
