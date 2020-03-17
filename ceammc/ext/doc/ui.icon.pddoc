@@ -36,22 +36,23 @@
             enum="add add_circle add_circle_outline add_to_queue alarm alarm_off alarm_on album arrow_down arrow_left arrow_right arrow_up audio backspace block bluetooth blur_on bookmark bookmark_border build cached capslock check_circle ceammc clear clock computer content_cut copy copyright delete delete_forever done eject equalizer exit fast_forward fast_rewind favorite favorite_border fingerprint flag folder folder_open functions gamepad get_app grade grain group hdmi headset headset_mic hearing help help_outline history home hourglass info info_outline input keyboard label label_outline levels lightbulb_outline linear_scale list lock lock_open loop mic mic_none mic_off midi mouse movie notifications open_with pause pause_circle_filled pause_circle_outline play play_circle_filled play_circle_filled_white play_circle_outline power radio record redo refresh remove remove_circle remove_circle_outline repeat repeat_one report_problem save search select_all settings settings2 settings_voice shuffle skip_next skip_previous speaker speaker_group stars stop tape timeline touch_app trending_flat undo videocam visibility visibility_off volume_down volume_mute volume_off volume_up zoom_in zoom_out">
             icon name</property>
             <!-- common -->
-            <property name="@presetname" type="symbol">preset name for using with
+            <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>
-            <property name="@send" type="symbol">send destination</property>
-            <property name="@receive" type="symbol">receive source</property>
-            <property name="@size" type="list">element size (width, height pair)</property>
+            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <property name="@size" type="list" default="24 24">element size (width, height
+            pair)</property>
             <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
             to the lowest level</property>
-            <property name="@active_color" type="list">active color (list of red, green, blue
-            values in 0-1 range)</property>
-            <property name="@background_color" type="list">element background color (list of red,
+            <property name="@active_color" type="list" default="0 0.75 1 1">active color (list of
+            red, green, blue values in 0-1 range)</property>
+            <property name="@background_color" type="list" default="1 1 1 1">element background
+            color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list" default="1 1 1 1">border color (list of red,
             green, blue values in 0-1 range)</property>
-            <property name="@border_color" type="list">border color (list of red, green, blue
-            values in 0-1 range)</property>
             <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font

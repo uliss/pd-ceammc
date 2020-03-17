@@ -17,13 +17,13 @@
 #X obj 20 245 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 280 @down;
-#X text 245 280 alias to @mouse_down 1 property.;
+#X text 245 280 alias to @mouse_down 1 property. Default value: 0\.;
 #X msg 110 309 @drag;
-#X text 245 309 alias to @mouse_drag 1 property.;
+#X text 245 309 alias to @mouse_drag 1 property. Default value: 0\.;
 #X msg 110 338 @enter;
-#X text 245 338 alias to @mouse_enter 1 property.;
+#X text 245 338 alias to @mouse_enter 1 property. Default value: 0\.;
 #X msg 110 367 @leave;
-#X text 245 367 alias to @mouse_leave 1 property.;
+#X text 245 367 alias to @mouse_leave 1 property. Default value: 0\.;
 #X msg 110 396 @mouse_down;
 #X text 245 396 Get/Set passing a @mouse_down events. Type: int. Default
 value: 0\. Allowed values: 0 \, 1\.;
@@ -43,9 +43,9 @@ value: 0\. Allowed values: 0 \, 1\.;
 #X text 245 606 Get/Set passing a @mouse_up events. Type: int. Default
 value: 0\. Allowed values: 0 \, 1\.;
 #X msg 110 648 @move;
-#X text 245 648 alias to @mouse_move 1 property.;
+#X text 245 648 alias to @mouse_move 1 property. Default value: 0\.;
 #X msg 110 677 @up;
-#X text 245 677 alias to @mouse_up 1 property.;
+#X text 245 677 alias to @mouse_up 1 property. Default value: 0\.;
 #X obj 20 716 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 721 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

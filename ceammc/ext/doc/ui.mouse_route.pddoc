@@ -36,12 +36,17 @@
             events</property>
             <property name="@mouse_drag" type="int" default="0" enum="0 1">passing a @mouse_drag
             events</property>
-            <property name="@up" type="alias">alias to @mouse_up 1 property</property>
-            <property name="@down" type="alias">alias to @mouse_down 1 property</property>
-            <property name="@leave" type="alias">alias to @mouse_leave 1 property</property>
-            <property name="@enter" type="alias">alias to @mouse_enter 1 property</property>
-            <property name="@move" type="alias">alias to @mouse_move 1 property</property>
-            <property name="@drag" type="alias">alias to @mouse_drag 1 property</property>
+            <property name="@up" type="alias" default="0">alias to @mouse_up 1 property</property>
+            <property name="@down" type="alias" default="0">alias to @mouse_down 1
+            property</property>
+            <property name="@leave" type="alias" default="0">alias to @mouse_leave 1
+            property</property>
+            <property name="@enter" type="alias" default="0">alias to @mouse_enter 1
+            property</property>
+            <property name="@move" type="alias" default="0">alias to @mouse_move 1
+            property</property>
+            <property name="@drag" type="alias" default="0">alias to @mouse_drag 1
+            property</property>
         </properties>
         <inlets>
             <inlet>

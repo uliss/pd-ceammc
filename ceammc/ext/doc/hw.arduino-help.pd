@@ -34,7 +34,7 @@ on Linux and /dev/cu.usbmodem411 on MacOSX.;
 -49933 0;
 #X msg 110 568 @connected;
 #X text 245 568 (readonly) Get state of connection to device. Type:
-int. Allowed values: 0 \, 1\.;
+int. Default value: 0\. Allowed values: 0 \, 1\.;
 #X msg 110 610 @devices;
 #X text 245 610 (readonly) Get list of found Arduino devices. Type:
 list.;
@@ -57,7 +57,7 @@ by most serial ports: 110 \, 300 \, 600 \, 1200 \, 2400 \, 4800 \,
 9600 \, 14400 \, 19200 \, 28800 \, 38400 \, 56000 \, 57600 \, 115200\.
 Type: int. Default value: 57600\. Min value: 0\.;
 #X msg 110 884 @reconnect;
-#X text 245 884 enables hot-pluggin.;
+#X text 245 884 enables hot-pluggin. Default value: 0\.;
 #X msg 110 913 @serial;
 #X text 245 913 Get/Set USB device serial number. If specified at creation
 \, tries to connect to devices only with such serial number. Type:

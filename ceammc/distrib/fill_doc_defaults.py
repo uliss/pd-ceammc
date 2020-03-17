@@ -36,6 +36,7 @@ def read_props(name):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Update pddoc properties default values')
     parser.add_argument('-v', '--verbose', help='verbose output', action='store_true')
+    parser.add_argument('-p', '--pretend', help='just see changes, do not save', action='store_true')
     parser.add_argument('external', metavar='EXT_NAME', type=str, help='external name')
 
     args = parser.parse_args()
@@ -105,16 +106,23 @@ if __name__ == '__main__':
 
         if "default" in p_ext and "default" not in p_doc:
             vdef = p_ext["default"]
-            cprint(f"[{ext_name}] setting default to {vdef} for \"{p}\"", 'magenta')
+
             if isinstance(vdef, list):
-                doc_props_nodes[p].attrib["default"] = " ".join(str(x) for x in vdef)
+                str_def = " ".join(str(x) for x in vdef)
             else:
-                doc_props_nodes[p].attrib["default"] = str(vdef)
+                str_def = str(vdef)
+
+            if str_def == "":
+                continue
+
+            cprint(f"[{ext_name}] setting default to {str_def} for \"{p}\"", 'magenta')
+            doc_props_nodes[p].attrib["default"] = str_def
 
     if args.verbose:
         print(etree.tostring(root, pretty_print=True).decode("utf-8"))
 
-    with open(pddoc_path, 'wb') as f:
-        f.write(etree.tostring(root, pretty_print=True, doctype='<?xml version="1.0" encoding="utf-8"?>'))
+    if not args.pretend:
+        with open(pddoc_path, 'wb') as f:
+            f.write(etree.tostring(root, pretty_print=True, doctype='<?xml version="1.0" encoding="utf-8"?>'))
 
 
