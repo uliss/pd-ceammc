@@ -22,7 +22,7 @@
 
 ModPlug::ModPlug(const PdArgs& a)
     : SoundExternal(a)
-    , path_(gensym(""))
+    , path_(&s_)
     , file_(0)
     , play_(false)
     , play_prop_(0)

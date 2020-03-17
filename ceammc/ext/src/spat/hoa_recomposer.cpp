@@ -28,10 +28,8 @@ HoaRecomposer::HoaRecomposer(const PdArgs& args)
     plane_waves_->setInitOnly();
     createProperty(plane_waves_);
 
-    mode_ = new SymbolEnumProperty("@mode", SYM_FREE);
+    mode_ = new SymbolEnumProperty("@mode", { SYM_FREE, SYM_FIXE, SYM_FISHEYE });
     mode_->setInitOnly();
-    mode_->appendEnum(SYM_FIXE);
-    mode_->appendEnum(SYM_FISHEYE);
     createProperty(mode_);
 
     createProperty(new SymbolEnumAlias("@free", mode_, SYM_FREE));
@@ -42,7 +40,7 @@ HoaRecomposer::HoaRecomposer(const PdArgs& args)
         "@ramp",
         [this]() -> t_float { return ramp_; },
         [this](t_float f) -> bool { return propSetRamp(f); })
-        ->setIntCheck(PropValueConstraints::GREATER_EQUAL, 0);
+        ->checkNonNegative();
 }
 
 void HoaRecomposer::parseProperties()
