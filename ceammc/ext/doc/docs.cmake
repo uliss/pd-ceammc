@@ -36,6 +36,7 @@ set(DOC_FILES
     conv.lin2curve
     conv.lin2exp
     conv.lin2lin
+    conv.lin2lin~
     conv.list2props
     conv.midi2freq
     conv.phase2rad

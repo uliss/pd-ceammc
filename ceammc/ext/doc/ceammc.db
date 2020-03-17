@@ -35,6 +35,7 @@ conv.dbfs2amp,dbfs->amp		.		.
 conv.lin2curve,lin->curve		.		.
 conv.lin2exp,lin->exp		.		.
 conv.lin2lin,lin->lin,l->l		.		.
+conv.lin2lin~,lin->lin~,l->l~		~		~
 conv.list2props,list->props,any->props		.		..
 conv.midi2freq,midi->freq,m->f		.		.
 conv.phase2rad,phase->rad		.		.
