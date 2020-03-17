@@ -8,6 +8,7 @@ import subprocess
 import os.path
 from lxml import etree, objectify
 from termcolor import colored, cprint
+import json
 
 SRC_PATH = "@PROJECT_SOURCE_DIR@/"
 BIN_PATH = "@PROJECT_BINARY_DIR@/ceammc/ext/src/lib/"
@@ -220,6 +221,6 @@ if __name__ == '__main__':
                     pretty_print=True,
                     xml_declaration=True,
                     encoding='utf-8').decode("utf-8"))
-                    
+
     except IOError:
         pass
