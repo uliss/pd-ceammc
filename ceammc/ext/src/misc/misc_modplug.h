@@ -23,11 +23,11 @@ using namespace ceammc;
 class ModPlug : public SoundExternal {
     t_symbol* path_;
     ModPlugFile* file_;
-    bool play_;
     PointerProperty<bool>* play_prop_;
     float pos_;
     t_symbol* func_on_end_;
-    t_canvas* cnv_;
+    bool play_;
+    bool log_error_;
 
 public:
     ModPlug(const PdArgs& a);
@@ -46,8 +46,9 @@ public:
 
     t_float p_rel_pos() const;
     bool p_set_rel_pos(t_float pos);
-
     bool p_set_on_end(t_symbol* s);
+
+    void initDone() override;
 
 private:
     void load();
@@ -56,6 +57,6 @@ private:
     bool isOpened() const;
 };
 
-extern "C" void setup_misc0x2emodplug_tilde();
+void setup_misc_modplug_tilde();
 
 #endif // MISC_MIKMOD_H

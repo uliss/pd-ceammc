@@ -14,7 +14,6 @@
 #include "misc_modplug.h"
 #include "../base/function.h"
 #include "ceammc_factory.h"
-#include "ceammc_platform.h"
 
 #include <cmath>
 #include <fstream>
@@ -28,7 +27,7 @@ ModPlug::ModPlug(const PdArgs& a)
     , play_prop_(0)
     , pos_(0)
     , func_on_end_(&s_)
-    , cnv_(canvas_getcurrent())
+    , log_error_(false)
 {
     createSignalOutlet();
     createSignalOutlet();
@@ -186,6 +185,12 @@ bool ModPlug::p_set_on_end(t_symbol* s)
     return true;
 }
 
+void ModPlug::initDone()
+{
+    SoundExternal::initDone();
+    log_error_ = true;
+}
+
 bool ModPlug::p_set_pos(t_float pos)
 {
     if (!isOpened())
@@ -232,7 +237,7 @@ void ModPlug::load()
         unload();
 
     // search in standard locations
-    std::string path = platform::find_in_std_path(cnv_, path_->s_name);
+    std::string path = findInStdPaths(path_->s_name);
     if (path.empty()) {
         OBJ_ERR << "can't find file: " << path_->s_name;
         return;
@@ -276,14 +281,17 @@ void ModPlug::unload()
 bool ModPlug::isOpened() const
 {
     if (!file_) {
-        OBJ_ERR << "file is not loaded";
+        if (log_error_) {
+            OBJ_ERR << "file is not loaded";
+        }
+
         return false;
     }
 
     return true;
 }
 
-extern "C" void setup_misc0x2emodplug_tilde()
+void setup_misc_modplug_tilde()
 {
     ModPlug_Settings s;
     s.mFlags = MODPLUG_ENABLE_OVERSAMPLING
