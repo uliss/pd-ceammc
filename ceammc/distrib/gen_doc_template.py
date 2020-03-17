@@ -14,6 +14,7 @@ SRC_PATH = "@PROJECT_SOURCE_DIR@/"
 BIN_PATH = "@PROJECT_BINARY_DIR@/ceammc/ext/src/lib/"
 DOC_PATH = "@PROJECT_SOURCE_DIR@/ceammc/ext/doc/"
 STK_RAWWAVES_PATH = "@PROJECT_SOURCE_DIR@/ceammc/extra/stk/stk/rawwaves"
+VERSION="@CEAMMC_LIB_VERSION@"
 
 EXT_LIST = BIN_PATH + "ext_list"
 EXT_INFO = BIN_PATH + "ext_info"
@@ -78,9 +79,9 @@ def create_object(root, name):
             "description": " ",
             "license": "GPL3 or later",
             "library": "ceammc",
-            "category": " ",
+            "category": name.split('.')[0],
             "keywords": " ",
-            "since": "0.0",
+            "since": VERSION,
             "also": {"see": " "},
             "aliases": {"alias": " "}
         })
@@ -220,7 +221,7 @@ if __name__ == '__main__':
                     xml,
                     pretty_print=True,
                     xml_declaration=True,
-                    encoding='utf-8').decode("utf-8"))
+                    encoding='utf-8'))
 
     except IOError:
         pass
