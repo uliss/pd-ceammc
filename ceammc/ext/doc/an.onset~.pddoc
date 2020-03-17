@@ -73,26 +73,21 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output signal</outlet>
-            <outlet>output frequency in Hz</outlet>
-            <outlet>track fidelity: a value between 0 and 1, indicating to which extent the input
-            signal is periodic. A fidelity of ~0.95 can be considered to indicate a periodic
-            signal.</outlet>
+            <outlet>bang if onset detected</outlet>
+            <outlet>output time of the latest onset detected in millisecond</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
 [adc~ 1]     [ui.dsp~]
 |
-|   [T] [F]
-|   |.  |
-[gain~] [osc~ 440]  [hradio]
-|       |.          |..
-[flow.mux~           2]
-|
-[an.pitchtrack~]
-^|     ^^|
-[F]    [F]
+|   [T]   [ui.menu hfc energy complex phase wphase specdiff specflux kl mkl]
+|   |.    |
+[gain~]   [@method $1, dump(
+|         |
+[an.onset~ 2048]
+|      ^|
+[B]    [F digits=10]
 ]]>
             </pdascii>
         </example>
