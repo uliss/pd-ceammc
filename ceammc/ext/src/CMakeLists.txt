@@ -6,7 +6,7 @@ include(cppcheck.cmake)
 add_definitions(-DPD_CLASS_DEF)
 
 # debug warning flags
-if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug" AND NOT $ENV{TRAVIS})
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${CEAMMC_COMPILER_WARNING_FLAGS}")
 endif()
 
