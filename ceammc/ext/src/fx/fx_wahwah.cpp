@@ -9,7 +9,7 @@ public:
         : faust_fx_wahwah_tilde(args)
     {
         static t_symbol* SYM_PROP_ANGLE = gensym("@angle");
-        static t_symbol* SYM_PROP_SPEED = gensym("@spee");
+        static t_symbol* SYM_PROP_SPEED = gensym("@speed");
 
         bindPositionalArgsToProps({ SYM_PROP_ANGLE, SYM_PROP_SPEED });
     }
