@@ -219,6 +219,9 @@ if(ENABLE_TESTS)
 
     add_executable(ext_props ext_props.cpp ../mod_init.cpp)
     target_link_libraries(ext_props puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
+
+    add_executable(ext_info ext_info.cpp ../mod_init.cpp)
+    target_link_libraries(ext_info puredata-core ${CEAMMC_EXT_LINK_LIBRARIES})
 endif()
 
 add_custom_target(ceammc_cicm_tcl_gen

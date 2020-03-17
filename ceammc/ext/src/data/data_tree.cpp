@@ -44,24 +44,24 @@ void DataTree::proto_add(const AtomList& lst)
         if (lst.isFloat()) {
             auto f = atomlistToValue<t_float>(lst, 0);
             if (!p->arrayAdd(f))
-                OBJ_ERR << "can't add float to json: " << f;
+                OBJ_ERR << "can't add float to tree: " << f;
             else
                 tree_ = j;
         } else if (lst.isSymbol()) {
             auto s = atomlistToValue<t_symbol*>(lst, &s_);
             if (!p->arrayAdd(s))
-                OBJ_ERR << "can't add symbol to json: " << s;
+                OBJ_ERR << "can't add symbol to tree: " << s;
             else
                 tree_ = j;
         } else if (lst.isList() && lst.allOf(isFloat)) {
             if (!p->arrayAdd(lst))
-                OBJ_ERR << "can't add list to json: " << lst;
+                OBJ_ERR << "can't add list to tree: " << lst;
             else
                 tree_ = j;
         } else if (lst.isDataType(data::DATA_TREE)) {
             TreePtr ptr(lst[0]);
             if (ptr.isNull()) {
-                OBJ_ERR << "invalid json data: " << lst;
+                OBJ_ERR << "invalid tree data: " << lst;
                 return;
             }
 
@@ -69,12 +69,12 @@ void DataTree::proto_add(const AtomList& lst)
                 return;
 
             if (!p->arrayAdd(*ptr))
-                OBJ_ERR << "can't add json to json: " << lst;
+                OBJ_ERR << "can't add tree to tree: " << lst;
             else
                 tree_ = j;
         } else {
             if (!p->arrayAdd(DataTypeTree::fromString(to_string(lst, " "))))
-                OBJ_ERR << "can't add json to json: " << lst;
+                OBJ_ERR << "can't add tree to tree: " << lst;
             else
                 tree_ = j;
         }
@@ -83,6 +83,7 @@ void DataTree::proto_add(const AtomList& lst)
 
 bool DataTree::proto_remove(const AtomList& lst)
 {
+    return false;
 }
 
 void DataTree::proto_set(const AtomList& lst)
@@ -243,18 +244,18 @@ void DataTree::m_insert(t_symbol* s, const AtomList& lst)
         if (lst[1].isFloat()) {
             auto f = lst[1].asFloat();
             if (!p->insertFloat(key, f))
-                OBJ_ERR << "can't insert float to json: " << key << " " << f;
+                OBJ_ERR << "can't insert float to tree: " << key << " " << f;
             else
                 tree_ = j;
         } else if (lst[1].isSymbol()) {
             auto s = lst[1].asSymbol();
             if (!p->insertSymbol(key, s))
-                OBJ_ERR << "can't insert symbol to json: " << key << " " << s;
+                OBJ_ERR << "can't insert symbol to tree: " << key << " " << s;
             else
                 tree_ = j;
         } /*else if (lst.isList() && lst.allOf(isFloat)) {
         if (!p->insert(lst))
-            OBJ_ERR << "can't add list to json: " << lst;
+            OBJ_ERR << "can't add list to tree: " << lst;
         else
             json_ = j;
     }*/

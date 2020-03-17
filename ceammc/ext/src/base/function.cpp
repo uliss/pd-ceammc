@@ -86,7 +86,7 @@ void Function::onBang()
     bangTo(1);
 }
 
-void Function::onFloat(float f)
+void Function::onFloat(t_float f)
 {
     result_ = Message();
     floatTo(1, f);

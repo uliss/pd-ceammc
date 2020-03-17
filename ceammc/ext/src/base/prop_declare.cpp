@@ -33,10 +33,10 @@ static t_symbol* SYM_BOOL;
 static t_symbol* SYM_INT;
 static t_symbol* SYM_ENUM;
 
-static const t_float FMIN = std::numeric_limits<t_float>::lowest();
-static const t_float FMAX = std::numeric_limits<t_float>::max();
-static const long IMIN = std::numeric_limits<long>::min();
-static const long IMAX = std::numeric_limits<long>::max();
+constexpr t_float FMIN = std::numeric_limits<t_float>::lowest();
+constexpr t_float FMAX = std::numeric_limits<t_float>::max();
+constexpr int IMIN = std::numeric_limits<int>::min();
+constexpr int IMAX = std::numeric_limits<int>::max();
 
 class CanvasEditCallback {
     std::unordered_map<t_canvas*, t_glistkeyfn> map_;
@@ -101,13 +101,13 @@ PropDeclare::PropDeclare(const PdArgs& args)
     type_->appendEnum(SYM_ENUM);
     type_->appendEnum(&s_symbol);
     type_->appendEnum(&s_list);
-    createProperty(type_);
+    addProperty(type_);
 
-    createProperty(new SymbolEnumAlias("@f", type_, &s_float));
-    createProperty(new SymbolEnumAlias("@s", type_, &s_symbol));
-    createProperty(new SymbolEnumAlias("@l", type_, &s_list));
-    createProperty(new SymbolEnumAlias("@i", type_, SYM_INT));
-    createProperty(new SymbolEnumAlias("@b", type_, SYM_BOOL));
+    addProperty(new SymbolEnumAlias("@f", type_, &s_float));
+    addProperty(new SymbolEnumAlias("@s", type_, &s_symbol));
+    addProperty(new SymbolEnumAlias("@l", type_, &s_list));
+    addProperty(new SymbolEnumAlias("@i", type_, SYM_INT));
+    addProperty(new SymbolEnumAlias("@b", type_, SYM_BOOL));
 
     min_ = new FloatProperty("@min", FMIN);
     max_ = new FloatProperty("@max", FMAX);
@@ -119,10 +119,10 @@ PropDeclare::PropDeclare(const PdArgs& args)
     enum_->setInitOnly();
     default_->setInitOnly();
 
-    createProperty(min_);
-    createProperty(max_);
-    createProperty(enum_);
-    createProperty(default_);
+    addProperty(min_);
+    addProperty(max_);
+    addProperty(enum_);
+    addProperty(default_);
 }
 
 PropDeclare::~PropDeclare()

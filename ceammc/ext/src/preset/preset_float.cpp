@@ -4,18 +4,23 @@
 
 PresetFloat::PresetFloat(const PdArgs& args)
     : PresetBase(args)
-    , init_(0)
+    , init_(nullptr)
 {
     // 1st positionalSymbolArgument is preset name - in base class
     // 2nd positionalFloatArgument we are using as init value
     init_ = new FloatProperty("@init", 0);
     init_->setArgIndex(1);
     init_->setInitOnly();
-    current_value_ = init_->value();
-    createProperty(init_);
+    addProperty(init_);
 }
 
-void PresetFloat::onFloat(float f)
+void PresetFloat::initDone()
+{
+    PresetBase::initDone();
+    current_value_ = init_->value();
+}
+
+void PresetFloat::onFloat(t_float f)
 {
     current_value_ = f;
 }

@@ -31,7 +31,7 @@ TEST_CASE("PropertyInfo", "[ceammc::core]")
             REQUIRE(pi.type() == PropValueType::BOOLEAN);
             REQUIRE(pi.access() == PropValueAccess::READWRITE);
             REQUIRE(pi.view() == PropValueView::TOGGLE);
-            REQUIRE(pi.units() == PropValueUnits::UNKNOWN);
+            REQUIRE(pi.units() == PropValueUnits::NONE);
             REQUIRE(pi.visibility() == PropValueVis::PUBLIC);
             REQUIRE(pi.constraints() == PropValueConstraints::NONE);
 
@@ -113,7 +113,7 @@ TEST_CASE("PropertyInfo", "[ceammc::core]")
             REQUIRE(pi.type() == PropValueType::FLOAT);
             REQUIRE(pi.access() == PropValueAccess::READWRITE);
             REQUIRE(pi.view() == PropValueView::SLIDER);
-            REQUIRE(pi.units() == PropValueUnits::UNKNOWN);
+            REQUIRE(pi.units() == PropValueUnits::NONE);
             REQUIRE(pi.visibility() == PropValueVis::PUBLIC);
 
             REQUIRE(pi.isPublic());
@@ -260,7 +260,7 @@ TEST_CASE("PropertyInfo", "[ceammc::core]")
             REQUIRE(pi.type() == PropValueType::INTEGER);
             REQUIRE(pi.access() == PropValueAccess::READWRITE);
             REQUIRE(pi.view() == PropValueView::NUMBOX);
-            REQUIRE(pi.units() == PropValueUnits::UNKNOWN);
+            REQUIRE(pi.units() == PropValueUnits::NONE);
             REQUIRE(pi.visibility() == PropValueVis::PUBLIC);
 
             REQUIRE(pi.isPublic());
@@ -404,7 +404,7 @@ TEST_CASE("PropertyInfo", "[ceammc::core]")
             REQUIRE(pi.type() == PropValueType::SYMBOL);
             REQUIRE(pi.access() == PropValueAccess::READWRITE);
             REQUIRE(pi.view() == PropValueView::ENTRY);
-            REQUIRE(pi.units() == PropValueUnits::UNKNOWN);
+            REQUIRE(pi.units() == PropValueUnits::NONE);
             REQUIRE(pi.visibility() == PropValueVis::PUBLIC);
 
             REQUIRE(pi.isPublic());
@@ -469,6 +469,35 @@ TEST_CASE("PropertyInfo", "[ceammc::core]")
             REQUIRE(pi.addEnum(SYM("B")));
             REQUIRE_FALSE(pi.addEnum(123));
             REQUIRE(pi.enumValues() == LA("A", "B"));
+        }
+    }
+
+    SECTION("json")
+    {
+        SECTION("float")
+        {
+            PropertyInfo pi("@float", PropertyInfo::toType<t_float>());
+
+            REQUIRE(pi.info().toJsonString()
+                == R"({"access":"readwrite","name":"@float","type":"float","view":"slider","visibility":"public"})");
+
+            pi.setAccess(PropValueAccess::READONLY);
+            REQUIRE(pi.info().toJsonString()
+                == R"({"access":"readonly","name":"@float","type":"float","view":"slider","visibility":"public"})");
+
+            pi.setDefault(100);
+            REQUIRE(pi.info().toJsonString()
+                == R"({"access":"readonly","default":100.0,"name":"@float","type":"float","view":"slider","visibility":"public"})");
+
+            pi.setUnits(PropValueUnits::BPM);
+            REQUIRE(pi.info().toJsonString()
+                == R"({"access":"readonly","default":100.0,"name":"@float","type":"float","units":"bpm","view":"slider","visibility":"public"})");
+
+            pi.setConstraints(PropValueConstraints::GREATER_EQUAL);
+            REQUIRE(pi.setMinFloat(-10));
+
+            REQUIRE(pi.info().toJsonString()
+                == R"({"access":"readonly","constraints":">=","default":100.0,"min":-10.0,"name":"@float","type":"float","units":"bpm","view":"slider","visibility":"public"})");
         }
     }
 }

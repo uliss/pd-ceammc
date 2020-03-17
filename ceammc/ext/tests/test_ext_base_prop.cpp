@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../base/prop.h"
-#include "../base/prop_declare.h"
+#include "prop.h"
+#include "prop_declare.h"
 #include "test_external.h"
 
 PD_COMPLETE_TEST_SETUP(BaseProp, base, prop)

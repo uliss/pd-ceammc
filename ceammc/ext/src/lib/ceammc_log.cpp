@@ -48,7 +48,7 @@ void pdPost(const char* name, const std::string& s)
 
 void pdDebug(const void* pd_obj, const std::string& s)
 {
-    pdLog(pd_obj, LogLevel::DEBUG, s);
+    pdLog(pd_obj, LOG_DEBUG, s);
 }
 
 void pdLog(const void* pd_obj, LogLevel level, const std::string& s)
@@ -90,17 +90,17 @@ void pdError(const void* pd_obj, const std::string& s)
 }
 
 Error::Error(const BaseObject* obj)
-    : LogBaseObject(obj, LogLevel::ERROR)
+    : LogBaseObject(obj, LogLevel::LOG_ERROR)
 {
 }
 
 Debug::Debug(const BaseObject* obj)
-    : LogBaseObject(obj, LogLevel::DEBUG)
+    : LogBaseObject(obj, LOG_DEBUG)
 {
 }
 
 Log::Log(const BaseObject* obj)
-    : LogBaseObject(obj, LogLevel::ALL)
+    : LogBaseObject(obj, LogLevel::LOG_ALL)
 {
 }
 
@@ -133,17 +133,17 @@ void LogPdObject::debug(const std::string& str) const
 void LogPdObject::flush()
 {
     switch (level_) {
-    case LogLevel::FATAL:
-    case LogLevel::ERROR:
+    case LogLevel::LOG_FATAL:
+    case LogLevel::LOG_ERROR:
         error(str());
         break;
-    case LogLevel::DEBUG:
+    case LOG_DEBUG:
         debug(str());
         break;
-    case LogLevel::ALL:
+    case LogLevel::LOG_ALL:
         pdLog(obj_, level_, str());
         break;
-    case LogLevel::POST:
+    case LogLevel::LOG_POST:
         post(str());
         break;
     }

@@ -112,6 +112,16 @@ std::string DataTypeTreeImpl::toString() const
     }
 }
 
+std::string DataTypeTreeImpl::toJsonString(int indent) const
+{
+    try {
+        return json_.dump(indent);
+    } catch (nlohmann::detail::type_error& e) {
+        LIB_ERR << e.what();
+        return "";
+    }
+}
+
 DataTypeTreeImpl DataTypeTreeImpl::fromString(const char* str)
 {
     try {

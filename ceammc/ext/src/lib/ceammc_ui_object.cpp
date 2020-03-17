@@ -719,7 +719,7 @@ static PropertyInfo attr_to_prop(t_eattr* a)
     static t_symbol* SYM_UNIT_RAD = gensym("rad");
     static t_symbol* SYM_UNIT_HZ = gensym("hz");
 
-    PropertyInfo res(std::string("@") + a->name->s_name, PropValueType::VARIANT);
+    PropertyInfo res(std::string("@") + a->name->s_name, PropValueType::ATOM);
 
     if (a->type == SYM_FLOAT || a->type == SYM_DOUBLE) {
         if (a->size == 1) {
@@ -779,7 +779,7 @@ static PropertyInfo attr_to_prop(t_eattr* a)
         }
     } else if (a->type == SYM_ATOM) {
         if (a->size == 1) {
-            res.setType(PropValueType::VARIANT);
+            res.setType(PropValueType::ATOM);
             set_constrains(res, a);
 
             if (a->defvals)

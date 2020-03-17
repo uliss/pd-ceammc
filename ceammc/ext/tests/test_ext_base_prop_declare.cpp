@@ -11,16 +11,16 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../base/prop.h"
-#include "../base/prop_declare.h"
+#include "prop.h"
+#include "prop_declare.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(PropDeclare, prop, declare);
+PD_COMPLETE_TEST_SETUP(PropDeclare, prop, declare)
 
 static const t_float FMIN = std::numeric_limits<t_float>::lowest();
 static const t_float FMAX = std::numeric_limits<t_float>::max();
-static const long IMIN = std::numeric_limits<long>::lowest();
-static const long IMAX = std::numeric_limits<long>::max();
+static const int IMIN = std::numeric_limits<int>::lowest();
+static const int IMAX = std::numeric_limits<int>::max();
 
 class TestPdAbstraction : public pd::External {
     typedef std::map<t_symbol*, ListenerExternal*> ListenerMap;
@@ -273,7 +273,7 @@ TEST_CASE("radio", "[externals]")
             // int min
             TestExtPropDeclare t("prop.declare", LA("i", "@i", "@min", 2));
             auto p = PropertyStorage::storage().acquire(t->fullName());
-            REQUIRE(p->intRange() == std::make_pair(long(2), IMAX));
+            REQUIRE(p->intRange() == std::make_pair(int(2), IMAX));
             PropertyStorage::storage().release(t->fullName());
         }
 
@@ -281,7 +281,7 @@ TEST_CASE("radio", "[externals]")
             // int max
             TestExtPropDeclare t("prop.declare", LA("i", "@i", "@max", 20));
             auto p = PropertyStorage::storage().acquire(t->fullName());
-            REQUIRE(p->intRange() == std::make_pair(IMIN, long(20)));
+            REQUIRE(p->intRange() == std::make_pair(IMIN, int(20)));
             PropertyStorage::storage().release(t->fullName());
         }
 
@@ -289,7 +289,7 @@ TEST_CASE("radio", "[externals]")
             // int both
             TestExtPropDeclare t("prop.declare", LA("i", "@i", "@max", 20, "@min", -2));
             auto p = PropertyStorage::storage().acquire(t->fullName());
-            REQUIRE(p->intRange() == std::make_pair(long(-2), long(20)));
+            REQUIRE(p->intRange() == std::make_pair(int(-2), int(20)));
             PropertyStorage::storage().release(t->fullName());
         }
 
@@ -297,7 +297,7 @@ TEST_CASE("radio", "[externals]")
             // int both invalid order
             TestExtPropDeclare t("prop.declare", LA("i", "@i", "@max", -2, "@min", 20));
             auto p = PropertyStorage::storage().acquire(t->fullName());
-            REQUIRE(p->intRange() == std::make_pair(long(-2), long(20)));
+            REQUIRE(p->intRange() == std::make_pair(int(-2), int(20)));
             PropertyStorage::storage().release(t->fullName());
         }
     }

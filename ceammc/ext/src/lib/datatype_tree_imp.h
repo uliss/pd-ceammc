@@ -46,6 +46,7 @@ public:
     explicit DataTypeTreeImpl(const AtomList& l);
 
     std::string toString() const;
+    std::string toJsonString(int indent = -1) const;
 
     bool parse(const char* str);
     size_t size() const;
@@ -96,6 +97,9 @@ public:
     bool insertAtom(const char* key, const Atom& a);
     bool insertTree(const char* key, const DataTypeTreeImpl& tree);
     void setObject();
+
+public:
+    const nlohmann::json& internalJson() const { return json_; }
 
 public:
     static DataTypeTreeImpl fromString(const char* str);

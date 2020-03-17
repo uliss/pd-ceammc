@@ -290,6 +290,8 @@ public:
     AtomList asAtomList() const;
     DataTPtr<DataTypeTree> asDataPtr() const;
 
+    std::string toJsonString(int indent = -1) const;
+
 public:
     /**
      * Parse given string and replace current tree value
@@ -306,6 +308,8 @@ public:
 
     static DataTypeTree fromString(const std::string& str);
     static DataTypeTree fromString(const char* str);
+
+    PimplPtr internalPimpl() const;
 
 private:
     void detachPimpl();

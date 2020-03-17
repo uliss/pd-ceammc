@@ -11,36 +11,43 @@ static const std::string SEPARATOR("/");
 PresetBase::PresetBase(const PdArgs& args)
     : BaseObject(args)
     , global_(0)
-    , subpatch_(0)
+    , subpatch_(nullptr)
     , name_(&s_)
     , path_(&s_)
     , preset_path_(&s_)
 {
     createOutlet();
 
+    Property* name = createCbSymbolProperty(
+        "@id",
+        [this]() -> t_symbol* { return name_; },
+        [this](t_symbol* s) -> bool { name_ = s; return true; });
+    name->setInitOnly();
+    name->setArgIndex(0);
+
     global_ = new FlagProperty("@global");
-    createProperty(global_);
+    addProperty(global_);
 
     subpatch_ = new FlagProperty("@subpatch");
-    createProperty(subpatch_);
+    addProperty(subpatch_);
 
     // virtual @path property
-    createProperty(new PointerProperty<t_symbol*>("@path", &preset_path_));
-    createProperty(new PointerProperty<t_symbol*>("@id", &name_));
-
-    // to get @global and @subpatch flags before makeName() call
-    parseProperties();
-
-    name_ = positionalSymbolConstant(0, &s_);
-    path_ = makePath();
-    preset_path_ = makePresetPath();
-
-    bind();
+    addProperty(new PointerProperty<t_symbol*>("@path", &preset_path_));
 }
 
 PresetBase::~PresetBase()
 {
     unbind();
+}
+
+void PresetBase::initDone()
+{
+    BaseObject::initDone();
+
+    path_ = makePath();
+    preset_path_ = makePresetPath();
+
+    bind();
 }
 
 void PresetBase::m_update(t_symbol*, const AtomList&)

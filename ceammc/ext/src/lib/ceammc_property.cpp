@@ -24,7 +24,7 @@
 #include <algorithm>
 #include <cctype>
 
-#define PROP_ERR() LogPdObject(owner(), LogLevel::ERROR).stream() << errorPrefix()
+#define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
 #define PROP_CHECK_ERR(v)                                                \
     {                                                                    \
         if (!err_msg_.empty())                                           \
@@ -161,7 +161,7 @@ bool Property::reset()
         return setInt(info().defaultInt());
     case PropValueType::SYMBOL:
         return setSymbol(info().defaultSymbol());
-    case PropValueType::VARIANT:
+    case PropValueType::ATOM:
         return setAtom(info().defaultAtom());
     case PropValueType::LIST:
         return setList(info().defaultList());
@@ -736,7 +736,7 @@ bool Property::checkList(const AtomList& l) const
                 // check for all floats
                 for (auto& a : l) {
                     if (!a.isFloat()) {
-                        LogPdObject(owner(), LogLevel::ERROR).stream() << errorPrefix() << "list of floats expected, got: " << l;
+                        LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "list of floats expected, got: " << l;
                         return false;
                     }
 
@@ -761,7 +761,7 @@ std::string Property::errorPrefix() const
 }
 
 AtomProperty::AtomProperty(const std::string& name, const Atom& def, PropValueAccess access)
-    : Property(PropertyInfo(name, PropValueType::VARIANT), access)
+    : Property(PropertyInfo(name, PropValueType::ATOM), access)
     , v_(def)
 {
     info().setDefault(def);

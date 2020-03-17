@@ -484,7 +484,7 @@ namespace faust {
                 return p.second;
         }
 
-        return PropValueUnits::UNKNOWN;
+        return PropValueUnits::NONE;
     }
 
 }

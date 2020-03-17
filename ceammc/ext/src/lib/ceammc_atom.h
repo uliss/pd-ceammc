@@ -39,6 +39,14 @@
 #define CEAMMC_DEPRECATED
 #endif
 
+#if defined(__GNUC__) || defined(__clang__)
+#define CEAMMC_WARN_UNUSED __attribute__((warn_unused_result))
+#define CEAMMC_PACKED __attribute__((packed))
+#else
+#define CEAMMC_WARN_UNUSED
+#define CEAMMC_PACKED
+#endif
+
 namespace ceammc {
 
 class Atom;

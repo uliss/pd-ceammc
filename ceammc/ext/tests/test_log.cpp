@@ -70,7 +70,7 @@ TEST_CASE("ceammc_log", "[ceammc_log]")
 
     SECTION("endl")
     {
-        LogPdObject log(nullptr, LogLevel::POST);
+        LogPdObject log(nullptr, LogLevel::LOG_POST);
         log << "1";
         log.endl();
         log << "2";

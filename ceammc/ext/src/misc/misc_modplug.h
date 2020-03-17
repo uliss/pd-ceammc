@@ -32,8 +32,8 @@ class ModPlug : public SoundExternal {
 public:
     ModPlug(const PdArgs& a);
     ~ModPlug();
-    void onSymbol(t_symbol* s);
-    void processBlock(const t_sample**, t_sample** out);
+    void onSymbol(t_symbol* s) override;
+    void processBlock(const t_sample**, t_sample** out) override;
 
     void m_play(t_symbol*, const AtomList&);
     void m_stop(t_symbol*, const AtomList&);

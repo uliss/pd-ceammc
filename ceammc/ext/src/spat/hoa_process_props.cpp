@@ -57,27 +57,27 @@ HoaProcessProps::HoaProcessProps(const PdArgs& args)
 static void propToList(DataTypeProperty* prop, AtomList& out)
 {
     switch (prop->propertyType()) {
-    case DataTypeProperty::T_BOOL: {
+    case PropValueType::BOOLEAN: {
         bool b = false;
         if (prop->getBool(b))
             out.append(Atom(b ? 1.f : 0.f));
     } break;
-    case DataTypeProperty::T_FLOAT: {
+    case PropValueType::FLOAT: {
         t_float f = 0;
         if (prop->getFloat(f))
             out.append(Atom(f));
     } break;
-    case DataTypeProperty::T_INT: {
-        long i = 0;
+    case PropValueType::INTEGER: {
+        int i = 0;
         if (prop->getInt(i))
             out.append(Atom(i));
     } break;
-    case DataTypeProperty::T_SYMBOL: {
+    case PropValueType::SYMBOL: {
         t_symbol* s = &s_;
         if (prop->getSymbol(&s))
             out.append(Atom(s));
     } break;
-    case DataTypeProperty::T_LIST: {
+    case PropValueType::LIST: {
         AtomList l;
         if (prop->getList(l))
             out.append(l);
@@ -230,10 +230,10 @@ bool HoaProcessProps::processAnyProps(t_symbol* sel, const AtomList& lst)
                 // per instance args
                 if (args.size() > 1) {
                     switch (prop->propertyType()) {
-                    case DataTypeProperty::T_BOOL:
-                    case DataTypeProperty::T_FLOAT:
-                    case DataTypeProperty::T_INT:
-                    case DataTypeProperty::T_SYMBOL: {
+                    case PropValueType::BOOLEAN:
+                    case PropValueType::FLOAT:
+                    case PropValueType::INTEGER:
+                    case PropValueType::SYMBOL: {
                         size_t idx = this->args_.index;
                         if (idx >= args.size()) {
                             OBJ_ERR << "invalid list size: " << idx << ", index not exists: " << idx;
@@ -241,7 +241,7 @@ bool HoaProcessProps::processAnyProps(t_symbol* sel, const AtomList& lst)
                             prop->setFromPdArgs(args.slice(idx, idx + 1));
                         }
                     } break;
-                    case DataTypeProperty::T_LIST:
+                    case PropValueType::LIST:
                     default:
                         prop->setFromPdArgs(args);
                         break;

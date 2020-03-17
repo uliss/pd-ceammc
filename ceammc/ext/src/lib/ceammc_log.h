@@ -23,12 +23,12 @@
 
 namespace ceammc {
 
-enum class LogLevel {
-    FATAL = 0, // fatal errors
-    ERROR = 1, // errors
-    POST = 2, // common messages
-    DEBUG = 3, // debug
-    ALL = 4
+enum LogLevel {
+    LOG_FATAL = 0, // fatal errors
+    LOG_ERROR = 1, // errors
+    LOG_POST = 2, // common messages
+    LOG_DEBUG = 3, // debug
+    LOG_ALL = 4
 };
 
 void pdPost(const char* name, const std::string& s);
@@ -81,10 +81,10 @@ public:
     Log(const BaseObject* obj = nullptr);
 };
 
-#define LIB_ERR LogPdObject(nullptr, LogLevel::ERROR).stream()
-#define LIB_DBG LogPdObject(nullptr, LogLevel::DEBUG).stream()
-#define LIB_POST LogPdObject(nullptr, LogLevel::POST).stream()
-#define LIB_LOG LogPdObject(nullptr, LogLevel::ALL).stream()
+#define LIB_ERR LogPdObject(nullptr, LOG_ERROR).stream()
+#define LIB_DBG LogPdObject(nullptr, LOG_DEBUG).stream()
+#define LIB_POST LogPdObject(nullptr, LOG_POST).stream()
+#define LIB_LOG LogPdObject(nullptr, LOG_ALL).stream()
 
 }
 

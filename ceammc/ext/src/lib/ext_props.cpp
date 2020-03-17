@@ -16,6 +16,7 @@
 #include "ceammc_format.h"
 #include "ceammc_pd.h"
 #include "ceammc_platform.h"
+#include "ceammc_property_info.h"
 #include "stk/stk/include/Stk.h"
 
 extern "C" {
@@ -34,96 +35,6 @@ t_class* ceammc_class = nullptr;
 
 using namespace std;
 using namespace ceammc;
-
-static const char* to_string(PropValueType t)
-{
-    switch (t) {
-    case PropValueType::BOOLEAN:
-        return "bool";
-    case PropValueType::FLOAT:
-        return "float";
-    case PropValueType::INTEGER:
-        return "int";
-    case PropValueType::LIST:
-        return "list";
-    case PropValueType::SYMBOL:
-        return "symbol";
-    case PropValueType::VARIANT:
-        return "atom";
-    }
-}
-
-static const char* to_string(PropValueView v)
-{
-    switch (v) {
-    case PropValueView::SLIDER:
-        return "slider";
-    case PropValueView::KNOB:
-        return "knob";
-    case PropValueView::TOGGLE:
-        return "toggle";
-    case PropValueView::COLOR:
-        return "color";
-    case PropValueView::NUMBOX:
-        return "numbox";
-    default:
-        return "entry";
-    }
-}
-
-static const char* to_string(PropValueUnits u)
-{
-    switch (u) {
-    case PropValueUnits::MSEC:
-        return "millisecond";
-    case PropValueUnits::SEC:
-        return "second";
-    case PropValueUnits::DB:
-        return "decibel";
-    case PropValueUnits::HZ:
-        return "herz";
-    case PropValueUnits::PERCENT:
-        return "percent";
-    case PropValueUnits::RAD:
-        return "radian";
-    case PropValueUnits::DEG:
-        return "degree";
-    case PropValueUnits::SEMITONE:
-        return "semitone";
-    case PropValueUnits::CENT:
-        return "cent";
-    case PropValueUnits::TONE:
-        return "tone";
-    case PropValueUnits::SAMP:
-        return "sample";
-    default:
-        return "";
-    }
-}
-
-static const char* to_string(PropValueAccess v)
-{
-    switch (v) {
-    case PropValueAccess::READWRITE:
-        return "readwrite";
-    case PropValueAccess::READONLY:
-        return "readonly";
-    case PropValueAccess::INITONLY:
-        return "initonly";
-    }
-}
-
-static const char* to_string(PropValueVis v)
-{
-    switch (v) {
-    case PropValueVis::PUBLIC:
-        return "public";
-    case PropValueVis::HIDDEN:
-        return "hidden";
-    case PropValueVis::INTERNAL:
-        return "internal";
-    }
-}
 
 static std::string to_string2(const AtomList& lst)
 {
@@ -179,13 +90,13 @@ static void printInfo(std::ostream& os, const PropertyInfo& pi)
     case PropValueType::SYMBOL:
         os << "    \"default\": " << to_json_string(pi.defaultSymbol(&s_)) << ",\n";
         break;
-    case PropValueType::VARIANT:
+    case PropValueType::ATOM:
         if (!pi.defaultAtom().isNone())
             os << "    \"default\": " << to_json_string(pi.defaultAtom()) << ",\n";
         break;
     }
 
-    if (pi.units() != PropValueUnits::UNKNOWN)
+    if (pi.units() != PropValueUnits::NONE)
         os << "    \"units\": \"" << to_string(pi.units()) << "\",\n";
 
     os << "    \"name\": \"" << pi.name()->s_name << "\",\n";

@@ -28,6 +28,99 @@ constexpr t_float FLOAT_INF_MAX = std::numeric_limits<t_float>::max();
 constexpr int INT_INF_MIN = std::numeric_limits<int>::lowest();
 constexpr int INT_INF_MAX = std::numeric_limits<int>::max();
 
+t_symbol* to_symbol(PropValueType t)
+{
+    static t_symbol* SYM[] = {
+        gensym("bool"),
+        gensym("int"),
+        gensym("float"),
+        gensym("symbol"),
+        gensym("atom"),
+        gensym("list")
+    };
+
+    return SYM[static_cast<size_t>(t)];
+}
+
+t_symbol* to_symbol(PropValueView v)
+{
+    static t_symbol* SYM[] = {
+        gensym("slider"),
+        gensym("knob"),
+        gensym("numbox"),
+        gensym("spinbox"),
+        gensym("toggle"),
+        gensym("menu"),
+        gensym("entry"),
+        gensym("color")
+    };
+
+    return SYM[static_cast<size_t>(v)];
+}
+
+t_symbol* to_symbol(PropValueUnits u)
+{
+    static t_symbol* SYM[] = {
+        gensym("unknown"),
+        gensym("msec"),
+        gensym("sec"),
+        gensym("samp"),
+        gensym("db"),
+        gensym("deg"),
+        gensym("rad"),
+        gensym("hz"),
+        gensym("percent"),
+        gensym("cent"),
+        gensym("semitone"),
+        gensym("tone"),
+        gensym("bpm")
+    };
+
+    return SYM[static_cast<size_t>(u)];
+}
+
+t_symbol* to_symbol(PropValueAccess v)
+{
+    static t_symbol* SYM[] = {
+        gensym("readonly"),
+        gensym("initonly"),
+        gensym("readwrite")
+    };
+
+    return SYM[static_cast<size_t>(v)];
+}
+
+t_symbol* to_symbol(PropValueVis v)
+{
+    static t_symbol* SYM[] = {
+        gensym("public"),
+        gensym("hidden"),
+        gensym("internal")
+    };
+
+    return SYM[static_cast<size_t>(v)];
+}
+
+t_symbol* to_symbol(PropValueConstraints v)
+{
+    static t_symbol* SYM[] = {
+        gensym(""),
+        gensym(">"),
+        gensym(">="),
+        gensym("<"),
+        gensym("<="),
+        gensym("[]"),
+        gensym("()"),
+        gensym("(]"),
+        gensym("[)"),
+        gensym("!=0"),
+        gensym("enum"),
+        gensym("...")
+    };
+
+    return SYM[static_cast<size_t>(v)];
+}
+
 static PropValueView defaultView(PropValueType type)
 {
     switch (type) {
@@ -39,7 +132,7 @@ static PropValueView defaultView(PropValueType type)
         return PropValueView::TOGGLE;
     case PropValueType::SYMBOL:
         return PropValueView::ENTRY;
-    case PropValueType::VARIANT:
+    case PropValueType::ATOM:
         return PropValueView::ENTRY;
     case PropValueType::LIST:
         return PropValueView::ENTRY;
@@ -55,7 +148,7 @@ PropertyInfo::PropertyInfo(t_symbol* name, PropValueType type, PropValueAccess a
     , step_(0)
     , arg_index_(-1)
     , type_(type)
-    , units_(PropValueUnits::UNKNOWN)
+    , units_(PropValueUnits::NONE)
     , view_(defaultView(type))
     , access_(access)
     , vis_(PropValueVis::PUBLIC)
@@ -456,7 +549,7 @@ bool PropertyInfo::setView(PropValueView v)
             return false;
         }
         break;
-    case PropValueType::VARIANT:
+    case PropValueType::ATOM:
         switch (v) {
         case PropValueView::ENTRY:
             view_ = v;
@@ -597,7 +690,7 @@ void PropertyInfo::setType(PropValueType t)
 {
     type_ = t;
     constraints_ = PropValueConstraints::NONE;
-    units_ = PropValueUnits::UNKNOWN;
+    units_ = PropValueUnits::NONE;
     view_ = defaultView(t);
 
     if (isInt())
@@ -608,11 +701,11 @@ void PropertyInfo::setType(PropValueType t)
 
 bool PropertyInfo::setUnits(PropValueUnits u)
 {
-    if (isInt() || isFloat() || isList() || u == PropValueUnits::UNKNOWN) {
+    if (isInt() || isFloat() || isList() || u == PropValueUnits::NONE) {
         units_ = u;
         return true;
     } else {
-        PROP_LOG() << "invalid type " << propTypeToSymbol(type()) << " for setting units: " << unitToSymbol(u);
+        PROP_LOG() << "invalid type " << to_string(type()) << " for setting units: " << to_string(u);
         return false;
     }
 }
@@ -654,7 +747,7 @@ bool PropertyInfo::setConstraints(PropValueConstraints c)
             return false;
         }
     case PropValueType::LIST:
-    case PropValueType::VARIANT:
+    case PropValueType::ATOM:
     default:
         constraints_ = c;
         return true;
@@ -741,7 +834,7 @@ bool PropertyInfo::validate() const
             PROP_LOG() << "should not have value constraints";
         }
 
-        if (units_ != PropValueUnits::UNKNOWN) {
+        if (units_ != PropValueUnits::NONE) {
             ok = false;
             PROP_LOG() << "should not have units";
         }
@@ -790,44 +883,53 @@ bool PropertyInfo::validate() const
     return ok;
 }
 
-t_symbol* unitToSymbol(PropValueUnits u)
+DataTypeTree PropertyInfo::info() const
 {
-    static t_symbol* tab[] = {
-        gensym(""),
-        gensym("ms"),
-        gensym("s"),
-        gensym("samp"),
-        gensym("db"),
-        gensym("deg"),
-        gensym("rad"),
-        gensym("hz"),
-        gensym("%"),
-        gensym("cents"),
-        gensym("semitone"),
-        gensym("tone")
-    };
+    DataTypeTree res;
+    res.setObject();
+    res.insertSymbol("name", name());
+    res.insertSymbol("type", to_symbol(type()));
+    res.insertSymbol("access", to_symbol(access()));
+    res.insertSymbol("visibility", to_symbol(visibility()));
+    res.insertSymbol("view", to_symbol(view()));
 
-    constexpr size_t N = sizeof(tab) / sizeof(tab[0]) - 1;
-    static_assert(N == static_cast<size_t>(PropValueUnits::TONE), "invalid units tab size");
+    if (constraints() != PropValueConstraints::NONE)
+        res.insertSymbol("constraints", to_symbol(constraints()));
 
-    return tab[static_cast<size_t>(u)];
-}
+    if (units() != PropValueUnits::NONE)
+        res.insertSymbol("units", to_symbol(units()));
 
-t_symbol* propTypeToSymbol(PropValueType t)
-{
-    static t_symbol* tab[] = {
-        gensym("bool"),
-        gensym("int"),
-        &s_float,
-        &s_symbol,
-        gensym("atom"),
-        &s_list
-    };
+    if (hasArgIndex())
+        res.insertFloat("arg_index", argIndex());
 
-    constexpr size_t N = sizeof(tab) / sizeof(tab[0]) - 1;
-    static_assert(N == static_cast<size_t>(PropValueType::LIST), "invalid types tab size");
+    if (hasConstraintsMin())
+        res.insertFloat("min", isFloat() ? minFloat() : minInt());
 
-    return tab[static_cast<size_t>(t)];
+    if (hasConstraintsMax())
+        res.insertFloat("max", isFloat() ? maxFloat() : maxInt());
+
+    if (hasStep())
+        res.insertFloat("step", step());
+
+    if (hasEnumLimit())
+        res.insertTree("enum", DataTypeTree(enumValues()));
+
+    if (!noDefault()) {
+        if (isBool())
+            res.insertFloat("default", defaultBool() ? 1 : 0);
+        else if (isFloat())
+            res.insertFloat("default", defaultFloat());
+        else if (isInt())
+            res.insertFloat("default", defaultInt());
+        else if (isVariant())
+            res.insertAtom("default", defaultAtom());
+        else if (isList())
+            res.insertTree("default", DataTypeTree(defaultList()));
+        else {
+        }
+    }
+
+    return res;
 }
 
 }

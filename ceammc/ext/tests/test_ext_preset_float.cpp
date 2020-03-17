@@ -12,44 +12,54 @@
  * this file belongs to.
  *****************************************************************************/
 
-#include "../preset/preset_float.h"
-#include "test_base.h"
 #include "ceammc_pd.h"
 #include "ceammc_preset.h"
+#include "preset_float.h"
+#include "test_base.h"
+#include "test_external.h"
 
 #include "catch.hpp"
 
-typedef TestExternal<PresetFloat> PresetFloatTest;
+PD_COMPLETE_TEST_SETUP(PresetFloat, preset, float)
 
-CanvasPtr ptr = PureData::instance().createTopCanvas("test_canvas");
-
-TEST_CASE("[preset.float]", "[PureData]")
+TEST_CASE("[preset.float]", "[external]")
 {
-    pd_init();
+    pd_test_init();
 
     SECTION("init")
     {
-        setup_preset_float();
+        SECTION("common")
+        {
+            TestPresetFloat t("preset.float", LA("pf1"));
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numOutlets() == 1);
+            REQUIRE_PROPERTY(t, @id, "pf1");
+            REQUIRE_PROPERTY(t, @path, "/pf1");
+            REQUIRE_PROPERTY(t, @init, 0.f);
+            REQUIRE_PROPERTY(t, @global, 0.f);
+            REQUIRE_PROPERTY(t, @subpatch, 0.f);
+        }
 
-        PresetFloatTest t("preset.float", LA("pf1"));
-        REQUIRE(t.numInlets() == 1);
-        REQUIRE(t.numOutlets() == 1);
-        REQUIRE_PROPERTY(t, @id, "pf1");
-        REQUIRE_PROPERTY(t, @path, "/pf1");
-        REQUIRE_PROPERTY(t, @init, 0.f);
-        REQUIRE_PROPERTY(t, @global, 0.f);
-        REQUIRE_PROPERTY(t, @subpatch, 0.f);
+        SECTION("property")
+        {
+            TestPresetFloat t("preset.float", LA("@id", "pf1"));
+            REQUIRE_PROPERTY(t, @id, "pf1");
+            REQUIRE_PROPERTY(t, @path, "/pf1");
+            REQUIRE_PROPERTY(t, @init, 0.f);
+            REQUIRE_PROPERTY(t, @global, 0.f);
+            REQUIRE_PROPERTY(t, @subpatch, 0.f);
+        }
 
         SECTION("init value")
         {
-            PresetFloatTest t("preset.float", LA("pf2", 123));
+            TestPresetFloat t("preset.float", LA("pf2", 123));
             REQUIRE_PROPERTY(t, @path, "/pf2");
             REQUIRE_PROPERTY(t, @init, 123);
         }
 
         SECTION("global")
         {
-            PresetFloatTest t("preset.float", LA("pf3", "@global"));
+            TestPresetFloat t("preset.float", LA("pf3", "@global"));
             REQUIRE_PROPERTY(t, @path, "/pf3");
             REQUIRE_PROPERTY(t, @global, 1);
             REQUIRE_PROPERTY(t, @subpatch, 0.f);
@@ -57,7 +67,7 @@ TEST_CASE("[preset.float]", "[PureData]")
 
         SECTION("subpatch")
         {
-            PresetFloatTest t("preset.float", LA("pf4", "@subpatch"));
+            TestPresetFloat t("preset.float", LA("pf4", "@subpatch"));
             REQUIRE_PROPERTY(t, @path, "/pf4");
             REQUIRE_PROPERTY(t, @global, 0.f);
             REQUIRE_PROPERTY(t, @subpatch, 1);
@@ -69,7 +79,7 @@ TEST_CASE("[preset.float]", "[PureData]")
         REQUIRE_FALSE(PresetStorage::instance().hasPreset(gensym("/A")));
 
         {
-            PresetFloatTest t("preset.float", LA("A"));
+            TestPresetFloat t("preset.float", LA("A"));
             REQUIRE(PresetStorage::instance().hasPreset(t.presetPath()));
             REQUIRE(PresetStorage::instance().hasPreset(gensym("/A")));
         }
@@ -79,7 +89,7 @@ TEST_CASE("[preset.float]", "[PureData]")
 
     SECTION("do")
     {
-        PresetFloatTest p1("preset.float", LA("p1"));
+        TestPresetFloat p1("preset.float", LA("p1"));
 
         WHEN_SEND_FLOAT_TO(0, p1, 11);
         p1.m_store(0, LF(0.f));

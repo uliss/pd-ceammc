@@ -9,10 +9,11 @@ class PresetList : public PresetBase {
 
 public:
     PresetList(const PdArgs& args);
+    void initDone() override;
 
-    void onList(const AtomList& lst);
-    void loadFrom(size_t idx);
-    void storeAt(size_t idx);
+    void onList(const AtomList& lst) override;
+    void loadFrom(size_t idx) override;
+    void storeAt(size_t idx) override;
 };
 
 void setup_preset_list();

@@ -28,12 +28,12 @@ public:
         , current_idx_(0)
     {
         if (!info().setConstraints(PropValueConstraints::ENUM)) {
-            LogPdObject(owner(), LogLevel::ERROR).stream() << errorPrefix() << "can't set constraints";
+            LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "can't set constraints";
             return;
         }
 
         if (!info().addEnum(def)) {
-            LogPdObject(owner(), LogLevel::ERROR).stream() << errorPrefix() << "can't append value to enum: " << def;
+            LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "can't append value to enum: " << def;
             return;
         }
 
@@ -46,14 +46,14 @@ public:
         , current_idx_(0)
     {
         if (!info().setConstraints(PropValueConstraints::ENUM)) {
-            LogPdObject(owner(), LogLevel::ERROR).stream() << errorPrefix() << "can't set constraints";
+            LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "can't set constraints";
             return;
         }
 
         setView(PropValueView::MENU);
 
         if (values.size() == 0) {
-            LogPdObject(owner(), LogLevel::ERROR).stream() << errorPrefix() << "empty initializer";
+            LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "empty initializer";
             return;
         }
 
@@ -61,7 +61,7 @@ public:
         info().setDefault(*values.begin());
 
         if (!info().addEnums(values)) {
-            LogPdObject(owner(), LogLevel::ERROR).stream() << errorPrefix() << "can't append values to enum";
+            LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "can't append values to enum";
             return;
         }
     }
@@ -70,7 +70,7 @@ public:
     {
         T def;
         if (!getDefault(def)) {
-            LogPdObject(owner(), LogLevel::ERROR).stream() << errorPrefix() << "can't get default value";
+            LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "can't get default value";
             throw std::runtime_error("error");
         } else {
             return def;
@@ -88,13 +88,13 @@ public:
             return false;
 
         if (lst.size() > 1) {
-            LogPdObject(owner(), LogLevel::ERROR).stream() << errorPrefix() << "single value expected, got: " << lst;
+            LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "single value expected, got: " << lst;
             return false;
         }
 
         const Atom& a = lst[0];
         if (!a.template isA<T>()) {
-            LogPdObject(owner(), LogLevel::ERROR).stream() << errorPrefix() << "invalid value type: " << a;
+            LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "invalid value type: " << a;
             return false;
         }
 
@@ -112,7 +112,7 @@ public:
     {
         long idx = enumIndex(v);
         if (idx < 0) {
-            LogPdObject(owner(), LogLevel::ERROR).stream() << errorPrefix() << "invalid property value: " << v
+            LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "invalid property value: " << v
                                                            << ", valid values are: " << info().enumValues();
             return false;
         }
@@ -130,13 +130,13 @@ public:
     {
         if (enumIndex(v) < 0) {
             if (!info().addEnum(v)) {
-                LogPdObject(owner(), LogLevel::ERROR).stream() << errorPrefix() << "can't add enum value: " << v;
+                LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "can't add enum value: " << v;
                 return false;
             }
 
             return true;
         } else {
-            LogPdObject(owner(), LogLevel::ERROR).stream() << errorPrefix() << "value already exists in enum: " << v;
+            LogPdObject(owner(), LogLevel::LOG_ERROR).stream() << errorPrefix() << "value already exists in enum: " << v;
             return false;
         }
     }

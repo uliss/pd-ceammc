@@ -53,7 +53,7 @@ CallbackProperty::CallbackProperty(const std::string& name, PropertySymbolGetter
 }
 
 CallbackProperty::CallbackProperty(const std::string& name, PropertyAtomGetter getter, PropertyAtomSetter setter, tag<Atom>)
-    : Property(PropertyInfo(name, PropValueType::VARIANT), setter ? PropValueAccess::READWRITE : PropValueAccess::READONLY)
+    : Property(PropertyInfo(name, PropValueType::ATOM), setter ? PropValueAccess::READWRITE : PropValueAccess::READONLY)
     , getter_(getter)
     , setter_(setter)
 {

@@ -488,6 +488,11 @@ DataTPtr<DataTypeTree> DataTypeTree::asDataPtr() const
     return DataTPtr<DataTypeTree>(clone());
 }
 
+std::string DataTypeTree::toJsonString(int indent) const
+{
+    return pimpl_->toJsonString(indent);
+}
+
 bool DataTypeTree::parse(const char* str)
 {
     detachPimpl();
@@ -519,6 +524,11 @@ DataTypeTree DataTypeTree::fromString(const std::string& str)
 DataTypeTree DataTypeTree::fromString(const char* str)
 {
     return { DataTypeTreeImpl::fromString(str) };
+}
+
+DataTypeTree::PimplPtr DataTypeTree::internalPimpl() const
+{
+    return pimpl_;
 }
 
 void DataTypeTree::detachPimpl()

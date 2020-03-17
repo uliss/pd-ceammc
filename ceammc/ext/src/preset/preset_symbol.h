@@ -12,10 +12,11 @@ class PresetSymbol : public PresetBase {
 
 public:
     PresetSymbol(const PdArgs& args);
-    void onSymbol(t_symbol* s);
+    void onSymbol(t_symbol* s) override;
+    void initDone() override;
 
-    void loadFrom(size_t idx);
-    void storeAt(size_t idx);
+    void loadFrom(size_t idx) override;
+    void storeAt(size_t idx) override;
 };
 
 void setup_preset_symbol();

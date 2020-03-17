@@ -163,7 +163,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
             REQUIRE(!p.isSymbol());
             REQUIRE(!p.isList());
             REQUIRE(p.type() == PropValueType::FLOAT);
-            REQUIRE(p.units() == PropValueUnits::UNKNOWN);
+            REQUIRE(p.units() == PropValueUnits::NONE);
             REQUIRE(p.access() == PropValueAccess::READWRITE);
             REQUIRE(p.view() == PropValueView::SLIDER);
             REQUIRE(p.value() == Approx(0.5));
@@ -331,7 +331,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
             REQUIRE(!p.isSymbol());
             REQUIRE(!p.isList());
             REQUIRE(p.type() == PropValueType::INTEGER);
-            REQUIRE(p.units() == PropValueUnits::UNKNOWN);
+            REQUIRE(p.units() == PropValueUnits::NONE);
             REQUIRE(p.access() == PropValueAccess::READWRITE);
             REQUIRE(p.view() == PropValueView::NUMBOX);
             REQUIRE(p.value() == 120);
@@ -483,7 +483,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
             REQUIRE(!p.isSymbol());
             REQUIRE(!p.isList());
             REQUIRE(p.type() == PropValueType::BOOLEAN);
-            REQUIRE(p.units() == PropValueUnits::UNKNOWN);
+            REQUIRE(p.units() == PropValueUnits::NONE);
             REQUIRE(p.access() == PropValueAccess::READWRITE);
             REQUIRE(p.view() == PropValueView::TOGGLE);
             REQUIRE(p.value() == true);
@@ -608,7 +608,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(!p.isSymbol());
         REQUIRE(p.isList());
         REQUIRE(p.type() == PropValueType::LIST);
-        REQUIRE(p.units() == PropValueUnits::UNKNOWN);
+        REQUIRE(p.units() == PropValueUnits::NONE);
         REQUIRE(p.access() == PropValueAccess::READWRITE);
         REQUIRE(p.view() == PropValueView::ENTRY);
         REQUIRE(p.defaultValue() == LF(-1, -2, -3));
@@ -751,7 +751,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p.isSymbol());
         REQUIRE(!p.isList());
         REQUIRE(p.type() == PropValueType::SYMBOL);
-        REQUIRE(p.units() == PropValueUnits::UNKNOWN);
+        REQUIRE(p.units() == PropValueUnits::NONE);
         REQUIRE(p.access() == PropValueAccess::READWRITE);
         REQUIRE(p.view() == PropValueView::ENTRY);
         REQUIRE(p.defaultValue() == SYM("AAAA"));
@@ -871,8 +871,8 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(!p.isInt());
         REQUIRE(!p.isSymbol());
         REQUIRE(!p.isList());
-        REQUIRE(p.type() == PropValueType::VARIANT);
-        REQUIRE(p.units() == PropValueUnits::UNKNOWN);
+        REQUIRE(p.type() == PropValueType::ATOM);
+        REQUIRE(p.units() == PropValueUnits::NONE);
         REQUIRE(p.access() == PropValueAccess::READWRITE);
         REQUIRE(p.view() == PropValueView::ENTRY);
         REQUIRE(p.defaultValue() == Atom(1.5f));
@@ -1006,7 +1006,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
             REQUIRE(!p.isSymbol());
             REQUIRE(!p.isList());
             REQUIRE(p.type() == PropValueType::INTEGER);
-            REQUIRE(p.units() == PropValueUnits::UNKNOWN);
+            REQUIRE(p.units() == PropValueUnits::NONE);
             REQUIRE(p.access() == PropValueAccess::READWRITE);
             REQUIRE(p.view() == PropValueView::NUMBOX);
             REQUIRE(p.defaultValue() == 12);
@@ -1090,7 +1090,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
             REQUIRE(!p.isSymbol());
             REQUIRE(p.isList());
             REQUIRE(p.type() == PropValueType::LIST);
-            REQUIRE(p.units() == PropValueUnits::UNKNOWN);
+            REQUIRE(p.units() == PropValueUnits::NONE);
             REQUIRE(p.access() == PropValueAccess::READONLY);
             REQUIRE(p.view() == PropValueView::ENTRY);
 
@@ -1195,7 +1195,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
             REQUIRE(!p.isSymbol());
             REQUIRE(!p.isList());
             REQUIRE(p.type() == PropValueType::INTEGER);
-            REQUIRE(p.units() == PropValueUnits::UNKNOWN);
+            REQUIRE(p.units() == PropValueUnits::NONE);
             REQUIRE(p.access() == PropValueAccess::READONLY);
             REQUIRE(p.view() == PropValueView::NUMBOX);
             REQUIRE(p.value() == -100);

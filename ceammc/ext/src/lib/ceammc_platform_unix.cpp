@@ -113,7 +113,7 @@ namespace platform {
         return false;
     }
 
-    Either<NetAddressList> unix_hostnametoip(const char* name, NetAddressType type)
+    Either<NetAddressList, PlatformError> unix_hostnametoip(const char* name, NetAddressType type)
     {
         struct addrinfo* result = NULL;
         struct addrinfo hints;
@@ -145,7 +145,7 @@ namespace platform {
         return res;
     }
 
-    Either<int> unix_fd_set_non_blocking(int fd)
+    Either<int, PlatformError> unix_fd_set_non_blocking(int fd)
     {
         int rc = fcntl(fd, F_SETFL, O_NONBLOCK);
         if (rc == -1)
@@ -154,7 +154,7 @@ namespace platform {
         return rc;
     }
 
-    Either<bool> unix_init_pipe(int fd[])
+    Either<bool, PlatformError> unix_init_pipe(int fd[])
     {
         int rc = ::pipe(fd);
         if (rc == -1)

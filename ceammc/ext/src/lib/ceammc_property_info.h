@@ -16,6 +16,7 @@
 
 #include "ceammc_atom.h"
 #include "ceammc_atomlist.h"
+#include "datatype_tree.h"
 #include "m_pd.h"
 
 #include <boost/blank.hpp>
@@ -27,33 +28,31 @@
 #include <string>
 #include <vector>
 
-#if defined(__GNUC__) || defined(__clang__)
-#define CEAMMC_WARN_UNUSED __attribute__((warn_unused_result))
-#define CEAMMC_PACKED __attribute__((packed))
-#else
-#define CEAMMC_WARN_UNUSED
-#define CEAMMC_PACKED
-#endif
-
 namespace ceammc {
 
 using PropertyValue = boost::variant<boost::blank, bool, int, t_float, t_symbol*, Atom, AtomList>;
 
+// on order change/adding new type
+// change also in to_string(PropValueType)
 enum class PropValueType : uint8_t {
     BOOLEAN = 0,
     INTEGER,
     FLOAT,
     SYMBOL,
-    VARIANT,
+    ATOM,
     LIST
 };
 
+// on order change/adding new type
+// change also in to_string(PropValueType)
 enum class PropValueAccess : uint8_t {
     READONLY = 0,
     INITONLY,
     READWRITE
 };
 
+// on order change/adding new type
+// change also in to_string(PropValueType)
 enum class PropValueView : uint8_t {
     SLIDER = 0,
     KNOB,
@@ -65,8 +64,10 @@ enum class PropValueView : uint8_t {
     COLOR
 };
 
+// on order change/adding new type
+// change also in to_string(PropValueType)
 enum class PropValueUnits : uint8_t {
-    UNKNOWN = 0,
+    NONE = 0,
     MSEC, // milliseconds
     SEC, // seconds
     SAMP, // samples
@@ -77,15 +78,20 @@ enum class PropValueUnits : uint8_t {
     PERCENT, // percents
     CENT, // cents
     SEMITONE, //semitone
-    TONE // tone
+    TONE, // tone
+    BPM // bpm
 };
 
+// on order change/adding new type
+// change also in to_string(PropValueType)
 enum class PropValueVis : uint8_t {
     PUBLIC = 0, // settable and shown in UI
     HIDDEN, // settable and hidden from UI
     INTERNAL // settable and hidden everywhere
 };
 
+// on order change/adding new type
+// change also in to_string(PropValueType)
 enum class PropValueConstraints : uint8_t {
     NONE = 0,
     GREATER_THEN,
@@ -97,8 +103,22 @@ enum class PropValueConstraints : uint8_t {
     OPEN_CLOSED_RANGE,
     CLOSED_OPEN_RANGE,
     NON_ZERO,
-    ENUM
+    ENUM,
+    OTHER
 };
+
+t_symbol* to_symbol(PropValueType t);
+t_symbol* to_symbol(PropValueView v);
+t_symbol* to_symbol(PropValueUnits u);
+t_symbol* to_symbol(PropValueAccess v);
+t_symbol* to_symbol(PropValueVis v);
+t_symbol* to_symbol(PropValueConstraints v);
+inline const char* to_string(PropValueType v) { return to_symbol(v)->s_name; }
+inline const char* to_string(PropValueView v) { return to_symbol(v)->s_name; }
+inline const char* to_string(PropValueUnits v) { return to_symbol(v)->s_name; }
+inline const char* to_string(PropValueAccess v) { return to_symbol(v)->s_name; }
+inline const char* to_string(PropValueVis v) { return to_symbol(v)->s_name; }
+inline const char* to_string(PropValueConstraints v) { return to_symbol(v)->s_name; }
 
 class PropertyInfo {
     using AtomListPtr = std::unique_ptr<AtomList>;
@@ -165,7 +185,7 @@ public:
     inline bool isInt() const { return type_ == PropValueType::INTEGER; }
     inline bool isNumeric() const { return (isFloat() || isInt()); }
     inline bool isSymbol() const { return type_ == PropValueType::SYMBOL; }
-    inline bool isVariant() const { return type_ == PropValueType::VARIANT; }
+    inline bool isVariant() const { return type_ == PropValueType::ATOM; }
     inline bool isList() const { return type_ == PropValueType::LIST; }
 
     /// set
@@ -270,7 +290,9 @@ public:
     }
 
     bool validate() const;
-} CEAMMC_PACKED;
+
+    DataTypeTree info() const;
+};
 
 template <>
 inline bool PropertyInfo::setMinT<int>(int v) { return setMinInt(v); }
@@ -300,7 +322,7 @@ inline PropValueType PropertyInfo::toType<double>() { return PropValueType::FLOA
 template <>
 inline PropValueType PropertyInfo::toType<t_symbol*>() { return PropValueType::SYMBOL; }
 template <>
-inline PropValueType PropertyInfo::toType<Atom>() { return PropValueType::VARIANT; }
+inline PropValueType PropertyInfo::toType<Atom>() { return PropValueType::ATOM; }
 template <>
 inline PropValueType PropertyInfo::toType<AtomList>() { return PropValueType::LIST; }
 
@@ -326,9 +348,6 @@ inline bool PropertyInfo::getT<AtomList>(const PropertyValue& v, AtomList& out)
     out = boost::get<AtomList>(v);
     return true;
 }
-
-t_symbol* unitToSymbol(PropValueUnits u);
-t_symbol* propTypeToSymbol(PropValueType t);
 
 }
 

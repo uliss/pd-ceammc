@@ -77,7 +77,7 @@ void PatchProps::onAny(t_symbol* s, const AtomList& l)
             if (pprop->getFloat(f))
                 outputProp(name, f);
         } else if (pprop->isInt()) {
-            long i;
+            int i;
             if (pprop->getInt(i))
                 outputProp(name, i);
         } else if (pprop->isBool()) {
@@ -160,7 +160,7 @@ void PatchProps::dump() const
         PropertyPtr pprop(ObjectFactory<PropDeclare>::fromObject((t_object*)x)->fullName());
         if (pprop) {
             OBJ_DBG << "full name:   " << pprop->name()->s_name << "\n"
-                    << "type:        " << pprop->propertyStrType() << "\n"
+                    << "type:        " << to_string(pprop->propertyType()) << "\n"
                     << "value:       " << pprop->propertyStrValue();
 
             if (pprop->hasMinValue())
