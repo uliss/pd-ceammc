@@ -38,67 +38,79 @@
 #X obj 20 436 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 441 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 476 @bs;
-#X text 245 476 Get/Set buffer size. Type: int. Units: samp. Default
+#X msg 110 476 @active;
+#X text 245 476 Get/Set audio processing state. Type: int. Default
+value: 1\. Allowed values: 0 \, 1\.;
+#X msg 110 518 @awhitening;
+#X text 245 518 Get/Set adaptive whitening. Type: int. Default value:
+0\. Allowed values: 0 \, 1\.;
+#X msg 110 560 @bs;
+#X text 245 560 Get/Set buffer size. Type: int. Units: samp. Default
 value: 1024\. Min value: 64\.;
-#X msg 110 518 @complex;
-#X text 245 518 alias to @method complex. Complex Domain Method onset
+#X msg 110 602 @complex;
+#X text 245 602 alias to @method complex. Complex Domain Method onset
 detection function.;
-#X msg 110 560 @energy;
-#X text 245 560 alias to @method energy. Energy based onset detection
+#X msg 110 644 @compression;
+#X text 245 644 Get/Set lambda logarithmic compression factor \, 0
+to disable. Type: float. Default value: 1\. Min value: 0\.;
+#X msg 110 686 @delay;
+#X text 245 686 Get/Set constant system delay to take back from detection
+time. Type: float. Units: ms. Default value: 49.9093\. Min value: 0\.;
+#X msg 110 743 @energy;
+#X text 245 743 alias to @method energy. Energy based onset detection
 function.;
-#X msg 110 602 @hfc;
-#X text 245 602 alias to @method hfc. High Frequency Content onset
+#X msg 110 785 @hfc;
+#X text 245 785 alias to @method hfc. High Frequency Content onset
 detection.;
-#X msg 110 631 @hs;
-#X text 245 631 Get/Set hop size. 0 means @bs/2\. Type: int. Units:
+#X msg 110 814 @hs;
+#X text 245 814 Get/Set hop size. 0 means @bs/2\. Type: int. Units:
 samp. Default value: 0\. Min value: 0\.;
-#X msg 110 673 @kl;
-#X text 245 673 alias to @method kl. Kullback-Liebler onset detection
+#X msg 110 856 @kl;
+#X text 245 856 alias to @method kl. Kullback-Liebler onset detection
 function.;
-#X msg 110 715 @method;
-#X text 245 715 Get/Set onset method. Default is hfc. Type: symbol.
+#X msg 110 898 @method;
+#X text 245 898 Get/Set onset method. Default is hfc. Type: symbol.
 Default value: default. Allowed values: specflux \, phase \, energy
 \, hfc \, kl \, complex \, default \, specdiff \, wphase \, rolloff
 \, spread \, kurtosis \, skewness \, complexdomain \, decrease \, slope
 \, centroid.;
-#X msg 110 787 @mkl;
-#X text 245 787 alias to @method mkl. Modified Kullback-Liebler onset
+#X msg 110 970 @mkl;
+#X text 245 970 alias to @method mkl. Modified Kullback-Liebler onset
 detection function.;
-#X msg 110 829 @phase;
-#X text 245 829 alias to @method phase. Phase Based Method onset detection
+#X msg 110 1012 @phase;
+#X text 245 1012 alias to @method phase. Phase Based Method onset detection
 function.;
-#X msg 110 871 @silence;
-#X text 245 871 Get/Set onset detection silence threshold. Type: float.
+#X msg 110 1054 @silence;
+#X text 245 1054 Get/Set onset detection silence threshold. Type: float.
 Units: db. Default value: -70\. Range: -80\...0\.;
-#X msg 110 913 @specdiff;
-#X text 245 913 alias to @method specdiff. Spectral difference method
+#X msg 110 1096 @specdiff;
+#X text 245 1096 alias to @method specdiff. Spectral difference method
 onset detection function.;
-#X msg 110 955 @specflux;
-#X text 245 955 alias to @method specflux. Spectral Flux.;
-#X msg 110 984 @speedlim;
-#X text 245 984 Get/Set minimum interval between two consecutive onsets.
+#X msg 110 1138 @specflux;
+#X text 245 1138 alias to @method specflux. Spectral Flux.;
+#X msg 110 1167 @speedlim;
+#X text 245 1167 Get/Set minimum interval between two consecutive onsets.
 Type: float. Units: ms. Default value: 50\. Min value: 1\.;
-#X msg 110 1026 @threshold;
-#X text 245 1026 Get/Set peak picking threshold. Type: float. Default
+#X msg 110 1209 @threshold;
+#X text 245 1209 Get/Set peak picking threshold. Type: float. Default
 value: 0.058\.;
-#X msg 110 1068 @wphase;
-#X text 245 1068 alias to @method phase.Weighted Phase Deviation onset
+#X msg 110 1251 @wphase;
+#X text 245 1251 alias to @method phase.Weighted Phase Deviation onset
 detection function.;
-#X obj 20 1120 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1125 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1303 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1308 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1126 1\.;
-#X text 245 1126 input signal.;
-#X obj 20 1156 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1161 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1309 1\.;
+#X text 245 1309 input signal.;
+#X obj 20 1339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1344 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1162 1\.;
-#X text 245 1162 output signal.;
-#X text 110 1182 2\.;
-#X text 245 1182 output frequency in Hz.;
-#X text 110 1202 3\.;
-#X text 245 1202 track fidelity: a value between 0 and 1 \, indicating
+#X text 110 1345 1\.;
+#X text 245 1345 output signal.;
+#X text 110 1365 2\.;
+#X text 245 1365 output frequency in Hz.;
+#X text 110 1385 3\.;
+#X text 245 1385 track fidelity: a value between 0 and 1 \, indicating
 to which extent the input signal is periodic. A fidelity of ~0.95 can
 be considered to indicate a periodic signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
@@ -106,11 +118,11 @@ be considered to indicate a periodic signal.;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title an @url ceammc.an-help.pd;
-#X obj 1 1282 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1285 library: ceammc v0.8.0;
-#X text 608 1297 see also:;
-#X obj 682 1297 an.onset;
-#N canvas 10 1304 400 290 info 0;
+#X obj 1 1465 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1468 library: ceammc v0.8.0;
+#X text 608 1480 see also:;
+#X obj 682 1480 an.onset;
+#N canvas 10 1487 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -134,7 +146,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1304 pd info;
+#X restore 10 1487 pd info;
 #X connect 6 0 10 0;
 #X connect 8 0 10 1;
 #X connect 9 0 11 0;

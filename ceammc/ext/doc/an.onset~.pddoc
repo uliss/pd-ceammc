@@ -31,7 +31,9 @@
             size</property>
             <property name="@hs" type="int" minvalue="0" default="0" units="sample">hop size. 0
             means @bs/2</property>
-            <property name="@method" type="symbol" enum="specflux phase energy hfc kl complex default specdiff wphase rolloff spread kurtosis skewness complexdomain decrease slope centroid" default="default">onset method. Default is hfc.</property>
+            <property name="@method" type="symbol"
+            enum="specflux phase energy hfc kl complex default specdiff wphase rolloff spread kurtosis skewness complexdomain decrease slope centroid"
+            default="default">onset method. Default is hfc.</property>
             <property name="@hfc" type="alias">alias to @method hfc. High Frequency Content onset
             detection</property>
             <property name="@energy" type="alias">alias to @method energy. Energy based onset
@@ -54,8 +56,16 @@
             threshold</property>
             <property name="@speedlim" type="float" units="millisecond" minvalue="1" default="50">
             minimum interval between two consecutive onsets</property>
-            <property name="@silence" type="float" units="decibel" default="-70" minvalue="-80" maxvalue="0">
-            onset detection silence threshold</property>
+            <property name="@silence" type="float" units="decibel" default="-70" minvalue="-80"
+            maxvalue="0">onset detection silence threshold</property>
+            <property name="@compression" type="float" minvalue="0" default="1">lambda logarithmic
+            compression factor, 0 to disable</property>
+            <property name="@awhitening" type="int" default="0" enum="0 1">adaptive
+            whitening</property>
+            <property name="@delay" type="float" minvalue="0" default="49.9093"
+            units="millisecond">constant system delay to take back from detection time</property>
+            <property name="@active" type="int" default="1" enum="0 1">audio processing
+            state</property>
         </properties>
         <inlets>
             <inlet type="audio">
