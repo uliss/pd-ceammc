@@ -21,23 +21,24 @@
 #include <limits>
 #include <sstream>
 
-typedef unsigned int data_id_type;
-static const unsigned int MASK_BITS = 12;
+using data_id_type = unsigned int;
+constexpr unsigned int MASK_BITS = 12;
 
 // on 32-bit uint - use 2**20 unique object id
 // on 64-bit uint - use 2**52 unique object id
-static const data_id_type ID_MASK = (std::numeric_limits<data_id_type>::max() >> MASK_BITS);
+constexpr data_id_type ID_MASK = (std::numeric_limits<data_id_type>::max() >> MASK_BITS);
 
 // use 2**12 unique data types
-static const data_id_type TYPE_MASK = ~ID_MASK;
-static const unsigned int TYPE_SHIFT = std::numeric_limits<data_id_type>::digits - MASK_BITS;
+constexpr data_id_type TYPE_MASK = ~ID_MASK;
+constexpr unsigned int TYPE_SHIFT = std::numeric_limits<data_id_type>::digits - MASK_BITS;
 
-static const t_atomtype DATA_TYPE = t_atomtype(A_GIMME + 11);
+constexpr t_atomtype DATA_TYPE = t_atomtype(A_GIMME + 11);
 
 namespace ceammc {
 
 // safe-check
 static_assert(sizeof(Atom) == sizeof(t_atom), "Atom and t_atom size mismatch");
+static_assert(sizeof(data_id_type) <= sizeof(word), "invalid data id size");
 
 Atom::Atom()
 {
@@ -385,7 +386,7 @@ DataDesc Atom::getData() const
 void Atom::setData(const DataDesc& d)
 {
     a_type = DATA_TYPE;
-    data_id_type t = static_cast<unsigned int>(d.type) << TYPE_SHIFT;
+    data_id_type t = static_cast<data_id_type>(d.type) << TYPE_SHIFT;
     data_id_type id = d.id & ID_MASK;
     data_id_type value = t | id;
     a_w.w_index = static_cast<decltype(a_w.w_index)>(value);

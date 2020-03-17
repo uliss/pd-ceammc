@@ -14,11 +14,13 @@
 
 #include "ceammc_object.h"
 #include "ceammc_convert.h"
+#include "ceammc_datatypes.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "ceammc_platform.h"
 #include "ceammc_property_callback.h"
 #include "ceammc_property_enum.h"
+#include "datatype_string.h"
 
 #include <cstdarg>
 #include <cstring>
@@ -332,7 +334,18 @@ bool BaseObject::processAnyProps(t_symbol* sel, const AtomList& lst)
             return false;
         }
 
-        bool rc = p->set(lst);
+        bool rc = false;
+
+        // support for string for property
+        if (lst.isDataType(data::DATA_STRING) && p->isSymbol()) {
+            DataTPtr<DataTypeString> ptr(lst[0]);
+            if (ptr.isValid())
+                rc = p->set(AtomList(ptr->asSymbol()));
+            else
+                rc = false;
+        } else
+            rc = p->set(lst);
+
         if (rc && prop_set_callback_)
             prop_set_callback_(this, sel);
 
