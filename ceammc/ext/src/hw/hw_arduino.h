@@ -2,8 +2,9 @@
 #define HW_ARDUINO_H
 
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 namespace ceammc {
 namespace hw {
@@ -14,13 +15,13 @@ namespace hw {
 using namespace ceammc;
 
 class ArduinoExternal : public BaseObject {
-    boost::shared_ptr<ceammc::hw::Arduino> arduino_;
+    std::shared_ptr<ceammc::hw::Arduino> arduino_;
     SymbolProperty* port_;
     SymbolProperty* on_connect_;
     SymbolProperty* serial_;
     IntProperty* vid_;
     IntProperty* pid_;
-    SizeTProperty* baud_rate_;
+    IntEnumProperty* baud_rate_;
     FlagProperty* reconnect_;
     t_clock* read_clock_;
     bool ready_;
@@ -28,8 +29,9 @@ class ArduinoExternal : public BaseObject {
 public:
     ArduinoExternal(const PdArgs& args);
     ~ArduinoExternal();
-    void onFloat(t_float f);
-    void onList(const AtomList& lst);
+    void onFloat(t_float f) override;
+    void onList(const AtomList& lst) override;
+    void initDone() override;
 
     void tick();
 

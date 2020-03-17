@@ -32,20 +32,43 @@ ArduinoExternal::ArduinoExternal(const PdArgs& args)
     , ready_(false)
 {
     createOutlet();
-    initProperties();
-    // we need all properties before Arduino creation
-    parseProperties();
 
-    arduino_.reset(new Arduino(port_->value()->s_name, baud_rate_->value()));
-    arduino_->setReconnect(reconnect_->value());
-    arduino_->setVendorId(vid_->value());
-    arduino_->setProductId(pid_->value());
-    arduino_->setUsbSerial(serial_->value()->s_name);
+    createCbBoolProperty("@connected", [this]() -> bool { return arduino_ && arduino_->isConnected(); });
 
-    read_clock_ = clock_new(this, (t_method)read_tick);
-    clock_set(read_clock_, 3000);
+    port_ = new SymbolProperty("@port", &s_);
+    port_->setArgIndex(0);
+    port_->setInitOnly();
+    createProperty(port_);
 
-    arduino_->start();
+    on_connect_ = new SymbolProperty("@on_connect", &s_);
+    createProperty(on_connect_);
+
+    baud_rate_ = new IntEnumProperty("@rate", { 57600, 110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 56000, 115200, 128000, 256000 });
+    baud_rate_->setArgIndex(1);
+    addProperty(baud_rate_);
+
+    serial_ = new SymbolProperty("@serial", &s_);
+    createProperty(serial_);
+
+    vid_ = new IntProperty("@vendor_id", 0);
+    createProperty(vid_);
+
+    pid_ = new IntProperty("@product_id", 0);
+    createProperty(pid_);
+
+    reconnect_ = new FlagProperty("@reconnect");
+    createProperty(reconnect_);
+
+    createCbListProperty("@devices", [this]() -> AtomList {
+        AtomList res;
+
+        if (arduino_) {
+            for (auto& s : arduino_->allDevices())
+                res.append(gensym(s.c_str()));
+        }
+
+        return res;
+    });
 }
 
 ArduinoExternal::~ArduinoExternal()
@@ -91,6 +114,22 @@ void ArduinoExternal::onList(const AtomList& lst)
 
     if (!arduino_->write(data))
         OBJ_ERR << "can't send data: device is not connected";
+}
+
+void ArduinoExternal::initDone()
+{
+    BaseObject::initDone();
+
+    arduino_.reset(new Arduino(port_->value()->s_name, baud_rate_->value()));
+    arduino_->setReconnect(reconnect_->value());
+    arduino_->setVendorId(vid_->value());
+    arduino_->setProductId(pid_->value());
+    arduino_->setUsbSerial(serial_->value()->s_name);
+
+    read_clock_ = clock_new(this, (t_method)read_tick);
+    clock_set(read_clock_, 3000);
+
+    arduino_->start();
 }
 
 void ArduinoExternal::tick()
@@ -164,43 +203,6 @@ void ArduinoExternal::processMessages()
                 onConnect();
         }
     }
-}
-
-void ArduinoExternal::initProperties()
-{
-    createCbBoolProperty("@connected", [this]() -> bool { return arduino_ && arduino_->isConnected(); });
-
-    port_ = new SymbolProperty("@port", &s_);
-    port_->setArgIndex(0);
-    port_->setInitOnly();
-    createProperty(port_);
-
-    on_connect_ = new SymbolProperty("@on_connect", &s_);
-    createProperty(on_connect_);
-
-    baud_rate_ = new SizeTProperty("@rate", 57600);
-    createProperty(baud_rate_);
-
-    serial_ = new SymbolProperty("@serial", &s_);
-    createProperty(serial_);
-
-    vid_ = new IntProperty("@vendor_id", 0);
-    createProperty(vid_);
-
-    pid_ = new IntProperty("@product_id", 0);
-    createProperty(pid_);
-
-    reconnect_ = new FlagProperty("@reconnect");
-    createProperty(reconnect_);
-
-    createCbListProperty("@devices", [this]() -> AtomList {
-        AtomList res;
-
-        for (auto& s : arduino_->allDevices())
-            res.append(gensym(s.c_str()));
-
-        return res;
-    });
 }
 
 void hw_setup_arduino()
