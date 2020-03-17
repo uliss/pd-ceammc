@@ -32,16 +32,10 @@ TEST_CASE("format", "[ceammc::format]")
 
         // hex
         REQUIRE(to_hex_string(255) == "FF");
+        REQUIRE(to_hex_string(0xF1) == "F1");
+        REQUIRE(to_hex_string(-0xF1) == "-F1");
+        REQUIRE(to_hex_string(0x09) == "9");
         REQUIRE(to_hex_string(gensym("255")) == "");
-
-        // float range
-        REQUIRE(to_float_range_string(123, -1, 1) == "1");
-        REQUIRE(to_float_range_string(-123, -1, 1) == "-1");
-        REQUIRE(to_float_range_string(0.5, -1, 1) == "0.5");
-        REQUIRE(to_float_range_string(-0.5, -1, 1) == "-0.5");
-        REQUIRE(to_float_range_string(-1, -1, 1) == "-1");
-        REQUIRE(to_float_range_string(1, -1, 1) == "1");
-        REQUIRE(to_float_range_string(gensym("255"), -1, 1) == "");
     }
 
     SECTION("atomlist format")
@@ -96,6 +90,16 @@ TEST_CASE("format", "[ceammc::format]")
         // no escaping
         REQUIRE(quote("abc\"") == std::string("\"abc\"\""));
         REQUIRE(quote("abc", '\'') == std::string("'abc'"));
+    }
 
+    SECTION("to_json_string")
+    {
+        REQUIRE(to_json_string(Atom(123)) == "123");
+        REQUIRE(to_json_string(Atom(0.5)) == "0.5");
+        REQUIRE(to_json_string(Atom(SYM("a b c"))) == "\"a b c\"");
+        REQUIRE(to_json_string(Atom(SYM(R"("TEST")"))) == R"("\"TEST\"")");
+        REQUIRE(to_json_string(LF(1, 2, 3)) == R"([1, 2, 3])");
+        REQUIRE(to_json_string(LA("A", 2, "a b c")) == R"(["A", 2, "a b c"])");
+        REQUIRE(to_json_string(LA("\"A\"", 2, "a b c")) == R"(["\"A\"", 2, "a b c"])");
     }
 }

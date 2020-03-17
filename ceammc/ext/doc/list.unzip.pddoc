@@ -34,8 +34,8 @@
             <property name="@method" type="symbol" enum="min pad" default="min">split method if
             number element in the input list is not multiple of number of outputs</property>
             <property name="@min" type="alias">alias to @method min. No padding used</property>
-            <property name="@pad" type="list">padding value. Pads result lists with specified
-            value, if number of elements in the input list is not multiple of number of
+            <property name="@pad" type="atom" default="0">padding value. Pads result lists with
+            specified value, if number of elements in the input list is not multiple of number of
             outputs</property>
         </properties>
         <inlets>

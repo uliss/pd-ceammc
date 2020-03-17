@@ -56,7 +56,7 @@ element. If index greater or equal list size - return last element.;
 elements are returned. [LIST_SIZE \, 2*LIST_SIZE) - returned in negative
 order etc.;
 #X msg 110 857 @index;
-#X text 245 857 Get/Set indexes. Type: list.;
+#X text 245 857 Get/Set indexes. Type: list. Default value: 0\.;
 #X msg 110 886 @method;
 #X text 245 886 Get/Set methods of processing of negative/invalid indexes.
 Type: symbol. Default value: rel. Allowed values: rel \, clip \, fold

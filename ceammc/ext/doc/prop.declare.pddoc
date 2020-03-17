@@ -22,8 +22,8 @@
             current canvas)</argument>
         </arguments>
         <properties>
-            <property name="@type" type="symbol" enum="float int bool enum symbol list">property
-            type</property>
+            <property name="@type" type="symbol" enum="float int bool enum symbol list"
+            default="float">property type</property>
             <property name="@f" type="alias">alias to @type float</property>
             <property name="@i" type="alias">alias to @type int</property>
             <property name="@b" type="alias">alias to @type bool</property>

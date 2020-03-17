@@ -17,6 +17,7 @@
 #include "ceammc_data.h"
 #include "ceammc_dataatom.h"
 #include "ceammc_message.h"
+#include "fmt/format.h"
 
 #include <algorithm>
 #include <iomanip>
@@ -57,10 +58,10 @@ std::string to_float_string(const Atom& a, const std::string& defaultValue)
 {
     if (!a.isFloat())
         return defaultValue;
-
-    std::ostringstream ss;
-    ss << a.asFloat();
-    return ss.str();
+    else if (a.isInteger())
+        return fmt::format("{}", a.asInt());
+    else
+        return fmt::format("{}", a.asFloat());
 }
 
 std::string to_hex_string(const Atom& a, const std::string& defaultValue)
@@ -68,19 +69,7 @@ std::string to_hex_string(const Atom& a, const std::string& defaultValue)
     if (!a.isFloat())
         return defaultValue;
 
-    std::ostringstream ss;
-    ss << std::hex << std::uppercase << static_cast<long>(a.asFloat());
-    return ss.str();
-}
-
-std::string to_float_range_string(const Atom& a, float min, float max, const std::string& defaultValue)
-{
-    if (!a.isFloat())
-        return defaultValue;
-
-    std::ostringstream ss;
-    ss << clip(a.asFloat(), min, max);
-    return ss.str();
+    return fmt::format("{:X}", static_cast<long>(a.asFloat()));
 }
 
 std::string to_string(const AtomList& a, const std::string& separator)
@@ -88,14 +77,14 @@ std::string to_string(const AtomList& a, const std::string& separator)
     if (a.empty())
         return "";
 
-    std::ostringstream ss;
+    std::string res;
     for (size_t i = 0; i < a.size(); i++) {
         if (i != 0)
-            ss << separator;
+            res += separator;
 
-        ss << to_string(a[i]);
+        res += to_string(a[i]);
     }
-    return ss.str();
+    return res;
 }
 
 std::string to_string(const Message& msg, const std::string& separator)
@@ -164,6 +153,56 @@ std::string quote(const std::string& str, char q)
     res.push_back(q);
     res += str;
     res.push_back(q);
+    return res;
+}
+
+static std::string quote_json(const std::string& str)
+{
+    std::string res;
+    res.reserve(str.length() + 4);
+    res.push_back('"');
+    for (auto c : str) {
+        if (c == '"') {
+            res.push_back('\\');
+            res.push_back(c);
+        } else
+            res.push_back(c);
+    }
+    res.push_back('"');
+    return res;
+}
+
+std::string to_json_string(const Atom& a)
+{
+    if (a.isInteger())
+        return fmt::format("{}", a.asInt());
+    else if (a.isFloat())
+        return fmt::format("{}", a.asFloat());
+    else if (a.isSymbol()) {
+        return quote_json(a.asSymbol()->s_name);
+    } else if (a.isData())
+        return quote_json(to_string(DataPtr(a)));
+    else if (a.isNone())
+        return "null";
+    else {
+        std::cerr << "ATOM: " << a << std::endl;
+        return "?????????";
+    }
+}
+
+std::string to_json_string(const AtomList& l)
+{
+    std::string res;
+    res.push_back('[');
+
+    for (size_t i = 0; i < l.size(); i++) {
+        if (i > 0)
+            res += ", ";
+
+        res += to_json_string(l[i]);
+    }
+
+    res.push_back(']');
     return res;
 }
 

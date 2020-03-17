@@ -68,7 +68,7 @@
             readonly="true">list of plain wave z-coordinates (heights). -1 is the bottom of the
             soundfield, 0 is the center of the soundfield and 1 is the top of the
             soundfield.</property>
-            <property name="@nharm" type="int" minvalue="1" readonly="true" default="0">number of
+            <property name="@nharm" type="int" minvalue="1" readonly="true" default="3">number of
             circular harmonics.</property>
             <property name="@nwaves" type="int" minvalue="1" readonly="true" default="0">number of
             plain waves.</property>

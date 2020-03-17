@@ -30,12 +30,6 @@ public:
     void onSymbol(t_symbol* s);
     void onDataT(const DataTPtr<DataTypeString>& dptr);
     void onInlet(size_t n, const AtomList& l);
-
-public:
-    AtomList propFrom() const;
-    AtomList propTo() const;
-    void setPropFrom(const AtomList& l);
-    void setPropTo(const AtomList& l);
 };
 
 extern "C" void setup_string0x2ereplace();

@@ -26,8 +26,9 @@ class DataPtr;
 std::string to_string(const Atom& a);
 std::string to_string(const DataPtr& p);
 std::string to_float_string(const Atom& a, const std::string& defaultValue = "");
-std::string to_float_range_string(const Atom& a, float min, float max, const std::string& defaultValue = "");
 std::string to_hex_string(const Atom& a, const std::string& defaultValue = "");
+std::string to_json_string(const Atom& a);
+std::string to_json_string(const AtomList& l);
 
 /**
  * same as to_string(), but symbol's that contains spaces will be in single quotes, and if there's

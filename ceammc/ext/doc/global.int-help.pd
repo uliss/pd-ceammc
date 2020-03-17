@@ -30,7 +30,8 @@ ID name.;
 #X obj 20 387 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 422 @value;
-#X text 245 422 (readonly) Get current value. Type: int.;
+#X text 245 422 (readonly) Get current value. Type: int. Default value:
+0\.;
 #X obj 20 461 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 466 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

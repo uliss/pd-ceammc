@@ -63,7 +63,7 @@ Type: int. Units: samp. Default value: 0\. Range: 0\...512\.;
 values: regular \, irregular \, binaural.;
 #X msg 110 898 @nharm;
 #X text 245 898 (readonly) Get number of circular harmonics. Type:
-int. Default value: 0\. Min value: 1\.;
+int. Default value: 3\. Min value: 1\.;
 #X msg 110 940 @nwaves;
 #X text 245 940 (readonly) Get number of plain waves. Type: int. Default
 value: 0\. Min value: 1\.;

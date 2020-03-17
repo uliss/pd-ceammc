@@ -23,7 +23,7 @@ static t_symbol* REPLACE_LAST;
 
 StringReplace::StringReplace(const PdArgs& a)
     : BaseObject(a)
-    , mode_(0)
+    , mode_(nullptr)
 {
     createInlet();
     createInlet();
@@ -36,15 +36,17 @@ StringReplace::StringReplace(const PdArgs& a)
     addProperty(new SymbolEnumAlias("@first", mode_, REPLACE_FIRST));
     addProperty(new SymbolEnumAlias("@last", mode_, REPLACE_LAST));
 
-    createCbProperty("@from", &StringReplace::propFrom, &StringReplace::setPropFrom);
-    createCbProperty("@to", &StringReplace::propTo, &StringReplace::setPropTo);
+    createCbSymbolProperty(
+        "@from",
+        [this]() -> t_symbol* { return gensym(from_.c_str()); },
+        [this](t_symbol* s) -> bool { from_ = s->s_name; return true; })
+        ->setArgIndex(0);
 
-    const size_t nargs = positionalArguments().size();
-    if (nargs > 0)
-        from_ = to_string(positionalArguments()[0]);
-
-    if (nargs > 1)
-        to_ = to_string(positionalArguments()[1]);
+    createCbSymbolProperty(
+        "@to",
+        [this]() -> t_symbol* { return gensym(to_.c_str()); },
+        [this](t_symbol* s) -> bool { to_ = s->s_name; return true; })
+        ->setArgIndex(1);
 }
 
 void StringReplace::onSymbol(t_symbol* s)
@@ -74,26 +76,6 @@ void StringReplace::onInlet(size_t n, const AtomList& l)
         to_ = to_string(l);
         return;
     }
-}
-
-AtomList StringReplace::propFrom() const
-{
-    return DataPtr(new DataTypeString(from_)).asAtom();
-}
-
-AtomList StringReplace::propTo() const
-{
-    return DataPtr(new DataTypeString(to_)).asAtom();
-}
-
-void StringReplace::setPropFrom(const AtomList& l)
-{
-    from_ = to_string(l);
-}
-
-void StringReplace::setPropTo(const AtomList& l)
-{
-    to_ = to_string(l);
 }
 
 void setup_string0x2ereplace()

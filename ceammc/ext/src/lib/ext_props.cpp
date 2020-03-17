@@ -174,14 +174,14 @@ static void printInfo(std::ostream& os, const PropertyInfo& pi)
         os << "    \"default\": " << pi.defaultInt() << ",\n";
         break;
     case PropValueType::LIST:
-        os << "    \"default\": " << pi.defaultList() << ",\n";
+        os << "    \"default\": " << to_json_string(pi.defaultList()) << ",\n";
         break;
     case PropValueType::SYMBOL:
-        os << "    \"default\": \"" << pi.defaultSymbol(&s_)->s_name << "\",\n";
+        os << "    \"default\": " << to_json_string(pi.defaultSymbol(&s_)) << ",\n";
         break;
     case PropValueType::VARIANT:
         if (!pi.defaultAtom().isNone())
-            os << "    \"default\": " << pi.defaultAtom() << ",\n";
+            os << "    \"default\": " << to_json_string(pi.defaultAtom()) << ",\n";
         break;
     }
 

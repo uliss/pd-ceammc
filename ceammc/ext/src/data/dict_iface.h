@@ -26,7 +26,7 @@ public:
     DictIFace(const PdArgs& args)
         : FilesystemIFace<CollectionIFace<T>>(args)
     {
-        T::createCbProperty("@keys", &DictIFace::propKeys);
+        T::createCbListProperty("@keys", [this]() -> AtomList { return propKeys(); });
     }
 
     void dump() const override

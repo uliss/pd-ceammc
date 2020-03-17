@@ -180,6 +180,8 @@ if __name__ == '__main__':
         unknown_props = doc_props_set - ext_props_set
         exists_props = ext_props_set & doc_props_set
 
+        undoc_props_set = {x for x in undoc_props_set if ext_props_dict[x].get("visibility", "") != "internal" }
+
         if len(undoc_props_set):
             cprint(f"[{ext_name}] undocumented properties: {undoc_props_set}", 'magenta')
 

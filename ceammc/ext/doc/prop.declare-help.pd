@@ -44,8 +44,8 @@ only). Type: float.;
 #X msg 110 640 @s;
 #X text 245 640 alias to @type symbol.;
 #X msg 110 669 @type;
-#X text 245 669 Get/Set property type. Type: symbol. Allowed values:
-float \, int \, bool \, enum \, symbol \, list.;
+#X text 245 669 Get/Set property type. Type: symbol. Default value:
+float. Allowed values: float \, int \, bool \, enum \, symbol \, list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
