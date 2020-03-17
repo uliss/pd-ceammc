@@ -35,10 +35,13 @@ bool ArrayBase::setArray(t_symbol* s)
     return true;
 }
 
-bool ArrayBase::checkArray()
+bool ArrayBase::checkArray(bool log)
 {
     if (array_name_ == nullptr || !array_.open(array_name_)) {
-        OBJ_ERR << "invalid array: " << array_.name();
+        if (log) {
+            OBJ_ERR << "invalid array: " << array_.name();
+        }
+
         return false;
     }
 

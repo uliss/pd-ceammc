@@ -33,6 +33,7 @@ class ArrayVlinePlay : public ArrayBase {
     t_float speed_;
     BoolProperty* reversed_;
     ClockMemberFunction<ArrayVlinePlay> clock_;
+    bool log_errors_;
 
 public:
     ArrayVlinePlay(const PdArgs& args);
@@ -41,6 +42,7 @@ public:
 
     void onBang() override;
     void onFloat(t_float f) override;
+    void initDone() override;
 
 public:
     void m_play(t_symbol* s, const AtomList& lst);

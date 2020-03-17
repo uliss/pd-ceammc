@@ -54,6 +54,7 @@ ArrayVlinePlay::ArrayVlinePlay(const PdArgs& args)
     , speed_(1)
     , reversed_(nullptr)
     , clock_(this, &ArrayVlinePlay::timeElapsed)
+    , log_errors_(false)
 {
     createOutlet();
     createOutlet();
@@ -71,7 +72,7 @@ ArrayVlinePlay::ArrayVlinePlay(const PdArgs& args)
         "@begin",
         [this]() -> int { return begin_pos_; },
         [this](int v) -> bool {
-            if (!checkArray())
+            if (!checkArray(log_errors_))
                 return false;
             else {
                 begin_pos_ = v;
@@ -84,7 +85,7 @@ ArrayVlinePlay::ArrayVlinePlay(const PdArgs& args)
         "@end",
         [this]() -> int { return end_pos_; },
         [this](int v) -> bool {
-            if (!checkArray())
+            if (!checkArray(log_errors_))
                 return false;
 
             end_pos_ = v;
@@ -92,10 +93,10 @@ ArrayVlinePlay::ArrayVlinePlay(const PdArgs& args)
         })
         ->setUnitsSamp();
 
-    createCbIntProperty("@abs_begin", [this]() -> int { checkArray(); return toAbsPosition(begin_pos_); })
+    createCbIntProperty("@abs_begin", [this]() -> int { checkArray(log_errors_); return toAbsPosition(begin_pos_); })
         ->setUnits(PropValueUnits::SAMP);
 
-    createCbIntProperty("@abs_end", [this]() -> int { checkArray(); return toAbsPosition(end_pos_); })
+    createCbIntProperty("@abs_end", [this]() -> int { checkArray(log_errors_); return toAbsPosition(end_pos_); })
         ->setUnits(PropValueUnits::SAMP);
 
     reversed_ = new BoolProperty("@reversed", false);
@@ -129,6 +130,12 @@ void ArrayVlinePlay::onFloat(t_float f)
         m_stop(SYM_STOP, AtomList());
     else
         m_play(SYM_PLAY, AtomList());
+}
+
+void ArrayVlinePlay::initDone()
+{
+    ArrayBase::initDone();
+    log_errors_ = true;
 }
 
 void ArrayVlinePlay::m_play(t_symbol* s, const AtomList& lst)
