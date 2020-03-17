@@ -37,10 +37,19 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Update pddoc properties default values')
     parser.add_argument('-v', '--verbose', help='verbose output', action='store_true')
     parser.add_argument('-p', '--pretend', help='just see changes, do not save', action='store_true')
+    parser.add_argument('-d', '--default', help='update default attributes', action='store_true')
+    parser.add_argument('-u', '--units', help='update units attributes', action='store_true')
+    parser.add_argument('-l', '--limits', help='update limit attributes (min/max)', action='store_true')
+    parser.add_argument('-a', '--all', help='update all supported attributes', action='store_true')
     parser.add_argument('external', metavar='EXT_NAME', type=str, help='external name')
 
     args = parser.parse_args()
     ext_name = args.external
+
+    if args.all:
+        args.default = True
+        args.units = True
+        args.limits = True
 
     ext_list = read_all_externals()
     if ext_name not in ext_list:
@@ -104,19 +113,54 @@ if __name__ == '__main__':
         p_ext = ext_props_dict[p]
         p_doc = doc_props_dict[p]
 
-        if "default" in p_ext and "default" not in p_doc:
+        if args.default and "default" in p_ext:
             vdef = p_ext["default"]
 
             if isinstance(vdef, list):
-                str_def = " ".join(str(x) for x in vdef)
+                vdef = " ".join(str(x) for x in vdef)
             else:
-                str_def = str(vdef)
+                vdef = str(vdef)
 
-            if str_def == "":
+            if vdef == "":
                 continue
 
-            cprint(f"[{ext_name}] setting default to {str_def} for \"{p}\"", 'magenta')
-            doc_props_nodes[p].attrib["default"] = str_def
+            if "default" not in p_doc:
+                cprint(f"[{ext_name}] setting default to {vdef} for \"{p}\"", 'magenta')
+                doc_props_nodes[p].attrib["default"] = vdef
+            elif p_doc["default"] != vdef:
+                cprint(f"[{ext_name}] update default to {vdef} for \"{p}\"", 'magenta')
+                doc_props_nodes[p].attrib["default"] = vdef
+
+        if args.limits and "min" in p_ext:
+            vmin = str(p_ext["min"])
+
+            if "minvalue" not in p_doc:
+                cprint(f"[{ext_name}] setting minvalue to {vmin} for \"{p}\"", 'magenta')
+                doc_props_nodes[p].attrib["minvalue"] = vmin
+            elif p_doc["minvalue"] != vmin:
+                cprint(f"[{ext_name}] update minvalue to {vmin} for \"{p}\"", 'magenta')
+                doc_props_nodes[p].attrib["minvalue"] = vmin
+
+        if args.limits and "max" in p_ext:
+            vmax = str(p_ext["max"])
+
+            if "maxvalue" not in p_doc:
+                cprint(f"[{ext_name}] setting maxvalue to {vmax} for \"{p}\"", 'magenta')
+                doc_props_nodes[p].attrib["maxvalue"] = vmax
+            elif p_doc["minvalue"] != vmin:
+                cprint(f"[{ext_name}] update maxvalue to {vmax} for \"{p}\"", 'magenta')
+                doc_props_nodes[p].attrib["maxvalue"] = vmax
+
+        if args.units and "units" in p_ext:
+            vunits = str(p_ext["units"])
+
+            if "units" not in p_doc:
+                cprint(f"[{ext_name}] setting units to {vunits} for \"{p}\"", 'magenta')
+                doc_props_nodes[p].attrib["units"] = vunits
+            elif p_doc["units"] != vunits:
+                cprint(f"[{ext_name}] update units to {vunits} for \"{p}\"", 'magenta')
+                doc_props_nodes[p].attrib["units"] = vunits
+
 
     if args.verbose:
         print(etree.tostring(root, pretty_print=True).decode("utf-8"))

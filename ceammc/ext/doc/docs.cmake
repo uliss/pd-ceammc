@@ -1,4 +1,5 @@
 set(DOC_FILES
+    an.onset~
     an.pitchtrack~
     array.bpm
     array.copy

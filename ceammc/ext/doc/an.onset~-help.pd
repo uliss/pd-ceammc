@@ -1,0 +1,146 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 652 50 cnv 1 113 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 652 50 onset detector;
+#X obj 1 1 cnv 5 765 40 empty empty an.onset~ 20 20 0 20 -104026 -4096
+0;
+#X obj 674 11 an.onset~;
+#X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Onset detector based on aubio library;
+#X obj 50 143 adc~ 1;
+#X obj 174 143 ui.dsp~;
+#X obj 88 172 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X floatatom 126 172 5 0 0 0 - - -;
+#X obj 50 201 gain~;
+#X obj 126 201 osc~ 440;
+#X obj 242 201 hradio 15 1 0 8 empty empty empty 17 7 0 10 -262144 -1
+-1 0;
+#X obj 50 230 flow.mux~ 2;
+#X obj 50 259 an.pitchtrack~;
+#X floatatom 50 287 5 0 0 0 - - -;
+#X floatatom 117 287 5 0 0 0 - - -;
+#X obj 20 326 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 331 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+-49933 0;
+#X text 110 366 1\.;
+#X text 150 366 int;
+#X obj 246 367 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 366 BS(samp): buffer size. Min value: 64;
+#X text 110 386 2\.;
+#X text 150 386 symbol;
+#X obj 246 387 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 386 METHOD: overlap of analysis frames.;
+#X text 110 406 3\.;
+#X text 150 406 int;
+#X obj 246 407 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 406 HS: hop size (by default buffer_size/2). Min value:
+0;
+#X obj 20 436 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 441 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 476 @bs;
+#X text 245 476 Get/Set buffer size. Type: int. Units: samp. Default
+value: 1024\. Min value: 64\.;
+#X msg 110 518 @complex;
+#X text 245 518 alias to @method complex. Complex Domain Method onset
+detection function.;
+#X msg 110 560 @energy;
+#X text 245 560 alias to @method energy. Energy based onset detection
+function.;
+#X msg 110 602 @hfc;
+#X text 245 602 alias to @method hfc. High Frequency Content onset
+detection.;
+#X msg 110 631 @hs;
+#X text 245 631 Get/Set hop size. 0 means @bs/2\. Type: int. Units:
+samp. Default value: 0\. Min value: 0\.;
+#X msg 110 673 @kl;
+#X text 245 673 alias to @method kl. Kullback-Liebler onset detection
+function.;
+#X msg 110 715 @method;
+#X text 245 715 Get/Set onset method. Default is hfc. Type: symbol.
+Default value: default. Allowed values: specflux \, phase \, energy
+\, hfc \, kl \, complex \, default \, specdiff \, wphase \, rolloff
+\, spread \, kurtosis \, skewness \, complexdomain \, decrease \, slope
+\, centroid.;
+#X msg 110 787 @mkl;
+#X text 245 787 alias to @method mkl. Modified Kullback-Liebler onset
+detection function.;
+#X msg 110 829 @phase;
+#X text 245 829 alias to @method phase. Phase Based Method onset detection
+function.;
+#X msg 110 871 @silence;
+#X text 245 871 Get/Set onset detection silence threshold. Type: float.
+Units: db. Default value: -70\. Range: -80\...0\.;
+#X msg 110 913 @specdiff;
+#X text 245 913 alias to @method specdiff. Spectral difference method
+onset detection function.;
+#X msg 110 955 @specflux;
+#X text 245 955 alias to @method specflux. Spectral Flux.;
+#X msg 110 984 @speedlim;
+#X text 245 984 Get/Set minimum interval between two consecutive onsets.
+Type: float. Units: ms. Default value: 50\. Min value: 1\.;
+#X msg 110 1026 @threshold;
+#X text 245 1026 Get/Set peak picking threshold. Type: float. Default
+value: 0.058\.;
+#X msg 110 1068 @wphase;
+#X text 245 1068 alias to @method phase.Weighted Phase Deviation onset
+detection function.;
+#X obj 20 1120 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1125 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1126 1\.;
+#X text 245 1126 input signal.;
+#X obj 20 1156 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1161 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1162 1\.;
+#X text 245 1162 output signal.;
+#X text 110 1182 2\.;
+#X text 245 1182 output frequency in Hz.;
+#X text 110 1202 3\.;
+#X text 245 1202 track fidelity: a value between 0 and 1 \, indicating
+to which extent the input signal is periodic. A fidelity of ~0.95 can
+be considered to indicate a periodic signal.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 115 45 ::;
+#X obj 131 48 ui.link @title an @url ceammc.an-help.pd;
+#X obj 1 1282 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1285 library: ceammc v0.8.0;
+#X text 608 1297 see also:;
+#X obj 682 1297 an.onset;
+#N canvas 10 1304 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.8.0;
+#X text 10 54 object:;
+#X text 120 54 an.onset~;
+#X text 10 76 category:;
+#X text 120 76 an;
+#X text 10 98 since:;
+#X text 120 98 0.7;
+#X text 10 120 authors:;
+#X text 120 120 Katja Vetter \, Serge Poltavsky;
+#X text 10 142 license:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 keywords:;
+#X text 120 164 onset;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 1304 pd info;
+#X connect 6 0 10 0;
+#X connect 8 0 10 1;
+#X connect 9 0 11 0;
+#X connect 10 0 13 0;
+#X connect 11 0 13 1;
+#X connect 12 0 13 2;
+#X connect 13 0 14 0;
+#X connect 14 1 15 0;
+#X connect 14 2 16 0;

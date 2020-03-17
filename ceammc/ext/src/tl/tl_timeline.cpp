@@ -30,11 +30,24 @@ TlTimeLine::TlTimeLine(const PdArgs& args)
 {
     createOutlet();
 
-    createCbProperty("@is_running", &TlTimeLine::propIsRunning);
-    createCbProperty("@length", &TlTimeLine::propLength);
-    createCbProperty("@phase", &TlTimeLine::propPhase);
-    createCbProperty("@size", &TlTimeLine::propNumEvents);
-    createCbProperty("@current", &TlTimeLine::propCurrentTime);
+    createCbBoolProperty("@is_running",
+        [this]() -> bool { return tl_.state() == tl::STATE_RUN; });
+
+    createCbFloatProperty("@length",
+        [this]() -> t_float { return tl_.length() / 1000; })
+        ->setUnitsSec();
+
+    createCbFloatProperty("@phase",
+        [this]() -> t_float { return (tl_.length() == 0) ? 0 : (tl_.currentTime() / tl_.length()); })
+        ->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 0, 1);
+
+    createCbIntProperty("@size", [this]() -> int { return tl_.events().size(); })
+        ->checkNonNegative();
+
+    createCbFloatProperty("@current",
+        [this]() -> t_float { return tl_.currentTime(); })
+        ->setUnitsMs();
+
     createCbProperty("@events", &TlTimeLine::propEvents);
 
     createCbProperty("@loop", &TlTimeLine::propLoop, &TlTimeLine::propSetLoop);
@@ -119,16 +132,6 @@ void TlTimeLine::m_to_time(t_symbol* s, const AtomList& lst)
 {
     if (!cmd_parser_.parse(to_string(Message(s, lst))))
         METHOD_ERR(s) << "can't move to time: " << lst;
-}
-
-AtomList TlTimeLine::propIsRunning() const
-{
-    return AtomList(Atom(tl_.state() == tl::STATE_RUN));
-}
-
-AtomList TlTimeLine::propLength() const
-{
-    return Atom(tl_.length() / 1000);
 }
 
 AtomList TlTimeLine::propNumEvents() const

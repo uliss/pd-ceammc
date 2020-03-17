@@ -50,6 +50,16 @@ AubioOnsetTilde::AubioOnsetTilde(const PdArgs& args)
     method_ = new OnsetMethodProperty();
     method_->setArgIndex(1);
 
+    addProperty(new SymbolEnumAlias("@hfc", method_, gensym("hfc")));
+    addProperty(new SymbolEnumAlias("@energy", method_, gensym("energy")));
+    addProperty(new SymbolEnumAlias("@complex", method_, gensym("complex")));
+    addProperty(new SymbolEnumAlias("@phase", method_, gensym("phase")));
+    addProperty(new SymbolEnumAlias("@wphase", method_, gensym("wphase")));
+    addProperty(new SymbolEnumAlias("@specdiff", method_, gensym("specdiff")));
+    addProperty(new SymbolEnumAlias("@kl", method_, gensym("kl")));
+    addProperty(new SymbolEnumAlias("@mkl", method_, gensym("mkl")));
+    addProperty(new SymbolEnumAlias("@specflux", method_, gensym("specflux")));
+
     // order is important
     addProperty(buffer_size_);
     addProperty(hop_size_);

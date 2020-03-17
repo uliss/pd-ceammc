@@ -71,7 +71,7 @@ sustain stop point.;
 -49933 0;
 #X msg 110 907 @length;
 #X text 245 907 (readonly) Get total envelope time length. Type: float.
-Units: ms. Default value: 0\.;
+Units: ms. Default value: 0\. Min value: 0\.;
 #X msg 110 949 @npoints;
 #X text 245 949 (readonly) Get number of points. Type: int. Default
 value: 0\. Min value: 0\.;

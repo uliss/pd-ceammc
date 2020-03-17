@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="an.onset~">
+        <title>an.onset~</title>
+        <meta>
+            <authors>
+                <author>Katja Vetter</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>onset detector</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>an</category>
+            <keywords>onset</keywords>
+            <since>0.7</since>
+            <also>
+                <see>an.onset</see>
+            </also>
+        </meta>
+        <info>
+            <par>Onset detector based on aubio library</par>
+        </info>
+        <arguments>
+            <argument name="BS" type="int" minvalue="64" units="sample">buffer size</argument>
+            <argument name="METHOD" type="symbol" enum="1">overlap of analysis frames</argument>
+            <argument name="HS" type="int" minvalue="0">hop size (by default
+            buffer_size/2)</argument>
+        </arguments>
+        <properties>
+            <property name="@bs" type="int" minvalue="64" default="1024" units="sample">buffer
+            size</property>
+            <property name="@hs" type="int" minvalue="0" default="0" units="sample">hop size. 0
+            means @bs/2</property>
+            <property name="@method" type="symbol" enum="specflux phase energy hfc kl complex default specdiff wphase rolloff spread kurtosis skewness complexdomain decrease slope centroid" default="default">onset method. Default is hfc.</property>
+            <property name="@hfc" type="alias">alias to @method hfc. High Frequency Content onset
+            detection</property>
+            <property name="@energy" type="alias">alias to @method energy. Energy based onset
+            detection function</property>
+            <property name="@complex" type="alias">alias to @method complex. Complex Domain Method
+            onset detection function</property>
+            <property name="@phase" type="alias">alias to @method phase. Phase Based Method onset
+            detection function</property>
+            <property name="@wphase" type="alias">alias to @method phase.Weighted Phase Deviation
+            onset detection function</property>
+            <property name="@specdiff" type="alias">alias to @method specdiff. Spectral difference
+            method onset detection function</property>
+            <property name="@kl" type="alias">alias to @method kl. Kullback-Liebler onset detection
+            function</property>
+            <property name="@mkl" type="alias">alias to @method mkl. Modified Kullback-Liebler
+            onset detection function</property>
+            <property name="@specflux" type="alias">alias to @method specflux. Spectral
+            Flux</property>
+            <property name="@threshold" type="float" default="0.058">peak picking
+            threshold</property>
+            <property name="@speedlim" type="float" units="millisecond" minvalue="1" default="50">
+            minimum interval between two consecutive onsets</property>
+            <property name="@silence" type="float" units="decibel" default="-70" minvalue="-80" maxvalue="0">
+            onset detection silence threshold</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+            <outlet>output frequency in Hz</outlet>
+            <outlet>track fidelity: a value between 0 and 1, indicating to which extent the input
+            signal is periodic. A fidelity of ~0.95 can be considered to indicate a periodic
+            signal.</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[adc~ 1]     [ui.dsp~]
+|
+|   [T] [F]
+|   |.  |
+[gain~] [osc~ 440]  [hradio]
+|       |.          |..
+[flow.mux~           2]
+|
+[an.pitchtrack~]
+^|     ^^|
+[F]    [F]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
