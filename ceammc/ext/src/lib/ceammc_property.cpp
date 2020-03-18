@@ -1199,9 +1199,9 @@ FlagProperty::FlagProperty(const std::string& name)
 
 AtomList FlagProperty::get() const
 {
-    constexpr t_float TRUE = 1;
-    constexpr t_float FALSE = 0;
-    return { v_ ? TRUE : FALSE };
+    constexpr t_float F_TRUE = 1;
+    constexpr t_float F_FALSE = 0;
+    return { v_ ? F_TRUE : F_FALSE };
 }
 
 bool FlagProperty::getBool(bool& b) const
