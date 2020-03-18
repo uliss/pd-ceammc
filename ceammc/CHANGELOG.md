@@ -22,6 +22,8 @@
 - pi alias added for math.pi and argument added [pi 2] means two-pi value
 - math.pi~ added (with pi~ alias)
 - conv.lin2lin~ (with lin->lin~ and l->l~ aliases) added
+- chaos.gbman0 chaotic generator added
+- chaos.gbman0~ chaotic generator added
 
 ## [0.8]
 ### Added:

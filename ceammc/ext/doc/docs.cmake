@@ -25,6 +25,8 @@ set(DOC_FILES
     canvas.name
     canvas.path
     canvas.top
+    chaos.gbman0
+    chaos.gbman0~
     click~
     conv.amp2dbfs
     conv.bpm2hz

@@ -23,6 +23,7 @@ class ChaosGbman : public BaseObject {
 public:
     ChaosGbman(const PdArgs& args);
     void onBang() final;
+    void dump() const final;
 };
 
 class ChaosGbmanTilde : public SoundExternal {
@@ -32,6 +33,7 @@ class ChaosGbmanTilde : public SoundExternal {
 public:
     ChaosGbmanTilde(const PdArgs& args);
     void processBlock(const t_sample** in, t_sample** out) final;
+    void dump() const final;
 };
 
 void setup_chaos_gbman();

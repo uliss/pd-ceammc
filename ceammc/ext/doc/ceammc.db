@@ -24,6 +24,8 @@ canvas.dir		.		.
 canvas.name		.		.
 canvas.path		.		.
 canvas.top		.		.
+chaos.gbman0		.		.
+chaos.gbman0~		~		.
 click~		.		~
 conv.amp2dbfs,amp->dbfs		.		.
 conv.bpm2hz,bpm->hz		.		.
