@@ -105,6 +105,8 @@ SynthShakers::SynthShakers(const PdArgs& args)
                 synth_->noteOn(type_, gate_);
             else
                 synth_->noteOff(0);
+
+            return true;
         })
         ->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 0, 1);
 
