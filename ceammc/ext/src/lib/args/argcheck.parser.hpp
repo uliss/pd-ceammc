@@ -46,6 +46,8 @@
 // "%code requires" blocks.
 #line 13 "argcheck.yy"
 
+    # include <memory>
+
     namespace ceammc {
         class ArgCheckLexer;
         class ArgCheckerNode;
@@ -59,11 +61,14 @@
         class ArgIsSymbol;
     }
 
+    using ArgCheckPtr = std::shared_ptr<ceammc::ArgCheckerNode>;
+    using ArgCheckPtrList = std::vector<ArgCheckPtr>;
+
 # ifndef YY_NULLPTR
 #   define YY_NULLPTR nullptr
 # endif
 
-#line 67 "argcheck.parser.hpp"
+#line 72 "argcheck.parser.hpp"
 
 
 # include <cstdlib> // std::abort
@@ -198,7 +203,7 @@
 
 #line 7 "argcheck.yy"
 namespace ceammc {
-#line 202 "argcheck.parser.hpp"
+#line 207 "argcheck.parser.hpp"
 
 
 
@@ -380,13 +385,6 @@ namespace ceammc {
     /// An auxiliary type to compute the largest semantic type.
     union union_type
     {
-      // FLOAT
-      // NUMBER
-      char dummy1[sizeof (double)];
-
-      // INTEGER
-      char dummy2[sizeof (int)];
-
       // ATOM_BOOL
       // ATOM_INT
       // ATOM_FLOAT
@@ -395,18 +393,25 @@ namespace ceammc {
       // ATOM_SINGLE
       // ATOM
       // GROUP_OR
-      char dummy3[sizeof (std::shared_ptr<ArgCheckerNode>)];
-
-      // SYMBOL
-      // STRING
-      char dummy4[sizeof (std::string)];
-
-      // REPEAT
-      char dummy5[sizeof (std::vector<int>)];
+      char dummy1[sizeof (ArgCheckPtr)];
 
       // ATOM_OR_SEQ
       // ATOM_SEQ
-      char dummy6[sizeof (std::vector<std::shared_ptr<ArgCheckerNode>>)];
+      char dummy2[sizeof (ArgCheckPtrList)];
+
+      // FLOAT
+      // NUMBER
+      char dummy3[sizeof (double)];
+
+      // INTEGER
+      char dummy4[sizeof (int)];
+
+      // SYMBOL
+      // STRING
+      char dummy5[sizeof (std::string)];
+
+      // REPEAT
+      char dummy6[sizeof (std::vector<int>)];
     };
 
     /// The size of the largest semantic type.
@@ -528,6 +533,28 @@ namespace ceammc {
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, ArgCheckPtr&& v)
+        : Base (t)
+        , value (std::move (v))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const ArgCheckPtr& v)
+        : Base (t)
+        , value (v)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, ArgCheckPtrList&& v)
+        : Base (t)
+        , value (std::move (v))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const ArgCheckPtrList& v)
+        : Base (t)
+        , value (v)
+      {}
+#endif
+#if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, double&& v)
         : Base (t)
         , value (std::move (v))
@@ -550,17 +577,6 @@ namespace ceammc {
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, std::shared_ptr<ArgCheckerNode>&& v)
-        : Base (t)
-        , value (std::move (v))
-      {}
-#else
-      basic_symbol (typename Base::kind_type t, const std::shared_ptr<ArgCheckerNode>& v)
-        : Base (t)
-        , value (v)
-      {}
-#endif
-#if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, std::string&& v)
         : Base (t)
         , value (std::move (v))
@@ -578,17 +594,6 @@ namespace ceammc {
       {}
 #else
       basic_symbol (typename Base::kind_type t, const std::vector<int>& v)
-        : Base (t)
-        , value (v)
-      {}
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, std::vector<std::shared_ptr<ArgCheckerNode>>&& v)
-        : Base (t)
-        , value (std::move (v))
-      {}
-#else
-      basic_symbol (typename Base::kind_type t, const std::vector<std::shared_ptr<ArgCheckerNode>>& v)
         : Base (t)
         , value (v)
       {}
@@ -616,6 +621,22 @@ namespace ceammc {
         // Type destructor.
 switch (yytype)
     {
+      case 38: // ATOM_BOOL
+      case 39: // ATOM_INT
+      case 40: // ATOM_FLOAT
+      case 41: // ATOM_SYMBOL
+      case 42: // ATOM_DATA
+      case 43: // ATOM_SINGLE
+      case 44: // ATOM
+      case 46: // GROUP_OR
+        value.template destroy< ArgCheckPtr > ();
+        break;
+
+      case 45: // ATOM_OR_SEQ
+      case 47: // ATOM_SEQ
+        value.template destroy< ArgCheckPtrList > ();
+        break;
+
       case 31: // FLOAT
       case 36: // NUMBER
         value.template destroy< double > ();
@@ -625,17 +646,6 @@ switch (yytype)
         value.template destroy< int > ();
         break;
 
-      case 38: // ATOM_BOOL
-      case 39: // ATOM_INT
-      case 40: // ATOM_FLOAT
-      case 41: // ATOM_SYMBOL
-      case 42: // ATOM_DATA
-      case 43: // ATOM_SINGLE
-      case 44: // ATOM
-      case 46: // GROUP_OR
-        value.template destroy< std::shared_ptr<ArgCheckerNode> > ();
-        break;
-
       case 33: // SYMBOL
       case 34: // STRING
         value.template destroy< std::string > ();
@@ -643,11 +653,6 @@ switch (yytype)
 
       case 37: // REPEAT
         value.template destroy< std::vector<int> > ();
-        break;
-
-      case 45: // ATOM_OR_SEQ
-      case 47: // ATOM_SEQ
-        value.template destroy< std::vector<std::shared_ptr<ArgCheckerNode>> > ();
         break;
 
       default:
@@ -1664,6 +1669,22 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
+      case 38: // ATOM_BOOL
+      case 39: // ATOM_INT
+      case 40: // ATOM_FLOAT
+      case 41: // ATOM_SYMBOL
+      case 42: // ATOM_DATA
+      case 43: // ATOM_SINGLE
+      case 44: // ATOM
+      case 46: // GROUP_OR
+        value.move< ArgCheckPtr > (std::move (that.value));
+        break;
+
+      case 45: // ATOM_OR_SEQ
+      case 47: // ATOM_SEQ
+        value.move< ArgCheckPtrList > (std::move (that.value));
+        break;
+
       case 31: // FLOAT
       case 36: // NUMBER
         value.move< double > (std::move (that.value));
@@ -1673,17 +1694,6 @@ switch (yytype)
         value.move< int > (std::move (that.value));
         break;
 
-      case 38: // ATOM_BOOL
-      case 39: // ATOM_INT
-      case 40: // ATOM_FLOAT
-      case 41: // ATOM_SYMBOL
-      case 42: // ATOM_DATA
-      case 43: // ATOM_SINGLE
-      case 44: // ATOM
-      case 46: // GROUP_OR
-        value.move< std::shared_ptr<ArgCheckerNode> > (std::move (that.value));
-        break;
-
       case 33: // SYMBOL
       case 34: // STRING
         value.move< std::string > (std::move (that.value));
@@ -1691,11 +1701,6 @@ switch (yytype)
 
       case 37: // REPEAT
         value.move< std::vector<int> > (std::move (that.value));
-        break;
-
-      case 45: // ATOM_OR_SEQ
-      case 47: // ATOM_SEQ
-        value.move< std::vector<std::shared_ptr<ArgCheckerNode>> > (std::move (that.value));
         break;
 
       default:
@@ -1712,6 +1717,22 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
+      case 38: // ATOM_BOOL
+      case 39: // ATOM_INT
+      case 40: // ATOM_FLOAT
+      case 41: // ATOM_SYMBOL
+      case 42: // ATOM_DATA
+      case 43: // ATOM_SINGLE
+      case 44: // ATOM
+      case 46: // GROUP_OR
+        value.copy< ArgCheckPtr > (YY_MOVE (that.value));
+        break;
+
+      case 45: // ATOM_OR_SEQ
+      case 47: // ATOM_SEQ
+        value.copy< ArgCheckPtrList > (YY_MOVE (that.value));
+        break;
+
       case 31: // FLOAT
       case 36: // NUMBER
         value.copy< double > (YY_MOVE (that.value));
@@ -1721,17 +1742,6 @@ switch (yytype)
         value.copy< int > (YY_MOVE (that.value));
         break;
 
-      case 38: // ATOM_BOOL
-      case 39: // ATOM_INT
-      case 40: // ATOM_FLOAT
-      case 41: // ATOM_SYMBOL
-      case 42: // ATOM_DATA
-      case 43: // ATOM_SINGLE
-      case 44: // ATOM
-      case 46: // GROUP_OR
-        value.copy< std::shared_ptr<ArgCheckerNode> > (YY_MOVE (that.value));
-        break;
-
       case 33: // SYMBOL
       case 34: // STRING
         value.copy< std::string > (YY_MOVE (that.value));
@@ -1739,11 +1749,6 @@ switch (yytype)
 
       case 37: // REPEAT
         value.copy< std::vector<int> > (YY_MOVE (that.value));
-        break;
-
-      case 45: // ATOM_OR_SEQ
-      case 47: // ATOM_SEQ
-        value.copy< std::vector<std::shared_ptr<ArgCheckerNode>> > (YY_MOVE (that.value));
         break;
 
       default:
@@ -1768,6 +1773,22 @@ switch (yytype)
     super_type::move (s);
     switch (this->type_get ())
     {
+      case 38: // ATOM_BOOL
+      case 39: // ATOM_INT
+      case 40: // ATOM_FLOAT
+      case 41: // ATOM_SYMBOL
+      case 42: // ATOM_DATA
+      case 43: // ATOM_SINGLE
+      case 44: // ATOM
+      case 46: // GROUP_OR
+        value.move< ArgCheckPtr > (YY_MOVE (s.value));
+        break;
+
+      case 45: // ATOM_OR_SEQ
+      case 47: // ATOM_SEQ
+        value.move< ArgCheckPtrList > (YY_MOVE (s.value));
+        break;
+
       case 31: // FLOAT
       case 36: // NUMBER
         value.move< double > (YY_MOVE (s.value));
@@ -1777,17 +1798,6 @@ switch (yytype)
         value.move< int > (YY_MOVE (s.value));
         break;
 
-      case 38: // ATOM_BOOL
-      case 39: // ATOM_INT
-      case 40: // ATOM_FLOAT
-      case 41: // ATOM_SYMBOL
-      case 42: // ATOM_DATA
-      case 43: // ATOM_SINGLE
-      case 44: // ATOM
-      case 46: // GROUP_OR
-        value.move< std::shared_ptr<ArgCheckerNode> > (YY_MOVE (s.value));
-        break;
-
       case 33: // SYMBOL
       case 34: // STRING
         value.move< std::string > (YY_MOVE (s.value));
@@ -1795,11 +1805,6 @@ switch (yytype)
 
       case 37: // REPEAT
         value.move< std::vector<int> > (YY_MOVE (s.value));
-        break;
-
-      case 45: // ATOM_OR_SEQ
-      case 47: // ATOM_SEQ
-        value.move< std::vector<std::shared_ptr<ArgCheckerNode>> > (YY_MOVE (s.value));
         break;
 
       default:
@@ -1857,7 +1862,7 @@ switch (yytype)
 
 #line 7 "argcheck.yy"
 } // ceammc
-#line 1861 "argcheck.parser.hpp"
+#line 1866 "argcheck.parser.hpp"
 
 
 

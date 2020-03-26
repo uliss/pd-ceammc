@@ -11,6 +11,8 @@
 %define parse.error verbose
 
 %code requires{
+    # include <memory>
+
     namespace ceammc {
         class ArgCheckLexer;
         class ArgCheckerNode;
@@ -24,6 +26,9 @@
         class ArgIsSymbol;
     }
 
+    using ArgCheckPtr = std::shared_ptr<ceammc::ArgCheckerNode>;
+    using ArgCheckPtrList = std::vector<ArgCheckPtr>;
+
 # ifndef YY_NULLPTR
 #   define YY_NULLPTR nullptr
 # endif
@@ -34,7 +39,6 @@
 
 %code {
     # include <memory>
-    # include <stack>
     # include <string>
     # include <utility>
 
@@ -107,16 +111,16 @@
 %type <double>           NUMBER
 %type <std::vector<int>> REPEAT
 
-%type <std::shared_ptr<ArgCheckerNode>>     ATOM
-%type <std::shared_ptr<ArgCheckerNode>>     ATOM_SINGLE
-%type <std::shared_ptr<ArgCheckerNode>>     ATOM_BOOL
-%type <std::shared_ptr<ArgCheckerNode>>     ATOM_SYMBOL
-%type <std::shared_ptr<ArgCheckerNode>>     ATOM_FLOAT
-%type <std::shared_ptr<ArgCheckerNode>>     ATOM_DATA
-%type <std::shared_ptr<ArgCheckerNode>>     ATOM_INT
-%type <std::shared_ptr<ArgCheckerNode>>     GROUP_OR
-%type <std::vector<std::shared_ptr<ArgCheckerNode>>> ATOM_OR_SEQ
-%type <std::vector<std::shared_ptr<ArgCheckerNode>>> ATOM_SEQ
+%type <ArgCheckPtr>      ATOM
+%type <ArgCheckPtr>      ATOM_SINGLE
+%type <ArgCheckPtr>      ATOM_BOOL
+%type <ArgCheckPtr>      ATOM_SYMBOL
+%type <ArgCheckPtr>      ATOM_FLOAT
+%type <ArgCheckPtr>      ATOM_DATA
+%type <ArgCheckPtr>      ATOM_INT
+%type <ArgCheckPtr>      GROUP_OR
+%type <ArgCheckPtrList>  ATOM_OR_SEQ
+%type <ArgCheckPtrList>  ATOM_SEQ
 
 %start REGEXP
 

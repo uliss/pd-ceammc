@@ -41,10 +41,9 @@
 
 
 // Unqualified %code blocks.
-#line 35 "argcheck.yy"
+#line 40 "argcheck.yy"
 
     # include <memory>
-    # include <stack>
     # include <string>
     # include <utility>
 
@@ -78,7 +77,7 @@
         }
     }
 
-#line 82 "argcheck.parser.cpp"
+#line 81 "argcheck.parser.cpp"
 
 
 #ifndef YY_
@@ -151,7 +150,7 @@
 
 #line 7 "argcheck.yy"
 namespace ceammc {
-#line 155 "argcheck.parser.cpp"
+#line 154 "argcheck.parser.cpp"
 
 
   /* Return YYSTR after stripping away unnecessary quotes and
@@ -262,6 +261,22 @@ namespace ceammc {
   {
     switch (that.type_get ())
     {
+      case 38: // ATOM_BOOL
+      case 39: // ATOM_INT
+      case 40: // ATOM_FLOAT
+      case 41: // ATOM_SYMBOL
+      case 42: // ATOM_DATA
+      case 43: // ATOM_SINGLE
+      case 44: // ATOM
+      case 46: // GROUP_OR
+        value.YY_MOVE_OR_COPY< ArgCheckPtr > (YY_MOVE (that.value));
+        break;
+
+      case 45: // ATOM_OR_SEQ
+      case 47: // ATOM_SEQ
+        value.YY_MOVE_OR_COPY< ArgCheckPtrList > (YY_MOVE (that.value));
+        break;
+
       case 31: // FLOAT
       case 36: // NUMBER
         value.YY_MOVE_OR_COPY< double > (YY_MOVE (that.value));
@@ -271,17 +286,6 @@ namespace ceammc {
         value.YY_MOVE_OR_COPY< int > (YY_MOVE (that.value));
         break;
 
-      case 38: // ATOM_BOOL
-      case 39: // ATOM_INT
-      case 40: // ATOM_FLOAT
-      case 41: // ATOM_SYMBOL
-      case 42: // ATOM_DATA
-      case 43: // ATOM_SINGLE
-      case 44: // ATOM
-      case 46: // GROUP_OR
-        value.YY_MOVE_OR_COPY< std::shared_ptr<ArgCheckerNode> > (YY_MOVE (that.value));
-        break;
-
       case 33: // SYMBOL
       case 34: // STRING
         value.YY_MOVE_OR_COPY< std::string > (YY_MOVE (that.value));
@@ -289,11 +293,6 @@ namespace ceammc {
 
       case 37: // REPEAT
         value.YY_MOVE_OR_COPY< std::vector<int> > (YY_MOVE (that.value));
-        break;
-
-      case 45: // ATOM_OR_SEQ
-      case 47: // ATOM_SEQ
-        value.YY_MOVE_OR_COPY< std::vector<std::shared_ptr<ArgCheckerNode>> > (YY_MOVE (that.value));
         break;
 
       default:
@@ -311,6 +310,22 @@ namespace ceammc {
   {
     switch (that.type_get ())
     {
+      case 38: // ATOM_BOOL
+      case 39: // ATOM_INT
+      case 40: // ATOM_FLOAT
+      case 41: // ATOM_SYMBOL
+      case 42: // ATOM_DATA
+      case 43: // ATOM_SINGLE
+      case 44: // ATOM
+      case 46: // GROUP_OR
+        value.move< ArgCheckPtr > (YY_MOVE (that.value));
+        break;
+
+      case 45: // ATOM_OR_SEQ
+      case 47: // ATOM_SEQ
+        value.move< ArgCheckPtrList > (YY_MOVE (that.value));
+        break;
+
       case 31: // FLOAT
       case 36: // NUMBER
         value.move< double > (YY_MOVE (that.value));
@@ -320,17 +335,6 @@ namespace ceammc {
         value.move< int > (YY_MOVE (that.value));
         break;
 
-      case 38: // ATOM_BOOL
-      case 39: // ATOM_INT
-      case 40: // ATOM_FLOAT
-      case 41: // ATOM_SYMBOL
-      case 42: // ATOM_DATA
-      case 43: // ATOM_SINGLE
-      case 44: // ATOM
-      case 46: // GROUP_OR
-        value.move< std::shared_ptr<ArgCheckerNode> > (YY_MOVE (that.value));
-        break;
-
       case 33: // SYMBOL
       case 34: // STRING
         value.move< std::string > (YY_MOVE (that.value));
@@ -338,11 +342,6 @@ namespace ceammc {
 
       case 37: // REPEAT
         value.move< std::vector<int> > (YY_MOVE (that.value));
-        break;
-
-      case 45: // ATOM_OR_SEQ
-      case 47: // ATOM_SEQ
-        value.move< std::vector<std::shared_ptr<ArgCheckerNode>> > (YY_MOVE (that.value));
         break;
 
       default:
@@ -360,6 +359,22 @@ namespace ceammc {
     state = that.state;
     switch (that.type_get ())
     {
+      case 38: // ATOM_BOOL
+      case 39: // ATOM_INT
+      case 40: // ATOM_FLOAT
+      case 41: // ATOM_SYMBOL
+      case 42: // ATOM_DATA
+      case 43: // ATOM_SINGLE
+      case 44: // ATOM
+      case 46: // GROUP_OR
+        value.copy< ArgCheckPtr > (that.value);
+        break;
+
+      case 45: // ATOM_OR_SEQ
+      case 47: // ATOM_SEQ
+        value.copy< ArgCheckPtrList > (that.value);
+        break;
+
       case 31: // FLOAT
       case 36: // NUMBER
         value.copy< double > (that.value);
@@ -369,17 +384,6 @@ namespace ceammc {
         value.copy< int > (that.value);
         break;
 
-      case 38: // ATOM_BOOL
-      case 39: // ATOM_INT
-      case 40: // ATOM_FLOAT
-      case 41: // ATOM_SYMBOL
-      case 42: // ATOM_DATA
-      case 43: // ATOM_SINGLE
-      case 44: // ATOM
-      case 46: // GROUP_OR
-        value.copy< std::shared_ptr<ArgCheckerNode> > (that.value);
-        break;
-
       case 33: // SYMBOL
       case 34: // STRING
         value.copy< std::string > (that.value);
@@ -387,11 +391,6 @@ namespace ceammc {
 
       case 37: // REPEAT
         value.copy< std::vector<int> > (that.value);
-        break;
-
-      case 45: // ATOM_OR_SEQ
-      case 47: // ATOM_SEQ
-        value.copy< std::vector<std::shared_ptr<ArgCheckerNode>> > (that.value);
         break;
 
       default:
@@ -407,6 +406,22 @@ namespace ceammc {
     state = that.state;
     switch (that.type_get ())
     {
+      case 38: // ATOM_BOOL
+      case 39: // ATOM_INT
+      case 40: // ATOM_FLOAT
+      case 41: // ATOM_SYMBOL
+      case 42: // ATOM_DATA
+      case 43: // ATOM_SINGLE
+      case 44: // ATOM
+      case 46: // GROUP_OR
+        value.move< ArgCheckPtr > (that.value);
+        break;
+
+      case 45: // ATOM_OR_SEQ
+      case 47: // ATOM_SEQ
+        value.move< ArgCheckPtrList > (that.value);
+        break;
+
       case 31: // FLOAT
       case 36: // NUMBER
         value.move< double > (that.value);
@@ -416,17 +431,6 @@ namespace ceammc {
         value.move< int > (that.value);
         break;
 
-      case 38: // ATOM_BOOL
-      case 39: // ATOM_INT
-      case 40: // ATOM_FLOAT
-      case 41: // ATOM_SYMBOL
-      case 42: // ATOM_DATA
-      case 43: // ATOM_SINGLE
-      case 44: // ATOM
-      case 46: // GROUP_OR
-        value.move< std::shared_ptr<ArgCheckerNode> > (that.value);
-        break;
-
       case 33: // SYMBOL
       case 34: // STRING
         value.move< std::string > (that.value);
@@ -434,11 +438,6 @@ namespace ceammc {
 
       case 37: // REPEAT
         value.move< std::vector<int> > (that.value);
-        break;
-
-      case 45: // ATOM_OR_SEQ
-      case 47: // ATOM_SEQ
-        value.move< std::vector<std::shared_ptr<ArgCheckerNode>> > (that.value);
         break;
 
       default:
@@ -686,6 +685,22 @@ namespace ceammc {
          when using variants.  */
       switch (yyr1_[yyn])
     {
+      case 38: // ATOM_BOOL
+      case 39: // ATOM_INT
+      case 40: // ATOM_FLOAT
+      case 41: // ATOM_SYMBOL
+      case 42: // ATOM_DATA
+      case 43: // ATOM_SINGLE
+      case 44: // ATOM
+      case 46: // GROUP_OR
+        yylhs.value.emplace< ArgCheckPtr > ();
+        break;
+
+      case 45: // ATOM_OR_SEQ
+      case 47: // ATOM_SEQ
+        yylhs.value.emplace< ArgCheckPtrList > ();
+        break;
+
       case 31: // FLOAT
       case 36: // NUMBER
         yylhs.value.emplace< double > ();
@@ -695,17 +710,6 @@ namespace ceammc {
         yylhs.value.emplace< int > ();
         break;
 
-      case 38: // ATOM_BOOL
-      case 39: // ATOM_INT
-      case 40: // ATOM_FLOAT
-      case 41: // ATOM_SYMBOL
-      case 42: // ATOM_DATA
-      case 43: // ATOM_SINGLE
-      case 44: // ATOM
-      case 46: // GROUP_OR
-        yylhs.value.emplace< std::shared_ptr<ArgCheckerNode> > ();
-        break;
-
       case 33: // SYMBOL
       case 34: // STRING
         yylhs.value.emplace< std::string > ();
@@ -713,11 +717,6 @@ namespace ceammc {
 
       case 37: // REPEAT
         yylhs.value.emplace< std::vector<int> > ();
-        break;
-
-      case 45: // ATOM_OR_SEQ
-      case 47: // ATOM_SEQ
-        yylhs.value.emplace< std::vector<std::shared_ptr<ArgCheckerNode>> > ();
         break;
 
       default:
@@ -735,467 +734,467 @@ namespace ceammc {
           switch (yyn)
             {
   case 2:
-#line 126 "argcheck.yy"
+#line 130 "argcheck.yy"
               { yylhs.value.as < double > () = yystack_[0].value.as < int > (); }
-#line 741 "argcheck.parser.cpp"
+#line 740 "argcheck.parser.cpp"
     break;
 
   case 3:
-#line 127 "argcheck.yy"
+#line 131 "argcheck.yy"
             { yylhs.value.as < double > () = yystack_[0].value.as < double > (); }
-#line 747 "argcheck.parser.cpp"
+#line 746 "argcheck.parser.cpp"
     break;
 
   case 4:
-#line 131 "argcheck.yy"
+#line 135 "argcheck.yy"
            {
         yylhs.value.as < std::vector<int> > ().push_back(1);
         }
-#line 755 "argcheck.parser.cpp"
+#line 754 "argcheck.parser.cpp"
     break;
 
   case 5:
-#line 134 "argcheck.yy"
+#line 138 "argcheck.yy"
                {
         yylhs.value.as < std::vector<int> > ().push_back(0);
         }
-#line 763 "argcheck.parser.cpp"
+#line 762 "argcheck.parser.cpp"
     break;
 
   case 6:
-#line 137 "argcheck.yy"
+#line 141 "argcheck.yy"
                {
         yylhs.value.as < std::vector<int> > ().push_back(0);
         yylhs.value.as < std::vector<int> > ().push_back(1);
         }
-#line 772 "argcheck.parser.cpp"
+#line 771 "argcheck.parser.cpp"
     break;
 
   case 7:
-#line 141 "argcheck.yy"
+#line 145 "argcheck.yy"
                                       {
         yylhs.value.as < std::vector<int> > ().push_back(yystack_[1].value.as < int > ());
         yylhs.value.as < std::vector<int> > ().push_back(yystack_[1].value.as < int > ());
         }
-#line 781 "argcheck.parser.cpp"
+#line 780 "argcheck.parser.cpp"
     break;
 
   case 8:
-#line 145 "argcheck.yy"
+#line 149 "argcheck.yy"
                                                    {
         yylhs.value.as < std::vector<int> > ().push_back(yystack_[2].value.as < int > ());
         }
-#line 789 "argcheck.parser.cpp"
+#line 788 "argcheck.parser.cpp"
     break;
 
   case 9:
-#line 148 "argcheck.yy"
+#line 152 "argcheck.yy"
                                                            {
         yylhs.value.as < std::vector<int> > ().push_back(yystack_[3].value.as < int > ());
         yylhs.value.as < std::vector<int> > ().push_back(yystack_[1].value.as < int > ());
         }
-#line 798 "argcheck.parser.cpp"
+#line 797 "argcheck.parser.cpp"
     break;
 
   case 10:
-#line 155 "argcheck.yy"
-            { yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(new ArgIsBool); }
-#line 804 "argcheck.parser.cpp"
+#line 159 "argcheck.yy"
+            { yylhs.value.as < ArgCheckPtr > ().reset(new ArgIsBool); }
+#line 803 "argcheck.parser.cpp"
     break;
 
   case 11:
-#line 159 "argcheck.yy"
+#line 163 "argcheck.yy"
            {
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(new ArgIsInt);
+        yylhs.value.as < ArgCheckPtr > ().reset(new ArgIsInt);
         }
-#line 812 "argcheck.parser.cpp"
+#line 811 "argcheck.parser.cpp"
     break;
 
   case 12:
-#line 162 "argcheck.yy"
+#line 166 "argcheck.yy"
                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_EQUAL, yystack_[0].value.as < int > ());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 822 "argcheck.parser.cpp"
+#line 821 "argcheck.parser.cpp"
     break;
 
   case 13:
-#line 167 "argcheck.yy"
+#line 171 "argcheck.yy"
                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_NOT_EQUAL, yystack_[0].value.as < int > ());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 832 "argcheck.parser.cpp"
+#line 831 "argcheck.parser.cpp"
     break;
 
   case 14:
-#line 172 "argcheck.yy"
+#line 176 "argcheck.yy"
                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_GREATER, yystack_[0].value.as < int > ());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 842 "argcheck.parser.cpp"
+#line 841 "argcheck.parser.cpp"
     break;
 
   case 15:
-#line 177 "argcheck.yy"
+#line 181 "argcheck.yy"
                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_GREATER_EQUAL, yystack_[0].value.as < int > ());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 852 "argcheck.parser.cpp"
+#line 851 "argcheck.parser.cpp"
     break;
 
   case 16:
-#line 182 "argcheck.yy"
+#line 186 "argcheck.yy"
                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_LESS, yystack_[0].value.as < int > ());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 862 "argcheck.parser.cpp"
+#line 861 "argcheck.parser.cpp"
     break;
 
   case 17:
-#line 187 "argcheck.yy"
+#line 191 "argcheck.yy"
                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_LESS_EQUAL, yystack_[0].value.as < int > ());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 872 "argcheck.parser.cpp"
+#line 871 "argcheck.parser.cpp"
     break;
 
   case 18:
-#line 192 "argcheck.yy"
+#line 196 "argcheck.yy"
                                         {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_RANGE, yystack_[2].value.as < int > (), yystack_[0].value.as < int > ());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 882 "argcheck.parser.cpp"
+#line 881 "argcheck.parser.cpp"
     break;
 
   case 19:
-#line 197 "argcheck.yy"
+#line 201 "argcheck.yy"
                                       {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_MOD, yystack_[2].value.as < int > (), yystack_[0].value.as < int > ());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 892 "argcheck.parser.cpp"
+#line 891 "argcheck.parser.cpp"
     break;
 
   case 20:
-#line 202 "argcheck.yy"
+#line 206 "argcheck.yy"
                         {
         auto p = new ArgIsInt;
         p->setCheck(ArgIsInt::INT_POWER_OF_TWO, 0, 0);
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 902 "argcheck.parser.cpp"
+#line 901 "argcheck.parser.cpp"
     break;
 
   case 21:
-#line 210 "argcheck.yy"
+#line 214 "argcheck.yy"
              {
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(new ArgIsFloat);
+        yylhs.value.as < ArgCheckPtr > ().reset(new ArgIsFloat);
         }
-#line 910 "argcheck.parser.cpp"
+#line 909 "argcheck.parser.cpp"
     break;
 
   case 22:
-#line 213 "argcheck.yy"
+#line 217 "argcheck.yy"
                        {
         auto p = new ArgIsFloat;
         p->setCheck(ArgIsFloat::FLOAT_EQUAL, yystack_[0].value.as < double > ());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 920 "argcheck.parser.cpp"
+#line 919 "argcheck.parser.cpp"
     break;
 
   case 23:
-#line 218 "argcheck.yy"
+#line 222 "argcheck.yy"
                        {
         auto p = new ArgIsFloat;
         p->setCheck(ArgIsFloat::FLOAT_NOT_EQUAL, yystack_[0].value.as < double > ());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 930 "argcheck.parser.cpp"
+#line 929 "argcheck.parser.cpp"
     break;
 
   case 24:
-#line 223 "argcheck.yy"
+#line 227 "argcheck.yy"
                        {
         auto p = new ArgIsFloat;
         p->setCheck(ArgIsFloat::FLOAT_GREATER_EQUAL, yystack_[0].value.as < double > ());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 940 "argcheck.parser.cpp"
+#line 939 "argcheck.parser.cpp"
     break;
 
   case 25:
-#line 228 "argcheck.yy"
+#line 232 "argcheck.yy"
                        {
         auto p = new ArgIsFloat;
         p->setCheck(ArgIsFloat::FLOAT_GREATER, yystack_[0].value.as < double > ());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 950 "argcheck.parser.cpp"
+#line 949 "argcheck.parser.cpp"
     break;
 
   case 26:
-#line 233 "argcheck.yy"
+#line 237 "argcheck.yy"
                        {
         auto p = new ArgIsFloat;
         p->setCheck(ArgIsFloat::FLOAT_LESS_EQUAL, yystack_[0].value.as < double > ());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 960 "argcheck.parser.cpp"
+#line 959 "argcheck.parser.cpp"
     break;
 
   case 27:
-#line 238 "argcheck.yy"
+#line 242 "argcheck.yy"
                        {
         auto p = new ArgIsFloat;
         p->setCheck(ArgIsFloat::FLOAT_LESS, yystack_[0].value.as < double > ());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 970 "argcheck.parser.cpp"
+#line 969 "argcheck.parser.cpp"
     break;
 
   case 28:
-#line 246 "argcheck.yy"
+#line 250 "argcheck.yy"
               {
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(new ArgIsSymbol);
+        yylhs.value.as < ArgCheckPtr > ().reset(new ArgIsSymbol);
         }
-#line 978 "argcheck.parser.cpp"
+#line 977 "argcheck.parser.cpp"
     break;
 
   case 29:
-#line 249 "argcheck.yy"
+#line 253 "argcheck.yy"
                         {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_EQUAL, yystack_[0].value.as < std::string > ().c_str());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 988 "argcheck.parser.cpp"
+#line 987 "argcheck.parser.cpp"
     break;
 
   case 30:
-#line 254 "argcheck.yy"
+#line 258 "argcheck.yy"
                         {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_NOT_EQUAL, yystack_[0].value.as < std::string > ().c_str());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 998 "argcheck.parser.cpp"
+#line 997 "argcheck.parser.cpp"
     break;
 
   case 31:
-#line 259 "argcheck.yy"
+#line 263 "argcheck.yy"
                   {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_BEGINS_WITH, yystack_[0].value.as < std::string > ().c_str());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 1008 "argcheck.parser.cpp"
+#line 1007 "argcheck.parser.cpp"
     break;
 
   case 32:
-#line 264 "argcheck.yy"
+#line 268 "argcheck.yy"
                    {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_CONTAINS, yystack_[0].value.as < std::string > ().c_str());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
     }
-#line 1018 "argcheck.parser.cpp"
+#line 1017 "argcheck.parser.cpp"
     break;
 
   case 33:
-#line 269 "argcheck.yy"
+#line 273 "argcheck.yy"
                     {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_ENDS_WITH, yystack_[1].value.as < std::string > ().c_str());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 1028 "argcheck.parser.cpp"
+#line 1027 "argcheck.parser.cpp"
     break;
 
   case 34:
-#line 274 "argcheck.yy"
+#line 278 "argcheck.yy"
              {
         auto p = new ArgIsSymbol;
         p->setCheck(ArgIsSymbol::SYM_MATCH, yystack_[0].value.as < std::string > ().c_str());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 1038 "argcheck.parser.cpp"
+#line 1037 "argcheck.parser.cpp"
     break;
 
   case 35:
-#line 282 "argcheck.yy"
+#line 286 "argcheck.yy"
             {
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(new ArgIsData);
+        yylhs.value.as < ArgCheckPtr > ().reset(new ArgIsData);
         }
-#line 1046 "argcheck.parser.cpp"
+#line 1045 "argcheck.parser.cpp"
     break;
 
   case 36:
-#line 285 "argcheck.yy"
+#line 289 "argcheck.yy"
                       {
         auto p = new ArgIsData;
         p->setType(yystack_[0].value.as < std::string > ().c_str());
-        yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(p);
+        yylhs.value.as < ArgCheckPtr > ().reset(p);
         }
-#line 1056 "argcheck.parser.cpp"
+#line 1055 "argcheck.parser.cpp"
     break;
 
   case 37:
-#line 293 "argcheck.yy"
-                  { yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(new ArgIsAtom); }
-#line 1062 "argcheck.parser.cpp"
+#line 297 "argcheck.yy"
+                  { yylhs.value.as < ArgCheckPtr > ().reset(new ArgIsAtom); }
+#line 1061 "argcheck.parser.cpp"
     break;
 
   case 38:
-#line 294 "argcheck.yy"
-      { yylhs.value.as < std::shared_ptr<ArgCheckerNode> > () = yystack_[0].value.as < std::shared_ptr<ArgCheckerNode> > (); }
-#line 1068 "argcheck.parser.cpp"
+#line 298 "argcheck.yy"
+      { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
+#line 1067 "argcheck.parser.cpp"
     break;
 
   case 39:
-#line 295 "argcheck.yy"
-      { yylhs.value.as < std::shared_ptr<ArgCheckerNode> > () = yystack_[0].value.as < std::shared_ptr<ArgCheckerNode> > (); }
-#line 1074 "argcheck.parser.cpp"
+#line 299 "argcheck.yy"
+      { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
+#line 1073 "argcheck.parser.cpp"
     break;
 
   case 40:
-#line 296 "argcheck.yy"
-      { yylhs.value.as < std::shared_ptr<ArgCheckerNode> > () = yystack_[0].value.as < std::shared_ptr<ArgCheckerNode> > (); }
-#line 1080 "argcheck.parser.cpp"
+#line 300 "argcheck.yy"
+      { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
+#line 1079 "argcheck.parser.cpp"
     break;
 
   case 41:
-#line 297 "argcheck.yy"
-      { yylhs.value.as < std::shared_ptr<ArgCheckerNode> > () = yystack_[0].value.as < std::shared_ptr<ArgCheckerNode> > (); }
-#line 1086 "argcheck.parser.cpp"
+#line 301 "argcheck.yy"
+      { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
+#line 1085 "argcheck.parser.cpp"
     break;
 
   case 42:
-#line 298 "argcheck.yy"
-      { yylhs.value.as < std::shared_ptr<ArgCheckerNode> > () = yystack_[0].value.as < std::shared_ptr<ArgCheckerNode> > (); }
-#line 1092 "argcheck.parser.cpp"
+#line 302 "argcheck.yy"
+      { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
+#line 1091 "argcheck.parser.cpp"
     break;
 
   case 43:
-#line 302 "argcheck.yy"
-      { yylhs.value.as < std::shared_ptr<ArgCheckerNode> > () = yystack_[0].value.as < std::shared_ptr<ArgCheckerNode> > (); }
-#line 1098 "argcheck.parser.cpp"
+#line 306 "argcheck.yy"
+      { yylhs.value.as < ArgCheckPtr > () = yystack_[0].value.as < ArgCheckPtr > (); }
+#line 1097 "argcheck.parser.cpp"
     break;
 
   case 44:
-#line 303 "argcheck.yy"
-                         { yylhs.value.as < std::shared_ptr<ArgCheckerNode> > () = yystack_[1].value.as < std::shared_ptr<ArgCheckerNode> > (); set_repeats(yylhs.value.as < std::shared_ptr<ArgCheckerNode> > (), yystack_[0].value.as < std::vector<int> > ()); }
-#line 1104 "argcheck.parser.cpp"
+#line 307 "argcheck.yy"
+                         { yylhs.value.as < ArgCheckPtr > () = yystack_[1].value.as < ArgCheckPtr > (); set_repeats(yylhs.value.as < ArgCheckPtr > (), yystack_[0].value.as < std::vector<int> > ()); }
+#line 1103 "argcheck.parser.cpp"
     break;
 
   case 45:
-#line 310 "argcheck.yy"
+#line 314 "argcheck.yy"
                                  {
-        yylhs.value.as < std::vector<std::shared_ptr<ArgCheckerNode>> > ().assign({yystack_[2].value.as < std::shared_ptr<ArgCheckerNode> > (), yystack_[0].value.as < std::shared_ptr<ArgCheckerNode> > ()});
+        yylhs.value.as < ArgCheckPtrList > ().assign({yystack_[2].value.as < ArgCheckPtr > (), yystack_[0].value.as < ArgCheckPtr > ()});
         }
-#line 1112 "argcheck.parser.cpp"
+#line 1111 "argcheck.parser.cpp"
     break;
 
   case 46:
-#line 313 "argcheck.yy"
+#line 317 "argcheck.yy"
                                  {
-        yylhs.value.as < std::vector<std::shared_ptr<ArgCheckerNode>> > ().push_back(yystack_[2].value.as < std::shared_ptr<ArgCheckerNode> > ());
-        yylhs.value.as < std::vector<std::shared_ptr<ArgCheckerNode>> > ().insert(std::end(yylhs.value.as < std::vector<std::shared_ptr<ArgCheckerNode>> > ()), std::begin(yystack_[0].value.as < std::vector<std::shared_ptr<ArgCheckerNode>> > ()), std::end(yystack_[0].value.as < std::vector<std::shared_ptr<ArgCheckerNode>> > ()));
+        yylhs.value.as < ArgCheckPtrList > ().push_back(yystack_[2].value.as < ArgCheckPtr > ());
+        yylhs.value.as < ArgCheckPtrList > ().insert(std::end(yylhs.value.as < ArgCheckPtrList > ()), std::begin(yystack_[0].value.as < ArgCheckPtrList > ()), std::end(yystack_[0].value.as < ArgCheckPtrList > ()));
         }
-#line 1121 "argcheck.parser.cpp"
+#line 1120 "argcheck.parser.cpp"
     break;
 
   case 47:
-#line 324 "argcheck.yy"
+#line 328 "argcheck.yy"
         {
-            yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(new ArgGroupOr);
-            for(auto& p: yystack_[0].value.as < std::vector<std::shared_ptr<ArgCheckerNode>> > ()) {
-                yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ()->insertChild(p);
+            yylhs.value.as < ArgCheckPtr > ().reset(new ArgGroupOr);
+            for(auto& p: yystack_[0].value.as < ArgCheckPtrList > ()) {
+                yylhs.value.as < ArgCheckPtr > ()->insertChild(p);
             }
         }
-#line 1132 "argcheck.parser.cpp"
+#line 1131 "argcheck.parser.cpp"
     break;
 
   case 48:
-#line 331 "argcheck.yy"
+#line 335 "argcheck.yy"
         {
-            yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(new ArgGroupOr);
-            for(auto& p: yystack_[1].value.as < std::vector<std::shared_ptr<ArgCheckerNode>> > ()) {
-                yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ()->insertChild(p);
+            yylhs.value.as < ArgCheckPtr > ().reset(new ArgGroupOr);
+            for(auto& p: yystack_[1].value.as < ArgCheckPtrList > ()) {
+                yylhs.value.as < ArgCheckPtr > ()->insertChild(p);
             }
         }
-#line 1143 "argcheck.parser.cpp"
+#line 1142 "argcheck.parser.cpp"
     break;
 
   case 49:
-#line 338 "argcheck.yy"
+#line 342 "argcheck.yy"
         {
-            yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ().reset(new ArgGroupOr);
-            for(auto& p: yystack_[2].value.as < std::vector<std::shared_ptr<ArgCheckerNode>> > ()) {
-                yylhs.value.as < std::shared_ptr<ArgCheckerNode> > ()->insertChild(p);
+            yylhs.value.as < ArgCheckPtr > ().reset(new ArgGroupOr);
+            for(auto& p: yystack_[2].value.as < ArgCheckPtrList > ()) {
+                yylhs.value.as < ArgCheckPtr > ()->insertChild(p);
             }
-            set_repeats(yylhs.value.as < std::shared_ptr<ArgCheckerNode> > (), yystack_[0].value.as < std::vector<int> > ());
+            set_repeats(yylhs.value.as < ArgCheckPtr > (), yystack_[0].value.as < std::vector<int> > ());
         }
-#line 1155 "argcheck.parser.cpp"
+#line 1154 "argcheck.parser.cpp"
     break;
 
   case 50:
-#line 348 "argcheck.yy"
+#line 352 "argcheck.yy"
            {
-        yylhs.value.as < std::vector<std::shared_ptr<ArgCheckerNode>> > ().push_back(yystack_[0].value.as < std::shared_ptr<ArgCheckerNode> > ());
+        yylhs.value.as < ArgCheckPtrList > ().push_back(yystack_[0].value.as < ArgCheckPtr > ());
         }
-#line 1163 "argcheck.parser.cpp"
+#line 1162 "argcheck.parser.cpp"
     break;
 
   case 51:
-#line 351 "argcheck.yy"
+#line 355 "argcheck.yy"
                           {
-        yylhs.value.as < std::vector<std::shared_ptr<ArgCheckerNode>> > ().push_back(yystack_[2].value.as < std::shared_ptr<ArgCheckerNode> > ());
-        yylhs.value.as < std::vector<std::shared_ptr<ArgCheckerNode>> > ().insert(std::end(yylhs.value.as < std::vector<std::shared_ptr<ArgCheckerNode>> > ()), std::begin(yystack_[0].value.as < std::vector<std::shared_ptr<ArgCheckerNode>> > ()), std::end(yystack_[0].value.as < std::vector<std::shared_ptr<ArgCheckerNode>> > ()));
+        yylhs.value.as < ArgCheckPtrList > ().push_back(yystack_[2].value.as < ArgCheckPtr > ());
+        yylhs.value.as < ArgCheckPtrList > ().insert(std::end(yylhs.value.as < ArgCheckPtrList > ()), std::begin(yystack_[0].value.as < ArgCheckPtrList > ()), std::end(yystack_[0].value.as < ArgCheckPtrList > ()));
         }
-#line 1172 "argcheck.parser.cpp"
+#line 1171 "argcheck.parser.cpp"
     break;
 
   case 52:
-#line 358 "argcheck.yy"
+#line 362 "argcheck.yy"
                {
-        for(auto& p: yystack_[0].value.as < std::vector<std::shared_ptr<ArgCheckerNode>> > ())
+        for(auto& p: yystack_[0].value.as < ArgCheckPtrList > ())
             n.insertChild(p);
         }
-#line 1181 "argcheck.parser.cpp"
+#line 1180 "argcheck.parser.cpp"
     break;
 
   case 53:
-#line 362 "argcheck.yy"
+#line 366 "argcheck.yy"
                {
-        n.insertChild(yystack_[0].value.as < std::shared_ptr<ArgCheckerNode> > ());
+        n.insertChild(yystack_[0].value.as < ArgCheckPtr > ());
         }
-#line 1189 "argcheck.parser.cpp"
+#line 1188 "argcheck.parser.cpp"
     break;
 
   case 56:
-#line 373 "argcheck.yy"
+#line 377 "argcheck.yy"
              { }
-#line 1195 "argcheck.parser.cpp"
+#line 1194 "argcheck.parser.cpp"
     break;
 
 
-#line 1199 "argcheck.parser.cpp"
+#line 1198 "argcheck.parser.cpp"
 
             default:
               break;
@@ -1596,12 +1595,12 @@ namespace ceammc {
   const short
   ArgCheckParser::yyrline_[] =
   {
-       0,   126,   126,   127,   131,   134,   137,   141,   145,   148,
-     155,   159,   162,   167,   172,   177,   182,   187,   192,   197,
-     202,   210,   213,   218,   223,   228,   233,   238,   246,   249,
-     254,   259,   264,   269,   274,   282,   285,   293,   294,   295,
-     296,   297,   298,   302,   303,   310,   313,   323,   330,   337,
-     348,   351,   358,   362,   368,   369,   373,   374
+       0,   130,   130,   131,   135,   138,   141,   145,   149,   152,
+     159,   163,   166,   171,   176,   181,   186,   191,   196,   201,
+     206,   214,   217,   222,   227,   232,   237,   242,   250,   253,
+     258,   263,   268,   273,   278,   286,   289,   297,   298,   299,
+     300,   301,   302,   306,   307,   314,   317,   327,   334,   341,
+     352,   355,   362,   366,   372,   373,   377,   378
   };
 
   // Print the state stack on the debug stream.
@@ -1636,9 +1635,9 @@ namespace ceammc {
 
 #line 7 "argcheck.yy"
 } // ceammc
-#line 1640 "argcheck.parser.cpp"
+#line 1639 "argcheck.parser.cpp"
 
-#line 376 "argcheck.yy"
+#line 380 "argcheck.yy"
 
 
 void ceammc::ArgCheckParser::error(const std::string& err_message)

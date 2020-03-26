@@ -1,5 +1,6 @@
 %top {
     # include <string>
+    # include <memory>
 
     # include "argcheck.parser.hpp"
     using token = ceammc::ArgCheckParser::token;
