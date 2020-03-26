@@ -59,7 +59,7 @@ void Replace::onList(const AtomList& l)
     }
 }
 
-void Replace::onFloat(float v)
+void Replace::onFloat(t_float v)
 {
     if (validateArgs() && Atom(v) == from_) {
         if (!to_.isNone())

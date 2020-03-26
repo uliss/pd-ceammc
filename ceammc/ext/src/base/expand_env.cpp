@@ -39,7 +39,7 @@ void ExpandEnv::onBang()
     bangTo(0);
 }
 
-void ExpandEnv::onFloat(float v)
+void ExpandEnv::onFloat(t_float v)
 {
     floatTo(0, v);
 }

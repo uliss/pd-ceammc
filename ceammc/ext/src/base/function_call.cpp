@@ -34,7 +34,7 @@ void FunctionCall::onBang()
     outputResult(fn);
 }
 
-void FunctionCall::onFloat(float f)
+void FunctionCall::onFloat(t_float f)
 {
     Function* fn = getFunc();
     if (!fn)

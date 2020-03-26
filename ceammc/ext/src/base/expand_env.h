@@ -24,11 +24,11 @@ class ExpandEnv : public BaseObject {
 
 public:
     ExpandEnv(const PdArgs& a);
-    void onBang();
-    void onFloat(float v);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& l);
-    void onAny(t_symbol* sel, const AtomList& l);
+    void onBang() final;
+    void onFloat(t_float v) final;
+    void onSymbol(t_symbol* s) final;
+    void onList(const AtomList& l) final;
+    void onAny(t_symbol* sel, const AtomList& l) final;
 };
 
 #endif // EXPAND_ENV_H

@@ -22,7 +22,7 @@ void Msg::onBang()
     output();
 }
 
-void Msg::onFloat(float v)
+void Msg::onFloat(t_float v)
 {
     data_ = prefix_;
     data_.append(v);
