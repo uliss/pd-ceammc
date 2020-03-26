@@ -58,44 +58,4 @@ bool ArgChecker::parse(const std::string& format)
     return true;
 }
 
-AtomCheckerAndGroup::AtomCheckerAndGroup()
-{
-    setRepeats(1);
-}
-
-CheckResult AtomCheckerAndGroup::check(const AtomListView& v, CheckerContext& ctx) const
-{
-    return checkSingle(v, ctx);
-}
-
-CheckResult AtomCheckerAndGroup::checkSingle(const AtomListView& v, CheckerContext& ctx) const
-{
-    size_t offset = 0;
-    for (size_t i = 0; i < nodes_.size(); i++) {
-        auto& n = nodes_[i];
-        if (offset + n->minRepeats() > v.size()) {
-            if (nodes_.size() > 1)
-                ctx.error = fmt::format("unmatched rule {} at {}, from `{}`", n->fullName(), i, fullName());
-            else
-                ctx.error = fmt::format("unmatched rule {}", fullName());
-
-            return { false, 0 };
-        }
-
-        //        std::cout << "checking " << v.subView(offset) << "\n";
-        auto res = n->check(v.subView(offset), ctx);
-        if (!res.ok)
-            return res;
-        else
-            offset += res.matched;
-    }
-
-    return { true, offset };
-}
-
-bool AtomCheckerAndGroup::insertChild(const ArgCheckerNodePtr& node)
-{
-    return ArgGroup::insertChild(node);
-}
-
 }

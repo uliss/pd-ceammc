@@ -36,6 +36,7 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     args/arg_checker_node.cpp
     args/arg_checker_single.cpp
     args/arg_group.cpp
+    args/arg_group_and.cpp
     args/arg_group_or.cpp
     args/arg_is_atom.cpp
     args/arg_is_bool.cpp

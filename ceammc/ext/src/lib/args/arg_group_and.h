@@ -11,24 +11,22 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef CEAMMC_ARGS_H
-#define CEAMMC_ARGS_H
+#ifndef ARG_GROUP_AND_H
+#define ARG_GROUP_AND_H
 
-#include "args/arg_group_and.h"
+#include "arg_group.h"
 
 namespace ceammc {
 
-class ArgChecker {
-    std::string format_;
-    ArgGroupAnd checker_;
-
+class ArgGroupAnd : public ArgGroup {
 public:
-    ArgChecker(const std::string& format);
-    bool check(const AtomListView& v) const;
+    ArgGroupAnd();
 
-private:
-    bool parse(const std::string& format);
+    std::string name() const final;
+    CheckResult check(const AtomListView& v, CheckerContext& ctx) const final;
+    CheckResult checkSingle(const AtomListView& v, CheckerContext& ctx) const final;
 };
+
 }
 
-#endif // CEAMMC_ARGS_H
+#endif // ARG_GROUP_AND_H

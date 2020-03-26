@@ -11,6 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "args/arg_group_and.h"
 #include "args/arg_group_or.h"
 #include "args/arg_is_bool.h"
 #include "args/arg_is_float.h"
@@ -226,7 +227,7 @@ TEST_CASE("args", "[core]")
     {
         CheckerContext ctx;
 
-        AtomCheckerAndGroup g;
+        ArgGroupAnd g;
         MATCH(g, L(), 0);
         MATCH(g, LF(1), 0);
 
