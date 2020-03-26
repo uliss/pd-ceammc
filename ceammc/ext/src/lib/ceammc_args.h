@@ -16,18 +16,24 @@
 
 #include "args/arg_group_and.h"
 
+#include <iostream>
+
 namespace ceammc {
 
 class ArgChecker {
     std::string format_;
     ArgGroupAnd checker_;
+    std::ostream* os_;
 
 public:
     ArgChecker(const std::string& format);
     bool check(const AtomListView& v) const;
 
+    void setOut(std::ostream& os) { os_ = &os; }
+
 private:
     bool parse(const std::string& format);
+    std::ostream& out() const { return *os_; }
 };
 }
 

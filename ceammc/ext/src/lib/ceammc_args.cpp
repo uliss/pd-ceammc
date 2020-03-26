@@ -22,6 +22,7 @@ namespace ceammc {
 
 ArgChecker::ArgChecker(const std::string& format)
     : format_(format)
+    , os_(&std::cerr)
 {
     parse(format_);
 }
@@ -31,12 +32,12 @@ bool ArgChecker::check(const AtomListView& v) const
     CheckerContext ctx;
     auto rc = checker_.check(v, ctx);
     if (!rc.ok) {
-        std::cerr << fmt::format(
+        out() << fmt::format(
             "pattern {} check failed on [{}]:\n\t{}\n\n",
             format_, to_string(v), ctx.error);
         return false;
     } else if (rc.matched < v.size()) {
-        std::cerr << fmt::format(
+        out() << fmt::format(
             "pattern {} check failed on [{}]:\n"
             "\tnot matched atoms left: [{}]\n\n",
             format_, to_string(v), to_string(v.subView(rc.matched)));
@@ -51,7 +52,7 @@ bool ArgChecker::parse(const std::string& format)
     ArgCheckParser parser(lexer, checker_);
 
     if (parser.parse() != 0) {
-        std::cerr << "parse error: " << format << "\n";
+        out() << "parse error: " << format << "\n";
         return false;
     }
 
