@@ -47,6 +47,7 @@
 #line 13 "argcheck.yy"
 
     # include <memory>
+    # include <vector>
 
     namespace ceammc {
         class ArgCheckLexer;
@@ -68,7 +69,7 @@
 #   define YY_NULLPTR nullptr
 # endif
 
-#line 72 "argcheck.parser.hpp"
+#line 73 "argcheck.parser.hpp"
 
 
 # include <cstdlib> // std::abort
@@ -203,7 +204,7 @@
 
 #line 7 "argcheck.yy"
 namespace ceammc {
-#line 207 "argcheck.parser.hpp"
+#line 208 "argcheck.parser.hpp"
 
 
 
@@ -1862,7 +1863,7 @@ switch (yytype)
 
 #line 7 "argcheck.yy"
 } // ceammc
-#line 1866 "argcheck.parser.hpp"
+#line 1867 "argcheck.parser.hpp"
 
 
 

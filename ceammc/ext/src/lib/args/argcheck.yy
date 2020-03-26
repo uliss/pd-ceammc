@@ -12,6 +12,7 @@
 
 %code requires{
     # include <memory>
+    # include <vector>
 
     namespace ceammc {
         class ArgCheckLexer;
