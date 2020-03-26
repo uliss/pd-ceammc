@@ -17,7 +17,7 @@ Lin2Lin::Lin2Lin(const PdArgs& a)
     createOutlet();
 }
 
-void Lin2Lin::onFloat(float value)
+void Lin2Lin::onFloat(t_float value)
 {
     if (doClip(value, clipType()))
         return floatTo(0, value);

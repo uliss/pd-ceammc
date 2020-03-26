@@ -17,7 +17,7 @@ Lin2Exp::Lin2Exp(const PdArgs& a)
     createOutlet();
 }
 
-void Lin2Exp::onFloat(float value)
+void Lin2Exp::onFloat(t_float value)
 {
     const t_float x0 = in_from();
     const t_float x1 = in_to();

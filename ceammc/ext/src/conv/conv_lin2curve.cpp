@@ -28,7 +28,7 @@ Lin2Curve::Lin2Curve(const PdArgs& a)
     addProperty(curve_);
 }
 
-void Lin2Curve::onFloat(float value)
+void Lin2Curve::onFloat(t_float value)
 {
     const t_float x0 = in_from();
     const t_float x1 = in_to();
