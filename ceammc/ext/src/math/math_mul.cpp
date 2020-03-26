@@ -20,7 +20,7 @@ MathMul::MathMul(const PdArgs& args)
 {
     mul_ = new FloatProperty("@mul", 1);
     mul_->setArgIndex(0);
-    createProperty(mul_);
+    addProperty(mul_);
 
     createInlet();
     createOutlet();

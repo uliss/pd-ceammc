@@ -9,8 +9,8 @@ Replace::Replace(const PdArgs& a)
     createInlet();
     createOutlet();
 
-    createProperty(new PointerProperty<Atom>("@from", &from_, PropValueAccess::READWRITE));
-    createProperty(new PointerProperty<Atom>("@to", &to_, PropValueAccess::READWRITE));
+    addProperty(new PointerProperty<Atom>("@from", &from_, PropValueAccess::READWRITE));
+    addProperty(new PointerProperty<Atom>("@to", &to_, PropValueAccess::READWRITE));
 
     property("@from")->setArgIndex(0);
     property("@to")->setArgIndex(1);

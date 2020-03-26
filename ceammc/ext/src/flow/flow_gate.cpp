@@ -6,7 +6,7 @@ FlowGate::FlowGate(const PdArgs& args)
 {
     state_ = new BoolProperty("@state", false);
     state_->setArgIndex(0);
-    createProperty(state_);
+    addProperty(state_);
 
     createInlet();
     createOutlet();

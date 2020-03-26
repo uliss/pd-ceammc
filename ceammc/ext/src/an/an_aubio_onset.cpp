@@ -54,9 +54,9 @@ AubioOnset::AubioOnset(const PdArgs& args)
     method_->setArgIndex(2);
 
     // order is important
-    createProperty(buffer_size_);
-    createProperty(hop_size_);
-    createProperty(method_);
+    addProperty(buffer_size_);
+    addProperty(hop_size_);
+    addProperty(method_);
 
     threshold_ = new OnsetFloatProperty(
         "@threshold",

@@ -292,7 +292,7 @@ namespace faust {
 
             const size_t n_ui = ui_->uiCount();
             for (size_t i = 0; i < n_ui; i++)
-                createProperty(new UIProperty(ui_->uiAt(i)));
+                addProperty(new UIProperty(ui_->uiAt(i)));
         }
 
         void setupDSP(t_signal** sp) override

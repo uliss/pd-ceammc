@@ -23,7 +23,7 @@ HoaXlet::HoaXlet(const PdArgs& args)
     extra_ = new IntProperty("@index", 1);
     extra_->setArgIndex(0);
     extra_->checkMinEq(1);
-    createProperty(extra_);
+    addProperty(extra_);
 }
 
 HoaIn::HoaIn(const PdArgs& args)
@@ -139,7 +139,7 @@ HoaXletTilde::HoaXletTilde(const PdArgs& args)
     extra_ = new IntProperty("@extra", 0);
     extra_->setArgIndex(0);
     extra_->checkMinEq(0);
-    createProperty(extra_);
+    addProperty(extra_);
 }
 
 void HoaXletTilde::setSignal(t_sample* sig)

@@ -25,7 +25,7 @@ MathBoolOp::MathBoolOp(const PdArgs& a)
     vars_.assign(arg_num_, false);
 
     sync_ = new FlagProperty("@sync");
-    createProperty(sync_);
+    addProperty(sync_);
     createCbProperty("@state", &MathBoolOp::p_state);
 
     for (size_t i = 1; i < arg_num_; i++)

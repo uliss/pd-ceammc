@@ -18,8 +18,8 @@ RandomFloat::RandomFloat(const PdArgs& a)
     min_ = new FloatProperty("@min", 0);
     max_ = new FloatProperty("@max", 1);
 
-    createProperty(min_);
-    createProperty(max_);
+    addProperty(min_);
+    addProperty(max_);
 
     switch (positionalArguments().size()) {
     case 2:

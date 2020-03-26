@@ -28,13 +28,13 @@ MetroRandom::MetroRandom(const PdArgs& args)
     min_->setArgIndex(0);
     min_->checkMin(1);
     min_->setUnitsMs();
-    createProperty(min_);
+    addProperty(min_);
 
     max_ = new IntProperty("@max", 200);
     max_->setArgIndex(1);
     max_->checkMin(1);
     max_->setUnitsMs();
-    createProperty(max_);
+    addProperty(max_);
 
     createInlet();
     createOutlet();

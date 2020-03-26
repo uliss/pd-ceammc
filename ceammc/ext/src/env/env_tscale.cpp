@@ -8,7 +8,7 @@ EnvTimeScale::EnvTimeScale(const PdArgs& a)
     scale_ = new FloatProperty("@scale", 1);
     scale_->setArgIndex(0);
     scale_->checkPositive();
-    createProperty(scale_);
+    addProperty(scale_);
 
     createOutlet();
 }

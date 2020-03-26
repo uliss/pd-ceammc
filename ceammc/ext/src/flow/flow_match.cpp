@@ -21,7 +21,7 @@ FlowMatch::FlowMatch(const PdArgs& args)
     , cut_(nullptr)
 {
     cut_ = new BoolProperty("@cut", false);
-    createProperty(cut_);
+    addProperty(cut_);
 
     auto N = positionalArguments().size();
     for (size_t i = 0; i < N; i++) {

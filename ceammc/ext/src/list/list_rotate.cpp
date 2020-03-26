@@ -13,7 +13,7 @@ ListRotate::ListRotate(const PdArgs& a)
 
     step_ = new IntProperty("@step", 1);
     step_->setArgIndex(0);
-    createProperty(step_);
+    addProperty(step_);
 }
 
 void ListRotate::onList(const AtomList& l)

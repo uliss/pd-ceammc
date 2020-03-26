@@ -249,7 +249,7 @@ ThreadPollClockExternal::ThreadPollClockExternal(const PdArgs& args, thread::Tas
     poll_time_ = new IntProperty("@poll_time", 5);
     poll_time_->checkMin(2);
     poll_time_->setUnitsMs();
-    createProperty(poll_time_);
+    addProperty(poll_time_);
 }
 
 ThreadPollClockExternal::~ThreadPollClockExternal()

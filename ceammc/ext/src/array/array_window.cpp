@@ -56,7 +56,7 @@ ArrayWindow::ArrayWindow(const PdArgs& args)
             type_->appendEnum(p.first);
     }
 
-    createProperty(type_);
+    addProperty(type_);
 }
 
 void ArrayWindow::onBang()

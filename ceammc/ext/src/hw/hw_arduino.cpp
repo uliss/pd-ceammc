@@ -38,26 +38,26 @@ ArduinoExternal::ArduinoExternal(const PdArgs& args)
     port_ = new SymbolProperty("@port", &s_);
     port_->setArgIndex(0);
     port_->setInitOnly();
-    createProperty(port_);
+    addProperty(port_);
 
     on_connect_ = new SymbolProperty("@on_connect", &s_);
-    createProperty(on_connect_);
+    addProperty(on_connect_);
 
     baud_rate_ = new IntEnumProperty("@rate", { 57600, 110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 56000, 115200, 128000, 256000 });
     baud_rate_->setArgIndex(1);
     addProperty(baud_rate_);
 
     serial_ = new SymbolProperty("@serial", &s_);
-    createProperty(serial_);
+    addProperty(serial_);
 
     vid_ = new IntProperty("@vendor_id", 0);
-    createProperty(vid_);
+    addProperty(vid_);
 
     pid_ = new IntProperty("@product_id", 0);
-    createProperty(pid_);
+    addProperty(pid_);
 
     reconnect_ = new FlagProperty("@reconnect");
-    createProperty(reconnect_);
+    addProperty(reconnect_);
 
     createCbListProperty("@devices", [this]() -> AtomList {
         AtomList res;

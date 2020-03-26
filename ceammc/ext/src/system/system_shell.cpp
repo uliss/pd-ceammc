@@ -134,7 +134,7 @@ SystemShell::SystemShell(const PdArgs& args)
     createOutlet();
 
     no_split_ = new FlagProperty("@nosplit");
-    createProperty(no_split_);
+    addProperty(no_split_);
 }
 
 SystemShell::~SystemShell()

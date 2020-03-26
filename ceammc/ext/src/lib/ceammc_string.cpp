@@ -14,6 +14,7 @@
 #include "ceammc_string.h"
 #include "utf8rewind/utf8rewind.h"
 
+#include <boost/algorithm/string.hpp>
 #include <boost/scoped_array.hpp>
 #include <cstdlib>
 #include <iostream>
@@ -121,4 +122,9 @@ void ceammc::string::utf8_split_by_char(std::vector<std::string>& vec, const cha
         vec.push_back(std::string(c0, c1 - c0));
         c0 = c1;
     }
+}
+
+bool ceammc::string::ends_with(const char* str, const char* suffix)
+{
+    return boost::ends_with(str, suffix);
 }

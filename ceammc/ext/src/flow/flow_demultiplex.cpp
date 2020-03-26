@@ -11,10 +11,10 @@ FlowDemultiplex::FlowDemultiplex(const PdArgs& a)
     , no_props_(nullptr)
 {
     index_ = new SizeTProperty("@index", 0);
-    createProperty(index_);
+    addProperty(index_);
 
     no_props_ = new FlagProperty("@noprops");
-    createProperty(no_props_);
+    addProperty(no_props_);
 
     createInlet();
 

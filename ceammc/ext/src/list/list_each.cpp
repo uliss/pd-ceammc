@@ -11,7 +11,7 @@ ListEach::ListEach(const PdArgs& a)
 
     step_prop_ = new IntProperty("@step", 1);
     step_prop_->checkClosedRange(1, 1024);
-    createProperty(step_prop_);
+    addProperty(step_prop_);
 
     // if we have positional step argument without @step
     const AtomList& args = positionalArguments();

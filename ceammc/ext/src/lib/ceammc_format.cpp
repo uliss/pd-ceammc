@@ -14,6 +14,7 @@
 #include "ceammc_format.h"
 #include "ceammc_atom.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_atomlist_view.h"
 #include "ceammc_data.h"
 #include "ceammc_dataatom.h"
 #include "ceammc_message.h"
@@ -72,31 +73,46 @@ std::string to_hex_string(const Atom& a, const std::string& defaultValue)
     return fmt::format("{:X}", static_cast<long>(a.asFloat()));
 }
 
-std::string to_string(const AtomList& a, const std::string& separator)
+std::string to_string(const AtomListView v, const std::string& separator)
 {
-    if (a.empty())
+    if (v.empty())
         return "";
 
     std::string res;
-    for (size_t i = 0; i < a.size(); i++) {
+    for (size_t i = 0; i < v.size(); i++) {
         if (i != 0)
             res += separator;
 
-        res += to_string(a[i]);
+        res += to_string(v[i]);
     }
     return res;
 }
 
-std::string to_string(const Message& msg, const std::string& separator)
+std::string to_string(const AtomList& l, const std::string& separator)
 {
-    if (msg.isFloat() || msg.isSymbol())
-        return to_string(msg.atomValue());
+    if (l.empty())
+        return "";
 
-    if (msg.isList())
-        return to_string(msg.listValue(), separator);
+    std::string res;
+    for (size_t i = 0; i < l.size(); i++) {
+        if (i != 0)
+            res += separator;
 
-    if (msg.isAny())
-        return to_string(msg.atomValue()) + separator + to_string(msg.listValue(), separator);
+        res += to_string(l[i]);
+    }
+    return res;
+}
+
+std::string to_string(const Message& m, const std::string& separator)
+{
+    if (m.isFloat() || m.isSymbol())
+        return to_string(m.atomValue());
+
+    if (m.isList())
+        return to_string(m.listValue(), separator);
+
+    if (m.isAny())
+        return to_string(m.atomValue()) + separator + to_string(m.listValue(), separator);
 
     return "";
 }

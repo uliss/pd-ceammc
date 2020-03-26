@@ -25,10 +25,10 @@ ListEnumerate::ListEnumerate(const PdArgs& a)
 
     from_ = new IntProperty("@from", 0);
     from_->setArgIndex(0);
-    createProperty(from_);
+    addProperty(from_);
 
     append_ = new FlagProperty("@append");
-    createProperty(append_);
+    addProperty(append_);
 }
 
 void ListEnumerate::onList(const AtomList& l)

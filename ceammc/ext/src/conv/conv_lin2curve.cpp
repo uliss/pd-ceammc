@@ -25,7 +25,7 @@ Lin2Curve::Lin2Curve(const PdArgs& a)
 
     curve_ = new FloatProperty("@curve", -4);
     curve_->setArgIndexNext(output_to_);
-    createProperty(curve_);
+    addProperty(curve_);
 }
 
 void Lin2Curve::onFloat(float value)

@@ -20,9 +20,9 @@ UIMouseFilter::UIMouseFilter(const PdArgs& args)
 {
     auto makeProp = [this](const char* sym, const char* alias) {
         BoolProperty* b = new BoolProperty(sym, false);
-        createProperty(b);
+        addProperty(b);
         mouse_events_.push_back(b);
-        createProperty(new AliasProperty<BoolProperty>(alias, b, true));
+        addProperty(new AliasProperty<BoolProperty>(alias, b, true));
     };
 
     makeProp("@mouse_up", "@up");

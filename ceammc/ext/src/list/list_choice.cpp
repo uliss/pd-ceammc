@@ -14,7 +14,7 @@ ListChoice::ListChoice(const PdArgs& a)
 {
     // do not repeat index value (not the values itself in list!)
     no_repeat_ = new BoolProperty("@norepeat", false);
-    createProperty(no_repeat_);
+    addProperty(no_repeat_);
 
     createOutlet();
 }

@@ -53,7 +53,7 @@ ArrayMod::ArrayMod(const PdArgs& a)
     , redraw_(nullptr)
 {
     redraw_ = new BoolProperty("@redraw", true);
-    createProperty(redraw_);
+    addProperty(redraw_);
 }
 
 bool ArrayMod::shouldRedraw() const

@@ -26,7 +26,7 @@ public:
         , prop_gate_((UIProperty*)property(gensym("@gate")))
     {
         bindPositionalArgsToProps({ gensym("@attack"), gensym("@sustain"), gensym("@release") });
-        createProperty(new CombinedProperty("@asr",
+        addProperty(new CombinedProperty("@asr",
             { property(gensym("@attack")), property(gensym("@sustain")), property(gensym("@release")) }));
 
         createOutlet();

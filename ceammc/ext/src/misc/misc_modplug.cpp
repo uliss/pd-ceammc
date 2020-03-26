@@ -33,7 +33,7 @@ ModPlug::ModPlug(const PdArgs& a)
     createSignalOutlet();
 
     play_prop_ = new PointerProperty<bool>("@play", &play_, PropValueAccess::READWRITE);
-    createProperty(play_prop_);
+    addProperty(play_prop_);
 
     createCbFloatProperty(
         "@pos",

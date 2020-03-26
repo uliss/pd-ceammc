@@ -100,7 +100,7 @@ ArrayVlinePlay::ArrayVlinePlay(const PdArgs& args)
         ->setUnits(PropValueUnits::SAMP);
 
     reversed_ = new BoolProperty("@reversed", false);
-    createProperty(reversed_);
+    addProperty(reversed_);
 }
 
 bool ArrayVlinePlay::processAnyProps(t_symbol* s, const AtomList& args)

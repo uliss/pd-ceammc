@@ -25,6 +25,7 @@ namespace string {
     std::string utf8_to_lower(const char* str);
     std::string utf8_substr(const char* str, int from, size_t len);
     void utf8_split_by_char(std::vector<std::string>& vec, const char* str);
+    bool ends_with(const char* str, const char* suffix);
 }
 }
 

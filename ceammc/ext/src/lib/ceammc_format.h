@@ -20,6 +20,7 @@ namespace ceammc {
 
 class Atom;
 class AtomList;
+class AtomListView;
 class Message;
 class DataPtr;
 
@@ -40,8 +41,9 @@ std::string to_json_string(const AtomList& l);
 std::string to_string_quoted(const std::string& str);
 std::string to_string_quoted(const Atom& a);
 
-std::string to_string(const AtomList& a, const std::string& separator = " ");
-std::string to_string(const Message& msg, const std::string& separator = " ");
+std::string to_string(const AtomListView v, const std::string& separator = " ");
+std::string to_string(const AtomList& l, const std::string& separator = " ");
+std::string to_string(const Message& m, const std::string& separator = " ");
 
 /**
  * Simple string quotation

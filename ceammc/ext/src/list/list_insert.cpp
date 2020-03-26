@@ -21,7 +21,7 @@ ListInsert::ListInsert(const PdArgs& args)
     , index_(nullptr)
 {
     index_ = new SizeTProperty("@index", 0);
-    createProperty(index_);
+    addProperty(index_);
 
     createInlet();
     createInlet();

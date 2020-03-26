@@ -43,14 +43,14 @@ SpeechFlite::SpeechFlite(const PdArgs& args)
         ->setArgIndex(0);
 
     voice_name_ = new SymbolEnumProperty("@voice", { "kal16", "slt", "rms", "awb" });
-    createProperty(voice_name_);
+    addProperty(voice_name_);
 
     speed_ = new FloatProperty("@speed", 1);
     speed_->checkClosedRange(1, 4);
-    createProperty(speed_);
+    addProperty(speed_);
 
     pitch_ = new FloatProperty("@pitch", -1);
-    createProperty(pitch_);
+    addProperty(pitch_);
 
     createInlet(&name_);
     createOutlet();

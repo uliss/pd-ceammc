@@ -13,7 +13,7 @@ TlBang::TlBang(const PdArgs& args)
     delay_->checkNonNegative();
     delay_->setArgIndex(0);
     delay_->setUnitsMs();
-    createProperty(delay_);
+    addProperty(delay_);
 }
 
 void TlBang::tick()

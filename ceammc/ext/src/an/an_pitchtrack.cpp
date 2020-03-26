@@ -27,17 +27,17 @@ void PitchTrack::initProperties()
     framesize_->setUnitsSamp();
     framesize_->setArgIndex(0);
     framesize_->setSuccessFn([this](Property*) { helmholtz_->setframesize(framesize_->value()); });
-    createProperty(framesize_);
+    addProperty(framesize_);
 
     constexpr int DEFAULT_OVERLAP = 1;
     overlap_ = new IntEnumProperty("@overlap", { DEFAULT_OVERLAP, 2, 4, 8 });
     overlap_->setSuccessFn([this](Property*) { helmholtz_->setoverlap(overlap_->value()); });
-    createProperty(overlap_);
+    addProperty(overlap_);
 
     bias_ = new FloatProperty("@bias", 0.2);
     bias_->checkClosedRange(0, 1);
     bias_->setSuccessFn([this](Property*) { helmholtz_->setbias(bias_->value()); });
-    createProperty(bias_);
+    addProperty(bias_);
 
     // default maximum frequency for reporting pitch result
     constexpr t_float DEF_MAXFREQ = 1500;
@@ -46,12 +46,12 @@ void PitchTrack::initProperties()
     constexpr t_float MAX_MAXFREQ = 10000;
     maxfreq_->checkClosedRange(MIN_MAXFREQ, MAX_MAXFREQ);
     maxfreq_->setUnitsHz();
-    createProperty(maxfreq_);
+    addProperty(maxfreq_);
 
     constexpr t_float DEFFIDELITY = 0.95; // default fidelity threshold for reporting pitch result
     fidelity_threshold_ = new FloatProperty("@fidthr", DEFFIDELITY);
     fidelity_threshold_->checkClosedRange(0, 1);
-    createProperty(fidelity_threshold_);
+    addProperty(fidelity_threshold_);
 }
 
 void PitchTrack::processBlock(const t_sample** in, t_sample** out)

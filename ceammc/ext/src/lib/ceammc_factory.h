@@ -17,13 +17,14 @@
 #include "m_pd.h"
 
 #include <exception>
+#include <initializer_list>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
-#include "ceammc_externals.h"
 #include "ceammc_message.h"
 #include "ceammc_object.h"
+#include "ceammc_object_info.h"
 
 namespace ceammc {
 
@@ -110,7 +111,7 @@ public:
 
         class_name_ = s_name;
         // add to database
-        register_base_external(class_);
+        ObjectInfoStorage::instance().addBase(c);
     }
 
     void mapFloatToList()
@@ -170,6 +171,7 @@ public:
     void addAlias(const char* name)
     {
         class_addcreator(reinterpret_cast<t_newmethod>(createObject), gensym(name), A_GIMME, A_NULL);
+        ObjectInfoStorage::instance().info(class_).aliases.push_back(name);
     }
 
     void useClick()
@@ -192,6 +194,46 @@ public:
     void processData()
     {
         setListFn(processDataTypedFn<DataT>);
+    }
+
+    void setDescription(const std::string& str)
+    {
+        ObjectInfoStorage::instance().info(class_).dict["description"] = str;
+    }
+
+    void setCategory(const std::string& str)
+    {
+        ObjectInfoStorage::instance().info(class_).dict["category"] = str;
+    }
+
+    void addAuthor(const std::string& name)
+    {
+        ObjectInfoStorage::instance().info(class_).authors.push_back(name);
+    }
+
+    void setSinceVersion(uint16_t major, uint16_t minor)
+    {
+        ObjectInfoStorage::instance().info(class_).since_version = ObjectInfoStorage::Version(major, minor);
+    }
+
+    void setDeprecated()
+    {
+        ObjectInfoStorage::instance().info(class_).deprecated = true;
+    }
+
+    void setUseInstead(const std::string& name)
+    {
+        ObjectInfoStorage::instance().info(class_).dict["use_instead"] = name;
+    }
+
+    void setKeywords(const std::vector<std::string>& l)
+    {
+        ObjectInfoStorage::instance().info(class_).keywords = l;
+    }
+
+    void setApiVersion(uint16_t v)
+    {
+        ObjectInfoStorage::instance().info(class_).api = v;
     }
 
     static void* createObject(t_symbol* name, int argc, t_atom* argv)

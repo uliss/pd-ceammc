@@ -23,7 +23,7 @@ StrToSec::StrToSec(const PdArgs& a)
     createOutlet();
 
     on_err_ = new FloatProperty("@on_err", -1);
-    createProperty(on_err_);
+    addProperty(on_err_);
 }
 
 void StrToSec::onSymbol(t_symbol* s)

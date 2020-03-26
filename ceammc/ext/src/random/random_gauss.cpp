@@ -23,8 +23,8 @@ RandomGauss::RandomGauss(const PdArgs& a)
     sigma_->setArgIndexNext(mu_);
     sigma_->checkNonNegative();
 
-    createProperty(mu_);
-    createProperty(sigma_);
+    addProperty(mu_);
+    addProperty(sigma_);
 }
 
 void RandomGauss::onBang()

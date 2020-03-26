@@ -30,9 +30,9 @@ ListSlice::ListSlice(const PdArgs& a)
     step_ = new SizeTProperty("@step", 1);
     step_->setArgIndexNext(to_);
 
-    createProperty(from_);
-    createProperty(to_);
-    createProperty(step_);
+    addProperty(from_);
+    addProperty(to_);
+    addProperty(step_);
 }
 
 void ListSlice::onList(const AtomList& l)

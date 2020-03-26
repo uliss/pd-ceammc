@@ -40,7 +40,7 @@ SystemCursor::SystemCursor(const PdArgs& args)
     bindReceive(gensym(buf));
 
     relative_ = new BoolProperty("@relative", false);
-    createProperty(relative_);
+    addProperty(relative_);
 }
 
 SystemCursor::~SystemCursor()

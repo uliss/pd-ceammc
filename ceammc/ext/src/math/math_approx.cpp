@@ -30,8 +30,8 @@ MathApprox::MathApprox(const PdArgs& a)
     epsilon_ = new FloatProperty("@epsilon", t_float(0.01));
     epsilon_->setArgIndexNext(value_);
 
-    createProperty(value_);
-    createProperty(epsilon_);
+    addProperty(value_);
+    addProperty(epsilon_);
 }
 
 void MathApprox::onFloat(t_float f)

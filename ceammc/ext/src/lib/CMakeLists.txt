@@ -30,9 +30,23 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc.c
     ceammc.cpp
     ceammc_abstractdata.cpp
+    ceammc_args.cpp
+    args/argcheck.lexer.cpp
+    args/argcheck.parser.cpp
+    args/arg_checker_node.cpp
+    args/arg_checker_single.cpp
+    args/arg_group.cpp
+    args/arg_group_or.cpp
+    args/arg_is_atom.cpp
+    args/arg_is_bool.cpp
+    args/arg_is_data.cpp
+    args/arg_is_float.cpp
+    args/arg_is_int.cpp
+    args/arg_is_symbol.cpp
     ceammc_array.cpp
     ceammc_atom.cpp
     ceammc_atomlist.cpp
+    ceammc_atomlist_view.cpp
     ceammc_canvas.cpp
     ceammc_control.cpp
     ceammc_convert.cpp
@@ -93,8 +107,6 @@ set(CEAMMC_UI_SRC
     ceammc_ui.h
     ceammc_ui_object.h
     ceammc_ui_object.cpp
-#    ceammc_ui_dsp_object.h
-#    ceammc_ui_dsp_object.cpp
     image_detect.cpp)
 
 if(UNIX)
@@ -138,6 +150,12 @@ if(BISON_FOUND AND FLEX_FOUND)
         COMMAND ${BISON_EXECUTABLE} -d dict_parser.y
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     )
+
+    add_custom_target(ceammc_argcheck_gen
+        COMMAND $<TARGET_FILE:reflex-bin> argcheck.l
+        COMMAND ${BISON_EXECUTABLE} argcheck.yy
+        SOURCES args/argcheck.l args/argcheck.yy
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/args)
 endif()
 
 # main shared library
@@ -148,7 +166,10 @@ add_library(ceammc_core SHARED
     ${CEAMMC_TREE_SRC}
     ${CEAMMC_UI_SRC})
 target_link_libraries(ceammc_core PUBLIC puredata-core)
+target_link_libraries(ceammc_core PUBLIC re2)
+target_link_libraries(ceammc_core PRIVATE reflex)
 target_link_libraries(ceammc_core PRIVATE fmt::fmt-header-only)
+target_include_directories(ceammc_core PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/re2)
 
 set_target_properties(ceammc_core PROPERTIES
     COMPILE_FLAGS "${LIBCEAMMC_COMPILE_FLAGS}"
@@ -226,7 +247,7 @@ if(ENABLE_TESTS)
 endif()
 
 add_custom_target(ceammc_cicm_tcl_gen
-    COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh cicm/Sources/cicm_common.tcl
+    COMMAND ${PROJECT_BINARY_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh cicm/Sources/cicm_common.tcl
     COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh cicm/Sources/cicm_common_bind.tcl
     SOURCES cicm/Sources/cicm_common.tcl cicm/Sources/cicm_common_bind.tcl
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})

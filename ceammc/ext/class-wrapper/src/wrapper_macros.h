@@ -49,8 +49,8 @@
             , name_(new SymbolProperty("@name", gensym(pd_name), PropValueAccess::READONLY))       \
             , version_(new SymbolProperty("@version", gensym(version), PropValueAccess::READONLY)) \
         {                                                                                          \
-            createProperty(name_);                                                                 \
-            createProperty(version_);                                                              \
+            addProperty(name_);                                                                 \
+            addProperty(version_);                                                              \
             createOutlet();                                                                        \
         }                                                                                          \
         void onBang() override                                                                     \

@@ -42,7 +42,7 @@ SoundTouchExt::SoundTouchExt(const PdArgs& a)
     alen->setIntCheck(PropValueConstraints::CLOSED_RANGE, 8, 128);
 
     bypass_ = new BoolProperty("@bypass", false);
-    createProperty(bypass_);
+    addProperty(bypass_);
 
     initSoundTouch();
 }

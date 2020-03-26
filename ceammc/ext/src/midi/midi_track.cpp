@@ -26,10 +26,10 @@ MidiTrack::MidiTrack(const PdArgs& args)
     speed_ = new FloatProperty("@speed", DEFAULT_SPEED);
     speed_->checkMin(MIN_SPEED);
 
-    createProperty(join_);
-    createProperty(track_idx_);
-    createProperty(tempo_);
-    createProperty(speed_);
+    addProperty(join_);
+    addProperty(track_idx_);
+    addProperty(tempo_);
+    addProperty(speed_);
 
     createCbProperty("@events", &MidiTrack::p_events);
     createCbProperty("@current", &MidiTrack::p_current);

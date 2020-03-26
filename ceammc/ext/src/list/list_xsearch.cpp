@@ -24,9 +24,9 @@ ListXSearch::ListXSearch(const PdArgs& args)
     createOutlet();
 
     start_ = new SizeTProperty("@start", 0);
-    createProperty(start_);
+    addProperty(start_);
     end_ = new IntProperty("@end", -1);
-    createProperty(end_);
+    addProperty(end_);
 }
 
 void ListXSearch::onFloat(t_float f)

@@ -23,10 +23,10 @@ FlowAppend::FlowAppend(const PdArgs& args)
     delay_time_ = new FloatProperty("@delay", 0);
     delay_time_->setFloatCheck(PropValueConstraints::GREATER_THEN, 0);
     delay_time_->setUnits(PropValueUnits::MSEC);
-    createProperty(delay_time_);
+    addProperty(delay_time_);
 
     as_msg_ = new FlagProperty("@msg");
-    createProperty(as_msg_);
+    addProperty(as_msg_);
 
     msg_ = positionalArguments();
 

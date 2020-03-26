@@ -25,7 +25,7 @@ ListHistogram::ListHistogram(const PdArgs& a)
 
     bins_ = new IntProperty("@bins", 100);
     bins_->setArgIndex(0);
-    createProperty(bins_);
+    addProperty(bins_);
 }
 
 void ListHistogram::onList(const AtomList& l)

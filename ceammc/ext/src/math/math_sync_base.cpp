@@ -27,7 +27,7 @@ MathSyncBase::MathSyncBase(FloatBinFn fn, const PdArgs& args)
     , fn_(fn)
 {
     prop_int_ = new FlagProperty("@int");
-    createProperty(prop_int_);
+    addProperty(prop_int_);
 
     createInlet();
     createOutlet();

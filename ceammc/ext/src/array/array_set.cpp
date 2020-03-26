@@ -7,7 +7,7 @@ ArraySet::ArraySet(const PdArgs& a)
     , normalize_(0)
 {
     normalize_ = new FlagProperty("@normalize");
-    createProperty(normalize_);
+    addProperty(normalize_);
 }
 
 void ArraySet::onSymbol(t_symbol* s)

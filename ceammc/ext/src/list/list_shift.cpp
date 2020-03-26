@@ -12,7 +12,7 @@ ListShift::ListShift(const PdArgs& args)
 
     shift_ = new FloatProperty("@shift", 0);
     shift_->setArgIndex(0);
-    createProperty(shift_);
+    addProperty(shift_);
 }
 
 void ListShift::onList(const AtomList& lst)

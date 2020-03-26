@@ -31,15 +31,15 @@ ArrayHist::ArrayHist(const PdArgs& args)
     nbins_ = new IntProperty("@bins", HIST_DEFAULT_SIZE);
     nbins_->setArgIndex(1);
     nbins_->checkClosedRange(HIST_MIN_SIZE, HIST_MAX_SIZE);
-    createProperty(nbins_);
+    addProperty(nbins_);
 
     min_ = new FloatProperty("@min", -1);
     min_->setArgIndexNext(nbins_);
-    createProperty(min_);
+    addProperty(min_);
 
     max_ = new FloatProperty("@max", 1);
     max_->setArgIndexNext(min_);
-    createProperty(max_);
+    addProperty(max_);
 
     createOutlet();
 }

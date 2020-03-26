@@ -8,7 +8,7 @@ MidiCtl2Str::MidiCtl2Str(const PdArgs& args)
     , as_symbol_(0)
 {
     as_symbol_ = new FlagProperty("@symbol");
-    createProperty(as_symbol_);
+    addProperty(as_symbol_);
 
     createOutlet();
 }

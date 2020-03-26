@@ -104,7 +104,7 @@ void ListZip::initLists()
         std::ostringstream s;
         s << "@l" << i;
         PointerProperty<AtomList>* p = new PointerProperty<AtomList>(s.str().c_str(), &in_list_[i], PropValueAccess::READWRITE);
-        createProperty(p);
+        addProperty(p);
     }
 }
 

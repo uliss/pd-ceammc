@@ -58,7 +58,7 @@ Gain::Gain(const PdArgs& args)
     smooth_ = new FloatProperty("@smooth_time", 20);
     smooth_->checkMin(1);
     smooth_->setUnitsMs();
-    createProperty(smooth_);
+    addProperty(smooth_);
 }
 
 void Gain::onInlet(size_t n, const AtomList& lst)

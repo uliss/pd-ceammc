@@ -24,8 +24,8 @@ StringSubstr::StringSubstr(const PdArgs& a)
     len_ = new SizeTProperty("@len", size_t(-1));
     len_->setArgIndexNext(from_);
 
-    createProperty(from_);
-    createProperty(len_);
+    addProperty(from_);
+    addProperty(len_);
 }
 
 void StringSubstr::onDataT(const DataTPtr<DataTypeString>& dptr)

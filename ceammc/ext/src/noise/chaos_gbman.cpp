@@ -90,15 +90,17 @@ void ChaosGbmanTilde::dump() const
 void setup_chaos_gbman()
 {
     ObjectFactory<ChaosGbman> obj("chaos.gbman0");
-//    obj.setDescription("Gingerbreadman map chaotic generator");
-//    obj.setCategory("chaos");
-//    obj.addAuthor("Serge Poltavski");
-//    obj.since("0.9");
+    obj.setDescription("Gingerbreadman map chaotic generator");
+    obj.setCategory("chaos");
+    obj.setKeywords({ "chaos", "generator", "gingerbreadman" });
+    obj.addAuthor("Serge Poltavski");
+    obj.setSinceVersion(0, 9);
 
     SoundExternalFactory<ChaosGbmanTilde> obj_tilde("chaos.gbman0~",
         OBJECT_FACTORY_DEFAULT | OBJECT_FACTORY_MAIN_SIGNAL_INLET);
-//    obj_tilde.setDescription("Gingerbreadman map chaotic generator");
-//    obj_tilde.setCategory("chaos");
-//    obj_tilde.addAuthor("Serge Poltavski");
-//    obj_tilde.since("0.9");
+    obj_tilde.setDescription("Gingerbreadman map chaotic generator");
+    obj_tilde.setCategory("chaos");
+    obj_tilde.addAuthor("Serge Poltavski");
+    obj.setKeywords({ "chaos", "generator", "gingerbreadman" });
+    obj_tilde.setSinceVersion(0, 9);
 }

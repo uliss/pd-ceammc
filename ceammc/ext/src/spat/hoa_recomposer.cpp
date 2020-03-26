@@ -26,15 +26,15 @@ HoaRecomposer::HoaRecomposer(const PdArgs& args)
 {
     plane_waves_ = new IntProperty("@n", 0);
     plane_waves_->setInitOnly();
-    createProperty(plane_waves_);
+    addProperty(plane_waves_);
 
     mode_ = new SymbolEnumProperty("@mode", { SYM_FREE, SYM_FIXE, SYM_FISHEYE });
     mode_->setInitOnly();
-    createProperty(mode_);
+    addProperty(mode_);
 
-    createProperty(new SymbolEnumAlias("@free", mode_, SYM_FREE));
-    createProperty(new SymbolEnumAlias("@fixe", mode_, SYM_FIXE));
-    createProperty(new SymbolEnumAlias("@fisheye", mode_, SYM_FISHEYE));
+    addProperty(new SymbolEnumAlias("@free", mode_, SYM_FREE));
+    addProperty(new SymbolEnumAlias("@fixe", mode_, SYM_FIXE));
+    addProperty(new SymbolEnumAlias("@fisheye", mode_, SYM_FISHEYE));
 
     createCbFloatProperty(
         "@ramp",

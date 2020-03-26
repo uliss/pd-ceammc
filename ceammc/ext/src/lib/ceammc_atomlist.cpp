@@ -430,10 +430,10 @@ AtomList AtomList::slice(int start, int end, size_t step) const
     if (step < 1 || atoms_.empty())
         return res;
 
-    if (start >= static_cast<int>(size()))
-        return res;
-
     const size_t N = atoms_.size();
+
+    if (start >= static_cast<int>(N))
+        return res;
 
     const size_t nfirst = normalizeIdx(start, N, false);
     if (nfirst >= N)

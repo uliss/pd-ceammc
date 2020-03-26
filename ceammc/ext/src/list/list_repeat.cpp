@@ -19,7 +19,7 @@ ListRepeat::ListRepeat(const ceammc::PdArgs& a)
     times_ = new IntProperty("@times", REPEAT_DEF);
     times_->setArgIndex(0);
     times_->checkClosedRange(REPEAT_MIN, REPEAT_MAX);
-    createProperty(times_);
+    addProperty(times_);
 }
 
 void ListRepeat::onFloat(float f)

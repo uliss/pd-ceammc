@@ -21,7 +21,7 @@ FlowPass::FlowPass(const PdArgs& a)
     createOutlet();
 
     values_ = new ListProperty("@values", a.args);
-    createProperty(values_);
+    addProperty(values_);
 }
 
 void FlowPass::onBang()

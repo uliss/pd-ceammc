@@ -21,7 +21,7 @@ public:
 
         group_size_ = new IntProperty("@size", DEF_GROUP_SIZE);
         group_size_->checkClosedRange(MIN_GROUP_SIZE, MAX_GROUP_SIZE);
-        createProperty(group_size_);
+        addProperty(group_size_);
 
         if (checkArgs(positionalArguments(), ARG_FLOAT))
             group_size_->set(positionalArguments());

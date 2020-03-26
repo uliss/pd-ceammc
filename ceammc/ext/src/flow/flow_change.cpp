@@ -20,7 +20,7 @@ FlowChange::FlowChange(const PdArgs& a)
     , on_repeat_(NULL)
 {
     on_repeat_ = new SymbolProperty("@onrepeat", &s_);
-    createProperty(on_repeat_);
+    addProperty(on_repeat_);
     createOutlet();
 }
 

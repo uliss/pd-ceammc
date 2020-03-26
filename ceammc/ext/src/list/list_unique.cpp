@@ -8,7 +8,7 @@ ListUnique::ListUnique(const ceammc::PdArgs& a)
     , stable_(nullptr)
 {
     stable_ = new BoolProperty("@stable", true);
-    createProperty(stable_);
+    addProperty(stable_);
 
     createOutlet();
 }

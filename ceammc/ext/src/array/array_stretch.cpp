@@ -93,9 +93,9 @@ ArrayStretch::ArrayStretch(const PdArgs& a)
     tempo_->setUnits(PropValueUnits::PERCENT);
     rate_ = new FloatProperty("@rate", 1);
 
-    createProperty(pitch_);
-    createProperty(tempo_);
-    createProperty(rate_);
+    addProperty(pitch_);
+    addProperty(tempo_);
+    addProperty(rate_);
 
     createCbSymbolProperty(
         "@src",

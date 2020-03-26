@@ -724,4 +724,22 @@ TEST_CASE("convert", "[PureData]")
         REQUIRE((lin2lin_clip<float, 0, 1>(1, 4, 2)) == Approx(2));
         REQUIRE((lin2lin_clip<float, 0, 1>(1.5, 4, 2)) == Approx(2));
     }
+
+    SECTION("normalizeIndex")
+    {
+        using namespace ceammc;
+        REQUIRE(normalizeIndex(-6, 3) == 0);
+        REQUIRE(normalizeIndex(-5, 3) == 1);
+        REQUIRE(normalizeIndex(-4, 3) == 2);
+        REQUIRE(normalizeIndex(-3, 3) == 0);
+        REQUIRE(normalizeIndex(-2, 3) == 1);
+        REQUIRE(normalizeIndex(-1, 3) == 2);
+        REQUIRE(normalizeIndex(0, 3) == 0);
+        REQUIRE(normalizeIndex(1, 3) == 1);
+        REQUIRE(normalizeIndex(2, 3) == 2);
+        REQUIRE(normalizeIndex(3, 3) == 0);
+        REQUIRE(normalizeIndex(4, 3) == 1);
+        REQUIRE(normalizeIndex(5, 3) == 2);
+        REQUIRE(normalizeIndex(6, 3) == 0);
+    }
 }

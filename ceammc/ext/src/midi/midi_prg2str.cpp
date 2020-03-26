@@ -10,8 +10,8 @@ Prg2Str::Prg2Str(const PdArgs& a)
 {
     as_symbol_ = new FlagProperty("@symbol");
     family_ = new FlagProperty("@family");
-    createProperty(as_symbol_);
-    createProperty(family_);
+    addProperty(as_symbol_);
+    addProperty(family_);
 
     createOutlet();
 }

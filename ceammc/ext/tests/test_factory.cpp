@@ -38,7 +38,7 @@ public:
     TestClass(const PdArgs& a)
         : BaseObject(a)
     {
-        createProperty(new FloatProperty("@test_prop", -1));
+        addProperty(new FloatProperty("@test_prop", -1));
     }
 
     ~TestClass()
@@ -146,6 +146,12 @@ TEST_CASE("ceammc_factory", "[PureData]")
 
         test_reset();
         ObjectFactory<TestClass> f("test.new");
+        f.setApiVersion(23);
+        f.setCategory("test");
+        f.setDeprecated();
+        f.setDescription("test.new object");
+        f.setUseInstead("test.new2");
+        f.setSinceVersion(0, 2);
 
         t_atom args[4];
         SETFLOAT(&args[0], 2);
@@ -172,6 +178,10 @@ TEST_CASE("ceammc_factory", "[PureData]")
         test::pdPrintToStdError(true);
 
         ObjectFactory<TestListMethodClass> f("test.list_method");
+        f.addAuthor("a1");
+        f.addAuthor("a2");
+        f.addAlias("test.lm");
+        f.addAlias("test.lm2");
 
         typedef PdExternalT<TestListMethodClass> External;
         External t("test.list_method");
@@ -186,5 +196,22 @@ TEST_CASE("ceammc_factory", "[PureData]")
         REQUIRE(t->methodCalled() == 1);
         REQUIRE(t->methodSel() == gensym("msg"));
         REQUIRE(t->methodArgs() == LA(1, 2, 3));
+    }
+
+    SECTION("info")
+    {
+        ObjectInfoStorage::Info info;
+        REQUIRE(ObjectInfoStorage::instance().find(SYM("test.new"), info));
+        REQUIRE(info.api == 23);
+        REQUIRE(info.deprecated);
+        REQUIRE(info.since_version == ObjectInfoStorage::Version(0, 2));
+        REQUIRE(info.dict["category"] == "test");
+        REQUIRE(info.dict["description"] == "test.new object");
+        REQUIRE(info.dict["use_instead"] == "test.new2");
+
+        REQUIRE(ObjectInfoStorage::instance().find(SYM("test.list_method"), info));
+        REQUIRE(info.authors == ObjectInfoStorage::AuthorList({ "a1", "a2" }));
+        REQUIRE(info.authors == ObjectInfoStorage::AuthorList({ "a1", "a2" }));
+        REQUIRE(info.aliases == ObjectInfoStorage::AliasList({ "test.lm", "test.lm2" }));
     }
 }

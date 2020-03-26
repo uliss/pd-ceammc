@@ -55,7 +55,7 @@ MathSyncEqual::MathSyncEqual(const PdArgs& args)
 {
     epsilon_ = new FloatProperty("@epsilon", 0);
     epsilon_->checkMinEq(0);
-    createProperty(epsilon_);
+    addProperty(epsilon_);
 }
 
 MathSyncNotEqual::MathSyncNotEqual(const PdArgs& args)
@@ -70,7 +70,7 @@ MathSyncNotEqual::MathSyncNotEqual(const PdArgs& args)
 {
     epsilon_ = new FloatProperty("@epsilon");
     epsilon_->checkMinEq(0);
-    createProperty(epsilon_);
+    addProperty(epsilon_);
 }
 
 MathSyncLessThen::MathSyncLessThen(const PdArgs& args)

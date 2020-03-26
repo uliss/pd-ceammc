@@ -21,7 +21,7 @@ SetToList::SetToList(const PdArgs& a)
     createOutlet();
 
     sort_ = new FlagProperty("@sort");
-    createProperty(sort_);
+    addProperty(sort_);
 }
 
 void SetToList::onDataT(const DataTPtr<DataTypeSet>& dptr)

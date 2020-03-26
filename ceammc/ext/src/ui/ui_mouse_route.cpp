@@ -37,8 +37,8 @@ UIMouseRoute::UIMouseRoute(const PdArgs& args)
 
     for (size_t i = 0; i < ALL_PROPS.size(); i++) {
         BoolProperty* b = new BoolProperty(ALL_FULL_PROPS[i]->s_name, false);
-        createProperty(b);
-        createProperty(new AliasProperty<BoolProperty>(ALL_PROPS[i]->s_name, b, true));
+        addProperty(b);
+        addProperty(new AliasProperty<BoolProperty>(ALL_PROPS[i]->s_name, b, true));
     }
 
     auto toProp = [this](t_symbol* s) {

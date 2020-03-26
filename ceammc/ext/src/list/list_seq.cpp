@@ -18,17 +18,17 @@ ListSeq::ListSeq(const PdArgs& a)
     createOutlet();
 
     from_ = new FloatProperty("@from", DEFAULT_FROM);
-    createProperty(from_);
+    addProperty(from_);
 
     to_ = new FloatProperty("@to", DEFAULT_TO);
-    createProperty(to_);
+    addProperty(to_);
 
     step_ = new FloatProperty("@step", DEFAULT_STEP);
     step_->checkNonZero();
-    createProperty(step_);
+    addProperty(step_);
 
     closed_range_ = new FlagProperty("@closed");
-    createProperty(closed_range_);
+    addProperty(closed_range_);
 
     switch (positionalArguments().size()) {
     case 0:

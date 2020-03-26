@@ -25,7 +25,7 @@ DictFromList::DictFromList(const PdArgs& args)
     n_ = new IntProperty("@step", DEFAULT_STEP);
     n_->setArgIndex(0);
     n_->checkMinEq(MIN_STEP);
-    createProperty(n_);
+    addProperty(n_);
 
     createOutlet();
 }

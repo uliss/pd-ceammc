@@ -17,6 +17,7 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_data.h"
 #include "ceammc_message.h"
+#include "ceammc_object_info.h"
 #include "ceammc_property.h"
 
 #include <initializer_list>
@@ -245,6 +246,10 @@ public:
      */
     virtual void onCloseBang() {}
 
+    /**
+     * Creates inlet
+     * @return pointer
+     */
     t_inlet* createInlet();
 
     /**
@@ -283,8 +288,12 @@ public:
      */
     size_t numOutlets() const { return outlets_.size(); }
 
+    /**
+     * Adds property to obejct and takes owner ship on it
+     * @p - pointer to property
+     * @return pointer to property
+     */
     Property* addProperty(Property* p);
-    void createProperty(Property* p);
 
     /**
      * Creates callback property
@@ -292,46 +301,95 @@ public:
     template <class T>
     Property* createCbProperty(const std::string& name,
         AtomList (T::*getter)() const,
-        void (T::*setter)(const AtomList&) = 0)
+        void (T::*setter)(const AtomList&) = nullptr)
     {
         return createCbListProperty(
             name,
             [this, getter]() -> AtomList { return (static_cast<T*>(this)->*getter)(); },
-            [this, setter](const AtomList& l) -> bool { (static_cast<T*>(this)->*setter)(l); return true; });
+            setter ? [this, setter](const AtomList& l) -> bool {
+                (static_cast<T*>(this)->*setter)(l);
+                return true;
+            }
+                   : PropertyListSetter());
     }
 
+    /**
+     * Create callback float property
+     * @return pointer to created prperty
+     */
     Property* createCbFloatProperty(const std::string& name,
         PropertyFloatGetter g,
         PropertyFloatSetter s = nullptr);
 
+    /**
+     * Create callback int property
+     * @return pointer to created prperty
+     */
     Property* createCbIntProperty(const std::string& name,
         PropertyIntGetter g,
         PropertyIntSetter s = nullptr);
 
+    /**
+     * Create callback bool property
+     * @return pointer to created prperty
+     */
     Property* createCbBoolProperty(const std::string& name,
         PropertyBoolGetter g,
         PropertyBoolSetter s = nullptr);
 
+    /**
+     * Create callback symbol property
+     * @return pointer to created prperty
+     */
     Property* createCbSymbolProperty(const std::string& name,
         PropertySymbolGetter g,
         PropertySymbolSetter s = nullptr);
 
+    /**
+     * Create callback atom property
+     * @return pointer to created prperty
+     */
     Property* createCbAtomProperty(const std::string& name,
         PropertyAtomGetter g,
         PropertyAtomSetter s = nullptr);
 
+    /**
+     * Create callback list property
+     * @return pointer to created prperty
+     */
     Property* createCbListProperty(const std::string& name,
         PropertyListGetter g,
         PropertyListSetter s = nullptr);
 
+    /**
+     * Check if object has specified property
+     * @param key - property name
+     * @return true on success, false on error
+     */
     bool hasProperty(t_symbol* key) const;
-    bool hasProperty(const char* key) const;
+    inline bool hasProperty(const char* key) const { return hasProperty(gensym(key)); }
+
+    /**
+     * Get pointer to specified property
+     * @param key - property name
+     * @return pointer to property on success, nullptr if not found
+     */
     Property* property(t_symbol* key);
-    Property* property(const char* key);
+    Property* property(const char* key) { return property(gensym(key)); }
     const Property* property(t_symbol* key) const;
+
+    /**
+     * Set property value
+     * @param key - property name
+     * @param v - property value
+     * @return false on error
+     */
     bool setProperty(t_symbol* key, const AtomList& v);
     bool setProperty(const char* key, const AtomList& v);
-    bool setPropertyFromPositionalArg(Property* p, size_t n);
+
+    /**
+     * Get list of object properties
+     */
     inline const Properties& properties() const { return props_; }
 
     /**

@@ -11,12 +11,12 @@ PanBase::PanBase(const PdArgs& args)
     smooth_->checkClosedRange(0, 100);
     smooth_->setSuccessFn(
         [this](Property*) { smooth_pos_.setSmoothTime(smooth_->value(), samplerate(), 8); });
-    createProperty(smooth_);
+    addProperty(smooth_);
 
     pos_ = new FloatProperty("@pos", 0);
     pos_->checkClosedRange(-1, 1);
-    setPropertyFromPositionalArg(pos_, 0);
-    createProperty(pos_);
+    pos_->setArgIndex(0);
+    addProperty(pos_);
 
     createInlet();
     createSignalOutlet();

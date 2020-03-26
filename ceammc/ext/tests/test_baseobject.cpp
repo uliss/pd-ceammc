@@ -26,7 +26,7 @@ public:
     EXT_A(const PdArgs& a)
         : BaseObject(a)
     {
-        createProperty(new FloatProperty("@a", -1));
+        addProperty(new FloatProperty("@a", -1));
     }
 };
 
@@ -35,7 +35,7 @@ public:
     EXT_B(const PdArgs& a)
         : EXT_A(a)
     {
-        createProperty(new FloatProperty("@b", -2));
+        addProperty(new FloatProperty("@b", -2));
     }
 };
 
@@ -47,8 +47,8 @@ public:
         : BaseObject(a)
         , last_prop(nullptr)
     {
-        createProperty(new FloatProperty("@c", 101));
-        createProperty(new SizeTProperty("@d", 101));
+        addProperty(new FloatProperty("@c", 101));
+        addProperty(new SizeTProperty("@d", 101));
         createCbProperty("@cb", &EXT_C::propCb);
         createInlet();
         createOutlet();
@@ -116,13 +116,13 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE_FALSE(b.hasProperty("@?"));
         REQUIRE(b.property("@?") == 0);
 
-        b.createProperty(new IntProperty("@int"));
+        b.addProperty(new IntProperty("@int"));
         REQUIRE(b.hasProperty("@int"));
         REQUIRE(b.property("@int") != 0);
         REQUIRE(b.setProperty("@int", LF(2)));
         REQUIRE(b.property("@int")->get() == LF(2));
 
-        b.createProperty(new IntProperty("@int_ro", -10, PropValueAccess::READONLY));
+        b.addProperty(new IntProperty("@int_ro", -10, PropValueAccess::READONLY));
         REQUIRE(b.hasProperty("@int_ro"));
         REQUIRE(b.property("@int_ro") != 0);
         REQUIRE(b.property("@int_ro")->isReadOnly());
@@ -232,9 +232,9 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             BaseObject b(PdArgs(LA("@p1", 1, "@p2", 2, 3), gensym("testname"), 0, gensym("testname")));
             REQUIRE(b.positionalArguments() == L());
 
-            b.createProperty(new FloatProperty("@p1", -1));
-            b.createProperty(new ListProperty("@p2"));
-            b.createProperty(new FloatProperty("@p3", -1));
+            b.addProperty(new FloatProperty("@p1", -1));
+            b.addProperty(new ListProperty("@p2"));
+            b.addProperty(new FloatProperty("@p3", -1));
             b.parseProperties();
 
             REQUIRE_PROPERTY_FLOAT(b, @p1, 1);
@@ -249,9 +249,9 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             BaseObject b(PdArgs(LA(1, 2, "a", "b", "c"), gensym("testname"), 0, gensym("testname")));
             REQUIRE(b.positionalArguments() == LA(1, 2, "a", "b", "c"));
 
-            b.createProperty(new FloatProperty("@p1", -1));
-            b.createProperty(new ListProperty("@p2"));
-            b.createProperty(new FloatProperty("@p3", -1));
+            b.addProperty(new FloatProperty("@p1", -1));
+            b.addProperty(new ListProperty("@p2"));
+            b.addProperty(new FloatProperty("@p3", -1));
             b.parseProperties();
 
             REQUIRE_PROPERTY(b, @p1, -1);
@@ -265,8 +265,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         SECTION("props and raw args")
         {
             BaseObject b(PdArgs(LA(1, 2, "@p1", "@p2", "c"), gensym("testname"), 0, gensym("testname")));
-            b.createProperty(new FloatProperty("@p1", -1));
-            b.createProperty(new ListProperty("@p2"));
+            b.addProperty(new FloatProperty("@p1", -1));
+            b.addProperty(new ListProperty("@p2"));
             b.parseProperties();
 
             REQUIRE_PROPERTY(b, @p1, -1);

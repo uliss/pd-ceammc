@@ -31,7 +31,7 @@ ExpandEnv::ExpandEnv(const PdArgs& a)
     createOutlet();
 
     expand_any_ = new FlagProperty("@any");
-    createProperty(expand_any_);
+    addProperty(expand_any_);
 }
 
 void ExpandEnv::onBang()

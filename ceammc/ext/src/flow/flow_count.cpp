@@ -20,7 +20,7 @@ FlowCount::FlowCount(const PdArgs& a)
 {
     counter_ = new IntProperty("@value", 0);
     counter_->setIntCheck(PropValueConstraints::GREATER_EQUAL, 0);
-    createProperty(counter_);
+    addProperty(counter_);
 
     // counter flow
     createOutlet();

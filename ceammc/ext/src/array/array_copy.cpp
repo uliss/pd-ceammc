@@ -26,7 +26,7 @@ ArrayCopy::ArrayCopy(const PdArgs& a)
     createOutlet();
 
     resize_ = new BoolProperty("@resize", false);
-    createProperty(resize_);
+    addProperty(resize_);
 }
 
 void ArrayCopy::onList(const AtomList& l)

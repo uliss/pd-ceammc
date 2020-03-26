@@ -14,7 +14,7 @@ FlowSpeedLimit::FlowSpeedLimit(const PdArgs& a)
     period_ = new IntProperty("@limit", 0);
     period_->setArgIndex(0);
     period_->setUnitsMs();
-    createProperty(period_);
+    addProperty(period_);
 }
 
 void FlowSpeedLimit::onBang()

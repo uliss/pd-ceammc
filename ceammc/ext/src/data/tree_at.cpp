@@ -22,7 +22,7 @@ TreeAt::TreeAt(const PdArgs& args)
     index_ = new IntProperty("@index", 0);
     index_->setArgIndex(0);
     index_->checkMinEq(0);
-    createProperty(index_);
+    addProperty(index_);
 
     createOutlet();
     createInlet();

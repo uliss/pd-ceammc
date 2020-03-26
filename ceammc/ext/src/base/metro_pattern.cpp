@@ -19,10 +19,10 @@ MetroPattern::MetroPattern(const PdArgs& args)
     createOutlet();
 
     current_ = new SizeTProperty("@current", 0);
-    createProperty(current_);
+    addProperty(current_);
 
     sync_ = new BoolProperty("@sync", false);
-    createProperty(sync_);
+    addProperty(sync_);
 
     createCbListProperty(
         "@pattern", [this]() -> AtomList { return pattern_; },

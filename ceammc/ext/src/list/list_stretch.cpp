@@ -13,7 +13,7 @@ ListStretch::ListStretch(const PdArgs& args)
     n_ = new IntProperty("@size", 1);
     n_->setArgIndex(0);
     n_->checkPositive();
-    createProperty(n_);
+    addProperty(n_);
 }
 
 void ListStretch::onList(const AtomList& lst)

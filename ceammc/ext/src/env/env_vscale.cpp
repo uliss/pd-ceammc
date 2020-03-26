@@ -7,7 +7,7 @@ EnvValueScale::EnvValueScale(const PdArgs& args)
 {
     scale_ = new FloatProperty("@scale", 1);
     scale_->setArgIndex(0);
-    createProperty(scale_);
+    addProperty(scale_);
 
     createOutlet();
 }

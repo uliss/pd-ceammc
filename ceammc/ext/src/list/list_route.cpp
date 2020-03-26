@@ -13,11 +13,11 @@ ListRoute::ListRoute(const PdArgs& args)
         createOutlet();
 
     trim_ = new FlagProperty("@trim");
-    createProperty(trim_);
+    addProperty(trim_);
     as_any_ = new FlagProperty("@as_any");
-    createProperty(as_any_);
+    addProperty(as_any_);
     simplify_types_ = new BoolProperty("@simplify", true);
-    createProperty(simplify_types_);
+    addProperty(simplify_types_);
 }
 
 void ListRoute::onFloat(t_float f)

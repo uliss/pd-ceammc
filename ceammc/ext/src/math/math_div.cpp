@@ -24,7 +24,7 @@ MathDiv::MathDiv(const PdArgs& args)
     div_ = new FloatProperty("@div", 1);
     div_->setArgIndex(0);
     div_->checkNonZero();
-    createProperty(div_);
+    addProperty(div_);
 }
 
 void MathDiv::onFloat(t_float f)

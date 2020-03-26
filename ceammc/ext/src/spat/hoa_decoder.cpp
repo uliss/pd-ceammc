@@ -46,7 +46,7 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
 
     plane_waves_ = new IntProperty("@nwaves", 0);
     plane_waves_->setInitOnly();
-    createProperty(plane_waves_);
+    addProperty(plane_waves_);
 
     Property* pcrop = createCbIntProperty(
         "@crop",

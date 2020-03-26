@@ -27,7 +27,7 @@ OscBlit::OscBlit(const PdArgs& args)
 {
     nharm_ = new SizeTProperty("@harmonics", DEFAULT_NHARM);
     nharm_->setArgIndex(1);
-    createProperty(nharm_);
+    addProperty(nharm_);
 
     createInlet();
     createSignalOutlet();

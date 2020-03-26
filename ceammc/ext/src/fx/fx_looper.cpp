@@ -94,35 +94,35 @@ FxLooper::FxLooper(const PdArgs& args)
     capacity_sec_ = new FloatProperty("@capacity", DEFAULT_CAPACITY_SEC);
     capacity_sec_->setArgIndex(0);
     capacity_sec_->setUnitsSec();
-    createProperty(capacity_sec_);
+    addProperty(capacity_sec_);
 
     loop_bang_ = new BoolProperty("@loop_bang", false);
-    createProperty(loop_bang_);
+    addProperty(loop_bang_);
 
     loop_smooth_ms_ = new FloatProperty("@loop_smooth", 10);
     loop_smooth_ms_->checkMinEq(0);
-    createProperty(loop_smooth_ms_);
+    addProperty(loop_smooth_ms_);
 
     x_play_to_stop_ = new LinFadeoutProperty("@play_to_stop_time", 10);
-    createProperty(x_play_to_stop_);
+    addProperty(x_play_to_stop_);
 
     x_play_to_dub_ = new LinFadeinProperty("@play_to_dub_time", 10);
-    createProperty(x_play_to_dub_);
+    addProperty(x_play_to_dub_);
 
     x_stop_to_play_ = new LinFadeinProperty("@stop_to_play_time", 10);
-    createProperty(x_stop_to_play_);
+    addProperty(x_stop_to_play_);
 
     x_rec_to_play_ = new PowXFadeProperty("@rec_to_play_time", 30);
-    createProperty(x_rec_to_play_);
+    addProperty(x_rec_to_play_);
 
     x_dub_to_play_ = new LinFadeoutProperty("@dub_to_play_time", 20);
-    createProperty(x_dub_to_play_);
+    addProperty(x_dub_to_play_);
 
     x_dub_to_stop_ = new LinFadeoutProperty("@dub_to_stop_time", 20);
-    createProperty(x_dub_to_stop_);
+    addProperty(x_dub_to_stop_);
 
     round_ = new IntProperty("@round", 0);
-    createProperty(round_);
+    addProperty(round_);
 
     {
         Property* p = createCbFloatProperty(
@@ -172,7 +172,7 @@ FxLooper::FxLooper(const PdArgs& args)
         });
 
     array_name_ = new SymbolProperty("@array", &s_);
-    createProperty(array_name_);
+    addProperty(array_name_);
 
     createSignalOutlet();
     createOutlet();

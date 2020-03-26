@@ -12,7 +12,7 @@ Env2VLine::Env2VLine(const PdArgs& args)
     , data_sync_(0)
 {
     data_sync_ = new BoolProperty("@sync", false);
-    createProperty(data_sync_);
+    addProperty(data_sync_);
 
     createOutlet();
 }

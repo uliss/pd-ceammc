@@ -20,7 +20,7 @@ HoaProjector::HoaProjector(const PdArgs& args)
 {
     plane_waves_ = new IntProperty("@n", 0);
     plane_waves_->setInitOnly();
-    createProperty(plane_waves_);
+    addProperty(plane_waves_);
 }
 
 void HoaProjector::parseNumPlainWaves()

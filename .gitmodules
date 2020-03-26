@@ -50,3 +50,6 @@
 [submodule "ceammc/extra/aubio/aubio"]
 	path = ceammc/extra/aubio/aubio
 	url = https://github.com/aubio/aubio
+[submodule "ceammc/extra/reflex/RE-flex"]
+	path = ceammc/extra/reflex/RE-flex
+	url = https://github.com/Genivia/RE-flex

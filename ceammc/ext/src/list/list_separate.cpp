@@ -21,10 +21,10 @@ ListSeparate::ListSeparate(const PdArgs& a)
     , from_(nullptr)
 {
     enumerate_ = new BoolProperty("@enumerate", false);
-    createProperty(enumerate_);
+    addProperty(enumerate_);
 
     from_ = new IntProperty("@from", 0);
-    createProperty(from_);
+    addProperty(from_);
 
     createOutlet();
     createOutlet();

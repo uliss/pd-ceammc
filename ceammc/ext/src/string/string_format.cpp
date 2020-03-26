@@ -37,7 +37,7 @@ StringFormat::StringFormat(const PdArgs& a)
     createCbProperty("@format", &StringFormat::propGetFormat, &StringFormat::propSetFormat);
 
     int_mode_ = new FlagProperty("@int");
-    createProperty(int_mode_);
+    addProperty(int_mode_);
 }
 
 void StringFormat::onBang()

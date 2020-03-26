@@ -26,7 +26,7 @@ HoaMap::HoaMap(const PdArgs& args)
     nins_->setArgIndex(1);
     nins_->setInitOnly();
     nins_->checkMinEq(1);
-    createProperty(nins_);
+    addProperty(nins_);
 
     ramp_ = new FloatProperty("@ramp", 100);
     ramp_->checkMinEq(0);
@@ -35,7 +35,7 @@ HoaMap::HoaMap(const PdArgs& args)
             lines_->setRamp(ramp_->value() / 1000. * sys_getsr());
         });
 
-    createProperty(ramp_);
+    addProperty(ramp_);
 }
 
 void HoaMap::parseProperties()

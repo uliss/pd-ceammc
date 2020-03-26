@@ -22,7 +22,7 @@ FlowGroup::FlowGroup(const PdArgs& a)
 
     group_size_ = new IntProperty("@by", 1);
     group_size_->setArgIndex(0);
-    createProperty(group_size_);
+    addProperty(group_size_);
 
     createCbIntProperty("@free",
         [this]() -> int { return atoms_.size(); })

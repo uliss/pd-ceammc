@@ -37,12 +37,12 @@ HoaProcess::HoaProcess(const PdArgs& args)
     domain_ = new SymbolEnumProperty("@domain", SYM_HARMONICS);
     domain_->appendEnum(SYM_PLANEWAVES);
     domain_->setInitOnly();
-    createProperty(domain_);
+    addProperty(domain_);
 
     num_ = new IntProperty("@n", 0);
     num_->setInitOnly();
     num_->checkMinEq(0);
-    createProperty(num_);
+    addProperty(num_);
 }
 
 void HoaProcess::parseProperties()

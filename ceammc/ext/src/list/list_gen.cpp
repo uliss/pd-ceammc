@@ -19,7 +19,7 @@ ListGenerate::ListGenerate(const PdArgs& a)
     count_ = new IntProperty("@count", 1);
     count_->setArgIndex(0);
     count_->checkClosedRange(MIN_COUNT, MAX_COUNT);
-    createProperty(count_);
+    addProperty(count_);
 }
 
 bool ListGenerate::loopbackDetected()

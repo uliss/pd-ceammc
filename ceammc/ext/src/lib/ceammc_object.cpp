@@ -70,11 +70,6 @@ Property* BaseObject::addProperty(Property* p)
     return p;
 }
 
-void BaseObject::createProperty(Property* p)
-{
-    addProperty(p);
-}
-
 Property* BaseObject::createCbFloatProperty(const std::string& name, PropertyFloatGetter g, PropertyFloatSetter s)
 {
     return addProperty(new CallbackProperty(name, g, s));
@@ -111,10 +106,7 @@ bool BaseObject::hasProperty(t_symbol* key) const
     return end != std::find_if(props_.begin(), end, [key](Property* p) { return p->name() == key; });
 }
 
-bool BaseObject::hasProperty(const char* key) const
-{
-    return hasProperty(gensym(key));
-}
+
 
 Property* BaseObject::property(t_symbol* key)
 {
@@ -130,10 +122,7 @@ const Property* BaseObject::property(t_symbol* key) const
     return (it == end) ? nullptr : *it;
 }
 
-Property* BaseObject::property(const char* key)
-{
-    return property(gensym(key));
-}
+
 
 bool BaseObject::setProperty(t_symbol* key, const AtomList& v)
 {
@@ -151,21 +140,6 @@ bool BaseObject::setProperty(t_symbol* key, const AtomList& v)
 bool BaseObject::setProperty(const char* key, const AtomList& v)
 {
     return setProperty(gensym(key), v);
-}
-
-bool BaseObject::setPropertyFromPositionalArg(Property* p, size_t n)
-{
-    if (!p)
-        return false;
-
-    if (positional_args_.size() <= n)
-        return false;
-
-    bool rc = p->set(AtomList(positional_args_.at(n)));
-    if (rc && prop_set_callback_)
-        prop_set_callback_(this, p->name());
-
-    return rc;
 }
 
 void BaseObject::bangTo(size_t n)

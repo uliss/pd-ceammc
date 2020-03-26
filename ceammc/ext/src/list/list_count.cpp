@@ -12,7 +12,7 @@ ListCount::ListCount(const PdArgs& a)
 
     pattern_ = new AtomProperty("@pattern", Atom());
     pattern_->setArgIndex(0);
-    createProperty(pattern_);
+    addProperty(pattern_);
 }
 
 void ListCount::onList(const AtomList& l)

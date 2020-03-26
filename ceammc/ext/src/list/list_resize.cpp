@@ -56,7 +56,7 @@ void ListResize::initProperties()
     constexpr size_t DEFAULT_SIZE = 0;
     size_ = new SizeTProperty("@size", DEFAULT_SIZE);
     size_->setArgIndex(0);
-    createProperty(size_);
+    addProperty(size_);
 
     // resize methods:
     // @clip - pad with last element (by default)

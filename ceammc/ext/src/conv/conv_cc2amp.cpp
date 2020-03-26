@@ -26,8 +26,8 @@ CC2Amp::CC2Amp(const PdArgs& a)
     to_ = new FloatProperty("@to", 1);
     to_->setArgIndexNext(from_);
 
-    createProperty(from_);
-    createProperty(to_);
+    addProperty(from_);
+    addProperty(to_);
 }
 
 void CC2Amp::onFloat(t_float v)

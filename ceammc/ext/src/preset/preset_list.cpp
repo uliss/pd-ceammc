@@ -10,7 +10,7 @@ PresetList::PresetList(const PdArgs& args)
     // positional arguments from 2 we are using as init arguments
     init_ = new ListProperty("@init", AtomList());
     init_->setArgIndex(1);
-    createProperty(init_);
+    addProperty(init_);
 }
 
 void PresetList::initDone()

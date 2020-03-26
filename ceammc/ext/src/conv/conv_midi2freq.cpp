@@ -44,7 +44,7 @@ Midi2Freq::Midi2Freq(const PdArgs& args)
     base_a_->setArgIndex(0);
     base_a_->checkClosedRange(MIN_A_FREQ, MAX_A_FREQ);
     base_a_->setUnitsHz();
-    createProperty(base_a_);
+    addProperty(base_a_);
 
     prop_temperament_ = new SymbolEnumProperty("@t",
         { SYM_EQ12, SYM_JUST, SYM_GANASSI, SYM_MEANTONE, SYM_KIRN3, SYM_PYTH, SYM_RAMEAU, SYM_VALOTTI, SYM_ZARLINO });

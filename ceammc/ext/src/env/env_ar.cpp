@@ -23,7 +23,7 @@ public:
         , prop_gate_((UIProperty*)property(gensym("@gate")))
     {
         bindPositionalArgsToProps({ gensym("@attack"), gensym("@release") });
-        createProperty(new CombinedProperty("@ar",
+        addProperty(new CombinedProperty("@ar",
             { property(gensym("@attack")), property(gensym("@release")) }));
 
         createCbFloatProperty("@length", [this]() -> t_float { return length(); })

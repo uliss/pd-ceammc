@@ -37,7 +37,7 @@ SystemColorpanel::SystemColorpanel(const PdArgs& args)
     createOutlet();
 
     mode_ = new SymbolEnumProperty("@mode", { SYM_FLOAT, SYM_INT, SYM_HEX });
-    createProperty(mode_);
+    addProperty(mode_);
 
     addProperty(new SymbolEnumAlias("@f", mode_, SYM_FLOAT));
     addProperty(new SymbolEnumAlias("@i", mode_, SYM_INT));

@@ -68,7 +68,7 @@ Window::Window(const PdArgs& a)
     size_->setArgIndex(1);
     size_->checkMinEq(16);
     size_->setUnitsSamp();
-    createProperty(size_);
+    addProperty(size_);
 
     createOutlet();
 }
