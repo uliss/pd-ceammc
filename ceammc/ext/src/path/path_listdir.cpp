@@ -17,7 +17,6 @@
 PathListDir::PathListDir(const PdArgs& a)
     : BaseObject(a)
     , match_(&s_)
-    , cnv_(canvas_getcurrent())
 {
     createOutlet();
 
@@ -54,8 +53,8 @@ void PathListDir::readDirList()
     std::string path = platform::expand_tilde_path(path_);
 
     if (!sys_isabsolutepath(path.c_str())) {
-        if (cnv_) {
-            t_symbol* canvas_dir = canvas_getdir(cnv_);
+        if (canvas()) {
+            t_symbol* canvas_dir = canvas_getdir(canvas());
             if (canvas_dir)
                 path = std::string(canvas_dir->s_name) + "/" + path;
         }

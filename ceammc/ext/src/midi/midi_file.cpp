@@ -4,14 +4,9 @@
 
 #include "MidiFile.h"
 
-extern "C" {
-#include "g_canvas.h"
-}
-
 XMidiFile::XMidiFile(const PdArgs& a)
     : BaseObject(a)
     , midi_stream_(new DataTypeMidiStream())
-    , cnv_(canvas_getcurrent())
 {
     createOutlet();
 

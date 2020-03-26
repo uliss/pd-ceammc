@@ -6,7 +6,6 @@
 using namespace ceammc;
 
 class PresetExternal : public BaseObject {
-    t_canvas* root_cnv_;
     std::string patch_dir_;
 
 public:

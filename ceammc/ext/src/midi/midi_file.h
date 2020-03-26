@@ -9,7 +9,6 @@ using namespace ceammc;
 
 class XMidiFile : public BaseObject {
     DataTPtr<DataTypeMidiStream> midi_stream_;
-    t_canvas* cnv_;
 
 public:
     XMidiFile(const PdArgs& a);

@@ -26,7 +26,6 @@ class PathListDir : public BaseObject {
     DataAtomList ls_;
     std::string path_;
     t_symbol* match_;
-    t_canvas* cnv_;
 
 public:
     PathListDir(const PdArgs& a);

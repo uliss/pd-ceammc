@@ -25,7 +25,6 @@ using namespace ceammc::sound;
 
 SndFile::SndFile(const PdArgs& a)
     : BaseObject(a)
-    , cnv_(canvas_getcurrent())
 {
     createOutlet();
 
@@ -46,8 +45,8 @@ void SndFile::m_load(t_symbol* sel, const AtomList& lst)
     }
 
     const char* patch_dir = "";
-    if (cnv_ && canvas_getenv(cnv_)) {
-        patch_dir = canvas_getdir(cnv_)->s_name;
+    if (canvas() && canvas_getenv(canvas())) {
+        patch_dir = canvas_getdir(canvas())->s_name;
     }
 
     std::string path = to_string(*lst.first());

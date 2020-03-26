@@ -13,15 +13,14 @@ extern "C" {
 
 PresetExternal::PresetExternal(const PdArgs& args)
     : BaseObject(args)
-    , root_cnv_(rootCanvas())
     , patch_dir_(".")
 {
     createCbProperty("@keys", &PresetExternal::p_keys);
 
     createOutlet();
 
-    if (root_cnv_)
-        patch_dir_ = canvas_getdir(root_cnv_)->s_name;
+    if (rootCanvas())
+        patch_dir_ = canvas_getdir(rootCanvas())->s_name;
 }
 
 AtomList PresetExternal::p_keys() const
@@ -80,8 +79,8 @@ std::string PresetExternal::makeDefaultPresetPath() const
 {
     std::string res;
 
-    if (root_cnv_) {
-        res += platform::strip_extension(root_cnv_->gl_name->s_name);
+    if (rootCanvas()) {
+        res += platform::strip_extension(rootCanvas()->gl_name->s_name);
         res += "-preset.txt";
     }
 
