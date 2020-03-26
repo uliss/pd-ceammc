@@ -5,11 +5,6 @@
     using token = ceammc::ArgCheckParser::token;
 %}
 
-%class{
-    public:
-        long num_int;
-%}
-
 %option freespace unicode
 %option namespace=ceammc
 %option lexer=ArgCheckLexer

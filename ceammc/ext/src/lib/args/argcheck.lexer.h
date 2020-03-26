@@ -67,11 +67,6 @@
 namespace ceammc {
 
 class ArgCheckLexer : public reflex::AbstractLexer<reflex::Matcher> {
-#line 8 "argcheck.l"
-
-    public:
-        long num_int;
-
  public:
   typedef reflex::AbstractLexer<reflex::Matcher> AbstractBaseLexer;
   ArgCheckLexer(
