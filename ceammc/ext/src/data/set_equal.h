@@ -25,8 +25,8 @@ class SetEqual : public BaseObject {
 public:
     SetEqual(const PdArgs& a);
     void onDataT(const DataTPtr<DataTypeSet>& s);
-    void onInlet(size_t, const AtomList& l);
-    void onList(const AtomList& l);
+    void onInlet(size_t, const AtomList& l) override;
+    void onList(const AtomList& l) override;
 };
 
 extern "C" void setup_set0x2eequal();

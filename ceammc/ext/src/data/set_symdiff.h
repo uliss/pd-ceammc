@@ -24,9 +24,9 @@ class SetSymmetricDifference : public BaseObject {
 
 public:
     SetSymmetricDifference(const PdArgs& a);
-    void onList(const AtomList& l);
+    void onList(const AtomList& l) override;
     void onDataT(const DataTPtr<DataTypeSet>& dptr);
-    void onInlet(size_t, const AtomList& l);
+    void onInlet(size_t, const AtomList& l) override;
 };
 
 extern "C" void setup_set0x2esymdiff();

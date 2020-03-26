@@ -27,9 +27,9 @@ class ListGenerate : public BaseObject {
 public:
     ListGenerate(const PdArgs& a);
 
-    void onBang();
-    void onFloat(t_float v);
-    void onInlet(size_t n, const AtomList& l);
+    void onBang() override;
+    void onFloat(t_float v) override;
+    void onInlet(size_t n, const AtomList& l) override;
 
     bool loopbackDetected();
 

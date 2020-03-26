@@ -24,9 +24,9 @@ public:
      * @brief converts float value of phase to array sample position
      * @param phase - in range 0..1
      */
-    void onFloat(t_float phase);
+    void onFloat(t_float phase) override;
 
-    void onList(const AtomList& lst);
+    void onList(const AtomList& lst) override;
 };
 
 #endif // ARRAY_P2S_H

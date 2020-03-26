@@ -23,7 +23,7 @@ class ArrayHist : public ArrayBase {
 
 public:
     ArrayHist(const PdArgs& args);
-    void onBang();
+    void onBang() override;
 };
 
 void setup_array_hist();

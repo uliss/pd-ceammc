@@ -29,10 +29,10 @@ class FlowMatch : public BaseObject {
 
 public:
     FlowMatch(const PdArgs& args);
-    void onInlet(size_t idx, const AtomList& l);
+    void onInlet(size_t idx, const AtomList& l) override;
 
-    void onSymbol(t_symbol* s);
-    void onAny(t_symbol* s, const AtomList& l);
+    void onSymbol(t_symbol* s) override;
+    void onAny(t_symbol* s, const AtomList& l) override;
     void onDataT(const DataTPtr<DataTypeString>& data);
 };
 

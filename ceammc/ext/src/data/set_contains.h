@@ -24,7 +24,7 @@ class SetContains : public BaseObject {
 public:
     SetContains(const PdArgs& a);
     void onDataT(const DataTPtr<DataTypeSet>& s);
-    void onInlet(size_t n, const AtomList& lst);
+    void onInlet(size_t n, const AtomList& lst) override;
 };
 
 extern "C" void setup_set0x2econtains();

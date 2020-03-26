@@ -22,13 +22,13 @@ class FlowRejectIf : public BaseObject {
     size_t reject_;
 public:
     FlowRejectIf(const PdArgs& a);
-    void onBang();
-    void onFloat(t_float f);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& l);
-    void onAny(t_symbol* s, const AtomList& l);
+    void onBang() override;
+    void onFloat(t_float f) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& l) override;
+    void onAny(t_symbol* s, const AtomList& l) override;
 
-    void onInlet(size_t n, const AtomList& l);
+    void onInlet(size_t n, const AtomList& l) override;
 };
 
 extern "C" void setup_flow0x2ereject_if();

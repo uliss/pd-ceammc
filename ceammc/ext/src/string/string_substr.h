@@ -26,7 +26,7 @@ class StringSubstr : public BaseObject {
 public:
     StringSubstr(const PdArgs& a);
     void onDataT(const DataTPtr<DataTypeString>& dptr);
-    void onSymbol(t_symbol* s);
+    void onSymbol(t_symbol* s) override;
 };
 
 extern "C" void setup_string0x2esubstr();

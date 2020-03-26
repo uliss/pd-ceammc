@@ -23,8 +23,8 @@ class MathGCD : public BaseObject {
 
 public:
     MathGCD(const PdArgs& a);
-    void onFloat(t_float v);
-    void onList(const AtomList& l);
+    void onFloat(t_float v) override;
+    void onList(const AtomList& l) override;
 };
 
 void setup_math_gcd();

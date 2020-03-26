@@ -11,8 +11,8 @@ class RandomPWConst : public BaseObject {
 
 public:
     RandomPWConst(const PdArgs& a);
-    void onBang();
-    void onList(const AtomList& v);
+    void onBang() override;
+    void onList(const AtomList& v) override;
 
     AtomList propBounds() const;
     AtomList propWeights() const;

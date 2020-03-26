@@ -21,8 +21,8 @@ using namespace ceammc;
 class Amp2dbfs : public BaseObject {
 public:
     Amp2dbfs(const PdArgs& args);
-    void onFloat(t_float v);
-    void onList(const AtomList& lst);
+    void onFloat(t_float v) override;
+    void onList(const AtomList& lst) override;
 
 private:
     static t_float low_limit_;

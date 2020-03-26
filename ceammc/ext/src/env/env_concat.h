@@ -13,9 +13,9 @@ class EnvConcat : public BaseObject {
 public:
     EnvConcat(const PdArgs& args);
 
-    void onBang();
+    void onBang() override;
     void onDataT(const DataTPtr<DataTypeEnv>& dptr);
-    void onInlet(size_t n, const AtomList& lst);
+    void onInlet(size_t n, const AtomList& lst) override;
 };
 
 void setup_env_concat();

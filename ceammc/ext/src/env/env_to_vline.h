@@ -26,8 +26,8 @@ public:
 public:
     Env2VLine(const PdArgs& args);
 
-    void onBang();
-    void onFloat(t_float f);
+    void onBang() override;
+    void onFloat(t_float f) override;
     void onDataT(const DataTPtr<DataTypeEnv>& env);
 
     void outputSegment(const EnvelopePoint& pt0, const EnvelopePoint& pt1, long offset_us);

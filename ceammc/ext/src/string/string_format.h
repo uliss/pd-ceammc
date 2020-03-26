@@ -27,13 +27,13 @@ class StringFormat : public BaseObject {
 
 public:
     StringFormat(const PdArgs& a);
-    void onData(const DataPtr& d);
-    void onBang();
-    void onFloat(t_float v);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& lst);
+    void onData(const DataPtr& d) override;
+    void onBang() override;
+    void onFloat(t_float v) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& lst) override;
 
-    void dump() const;
+    void dump() const override;
 
     AtomList propGetFormat() const;
     void propSetFormat(const AtomList& lst);

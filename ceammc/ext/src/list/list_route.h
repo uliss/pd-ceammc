@@ -12,9 +12,9 @@ class ListRoute : public ListBase {
 
 public:
     ListRoute(const PdArgs& args);
-    void onFloat(t_float f);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& lst);
+    void onFloat(t_float f) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& lst) override;
 
     int outletIndex(const Atom& a) const;
 

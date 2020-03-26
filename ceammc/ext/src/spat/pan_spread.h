@@ -20,8 +20,8 @@ class PanSpread : public SoundExternal {
 public:
     PanSpread(const PdArgs& args);
     void initDone() final;
-    void setupDSP(t_signal** sp);
-    void processBlock(const t_sample** in, t_sample** out);
+    void setupDSP(t_signal** sp) override;
+    void processBlock(const t_sample** in, t_sample** out) override;
 
     void calcCoefficents();
     AtomList propCoeffs() const;

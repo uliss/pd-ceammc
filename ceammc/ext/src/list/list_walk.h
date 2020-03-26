@@ -32,9 +32,9 @@ class ListWalk : public BaseObject {
 public:
     ListWalk(const PdArgs& a);
 
-    void onBang();
-    void onFloat(t_float v);
-    void onList(const AtomList& l);
+    void onBang() override;
+    void onFloat(t_float v) override;
+    void onList(const AtomList& l) override;
 
     void m_current(t_symbol*, const AtomList&);
     void m_next(t_symbol*, const AtomList& l);

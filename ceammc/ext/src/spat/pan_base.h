@@ -14,9 +14,9 @@ protected:
 
 public:
     PanBase(const PdArgs& args);
-    void onInlet(size_t n, const AtomList& l);
+    void onInlet(size_t n, const AtomList& l) override;
 
-    void setupDSP(t_signal** sp);
+    void setupDSP(t_signal** sp) override;
 };
 
 #endif // PAN_BASE_H

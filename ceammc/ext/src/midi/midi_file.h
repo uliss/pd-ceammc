@@ -14,7 +14,7 @@ class XMidiFile : public BaseObject {
 public:
     XMidiFile(const PdArgs& a);
 
-    void onBang();
+    void onBang() override;
 
     void m_clear(t_symbol*, const AtomList&);
     void m_info(t_symbol*, const AtomList&);

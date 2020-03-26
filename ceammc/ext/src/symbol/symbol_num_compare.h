@@ -23,8 +23,8 @@ class SymbolNumCompare : public BaseObject {
 
 public:
     SymbolNumCompare(const PdArgs& a);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& lst);
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& lst) override;
 
 public:
     static int numPart(t_symbol* s);

@@ -28,7 +28,7 @@ class HwCpuTemp : public BaseObject {
 #endif
 public:
     HwCpuTemp(const PdArgs& args);
-    void onBang();
+    void onBang() override;
 };
 
 void setup_hw_cpu_temp();

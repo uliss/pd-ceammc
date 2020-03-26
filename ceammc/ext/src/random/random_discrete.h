@@ -10,8 +10,8 @@ class RandomDiscrete : public BaseObject {
 
 public:
     RandomDiscrete(const PdArgs& a);
-    void onBang();
-    void onList(const AtomList& l);
+    void onBang() override;
+    void onList(const AtomList& l) override;
 
     AtomList propWeights() const;
     void setPropWeights(const AtomList& l);

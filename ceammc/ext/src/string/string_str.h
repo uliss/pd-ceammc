@@ -26,12 +26,12 @@ class StringStr : public BaseObject {
 
 public:
     StringStr(const PdArgs& a);
-    void onBang();
-    void onFloat(t_float f);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& l);
-    void onData(const DataPtr& d);
-    void dump() const;
+    void onBang() override;
+    void onFloat(t_float f) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& l) override;
+    void onData(const DataPtr& d) override;
+    void dump() const override;
 
     void m_append(t_symbol*, const AtomList& lst);
     void m_set(t_symbol*, const AtomList& lst);

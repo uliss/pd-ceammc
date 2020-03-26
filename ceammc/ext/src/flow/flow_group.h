@@ -25,10 +25,10 @@ class FlowGroup : public BaseObject {
 
 public:
     FlowGroup(const PdArgs& a);
-    void onFloat(t_float v);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& l);
-    void onData(const DataPtr& d);
+    void onFloat(t_float v) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& l) override;
+    void onData(const DataPtr& d) override;
 
     void m_flush(t_symbol*, const AtomList& l);
     void m_clear(t_symbol*, const AtomList& l);

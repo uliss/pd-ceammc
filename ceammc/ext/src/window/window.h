@@ -27,9 +27,9 @@ class Window : public BaseObject {
 
 public:
     Window(const PdArgs& a);
-    void onBang();
-    void onFloat(t_float v);
-    void onList(const AtomList& l);
+    void onBang() override;
+    void onFloat(t_float v) override;
+    void onList(const AtomList& l) override;
     bool setWindowFunc(t_symbol* name);
     WindowFuncPtr windowFunc();
 

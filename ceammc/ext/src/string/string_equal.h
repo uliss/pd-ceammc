@@ -24,9 +24,9 @@ class StringEqual : public BaseObject {
 
 public:
     StringEqual(const PdArgs& a);
-    void onSymbol(t_symbol* s);
+    void onSymbol(t_symbol* s) override;
     void onDataT(const DataTPtr<DataTypeString>& data);
-    void onInlet(size_t, const AtomList& l);
+    void onInlet(size_t, const AtomList& l) override;
 };
 
 extern "C" void setup_string0x2eequal();

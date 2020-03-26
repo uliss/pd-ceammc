@@ -23,7 +23,7 @@ class ArrayStretch : public BaseObject {
 
 public:
     ArrayStretch(const PdArgs& a);
-    void onBang();
+    void onBang() override;
 
     bool setSrcArray(t_symbol* s);
     bool setDestArray(t_symbol* s);

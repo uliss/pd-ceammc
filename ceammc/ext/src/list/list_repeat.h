@@ -23,12 +23,12 @@ class ListRepeat : public BaseObject {
 
 public:
     ListRepeat(const PdArgs& a);
-    void onFloat(t_float f);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& l);
-    void onData(const DataPtr& d);
+    void onFloat(t_float f) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& l) override;
+    void onData(const DataPtr& d) override;
 
-    void onInlet(size_t, const AtomList& l);
+    void onInlet(size_t, const AtomList& l) override;
 };
 
 void setup_list_repeat();

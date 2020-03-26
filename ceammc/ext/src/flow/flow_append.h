@@ -27,15 +27,15 @@ class FlowAppend : public BaseObject {
 
 public:
     FlowAppend(const PdArgs& args);
-    void onBang();
-    void onFloat(t_float f);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& lst);
-    void onAny(t_symbol* s, const AtomList& lst);
+    void onBang() override;
+    void onFloat(t_float f) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& lst) override;
+    void onAny(t_symbol* s, const AtomList& lst) override;
 
-    bool processAnyInlets(t_symbol* sel, const AtomList& lst);
-    bool processAnyProps(t_symbol*s, const AtomList& lst);
-    void parseProperties();
+    bool processAnyInlets(t_symbol* sel, const AtomList& lst) override;
+    bool processAnyProps(t_symbol*s, const AtomList& lst) override;
+    void parseProperties() override;
 
 private:
     void process();

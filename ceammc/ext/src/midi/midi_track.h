@@ -34,7 +34,7 @@ public:
     MidiTrack(const PdArgs& args);
     ~MidiTrack();
 
-    void onBang();
+    void onBang() override;
 
     void onDataT(const DataTPtr<DataTypeMidiStream>& dptr);
 

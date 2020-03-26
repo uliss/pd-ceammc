@@ -10,8 +10,8 @@ class PitchToMIDI : public BaseObject {
 public:
     PitchToMIDI(const PdArgs& a);
 
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& lst);
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& lst) override;
     void onDataT(const DataTPtr<DataTypeString>& s);
 
 private:

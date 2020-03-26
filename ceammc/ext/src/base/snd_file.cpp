@@ -50,7 +50,7 @@ void SndFile::m_load(t_symbol* sel, const AtomList& lst)
         patch_dir = canvas_getdir(cnv_)->s_name;
     }
 
-    std::string path = lst.first()->asString();
+    std::string path = to_string(*lst.first());
     char dirname[MAXPDSTRING], *filename;
     int fd = open_via_path(patch_dir, path.c_str(), "", dirname, &filename, MAXPDSTRING, 1);
     if (fd < 0) {
@@ -73,7 +73,7 @@ void SndFile::m_load(t_symbol* sel, const AtomList& lst)
         return postLoadUsage();
     }
 
-    std::string first_array_name = array_names[0].asString();
+    std::string first_array_name = to_string(array_names[0]);
     if (arrayNameContainsPattern(first_array_name)) {
         // check if pattern arrays are exist and valid
         array_names = findPatternArrays(first_array_name);

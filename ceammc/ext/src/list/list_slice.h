@@ -27,7 +27,7 @@ class ListSlice : public BaseObject {
 
 public:
     ListSlice(const PdArgs& a);
-    void onList(const AtomList& l);
+    void onList(const AtomList& l) override;
     void onDataT(const DataTypeMList& l);
 };
 

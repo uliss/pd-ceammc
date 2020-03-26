@@ -23,7 +23,7 @@ class ListSort : public BaseObject {
 public:
     ListSort(const PdArgs& args);
 
-    void onList(const AtomList& lst);
+    void onList(const AtomList& lst) override;
     void onDataT(const DataTPtr<DataTypeMList>& lst);
 };
 

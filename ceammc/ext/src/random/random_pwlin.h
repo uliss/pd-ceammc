@@ -11,8 +11,8 @@ class RandomPwLinear : public BaseObject {
 
 public:
     RandomPwLinear(const PdArgs& a);
-    void onBang();
-    void onList(const AtomList& w);
+    void onBang() override;
+    void onList(const AtomList& w) override;
 
     bool set(const AtomList& data);
     AtomList propValues() const;

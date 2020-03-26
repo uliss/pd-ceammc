@@ -31,11 +31,11 @@ class Gain : public SoundExternal {
 public:
     Gain(const PdArgs& args);
 
-    void onInlet(size_t n, const AtomList& lst);
-    void onList(const AtomList& lst);
+    void onInlet(size_t n, const AtomList& lst) override;
+    void onList(const AtomList& lst) override;
 
-    void processBlock(const t_sample** in, t_sample** out);
-    void setupDSP(t_signal** sp);
+    void processBlock(const t_sample** in, t_sample** out) override;
+    void setupDSP(t_signal** sp) override;
 
     AtomList propDb() const;
     AtomList propGain() const;

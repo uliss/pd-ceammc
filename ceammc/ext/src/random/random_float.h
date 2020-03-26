@@ -25,7 +25,7 @@ class RandomFloat : public BaseObject {
 public:
     RandomFloat(const PdArgs& a);
 
-    void onBang();
+    void onBang() override;
 };
 
 extern "C" void setup_random0x2efloat();

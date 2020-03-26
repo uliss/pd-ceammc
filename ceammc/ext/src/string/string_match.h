@@ -33,9 +33,9 @@ class StringMatch : public BaseObject {
 public:
     StringMatch(const PdArgs& args);
 
-    void onSymbol(t_symbol* s);
+    void onSymbol(t_symbol* s) override;
     void onDataT(const DataTPtr<DataTypeString>& dptr);
-    void onInlet(size_t n, const AtomList& l);
+    void onInlet(size_t n, const AtomList& l) override;
 
     void update(const std::string& re);
 

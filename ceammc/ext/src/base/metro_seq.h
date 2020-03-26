@@ -15,7 +15,7 @@ class MetroSeq : public BaseObject {
 public:
     MetroSeq(const PdArgs& a);
 
-    void onFloat(t_float f);
+    void onFloat(t_float f) override;
     void clockTick();
 };
 

@@ -11,10 +11,10 @@ class EnvMix : public BaseObject {
 
 public:
     EnvMix(const PdArgs& args);
-    void onFloat(t_float v);
-    void onInlet(size_t n, const AtomList& lst);
+    void onFloat(t_float v) override;
+    void onInlet(size_t n, const AtomList& lst) override;
 
-    void dump() const;
+    void dump() const override;
 };
 
 void setup_env_mix();

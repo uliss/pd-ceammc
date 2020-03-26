@@ -25,9 +25,9 @@ class StringContains : public BaseObject {
 public:
     StringContains(const PdArgs& a);
 
-    void onSymbol(t_symbol* s);
+    void onSymbol(t_symbol* s) override;
     void onDataT(const DataTPtr<DataTypeString>& dptr);
-    void onInlet(size_t, const AtomList& l);
+    void onInlet(size_t, const AtomList& l) override;
 };
 
 extern "C" void setup_string0x2econtains();

@@ -37,9 +37,9 @@ public:
     SpeechFlite(const PdArgs& args);
     ~SpeechFlite();
 
-    void onFloat(t_float v);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& lst);
+    void onFloat(t_float v) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& lst) override;
     void onDataT(const DataTPtr<DataTypeString>& str);
 
 private:

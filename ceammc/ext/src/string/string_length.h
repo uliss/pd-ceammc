@@ -22,7 +22,7 @@ using namespace ceammc;
 class StringLength : public BaseObject {
 public:
     StringLength(const PdArgs& a);
-    void onSymbol(t_symbol* s);
+    void onSymbol(t_symbol* s) override;
     void onDataT(const DataTPtr<DataTypeString>& dptr);
 };
 

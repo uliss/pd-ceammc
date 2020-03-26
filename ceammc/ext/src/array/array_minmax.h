@@ -21,8 +21,8 @@ using namespace ceammc;
 class ArrayMinMax : public ArrayBase {
 public:
     ArrayMinMax(const PdArgs& a);
-    void onBang();
-    void onSymbol(t_symbol* s);
+    void onBang() override;
+    void onSymbol(t_symbol* s) override;
 
 private:
     void perform();

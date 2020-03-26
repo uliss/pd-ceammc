@@ -13,7 +13,7 @@ class RandomLinear : public BaseObject {
 
 public:
     RandomLinear(const PdArgs& a);
-    void onBang();
+    void onBang() override;
 };
 
 extern "C" void setup_random0x2elinear();

@@ -29,10 +29,10 @@ public:
     MathExpr(const PdArgs& args);
     ~MathExpr();
 
-    void onFloat(t_float v);
-    void onInlet(size_t n, const AtomList& lst);
+    void onFloat(t_float v) override;
+    void onInlet(size_t n, const AtomList& lst) override;
 
-    void onList(const AtomList& lst);
+    void onList(const AtomList& lst) override;
 
     AtomList propExpr() const;
     void propSetExpr(const AtomList& lst);

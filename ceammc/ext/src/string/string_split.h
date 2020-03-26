@@ -28,7 +28,7 @@ class StringSplit : public BaseObject {
 
 public:
     StringSplit(const PdArgs& a);
-    void onSymbol(t_symbol* s);
+    void onSymbol(t_symbol* s) override;
     void onDataT(const DataTPtr<DataTypeString>& dptr);
 
 private:

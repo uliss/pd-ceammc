@@ -20,8 +20,8 @@ using namespace ceammc;
 class Dbfs2amp : public BaseObject {
 public:
     Dbfs2amp(const PdArgs& args);
-    void onFloat(t_float v);
-    void onList(const AtomList& args);
+    void onFloat(t_float v) override;
+    void onList(const AtomList& args) override;
 };
 
 void setup_conv_dbfs2amp();

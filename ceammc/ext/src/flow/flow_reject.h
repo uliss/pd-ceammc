@@ -23,14 +23,14 @@ class FlowReject : public BaseObject {
 
 public:
     FlowReject(const PdArgs& a);
-    void onBang();
-    void onFloat(t_float v);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& l);
-    void onAny(t_symbol* sel, const AtomList& l);
+    void onBang() override;
+    void onFloat(t_float v) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& l) override;
+    void onAny(t_symbol* sel, const AtomList& l) override;
 
-    void parseProperties();
-    bool processAnyProps(t_symbol* sel, const AtomList& lst);
+    void parseProperties() override;
+    bool processAnyProps(t_symbol* sel, const AtomList& lst) override;
 };
 
 extern "C" void setup_flow0x2ereject();

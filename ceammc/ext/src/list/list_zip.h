@@ -29,10 +29,10 @@ class ListZip : public BaseObject {
 public:
     ListZip(const PdArgs& a);
 
-    void onBang();
-    void onList(const AtomList& l);
-    void onInlet(size_t n, const AtomList& l);
-    void dump() const;
+    void onBang() override;
+    void onList(const AtomList& l) override;
+    void onInlet(size_t n, const AtomList& l) override;
+    void dump() const override;
 
 private:
     void initInlets();

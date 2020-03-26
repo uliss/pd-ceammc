@@ -24,11 +24,11 @@ class FlowChange : public BaseObject {
 
 public:
     FlowChange(const PdArgs& a);
-    void onBang();
-    void onFloat(t_float f);
-    void onSymbol(t_symbol* s);
-    void onList(const AtomList& l);
-    void onAny(t_symbol* s, const AtomList& l);
+    void onBang() override;
+    void onFloat(t_float f) override;
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& l) override;
+    void onAny(t_symbol* s, const AtomList& l) override;
 
     void m_reset(t_symbol*, const AtomList&);
     void m_set(t_symbol*, const AtomList& l);

@@ -12,7 +12,7 @@ class MidiKey2Str : public BaseObject {
 
 public:
     MidiKey2Str(const PdArgs& args);
-    void onFloat(t_float f);
+    void onFloat(t_float f) override;
 
     AtomList p_tonality() const;
     bool p_setTonality(const AtomList& l);

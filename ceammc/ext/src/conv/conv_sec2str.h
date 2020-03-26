@@ -25,7 +25,7 @@ class SecToStr : public BaseObject {
 
 public:
     SecToStr(const PdArgs& a);
-    void onFloat(t_float v);
+    void onFloat(t_float v) override;
 };
 
 #endif // TIME_SEC2STR_H

@@ -31,8 +31,8 @@ class ListRotate : public BaseObject {
 
 public:
     ListRotate(const PdArgs& a);
-    void onList(const AtomList& l);
-    void onInlet(size_t, const AtomList& step);
+    void onList(const AtomList& l) override;
+    void onInlet(size_t, const AtomList& step) override;
     void onDataT(const DataTPtr<DataTypeMList>& ml);
 };
 

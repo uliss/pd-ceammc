@@ -25,8 +25,8 @@ class ListPassIf : public BaseObject {
 
 public:
     ListPassIf(const PdArgs& a);
-    void onList(const AtomList& lst);
-    void onInlet(size_t n, const AtomList& l);
+    void onList(const AtomList& lst) override;
+    void onInlet(size_t n, const AtomList& l) override;
     void onDataT(const DataTPtr<DataTypeMList>& lst);
 };
 

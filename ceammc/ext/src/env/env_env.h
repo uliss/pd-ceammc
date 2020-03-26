@@ -11,11 +11,11 @@ class Envelope : public BaseObject {
 
 public:
     Envelope(const PdArgs& args);
-    void dump() const;
+    void dump() const override;
 
     const DataTypeEnv& envelope() const;
 
-    void onBang();
+    void onBang() override;
     void onDataT(const DataTPtr<DataTypeEnv>& dptr);
 
     void m_addPoint(t_symbol* s, const AtomList& lst);

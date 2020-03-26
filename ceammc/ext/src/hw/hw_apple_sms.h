@@ -32,7 +32,7 @@ public:
     HwAppleSMS(const PdArgs& args);
     ~HwAppleSMS();
 
-    void onBang();
+    void onBang() override;
 
 private:
     AtomList getXYZ() const;

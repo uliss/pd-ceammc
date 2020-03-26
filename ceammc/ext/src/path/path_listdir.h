@@ -30,8 +30,8 @@ class PathListDir : public BaseObject {
 
 public:
     PathListDir(const PdArgs& a);
-    void onBang();
-    void onSymbol(t_symbol* path);
+    void onBang() override;
+    void onSymbol(t_symbol* path) override;
     void onDataT(const DataTPtr<DataTypeString>& dptr);
 
 private:

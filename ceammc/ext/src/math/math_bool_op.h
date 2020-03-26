@@ -27,8 +27,8 @@ public:
 
 public:
     MathBoolOp(const PdArgs& a);
-    void onFloat(t_float f);
-    void onInlet(size_t n, const AtomList& l);
+    void onFloat(t_float f) override;
+    void onInlet(size_t n, const AtomList& l) override;
 
     void m_reset(t_symbol* m, const AtomList&);
     virtual int operate() const;

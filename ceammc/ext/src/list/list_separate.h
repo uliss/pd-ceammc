@@ -25,7 +25,7 @@ class ListSeparate : public BaseObject {
 
 public:
     ListSeparate(const PdArgs& a);
-    void onList(const AtomList& l);
+    void onList(const AtomList& l) override;
     void onDataT(const DataTPtr<DataTypeMList>& l);
 };
 
