@@ -114,4 +114,36 @@ TEST_CASE("Atom2", "[ceammc::Atom]")
         REQUIRE(S("@A").isA<t_symbol*>());
         REQUIRE(S("100").isA<t_symbol*>());
     }
+
+    SECTION("float compare")
+    {
+        REQUIRE(A(1.5) == 1.5);
+        REQUIRE_FALSE(A(1) == 2);
+        REQUIRE(A(1) != 2);
+        REQUIRE_FALSE(A(1) != 1);
+
+        REQUIRE(A(1) < 1.1);
+        REQUIRE_FALSE(A(2) < 1);
+        REQUIRE_FALSE(A(2) < 2);
+
+        REQUIRE(A(2) <= 2);
+        REQUIRE(A(2) <= 2.1);
+        REQUIRE_FALSE(A(2) <= 1);
+
+        REQUIRE(A(2) > 1);
+        REQUIRE_FALSE(A(2) > 2);
+        REQUIRE_FALSE(A(2) > 3);
+
+        REQUIRE(A(2) >= 1);
+        REQUIRE(A(2) >= 2);
+        REQUIRE_FALSE(A(2) >= 3);
+
+        REQUIRE_FALSE(A("A") == 1);
+        REQUIRE(A("A") != 1);
+
+        REQUIRE_FALSE(A("A") > 1);
+        REQUIRE_FALSE(A("A") < 1);
+        REQUIRE_FALSE(A("A") >= 1);
+        REQUIRE_FALSE(A("A") <= 1);
+    }
 }

@@ -364,15 +364,10 @@ std::deque<AtomList> AtomList::properties() const
     return res;
 }
 
-bool AtomList::hasProperty(const std::string& name) const
+bool AtomList::hasProperty(t_symbol* name) const
 {
-    const t_symbol* sname = gensym(name.c_str());
-
     for (auto& a : atoms_) {
-        if (!a.isProperty())
-            continue;
-
-        if (sname == a.asSymbol())
+        if (name == a.toT<t_symbol*>(nullptr))
             return true;
     }
 

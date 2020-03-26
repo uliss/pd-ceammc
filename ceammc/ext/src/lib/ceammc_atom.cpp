@@ -333,22 +333,22 @@ void Atom::setData(const DataDesc& d)
     a_w.w_index = static_cast<decltype(a_w.w_index)>(value);
 }
 
-bool operator==(const Atom& a1, const Atom& a2)
+bool Atom::operator==(const Atom& x) const
 {
-    if (&a1 == &a2)
+    if (this == &x)
         return true;
 
-    if (a1.a_type != a2.a_type)
+    if (a_type != x.a_type)
         return false;
 
-    if (a1.isFloat())
-        return std::equal_to<t_float>()(a1.a_w.w_float, a2.a_w.w_float);
+    if (isFloat())
+        return std::equal_to<t_float>()(a_w.w_float, x.a_w.w_float);
 
-    if (a1.isSymbol())
-        return a1.a_w.w_symbol == a2.a_w.w_symbol;
+    if (isSymbol())
+        return a_w.w_symbol == x.a_w.w_symbol;
 
-    if (a1.isData() && a2.isData())
-        return a1.getData() == a2.getData();
+    if (isData() && x.isData())
+        return getData() == x.getData();
 
     return false;
 }

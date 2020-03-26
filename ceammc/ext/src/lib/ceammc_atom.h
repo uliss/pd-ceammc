@@ -114,6 +114,11 @@ public:
      */
     Atom(const DataDesc& d);
 
+    Atom(const Atom&) = default;
+    Atom(Atom&&) = default;
+    Atom& operator=(const Atom&) = default;
+    Atom& operator=(Atom&&) = default;
+
     /**
      * Checks if atom is (0|1|true|false)
      */
@@ -243,12 +248,15 @@ public:
      * @note now only floats and symbols
      */
     CEAMMC_NO_ASAN bool operator<(const Atom& a) const;
-    CEAMMC_NO_ASAN bool operator<(t_float f) const { return a_type == A_FLOAT && a_w.w_float < f; }
-    CEAMMC_NO_ASAN bool operator<=(t_float f) const { return a_type == A_FLOAT && a_w.w_float <= f; }
-    CEAMMC_NO_ASAN bool operator>(t_float f) const { return a_type == A_FLOAT && a_w.w_float > f; }
-    CEAMMC_NO_ASAN bool operator>=(t_float f) const { return a_type == A_FLOAT && a_w.w_float >= f; }
-    CEAMMC_NO_ASAN bool operator==(t_float f) const { return a_type == A_FLOAT && std::equal_to<t_float>()(a_w.w_float, f); }
-    CEAMMC_NO_ASAN bool operator!=(t_float f) const { return !operator==(f); }
+    CEAMMC_NO_ASAN bool operator<(t_float f) const { return isFloat() && a_w.w_float < f; }
+    CEAMMC_NO_ASAN bool operator<=(t_float f) const { return isFloat() && a_w.w_float <= f; }
+    CEAMMC_NO_ASAN bool operator>(t_float f) const { return isFloat() && a_w.w_float > f; }
+    CEAMMC_NO_ASAN bool operator>=(t_float f) const { return isFloat() && a_w.w_float >= f; }
+
+    CEAMMC_NO_ASAN bool operator==(const Atom& a) const;
+    bool operator!=(const Atom& a) const { return !operator==(a); }
+    CEAMMC_NO_ASAN bool operator==(t_float f) const { return isFloat() && std::equal_to<t_float>()(a_w.w_float, f); }
+    bool operator!=(t_float f) const { return !operator==(f); }
 
     void outputAsAny(t_outlet* x, t_symbol* sel) const = delete;
 
@@ -266,12 +274,17 @@ public:
     Atom operator/(t_float v) const;
 
     /**
-     * Apply function
+     * Apply float function to atom
+     * @param fn - function
+     * @return true on sucess, false if atom is not float
      */
-    template <class F>
-    void apply(F fn) { *this = fn(*this); }
-
     inline bool applyFloat(const FloatMapFunction& fn);
+
+    /**
+     * Apply symbol function to atom
+     * @param fn - function
+     * @return treu on success, false if atom is not symbol
+     */
     inline bool applySymbol(const SymbolMapFunction& fn);
 
     /**
@@ -302,10 +315,6 @@ public:
      * @returns true if atom is a data structure of specified type
      */
     bool isDataType(DataType type) const;
-
-public:
-    friend bool operator==(const Atom& a1, const Atom& a2);
-    friend bool operator!=(const Atom& a1, const Atom& a2);
 };
 
 bool Atom::applyFloat(const FloatMapFunction& fn)
@@ -347,12 +356,10 @@ inline t_symbol* Atom::asT<t_symbol*>() const { return a_w.w_symbol; }
 template <typename T>
 static inline Atom atomFrom(T v) { return Atom(v); }
 template <>
-Atom atomFrom(const char* s) { return Atom(gensym(s)); }
+inline Atom atomFrom(const char* s) { return Atom(gensym(s)); }
 template <>
-Atom atomFrom(std::string v) { return Atom(gensym(v.c_str())); }
+inline Atom atomFrom(std::string v) { return Atom(gensym(v.c_str())); }
 
-CEAMMC_NO_ASAN bool operator==(const Atom& a1, const Atom& a2);
-bool operator!=(const Atom& a1, const Atom& a2);
 std::ostream& operator<<(std::ostream& os, const Atom& a);
 
 static inline bool isFloat(const Atom& a) { return a.isFloat(); }

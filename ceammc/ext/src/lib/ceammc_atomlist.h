@@ -208,9 +208,11 @@ public:
     std::deque<AtomList> properties() const;
 
     /**
-     * Checks is has property in list
+     * Checks if property exists in list
+     * @return true in property found
      */
-    bool hasProperty(const std::string& name) const;
+    bool hasProperty(t_symbol* name) const;
+    bool hasProperty(const char* name) const { return hasProperty(gensym(name)); }
 
     /**
      * New list with mapped atom values
