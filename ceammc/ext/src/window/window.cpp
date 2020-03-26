@@ -85,7 +85,7 @@ void Window::onBang()
     listTo(0, res);
 }
 
-void Window::onFloat(float v)
+void Window::onFloat(t_float v)
 {
     int idx = int(v);
     float res = 0;

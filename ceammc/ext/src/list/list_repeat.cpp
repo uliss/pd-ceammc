@@ -22,7 +22,7 @@ ListRepeat::ListRepeat(const ceammc::PdArgs& a)
     addProperty(times_);
 }
 
-void ListRepeat::onFloat(float f)
+void ListRepeat::onFloat(t_float f)
 {
     onList(Atom(f));
 }

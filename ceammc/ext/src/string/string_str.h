@@ -27,7 +27,7 @@ class StringStr : public BaseObject {
 public:
     StringStr(const PdArgs& a);
     void onBang();
-    void onFloat(float f);
+    void onFloat(t_float f);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& l);
     void onData(const DataPtr& d);

@@ -32,7 +32,7 @@ void FlowPassIf::onBang()
         bangTo(0);
 }
 
-void FlowPassIf::onFloat(float v)
+void FlowPassIf::onFloat(t_float v)
 {
     pass_ = 0;
     floatTo(1, v);

@@ -30,7 +30,7 @@ public:
 
     void onInlet(size_t n, const AtomList& l);
     void onList(const AtomList& l);
-    void onFloat(float v);
+    void onFloat(t_float v);
     void onSymbol(t_symbol* s);
 
 private:

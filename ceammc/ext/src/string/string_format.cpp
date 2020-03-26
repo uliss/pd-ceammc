@@ -57,7 +57,7 @@ void StringFormat::onData(const DataPtr& d)
     onBang();
 }
 
-void StringFormat::onFloat(float v)
+void StringFormat::onFloat(t_float v)
 {
     try {
         if (int_mode_->value()) {

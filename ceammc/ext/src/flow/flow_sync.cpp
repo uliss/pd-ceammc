@@ -65,7 +65,7 @@ void FlowSync::onList(const AtomList& l)
     sync();
 }
 
-void FlowSync::onFloat(float v)
+void FlowSync::onFloat(t_float v)
 {
     msg_list_[0].setFloat(v);
     sync();

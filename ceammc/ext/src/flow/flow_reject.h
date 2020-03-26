@@ -24,7 +24,7 @@ class FlowReject : public BaseObject {
 public:
     FlowReject(const PdArgs& a);
     void onBang();
-    void onFloat(float v);
+    void onFloat(t_float v);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& l);
     void onAny(t_symbol* sel, const AtomList& l);

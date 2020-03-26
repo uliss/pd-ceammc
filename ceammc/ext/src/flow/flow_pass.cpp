@@ -29,7 +29,7 @@ void FlowPass::onBang()
     bangTo(0);
 }
 
-void FlowPass::onFloat(float v)
+void FlowPass::onFloat(t_float v)
 {
     if (values_->value().contains(v))
         floatTo(0, v);

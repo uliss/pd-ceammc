@@ -33,7 +33,7 @@ void StringStr::onBang()
     dataTo(0, pstr_);
 }
 
-void StringStr::onFloat(float f)
+void StringStr::onFloat(t_float f)
 {
     char buf[20];
     sprintf(buf, "%g", f);

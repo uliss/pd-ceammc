@@ -45,7 +45,7 @@ void ListGenerate::onBang()
     in_process_ = false;
 }
 
-void ListGenerate::onFloat(float v)
+void ListGenerate::onFloat(t_float v)
 {
     if (loopbackDetected())
         return;

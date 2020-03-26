@@ -24,7 +24,7 @@ MathLCM::MathLCM(const PdArgs& a)
     createOutlet();
 }
 
-void MathLCM::onFloat(float f)
+void MathLCM::onFloat(t_float f)
 {
     floatTo(0, boost::math::lcm(int(f), int(b_)));
 }

@@ -16,7 +16,7 @@ Prg2Str::Prg2Str(const PdArgs& a)
     createOutlet();
 }
 
-void Prg2Str::onFloat(float v)
+void Prg2Str::onFloat(t_float v)
 {
     int val = v;
 

@@ -29,7 +29,7 @@ FlowGroup::FlowGroup(const PdArgs& a)
         ->checkNonNegative();
 }
 
-void FlowGroup::onFloat(float v)
+void FlowGroup::onFloat(t_float v)
 {
     checkFull();
     atoms_.append(v);

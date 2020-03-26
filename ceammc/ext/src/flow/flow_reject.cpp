@@ -29,7 +29,7 @@ void FlowReject::onBang()
     bangTo(0);
 }
 
-void FlowReject::onFloat(float v)
+void FlowReject::onFloat(t_float v)
 {
     if (values_->value().contains(v))
         return;

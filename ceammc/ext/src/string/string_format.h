@@ -29,7 +29,7 @@ public:
     StringFormat(const PdArgs& a);
     void onData(const DataPtr& d);
     void onBang();
-    void onFloat(float v);
+    void onFloat(t_float v);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& lst);
 

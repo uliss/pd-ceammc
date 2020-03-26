@@ -32,7 +32,7 @@ void FlowChange::onBang()
     messageTo(0, msg_);
 }
 
-void FlowChange::onFloat(float f)
+void FlowChange::onFloat(t_float f)
 {
     if (msg_.isEqual(f)) {
         onRepeat();

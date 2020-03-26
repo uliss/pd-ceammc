@@ -24,7 +24,7 @@ MathGCD::MathGCD(const PdArgs& a)
     createOutlet();
 }
 
-void MathGCD::onFloat(float f)
+void MathGCD::onFloat(t_float f)
 {
     floatTo(0, boost::math::gcd(int(f), int(b_)));
 }

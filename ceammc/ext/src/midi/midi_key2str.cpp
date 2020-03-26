@@ -30,7 +30,7 @@ MidiKey2Str::MidiKey2Str(const PdArgs& args)
     createOutlet();
 }
 
-void MidiKey2Str::onFloat(float f)
+void MidiKey2Str::onFloat(t_float f)
 {
     int key = f;
     if (key < 0 || key > 127) {

@@ -25,7 +25,7 @@ class FlowGroup : public BaseObject {
 
 public:
     FlowGroup(const PdArgs& a);
-    void onFloat(float v);
+    void onFloat(t_float v);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& l);
     void onData(const DataPtr& d);

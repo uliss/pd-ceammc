@@ -12,7 +12,7 @@ public:
     FlowMultiplex(const PdArgs& args);
 
     void onBang();
-    void onFloat(float f);
+    void onFloat(t_float f);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& l);
     void onAny(t_symbol* sel, const AtomList& args);

@@ -49,7 +49,7 @@ ListWalk::ListWalk(const PdArgs& a)
 
 void ListWalk::onBang() { onFloat(1); }
 
-void ListWalk::onFloat(float v)
+void ListWalk::onFloat(t_float v)
 {
     int step = static_cast<int>(v);
 

@@ -23,7 +23,7 @@ class MathLCM : public BaseObject {
 
 public:
     MathLCM(const PdArgs& a);
-    void onFloat(float v);
+    void onFloat(t_float v);
     void onList(const AtomList& l);
 };
 

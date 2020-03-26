@@ -13,7 +13,7 @@ MidiCtl2Str::MidiCtl2Str(const PdArgs& args)
     createOutlet();
 }
 
-void MidiCtl2Str::onFloat(float f)
+void MidiCtl2Str::onFloat(t_float f)
 {
     size_t n = f;
 

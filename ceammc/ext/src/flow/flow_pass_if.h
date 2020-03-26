@@ -24,7 +24,7 @@ class FlowPassIf : public BaseObject {
 public:
     FlowPassIf(const PdArgs& a);
     void onBang();
-    void onFloat(float v);
+    void onFloat(t_float v);
     void onSymbol(t_symbol* s);
     void onList(const AtomList& l);
     void onAny(t_symbol* s, const AtomList& l);

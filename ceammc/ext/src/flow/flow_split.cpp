@@ -31,7 +31,7 @@ void FlowSplit::onBang()
     bangTo(split_);
 }
 
-void FlowSplit::onFloat(float v)
+void FlowSplit::onFloat(t_float v)
 {
     split_ = 1;
     floatTo(2, v);

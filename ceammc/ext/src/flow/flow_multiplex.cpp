@@ -28,7 +28,7 @@ void FlowMultiplex::onBang()
     bangTo(0);
 }
 
-void FlowMultiplex::onFloat(float f)
+void FlowMultiplex::onFloat(t_float f)
 {
     if (0 != index_->value())
         return;

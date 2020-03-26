@@ -32,7 +32,7 @@ void FlowRejectIf::onBang()
         bangTo(0);
 }
 
-void FlowRejectIf::onFloat(float f)
+void FlowRejectIf::onFloat(t_float f)
 {
     reject_ = 1;
     floatTo(1, f);

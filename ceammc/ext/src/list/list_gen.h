@@ -28,7 +28,7 @@ public:
     ListGenerate(const PdArgs& a);
 
     void onBang();
-    void onFloat(float v);
+    void onFloat(t_float v);
     void onInlet(size_t n, const AtomList& l);
 
     bool loopbackDetected();

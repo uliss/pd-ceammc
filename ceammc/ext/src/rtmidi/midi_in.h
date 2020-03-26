@@ -39,7 +39,7 @@ public:
     void setCallback(RtMidiIn::RtMidiCallback cb);
 
     /** pd */
-    void onFloat(float f);
+    void onFloat(t_float f);
     void onSymbol(t_symbol* s);
 
     /** props */

@@ -10,7 +10,7 @@ public:
     FlowTeeTilde(const PdArgs& a);
     void onBang();
     void onSymbol(t_symbol* s);
-    void onFloat(float f);
+    void onFloat(t_float f);
     void onList(const AtomList& l);
     void onAny(t_symbol* s, const AtomList& l);
     void processBlock(const t_sample** in, t_sample** out);
