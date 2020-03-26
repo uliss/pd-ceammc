@@ -50,8 +50,6 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         REQUIRE_FALSE(fatom.isBool());
         REQUIRE_FALSE(fatom.isInteger());
         REQUIRE(fatom.type() == Atom::FLOAT);
-        std::string s;
-        REQUIRE_FALSE(fatom.getString(s));
         t_float v;
         REQUIRE(fatom.getFloat(&v));
         CHECK(v == 1.1f);
@@ -122,9 +120,6 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         t_float v;
         REQUIRE_FALSE(satom.getFloat(NULL));
         REQUIRE_FALSE(satom.getFloat(&v));
-        std::string str;
-        REQUIRE(satom.getString(str));
-        REQUIRE(str == "test");
     }
 
     SECTION("set tests")
@@ -274,20 +269,6 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         REQUIRE(a3.asSizeT(10) == 10);
     }
 
-    SECTION("test output2")
-    {
-        _outlet out = { 0, 0, 0, 0 };
-        Atom a1(21.34f);
-        a1.output(&out);
-        REQUIRE(to_outlet(&out, a1));
-        REQUIRE(to_outlet(&out, Atom(gensym("a"))));
-
-        Atom a_none;
-        REQUIRE(!to_outlet(&out, a_none));
-
-        a1.outputAsAny(&out, gensym("sel"));
-    }
-
     SECTION("test isInteger")
     {
         REQUIRE(Atom(0.f).isInteger());
@@ -304,29 +285,6 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         REQUIRE_FALSE(Atom(1.0000001f).isInteger());
         REQUIRE_FALSE(Atom(-0.0000001f).isInteger());
         REQUIRE_FALSE(Atom(-1.0000001f).isInteger());
-    }
-
-    SECTION("test isNatural")
-    {
-        REQUIRE(Atom(0.f).isNatural());
-        REQUIRE(Atom(1.f).isNatural());
-        REQUIRE(Atom(2.f).isNatural());
-        REQUIRE(Atom(3.f).isNatural());
-        REQUIRE(Atom(4.f).isNatural());
-        REQUIRE(!Atom(4.00001f).isNatural());
-        REQUIRE(Atom(-0.f).isNatural());
-        REQUIRE(Atom(1.f).isNatural());
-        REQUIRE(!Atom(-1.f).isNatural());
-        REQUIRE(Atom(100000.f).isNatural());
-        REQUIRE(!Atom(-100000.f).isNatural());
-
-        REQUIRE(!Atom().isNatural());
-        REQUIRE(!Atom(gensym("a")).isNatural());
-
-        REQUIRE(!Atom(0.0000001f).isNatural());
-        REQUIRE(!Atom(1.0000001f).isNatural());
-        REQUIRE(!Atom(-0.0000001f).isNatural());
-        REQUIRE(!Atom(-1.0000001f).isNatural());
     }
 
     SECTION("test float operators")
@@ -387,37 +345,51 @@ TEST_CASE("Atom", "[ceammc::Atom]")
 
     SECTION("test apply")
     {
-        SECTION("float")
+        SECTION("float std::function")
         {
-            FloatMapFunction fn(&cosf);
             Atom a;
-            a.apply(fn);
+            REQUIRE_FALSE(a.applyFloat([](t_float f) { return f + 2; }));
             REQUIRE(a.isNone());
 
             a.setFloat(0, true);
-            a.apply(fn);
+            REQUIRE(a.applyFloat([](t_float f) { return f + 2; }));
+            REQUIRE(a.asFloat() == 2);
+
+            a.setSymbol(gensym("a"), true);
+            REQUIRE_FALSE(a.applyFloat([](t_float f) { return f + 2; }));
+            REQUIRE(a.isSymbol());
+            REQUIRE(a.asSymbol() == gensym("a"));
+        }
+
+        SECTION("float ptr")
+        {
+            Atom a;
+            REQUIRE_FALSE(a.applyFloat(cosf));
+            REQUIRE(a.isNone());
+
+            a.setFloat(0, true);
+            REQUIRE(a.applyFloat(cosf));
             REQUIRE(a.asFloat() == 1);
 
             a.setSymbol(gensym("a"), true);
-            a.apply(fn);
+            REQUIRE_FALSE(a.applyFloat(cosf));
             REQUIRE(a.isSymbol());
             REQUIRE(a.asSymbol() == gensym("a"));
         }
 
         SECTION("symbol")
         {
-            SymbolMapFunction fn(&toUpper);
             Atom a;
-            a.apply(fn);
+            REQUIRE_FALSE(a.applySymbol(toUpper));
             REQUIRE(a.isNone());
 
             a.setSymbol(gensym("a"), true);
-            a.apply(fn);
+            REQUIRE(a.applySymbol(toUpper));
             REQUIRE(a.isSymbol());
             REQUIRE(a.asSymbol() == gensym("A"));
 
             a.setFloat(123, true);
-            a.apply(fn);
+            REQUIRE_FALSE(a.applySymbol(toUpper));
             REQUIRE(a.asFloat() == 123);
         }
     }

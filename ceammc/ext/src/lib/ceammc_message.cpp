@@ -13,6 +13,8 @@
  *****************************************************************************/
 #include "ceammc_message.h"
 #include "ceammc_format.h"
+#include "ceammc_output.h"
+
 #include <cassert>
 #include <cstring>
 
@@ -216,7 +218,7 @@ void Message::output(t_outlet* x) const
     switch (type_) {
     case FLOAT:
     case SYMBOL:
-        to_outlet(x, value_);
+        outletAtom(x, value_);
         break;
     case LIST:
         to_outlet(x, v_list_);
@@ -228,7 +230,7 @@ void Message::output(t_outlet* x) const
             v_list_.toPdData());
         break;
     case DATA:
-        to_outlet(x, data_.asAtom());
+        outletAtom(x, data_.asAtom());
         break;
     case NONE:
         break;

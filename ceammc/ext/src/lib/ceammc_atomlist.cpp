@@ -15,6 +15,7 @@
 #include "ceammc_convert.h"
 #include "ceammc_dataatom.h"
 #include "ceammc_log.h"
+#include "ceammc_output.h"
 
 #include <algorithm>
 #include <cassert>
@@ -378,32 +379,56 @@ bool AtomList::hasProperty(const std::string& name) const
     return false;
 }
 
-AtomList AtomList::map(const FloatMapFunction& f) const
+AtomList AtomList::mapFloat(const FloatMapFunction& fn, AtomListMapType t) const
 {
-    AtomList res(*this);
+    if (t == AtomListMapType::KEEP) {
+        AtomList res(*this);
 
-    for (auto& a : res.atoms_)
-        a.apply(f);
+        for (auto& a : res.atoms_)
+            a.applyFloat(fn);
 
-    return res;
+        return res;
+    } else {
+        AtomList res;
+        res.reserve(size());
+
+        for (auto& a : atoms_) {
+            if (a.isFloat())
+                res.atoms_.emplace_back(fn(a.asT<t_float>()));
+        }
+
+        return res;
+    }
 }
 
-AtomList AtomList::map(const SymbolMapFunction& f) const
+AtomList AtomList::mapSymbol(const SymbolMapFunction& fn, AtomListMapType t) const
 {
-    AtomList res(*this);
+    if (t == AtomListMapType::KEEP) {
+        AtomList res(*this);
 
-    for (auto& a : res.atoms_)
-        a.apply(f);
+        for (auto& a : res.atoms_)
+            a.applySymbol(fn);
 
-    return res;
+        return res;
+    } else {
+        AtomList res;
+        res.reserve(size());
+
+        for (auto& a : atoms_) {
+            if (a.isSymbol())
+                res.atoms_.emplace_back(fn(a.asT<t_symbol*>()));
+        }
+
+        return res;
+    }
 }
 
-AtomList AtomList::map(const AtomMapFunction& f) const
+AtomList AtomList::map(const AtomMapFunction& fn) const
 {
     AtomList res(*this);
 
     for (auto& a : res.atoms_)
-        a = f(a);
+        a = fn(a);
 
     return res;
 }
@@ -836,12 +861,6 @@ size_t AtomList::asSizeT(size_t defaultValue) const
         return defaultValue;
 
     return atoms_.front().asSizeT(defaultValue);
-}
-
-void AtomList::outputAtoms(t_outlet* x) const
-{
-    for (size_t i = 0; i < size(); i++)
-        to_outlet(x, at(i));
 }
 
 void AtomList::output(t_outlet* x) const

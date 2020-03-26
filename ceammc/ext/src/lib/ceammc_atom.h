@@ -51,6 +51,7 @@
 namespace ceammc {
 
 class Atom;
+bool to_outlet(t_outlet* x, const Atom& a) = delete;
 
 using AtomMapFunction = std::function<Atom(const Atom&)>;
 using FloatMapFunction = std::function<t_float(t_float)>;
@@ -84,10 +85,33 @@ public:
     static const char PROP_PREFIX = '@';
 
 public:
+    /**
+     * Creates atom of type NONE
+     */
     Atom();
+
+    /**
+     * Creates atom from PureData t_atom struct
+     * @param a - Pd t_atom
+     */
     CEAMMC_NO_ASAN Atom(const t_atom& a);
+
+    /**
+     * Creates float atom
+     * @param v
+     */
     Atom(t_float v);
+
+    /**
+     * Creates symbol atom
+     * @param s
+     */
     Atom(t_symbol* s);
+
+    /**
+     * Creates atom on DATA type, that holds data descriptor
+     * @param d
+     */
     Atom(const DataDesc& d);
 
     /**
@@ -96,19 +120,9 @@ public:
     bool isBool() const;
 
     /**
-     * @returns true if atom has logical type Atom::FLOAT
+     * @returns true if atom has PureData type A_FLOAT
      */
-    bool isFloat() const;
-
-    /**
-     * @return true if atom has logical type Atom::FLOAT and >= 0
-     */
-    bool isNonNegative() const;
-
-    /**
-     * @return true if atom has logical type Atom::FLOAT and > 0
-     */
-    bool isPositive() const;
+    bool isFloat() const { return a_type == A_FLOAT; }
 
     /**
      * @returns true if atom has logical type Atom::NONE
@@ -117,8 +131,9 @@ public:
 
     /**
      * @returns true if atom has logical type Atom::SYMBOL
+     * this means, that t_symbol* pointer never equals nullptr
      */
-    bool isSymbol() const;
+    bool isSymbol() const { return type() == SYMBOL || type() == PROPERTY; }
 
     /**
      * @returns true if atom has logical type Atom::PROPERTY
@@ -131,11 +146,6 @@ public:
     bool isInteger() const;
 
     /**
-     * @returns true if atom has logical type Atom::FLOAT and value is natural (with 0)
-     */
-    bool isNatural() const;
-
-    /**
      * template parameterized atom type check
      */
     template <typename T>
@@ -143,7 +153,7 @@ public:
 
     /**
      * template parameterized atom value as typed value
-     * @note no type checks are done
+     * @warning no type checks are done
      */
     template <typename T>
     inline T asT() const;
@@ -168,23 +178,64 @@ public:
      */
     bool getFloat(t_float* v) const;
     bool getSymbol(t_symbol** s) const;
-    bool getString(std::string& str) const;
-
-    bool setFloat(t_float v, bool force = false);
-    bool setSymbol(t_symbol* s, bool force = false);
-
-    bool asBool(bool def = false) const;
-    t_float asFloat(t_float def = 0.f) const;
-    int asInt(int def = 0) const;
-    size_t asSizeT(size_t def = 0) const;
-    t_symbol* asSymbol() const;
-
-    const t_atom& atom() const { return *static_cast<const t_atom*>(this); }
 
     /**
-     * @deprecated
+     * @brief setFloat value
+     * @param v - new value
+     * @param force -- if true change atom type, if it wasn't float before
+     * @return true on success, false on error.
+     * If atom type is non-float and force is not set - returns false
      */
-    CEAMMC_DEPRECATED std::string asString() const;
+    bool setFloat(t_float v, bool force = false);
+
+    /**
+     * @brief setSymbol value
+     * @param s - new symbol value
+     * @param force -- if true change atom type to symbol, if it wasn't symbol before
+     * @return true on success, false on error.
+     * If atom type is non-symbol and force is not set - returns false
+     */
+    bool setSymbol(t_symbol* s, bool force = false);
+
+    /**
+     * Try to get atom value as bool
+     * @param def - default value if atom is not bool
+     * @return value on success, or default value on error
+     */
+    bool asBool(bool def = false) const;
+
+    /**
+     * Try to get atom value as float
+     * @param def - default value if atom is not float(!)
+     * @return atom float value on success, or default value on error
+     */
+    t_float asFloat(t_float def = 0.f) const;
+
+    /**
+     * Try to get atom value as integer
+     * @param def - default value if atom is not float
+     * @return atom float value rounded to int on success, or default value on error
+     */
+    int asInt(int def = 0) const;
+
+    /**
+     * Try to get atom value as unsigned integer
+     * @param def - default value if atom is not float or <0
+     * @return atom float value rounded to size_t on success, or default value on error
+     */
+    size_t asSizeT(size_t def = 0) const;
+
+    /**
+     * Try to get atom value as symbol
+     * @param def = default value if atom is not symbol
+     * @return atom symbol value ot default on error
+     */
+    t_symbol* asSymbol(t_symbol* def = &s_) const;
+
+    /**
+     * reference to underlying PureData type
+     */
+    const t_atom& atom() const { return *static_cast<const t_atom*>(this); }
 
     /**
      * compare operator
@@ -192,14 +243,14 @@ public:
      * @note now only floats and symbols
      */
     CEAMMC_NO_ASAN bool operator<(const Atom& a) const;
+    CEAMMC_NO_ASAN bool operator<(t_float f) const { return a_type == A_FLOAT && a_w.w_float < f; }
+    CEAMMC_NO_ASAN bool operator<=(t_float f) const { return a_type == A_FLOAT && a_w.w_float <= f; }
+    CEAMMC_NO_ASAN bool operator>(t_float f) const { return a_type == A_FLOAT && a_w.w_float > f; }
+    CEAMMC_NO_ASAN bool operator>=(t_float f) const { return a_type == A_FLOAT && a_w.w_float >= f; }
+    CEAMMC_NO_ASAN bool operator==(t_float f) const { return a_type == A_FLOAT && std::equal_to<t_float>()(a_w.w_float, f); }
+    CEAMMC_NO_ASAN bool operator!=(t_float f) const { return !operator==(f); }
 
-    /**
-     * @brief outputs atom to given outlet
-     * @param x - pointer to outlet
-     */
-    void output(t_outlet* x) const;
-
-    void outputAsAny(t_outlet* x, t_symbol* sel) const;
+    void outputAsAny(t_outlet* x, t_symbol* sel) const = delete;
 
     /**
      * Operators
@@ -217,12 +268,11 @@ public:
     /**
      * Apply function
      */
-    void apply(const FloatMapFunction& f);
-    void apply(const SymbolMapFunction& f);
     template <class F>
-    void apply(F fn);
-    template <class F>
-    void applyFloat(F fn);
+    void apply(F fn) { *this = fn(*this); }
+
+    inline bool applyFloat(const FloatMapFunction& fn);
+    inline bool applySymbol(const SymbolMapFunction& fn);
 
     /**
      * Data functions
@@ -258,6 +308,24 @@ public:
     friend bool operator!=(const Atom& a1, const Atom& a2);
 };
 
+bool Atom::applyFloat(const FloatMapFunction& fn)
+{
+    if (a_type == A_FLOAT) {
+        a_w.w_float = fn(a_w.w_float);
+        return true;
+    } else
+        return false;
+}
+
+bool Atom::applySymbol(const SymbolMapFunction& fn)
+{
+    if (a_type == A_SYMBOL) {
+        a_w.w_symbol = fn(a_w.w_symbol);
+        return true;
+    } else
+        return false;
+}
+
 template <>
 inline bool Atom::isA<bool>() const { return isBool(); }
 template <>
@@ -276,15 +344,6 @@ inline int Atom::asT<int>() const { return static_cast<int>(a_w.w_float); }
 template <>
 inline t_symbol* Atom::asT<t_symbol*>() const { return a_w.w_symbol; }
 
-template <class F>
-inline void Atom::apply(F fn) { *this = fn(*this); }
-template <class F>
-inline void Atom::applyFloat(F fn)
-{
-    if (isFloat())
-        a_w.w_float = fn(a_w.w_float);
-}
-
 template <typename T>
 static inline Atom atomFrom(T v) { return Atom(v); }
 template <>
@@ -295,8 +354,6 @@ Atom atomFrom(std::string v) { return Atom(gensym(v.c_str())); }
 CEAMMC_NO_ASAN bool operator==(const Atom& a1, const Atom& a2);
 bool operator!=(const Atom& a1, const Atom& a2);
 std::ostream& operator<<(std::ostream& os, const Atom& a);
-
-bool to_outlet(t_outlet* x, const Atom& a);
 
 static inline bool isFloat(const Atom& a) { return a.isFloat(); }
 static inline bool isSymbol(const Atom& a) { return a.isSymbol(); }

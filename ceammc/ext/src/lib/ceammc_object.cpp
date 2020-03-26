@@ -11,16 +11,17 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include "ceammc_object.h"
 #include "ceammc_convert.h"
 #include "ceammc_datatypes.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
+#include "ceammc_output.h"
 #include "ceammc_platform.h"
 #include "ceammc_property_callback.h"
 #include "ceammc_property_enum.h"
 #include "datatype_string.h"
+#include "fmt/format.h"
 
 #include <cstdarg>
 #include <cstring>
@@ -106,8 +107,6 @@ bool BaseObject::hasProperty(t_symbol* key) const
     return end != std::find_if(props_.begin(), end, [key](Property* p) { return p->name() == key; });
 }
 
-
-
 Property* BaseObject::property(t_symbol* key)
 {
     auto end = props_.end();
@@ -121,8 +120,6 @@ const Property* BaseObject::property(t_symbol* key) const
     auto it = std::find_if(props_.begin(), end, [key](Property* p) { return p->name() == key; });
     return (it == end) ? nullptr : *it;
 }
-
-
 
 bool BaseObject::setProperty(t_symbol* key, const AtomList& v)
 {
@@ -176,7 +173,7 @@ void BaseObject::atomTo(size_t n, const Atom& a)
         return;
     }
 
-    a.output(outlets_[n]);
+    outletAtom(outlets_[n], a);
 }
 
 void BaseObject::listTo(size_t n, const AtomList& l)
@@ -216,7 +213,7 @@ void BaseObject::anyTo(size_t n, t_symbol* s, const Atom& a)
         return;
     }
 
-    a.outputAsAny(outlets_[n], s);
+    outletAny(outlets_[n], s, a);
 }
 
 void BaseObject::anyTo(size_t n, t_symbol* s, const AtomList& l)
@@ -241,7 +238,7 @@ void BaseObject::dataTo(size_t n, const DataPtr& d)
         return;
     }
 
-    d.asAtom().output(outlets_[n]);
+    outletAtom(outlets_[n], d.asAtom());
 }
 
 bool BaseObject::processAnyInlets(t_symbol* sel, const AtomList& lst)
@@ -489,17 +486,17 @@ t_float BaseObject::positionalFloatArgument(size_t pos, t_float def) const
 
 t_float BaseObject::nonNegativeFloatArgAt(size_t pos, t_float def) const
 {
-    // >= 0
+    // assure def >= 0
     def = std::max<t_float>(0, def);
 
     if (pos >= positional_args_.size())
         return def;
 
     auto& arg = positional_args_[pos];
-
-    if (!arg.isNonNegative()) {
-        OBJ_ERR << "positional argument at [" << pos << "] expected to be >= 0, got: "
-                << arg << ", using default value: " << def;
+    if (!arg.isFloat() || arg < 0) {
+        OBJ_ERR << fmt::format(
+            "non-negative float argument expected at [{}], got: {}, using default value: {}",
+            pos, to_string(arg), def);
 
         return def;
     }
@@ -514,22 +511,24 @@ size_t BaseObject::nonNegativeIntArgAt(size_t pos, size_t def) const
 
     auto& arg = positional_args_[pos];
 
-    if (!arg.isNonNegative()) {
-        OBJ_ERR << "positional argument at [" << pos << "] expected to be >= 0, got: "
-                << arg << ", using default value: " << def;
+    if (!arg.isFloat() || arg < 0) {
+        OBJ_ERR << fmt::format(
+            "non-negative integer argument expected at [{}], got: {}, using default value: {}",
+            pos, to_string(arg), def);
 
         return def;
     }
 
     auto f = arg.asFloat(def);
+    auto i = static_cast<size_t>(std::round(f));
 
     if (!arg.isInteger()) {
-        f = std::round(f);
-        OBJ_ERR << "positional argument at [" << pos << "] is not integer: "
-                << arg << ", rounding to: " << f;
+        OBJ_ERR << fmt::format(
+            "positional argument at [{}] is not integer: {}, rounding to: {}",
+            pos, f, i);
     }
 
-    return static_cast<size_t>(f);
+    return i;
 }
 
 t_float BaseObject::positiveFloatArgAt(size_t pos, t_float def) const
@@ -544,9 +543,10 @@ t_float BaseObject::positiveFloatArgAt(size_t pos, t_float def) const
 
     auto& arg = positional_args_[pos];
 
-    if (!arg.isPositive()) {
-        OBJ_ERR << "positional argument at [" << pos << "] expected to be > 0, got: "
-                << arg << ", using default value: " << def;
+    if (!arg.isFloat() || arg <= 0) {
+        OBJ_ERR << fmt::format(
+            "positive float argument expected at [{}], got: {}, using default value: {}",
+            pos, to_string(arg), def);
 
         return def;
     }
@@ -561,22 +561,24 @@ size_t BaseObject::positiveIntArgAt(size_t pos, size_t def) const
 
     auto& arg = positional_args_[pos];
 
-    if (!arg.isPositive()) {
-        OBJ_ERR << "positional argument at [" << pos << "] expected to be > 0, got: "
-                << arg << ", using default value: " << def;
+    if (!arg.isFloat() || arg <= 0) {
+        OBJ_ERR << fmt::format(
+            "positive integer argument expected at [{}], got: {}, using default value: {}",
+            pos, to_string(arg), def);
 
         return def;
     }
 
     auto f = arg.asFloat(def);
+    auto i = static_cast<size_t>(std::round(f));
 
     if (!arg.isInteger()) {
-        f = std::round(f);
-        OBJ_ERR << "positional argument at [" << pos << "] is not integer: "
-                << arg << ", rounding to: " << f;
+        OBJ_ERR << fmt::format(
+            "positional argument at [{}] is not integer: {}, rounding to: {}",
+            pos, f, i);
     }
 
-    return static_cast<size_t>(f);
+    return i;
 }
 
 int BaseObject::positionalIntArgument(size_t pos, int def) const
@@ -664,7 +666,7 @@ bool BaseObject::checkArg(const Atom& atom, BaseObject::ArgumentType type, int p
             ARG_ERROR("integer expected");
         break;
     case ARG_NATURAL:
-        if (!atom.isNatural())
+        if (!(atom.isInteger() && atom > 0))
             ARG_ERROR("natural expected");
         break;
     case ARG_BOOL:

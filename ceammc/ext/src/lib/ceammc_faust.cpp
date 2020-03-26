@@ -14,8 +14,9 @@
 
 #include <array>
 
-#include "ceammc_property_callback.h"
 #include "ceammc_faust.h"
+#include "ceammc_output.h"
+#include "ceammc_property_callback.h"
 
 namespace ceammc {
 namespace faust {
@@ -103,7 +104,7 @@ namespace faust {
         else
             a.setSymbol(gensym("?"), true);
 
-        a.outputAsAny(out, set_prop_symbol_);
+        outletAny(out, set_prop_symbol_, a);
     }
 
     void UIElement::outputValue(t_outlet* out)
@@ -112,7 +113,7 @@ namespace faust {
             return;
 
         Atom a(value());
-        a.outputAsAny(out, gensym(path_.c_str()));
+        outletAny(out, gensym(path_.c_str()), a);
     }
 
     UIElement::UIElement(UIElementType t, const std::string& path, const std::string& label)

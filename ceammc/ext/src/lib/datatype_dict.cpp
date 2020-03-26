@@ -15,6 +15,7 @@
 #include "ceammc_datatypes.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
+#include "ceammc_output.h"
 #include "datatype_mlist.h"
 #include "dict_parser_impl.h"
 
@@ -465,7 +466,7 @@ bool ceammc::to_outlet(t_outlet* x, const DictValue& v)
     if (DataTypeDict::isNull(v))
         return false;
     else if (v.type() == typeid(Atom))
-        return to_outlet(x, boost::get<Atom>(v));
+        return outletAtom(x, boost::get<Atom>(v));
     else if (v.type() == typeid(AtomList))
         return to_outlet(x, boost::get<AtomList>(v));
     else if (v.type() == typeid(DataAtom))

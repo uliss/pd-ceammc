@@ -32,6 +32,11 @@ typedef std::vector<t_float> FloatList;
 typedef bool (*AtomPredicate)(const Atom& a);
 typedef Atom (*AtomGenerator)();
 
+enum class AtomListMapType {
+    FILTER,
+    KEEP
+};
+
 class AtomList {
 public:
     typedef std::vector<Atom> Container;
@@ -208,18 +213,29 @@ public:
     bool hasProperty(const std::string& name) const;
 
     /**
-     * Apply specified function to all list values
-     * @param f - pointer to function
-     * @return new list, original is not modified
+     * New list with mapped atom values
+     * @param fn - atom map function
+     * @return new list
      */
-    AtomList map(const AtomMapFunction& f) const;
-    AtomList map(const FloatMapFunction& f) const;
-    AtomList map(const SymbolMapFunction& f) const;
+    AtomList map(const AtomMapFunction& fn) const;
 
-    template <class F>
-    AtomList map(F fn) const;
-    template <class F>
-    AtomList mapFloat(F fn) const;
+    /**
+     * New list with mapped float values
+     * @param fn - function
+     * @param t - AtomListMapType::KEEP - non-float values are left untouched,
+     *            if AtomListMapType::FILTER - non-float values are removed
+     * @return new list
+     */
+    AtomList mapFloat(const FloatMapFunction& fn, AtomListMapType t = AtomListMapType::KEEP) const;
+
+    /**
+     * New list with mapped symbol values
+     * @param fn - function
+     * @param t - AtomListMapType::KEEP - non-symbol values are left untouched,
+     *            if AtomListMapType::FILTER - non-symbol values are removed
+     * @return new list
+     */
+    AtomList mapSymbol(const SymbolMapFunction& fn, AtomListMapType t = AtomListMapType::KEEP) const;
 
     template <class F>
     AtomList filter(F fn) const;
@@ -361,12 +377,6 @@ public:
     size_t asSizeT(size_t defaultValue = 0) const;
 
     /**
-     * @brief output list atoms separatly, one by one
-     * @param x - output outlet
-     */
-    void outputAtoms(t_outlet* x) const;
-
-    /**
      * Outputs list to given outlet
      * @param x - pointer to outlet
      */
@@ -482,28 +492,6 @@ T AtomList::reduce(T init, T (*fn)(const Atom&, const Atom&)) const
         accum = fn(accum, el);
 
     return accum;
-}
-
-template <class F>
-AtomList AtomList::map(F fn) const
-{
-    AtomList res(*this);
-
-    for (auto& el : res.atoms_)
-        el.apply(fn);
-
-    return res;
-}
-
-template <class F>
-AtomList AtomList::mapFloat(F fn) const
-{
-    AtomList res(*this);
-
-    for (auto& el : res.atoms_)
-        el.applyFloat(fn);
-
-    return res;
 }
 
 template <class F>

@@ -1,5 +1,6 @@
 #include "ceammc_ui_object.h"
 #include "ceammc_log.h"
+#include "ceammc_output.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 
@@ -437,7 +438,7 @@ void UIObjectImpl::dataTo(size_t n, const DataPtr& ptr)
     if (ptr.isNull())
         return;
 
-    ptr.asAtom().output(outlets_[n]);
+    outletAtom(outlets_[n], ptr.asAtom());
 }
 
 void UIObjectImpl::sendBang()

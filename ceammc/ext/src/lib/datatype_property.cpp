@@ -338,7 +338,7 @@ bool DataTypeProperty::hasMaxValue() const
     if (isFloat())
         return floatRange().second != std::numeric_limits<t_float>::max();
     else if (isInt())
-        return intRange().second != std::numeric_limits<int >::max();
+        return intRange().second != std::numeric_limits<int>::max();
     else
         return false;
 }
@@ -354,8 +354,8 @@ PropertyInfo DataTypeProperty::info() const
     PropertyInfo res(name, type_);
 
     if (isFloat()) {
-        res.setRangeFloat(fmin_, fmax_);
-        res.setDefault(boost::get<t_float>(default_));
+        if (res.setRangeFloat(fmin_, fmax_))
+            res.setDefault(boost::get<t_float>(default_));
     } else if (isInt()) {
         res.setDefault(boost::get<int>(default_));
     } else if (isBool()) {

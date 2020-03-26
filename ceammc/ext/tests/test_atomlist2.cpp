@@ -557,18 +557,18 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
     {
         SECTION("float")
         {
-            REQUIRE(LF(1, 2, 3).map(FloatMapFunction(&mul10)) == LF(10, 20, 30));
-            REQUIRE(LA("a", "b", "@c").map(FloatMapFunction(&neg)) == LA("a", "b", "@c"));
-            REQUIRE(LA("a", 100, "c").map(FloatMapFunction(&neg)) == LA("a", -100, "c"));
+            REQUIRE(LF(1, 2, 3).mapFloat(mul10) == LF(10, 20, 30));
+            REQUIRE(LA("a", "b", "@c").mapFloat(neg) == LA("a", "b", "@c"));
+            REQUIRE(LA("a", 100, "c").mapFloat(neg) == LA("a", -100, "c"));
         }
 
         SECTION("symbol")
         {
-            REQUIRE(LF(1, 2, 3).map(SymbolMapFunction(&toUpper)) == LF(1, 2, 3));
-            REQUIRE(LA("a", "b", "c").map(SymbolMapFunction(&toUpper)) == LA("A", "B", "C"));
-            REQUIRE(LA("@a", "b", "c").map(SymbolMapFunction(&toUpper)) == LA("@A", "B", "C"));
-            REQUIRE(LA("A", "B", "C").map(SymbolMapFunction(&toUpper)) == LA("A", "B", "C"));
-            REQUIRE(LA("a", 100, "c").map(SymbolMapFunction(&toUpper)) == LA("A", 100, "C"));
+            REQUIRE(LF(1, 2, 3).mapSymbol(toUpper) == LF(1, 2, 3));
+            REQUIRE(LA("a", "b", "c").mapSymbol(toUpper) == LA("A", "B", "C"));
+            REQUIRE(LA("@a", "b", "c").mapSymbol(toUpper) == LA("@A", "B", "C"));
+            REQUIRE(LA("A", "B", "C").mapSymbol(toUpper) == LA("A", "B", "C"));
+            REQUIRE(LA("a", 100, "c").mapSymbol(toUpper) == LA("A", 100, "C"));
         }
 
         SECTION("atom")

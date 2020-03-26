@@ -56,12 +56,14 @@ Atom::Atom(const t_atom& a)
 
 Atom::Atom(t_float v)
 {
-    SETFLOAT(this, v);
+    a_type = A_FLOAT;
+    a_w.w_float = v;
 }
 
 Atom::Atom(t_symbol* s)
 {
-    SETSYMBOL(this, s);
+    a_type = A_SYMBOL;
+    a_w.w_symbol = s;
 }
 
 Atom::Atom(const DataDesc& d)
@@ -75,7 +77,6 @@ bool Atom::isBool() const
     static t_symbol* SYM_FALSE = gensym("false");
 
     switch (a_type) {
-    case A_DEFFLOAT:
     case A_FLOAT: {
         return std::equal_to<t_float>()(a_w.w_float, 1)
             || std::equal_to<t_float>()(a_w.w_float, 0);
@@ -89,29 +90,9 @@ bool Atom::isBool() const
     }
 }
 
-bool Atom::isFloat() const
-{
-    return type() == FLOAT;
-}
-
-bool Atom::isNonNegative() const
-{
-    return type() == FLOAT && a_w.w_float >= 0;
-}
-
-bool Atom::isPositive() const
-{
-    return type() == FLOAT && a_w.w_float > 0;
-}
-
 bool Atom::isNone() const
 {
     return type() == NONE;
-}
-
-bool Atom::isSymbol() const
-{
-    return type() == SYMBOL || type() == PROPERTY;
 }
 
 bool Atom::isProperty() const
@@ -123,11 +104,6 @@ bool Atom::isInteger() const
 {
     return isFloat()
         && std::equal_to<t_float>()(std::ceil(a_w.w_float), a_w.w_float);
-}
-
-bool Atom::isNatural() const
-{
-    return isInteger() && a_w.w_float >= t_float(0);
 }
 
 bool Atom::isData() const
@@ -181,15 +157,6 @@ bool Atom::getSymbol(t_symbol** s) const
         return false;
 
     *s = this->a_w.w_symbol;
-    return true;
-}
-
-bool Atom::getString(std::string& str) const
-{
-    if (!isSymbol())
-        return false;
-
-    str = this->a_w.w_symbol->s_name;
     return true;
 }
 
@@ -251,18 +218,9 @@ size_t Atom::asSizeT(size_t def) const
     return (v < 0) ? def : static_cast<size_t>(v);
 }
 
-t_symbol* Atom::asSymbol() const
+t_symbol* Atom::asSymbol(t_symbol* def) const
 {
-    return a_w.w_symbol;
-}
-
-std::string Atom::asString() const
-{
-    if (isSymbol())
-        return a_w.w_symbol->s_name;
-    else if (isFloat())
-        return std::to_string(a_w.w_float);
-    return {};
+    return isSymbol() ? a_w.w_symbol : def;
 }
 
 bool Atom::operator<(const Atom& a) const
@@ -290,11 +248,6 @@ bool Atom::operator<(const Atom& a) const
     }
 
     return false;
-}
-
-void Atom::output(_outlet* x) const
-{
-    to_outlet(x, *this);
 }
 
 Atom& Atom::operator+=(t_float v)
@@ -349,18 +302,6 @@ Atom Atom::operator/(t_float v) const
     return Atom(*this) /= v;
 }
 
-void Atom::apply(const FloatMapFunction& f)
-{
-    if (isFloat())
-        a_w.w_float = f(a_w.w_float);
-}
-
-void Atom::apply(const SymbolMapFunction& f)
-{
-    if (a_type == A_SYMBOL)
-        a_w.w_symbol = f(a_w.w_symbol);
-}
-
 DataType Atom::dataType() const
 {
     return getData().type;
@@ -392,11 +333,6 @@ void Atom::setData(const DataDesc& d)
     a_w.w_index = static_cast<decltype(a_w.w_index)>(value);
 }
 
-void Atom::outputAsAny(t_outlet* x, t_symbol* sel) const
-{
-    outlet_anything(x, sel, 1, const_cast<t_atom*>(static_cast<const t_atom*>(this)));
-}
-
 bool operator==(const Atom& a1, const Atom& a2)
 {
     if (&a1 == &a2)
@@ -420,26 +356,6 @@ bool operator==(const Atom& a1, const Atom& a2)
 bool operator!=(const Atom& a1, const Atom& a2)
 {
     return !(a1 == a2);
-}
-
-bool to_outlet(t_outlet* x, const Atom& a)
-{
-    if (a.isFloat()) {
-        outlet_float(x, a.asFloat());
-        return true;
-    }
-
-    if (a.isSymbol()) {
-        outlet_symbol(x, a.asSymbol());
-        return true;
-    }
-
-    if (a.isData()) {
-        outlet_list(x, &s_list, 1, const_cast<t_atom*>(reinterpret_cast<const t_atom*>(&a)));
-        return true;
-    }
-
-    return false;
 }
 
 std::ostream& operator<<(std::ostream& os, const Atom& a)

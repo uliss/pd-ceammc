@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_dataatom.h"
 #include "ceammc_log.h"
+#include "ceammc_output.h"
 
 #include <boost/functional/hash.hpp>
 
@@ -189,7 +190,7 @@ bool to_outlet(t_outlet* x, const DataAtom& a)
     if (!x || !a.isValid())
         return false;
 
-    return to_outlet(x, a.asAtom());
+    return outletAtom(x, a.asAtom());
 }
 
 std::ostream& operator<<(std::ostream& os, const DataAtom& a)

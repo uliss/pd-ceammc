@@ -14,6 +14,7 @@
 #include "datatype_tree.h"
 #include "ceammc_convert.h"
 #include "ceammc_datatypes.h"
+#include "ceammc_output.h"
 #include "datatype_tree_imp.h"
 #include "fmt/format.h"
 
@@ -447,7 +448,7 @@ void DataTypeTree::outputTo(_outlet* o) const
             outlet_list(o, &s_list, lst.size(), lst.toPdData());
         } else {
             DataPtr dptr(clone());
-            dptr.asAtom().output(o);
+            outletAtom(o, dptr.asAtom());
         }
     }
 }
