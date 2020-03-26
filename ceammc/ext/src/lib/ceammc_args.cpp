@@ -14,6 +14,7 @@
 #include "ceammc_args.h"
 #include "args/argcheck.lexer.h"
 #include "args/argcheck.parser.hpp"
+#include "ceammc_atomlist_view.h"
 #include "ceammc_format.h"
 #include "ceammc_string.h"
 #include "fmt/format.h"

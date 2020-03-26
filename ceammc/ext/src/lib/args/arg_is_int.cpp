@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "arg_is_int.h"
+#include "ceammc_atom.h"
 #include "ceammc_format.h"
 #include "fmt/format.h"
 

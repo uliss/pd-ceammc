@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "arg_checker_single.h"
+#include "ceammc_atomlist_view.h"
 
 namespace ceammc {
 

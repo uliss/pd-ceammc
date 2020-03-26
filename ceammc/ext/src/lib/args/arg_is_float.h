@@ -16,6 +16,8 @@
 
 #include "arg_checker_single.h"
 
+#include "m_pd.h"
+
 namespace ceammc {
 
 class ArgIsFloat : public ArgCheckerSingle {

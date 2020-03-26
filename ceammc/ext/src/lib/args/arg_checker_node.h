@@ -14,13 +14,12 @@
 #ifndef ARG_CHECKER_NODE_H
 #define ARG_CHECKER_NODE_H
 
-#include "ceammc_atomlist_view.h"
-
 #include <memory>
 #include <string>
 
 namespace ceammc {
 
+class AtomListView;
 class ArgCheckerNode;
 
 struct CheckResult {

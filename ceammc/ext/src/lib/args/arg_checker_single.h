@@ -18,6 +18,8 @@
 
 namespace ceammc {
 
+class Atom;
+
 class ArgCheckerSingle : public ArgCheckerNode {
 public:
     ArgCheckerSingle();

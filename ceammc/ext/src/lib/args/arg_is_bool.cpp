@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "arg_is_bool.h"
+#include "ceammc_atom.h"
 #include "ceammc_format.h"
 
 namespace ceammc {

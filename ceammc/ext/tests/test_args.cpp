@@ -17,6 +17,8 @@
 #include "args/arg_is_float.h"
 #include "args/arg_is_symbol.h"
 #include "ceammc_args.h"
+#include "ceammc_atomlist.h"
+#include "ceammc_atomlist_view.h"
 #include "datatype_string.h"
 
 #include "catch.hpp"

@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "arg_group_and.h"
+#include "ceammc_atomlist_view.h"
 #include "fmt/format.h"
 
 namespace ceammc {

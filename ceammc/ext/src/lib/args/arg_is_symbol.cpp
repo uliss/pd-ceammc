@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "arg_is_symbol.h"
+#include "ceammc_atom.h"
 #include "ceammc_format.h"
 #include "ceammc_regexp.h"
 #include "ceammc_string.h"
