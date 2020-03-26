@@ -212,9 +212,9 @@ public:
      * @param f - pointer to function
      * @return new list, original is not modified
      */
-    AtomList map(AtomMapFunction f) const;
-    AtomList map(AtomFloatMapFunction f) const;
-    AtomList map(AtomSymbolMapFunction f) const;
+    AtomList map(const AtomMapFunction& f) const;
+    AtomList map(const FloatMapFunction& f) const;
+    AtomList map(const SymbolMapFunction& f) const;
 
     template <class F>
     AtomList map(F fn) const;

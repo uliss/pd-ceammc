@@ -378,17 +378,7 @@ bool AtomList::hasProperty(const std::string& name) const
     return false;
 }
 
-AtomList AtomList::map(AtomFloatMapFunction f) const
-{
-    AtomList res(*this);
-
-    for (size_t i = 0; i < res.size(); i++)
-        res[i].apply(f);
-
-    return res;
-}
-
-AtomList AtomList::map(AtomSymbolMapFunction f) const
+AtomList AtomList::map(const FloatMapFunction& f) const
 {
     AtomList res(*this);
 
@@ -398,12 +388,22 @@ AtomList AtomList::map(AtomSymbolMapFunction f) const
     return res;
 }
 
-AtomList AtomList::map(AtomMapFunction f) const
+AtomList AtomList::map(const SymbolMapFunction& f) const
 {
     AtomList res(*this);
 
-    for (size_t i = 0; i < res.size(); i++)
-        res[i] = f(res[i]);
+    for (auto& a : res.atoms_)
+        a.apply(f);
+
+    return res;
+}
+
+AtomList AtomList::map(const AtomMapFunction& f) const
+{
+    AtomList res(*this);
+
+    for (auto& a : res.atoms_)
+        a = f(a);
 
     return res;
 }

@@ -16,6 +16,7 @@
 
 #include "m_pd.h"
 
+#include <functional>
 #include <iostream>
 #include <string>
 #include <utility>
@@ -50,9 +51,10 @@
 namespace ceammc {
 
 class Atom;
-typedef Atom (*AtomMapFunction)(const Atom& a);
-typedef t_float (*AtomFloatMapFunction)(t_float f);
-typedef t_symbol* (*AtomSymbolMapFunction)(t_symbol* s);
+
+using AtomMapFunction = std::function<Atom(const Atom&)>;
+using FloatMapFunction = std::function<t_float(t_float)>;
+using SymbolMapFunction = std::function<t_symbol*(t_symbol*)>;
 
 typedef unsigned int DataId;
 typedef unsigned short DataType;
@@ -215,8 +217,8 @@ public:
     /**
      * Apply function
      */
-    void apply(AtomFloatMapFunction f);
-    void apply(AtomSymbolMapFunction f);
+    void apply(const FloatMapFunction& f);
+    void apply(const SymbolMapFunction& f);
     template <class F>
     void apply(F fn);
     template <class F>

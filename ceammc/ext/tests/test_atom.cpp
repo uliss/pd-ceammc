@@ -389,33 +389,35 @@ TEST_CASE("Atom", "[ceammc::Atom]")
     {
         SECTION("float")
         {
+            FloatMapFunction fn(&cosf);
             Atom a;
-            a.apply(&cosf);
+            a.apply(fn);
             REQUIRE(a.isNone());
 
             a.setFloat(0, true);
-            a.apply(&cosf);
+            a.apply(fn);
             REQUIRE(a.asFloat() == 1);
 
             a.setSymbol(gensym("a"), true);
-            a.apply(&cosf);
+            a.apply(fn);
             REQUIRE(a.isSymbol());
             REQUIRE(a.asSymbol() == gensym("a"));
         }
 
         SECTION("symbol")
         {
+            SymbolMapFunction fn(&toUpper);
             Atom a;
-            a.apply(&toUpper);
+            a.apply(fn);
             REQUIRE(a.isNone());
 
             a.setSymbol(gensym("a"), true);
-            a.apply(&toUpper);
+            a.apply(fn);
             REQUIRE(a.isSymbol());
             REQUIRE(a.asSymbol() == gensym("A"));
 
             a.setFloat(123, true);
-            a.apply(&toUpper);
+            a.apply(fn);
             REQUIRE(a.asFloat() == 123);
         }
     }

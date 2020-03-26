@@ -349,13 +349,13 @@ Atom Atom::operator/(t_float v) const
     return Atom(*this) /= v;
 }
 
-void Atom::apply(AtomFloatMapFunction f)
+void Atom::apply(const FloatMapFunction& f)
 {
     if (isFloat())
         a_w.w_float = f(a_w.w_float);
 }
 
-void Atom::apply(AtomSymbolMapFunction f)
+void Atom::apply(const SymbolMapFunction& f)
 {
     if (a_type == A_SYMBOL)
         a_w.w_symbol = f(a_w.w_symbol);
