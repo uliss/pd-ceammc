@@ -113,7 +113,7 @@ public:
  *     -  static const char* typeName() - data type name
  *
  * Also you can override this functions:
- *     - Result setFromFloat(float f)
+ *     - Result setFromFloat(t_float f)
  *     - Result setFromSymbol(t_symbol* s)
  *     - Result setFromList(const ceammc::AtomList& l)
  *
@@ -152,7 +152,7 @@ public:
      * @param f - input float
      * @return operation result
      */
-    virtual Result setFromFloat(float f)
+    virtual Result setFromFloat(t_float f)
     {
         return Result(std::string("unexpected float: ") + std::to_string(f), NOT_SUPPORTED);
     }

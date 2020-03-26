@@ -104,7 +104,7 @@ public:
         dispatch();
     }
 
-    void onFloat(float f) override
+    void onFloat(t_float f) override
     {
         switch (MethodTraits::nargs) {
         case 0:

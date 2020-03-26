@@ -39,7 +39,7 @@ public:
         this->dataTo(0, data().clone());
     }
 
-    void onFloat(float f) override
+    void onFloat(t_float f) override
     {
         data().add(Atom(f));
     }

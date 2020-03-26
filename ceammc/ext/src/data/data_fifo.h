@@ -33,7 +33,7 @@ public:
     DataFifo(const PdArgs& args);
 
     void onBang() override;
-    void onFloat(float v) override;
+    void onFloat(t_float v) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
     void onAny(t_symbol* s, const AtomList& lst) override;

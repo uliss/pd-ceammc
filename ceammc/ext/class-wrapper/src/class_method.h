@@ -172,7 +172,7 @@ public:
         }
     }
 
-    void onFloat(float f) override
+    void onFloat(t_float f) override
     {
         Result res = data_.setFromFloat(f);
 

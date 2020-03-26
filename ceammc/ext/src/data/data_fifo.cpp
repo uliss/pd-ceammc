@@ -26,7 +26,7 @@ DataFifo::DataFifo(const PdArgs& args)
 
 void DataFifo::onBang() { flush(); }
 
-void DataFifo::onFloat(float v) { add(Atom(v)); }
+void DataFifo::onFloat(t_float v) { add(Atom(v)); }
 
 void DataFifo::onSymbol(t_symbol* s) { add(Atom(s)); }
 

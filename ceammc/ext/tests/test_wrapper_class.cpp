@@ -63,9 +63,9 @@ public:
         return std::string("int: ") + std::to_string(v_);
     }
 
-    Result setFromFloat(float v) override
+    Result setFromFloat(t_float v) override
     {
-        v_ = v;
+        v_ = static_cast<decltype(v_)>(v);
         return ok();
     }
 

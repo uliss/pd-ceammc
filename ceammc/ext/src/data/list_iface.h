@@ -22,7 +22,7 @@ public:
         this->listTo(0, list());
     }
 
-    void onFloat(float f) override
+    void onFloat(t_float f) override
     {
         const size_t N = list().size();
         if (!N)
