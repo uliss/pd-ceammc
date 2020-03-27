@@ -909,20 +909,15 @@ AtomList AtomList::operator/(t_float v) const
     return res;
 }
 
-bool operator==(const AtomList& l1, const AtomList& l2)
+bool AtomList::operator==(const AtomList& x) const
 {
-    if (&l1 == &l2)
+    if (this == &x)
         return true;
 
-    if (l1.size() != l2.size())
+    if (size() != x.size())
         return false;
 
-    return std::equal(l1.atoms_.begin(), l1.atoms_.end(), l2.atoms_.begin());
-}
-
-bool operator!=(const AtomList& l1, const AtomList& l2)
-{
-    return !(l1 == l2);
+    return std::equal(atoms_.begin(), atoms_.end(), x.atoms_.begin());
 }
 
 std::ostream& operator<<(std::ostream& os, const AtomList& l)

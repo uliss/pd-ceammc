@@ -456,9 +456,8 @@ public:
     AtomList operator*(t_float v) const;
     AtomList operator/(t_float v) const;
 
-public:
-    friend bool operator==(const AtomList& l1, const AtomList& l2);
-    friend bool operator!=(const AtomList& l1, const AtomList& l2);
+    bool operator==(const AtomList& x) const;
+    bool operator!=(const AtomList& x) const { return !operator==(x); }
 
 private:
     Container atoms_;
@@ -484,8 +483,6 @@ T AtomList::reduce(T init, std::function<T(const Atom&, const Atom&)> fn) const
     return accum;
 }
 
-bool operator==(const AtomList& l1, const AtomList& l2);
-bool operator!=(const AtomList& l1, const AtomList& l2);
 std::ostream& operator<<(std::ostream& os, const AtomList& l);
 
 template <typename T>
