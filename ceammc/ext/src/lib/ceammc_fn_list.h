@@ -64,6 +64,23 @@ namespace list {
      */
     bool normalizeByRange(const AtomList& src, AtomList& dest);
 
+    /**
+     * Return vector of types containing in lst
+     */
+    template <typename T>
+    std::vector<T> extractByType(const AtomList& l)
+    {
+        std::vector<T> res;
+        res.reserve(l.size());
+
+        for (const Atom& a : l) {
+            if (a.isA<T>())
+                res.push_back(a.asT<T>());
+        }
+
+        return res;
+    }
+
     enum enumerateMode {
         PREPEND,
         APPEND

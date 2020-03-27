@@ -283,4 +283,21 @@ TEST_CASE("list functions", "[ceammc::list]")
         REQUIRE(list::canConvertToType<AtomList>(LA(1, 2)));
         REQUIRE(list::canConvertToType<AtomList>(LA(1, 2, "ABC")));
     }
+
+    SECTION("exctactByType")
+    {
+        auto src = LA("A", "C", "true", 0.0, 1, 1.5, 2);
+
+        std::vector<int> int_res_expected { 0, 1, 2 };
+        REQUIRE(list::extractByType<int>(src) == int_res_expected);
+
+        std::vector<t_float> float_res_expected { 0, 1, 1.5, 2 };
+        REQUIRE(list::extractByType<t_float>(src) == float_res_expected);
+
+        std::vector<bool> bool_res_expected { true, false, true };
+        REQUIRE(list::extractByType<bool>(src) == bool_res_expected);
+
+        std::vector<t_symbol*> symbol_res_expected { SYM("A"), SYM("C"), SYM("true") };
+        REQUIRE(list::extractByType<t_symbol*>(src) == symbol_res_expected);
+    }
 }
