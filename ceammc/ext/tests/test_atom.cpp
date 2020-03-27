@@ -86,10 +86,10 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         REQUIRE(fatom.asFloat() == 1.99f);
         t_float v;
         REQUIRE(fatom.getFloat(&v));
-        REQUIRE_FALSE(fatom.getFloat(NULL));
+        REQUIRE_FALSE(fatom.getFloat(nullptr));
         t_symbol* s;
         REQUIRE_FALSE(fatom.getSymbol(&s));
-        REQUIRE_FALSE(fatom.getSymbol(NULL));
+        REQUIRE_FALSE(fatom.getSymbol(nullptr));
     }
 
     SECTION("Type replace")

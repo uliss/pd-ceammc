@@ -149,7 +149,7 @@ bool Atom::getFloat(t_float* v) const
 
 bool Atom::getSymbol(t_symbol** s) const
 {
-    if (s == 0)
+    if (!s)
         return false;
 
     if (!isSymbol())
@@ -222,28 +222,28 @@ t_symbol* Atom::asSymbol(t_symbol* def) const
     return isSymbol() ? a_w.w_symbol : def;
 }
 
-bool Atom::operator<(const Atom& a) const
+bool Atom::operator<(const Atom& b) const
 {
-    if (this == &a)
+    if (this == &b)
         return false;
 
-    if (this->a_type < a.a_type)
+    if (a_type < b.a_type)
         return true;
 
     if (isFloat())
-        return this->a_w.w_float < a.a_w.w_float;
+        return a_w.w_float < b.a_w.w_float;
 
-    if (isSymbol() && a.isSymbol()) {
-        if (a_w.w_symbol == a.a_w.w_symbol)
+    if (isSymbol() && b.isSymbol()) {
+        if (a_w.w_symbol == b.a_w.w_symbol)
             return false;
 
-        if (a_w.w_symbol == 0 || a.a_w.w_symbol == 0)
+        if (a_w.w_symbol == 0 || b.a_w.w_symbol == 0)
             return false;
 
-        if (a_w.w_symbol->s_name == 0 || a.a_w.w_symbol->s_name == 0)
+        if (a_w.w_symbol->s_name == 0 || b.a_w.w_symbol->s_name == 0)
             return false;
 
-        return strcmp(a_w.w_symbol->s_name, a.a_w.w_symbol->s_name) < 0;
+        return strcmp(a_w.w_symbol->s_name, b.a_w.w_symbol->s_name) < 0;
     }
 
     return false;
