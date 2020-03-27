@@ -23,9 +23,6 @@
 
 namespace ceammc {
 
-class Atom;
-bool to_outlet(t_outlet* x, const Atom& a) = delete;
-
 using AtomPredicate = std::function<bool(const Atom&)>;
 using FloatPredicate = std::function<bool(t_float)>;
 using SymbolPredicate = std::function<bool(t_symbol*)>;
@@ -234,8 +231,6 @@ public:
     bool operator!=(const Atom& a) const { return !operator==(a); }
     CEAMMC_NO_ASAN bool operator==(t_float f) const { return isFloat() && std::equal_to<t_float>()(a_w.w_float, f); }
     bool operator!=(t_float f) const { return !operator==(f); }
-
-    void outputAsAny(t_outlet* x, t_symbol* sel) const = delete;
 
     /**
      * Operators
