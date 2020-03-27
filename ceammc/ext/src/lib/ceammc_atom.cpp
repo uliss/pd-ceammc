@@ -352,11 +352,6 @@ bool Atom::operator==(const Atom& x) const
     return false;
 }
 
-bool operator!=(const Atom& a1, const Atom& a2)
-{
-    return !(a1 == a2);
-}
-
 std::ostream& operator<<(std::ostream& os, const Atom& a)
 {
     if (a.isFloat())

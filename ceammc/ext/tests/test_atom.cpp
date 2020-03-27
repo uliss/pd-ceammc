@@ -157,6 +157,7 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         REQUIRE(a1 == a1);
         REQUIRE_FALSE(a1 != a1);
         REQUIRE(a1 == a2);
+        REQUIRE_FALSE(a1 != a2);
 
         a2.setFloat(1.3f);
         REQUIRE(a1 != a2);
