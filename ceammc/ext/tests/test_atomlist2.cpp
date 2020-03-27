@@ -327,42 +327,34 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
     SECTION("property get atomlist")
     {
         // empty data
-        REQUIRE_FALSE(L().property("@a", static_cast<AtomList*>(0)));
+        REQUIRE_FALSE(L().property(SYM("@a"), static_cast<AtomList*>(0)));
 
         AtomList plist;
-        REQUIRE_FALSE(L().property("@a", &plist));
+        REQUIRE_FALSE(L().property(SYM("@a"), &plist));
         REQUIRE(plist.empty());
 
-        REQUIRE_FALSE(AtomList(gensym("@b")).property("@a", &plist));
+        REQUIRE_FALSE(LA("@b").property(SYM("@a"), &plist));
 
         // test for empty property
         plist.append(23);
-        REQUIRE(AtomList(gensym("value"), gensym("@a")).property("@a", &plist));
+        REQUIRE(LA("value", "@a").property(SYM("@a"), &plist));
         REQUIRE(plist.empty());
 
-        AtomList lst;
-        lst.append(F(2));
-        lst.append(A("@a"));
-        lst.append(A("@b"));
-        lst.append(F(3));
-        lst.append(F(4));
-        lst.append(F(5));
-        lst.append(A("@c"));
-        lst.append(F(6));
+        AtomList lst = LA(2, "@a", "@b", 3, 4, 5, "@c", 6);
 
-        REQUIRE(lst.property("@a", &plist));
+        REQUIRE(lst.property(SYM("@a"), &plist));
         REQUIRE(plist == L());
 
-        REQUIRE(lst.property("@b", &plist));
+        REQUIRE(lst.property(SYM("@b"), &plist));
         REQUIRE(plist == LF(3.0, 4.0, 5.0));
 
-        REQUIRE(lst.property("@a", &plist));
+        REQUIRE(lst.property(SYM("@a"), &plist));
         REQUIRE(plist == L());
 
-        REQUIRE(lst.property("@c", &plist));
+        REQUIRE(lst.property(SYM("@c"), &plist));
         REQUIRE(plist == AtomList(F(6)));
 
-        REQUIRE_FALSE(lst.property("@d", &plist));
+        REQUIRE_FALSE(lst.property(SYM("@d"), &plist));
         REQUIRE(plist == AtomList(F(6)));
     }
 

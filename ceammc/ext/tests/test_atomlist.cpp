@@ -768,20 +768,20 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
     SECTION("property")
     {
         AtomList l;
-        REQUIRE_FALSE(l.property("@test", (Atom*)0));
+        REQUIRE_FALSE(l.property(SYM("@test"), (Atom*)0));
         REQUIRE_FALSE(l.hasProperty("@test"));
 
         Atom p1;
-        REQUIRE_FALSE(l.property("@test", &p1));
+        REQUIRE_FALSE(l.property(SYM("@test"), &p1));
 
         l.append(1.f);
         l.append(2.f);
         l.append(gensym("a"));
         l.append(gensym("@test"));
-        REQUIRE_FALSE(l.property("@test", &p1));
+        REQUIRE_FALSE(l.property(SYM("@test"), &p1));
         REQUIRE(l.hasProperty("@test"));
         l.append(3.f);
-        REQUIRE(l.property("@test", &p1));
+        REQUIRE(l.property(SYM("@test"), &p1));
         REQUIRE(l.hasProperty("@test"));
         REQUIRE(p1.asFloat() == 3.f);
 
@@ -790,11 +790,11 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         l.append(4.f);
 
         Atom p2;
-        REQUIRE(l.property("@test2", &p2));
+        REQUIRE(l.property(SYM("@test2"), &p2));
         REQUIRE(p2.asFloat() == 4.f);
 
         p1 = p2; // reset
-        REQUIRE(l.property("@test", &p1));
+        REQUIRE(l.property(SYM("@test"), &p1));
         REQUIRE(p1.asFloat() == 3.f);
 
         l.clear();
@@ -803,11 +803,11 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         l.append(gensym("@c"));
 
         p1 = Atom();
-        REQUIRE_FALSE(l.property("@a", &p1));
+        REQUIRE_FALSE(l.property(SYM("@a"), &p1));
         REQUIRE(p1.isNone());
-        REQUIRE_FALSE(l.property("@b", &p1));
+        REQUIRE_FALSE(l.property(SYM("@b"), &p1));
         REQUIRE(p1.isNone());
-        REQUIRE_FALSE(l.property("@c", &p1));
+        REQUIRE_FALSE(l.property(SYM("@c"), &p1));
         REQUIRE(p1.isNone());
     }
 

@@ -36,7 +36,7 @@ void ArrayFill::onFloat(t_float f)
     if (!checkArray())
         return;
 
-    for (float & i : array_)
+    for (auto& i : array_)
         i = f;
 
     finish();
@@ -253,6 +253,9 @@ void ArrayFill::finish()
 
 AtomList ArrayFill::parseRange(const AtomList& args, size_t* from, size_t* to) const
 {
+    static t_symbol* PROP_FROM = gensym("@from");
+    static t_symbol* PROP_TO = gensym("@to");
+
     AtomList res;
 
     Atom p_from;
@@ -260,19 +263,19 @@ AtomList ArrayFill::parseRange(const AtomList& args, size_t* from, size_t* to) c
 
     size_t num_props = 0;
 
-    if (args.hasProperty("@from")) {
+    if (args.hasProperty(PROP_FROM)) {
 
         num_props++;
 
-        if (args.property("@from", &p_from))
+        if (args.property(PROP_FROM, &p_from))
             num_props++;
     }
 
-    if (args.hasProperty("@to")) {
+    if (args.hasProperty(PROP_TO)) {
 
         num_props++;
 
-        if (args.property("@to", &p_to))
+        if (args.property(PROP_TO, &p_to))
             num_props++;
     }
 

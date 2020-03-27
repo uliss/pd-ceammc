@@ -204,7 +204,7 @@ public:
      * @param dest - output destination
      * @return true if property was found and it has value
      */
-    bool property(const std::string& name, Atom* dest) const;
+    bool property(t_symbol* name, Atom* dest) const;
 
     /**
      * Get property value from list
@@ -212,7 +212,7 @@ public:
      * @param dest - output destination
      * @return true if property was found and it has value
      */
-    bool property(const std::string& name, AtomList* dest) const;
+    bool property(t_symbol* name, AtomList* dest) const;
 
     /**
      * Returns all properties and their values from list

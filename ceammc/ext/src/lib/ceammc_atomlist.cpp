@@ -228,7 +228,7 @@ void AtomList::resizeFold(size_t n)
     }
 }
 
-bool AtomList::property(const std::string& name, Atom* dest) const
+bool AtomList::property(t_symbol* name, Atom* dest) const
 {
     if (!dest)
         return false;
@@ -238,7 +238,7 @@ bool AtomList::property(const std::string& name, Atom* dest) const
             continue;
 
         // found
-        if (name == atoms_[i].asSymbol()->s_name) {
+        if (name == atoms_[i].asT<t_symbol*>()) {
             if (i < (atoms_.size() - 1)) {
                 // if next property
                 if (atoms_[i + 1].isProperty())
@@ -255,7 +255,7 @@ bool AtomList::property(const std::string& name, Atom* dest) const
     return false;
 }
 
-bool AtomList::property(const std::string& name, AtomList* dest) const
+bool AtomList::property(t_symbol* name, AtomList* dest) const
 {
     if (!dest)
         return false;
@@ -270,7 +270,7 @@ bool AtomList::property(const std::string& name, AtomList* dest) const
                 break;
 
             // prop found
-            if (name == atoms_[i].asSymbol()->s_name)
+            if (name == atoms_[i].asT<t_symbol*>())
                 found = true;
         } else {
             // value
