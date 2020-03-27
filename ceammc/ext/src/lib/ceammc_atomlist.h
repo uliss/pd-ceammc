@@ -409,7 +409,6 @@ public:
     bool anyOf(AtomPredicate pred) const;
     bool noneOf(AtomPredicate pred) const;
 
-    FloatList asFloats() const;
     size_t asSizeT(size_t defaultValue = 0) const;
 
     enum NonEqualLengthBehaivor {

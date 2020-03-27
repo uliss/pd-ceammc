@@ -65,7 +65,7 @@ namespace list {
     bool normalizeByRange(const AtomList& src, AtomList& dest);
 
     /**
-     * Return vector of types containing in lst
+     * Return vector of types containing in lst, elements of other types are discarded
      */
     template <typename T>
     std::vector<T> extractByType(const AtomList& l)

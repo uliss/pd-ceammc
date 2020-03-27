@@ -706,17 +706,6 @@ const Atom* AtomList::find(AtomPredicate pred) const
     return const_cast<AtomList*>(this)->find(pred);
 }
 
-FloatList AtomList::asFloats() const
-{
-    FloatList res;
-    res.reserve(atoms_.size());
-
-    for (size_t i = 0; i < atoms_.size(); i++)
-        res.push_back(atoms_[i].asFloat());
-
-    return res;
-}
-
 size_t AtomList::asSizeT(size_t defaultValue) const
 {
     if (empty())

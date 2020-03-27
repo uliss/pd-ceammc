@@ -4,6 +4,7 @@
 #include <armadillo>
 #include <sstream>
 
+#include "ceammc_fn_list.h"
 #include "data_iface.h"
 
 using namespace arma;
@@ -1765,7 +1766,7 @@ public:
     Result setFromList(const ceammc::AtomList& lst) override
     {
         try {
-            m_ = fromList(lst.asFloats()).m_;
+            m_ = fromList(ceammc::list::extractByType<t_float>(lst)).m_;
         } catch (std::exception& e) {
             return error(e.what());
         }

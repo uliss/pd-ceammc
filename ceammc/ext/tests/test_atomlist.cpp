@@ -74,47 +74,18 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
 
     SECTION("sort numeric")
     {
-        AtomList l;
-        l.append(Atom(10.0f));
-        l.append(Atom(2.0f));
-        l.append(Atom(-3.0f));
-
-        FloatList r1 = l.asFloats();
-        REQUIRE(r1[0] == 10.0f);
-        REQUIRE(r1[1] == 2.0f);
-        REQUIRE(r1[2] == -3.0f);
-
+        AtomList l({10, 2, -3});
         l.sort();
-        FloatList r2 = l.asFloats();
-        REQUIRE(r2[0] == -3.0f);
-        REQUIRE(r2[1] == 2.0f);
-        REQUIRE(r2[2] == 10.0f);
-
-        REQUIRE(r1 != r2);
+        REQUIRE(l == LF(-3, 2, 10));
     }
 
     SECTION("sort symbol")
     {
-        AtomList l;
-        l.append(Atom(gensym("b")));
-        l.append(Atom(gensym("c")));
-        l.append(Atom(gensym("a")));
-
-        REQUIRE(l.at(0).asSymbol() == gensym("b"));
-        REQUIRE(l.at(1).asSymbol() == gensym("c"));
-        REQUIRE(l.at(2).asSymbol() == gensym("a"));
-
+        AtomList l = LA("b", "c", "a");
         l.sort();
-
-        REQUIRE(l.at(0).asSymbol() == gensym("a"));
-        REQUIRE(l.at(1).asSymbol() == gensym("b"));
-        REQUIRE(l.at(2).asSymbol() == gensym("c"));
-
+        REQUIRE(l == LA("a", "b", "c"));
         l.sort();
-
-        REQUIRE(l.at(0).asSymbol() == gensym("a"));
-        REQUIRE(l.at(1).asSymbol() == gensym("b"));
-        REQUIRE(l.at(2).asSymbol() == gensym("c"));
+        REQUIRE(l == LA("a", "b", "c"));
     }
 
     SECTION("sort mixed")
@@ -124,26 +95,9 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.max() == 0);
         REQUIRE(l.min() == 0);
 
-        l.append(Atom(gensym("a")));
-        l.append(Atom(2.0));
-        l.append(Atom(-3.0));
-        l.append(Atom(gensym("b")));
-        l.append(Atom(gensym("a")));
-        REQUIRE(l.size() == 5);
-
-        REQUIRE(l.at(0).asSymbol() == SYM("a"));
-        REQUIRE(l.at(1).asFloat() == 2.0f);
-        REQUIRE(l.at(2).asFloat() == -3.0f);
-        REQUIRE(l.at(3).asSymbol() == SYM("b"));
-        REQUIRE(l.at(4).asSymbol() == SYM("a"));
-
+        l = LA("a", 2, -3, "b", "a");
         l.sort();
-
-        REQUIRE(l.at(0).asFloat() == -3.0f);
-        REQUIRE(l.at(1).asFloat() == 2.0f);
-        REQUIRE(l.at(2).asSymbol() == SYM("a"));
-        REQUIRE(l.at(3).asSymbol() == SYM("a"));
-        REQUIRE(l.at(4).asSymbol() == SYM("b"));
+        REQUIRE(l == LA(-3, 2, "a", "a", "b"));
 
         REQUIRE(l.max() != 0);
         REQUIRE(l.max()->asSymbol() == SYM("b"));
@@ -168,8 +122,12 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         AtomList l1, l2;
         REQUIRE(l1 == l1);
         REQUIRE(l1 == l2);
+        REQUIRE_FALSE(l1 != l1);
+        REQUIRE_FALSE(l1 != l2);
+
         l2.append(Atom(1.0));
         REQUIRE(l1 != l2);
+        REQUIRE_FALSE(l1 == l2);
     }
 
     SECTION("filtered")
@@ -178,7 +136,7 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         l1.append(Atom(gensym("a")));
         l1.append(Atom(2.0));
 
-        AtomList l2 = l1.filtered(0);
+        AtomList l2 = l1.filtered(nullptr);
         REQUIRE(l1 == l2);
 
         l2 = l1.filtered(isFloat);
