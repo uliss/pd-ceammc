@@ -14,6 +14,7 @@
 #include "net_host.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "ceammc_output.h"
 #include "ceammc_platform.h"
 
 #include <mutex>
@@ -116,7 +117,7 @@ void NetHost::onAny(t_symbol* s, const AtomList&)
 void NetHost::onThreadDone(int rc)
 {
     if (rc == 0)
-        to_outlet(outletAt(0), task()->result(), true);
+        outletAtomList(outletAt(0), task()->result(), true);
 }
 
 HostTask* NetHost::task()

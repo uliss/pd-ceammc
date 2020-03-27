@@ -32,16 +32,14 @@ bool outletAtom(t_outlet* o, const Atom& a)
         return false;
 }
 
-bool outletAtomList(t_outlet* o, const AtomList& l)
+bool outletAtomList(t_outlet* o, const AtomList& l, bool typeSimplification)
 {
     if (!o) {
         LIB_DBG << "ERROR! NULL outlet pointer: " << __FUNCTION__;
         return false;
     }
 
-    bool typeConversion = false;
-
-    if (typeConversion) {
+    if (typeSimplification) {
         if (l.isBang())
             outlet_bang(o);
         else if (l.isFloat())

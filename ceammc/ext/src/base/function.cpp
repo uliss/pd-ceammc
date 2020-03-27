@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "function.h"
 #include "ceammc_factory.h"
+#include "ceammc_output.h"
 
 #include <map>
 #include <stdexcept>
@@ -109,7 +110,7 @@ void Function::onInlet(size_t n, const AtomList& l)
 
     result_ = l;
     // output simplified type
-    to_outlet(outletAt(0), l, true);
+    outletAtomList(outletAt(0), l, true);
 }
 
 Message& Function::result()

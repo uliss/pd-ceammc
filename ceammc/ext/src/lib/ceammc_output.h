@@ -23,7 +23,7 @@ class AtomList;
 class AtomListView;
 
 bool outletAtom(t_outlet* o, const Atom& a);
-bool outletAtomList(t_outlet* o, const AtomList& l);
+bool outletAtomList(t_outlet* o, const AtomList& l, bool typeSimplification = false);
 bool outletAtomListView(t_outlet* o, const AtomListView& v);
 
 bool outletAny(t_outlet* o, t_symbol* s, const Atom& a);

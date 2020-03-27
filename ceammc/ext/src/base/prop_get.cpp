@@ -54,7 +54,7 @@ static void prop_get_anything(t_prop* x, t_symbol* s, int argc, t_atom* argv)
         // get mapped to property outlet
         t_outlet* prop_out = get_prop_outlet(x, props[i].first()->asSymbol());
         if (prop_out != 0) {
-            to_outlet(prop_out, props[i].slice(1), true);
+            outletAtomList(prop_out, props[i].slice(1), true);
         } else
             unmatched.append(props[i]);
     }

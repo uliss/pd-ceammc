@@ -468,7 +468,7 @@ bool ceammc::to_outlet(t_outlet* x, const DictValue& v)
     else if (v.type() == typeid(Atom))
         return outletAtom(x, boost::get<Atom>(v));
     else if (v.type() == typeid(AtomList))
-        return to_outlet(x, boost::get<AtomList>(v));
+        return outletAtomList(x, boost::get<AtomList>(v));
     else if (v.type() == typeid(DataAtom))
         return to_outlet(x, boost::get<DataAtom>(v));
     else

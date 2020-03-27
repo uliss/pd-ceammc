@@ -23,6 +23,8 @@
 
 namespace ceammc {
 
+class Atom;
+
 using AtomPredicate = std::function<bool(const Atom&)>;
 using FloatPredicate = std::function<bool(t_float)>;
 using SymbolPredicate = std::function<bool(t_symbol*)>;

@@ -958,29 +958,6 @@ bool operator!=(const AtomList& l1, const AtomList& l2)
     return !(l1 == l2);
 }
 
-bool to_outlet(t_outlet* x, const AtomList& a, bool typeConversion)
-{
-    if (!x) {
-        LIB_DBG << "ERROR! NULL outlet pointer: " << __FUNCTION__;
-        return false;
-    }
-
-    if (typeConversion) {
-        if (a.isBang())
-            outlet_bang(x);
-        else if (a.isFloat())
-            outlet_float(x, a[0].asFloat());
-        else if (a.isSymbol())
-            outlet_symbol(x, a[0].asSymbol());
-        else
-            outlet_list(x, &s_list, static_cast<int>(a.size()), a.toPdData());
-    } else {
-        outlet_list(x, &s_list, static_cast<int>(a.size()), a.toPdData());
-    }
-
-    return true;
-}
-
 std::ostream& operator<<(std::ostream& os, const AtomList& l)
 {
     os << "[ ";

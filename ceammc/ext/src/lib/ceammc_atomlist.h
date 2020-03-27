@@ -412,24 +412,6 @@ public:
     FloatList asFloats() const;
     size_t asSizeT(size_t defaultValue = 0) const;
 
-    /**
-     * Outputs list to given outlet
-     * @param x - pointer to outlet
-     */
-    void output(t_outlet* x) const = delete;
-
-    /**
-     * Outputs list content as any message. First list atom became selector
-     */
-    void outputAsAny(t_outlet* x) const = delete;
-
-    /**
-     * Outputs list content as any message.
-     * @param x - pointer to outlet
-     * @param s - any selector
-     */
-    void outputAsAny(t_outlet* x, t_symbol* s) const = delete;
-
     enum NonEqualLengthBehaivor {
         MINSIZE = 0, // result of min size
         PADZERO, // result of max size, min list padded with zeroes
@@ -511,7 +493,7 @@ std::ostream& operator<<(std::ostream& os, const AtomList& l);
  * Output list to specified outlet
  * @return true on success, false on error
  */
-bool to_outlet(t_outlet* x, const AtomList& a, bool typeConversion = false);
+bool to_outlet(t_outlet* x, const AtomList& a, bool typeConversion = false) = delete;
 
 template <typename T>
 static AtomList listFrom(T v)

@@ -221,7 +221,7 @@ void Message::output(t_outlet* x) const
         outletAtom(x, value_);
         break;
     case LIST:
-        to_outlet(x, v_list_);
+        outletAtomList(x, v_list_);
         break;
     case ANY:
         outlet_anything(x,
