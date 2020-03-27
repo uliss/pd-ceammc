@@ -185,7 +185,7 @@ namespace list {
         size_t n = 0;
         t_float sum = 0;
 
-        for (auto el : l) {
+        for (auto& el : l) {
             if (!el.isFloat())
                 continue;
 
@@ -212,13 +212,13 @@ namespace list {
         res.reserve(hist_map.size() * 2);
         const t_float N = l.size();
 
-        for (auto it : hist_map) {
-            res.append(it.first);
+        for (auto& x : hist_map) {
+            res.append(x.first);
 
             if (normalizeBySum)
-                res.append(it.second / N);
+                res.append(x.second / N);
             else
-                res.append(it.second);
+                res.append(x.second);
         }
 
         return res;

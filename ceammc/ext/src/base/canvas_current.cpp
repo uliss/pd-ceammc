@@ -28,7 +28,7 @@ void CanvasCurrent::onBang()
 {
     DataTypeDict* dict = new DataTypeDict;
 
-    for (auto c : { "name", "dir", "root", "abstraction", "args", "font", "paths", "size", "x", "y", "width", "height" }) {
+    for (auto& c : { "name", "dir", "root", "abstraction", "args", "font", "paths", "size", "x", "y", "width", "height" }) {
         dict->insert(c, property(c)->get());
     }
 

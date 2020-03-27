@@ -141,7 +141,7 @@ AtomList DataTypeSet::toList() const
     AtomList res;
     res.reserve(size());
 
-    for (auto a : data_)
+    for (auto& a : data_)
         res.append(a.asAtom());
 
     return res;

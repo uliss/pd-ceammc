@@ -370,7 +370,7 @@ void SuddenMotionSensor::init()
     }
 
     // use common info
-    for (auto kv : sensors_info) {
+    for (auto& kv : sensors_info) {
         if (connectTo(kv.first)) {
             LIB_LOG << "connected to " << kv.first;
             spec_ = kv.second;

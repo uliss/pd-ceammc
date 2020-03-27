@@ -51,7 +51,7 @@ ArrayWindow::ArrayWindow(const PdArgs& args)
     setPropertyCallback(propCallback);
 
     type_ = new SymbolEnumProperty("@type", WIN_DEFAULT);
-    for (auto p : fn_map) {
+    for (auto& p : fn_map) {
         if (p.first != WIN_DEFAULT)
             type_->appendEnum(p.first);
     }

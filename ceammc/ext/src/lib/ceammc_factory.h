@@ -346,7 +346,7 @@ public:
 
     static void dumpMethodList(ObjectProxy* x)
     {
-        for (auto m : list_methods_) {
+        for (auto& m : list_methods_) {
             post("[%s] method: %s", class_name_->s_name, m.first->s_name);
         }
 

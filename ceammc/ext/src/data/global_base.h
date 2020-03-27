@@ -62,7 +62,7 @@ public:
 
         AtomList res;
         res.reserve(keys.size());
-        for (auto s : keys)
+        for (auto& s : keys)
             res.append(Atom(s));
 
         return res;
