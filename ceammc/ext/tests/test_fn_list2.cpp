@@ -41,13 +41,6 @@ TEST_CASE("list functions", "[ceammc::list]")
 
     SECTION("normalizeByRange")
     {
-        AtomList res;
-        REQUIRE_FALSE(list::normalizeByRange(L(), res));
-        REQUIRE_FALSE(list::normalizeByRange(LF(0.f), res));
-        REQUIRE_FALSE(list::normalizeByRange(LF(10), res));
-        REQUIRE_FALSE(list::normalizeByRange(LF(-10), res));
-        REQUIRE_FALSE(list::normalizeByRange(LF(1, 1, 1, 1), res));
-        REQUIRE(res.empty());
 
 #define REQUIRE_NORMALIZE(l1, dest)               \
     {                                             \
@@ -56,11 +49,20 @@ TEST_CASE("list functions", "[ceammc::list]")
         REQUIRE(res == dest);                     \
     }
 
-        REQUIRE_NORMALIZE(LF(0.f, 1), LF(0.f, 1));
-        REQUIRE_NORMALIZE(LF(0.f, 10), LF(0.f, 1));
-        REQUIRE_NORMALIZE(LF(1, 2, 3, 4, 5), LF(0.f, 0.25, 0.5, 0.75, 1));
-        REQUIRE_NORMALIZE(LF(-1, -2, -3, -4, -5), LF(1, 0.75, 0.5, 0.25, 0.f));
-        REQUIRE_NORMALIZE(LF(-20, 0.0, 20), LF(0.0, 0.5, 1.0));
+        AtomList res;
+
+        REQUIRE_FALSE(list::normalizeByRange(L(), res));
+        REQUIRE_FALSE(list::normalizeByRange(LF(0), res));
+        REQUIRE_FALSE(list::normalizeByRange(LF(10), res));
+        REQUIRE_FALSE(list::normalizeByRange(LF(-10), res));
+        REQUIRE_FALSE(list::normalizeByRange(LF(1, 1, 1, 1), res));
+        REQUIRE(res.empty());
+
+        REQUIRE_NORMALIZE(LF(0, 1), LF(0, 1));
+        REQUIRE_NORMALIZE(LF(0, 10), LF(0, 1));
+        REQUIRE_NORMALIZE(LF(1, 2, 3, 4, 5), LF(0, 0.25, 0.5, 0.75, 1));
+        REQUIRE_NORMALIZE(LF(-1, -2, -3, -4, -5), LF(1, 0.75, 0.5, 0.25, 0));
+        REQUIRE_NORMALIZE(LF(-20, 0, 20), LF(0, 0.5, 1.0));
     }
 
     SECTION("enumerate")

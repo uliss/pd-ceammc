@@ -56,6 +56,12 @@ namespace list {
 
     AtomList histogram(const AtomList& l, size_t bins);
 
+    /**
+     * Normalize floats to [0, 1] range: min element goes to 0, max element goes to 1
+     * @param src - source data (should contains only t_floats, otherwise result in undefined)
+     * @param dest - write result
+     * @return true on success, false on error (zero range, empty etc.)
+     */
     bool normalizeByRange(const AtomList& src, AtomList& dest);
 
     enum enumerateMode {

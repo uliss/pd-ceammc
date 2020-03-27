@@ -382,8 +382,8 @@ namespace list {
         dest.clear();
         dest.reserve(src.size());
 
-        for (size_t i = 0; i < src.size(); i++)
-            dest.append((src[i].asFloat() - min) / t_float(range));
+        for (auto& a : src)
+            dest.append((a.asT<t_float>() - min) / range);
 
         return true;
     }
