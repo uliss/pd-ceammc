@@ -725,28 +725,6 @@ size_t AtomList::asSizeT(size_t defaultValue) const
     return atoms_.front().asSizeT(defaultValue);
 }
 
-//void AtomList::output(t_outlet* x) const
-//{
-//    to_outlet(x, *this);
-//}
-
-//void AtomList::outputAsAny(t_outlet* x) const
-//{
-//    if (empty())
-//        return;
-
-//    // check for valid selector
-//    if (!atoms_.front().isSymbol())
-//        return;
-
-//    outlet_anything(x, atoms_[0].asSymbol(), static_cast<int>(size() - 1), toPdData() + 1);
-//}
-
-//void AtomList::outputAsAny(_outlet* x, t_symbol* s) const
-//{
-//    outlet_anything(x, s, static_cast<int>(size()), toPdData());
-//}
-
 bool AtomList::normalizeFloats()
 {
     if (empty())

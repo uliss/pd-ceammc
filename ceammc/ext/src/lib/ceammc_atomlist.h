@@ -489,12 +489,6 @@ bool operator==(const AtomList& l1, const AtomList& l2);
 bool operator!=(const AtomList& l1, const AtomList& l2);
 std::ostream& operator<<(std::ostream& os, const AtomList& l);
 
-/**
- * Output list to specified outlet
- * @return true on success, false on error
- */
-bool to_outlet(t_outlet* x, const AtomList& a, bool typeConversion = false) = delete;
-
 template <typename T>
 static AtomList listFrom(T v)
 {
