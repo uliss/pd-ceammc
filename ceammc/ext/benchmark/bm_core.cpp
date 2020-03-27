@@ -19,6 +19,7 @@
 #include "reflex/matcher.h"
 
 #include <cstdint>
+#include <functional>
 #include <nonius/nonius.h++>
 #include <random>
 #include <regex>
@@ -53,6 +54,11 @@ bool init() { return pd_init(), true; }
 static bool init_done = init();
 
 static ArgChecker arg_checker0("s=test f f");
+
+static bool is_odd0(int n) { return n % 2 == 1; }
+static auto is_odd1 = [](int n) { return n % 2 == 1; };
+static std::function<bool(int)> is_odd2 = is_odd0;
+static std::function<bool(int)> is_odd3 = is_odd1;
 
 NONIUS_BENCHMARK("gensym", [] {
     return gensym(SYM_TABLE[sym_int(engine)]);
@@ -92,3 +98,37 @@ NONIUS_BENCHMARK("AtomList view", [] {
 NONIUS_BENCHMARK("ArgCheck ", [] {
     return arg_checker0.check(AtomList({ 1, 2, 3 }));
 })
+
+NONIUS_BENCHMARK("is_odd0: function call", [] {
+    bool res = true;
+    for (size_t i = 0; i < 1000; i++)
+        res ^= is_odd0(sym_int(engine));
+
+    return res;
+})
+
+NONIUS_BENCHMARK("is_odd1: lambda call", [] {
+    bool res = true;
+    for (size_t i = 0; i < 1000; i++)
+        res ^= is_odd1(sym_int(engine));
+
+    return res;
+})
+
+NONIUS_BENCHMARK("is_odd2: std::function call with function pointer", [] {
+    bool res = true;
+    for (size_t i = 0; i < 1000; i++)
+        res ^= is_odd2(sym_int(engine));
+
+    return res;
+})
+
+NONIUS_BENCHMARK("is_odd3: std::function lambda call", [] {
+    bool res = true;
+    for (size_t i = 0; i < 1000; i++)
+        res ^= is_odd3(sym_int(engine));
+
+    return res;
+})
+
+
