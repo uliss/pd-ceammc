@@ -37,7 +37,7 @@ void Dbfs2amp::onFloat(t_float v)
 
 void Dbfs2amp::onList(const AtomList& args)
 {
-    listTo(0, args.map(dbfs2amp_));
+    listTo(0, args.mapFloat(dbfs2amp_));
 }
 
 void setup_conv_dbfs2amp()

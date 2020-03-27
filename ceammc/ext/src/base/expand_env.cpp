@@ -51,10 +51,10 @@ void ExpandEnv::onSymbol(t_symbol* s)
 
 void ExpandEnv::onList(const AtomList& l)
 {
-    listTo(0, l.map(&expandEnv));
+    listTo(0, l.mapSymbol(&expandEnv));
 }
 
 void ExpandEnv::onAny(t_symbol* sel, const AtomList& l)
 {
-    anyTo(0, expand_any_->value() ? expandEnv(sel) : sel, l.map(&expandEnv));
+    anyTo(0, expand_any_->value() ? expandEnv(sel) : sel, l.mapSymbol(&expandEnv));
 }

@@ -15,6 +15,7 @@
 #define CEAMMC_ATOMLIST_H
 
 #include "ceammc_atom.h"
+#include "ceammc_atomlist_view.h"
 
 #include <boost/iterator/filter_iterator.hpp>
 #include <boost/optional.hpp>
@@ -29,7 +30,6 @@ namespace ceammc {
 typedef boost::optional<t_float> MaybeFloat;
 
 typedef std::vector<t_float> FloatList;
-typedef bool (*AtomPredicate)(const Atom& a);
 typedef Atom (*AtomGenerator)();
 
 enum class AtomListMapType {
@@ -39,18 +39,19 @@ enum class AtomListMapType {
 
 class AtomList {
 public:
-    typedef std::vector<Atom> Container;
-    typedef Container::const_iterator ConstIterator;
-    typedef Container::iterator Iterator;
-    typedef Container::reverse_iterator ReverseIterator;
-    typedef bool (*AtomPredicateFn)(const Atom&);
-    typedef boost::filter_iterator<AtomPredicateFn, Iterator> FilterIterator;
-    typedef boost::filter_iterator<AtomPredicateFn, ConstIterator> ConstFilterIterator;
+    using Container = std::vector<Atom>;
+    using const_iterator = Container::const_iterator;
+    using iterator = Container::iterator;
+    using reverse_iterator = Container::reverse_iterator;
+    using const_reverse_iterator = Container::const_reverse_iterator;
+
+    using atom_filter_iterator = boost::filter_iterator<AtomPredicate, iterator>;
+    using const_atom_filter_iterator = boost::filter_iterator<AtomPredicate, const_iterator>;
 
 public:
     AtomList();
     AtomList(const AtomList& l);
-    AtomList(AtomList&& l);
+    AtomList(AtomList&& l) noexcept;
     AtomList(const Atom& a);
     AtomList(const Atom& a, const Atom& b);
     AtomList(size_t n, t_atom* lst);
@@ -64,7 +65,7 @@ public:
     /**
      * Returns number of elements in list
      */
-    size_t size() const;
+    size_t size() const { return atoms_.size(); }
 
     /**
      * Reserves space to avoid extra memory reallocations
@@ -76,18 +77,24 @@ public:
      * Checks if list is empty
      * @return true if list is empty
      */
-    bool empty() const;
+    bool empty() const { return atoms_.empty(); }
 
     // iterators
-    Iterator begin();
-    Iterator end();
-    ConstIterator begin() const;
-    ConstIterator end() const;
+    iterator begin() { return atoms_.begin(); }
+    const_iterator begin() const { return atoms_.begin(); }
+    iterator end() { return atoms_.end(); }
+    const_iterator end() const { return atoms_.end(); }
+    const_iterator cbegin() const { return atoms_.cbegin(); }
+    const_iterator cend() const { return atoms_.cend(); }
+    reverse_iterator rbegin() { return atoms_.rbegin(); }
+    const_reverse_iterator rbegin() const { return atoms_.rbegin(); }
+    reverse_iterator rend() { return atoms_.rend(); }
+    const_reverse_iterator rend() const { return atoms_.rend(); }
+    const_reverse_iterator crbegin() { return atoms_.crbegin(); }
+    const_reverse_iterator crend() const { return atoms_.crend(); }
 
-    FilterIterator beginFilter(AtomPredicateFn pred);
-    FilterIterator endFilter();
-    ConstFilterIterator beginFilter(AtomPredicateFn pred) const;
-    ConstFilterIterator endFilter() const;
+    const_atom_filter_iterator begin_atom_filter(AtomPredicate pred) const { return const_atom_filter_iterator(pred, begin(), end()); }
+    const_atom_filter_iterator end_atom_filter() const { return const_atom_filter_iterator(nullptr, end(), end()); }
 
     /**
      * @brief returns reference to element at specified position
@@ -95,10 +102,10 @@ public:
      * @return reference to element
      * @throw exception if invalid position given
      */
-    Atom& at(size_t pos);
-    const Atom& at(size_t pos) const;
-    Atom& operator[](size_t pos);
-    const Atom& operator[](size_t pos) const;
+    Atom& at(size_t pos) { return atoms_.at(pos); }
+    const Atom& at(size_t pos) const { return atoms_.at(pos); }
+    Atom& operator[](size_t pos) { return atoms_.at(pos); }
+    const Atom& operator[](size_t pos) const { return atoms_.at(pos); }
 
     /**
      * @brief returns pointer to element at specified relative position
@@ -135,6 +142,11 @@ public:
      */
     Atom* foldAt(int pos);
     const Atom* foldAt(int pos) const;
+
+    /**
+     * Try to get int from specified list position. If no int - return default value
+     */
+    bool boolAt(size_t pos, bool def) const;
 
     /**
      * Try to get int from specified list position. If no int - return default value
@@ -239,9 +251,31 @@ public:
      */
     AtomList mapSymbol(const SymbolMapFunction& fn, AtomListMapType t = AtomListMapType::KEEP) const;
 
-    template <class F>
-    AtomList filter(F fn) const;
-    AtomList filtered(AtomPredicate pred) const;
+    /**
+     * Returns new list with values for which atom predicate returns true
+     */
+    AtomList filtered(const AtomPredicate& fn) const;
+
+    /**
+     * Returns new list with values for which float predicate returns true
+     */
+    AtomList filteredFloat(const FloatPredicate& pred) const;
+
+    /**
+     * Returns new list with values for which symbol predicate returns true
+     */
+    AtomList filteredSymbol(const SymbolPredicate& pred) const;
+
+    /**
+     * Reduce to t_float
+     * @param init - init value
+     * @param fn - reduce function
+     * @return - result, or boost::none if no floats in list
+     */
+    MaybeFloat reduceFloat(t_float init, std::function<t_float(t_float, t_float)> fn) const;
+
+    template <typename T>
+    T reduce(T init, std::function<T(const Atom&, const Atom&)> fn) const;
 
     /**
      * Returns sublist from specified position
@@ -268,7 +302,7 @@ public:
     /**
      * Appends atom to the end of list
      */
-    void append(const Atom& a);
+    void append(const Atom& a) { atoms_.push_back(a); }
 
     /**
      * Appends another list to the end of list
@@ -311,18 +345,18 @@ public:
     /**
      * types
      */
-    bool isBang() const;
-    bool isBool() const;
-    bool isFloat() const;
-    bool isInteger() const;
-    bool isSymbol() const;
-    bool isProperty() const;
-    bool isAtom() const;
-    bool isList() const;
-    bool isData() const;
-    bool isDataType(DataType t) const;
+    bool isBang() const { return empty(); }
+    bool isBool() const { return atoms_.size() == 1 && atoms_[0].isBool(); }
+    bool isFloat() const { return atoms_.size() == 1 && atoms_[0].isFloat(); }
+    bool isInteger() const { return atoms_.size() == 1 && atoms_[0].isInteger(); }
+    bool isSymbol() const { return atoms_.size() == 1 && atoms_[0].isSymbol(); }
+    bool isProperty() const { return atoms_.size() == 1 && atoms_[0].isProperty(); }
+    bool isAtom() const { return atoms_.size() == 1; }
+    bool isList() const { return atoms_.size() > 1; }
+    bool isData() const { return atoms_.size() == 1 && atoms_.front().isData(); }
+    bool isDataType(DataType t) const { return atoms_.size() == 1 && atoms_.front().isDataType(t); }
     template <class T>
-    bool isDataType() const;
+    bool isDataType() const { return isDataType(T::dataType); }
     template <typename T>
     inline bool isA() const { return atoms_.size() == 1 && atoms_[0].isA<T>(); }
 
@@ -382,19 +416,19 @@ public:
      * Outputs list to given outlet
      * @param x - pointer to outlet
      */
-    void output(t_outlet* x) const;
+    void output(t_outlet* x) const = delete;
 
     /**
      * Outputs list content as any message. First list atom became selector
      */
-    void outputAsAny(t_outlet* x) const;
+    void outputAsAny(t_outlet* x) const = delete;
 
     /**
      * Outputs list content as any message.
      * @param x - pointer to outlet
      * @param s - any selector
      */
-    void outputAsAny(t_outlet* x, t_symbol* s) const;
+    void outputAsAny(t_outlet* x, t_symbol* s) const = delete;
 
     enum NonEqualLengthBehaivor {
         MINSIZE = 0, // result of min size
@@ -403,11 +437,6 @@ public:
         WRAP, // result of max size, min list wraped
         FOLD // result of max size, min list wraped
     };
-
-    template <typename T>
-    T reduce(T init, T (*fn)(const Atom&, const Atom&)) const;
-    template <typename F>
-    MaybeFloat reduceFloat(t_float init, F fn) const;
 
     bool normalizeFloats();
 
@@ -459,34 +488,12 @@ inline bool AtomList::isA<Atom>() const { return size() == 1; }
 template <>
 inline bool AtomList::isA<AtomList>() const { return true; }
 
-template <class F>
-MaybeFloat AtomList::reduceFloat(t_float init, F fn) const
-{
-    t_float accum = init;
-    size_t n = 0;
-
-    for (auto& el : atoms_) {
-        if (el.isFloat()) {
-            accum = fn(accum, el.asFloat());
-            n++;
-        }
-    }
-
-    return (n == 0) ? boost::none : MaybeFloat(accum);
-}
-
 AtomList operator+(const AtomList& l1, const AtomList& l2);
 AtomList operator+(const AtomList& l, const Atom& a);
 AtomList operator+(const Atom& a, const AtomList& l);
 
-template <class T>
-bool AtomList::isDataType() const
-{
-    return isDataType(T::dataType);
-}
-
 template <typename T>
-T AtomList::reduce(T init, T (*fn)(const Atom&, const Atom&)) const
+T AtomList::reduce(T init, std::function<T(const Atom&, const Atom&)> fn) const
 {
     T accum(init);
 
@@ -494,20 +501,6 @@ T AtomList::reduce(T init, T (*fn)(const Atom&, const Atom&)) const
         accum = fn(accum, el);
 
     return accum;
-}
-
-template <class F>
-AtomList AtomList::filter(F pred) const
-{
-    AtomList res;
-    res.atoms_.reserve(atoms_.size());
-
-    for (auto& el : atoms_) {
-        if (pred(el))
-            res.atoms_.push_back(el);
-    }
-
-    return res;
 }
 
 bool operator==(const AtomList& l1, const AtomList& l2);

@@ -32,7 +32,7 @@ void BpmToSec::onFloat(t_float v)
 
 void BpmToSec::onList(const AtomList& lst)
 {
-    listTo(0, lst.map(bpm2sec));
+    listTo(0, lst.mapFloat(bpm2sec));
 }
 
 extern "C" void setup_conv0x2ebpm2sec()

@@ -115,7 +115,7 @@ void Gain::setupDSP(t_signal** sp)
 
 AtomList Gain::propDb() const
 {
-    return propGain().map(toDb);
+    return propGain().mapFloat(toDb);
 }
 
 AtomList Gain::propGain() const
@@ -131,7 +131,7 @@ AtomList Gain::propGain() const
 
 void Gain::propSetDb(const AtomList& lst)
 {
-    propSetGain(lst.map(fromDb));
+    propSetGain(lst.mapFloat(fromDb));
 }
 
 void Gain::propSetGain(const AtomList& lst)

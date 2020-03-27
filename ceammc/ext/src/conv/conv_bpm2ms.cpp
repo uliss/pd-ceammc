@@ -32,7 +32,7 @@ void BpmToMs::onFloat(t_float v)
 
 void BpmToMs::onList(const AtomList& lst)
 {
-    listTo(0, lst.map(bpm2ms));
+    listTo(0, lst.mapFloat(bpm2ms));
 }
 
 extern "C" void setup_conv0x2ebpm2ms()

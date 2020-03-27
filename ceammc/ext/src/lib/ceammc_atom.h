@@ -14,44 +14,21 @@
 #ifndef CEAMMC_ATOM_H
 #define CEAMMC_ATOM_H
 
-#include "m_pd.h"
+#include "ceammc_macro.h"
 
 #include <functional>
 #include <iostream>
 #include <string>
 #include <utility>
 
-#if defined(__has_feature)
-#if __has_feature(address_sanitizer)
-#define CEAMMC_NO_ASAN __attribute__((no_sanitize("address"))) __attribute__((no_sanitize("undefined")))
-#else
-#define CEAMMC_NO_ASAN
-#endif
-#else
-#define CEAMMC_NO_ASAN
-#endif
-
-#if defined(__GNUC__) || defined(__clang__)
-#define CEAMMC_DEPRECATED __attribute__((deprecated))
-#elif defined(_MSC_VER)
-#define CEAMMC_DEPRECATED __declspec(deprecated)
-#else
-#pragma message("WARNING: You need to implement CEAMMC_DEPRECATED for this compiler")
-#define CEAMMC_DEPRECATED
-#endif
-
-#if defined(__GNUC__) || defined(__clang__)
-#define CEAMMC_WARN_UNUSED __attribute__((warn_unused_result))
-#define CEAMMC_PACKED __attribute__((packed))
-#else
-#define CEAMMC_WARN_UNUSED
-#define CEAMMC_PACKED
-#endif
-
 namespace ceammc {
 
 class Atom;
 bool to_outlet(t_outlet* x, const Atom& a) = delete;
+
+using AtomPredicate = std::function<bool(const Atom&)>;
+using FloatPredicate = std::function<bool(t_float)>;
+using SymbolPredicate = std::function<bool(t_symbol*)>;
 
 using AtomMapFunction = std::function<Atom(const Atom&)>;
 using FloatMapFunction = std::function<t_float(t_float)>;
@@ -287,6 +264,10 @@ public:
      */
     inline bool applySymbol(const SymbolMapFunction& fn);
 
+    bool check(const AtomPredicate& fn) const { return fn(*this); }
+    inline bool checkFloat(const FloatPredicate& fn) const;
+    inline bool checkSymbol(const SymbolPredicate& fn) const;
+
     /**
      * Data functions
      */
@@ -352,6 +333,10 @@ template <>
 inline int Atom::asT<int>() const { return static_cast<int>(a_w.w_float); }
 template <>
 inline t_symbol* Atom::asT<t_symbol*>() const { return a_w.w_symbol; }
+
+bool Atom::checkFloat(const FloatPredicate& fn) const { return isFloat() ? fn(asT<t_float>()) : false; }
+
+bool Atom::checkSymbol(const SymbolPredicate& fn) const { return isSymbol() ? fn(asT<t_symbol*>()) : false; }
 
 template <typename T>
 static inline Atom atomFrom(T v) { return Atom(v); }

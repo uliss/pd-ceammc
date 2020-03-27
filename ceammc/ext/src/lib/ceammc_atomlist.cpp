@@ -37,7 +37,7 @@ AtomList::AtomList(const AtomList& l)
 {
 }
 
-AtomList::AtomList(AtomList&& l)
+AtomList::AtomList(AtomList&& l) noexcept
     : atoms_(std::move(l.atoms_))
 {
 }
@@ -84,79 +84,9 @@ void AtomList::operator=(AtomList&& l)
         atoms_ = std::move(l.atoms_);
 }
 
-size_t AtomList::size() const
-{
-    return atoms_.size();
-}
-
 void AtomList::reserve(size_t n)
 {
     atoms_.reserve(n);
-}
-
-bool AtomList::empty() const
-{
-    return atoms_.empty();
-}
-
-AtomList::Iterator AtomList::begin()
-{
-    return atoms_.begin();
-}
-
-AtomList::Iterator AtomList::end()
-{
-    return atoms_.end();
-}
-
-AtomList::ConstIterator AtomList::begin() const
-{
-    return atoms_.begin();
-}
-
-AtomList::ConstIterator AtomList::end() const
-{
-    return atoms_.end();
-}
-
-AtomList::FilterIterator AtomList::beginFilter(AtomList::AtomPredicateFn pred)
-{
-    return FilterIterator(pred, begin(), end());
-}
-
-AtomList::FilterIterator AtomList::endFilter()
-{
-    return FilterIterator(nullptr, end(), end());
-}
-
-AtomList::ConstFilterIterator AtomList::beginFilter(AtomList::AtomPredicateFn pred) const
-{
-    return ConstFilterIterator(pred, begin(), end());
-}
-
-AtomList::ConstFilterIterator AtomList::endFilter() const
-{
-    return ConstFilterIterator(nullptr, end(), end());
-}
-
-Atom& AtomList::at(size_t pos)
-{
-    return atoms_.at(pos);
-}
-
-const Atom& AtomList::at(size_t pos) const
-{
-    return atoms_.at(pos);
-}
-
-Atom& AtomList::operator[](size_t pos)
-{
-    return atoms_.at(pos);
-}
-
-const Atom& AtomList::operator[](size_t pos) const
-{
-    return atoms_.at(pos);
 }
 
 Atom* AtomList::relativeAt(int pos)
@@ -213,6 +143,14 @@ Atom* AtomList::foldAt(int pos)
 const Atom* AtomList::foldAt(int pos) const
 {
     return const_cast<AtomList*>(this)->foldAt(pos);
+}
+
+bool AtomList::boolAt(size_t pos, bool def) const
+{
+    if (pos >= atoms_.size())
+        return def;
+
+    return atoms_[pos].asBool(def);
 }
 
 int AtomList::intAt(size_t pos, int def) const
@@ -491,11 +429,6 @@ t_atom* AtomList::toPdData() const
     return reinterpret_cast<t_atom*>(const_cast<Atom*>(atoms_.data()));
 }
 
-void AtomList::append(const Atom& a)
-{
-    atoms_.push_back(a);
-}
-
 void AtomList::append(const AtomList& l)
 {
     atoms_.insert(atoms_.end(), l.atoms_.begin(), l.atoms_.end());
@@ -552,14 +485,16 @@ void AtomList::replaceAll(AtomPredicate pred, const Atom& new_value)
 Atom* AtomList::first()
 {
     if (empty())
-        return 0;
+        return nullptr;
+
     return &atoms_.front();
 }
 
 Atom* AtomList::last()
 {
     if (empty())
-        return 0;
+        return nullptr;
+
     return &atoms_.back();
 }
 
@@ -571,56 +506,6 @@ const Atom* AtomList::first() const
 const Atom* AtomList::last() const
 {
     return const_cast<AtomList*>(this)->last();
-}
-
-bool AtomList::isBang() const
-{
-    return empty();
-}
-
-bool AtomList::isBool() const
-{
-    return atoms_.size() == 1 && atoms_[0].isBool();
-}
-
-bool AtomList::isFloat() const
-{
-    return atoms_.size() == 1 && atoms_[0].isFloat();
-}
-
-bool AtomList::isInteger() const
-{
-    return atoms_.size() == 1 && atoms_[0].isInteger();
-}
-
-bool AtomList::isSymbol() const
-{
-    return atoms_.size() == 1 && atoms_[0].isSymbol();
-}
-
-bool AtomList::isProperty() const
-{
-    return atoms_.size() == 1 && atoms_[0].isProperty();
-}
-
-bool AtomList::isAtom() const
-{
-    return atoms_.size() == 1;
-}
-
-bool AtomList::isList() const
-{
-    return atoms_.size() > 1;
-}
-
-bool AtomList::isData() const
-{
-    return atoms_.size() == 1 && atoms_.front().isData();
-}
-
-bool AtomList::isDataType(DataType t) const
-{
-    return atoms_.size() == 1 && atoms_.front().isDataType(t);
 }
 
 void AtomList::clear()
@@ -651,21 +536,6 @@ void AtomList::shuffle()
 void AtomList::reverse()
 {
     std::reverse(atoms_.begin(), atoms_.end());
-}
-
-AtomList AtomList::filtered(AtomPredicate pred) const
-{
-    if (!pred)
-        return *this;
-    AtomList res;
-    res.atoms_.reserve(size());
-
-    for (auto& a : atoms_) {
-        if (pred(a))
-            res.atoms_.push_back(a);
-    }
-
-    return res;
 }
 
 Atom* AtomList::min()
@@ -724,9 +594,6 @@ MaybeFloat AtomList::sum() const
 
 MaybeFloat AtomList::product() const
 {
-    if (empty())
-        return boost::none;
-
     return reduceFloat(1, [](t_float a, t_float b) { return a * b; });
 }
 
@@ -858,27 +725,27 @@ size_t AtomList::asSizeT(size_t defaultValue) const
     return atoms_.front().asSizeT(defaultValue);
 }
 
-void AtomList::output(t_outlet* x) const
-{
-    to_outlet(x, *this);
-}
+//void AtomList::output(t_outlet* x) const
+//{
+//    to_outlet(x, *this);
+//}
 
-void AtomList::outputAsAny(t_outlet* x) const
-{
-    if (empty())
-        return;
+//void AtomList::outputAsAny(t_outlet* x) const
+//{
+//    if (empty())
+//        return;
 
-    // check for valid selector
-    if (!atoms_.front().isSymbol())
-        return;
+//    // check for valid selector
+//    if (!atoms_.front().isSymbol())
+//        return;
 
-    outlet_anything(x, atoms_[0].asSymbol(), static_cast<int>(size() - 1), toPdData() + 1);
-}
+//    outlet_anything(x, atoms_[0].asSymbol(), static_cast<int>(size() - 1), toPdData() + 1);
+//}
 
-void AtomList::outputAsAny(_outlet* x, t_symbol* s) const
-{
-    outlet_anything(x, s, static_cast<int>(size()), toPdData());
-}
+//void AtomList::outputAsAny(_outlet* x, t_symbol* s) const
+//{
+//    outlet_anything(x, s, static_cast<int>(size()), toPdData());
+//}
 
 bool AtomList::normalizeFloats()
 {
@@ -1180,6 +1047,69 @@ AtomList operator+(const Atom& a, const AtomList& l)
     res.append(a);
     res.append(l);
     return res;
+}
+
+AtomList AtomList::filtered(const AtomPredicate& pred) const
+{
+    if (!pred)
+        return *this;
+
+    AtomList res;
+    res.atoms_.reserve(atoms_.size());
+
+    for (auto& el : atoms_) {
+        if (pred(el))
+            res.atoms_.push_back(el);
+    }
+
+    return res;
+}
+
+AtomList AtomList::filteredFloat(const FloatPredicate& pred) const
+{
+    if (!pred)
+        return *this;
+
+    AtomList res;
+    res.atoms_.reserve(atoms_.size());
+
+    for (auto& a : atoms_) {
+        if (a.isFloat() && pred(a.asT<t_float>()))
+            res.atoms_.push_back(a);
+    }
+
+    return res;
+}
+
+AtomList AtomList::filteredSymbol(const SymbolPredicate& pred) const
+{
+    if (!pred)
+        return *this;
+
+    AtomList res;
+    res.atoms_.reserve(atoms_.size());
+
+    for (auto& a : atoms_) {
+        if (a.isSymbol() && pred(a.asT<t_symbol*>()))
+            res.atoms_.push_back(a);
+    }
+
+    return res;
+}
+
+MaybeFloat AtomList::reduceFloat(t_float init, std::function<t_float(t_float, t_float)> fn) const
+{
+    t_float accum = init;
+    size_t n = 0;
+
+    for (auto& el : atoms_) {
+        if (el.isFloat()) {
+            accum = fn(accum, el.asFloat());
+            n++;
+        }
+    }
+
+    return (n > 0) ? MaybeFloat(accum) : boost::none;
 }
 
 } // namespace ceammc

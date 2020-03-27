@@ -277,7 +277,7 @@ bool DataTypeProperty::setEnumValues(const AtomList& lst)
 
     enum_.clear();
     enum_.append(boost::get<t_symbol*>(default_));
-    enum_.append(lst.filter(ceammc::isSymbol));
+    enum_.append(lst.filtered(ceammc::isSymbol));
     return true;
 }
 

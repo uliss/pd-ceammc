@@ -58,6 +58,7 @@ using namespace ceammc;
         res = '''
 class {0} : public BaseObject
 {{
+    using FloatUnaryFn = t_float(*)(t_float);
 public:
     {0}(const PdArgs& a) : BaseObject(a)
     {{
@@ -205,7 +206,7 @@ class MathUnaryCppExternal(CppExternal):
 
         self.func_name = func_name
         setattr(self, 'code_float', "floatTo(0, std::{0}(f));".format(func_name));
-        setattr(self, 'code_list', "listTo(0, l.map(std::{0}));".format(func_name));
+        setattr(self, 'code_list', "listTo(0, l.mapFloat(static_cast<FloatUnaryFn>(std::{0})));".format(func_name));
 
 
 class MathUnaryCppExternalTilde(CppSoundExternal):

@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_output.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_log.h"
 
 namespace ceammc {
 
@@ -31,9 +32,54 @@ bool outletAtom(t_outlet* o, const Atom& a)
         return false;
 }
 
+bool outletAtomList(t_outlet* o, const AtomList& l)
+{
+    if (!o) {
+        LIB_DBG << "ERROR! NULL outlet pointer: " << __FUNCTION__;
+        return false;
+    }
+
+    bool typeConversion = false;
+
+    if (typeConversion) {
+        if (l.isBang())
+            outlet_bang(o);
+        else if (l.isFloat())
+            outlet_float(o, l[0].asFloat());
+        else if (l.isSymbol())
+            outlet_symbol(o, l[0].asSymbol());
+        else
+            outlet_list(o, &s_list, static_cast<int>(l.size()), l.toPdData());
+    } else {
+        outlet_list(o, &s_list, static_cast<int>(l.size()), l.toPdData());
+    }
+
+    return true;
+}
+
 bool outletAny(t_outlet* o, t_symbol* s, const Atom& a)
 {
     outlet_anything(o, s, 1, const_cast<t_atom*>(&a.atom()));
+    return true;
+}
+
+bool outletAny(t_outlet* o, t_symbol* s, const AtomList& l)
+{
+    outlet_anything(o, s, static_cast<int>(l.size()), l.toPdData());
+    return true;
+}
+
+bool outletAny(t_outlet* o, const AtomList& l)
+{
+    if (l.size() < 1)
+        return false;
+
+    // check for valid selector
+    if (!l.first()->isSymbol())
+        return false;
+
+    outlet_anything(o, l.first()->asSymbol(), static_cast<int>(l.size() - 1), l.toPdData() + 1);
+    return true;
 }
 
 }

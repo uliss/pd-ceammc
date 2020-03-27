@@ -25,9 +25,9 @@ void ListMax::onList(const AtomList& l)
     if (type_->value() == SYM_ANY)
         max(l.begin(), l.end());
     else if (type_->value() == SYM_FLOAT)
-        max(l.beginFilter(isFloat), l.endFilter());
+        max(l.begin_atom_filter(isFloat), l.end_atom_filter());
     else if (type_->value() == SYM_SYMBOL)
-        max(l.beginFilter(isSymbol), l.endFilter());
+        max(l.begin_atom_filter(isSymbol), l.end_atom_filter());
 }
 
 // predicates

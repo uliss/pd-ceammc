@@ -10,6 +10,7 @@ using namespace ceammc;
 
 class MathCeil : public BaseObject
 {
+    using FloatUnaryFn = t_float(*)(t_float);
 public:
     MathCeil(const PdArgs& a) : BaseObject(a)
     {
@@ -23,7 +24,7 @@ public:
 
     void onList(const AtomList& l) final
     {
-        listTo(0, l.map(std::ceil));
+        listTo(0, l.mapFloat(static_cast<FloatUnaryFn>(std::ceil)));
     }
 
 };

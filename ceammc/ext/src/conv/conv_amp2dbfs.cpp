@@ -41,7 +41,7 @@ void Amp2dbfs::onFloat(t_float v)
 
 void Amp2dbfs::onList(const AtomList& lst)
 {
-    listTo(0, lst.map(a2d));
+    listTo(0, lst.mapFloat(a2d));
 }
 
 void setup_conv_amp2dbfs()

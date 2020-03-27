@@ -1,7 +1,7 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_log.h"
+#include "ceammc_output.h"
 
-#include <m_pd.h>
 #include <map>
 #include <string>
 #include <vector>
@@ -59,8 +59,10 @@ static void prop_get_anything(t_prop* x, t_symbol* s, int argc, t_atom* argv)
             unmatched.append(props[i]);
     }
 
-    if (!unmatched.empty())
-        unmatched.outputAsAny(x->all_prop);
+    if (!unmatched.empty()) {
+        if (!outletAny(x->all_prop, unmatched))
+            bug("prop_get_anything\n");
+    }
 }
 
 static void* prop_get_new(t_symbol*, int argc, t_atom* argv)

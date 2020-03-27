@@ -43,6 +43,8 @@ public:
 
 TEST_CASE("mix~", "[externals]")
 {
+    test::pdPrintToStdError();
+
     SECTION("construct")
     {
         SECTION("default")

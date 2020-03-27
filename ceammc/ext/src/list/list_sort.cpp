@@ -15,7 +15,7 @@ void ListSort::onList(const AtomList& lst)
     // sort only floats and symbols
     auto pred = [](const Atom& a) { return a.isSymbol() || a.isFloat(); };
 
-    AtomList res(lst.filter(pred));
+    AtomList res(lst.filtered(pred));
     std::sort(res.begin(), res.end());
     listTo(0, res);
 }

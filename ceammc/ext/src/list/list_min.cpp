@@ -25,9 +25,9 @@ void ListMin::onList(const AtomList& l)
     if (type_->value() == SYM_ANY)
         min(l.begin(), l.end());
     else if (type_->value() == SYM_FLOAT)
-        min(l.beginFilter(isFloat), l.endFilter());
+        min(l.begin_atom_filter(isFloat), l.end_atom_filter());
     else if (type_->value() == SYM_SYMBOL)
-        min(l.beginFilter(isSymbol), l.endFilter());
+        min(l.begin_atom_filter(isSymbol), l.end_atom_filter());
 }
 
 void ListMin::onDataT(const DataTPtr<DataTypeMList>& lst)

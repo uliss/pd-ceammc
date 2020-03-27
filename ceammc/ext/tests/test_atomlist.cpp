@@ -1197,18 +1197,18 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         SECTION("template")
         {
             AtomList l;
-            REQUIRE(l.reduce(1.f, &atomSum) == 1.f);
-            REQUIRE(l.reduce(1.f, &atomMul) == 1.f);
+            REQUIRE(l.reduce<t_float>(1, &atomSum) == 1.f);
+            REQUIRE(l.reduce<t_float>(1, &atomMul) == 1.f);
             l.append(1.f);
             l.append(2.f);
-            REQUIRE(l.reduce(0.5f, &atomSum) == 3.5f);
-            REQUIRE(l.reduce(2.f, &atomMul) == 4.f);
+            REQUIRE(l.reduce<t_float>(0.5f, &atomSum) == 3.5f);
+            REQUIRE(l.reduce<t_float>(2, &atomMul) == 4.f);
             l.append(gensym("a"));
-            REQUIRE(l.reduce(0.5f, &atomSum) == 3.5f);
-            REQUIRE(l.reduce(2.f, &atomMul) == 4.f);
+            REQUIRE(l.reduce<t_float>(0.5f, &atomSum) == 3.5f);
+            REQUIRE(l.reduce<t_float>(2, &atomMul) == 4.f);
             l.append(2.f);
-            REQUIRE(l.reduce(0.5f, &atomSum) == 5.5f);
-            REQUIRE(l.reduce(2.f, &atomMul) == 8.f);
+            REQUIRE(l.reduce<t_float>(0.5f, &atomSum) == 5.5f);
+            REQUIRE(l.reduce<t_float>(2, &atomMul) == 8.f);
         }
 
         SECTION("float")

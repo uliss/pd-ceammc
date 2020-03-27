@@ -53,6 +53,30 @@ T clip01(T v)
     return clip<T, 0, 1>(v);
 }
 
+template <typename T>
+T clip_min(T v, T min)
+{
+    return std::max<T>(v, min);
+}
+
+template <typename T, int min>
+T clip_min(T v)
+{
+    return std::max<T>(v, min);
+}
+
+template <typename T>
+T clip_max(T v, T max)
+{
+    return std::min<T>(v, max);
+}
+
+template <typename T, int max>
+T clip_max(T v)
+{
+    return std::min<T>(v, max);
+}
+
 /**
  * Wraps input values to specified range:
  * -3 -2 -1 0 1 2 3

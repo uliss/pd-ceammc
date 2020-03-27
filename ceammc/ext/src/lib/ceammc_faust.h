@@ -29,6 +29,7 @@
 #include "ceammc_object.h"
 #include "ceammc_property_info.h"
 #include "ceammc_sound_external.h"
+#include "ceammc_output.h"
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT t_float
@@ -543,7 +544,7 @@ namespace faust {
         for (size_t i = 0; i < uiCount(); i++)
             l.append(ui_elements_[i]->setPropertySym());
 
-        l.output(out);
+        outletAtomList(out, l);
     }
 
     template <typename T>

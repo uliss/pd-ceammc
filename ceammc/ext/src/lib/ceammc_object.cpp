@@ -183,7 +183,7 @@ void BaseObject::listTo(size_t n, const AtomList& l)
         return;
     }
 
-    l.output(outlets_[n]);
+    outletAtomList(outlets_[n], l);
 }
 
 void BaseObject::messageTo(size_t n, const Message& msg)
@@ -203,7 +203,8 @@ void BaseObject::anyTo(size_t n, const AtomList& l)
         return;
     }
 
-    l.outputAsAny(outlets_[n]);
+    if (!outletAny(outlets_[n], l))
+        OBJ_ERR << "internal error call BaseObject::anyTo";
 }
 
 void BaseObject::anyTo(size_t n, t_symbol* s, const Atom& a)
@@ -223,7 +224,7 @@ void BaseObject::anyTo(size_t n, t_symbol* s, const AtomList& l)
         return;
     }
 
-    l.outputAsAny(outlets_[n], s);
+    outletAny(outlets_[n], s, l);
 }
 
 void BaseObject::dataTo(size_t n, const DataPtr& d)
@@ -666,7 +667,7 @@ bool BaseObject::checkArg(const Atom& atom, BaseObject::ArgumentType type, int p
             ARG_ERROR("integer expected");
         break;
     case ARG_NATURAL:
-        if (!(atom.isInteger() && atom > 0))
+        if (!(atom.isInteger() && atom >= 0))
             ARG_ERROR("natural expected");
         break;
     case ARG_BOOL:
@@ -813,7 +814,7 @@ void BaseObject::queryPropNames()
         // dump to console
         OBJ_DBG << res;
     } else
-        res.outputAsAny(outlets_.front(), SYM_PROPS_ALL());
+        outletAny(outlets_.front(), SYM_PROPS_ALL(), res);
 }
 
 void BaseObject::onBang()

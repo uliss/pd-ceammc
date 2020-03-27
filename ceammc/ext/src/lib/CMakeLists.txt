@@ -71,6 +71,7 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_node_external.cpp
     ceammc_object.cpp
     ceammc_object_info.cpp
+    ceammc_output.cpp
     ceammc_pd.cpp
     ceammc_platform.cpp
     ceammc_preset.cpp

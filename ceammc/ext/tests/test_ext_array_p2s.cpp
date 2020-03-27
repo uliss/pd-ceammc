@@ -11,9 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../array/array_p2s.h"
-#include "test_base.h"
+#include "array_p2s.h"
 #include "ceammc_pd.h"
+#include "test_base.h"
 
 #include "catch.hpp"
 

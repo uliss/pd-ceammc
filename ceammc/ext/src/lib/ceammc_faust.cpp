@@ -200,7 +200,7 @@ namespace faust {
         lst.append(max_);
         lst.append(step_);
 
-        lst.outputAsAny(out, sel);
+        outletAny(out, sel, lst);
     }
 
     bool isGetAllProperties(t_symbol* s)

@@ -59,11 +59,18 @@ Mix::Mix(const PdArgs& args)
         p->setUnitsMs();
     }
 
-    createCbProperty("@db", &Mix::propDb, &Mix::setPropDb)
+    createCbListProperty(
+        "@db",
+        [this]() { return propDb(); },
+        [this](const AtomList& l) { setPropDb(l); return true; })
         ->setUnitsDb();
     createCbProperty("@value", &Mix::propValue, &Mix::setPropValue);
 
-    createCbProperty("@mute", &Mix::propMute, &Mix::setPropMute);
+    createCbListProperty(
+        "@mute",
+        [this]() { return propMute(); },
+        [this](const AtomList& l) { setPropMute(l); return true; });
+
     createCbProperty("@solo", &Mix::propSolo, &Mix::setPropSolo);
 }
 
@@ -124,12 +131,12 @@ void Mix::setPropValue(const AtomList& lst)
 
 AtomList Mix::propDb() const
 {
-    return propValue().map(toDb);
+    return propValue().mapFloat(toDb);
 }
 
 void Mix::setPropDb(const AtomList& lst)
 {
-    setPropValue(lst.map(fromDb));
+    setPropValue(lst.mapFloat(fromDb));
 }
 
 AtomList Mix::propMute() const
@@ -140,11 +147,15 @@ AtomList Mix::propMute() const
     for (size_t i = 0; i < mute_.size(); i++)
         res.append(mute_[i].target());
 
+    OBJ_LOG << "get: " << res;
+
     return res;
 }
 
 void Mix::setPropMute(const AtomList& lst)
 {
+    OBJ_LOG << "set: " << lst;
+
     for (size_t i = 0; i < mute_.size(); i++) {
         int v = int(lst.floatAt(i, 0)) != 0 ? 1 : 0;
         mute_[i].setTargetValue(v);
