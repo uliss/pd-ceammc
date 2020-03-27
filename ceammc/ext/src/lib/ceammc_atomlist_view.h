@@ -16,6 +16,7 @@
 
 #include "ceammc_atom.h"
 
+#include <algorithm>
 #include <functional>
 
 namespace ceammc {
@@ -96,6 +97,10 @@ public:
      * Returns subview from specified position and length
      */
     AtomListView subView(size_t from, size_t len) const;
+
+    bool contains(const Atom& a) const;
+
+    friend class AtomList;
 
 private:
     inline const t_atom& atom() const { return data_->atom(); }

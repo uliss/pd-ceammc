@@ -182,4 +182,11 @@ TEST_CASE("AtomListView", "core")
             REQUIRE(lv.subView(5, 0) == L());
         }
     }
+
+    SECTION("contains")
+    {
+        AtomList l({ 1, 2, 3, 4 });
+        REQUIRE(l.view().contains(A(1)));
+        REQUIRE_FALSE(AtomListView().contains(A(100)));
+    }
 }

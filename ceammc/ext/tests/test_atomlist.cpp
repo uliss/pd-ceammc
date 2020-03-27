@@ -74,7 +74,7 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
 
     SECTION("sort numeric")
     {
-        AtomList l({10, 2, -3});
+        AtomList l({ 10, 2, -3 });
         l.sort();
         REQUIRE(l == LF(-3, 2, 10));
     }
@@ -128,130 +128,77 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         l2.append(Atom(1.0));
         REQUIRE(l1 != l2);
         REQUIRE_FALSE(l1 == l2);
+
+        REQUIRE(LA("A", "C") != L());
+        REQUIRE(LA("A", "C") != LA("A", "B"));
+        REQUIRE(LA("A", "C") != LA("A", 0xB));
+        REQUIRE(LA("A", "B") == LA("A", "B"));
     }
 
     SECTION("filtered")
     {
-        AtomList l1;
-        l1.append(Atom(gensym("a")));
-        l1.append(Atom(2.0));
-
-        AtomList l2 = l1.filtered(nullptr);
-        REQUIRE(l1 == l2);
-
-        l2 = l1.filtered(isFloat);
-        REQUIRE(l1 != l2);
-        REQUIRE(l2.size() == 1);
-        REQUIRE(l2.at(0).asFloat() == 2.0f);
-
-        l2 = l1.filtered(isSymbol);
-        REQUIRE(l1 != l2);
-        REQUIRE(l2.size() == 1);
-        REQUIRE(l2.at(0).asSymbol() == SYM("a"));
+        AtomList l = LA("a", 2, 3, "b");
+        REQUIRE(l.filtered(nullptr) == l);
+        REQUIRE(l.filtered(isFloat) == LF(2, 3));
+        REQUIRE(l.filtered(isSymbol) == LA("a", "b"));
     }
 
     SECTION("clear")
     {
-        AtomList l1;
-        l1.clear();
-        REQUIRE(l1.size() == 0);
-        l1.append(Atom(8.5));
-        REQUIRE(l1.size() == 1);
-        l1.clear();
-        REQUIRE(l1.size() == 0);
+        AtomList l;
+        l.clear();
+        REQUIRE(l.empty());
+        l = LF(1, 2, 3, 4, 5);
+        REQUIRE(l.size() == 5);
+        l.clear();
+        REQUIRE(l.empty());
     }
 
     SECTION("insert")
     {
         AtomList l;
-        l.insert(0, Atom(1.1f));
-        REQUIRE(l.size() == 1);
-        REQUIRE(l.at(0).asFloat() == 1.1f);
+        REQUIRE(l.insert(0, Atom(1.5)));
+        REQUIRE(l == LF(1.5));
 
-        l.insert(0, Atom(-1.1f));
-        REQUIRE(l.size() == 2);
-        REQUIRE(l.at(0).asFloat() == -1.1f);
+        REQUIRE(l.insert(0, Atom(-2.5)));
+        REQUIRE(l == LF(-2.5, 1.5));
 
-        l.insert(2, Atom(15));
-        REQUIRE(l.size() == 3);
-        REQUIRE(l.at(2).asFloat() == 15.f);
+        REQUIRE(l.insert(2, Atom(15)));
+        REQUIRE(l == LF(-2.5, 1.5, 15));
 
-        l.insert(20, Atom(15));
-        REQUIRE(l.size() == 3);
+        REQUIRE(l.insert(1, Atom(8)));
+        REQUIRE(l == LF(-2.5, 8, 1.5, 15));
+
+        REQUIRE_FALSE(l.insert(20, Atom(150)));
+        REQUIRE(l == LF(-2.5, 8, 1.5, 15));
 
         l.clear();
-        REQUIRE(l.insert(0, AtomList::ones(4)));
-        REQUIRE(l.size() == 4);
-        REQUIRE(l.insert(0, AtomList::zeroes(2)));
-        REQUIRE(l.size() == 6);
-        REQUIRE(l == LF(0.0, 0.0, 1.0, 1.0, 1.0, 1.0));
+        REQUIRE(l.insert(0, LF(1, 2, 3)));
+        REQUIRE(l == LF(1, 2, 3));
+        REQUIRE(l.insert(0, LF(100, 200)));
+        REQUIRE(l == LF(100, 200, 1, 2, 3));
+        REQUIRE(l.insert(0, L()));
+        REQUIRE(l == LF(100, 200, 1, 2, 3));
+        REQUIRE(l.insert(1, LA("ABC", "DEF")));
+        REQUIRE(l == LA(100, "ABC", "DEF", 200, 1, 2, 3));
         REQUIRE_FALSE(l.insert(200, L()));
         REQUIRE_FALSE(l.insert(200, LF(2)));
     }
 
     SECTION("remove")
     {
-        AtomList l;
-        l.append(Atom(1.f));
-        l.append(Atom(2.f));
-        l.append(Atom(3.f));
+        AtomList l({ 1, 2, 3 });
 
-        REQUIRE(l.size() == 3);
         REQUIRE_FALSE(l.remove(20));
-        REQUIRE(l.size() == 3);
+        REQUIRE(l == LF(1, 2, 3));
         REQUIRE(l.remove(1));
-        REQUIRE(l.size() == 2);
-        REQUIRE(l.at(1).asFloat() == 3.f);
-    }
-
-    SECTION("find")
-    {
-        AtomList l;
-        REQUIRE(l.find(Atom(1.0)) == 0);
-        REQUIRE(l.find(isFloat) == 0);
-        REQUIRE(l.findLast(1.0) == 0);
-        REQUIRE(l.findLast(isFloat) == 0);
-
-        l.append(Atom(1.f));
-        l.append(Atom(2.f));
-        l.append(Atom(3.f));
-
-        const AtomList l2 = l;
-
-        REQUIRE(l2.find(Atom(1.f)) != 0);
-        REQUIRE(l2.find(Atom(2.f)) != 0);
-        REQUIRE(l2.find(Atom(3.f)) != 0);
-        REQUIRE(l2.find(Atom(4.f)) == 0);
-
-        REQUIRE(l2.findLast(Atom(1.f)) != 0);
-        REQUIRE(l2.findLast(Atom(2.f)) != 0);
-        REQUIRE(l2.findLast(Atom(3.f)) != 0);
-        REQUIRE(l2.findLast(Atom(4.f)) == 0);
-
-        // find by predicate
-        REQUIRE(l2.find(isFloat) != 0);
-        REQUIRE(l2.find(isSymbol) == 0);
-    }
-
-    SECTION("find pred")
-    {
-        AtomList l;
-        REQUIRE(l.find(isFloat) == 0);
-        REQUIRE(l.find(isSymbol) == 0);
-        REQUIRE(l.findLast(isFloat) == 0);
-        REQUIRE(l.findLast(isSymbol) == 0);
-
-        l.append(Atom(1.f));
-        l.append(Atom(gensym("a")));
-        l.append(Atom(3.f));
-        l.append(Atom(gensym("b")));
-
-        const AtomList l2 = l;
-
-        REQUIRE(l2.find(isFloat)->asFloat() == 1.f);
-        REQUIRE(l2.findLast(isFloat)->asFloat() == 3.f);
-        REQUIRE(l2.find(isSymbol)->asSymbol() == SYM("a"));
-        REQUIRE(l2.findLast(isSymbol)->asSymbol() == SYM("b"));
+        REQUIRE(l == LF(1, 3));
+        REQUIRE(l.remove(0));
+        REQUIRE(l == LF(3));
+        REQUIRE(l.remove(0));
+        REQUIRE(l == L());
+        REQUIRE_FALSE(l.remove(3));
+        REQUIRE(l == L());
     }
 
     SECTION("count")
@@ -285,11 +232,7 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
 
     SECTION("fill")
     {
-        AtomList l;
-        l.append(Atom(1.f));
-        l.append(Atom(2.f));
-        l.append(Atom(3.f));
-
+        AtomList l({ 1, 2, 3 });
         l.fill(4.f);
         REQUIRE(l.count(4.f) == 3);
 
@@ -335,79 +278,47 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
 
     SECTION("reverse")
     {
-        AtomList l;
-        l.append(1.f);
-        l.append(2.f);
-        l.append(3.f);
-
+        AtomList l({ 1, 2, 3 });
         l.reverse();
-        REQUIRE(l.at(0).asFloat() == 3.f);
-        REQUIRE(l.at(1).asFloat() == 2.f);
-        REQUIRE(l.at(2).asFloat() == 1.f);
+        REQUIRE(l == LF(3, 2, 1));
     }
 
     SECTION("removeAll")
     {
-        AtomList l;
-        l.append(1.f);
-        l.append(2.f);
-        l.append(3.f);
-        l.append(1.f);
-        l.append(1.f);
+        AtomList l({ 1, 2, 3, 1, 1 });
 
-        l.removeAll(1.f);
+        l.removeAll(1);
         REQUIRE(l.size() == 2);
-        REQUIRE(l.find(1.f) == 0);
+        REQUIRE(l == LF(2, 3));
     }
 
     SECTION("removeAllPred")
     {
-        AtomList l;
-        l.append(1.f);
-        l.append(2.f);
-        l.append(3.f);
-        l.append(1.f);
-        l.append(1.f);
+        AtomList l({ 1, 2, 3, 1, 1 });
         l.append(gensym("a"));
 
         l.removeAll(isFloat);
+        REQUIRE(l == LA("a"));
         REQUIRE(l.size() == 1);
-        REQUIRE(l.at(0).asSymbol() == SYM("a"));
     }
 
     SECTION("replaceAll")
     {
-        AtomList l;
-        l.append(1.f);
-        l.append(2.f);
-        l.append(3.f);
-        l.append(1.f);
-        l.append(1.f);
-
+        AtomList l({ 1, 2, 3, 1, 1 });
         l.replaceAll(1.f, -1.f);
-        REQUIRE(l.count(-1.f) == 3);
+        REQUIRE(l == LF(-1, 2, 3, -1, -1));
     }
 
     SECTION("replaceAllPred")
     {
-        AtomList l;
-        l.append(1.f);
-        l.append(2.f);
-        l.append(3.f);
-
-        l.replaceAll(isFloat, gensym("x"));
-        REQUIRE(l.count(isSymbol) == 3);
-        REQUIRE(l.allOf(isSymbol));
+        AtomList l({ 1, 2, 3 });
+        l.replaceAll(isFloat, A("x"));
+        REQUIRE(l == LA("x", "x", "x"));
     }
 
     SECTION("contains")
     {
-        AtomList l;
-        l.append(1.f);
-        l.append(2.f);
-        l.append(3.f);
-        l.append(1.f);
-        l.append(1.f);
+        AtomList l({ 1, 2, 3, 1, 1 });
 
         REQUIRE(l.contains(1.f));
         REQUIRE(l.contains(2.f));
@@ -416,12 +327,7 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
 
     SECTION("findPos")
     {
-        AtomList l;
-        l.append(1.f);
-        l.append(2.f);
-        l.append(3.f);
-        l.append(1.f);
-        l.append(1.f);
+        AtomList l({ 1, 2, 3, 1, 1 });
 
         REQUIRE(l.findPos(3.f) == 2);
         REQUIRE(l.findPos(2.f) == 1);
@@ -432,13 +338,7 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
 
     SECTION("findPos predicate")
     {
-        AtomList l;
-        l.append(1.f);
-        l.append(gensym("b"));
-        l.append(gensym("@a"));
-        l.append(3.f);
-        l.append(1.f);
-
+        AtomList l = LA(1, "b", "@a", 3, 1);
         REQUIRE(l.findPos(isFloat) == 0);
         REQUIRE(l.findPos(isProperty) == 2);
         REQUIRE(l.findPos(isSymbol) == 1);
@@ -1190,49 +1090,21 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
 
     SECTION("test sum")
     {
-        AtomList l;
-        REQUIRE(l.sum() == boost::none);
-        l.append(1.f);
-        l.append(2.f);
-        REQUIRE(l.sum() == 3.f);
-        l.append(gensym("a"));
-        REQUIRE(l.sum() == 3.f);
-        l.append(3.f);
-        REQUIRE(l.sum() == 6.f);
+        REQUIRE(L().sum() == boost::none);
+        REQUIRE(LA("none").sum() == boost::none);
+        REQUIRE(*LF(1).sum() == 1);
+        REQUIRE(*LF(1, 2, 3, 4, 5).sum() == 15);
+        REQUIRE(*LA("ABC", 1, 2, 3, 4, 5).sum() == 15);
     }
 
     SECTION("test product")
     {
-        AtomList l;
-        REQUIRE(l.product() == boost::none);
-        l.append(1.f);
-        l.append(2.f);
-        REQUIRE(l.product() == 2.f);
-        l.append(gensym("a"));
-        REQUIRE(l.product() == 2.f);
-        l.append(3.f);
-        REQUIRE(l.product() == 6.f);
-    }
-
-    SECTION("test normalize")
-    {
-        AtomList l;
-        REQUIRE_FALSE(l.normalizeFloats());
-
-        l.append(0.f);
-        REQUIRE_FALSE(l.normalizeFloats());
-        l.append(gensym("a"));
-        REQUIRE_FALSE(l.normalizeFloats());
-
-        l.append(3.f);
-        REQUIRE(l.normalizeFloats());
-        REQUIRE(l[2] == 1.f);
-
-        l.append(3.f);
-        // 0 0 1.0  3.0
-        // 0 0 0.25 0.75
-        REQUIRE(l.normalizeFloats());
-        REQUIRE(l[2] == 0.25f);
-        REQUIRE(l[3] == 0.75f);
+        REQUIRE(L().product() == boost::none);
+        REQUIRE(LA("none").product() == boost::none);
+        REQUIRE(*LF(0).product() == 0);
+        REQUIRE(*LF(1).product() == 1);
+        REQUIRE(*LF(1, 2, 3).product() == 6);
+        REQUIRE(*LF(1, 2, 3, 4).product() == 24);
+        REQUIRE(*LA("ABC", 1, 2, 3, 4).product() == 24);
     }
 }

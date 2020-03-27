@@ -424,11 +424,6 @@ void AtomList::fromPdData(int n, t_atom* lst)
     fromPdData(static_cast<size_t>(n), lst);
 }
 
-t_atom* AtomList::toPdData() const
-{
-    return reinterpret_cast<t_atom*>(const_cast<Atom*>(atoms_.data()));
-}
-
 void AtomList::append(const AtomList& l)
 {
     atoms_.insert(atoms_.end(), l.atoms_.begin(), l.atoms_.end());
@@ -560,33 +555,6 @@ Atom* AtomList::max()
     return &(*std::max_element(atoms_.begin(), atoms_.end()));
 }
 
-Atom* AtomList::find(const Atom& a)
-{
-    if (empty())
-        return nullptr;
-
-    auto it = std::find(atoms_.begin(), atoms_.end(), a);
-    return it == atoms_.end() ? 0 : &(*it);
-}
-
-Atom* AtomList::findLast(const Atom& a)
-{
-    if (empty())
-        return nullptr;
-
-    auto it = std::find(atoms_.rbegin(), atoms_.rend(), a);
-    return it == atoms_.rend() ? 0 : &(*it);
-}
-
-Atom* AtomList::findLast(AtomPredicate pred)
-{
-    if (empty())
-        return nullptr;
-
-    auto it = std::find_if(atoms_.rbegin(), atoms_.rend(), pred);
-    return it == atoms_.rend() ? 0 : &(*it);
-}
-
 MaybeFloat AtomList::sum() const
 {
     return reduceFloat(0, [](t_float a, t_float b) { return a + b; });
@@ -599,7 +567,7 @@ MaybeFloat AtomList::product() const
 
 bool AtomList::contains(const Atom& a) const
 {
-    return find(a) != 0;
+    return std::find(atoms_.begin(), atoms_.end(), a) != atoms_.end();
 }
 
 long AtomList::findPos(const Atom& a) const
@@ -661,15 +629,6 @@ bool AtomList::noneOf(AtomPredicate pred) const
     return std::none_of(atoms_.begin(), atoms_.end(), pred);
 }
 
-Atom* AtomList::find(AtomPredicate pred)
-{
-    if (empty())
-        return nullptr;
-
-    auto it = std::find_if(atoms_.begin(), atoms_.end(), pred);
-    return (it == atoms_.end()) ? 0 : &(*it);
-}
-
 const Atom* AtomList::max() const
 {
     return const_cast<AtomList*>(this)->max();
@@ -686,26 +645,6 @@ bool AtomList::range(Atom& min, Atom& max) const
     return true;
 }
 
-const Atom* AtomList::find(const Atom& a) const
-{
-    return const_cast<AtomList*>(this)->find(a);
-}
-
-const Atom* AtomList::findLast(const Atom& a) const
-{
-    return const_cast<AtomList*>(this)->findLast(a);
-}
-
-const Atom* AtomList::findLast(AtomPredicate pred) const
-{
-    return const_cast<AtomList*>(this)->findLast(pred);
-}
-
-const Atom* AtomList::find(AtomPredicate pred) const
-{
-    return const_cast<AtomList*>(this)->find(pred);
-}
-
 size_t AtomList::asSizeT(size_t defaultValue) const
 {
     if (empty())
@@ -714,24 +653,22 @@ size_t AtomList::asSizeT(size_t defaultValue) const
     return atoms_.front().asSizeT(defaultValue);
 }
 
-bool AtomList::normalizeFloats()
+AtomListView AtomList::view(size_t from) const
 {
-    if (empty())
-        return false;
+    if (from >= size())
+        return {};
+    else
+        return AtomListView(toPdData() + from, atoms_.size() - from);
+}
 
-    auto s = sum();
-    if (s == boost::none || std::equal_to<t_float>()(*s, 0))
-        return false;
-
-    for (auto& it : atoms_) {
-        t_float f = 0;
-        if (!it.getFloat(&f))
-            continue;
-
-        it.setFloat(f / *s);
+AtomListView AtomList::view(size_t from, size_t length) const
+{
+    if (from >= size())
+        return {};
+    else {
+        auto len = std::min(length, atoms_.size() - from);
+        return AtomListView(toPdData() + from, len);
     }
-
-    return true;
 }
 
 static AtomList listAdd(const AtomList& a, const AtomList& b, ElementAccessFn fn)
@@ -918,6 +855,22 @@ bool AtomList::operator==(const AtomList& x) const
         return false;
 
     return std::equal(atoms_.begin(), atoms_.end(), x.atoms_.begin());
+}
+
+bool AtomList::operator==(const AtomListView& x) const
+{
+    if (size() != x.size())
+        return false;
+
+    if (atoms_.data() == x.data_)
+        return true;
+
+    for (size_t i = 0; i < atoms_.size(); i++) {
+        if (atoms_[i] != x.data_[i])
+            return false;
+    }
+
+    return true;
 }
 
 std::ostream& operator<<(std::ostream& os, const AtomList& l)

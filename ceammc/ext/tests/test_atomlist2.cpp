@@ -780,4 +780,89 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
         REQUIRE(LF(1).isInteger());
         REQUIRE_FALSE(LF(0.5).isInteger());
     }
+
+    SECTION("view")
+    {
+        SECTION("view()")
+        {
+            AtomList l({ 1, 2, 3 });
+            REQUIRE(l.view() == l);
+            REQUIRE(l == l.view());
+            REQUIRE_FALSE(l.view() != l);
+            REQUIRE_FALSE(l != l.view());
+
+            REQUIRE(L().view() == AtomListView());
+            REQUIRE_FALSE(L().view() != AtomListView());
+
+            REQUIRE(L().view().empty());
+            REQUIRE(L().view().isNull());
+            REQUIRE_FALSE(L().view().contains(A(1)));
+
+            REQUIRE(LF(1).view().at(0) == A(1));
+            REQUIRE(LF(1).view().size() == 1);
+            REQUIRE_FALSE(LF(1).view().empty());
+            REQUIRE_FALSE(LF(1).view().isNull());
+            REQUIRE(LF(1).view().contains(A(1)));
+            REQUIRE_FALSE(LF(1).view().contains(A(2)));
+
+            REQUIRE(LF(1).view().at(0) == A(1));
+            REQUIRE(LF(1).view().contains(A(1)));
+            REQUIRE_FALSE(LF(1).view().contains(A(2)));
+
+            REQUIRE(LF(1, 100).view().at(0) == A(1));
+            REQUIRE(LF(1, 100).view().at(1) == A(100));
+            REQUIRE(LF(1, 1).view().contains(A(1)));
+            REQUIRE(LF(1, 100).view().contains(A(100)));
+            REQUIRE(LF(1, 100).view().size() == 2);
+        }
+
+        SECTION("view(FROM)")
+        {
+            REQUIRE(L().view(0).empty());
+            REQUIRE(L().view(0).isNull());
+            REQUIRE_FALSE(L().view(0).contains(A(1)));
+
+            REQUIRE(L().view(1).empty());
+            REQUIRE(L().view(1).isNull());
+            REQUIRE_FALSE(L().view(1).contains(A(1)));
+
+            REQUIRE(LF(1).view(1).empty());
+            REQUIRE(LF(1).view(1).isNull());
+
+            REQUIRE(LF(1, 2, 3).view(0).size() == 3);
+            REQUIRE(LF(1, 2, 3).view(1).size() == 2);
+            REQUIRE(LF(1, 2, 3).view(2).size() == 1);
+            REQUIRE(LF(1, 2, 3).view(3).size() == 0);
+            REQUIRE(LF(1, 2, 3).view(4).size() == 0);
+
+            REQUIRE(LF(1, 2, 3).view(0) == LF(1, 2, 3));
+            REQUIRE(LF(1, 2, 3).view(1) == LF(2, 3));
+            REQUIRE(LF(1, 2, 3).view(2) == LF(3));
+        }
+
+        SECTION("view(FROM, LEN)")
+        {
+            REQUIRE(L().view(0, 0).empty());
+            REQUIRE(L().view(0, 10).isNull());
+            REQUIRE_FALSE(L().view(0, 0).contains(A(1)));
+
+            REQUIRE(L().view(1, 0).empty());
+            REQUIRE(L().view(1, 1).isNull());
+            REQUIRE_FALSE(L().view(1, 2).contains(A(1)));
+
+            REQUIRE(LF(1).view(1, 1).empty());
+            REQUIRE(LF(1).view(1, 1).isNull());
+
+            REQUIRE(LF(1, 2, 3).view(0, 2).size() == 2);
+            REQUIRE(LF(1, 2, 3).view(1, 2).size() == 2);
+            REQUIRE(LF(1, 2, 3).view(2, 2).size() == 1);
+            REQUIRE(LF(1, 2, 3).view(3, 2).size() == 0);
+            REQUIRE(LF(1, 2, 3).view(4, 2).size() == 0);
+
+            REQUIRE(LF(1, 2, 3).view(0, 2) == LF(1, 2));
+            REQUIRE(LF(1, 2, 3).view(1, 2) == LF(2, 3));
+            REQUIRE(LF(1, 2, 3).view(2, 2) == LF(3));
+            REQUIRE(LF(1, 2, 3).view(3, 2) == L());
+        }
+    }
 }

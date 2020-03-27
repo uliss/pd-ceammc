@@ -62,6 +62,9 @@ bool AtomListView::operator==(const AtomList& l) const
     if (n_ != l.size())
         return false;
 
+    if (l.atoms_.data() == data_)
+        return true;
+
     for (size_t i = 0; i < n_; i++) {
         if (data_[i] != l[i])
             return false;
@@ -166,6 +169,14 @@ AtomListView AtomListView::subView(size_t from, size_t len) const
         return {};
 
     return AtomListView(&data_[from].atom(), std::min(n_ - from, len));
+}
+
+bool AtomListView::contains(const Atom& a) const
+{
+    if (empty() || isNull())
+        return false;
+
+    return std::find(data_, data_ + n_, a) != (data_ + n_);
 }
 
 }

@@ -297,7 +297,7 @@ public:
     /**
      * Returns pointer to Pd list data
      */
-    t_atom* toPdData() const;
+    t_atom* toPdData() const { return reinterpret_cast<t_atom*>(const_cast<Atom*>(atoms_.data())); }
 
     /**
      * Appends atom to the end of list
@@ -357,11 +357,15 @@ public:
     bool isDataType(DataType t) const { return atoms_.size() == 1 && atoms_.front().isDataType(t); }
     template <class T>
     bool isDataType() const { return isDataType(T::dataType); }
+
+    /**
+     * Check if list is of specified type
+     */
     template <typename T>
     inline bool isA() const { return atoms_.size() == 1 && atoms_[0].isA<T>(); }
 
     /**
-     * Sorts list values
+     * Sorts list values in ascending order
      */
     void sort();
 
@@ -375,19 +379,33 @@ public:
      */
     void reverse();
 
+    /**
+     * Returns pointer to minimal element in list or nullptr if empty
+     */
     const Atom* min() const;
-    const Atom* max() const;
-    bool range(Atom& min, Atom& max) const;
-    const Atom* find(const Atom& a) const;
-    const Atom* find(AtomPredicate pred) const;
-    const Atom* findLast(const Atom& a) const;
-    const Atom* findLast(AtomPredicate pred) const;
+
+    /**
+     * Returns pointer to minimal element in list or nullptr if empty
+     */
     Atom* min();
+
+    /**
+     * Returns pointer to greatest element in list or nullptr if empty
+     */
+    const Atom* max() const;
+
+    /**
+     * Returns pointer to greatest element in list or nullptr if empty
+     */
     Atom* max();
-    Atom* find(const Atom& a);
-    Atom* find(AtomPredicate pred);
-    Atom* findLast(const Atom& a);
-    Atom* findLast(AtomPredicate pred);
+
+    /**
+     * Get min and max elements from list
+     * @param min - min destination
+     * @param max - max destination
+     * @return false if empty
+     */
+    bool range(Atom& min, Atom& max) const;
 
     /**
      * Returns sum of floats in list or boost::none if empty
@@ -399,6 +417,11 @@ public:
      */
     MaybeFloat product() const;
 
+    /**
+     * Checks if atom is in list
+     * @param a - searched atom
+     * @return true if list contains, otherwise false
+     */
     bool contains(const Atom& a) const;
     long findPos(const Atom& a) const;
     long findPos(AtomPredicate pred) const;
@@ -419,7 +442,20 @@ public:
         FOLD // result of max size, min list wraped
     };
 
-    bool normalizeFloats();
+    /**
+     * Return full list view
+     */
+    AtomListView view() const { return AtomListView(toPdData(), atoms_.size()); }
+
+    /**
+     * Return list view from specified position till the end
+     */
+    AtomListView view(size_t from) const;
+
+    /**
+     * Return list view from specified position till and specified length
+     */
+    AtomListView view(size_t from, size_t length) const;
 
 public:
     static AtomList zeroes(size_t n);
@@ -458,6 +494,10 @@ public:
 
     bool operator==(const AtomList& x) const;
     bool operator!=(const AtomList& x) const { return !operator==(x); }
+    bool operator==(const AtomListView& x) const;
+    bool operator!=(const AtomListView& x) const { return !operator==(x); }
+
+    friend class AtomListView;
 
 private:
     Container atoms_;

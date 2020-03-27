@@ -192,7 +192,7 @@ void PropDeclare::onLoadBang()
 
     AtomList pv;
     // no property defined in canvas arguments
-    if (!canvas_info_args(cnv).property(sym_name_->s_name, &pv)) {
+    if (!canvas_info_args(cnv).property(sym_name_, &pv)) {
         // output default values
         if (sym_full_name_->s_thing)
             pd_bang(sym_full_name_->s_thing);

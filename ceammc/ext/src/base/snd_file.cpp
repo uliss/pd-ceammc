@@ -66,7 +66,7 @@ void SndFile::m_load(t_symbol* sel, const AtomList& lst)
 
     // getting array names
     AtomList array_names;
-    lst.property("@to", &array_names);
+    lst.property(gensym("@to"), &array_names);
     if (array_names.empty()) {
         OBJ_ERR << "destination arrays are not specified";
         return postLoadUsage();
@@ -109,7 +109,7 @@ void SndFile::m_load(t_symbol* sel, const AtomList& lst)
     // filled with zeroes
     std::vector<size_t> channels(array_names.size(), 0);
     AtomList prop_chan;
-    lst.property("@channel", &prop_chan);
+    lst.property(gensym("@channel"), &prop_chan);
 
     // if no @channel specified
     if (prop_chan.empty()) {
@@ -139,7 +139,7 @@ void SndFile::m_load(t_symbol* sel, const AtomList& lst)
     // offset property
     long offset = 0;
     Atom prop_offset;
-    if (lst.property("@offset", &prop_offset)) {
+    if (lst.property(gensym("@offset"), &prop_offset)) {
         offset = prop_offset.asInt(0);
         if (offset >= long(ptr->sampleCount())) {
             OBJ_ERR << "invalid offset specified: " << offset;

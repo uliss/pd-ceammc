@@ -22,10 +22,10 @@ ListNormalize::ListNormalize(const PdArgs& a)
 
 void ListNormalize::onList(const AtomList& lst)
 {
-    AtomList out(lst.filtered(isFloat));
+    AtomList out;
 
     if (by_->value() == BY_SUM) {
-        if (!out.normalizeFloats()) {
+        if (!list::normalizeBySum(lst, out)) {
             OBJ_ERR << "Invalid list values: " << out;
             return;
         }

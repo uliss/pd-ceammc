@@ -489,14 +489,14 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE(sf.hasNewMessages());
         AtomList info = sf.lastMessage().anyValue();
         AtomList prop;
-        REQUIRE(info.property("@channels", &prop));
+        REQUIRE(info.property(SYM("@channels"), &prop));
         REQUIRE(prop.asSizeT() == 2);
-        REQUIRE(info.property("@samplerate", &prop));
+        REQUIRE(info.property(SYM("@samplerate"), &prop));
         REQUIRE(prop.asSizeT() == 44100);
-        REQUIRE(info.property("@samples", &prop));
+        REQUIRE(info.property(SYM("@samples"), &prop));
         REQUIRE(prop.asSizeT() == 441);
 
-        REQUIRE(info.property("@duration", &prop));
+        REQUIRE(info.property(SYM("@duration"), &prop));
         REQUIRE(prop.at(0).asFloat() == 0.01f);
     }
 
@@ -591,14 +591,14 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE(sf.hasNewMessages());
         AtomList info = sf.lastMessage().anyValue();
         AtomList prop;
-        REQUIRE(info.property("@channels", &prop));
+        REQUIRE(info.property(SYM("@channels"), &prop));
         REQUIRE(prop.asSizeT() == 1);
-        REQUIRE(info.property("@samplerate", &prop));
+        REQUIRE(info.property(SYM("@samplerate"), &prop));
         REQUIRE(prop.asSizeT() == 44100);
-        REQUIRE(info.property("@samples", &prop));
+        REQUIRE(info.property(SYM("@samples"), &prop));
         REQUIRE(prop.asSizeT() == 441);
 
-        REQUIRE(info.property("@duration", &prop));
+        REQUIRE(info.property(SYM("@duration"), &prop));
         REQUIRE(prop.at(0).asFloat() == 0.01f);
 
         sf.cleanMessages();
@@ -608,11 +608,11 @@ TEST_CASE("snd.file", "[PureData]")
         REQUIRE(sf.hasNewMessages(0));
         info = sf.lastMessage().anyValue();
         prop.clear();
-        REQUIRE(info.property("@channels", &prop));
+        REQUIRE(info.property(SYM("@channels"), &prop));
         REQUIRE(prop.asSizeT() == 1);
-        REQUIRE(info.property("@samplerate", &prop));
+        REQUIRE(info.property(SYM("@samplerate"), &prop));
         REQUIRE(prop.asSizeT() == 44100);
-        REQUIRE(info.property("@samples", &prop));
+        REQUIRE(info.property(SYM("@samples"), &prop));
         REQUIRE(prop.asSizeT() == 441);
     }
 #endif

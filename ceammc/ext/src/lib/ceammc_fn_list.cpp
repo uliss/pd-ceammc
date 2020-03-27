@@ -562,5 +562,24 @@ namespace list {
         return res;
     }
 
+    bool normalizeBySum(const AtomList& src, AtomList& dest)
+    {
+        if (src.empty())
+            return false;
+
+        auto x = src.sum();
+        if (x == boost::none || std::equal_to<t_float>()(*x, 0))
+            return false;
+
+        dest.clear();
+        dest.reserve(src.size());
+        const t_float sum = *x;
+
+        for (auto& x : src)
+            dest.append(x.asT<t_float>() / sum);
+
+        return true;
+    }
+
 }
 }
