@@ -42,13 +42,13 @@ StringFormat::StringFormat(const PdArgs& a)
 
 void StringFormat::onBang()
 {
-    dataTo(0, DataPtr(new DataTypeString(fmt_result_)));
+    atomTo(0, new DataTypeString(fmt_result_));
 }
 
-void StringFormat::onData(const DataPtr& d)
+void StringFormat::onData(const Atom& d)
 {
     try {
-        fmt_result_ = tfm::format(fmt_str_.c_str(), d->toString());
+        fmt_result_ = tfm::format(fmt_str_.c_str(), d.asData()->toString());
     } catch (std::exception& e) {
         OBJ_ERR << e.what();
         return;

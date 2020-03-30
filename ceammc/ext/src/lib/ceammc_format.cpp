@@ -216,4 +216,30 @@ std::string parse_quoted(const AtomListView& v)
     return res;
 }
 
+std::string format(const std::string& fmt, const AtomList& l)
+{
+    std::string format_str = fmt;
+    for (auto& c : format_str) {
+        if (c == '(')
+            c = '{';
+        else if (c == ')')
+            c = '}';
+    }
+
+    using ctx = fmt::format_context;
+    std::vector<fmt::basic_format_arg<ctx>> fmt_args;
+
+    for (auto& a : l) {
+        if (a.isSymbol())
+            fmt_args.push_back(fmt::internal::make_arg<ctx>(a.asSymbol()->s_name));
+        else if (a.isInteger())
+            fmt_args.push_back(fmt::internal::make_arg<ctx>(a.asInt()));
+        else if (a.isFloat())
+            fmt_args.push_back(fmt::internal::make_arg<ctx>(a.asFloat()));
+    }
+
+    return fmt::vformat(format_str,
+        fmt::basic_format_args<ctx>(fmt_args.data(), fmt_args.size()));
+}
+
 } // namespace ceammc

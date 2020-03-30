@@ -17,7 +17,7 @@
 
 using namespace ceammc;
 
-TEST_CASE("Message", "[ceammc::Message]")
+TEST_CASE("Message", "[core]")
 {
     Message v1;
     REQUIRE(v1.isNone());
@@ -44,16 +44,16 @@ TEST_CASE("Message", "[ceammc::Message]")
     Message v7(Atom(gensym("b")));
     REQUIRE(v7.isSymbol());
 
-    Message v8(DataPtr(new IntData(123)).asAtom());
+    Message v8(Atom(new IntData(123)));
     REQUIRE(v8.isData());
 
-    Message v9(AtomList(DataPtr(new IntData(123)).asAtom()));
+    Message v9(AtomList(new IntData(123)));
     REQUIRE(v9.isData());
 
-    Message v10(AtomList(DataPtr(new IntData(123)).asAtom()));
+    Message v10(AtomList(new IntData(123)));
     REQUIRE(v10.isData());
 
-    Message v11(AtomList(DataPtr(new IntData(124)).asAtom()));
+    Message v11(AtomList(new IntData(124)));
     REQUIRE(v11.isData());
 
     Message v12(&s_bang);
@@ -70,6 +70,7 @@ TEST_CASE("Message", "[ceammc::Message]")
     SECTION("compare")
     {
         REQUIRE(v1 == v1);
+        REQUIRE_FALSE(v1 != v1);
         REQUIRE(v2 == v2);
         REQUIRE(v3 == v3);
         REQUIRE(v4 == v4);
@@ -141,7 +142,7 @@ TEST_CASE("Message", "[ceammc::Message]")
         v1.setAtom(Atom(gensym("a")));
         REQUIRE(v1.isSymbol());
 
-        v1.setList(AtomList(DataPtr(new IntData(123)).asAtom()));
+        v1.setList(AtomList(new IntData(123)));
         REQUIRE(v1.isData());
     }
 
@@ -159,28 +160,28 @@ TEST_CASE("Message", "[ceammc::Message]")
     {
         SECTION("valid")
         {
-            DataPtr d0(new IntData(123));
-            Message m(d0.asAtom());
+            Message m(Atom(new IntData(123)));
 
             REQUIRE(m.isData());
-            REQUIRE_FALSE(m.dataValue().isNull());
-            REQUIRE(m.dataValue()->isEqual(d0.data()));
-            REQUIRE(m.dataValue() == d0);
+            REQUIRE(m.atomValue().isData());
+            REQUIRE(m.atomValue().asD<IntData>()->value() == 123);
         }
 
         SECTION("invalid")
         {
             Message m(123);
             REQUIRE_FALSE(m.isData());
-            REQUIRE(m.dataValue().isNull());
         }
 
         SECTION("ownership")
         {
-            Message m(DataPtr(new IntData(123)).asAtom());
+            Message m(new IntData(123));
             REQUIRE(m.isData());
-            REQUIRE(m.dataValue().isValid());
-            REQUIRE(m.dataValue() == DataPtr(new IntData(123)));
+            REQUIRE(m.atomValue() == Atom(new IntData(123)));
+            REQUIRE_FALSE(m.atomValue() != Atom(new IntData(123)));
+            REQUIRE(m.atomValue() != Atom(new IntData(124)));
+            REQUIRE(m.atomValue() != Atom(new StrData("abc")));
+            REQUIRE_FALSE(m.atomValue() == Atom(new StrData("abc")));
         }
     }
 }

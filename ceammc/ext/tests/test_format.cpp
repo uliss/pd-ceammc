@@ -111,4 +111,28 @@ TEST_CASE("format", "[ceammc::format]")
             REQUIRE(parse_quoted(LA("'a", "b`''")) == "a b'");
         }
     }
+
+    SECTION("format")
+    {
+        REQUIRE_THROWS(format("()", L()));
+        REQUIRE(format("()", LF(1)) == "1");
+        REQUIRE(format("()", LF(1.5)) == "1.5");
+        REQUIRE(format("()", LF(1, 2)) == "1");
+        REQUIRE(format("() ()", LF(1, 2, 3)) == "1 2");
+        REQUIRE(format("(:#X)", A(255)) == "0XFF");
+        REQUIRE(format("(:#x)", A(255)) == "0xff");
+        REQUIRE(format("(:X)", A(255)) == "FF");
+        REQUIRE(format("(:x)", A(255)) == "ff");
+        REQUIRE(format("(:#b)", A(7)) == "0b111");
+        REQUIRE(format("(:#B)", A(5)) == "0B101");
+        REQUIRE(format("(:08b)", A(5)) == "00000101");
+        REQUIRE(format("(:08b)", A(255)) == "11111111");
+        REQUIRE(format("(:d)", A(255)) == "255");
+        REQUIRE(format("(:f)", A(255.5)) == "255.500000");
+        REQUIRE(format("(:g)", A(255.5)) == "255.5");
+        REQUIRE(format("(:2.3f)", A(255.5)) == "255.500");
+
+        REQUIRE(format("(:^)", A("abc")) == "abc");
+        REQUIRE(format("(:_^10)", A("abc")) == "___abc____");
+    }
 }

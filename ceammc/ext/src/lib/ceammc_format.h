@@ -45,6 +45,8 @@ std::string parse_quoted(const Atom& str);
 std::string parse_quoted(const AtomList& l);
 std::string parse_quoted(const AtomListView& v);
 
+std::string format(const std::string& fmt, const AtomList& l);
+
 /**
  * Simple string quotation
  * @param str - string to quote

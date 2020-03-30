@@ -27,7 +27,7 @@ class StringFormat : public BaseObject {
 
 public:
     StringFormat(const PdArgs& a);
-    void onData(const DataPtr& d) override;
+    void onData(const Atom& d) override;
     void onBang() override;
     void onFloat(t_float v) override;
     void onSymbol(t_symbol* s) override;
