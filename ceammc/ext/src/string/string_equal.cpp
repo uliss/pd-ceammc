@@ -14,11 +14,12 @@
 #include "string_equal.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_string.h"
 #include "datatype_string.h"
 
 StringEqual::StringEqual(const PdArgs& a)
     : BaseObject(a)
-    , str1_(to_string(positionalArguments()))
+    , str1_(parse_quoted(positionalArguments()))
 {
     createInlet();
     createOutlet();
@@ -36,7 +37,7 @@ void StringEqual::onDataT(const DataTypeString* str)
 
 void StringEqual::onInlet(size_t, const AtomList& l)
 {
-    str1_ = to_string(l);
+    str1_ = parse_quoted(l);
 }
 
 void setup_string_equal()

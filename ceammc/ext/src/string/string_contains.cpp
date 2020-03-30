@@ -19,7 +19,7 @@
 
 StringContains::StringContains(const PdArgs& a)
     : BaseObject(a)
-    , subj_(to_string(positionalArguments()))
+    , subj_(parse_quoted(positionalArguments()))
 {
     createInlet();
     createOutlet();
@@ -37,7 +37,13 @@ void StringContains::onDataT(const DataTypeString* str)
 
 void StringContains::onInlet(size_t, const AtomList& l)
 {
-    subj_ = to_string(l);
+    subj_ = parse_quoted(l);
+}
+
+void StringContains::dump() const
+{
+    OBJ_DBG << "search arg: " << quote(subj_);
+    BaseObject::dump();
 }
 
 void setup_string_contains()

@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_string.h"
+#include "re2/re2.h"
 #include "utf8rewind/utf8rewind.h"
 
 #include <boost/algorithm/string.hpp>
@@ -124,7 +125,167 @@ void ceammc::string::utf8_split_by_char(std::vector<std::string>& vec, const cha
     }
 }
 
+bool ceammc::string::starts_with(const std::string& str, const std::string& prefix)
+{
+    return boost::starts_with(str, prefix);
+}
+
+bool ceammc::string::starts_with(const char* str, const char* prefix)
+{
+    return boost::starts_with(str, prefix);
+}
+
 bool ceammc::string::ends_with(const char* str, const char* suffix)
 {
     return boost::ends_with(str, suffix);
+}
+
+bool ceammc::string::ends_with(const std::string& str, const std::string& suffix)
+{
+    return boost::ends_with(str, suffix);
+}
+
+bool ceammc::string::contains(const char* haystack, const char* needle)
+{
+    return boost::algorithm::contains(haystack, needle);
+}
+
+bool ceammc::string::contains(const std::string& haystack, const std::string& needle)
+{
+    return boost::algorithm::contains(haystack, needle);
+}
+
+std::string ceammc::string::escape_for_json(const std::string& str)
+{
+    std::string res;
+    res.reserve(str.length() + 4);
+
+    for (auto c : str) {
+        switch (c) {
+        case '\b':
+            res.push_back('\\');
+            res.push_back('b');
+            break;
+        case '\t':
+            res.push_back('\\');
+            res.push_back('t');
+            break;
+        case '\n':
+            res.push_back('\\');
+            res.push_back('n');
+            break;
+        case '\f':
+            res.push_back('\\');
+            res.push_back('f');
+            break;
+        case '\r':
+            res.push_back('\\');
+            res.push_back('r');
+            break;
+        case '"':
+            res.push_back('\\');
+            res.push_back('"');
+            break;
+        case '\\':
+            res.push_back('\\');
+            res.push_back('\\');
+            break;
+        default:
+            res.push_back(c);
+            break;
+        }
+    }
+
+    return res;
+}
+
+std::string ceammc::string::pd_string_unescape(const std::string& str)
+{
+    if (str.size() < 2)
+        return str;
+
+    std::string res;
+    res.reserve(str.size());
+
+    for (size_t i = 0; i < str.size(); i++) {
+        auto* c = &str[i];
+        if (*c != '`')
+            res.push_back(*c);
+        else {
+            switch (*(c + 1)) {
+            case '"':
+                res.push_back('"');
+                i++;
+                break;
+            case '\'':
+                res.push_back('\'');
+                i++;
+                break;
+            case '`':
+                res.push_back('`');
+                i++;
+                break;
+            case 'n':
+                res.push_back('\n');
+                i++;
+                break;
+            case 't':
+                res.push_back('\t');
+                i++;
+                break;
+            case '(':
+                res.push_back('{');
+                i++;
+                break;
+            case ')':
+                res.push_back('}');
+                i++;
+                break;
+            case '.':
+                res.push_back(',');
+                i++;
+                break;
+            case ':':
+                res.push_back(';');
+                i++;
+                break;
+            case '/':
+                res.push_back('\\');
+                i++;
+                break;
+            default:
+                break;
+            }
+        }
+    }
+
+    return res;
+}
+
+bool ceammc::string::pd_string_match(const std::string& str, std::string& matched)
+{
+    static re2::RE2 re_single("'(([^']|[`'])*)'");
+    static re2::RE2 re_double("\"(([^\"]|[`\"])*)\"");
+
+    if (str.empty())
+        return false;
+
+    if (str[0] != '\'' && str[0] != '"')
+        return false;
+
+    if (re2::RE2::FullMatch(str, re_single, &matched))
+        return true;
+    else if (re2::RE2::FullMatch(str, re_double, &matched))
+        return true;
+    else
+        return false;
+}
+
+bool ceammc::string::pd_string_parse(const std::string& str, std::string& out)
+{
+    if (pd_string_match(str, out)) {
+        out = pd_string_unescape(out);
+        return true;
+    } else
+        return false;
 }

@@ -19,7 +19,7 @@
 
 StringEndsWith::StringEndsWith(const PdArgs& a)
     : BaseObject(a)
-    , suffix_(to_string(positionalArguments()))
+    , suffix_(parse_quoted(positionalArguments()))
 {
     createInlet();
     createOutlet();
@@ -32,7 +32,7 @@ void StringEndsWith::onSymbol(t_symbol* s)
 
 void StringEndsWith::onInlet(size_t, const AtomList& l)
 {
-    suffix_ = to_string(l);
+    suffix_ = parse_quoted(l);
 }
 
 void StringEndsWith::onDataT(const DataTypeString* str)

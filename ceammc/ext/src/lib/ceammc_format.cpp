@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_format.h"
+#include "ceammc_abstractdata.h"
 #include "ceammc_atom.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_atomlist_view.h"
-#include "ceammc_data.h"
-#include "ceammc_dataatom.h"
 #include "ceammc_message.h"
+#include "ceammc_string.h"
 #include "fmt/format.h"
 
 #include <algorithm>
@@ -27,19 +27,13 @@
 
 namespace ceammc {
 
-template <class T>
-static inline T clip(T v, T min, T max)
-{
-    return std::min(max, std::max(min, v));
-}
-
 std::string to_string(const Atom& a)
 {
     if (a.isSymbol())
         return std::string(a.asSymbol()->s_name);
 
     if (a.isData())
-        return to_string(DataPtr(a));
+        return a.asData()->toString();
 
     std::ostringstream ss;
     ss << a;
@@ -55,24 +49,6 @@ std::string to_string_quoted(const Atom& a)
     return to_string(a);
 }
 
-std::string to_float_string(const Atom& a, const std::string& defaultValue)
-{
-    if (!a.isFloat())
-        return defaultValue;
-    else if (a.isInteger())
-        return fmt::format("{}", a.asInt());
-    else
-        return fmt::format("{}", a.asFloat());
-}
-
-std::string to_hex_string(const Atom& a, const std::string& defaultValue)
-{
-    if (!a.isFloat())
-        return defaultValue;
-
-    return fmt::format("{:X}", static_cast<long>(a.asFloat()));
-}
-
 std::string to_string(const AtomListView v, const std::string& separator)
 {
     if (v.empty())
@@ -85,6 +61,7 @@ std::string to_string(const AtomListView v, const std::string& separator)
 
         res += to_string(v[i]);
     }
+
     return res;
 }
 
@@ -100,6 +77,7 @@ std::string to_string(const AtomList& l, const std::string& separator)
 
         res += to_string(l[i]);
     }
+
     return res;
 }
 
@@ -157,11 +135,6 @@ std::string to_string_quoted(const std::string& str)
     return res;
 }
 
-std::string to_string(const DataPtr& p)
-{
-    return p.isNull() ? "???" : p->toString();
-}
-
 std::string quote(const std::string& str, char q)
 {
     std::string res;
@@ -197,7 +170,7 @@ std::string to_json_string(const Atom& a)
     else if (a.isSymbol()) {
         return quote_json(a.asSymbol()->s_name);
     } else if (a.isData())
-        return quote_json(to_string(DataPtr(a)));
+        return quote_json(a.asData()->toString());
     else if (a.isNone())
         return "null";
     else {
@@ -219,6 +192,27 @@ std::string to_json_string(const AtomList& l)
     }
 
     res.push_back(']');
+    return res;
+}
+
+std::string parse_quoted(const Atom& a)
+{
+    auto res = to_string(a);
+    string::pd_string_parse(res, res);
+    return res;
+}
+
+std::string parse_quoted(const AtomList& l)
+{
+    auto res = to_string(l);
+    string::pd_string_parse(res, res);
+    return res;
+}
+
+std::string parse_quoted(const AtomListView& v)
+{
+    auto res = to_string(v);
+    string::pd_string_parse(res, res);
     return res;
 }
 

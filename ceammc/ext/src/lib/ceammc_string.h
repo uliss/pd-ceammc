@@ -20,12 +20,42 @@
 
 namespace ceammc {
 namespace string {
+    // utf-8 functions
     size_t utf8_strlen(const char* str);
     std::string utf8_to_upper(const char* str);
     std::string utf8_to_lower(const char* str);
     std::string utf8_substr(const char* str, int from, size_t len);
     void utf8_split_by_char(std::vector<std::string>& vec, const char* str);
+
+    bool starts_with(const char* str, const char* prefix);
+    bool starts_with(const std::string& str, const std::string& prefix);
+
     bool ends_with(const char* str, const char* suffix);
+    bool ends_with(const std::string& str, const std::string& suffix);
+
+    bool contains(const char* haystack, const char* needle);
+    bool contains(const std::string& haystack, const std::string& needle);
+
+    // pd-string is single quoted or double quoted string
+    //   with ` as escape symbol.
+    // - `' -> '
+    // - `" -> "
+    // - `` -> `
+    // - `/ -> \
+    // - `. -> ,
+    // - `: -> ;
+
+    /**
+     * Try to parse pd-string
+     * @param str - pdstring
+     * @param out - writted parsed and unescaped string
+     * @return true if pd-string given, false on error
+     */
+    bool pd_string_parse(const std::string& str, std::string& out);
+    bool pd_string_match(const std::string& str, std::string& matched);
+    std::string pd_string_unescape(const std::string& str);
+
+    std::string escape_for_json(const std::string& str);
 }
 }
 

@@ -24,18 +24,6 @@ TEST_CASE("format", "[ceammc::format]")
         REQUIRE(to_string(Atom(-3.1415f)) == "-3.1415");
         REQUIRE(to_string(Atom(123)) == "123");
         REQUIRE(to_string(Atom(gensym("1.1"))) == "1.1");
-
-        // float
-        REQUIRE(to_float_string(123) == "123");
-        REQUIRE(to_float_string(123.12f) == "123.12");
-        REQUIRE(to_float_string(gensym("1.1")) == "");
-
-        // hex
-        REQUIRE(to_hex_string(255) == "FF");
-        REQUIRE(to_hex_string(0xF1) == "F1");
-        REQUIRE(to_hex_string(-0xF1) == "-F1");
-        REQUIRE(to_hex_string(0x09) == "9");
-        REQUIRE(to_hex_string(gensym("255")) == "");
     }
 
     SECTION("atomlist format")
@@ -101,5 +89,26 @@ TEST_CASE("format", "[ceammc::format]")
         REQUIRE(to_json_string(LF(1, 2, 3)) == R"([1, 2, 3])");
         REQUIRE(to_json_string(LA("A", 2, "a b c")) == R"(["A", 2, "a b c"])");
         REQUIRE(to_json_string(LA("\"A\"", 2, "a b c")) == R"(["\"A\"", 2, "a b c"])");
+    }
+
+    SECTION("parse_quoted")
+    {
+        SECTION("atom")
+        {
+            REQUIRE(parse_quoted(A(1)) == "1");
+            REQUIRE(parse_quoted(A("abc")) == "abc");
+            REQUIRE(parse_quoted(A("''")) == "");
+            REQUIRE(parse_quoted(A("' '")) == " ");
+        }
+
+        SECTION("atomlist")
+        {
+            REQUIRE(parse_quoted(LA(1)) == "1");
+            REQUIRE(parse_quoted(LA("abc")) == "abc");
+            REQUIRE(parse_quoted(LA("''")) == "");
+            REQUIRE(parse_quoted(LA("'", "'")) == " ");
+            REQUIRE(parse_quoted(LA("'a", "b'")) == "a b");
+            REQUIRE(parse_quoted(LA("'a", "b`''")) == "a b'");
+        }
     }
 }
