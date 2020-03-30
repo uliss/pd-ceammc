@@ -71,6 +71,11 @@ public:
     Error(const BaseObject* obj = nullptr);
 };
 
+class Post : public LogBaseObject {
+public:
+    Post(const BaseObject* obj = nullptr);
+};
+
 class Debug : public LogBaseObject {
 public:
     Debug(const BaseObject* obj = nullptr);

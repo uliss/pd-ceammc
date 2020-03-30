@@ -94,6 +94,11 @@ Error::Error(const BaseObject* obj)
 {
 }
 
+Post::Post(const BaseObject* obj)
+    : LogBaseObject(obj, LogLevel::LOG_POST)
+{
+}
+
 Debug::Debug(const BaseObject* obj)
     : LogBaseObject(obj, LOG_DEBUG)
 {
@@ -132,6 +137,11 @@ void LogPdObject::debug(const std::string& str) const
 
 void LogPdObject::flush()
 {
+    if (!pd_objectmaker) {
+        std::cerr << str() << "\n";
+        return;
+    }
+
     switch (level_) {
     case LogLevel::LOG_FATAL:
     case LogLevel::LOG_ERROR:
