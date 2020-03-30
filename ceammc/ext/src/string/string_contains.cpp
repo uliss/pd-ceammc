@@ -14,6 +14,8 @@
 #include "string_contains.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_string.h"
+#include "datatype_string.h"
 
 StringContains::StringContains(const PdArgs& a)
     : BaseObject(a)
@@ -25,12 +27,12 @@ StringContains::StringContains(const PdArgs& a)
 
 void StringContains::onSymbol(t_symbol* s)
 {
-    floatTo(0, DataTypeString(s).contains(subj_));
+    boolTo(0, string::contains(s->s_name, subj_.c_str()));
 }
 
-void StringContains::onDataT(const DataTPtr<DataTypeString>& dptr)
+void StringContains::onDataT(const DataTypeString* str)
 {
-    floatTo(0, dptr->contains(subj_));
+    boolTo(0, string::contains(str->str(), subj_));
 }
 
 void StringContains::onInlet(size_t, const AtomList& l)
@@ -38,9 +40,12 @@ void StringContains::onInlet(size_t, const AtomList& l)
     subj_ = to_string(l);
 }
 
-extern "C" void setup_string0x2econtains()
+void setup_string_contains()
 {
     ObjectFactory<StringContains> obj("string.contains");
     obj.processData<DataTypeString>();
     obj.addAlias("str.contains");
+    obj.setCategory("string");
+    obj.setKeywords({ "contains", "search" });
+    obj.setDescription("checks if string contains specified substring");
 }
