@@ -42,7 +42,7 @@ void StringContains::onInlet(size_t, const AtomList& l)
 
 void StringContains::dump() const
 {
-    OBJ_DBG << "search arg: " << quote(subj_);
+    OBJ_POST << "search arg: " << quote(subj_);
     BaseObject::dump();
 }
 
