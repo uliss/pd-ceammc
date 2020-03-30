@@ -40,6 +40,12 @@ void StringEqual::onInlet(size_t, const AtomList& l)
     str1_ = parse_quoted(l);
 }
 
+void StringEqual::dump() const
+{
+    OBJ_POST << "compare arg: " << quote(str1_);
+    BaseObject::dump();
+}
+
 void setup_string_equal()
 {
     ObjectFactory<StringEqual> obj("string.equal");

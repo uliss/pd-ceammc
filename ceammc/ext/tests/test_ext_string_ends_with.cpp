@@ -11,22 +11,22 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../string/string_ends_with.h"
-#include "test_base.h"
+#include "catch.hpp"
+#include "ceammc_data.h"
 #include "ceammc_format.h"
 #include "ceammc_pd.h"
-
-#include "catch.hpp"
+#include "datatype_string.h"
+#include "string_ends_with.h"
+#include "test_external.h"
 
 using namespace ceammc;
 
-typedef TestExternal<StringEndsWith> TestStringEndsWith;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(StringEndsWith, string, ends_with)
 
 TEST_CASE("string.ends_with", "[external]")
 {
-    setup_string0x2eends_with();
+    pd_test_init();
+    test::pdPrintToStdError();
 
     SECTION("create")
     {
@@ -46,6 +46,7 @@ TEST_CASE("string.ends_with", "[external]")
         SECTION("args")
         {
             TestStringEndsWith t("str.ends_with", LA(".mp3"));
+            t.dump();
 
             WHEN_SEND_TDATA_TO(0, t, DataTypeString("data.mp3"));
             REQUIRE_FLOAT_AT_OUTLET(0, t, 1);

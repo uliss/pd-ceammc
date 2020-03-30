@@ -35,15 +35,15 @@ void StringEndsWith::onInlet(size_t, const AtomList& l)
     suffix_ = parse_quoted(l);
 }
 
+void StringEndsWith::onDataT(const DataTypeString* str)
+{
+    boolTo(0, string::ends_with(str->str(), suffix_));
+}
+
 void StringEndsWith::dump() const
 {
     OBJ_POST << "search arg: " << quote(suffix_);
     BaseObject::dump();
-}
-
-void StringEndsWith::onDataT(const DataTypeString* str)
-{
-    boolTo(0, string::ends_with(str->str(), suffix_));
 }
 
 void setup_string_ends_with()
