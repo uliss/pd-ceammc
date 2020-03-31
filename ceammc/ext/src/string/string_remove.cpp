@@ -23,10 +23,13 @@ static t_symbol* REMOVE_LAST;
 StringRemove::StringRemove(const PdArgs& a)
     : BaseObject(a)
     , mode_(nullptr)
-    , str_to_remove_(parse_quoted(positionalArguments()))
 {
     createInlet();
     createOutlet();
+
+    addProperty(new SymbolProperty("@str", &s_))
+        ->setSuccessFn([this](Property* p) { str_to_remove_ = to_string(p->get()); });
+    property("@str")->setArgIndex(0);
 
     mode_ = new SymbolEnumProperty("@mode", { REMOVE_ALL, REMOVE_FIRST, REMOVE_LAST });
     addProperty(mode_);
