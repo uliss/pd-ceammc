@@ -11,28 +11,26 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../string/string_starts_with.h"
-#include "test_base.h"
 #include "ceammc_format.h"
 #include "ceammc_pd.h"
-
-#include "catch.hpp"
+#include "datatype_string.h"
+#include "string_starts_with.h"
+#include "test_external.h"
 
 using namespace ceammc;
 
-typedef TestExternal<StringStartsWith> TestStringStartsWith;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(StringStartsWith, string, starts_with)
 
 TEST_CASE("string.starts_with", "[external]")
 {
-    setup_string0x2estarts_with();
+    pd_test_init();
 
     SECTION("create")
     {
         SECTION("empty")
         {
             TestStringStartsWith t("str.starts_with");
+            REQUIRE_PROPERTY(t, @prefix, "");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
@@ -46,6 +44,7 @@ TEST_CASE("string.starts_with", "[external]")
         SECTION("args")
         {
             TestStringStartsWith t("str.starts_with", LA("the"));
+            REQUIRE_PROPERTY(t, @prefix, "the");
 
             WHEN_SEND_TDATA_TO(0, t, DataTypeString("the table"));
             REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
@@ -63,13 +62,27 @@ TEST_CASE("string.starts_with", "[external]")
         SECTION("args list")
         {
             TestStringStartsWith t("str.starts_with", LA("A", "B", "C"));
+            REQUIRE_PROPERTY(t, @prefix, "A");
+
             WHEN_SEND_SYMBOL_TO(0, t, "ABC");
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
             WHEN_SEND_SYMBOL_TO(0, t, "TEST A B C");
             REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
 
             WHEN_SEND_SYMBOL_TO(0, t, "A B C D E F");
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        }
+
+        SECTION("args quoted")
+        {
+            TestStringStartsWith t("str.starts_with", LA("\"a", "b\""));
+            REQUIRE_PROPERTY(t, @prefix, "a b");
+
+            WHEN_SEND_SYMBOL_TO(0, t, "ABC");
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+
+            WHEN_SEND_SYMBOL_TO(0, t, "a b c");
             REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
         }
     }
