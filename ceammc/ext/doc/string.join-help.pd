@@ -40,7 +40,7 @@
 #X obj 20 523 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 110 524 1\.;
-#X text 245 524 concatenated String data.;
+#X text 245 524 result String.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

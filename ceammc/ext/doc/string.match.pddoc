@@ -26,7 +26,7 @@
             <argument name="RE" type="symbol">regular expression</argument>
         </arguments>
         <properties>
-            <property name="@re" type="symbol" default="">regular expression</property>
+            <property name="@re" type="list" default="">regular expression</property>
         </properties>
         <inlets>
             <inlet>
