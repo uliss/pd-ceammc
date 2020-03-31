@@ -204,14 +204,14 @@ std::string parse_quoted(const Atom& a)
 
 std::string parse_quoted(const AtomList& l)
 {
-    auto res = to_string(l);
+    auto res = to_string(l, " ");
     string::pd_string_parse(res, res);
     return res;
 }
 
 std::string parse_quoted(const AtomListView& v)
 {
-    auto res = to_string(v);
+    auto res = to_string(v, " ");
     string::pd_string_parse(res, res);
     return res;
 }

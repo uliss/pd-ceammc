@@ -14,25 +14,24 @@
 #include "string_join.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "datatype_string.h"
 
 StringJoin::StringJoin(const PdArgs& a)
     : BaseObject(a)
-    , str_("")
-    , sep_("")
 {
+    createInlet();
     createOutlet();
 
-    createCbAtomProperty(
+    createCbListProperty(
         "@sep",
-        [this]() -> Atom { return gensym(str_.c_str()); },
-        [this](const Atom& a) -> bool { sep_ = to_string(a); return true; });
-
-    parseArgs();
+        [this]() -> AtomList { return { gensym(sep_.c_str()) }; },
+        [this](const AtomList& l) -> bool { sep_ = parse_quoted(l); return true; })
+        ->setArgIndex(0);
 }
 
 void StringJoin::onBang()
 {
-    dataTo(0, DataPtr(new DataTypeString(str_)));
+    atomTo(0, StringAtom(str_));
 }
 
 void StringJoin::onSymbol(t_symbol* s)
@@ -41,9 +40,9 @@ void StringJoin::onSymbol(t_symbol* s)
     onBang();
 }
 
-void StringJoin::onData(const DataPtr& d)
+void StringJoin::onData(const Atom& d)
 {
-    str_ = d->toString();
+    str_ = d.asData()->toString();
     onBang();
 }
 
@@ -53,20 +52,12 @@ void StringJoin::onList(const AtomList& l)
     onBang();
 }
 
-void StringJoin::parseArgs()
+void StringJoin::onInlet(size_t n, const AtomList& l)
 {
-    if (positionalArguments() == AtomList(gensym("'"), gensym("'"))) {
-        sep_ = " ";
-        return;
-    }
-
-    if (positionalArguments().size() > 0) {
-        const Atom& a = positionalArguments()[0];
-        sep_ = to_string(a);
-    }
+    property("@sep")->set(l);
 }
 
-extern "C" void setup_string0x2ejoin()
+void setup_string_join()
 {
     ObjectFactory<StringJoin> obj("string.join");
     obj.processData();
