@@ -14,6 +14,7 @@
 #include "string_join.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "datatype_mlist.h"
 #include "datatype_string.h"
 
 StringJoin::StringJoin(const PdArgs& a)
@@ -57,9 +58,15 @@ void StringJoin::onInlet(size_t n, const AtomList& l)
     property("@sep")->set(l);
 }
 
+void StringJoin::onDataT(const DataTypeMList* ml)
+{
+    str_ = to_string(ml->data(), sep_);
+    onBang();
+}
+
 void setup_string_join()
 {
     ObjectFactory<StringJoin> obj("string.join");
-    obj.processData();
+    obj.processData<DataTypeMList>();
     obj.addAlias("str.join");
 }

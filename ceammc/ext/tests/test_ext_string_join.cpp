@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "catch.hpp"
+#include "datatype_mlist.h"
 #include "datatype_string.h"
 #include "string_join.h"
 #include "test_base.h"
@@ -143,5 +144,16 @@ TEST_CASE("string.join", "[external]")
 
         t.sendListTo(LA("'`'", "`''"), 1);
         REQUIRE_PROPERTY(t, @sep, "' '");
+    }
+
+    SECTION("mlist")
+    {
+        TestExtStringJoin t("string.join", LA(":"));
+
+        t.sendList(MListAtom("(1 2 3)"));
+        REQUIRE_STRING(t, "1:2:3");
+
+        t.sendList(MListAtom("(a b c)"));
+        REQUIRE_STRING(t, "a:b:c");
     }
 }

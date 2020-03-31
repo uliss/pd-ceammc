@@ -424,7 +424,7 @@ string.contains,str.contains		..		.
 string.ends_with,str.ends_with		..		.
 string.equal,str.equal		..		.
 string.format,str.format		.		.
-string.join,str.join		.		.
+string.join,str.join		..		.
 string.length,str.length		.		.
 string.match,str.match		..		.
 string.remove,str.remove		..		.

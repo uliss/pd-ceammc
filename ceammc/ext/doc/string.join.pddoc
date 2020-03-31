@@ -21,18 +21,23 @@
             </also>
         </meta>
         <arguments>
-            <argument name="SEP" type="atom">separator. For space use ' '.</argument>
+            <argument name="SEP" type="list">separator. For space use ' '.</argument>
         </arguments>
         <properties>
-            <property name="@sep" type="atom">separator</property>
+            <property name="@sep" type="list" default="">separator</property>
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="list">list of strings</xinfo>
+                <xinfo on="symbol">symbol passed untouched</xinfo>
+                <xinfo on="list">list to join</xinfo>
+                <xinfo on="data:mlist">list to join</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">change separator to new</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>concatenated string</outlet>
+            <outlet>result String</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -45,11 +50,7 @@
 |
 [string.join ' ']
 |
-[str->sym]
-|
-[msg set]
-|
-[ (
+[ui.d @display_type=1]
 ]]>
             </pdascii>
         </example>
