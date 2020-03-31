@@ -424,21 +424,10 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
         {
             REQUIRE_FALSE(L().isData());
             REQUIRE_FALSE(LF(1).isData());
-            REQUIRE_FALSE(AtomList(gensym("a")).isData());
-            REQUIRE_FALSE(AtomList(1, 2).isData());
-            REQUIRE_FALSE(AtomList(Atom(DataDesc(1, 1)), Atom(DataDesc(1, 1))).isData());
-            REQUIRE(AtomList(Atom(DataDesc(1, 1))).isData());
-        }
-
-        SECTION("isDataType")
-        {
-            REQUIRE_FALSE(L().isDataType(1));
-            REQUIRE_FALSE(LF(1).isDataType(1));
-            REQUIRE_FALSE(AtomList(gensym("a")).isDataType(1));
-            REQUIRE_FALSE(AtomList(1, 2).isDataType(1));
-            REQUIRE_FALSE(AtomList(Atom(DataDesc(1, 1)), Atom(DataDesc(1, 1))).isDataType(1));
-            REQUIRE(AtomList(Atom(DataDesc(1, 10))).isDataType(1));
-            REQUIRE_FALSE(AtomList(Atom(DataDesc(1, 10))).isDataType(2));
+            REQUIRE_FALSE(LA("test").isData());
+            REQUIRE_FALSE(LF(1, 2).isData());
+            REQUIRE(LA(new IntData(200)).isData());
+            REQUIRE_FALSE(LA(new IntData(200), new StrData("abc")).isData());
         }
 
         SECTION("all")
@@ -514,6 +503,23 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
             REQUIRE_FALSE(LA("ABC").isA<int>());
             REQUIRE_FALSE(LA("@prop").isA<int>());
 
+            // size_t
+            REQUIRE(LA(1).isA<size_t>());
+            REQUIRE(LF(0).isA<size_t>());
+            REQUIRE_FALSE(LA(-1).isA<size_t>());
+            REQUIRE_FALSE(LF(0.0001).isA<size_t>());
+            REQUIRE_FALSE(LA(-0.0001).isA<size_t>());
+            REQUIRE_FALSE(LA(1.0001).isA<size_t>());
+            REQUIRE_FALSE(LA(-1.0001).isA<size_t>());
+            REQUIRE_FALSE(LA(-0.9999).isA<size_t>());
+            REQUIRE_FALSE(LA(0.9999).isA<size_t>());
+
+            REQUIRE_FALSE(LF(1, 2).isA<size_t>());
+            REQUIRE_FALSE(LA("").isA<size_t>());
+            REQUIRE_FALSE(LA("100").isA<size_t>());
+            REQUIRE_FALSE(LA("ABC").isA<size_t>());
+            REQUIRE_FALSE(LA("@prop").isA<size_t>());
+
             // symbol
             REQUIRE(LA("").isA<t_symbol*>());
             REQUIRE(LA("100").isA<t_symbol*>());
@@ -542,7 +548,34 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
             REQUIRE(LA("true").isA<AtomList>());
             REQUIRE(LF(1, 2).isA<AtomList>());
             REQUIRE(LA("Ab", 1, 2).isA<AtomList>());
+
+            // data
+            REQUIRE_FALSE(L().isA<IntData>());
+            REQUIRE_FALSE(LA("A").isA<IntData>());
+            REQUIRE_FALSE(LF(1).isA<IntData>());
+            REQUIRE_FALSE(LA("true").isA<IntData>());
+            REQUIRE_FALSE(LF(1, 2).isA<IntData>());
+            REQUIRE_FALSE(LA("Ab", 1, 2).isA<IntData>());
+            REQUIRE(LA(new IntData(1)).isA<IntData>());
+            REQUIRE_FALSE(LA(new StrData("abc")).isA<IntData>());
+            REQUIRE_FALSE(LA(new IntData(1), new IntData(1)).isA<IntData>());
         }
+    }
+
+    SECTION("asT")
+    {
+        REQUIRE(L().asT<AtomList>() == L());
+        REQUIRE_THROWS_AS(L().asT<bool>(), std::logic_error);
+        REQUIRE_THROWS_AS(L().asT<int>(), std::logic_error);
+        REQUIRE_THROWS_AS(L().asT<Atom>(), std::logic_error);
+        REQUIRE_THROWS_AS(L().asT<t_symbol*>(), std::logic_error);
+        REQUIRE_THROWS_AS(LF(1, 2).asT<int>(), std::logic_error);
+        REQUIRE(LF(1.5).asT<t_float>() == 1.5);
+        REQUIRE(LF(1.5).asT<size_t>() == 1);
+        REQUIRE(LF(1.5).asT<int>() == 1);
+        REQUIRE(LF(-1.5).asT<t_float>() == -1.5);
+        REQUIRE(LF(-1.5).asT<size_t>() == 0);
+        REQUIRE(LF(-1.5).asT<int>() == -1);
     }
 
     SECTION("test map")

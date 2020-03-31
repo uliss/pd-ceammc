@@ -203,31 +203,29 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
 
     SECTION("count")
     {
-        AtomList l;
-        REQUIRE(l.count(1.0) == 0);
-        REQUIRE(l.count(isFloat) == 0);
-        l.append(1.1f);
-        l.append(1.4f);
-        REQUIRE(l.count(1.0f) == 0);
-        REQUIRE(l.count(1.1f) == 1);
-        REQUIRE(l.count(isFloat) == 2);
+        REQUIRE(L().count(1.0) == 0);
+        REQUIRE(L().count(isFloat) == 0);
 
+        REQUIRE(LF(1, 2, 3).count(-1) == 0);
+        REQUIRE(LF(1, 2, 2, 3, 3, 3).count(1) == 1);
+        REQUIRE(LF(1, 2, 2, 3, 3, 3).count(2) == 2);
+        REQUIRE(LF(1, 2, 2, 3, 3, 3).count(3) == 3);
         REQUIRE(LF(1, 1, 1, 1).count(1) == 4);
 
-        DataPtr d100(new IntData(100));
-        DataPtr d200(new IntData(200));
-        DataPtr d100_new(new IntData(100));
+        Atom d100(new IntData(100));
+        Atom d200(new IntData(200));
+        Atom d100_new(new IntData(100));
 
-        DataPtr d_abc(new StrData("ABC"));
-        DataPtr d_abcd(new StrData("ABCD"));
+        Atom d_abc(new StrData("ABC"));
+        Atom d_abcd(new StrData("ABCD"));
 
-        REQUIRE(LA(d100, d200).count(d100.asAtom()) == 1);
-        REQUIRE(LA(d100_new, d200).count(d100.asAtom()) == 1);
-        REQUIRE(LA(d100_new, d100).count(d200.asAtom()) == 0);
-        REQUIRE(LA(d100_new, d100).count(d_abc.asAtom()) == 0);
+        REQUIRE(LA(d100, d200).count(d100) == 1);
+        REQUIRE(LA(d100_new, d200).count(d100) == 1);
+        REQUIRE(LA(d100_new, d100).count(d200) == 0);
+        REQUIRE(LA(d100_new, d100).count(d_abc) == 0);
 
-        REQUIRE(LA(d100, d100).count(d100.asAtom()) == 2);
-        REQUIRE(LA(d_abc, d_abcd).count(d_abc.asAtom()) == 1);
+        REQUIRE(LA(d100, d100).count(d100) == 2);
+        REQUIRE(LA(d_abc, d_abcd).count(d_abc) == 1);
     }
 
     SECTION("fill")
@@ -323,6 +321,14 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l.contains(1.f));
         REQUIRE(l.contains(2.f));
         REQUIRE(l.contains(3.f));
+
+        Atom d100(new IntData(100));
+        Atom d200(new IntData(200));
+        Atom d100x(new IntData(100));
+
+        REQUIRE(LA(d100, d100).contains(d100));
+        REQUIRE(LA(d100, d100).contains(d100x));
+        REQUIRE_FALSE(LA(d100, d100).contains(d200));
     }
 
     SECTION("findPos")

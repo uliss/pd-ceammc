@@ -14,6 +14,8 @@
 #include "catch.hpp"
 #include "ceammc_atom.h"
 
+#include "test_base.h"
+#include "test_external.h"
 #include "test_macro.h"
 
 #include <algorithm>
@@ -24,13 +26,6 @@
 
 using namespace ceammc;
 
-struct _outlet {
-    t_object* o_owner;
-    struct _outlet* o_next;
-    t_outconnect* o_connections;
-    t_symbol* o_sym;
-};
-
 t_symbol* toUpper(t_symbol* s)
 {
     std::string str(s->s_name);
@@ -38,24 +33,178 @@ t_symbol* toUpper(t_symbol* s)
     return gensym(str.c_str());
 }
 
-TEST_CASE("Atom", "[ceammc::Atom]")
+TEST_CASE("Atom", "[core]")
 {
-    SECTION("Atom contruct")
+    SECTION("None")
     {
-        t_atom a;
-        SETFLOAT(&a, 1.1f);
-        Atom fatom(a);
-        REQUIRE(fatom.isFloat());
-        REQUIRE_FALSE(fatom.isSymbol());
-        REQUIRE_FALSE(fatom.isBool());
-        REQUIRE_FALSE(fatom.isInteger());
-        REQUIRE(fatom.type() == Atom::FLOAT);
-        t_float v;
-        REQUIRE(fatom.getFloat(&v));
-        CHECK(v == 1.1f);
+        Atom a;
+        REQUIRE(a.isNone());
+        REQUIRE_FALSE(a.isBool());
+        REQUIRE_FALSE(a.isData());
+        REQUIRE_FALSE(a.isFloat());
+        REQUIRE_FALSE(a.isSymbol());
+        REQUIRE_FALSE(a.isInteger());
+        REQUIRE_FALSE(a.isProperty());
+        REQUIRE_FALSE(a.isDataType(100));
+        REQUIRE(a.dataType() == 0);
 
-        Atom b;
-        REQUIRE(b.isNone());
+        REQUIRE(a.type() == Atom::NONE);
+
+        t_float f;
+        t_symbol* s;
+
+        REQUIRE_FALSE(a.getFloat(&f));
+        REQUIRE_FALSE(a.getSymbol(&s));
+        REQUIRE_FALSE(a.setFloat(100));
+        REQUIRE_FALSE(a.setSymbol(&s_list));
+        REQUIRE(a.isNone());
+
+        REQUIRE(a.asBool(true));
+        REQUIRE(a.asBool(false) == false);
+        REQUIRE(a.asFloat(100) == 100);
+        REQUIRE(a.asSymbol(&s_symbol) == &s_symbol);
+        REQUIRE(a.asInt(-10) == -10);
+        REQUIRE(a.asSizeT(3) == 3);
+        REQUIRE(a.asData() == nullptr);
+        REQUIRE(a.asDataT<IntData>() == nullptr);
+
+        REQUIRE_FALSE(a < a);
+        REQUIRE_FALSE(a < 0);
+        REQUIRE_FALSE(a <= 0);
+        REQUIRE_FALSE(a > 0);
+        REQUIRE_FALSE(a >= 0);
+
+        REQUIRE(a == a);
+        REQUIRE_FALSE(a != a);
+        REQUIRE(a == Atom());
+        REQUIRE_FALSE(a != Atom());
+
+        REQUIRE_FALSE(a == 0);
+        REQUIRE(a != 0);
+
+        REQUIRE((a += 10).isNone());
+        REQUIRE((a -= 10).isNone());
+        REQUIRE((a *= 10).isNone());
+        REQUIRE((a /= 10).isNone());
+    }
+
+    SECTION("float")
+    {
+        Atom a(0.5);
+        REQUIRE_FALSE(a.isNone());
+        REQUIRE_FALSE(a.isBool());
+        REQUIRE_FALSE(a.isData());
+        REQUIRE(a.isFloat());
+        REQUIRE_FALSE(a.isSymbol());
+        REQUIRE_FALSE(a.isInteger());
+        REQUIRE_FALSE(a.isProperty());
+        REQUIRE_FALSE(a.isDataType(100));
+        REQUIRE(a.dataType() == 0);
+
+        REQUIRE(a.type() == Atom::FLOAT);
+
+        t_float f;
+        t_symbol* s;
+
+        REQUIRE(a.getFloat(&f));
+        REQUIRE(f == 0.5);
+        REQUIRE_FALSE(a.getSymbol(&s));
+        REQUIRE(a.setFloat(2.5));
+        REQUIRE_FALSE(a.setSymbol(&s_list));
+        REQUIRE(a.isFloat());
+
+        REQUIRE(a.asBool(true));
+        REQUIRE(a.asBool(false));
+        REQUIRE(a.asFloat(100) == 2.5);
+        REQUIRE(a.asSymbol(&s_symbol) == &s_symbol);
+        REQUIRE(a.asInt(-10) == 2);
+        REQUIRE(a.asSizeT(3) == 2);
+        REQUIRE(a.asData() == nullptr);
+        REQUIRE(a.asDataT<IntData>() == nullptr);
+
+        REQUIRE_FALSE(a < a);
+        REQUIRE_FALSE(a < 0);
+        REQUIRE_FALSE(a <= 0);
+        REQUIRE(a > 0);
+        REQUIRE(a >= 0);
+
+        REQUIRE(a == a);
+        REQUIRE_FALSE(a != a);
+        REQUIRE(a == Atom(2.5));
+        REQUIRE_FALSE(a != Atom(2.5));
+        REQUIRE(a != Atom(2));
+        REQUIRE_FALSE(a == Atom(2));
+        REQUIRE(a != Atom());
+        REQUIRE_FALSE(a == Atom());
+
+        REQUIRE_FALSE(a == 0);
+        REQUIRE(a != 0);
+
+        REQUIRE((a += 10) == 12.5);
+        REQUIRE((a -= 10) == 2.5);
+        REQUIRE((a *= 10) == 25);
+        REQUIRE((a /= 10) == 2.5);
+    }
+
+    SECTION("symbol")
+    {
+        Atom a(SYM("abc"));
+        REQUIRE_FALSE(a.isNone());
+        REQUIRE_FALSE(a.isBool());
+        REQUIRE_FALSE(a.isData());
+        REQUIRE_FALSE(a.isFloat());
+        REQUIRE(a.isSymbol());
+        REQUIRE_FALSE(a.isInteger());
+        REQUIRE_FALSE(a.isProperty());
+        REQUIRE_FALSE(a.isDataType(100));
+        REQUIRE(a.dataType() == 0);
+
+        REQUIRE(a.type() == Atom::SYMBOL);
+
+        t_float f;
+        t_symbol* s;
+
+        REQUIRE_FALSE(a.getFloat(&f));
+        REQUIRE(a.getSymbol(&s));
+        REQUIRE(s == SYM("abc"));
+        REQUIRE_FALSE(a.setFloat(2.5));
+        REQUIRE(a.setSymbol(&s_list));
+        REQUIRE(a.isSymbol());
+
+        REQUIRE(a.asBool(true));
+        REQUIRE(a.asBool(false) == false);
+        REQUIRE(a.asFloat(100) == 100);
+        REQUIRE(a.asSymbol(&s_symbol) == &s_list);
+        a.setSymbol(SYM("abc"));
+        REQUIRE(a.asInt(-10) == -10);
+        REQUIRE(a.asSizeT(3) == 3);
+        REQUIRE(a.asData() == nullptr);
+        REQUIRE(a.asDataT<IntData>() == nullptr);
+
+        REQUIRE_FALSE(a < a);
+        REQUIRE_FALSE(a < 0);
+        REQUIRE_FALSE(a <= 0);
+        REQUIRE_FALSE(a > 0);
+        REQUIRE_FALSE(a >= 0);
+
+        REQUIRE(a == a);
+        REQUIRE_FALSE(a != a);
+        REQUIRE(a == Atom(SYM("abc")));
+        REQUIRE_FALSE(a != Atom(SYM("abc")));
+        REQUIRE(a != Atom(SYM("abcd")));
+        REQUIRE_FALSE(a == Atom(SYM("abcd")));
+        REQUIRE(a != Atom());
+        REQUIRE_FALSE(a == Atom());
+        REQUIRE(a != Atom(1));
+        REQUIRE_FALSE(a == Atom(1));
+
+        REQUIRE_FALSE(a == 0);
+        REQUIRE(a != 0);
+
+        REQUIRE((a += 10).isSymbol());
+        REQUIRE((a -= 10).isSymbol());
+        REQUIRE((a *= 10).isSymbol());
+        REQUIRE((a /= 10).isSymbol());
     }
 
     SECTION("Atom attr")
@@ -182,7 +331,7 @@ TEST_CASE("Atom", "[ceammc::Atom]")
         p.a_type = A_NULL;
         Atom u1(p);
         Atom u2(p);
-        REQUIRE(u1 != u2);
+        REQUIRE(u1 == u2);
 
         SECTION("symbol")
         {
@@ -193,8 +342,7 @@ TEST_CASE("Atom", "[ceammc::Atom]")
             SETSYMBOL(&a2, gensym("a"));
 
             REQUIRE(Atom(a1) == Atom(a2));
-            a1.a_w.w_symbol = 0;
-            REQUIRE(Atom(a1) != Atom(a2));
+            REQUIRE_FALSE(Atom(a1) != Atom(a2));
         }
     }
 

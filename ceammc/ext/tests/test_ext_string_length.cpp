@@ -11,22 +11,22 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../string/string_length.h"
-#include "test_base.h"
+#include "ceammc_data.h"
 #include "ceammc_format.h"
 #include "ceammc_pd.h"
+#include "datatype_string.h"
+#include "string_length.h"
+#include "test_base.h"
+#include "test_external.h"
 
 #include "catch.hpp"
 
-using namespace ceammc;
-
-typedef TestExternal<StringLength> TestStringLength;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(StringLength, string, length)
 
 TEST_CASE("string.length", "[external]")
 {
-    setup_string0x2elength();
+    pd_test_init();
+    test::pdPrintToStdError();
 
     SECTION("process")
     {
