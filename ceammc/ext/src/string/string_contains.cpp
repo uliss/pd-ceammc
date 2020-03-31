@@ -19,8 +19,11 @@
 
 StringContains::StringContains(const PdArgs& a)
     : BaseObject(a)
-    , subj_(parse_quoted(positionalArguments()))
 {
+    auto p = addProperty(new SymbolProperty("@subj", &s_));
+    p->setArgIndex(0);
+    p->setSuccessFn([this](Property* p) { subj_ = static_cast<SymbolProperty*>(p)->value()->s_name; });
+
     createInlet();
     createOutlet();
 }

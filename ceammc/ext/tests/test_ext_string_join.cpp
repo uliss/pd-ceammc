@@ -140,10 +140,10 @@ TEST_CASE("string.join", "[external]")
         REQUIRE_STRING(t, "1|2|3");
 
         t.property("@sep")->set(LA("\"", "\""));
-        REQUIRE_PROPERTY(t, @sep, " ");
+        REQUIRE_PROPERTY(t, @sep, "|");
 
         t.sendListTo(LA("'`'", "`''"), 1);
-        REQUIRE_PROPERTY(t, @sep, "' '");
+        REQUIRE_PROPERTY(t, @sep, "|");
     }
 
     SECTION("mlist")

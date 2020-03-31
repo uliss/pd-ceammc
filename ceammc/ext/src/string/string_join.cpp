@@ -23,8 +23,8 @@ StringJoin::StringJoin(const PdArgs& a)
     createInlet();
     createOutlet();
 
-    addProperty(new ListProperty("@sep"))
-        ->setSuccessFn([this](Property* p) { sep_ = parse_quoted(p->get()); });
+    addProperty(new SymbolProperty("@sep", &s_))
+        ->setSuccessFn([this](Property* p) { sep_ = to_string(p->get()); });
     property("@sep")->setArgIndex(0);
 }
 
