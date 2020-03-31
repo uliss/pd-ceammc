@@ -26,8 +26,8 @@
             <argument name="X" type="float">initial x value, default 1.2</argument>
             <argument name="Y" type="float">initial y value, default 2.1</argument>
         </arguments>
-        <properties/>
-        <methods/>
+        <properties />
+        <methods />
         <inlets>
             <inlet>
                 <xinfo on="bang">generates and outputs next x-value</xinfo>
