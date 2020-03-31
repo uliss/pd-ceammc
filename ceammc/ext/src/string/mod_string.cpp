@@ -18,7 +18,6 @@ void setup_string_match();
 void ceammc_string_setup()
 {
     setup_string0x2eformat();
-    setup_string0x2elength();
     setup_string0x2eremove();
     setup_string0x2ereplace();
     setup_string0x2esplit();
@@ -28,6 +27,7 @@ void ceammc_string_setup()
     setup_string_ends_with();
     setup_string_equal();
     setup_string_join();
+    setup_string_length();
     setup_string_match();
     setup_string_starts_with();
     string_setup();

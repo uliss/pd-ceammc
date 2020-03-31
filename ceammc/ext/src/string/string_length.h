@@ -14,8 +14,8 @@
 #ifndef STRING_LENGTH_H
 #define STRING_LENGTH_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
-#include "datatype_string.h"
 
 using namespace ceammc;
 
@@ -23,9 +23,9 @@ class StringLength : public BaseObject {
 public:
     StringLength(const PdArgs& a);
     void onSymbol(t_symbol* s) override;
-    void onDataT(const DataTPtr<DataTypeString>& dptr);
+    void onDataT(const DataTypeString* str);
 };
 
-extern "C" void setup_string0x2elength();
+void setup_string_length();
 
 #endif // STRING_LENGTH_H
