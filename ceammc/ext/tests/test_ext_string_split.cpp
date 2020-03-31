@@ -11,28 +11,23 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../string/string_split.h"
-#include "test_base.h"
 #include "ceammc_format.h"
 #include "ceammc_pd.h"
+#include "datatype_string.h"
+#include "string_split.h"
+#include "test_external.h"
 
-#include "catch.hpp"
+PD_COMPLETE_TEST_SETUP(StringSplit, string, split)
 
 using namespace ceammc;
 
-typedef TestExternal<StringSplit> StringSplitTest;
-
-#define DSTR(l) Data(new DataTypeString(l))
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
-
 TEST_CASE("string.split", "[external]")
 {
-    setup_string0x2esplit();
+    pd_test_init();
 
     SECTION("process")
     {
-        StringSplitTest t("str.split");
+        TestStringSplit t("str.split");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
 
@@ -61,7 +56,7 @@ TEST_CASE("string.split", "[external]")
 
     SECTION("data")
     {
-        StringSplitTest t("str.split", LA(":"));
+        TestStringSplit t("str.split", LA(":"));
         REQUIRE_PROPERTY(t, @sep, ":");
 
         WHEN_SEND_TDATA_TO(0, t, DataTypeString("ab:cde:"));
@@ -77,7 +72,7 @@ TEST_CASE("string.split", "[external]")
 
     SECTION("symbol")
     {
-        StringSplitTest t("str.split", LA(":"));
+        TestStringSplit t("str.split", LA(":"));
         WHEN_SEND_SYMBOL_TO(0, t, "A:B:C");
 
         REQUIRE(t.hasNewMessages(0));
@@ -89,35 +84,29 @@ TEST_CASE("string.split", "[external]")
     {
         SECTION("empty")
         {
-            StringSplitTest t("str.split", L());
+            TestStringSplit t("str.split", L());
             REQUIRE_PROPERTY(t, @sep, "");
         }
 
         SECTION("list")
         {
-            StringSplitTest t("str.split", LA("A", "B"));
+            TestStringSplit t("str.split", LA("A", "B"));
             REQUIRE_PROPERTY(t, @sep, "A");
         }
 
         SECTION("space")
         {
-            StringSplitTest t("str.split", LA("\"", "\""));
+            TestStringSplit t("str.split", LA("\"", "\""));
             REQUIRE_PROPERTY(t, @sep, " ");
         }
     }
 
     SECTION("@sep")
     {
-        StringSplitTest t("str.split", L());
+        TestStringSplit t("str.split", L());
         REQUIRE_PROPERTY(t, @sep, "");
 
-        t.setProperty("@sep", LF(123));
-        REQUIRE_PROPERTY(t, @sep, "123");
-
-        t.setProperty("@sep", L());
-        REQUIRE_PROPERTY(t, @sep, "");
-
-        t.setProperty("@sep", LA("A", "B"));
+        t.setProperty("@sep", LA("A"));
         REQUIRE_PROPERTY(t, @sep, "A");
     }
 }

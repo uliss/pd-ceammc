@@ -14,28 +14,25 @@
 #ifndef STRING_SPLIT_H
 #define STRING_SPLIT_H
 
-#include "ceammc_dataatom.h"
+#include "ceammc_data.h"
 #include "ceammc_object.h"
-#include "datatype_string.h"
-
-#include <vector>
 
 using namespace ceammc;
 
 class StringSplit : public BaseObject {
-    std::vector<DataAtom> tokens_;
+    AtomList tokens_;
     std::string sep_;
 
 public:
     StringSplit(const PdArgs& a);
     void onSymbol(t_symbol* s) override;
-    void onDataT(const DataTPtr<DataTypeString>& dptr);
+    void onDataT(const DataTypeString* str);
 
 private:
     void split(const DataTypeString& s);
     void output();
 };
 
-extern "C" void setup_string0x2esplit();
+void setup_string_split();
 
 #endif // STRING_SPLIT_H

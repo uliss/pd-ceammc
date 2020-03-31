@@ -14,46 +14,16 @@
 #include "string_split.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
-
-#include <boost/algorithm/string.hpp>
-
-static bool isSpace(const AtomList& lst)
-{
-    static t_symbol* SQUOTE = gensym("'");
-
-    if (lst.size() != 2)
-        return false;
-
-    return lst == AtomList(SQUOTE, SQUOTE);
-}
+#include "datatype_string.h"
 
 StringSplit::StringSplit(const PdArgs& a)
     : BaseObject(a)
 {
     createOutlet();
 
-    createCbListProperty(
-        "@sep",
-        [this]() -> AtomList { return AtomList(gensym(sep_.c_str())); },
-        [this](const AtomList& l) -> bool {
-            switch (l.size()) {
-            case 0:
-                sep_ = "";
-                break;
-            case 1:
-                sep_ = to_string(l[0]);
-                break;
-            default: {
-                if (isSpace(l))
-                    sep_ = " ";
-                else
-                    sep_ = to_string(l[0]);
-                break;
-            }
-            }
-            return true;
-        })
-        ->setArgIndex(0);
+    addProperty(new SymbolProperty("@sep", &s_))
+        ->setSuccessFn([this](Property* p) { sep_ = to_string(p->get()); });
+    property("@sep")->setArgIndex(0);
 }
 
 void StringSplit::onSymbol(t_symbol* s)
@@ -62,9 +32,9 @@ void StringSplit::onSymbol(t_symbol* s)
     output();
 }
 
-void StringSplit::onDataT(const DataTPtr<DataTypeString>& dptr)
+void StringSplit::onDataT(const DataTypeString* str)
 {
-    split(*dptr);
+    split(*str);
     output();
 }
 
@@ -74,22 +44,16 @@ void StringSplit::split(const DataTypeString& s)
     std::vector<std::string> tokens;
     s.split(tokens, sep_);
 
-    for (size_t i = 0; i < tokens.size(); i++) {
-        tokens_.emplace_back(DataTPtr<DataTypeString>(tokens[i]));
-    }
+    for (auto& x : tokens)
+        tokens_.append(new DataTypeString(x));
 }
 
 void StringSplit::output()
 {
-    AtomList res;
-
-    for (size_t i = 0; i < tokens_.size(); i++)
-        res.append(tokens_[i].asAtom());
-
-    listTo(0, res);
+    listTo(0, tokens_);
 }
 
-extern "C" void setup_string0x2esplit()
+void setup_string_split()
 {
     ObjectFactory<StringSplit> obj("string.split");
     obj.processData<DataTypeString>();
