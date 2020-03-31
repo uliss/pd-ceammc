@@ -19,8 +19,11 @@
 
 StringEqual::StringEqual(const PdArgs& a)
     : BaseObject(a)
-    , str1_(parse_quoted(positionalArguments()))
 {
+    auto p = addProperty(new SymbolProperty("@subj", &s_));
+    p->setArgIndex(0);
+    p->setSuccessFn([this](Property* p) { str1_ = static_cast<SymbolProperty*>(p)->value()->s_name; });
+
     createInlet();
     createOutlet();
 }
@@ -38,12 +41,6 @@ void StringEqual::onDataT(const DataTypeString* str)
 void StringEqual::onInlet(size_t, const AtomList& l)
 {
     str1_ = parse_quoted(l);
-}
-
-void StringEqual::dump() const
-{
-    OBJ_POST << "compare arg: " << quote(str1_);
-    BaseObject::dump();
 }
 
 void setup_string_equal()
