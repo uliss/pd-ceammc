@@ -28,8 +28,6 @@ public:
     void onSymbol(t_symbol* s) override;
     void onDataT(const DataTypeString* str);
     void onInlet(size_t, const AtomList& l) override;
-
-    void dump() const override;
 };
 
 void setup_string_contains();

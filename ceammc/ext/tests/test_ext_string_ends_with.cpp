@@ -33,6 +33,7 @@ TEST_CASE("string.ends_with", "[external]")
         SECTION("empty")
         {
             TestStringEndsWith t("str.ends_with");
+            REQUIRE_PROPERTY(t, @suffix, "");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
@@ -46,6 +47,7 @@ TEST_CASE("string.ends_with", "[external]")
         SECTION("args")
         {
             TestStringEndsWith t("str.ends_with", LA(".mp3"));
+            REQUIRE_PROPERTY(t, @suffix, ".mp3");
             t.dump();
 
             WHEN_SEND_TDATA_TO(0, t, DataTypeString("data.mp3"));
@@ -64,16 +66,18 @@ TEST_CASE("string.ends_with", "[external]")
         SECTION("args list")
         {
             TestStringEndsWith t("str.ends_with", LA("A", "B", "C"));
+            REQUIRE_PROPERTY(t, @suffix, "A");
             WHEN_SEND_SYMBOL_TO(0, t, "ABC");
             REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
 
-            WHEN_SEND_SYMBOL_TO(0, t, "TEST A B C");
+            WHEN_SEND_SYMBOL_TO(0, t, "CBA");
             REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
         }
 
         SECTION("args quoted")
         {
             TestStringEndsWith t("str.ends_with", LA("\"", "~", "\""));
+            REQUIRE_PROPERTY(t, @suffix, " ~ ");
             WHEN_SEND_SYMBOL_TO(0, t, "ABC");
             REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
 

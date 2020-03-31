@@ -43,12 +43,6 @@ void StringContains::onInlet(size_t, const AtomList& l)
     subj_ = parse_quoted(l);
 }
 
-void StringContains::dump() const
-{
-    OBJ_POST << "search arg: " << quote(subj_);
-    BaseObject::dump();
-}
-
 void setup_string_contains()
 {
     ObjectFactory<StringContains> obj("string.contains");
