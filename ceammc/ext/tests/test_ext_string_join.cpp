@@ -70,7 +70,7 @@ TEST_CASE("string.join", "[external]")
 
         SECTION("empty string")
         {
-            TestExtStringJoin t("string.join", LA("''"));
+            TestExtStringJoin t("string.join", LA("\"\""));
             REQUIRE_PROPERTY_LIST(t, @sep, LA(&s_));
             t.sendList(LF(1, 2, 3));
             REQUIRE_STRING(t, "123");
@@ -78,7 +78,7 @@ TEST_CASE("string.join", "[external]")
 
         SECTION("space")
         {
-            TestExtStringJoin t("string.join", LA("'", "'"));
+            TestExtStringJoin t("string.join", LA("\"", "\""));
             REQUIRE_PROPERTY_LIST(t, @sep, LA(" "));
             t.sendList(LF(1, 2, 3));
             REQUIRE_STRING(t, "1 2 3");
@@ -86,7 +86,7 @@ TEST_CASE("string.join", "[external]")
 
         SECTION("space")
         {
-            TestExtStringJoin t("string.join", LA("' '"));
+            TestExtStringJoin t("string.join", LA("\" \""));
             REQUIRE_PROPERTY_LIST(t, @sep, LA(" "));
             t.sendList(LF(1, 2, 3));
             REQUIRE_STRING(t, "1 2 3");
@@ -94,7 +94,7 @@ TEST_CASE("string.join", "[external]")
 
         SECTION(",")
         {
-            TestExtStringJoin t("string.join", LA("'`.'"));
+            TestExtStringJoin t("string.join", LA("\"`.\""));
             REQUIRE_PROPERTY_LIST(t, @sep, LA(","));
             t.sendList(LF(1, 2, 3));
             REQUIRE_STRING(t, "1,2,3");
@@ -102,7 +102,7 @@ TEST_CASE("string.join", "[external]")
 
         SECTION(",")
         {
-            TestExtStringJoin t("string.join", LA("'`. '"));
+            TestExtStringJoin t("string.join", LA("\"`. \""));
             REQUIRE_PROPERTY_LIST(t, @sep, LA(", "));
             t.sendList(LF(1, 2, 3));
             REQUIRE_STRING(t, "1, 2, 3");
@@ -110,7 +110,7 @@ TEST_CASE("string.join", "[external]")
 
         SECTION(";")
         {
-            TestExtStringJoin t("string.join", LA("'`:'"));
+            TestExtStringJoin t("string.join", LA("\"`:\""));
             REQUIRE_PROPERTY_LIST(t, @sep, LA(";"));
             t.sendList(LF(1, 2, 3));
             REQUIRE_STRING(t, "1;2;3");
@@ -139,7 +139,7 @@ TEST_CASE("string.join", "[external]")
         t.sendList(LF(1, 2, 3));
         REQUIRE_STRING(t, "1|2|3");
 
-        t.property("@sep")->set(LA("'", "'"));
+        t.property("@sep")->set(LA("\"", "\""));
         REQUIRE_PROPERTY(t, @sep, " ");
 
         t.sendListTo(LA("'`'", "`''"), 1);

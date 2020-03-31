@@ -101,7 +101,7 @@ TEST_CASE("string.split", "[external]")
 
         SECTION("space")
         {
-            StringSplitTest t("str.split", LA("'", "'"));
+            StringSplitTest t("str.split", LA("\"", "\""));
             REQUIRE_PROPERTY(t, @sep, " ");
         }
     }

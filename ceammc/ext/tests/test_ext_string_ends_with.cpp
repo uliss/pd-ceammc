@@ -70,6 +70,16 @@ TEST_CASE("string.ends_with", "[external]")
             WHEN_SEND_SYMBOL_TO(0, t, "TEST A B C");
             REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
         }
+
+        SECTION("args quoted")
+        {
+            TestStringEndsWith t("str.ends_with", LA("\"", "~", "\""));
+            WHEN_SEND_SYMBOL_TO(0, t, "ABC");
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+
+            WHEN_SEND_SYMBOL_TO(0, t, "ends with space ~ ");
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        }
     }
 
     SECTION("do")

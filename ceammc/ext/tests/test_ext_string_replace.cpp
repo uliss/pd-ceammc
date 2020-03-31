@@ -11,12 +11,11 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ceammc_regexp.h"
 #include "datatype_string.h"
-#include "string_remove.h"
+#include "string_replace.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(StringRemove, string, remove)
+PD_COMPLETE_TEST_SETUP(StringReplace, string, replace)
 
 #define REQUIRE_STRING(obj, cstr)                                        \
     {                                                                    \
@@ -26,7 +25,7 @@ PD_COMPLETE_TEST_SETUP(StringRemove, string, remove)
         t.clearAll();                                                    \
     }
 
-TEST_CASE("string.remove", "[external]")
+TEST_CASE("string.replace", "[external]")
 {
     pd_test_init();
     test::pdPrintToStdError();
@@ -35,13 +34,15 @@ TEST_CASE("string.remove", "[external]")
     {
         SECTION("empty")
         {
-            TestExtStringRemove t("string.remove");
-            REQUIRE(t.numInlets() == 2);
+            TestExtStringReplace t("string.replace");
+            REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @mode, "all");
             REQUIRE_PROPERTY(t, @all, 1);
             REQUIRE_PROPERTY(t, @first, 0.f);
             REQUIRE_PROPERTY(t, @last, 0.f);
+            REQUIRE_PROPERTY(t, @from, "");
+            REQUIRE_PROPERTY(t, @to, "");
 
             t.sendSymbol(SYM("abc"));
             REQUIRE_STRING(t, "abc");
@@ -59,36 +60,41 @@ TEST_CASE("string.remove", "[external]")
             REQUIRE(!t.hasOutput());
         }
 
-        SECTION("space")
+        SECTION("args")
         {
-            TestExtStringRemove t("string.remove", LA("\"", "\""));
-            t.sendSymbol(SYM("abc"));
-            REQUIRE_STRING(t, "abc");
-            t.sendSymbol(SYM("a b c"));
-            REQUIRE_STRING(t, "abc");
+            TestExtStringReplace t("string.replace", LA("X"));
+            REQUIRE_PROPERTY(t, @from, "X");
+            REQUIRE_PROPERTY(t, @to, "");
+
+            t.sendSymbol(SYM("XXL"));
+            REQUIRE_STRING(t, "L");
+
+            t.sendList(StringAtom("XYZ"));
+            REQUIRE_STRING(t, "YZ");
+        }
+
+        SECTION("args")
+        {
+            TestExtStringReplace t("string.replace", LA("X", "Y"));
+            REQUIRE_PROPERTY(t, @from, "X");
+            REQUIRE_PROPERTY(t, @to, "Y");
+
+            t.sendSymbol(SYM("XXL"));
+            REQUIRE_STRING(t, "YYL");
         }
     }
 
-    SECTION("@mode")
+    SECTION("space")
     {
-        TestExtStringRemove t("string.remove", LA(".", "@all"));
-        t.sendSymbol(SYM(".abc."));
-        REQUIRE_STRING(t, "abc");
+        TestExtStringReplace t("string.replace", LA("\" \"", "Y"));
+        REQUIRE_PROPERTY(t, @from, " ");
+        REQUIRE_PROPERTY(t, @to, "Y");
+    }
 
-        t.property("@first")->set(L());
-        t.sendSymbol(SYM(".abc."));
-        REQUIRE_STRING(t, "abc.");
-
-        t.property("@last")->set(L());
-        t.sendSymbol(SYM(".abc."));
-        REQUIRE_STRING(t, ".abc");
-
-        t.sendListTo(LA("?"), 1);
-        t.sendSymbol(SYM(".abc?"));
-        REQUIRE_STRING(t, ".abc");
-
-        t.sendListTo(LA("\"", "\""), 1);
-        t.sendSymbol(SYM("a b c"));
-        REQUIRE_STRING(t, "a bc");
+    SECTION("space")
+    {
+        TestExtStringReplace t("string.replace", LA("\"A\"", "\"\""));
+        REQUIRE_PROPERTY(t, @from, "A");
+        REQUIRE_PROPERTY(t, @to, "");
     }
 }

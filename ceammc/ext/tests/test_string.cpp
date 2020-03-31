@@ -194,4 +194,149 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(chars[1] == "的");
         REQUIRE(chars[2] == "Ж");
     }
+
+    SECTION("utf8_to_upper/lower")
+    {
+        REQUIRE(utf8_to_upper("abcde 12345 çå") == "ABCDE 12345 ÇÅ");
+        REQUIRE(utf8_to_upper("абвгд") == "АБВГД");
+        REQUIRE(utf8_to_upper("ß") == "SS");
+        REQUIRE(utf8_to_lower(utf8_to_upper("абвгд").c_str()) == "абвгд");
+        REQUIRE(utf8_to_lower(utf8_to_upper("abcde 12345 çå").c_str()) == "abcde 12345 çå");
+    }
+
+    SECTION("starts_with")
+    {
+        REQUIRE(starts_with("abc", ""));
+        REQUIRE(starts_with("abc", "a"));
+        REQUIRE(starts_with("abc", "ab"));
+        REQUIRE(starts_with("abc", "abc"));
+        REQUIRE_FALSE(starts_with("abc", "abcd"));
+        REQUIRE_FALSE(starts_with("abc", "b"));
+
+        // utf8
+        REQUIRE(starts_with("абв", ""));
+        REQUIRE(starts_with("абв", "а"));
+        REQUIRE(starts_with("абв", "аб"));
+        REQUIRE(starts_with("абв", "абв"));
+        REQUIRE_FALSE(starts_with("абв", "абвг"));
+        REQUIRE_FALSE(starts_with("абв", "б"));
+    }
+
+    SECTION("ends_with")
+    {
+        REQUIRE(ends_with("file.wav", ".wav"));
+        REQUIRE(ends_with("abc", ""));
+        REQUIRE(ends_with("abc", "c"));
+        REQUIRE(ends_with("abc", "bc"));
+        REQUIRE(ends_with("abc", "abc"));
+        REQUIRE_FALSE(ends_with("abc", "ab"));
+        REQUIRE_FALSE(ends_with("abc", "b"));
+
+        // utf8
+        REQUIRE(ends_with("береза", ""));
+        REQUIRE(ends_with("береза", "еза"));
+        REQUIRE(ends_with("береза", "береза"));
+        REQUIRE_FALSE(ends_with("береза", "абв"));
+    }
+
+    SECTION("contains")
+    {
+        REQUIRE(contains("abc", ""));
+        REQUIRE(contains("abc", "a"));
+        REQUIRE(contains("abc", "b"));
+        REQUIRE(contains("abcd", "bc"));
+        REQUIRE(contains("", ""));
+        REQUIRE_FALSE(contains("", "abc"));
+        REQUIRE_FALSE(contains("asdab", "abc"));
+
+        // utf8
+        REQUIRE(contains("абв", ""));
+        REQUIRE(contains("абв", "а"));
+        REQUIRE(contains("абв", "аб"));
+        REQUIRE(contains("абвг", "бв"));
+        REQUIRE_FALSE(contains("", "абв"));
+        REQUIRE_FALSE(contains("вапьты", "абв"));
+    }
+
+    SECTION("pd_string_match")
+    {
+        std::string str;
+        REQUIRE(pd_string_match("\"\"", str));
+        REQUIRE(str == "");
+        REQUIRE(pd_string_match("\" \"", str));
+        REQUIRE(str == " ");
+        REQUIRE(pd_string_match("\"wasn`\"t\"", str));
+        REQUIRE(str == "wasn`\"t");
+        REQUIRE(pd_string_match("\"`\"a b c`\"\"", str));
+        REQUIRE(str == "`\"a b c`\"");
+        REQUIRE_FALSE(pd_string_match(R"("""")", str));
+        REQUIRE(pd_string_match(R"("`"`"")", str));
+        REQUIRE(pd_string_match(R"("`.")", str));
+        REQUIRE(pd_string_match(R"("`:")", str));
+        REQUIRE(pd_string_match(R"("`(")", str));
+        REQUIRE(pd_string_match(R"("`/")", str));
+        REQUIRE(pd_string_match(R"("``")", str));
+        REQUIRE_FALSE(pd_string_match(R"("```")", str));
+        REQUIRE_FALSE(pd_string_match(R"("`n")", str));
+        REQUIRE_FALSE(pd_string_match(R"("`"``"")", str));
+    }
+
+    SECTION("pd_string_unescape")
+    {
+        REQUIRE(pd_string_unescape("") == "");
+        REQUIRE(pd_string_unescape(" ") == " ");
+        REQUIRE(pd_string_unescape("wasn't") == "wasn't");
+        REQUIRE(pd_string_unescape("`\"") == "\"");
+        REQUIRE(pd_string_unescape("`'") == "'");
+        REQUIRE(pd_string_unescape("``'") == "`'");
+        REQUIRE(pd_string_unescape("``") == "`");
+        REQUIRE(pd_string_unescape("````") == "``");
+        REQUIRE(pd_string_unescape("`(") == "{");
+        REQUIRE(pd_string_unescape("`)") == "}");
+        REQUIRE(pd_string_unescape("`.") == ",");
+        REQUIRE(pd_string_unescape("`:") == ";");
+        REQUIRE(pd_string_unescape("'") == "'");
+        REQUIRE(pd_string_unescape("'") == "'");
+        REQUIRE(pd_string_unescape(" `\" ") == " \" ");
+    }
+
+    SECTION("pd_string_parse")
+    {
+        std::string str;
+        REQUIRE_FALSE(pd_string_parse("''", str));
+        REQUIRE(pd_string_parse("\"\"", str));
+        REQUIRE(str == "");
+        REQUIRE_FALSE(pd_string_parse("' '", str));
+        REQUIRE(pd_string_parse("\" \"", str));
+        REQUIRE(str == " ");
+        REQUIRE_FALSE(pd_string_parse("wasn't", str));
+        REQUIRE(pd_string_parse("\"wasn't\"", str));
+        REQUIRE(str == "wasn't");
+        REQUIRE(pd_string_parse("\"a`.b`.c\"", str));
+        REQUIRE(str == "a,b,c");
+
+        // check self-reference passing
+        std::string sp("\" \"");
+        REQUIRE(pd_string_parse(sp, sp));
+        REQUIRE(sp == " ");
+    }
+
+    SECTION("is_pd_string")
+    {
+        REQUIRE_FALSE(is_pd_string(""));
+        REQUIRE_FALSE(is_pd_string("\""));
+        REQUIRE_FALSE(is_pd_string("abc"));
+        REQUIRE_FALSE(is_pd_string("123"));
+        REQUIRE_FALSE(is_pd_string("\"123"));
+        REQUIRE_FALSE(is_pd_string("123\""));
+        REQUIRE_FALSE(is_pd_string("\"`\""));
+
+        REQUIRE(is_pd_string("\"\""));
+        REQUIRE(is_pd_string("\" \""));
+        REQUIRE(is_pd_string("\"123\""));
+        REQUIRE(is_pd_string("\"a b\""));
+        REQUIRE(is_pd_string("\"a``\""));
+        REQUIRE(is_pd_string("\"`\" asb `\"\""));
+        REQUIRE(is_pd_string("\"```\"`/`:`.\""));
+    }
 }

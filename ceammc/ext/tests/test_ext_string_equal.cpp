@@ -79,7 +79,7 @@ TEST_CASE("string.equal", "[external]")
         REQUIRE(t.outputFloatAt(0) == 0);
 
         // space
-        t.sendListTo(LA("'", "'"), 1);
+        t.sendListTo(LA("\"", "\""), 1);
 
         t.sendSymbol(SYM("a"));
         REQUIRE(t.outputFloatAt(0) == 0);

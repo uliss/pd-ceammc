@@ -14,11 +14,11 @@
 #ifndef STRING_REPLACE_H
 #define STRING_REPLACE_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 #include "ceammc_property_enum.h"
-#include "datatype_string.h"
 
-using namespace std;
+using namespace ceammc;
 
 class StringReplace : public BaseObject {
     SymbolEnumProperty* mode_;
@@ -28,10 +28,10 @@ class StringReplace : public BaseObject {
 public:
     StringReplace(const PdArgs& a);
     void onSymbol(t_symbol* s) override;
-    void onDataT(const DataTPtr<DataTypeString>& dptr);
+    void onDataT(const DataTypeString* str);
     void onInlet(size_t n, const AtomList& l) override;
 };
 
-extern "C" void setup_string0x2ereplace();
+void setup_string_replace();
 
 #endif // STRING_REPLACE_H

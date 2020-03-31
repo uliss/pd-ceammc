@@ -11,6 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "ceammc_format.h"
 #include "test_common.h"
 
 #include <algorithm>
@@ -43,6 +44,17 @@ static Atom testMap1(const Atom& a)
     if (a.isSymbol())
         res.setSymbol(toUpper(a.asSymbol()));
 
+    return res;
+}
+
+AtomList stringToAtomList(const std::string& str)
+{
+    auto bb = binbuf_new();
+    binbuf_text(bb, str.c_str(), str.size());
+    auto n = binbuf_getnatom(bb);
+    auto a = binbuf_getvec(bb);
+    AtomList res(n, a);
+    binbuf_free(bb);
     return res;
 }
 
@@ -897,5 +909,50 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
             REQUIRE(LF(1, 2, 3).view(2, 2) == LF(3));
             REQUIRE(LF(1, 2, 3).view(3, 2) == L());
         }
+    }
+
+    SECTION("parseQuoted")
+    {
+
+#define REQUIRE_PARSED(str, lst) REQUIRE(stringToAtomList(str).parseQuoted() == lst)
+
+        REQUIRE(to_string(LA("\" \"")) == "\" \"");
+        REQUIRE(parse_quoted(LA("\" \"")) == " ");
+        REQUIRE(stringToAtomList("1 2 3") == LF(1, 2, 3));
+        REQUIRE(stringToAtomList("\" \"") == LA("\"", "\""));
+
+        REQUIRE_PARSED("\" \"", LA(" "));
+        REQUIRE_PARSED("abc", LA("abc"));
+        REQUIRE_PARSED("a b c", LA("a", "b", "c"));
+        REQUIRE_PARSED("\"abc\"", LA("abc"));
+        REQUIRE_PARSED("'abc'", LA("'abc'"));
+        REQUIRE_PARSED("\" abc \"", LA(" abc "));
+        REQUIRE_PARSED("\" abc\"", LA(" abc"));
+
+        REQUIRE_PARSED("\"abc \"", LA("abc "));
+        REQUIRE_PARSED("\"a b c\" \"a b\"", LA("a b c", "a b"));
+        REQUIRE_PARSED("\"a b c\" 1 2 \"f\" \"a b\"", LA("a b c", 1, 2, "f", "a b"));
+        REQUIRE_PARSED("1 2 3", LF(1, 2, 3));
+        REQUIRE_PARSED("\"a b c\" \"d e f\"", LA("a b c", "d e f"));
+        REQUIRE_PARSED("\"a b c\" 1 2 \"d e f\"", LA("a b c", 1, 2, "d e f"));
+        REQUIRE_PARSED("\" 1 2 3\" 10 20", LA(" 1 2 3", 10, 20));
+        REQUIRE_PARSED("\" 1 2 3 \" 10 20", LA(" 1 2 3 ", 10, 20));
+        REQUIRE_PARSED("\"1 2 3 \" 10 20", LA("1 2 3 ", 10, 20));
+        REQUIRE_PARSED("\" \" \" \"", LA(" ", " "));
+        REQUIRE_PARSED("\" \" \" a b c \"", LA(" ", " a b c "));
+
+        REQUIRE_PARSED("\"`\"\"", LA("\""));
+        // no quotes
+        REQUIRE_PARSED("don't", LA("don't"));
+        // no quotes
+        REQUIRE_PARSED("don`'t", LA("don`'t"));
+        REQUIRE_PARSED("\"don`\"t\"", LA("don\"t"));
+        REQUIRE_PARSED("\"don't\"", LA("don't"));
+        REQUIRE_PARSED("\"a `\" b\"", LA("a \" b"));
+
+        REQUIRE_PARSED("\" ' \"", LA(" ' "));
+        REQUIRE_PARSED("\" `\" \"", LA(" \" "));
+
+        REQUIRE(L().parseQuoted() == AtomList());
     }
 }

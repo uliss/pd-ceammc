@@ -20,6 +20,16 @@
 #include <cstdlib>
 #include <iostream>
 
+// list of escapes
+//  `" -> "
+//  `` -> `
+//  `/ -> \
+//  `. -> ,
+//  `: -> ;
+
+static re2::RE2 re_double_quoted("\"(([^`\"]|`[`\"./:()])*)\"");
+static re2::RE2 re_double_quoted_end("([^`\"]|`[`\"./:()])*\"");
+
 size_t ceammc::string::utf8_strlen(const char* str)
 {
     return utf8len(str);
@@ -217,20 +227,8 @@ std::string ceammc::string::pd_string_unescape(const std::string& str)
                 res.push_back('"');
                 i++;
                 break;
-            case '\'':
-                res.push_back('\'');
-                i++;
-                break;
             case '`':
                 res.push_back('`');
-                i++;
-                break;
-            case 'n':
-                res.push_back('\n');
-                i++;
-                break;
-            case 't':
-                res.push_back('\t');
                 i++;
                 break;
             case '(':
@@ -264,21 +262,10 @@ std::string ceammc::string::pd_string_unescape(const std::string& str)
 
 bool ceammc::string::pd_string_match(const std::string& str, std::string& matched)
 {
-    static re2::RE2 re_single("'(([^']|[`'])*)'");
-    static re2::RE2 re_double("\"(([^\"]|[`\"])*)\"");
-
-    if (str.empty())
+    if (str.empty() || str[0] != '"')
         return false;
 
-    if (str[0] != '\'' && str[0] != '"')
-        return false;
-
-    if (re2::RE2::FullMatch(str, re_single, &matched))
-        return true;
-    else if (re2::RE2::FullMatch(str, re_double, &matched))
-        return true;
-    else
-        return false;
+    return re2::RE2::FullMatch(str, re_double_quoted, &matched);
 }
 
 bool ceammc::string::pd_string_parse(const std::string& str, std::string& out)
@@ -288,4 +275,35 @@ bool ceammc::string::pd_string_parse(const std::string& str, std::string& out)
         return true;
     } else
         return false;
+}
+
+bool ceammc::string::is_pd_string(const char* str)
+{
+    if (!str[0])
+        return false;
+
+    if (str[0] != '"')
+        return false;
+
+    const size_t N = strlen(str);
+    if (N < 2)
+        return false;
+
+    if (str[N - 1] != '"')
+        return false;
+
+    return re2::RE2::FullMatch(str, re_double_quoted);
+}
+
+bool ceammc::string::pd_string_end_quote(const char* str)
+{
+    const size_t N = strlen(str);
+
+    if (N < 1)
+        return false;
+
+    if (str[N - 1] != '"')
+        return false;
+
+    return re2::RE2::FullMatch(str, re_double_quoted_end);
 }

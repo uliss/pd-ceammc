@@ -97,18 +97,20 @@ TEST_CASE("format", "[ceammc::format]")
         {
             REQUIRE(parse_quoted(A(1)) == "1");
             REQUIRE(parse_quoted(A("abc")) == "abc");
-            REQUIRE(parse_quoted(A("''")) == "");
-            REQUIRE(parse_quoted(A("' '")) == " ");
+            REQUIRE(parse_quoted(A("''")) == "''");
+            REQUIRE(parse_quoted(A("' '")) == "' '");
+            REQUIRE(parse_quoted(A("\"\"")) == "");
+            REQUIRE(parse_quoted(A("\" \"")) == " ");
         }
 
         SECTION("atomlist")
         {
             REQUIRE(parse_quoted(LA(1)) == "1");
             REQUIRE(parse_quoted(LA("abc")) == "abc");
-            REQUIRE(parse_quoted(LA("''")) == "");
-            REQUIRE(parse_quoted(LA("'", "'")) == " ");
-            REQUIRE(parse_quoted(LA("'a", "b'")) == "a b");
-            REQUIRE(parse_quoted(LA("'a", "b`''")) == "a b'");
+            REQUIRE(parse_quoted(LA("\"\"")) == "");
+            REQUIRE(parse_quoted(LA("\"", "\"")) == " ");
+            REQUIRE(parse_quoted(LA("\"a", "b\"")) == "a b");
+            REQUIRE(parse_quoted(LA("\"a", "b`\"\"")) == "a b\"");
         }
     }
 

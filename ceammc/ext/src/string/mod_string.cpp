@@ -18,8 +18,6 @@ void setup_string_match();
 void ceammc_string_setup()
 {
     setup_string0x2eformat();
-    setup_string_remove();
-    setup_string0x2ereplace();
     setup_string0x2esplit();
     setup_string0x2esubstr();
     setup_string0x2eto_symbol();
@@ -29,6 +27,8 @@ void ceammc_string_setup()
     setup_string_join();
     setup_string_length();
     setup_string_match();
+    setup_string_remove();
+    setup_string_replace();
     setup_string_starts_with();
-    string_setup();
+    setup_string_str();
 }

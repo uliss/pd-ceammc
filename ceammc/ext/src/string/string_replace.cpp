@@ -14,8 +14,7 @@
 #include "string_replace.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
-
-#include <boost/algorithm/string.hpp>
+#include "datatype_string.h"
 
 static t_symbol* REPLACE_ALL;
 static t_symbol* REPLACE_FIRST;
@@ -51,17 +50,18 @@ StringReplace::StringReplace(const PdArgs& a)
 
 void StringReplace::onSymbol(t_symbol* s)
 {
-    onDataT(DataTypeString(s));
+    DataTypeString str(s);
+    onDataT(&str);
 }
 
-void StringReplace::onDataT(const DataTPtr<DataTypeString>& dptr)
+void StringReplace::onDataT(const DataTypeString* str)
 {
     if (mode_->value() == REPLACE_ALL) {
-        dataTo(0, DataTPtr<DataTypeString>(dptr->replaceAll(from_, to_)));
+        atomTo(0, StringAtom(str->replaceAll(from_, to_)));
     } else if (mode_->value() == REPLACE_FIRST) {
-        dataTo(0, DataTPtr<DataTypeString>(dptr->replaceFirst(from_, to_)));
+        atomTo(0, StringAtom(str->replaceFirst(from_, to_)));
     } else if (mode_->value() == REPLACE_LAST) {
-        dataTo(0, DataTPtr<DataTypeString>(dptr->replaceLast(from_, to_)));
+        atomTo(0, StringAtom(str->replaceLast(from_, to_)));
     }
 }
 
@@ -78,7 +78,7 @@ void StringReplace::onInlet(size_t n, const AtomList& l)
     }
 }
 
-void setup_string0x2ereplace()
+void setup_string_replace()
 {
     REPLACE_ALL = gensym("all");
     REPLACE_FIRST = gensym("first");

@@ -68,7 +68,7 @@ TEST_CASE("string.contains", "[external]")
 
         SECTION("quoted list")
         {
-            TestExtStringContains t("string.contains", LA("'", "'"));
+            TestExtStringContains t("string.contains", LA("\"", "\""));
             t.sendSymbol(SYM("abc"));
             REQUIRE(t.outputFloatAt(0) == 0);
             t.sendSymbol(SYM(" "));
@@ -77,7 +77,7 @@ TEST_CASE("string.contains", "[external]")
 
         SECTION("quoted atom")
         {
-            TestExtStringContains t("string.contains", LA("' '"));
+            TestExtStringContains t("string.contains", LA("\" \""));
             t.sendSymbol(SYM("abc"));
             REQUIRE(t.outputFloatAt(0) == 0);
             t.sendSymbol(SYM(" "));
@@ -86,7 +86,7 @@ TEST_CASE("string.contains", "[external]")
 
         SECTION("empty string")
         {
-            TestExtStringContains t("string.contains", LA("''"));
+            TestExtStringContains t("string.contains", LA("\"\""));
             t.sendSymbol(SYM(""));
             REQUIRE(t.outputFloatAt(0) == 1);
             t.sendSymbol(SYM(" "));

@@ -23,11 +23,9 @@ StringJoin::StringJoin(const PdArgs& a)
     createInlet();
     createOutlet();
 
-    createCbListProperty(
-        "@sep",
-        [this]() -> AtomList { return { gensym(sep_.c_str()) }; },
-        [this](const AtomList& l) -> bool { sep_ = parse_quoted(l); return true; })
-        ->setArgIndex(0);
+    addProperty(new ListProperty("@sep"))
+        ->setSuccessFn([this](Property* p) { sep_ = parse_quoted(p->get()); });
+    property("@sep")->setArgIndex(0);
 }
 
 void StringJoin::onBang()

@@ -342,12 +342,52 @@ TEST_CASE("Atom2", "[core]")
     {
         REQUIRE(A(1).parseQuoted() == A(1));
         REQUIRE(A("abc").parseQuoted() == A("abc"));
-        REQUIRE(A("''").parseQuoted() == A(""));
-        REQUIRE(A("'`'`''").parseQuoted() == A("''"));
-        REQUIRE(A("' '").parseQuoted() == A(" "));
-        REQUIRE(A("'abcde'").parseQuoted() == A("abcde"));
+        REQUIRE(A("\"\"").parseQuoted() == A(""));
+        REQUIRE(A("\"`\"`\"\"").parseQuoted() == A("\"\""));
+        REQUIRE(A("\" \"").parseQuoted() == A(" "));
+        REQUIRE(A("\"abcde\"").parseQuoted() == A("abcde"));
         REQUIRE(A("`").parseQuoted() == A("`"));
         REQUIRE(A("``").parseQuoted() == A("``"));
-        REQUIRE(A("'``'").parseQuoted() == A("`"));
+        REQUIRE(A("\"``\"").parseQuoted() == A("`"));
+        REQUIRE(A("\"").parseQuoted() == A("\""));
+    }
+
+    SECTION("isQuoted")
+    {
+        REQUIRE_FALSE(Atom().isQuoted());
+        REQUIRE_FALSE(A(1).isQuoted());
+        REQUIRE_FALSE(A("abc").isQuoted());
+        REQUIRE_FALSE(A("'abc'").isQuoted());
+        REQUIRE_FALSE(A("\"ABC").isQuoted());
+        REQUIRE_FALSE(A("ABC\"").isQuoted());
+        REQUIRE(A("\"ABC\"").isQuoted());
+        REQUIRE(A("\"ABC``\"").isQuoted());
+        REQUIRE_FALSE(A("\"ABC`\"").isQuoted());
+    }
+
+    SECTION("beginQuote")
+    {
+        REQUIRE(!Atom().beginQuote());
+        REQUIRE(!A(1).beginQuote());
+        REQUIRE(!A("abc").beginQuote());
+        REQUIRE(A("\"").beginQuote());
+        REQUIRE(A("\"abc").beginQuote());
+        REQUIRE(!A("`\"").beginQuote());
+    }
+
+    SECTION("endQuote")
+    {
+        REQUIRE(!Atom().endQuote());
+        REQUIRE(!A(1).endQuote());
+        REQUIRE(!A("abc").endQuote());
+        REQUIRE(!A("\"abc").endQuote());
+        REQUIRE(!A("a\"bc").endQuote());
+        REQUIRE(!A("abc`\"").endQuote());
+        REQUIRE(!A("").endQuote());
+        REQUIRE(!A("`\"").endQuote());
+        REQUIRE(A("\"").endQuote());
+        REQUIRE(A("abc\"").endQuote());
+        REQUIRE(A("abc```````/`.`:``\"").endQuote());
+        REQUIRE(!A("\"\"").endQuote());
     }
 }
