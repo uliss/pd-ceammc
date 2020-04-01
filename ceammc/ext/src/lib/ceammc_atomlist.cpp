@@ -918,6 +918,17 @@ AtomList AtomList::parseQuoted() const
     return res;
 }
 
+AtomList AtomList::parseString(const char* str)
+{
+    t_binbuf* b = binbuf_new();
+    binbuf_text(b, str, strlen(str));
+    auto n = binbuf_getnatom(b);
+    auto a = binbuf_getvec(b);
+    AtomList res(n, a);
+    binbuf_free(b);
+    return res;
+}
+
 std::ostream& operator<<(std::ostream& os, const AtomList& l)
 {
     os << "[ ";

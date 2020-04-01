@@ -47,17 +47,6 @@ static Atom testMap1(const Atom& a)
     return res;
 }
 
-AtomList stringToAtomList(const std::string& str)
-{
-    auto bb = binbuf_new();
-    binbuf_text(bb, str.c_str(), str.size());
-    auto n = binbuf_getnatom(bb);
-    auto a = binbuf_getvec(bb);
-    AtomList res(n, a);
-    binbuf_free(bb);
-    return res;
-}
-
 using namespace ceammc;
 
 TEST_CASE("AtomList2", "[ceammc::AtomList]")
@@ -916,12 +905,10 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
     SECTION("parseQuoted")
     {
 
-#define REQUIRE_PARSED(str, lst) REQUIRE(stringToAtomList(str).parseQuoted() == lst)
+#define REQUIRE_PARSED(str, lst) REQUIRE(AtomList::parseString(str).parseQuoted() == lst)
 
         REQUIRE(to_string(LA("\" \"")) == "\" \"");
         REQUIRE(parse_quoted(LA("\" \"")) == " ");
-        REQUIRE(stringToAtomList("1 2 3") == LF(1, 2, 3));
-        REQUIRE(stringToAtomList("\" \"") == LA("\"", "\""));
 
         REQUIRE_PARSED("\" \"", LA(" "));
         REQUIRE_PARSED("abc", LA("abc"));
@@ -970,5 +957,13 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
         REQUIRE(l[6] == Atom(gensym(" ")));
         REQUIRE(l[7] == Atom(new IntData(100)));
         REQUIRE(l.size() == 8);
+    }
+
+    SECTION("parseString")
+    {
+        REQUIRE(AtomList::parseString("") == L());
+        REQUIRE(AtomList::parseString("1 2 3") == LF(1, 2, 3));
+        REQUIRE(AtomList::parseString("a b c 2.5") == LA("a", "b", "c", 2.5));
+        REQUIRE(AtomList::parseString("\" \"") == LA("\"", "\""));
     }
 }

@@ -533,14 +533,42 @@ public:
      * @return true if list contains, otherwise false
      */
     bool contains(const Atom& a) const;
+
+    /**
+     * Find position of first element in list that compare equal to a
+     * @return -1, if not found
+     */
     long findPos(const Atom& a) const;
+
+    /**
+     * Find position of first element in list for that predicate pred returns true
+     * @return -1, if not found
+     */
     long findPos(AtomPredicate pred) const;
 
+    /**
+     * Returns number of elements that compare equal to a
+     */
     size_t count(const Atom& a) const;
+
+    /**
+     * Returns number of elements for that predicate pred returns true
+     */
     size_t count(AtomPredicate pred) const;
 
+    /**
+     * Checks if predicate pred returns true for all list elements
+     */
     bool allOf(AtomPredicate pred) const;
+
+    /**
+     * Checks if predicate pred returns true at least for one list element
+     */
     bool anyOf(AtomPredicate pred) const;
+
+    /**
+     * Checks if predicate pred returns false for all list elements
+     */
     bool noneOf(AtomPredicate pred) const;
 
     /**
@@ -594,10 +622,7 @@ public:
     /**
      * Return full list view
      */
-    AtomListView view() const
-    {
-        return AtomListView(toPdData(), atoms_.size());
-    }
+    AtomListView view() const { return AtomListView(toPdData(), atoms_.size()); }
 
     /**
      * Return list view from specified position till the end
@@ -632,7 +657,7 @@ public:
     static AtomList sub(const AtomList& a, const AtomList& b, NonEqualLengthBehaivor lb = MINSIZE);
 
     /**
-     * arithmetic operators
+     * arithmetic operators with floats
      */
     AtomList& operator+=(t_float v);
     AtomList& operator-=(t_float v);
@@ -644,20 +669,34 @@ public:
     AtomList operator*(t_float v) const;
     AtomList operator/(t_float v) const;
 
+    /**
+     * Check for equality, if list contains data atoms - they are check for equality also
+     */
     bool operator==(const AtomList& x) const;
-    bool operator!=(const AtomList& x) const
-    {
-        return !operator==(x);
-    }
+    bool operator!=(const AtomList& x) const { return !operator==(x); }
+
+    /**
+     * Check for equality with atomlist view
+     */
     bool operator==(const AtomListView& x) const;
-    bool operator!=(const AtomListView& x) const
-    {
-        return !operator==(x);
-    }
+    bool operator!=(const AtomListView& x) const { return !operator==(x); }
+
+    /**
+     * Parse raw atomlist with double-quoted elements and returns values without quotes
+     * @example in ["a, b", 1, 2] list elements "a and b"
+     * joined to single atom -> 'a b' (without quotes and with space between)
+     * This syntax allows easily define symbols with spaces
+     * @return unmodified list, if it is not quoted
+     */
+    AtomList parseQuoted() const;
+
+    /**
+     * Construct AtomList from string, as do Pd
+     * @example string 'a b 1 2 3' -> list [a b 1 2 3], where a and b symbols, 1-3 floats
+     */
+    static AtomList parseString(const char* str);
 
     friend class AtomListView;
-
-    AtomList parseQuoted() const;
 
 private:
     Container atoms_;
