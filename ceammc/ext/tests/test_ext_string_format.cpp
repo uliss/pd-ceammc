@@ -35,7 +35,7 @@ static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("string.format", "[external]")
 {
-    setup_string0x2eformat();
+    setup_string_format();
 
     SECTION("create")
     {

@@ -11,25 +11,21 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../string/string_to_symbol.h"
-#include "test_base.h"
 #include "ceammc_pd.h"
-
-#include "catch.hpp"
+#include "string_to_symbol.h"
+#include "test_external.h"
 
 using namespace ceammc;
 
-typedef TestExternal<StringToSymbol> StringToSymbolTest;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(StringToSymbol, string, to_symbol)
 
 TEST_CASE("string->symbol", "[external]")
 {
-    setup_string0x2eto_symbol();
+    pd_test_init();
 
     SECTION("create")
     {
-        StringToSymbolTest t("str->sym");
+        TestStringToSymbol t("str->sym");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
 
@@ -51,7 +47,7 @@ TEST_CASE("string->symbol", "[external]")
 
     SECTION("data")
     {
-        StringToSymbolTest t("str->sym");
+        TestStringToSymbol t("str->sym");
 
         WHEN_SEND_TDATA_TO(0, t, DataTypeString("ABC"));
         REQUIRE_SYMBOL_AT_OUTLET(0, t, "ABC");
@@ -64,5 +60,15 @@ TEST_CASE("string->symbol", "[external]")
 
         WHEN_SEND_DATA_TO(0, t, IntData(-10));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+    }
+
+    SECTION("external")
+    {
+        TestExtStringToSymbol t("string2symbol");
+    }
+
+    SECTION("alias")
+    {
+        TestExtStringToSymbol t("str->sym");
     }
 }

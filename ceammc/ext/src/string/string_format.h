@@ -39,6 +39,6 @@ public:
     void propSetFormat(const AtomList& lst);
 };
 
-extern "C" void setup_string0x2eformat();
+void setup_string_format();
 
 #endif // STRING_FORMAT_H

@@ -14,7 +14,6 @@
 #ifndef TEST_COMMON_H
 #define TEST_COMMON_H
 
-#include "ceammc_data.h"
 #include "ceammc_message.h"
 
 #include "test_approx.h"
@@ -40,6 +39,5 @@ void pdRunMainLoopMs(int ms);
 }
 
 typedef std::vector<Message> MessageList;
-typedef std::vector<DataPtr> DataPtrList;
 
 #endif // TEST_COMMON_H

@@ -25,7 +25,7 @@ void StringToSymbol::onDataT(const DataTypeString* str)
     symbolTo(0, gensym(str->toString().c_str()));
 }
 
-extern "C" void setup_string0x2eto_symbol()
+void setup_string_to_symbol()
 {
     ObjectFactory<StringToSymbol> obj("string2symbol");
     obj.processData<DataTypeString>();

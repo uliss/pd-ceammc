@@ -127,7 +127,7 @@ void StringFormat::propSetFormat(const AtomList& lst)
     fmt_str_ = to_string(lst, " ");
 }
 
-extern "C" void setup_string0x2eformat()
+void setup_string_format()
 {
     ObjectFactory<StringFormat> obj("string.format");
     obj.processData();
