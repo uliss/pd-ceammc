@@ -24,6 +24,7 @@
 namespace ceammc {
 
 class Atom;
+class AbstractData;
 
 using AtomPredicate = std::function<bool(const Atom&)>;
 using FloatPredicate = std::function<bool(t_float)>;
@@ -32,18 +33,6 @@ using SymbolPredicate = std::function<bool(t_symbol*)>;
 using AtomMapFunction = std::function<Atom(const Atom&)>;
 using FloatMapFunction = std::function<t_float(t_float)>;
 using SymbolMapFunction = std::function<t_symbol*(t_symbol*)>;
-
-typedef unsigned int DataId;
-typedef unsigned short DataType;
-
-struct DataDesc {
-    DataType type;
-    DataId id;
-
-    DataDesc(DataType t, DataId i);
-    bool operator==(const DataDesc& d) const;
-    bool operator!=(const DataDesc& d) const;
-};
 
 class Atom : t_atom {
 public:
@@ -85,15 +74,31 @@ public:
     Atom(t_symbol* s);
 
     /**
-     * Creates atom on DATA type, that holds data descriptor
-     * @param d
+     * Create data atom, take ownership over given pointer
      */
-    Atom(const DataDesc& d);
+    CEAMMC_NO_ASAN Atom(AbstractData* d);
 
-    Atom(const Atom&) = default;
-    Atom(Atom&&) = default;
-    Atom& operator=(const Atom&) = default;
-    Atom& operator=(Atom&&) = default;
+    /**
+     * Copy ctor
+     */
+    Atom(const Atom& a);
+
+    /**
+     * Assign operator
+     */
+    Atom& operator=(const Atom&);
+
+    /**
+     * Move ctor
+     */
+    Atom(Atom&& x) noexcept;
+
+    /**
+     * Moving assign operator
+     */
+    Atom& operator=(Atom&& x) noexcept;
+
+    ~Atom();
 
     /**
      * Checks if atom is (0|1|true|false)
@@ -108,7 +113,7 @@ public:
     /**
      * @returns true if atom has logical type Atom::NONE
      */
-    bool isNone() const;
+    bool isNone() const { return type() == NONE; }
 
     /**
      * @returns true if atom has logical type Atom::SYMBOL
@@ -119,7 +124,7 @@ public:
     /**
      * @returns true if atom has logical type Atom::PROPERTY
      */
-    bool isProperty() const;
+    bool isProperty() const { return type() == PROPERTY; }
 
     /**
      * @returns true if atom has logical type Atom::FLOAT and value is integer
@@ -130,7 +135,7 @@ public:
      * template parameterized atom type check
      */
     template <typename T>
-    inline bool isA() const;
+    inline bool isA() const { return isDataType(T::dataType); }
 
     /**
      * template parameterized atom value as typed value
@@ -138,6 +143,13 @@ public:
      */
     template <typename T>
     inline T asT() const;
+
+    /**
+     * template parameterized atom value as pointer to typed value
+     * @warning no type checks are done
+     */
+    template <typename TData>
+    inline const TData* asD() const { return static_cast<const TData*>(asData()); }
 
     /**
      *template parameterized atom value as typed value
@@ -190,14 +202,14 @@ public:
      * @param def - default value if atom is not float(!)
      * @return atom float value on success, or default value on error
      */
-    t_float asFloat(t_float def = 0.f) const;
+    t_float asFloat(t_float def = 0.f) const { return isFloat() ? a_w.w_float : def; }
 
     /**
      * Try to get atom value as integer
      * @param def - default value if atom is not float
      * @return atom float value rounded to int on success, or default value on error
      */
-    int asInt(int def = 0) const;
+    int asInt(int def = 0) const { return isFloat() ? static_cast<int>(a_w.w_float) : def; }
 
     /**
      * Try to get atom value as unsigned integer
@@ -211,7 +223,7 @@ public:
      * @param def = default value if atom is not symbol
      * @return atom symbol value ot default on error
      */
-    t_symbol* asSymbol(t_symbol* def = &s_) const;
+    t_symbol* asSymbol(t_symbol* def = &s_) const { return isSymbol() ? a_w.w_symbol : def; }
 
     /**
      * reference to underlying PureData type
@@ -273,16 +285,7 @@ public:
      * @brief dataType
      * @return data type or 0 on error
      */
-    DataType dataType() const;
-
-    /**
-     * @brief dataId
-     * @return data id or 0 on error
-     */
-    DataId dataId() const;
-
-    CEAMMC_NO_ASAN DataDesc getData() const;
-    CEAMMC_NO_ASAN void setData(const DataDesc& d);
+    int dataType() const;
 
     /**
      * @returns true if atom is a data structure
@@ -292,7 +295,51 @@ public:
     /**
      * @returns true if atom is a data structure of specified type
      */
-    bool isDataType(DataType type) const;
+    bool isDataType(int type) const { return dataType() == type; }
+
+    /**
+     * Return pointer to data or nullptr if not a dataatom
+     */
+    const AbstractData* asData() const;
+
+    /**
+     * Return pointer to typed data or nullptr if not a dataatom
+     */
+    template <typename T>
+    const T* asDataT() const
+    {
+        if (!isDataType(T::dataType))
+            return nullptr;
+
+        return static_cast<const T*>(asData());
+    }
+
+    /**
+     * Return number of data references or 0 if not a dataatom
+     */
+    int refCount() const;
+
+    /**
+     * Parse symbol:
+     *  - '' -> &s_
+     *  - "" -> &s_
+     *  - '`'' -> '
+     *  - `` -> `
+     */
+    Atom parseQuoted() const;
+
+    bool isQuoted() const;
+    bool beginQuote() const;
+    bool endQuote() const;
+
+public:
+    static bool is_data(const t_atom& a);
+    static bool is_data(t_atom* a);
+
+private:
+    bool acquire();
+    bool release();
+    void setNull();
 };
 
 bool Atom::applyFloat(const FloatMapFunction& fn)
@@ -314,22 +361,32 @@ bool Atom::applySymbol(const SymbolMapFunction& fn)
 }
 
 template <>
+inline bool Atom::isA<void>() const { return isNone(); }
+template <>
 inline bool Atom::isA<bool>() const { return isBool(); }
 template <>
 inline bool Atom::isA<t_float>() const { return isFloat(); }
 template <>
 inline bool Atom::isA<int>() const { return isInteger(); }
 template <>
+inline bool Atom::isA<size_t>() const { return isInteger() && a_w.w_float >= 0; }
+template <>
 inline bool Atom::isA<t_symbol*>() const { return isSymbol(); }
+template <>
+inline bool Atom::isA<Atom>() const { return true; }
 
 template <>
 inline bool Atom::asT<bool>() const { return asBool(); }
 template <>
-inline t_float Atom::asT<t_float>() const { return a_w.w_float; }
-template <>
 inline int Atom::asT<int>() const { return static_cast<int>(a_w.w_float); }
 template <>
+inline t_float Atom::asT<t_float>() const { return a_w.w_float; }
+template <>
 inline t_symbol* Atom::asT<t_symbol*>() const { return a_w.w_symbol; }
+template <>
+inline Atom Atom::asT<Atom>() const { return *this; }
+template <>
+inline size_t Atom::asT<size_t>() const { return asSizeT(); }
 
 bool Atom::checkFloat(const FloatPredicate& fn) const { return isFloat() ? fn(asT<t_float>()) : false; }
 

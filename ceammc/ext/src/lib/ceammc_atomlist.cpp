@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "ceammc_atomlist.h"
 #include "ceammc_convert.h"
-#include "ceammc_dataatom.h"
+#include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "ceammc_output.h"
 
@@ -24,9 +24,13 @@
 #include <iterator>
 #include <string>
 
+extern "C" {
+#include "lex/quoted_string.parser.h"
+}
+
 namespace ceammc {
 
-typedef const Atom* (AtomList::*ElementAccessFn)(int)const;
+using ElementAccessFn = const Atom* (AtomList::*)(int)const;
 
 AtomList::AtomList()
 {
@@ -43,12 +47,7 @@ AtomList::AtomList(AtomList&& l) noexcept
 }
 
 AtomList::AtomList(const Atom& a)
-{
-    append(a);
-}
-
-AtomList::AtomList(const Atom& a, const Atom& b)
-    : atoms_({ a, b })
+    : atoms_({ a })
 {
 }
 
@@ -238,7 +237,7 @@ bool AtomList::property(t_symbol* name, Atom* dest) const
             continue;
 
         // found
-        if (name == atoms_[i].asT<t_symbol*>()) {
+        if (name == atoms_[i].asSymbol()) {
             if (i < (atoms_.size() - 1)) {
                 // if next property
                 if (atoms_[i + 1].isProperty())
@@ -270,7 +269,7 @@ bool AtomList::property(t_symbol* name, AtomList* dest) const
                 break;
 
             // prop found
-            if (name == atoms_[i].asT<t_symbol*>())
+            if (name == atoms_[i].asSymbol())
                 found = true;
         } else {
             // value
@@ -305,7 +304,7 @@ std::deque<AtomList> AtomList::properties() const
 bool AtomList::hasProperty(t_symbol* name) const
 {
     for (auto& a : atoms_) {
-        if (name == a.toT<t_symbol*>(nullptr))
+        if (name == a.asSymbol())
             return true;
     }
 
@@ -327,7 +326,7 @@ AtomList AtomList::mapFloat(const FloatMapFunction& fn, AtomListMapType t) const
 
         for (auto& a : atoms_) {
             if (a.isFloat())
-                res.atoms_.emplace_back(fn(a.asT<t_float>()));
+                res.atoms_.emplace_back(fn(a.asFloat()));
         }
 
         return res;
@@ -349,7 +348,7 @@ AtomList AtomList::mapSymbol(const SymbolMapFunction& fn, AtomListMapType t) con
 
         for (auto& a : atoms_) {
             if (a.isSymbol())
-                res.atoms_.emplace_back(fn(a.asT<t_symbol*>()));
+                res.atoms_.emplace_back(fn(a.asSymbol()));
         }
 
         return res;
@@ -590,20 +589,7 @@ long AtomList::findPos(AtomPredicate pred) const
 
 size_t AtomList::count(const Atom& a) const
 {
-    if (!a.isData()) {
-        return static_cast<size_t>(std::count(atoms_.begin(), atoms_.end(), a));
-    } else {
-        DataPtr dptr(a);
-        if (dptr.isNull())
-            return 0;
-
-        return static_cast<size_t>(std::count_if(atoms_.begin(), atoms_.end(), [&dptr](const Atom& el) {
-            if (!el.isData())
-                return false;
-
-            return DataPtr(el) == dptr;
-        }));
-    }
+    return static_cast<size_t>(std::count(atoms_.begin(), atoms_.end(), a));
 }
 
 size_t AtomList::count(AtomPredicate pred) const
@@ -645,14 +631,6 @@ bool AtomList::range(Atom& min, Atom& max) const
     return true;
 }
 
-size_t AtomList::asSizeT(size_t defaultValue) const
-{
-    if (empty())
-        return defaultValue;
-
-    return atoms_.front().asSizeT(defaultValue);
-}
-
 AtomListView AtomList::view(size_t from) const
 {
     if (from >= size())
@@ -681,8 +659,11 @@ static AtomList listAdd(const AtomList& a, const AtomList& b, ElementAccessFn fn
 
     const size_t sz = std::max(a.size(), b.size());
 
-    for (size_t i = 0; i < sz; i++)
-        res.append((a.*fn)(static_cast<int>(i))->asFloat() + (b.*fn)(static_cast<int>(i))->asFloat());
+    for (size_t i = 0; i < sz; i++) {
+        auto x = (a.*fn)(static_cast<int>(i))->asFloat();
+        auto y = (b.*fn)(static_cast<int>(i))->asFloat();
+        res.append(Atom(x + y));
+    }
 
     return res;
 }
@@ -873,6 +854,69 @@ bool AtomList::operator==(const AtomListView& x) const
     return true;
 }
 
+AtomList AtomList::parseQuoted() const
+{
+    if (empty())
+        return {};
+    else if (size() == 1)
+        return atoms_[0].parseQuoted();
+
+    // ceammc_quoted_string_debug = 1;
+
+    t_interval ranges[16];
+    t_interval* p = ranges;
+    t_param param = { 0, &p, 0 };
+
+    int status;
+    auto* ps = ceammc_quoted_string_pstate_new();
+    for (size_t i = 0; i < atoms_.size(); i++) {
+        const auto& a = atoms_[i];
+        param.idx = i;
+
+        auto s = a.asSymbol(nullptr);
+        if (s == nullptr) { // not a symbol
+            status = ceammc_quoted_string_push_parse(ps, TOK_SIMPLE_ATOM, 0, param);
+        } else if (s->s_name[0] == '"' && s->s_name[1] == '\0') { // single double quote
+            status = ceammc_quoted_string_push_parse(ps, TOK_DOUBLE_QUOTE, 0, param);
+        } else {
+            if (a.isQuoted()) {
+                status = ceammc_quoted_string_push_parse(ps, TOK_QUOTED_ATOM, 0, param);
+            } else if (a.beginQuote()) {
+                status = ceammc_quoted_string_push_parse(ps, TOK_DOUBLE_QUOTE_BEGIN, 0, param);
+            } else if (a.endQuote()) {
+                status = ceammc_quoted_string_push_parse(ps, TOK_DOUBLE_QUOTE_END, 0, param);
+            } else
+                status = ceammc_quoted_string_push_parse(ps, TOK_SIMPLE_ATOM, 0, param);
+        }
+
+        if (status != YYPUSH_MORE)
+            break;
+    }
+
+    // pushing END token
+    status = ceammc_quoted_string_push_parse(ps, TOK_STRING_END, 0, param);
+
+    ceammc_quoted_string_pstate_delete(ps);
+
+    const size_t N = std::distance(ranges, p);
+
+    AtomList res;
+    for (long i = 0; i < N; i++) {
+        auto r = ranges[i];
+
+        if (!r.compressed) {
+            for (int j = r.start; j <= r.end; j++)
+                res.append(atoms_[j]);
+        } else {
+            auto str = parse_quoted(slice(r.start, r.end));
+            auto a = Atom(gensym(str.c_str()));
+            res.append(a);
+        }
+    }
+
+    return res;
+}
+
 std::ostream& operator<<(std::ostream& os, const AtomList& l)
 {
     os << "[ ";
@@ -966,7 +1010,7 @@ AtomList AtomList::filteredFloat(const FloatPredicate& pred) const
     res.atoms_.reserve(atoms_.size());
 
     for (auto& a : atoms_) {
-        if (a.isFloat() && pred(a.asT<t_float>()))
+        if (a.isFloat() && pred(a.asFloat()))
             res.atoms_.push_back(a);
     }
 
@@ -982,7 +1026,7 @@ AtomList AtomList::filteredSymbol(const SymbolPredicate& pred) const
     res.atoms_.reserve(atoms_.size());
 
     for (auto& a : atoms_) {
-        if (a.isSymbol() && pred(a.asT<t_symbol*>()))
+        if (a.isSymbol() && pred(a.asSymbol()))
             res.atoms_.push_back(a);
     }
 

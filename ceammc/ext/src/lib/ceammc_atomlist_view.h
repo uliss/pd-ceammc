@@ -60,7 +60,7 @@ public:
     bool isSymbol() const { return data_ && n_ == 1 && atom().a_type == A_SYMBOL; }
     bool isAtom() const { return data_ && n_ == 1; }
     bool isData() const { return data_ && n_ == 1 && data_->isData(); }
-    bool isDataType(DataType t) const { return data_ && n_ == 1 && data_->isDataType(t); }
+    bool isDataType(int t) const { return data_ && n_ == 1 && data_->isDataType(t); }
     template <typename T>
     bool isA() const;
 

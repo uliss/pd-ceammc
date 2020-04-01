@@ -717,19 +717,21 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
 
     SECTION("floatIterator")
     {
-        AtomList a(LA(1, "a", -2, 3));
+        AtomList a(1, "a", -2, 3);
         REQUIRE(*std::min_element(a.begin_atom_filter(isFloat), a.end_atom_filter()) == LX(-2));
         REQUIRE(*std::max_element(a.begin_atom_filter(isFloat), a.end_atom_filter()) == LX(3));
         REQUIRE(*std::min_element(a.begin(), a.end()) == LX(-2));
         REQUIRE(*std::max_element(a.begin(), a.end()) == LA("a"));
 
-        AtomList a1(LA("a", "b", "c", "d", "e"));
-        REQUIRE(std::min_element(a1.begin_atom_filter(isFloat), a1.end_atom_filter()) == a1.end_atom_filter());
-        REQUIRE(std::max_element(a1.begin_atom_filter(isFloat), a1.end_atom_filter()) == a1.end_atom_filter());
+        AtomList a1("a", "b", "c", "d", "e");
+        auto e = a1.end_atom_filter();
+        REQUIRE(std::min_element(a1.begin_atom_filter(isFloat), e) == e);
+
+        REQUIRE(std::max_element(a1.begin_atom_filter(isFloat), e) == e);
         REQUIRE(std::min_element(a1.begin(), a1.end()) != a1.end());
         REQUIRE(std::max_element(a1.begin(), a1.end()) != a1.end());
 
-        AtomList a2(LA("a", "b", 1, "c", "d", "e"));
+        AtomList a2("a", "b", 1, "c", "d", "e");
         REQUIRE(std::min_element(a2.begin_atom_filter(isFloat), a2.end_atom_filter()) != a2.end_atom_filter());
         REQUIRE(std::max_element(a2.begin_atom_filter(isFloat), a2.end_atom_filter()) != a2.end_atom_filter());
         REQUIRE(std::min_element(a2.begin(), a2.end()) != a2.end());
@@ -954,5 +956,19 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
         REQUIRE_PARSED("\" `\" \"", LA(" \" "));
 
         REQUIRE(L().parseQuoted() == AtomList());
+    }
+
+    SECTION("template create")
+    {
+        AtomList l(true, 2, 2.5, 1.5f, gensym("ABC"), "def", std::string(" "), new IntData(100));
+        REQUIRE(l[0] == Atom(1));
+        REQUIRE(l[1] == Atom(2));
+        REQUIRE(l[2] == Atom(2.5));
+        REQUIRE(l[3] == Atom(1.5));
+        REQUIRE(l[4] == Atom(gensym("ABC")));
+        REQUIRE(l[5] == Atom(gensym("def")));
+        REQUIRE(l[6] == Atom(gensym(" ")));
+        REQUIRE(l[7] == Atom(new IntData(100)));
+        REQUIRE(l.size() == 8);
     }
 }

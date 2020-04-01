@@ -15,8 +15,6 @@
 #include "string_str.h"
 #include "test_external.h"
 
-#include "catch.hpp"
-
 PD_COMPLETE_TEST_SETUP(StringStr, string, str)
 
 using namespace ceammc;
@@ -29,22 +27,21 @@ using namespace ceammc;
         t.clearAll();                                                    \
     }
 
-#define NO_DATA(t) REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+#define NO_DATA(t) REQUIRE_FALSE(t.hasOutputAt(0));
 
-TEST_CASE("string.str", "[external]")
+TEST_CASE("string", "[external]")
 {
     pd_test_init();
-    test::pdPrintToStdError();
 
     SECTION("create")
     {
         SECTION("empty")
         {
-            TestExtStringStr t("string.str");
+            TestExtStringStr t("string");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
-            WHEN_SEND_BANG_TO(0, t);
+            t.bang();
             REQUIRE_STRING(t, "");
 
             t->dump();
@@ -52,138 +49,134 @@ TEST_CASE("string.str", "[external]")
 
         SECTION("float arg")
         {
-            TestExtStringStr t("string.str", LF(111));
-            WHEN_SEND_BANG_TO(0, t);
+            TestExtStringStr t("str", LF(111));
+            t.bang();
             REQUIRE_STRING(t, "111");
         }
 
         SECTION("list args")
         {
-            TestExtStringStr t("string.str", LA(1, 2, "?"));
-            WHEN_SEND_BANG_TO(0, t);
+            TestExtStringStr t("string", LA("\"1", 2, "?\""));
+            t.bang();
             REQUIRE_STRING(t, "1 2 ?");
+        }
+
+        SECTION("list args")
+        {
+            TestExtStringStr t("string", LF(1, 2, 3));
+            t.bang();
+            REQUIRE_STRING(t, "1 2 3");
         }
     }
 
     SECTION("onFloat")
     {
-        TestExtStringStr t("string.str");
-        WHEN_SEND_FLOAT_TO(0, t, -200);
+        TestExtStringStr t("string");
+        t.sendFloat(-200);
         REQUIRE_STRING(t, "-200");
 
-        WHEN_SEND_FLOAT_TO(0, t, 100.1f);
-        REQUIRE_STRING(t, "100.1");
+        t.sendFloat(10.5);
+        REQUIRE_STRING(t, "10.5");
     }
 
     SECTION("onSymbol")
     {
-        TestExtStringStr t("string.str");
-        WHEN_SEND_SYMBOL_TO(0, t, "ABC");
+        TestExtStringStr t("string");
+        t.sendSymbol("ABC");
         REQUIRE_STRING(t, "ABC");
 
-        WHEN_SEND_SYMBOL_TO(0, t, "XYZ");
+        t.sendSymbol("XYZ");
         REQUIRE_STRING(t, "XYZ");
     }
 
     SECTION("onData")
     {
-        TestExtStringStr t("string.str");
+        TestExtStringStr t("string");
 
-        WHEN_SEND_DATA_TO(0, t, DataTypeString("test string"));
+        t.sendList(new DataTypeString("test string"));
         REQUIRE_STRING(t, "test string");
     }
 
     SECTION("onList")
     {
-        TestExtStringStr t("string.str");
+        TestExtStringStr t("string");
 
-        WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
+        t.sendList(1, 2, 3);
         REQUIRE_STRING(t, "1 2 3");
 
-        WHEN_SEND_LIST_TO(0, t, LA(1, StringAtom("a b c"), 3));
+        t.sendList(1, StringAtom("a b c"), 3);
         REQUIRE_STRING(t, "1 a b c 3");
 
-        WHEN_SEND_LIST_TO(0, t, LA(1, new IntData(100), 3));
+        t.sendList(1, new IntData(100), 3);
         REQUIRE_STRING(t, "1 100 3");
     }
 
     SECTION("clear")
     {
-        TestExtStringStr t("string.str", LA("a", "b"));
-        WHEN_SEND_BANG_TO(0, t);
+        TestExtStringStr t("string", LA("\"a", "b\""));
+        t.bang();
         REQUIRE_STRING(t, "a b");
 
-        WHEN_CALL(t, clear);
+        t.call("clear");
         NO_DATA(t);
-        WHEN_SEND_BANG_TO(0, t);
+        t.bang();
         REQUIRE_STRING(t, "");
 
-        WHEN_SEND_SYMBOL_TO(0, t, "ABC");
+        t.sendSymbol("ABC");
         REQUIRE_STRING(t, "ABC");
     }
 
     SECTION("set")
     {
-        TestExtStringStr t("string.str", LA("a", "b"));
-        WHEN_SEND_BANG_TO(0, t);
+        TestExtStringStr t("string", LA("a", "b"));
+        t.bang();
         REQUIRE_STRING(t, "a b");
 
-        WHEN_CALL_N(t, set, "a");
+        t.call("set", LA("a"));
         NO_DATA(t);
-        WHEN_SEND_BANG_TO(0, t);
+        t.bang();
         REQUIRE_STRING(t, "a");
 
-        WHEN_CALL_N(t, set, "a", "b");
+        t.call("set", "a", "b");
         NO_DATA(t);
-        WHEN_SEND_BANG_TO(0, t);
+        t.bang();
         REQUIRE_STRING(t, "a b");
 
-        WHEN_CALL_N(t, set, "a", "b", Atom(DataDesc(100, 200)));
-        WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_STRING(t, "a b ???");
-
-        DataPtr p(new DataTypeString("STRING"));
-
-        WHEN_CALL_N(t, set, "a", "b", p.asAtom());
-        WHEN_SEND_BANG_TO(0, t);
+        t.call("set", "a", "b", new StrData("STRING"));
+        t.bang();
         REQUIRE_STRING(t, "a b STRING");
 
-        WHEN_CALL_N(t, set, "a", "b", p.asAtom(), p.asAtom());
-        WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_STRING(t, "a b STRING STRING");
+        t.call("set", "a", "b", new DataTypeString("STRING"), new IntData(1000));
+        t.bang();
+        REQUIRE_STRING(t, "a b STRING 1000");
     }
 
     SECTION("append")
     {
-        TestExtStringStr t("string.str");
+        TestExtStringStr t("string");
 
-        WHEN_SEND_BANG_TO(0, t);
+        t.bang();
         REQUIRE_STRING(t, "");
 
-        WHEN_CALL(t, append);
+        t.call("append");
         NO_DATA(t);
-        WHEN_SEND_BANG_TO(0, t);
+        t.bang();
         REQUIRE_STRING(t, "");
 
-        WHEN_CALL_N(t, append, 1000);
-        WHEN_SEND_BANG_TO(0, t);
+        t.call("append", 1000);
+        t.bang();
         REQUIRE_STRING(t, "1000");
 
-        WHEN_CALL_N(t, append, 2000);
-        WHEN_SEND_BANG_TO(0, t);
+        t.call("append", 2000);
+        t.bang();
         REQUIRE_STRING(t, "10002000");
 
-        WHEN_CALL_N(t, append, "a", "b");
-        WHEN_SEND_BANG_TO(0, t);
+        t.call("append", "a", "b");
+        t.bang();
         REQUIRE_STRING(t, "10002000a b");
 
-        WHEN_CALL_N(t, append, Atom(DataDesc(100, 200)));
-        WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_STRING(t, "10002000a b???");
-
-        DataPtr p(new DataTypeString("STRING"));
-        WHEN_CALL_N(t, append, p.asAtom());
-        WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_STRING(t, "10002000a b???STRING");
+        t.call("append", new DataTypeString("STRING"));
+        t.bang();
+        REQUIRE_STRING(t, "10002000a bSTRING");
     }
 }

@@ -23,6 +23,7 @@
 #include <functional>
 #include <initializer_list>
 #include <string>
+#include <type_traits>
 #include <vector>
 
 namespace ceammc {
@@ -53,11 +54,16 @@ public:
     AtomList(const AtomList& l);
     AtomList(AtomList&& l) noexcept;
     AtomList(const Atom& a);
-    AtomList(const Atom& a, const Atom& b);
     AtomList(size_t n, t_atom* lst);
     explicit AtomList(int n, t_atom* lst);
     AtomList(std::initializer_list<t_float> l);
     AtomList(std::initializer_list<Atom> l);
+
+    template <typename... Args>
+    explicit AtomList(Args... args)
+        : atoms_({ atomFrom(args)... })
+    {
+    }
 
     void operator=(const AtomList& l);
     void operator=(AtomList&& l);
@@ -65,7 +71,10 @@ public:
     /**
      * Returns number of elements in list
      */
-    size_t size() const { return atoms_.size(); }
+    size_t size() const
+    {
+        return atoms_.size();
+    }
 
     /**
      * Reserves space to avoid extra memory reallocations
@@ -77,24 +86,77 @@ public:
      * Checks if list is empty
      * @return true if list is empty
      */
-    bool empty() const { return atoms_.empty(); }
+    bool empty() const
+    {
+        return atoms_.empty();
+    }
 
     // iterators
-    iterator begin() { return atoms_.begin(); }
-    const_iterator begin() const { return atoms_.begin(); }
-    iterator end() { return atoms_.end(); }
-    const_iterator end() const { return atoms_.end(); }
-    const_iterator cbegin() const { return atoms_.cbegin(); }
-    const_iterator cend() const { return atoms_.cend(); }
-    reverse_iterator rbegin() { return atoms_.rbegin(); }
-    const_reverse_iterator rbegin() const { return atoms_.rbegin(); }
-    reverse_iterator rend() { return atoms_.rend(); }
-    const_reverse_iterator rend() const { return atoms_.rend(); }
-    const_reverse_iterator crbegin() { return atoms_.crbegin(); }
-    const_reverse_iterator crend() const { return atoms_.crend(); }
+    iterator begin()
+    {
+        return atoms_.begin();
+    }
+    const_iterator begin() const
+    {
+        return atoms_.begin();
+    }
+    iterator end()
+    {
+        return atoms_.end();
+    }
+    const_iterator end() const
+    {
+        return atoms_.end();
+    }
+    const_iterator cbegin() const
+    {
+        return atoms_.cbegin();
+    }
+    const_iterator cend() const
+    {
+        return atoms_.cend();
+    }
+    reverse_iterator rbegin()
+    {
+        return atoms_.rbegin();
+    }
+    const_reverse_iterator rbegin() const
+    {
+        return atoms_.rbegin();
+    }
+    reverse_iterator rend()
+    {
+        return atoms_.rend();
+    }
+    const_reverse_iterator rend() const
+    {
+        return atoms_.rend();
+    }
+    const_reverse_iterator crbegin()
+    {
+        return atoms_.crbegin();
+    }
+    const_reverse_iterator crend() const
+    {
+        return atoms_.crend();
+    }
 
-    const_atom_filter_iterator begin_atom_filter(AtomPredicate pred) const { return const_atom_filter_iterator(pred, begin(), end()); }
-    const_atom_filter_iterator end_atom_filter() const { return const_atom_filter_iterator(nullptr, end(), end()); }
+    atom_filter_iterator begin_atom_filter(AtomPredicate pred)
+    {
+        return atom_filter_iterator(pred, begin(), end());
+    }
+    atom_filter_iterator end_atom_filter()
+    {
+        return atom_filter_iterator(nullptr, end(), end());
+    }
+    const_atom_filter_iterator begin_atom_filter(AtomPredicate pred) const
+    {
+        return const_atom_filter_iterator(pred, begin(), end());
+    }
+    const_atom_filter_iterator end_atom_filter() const
+    {
+        return const_atom_filter_iterator(nullptr, end(), end());
+    }
 
     /**
      * @brief returns reference to element at specified position
@@ -102,10 +164,22 @@ public:
      * @return reference to element
      * @throw exception if invalid position given
      */
-    Atom& at(size_t pos) { return atoms_.at(pos); }
-    const Atom& at(size_t pos) const { return atoms_.at(pos); }
-    Atom& operator[](size_t pos) { return atoms_.at(pos); }
-    const Atom& operator[](size_t pos) const { return atoms_.at(pos); }
+    Atom& at(size_t pos)
+    {
+        return atoms_.at(pos);
+    }
+    const Atom& at(size_t pos) const
+    {
+        return atoms_.at(pos);
+    }
+    Atom& operator[](size_t pos)
+    {
+        return atoms_.at(pos);
+    }
+    const Atom& operator[](size_t pos) const
+    {
+        return atoms_.at(pos);
+    }
 
     /**
      * @brief returns pointer to element at specified relative position
@@ -224,7 +298,10 @@ public:
      * @return true in property found
      */
     bool hasProperty(t_symbol* name) const;
-    bool hasProperty(const char* name) const { return hasProperty(gensym(name)); }
+    bool hasProperty(const char* name) const
+    {
+        return hasProperty(gensym(name));
+    }
 
     /**
      * New list with mapped atom values
@@ -297,12 +374,18 @@ public:
     /**
      * Returns pointer to Pd list data
      */
-    t_atom* toPdData() const { return reinterpret_cast<t_atom*>(const_cast<Atom*>(atoms_.data())); }
+    t_atom* toPdData() const
+    {
+        return reinterpret_cast<t_atom*>(const_cast<Atom*>(atoms_.data()));
+    }
 
     /**
      * Appends atom to the end of list
      */
-    void append(const Atom& a) { atoms_.push_back(a); }
+    void append(const Atom& a)
+    {
+        atoms_.push_back(a);
+    }
 
     /**
      * Appends another list to the end of list
@@ -345,24 +428,51 @@ public:
     /**
      * types
      */
-    bool isBang() const { return empty(); }
-    bool isBool() const { return atoms_.size() == 1 && atoms_[0].isBool(); }
-    bool isFloat() const { return atoms_.size() == 1 && atoms_[0].isFloat(); }
-    bool isInteger() const { return atoms_.size() == 1 && atoms_[0].isInteger(); }
-    bool isSymbol() const { return atoms_.size() == 1 && atoms_[0].isSymbol(); }
-    bool isProperty() const { return atoms_.size() == 1 && atoms_[0].isProperty(); }
-    bool isAtom() const { return atoms_.size() == 1; }
-    bool isList() const { return atoms_.size() > 1; }
-    bool isData() const { return atoms_.size() == 1 && atoms_.front().isData(); }
-    bool isDataType(DataType t) const { return atoms_.size() == 1 && atoms_.front().isDataType(t); }
-    template <class T>
-    bool isDataType() const { return isDataType(T::dataType); }
+    bool isBang() const
+    {
+        return empty();
+    }
+    bool isBool() const
+    {
+        return atoms_.size() == 1 && atoms_[0].isBool();
+    }
+    bool isFloat() const
+    {
+        return atoms_.size() == 1 && atoms_[0].isFloat();
+    }
+    bool isInteger() const
+    {
+        return atoms_.size() == 1 && atoms_[0].isInteger();
+    }
+    bool isSymbol() const
+    {
+        return atoms_.size() == 1 && atoms_[0].isSymbol();
+    }
+    bool isProperty() const
+    {
+        return atoms_.size() == 1 && atoms_[0].isProperty();
+    }
+    bool isAtom() const
+    {
+        return atoms_.size() == 1;
+    }
+    bool isList() const
+    {
+        return atoms_.size() > 1;
+    }
+    bool isData() const
+    {
+        return atoms_.size() == 1 && atoms_.front().isData();
+    }
 
     /**
      * Check if list is of specified type
      */
     template <typename T>
-    inline bool isA() const { return atoms_.size() == 1 && atoms_[0].isA<T>(); }
+    inline bool isA() const
+    {
+        return atoms_.size() == 1 && atoms_[0].isA<T>();
+    }
 
     /**
      * Sorts list values in ascending order
@@ -425,6 +535,7 @@ public:
     bool contains(const Atom& a) const;
     long findPos(const Atom& a) const;
     long findPos(AtomPredicate pred) const;
+
     size_t count(const Atom& a) const;
     size_t count(AtomPredicate pred) const;
 
@@ -432,7 +543,45 @@ public:
     bool anyOf(AtomPredicate pred) const;
     bool noneOf(AtomPredicate pred) const;
 
-    size_t asSizeT(size_t defaultValue = 0) const;
+    /**
+     * Convert atomlist to parametrised type
+     * @throw std::logic_error on error
+     * @see Atom::asT
+     */
+    template <typename T>
+    T asT() const
+    {
+        if (atoms_.size() != 1)
+            throw std::logic_error("not a single atom list");
+        else
+            return atoms_[0].asT<T>();
+    }
+
+    /**
+     * Get list value
+     * @return def value if list contains other type then specified
+     */
+    template <typename T>
+    T toT(T def) const
+    {
+        if (isA<T>())
+            return asT<T>();
+        else
+            return def;
+    }
+
+    /**
+     * Returns pointer to data
+     * @warning no type checks are done
+     */
+    template <typename T>
+    const T* asD() const
+    {
+        if (atoms_.size() != 1)
+            return nullptr;
+        else
+            return atoms_[0].asD<T>();
+    }
 
     enum NonEqualLengthBehaivor {
         MINSIZE = 0, // result of min size
@@ -445,7 +594,10 @@ public:
     /**
      * Return full list view
      */
-    AtomListView view() const { return AtomListView(toPdData(), atoms_.size()); }
+    AtomListView view() const
+    {
+        return AtomListView(toPdData(), atoms_.size());
+    }
 
     /**
      * Return list view from specified position till the end
@@ -493,20 +645,40 @@ public:
     AtomList operator/(t_float v) const;
 
     bool operator==(const AtomList& x) const;
-    bool operator!=(const AtomList& x) const { return !operator==(x); }
+    bool operator!=(const AtomList& x) const
+    {
+        return !operator==(x);
+    }
     bool operator==(const AtomListView& x) const;
-    bool operator!=(const AtomListView& x) const { return !operator==(x); }
+    bool operator!=(const AtomListView& x) const
+    {
+        return !operator==(x);
+    }
 
     friend class AtomListView;
+
+    AtomList parseQuoted() const;
 
 private:
     Container atoms_;
 };
 
 template <>
-inline bool AtomList::isA<Atom>() const { return size() == 1; }
+inline bool AtomList::isA<Atom>() const
+{
+    return size() == 1;
+}
 template <>
-inline bool AtomList::isA<AtomList>() const { return true; }
+inline bool AtomList::isA<AtomList>() const
+{
+    return true;
+}
+
+template <>
+inline AtomList AtomList::asT<AtomList>() const
+{
+    return *this;
+}
 
 AtomList operator+(const AtomList& l1, const AtomList& l2);
 AtomList operator+(const AtomList& l, const Atom& a);
@@ -539,7 +711,10 @@ AtomList listFrom(const std::vector<std::string>& v);
 AtomList listFrom(const AtomList& v);
 
 template <typename T>
-static T atomlistToValue(const AtomList&, const T& def) { return def; }
+static T atomlistToValue(const AtomList&, const T& def)
+{
+    return def;
+}
 
 template <>
 bool atomlistToValue(const AtomList& l, const bool& def)

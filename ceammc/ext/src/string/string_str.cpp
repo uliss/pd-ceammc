@@ -19,63 +19,58 @@
 
 StringStr::StringStr(const PdArgs& a)
     : BaseObject(a)
-    , str_(parse_quoted(positionalArguments()))
 {
+    addProperty(new ListProperty("@value", AtomList(&s_)))
+        ->setSuccessFn([this](Property* p) { str_ = to_string(p->get()); });
+    property("@value")->setArgIndex(0);
+
     createOutlet();
 }
 
 void StringStr::onBang()
 {
-    atomTo(0, str_);
+    atomTo(0, StringAtom(str_));
 }
 
 void StringStr::onFloat(t_float f)
 {
     char buf[20];
     sprintf(buf, "%g", f);
-    str_->str() = buf;
+    str_ = buf;
     onBang();
 }
 
 void StringStr::onSymbol(t_symbol* s)
 {
-    str_->str() = s->s_name;
+    str_ = s->s_name;
     onBang();
 }
 
 void StringStr::onList(const AtomList& l)
 {
-    str_->str() = to_string(l);
+    str_ = to_string(l);
     onBang();
 }
 
 void StringStr::onData(const Atom& d)
 {
-    str_->str() = d.asData()->toString();
+    str_ = d.asData()->toString();
     onBang();
-}
-
-void StringStr::dump() const
-{
-    OBJ_DBG << "DATA: STRING";
-    BaseObject::dump();
-    OBJ_DBG << "refcount: " << str_.refCount();
-    OBJ_DBG << "content:  " << str_->str();
 }
 
 void StringStr::m_append(t_symbol*, const AtomList& lst)
 {
-    str_->str() += to_string(lst);
+    str_ += to_string(lst);
 }
 
 void StringStr::m_set(t_symbol*, const AtomList& lst)
 {
-    str_->str() = to_string(lst);
+    str_ = to_string(lst);
 }
 
 void StringStr::m_clear(t_symbol*, const AtomList&)
 {
-    str_->clear();
+    str_.clear();
 }
 
 void setup_string_str()
