@@ -275,6 +275,7 @@ ceammc_external_test(system getenv)
 ceammc_external_test(system shell)
 target_include_directories(test_ext_system_shell PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/extra)
 
+ceammc_external_test(path exists)
 ceammc_external_test(path lsdir)
 
 ceammc_external_test(spat pan_lin)

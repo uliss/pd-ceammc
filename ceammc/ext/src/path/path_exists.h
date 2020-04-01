@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2018 Serge Poltavsky. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,22 +11,24 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "test_wrappers.h"
+#ifndef PATH_EXISTS_H
+#define PATH_EXISTS_H
 
-Atom test_atom_wrap(const char* v)
-{
-    return Atom(gensym(v));
-}
+#include "ceammc_data.h"
+#include "ceammc_object.h"
 
-Atom test_atom_wrap(t_symbol* v)
-{
-    return Atom(v);
-}
-Atom test_atom_wrap(float v)
-{
-    return Atom(v);
-}
-Atom test_atom_wrap(const Atom& v)
-{
-    return v;
-}
+using namespace ceammc;
+
+class PathExists : public BaseObject {
+public:
+    PathExists(const PdArgs& a);
+
+    void onSymbol(t_symbol* s) override;
+    void onList(const AtomList& l) override;
+
+    void onDataT(const DataTypeString* dptr);
+};
+
+void setup_path_exists();
+
+#endif // PATH_EXISTS_H

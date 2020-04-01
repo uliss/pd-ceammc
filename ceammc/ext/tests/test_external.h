@@ -55,6 +55,7 @@ extern "C" t_float* get_sys_dacsr();
         pd_init();                  \
         LogExternalOutput::setup(); \
         ListenerExternal::setup();  \
+        test::pdPrintToStdError();  \
     }
 
 #define PD_TEST_MOD_INIT(mod, name)               \
@@ -63,26 +64,26 @@ extern "C" t_float* get_sys_dacsr();
         setup_##mod##_##name();                   \
     }
 
-#define PD_TEST_FULL_INIT(mod, name)       \
-    static void pd_test_init()             \
-    {                                      \
-        static bool done = false;          \
-        if (done)                          \
-            return;                        \
-        pd_test_core_init();               \
-        pd_test_mod_init_##mod##_##name(); \
-        done = true;                       \
-    }                                      \
-    template <typename F>                  \
-    static void pd_test_init(F fn)         \
-    {                                      \
-        static bool done = false;          \
-        if (done)                          \
-            return;                        \
-        pd_test_core_init();               \
-        pd_test_mod_init_##mod##_##name(); \
-        fn();                              \
-        done = true;                       \
+#define PD_TEST_FULL_INIT(mod, name)          \
+    CEAMMC_NO_ASAN static void pd_test_init() \
+    {                                         \
+        static bool done = false;             \
+        if (done)                             \
+            return;                           \
+        pd_test_core_init();                  \
+        pd_test_mod_init_##mod##_##name();    \
+        done = true;                          \
+    }                                         \
+    template <typename F>                     \
+    static void pd_test_init(F fn)            \
+    {                                         \
+        static bool done = false;             \
+        if (done)                             \
+            return;                           \
+        pd_test_core_init();                  \
+        pd_test_mod_init_##mod##_##name();    \
+        fn();                                 \
+        done = true;                          \
     }
 
 #define PD_COMPLETE_TEST_SETUP(T, mod, name) \
@@ -241,6 +242,12 @@ public:
         sendMessage(method, l);
     }
 
+    template <typename... Args>
+    void call(const char* method, Args... args)
+    {
+        call(method, AtomList({ test_atom_wrap(args)... }));
+    }
+
     void bang()
     {
         clearAll();
@@ -274,19 +281,6 @@ public:
     {
         clearAll();
         sendList(lst);
-    }
-
-    void send(const AbstractData& data)
-    {
-        clearAll();
-        DataPtr ptr(data.clone());
-        sendList(AtomList(ptr.asAtom()));
-    }
-
-    void send(const DataPtr& ptr)
-    {
-        clearAll();
-        sendList(AtomList(ptr.asAtom()));
     }
 
     void sendBangTo(size_t inlet)
@@ -507,7 +501,7 @@ public:
         return outs_.at(n)->msg().anyValue();
     }
 
-    float outputFloatAt(size_t n) const
+    t_float outputFloatAt(size_t n) const
     {
         return outs_.at(n)->msg().atomValue().asFloat();
     }
@@ -515,11 +509,6 @@ public:
     Atom outputAtomAt(size_t n) const
     {
         return outs_.at(n)->msg().atomValue();
-    }
-
-    DataPtr outputDataAt(size_t n) const
-    {
-        return outs_.at(n)->msg().dataValue();
     }
 
     t_symbol* outputSymbolAt(size_t n) const
@@ -602,12 +591,11 @@ public:
 
     ~TestPdExternal()
     {
-        for (size_t i = 0; i < outs_.size(); i++)
-            delete outs_[i];
+        for (auto p : outs_)
+            delete p;
 
-        ListenerMap::iterator it = listeners_.begin();
-        for (; it != listeners_.end(); ++it)
-            delete it->second;
+        for (auto& kv : listeners_)
+            delete kv.second;
     }
 
     TestPdExternal& operator<<(const PropertySetter& p)

@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2018 Serge Poltavsky. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,22 +11,30 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "test_wrappers.h"
+#include "datatype_string.h"
+#include "path_exists.h"
+#include "test_external.h"
 
-Atom test_atom_wrap(const char* v)
-{
-    return Atom(gensym(v));
-}
+PD_COMPLETE_TEST_SETUP(PathExists, path, exists)
 
-Atom test_atom_wrap(t_symbol* v)
+#ifndef TEST_DATA_DIR
+#define TEST_DATA_DIR "."
+#endif
+
+TEST_CASE("path.exists", "[externals]")
 {
-    return Atom(v);
-}
-Atom test_atom_wrap(float v)
-{
-    return Atom(v);
-}
-Atom test_atom_wrap(const Atom& v)
-{
-    return v;
+    pd_test_init();
+
+    SECTION("init")
+    {
+        TestExtPathExists t("path.exists");
+        REQUIRE(t.numInlets() == 1);
+        REQUIRE(t.numOutlets() == 1);
+
+        t.sendSymbol(TEST_DATA_DIR "/test_data0.mp3");
+        REQUIRE(t.outputFloatAt(0) == 1);
+
+        t.sendSymbol(TEST_DATA_DIR "/test_data0.mp3???");
+        REQUIRE(t.outputFloatAt(0) == 0);
+    }
 }
