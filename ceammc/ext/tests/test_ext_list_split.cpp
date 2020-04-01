@@ -11,9 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "ceammc_data.h"
 #include "datatype_mlist.h"
-#include "../list/list_split.h"
-#include "test_base.h"
+#include "list_split.h"
 #include "test_external.h"
 
 PD_COMPLETE_TEST_SETUP(ListSplit, list, split)
@@ -56,28 +56,28 @@ TEST_CASE("list.split", "[externals]")
     {
         TestExtListSplit t("list.split", LF(3));
 
-        t.send(DataTypeMList());
-        REQUIRE(t.outputDataAt(1) == DataPtr(new DataTypeMList));
-        REQUIRE(t.outputDataAt(0) == DataPtr(new DataTypeMList));
+        t.send(MListAtom());
+        REQUIRE(t.outputAtomAt(1) == MListAtom());
+        REQUIRE(t.outputAtomAt(0) == MListAtom());
 
-        t.send(DataTypeMList("(1)"));
-        REQUIRE(t.outputDataAt(0) == DataPtr(new DataTypeMList("(1)")));
-        REQUIRE(t.outputDataAt(1) == DataPtr(new DataTypeMList));
+        t.send(MListAtom("(1)"));
+        REQUIRE(t.outputAtomAt(0) == MListAtom("(1)"));
+        REQUIRE(t.outputAtomAt(1) == MListAtom());
 
-        t.send(DataTypeMList("(1 2)"));
-        REQUIRE(t.outputDataAt(0) == DataPtr(new DataTypeMList("(1 2)")));
-        REQUIRE(t.outputDataAt(1) == DataPtr(new DataTypeMList));
+        t.send(MListAtom("(1 2)"));
+        REQUIRE(t.outputAtomAt(0) == MListAtom("(1 2)"));
+        REQUIRE(t.outputAtomAt(1) == MListAtom());
 
-        t.send(DataTypeMList("(1 2 3)"));
-        REQUIRE(t.outputDataAt(0) == DataPtr(new DataTypeMList("(1 2 3)")));
-        REQUIRE(t.outputDataAt(1) == DataPtr(new DataTypeMList));
+        t.send(MListAtom("(1 2 3)"));
+        REQUIRE(t.outputAtomAt(0) == MListAtom("(1 2 3)"));
+        REQUIRE(t.outputAtomAt(1) == MListAtom());
 
-        t.send(DataTypeMList("(1 2 3 4)"));
-        REQUIRE(t.outputDataAt(0) == DataPtr(new DataTypeMList("(1 2 3)")));
-        REQUIRE(t.outputDataAt(1) == DataPtr(new DataTypeMList("(4)")));
+        t.send(MListAtom("(1 2 3 4)"));
+        REQUIRE(t.outputAtomAt(0) == MListAtom("(1 2 3)"));
+        REQUIRE(t.outputAtomAt(1) == MListAtom("(4)"));
 
-        t.send(DataTypeMList("(1 2 3 4 5)"));
-        REQUIRE(t.outputDataAt(0) == DataPtr(new DataTypeMList("(1 2 3)")));
-        REQUIRE(t.outputDataAt(1) == DataPtr(new DataTypeMList("(4 5)")));
+        t.send(MListAtom("(1 2 3 4 5)"));
+        REQUIRE(t.outputAtomAt(0) == MListAtom("(1 2 3)"));
+        REQUIRE(t.outputAtomAt(1) == MListAtom("(4 5)"));
     }
 }

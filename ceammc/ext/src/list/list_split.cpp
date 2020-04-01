@@ -29,20 +29,20 @@ void ListSplit::onList(const AtomList& l)
     listTo(0, l1);
 }
 
-void ListSplit::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void ListSplit::onDataT(const DataTypeMList* ml)
 {
-    DataTypeMList l1;
-    DataTypeMList l2;
+    MListAtom l1;
+    MListAtom l2;
 
-    for (size_t i = 0; i < dptr->size(); i++) {
+    for (size_t i = 0; i < ml->size(); i++) {
         if (i < index_->value())
-            l1.append((*dptr)[i]);
+            l1->append((*ml)[i]);
         else
-            l2.append((*dptr)[i]);
+            l2->append((*ml)[i]);
     }
 
-    dataTo(1, DataTPtr<DataTypeMList>(l2));
-    dataTo(0, DataTPtr<DataTypeMList>(l1));
+    atomTo(1, l2);
+    atomTo(0, l1);
 }
 
 void setup_list_split()
