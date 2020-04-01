@@ -52,7 +52,7 @@
 extern int ceammc_quoted_string_debug;
 #endif
 /* "%code requires" blocks.  */
-#line 17 "quoted_string.yy"
+#line 17 "quoted_string.y"
 
     # include <stddef.h>
     # include <stdio.h>
@@ -65,14 +65,15 @@ extern int ceammc_quoted_string_debug;
 
     typedef struct param {
         size_t idx;
-        t_interval** pp;
+        t_interval** isp; // interval stack pointer
         size_t n;
+        const size_t max_n;
     } t_param;
 
     void push_range(t_param* p, t_interval rng);
-    void yyerror(t_param param, const char *s);
+    void yyerror(t_param* param, const char *s);
 
-#line 76 "quoted_string.parser.h"
+#line 77 "quoted_string.parser.h"
 
 /* Token type.  */
 #ifndef CEAMMC_QUOTED_STRING_TOKENTYPE
@@ -104,7 +105,7 @@ enum { YYPUSH_MORE = 4 };
 
 typedef struct ceammc_quoted_string_pstate ceammc_quoted_string_pstate;
 
-int ceammc_quoted_string_push_parse (ceammc_quoted_string_pstate *ps, int pushed_char, CEAMMC_QUOTED_STRING_STYPE const *pushed_val, t_param p);
+int ceammc_quoted_string_push_parse (ceammc_quoted_string_pstate *ps, int pushed_char, CEAMMC_QUOTED_STRING_STYPE const *pushed_val, t_param* p);
 
 ceammc_quoted_string_pstate * ceammc_quoted_string_pstate_new (void);
 void ceammc_quoted_string_pstate_delete (ceammc_quoted_string_pstate *ps);

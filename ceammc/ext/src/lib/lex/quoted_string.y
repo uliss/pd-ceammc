@@ -12,7 +12,7 @@
 %define api.prefix {ceammc_quoted_string_}
 %define api.value.type {t_interval}
 
-%parse-param { t_param p }
+%parse-param { t_param* p }
 
 %code requires {
     # include <stddef.h>
@@ -26,12 +26,13 @@
 
     typedef struct param {
         size_t idx;
-        t_interval** pp;
+        t_interval** isp; // interval stack pointer
         size_t n;
+        const size_t max_n;
     } t_param;
 
     void push_range(t_param* p, t_interval rng);
-    void yyerror(t_param param, const char *s);
+    void yyerror(t_param* param, const char *s);
 }
 
 %token  DOUBLE_QUOTE
@@ -48,18 +49,18 @@
 %%
 
 SIMPLE_ATOM_LIST
-    : SIMPLE_ATOM                  { $$.start = p.idx; $$.end = p.idx; }
-    | SIMPLE_ATOM_LIST SIMPLE_ATOM { $$.start = $1.start; $$.end = p.idx; }
+    : SIMPLE_ATOM                  { $$.start = p->idx; $$.end = p->idx; }
+    | SIMPLE_ATOM_LIST SIMPLE_ATOM { $$.start = $1.start; $$.end = p->idx; }
     ;
 
 DQB
-    : DOUBLE_QUOTE_BEGIN { $$.start = p.idx; }
-    | DOUBLE_QUOTE       { $$.start = p.idx; $$.end = p.idx; }
+    : DOUBLE_QUOTE_BEGIN { $$.start = p->idx; }
+    | DOUBLE_QUOTE       { $$.start = p->idx; $$.end = p->idx; }
     ;
 
 DQE
-    : DOUBLE_QUOTE_END   { $$.end = p.idx; }
-    | DOUBLE_QUOTE       { $$.start = p.idx; $$.end = p.idx; }
+    : DOUBLE_QUOTE_END   { $$.end = p->idx; }
+    | DOUBLE_QUOTE       { $$.start = p->idx; $$.end = p->idx; }
     ;
 
 DOUBLE_QUOTED_STRING
@@ -68,28 +69,32 @@ DOUBLE_QUOTED_STRING
     ;
 
 ATOMLIST
-    : QUOTED_ATOM          { $$.start = p.idx; $$.end = p.idx; $$.compressed = 1; }
+    : QUOTED_ATOM          { $$.start = p->idx; $$.end = p->idx; $$.compressed = 1; }
     | DOUBLE_QUOTED_STRING { $$ = $1; $$.compressed = 1; }
     | SIMPLE_ATOM_LIST     { $$ = $1; }
     ;
 
 EXPR
-    : ATOMLIST      { push_range(&p, $1); }
-    | EXPR ATOMLIST { push_range(&p, $2); }
+    : ATOMLIST      { push_range(p, $1); }
+    | EXPR ATOMLIST { push_range(p, $2); }
     ;
 
 %%
 
-void yyerror(t_param p, const char *s)
+void yyerror(t_param* p, const char *s)
 {
-    fprintf (stderr, "%d: %s\n", (int)p.idx, s);
+    fprintf (stderr, "%d: %s\n", (int)p->idx, s);
 }
 
 void push_range(t_param* p, t_interval rng)
 {
+    if (p->n >= (p->max_n)) {
+        yyerror(p, "to many levels");
+        return;
+    }
+
     p->n++;
-    fprintf (stderr, "adding range [%d-%d] %d\n", rng.start, rng.end, rng.compressed);
-    (*(*(p->pp))) = rng;
-    ++(*(p->pp));
+    (*(*(p->isp))) = rng;
+    ++(*(p->isp));
 }
 

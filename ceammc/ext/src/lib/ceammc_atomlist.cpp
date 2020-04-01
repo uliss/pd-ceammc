@@ -863,9 +863,10 @@ AtomList AtomList::parseQuoted() const
 
     // ceammc_quoted_string_debug = 1;
 
-    t_interval ranges[16];
+    constexpr size_t MAX_N = 32;
+    t_interval ranges[MAX_N];
     t_interval* p = ranges;
-    t_param param = { 0, &p, 0 };
+    t_param param = { 0, &p, 0, MAX_N };
 
     int status;
     auto* ps = ceammc_quoted_string_pstate_new();
@@ -875,18 +876,18 @@ AtomList AtomList::parseQuoted() const
 
         auto s = a.asSymbol(nullptr);
         if (s == nullptr) { // not a symbol
-            status = ceammc_quoted_string_push_parse(ps, TOK_SIMPLE_ATOM, 0, param);
+            status = ceammc_quoted_string_push_parse(ps, TOK_SIMPLE_ATOM, 0, &param);
         } else if (s->s_name[0] == '"' && s->s_name[1] == '\0') { // single double quote
-            status = ceammc_quoted_string_push_parse(ps, TOK_DOUBLE_QUOTE, 0, param);
+            status = ceammc_quoted_string_push_parse(ps, TOK_DOUBLE_QUOTE, 0, &param);
         } else {
             if (a.isQuoted()) {
-                status = ceammc_quoted_string_push_parse(ps, TOK_QUOTED_ATOM, 0, param);
+                status = ceammc_quoted_string_push_parse(ps, TOK_QUOTED_ATOM, 0, &param);
             } else if (a.beginQuote()) {
-                status = ceammc_quoted_string_push_parse(ps, TOK_DOUBLE_QUOTE_BEGIN, 0, param);
+                status = ceammc_quoted_string_push_parse(ps, TOK_DOUBLE_QUOTE_BEGIN, 0, &param);
             } else if (a.endQuote()) {
-                status = ceammc_quoted_string_push_parse(ps, TOK_DOUBLE_QUOTE_END, 0, param);
+                status = ceammc_quoted_string_push_parse(ps, TOK_DOUBLE_QUOTE_END, 0, &param);
             } else
-                status = ceammc_quoted_string_push_parse(ps, TOK_SIMPLE_ATOM, 0, param);
+                status = ceammc_quoted_string_push_parse(ps, TOK_SIMPLE_ATOM, 0, &param);
         }
 
         if (status != YYPUSH_MORE)
@@ -894,7 +895,7 @@ AtomList AtomList::parseQuoted() const
     }
 
     // pushing END token
-    status = ceammc_quoted_string_push_parse(ps, TOK_STRING_END, 0, param);
+    status = ceammc_quoted_string_push_parse(ps, TOK_STRING_END, 0, &param);
 
     ceammc_quoted_string_pstate_delete(ps);
 

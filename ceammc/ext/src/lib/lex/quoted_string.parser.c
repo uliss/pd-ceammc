@@ -124,7 +124,7 @@
 extern int ceammc_quoted_string_debug;
 #endif
 /* "%code requires" blocks.  */
-#line 17 "quoted_string.yy"
+#line 17 "quoted_string.y"
 
     # include <stddef.h>
     # include <stdio.h>
@@ -137,14 +137,15 @@ extern int ceammc_quoted_string_debug;
 
     typedef struct param {
         size_t idx;
-        t_interval** pp;
+        t_interval** isp; // interval stack pointer
         size_t n;
+        const size_t max_n;
     } t_param;
 
     void push_range(t_param* p, t_interval rng);
-    void yyerror(t_param param, const char *s);
+    void yyerror(t_param* param, const char *s);
 
-#line 148 "quoted_string.parser.c"
+#line 149 "quoted_string.parser.c"
 
 /* Token type.  */
 #ifndef CEAMMC_QUOTED_STRING_TOKENTYPE
@@ -176,7 +177,7 @@ enum { YYPUSH_MORE = 4 };
 
 typedef struct ceammc_quoted_string_pstate ceammc_quoted_string_pstate;
 
-int ceammc_quoted_string_push_parse (ceammc_quoted_string_pstate *ps, int pushed_char, CEAMMC_QUOTED_STRING_STYPE const *pushed_val, t_param p);
+int ceammc_quoted_string_push_parse (ceammc_quoted_string_pstate *ps, int pushed_char, CEAMMC_QUOTED_STRING_STYPE const *pushed_val, t_param* p);
 
 ceammc_quoted_string_pstate * ceammc_quoted_string_pstate_new (void);
 void ceammc_quoted_string_pstate_delete (ceammc_quoted_string_pstate *ps);
@@ -526,8 +527,8 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    51,    51,    52,    56,    57,    61,    62,    66,    67,
-      71,    72,    73,    77,    78
+       0,    52,    52,    53,    57,    58,    62,    63,    67,    68,
+      72,    73,    74,    78,    79
 };
 #endif
 
@@ -701,7 +702,7 @@ do {                                                                      \
 `-----------------------------------*/
 
 static void
-yy_symbol_value_print (FILE *yyo, int yytype, YYSTYPE const * const yyvaluep, t_param p)
+yy_symbol_value_print (FILE *yyo, int yytype, YYSTYPE const * const yyvaluep, t_param* p)
 {
   FILE *yyoutput = yyo;
   YYUSE (yyoutput);
@@ -723,7 +724,7 @@ yy_symbol_value_print (FILE *yyo, int yytype, YYSTYPE const * const yyvaluep, t_
 `---------------------------*/
 
 static void
-yy_symbol_print (FILE *yyo, int yytype, YYSTYPE const * const yyvaluep, t_param p)
+yy_symbol_print (FILE *yyo, int yytype, YYSTYPE const * const yyvaluep, t_param* p)
 {
   YYFPRINTF (yyo, "%s %s (",
              yytype < YYNTOKENS ? "token" : "nterm", yytname[yytype]);
@@ -761,7 +762,7 @@ do {                                                            \
 `------------------------------------------------*/
 
 static void
-yy_reduce_print (yy_state_t *yyssp, YYSTYPE *yyvsp, int yyrule, t_param p)
+yy_reduce_print (yy_state_t *yyssp, YYSTYPE *yyvsp, int yyrule, t_param* p)
 {
   int yylno = yyrline[yyrule];
   int yynrhs = yyr2[yyrule];
@@ -1051,7 +1052,7 @@ yysyntax_error (YYPTRDIFF_T *yymsg_alloc, char **yymsg,
 `-----------------------------------------------*/
 
 static void
-yydestruct (const char *yymsg, int yytype, YYSTYPE *yyvaluep, t_param p)
+yydestruct (const char *yymsg, int yytype, YYSTYPE *yyvaluep, t_param* p)
 {
   YYUSE (yyvaluep);
   YYUSE (p);
@@ -1142,7 +1143,7 @@ yypstate_delete (yypstate *yyps)
 `---------------*/
 
 int
-yypush_parse (yypstate *yyps, int yypushed_char, YYSTYPE const *yypushed_val, t_param p)
+yypush_parse (yypstate *yyps, int yypushed_char, YYSTYPE const *yypushed_val, t_param* p)
 {
 /* The lookahead symbol.  */
 int yychar;
@@ -1387,85 +1388,85 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 51 "quoted_string.yy"
-                                   { yyval.start = p.idx; yyval.end = p.idx; }
-#line 1393 "quoted_string.parser.c"
+#line 52 "quoted_string.y"
+                                   { yyval.start = p->idx; yyval.end = p->idx; }
+#line 1394 "quoted_string.parser.c"
     break;
 
   case 3:
-#line 52 "quoted_string.yy"
-                                   { yyval.start = yyvsp[-1].start; yyval.end = p.idx; }
-#line 1399 "quoted_string.parser.c"
+#line 53 "quoted_string.y"
+                                   { yyval.start = yyvsp[-1].start; yyval.end = p->idx; }
+#line 1400 "quoted_string.parser.c"
     break;
 
   case 4:
-#line 56 "quoted_string.yy"
-                         { yyval.start = p.idx; }
-#line 1405 "quoted_string.parser.c"
+#line 57 "quoted_string.y"
+                         { yyval.start = p->idx; }
+#line 1406 "quoted_string.parser.c"
     break;
 
   case 5:
-#line 57 "quoted_string.yy"
-                         { yyval.start = p.idx; yyval.end = p.idx; }
-#line 1411 "quoted_string.parser.c"
+#line 58 "quoted_string.y"
+                         { yyval.start = p->idx; yyval.end = p->idx; }
+#line 1412 "quoted_string.parser.c"
     break;
 
   case 6:
-#line 61 "quoted_string.yy"
-                         { yyval.end = p.idx; }
-#line 1417 "quoted_string.parser.c"
+#line 62 "quoted_string.y"
+                         { yyval.end = p->idx; }
+#line 1418 "quoted_string.parser.c"
     break;
 
   case 7:
-#line 62 "quoted_string.yy"
-                         { yyval.start = p.idx; yyval.end = p.idx; }
-#line 1423 "quoted_string.parser.c"
+#line 63 "quoted_string.y"
+                         { yyval.start = p->idx; yyval.end = p->idx; }
+#line 1424 "quoted_string.parser.c"
     break;
 
   case 8:
-#line 66 "quoted_string.yy"
+#line 67 "quoted_string.y"
                                { yyval.start = yyvsp[-1].start; yyval.end = yyvsp[0].end; }
-#line 1429 "quoted_string.parser.c"
+#line 1430 "quoted_string.parser.c"
     break;
 
   case 9:
-#line 67 "quoted_string.yy"
+#line 68 "quoted_string.y"
                                { yyval.start = yyvsp[-2].start; yyval.end = yyvsp[0].end; }
-#line 1435 "quoted_string.parser.c"
+#line 1436 "quoted_string.parser.c"
     break;
 
   case 10:
-#line 71 "quoted_string.yy"
-                           { yyval.start = p.idx; yyval.end = p.idx; yyval.compressed = 1; }
-#line 1441 "quoted_string.parser.c"
+#line 72 "quoted_string.y"
+                           { yyval.start = p->idx; yyval.end = p->idx; yyval.compressed = 1; }
+#line 1442 "quoted_string.parser.c"
     break;
 
   case 11:
-#line 72 "quoted_string.yy"
+#line 73 "quoted_string.y"
                            { yyval = yyvsp[0]; yyval.compressed = 1; }
-#line 1447 "quoted_string.parser.c"
+#line 1448 "quoted_string.parser.c"
     break;
 
   case 12:
-#line 73 "quoted_string.yy"
+#line 74 "quoted_string.y"
                            { yyval = yyvsp[0]; }
-#line 1453 "quoted_string.parser.c"
+#line 1454 "quoted_string.parser.c"
     break;
 
   case 13:
-#line 77 "quoted_string.yy"
-                    { push_range(&p, yyvsp[0]); }
-#line 1459 "quoted_string.parser.c"
+#line 78 "quoted_string.y"
+                    { push_range(p, yyvsp[0]); }
+#line 1460 "quoted_string.parser.c"
     break;
 
   case 14:
-#line 78 "quoted_string.yy"
-                    { push_range(&p, yyvsp[0]); }
-#line 1465 "quoted_string.parser.c"
+#line 79 "quoted_string.y"
+                    { push_range(p, yyvsp[0]); }
+#line 1466 "quoted_string.parser.c"
     break;
 
 
-#line 1469 "quoted_string.parser.c"
+#line 1470 "quoted_string.parser.c"
 
       default: break;
     }
@@ -1704,19 +1705,23 @@ yypushreturn:
 #endif
   return yyresult;
 }
-#line 81 "quoted_string.yy"
+#line 82 "quoted_string.y"
 
 
-void yyerror(t_param p, const char *s)
+void yyerror(t_param* p, const char *s)
 {
-    fprintf (stderr, "%d: %s\n", (int)p.idx, s);
+    fprintf (stderr, "%d: %s\n", (int)p->idx, s);
 }
 
 void push_range(t_param* p, t_interval rng)
 {
+    if (p->n >= (p->max_n)) {
+        yyerror(p, "to many levels");
+        return;
+    }
+
     p->n++;
-    fprintf (stderr, "adding range [%d-%d] %d\n", rng.start, rng.end, rng.compressed);
-    (*(*(p->pp))) = rng;
-    ++(*(p->pp));
+    (*(*(p->isp))) = rng;
+    ++(*(p->isp));
 }
 
