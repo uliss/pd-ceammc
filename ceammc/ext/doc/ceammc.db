@@ -46,6 +46,7 @@ conv.pitch2midi,pitch->midi		.		.
 conv.pol2car,pol->car		.		.
 conv.rad2phase,rad->phase		.		.
 conv.rad2phase~,rad->phase~		~		~
+conv.samp2ms,samp->ms		.		.
 conv.samp2sec,samp->sec		.		.
 conv.sec2samp,sec->samp		.		.
 conv.sec2str,sec->str		.		.

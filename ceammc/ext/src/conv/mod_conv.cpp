@@ -11,6 +11,7 @@ void setup_conv_str2sec();
 void setup_conv_cc2amp();
 
 void setup_conv_samp2sec();
+void setup_conv_samp2ms();
 void setup_conv_sec2samp();
 void setup_conv_bpm2ms();
 void setup_conv_bpm2sec();

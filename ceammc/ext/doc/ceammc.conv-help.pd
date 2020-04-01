@@ -46,17 +46,19 @@ base A and temperament);
 #X text 200 655 convert radians value to phase;
 #X obj 30 682 conv.rad2phase~;
 #X text 200 682 convert radians value to phase;
-#X obj 30 709 conv.samp2sec;
+#X obj 30 709 conv.samp2ms;
 #X text 200 709 convert samples to time according to samplerate;
-#X obj 30 736 conv.sec2samp;
-#X text 200 736 convert time in seconds to number of samples according
+#X obj 30 736 conv.samp2sec;
+#X text 200 736 convert samples to time according to samplerate;
+#X obj 30 763 conv.sec2samp;
+#X text 200 763 convert time in seconds to number of samples according
 to current samplerate;
-#X obj 30 776 conv.sec2str;
-#X text 200 776 converts float time in seconds to formated symbol (or
+#X obj 30 803 conv.sec2str;
+#X text 200 803 converts float time in seconds to formated symbol (or
 string);
-#X obj 30 803 conv.str2sec;
-#X text 200 803 converts formatted time to float value in seconds;
+#X obj 30 830 conv.str2sec;
+#X text 200 830 converts formatted time to float value in seconds;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
-#X obj 1 830 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 840 library: ceammc;
+#X obj 1 857 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 867 library: ceammc;
