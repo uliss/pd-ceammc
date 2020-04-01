@@ -47,7 +47,7 @@ void Lin2Curve::onFloat(t_float value)
     floatTo(0, convert::lin2curve(value, x0, x1, y0, y1, curve));
 }
 
-extern "C" void setup_conv0x2elin2curve()
+void setup_conv_lin2curve()
 {
     ObjectFactory<Lin2Curve> obj("conv.lin2curve");
     obj.addAlias("lin->curve");

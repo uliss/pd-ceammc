@@ -14,7 +14,6 @@
 #ifndef TIME_SEC2STR_H
 #define TIME_SEC2STR_H
 
-#include "ceammc_factory.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;

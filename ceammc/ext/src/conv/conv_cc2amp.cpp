@@ -46,7 +46,7 @@ t_float CC2Amp::convert(t_float v)
     return convert::lin2lin<t_float>(v, 0, 127, from_->value(), to_->value());
 }
 
-extern "C" void setup_conv0x2ecc2amp()
+void setup_conv_cc2amp()
 {
     ObjectFactory<CC2Amp> obj("conv.cc2amp");
     obj.addAlias("cc->amp");

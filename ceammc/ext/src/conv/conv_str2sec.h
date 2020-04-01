@@ -14,12 +14,10 @@
 #ifndef CONV_STR2SEC_H
 #define CONV_STR2SEC_H
 
-#include "ceammc_factory.h"
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
-
-class DataTypeString;
 
 class StrToSec : public BaseObject {
     FloatProperty* on_err_;
@@ -28,7 +26,7 @@ public:
     StrToSec(const PdArgs& a);
     void onSymbol(t_symbol* s) override;
     void onAny(t_symbol* s, const AtomList& v) override;
-    void onDataT(const DataTPtr<DataTypeString>& dptr);
+    void onDataT(const DataTypeString* str);
 };
 
 #endif // CONV_STR2SEC_H

@@ -1,10 +1,10 @@
 #ifndef CONV_PITCH2MIDI_H
 #define CONV_PITCH2MIDI_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
-using namespace ceammc;
 
-class DataTypeString;
+using namespace ceammc;
 
 class PitchToMIDI : public BaseObject {
 public:
@@ -12,7 +12,7 @@ public:
 
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
-    void onDataT(const DataTPtr<DataTypeString>& s);
+    void onDataT(const DataTypeString* s);
 
 private:
     void convert(const char* p);
@@ -21,6 +21,6 @@ public:
     static int spn2midi(const char* p);
 };
 
-extern "C" void setup_conv0x2epitch2midi();
+void setup_conv_pitch2midi();
 
 #endif // CONV_PITCH2MIDI_H

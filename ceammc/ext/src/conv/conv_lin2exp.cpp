@@ -40,7 +40,7 @@ void Lin2Exp::onFloat(t_float value)
     floatTo(0, convert::lin2exp(value, x0, x1, y0, y1));
 }
 
-extern "C" void setup_conv0x2elin2exp()
+void setup_conv_lin2exp()
 {
     ObjectFactory<Lin2Exp> obj("conv.lin2exp");
     obj.addAlias("lin->exp");

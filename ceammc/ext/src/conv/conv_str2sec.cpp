@@ -12,13 +12,14 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_str2sec.h"
+#include "ceammc_factory.h"
 #include "datatype_string.h"
 
 #include "ceammc_convert.h"
 
 StrToSec::StrToSec(const PdArgs& a)
     : BaseObject(a)
-    , on_err_(0)
+    , on_err_(nullptr)
 {
     createOutlet();
 
@@ -36,12 +37,12 @@ void StrToSec::onAny(t_symbol* s, const AtomList& /*v*/)
     floatTo(0, convert::time::str2sec(s->s_name, on_err_->value()));
 }
 
-void StrToSec::onDataT(const DataTPtr<DataTypeString>& dptr)
+void StrToSec::onDataT(const DataTypeString* str)
 {
-    floatTo(0, convert::time::str2sec(dptr->str(), on_err_->value()));
+    floatTo(0, convert::time::str2sec(str->str(), on_err_->value()));
 }
 
-extern "C" void setup_conv0x2estr2sec()
+void setup_conv_str2sec()
 {
     ObjectFactory<StrToSec> obj("conv.str2sec");
     obj.addAlias("str->sec");
