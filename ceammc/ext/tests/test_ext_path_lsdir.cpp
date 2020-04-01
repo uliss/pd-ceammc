@@ -11,11 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "catch.hpp"
-
-#include "../path/path_listdir.h"
 #include "ceammc_format.h"
-#include "test_base.h"
+#include "datatype_string.h"
+#include "path_listdir.h"
+#include "test_external.h"
 
 #include <stdio.h>
 #include <vector>

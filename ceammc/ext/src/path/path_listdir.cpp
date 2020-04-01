@@ -28,7 +28,7 @@ PathListDir::PathListDir(const PdArgs& a)
 void PathListDir::onBang()
 {
     readDirList();
-    listTo(0, ls_.toList());
+    listTo(0, ls_);
 }
 
 void PathListDir::onSymbol(t_symbol* path)
@@ -37,7 +37,7 @@ void PathListDir::onSymbol(t_symbol* path)
     onBang();
 }
 
-void PathListDir::onDataT(const DataTPtr<DataTypeString>& dptr)
+void PathListDir::onDataT(const DataTypeString* dptr)
 {
     path_ = dptr->str();
     onBang();
@@ -74,12 +74,10 @@ void PathListDir::readDirList()
 
         if (match_->s_name[0] != 0) {
             if (platform::fnmatch(match_->s_name, p_dirent->d_name)) {
-                DataPtr d(new DataTypeString(p_dirent->d_name));
-                ls_.append(d.asAtom());
+                ls_.append(new DataTypeString(p_dirent->d_name));
             }
         } else {
-            DataPtr d(new DataTypeString(p_dirent->d_name));
-            ls_.append(d.asAtom());
+            ls_.append(new DataTypeString(p_dirent->d_name));
         }
     }
 

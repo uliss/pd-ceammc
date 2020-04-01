@@ -31,7 +31,7 @@ public:
         listTo(0, l.map(exists));
     }
 
-    void onDataT(const DataTPtr<DataTypeString>& dptr)
+    void onDataT(const DataTypeString* dptr)
     {
         floatTo(0, platform::path_exists(dptr->str().c_str()) ? 1 : 0);
     }
