@@ -120,8 +120,7 @@ public:
     bool operator!=(const DataTypeMList& ml) const { return !operator==(ml); }
 
 public:
-    typedef std::vector<DataTypeMList*> MListStack;
-    typedef boost::optional<DataTypeMList> MaybeList;
+    using MaybeList = boost::optional<DataTypeMList>;
 
 public:
     static int dataType;

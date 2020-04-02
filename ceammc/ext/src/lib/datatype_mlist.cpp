@@ -13,14 +13,11 @@
  *****************************************************************************/
 #include "datatype_mlist.h"
 #include "ceammc_datastorage.h"
-#include "ceammc_datatypes.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "lex/data_string.lexer.h"
 #include "lex/data_string.parser.hpp"
-//#include "mlist_parser_impl.h"
 
-#include <cassert>
 #include <cmath>
 #include <cstring>
 
@@ -181,10 +178,10 @@ DataTypeMList DataTypeMList::flatten() const
     DataTypeMList res;
     res.data_.reserve(size());
 
-    for (auto& el : data_) {
-        if (el.isData()) {
-            if (el.isA<DataTypeMList>()) {
-                auto mlist = el.asD<DataTypeMList>();
+    for (auto& x : data_) {
+        if (x.isData()) {
+            if (x.isA<DataTypeMList>()) {
+                auto mlist = x.asD<DataTypeMList>();
                 if (!mlist) {
                     LIB_ERR << "invalid mlist pointer";
                     continue;
@@ -193,9 +190,9 @@ DataTypeMList DataTypeMList::flatten() const
                 // recursion call
                 res.data_.append(mlist->flatten().data_);
             } else
-                res.data_.append(el);
+                res.data_.append(x);
         } else
-            res.data_.append(el);
+            res.data_.append(x);
     }
 
     return res;
