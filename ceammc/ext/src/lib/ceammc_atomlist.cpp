@@ -931,15 +931,15 @@ AtomList AtomList::parseString(const char* str)
 
 std::ostream& operator<<(std::ostream& os, const AtomList& l)
 {
-    os << "[ ";
+    os << "( ";
     for (size_t i = 0; i < l.size(); i++) {
         if (i != 0)
-            os << ", ";
+            os << " ";
 
         os << l.at(i);
     }
 
-    os << " ]";
+    os << " )";
     return os;
 }
 
