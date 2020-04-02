@@ -21,7 +21,7 @@
 namespace ceammc {
 namespace string {
     // utf-8 functions
-    size_t utf8_strlen(const char* str);
+    size_t utf8_strlen(const char* str) noexcept;
     std::string utf8_to_upper(const char* str);
     std::string utf8_to_lower(const char* str);
     std::string utf8_substr(const char* str, int from, size_t len);

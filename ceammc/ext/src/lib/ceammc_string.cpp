@@ -30,7 +30,7 @@
 static re2::RE2 re_double_quoted("\"(([^`\"]|`[`\"./:()])*)\"");
 static re2::RE2 re_double_quoted_end("([^`\"]|`[`\"./:()])*\"");
 
-size_t ceammc::string::utf8_strlen(const char* str)
+size_t ceammc::string::utf8_strlen(const char* str) noexcept
 {
     return utf8len(str);
 }
