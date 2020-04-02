@@ -50,7 +50,7 @@ public:
     using const_atom_filter_iterator = boost::filter_iterator<AtomPredicate, const_iterator>;
 
 public:
-    AtomList();
+    AtomList() noexcept;
     AtomList(const AtomList& l);
     AtomList(AtomList&& l) noexcept;
     AtomList(const Atom& a);
@@ -66,15 +66,12 @@ public:
     }
 
     void operator=(const AtomList& l);
-    void operator=(AtomList&& l);
+    void operator=(AtomList&& l) noexcept;
 
     /**
      * Returns number of elements in list
      */
-    size_t size() const
-    {
-        return atoms_.size();
-    }
+    size_t size() const noexcept { return atoms_.size(); }
 
     /**
      * Reserves space to avoid extra memory reallocations
@@ -86,77 +83,26 @@ public:
      * Checks if list is empty
      * @return true if list is empty
      */
-    bool empty() const
-    {
-        return atoms_.empty();
-    }
+    bool empty() const noexcept { return atoms_.empty(); }
 
     // iterators
-    iterator begin()
-    {
-        return atoms_.begin();
-    }
-    const_iterator begin() const
-    {
-        return atoms_.begin();
-    }
-    iterator end()
-    {
-        return atoms_.end();
-    }
-    const_iterator end() const
-    {
-        return atoms_.end();
-    }
-    const_iterator cbegin() const
-    {
-        return atoms_.cbegin();
-    }
-    const_iterator cend() const
-    {
-        return atoms_.cend();
-    }
-    reverse_iterator rbegin()
-    {
-        return atoms_.rbegin();
-    }
-    const_reverse_iterator rbegin() const
-    {
-        return atoms_.rbegin();
-    }
-    reverse_iterator rend()
-    {
-        return atoms_.rend();
-    }
-    const_reverse_iterator rend() const
-    {
-        return atoms_.rend();
-    }
-    const_reverse_iterator crbegin()
-    {
-        return atoms_.crbegin();
-    }
-    const_reverse_iterator crend() const
-    {
-        return atoms_.crend();
-    }
+    iterator begin() noexcept { return atoms_.begin(); }
+    const_iterator begin() const noexcept { return atoms_.begin(); }
+    iterator end() { return atoms_.end(); }
+    const_iterator end() const { return atoms_.end(); }
+    const_iterator cbegin() const { return atoms_.cbegin(); }
+    const_iterator cend() const { return atoms_.cend(); }
+    reverse_iterator rbegin() { return atoms_.rbegin(); }
+    const_reverse_iterator rbegin() const { return atoms_.rbegin(); }
+    reverse_iterator rend() { return atoms_.rend(); }
+    const_reverse_iterator rend() const { return atoms_.rend(); }
+    const_reverse_iterator crbegin() { return atoms_.crbegin(); }
+    const_reverse_iterator crend() const { return atoms_.crend(); }
 
-    atom_filter_iterator begin_atom_filter(AtomPredicate pred)
-    {
-        return atom_filter_iterator(pred, begin(), end());
-    }
-    atom_filter_iterator end_atom_filter()
-    {
-        return atom_filter_iterator(nullptr, end(), end());
-    }
-    const_atom_filter_iterator begin_atom_filter(AtomPredicate pred) const
-    {
-        return const_atom_filter_iterator(pred, begin(), end());
-    }
-    const_atom_filter_iterator end_atom_filter() const
-    {
-        return const_atom_filter_iterator(nullptr, end(), end());
-    }
+    atom_filter_iterator begin_atom_filter(AtomPredicate pred) { return atom_filter_iterator(pred, begin(), end()); }
+    atom_filter_iterator end_atom_filter() { return atom_filter_iterator(nullptr, end(), end()); }
+    const_atom_filter_iterator begin_atom_filter(AtomPredicate pred) const { return const_atom_filter_iterator(pred, begin(), end()); }
+    const_atom_filter_iterator end_atom_filter() const { return const_atom_filter_iterator(nullptr, end(), end()); }
 
     /**
      * @brief returns reference to element at specified position
@@ -164,22 +110,10 @@ public:
      * @return reference to element
      * @throw exception if invalid position given
      */
-    Atom& at(size_t pos)
-    {
-        return atoms_.at(pos);
-    }
-    const Atom& at(size_t pos) const
-    {
-        return atoms_.at(pos);
-    }
-    Atom& operator[](size_t pos)
-    {
-        return atoms_.at(pos);
-    }
-    const Atom& operator[](size_t pos) const
-    {
-        return atoms_.at(pos);
-    }
+    Atom& at(size_t pos) { return atoms_.at(pos); }
+    const Atom& at(size_t pos) const { return atoms_.at(pos); }
+    Atom& operator[](size_t pos) { return atoms_.at(pos); }
+    const Atom& operator[](size_t pos) const { return atoms_.at(pos); }
 
     /**
      * @brief returns pointer to element at specified relative position
@@ -220,22 +154,22 @@ public:
     /**
      * Try to get int from specified list position. If no int - return default value
      */
-    bool boolAt(size_t pos, bool def) const;
+    bool boolAt(size_t pos, bool def) const noexcept;
 
     /**
      * Try to get int from specified list position. If no int - return default value
      */
-    int intAt(size_t pos, int def) const;
+    int intAt(size_t pos, int def) const noexcept;
 
     /**
      * Try to get float from specified list position. If no float - return default value
      */
-    t_float floatAt(size_t pos, t_float def) const;
+    t_float floatAt(size_t pos, t_float def) const noexcept;
 
     /**
      * Try to get symbol from specified list position. If no symbol - return default value
      */
-    t_symbol* symbolAt(size_t pos, t_symbol* def) const;
+    t_symbol* symbolAt(size_t pos, t_symbol* def) const noexcept;
 
     /**
      * Resize list. If new size is less than current, last values are dropped.
@@ -278,7 +212,7 @@ public:
      * @param dest - output destination
      * @return true if property was found and it has value
      */
-    bool property(t_symbol* name, Atom* dest) const;
+    bool property(t_symbol* name, Atom* dest) const noexcept;
 
     /**
      * Get property value from list
@@ -297,11 +231,8 @@ public:
      * Checks if property exists in list
      * @return true in property found
      */
-    bool hasProperty(t_symbol* name) const;
-    bool hasProperty(const char* name) const
-    {
-        return hasProperty(gensym(name));
-    }
+    bool hasProperty(t_symbol* name) const noexcept;
+    bool hasProperty(const char* name) const noexcept { return hasProperty(gensym(name)); }
 
     /**
      * New list with mapped atom values
@@ -374,18 +305,12 @@ public:
     /**
      * Returns pointer to Pd list data
      */
-    t_atom* toPdData() const
-    {
-        return reinterpret_cast<t_atom*>(const_cast<Atom*>(atoms_.data()));
-    }
+    t_atom* toPdData() const noexcept { return reinterpret_cast<t_atom*>(const_cast<Atom*>(atoms_.data())); }
 
     /**
      * Appends atom to the end of list
      */
-    void append(const Atom& a)
-    {
-        atoms_.push_back(a);
-    }
+    void append(const Atom& a) { atoms_.push_back(a); }
 
     /**
      * Appends another list to the end of list
@@ -402,7 +327,7 @@ public:
     /**
      * Remove all list values
      */
-    void clear();
+    void clear() noexcept { atoms_.clear(); }
 
     /**
      * Fill list with specified value
@@ -428,51 +353,21 @@ public:
     /**
      * types
      */
-    bool isBang() const
-    {
-        return empty();
-    }
-    bool isBool() const
-    {
-        return atoms_.size() == 1 && atoms_[0].isBool();
-    }
-    bool isFloat() const
-    {
-        return atoms_.size() == 1 && atoms_[0].isFloat();
-    }
-    bool isInteger() const
-    {
-        return atoms_.size() == 1 && atoms_[0].isInteger();
-    }
-    bool isSymbol() const
-    {
-        return atoms_.size() == 1 && atoms_[0].isSymbol();
-    }
-    bool isProperty() const
-    {
-        return atoms_.size() == 1 && atoms_[0].isProperty();
-    }
-    bool isAtom() const
-    {
-        return atoms_.size() == 1;
-    }
-    bool isList() const
-    {
-        return atoms_.size() > 1;
-    }
-    bool isData() const
-    {
-        return atoms_.size() == 1 && atoms_.front().isData();
-    }
+    bool isBang() const noexcept { return empty(); }
+    bool isBool() const noexcept { return atoms_.size() == 1 && atoms_[0].isBool(); }
+    bool isFloat() const noexcept { return atoms_.size() == 1 && atoms_[0].isFloat(); }
+    bool isInteger() const noexcept { return atoms_.size() == 1 && atoms_[0].isInteger(); }
+    bool isSymbol() const noexcept { return atoms_.size() == 1 && atoms_[0].isSymbol(); }
+    bool isProperty() const noexcept { return atoms_.size() == 1 && atoms_[0].isProperty(); }
+    bool isAtom() const noexcept { return atoms_.size() == 1; }
+    bool isList() const noexcept { return atoms_.size() > 1; }
+    bool isData() const noexcept { return atoms_.size() == 1 && atoms_.front().isData(); }
 
     /**
      * Check if list is of specified type
      */
     template <typename T>
-    inline bool isA() const
-    {
-        return atoms_.size() == 1 && atoms_[0].isA<T>();
-    }
+    inline bool isA() const noexcept { return atoms_.size() == 1 && atoms_[0].isA<T>(); }
 
     /**
      * Sorts list values in ascending order
@@ -515,61 +410,61 @@ public:
      * @param max - max destination
      * @return false if empty
      */
-    bool range(Atom& min, Atom& max) const;
+    bool range(Atom& min, Atom& max) const noexcept;
 
     /**
      * Returns sum of floats in list or boost::none if empty
      */
-    MaybeFloat sum() const;
+    MaybeFloat sum() const noexcept;
 
     /**
      * Returns product of floats in list or boost::none if empty
      */
-    MaybeFloat product() const;
+    MaybeFloat product() const noexcept;
 
     /**
      * Checks if atom is in list
      * @param a - searched atom
      * @return true if list contains, otherwise false
      */
-    bool contains(const Atom& a) const;
+    bool contains(const Atom& a) const noexcept;
 
     /**
      * Find position of first element in list that compare equal to a
      * @return -1, if not found
      */
-    long findPos(const Atom& a) const;
+    long findPos(const Atom& a) const noexcept;
 
     /**
      * Find position of first element in list for that predicate pred returns true
      * @return -1, if not found
      */
-    long findPos(AtomPredicate pred) const;
+    long findPos(AtomPredicate pred) const noexcept;
 
     /**
      * Returns number of elements that compare equal to a
      */
-    size_t count(const Atom& a) const;
+    size_t count(const Atom& a) const noexcept;
 
     /**
      * Returns number of elements for that predicate pred returns true
      */
-    size_t count(AtomPredicate pred) const;
+    size_t count(AtomPredicate pred) const noexcept;
 
     /**
      * Checks if predicate pred returns true for all list elements
      */
-    bool allOf(AtomPredicate pred) const;
+    bool allOf(AtomPredicate pred) const noexcept;
 
     /**
      * Checks if predicate pred returns true at least for one list element
      */
-    bool anyOf(AtomPredicate pred) const;
+    bool anyOf(AtomPredicate pred) const noexcept;
 
     /**
      * Checks if predicate pred returns false for all list elements
      */
-    bool noneOf(AtomPredicate pred) const;
+    bool noneOf(AtomPredicate pred) const noexcept;
 
     /**
      * Convert atomlist to parametrised type
@@ -659,10 +554,10 @@ public:
     /**
      * arithmetic operators with floats
      */
-    AtomList& operator+=(t_float v);
-    AtomList& operator-=(t_float v);
-    AtomList& operator*=(t_float v);
-    AtomList& operator/=(t_float v);
+    AtomList& operator+=(t_float v) noexcept;
+    AtomList& operator-=(t_float v) noexcept;
+    AtomList& operator*=(t_float v) noexcept;
+    AtomList& operator/=(t_float v) noexcept;
 
     AtomList operator+(t_float v) const;
     AtomList operator-(t_float v) const;
@@ -672,14 +567,14 @@ public:
     /**
      * Check for equality, if list contains data atoms - they are check for equality also
      */
-    bool operator==(const AtomList& x) const;
-    bool operator!=(const AtomList& x) const { return !operator==(x); }
+    bool operator==(const AtomList& x) const noexcept;
+    bool operator!=(const AtomList& x) const noexcept { return !operator==(x); }
 
     /**
      * Check for equality with atomlist view
      */
-    bool operator==(const AtomListView& x) const;
-    bool operator!=(const AtomListView& x) const { return !operator==(x); }
+    bool operator==(const AtomListView& x) const noexcept;
+    bool operator!=(const AtomListView& x) const noexcept { return !operator==(x); }
 
     /**
      * Parse raw atomlist with double-quoted elements and returns values without quotes
@@ -703,12 +598,12 @@ private:
 };
 
 template <>
-inline bool AtomList::isA<Atom>() const
+inline bool AtomList::isA<Atom>() const noexcept
 {
     return size() == 1;
 }
 template <>
-inline bool AtomList::isA<AtomList>() const
+inline bool AtomList::isA<AtomList>() const noexcept
 {
     return true;
 }

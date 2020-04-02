@@ -14,7 +14,9 @@
 #ifndef CEAMMC_DATA_H
 #define CEAMMC_DATA_H
 
-#include "ceammc_atom.h"
+#include "ceammc_atomlist.h"
+
+#include <string>
 
 namespace ceammc {
 
@@ -43,6 +45,27 @@ using MListAtom = TypeAtom<DataTypeMList>;
 using DictAtom = TypeAtom<DataTypeDict>;
 using TreeAtom = TypeAtom<DataTypeTree>;
 using StringAtom = TypeAtom<DataTypeString>;
+
+/**
+ * Parse raw list with data constructor syntax:
+ *  - **null**  -> Atom()
+ *  - **true**  -> 1.0
+ *  - **false** -> 0.0
+ *  - 2.345     -> 2.345
+ *  - abc       -> 'abc' t_symbol*
+ *  - "a b c"   -> 'a b c' t_symbol* with spaces
+ *  -
+ * @example (1 2 3) -> MListAtom(1, 2, 3)
+ * @example 1 2 3 -> AtomList(1, 2, 3)
+ * @param lst - raw input list
+ * @return parsed list on success or unmodified list if parsing failed
+ */
+AtomList parseDataList(const AtomList& lst) noexcept;
+
+/**
+ * @throw std::runtime_error on error
+ */
+AtomList parseDataString(const std::string& str);
 
 }
 

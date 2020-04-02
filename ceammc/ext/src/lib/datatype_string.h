@@ -40,26 +40,26 @@ public:
     DataTypeString& operator=(const DataTypeString& s);
     DataTypeString& operator=(DataTypeString&& s);
 
-    ~DataTypeString();
+    ~DataTypeString() noexcept;
 
-    std::string& str() { return str_; }
-    const std::string& str() const { return str_; }
+    std::string& str() noexcept { return str_; }
+    const std::string& str() const noexcept { return str_; }
 
-    int type() const override;
+    int type() const noexcept final;
     DataTypeString* clone() const override;
     std::string toString() const override;
     std::string valueToJsonString() const override;
-    bool isEqual(const AbstractData* d) const override;
-    bool isLess(const AbstractData* d) const override;
+    bool isEqual(const AbstractData* d) const noexcept final;
+    bool isLess(const AbstractData* d) const noexcept final;
 
     void set(t_symbol* s);
     void set(const std::string& s);
-    void clear();
+    void clear() noexcept;
 
     void split(std::vector<std::string>& res, const std::string& sep = "") const;
 
-    bool operator==(const DataTypeString& s) const { return str_ == s.str_; }
-    bool operator!=(const DataTypeString& s) const { return !operator==(s); }
+    bool operator==(const DataTypeString& s) const noexcept { return str_ == s.str_; }
+    bool operator!=(const DataTypeString& s) const noexcept { return !operator==(s); }
 
     DataTypeString removeAll(const std::string& s) const;
     DataTypeString removeFirst(const std::string& s) const;

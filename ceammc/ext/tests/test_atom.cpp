@@ -296,6 +296,8 @@ TEST_CASE("Atom", "[core]")
         REQUIRE(a2.isSymbol());
         REQUIRE(a2.setFloat(1, true));
         REQUIRE(a2.isFloat());
+
+        Atom int100(new IntData(100));
     }
 
     SECTION("equal tests")

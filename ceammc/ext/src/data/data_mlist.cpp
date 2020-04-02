@@ -18,6 +18,9 @@
 DataMList::DataMList(const PdArgs& args)
     : DataMListBase(args)
 {
+    auto p = addProperty(new ListProperty("@value"));
+    p->setArgIndex(0);
+//    p->setSuccessFn([this](Property*p) { mlist_ = });
     auto lst = DataTypeMList::parse(positionalArguments());
     if (lst)
         mlist_ = *lst;

@@ -35,7 +35,7 @@ public:
     /**
      * create empty list
      */
-    DataTypeMList();
+    DataTypeMList() noexcept;
 
     /**
      * create with elements from given list
@@ -58,13 +58,13 @@ public:
     DataTypeMList& operator=(const DataTypeMList& mlist);
     DataTypeMList& operator=(DataTypeMList&& mlist);
 
-    int type() const final;
+    int type() const noexcept final;
     DataTypeMList* clone() const final;
-    bool isEqual(const AbstractData* cmp) const final;
+    bool isEqual(const AbstractData* cmp) const noexcept final;
     std::string toString() const final;
 
-    AtomList& data() { return data_; }
-    const AtomList& data() const { return data_; }
+    AtomList& data() noexcept { return data_; }
+    const AtomList& data() const noexcept { return data_; }
     template <class Fn>
     AtomList toList(Fn pred) const;
 
@@ -72,12 +72,12 @@ public:
     /**
      * Checks if list is empty
      */
-    bool empty() const { return data_.empty(); }
+    bool empty() const noexcept { return data_.empty(); }
 
     /**
      * Number of elements in list
      */
-    size_t size() const { return data_.size(); }
+    size_t size() const noexcept{ return data_.size(); }
 
     const Atom& at(size_t n) const { return data_[n]; }
     Atom& at(size_t n) { return data_[n]; }

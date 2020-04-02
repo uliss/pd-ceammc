@@ -390,4 +390,47 @@ TEST_CASE("Atom2", "[core]")
         REQUIRE(A("abc```````/`.`:``\"").endQuote());
         REQUIRE(!A("\"\"").endQuote());
     }
+
+    SECTION("set* with data")
+    {
+        Atom int100(new IntData(100));
+        REQUIRE(int100.refCount() == 1);
+
+        Atom i0(int100);
+        REQUIRE(i0.refCount() == 2);
+
+        REQUIRE_FALSE(i0.setFloat(100));
+        REQUIRE(i0.isData());
+        REQUIRE(int100.isData());
+
+        REQUIRE(i0.setFloat(200, true));
+        REQUIRE(i0.isFloat());
+        REQUIRE(int100.isData());
+        REQUIRE(i0.refCount() == 0);
+        REQUIRE(int100.refCount() == 1);
+
+        Atom i1(int100);
+        REQUIRE(i1.isData());
+        REQUIRE(i1.refCount() == 2);
+        REQUIRE(int100.refCount() == 2);
+        REQUIRE(i1.setSymbol(SYM("tre"), true));
+        REQUIRE(i1.isSymbol());
+        REQUIRE(i1.refCount() == 0);
+        REQUIRE(int100.refCount() == 1);
+    }
+
+    SECTION("std::swap")
+    {
+        Atom int100(new IntData(100));
+        std::swap(int100, int100);
+
+        REQUIRE(int100.isData());
+        REQUIRE(int100.asD<IntData>()->value() == 100);
+
+        Atom f(2.5);
+        std::swap(int100, f);
+        REQUIRE(f.isData());
+        REQUIRE(int100.isFloat());
+        REQUIRE(f.refCount() == 1);
+    }
 }

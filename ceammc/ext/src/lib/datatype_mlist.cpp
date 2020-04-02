@@ -30,9 +30,7 @@ static AbstractData* newMList(const AtomList& args)
 
 int DataTypeMList::dataType = DataStorage::instance().registerNewType("MList", newMList);
 
-DataTypeMList::DataTypeMList()
-{
-}
+DataTypeMList::DataTypeMList() noexcept = default;
 
 DataTypeMList::DataTypeMList(const AtomList& lst)
     : data_(lst)
@@ -72,7 +70,7 @@ DataTypeMList& DataTypeMList::operator=(DataTypeMList&& mlist)
     return *this;
 }
 
-int DataTypeMList::type() const
+int DataTypeMList::type() const noexcept
 {
     return dataType;
 }
@@ -82,7 +80,7 @@ DataTypeMList* DataTypeMList::clone() const
     return new DataTypeMList(*this);
 }
 
-bool DataTypeMList::isEqual(const AbstractData* cmp) const
+bool DataTypeMList::isEqual(const AbstractData* cmp) const noexcept
 {
     auto mlist = cmp->as<DataTypeMList>();
     if (!mlist)
@@ -139,8 +137,11 @@ void DataTypeMList::prepend(const AtomList& lst)
 
 bool DataTypeMList::pop()
 {
-    return false;
-    //    return data_.p
+    if (data_.empty())
+        return false;
+
+    data_.remove(data_.size() - 1);
+    return true;
 }
 
 bool DataTypeMList::remove(size_t idx)

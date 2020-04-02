@@ -32,8 +32,9 @@ namespace ceammc {
 
 using ElementAccessFn = const Atom* (AtomList::*)(int)const;
 
-AtomList::AtomList()
+AtomList::AtomList() noexcept
 {
+    static_assert(noexcept(Atom()), "Atom should be noexcept");
 }
 
 AtomList::AtomList(const AtomList& l)
@@ -77,7 +78,7 @@ void AtomList::operator=(const AtomList& l)
         atoms_ = l.atoms_;
 }
 
-void AtomList::operator=(AtomList&& l)
+void AtomList::operator=(AtomList&& l) noexcept
 {
     if (this != &l)
         atoms_ = std::move(l.atoms_);
@@ -144,7 +145,7 @@ const Atom* AtomList::foldAt(int pos) const
     return const_cast<AtomList*>(this)->foldAt(pos);
 }
 
-bool AtomList::boolAt(size_t pos, bool def) const
+bool AtomList::boolAt(size_t pos, bool def) const noexcept
 {
     if (pos >= atoms_.size())
         return def;
@@ -152,7 +153,7 @@ bool AtomList::boolAt(size_t pos, bool def) const
     return atoms_[pos].asBool(def);
 }
 
-int AtomList::intAt(size_t pos, int def) const
+int AtomList::intAt(size_t pos, int def) const noexcept
 {
     if (pos >= atoms_.size())
         return def;
@@ -160,7 +161,7 @@ int AtomList::intAt(size_t pos, int def) const
     return atoms_[pos].asInt(def);
 }
 
-t_float AtomList::floatAt(size_t pos, t_float def) const
+t_float AtomList::floatAt(size_t pos, t_float def) const noexcept
 {
     if (pos >= atoms_.size())
         return def;
@@ -168,7 +169,7 @@ t_float AtomList::floatAt(size_t pos, t_float def) const
     return atoms_[pos].asFloat(def);
 }
 
-t_symbol* AtomList::symbolAt(size_t pos, t_symbol* def) const
+t_symbol* AtomList::symbolAt(size_t pos, t_symbol* def) const noexcept
 {
     if (pos >= atoms_.size())
         return def;
@@ -227,7 +228,7 @@ void AtomList::resizeFold(size_t n)
     }
 }
 
-bool AtomList::property(t_symbol* name, Atom* dest) const
+bool AtomList::property(t_symbol* name, Atom* dest) const noexcept
 {
     if (!dest)
         return false;
@@ -301,7 +302,7 @@ std::deque<AtomList> AtomList::properties() const
     return res;
 }
 
-bool AtomList::hasProperty(t_symbol* name) const
+bool AtomList::hasProperty(t_symbol* name) const noexcept
 {
     for (auto& a : atoms_) {
         if (name == a.asSymbol())
@@ -502,11 +503,6 @@ const Atom* AtomList::last() const
     return const_cast<AtomList*>(this)->last();
 }
 
-void AtomList::clear()
-{
-    atoms_.clear();
-}
-
 void AtomList::fill(const Atom& a)
 {
     std::fill(atoms_.begin(), atoms_.end(), a);
@@ -554,22 +550,22 @@ Atom* AtomList::max()
     return &(*std::max_element(atoms_.begin(), atoms_.end()));
 }
 
-MaybeFloat AtomList::sum() const
+MaybeFloat AtomList::sum() const noexcept
 {
     return reduceFloat(0, [](t_float a, t_float b) { return a + b; });
 }
 
-MaybeFloat AtomList::product() const
+MaybeFloat AtomList::product() const noexcept
 {
     return reduceFloat(1, [](t_float a, t_float b) { return a * b; });
 }
 
-bool AtomList::contains(const Atom& a) const
+bool AtomList::contains(const Atom& a) const noexcept
 {
     return std::find(atoms_.begin(), atoms_.end(), a) != atoms_.end();
 }
 
-long AtomList::findPos(const Atom& a) const
+long AtomList::findPos(const Atom& a) const noexcept
 {
     auto it = std::find(atoms_.begin(), atoms_.end(), a);
     if (it == atoms_.end())
@@ -578,7 +574,7 @@ long AtomList::findPos(const Atom& a) const
     return std::distance(atoms_.begin(), it);
 }
 
-long AtomList::findPos(AtomPredicate pred) const
+long AtomList::findPos(AtomPredicate pred) const noexcept
 {
     auto it = std::find_if(atoms_.begin(), atoms_.end(), pred);
     if (it == atoms_.end())
@@ -587,17 +583,17 @@ long AtomList::findPos(AtomPredicate pred) const
     return std::distance(atoms_.begin(), it);
 }
 
-size_t AtomList::count(const Atom& a) const
+size_t AtomList::count(const Atom& a) const noexcept
 {
     return static_cast<size_t>(std::count(atoms_.begin(), atoms_.end(), a));
 }
 
-size_t AtomList::count(AtomPredicate pred) const
+size_t AtomList::count(AtomPredicate pred) const noexcept
 {
     return static_cast<size_t>(std::count_if(atoms_.begin(), atoms_.end(), pred));
 }
 
-bool AtomList::allOf(AtomPredicate pred) const
+bool AtomList::allOf(AtomPredicate pred) const noexcept
 {
     if (empty())
         return false;
@@ -605,12 +601,12 @@ bool AtomList::allOf(AtomPredicate pred) const
     return std::all_of(atoms_.begin(), atoms_.end(), pred);
 }
 
-bool AtomList::anyOf(AtomPredicate pred) const
+bool AtomList::anyOf(AtomPredicate pred) const noexcept
 {
     return std::any_of(atoms_.begin(), atoms_.end(), pred);
 }
 
-bool AtomList::noneOf(AtomPredicate pred) const
+bool AtomList::noneOf(AtomPredicate pred) const noexcept
 {
     return std::none_of(atoms_.begin(), atoms_.end(), pred);
 }
@@ -620,7 +616,7 @@ const Atom* AtomList::max() const
     return const_cast<AtomList*>(this)->max();
 }
 
-bool AtomList::range(Atom& min, Atom& max) const
+bool AtomList::range(Atom& min, Atom& max) const noexcept
 {
     if (empty())
         return false;
@@ -762,7 +758,7 @@ AtomList AtomList::sub(const AtomList& a, const AtomList& b, AtomList::NonEqualL
     }
 }
 
-AtomList& AtomList::operator+=(t_float v)
+AtomList& AtomList::operator+=(t_float v) noexcept
 {
     for (auto& a : atoms_)
         a += v;
@@ -770,7 +766,7 @@ AtomList& AtomList::operator+=(t_float v)
     return *this;
 }
 
-AtomList& AtomList::operator-=(t_float v)
+AtomList& AtomList::operator-=(t_float v) noexcept
 {
     for (auto& a : atoms_)
         a -= v;
@@ -778,7 +774,7 @@ AtomList& AtomList::operator-=(t_float v)
     return *this;
 }
 
-AtomList& AtomList::operator*=(t_float v)
+AtomList& AtomList::operator*=(t_float v) noexcept
 {
     for (auto& a : atoms_)
         a *= v;
@@ -786,7 +782,7 @@ AtomList& AtomList::operator*=(t_float v)
     return *this;
 }
 
-AtomList& AtomList::operator/=(t_float v)
+AtomList& AtomList::operator/=(t_float v) noexcept
 {
     if (std::equal_to<t_float>()(v, 0)) {
         LIB_ERR << "division by zero";
@@ -827,7 +823,7 @@ AtomList AtomList::operator/(t_float v) const
     return res;
 }
 
-bool AtomList::operator==(const AtomList& x) const
+bool AtomList::operator==(const AtomList& x) const noexcept
 {
     if (this == &x)
         return true;
@@ -838,7 +834,7 @@ bool AtomList::operator==(const AtomList& x) const
     return std::equal(atoms_.begin(), atoms_.end(), x.atoms_.begin());
 }
 
-bool AtomList::operator==(const AtomListView& x) const
+bool AtomList::operator==(const AtomListView& x) const noexcept
 {
     if (size() != x.size())
         return false;

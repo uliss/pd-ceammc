@@ -21,7 +21,7 @@
 
 namespace ceammc {
 
-AbstractData::~AbstractData() = default;
+AbstractData::~AbstractData() noexcept = default;
 
 void AbstractData::dump() const
 {
@@ -43,7 +43,7 @@ std::string AbstractData::valueToJsonString() const
     return "null";
 }
 
-bool AbstractData::isEqual(const AbstractData* d) const
+bool AbstractData::isEqual(const AbstractData* d) const noexcept
 {
     if (type() != d->type())
         return false;
@@ -51,7 +51,7 @@ bool AbstractData::isEqual(const AbstractData* d) const
     return this == d;
 }
 
-bool AbstractData::isLess(const AbstractData* d) const
+bool AbstractData::isLess(const AbstractData* d) const noexcept
 {
     if (type() != d->type())
         return type() < d->type();
@@ -59,7 +59,7 @@ bool AbstractData::isLess(const AbstractData* d) const
     return false;
 }
 
-std::string AbstractData::typeName() const
+std::string AbstractData::typeName() const noexcept
 {
     return DataStorage::instance().nameByType(type());
 }

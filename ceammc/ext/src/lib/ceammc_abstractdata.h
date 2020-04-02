@@ -23,7 +23,10 @@ namespace ceammc {
  */
 class AbstractData {
 public:
-    virtual ~AbstractData();
+    AbstractData() = default;
+    AbstractData(const AbstractData&) = delete;
+
+    virtual ~AbstractData() noexcept;
 
     /**
      * override this method to dump data to Pd console
@@ -38,7 +41,7 @@ public:
     /**
      * This method should return ID to data type.
      */
-    virtual int type() const = 0;
+    virtual int type() const noexcept = 0;
 
     /**
      * Override this method to get non-default string data representation
@@ -58,17 +61,17 @@ public:
     /**
      * Override this method to compare data by pointer to base class
      */
-    virtual bool isEqual(const AbstractData* d) const;
+    virtual bool isEqual(const AbstractData* d) const noexcept;
 
     /**
      * Override this method to compare data by pointer to base class
      */
-    virtual bool isLess(const AbstractData* d) const;
+    virtual bool isLess(const AbstractData* d) const noexcept;
 
     /**
      * Returns datatype name
      */
-    virtual std::string typeName() const final;
+    virtual std::string typeName() const noexcept final;
 
     /**
      * Helper functions to return pointer to derived classes

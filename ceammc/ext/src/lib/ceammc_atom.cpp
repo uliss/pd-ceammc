@@ -46,18 +46,18 @@ static_assert(sizeof(Atom) == sizeof(t_atom), "Atom and t_atom size mismatch");
 
 constexpr t_atomtype TYPE_DATA = static_cast<t_atomtype>(A_CANT + 1);
 
-Atom::Atom()
+Atom::Atom() noexcept
 {
     a_type = A_NULL;
 }
 
-Atom::Atom(t_float v)
+Atom::Atom(t_float v) noexcept
 {
     a_type = A_FLOAT;
     a_w.w_float = v;
 }
 
-Atom::Atom(t_symbol* s)
+Atom::Atom(t_symbol* s) noexcept
 {
     a_type = A_SYMBOL;
     a_w.w_symbol = s;
@@ -201,13 +201,13 @@ Atom& Atom::operator=(Atom&& x) noexcept
     return *this;
 }
 
-Atom::~Atom()
+Atom::~Atom() noexcept
 {
     if (a_type == TYPE_DATA)
         release();
 }
 
-int Atom::dataType() const
+int Atom::dataType() const noexcept
 {
     if (a_type == TYPE_DATA) {
         auto ref = reinterpret_cast<t_ref*>(REF_PTR);
@@ -226,13 +226,13 @@ int Atom::dataType() const
         return 0;
 }
 
-bool Atom::isData() const
+bool Atom::isData() const noexcept
 {
     return (a_type == TYPE_DATA)
         && (REF_PTR != nullptr);
 }
 
-int Atom::refCount() const
+int Atom::refCount() const noexcept
 {
     if (a_type == TYPE_DATA) {
         auto ref = reinterpret_cast<t_ref*>(REF_PTR);
@@ -282,17 +282,17 @@ bool Atom::endQuote() const
     return string::pd_string_end_quote(a_w.w_symbol->s_name);
 }
 
-bool Atom::is_data(const t_atom& a)
+bool Atom::is_data(const t_atom& a) noexcept
 {
     return a.a_type == TYPE_DATA;
 }
 
-bool Atom::is_data(t_atom* a)
+bool Atom::is_data(t_atom* a) noexcept
 {
     return a && a->a_type == TYPE_DATA;
 }
 
-bool Atom::acquire()
+bool Atom::acquire() noexcept
 {
     if (a_type == TYPE_DATA) {
         auto ref = reinterpret_cast<t_ref*>(REF_PTR);
@@ -314,8 +314,8 @@ bool Atom::acquire()
     }
 }
 
-bool Atom::release()
-{
+bool Atom::release() noexcept
+try {
     if (a_type == TYPE_DATA) {
         auto ref = reinterpret_cast<t_ref*>(REF_PTR);
         if (ref) {
@@ -345,8 +345,10 @@ bool Atom::release()
     } else
         LIB_ERR << "attempt to release non-data atom: " << __FUNCTION__;
 
-    // FIXME
-    return true;
+    return false;
+} catch (std::exception& e) {
+    std::cerr << e.what();
+    return false;
 }
 
 void Atom::setNull()
@@ -355,7 +357,7 @@ void Atom::setNull()
     REF_PTR = nullptr;
 }
 
-bool Atom::isBool() const
+bool Atom::isBool() const noexcept
 {
     static t_symbol* SYM_TRUE = gensym("true");
     static t_symbol* SYM_FALSE = gensym("false");
@@ -374,13 +376,13 @@ bool Atom::isBool() const
     }
 }
 
-bool Atom::isInteger() const
+bool Atom::isInteger() const noexcept
 {
     return isFloat()
         && std::equal_to<t_float>()(std::ceil(a_w.w_float), a_w.w_float);
 }
 
-Atom::Type Atom::type() const
+Atom::Type Atom::type() const noexcept
 {
     switch (a_type) {
     case A_SYMBOL:
@@ -397,7 +399,7 @@ Atom::Type Atom::type() const
     }
 }
 
-bool Atom::getFloat(t_float* v) const
+bool Atom::getFloat(t_float* v) const noexcept
 {
     if (!v)
         return false;
@@ -409,7 +411,7 @@ bool Atom::getFloat(t_float* v) const
     return true;
 }
 
-bool Atom::getSymbol(t_symbol** s) const
+bool Atom::getSymbol(t_symbol** s) const noexcept
 {
     if (!s)
         return false;
@@ -421,25 +423,29 @@ bool Atom::getSymbol(t_symbol** s) const
     return true;
 }
 
-bool Atom::setFloat(t_float v, bool force)
+bool Atom::setFloat(t_float v, bool force) noexcept
 {
     if (!force && !isFloat())
         return false;
+
+    release();
 
     SETFLOAT(this, v);
     return true;
 }
 
-bool Atom::setSymbol(t_symbol* s, bool force)
+bool Atom::setSymbol(t_symbol* s, bool force) noexcept
 {
     if (!force && !isSymbol())
         return false;
+
+    release();
 
     SETSYMBOL(this, s);
     return true;
 }
 
-bool Atom::asBool(bool def) const
+bool Atom::asBool(bool def) const noexcept
 {
     static t_symbol* SYM_TRUE = gensym("true");
     static t_symbol* SYM_FALSE = gensym("false");
@@ -460,7 +466,7 @@ bool Atom::asBool(bool def) const
     }
 }
 
-size_t Atom::asSizeT(size_t def) const
+size_t Atom::asSizeT(size_t def) const noexcept
 {
     if (!isFloat())
         return def;
@@ -469,7 +475,7 @@ size_t Atom::asSizeT(size_t def) const
     return (v < 0) ? def : static_cast<size_t>(v);
 }
 
-const AbstractData* Atom::asData() const
+const AbstractData* Atom::asData() const noexcept
 {
     if (a_type == TYPE_DATA) {
         auto ref = reinterpret_cast<t_ref*>(REF_PTR);
@@ -488,7 +494,7 @@ const AbstractData* Atom::asData() const
         return nullptr;
 }
 
-bool Atom::operator<(const Atom& b) const
+bool Atom::operator<(const Atom& b) const noexcept
 {
     if (this == &b)
         return false;
@@ -519,9 +525,12 @@ bool Atom::operator<(const Atom& b) const
             if (dataType() == b.dataType()) {
                 if (asData() == b.asData())
                     return false;
-                else if (asData() != nullptr)
+                else if (asData() != nullptr) {
+
+                    static_assert(noexcept(asData()->isLess(b.asData())), "isLess should be noexcept");
+
                     return asData()->isLess(b.asData());
-                else
+                } else
                     return false;
             } else
                 return dataType() < b.dataType();
@@ -531,7 +540,7 @@ bool Atom::operator<(const Atom& b) const
         return t < b.type();
 }
 
-Atom& Atom::operator+=(t_float v)
+Atom& Atom::operator+=(t_float v) noexcept
 {
     if (isFloat())
         a_w.w_float += v;
@@ -539,7 +548,7 @@ Atom& Atom::operator+=(t_float v)
     return *this;
 }
 
-Atom& Atom::operator-=(t_float v)
+Atom& Atom::operator-=(t_float v) noexcept
 {
     if (isFloat())
         a_w.w_float -= v;
@@ -547,7 +556,7 @@ Atom& Atom::operator-=(t_float v)
     return *this;
 }
 
-Atom& Atom::operator*=(t_float v)
+Atom& Atom::operator*=(t_float v) noexcept
 {
     if (isFloat())
         a_w.w_float *= v;
@@ -555,7 +564,7 @@ Atom& Atom::operator*=(t_float v)
     return *this;
 }
 
-Atom& Atom::operator/=(t_float v)
+Atom& Atom::operator/=(t_float v) noexcept
 {
     if (isFloat() && v != 0.0)
         a_w.w_float /= v;
@@ -583,7 +592,7 @@ Atom Atom::operator/(t_float v) const
     return Atom(*this) /= v;
 }
 
-bool Atom::operator==(const Atom& x) const
+bool Atom::operator==(const Atom& x) const noexcept
 {
     if (this == &x)
         return true;
@@ -605,9 +614,12 @@ bool Atom::operator==(const Atom& x) const
             return false;
         else if (asData() == x.asData())
             return true;
-        else if (asData() != nullptr)
+        else if (asData() != nullptr) {
+
+            static_assert(noexcept(asData()->isEqual(x.asData())), "isEqual should be noexcept");
+
             return asData()->isEqual(x.asData());
-        else
+        } else
             return false;
     }
     case NONE:

@@ -100,19 +100,19 @@ DataTypeString& DataTypeString::operator=(DataTypeString&& s)
     return *this;
 }
 
-DataTypeString::~DataTypeString()
+DataTypeString::~DataTypeString() noexcept
 {
 #ifndef NDEBUG
     LIB_DBG << "string destructed: " << str_;
 #endif
 }
 
-void DataTypeString::clear()
+void DataTypeString::clear() noexcept
 {
     str_.clear();
 }
 
-int DataTypeString::type() const
+int DataTypeString::type() const noexcept
 {
     return dataType;
 }
@@ -200,7 +200,7 @@ DataTypeString DataTypeString::substr(int from, size_t len) const
     return string::utf8_substr(str_.c_str(), from, len);
 }
 
-bool DataTypeString::isEqual(const AbstractData* d) const
+bool DataTypeString::isEqual(const AbstractData* d) const noexcept
 {
     if (type() != d->type())
         return false;
@@ -209,10 +209,13 @@ bool DataTypeString::isEqual(const AbstractData* d) const
         return true;
 
     const DataTypeString* cmp = static_cast<const DataTypeString*>(d);
+
+    static_assert(noexcept(operator==(*cmp)), "noexcept required");
+
     return this->operator==(*cmp);
 }
 
-bool DataTypeString::isLess(const AbstractData* d) const
+bool DataTypeString::isLess(const AbstractData* d) const noexcept
 {
     if (type() != d->type())
         return type() < d->type();

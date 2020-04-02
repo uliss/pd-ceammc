@@ -43,22 +43,22 @@ private:
     DictMap dict_;
 
 public:
-    DataTypeDict();
+    DataTypeDict() noexcept;
     DataTypeDict(const DataTypeDict& dict);
-    DataTypeDict(DataTypeDict&& dict);
+    DataTypeDict(DataTypeDict&& dict) noexcept;
     DataTypeDict(const std::string& str);
 
     DataTypeDict& operator=(const DataTypeDict& dict);
-    DataTypeDict& operator=(DataTypeDict&& dict);
+    DataTypeDict& operator=(DataTypeDict&& dict) noexcept;
 
     DataTypeDict* clone() const override;
-    int type() const override;
+    int type() const noexcept final;
     std::string toString() const override;
-    bool isEqual(const AbstractData* d) const override;
-    bool operator==(const DataTypeDict& d) const;
+    bool isEqual(const AbstractData* d) const noexcept final;
+    bool operator==(const DataTypeDict& d) const noexcept;
 
-    size_t size() const;
-    bool contains(const Atom& key) const;
+    size_t size() const noexcept;
+    bool contains(const Atom& key) const noexcept;
     DictValue value(const Atom& key) const;
 
     template <class T>
@@ -88,9 +88,9 @@ public:
     void insert(const Atom& key, t_float value);
     void insert(const Atom& key, const Atom& value);
     void insert(const Atom& key, const AtomList& value);
-//    void insert(const Atom& key, const DataAtom& value);
+    //    void insert(const Atom& key, const DataAtom& value);
     bool remove(const Atom& key);
-    void clear();
+    void clear() noexcept;
 
     bool fromString(const std::string& str);
 

@@ -44,16 +44,14 @@ static AbstractData* newFromDict(const Dict& d)
 
 const int DataTypeDict::dataType = DataStorage::instance().registerNewType("Dict", nullptr, newFromDict);
 
-DataTypeDict::DataTypeDict()
-{
-}
+DataTypeDict::DataTypeDict() noexcept = default;
 
 DataTypeDict::DataTypeDict(const DataTypeDict& dict)
     : dict_(dict.dict_)
 {
 }
 
-DataTypeDict::DataTypeDict(DataTypeDict&& dict)
+DataTypeDict::DataTypeDict(DataTypeDict&& dict) noexcept
     : dict_(std::move(dict.dict_))
 {
 }
@@ -69,7 +67,7 @@ DataTypeDict& DataTypeDict::operator=(const DataTypeDict& dict)
     return *this;
 }
 
-DataTypeDict& DataTypeDict::operator=(DataTypeDict&& dict)
+DataTypeDict& DataTypeDict::operator=(DataTypeDict&& dict) noexcept
 {
     dict_ = std::move(dict.dict_);
     return *this;
@@ -80,7 +78,7 @@ DataTypeDict* DataTypeDict::clone() const
     return new DataTypeDict(*this);
 }
 
-int DataTypeDict::type() const
+int DataTypeDict::type() const noexcept
 {
     return dataType;
 }
@@ -128,7 +126,7 @@ std::string DataTypeDict::toString() const
     return res;
 }
 
-bool DataTypeDict::isEqual(const AbstractData* d) const
+bool DataTypeDict::isEqual(const AbstractData* d) const noexcept
 {
     auto data = d->as<DataTypeDict>();
 
@@ -143,17 +141,17 @@ bool DataTypeDict::isEqual(const AbstractData* d) const
     return data->dict_ == dict_;
 }
 
-bool DataTypeDict::operator==(const DataTypeDict& d) const
+bool DataTypeDict::operator==(const DataTypeDict& d) const noexcept
 {
     return dict_ == d.dict_;
 }
 
-size_t DataTypeDict::size() const
+size_t DataTypeDict::size() const noexcept
 {
     return dict_.size();
 }
 
-bool DataTypeDict::contains(const Atom& key) const
+bool DataTypeDict::contains(const Atom& key) const noexcept
 {
     return dict_.find(key) != dict_.end();
 }
@@ -216,7 +214,7 @@ bool DataTypeDict::remove(const Atom& key)
     return true;
 }
 
-void DataTypeDict::clear()
+void DataTypeDict::clear() noexcept
 {
     dict_.clear();
 }

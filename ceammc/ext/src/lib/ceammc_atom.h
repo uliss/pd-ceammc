@@ -53,7 +53,7 @@ public:
     /**
      * Creates atom of type NONE
      */
-    Atom();
+    Atom() noexcept;
 
     /**
      * Creates atom from PureData t_atom struct
@@ -65,13 +65,13 @@ public:
      * Creates float atom
      * @param v
      */
-    Atom(t_float v);
+    Atom(t_float v) noexcept;
 
     /**
      * Creates symbol atom
      * @param s
      */
-    Atom(t_symbol* s);
+    Atom(t_symbol* s) noexcept;
 
     /**
      * Create data atom, take ownership over given pointer
@@ -98,44 +98,44 @@ public:
      */
     Atom& operator=(Atom&& x) noexcept;
 
-    ~Atom();
+    ~Atom() noexcept;
 
     /**
      * Checks if atom is (0|1|true|false)
      */
-    bool isBool() const;
+    bool isBool() const noexcept;
 
     /**
      * @returns true if atom has PureData type A_FLOAT
      */
-    bool isFloat() const { return a_type == A_FLOAT; }
+    bool isFloat() const noexcept { return a_type == A_FLOAT; }
 
     /**
      * @returns true if atom has logical type Atom::NONE
      */
-    bool isNone() const { return type() == NONE; }
+    bool isNone() const noexcept { return type() == NONE; }
 
     /**
      * @returns true if atom has logical type Atom::SYMBOL
      * this means, that t_symbol* pointer never equals nullptr
      */
-    bool isSymbol() const { return type() == SYMBOL || type() == PROPERTY; }
+    bool isSymbol() const noexcept { return type() == SYMBOL || type() == PROPERTY; }
 
     /**
      * @returns true if atom has logical type Atom::PROPERTY
      */
-    bool isProperty() const { return type() == PROPERTY; }
+    bool isProperty() const noexcept { return type() == PROPERTY; }
 
     /**
      * @returns true if atom has logical type Atom::FLOAT and value is integer
      */
-    bool isInteger() const;
+    bool isInteger() const noexcept;
 
     /**
      * template parameterized atom type check
      */
     template <typename T>
-    inline bool isA() const { return isDataType(T::dataType); }
+    inline bool isA() const noexcept { return isDataType(T::dataType); }
 
     /**
      * template parameterized atom value as typed value
@@ -161,7 +161,7 @@ public:
     /**
      * @returns atom logical type
      */
-    CEAMMC_NO_ASAN Type type() const;
+    CEAMMC_NO_ASAN Type type() const noexcept;
 
     /**
      * Tries to get float from atom - writes to destination only if atom type if float
@@ -169,8 +169,8 @@ public:
      * @return true on success, false - if atom is not float
      * @see getSymbol
      */
-    bool getFloat(t_float* v) const;
-    bool getSymbol(t_symbol** s) const;
+    bool getFloat(t_float* v) const noexcept;
+    bool getSymbol(t_symbol** s) const noexcept;
 
     /**
      * @brief setFloat value
@@ -179,7 +179,7 @@ public:
      * @return true on success, false on error.
      * If atom type is non-float and force is not set - returns false
      */
-    bool setFloat(t_float v, bool force = false);
+    bool setFloat(t_float v, bool force = false) noexcept;
 
     /**
      * @brief setSymbol value
@@ -188,71 +188,71 @@ public:
      * @return true on success, false on error.
      * If atom type is non-symbol and force is not set - returns false
      */
-    bool setSymbol(t_symbol* s, bool force = false);
+    bool setSymbol(t_symbol* s, bool force = false) noexcept;
 
     /**
      * Try to get atom value as bool
      * @param def - default value if atom is not bool
      * @return value on success, or default value on error
      */
-    bool asBool(bool def = false) const;
+    bool asBool(bool def = false) const noexcept;
 
     /**
      * Try to get atom value as float
      * @param def - default value if atom is not float(!)
      * @return atom float value on success, or default value on error
      */
-    t_float asFloat(t_float def = 0.f) const { return isFloat() ? a_w.w_float : def; }
+    t_float asFloat(t_float def = 0.f) const noexcept { return isFloat() ? a_w.w_float : def; }
 
     /**
      * Try to get atom value as integer
      * @param def - default value if atom is not float
      * @return atom float value rounded to int on success, or default value on error
      */
-    int asInt(int def = 0) const { return isFloat() ? static_cast<int>(a_w.w_float) : def; }
+    int asInt(int def = 0) const noexcept { return isFloat() ? static_cast<int>(a_w.w_float) : def; }
 
     /**
      * Try to get atom value as unsigned integer
      * @param def - default value if atom is not float or <0
      * @return atom float value rounded to size_t on success, or default value on error
      */
-    size_t asSizeT(size_t def = 0) const;
+    size_t asSizeT(size_t def = 0) const noexcept;
 
     /**
      * Try to get atom value as symbol
      * @param def = default value if atom is not symbol
      * @return atom symbol value ot default on error
      */
-    t_symbol* asSymbol(t_symbol* def = &s_) const { return isSymbol() ? a_w.w_symbol : def; }
+    t_symbol* asSymbol(t_symbol* def = &s_) const noexcept { return isSymbol() ? a_w.w_symbol : def; }
 
     /**
      * reference to underlying PureData type
      */
-    const t_atom& atom() const { return *static_cast<const t_atom*>(this); }
+    const t_atom& atom() const noexcept { return *static_cast<const t_atom*>(this); }
 
     /**
      * compare operator
      * compare atoms of same type.
      * @note now only floats and symbols
      */
-    CEAMMC_NO_ASAN bool operator<(const Atom& a) const;
-    CEAMMC_NO_ASAN bool operator<(t_float f) const { return isFloat() && a_w.w_float < f; }
-    CEAMMC_NO_ASAN bool operator<=(t_float f) const { return isFloat() && a_w.w_float <= f; }
-    CEAMMC_NO_ASAN bool operator>(t_float f) const { return isFloat() && a_w.w_float > f; }
-    CEAMMC_NO_ASAN bool operator>=(t_float f) const { return isFloat() && a_w.w_float >= f; }
+    CEAMMC_NO_ASAN bool operator<(const Atom& a) const noexcept;
+    CEAMMC_NO_ASAN bool operator<(t_float f) const noexcept { return isFloat() && a_w.w_float < f; }
+    CEAMMC_NO_ASAN bool operator<=(t_float f) const noexcept { return isFloat() && a_w.w_float <= f; }
+    CEAMMC_NO_ASAN bool operator>(t_float f) const noexcept { return isFloat() && a_w.w_float > f; }
+    CEAMMC_NO_ASAN bool operator>=(t_float f) const noexcept { return isFloat() && a_w.w_float >= f; }
 
-    CEAMMC_NO_ASAN bool operator==(const Atom& a) const;
-    bool operator!=(const Atom& a) const { return !operator==(a); }
-    CEAMMC_NO_ASAN bool operator==(t_float f) const { return isFloat() && std::equal_to<t_float>()(a_w.w_float, f); }
-    bool operator!=(t_float f) const { return !operator==(f); }
+    CEAMMC_NO_ASAN bool operator==(const Atom& a) const noexcept;
+    bool operator!=(const Atom& a) const noexcept { return !operator==(a); }
+    CEAMMC_NO_ASAN bool operator==(t_float f) const noexcept { return isFloat() && std::equal_to<t_float>()(a_w.w_float, f); }
+    bool operator!=(t_float f) const noexcept { return !operator==(f); }
 
     /**
      * Operators
      */
-    Atom& operator+=(t_float v);
-    Atom& operator-=(t_float v);
-    Atom& operator*=(t_float v);
-    Atom& operator/=(t_float v);
+    Atom& operator+=(t_float v) noexcept;
+    Atom& operator-=(t_float v) noexcept;
+    Atom& operator*=(t_float v) noexcept;
+    Atom& operator/=(t_float v) noexcept;
 
     Atom operator+(t_float v) const;
     Atom operator-(t_float v) const;
@@ -285,22 +285,22 @@ public:
      * @brief dataType
      * @return data type or 0 on error
      */
-    int dataType() const;
+    int dataType() const noexcept;
 
     /**
      * @returns true if atom is a data structure
      */
-    bool isData() const;
+    bool isData() const noexcept;
 
     /**
      * @returns true if atom is a data structure of specified type
      */
-    bool isDataType(int type) const { return dataType() == type; }
+    bool isDataType(int type) const noexcept { return dataType() == type; }
 
     /**
      * Return pointer to data or nullptr if not a dataatom
      */
-    const AbstractData* asData() const;
+    const AbstractData* asData() const noexcept;
 
     /**
      * Return pointer to typed data or nullptr if not a dataatom
@@ -317,7 +317,7 @@ public:
     /**
      * Return number of data references or 0 if not a dataatom
      */
-    int refCount() const;
+    int refCount() const noexcept;
 
     /**
      * Parse symbol:
@@ -333,12 +333,12 @@ public:
     bool endQuote() const;
 
 public:
-    static bool is_data(const t_atom& a);
-    static bool is_data(t_atom* a);
+    static bool is_data(const t_atom& a) noexcept;
+    static bool is_data(t_atom* a) noexcept;
 
 private:
-    bool acquire();
-    bool release();
+    bool acquire() noexcept;
+    bool release() noexcept;
     void setNull();
 };
 
@@ -361,19 +361,19 @@ bool Atom::applySymbol(const SymbolMapFunction& fn)
 }
 
 template <>
-inline bool Atom::isA<void>() const { return isNone(); }
+inline bool Atom::isA<void>() const noexcept { return isNone(); }
 template <>
-inline bool Atom::isA<bool>() const { return isBool(); }
+inline bool Atom::isA<bool>() const noexcept { return isBool(); }
 template <>
-inline bool Atom::isA<t_float>() const { return isFloat(); }
+inline bool Atom::isA<t_float>() const noexcept { return isFloat(); }
 template <>
-inline bool Atom::isA<int>() const { return isInteger(); }
+inline bool Atom::isA<int>() const noexcept { return isInteger(); }
 template <>
-inline bool Atom::isA<size_t>() const { return isInteger() && a_w.w_float >= 0; }
+inline bool Atom::isA<size_t>() const noexcept { return isInteger() && a_w.w_float >= 0; }
 template <>
-inline bool Atom::isA<t_symbol*>() const { return isSymbol(); }
+inline bool Atom::isA<t_symbol*>() const noexcept { return isSymbol(); }
 template <>
-inline bool Atom::isA<Atom>() const { return true; }
+inline bool Atom::isA<Atom>() const noexcept { return true; }
 
 template <>
 inline bool Atom::asT<bool>() const { return asBool(); }
