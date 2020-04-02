@@ -89,7 +89,6 @@ std::string DataTypeDict::toString() const
 {
     std::string res;
 
-    res += '(';
     for (auto& e : dict_) {
         res += '[';
         res += to_string_quoted(e.first);
@@ -125,8 +124,6 @@ std::string DataTypeDict::toString() const
     // remove last space
     if (res.size() > 1)
         res.resize(res.size() - 1);
-
-    res += ')';
 
     return res;
 }

@@ -16,7 +16,9 @@
 #include "ceammc_datatypes.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
-#include "mlist_parser_impl.h"
+#include "lex/data_string.lexer.h"
+#include "lex/data_string.parser.hpp"
+//#include "mlist_parser_impl.h"
 
 #include <cassert>
 #include <cmath>
@@ -33,13 +35,6 @@ int DataTypeMList::dataType = DataStorage::instance().registerNewType("MList", n
 
 DataTypeMList::DataTypeMList()
 {
-}
-
-DataTypeMList::DataTypeMList(const std::string& str)
-{
-    auto l = parse(str);
-    if (l)
-        data_ = l->data_;
 }
 
 DataTypeMList::DataTypeMList(const AtomList& lst)
@@ -99,54 +94,20 @@ bool DataTypeMList::isEqual(const AbstractData* cmp) const
     return mlist->data_ == data_;
 }
 
-void DataTypeMList::dump()
-{
-    LIB_DBG << toString();
-}
-
 std::string DataTypeMList::toString() const
 {
     std::string res("(");
 
     for (size_t i = 0; i < data_.size(); i++) {
-        if (i != 0)
-            res.push_back(' ');
-
         res += to_string_quoted(data_[i]);
+        res.push_back(' ');
     }
+
+    if (!data_.empty())
+        res.pop_back();
 
     res.push_back(')');
     return res;
-}
-
-bool DataTypeMList::empty() const
-{
-    return data_.empty();
-}
-
-size_t DataTypeMList::size() const
-{
-    return data_.size();
-}
-
-const Atom& DataTypeMList::at(size_t n) const
-{
-    return data_[n];
-}
-
-Atom& DataTypeMList::at(size_t n)
-{
-    return data_[n];
-}
-
-const Atom& DataTypeMList::operator[](size_t n) const
-{
-    return data_[n];
-}
-
-Atom& DataTypeMList::operator[](size_t n)
-{
-    return data_[n];
 }
 
 void DataTypeMList::append(const Atom& a)
@@ -222,16 +183,15 @@ DataTypeMList DataTypeMList::flatten() const
 
     for (auto& el : data_) {
         if (el.isData()) {
-            if (el.isDataType(DataTypeMList::dataType)) {
-                auto mlist = el.asDataT<DataTypeMList>();
+            if (el.isA<DataTypeMList>()) {
+                auto mlist = el.asD<DataTypeMList>();
                 if (!mlist) {
                     LIB_ERR << "invalid mlist pointer";
                     continue;
                 }
 
-                // recursion
-                auto mlist_flatten = mlist->flatten();
-                res.data_.append(mlist_flatten.data_);
+                // recursion call
+                res.data_.append(mlist->flatten().data_);
             } else
                 res.data_.append(el);
         } else
@@ -241,49 +201,9 @@ DataTypeMList DataTypeMList::flatten() const
     return res;
 }
 
-template <class T>
-T sign(T v)
-{
-    return v < 0 ? -1 : 1;
-}
-
-static size_t normalizeIdx(int idx, size_t N, bool clip)
-{
-    const bool is_negative = idx < 0;
-    int abs_idx = idx;
-
-    if (is_negative)
-        abs_idx = -(idx + 1);
-
-    if (clip)
-        abs_idx = std::min<int>(abs_idx, N - 1);
-
-    return is_negative ? (N - 1 - abs_idx) : abs_idx;
-}
-
 DataTypeMList DataTypeMList::slice(int start, int end, size_t step) const
 {
-    DataTypeMList res;
-
-    if (step < 1 || data_.empty())
-        return res;
-
-    const size_t N = data_.size();
-    size_t nfirst = normalizeIdx(start, N, false);
-    if (nfirst >= N)
-        return res;
-
-    size_t last = normalizeIdx(end, N, true);
-
-    if (nfirst <= last) {
-        for (size_t i = nfirst; i <= last; i += step)
-            res.append(data_[i]);
-    } else {
-        for (long i = nfirst; i >= long(last); i -= step)
-            res.append(data_[i]);
-    }
-
-    return res;
+    return DataTypeMList(data_.slice(start, end, step));
 }
 
 void DataTypeMList::sort()
@@ -324,73 +244,36 @@ DataTypeMList::MaybeList DataTypeMList::parse(const AtomList& lst)
 
 DataTypeMList::MaybeList DataTypeMList::parse(const std::string& str)
 {
-    DataTypeMList res;
+    auto pos = str.find('(');
 
-    mlist_ast* ast = mlist_ast_create();
-    int err = mlist_parse_string(ast, str.c_str());
+    if (str.empty() || pos == std::string::npos)
+        return boost::none;
 
-    if (err) {
-        mlist_ast_free(ast);
-        LIB_ERR << "[mlist] parse error: " << str;
-        return res;
+    DataStringLexer lexer((pos == 0) ? str : str.substr(pos));
+    AtomList out;
+    DataStringParser p(lexer, out);
+    try {
+        if (p.parse() != 0)
+            return boost::none;
+
+        if (!out.isA<DataTypeMList>()) {
+            LIB_ERR << "MList parse fail";
+            return boost::none;
+        }
+
+        LIB_POST << "parse: " << out;
+
+        return *out.asD<DataTypeMList>();
+
+    } catch (std::exception& e) {
+        LIB_ERR << "MList parse error: " << e.what();
+        return boost::none;
     }
-
-    std::vector<DataTypeMList*> stack;
-    mlist_ast_traverse(ast, &res, &stack, (traverse_fn)traverse);
-
-    mlist_ast_free(ast);
-
-    if (res.data_.size() == 0)
-        return res;
-
-    return *res.data_[0].asDataT<DataTypeMList>();
 }
 
-void DataTypeMList::traverse(mlist_node* node, DataTypeMList* data, MListStack* stack, int act, const char* txt)
+std::ostream& operator<<(std::ostream& os, const DataTypeMList& d)
 {
-    switch (act) {
-    case TRAVERSE_PUSH: {
-        auto mlist = new DataTypeMList;
-        Atom lst_ptr(mlist);
-
-        // insert stack top
-        if (stack->empty()) {
-            data->data_.append(lst_ptr);
-            stack->push_back(mlist);
-        } else {
-            stack->back()->data_.append(lst_ptr);
-            stack->push_back(mlist);
-        }
-
-        break;
-    }
-    case TRAVERSE_ADD: {
-        assert(!stack->empty());
-
-        if (mlist_node_is_quoted(node)) {
-            stack->back()->data_.append(Atom(gensym(txt)));
-        } else {
-            auto b = binbuf_new();
-            binbuf_text(b, (char*)txt, strlen(txt));
-            const int N = binbuf_getnatom(b);
-            auto a = binbuf_getvec(b);
-
-            if (N > 0)
-                stack->back()->data_.append(Atom(*a));
-            else
-                std::cerr << "invalid atom: " << txt;
-
-            binbuf_free(b);
-        }
-
-        break;
-    }
-    case TRAVERSE_POP: {
-        assert(!stack->empty());
-        stack->pop_back();
-        break;
-    }
-    }
+    return os << d.toString();
 }
 
 }

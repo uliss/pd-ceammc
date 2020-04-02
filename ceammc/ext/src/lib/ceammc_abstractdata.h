@@ -28,7 +28,7 @@ public:
     /**
      * override this method to dump data to Pd console
      */
-    virtual void dump() {}
+    virtual void dump() const;
 
     /**
      * This method should return pointer to new dynamically allocated copy of data

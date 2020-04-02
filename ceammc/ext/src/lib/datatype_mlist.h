@@ -18,8 +18,7 @@
 #include "ceammc_atomlist.h"
 
 #include <boost/optional.hpp>
-
-struct mlist_node;
+#include <iostream>
 
 namespace ceammc {
 
@@ -33,11 +32,20 @@ public:
     using const_filter_iterator = AtomList::const_atom_filter_iterator;
 
 public:
+    /**
+     * create empty list
+     */
     DataTypeMList();
-    DataTypeMList(const std::string& str);
+
+    /**
+     * create with elements from given list
+     */
     DataTypeMList(const AtomList& lst);
     DataTypeMList(AtomList&& lst) noexcept;
 
+    /**
+     * Creates list with variable args
+     */
     template <typename... Args>
     explicit DataTypeMList(Args... args)
         : DataTypeMList(AtomList(args...))
@@ -53,7 +61,6 @@ public:
     int type() const final;
     DataTypeMList* clone() const final;
     bool isEqual(const AbstractData* cmp) const final;
-    void dump() override;
     std::string toString() const final;
 
     AtomList& data() { return data_; }
@@ -62,12 +69,21 @@ public:
     AtomList toList(Fn pred) const;
 
     // main
-    bool empty() const;
-    size_t size() const;
-    const Atom& at(size_t n) const;
-    Atom& at(size_t n);
-    const Atom& operator[](size_t n) const;
-    Atom& operator[](size_t n);
+    /**
+     * Checks if list is empty
+     */
+    bool empty() const { return data_.empty(); }
+
+    /**
+     * Number of elements in list
+     */
+    size_t size() const { return data_.size(); }
+
+    const Atom& at(size_t n) const { return data_[n]; }
+    Atom& at(size_t n) { return data_[n]; }
+    const Atom& operator[](size_t n) const { return data_[n]; }
+    Atom& operator[](size_t n) { return data_[n]; }
+
     void append(const Atom& a);
     void append(const AtomList& lst);
     void clear();
@@ -100,6 +116,9 @@ public:
     bool contains(const Atom& a) const;
     bool contains(const DataTypeMList& l) const;
 
+    bool operator==(const DataTypeMList& ml) const { return data_ == ml.data_; }
+    bool operator!=(const DataTypeMList& ml) const { return !operator==(ml); }
+
 public:
     typedef std::vector<DataTypeMList*> MListStack;
     typedef boost::optional<DataTypeMList> MaybeList;
@@ -108,7 +127,6 @@ public:
     static int dataType;
     static MaybeList parse(const AtomList& lst);
     static MaybeList parse(const std::string& lst);
-    static void traverse(mlist_node* node, DataTypeMList* data, MListStack* stack, int act, const char* txt);
 };
 
 template <class Fn>
@@ -124,6 +142,8 @@ AtomList DataTypeMList::toList(Fn pred) const
 
     return res;
 }
+
+std::ostream& operator<<(std::ostream& os, const DataTypeMList& d);
 
 }
 

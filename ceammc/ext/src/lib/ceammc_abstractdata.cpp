@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_abstractdata.h"
 #include "ceammc_datastorage.h"
+#include "ceammc_log.h"
 #include "fmt/format.h"
 
 #include <cstdio>
@@ -20,13 +21,16 @@
 
 namespace ceammc {
 
-AbstractData::~AbstractData() {}
+AbstractData::~AbstractData() = default;
+
+void AbstractData::dump() const
+{
+    LIB_DBG << toString();
+}
 
 std::string AbstractData::toString() const
 {
-    char buf[120];
-    sprintf(buf, "[Data %s id: %i]", typeid(*this).name(), type());
-    return buf;
+    return fmt::format("{[Data {} id: {}]}", typeid(*this).name(), type());
 }
 
 std::string AbstractData::objectToJsonString() const
