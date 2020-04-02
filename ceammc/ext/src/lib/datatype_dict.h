@@ -16,8 +16,8 @@
 
 #include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
-#include "ceammc_data.h"
-#include "ceammc_dataatom.h"
+//#include "ceammc_data.h"
+//#include "ceammc_dataatom.h"
 
 #include <boost/optional.hpp>
 #include <boost/variant.hpp>
@@ -26,7 +26,7 @@
 
 namespace ceammc {
 
-typedef boost::variant<boost::blank, DataAtom, Atom, AtomList> DictValue;
+typedef boost::variant<boost::blank, Atom, AtomList> DictValue;
 typedef boost::optional<std::string> MaybeString;
 
 /**
@@ -52,7 +52,7 @@ public:
     DataTypeDict& operator=(DataTypeDict&& dict);
 
     DataTypeDict* clone() const override;
-    DataType type() const override;
+    int type() const override;
     std::string toString() const override;
     bool isEqual(const AbstractData* d) const override;
     bool operator==(const DataTypeDict& d) const;
@@ -64,8 +64,7 @@ public:
     template <class T>
     boost::optional<T> valueT(const Atom& key) const
     {
-        static_assert(std::is_same<T, DataAtom>()
-                || std::is_same<T, Atom>()
+        static_assert(std::is_same<T, Atom>()
                 || std::is_same<T, AtomList>(),
             "unsupported type");
 
@@ -89,7 +88,7 @@ public:
     void insert(const Atom& key, t_float value);
     void insert(const Atom& key, const Atom& value);
     void insert(const Atom& key, const AtomList& value);
-    void insert(const Atom& key, const DataAtom& value);
+//    void insert(const Atom& key, const DataAtom& value);
     bool remove(const Atom& key);
     void clear();
 
@@ -111,14 +110,13 @@ public:
     static bool isNull(const DictValue& v);
     static bool isAtom(const DictValue& v);
     static bool isAtomList(const DictValue& v);
-    static bool isDataAtom(const DictValue& v);
 
 public:
     DictMap& innerData() { return dict_; }
     const DictMap& innerData() const { return dict_; }
 
 public:
-    static const DataType dataType;
+    static const int dataType;
 };
 
 }

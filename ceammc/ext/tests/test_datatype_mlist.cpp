@@ -11,6 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "ceammc_datastorage.h"
 #include "ceammc_datatypes.h"
 #include "datatype_mlist.h"
 #include "mlist_parser_impl.h"
@@ -27,7 +28,7 @@ using namespace ceammc;
 #define TEST_DATA_DIR "."
 #endif
 
-TEST_CASE("DataTypeMList", "[ceammc::DataTypeMList]")
+TEST_CASE("DataTypeMList", "[core]")
 {
     SECTION("parse")
     {
@@ -87,8 +88,8 @@ TEST_CASE("DataTypeMList", "[ceammc::DataTypeMList]")
     {
         DataTypeMList ml;
         REQUIRE(ml.size() == 0);
-        REQUIRE(ml.type() == data::DATA_MLIST);
-        REQUIRE(ml.dataType == data::DATA_MLIST);
+        REQUIRE(ml.type() == DataTypeMList::dataType);
+        REQUIRE(ml.dataType == DataStorage::instance().typeByName("MList"));
         REQUIRE(ml.toString() == "()");
     }
 
@@ -245,8 +246,8 @@ TEST_CASE("DataTypeMList", "[ceammc::DataTypeMList]")
 
         SECTION("dataptr")
         {
-            REQUIRE_FALSE(DataTypeMList("(a b c)").contains(DataPtr(new DataTypeMList())));
-            REQUIRE(DataTypeMList("(a b () c d)").contains(DataPtr(new DataTypeMList())));
+            REQUIRE_FALSE(DataTypeMList("(a b c)").contains(new DataTypeMList()));
+            REQUIRE(DataTypeMList("(a b () c d)").contains(new DataTypeMList()));
         }
 
         SECTION("mlist")

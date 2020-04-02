@@ -14,67 +14,66 @@
 #ifndef DATATYPE_MLIST_H
 #define DATATYPE_MLIST_H
 
-#include "ceammc_data.h"
-#include "ceammc_dataatomlist.h"
+#include "ceammc_abstractdata.h"
+#include "ceammc_atomlist.h"
 
 #include <boost/optional.hpp>
 
-using namespace ceammc;
-
 struct mlist_node;
 
+namespace ceammc {
+
 class DataTypeMList : public AbstractData {
-    DataAtomList data_;
+    AtomList data_;
 
 public:
-    typedef DataAtomList::iterator iterator;
-    typedef DataAtomList::const_iterator const_iterator;
-    typedef DataAtomList::filter_iterator filter_iterator;
-    typedef DataAtomList::const_filter_iterator const_filter_iterator;
-    typedef DataAtomList::DataAtomPredicate DataAtomPredicate;
+    using iterator = AtomList::iterator;
+    using const_iterator = AtomList::const_iterator;
+    using filter_iterator = AtomList::atom_filter_iterator;
+    using const_filter_iterator = AtomList::const_atom_filter_iterator;
 
 public:
     DataTypeMList();
     DataTypeMList(const std::string& str);
     DataTypeMList(const AtomList& lst);
-    DataTypeMList(AtomList&& lst);
+    DataTypeMList(AtomList&& lst) noexcept;
+
+    template <typename... Args>
+    explicit DataTypeMList(Args... args)
+        : DataTypeMList(AtomList(args...))
+    {
+    }
 
     // copy/move
     DataTypeMList(const DataTypeMList& mlist);
-    DataTypeMList(DataTypeMList&& mlist);
+    DataTypeMList(DataTypeMList&& mlist) noexcept;
     DataTypeMList& operator=(const DataTypeMList& mlist);
     DataTypeMList& operator=(DataTypeMList&& mlist);
 
-    DataType type() const final;
+    int type() const final;
     DataTypeMList* clone() const final;
     bool isEqual(const AbstractData* cmp) const final;
     void dump() override;
     std::string toString() const final;
 
-    DataAtomList& data() { return data_; }
-    const DataAtomList& data() const { return data_; }
-    AtomList toList() const;
+    AtomList& data() { return data_; }
+    const AtomList& data() const { return data_; }
     template <class Fn>
     AtomList toList(Fn pred) const;
 
     // main
     bool empty() const;
     size_t size() const;
-    const DataAtom& at(size_t n) const;
-    DataAtom& at(size_t n);
-    const DataAtom& operator[](size_t n) const;
-    DataAtom& operator[](size_t n);
+    const Atom& at(size_t n) const;
+    Atom& at(size_t n);
+    const Atom& operator[](size_t n) const;
+    Atom& operator[](size_t n);
     void append(const Atom& a);
-    void append(const DataAtom& a);
     void append(const AtomList& lst);
-    void append(const DataAtomList& lst);
     void clear();
     bool insert(size_t idx, const AtomList& lst);
-    bool insert(size_t idx, const DataAtomList& lst);
     void prepend(const Atom& a);
-    void prepend(const DataAtom& a);
     void prepend(const AtomList& lst);
-    void prepend(const DataAtomList& lst);
     bool pop();
     bool remove(size_t idx);
     void reserve(size_t n);
@@ -85,10 +84,10 @@ public:
     const_iterator end() const { return data_.end(); }
     iterator end() { return data_.end(); }
 
-    const_filter_iterator begin_filter(DataAtomPredicate pred) const { return data_.begin_filter(pred); }
-    filter_iterator begin_filter(DataAtomPredicate pred) { return data_.begin_filter(pred); }
-    const_filter_iterator end_filter() const { return data_.end_filter(); }
-    filter_iterator end_filter() { return data_.end_filter(); }
+    const_filter_iterator begin_filter(AtomPredicate pred) const { return data_.begin_atom_filter(pred); }
+    filter_iterator begin_filter(AtomPredicate pred) { return data_.begin_atom_filter(pred); }
+    const_filter_iterator end_filter() const { return data_.end_atom_filter(); }
+    filter_iterator end_filter() { return data_.end_atom_filter(); }
 
     // fn
     DataTypeMList rotateLeft(int steps) const;
@@ -99,9 +98,6 @@ public:
     void reverse();
     void shuffle();
     bool contains(const Atom& a) const;
-    bool contains(const AtomList& l) const;
-    bool contains(const DataAtom& d) const;
-    bool contains(const DataPtr& ptr) const;
     bool contains(const DataTypeMList& l) const;
 
 public:
@@ -109,7 +105,7 @@ public:
     typedef boost::optional<DataTypeMList> MaybeList;
 
 public:
-    static DataType dataType;
+    static int dataType;
     static MaybeList parse(const AtomList& lst);
     static MaybeList parse(const std::string& lst);
     static void traverse(mlist_node* node, DataTypeMList* data, MListStack* stack, int act, const char* txt);
@@ -123,10 +119,12 @@ AtomList DataTypeMList::toList(Fn pred) const
 
     for (auto& el : data_) {
         if (pred(el))
-            res.append(el.asAtom());
+            res.append(el);
     }
 
     return res;
+}
+
 }
 
 #endif // DATATYPE_MLIST_H

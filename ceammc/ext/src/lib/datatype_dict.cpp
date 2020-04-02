@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "datatype_dict.h"
+#include "ceammc_datastorage.h"
 #include "ceammc_datatypes.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
@@ -27,7 +28,21 @@ extern "C" int dict_parse_string(t_dict* dict, const char* s);
 
 using namespace ceammc;
 
-const DataType DataTypeDict::dataType = data::DATA_DICT;
+static AbstractData* newFromDict(const Dict& d)
+{
+    auto dict = new DataTypeDict;
+
+    for (auto& kv : d) {
+        if (kv.second.isAtom())
+            dict->insert(kv.first, kv.second.asT<Atom>());
+        else
+            dict->insert(kv.first, kv.second);
+    }
+
+    return dict;
+}
+
+const int DataTypeDict::dataType = DataStorage::instance().registerNewType("Dict", nullptr, newFromDict);
 
 DataTypeDict::DataTypeDict()
 {
@@ -65,7 +80,7 @@ DataTypeDict* DataTypeDict::clone() const
     return new DataTypeDict(*this);
 }
 
-DataType DataTypeDict::type() const
+int DataTypeDict::type() const
 {
     return dataType;
 }
@@ -84,7 +99,7 @@ std::string DataTypeDict::toString() const
             auto& atom = boost::get<Atom>(e.second);
             res += ' ';
             res += to_string_quoted(atom);
-        } else if (e.second.type() == typeid(DataAtom)) {
+        } /*else if (e.second.type() == typeid(DataAtom)) {
             auto& data = boost::get<DataAtom>(e.second);
             if (data.isData()) {
                 if (data.isDataType<DataTypeDict>()) {
@@ -94,8 +109,8 @@ std::string DataTypeDict::toString() const
                     res += ' ';
                     res += to_string_quoted(data.data()->toString());
                 }
-            }
-        } else if (e.second.type() == typeid(AtomList)) {
+            }}*/
+        else if (e.second.type() == typeid(AtomList)) {
             auto& lst = boost::get<AtomList>(e.second);
             for (auto& atom : lst) {
                 res += ' ';
@@ -175,8 +190,7 @@ void DataTypeDict::insert(const std::string& key, const AtomList& lst)
 
 void DataTypeDict::insert(const std::string& key, AbstractData* data)
 {
-    DataPtr ptr(data);
-    insert(Atom(gensym(key.c_str())), ptr.asAtom());
+    insert(Atom(gensym(key.c_str())), Atom(data));
 }
 
 void DataTypeDict::insert(const Atom& key, t_float value)
@@ -190,11 +204,6 @@ void DataTypeDict::insert(const Atom& key, const Atom& value)
 }
 
 void DataTypeDict::insert(const Atom& key, const AtomList& value)
-{
-    dict_[key] = value;
-}
-
-void DataTypeDict::insert(const Atom& key, const DataAtom& value)
 {
     dict_[key] = value;
 }
@@ -257,20 +266,6 @@ MaybeString DataTypeDict::toJSON(int indent) const
                 }
 
                 j[key] = array;
-            } else if (value.type() == typeid(DataAtom)) {
-                LIB_DBG << "[dict] Data types are not supported at this moment. Storing as string";
-                auto& data = boost::get<DataAtom>(value);
-
-                if (data.data()->type() == DataTypeDict::dataType) {
-                    auto d = data.data()->as<DataTypeDict>();
-                    auto str = d->toJSON(indent);
-                    if (str) {
-                        j[key] = json::parse(*str);
-                    } else {
-                        LIB_ERR << "can't convert to JSON: " << d->toString();
-                    }
-                } else
-                    j[key] = to_string(data.data());
             }
         }
 
@@ -313,7 +308,7 @@ static void from_json(const nlohmann::json& j, DictValue& p)
             p = lst;
         } else {
             DataTypeMList* ptr = new DataTypeMList;
-            DataTPtr<DataTypeMList> dptr(ptr);
+            Atom dptr(ptr);
 
             for (auto& el : j) {
                 DictValue v;
@@ -321,27 +316,25 @@ static void from_json(const nlohmann::json& j, DictValue& p)
 
                 if (v.type() == typeid(Atom))
                     ptr->append(boost::get<Atom>(v));
-                else if (v.type() == typeid(DataAtom))
-                    ptr->append(boost::get<DataAtom>(v));
                 else if (v.type() == typeid(AtomList)) {
                     // simple nested array
                     DataTypeMList* ptr2 = new DataTypeMList;
-                    DataTPtr<DataTypeMList> dptr2(ptr2);
+                    Atom dptr2(ptr2);
                     auto& inner_list = boost::get<AtomList>(v);
                     for (auto& el : inner_list)
                         ptr2->append(el);
 
-                    ptr->append(DataAtom(ptr2));
+                    ptr->append(dptr2);
                 } else {
                     LIB_ERR << "[dict] JSON: unknown type: " << v.type().name();
                 }
             }
 
-            p = DataAtom(dptr);
+            p = dptr;
         }
     } else if (j.is_object()) {
         DataTypeDict* ptr = new DataTypeDict;
-        DataTPtr<DataTypeDict> dptr(ptr);
+        Atom dptr(ptr);
 
         for (auto it = j.begin(); it != j.end(); ++it) {
             DictValue v;
@@ -350,7 +343,7 @@ static void from_json(const nlohmann::json& j, DictValue& p)
             ptr->innerData()[key] = v;
         }
 
-        p = DataAtom(dptr);
+        p = dptr;
     } else {
         p = Atom();
     }
@@ -456,11 +449,6 @@ bool DataTypeDict::isAtomList(const DictValue& v)
     return isType<AtomList>(v);
 }
 
-bool DataTypeDict::isDataAtom(const DictValue& v)
-{
-    return isType<DataAtom>(v);
-}
-
 bool ceammc::to_outlet(t_outlet* x, const DictValue& v)
 {
     if (DataTypeDict::isNull(v))
@@ -469,8 +457,6 @@ bool ceammc::to_outlet(t_outlet* x, const DictValue& v)
         return outletAtom(x, boost::get<Atom>(v));
     else if (v.type() == typeid(AtomList))
         return outletAtomList(x, boost::get<AtomList>(v));
-    else if (v.type() == typeid(DataAtom))
-        return to_outlet(x, boost::get<DataAtom>(v));
     else
         return false;
 }

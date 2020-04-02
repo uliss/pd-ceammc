@@ -38,12 +38,22 @@ public:
     /**
      * This method should return ID to data type.
      */
-    virtual DataType type() const = 0;
+    virtual int type() const = 0;
 
     /**
      * Override this method to get non-default string data representation
      */
     virtual std::string toString() const;
+
+    /**
+     * Returns JSON object with "datatype" and "value" fields
+     */
+    std::string objectToJsonString() const;
+
+    /**
+     * Returns object value as JSON string
+     */
+    virtual std::string valueToJsonString() const;
 
     /**
      * Override this method to compare data by pointer to base class
@@ -54,6 +64,11 @@ public:
      * Override this method to compare data by pointer to base class
      */
     virtual bool isLess(const AbstractData* d) const;
+
+    /**
+     * Returns datatype name
+     */
+    virtual std::string typeName() const final;
 
     /**
      * Helper functions to return pointer to derived classes
@@ -74,7 +89,7 @@ template <class T>
 T* AbstractData::cloneT() const
 {
     if (type() != T::dataType)
-        return 0;
+        return nullptr;
 
     return static_cast<T*>(clone());
 }
@@ -82,13 +97,13 @@ T* AbstractData::cloneT() const
 template <class T>
 T* AbstractData::as()
 {
-    return type() == T::dataType ? static_cast<T*>(this) : 0;
+    return type() == T::dataType ? static_cast<T*>(this) : nullptr;
 }
 
 template <class T>
 const T* AbstractData::as() const
 {
-    return type() == T::dataType ? static_cast<const T*>(this) : 0;
+    return type() == T::dataType ? static_cast<const T*>(this) : nullptr;
 }
 }
 

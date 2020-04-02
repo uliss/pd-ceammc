@@ -16,38 +16,71 @@
 
 #include "ceammc_abstractdata.h"
 
-#include <unordered_map>
+#include <boost/container/static_vector.hpp>
+#include <cstdint>
+#include <map>
+#include <string>
+#include <utility>
+#include <vector>
+#include <string>
 
 namespace ceammc {
 
-struct DataStorageHasher {
-    size_t operator()(const DataDesc& d) const;
-};
+class AtomList;
+
+using DictEntry = std::pair<std::string, AtomList>;
+using Dict = std::vector<DictEntry>;
+using CreateFromListFn = AbstractData* (*)(const AtomList&);
+using CreateFromDictFn = AbstractData* (*)(const Dict&);
 
 class DataStorage {
-    struct Entry {
-        int ref_count;
-        const AbstractData* data;
+
+    struct DataTypeRecord {
+        int type;
+        std::string name;
+        CreateFromListFn from_list_fn;
+        CreateFromDictFn from_dict_fn;
+
+        DataTypeRecord(int type_,
+            const std::string& name_,
+            CreateFromListFn list_fn,
+            CreateFromDictFn dict_fn)
+            : type(type_)
+            , name(name_)
+            , from_list_fn(list_fn)
+            , from_dict_fn(dict_fn)
+        {
+        }
     };
 
-    typedef std::unordered_map<DataDesc, Entry, DataStorageHasher> DataMap;
+    using TypeList = boost::container::static_vector<DataTypeRecord, 1024>;
+    using type_iterator = TypeList::const_iterator;
 
-    DataMap map_;
+    DataStorage() = default;
+    DataStorage(const DataStorage& s) = delete;
+    void operator=(const DataStorage& s) = delete;
 
-    DataStorage();
-    DataStorage(const DataStorage& s);
-    void operator=(const DataStorage& s);
+    type_iterator findByName(const std::string& name) const;
+    type_iterator findByType(int type) const;
 
 public:
+    /**
+     * DataStorage instance
+     */
     static DataStorage& instance();
-    size_t size() const;
-    DataDesc add(const AbstractData* data);
 
-    const AbstractData* acquire(const DataDesc& desc);
-    void release(const DataDesc& desc);
-    size_t refCount(const DataDesc& desc);
+    // types functions
+    int registerNewType(const std::string& name,
+        CreateFromListFn fromListFn = nullptr,
+        CreateFromDictFn fromDictFn = nullptr);
 
-    DataId generateId(const AbstractData* data);
+    int typeByName(const std::string& name) const;
+    std::string nameByType(int type) const;
+    CreateFromListFn fromListFunction(const std::string& name) const;
+    CreateFromDictFn fromDictFunction(const std::string& name) const;
+
+private:
+    TypeList type_list_;
 };
 
 }

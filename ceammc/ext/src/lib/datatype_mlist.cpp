@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "datatype_mlist.h"
+#include "ceammc_datastorage.h"
 #include "ceammc_datatypes.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
@@ -21,7 +22,14 @@
 #include <cmath>
 #include <cstring>
 
-DataType DataTypeMList::dataType = data::DATA_MLIST;
+namespace ceammc {
+
+static AbstractData* newMList(const AtomList& args)
+{
+    return new DataTypeMList(args);
+}
+
+int DataTypeMList::dataType = DataStorage::instance().registerNewType("MList", newMList);
 
 DataTypeMList::DataTypeMList()
 {
@@ -39,8 +47,8 @@ DataTypeMList::DataTypeMList(const AtomList& lst)
 {
 }
 
-DataTypeMList::DataTypeMList(AtomList&& lst)
-    : data_(lst)
+DataTypeMList::DataTypeMList(AtomList&& lst) noexcept
+    : data_(std::move(lst))
 {
 }
 
@@ -49,7 +57,7 @@ DataTypeMList::DataTypeMList(const DataTypeMList& mlist)
 {
 }
 
-DataTypeMList::DataTypeMList(DataTypeMList&& mlist)
+DataTypeMList::DataTypeMList(DataTypeMList&& mlist) noexcept
     : data_(std::move(mlist.data_))
 {
 }
@@ -72,9 +80,9 @@ DataTypeMList& DataTypeMList::operator=(DataTypeMList&& mlist)
     return *this;
 }
 
-DataType DataTypeMList::type() const
+int DataTypeMList::type() const
 {
-    return data::DATA_MLIST;
+    return dataType;
 }
 
 DataTypeMList* DataTypeMList::clone() const
@@ -104,16 +112,11 @@ std::string DataTypeMList::toString() const
         if (i != 0)
             res.push_back(' ');
 
-        res += to_string_quoted(data_[i].asAtom());
+        res += to_string_quoted(data_[i]);
     }
 
     res.push_back(')');
     return res;
-}
-
-AtomList DataTypeMList::toList() const
-{
-    return data_.toList();
 }
 
 bool DataTypeMList::empty() const
@@ -126,22 +129,22 @@ size_t DataTypeMList::size() const
     return data_.size();
 }
 
-const DataAtom& DataTypeMList::at(size_t n) const
+const Atom& DataTypeMList::at(size_t n) const
 {
     return data_[n];
 }
 
-DataAtom& DataTypeMList::at(size_t n)
+Atom& DataTypeMList::at(size_t n)
 {
     return data_[n];
 }
 
-const DataAtom& DataTypeMList::operator[](size_t n) const
+const Atom& DataTypeMList::operator[](size_t n) const
 {
     return data_[n];
 }
 
-DataAtom& DataTypeMList::operator[](size_t n)
+Atom& DataTypeMList::operator[](size_t n)
 {
     return data_[n];
 }
@@ -151,17 +154,7 @@ void DataTypeMList::append(const Atom& a)
     data_.append(a);
 }
 
-void DataTypeMList::append(const DataAtom& a)
-{
-    data_.append(a);
-}
-
 void DataTypeMList::append(const AtomList& lst)
-{
-    data_.append(lst);
-}
-
-void DataTypeMList::append(const DataAtomList& lst)
 {
     data_.append(lst);
 }
@@ -176,34 +169,20 @@ bool DataTypeMList::insert(size_t idx, const AtomList& lst)
     return data_.insert(idx, lst);
 }
 
-bool DataTypeMList::insert(size_t idx, const DataAtomList& lst)
-{
-    return data_.insert(idx, lst);
-}
-
 void DataTypeMList::prepend(const Atom& a)
 {
-    data_.prepend(a);
-}
-
-void DataTypeMList::prepend(const DataAtom& a)
-{
-    data_.prepend(a);
+    data_.insert(0, a);
 }
 
 void DataTypeMList::prepend(const AtomList& lst)
 {
-    data_.prepend(lst);
-}
-
-void DataTypeMList::prepend(const DataAtomList& lst)
-{
-    data_.prepend(lst);
+    data_.insert(0, lst);
 }
 
 bool DataTypeMList::pop()
 {
-    return data_.pop();
+    return false;
+    //    return data_.p
 }
 
 bool DataTypeMList::remove(size_t idx)
@@ -218,7 +197,7 @@ void DataTypeMList::reserve(size_t n)
 
 void DataTypeMList::set(const AtomList& lst)
 {
-    data_.set(lst);
+    data_ = lst;
 }
 
 DataTypeMList DataTypeMList::rotateLeft(int steps) const
@@ -242,18 +221,9 @@ DataTypeMList DataTypeMList::flatten() const
     res.data_.reserve(size());
 
     for (auto& el : data_) {
-        if (el.isAtom()) {
-            res.data_.append(el.asAtom());
-        } else {
-            auto data = el.data();
-            // skipping null pointer
-            if (data.isNull()) {
-                LIB_ERR << "invalid data pointer";
-                continue;
-            }
-
-            if (data->type() == DataTypeMList::dataType) {
-                auto mlist = data->as<DataTypeMList>();
+        if (el.isData()) {
+            if (el.isDataType(DataTypeMList::dataType)) {
+                auto mlist = el.asDataT<DataTypeMList>();
                 if (!mlist) {
                     LIB_ERR << "invalid mlist pointer";
                     continue;
@@ -264,7 +234,8 @@ DataTypeMList DataTypeMList::flatten() const
                 res.data_.append(mlist_flatten.data_);
             } else
                 res.data_.append(el);
-        }
+        } else
+            res.data_.append(el);
     }
 
     return res;
@@ -317,44 +288,22 @@ DataTypeMList DataTypeMList::slice(int start, int end, size_t step) const
 
 void DataTypeMList::sort()
 {
-    auto pred = [](const DataAtom& a0, const DataAtom& a1) {
-        if (a0.isAtom() && a1.isAtom())
-            return a0.asAtom() < a1.asAtom();
-
-        return false;
-    };
-
-    std::sort(begin(), end(), pred);
+    data_.sort();
 }
 
 void DataTypeMList::reverse()
 {
-    std::reverse(data_.begin(), data_.end());
+    data_.reverse();
 }
 
 void DataTypeMList::shuffle()
 {
-    std::random_shuffle(data_.begin(), data_.end());
+    data_.shuffle();
 }
 
 bool DataTypeMList::contains(const Atom& a) const
 {
     return data_.contains(a);
-}
-
-bool DataTypeMList::contains(const AtomList& l) const
-{
-    return data_.contains(l);
-}
-
-bool DataTypeMList::contains(const DataAtom& d) const
-{
-    return data_.contains(d);
-}
-
-bool DataTypeMList::contains(const DataPtr& ptr) const
-{
-    return data_.contains(ptr);
 }
 
 bool DataTypeMList::contains(const DataTypeMList& l) const
@@ -394,7 +343,7 @@ DataTypeMList::MaybeList DataTypeMList::parse(const std::string& str)
     if (res.data_.size() == 0)
         return res;
 
-    return *res.data_[0].data()->as<DataTypeMList>();
+    return *res.data_[0].asDataT<DataTypeMList>();
 }
 
 void DataTypeMList::traverse(mlist_node* node, DataTypeMList* data, MListStack* stack, int act, const char* txt)
@@ -402,7 +351,7 @@ void DataTypeMList::traverse(mlist_node* node, DataTypeMList* data, MListStack* 
     switch (act) {
     case TRAVERSE_PUSH: {
         auto mlist = new DataTypeMList;
-        auto lst_ptr = DataPtr(mlist);
+        Atom lst_ptr(mlist);
 
         // insert stack top
         if (stack->empty()) {
@@ -442,4 +391,6 @@ void DataTypeMList::traverse(mlist_node* node, DataTypeMList* data, MListStack* 
         break;
     }
     }
+}
+
 }

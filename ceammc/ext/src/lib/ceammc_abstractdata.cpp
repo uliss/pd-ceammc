@@ -12,6 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_abstractdata.h"
+#include "ceammc_datastorage.h"
+#include "fmt/format.h"
 
 #include <cstdio>
 #include <typeinfo>
@@ -25,6 +27,16 @@ std::string AbstractData::toString() const
     char buf[120];
     sprintf(buf, "[Data %s id: %i]", typeid(*this).name(), type());
     return buf;
+}
+
+std::string AbstractData::objectToJsonString() const
+{
+    return fmt::format(R"({{"datatype":"{}","value":{}}})", typeName(), valueToJsonString());
+}
+
+std::string AbstractData::valueToJsonString() const
+{
+    return "null";
 }
 
 bool AbstractData::isEqual(const AbstractData* d) const
@@ -42,4 +54,10 @@ bool AbstractData::isLess(const AbstractData* d) const
 
     return false;
 }
+
+std::string AbstractData::typeName() const
+{
+    return DataStorage::instance().nameByType(type());
+}
+
 }

@@ -64,6 +64,7 @@ ceammc_add_core_test("ceammc::regexp" test_regexp)
 ceammc_add_core_test("ceammc::window" test_window)
 ceammc_add_core_test("ceammc::proxy" test_proxy)
 ceammc_add_core_test("ceammc::units" test_units)
+ceammc_add_core_test("ceammc::DataStreamParser" test_parser_data_string)
 ceammc_add_core_test("class_wrapper::tuple" test_wrapper_tuple)
 ceammc_add_core_test("class_wrapper::fn_traits" test_wrapper_fn_traits)
 

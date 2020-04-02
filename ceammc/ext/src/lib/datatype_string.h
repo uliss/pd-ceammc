@@ -21,7 +21,7 @@
 #include <string>
 #include <vector>
 
-using namespace ceammc;
+namespace ceammc {
 
 class DataTypeString : public AbstractData {
     std::string str_;
@@ -32,32 +32,34 @@ public:
     DataTypeString(const AtomList& l);
     DataTypeString(const char* str);
     DataTypeString(const std::string& str);
+
+    // copy/move
     DataTypeString(const DataTypeString& d);
-    DataTypeString(DataTypeString&& d);
+    DataTypeString(DataTypeString&& d) noexcept;
+    // assign
     DataTypeString& operator=(const DataTypeString& s);
     DataTypeString& operator=(DataTypeString&& s);
 
     ~DataTypeString();
 
-    void clear();
-
     std::string& str() { return str_; }
     const std::string& str() const { return str_; }
-    t_symbol* asSymbol() const { return gensym(str_.c_str()); }
 
-    DataType type() const override;
+    int type() const override;
     DataTypeString* clone() const override;
     std::string toString() const override;
+    std::string valueToJsonString() const override;
     bool isEqual(const AbstractData* d) const override;
+    bool isLess(const AbstractData* d) const override;
 
-    void set(float f);
     void set(t_symbol* s);
     void set(const std::string& s);
+    void clear();
 
     void split(std::vector<std::string>& res, const std::string& sep = "") const;
 
-    bool operator==(const DataTypeString& s) const;
-    bool operator!=(const DataTypeString& s) const;
+    bool operator==(const DataTypeString& s) const { return str_ == s.str_; }
+    bool operator!=(const DataTypeString& s) const { return !operator==(s); }
 
     DataTypeString removeAll(const std::string& s) const;
     DataTypeString removeFirst(const std::string& s) const;
@@ -67,10 +69,6 @@ public:
     DataTypeString replaceFirst(const std::string& from, const std::string& to) const;
     DataTypeString replaceLast(const std::string& from, const std::string& to) const;
 
-    bool contains(const std::string& s) const;
-    bool startsWith(const std::string& s) const;
-    bool endsWith(const std::string& s) const;
-
     size_t length() const;
 
     DataTypeString toLower() const;
@@ -79,7 +77,7 @@ public:
     DataTypeString substr(int from, size_t len) const;
 
 public:
-    static const DataType dataType;
+    static const int dataType;
 
 private:
     void splitEveryChar(std::vector<std::string>& res) const;
@@ -87,5 +85,7 @@ private:
 };
 
 std::ostream& operator<<(std::ostream& os, const DataTypeString& d);
+
+}
 
 #endif // DATASTRING_H

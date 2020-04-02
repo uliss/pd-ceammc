@@ -630,10 +630,10 @@ std::ostream& operator<<(std::ostream& os, const Atom& a)
             auto name = DataStorage::instance().nameByType(dptr->type());
 
             os << fmt::format(
-                "{}(type={},id=0x{})",
+                "{}(type={},id=0x{}) {}",
                 (name.empty()) ? "Data???" : name,
                 a.dataType(),
-                (void*)dptr);
+                (void*)dptr, dptr->toString());
         } else {
             os << "NULL data pointer";
         }
