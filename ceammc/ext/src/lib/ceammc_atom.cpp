@@ -494,7 +494,7 @@ const AbstractData* Atom::asData() const noexcept
         return nullptr;
 }
 
-bool Atom::detachData() const noexcept
+bool Atom::detachData() noexcept
 {
     if (a_type == TYPE_DATA) {
         auto ref = reinterpret_cast<t_ref*>(REF_PTR);
@@ -502,7 +502,7 @@ bool Atom::detachData() const noexcept
         if (ref && ref->data) {
             try {
                 Atom new_atom(ref->data->clone());
-                std::swap(new_atom, *const_cast<Atom*>(this));
+                std::swap(new_atom, *this);
                 return true;
             } catch (std::exception& e) {
                 LIB_ERR << "can't detach data: " << *this;

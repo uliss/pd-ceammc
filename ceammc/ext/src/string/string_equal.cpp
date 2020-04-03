@@ -33,7 +33,7 @@ void StringEqual::onSymbol(t_symbol* s)
     boolTo(0, str1_ == s->s_name);
 }
 
-void StringEqual::onDataT(const DataTypeString* str)
+void StringEqual::onDataT(const StringAtom& str)
 {
     boolTo(0, str->str() == str1_);
 }

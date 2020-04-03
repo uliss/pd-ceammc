@@ -172,7 +172,7 @@ DataTypeEnv::DataTypeEnv(DataTypeEnv&& env)
 {
 }
 
-DataType DataTypeEnv::type() const
+int DataTypeEnv::type() const
 {
     return data::DATA_ENVELOPE;
 }

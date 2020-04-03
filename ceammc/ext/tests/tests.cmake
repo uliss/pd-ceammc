@@ -38,13 +38,13 @@ endfunction()
 
 macro(ceammc_add_core_test title name)
     add_executable(${name} "${name}.cpp")
-    target_link_libraries(${name} tests_main_lib ceammc_core puredata-core ceammc_core)
+    target_link_libraries(${name} tests_main_lib lib_catch1_main ceammc_core puredata-core ceammc_core)
     set_test_command(${title} ${name})
 endmacro()
 
 macro(ceammc_add_test title name)
     add_executable(${name} "${name}.cpp")
-    target_link_libraries(${name} tests_main_lib ceammc_core ceammc_base puredata-core ceammc_core)
+    target_link_libraries(${name} tests_main_lib lib_catch1_main ceammc_core ceammc_base puredata-core ceammc_core)
     set_test_command(${title} ${name})
 endmacro()
 
@@ -58,7 +58,7 @@ macro(ceammc_add_test_linked)
     set(name ${_TEST_NAME})
     set(title ${_TEST_TITLE})
     add_executable(${name} "${name}.cpp" ${_TEST_SRC})
-    target_link_libraries(${name} ${_TEST_LINK} tests_main_lib ceammc_core)
+    target_link_libraries(${name} ${_TEST_LINK} tests_main_lib lib_catch1_main  ceammc_core)
     target_include_directories(${name} PUBLIC ${_TEST_INCLUDE_DIRECTORIES})
     set_test_command(${title} ${name})
 endmacro()
@@ -67,7 +67,7 @@ macro(ceammc_add_extension_test name extpath)
     set(_target "test_${name}")
     add_executable(${_target} "${_target}.cpp" ${extpath})
     target_link_libraries(${_target}
-        tests_main_lib puredata-core ceammc_core puredata-core ceammc_sound)
+        tests_main_lib lib_catch1_main  puredata-core ceammc_core puredata-core ceammc_sound)
     set(_exec_cmd ${_target})
     set_test_command("Extension::${name}" ${_exec_cmd})
 endmacro()
@@ -79,7 +79,7 @@ macro(ceammc_external_test external name)
     target_include_directories(${_target} PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/ext/src/${external})
     # library repeats are done to make mingw linker happy
     target_link_libraries(${_target} PUBLIC
-        tests_main_lib puredata-core
+        tests_main_lib lib_catch1_main  puredata-core
         "ceammc_${external}" ceammc_array ceammc_data ceammc_string ceammc_core ceammc_sound puredata-core)
     set(_exec_cmd ${_target})
     set_test_command("[${external}.${name}]" ${_exec_cmd})

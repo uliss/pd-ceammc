@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2017 Serge Poltavsky. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,23 +11,19 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "string_to_symbol.h"
-#include "ceammc_factory.h"
+#ifndef TEST_LIST_BASE_H
+#define TEST_LIST_BASE_H
 
-StringToSymbol::StringToSymbol(const PdArgs& a)
-    : BaseObject(a)
-{
-    createOutlet();
-}
+#include "ceammc_data.h"
+#include "datatype_mlist.h"
+#include "test_base.h"
+#include "test_external.h"
 
-void StringToSymbol::onDataT(const StringAtom& str)
-{
-    symbolTo(0, gensym(str->toString().c_str()));
-}
+using namespace ceammc;
 
-void setup_string_to_symbol()
-{
-    ObjectFactory<StringToSymbol> obj("string2symbol");
-    obj.processData<DataTypeString>();
-    obj.addAlias("str->sym");
-}
+using AT = Atom;
+using AL = AtomList;
+using MLA = MListAtom;
+using MLD = DataTypeMList;
+
+#endif // TEST_LIST_BASE_H

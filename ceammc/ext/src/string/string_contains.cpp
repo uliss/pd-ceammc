@@ -33,7 +33,7 @@ void StringContains::onSymbol(t_symbol* s)
     boolTo(0, string::contains(s->s_name, subj_.c_str()));
 }
 
-void StringContains::onDataT(const DataTypeString* str)
+void StringContains::onDataT(const StringAtom& str)
 {
     boolTo(0, string::contains(str->str(), subj_));
 }

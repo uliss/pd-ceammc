@@ -14,6 +14,7 @@
 #ifndef STRING_TO_SYMBOL_H
 #define STRING_TO_SYMBOL_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 #include "datatype_string.h"
 
@@ -22,7 +23,7 @@ using namespace ceammc;
 class StringToSymbol : public BaseObject {
 public:
     StringToSymbol(const PdArgs& a);
-    void onDataT(const DataTypeString* str);
+    void onDataT(const StringAtom& str);
 };
 
 void setup_string_to_symbol();

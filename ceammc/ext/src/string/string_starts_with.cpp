@@ -38,7 +38,7 @@ void StringStartsWith::onInlet(size_t, const AtomList& l)
     prefix_ = parse_quoted(l);
 }
 
-void StringStartsWith::onDataT(const DataTypeString* str)
+void StringStartsWith::onDataT(const StringAtom& str)
 {
     boolTo(0, string::starts_with(str->str(), prefix_));
 }

@@ -27,7 +27,7 @@ void StringLength::onSymbol(t_symbol* s)
     floatTo(0, string::utf8_strlen(s->s_name));
 }
 
-void StringLength::onDataT(const DataTypeString* str)
+void StringLength::onDataT(const StringAtom& str)
 {
     floatTo(0, str->length());
 }

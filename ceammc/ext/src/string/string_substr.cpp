@@ -31,7 +31,7 @@ StringSubstr::StringSubstr(const PdArgs& a)
     addProperty(len_);
 }
 
-void StringSubstr::onDataT(const DataTypeString* str)
+void StringSubstr::onDataT(const StringAtom& str)
 {
     atomTo(0, StringAtom(str->substr(from_->value(), len_->value())));
 }

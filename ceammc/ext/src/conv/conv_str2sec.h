@@ -26,7 +26,7 @@ public:
     StrToSec(const PdArgs& a);
     void onSymbol(t_symbol* s) override;
     void onAny(t_symbol* s, const AtomList& v) override;
-    void onDataT(const DataTypeString* str);
+    void onDataT(const StringAtom& str);
 };
 
 #endif // CONV_STR2SEC_H

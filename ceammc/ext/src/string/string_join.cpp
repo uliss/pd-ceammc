@@ -56,7 +56,7 @@ void StringJoin::onInlet(size_t n, const AtomList& l)
     property("@sep")->set(l);
 }
 
-void StringJoin::onDataT(const DataTypeMList* ml)
+void StringJoin::onDataT(const MListAtom& ml)
 {
     str_ = to_string(ml->data(), sep_);
     onBang();

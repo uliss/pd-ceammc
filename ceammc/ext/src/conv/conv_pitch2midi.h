@@ -12,7 +12,7 @@ public:
 
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
-    void onDataT(const DataTypeString* s);
+    void onDataT(const StringAtom& s);
 
 private:
     void convert(const char* p);

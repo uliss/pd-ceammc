@@ -29,7 +29,7 @@ void ListSplit::onList(const AtomList& l)
     listTo(0, l1);
 }
 
-void ListSplit::onDataT(const DataTypeMList* ml)
+void ListSplit::onDataT(const MListAtom& ml)
 {
     MListAtom l1;
     MListAtom l2;

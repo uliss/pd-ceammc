@@ -9,7 +9,7 @@ PitchToMIDI::PitchToMIDI(const PdArgs& a)
     createOutlet();
 }
 
-void PitchToMIDI::onDataT(const DataTypeString* s)
+void PitchToMIDI::onDataT(const StringAtom& s)
 {
     convert(s->str().c_str());
 }

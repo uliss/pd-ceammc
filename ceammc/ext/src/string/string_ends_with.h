@@ -26,7 +26,7 @@ public:
     StringEndsWith(const PdArgs& a);
     void onSymbol(t_symbol* s) override;
     void onInlet(size_t, const AtomList& l) override;
-    void onDataT(const DataTypeString* str);
+    void onDataT(const StringAtom& str);
 };
 
 void setup_string_ends_with();

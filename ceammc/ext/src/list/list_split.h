@@ -12,7 +12,7 @@ public:
     ListSplit(const PdArgs& args);
 
     void onList(const AtomList& l) override;
-    void onDataT(const DataTypeMList* ml);
+    void onDataT(const MListAtom& ml);
 };
 
 void setup_list_split();

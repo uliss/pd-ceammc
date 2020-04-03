@@ -50,7 +50,7 @@ void StringRemove::onInlet(size_t, const AtomList& l)
     str_to_remove_ = parse_quoted(l);
 }
 
-void StringRemove::onDataT(const DataTypeString* str)
+void StringRemove::onDataT(const StringAtom& str)
 {
     if (mode_->value() == REMOVE_ALL) {
         atomTo(0, StringAtom(str->removeAll(str_to_remove_)));

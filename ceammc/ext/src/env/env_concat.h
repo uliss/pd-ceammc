@@ -8,13 +8,13 @@ using namespace ceammc;
 
 class EnvConcat : public BaseObject {
     DataTypeEnv res_env_;
-    DataTPtr<DataTypeEnv> right_;
+    EnvAtom right_;
 
 public:
     EnvConcat(const PdArgs& args);
 
     void onBang() override;
-    void onDataT(const DataTPtr<DataTypeEnv>& dptr);
+    void onDataT(const EnvAtom& env);
     void onInlet(size_t n, const AtomList& lst) override;
 };
 

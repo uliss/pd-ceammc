@@ -14,13 +14,12 @@
 #ifndef LIST_APPEND_H
 #define LIST_APPEND_H
 
-#include "ceammc_dataatomlist.h"
+#include "ceammc_data.h"
 #include "ceammc_object.h"
-
 using namespace ceammc;
 
 class ListAppend : public BaseObject {
-    DataAtomList lst_;
+    AtomList lst_;
 
 public:
     ListAppend(const PdArgs& args);
@@ -31,7 +30,8 @@ public:
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
-    void onData(const DataPtr& d) override;
+    void onData(const Atom& d) override;
+    void onDataT(const MListAtom& d);
     void onInlet(size_t n, const AtomList& lst) override;
 };
 

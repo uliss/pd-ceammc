@@ -25,7 +25,7 @@ class StringSubstr : public BaseObject {
 
 public:
     StringSubstr(const PdArgs& a);
-    void onDataT(const DataTypeString* str);
+    void onDataT(const StringAtom& str);
     void onSymbol(t_symbol* s) override;
     void onInlet(size_t n, const AtomList& l) override;
 };

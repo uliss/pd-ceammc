@@ -41,7 +41,7 @@ void StringMatch::onSymbol(t_symbol* s)
     doMatch(s->s_name);
 }
 
-void StringMatch::onDataT(const DataTypeString* str)
+void StringMatch::onDataT(const StringAtom& str)
 {
     doMatch(str->str().c_str());
 }

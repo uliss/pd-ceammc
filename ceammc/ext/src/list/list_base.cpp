@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2017 Serge Poltavsky. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,23 +11,19 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "string_to_symbol.h"
-#include "ceammc_factory.h"
+#include "list_base.h"
+#include "datatype_mlist.h"
 
-StringToSymbol::StringToSymbol(const PdArgs& a)
-    : BaseObject(a)
+namespace ceammc {
+
+ListBase::ListBase(const PdArgs& args)
+    : BaseObject(args)
 {
-    createOutlet();
 }
 
-void StringToSymbol::onDataT(const StringAtom& str)
+void ListBase::onDataT(const MListAtom& ml)
 {
-    symbolTo(0, gensym(str->toString().c_str()));
+    onList(ml->data());
 }
 
-void setup_string_to_symbol()
-{
-    ObjectFactory<StringToSymbol> obj("string2symbol");
-    obj.processData<DataTypeString>();
-    obj.addAlias("str->sym");
 }

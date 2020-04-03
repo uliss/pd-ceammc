@@ -1,6 +1,6 @@
 include_directories(${CMAKE_SOURCE_DIR}/src)
 
-set(LIST_SOURCES "")
+set(LIST_SOURCES list_base.cpp)
 
 macro(ceammc_list_extension name)
     list(APPEND LIST_SOURCES "list_${name}.cpp")

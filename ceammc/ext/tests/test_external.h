@@ -283,6 +283,12 @@ public:
         sendList(lst);
     }
 
+    void send(const Atom& a)
+    {
+        clearAll();
+        sendList({ a });
+    }
+
     void sendBangTo(size_t inlet)
     {
         clearAll();

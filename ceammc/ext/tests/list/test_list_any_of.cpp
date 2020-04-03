@@ -11,23 +11,20 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "datatype_mlist.h"
-#include "../list/list_all_of.h"
-#include "test_base.h"
-#include "test_external.h"
+#include "list_all_of.h"
+#include "test_list_base.h"
 
-#include <stdio.h>
+PD_COMPLETE_TEST_SETUP(ListAllOf, list, all_of)
 
-PD_COMPLETE_TEST_SETUP(ListAllOf, list, all_of);
+using TObj = TestListAllOf;
+using TExt = TestExtListAllOf;
 
-typedef TestExternal<ListAllOf> ListAllOfTest;
-
-static void eqThree(ListAllOfTest* obj, size_t, const Atom& a)
+static void eqThree(TObj* obj, size_t, const Atom& a)
 {
     obj->sendFloat(a.asInt() == 3 ? 1 : 0, 1);
 }
 
-static void lessThree(ListAllOfTest* obj, size_t, const Atom& a)
+static void lessThree(TObj* obj, size_t, const Atom& a)
 {
     obj->sendFloat(a.asInt() < 3 ? 1 : 0, 1);
 }
@@ -38,7 +35,7 @@ TEST_CASE("list.all_of", "[externals]")
 
     SECTION("init")
     {
-        ListAllOfTest t("list.all_of", L());
+        TObj t("list.all_of", L());
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
     }
@@ -59,7 +56,7 @@ TEST_CASE("list.all_of", "[externals]")
 
     SECTION("connect")
     {
-        ListAllOfTest t("list.all_of", L());
+        TObj t("list.all_of", L());
 
         REQUIRE_ALL(t, L(), eqThree);
         REQUIRE_ALL(t, LF(3), eqThree);
@@ -79,7 +76,7 @@ TEST_CASE("list.all_of", "[externals]")
 
     SECTION("external")
     {
-        TestExtListAllOf t("list.all_of");
+        TExt t("list.all_of");
         pd::External less10("<", LF(10));
 
         t.connectTo(1, less10, 0);
@@ -95,16 +92,16 @@ TEST_CASE("list.all_of", "[externals]")
         t.send(LF(8, 9, 10));
         REQUIRE(t.outputFloatAt(0) == 0);
 
-        t.send(DataTypeMList("(1 2 3 4 5)"));
+        t.send(MLA(1, 2, 3, 4, 5));
         REQUIRE(t.outputFloatAt(0) == 1);
 
-        t.send(DataTypeMList("(8 9)"));
+        t.send(MLA(8, 9));
         REQUIRE(t.outputFloatAt(0) == 1);
 
-        t.send(DataTypeMList("(8 9 10)"));
+        t.send(MLA(8, 9, 10));
         REQUIRE(t.outputFloatAt(0) == 0);
 
-        t.send(DataTypeMList("(10 11)"));
+        t.send(MLA(10, 11));
         REQUIRE(t.outputFloatAt(0) == 0);
     }
 }

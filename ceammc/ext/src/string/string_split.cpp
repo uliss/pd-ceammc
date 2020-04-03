@@ -32,7 +32,7 @@ void StringSplit::onSymbol(t_symbol* s)
     output();
 }
 
-void StringSplit::onDataT(const DataTypeString* str)
+void StringSplit::onDataT(const StringAtom& str)
 {
     split(*str);
     output();

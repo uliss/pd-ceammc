@@ -10,8 +10,9 @@ if(WIN32)
     remove_definitions(-DPD_INTERNAL)
 endif()
 
+add_library(lib_catch1_main STATIC tests_main.cpp)
+
 add_library(tests_main_lib STATIC
-    tests_main.cpp
     test_approx.cpp
     test_datatypes.cpp
     test_external.cpp
@@ -174,7 +175,7 @@ ceammc_external_test(data tree)
 
 ceammc_external_test(proto firmata)
 
-ceammc_external_test(list all_of)
+#ceammc_external_test(list all_of)
 ceammc_external_test(list any_of)
 ceammc_external_test(list append)
 ceammc_external_test(list apply_to)
@@ -396,8 +397,8 @@ ceammc_add_test_linked(TITLE "firmata::Pin" NAME test_firmata_pin LINK proto_fir
 ceammc_add_test_linked(TITLE "ArduinoThread"
     NAME test_arduino_thread
     INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/ceammc/extra/serial/serial/include
-    LINK tests_main_lib hw_arduino ceammc_core puredata-core)
-ceammc_add_test_linked(TITLE "Arduino" NAME test_arduino LINK tests_main_lib hw_arduino ceammc_core puredata-core)
+    LINK tests_main_lib lib_catch1_main hw_arduino ceammc_core puredata-core)
+ceammc_add_test_linked(TITLE "Arduino" NAME test_arduino LINK tests_main_lib lib_catch1_main hw_arduino ceammc_core puredata-core)
 
 # UI
 ceammc_add_test_linked(TITLE "ceammc::UIObjectFactory"
@@ -434,7 +435,7 @@ ceammc_ui_test("ui.toggle")
 
 ceammc_add_test_linked(TITLE "[env->to_array]"
     NAME test_ext_env_to_array
-    LINK tests_main_lib ceammc_array ceammc_env ceammc_array ceammc_core puredata-core)
+    LINK tests_main_lib lib_catch1_main ceammc_array ceammc_env ceammc_array ceammc_core puredata-core)
 
 if(WITH_TTS_FLITE)
     ceammc_external_test(misc speech_flite)
@@ -453,5 +454,6 @@ ceammc_add_test_linked(TITLE "class_wrapper::static_method" NAME test_wrapper_st
 
 add_executable(test_exec test_exec.cpp)
 
-
 add_custom_target(test_src SOURCES gen_test_wav.py)
+
+add_subdirectory(list)

@@ -38,7 +38,7 @@ void StringEndsWith::onInlet(size_t, const AtomList& l)
     suffix_ = parse_quoted(l);
 }
 
-void StringEndsWith::onDataT(const DataTypeString* str)
+void StringEndsWith::onDataT(const StringAtom& str)
 {
     boolTo(0, string::ends_with(str->str(), suffix_));
 }

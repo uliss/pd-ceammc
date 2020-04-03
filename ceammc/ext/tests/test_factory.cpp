@@ -11,12 +11,12 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include <stdexcept>
 
 #include "catch.hpp"
 #include "ceammc_factory.h"
 #include "ceammc_pd.h"
+#include "datatype_mlist.h"
 #include "test_base.h"
 
 using namespace ceammc;
@@ -81,6 +81,25 @@ public:
     }
 };
 
+class TestDataClass : public TestClass {
+public:
+    TestDataClass(const PdArgs& a)
+        : TestClass(a)
+        , d_int(0)
+        , d_str("")
+    {
+    }
+
+    void onDataT(const DataAtom<IntData>& d) { d_int = d; }
+    void onDataT(const DataAtom<StrData>& d) { d_str = d; }
+    void onData(const Atom& d) { d_any = d; }
+
+public:
+    DataAtom<IntData> d_int;
+    DataAtom<StrData> d_str;
+    Atom d_any;
+};
+
 template <typename T>
 class PdExternalT : public ceammc::pd::External {
 public:
@@ -95,9 +114,10 @@ public:
     }
 };
 
-TEST_CASE("ceammc_factory", "[PureData]")
+TEST_CASE("ceammc_factory", "[core]")
 {
     obj_init();
+
     SECTION("new")
     {
         typedef PdObject<TestClass> PdExternal;
@@ -196,6 +216,114 @@ TEST_CASE("ceammc_factory", "[PureData]")
         REQUIRE(t->methodCalled() == 1);
         REQUIRE(t->methodSel() == gensym("msg"));
         REQUIRE(t->methodArgs() == LA(1, 2, 3));
+    }
+
+    SECTION("dataT")
+    {
+        using Factory = ObjectFactory<TestDataClass>;
+        using External = PdExternalT<TestDataClass>;
+        using Int = DataAtom<IntData>;
+        using Str = DataAtom<StrData>;
+
+        SECTION("IntData")
+        {
+            // create object that support only IntData
+            Factory f("test.data0");
+            f.processData<IntData>();
+
+            External t("test.data0");
+            REQUIRE(!t.isNull());
+            REQUIRE(t->d_any.isNone());
+
+            // mlist goes to common data
+            t.sendList(MListAtom(1, 2, 3));
+
+            REQUIRE(t->d_int->value() == 0);
+            REQUIRE(t->d_str->get() == "");
+            REQUIRE(t->d_any.isA<DataTypeMList>());
+            REQUIRE(MListAtom(1, 2, 3) == t->d_any);
+
+            // string goes to common data
+            t.sendList(Str("abcde"));
+
+            REQUIRE(t->d_int->value() == 0);
+            REQUIRE(t->d_str->get() == "");
+            REQUIRE(t->d_any.isA<StrData>());
+            REQUIRE(Str("abcde") == t->d_any);
+
+            // int goes to int data
+            t.sendList(Int(1000));
+
+            REQUIRE(t->d_int->value() == 1000);
+            REQUIRE(t->d_str->get() == "");
+            REQUIRE(t->d_any.isA<StrData>());
+        }
+
+        SECTION("IntData, StrData")
+        {
+            // create object that support only IntData
+            Factory f("test.data0");
+            f.processData<IntData, StrData>();
+
+            External t("test.data0");
+            REQUIRE(!t.isNull());
+            REQUIRE(t->d_any.isNone());
+
+            // mlist goes to common data
+            t.sendList(MListAtom(1, 2, 3));
+
+            REQUIRE(t->d_int->value() == 0);
+            REQUIRE(t->d_str->get() == "");
+            REQUIRE(t->d_any.isA<DataTypeMList>());
+            REQUIRE(MListAtom(1, 2, 3) == t->d_any);
+
+            // string goes to str data
+            t.sendList(Str("abcde"));
+
+            REQUIRE(t->d_int->value() == 0);
+            REQUIRE(t->d_str->get() == "abcde");
+            REQUIRE(t->d_any.isA<DataTypeMList>());
+
+            // int goes to int data
+            t.sendList(Int(1000));
+
+            REQUIRE(t->d_int->value() == 1000);
+            REQUIRE(t->d_str->get() == "abcde");
+            REQUIRE(t->d_any.isA<DataTypeMList>());
+        }
+
+        SECTION("<>")
+        {
+            // create object that support only IntData
+            Factory f("test.data0");
+            f.processData();
+
+            External t("test.data0");
+            REQUIRE(!t.isNull());
+            REQUIRE(t->d_any.isNone());
+
+            // mlist goes to common data
+            t.sendList(MListAtom(1, 2, 3));
+
+            REQUIRE(t->d_int->value() == 0);
+            REQUIRE(t->d_str->get() == "");
+            REQUIRE(t->d_any.isA<DataTypeMList>());
+            REQUIRE(MListAtom(1, 2, 3) == t->d_any);
+
+            // string goes to common data
+            t.sendList(Str("abcde"));
+
+            REQUIRE(t->d_int->value() == 0);
+            REQUIRE(t->d_str->get() == "");
+            REQUIRE(Str("abcde") == t->d_any);
+
+            // int goes to common data
+            t.sendList(Int(1000));
+
+            REQUIRE(t->d_int->value() == 0);
+            REQUIRE(t->d_str->get() == "");
+            REQUIRE(Int(1000) == t->d_any);
+        }
     }
 
     SECTION("info")

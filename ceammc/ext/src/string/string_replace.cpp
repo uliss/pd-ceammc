@@ -54,7 +54,7 @@ void StringReplace::onSymbol(t_symbol* s)
     onDataT(&str);
 }
 
-void StringReplace::onDataT(const DataTypeString* str)
+void StringReplace::onDataT(const StringAtom& str)
 {
     if (mode_->value() == REPLACE_ALL) {
         atomTo(0, StringAtom(str->replaceAll(from_, to_)));

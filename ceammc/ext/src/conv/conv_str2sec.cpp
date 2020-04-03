@@ -37,7 +37,7 @@ void StrToSec::onAny(t_symbol* s, const AtomList& /*v*/)
     floatTo(0, convert::time::str2sec(s->s_name, on_err_->value()));
 }
 
-void StrToSec::onDataT(const DataTypeString* str)
+void StrToSec::onDataT(const StringAtom& str)
 {
     floatTo(0, convert::time::str2sec(str->str(), on_err_->value()));
 }
