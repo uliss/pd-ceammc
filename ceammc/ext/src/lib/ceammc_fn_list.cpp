@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_fn_list.h"
-#include "ceammc_data.h"
 
 #include <algorithm>
 #include <boost/functional/hash.hpp>
@@ -322,9 +321,8 @@ namespace list {
 
         res.reserve(l.size() * n);
 
-        while (n-- > 0) {
+        while (n-- > 0)
             res.append(l);
-        }
 
         return res;
     }
@@ -383,7 +381,7 @@ namespace list {
         dest.reserve(src.size());
 
         for (auto& a : src)
-            dest.append((a.asT<t_float>() - min) / range);
+            dest.append((a.asFloat() - min) / range);
 
         return true;
     }
@@ -421,9 +419,8 @@ namespace list {
             else if (a.isSymbol())
                 boost::hash_combine(res, boost::hash_value(a.asSymbol()));
             else if (a.isData()) {
-                auto data = a.getData();
-                boost::hash_combine(res, boost::hash_value(data.id));
-                boost::hash_combine(res, boost::hash_value(data.type));
+                boost::hash_combine(res, boost::hash_value(a.dataType()));
+                boost::hash_combine(res, boost::hash_value(a.asData()));
             }
 
             return res;
@@ -455,14 +452,9 @@ namespace list {
         AtomList res(l);
         res.sort();
 
-        auto pred = [](const Atom& a0, const Atom& a1) {
-            if (a0.isData() && a1.isData())
-                return DataPtr(a0) == DataPtr(a1);
+        auto last = std::unique(res.begin(), res.end(),
+            [](const Atom& a0, const Atom& a1) { return a0 == a1; });
 
-            return a0 == a1;
-        };
-
-        auto last = std::unique(res.begin(), res.end(), pred);
         res.resizeClip(last - res.begin());
         return res;
     }
@@ -576,7 +568,7 @@ namespace list {
         const t_float sum = *x;
 
         for (auto& x : src)
-            dest.append(x.asT<t_float>() / sum);
+            dest.append(x.asFloat() / sum);
 
         return true;
     }

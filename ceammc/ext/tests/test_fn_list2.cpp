@@ -12,11 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_fn_list.h"
+#include "ceammc_data.h"
 #include "test_common.h"
 
 using namespace ceammc;
 
-TEST_CASE("list functions", "[ceammc::list]")
+TEST_CASE("list functions", "[core]")
 {
     SECTION("histogram")
     {
@@ -92,6 +93,11 @@ TEST_CASE("list functions", "[ceammc::list]")
         REQUIRE(list::uniqueStable(LF(2, 1)) == LF(2, 1));
         REQUIRE(list::uniqueStable(LF(1, 3, 3, 1, 3, 2)) == LF(1, 3, 2));
         REQUIRE(list::uniqueStable(LF(1, 1, 1, 1)) == LF(1));
+
+        using ID = DataAtom<IntData>;
+        ID i1(1);
+        ID i2(2);
+        REQUIRE(list::uniqueSorted(LA(i1, i2, i1, i2, i1, i1)) == LA(i1, ID(2)));
     }
 
     SECTION("shift")
