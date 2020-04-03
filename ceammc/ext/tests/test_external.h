@@ -260,7 +260,7 @@ public:
         sendMessage(gensym(method), AtomList(Atom(f)));
     }
 
-    void send(float f)
+    void send(t_float f)
     {
         clearAll();
         sendFloat(f);
@@ -287,6 +287,13 @@ public:
     {
         clearAll();
         sendList({ a });
+    }
+
+    template <typename... Args>
+    void send(Args... args)
+    {
+        clearAll();
+        sendList(AtomList(args...));
     }
 
     void sendBangTo(size_t inlet)

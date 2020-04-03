@@ -1,8 +1,17 @@
-set(CATCH_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../Catch2/catch)
+set(CATCH_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../Catch2)
 add_library(Catch2::Catch IMPORTED INTERFACE)
-#set_property(Catch2::Catch PROPERTY INTERFACE_INCLUDE_DIRECTORIES "${CATCH_INCLUDE_DIR}")
+set_target_properties(Catch2::Catch PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${CATCH_INCLUDE_DIR}")
 
-add_library(lib_catch2_main STATIC ../tests_main.cpp)
+add_library(tests_main_lib2 STATIC
+    ../tests_main.cpp
+    ../test_approx.cpp
+    ../test_datatypes.cpp
+    ../test_external.cpp
+    ../test_external_log_output.cpp
+    ../test_wrappers.cpp
+)
+
+target_link_libraries(tests_main_lib2 PUBLIC Catch2::Catch)
 
 add_executable(test_ext_list)
 target_sources(test_ext_list
@@ -19,9 +28,7 @@ target_include_directories(test_ext_list
         "${CATCH_INCLUDE_DIR}")
 
 target_link_libraries(test_ext_list PUBLIC
-    Catch2::Catch
-    lib_catch2_main
-    tests_main_lib
+    tests_main_lib2
     ceammc_list
     ceammc_core
     ceammc_sound
@@ -36,5 +43,6 @@ function(add_test src)
 endfunction()
 
 # test list
+add_test(all_of)
 add_test(any_of)
 add_test(append)

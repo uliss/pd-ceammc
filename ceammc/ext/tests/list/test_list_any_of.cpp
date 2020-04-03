@@ -11,13 +11,13 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "list_all_of.h"
+#include "list_any_of.h"
 #include "test_list_base.h"
 
-PD_COMPLETE_TEST_SETUP(ListAllOf, list, all_of)
+PD_COMPLETE_TEST_SETUP(ListAnyOf, list, any_of)
 
-using TObj = TestListAllOf;
-using TExt = TestExtListAllOf;
+using TObj = TestListAnyOf;
+using TExt = TestExtListAnyOf;
 
 static void eqThree(TObj* obj, size_t, const Atom& a)
 {
@@ -29,79 +29,82 @@ static void lessThree(TObj* obj, size_t, const Atom& a)
     obj->sendFloat(a.asInt() < 3 ? 1 : 0, 1);
 }
 
-TEST_CASE("list.all_of", "[externals]")
+TEST_CASE("list.any_of", "[externals]")
 {
     pd_test_init();
 
     SECTION("init")
     {
-        TObj t("list.all_of", L());
+        TObj t("list.any_of", L());
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
     }
 
-#define REQUIRE_ALL(obj, lst, cb)           \
-    {                                       \
-        obj.setSendAtomCallback(cb);        \
-        WHEN_SEND_LIST_TO(0, obj, lst);     \
-        REQUIRE_FLOAT_AT_OUTLET(0, obj, 1); \
+#define REQUIRE_ANY(obj, lst, cb)        \
+    {                                    \
+        obj.setSendAtomCallback(cb);     \
+        WHEN_SEND_LIST_TO(0, obj, lst);  \
+        REQUIRE_THAT(t, outputTrue(&t)); \
     }
 
-#define REQUIRE_NOT_ALL(obj, lst, cb)       \
-    {                                       \
-        obj.setSendAtomCallback(cb);        \
-        WHEN_SEND_LIST_TO(0, obj, lst);     \
-        REQUIRE_FLOAT_AT_OUTLET(0, obj, 0); \
+#define REQUIRE_NOT_ANY(obj, lst, cb)     \
+    {                                     \
+        obj.setSendAtomCallback(cb);      \
+        WHEN_SEND_LIST_TO(0, obj, lst);   \
+        REQUIRE_THAT(t, outputFalse(&t)); \
     }
 
     SECTION("connect")
     {
-        TObj t("list.all_of", L());
+        TObj t("list.any_of", L());
 
-        REQUIRE_ALL(t, L(), eqThree);
-        REQUIRE_ALL(t, LF(3), eqThree);
-        REQUIRE_ALL(t, LF(3, 3), eqThree);
-        REQUIRE_ALL(t, LF(3, 3, 3), eqThree);
+        REQUIRE_ANY(t, LF(3), eqThree);
+        REQUIRE_ANY(t, LF(3, 1), eqThree);
+        REQUIRE_ANY(t, LF(1, 2, 3), eqThree);
 
-        REQUIRE_NOT_ALL(t, LF(3, 3, 4), eqThree);
-        REQUIRE_NOT_ALL(t, LF(3, 4, 3), eqThree);
+        REQUIRE_NOT_ANY(t, LF(1), eqThree);
+        REQUIRE_NOT_ANY(t, L(), eqThree);
+        REQUIRE_NOT_ANY(t, LF(1, 2, 4), eqThree);
+        REQUIRE_NOT_ANY(t, LF(-9, 4, 10), eqThree);
 
-        REQUIRE_ALL(t, L(), lessThree);
-        REQUIRE_ALL(t, LF(2), lessThree);
-        REQUIRE_ALL(t, LF(0.f, 1), lessThree);
-        REQUIRE_ALL(t, LF(0.f, 1, 2), lessThree);
+        REQUIRE_ANY(t, LF(2), lessThree);
+        REQUIRE_ANY(t, LF(0.f, 1), lessThree);
+        REQUIRE_ANY(t, LF(22, 2, 10), lessThree);
 
-        REQUIRE_NOT_ALL(t, LF(1, 2, 3, 4), lessThree);
+        REQUIRE_NOT_ANY(t, L(), lessThree);
+        REQUIRE_NOT_ANY(t, LF(4, 4, 3, 4), lessThree);
     }
 
     SECTION("external")
     {
-        TExt t("list.all_of");
-        pd::External less10("<", LF(10));
+        TExt t("list.any_of");
+        pd::External less10("<", 10);
 
         t.connectTo(1, less10, 0);
         t.connectFrom(0, less10, 1);
 
-        t.send(LF(1, 2, 3, 4));
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.outputFloatAt(0) == 1);
+        t.send(1, 2, 3, 4);
+        REQUIRE_THAT(t, outputTrue(&t));
 
-        t.send(LF(8, 9));
-        REQUIRE(t.outputFloatAt(0) == 1);
+        t.send(8, 9);
+        REQUIRE_THAT(t, outputTrue(&t));
 
-        t.send(LF(8, 9, 10));
-        REQUIRE(t.outputFloatAt(0) == 0);
+        t.send(8, 9, 10);
+        REQUIRE_THAT(t, outputTrue(&t));
 
-        t.send(MLA(1, 2, 3, 4, 5));
-        REQUIRE(t.outputFloatAt(0) == 1);
+        t.send(10, 11, 12);
+        REQUIRE_THAT(t, outputFalse(&t));
+
+        t.send(MLA(1, 2, 3, 4));
+        REQUIRE_THAT(t, outputTrue(&t));
 
         t.send(MLA(8, 9));
-        REQUIRE(t.outputFloatAt(0) == 1);
+        REQUIRE_THAT(t, outputTrue(&t));
 
         t.send(MLA(8, 9, 10));
-        REQUIRE(t.outputFloatAt(0) == 0);
+        REQUIRE_THAT(t, outputTrue(&t));
 
-        t.send(MLA(10, 11));
-        REQUIRE(t.outputFloatAt(0) == 0);
+        t.send(MLA(10, 11, 12));
+        REQUIRE_THAT(t, outputFalse(&t));
     }
 }

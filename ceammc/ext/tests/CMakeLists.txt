@@ -1,5 +1,4 @@
-include_directories(Catch/single_include)
-include_directories(../src/lib)
+include_directories(${PROJECT_SOURCE_DIR}/ceammc/ext/src/lib)
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${CMAKE_BINARY_DIR}) # for config.h
 include(tests.cmake)
@@ -10,15 +9,16 @@ if(WIN32)
     remove_definitions(-DPD_INTERNAL)
 endif()
 
-add_library(lib_catch1_main STATIC tests_main.cpp)
-
-add_library(tests_main_lib STATIC
+add_library(tests_main_lib1 STATIC
+    tests_main.cpp
     test_approx.cpp
     test_datatypes.cpp
     test_external.cpp
     test_external_log_output.cpp
     test_wrappers.cpp
 )
+
+target_include_directories(tests_main_lib1 PUBLIC Catch/single_include)
 
 if(APPLE)
     set(CMAKE_INSTALL_RPATH "@loader_path/../src/lib")
@@ -176,7 +176,7 @@ ceammc_external_test(data tree)
 ceammc_external_test(proto firmata)
 
 #ceammc_external_test(list all_of)
-ceammc_external_test(list any_of)
+#ceammc_external_test(list any_of)
 ceammc_external_test(list append)
 ceammc_external_test(list apply_to)
 ceammc_external_test(list at)
