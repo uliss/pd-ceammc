@@ -29,7 +29,7 @@
         REQUIRE_LIST_AT_OUTLET(0, obj, lst); \
     }
 
-#define REQUIRE_DATA_EQUAL_AT_OUTLET(outlet, obj, data)       \
+#define REQUIRE_DATA_AT(outlet, obj, data)                    \
     {                                                         \
         REQUIRE(obj.hasNewMessages(outlet));                  \
         REQUIRE(obj.lastMessage(outlet).isData());            \
@@ -96,19 +96,19 @@ TEST_CASE("data.mlist", "[externals]")
         Obj t("data.mlist");
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML());
+        REQUIRE_DATA_AT(0, t, ML());
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(1, 2, 3));
+        REQUIRE_DATA_AT(0, t, ML(1, 2, 3));
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(1, 2, 3));
+        REQUIRE_DATA_AT(0, t, ML(1, 2, 3));
 
         SECTION("construct")
         {
             Obj t("data.mlist", LA("(1 2 3 4)"));
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(1, 2, 3, 4));
+            REQUIRE_DATA_AT(0, t, ML(1, 2, 3, 4));
         }
     }
 
@@ -117,10 +117,10 @@ TEST_CASE("data.mlist", "[externals]")
         Obj t("data.mlist");
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(1, 2, 3));
+        REQUIRE_DATA_AT(0, t, ML(1, 2, 3));
 
         WHEN_SEND_LIST_TO(0, t, L());
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML());
+        REQUIRE_DATA_AT(0, t, ML());
     }
 
     SECTION("clear")
@@ -130,7 +130,7 @@ TEST_CASE("data.mlist", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @size, 5);
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(1, 2, 3, 4, ML(1, 2)));
+        REQUIRE_DATA_AT(0, t, ML(1, 2, 3, 4, ML(1, 2)));
 
         WHEN_CALL(t, clear);
         REQUIRE_PROPERTY_FLOAT(t, @size, 0);
@@ -141,13 +141,13 @@ TEST_CASE("data.mlist", "[externals]")
         Obj t("data.mlist");
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML());
+        REQUIRE_DATA_AT(0, t, ML());
 
         WHEN_CALL_N(t, set, 1, 2);
         REQUIRE_NO_MSG(t);
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(1, 2));
+        REQUIRE_DATA_AT(0, t, ML(1, 2));
     }
 
     SECTION("insert")
@@ -169,23 +169,23 @@ TEST_CASE("data.mlist", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @size, 2);
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(10, 20));
+        REQUIRE_DATA_AT(0, t, ML(10, 20));
 
         WHEN_CALL_N(t, insert, 0.f, 30, 40);
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(30, 40, 10, 20));
+        REQUIRE_DATA_AT(0, t, ML(30, 40, 10, 20));
 
         WHEN_CALL_N(t, insert, 1, 50);
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(30, 50, 40, 10, 20));
+        REQUIRE_DATA_AT(0, t, ML(30, 50, 40, 10, 20));
 
         WHEN_CALL_N(t, insert, -1, 60);
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(30, 50, 40, 10, 60, 20));
+        REQUIRE_DATA_AT(0, t, ML(30, 50, 40, 10, 60, 20));
 
         WHEN_CALL_N(t, insert, -10, 60);
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(30, 50, 40, 10, 60, 20));
+        REQUIRE_DATA_AT(0, t, ML(30, 50, 40, 10, 60, 20));
     }
 
     SECTION("pop")
@@ -197,28 +197,28 @@ TEST_CASE("data.mlist", "[externals]")
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3, 4));
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(1, 2, 3, 4));
+        REQUIRE_DATA_AT(0, t, ML(1, 2, 3, 4));
 
         WHEN_CALL(t, pop);
         REQUIRE_NO_MSG(t);
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(1, 2, 3));
+        REQUIRE_DATA_AT(0, t, ML(1, 2, 3));
 
         WHEN_CALL(t, pop);
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(1, 2));
+        REQUIRE_DATA_AT(0, t, ML(1, 2));
 
         WHEN_CALL(t, pop);
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(1));
+        REQUIRE_DATA_AT(0, t, ML(1));
 
         WHEN_CALL(t, pop);
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML());
+        REQUIRE_DATA_AT(0, t, ML());
 
         WHEN_CALL(t, pop);
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML());
+        REQUIRE_DATA_AT(0, t, ML());
     }
 
     SECTION("remove")
@@ -231,42 +231,42 @@ TEST_CASE("data.mlist", "[externals]")
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3, 4));
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(1, 2, 3, 4));
+        REQUIRE_DATA_AT(0, t, ML(1, 2, 3, 4));
 
         WHEN_CALL(t, removeAt);
         REQUIRE_NO_MSG(t);
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(1, 2, 3, 4));
+        REQUIRE_DATA_AT(0, t, ML(1, 2, 3, 4));
 
         WHEN_CALL_N(t, removeAt, 0.f);
         REQUIRE_NO_MSG(t);
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(2, 3, 4));
+        REQUIRE_DATA_AT(0, t, ML(2, 3, 4));
 
         WHEN_CALL_N(t, removeAt, 3);
         REQUIRE_NO_MSG(t);
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(2, 3, 4));
+        REQUIRE_DATA_AT(0, t, ML(2, 3, 4));
 
         WHEN_CALL_N(t, removeAt, 1);
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(2, 4));
+        REQUIRE_DATA_AT(0, t, ML(2, 4));
 
         WHEN_CALL_N(t, removeAt, -1);
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML(2));
+        REQUIRE_DATA_AT(0, t, ML(2));
 
         WHEN_CALL_N(t, removeAt, -1);
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML());
+        REQUIRE_DATA_AT(0, t, ML());
 
         WHEN_CALL_N(t, removeAt, -1);
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML());
+        REQUIRE_DATA_AT(0, t, ML());
 
         WHEN_CALL_N(t, removeAt, 0.f);
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, ML());
+        REQUIRE_DATA_AT(0, t, ML());
     }
 
     SECTION("ext")
