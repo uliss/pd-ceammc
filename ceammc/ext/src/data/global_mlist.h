@@ -22,9 +22,6 @@ typedef DataMListIFace<GlobalBase<DataTypeMList>> GlobalMListBase;
 class GlobalMList : public GlobalMListBase {
 public:
     GlobalMList(const PdArgs& args);
-
-    DataTypeMList& mlist() final { return ref(); }
-    const DataTypeMList& mlist() const final { return ref(); }
 };
 
 void setup_global_mlist();

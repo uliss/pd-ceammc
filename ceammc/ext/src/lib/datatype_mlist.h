@@ -77,7 +77,7 @@ public:
     /**
      * Number of elements in list
      */
-    size_t size() const noexcept{ return data_.size(); }
+    size_t size() const noexcept { return data_.size(); }
 
     const Atom& at(size_t n) const { return data_[n]; }
     Atom& at(size_t n) { return data_[n]; }
@@ -93,7 +93,8 @@ public:
     bool pop();
     bool remove(size_t idx);
     void reserve(size_t n);
-    void set(const AtomList& lst);
+    void setRaw(const AtomList& lst);
+    void setParsed(const AtomList& lst);
 
     const_iterator begin() const { return data_.begin(); }
     iterator begin() { return data_.begin(); }

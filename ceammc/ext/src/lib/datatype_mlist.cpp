@@ -12,11 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "datatype_mlist.h"
+#include "ceammc_data.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
-#include "lex/data_string.lexer.h"
-#include "lex/data_string.parser.hpp"
 
 #include <cmath>
 #include <cstring>
@@ -154,9 +153,16 @@ void DataTypeMList::reserve(size_t n)
     data_.reserve(n);
 }
 
-void DataTypeMList::set(const AtomList& lst)
+void DataTypeMList::setRaw(const AtomList& lst)
 {
     data_ = lst;
+}
+
+void DataTypeMList::setParsed(const AtomList& lst)
+{
+    auto ml = parse(lst);
+    if (ml)
+        data_ = ml->data_;
 }
 
 DataTypeMList DataTypeMList::rotateLeft(int steps) const
@@ -247,26 +253,13 @@ DataTypeMList::MaybeList DataTypeMList::parse(const std::string& str)
     if (str.empty() || pos == std::string::npos)
         return boost::none;
 
-    DataStringLexer lexer((pos == 0) ? str : str.substr(pos));
-    AtomList out;
-    DataStringParser p(lexer, out);
-    try {
-        if (p.parse() != 0)
-            return boost::none;
-
-        if (!out.isA<DataTypeMList>()) {
-            LIB_ERR << "MList parse fail";
-            return boost::none;
-        }
-
-        LIB_POST << "parse: " << out;
-
-        return *out.asD<DataTypeMList>();
-
-    } catch (std::exception& e) {
-        LIB_ERR << "MList parse error: " << e.what();
+    AtomList out = parseDataString(str);
+    if (!out.isA<DataTypeMList>()) {
+        LIB_ERR << "MList parse fail";
         return boost::none;
     }
+
+    return *out.asD<DataTypeMList>();
 }
 
 std::ostream& operator<<(std::ostream& os, const DataTypeMList& d)

@@ -22,9 +22,6 @@ typedef DataMListIFace<LocalBase<DataTypeMList>> LocalMListBase;
 class LocalMList : public LocalMListBase {
 public:
     LocalMList(const PdArgs& args);
-
-    DataTypeMList& mlist() final { return ref(); }
-    const DataTypeMList& mlist() const final { return ref(); }
 };
 
 void setup_local_mlist();
