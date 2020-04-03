@@ -307,3 +307,33 @@ bool ceammc::string::pd_string_end_quote(const char* str)
 
     return re2::RE2::FullMatch(str, re_double_quoted_end);
 }
+
+std::string ceammc::string::remove_all(const std::string& input, const std::string& search)
+{
+    return boost::algorithm::erase_all_copy(input, search);
+}
+
+std::string ceammc::string::remove_first(const std::string& input, const std::string& search)
+{
+    return boost::algorithm::erase_first_copy(input, search);
+}
+
+std::string ceammc::string::remove_last(const std::string& input, const std::string& search)
+{
+    return boost::algorithm::erase_last_copy(input, search);
+}
+
+std::string ceammc::string::replace_all(const std::string& input, const std::string& from, const std::string& to)
+{
+    return boost::algorithm::replace_all_copy(input, from, to);
+}
+
+std::string ceammc::string::replace_first(const std::string& input, const std::string& from, const std::string& to)
+{
+    return boost::algorithm::replace_first_copy(input, from, to);
+}
+
+std::string ceammc::string::replace_last(const std::string& input, const std::string& from, const std::string& to)
+{
+    return boost::algorithm::replace_last_copy(input, from, to);
+}

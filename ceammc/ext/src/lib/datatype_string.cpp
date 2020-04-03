@@ -21,7 +21,6 @@
 #include <algorithm>
 #include <boost/algorithm/string.hpp>
 #include <iostream>
-#include <sstream>
 
 namespace ceammc {
 
@@ -152,32 +151,32 @@ void DataTypeString::split(std::vector<std::string>& res, const std::string& sep
 
 DataTypeString DataTypeString::removeAll(const std::string& s) const
 {
-    return DataTypeString(boost::algorithm::erase_all_copy(str_, s));
+    return string::remove_all(str_, s);
 }
 
 DataTypeString DataTypeString::removeFirst(const std::string& s) const
 {
-    return DataTypeString(boost::algorithm::erase_first_copy(str_, s));
+    return string::remove_first(str_, s);
 }
 
 DataTypeString DataTypeString::removeLast(const std::string& s) const
 {
-    return DataTypeString(boost::algorithm::erase_last_copy(str_, s));
+    return string::remove_last(str_, s);
 }
 
 DataTypeString DataTypeString::replaceAll(const std::string& from, const std::string& to) const
 {
-    return DataTypeString(boost::algorithm::replace_all_copy(str_, from, to));
+    return string::replace_all(str_, from, to);
 }
 
 DataTypeString DataTypeString::replaceFirst(const std::string& from, const std::string& to) const
 {
-    return DataTypeString(boost::algorithm::replace_first_copy(str_, from, to));
+    return string::replace_first(str_, from, to);
 }
 
 DataTypeString DataTypeString::replaceLast(const std::string& from, const std::string& to) const
 {
-    return DataTypeString(boost::algorithm::replace_last_copy(str_, from, to));
+    return string::replace_last(str_, from, to);
 }
 
 size_t DataTypeString::length() const
@@ -208,7 +207,7 @@ bool DataTypeString::isEqual(const AbstractData* d) const noexcept
     if (this == d)
         return true;
 
-    const DataTypeString* cmp = static_cast<const DataTypeString*>(d);
+    const DataTypeString* cmp = d->as<DataTypeString>();
 
     static_assert(noexcept(operator==(*cmp)), "noexcept required");
 
@@ -223,17 +222,12 @@ bool DataTypeString::isLess(const AbstractData* d) const noexcept
     if (this == d)
         return false;
 
-    return str_ < (static_cast<const DataTypeString*>(d)->str_);
+    return str_ < (d->as<DataTypeString>()->str_);
 }
 
 void DataTypeString::splitEveryChar(std::vector<std::string>& res) const
 {
     string::utf8_split_by_char(res, str_.c_str());
-}
-
-static bool is_empty(const std::string& s)
-{
-    return s.empty();
 }
 
 void DataTypeString::splitBySep(std::vector<std::string>& res, const std::string& sep) const
@@ -244,7 +238,9 @@ void DataTypeString::splitBySep(std::vector<std::string>& res, const std::string
 
     boost::algorithm::split(res, str_, boost::is_any_of(sep), boost::token_compress_on);
     // remove all empty elements
-    res.erase(std::remove_if(res.begin(), res.end(), is_empty), res.end());
+    res.erase(
+        std::remove_if(res.begin(), res.end(), [](const std::string& s) { return s.empty(); }),
+        res.end());
 }
 
 std::ostream& operator<<(std::ostream& os, const DataTypeString& d)

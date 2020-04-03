@@ -36,6 +36,36 @@ namespace string {
     bool contains(const char* haystack, const char* needle);
     bool contains(const std::string& haystack, const std::string& needle);
 
+    /**
+     * remove all the occurrences of the string from the input
+     */
+    std::string remove_all(const std::string& input, const std::string& search);
+
+    /**
+     * remove first occurrence of the string from the input
+     */
+    std::string remove_first(const std::string& input, const std::string& search);
+
+    /**
+     * remove last occurrence of the string from the input
+     */
+    std::string remove_last(const std::string& input, const std::string& search);
+
+    /**
+     * replace all the occurrences of the string from
+     */
+    std::string replace_all(const std::string& input, const std::string& from, const std::string& to);
+
+    /**
+     * replace first occurrence of the string from
+     */
+    std::string replace_first(const std::string& input, const std::string& from, const std::string& to);
+
+    /**
+     * replace last occurrence of the string from
+     */
+    std::string replace_last(const std::string& input, const std::string& from, const std::string& to);
+
     // pd-string is single quoted or double quoted string
     //   with ` as escape symbol.
     // - `" -> "
