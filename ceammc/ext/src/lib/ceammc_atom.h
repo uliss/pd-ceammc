@@ -315,6 +315,12 @@ public:
     }
 
     /**
+     * detach pointed data
+     * @return true on success, false on error
+     */
+    bool detachData() const noexcept;
+
+    /**
      * Return number of data references or 0 if not a dataatom
      */
     int refCount() const noexcept;

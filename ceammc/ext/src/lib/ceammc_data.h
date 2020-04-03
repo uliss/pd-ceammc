@@ -26,25 +26,41 @@ class DataTypeDict;
 class DataTypeString;
 
 template <typename T>
-class TypeAtom : public Atom {
+class DataAtom : public Atom {
 public:
+    explicit DataAtom(const Atom& a)
+        : Atom(a)
+    {
+    }
+
+    explicit DataAtom(Atom&& a)
+        : Atom(std::move(a))
+    {
+    }
+
+    DataAtom(const DataAtom& x) = default;
+
     template <typename... Args>
-    TypeAtom(Args... args)
+    DataAtom(Args... args)
         : Atom(new T(args...))
     {
     }
 
-    T* operator->() { return static_cast<T*>(const_cast<AbstractData*>(asData())); }
-    const T* operator->() const { return static_cast<const T*>(asData()); }
+    operator bool() const noexcept { return isA<T>(); }
 
-    T& operator*() { return *(operator->()); }
-    const T& operator*() const { return *(operator->()); }
+    T* operator->() noexcept { return static_cast<T*>(const_cast<AbstractData*>(asData())); }
+    const T* operator->() const noexcept { return static_cast<const T*>(asData()); }
+
+    T& operator*() noexcept { return *(operator->()); }
+    const T& operator*() const noexcept { return *(operator->()); }
 };
 
-using MListAtom = TypeAtom<DataTypeMList>;
-using DictAtom = TypeAtom<DataTypeDict>;
-using TreeAtom = TypeAtom<DataTypeTree>;
-using StringAtom = TypeAtom<DataTypeString>;
+using MListAtom = DataAtom<DataTypeMList>;
+using DictAtom = DataAtom<DataTypeDict>;
+using TreeAtom = DataAtom<DataTypeTree>;
+using StringAtom = DataAtom<DataTypeString>;
+
+static_assert(sizeof(MListAtom) == sizeof(Atom), "DataAtom size mismatch");
 
 /**
  * Parse raw list with data constructor syntax:

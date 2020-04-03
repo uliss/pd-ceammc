@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_atom.h"
+#include "ceammc_data.h"
 #include "test_base.h"
 
 #include "catch.hpp"
@@ -432,5 +433,42 @@ TEST_CASE("Atom2", "[core]")
         REQUIRE(f.isData());
         REQUIRE(int100.isFloat());
         REQUIRE(f.refCount() == 1);
+    }
+
+    SECTION("detach")
+    {
+        using IntAtom = DataAtom<IntData>;
+
+        Atom i0(new IntData(100));
+        IntAtom i1(i0);
+
+        REQUIRE(i0 == i1);
+        REQUIRE(i0.refCount() == 2);
+        REQUIRE(i1.refCount() == 2);
+        REQUIRE(i0.asData() == i1.asData());
+
+        REQUIRE(i1.detachData());
+
+        REQUIRE(i0 == i1);
+        REQUIRE(i0.refCount() == 1);
+        REQUIRE(i1.refCount() == 1);
+        REQUIRE(i0.asData() != i1.asData());
+
+        i1->setValue(101);
+        REQUIRE(i0 != i1);
+        REQUIRE(i0.refCount() == 1);
+        REQUIRE(i1.refCount() == 1);
+    }
+
+    SECTION("single detach")
+    {
+        Atom i(new IntData(100));
+        auto p0 = i.asData();
+
+        REQUIRE(i.detachData());
+        auto p1 = i.asData();
+        REQUIRE(p0 != p1);
+        REQUIRE(p1->toString() == "100");
+        REQUIRE(i.refCount() == 1);
     }
 }

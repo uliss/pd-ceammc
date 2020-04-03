@@ -494,6 +494,30 @@ const AbstractData* Atom::asData() const noexcept
         return nullptr;
 }
 
+bool Atom::detachData() const noexcept
+{
+    if (a_type == TYPE_DATA) {
+        auto ref = reinterpret_cast<t_ref*>(REF_PTR);
+
+        if (ref && ref->data) {
+            try {
+                Atom new_atom(ref->data->clone());
+                std::swap(new_atom, *const_cast<Atom*>(this));
+                return true;
+            } catch (std::exception& e) {
+                LIB_ERR << "can't detach data: " << *this;
+                return false;
+            }
+        } else {
+            LIB_ERR << "nullref dataatom: " << __FUNCTION__;
+            return false;
+        }
+    } else {
+        LIB_ERR << "attempt to detach non-data atom: " << *this;
+        return false;
+    }
+}
+
 bool Atom::operator<(const Atom& b) const noexcept
 {
     if (this == &b)

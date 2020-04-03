@@ -16,7 +16,7 @@
 
 #include "mlist_iface.h"
 
-typedef DataMListIFace<BaseObject> DataMListBase;
+using DataMListBase = DataMListIFace<BaseObject>;
 
 class DataMList : public DataMListBase {
     DataTypeMList mlist_;
