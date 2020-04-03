@@ -385,4 +385,9 @@ TEST_CASE("DataTypeString", "[core]")
         REQUIRE(&s != p.get());
         REQUIRE(p->str() == "abcd");
     }
+
+    SECTION("parse")
+    {
+        REQUIRE(parseDataString("S\"a b c\"") == StringAtom("a b c"));
+    }
 }
