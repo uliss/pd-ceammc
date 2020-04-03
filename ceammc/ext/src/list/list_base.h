@@ -25,9 +25,9 @@ public:
     {
     }
 
-    void onDataT(const DataTPtr<DataTypeMList>& dptr)
+    void onDataT(const DataTypeMList* dptr)
     {
-        onList(dptr->toList());
+        onList(dptr->data());
     }
 };
 }
