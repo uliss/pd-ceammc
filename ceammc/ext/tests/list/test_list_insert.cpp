@@ -25,7 +25,7 @@ TEST_CASE("list.insert", "[externals]")
 
     SECTION("create")
     {
-        TestListInsert t("list.insert");
+        TObj t("list.insert");
         REQUIRE(t.numInlets() == 3);
         REQUIRE(t.numOutlets() == 1);
 
@@ -37,7 +37,7 @@ TEST_CASE("list.insert", "[externals]")
 
     SECTION("empty")
     {
-        TestListInsert t("list.insert");
+        TObj t("list.insert");
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_THAT(t, !hasOutput(&t));
@@ -60,7 +60,7 @@ TEST_CASE("list.insert", "[externals]")
 
     SECTION("single")
     {
-        TestListInsert t("list.insert", LA(1000, "@index", 1));
+        TObj t("list.insert", LA(1000, "@index", 1));
 
         WHEN_SEND_LIST_TO(0, t, L());
         REQUIRE_THAT(t, !hasOutput(&t));
@@ -94,7 +94,7 @@ TEST_CASE("list.insert", "[externals]")
         IntA d2(20);
         IntA d3(30);
 
-        TestListInsert t("list.insert", LA("@index", 1));
+        TObj t("list.insert", LA("@index", 1));
 
         WHEN_SEND_LIST_TO(1, t, LA(d3));
         WHEN_SEND_LIST_TO(0, t, LA(d1, d2));
@@ -103,7 +103,7 @@ TEST_CASE("list.insert", "[externals]")
 
     SECTION("mlist")
     {
-        TestExtListInsert t("list.insert", LA(1, 2, 3, "@index", 1));
+        TExt t("list.insert", LA(1, 2, 3, "@index", 1));
 
         t.send(MLA("a", "b", "c"));
         REQUIRE(t.outputAtomAt(0) == MLA("a", 1, 2, 3, "b", "c"));

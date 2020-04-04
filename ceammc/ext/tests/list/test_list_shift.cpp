@@ -27,7 +27,7 @@ TEST_CASE("list.shift", "[externals]")
     {
         SECTION("default")
         {
-            TestListShift t("list.shift");
+            TObj t("list.shift");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @shift, 0);
@@ -35,7 +35,7 @@ TEST_CASE("list.shift", "[externals]")
 
         SECTION("args")
         {
-            TestListShift t("list.shift", LF(20));
+            TObj t("list.shift", LF(20));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @shift, 20);
@@ -43,7 +43,7 @@ TEST_CASE("list.shift", "[externals]")
 
         SECTION("props")
         {
-            TestListShift t("list.shift", LA("@shift", -10));
+            TObj t("list.shift", LA("@shift", -10));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @shift, -10);
@@ -52,7 +52,7 @@ TEST_CASE("list.shift", "[externals]")
 
     SECTION("do")
     {
-        TestExtListShift t("list.shift", LF(0.4));
+        TExt t("list.shift", LF(0.4));
 
         t << L();
         REQUIRE(t.outputListAt(0) == L());

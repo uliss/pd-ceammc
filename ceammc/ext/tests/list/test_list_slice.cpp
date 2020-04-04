@@ -25,7 +25,7 @@ TEST_CASE("list.slice", "[externals]")
 
     SECTION("init")
     {
-        TestListSlice t("list.slice");
+        TObj t("list.slice");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
 
@@ -40,7 +40,7 @@ TEST_CASE("list.slice", "[externals]")
         {
             SECTION("single")
             {
-                TestListSlice t("list.slice", LF(10));
+                TObj t("list.slice", LF(10));
                 REQUIRE_THAT(t, hasProperty(&t, "@from", 10)); 
                 REQUIRE_PROPERTY_FLOAT(t, @to, -1);
                 REQUIRE_PROPERTY_FLOAT(t, @step, 1);
@@ -48,7 +48,7 @@ TEST_CASE("list.slice", "[externals]")
 
             SECTION("begin end")
             {
-                TestListSlice t("list.slice", LF(10, 20));
+                TObj t("list.slice", LF(10, 20));
                 REQUIRE_THAT(t, hasProperty(&t, "@from", 10)); 
                 REQUIRE_THAT(t, hasProperty(&t, "@to", 20)); 
                 REQUIRE_PROPERTY_FLOAT(t, @step, 1);
@@ -56,7 +56,7 @@ TEST_CASE("list.slice", "[externals]")
 
             SECTION("begin step")
             {
-                TestListSlice t("list.slice", LF(10, 20, 2));
+                TObj t("list.slice", LF(10, 20, 2));
                 REQUIRE_THAT(t, hasProperty(&t, "@from", 10)); 
                 REQUIRE_THAT(t, hasProperty(&t, "@to", 20)); 
                 REQUIRE_THAT(t, hasProperty(&t, "@step", 2)); 
@@ -65,7 +65,7 @@ TEST_CASE("list.slice", "[externals]")
 
         SECTION("props")
         {
-            TestListSlice t("list.slice", LA("@from", 3));
+            TObj t("list.slice", LA("@from", 3));
             REQUIRE_THAT(t, hasProperty(&t, "@from", 3)); 
             REQUIRE_PROPERTY_FLOAT(t, @to, -1);
             REQUIRE_PROPERTY_FLOAT(t, @step, 1);
@@ -73,7 +73,7 @@ TEST_CASE("list.slice", "[externals]")
 
         SECTION("props2")
         {
-            TestListSlice t("list.slice", LA("@from", 3, "@to", 5));
+            TObj t("list.slice", LA("@from", 3, "@to", 5));
             REQUIRE_THAT(t, hasProperty(&t, "@from", 3)); 
             REQUIRE_THAT(t, hasProperty(&t, "@to", 5)); 
             REQUIRE_PROPERTY_FLOAT(t, @step, 1);
@@ -81,7 +81,7 @@ TEST_CASE("list.slice", "[externals]")
 
         SECTION("props3")
         {
-            TestListSlice t("list.slice", LA("@from", 3, "@step", 4, "@to", 5));
+            TObj t("list.slice", LA("@from", 3, "@step", 4, "@to", 5));
             REQUIRE_THAT(t, hasProperty(&t, "@from", 3)); 
             REQUIRE_THAT(t, hasProperty(&t, "@to", 5)); 
             REQUIRE_THAT(t, hasProperty(&t, "@step", 4)); 
@@ -90,7 +90,7 @@ TEST_CASE("list.slice", "[externals]")
 
     SECTION("split")
     {
-        TestListSlice t("list.slice");
+        TObj t("list.slice");
 
         // no params
         WHEN_SEND_LIST_TO(0, t, LA(1, 2, 3, 4, 5, 6));

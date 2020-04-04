@@ -25,7 +25,7 @@ TEST_CASE("list.search", "[externals]")
 
     SECTION("create")
     {
-        TestListSearch t("list.search");
+        TObj t("list.search");
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
     }
@@ -34,7 +34,7 @@ TEST_CASE("list.search", "[externals]")
     {
         SECTION("empty")
         {
-            TestListSearch t("list.search");
+            TObj t("list.search");
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_THAT(t, !hasOutput(&t));
 
@@ -59,7 +59,7 @@ TEST_CASE("list.search", "[externals]")
 
         SECTION("simple")
         {
-            TestListSearch t("list.search", LA(1, 2, 3, "A"));
+            TObj t("list.search", LA(1, 2, 3, "A"));
 
             WHEN_SEND_LIST_TO(0, t, L());
             REQUIRE_LIST_AT_OUTLET(0, t, LF(-1, -1, -1, -1));
@@ -98,7 +98,7 @@ TEST_CASE("list.search", "[externals]")
 
         SECTION("data")
         {
-            TestListSearch t("list.search");
+            TObj t("list.search");
 
             IntA d0(100);
             IntA d1(200);
@@ -118,7 +118,7 @@ TEST_CASE("list.search", "[externals]")
 
     SECTION("external")
     {
-        TestExtListSearch t("list.search", LA("@a", 100, "B"));
+        TExt t("list.search", LA("@a", 100, "B"));
 
         t << LA(1, 2, 3, "@a");
         REQUIRE(t.outputListAt(0) == LF(3, -1, -1));

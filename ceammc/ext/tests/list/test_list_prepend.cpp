@@ -25,14 +25,14 @@ TEST_CASE("list.prepend", "[externals]")
 
     SECTION("create")
     {
-        TestListPrepend t("list.prepend");
+        TObj t("list.prepend");
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
     }
 
     SECTION("empty")
     {
-        TestListPrepend t("list.prepend");
+        TObj t("list.prepend");
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_LIST_AT_OUTLET(0, t, L());
@@ -55,7 +55,7 @@ TEST_CASE("list.prepend", "[externals]")
 
     SECTION("args")
     {
-        TestListPrepend t("list.prepend", LA("@prop", 1));
+        TObj t("list.prepend", LA("@prop", 1));
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_LIST_AT_OUTLET(0, t, LA("@prop", 1));
@@ -86,7 +86,7 @@ TEST_CASE("list.prepend", "[externals]")
         IntA d2(20);
         IntA d3(30);
 
-        TestExtListPrepend t("list.prepend");
+        TExt t("list.prepend");
 
         t->onInlet(1, LA(d1, d2));
         t.send(d3);

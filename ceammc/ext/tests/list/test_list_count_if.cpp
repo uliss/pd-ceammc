@@ -25,14 +25,14 @@ TEST_CASE("list.count_if", "[externals]")
 
     SECTION("init")
     {
-        TestListCountIf t("list.count_if");
+        TObj t("list.count_if");
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
     }
 
     SECTION("external simple")
     {
-        TestExtListCountIf t("list.count_if");
+        TExt t("list.count_if");
         pd::External pred(">", 2);
 
         // [list.count_if] X [> 2]
@@ -55,7 +55,7 @@ TEST_CASE("list.count_if", "[externals]")
 
     SECTION("external data")
     {
-        TestExtListCountIf t("list.count_if");
+        TExt t("list.count_if");
         pd::External pred("<", 2);
 
         t.connectTo(1, pred, 0);

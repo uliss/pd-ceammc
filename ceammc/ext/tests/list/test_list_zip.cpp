@@ -26,38 +26,38 @@ TEST_CASE("list.zip", "[externals]")
     SECTION("init")
     {
         SECTION("default") {
-            TestListZip t("list.zip");
+            TObj t("list.zip");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
         }
 
         SECTION("args") {
-            TestListZip t("list.zip", LF(4));
+            TObj t("list.zip", LF(4));
             REQUIRE(t.numInlets() == 4);
             REQUIRE(t.numOutlets() == 1);
         }
 
         SECTION("args") {
-            TestListZip t("list.zip", LF(20));
+            TObj t("list.zip", LF(20));
             REQUIRE(t.numInlets() == 20);
             REQUIRE(t.numOutlets() == 1);
         }
 
         SECTION("invalid") {
             SECTION("1") {
-                TestListZip t("list.zip", LF(1));
+                TObj t("list.zip", LF(1));
                 REQUIRE(t.numInlets() == 2);
                 REQUIRE(t.numOutlets() == 1);
             }
 
             SECTION("-10") {
-                TestListZip t("list.zip", LF(-10));
+                TObj t("list.zip", LF(-10));
                 REQUIRE(t.numInlets() == 2);
                 REQUIRE(t.numOutlets() == 1);
             }
 
             SECTION("21") {
-                TestListZip t("list.zip", LF(20));
+                TObj t("list.zip", LF(20));
                 REQUIRE(t.numInlets() == 20);
                 REQUIRE(t.numOutlets() == 1);
             }
@@ -66,7 +66,7 @@ TEST_CASE("list.zip", "[externals]")
 
     SECTION("act") {
         SECTION("default") {
-            TestListZip t("list.zip");
+            TObj t("list.zip");
 
             // default @min method
             WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
@@ -140,7 +140,7 @@ TEST_CASE("list.zip", "[externals]")
         }
 
         SECTION("multiple") {
-            TestListZip t("list.zip", LF(3));
+            TObj t("list.zip", LF(3));
 
             // default @min method
             WHEN_SEND_LIST_TO(0, t, LF(1, 2));

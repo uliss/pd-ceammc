@@ -28,14 +28,14 @@ TEST_CASE("list.unpack", "[externals]")
     {
         SECTION("default")
         {
-            TestListUnpack t("list.unpack");
+            TObj t("list.unpack");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
         }
 
         SECTION("args")
         {
-            TestListUnpack t("list.unpack", { 6 });
+            TObj t("list.unpack", { 6 });
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 6);
         }
@@ -44,14 +44,14 @@ TEST_CASE("list.unpack", "[externals]")
         {
             SECTION("")
             {
-                TestListUnpack t("list.unpack", { -1 });
+                TObj t("list.unpack", { -1 });
                 REQUIRE(t.numInlets() == 1);
                 REQUIRE(t.numOutlets() == 1);
             }
 
             SECTION("")
             {
-                TestListUnpack t("list.unpack", { 33 });
+                TObj t("list.unpack", { 33 });
                 REQUIRE(t.numInlets() == 1);
                 REQUIRE(t.numOutlets() == 32);
             }
@@ -60,7 +60,7 @@ TEST_CASE("list.unpack", "[externals]")
 
     SECTION("do")
     {
-        TestListUnpack t("list.unpack", { 3 });
+        TObj t("list.unpack", { 3 });
 
         WHEN_SEND_LIST_TO(0, t, {});
         REQUIRE_THAT(t, !hasOutput(&t));

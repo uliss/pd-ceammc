@@ -27,14 +27,14 @@ TEST_CASE("list.do", "[externals]")
 
     SECTION("init")
     {
-        TestListDo t("list.do");
+        TObj t("list.do");
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
     }
 
     SECTION("external simple")
     {
-        TestExtListDo t("list.do");
+        TExt t("list.do");
         pd::External pack("pack", LA("f", "f", "f"));
 
         // [list.do] X [pack f f f]

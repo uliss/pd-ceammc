@@ -25,14 +25,14 @@ TEST_CASE("list.last", "[externals]")
 
     SECTION("create")
     {
-        TestListLast t("list.insert");
+        TObj t("list.insert");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
     }
 
     SECTION("do")
     {
-        TestExtListLast t("list.last");
+        TExt t("list.last");
 
         t << L();
         REQUIRE_THAT(t, !hasOutput(&t));

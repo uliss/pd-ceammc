@@ -27,7 +27,7 @@ TEST_CASE("list.count", "[externals]")
     {
         SECTION("empty")
         {
-            TestListCount t("list.count");
+            TObj t("list.count");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
@@ -36,32 +36,32 @@ TEST_CASE("list.count", "[externals]")
 
         SECTION("positional symbol")
         {
-            TestListCount t("list.count", LA("c"));
+            TObj t("list.count", LA("c"));
             REQUIRE_THAT(t, hasProperty(&t, "@pattern", "c")); 
         }
 
         SECTION("positional float")
         {
-            TestListCount t("list.count", LF(2));
+            TObj t("list.count", LF(2));
             REQUIRE_THAT(t, hasProperty(&t, "@pattern", 2)); 
         }
 
         SECTION("positional list")
         {
-            TestListCount t("list.count", LA(1, 2, 3, 4, 5));
+            TObj t("list.count", LA(1, 2, 3, 4, 5));
             REQUIRE_THAT(t, hasProperty(&t, "@pattern", 1)); 
         }
 
         SECTION("properties")
         {
-            TestListCount t("list.count", LA("@pattern", 111));
+            TObj t("list.count", LA("@pattern", 111));
             REQUIRE_THAT(t, hasProperty(&t, "@pattern", 111)); 
         }
     }
 
     SECTION("do")
     {
-        TestListCount t("list.count", LF(2));
+        TObj t("list.count", LF(2));
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 3, 4, 5));
         REQUIRE_THAT(t, outputFloat(&t, 0));
@@ -78,7 +78,7 @@ TEST_CASE("list.count", "[externals]")
 
     SECTION("inlet 2")
     {
-        TestListCount t("list.count", LF(2));
+        TObj t("list.count", LF(2));
         REQUIRE_THAT(t, hasProperty(&t, "@pattern", 2)); 
 
         WHEN_SEND_FLOAT_TO(1, t, 122);
@@ -96,7 +96,7 @@ TEST_CASE("list.count", "[externals]")
 
     SECTION("external simple")
     {
-        TestExtListCount t("list.count", LF(10));
+        TExt t("list.count", LF(10));
 
         t.sendList(LF(1, 2, 3, 4));
         REQUIRE_THAT(t, outputFloat(&t, 0));
@@ -110,7 +110,7 @@ TEST_CASE("list.count", "[externals]")
 
     SECTION("external data")
     {
-        TestExtListCount t("list.count", LA(IntA(100)));
+        TExt t("list.count", LA(IntA(100)));
 
         t.send(1, 2, 3, 100);
         REQUIRE_THAT(t, outputFalse(&t));

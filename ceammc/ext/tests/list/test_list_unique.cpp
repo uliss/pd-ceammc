@@ -27,7 +27,7 @@ TEST_CASE("list.unique", "[externals]")
     {
         SECTION("default")
         {
-            TestListUnique t("list.unique");
+            TObj t("list.unique");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @stable, 1);
@@ -35,7 +35,7 @@ TEST_CASE("list.unique", "[externals]")
 
         SECTION("prop")
         {
-            TestListUnique t("list.unique", LA("@stable", 0.f));
+            TObj t("list.unique", LA("@stable", 0.f));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @stable, 0);
@@ -44,7 +44,7 @@ TEST_CASE("list.unique", "[externals]")
 
     SECTION("stable")
     {
-        TestExtListUnique t("list.unique");
+        TExt t("list.unique");
         t << L();
         REQUIRE(t.outputListAt(0) == L());
 
@@ -60,7 +60,7 @@ TEST_CASE("list.unique", "[externals]")
 
     SECTION("non-stable")
     {
-        TestExtListUnique t("list.unique", LA("@stable", 0.f));
+        TExt t("list.unique", LA("@stable", 0.f));
         t << L();
         REQUIRE(t.outputListAt(0) == L());
 
@@ -76,7 +76,7 @@ TEST_CASE("list.unique", "[externals]")
 
     SECTION("mlist")
     {
-        TestExtListUnique t("list.unique", LA("@stable", 0.f));
+        TExt t("list.unique", LA("@stable", 0.f));
 
         t.send(MLA(1, 2, 3, 1, 2, 2, 1, 2, 1));
         REQUIRE(t.outputAtomAt(0) == MLA(1, 2, 3));

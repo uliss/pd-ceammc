@@ -25,7 +25,7 @@ TEST_CASE("list.remove", "[externals]")
 
     SECTION("create")
     {
-        TestListRemove t("list.remove");
+        TObj t("list.remove");
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
     }
@@ -34,7 +34,7 @@ TEST_CASE("list.remove", "[externals]")
     {
         SECTION("empty")
         {
-            TestExtListRemove t("list.remove");
+            TExt t("list.remove");
 
             t << L();
             REQUIRE(t.outputListAt(0) == L());
@@ -48,7 +48,7 @@ TEST_CASE("list.remove", "[externals]")
 
         SECTION("positive index")
         {
-            TestExtListRemove t("list.remove", LF(1));
+            TExt t("list.remove", LF(1));
 
             t << L();
             REQUIRE(t.outputListAt(0) == L());
@@ -65,7 +65,7 @@ TEST_CASE("list.remove", "[externals]")
 
         SECTION("negative index")
         {
-            TestExtListRemove t("list.remove", LF(-1));
+            TExt t("list.remove", LF(-1));
 
             t << L();
             REQUIRE(t.outputListAt(0) == L());
@@ -82,7 +82,7 @@ TEST_CASE("list.remove", "[externals]")
 
         SECTION("negative index")
         {
-            TestExtListRemove t("list.remove", LF(-1));
+            TExt t("list.remove", LF(-1));
 
             t << L();
             REQUIRE(t.outputListAt(0) == L());
@@ -99,7 +99,7 @@ TEST_CASE("list.remove", "[externals]")
 
         SECTION("list index")
         {
-            TestExtListRemove t("list.remove", LF(0, 2, -1));
+            TExt t("list.remove", LF(0, 2, -1));
 
             t << L();
             REQUIRE(t.outputListAt(0) == L());
@@ -126,7 +126,7 @@ TEST_CASE("list.remove", "[externals]")
 
     SECTION("mlist")
     {
-        TestExtListRemove t("list.remove", LF(1));
+        TExt t("list.remove", LF(1));
 
         t.send(MLA());
         REQUIRE(t.outputAtomAt(0) == MLA());

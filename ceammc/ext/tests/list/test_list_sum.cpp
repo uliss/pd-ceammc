@@ -25,14 +25,14 @@ TEST_CASE("list.sum", "[externals]")
 
     SECTION("init")
     {
-        TestListSum t("list.sum");
+        TObj t("list.sum");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
     }
 
     SECTION("do")
     {
-        TestListSum t("list.sum", LF(2));
+        TObj t("list.sum", LF(2));
 
         WHEN_SEND_LIST_TO(0, t, {});
         REQUIRE_THAT(t, !hasOutput(&t));
@@ -55,7 +55,7 @@ TEST_CASE("list.sum", "[externals]")
 
     SECTION("mlist")
     {
-        TestExtListSum t("list.sum");
+        TExt t("list.sum");
 
         t.send(MLA());
         REQUIRE_THAT(t, !hasOutput(&t));;

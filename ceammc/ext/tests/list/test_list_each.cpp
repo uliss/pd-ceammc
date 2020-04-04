@@ -112,7 +112,7 @@ TEST_CASE("list.each", "[externals]")
 
     SECTION("test mlist")
     {
-        TestExtListEach t("list.each");
+        TExt t("list.each");
         External mul("*", 2);
 
         // [list.each] X [* 2]

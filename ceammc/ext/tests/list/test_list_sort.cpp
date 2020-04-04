@@ -25,14 +25,14 @@ TEST_CASE("list.sort", "[externals]")
 
     SECTION("init")
     {
-        TestListSort t("list.sort");
+        TObj t("list.sort");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
     }
 
     SECTION("do")
     {
-        TestExtListSort t("list.sort");
+        TExt t("list.sort");
 
         t << L();
         REQUIRE(t.outputListAt(0) == L());
@@ -49,7 +49,7 @@ TEST_CASE("list.sort", "[externals]")
 
     SECTION("mlist")
     {
-        TestExtListSort t("list.sort");
+        TExt t("list.sort");
 
         t.send(MLA());
         REQUIRE(t.outputAtomAt(0) == MLA());

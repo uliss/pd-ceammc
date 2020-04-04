@@ -25,14 +25,14 @@ TEST_CASE("list.length", "[externals]")
 
     SECTION("create")
     {
-        TestListLength t("list.length");
+        TObj t("list.length");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
     }
 
     SECTION("do")
     {
-        TestExtListLength t("list.length");
+        TExt t("list.length");
 
         t << L();
         REQUIRE_THAT(t, outputFloat(&t, 0));
@@ -49,8 +49,8 @@ TEST_CASE("list.length", "[externals]")
 
     SECTION("alias")
     {
-        TestExtListLength t1("list.length");
-        TestExtListLength t2("list.size");
+        TExt t1("list.length");
+        TExt t2("list.size");
 
         REQUIRE(t1.object());
         REQUIRE(t2.object());

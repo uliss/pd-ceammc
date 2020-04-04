@@ -27,7 +27,7 @@ TEST_CASE("list.enumerate", "[externals]")
     {
         SECTION("default")
         {
-            TestListEnumerate t("list.enumerate");
+            TObj t("list.enumerate");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @from, 0);
@@ -35,20 +35,20 @@ TEST_CASE("list.enumerate", "[externals]")
 
         SECTION("args")
         {
-            TestListEnumerate t("list.enumerate", LF(100));
+            TObj t("list.enumerate", LF(100));
             REQUIRE_PROPERTY_FLOAT(t, @from, 100);
         }
 
         SECTION("props")
         {
-            TestListEnumerate t("list.enumerate", LA("@from", 10));
+            TObj t("list.enumerate", LA("@from", 10));
             REQUIRE_PROPERTY_FLOAT(t, @from, 10);
         }
     }
 
     SECTION("do")
     {
-        TestListEnumerate t("list.enumerate");
+        TObj t("list.enumerate");
 
         WHEN_SEND_LIST_TO(0, t, L());
         REQUIRE_LIST_AT_OUTLET(0, t, L());
@@ -59,7 +59,7 @@ TEST_CASE("list.enumerate", "[externals]")
 
     SECTION("@from")
     {
-        TestListEnumerate t("list.enumerate", LA("@from", 1));
+        TObj t("list.enumerate", LA("@from", 1));
 
         WHEN_SEND_LIST_TO(0, t, LA("a", "b", "c"));
         REQUIRE_LIST_AT_OUTLET(0, t, LA(1, "a", 2, "b", 3, "c"));
@@ -71,7 +71,7 @@ TEST_CASE("list.enumerate", "[externals]")
 
     SECTION("@append")
     {
-        TestListEnumerate t("list.enumerate", LA("@append", "@from", 1));
+        TObj t("list.enumerate", LA("@append", "@from", 1));
 
         WHEN_SEND_LIST_TO(0, t, LA("a", "b", "c"));
         REQUIRE_LIST_AT_OUTLET(0, t, LA("a", 1, "b", 2, "c", 3));
@@ -79,7 +79,7 @@ TEST_CASE("list.enumerate", "[externals]")
 
     SECTION("mlist")
     {
-        TestExtListEnumerate t("list.enumerate", LF(1));
+        TExt t("list.enumerate", LF(1));
 
         t.send(MLA());
         REQUIRE(t.outputListAt(0) == L());

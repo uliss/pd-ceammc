@@ -25,14 +25,14 @@ TEST_CASE("list.reverse", "[externals]")
 
     SECTION("create")
     {
-        TestListReverse t("list.reverse");
+        TObj t("list.reverse");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
     }
 
     SECTION("do")
     {
-        TestExtListReverse t("list.reverse");
+        TExt t("list.reverse");
 
         t << L();
         REQUIRE(t.outputListAt(0) == L());

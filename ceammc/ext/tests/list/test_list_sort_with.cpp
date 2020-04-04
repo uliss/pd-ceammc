@@ -25,14 +25,14 @@ TEST_CASE("list.sort_with", "[externals]")
 
     SECTION("init")
     {
-        TestExtListSortWith t("list.sort_with");
+        TExt t("list.sort_with");
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
     }
 
     SECTION("sort <")
     {
-        TestExtListSortWith t("list.sort_with");
+        TExt t("list.sort_with");
         External cmp("<");
 
         t.connectTo(1, cmp, 0);
@@ -50,7 +50,7 @@ TEST_CASE("list.sort_with", "[externals]")
 
     SECTION("sort >")
     {
-        TestExtListSortWith t("list.sort_with");
+        TExt t("list.sort_with");
         External cmp(">");
 
         t.connectTo(1, cmp, 0);

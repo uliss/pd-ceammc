@@ -25,14 +25,14 @@ TEST_CASE("list.product", "[externals]")
 
     SECTION("create")
     {
-        TestListProduct t("list.product");
+        TObj t("list.product");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
     }
 
     SECTION("do")
     {
-        TestExtListProduct t("list.product");
+        TExt t("list.product");
 
         t << L();
         REQUIRE_THAT(t, !hasOutput(&t));;
@@ -54,7 +54,7 @@ TEST_CASE("list.product", "[externals]")
 
     SECTION("mlist")
     {
-        TestExtListProduct t("list.product");
+        TExt t("list.product");
 
         t.send(MLA());
         REQUIRE_THAT(t, !hasOutput(&t));;

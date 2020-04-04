@@ -27,7 +27,7 @@ TEST_CASE("list.repeat", "[externals]")
     {
         SECTION("default")
         {
-            TestListRepeat t("list.repeat");
+            TObj t("list.repeat");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @times, 1);
@@ -35,7 +35,7 @@ TEST_CASE("list.repeat", "[externals]")
 
         SECTION("args")
         {
-            TestListRepeat t("list.repeat", LF(3));
+            TObj t("list.repeat", LF(3));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @times, 3);
@@ -43,7 +43,7 @@ TEST_CASE("list.repeat", "[externals]")
 
         SECTION("args")
         {
-            TestListRepeat t("list.repeat", LF(0.f));
+            TObj t("list.repeat", LF(0.f));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @times, 0.f);
@@ -51,7 +51,7 @@ TEST_CASE("list.repeat", "[externals]")
 
         SECTION("props")
         {
-            TestListRepeat t("list.repeat", LA("@times", 5));
+            TObj t("list.repeat", LA("@times", 5));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @times, 5);
@@ -59,7 +59,7 @@ TEST_CASE("list.repeat", "[externals]")
 
         SECTION("negative")
         {
-            TestListRepeat t("list.repeat", LF(-1));
+            TObj t("list.repeat", LF(-1));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @times, 1);
@@ -67,7 +67,7 @@ TEST_CASE("list.repeat", "[externals]")
 
         SECTION("huge")
         {
-            TestListRepeat t("list.repeat", LF(10000));
+            TObj t("list.repeat", LF(10000));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @times, 10000);
@@ -75,7 +75,7 @@ TEST_CASE("list.repeat", "[externals]")
 
         SECTION("huge")
         {
-            TestListRepeat t("list.repeat", LF(10001));
+            TObj t("list.repeat", LF(10001));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @times, 1);
@@ -84,7 +84,7 @@ TEST_CASE("list.repeat", "[externals]")
 
     SECTION("inlets")
     {
-        TestListRepeat t("list.repeat", LF(10));
+        TObj t("list.repeat", LF(10));
         REQUIRE_PROPERTY_FLOAT(t, @times, 10);
 
         WHEN_SEND_FLOAT_TO(1, t, 5);
@@ -105,7 +105,7 @@ TEST_CASE("list.repeat", "[externals]")
 
     SECTION("float")
     {
-        TestListRepeat t("list.repeat", LF(4));
+        TObj t("list.repeat", LF(4));
 
         WHEN_SEND_FLOAT_TO(0, t, 11);
         REQUIRE_LIST_AT_OUTLET(0, t, LF(11, 11, 11, 11));
@@ -117,7 +117,7 @@ TEST_CASE("list.repeat", "[externals]")
 
     SECTION("symbol")
     {
-        TestListRepeat t("list.repeat", LF(3));
+        TObj t("list.repeat", LF(3));
 
         WHEN_SEND_SYMBOL_TO(0, t, "A");
         REQUIRE_LIST_AT_OUTLET(0, t, LA("A", "A", "A"));
@@ -129,7 +129,7 @@ TEST_CASE("list.repeat", "[externals]")
 
     SECTION("list")
     {
-        TestListRepeat t("list.repeat", LF(3));
+        TObj t("list.repeat", LF(3));
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 2));
         REQUIRE_LIST_AT_OUTLET(0, t, LA(1, 2, 1, 2, 1, 2));
@@ -137,7 +137,7 @@ TEST_CASE("list.repeat", "[externals]")
 
     SECTION("data")
     {
-        TestListRepeat t("list.repeat", LF(2));
+        TObj t("list.repeat", LF(2));
 
         WHEN_SEND_DATA_TO(0, t, IntData(100));
         REQUIRE_LIST_AT_OUTLET(0, t, LA(IntA(100), IntA(100)));
@@ -145,7 +145,7 @@ TEST_CASE("list.repeat", "[externals]")
 
     SECTION("mlist")
     {
-        TestExtListRepeat t("list.repeat", LF(2));
+        TExt t("list.repeat", LF(2));
 
         t.send(MLA());
         REQUIRE(t.outputAtomAt(0) == MLA());

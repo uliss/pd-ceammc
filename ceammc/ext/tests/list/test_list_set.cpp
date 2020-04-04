@@ -25,7 +25,7 @@ TEST_CASE("list.set", "[externals]")
 
     SECTION("create")
     {
-        TestListSet t("list.set");
+        TObj t("list.set");
         REQUIRE(t.numInlets() == 3);
         REQUIRE(t.numOutlets() == 1);
 
@@ -37,12 +37,12 @@ TEST_CASE("list.set", "[externals]")
     {
         SECTION("values")
         {
-            TestListSet t("list.set");
+            TObj t("list.set");
         }
 
         SECTION("empty")
         {
-            TestExtListSet t("list.set");
+            TExt t("list.set");
 
             t.sendList(L());
             REQUIRE_THAT(t, !hasOutput(&t));;
@@ -56,7 +56,7 @@ TEST_CASE("list.set", "[externals]")
 
         SECTION("index0")
         {
-            TestExtListSet t("list.set", LF(0, -10));
+            TExt t("list.set", LF(0, -10));
             REQUIRE_THAT(t, hasProperty(&t, "@index", 0.f)); 
             REQUIRE_THAT(t, hasProperty(&t, "@value", -10)); 
 
@@ -73,7 +73,7 @@ TEST_CASE("list.set", "[externals]")
 
         SECTION("index-1")
         {
-            TestExtListSet t("list.set", LA(-1, "ABC"));
+            TExt t("list.set", LA(-1, "ABC"));
             REQUIRE_THAT(t, hasProperty(&t, "@index", -1)); 
             REQUIRE_THAT(t, hasProperty(&t, "@value", "ABC")); 
 
@@ -86,7 +86,7 @@ TEST_CASE("list.set", "[externals]")
 
     SECTION("mlist")
     {
-        TestExtListSet t("list.set");
+        TExt t("list.set");
         REQUIRE_THAT(t, hasProperty(&t, "@index", 0));
         REQUIRE_THAT(t, hasProperty(&t, "@value", Atom()));
     }

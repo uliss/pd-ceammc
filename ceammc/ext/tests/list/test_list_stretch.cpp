@@ -27,7 +27,7 @@ TEST_CASE("list.stretch", "[externals]")
     {
         SECTION("default")
         {
-            TestListStretch t("list.stretch");
+            TObj t("list.stretch");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @size, 1);
@@ -35,7 +35,7 @@ TEST_CASE("list.stretch", "[externals]")
 
         SECTION("args")
         {
-            TestListStretch t("list.stretch", { 4 });
+            TObj t("list.stretch", { 4 });
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @size, 4);
@@ -43,7 +43,7 @@ TEST_CASE("list.stretch", "[externals]")
 
         SECTION("props")
         {
-            TestListStretch t("list.stretch", LA("@size", 3));
+            TObj t("list.stretch", LA("@size", 3));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @size, 3);
@@ -51,7 +51,7 @@ TEST_CASE("list.stretch", "[externals]")
 
         SECTION("invalid")
         {
-            TestListStretch t("list.stretch", LA("@size", -2));
+            TObj t("list.stretch", LA("@size", -2));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @size, 1);
@@ -59,7 +59,7 @@ TEST_CASE("list.stretch", "[externals]")
 
         SECTION("invalid")
         {
-            TestListStretch t("list.stretch", { 0 });
+            TObj t("list.stretch", { 0 });
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @size, 1);
@@ -68,7 +68,7 @@ TEST_CASE("list.stretch", "[externals]")
 
     SECTION("do")
     {
-        TestExtListStretch t("list.stretch", { 3 });
+        TExt t("list.stretch", { 3 });
 
         t << L();
         REQUIRE_THAT(t, !hasOutput(&t));;
@@ -85,7 +85,7 @@ TEST_CASE("list.stretch", "[externals]")
 
     SECTION("mlist")
     {
-        TestExtListStretch t("list.stretch", { 3 });
+        TExt t("list.stretch", { 3 });
 
         t.send(MLA());
         REQUIRE_THAT(t, !hasOutput(&t));;

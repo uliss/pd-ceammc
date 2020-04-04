@@ -33,7 +33,7 @@ TEST_CASE("list.apply_to", "[externals]")
 
     SECTION("do")
     {
-        TestExtListApplyTo t("list.apply_to", LF(0, -1));
+        TExt t("list.apply_to", LF(0, -1));
         External plus("+", 10);
 
         REQUIRE(t.object());
@@ -58,7 +58,7 @@ TEST_CASE("list.apply_to", "[externals]")
 
     SECTION("mlist")
     {
-        TestExtListApplyTo t("list.apply_to", LF(0, -1));
+        TExt t("list.apply_to", LF(0, -1));
         External plus("*", LF(2));
 
         REQUIRE(t.object());

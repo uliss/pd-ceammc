@@ -25,7 +25,7 @@ TEST_CASE("list.walk", "[externals]")
 
     SECTION("test single")
     {
-        TestListWalk t("list.walk", L());
+        TObj t("list.walk", L());
 
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 2);
@@ -108,7 +108,7 @@ TEST_CASE("list.walk", "[externals]")
 
         SECTION("test single step")
         {
-            TestListWalk t("list.walk");
+            TObj t("list.walk");
 
             t.sendList(LF(1.0, 2.0, 3.0, 4.0, 5.0));
 
@@ -139,7 +139,7 @@ TEST_CASE("list.walk", "[externals]")
         {
             SECTION("step 1")
             {
-                TestListWalk t("list.walk", LA("@length", 2));
+                TObj t("list.walk", LA("@length", 2));
 
                 t.sendList(LF(1.0, 2.0, 3.0, 4.0, 5.0));
 
@@ -180,7 +180,7 @@ TEST_CASE("list.walk", "[externals]")
 
             SECTION("step 2")
             {
-                TestListWalk t("list.walk", LA("@length", 2));
+                TObj t("list.walk", LA("@length", 2));
 
                 t.sendList(LF(1.0, 2.0, 3.0, 4.0, 5.0));
 
@@ -214,7 +214,7 @@ TEST_CASE("list.walk", "[externals]")
     {
         SECTION("basic")
         {
-            TestListWalk t("list.walk", LA("@wrap"));
+            TObj t("list.walk", LA("@wrap"));
 
             CALL(t, current);
             REQUIRE_THAT(t, !hasOutput(&t));
@@ -264,7 +264,7 @@ TEST_CASE("list.walk", "[externals]")
 
         SECTION("step 2")
         {
-            TestListWalk t("list.walk", LA("@wrap"));
+            TObj t("list.walk", LA("@wrap"));
 
             CALL(t, current);
             REQUIRE_THAT(t, !hasOutput(&t));
@@ -298,7 +298,7 @@ TEST_CASE("list.walk", "[externals]")
 
         SECTION("length 2")
         {
-            TestListWalk t("list.walk", LA("@wrap", "@length", 2));
+            TObj t("list.walk", LA("@wrap", "@length", 2));
 
             CALL(t, current);
             REQUIRE_THAT(t, !hasOutput(&t));
@@ -334,7 +334,7 @@ TEST_CASE("list.walk", "[externals]")
     {
         SECTION("basic")
         {
-            TestListWalk t("list.walk", LA("@clip"));
+            TObj t("list.walk", LA("@clip"));
 
             CALL(t, current);
             REQUIRE_THAT(t, !hasOutput(&t));
@@ -387,7 +387,7 @@ TEST_CASE("list.walk", "[externals]")
 
         SECTION("step 2")
         {
-            TestListWalk t("list.walk", LA("@clip"));
+            TObj t("list.walk", LA("@clip"));
 
             CALL(t, current);
             REQUIRE_THAT(t, !hasOutput(&t));
@@ -417,7 +417,7 @@ TEST_CASE("list.walk", "[externals]")
 
         SECTION("length 2")
         {
-            TestListWalk t("list.walk", LA("@clip", "@length", 2));
+            TObj t("list.walk", LA("@clip", "@length", 2));
             REQUIRE_PROPERTY_FLOAT(t, @clip, 1);
 
             CALL(t, current);

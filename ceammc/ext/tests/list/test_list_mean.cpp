@@ -25,14 +25,14 @@ TEST_CASE("list.mean", "[externals]")
 
     SECTION("create")
     {
-        TestListMean t("list.mean");
+        TObj t("list.mean");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
     }
 
     SECTION("do")
     {
-        TestExtListMean t("list.mean");
+        TExt t("list.mean");
 
         t << L();
         REQUIRE_THAT(t, !hasOutput(&t));;
@@ -56,7 +56,7 @@ TEST_CASE("list.mean", "[externals]")
 
     SECTION("mlist")
     {
-        TestExtListMean t("list.mean");
+        TExt t("list.mean");
 
         t.send(MLA());
         REQUIRE_THAT(t, !hasOutput(&t));;
@@ -70,8 +70,8 @@ TEST_CASE("list.mean", "[externals]")
 
     SECTION("alias")
     {
-        TestExtListMean t1("list.mean");
-        TestExtListMean t2("list.average");
+        TExt t1("list.mean");
+        TExt t2("list.average");
 
         REQUIRE(t1.object());
         REQUIRE(t2.object());

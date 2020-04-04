@@ -25,14 +25,14 @@ TEST_CASE("list.range", "[externals]")
 
     SECTION("create")
     {
-        TestListRange t("list.range");
+        TObj t("list.range");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
     }
 
     SECTION("do")
     {
-        TestExtListRange t("list.range");
+        TExt t("list.range");
 
         t << L();
         REQUIRE_THAT(t, !hasOutput(&t));;
@@ -42,7 +42,7 @@ TEST_CASE("list.range", "[externals]")
 
     SECTION("mlist")
     {
-        TestExtListRange t("list.range");
+        TExt t("list.range");
 
         t.send(MLA());
         REQUIRE_THAT(t, !hasOutput(&t));;
@@ -59,8 +59,8 @@ TEST_CASE("list.range", "[externals]")
 
     SECTION("aliases")
     {
-        TestExtListRange t1("list.range");
-        TestExtListRange t2("list.minmax");
+        TExt t1("list.range");
+        TExt t2("list.minmax");
 
         REQUIRE(t1.object());
         REQUIRE(t2.object());

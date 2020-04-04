@@ -25,7 +25,7 @@ TEST_CASE("list.max", "[externals]")
 
     SECTION("create")
     {
-        TestListMax t("list.max");
+        TObj t("list.max");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_THAT(t, hasProperty(&t, "@type", "float")); 
@@ -33,7 +33,7 @@ TEST_CASE("list.max", "[externals]")
 
     SECTION("float")
     {
-        TestExtListMax t("list.max");
+        TExt t("list.max");
 
         t << L();
         REQUIRE_THAT(t, !hasOutput(&t));;
@@ -65,7 +65,7 @@ TEST_CASE("list.max", "[externals]")
 
     SECTION("symbol")
     {
-        TestExtListMax t("list.max", LA("@symbol"));
+        TExt t("list.max", LA("@symbol"));
         REQUIRE_THAT(t, hasProperty(&t, "@type", "symbol")); 
 
         t << L();
@@ -83,7 +83,7 @@ TEST_CASE("list.max", "[externals]")
 
     SECTION("any")
     {
-        TestExtListMax t("list.max", LA("@any"));
+        TExt t("list.max", LA("@any"));
         REQUIRE_THAT(t, hasProperty(&t, "@type", "any")); 
 
         t << L();
@@ -105,7 +105,7 @@ TEST_CASE("list.max", "[externals]")
 
     SECTION("mlist")
     {
-        TestExtListMax t("list.max", LA("@any"));
+        TExt t("list.max", LA("@any"));
 
         t.send(MLA());
         REQUIRE_THAT(t, !hasOutput(&t));;

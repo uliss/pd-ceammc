@@ -69,7 +69,7 @@ TEST_CASE("list.rotate", "[externals]")
     {
         SECTION("rotate")
         {
-            TestExtListRotate t("list.rotate");
+            TExt t("list.rotate");
             REQUIRE(t->property("@step")->get() == LF(1));
 
             t << LF(1, 2, 3, 4);
@@ -82,7 +82,7 @@ TEST_CASE("list.rotate", "[externals]")
 
         SECTION("<<")
         {
-            TestExtListRotate t("list.<<");
+            TExt t("list.<<");
             REQUIRE(t->property("@step")->get() == LF(1));
 
             t << LF(1, 2, 3, 4);
@@ -95,7 +95,7 @@ TEST_CASE("list.rotate", "[externals]")
 
         SECTION(">>")
         {
-            TestExtListRotate t("list.>>");
+            TExt t("list.>>");
             REQUIRE(t->property("@step")->get() == LF(1));
 
             t << LF(1, 2, 3, 4);

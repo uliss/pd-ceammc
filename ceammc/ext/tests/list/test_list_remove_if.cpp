@@ -25,14 +25,14 @@ TEST_CASE("list.remove_if", "[externals]")
 
     SECTION("init")
     {
-        TestListRemoveIf t("list.remove_if");
+        TObj t("list.remove_if");
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
     }
 
     SECTION("do")
     {
-        TestExtListRemoveIf t("list.remove_if");
+        TExt t("list.remove_if");
         External pred("<", LF(3));
 
         t.connectTo(1, pred, 0);

@@ -25,14 +25,14 @@ TEST_CASE("list.pass_if", "[externals]")
 
     SECTION("create")
     {
-        TestListPassIf t("list.pass_if");
+        TObj t("list.pass_if");
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
     }
 
     SECTION("do")
     {
-        TestExtListPassIf t("list.pass_if");
+        TExt t("list.pass_if");
 
         External less("<", LF(20));
         t.connectTo(1, less, 0);
@@ -59,8 +59,8 @@ TEST_CASE("list.pass_if", "[externals]")
 
     SECTION("alias")
     {
-        TestExtListPassIf t1("list.pass_if");
-        TestExtListPassIf t2("list.filter");
+        TExt t1("list.pass_if");
+        TExt t2("list.filter");
 
         REQUIRE(t1.object());
         REQUIRE(t2.object());

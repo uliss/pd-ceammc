@@ -27,7 +27,7 @@ TEST_CASE("list.equal", "[externals]")
     {
         SECTION("default")
         {
-            TestListEqual t("list.equal");
+            TObj t("list.equal");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_LIST(t, @pattern, L());
@@ -35,7 +35,7 @@ TEST_CASE("list.equal", "[externals]")
 
         SECTION("args")
         {
-            TestListEqual t("list.equal", LA("a", "b", "@c"));
+            TObj t("list.equal", LA("a", "b", "@c"));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_THAT(t, hasProperty(&t, "@pattern", "a", "b", "@c"));
@@ -43,7 +43,7 @@ TEST_CASE("list.equal", "[externals]")
 
         SECTION("args + prop")
         {
-            TestListEqual t("list.equal", LA("a", "b", "@pattern", 1, 2));
+            TObj t("list.equal", LA("a", "b", "@pattern", 1, 2));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_THAT(t, hasProperty(&t, "@pattern", 1, 2));
@@ -51,7 +51,7 @@ TEST_CASE("list.equal", "[externals]")
 
         SECTION("prop")
         {
-            TestListEqual t("list.equal", LA("@pattern", 1, 2));
+            TObj t("list.equal", LA("@pattern", 1, 2));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_THAT(t, hasProperty(&t, "@pattern", 1, 2));
@@ -60,7 +60,7 @@ TEST_CASE("list.equal", "[externals]")
 
     SECTION("do")
     {
-        TestListEqual t("list.equal");
+        TObj t("list.equal");
 
         WHEN_SEND_LIST_TO(0, t, L());
         REQUIRE_THAT(t, outputFloat(&t, 1));
@@ -75,7 +75,7 @@ TEST_CASE("list.equal", "[externals]")
 
     SECTION("mlist")
     {
-        TestExtListEqual t("list.equal", LF(1, 2));
+        TExt t("list.equal", LF(1, 2));
 
         t.send(MLA());
         REQUIRE_THAT(t, outputFloat(&t, 0));

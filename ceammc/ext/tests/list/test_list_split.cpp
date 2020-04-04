@@ -25,7 +25,7 @@ TEST_CASE("list.split", "[externals]")
 
     SECTION("init")
     {
-        TestListSplit t("list.split");
+        TObj t("list.split");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 2);
         REQUIRE_THAT(t, hasProperty(&t, "@at", 0.f)); 
@@ -33,7 +33,7 @@ TEST_CASE("list.split", "[externals]")
 
     SECTION("do")
     {
-        TestListSplit t("list.split", LF(2));
+        TObj t("list.split", LF(2));
         REQUIRE_THAT(t, hasProperty(&t, "@at", 2)); 
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3, 4));
@@ -55,7 +55,7 @@ TEST_CASE("list.split", "[externals]")
 
     SECTION("mlist")
     {
-        TestExtListSplit t("list.split", LF(3));
+        TExt t("list.split", LF(3));
 
         t.send(MLA());
         REQUIRE(t.outputAtomAt(1) == MLA());
