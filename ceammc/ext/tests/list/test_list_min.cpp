@@ -25,7 +25,7 @@ TEST_CASE("list.min", "[externals]")
         TestListMin t("list.min");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
-        REQUIRE_PROPERTY_LIST(t, @type, LA("float"));
+        REQUIRE_THAT(t, hasProperty(&t, "@type", "float")); 
     }
 
     SECTION("float")
@@ -66,7 +66,7 @@ TEST_CASE("list.min", "[externals]")
     SECTION("symbol")
     {
         TestExtListMin t("list.min", LA("@symbol"));
-        REQUIRE_PROPERTY_LIST(t, @type, LA("symbol"));
+        REQUIRE_THAT(t, hasProperty(&t, "@type", "symbol")); 
 
         t << L();
         REQUIRE_THAT(t, !hasOutput(&t));;
@@ -84,7 +84,7 @@ TEST_CASE("list.min", "[externals]")
     SECTION("any")
     {
         TestExtListMin t("list.min", LA("@any"));
-        REQUIRE_PROPERTY_LIST(t, @type, LA("any"));
+        REQUIRE_THAT(t, hasProperty(&t, "@type", "any")); 
 
         t << L();
         REQUIRE_THAT(t, !hasOutput(&t));;

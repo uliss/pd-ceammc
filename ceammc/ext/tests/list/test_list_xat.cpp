@@ -31,7 +31,7 @@ TEST_CASE("list.^at", "[externals]")
             REQUIRE(t.numOutlets() == 1);
             REQUIRE(t.property("@default") != 0);
             REQUIRE(t.property("@default")->get()[0].isNone());
-            REQUIRE_PROPERTY_LIST(t, @method, LA("rel"));
+            REQUIRE_THAT(t, hasProperty(&t, "@method", "rel")); 
         }
 
         SECTION("properties")
@@ -39,7 +39,7 @@ TEST_CASE("list.^at", "[externals]")
             ListXAtTest t("list.^at", LA("@default", 2, "@fold"));
             REQUIRE(t.property("@default") != 0);
             REQUIRE(t.property("@default")->get() == Atom(2));
-            REQUIRE_PROPERTY_LIST(t, @method, LA("fold"));
+            REQUIRE_THAT(t, hasProperty(&t, "@method", "fold")); 
         }
 
         SECTION("method")
@@ -47,49 +47,49 @@ TEST_CASE("list.^at", "[externals]")
             SECTION("rel")
             {
                 ListXAtTest t("list.^at", LA("@method", "rel"));
-                REQUIRE_PROPERTY_LIST(t, @method, LA("rel"));
+                REQUIRE_THAT(t, hasProperty(&t, "@method", "rel")); 
             }
 
             SECTION("@rel")
             {
                 ListXAtTest t("list.^at", LA("@rel"));
-                REQUIRE_PROPERTY_LIST(t, @method, LA("rel"));
+                REQUIRE_THAT(t, hasProperty(&t, "@method", "rel")); 
             }
 
             SECTION("clip")
             {
                 ListXAtTest t("list.^at", LA("@method", "clip"));
-                REQUIRE_PROPERTY_LIST(t, @method, LA("clip"));
+                REQUIRE_THAT(t, hasProperty(&t, "@method", "clip")); 
             }
 
             SECTION("@clip")
             {
                 ListXAtTest t("list.^at", LA("@clip"));
-                REQUIRE_PROPERTY_LIST(t, @method, LA("clip"));
+                REQUIRE_THAT(t, hasProperty(&t, "@method", "clip")); 
             }
 
             SECTION("fold")
             {
                 ListXAtTest t("list.^at", LA("@method", "fold"));
-                REQUIRE_PROPERTY_LIST(t, @method, LA("fold"));
+                REQUIRE_THAT(t, hasProperty(&t, "@method", "fold")); 
             }
 
             SECTION("@fold")
             {
                 ListXAtTest t("list.^at", LA("@fold"));
-                REQUIRE_PROPERTY_LIST(t, @method, LA("fold"));
+                REQUIRE_THAT(t, hasProperty(&t, "@method", "fold")); 
             }
 
             SECTION("wrap")
             {
                 ListXAtTest t("list.^at", LA("@method", "wrap"));
-                REQUIRE_PROPERTY_LIST(t, @method, LA("wrap"));
+                REQUIRE_THAT(t, hasProperty(&t, "@method", "wrap")); 
             }
 
             SECTION("@wrap")
             {
                 ListXAtTest t("list.^at", LA("@wrap"));
-                REQUIRE_PROPERTY_LIST(t, @method, LA("wrap"));
+                REQUIRE_THAT(t, hasProperty(&t, "@method", "wrap")); 
             }
         }
     }

@@ -35,7 +35,7 @@ TEST_CASE("list.equal", "[externals]")
             TestListEqual t("list.equal", LA("a", "b", "@c"));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY_LIST(t, @pattern, LA("a", "b", "@c"));
+            REQUIRE_THAT(t, hasProperty(&t, "@pattern", "a", "b", "@c"));
         }
 
         SECTION("args + prop")
