@@ -49,4 +49,6 @@ private:
     bool checkArrays(const Array& src, const Array& dest) const;
 };
 
+void setup_array_copy();
+
 #endif // ARRAY_COPY_H

@@ -173,7 +173,7 @@ bool ArrayCopy::checkArrays(const Array& src, const Array& dest) const
     return true;
 }
 
-extern "C" void setup_array0x2ecopy()
+void setup_array_copy()
 {
     ObjectFactory<ArrayCopy> obj("array.copy");
     obj.addMethod("copy", &ArrayCopy::m_copy);

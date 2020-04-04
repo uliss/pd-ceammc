@@ -11,28 +11,19 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../array/array_vline_play.h"
-#include "test_base.h"
-#include "ceammc_factory.h"
-#include "ceammc_pd.h"
+#include "array_vline_play.h"
+#include "test_array_base.h"
 
-#include "catch.hpp"
-
-typedef TestExternal<ArrayVlinePlay> ArrayVPlayTest;
-
-using namespace ceammc;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(ArrayVlinePlay, array, vline_play)
 
 TEST_CASE("array.vplay", "[externals]")
 {
-    setup_array_vline_play();
-    test::pdPrintToStdError(true);
+    pd_test_init();
     setTestSampleRate(100);
 
     SECTION("empty")
     {
-        ArrayVPlayTest t("array.vplay");
+        TObj t("array.vplay");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 2);
         REQUIRE_PROPERTY_NONE(t, @array);
@@ -56,7 +47,7 @@ TEST_CASE("array.vplay", "[externals]")
 
     SECTION("invalid")
     {
-        ArrayVPlayTest t("array.vplay", LA("non-exists"));
+        TObj t("array.vplay", LA("non-exists"));
         REQUIRE_PROPERTY(t, @array, "non-exists");
 
         // float
@@ -74,19 +65,19 @@ TEST_CASE("array.vplay", "[externals]")
         REQUIRE_NO_MSG(t);
     }
 
-    SECTION("array1")
+    SECTION("array_vplay1")
     {
-#define REQUIRE_VLINE_MSG(t, v0, v1, dur)                              \
-    {                                                                  \
-        t.cleanAllMessages();                                          \
-        WHEN_CALL(t, play);                                            \
-        REQUIRE(t.hasNewMessages(0));                                  \
-        REQUIRE(t.messageAt(0, 0).atomValue().asFloat() == v0);        \
-        REQUIRE(t.messageAt(1, 0).listValue() == LX(v1, dur)); \
-        WHEN_CALL(t, stop);                                            \
+#define REQUIRE_VLINE_MSG(t, v0, v1, dur)                       \
+    {                                                           \
+        t.cleanAllMessages();                                   \
+        WHEN_CALL(t, play);                                     \
+        REQUIRE(t.hasNewMessages(0));                           \
+        REQUIRE(t.messageAt(0, 0).atomValue().asFloat() == v0); \
+        REQUIRE(t.messageAt(1, 0).listValue() == LX(v1, dur));  \
+        WHEN_CALL(t, stop);                                     \
     }
 
-        ArrayVPlayTest t("array.vplay", LA("array1"));
+        TObj t("array.vplay", LA("array_vplay1"));
 
         // no array yet
         REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
@@ -94,7 +85,7 @@ TEST_CASE("array.vplay", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @abs_begin, 0);
         REQUIRE_PROPERTY_FLOAT(t, @abs_end, 0);
 
-        ArrayPtr aptr = cnv->createArray("array1", 100);
+        ArrayPtr aptr = cnv->createArray("array_vplay1", 100);
 
         REQUIRE_PROPERTY_FLOAT(t, @begin, 0);
         REQUIRE_PROPERTY_FLOAT(t, @end, -1);
@@ -193,19 +184,19 @@ TEST_CASE("array.vplay", "[externals]")
 
     SECTION("range")
     {
-#define REQUIRE_PLAY_VLINE_MSG(t, v0, v1, dur)                         \
-    {                                                                  \
-        t.cleanAllMessages();                                          \
-        WHEN_CALL(t, play);                                            \
-        REQUIRE(t.hasNewMessages(0));                                  \
-        REQUIRE(t.messageAt(0, 0).atomValue().asFloat() == v0);        \
-        REQUIRE(t.messageAt(1, 0).listValue() == LX(v1, dur)); \
-        WHEN_CALL(t, stop);                                            \
+#define REQUIRE_PLAY_VLINE_MSG(t, v0, v1, dur)                  \
+    {                                                           \
+        t.cleanAllMessages();                                   \
+        WHEN_CALL(t, play);                                     \
+        REQUIRE(t.hasNewMessages(0));                           \
+        REQUIRE(t.messageAt(0, 0).atomValue().asFloat() == v0); \
+        REQUIRE(t.messageAt(1, 0).listValue() == LX(v1, dur));  \
+        WHEN_CALL(t, stop);                                     \
     }
 
-        ArrayVPlayTest t("array.vplay", LA("array2"));
-        REQUIRE_PROPERTY(t, @array, "array2");
-        ArrayPtr aptr = cnv->createArray("array2", 100);
+        TObj t("array.vplay", LA("array_vplay2"));
+        REQUIRE_PROPERTY(t, @array, "array_vplay2");
+        ArrayPtr aptr = cnv->createArray("array_vplay2", 100);
 
         WHEN_CALL_N(t, range, 0.0, "sample", 99, "sample");
         REQUIRE_PROPERTY_FLOAT(t, @begin, 0);

@@ -79,6 +79,7 @@ void ArrayHist::onBang()
     }
 
     AtomList res;
+    res.reserve(hist.size());
     res.fill(0.f, hist.size());
     for (size_t i = 0; i < res.size(); i++)
         res[i].setFloat(hist[i]);

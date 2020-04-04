@@ -11,24 +11,18 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../array/array_stddev.h"
-#include "ceammc_factory.h"
-#include "ceammc_pd.h"
-#include "test_base.h"
+#include "array_sum2.h"
+#include "test_array_base.h"
 
-#include "catch.hpp"
+PD_COMPLETE_TEST_SETUP(ArraySum2, array, sum2)
 
-typedef TestExternal<ArrayStdDeviation> TestArrayStddev;
-
-using namespace ceammc;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
-
-TEST_CASE("array.stddev", "[externals]")
+TEST_CASE("array.sum2", "[externals]")
 {
+    pd_test_init();
+
     SECTION("empty")
     {
-        TestArrayStddev t("array.stddev");
+        TObj t("array.sum2");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY_NONE(t, @array);
@@ -39,7 +33,7 @@ TEST_CASE("array.stddev", "[externals]")
 
     SECTION("invalid")
     {
-        TestArrayStddev t("array.stddev", LA("non-exists"));
+        TObj t("array.sum2", LA("non-exists"));
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @array, "non-exists");
@@ -48,23 +42,19 @@ TEST_CASE("array.stddev", "[externals]")
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
     }
 
-    SECTION("array1")
+    SECTION("array_sum2")
     {
-        TestArrayStddev t("array.stddev", LA("array1"));
+        TObj t("array.sum2", LA("array_sum2"));
 
         // no array yet
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        ArrayPtr aptr = cnv->createArray("array1", 4);
-        Array a("array1", { 1, 3, 4, -2, 0.4, 5, 7 });
-        REQUIRE(a.size() == 7);
+        ArrayPtr aptr = cnv->createArray("array_sum2", 6);
+        Array a("array_sum2", { 1, 2, 3, 4, -1, 0.5 });
 
         // array created
         WHEN_SEND_BANG_TO(0, t);
-        // numpy:
-        // a = np.array([1,3,4,-2,0.4,5,7])
-        // print(a.std(ddof=1))
-        REQUIRE_FLOAT_AT_OUTLET(0, t, Approx(3.0494339833889863));
+        REQUIRE_FLOAT_AT_OUTLET(0, t, Approx(31.25));
     }
 }

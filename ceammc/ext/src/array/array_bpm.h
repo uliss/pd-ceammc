@@ -10,6 +10,6 @@ public:
     void onBang() override;
 };
 
-extern "C" void setup_array0x2ebpm();
+void setup_array_bpm();
 
 #endif // ARRAY_BPM_H

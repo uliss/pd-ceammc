@@ -31,4 +31,6 @@ private:
     void finish();
 };
 
+void setup_array_each();
+
 #endif // ARRAY_EACH_H

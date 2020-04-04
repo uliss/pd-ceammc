@@ -11,26 +11,20 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../array/array_fill.h"
-#include "test_base.h"
-#include "ceammc_factory.h"
-#include "ceammc_pd.h"
+#include "array_fill.h"
+#include "test_array_base.h"
 
 #include <math.h>
 
-#include "catch.hpp"
-
-typedef TestExternal<ArrayFill> ArrayFillTest;
-
-using namespace ceammc;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(ArrayFill, array, fill)
 
 TEST_CASE("array.fill", "[externals]")
 {
+    pd_test_init();
+
     SECTION("empty")
     {
-        ArrayFillTest t("array.fill");
+        TObj t("array.fill");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY_NONE(t, @array);
@@ -42,7 +36,7 @@ TEST_CASE("array.fill", "[externals]")
 
     SECTION("invalid")
     {
-        ArrayFillTest t("array.fill", LA("non-exists"));
+        TObj t("array.fill", LA("non-exists"));
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @array, "non-exists");
@@ -54,13 +48,13 @@ TEST_CASE("array.fill", "[externals]")
 
     SECTION("fill")
     {
-        ArrayFillTest t("array.fill", LA("array1"));
+        TObj t("array.fill", LA("array_fill1"));
 
         // no array yet
         WHEN_CALL_N(t, fill, 0.1f);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        ArrayPtr aptr = cnv->createArray("array1", 10);
+        ArrayPtr aptr = cnv->createArray("array_fill1", 10);
 
         // array created
         WHEN_CALL_N(t, fill, 0.1f);
@@ -125,12 +119,12 @@ TEST_CASE("array.fill", "[externals]")
 
     SECTION("range")
     {
-        ArrayFillTest t("array.fill", LA("array2"));
+        TObj t("array.fill", LA("array2"));
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 2));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        Array a("array1");
+        Array a("array_fill1");
         a.resize(5);
         a.fillWith(0.f);
 
@@ -140,9 +134,9 @@ TEST_CASE("array.fill", "[externals]")
         WHEN_CALL_N(t, fill, 1, 2);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_SEND_SYMBOL_TO(0, t, "array1");
+        WHEN_SEND_SYMBOL_TO(0, t, "array_fill1");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
-        REQUIRE_PROPERTY(t, @array, A("array1"));
+        REQUIRE_PROPERTY(t, @array, A("array_fill1"));
 
         WHEN_CALL_N(t, fill, "@from", 2, "@to", 3, 10);
         REQUIRE_BANG_AT_OUTLET(0, t);
@@ -195,15 +189,15 @@ TEST_CASE("array.fill", "[externals]")
 
     SECTION("fill float")
     {
-        ArrayFillTest t("array.fill", LA("array2"));
+        TObj t("array.fill", LA("array2"));
 
         WHEN_SEND_FLOAT_TO(0, t, 0.1f);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_SEND_SYMBOL_TO(0, t, "array1");
+        WHEN_SEND_SYMBOL_TO(0, t, "array_fill1");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        Array a("array1");
+        Array a("array_fill1");
         a.resize(5);
 
         WHEN_SEND_FLOAT_TO(0, t, 0.1f);
@@ -216,15 +210,15 @@ TEST_CASE("array.fill", "[externals]")
 
     SECTION("fill list")
     {
-        ArrayFillTest t("array.fill", LA("array2"));
+        TObj t("array.fill", LA("array2"));
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 2));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_SEND_SYMBOL_TO(0, t, "array1");
+        WHEN_SEND_SYMBOL_TO(0, t, "array_fill1");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        Array a("array1");
+        Array a("array_fill1");
         a.resize(5);
 
         WHEN_SEND_LIST_TO(0, t, L());
@@ -242,7 +236,7 @@ TEST_CASE("array.fill", "[externals]")
 
     SECTION("parse range arguments")
     {
-        ArrayFillTest t("array.fill", LA("array1"));
+        TObj t("array.fill", LA("array_fill1"));
 
         size_t from = 0;
         size_t to = 0;

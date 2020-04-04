@@ -11,15 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../array/array_s2p.h"
-#include "test_base.h"
-#include "ceammc_pd.h"
+#include "array_s2p.h"
+#include "test_array_base.h"
 
-#include "catch.hpp"
-
-typedef TestExternal<ArraySampleToPhase> ArraySampleToPhaseTest;
-
-using namespace ceammc;
+PD_COMPLETE_TEST_SETUP(ArraySampleToPhase, array, s2p)
 
 #define ON_FLOAT_REQUIRE(in, t, out)        \
     {                                       \
@@ -45,18 +40,17 @@ using namespace ceammc;
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t); \
     }
 
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
-
 TEST_CASE("array.s2p", "[externals]")
 {
+    pd_test_init();
 
     SECTION("test create with:")
     {
         SECTION("empty arguments")
         {
-            cnv->createArray("array1", 10);
+            cnv->createArray("array_s2p1", 10);
 
-            ArraySampleToPhaseTest t("array.s2p");
+            TObj t("array.s2p");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
@@ -69,7 +63,7 @@ TEST_CASE("array.s2p", "[externals]")
 
         SECTION("symbol arguments")
         {
-            ArraySampleToPhaseTest t("array.s2p", A("array1"));
+            TObj t("array.s2p", A("array_s2p1"));
             ON_FLOAT_REQUIRE(0, t, 0);
             ON_FLOAT_REQUIRE(5, t, 0.5);
             ON_FLOAT_REQUIRE(10, t, 1);

@@ -16,7 +16,6 @@
 
 #include "ceammc_atom.h"
 #include "ceammc_atomlist.h"
-#include "datatype_tree.h"
 #include "m_pd.h"
 
 #include <boost/blank.hpp>
@@ -29,6 +28,8 @@
 #include <vector>
 
 namespace ceammc {
+
+class DataTypeDict;
 
 using PropertyValue = boost::variant<boost::blank, bool, int, t_float, t_symbol*, Atom, AtomList>;
 
@@ -158,7 +159,7 @@ private:
 public:
     PropertyInfo(t_symbol* name, PropValueType type, PropValueAccess access = PropValueAccess::READWRITE);
     PropertyInfo(const std::string& name, PropValueType type, PropValueAccess access = PropValueAccess::READWRITE);
-    PropertyInfo(const PropertyInfo& info);
+    PropertyInfo(const PropertyInfo& getTree);
     ~PropertyInfo();
 
     t_symbol* name() const { return name_; }
@@ -291,7 +292,7 @@ public:
 
     bool validate() const;
 
-    DataTypeTree info() const;
+    bool getDict(DataTypeDict& d) const;
 };
 
 template <>

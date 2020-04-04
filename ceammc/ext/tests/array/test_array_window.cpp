@@ -11,25 +11,18 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../array/array_window.h"
-#include "ceammc_factory.h"
-#include "ceammc_pd.h"
+#include "array_window.h"
 #include "test_external.h"
 
-#include "catch.hpp"
-
-typedef TestExternal<ArrayWindow> TestArrayWindow;
-using namespace ceammc;
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(ArrayWindow, array, window)
 
 TEST_CASE("array.window", "[externals]")
 {
-    setup_array_window();
-    //    pd_test_mod_init_array_window();
+    pd_test_init();
 
     SECTION("empty")
     {
-        TestArrayWindow t("array.window");
+        TObj t("array.window");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY_NONE(t, @array);
@@ -42,22 +35,22 @@ TEST_CASE("array.window", "[externals]")
 
     SECTION("invalid")
     {
-        TestArrayWindow t("array.window", LA("non-exists"));
+        TObj t("array.window", LA("non-exists"));
         REQUIRE_PROPERTY(t, @array, "non-exists");
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
     }
 
-    SECTION("array1")
+    SECTION("array_window1")
     {
-        TestArrayWindow t("array.window", LA("array1", "@type", "tri"));
+        TObj t("array.window", LA("array_window1", "@type", "tri"));
 
         // no array yet
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        ArrayPtr aptr = cnv->createArray("array1", 5);
+        ArrayPtr aptr = cnv->createArray("array_window1", 5);
         REQUIRE(aptr.get());
 
         // array created
@@ -71,9 +64,9 @@ TEST_CASE("array.window", "[externals]")
         REQUIRE(aptr->at(4) == Approx(0));
     }
 
-    SECTION("array2")
+    SECTION("array_window2")
     {
-        ArrayPtr aptr = cnv->createArray("array2", 5);
+        ArrayPtr aptr = cnv->createArray("array_window2", 5);
         REQUIRE(aptr.get());
         REQUIRE(aptr->at(0) == Approx(0));
         REQUIRE(aptr->at(1) == Approx(0));
@@ -81,7 +74,7 @@ TEST_CASE("array.window", "[externals]")
         REQUIRE(aptr->at(3) == Approx(0));
         REQUIRE(aptr->at(4) == Approx(0));
 
-        TestArrayWindow t("array.window", LA("array2"));
+        TObj t("array.window", LA("array_window2"));
 
         // no changes with out specified window
         REQUIRE(aptr->at(0) == Approx(0));
@@ -101,7 +94,7 @@ TEST_CASE("array.window", "[externals]")
         REQUIRE(aptr->at(3) == Approx(0));
         REQUIRE(aptr->at(4) == Approx(0));
 
-        TestArrayWindow t("array.window", LA("array3", "@type", "rect"));
+        TObj t("array.window", LA("array3", "@type", "rect"));
 
         // explicit window specification
         REQUIRE(aptr->at(0) == Approx(1));
@@ -113,10 +106,10 @@ TEST_CASE("array.window", "[externals]")
 
     SECTION("types")
     {
-#define CHECK_TYPE(name)                                      \
-    {                                                         \
-        TestArrayWindow t("array.window", LA("@type", name)); \
-        REQUIRE_PROPERTY_LIST(t, @type, LA(name));            \
+#define CHECK_TYPE(name)                           \
+    {                                              \
+        TObj t("array.window", LA("@type", name)); \
+        REQUIRE_PROPERTY_LIST(t, @type, LA(name)); \
     }
 
         CHECK_TYPE("tri")
@@ -131,13 +124,13 @@ TEST_CASE("array.window", "[externals]")
         CHECK_TYPE("flattop")
         CHECK_TYPE("gauss")
 
-        TestArrayWindow t("array.window", LA("@type", "unknown???"));
+        TObj t("array.window", LA("@type", "unknown???"));
         REQUIRE_PROPERTY_LIST(t, @type, LA("hann"));
     }
 
     SECTION("messages")
     {
-        TestArrayWindow t("array.window");
+        TObj t("array.window");
 
 #define CHECK_MSG(m)                            \
     {                                           \
@@ -171,7 +164,7 @@ TEST_CASE("array.window", "[externals]")
         REQUIRE(aptr->at(3) == Approx(0));
         REQUIRE(aptr->at(4) == Approx(0));
 
-        TestArrayWindow t("array.window", LA("array4"));
+        TObj t("array.window", LA("array4"));
 
         t.anyDispatch(SYM("tri"), L());
         REQUIRE_BANG_AT_OUTLET(0, t);

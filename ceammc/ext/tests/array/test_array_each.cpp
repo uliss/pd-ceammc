@@ -11,24 +11,16 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../array/array_each.h"
-#include "test_base.h"
-#include "ceammc_factory.h"
-#include "ceammc_pd.h"
+#include "array_each.h"
+#include "test_array_base.h"
 
-#include "catch.hpp"
-
-typedef TestExternal<ArrayEach> ArrayEachTest;
-
-using namespace ceammc;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(ArrayEach, array, each)
 
 TEST_CASE("array.each", "[externals]")
 {
     SECTION("empty")
     {
-        ArrayEachTest t("array.each");
+        TObj t("array.each");
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
         REQUIRE_PROPERTY_NONE(t, @array);
@@ -41,7 +33,7 @@ TEST_CASE("array.each", "[externals]")
 
     SECTION("invalid")
     {
-        ArrayEachTest t("array.each", LA("non-exists"));
+        TObj t("array.each", LA("non-exists"));
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
         REQUIRE_PROPERTY(t, @array, "non-exists");
@@ -54,14 +46,14 @@ TEST_CASE("array.each", "[externals]")
 
     SECTION("array1")
     {
-        ArrayEachTest t("array.each", LA("array1"));
+        TObj t("array.each", LA("array_each"));
 
         // no array yet
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(1, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        ArrayPtr aptr = cnv->createArray("array1", 10);
+        ArrayPtr aptr = cnv->createArray("array_each", 10);
         aptr->fillWith(-10);
 
         // array created

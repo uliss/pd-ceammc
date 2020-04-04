@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2017 Serge Poltavsky. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,23 +11,22 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef ARRAY_S2P_H
-#define ARRAY_S2P_H
+#ifndef TEST_ARRAY_BASE_H
+#define TEST_ARRAY_BASE_H
 
-#include "array_base.h"
+#include "ceammc_data.h"
+#include "datatype_mlist.h"
+#include "datatype_string.h"
+#include "test_base.h"
+#include "test_catch2.hpp"
+#include "test_external.h"
 
-class ArraySampleToPhase : public ArrayBase {
-public:
-    ArraySampleToPhase(const PdArgs& a);
+using namespace ceammc;
 
-    /**
-     * @brief converts sample position to phase [0..1]
-     * @param sample position
-     */
-    void onFloat(t_float sample) override;
-    void onList(const AtomList& lst) override;
-};
+using AT = Atom;
+using AL = AtomList;
+using SA = StringAtom;
+using IntA = DataAtom<IntData>;
+using StrA = DataAtom<StrData>;
 
-void setup_array_s2p();
-
-#endif // ARRAY_S2P_H
+#endif // TEST_ARRAY_BASE_H

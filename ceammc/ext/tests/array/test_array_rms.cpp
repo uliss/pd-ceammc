@@ -11,24 +11,18 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../array/array_variance.h"
-#include "ceammc_factory.h"
-#include "ceammc_pd.h"
-#include "test_base.h"
+#include "array_rms.h"
+#include "test_array_base.h"
 
-#include "catch.hpp"
+PD_COMPLETE_TEST_SETUP(ArrayRMS, array, rms)
 
-typedef TestExternal<ArrayVariance> TestArrayVariance;
-
-using namespace ceammc;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
-
-TEST_CASE("array.variance", "[externals]")
+TEST_CASE("array.rms", "[externals]")
 {
+    pd_test_init();
+
     SECTION("empty")
     {
-        TestArrayVariance t("array.variance");
+        TestArrayRMS t("array.rms");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY_NONE(t, @array);
@@ -39,7 +33,7 @@ TEST_CASE("array.variance", "[externals]")
 
     SECTION("invalid")
     {
-        TestArrayVariance t("array.variance", LA("non-exists"));
+        TestArrayRMS t("array.rms", LA("non-exists"));
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @array, "non-exists");
@@ -48,23 +42,23 @@ TEST_CASE("array.variance", "[externals]")
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
     }
 
-    SECTION("array1")
+    SECTION("array_rms1")
     {
-        TestArrayVariance t("array.variance", LA("array1"));
+        TestArrayRMS t("array.rms", LA("array_rms1"));
 
         // no array yet
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        ArrayPtr aptr = cnv->createArray("array1", 4);
-        Array a("array1", { 1, 3, 4, -2, 0.4, 5, 7 });
+        ArrayPtr aptr = cnv->createArray("array_rms1", 4);
+        Array a("array_rms1", { 1, 3, 4, -2, 0.4, 5, 7 });
         REQUIRE(a.size() == 7);
 
         // array created
         WHEN_SEND_BANG_TO(0, t);
         // numpy:
         // a = np.array([1,3,4,-2,0.4,5,7])
-        // print(a.var(ddof=1))
-        REQUIRE_FLOAT_AT_OUTLET(0, t, Approx(9.29904761904762));
+        // print(np.sqrt(np.mean(np.square(a))))
+        REQUIRE_FLOAT_AT_OUTLET(0, t, Approx(3.857460304397182));
     }
 }

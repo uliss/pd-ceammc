@@ -11,32 +11,23 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../array/array_stretch.h"
-#include "test_base.h"
-#include "ceammc_factory.h"
-#include "ceammc_pd.h"
+#include "array_stretch.h"
+#include "test_array_base.h"
 
-#include "catch.hpp"
-
-typedef TestExternal<ArrayStretch> ArrayStretchTest;
-
-using namespace ceammc;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(ArrayStretch, array, stretch)
 
 TEST_CASE("array.stretch", "[externals]")
 {
-    setup_array0x2estretch();
-    test::pdPrintToStdError();
+    pd_test_init();
 
     SECTION("create")
     {
         ArrayPtr aptr0 = cnv->createArray("array0", 10);
-        ArrayPtr aptr1 = cnv->createArray("array1", 10);
+        ArrayPtr aptr1 = cnv->createArray("array_stretch1", 10);
 
         SECTION("empty")
         {
-            ArrayStretchTest t("array.stretch");
+            TObj t("array.stretch");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @src, "");
@@ -57,7 +48,7 @@ TEST_CASE("array.stretch", "[externals]")
 
         SECTION("@speech")
         {
-            ArrayStretchTest t("array.stretch", LA("@speech", 1));
+            TObj t("array.stretch", LA("@speech", 1));
             REQUIRE_PROPERTY(t, @sequence, 40);
             REQUIRE_PROPERTY(t, @seekwindow, 15);
             REQUIRE_PROPERTY(t, @overlap, 8);
@@ -68,7 +59,7 @@ TEST_CASE("array.stretch", "[externals]")
         {
             SECTION("invalid source")
             {
-                ArrayStretchTest t("array.stretch", LA("non-exists"));
+                TObj t("array.stretch", LA("non-exists"));
                 REQUIRE_PROPERTY(t, @src, "non-exists");
                 REQUIRE_PROPERTY(t, @dest, "");
 
@@ -78,7 +69,7 @@ TEST_CASE("array.stretch", "[externals]")
 
             SECTION("invalid dest")
             {
-                ArrayStretchTest t("array.stretch", LA("array0", "non-exists"));
+                TObj t("array.stretch", LA("array0", "non-exists"));
                 REQUIRE_PROPERTY(t, @src, "array0");
                 REQUIRE_PROPERTY(t, @dest, "non-exists");
 
@@ -88,7 +79,7 @@ TEST_CASE("array.stretch", "[externals]")
 
             SECTION("invalid prop source")
             {
-                ArrayStretchTest t("array.stretch", LA("@src", "non-exists"));
+                TObj t("array.stretch", LA("@src", "non-exists"));
                 REQUIRE_PROPERTY(t, @src, "non-exists");
                 REQUIRE_PROPERTY(t, @dest, "");
 
@@ -98,7 +89,7 @@ TEST_CASE("array.stretch", "[externals]")
 
             SECTION("invalid dest")
             {
-                ArrayStretchTest t("array.stretch", LA("@dest", "non-exists"));
+                TObj t("array.stretch", LA("@dest", "non-exists"));
                 REQUIRE_PROPERTY(t, @src, "");
                 REQUIRE_PROPERTY(t, @dest, "non-exists");
 
@@ -112,7 +103,7 @@ TEST_CASE("array.stretch", "[externals]")
     {
         SECTION("@sequence")
         {
-            ArrayStretchTest t("array.stretch");
+            TObj t("array.stretch");
             t.setProperty("@sequence", A(0.f));
             REQUIRE_PROPERTY(t, @sequence, 0.f);
             t.setProperty("@sequence", A(99));
@@ -128,7 +119,7 @@ TEST_CASE("array.stretch", "[externals]")
 
         SECTION("@seekwindow")
         {
-            ArrayStretchTest t("array.stretch");
+            TObj t("array.stretch");
             t.setProperty("@seekwindow", A(0.f));
             REQUIRE_PROPERTY(t, @seekwindow, 0.f);
             t.setProperty("@seekwindow", A(99));
@@ -144,7 +135,7 @@ TEST_CASE("array.stretch", "[externals]")
 
         SECTION("@overlap")
         {
-            ArrayStretchTest t("array.stretch");
+            TObj t("array.stretch");
             t.setProperty("@overlap", A(1));
             REQUIRE_PROPERTY(t, @overlap, 1);
             t.setProperty("@overlap", A(100));
@@ -158,7 +149,7 @@ TEST_CASE("array.stretch", "[externals]")
 
         SECTION("@aalength")
         {
-            ArrayStretchTest t("array.stretch");
+            TObj t("array.stretch");
             t.setProperty("@aalength", A(8));
             REQUIRE_PROPERTY(t, @aalength, 8);
             t.setProperty("@aalength", A(128));
@@ -171,11 +162,11 @@ TEST_CASE("array.stretch", "[externals]")
         }
     }
 
-    SECTION("array1")
+    SECTION("array_stretch1")
     {
-        ArrayStretchTest t("array.bpm", LA("array0", "array1"));
+        TObj t("array.bpm", LA("array0", "array_stretch1"));
         ArrayPtr aptr0 = cnv->createArray("array0", 10);
-        ArrayPtr aptr1 = cnv->createArray("array1", 10);
+        ArrayPtr aptr1 = cnv->createArray("array_stretch1", 10);
 
         // array created
         WHEN_SEND_BANG_TO(0, t);

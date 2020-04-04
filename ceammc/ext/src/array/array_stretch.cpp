@@ -257,7 +257,7 @@ void ArrayStretch::setupSoundTouch()
     soundtouch_->setRate(rate_->value());
 }
 
-extern "C" void setup_array0x2estretch()
+void setup_array_stretch()
 {
     PROP_SEQUENCE = gensym("@sequence");
     PROP_SEEK_WINDOW = gensym("@seekwindow");

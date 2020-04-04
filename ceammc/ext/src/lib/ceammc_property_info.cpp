@@ -11,10 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include "ceammc_property_info.h"
 #include "ceammc_convert.h"
 #include "ceammc_log.h"
+#include "datatype_dict.h"
 
 #include <algorithm>
 #include <numeric>
@@ -883,53 +883,51 @@ bool PropertyInfo::validate() const
     return ok;
 }
 
-DataTypeTree PropertyInfo::info() const
+bool PropertyInfo::getDict(DataTypeDict& res) const
 {
-    DataTypeTree res;
-    res.setObject();
-    res.insertSymbol("name", name());
-    res.insertSymbol("type", to_symbol(type()));
-    res.insertSymbol("access", to_symbol(access()));
-    res.insertSymbol("visibility", to_symbol(visibility()));
-    res.insertSymbol("view", to_symbol(view()));
+    res.insert("name", name());
+    res.insert("type", to_symbol(type()));
+    res.insert("access", to_symbol(access()));
+    res.insert("visibility", to_symbol(visibility()));
+    res.insert("view", to_symbol(view()));
 
     if (constraints() != PropValueConstraints::NONE)
-        res.insertSymbol("constraints", to_symbol(constraints()));
+        res.insert("constraints", to_symbol(constraints()));
 
     if (units() != PropValueUnits::NONE)
-        res.insertSymbol("units", to_symbol(units()));
+        res.insert("units", to_symbol(units()));
 
     if (hasArgIndex())
-        res.insertFloat("arg_index", argIndex());
+        res.insert("arg_index", argIndex());
 
     if (hasConstraintsMin())
-        res.insertFloat("min", isFloat() ? minFloat() : minInt());
+        res.insert("min", isFloat() ? minFloat() : minInt());
 
     if (hasConstraintsMax())
-        res.insertFloat("max", isFloat() ? maxFloat() : maxInt());
+        res.insert("max", isFloat() ? maxFloat() : maxInt());
 
     if (hasStep())
-        res.insertFloat("step", step());
+        res.insert("step", step());
 
     if (hasEnumLimit())
-        res.insertTree("enum", DataTypeTree(enumValues()));
+        res.insert("enum", enumValues());
 
     if (!noDefault()) {
         if (isBool())
-            res.insertFloat("default", defaultBool() ? 1 : 0);
+            res.insert("default", defaultBool() ? 1 : 0);
         else if (isFloat())
-            res.insertFloat("default", defaultFloat());
+            res.insert("default", defaultFloat());
         else if (isInt())
-            res.insertFloat("default", defaultInt());
+            res.insert("default", defaultInt());
         else if (isVariant())
-            res.insertAtom("default", defaultAtom());
+            res.insert("default", defaultAtom());
         else if (isList())
-            res.insertTree("default", DataTypeTree(defaultList()));
+            res.insert("default", defaultList());
         else {
         }
     }
 
-    return res;
+    return true;
 }
 
 }

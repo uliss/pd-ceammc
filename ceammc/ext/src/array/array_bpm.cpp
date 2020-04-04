@@ -34,7 +34,7 @@ void ArrayBPM::onBang()
     floatTo(0, bpm.getBpm());
 }
 
-extern "C" void setup_array0x2ebpm()
+void setup_array_bpm()
 {
     ObjectFactory<ArrayBPM> obj("array.bpm");
 }

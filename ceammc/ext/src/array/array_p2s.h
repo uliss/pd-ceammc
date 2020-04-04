@@ -29,4 +29,6 @@ public:
     void onList(const AtomList& lst) override;
 };
 
+void setup_array_p2s();
+
 #endif // ARRAY_P2S_H

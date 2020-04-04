@@ -11,18 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../array/array_copy.h"
-#include "ceammc_factory.h"
-#include "ceammc_pd.h"
-#include "test_base.h"
+#include "array_copy.h"
+#include "test_array_base.h"
 
-#include "catch.hpp"
-
-typedef TestExternal<ArrayCopy> ArrayCopyTest;
-
-using namespace ceammc;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(ArrayCopy, array, copy)
 
 #define RESET_DATA() \
     b.resize(3);     \
@@ -37,11 +29,11 @@ static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
 TEST_CASE("array.copy", "[externals]")
 {
-    test::pdPrintToStdError();
+    pd_test_init();
 
     SECTION("empty")
     {
-        ArrayCopyTest t("array.copy");
+        TObj t("array.copy");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @resize, 0.f);
@@ -49,7 +41,7 @@ TEST_CASE("array.copy", "[externals]")
 
     SECTION("copy simple")
     {
-        ArrayCopyTest t("array.copy");
+        TObj t("array.copy");
         cnv->createArray("a", 5);
         cnv->createArray("b", 3);
 
@@ -101,7 +93,7 @@ TEST_CASE("array.copy", "[externals]")
 
     SECTION("copy simple resize")
     {
-        ArrayCopyTest t("array.copy");
+        TObj t("array.copy");
         t.setProperty("@resize", LF(1));
         REQUIRE_PROPERTY(t, @resize, 1.f);
 
@@ -129,7 +121,7 @@ TEST_CASE("array.copy", "[externals]")
     {
         SECTION("invalid arrays")
         {
-            ArrayCopyTest t("array.copy");
+            TObj t("array.copy");
             WHEN_CALL_N(t, copy, "a", 0.f, 4, "???");
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
@@ -142,7 +134,7 @@ TEST_CASE("array.copy", "[externals]")
 
         SECTION("invalid range")
         {
-            ArrayCopyTest t("array.copy");
+            TObj t("array.copy");
             WHEN_CALL_N(t, copy, "a", 5, 6, "b");
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
@@ -152,7 +144,7 @@ TEST_CASE("array.copy", "[externals]")
 
         SECTION("no resize")
         {
-            ArrayCopyTest t("array.copy");
+            TObj t("array.copy");
             Array a("a");
             Array b("b");
 
@@ -189,7 +181,7 @@ TEST_CASE("array.copy", "[externals]")
 
         SECTION("resize")
         {
-            ArrayCopyTest t("array.copy", LA("@resize", 1));
+            TObj t("array.copy", LA("@resize", 1));
             Array a("a");
             Array b("b");
 
@@ -214,7 +206,7 @@ TEST_CASE("array.copy", "[externals]")
     {
         SECTION("invalid arrays")
         {
-            ArrayCopyTest t("array.copy");
+            TObj t("array.copy");
             WHEN_CALL_N(t, copy, "a", 0.f, 4, "???", 1);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
@@ -227,7 +219,7 @@ TEST_CASE("array.copy", "[externals]")
 
         SECTION("invalid range")
         {
-            ArrayCopyTest t("array.copy");
+            TObj t("array.copy");
 
             // wrong src
             WHEN_CALL_N(t, copy, "a", 5, 6, "b", 2);
@@ -244,7 +236,7 @@ TEST_CASE("array.copy", "[externals]")
 
         SECTION("no resize")
         {
-            ArrayCopyTest t("array.copy");
+            TObj t("array.copy");
             Array a("a");
             Array b("b");
 
@@ -292,7 +284,7 @@ TEST_CASE("array.copy", "[externals]")
 
         SECTION("resize")
         {
-            ArrayCopyTest t("array.copy", LA("@resize", 1));
+            TObj t("array.copy", LA("@resize", 1));
             Array a("a");
             Array b("b");
 
@@ -317,7 +309,7 @@ TEST_CASE("array.copy", "[externals]")
 
     SECTION("range copy 3 args")
     {
-        ArrayCopyTest t("array.copy");
+        TObj t("array.copy");
         Array a("a");
         Array b("b");
 

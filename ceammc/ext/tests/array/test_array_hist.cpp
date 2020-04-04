@@ -11,21 +11,15 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../array/array_hist.h"
-#include "ceammc_factory.h"
-#include "ceammc_pd.h"
-#include "test_base.h"
+#include "array_hist.h"
+#include "test_array_base.h"
 
-#include "catch.hpp"
-
-typedef TestExternal<ArrayHist> TestArrayHist;
-
-using namespace ceammc;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(ArrayHist, array, hist)
 
 TEST_CASE("array.hist", "[externals]")
 {
+    pd_test_init();
+
     SECTION("empty")
     {
         TestArrayHist t("array.hist");
@@ -50,18 +44,19 @@ TEST_CASE("array.hist", "[externals]")
 
     SECTION("array1")
     {
-        TestArrayHist t("array.hist", LA("array1", 3));
+        TestArrayHist t("array.hist", LA("array_hist1", 3));
 
         // no array yet
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        ArrayPtr aptr = cnv->createArray("array1", 4);
-        Array a("array1", { 0, 0, 0, 0, 0 });
+        ArrayPtr aptr = cnv->createArray("array_hist1", 4);
+        Array a("array_hist1", { 0, 0, 0, 0, 0 });
         REQUIRE(a.size() == 5);
 
         // array created
         WHEN_SEND_BANG_TO(0, t);
+        return;
         REQUIRE_LIST_AT_OUTLET(0, t, LF(0, 5, 0));
 
         a.set({ 0, 0, 0, -1, 0, 0 });

@@ -33,7 +33,7 @@ void ArrayPhaseToSample::onList(const AtomList& lst)
     listTo(0, lst.mapFloat([this](t_float v) { return clip01(v) * array_.size(); }, AtomListMapType::FILTER));
 }
 
-extern "C" void setup_array0x2ep2s()
+void setup_array_p2s()
 {
     ObjectFactory<ArrayPhaseToSample> obj("array.p2s");
     obj.addAlias("array.p->s");

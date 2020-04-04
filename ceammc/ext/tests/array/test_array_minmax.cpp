@@ -11,24 +11,18 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../array/array_minmax.h"
-#include "test_base.h"
-#include "ceammc_factory.h"
-#include "ceammc_pd.h"
+#include "array_minmax.h"
+#include "test_array_base.h"
 
-#include "catch.hpp"
-
-typedef TestExternal<ArrayMinMax> ArrayMinMaxTest;
-
-using namespace ceammc;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(ArrayMinMax, array, minmax)
 
 TEST_CASE("array.minmax", "[externals]")
 {
+    pd_test_init();
+
     SECTION("empty")
     {
-        ArrayMinMaxTest t("array.minmax");
+        TObj t("array.minmax");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 2);
         REQUIRE_PROPERTY_NONE(t, @array);
@@ -40,7 +34,7 @@ TEST_CASE("array.minmax", "[externals]")
 
     SECTION("invalid")
     {
-        ArrayMinMaxTest t("array.minmax", LA("non-exists"));
+        TObj t("array.minmax", LA("non-exists"));
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 2);
         REQUIRE_PROPERTY(t, @array, "non-exists");
@@ -52,25 +46,15 @@ TEST_CASE("array.minmax", "[externals]")
 
     SECTION("array1")
     {
-        ArrayMinMaxTest t("array.minmax", LA("array1"));
+        TObj t("array.minmax", LA("array_minmax"));
 
         // no array yet
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(1, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        ArrayPtr aptr = cnv->createArray("array1", 10);
-        Array a("array1");
-        a[0] = -1;
-        a[1] = -2;
-        a[2] = -3;
-        a[3] = -4;
-        a[4] = -5;
-        a[5] = 1;
-        a[6] = 2;
-        a[7] = 3;
-        a[8] = 2;
-        a[9] = 0;
+        ArrayPtr aptr = cnv->createArray("array_minmax", 10);
+        Array a("array_minmax", { -1, -2, -3, -4, -5, 1, 2, 3, 2, 0 });
 
         // array created
         WHEN_SEND_BANG_TO(0, t);

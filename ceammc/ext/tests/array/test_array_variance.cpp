@@ -11,24 +11,18 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../array/array_sum2.h"
-#include "ceammc_factory.h"
-#include "ceammc_pd.h"
-#include "test_base.h"
+#include "array_variance.h"
+#include "test_array_base.h"
 
-#include "catch.hpp"
+PD_COMPLETE_TEST_SETUP(ArrayVariance, array, variance)
 
-typedef TestExternal<ArraySum2> TestArraySum2;
-
-using namespace ceammc;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
-
-TEST_CASE("array.sum2", "[externals]")
+TEST_CASE("array.variance", "[externals]")
 {
+    pd_test_init();
+
     SECTION("empty")
     {
-        TestArraySum2 t("array.sum2");
+        TObj t("array.variance");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY_NONE(t, @array);
@@ -39,7 +33,7 @@ TEST_CASE("array.sum2", "[externals]")
 
     SECTION("invalid")
     {
-        TestArraySum2 t("array.sum2", LA("non-exists"));
+        TObj t("array.variance", LA("non-exists"));
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @array, "non-exists");
@@ -48,25 +42,23 @@ TEST_CASE("array.sum2", "[externals]")
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
     }
 
-    SECTION("array1")
+    SECTION("array_var1")
     {
-        TestArraySum2 t("array.sum2", LA("array1"));
+        TObj t("array.variance", LA("array_var1"));
 
         // no array yet
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        ArrayPtr aptr = cnv->createArray("array1", 6);
-        Array a("array1");
-        a[0] = 1;
-        a[1] = 2;
-        a[2] = 3;
-        a[3] = 4;
-        a[4] = -1;
-        a[5] = 0.5;
+        ArrayPtr aptr = cnv->createArray("array_var1", 4);
+        Array a("array_var1", { 1, 3, 4, -2, 0.4, 5, 7 });
+        REQUIRE(a.size() == 7);
 
         // array created
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, Approx(31.25));
+        // numpy:
+        // a = np.array([1,3,4,-2,0.4,5,7])
+        // print(a.var(ddof=1))
+        REQUIRE_FLOAT_AT_OUTLET(0, t, Approx(9.29904761904762));
     }
 }

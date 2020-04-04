@@ -11,21 +11,15 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../array/array_mean.h"
-#include "ceammc_factory.h"
-#include "ceammc_pd.h"
-#include "test_base.h"
+#include "array_mean.h"
+#include "test_array_base.h"
 
-#include "catch.hpp"
-
-typedef TestExternal<ArrayMean> TestArrayMean;
-
-using namespace ceammc;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(ArrayMean, array, mean)
 
 TEST_CASE("array.mean", "[externals]")
 {
+    pd_test_init();
+
     SECTION("empty")
     {
         TestArrayMean t("array.mean");
@@ -50,14 +44,14 @@ TEST_CASE("array.mean", "[externals]")
 
     SECTION("array1")
     {
-        TestArrayMean t("array.mean", LA("array1"));
+        TestArrayMean t("array.mean", LA("array_mean"));
 
         // no array yet
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        ArrayPtr aptr = cnv->createArray("array1", 4);
-        Array a("array1");
+        ArrayPtr aptr = cnv->createArray("array_mean", 4);
+        Array a("array_mean");
         a[0] = 2;
         a[1] = 3;
         a[2] = 4;
@@ -65,6 +59,6 @@ TEST_CASE("array.mean", "[externals]")
 
         // array created
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, Approx(1.75));
+        REQUIRE_THAT(t, outputFloat(&t, 1.75));
     }
 }

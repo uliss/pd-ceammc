@@ -42,6 +42,6 @@ private:
     void setupSoundTouch();
 };
 
-extern "C" void setup_array0x2estretch();
+void setup_array_stretch();
 
 #endif // ARRAY_STRETCH_H

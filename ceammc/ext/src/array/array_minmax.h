@@ -28,4 +28,6 @@ private:
     void perform();
 };
 
+void setup_array_minmax();
+
 #endif // ARRAY_MINMAX_H

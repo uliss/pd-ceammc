@@ -11,24 +11,18 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../array/array_bpm.h"
-#include "test_base.h"
-#include "ceammc_factory.h"
-#include "ceammc_pd.h"
+#include "array_sum.h"
+#include "test_array_base.h"
 
-#include "catch.hpp"
+PD_COMPLETE_TEST_SETUP(ArraySum, array, sum)
 
-typedef TestExternal<ArrayBPM> ArrayBPMTest;
-
-using namespace ceammc;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
-
-TEST_CASE("array.bpm", "[externals]")
+TEST_CASE("array.sum", "[externals]")
 {
+    pd_test_init();
+
     SECTION("empty")
     {
-        ArrayBPMTest t("array.bpm");
+        TObj t("array.sum");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY_NONE(t, @array);
@@ -39,39 +33,28 @@ TEST_CASE("array.bpm", "[externals]")
 
     SECTION("invalid")
     {
-        ArrayBPMTest t("array.bpm", LA("non-exists"));
+        TObj t("array.sum", LA("non-exists"));
+        REQUIRE(t.numInlets() == 1);
+        REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @array, "non-exists");
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
     }
 
-    SECTION("array1")
+    SECTION("array_sum1")
     {
-        ArrayBPMTest t("array.bpm", LA("array1"));
+        TObj t("array.sum", LA("array_sum1"));
 
         // no array yet
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        ArrayPtr aptr = cnv->createArray("array1", 10);
-        aptr->fillWith(-10);
+        ArrayPtr aptr = cnv->createArray("array_sum1", 5);
+        Array a("array_sum1", { -1, 2, 3, 4.1, 5 });
 
         // array created
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
-
-        // crash check on small buffer sizes
-        aptr->resize(1024);
-        WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
-
-        aptr->resize(1023);
-        WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
-
-        aptr->resize(1025);
-        WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_FLOAT_AT_OUTLET(0, t, Approx(13.1));
     }
 }

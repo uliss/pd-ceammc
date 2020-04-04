@@ -12,14 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_p2s.h"
-#include "ceammc_pd.h"
-#include "test_base.h"
+#include "test_array_base.h"
 
-#include "catch.hpp"
-
-typedef TestExternal<ArrayPhaseToSample> ArrayPhaseToSampleTest;
-
-using namespace ceammc;
+PD_COMPLETE_TEST_SETUP(ArrayPhaseToSample, array, p2s)
 
 #define ON_FLOAT_REQUIRE(in, t, out)        \
     {                                       \
@@ -33,18 +28,17 @@ using namespace ceammc;
         REQUIRE_LIST_AT_OUTLET(0, t, out); \
     }
 
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
-
 TEST_CASE("array.p2s", "[externals]")
 {
+    pd_test_init();
 
     SECTION("test create with:")
     {
         SECTION("empty arguments")
         {
-            cnv->createArray("array1", 10);
+            cnv->createArray("array_p2s", 10);
 
-            ArrayPhaseToSampleTest t("array.p2s");
+            TObj t("array.p2s");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_NONE(t, @array);
@@ -58,8 +52,8 @@ TEST_CASE("array.p2s", "[externals]")
 
         SECTION("symbol arguments")
         {
-            ArrayPhaseToSampleTest t("array.p2s", A("array1"));
-            REQUIRE_PROPERTY(t, @array, "array1");
+            TObj t("array.p2s", A("array_p2s"));
+            REQUIRE_PROPERTY(t, @array, "array_p2s");
 
             ON_FLOAT_REQUIRE(0, t, 0);
             ON_FLOAT_REQUIRE(0.5, t, 5);
