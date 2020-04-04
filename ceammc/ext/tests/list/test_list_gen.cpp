@@ -28,29 +28,29 @@ TEST_CASE("list.gen", "[externals]")
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
 
-            REQUIRE_PROPERTY(t, @count, 1);
+            REQUIRE_THAT(t, hasProperty(&t, "@count", 1)); 
         }
 
         SECTION("properties")
         {
             {
                 TestListGenerate t("list.gen", LA("@count", 2));
-                REQUIRE_PROPERTY(t, @count, 2.f);
+                REQUIRE_THAT(t, hasProperty(&t, "@count", 2.f)); 
             }
 
             {
                 TestListGenerate t("list.gen", LA("@count", 1024));
-                REQUIRE_PROPERTY(t, @count, 1024);
+                REQUIRE_THAT(t, hasProperty(&t, "@count", 1024)); 
             }
 
             {
                 TestListGenerate t("list.gen", LA("@count", 20003));
-                REQUIRE_PROPERTY(t, @count, 1);
+                REQUIRE_THAT(t, hasProperty(&t, "@count", 1)); 
             }
 
             {
                 TestListGenerate t("list.gen", LA("@count", -1));
-                REQUIRE_PROPERTY(t, @count, 1);
+                REQUIRE_THAT(t, hasProperty(&t, "@count", 1)); 
             }
         }
 
@@ -58,29 +58,29 @@ TEST_CASE("list.gen", "[externals]")
         {
             {
                 TestListGenerate t("list.gen", LF(100));
-                REQUIRE_PROPERTY(t, @count, 100);
+                REQUIRE_THAT(t, hasProperty(&t, "@count", 100)); 
             }
 
             {
                 TestListGenerate t("list.gen", LF(1024));
-                REQUIRE_PROPERTY(t, @count, 1024);
+                REQUIRE_THAT(t, hasProperty(&t, "@count", 1024)); 
             }
 
             {
                 TestListGenerate t("list.gen", LF(100000));
-                REQUIRE_PROPERTY(t, @count, 1);
+                REQUIRE_THAT(t, hasProperty(&t, "@count", 1)); 
             }
 
             {
                 TestListGenerate t("list.gen", LF(-100));
-                REQUIRE_PROPERTY(t, @count, 1);
+                REQUIRE_THAT(t, hasProperty(&t, "@count", 1)); 
             }
         }
 
         SECTION("positional arguments and props mixed")
         {
             TestListGenerate t("list.gen", LA(100, "@count", 10));
-            REQUIRE_PROPERTY(t, @count, 10);
+            REQUIRE_THAT(t, hasProperty(&t, "@count", 10)); 
         }
     }
 

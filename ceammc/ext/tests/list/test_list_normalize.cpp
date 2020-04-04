@@ -32,25 +32,25 @@ TEST_CASE("list.normalize", "[externals]")
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
-            REQUIRE_PROPERTY(t, @by, A("sum"));
+            REQUIRE_THAT(t, hasProperty(&t, "@by", A("sum"))); 
         }
 
         SECTION("properties")
         {
             ListNormalizeTest t("list.normalize", LA("@by", "range"));
-            REQUIRE_PROPERTY(t, @by, A("range"));
+            REQUIRE_THAT(t, hasProperty(&t, "@by", A("range"))); 
         }
 
         SECTION("@sum")
         {
             ListNormalizeTest t("list.normalize", LA("@sum"));
-            REQUIRE_PROPERTY(t, @by, A("sum"));
+            REQUIRE_THAT(t, hasProperty(&t, "@by", A("sum"))); 
         }
 
         SECTION("@range")
         {
             ListNormalizeTest t("list.normalize", LA("@range"));
-            REQUIRE_PROPERTY(t, @by, A("range"));
+            REQUIRE_THAT(t, hasProperty(&t, "@by", A("range"))); 
         }
     }
 

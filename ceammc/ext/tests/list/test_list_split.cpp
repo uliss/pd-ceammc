@@ -25,13 +25,13 @@ TEST_CASE("list.split", "[externals]")
         TestListSplit t("list.split");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 2);
-        REQUIRE_PROPERTY(t, @at, 0.f);
+        REQUIRE_THAT(t, hasProperty(&t, "@at", 0.f)); 
     }
 
     SECTION("do")
     {
         TestListSplit t("list.split", LF(2));
-        REQUIRE_PROPERTY(t, @at, 2);
+        REQUIRE_THAT(t, hasProperty(&t, "@at", 2)); 
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3, 4));
         REQUIRE_LIST_AT_OUTLET(1, t, LF(3, 4));

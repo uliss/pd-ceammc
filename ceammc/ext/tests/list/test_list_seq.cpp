@@ -32,46 +32,46 @@ TEST_CASE("list.seq", "[externals]")
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
-            REQUIRE_PROPERTY(t, @from, 0.f);
-            REQUIRE_PROPERTY(t, @to, 1.f);
-            REQUIRE_PROPERTY(t, @step, 1.f);
-            REQUIRE_PROPERTY(t, @closed, 0.0f);
+            REQUIRE_THAT(t, hasProperty(&t, "@from", 0.f));
+            REQUIRE_THAT(t, hasProperty(&t, "@to", 1.f));
+            REQUIRE_THAT(t, hasProperty(&t, "@step", 1.f));
+            REQUIRE_THAT(t, hasProperty(&t, "@closed", 0.0f));
         }
 
         SECTION("properties")
         {
             TObj t("list.seq", LA("@from", -10));
-            REQUIRE_PROPERTY(t, @from, -10.f);
-            REQUIRE_PROPERTY(t, @to, 1.f);
-            REQUIRE_PROPERTY(t, @step, 1.f);
-            REQUIRE_PROPERTY(t, @closed, 0.0f);
+            REQUIRE_THAT(t, hasProperty(&t, "@from", -10.f));
+            REQUIRE_THAT(t, hasProperty(&t, "@to", 1.f));
+            REQUIRE_THAT(t, hasProperty(&t, "@step", 1.f));
+            REQUIRE_THAT(t, hasProperty(&t, "@closed", 0.0f));
 
             {
                 TObj t("list.seq", LA("@from", -10, "@to", -2));
-                REQUIRE_PROPERTY(t, @from, -10.f);
-                REQUIRE_PROPERTY(t, @to, -2.f);
-                REQUIRE_PROPERTY(t, @step, 1.f);
+                REQUIRE_THAT(t, hasProperty(&t, "@from", -10.f));
+                REQUIRE_THAT(t, hasProperty(&t, "@to", -2.f));
+                REQUIRE_THAT(t, hasProperty(&t, "@step", 1.f));
             }
 
             {
                 TObj t("list.seq", LA("@from", -10, "@to", -2, "@step", -1));
-                REQUIRE_PROPERTY(t, @from, -10.f);
-                REQUIRE_PROPERTY(t, @to, -2.f);
-                REQUIRE_PROPERTY(t, @step, -1.f);
+                REQUIRE_THAT(t, hasProperty(&t, "@from", -10.f));
+                REQUIRE_THAT(t, hasProperty(&t, "@to", -2.f));
+                REQUIRE_THAT(t, hasProperty(&t, "@step", -1.f));
             }
 
             {
                 TObj t("list.seq", LA("@closed"));
-                REQUIRE_PROPERTY(t, @from, 0.f);
-                REQUIRE_PROPERTY(t, @to, 1.f);
-                REQUIRE_PROPERTY(t, @closed, 1.f);
+                REQUIRE_THAT(t, hasProperty(&t, "@from", 0.f));
+                REQUIRE_THAT(t, hasProperty(&t, "@to", 1.f));
+                REQUIRE_THAT(t, hasProperty(&t, "@closed", 1.f));
             }
 
             {
                 TObj t("list.seq", LA("@to", 10, "@closed"));
-                REQUIRE_PROPERTY(t, @from, 0.f);
-                REQUIRE_PROPERTY(t, @to, 10.f);
-                REQUIRE_PROPERTY(t, @closed, 1.f);
+                REQUIRE_THAT(t, hasProperty(&t, "@from", 0.f));
+                REQUIRE_THAT(t, hasProperty(&t, "@to", 10.f));
+                REQUIRE_THAT(t, hasProperty(&t, "@closed", 1.f));
             }
         }
 
@@ -79,38 +79,38 @@ TEST_CASE("list.seq", "[externals]")
         {
             {
                 TObj t("list.seq", LF(100));
-                REQUIRE_PROPERTY(t, @from, 0.f);
-                REQUIRE_PROPERTY(t, @to, 100.f);
-                REQUIRE_PROPERTY(t, @step, 1.f);
-                REQUIRE_PROPERTY(t, @closed, 0.0f);
+                REQUIRE_THAT(t, hasProperty(&t, "@from", 0.f));
+                REQUIRE_THAT(t, hasProperty(&t, "@to", 100.f));
+                REQUIRE_THAT(t, hasProperty(&t, "@step", 1.f));
+                REQUIRE_THAT(t, hasProperty(&t, "@closed", 0.0f));
             }
 
             {
                 TObj t("list.seq", LF(-100));
-                REQUIRE_PROPERTY(t, @from, 0.f);
-                REQUIRE_PROPERTY(t, @to, -100.f);
-                REQUIRE_PROPERTY(t, @step, 1.f);
+                REQUIRE_THAT(t, hasProperty(&t, "@from", 0.f));
+                REQUIRE_THAT(t, hasProperty(&t, "@to", -100.f));
+                REQUIRE_THAT(t, hasProperty(&t, "@step", 1.f));
             }
 
             {
                 TObj t("list.seq", LF(1, 10));
-                REQUIRE_PROPERTY(t, @from, 1.f);
-                REQUIRE_PROPERTY(t, @to, 10.f);
-                REQUIRE_PROPERTY(t, @step, 1.f);
+                REQUIRE_THAT(t, hasProperty(&t, "@from", 1.f));
+                REQUIRE_THAT(t, hasProperty(&t, "@to", 10.f));
+                REQUIRE_THAT(t, hasProperty(&t, "@step", 1.f));
             }
 
             {
                 TObj t("list.seq", LF(10, 1));
-                REQUIRE_PROPERTY(t, @from, 10.f);
-                REQUIRE_PROPERTY(t, @to, 1.f);
-                REQUIRE_PROPERTY(t, @step, 1.f);
+                REQUIRE_THAT(t, hasProperty(&t, "@from", 10.f));
+                REQUIRE_THAT(t, hasProperty(&t, "@to", 1.f));
+                REQUIRE_THAT(t, hasProperty(&t, "@step", 1.f));
             }
 
             {
                 TObj t("list.seq", LF(2, 5, 3));
-                REQUIRE_PROPERTY(t, @from, 2.f);
-                REQUIRE_PROPERTY(t, @to, 5.f);
-                REQUIRE_PROPERTY(t, @step, 3.f);
+                REQUIRE_THAT(t, hasProperty(&t, "@from", 2.f));
+                REQUIRE_THAT(t, hasProperty(&t, "@to", 5.f));
+                REQUIRE_THAT(t, hasProperty(&t, "@step", 3.f));
             }
         }
     }

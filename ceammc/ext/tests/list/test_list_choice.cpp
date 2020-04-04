@@ -13,18 +13,18 @@
  *****************************************************************************/
 #include "list_choice.h"
 #include "test_list_base.h"
-#include "catch.hpp"
 
-#include <stdio.h>
+PD_COMPLETE_TEST_SETUP(ListChoice, list, choice)
 
-typedef TestExternal<ListChoice> ListChoiceTest;
+using TObj = TestListChoice;
+using TExt = TestExtListChoice;
 
 TEST_CASE("list.choice", "[externals]")
 {
     SECTION("test create with:")
     {
-        ListChoiceTest t("list.choice");
-        REQUIRE_PROPERTY(t, @norepeat, 0.f);
+        TObj t("list.choice");
+        REQUIRE_THAT(t, hasProperty(&t, "@norepeat", 0));
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MSG(t);
@@ -37,17 +37,17 @@ TEST_CASE("list.choice", "[externals]")
 
         SECTION("@norepeat")
         {
-            ListChoiceTest t("list.choice", LA("@norepeat", 1));
-            REQUIRE_PROPERTY(t, @norepeat, 1);
+            TObj t("list.choice", LA("@norepeat", 1));
+            REQUIRE_THAT(t, hasProperty(&t, "@norepeat", 1));
 
-            ListChoiceTest t1("list.choice", LA("@norepeat", 0.f));
-            REQUIRE_PROPERTY(t1, @norepeat, 0.f);
+            TObj t1("list.choice", LA("@norepeat", 0.f));
+            REQUIRE_THAT(t1, hasProperty(&t1, "@norepeat", 0.f));
         }
     }
 
     SECTION("choice")
     {
-        ListChoiceTest t("list.choice");
+        TObj t("list.choice");
 
         // empty list
         WHEN_SEND_LIST_TO(0, t, L());
@@ -73,7 +73,7 @@ TEST_CASE("list.choice", "[externals]")
 
     SECTION("no-repeat")
     {
-        ListChoiceTest t("list.choice", LA("@norepeat", 1));
+        TObj t("list.choice", LA("@norepeat", 1));
 
         // empty list
         WHEN_SEND_LIST_TO(0, t, L());

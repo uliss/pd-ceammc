@@ -30,7 +30,7 @@ TEST_CASE("list.each", "[externals]")
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
 
-            REQUIRE_PROPERTY(t, @step, 1);
+            REQUIRE_THAT(t, hasProperty(&t, "@step", 1)); 
 
             WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
             REQUIRE_LIST_AT_OUTLET(0, t, L());
@@ -46,7 +46,7 @@ TEST_CASE("list.each", "[externals]")
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
 
-            REQUIRE_PROPERTY(t, @step, 2);
+            REQUIRE_THAT(t, hasProperty(&t, "@step", 2)); 
 
             WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3, 4));
             REQUIRE_LIST_AT_OUTLET(0, t, L());
@@ -70,7 +70,7 @@ TEST_CASE("list.each", "[externals]")
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
 
-            REQUIRE_PROPERTY(t, @step, 12);
+            REQUIRE_THAT(t, hasProperty(&t, "@step", 12)); 
         }
 
         SECTION("positional arguments and props mixed")
@@ -80,7 +80,7 @@ TEST_CASE("list.each", "[externals]")
             REQUIRE(t.numOutlets() == 2);
 
             // property arguments have priority
-            REQUIRE_PROPERTY(t, @step, 4);
+            REQUIRE_THAT(t, hasProperty(&t, "@step", 4)); 
         }
 
         SECTION("invalid args")
@@ -92,7 +92,7 @@ TEST_CASE("list.each", "[externals]")
                 REQUIRE(t.numOutlets() == 2);
 
                 // default value
-                REQUIRE_PROPERTY(t, @step, 1);
+                REQUIRE_THAT(t, hasProperty(&t, "@step", 1)); 
             }
 
             SECTION("positional")
@@ -102,7 +102,7 @@ TEST_CASE("list.each", "[externals]")
                 REQUIRE(t.numOutlets() == 2);
 
                 // default value
-                REQUIRE_PROPERTY(t, @step, 1);
+                REQUIRE_THAT(t, hasProperty(&t, "@step", 1)); 
             }
         }
     }

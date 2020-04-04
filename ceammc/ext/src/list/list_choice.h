@@ -14,4 +14,6 @@ public:
     void onList(const AtomList& l) override;
 };
 
+void setup_list_choice();
+
 #endif // LIST_CHOICE_H

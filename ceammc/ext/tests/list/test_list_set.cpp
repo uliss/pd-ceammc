@@ -54,8 +54,8 @@ TEST_CASE("list.set", "[externals]")
         SECTION("index0")
         {
             TestExtListSet t("list.set", LF(0, -10));
-            REQUIRE_PROPERTY(t, @index, 0.f);
-            REQUIRE_PROPERTY(t, @value, -10);
+            REQUIRE_THAT(t, hasProperty(&t, "@index", 0.f)); 
+            REQUIRE_THAT(t, hasProperty(&t, "@value", -10)); 
 
             t.sendList(L());
             REQUIRE(t.outputListAt(0) == L());
@@ -71,8 +71,8 @@ TEST_CASE("list.set", "[externals]")
         SECTION("index-1")
         {
             TestExtListSet t("list.set", LA(-1, "ABC"));
-            REQUIRE_PROPERTY(t, @index, -1);
-            REQUIRE_PROPERTY(t, @value, "ABC");
+            REQUIRE_THAT(t, hasProperty(&t, "@index", -1)); 
+            REQUIRE_THAT(t, hasProperty(&t, "@value", "ABC")); 
 
             t.send(1, 2);
             REQUIRE(t.outputListAt(0) == LA(1, "ABC"));

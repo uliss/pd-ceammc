@@ -34,25 +34,25 @@ TEST_CASE("list.count", "[externals]")
         SECTION("positional symbol")
         {
             TestListCount t("list.count", LA("c"));
-            REQUIRE_PROPERTY(t, @pattern, "c");
+            REQUIRE_THAT(t, hasProperty(&t, "@pattern", "c")); 
         }
 
         SECTION("positional float")
         {
             TestListCount t("list.count", LF(2));
-            REQUIRE_PROPERTY(t, @pattern, 2);
+            REQUIRE_THAT(t, hasProperty(&t, "@pattern", 2)); 
         }
 
         SECTION("positional list")
         {
             TestListCount t("list.count", LA(1, 2, 3, 4, 5));
-            REQUIRE_PROPERTY(t, @pattern, 1);
+            REQUIRE_THAT(t, hasProperty(&t, "@pattern", 1)); 
         }
 
         SECTION("properties")
         {
             TestListCount t("list.count", LA("@pattern", 111));
-            REQUIRE_PROPERTY(t, @pattern, 111);
+            REQUIRE_THAT(t, hasProperty(&t, "@pattern", 111)); 
         }
     }
 
@@ -76,19 +76,19 @@ TEST_CASE("list.count", "[externals]")
     SECTION("inlet 2")
     {
         TestListCount t("list.count", LF(2));
-        REQUIRE_PROPERTY(t, @pattern, 2);
+        REQUIRE_THAT(t, hasProperty(&t, "@pattern", 2)); 
 
         WHEN_SEND_FLOAT_TO(1, t, 122);
-        REQUIRE_PROPERTY(t, @pattern, 122);
+        REQUIRE_THAT(t, hasProperty(&t, "@pattern", 122)); 
 
         WHEN_SEND_SYMBOL_TO(1, t, "A");
-        REQUIRE_PROPERTY(t, @pattern, "A");
+        REQUIRE_THAT(t, hasProperty(&t, "@pattern", "A")); 
 
         WHEN_SEND_LIST_TO(1, t, LA("C", "B", "A"));
-        REQUIRE_PROPERTY(t, @pattern, "C");
+        REQUIRE_THAT(t, hasProperty(&t, "@pattern", "C")); 
 
         WHEN_SEND_LIST_TO(1, t, L());
-        REQUIRE_PROPERTY(t, @pattern, "C");
+        REQUIRE_THAT(t, hasProperty(&t, "@pattern", "C")); 
     }
 
     SECTION("external simple")

@@ -31,7 +31,7 @@ TEST_CASE("list.rotate", "[externals]")
             ListRotateTest t("list.rotate");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY(t, @step, 1);
+            REQUIRE_THAT(t, hasProperty(&t, "@step", 1)); 
         }
 
         SECTION("int")
@@ -39,7 +39,7 @@ TEST_CASE("list.rotate", "[externals]")
             ListRotateTest t("list.rotate", LF(12));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY(t, @step, 12);
+            REQUIRE_THAT(t, hasProperty(&t, "@step", 12)); 
         }
 
         SECTION("wrong")
@@ -47,7 +47,7 @@ TEST_CASE("list.rotate", "[externals]")
             ListRotateTest t("list.rotate", LA("ABC"));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY(t, @step, 1);
+            REQUIRE_THAT(t, hasProperty(&t, "@step", 1)); 
         }
     }
 

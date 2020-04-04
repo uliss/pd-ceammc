@@ -15,8 +15,6 @@
 #include "list_at.h"
 #include "test_list_base.h"
 
-#include <stdio.h>
-
 PD_COMPLETE_TEST_SETUP(ListAt, list, at)
 
 using TObj = TestListAt;
@@ -36,25 +34,25 @@ TEST_CASE("list.at", "[externals]")
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
-            REQUIRE_PROPERTY(t, @index, 0.f);
+            REQUIRE_THAT(t, hasProperty(&t, "@index", 0.f));
         }
 
         SECTION("properties")
         {
             TObj t("list.at", LA("@index", 2));
-            REQUIRE_PROPERTY(t, @index, 2.f);
+            REQUIRE_THAT(t, hasProperty(&t, "@index", 2.f));
         }
 
         SECTION("positional arguments")
         {
             TObj t("list.at", LF(100));
-            REQUIRE_PROPERTY(t, @index, 100);
+            REQUIRE_THAT(t, hasProperty(&t, "@index", 100));
         }
 
         SECTION("positional arguments and props mixed")
         {
             TObj t("list.at", LA(100, "@index", 10));
-            REQUIRE_PROPERTY(t, @index, 10);
+            REQUIRE_THAT(t, hasProperty(&t, "@index", 10));
         }
 
         SECTION("invalid args")

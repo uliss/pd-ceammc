@@ -30,9 +30,9 @@ TEST_CASE("list.route", "[externals]")
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
-            REQUIRE_PROPERTY(t, @trim, 0.f);
-            REQUIRE_PROPERTY(t, @as_any, 0.f);
-            REQUIRE_PROPERTY(t, @simplify, 1);
+            REQUIRE_THAT(t, hasProperty(&t, "@trim", 0.f)); 
+            REQUIRE_THAT(t, hasProperty(&t, "@as_any", 0.f)); 
+            REQUIRE_THAT(t, hasProperty(&t, "@simplify", 1)); 
 
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -53,7 +53,7 @@ TEST_CASE("list.route", "[externals]")
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 4);
 
-            REQUIRE_PROPERTY(t, @trim, 0.f);
+            REQUIRE_THAT(t, hasProperty(&t, "@trim", 0.f)); 
         }
 
         SECTION("patterns")
@@ -62,7 +62,7 @@ TEST_CASE("list.route", "[externals]")
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 4);
 
-            REQUIRE_PROPERTY(t, @trim, 1);
+            REQUIRE_THAT(t, hasProperty(&t, "@trim", 1)); 
         }
     }
 
@@ -154,7 +154,7 @@ TEST_CASE("list.route", "[externals]")
         SECTION("as any")
         {
             ListRouteTest t("list.route", LA("A", "B", 100, "@as_any"));
-            REQUIRE_PROPERTY(t, @as_any, 1);
+            REQUIRE_THAT(t, hasProperty(&t, "@as_any", 1)); 
 
             // no action on floats
             WHEN_SEND_FLOAT_TO(0, t, 100);
@@ -174,7 +174,7 @@ TEST_CASE("list.route", "[externals]")
         SECTION("as any + trim")
         {
             ListRouteTest t("list.route", LA("A", "B", 100, "@as_any", "@trim"));
-            REQUIRE_PROPERTY(t, @as_any, 1);
+            REQUIRE_THAT(t, hasProperty(&t, "@as_any", 1)); 
 
             // no action on floats and symbols
             WHEN_SEND_FLOAT_TO(0, t, 100);
@@ -211,8 +211,8 @@ TEST_CASE("list.route", "[externals]")
         SECTION("simplify")
         {
             ListRouteTest t("list.route", LA("A", "B", 100, "@simplify", 1));
-            REQUIRE_PROPERTY(t, @simplify, 1);
-            REQUIRE_PROPERTY(t, @trim, 0.f);
+            REQUIRE_THAT(t, hasProperty(&t, "@simplify", 1)); 
+            REQUIRE_THAT(t, hasProperty(&t, "@trim", 0.f)); 
 
             // no action on floats and symbols
             WHEN_SEND_FLOAT_TO(0, t, 100);
@@ -235,8 +235,8 @@ TEST_CASE("list.route", "[externals]")
         SECTION("simplify + as_any")
         {
             ListRouteTest t("list.route", LA("A", "B", 100, "@simplify", 1, "@as_any"));
-            REQUIRE_PROPERTY(t, @simplify, 1);
-            REQUIRE_PROPERTY(t, @trim, 0.f);
+            REQUIRE_THAT(t, hasProperty(&t, "@simplify", 1)); 
+            REQUIRE_THAT(t, hasProperty(&t, "@trim", 0.f)); 
 
             // no action on floats
             WHEN_SEND_FLOAT_TO(0, t, 100);
