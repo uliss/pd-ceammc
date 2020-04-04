@@ -16,8 +16,8 @@
 
 PD_COMPLETE_TEST_SETUP(ListXAt, list, xat)
 
-using TExt = TestExtListXat;
-using TObj = TestListXat;
+using TExt = TestExtListXAt;
+using TObj = TestListXAt;
 
 typedef TestExternal<ListXAt> ListXAtTest;
 

@@ -16,8 +16,8 @@
 
 PD_COMPLETE_TEST_SETUP(ListXContains, list, xcontains)
 
-using TExt = TestExtListXcontains;
-using TObj = TestListXcontains;
+using TExt = TestExtListXContains;
+using TObj = TestListXContains;
 
 TEST_CASE("list.^contains", "[externals]")
 {

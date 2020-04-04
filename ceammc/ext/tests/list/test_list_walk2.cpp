@@ -16,8 +16,8 @@
 
 PD_COMPLETE_TEST_SETUP(ListWalk, list, walk)
 
-using TExt = TestExtListWalk2;
-using TObj = TestListWalk2;
+using TExt = TestExtListWalk;
+using TObj = TestListWalk;
 
 #define REQUIRE_LIST_MSG(obj, lst)                     \
     {                                                  \

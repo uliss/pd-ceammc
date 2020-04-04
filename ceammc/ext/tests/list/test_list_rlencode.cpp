@@ -16,8 +16,8 @@
 
 PD_COMPLETE_TEST_SETUP(ListRLEncode, list, rlencode)
 
-using TExt = TestExtListRlencode;
-using TObj = TestListRlencode;
+using TExt = TestExtListRLEncode;
+using TObj = TestListRLEncode;
 
 TEST_CASE("list.rlencode", "[externals]")
 {
