@@ -15,8 +15,6 @@
 #define CEAMMC_MESSAGE_H
 
 #include "ceammc_atomlist.h"
-#include "ceammc_data.h"
-#include "ceammc_dataatom.h"
 
 namespace ceammc {
 
@@ -34,7 +32,6 @@ public:
 private:
     Type type_;
     Atom value_;
-    DataPtr data_;
     AtomList v_list_;
 
 public:
@@ -56,7 +53,6 @@ public:
     Message(const char* s, Args... args)
         : type_(ANY)
         , value_(gensym(s))
-        , data_(Atom())
         , v_list_({ wrap_atom(args)... })
     {
     }
@@ -96,8 +92,6 @@ public:
         res.insert(0, value_);
         return res;
     }
-
-    const DataPtr& dataValue() const;
 
 private:
     static Atom wrap_atom(const char* str) { return Atom(gensym(str)); }

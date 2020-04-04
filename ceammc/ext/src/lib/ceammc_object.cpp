@@ -148,6 +148,11 @@ void BaseObject::bangTo(size_t n)
     outlet_bang(outlets_[n]);
 }
 
+void BaseObject::boolTo(size_t n, bool v)
+{
+    floatTo(n, v ? 1 : 0);
+}
+
 void BaseObject::floatTo(size_t n, t_float v)
 {
     if (n >= outlets_.size()) {
@@ -227,21 +232,6 @@ void BaseObject::anyTo(size_t n, t_symbol* s, const AtomList& l)
     outletAny(outlets_[n], s, l);
 }
 
-void BaseObject::dataTo(size_t n, const DataPtr& d)
-{
-    if (n >= outlets_.size()) {
-        OBJ_ERR << "invalid outlet index: " << n;
-        return;
-    }
-
-    if (d.isNull()) {
-        OBJ_ERR << "NULL data";
-        return;
-    }
-
-    outletAtom(outlets_[n], d.asAtom());
-}
-
 bool BaseObject::processAnyInlets(t_symbol* sel, const AtomList& lst)
 {
     if (sel->s_name[0] != '_')
@@ -309,12 +299,10 @@ bool BaseObject::processAnyProps(t_symbol* sel, const AtomList& lst)
         bool rc = false;
 
         // support for string for property
-        if (lst.isDataType(data::DATA_STRING) && p->isSymbol()) {
-            DataTPtr<DataTypeString> ptr(lst[0]);
-            if (ptr.isValid())
-                rc = p->set(AtomList(ptr->asSymbol()));
-            else
-                rc = false;
+        if (p->isSymbol() && lst.isA<DataTypeString>()) {
+            auto str = lst.asD<DataTypeString>();
+            auto sym = gensym(str->str().c_str());
+            rc = p->set(AtomList(sym));
         } else
             rc = p->set(lst);
 
@@ -607,12 +595,12 @@ t_symbol* BaseObject::positionalSymbolArgument(size_t pos, t_symbol* def) const
 }
 
 void BaseObject::parseProperties()
-{
+{   
     for (Property* p : props_) {
         if (p->isReadOnly() || p->isInternal())
             continue;
 
-        bool ok = p->initFromArgList(pd_.args);
+        bool ok = p->initFromArgList(pd_.args.parseQuoted());
         if (ok && prop_set_callback_)
             prop_set_callback_(this, p->name());
     }
@@ -837,9 +825,9 @@ void BaseObject::onList(const AtomList&)
     OBJ_ERR << "list is not expected";
 }
 
-void BaseObject::onData(const DataPtr&)
+void BaseObject::onData(const Atom& d)
 {
-    OBJ_ERR << "data is not expected";
+    OBJ_ERR << "data is not expected: " << d.asData()->typeName();
 }
 
 void BaseObject::onAny(t_symbol* s, const AtomList&)

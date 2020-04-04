@@ -15,7 +15,6 @@
 #define CEAMMC_OBJECT_H
 
 #include "ceammc_atomlist.h"
-#include "ceammc_data.h"
 #include "ceammc_message.h"
 #include "ceammc_object_info.h"
 #include "ceammc_property.h"
@@ -33,9 +32,11 @@ namespace ceammc {
 #define OBJ_ERR Error(this).stream()
 #define OBJ_DBG Debug(this).stream()
 #define OBJ_LOG Log(this).stream()
+#define OBJ_POST Post(this).stream()
 #define METHOD_ERR(s) OBJ_ERR << "[" << s->s_name << "( "
 #define METHOD_DBG(s) OBJ_DBG << "[" << s->s_name << "( "
 #define METHOD_LOG(s) OBJ_LOG << "[" << s->s_name << "( "
+#define METHOD_POST(s) OBJ_POST << "[" << s->s_name << "( "
 
 class PdArgs {
 public:
@@ -211,7 +212,7 @@ public:
     virtual void onFloat(t_float);
     virtual void onSymbol(t_symbol*);
     virtual void onList(const AtomList&);
-    virtual void onData(const DataPtr&);
+    virtual void onData(const Atom&);
     virtual void onAny(t_symbol* s, const AtomList&);
 
     /**
@@ -406,6 +407,13 @@ public:
     virtual void bangTo(size_t n);
 
     /**
+     * Outputs 1 or 0 to specified outlet
+     * @n - outlet number
+     * @v - bool value
+     */
+    virtual void boolTo(size_t n, bool v);
+
+    /**
      * Outputs float value to specified outlet
      * @param n - outlet number
      * @param v - t_float value
@@ -436,13 +444,6 @@ public:
     virtual void anyTo(size_t n, const AtomList& l);
     virtual void anyTo(size_t n, t_symbol* s, const Atom& a);
     virtual void anyTo(size_t n, t_symbol* s, const AtomList& l);
-
-    /**
-     * Sends data to specified outlet
-     * @param n - output number
-     * @param d - data pointer
-     */
-    virtual void dataTo(size_t n, const DataPtr& d);
 
     virtual bool processAnyInlets(t_symbol* sel, const AtomList& lst);
 

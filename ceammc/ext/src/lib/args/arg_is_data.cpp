@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "arg_is_data.h"
-#include "ceammc_datatypes.h"
+#include "ceammc_datastorage.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "fmt/format.h"
@@ -47,12 +47,12 @@ bool ArgIsData::checkAtom(const Atom& a, CheckerContext& ctx) const
 
 void ArgIsData::setType(const char* name)
 {
-    static const std::map<t_symbol*, DataType> types = {
-        { gensym("String"), data::DATA_STRING },
-        { gensym("Tree"), data::DATA_TREE },
-        { gensym("Dict"), data::DATA_DICT },
-        { gensym("Set"), data::DATA_SET },
-        { gensym("Mlist"), data::DATA_MLIST }
+    static const std::map<t_symbol*, uint16_t> types = {
+        { gensym("String"), DataStorage::instance().typeByName("String")  },
+        { gensym("Tree"), DataStorage::instance().typeByName("Tree") },
+        { gensym("Dict"), DataStorage::instance().typeByName("Dict")  },
+        { gensym("Set"), DataStorage::instance().typeByName("Set")  },
+        { gensym("Mlist"), DataStorage::instance().typeByName("MList")  }
     };
 
     name_ = gensym(name);

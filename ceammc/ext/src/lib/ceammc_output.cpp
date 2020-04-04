@@ -20,10 +20,10 @@ namespace ceammc {
 bool outletAtom(t_outlet* o, const Atom& a)
 {
     if (a.isFloat()) {
-        outlet_float(o, a.asT<t_float>());
+        outlet_float(o, a.asFloat());
         return true;
     } else if (a.isSymbol()) {
-        outlet_symbol(o, a.asT<t_symbol*>());
+        outlet_symbol(o, a.asSymbol());
         return true;
     } else if (a.isData()) {
         outlet_list(o, &s_list, 1, const_cast<t_atom*>(&a.atom()));

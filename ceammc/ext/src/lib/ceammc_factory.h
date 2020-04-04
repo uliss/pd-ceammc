@@ -22,6 +22,7 @@
 #include <unordered_map>
 #include <vector>
 
+#include "ceammc_data.h"
 #include "ceammc_message.h"
 #include "ceammc_object.h"
 #include "ceammc_object_info.h"
@@ -190,10 +191,10 @@ public:
         setListFn(processDataFn);
     }
 
-    template <class DataT>
+    template <typename... DataT>
     void processData()
     {
-        setListFn(processDataTypedFn<DataT>);
+        setListFn(processDataTypedFn<DataT...>);
     }
 
     void setDescription(const std::string& str)
@@ -313,32 +314,71 @@ public:
 
     static void processDataFn(ObjectProxy* x, t_symbol*, int argc, t_atom* argv)
     {
-        if (argc == 1 && Atom(*argv).isData()) {
-            Atom data(*argv);
-            DataPtr ptr(data);
-            if (ptr.isValid()) {
-                x->impl->onData(ptr);
-            } else {
-                DataDesc desc = data.getData();
-                LIB_ERR << "can't get data with type=" << desc.type << " and id=" << desc.id;
-            }
+        if (argc == 1 && argv && Atom::is_data(argv)) {
+            x->impl->onData(Atom(*argv));
         } else {
             x->impl->onList(AtomList(argc, argv));
         }
     }
 
-    template <class DataT>
+    //    template <typename DataT>
+    //    static void processDataTypedFn(ObjectProxy* x, t_symbol*, int argc, t_atom* argv)
+    //    {
+    //        if (argc == 1 && argv && Atom::is_data(argv)) {
+    //            Atom data(*argv);
+    //            if (data.isA<DataT>())
+    //                x->impl->onDataT(DataAtom<DataT>(std::move(data)));
+    //            else
+    //                x->impl->onData(data);
+    //        } else {
+    //            x->impl->onList(AtomList(argc, argv));
+    //        }
+    //    }
+
+    template <typename DataT>
+    static bool processDataSingleTypedFn(ObjectProxy* x, const Atom& a)
+    {
+        if (a.isA<DataT>()) {
+            x->impl->onDataT(DataAtom<DataT>(a));
+            return true;
+        } else
+            return false;
+    }
+
+    struct utility {
+        template <typename TypeList, int index>
+        struct iterate_pred {
+            static bool next(ObjectProxy* x, const Atom& a)
+            {
+                using Type = typename std::tuple_element<index - 1, TypeList>::type;
+                if (iterate_pred<TypeList, index - 1>::next(x, a))
+                    return true;
+                else
+                    return processDataSingleTypedFn<Type>(x, a);
+            }
+        };
+
+        template <typename TypeList>
+        struct iterate_pred<TypeList, 0> {
+            static bool next(ObjectProxy* x, const Atom& a)
+            {
+                using Type = typename std::tuple_element<0, TypeList>::type;
+                return processDataSingleTypedFn<Type>(x, a);
+            }
+        };
+    };
+
+    template <typename... Types>
     static void processDataTypedFn(ObjectProxy* x, t_symbol*, int argc, t_atom* argv)
     {
-        if (argc == 1 && Atom(*argv).isData()) {
+        using TypeList = std::tuple<Types...>;
+        constexpr int NumTypes = std::tuple_size<TypeList>::value;
+        using IteratorPred = typename utility::template iterate_pred<TypeList, NumTypes>;
+
+        if (argc == 1 && Atom::is_data(*argv)) {
             Atom data(*argv);
-            DataTPtr<DataT> ptr(data);
-            if (ptr.isValid()) {
-                x->impl->onDataT(ptr);
-            } else {
-                DataDesc d = data.getData();
-                LIB_ERR << "can't get data with type=" << d.type << " and id=" << d.id;
-            }
+            if (!IteratorPred::next(x, data))
+                x->impl->onData(data);
         } else {
             x->impl->onList(AtomList(argc, argv));
         }
