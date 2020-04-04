@@ -32,14 +32,14 @@ TEST_CASE("list.last", "[externals]")
         TestExtListLast t("list.last");
 
         t << L();
-        REQUIRE_THAT(t, !hasOutput(&t));
+        REQUIRE_THAT(t, !hasOutput(&t));;
         t << LF(1000);
         REQUIRE_THAT(t, outputFloat(&t, Approx(1000)));
         t << LF(100, 200, 300);
         REQUIRE_THAT(t, outputFloat(&t, Approx(300)));
 
         t.send(DataTypeMList("()"));
-        REQUIRE_THAT(t, !hasOutput(&t));
+        REQUIRE_THAT(t, !hasOutput(&t));;
         t.send(DataTypeMList("(1)"));
         REQUIRE_THAT(t, outputFloat(&t, Approx(1)));
         t.send(DataTypeMList("(a b c)"));

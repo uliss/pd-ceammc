@@ -60,7 +60,7 @@ TEST_CASE("list.unpack", "[externals]")
         TestListUnpack t("list.unpack", { 3 });
 
         WHEN_SEND_LIST_TO(0, t, {});
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         WHEN_SEND_LIST_TO(0, t, { 1 });
         REQUIRE_NO_MESSAGES_AT_OUTLET(2, t);
@@ -83,7 +83,7 @@ TEST_CASE("list.unpack", "[externals]")
         REQUIRE_THAT(t, outputFloat(&t, 1));
 
         WHEN_SEND_TDATA_TO(0, t, MLD());
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         WHEN_SEND_TDATA_TO(0, t, MLD(1));
         REQUIRE_NO_MESSAGES_AT_OUTLET(2, t);

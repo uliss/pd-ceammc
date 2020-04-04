@@ -72,7 +72,7 @@ TEST_CASE("list.zip", "[externals]")
 
             // interleave with 4,5,6
             WHEN_SEND_LIST_TO(1, t, LF(4, 5, 6));
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
             REQUIRE_PROPERTY_LIST(t, @l1, LF(4, 5, 6));
 
             WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
@@ -89,7 +89,7 @@ TEST_CASE("list.zip", "[externals]")
 
             // interleave with 4,5
             WHEN_SEND_LIST_TO(1, t, LF(4, 5));
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
 
             WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
             REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 4, 2, 5));
@@ -105,7 +105,7 @@ TEST_CASE("list.zip", "[externals]")
 
             // interleave with 4
             WHEN_SEND_LIST_TO(1, t, LF(4));
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
 
             WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
             REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 4));
@@ -121,7 +121,7 @@ TEST_CASE("list.zip", "[externals]")
 
             // interleave with ()
             WHEN_SEND_LIST_TO(1, t, L());
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
 
             WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
             REQUIRE_LIST_AT_OUTLET(0, t, L());
@@ -147,10 +147,10 @@ TEST_CASE("list.zip", "[externals]")
             // interleave with 3,4 and 5,6
             WHEN_SEND_LIST_TO(1, t, LF(3, 4));
             REQUIRE_PROPERTY_LIST(t, @l1, LF(3, 4));
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
             WHEN_SEND_LIST_TO(2, t, LF(5, 6));
             REQUIRE_PROPERTY_LIST(t, @l2, LF(5, 6));
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
 
             WHEN_SEND_LIST_TO(0, t, LF(1, 2));
             REQUIRE_LIST_AT_OUTLET(0, t, LA(1, 3, 5, 2, 4, 6));

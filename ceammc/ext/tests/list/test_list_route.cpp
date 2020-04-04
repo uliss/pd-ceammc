@@ -262,7 +262,7 @@ TEST_CASE("list.route", "[externals]")
         ListRouteTest t("list.route", LA("A", "B", 1000, "@trim"));
 
         WHEN_SEND_DATA_TO(0, t, MLD());
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         WHEN_SEND_TDATA_TO(0, t, MLD("A", 1, 2, 3));
         REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2, 3));

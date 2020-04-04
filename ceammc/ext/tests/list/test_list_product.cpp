@@ -32,11 +32,11 @@ TEST_CASE("list.product", "[externals]")
         TestExtListProduct t("list.product");
 
         t << L();
-        REQUIRE_THAT(t, !hasOutput(&t));
+        REQUIRE_THAT(t, !hasOutput(&t));;
         t << LA("a", "b");
-        REQUIRE_THAT(t, !hasOutput(&t));
+        REQUIRE_THAT(t, !hasOutput(&t));;
         t << "symbol";
-        REQUIRE_THAT(t, !hasOutput(&t));
+        REQUIRE_THAT(t, !hasOutput(&t));;
 
         t << 1;
         REQUIRE_THAT(t, outputFloat(&t, 1));
@@ -54,7 +54,7 @@ TEST_CASE("list.product", "[externals]")
         TestExtListProduct t("list.product");
 
         t.send(MLA());
-        REQUIRE_THAT(t, !hasOutput(&t));
+        REQUIRE_THAT(t, !hasOutput(&t));;
 
         t.send(MLA(123));
         REQUIRE_THAT(t, outputFloat(&t, 123));

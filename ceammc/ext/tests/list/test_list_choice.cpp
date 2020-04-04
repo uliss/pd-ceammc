@@ -27,13 +27,13 @@ TEST_CASE("list.choice", "[externals]")
         REQUIRE_THAT(t, hasProperty(&t, "@norepeat", 0));
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         WHEN_SEND_FLOAT_TO(0, t, 123);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         WHEN_SEND_SYMBOL_TO(0, t, "123");
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         SECTION("@norepeat")
         {
@@ -51,7 +51,7 @@ TEST_CASE("list.choice", "[externals]")
 
         // empty list
         WHEN_SEND_LIST_TO(0, t, L());
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         // single value
         int N = 10;
@@ -77,7 +77,7 @@ TEST_CASE("list.choice", "[externals]")
 
         // empty list
         WHEN_SEND_LIST_TO(0, t, L());
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         // single value
         // first time is ok
@@ -86,7 +86,7 @@ TEST_CASE("list.choice", "[externals]")
 
         // second is not output
         WHEN_SEND_LIST_TO(0, t, LF(11));
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         // two values
         WHEN_SEND_LIST_TO(0, t, LF(10, 20));

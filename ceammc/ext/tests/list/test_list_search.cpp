@@ -33,16 +33,16 @@ TEST_CASE("list.search", "[externals]")
         {
             TestListSearch t("list.search");
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
 
             WHEN_SEND_FLOAT_TO(0, t, 100);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
 
             WHEN_SEND_SYMBOL_TO(0, t, "A");
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
 
             WHEN_SEND_DATA_TO(0, t, IntData(100));
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
 
             WHEN_SEND_LIST_TO(0, t, L());
             REQUIRE_LIST_AT_OUTLET(0, t, L());

@@ -44,7 +44,7 @@ TEST_CASE("list.^search", "[externals]")
         TestListXSearch t("list.^search", LF(1, 2, 3, 4, 3, 2, 1, 2));
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         WHEN_SEND_FLOAT_TO(0, t, 10000);
         REQUIRE_THAT(t, outputFloat(&t, -1));

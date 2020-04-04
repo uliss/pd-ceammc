@@ -35,7 +35,7 @@ TEST_CASE("list.^contains", "[externals]")
         TestListXContains t("list.^contains");
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         WHEN_SEND_FLOAT_TO(0, t, 10);
         REQUIRE_THAT(t, outputFloat(&t, 0));
@@ -55,7 +55,7 @@ TEST_CASE("list.^contains", "[externals]")
         TestListXContains t("list.^contains", LA(1, 2, 3, "A"));
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         WHEN_SEND_FLOAT_TO(0, t, 10);
         REQUIRE_THAT(t, outputFloat(&t, 0));
@@ -110,7 +110,7 @@ TEST_CASE("list.^contains", "[externals]")
         AtomList l0(d0, d1);
 
         WHEN_SEND_LIST_TO(1, t, l0);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         WHEN_SEND_FLOAT_TO(0, t, 1);
         REQUIRE_THAT(t, outputFloat(&t, 0));
@@ -129,7 +129,7 @@ TEST_CASE("list.^contains", "[externals]")
         REQUIRE_THAT(t, outputTrue(&t));
 
         WHEN_SEND_DATA_TO(1, t, MLD(1, "TEST", 2));
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
         WHEN_SEND_DATA_TO(0, t, MLD(1));
         REQUIRE_THAT(t, outputTrue(&t));
         WHEN_SEND_DATA_TO(0, t, MLD("TEST"));

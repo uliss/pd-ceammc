@@ -32,7 +32,7 @@ TEST_CASE("list.sum", "[externals]")
         TestListSum t("list.sum", LF(2));
 
         WHEN_SEND_LIST_TO(0, t, {});
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         WHEN_SEND_FLOAT_TO(0, t, 100);
         REQUIRE_THAT(t, outputFloat(&t, 100));
@@ -44,7 +44,7 @@ TEST_CASE("list.sum", "[externals]")
         REQUIRE_THAT(t, outputFloat(&t, 10));
 
         WHEN_SEND_LIST_TO(0, t, LA("a", "b", "c"));
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         WHEN_SEND_LIST_TO(0, t, LA("a", "b", 1));
         REQUIRE_THAT(t, outputFloat(&t, 1));
@@ -55,7 +55,7 @@ TEST_CASE("list.sum", "[externals]")
         TestExtListSum t("list.sum");
 
         t.send(MLA());
-        REQUIRE_THAT(t, !hasOutput(&t));
+        REQUIRE_THAT(t, !hasOutput(&t));;
 
         t.send(MLA(1));
         REQUIRE_THAT(t, outputFloat(&t, 1));
@@ -67,6 +67,6 @@ TEST_CASE("list.sum", "[externals]")
         REQUIRE_THAT(t, outputFloat(&t, 7));
 
         t.send(MLA("a", "b", "c"));
-        REQUIRE_THAT(t, !hasOutput(&t));
+        REQUIRE_THAT(t, !hasOutput(&t));;
     }
 }

@@ -101,11 +101,11 @@ TEST_CASE("list.^at", "[externals]")
             ListXAtTest t("list.^at");
 
             WHEN_SEND_FLOAT_TO(0, t, 0);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
             WHEN_SEND_FLOAT_TO(1, t, 0);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
             WHEN_SEND_FLOAT_TO(-1, t, 0);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
         }
 
         SECTION("rel")
@@ -119,7 +119,7 @@ TEST_CASE("list.^at", "[externals]")
             WHEN_SEND_FLOAT_TO(0, t, 2);
             REQUIRE_THAT(t, outputFloat(&t, 3));
             WHEN_SEND_FLOAT_TO(0, t, 3);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
             WHEN_SEND_FLOAT_TO(0, t, -1);
             REQUIRE_THAT(t, outputFloat(&t, 3));
             WHEN_SEND_FLOAT_TO(0, t, -2);
@@ -127,7 +127,7 @@ TEST_CASE("list.^at", "[externals]")
             WHEN_SEND_FLOAT_TO(0, t, -3);
             REQUIRE_THAT(t, outputFloat(&t, 1));
             WHEN_SEND_FLOAT_TO(0, t, -4);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
         }
 
         SECTION("rel @default")
@@ -273,12 +273,12 @@ TEST_CASE("list.^at", "[externals]")
         ListXAtTest t("list.^at");
 
         WHEN_SEND_DATA_TO(1, t, MLD(1, 2, 3));
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         WHEN_SEND_FLOAT_TO(0, t, 4);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
         WHEN_SEND_FLOAT_TO(0, t, 3);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
         WHEN_SEND_FLOAT_TO(0, t, 2);
         REQUIRE_THAT(t, outputFloat(&t, 3));
         WHEN_SEND_FLOAT_TO(0, t, 1);

@@ -62,11 +62,11 @@ TEST_CASE("list.walk", "[externals]")
         REQUIRE_THAT(t, outputFloat(&t, 3));
 
         CALL(t, next);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
         REQUIRE_INDEX(t, 2);
 
         CALL(t, current);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         CALL(t, reset);
         REQUIRE_INDEX(t, 0);
@@ -78,13 +78,13 @@ TEST_CASE("list.walk", "[externals]")
         REQUIRE_THAT(t, outputFloat(&t, 3));
 
         CALL(t, next);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
         REQUIRE_INDEX(t, 2);
         CALL(t, next);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
         REQUIRE_INDEX(t, 2);
         CALL(t, next);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
         REQUIRE_INDEX(t, 2);
 
         CALL(t, prev);
@@ -93,10 +93,10 @@ TEST_CASE("list.walk", "[externals]")
         REQUIRE_THAT(t, outputFloat(&t, 1));
 
         CALL(t, prev);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
         REQUIRE_INDEX(t, 0);
         CALL(t, prev);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
         REQUIRE_INDEX(t, 0);
 
         CALL(t, next);
@@ -119,7 +119,7 @@ TEST_CASE("list.walk", "[externals]")
             REQUIRE_THAT(t, outputFloat(&t, 5));
 
             CALL_N(t, next, 2);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
 
             CALL_N(t, prev, 2);
             REQUIRE_THAT(t, outputFloat(&t, 3));
@@ -128,7 +128,7 @@ TEST_CASE("list.walk", "[externals]")
             REQUIRE_THAT(t, outputFloat(&t, 1));
 
             CALL_N(t, prev, 2);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
             REQUIRE_INDEX(t, 0);
         }
 
@@ -156,7 +156,7 @@ TEST_CASE("list.walk", "[externals]")
                 REQUIRE_THAT(t, outputFloat(&t, 5));
 
                 CALL(t, next);
-                REQUIRE_NO_MSG(t);
+                REQUIRE_THAT(t, !hasOutput(&t));
 
                 CALL(t, prev);
                 REQUIRE_LIST_MSG(t, AtomList(4, 5));
@@ -171,7 +171,7 @@ TEST_CASE("list.walk", "[externals]")
                 REQUIRE_LIST_MSG(t, AtomList(1, 2));
 
                 CALL(t, prev);
-                REQUIRE_NO_MSG(t);
+                REQUIRE_THAT(t, !hasOutput(&t));
                 REQUIRE_INDEX(t, 0);
             }
 
@@ -191,7 +191,7 @@ TEST_CASE("list.walk", "[externals]")
                 REQUIRE_THAT(t, outputFloat(&t, 5));
 
                 CALL_N(t, next, 2);
-                REQUIRE_NO_MSG(t);
+                REQUIRE_THAT(t, !hasOutput(&t));
                 REQUIRE_INDEX(t, 4);
 
                 CALL_N(t, prev, 2);
@@ -201,7 +201,7 @@ TEST_CASE("list.walk", "[externals]")
                 REQUIRE_LIST_MSG(t, AtomList(1, 2));
 
                 CALL(t, prev);
-                REQUIRE_NO_MSG(t);
+                REQUIRE_THAT(t, !hasOutput(&t));
                 REQUIRE_INDEX(t, 0);
             }
         }
@@ -214,10 +214,10 @@ TEST_CASE("list.walk", "[externals]")
             TestListWalk t("list.walk", LA("@wrap"));
 
             CALL(t, current);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
             REQUIRE_INDEX(t, 0);
             CALL(t, next);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
 
             t.sendList(LF(1.0, 2.0, 3.0));
 
@@ -264,9 +264,9 @@ TEST_CASE("list.walk", "[externals]")
             TestListWalk t("list.walk", LA("@wrap"));
 
             CALL(t, current);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
             CALL(t, next);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
 
             t.sendList(LF(1.0, 2.0, 3.0));
 
@@ -298,9 +298,9 @@ TEST_CASE("list.walk", "[externals]")
             TestListWalk t("list.walk", LA("@wrap", "@length", 2));
 
             CALL(t, current);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
             CALL(t, next);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
 
             t.sendList(LF(1.0, 2.0, 3.0, 4.0, 5.0));
 
@@ -334,10 +334,10 @@ TEST_CASE("list.walk", "[externals]")
             TestListWalk t("list.walk", LA("@clip"));
 
             CALL(t, current);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
             REQUIRE_INDEX(t, 0);
             CALL(t, next);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
 
             t.sendList(LF(1.0, 2.0, 3.0));
 
@@ -387,9 +387,9 @@ TEST_CASE("list.walk", "[externals]")
             TestListWalk t("list.walk", LA("@clip"));
 
             CALL(t, current);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
             CALL_N(t, next, 2);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
 
             t.sendList(LF(1.0, 2.0, 3.0));
 
@@ -418,9 +418,9 @@ TEST_CASE("list.walk", "[externals]")
             REQUIRE_PROPERTY_FLOAT(t, @clip, 1);
 
             CALL(t, current);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
             CALL(t, next);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
 
             t.sendList(LF(1.0, 2.0, 3.0, 4.0, 5.0));
 

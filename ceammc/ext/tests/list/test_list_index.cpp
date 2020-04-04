@@ -47,7 +47,7 @@ TEST_CASE("list.index", "[externals]")
         Test t("list.index", LF(1, 2, 3, 4, 3, 2, 1, 2));
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         WHEN_SEND_FLOAT_TO(0, t, 10000);
         REQUIRE_FLOAT_AT_OUTLET(0, t, -1);

@@ -38,13 +38,13 @@ TEST_CASE("list.contains", "[externals]")
         TObj t("list.contains");
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         WHEN_SEND_FLOAT_TO(0, t, 10);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         WHEN_SEND_SYMBOL_TO(0, t, "a");
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 2));
         REQUIRE_THAT(t, outputFloat(&t, 1));
@@ -58,14 +58,14 @@ TEST_CASE("list.contains", "[externals]")
         TObj t("list.contains", LF(11));
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         WHEN_SEND_FLOAT_TO(0, t, 10);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         // symbol
         WHEN_SEND_SYMBOL_TO(0, t, "a");
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         // list
         WHEN_SEND_LIST_TO(0, t, LF(1, 11));

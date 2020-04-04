@@ -68,9 +68,9 @@ TEST_CASE("list.stretch", "[externals]")
         TestExtListStretch t("list.stretch", { 3 });
 
         t << L();
-        REQUIRE_THAT(t, !hasOutput(&t));
+        REQUIRE_THAT(t, !hasOutput(&t));;
         t << 1;
-        REQUIRE_THAT(t, !hasOutput(&t));
+        REQUIRE_THAT(t, !hasOutput(&t));;
 
         t << LF(1);
         REQUIRE(t.outputListAt(0) == LF(1, 1, 1));
@@ -85,7 +85,7 @@ TEST_CASE("list.stretch", "[externals]")
         TestExtListStretch t("list.stretch", { 3 });
 
         t.send(MLA());
-        REQUIRE_THAT(t, !hasOutput(&t));
+        REQUIRE_THAT(t, !hasOutput(&t));;
 
         t.send(MLA(1));
         REQUIRE(t.outputAtomAt(0) == MLA(1, 1, 1));

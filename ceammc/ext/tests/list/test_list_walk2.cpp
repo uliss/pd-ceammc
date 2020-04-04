@@ -55,10 +55,10 @@ TEST_CASE("list.walk 2", "[externals]")
             TestListWalk t("list.walk", LA("@fold"));
 
             CALL(t, current);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
             REQUIRE_INDEX(t, 0);
             CALL(t, next);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
             REQUIRE_INDEX(t, 0);
 
             t.sendList(LF(1, 2, 3));
@@ -116,9 +116,9 @@ TEST_CASE("list.walk 2", "[externals]")
             TestListWalk t("list.walk", LA("@fold"));
 
             CALL(t, current);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
             CALL_N(t, next, 2);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
 
             t.sendList(LF(1, 2, 3));
 
@@ -148,9 +148,9 @@ TEST_CASE("list.walk 2", "[externals]")
             TestListWalk t("list.walk", LA("@fold", "@length", 2));
 
             CALL(t, current);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
             CALL(t, next);
-            REQUIRE_NO_MSG(t);
+            REQUIRE_THAT(t, !hasOutput(&t));
 
             t.sendList(LF(1, 2, 3, 4, 5));
 
@@ -180,16 +180,16 @@ TEST_CASE("list.walk 2", "[externals]")
         REQUIRE(t.setProperty("@length", LF(0)));
 
         CALL(t, current);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         t.sendList(LF(1, 2));
         CALL(t, current);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         REQUIRE(t.setProperty("@length", LF(-10)));
 
         CALL(t, current);
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
     }
 
     SECTION("test @size")

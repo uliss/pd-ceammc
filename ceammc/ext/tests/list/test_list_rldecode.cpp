@@ -35,7 +35,7 @@ TEST_CASE("list.rldecode", "[externals]")
         REQUIRE_LIST_AT_OUTLET(0, t, L());
 
         WHEN_SEND_LIST_TO(1, t, LF(1, 1));
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 2));
         REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2));
@@ -43,7 +43,7 @@ TEST_CASE("list.rldecode", "[externals]")
         REQUIRE_LIST_AT_OUTLET(0, t, LA("A", "B"));
 
         WHEN_SEND_LIST_TO(1, t, LF(1, 3));
-        REQUIRE_NO_MSG(t);
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 2));
         REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2, 2, 2));
