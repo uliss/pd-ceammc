@@ -34,7 +34,7 @@ TEST_CASE("list.rlencode", "[externals]")
 #define REQUIRE_ENCODE(t, in, out1, out2)           \
     {                                               \
         WHEN_SEND_LIST_TO(0, t, in);                \
-        REQUIRE(t.hasNewMessages(0));               \
+        REQUIRE_THAT(t, hasOutput(&t));               \
         REQUIRE(t.lastMessage(0) == Message(out1)); \
         REQUIRE(t.hasNewMessages(1));               \
         REQUIRE(t.lastMessage(1) == Message(out2)); \

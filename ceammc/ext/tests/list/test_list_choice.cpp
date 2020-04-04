@@ -21,6 +21,8 @@ using TExt = TestExtListChoice;
 
 TEST_CASE("list.choice", "[externals]")
 {
+    pd_test_init();
+
     SECTION("test create with:")
     {
         TObj t("list.choice");
@@ -64,7 +66,7 @@ TEST_CASE("list.choice", "[externals]")
         N = 10;
         while (N-- > 0) {
             WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3, 4));
-            REQUIRE(t.hasNewMessages(0));
+            REQUIRE_THAT(t, hasOutput(&t));
             float v = t.lastMessage(0).atomValue().asFloat();
             bool ok = (v == 1 || v == 2 || v == 3 || v == 4);
             REQUIRE(ok);
@@ -107,7 +109,7 @@ TEST_CASE("list.choice", "[externals]")
         float prev = 0;
         while (n-- > 0) {
             WHEN_SEND_LIST_TO(0, t, LF(10, 20, 30, 40, 50, 60, 70));
-            REQUIRE(t.hasNewMessages(0));
+            REQUIRE_THAT(t, hasOutput(&t));
             float v = t.lastMessage(0).atomValue().asFloat();
             REQUIRE(v != Approx(prev));
             prev = v;
