@@ -6,7 +6,6 @@
 #include "data_list.h"
 #include "data_mlist.h"
 #include "data_set.h"
-#include "data_tree.h"
 #include "dict_contains.h"
 #include "dict_each.h"
 #include "dict_from_list.h"
@@ -39,11 +38,6 @@
 #include "set_symdiff.h"
 #include "set_to_list.h"
 #include "set_union.h"
-#include "tree_at.h"
-#include "tree_float.h"
-#include "tree_keys.h"
-#include "tree_size.h"
-#include "tree_symbol.h"
 
 void ceammc_data_setup()
 {
@@ -60,7 +54,6 @@ void ceammc_data_setup()
     setup_data_dict();
     setup_data_fifo();
     setup_data_float();
-    setup_data_tree();
     setup_data_int();
     setup_data_list();
     setup_data_mlist();
@@ -77,12 +70,6 @@ void ceammc_data_setup()
     setup_dict_to_list();
     setup_dict_values();
     setup_is_dict();
-
-    setup_tree_at();
-    setup_tree_float();
-    setup_tree_keys();
-    setup_tree_size();
-    setup_tree_symbol();
 
     setup_local_dict();
     setup_local_float();

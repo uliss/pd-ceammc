@@ -20,7 +20,6 @@
 
 namespace ceammc {
 
-class DataTypeTree;
 class DataTypeMList;
 class DataTypeDict;
 class DataTypeString;
@@ -67,7 +66,6 @@ public:
 
 using MListAtom = DataAtom<DataTypeMList>;
 using DictAtom = DataAtom<DataTypeDict>;
-using TreeAtom = DataAtom<DataTypeTree>;
 using StringAtom = DataAtom<DataTypeString>;
 
 static_assert(sizeof(MListAtom) == sizeof(Atom), "DataAtom size mismatch");

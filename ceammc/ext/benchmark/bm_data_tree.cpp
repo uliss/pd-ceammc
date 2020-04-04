@@ -21,7 +21,6 @@
 #include <random>
 
 #include "data/mod_data.h"
-#include "datatype_tree.h"
 #include "list/mod_list.h"
 
 using namespace ceammc;
@@ -58,28 +57,4 @@ NONIUS_BENCHMARK("list.at", [] {
 
     tree.connectTo(0, tree_at, 0);
     tree.sendBang();
-})
-
-NONIUS_BENCHMARK("tree [at(", [] {
-    External tree("data.tree", Atom(gensym(R"([1,2,3,4,5,6,7,8,9,10])")));
-    tree.sendMessage(SYM_AT, { 8, 1, -1 });
-})
-
-NONIUS_BENCHMARK("tree [clear(", [] {
-    External t("data.tree", Atom(gensym(R"([1,2,3,4,5,6,7,8,9,10])")));
-    t.sendMessage(SYM_CLEAR);
-})
-
-NONIUS_BENCHMARK("tree.at", [] {
-    External tree("data.tree", Atom(gensym(R"([1,2,3,4,5,6,7,8,9,10])")));
-    External tree_at("tree.at", { 8, 1, -1 });
-
-    tree.connectTo(0, tree_at, 0);
-    tree.sendBang();
-})
-
-NONIUS_BENCHMARK("tree.add", [] {
-    External tree("data.tree", Atom(gensym(R"([1,2,3,4,5,6,7,8,9,10])")));
-    tree.sendMessage(SYM_ADD, AtomList({ 11 }));
-    tree.sendMessage(SYM_ADD, AtomList(SYM_ADD));
 })

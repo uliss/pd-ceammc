@@ -13,128 +13,54 @@
  *****************************************************************************/
 #include "ceammc_data.h"
 #include "ceammc_datastorage.h"
-#include "ceammc_datatypes.h"
+#include "ceammc_format.h"
+#include "ceammc_log.h"
+#include "lex/data_string.lexer.h"
+#include "lex/data_string.parser.hpp"
 
-using namespace ceammc;
+namespace ceammc {
 
-static const DataDesc INVALID(data::DATA_INVALID, DataId(-1));
-
-DataPtr::DataPtr(AbstractData* data)
-    : desc_(INVALID)
-    , data_(data)
+AtomList parseDataList(const AtomList& lst) noexcept
 {
-    desc_ = DataStorage::instance().add(data_);
-}
+    if (lst.empty())
+        return lst;
 
-DataPtr::DataPtr(const Atom& data)
-    : desc_(INVALID)
-    , data_(nullptr)
-{
-    if (!data.isData())
-        return;
+    auto str = to_string(lst, " ");
+    if (str.empty())
+        return lst;
 
-    desc_ = data.getData();
-    data_ = DataStorage::instance().acquire(desc_);
-}
+    try {
+        AtomList res;
+        DataStringLexer lex(str);
+        DataStringParser p(lex, res);
 
-DataPtr::DataPtr(const DataPtr& d)
-    : desc_(d.desc_)
-    , data_(DataStorage::instance().acquire(desc_))
-{
-}
+        return (p.parse() == 0) ? res : lst;
 
-DataPtr::DataPtr(DataPtr&& d)
-    : desc_(d.desc_)
-    , data_(d.data_)
-{
-    d.desc_ = INVALID;
-    d.data_ = nullptr;
-}
-
-DataPtr& DataPtr::operator=(const DataPtr& d)
-{
-    if (this == &d)
-        return *this;
-
-    invalidate();
-
-    desc_ = d.desc_;
-    data_ = DataStorage::instance().acquire(desc_);
-    return *this;
-}
-
-DataPtr& DataPtr::operator=(DataPtr&& d)
-{
-    if (this == &d)
-        return *this;
-
-    invalidate();
-    desc_ = d.desc_;
-    data_ = d.data_;
-
-    d.desc_ = INVALID;
-    d.data_ = nullptr;
-
-    return *this;
-}
-
-DataPtr::~DataPtr()
-{
-    invalidate();
-}
-
-bool DataPtr::isValid() const
-{
-    return desc_ != INVALID && data_ != nullptr;
-}
-
-size_t DataPtr::refCount() const
-{
-    return DataStorage::instance().refCount(desc_);
-}
-
-bool DataPtr::operator==(const DataPtr& d) const
-{
-    if (data_ == d.data_)
-        return true;
-
-    if (isValid() && d.isValid())
-        return data_->isEqual(d.data_);
-
-    return false;
-}
-
-void DataPtr::invalidate()
-{
-    if (isNull())
-        return;
-
-    DataStorage::instance().release(desc_);
-    data_ = nullptr;
-    desc_ = INVALID;
-}
-
-bool ceammc::operator<(const DataPtr& d0, const DataPtr& d1)
-{
-    if (&d0 == &d1)
-        return false;
-
-    if (d0.data() == d1.data())
-        return false;
-
-    if (d0.isValid()) {
-        return d1.isValid() ? d0.data()->isLess(d1.data()) : false;
-    } else {
-        return true;
+    } catch (std::exception& e) {
+        return lst;
     }
 }
 
-std::ostream& ceammc::operator<<(std::ostream& os, const DataPtr& d0)
+AtomList parseDataString(const std::string& str)
 {
-    if (d0.isValid())
-        os << "DataPtr(type=" << d0->type() << "): " << d0->toString();
-    else
-        os << "DataPtr: null";
+    if (str.empty())
+        return AtomList();
 
-    return os;
+    try {
+        AtomList res;
+        DataStringLexer lex(str);
+        DataStringParser p(lex, res);
+
+        if (p.parse() != 0) {
+            LIB_ERR << "parse error";
+            return AtomList();
+        }
+
+        return res;
+
+    } catch (std::exception& e) {
+        LIB_ERR << "parse error: " << e.what();
+        return AtomList();
+    }
+}
 }
