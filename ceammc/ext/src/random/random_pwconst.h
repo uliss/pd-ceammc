@@ -24,6 +24,6 @@ private:
     bool set(const AtomList& data);
 };
 
-extern "C" void setup_random0x2epw_const();
+void setup_random_pw_const();
 
 #endif // RANDOM_PWCONST_H

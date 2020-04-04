@@ -18,11 +18,8 @@
 #include "datatype_mlist.h"
 #include "datatype_string.h"
 #include "test_base.h"
+#include "test_catch2.hpp"
 #include "test_external.h"
-
-#define CATCH_CONFIG_FAST_COMPILE
-#define CATCH_CONFIG_DISABLE_MATCHERS
-#include "Catch2/catch.hpp"
 
 using namespace ceammc;
 

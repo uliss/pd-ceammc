@@ -34,7 +34,9 @@ extern "C" t_float* get_sys_dacsr();
 
 #define PD_TEST_TYPEDEF(T)                \
     typedef TestPdExternal<T> TestExt##T; \
-    typedef TestExternal<T> Test##T
+    typedef TestExternal<T> Test##T; \
+    using TObj = Test##T;\
+    using TExt = TestExt##T
 
 #define PD_TEST_SND_TYPEDEF(T) \
     typedef TestSoundExternal<T> TestExt##T;

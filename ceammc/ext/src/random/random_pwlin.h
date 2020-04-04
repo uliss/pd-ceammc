@@ -22,6 +22,6 @@ public:
     AtomList propWeights() const;
 };
 
-extern "C" void setup_random0x2epw_lin();
+void setup_random_pw_lin();
 
 #endif // RANDOM_PW_LIN_H

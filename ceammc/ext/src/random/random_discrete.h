@@ -1,7 +1,6 @@
 #ifndef RANDOM_DISCRETE_H
 #define RANDOM_DISCRETE_H
 
-#include "ceammc_dataatomlist.h"
 #include "ceammc_object.h"
 using namespace ceammc;
 
@@ -20,6 +19,6 @@ private:
     bool set(const AtomList& l);
 };
 
-extern "C" void setup_random0x2ediscrete();
+void setup_random_discrete();
 
 #endif // RANDOM_DISCRETE_H

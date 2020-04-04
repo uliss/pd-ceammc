@@ -106,7 +106,7 @@ AtomList RandomPwLinear::propWeights() const
     return vector2list(weights_);
 }
 
-extern "C" void setup_random0x2epw_lin()
+void setup_random_pw_lin()
 {
     ObjectFactory<RandomPwLinear> obj("random.pw_lin");
 }

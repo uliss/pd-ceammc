@@ -44,7 +44,7 @@ void RandomLinear::onBang()
     floatTo(0, dist(random_gen));
 }
 
-extern "C" void setup_random0x2elinear()
+void setup_random_linear()
 {
     ObjectFactory<RandomLinear> obj("random.linear");
 }

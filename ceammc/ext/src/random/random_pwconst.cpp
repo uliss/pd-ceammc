@@ -108,7 +108,7 @@ bool RandomPWConst::set(const AtomList& data)
     return true;
 }
 
-extern "C" void setup_random0x2epw_const()
+void setup_random_pw_const()
 {
     ObjectFactory<RandomPWConst> obj("random.pw_const");
 }

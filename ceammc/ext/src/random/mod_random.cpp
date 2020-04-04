@@ -13,9 +13,8 @@ void ceammc_random_setup()
     setup_random0x2efloat();
     setup_random0x2egauss();
     setup_random0x2eint();
-
-    setup_random0x2ediscrete();
-    setup_random0x2elinear();
-    setup_random0x2epw_const();
-    setup_random0x2epw_lin();
+    setup_random_discrete();
+    setup_random_linear();
+    setup_random_pw_const();
+    setup_random_pw_lin();
 }

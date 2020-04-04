@@ -11,30 +11,20 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../random/random_pwconst.h"
-#include "test_base.h"
-#include "catch.hpp"
+#include "random_pwconst.h"
+#include "test_random_base.h"
 
-#include <stdio.h>
+PD_COMPLETE_TEST_SETUP(RandomPWConst, random, pw_const)
 
-typedef TestExternal<RandomPWConst> RandomPWCTest;
-
-#define REQUIRE_OUTPUT_RANGE(obj, from, to)                   \
-    {                                                         \
-        REQUIRE(obj.hasNewMessages(0));                       \
-        REQUIRE(obj.lastMessage(0).isFloat());                \
-        t_float v = obj.lastMessage(0).atomValue().asFloat(); \
-        REQUIRE(from <= v);                                   \
-        REQUIRE(v < to);                                      \
-    }
-
-TEST_CASE("random.pw_const", "[PureData]")
+TEST_CASE("random.pw_const", "[externals]")
 {
+    pd_test_init();
+
     SECTION("init")
     {
         SECTION("default")
         {
-            RandomPWCTest t("random.pw_const");
+            TObj t("random.pw_const");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
@@ -43,12 +33,12 @@ TEST_CASE("random.pw_const", "[PureData]")
             REQUIRE_PROPERTY_LIST(t, @weights, L());
 
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+            REQUIRE_THAT(t, !hasOutput(&t));
         }
 
         SECTION("properties")
         {
-            RandomPWCTest t("random.pw_const", LA("@v", 1, 0.1, 2, 0.2, 3));
+            TObj t("random.pw_const", LA("@v", 1, 0.1, 2, 0.2, 3));
 
             REQUIRE_PROPERTY_LIST(t, @v, LA(1, 0.1, 2, 0.2, 3));
             REQUIRE_PROPERTY_LIST(t, @bounds, LF(1, 2, 3));
@@ -57,7 +47,7 @@ TEST_CASE("random.pw_const", "[PureData]")
 
         SECTION("args")
         {
-            RandomPWCTest t("random.pw_const", LA(1, 0.1, 2, 0.2, 3));
+            TObj t("random.pw_const", LA(1, 0.1, 2, 0.2, 3));
 
             REQUIRE_PROPERTY_LIST(t, @v, LA(1, 0.1, 2, 0.2, 3));
             REQUIRE_PROPERTY_LIST(t, @bounds, LF(1, 2, 3));
@@ -67,7 +57,7 @@ TEST_CASE("random.pw_const", "[PureData]")
 
     SECTION("onList")
     {
-        RandomPWCTest t("random.pw_const");
+        TObj t("random.pw_const");
         REQUIRE_PROPERTY_LIST(t, @v, L());
         REQUIRE_PROPERTY_LIST(t, @bounds, L());
         REQUIRE_PROPERTY_LIST(t, @weights, L());
@@ -91,12 +81,12 @@ TEST_CASE("random.pw_const", "[PureData]")
         REQUIRE_PROPERTY_LIST(t, @v, LA(1, 0.f, 3, 1, 6));
         REQUIRE_PROPERTY_LIST(t, @bounds, LF(1, 3, 6));
         REQUIRE_PROPERTY_LIST(t, @weights, LF(0.f, 1));
-        REQUIRE_OUTPUT_RANGE(t, 3, 6);
+        REQUIRE_THAT(t, outputInRange(&t, 3, 6));
 
         int n = 100;
         while (n--) {
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_OUTPUT_RANGE(t, 3, 6);
+            REQUIRE_THAT(t, outputInRange(&t, 3, 6));
         }
 
         SECTION("error odd")
@@ -148,7 +138,7 @@ TEST_CASE("random.pw_const", "[PureData]")
 
     SECTION("gen")
     {
-        RandomPWCTest t("random.pw_const", LF(1, 1, 2, 0.f, 3, 10, 4));
+        TObj t("random.pw_const", LF(1, 1, 2, 0.f, 3, 10, 4));
 
         int b0 = 0;
         int b1 = 0;
@@ -156,7 +146,7 @@ TEST_CASE("random.pw_const", "[PureData]")
         int n = 100;
         while (n--) {
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_OUTPUT_RANGE(t, 0, 4);
+            REQUIRE_THAT(t, outputInRange(&t, 0, 4));
             float v = t.lastMessage(0).atomValue().asFloat();
             if (v < 2) {
                 b0++;
