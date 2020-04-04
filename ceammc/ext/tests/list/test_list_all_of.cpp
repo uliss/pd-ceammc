@@ -83,7 +83,7 @@ TEST_CASE("list.all_of", "[externals]")
         t.connectFrom(0, less10, 1);
 
         t.send(LF(1, 2, 3, 4));
-        REQUIRE(t.hasOutput());
+        REQUIRE_THAT(t, hasOutput(&t));
         REQUIRE_THAT(t, outputFloat(&t, 1));
 
         t.send(LF(8, 9));

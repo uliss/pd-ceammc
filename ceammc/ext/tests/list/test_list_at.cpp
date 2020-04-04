@@ -123,24 +123,24 @@ TEST_CASE("list.at", "[externals]")
 
         // @*? test
         t.call("@*?");
-        REQUIRE(t.hasOutput());
+        REQUIRE_THAT(t, hasOutput(&t));
         auto props = t.outputAnyAt(0);
         props.sort();
         REQUIRE(props == LA("@*", "@clip", "@default", "@fold", "@index", "@method", "@rel", "@wrap"));
 
         // single test
         t.call("@clip?");
-        REQUIRE(t.hasOutput());
+        REQUIRE_THAT(t, hasOutput(&t));
         REQUIRE(t.outputAnyAt(0) == LA("@clip", 0.f));
 
         // multiple test
         t.call("@clip?", LA("@rel?", "@wrap?"));
-        REQUIRE(t.hasOutput());
+        REQUIRE_THAT(t, hasOutput(&t));
         REQUIRE(t.outputAnyAt(0) == LA("@clip", 0.f, "@rel", 1, "@wrap", 0.f));
 
         // multiple test with invalid
         t.call("@clip?", LA("", "@norequest", "non-prop", "@rel?", "@xxx?", 100));
-        REQUIRE(t.hasOutput());
+        REQUIRE_THAT(t, hasOutput(&t));
         REQUIRE(t.outputAnyAt(0) == LA("@clip", 0.f, "@rel", 1));
     }
 
@@ -150,11 +150,11 @@ TEST_CASE("list.at", "[externals]")
         REQUIRE_PROPERTY_LIST(t, @index, LF(2));
 
         t.sendList(LF(1, 2, 3));
-        REQUIRE(t.hasOutput());
+        REQUIRE_THAT(t, hasOutput(&t));
         REQUIRE_THAT(t, outputFloat(&t, 3));
 
         t.sendList(LF(1, 2));
-        REQUIRE(t.hasOutput());
+        REQUIRE_THAT(t, hasOutput(&t));
         REQUIRE(t.outputSymbolAt(0) == S("???"));
     }
 }

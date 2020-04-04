@@ -101,7 +101,7 @@ TEST_CASE("list.gen", "[externals]")
         intd.connectTo(0, t, 1);
 
         t << 3;
-        REQUIRE(t.hasOutput());
+        REQUIRE_THAT(t, hasOutput(&t));
         REQUIRE(t.isOutputListAt(0));
         REQUIRE(t.outputListAt(0) == LA(IntA(100), IntA(100), IntA(100)));
     }
