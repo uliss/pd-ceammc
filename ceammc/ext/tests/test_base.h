@@ -16,17 +16,16 @@
 
 #include "catch.hpp"
 
-#include "ceammc_dataatom.h"
-#include "ceammc_dataatomlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_message.h"
 #include "ceammc_object.h"
 
 #include "test_common.h"
 
-#include <boost/shared_ptr.hpp>
 #include <cassert>
+#include <functional>
 #include <iostream>
+#include <memory>
 #include <sstream>
 #include <vector>
 
@@ -42,7 +41,7 @@ static t_object* make_owner(const char* name)
     if (test_pd_class == 0) {
         obj_init();
         test_pd_class = class_new(gensym(name),
-            reinterpret_cast<t_newmethod>(0), 0,
+            nullptr, nullptr,
             sizeof(PdObject<T>), 0, A_NULL);
     }
 
@@ -55,10 +54,10 @@ template <class T>
 class TestExternal : public T {
     std::vector<MessageList> msg_;
     std::vector<long> msg_count_;
-    std::vector<DataPtrList> data_;
 
 public:
     TestExternal(const char* name, const AtomList& args = AtomList(), bool mainSignalInlet = false);
+    ~TestExternal();
 
     /** send functions */
     void sendBang(int inlet = 0);
@@ -68,10 +67,10 @@ public:
     void sendList(const AtomList& lst, int inlet = 0);
     void sendAny(const char* name, const AtomList& args = AtomList());
     void sendAny(const AtomList& args);
-    void sendData(const DataPtr& d, int inlet = 0);
+    void sendData(const Atom& a, int inlet = 0);
 
     template <class DataT>
-    void sendTData(const DataT& d, int inlet = 0);
+    void sendTData(const DataT* d, int inlet = 0);
 
     /** overloaded */
     virtual void bangTo(size_t n);
@@ -82,30 +81,21 @@ public:
     virtual void anyTo(size_t n, const AtomList& lst);
     virtual void anyTo(size_t n, t_symbol* sel, const AtomList& lst);
     virtual void messageTo(size_t n, const Message& m);
-    virtual void dataTo(size_t n, const DataPtr& d);
 
     /** messages methods */
 public:
     void storeMessageCount(size_t outlet = 0);
     void storeAllMessageCount();
-    bool hasNewMessages(size_t outlet = 0);
+    bool hasNewMessages(size_t outlet = 0) const;
     size_t messageCount(size_t outlet = 0) const;
     const Message& lastMessage(size_t outlet = 0) const;
     const Message& messageAt(size_t idx, size_t outlet) const;
-    DataPtr dataAt(size_t idx, size_t outlet) const;
-    const DataPtr& lastData(size_t outlet = 0) const;
     bool lastMessageIsBang(size_t outlet = 0) const;
     void cleanMessages(size_t outlet = 0);
     void cleanAllMessages();
 
-    template <class DataT>
-    const DataT* typedDataAt(size_t idx, size_t outlet);
-
-    template <class DataT>
-    const DataT* typedLastDataAt(size_t outlet);
-
 public:
-    typedef void (*sendAtomCallback)(TestExternal* obj, size_t outn, const Atom& a);
+    using sendAtomCallback = std::function<void(TestExternal* obj, size_t outn, const Atom& a)>;
     void setSendAtomCallback(sendAtomCallback cb) { atom_cb_ = cb; }
 
 private:
@@ -183,37 +173,37 @@ public:
     {                                                         \
         REQUIRE(obj.hasNewMessages(outlet));                  \
         REQUIRE(obj.lastMessage(outlet).isData());            \
-        REQUIRE(obj.lastMessage(outlet).dataValue() == data); \
+        REQUIRE(obj.lastMessage(outlet).atomValue() == data); \
     }
 
-#define REQUIRE_PROPERTY(obj, name, val)           \
-    {                                              \
-        Property* p = obj.property(gensym(#name)); \
-        REQUIRE(p != 0);                           \
-        REQUIRE(p->get() == test_atom_wrap(val));  \
+#define REQUIRE_PROPERTY(obj, name, val)          \
+    {                                             \
+        auto p = obj.property(gensym(#name));     \
+        REQUIRE(p != 0);                          \
+        REQUIRE(p->get() == test_atom_wrap(val)); \
     }
 
 #define REQUIRE_PROPERTY_FLOAT(obj, name, val)            \
     {                                                     \
-        Property* p = obj.property(gensym(#name));        \
+        auto p = obj.property(gensym(#name));             \
         REQUIRE(p != 0);                                  \
         REQUIRE_FALSE(p->get().empty());                  \
         REQUIRE(p->get().at(0).asFloat() == Approx(val)); \
     }
 
-#define REQUIRE_PROPERTY_LIST(obj, name, lst)      \
-    {                                              \
-        Property* p = obj.property(gensym(#name)); \
-        REQUIRE(p != 0);                           \
-        REQUIRE(p->get() == lst);                  \
+#define REQUIRE_PROPERTY_LIST(obj, name, lst) \
+    {                                         \
+        auto p = obj.property(gensym(#name)); \
+        REQUIRE(p != 0);                      \
+        REQUIRE(p->get() == lst);             \
     }
 
-#define REQUIRE_PROPERTY_NONE(obj, name)           \
-    {                                              \
-        Property* p = obj.property(gensym(#name)); \
-        REQUIRE(p != 0);                           \
-        REQUIRE_FALSE(p->get().empty());           \
-        REQUIRE(p->get()[0].isNone());             \
+#define REQUIRE_PROPERTY_NONE(obj, name)      \
+    {                                         \
+        auto p = obj.property(gensym(#name)); \
+        REQUIRE(p != 0);                      \
+        REQUIRE_FALSE(p->get().empty());      \
+        REQUIRE(p->get()[0].isNone());        \
     }
 
 #define REQUIRE_INDEX(obj, idx)                         \
@@ -273,27 +263,6 @@ void WHEN_SEND_FLOAT_TO(size_t inlet, T& obj, float v)
     obj.sendFloat(v, inlet);
 }
 
-template <class T, class D>
-void WHEN_SEND_DATA_TO(size_t inlet, T& obj, const D& d)
-{
-    obj.storeAllMessageCount();
-    obj.sendData(DataPtr(d.clone()), inlet);
-}
-
-template <class T>
-void WHEN_SEND_DATA_TO(size_t inlet, T& obj, const DataPtr& d)
-{
-    obj.storeAllMessageCount();
-    obj.sendData(d, inlet);
-}
-
-template <class T, class D>
-void WHEN_SEND_TDATA_TO(size_t inlet, T& obj, const D& d)
-{
-    obj.storeAllMessageCount();
-    obj.sendTData(d, inlet);
-}
-
 template <class T>
 void WHEN_SEND_SYMBOL_TO(size_t inlet, T& obj, const char* sym)
 {
@@ -306,6 +275,27 @@ void WHEN_SEND_BANG_TO(size_t inlet, T& obj)
 {
     obj.storeAllMessageCount();
     obj.sendBang(inlet);
+}
+
+template <class T>
+void WHEN_SEND_DATA_TO(size_t inlet, T& obj, const Atom& a)
+{
+    obj.storeAllMessageCount();
+    obj.sendData(a, inlet);
+}
+
+template <class T, class D>
+void WHEN_SEND_DATA_TO(size_t inlet, T& obj, const D& d)
+{
+    obj.storeAllMessageCount();
+    obj.sendData(Atom(d.clone()), inlet);
+}
+
+template <class T, class D>
+void WHEN_SEND_TDATA_TO(size_t inlet, T& obj, const D& d)
+{
+    obj.storeAllMessageCount();
+    obj.sendTData(&d, inlet);
 }
 
 static PdArgs mainSignalArgs(const PdArgs& args)
@@ -325,13 +315,18 @@ TestExternal<T>::TestExternal(const char* name, const AtomList& args, bool mainS
     const size_t N = T::numOutlets();
     msg_.assign(N, MessageList());
     msg_count_.assign(N, -1);
-    data_.assign(N, DataPtrList());
     T::parseProperties();
     T::initDone();
     // fix CLASS_NOINLET flag
     if (T::owner() && ObjectFactory<T>::classPointer()) {
         T::owner()->te_g.g_pd->c_firstin = ObjectFactory<T>::classPointer()->c_firstin;
     }
+}
+
+template <class T>
+TestExternal<T>::~TestExternal()
+{
+    //    free(&T::owner()->te_g.g_pd);
 }
 
 template <class T>
@@ -393,19 +388,19 @@ void TestExternal<T>::sendAny(const AtomList& args)
 }
 
 template <class T>
-void TestExternal<T>::sendData(const DataPtr& d, int inlet)
+void TestExternal<T>::sendData(const Atom& a, int inlet)
 {
     if (inlet == 0)
-        T::onData(d);
+        T::onData(a);
     else
-        T::onInlet(inlet, d.asAtom());
+        T::onInlet(inlet, a);
 }
 
 template <class T>
 template <class DataT>
-void TestExternal<T>::sendTData(const DataT& d, int inlet)
+void TestExternal<T>::sendTData(const DataT* d, int inlet)
 {
-    T::onDataT(DataTPtr<DataT>(d));
+    T::onDataT(DataAtom<DataT>(*d));
 }
 
 template <class T>
@@ -460,13 +455,6 @@ void TestExternal<T>::messageTo(size_t n, const Message& m)
 }
 
 template <class T>
-void TestExternal<T>::dataTo(size_t n, const DataPtr& d)
-{
-    data_[n].push_back(d);
-    msg_[n].push_back(d.asAtom());
-}
-
-template <class T>
 void TestExternal<T>::storeMessageCount(size_t outlet)
 {
     msg_count_[outlet] = msg_[outlet].size();
@@ -480,7 +468,7 @@ void TestExternal<T>::storeAllMessageCount()
 }
 
 template <class T>
-bool TestExternal<T>::hasNewMessages(size_t outlet)
+bool TestExternal<T>::hasNewMessages(size_t outlet) const
 {
     REQUIRE(outlet < msg_.size());
     return msg_count_[outlet] != msg_[outlet].size();
@@ -505,18 +493,6 @@ const Message& TestExternal<T>::messageAt(size_t idx, size_t outlet) const
 }
 
 template <class T>
-DataPtr TestExternal<T>::dataAt(size_t idx, size_t outlet) const
-{
-    return data_[outlet].at(idx);
-}
-
-template <class T>
-const DataPtr& TestExternal<T>::lastData(size_t outlet) const
-{
-    return data_[outlet].back();
-}
-
-template <class T>
 bool TestExternal<T>::lastMessageIsBang(size_t outlet) const
 {
     if (msg_[outlet].empty())
@@ -529,7 +505,6 @@ template <class T>
 void TestExternal<T>::cleanMessages(size_t outlet)
 {
     msg_[outlet].clear();
-    data_[outlet].clear();
 }
 
 template <class T>
@@ -537,28 +512,6 @@ void TestExternal<T>::cleanAllMessages()
 {
     for (size_t i = 0; i < msg_.size(); i++)
         cleanMessages(i);
-}
-
-template <class T>
-template <class DataT>
-const DataT* TestExternal<T>::typedDataAt(size_t idx, size_t outlet)
-{
-    DataPtr p = dataAt(idx, outlet);
-    if (p && p->type() == DataT::dataType) {
-        return static_cast<DataT*>(p.data());
-    } else
-        return 0;
-}
-
-template <class T>
-template <class DataT>
-const DataT* TestExternal<T>::typedLastDataAt(size_t outlet)
-{
-    DataPtr p = lastData(outlet);
-    if (p.isValid() && p->type() == DataT::dataType) {
-        return static_cast<const DataT*>(p.data());
-    } else
-        return 0;
 }
 
 #endif // BASE_EXTENSION_TEST_H
