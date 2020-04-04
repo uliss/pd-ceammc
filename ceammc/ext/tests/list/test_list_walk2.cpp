@@ -11,10 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include "list_walk.h"
-#include "test_base.h"
-#include "test_external.h"
+#include "test_list_base.h"
 
 PD_COMPLETE_TEST_SETUP(ListWalk, list, walk)
 
