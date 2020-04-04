@@ -11,25 +11,21 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ceammc_regexp.h"
-#include "datatype_string.h"
 #include "string_remove.h"
-#include "test_external.h"
+#include "test_string_base.h"
 
 PD_COMPLETE_TEST_SETUP(StringRemove, string, remove)
 
-#define REQUIRE_STRING(obj, cstr)                                        \
-    {                                                                    \
-        REQUIRE(obj.hasOutputAt(0));                                     \
-        REQUIRE(t.outputAtomAt(0).isA<DataTypeString>());                \
-        REQUIRE(t.outputAtomAt(0).asD<DataTypeString>()->str() == cstr); \
-        t.clearAll();                                                    \
+#define REQUIRE_STRING(obj, cstr)               \
+    {                                           \
+        REQUIRE(obj.hasOutputAt(0));            \
+        REQUIRE(t.outputAtomAt(0) == SA(cstr)); \
+        t.clearAll();                           \
     }
 
 TEST_CASE("string.remove", "[external]")
 {
     pd_test_init();
-    test::pdPrintToStdError();
 
     SECTION("init")
     {
@@ -46,13 +42,13 @@ TEST_CASE("string.remove", "[external]")
             t.sendSymbol(SYM("abc"));
             REQUIRE_STRING(t, "abc");
 
-            t.sendList(StringAtom("def"));
+            t.sendList(SA("def"));
             REQUIRE_STRING(t, "def");
 
             t.sendFloat(123);
             REQUIRE(!t.hasOutput());
 
-            t.sendList(Atom(new IntData(1000)));
+            t.sendList(IntA(1000));
             REQUIRE(!t.hasOutput());
 
             t.sendBang();
@@ -75,11 +71,11 @@ TEST_CASE("string.remove", "[external]")
         t.sendSymbol(SYM(".abc."));
         REQUIRE_STRING(t, "abc");
 
-        t.property("@first")->set(L());
+        t->setProperty("@first", L());
         t.sendSymbol(SYM(".abc."));
         REQUIRE_STRING(t, "abc.");
 
-        t.property("@last")->set(L());
+        t->setProperty("@last", L());
         t.sendSymbol(SYM(".abc."));
         REQUIRE_STRING(t, ".abc");
 

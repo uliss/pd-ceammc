@@ -12,10 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "catch.hpp"
-#include "datatype_mlist.h"
-#include "datatype_string.h"
 #include "string_join.h"
-#include "test_base.h"
+#include "test_string_base.h"
 #include "test_external.h"
 
 PD_COMPLETE_TEST_SETUP(StringJoin, string, join)
@@ -133,13 +131,13 @@ TEST_CASE("string.join", "[external]")
         t.sendList(LF(1, 2, 3));
         REQUIRE_STRING(t, "123");
 
-        t.property("@sep")->set(LA("|"));
+        t->setProperty("@sep", LA("|"));
         REQUIRE_PROPERTY(t, @sep, "|");
 
         t.sendList(LF(1, 2, 3));
         REQUIRE_STRING(t, "1|2|3");
 
-        t.property("@sep")->set(LA("\"", "\""));
+        t->setProperty("@sep", LA("\"", "\""));
         REQUIRE_PROPERTY(t, @sep, "|");
 
         t.sendListTo(LA("'`'", "`''"), 1);
@@ -148,12 +146,12 @@ TEST_CASE("string.join", "[external]")
 
     SECTION("mlist")
     {
-        TestExtStringJoin t("string.join", LA(":"));
+        TestExtStringJoin t("string.join", ":");
 
-        t.sendList(MListAtom("(1 2 3)"));
+        t.sendList(MLA(1, 2, 3));
         REQUIRE_STRING(t, "1:2:3");
 
-        t.sendList(MListAtom("(a b c)"));
+        t.sendList(MLA("a", "b", "c"));
         REQUIRE_STRING(t, "a:b:c");
     }
 }

@@ -11,9 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "datatype_string.h"
 #include "string_replace.h"
 #include "test_external.h"
+#include "test_string_base.h"
 
 PD_COMPLETE_TEST_SETUP(StringReplace, string, replace)
 
@@ -28,7 +28,6 @@ PD_COMPLETE_TEST_SETUP(StringReplace, string, replace)
 TEST_CASE("string.replace", "[external]")
 {
     pd_test_init();
-    test::pdPrintToStdError();
 
     SECTION("init")
     {
@@ -53,7 +52,7 @@ TEST_CASE("string.replace", "[external]")
             t.sendFloat(123);
             REQUIRE(!t.hasOutput());
 
-            t.sendList(Atom(new IntData(1000)));
+            t.sendList(IntA(1000));
             REQUIRE(!t.hasOutput());
 
             t.sendBang();

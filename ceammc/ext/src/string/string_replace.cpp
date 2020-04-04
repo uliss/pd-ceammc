@@ -50,8 +50,7 @@ StringReplace::StringReplace(const PdArgs& a)
 
 void StringReplace::onSymbol(t_symbol* s)
 {
-    DataTypeString str(s);
-    onDataT(&str);
+    onDataT(StringAtom(s));
 }
 
 void StringReplace::onDataT(const StringAtom& str)

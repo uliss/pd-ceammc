@@ -38,8 +38,7 @@ void StringSubstr::onDataT(const StringAtom& str)
 
 void StringSubstr::onSymbol(t_symbol* s)
 {
-    DataTypeString str(s);
-    onDataT(&str);
+    onDataT(StringAtom(s));
 }
 
 void StringSubstr::onInlet(size_t n, const AtomList& l)

@@ -11,33 +11,28 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "catch.hpp"
+#ifndef TEST_STRING_BASE_H
+#define TEST_STRING_BASE_H
+
 #include "ceammc_data.h"
-#include "test_datatypes.h"
+#include "datatype_mlist.h"
+#include "datatype_string.h"
+#include "test_base.h"
+#include "test_external.h"
+
+#define CATCH_CONFIG_FAST_COMPILE
+#define CATCH_CONFIG_DISABLE_MATCHERS
+#include "Catch2/catch.hpp"
 
 using namespace ceammc;
 
+using AT = Atom;
+using AL = AtomList;
+using SA = StringAtom;
+using SD = DataTypeString;
+using MLA = MListAtom;
+using MLD = DataTypeMList;
 using IntA = DataAtom<IntData>;
 using StrA = DataAtom<StrData>;
 
-static Atom copyFirst(const AtomList& l) { return l.at(0); }
-
-TEST_CASE("DataAtom", "[core]")
-{
-    REQUIRE(IntData::constructor_called == 0);
-    REQUIRE(IntData::destructor_called == 0);
-
-    SECTION("direct instantiation")
-    {
-        AtomList l0(IntA(10), StrA("test string"));
-        AtomList l1({ IntA(10), StrA("test string") });
-
-        AtomList l3 = l0;
-        Atom a0 = copyFirst(l1);
-        IntA i0(IntA(20));
-        Atom a1 = IntA(Atom(new IntData(100)));
-    }
-
-    REQUIRE(IntData::constructor_called == 4);
-    REQUIRE(IntData::destructor_called == 4);
-}
+#endif // TEST_STRING_BASE_H

@@ -41,8 +41,7 @@ StringRemove::StringRemove(const PdArgs& a)
 
 void StringRemove::onSymbol(t_symbol* s)
 {
-    DataTypeString str(s);
-    onDataT(&str);
+    onDataT(StringAtom(s));
 }
 
 void StringRemove::onInlet(size_t, const AtomList& l)

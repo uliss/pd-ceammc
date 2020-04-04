@@ -85,7 +85,9 @@ TEST_CASE("list.append", "[externals]")
     {
         TExt t("list.append");
 
-        t.sendListTo({ IntA(10), IntA(20) }, 1);
+        IntA a(10);
+        IntA b(20);
+        t.sendListTo(LA(a, b), 1);
         t.send(IntA(30));
         REQUIRE(t.outputListAt(0) == LA(IntA(30), IntA(10), IntA(20)));
 

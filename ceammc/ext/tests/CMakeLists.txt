@@ -18,6 +18,20 @@ add_library(tests_main_lib1 STATIC
     test_wrappers.cpp
 )
 
+set(CATCH_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Catch2)
+add_library(Catch2::Catch IMPORTED INTERFACE)
+set_target_properties(Catch2::Catch PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${CATCH_INCLUDE_DIR}")
+
+add_library(tests_main_lib2 STATIC
+    tests_main.cpp
+    test_approx.cpp
+    test_datatypes.cpp
+    test_external.cpp
+    test_external_log_output.cpp
+    test_wrappers.cpp
+)
+target_link_libraries(tests_main_lib2 PUBLIC Catch2::Catch)
+
 target_include_directories(tests_main_lib1 PUBLIC Catch/single_include)
 
 if(APPLE)
@@ -33,6 +47,7 @@ ceammc_add_core_test("ceammc::AtomList2" test_atomlist2)
 ceammc_add_core_test("ceammc::AtomListView" test_atomlist_view)
 ceammc_add_core_test("ceammc::Canvas" test_canvas)
 ceammc_add_core_test("ceammc::ControlValue" test_message)
+ceammc_add_core_test("ceammc::DataAtom" test_data)
 ceammc_add_core_test("ceammc::DataTypeTree" test_datatype_tree)
 ceammc_add_core_test("ceammc::DataTypeString" test_datatype_string)
 ceammc_add_core_test("ceammc::SharedData" test_shareddata)
@@ -207,20 +222,20 @@ ceammc_external_test(preset float)
 ceammc_external_test(preset symbol)
 ceammc_external_test(preset list)
 
-ceammc_external_test(string contains)
-ceammc_external_test(string ends_with)
-ceammc_external_test(string equal)
-ceammc_external_test(string format)
-ceammc_external_test(string join)
-ceammc_external_test(string length)
-ceammc_external_test(string match)
-ceammc_external_test(string remove)
-ceammc_external_test(string replace)
-ceammc_external_test(string split)
-ceammc_external_test(string starts_with)
-ceammc_external_test(string str)
-ceammc_external_test(string substr)
-ceammc_external_test(string to_symbol)
+#ceammc_external_test(string contains)
+#ceammc_external_test(string ends_with)
+#ceammc_external_test(string equal)
+#ceammc_external_test(string format)
+#ceammc_external_test(string join)
+#ceammc_external_test(string length)
+#ceammc_external_test(string match)
+#ceammc_external_test(string remove)
+#ceammc_external_test(string replace)
+#ceammc_external_test(string split)
+#ceammc_external_test(string starts_with)
+#ceammc_external_test(string str)
+#ceammc_external_test(string substr)
+#ceammc_external_test(string to_symbol)
 
 ceammc_external_test(system getenv)
 ceammc_external_test(system shell)
@@ -403,3 +418,4 @@ add_executable(test_exec test_exec.cpp)
 add_custom_target(test_src SOURCES gen_test_wav.py)
 
 add_subdirectory(list)
+add_subdirectory(string)

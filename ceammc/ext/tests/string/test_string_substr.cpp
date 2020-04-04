@@ -28,7 +28,7 @@ using namespace ceammc;
         t.clearAll();                                                    \
     }
 
-TEST_CASE("string", "[external]")
+TEST_CASE("string.substr", "[external]")
 {
     pd_test_init();
 

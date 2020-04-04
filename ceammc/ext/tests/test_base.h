@@ -36,18 +36,33 @@ extern "C" {
 template <class T>
 static t_object* make_owner(const char* name)
 {
-    static t_class* test_pd_class = 0;
+    using ClassDeleter = std::function<void(t_class*)>;
+    using ClassOwner = std::unique_ptr<t_class, ClassDeleter>;
+    using ObjectDeleter = std::function<void(t_object*)>;
+    using ObjectOwner = std::unique_ptr<t_object, ObjectDeleter>;
+    using ObjectOwnerList = std::vector<ObjectOwner>;
 
-    if (test_pd_class == 0) {
-        obj_init();
+    static t_class* test_pd_class = nullptr;
+    static ClassOwner cls_owner(0, [](t_class* c) { free(c); });
+    static ObjectOwnerList obj_owner_list;
+
+    if (test_pd_class == nullptr) {
+        if (!pd_objectmaker)
+            pd_init();
+
         test_pd_class = class_new(gensym(name),
             nullptr, nullptr,
             sizeof(PdObject<T>), 0, A_NULL);
+
+        cls_owner.reset(test_pd_class);
     }
 
     assert(test_pd_class != 0);
 
-    return (t_object*)pd_new(test_pd_class);
+    auto obj = (t_object*)pd_new(test_pd_class);
+    ObjectOwner obj_owner(obj, [](t_object* x) { free(x); });
+    obj_owner_list.push_back(std::move(obj_owner));
+    return obj;
 }
 
 template <class T>
