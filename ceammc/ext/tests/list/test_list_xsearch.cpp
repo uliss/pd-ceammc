@@ -55,11 +55,11 @@ TEST_CASE("list.^search", "[externals]")
         REQUIRE_THAT(t, outputFloat(&t, -1));
 
         return;
-        REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
+        REQUIRE_THAT(t, outputFloat(&t, -1));
         return;
 
         WHEN_SEND_FLOAT_TO(0, t, 10000);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
+        REQUIRE_THAT(t, outputFloat(&t, -1));
 
         WHEN_SEND_FLOAT_TO(0, t, 1);
         REQUIRE_THAT(t, outputFloat(&t, 0));
@@ -78,28 +78,28 @@ TEST_CASE("list.^search", "[externals]")
         WHEN_SEND_LIST_TO(0, t, LF(4, 3));
         REQUIRE_THAT(t, outputFloat(&t, 3));
         WHEN_SEND_LIST_TO(0, t, LF(2, 3));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
+        REQUIRE_THAT(t, outputFloat(&t, -1));
 
         WHEN_SEND_LIST_TO(0, t, L());
-        REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
+        REQUIRE_THAT(t, outputFloat(&t, -1));
 
         return;
 
         // out of range start
         t.setProperty("@start", LF(100));
         WHEN_SEND_FLOAT_TO(0, t, 3);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
+        REQUIRE_THAT(t, outputFloat(&t, -1));
         WHEN_SEND_LIST_TO(0, t, LF(1, 2));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
+        REQUIRE_THAT(t, outputFloat(&t, -1));
 
         // last element start
         t.setProperty("@start", LF(7));
         WHEN_SEND_FLOAT_TO(0, t, 3);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
+        REQUIRE_THAT(t, outputFloat(&t, -1));
         WHEN_SEND_FLOAT_TO(0, t, 2);
         REQUIRE_THAT(t, outputFloat(&t, 7));
         WHEN_SEND_LIST_TO(0, t, LF(1, 2));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
+        REQUIRE_THAT(t, outputFloat(&t, -1));
 
         // out of range @end
         t.setProperty("@start", LF(1));
@@ -115,28 +115,28 @@ TEST_CASE("list.^search", "[externals]")
         t.setProperty("@start", LF(2));
         t.setProperty("@end", LF(2));
         WHEN_SEND_FLOAT_TO(0, t, 1);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
+        REQUIRE_THAT(t, outputFloat(&t, -1));
         WHEN_SEND_FLOAT_TO(0, t, 2);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
+        REQUIRE_THAT(t, outputFloat(&t, -1));
         WHEN_SEND_FLOAT_TO(0, t, 3);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
+        REQUIRE_THAT(t, outputFloat(&t, -1));
         WHEN_SEND_FLOAT_TO(0, t, 4);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
+        REQUIRE_THAT(t, outputFloat(&t, -1));
         WHEN_SEND_LIST_TO(0, t, LF(1, 2));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
+        REQUIRE_THAT(t, outputFloat(&t, -1));
 
         // @start > @end
         t.setProperty("@start", LF(3));
         t.setProperty("@end", LF(2));
         WHEN_SEND_FLOAT_TO(0, t, 1);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
+        REQUIRE_THAT(t, outputFloat(&t, -1));
         WHEN_SEND_FLOAT_TO(0, t, 2);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
+        REQUIRE_THAT(t, outputFloat(&t, -1));
         WHEN_SEND_FLOAT_TO(0, t, 3);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
+        REQUIRE_THAT(t, outputFloat(&t, -1));
         WHEN_SEND_FLOAT_TO(0, t, 4);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
+        REQUIRE_THAT(t, outputFloat(&t, -1));
         WHEN_SEND_LIST_TO(0, t, LF(1, 2));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
+        REQUIRE_THAT(t, outputFloat(&t, -1));
     }
 }
