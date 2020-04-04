@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListRLDecode, list, rldecode)
 
+using TExt = TestExtListRldecode;
+using TObj = TestListRldecode;
+
 TEST_CASE("list.rldecode", "[externals]")
 {
     pd_test_init();

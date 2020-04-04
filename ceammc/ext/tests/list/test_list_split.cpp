@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListSplit, list, split)
 
+using TExt = TestExtListSplit;
+using TObj = TestListSplit;
+
 TEST_CASE("list.split", "[externals]")
 {
     pd_test_init();

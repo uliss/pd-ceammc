@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListMean, list, mean)
 
+using TExt = TestExtListMean;
+using TObj = TestListMean;
+
 TEST_CASE("list.mean", "[externals]")
 {
     pd_test_init();

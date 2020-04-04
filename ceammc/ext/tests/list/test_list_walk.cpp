@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListWalk, list, walk)
 
+using TExt = TestExtListWalk;
+using TObj = TestListWalk;
+
 TEST_CASE("list.walk", "[externals]")
 {
     pd_test_init();

@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListLast, list, last)
 
+using TExt = TestExtListLast;
+using TObj = TestListLast;
+
 TEST_CASE("list.last", "[externals]")
 {
     pd_test_init();

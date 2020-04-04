@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListSortWith, list, sort_with)
 
+using TExt = TestExtListSortWith;
+using TObj = TestListSortWith;
+
 TEST_CASE("list.sort_with", "[externals]")
 {
     pd_test_init();

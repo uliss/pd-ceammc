@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListMin, list, min)
 
+using TExt = TestExtListMin;
+using TObj = TestListMin;
+
 TEST_CASE("list.min", "[externals]")
 {
     pd_test_init();

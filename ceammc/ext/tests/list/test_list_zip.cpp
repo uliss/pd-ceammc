@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListZip, list, zip)
 
+using TExt = TestExtListZip;
+using TObj = TestListZip;
+
 TEST_CASE("list.zip", "[externals]")
 {
     pd_test_init();

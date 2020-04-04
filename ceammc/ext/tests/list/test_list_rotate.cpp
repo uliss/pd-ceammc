@@ -18,6 +18,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListRotate, list, rotate)
 
+using TExt = TestExtListRotate;
+using TObj = TestListRotate;
+
 typedef TestExternal<ListRotate> ListRotateTest;
 
 TEST_CASE("list.rotate", "[externals]")

@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListSeq, list, seq)
 
+using TExt = TestExtListSeq;
+using TObj = TestListSeq;
+
 using TObj = TestListSeq;
 using TExt = TestExtListSeq;
 

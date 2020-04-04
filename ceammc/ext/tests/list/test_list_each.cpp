@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListEach, list, each)
 
+using TExt = TestExtListEach;
+using TObj = TestListEach;
+
 typedef TestExternal<ListEach> ListEachTest;
 
 TEST_CASE("list.each", "[externals]")

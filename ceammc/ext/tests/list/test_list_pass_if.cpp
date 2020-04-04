@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListPassIf, list, pass_if)
 
+using TExt = TestExtListPassIf;
+using TObj = TestListPassIf;
+
 TEST_CASE("list.pass_if", "[externals]")
 {
     pd_test_init();

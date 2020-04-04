@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListXAt, list, xat)
 
+using TExt = TestExtListXat;
+using TObj = TestListXat;
+
 typedef TestExternal<ListXAt> ListXAtTest;
 
 TEST_CASE("list.^at", "[externals]")

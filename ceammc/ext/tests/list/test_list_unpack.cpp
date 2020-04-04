@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListUnpack, list, unpack)
 
+using TExt = TestExtListUnpack;
+using TObj = TestListUnpack;
+
 TEST_CASE("list.unpack", "[externals]")
 {
     pd_test_init();

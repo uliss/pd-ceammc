@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListWalk, list, walk)
 
+using TExt = TestExtListWalk2;
+using TObj = TestListWalk2;
+
 #define REQUIRE_LIST_MSG(obj, lst)                     \
     {                                                  \
         REQUIRE(obj.hasNewMessages());                 \

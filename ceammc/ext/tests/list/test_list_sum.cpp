@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListSum, list, sum)
 
+using TExt = TestExtListSum;
+using TObj = TestListSum;
+
 TEST_CASE("list.sum", "[externals]")
 {
     pd_test_init();

@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListCountIf, list, count_if)
 
+using TExt = TestExtListCountIf;
+using TObj = TestListCountIf;
+
 TEST_CASE("list.count_if", "[externals]")
 {
     pd_test_init();

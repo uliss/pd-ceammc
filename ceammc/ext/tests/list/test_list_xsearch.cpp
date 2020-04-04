@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListXSearch, list, xsearch)
 
+using TExt = TestExtListXsearch;
+using TObj = TestListXsearch;
+
 TEST_CASE("list.^search", "[externals]")
 {
     SECTION("create")

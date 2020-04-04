@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListEqual, list, equal)
 
+using TExt = TestExtListEqual;
+using TObj = TestListEqual;
+
 TEST_CASE("list.equal", "[externals]")
 {
     pd_test_init();

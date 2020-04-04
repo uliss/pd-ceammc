@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListProduct, list, product)
 
+using TExt = TestExtListProduct;
+using TObj = TestListProduct;
+
 TEST_CASE("list.product", "[externals]")
 {
     pd_test_init();

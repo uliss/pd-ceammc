@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListPrepend, list, prepend)
 
+using TExt = TestExtListPrepend;
+using TObj = TestListPrepend;
+
 TEST_CASE("list.prepend", "[externals]")
 {
     pd_test_init();

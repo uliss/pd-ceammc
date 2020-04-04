@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListEnumerate, list, enumerate)
 
+using TExt = TestExtListEnumerate;
+using TObj = TestListEnumerate;
+
 TEST_CASE("list.enumerate", "[externals]")
 {
     pd_test_init();

@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListLength, list, length)
 
+using TExt = TestExtListLength;
+using TObj = TestListLength;
+
 TEST_CASE("list.length", "[externals]")
 {
     pd_test_init();

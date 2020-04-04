@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListReverse, list, reverse)
 
+using TExt = TestExtListReverse;
+using TObj = TestListReverse;
+
 TEST_CASE("list.reverse", "[externals]")
 {
     pd_test_init();

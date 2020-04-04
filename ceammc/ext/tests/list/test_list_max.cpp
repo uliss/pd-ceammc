@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListMax, list, max)
 
+using TExt = TestExtListMax;
+using TObj = TestListMax;
+
 TEST_CASE("list.max", "[externals]")
 {
     pd_test_init();

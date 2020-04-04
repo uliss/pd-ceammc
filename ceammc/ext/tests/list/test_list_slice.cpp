@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListSlice, list, slice)
 
+using TExt = TestExtListSlice;
+using TObj = TestListSlice;
+
 TEST_CASE("list.slice", "[externals]")
 {
     pd_test_init();

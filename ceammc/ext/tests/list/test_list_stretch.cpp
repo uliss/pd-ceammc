@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListStretch, list, stretch)
 
+using TExt = TestExtListStretch;
+using TObj = TestListStretch;
+
 TEST_CASE("list.stretch", "[externals]")
 {
     pd_test_init();

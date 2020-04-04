@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListRoute, list, route)
 
+using TExt = TestExtListRoute;
+using TObj = TestListRoute;
+
 typedef TestExternal<ListRoute> ListRouteTest;
 
 TEST_CASE("list.route", "[externals]")

@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListSearch, list, search)
 
+using TExt = TestExtListSearch;
+using TObj = TestListSearch;
+
 TEST_CASE("list.search", "[externals]")
 {
     pd_test_init();

@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListUnique, list, unique)
 
+using TExt = TestExtListUnique;
+using TObj = TestListUnique;
+
 TEST_CASE("list.unique", "[externals]")
 {
     pd_test_init();

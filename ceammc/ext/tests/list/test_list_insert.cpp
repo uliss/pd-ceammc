@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListInsert, list, insert)
 
+using TExt = TestExtListInsert;
+using TObj = TestListInsert;
+
 TEST_CASE("list.insert", "[externals]")
 {
     pd_test_init();

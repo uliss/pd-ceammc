@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListShift, list, shift)
 
+using TExt = TestExtListShift;
+using TObj = TestListShift;
+
 TEST_CASE("list.shift", "[externals]")
 {
     pd_test_init();

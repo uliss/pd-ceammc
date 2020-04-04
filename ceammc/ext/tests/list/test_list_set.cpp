@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListSet, list, set)
 
+using TExt = TestExtListSet;
+using TObj = TestListSet;
+
 TEST_CASE("list.set", "[externals]")
 {
     pd_test_init();

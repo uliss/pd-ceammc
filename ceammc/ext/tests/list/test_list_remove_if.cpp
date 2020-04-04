@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListRemoveIf, list, remove_if)
 
+using TExt = TestExtListRemoveIf;
+using TObj = TestListRemoveIf;
+
 TEST_CASE("list.remove_if", "[externals]")
 {
     pd_test_init();

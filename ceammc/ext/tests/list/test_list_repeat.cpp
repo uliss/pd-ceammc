@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListRepeat, list, repeat)
 
+using TExt = TestExtListRepeat;
+using TObj = TestListRepeat;
+
 TEST_CASE("list.repeat", "[externals]")
 {
     pd_test_init();

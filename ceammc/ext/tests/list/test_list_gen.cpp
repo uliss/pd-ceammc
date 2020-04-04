@@ -16,6 +16,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListGenerate, list, gen)
 
+using TExt = TestExtListGen;
+using TObj = TestListGen;
+
 TEST_CASE("list.gen", "[externals]")
 {
     pd_test_init();

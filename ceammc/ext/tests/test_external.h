@@ -201,6 +201,12 @@ public:
         }
     }
 
+    template <typename... Args>
+    TestPdExternal(const char* name, Args... args)
+        : TestPdExternal(name, AtomList(args...))
+    {
+    }
+
     const t_object* pdObject() const { return object(); }
 
     Property* property(const char* key) { return property(gensym(key)); }

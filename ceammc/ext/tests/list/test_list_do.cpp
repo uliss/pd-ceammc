@@ -18,6 +18,9 @@
 
 PD_COMPLETE_TEST_SETUP(ListDo, list, do)
 
+using TExt = TestExtListDo;
+using TObj = TestListDo;
+
 TEST_CASE("list.do", "[externals]")
 {
     pd_test_init();
