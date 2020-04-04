@@ -68,12 +68,12 @@ TEST_CASE("list.zip", "[externals]")
             // default @min method
             WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
             REQUIRE_LIST_AT_OUTLET(0, t, L());
-            REQUIRE_PROPERTY_LIST(t, @l0, LF(1, 2, 3));
+            REQUIRE_THAT(t, hasProperty(&t, "@l0", 1, 2, 3));
 
             // interleave with 4,5,6
             WHEN_SEND_LIST_TO(1, t, LF(4, 5, 6));
             REQUIRE_THAT(t, !hasOutput(&t));
-            REQUIRE_PROPERTY_LIST(t, @l1, LF(4, 5, 6));
+            REQUIRE_THAT(t, hasProperty(&t, "@l1", 4, 5, 6));
 
             WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
             REQUIRE_LIST_AT_OUTLET(0, t, LA(1, 4, 2, 5, 3, 6));
@@ -142,14 +142,14 @@ TEST_CASE("list.zip", "[externals]")
             // default @min method
             WHEN_SEND_LIST_TO(0, t, LF(1, 2));
             REQUIRE_LIST_AT_OUTLET(0, t, L());
-            REQUIRE_PROPERTY_LIST(t, @l0, LF(1, 2));
+            REQUIRE_THAT(t, hasProperty(&t, "@l0", 1, 2));
 
             // interleave with 3,4 and 5,6
             WHEN_SEND_LIST_TO(1, t, LF(3, 4));
-            REQUIRE_PROPERTY_LIST(t, @l1, LF(3, 4));
+            REQUIRE_THAT(t, hasProperty(&t, "@l1", 3, 4));
             REQUIRE_THAT(t, !hasOutput(&t));
             WHEN_SEND_LIST_TO(2, t, LF(5, 6));
-            REQUIRE_PROPERTY_LIST(t, @l2, LF(5, 6));
+            REQUIRE_THAT(t, hasProperty(&t, "@l2", 5, 6));
             REQUIRE_THAT(t, !hasOutput(&t));
 
             WHEN_SEND_LIST_TO(0, t, LF(1, 2));

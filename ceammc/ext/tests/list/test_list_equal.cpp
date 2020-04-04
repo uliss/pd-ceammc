@@ -43,7 +43,7 @@ TEST_CASE("list.equal", "[externals]")
             TestListEqual t("list.equal", LA("a", "b", "@pattern", 1, 2));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY_LIST(t, @pattern, LF(1, 2));
+            REQUIRE_THAT(t, hasProperty(&t, "@pattern", 1, 2));
         }
 
         SECTION("prop")
@@ -51,7 +51,7 @@ TEST_CASE("list.equal", "[externals]")
             TestListEqual t("list.equal", LA("@pattern", 1, 2));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY_LIST(t, @pattern, LF(1, 2));
+            REQUIRE_THAT(t, hasProperty(&t, "@pattern", 1, 2));
         }
     }
 
