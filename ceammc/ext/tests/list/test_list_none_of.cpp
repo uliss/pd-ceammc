@@ -42,14 +42,14 @@ TEST_CASE("list.none_of", "[externals]")
     {                                       \
         obj.setSendAtomCallback(cb);        \
         WHEN_SEND_LIST_TO(0, obj, lst);     \
-        REQUIRE_FLOAT_AT_OUTLET(0, obj, 1); \
+        REQUIRE_THAT(obj, outputFloat(&obj, 1)); \
     }
 
 #define REQUIRE_SOME(obj, lst, cb)          \
     {                                       \
         obj.setSendAtomCallback(cb);        \
         WHEN_SEND_LIST_TO(0, obj, lst);     \
-        REQUIRE_FLOAT_AT_OUTLET(0, obj, 0); \
+        REQUIRE_THAT(obj, outputFloat(&obj, 0)); \
     }
 
     SECTION("connect")

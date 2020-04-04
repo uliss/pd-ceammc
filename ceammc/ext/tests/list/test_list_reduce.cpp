@@ -37,7 +37,7 @@ TEST_CASE("list.reduce", "[externals]")
             REQUIRE(t.numOutlets() == 2);
 
             WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             REQUIRE(t.messageCount(1) == 2);
             REQUIRE(t.messageAt(0, 1).listValue() == LX(1, 2));
             REQUIRE(t.messageAt(1, 1).listValue() == LX(1, 3));

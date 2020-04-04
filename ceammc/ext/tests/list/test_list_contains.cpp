@@ -47,10 +47,10 @@ TEST_CASE("list.contains", "[externals]")
         REQUIRE_NO_MSG(t);
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 2));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         WHEN_SEND_TDATA_TO(0, t, MLD("a", "b", "c"));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
     }
 
     SECTION("empty")

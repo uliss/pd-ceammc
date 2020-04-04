@@ -46,20 +46,20 @@ TEST_CASE("list.walk", "[externals]")
         t.sendList(LF(1.0, 2.0, 3.0));
 
         CALL(t, current);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
         REQUIRE_INDEX(t, 0);
 
         CALL(t, next);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+        REQUIRE_THAT(t, outputFloat(&t, 2));
         REQUIRE_INDEX(t, 1);
         CALL(t, current);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+        REQUIRE_THAT(t, outputFloat(&t, 2));
 
         CALL(t, next);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+        REQUIRE_THAT(t, outputFloat(&t, 3));
         REQUIRE_INDEX(t, 2);
         CALL(t, current);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+        REQUIRE_THAT(t, outputFloat(&t, 3));
 
         CALL(t, next);
         REQUIRE_NO_MSG(t);
@@ -71,11 +71,11 @@ TEST_CASE("list.walk", "[externals]")
         CALL(t, reset);
         REQUIRE_INDEX(t, 0);
         CALL(t, current);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
         CALL(t, next);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+        REQUIRE_THAT(t, outputFloat(&t, 2));
         CALL(t, next);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+        REQUIRE_THAT(t, outputFloat(&t, 3));
 
         CALL(t, next);
         REQUIRE_NO_MSG(t);
@@ -88,9 +88,9 @@ TEST_CASE("list.walk", "[externals]")
         REQUIRE_INDEX(t, 2);
 
         CALL(t, prev);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+        REQUIRE_THAT(t, outputFloat(&t, 2));
         CALL(t, prev);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         CALL(t, prev);
         REQUIRE_NO_MSG(t);
@@ -100,7 +100,7 @@ TEST_CASE("list.walk", "[externals]")
         REQUIRE_INDEX(t, 0);
 
         CALL(t, next);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+        REQUIRE_THAT(t, outputFloat(&t, 2));
         REQUIRE_INDEX(t, 1);
 
         SECTION("test single step")
@@ -110,22 +110,22 @@ TEST_CASE("list.walk", "[externals]")
             t.sendList(LF(1.0, 2.0, 3.0, 4.0, 5.0));
 
             CALL(t, current);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
 
             CALL_N(t, next, 2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
 
             CALL_N(t, next, 2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 5);
+            REQUIRE_THAT(t, outputFloat(&t, 5));
 
             CALL_N(t, next, 2);
             REQUIRE_NO_MSG(t);
 
             CALL_N(t, prev, 2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
 
             CALL_N(t, prev, 2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
 
             CALL_N(t, prev, 2);
             REQUIRE_NO_MSG(t);
@@ -153,7 +153,7 @@ TEST_CASE("list.walk", "[externals]")
                 REQUIRE_LIST_MSG(t, AtomList(4, 5));
 
                 CALL(t, next);
-                REQUIRE_FLOAT_AT_OUTLET(0, t, 5);
+                REQUIRE_THAT(t, outputFloat(&t, 5));
 
                 CALL(t, next);
                 REQUIRE_NO_MSG(t);
@@ -188,7 +188,7 @@ TEST_CASE("list.walk", "[externals]")
                 REQUIRE_LIST_MSG(t, AtomList(3, 4));
 
                 CALL_N(t, next, 2);
-                REQUIRE_FLOAT_AT_OUTLET(0, t, 5);
+                REQUIRE_THAT(t, outputFloat(&t, 5));
 
                 CALL_N(t, next, 2);
                 REQUIRE_NO_MSG(t);
@@ -222,41 +222,41 @@ TEST_CASE("list.walk", "[externals]")
             t.sendList(LF(1.0, 2.0, 3.0));
 
             CALL(t, current);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             REQUIRE_INDEX(t, 0);
 
             CALL(t, next);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             REQUIRE_INDEX(t, 1);
             CALL(t, next);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             REQUIRE_INDEX(t, 2);
             CALL(t, next);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             REQUIRE_INDEX(t, 0);
             CALL(t, next);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             REQUIRE_INDEX(t, 1);
             CALL(t, next);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             REQUIRE_INDEX(t, 2);
 
             CALL(t, prev);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             CALL(t, prev);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             CALL(t, prev);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             CALL(t, prev);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
 
             CALL(t, reset);
             CALL(t, prev);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             CALL(t, prev);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             CALL(t, prev);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
         }
 
         SECTION("step 2")
@@ -271,25 +271,25 @@ TEST_CASE("list.walk", "[externals]")
             t.sendList(LF(1.0, 2.0, 3.0));
 
             CALL(t, current);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             REQUIRE_INDEX(t, 0);
 
             CALL_N(t, next, 2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             REQUIRE_INDEX(t, 2);
             CALL_N(t, next, 2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             REQUIRE_INDEX(t, 1);
             CALL_N(t, next, 2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             REQUIRE_INDEX(t, 0);
 
             CALL_N(t, prev, 3);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             REQUIRE_INDEX(t, 0);
 
             CALL_N(t, prev, 4);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             REQUIRE_INDEX(t, 2);
         }
 
@@ -342,44 +342,44 @@ TEST_CASE("list.walk", "[externals]")
             t.sendList(LF(1.0, 2.0, 3.0));
 
             CALL(t, current);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             REQUIRE_INDEX(t, 0);
 
             CALL(t, next);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             REQUIRE_INDEX(t, 1);
             CALL(t, next);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             REQUIRE_INDEX(t, 2);
             CALL(t, next);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             REQUIRE_INDEX(t, 2);
             CALL(t, next);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             REQUIRE_INDEX(t, 2);
             CALL(t, next);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             REQUIRE_INDEX(t, 2);
 
             CALL(t, prev);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             CALL(t, prev);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             REQUIRE_INDEX(t, 0);
             CALL(t, prev);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             REQUIRE_INDEX(t, 0);
             CALL(t, prev);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             REQUIRE_INDEX(t, 0);
 
             CALL(t, reset);
             CALL(t, prev);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             CALL(t, prev);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             CALL(t, prev);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
         }
 
         SECTION("step 2")
@@ -394,21 +394,21 @@ TEST_CASE("list.walk", "[externals]")
             t.sendList(LF(1.0, 2.0, 3.0));
 
             CALL(t, current);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
 
             CALL_N(t, next, 2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             CALL_N(t, next, 2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             CALL_N(t, next, 2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             REQUIRE_INDEX(t, 2);
 
             CALL_N(t, prev, 2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
 
             CALL_N(t, prev, 4);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             REQUIRE_INDEX(t, 0);
         }
 

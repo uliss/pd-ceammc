@@ -60,14 +60,14 @@ TEST_CASE("list.equal", "[externals]")
         TestListEqual t("list.equal");
 
         WHEN_SEND_LIST_TO(0, t, L());
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 2));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
 
         WHEN_SEND_LIST_TO(1, t, LF(1, 2));
         WHEN_SEND_LIST_TO(0, t, LF(1, 2));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
     }
 
     SECTION("mlist")

@@ -61,16 +61,16 @@ TEST_CASE("list.count", "[externals]")
         TestListCount t("list.count", LF(2));
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 3, 4, 5));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
 
         WHEN_SEND_LIST_TO(0, t, L());
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 2));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         WHEN_SEND_LIST_TO(0, t, LA(1, 2, 4, 5, 2));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+        REQUIRE_THAT(t, outputFloat(&t, 2));
     }
 
     SECTION("inlet 2")

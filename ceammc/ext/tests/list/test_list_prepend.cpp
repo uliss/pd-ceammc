@@ -35,7 +35,7 @@ TEST_CASE("list.prepend", "[externals]")
         REQUIRE_LIST_AT_OUTLET(0, t, L());
 
         WHEN_SEND_FLOAT_TO(0, t, 10);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 10);
+        REQUIRE_THAT(t, outputFloat(&t, 10));
 
         WHEN_SEND_SYMBOL_TO(0, t, "ABC");
         REQUIRE_SYMBOL_AT_OUTLET(0, t, "ABC");

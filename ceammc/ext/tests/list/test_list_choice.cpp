@@ -57,7 +57,7 @@ TEST_CASE("list.choice", "[externals]")
         int N = 10;
         while (N-- > 0) {
             WHEN_SEND_LIST_TO(0, t, LF(11));
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 11);
+            REQUIRE_THAT(t, outputFloat(&t, 11));
         }
 
         // multiple values
@@ -82,7 +82,7 @@ TEST_CASE("list.choice", "[externals]")
         // single value
         // first time is ok
         WHEN_SEND_LIST_TO(0, t, LF(11));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 11);
+        REQUIRE_THAT(t, outputFloat(&t, 11));
 
         // second is not output
         WHEN_SEND_LIST_TO(0, t, LF(11));
@@ -90,17 +90,17 @@ TEST_CASE("list.choice", "[externals]")
 
         // two values
         WHEN_SEND_LIST_TO(0, t, LF(10, 20));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 20);
+        REQUIRE_THAT(t, outputFloat(&t, 20));
         WHEN_SEND_LIST_TO(0, t, LF(10, 20));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 10);
+        REQUIRE_THAT(t, outputFloat(&t, 10));
         WHEN_SEND_LIST_TO(0, t, LF(10, 20));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 20);
+        REQUIRE_THAT(t, outputFloat(&t, 20));
         WHEN_SEND_LIST_TO(0, t, LF(10, 20));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 10);
+        REQUIRE_THAT(t, outputFloat(&t, 10));
         WHEN_SEND_LIST_TO(0, t, LF(10, 10));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 10);
+        REQUIRE_THAT(t, outputFloat(&t, 10));
         WHEN_SEND_LIST_TO(0, t, LF(10, 10));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 10);
+        REQUIRE_THAT(t, outputFloat(&t, 10));
 
         // several values
         int n = 1000;

@@ -35,19 +35,19 @@ TEST_CASE("list.sum", "[externals]")
         REQUIRE_NO_MSG(t);
 
         WHEN_SEND_FLOAT_TO(0, t, 100);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 100);
+        REQUIRE_THAT(t, outputFloat(&t, 100));
 
         WHEN_SEND_LIST_TO(0, t, { 1000 });
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1000);
+        REQUIRE_THAT(t, outputFloat(&t, 1000));
 
         WHEN_SEND_LIST_TO(0, t, { 1, 2, 3, 4 });
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 10);
+        REQUIRE_THAT(t, outputFloat(&t, 10));
 
         WHEN_SEND_LIST_TO(0, t, LA("a", "b", "c"));
         REQUIRE_NO_MSG(t);
 
         WHEN_SEND_LIST_TO(0, t, LA("a", "b", 1));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
     }
 
     SECTION("mlist")

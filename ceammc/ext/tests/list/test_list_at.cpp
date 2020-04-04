@@ -80,11 +80,11 @@ TEST_CASE("list.at", "[externals]")
             TObj t("list.at");
 
             WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
 
             t.setProperty("@index", LF(2));
             WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
 
             WHEN_SEND_LIST_TO(0, t, LA("a", "b", "c", "d"));
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "c");

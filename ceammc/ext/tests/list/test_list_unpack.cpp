@@ -65,22 +65,22 @@ TEST_CASE("list.unpack", "[externals]")
         WHEN_SEND_LIST_TO(0, t, { 1 });
         REQUIRE_NO_MESSAGES_AT_OUTLET(2, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(1, t);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         WHEN_SEND_LIST_TO(0, t, LA(1, "b"));
         REQUIRE_NO_MESSAGES_AT_OUTLET(2, t);
         REQUIRE_SYMBOL_AT_OUTLET(1, t, "b");
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         WHEN_SEND_LIST_TO(0, t, LA(1, "b", 100));
         REQUIRE_FLOAT_AT_OUTLET(2, t, 100);
         REQUIRE_SYMBOL_AT_OUTLET(1, t, "b");
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         WHEN_SEND_LIST_TO(0, t, LA(1, "b", 100, 101));
         REQUIRE_FLOAT_AT_OUTLET(2, t, 100);
         REQUIRE_SYMBOL_AT_OUTLET(1, t, "b");
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         WHEN_SEND_TDATA_TO(0, t, MLD());
         REQUIRE_NO_MSG(t);
@@ -88,21 +88,21 @@ TEST_CASE("list.unpack", "[externals]")
         WHEN_SEND_TDATA_TO(0, t, MLD(1));
         REQUIRE_NO_MESSAGES_AT_OUTLET(2, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(1, t);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         WHEN_SEND_TDATA_TO(0, t, MLD(1, "a"));
         REQUIRE_NO_MESSAGES_AT_OUTLET(2, t);
         REQUIRE_SYMBOL_AT_OUTLET(1, t, "a");
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         WHEN_SEND_TDATA_TO(0, t, MLD(1, "a", 2));
         REQUIRE_FLOAT_AT_OUTLET(2, t, 2);
         REQUIRE_SYMBOL_AT_OUTLET(1, t, "a");
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         WHEN_SEND_TDATA_TO(0, t, MLD(1, "a", 2, 3, 4, 5, 6));
         REQUIRE_FLOAT_AT_OUTLET(2, t, 2);
         REQUIRE_SYMBOL_AT_OUTLET(1, t, "a");
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
     }
 }

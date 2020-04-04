@@ -38,16 +38,16 @@ TEST_CASE("list.^contains", "[externals]")
         REQUIRE_NO_MSG(t);
 
         WHEN_SEND_FLOAT_TO(0, t, 10);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
 
         WHEN_SEND_SYMBOL_TO(0, t, "a");
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 2));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
 
         WHEN_SEND_DATA_TO(0, t, IntData(100));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
     }
 
     SECTION("empty")
@@ -58,7 +58,7 @@ TEST_CASE("list.^contains", "[externals]")
         REQUIRE_NO_MSG(t);
 
         WHEN_SEND_FLOAT_TO(0, t, 10);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
 
         WHEN_SEND_FLOAT_TO(0, t, 1);
         REQUIRE_THAT(t, outputTrue(&t));
@@ -71,14 +71,14 @@ TEST_CASE("list.^contains", "[externals]")
 
         // symbol
         WHEN_SEND_SYMBOL_TO(0, t, "a");
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
 
         WHEN_SEND_SYMBOL_TO(0, t, "A");
         REQUIRE_THAT(t, outputTrue(&t));
 
         // list
         WHEN_SEND_LIST_TO(0, t, LF(1, 10));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
 
         WHEN_SEND_LIST_TO(0, t, LF(1));
         REQUIRE_THAT(t, outputTrue(&t));
@@ -96,14 +96,14 @@ TEST_CASE("list.^contains", "[externals]")
         REQUIRE_THAT(t, outputTrue(&t));
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 3));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
 
         WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
         REQUIRE_THAT(t, outputTrue(&t));
 
         // data
         WHEN_SEND_DATA_TO(0, t, IntData(100));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
 
         IntA d0(1000);
         StrA d1("ABC");
@@ -113,18 +113,18 @@ TEST_CASE("list.^contains", "[externals]")
         REQUIRE_NO_MSG(t);
 
         WHEN_SEND_FLOAT_TO(0, t, 1);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
         WHEN_SEND_FLOAT_TO(0, t, 2);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
         WHEN_SEND_FLOAT_TO(0, t, 3);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
 
         WHEN_SEND_DATA_TO(0, t, IntData(1000));
         REQUIRE_THAT(t, outputTrue(&t));
         WHEN_SEND_DATA_TO(0, t, IntData(999));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
         WHEN_SEND_DATA_TO(0, t, StrData("abc"));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
         WHEN_SEND_DATA_TO(0, t, StrData("ABC"));
         REQUIRE_THAT(t, outputTrue(&t));
 
@@ -137,19 +137,19 @@ TEST_CASE("list.^contains", "[externals]")
         WHEN_SEND_DATA_TO(0, t, MLD(1, "TEST"));
         REQUIRE_THAT(t, outputTrue(&t));
         WHEN_SEND_DATA_TO(0, t, MLD(3));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
         WHEN_SEND_DATA_TO(0, t, MLD("TEST", 3));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
         WHEN_SEND_FLOAT_TO(0, t, 1);
         REQUIRE_THAT(t, outputTrue(&t));
         WHEN_SEND_FLOAT_TO(0, t, 2);
         REQUIRE_THAT(t, outputTrue(&t));
         WHEN_SEND_FLOAT_TO(0, t, 3);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
         WHEN_SEND_SYMBOL_TO(0, t, "TEST");
         REQUIRE_THAT(t, outputTrue(&t));
         WHEN_SEND_SYMBOL_TO(0, t, "TEST1");
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
     }
 
     SECTION("inlet 2")

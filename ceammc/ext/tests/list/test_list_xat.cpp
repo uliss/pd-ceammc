@@ -113,19 +113,19 @@ TEST_CASE("list.^at", "[externals]")
             ListXAtTest t("list.^at", LA(1, 2, 3));
 
             WHEN_SEND_FLOAT_TO(0, t, 0);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             WHEN_SEND_FLOAT_TO(0, t, 1);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             WHEN_SEND_FLOAT_TO(0, t, 2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             WHEN_SEND_FLOAT_TO(0, t, 3);
             REQUIRE_NO_MSG(t);
             WHEN_SEND_FLOAT_TO(0, t, -1);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             WHEN_SEND_FLOAT_TO(0, t, -2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             WHEN_SEND_FLOAT_TO(0, t, -3);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             WHEN_SEND_FLOAT_TO(0, t, -4);
             REQUIRE_NO_MSG(t);
         }
@@ -135,19 +135,19 @@ TEST_CASE("list.^at", "[externals]")
             ListXAtTest t("list.^at", LA(1, 2, 3, "@default", "null"));
 
             WHEN_SEND_FLOAT_TO(0, t, 0);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             WHEN_SEND_FLOAT_TO(0, t, 1);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             WHEN_SEND_FLOAT_TO(0, t, 2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             WHEN_SEND_FLOAT_TO(0, t, 3);
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "null");
             WHEN_SEND_FLOAT_TO(0, t, -1);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             WHEN_SEND_FLOAT_TO(0, t, -2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             WHEN_SEND_FLOAT_TO(0, t, -3);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             WHEN_SEND_FLOAT_TO(0, t, -4);
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "null");
         }
@@ -157,29 +157,29 @@ TEST_CASE("list.^at", "[externals]")
             ListXAtTest t("list.^at", LA(1, 2, 3, "@clip"));
 
             WHEN_SEND_FLOAT_TO(0, t, 0);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             WHEN_SEND_FLOAT_TO(0, t, 1);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             WHEN_SEND_FLOAT_TO(0, t, 2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             WHEN_SEND_FLOAT_TO(0, t, 3);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             WHEN_SEND_FLOAT_TO(0, t, 4);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             WHEN_SEND_FLOAT_TO(0, t, 4000);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             WHEN_SEND_FLOAT_TO(0, t, -1);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             WHEN_SEND_FLOAT_TO(0, t, -2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             WHEN_SEND_FLOAT_TO(0, t, -3);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             WHEN_SEND_FLOAT_TO(0, t, -4);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             WHEN_SEND_FLOAT_TO(0, t, -5);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             WHEN_SEND_FLOAT_TO(0, t, -6000);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
         }
 
         SECTION("wrap")
@@ -187,29 +187,29 @@ TEST_CASE("list.^at", "[externals]")
             ListXAtTest t("list.^at", LA(1, 2, 3, "@wrap"));
 
             WHEN_SEND_FLOAT_TO(0, t, 0);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             WHEN_SEND_FLOAT_TO(0, t, 1);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             WHEN_SEND_FLOAT_TO(0, t, 2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             WHEN_SEND_FLOAT_TO(0, t, 3);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             WHEN_SEND_FLOAT_TO(0, t, 4);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             WHEN_SEND_FLOAT_TO(0, t, 5);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             WHEN_SEND_FLOAT_TO(0, t, 6);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             WHEN_SEND_FLOAT_TO(0, t, 7);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             WHEN_SEND_FLOAT_TO(0, t, -1);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             WHEN_SEND_FLOAT_TO(0, t, -2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             WHEN_SEND_FLOAT_TO(0, t, -3);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             WHEN_SEND_FLOAT_TO(0, t, -4);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
         }
 
         SECTION("fold")
@@ -217,29 +217,29 @@ TEST_CASE("list.^at", "[externals]")
             ListXAtTest t("list.^at", LA(1, 2, 3, "@fold"));
 
             WHEN_SEND_FLOAT_TO(0, t, 0);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             WHEN_SEND_FLOAT_TO(0, t, 1);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             WHEN_SEND_FLOAT_TO(0, t, 2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             WHEN_SEND_FLOAT_TO(0, t, 3);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             WHEN_SEND_FLOAT_TO(0, t, 4);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
             WHEN_SEND_FLOAT_TO(0, t, 5);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             WHEN_SEND_FLOAT_TO(0, t, 6);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             WHEN_SEND_FLOAT_TO(0, t, 7);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             WHEN_SEND_FLOAT_TO(0, t, -1);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             WHEN_SEND_FLOAT_TO(0, t, -2);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+            REQUIRE_THAT(t, outputFloat(&t, 3));
             WHEN_SEND_FLOAT_TO(0, t, -3);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+            REQUIRE_THAT(t, outputFloat(&t, 2));
             WHEN_SEND_FLOAT_TO(0, t, -4);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
         }
     }
 
@@ -256,7 +256,7 @@ TEST_CASE("list.^at", "[externals]")
             REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 3, 3));
 
             WHEN_SEND_LIST_TO(0, t, LF(0, 100, -100));
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+            REQUIRE_THAT(t, outputFloat(&t, 1));
         }
 
         SECTION("rel + default")
@@ -280,11 +280,11 @@ TEST_CASE("list.^at", "[externals]")
         WHEN_SEND_FLOAT_TO(0, t, 3);
         REQUIRE_NO_MSG(t);
         WHEN_SEND_FLOAT_TO(0, t, 2);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+        REQUIRE_THAT(t, outputFloat(&t, 3));
         WHEN_SEND_FLOAT_TO(0, t, 1);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+        REQUIRE_THAT(t, outputFloat(&t, 2));
         WHEN_SEND_FLOAT_TO(0, t, 0);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
     }
 
     SECTION("external")

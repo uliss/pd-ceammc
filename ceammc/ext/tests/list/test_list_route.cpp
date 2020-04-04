@@ -38,7 +38,7 @@ TEST_CASE("list.route", "[externals]")
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
             WHEN_SEND_FLOAT_TO(0, t, 200);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 200);
+            REQUIRE_THAT(t, outputFloat(&t, 200));
 
             WHEN_SEND_SYMBOL_TO(0, t, "ABC");
             REQUIRE_SYMBOL_AT_OUTLET(0, t, "ABC");
@@ -76,7 +76,7 @@ TEST_CASE("list.route", "[externals]")
             REQUIRE_FLOAT_AT_OUTLET(2, t, 100);
 
             WHEN_SEND_FLOAT_TO(0, t, 200);
-            REQUIRE_FLOAT_AT_OUTLET(0, t, 200);
+            REQUIRE_THAT(t, outputFloat(&t, 200));
 
             WHEN_SEND_FLOAT_TO(0, t, 300);
             REQUIRE_FLOAT_AT_OUTLET(1, t, 300);

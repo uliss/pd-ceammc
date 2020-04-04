@@ -43,7 +43,7 @@ TEST_CASE("list.split", "[externals]")
 
         WHEN_SEND_LIST_TO(0, t, LF(1));
         REQUIRE_LIST_AT_OUTLET(1, t, L());
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         WHEN_SEND_LIST_TO(0, t, L());
         REQUIRE_LIST_AT_OUTLET(1, t, L());

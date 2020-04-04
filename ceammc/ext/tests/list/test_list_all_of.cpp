@@ -40,18 +40,18 @@ TEST_CASE("list.all_of", "[externals]")
         REQUIRE(t.numOutlets() == 2);
     }
 
-#define REQUIRE_ALL(obj, lst, cb)           \
-    {                                       \
-        obj.setSendAtomCallback(cb);        \
-        WHEN_SEND_LIST_TO(0, obj, lst);     \
-        REQUIRE_FLOAT_AT_OUTLET(0, obj, 1); \
+#define REQUIRE_ALL(obj, lst, cb)            \
+    {                                        \
+        obj.setSendAtomCallback(cb);         \
+        WHEN_SEND_LIST_TO(0, obj, lst);      \
+        REQUIRE_THAT(obj, outputTrue(&obj)); \
     }
 
-#define REQUIRE_NOT_ALL(obj, lst, cb)       \
-    {                                       \
-        obj.setSendAtomCallback(cb);        \
-        WHEN_SEND_LIST_TO(0, obj, lst);     \
-        REQUIRE_FLOAT_AT_OUTLET(0, obj, 0); \
+#define REQUIRE_NOT_ALL(obj, lst, cb)         \
+    {                                         \
+        obj.setSendAtomCallback(cb);          \
+        WHEN_SEND_LIST_TO(0, obj, lst);       \
+        REQUIRE_THAT(obj, outputFalse(&obj)); \
     }
 
     SECTION("connect")
