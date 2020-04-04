@@ -32,11 +32,11 @@ TEST_CASE("list.mean", "[externals]")
         TestExtListMean t("list.mean");
 
         t << L();
-        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_THAT(t, !hasOutput(&t));
         t << LA("a", "b");
-        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_THAT(t, !hasOutput(&t));
         t << "symbol";
-        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         t << 100;
         REQUIRE_THAT(t, outputFloat(&t, 100));
@@ -56,7 +56,7 @@ TEST_CASE("list.mean", "[externals]")
         TestExtListMean t("list.mean");
 
         t.send(MLA());
-        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         t.send(MLA(123));
         REQUIRE_THAT(t, outputFloat(&t, 123));
