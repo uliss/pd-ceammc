@@ -76,7 +76,7 @@ TEST_CASE("system.getenv", "[externals]")
         REQUIRE(t.hasOutputAt(1));
         REQUIRE(t.outputFloatAt(1) == 0);
         REQUIRE(t.hasOutputAt(0));
-        REQUIRE(t.outputDataAt(0)->toString() == "stdout test");
+        REQUIRE(t.outputAtomAt(0)->toString() == "stdout test");
 
         // no stderr on windows
 #ifndef __WIN32
@@ -142,7 +142,7 @@ TEST_CASE("system.getenv", "[externals]")
 
         REQUIRE(t.hasOutput());
         REQUIRE(t.outputFloatAt(1) == 0);
-        std::string fname = t.outputDataAt(0)->toString();
+        std::string fname = t.outputAtomAt(0)->toString();
         REQUIRE(fname != "");
         REQUIRE_FALSE(t->isRunning());
 
@@ -152,7 +152,7 @@ TEST_CASE("system.getenv", "[externals]")
 
         REQUIRE(t.hasOutput());
         REQUIRE(t.outputFloatAt(1) == 0);
-        REQUIRE(t.outputDataAt(0)->toString() == "test test test");
+        REQUIRE(t.outputAtomAt(0)->toString() == "test test test");
 
         // message
         t.call("ls");
@@ -160,7 +160,7 @@ TEST_CASE("system.getenv", "[externals]")
 
         REQUIRE(t.hasOutput());
         REQUIRE(t.outputFloatAt(1) == 0);
-        REQUIRE(t.outputDataAt(0)->toString() == fname);
+        REQUIRE(t.outputAtomAt(0)->toString() == fname);
 
         // not exists
         t << "not-exists";
@@ -181,6 +181,6 @@ TEST_CASE("system.getenv", "[externals]")
 
         REQUIRE(t.hasOutput());
         REQUIRE(t.outputFloatAt(1) == 0);
-        REQUIRE(t.outputDataAt(0)->toString() == "test");
+        REQUIRE(t.outputAtomAt(0)->toString() == "test");
     }
 }

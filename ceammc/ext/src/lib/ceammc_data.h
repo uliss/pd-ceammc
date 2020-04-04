@@ -33,6 +33,16 @@ public:
     {
     }
 
+    explicit DataAtom(const T& data)
+        : Atom(new T(data))
+    {
+    }
+
+    explicit DataAtom(T&& data)
+        : Atom(new T(std::move(data)))
+    {
+    }
+
     explicit DataAtom(Atom&& a)
         : Atom(std::move(a))
     {

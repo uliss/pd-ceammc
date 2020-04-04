@@ -19,7 +19,7 @@
 class EnvAr;
 extern void setup_env_ar_tilde();
 
-PD_COMPLETE_TEST_SETUP(EnvAr, env, ar_tilde);
+PD_COMPLETE_TEST_SETUP(EnvAr, env, ar_tilde)
 
 #define PROPERTY_REQUEST(obj, n, ...)                       \
     {                                                       \

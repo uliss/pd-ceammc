@@ -1,8 +1,8 @@
 #include "list_apply_to.h"
-#include "datatype_mlist.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "datatype_mlist.h"
 
 ListApplyTo::ListApplyTo(const ceammc::PdArgs& args)
     : BaseObject(args)
@@ -60,9 +60,9 @@ void ListApplyTo::onInlet(size_t n, const AtomList& lst)
     }
 }
 
-void ListApplyTo::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void ListApplyTo::onDataT(const MListAtom& ml)
 {
-    const int N = dptr->size();
+    const int N = ml->size();
     mapped_.clear();
     mapped_.reserve(N);
     normalizeIndexes(N);
@@ -75,13 +75,13 @@ void ListApplyTo::onDataT(const DataTPtr<DataTypeMList>& dptr)
 
         // no proccessing required
         if (it == norm_idxs_.end())
-            mapped_.append((*dptr)[cur_idx_].asAtom());
+            mapped_.append((*ml)[cur_idx_]);
         else
-            atomTo(1, (*dptr)[cur_idx_].asAtom());
+            atomTo(1, (*ml)[cur_idx_]);
     }
 
     on_loop_ = false;
-    dataTo(0, DataTPtr<DataTypeMList>(DataTypeMList(mapped_)));
+    atomTo(0, new DataTypeMList(mapped_));
 }
 
 void ListApplyTo::setIndexes(const AtomList& lst)

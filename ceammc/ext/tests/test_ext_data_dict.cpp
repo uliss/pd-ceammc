@@ -43,7 +43,7 @@
         REQUIRE(*obj.dict().valueT<AtomList>(test_atom_wrap(key)) == lst); \
     }
 
-PD_COMPLETE_TEST_SETUP(DataDict, data, dict);
+PD_COMPLETE_TEST_SETUP(DataDict, data, dict)
 
 TEST_CASE("data.mlist", "[externals]")
 {

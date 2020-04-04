@@ -14,13 +14,12 @@
 #ifndef LIST_GEN_H
 #define LIST_GEN_H
 
-#include "ceammc_dataatomlist.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
 
 class ListGenerate : public BaseObject {
-    DataAtomList gen_values_;
+    AtomList gen_values_;
     IntProperty* count_;
     bool in_process_;
 

@@ -16,7 +16,7 @@
 #include "test_base.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(DictEach, dict, each);
+PD_COMPLETE_TEST_SETUP(DictEach, dict, each)
 
 TEST_CASE("dict.each", "[externals]")
 {
@@ -45,6 +45,6 @@ TEST_CASE("dict.each", "[externals]")
 
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputDataAt(0) == DataPtr(new DataTypeDict("([a:1] [c:0] [d:1])")));
+        REQUIRE(t.outputAtomAt(0) == DataPtr(new DataTypeDict("([a:1] [c:0] [d:1])")));
     }
 }

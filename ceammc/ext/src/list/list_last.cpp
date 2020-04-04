@@ -16,12 +16,12 @@ void ListLast::onList(const AtomList& lst)
         atomTo(0, *last);
 }
 
-void ListLast::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void ListLast::onDataT(const MListAtom& ml)
 {
-    if (dptr->empty())
+    if (ml->empty())
         return;
 
-    atomTo(0, dptr->at(dptr->size() - 1).asAtom());
+    atomTo(0, ml->at(ml->size() - 1));
 }
 
 void setup_list_last()

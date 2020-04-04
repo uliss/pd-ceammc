@@ -16,7 +16,7 @@
 #include "test_base.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(ConvList2Props, list, to_props);
+PD_COMPLETE_TEST_SETUP(ConvList2Props, list, to_props)
 
 TEST_CASE("conv.list2props", "[externals]")
 {

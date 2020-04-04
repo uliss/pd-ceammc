@@ -46,7 +46,7 @@ void ListInsert::onList(const AtomList& lst)
 
     // main insert
     for (size_t i = 0; i < lst_.size(); i++)
-        res.append(lst_[i].asAtom());
+        res.append(lst_[i]);
 
     // insert after
     for (size_t i = N; i < lst.size(); i++)
@@ -59,7 +59,7 @@ void ListInsert::onInlet(size_t n, const AtomList& lst)
 {
     switch (n) {
     case 1:
-        lst_.set(lst);
+        lst_ = lst;
         break;
     case 2:
         index_->set(lst);
@@ -70,18 +70,18 @@ void ListInsert::onInlet(size_t n, const AtomList& lst)
     }
 }
 
-void ListInsert::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void ListInsert::onDataT(const MListAtom& ml)
 {
-    if (index_->value() > dptr->size()) {
+    if (index_->value() > ml->size()) {
         OBJ_ERR << "index value is too big: " << index_->value();
         return;
     }
 
-    const size_t N = std::min<size_t>(dptr->size(), index_->value());
+    const size_t N = std::min<size_t>(ml->size(), index_->value());
 
-    DataTypeMList res(*dptr);
-    res.insert(N, lst_);
-    dataTo(0, DataTPtr<DataTypeMList>(res));
+    MListAtom res(*ml);
+    res->insert(N, lst_);
+    atomTo(0, res);
 }
 
 void setup_list_insert()

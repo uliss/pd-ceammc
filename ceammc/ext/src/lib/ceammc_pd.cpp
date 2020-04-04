@@ -90,6 +90,14 @@ bool pd::External::isNull() const
     return obj_ == 0;
 }
 
+t_symbol* pd::External::className() const
+{
+    if (isNull())
+        return gensym("NULL");
+
+    return obj_->te_g.g_pd->c_name;
+}
+
 bool pd::External::connectTo(size_t outn, t_object* dest, size_t inln)
 {
     if (!obj_) {
@@ -173,6 +181,11 @@ bool pd::External::connectFrom(size_t outn, pd::External& ext, size_t inln)
 }
 
 t_object* pd::External::object()
+{
+    return obj_;
+}
+
+const t_object* pd::External::object() const
 {
     return obj_;
 }

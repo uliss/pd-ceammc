@@ -14,7 +14,6 @@
 #ifndef LIST_EACH_H
 #define LIST_EACH_H
 
-#include "ceammc_dataatomlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_object.h"
 #include "datatype_mlist.h"
@@ -29,8 +28,6 @@ enum ListMode {
 
 class ListEach : public BaseObject {
     AtomList mapped_list_;
-    DataAtomList mapped_dlist_;
-    DataTypeMList mapped_mlist_;
     IntProperty* step_prop_;
     ListMode mode_;
 
@@ -40,7 +37,7 @@ public:
     void onList(const AtomList& l) override;
     void onInlet(size_t n, const AtomList& l) override;
 
-    void onDataT(const DataTPtr<DataTypeMList>& dptr);
+    void onDataT(const MListAtom& ml);
 };
 
 void setup_list_each();

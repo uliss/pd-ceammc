@@ -77,7 +77,7 @@ TEST_CASE("list.all_of", "[externals]")
     SECTION("external")
     {
         TExt t("list.all_of");
-        pd::External less10("<", LF(10));
+        pd::External less10("<", 10);
 
         t.connectTo(1, less10, 0);
         t.connectFrom(0, less10, 1);

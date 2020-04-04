@@ -150,7 +150,7 @@ TEST_CASE("wrapper class", "[class-wrapper]")
             TestType t("data0.new");
             t << BANG;
             REQUIRE(t.isOutputDataAt(0));
-            DataPtr r = t.outputDataAt(0);
+            DataPtr r = t.outputAtomAt(0);
             REQUIRE(r.isValid());
             REQUIRE(r->toString() == "void");
             REQUIRE(r->type() == data::DATA_WRAPPER);
@@ -181,7 +181,7 @@ TEST_CASE("wrapper class", "[class-wrapper]")
             t << BANG;
 
             REQUIRE(t.isOutputDataAt(0));
-            DataPtr r = t.outputDataAt(0);
+            DataPtr r = t.outputAtomAt(0);
             REQUIRE(r.isValid());
             REQUIRE(r->toString() == "int: 0");
             REQUIRE(r->type() == data::DATA_WRAPPER);
@@ -198,7 +198,7 @@ TEST_CASE("wrapper class", "[class-wrapper]")
             t << BANG;
 
             REQUIRE(t.isOutputDataAt(0));
-            DataPtr r = t.outputDataAt(0);
+            DataPtr r = t.outputAtomAt(0);
             REQUIRE(r.isValid());
             REQUIRE(r->toString() == "int: 100");
             REQUIRE(r->type() == data::DATA_WRAPPER);
@@ -213,7 +213,7 @@ TEST_CASE("wrapper class", "[class-wrapper]")
             TestType t("data1.new", LA("A"));
             t << BANG;
 
-            DataPtr r = t.outputDataAt(0);
+            DataPtr r = t.outputAtomAt(0);
             REQUIRE(r.isValid());
             REQUIRE(r->toString() == "int: 0");
         }
@@ -223,7 +223,7 @@ TEST_CASE("wrapper class", "[class-wrapper]")
             TestType t("data1.new", LA(10, 20, 30));
             t << BANG;
 
-            DataPtr r = t.outputDataAt(0);
+            DataPtr r = t.outputAtomAt(0);
             REQUIRE(r.isValid());
             REQUIRE(r->toString() == "int: 0");
         }
@@ -234,7 +234,7 @@ TEST_CASE("wrapper class", "[class-wrapper]")
             t << 100;
             REQUIRE(t.hasOutputAt(0));
             REQUIRE(t.isOutputDataAt(0));
-            DataPtr r = t.outputDataAt(0);
+            DataPtr r = t.outputAtomAt(0);
             const DataType* p = r.as<DataType>();
             REQUIRE(p->value().get() == 100);
             REQUIRE(t->data()->value().get() == 100);
@@ -242,7 +242,7 @@ TEST_CASE("wrapper class", "[class-wrapper]")
             t << BANG;
             REQUIRE(t.hasOutputAt(0));
             REQUIRE(t.isOutputDataAt(0));
-            r = t.outputDataAt(0);
+            r = t.outputAtomAt(0);
             p = r.as<DataType>();
             REQUIRE(p->value().get() == 100);
         }
@@ -265,7 +265,7 @@ TEST_CASE("wrapper class", "[class-wrapper]")
 
             REQUIRE(t.hasOutputAt(0));
             REQUIRE(t.isOutputDataAt(0));
-            DataPtr r = t.outputDataAt(0);
+            DataPtr r = t.outputAtomAt(0);
             const DataType* p = r.as<DataType>();
             REQUIRE(p->value().get() == -1);
 
@@ -282,7 +282,7 @@ TEST_CASE("wrapper class", "[class-wrapper]")
             t.send(dptr);
             REQUIRE(t.hasOutputAt(0));
             REQUIRE(t.isOutputDataAt(0));
-            r = t.outputDataAt(0);
+            r = t.outputAtomAt(0);
             p = r.as<DataType>();
             REQUIRE(p->value().get() == 300);
 
@@ -316,7 +316,7 @@ TEST_CASE("wrapper class", "[class-wrapper]")
                 t << BANG;
                 REQUIRE(t.hasOutputAt(0));
                 REQUIRE(t.isOutputDataAt(0));
-                DataPtr r = t.outputDataAt(0);
+                DataPtr r = t.outputAtomAt(0);
                 const DataType* p = r.as<DataType>();
 
                 // symbol not ok
@@ -368,7 +368,7 @@ TEST_CASE("wrapper class", "[class-wrapper]")
             t << BANG;
 
             REQUIRE(t.isOutputDataAt(0));
-            DataPtr r = t.outputDataAt(0);
+            DataPtr r = t.outputAtomAt(0);
             REQUIRE(r.isValid());
             REQUIRE(r->toString() == "pair: 0 0");
             REQUIRE(r->type() == data::DATA_WRAPPER);
@@ -385,7 +385,7 @@ TEST_CASE("wrapper class", "[class-wrapper]")
             t << BANG;
 
             REQUIRE(t.isOutputDataAt(0));
-            DataPtr r = t.outputDataAt(0);
+            DataPtr r = t.outputAtomAt(0);
             REQUIRE(r.isValid());
             REQUIRE(r->toString() == "pair: 0 0");
             REQUIRE(r->type() == data::DATA_WRAPPER);
@@ -402,7 +402,7 @@ TEST_CASE("wrapper class", "[class-wrapper]")
             t << BANG;
 
             REQUIRE(t.isOutputDataAt(0));
-            DataPtr r = t.outputDataAt(0);
+            DataPtr r = t.outputAtomAt(0);
             REQUIRE(r.isValid());
             REQUIRE(r->toString() == "pair: 100 200");
             REQUIRE(r->type() == data::DATA_WRAPPER);
@@ -419,7 +419,7 @@ TEST_CASE("wrapper class", "[class-wrapper]")
             t << BANG;
 
             REQUIRE(t.isOutputDataAt(0));
-            DataPtr r = t.outputDataAt(0);
+            DataPtr r = t.outputAtomAt(0);
             REQUIRE(r.isValid());
             REQUIRE(r->toString() == "pair: 100 200");
             REQUIRE(r->type() == data::DATA_WRAPPER);
@@ -436,7 +436,7 @@ TEST_CASE("wrapper class", "[class-wrapper]")
             t << BANG;
 
             REQUIRE(t.isOutputDataAt(0));
-            DataPtr r = t.outputDataAt(0);
+            DataPtr r = t.outputAtomAt(0);
             REQUIRE(r.isValid());
             REQUIRE(r->toString() == "pair: 0 0");
             REQUIRE(r->type() == data::DATA_WRAPPER);

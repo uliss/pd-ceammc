@@ -14,10 +14,9 @@
 #ifndef LIST_STRETCH_H
 #define LIST_STRETCH_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 using namespace ceammc;
-
-class DataTypeMList;
 
 class ListStretch : public BaseObject {
     IntProperty* n_;
@@ -26,7 +25,7 @@ public:
     ListStretch(const PdArgs& args);
     void onList(const AtomList& lst) override;
     void onInlet(size_t n, const AtomList& lst) override;
-    void onDataT(const DataTPtr<DataTypeMList>& dptr);
+    void onDataT(const MListAtom& ml);
 };
 
 void setup_list_stretch();

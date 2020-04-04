@@ -16,7 +16,7 @@
 #include "test_base.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(DictGet, dict, get);
+PD_COMPLETE_TEST_SETUP(DictGet, dict, get)
 
 TEST_CASE("dict.get", "[externals]")
 {

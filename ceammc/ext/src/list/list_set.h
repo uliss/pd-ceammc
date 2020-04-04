@@ -14,26 +14,21 @@
 #ifndef LIST_SET_H
 #define LIST_SET_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
 
-class DataTypeMList;
-
 class ListSet : public BaseObject {
-    t_float idx_;
-    DataAtom value_;
+    IntProperty* index_;
+    AtomProperty* value_;
 
 public:
     ListSet(const PdArgs& args);
 
     void onList(const AtomList&) override;
     void onInlet(size_t n, const AtomList& lst) override;
-    void onDataT(const DataTPtr<DataTypeMList>& lst);
-
-public:
-    t_float index() const;
-    const DataAtom& value() const;
+    void onDataT(const MListAtom& ml);
 };
 
 void setup_list_set();

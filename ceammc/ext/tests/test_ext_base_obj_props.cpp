@@ -49,7 +49,7 @@ TEST_CASE("obj.props", "[externals]")
         t.sendBang();
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.isOutputDataAt(0));
-        auto props = t.outputDataAt(0);
+        auto props = t.outputAtomAt(0);
         const DataTypeDict* dict = props->as<DataTypeDict>();
         REQUIRE(dict->size() == 5);
         REQUIRE(dict->contains(A("@value")));

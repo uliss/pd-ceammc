@@ -14,7 +14,7 @@
 #include "../data/dict_contains.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(DictContains, dict, contains);
+PD_COMPLETE_TEST_SETUP(DictContains, dict, contains)
 
 TEST_CASE("dict.contains", "[externals]")
 {

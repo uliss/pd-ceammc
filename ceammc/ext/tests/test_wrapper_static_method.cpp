@@ -123,17 +123,17 @@ TEST_CASE("wrapper static method", "[class-wrapper]")
             t << 123;
             REQUIRE(t.hasOutputAt(0));
             REQUIRE(t.isOutputDataAt(0));
-            REQUIRE(t.outputDataAt(0)->as<DataType>()->value().get() == 123);
+            REQUIRE(t.outputAtomAt(0)->as<DataType>()->value().get() == 123);
 
             t << "0xFF";
             REQUIRE(t.hasOutputAt(0));
             REQUIRE(t.isOutputDataAt(0));
-            REQUIRE(t.outputDataAt(0)->as<DataType>()->value().get() == 255);
+            REQUIRE(t.outputAtomAt(0)->as<DataType>()->value().get() == 255);
 
             t << LA("122");
             REQUIRE(t.hasOutputAt(0));
             REQUIRE(t.isOutputDataAt(0));
-            REQUIRE(t.outputDataAt(0)->as<DataType>()->value().get() == 122);
+            REQUIRE(t.outputAtomAt(0)->as<DataType>()->value().get() == 122);
         }
     }
 

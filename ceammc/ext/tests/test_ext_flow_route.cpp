@@ -17,7 +17,7 @@
 #include "../flow/flow_route.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(FlowRoute, flow, route);
+PD_COMPLETE_TEST_SETUP(FlowRoute, flow, route)
 
 TEST_CASE("flow.route", "[externals]")
 {
@@ -257,7 +257,7 @@ TEST_CASE("flow.route", "[externals]")
         // match first
         dptr = new DataTypeMList(LA("a"));
         WHEN_SEND_DATA_TO(0, t, (DataPtr&)dptr);
-        REQUIRE_DATA_AT_OUTLET(0, t, DataPtr(new DataTypeMList()));
+        REQUIRE_DATA_AT_OUTLET(0, t, MLA());
         REQUIRE_NO_MESSAGES_AT_OUTLET(1, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(2, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(3, t);
@@ -272,7 +272,7 @@ TEST_CASE("flow.route", "[externals]")
         // match second
         dptr = new DataTypeMList(LA("b"));
         WHEN_SEND_DATA_TO(0, t, (DataPtr&)dptr);
-        REQUIRE_DATA_AT_OUTLET(1, t, DataPtr(new DataTypeMList()));
+        REQUIRE_DATA_AT_OUTLET(1, t, MLA());
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(2, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(3, t);
@@ -287,7 +287,7 @@ TEST_CASE("flow.route", "[externals]")
         // match third
         dptr = new DataTypeMList(LF(100));
         WHEN_SEND_DATA_TO(0, t, (DataPtr&)dptr);
-        REQUIRE_DATA_AT_OUTLET(2, t, DataPtr(new DataTypeMList()));
+        REQUIRE_DATA_AT_OUTLET(2, t, MLA());
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(1, t);
         REQUIRE_NO_MESSAGES_AT_OUTLET(3, t);

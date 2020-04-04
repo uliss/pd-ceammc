@@ -30,30 +30,9 @@ void ListMax::onList(const AtomList& l)
         max(l.begin_atom_filter(isSymbol), l.end_atom_filter());
 }
 
-// predicates
-static bool is_float(const DataAtom& d)
+void ListMax::onDataT(const MListAtom& ml)
 {
-    return d.isFloat();
-}
-
-static bool is_symbol(const DataAtom& d)
-{
-    return d.isSymbol();
-}
-
-static bool is_atom(const DataAtom& d)
-{
-    return d.isAtom();
-}
-
-void ListMax::onDataT(const DataTPtr<DataTypeMList>& dptr)
-{
-    if (type_->value() == SYM_ANY)
-        maxData(dptr->begin_filter(is_atom), dptr->end_filter());
-    else if (type_->value() == SYM_FLOAT)
-        maxData(dptr->begin_filter(is_float), dptr->end_filter());
-    else if (type_->value() == SYM_SYMBOL)
-        maxData(dptr->begin_filter(is_symbol), dptr->end_filter());
+    onList(ml->data());
 }
 
 void setup_list_max()

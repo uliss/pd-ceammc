@@ -19,7 +19,7 @@
 class EnvAdsr;
 extern void setup_env_adsr_tilde();
 
-PD_COMPLETE_TEST_SETUP(EnvAdsr, env, adsr_tilde);
+PD_COMPLETE_TEST_SETUP(EnvAdsr, env, adsr_tilde)
 
 #define PROPERTY_REQUEST(obj, n, ...)                       \
     {                                                       \

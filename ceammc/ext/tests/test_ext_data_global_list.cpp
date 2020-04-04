@@ -16,7 +16,7 @@
 #include "test_base.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(GlobalList, global, list);
+PD_COMPLETE_TEST_SETUP(GlobalList, global, list)
 
 TEST_CASE("[global.list]", "[externals]")
 {

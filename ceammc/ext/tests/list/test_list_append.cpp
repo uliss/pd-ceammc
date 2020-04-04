@@ -11,17 +11,13 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ceammc_data.h"
-#include "datatype_mlist.h"
 #include "list_append.h"
-#include "test_base.h"
-#include "test_external.h"
+#include "test_list_base.h"
 
 PD_COMPLETE_TEST_SETUP(ListAppend, list, append)
 
 using TObj = TestListAppend;
 using TExt = TestExtListAppend;
-using MA = MListAtom;
 using IntA = DataAtom<IntData>;
 
 TEST_CASE("list.append", "[externals]")
@@ -43,7 +39,7 @@ TEST_CASE("list.append", "[externals]")
         REQUIRE_LIST_AT_OUTLET(0, t, L());
 
         WHEN_SEND_FLOAT_TO(0, t, 10);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 10);
+        REQUIRE_THAT(t, outputFloat(&t, 10));
 
         WHEN_SEND_SYMBOL_TO(0, t, "ABC");
         REQUIRE_SYMBOL_AT_OUTLET(0, t, "ABC");
@@ -94,12 +90,12 @@ TEST_CASE("list.append", "[externals]")
         REQUIRE(t.outputListAt(0) == LA(IntA(30), IntA(10), IntA(20)));
 
         t.sendListTo(LA("a", "b"), 1);
-        t.send(MA());
+        t.send(MLA());
         REQUIRE(t.isOutputDataAt(0));
         REQUIRE(t.outputAtomAt(0).isData());
-        REQUIRE(t.outputAtomAt(0) == MA("a", "b"));
+        REQUIRE(t.outputAtomAt(0) == MLA("a", "b"));
 
-        t.send(MA(1, 2, 3, MA()));
-        REQUIRE(t.outputAtomAt(0) == MA(1, 2, 3, MA(), "a", "b"));
+        t.send(MLA(1, 2, 3, MLA()));
+        REQUIRE(t.outputAtomAt(0) == MLA(1, 2, 3, MLA(), "a", "b"));
     }
 }

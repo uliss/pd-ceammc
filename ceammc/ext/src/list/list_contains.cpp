@@ -12,9 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "list_contains.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "datatype_mlist.h"
 
 ListContains::ListContains(const PdArgs& args)
     : BaseObject(args)
@@ -27,24 +27,19 @@ ListContains::ListContains(const PdArgs& args)
 void ListContains::onList(const AtomList& lst)
 {
     auto it = std::search(lst.begin(), lst.end(), needle_.begin(), needle_.end());
-    output(it != lst.end());
+    boolTo(0, it != lst.end());
 }
 
-void ListContains::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void ListContains::onDataT(const MListAtom& ml)
 {
-    auto eq = [](const DataAtom& d, const Atom& a) { return d == DataAtom(a); };
-    auto it = std::search(dptr->begin(), dptr->end(), needle_.begin(), needle_.end(), eq);
-    output(it != dptr->end());
+    LIB_ERR << ml;
+    auto it = std::search(ml->begin(), ml->end(), needle_.begin(), needle_.end());
+    boolTo(0, it != ml->end());
 }
 
 void ListContains::onInlet(size_t n, const AtomList& lst)
 {
     needle_ = lst;
-}
-
-void ListContains::output(bool v)
-{
-    floatTo(0, v ? 1 : 0);
 }
 
 void setup_list_contains()

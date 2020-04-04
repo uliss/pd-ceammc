@@ -430,6 +430,13 @@ public:
     bool contains(const Atom& a) const noexcept;
 
     /**
+     * Checks if sublist is in list
+     * @param sublist - searched list
+     * @return true if list contains, otherwise false
+     */
+    bool contains(const AtomList& sublist) const noexcept;
+
+    /**
      * Find position of first element in list that compare equal to a
      * @return -1, if not found
      */

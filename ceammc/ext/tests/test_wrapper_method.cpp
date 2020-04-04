@@ -286,7 +286,7 @@ TEST_CASE("wrapper method", "[class-wrapper]")
             t << 100;
             REQUIRE(t.hasOutputAt(0));
             REQUIRE(t.isOutputDataAt(0));
-            REQUIRE(t.outputDataAt(0)->as<DataType>()->value().get() == 100);
+            REQUIRE(t.outputAtomAt(0)->as<DataType>()->value().get() == 100);
         }
     }
 

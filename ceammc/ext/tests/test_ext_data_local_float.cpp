@@ -15,7 +15,7 @@
 #include "test_base.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(LocalFloat, local, float);
+PD_COMPLETE_TEST_SETUP(LocalFloat, local, float)
 
 TEST_CASE("[local.float]", "[externals]")
 {

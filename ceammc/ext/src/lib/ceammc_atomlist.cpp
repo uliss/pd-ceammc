@@ -565,6 +565,12 @@ bool AtomList::contains(const Atom& a) const noexcept
     return std::find(atoms_.begin(), atoms_.end(), a) != atoms_.end();
 }
 
+bool AtomList::contains(const AtomList& sublist) const noexcept
+{
+    auto it = std::search(atoms_.begin(), atoms_.end(), sublist.begin(), sublist.end());
+    return it != atoms_.end();
+}
+
 long AtomList::findPos(const Atom& a) const noexcept
 {
     auto it = std::find(atoms_.begin(), atoms_.end(), a);

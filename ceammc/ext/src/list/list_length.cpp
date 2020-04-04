@@ -1,6 +1,6 @@
 #include "list_length.h"
-#include "datatype_mlist.h"
 #include "ceammc_factory.h"
+#include "datatype_mlist.h"
 
 ListLength::ListLength(const PdArgs& args)
     : BaseObject(args)
@@ -13,21 +13,19 @@ void ListLength::onList(const AtomList& lst)
     floatTo(0, lst.size());
 }
 
-void ListLength::onDataT(const DataTypeMList& lst)
+void ListLength::onDataT(const MListAtom& ml)
 {
-    floatTo(0, lst.size());
+    floatTo(0, ml->size());
 }
 
 static void list_size_fn(PdObject<ListLength>* x, t_symbol*, int argc, t_atom* argv)
 {
-    if (argc == 1 && Atom(*argv).isData()) {
-        Atom data(*argv);
-        DataTPtr<DataTypeMList> ptr(data);
-        if (ptr.isValid()) {
-            x->impl->onDataT(*ptr.data());
+    if (argc == 1 && Atom::is_data(argv)) {
+        Atom a(*argv);
+        if (a.isA<DataTypeMList>()) {
+            x->impl->onDataT(MListAtom(a));
         } else {
-            DataDesc d = data.getData();
-            LIB_ERR << "can't get data with type=" << d.type << " and id=" << d.id;
+            LIB_ERR << "unsupported data type: " << a.asData()->typeName();
         }
     } else {
         x->impl->floatTo(0, argc);

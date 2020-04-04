@@ -16,7 +16,7 @@ ListGenerate::ListGenerate(const PdArgs& a)
     createOutlet();
     createOutlet();
 
-    count_ = new IntProperty("@count", 1);
+    count_ = new IntProperty("@count", DEF_COUNT);
     count_->setArgIndex(0);
     count_->checkClosedRange(MIN_COUNT, MAX_COUNT);
     addProperty(count_);
@@ -41,7 +41,7 @@ void ListGenerate::onBang()
     for (int i = 0; i < count_->value(); i++)
         bangTo(1);
 
-    listTo(0, gen_values_.toList());
+    listTo(0, gen_values_);
     in_process_ = false;
 }
 

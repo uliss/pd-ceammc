@@ -17,7 +17,7 @@
 #include "test_base.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(DictToList, dict, to_list);
+PD_COMPLETE_TEST_SETUP(DictToList, dict, to_list)
 
 TEST_CASE("dict.to_list", "[externals]")
 {

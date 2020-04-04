@@ -14,6 +14,7 @@
 #ifndef LIST_ROTATE_H
 #define LIST_ROTATE_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
@@ -23,8 +24,6 @@ enum RotateDir {
     ROTATE_RIGHT = -1
 };
 
-class DataTypeMList;
-
 class ListRotate : public BaseObject {
     IntProperty* step_;
     RotateDir rotate_dir_;
@@ -33,7 +32,7 @@ public:
     ListRotate(const PdArgs& a);
     void onList(const AtomList& l) override;
     void onInlet(size_t, const AtomList& step) override;
-    void onDataT(const DataTPtr<DataTypeMList>& ml);
+    void onDataT(const MListAtom& ml);
 };
 
 void setup_list_rotate();

@@ -16,7 +16,7 @@
 #include "test_base.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(DictPass, dict, pass);
+PD_COMPLETE_TEST_SETUP(DictPass, dict, pass)
 
 TEST_CASE("dict.pass", "[externals]")
 {
@@ -41,7 +41,7 @@ TEST_CASE("dict.pass", "[externals]")
         t.send(DataPtr(new DataTypeDict("[a:b][c:d][e:f]")));
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputDataAt(0) == DataPtr(new DataTypeDict));
+        REQUIRE(t.outputAtomAt(0) == DataPtr(new DataTypeDict));
     }
 
     SECTION("pass ")
@@ -53,7 +53,7 @@ TEST_CASE("dict.pass", "[externals]")
         t.send(DataPtr(new DataTypeDict("[a:b][c:d][e:f]")));
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputDataAt(0) == DataPtr(new DataTypeDict("[a:b]")));
+        REQUIRE(t.outputAtomAt(0) == DataPtr(new DataTypeDict("[a:b]")));
 
         pd::External l("list");
         REQUIRE(l.connectTo(0, t, 1));
@@ -62,6 +62,6 @@ TEST_CASE("dict.pass", "[externals]")
         t.send(DataPtr(new DataTypeDict("[a:b][c:d][e:f]")));
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputDataAt(0) == DataPtr(new DataTypeDict("[c:d][e:f]")));
+        REQUIRE(t.outputAtomAt(0) == DataPtr(new DataTypeDict("[c:d][e:f]")));
     }
 }

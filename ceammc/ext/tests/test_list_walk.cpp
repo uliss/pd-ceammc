@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 
-#include "../list/list_walk.h"
+#include "list_walk.h"
 #include "catch.hpp"
 #include "ceammc.hpp"
 #include "test_base.h"

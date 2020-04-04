@@ -29,6 +29,8 @@ using AT = Atom;
 using AL = AtomList;
 using MLA = MListAtom;
 using MLD = DataTypeMList;
+using IntA = DataAtom<IntData>;
+using StrA = DataAtom<StrData>;
 
 template <typename T>
 class OutputFloatBase : public Catch::MatcherBase<T> {
@@ -83,6 +85,32 @@ public:
     }
 };
 
+template <typename T>
+class HasProperty : public Catch::MatcherBase<T> {
+    std::string name_;
+    AtomList value_;
+
+public:
+    HasProperty(const char* name, const AtomList& l)
+        : name_(name)
+        , value_(l)
+    {
+    }
+
+    std::string describe() const final
+    {
+        std::ostringstream ss;
+        ss << "has property " << name_ << " = " << value_;
+        return ss.str();
+    }
+
+    bool match(const T& t) const override
+    {
+        auto prop = t.property(gensym(name_.c_str()));
+        return prop && prop->get() == value_;
+    }
+};
+
 template <class T>
 class HasOutput : public Catch::MatcherBase<TestExternal<T>> {
     size_t outl_;
@@ -129,6 +157,10 @@ public:
     }
 };
 
+// common
+template <typename T, typename... Args>
+HasProperty<T> hasProperty(T* t, const char* name, Args... args) { return HasProperty<T>(name, AtomList(args...)); }
+
 // Pd object simulation
 template <typename T>
 OutputFloat<T> outputFloat(TestExternal<T>* t, t_float v, size_t outl = 0) { return OutputFloat<T>(v, outl); }
@@ -158,6 +190,12 @@ HasOutputExt<T> hasOutput(TestPdExternal<T>* t, size_t outl = 0) { return HasOut
 static std::ostream& operator<<(std::ostream& os, const BaseObject& b)
 {
     os << "[" << b.className()->s_name << "]";
+    return os;
+}
+
+static std::ostream& operator<<(std::ostream& os, const External& e)
+{
+    os << "[" << e.className()->s_name << "]";
     return os;
 }
 

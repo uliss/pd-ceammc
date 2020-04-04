@@ -15,7 +15,7 @@
 #include "test_base.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(NetHost, net, host);
+PD_COMPLETE_TEST_SETUP(NetHost, net, host)
 
 TEST_CASE("net.host->ip", "[externals]")
 {

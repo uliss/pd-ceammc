@@ -59,11 +59,12 @@ void ListRemove::onList(const AtomList& lst)
     listTo(0, res);
 }
 
-void ListRemove::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void ListRemove::onDataT(const MListAtom& ml)
 {
-    size_t N = dptr->size();
-    DataTypeMList res;
-    res.reserve(N);
+    const size_t N = ml->size();
+
+    MListAtom res;
+    res->reserve(N);
 
     precalcIndexes(N);
 
@@ -72,10 +73,10 @@ void ListRemove::onDataT(const DataTPtr<DataTypeMList>& dptr)
         if (it != calc_idx_.end())
             continue;
 
-        res.append((*dptr)[i]);
+        res->append((*ml)[i]);
     }
 
-    dataTo(0, DataTPtr<DataTypeMList>(res));
+    atomTo(0, res);
 }
 
 void ListRemove::precalcIndexes(size_t N)

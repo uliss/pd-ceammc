@@ -17,7 +17,7 @@
 
 typedef TestSoundExternal<XFadeTilde> XFadeTildeTest;
 
-PD_COMPLETE_TEST_SETUP(XFadeTilde, base, xfade_tilde);
+PD_COMPLETE_TEST_SETUP(XFadeTilde, base, xfade_tilde)
 
 TEST_CASE("xfade~", "[externals]")
 {

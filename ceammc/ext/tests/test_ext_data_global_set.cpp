@@ -16,7 +16,7 @@
 #include "test_base.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(GlobalSet, global, set);
+PD_COMPLETE_TEST_SETUP(GlobalSet, global, set)
 
 #define DSET(...) DataPtr(new DataTypeSet(LA(__VA_ARGS__)))
 

@@ -17,7 +17,7 @@
 #include "datatype_mlist.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(FlowPack, flow, pack);
+PD_COMPLETE_TEST_SETUP(FlowPack, flow, pack)
 
 TEST_CASE("flow.pack", "[externals]")
 {

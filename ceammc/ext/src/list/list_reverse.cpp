@@ -17,11 +17,12 @@ void ListReverse::onList(const AtomList& l)
     listTo(0, rev);
 }
 
-void ListReverse::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void ListReverse::onDataT(const MListAtom& ml)
 {
-    DataTypeMList res(*dptr);
-    std::reverse(std::begin(res), std::end(res));
-    dataTo(0, DataTPtr<DataTypeMList>(res));
+    MListAtom res(ml);
+    res.detachData();
+    res->reverse();
+    atomTo(0, res);
 }
 
 void setup_list_reverse()

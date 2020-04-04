@@ -201,23 +201,18 @@ public:
         }
     }
 
-    t_object* pdObject()
-    {
-        return object();
-    }
+    const t_object* pdObject() const { return object(); }
 
-    Property* property(const char* key)
-    {
-        return property(gensym(key));
-    }
+    Property* property(const char* key) { return property(gensym(key)); }
+    const Property* property(const char* key) const { return property(gensym(key)); }
 
-    Property* property(t_symbol* key)
+    const Property* property(t_symbol* key) const
     {
         bool is_ceammc_ctl = std::is_base_of<ceammc::BaseObject, T>::value;
 
         if (is_ceammc_ctl) {
-            PdObject<T>* proxy = (PdObject<T>*)pdObject();
-            ceammc::BaseObject* base = (ceammc::BaseObject*)proxy->impl;
+            auto proxy = (const PdObject<T>*)pdObject();
+            auto base = (const ceammc::BaseObject*)proxy->impl;
             return base->property(key);
         }
 

@@ -14,7 +14,7 @@
 #include "../flow/flow_once.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(FlowOnce, flow, once);
+PD_COMPLETE_TEST_SETUP(FlowOnce, flow, once)
 
 TEST_CASE("flow.once", "[externals]")
 {
@@ -96,6 +96,6 @@ TEST_CASE("flow.once", "[externals]")
         t.send(data);
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputDataAt(0) == data);
+        REQUIRE(t.outputAtomAt(0) == data);
     }
 }

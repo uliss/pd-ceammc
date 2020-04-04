@@ -40,10 +40,11 @@ void ListSlice::onList(const AtomList& l)
     listTo(0, l.slice(from_->value(), to_->value(), step_->value()));
 }
 
-void ListSlice::onDataT(const DataTypeMList& l)
+void ListSlice::onDataT(const MListAtom& ml)
 {
-    DataTypeMList* res = new DataTypeMList(l.slice(from_->value(), to_->value(), step_->value()));
-    dataTo(0, DataPtr(res));
+    MListAtom res(*ml);
+    res->slice(from_->value(), to_->value(), step_->value());
+    atomTo(0, res);
 }
 
 void setup_list_slice()

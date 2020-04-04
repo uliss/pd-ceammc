@@ -16,7 +16,7 @@
 #include "test_base.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(LocalMList, local, mlist);
+PD_COMPLETE_TEST_SETUP(LocalMList, local, mlist)
 
 #define ML(...) DataPtr(new DataTypeMList(__VA_ARGS__))
 
@@ -51,7 +51,7 @@ TEST_CASE("[local.mlist]", "[externals]")
         t2 << BANG;
         REQUIRE(t1.outputDataAt(0) == ML("(a b c)"));
 
-        t2.send(DataTypeMList("(1 2 3 4 5)"));
+        t2.send(MLA(1 2 3 4 5));
         REQUIRE(t2.outputDataAt(0) == ML("(1 2 3 4 5)"));
 
         t1 << BANG;

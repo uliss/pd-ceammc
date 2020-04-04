@@ -966,4 +966,23 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
         REQUIRE(AtomList::parseString("a b c 2.5") == LA("a", "b", "c", 2.5));
         REQUIRE(AtomList::parseString("\" \"") == LA("\"", "\""));
     }
+
+    SECTION("contains list")
+    {
+        REQUIRE_FALSE(L().contains(L()));
+        REQUIRE(LF(1).contains(L()));
+        REQUIRE(LF(1).contains(LF(1)));
+        REQUIRE(LF(1, 2).contains(LF(1)));
+        REQUIRE(LF(1, 2).contains(LF(2)));
+        REQUIRE(LF(1, 2).contains(LF(1, 2)));
+        REQUIRE_FALSE(LF(1, 2).contains(LF(2, 1)));
+
+        REQUIRE(LF(1, 2, 3).contains(L()));
+        REQUIRE(LF(1, 2, 3).contains(LF(1)));
+        REQUIRE(LF(1, 2, 3).contains(LF(2)));
+        REQUIRE(LF(1, 2, 3).contains(LF(3)));
+        REQUIRE(LF(1, 2, 3).contains(LF(1, 2)));
+        REQUIRE(LF(1, 2, 3).contains(LF(2, 3)));
+        REQUIRE(LF(1, 2, 3).contains(LF(1, 2, 3)));
+    }
 }

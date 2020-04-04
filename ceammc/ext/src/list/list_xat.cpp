@@ -49,7 +49,7 @@ void ListXAt::onFloat(t_float f)
     auto atom = at(int(f));
 
     if (atom)
-        atomTo(0, atom->asAtom());
+        atomTo(0, *atom);
     else if (!def_->value().isNone())
         atomTo(0, def_->value());
     else
@@ -65,7 +65,7 @@ void ListXAt::onList(const AtomList& lst)
         auto atom = at(el.asInt(std::numeric_limits<int>::max()));
 
         if (atom)
-            res.append(atom->asAtom());
+            res.append(*atom);
         else if (!def_->value().isNone())
             res.append(def_->value());
         else
@@ -77,7 +77,7 @@ void ListXAt::onList(const AtomList& lst)
 
 void ListXAt::onInlet(size_t n, const AtomList& lst)
 {
-    if (lst.isData() && !lst.isDataType<DataTypeMList>()) {
+    if (lst.isData() && !lst.isA<DataTypeMList>()) {
         OBJ_ERR << "invalid datatype. Only data.mlist is supported!";
         return;
     }
@@ -85,11 +85,11 @@ void ListXAt::onInlet(size_t n, const AtomList& lst)
     list_ = lst;
 }
 
-const DataAtom* ListXAt::at(int pos) const
+const Atom* ListXAt::at(int pos) const
 {
-    auto mlist = list_.asSingle<DataTypeMList>();
+    if (list_.isA<DataTypeMList>()) {
+        auto mlist = list_.asD<DataTypeMList>();
 
-    if (mlist) {
         const size_t N = mlist->size();
         if (N == 0)
             return nullptr;

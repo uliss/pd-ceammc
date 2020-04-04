@@ -14,12 +14,10 @@
 #ifndef LIST_CONTAINS_H
 #define LIST_CONTAINS_H
 
-#include "ceammc_dataatomlist.h"
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
-
-class DataTypeMList;
 
 class ListContains : public BaseObject {
     AtomList needle_;
@@ -28,12 +26,9 @@ public:
     ListContains(const PdArgs& args);
 
     void onList(const AtomList& lst) override;
-    void onDataT(const DataTPtr<DataTypeMList>& dptr);
+    void onDataT(const MListAtom& ml);
 
     void onInlet(size_t n, const AtomList& lst) override;
-
-private:
-    void output(bool v);
 };
 
 void setup_list_contains();

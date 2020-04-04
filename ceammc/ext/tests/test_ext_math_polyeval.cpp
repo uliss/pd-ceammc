@@ -15,7 +15,7 @@
 
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(MathPolyEval, math, polyeval);
+PD_COMPLETE_TEST_SETUP(MathPolyEval, math, polyeval)
 
 TEST_CASE("math.polyeval", "[externals]")
 {

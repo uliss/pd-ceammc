@@ -12,7 +12,7 @@ ListMin::ListMin(const PdArgs& a)
 {
     createOutlet();
 
-    type_ =  new SymbolEnumProperty("@type", { SYM_FLOAT, SYM_SYMBOL, SYM_ANY });
+    type_ = new SymbolEnumProperty("@type", { SYM_FLOAT, SYM_SYMBOL, SYM_ANY });
     addProperty(type_);
 
     addProperty(new SymbolEnumAlias("@float", type_, SYM_FLOAT));
@@ -30,10 +30,9 @@ void ListMin::onList(const AtomList& l)
         min(l.begin_atom_filter(isSymbol), l.end_atom_filter());
 }
 
-void ListMin::onDataT(const DataTPtr<DataTypeMList>& lst)
+void ListMin::onDataT(const MListAtom& ml)
 {
-    auto pred = [](const DataAtom& a) { return a.isAtom() && (a.asAtom().isFloat() || a.asAtom().isSymbol()); };
-    onList(lst->toList(pred));
+    onList(ml->data());
 }
 
 void setup_list_min()

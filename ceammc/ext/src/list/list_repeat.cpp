@@ -1,6 +1,5 @@
 #include "list_repeat.h"
 #include "ceammc_convert.h"
-#include "ceammc_dataatomlist.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 #include "datatype_mlist.h"
@@ -37,27 +36,25 @@ void ListRepeat::onList(const AtomList& l)
     listTo(0, list::repeat(l, times_->value()));
 }
 
-void ListRepeat::onData(const DataPtr& d)
+void ListRepeat::onData(const Atom& d)
 {
     int n = times_->value();
 
-    if (d->type() == DataTypeMList::dataType) {
-        DataTypeMList* res = new DataTypeMList;
-        auto* src = d->as<DataTypeMList>();
+    if (d.isA<DataTypeMList>()) {
+        MListAtom res;
+        auto* src = d.asD<DataTypeMList>();
 
-        while (n-- > 0) {
-            for (auto& el : *src)
-                res->append(el);
-        }
+        while (n-- > 0)
+            res->append(src->data());
 
-        dataTo(0, DataPtr(res));
+        atomTo(0, res);
     } else {
-        DataAtomList res;
+        AtomList res;
 
         while (n-- > 0)
             res.append(d);
 
-        listTo(0, res.toList());
+        listTo(0, res);
     }
 }
 

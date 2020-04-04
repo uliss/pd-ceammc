@@ -15,7 +15,7 @@
 #include "test_base.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(CanvasCurrent, canvas, current);
+PD_COMPLETE_TEST_SETUP(CanvasCurrent, canvas, current)
 
 TEST_CASE("canvas.current", "[externals]")
 {

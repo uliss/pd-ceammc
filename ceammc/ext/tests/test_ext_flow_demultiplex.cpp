@@ -14,7 +14,7 @@
 #include "../flow/flow_demultiplex.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(FlowDemultiplex, flow, demultiplex);
+PD_COMPLETE_TEST_SETUP(FlowDemultiplex, flow, demultiplex)
 
 TEST_CASE("flow.demultiplex", "[externals]")
 {

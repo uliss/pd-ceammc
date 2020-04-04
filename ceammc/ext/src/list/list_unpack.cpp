@@ -25,11 +25,9 @@ void ListUnpack::onList(const AtomList& l)
         atomTo(i - 1, l[i - 1]);
 }
 
-void ListUnpack::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void ListUnpack::onDataT(const MListAtom& ml)
 {
-    const size_t N = std::min<size_t>(dptr->size(), n_);
-    for (size_t i = N; i > 0; i--)
-        atomTo(i - 1, (*dptr)[i - 1].asAtom());
+    onList(ml->data());
 }
 
 void setup_list_unpack()

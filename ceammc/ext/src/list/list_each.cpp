@@ -24,15 +24,7 @@ ListEach::ListEach(const PdArgs& a)
 
 void ListEach::onList(const AtomList& l)
 {
-    mode_ = l.anyOf(isData) ? MODE_DLIST : MODE_NORMAL;
-
-    switch (mode_) {
-    case MODE_DLIST:
-        mapped_dlist_.clear();
-        break;
-    default:
-        mapped_list_.clear();
-    }
+    mapped_list_.clear();
 
     size_t step = step_prop_->value();
 
@@ -45,12 +37,7 @@ void ListEach::onList(const AtomList& l)
             listTo(1, l.slice(i, i + step - 1));
     }
 
-    switch (mode_) {
-    case MODE_DLIST:
-        return listTo(0, mapped_dlist_.toList());
-    default:
-        return listTo(0, mapped_list_);
-    }
+    return listTo(0, mapped_list_);
 }
 
 void ListEach::onInlet(size_t n, const AtomList& l)
@@ -61,38 +48,26 @@ void ListEach::onInlet(size_t n, const AtomList& l)
     if (l.empty())
         return;
 
-    switch (mode_) {
-    case MODE_NORMAL:
-        mapped_list_.append(l);
-        break;
-    case MODE_DLIST:
-        mapped_dlist_.append(l);
-        break;
-    default:
-        mapped_mlist_.append(l);
-        break;
-    }
+    mapped_list_.append(l);
 }
 
-void ListEach::onDataT(const DataTPtr<DataTypeMList>& dptr)
+void ListEach::onDataT(const MListAtom& ml)
 {
-    mode_ = MODE_MLIST;
-    mapped_mlist_.clear();
-
+    mapped_list_.clear();
     size_t step = step_prop_->value();
 
     // output single values
     if (step == 1) {
-        for (size_t i = 0; i < dptr->size(); i += step)
-            atomTo(1, dptr->at(i).asAtom());
+        for (size_t i = 0; i < ml->size(); i += step)
+            atomTo(1, ml->at(i));
 
     } else { // output as sublist
-        AtomList l = dptr->toList();
-        for (size_t i = 0; i < dptr->size(); i += step)
+        AtomList l = ml->data();
+        for (size_t i = 0; i < ml->size(); i += step)
             listTo(1, l.slice(i, i + step - 1));
     }
 
-    dataTo(0, DataTPtr<DataTypeMList>(mapped_mlist_));
+    atomTo(0, new DataTypeMList(mapped_list_));
 }
 
 void setup_list_each()
