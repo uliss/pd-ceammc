@@ -60,7 +60,7 @@ bool ArgIsSymbol::checkAtom(const Atom& a, CheckerContext& ctx) const
         return rc;
     }
     case SYM_BEGINS_WITH: {
-        bool rc = beginsWith(s->s_name, pattern_->s_name);
+        bool rc = string::starts_with(s->s_name, pattern_->s_name);
         if (!rc)
             ctx.error = fmt::format("not starts with {}: {}", pattern_->s_name, s->s_name);
 
@@ -74,7 +74,7 @@ bool ArgIsSymbol::checkAtom(const Atom& a, CheckerContext& ctx) const
         return rc;
     }
     case SYM_CONTAINS: {
-        bool rc = (strstr(s->s_name, pattern_->s_name) != nullptr);
+        bool rc = string::contains(s->s_name, pattern_->s_name);
         if (!rc)
             ctx.error = fmt::format("not contains {}: {}", pattern_->s_name, s->s_name);
 
@@ -110,16 +110,6 @@ std::string ArgIsSymbol::name() const
     default:
         return ArgCheckerSingle::name();
     }
-}
-
-bool ArgIsSymbol::beginsWith(const char* str, const char* needle)
-{
-    while (*needle) {
-        if (*needle++ != *str++)
-            return 0;
-    }
-
-    return 1;
 }
 
 void ArgIsSymbol::setCheck(ArgIsSymbol::CheckType t, const char* s)

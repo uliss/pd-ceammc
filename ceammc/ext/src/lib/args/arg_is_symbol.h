@@ -48,9 +48,6 @@ public:
     std::string name() const final;
 
 private:
-    static bool beginsWith(const char* str, const char* needle);
-
-private:
     t_symbol* pattern_;
     CheckType check_type_;
     std::unique_ptr<re2::RE2> re_;
