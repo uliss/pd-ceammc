@@ -191,11 +191,11 @@ public:
         REQUIRE(obj.lastMessage(outlet).atomValue() == data); \
     }
 
-#define REQUIRE_PROPERTY(obj, name, val)          \
-    {                                             \
-        auto p = obj.property(gensym(#name));     \
-        REQUIRE(p != 0);                          \
-        REQUIRE(p->get() == test_atom_wrap(val)); \
+#define REQUIRE_PROPERTY(obj, name, ...)            \
+    {                                               \
+        auto p = obj.property(gensym(#name));       \
+        REQUIRE(p != 0);                            \
+        REQUIRE(p->get() == AtomList(__VA_ARGS__)); \
     }
 
 #define REQUIRE_PROPERTY_FLOAT(obj, name, val)            \

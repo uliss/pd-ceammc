@@ -11,9 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../math/math_polyeval.h"
-
-#include "test_external.h"
+#include "math_polyeval.h"
+#include "test_math_base.h"
 
 PD_COMPLETE_TEST_SETUP(MathPolyEval, math, polyeval)
 
@@ -25,7 +24,7 @@ TEST_CASE("math.polyeval", "[externals]")
     {
         SECTION("empty")
         {
-            TestExtMathPolyEval t("math.polyeval");
+            TExt t("math.polyeval");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
@@ -34,20 +33,20 @@ TEST_CASE("math.polyeval", "[externals]")
 
         SECTION("args")
         {
-            TestExtMathPolyEval t("math.polyeval", LF(1, 2, 3, 4));
+            TExt t("math.polyeval", LF(1, 2, 3, 4));
             REQUIRE_PROPERTY_LIST(t, @coeffs, LF(1, 2, 3, 4));
         }
 
         SECTION("props")
         {
-            TestExtMathPolyEval t("math.polyeval", LA("@coeffs", 1, 2, 3));
+            TExt t("math.polyeval", LA("@coeffs", 1, 2, 3));
             REQUIRE_PROPERTY_LIST(t, @coeffs, LF(1, 2, 3));
         }
     }
 
     SECTION("set coeffs")
     {
-        TestExtMathPolyEval t("math.polyeval", LF(1, 2));
+        TExt t("math.polyeval", LF(1, 2));
 
         t->onInlet(1, L());
         REQUIRE_PROPERTY_LIST(t, @coeffs, LF(1, 2));
@@ -55,13 +54,13 @@ TEST_CASE("math.polyeval", "[externals]")
 
     SECTION("eval")
     {
-        TestExtMathPolyEval t("math.polyeval");
+        TExt t("math.polyeval");
         t << 1;
         REQUIRE_FALSE(t.hasOutput());
         t << LF(1);
         REQUIRE_FALSE(t.hasOutput());
 
-        t.property("@coeffs")->set(LF(5));
+        t->setProperty("@coeffs", LF(5));
         REQUIRE_PROPERTY_LIST(t, @coeffs, LF(5));
 
         for (size_t i = 0; i < 10; i++) {
@@ -69,7 +68,7 @@ TEST_CASE("math.polyeval", "[externals]")
             REQUIRE(t.outputFloatAt(0) == 5);
         }
 
-        t.property("@coeffs")->set(LF(2, 4));
+        t->setProperty("@coeffs", LF(2, 4));
         t << 0.f;
         REQUIRE(t.outputFloatAt(0) == 4);
         t << 1;
@@ -81,7 +80,7 @@ TEST_CASE("math.polyeval", "[externals]")
         t << 4;
         REQUIRE(t.outputFloatAt(0) == 12);
 
-        t.property("@coeffs")->set(LF(1, 2, 3));
+        t->setProperty("@coeffs", LF(1, 2, 3));
         t << 0.f;
         REQUIRE(t.outputFloatAt(0) == 3);
         t << 1;

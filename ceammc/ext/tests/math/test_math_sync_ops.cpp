@@ -11,31 +11,30 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../math/math_sync_op.h"
-#include "catch.hpp"
-#include "test_base.h"
-#include "test_external.h"
+#include "math_sync_op.h"
+#include "test_math_base.h"
 
 #include <random>
 
 PD_TEST_CANVAS();
+#define TEST_USING(name) using TestExt##name = TestPdExternal<name>;
 // arithmetic
-PD_TEST_TYPEDEF(MathSyncAdd);
-PD_TEST_TYPEDEF(MathSyncSub);
-PD_TEST_TYPEDEF(MathSyncMul);
-PD_TEST_TYPEDEF(MathSyncDiv);
-PD_TEST_TYPEDEF(MathSyncMod);
+TEST_USING(MathSyncAdd);
+TEST_USING(MathSyncSub);
+TEST_USING(MathSyncMul);
+TEST_USING(MathSyncDiv);
+TEST_USING(MathSyncMod);
 // compare
-PD_TEST_TYPEDEF(MathSyncEqual);
-PD_TEST_TYPEDEF(MathSyncNotEqual);
-PD_TEST_TYPEDEF(MathSyncLessThen);
-PD_TEST_TYPEDEF(MathSyncLessEqual);
-PD_TEST_TYPEDEF(MathSyncGreaterThen);
-PD_TEST_TYPEDEF(MathSyncGreaterEqual);
+TEST_USING(MathSyncEqual);
+TEST_USING(MathSyncNotEqual);
+TEST_USING(MathSyncLessThen);
+TEST_USING(MathSyncLessEqual);
+TEST_USING(MathSyncGreaterThen);
+TEST_USING(MathSyncGreaterEqual);
 // boolean
-PD_TEST_TYPEDEF(MathSyncAnd);
-PD_TEST_TYPEDEF(MathSyncOr);
-PD_TEST_TYPEDEF(MathSyncXor);
+TEST_USING(MathSyncAnd);
+TEST_USING(MathSyncOr);
+TEST_USING(MathSyncXor);
 PD_TEST_CORE_INIT()
 PD_TEST_MOD_INIT(math, sync_op)
 PD_TEST_FULL_INIT(math, sync_op)

@@ -11,47 +11,45 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../math/math_gcd.h"
-#include "test_base.h"
-#include "catch.hpp"
+#include "math_lcm.h"
+#include "test_math_base.h"
 
-#include <stdio.h>
 
-typedef TestExternal<MathGCD> MathGCDTest;
+typedef TestExternal<MathLCM> MathLCMTest;
 
-#define REQUIRE_GCD(in, t, out)             \
+#define REQUIRE_LCM(in, t, out)             \
     {                                       \
         WHEN_SEND_FLOAT_TO(0, t, in);       \
         REQUIRE_FLOAT_AT_OUTLET(0, t, out); \
     }
 
-#define REQUIRE_GCD_2(in1, in2, t, out)        \
+#define REQUIRE_LCM_2(in1, in2, t, out)        \
     {                                          \
         WHEN_SEND_LIST_TO(0, t, LA(in1, in2)); \
         REQUIRE_FLOAT_AT_OUTLET(0, t, out);    \
     }
 
-TEST_CASE("math.gcd", "[externals]")
+TEST_CASE("math.lcm", "[externals]")
 {
     obj_init();
 
     SECTION("default")
     {
-        MathGCDTest t("math.gcd", LF(10));
-        REQUIRE_GCD(2, t, 2);
-        REQUIRE_GCD(3, t, 1);
-        REQUIRE_GCD(4, t, 2);
+        MathLCMTest t("math.lcm", LF(5));
+        REQUIRE_LCM(2, t, 10);
+        REQUIRE_LCM(3, t, 15);
+        REQUIRE_LCM(4, t, 20);
 
-        REQUIRE_GCD_2(14, 9, t, 1);
-        REQUIRE_GCD_2(18, 9, t, 9);
+        REQUIRE_LCM_2(2, 3, t, 6);
+        REQUIRE_LCM_2(2, 4, t, 4);
 
         {
-            MathGCDTest t("math.gcd");
-            REQUIRE_GCD(1, t, 1);
-            REQUIRE_GCD(2, t, 2);
-            REQUIRE_GCD(20, t, 20);
+            MathLCMTest t("math.lcm");
+            REQUIRE_LCM(1, t, 0);
+            REQUIRE_LCM(2, t, 0);
+            REQUIRE_LCM(1000, t, 0);
 
-            REQUIRE_GCD_2(15, 20, t, 5);
+            REQUIRE_LCM_2(15, 20, t, 60);
         }
     }
 }

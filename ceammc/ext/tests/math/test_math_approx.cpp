@@ -11,13 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../math/math_approx.h"
-#include "test_base.h"
-#include "catch.hpp"
+#include "math_approx.h"
+#include "test_math_base.h"
 
-#include <stdio.h>
-
-typedef TestExternal<MathApprox> ApproxTest;
+PD_COMPLETE_TEST_SETUP(MathApprox, math, approx)
 
 #define REQUIRE_APPROX(obj, v)            \
     {                                     \
@@ -33,12 +30,13 @@ typedef TestExternal<MathApprox> ApproxTest;
 
 TEST_CASE("approx", "[externals]")
 {
-    obj_init();
+    pd_test_init();
+
     SECTION("init")
     {
         SECTION("empty args")
         {
-            ApproxTest t("approx");
+            TObj t("approx");
             REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 1);
 
@@ -48,18 +46,18 @@ TEST_CASE("approx", "[externals]")
 
         SECTION("properties")
         {
-            ApproxTest t("approx", LA("@value", 10));
+            TObj t("approx", LA("@value", 10));
             REQUIRE_PROPERTY(t, @value, 10);
             REQUIRE_PROPERTY(t, @epsilon, 0.01f);
 
             {
-                ApproxTest t("approx", LA("@epsilon", 10));
+                TObj t("approx", LA("@epsilon", 10));
                 REQUIRE_PROPERTY(t, @value, 0.f);
                 REQUIRE_PROPERTY(t, @epsilon, 10);
             }
 
             {
-                ApproxTest t("approx", LA("@epsilon", 10, "@value", -100));
+                TObj t("approx", LA("@epsilon", 10, "@value", -100));
                 REQUIRE_PROPERTY(t, @value, -100);
                 REQUIRE_PROPERTY(t, @epsilon, 10);
             }
@@ -68,13 +66,13 @@ TEST_CASE("approx", "[externals]")
         SECTION("positional args")
         {
             {
-                ApproxTest t("approx", LF(20, 10));
+                TObj t("approx", LF(20, 10));
                 REQUIRE_PROPERTY(t, @value, 20);
                 REQUIRE_PROPERTY(t, @epsilon, 10);
             }
 
             {
-                ApproxTest t("approx", LA(20, "a"));
+                TObj t("approx", LA(20, "a"));
                 REQUIRE_PROPERTY(t, @value, 20);
                 REQUIRE_PROPERTY(t, @epsilon, 0.01f);
             }
@@ -83,7 +81,7 @@ TEST_CASE("approx", "[externals]")
 
     SECTION("float")
     {
-        ApproxTest t("approx", LF(2));
+        TObj t("approx", LF(2));
         REQUIRE_APPROX(t, 2);
         REQUIRE_APPROX(t, 2.01f);
         REQUIRE_APPROX(t, 2.001f);
@@ -111,7 +109,7 @@ TEST_CASE("approx", "[externals]")
 
     SECTION("list")
     {
-        ApproxTest t("approx");
+        TObj t("approx");
 
         WHEN_SEND_LIST_TO(0, t, LF(2, 2, 0.f));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);

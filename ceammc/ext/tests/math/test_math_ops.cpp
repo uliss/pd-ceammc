@@ -11,11 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../math/math_and.h"
-#include "test_base.h"
-#include "catch.hpp"
+#include "math_and.h"
+#include "test_math_base.h"
 
-#include <stdio.h>
 
 typedef TestExternal<MathAnd> MathAndTest;
 
