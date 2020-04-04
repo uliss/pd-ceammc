@@ -11,7 +11,6 @@ ceammc_data_external(data int)
 ceammc_data_external(data list)
 ceammc_data_external(data mlist)
 ceammc_data_external(data set)
-ceammc_data_external(data tree)
 
 ceammc_data_external(dict contains)
 ceammc_data_external(dict each)
@@ -24,12 +23,6 @@ ceammc_data_external(dict reject)
 ceammc_data_external(dict size)
 ceammc_data_external(dict to_list)
 ceammc_data_external(dict values)
-
-ceammc_data_external(tree at)
-ceammc_data_external(tree float)
-ceammc_data_external(tree keys)
-ceammc_data_external(tree size)
-ceammc_data_external(tree symbol)
 
 ceammc_data_external(mlist flatten)
 
