@@ -33,10 +33,10 @@ TEST_CASE("list.max", "[externals]")
         TestExtListMax t("list.max");
 
         t << L();
-        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         t << LA("a", "b", "c");
-        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         t << LF(100);
         REQUIRE_THAT(t, outputFloat(&t, 100));
@@ -66,7 +66,7 @@ TEST_CASE("list.max", "[externals]")
         REQUIRE_PROPERTY_LIST(t, @type, LA("symbol"));
 
         t << L();
-        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         t << LA("test");
         REQUIRE(t.outputSymbolAt(0) == A("test"));
@@ -84,7 +84,7 @@ TEST_CASE("list.max", "[externals]")
         REQUIRE_PROPERTY_LIST(t, @type, LA("any"));
 
         t << L();
-        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         t << LA("a");
         REQUIRE(t.outputSymbolAt(0) == A("a"));

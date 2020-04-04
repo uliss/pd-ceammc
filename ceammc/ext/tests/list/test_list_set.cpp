@@ -42,13 +42,13 @@ TEST_CASE("list.set", "[externals]")
             TestExtListSet t("list.set");
 
             t.sendList(L());
-            REQUIRE_FALSE(t.hasOutput());
+            REQUIRE_THAT(t, !hasOutput(&t));
             t.sendList(LF(1));
-            REQUIRE_FALSE(t.hasOutput());
+            REQUIRE_THAT(t, !hasOutput(&t));
             t.sendList(LF(1, 2, 3));
-            REQUIRE_FALSE(t.hasOutput());
+            REQUIRE_THAT(t, !hasOutput(&t));
             t.send(MLA(1, 2, 3));
-            REQUIRE_FALSE(t.hasOutput());
+            REQUIRE_THAT(t, !hasOutput(&t));
         }
 
         SECTION("index0")

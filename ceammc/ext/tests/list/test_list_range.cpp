@@ -32,7 +32,7 @@ TEST_CASE("list.range", "[externals]")
         TestExtListRange t("list.range");
 
         t << L();
-        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_THAT(t, !hasOutput(&t));
         t << LF(2);
         REQUIRE(t.outputListAt(0) == LX(2, 2));
     }

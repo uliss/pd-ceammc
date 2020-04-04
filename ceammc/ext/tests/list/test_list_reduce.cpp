@@ -112,7 +112,7 @@ TEST_CASE("list.reduce", "[externals]")
         t.connectFrom(0, plus, 1);
 
         t.send(MLA());
-        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         t.send(MLA(1, 2, 3));
         REQUIRE_THAT(t, outputFloat(&t, 6));

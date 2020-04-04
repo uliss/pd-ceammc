@@ -55,7 +55,7 @@ TEST_CASE("list.sum", "[externals]")
         TestExtListSum t("list.sum");
 
         t.send(MLA());
-        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         t.send(MLA(1));
         REQUIRE_THAT(t, outputFloat(&t, 1));
@@ -67,6 +67,6 @@ TEST_CASE("list.sum", "[externals]")
         REQUIRE_THAT(t, outputFloat(&t, 7));
 
         t.send(MLA("a", "b", "c"));
-        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_THAT(t, !hasOutput(&t));
     }
 }

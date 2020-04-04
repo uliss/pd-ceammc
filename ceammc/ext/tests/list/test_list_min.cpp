@@ -33,10 +33,10 @@ TEST_CASE("list.min", "[externals]")
         TestExtListMin t("list.min");
 
         t << L();
-        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         t << LA("a", "b", "c");
-        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         t << LF(100);
         REQUIRE_THAT(t, outputFloat(&t, 100));
@@ -51,10 +51,10 @@ TEST_CASE("list.min", "[externals]")
         REQUIRE_THAT(t, outputFloat(&t, 50));
 
         t.send(MLA());
-        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         t.send(MLA());
-        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         t.send(MLA(1, 2, 3));
         REQUIRE_THAT(t, outputFloat(&t, 1));
@@ -69,7 +69,7 @@ TEST_CASE("list.min", "[externals]")
         REQUIRE_PROPERTY_LIST(t, @type, LA("symbol"));
 
         t << L();
-        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         t << LA("test");
         REQUIRE(t.outputSymbolAt(0) == A("test"));
@@ -87,7 +87,7 @@ TEST_CASE("list.min", "[externals]")
         REQUIRE_PROPERTY_LIST(t, @type, LA("any"));
 
         t << L();
-        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         t << LA("a");
         REQUIRE(t.outputSymbolAt(0) == A("a"));
@@ -107,7 +107,7 @@ TEST_CASE("list.min", "[externals]")
         TestExtListMin t("list.min", LA("@any"));
 
         t.send(MLA());
-        REQUIRE_FALSE(t.hasOutput());
+        REQUIRE_THAT(t, !hasOutput(&t));
 
         t.send(MLA(3, 2, 1));
         REQUIRE_THAT(t, outputFloat(&t, 1));
