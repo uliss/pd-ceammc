@@ -11,13 +11,13 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../list/list_seq.h"
-#include "catch.hpp"
+#include "list_seq.h"
 #include "test_list_base.h"
 
-#include <stdio.h>
+PD_COMPLETE_TEST_SETUP(ListSeq, list, seq)
 
-typedef TestExternal<ListSeq> ListSeqTest;
+using TObj = TestListSeq;
+using TExt = TestExtListSeq;
 
 TEST_CASE("list.seq", "[externals]")
 {
@@ -28,7 +28,7 @@ TEST_CASE("list.seq", "[externals]")
     {
         SECTION("empty arguments")
         {
-            ListSeqTest t("list.seq", L());
+            TObj t("list.seq", L());
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
@@ -40,35 +40,35 @@ TEST_CASE("list.seq", "[externals]")
 
         SECTION("properties")
         {
-            ListSeqTest t("list.seq", LA("@from", -10));
+            TObj t("list.seq", LA("@from", -10));
             REQUIRE_PROPERTY(t, @from, -10.f);
             REQUIRE_PROPERTY(t, @to, 1.f);
             REQUIRE_PROPERTY(t, @step, 1.f);
             REQUIRE_PROPERTY(t, @closed, 0.0f);
 
             {
-                ListSeqTest t("list.seq", LA("@from", -10, "@to", -2));
+                TObj t("list.seq", LA("@from", -10, "@to", -2));
                 REQUIRE_PROPERTY(t, @from, -10.f);
                 REQUIRE_PROPERTY(t, @to, -2.f);
                 REQUIRE_PROPERTY(t, @step, 1.f);
             }
 
             {
-                ListSeqTest t("list.seq", LA("@from", -10, "@to", -2, "@step", -1));
+                TObj t("list.seq", LA("@from", -10, "@to", -2, "@step", -1));
                 REQUIRE_PROPERTY(t, @from, -10.f);
                 REQUIRE_PROPERTY(t, @to, -2.f);
                 REQUIRE_PROPERTY(t, @step, -1.f);
             }
 
             {
-                ListSeqTest t("list.seq", LA("@closed"));
+                TObj t("list.seq", LA("@closed"));
                 REQUIRE_PROPERTY(t, @from, 0.f);
                 REQUIRE_PROPERTY(t, @to, 1.f);
                 REQUIRE_PROPERTY(t, @closed, 1.f);
             }
 
             {
-                ListSeqTest t("list.seq", LA("@to", 10, "@closed"));
+                TObj t("list.seq", LA("@to", 10, "@closed"));
                 REQUIRE_PROPERTY(t, @from, 0.f);
                 REQUIRE_PROPERTY(t, @to, 10.f);
                 REQUIRE_PROPERTY(t, @closed, 1.f);
@@ -78,7 +78,7 @@ TEST_CASE("list.seq", "[externals]")
         SECTION("positional arguments")
         {
             {
-                ListSeqTest t("list.seq", LF(100));
+                TObj t("list.seq", LF(100));
                 REQUIRE_PROPERTY(t, @from, 0.f);
                 REQUIRE_PROPERTY(t, @to, 100.f);
                 REQUIRE_PROPERTY(t, @step, 1.f);
@@ -86,28 +86,28 @@ TEST_CASE("list.seq", "[externals]")
             }
 
             {
-                ListSeqTest t("list.seq", LF(-100));
+                TObj t("list.seq", LF(-100));
                 REQUIRE_PROPERTY(t, @from, 0.f);
                 REQUIRE_PROPERTY(t, @to, -100.f);
                 REQUIRE_PROPERTY(t, @step, 1.f);
             }
 
             {
-                ListSeqTest t("list.seq", LF(1, 10));
+                TObj t("list.seq", LF(1, 10));
                 REQUIRE_PROPERTY(t, @from, 1.f);
                 REQUIRE_PROPERTY(t, @to, 10.f);
                 REQUIRE_PROPERTY(t, @step, 1.f);
             }
 
             {
-                ListSeqTest t("list.seq", LF(10, 1));
+                TObj t("list.seq", LF(10, 1));
                 REQUIRE_PROPERTY(t, @from, 10.f);
                 REQUIRE_PROPERTY(t, @to, 1.f);
                 REQUIRE_PROPERTY(t, @step, 1.f);
             }
 
             {
-                ListSeqTest t("list.seq", LF(2, 5, 3));
+                TObj t("list.seq", LF(2, 5, 3));
                 REQUIRE_PROPERTY(t, @from, 2.f);
                 REQUIRE_PROPERTY(t, @to, 5.f);
                 REQUIRE_PROPERTY(t, @step, 3.f);
@@ -118,31 +118,31 @@ TEST_CASE("list.seq", "[externals]")
     SECTION("bang")
     {
         {
-            ListSeqTest t("list.seq", LF(5));
+            TObj t("list.seq", LF(5));
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_LIST_AT_OUTLET(0, t, LA(0.f, 1, 2, 3, 4));
         }
 
         {
-            ListSeqTest t("list.seq", LF(-5));
+            TObj t("list.seq", LF(-5));
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_LIST_AT_OUTLET(0, t, LA(0.f, -1, -2, -3, -4));
         }
 
         {
-            ListSeqTest t("list.seq", LF(2, 8));
+            TObj t("list.seq", LF(2, 8));
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_LIST_AT_OUTLET(0, t, LA(2, 3, 4, 5, 6, 7));
         }
 
         {
-            ListSeqTest t("list.seq", LF(1, 3, 0.5f));
+            TObj t("list.seq", LF(1, 3, 0.5f));
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_LIST_AT_OUTLET(0, t, LF(1.0f, 1.5f, 2.f, 2.5f));
         }
 
         {
-            ListSeqTest t("list.seq", LF(1, 3, -1));
+            TObj t("list.seq", LF(1, 3, -1));
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2));
         }
@@ -150,7 +150,7 @@ TEST_CASE("list.seq", "[externals]")
 
     SECTION("list")
     {
-        ListSeqTest t("list.seq", L());
+        TObj t("list.seq", L());
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
 
@@ -175,7 +175,7 @@ TEST_CASE("list.seq", "[externals]")
 
     SECTION("float")
     {
-        ListSeqTest t("list.seq", L());
+        TObj t("list.seq", L());
 
         WHEN_SEND_FLOAT_TO(0, t, 0);
         REQUIRE_LIST_AT_OUTLET(0, t, L());
@@ -189,7 +189,7 @@ TEST_CASE("list.seq", "[externals]")
 
     SECTION("@closed")
     {
-        ListSeqTest t("list.seq", LA("@closed"));
+        TObj t("list.seq", LA("@closed"));
 
         WHEN_SEND_FLOAT_TO(0, t, 0);
         REQUIRE_LIST_AT_OUTLET(0, t, L());

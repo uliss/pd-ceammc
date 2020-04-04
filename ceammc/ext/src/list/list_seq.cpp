@@ -118,7 +118,7 @@ void ListSeq::onList(const AtomList& lst)
     }
 }
 
-extern "C" void setup_list0x2eseq()
+void setup_list_seq()
 {
     ObjectFactory<ListSeq> obj("list.seq");
 }

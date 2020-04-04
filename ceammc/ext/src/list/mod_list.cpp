@@ -5,7 +5,6 @@ extern "C" void setup_list0x2edeinterleave();
 extern "C" void setup_list0x2edelta();
 extern "C" void setup_list0x2eintegrator();
 extern "C" void setup_list0x2erepack();
-extern "C" void setup_list0x2eseq();
 
 void setup_list_any_of();
 void setup_list_all_of();
@@ -47,6 +46,7 @@ void setup_list_rlencode();
 void setup_list_rotate();
 void setup_list_search();
 void setup_list_separate();
+void setup_list_seq();
 void setup_list_set();
 void setup_list_shift();
 void setup_list_shuffle();
@@ -70,7 +70,6 @@ void ceammc_list_setup()
     setup_list0x2edelta();
     setup_list0x2eintegrator();
     setup_list0x2erepack();
-    setup_list0x2eseq();
 
     setup_list_any_of();
     setup_list_all_of();
@@ -114,6 +113,7 @@ void ceammc_list_setup()
     setup_list_search();
     setup_list_separate();
     setup_list_set();
+    setup_list_seq();
     setup_list_shift();
     setup_list_shuffle();
     setup_list_slice();

@@ -31,4 +31,6 @@ public:
     void onList(const AtomList& lst) final;
 };
 
+void setup_list_seq();
+
 #endif // LIST_SEQ_H
