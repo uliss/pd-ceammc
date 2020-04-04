@@ -96,13 +96,13 @@ TEST_CASE("list.count", "[externals]")
         TestExtListCount t("list.count", LF(10));
 
         t.sendList(LF(1, 2, 3, 4));
-        REQUIRE(t.outputFloatAt(0) == 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
 
         t.sendList(LF(1, 2, 10, 4));
-        REQUIRE(t.outputFloatAt(0) == 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         t.sendList(LF(10, 2, 10, 4));
-        REQUIRE(t.outputFloatAt(0) == 2);
+        REQUIRE_THAT(t, outputFloat(&t, 2));
     }
 
     SECTION("external data")

@@ -34,14 +34,14 @@ TEST_CASE("list.last", "[externals]")
         t << L();
         REQUIRE_FALSE(t.hasOutput());
         t << LF(1000);
-        REQUIRE(t.outputFloatAt(0) == Approx(1000));
+        REQUIRE_THAT(t, outputFloat(&t, Approx(1000)));
         t << LF(100, 200, 300);
-        REQUIRE(t.outputFloatAt(0) == Approx(300));
+        REQUIRE_THAT(t, outputFloat(&t, Approx(300)));
 
         t.send(DataTypeMList("()"));
         REQUIRE_FALSE(t.hasOutput());
         t.send(DataTypeMList("(1)"));
-        REQUIRE(t.outputFloatAt(0) == Approx(1));
+        REQUIRE_THAT(t, outputFloat(&t, Approx(1)));
         t.send(DataTypeMList("(a b c)"));
         REQUIRE(t.outputSymbolAt(0) == gensym("c"));
 

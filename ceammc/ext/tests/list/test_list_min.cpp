@@ -39,16 +39,16 @@ TEST_CASE("list.min", "[externals]")
         REQUIRE_FALSE(t.hasOutput());
 
         t << LF(100);
-        REQUIRE(t.outputFloatAt(0) == 100);
+        REQUIRE_THAT(t, outputFloat(&t, 100));
 
         t << LF(100, 200);
-        REQUIRE(t.outputFloatAt(0) == 100);
+        REQUIRE_THAT(t, outputFloat(&t, 100));
 
         t << LF(100, 200, 50);
-        REQUIRE(t.outputFloatAt(0) == 50);
+        REQUIRE_THAT(t, outputFloat(&t, 50));
 
         t << LA("a", 200, 50);
-        REQUIRE(t.outputFloatAt(0) == 50);
+        REQUIRE_THAT(t, outputFloat(&t, 50));
 
         t.send(MLA());
         REQUIRE_FALSE(t.hasOutput());
@@ -57,10 +57,10 @@ TEST_CASE("list.min", "[externals]")
         REQUIRE_FALSE(t.hasOutput());
 
         t.send(MLA(1, 2, 3));
-        REQUIRE(t.outputFloatAt(0) == 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         t.send(MLA(1, 2, MLA(), "a", 3));
-        REQUIRE(t.outputFloatAt(0) == 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
     }
 
     SECTION("symbol")
@@ -93,13 +93,13 @@ TEST_CASE("list.min", "[externals]")
         REQUIRE(t.outputSymbolAt(0) == A("a"));
 
         t << LF(100);
-        REQUIRE(t.outputFloatAt(0) == 100);
+        REQUIRE_THAT(t, outputFloat(&t, 100));
 
         t << LA(100, "a");
-        REQUIRE(t.outputFloatAt(0) == 100);
+        REQUIRE_THAT(t, outputFloat(&t, 100));
 
         t << LA(100, "a", "b", 100);
-        REQUIRE(t.outputFloatAt(0) == 100);
+        REQUIRE_THAT(t, outputFloat(&t, 100));
     }
 
     SECTION("mlist")
@@ -110,10 +110,10 @@ TEST_CASE("list.min", "[externals]")
         REQUIRE_FALSE(t.hasOutput());
 
         t.send(MLA(3, 2, 1));
-        REQUIRE(t.outputFloatAt(0) == 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         t.send(MLA(3, 2, "ABC"));
-        REQUIRE(t.outputFloatAt(0) == 2);
+        REQUIRE_THAT(t, outputFloat(&t, 2));
 
         t.send(MLA(MLA(), MLA()));
         REQUIRE(t.outputAtomAt(0) == MLA());

@@ -39,16 +39,16 @@ TEST_CASE("list.mean", "[externals]")
         REQUIRE_FALSE(t.hasOutput());
 
         t << 100;
-        REQUIRE(t.outputFloatAt(0) == 100);
+        REQUIRE_THAT(t, outputFloat(&t, 100));
 
         t << LF(200);
-        REQUIRE(t.outputFloatAt(0) == 200);
+        REQUIRE_THAT(t, outputFloat(&t, 200));
         t << LF(200, 100);
-        REQUIRE(t.outputFloatAt(0) == Approx(150));
+        REQUIRE_THAT(t, outputFloat(&t, 150));
         t << LF(200, -200);
-        REQUIRE(t.outputFloatAt(0) == Approx(0));
+        REQUIRE_THAT(t, outputFloat(&t, 0));
         t << LA(200, -200, "symbol");
-        REQUIRE(t.outputFloatAt(0) == Approx(0));
+        REQUIRE_THAT(t, outputFloat(&t, 0));
     }
 
     SECTION("mlist")

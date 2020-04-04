@@ -39,25 +39,25 @@ TEST_CASE("list.max", "[externals]")
         REQUIRE_FALSE(t.hasOutput());
 
         t << LF(100);
-        REQUIRE(t.outputFloatAt(0) == 100);
+        REQUIRE_THAT(t, outputFloat(&t, 100));
 
         t << LF(100, 200);
-        REQUIRE(t.outputFloatAt(0) == 200);
+        REQUIRE_THAT(t, outputFloat(&t, 200));
 
         t << LF(100, 200, 50);
-        REQUIRE(t.outputFloatAt(0) == 200);
+        REQUIRE_THAT(t, outputFloat(&t, 200));
 
         t << LA("a", 200, 50);
-        REQUIRE(t.outputFloatAt(0) == 200);
+        REQUIRE_THAT(t, outputFloat(&t, 200));
 
         t.send(MLA());
         REQUIRE_THAT(t, !hasOutput(&t));
 
         t.send(MLA(1, 2, 3));
-        REQUIRE(t.outputFloatAt(0) == 3);
+        REQUIRE_THAT(t, outputFloat(&t, 3));
 
         t.send(MLA(1, 2, MLA(), "a", 3));
-        REQUIRE(t.outputFloatAt(0) == 3);
+        REQUIRE_THAT(t, outputFloat(&t, 3));
     }
 
     SECTION("symbol")
@@ -90,7 +90,7 @@ TEST_CASE("list.max", "[externals]")
         REQUIRE(t.outputSymbolAt(0) == A("a"));
 
         t << LF(100);
-        REQUIRE(t.outputFloatAt(0) == 100);
+        REQUIRE_THAT(t, outputFloat(&t, 100));
 
         t << LA(100, "a");
         REQUIRE(t.isOutputSymbolAt(0));
@@ -108,7 +108,7 @@ TEST_CASE("list.max", "[externals]")
         REQUIRE_THAT(t, !hasOutput(&t));
 
         t.send(MLA(3, 2, 1));
-        REQUIRE(t.outputFloatAt(0) == 3);
+        REQUIRE_THAT(t, outputFloat(&t, 3));
 
         t.send(MLA(3, 2, "ABC"));
         REQUIRE(t.outputSymbolAt(0) == A("ABC"));

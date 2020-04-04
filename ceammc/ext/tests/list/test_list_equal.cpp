@@ -75,21 +75,21 @@ TEST_CASE("list.equal", "[externals]")
         TestExtListEqual t("list.equal", LF(1, 2));
 
         t.send(MLA());
-        REQUIRE(t.outputFloatAt(0) == 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
 
         t.send(MLA("a", "b"));
-        REQUIRE(t.outputFloatAt(0) == 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
 
         t.send(MLA("a", "2"));
-        REQUIRE(t.outputFloatAt(0) == 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
 
         t.send(MLA(1, 2));
-        REQUIRE(t.outputFloatAt(0) == 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         t.send(MLA(1, 2, MLA()));
-        REQUIRE(t.outputFloatAt(0) == 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
 
         t.send(MLA(1, 2, MLA()));
-        REQUIRE(t.outputFloatAt(0) == 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
     }
 }

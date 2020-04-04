@@ -58,13 +58,13 @@ TEST_CASE("list.sum", "[externals]")
         REQUIRE_FALSE(t.hasOutput());
 
         t.send(MLA(1));
-        REQUIRE(t.outputFloatAt(0) == 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         t.send(MLA(1, 2, 3));
-        REQUIRE(t.outputFloatAt(0) == 6);
+        REQUIRE_THAT(t, outputFloat(&t, 6));
 
         t.send(MLA(1, 2, 3, MLA(), MLA("a", "b", "c"), 1));
-        REQUIRE(t.outputFloatAt(0) == 7);
+        REQUIRE_THAT(t, outputFloat(&t, 7));
 
         t.send(MLA("a", "b", "c"));
         REQUIRE_FALSE(t.hasOutput());

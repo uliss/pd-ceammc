@@ -84,24 +84,24 @@ TEST_CASE("list.all_of", "[externals]")
 
         t.send(LF(1, 2, 3, 4));
         REQUIRE(t.hasOutput());
-        REQUIRE(t.outputFloatAt(0) == 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         t.send(LF(8, 9));
-        REQUIRE(t.outputFloatAt(0) == 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         t.send(LF(8, 9, 10));
-        REQUIRE(t.outputFloatAt(0) == 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
 
         t.send(MLA(1, 2, 3, 4, 5));
-        REQUIRE(t.outputFloatAt(0) == 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         t.send(MLA(8, 9));
-        REQUIRE(t.outputFloatAt(0) == 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         t.send(MLA(8, 9, 10));
-        REQUIRE(t.outputFloatAt(0) == 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
 
         t.send(MLA(10, 11));
-        REQUIRE(t.outputFloatAt(0) == 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
     }
 }

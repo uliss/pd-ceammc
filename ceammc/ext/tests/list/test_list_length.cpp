@@ -32,16 +32,16 @@ TEST_CASE("list.length", "[externals]")
         TestExtListLength t("list.length");
 
         t << L();
-        REQUIRE(t.outputFloatAt(0) == 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
         t << LF(1);
-        REQUIRE(t.outputFloatAt(0) == 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
         t << LF(1, 2);
-        REQUIRE(t.outputFloatAt(0) == 2);
+        REQUIRE_THAT(t, outputFloat(&t, 2));
 
         t.send(MLA("a", "b", "c"));
-        REQUIRE(t.outputFloatAt(0) == 3);
+        REQUIRE_THAT(t, outputFloat(&t, 3));
         t.send(MLA());
-        REQUIRE(t.outputFloatAt(0) == 0);
+        REQUIRE_THAT(t, outputFloat(&t, 0));
     }
 
     SECTION("alias")

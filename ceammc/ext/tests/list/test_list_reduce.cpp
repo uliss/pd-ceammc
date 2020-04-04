@@ -115,9 +115,9 @@ TEST_CASE("list.reduce", "[externals]")
         REQUIRE_FALSE(t.hasOutput());
 
         t.send(MLA(1, 2, 3));
-        REQUIRE(t.outputFloatAt(0) == 6);
+        REQUIRE_THAT(t, outputFloat(&t, 6));
 
         t.send(MLA(10));
-        REQUIRE(t.outputFloatAt(0) == 10);
+        REQUIRE_THAT(t, outputFloat(&t, 10));
     }
 }

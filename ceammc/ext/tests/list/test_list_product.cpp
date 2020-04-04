@@ -39,14 +39,14 @@ TEST_CASE("list.product", "[externals]")
         REQUIRE_FALSE(t.hasOutput());
 
         t << 1;
-        REQUIRE(t.outputFloatAt(0) == 1);
+        REQUIRE_THAT(t, outputFloat(&t, 1));
 
         t << LF(2);
-        REQUIRE(t.outputFloatAt(0) == 2);
+        REQUIRE_THAT(t, outputFloat(&t, 2));
         t << LF(2, 3);
-        REQUIRE(t.outputFloatAt(0) == Approx(6));
+        REQUIRE_THAT(t, outputFloat(&t, 6));
         t << LA(2, -2, "symbol");
-        REQUIRE(t.outputFloatAt(0) == Approx(-4));
+        REQUIRE_THAT(t, outputFloat(&t, -4));
     }
 
     SECTION("mlist")

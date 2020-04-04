@@ -110,10 +110,10 @@ TEST_CASE("list.at", "[externals]")
         REQUIRE(t->property("@index")->get() == LF(-1));
 
         t.sendList(LA(1, 2, 3, 4, 5));
-        REQUIRE(t.outputFloatAt(0) == Approx(5));
+        REQUIRE_THAT(t, outputFloat(&t, 5));
 
         t.sendList(MA(1, 2, 3, -10));
-        REQUIRE(t.outputFloatAt(0) == Approx(-10));
+        REQUIRE_THAT(t, outputFloat(&t, -10));
     }
 
     SECTION("@*?")
@@ -151,7 +151,7 @@ TEST_CASE("list.at", "[externals]")
 
         t.sendList(LF(1, 2, 3));
         REQUIRE(t.hasOutput());
-        REQUIRE(t.outputFloatAt(0) == 3);
+        REQUIRE_THAT(t, outputFloat(&t, 3));
 
         t.sendList(LF(1, 2));
         REQUIRE(t.hasOutput());
