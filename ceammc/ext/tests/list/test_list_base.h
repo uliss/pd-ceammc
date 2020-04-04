@@ -53,6 +53,27 @@ public:
     }
 };
 
+template <typename T>
+class OutputSymbolBase : public Catch::MatcherBase<T> {
+protected:
+    t_symbol* v_;
+    size_t outl_;
+
+public:
+    OutputSymbolBase(const char* v, size_t outlet = 0)
+        : v_(gensym(v))
+        , outl_(outlet)
+    {
+    }
+
+    std::string describe() const final
+    {
+        std::ostringstream ss;
+        ss << "output " << v_->s_name << " to outlet[" << outl_ << "]";
+        return ss.str();
+    }
+};
+
 template <class T>
 class OutputFloat : public OutputFloatBase<TestExternal<T>> {
 public:
@@ -82,6 +103,38 @@ public:
         return t.hasOutputAt(this->outl_)
             && t.isOutputFloatAt(this->outl_)
             && t.outputFloatAt(this->outl_) == Approx(this->v_);
+    }
+};
+
+template <class T>
+class OutputSymbol : public OutputSymbolBase<TestExternal<T>> {
+public:
+    OutputSymbol(const char* v, size_t outlet = 0)
+        : OutputSymbolBase<TestExternal<T>>(v, outlet)
+    {
+    }
+
+    bool match(const TestExternal<T>& t) const override
+    {
+        return t.hasNewMessages(this->outl_)
+            && t.lastMessage(this->outl_).isSymbol()
+            && t.lastMessage(this->outl_).atomValue().asSymbol() == this->v_;
+    }
+};
+
+template <class T>
+class OutputSymbolExt : public OutputSymbolBase<TestPdExternal<T>> {
+public:
+    OutputSymbolExt(const char* v, size_t outlet = 0)
+        : OutputSymbolBase<TestPdExternal<T>>(v, outlet)
+    {
+    }
+
+    bool match(const TestPdExternal<T>& t) const override
+    {
+        return t.hasOutputAt(this->outl_)
+            && t.isOutputSymbolAt(this->outl_)
+            && t.outputSymbolAt(this->outl_) == this->v_;
     }
 };
 
@@ -172,6 +225,9 @@ template <typename T>
 OutputFloat<T> outputFalse(TestExternal<T>* t, size_t outl = 0) { return OutputFloat<T>(0.0, outl); }
 
 template <typename T>
+OutputSymbol<T> outputSymbol(TestExternal<T>* t, const char* v, size_t outl = 0) { return OutputSymbol<T>(v, outl); }
+
+template <typename T>
 HasOutput<T> hasOutput(TestExternal<T>* t, size_t outl = 0) { return HasOutput<T>(outl); }
 
 // real Pd external
@@ -183,6 +239,9 @@ OutputFloatExt<T> outputTrue(TestPdExternal<T>* t, size_t outl = 0) { return Out
 
 template <typename T>
 OutputFloatExt<T> outputFalse(TestPdExternal<T>* t, size_t outl = 0) { return OutputFloatExt<T>(0.0, outl); }
+
+template <typename T>
+OutputSymbolExt<T> outputSymbol(TestPdExternal<T>* t, const char* v, size_t outl = 0) { return OutputSymbolExt<T>(v, outl); }
 
 template <typename T>
 HasOutputExt<T> hasOutput(TestPdExternal<T>* t, size_t outl = 0) { return HasOutputExt<T>(outl); }
