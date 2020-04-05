@@ -20,7 +20,7 @@
 using namespace ceammc;
 
 class ListContains : public BaseObject {
-    AtomList needle_;
+    ListProperty* needle_;
 
 public:
     ListContains(const PdArgs& args);

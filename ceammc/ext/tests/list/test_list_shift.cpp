@@ -70,6 +70,6 @@ TEST_CASE("list.shift", "[externals]")
         REQUIRE(t.outputAtomAt(0) == MLA());
 
         t.send(MLA(1, 2));
-        REQUIRE(t.outputAtomAt(0) == MLA(1.4, 2)->data());
+        REQUIRE(t.outputAtomAt(0) == MLA(1.4, 2));
     }
 }

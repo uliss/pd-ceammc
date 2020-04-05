@@ -1,5 +1,4 @@
-#include "ceammc.h"
-#include <m_pd.h>
+#include "ceammc_platform.h"
 
 static t_class* system_memused_class;
 struct t_system_memused {
@@ -9,8 +8,8 @@ struct t_system_memused {
 
 static void system_memused_bang(t_system_memused* x)
 {
-    outlet_float(x->x_peak, ceammc_memory_peak_rss());
-    outlet_float(x->x_obj.te_outlet, ceammc_memory_current_rss());
+    outlet_float(x->x_peak, ceammc::platform::ceammc_memory_peak_rss());
+    outlet_float(x->x_obj.te_outlet, ceammc::platform::ceammc_memory_current_rss());
 }
 
 static void* system_memused_new()

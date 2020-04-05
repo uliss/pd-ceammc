@@ -18,28 +18,33 @@
 
 ListContains::ListContains(const PdArgs& args)
     : BaseObject(args)
-    , needle_(positionalArguments())
+    , needle_(nullptr)
 {
+    needle_ = new ListProperty("@subj");
+    needle_->setArgIndex(0);
+    addProperty(needle_);
+
     createInlet();
     createOutlet();
 }
 
 void ListContains::onList(const AtomList& lst)
 {
-    auto it = std::search(lst.begin(), lst.end(), needle_.begin(), needle_.end());
+    const auto& v = needle_->value();
+    auto it = std::search(lst.begin(), lst.end(), v.begin(), v.end());
     boolTo(0, it != lst.end());
 }
 
 void ListContains::onDataT(const MListAtom& ml)
 {
-    LIB_ERR << ml;
-    auto it = std::search(ml->begin(), ml->end(), needle_.begin(), needle_.end());
+    const auto& v = needle_->value();
+    auto it = std::search(ml->begin(), ml->end(), v.begin(), v.end());
     boolTo(0, it != ml->end());
 }
 
 void ListContains::onInlet(size_t n, const AtomList& lst)
 {
-    needle_ = lst;
+    needle_->set(lst);
 }
 
 void setup_list_contains()

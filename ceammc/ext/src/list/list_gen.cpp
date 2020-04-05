@@ -1,7 +1,7 @@
 #include "list_gen.h"
-#include "ceammc.hpp"
 #include "ceammc_factory.h"
 #include "ceammc_log.h"
+#include "ceammc_numeric.h"
 
 constexpr int DEF_COUNT = 1;
 constexpr int MIN_COUNT = 1;

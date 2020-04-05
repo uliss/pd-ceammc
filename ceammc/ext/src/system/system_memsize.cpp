@@ -1,5 +1,4 @@
-#include "ceammc.h"
-#include <m_pd.h>
+#include "ceammc_platform.h"
 
 static t_class* system_memsize_class;
 struct t_system_memsize {
@@ -8,7 +7,7 @@ struct t_system_memsize {
 
 static void system_memsize_bang(t_system_memsize* x)
 {
-    outlet_float(x->x_obj.te_outlet, ceammc_memory_size());
+    outlet_float(x->x_obj.te_outlet, ceammc::platform::ceammc_memory_size());
 }
 
 static void* system_memsize_new()
