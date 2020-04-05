@@ -13,6 +13,7 @@ static t_symbol* SYM_FOLD;
 
 ListWalk::ListWalk(const PdArgs& a)
     : BaseObject(a)
+    , lst_(nullptr)
     , walk_mode_(nullptr)
     , current_pos_(0)
     , length_(1)
@@ -24,11 +25,13 @@ ListWalk::ListWalk(const PdArgs& a)
 
     addProperty(new PointerProperty<bool>("@direction", &forward_, PropValueAccess::READWRITE));
     addProperty(new PointerProperty<int>("@length", &length_, PropValueAccess::READWRITE));
-    addProperty(new PointerProperty<AtomList>("@value", &lst_, PropValueAccess::READONLY));
 
-    walk_mode_ = new SymbolEnumProperty("@mode",
-        { SYM_SINGLE, SYM_WRAP, SYM_CLIP, SYM_FOLD });
+    walk_mode_ = new SymbolEnumProperty("@mode", { SYM_SINGLE, SYM_WRAP, SYM_CLIP, SYM_FOLD });
     addProperty(walk_mode_);
+
+    lst_ = new ListProperty("@value");
+    lst_->setArgIndex(0);
+    addProperty(lst_);
 
     // aliases
     addProperty(new SymbolEnumAlias("@single", walk_mode_, SYM_SINGLE));
@@ -39,12 +42,10 @@ ListWalk::ListWalk(const PdArgs& a)
 
     createCbIntProperty(
         "@size",
-        [this]() -> int { return lst_.size(); })
+        [this]() -> int { return lst_->value().size(); })
         ->setIntCheck(PropValueConstraints::GREATER_EQUAL, 0);
 
     createCbProperty("@index", &ListWalk::p_index, &ListWalk::p_set_index);
-
-    lst_ = positionalArguments();
 }
 
 void ListWalk::onBang() { onFloat(1); }
@@ -65,7 +66,7 @@ void ListWalk::onFloat(t_float v)
 
 void ListWalk::onList(const AtomList& l)
 {
-    lst_ = l;
+    lst_->set(l);
     current_pos_ = 0;
     single_done_ = false;
 }
@@ -86,7 +87,7 @@ AtomList ListWalk::p_index() const
         return AtomList(current_pos_);
     else {
         size_t idx = 0;
-        list::calcFoldIndex(current_pos_, lst_.size(), &idx);
+        list::calcFoldIndex(current_pos_, lst_->value().size(), &idx);
         return AtomList(idx);
     }
 }
@@ -95,9 +96,9 @@ void ListWalk::p_set_index(const AtomList& l)
 {
     int idx = atomlistToValue<int>(l, 0);
     if (idx < 0)
-        idx += lst_.size();
+        idx += lst_->value().size();
 
-    current_pos_ = std::max(0, std::min<int>(idx, lst_.size() - 1));
+    current_pos_ = std::max(0, std::min<int>(idx, lst_->value().size() - 1));
 }
 
 void ListWalk::next(int step)
@@ -124,7 +125,7 @@ void ListWalk::prev(int step)
 
 void ListWalk::toPosition(int pos)
 {
-    if (lst_.empty()) // error message in current()
+    if (lst_->value().empty()) // error message in current()
         return;
 
     size_t idx = 0;
@@ -133,18 +134,18 @@ void ListWalk::toPosition(int pos)
         if (pos < 0) {
             current_pos_ = 0;
             single_done_ = true;
-        } else if (pos < lst_.size()) {
+        } else if (pos < lst_->value().size()) {
             current_pos_ = pos;
             single_done_ = false;
         } else {
-            current_pos_ = lst_.size() - 1;
+            current_pos_ = lst_->value().size() - 1;
             single_done_ = true;
         }
     } else if (walk_mode_->value() == SYM_WRAP) {
-        if (calcWrapIndex(pos, lst_.size(), &idx))
+        if (calcWrapIndex(pos, lst_->value().size(), &idx))
             current_pos_ = idx;
     } else if (walk_mode_->value() == SYM_CLIP) {
-        if (calcClipIndex(pos, lst_.size(), &idx))
+        if (calcClipIndex(pos, lst_->value().size(), &idx))
             current_pos_ = idx;
     } else if (walk_mode_->value() == SYM_FOLD) {
         current_pos_ = pos;
@@ -160,7 +161,7 @@ void ListWalk::current()
         return;
     }
 
-    if (lst_.empty()) {
+    if (lst_->value().empty()) {
         OBJ_ERR << "empty list";
         return;
     }
@@ -170,23 +171,23 @@ void ListWalk::current()
         if (single_done_)
             return;
 
-        listTo(0, lst_.slice(current_pos_, current_pos_ + length_ - 1));
+        listTo(0, lst_->value().slice(current_pos_, current_pos_ + length_ - 1));
     }
     //! clip
     else if (walk_mode_->value() == SYM_CLIP) {
-        listTo(0, list::sliceClip(lst_, current_pos_, length_));
+        listTo(0, list::sliceClip(lst_->value(), current_pos_, length_));
     }
     //! wrap/loop
     else if (walk_mode_->value() == SYM_WRAP) {
-        listTo(0, list::sliceWrap(lst_, current_pos_, length_));
+        listTo(0, list::sliceWrap(lst_->value(), current_pos_, length_));
     }
     //! fold
     else if (walk_mode_->value() == SYM_FOLD) {
-        listTo(0, list::sliceFold(lst_, current_pos_, length_));
+        listTo(0, list::sliceFold(lst_->value(), current_pos_, length_));
     }
 
     // last element
-    if ((current_pos_ + 1) == lst_.size())
+    if ((current_pos_ + 1) == lst_->value().size())
         bangTo(1);
 }
 

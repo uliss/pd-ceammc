@@ -22,7 +22,7 @@
 namespace ceammc {
 
 class ListWalk : public BaseObject {
-    AtomList lst_;
+    ListProperty* lst_;
     SymbolEnumProperty* walk_mode_;
     int current_pos_;
     int length_;
