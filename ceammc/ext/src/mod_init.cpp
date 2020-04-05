@@ -12,7 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "mod_init.h"
-#include "lib/ceammc.hpp"
+#include "ceammc_pd.h"
+#include "ceammc_platform.h"
+#include "lib/ceammc.h"
 #include "m_imp.h"
 #include "s_stuff.h"
 
@@ -68,7 +70,7 @@ static void setup_env_doc_path()
 
     std::string path(sys_libdir->s_name);
     path += "/doc";
-    ceammc::set_env("DOC", path.c_str());
+    ceammc::platform::set_env("DOC", path.c_str());
 }
 
 static void setup_env_ceammc_doc_path()
@@ -79,14 +81,14 @@ static void setup_env_ceammc_doc_path()
     }
 
     std::string path(ceammc_class->c_externdir->s_name);
-    ceammc::set_env("CEAMMC", path.c_str());
+    ceammc::platform::set_env("CEAMMC", path.c_str());
 }
 
 using namespace std;
 
 void ceammc_init()
 {
-    ceammc::addPdPrintDataSupport();
+    ceammc::pd::addPdPrintDataSupport();
 
     // setup env variables
     setup_env_doc_path();
@@ -94,7 +96,7 @@ void ceammc_init()
 
 #ifndef __WIN32
     // save vanilla external list
-    vector<string> l = ceammc::currentExtensionList();
+    vector<string> l = ceammc::pd::currentListOfExternals();
     set<string> vanilla_set(l.begin(), l.end());
 #endif
 
@@ -132,7 +134,7 @@ void ceammc_init()
 
 #ifndef __WIN32
     // get ceammc extension list
-    l = ceammc::currentExtensionList();
+    l = ceammc::pd::currentListOfExternals();
     set<string> current_set(l.begin(), l.end());
 
     set_difference(current_set.begin(), current_set.end(),

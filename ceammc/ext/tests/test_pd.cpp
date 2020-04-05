@@ -79,7 +79,7 @@ TEST_CASE("PD", "[PureData]")
         using namespace ceammc;
         typedef std::vector<std::string> slist;
         typedef std::set<std::string> sset;
-        slist l = currentExtensionList();
+        slist l = currentListOfExternals();
         REQUIRE(l.size() > 0);
 
         sset s(l.begin(), l.end());

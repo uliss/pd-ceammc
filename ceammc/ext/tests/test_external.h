@@ -34,8 +34,8 @@ extern "C" t_float* get_sys_dacsr();
 
 #define PD_TEST_TYPEDEF(T)                \
     typedef TestPdExternal<T> TestExt##T; \
-    typedef TestExternal<T> Test##T; \
-    using TObj = Test##T;\
+    typedef TestExternal<T> Test##T;      \
+    using TObj = Test##T;                 \
     using TExt = TestExt##T
 
 #define PD_TEST_SND_TYPEDEF(T) \
@@ -346,7 +346,7 @@ public:
 
     bool hasListener(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         return it != listeners_.end();
     }
 
@@ -360,7 +360,7 @@ public:
 
     bool bangWasSentTo(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return false;
 
@@ -369,7 +369,7 @@ public:
 
     bool floatWasSentTo(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return false;
 
@@ -378,7 +378,7 @@ public:
 
     bool symbolWasSentTo(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return false;
 
@@ -387,7 +387,7 @@ public:
 
     bool listWasSentTo(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return false;
 
@@ -396,7 +396,7 @@ public:
 
     bool anyWasSentTo(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return false;
 
@@ -405,7 +405,7 @@ public:
 
     bool noneWasSentTo(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return true;
 
@@ -414,7 +414,7 @@ public:
 
     bool dataWasSentTo(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return false;
 
@@ -423,7 +423,7 @@ public:
 
     t_float lastSentFloat(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return std::numeric_limits<t_float>::min();
 
@@ -432,7 +432,7 @@ public:
 
     t_symbol* lastSentSymbol(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return &s_;
 
@@ -441,7 +441,7 @@ public:
 
     AtomList lastSentList(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return L();
 
@@ -450,7 +450,7 @@ public:
 
     AtomList lastSentAny(t_symbol* addr) const
     {
-        ListenerMap::const_iterator it = listeners_.find(addr);
+        auto it = listeners_.find(addr);
         if (it == listeners_.end())
             return L();
 

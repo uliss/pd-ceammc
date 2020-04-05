@@ -11,16 +11,17 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "ceammc_format.h"
 #include "math_expr.h"
 #include "test_math_base.h"
 
 PD_COMPLETE_TEST_SETUP(MathExpr, math, expr)
 
-#define REQUIRE_EXPR(t, expr, in, out)         \
-    {                                          \
-        WHEN_SEND_LIST_TO(1, t, LA(expr));     \
-        WHEN_SEND_FLOAT_TO(0, t, in);          \
-        REQUIRE_THAT(t, outputFloat(&t, out)); \
+#define REQUIRE_EXPR(t, expr, in, out)     \
+    {                                      \
+        WHEN_SEND_LIST_TO(1, t, LA(expr)); \
+        WHEN_SEND_FLOAT_TO(0, t, in);      \
+        CHECK(floatAt(t) == Approx(out));  \
     }
 
 TEST_CASE("math.expr", "[externals]")
@@ -34,12 +35,12 @@ TEST_CASE("math.expr", "[externals]")
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
-            REQUIRE_PROPERTY(t, @expr, A(""));
+            REQUIRE_PROPERTY(t, @expr, "");
         }
 
         {
             TObj t("math.expr", LA("$pi+", "$f"));
-            REQUIRE_PROPERTY_LIST(t, @expr, LA("$pi+$f"));
+            REQUIRE_PROPERTY(t, @expr, "$pi+$f");
         }
     }
 
@@ -71,12 +72,12 @@ TEST_CASE("math.expr", "[externals]")
         REQUIRE_EXPR(t, "$f", 3, 3);
         REQUIRE_EXPR(t, "$e", 3, 2.7182817459);
         REQUIRE_EXPR(t, "sin(0)", 100, 0);
-        REQUIRE_EXPR(t, "sin($pi)", 100, 0);
+        REQUIRE_EXPR(t, "sin($pi)~=0", 100, 1);
 
         REQUIRE_EXPR(t, "sin($pi/2)", 100, 1);
         REQUIRE_EXPR(t, "sin($pi*3/2)", 100, -1);
-        REQUIRE_EXPR(t, "sin($pi*2)", 100, 0);
-        REQUIRE_EXPR(t, "cos(0)", 100, 1);
+        REQUIRE_EXPR(t, "sin($pi*2)~=0", 100, 1);
+        REQUIRE_EXPR(t, "cos(0)~=1", 100, 1);
         REQUIRE_EXPR(t, "cos($pi)", 100, -1);
         REQUIRE_EXPR(t, "sqrt($f)", 4, 2);
         REQUIRE_EXPR(t, "tan($f)", 0, 0);

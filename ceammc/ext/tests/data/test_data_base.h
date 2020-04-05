@@ -1,8 +1,5 @@
 /*****************************************************************************
- *
- * Created: 04.12.2016 2016 by Serge Poltavski
- *
- * Copyright 2016 Serge Poltavski. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -14,23 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ceammc.h"
-#include "config.h"
-#include "fmt/format.h"
+#ifndef TEST_DATA_BASE_H
+#define TEST_DATA_BASE_H
 
-namespace ceammc {
-
-InvalidOutlet::InvalidOutlet(OutletIdx n) noexcept
-    : Exception("")
-    , n_(n)
-{
-}
-
-const char* InvalidOutlet::what() const noexcept
-{
-    static char buf[64];
-    fmt::format_to(buf, FMT_STRING("invalid outlet index: {}"), n_.n);
-    return buf;
-}
-
-}
+#endif // TEST_DATA_BASE_H

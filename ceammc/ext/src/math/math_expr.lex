@@ -1,15 +1,13 @@
 /* mfcalc.l */
-/* Time-stamp: <2000-10-23 14:51:35 ronaldo> */
 %option noyywrap
 %option prefix="math_expr_"
 %option outfile="lex.math_expr.c"
 
 %{
-#include <math.h>
+    # include <math.h>
 
-#include "math_expr_calc.h"
-#include "math_expr.tab.h"
-
+    # include "math_expr_calc.h"
+    # include "math_expr.tab.h"
 %}
 
 %%
@@ -41,6 +39,7 @@ $f[0-9]* { // refs
 }
 
 "==" { return T_EQ; }
+"~=" { return T_APPROX_EQ; }
 "!=" { return T_NOT_EQ; }
 "<=" { return T_LE; }
 "<"  { return T_LT; }

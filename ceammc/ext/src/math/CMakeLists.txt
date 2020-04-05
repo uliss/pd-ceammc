@@ -63,7 +63,7 @@ ceammc_mathxx_external(reciprocal)
 ceammc_mathxx_external(sign)
 ceammc_mathxx_external(squared)
 
-add_library(ceammc_math STATIC mod_math.h mod_math.cpp ${MATH_C_SOURCES} ${MATH_CXX_SOURCES})
+add_library(ceammc_math STATIC mod_math.h mod_math.cpp ${MATH_SOURCES} ${MATH_C_SOURCES} ${MATH_CXX_SOURCES})
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     # gcc boost compile fix

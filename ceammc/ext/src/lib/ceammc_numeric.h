@@ -1,8 +1,5 @@
 /*****************************************************************************
- *
- * Created: 04.12.2016 2016 by Serge Poltavski
- *
- * Copyright 2016 Serge Poltavski. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -14,23 +11,25 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ceammc.h"
-#include "config.h"
-#include "fmt/format.h"
+#ifndef CEAMMC_NUMERIC_H
+#define CEAMMC_NUMERIC_H
+
+#include <cmath>
 
 namespace ceammc {
+namespace math {
+    template <class T>
+    static inline bool is_integer(T v)
+    {
+        return std::ceil(v) == v;
+    }
 
-InvalidOutlet::InvalidOutlet(OutletIdx n) noexcept
-    : Exception("")
-    , n_(n)
-{
+    template <class T>
+    static inline bool is_natural(T v)
+    {
+        return (v >= 0 && is_integer(v));
+    }
+}
 }
 
-const char* InvalidOutlet::what() const noexcept
-{
-    static char buf[64];
-    fmt::format_to(buf, FMT_STRING("invalid outlet index: {}"), n_.n);
-    return buf;
-}
-
-}
+#endif // CEAMMC_NUMERIC_H

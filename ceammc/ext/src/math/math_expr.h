@@ -16,14 +16,17 @@
 
 #include "ceammc_object.h"
 
+#include <utility>
+
 using namespace ceammc;
 
 struct symrec;
 struct Ast;
+using AstPtr = std::unique_ptr<Ast, void (*)(Ast*)>;
 
 class MathExpr : public BaseObject {
     std::string expr_;
-    Ast* ast_;
+    AstPtr ast_;
 
 public:
     MathExpr(const PdArgs& args);
@@ -31,11 +34,7 @@ public:
 
     void onFloat(t_float v) override;
     void onInlet(size_t n, const AtomList& lst) override;
-
     void onList(const AtomList& lst) override;
-
-    AtomList propExpr() const;
-    void propSetExpr(const AtomList& lst);
 
 private:
     void updateAST();

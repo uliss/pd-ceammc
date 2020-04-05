@@ -18,11 +18,59 @@
 #define CATCH_CONFIG_DISABLE_MATCHERS
 #include "Catch2/catch.hpp"
 
+#include "ceammc.h"
 #include "ceammc_data.h"
 #include "test_base.h"
 #include "test_external.h"
 
+using namespace ceammc::literals;
+
 #include <sstream>
+
+struct NoOutput : public ceammc::Exception {
+    NoOutput(OutletIdx n)
+        : ceammc::Exception(std::string("no output at ") + std::to_string(n.n))
+    {
+    }
+};
+
+struct NotFloat : public ceammc::Exception {
+    NotFloat(const std::string& msg)
+        : ceammc::Exception(msg)
+    {
+    }
+};
+
+template <typename T>
+t_float floatAt(const T& obj, OutletIdx idx = 0_out);
+
+template <typename T>
+t_float floatAt(const TestExternal<T>& t, OutletIdx idx = 0_out)
+{
+    if (!t.hasNewMessages(idx.n))
+        throw NoOutput(idx);
+
+    auto& msg = t.lastMessage(idx.n);
+
+    if (!msg.isFloat())
+        throw NotFloat(to_string(msg));
+
+    return msg.atomValue().asFloat();
+}
+
+template <typename T>
+t_float floatAt(const TestPdExternal<T>& t, OutletIdx idx = 0_out)
+{
+    if (!t.hasOutputAt(idx.n))
+        throw NoOutput(idx);
+
+    auto& msg = t.lastMessage(idx.n);
+
+    if (!t.isOutputFloatAt())
+        throw NotFloat("");
+
+    return t.outputFloatAt(idx.n);
+}
 
 template <typename T>
 class OutputFloatBase : public Catch::MatcherBase<T> {

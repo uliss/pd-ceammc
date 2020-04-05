@@ -87,7 +87,7 @@ add_subdirectory(ui)
 add_subdirectory(window)
 
 pd_add_external(NAME ceammc
-    FILES ceammc.cpp mod_init.cpp
+    FILES ceammc_lib_external.cpp mod_init.cpp
     INTERNAL True
     LIBRARY ceammc
     LINK ${CEAMMC_EXT_LINK_LIBRARIES})

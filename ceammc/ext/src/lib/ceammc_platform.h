@@ -32,12 +32,19 @@ namespace platform {
         std::string msg;
     };
 
+    size_t ceammc_memory_size();
+    size_t ceammc_memory_current_rss();
+    size_t ceammc_memory_peak_rss();
+
     const char* platform_name();
     bool is_path_relative(const char* path);
 
     std::string basename(const char* path);
     std::string dirname(const char* path);
     std::string expandenv(const char* str);
+
+    std::string get_env(const char* varname);
+    void set_env(const char* varname, const char* val);
 
     bool fnmatch(const char* pattern, const char* str);
 

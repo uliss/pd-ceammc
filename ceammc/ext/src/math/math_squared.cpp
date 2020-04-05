@@ -1,41 +1,29 @@
-#include <m_pd.h>
-#include <math.h>
-#include "ceammc.h"
+#include "ceammc_factory.h"
+#include "ceammc_object.h"
 
-t_class* math_squared_class;
-typedef struct math_squared {
-    t_object x_obj;
-} t_math_squared;
+using namespace ceammc;
 
-static t_float private_math_squared(t_float v) 
+class MathReciprocal : public BaseObject {
+public:
+    MathReciprocal(const PdArgs& args)
+        : BaseObject(args)
+    {
+        createOutlet();
+    }
+
+    void onFloat(t_float f) final
+    {
+        floatTo(0, f * f);
+    }
+
+    void onList(const AtomList& lst) final
+    {
+        listTo(0, lst.mapFloat([](t_float f) { return f * f; }));
+    }
+};
+
+void setup_math_reciprocal()
 {
-    return v * v;
+    ObjectFactory<MathReciprocal> obj("math.squared");
+    obj.addAlias("^2");
 }
-
-static void math_squared_float(t_math_squared* x, t_floatarg f)
-{
-    outlet_float(x->x_obj.te_outlet, private_math_squared(f));
-}
-
-static void math_squared_list(t_math_squared* x, t_symbol* s, int argc, t_atom* argv)
-{
-    ceammc_atoms_map_float_to_outlet(x->x_obj.te_outlet, s, argc, argv, private_math_squared);
-}
-
-static void* math_squared_new()
-{
-    t_math_squared* x = (t_math_squared*)pd_new(math_squared_class);
-    outlet_new(&x->x_obj, &s_float);
-    
-    return (void*)x;
-}
-
-void setup_math_squared()
-{
-    math_squared_class = class_new(gensym("math.squared"),
-        (t_newmethod)math_squared_new, (t_method)0,
-            sizeof(t_math_squared), 0, A_NULL);
-    class_doaddfloat(math_squared_class, reinterpret_cast<t_method>(math_squared_float));
-    class_addlist(math_squared_class, reinterpret_cast<t_method>(math_squared_list));
-}
-

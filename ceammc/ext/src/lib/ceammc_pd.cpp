@@ -15,6 +15,7 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_externals.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 #include "ceammc_platform.h"
 
 #include "m_pd.h"
@@ -35,6 +36,58 @@ typedef t_object* (*t_newsymbol)(t_symbol*);
 typedef t_object* (*t_newgimme)(t_symbol* s, int argc, t_atom* argv);
 
 using namespace ceammc;
+
+static t_listmethod old_print_mlist = nullptr;
+
+static void print_list_replace(t_pd* pd, t_symbol* s, int argc, t_atom* argv)
+{
+    if (!old_print_mlist)
+        return;
+
+    bool contains_data = false;
+    for (int i = 0; i < argc; i++) {
+        if (Atom::is_data(argv[i])) {
+            contains_data = true;
+            break;
+        }
+    }
+
+    if (contains_data) {
+        post("[data] %s", to_string(AtomList(argc, argv)).c_str());
+    } else
+        old_print_mlist(pd, s, argc, argv);
+}
+
+bool addPdPrintDataSupport()
+{
+    pd::External p("print");
+    if (!p.object())
+        return false;
+
+    t_class* print_class = p.object()->te_g.g_pd;
+    if (!print_class)
+        return false;
+
+    // save old callback
+    old_print_mlist = print_class->c_listmethod;
+    print_class->c_listmethod = print_list_replace;
+    return true;
+}
+
+std::vector<std::string> pd::currentListOfExternals()
+{
+    std::vector<std::string> res;
+    t_methodentry* m = pd_objectmaker->c_methods;
+    if (!m)
+        return res;
+
+    res.reserve(pd_objectmaker->c_nmethod);
+
+    for (int i = 0; i < pd_objectmaker->c_nmethod; i++)
+        res.push_back(m[i].me_name->s_name);
+
+    return res;
+}
 
 pd::External::External(const char* name, const AtomList& lst)
     : obj_(nullptr)
