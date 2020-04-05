@@ -49,6 +49,8 @@ ceammc_add_core_test("ceammc::Canvas" test_canvas)
 ceammc_add_core_test("ceammc::ControlValue" test_message)
 ceammc_add_core_test("ceammc::DataAtom" test_data)
 ceammc_add_core_test("ceammc::DataTypeString" test_datatype_string)
+ceammc_add_core_test("ceammc::DataTypeMList" test_datatype_mlist)
+ceammc_add_core_test("ceammc::json" test_json)
 ceammc_add_core_test("ceammc::SharedData" test_shareddata)
 ceammc_add_core_test("ceammc::pd::External" test_pd_external)
 ceammc_add_core_test("ceammc::formatting" test_format)
@@ -221,11 +223,6 @@ ceammc_add_test_linked(TITLE "ceammc::DataTypeEnv"
     NAME test_datatype_env
     SRC test_datatype_env.cpp
     LINK ceammc_env ceammc_core puredata-core)
-
-ceammc_add_test_linked(TITLE "ceammc::DataTypeMList"
-    NAME test_datatype_mlist
-    SRC test_datatype_mlist.cpp
-    LINK ceammc_data ceammc_core puredata-core)
 
 ceammc_add_test_linked(TITLE "ceammc::DataTypeDict"
     NAME test_datatype_dict

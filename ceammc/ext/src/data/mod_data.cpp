@@ -42,14 +42,14 @@
 void ceammc_data_setup()
 {
 
-    setup_set0x2econtains();
-    setup_set0x2edifference();
-    setup_set0x2eequal();
-    setup_set0x2eintersection();
-    setup_set0x2elist();
-    setup_set0x2esize();
-    setup_set0x2eunion();
-    setup_set0x2esymdiff();
+    setup_set_contains();
+    setup_set_difference();
+    setup_set_equal();
+    setup_set_intersection();
+    setup_set_list();
+    setup_set_size();
+    setup_set_union();
+    setup_set_symdiff();
 
     setup_data_dict();
     setup_data_fifo();

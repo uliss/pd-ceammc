@@ -11,15 +11,14 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/dict_contains.h"
-#include "test_external.h"
+#include "dict_contains.h"
+#include "test_data_base.h"
 
 PD_COMPLETE_TEST_SETUP(DictContains, dict, contains)
 
 TEST_CASE("dict.contains", "[externals]")
 {
     pd_test_init();
-    test::pdPrintToStdError(true);
 
     SECTION("create")
     {
@@ -35,44 +34,38 @@ TEST_CASE("dict.contains", "[externals]")
     {
         SECTION("no key")
         {
-            TestExtDictContains t("dict.contains");
+            TExt t("dict.contains");
 
-            DataTypeDict d("[a:b]");
-            t.send(DataPtr(d.clone()));
+            t.send(DictA("[a:b]"));
             REQUIRE_FALSE(t.hasOutput());
         }
 
         SECTION("key")
         {
-            TestExtDictContains t("dict.contains", LA("a"));
+            TExt t("dict.contains", LA("a"));
 
-            DataTypeDict d("[a:b]");
-            t.send(DataPtr(d.clone()));
+            t.send(DictA("[a:b]"));
             REQUIRE(t.hasOutput());
             REQUIRE(t.outputFloatAt(0) == 1);
 
-            d = DataTypeDict("[c:d]");
-            t.send(DataPtr(d.clone()));
+            t.send(DictA("[c:d]"));
             REQUIRE(t.hasOutput());
             REQUIRE(t.outputFloatAt(0) == 0);
 
-            d = DataTypeDict();
-            t.send(DataPtr(d.clone()));
+            t.send(DictA());
             REQUIRE(t.hasOutput());
             REQUIRE(t.outputFloatAt(0) == 0);
         }
 
         SECTION("prop")
         {
-            TestExtDictContains t("dict.contains", LA("@a"));
+            TExt t("dict.contains", LA("@a"));
 
-            DataTypeDict d("[a:b]");
-            t.send(DataPtr(d.clone()));
+            t.send(DictA("[a:b]"));
             REQUIRE(t.hasOutput());
             REQUIRE(t.outputFloatAt(0) == 0);
 
-            d = DataTypeDict("[@a:d]");
-            t.send(DataPtr(d.clone()));
+            t.send(DictA("[@a:b]"));
             REQUIRE(t.hasOutput());
             REQUIRE(t.outputFloatAt(0) == 1);
         }

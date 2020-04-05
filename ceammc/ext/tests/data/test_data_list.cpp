@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/data_list.h"
+#include "data_list.h"
 #include "catch.hpp"
 #include "test_base.h"
 

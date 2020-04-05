@@ -62,6 +62,7 @@ public:
     DataTypeMList* clone() const final;
     bool isEqual(const AbstractData* cmp) const noexcept final;
     std::string toString() const final;
+    std::string valueToJsonString() const override;
 
     AtomList& data() noexcept { return data_; }
     const AtomList& data() const noexcept { return data_; }

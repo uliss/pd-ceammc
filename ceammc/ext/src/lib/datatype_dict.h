@@ -37,7 +37,9 @@ bool to_outlet(t_outlet* x, const DictValue& v);
 
 class DataTypeDict : public AbstractData {
 public:
-    typedef std::map<Atom, DictValue> DictMap;
+    using DictMap = std::map<Atom, DictValue>;
+    using iterator = DictMap::iterator;
+    using const_iterator = DictMap::const_iterator;
 
 private:
     DictMap dict_;
@@ -57,8 +59,14 @@ public:
     bool isEqual(const AbstractData* d) const noexcept final;
     bool operator==(const DataTypeDict& d) const noexcept;
 
+    iterator begin() { return dict_.begin(); }
+    iterator end() { return dict_.end(); }
+
+    void filterByKeys(std::function<bool(const Atom&)> fn);
+
     size_t size() const noexcept;
     bool contains(const Atom& key) const noexcept;
+    AtomList keys() const;
     DictValue value(const Atom& key) const;
 
     template <class T>

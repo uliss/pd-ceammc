@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "data_fifo.h"
 #include "test_base.h"
-#include "test_external.h"
+#include "test_data_base.h"
 
 PD_COMPLETE_TEST_SETUP(DataFifo, data, fifo)
 

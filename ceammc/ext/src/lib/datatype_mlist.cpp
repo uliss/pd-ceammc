@@ -15,6 +15,7 @@
 #include "ceammc_data.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_format.h"
+#include "ceammc_json.h"
 #include "ceammc_log.h"
 
 #include <cmath>
@@ -102,6 +103,11 @@ std::string DataTypeMList::toString() const
 
     res.push_back(')');
     return res;
+}
+
+std::string DataTypeMList::valueToJsonString() const
+{
+    return ceammc::json::to_json(*this);
 }
 
 void DataTypeMList::append(const Atom& a)

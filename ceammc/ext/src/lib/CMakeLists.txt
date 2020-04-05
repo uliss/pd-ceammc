@@ -59,6 +59,8 @@ set(CEAMMC_LIB_SOURCES
     ceammc_fn_list.cpp
     ceammc_format.cpp
     ceammc_impl.cpp
+    ceammc_json.h
+    ceammc_json.cpp
     ceammc_log.cpp
     ceammc_message.cpp
     ceammc_music_temperament.cpp

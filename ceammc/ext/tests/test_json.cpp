@@ -11,28 +11,36 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef TEST_DATA_BASE_H
-#define TEST_DATA_BASE_H
+#ifndef TEST_JSON_CPP
+#define TEST_JSON_CPP
+
+#include "catch.hpp"
+#include "test_base.h"
 
 #include "ceammc_data.h"
-#include "datatype_dict.h"
-#include "datatype_mlist.h"
-#include "datatype_set.h"
+#include "ceammc_json.h"
 #include "datatype_string.h"
-#include "test_base.h"
-#include "test_catch2.hpp"
-#include "test_external.h"
 
 using namespace ceammc;
+using namespace ceammc::json;
 
-using AT = Atom;
-using AL = AtomList;
+TEST_CASE("json", "[core]")
+{
+    SECTION("to_json")
+    {
+        REQUIRE(to_json(Atom()) == "null");
+        REQUIRE(to_json(Atom(), 4) == "null");
 
-using SetA = SetAtom;
-using DictA = DictAtom;
-using StrA = StringAtom;
-using MLA = MListAtom;
+        REQUIRE(to_json(A(10)) == "10");
+        REQUIRE(to_json(A(10), 4) == "10");
+        REQUIRE(to_json(A(-2.5)) == "-2.5");
+        REQUIRE(to_json(A("abc")) == "\"abc\"");
+        REQUIRE(to_json(StringAtom("a b c")) == "\"a b c\"");
 
-using IntA = DataAtom<IntData>;
+        REQUIRE(to_json(L()) == "[]");
+        REQUIRE(to_json(LF(1, 2, 3)) == "[1,2,3]");
+        REQUIRE(to_json(LA("a", 2.5, 3)) == "[\"a\",2.5,3]");
+    }
+}
 
-#endif // TEST_DATA_BASE_H
+#endif // TEST_JSON_CPP

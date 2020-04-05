@@ -12,9 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "datatype_mlist.h"
-#include "../data/global_list.h"
+#include "global_list.h"
 #include "test_base.h"
-#include "test_external.h"
+#include "test_data_base.h"
 
 PD_COMPLETE_TEST_SETUP(GlobalList, global, list)
 

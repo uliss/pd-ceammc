@@ -41,6 +41,12 @@ public:
         addProperty(new FloatProperty("@test_prop", -1));
     }
 
+    void parseProperties() override
+    {
+        std::cerr << "Parse properties....\n\n";
+        BaseObject::parseProperties();
+    }
+
     ~TestClass()
     {
         destructor_called = true;
@@ -117,6 +123,7 @@ public:
 TEST_CASE("ceammc_factory", "[core]")
 {
     obj_init();
+    test::pdPrintToStdError();
 
     SECTION("new")
     {
@@ -161,7 +168,6 @@ TEST_CASE("ceammc_factory", "[core]")
 
     SECTION("arguments")
     {
-
         typedef PdObject<TestClass> PdExternal;
 
         test_reset();
@@ -173,13 +179,8 @@ TEST_CASE("ceammc_factory", "[core]")
         f.setUseInstead("test.new2");
         f.setSinceVersion(0, 2);
 
-        t_atom args[4];
-        SETFLOAT(&args[0], 2);
-        SETSYMBOL(&args[1], gensym("a"));
-        SETSYMBOL(&args[2], gensym("@test_prop"));
-        SETFLOAT(&args[3], 33);
-
-        PdExternal* ext = reinterpret_cast<PdExternal*>(f.createObject(gensym("test.new"), 4, args));
+        AtomList args(2, "a", "@test_prop", 33);
+        PdExternal* ext = reinterpret_cast<PdExternal*>(f.createObject(gensym("test.new"), args.size(), args.toPdData()));
 
         REQUIRE(ext != 0);
         REQUIRE(ext->impl != 0);
@@ -189,6 +190,12 @@ TEST_CASE("ceammc_factory", "[core]")
         REQUIRE_PROPERTY((*ext->impl), @test_prop, 33);
 
         pd_free(&ext->pd_obj.te_g.g_pd);
+
+        // do not parse properties
+        f.parseOnlyPositionalProps(false);
+        PdExternal* ext1 = reinterpret_cast<PdExternal*>(f.createObject(gensym("test.new"), args.size(), args.toPdData()));
+        REQUIRE_PROPERTY((*ext1->impl), @test_prop, -1);
+        pd_free(&ext1->pd_obj.te_g.g_pd);
 
         REQUIRE(destructor_called);
     }

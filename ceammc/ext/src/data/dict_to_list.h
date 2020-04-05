@@ -14,6 +14,7 @@
 #ifndef DICT_TO_LIST_H
 #define DICT_TO_LIST_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 #include "datatype_dict.h"
 using namespace ceammc;
@@ -22,7 +23,7 @@ class DictToList : public BaseObject {
 public:
     DictToList(const PdArgs& args);
 
-    void onDataT(const DataTPtr<DataTypeDict>& d);
+    void onDataT(const DictAtom& dict);
 };
 
 void setup_dict_to_list();

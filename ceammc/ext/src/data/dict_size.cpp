@@ -20,7 +20,7 @@ DictSize::DictSize(const PdArgs& args)
     createOutlet();
 }
 
-void DictSize::onDataT(const DataTPtr<DataTypeDict>& dptr)
+void DictSize::onDataT(const DictAtom& dptr)
 {
     floatTo(0, dptr->size());
 }

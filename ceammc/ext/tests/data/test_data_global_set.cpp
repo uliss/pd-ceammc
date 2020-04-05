@@ -11,27 +11,23 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/datatype_set.h"
-#include "../data/global_set.h"
-#include "test_base.h"
-#include "test_external.h"
+#include "global_set.h"
+#include "test_data_base.h"
 
 PD_COMPLETE_TEST_SETUP(GlobalSet, global, set)
-
-#define DSET(...) DataPtr(new DataTypeSet(LA(__VA_ARGS__)))
 
 #define REQUIRE_SET(obj, ...)                              \
     {                                                      \
         obj << BANG;                                       \
-        REQUIRE(obj.outputDataAt(0).isValid());            \
-        REQUIRE(obj.outputDataAt(0) == DSET(__VA_ARGS__)); \
+        REQUIRE(obj.outputAtomAt(0).isData());             \
+        REQUIRE(obj.outputAtomAt(0) == SetA(__VA_ARGS__)); \
     }
 
-#define REQUIRE_EMPTY_SET(obj)                                      \
-    {                                                               \
-        obj << BANG;                                                \
-        REQUIRE(obj.outputDataAt(0).isValid());                     \
-        REQUIRE(obj.outputDataAt(0) == DataPtr(new DataTypeSet())); \
+#define REQUIRE_EMPTY_SET(obj)                  \
+    {                                           \
+        obj << BANG;                            \
+        REQUIRE(obj.outputAtomAt(0).isData());  \
+        REQUIRE(obj.outputAtomAt(0) == SetA()); \
     }
 
 TEST_CASE("[global.set]", "[externals]")

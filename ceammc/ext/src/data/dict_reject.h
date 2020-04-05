@@ -14,6 +14,7 @@
 #ifndef DICT_REJECT_H
 #define DICT_REJECT_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 #include "datatype_dict.h"
 
@@ -28,7 +29,7 @@ public:
     void parseProperties() override;
     void onInlet(size_t, const AtomList& lst) override;
 
-    void onDataT(const DataTPtr<DataTypeDict>& d);
+    void onDataT(const DictAtom& dict);
 };
 
 void setup_dict_reject();

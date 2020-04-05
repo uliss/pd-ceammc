@@ -11,10 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "datatype_dict.h"
-#include "../data/dict_get.h"
-#include "test_base.h"
-#include "test_external.h"
+#include "dict_get.h"
+#include "test_data_base.h"
 
 PD_COMPLETE_TEST_SETUP(DictGet, dict, get)
 
@@ -54,25 +52,25 @@ TEST_CASE("dict.get", "[externals]")
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 3);
 
-        t.send(DataTypeDict());
+        t.send(DictA());
         REQUIRE_FALSE(t.hasOutput());
 
-        t.send(DataTypeDict("[c: d]"));
+        t.send(DictA("[c: d]"));
         REQUIRE_FALSE(t.hasOutput());
 
-        t.send(DataTypeDict("[@a: 100]"));
+        t.send(DictA("[@a: 100]"));
         REQUIRE(!t.hasOutputAt(0));
         REQUIRE(t.hasOutputAt(1));
         REQUIRE(!t.hasOutputAt(2));
         REQUIRE(t.outputFloatAt(1) == 100);
 
-        t.send(DataTypeDict("[b: 1 2 3 4]"));
+        t.send(DictA("[b: 1 2 3 4]"));
         REQUIRE(!t.hasOutputAt(0));
         REQUIRE(!t.hasOutputAt(1));
         REQUIRE(t.hasOutputAt(2));
         REQUIRE(t.outputListAt(2) == LX(1, 2, 3, 4));
 
-        t.send(DataTypeDict("[1: ABC]"));
+        t.send(DictA("[1: ABC]"));
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(!t.hasOutputAt(1));
         REQUIRE(!t.hasOutputAt(2));

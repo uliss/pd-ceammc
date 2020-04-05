@@ -14,6 +14,7 @@
 #ifndef DICT_EACH_H
 #define DICT_EACH_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 #include "datatype_dict.h"
 
@@ -21,12 +22,12 @@ using namespace ceammc;
 
 class DictEach : public BaseObject {
     Atom current_key_;
-    DataTypeDict dict_;
+    DictAtom dict_;
 
 public:
     DictEach(const PdArgs& args);
     void onInlet(size_t n, const AtomList& lst) override;
-    void onDataT(const DataTPtr<DataTypeDict>& dptr);
+    void onDataT(const DictAtom& dict);
 };
 
 void setup_dict_each();

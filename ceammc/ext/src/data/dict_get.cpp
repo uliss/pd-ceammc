@@ -16,39 +16,21 @@
 
 static const size_t MAX_KEYS = 32;
 
-static AtomList clipped(const AtomList& l)
-{
-    AtomList res(l);
-    if (res.size() > MAX_KEYS)
-        res.resizeClip(MAX_KEYS);
-
-    return res;
-}
-
 DictGet::DictGet(const PdArgs& args)
     : BaseObject(args)
-    , keys_(clipped(args.args))
+    , keys_(args.args.view(0, MAX_KEYS))
 {
     for (size_t i = 0; i < keys_.size(); i++)
         createOutlet();
 }
 
-void DictGet::parseProperties()
-{
-}
-
-bool DictGet::processAnyProps(t_symbol* /*sel*/, const AtomList& /*lst*/)
-{
-    return true;
-}
-
-void DictGet::onDataT(const DataTPtr<DataTypeDict>& dptr)
+void DictGet::onDataT(const DictAtom& dict)
 {
     long n = keys_.size();
     // back order
     while (n-- > 0) {
         const auto& k = keys_[n];
-        auto v = dptr->value(k);
+        auto v = dict->value(k);
         if (DataTypeDict::isNull(v))
             continue;
 
@@ -59,5 +41,6 @@ void DictGet::onDataT(const DataTPtr<DataTypeDict>& dptr)
 void setup_dict_get()
 {
     ObjectFactory<DictGet> obj("dict.get");
+    obj.parseOnlyPositionalProps(true);
     obj.processData<DataTypeDict>();
 }

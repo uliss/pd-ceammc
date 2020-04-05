@@ -14,6 +14,7 @@
 #ifndef DICT_IFACE_H
 #define DICT_IFACE_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 #include "data_protocol.h"
 #include "datatype_dict.h"
@@ -22,6 +23,8 @@ using namespace ceammc;
 
 template <typename T>
 class DictIFace : public FilesystemIFace<CollectionIFace<T>> {
+    DictAtom dict_;
+
 public:
     DictIFace(const PdArgs& args)
         : FilesystemIFace<CollectionIFace<T>>(args)
@@ -32,12 +35,12 @@ public:
     void dump() const override
     {
         FilesystemIFace<CollectionIFace<T>>::dump();
-        OBJ_DBG << dict().toString();
+        OBJ_DBG << dict_;
     }
 
     void onBang() override
     {
-        this->dataTo(0, dict().clone());
+        this->atomTo(0, dict_);
     }
 
     void onList(const AtomList& args) override
@@ -65,9 +68,9 @@ public:
         }
     }
 
-    void onDataT(const DataTPtr<DataTypeDict>& d)
+    void onDataT(const DictAtom& d)
     {
-        dict() = *d.data();
+        dict_ = d;
         onBang();
     }
 
@@ -87,8 +90,6 @@ public:
             this->atomTo(0, boost::get<Atom>(v));
         else if (v.type() == typeid(AtomList))
             this->listTo(0, boost::get<AtomList>(v));
-        else if (v.type() == typeid(DataAtom))
-            this->atomTo(0, boost::get<DataAtom>(v).asAtom());
         else
             METHOD_ERR(s) << "unknown value type";
     }
@@ -125,10 +126,7 @@ public:
         }
 
         if (lst.size() == 2) {
-            if (lst[1].isData())
-                dict().insert(lst[0], DataAtom(lst[1]));
-            else
-                dict().insert(lst[0], lst[1]);
+            dict().insert(lst[0], lst[1]);
         } else
             dict().insert(lst[0], lst.slice(1));
     }

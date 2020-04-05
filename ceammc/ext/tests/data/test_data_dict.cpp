@@ -11,9 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/data_dict.h"
 #include "ceammc_platform.h"
-#include "test_external.h"
+#include "data_dict.h"
+#include "test_data_base.h"
 
 #define REQUIRE_SIZE(obj, n) REQUIRE_PROPERTY(t, @size, float(n));
 
@@ -21,14 +21,14 @@
     {                                                         \
         REQUIRE(obj.hasNewMessages(outlet));                  \
         REQUIRE(obj.lastMessage(outlet).isData());            \
-        REQUIRE(obj.lastMessage(outlet).dataValue() == data); \
+        REQUIRE(obj.lastMessage(outlet).atomValue() == data); \
     }
 
 #define REQUIRE_OUTPUT_DICT(obj, data)                   \
     {                                                    \
         REQUIRE(obj.hasNewMessages(0));                  \
         REQUIRE(obj.lastMessage(0).isData());            \
-        REQUIRE(obj.lastMessage(0).dataValue() == data); \
+        REQUIRE(obj.lastMessage(0).atomValue() == data); \
     }
 
 #define REQUIRE_CONTAINS_ATOM(obj, key, value)                                           \
@@ -45,7 +45,7 @@
 
 PD_COMPLETE_TEST_SETUP(DataDict, data, dict)
 
-TEST_CASE("data.mlist", "[externals]")
+TEST_CASE("data.dict", "[externals]")
 {
     pd_test_init();
 
@@ -53,37 +53,37 @@ TEST_CASE("data.mlist", "[externals]")
     {
         SECTION("empty")
         {
-            TestDataDict t("data.dict", L());
+            TObj t("data.dict", L());
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_SIZE(t, 0);
 
-            REQUIRE_PROPERTY_FLOAT(t, @size, 0);
-            REQUIRE_PROPERTY_FLOAT(t, @empty, 1);
+            REQUIRE_PROPERTY(t, @size, 0);
+            REQUIRE_PROPERTY(t, @empty, 1);
         }
 
         SECTION("args")
         {
-            TestDataDict t("data.dict", LA("[a:", "b]", "[", "c", ":", "100]"));
+            TObj t("data.dict", LA("[a:", "b", "c:", "100]"));
             REQUIRE_SIZE(t, 2);
             REQUIRE_CONTAINS_ATOM(t, "a", "b");
             REQUIRE_CONTAINS_ATOM(t, "c", 100);
 
-            REQUIRE_PROPERTY_FLOAT(t, @size, 2);
-            REQUIRE_PROPERTY_FLOAT(t, @empty, 0);
-            REQUIRE_PROPERTY_LIST(t, @keys, LA("a", "c"));
+            REQUIRE_PROPERTY(t, @size, 2);
+            REQUIRE_PROPERTY(t, @empty, 0);
+            REQUIRE_PROPERTY(t, @keys, "a", "c");
         }
 
         SECTION("quotes")
         {
-            TestDataDict t("data.dict", LA("[", "key:", "\"the", "value\"", "]"));
+            TObj t("data.dict", LA("[", "key:", "\"the", "value\"", "]"));
             REQUIRE_SIZE(t, 1);
             REQUIRE_CONTAINS_ATOM(t, "key", "the value");
         }
 
         SECTION("nesting")
         {
-            DataTypeDict t("[a: ([b: c d][e: f])]");
+            DataTypeDict t("[a: MList([b: c d][e: f])]");
             REQUIRE(t.size() == 1);
             REQUIRE(t.contains(A("a")));
             REQUIRE(*t.toJSON(-1) == "{\"a\":{\"b\":[\"c\",\"d\"],\"e\":\"f\"}}");
@@ -92,31 +92,30 @@ TEST_CASE("data.mlist", "[externals]")
 
     SECTION("onBang")
     {
-        TestDataDict t("data.dict");
+        TObj t("data.dict");
 
         WHEN_SEND_BANG_TO(0, t);
-        t.onBang();
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, DataPtr(new DataTypeDict()));
+        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, DictA());
 
         WHEN_SEND_ANY_TO(t, LA("[a:b][c:d][e:2.81]"));
         REQUIRE_NO_MSG(t);
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, DataPtr(new DataTypeDict("[a:b] [c : d] [ e : 2.81]")));
+        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, DictA("[a:b] [c : d] [ e : 2.81]"));
 
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, DataPtr(new DataTypeDict("[a:b] [c : d] [ e : 2.81]")));
+        REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, DictA("[a:b] [c : d] [ e : 2.81]"));
 
         SECTION("construct")
         {
-            TestDataDict t("data.mlist", LA("[a : 100]"));
+            TObj t("data.mlist", LA("[a : 100]"));
             WHEN_SEND_BANG_TO(0, t);
-            REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, DataPtr(new DataTypeDict("[a : 100]")));
+            REQUIRE_DATA_EQUAL_AT_OUTLET(0, t, DictA("[a : 100]"));
         }
     }
 
     SECTION("add")
     {
-        TestDataDict t("data.dict");
+        TObj t("data.dict");
         REQUIRE_SIZE(t, 0);
 
         WHEN_CALL_N(t, add, "key", "value");
@@ -137,7 +136,7 @@ TEST_CASE("data.mlist", "[externals]")
 
     SECTION("clear")
     {
-        TestDataDict t("data.dict");
+        TObj t("data.dict");
         REQUIRE_SIZE(t, 0);
 
         WHEN_CALL(t, clear);
@@ -154,7 +153,7 @@ TEST_CASE("data.mlist", "[externals]")
 
     SECTION("remove")
     {
-        TestDataDict t("data.dict");
+        TObj t("data.dict");
         REQUIRE_SIZE(t, 0);
 
         WHEN_CALL(t, remove);
@@ -177,7 +176,7 @@ TEST_CASE("data.mlist", "[externals]")
     {
         test::pdPrintToStdError(true);
 
-        TestDataDict t("data.dict");
+        TObj t("data.dict");
         WHEN_CALL_N(t, add, "float", 1000);
         WHEN_CALL_N(t, add, "symbol", "b");
         WHEN_CALL_N(t, add, "list", 1, 2, 3);
@@ -190,7 +189,7 @@ TEST_CASE("data.mlist", "[externals]")
         REQUIRE(platform::path_exists(TEST_BIN_DIR "/data_dict.json"));
 
         // read to other dict
-        TestDataDict t2("data.dict");
+        TObj t2("data.dict");
         WHEN_CALL_N(t2, read, TEST_BIN_DIR "/data_dict.json");
         REQUIRE_SIZE(t2, 4);
         REQUIRE_CONTAINS_ATOM(t2, 1, 2000);
@@ -224,7 +223,7 @@ TEST_CASE("data.mlist", "[externals]")
 
     SECTION("list")
     {
-        TestDataDict t("data.dict");
+        TObj t("data.dict");
 
         WHEN_SEND_LIST_TO(0, t, L());
         REQUIRE_SIZE(t, 0);

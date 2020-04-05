@@ -11,14 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "datatype_mlist.h"
-#include "../data/global_mlist.h"
-#include "test_base.h"
-#include "test_external.h"
+#include "global_mlist.h"
+#include "test_data_base.h"
 
 PD_COMPLETE_TEST_SETUP(GlobalMList, global, mlist)
-
-#define ML(...) DataPtr(new DataTypeMList(__VA_ARGS__))
 
 TEST_CASE("[global.mlist]", "[externals]")
 {
@@ -40,33 +36,33 @@ TEST_CASE("[global.mlist]", "[externals]")
         REQUIRE(t2.object());
 
         t1 << BANG;
-        REQUIRE(t1.outputDataAt(0) == ML());
+        REQUIRE(t1.outputAtomAt(0) == MLA());
 
         t2 << BANG;
-        REQUIRE(t1.outputDataAt(0) == ML());
+        REQUIRE(t1.outputAtomAt(0) == MLA());
 
         t1 << LA("a", "b", "c");
-        REQUIRE(t1.outputDataAt(0) == ML("(a b c)"));
+        REQUIRE(t1.outputAtomAt(0) == MLA("(a b c)"));
 
         t2 << BANG;
-        REQUIRE(t1.outputDataAt(0) == ML("(a b c)"));
+        REQUIRE(t1.outputAtomAt(0) == MLA("(a b c)"));
 
-        t2.send(MLA(1 2 3 4 5));
-        REQUIRE(t2.outputDataAt(0) == ML("(1 2 3 4 5)"));
+        t2.send(MLA(1, 2, 3, 4, 5));
+        REQUIRE(t2.outputAtomAt(0) == MLA("(1 2 3 4 5)"));
 
         t1 << BANG;
-        REQUIRE(t1.outputDataAt(0) == ML("(1 2 3 4 5)"));
+        REQUIRE(t1.outputAtomAt(0) == MLA("(1 2 3 4 5)"));
 
         t1 << "SYMBOL";
-        REQUIRE(t1.outputDataAt(0) == ML("(SYMBOL)"));
+        REQUIRE(t1.outputAtomAt(0) == MLA("(SYMBOL)"));
 
         t1 << 1000;
-        REQUIRE(t1.outputDataAt(0) == ML("(1000)"));
+        REQUIRE(t1.outputAtomAt(0) == MLA("(1000)"));
 
         t1.call("set", LF(1, 2, 3));
         REQUIRE_FALSE(t1.hasOutput());
 
         t1 << BANG;
-        REQUIRE(t1.outputDataAt(0) == ML("(1 2 3)"));
+        REQUIRE(t1.outputAtomAt(0) == MLA("(1 2 3)"));
     }
 }

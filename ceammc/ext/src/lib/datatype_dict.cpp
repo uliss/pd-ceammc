@@ -12,12 +12,14 @@
  * this file belongs to.
  *****************************************************************************/
 #include "datatype_dict.h"
+#include "ceammc_data.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_datatypes.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "ceammc_output.h"
 #include "datatype_mlist.h"
+#include "datatype_string.h"
 #include "dict_parser_impl.h"
 
 #include "json/json.hpp"
@@ -87,8 +89,8 @@ std::string DataTypeDict::toString() const
 {
     std::string res;
 
+    res += '[';
     for (auto& e : dict_) {
-        res += '[';
         res += to_string_quoted(e.first);
         res += ':';
 
@@ -115,13 +117,14 @@ std::string DataTypeDict::toString() const
             }
         }
 
-        res += ']';
         res += ' ';
     }
 
     // remove last space
     if (res.size() > 1)
         res.resize(res.size() - 1);
+
+    res += ']';
 
     return res;
 }
@@ -146,6 +149,14 @@ bool DataTypeDict::operator==(const DataTypeDict& d) const noexcept
     return dict_ == d.dict_;
 }
 
+void DataTypeDict::filterByKeys(std::function<bool(const Atom&)> fn)
+{
+    for (auto it = dict_.cbegin(); it != dict_.cend(); ++it) {
+        if (fn(it->first))
+            dict_.erase(it);
+    }
+}
+
 size_t DataTypeDict::size() const noexcept
 {
     return dict_.size();
@@ -154,6 +165,17 @@ size_t DataTypeDict::size() const noexcept
 bool DataTypeDict::contains(const Atom& key) const noexcept
 {
     return dict_.find(key) != dict_.end();
+}
+
+AtomList DataTypeDict::keys() const
+{
+    AtomList res;
+    res.reserve(dict_.size());
+
+    for (auto& kv : dict_)
+        res.append(kv.first);
+
+    return res;
 }
 
 DictValue DataTypeDict::value(const Atom& key) const
@@ -221,16 +243,25 @@ void DataTypeDict::clear() noexcept
 
 bool DataTypeDict::fromString(const std::string& str)
 {
-    t_dict* d = dict_new();
-
-    if (dict_parse_string(d, str.c_str()) != 0) {
-        dict_free(d);
+    auto ob_pos = str.find('[');
+    if (ob_pos == std::string::npos) {
+        LIB_ERR << "can't parse dict string: " << str;
         return false;
     }
 
-    *this = dict_get(d);
-    dict_free(d);
-    return true;
+    try {
+        AtomList atoms = parseDataString(str.substr(ob_pos));
+        if (atoms.isA<DataTypeDict>()) {
+            *this = *atoms.asD<DataTypeDict>();
+            return true;
+        } else {
+            LIB_ERR << "dict is expected, got: " << str;
+            return false;
+        }
+    } catch (std::exception& e) {
+        LIB_ERR << "parse error: " << e.what();
+        return false;
+    }
 }
 
 MaybeString DataTypeDict::toJSON(int indent) const
@@ -245,10 +276,18 @@ MaybeString DataTypeDict::toJSON(int indent) const
 
             if (value.type() == typeid(Atom)) {
                 auto& atom = boost::get<Atom>(value);
+                if (atom.isInteger())
+                    j[key] = atom.asInt();
                 if (atom.isFloat())
                     j[key] = atom.asFloat();
-                else
-                    j[key] = to_string(atom);
+                else if (atom.isSymbol())
+                    j[key] = atom.asSymbol()->s_name;
+                else if (atom.isNone())
+                    j[key] = json();
+                else if (atom.isA<DataTypeString>())
+                    j[key] = atom.asD<DataTypeString>()->str();
+                else if (atom.isData())
+                    j[key] = json::parse(atom.asData()->valueToJsonString());
             } else if (value.type() == typeid(AtomList)) {
                 auto& lst = boost::get<AtomList>(value);
 

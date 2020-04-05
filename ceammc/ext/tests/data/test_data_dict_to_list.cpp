@@ -11,11 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/dict_to_list.h"
 #include "ceammc_format.h"
-#include "datatype_dict.h"
-#include "test_base.h"
-#include "test_external.h"
+#include "dict_to_list.h"
+#include "test_data_base.h"
 
 PD_COMPLETE_TEST_SETUP(DictToList, dict, to_list)
 
@@ -35,22 +33,22 @@ TEST_CASE("dict.to_list", "[externals]")
         TestExtDictToList t("dict.to_list");
         REQUIRE(t.object());
 
-        t.send(DataPtr(new DataTypeDict()));
+        t.send(DictA());
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputListAt(0));
         REQUIRE(t.outputListAt(0) == L());
 
-        t.send(DataPtr(new DataTypeDict("[a:b]")));
+        t.send(DictA("[a:b]"));
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputListAt(0));
         REQUIRE(t.outputListAt(0) == LA("a", "b"));
 
-        t.send(DataPtr(new DataTypeDict("[a: b c d]")));
+        t.send(DictA("[a: b c d]"));
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputListAt(0));
         REQUIRE(t.outputListAt(0) == LA("a", "b", "c", "d"));
 
-        t.send(DataPtr(new DataTypeDict("[a: b c d][e: 123]")));
+        t.send(DictA("[a: b c d][e: 123]"));
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputListAt(0));
         REQUIRE(t.outputListAt(0) == LA("a", "b", "c", "d", "e", 123));

@@ -24,14 +24,9 @@ SetToList::SetToList(const PdArgs& a)
     addProperty(sort_);
 }
 
-void SetToList::onDataT(const DataTPtr<DataTypeSet>& dptr)
+void SetToList::onDataT(const SetAtom& set)
 {
-    AtomList lst = dptr->toList();
-
-    if (sort_->value())
-        lst.sort();
-
-    listTo(0, lst);
+    listTo(0, set->toList(sort_->value()));
 }
 
 extern "C" void setup_set0x2elist()

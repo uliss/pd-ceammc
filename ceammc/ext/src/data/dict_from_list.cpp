@@ -44,7 +44,7 @@ void DictFromList::onList(const AtomList& l)
             dict.insert(l[i], l.slice(i + 1, i + STEP - 1));
     }
 
-    dataTo(0, DataTPtr<DataTypeDict>(dict));
+    atomTo(0, DictAtom(dict));
 }
 
 void setup_dict_from_list()

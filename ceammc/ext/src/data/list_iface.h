@@ -2,12 +2,12 @@
 #define LIST_IFACE_H_
 
 #include "ceammc_convert.h"
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 #include "data_protocol.h"
+#include "datatype_mlist.h"
 
 using namespace ceammc;
-
-class DataTypeMList;
 
 template <class T>
 class DataListIFace : public ListIFace<T> {
@@ -51,10 +51,9 @@ public:
         list() = l;
     }
 
-    void onDataT(const DataTPtr<DataTypeMList>& dptr)
+    void onDataT(const MListAtom& ml)
     {
-        auto pred = [](const DataAtom& a) { return a.isAtom(); };
-        onList(dptr->toList(pred));
+        onList(ml->data());
     }
 
     void proto_set(const AtomList& lst) override

@@ -595,12 +595,14 @@ t_symbol* BaseObject::positionalSymbolArgument(size_t pos, t_symbol* def) const
 }
 
 void BaseObject::parseProperties()
-{   
+{
+    const AtomList parsed_args = pd_.args.parseQuoted();
+
     for (Property* p : props_) {
         if (p->isReadOnly() || p->isInternal())
             continue;
 
-        bool ok = p->initFromArgList(pd_.args.parseQuoted());
+        bool ok = p->initFromArgList(parsed_args);
         if (ok && prop_set_callback_)
             prop_set_callback_(this, p->name());
     }
@@ -614,11 +616,30 @@ void BaseObject::parseProperties()
     }
 }
 
-void BaseObject::initDone()
+void BaseObject::parsePositionalProperties()
+{
+    const AtomList parsed_args = pd_.args.parseQuoted();
+
+    for (Property* p : props_) {
+        if (p->isReadOnly() || p->isInternal())
+            continue;
+
+        if (p->hasArgIndex()) {
+            if (p->isList())
+                p->set(parsed_args.slice(p->argIndex()));
+            else
+                p->set(parsed_args.at(p->argIndex()));
+        }
+    }
+}
+
+void BaseObject::updatePropertyDefaults()
 {
     for (auto p : props_)
         p->updateDefault();
 }
+
+void BaseObject::initDone() {}
 
 bool BaseObject::checkArg(const Atom& atom, BaseObject::ArgumentType type, int pos) const
 {

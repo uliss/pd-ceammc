@@ -211,7 +211,7 @@ public:
 
     const t_object* pdObject() const { return object(); }
 
-    Property* property(const char* key) { return property(gensym(key)); }
+    Property* property(const char* key) { return (Property*)property(gensym(key)); }
     const Property* property(const char* key) const { return property(gensym(key)); }
 
     const Property* property(t_symbol* key) const

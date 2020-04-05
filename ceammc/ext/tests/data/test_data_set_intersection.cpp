@@ -11,81 +11,74 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/set_intersection.h"
-#include "test_base.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
+#include "set_intersection.h"
+#include "test_data_base.h"
 
-#include <stdio.h>
-
-typedef TestExternal<SetIntersection> SetIntersectionTest;
-
-#define REQUIRE_SET_OUTPUT(t, set)                          \
-    {                                                       \
-        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                   \
-        const DataTypeSet* s = t.typedLastDataAt<DataTypeSet>(0); \
-        REQUIRE(s != 0);                                    \
-        REQUIRE(*s == set);                                 \
+#define REQUIRE_SET_OUTPUT(t, set)                   \
+    {                                                \
+        REQUIRE_NEW_DATA_AT_OUTLET(0, t);            \
+        REQUIRE(t.lastMessage().atomValue() == set); \
     }
 
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(SetIntersection, set, intersection)
+
+using DSet = DataTypeSet;
 
 TEST_CASE("set.intersection", "[externals]")
 {
-    setup_set0x2eintersection();
+    pd_test_init();
 
     SECTION("create")
     {
         SECTION("empty")
         {
-            SetIntersectionTest t("set.intersection");
+            TObj t("set.intersection");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
-            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(1, 2)));
-            REQUIRE_SET_OUTPUT(t, DataTypeSet());
+            WHEN_SEND_TDATA_TO(0, t, DSet(1, 2));
+            REQUIRE_SET_OUTPUT(t, SetA());
         }
 
         SECTION("args")
         {
-            SetIntersectionTest t("set.intersection", LF(1, 2, 3));
-            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(2, 3, 4)));
-            REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(2, 3)));
+            TObj t("set.intersection", LF(1, 2, 3));
+            WHEN_SEND_TDATA_TO(0, t, DSet(2, 3, 4));
+            REQUIRE_SET_OUTPUT(t, SetA(2, 3));
         }
     }
 
     SECTION("do")
     {
-        SetIntersectionTest t("set.intersecion");
+        TObj t("set.intersecion");
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(3, 4, 5)));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet());
+        WHEN_SEND_TDATA_TO(0, t, DSet(3, 4, 5));
+        REQUIRE_SET_OUTPUT(t, SetA());
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(3, 4, 5)));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet());
+        WHEN_SEND_TDATA_TO(0, t, DSet(3, 4, 5));
+        REQUIRE_SET_OUTPUT(t, SetA());
 
         WHEN_SEND_LIST_TO(1, t, LF(1, 2, 3, 4));
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(3, 4, 5)));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(3, 4)));
+        WHEN_SEND_TDATA_TO(0, t, DSet(3, 4, 5));
+        REQUIRE_SET_OUTPUT(t, SetA(3, 4));
     }
 
     SECTION("do data")
     {
-        SetIntersectionTest t("set.intersecion");
-        DataPtr set1(new DataTypeSet(LF(1, 3)));
-        WHEN_SEND_LIST_TO(1, t, set1.asAtom());
+        TObj t("set.intersecion");
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(3, 4, 5)));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(Atom(3)));
+        WHEN_SEND_LIST_TO(1, t, SetA(1, 3));
+        WHEN_SEND_TDATA_TO(0, t, DSet(3, 4, 5));
+        REQUIRE_SET_OUTPUT(t, SetA(3));
     }
 
     SECTION("do list")
     {
-        SetIntersectionTest t("set.intersecion");
+        TObj t("set.intersecion");
         WHEN_SEND_LIST_TO(1, t, LF(1, 3, 5));
         WHEN_SEND_LIST_TO(0, t, LA(1, 2, 3, 4, 5, 6));
 
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(1, 3, 5)));
+        REQUIRE_SET_OUTPUT(t, SetA(1, 3, 5));
     }
 }

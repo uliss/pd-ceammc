@@ -20,12 +20,12 @@ DictToList::DictToList(const PdArgs& args)
     createOutlet();
 }
 
-void DictToList::onDataT(const DataTPtr<DataTypeDict>& dptr)
+void DictToList::onDataT(const DictAtom& dict)
 {
     AtomList res;
+    res.reserve(dict->size() * 2);
 
-    auto& dict = dptr->innerData();
-    for (auto& kv : dict) {
+    for (auto& kv : dict->innerData()) {
         res.append(kv.first);
 
         auto& v = kv.second;
@@ -33,8 +33,6 @@ void DictToList::onDataT(const DataTPtr<DataTypeDict>& dptr)
             res.append(boost::get<Atom>(v));
         else if (v.type() == typeid(AtomList))
             res.append(boost::get<AtomList>(v));
-        else if (v.type() == typeid(DataAtom))
-            res.append(boost::get<DataAtom>(v).asAtom());
     }
 
     listTo(0, res);

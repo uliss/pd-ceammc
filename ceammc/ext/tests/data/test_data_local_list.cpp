@@ -11,10 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "datatype_mlist.h"
-#include "../data/local_list.h"
-#include "test_base.h"
-#include "test_external.h"
+#include "local_list.h"
+#include "test_data_base.h"
 
 PD_COMPLETE_TEST_SETUP(LocalList, local, list)
 
@@ -49,7 +47,7 @@ TEST_CASE("[local.list]", "[externals]")
         t2 << BANG;
         REQUIRE(t2.outputListAt(0) == LA("a", "b", "c"));
 
-        t2.send(MLA(1 2 3 4 5));
+        t2.send(MLA(1, 2, 3, 4, 5));
         REQUIRE(t2.outputListAt(0) == LX(1, 2, 3, 4, 5));
 
         t1 << BANG;

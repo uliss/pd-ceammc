@@ -11,10 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/dict_from_list.h"
-#include "datatype_dict.h"
-#include "test_base.h"
-#include "test_external.h"
+#include "dict_from_list.h"
+#include "test_data_base.h"
 
 PD_COMPLETE_TEST_SETUP(DictFromList, dict, from_list)
 
@@ -83,23 +81,23 @@ TEST_CASE("dict.from_list", "[externals]")
         t << LA("a", "b", "c", "d");
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DataPtr(new DataTypeDict("[a:b][c:d]")));
+        REQUIRE(t.outputAtomAt(0) == DictA("[a:b][c:d]"));
 
         t << LA("a", "b", "c");
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DataPtr(new DataTypeDict("[a:b]")));
+        REQUIRE(t.outputAtomAt(0) == DictA("[a:b]"));
 
         t->setProperty("@step", LA(3));
         t << LA("a", "b", "c");
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DataPtr(new DataTypeDict("[a:b c]")));
+        REQUIRE(t.outputAtomAt(0) == DictA("[a:b c]"));
 
         t << LA("a", "b", "c", "d");
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DataPtr(new DataTypeDict("[a:b c]")));
+        REQUIRE(t.outputAtomAt(0) == DictA("[a:b c]"));
     }
 
     SECTION("alias")

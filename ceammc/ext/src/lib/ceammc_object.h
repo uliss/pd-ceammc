@@ -166,6 +166,17 @@ public:
     virtual void parseProperties();
 
     /**
+     * Parse positional arguments and set corresponding properties
+     * this allows to have properties that contains all arguments, not only positional
+     */
+    virtual void parsePositionalProperties();
+
+    /**
+     * Updates PropertyInfo defaults value, that can be available after parse step
+     */
+    virtual void updatePropertyDefaults();
+
+    /**
      * called when object init is done
      */
     virtual void initDone();

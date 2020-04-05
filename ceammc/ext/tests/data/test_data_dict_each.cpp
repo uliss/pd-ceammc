@@ -11,10 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/dict_each.h"
-#include "datatype_dict.h"
-#include "test_base.h"
-#include "test_external.h"
+#include "dict_each.h"
+#include "test_data_base.h"
 
 PD_COMPLETE_TEST_SETUP(DictEach, dict, each)
 
@@ -34,17 +32,16 @@ TEST_CASE("dict.each", "[externals]")
         TestExtDictEach t("dict.each");
         REQUIRE(t.object());
 
-        pd::External pred(">", LX(20));
+        pd::External pred(">", 20);
         REQUIRE(pred.object());
 
         REQUIRE(t.connectTo(1, pred, 0));
         REQUIRE(t.connectFrom(0, pred, 1));
 
-        DataTypeDict d("([a:21] [c:12] [d:123])");
-        t.send(DataPtr(d.clone()));
+        t.send(DictA("([a:21] [c:12] [d:123])"));
 
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DataPtr(new DataTypeDict("([a:1] [c:0] [d:1])")));
+        REQUIRE(t.outputAtomAt(0) == DictA("([a:1] [c:0] [d:1])"));
     }
 }

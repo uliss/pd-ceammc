@@ -20,12 +20,12 @@ SetSize::SetSize(const PdArgs& a)
     createOutlet();
 }
 
-void SetSize::onDataT(const DataTPtr<DataTypeSet>& dptr)
+void SetSize::onDataT(const SetAtom& set)
 {
-    floatTo(0, dptr->size());
+    floatTo(0, set->size());
 }
 
-extern "C" void setup_set0x2esize()
+void setup_set_size()
 {
     ObjectFactory<SetSize> obj("set.size");
     obj.processData<DataTypeSet>();

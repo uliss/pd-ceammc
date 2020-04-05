@@ -12,13 +12,22 @@
  * this file belongs to.
  *****************************************************************************/
 #include "datatype_set.h"
-#include "ceammc_datatypes.h"
+#include "ceammc_abstractdata.h"
+#include "ceammc_datastorage.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 
 #include <algorithm>
+#include <boost/functional/hash.hpp>
 
-const DataType DataTypeSet::dataType = ceammc::data::DATA_SET;
+namespace {
+AbstractData* newFromList(const AtomList& lst)
+{
+    return new DataTypeSet(lst);
+}
+}
+
+const int DataTypeSet::dataType = DataStorage::instance().registerNewType("Set", newFromList);
 
 DataTypeSet::DataTypeSet()
 {
@@ -34,72 +43,54 @@ DataTypeSet::DataTypeSet(const AtomList& l)
     add(l);
 }
 
-DataTypeSet::DataTypeSet(DataTypeSet&& ds)
+DataTypeSet::DataTypeSet(DataTypeSet&& ds) noexcept
     : data_(std::move(ds.data_))
 {
 }
 
-DataTypeSet::~DataTypeSet()
-{
-}
+DataTypeSet::~DataTypeSet() noexcept = default;
 
 void DataTypeSet::add(const Atom& a)
 {
     if (a.isData() && contains(a))
         return;
 
-    data_.insert(DataAtom(a));
+    data_.insert(a);
 }
 
 void DataTypeSet::add(const AtomList& l)
 {
-    for (auto& el : l)
-        add(el);
+    for (auto& x : l)
+        add(x);
 }
 
 void DataTypeSet::remove(const Atom& a)
 {
-    data_.erase(DataAtom(a));
+    data_.erase(a);
 }
 
 void DataTypeSet::remove(const AtomList& l)
 {
-    for (auto& el : l)
-        remove(el);
+    for (auto& x : l)
+        remove(x);
 }
 
-void DataTypeSet::clear()
+void DataTypeSet::clear() noexcept
 {
     data_.clear();
 }
 
-size_t DataTypeSet::size() const
+size_t DataTypeSet::size() const noexcept
 {
     return data_.size();
 }
 
-bool DataTypeSet::contains(const Atom& a) const
-{
-    if (!a.isData())
-        return contains(DataAtom(a));
-
-    for (auto& el : data_) {
-        if (!el.isData())
-            continue;
-
-        if (el == DataAtom(a))
-            return true;
-    }
-
-    return false;
-}
-
-bool DataTypeSet::contains(const DataAtom& a) const
+bool DataTypeSet::contains(const Atom& a) const noexcept
 {
     return data_.find(a) != data_.end();
 }
 
-bool DataTypeSet::contains(const AtomList& lst) const
+bool DataTypeSet::contains_any_of(const AtomList& lst) const noexcept
 {
     for (auto& a : lst) {
         if (contains(a))
@@ -114,12 +105,12 @@ std::string DataTypeSet::toString() const
     return std::string("Set ") + to_string(toList());
 }
 
-DataType DataTypeSet::type() const
+int DataTypeSet::type() const noexcept
 {
     return dataType;
 }
 
-bool DataTypeSet::isEqual(const AbstractData* d) const
+bool DataTypeSet::isEqual(const AbstractData* d) const noexcept
 {
     if (!d || d->type() != dataType)
         return false;
@@ -128,21 +119,19 @@ bool DataTypeSet::isEqual(const AbstractData* d) const
     if (size() != ds->size())
         return false;
 
-    for (auto& el : data_) {
-        if (!ds->contains(el.asAtom()))
-            return false;
-    }
-
-    return true;
+    return operator==(*ds);
 }
 
-AtomList DataTypeSet::toList() const
+AtomList DataTypeSet::toList(bool sorted) const
 {
     AtomList res;
     res.reserve(size());
 
     for (auto& a : data_)
-        res.append(a.asAtom());
+        res.append(a);
+
+    if (sorted)
+        res.sort();
 
     return res;
 }
@@ -152,9 +141,9 @@ AbstractData* DataTypeSet::clone() const
     return new DataTypeSet(*this);
 }
 
-bool DataTypeSet::operator==(const DataTypeSet& s) const
+bool DataTypeSet::operator==(const DataTypeSet& s) const noexcept
 {
-    return isEqual(&s);
+    return data_ == s.data_;
 }
 
 void DataTypeSet::operator=(const DataTypeSet& s)
@@ -165,57 +154,81 @@ void DataTypeSet::operator=(const DataTypeSet& s)
     data_ = s.data_;
 }
 
-void DataTypeSet::intersection(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1)
+DataTypeSet DataTypeSet::intersection(const DataTypeSet& s0, const DataTypeSet& s1)
 {
     if (s0.size() > s1.size())
-        return intersection(out, s1, s0);
+        return intersection(s1, s0);
 
-    out.clear();
+    DataTypeSet out;
 
-    for (auto& s0_el : s0.data_) {
-        DataAtom elem(s0_el);
-        if (s1.contains(elem.asAtom()))
-            out.data_.insert(elem);
+    for (auto& x : s0.data_) {
+        if (s1.contains(x))
+            out.data_.insert(x);
     }
+
+    return out;
 }
 
-void DataTypeSet::set_union(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1)
+DataTypeSet DataTypeSet::set_union(const DataTypeSet& s0, const DataTypeSet& s1)
 {
-    out.clear();
+    DataTypeSet out;
+    out.data_.reserve(s0.size() + s1.size());
 
-    for (auto& el : s0.data_)
-        out.add(el.asAtom());
+    for (auto& x : s0.data_)
+        out.add(x);
 
-    for (auto& el : s1.data_)
-        out.add(el.asAtom());
+    for (auto& x : s1.data_)
+        out.add(x);
+
+    return out;
 }
 
-void DataTypeSet::difference(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1)
+DataTypeSet DataTypeSet::difference(const DataTypeSet& s0, const DataTypeSet& s1)
 {
-    out.clear();
+    DataTypeSet out;
 
-    for (auto& el : s0.data_) {
-        if (!s1.contains(el.asAtom()))
-            out.data_.insert(el);
+    for (auto& x : s0.data_) {
+        if (!s1.contains(x))
+            out.data_.insert(x);
     }
+
+    return out;
 }
 
-void DataTypeSet::sym_difference(DataTypeSet& out, const DataTypeSet& s0, const DataTypeSet& s1)
+DataTypeSet DataTypeSet::sym_difference(const DataTypeSet& s0, const DataTypeSet& s1)
 {
-    out.clear();
+    DataTypeSet out;
 
-    for (auto& el : s0.data_) {
-        if (!s1.contains(el.asAtom()))
-            out.data_.insert(el);
+    for (auto& x : s0.data_) {
+        if (!s1.contains(x))
+            out.data_.insert(x);
     }
 
-    for (auto& el : s1.data_) {
-        if (!s0.contains(el.asAtom()))
-            out.data_.insert(el);
+    for (auto& x : s1.data_) {
+        if (!s0.contains(x))
+            out.data_.insert(x);
     }
+
+    return out;
 }
 
 DataTypeSet::DataTypeSet(const DataTypeSet& ds)
     : data_(ds.data_)
 {
+}
+
+size_t hash_value(const Atom& a) noexcept
+{
+    size_t res = a.type();
+
+    if (a.isFloat())
+        boost::hash_combine(res, boost::hash_value(a.asFloat()));
+    else if (a.isSymbol())
+        boost::hash_combine(res, boost::hash_value(a.asSymbol()));
+    else if (a.isData()) {
+        boost::hash_combine(res, boost::hash_value(a.dataType()));
+        boost::hash_combine(res, boost::hash_value(a.asData()));
+    }
+
+    return res;
 }

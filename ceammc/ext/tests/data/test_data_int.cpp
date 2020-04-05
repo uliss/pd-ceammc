@@ -11,9 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/data_int.h"
+#include "data_int.h"
 #include "test_base.h"
-#include "test_external.h"
+#include "test_data_base.h"
 
 PD_COMPLETE_TEST_SETUP(DataInt, data, int)
 

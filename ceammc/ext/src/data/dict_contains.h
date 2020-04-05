@@ -14,21 +14,19 @@
 #ifndef DICT_CONTAINS_H
 #define DICT_CONTAINS_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
-#include "datatype_dict.h"
 
 using namespace ceammc;
 
 class DictContains : public BaseObject {
-    Atom key_;
+    AtomProperty* key_;
 
 public:
     DictContains(const PdArgs& args);
 
-    void parseProperties() override;
-    void onInlet(size_t n, const AtomList& lst) override;
-
-    void onDataT(const DataTPtr<DataTypeDict>& dptr);
+    void onInlet(size_t n, const AtomList& lst) final;
+    void onDataT(const DictAtom& dict);
 };
 
 void setup_dict_contains();

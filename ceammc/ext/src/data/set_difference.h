@@ -25,10 +25,10 @@ class SetDifference : public BaseObject {
 public:
     SetDifference(const PdArgs& a);
     void onList(const AtomList& l) override;
-    void onDataT(const DataTPtr<DataTypeSet>& s);
+    void onDataT(const SetAtom& set);
     void onInlet(size_t, const AtomList& l) override;
 };
 
-extern "C" void setup_set0x2edifference();
+void setup_set_difference();
 
 #endif // SET_DIFFERENCE_H

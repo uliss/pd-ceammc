@@ -11,97 +11,87 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/set_union.h"
-#include "test_base.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
+#include "set_union.h"
+#include "test_data_base.h"
 
-#include <stdio.h>
-
-typedef TestExternal<SetUnion> SetUnionTest;
-
-#define REQUIRE_SET_OUTPUT(t, set)                                \
-    {                                                             \
-        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                         \
-        const DataTypeSet* s = t.typedLastDataAt<DataTypeSet>(0); \
-        REQUIRE(s != 0);                                          \
-        REQUIRE(*s == set);                                       \
+#define REQUIRE_SET_OUTPUT(t, set)                   \
+    {                                                \
+        REQUIRE_NEW_DATA_AT_OUTLET(0, t);            \
+        REQUIRE(t.lastMessage().atomValue() == set); \
     }
 
-#define DSET(l) DataPtr(new DataTypeSet(l))
-#define DINT(v) DataPtr(new IntData(v))
-#define DSTR(v) DataPtr(new StrData(v))
+PD_COMPLETE_TEST_SETUP(SetUnion, set, union)
 
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+using DSet = DataTypeSet;
 
-TEST_CASE("set.intersection", "[externals]")
+TEST_CASE("set.union", "[externals]")
 {
-    setup_set0x2eunion();
+    pd_test_init();
 
     SECTION("create")
     {
         SECTION("empty")
         {
-            SetUnionTest t("set.union");
+            TObj t("set.union");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
             WHEN_SEND_TDATA_TO(0, t, DataTypeSet());
-            REQUIRE_SET_OUTPUT(t, DataTypeSet());
+            REQUIRE_SET_OUTPUT(t, SetA());
         }
 
         SECTION("args")
         {
-            SetUnionTest t("set.union", LF(1, 2, 3));
+            TObj t("set.union", LF(1, 2, 3));
             WHEN_SEND_TDATA_TO(0, t, DataTypeSet());
-            REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(1, 2, 3)));
+            REQUIRE_SET_OUTPUT(t, SetA(1, 2, 3));
         }
     }
 
     SECTION("do")
     {
-        SetUnionTest t("set.union");
+        TObj t("set.union");
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(3, 4, 5)));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(3, 4, 5)));
+        WHEN_SEND_TDATA_TO(0, t, DSet(3, 4, 5));
+        REQUIRE_SET_OUTPUT(t, SetA(3, 4, 5));
 
         WHEN_SEND_TDATA_TO(0, t, DataTypeSet());
-        REQUIRE_SET_OUTPUT(t, DataTypeSet());
+        REQUIRE_SET_OUTPUT(t, SetA());
 
         WHEN_SEND_LIST_TO(1, t, LF(1, 4));
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(3, 5)));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(1, 3, 4, 5)));
+        WHEN_SEND_TDATA_TO(0, t, DSet(3, 5));
+        REQUIRE_SET_OUTPUT(t, SetA(1, 3, 4, 5));
     }
 
     SECTION("do data")
     {
-        SetUnionTest t("set.union");
-        WHEN_SEND_LIST_TO(1, t, LA(DINT(1), DINT(3)));
+        TObj t("set.union");
+        WHEN_SEND_LIST_TO(1, t, LA(IntA(1), IntA(3)));
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LA(DINT(2), DINT(4))));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(LA(DINT(1), DINT(2), DINT(3), DINT(4))));
+        WHEN_SEND_TDATA_TO(0, t, DSet(IntA(2), IntA(4)));
+        REQUIRE_SET_OUTPUT(t, SetA(IntA(1), IntA(2), IntA(3), IntA(4)));
 
-        WHEN_SEND_LIST_TO(1, t, LA(DSET(LA(DINT(1), DINT(3))).asAtom()));
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LA(DINT(2), DINT(5))));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(LA(DINT(1), DINT(2), DINT(3), DINT(5))));
+        WHEN_SEND_LIST_TO(1, t, LA(SetA(IntA(1), IntA(3))));
+        WHEN_SEND_TDATA_TO(0, t, DSet(IntA(2), IntA(5)));
+        REQUIRE_SET_OUTPUT(t, SetA(IntA(1), IntA(2), IntA(3), IntA(5)));
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LA(DINT(2), DINT(5), DINT(3), DINT(1))));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(LA(DINT(1), DINT(2), DINT(3), DINT(5))));
+        WHEN_SEND_TDATA_TO(0, t, DSet(IntA(2), IntA(5), IntA(3), IntA(1)));
+        REQUIRE_SET_OUTPUT(t, SetA(IntA(1), IntA(2), IntA(3), IntA(5)));
     }
 
     SECTION("do list")
     {
-        SetUnionTest t("set.union");
+        TObj t("set.union");
 
         WHEN_SEND_LIST_TO(1, t, LF(1, 2));
         WHEN_SEND_LIST_TO(0, t, LF(1, 3));
 
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(1, 2, 3)));
+        REQUIRE_SET_OUTPUT(t, SetA(1, 2, 3));
 
         WHEN_SEND_LIST_TO(1, t, L());
         WHEN_SEND_LIST_TO(0, t, L());
 
-        REQUIRE_SET_OUTPUT(t, DataTypeSet());
+        REQUIRE_SET_OUTPUT(t, SetA());
     }
 }

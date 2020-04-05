@@ -13,44 +13,38 @@
  *****************************************************************************/
 #include "dict_contains.h"
 #include "ceammc_factory.h"
+#include "datatype_dict.h"
 
 DictContains::DictContains(const PdArgs& args)
     : BaseObject(args)
+    , key_(nullptr)
 {
-    if (args.args.size() > 0)
-        key_ = args.args[0];
+    key_ = new AtomProperty("@key", Atom());
+    key_->setArgIndex(0);
+    addProperty(key_);
 
     createInlet();
     createOutlet();
 }
 
-void DictContains::parseProperties()
-{
-    return;
-}
-
 void DictContains::onInlet(size_t n, const AtomList& lst)
 {
-    if (lst.empty()) {
-        OBJ_ERR << "empty key: " << lst;
-        return;
-    }
-
-    key_ = lst[0];
+    key_->set(lst);
 }
 
-void DictContains::onDataT(const DataTPtr<DataTypeDict>& dptr)
+void DictContains::onDataT(const DictAtom& dict)
 {
-    if (key_.isNone()) {
+    if (key_->value().isNone()) {
         OBJ_ERR << "no key specified: " << key_;
         return;
     }
 
-    floatTo(0, dptr->contains(key_));
+    boolTo(0, dict->contains(key_->value()));
 }
 
 void setup_dict_contains()
 {
     ObjectFactory<DictContains> obj("dict.contains");
+    obj.parseOnlyPositionalProps(true);
     obj.processData<DataTypeDict>();
 }

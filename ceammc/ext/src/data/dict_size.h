@@ -14,6 +14,7 @@
 #ifndef DICT_SIZE_H
 #define DICT_SIZE_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 #include "datatype_dict.h"
 
@@ -22,7 +23,7 @@ using namespace ceammc;
 class DictSize : public BaseObject {
 public:
     DictSize(const PdArgs& args);
-    void onDataT(const DataTPtr<DataTypeDict>& dict);
+    void onDataT(const DictAtom& dict);
 };
 
 void setup_dict_size();

@@ -24,11 +24,11 @@ class SetEqual : public BaseObject {
 
 public:
     SetEqual(const PdArgs& a);
-    void onDataT(const DataTPtr<DataTypeSet>& s);
+    void onDataT(const SetAtom& set);
     void onInlet(size_t, const AtomList& l) override;
     void onList(const AtomList& l) override;
 };
 
-extern "C" void setup_set0x2eequal();
+void setup_set_equal();
 
 #endif // SET_EQUAL_H

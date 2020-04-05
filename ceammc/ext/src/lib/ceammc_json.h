@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2017 Serge Poltavsky. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,24 +11,24 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef SET_INTERSECTION_H
-#define SET_INTERSECTION_H
+#ifndef CEAMMC_JSON_H
+#define CEAMMC_JSON_H
 
-#include "ceammc_object.h"
-#include "datatype_set.h"
+#include "ceammc_atomlist.h"
+#include "ceammc_data.h"
 
-using namespace ceammc;
+#include <string>
 
-class SetIntersection : public BaseObject {
-    DataTypeSet set1_;
+namespace ceammc {
+namespace json {
 
-public:
-    SetIntersection(const PdArgs& a);
-    void onList(const AtomList& lst) override;
-    void onDataT(const SetAtom& set);
-    void onInlet(size_t, const AtomList& l) override;
-};
+    std::string to_json(const Atom& a, int indent = -1);
+    std::string to_json(const AtomList& l, int indent = -1);
+    std::string to_json(const DataTypeString& str, int indent = -1);
+    std::string to_json(const DataTypeMList& ml, int indent = -1);
+    std::string to_json(const DataTypeDict& dict, int indent = -1);
+}
 
-void setup_set_intersection();
+}
 
-#endif // SET_INTERSECTION_H
+#endif // CEAMMC_JSON_H

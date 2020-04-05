@@ -122,6 +122,17 @@ TEST_CASE("DataTypeMList", "[core]")
         REQUIRE(ml.toString() == "(1 -100.1 ABC)");
     }
 
+    SECTION("toString")
+    {
+        using MA = MListAtom;
+
+        REQUIRE(ML().valueToJsonString() == "[]");
+        REQUIRE(ML(1).valueToJsonString() == "[1]");
+        REQUIRE(ML(1, "abc").valueToJsonString() == "[1,\"abc\"]");
+        REQUIRE(ML(1, "abc", Atom()).valueToJsonString() == "[1,\"abc\",null]");
+        REQUIRE(ML(1, "abc", Atom(), MA(3, 2, 1)).valueToJsonString() == "[1,\"abc\",null,[3,2,1]]");
+    }
+
     SECTION("parse<->parse")
     {
         ML ml;

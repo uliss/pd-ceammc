@@ -11,112 +11,100 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/set_difference.h"
-#include "test_base.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
+#include "set_difference.h"
+#include "test_data_base.h"
 
-#include <stdio.h>
-
-typedef TestExternal<SetDifference> SetDifferenceTest;
-
-#define REQUIRE_SET_OUTPUT(t, set)                                \
-    {                                                             \
-        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                         \
-        const DataTypeSet* s = t.typedLastDataAt<DataTypeSet>(0); \
-        REQUIRE(s != 0);                                          \
-        REQUIRE(*s == set);                                       \
+#define REQUIRE_SET_OUTPUT(t, set)                   \
+    {                                                \
+        REQUIRE_NEW_DATA_AT_OUTLET(0, t);            \
+        REQUIRE(t.lastMessage().atomValue() == set); \
     }
 
-#define DSET(l) DataPtr(new DataTypeSet(l))
-#define DINT(v) DataPtr(new IntData(v))
-#define DSTR(v) DataPtr(new StrData(v))
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(SetDifference, set, difference)
 
 TEST_CASE("set.diff", "[externals]")
 {
-    setup_set0x2edifference();
+    pd_test_init();
 
     SECTION("create")
     {
         SECTION("empty")
         {
-            SetDifferenceTest t("set.diff");
+            TObj t("set.diff");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
             // {1,2} \ {} = {1,2}
-            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(1, 2)));
-            REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(1, 2)));
+            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(1, 2));
+            REQUIRE_SET_OUTPUT(t, SetA(1, 2));
         }
 
         SECTION("args")
         {
             // {2,4} \ {1,2,3} = {4}
-            SetDifferenceTest t("set.diff", LF(1, 2, 3));
-            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(2, 4)));
-            REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(4)));
+            TObj t("set.diff", LF(1, 2, 3));
+            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(2, 4));
+            REQUIRE_SET_OUTPUT(t, SetA(4));
 
             // {1,2,3} \ {1,2,3} = {}
-            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(1, 2, 3)));
-            REQUIRE_SET_OUTPUT(t, DataTypeSet());
+            WHEN_SEND_TDATA_TO(0, t, DataTypeSet(1, 2, 3));
+            REQUIRE_SET_OUTPUT(t, SetA());
 
             // {} \ {1,2,3} = {}
             WHEN_SEND_TDATA_TO(0, t, DataTypeSet());
-            REQUIRE_SET_OUTPUT(t, DataTypeSet());
+            REQUIRE_SET_OUTPUT(t, SetA());
         }
     }
 
     SECTION("do")
     {
-        SetDifferenceTest t("set.diff");
+        TObj t("set.diff");
 
         // {3,4,5} \ {} = {3,4,5}
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(3, 4, 5)));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(3, 4, 5)));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(3, 4, 5));
+        REQUIRE_SET_OUTPUT(t, SetA(3, 4, 5));
 
         // {} \ {} = {}
         WHEN_SEND_TDATA_TO(0, t, DataTypeSet());
-        REQUIRE_SET_OUTPUT(t, DataTypeSet());
+        REQUIRE_SET_OUTPUT(t, SetA());
 
         // {3,5} \ {1,4} = {}
         WHEN_SEND_LIST_TO(1, t, LF(1, 4));
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(3, 5)));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(3, 5)));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(3, 5));
+        REQUIRE_SET_OUTPUT(t, SetA(3, 5));
     }
 
     SECTION("do data")
     {
-        SetDifferenceTest t("set.diff");
+        TObj t("set.diff");
 
         // {2,4} \ {1,3} = {2,4}
-        WHEN_SEND_LIST_TO(1, t, LA(DINT(1), DINT(3)));
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LA(DINT(2), DINT(4))));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(LA(DINT(2), DINT(4))));
+        WHEN_SEND_LIST_TO(1, t, LA(IntA(1), IntA(3)));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(IntA(2), IntA(4)));
+        REQUIRE_SET_OUTPUT(t, SetA(IntA(2), IntA(4)));
 
         // {2,4} \ {1,3} = {2,4}
-        WHEN_SEND_LIST_TO(1, t, LA(DSET(LA(DINT(1), DINT(3))).asAtom()));
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LA(DINT(2), DINT(4))));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(LA(DINT(2), DINT(4))));
+        WHEN_SEND_LIST_TO(1, t, LA(SetA(IntA(1), IntA(3))));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(IntA(2), IntA(4)));
+        REQUIRE_SET_OUTPUT(t, SetA(IntA(2), IntA(4)));
 
         // {2,3,4,5} \ {1,3} = {2,4,5}
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LA(DINT(2), DINT(4), DINT(3), DINT(5))));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(LA(DINT(2), DINT(5), DINT(4))));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(IntA(2), IntA(4), IntA(3), IntA(5)));
+        REQUIRE_SET_OUTPUT(t, SetA(IntA(2), IntA(5), IntA(4)));
     }
 
     SECTION("do list")
     {
-        SetDifferenceTest t("set.diff");
+        TObj t("set.diff");
 
         // {1,3} \ {1,2} = {3}
         WHEN_SEND_LIST_TO(1, t, LF(1, 2));
         WHEN_SEND_LIST_TO(0, t, LF(1, 3));
-        REQUIRE_SET_OUTPUT(t, DataTypeSet(LF(3)));
+        REQUIRE_SET_OUTPUT(t, SetA(3));
 
         // {} \ {} = {}
         WHEN_SEND_LIST_TO(1, t, L());
         WHEN_SEND_LIST_TO(0, t, L());
-        REQUIRE_SET_OUTPUT(t, DataTypeSet());
+        REQUIRE_SET_OUTPUT(t, SetA());
     }
 }

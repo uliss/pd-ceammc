@@ -14,6 +14,7 @@
 #include "ceammc_data.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_format.h"
+#include "ceammc_json.h"
 #include "ceammc_log.h"
 #include "lex/data_string.lexer.h"
 #include "lex/data_string.parser.hpp"

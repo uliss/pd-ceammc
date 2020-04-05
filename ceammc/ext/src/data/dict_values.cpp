@@ -21,24 +21,22 @@ DictValues::DictValues(const PdArgs& args)
     createOutlet();
 }
 
-void DictValues::onDataT(const DataTPtr<DataTypeDict>& dptr)
+void DictValues::onDataT(const DictAtom& dptr)
 {
     const auto& d = dptr->innerData();
 
-    DataTypeMList res;
+    MListAtom res;
 
     for (auto& kv : d) {
         auto& v = kv.second;
 
         if (v.type() == typeid(Atom))
-            res.append(boost::get<Atom>(v));
+            res->append(boost::get<Atom>(v));
         else if (v.type() == typeid(AtomList))
-            res.append(boost::get<AtomList>(v));
-        else if (v.type() == typeid(DataAtom))
-            res.append(boost::get<DataAtom>(v));
+            res->append(boost::get<AtomList>(v));
     }
 
-    dataTo(0, DataTPtr<DataTypeMList>(res));
+    atomTo(0, res);
 }
 
 void setup_dict_values()

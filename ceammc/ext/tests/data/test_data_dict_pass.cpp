@@ -11,10 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/dict_pass.h"
-#include "datatype_dict.h"
-#include "test_base.h"
-#include "test_external.h"
+#include "dict_pass.h"
+#include "test_data_base.h"
 
 PD_COMPLETE_TEST_SETUP(DictPass, dict, pass)
 
@@ -38,10 +36,10 @@ TEST_CASE("dict.pass", "[externals]")
         REQUIRE(t.object());
 
         // pass all
-        t.send(DataPtr(new DataTypeDict("[a:b][c:d][e:f]")));
+        t.send(DictA("[a:b][c:d][e:f]"));
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DataPtr(new DataTypeDict));
+        REQUIRE(t.outputAtomAt(0) == DictA());
     }
 
     SECTION("pass ")
@@ -50,18 +48,18 @@ TEST_CASE("dict.pass", "[externals]")
         REQUIRE(t.object());
 
         // pass all
-        t.send(DataPtr(new DataTypeDict("[a:b][c:d][e:f]")));
+        t.send(DictA("[a:b][c:d][e:f]"));
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DataPtr(new DataTypeDict("[a:b]")));
+        REQUIRE(t.outputAtomAt(0) == DictA("[a:b]"));
 
         pd::External l("list");
         REQUIRE(l.connectTo(0, t, 1));
         l.sendList(LA("c", "e"));
 
-        t.send(DataPtr(new DataTypeDict("[a:b][c:d][e:f]")));
+        t.send(DictA("[a:b][c:d][e:f]"));
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DataPtr(new DataTypeDict("[c:d][e:f]")));
+        REQUIRE(t.outputAtomAt(0) == DictA("[c:d][e:f]"));
     }
 }

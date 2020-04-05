@@ -16,6 +16,7 @@
 
 #include "m_pd.h"
 
+#include <cstdint>
 #include <exception>
 #include <initializer_list>
 #include <string>
@@ -39,7 +40,7 @@ struct PdObject {
     t_sample f;
 };
 
-enum ObjectFactoryFlags {
+enum ObjectFactoryFlags : uint32_t {
     OBJECT_FACTORY_DEFAULT = 0x0,
     OBJECT_FACTORY_NO_DEFAULT_INLET = 0x1,
     OBJECT_FACTORY_MAIN_SIGNAL_INLET = 0x2,
@@ -47,7 +48,8 @@ enum ObjectFactoryFlags {
     OBJECT_FACTORY_NO_FLOAT = 0x8,
     OBJECT_FACTORY_NO_SYMBOL = 0x10,
     OBJECT_FACTORY_NO_LIST = 0x20,
-    OBJECT_FACTORY_NO_ANY = 0x40
+    OBJECT_FACTORY_NO_ANY = 0x40,
+    OBJECT_FACTORY_PARSE_POSITIONAL_PROPS_ONLY = 0x80
 };
 
 template <typename T>
@@ -65,7 +67,7 @@ public:
     typedef std::unordered_map<t_symbol*, MethodPtrList> MethodListMap;
 
 public:
-    ObjectFactory(const char* name, int flags = OBJECT_FACTORY_DEFAULT)
+    ObjectFactory(const char* name, uint32_t flags = OBJECT_FACTORY_DEFAULT)
         : fn_bang_(nullptr)
         , fn_float_(nullptr)
         , fn_symbol_(nullptr)
@@ -237,11 +239,34 @@ public:
         ObjectInfoStorage::instance().info(class_).api = v;
     }
 
+    void setFlag(uint32_t f, bool on)
+    {
+        if (on)
+            flags_ |= f;
+        else
+            flags_ = (flags_ & (~f));
+    }
+
+    void parseOnlyPositionalProps(bool value)
+    {
+        setFlag(OBJECT_FACTORY_PARSE_POSITIONAL_PROPS_ONLY, !value);
+    }
+
     static void* createObject(t_symbol* name, int argc, t_atom* argv)
     {
         ObjectProxy* x = nullptr;
 
         try {
+            ObjectInfoStorage::Info class_info;
+            if (ObjectInfoStorage::instance().find(name, class_info)) {
+                if (class_info.deprecated) {
+                    LIB_ERR << "object [" << name->s_name << "] is deprecated";
+                    auto it = class_info.dict.find("use_instead");
+                    if (it != class_info.dict.end())
+                        LIB_ERR << " - use [" << it->second << "] instead";
+                }
+            }
+
             x = reinterpret_cast<ObjectProxy*>(pd_new(class_));
             if (x == nullptr)
                 throw std::runtime_error("can't allocate memory for object");
@@ -265,7 +290,12 @@ public:
             return nullptr;
         }
 
-        x->impl->parseProperties();
+        if (flags_ & OBJECT_FACTORY_PARSE_POSITIONAL_PROPS_ONLY)
+            x->impl->parsePositionalProperties();
+        else
+            x->impl->parseProperties();
+
+        x->impl->updatePropertyDefaults();
         x->impl->initDone();
 
         return x;
@@ -320,20 +350,6 @@ public:
             x->impl->onList(AtomList(argc, argv));
         }
     }
-
-    //    template <typename DataT>
-    //    static void processDataTypedFn(ObjectProxy* x, t_symbol*, int argc, t_atom* argv)
-    //    {
-    //        if (argc == 1 && argv && Atom::is_data(argv)) {
-    //            Atom data(*argv);
-    //            if (data.isA<DataT>())
-    //                x->impl->onDataT(DataAtom<DataT>(std::move(data)));
-    //            else
-    //                x->impl->onData(data);
-    //        } else {
-    //            x->impl->onList(AtomList(argc, argv));
-    //        }
-    //    }
 
     template <typename DataT>
     static bool processDataSingleTypedFn(ObjectProxy* x, const Atom& a)
@@ -449,7 +465,7 @@ private:
     static t_class* class_;
     static t_symbol* class_name_;
     static MethodListMap list_methods_;
-    static int flags_;
+    static uint32_t flags_;
 
 private:
     PdBangFunction fn_bang_;
@@ -495,7 +511,7 @@ template <typename T>
 typename ObjectFactory<T>::MethodListMap ObjectFactory<T>::list_methods_;
 
 template <typename T>
-int ObjectFactory<T>::flags_ = 0;
+uint32_t ObjectFactory<T>::flags_ = 0;
 
 #define CLASS_ADD_METHOD()
 

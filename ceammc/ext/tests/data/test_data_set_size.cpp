@@ -11,38 +11,48 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../data/set_size.h"
-#include "test_base.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
+#include "set_size.h"
+#include "test_data_base.h"
 
-#include <stdio.h>
+#define REQUIRE_SET_OUTPUT(t, set)                   \
+    {                                                \
+        REQUIRE_NEW_DATA_AT_OUTLET(0, t);            \
+        REQUIRE(t.lastMessage().atomValue() == set); \
+    }
 
-typedef TestExternal<SetSize> SetSizeTest;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(SetSize, set, size)
 
 TEST_CASE("set.size", "[externals]")
 {
-    setup_set0x2esize();
+    pd_test_init();
 
     SECTION("create")
     {
-        SetSizeTest t("set.size");
+        TObj t("set.size");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
     }
 
     SECTION("do")
     {
-        SetSizeTest t("set.size");
+        TObj t("set.size");
         WHEN_SEND_TDATA_TO(0, t, DataTypeSet());
         REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(Atom(1)));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(1));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(LF(1, 2, 3)));
+        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(1, 2, 3));
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+    }
+
+    SECTION("do list")
+    {
+        TObj t("set.size");
+        WHEN_SEND_LIST_TO(0, t, L());
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+
+        WHEN_SEND_LIST_TO(0, t, LF(1, 1, 1, 2, 2, 2, 3, 3, 3));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
     }
 }

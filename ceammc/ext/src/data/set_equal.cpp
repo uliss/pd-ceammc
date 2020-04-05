@@ -22,26 +22,25 @@ SetEqual::SetEqual(const PdArgs& a)
     createOutlet();
 }
 
-void SetEqual::onDataT(const DataTPtr<DataTypeSet>& dptr)
+void SetEqual::onDataT(const SetAtom& set)
 {
-    floatTo(0, (dptr->operator==(set1_)) ? 1 : 0);
+    boolTo(0, *set == set1_);
 }
 
 void SetEqual::onInlet(size_t, const AtomList& l)
 {
-    if (l.isDataType<DataTypeSet>())
-        set1_ = *DataTPtr<DataTypeSet>(l[0]).data();
+    if (l.isA<DataTypeSet>())
+        set1_ = *l.asD<DataTypeSet>();
     else
         set1_ = DataTypeSet(l);
 }
 
 void SetEqual::onList(const AtomList& l)
 {
-    DataTypeSet s(l);
-    onDataT(s);
+    onDataT(SetAtom(l));
 }
 
-extern "C" void setup_set0x2eequal()
+void setup_set_equal()
 {
     ObjectFactory<SetEqual> obj("set.equal");
     obj.processData<DataTypeSet>();
