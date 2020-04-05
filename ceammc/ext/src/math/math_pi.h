@@ -18,7 +18,7 @@
 using namespace ceammc;
 
 class MathPi : public BaseObject {
-    const t_float mpi_;
+    FloatProperty* k_;
 
 public:
     MathPi(const PdArgs& args);

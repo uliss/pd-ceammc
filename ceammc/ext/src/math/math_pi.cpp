@@ -18,14 +18,21 @@ constexpr t_float PI = 3.14159265359;
 
 MathPi::MathPi(const PdArgs& args)
     : BaseObject(args)
-    , mpi_(positionalFloatArgumentT(0, 1) * PI)
+    , k_(nullptr)
 {
+    k_ = new FloatProperty("@k", 1);
+    k_->setArgIndex(0);
+    k_->setInitOnly();
+    addProperty(k_);
+
     createOutlet();
 }
 
 void MathPi::onBang()
 {
-    floatTo(0, mpi_);
+    static const t_float v = k_->value() * PI;
+
+    floatTo(0, v);
 }
 
 MathPiTilde::MathPiTilde(const PdArgs& args)

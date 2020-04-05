@@ -43,7 +43,7 @@ public:
     bool operator!=(const AtomList& l) const { return !operator==(l); }
 
     bool operator==(bool v) const { return isBool() && v == asBool(); }
-    bool operator==(t_float v) const { return isFloat() && std::equal_to<t_float>()(asFloat(), v); }
+    bool operator==(t_float v) const;
     bool operator==(int v) const { return isInt() && asInt() == v; }
     bool operator==(t_symbol* s) const { return isSymbol() && asSymbol() == s; }
     bool operator==(const Atom& a) const { return isAtom() && asAtom() == a; }

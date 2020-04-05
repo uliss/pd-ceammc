@@ -243,7 +243,7 @@ public:
 
     CEAMMC_NO_ASAN bool operator==(const Atom& a) const noexcept;
     bool operator!=(const Atom& a) const noexcept { return !operator==(a); }
-    CEAMMC_NO_ASAN bool operator==(t_float f) const noexcept { return isFloat() && std::equal_to<t_float>()(a_w.w_float, f); }
+    CEAMMC_NO_ASAN bool operator==(t_float f) const noexcept;
     bool operator!=(t_float f) const noexcept { return !operator==(f); }
 
     /**

@@ -14,7 +14,10 @@
 #ifndef CEAMMC_NUMERIC_H
 #define CEAMMC_NUMERIC_H
 
+#include <algorithm>
 #include <cmath>
+#include <limits>
+#include <type_traits>
 
 namespace ceammc {
 namespace math {
@@ -28,6 +31,16 @@ namespace math {
     static inline bool is_natural(T v)
     {
         return (v >= 0 && is_integer(v));
+    }
+
+    template <typename T, size_t ULP = 1>
+    bool float_compare(T x, T y)
+    {
+        static_assert(std::is_floating_point<T>::value, "floating point expected");
+
+        return std::abs(x - y) <= std::numeric_limits<T>::epsilon()
+            * std::max(std::abs(x), std::abs(y))
+            * ULP;
     }
 }
 }

@@ -14,6 +14,7 @@
 #include "ceammc_atomlist_view.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_convert.h"
+#include "ceammc_numeric.h"
 
 #include <cmath>
 #include <functional>
@@ -73,6 +74,11 @@ bool AtomListView::operator==(const AtomList& l) const
     return true;
 }
 
+bool AtomListView::operator==(t_float v) const
+{
+    return isFloat() && math::float_compare(asFloat(), v);
+}
+
 bool AtomListView::operator==(const AtomListView& v) const
 {
     if (v.n_ != n_)
@@ -113,7 +119,7 @@ bool AtomListView::isBool() const
 
 bool AtomListView::isInt() const
 {
-    return isFloat() && std::equal_to<t_float>()(std::ceil(asFloat()), asFloat());
+    return isFloat() && math::is_integer(asFloat());
 }
 
 const Atom& AtomListView::relativeAt(long pos) const
