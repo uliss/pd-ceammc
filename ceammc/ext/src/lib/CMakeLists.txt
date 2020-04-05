@@ -22,12 +22,8 @@ set(UTF8REWIND_SOURCES
     utf8rewind/internal/seeking.c
     utf8rewind/internal/streaming.c)
 
-set(CEAMMC_DATATYPE_SRC
-    datatype_string.cpp)
-
-set(CEAMMC_LIB_SOURCES ceammc.h
-    ceammc.hpp
-    ceammc.c
+set(CEAMMC_LIB_SOURCES
+    ceammc.h
     ceammc.cpp
     ceammc_abstractdata.cpp
     ceammc_args.cpp
@@ -44,6 +40,9 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     args/arg_is_float.cpp
     args/arg_is_int.cpp
     args/arg_is_symbol.cpp
+    lex/data_string.lexer.cpp
+    lex/data_string.parser.cpp
+    lex/quoted_string.parser.c
     ceammc_array.cpp
     ceammc_atom.cpp
     ceammc_atomlist.cpp
@@ -54,8 +53,6 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_convert_pitch.cpp
     ceammc_data.cpp
     ceammc_datastorage.cpp
-    ceammc_dataatom.cpp
-    ceammc_dataatomlist.cpp
     ceammc_externals.cpp
     ceammc_factory.h
     ceammc_faust.cpp
@@ -69,6 +66,7 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_music_theory_names.cpp
     ceammc_music_theory_pitch_class.cpp
     ceammc_node_external.cpp
+    ceammc_numeric.h
     ceammc_object.cpp
     ceammc_object_info.cpp
     ceammc_output.cpp
@@ -87,10 +85,13 @@ set(CEAMMC_LIB_SOURCES ceammc.h
     ceammc_units.cpp
     ceammc_window.cpp
 
+
+    datatype_mlist.cpp
     datatype_property.cpp
+    datatype_string.cpp
 
     ${UTF8REWIND_SOURCES}
-    ${CEAMMC_DATATYPE_SRC})
+)
 
 #
 # UI library
@@ -117,15 +118,6 @@ elseif(WIN32)
     list(APPEND CEAMMC_LIB_SOURCES ceammc_platform_win.cpp)
 endif()
 
-# builtin datatypes: mlist and dict
-set(CEAMMC_MLIST_SRC
-    datatype_mlist.cpp
-    mlist_parser.lex
-    mlist_parser.y
-    mlist_parser.tab.c
-    lex.mlist_parser.c
-    mlist_parser_impl.cpp)
-
 set(CEAMMC_DICT_SRC
     datatype_dict.cpp
     dict_parser.lex
@@ -135,18 +127,7 @@ set(CEAMMC_DICT_SRC
     dict_parser_impl.cpp
     )
 
-set(CEAMMC_TREE_SRC
-    datatype_tree.cpp
-    datatype_tree_imp.cpp
-    )
-
 if(BISON_FOUND AND FLEX_FOUND)
-    add_custom_target(data_mlist_parser_gen
-        COMMAND ${FLEX_EXECUTABLE} --header-file=lex.mlist_parser.h mlist_parser.lex
-        COMMAND ${BISON_EXECUTABLE} -d mlist_parser.y
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    )
-
     add_custom_target(data_dict_parser_gen
         COMMAND ${FLEX_EXECUTABLE} --header-file=lex.dict_parser.h dict_parser.lex
         COMMAND ${BISON_EXECUTABLE} -d dict_parser.y
@@ -158,14 +139,21 @@ if(BISON_FOUND AND FLEX_FOUND)
         COMMAND ${BISON_EXECUTABLE} argcheck.yy
         SOURCES args/argcheck.l args/argcheck.yy
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/args)
+
+    add_custom_target(ceammc_parser_gen
+        COMMAND $<TARGET_FILE:reflex-bin> data_string.l
+        COMMAND ${BISON_EXECUTABLE} data_string.y
+        COMMAND ${BISON_EXECUTABLE} quoted_string.y
+        SOURCES lex/data_string.l
+                lex/data_string.y
+                lex/quoted_string.y
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
 endif()
 
 # main shared library
 add_library(ceammc_core SHARED
     ${CEAMMC_LIB_SOURCES}
-    ${CEAMMC_MLIST_SRC}
     ${CEAMMC_DICT_SRC}
-    ${CEAMMC_TREE_SRC}
     ${CEAMMC_UI_SRC})
 target_link_libraries(ceammc_core PUBLIC puredata-core)
 target_link_libraries(ceammc_core PUBLIC re2)

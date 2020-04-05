@@ -33,6 +33,11 @@ class BaseObject;
 class UIObject;
 
 namespace pd {
+
+    std::vector<std::string> currentListOfExternals();
+
+    bool addPdPrintDataSupport();
+
     class External {
     private:
         t_object* obj_;
@@ -40,9 +45,18 @@ namespace pd {
 
     public:
         External(const char* name, const AtomList& lst = AtomList());
+
+        template <typename... Args>
+        External(const char* name, Args... args)
+            : External(name, AtomList(args...))
+        {
+        }
+
         ~External();
 
         bool isNull() const;
+
+        t_symbol* className() const;
 
         // connect this object outlet to external object inlet
         bool connectTo(size_t outn, t_object* dest, size_t inln);
@@ -53,13 +67,21 @@ namespace pd {
         bool connectFrom(size_t outn, External& ext, size_t inln);
 
         t_object* object();
+        const t_object* object() const;
         t_pd* pd() { return &obj_->te_g.g_pd; }
         void setParent(_glist* cnv);
 
         void sendBang();
         void sendFloat(t_float v);
         void sendSymbol(t_symbol* s);
+        void sendSymbol(const char* s) { sendSymbol(gensym(s)); }
         void sendList(const AtomList& l);
+        template <typename... Args>
+        void sendList(Args... args)
+        {
+            sendList(AtomList(args...));
+        }
+
         void sendBangTo(size_t inlet);
         void sendFloatTo(t_float v, size_t inlet);
         void sendSymbolTo(t_symbol* s, size_t inlet);
@@ -116,6 +138,9 @@ public:
     static PureData& instance();
     CanvasPtr createTopCanvas(const char* name, const AtomList& args = AtomList());
     CanvasPtr createSubpatch(_glist* parent, const char* name);
+
+    PureData(const PureData&) = delete;
+    PureData& operator=(const PureData&) = delete;
 
 private:
     PureData();

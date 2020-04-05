@@ -14,6 +14,7 @@
 #include "ceammc_atom.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_log.h"
+#include "ceammc_numeric.h"
 #include "ceammc_string.h"
 #include "fmt/format.h"
 
@@ -378,8 +379,7 @@ bool Atom::isBool() const noexcept
 
 bool Atom::isInteger() const noexcept
 {
-    return isFloat()
-        && std::equal_to<t_float>()(std::ceil(a_w.w_float), a_w.w_float);
+    return isFloat() && math::is_integer(a_w.w_float);
 }
 
 Atom::Type Atom::type() const noexcept
@@ -428,7 +428,8 @@ bool Atom::setFloat(t_float v, bool force) noexcept
     if (!force && !isFloat())
         return false;
 
-    release();
+    if (a_type == TYPE_DATA)
+        release();
 
     SETFLOAT(this, v);
     return true;
@@ -439,7 +440,8 @@ bool Atom::setSymbol(t_symbol* s, bool force) noexcept
     if (!force && !isSymbol())
         return false;
 
-    release();
+    if (a_type == TYPE_DATA)
+        release();
 
     SETSYMBOL(this, s);
     return true;
@@ -629,7 +631,7 @@ bool Atom::operator==(const Atom& x) const noexcept
     // same logical types here
     switch (t) {
     case FLOAT:
-        return std::equal_to<t_float>()(a_w.w_float, x.a_w.w_float);
+        return math::float_compare<2>(a_w.w_float, x.a_w.w_float);
     case PROPERTY:
     case SYMBOL:
         return a_w.w_symbol == x.a_w.w_symbol;
@@ -649,6 +651,11 @@ bool Atom::operator==(const Atom& x) const noexcept
     case NONE:
         return true;
     }
+}
+
+bool Atom::operator==(t_float f) const noexcept
+{
+    return isFloat() && math::float_compare(a_w.w_float, f);
 }
 
 std::ostream& operator<<(std::ostream& os, const Atom& a)
