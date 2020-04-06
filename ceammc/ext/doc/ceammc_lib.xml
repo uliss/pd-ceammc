@@ -680,7 +680,7 @@
     <entry descr="returns random element from list" name="list.choice" ref_view="object">
       <xi:include href="list.choice.pddoc" parse="xml"/>
     </entry>
-    <entry descr="on input list checks if it contains specified subsequence" name="list.contains" ref_view="object">
+    <entry descr="checks if input list contains specified atoms" name="list.contains" ref_view="object">
       <xi:include href="list.contains.pddoc" parse="xml"/>
     </entry>
     <entry descr="returns the number of items that equal to specified value" name="list.count" ref_view="object">

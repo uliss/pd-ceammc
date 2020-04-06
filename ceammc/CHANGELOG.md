@@ -24,6 +24,7 @@
 - conv.lin2lin~ (with lin->lin~ and l->l~ aliases) added
 - chaos.gbman0 chaotic generator added
 - chaos.gbman0~ chaotic generator added
+- list.contains @all_of, @any_of, @none_of, @sublist (default) properties added
 
 ## [0.8]
 ### Added:

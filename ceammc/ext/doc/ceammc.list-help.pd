@@ -26,7 +26,7 @@ it via external object.;
 #X obj 30 345 list.choice;
 #X text 200 345 returns random element from list;
 #X obj 30 372 list.contains;
-#X text 200 372 on input list checks if it contains specified subsequence;
+#X text 200 372 checks if input list contains specified atoms;
 #X obj 30 399 list.count;
 #X text 200 399 returns the number of items that equal to specified
 value;
