@@ -24,10 +24,6 @@
 #include <iterator>
 #include <string>
 
-extern "C" {
-//#include "lex/quoted_string.parser.h"
-}
-
 #include "lex/quoted_atomlist_lexer.h"
 #include "lex/quoted_string.parser.hpp"
 
