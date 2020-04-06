@@ -1,4 +1,3 @@
-
 /*****************************************************************************
  * Copyright 2016 Serge Poltavsky. All rights reserved.
  *
@@ -12,7 +11,6 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include "ceammc_object.h"
 #include "ceammc_pd.h"
 #include "test_external.h"
@@ -47,9 +45,13 @@ public:
         : BaseObject(a)
         , last_prop(nullptr)
     {
-        addProperty(new FloatProperty("@c", 101));
-        addProperty(new SizeTProperty("@d", 101));
-        createCbProperty("@cb", &EXT_C::propCb);
+        addProperty(new FloatProperty("@c", 101))->setArgIndex(0);
+        addProperty(new SizeTProperty("@d", 101))->setArgIndex(1);
+        addProperty(new SymbolProperty("@s", gensym("empty")))->setArgIndex(2);
+        addProperty(new ListProperty("@l", LF(-1)))->setArgIndex(3);
+
+        createCbListProperty("@cb", []() -> AtomList { return { 1, 2, 3 }; });
+
         createInlet();
         createOutlet();
 
@@ -60,11 +62,6 @@ public:
     {
         last_inlet = n;
         last_inlet_data = l;
-    }
-
-    AtomList propCb() const
-    {
-        return LF(1, 2, 3);
     }
 
 public:
@@ -91,6 +88,7 @@ PD_TEST_MOD_INIT(test, extc);
 
 TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 {
+    pd_test_core_init();
     test::pdPrintToStdError();
 
     SECTION("test prop key")
@@ -282,25 +280,12 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
     SECTION("inheritance")
     {
+        SECTION("B")
         {
             EXT_B b(PdArgs(L(), gensym("ext.b"), 0, gensym("ext.b")));
             b.parseProperties();
             REQUIRE_PROPERTY(b, @a, -1);
             REQUIRE_PROPERTY(b, @b, -2);
-
-            //            REQUIRE(b.positionalArguments().empty());
-
-            //            REQUIRE(b.positionalFloatArgument(0, -1) == -1);
-            //            REQUIRE(b.positionalFloatArgument(100, -1) == -1);
-            //            REQUIRE(b.positionalFloatArgument(-100, -1) == -1);
-
-            //            REQUIRE(b.positionalIntArgument(0, -1) == -1);
-            //            REQUIRE(b.positionalIntArgument(100, -1) == -1);
-            //            REQUIRE(b.positionalIntArgument(-100, -1) == -1);
-
-            //            REQUIRE(b.positionalSymbolArgument(0, 0) == 0);
-            //            REQUIRE(b.positionalSymbolArgument(10, 0) == 0);
-            //            REQUIRE(b.positionalSymbolArgument(-10, 0) == 0);
         }
 
         {
@@ -308,20 +293,6 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             b.parseProperties();
             REQUIRE_PROPERTY(b, @a, 100);
             REQUIRE_PROPERTY(b, @b, -2);
-
-            //            REQUIRE(b.positionalArguments().empty());
-
-            //            REQUIRE(b.positionalFloatArgument(0, -1) == -1);
-            //            REQUIRE(b.positionalFloatArgument(100, -1) == -1);
-            //            REQUIRE(b.positionalFloatArgument(-100, -1) == -1);
-
-            //            REQUIRE(b.positionalIntArgument(0, -1) == -1);
-            //            REQUIRE(b.positionalIntArgument(100, -1) == -1);
-            //            REQUIRE(b.positionalIntArgument(-100, -1) == -1);
-
-            //            REQUIRE(b.positionalSymbolArgument(0, 0) == 0);
-            //            REQUIRE(b.positionalSymbolArgument(10, 0) == 0);
-            //            REQUIRE(b.positionalSymbolArgument(-10, 0) == 0);
         }
 
         {
@@ -473,126 +444,238 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
     SECTION("realOutput")
     {
-        pd_test_core_init();
-        pd_test_mod_init_test_extc();
-
-        TestExtEXT_C t("ext.c");
-        REQUIRE(t->outletAt(0));
-        REQUIRE(!t->outletAt(1));
-
-        t->bangTo(100);
-        REQUIRE(!t.hasOutput());
-        t->bangTo(0);
-        REQUIRE(t.hasOutputAt(0));
-
-        t.clearAll();
-        t->floatTo(0, 10);
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.outputFloatAt(0) == 10);
-
-        t.clearAll();
-        t->floatTo(1, 10);
-        REQUIRE_FALSE(t.hasOutput());
-
-        t.clearAll();
-        t->symbolTo(0, gensym("ABC"));
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.outputSymbolAt(0) == gensym("ABC"));
-
-        t.clearAll();
-        t->symbolTo(1, gensym("ABC"));
-        REQUIRE(!t.hasOutput());
-
-        t.clearAll();
-        t->listTo(0, LF(1, 2, 3));
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.outputListAt(0) == LF(1, 2, 3));
-
-        t.clearAll();
-        t->listTo(1, LF(1, 2, 3));
-        REQUIRE(!t.hasOutput());
-
-        t.clearAll();
-        t->atomTo(0, Atom(12));
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.outputFloatAt(0) == 12);
-
-        t.clearAll();
-        t->atomTo(0, Atom());
-        REQUIRE(!t.hasOutput());
-
-        t.clearAll();
-        t->atomTo(1, Atom());
-        REQUIRE(!t.hasOutput());
-
-        t.clearAll();
-        t->atomTo(0, Atom(gensym("CDE")));
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.outputSymbolAt(0) == gensym("CDE"));
-
-        t.clearAll();
-        t->anyTo(0, LA("any", 1, 2, 3));
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.outputAnyAt(0) == LA("any", 1, 2, 3));
-
-        t.clearAll();
-        t->anyTo(1, LA("any", 1, 2, 3));
-        REQUIRE(!t.hasOutput());
-
-        t.clearAll();
-        t->messageTo(0, Message(22));
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.outputFloatAt(0) == 22);
-
-        t.clearAll();
-        t->messageTo(1, Message(22));
-        REQUIRE(!t.hasOutput());
-
-        t.clearAll();
-        t->anyTo(0, gensym("B"), LF(1, 2, 3));
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.outputAnyAt(0) == LA("B", 1, 2, 3));
-
-        t.clearAll();
-        t->anyTo(1, gensym("B"), LF(1, 2, 3));
-        REQUIRE(!t.hasOutput());
-
-        t.clearAll();
-        t->anyTo(0, gensym("B"), A(23));
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.outputAnyAt(0) == LA("B", 23));
-
-        t.clearAll();
-        t->anyTo(1, gensym("B"), A(23));
-        REQUIRE(!t.hasOutput());
-
-        SECTION("process inlets")
+        SECTION("EXT_C")
         {
-            REQUIRE(!t->processAnyInlets(gensym("ABC"), L()));
-            REQUIRE(!t->processAnyInlets(gensym("_"), L()));
-            REQUIRE(t->processAnyInlets(gensym("_0inlet"), LF(123)));
-            REQUIRE(t->last_inlet == 1);
-            REQUIRE(t->last_inlet_data == LF(123));
+            pd_test_mod_init_test_extc();
+            TestExtEXT_C t("ext.c");
+
+            SECTION("general out")
+            {
+                REQUIRE(t->numOutlets() == 1);
+                REQUIRE(t->outletAt(0));
+                REQUIRE(t->outletAt(1) == nullptr);
+
+                t->bangTo(100);
+                REQUIRE(!t.hasOutput());
+                t->bangTo(0);
+                REQUIRE(t.hasOutputAt(0));
+
+                t.clearAll();
+                t->floatTo(0, 10);
+                REQUIRE(t.hasOutput());
+                REQUIRE(t.outputFloatAt(0) == 10);
+
+                t.clearAll();
+                t->floatTo(1, 10);
+                REQUIRE_FALSE(t.hasOutput());
+
+                t.clearAll();
+                t->symbolTo(0, gensym("ABC"));
+                REQUIRE(t.hasOutput());
+                REQUIRE(t.outputSymbolAt(0) == gensym("ABC"));
+
+                t.clearAll();
+                t->symbolTo(1, gensym("ABC"));
+                REQUIRE(!t.hasOutput());
+
+                t.clearAll();
+                t->listTo(0, LF(1, 2, 3));
+                REQUIRE(t.hasOutput());
+                REQUIRE(t.outputListAt(0) == LF(1, 2, 3));
+
+                t.clearAll();
+                t->listTo(1, LF(1, 2, 3));
+                REQUIRE(!t.hasOutput());
+
+                t.clearAll();
+                t->atomTo(0, Atom(12));
+                REQUIRE(t.hasOutput());
+                REQUIRE(t.outputFloatAt(0) == 12);
+
+                t.clearAll();
+                t->atomTo(0, Atom());
+                REQUIRE(!t.hasOutput());
+
+                t.clearAll();
+                t->atomTo(1, Atom());
+                REQUIRE(!t.hasOutput());
+
+                t.clearAll();
+                t->atomTo(0, Atom(gensym("CDE")));
+                REQUIRE(t.hasOutput());
+                REQUIRE(t.outputSymbolAt(0) == gensym("CDE"));
+
+                t.clearAll();
+                t->anyTo(0, LA("any", 1, 2, 3));
+                REQUIRE(t.hasOutput());
+                REQUIRE(t.outputAnyAt(0) == LA("any", 1, 2, 3));
+
+                t.clearAll();
+                t->anyTo(1, LA("any", 1, 2, 3));
+                REQUIRE(!t.hasOutput());
+
+                t.clearAll();
+                t->messageTo(0, Message(22));
+                REQUIRE(t.hasOutput());
+                REQUIRE(t.outputFloatAt(0) == 22);
+
+                t.clearAll();
+                t->messageTo(1, Message(22));
+                REQUIRE(!t.hasOutput());
+
+                t.clearAll();
+                t->anyTo(0, gensym("B"), LF(1, 2, 3));
+                REQUIRE(t.hasOutput());
+                REQUIRE(t.outputAnyAt(0) == LA("B", 1, 2, 3));
+
+                t.clearAll();
+                t->anyTo(1, gensym("B"), LF(1, 2, 3));
+                REQUIRE(!t.hasOutput());
+
+                t.clearAll();
+                t->anyTo(0, gensym("B"), A(23));
+                REQUIRE(t.hasOutput());
+                REQUIRE(t.outputAnyAt(0) == LA("B", 23));
+
+                t.clearAll();
+                t->anyTo(1, gensym("B"), A(23));
+                REQUIRE(!t.hasOutput());
+            }
+
+            SECTION("process inlets")
+            {
+                REQUIRE(!t->processAnyInlets(gensym("ABC"), L()));
+                REQUIRE(!t->processAnyInlets(gensym("_"), L()));
+                REQUIRE(t->processAnyInlets(gensym("_0inlet"), LF(123)));
+                REQUIRE(t->last_inlet == 1);
+                REQUIRE(t->last_inlet_data == LF(123));
+            }
+
+            SECTION("process props")
+            {
+                REQUIRE(!t->processAnyProps(gensym("???"), L()));
+                REQUIRE(!t->processAnyProps(gensym("@abc"), L()));
+
+                t.clearAll();
+                REQUIRE(t->processAnyProps(gensym("@c?"), L()));
+                REQUIRE(t.hasOutput());
+                REQUIRE(t.outputAnyAt(0) == LA("@c", 101));
+
+                t.clearAll();
+                REQUIRE(t->processAnyProps(gensym("@c"), LF(200)));
+                REQUIRE(!t.hasOutput());
+
+                t.clearAll();
+                REQUIRE(t->processAnyProps(gensym("@c?"), L()));
+                REQUIRE(t.hasOutput());
+                REQUIRE(t.outputAnyAt(0) == LA("@c", 200));
+            }
         }
 
-        SECTION("process props")
+        SECTION("props")
         {
-            REQUIRE(!t->processAnyProps(gensym("???"), L()));
-            REQUIRE(!t->processAnyProps(gensym("@abc"), L()));
+            SECTION("empty")
+            {
+                TestExtEXT_C t("ext.c");
+                REQUIRE_PROPERTY(t, @c, 101);
+                REQUIRE_PROPERTY(t, @d, 101);
+                REQUIRE_PROPERTY(t, @s, "empty");
+                REQUIRE_PROPERTY(t, @l, -1);
+                REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
+            }
 
-            t.clearAll();
-            REQUIRE(t->processAnyProps(gensym("@c?"), L()));
-            REQUIRE(t.hasOutput());
-            REQUIRE(t.outputAnyAt(0) == LA("@c", 101));
+            SECTION("args")
+            {
+                SECTION("1") {
+                    TestExtEXT_C t("ext.c", 0xBEEF);
+                    REQUIRE_PROPERTY(t, @c, 0xBEEF);
+                    REQUIRE_PROPERTY(t, @d, 101);
+                    REQUIRE_PROPERTY(t, @s, "empty");
+                    REQUIRE_PROPERTY(t, @l, -1);
+                    REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
+                }
 
-            t.clearAll();
-            REQUIRE(t->processAnyProps(gensym("@c"), LF(200)));
-            REQUIRE(!t.hasOutput());
+                SECTION("2") {
+                    TestExtEXT_C t("ext.c", 0xBEEF, 10);
+                    REQUIRE_PROPERTY(t, @c, 0xBEEF);
+                    REQUIRE_PROPERTY(t, @d, 10);
+                    REQUIRE_PROPERTY(t, @s, "empty");
+                    REQUIRE_PROPERTY(t, @l, -1);
+                    REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
+                }
 
-            t.clearAll();
-            REQUIRE(t->processAnyProps(gensym("@c?"), L()));
-            REQUIRE(t.hasOutput());
-            REQUIRE(t.outputAnyAt(0) == LA("@c", 200));
+                SECTION("3") {
+                    TestExtEXT_C t("ext.c", 0xBEEF, 10, "abc");
+                    REQUIRE_PROPERTY(t, @c, 0xBEEF);
+                    REQUIRE_PROPERTY(t, @d, 10);
+                    REQUIRE_PROPERTY(t, @s, "abc");
+                    REQUIRE_PROPERTY(t, @l, -1);
+                    REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
+                }
+
+                SECTION("3 quoted") {
+                    TestExtEXT_C t("ext.c", 0xBEEF, 10, "\"a space\"");
+                    REQUIRE_PROPERTY(t, @c, 0xBEEF);
+                    REQUIRE_PROPERTY(t, @d, 10);
+                    REQUIRE_PROPERTY(t, @s, "a space");
+                    REQUIRE_PROPERTY(t, @l, -1);
+                    REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
+                }
+
+                SECTION("3 quoted") {
+                    TestExtEXT_C t("ext.c", 0xBEEF, 10, "\"quoted", "string\"");
+                    REQUIRE_PROPERTY(t, @c, 0xBEEF);
+                    REQUIRE_PROPERTY(t, @d, 10);
+                    REQUIRE_PROPERTY(t, @s, "quoted string");
+                    REQUIRE_PROPERTY(t, @l, -1);
+                    REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
+                }
+
+                SECTION("3 quoted property") {
+                    TestExtEXT_C t("ext.c", 0xBEEF, 10, "\"@esc_prop?\"");
+                    REQUIRE_PROPERTY(t, @c, 0xBEEF);
+                    REQUIRE_PROPERTY(t, @d, 10);
+                    REQUIRE_PROPERTY(t, @s, "@esc_prop?");
+                    REQUIRE_PROPERTY(t, @l, -1);
+                    REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
+                }
+
+                SECTION("4") {
+                    TestExtEXT_C t("ext.c", 0xBEEF, 10, "\"@esc_prop?\"", 1000);
+                    REQUIRE_PROPERTY(t, @c, 0xBEEF);
+                    REQUIRE_PROPERTY(t, @d, 10);
+                    REQUIRE_PROPERTY(t, @s, "@esc_prop?");
+                    REQUIRE_PROPERTY(t, @l, 1000);
+                    REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
+                }
+
+                SECTION("5") {
+                    TestExtEXT_C t("ext.c", 0xBEEF, 10, "\"@esc_prop?\"", 1000, 2000);
+                    REQUIRE_PROPERTY(t, @c, 0xBEEF);
+                    REQUIRE_PROPERTY(t, @d, 10);
+                    REQUIRE_PROPERTY(t, @s, "@esc_prop?");
+                    REQUIRE_PROPERTY(t, @l, 1000, 2000);
+                    REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
+                }
+
+                SECTION("4: quoted") {
+                    TestExtEXT_C t("ext.c", 0xBEEF, 10, "\"@esc_prop?\"", "\"a", "b\"");
+                    REQUIRE_PROPERTY(t, @c, 0xBEEF);
+                    REQUIRE_PROPERTY(t, @d, 10);
+                    REQUIRE_PROPERTY(t, @s, "@esc_prop?");
+                    REQUIRE_PROPERTY(t, @l, "a b");
+                    REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
+                }
+
+                SECTION("4: quote property") {
+                    TestExtEXT_C t("ext.c", 0xBEEF, 10, "\"@esc_prop?\"", "\"@a\"");
+                    REQUIRE_PROPERTY(t, @c, 0xBEEF);
+                    REQUIRE_PROPERTY(t, @d, 10);
+                    REQUIRE_PROPERTY(t, @s, "@esc_prop?");
+                    REQUIRE_PROPERTY(t, @l, "@a");
+                    REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
+                }
+            }
         }
     }
 

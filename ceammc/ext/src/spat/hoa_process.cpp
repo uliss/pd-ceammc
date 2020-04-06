@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "hoa_process.h"
 #include "ceammc_factory.h"
-#include "ceammc_property_extra.h"
 #include "fmt/format.h"
 
 #include <cmath>

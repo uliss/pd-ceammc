@@ -74,12 +74,12 @@ bool Property::set(const AtomList& lst)
     return res;
 }
 
-bool Property::setInit(const AtomList& lst)
+bool Property::setInit(const AtomListView& view)
 {
     if (!initCheck())
         return false;
 
-    auto res = setList(lst);
+    auto res = setList(view);
     if (res && ok_fn_ptr_ && *ok_fn_ptr_)
         (*ok_fn_ptr_)(this);
 
@@ -574,69 +574,6 @@ bool Property::setSymbol(t_symbol*)
 bool Property::setAtom(const Atom&)
 {
     return false;
-}
-
-bool Property::initFromArgList(const AtomList& l)
-{
-    if (isReadOnly()) {
-        PROP_ERR() << "init error: readonly property";
-        return false;
-    }
-
-    if (isInternal()) {
-        PROP_ERR() << "init error: internal property";
-        return false;
-    }
-
-    int set_count = 0;
-    // first property arg
-    auto it = std::find_if(l.begin(), l.end(), [](const Atom& a) { return a.isProperty(); });
-    const auto PROP_START_POS = std::distance(l.begin(), it);
-
-    // we have positional arguments
-    if (hasArgIndex()) {
-        // idx >= 0
-        const int idx = argIndex();
-        if (idx < PROP_START_POS) {
-            AtomList args;
-            if (isList())
-                args = l.slice(idx, PROP_START_POS - 1);
-            else
-                args.append(l[idx]);
-
-            if (!setInit(args)) {
-                PROP_ERR() << "can't set property from positional argument [" << idx << "]: " << to_string(args);
-            } else
-                set_count++;
-        }
-    }
-
-    const size_t N = l.size();
-    // start from first property
-    for (size_t i = PROP_START_POS; i < N; i++) {
-        if (l[i].isProperty() && l[i].asSymbol() == name()) {
-            AtomList args;
-
-            // lookup till next property
-            for (size_t j = i + 1; j < N; j++) {
-                // next property found
-                if (l[j].isProperty())
-                    break;
-                else
-                    args.append(l[j]);
-            }
-
-            if (setInit(args))
-                set_count++;
-        }
-    }
-
-    if (set_count > 1) {
-        PROP_ERR() << "both positional arg [" << int(argIndex()) << "] and named property " << name()->s_name
-                   << " are defined, using named property value: " << to_string(get());
-    }
-
-    return set_count > 0;
 }
 
 bool Property::writeCheck() const

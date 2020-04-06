@@ -14,7 +14,6 @@
 #ifndef HOA_MAP_H
 #define HOA_MAP_H
 
-#include "ceammc_property_extra.h"
 #include "hoa_common.h"
 
 class HoaMap : public HoaBase {

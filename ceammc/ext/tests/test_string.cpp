@@ -13,7 +13,6 @@
  *****************************************************************************/
 
 #include "catch.hpp"
-#include "ceammc.hpp"
 #include "ceammc_string.h"
 
 #include <cstring>

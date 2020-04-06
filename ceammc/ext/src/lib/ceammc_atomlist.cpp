@@ -25,8 +25,11 @@
 #include <string>
 
 extern "C" {
-#include "lex/quoted_string.parser.h"
+//#include "lex/quoted_string.parser.h"
 }
+
+#include "lex/quoted_atomlist_lexer.h"
+#include "lex/quoted_string.parser.hpp"
 
 namespace ceammc {
 
@@ -856,68 +859,9 @@ bool AtomList::operator==(const AtomListView& x) const noexcept
     return true;
 }
 
-AtomList AtomList::parseQuoted() const
+AtomList AtomList::parseQuoted(bool quote_properties) const
 {
-    if (empty())
-        return {};
-    else if (size() == 1)
-        return atoms_[0].parseQuoted();
-
-    // ceammc_quoted_string_debug = 1;
-
-    constexpr size_t MAX_N = 32;
-    t_interval ranges[MAX_N];
-    t_interval* p = ranges;
-    t_param param = { 0, &p, 0, MAX_N };
-
-    int status;
-    auto* ps = ceammc_quoted_string_pstate_new();
-    for (size_t i = 0; i < atoms_.size(); i++) {
-        const auto& a = atoms_[i];
-        param.idx = i;
-
-        auto s = a.asSymbol(nullptr);
-        if (s == nullptr) { // not a symbol
-            status = ceammc_quoted_string_push_parse(ps, TOK_SIMPLE_ATOM, 0, &param);
-        } else if (s->s_name[0] == '"' && s->s_name[1] == '\0') { // single double quote
-            status = ceammc_quoted_string_push_parse(ps, TOK_DOUBLE_QUOTE, 0, &param);
-        } else {
-            if (a.isQuoted()) {
-                status = ceammc_quoted_string_push_parse(ps, TOK_QUOTED_ATOM, 0, &param);
-            } else if (a.beginQuote()) {
-                status = ceammc_quoted_string_push_parse(ps, TOK_DOUBLE_QUOTE_BEGIN, 0, &param);
-            } else if (a.endQuote()) {
-                status = ceammc_quoted_string_push_parse(ps, TOK_DOUBLE_QUOTE_END, 0, &param);
-            } else
-                status = ceammc_quoted_string_push_parse(ps, TOK_SIMPLE_ATOM, 0, &param);
-        }
-
-        if (status != YYPUSH_MORE)
-            break;
-    }
-
-    // pushing END token
-    status = ceammc_quoted_string_push_parse(ps, TOK_STRING_END, 0, &param);
-
-    ceammc_quoted_string_pstate_delete(ps);
-
-    const size_t N = std::distance(ranges, p);
-
-    AtomList res;
-    for (long i = 0; i < N; i++) {
-        auto r = ranges[i];
-
-        if (!r.compressed) {
-            for (int j = r.start; j <= r.end; j++)
-                res.append(atoms_[j]);
-        } else {
-            auto str = parse_quoted(slice(r.start, r.end));
-            auto a = Atom(gensym(str.c_str()));
-            res.append(a);
-        }
-    }
-
-    return res;
+    return view().parseQuoted(quote_properties);
 }
 
 AtomList AtomList::parseString(const char* str)

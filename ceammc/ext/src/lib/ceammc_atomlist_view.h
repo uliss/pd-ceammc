@@ -100,6 +100,8 @@ public:
 
     bool contains(const Atom& a) const;
 
+    AtomList parseQuoted(bool quoted_props = false) const;
+
     friend class AtomList;
 
 private:

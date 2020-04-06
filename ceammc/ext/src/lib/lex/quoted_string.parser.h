@@ -60,7 +60,8 @@ extern int ceammc_quoted_string_debug;
     typedef struct interval {
         int start;
         int end;
-        int compressed;
+        int quoted;
+        int quoted_property;
     } t_interval;
 
     typedef struct param {
@@ -73,7 +74,7 @@ extern int ceammc_quoted_string_debug;
     void push_range(t_param* p, t_interval rng);
     void yyerror(t_param* param, const char *s);
 
-#line 77 "quoted_string.parser.h"
+#line 78 "quoted_string.parser.h"
 
 /* Token type.  */
 #ifndef CEAMMC_QUOTED_STRING_TOKENTYPE

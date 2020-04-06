@@ -590,7 +590,7 @@ public:
      * This syntax allows easily define symbols with spaces
      * @return unmodified list, if it is not quoted
      */
-    AtomList parseQuoted() const;
+    AtomList parseQuoted(bool quote_properties = false) const;
 
     /**
      * Construct AtomList from string, as do Pd

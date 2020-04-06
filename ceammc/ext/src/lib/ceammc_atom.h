@@ -326,16 +326,37 @@ public:
     int refCount() const noexcept;
 
     /**
+     * Remove quotes from quoted atoms
+     * @note not do symbol unescaping
+     */
+    void removeQuotes();
+
+    /**
      * Parse symbol:
      *  - '' -> &s_
      *  - "" -> &s_
      *  - '`'' -> '
      *  - `` -> `
+     * @return new atom, if atom was quoted - removed quotes and do unescaping
      */
     Atom parseQuoted() const;
 
+    /**
+     * Checks if atom is symbol, quoted and correctly escaped inside
+     * @note - complexity: O(N); if quoted - uses regexp to check escaping
+     */
     bool isQuoted() const;
+
+    /**
+     * Checks if atom is symbol and begins with double quote
+     * @note - complexity: O(1)
+     */
     bool beginQuote() const;
+
+    /**
+     * Checks if atom is symbol, correctly escaped and ends with double quote
+     * @note - complexity O(N); if quoted - uses regexp to check escaping
+     */
     bool endQuote() const;
 
 public:

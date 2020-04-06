@@ -78,7 +78,7 @@ public:
     virtual bool setList(const AtomList& lst) = 0;
     /// virtual
     virtual bool set(const AtomList& lst);
-    virtual bool setInit(const AtomList& lst);
+    virtual bool setInit(const AtomListView& lst);
 
     inline t_symbol* name() const { return info_.name(); }
 
@@ -178,9 +178,6 @@ public:
     inline bool setT(t_symbol* s) { return setSymbol(s); }
     inline bool setT(const Atom& a) { return setAtom(a); }
     inline bool setT(const AtomList& l) { return setList(l); }
-
-    // init from argument list
-    bool initFromArgList(const AtomList& l);
 
     // freq used
     inline void setUnitsHz() { setUnits(PropValueUnits::HZ); }

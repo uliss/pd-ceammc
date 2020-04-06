@@ -132,7 +132,8 @@ extern int ceammc_quoted_string_debug;
     typedef struct interval {
         int start;
         int end;
-        int compressed;
+        int quoted;
+        int quoted_property;
     } t_interval;
 
     typedef struct param {
@@ -145,7 +146,7 @@ extern int ceammc_quoted_string_debug;
     void push_range(t_param* p, t_interval rng);
     void yyerror(t_param* param, const char *s);
 
-#line 149 "quoted_string.parser.c"
+#line 150 "quoted_string.parser.c"
 
 /* Token type.  */
 #ifndef CEAMMC_QUOTED_STRING_TOKENTYPE
@@ -468,9 +469,9 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  15
+#define YYFINAL  2
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   18
+#define YYLAST   13
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  8
@@ -479,7 +480,7 @@ union yyalloc
 /* YYNRULES -- Number of rules.  */
 #define YYNRULES  14
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  18
+#define YYNSTATES  17
 
 #define YYUNDEFTOK  2
 #define YYMAXUTOK   262
@@ -527,8 +528,8 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    52,    52,    53,    57,    58,    62,    63,    67,    68,
-      72,    73,    74,    78,    79
+       0,    53,    53,    54,    58,    59,    63,    64,    68,    69,
+      73,    74,    75,    79,    80
 };
 #endif
 
@@ -553,7 +554,7 @@ static const yytype_int16 yytoknum[] =
 };
 # endif
 
-#define YYPACT_NINF (-9)
+#define YYPACT_NINF (-13)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -567,8 +568,8 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       5,    -9,    -9,    -9,    -9,    -6,    10,    -9,    -9,     0,
-      -9,    -9,    -9,    11,    -9,    -9,    -9,    -9
+     -13,     0,   -13,   -13,   -13,   -13,   -13,    -6,     5,   -13,
+     -13,   -13,   -13,   -13,     6,   -13,   -13
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -576,20 +577,20 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     5,     4,    10,     2,    12,     0,    11,    13,     0,
-       3,     7,     6,     0,     8,     1,    14,     9
+      13,     0,     1,     5,     4,    10,     2,    12,     0,    11,
+      14,     3,     7,     6,     0,     8,     9
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -9,    -4,    -9,    -8,    -9,     1,    -9
+     -13,    -3,   -13,   -12,   -13,   -13,   -13
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     5,     6,    14,     7,     8,     9
+      -1,     7,     8,    15,     9,    10,     1
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -597,22 +598,22 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      15,    10,    13,     1,     2,    17,     3,     4,     1,     2,
-      16,     3,     4,    11,    11,    12,    12,     4,    10
+       2,    11,    16,     3,     4,    14,     5,     6,    12,    12,
+      13,    13,     6,    11
 };
 
 static const yytype_int8 yycheck[] =
 {
-       0,     7,     6,     3,     4,    13,     6,     7,     3,     4,
-       9,     6,     7,     3,     3,     5,     5,     7,     7
+       0,     7,    14,     3,     4,     8,     6,     7,     3,     3,
+       5,     5,     7,     7
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,     4,     6,     7,     9,    10,    12,    13,    14,
-       7,     3,     5,     9,    11,     0,    13,    11
+       0,    14,     0,     3,     4,     6,     7,     9,    10,    12,
+      13,     7,     3,     5,     9,    11,    11
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
@@ -626,7 +627,7 @@ static const yytype_int8 yyr1[] =
 static const yytype_int8 yyr2[] =
 {
        0,     2,     1,     2,     1,     1,     1,     1,     2,     3,
-       1,     1,     1,     1,     2
+       1,     1,     1,     0,     2
 };
 
 
@@ -1388,85 +1389,79 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 52 "quoted_string.y"
+#line 53 "quoted_string.y"
                                    { yyval.start = p->idx; yyval.end = p->idx; }
-#line 1394 "quoted_string.parser.c"
+#line 1395 "quoted_string.parser.c"
     break;
 
   case 3:
-#line 53 "quoted_string.y"
+#line 54 "quoted_string.y"
                                    { yyval.start = yyvsp[-1].start; yyval.end = p->idx; }
-#line 1400 "quoted_string.parser.c"
+#line 1401 "quoted_string.parser.c"
     break;
 
   case 4:
-#line 57 "quoted_string.y"
+#line 58 "quoted_string.y"
                          { yyval.start = p->idx; }
-#line 1406 "quoted_string.parser.c"
+#line 1407 "quoted_string.parser.c"
     break;
 
   case 5:
-#line 58 "quoted_string.y"
+#line 59 "quoted_string.y"
                          { yyval.start = p->idx; yyval.end = p->idx; }
-#line 1412 "quoted_string.parser.c"
+#line 1413 "quoted_string.parser.c"
     break;
 
   case 6:
-#line 62 "quoted_string.y"
+#line 63 "quoted_string.y"
                          { yyval.end = p->idx; }
-#line 1418 "quoted_string.parser.c"
+#line 1419 "quoted_string.parser.c"
     break;
 
   case 7:
-#line 63 "quoted_string.y"
+#line 64 "quoted_string.y"
                          { yyval.start = p->idx; yyval.end = p->idx; }
-#line 1424 "quoted_string.parser.c"
+#line 1425 "quoted_string.parser.c"
     break;
 
   case 8:
-#line 67 "quoted_string.y"
+#line 68 "quoted_string.y"
                                { yyval.start = yyvsp[-1].start; yyval.end = yyvsp[0].end; }
-#line 1430 "quoted_string.parser.c"
+#line 1431 "quoted_string.parser.c"
     break;
 
   case 9:
-#line 68 "quoted_string.y"
+#line 69 "quoted_string.y"
                                { yyval.start = yyvsp[-2].start; yyval.end = yyvsp[0].end; }
-#line 1436 "quoted_string.parser.c"
+#line 1437 "quoted_string.parser.c"
     break;
 
   case 10:
-#line 72 "quoted_string.y"
-                           { yyval.start = p->idx; yyval.end = p->idx; yyval.compressed = 1; }
-#line 1442 "quoted_string.parser.c"
+#line 73 "quoted_string.y"
+                           { yyval.start = p->idx; yyval.end = p->idx; yyval.quoted = 1; }
+#line 1443 "quoted_string.parser.c"
     break;
 
   case 11:
-#line 73 "quoted_string.y"
-                           { yyval = yyvsp[0]; yyval.compressed = 1; }
-#line 1448 "quoted_string.parser.c"
+#line 74 "quoted_string.y"
+                           { yyval = yyvsp[0]; yyval.quoted = 1; }
+#line 1449 "quoted_string.parser.c"
     break;
 
   case 12:
-#line 74 "quoted_string.y"
+#line 75 "quoted_string.y"
                            { yyval = yyvsp[0]; }
-#line 1454 "quoted_string.parser.c"
-    break;
-
-  case 13:
-#line 78 "quoted_string.y"
-                    { push_range(p, yyvsp[0]); }
-#line 1460 "quoted_string.parser.c"
+#line 1455 "quoted_string.parser.c"
     break;
 
   case 14:
-#line 79 "quoted_string.y"
+#line 80 "quoted_string.y"
                     { push_range(p, yyvsp[0]); }
-#line 1466 "quoted_string.parser.c"
+#line 1461 "quoted_string.parser.c"
     break;
 
 
-#line 1470 "quoted_string.parser.c"
+#line 1465 "quoted_string.parser.c"
 
       default: break;
     }
@@ -1705,7 +1700,7 @@ yypushreturn:
 #endif
   return yyresult;
 }
-#line 82 "quoted_string.y"
+#line 83 "quoted_string.y"
 
 
 void yyerror(t_param* p, const char *s)

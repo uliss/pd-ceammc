@@ -26,9 +26,10 @@
 //  `/ -> \
 //  `. -> ,
 //  `: -> ;
+//  `@ -> @
 
-static re2::RE2 re_double_quoted("\"(([^`\"]|`[`\"./:()])*)\"");
-static re2::RE2 re_double_quoted_end("([^`\"]|`[`\"./:()])*\"");
+static re2::RE2 re_double_quoted("\"(([^`\"]|`[`\"./:()@])*)\"");
+static re2::RE2 re_double_quoted_end("([^`\"]|`[`\"./:()@])*\"");
 
 size_t ceammc::string::utf8_strlen(const char* str) noexcept
 {
@@ -249,6 +250,10 @@ std::string ceammc::string::pd_string_unescape(const std::string& str)
                 break;
             case '/':
                 res.push_back('\\');
+                i++;
+                break;
+            case '@':
+                res.push_back('@');
                 i++;
                 break;
             default:

@@ -247,9 +247,21 @@ int Atom::refCount() const noexcept
         return 0;
 }
 
+void Atom::removeQuotes()
+{
+    if (isQuoted()) {
+        auto str = a_w.w_symbol->s_name;
+        const size_t N = strlen(str);
+        a_w.w_symbol = gensym(std::string(str + 1, N - 2).c_str());
+    }
+}
+
 Atom Atom::parseQuoted() const
 {
     if (a_type != A_SYMBOL)
+        return *this;
+
+    if (a_w.w_symbol->s_name[0] == '"' && a_w.w_symbol->s_name[1] == '@')
         return *this;
 
     std::string m;

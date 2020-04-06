@@ -942,7 +942,14 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
         REQUIRE_PARSED("\" ' \"", LA(" ' "));
         REQUIRE_PARSED("\" `\" \"", LA(" \" "));
 
+        REQUIRE_PARSED("\"@prop?\"", LA("@prop?"));
+
         REQUIRE(L().parseQuoted() == AtomList());
+
+        REQUIRE(LA("\"@prop?\"").parseQuoted(true) == LA("\"@prop?\""));
+        REQUIRE(LA("\"@prop\"").parseQuoted(true) == LA("\"@prop\""));
+        REQUIRE(LA("\"@prop?\"").parseQuoted(false) == LA("@prop?"));
+        REQUIRE(LA("\"@prop?\"").parseQuoted(false) == LA("@prop?"));
     }
 
     SECTION("template create")

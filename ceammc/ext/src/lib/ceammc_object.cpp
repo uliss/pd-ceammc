@@ -40,7 +40,7 @@ t_outlet* BaseObject::outletAt(size_t n)
 {
     if (n >= outlets_.size()) {
         OBJ_ERR << "invalid outlet index: " << n;
-        return 0;
+        return nullptr;
     }
 
     return outlets_[n];
@@ -596,15 +596,68 @@ t_symbol* BaseObject::positionalSymbolArgument(size_t pos, t_symbol* def) const
 
 void BaseObject::parseProperties()
 {
-    const AtomList parsed_args = pd_.args.parseQuoted();
+    const size_t PROP_START = pd_.args.findPos([](const Atom& a) { return a.isProperty(); });
+
+    AtomList parsed_positional_args = pd_.args.view(0, PROP_START).parseQuoted(false);
+    AtomList parsed_props = pd_.args.view(PROP_START).parseQuoted(true);
+
+    const size_t NPOS_ARGS = parsed_positional_args.size();
+
+    LIB_ERR << "parsed args:  " << parsed_positional_args;
+    LIB_ERR << "parsed props: " << parsed_props;
 
     for (Property* p : props_) {
         if (p->isReadOnly() || p->isInternal())
             continue;
 
-        bool ok = p->initFromArgList(parsed_args);
-        if (ok && prop_set_callback_)
-            prop_set_callback_(this, p->name());
+        bool positional_arg_was_used = false;
+
+        // process positional args
+        const auto ARG_IDX = p->argIndex();
+        if (p->hasArgIndex() && ARG_IDX < NPOS_ARGS) {
+            if (p->isList()) {
+                p->setInit(parsed_positional_args.view(ARG_IDX));
+            } else { //  single atom
+                p->setInit(parsed_positional_args.view(ARG_IDX, 1));
+            }
+        }
+
+        auto name = p->name();
+        const auto N = parsed_props.size();
+
+        for (size_t i = 0; i < N; i++) {
+            const Atom& a = parsed_props[i];
+            if (a.isProperty() && a.asSymbol() == name) {
+                size_t prop_len = 0;
+
+                // lookup till next property
+                for (size_t j = i + 1; j < N; j++, prop_len++) {
+                    // next property found
+                    if (parsed_props[j].isProperty())
+                        break;
+                }
+
+                for (int k = 0; k < prop_len; k++) {
+                    auto idx = i + 1 + k;
+                    auto& aa = parsed_props[idx];
+                    if (aa.isQuoted() && aa.asSymbol()->s_name[1] == '@')
+                        aa.removeQuotes();
+                }
+
+                bool ok = p->setInit(parsed_props.view(i + 1, prop_len));
+                if (ok && prop_set_callback_)
+                    prop_set_callback_(this, p->name());
+
+                if (positional_arg_was_used) {
+                    LIB_ERR << "both positional arg [" << int(ARG_IDX) << "] and named property "
+                            << name->s_name << " are defined, using named property value: "
+                            << to_string(p->get());
+                }
+
+                // property done, break inner loop
+                break;
+            }
+        }
     }
 
     // check for unknown properties

@@ -352,4 +352,27 @@ TEST_CASE("list.contains", "[externals]")
         t << MLA(12, 10, 9, 8, 7);
         REQUIRE_THAT(t, outputFalse(&t));
     }
+
+    SECTION("props search")
+    {
+        TExt t("list.contains", "\"@all_of\"");
+
+        REQUIRE_PROPERTY(t, @sublist, "@all_of");
+        REQUIRE_PROPERTY(t, @all_of);
+        REQUIRE_PROPERTY(t, @any_of);
+        REQUIRE_PROPERTY(t, @none_of);
+    }
+
+    SECTION("props search")
+    {
+        TExt t("list.contains", "@all_of", "\"@b\"");
+
+        REQUIRE_PROPERTY(t, @sublist);
+        REQUIRE_PROPERTY(t, @all_of, "@b");
+        REQUIRE_PROPERTY(t, @any_of);
+        REQUIRE_PROPERTY(t, @none_of);
+
+        t << MLA("@a", "@b", "@c", "@d");
+        REQUIRE_THAT(t, outputTrue(&t));
+    }
 }

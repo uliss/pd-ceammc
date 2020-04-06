@@ -43,6 +43,7 @@ set(CEAMMC_LIB_SOURCES
     lex/data_string.lexer.cpp
     lex/data_string.parser.cpp
     lex/quoted_string.parser.c
+    lex/quoted_string.parser.cpp
     ceammc_array.cpp
     ceammc_atom.cpp
     ceammc_atomlist.cpp

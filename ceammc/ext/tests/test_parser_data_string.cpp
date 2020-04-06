@@ -132,7 +132,7 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("String(a)") == LA(new DS("a")));
         REQUIRE(parse("String(\"a string\")") == LA(new DS("a string")));
         REQUIRE(parse("String(IntData(1000))") == LA(new DS("1000")));
-        REQUIRE(parse("String([a: b])") == LA(new DS("([a: b])")));
+        REQUIRE(parse("String([a: b])") == LA(new DS("[a: b]")));
         REQUIRE(parse("String(())") == LA(new DS("()")));
         REQUIRE(parse("String((a b))") == LA(new DS("(a b)")));
 
@@ -155,11 +155,11 @@ TEST_CASE("DataStringParser", "[core]")
     {
         // []-syntax
         REQUIRE(parse("[]") == LA(new DD()));
-        REQUIRE(parse("[key: value]") == LA(new DD("key: value")));
-        REQUIRE(parse("[key: 1]") == LA(new DD("key: 1")));
-        REQUIRE(parse("[a: 1 b: 20]") == LA(new DD("([a: 1] [b: 20])")));
-        REQUIRE(parse("[key: 1 2 3]") == LA(new DD("key: 1 2 3")));
-        REQUIRE(parse("[key: \"a\"]") == LA(new DD("key: a")));
+        REQUIRE(parse("[key: value]") == LA(new DD("[key: value]")));
+        REQUIRE(parse("[key: 1]") == LA(new DD("[key: 1]")));
+        REQUIRE(parse("[a: 1 b: 20]") == LA(new DD("[a: 1 b: 20]")));
+        REQUIRE(parse("[key: 1 2 3]") == LA(new DD("[key: 1 2 3]")));
+        REQUIRE(parse("[key: \"a\"]") == LA(new DD("[key: a]")));
         REQUIRE(parse("[a: [b: 1 2 3]]") == LA(new DD("[a: [b: 1 2 3]]")));
 
         // ctor-syntax
