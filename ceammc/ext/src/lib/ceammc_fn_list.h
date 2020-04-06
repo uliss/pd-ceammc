@@ -43,6 +43,9 @@ namespace list {
 
     AtomList countRepeats(const AtomList& l, bool normalizeBySum = false);
 
+    bool containsAllOff(const AtomList& input, const AtomList& needles);
+    bool containsAnyOff(const AtomList& input, const AtomList& needles);
+
     AtomList sliceWrap(const AtomList& l, int pos, size_t len);
     AtomList sliceClip(const AtomList& l, int pos, size_t len);
     AtomList sliceFold(const AtomList& l, int pos, size_t len);

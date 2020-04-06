@@ -573,5 +573,27 @@ namespace list {
         return true;
     }
 
+    bool containsAllOff(const AtomList& input, const AtomList& needles)
+    {
+        size_t cnt = 0;
+
+        for (auto& n : needles) {
+            if (input.contains(n))
+                cnt++;
+        }
+
+        return cnt == needles.size();
+    }
+
+    bool containsAnyOff(const AtomList& input, const AtomList& needles)
+    {
+        for (auto& x : input) {
+            if (needles.contains(x))
+                return true;
+        }
+
+        return false;
+    }
+
 }
 }

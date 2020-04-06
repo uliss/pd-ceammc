@@ -16,11 +16,25 @@
 
 #include "ceammc_data.h"
 #include "ceammc_object.h"
+#include "ceammc_property_callback.h"
+#include "ceammc_property_enum.h"
 
 using namespace ceammc;
 
+enum SearchMode {
+    MODE_ALL,
+    MODE_ANY,
+    MODE_NONE,
+    MODE_SUBLIST
+};
+
 class ListContains : public BaseObject {
-    ListProperty* needle_;
+    ListProperty* sublist_;
+    ListProperty* all_of_;
+    ListProperty* any_of_;
+    ListProperty* none_of_;
+
+    SearchMode mode_;
 
 public:
     ListContains(const PdArgs& args);

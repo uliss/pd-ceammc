@@ -59,15 +59,38 @@ public:
     DataTypeMList& operator=(DataTypeMList&& mlist);
 
     int type() const noexcept final;
+
+    /**
+     * Polymorphic copy creation
+     */
     DataTypeMList* clone() const final;
+
+    /**
+     * Compare with abstract data pointer
+     */
     bool isEqual(const AbstractData* cmp) const noexcept final;
+
+    /**
+     * Polymorphic convertion to string
+     * return string (in list syntax)
+     */
     std::string toString() const final;
+
+    /**
+     * Returns JSON representation of string
+     *  - [1,2,3] etc...
+     */
     std::string valueToJsonString() const override;
 
+    /**
+     * Reference to underlying list
+     */
     AtomList& data() noexcept { return data_; }
+
+    /**
+     * Reference to underlying list
+     */
     const AtomList& data() const noexcept { return data_; }
-    template <class Fn>
-    AtomList toList(Fn pred) const;
 
     // main
     /**
@@ -80,23 +103,73 @@ public:
      */
     size_t size() const noexcept { return data_.size(); }
 
+    /**
+     * Returns element in specified position
+     */
     const Atom& at(size_t n) const { return data_[n]; }
     Atom& at(size_t n) { return data_[n]; }
     const Atom& operator[](size_t n) const { return data_[n]; }
     Atom& operator[](size_t n) { return data_[n]; }
 
+    /**
+     * Append element to the end of the list
+     */
     void append(const Atom& a);
+
+    /**
+     * Append all list elements to the end of the list
+     */
     void append(const AtomList& lst);
+
+    /**
+     * Removes all elements
+     */
     void clear();
+
+    /**
+     * Insert elements in specified position
+     * @return false on invalid position
+     */
     bool insert(size_t idx, const AtomList& lst);
+
+    /**
+     * Insert element into beginning
+     */
     void prepend(const Atom& a);
+
+    /**
+     * Insert elements into beginning
+     */
     void prepend(const AtomList& lst);
+
+    /**
+     * Remove last element from list
+     * @return false if list is empty
+     */
     bool pop();
+
+    /**
+     * Remove element at specified position
+     * @return false if specified position is invalid
+     */
     bool remove(size_t idx);
+
+    /**
+     * Internal memory reserve to avoid extra memory reallocation
+     */
     void reserve(size_t n);
+
+    /**
+     * Set list elements
+     */
     void setRaw(const AtomList& lst);
+
+    /**
+     * Set list new content from parsed string/list
+     */
     void setParsed(const AtomList& lst);
 
+    // iterators
     const_iterator begin() const { return data_.begin(); }
     iterator begin() { return data_.begin(); }
     const_iterator end() const { return data_.end(); }
@@ -111,11 +184,25 @@ public:
     DataTypeMList rotateLeft(int steps) const;
     DataTypeMList flatten() const;
     DataTypeMList slice(int start, int end = -1, size_t step = 1) const;
+
     // sort only floats and symbols
     void sort();
+
+    /**
+     * Reverse elements order
+     */
     void reverse();
+
+    /**
+     * Shuffle randomly
+     */
     void shuffle();
+
+    /**
+     * Checks if list contains element
+     */
     bool contains(const Atom& a) const;
+
     bool contains(const DataTypeMList& l) const;
 
     bool operator==(const DataTypeMList& ml) const { return data_ == ml.data_; }
@@ -129,20 +216,6 @@ public:
     static MaybeList parse(const AtomList& lst);
     static MaybeList parse(const std::string& lst);
 };
-
-template <class Fn>
-AtomList DataTypeMList::toList(Fn pred) const
-{
-    AtomList res;
-    res.reserve(size());
-
-    for (auto& el : data_) {
-        if (pred(el))
-            res.append(el);
-    }
-
-    return res;
-}
 
 std::ostream& operator<<(std::ostream& os, const DataTypeMList& d);
 

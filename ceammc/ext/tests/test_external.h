@@ -585,6 +585,12 @@ public:
         return *this;
     }
 
+    TestPdExternal& operator<<(const Atom& a)
+    {
+        send(a);
+        return *this;
+    }
+
     TestPdExternal& operator<<(const AtomList& lst)
     {
         send(lst);

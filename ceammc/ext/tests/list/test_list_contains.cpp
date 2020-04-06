@@ -27,69 +27,329 @@ TEST_CASE("list.contains", "[externals]")
     {
         SECTION("empty")
         {
-            TObj t("list.contains");
+            TExt t("list.contains");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
+
+            REQUIRE_PROPERTY(t, @sublist);
+            REQUIRE_PROPERTY(t, @all_of);
+            REQUIRE_PROPERTY(t, @any_of);
+            REQUIRE_PROPERTY(t, @none_of);
+
+            t->onInlet(1, LF(1, 2, 3));
+            REQUIRE_PROPERTY(t, @sublist, 1, 2, 3);
+        }
+
+        SECTION("args")
+        {
+            TExt t("list.contains", 10, 11);
+            REQUIRE(t.numInlets() == 2);
+            REQUIRE(t.numOutlets() == 1);
+            REQUIRE_PROPERTY(t, @sublist, 10, 11);
+
+            t->onInlet(1, LF(1, 2, 3));
+            REQUIRE_PROPERTY(t, @sublist, 1, 2, 3);
+        }
+
+        SECTION("@sublist: empty")
+        {
+            TExt t("list.contains", "@sublist");
+
+            t->onInlet(1, LF(1, 2, 3));
+            REQUIRE_PROPERTY(t, @sublist, 1, 2, 3);
+        }
+
+        SECTION("@sublist: 10 11")
+        {
+            TExt t("list.contains", "@sublist", 10, 11);
+            REQUIRE_PROPERTY(t, @sublist, 10, 11);
+        }
+
+        SECTION("@all_of: empty")
+        {
+            TExt t("list.contains", "@all_of");
+
+            t->onInlet(1, LF(1, 2, 3));
+            REQUIRE_PROPERTY(t, @all_of, 1, 2, 3);
+        }
+
+        SECTION("@all_of: 1")
+        {
+            TExt t("list.contains", "@all_of", 1);
+            REQUIRE_PROPERTY(t, @all_of, 1);
+
+            t->onInlet(1, LF(1, 2, 3));
+            REQUIRE_PROPERTY(t, @all_of, 1, 2, 3);
+        }
+
+        SECTION("@any_of: empty")
+        {
+            TExt t("list.contains", "@any_of");
+
+            t->onInlet(1, LF(1, 2, 3));
+            REQUIRE_PROPERTY(t, @any_of, 1, 2, 3);
+        }
+
+        SECTION("@any_of: 1")
+        {
+            TExt t("list.contains", "@any_of", 1);
+            REQUIRE_PROPERTY(t, @any_of, 1);
+
+            t->onInlet(1, LF(1, 2, 3));
+            REQUIRE_PROPERTY(t, @any_of, 1, 2, 3);
+        }
+
+        SECTION("@none_of: empty")
+        {
+            TExt t("list.contains", "@none_of");
+            REQUIRE_PROPERTY(t, @none_of);
+
+            t->onInlet(1, LF(1, 2, 3));
+            REQUIRE_PROPERTY(t, @none_of, 1, 2, 3);
+        }
+
+        SECTION("@none_of: 1")
+        {
+            TExt t("list.contains", "@none_of", 1);
+            REQUIRE_PROPERTY(t, @none_of, 1);
+
+            t->onInlet(1, LF(1, 2, 3));
+            REQUIRE_PROPERTY(t, @none_of, 1, 2, 3);
         }
     }
 
     SECTION("empty")
     {
-        TObj t("list.contains");
+        TExt t("list.contains");
 
-        WHEN_SEND_BANG_TO(0, t);
+        t.bang();
         REQUIRE_THAT(t, !hasOutput(&t));
 
-        WHEN_SEND_FLOAT_TO(0, t, 10);
+        t << 10;
         REQUIRE_THAT(t, !hasOutput(&t));
 
-        WHEN_SEND_SYMBOL_TO(0, t, "a");
+        t << "a";
         REQUIRE_THAT(t, !hasOutput(&t));
 
-        WHEN_SEND_LIST_TO(0, t, LF(1, 2));
-        REQUIRE_THAT(t, outputFloat(&t, 1));
+        t << StrA("a");
+        REQUIRE_THAT(t, !hasOutput(&t));
 
-        WHEN_SEND_TDATA_TO(0, t, MLD("a", "b", "c"));
-        REQUIRE_THAT(t, outputFloat(&t, 1));
+        t << L();
+        REQUIRE_THAT(t, outputFalse(&t));
+
+        t << LF(1, 2);
+        REQUIRE_THAT(t, outputTrue(&t));
+
+        t << MLA();
+        REQUIRE_THAT(t, outputFalse(&t));
+
+        t << MLA("a", "b", "c");
+        REQUIRE_THAT(t, outputTrue(&t));
     }
 
-    SECTION("empty")
+    SECTION("sublie: single")
     {
-        TObj t("list.contains", LF(11));
+        TExt t("list.contains", 11);
+        REQUIRE_PROPERTY(t, @sublist, 11);
 
-        WHEN_SEND_BANG_TO(0, t);
+        t << BANG;
         REQUIRE_THAT(t, !hasOutput(&t));
 
-        WHEN_SEND_FLOAT_TO(0, t, 10);
+        t << 10;
         REQUIRE_THAT(t, !hasOutput(&t));
 
         // symbol
-        WHEN_SEND_SYMBOL_TO(0, t, "a");
+        t << "symbol";
         REQUIRE_THAT(t, !hasOutput(&t));
 
         // list
-        WHEN_SEND_LIST_TO(0, t, LF(1, 11));
+        t << LF(10);
+        REQUIRE_THAT(t, outputFalse(&t));
+
+        t << LF(11);
         REQUIRE_THAT(t, outputTrue(&t));
 
-        WHEN_SEND_LIST_TO(0, t, LF(1));
-        REQUIRE_THAT(t, outputFalse(&t));
+        t << LF(10, 11);
+        REQUIRE_THAT(t, outputTrue(&t));
 
-        WHEN_SEND_LIST_TO(0, t, LF(2));
-        REQUIRE_THAT(t, outputFalse(&t));
-
-        WHEN_SEND_LIST_TO(0, t, LF(3, 4, 5, 6, 7, 8, 9, 10));
+        t << LF(8, 9, 10);
         REQUIRE_THAT(t, outputFalse(&t));
 
         // data
-        WHEN_SEND_TDATA_TO(0, t, MLD("a", "b", "c"));
+        t << MLA();
         REQUIRE_THAT(t, outputFalse(&t));
 
-        WHEN_SEND_TDATA_TO(0, t, MLD(2, 3, 4, 11, 2, 3));
+        t << MLA("a", "b", "c");
+        REQUIRE_THAT(t, outputFalse(&t));
+
+        t << MLA(10, 11, 12);
         REQUIRE_THAT(t, outputTrue(&t));
     }
 
-    SECTION("inlet 2")
+    SECTION("sublist: many")
     {
-        TObj t("list.contains", LF(2));
+        TExt t("list.contains", 11, 12);
+        REQUIRE_PROPERTY(t, @sublist, 11, 12);
+
+        t << BANG;
+        REQUIRE_THAT(t, !hasOutput(&t));
+
+        t << 10;
+        REQUIRE_THAT(t, !hasOutput(&t));
+
+        // symbol
+        t << "symbol";
+        REQUIRE_THAT(t, !hasOutput(&t));
+
+        // list
+        t << LF(10);
+        REQUIRE_THAT(t, outputFalse(&t));
+
+        t << LF(11);
+        REQUIRE_THAT(t, outputFalse(&t));
+
+        t << LF(10, 11);
+        REQUIRE_THAT(t, outputFalse(&t));
+
+        t << LF(11, 12);
+        REQUIRE_THAT(t, outputTrue(&t));
+
+        t << LF(10, 11, 12);
+        REQUIRE_THAT(t, outputTrue(&t));
+
+        t << LF(10, 11, 12, 13);
+        REQUIRE_THAT(t, outputTrue(&t));
+
+        t << LF(12, 11);
+        REQUIRE_THAT(t, outputFalse(&t));
+    }
+
+    SECTION("@all_of: many")
+    {
+        TExt t("list.contains", "@all_of", 11, 12);
+        REQUIRE_PROPERTY(t, @all_of, 11, 12);
+
+        t << BANG;
+        REQUIRE_THAT(t, !hasOutput(&t));
+
+        t << 10;
+        REQUIRE_THAT(t, !hasOutput(&t));
+
+        // symbol
+        t << "symbol";
+        REQUIRE_THAT(t, !hasOutput(&t));
+
+        // list
+        t << LF(10);
+        REQUIRE_THAT(t, outputFalse(&t));
+
+        t << LF(11);
+        REQUIRE_THAT(t, outputFalse(&t));
+
+        t << LF(10, 11);
+        REQUIRE_THAT(t, outputFalse(&t));
+
+        t << LF(11, 12);
+        REQUIRE_THAT(t, outputTrue(&t));
+
+        t << LF(10, 11, 12);
+        REQUIRE_THAT(t, outputTrue(&t));
+
+        t << LF(10, 11, 12, 13);
+        REQUIRE_THAT(t, outputTrue(&t));
+
+        t << LF(13, 12, 11, 10);
+        REQUIRE_THAT(t, outputTrue(&t));
+
+        t << MLA(12, 10, 11);
+        REQUIRE_THAT(t, outputTrue(&t));
+
+        t << MLA(12, 10, 9, 8, 7);
+        REQUIRE_THAT(t, outputFalse(&t));
+    }
+
+    SECTION("@all_of: many")
+    {
+        TExt t("list.contains", "@any_of", 11, 12);
+        REQUIRE_PROPERTY(t, @any_of, 11, 12);
+
+        t << BANG;
+        REQUIRE_THAT(t, !hasOutput(&t));
+
+        t << 10;
+        REQUIRE_THAT(t, !hasOutput(&t));
+
+        // symbol
+        t << "symbol";
+        REQUIRE_THAT(t, !hasOutput(&t));
+
+        // list
+        t << LF(10);
+        REQUIRE_THAT(t, outputFalse(&t));
+
+        t << LF(11);
+        REQUIRE_THAT(t, outputTrue(&t));
+
+        t << LF(10, 11);
+        REQUIRE_THAT(t, outputTrue(&t));
+
+        t << LF(9, 12);
+        REQUIRE_THAT(t, outputTrue(&t));
+
+        t << LF(10, 11, 12);
+        REQUIRE_THAT(t, outputTrue(&t));
+
+        t << LF(13, 12, 10, 11);
+        REQUIRE_THAT(t, outputTrue(&t));
+
+        t << MLA(12, 10, 11);
+        REQUIRE_THAT(t, outputTrue(&t));
+
+        t << MLA(12, 10, 9, 8, 7);
+        REQUIRE_THAT(t, outputTrue(&t));
+    }
+
+    SECTION("@none_of: many")
+    {
+        TExt t("list.contains", "@none_of", 11, 12);
+        REQUIRE_PROPERTY(t, @none_of, 11, 12);
+
+        t << BANG;
+        REQUIRE_THAT(t, !hasOutput(&t));
+
+        t << 10;
+        REQUIRE_THAT(t, !hasOutput(&t));
+
+        // symbol
+        t << "symbol";
+        REQUIRE_THAT(t, !hasOutput(&t));
+
+        // list
+        t << LF(10);
+        REQUIRE_THAT(t, outputTrue(&t));
+
+        t << LF(11);
+        REQUIRE_THAT(t, outputFalse(&t));
+
+        t << LF(10, 11);
+        REQUIRE_THAT(t, outputFalse(&t));
+
+        t << LF(9, 12);
+        REQUIRE_THAT(t, outputFalse(&t));
+
+        t << LF(10, 11, 12);
+        REQUIRE_THAT(t, outputFalse(&t));
+
+        t << LF(1, 2, 3, 4, 5);
+        REQUIRE_THAT(t, outputTrue(&t));
+
+        t << LF(13, 12, 10, 11);
+        REQUIRE_THAT(t, outputFalse(&t));
+
+        t << MLA(12, 10, 11);
+        REQUIRE_THAT(t, outputFalse(&t));
+
+        t << MLA(12, 10, 9, 8, 7);
+        REQUIRE_THAT(t, outputFalse(&t));
     }
 }
