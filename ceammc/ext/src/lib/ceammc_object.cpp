@@ -603,9 +603,6 @@ void BaseObject::parseProperties()
 
     const size_t NPOS_ARGS = parsed_positional_args.size();
 
-    LIB_ERR << "parsed args:  " << parsed_positional_args;
-    LIB_ERR << "parsed props: " << parsed_props;
-
     for (Property* p : props_) {
         if (p->isReadOnly() || p->isInternal())
             continue;
@@ -671,17 +668,21 @@ void BaseObject::parseProperties()
 
 void BaseObject::parsePositionalProperties()
 {
-    const AtomList parsed_args = pd_.args.parseQuoted();
+    const size_t PROP_START = pd_.args.findPos([](const Atom& a) { return a.isProperty(); });
+    AtomList parsed_args = pd_.args.view(0, PROP_START).parseQuoted(false);
+    const size_t NPOS_ARGS = parsed_args.size();
 
     for (Property* p : props_) {
         if (p->isReadOnly() || p->isInternal())
             continue;
 
-        if (p->hasArgIndex()) {
+        // process positional args
+        const auto ARG_IDX = p->argIndex();
+        if (p->hasArgIndex() && ARG_IDX < NPOS_ARGS) {
             if (p->isList())
-                p->set(parsed_args.slice(p->argIndex()));
-            else
-                p->set(parsed_args.at(p->argIndex()));
+                p->setInit(parsed_args.view(ARG_IDX));
+            else //  single atom
+                p->setInit(parsed_args.view(ARG_IDX, 1));
         }
     }
 }
