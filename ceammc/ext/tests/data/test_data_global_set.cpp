@@ -30,7 +30,7 @@ PD_COMPLETE_TEST_SETUP(GlobalSet, global, set)
         REQUIRE(obj.outputAtomAt(0) == SetA()); \
     }
 
-TEST_CASE("[global.set]", "[externals]")
+TEST_CASE("global.set", "[externals]")
 {
     pd_test_init();
 

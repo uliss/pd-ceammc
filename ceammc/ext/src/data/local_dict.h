@@ -24,9 +24,6 @@ typedef DictIFace<LocalBase<DataTypeDict>> LocalDictBase;
 class LocalDict : public LocalDictBase {
 public:
     LocalDict(const PdArgs& args);
-
-    DataTypeDict& dict() final { return ref(); }
-    const DataTypeDict& dict() const final { return ref(); }
 };
 
 void setup_local_dict();

@@ -46,9 +46,9 @@ namespace json {
 
             auto& value = kv.second;
             if (value.type() == typeid(Atom))
-                obj[key] = to_json(boost::get<Atom>(kv.second));
+                obj[key] = to_json_struct(boost::get<Atom>(kv.second));
             else if (value.type() == typeid(AtomList))
-                obj[key] = to_json(boost::get<AtomList>(kv.second));
+                obj[key] = to_json_struct(boost::get<AtomList>(kv.second));
             else
                 obj[key] = nlohmann::json();
         }

@@ -17,7 +17,7 @@
 
 PD_COMPLETE_TEST_SETUP(DataFifo, data, fifo)
 
-TEST_CASE("[data.fifo]", "[externals]")
+TEST_CASE("data.fifo", "[externals]")
 {
     pd_test_init();
     test::pdPrintToStdError();

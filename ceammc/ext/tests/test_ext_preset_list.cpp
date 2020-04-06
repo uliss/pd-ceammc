@@ -24,7 +24,7 @@ typedef TestExternal<PresetList> PresetListTest;
 
 CanvasPtr ptr = PureData::instance().createTopCanvas("test_canvas");
 
-TEST_CASE("[preset.list]", "[PureData]")
+TEST_CASE("preset.list", "[PureData]")
 {
     pd_init();
 

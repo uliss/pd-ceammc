@@ -17,7 +17,7 @@
 
 PD_COMPLETE_TEST_SETUP(DataInt, data, int)
 
-TEST_CASE("[data.int]", "[externals]")
+TEST_CASE("data.int", "[externals]")
 {
     pd_test_init();
 

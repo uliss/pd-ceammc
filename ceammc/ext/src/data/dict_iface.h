@@ -23,13 +23,14 @@ using namespace ceammc;
 
 template <typename T>
 class DictIFace : public FilesystemIFace<CollectionIFace<T>> {
+protected:
     DictAtom dict_;
 
 public:
     DictIFace(const PdArgs& args)
         : FilesystemIFace<CollectionIFace<T>>(args)
     {
-        T::createCbListProperty("@keys", [this]() -> AtomList { return propKeys(); });
+        T::createCbListProperty("@keys", [this]() -> AtomList { return dict_->keys(); });
     }
 
     void dump() const override
@@ -50,10 +51,11 @@ public:
             return;
         }
 
-        dict().clear();
+        dict_.detachData();
+        dict_->clear();
 
         for (size_t i = 0; i < args.size(); i += 2)
-            dict().insert(args[i], args[i + 1]);
+            dict_->insert(args[i], args[i + 1]);
     }
 
     void onAny(t_symbol* s, const AtomList& args) override
@@ -62,7 +64,9 @@ public:
         str += ' ';
         str += to_string(args, " ");
 
-        if (!dict().fromString(str)) {
+        dict_.detachData();
+
+        if (!dict_->fromString(str)) {
             OBJ_ERR << "parse error: " << s << args;
             return;
         }
@@ -82,7 +86,7 @@ public:
             return;
         }
 
-        auto v = dict().value(key[0]);
+        auto v = dict_->value(key[0]);
         if (DataTypeDict::isNull(v))
             return;
 
@@ -110,7 +114,7 @@ public:
 
         auto key = lst[0];
 
-        if (!dict().contains(key)) {
+        if (!dict_->contains(key)) {
             METHOD_ERR(s) << "key not found: " << key;
             return;
         }
@@ -125,28 +129,33 @@ public:
             return;
         }
 
+        dict_.detachData();
+
         if (lst.size() == 2) {
-            dict().insert(lst[0], lst[1]);
+            dict_->insert(lst[0], lst[1]);
         } else
-            dict().insert(lst[0], lst.slice(1));
+            dict_->insert(lst[0], lst.slice(1));
     }
 
     void proto_clear() override
     {
-        dict().clear();
+        dict_.detachData();
+        dict_->clear();
     }
 
     void proto_set(const AtomList& lst) override
     {
-        dict().fromString(to_string(lst, " "));
+        dict_.detachData();
+        dict_->fromString(to_string(lst, " "));
     }
 
     bool proto_remove(const AtomList& lst) override
     {
         bool res = true;
+        dict_.detachData();
 
         for (auto& el : lst) {
-            if (!dict().remove(el)) {
+            if (!dict_->remove(el)) {
                 res = false;
                 OBJ_ERR << "key not found: " << el;
             }
@@ -157,33 +166,21 @@ public:
 
     size_t proto_size() const override
     {
-        return dict().size();
+        return dict_->size();
     }
 
     bool proto_write(const std::string& path) const override
     {
-        return dict().write(path);
+        return dict_->write(path);
     }
 
     bool proto_read(const std::string& path) override
     {
-        return dict().read(path);
+        dict_.detachData();
+        return dict_->read(path);
     }
 
-    AtomList propKeys() const
-    {
-        AtomList res;
-
-        res.reserve(dict().size());
-        for (auto& el : dict().innerData())
-            res.append(el.first);
-
-        return res;
-    }
-
-public:
-    virtual DataTypeDict& dict() = 0;
-    virtual const DataTypeDict& dict() const = 0;
+    const DictAtom& dict() const { return dict_; }
 };
 
 template <typename T>

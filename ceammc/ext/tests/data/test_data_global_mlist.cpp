@@ -16,7 +16,7 @@
 
 PD_COMPLETE_TEST_SETUP(GlobalMList, global, mlist)
 
-TEST_CASE("[global.mlist]", "[externals]")
+TEST_CASE("global.mlist", "[externals]")
 {
     pd_test_init();
 
@@ -29,40 +29,54 @@ TEST_CASE("[global.mlist]", "[externals]")
 
     SECTION("do")
     {
-        TestExtGlobalMList t1("global.mlist");
+        TExt t1("global.mlist");
+        REQUIRE(t1->refCount() == 1);
         REQUIRE(t1.object());
 
-        TestExtGlobalMList t2("global.mlist");
+        TExt t2("global.mlist");
+        REQUIRE(t1->refCount() == 2);
+        REQUIRE(t2->refCount() == 2);
         REQUIRE(t2.object());
 
+        REQUIRE(t1->mlist() == t2->mlist());
+        REQUIRE(&t1->mlist() == &t2->mlist());
+
         t1 << BANG;
         REQUIRE(t1.outputAtomAt(0) == MLA());
 
         t2 << BANG;
-        REQUIRE(t1.outputAtomAt(0) == MLA());
+        REQUIRE(t2.outputAtomAt(0) == MLA());
 
         t1 << LA("a", "b", "c");
-        REQUIRE(t1.outputAtomAt(0) == MLA("(a b c)"));
+        REQUIRE(t1.outputAtomAt(0) == MLA("a", "b", "c"));
 
         t2 << BANG;
-        REQUIRE(t1.outputAtomAt(0) == MLA("(a b c)"));
+        REQUIRE(t2.outputAtomAt(0) == MLA("a", "b", "c"));
 
         t2.send(MLA(1, 2, 3, 4, 5));
-        REQUIRE(t2.outputAtomAt(0) == MLA("(1 2 3 4 5)"));
+        REQUIRE(t2.outputAtomAt(0) == MLA(1, 2, 3, 4, 5));
 
         t1 << BANG;
-        REQUIRE(t1.outputAtomAt(0) == MLA("(1 2 3 4 5)"));
+        REQUIRE(t1.outputAtomAt(0) == MLA(1, 2, 3, 4, 5));
 
         t1 << "SYMBOL";
-        REQUIRE(t1.outputAtomAt(0) == MLA("(SYMBOL)"));
+        REQUIRE(t1.outputAtomAt(0) == MLA("SYMBOL"));
 
         t1 << 1000;
-        REQUIRE(t1.outputAtomAt(0) == MLA("(1000)"));
+        REQUIRE(t1.outputAtomAt(0) == MLA(1000));
 
         t1.call("set", LF(1, 2, 3));
         REQUIRE_FALSE(t1.hasOutput());
 
         t1 << BANG;
-        REQUIRE(t1.outputAtomAt(0) == MLA("(1 2 3)"));
+        REQUIRE(t1.outputAtomAt(0) == MLA(1, 2, 3));
+
+        REQUIRE(t1->refCount() == 2);
+        REQUIRE(t2->refCount() == 2);
+
+        REQUIRE(t1->mlist().refCount() == 5);
+        REQUIRE(t2->mlist().refCount() == 5);
+        MListAtom ml = t1->mlist();
+        REQUIRE(ml.refCount() == 6);
     }
 }

@@ -20,8 +20,13 @@
 using DataMListBase = DataMListIFace<BaseObject>;
 
 class DataMList : public DataMListBase {
+    MListAtom mlist_;
+
 public:
     DataMList(const PdArgs& args);
+
+    MListAtom& mlist() { return mlist_; }
+    const MListAtom& mlist() const { return mlist_; }
 };
 
 void setup_data_mlist();

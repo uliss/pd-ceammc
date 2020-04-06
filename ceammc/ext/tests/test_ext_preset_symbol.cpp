@@ -23,7 +23,7 @@ typedef TestExternal<PresetSymbol> PresetSymbolTest;
 
 CanvasPtr ptr = PureData::instance().createTopCanvas("test_canvas");
 
-TEST_CASE("[preset.symbol]", "[PureData]")
+TEST_CASE("preset.symbol", "[PureData]")
 {
     pd_init();
 

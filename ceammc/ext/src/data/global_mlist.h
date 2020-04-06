@@ -17,11 +17,13 @@
 #include "global_base.h"
 #include "mlist_iface.h"
 
-typedef DataMListIFace<GlobalBase<DataTypeMList>> GlobalMListBase;
+typedef DataMListIFace<GlobalBase<MListAtom>> GlobalMListBase;
 
 class GlobalMList : public GlobalMListBase {
 public:
     GlobalMList(const PdArgs& args);
+    MListAtom& mlist() override { return ref(); }
+    const MListAtom& mlist() const override { return ref(); }
 };
 
 void setup_global_mlist();

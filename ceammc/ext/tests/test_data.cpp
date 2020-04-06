@@ -24,9 +24,6 @@ static Atom copyFirst(const AtomList& l) { return l.at(0); }
 
 TEST_CASE("DataAtom", "[core]")
 {
-    REQUIRE(IntData::constructor_called == 0);
-    REQUIRE(IntData::destructor_called == 0);
-
     SECTION("direct instantiation")
     {
         AtomList l0(IntA(10), StrA("test string"));
@@ -38,6 +35,20 @@ TEST_CASE("DataAtom", "[core]")
         Atom a1 = IntA(Atom(new IntData(100)));
     }
 
-    REQUIRE(IntData::constructor_called == 4);
-    REQUIRE(IntData::destructor_called == 4);
+    SECTION("copy")
+    {
+        IntA x(100);
+        REQUIRE(x.refCount() == 1);
+
+        IntA y(x);
+        REQUIRE(x.refCount() == 2);
+        REQUIRE(y.refCount() == 2);
+
+        IntA z(200);
+        z = x;
+
+        REQUIRE(x.refCount() == 3);
+        REQUIRE(y.refCount() == 3);
+        REQUIRE(z.refCount() == 3);
+    }
 }

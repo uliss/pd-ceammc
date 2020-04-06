@@ -24,9 +24,6 @@ typedef DictIFace<GlobalBase<DataTypeDict>> GlobalDictBase;
 class GlobalDict : public GlobalDictBase {
 public:
     GlobalDict(const PdArgs& args);
-
-    DataTypeDict& dict() final { return ref(); }
-    const DataTypeDict& dict() const final { return ref(); }
 };
 
 void setup_global_dict();

@@ -33,8 +33,8 @@ StringFormat::StringFormat(const PdArgs& a)
 {
     createOutlet();
 
-    propSetFormat(positionalArguments());
-    createCbProperty("@format", &StringFormat::propGetFormat, &StringFormat::propSetFormat);
+    createCbProperty("@format", &StringFormat::propGetFormat, &StringFormat::propSetFormat)
+        ->setArgIndex(0);
 
     int_mode_ = new FlagProperty("@int");
     addProperty(int_mode_);

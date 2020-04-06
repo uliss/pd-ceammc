@@ -17,7 +17,7 @@
 
 PD_COMPLETE_TEST_SETUP(DataFloat, data, float)
 
-TEST_CASE("[data.float]", "[externals]")
+TEST_CASE("data.float", "[externals]")
 {
     pd_test_init();
 

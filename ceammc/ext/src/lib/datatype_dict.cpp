@@ -16,6 +16,7 @@
 #include "ceammc_datastorage.h"
 #include "ceammc_datatypes.h"
 #include "ceammc_format.h"
+#include "ceammc_json.h"
 #include "ceammc_log.h"
 #include "ceammc_output.h"
 #include "datatype_mlist.h"
@@ -61,6 +62,17 @@ DataTypeDict::DataTypeDict(DataTypeDict&& dict) noexcept
 DataTypeDict::DataTypeDict(const std::string& str)
 {
     fromString(str);
+}
+
+DataTypeDict::DataTypeDict(std::initializer_list<DictKeyValue> pairs)
+{
+    for (auto& p : pairs)
+        dict_.insert(p);
+}
+
+DataTypeDict::DataTypeDict(const DictKeyValue& kv)
+{
+    dict_.insert(kv);
 }
 
 DataTypeDict& DataTypeDict::operator=(const DataTypeDict& dict)
@@ -129,6 +141,11 @@ std::string DataTypeDict::toString() const
     return res;
 }
 
+std::string DataTypeDict::valueToJsonString() const
+{
+    return json::to_json(*this);
+}
+
 bool DataTypeDict::isEqual(const AbstractData* d) const noexcept
 {
     auto data = d->as<DataTypeDict>();
@@ -174,6 +191,22 @@ AtomList DataTypeDict::keys() const
 
     for (auto& kv : dict_)
         res.append(kv.first);
+
+    return res;
+}
+
+AtomList DataTypeDict::toList() const
+{
+    AtomList res;
+
+    for (auto& kv : dict_) {
+        res.append(kv.first);
+
+        if (kv.second.type() == typeid(Atom))
+            res.append(boost::get<Atom>(kv.second));
+        else if (kv.second.type() == typeid(AtomList))
+            res.append(boost::get<AtomList>(kv.second));
+    }
 
     return res;
 }

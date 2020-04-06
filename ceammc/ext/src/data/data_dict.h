@@ -19,12 +19,8 @@
 using namespace ceammc;
 
 class DataDict : public DictIFace<BaseObject> {
-    DataTypeDict dict_;
-
 public:
     DataDict(const PdArgs& args);
-    DataTypeDict& dict() override { return dict_; }
-    const DataTypeDict& dict() const override { return dict_; }
 };
 
 void setup_data_dict();

@@ -10,8 +10,6 @@ using namespace ceammc;
 
 template <class T>
 class DataMListIFace : public ListIFace<T> {
-    MListAtom mlist_;
-
 public:
     DataMListIFace(const PdArgs& a)
         : ListIFace<T>(a)
@@ -21,18 +19,17 @@ public:
     void dump() const override
     {
         BaseObject::dump();
-        OBJ_DBG << "list: " << *mlist_;
+        OBJ_DBG << "list: " << mlist();
     }
 
     void onBang() override
     {
-        this->atomTo(0, mlist_);
+        this->atomTo(0, mlist());
     }
 
     void onList(const AtomList& lst) override
     {
-        mlist_.detachData();
-        mlist_->setRaw(lst);
+        mlist()->setRaw(lst);
         onBang();
     }
 
@@ -44,93 +41,83 @@ public:
             return;
         }
 
-        mlist_.detachData();
-        mlist_->setParsed(msg.anyValue());
+        mlist()->setParsed(msg.anyValue());
     }
 
     void onDataT(const MListAtom& ml)
     {
-        mlist_ = ml;
+        mlist() = ml;
+        // this is important detach
+        mlist().detachData();
         onBang();
     }
 
     void proto_set(const AtomList& lst) override
     {
-        mlist_.detachData();
-        mlist_->setRaw(lst);
+        mlist()->setRaw(lst);
     }
 
     void proto_clear() override
     {
-        mlist_.detachData();
-        mlist_->clear();
+        mlist()->clear();
     }
 
     void proto_append(const AtomList& lst) override
     {
-        mlist_.detachData();
-        mlist_->append(lst);
+        mlist()->append(lst);
     }
 
     void proto_prepend(const AtomList& lst) override
     {
-        mlist_.detachData();
-        mlist_->prepend(lst);
+        mlist()->prepend(lst);
     }
 
     bool proto_insert(size_t idx, const AtomList& lst) override
     {
-        mlist_.detachData();
-        return mlist_->insert(idx, lst);
+        return mlist()->insert(idx, lst);
     }
 
     bool proto_pop() override
     {
-        auto n = mlist_->size();
+        auto n = mlist()->size();
         if (n < 1)
             return false;
 
-        mlist_.detachData();
-        return mlist_->remove(n - 1);
+        return mlist()->remove(n - 1);
     }
 
     bool proto_removeAt(size_t pos) override
     {
-        mlist_.detachData();
-        return mlist_->remove(pos);
+        return mlist()->remove(pos);
     }
 
     size_t proto_size() const override
     {
-        return mlist_->size();
+        return mlist()->size();
     }
 
     void proto_sort() override
     {
-        mlist_.detachData();
-        mlist_->sort();
+        mlist()->sort();
     }
 
     void proto_reverse() override
     {
-        mlist_.detachData();
-        mlist_->reverse();
+        mlist()->reverse();
     }
 
     void proto_shuffle() override
     {
-        mlist_.detachData();
-        mlist_->shuffle();
+        mlist()->shuffle();
     }
 
     void proto_fill(const Atom& v) override
     {
-        mlist_.detachData();
-        std::fill(mlist_->begin(), mlist_->end(), v);
+        std::fill(mlist()->begin(), mlist()->end(), v);
     }
 
-    const MListAtom& mlist() const { return mlist_; }
-    MListAtom& mlist() { return mlist_; }
+    virtual const MListAtom& mlist() const = 0;
+    virtual MListAtom& mlist() = 0;
 };
 
 #endif

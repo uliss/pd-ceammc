@@ -18,7 +18,7 @@
 
 PD_COMPLETE_TEST_SETUP(GlobalList, global, list)
 
-TEST_CASE("[global.list]", "[externals]")
+TEST_CASE("global.list", "[externals]")
 {
     pd_test_init();
 

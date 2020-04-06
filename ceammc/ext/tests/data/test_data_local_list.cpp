@@ -16,7 +16,7 @@
 
 PD_COMPLETE_TEST_SETUP(LocalList, local, list)
 
-TEST_CASE("[local.list]", "[externals]")
+TEST_CASE("local.list", "[externals]")
 {
     pd_test_init();
 

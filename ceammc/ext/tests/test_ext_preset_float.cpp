@@ -22,7 +22,7 @@
 
 PD_COMPLETE_TEST_SETUP(PresetFloat, preset, float)
 
-TEST_CASE("[preset.float]", "[external]")
+TEST_CASE("preset.float", "[external]")
 {
     pd_test_init();
 

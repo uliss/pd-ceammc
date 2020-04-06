@@ -26,8 +26,28 @@
 
 namespace ceammc {
 
-typedef boost::variant<boost::blank, Atom, AtomList> DictValue;
-typedef boost::optional<std::string> MaybeString;
+using DictValue = boost::variant<boost::blank, Atom, AtomList>;
+using MaybeString = boost::optional<std::string>;
+using DictKeyValue = std::map<Atom, DictValue>::value_type;
+
+namespace dict {
+    inline DictValue createValue() { return {}; }
+    template <typename T>
+    DictValue val(T v) { return atomFrom(v); }
+    template <typename T0, typename T1, typename... Types>
+    DictValue val(T0 t0, T1 t1, Types... types) { return AtomList(t0, t1, types...); }
+
+    inline DictKeyValue pair(const char* s, const Atom& a)
+    {
+        return { atomFrom(s), a };
+    }
+
+    template <typename... Types>
+    DictKeyValue pair(const char* s, Types... types)
+    {
+        return { atomFrom(s), val(types...) };
+    }
+}
 
 /**
  * Outputs dict value to specified outlet
@@ -50,12 +70,16 @@ public:
     DataTypeDict(DataTypeDict&& dict) noexcept;
     DataTypeDict(const std::string& str);
 
+    DataTypeDict(std::initializer_list<DictKeyValue> pairs);
+    DataTypeDict(const DictKeyValue& kv);
+
     DataTypeDict& operator=(const DataTypeDict& dict);
     DataTypeDict& operator=(DataTypeDict&& dict) noexcept;
 
     DataTypeDict* clone() const override;
     int type() const noexcept final;
     std::string toString() const override;
+    std::string valueToJsonString() const override;
     bool isEqual(const AbstractData* d) const noexcept final;
     bool operator==(const DataTypeDict& d) const noexcept;
 
@@ -67,6 +91,7 @@ public:
     size_t size() const noexcept;
     bool contains(const Atom& key) const noexcept;
     AtomList keys() const;
+    AtomList toList() const;
     DictValue value(const Atom& key) const;
 
     template <class T>
@@ -96,7 +121,6 @@ public:
     void insert(const Atom& key, t_float value);
     void insert(const Atom& key, const Atom& value);
     void insert(const Atom& key, const AtomList& value);
-    //    void insert(const Atom& key, const DataAtom& value);
     bool remove(const Atom& key);
     void clear() noexcept;
 
@@ -126,7 +150,6 @@ public:
 public:
     static const int dataType;
 };
-
 }
 
 #endif // DATATYPE_DICT_H
