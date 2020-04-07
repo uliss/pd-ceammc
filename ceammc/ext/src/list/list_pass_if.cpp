@@ -68,7 +68,7 @@ void setup_list_pass_if()
 {
     ObjectFactory<ListPassIf> obj("list.pass_if");
     obj.addAlias("list.filter");
-    obj.mapFloatToList();
+    obj.useDefaultPdFloatFn();
 
     obj.processData<DataTypeMList>();
 }

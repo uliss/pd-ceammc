@@ -14,22 +14,21 @@ class ListRepack : public BaseObject {
 public:
     ListRepack(const PdArgs& a)
         : BaseObject(a)
-        , group_size_(0)
+        , group_size_(nullptr)
     {
         createOutlet();
         createOutlet();
 
         group_size_ = new IntProperty("@size", DEF_GROUP_SIZE);
         group_size_->checkClosedRange(MIN_GROUP_SIZE, MAX_GROUP_SIZE);
+        group_size_->setArgIndex(0);
         addProperty(group_size_);
-
-        if (checkArgs(positionalArguments(), ARG_FLOAT))
-            group_size_->set(positionalArguments());
     }
 
     void onList(const AtomList& l)
     {
         const size_t step = clip<size_t>(group_size_->value(), MIN_GROUP_SIZE, MAX_GROUP_SIZE);
+
         for (size_t i = 0; i < l.size(); i += step) {
             listTo(0, l.slice(i, i + step - 1, 1));
         }
@@ -38,7 +37,7 @@ public:
     }
 };
 
-extern "C" void setup_list0x2erepack()
+void setup_list_repack()
 {
     ObjectFactory<ListRepack> obj("list.repack");
 }

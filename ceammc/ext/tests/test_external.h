@@ -467,6 +467,11 @@ public:
         return !outs_.at(n)->msg().isNone();
     }
 
+    bool hasNewMessages(size_t n) const
+    {
+        return hasOutputAt(n);
+    }
+
     bool hasOutput() const
     {
         for (size_t i = 0; i < outs_.size(); i++) {
@@ -505,6 +510,18 @@ public:
     bool isOutputBangAt(size_t n) const
     {
         return outs_.at(n)->msg().isBang();
+    }
+
+    bool isOutputAtomAt(size_t n) const
+    {
+        return outs_.at(n)->msg().isFloat()
+            || outs_.at(n)->msg().isSymbol()
+            || outs_.at(n)->msg().isData();
+    }
+
+    Message lastMessage(size_t n) const
+    {
+        return outs_.at(n)->msg();
     }
 
     AtomList outputListAt(size_t n) const

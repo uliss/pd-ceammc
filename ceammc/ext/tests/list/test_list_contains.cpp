@@ -147,7 +147,7 @@ TEST_CASE("list.contains", "[externals]")
         REQUIRE_THAT(t, outputTrue(&t));
     }
 
-    SECTION("sublie: single")
+    SECTION("sublist: single")
     {
         TExt t("list.contains", 11);
         REQUIRE_PROPERTY(t, @sublist, 11);

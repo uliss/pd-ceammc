@@ -19,16 +19,12 @@
 using namespace ceammc;
 
 class ListAppend : public BaseObject {
-    AtomList lst_;
+    ListProperty* lst_;
 
 public:
     ListAppend(const PdArgs& args);
 
-    void parseProperties() override;
-
     void onBang() override;
-    void onFloat(t_float f) override;
-    void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
     void onData(const Atom& d) override;
     void onDataT(const MListAtom& d);

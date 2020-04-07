@@ -307,7 +307,8 @@ void setup_misc_modplug_tilde()
 
     ModPlug_SetSettings(&s);
 
-    SoundExternalFactory<ModPlug> obj("modplug~", OBJECT_FACTORY_DEFAULT | OBJECT_FACTORY_NO_FLOAT);
+    SoundExternalFactory<ModPlug> obj("modplug~", OBJECT_FACTORY_DEFAULT);
+    obj.useDefaultPdFloatFn();
     obj.addMethod("play", &ModPlug::m_play);
     obj.addMethod("stop", &ModPlug::m_stop);
     obj.addMethod("pause", &ModPlug::m_pause);

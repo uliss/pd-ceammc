@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_object.h"
+#include "ceammc_output.h"
 #include "ceammc_pd.h"
 #include "test_external.h"
 
@@ -44,6 +45,7 @@ public:
     EXT_C(const PdArgs& a)
         : BaseObject(a)
         , last_prop(nullptr)
+        , int_data(0)
     {
         addProperty(new FloatProperty("@c", 101))->setArgIndex(0);
         addProperty(new SizeTProperty("@d", 101))->setArgIndex(1);
@@ -64,10 +66,16 @@ public:
         last_inlet_data = l;
     }
 
+    void onDataT(const DataAtom<IntData>& d)
+    {
+        int_data = *d;
+    }
+
 public:
     size_t last_inlet;
     AtomList last_inlet_data;
     t_symbol* last_prop;
+    IntData int_data;
 };
 
 void propCallback(BaseObject* b, t_symbol* prop)
@@ -79,6 +87,7 @@ void propCallback(BaseObject* b, t_symbol* prop)
 static void setup_test_extc()
 {
     ObjectFactory<EXT_C> obj("ext.c");
+    obj.processData<IntData>();
 }
 
 PD_TEST_CANVAS();
@@ -299,21 +308,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             EXT_B b(PdArgs(LA("@b", 200), gensym("ext.b"), 0, gensym("ext.b")));
             b.parseProperties();
             REQUIRE_PROPERTY(b, @a, -1);
-            REQUIRE_PROPERTY(b, @b, 200); /*
-
-            REQUIRE(b.positionalArguments().empty());
-
-            REQUIRE(b.positionalFloatArgument(0, -1) == -1);
-            REQUIRE(b.positionalFloatArgument(100, -1) == -1);
-            REQUIRE(b.positionalFloatArgument(-100, -1) == -1);
-
-            REQUIRE(b.positionalIntArgument(0, -1) == -1);
-            REQUIRE(b.positionalIntArgument(100, -1) == -1);
-            REQUIRE(b.positionalIntArgument(-100, -1) == -1);
-
-            REQUIRE(b.positionalSymbolArgument(0, 0) == 0);
-            REQUIRE(b.positionalSymbolArgument(10, 0) == 0);
-            REQUIRE(b.positionalSymbolArgument(-10, 0) == 0);*/
+            REQUIRE_PROPERTY(b, @b, 200);
         }
 
         {
@@ -321,20 +316,6 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             b.parseProperties();
             REQUIRE_PROPERTY(b, @a, -100);
             REQUIRE_PROPERTY(b, @b, 200);
-
-            //            REQUIRE(b.positionalArguments().empty());
-
-            //            REQUIRE(b.positionalFloatArgument(0, -1) == -1);
-            //            REQUIRE(b.positionalFloatArgument(100, -1) == -1);
-            //            REQUIRE(b.positionalFloatArgument(-100, -1) == -1);
-
-            //            REQUIRE(b.positionalIntArgument(0, -1) == -1);
-            //            REQUIRE(b.positionalIntArgument(100, -1) == -1);
-            //            REQUIRE(b.positionalIntArgument(-100, -1) == -1);
-
-            //            REQUIRE(b.positionalSymbolArgument(0, 0) == 0);
-            //            REQUIRE(b.positionalSymbolArgument(10, 0) == 0);
-            //            REQUIRE(b.positionalSymbolArgument(-10, 0) == 0);
         }
 
         {
@@ -342,30 +323,6 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             b.parseProperties();
             REQUIRE_PROPERTY(b, @a, -100);
             REQUIRE_PROPERTY(b, @b, 200);
-
-            //            REQUIRE(b.positionalArguments() == LX(1, 2.5));
-
-            //            REQUIRE(b.positionalFloatArgument(0, -1) == 1);
-            //            REQUIRE(b.positionalFloatArgument(1, -1) == Approx(2.5));
-            //            REQUIRE(b.positionalFloatArgument(2, -1) == -1);
-            //            REQUIRE(b.positionalFloatArgument(-1, -100) == -100);
-
-            //            REQUIRE(b.positionalIntArgument(0, -1) == 1);
-            //            REQUIRE(b.positionalIntArgument(1, -1) == 2);
-            //            REQUIRE(b.positionalIntArgument(2, -1) == -1);
-            //            REQUIRE(b.positionalIntArgument(-1, -100) == -100);
-
-            //            REQUIRE(b.positionalSymbolArgument(0, 0) == 0);
-            //            REQUIRE(b.positionalSymbolArgument(10, 0) == 0);
-            //            REQUIRE(b.positionalSymbolArgument(-10, 0) == 0);
-
-            //            REQUIRE(b.positionalArgument(0) == A(1));
-            //            REQUIRE(b.positionalArgument(1) == A(2.5));
-            //            REQUIRE(b.positionalArgument(2).isNone());
-            //            REQUIRE(b.positionalArgument(3).isNone());
-
-            //            REQUIRE(b.positionalSymbolArgument(10, 0) == 0);
-            //            REQUIRE(b.positionalSymbolArgument(-10, 0) == 0);
         }
 
         {
@@ -373,14 +330,6 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
             b.parseProperties();
             REQUIRE_PROPERTY(b, @a, -100);
             REQUIRE_PROPERTY(b, @b, 200);
-
-            //            REQUIRE(b.positionalFloatArgument(0) == 0.f);
-            //            REQUIRE(b.positionalFloatArgument(1) == 0.f);
-            //            REQUIRE(b.positionalFloatArgument(2) == 0.f);
-
-            //            REQUIRE(b.positionalSymbolArgument(0, 0) == S("first"));
-            //            REQUIRE(b.positionalSymbolArgument(1, 0) == S("second"));
-            //            REQUIRE(b.positionalSymbolArgument(2, 0) == 0);
         }
     }
 
@@ -586,7 +535,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
             SECTION("args")
             {
-                SECTION("1") {
+                SECTION("1")
+                {
                     TestExtEXT_C t("ext.c", 0xBEEF);
                     REQUIRE_PROPERTY(t, @c, 0xBEEF);
                     REQUIRE_PROPERTY(t, @d, 101);
@@ -595,7 +545,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
                     REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
                 }
 
-                SECTION("2") {
+                SECTION("2")
+                {
                     TestExtEXT_C t("ext.c", 0xBEEF, 10);
                     REQUIRE_PROPERTY(t, @c, 0xBEEF);
                     REQUIRE_PROPERTY(t, @d, 10);
@@ -604,7 +555,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
                     REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
                 }
 
-                SECTION("3") {
+                SECTION("3")
+                {
                     TestExtEXT_C t("ext.c", 0xBEEF, 10, "abc");
                     REQUIRE_PROPERTY(t, @c, 0xBEEF);
                     REQUIRE_PROPERTY(t, @d, 10);
@@ -613,7 +565,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
                     REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
                 }
 
-                SECTION("3 quoted") {
+                SECTION("3 quoted")
+                {
                     TestExtEXT_C t("ext.c", 0xBEEF, 10, "\"a space\"");
                     REQUIRE_PROPERTY(t, @c, 0xBEEF);
                     REQUIRE_PROPERTY(t, @d, 10);
@@ -622,7 +575,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
                     REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
                 }
 
-                SECTION("3 quoted") {
+                SECTION("3 quoted")
+                {
                     TestExtEXT_C t("ext.c", 0xBEEF, 10, "\"quoted", "string\"");
                     REQUIRE_PROPERTY(t, @c, 0xBEEF);
                     REQUIRE_PROPERTY(t, @d, 10);
@@ -631,7 +585,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
                     REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
                 }
 
-                SECTION("3 quoted property") {
+                SECTION("3 quoted property")
+                {
                     TestExtEXT_C t("ext.c", 0xBEEF, 10, "\"@esc_prop?\"");
                     REQUIRE_PROPERTY(t, @c, 0xBEEF);
                     REQUIRE_PROPERTY(t, @d, 10);
@@ -640,7 +595,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
                     REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
                 }
 
-                SECTION("4") {
+                SECTION("4")
+                {
                     TestExtEXT_C t("ext.c", 0xBEEF, 10, "\"@esc_prop?\"", 1000);
                     REQUIRE_PROPERTY(t, @c, 0xBEEF);
                     REQUIRE_PROPERTY(t, @d, 10);
@@ -649,7 +605,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
                     REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
                 }
 
-                SECTION("5") {
+                SECTION("5")
+                {
                     TestExtEXT_C t("ext.c", 0xBEEF, 10, "\"@esc_prop?\"", 1000, 2000);
                     REQUIRE_PROPERTY(t, @c, 0xBEEF);
                     REQUIRE_PROPERTY(t, @d, 10);
@@ -658,7 +615,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
                     REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
                 }
 
-                SECTION("4: quoted") {
+                SECTION("4: quoted")
+                {
                     TestExtEXT_C t("ext.c", 0xBEEF, 10, "\"@esc_prop?\"", "\"a", "b\"");
                     REQUIRE_PROPERTY(t, @c, 0xBEEF);
                     REQUIRE_PROPERTY(t, @d, 10);
@@ -667,7 +625,8 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
                     REQUIRE_PROPERTY(t, @cb, 1, 2, 3);
                 }
 
-                SECTION("4: quote property") {
+                SECTION("4: quote property")
+                {
                     TestExtEXT_C t("ext.c", 0xBEEF, 10, "\"@esc_prop?\"", "\"@a\"");
                     REQUIRE_PROPERTY(t, @c, 0xBEEF);
                     REQUIRE_PROPERTY(t, @d, 10);
@@ -696,5 +655,118 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
 
         t.sendMessage(gensym("@d"), LF(100));
         REQUIRE(t->last_prop == gensym("@d"));
+    }
+
+    SECTION("dataT")
+    {
+        using IntA = DataAtom<IntData>;
+
+        TestExtEXT_C t("ext.c");
+        t.sendList(LF(1, 2, 3));
+        t.sendList(IntA(100));
+
+        REQUIRE(t->int_data == IntData(100));
+    }
+
+    SECTION("output")
+    {
+        SECTION("outletAtom")
+        {
+            TestExtEXT_C t("ext.c");
+
+            REQUIRE(outletAtom(t->outletAt(0), Atom(1)));
+            REQUIRE(t.outputFloatAt(0) == 1);
+
+            REQUIRE(outletAtom(t->outletAt(0), A("abc")));
+            REQUIRE(t.outputSymbolAt(0) == A("abc"));
+
+            REQUIRE(outletAtom(t->outletAt(0), Atom(new IntData(200))));
+            REQUIRE(t.outputAtomAt(0) == Atom(new IntData(200)));
+        }
+
+        SECTION("outletAtomList no simplify")
+        {
+            TestExtEXT_C t("ext.c");
+
+            REQUIRE(outletAtomList(t->outletAt(0), L(), false));
+            REQUIRE(t.isOutputListAt(0));
+            REQUIRE(t.outputListAt(0) == L());
+
+            REQUIRE(outletAtomList(t->outletAt(0), LF(11), false));
+            REQUIRE(t.outputListAt(0) == LF(11));
+
+            REQUIRE(outletAtomList(t->outletAt(0), LA("abc"), false));
+            REQUIRE(t.outputListAt(0) == LA("abc"));
+
+            REQUIRE(outletAtomList(t->outletAt(0), LF(1, 2, 3), false));
+            REQUIRE(t.isOutputListAt(0));
+            REQUIRE(t.outputListAt(0) == LF(1, 2, 3));
+        }
+
+        SECTION("outletAtomList simplify")
+        {
+            TestExtEXT_C t("ext.c");
+
+            REQUIRE_FALSE(outletAtomList(nullptr, L()));
+
+            REQUIRE(outletAtomList(t->outletAt(0), L(), true));
+            REQUIRE(t.isOutputBangAt(0));
+            REQUIRE(t.outputListAt(0) == L());
+
+            REQUIRE(outletAtomList(t->outletAt(0), LF(11), true));
+            REQUIRE(t.isOutputFloatAt(0));
+            REQUIRE(t.outputFloatAt(0) == 11);
+
+            REQUIRE(outletAtomList(t->outletAt(0), LA("abc"), true));
+            REQUIRE(t.isOutputSymbolAt(0));
+            REQUIRE(t.outputSymbolAt(0) == SYM("abc"));
+
+            REQUIRE(outletAtomList(t->outletAt(0), LF(1, 2, 3), true));
+            REQUIRE(t.isOutputListAt(0));
+            REQUIRE(t.outputListAt(0) == LF(1, 2, 3));
+        }
+
+        SECTION("outletAtomListView ")
+        {
+            TestExtEXT_C t("ext.c");
+
+            REQUIRE_FALSE(outletAtomListView(nullptr, L().view()));
+
+            REQUIRE(outletAtomListView(t->outletAt(0), L().view(), true));
+            REQUIRE(t.isOutputBangAt(0));
+            REQUIRE(t.outputListAt(0) == L());
+
+            REQUIRE(outletAtomListView(t->outletAt(0), LF(11).view(), true));
+            REQUIRE(t.isOutputFloatAt(0));
+            REQUIRE(t.outputFloatAt(0) == 11);
+
+            REQUIRE(outletAtomListView(t->outletAt(0), LA("abc").view(), true));
+            REQUIRE(t.isOutputSymbolAt(0));
+            REQUIRE(t.outputSymbolAt(0) == SYM("abc"));
+
+            REQUIRE(outletAtomListView(t->outletAt(0), LF(1, 2, 3).view(), true));
+            REQUIRE(t.isOutputListAt(0));
+            REQUIRE(t.outputListAt(0) == LF(1, 2, 3));
+        }
+
+        SECTION("outletAtomListView ")
+        {
+            TestExtEXT_C t("ext.c");
+
+            REQUIRE(outletAtomListView(t->outletAt(0), L().view(), false));
+            REQUIRE(t.outputListAt(0) == L());
+
+            REQUIRE(outletAtomListView(t->outletAt(0), LF(11).view(), false));
+            REQUIRE(t.isOutputFloatAt(0));
+            REQUIRE(t.outputFloatAt(0) == 11);
+
+            REQUIRE(outletAtomListView(t->outletAt(0), LA("abc").view(), false));
+            REQUIRE(t.isOutputSymbolAt(0));
+            REQUIRE(t.outputSymbolAt(0) == SYM("abc"));
+
+            REQUIRE(outletAtomListView(t->outletAt(0), LF(1, 2, 3).view(), false));
+            REQUIRE(t.isOutputListAt(0));
+            REQUIRE(t.outputListAt(0) == LF(1, 2, 3));
+        }
     }
 }

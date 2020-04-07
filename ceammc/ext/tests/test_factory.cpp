@@ -37,13 +37,24 @@ class TestClass : public BaseObject {
 public:
     TestClass(const PdArgs& a)
         : BaseObject(a)
+        , f(0)
     {
         addProperty(new FloatProperty("@test_prop", -1));
     }
 
+    void onFloat(t_float v) override
+    {
+        f = v;
+    }
+
+    void onList(const AtomList& lst) override
+    {
+        l = lst;
+    }
+
     void parseProperties() override
     {
-        std::cerr << "Parse properties....\n\n";
+        std::cerr << "Parse properties....\n";
         BaseObject::parseProperties();
     }
 
@@ -51,6 +62,10 @@ public:
     {
         destructor_called = true;
     }
+
+public:
+    t_float f;
+    AtomList l;
 };
 
 class ExceptionTest : public TestClass {
@@ -348,5 +363,37 @@ TEST_CASE("ceammc_factory", "[core]")
         REQUIRE(info.authors == ObjectInfoStorage::AuthorList({ "a1", "a2" }));
         REQUIRE(info.authors == ObjectInfoStorage::AuthorList({ "a1", "a2" }));
         REQUIRE(info.aliases == ObjectInfoStorage::AliasList({ "test.lm", "test.lm2" }));
+    }
+
+    SECTION("default pd handlers")
+    {
+        using Factory = ObjectFactory<TestDataClass>;
+        using External = PdExternalT<TestDataClass>;
+
+        SECTION("default ceammc")
+        {
+            Factory f("test.data0");
+            f.finalize();
+            REQUIRE(f.classPointer()->c_floatmethod == (void*)Factory::processFloat);
+
+            External t("test.data0");
+            REQUIRE(t->f == 0);
+            t.sendFloat(100);
+            REQUIRE(t->f == 100);
+        }
+
+        SECTION("default ceammc")
+        {
+            Factory f("test.data0");
+            f.useDefaultPdFloatFn();
+            f.finalize();
+            REQUIRE(f.classPointer()->c_floatmethod != (void*)Factory::processFloat);
+
+            External t("test.data0");
+            REQUIRE(t->f == 0);
+            t.sendFloat(100);
+            REQUIRE(t->f == 0);
+            REQUIRE(t->l == LF(100));
+        }
     }
 }

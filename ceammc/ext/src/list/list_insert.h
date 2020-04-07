@@ -20,7 +20,7 @@
 using namespace ceammc;
 
 class ListInsert : public BaseObject {
-    AtomList lst_;
+    ListProperty* lst_;
     SizeTProperty* index_;
 
 public:

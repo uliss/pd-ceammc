@@ -32,7 +32,7 @@ struct t_ref {
     uint32_t counter;
 };
 
-#define TRACE_DATA 1
+//#define TRACE_DATA 1
 #ifdef TRACE_DATA
 #define TRACE(fn)                     \
     {                                 \

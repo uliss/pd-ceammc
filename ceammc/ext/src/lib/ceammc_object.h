@@ -446,6 +446,13 @@ public:
     virtual void listTo(size_t n, const AtomList& l);
 
     /**
+     * Outputs list view to specified outlet
+     * @param n - outlet number
+     * @param v - listview
+     */
+    virtual void listTo(size_t n, const AtomListView& v);
+
+    /**
      * Outputs message to specified outlet
      * @param n - outlet number
      * @param msg - message value

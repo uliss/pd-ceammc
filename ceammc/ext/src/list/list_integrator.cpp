@@ -69,7 +69,7 @@ public:
     }
 };
 
-extern "C" void setup_list0x2eintegrator()
+void setup_list_integrator()
 {
     SYM_MIN = gensym("min");
     SYM_PADZ = gensym("padz");

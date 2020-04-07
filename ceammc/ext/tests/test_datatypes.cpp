@@ -163,3 +163,9 @@ bool StrData::operator==(const StrData& d) const noexcept
 {
     return v_ == d.v_;
 }
+
+std::ostream& operator<<(std::ostream& os, const IntData& d)
+{
+    os << "IntData: " << d.value();
+    return os;
+}

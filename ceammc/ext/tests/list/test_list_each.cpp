@@ -19,7 +19,7 @@ PD_COMPLETE_TEST_SETUP(ListEach, list, each)
 using TExt = TestExtListEach;
 using TObj = TestListEach;
 
-typedef TestExternal<ListEach> ListEachTest;
+typedef TestExternal<ListEach> TObj;
 
 TEST_CASE("list.each", "[externals]")
 {
@@ -29,11 +29,11 @@ TEST_CASE("list.each", "[externals]")
     {
         SECTION("empty arguments")
         {
-            ListEachTest t("list.each", L());
+            TObj t("list.each", L());
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
 
-            REQUIRE_THAT(t, hasProperty(&t, "@step", 1)); 
+            REQUIRE_THAT(t, hasProperty(&t, "@step", 1));
 
             WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
             REQUIRE_LIST_AT_OUTLET(0, t, L());
@@ -45,11 +45,11 @@ TEST_CASE("list.each", "[externals]")
 
         SECTION("properties")
         {
-            ListEachTest t("list.each", LA("@step", 2));
+            TObj t("list.each", LA("@step", 2));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
 
-            REQUIRE_THAT(t, hasProperty(&t, "@step", 2)); 
+            REQUIRE_THAT(t, hasProperty(&t, "@step", 2));
 
             WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3, 4));
             REQUIRE_LIST_AT_OUTLET(0, t, L());
@@ -69,45 +69,74 @@ TEST_CASE("list.each", "[externals]")
 
         SECTION("positional arguments")
         {
-            ListEachTest t("list.each", LF(12));
+            TObj t("list.each", LF(12));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
 
-            REQUIRE_THAT(t, hasProperty(&t, "@step", 12)); 
+            REQUIRE_THAT(t, hasProperty(&t, "@step", 12));
         }
 
         SECTION("positional arguments and props mixed")
         {
-            ListEachTest t("list.each", LA(12, "@step", 4));
+            TObj t("list.each", LA(12, "@step", 4));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
 
             // property arguments have priority
-            REQUIRE_THAT(t, hasProperty(&t, "@step", 4)); 
+            REQUIRE_THAT(t, hasProperty(&t, "@step", 4));
         }
 
         SECTION("invalid args")
         {
             SECTION("props")
             {
-                ListEachTest t("list.each", LA("@prop", -100));
+                TObj t("list.each", LA("@prop", -100));
                 REQUIRE(t.numInlets() == 2);
                 REQUIRE(t.numOutlets() == 2);
 
                 // default value
-                REQUIRE_THAT(t, hasProperty(&t, "@step", 1)); 
+                REQUIRE_THAT(t, hasProperty(&t, "@step", 1));
             }
 
             SECTION("positional")
             {
-                ListEachTest t("list.each", LF(-100));
+                TObj t("list.each", LF(-100));
                 REQUIRE(t.numInlets() == 2);
                 REQUIRE(t.numOutlets() == 2);
 
                 // default value
-                REQUIRE_THAT(t, hasProperty(&t, "@step", 1)); 
+                REQUIRE_THAT(t, hasProperty(&t, "@step", 1));
             }
         }
+    }
+
+    SECTION("step 2")
+    {
+        TExt t("list.each", 2);
+        REQUIRE_PROPERTY(t, @step, 2);
+
+        External mul("*");
+
+        // [list.each] X [*]
+        REQUIRE(t.object());
+        REQUIRE(mul.object());
+        REQUIRE(t.connectTo(1, mul, 0));
+        REQUIRE(t.connectFrom(0, mul, 1));
+
+        t << L();
+        CHECK(t.outputListAt(0) == L());
+
+        t << LF(10);
+        CHECK(t.outputListAt(0) == LF(0));
+
+        t << LF(10, 20);
+        CHECK(t.outputListAt(0) == LF(200));
+
+        t << LF(10, 20, 30);
+        CHECK(t.outputListAt(0) == LF(200, 600));
+
+        t << LF(10, 20, 30, 40);
+        CHECK(t.outputListAt(0) == LF(200, 1200));
     }
 
     SECTION("test mlist")
@@ -122,7 +151,7 @@ TEST_CASE("list.each", "[externals]")
         REQUIRE(t.connectFrom(0, mul, 1));
 
         t << L();
-        REQUIRE(t.outputListAt(0) == L());
+        CHECK(t.outputListAt(0) == L());
 
         t << LF(1, 2, 3);
         REQUIRE(t.outputListAt(0) == LF(2, 4, 6));

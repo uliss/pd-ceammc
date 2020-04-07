@@ -191,6 +191,16 @@ void BaseObject::listTo(size_t n, const AtomList& l)
     outletAtomList(outlets_[n], l);
 }
 
+void BaseObject::listTo(size_t n, const AtomListView& v)
+{
+    if (n >= outlets_.size()) {
+        OBJ_ERR << "invalid outlet index: " << n;
+        return;
+    }
+
+    outletAtomListView(outlets_[n], v);
+}
+
 void BaseObject::messageTo(size_t n, const Message& msg)
 {
     if (n >= outlets_.size()) {

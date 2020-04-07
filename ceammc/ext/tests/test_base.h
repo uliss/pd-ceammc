@@ -88,14 +88,15 @@ public:
     void sendTData(const DataT* d, int inlet = 0);
 
     /** overloaded */
-    virtual void bangTo(size_t n);
-    virtual void listTo(size_t n, const AtomList& lst);
-    virtual void symbolTo(size_t n, t_symbol* s);
-    virtual void floatTo(size_t n, float f);
-    virtual void atomTo(size_t n, const Atom& a);
-    virtual void anyTo(size_t n, const AtomList& lst);
-    virtual void anyTo(size_t n, t_symbol* sel, const AtomList& lst);
-    virtual void messageTo(size_t n, const Message& m);
+    void bangTo(size_t n) override;
+    void listTo(size_t n, const AtomList& lst) override;
+    void listTo(size_t n, const AtomListView& v) override;
+    void symbolTo(size_t n, t_symbol* s) override;
+    void floatTo(size_t n, float f) override;
+    void atomTo(size_t n, const Atom& a) override;
+    void anyTo(size_t n, const AtomList& lst) override;
+    void anyTo(size_t n, t_symbol* sel, const AtomList& lst) override;
+    void messageTo(size_t n, const Message& m) override;
 
     /** messages methods */
 public:
@@ -428,6 +429,12 @@ template <class T>
 void TestExternal<T>::listTo(size_t n, const AtomList& lst)
 {
     msg_[n].push_back(Message(lst));
+}
+
+template <class T>
+void TestExternal<T>::listTo(size_t n, const AtomListView& v)
+{
+    msg_[n].push_back(Message(v));
 }
 
 template <class T>

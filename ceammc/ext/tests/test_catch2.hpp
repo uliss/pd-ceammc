@@ -20,6 +20,8 @@
 
 #include "ceammc.h"
 #include "ceammc_data.h"
+#include "ceammc_format.h"
+#include "ceammc_message.h"
 #include "test_base.h"
 #include "test_external.h"
 
@@ -36,21 +38,47 @@ struct NoOutput : public ceammc::Exception {
 
 struct NotFloat : public ceammc::Exception {
     NotFloat(const std::string& msg)
-        : ceammc::Exception(msg)
+        : ceammc::Exception("not a float: " + msg)
     {
     }
 };
 
-template <typename T>
-t_float floatAt(const T& obj, OutletIdx idx = 0_out);
+struct NotSymbol : public ceammc::Exception {
+    NotSymbol(const std::string& msg)
+        : ceammc::Exception("not a symbol: " + msg)
+    {
+    }
+};
 
+struct NotAtom : public ceammc::Exception {
+    NotAtom(const std::string& msg)
+        : ceammc::Exception("not a atom: " + msg)
+    {
+    }
+};
+
+struct NotData : public ceammc::Exception {
+    NotData(const std::string& msg)
+        : ceammc::Exception("not a data: " + msg)
+    {
+    }
+};
+
+struct NotList : public ceammc::Exception {
+    NotList(const std::string& msg)
+        : ceammc::Exception("not a list: " + msg)
+    {
+    }
+};
+
+/** float */
 template <typename T>
-t_float floatAt(const TestExternal<T>& t, OutletIdx idx = 0_out)
+t_float floatAt(const T& t, OutletIdx idx = 0_out)
 {
     if (!t.hasNewMessages(idx.n))
         throw NoOutput(idx);
 
-    auto& msg = t.lastMessage(idx.n);
+    auto msg = t.lastMessage(idx.n);
 
     if (!msg.isFloat())
         throw NotFloat(to_string(msg));
@@ -58,18 +86,64 @@ t_float floatAt(const TestExternal<T>& t, OutletIdx idx = 0_out)
     return msg.atomValue().asFloat();
 }
 
+/** symbol */
 template <typename T>
-t_float floatAt(const TestPdExternal<T>& t, OutletIdx idx = 0_out)
+std::string symbolAt(const T& t, OutletIdx idx = 0_out)
 {
-    if (!t.hasOutputAt(idx.n))
+    if (!t.hasNewMessages(idx.n))
         throw NoOutput(idx);
 
-    auto& msg = t.lastMessage(idx.n);
+    auto msg = t.lastMessage(idx.n);
 
-    if (!t.isOutputFloatAt())
-        throw NotFloat("");
+    if (!msg.isSymbol())
+        throw NotSymbol(to_string(msg));
 
-    return t.outputFloatAt(idx.n);
+    return msg.atomValue().asSymbol()->s_name;
+}
+
+/** atom */
+template <typename T>
+Atom atomAt(const T& t, OutletIdx idx = 0_out)
+{
+    if (!t.hasNewMessages(idx.n))
+        throw NoOutput(idx);
+
+    auto msg = t.lastMessage(idx.n);
+
+    if (msg.isList() || msg.isAny())
+        throw NotAtom(to_string(msg));
+
+    return msg.atomValue();
+}
+
+/** data */
+template <typename T>
+Atom dataAt(const T& t, OutletIdx idx = 0_out)
+{
+    if (!t.hasNewMessages(idx.n))
+        throw NoOutput(idx);
+
+    auto msg = t.lastMessage(idx.n);
+
+    if (!msg.isData())
+        throw NotData(to_string(msg));
+
+    return msg.atomValue();
+}
+
+/** list */
+template <typename T>
+AtomList listAt(const T& t, OutletIdx idx = 0_out)
+{
+    if (!t.hasNewMessages(idx.n))
+        throw NoOutput(idx);
+
+    auto msg = t.lastMessage(idx.n);
+
+    if (!msg.isList())
+        throw NotList(to_string(msg));
+
+    return msg.listValue();
 }
 
 template <typename T>

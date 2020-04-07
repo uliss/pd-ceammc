@@ -36,5 +36,6 @@ void Click::processBlock(const t_sample** in, t_sample** out)
 
 extern "C" void click_tilde_setup()
 {
-    SoundExternalFactory<Click> obj("click~", OBJECT_FACTORY_DEFAULT | OBJECT_FACTORY_NO_FLOAT);
+    SoundExternalFactory<Click> obj("click~", OBJECT_FACTORY_DEFAULT);
+    obj.useDefaultPdFloatFn();
 }

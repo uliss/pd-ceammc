@@ -1,4 +1,5 @@
 #include "list_each.h"
+#include "ceammc_output.h"
 #include "datatype_mlist.h"
 
 ListEach::ListEach(const PdArgs& a)
@@ -11,18 +12,17 @@ ListEach::ListEach(const PdArgs& a)
 
     step_prop_ = new IntProperty("@step", 1);
     step_prop_->checkClosedRange(1, 1024);
+    step_prop_->setArgIndex(0);
     addProperty(step_prop_);
-
-    // if we have positional step argument without @step
-    const AtomList& args = positionalArguments();
-    if (checkArgs(args, ARG_INT)) {
-        int v = args[0].asInt();
-        if (v > 1)
-            step_prop_->setValue(v);
-    }
 }
 
 void ListEach::onList(const AtomList& l)
+{
+    doEach(l);
+    return listTo(0, mapped_list_);
+}
+
+void ListEach::doEach(const AtomList& l)
 {
     mapped_list_.clear();
 
@@ -34,10 +34,8 @@ void ListEach::onList(const AtomList& l)
             atomTo(1, l[i]);
     } else { // output as sublist
         for (size_t i = 0; i < l.size(); i += step)
-            listTo(1, l.slice(i, i + step - 1));
+            listTo(1, l.view(i, step));
     }
-
-    return listTo(0, mapped_list_);
 }
 
 void ListEach::onInlet(size_t n, const AtomList& l)
@@ -53,21 +51,8 @@ void ListEach::onInlet(size_t n, const AtomList& l)
 
 void ListEach::onDataT(const MListAtom& ml)
 {
-    mapped_list_.clear();
-    size_t step = step_prop_->value();
-
-    // output single values
-    if (step == 1) {
-        for (size_t i = 0; i < ml->size(); i += step)
-            atomTo(1, ml->at(i));
-
-    } else { // output as sublist
-        AtomList l = ml->data();
-        for (size_t i = 0; i < ml->size(); i += step)
-            listTo(1, l.slice(i, i + step - 1));
-    }
-
-    atomTo(0, new DataTypeMList(mapped_list_));
+    doEach(ml->data());
+    atomTo(0, MListAtom(mapped_list_));
 }
 
 void setup_list_each()

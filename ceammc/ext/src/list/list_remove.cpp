@@ -96,6 +96,6 @@ void setup_list_remove()
 {
     ObjectFactory<ListRemove> obj("list.remove");
     obj.processData<DataTypeMList>();
-    obj.mapFloatToList();
-    obj.mapSymbolToList();
+    obj.useDefaultPdFloatFn();
+    obj.useDefaultPdSymbolFn();
 }

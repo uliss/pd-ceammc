@@ -42,8 +42,8 @@ void setup_list_max()
     SYM_ANY = gensym("any");
 
     ObjectFactory<ListMax> obj("list.max");
-    obj.mapFloatToList();
-    obj.mapSymbolToList();
+    obj.useDefaultPdFloatFn();
+    obj.useDefaultPdSymbolFn();
 
     obj.processData<DataTypeMList>();
 }

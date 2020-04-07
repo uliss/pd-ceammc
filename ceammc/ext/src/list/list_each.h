@@ -38,6 +38,9 @@ public:
     void onInlet(size_t n, const AtomList& l) override;
 
     void onDataT(const MListAtom& ml);
+
+private:
+    void doEach(const AtomList& l);
 };
 
 void setup_list_each();

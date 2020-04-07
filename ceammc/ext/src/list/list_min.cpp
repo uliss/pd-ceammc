@@ -42,8 +42,8 @@ void setup_list_min()
     SYM_ANY = gensym("any");
 
     ObjectFactory<ListMin> obj("list.min");
-    obj.mapFloatToList();
-    obj.mapSymbolToList();
+    obj.useDefaultPdFloatFn();
+    obj.useDefaultPdSymbolFn();
 
     obj.processData<DataTypeMList>();
 }

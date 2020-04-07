@@ -18,6 +18,8 @@ PD_COMPLETE_TEST_SETUP(ArrayEach, array, each)
 
 TEST_CASE("array.each", "[externals]")
 {
+    pd_test_init();
+
     SECTION("empty")
     {
         TObj t("array.each");
@@ -44,7 +46,7 @@ TEST_CASE("array.each", "[externals]")
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
     }
 
-    SECTION("array1")
+    SECTION("array_each1")
     {
         TObj t("array.each", LA("array_each"));
 
@@ -64,27 +66,27 @@ TEST_CASE("array.each", "[externals]")
 
     SECTION("array1 connected")
     {
-        ObjectFactory<ArrayEach> obj("array.each");
+        TExt t("array.each", "array_each1");
+        REQUIRE(t.numInlets() == 2);
+        REQUIRE(t.numOutlets() == 2);
+        REQUIRE_PROPERTY(t, @array, "array_each1");
 
-        t_atom argv;
-        SETSYMBOL(&argv, gensym("array1"));
-        void* x = ObjectFactory<ArrayEach>::createObject(0, 1, &argv);
+        External mul("*", 2);
 
-        ObjectFactory<ArrayEach>::ObjectProxy* p = (ObjectFactory<ArrayEach>::ObjectProxy*)x;
-        REQUIRE(p->impl->numInlets() == 2);
-        REQUIRE(p->impl->property("@array")->get() == LA("array1"));
+        // [list.each] X [* 2]
+        REQUIRE(t.object());
+        REQUIRE(mul.object());
+        REQUIRE(t.connectTo(1, mul, 0));
+        REQUIRE(t.connectFrom(0, mul, 1));
 
-        Array a("array1");
-        a.fillWith(4);
+        ArrayPtr aptr = cnv->createArray("array_each1", 10);
+        aptr->fillWith(4);
 
-        pd::External mul("sqrt");
-        REQUIRE(!mul.isNull());
+        t.bang();
+        REQUIRE(t.lastMessage(0).isBang());
 
-        REQUIRE(Canvas::connect(&p->pd_obj, 1, mul.object(), 0));
-        REQUIRE(mul.connectTo(0, &p->pd_obj, 1));
-
-        // array created
-        pd_bang(&p->pd_obj.te_g.g_pd);
-        REQUIRE(a[0] == Approx(2));
+        for (auto f : *aptr) {
+            REQUIRE(f == 8);
+        }
     }
 }

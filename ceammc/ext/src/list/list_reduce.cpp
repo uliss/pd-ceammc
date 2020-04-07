@@ -44,7 +44,7 @@ void setup_list_reduce()
 {
     ObjectFactory<ListReduce> obj("list.reduce");
     obj.addAlias("list.foldl");
-    obj.mapFloatToList();
-    obj.mapSymbolToList();
+    obj.useDefaultPdFloatFn();
+    obj.useDefaultPdSymbolFn();
     obj.processData<DataTypeMList>();
 }

@@ -71,5 +71,5 @@ void setup_vline_to_env()
     ObjectFactory<Vline2Env> obj("vline2env");
     obj.addAlias("vline->env");
 
-    obj.mapFloatToList();
+    obj.useDefaultPdFloatFn();
 }

@@ -92,21 +92,6 @@ public:
         class_ = c;
         flags_ = flags;
 
-        if (!(flags & OBJECT_FACTORY_NO_BANG))
-            setBangFn(processBang);
-
-        if (!(flags & OBJECT_FACTORY_NO_FLOAT))
-            setFloatFn(processFloat);
-
-        if (!(flags & OBJECT_FACTORY_NO_SYMBOL))
-            setSymbolFn(processSymbol);
-
-        if (!(flags & OBJECT_FACTORY_NO_LIST))
-            setListFn(processList);
-
-        if (!(flags & OBJECT_FACTORY_NO_ANY))
-            setAnyFn(processAny);
-
         // add [dump( method to dump to Pd console
         class_addmethod(c, reinterpret_cast<t_method>(dumpMethodList), SYM_DUMP(), A_NULL);
         // add [@*?( method to output all properties
@@ -117,47 +102,74 @@ public:
         ObjectInfoStorage::instance().addBase(c);
     }
 
-    void mapFloatToList()
+    /** dtor, that finalizes object creation */
+    ~ObjectFactory() { finalize(); }
+
+    /** finalizes object creation */
+    void finalize()
     {
-        fn_float_ = defaultFloatToList;
-        class_doaddfloat(class_, reinterpret_cast<t_method>(fn_float_));
+        if (!(flags_ & OBJECT_FACTORY_NO_BANG))
+            setBangFn(processBang);
+
+        if (!(flags_ & OBJECT_FACTORY_NO_FLOAT))
+            setFloatFn(processFloat);
+
+        if (!(flags_ & OBJECT_FACTORY_NO_SYMBOL))
+            setSymbolFn(processSymbol);
+
+        if (!(flags_ & OBJECT_FACTORY_NO_LIST))
+            setListFn(processList);
+
+        if (!(flags_ & OBJECT_FACTORY_NO_ANY))
+            setAnyFn(processAny);
     }
 
-    void mapSymbolToList()
-    {
-        fn_symbol_ = defaultSymbolToList;
-        class_addsymbol(class_, reinterpret_cast<t_method>(fn_symbol_));
-    }
+    /** use default pd bang handler */
+    void useDefaultPdBangFn() { flags_ |= OBJECT_FACTORY_NO_BANG; }
+    /** use default pd float handler */
+    void useDefaultPdFloatFn() { flags_ |= OBJECT_FACTORY_NO_FLOAT; }
+    /** use default pd symbol handler */
+    void useDefaultPdSymbolFn() { flags_ |= OBJECT_FACTORY_NO_SYMBOL; }
+    /** use default pd list handler */
+    void useDefaultPdListFn() { flags_ |= OBJECT_FACTORY_NO_LIST; }
+    /** use default pd any handler */
+    void useDefaultPdAnyFn() { flags_ |= OBJECT_FACTORY_NO_ANY; }
 
+    /** set help name */
     void setHelp(const char* name)
     {
         class_sethelpsymbol(class_, gensym(name));
     }
 
+    /** set bang handler */
     void setBangFn(PdBangFunction fn)
     {
         fn_bang_ = fn;
         class_addbang(class_, reinterpret_cast<t_method>(fn));
     }
 
+    /** set float handler */
     void setFloatFn(PdFloatFunction fn)
     {
         fn_float_ = fn;
         class_doaddfloat(class_, reinterpret_cast<t_method>(fn));
     }
 
+    /** set symbol handler */
     void setSymbolFn(PdSymbolFunction fn)
     {
         fn_symbol_ = fn;
         class_addsymbol(class_, reinterpret_cast<t_method>(fn));
     }
 
+    /** set list handler */
     void setListFn(PdListFunction fn)
     {
         fn_list_ = fn;
         class_addlist(class_, reinterpret_cast<t_method>(fn));
     }
 
+    /** set any handler */
     void setAnyFn(PdAnyFunction fn)
     {
         fn_any_ = fn;
@@ -171,18 +183,21 @@ public:
         list_methods_[s] = fn;
     }
 
+    /** add object alias */
     void addAlias(const char* name)
     {
         class_addcreator(reinterpret_cast<t_newmethod>(createObject), gensym(name), A_GIMME, A_NULL);
         ObjectInfoStorage::instance().info(class_).aliases.push_back(name);
     }
 
+    /** adds click support */
     void useClick()
     {
         class_addmethod(class_, reinterpret_cast<t_method>(processClick), gensym("click"),
             A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_NULL);
     }
 
+    /** adds loadbang reaction */
     void useLoadBang()
     {
         class_addmethod(class_, reinterpret_cast<t_method>(processLoadBang), gensym("loadbang"), A_DEFFLOAT, 0);
@@ -191,12 +206,14 @@ public:
     void processData()
     {
         setListFn(processDataFn);
+        flags_ |= OBJECT_FACTORY_NO_LIST;
     }
 
     template <typename... DataT>
     void processData()
     {
         setListFn(processDataTypedFn<DataT...>);
+        flags_ |= OBJECT_FACTORY_NO_LIST;
     }
 
     void setDescription(const std::string& str)
@@ -252,11 +269,13 @@ public:
         setFlag(OBJECT_FACTORY_PARSE_POSITIONAL_PROPS_ONLY, !value);
     }
 
+    /** default factory object constructor function */
     static void* createObject(t_symbol* name, int argc, t_atom* argv)
     {
         ObjectProxy* x = nullptr;
 
         try {
+            // print deprecation message
             ObjectInfoStorage::Info class_info;
             if (ObjectInfoStorage::instance().find(name, class_info)) {
                 if (class_info.deprecated) {
@@ -267,15 +286,19 @@ public:
                 }
             }
 
+            // alloc pd struct
             x = reinterpret_cast<ObjectProxy*>(pd_new(class_));
             if (x == nullptr)
                 throw std::runtime_error("can't allocate memory for object");
 
+            // prepare PdArgs
             PdArgs args(AtomList(argc, argv), class_name_, &x->pd_obj, name);
             args.noDefaultInlet = flags_ & OBJECT_FACTORY_NO_DEFAULT_INLET;
             args.mainSignalInlet = flags_ & OBJECT_FACTORY_MAIN_SIGNAL_INLET;
 
+            // construct ceammc object
             x->impl = new T(args);
+
         } catch (std::exception& e) {
             pd_error(0, "[ceammc] can't create object [%s]: %s", class_name_->s_name, e.what());
 
@@ -295,53 +318,65 @@ public:
         else
             x->impl->parseProperties();
 
+        // some properties (callback) knows their current value only after object creation
+        // update this information
         x->impl->updatePropertyDefaults();
+
         x->impl->initDone();
 
         return x;
     }
 
+    /** default factory object destructor */
     static void deleteObject(ObjectProxy* x)
     {
         delete x->impl;
     }
 
+    /** default factory bang handler */
     static void processBang(ObjectProxy* x)
     {
         x->impl->onBang();
     }
 
+    /** default factory float handler */
     static void processFloat(ObjectProxy* x, t_floatarg f)
     {
         x->impl->onFloat(static_cast<t_float>(f));
     }
 
+    /** default factory symbol handler */
     static void processSymbol(ObjectProxy* x, t_symbol* s)
     {
         x->impl->onSymbol(s);
     }
 
+    /** default factory list handler */
     static void processList(ObjectProxy* x, t_symbol*, int argc, t_atom* argv)
     {
         x->impl->onList(AtomList(argc, argv));
     }
 
+    /** default factory any handler handler */
     static void processAny(ObjectProxy* x, t_symbol* s, int argc, t_atom* argv)
     {
         x->impl->anyDispatch(s, AtomList(argc, argv));
     }
 
+    /** default factory click handler handler */
     static void processClick(ObjectProxy* x, t_symbol* /*sel*/,
         t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
     {
         x->impl->onClick(xpos, ypos, shift, ctrl, alt);
     }
 
+    /** default factory loadbang handler */
     static void processLoadBang(ObjectProxy* x, t_floatarg action)
     {
         x->impl->dispatchLoadBang(static_cast<int>(action));
     }
 
+    /** default factory any data handler */
     static void processDataFn(ObjectProxy* x, t_symbol*, int argc, t_atom* argv)
     {
         if (argc == 1 && argv && Atom::is_data(argv)) {
@@ -351,39 +386,7 @@ public:
         }
     }
 
-    template <typename DataT>
-    static bool processDataSingleTypedFn(ObjectProxy* x, const Atom& a)
-    {
-        if (a.isA<DataT>()) {
-            x->impl->onDataT(DataAtom<DataT>(a));
-            return true;
-        } else
-            return false;
-    }
-
-    struct utility {
-        template <typename TypeList, int index>
-        struct iterate_pred {
-            static bool next(ObjectProxy* x, const Atom& a)
-            {
-                using Type = typename std::tuple_element<index - 1, TypeList>::type;
-                if (iterate_pred<TypeList, index - 1>::next(x, a))
-                    return true;
-                else
-                    return processDataSingleTypedFn<Type>(x, a);
-            }
-        };
-
-        template <typename TypeList>
-        struct iterate_pred<TypeList, 0> {
-            static bool next(ObjectProxy* x, const Atom& a)
-            {
-                using Type = typename std::tuple_element<0, TypeList>::type;
-                return processDataSingleTypedFn<Type>(x, a);
-            }
-        };
-    };
-
+    /** default factory mutiple typed data handler */
     template <typename... Types>
     static void processDataTypedFn(ObjectProxy* x, t_symbol*, int argc, t_atom* argv)
     {
@@ -451,15 +454,38 @@ public:
     }
 
 private:
-    static void defaultFloatToList(ObjectProxy* x, t_floatarg f)
+    template <typename DataT>
+    static bool processDataSingleTypedFn(ObjectProxy* x, const Atom& a)
     {
-        x->impl->onList(AtomList::filled(f, 1));
+        if (a.isA<DataT>()) {
+            x->impl->onDataT(DataAtom<DataT>(a));
+            return true;
+        } else
+            return false;
     }
 
-    static void defaultSymbolToList(ObjectProxy* x, t_symbol* s)
-    {
-        x->impl->onList(listFrom(s));
-    }
+    struct utility {
+        template <typename TypeList, int index>
+        struct iterate_pred {
+            static bool next(ObjectProxy* x, const Atom& a)
+            {
+                using Type = typename std::tuple_element<index - 1, TypeList>::type;
+                if (iterate_pred<TypeList, index - 1>::next(x, a))
+                    return true;
+                else
+                    return processDataSingleTypedFn<Type>(x, a);
+            }
+        };
+
+        template <typename TypeList>
+        struct iterate_pred<TypeList, 0> {
+            static bool next(ObjectProxy* x, const Atom& a)
+            {
+                using Type = typename std::tuple_element<0, TypeList>::type;
+                return processDataSingleTypedFn<Type>(x, a);
+            }
+        };
+    };
 
 private:
     static t_class* class_;

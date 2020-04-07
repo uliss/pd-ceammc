@@ -17,42 +17,31 @@
 
 ListAppend::ListAppend(const PdArgs& args)
     : BaseObject(args)
-    , lst_(args.args)
+    , lst_(nullptr)
 {
+    lst_ = new ListProperty("@value");
+    lst_->setArgIndex(0);
+    addProperty(lst_);
+
     createInlet();
     createOutlet();
 }
 
-void ListAppend::parseProperties()
-{
-    // empty
-}
-
 void ListAppend::onBang()
 {
-    listTo(0, lst_);
-}
-
-void ListAppend::onFloat(t_float f)
-{
-    onList(AtomList(f));
-}
-
-void ListAppend::onSymbol(t_symbol* s)
-{
-    onList(AtomList(s));
+    listTo(0, lst_->value());
 }
 
 void ListAppend::onList(const AtomList& lst)
 {
-    listTo(0, lst + lst_);
+    listTo(0, lst + lst_->value());
 }
 
 void ListAppend::onDataT(const MListAtom& d)
 {
-    MListAtom ml(d);
+    MListAtom ml = d;
     ml.detachData();
-    ml->append(lst_);
+    ml->append(lst_->value());
     atomTo(0, ml);
 }
 
@@ -63,11 +52,13 @@ void ListAppend::onData(const Atom& d)
 
 void ListAppend::onInlet(size_t n, const AtomList& lst)
 {
-    lst_ = lst;
+    lst_->set(lst);
 }
 
 void setup_list_append()
 {
     ObjectFactory<ListAppend> obj("list.append");
     obj.processData<DataTypeMList>();
+    obj.useDefaultPdFloatFn();
+    obj.useDefaultPdSymbolFn();
 }

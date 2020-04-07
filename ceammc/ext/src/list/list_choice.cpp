@@ -56,6 +56,6 @@ void ListChoice::onList(const AtomList& l)
 void setup_list_choice()
 {
     ObjectFactory<ListChoice> obj("list.choice");
-    obj.mapFloatToList();
+    obj.useDefaultPdFloatFn();
     obj.processData<DataTypeMList>();
 }

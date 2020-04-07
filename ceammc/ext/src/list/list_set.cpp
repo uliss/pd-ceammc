@@ -84,6 +84,6 @@ void setup_list_set()
 {
     ObjectFactory<ListSet> obj("list.set");
     obj.processData<DataTypeMList>();
-    obj.mapFloatToList();
-    obj.mapSymbolToList();
+    obj.useDefaultPdFloatFn();
+    obj.useDefaultPdSymbolFn();
 }

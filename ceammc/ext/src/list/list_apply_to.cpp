@@ -14,7 +14,20 @@ ListApplyTo::ListApplyTo(const ceammc::PdArgs& args)
     createOutlet();
     createOutlet();
 
-    onInlet(1, positionalArguments());
+    createCbListProperty(
+        "@indexes",
+        [this]() -> AtomList {
+            AtomList res;
+            for (auto i : idxs_)
+                res.append(i);
+
+            return res;
+        },
+        [this](const AtomList& l) -> bool {
+            setIndexes(l);
+            return true;
+        })
+        ->setArgIndex(0);
 }
 
 bool ListApplyTo::processAnyProps(t_symbol* sel, const AtomList& lst)
@@ -128,6 +141,6 @@ void setup_list_apply_to()
 {
     ObjectFactory<ListApplyTo> obj("list.apply_to");
     obj.processData<DataTypeMList>();
-    obj.mapFloatToList();
-    obj.mapSymbolToList();
+    obj.useDefaultPdFloatFn();
+    obj.useDefaultPdSymbolFn();
 }

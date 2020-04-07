@@ -29,11 +29,13 @@ TEST_CASE("list.apply_to", "[externals]")
         TObj t("list.apply_to");
         REQUIRE(t.numInlets() == 3);
         REQUIRE(t.numOutlets() == 2);
+        REQUIRE_PROPERTY(t, @indexes);
     }
 
     SECTION("do")
     {
         TExt t("list.apply_to", LF(0, -1));
+        REQUIRE_PROPERTY(t, @indexes, 0, -1);
         External plus("+", 10);
 
         REQUIRE(t.object());

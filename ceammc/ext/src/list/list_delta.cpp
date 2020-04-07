@@ -74,7 +74,7 @@ public:
     }
 };
 
-extern "C" void setup_list0x2edelta()
+void setup_list_delta()
 {
     SYM_MIN = gensym("min");
     SYM_PADZ = gensym("padz");

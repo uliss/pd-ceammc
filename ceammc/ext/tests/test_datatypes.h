@@ -14,6 +14,7 @@
 #ifndef TEST_DATATYPES_H
 #define TEST_DATATYPES_H
 
+#include <iostream>
 #include <string>
 
 #include "ceammc_abstractdata.h"
@@ -45,6 +46,8 @@ public:
     static int constructor_called;
     static int destructor_called;
 };
+
+std::ostream& operator<<(std::ostream& os, const IntData& d);
 
 class StrData : public ceammc::AbstractData {
     std::string v_;

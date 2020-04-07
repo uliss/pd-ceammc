@@ -41,7 +41,7 @@ TEST_CASE("list.length", "[externals]")
         t << LF(1, 2);
         REQUIRE_THAT(t, outputFloat(&t, 2));
 
-        t.send(MLA("a", "b", "c"));
+        t << MLA("a", "b", "c");
         REQUIRE_THAT(t, outputFloat(&t, 3));
         t.send(MLA());
         REQUIRE_THAT(t, outputFloat(&t, 0));
