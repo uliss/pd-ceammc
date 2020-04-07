@@ -328,11 +328,14 @@ TestExternal<T>::TestExternal(const char* name, const AtomList& args, bool mainS
             : PdArgs(args, gensym(name), make_owner<T>(name), gensym(name)))
     , atom_cb_(0)
 {
+    T::parseProperties();
+    T::initDone();
+
+    // num outlets can be known after parsing properties
     const size_t N = T::numOutlets();
     msg_.assign(N, MessageList());
     msg_count_.assign(N, -1);
-    T::parseProperties();
-    T::initDone();
+
     // fix CLASS_NOINLET flag
     if (T::owner() && ObjectFactory<T>::classPointer()) {
         T::owner()->te_g.g_pd->c_firstin = ObjectFactory<T>::classPointer()->c_firstin;

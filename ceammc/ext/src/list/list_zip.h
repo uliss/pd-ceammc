@@ -20,14 +20,15 @@
 using namespace ceammc;
 
 class ListZip : public BaseObject {
-    const size_t n_;
+    IntProperty* n_;
+    SymbolEnumProperty* method_;
     std::vector<AtomList> in_list_;
     AtomList out_list_;
-    SymbolEnumProperty* method_;
     Atom pad_;
 
 public:
     ListZip(const PdArgs& a);
+    void initDone() override;
 
     void onBang() override;
     void onList(const AtomList& l) override;
@@ -37,7 +38,6 @@ public:
 private:
     void initInlets();
     void initLists();
-    void initProperties();
 };
 
 void setup_list_zip();

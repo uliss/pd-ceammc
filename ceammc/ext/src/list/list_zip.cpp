@@ -11,6 +11,7 @@
 #include "ceammc_fn_list.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
+#include "datatype_mlist.h"
 
 #include <cassert>
 #include <sstream>
@@ -29,14 +30,54 @@ static t_symbol* SYM_FOLD;
 
 ListZip::ListZip(const PdArgs& a)
     : BaseObject(a)
-    , n_(positionalConstant<DEFAULT_INLET, MIN_INLET, MAX_INLET>(0))
-    , method_(0)
+    , n_(nullptr)
+    , method_(nullptr)
     , pad_(0.f)
 {
+    n_ = new IntProperty("@n", DEFAULT_INLET, PropValueAccess::INITONLY);
+    n_->checkClosedRange(MIN_INLET, MAX_INLET);
+    n_->setArgIndex(0);
+    addProperty(n_);
+
+    // interleave methods:
+    // @min - interleave by shortests list (by default)
+    // @pad - pad with specified value (@pad_value property), zero by default
+    // @wrap - pad with wrapped values
+    // @fold - pad with fold values
+    method_ = new SymbolEnumProperty("@method",
+        { SYM_MIN, SYM_PAD, SYM_CLIP, SYM_WRAP, SYM_FOLD });
+    addProperty(method_);
+
+    // adding aliases
+    addProperty(new SymbolEnumAlias("@min", method_, SYM_MIN));
+    addProperty(new SymbolEnumAlias("@clip", method_, SYM_CLIP));
+    addProperty(new SymbolEnumAlias("@wrap", method_, SYM_WRAP));
+    addProperty(new SymbolEnumAlias("@fold", method_, SYM_FOLD));
+
+    createCbAtomProperty(
+        "@pad",
+        [this]() -> Atom { return pad_; },
+        [this](const Atom& a) -> bool {
+            pad_ = a;
+            method_->setValue(SYM_PAD);
+            return true; });
+
+    createCbListProperty("@lists",
+        [this]() -> AtomList {
+            AtomList res;
+            for (auto& x : in_list_)
+                res.append(MListAtom(x));
+
+            return res;
+        });
+}
+
+void ListZip::initDone()
+{
+    // we should do all of this after property parsing
     initLists();
     initInlets();
     createOutlet();
-    initProperties();
 }
 
 void ListZip::onBang()
@@ -65,7 +106,7 @@ void ListZip::onList(const AtomList& l)
 
 void ListZip::onInlet(size_t n, const AtomList& l)
 {
-    if (n >= n_) {
+    if (n >= n_->value()) {
         OBJ_ERR << "invalid inlet index: " << n << ", total inlet count = " << n_;
         return;
     }
@@ -87,51 +128,16 @@ void ListZip::dump() const
 
 void ListZip::initInlets()
 {
-    assert(n_ > 1);
-
-    for (size_t i = 0; i < n_ - 1; i++)
+    for (size_t i = 0; i < n_->value() - 1; i++)
         createInlet();
 }
 
 void ListZip::initLists()
 {
-    in_list_.reserve(n_);
+    in_list_.reserve(n_->value());
 
-    for (size_t i = 0; i < n_; i++)
+    for (size_t i = 0; i < n_->value(); i++)
         in_list_.push_back(AtomList());
-
-    for (size_t i = 0; i < n_; i++) {
-        std::ostringstream s;
-        s << "@l" << i;
-        PointerProperty<AtomList>* p = new PointerProperty<AtomList>(s.str().c_str(), &in_list_[i], PropValueAccess::READWRITE);
-        addProperty(p);
-    }
-}
-
-void ListZip::initProperties()
-{
-    // interleave methods:
-    // @min - interleave by shortests list (by default)
-    // @pad - pad with specified value (@pad_value property), zero by default
-    // @wrap - pad with wrapped values
-    // @fold - pad with fold values
-    method_ = new SymbolEnumProperty("@method",
-        { SYM_MIN, SYM_PAD, SYM_CLIP, SYM_WRAP, SYM_FOLD });
-    addProperty(method_);
-
-    // adding aliases
-    addProperty(new SymbolEnumAlias("@min", method_, SYM_MIN));
-    addProperty(new SymbolEnumAlias("@clip", method_, SYM_CLIP));
-    addProperty(new SymbolEnumAlias("@wrap", method_, SYM_WRAP));
-    addProperty(new SymbolEnumAlias("@fold", method_, SYM_FOLD));
-
-    createCbAtomProperty(
-        "@pad",
-        [this]() -> Atom { return pad_; },
-        [this](const Atom& a) -> bool {
-        pad_ = a;
-        method_->setValue(SYM_PAD);
-        return true; });
 }
 
 void setup_list_zip()
