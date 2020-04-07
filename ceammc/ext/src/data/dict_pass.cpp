@@ -22,11 +22,6 @@ DictPass::DictPass(const PdArgs& args)
     createOutlet();
 }
 
-void DictPass::parseProperties()
-{
-    // skip arguments property parsing
-}
-
 void DictPass::onInlet(size_t, const AtomList& lst)
 {
     keys_ = lst;
@@ -45,4 +40,5 @@ void setup_dict_pass()
 {
     ObjectFactory<DictPass> obj("dict.pass");
     obj.processData<DataTypeDict>();
+    obj.parseOnlyPositionalProps(true);
 }

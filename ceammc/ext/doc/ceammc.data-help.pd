@@ -21,7 +21,7 @@
 #X obj 30 332 data.tree;
 #X text 200 332 JSON like structure for storing values;
 #X obj 30 359 dict.contains;
-#X text 200 359 predicate to check dict contains key;
+#X text 200 359 predicate to check if dict contains a keys;
 #X obj 30 386 dict.each;
 #X text 200 386 map each value in dict;
 #X obj 30 413 dict.from_list;

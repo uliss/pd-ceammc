@@ -27,6 +27,7 @@ TEST_CASE("dict.contains", "[externals]")
             TestDictContains t("dict.contains");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
+            REQUIRE_PROPERTY(t, @keys);
         }
     }
 
@@ -35,20 +36,22 @@ TEST_CASE("dict.contains", "[externals]")
         SECTION("no key")
         {
             TExt t("dict.contains");
+            REQUIRE_PROPERTY(t, @keys);
 
-            t.send(DictA("[a:b]"));
+            t.send(DictA("[a: b]"));
             REQUIRE_FALSE(t.hasOutput());
         }
 
         SECTION("key")
         {
             TExt t("dict.contains", LA("a"));
+            REQUIRE_PROPERTY(t, @keys, "a");
 
-            t.send(DictA("[a:b]"));
+            t.send(DictA("[a: b]"));
             REQUIRE(t.hasOutput());
             REQUIRE(t.outputFloatAt(0) == 1);
 
-            t.send(DictA("[c:d]"));
+            t.send(DictA("[c: d]"));
             REQUIRE(t.hasOutput());
             REQUIRE(t.outputFloatAt(0) == 0);
 
@@ -57,15 +60,34 @@ TEST_CASE("dict.contains", "[externals]")
             REQUIRE(t.outputFloatAt(0) == 0);
         }
 
+        SECTION("multikey")
+        {
+            TExt t("dict.contains", "a", "b", "c");
+            REQUIRE_PROPERTY(t, @keys, "a", "b", "c");
+
+            t.send(DictA("[a: 1]"));
+            REQUIRE(listAt(t) == LF(1, 0, 0));
+
+            t.send(DictA("[c: 2]"));
+            REQUIRE(listAt(t) == LF(0, 0, 1));
+
+            t.send(DictA());
+            REQUIRE(listAt(t) == LF(0, 0, 0));
+
+            t.send(DictA("[a: 1 b: 2 c: 3]"));
+            REQUIRE(listAt(t) == LF(1, 1, 1));
+        }
+
         SECTION("prop")
         {
-            TExt t("dict.contains", LA("@a"));
+            TExt t("dict.contains", "\"@a\"");
+            REQUIRE_PROPERTY(t, @keys, "@a");
 
-            t.send(DictA("[a:b]"));
+            t.send(DictA("[a: b]"));
             REQUIRE(t.hasOutput());
             REQUIRE(t.outputFloatAt(0) == 0);
 
-            t.send(DictA("[@a:b]"));
+            t.send(DictA("[@a: b]"));
             REQUIRE(t.hasOutput());
             REQUIRE(t.outputFloatAt(0) == 1);
         }

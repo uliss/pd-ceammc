@@ -20,7 +20,7 @@
 using namespace ceammc;
 
 class DictContains : public BaseObject {
-    AtomProperty* key_;
+    ListProperty* keys_;
 
 public:
     DictContains(const PdArgs& args);

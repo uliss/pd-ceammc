@@ -266,7 +266,7 @@ public:
 
     void parseOnlyPositionalProps(bool value)
     {
-        setFlag(OBJECT_FACTORY_PARSE_POSITIONAL_PROPS_ONLY, !value);
+        setFlag(OBJECT_FACTORY_PARSE_POSITIONAL_PROPS_ONLY, value);
     }
 
     /** default factory object constructor function */

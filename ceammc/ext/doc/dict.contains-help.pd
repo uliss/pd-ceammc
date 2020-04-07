@@ -1,36 +1,37 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 483 50 cnv 1 282 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 483 50 predicate to check dict contains key;
+#X obj 438 50 cnv 1 327 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 438 50 predicate to check if dict contains a keys;
 #X obj 1 1 cnv 5 765 40 empty empty dict.contains 20 20 0 20 -104026
 -4096 0;
 #X obj 646 11 dict.contains;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 147 data.dict \[a: b\] \[c: 200\];
-#X obj 50 176 dict.contains c;
-#X floatatom 50 205 5 0 0 0 - - -;
-#X obj 20 244 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 249 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 147 data.dict \[a: 1 b: 2 c: 3 d: 4\];
+#X obj 50 176 dict.contains c d e;
+#X obj 50 205 ui.display @size 150 18;
+#X obj 20 245 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 250 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 284 1\.;
-#X text 150 284 atom;
-#X obj 246 285 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 284 KEY: checked key.;
-#X obj 20 314 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 319 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 285 1\.;
+#X text 150 285 list;
+#X obj 246 286 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 285 KEY: checked keys.;
+#X obj 20 315 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 320 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 320 1\.;
-#X text 150 320 *data*;
-#X text 245 320 Data.dict expected.;
-#X text 110 340 2\.;
-#X text 150 340 *atom*;
-#X text 245 340 change searched key.;
-#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 321 1\.;
+#X text 150 321 *data*;
+#X text 245 321 Data.dict expected.;
+#X text 110 341 2\.;
+#X text 150 341 *atom*;
+#X text 245 341 change searched key.;
+#X obj 20 371 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 376 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 376 1\.;
-#X text 245 376 output 1 is contains key \, otherwise 0\.;
+#X text 110 377 1\.;
+#X text 245 377 output list of 1 and 0\. One means dict contains key
+\, zero - not.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

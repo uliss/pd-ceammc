@@ -163,7 +163,7 @@ to current samplerate;
 #X obj 30 2317 data.tree;
 #X text 200 2317 JSON like structure for storing values;
 #X obj 30 2344 dict.contains;
-#X text 200 2344 predicate to check dict contains key;
+#X text 200 2344 predicate to check if dict contains a keys;
 #X obj 30 2371 dict.each;
 #X text 200 2371 map each value in dict;
 #X obj 30 2398 dict.from_list;

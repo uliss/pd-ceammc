@@ -17,11 +17,11 @@
 
 DictContains::DictContains(const PdArgs& args)
     : BaseObject(args)
-    , key_(nullptr)
+    , keys_(nullptr)
 {
-    key_ = new AtomProperty("@key", Atom());
-    key_->setArgIndex(0);
-    addProperty(key_);
+    keys_ = new ListProperty("@keys");
+    keys_->setArgIndex(0);
+    addProperty(keys_);
 
     createInlet();
     createOutlet();
@@ -29,17 +29,19 @@ DictContains::DictContains(const PdArgs& args)
 
 void DictContains::onInlet(size_t n, const AtomList& lst)
 {
-    key_->set(lst);
+    keys_->set(lst);
 }
 
 void DictContains::onDataT(const DictAtom& dict)
 {
-    if (key_->value().isNone()) {
-        OBJ_ERR << "no key specified: " << key_;
+    if (keys_->value().empty()) {
+        OBJ_ERR << "no key specified: " << keys_;
         return;
     }
 
-    boolTo(0, dict->contains(key_->value()));
+    listTo(0, keys_->value().map([&dict](const Atom& a) -> Atom {
+        return Atom(dict->contains(a) ? 1 : 0);
+    }));
 }
 
 void setup_dict_contains()

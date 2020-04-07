@@ -121,6 +121,18 @@ public:
     Atom d_any;
 };
 
+class TestProperties : public TestClass {
+public:
+    TestProperties(const PdArgs& a)
+        : TestClass(a)
+    {
+
+    }
+
+public:
+    SymbolProperty* sym_;
+};
+
 template <typename T>
 class PdExternalT : public ceammc::pd::External {
 public:
