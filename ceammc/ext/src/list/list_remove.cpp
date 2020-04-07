@@ -23,7 +23,20 @@ ListRemove::ListRemove(const PdArgs& args)
     createInlet();
     createOutlet();
 
-    setRemoveList(positionalArguments());
+    createCbListProperty(
+        "@idxs",
+        [this]() -> AtomList {
+            AtomList res;
+            for (auto x : idx_)
+                res.append(x);
+
+            return res;
+        },
+        [this](const AtomList& l) -> bool {
+            setRemoveList(l);
+            return true;
+        })
+        ->setArgIndex(0);
 }
 
 void ListRemove::setRemoveList(const AtomList& lst)
