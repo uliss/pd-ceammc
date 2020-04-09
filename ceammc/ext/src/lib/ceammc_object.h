@@ -71,7 +71,7 @@ class BaseObject {
     using OutletList = std::vector<t_outlet*>;
     using SymbolList = std::vector<t_symbol*>;
     using Properties = std::vector<Property*>;
-    typedef void (*PropCallback)(BaseObject*, t_symbol*);
+
     InletList inlets_;
     OutletList outlets_;
     SymbolList inlets_s_;
@@ -79,7 +79,6 @@ class BaseObject {
     AtomList positional_args_;
     t_symbol* receive_from_;
     t_canvas* cnv_;
-    PropCallback prop_set_callback_;
 
 public:
     typedef AtomList (BaseObject::*GetterFn)() const;
@@ -548,7 +547,6 @@ protected:
     void appendInlet(t_inlet* in);
     void appendOutlet(t_outlet* out);
     bool queryProperty(t_symbol* key, AtomList& res) const;
-    void setPropertyCallback(PropCallback cb);
 
 private:
     void extractPositionalArguments();

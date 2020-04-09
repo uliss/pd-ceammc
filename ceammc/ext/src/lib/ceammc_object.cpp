@@ -127,11 +127,7 @@ bool BaseObject::setProperty(t_symbol* key, const AtomList& v)
     if (!p || !p->isReadWrite())
         return false;
 
-    bool rc = p->set(v);
-    if (rc && prop_set_callback_)
-        prop_set_callback_(this, key);
-
-    return rc;
+    return p->set(v);
 }
 
 bool BaseObject::setProperty(const char* key, const AtomList& v)
@@ -316,9 +312,6 @@ bool BaseObject::processAnyProps(t_symbol* sel, const AtomList& lst)
         } else
             rc = p->set(lst);
 
-        if (rc && prop_set_callback_)
-            prop_set_callback_(this, sel);
-
         return rc;
     }
 
@@ -354,11 +347,6 @@ bool BaseObject::queryProperty(t_symbol* key, AtomList& res) const
     res.append(key);
     res.append(p->get());
     return true;
-}
-
-void BaseObject::setPropertyCallback(BaseObject::PropCallback cb)
-{
-    prop_set_callback_ = cb;
 }
 
 void BaseObject::extractPositionalArguments()
@@ -423,7 +411,6 @@ BaseObject::BaseObject(const PdArgs& args)
     : pd_(args)
     , receive_from_(nullptr)
     , cnv_(canvas_getcurrent())
-    , prop_set_callback_(nullptr)
 {
     extractPositionalArguments();
 }
@@ -618,18 +605,24 @@ void BaseObject::parseProperties()
             continue;
 
         bool positional_arg_was_used = false;
+        auto name = p->name();
 
         // process positional args
         const auto ARG_IDX = p->argIndex();
         if (p->hasArgIndex() && ARG_IDX < NPOS_ARGS) {
             if (p->isList()) {
-                p->setInit(parsed_positional_args.view(ARG_IDX));
+                bool ok = p->setInit(parsed_positional_args.view(ARG_IDX));
+
+                if (!ok)
+                    OBJ_ERR << "can't set property: " << name->s_name;
             } else { //  single atom
-                p->setInit(parsed_positional_args.view(ARG_IDX, 1));
+                bool ok = p->setInit(parsed_positional_args.view(ARG_IDX, 1));
+
+                if (!ok)
+                    OBJ_ERR << "can't set property: " << name->s_name;
             }
         }
 
-        auto name = p->name();
         const auto N = parsed_props.size();
 
         for (size_t i = 0; i < N; i++) {
@@ -651,12 +644,11 @@ void BaseObject::parseProperties()
                         aa.removeQuotes();
                 }
 
-                bool ok = p->setInit(parsed_props.view(i + 1, prop_len));
-                if (ok && prop_set_callback_)
-                    prop_set_callback_(this, p->name());
+                if (!p->setInit(parsed_props.view(i + 1, prop_len)))
+                    OBJ_ERR << "can't set property: " << name->s_name;
 
                 if (positional_arg_was_used) {
-                    LIB_ERR << "both positional arg [" << int(ARG_IDX) << "] and named property "
+                    OBJ_ERR << "both positional arg [" << int(ARG_IDX) << "] and named property "
                             << name->s_name << " are defined, using named property value: "
                             << to_string(p->get());
                 }

@@ -219,7 +219,7 @@ TEST_CASE("ceammc_factory", "[core]")
         pd_free(&ext->pd_obj.te_g.g_pd);
 
         // do not parse properties
-        f.parseOnlyPositionalProps(false);
+        f.parseOnlyPositionalProps(true);
         PdExternal* ext1 = reinterpret_cast<PdExternal*>(f.createObject(gensym("test.new"), args.size(), args.toPdData()));
         REQUIRE_PROPERTY((*ext1->impl), @test_prop, -1);
         pd_free(&ext1->pd_obj.te_g.g_pd);
