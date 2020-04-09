@@ -24,25 +24,22 @@ using namespace ceammc;
 
 template <typename T>
 class DictIFace : public FilesystemIFace<CollectionIFace<T>> {
-protected:
-    DictAtom dict_;
-
 public:
     DictIFace(const PdArgs& args)
         : FilesystemIFace<CollectionIFace<T>>(args)
     {
-        T::createCbListProperty("@keys", [this]() -> AtomList { return dict_->keys(); });
+        T::createCbListProperty("@keys", [this]() -> AtomList { return dict()->keys(); });
     }
 
     void dump() const override
     {
         FilesystemIFace<CollectionIFace<T>>::dump();
-        OBJ_DBG << dict_;
+        OBJ_DBG << dict();
     }
 
     void onBang() override
     {
-        this->atomTo(0, dict_);
+        this->atomTo(0, dict());
     }
 
     void onList(const AtomList& args) override
@@ -52,8 +49,8 @@ public:
             return;
         }
 
-        dict_.detachData();
-        *dict_ = DataTypeDict::fromList(args, 2);
+        dict().detachData();
+        *dict() = DataTypeDict::fromList(args, 2);
     }
 
     void onAny(t_symbol* s, const AtomList& args) override
@@ -62,9 +59,9 @@ public:
         str += ' ';
         str += to_string(args, " ");
 
-        dict_.detachData();
+        dict().detachData();
 
-        if (!dict_->fromString(str)) {
+        if (!dict()->fromString(str)) {
             OBJ_ERR << "parse error: " << s << args;
             return;
         }
@@ -72,7 +69,7 @@ public:
 
     void onDataT(const DictAtom& d)
     {
-        dict_ = d;
+        dict() = d;
         onBang();
     }
 
@@ -86,8 +83,8 @@ public:
 
         auto k = key.asT<t_symbol*>();
 
-        if (dict_->contains(k))
-            this->listTo(0, dict_->at(k));
+        if (dict()->contains(k))
+            this->listTo(0, dict()->at(k));
     }
 
     void m_set_key(t_symbol* s, const AtomList& lst)
@@ -98,7 +95,7 @@ public:
             return;
         }
 
-        if (!dict_->contains(lst[0].asSymbol())) {
+        if (!dict()->contains(lst[0].asSymbol())) {
             METHOD_ERR(s) << "key not found: " << lst[0];
             return;
         }
@@ -113,25 +110,25 @@ public:
             return;
         }
 
-        dict_.detachData();
+        dict().detachData();
         auto key = lst[0].asSymbol();
 
         if (lst.size() == 2)
-            dict_->insert(key, lst[1]);
+            dict()->insert(key, lst[1]);
         else
-            dict_->insert(key, lst.slice(1));
+            dict()->insert(key, lst.slice(1));
     }
 
     void proto_clear() override
     {
-        dict_.detachData();
-        dict_->clear();
+        dict().detachData();
+        dict()->clear();
     }
 
     void proto_set(const AtomList& lst) override
     {
-        dict_.detachData();
-        dict_->fromString(to_string(lst, " "));
+        dict().detachData();
+        dict()->fromString(to_string(lst, " "));
     }
 
     bool proto_remove(const AtomList& lst) override
@@ -142,10 +139,10 @@ public:
         }
 
         bool res = true;
-        dict_.detachData();
+        dict().detachData();
 
         for (auto& el : lst) {
-            if (!dict_->remove(el.asSymbol())) {
+            if (!dict()->remove(el.asSymbol())) {
                 res = false;
                 OBJ_ERR << "key not found: " << el;
             }
@@ -156,21 +153,22 @@ public:
 
     size_t proto_size() const override
     {
-        return dict_->size();
+        return dict()->size();
     }
 
     bool proto_write(const std::string& path) const override
     {
-        return dict_->write(path);
+        return dict()->write(path);
     }
 
     bool proto_read(const std::string& path) override
     {
-        dict_.detachData();
-        return dict_->read(path);
+        dict().detachData();
+        return dict()->read(path);
     }
 
-    const DictAtom& dict() const { return dict_; }
+    virtual const DictAtom& dict() const = 0;
+    virtual DictAtom& dict() = 0;
 };
 
 template <typename T>
