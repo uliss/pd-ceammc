@@ -21,6 +21,7 @@
 #include <boost/functional/hash.hpp>
 
 namespace {
+
 AbstractData* newFromList(const AtomList& lst)
 {
     return new DataTypeSet(lst);
@@ -52,9 +53,6 @@ DataTypeSet::~DataTypeSet() noexcept = default;
 
 void DataTypeSet::add(const Atom& a)
 {
-    if (a.isData() && contains(a))
-        return;
-
     data_.insert(a);
 }
 
@@ -172,14 +170,8 @@ DataTypeSet DataTypeSet::intersection(const DataTypeSet& s0, const DataTypeSet& 
 DataTypeSet DataTypeSet::set_union(const DataTypeSet& s0, const DataTypeSet& s1)
 {
     DataTypeSet out;
-    out.data_.reserve(s0.size() + s1.size());
-
-    for (auto& x : s0.data_)
-        out.add(x);
-
-    for (auto& x : s1.data_)
-        out.add(x);
-
+    out.data_ = s0.data_;
+    out.data_.insert(s1.data_.begin(), s1.data_.end());
     return out;
 }
 

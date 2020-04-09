@@ -20,6 +20,7 @@
 class SetSize : public BaseObject {
 public:
     SetSize(const PdArgs& a);
+    void onList(const AtomList& l) override;
     void onDataT(const SetAtom& set);
 };
 

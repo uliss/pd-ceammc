@@ -20,6 +20,11 @@ SetSize::SetSize(const PdArgs& a)
     createOutlet();
 }
 
+void SetSize::onList(const AtomList& l)
+{
+    onDataT(SetAtom(l));
+}
+
 void SetSize::onDataT(const SetAtom& set)
 {
     floatTo(0, set->size());

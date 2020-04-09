@@ -96,16 +96,12 @@ TEST_CASE("data.set", "[externals]")
             REQUIRE_FALSE(a0.isEqual(&a1));
             REQUIRE_FALSE(a1.isEqual(&a0));
 
-            REQUIRE(a0.contains(Atom(100)));
-            REQUIRE(a0.contains(IntA(12)));
-
+            REQUIRE_FALSE(a0.contains(IntA(12)));
             REQUIRE(a1.contains(IntA(100)));
-            REQUIRE(!a1.contains(IntA(100)));
 
-            a1.add(IntA(12));
+            a1.add(Atom(12));
             REQUIRE(a1.size() == 2);
             REQUIRE(a1.contains(Atom(12)));
-            REQUIRE(a1.contains(IntA(12)));
 
             REQUIRE_FALSE(a0.isEqual(0));
             REQUIRE(a1.isEqual(&a0));

@@ -22,6 +22,8 @@
 
 PD_COMPLETE_TEST_SETUP(SetSize, set, size)
 
+using Set = DataTypeSet;
+
 TEST_CASE("set.size", "[externals]")
 {
     pd_test_init();
@@ -35,15 +37,16 @@ TEST_CASE("set.size", "[externals]")
 
     SECTION("do")
     {
-        TObj t("set.size");
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet());
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0);
+        TExt t("set.size");
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(1));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        t << SetA();
+        REQUIRE(floatAt(t) == 0);
 
-        WHEN_SEND_TDATA_TO(0, t, DataTypeSet(1, 2, 3));
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 3);
+        t << SetA(1);
+        REQUIRE(floatAt(t) == 1);
+
+        t << SetA(1, 2, 3);
+        REQUIRE(floatAt(t) == 3);
     }
 
     SECTION("do list")
