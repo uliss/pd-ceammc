@@ -364,14 +364,14 @@ TEST_CASE("DataTypeString", "[core]")
 
     SECTION("to_string")
     {
-        REQUIRE(to_string(StringAtom("spaceless")) == "spaceless");
-        REQUIRE(to_string(StringAtom("")) == "\"\"");
-        REQUIRE(to_string(StringAtom(" ")) == "\" \"");
-        REQUIRE(to_string(StringAtom("with spaces")) == "\"with spaces\"");
+        CHECK(to_string(StringAtom("spaceless")) == "spaceless");
+        CHECK(to_string(StringAtom("")) == "");
+        CHECK(to_string(StringAtom(" ")) == " ");
+        CHECK(to_string(StringAtom("with spaces")) == "with spaces");
 
-        REQUIRE(StringAtom("a b").asData()->toString() == "\"a b\"");
-        REQUIRE(Atom(new DataTypeString("a b c")).asData()->toString() == "\"a b c\"");
-        REQUIRE(to_string(Atom(new DataTypeString("a b c"))) == "\"a b c\"");
+        REQUIRE(StringAtom("a b").asData()->toString() == "a b");
+        REQUIRE(Atom(new DataTypeString("a b c")).asData()->toString() == "a b c");
+        REQUIRE(to_string(Atom(new DataTypeString("a b c"))) == "a b c");
     }
 
     SECTION("create via factory")

@@ -123,7 +123,7 @@ DataTypeString* DataTypeString::clone() const
 
 std::string DataTypeString::toString() const
 {
-    return to_string_quoted(str());
+    return str();
 }
 
 std::string DataTypeString::valueToJsonString() const
