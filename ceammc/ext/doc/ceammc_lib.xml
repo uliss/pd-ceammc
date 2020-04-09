@@ -230,7 +230,7 @@
     <entry descr="creates dictionary from list" name="dict.from_list" ref_view="object">
       <xi:include href="dict.from_list.pddoc" parse="xml"/>
     </entry>
-    <entry descr="on input dict outputs value to corresponding key outlet" name="dict.get" ref_view="object">
+    <entry descr="output dict values" name="dict.get" ref_view="object">
       <xi:include href="dict.get.pddoc" parse="xml"/>
     </entry>
     <entry descr="get list of dict keys" name="dict.keys" ref_view="object">

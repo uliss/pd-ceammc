@@ -169,7 +169,7 @@ to current samplerate;
 #X obj 30 2398 dict.from_list;
 #X text 200 2398 creates dictionary from list;
 #X obj 30 2425 dict.get;
-#X text 200 2425 on input dict outputs value to corresponding key outlet;
+#X text 200 2425 output dict values;
 #X obj 30 2452 dict.keys;
 #X text 200 2452 get list of dict keys;
 #X obj 30 2479 dict.pass;

@@ -26,6 +26,9 @@ TEST_CASE("dict.get", "[externals]")
         {
             TObj t("dict.get");
             REQUIRE_PROPERTY(t, @keys);
+            // clang-format off
+            REQUIRE_PROPERTY(t, @default, Atom());
+            // clang-format on
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 0);
         }
@@ -103,5 +106,25 @@ TEST_CASE("dict.get", "[externals]")
         TExt t("dict.get", "b");
         t <<= LA("[a:", 120, "b:", 130, "]");
         REQUIRE(floatAt(t) == 130);
+    }
+
+    SECTION("@default")
+    {
+        TExt t("dict.get", "b", "c", "\"@default\"", "@default", -1);
+
+        // clang-format off
+        REQUIRE_PROPERTY(t, @keys, "b", "c", "@default");
+        REQUIRE_PROPERTY(t, @default, -1);
+        // clang-format on
+
+        t <<= AtomList::parseString("[a: 1 b: 2]");
+        REQUIRE(floatAt(t, 0_out) == 2);
+        REQUIRE(floatAt(t, 1_out) == -1);
+        REQUIRE(floatAt(t, 2_out) == -1);
+
+        t <<= AtomList::parseString("[c: 1 @default: 2]");
+        REQUIRE(floatAt(t, 0_out) == -1);
+        REQUIRE(floatAt(t, 1_out) == 1);
+        REQUIRE(floatAt(t, 2_out) == 2);
     }
 }

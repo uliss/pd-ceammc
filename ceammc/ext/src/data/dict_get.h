@@ -21,6 +21,7 @@ using namespace ceammc;
 
 class DictGet : public DictBase {
     std::vector<t_symbol*> keys_;
+    AtomProperty* default_;
 
 public:
     DictGet(const PdArgs& args);

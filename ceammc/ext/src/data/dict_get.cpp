@@ -18,6 +18,7 @@ static const size_t MAX_KEYS = 32;
 
 DictGet::DictGet(const PdArgs& args)
     : DictBase(args)
+    , default_(nullptr)
 {
     auto p = createCbListProperty(
         "@keys",
@@ -52,6 +53,9 @@ DictGet::DictGet(const PdArgs& args)
 
         return true;
     });
+
+    default_ = new AtomProperty("@default", Atom());
+    addProperty(default_);
 }
 
 void DictGet::initDone()
@@ -63,10 +67,15 @@ void DictGet::initDone()
 void DictGet::onDataT(const DictAtom& dict)
 {
     long n = keys_.size();
+
     // back order
     while (n-- > 0) {
         if (dict->contains(keys_[n]))
             listTo(n, dict->at(keys_[n]));
+        else if (!default_->value().isNone())
+            atomTo(n, default_->value());
+        else
+            ; // no output
     }
 }
 
