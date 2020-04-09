@@ -29,7 +29,7 @@ void SetToList::onDataT(const SetAtom& set)
     listTo(0, set->toList(sort_->value()));
 }
 
-extern "C" void setup_set0x2elist()
+void setup_set_list()
 {
     ObjectFactory<SetToList> obj("data.set2list");
     obj.processData<DataTypeSet>();
