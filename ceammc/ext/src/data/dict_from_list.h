@@ -25,6 +25,7 @@ public:
     DictFromList(const PdArgs& args);
 
     void onList(const AtomList& l) override;
+    void onDataT(const MListAtom& ml);
 };
 
 void setup_dict_from_list();

@@ -11,6 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "datatype_mlist.h"
 #include "dict_from_list.h"
 #include "test_data_base.h"
 
@@ -79,29 +80,31 @@ TEST_CASE("dict.from_list", "[externals]")
         REQUIRE(!t.hasOutput());
 
         t << LA("a", "b", "c", "d");
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DictA("[a: b c: d]"));
+        REQUIRE(dataAt(t) == DictA("[a: b c: d]"));
 
         t << LA("a", "b", "c");
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DictA("[a: b]"));
+        REQUIRE(dataAt(t) == DictA("[a: b]"));
+
+        t << LA(1, 2, 3);
+        REQUIRE(dataAt(t) == DictA("[1: 2]"));
 
         t->setProperty("@step", LA(3));
         t << LA("a", "b", "c");
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DictA("[a: b c]"));
+        REQUIRE(dataAt(t) == DictA("[a: b c]"));
 
         t << LA("a", "b", "c", "d");
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DictA("[a: b c]"));
+        REQUIRE(dataAt(t) == DictA("[a: b c]"));
     }
 
     SECTION("mlist")
     {
+        TExt t("list->dict");
+
+        t << MListAtom(1, 2, 3, 4);
+        REQUIRE(dataAt(t) == DictA("[1: 2 3: 4]"));
+
+        t << MListAtom(3, 4, 1, 2);
+        REQUIRE(dataAt(t) == DictA("[1: 2 3: 4]"));
     }
 
     SECTION("alias")

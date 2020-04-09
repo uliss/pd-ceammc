@@ -14,6 +14,7 @@
 #include "dict_from_list.h"
 #include "ceammc_factory.h"
 #include "datatype_dict.h"
+#include "datatype_mlist.h"
 
 constexpr int MIN_STEP = 2;
 constexpr int DEFAULT_STEP = 2;
@@ -37,8 +38,14 @@ void DictFromList::onList(const AtomList& l)
     atomTo(0, dict);
 }
 
+void DictFromList::onDataT(const MListAtom& ml)
+{
+    onList(ml->data());
+}
+
 void setup_dict_from_list()
 {
     ObjectFactory<DictFromList> obj("dict.from_list");
     obj.addAlias("list->dict");
+    obj.processData<DataTypeMList>();
 }
