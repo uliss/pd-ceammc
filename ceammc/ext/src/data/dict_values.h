@@ -14,16 +14,15 @@
 #ifndef DICT_VALUES_H
 #define DICT_VALUES_H
 
-#include "ceammc_data.h"
-#include "ceammc_object.h"
 #include "datatype_dict.h"
+#include "dict_base.h"
 
 using namespace ceammc;
 
-class DictValues : public BaseObject {
+class DictValues : public DictBase {
 public:
     DictValues(const PdArgs& args);
-    void onDataT(const DictAtom& dict);
+    void onDataT(const DictAtom& dict) override;
 };
 
 void setup_dict_values();

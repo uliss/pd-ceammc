@@ -15,7 +15,7 @@
 #include "ceammc_factory.h"
 
 DictToList::DictToList(const PdArgs& args)
-    : BaseObject(args)
+    : DictBase(args)
 {
     createOutlet();
 }

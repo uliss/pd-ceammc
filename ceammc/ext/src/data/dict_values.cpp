@@ -16,7 +16,7 @@
 #include "datatype_mlist.h"
 
 DictValues::DictValues(const PdArgs& args)
-    : BaseObject(args)
+    : DictBase(args)
 {
     createOutlet();
 }
