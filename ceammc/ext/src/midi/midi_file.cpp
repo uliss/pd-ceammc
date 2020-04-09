@@ -6,26 +6,32 @@
 
 XMidiFile::XMidiFile(const PdArgs& a)
     : BaseObject(a)
-    , midi_stream_(new DataTypeMidiStream())
 {
     createOutlet();
 
-    createCbProperty("@filename", &XMidiFile::p_filename);
-    createCbProperty("@tracks", &XMidiFile::p_tracks);
-    createCbProperty("@tempo", &XMidiFile::p_tempo);
-    createCbProperty("@length_sec", &XMidiFile::p_length_sec);
-    createCbProperty("@length_tick", &XMidiFile::p_length_tick);
-    createCbProperty("@length_beat", &XMidiFile::p_length_beat);
+    createCbSymbolProperty("@filename",
+        [this]() -> t_symbol* { return midi_stream_->filename(); });
+    createCbIntProperty("@tracks",
+        [this]() -> int { return midi_stream_->trackCount(); });
+    createCbIntProperty("@tempo",
+        [this]() -> int { return midi_stream_->tempo(); });
+    createCbFloatProperty("@length_sec",
+        [this]() -> t_float { return midi_stream_->totalTimeInSeconds(); })
+        ->setUnits(PropValueUnits::SEC);
+    createCbIntProperty("@length_tick",
+        [this]() -> int { return midi_stream_->totalTimeInTicks(); });
+    createCbIntProperty("@length_beat",
+        [this]() -> int { return midi_stream_->totalTimeInQuarters(); });
 }
 
 void XMidiFile::onBang()
 {
-    dataTo(0, midi_stream_);
+    atomTo(0, midi_stream_);
 }
 
 void XMidiFile::m_clear(t_symbol*, const AtomList&)
 {
-    midi_stream_ = new DataTypeMidiStream();
+    midi_stream_ = MidiStreamAtom();
 }
 
 void XMidiFile::m_read(t_symbol*, const AtomList& l)
@@ -39,7 +45,7 @@ void XMidiFile::m_read(t_symbol*, const AtomList& l)
         return;
     }
 
-    midi_stream_ = new DataTypeMidiStream(path.c_str());
+    midi_stream_ = MidiStreamAtom(path.c_str());
     if (!midi_stream_->is_open()) {
         OBJ_ERR << "can't read MIDI file: " << path.c_str();
         return;
@@ -66,41 +72,6 @@ void XMidiFile::m_write(t_symbol*, const AtomList& l)
     mf->write(filepath.c_str());
 
     OBJ_DBG << "file written to: \"" << filepath << "\"";
-}
-
-AtomList XMidiFile::p_filename() const
-{
-    return Atom(midi_stream_->filename());
-}
-
-AtomList XMidiFile::p_tempo() const
-{
-    return Atom(midi_stream_->tempo());
-}
-
-AtomList XMidiFile::p_tracks() const
-{
-    return Atom(midi_stream_->trackCount());
-}
-
-AtomList XMidiFile::p_length_sec() const
-{
-    return Atom(midi_stream_->totalTimeInSeconds());
-}
-
-AtomList XMidiFile::p_length_tick() const
-{
-    return Atom(midi_stream_->totalTimeInTicks());
-}
-
-AtomList XMidiFile::p_length_beat() const
-{
-    return Atom(midi_stream_->totalTimeInQuarters());
-}
-
-void XMidiFile::onDataT(const DataTPtr<DataTypeMidiStream>& data)
-{
-    midi_stream_ = data;
 }
 
 void setup_midi_file()

@@ -157,9 +157,7 @@ void ArduinoExternal::tick()
 
 void ArduinoExternal::m_connect(t_symbol*, const AtomList& args)
 {
-    size_t on = args.asSizeT(1);
-
-    if (on)
+    if (args.toT<bool>(true))
         arduino_->start();
     else
         arduino_->stop();

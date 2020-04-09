@@ -1,6 +1,7 @@
 #ifndef MIDI_TRACK_H
 #define MIDI_TRACK_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 #include "datatype_midistream.h"
 #include "datatype_miditrack.h"
@@ -12,6 +13,8 @@ enum PlayState {
     PLAY_STATE_PLAYING = 1,
     PLAY_STATE_PAUSED = 2
 };
+
+using MidiStreamAtom = DataAtom<DataTypeMidiStream>;
 
 class MidiTrack : public BaseObject {
     DataTypeMidiTrack midi_track_;
@@ -27,8 +30,8 @@ class MidiTrack : public BaseObject {
     PlayState play_state_;
 
 public:
-    typedef DataTypeMidiTrack::iterator MidiEventIterator;
-    typedef DataTypeMidiTrack::const_iterator MidiEventConstIterator;
+    using MidiEventIterator = DataTypeMidiTrack::iterator;
+    using MidiEventConstIterator = DataTypeMidiTrack::const_iterator;
 
 public:
     MidiTrack(const PdArgs& args);
@@ -36,7 +39,7 @@ public:
 
     void onBang() override;
 
-    void onDataT(const DataTPtr<DataTypeMidiStream>& dptr);
+    void onDataT(const MidiStreamAtom& stream);
 
     AtomList p_events() const;
     AtomList p_current() const;

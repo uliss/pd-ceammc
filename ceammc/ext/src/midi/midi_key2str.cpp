@@ -13,16 +13,11 @@ MidiKey2Str::MidiKey2Str(const PdArgs& args)
 {
     clearCache();
 
-    if (positionalArguments().size() > 0) {
-        std::string str = to_string(positionalArguments());
-        if (!music::from_string(str, tonality_, music::NAMING_SCHEME_SPN))
-            OBJ_ERR << "can't parse tonality: " << str;
-    }
-
     createCbListProperty(
         "@tonality",
         [this]() -> AtomList { return p_tonality(); },
-        [this](const AtomList& l) -> bool { return p_setTonality(l); });
+        [this](const AtomList& l) -> bool { return p_setTonality(l); })
+        ->setArgIndex(0);
 
     as_symbol_ = new FlagProperty("@symbol");
     addProperty(as_symbol_);
@@ -46,7 +41,7 @@ void MidiKey2Str::onFloat(t_float f)
     if (as_symbol_->value())
         symbolTo(0, cache_[key]);
     else
-        dataTo(0, DataPtr(new DataTypeString(cache_[key]->s_name)));
+        atomTo(0, new DataTypeString(cache_[key]->s_name));
 }
 
 AtomList MidiKey2Str::p_tonality() const
