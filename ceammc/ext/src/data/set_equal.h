@@ -20,7 +20,7 @@
 using namespace ceammc;
 
 class SetEqual : public BaseObject {
-    DataTypeSet set1_;
+    SetAtom set1_;
 
 public:
     SetEqual(const PdArgs& a);

@@ -86,7 +86,7 @@ TEST_CASE("array.window", "[externals]")
 
     SECTION("array3")
     {
-        ArrayPtr aptr = cnv->createArray("array3", 5);
+        ArrayPtr aptr = cnv->createArray("array_window3", 5);
         REQUIRE(aptr.get());
         REQUIRE(aptr->at(0) == Approx(0));
         REQUIRE(aptr->at(1) == Approx(0));
@@ -94,8 +94,11 @@ TEST_CASE("array.window", "[externals]")
         REQUIRE(aptr->at(3) == Approx(0));
         REQUIRE(aptr->at(4) == Approx(0));
 
-        TObj t("array.window", LA("array3", "@type", "rect"));
+//        return;
 
+        TObj t("array.window", LA("array_window3", "@type", "rect"));
+
+        return;
         // explicit window specification
         REQUIRE(aptr->at(0) == Approx(1));
         REQUIRE(aptr->at(1) == Approx(1));

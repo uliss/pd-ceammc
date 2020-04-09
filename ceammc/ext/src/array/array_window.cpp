@@ -34,13 +34,6 @@ static t_symbol* PROP_TYPE;
 typedef std::unordered_map<t_symbol*, WindowFuncPtr> WFuncMap;
 static WFuncMap fn_map;
 
-static void propCallback(BaseObject* b, t_symbol* sel)
-{
-    ArrayWindow* a = static_cast<ArrayWindow*>(b);
-    if (sel == PROP_TYPE)
-        a->updateGenFn();
-}
-
 ArrayWindow::ArrayWindow(const PdArgs& args)
     : ArrayMod(args)
     , type_(nullptr)
@@ -48,14 +41,12 @@ ArrayWindow::ArrayWindow(const PdArgs& args)
 {
     createOutlet();
 
-    setPropertyCallback(propCallback);
-
     type_ = new SymbolEnumProperty("@type", WIN_DEFAULT);
+    type_->setSuccessFn([this](Property* p) { updateGenFn(); });
     for (auto& p : fn_map) {
         if (p.first != WIN_DEFAULT)
             type_->appendEnum(p.first);
     }
-
     addProperty(type_);
 }
 

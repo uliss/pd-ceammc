@@ -14,12 +14,6 @@
 #include "set_size.h"
 #include "test_data_base.h"
 
-#define REQUIRE_SET_OUTPUT(t, set)                   \
-    {                                                \
-        REQUIRE_NEW_DATA_AT_OUTLET(0, t);            \
-        REQUIRE(t.lastMessage().atomValue() == set); \
-    }
-
 PD_COMPLETE_TEST_SETUP(SetSize, set, size)
 
 using Set = DataTypeSet;
