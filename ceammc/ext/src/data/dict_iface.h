@@ -95,12 +95,15 @@ public:
             return;
         }
 
-        if (!dict()->contains(lst[0].asSymbol())) {
+        auto key = lst[0].asSymbol();
+
+        if (!dict()->contains(key)) {
             METHOD_ERR(s) << "key not found: " << lst[0];
             return;
         }
 
-        proto_add(lst);
+        dict().detachData();
+        dict()->at(key) = lst.slice(1);
     }
 
     void proto_add(const AtomList& lst) override

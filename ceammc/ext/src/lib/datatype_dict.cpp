@@ -348,7 +348,7 @@ void from_json(const nlohmann::json& j, DataTypeDict::DictMap& dict)
 
         if (it->is_boolean() || it->is_number() || it->is_string() || it->is_object())
             dict[key] = AtomList(it->get<Atom>());
-        else if (j.is_array())
+        else if (it->is_array())
             dict[key] = it->get<AtomList>();
         else
             dict[key] = AtomList();

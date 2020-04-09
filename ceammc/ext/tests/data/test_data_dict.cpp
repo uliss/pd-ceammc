@@ -178,24 +178,31 @@ TEST_CASE("data.dict", "[externals]")
         WHEN_CALL_N(t, add, "float", 1000);
         WHEN_CALL_N(t, add, "symbol", "b");
         WHEN_CALL_N(t, add, "list", 1, 2, 3);
+        // invalid key
         WHEN_CALL_N(t, add, 1, 2000);
+        REQUIRE_SIZE(t, 3);
+        REQUIRE(t.dict() == DictA("[float: 1000 symbol: b list: 1 2 3]"));
 
+        // write to file error
         WHEN_CALL(t, write);
-        REQUIRE_SIZE(t, 4);
+        REQUIRE_FALSE(platform::path_exists(TEST_BIN_DIR "/data_dict.json"));
 
+        // write to file success
         WHEN_CALL_N(t, write, TEST_BIN_DIR "/data_dict.json");
         REQUIRE(platform::path_exists(TEST_BIN_DIR "/data_dict.json"));
 
         // read to other dict
         TObj t2("data.dict");
         WHEN_CALL_N(t2, read, TEST_BIN_DIR "/data_dict.json");
-        REQUIRE_SIZE(t2, 4);
-        REQUIRE_CONTAINS_ATOM(t2, "float", 1000);
-        REQUIRE_CONTAINS_ATOM(t2, "symbol", "b");
-        REQUIRE_CONTAINS_LIST(t2, "list", LF(1, 2, 3));
 
         // remove json file
         REQUIRE(platform::remove(TEST_BIN_DIR "/data_dict.json"));
+
+        REQUIRE_SIZE(t2, 3);
+        REQUIRE(t2.dict() == DictA("[float: 1000 symbol: b list: 1 2 3]"));
+        REQUIRE_CONTAINS_ATOM(t2, "float", 1000);
+        REQUIRE_CONTAINS_ATOM(t2, "symbol", "b");
+        REQUIRE_CONTAINS_LIST(t2, "list", LF(1, 2, 3));
 
         // clear source
         WHEN_CALL(t, clear);
@@ -255,12 +262,9 @@ TEST_CASE("data.dict", "[externals]")
         REQUIRE(obj.outputListAt(0) == val); \
     }
 
-#define REQUIRE_KEY_SYMBOL(obj, key, val)              \
-    {                                                  \
-        obj.call("get_key", A(key));                   \
-        REQUIRE(obj.hasOutput());                      \
-        REQUIRE(obj.isOutputSymbolAt(0));              \
-        REQUIRE(obj.outputSymbolAt(0) == gensym(val)); \
+#define REQUIRE_KEY_SYMBOL(obj, key, val)         \
+    {                                             \
+        REQUIRE(obj->dict()->at(key) == LA(val)); \
     }
 
         t.call("set_key");
@@ -274,10 +278,7 @@ TEST_CASE("data.dict", "[externals]")
         REQUIRE_KEY_SYMBOL(t, "a", "b");
         t.call("set_key", LA("a"));
         REQUIRE_FALSE(t.hasOutput());
-        REQUIRE_KEY_SYMBOL(t, "a", "b");
-
-        t.call("get_key", LA("a"));
-        REQUIRE_KEY_SYMBOL(t, "a", "b");
+        REQUIRE(t->dict()->at("a") == L());
 
         t.call("set_key", LA("a", 1, 2, 3));
         REQUIRE_FALSE(t.hasOutput());
