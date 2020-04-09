@@ -14,13 +14,12 @@
 #ifndef DICT_GET_H
 #define DICT_GET_H
 
-#include "ceammc_data.h"
-#include "ceammc_object.h"
 #include "datatype_dict.h"
+#include "dict_base.h"
 
 using namespace ceammc;
 
-class DictGet : public BaseObject {
+class DictGet : public DictBase {
     std::vector<t_symbol*> keys_;
 
 public:

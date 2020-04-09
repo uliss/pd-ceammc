@@ -17,7 +17,7 @@
 static const size_t MAX_KEYS = 32;
 
 DictGet::DictGet(const PdArgs& args)
-    : BaseObject(args)
+    : DictBase(args)
 {
     auto p = createCbListProperty(
         "@keys",

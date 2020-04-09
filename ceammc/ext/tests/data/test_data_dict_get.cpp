@@ -24,7 +24,7 @@ TEST_CASE("dict.get", "[externals]")
     {
         SECTION("default")
         {
-            TestDictGet t("dict.get");
+            TObj t("dict.get");
             REQUIRE_PROPERTY(t, @keys);
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 0);
@@ -32,7 +32,7 @@ TEST_CASE("dict.get", "[externals]")
 
         SECTION("invalid keys")
         {
-            TestDictGet t("dict.get", LA(1, 2, 3));
+            TObj t("dict.get", LA(1, 2, 3));
             REQUIRE_PROPERTY(t, @keys);
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 0);
@@ -40,7 +40,7 @@ TEST_CASE("dict.get", "[externals]")
 
         SECTION("keys")
         {
-            TestDictGet t("dict.get", LA("A", "B", "\"@C\""));
+            TObj t("dict.get", LA("A", "B", "\"@C\""));
             REQUIRE_PROPERTY(t, @keys, LA("A", "B", "@C"));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 3);
@@ -49,7 +49,7 @@ TEST_CASE("dict.get", "[externals]")
         SECTION("too many keys")
         {
             AtomList args;
-            TestDictGet t("dict.get", L().filled(A("A"), 33));
+            TObj t("dict.get", L().filled(A("A"), 33));
             REQUIRE_PROPERTY(t, @keys);
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 0);
@@ -57,7 +57,7 @@ TEST_CASE("dict.get", "[externals]")
 
         SECTION("@props")
         {
-            TestDictGet t("dict.get", LA("\"@a\"", "\"@b\""));
+            TObj t("dict.get", LA("\"@a\"", "\"@b\""));
             REQUIRE_PROPERTY(t, @keys, LA("@a", "@b"));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 2);
@@ -66,7 +66,7 @@ TEST_CASE("dict.get", "[externals]")
 
     SECTION("do")
     {
-        TestExtDictGet t("dict.get", "A", "\"@a\"", "b");
+        TExt t("dict.get", "A", "\"@a\"", "b");
         REQUIRE_PROPERTY(t, @keys, "A", "@a", "b");
 
         REQUIRE(t.object());
@@ -96,5 +96,12 @@ TEST_CASE("dict.get", "[externals]")
         REQUIRE(!t.hasOutputAt(1));
         REQUIRE(!t.hasOutputAt(2));
         REQUIRE(t.outputSymbolAt(0) == gensym("ABC"));
+    }
+
+    SECTION("any")
+    {
+        TExt t("dict.get", "b");
+        t <<= LA("[a:", 120, "b:", 130, "]");
+        REQUIRE(floatAt(t) == 130);
     }
 }
