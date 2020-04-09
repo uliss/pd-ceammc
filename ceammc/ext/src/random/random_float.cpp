@@ -44,13 +44,6 @@ void RandomFloat::onBang()
     if (min_->value() == max_->value())
         return floatTo(0, min_->value());
 
-    if (min_->value() > max_->value()) {
-        float v0 = min_->value();
-        float v1 = max_->value();
-        min_->setValue(std::min(v0, v1));
-        max_->setValue(std::max(v0, v1));
-    }
-
     std::uniform_real_distribution<t_float> dist(min_->value(), max_->value());
     floatTo(0, dist(random_gen));
 }

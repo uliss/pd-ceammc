@@ -29,6 +29,7 @@ endfunction()
 
 add_random_test(discrete)
 add_random_test(float)
+add_random_test(int)
 add_random_test(linear)
 add_random_test(pw_lin)
 add_random_test(pw_const)
