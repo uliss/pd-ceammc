@@ -53,7 +53,7 @@ public:
         }
 
         dict_.detachData();
-        *dict_ = DataTypeDict::fromList(args);
+        *dict_ = DataTypeDict::fromList(args, 2);
     }
 
     void onAny(t_symbol* s, const AtomList& args) override

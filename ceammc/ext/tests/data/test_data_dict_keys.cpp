@@ -12,50 +12,27 @@
  * this file belongs to.
  *****************************************************************************/
 #include "datatype_mlist.h"
-#include "dict_is.h"
+#include "dict_keys.h"
 #include "test_data_base.h"
 
-PD_COMPLETE_TEST_SETUP(IsDict, is, dict)
+PD_COMPLETE_TEST_SETUP(DictKeys, dict, keys)
 
-TEST_CASE("is_dict", "[externals]")
+TEST_CASE("dict.keys", "[externals]")
 {
     pd_test_init();
 
     SECTION("create")
     {
-        TExt t("is_dict");
+        TExt t("dict.keys");
         REQUIRE(t.numInlets() == 1);
-        REQUIRE(t.numOutlets() == 2);
+        REQUIRE(t.numOutlets() == 1);
     }
 
     SECTION("do")
     {
-        TExt t("is_dict");
+        TExt t("dict.keys");
 
-        t.bang();
-        REQUIRE(!t.hasOutput());
-
-        t << 10;
-        REQUIRE(floatAt(t) == 0);
-
-        t << "abc";
-        REQUIRE(floatAt(t) == 0);
-
-        t << MListAtom(1, 2, 3);
-        REQUIRE(floatAt(t) == 0);
-
-        t << LF(1, 2, 3);
-        REQUIRE(floatAt(t) == 0);
-
-        t.sendMessage("a", LF(1, 2, 3));
-        REQUIRE(floatAt(t) == 0);
-
-        t << DictAtom();
-        REQUIRE(floatAt(t, 0_out) == 1);
-        REQUIRE(dataAt(t, 1_out) == DictA());
-
-        t << DictA("[a: 123]");
-        REQUIRE(floatAt(t, 0_out) == 1);
-        REQUIRE(dataAt(t, 1_out) == DictA("[a: 123]"));
+        t << DictA();
+        REQUIRE(listAt(t) == L());
     }
 }

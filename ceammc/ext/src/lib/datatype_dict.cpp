@@ -36,6 +36,14 @@ void from_json(const nlohmann::json& j, Atom& atom);
 void from_json(const nlohmann::json& json, AtomList& lst);
 void from_json(const nlohmann::json& j, DataTypeDict::DictMap& dict);
 
+static t_symbol* atom_to_symbol(const Atom& a)
+{
+    if (a.isSymbol())
+        return a.asSymbol();
+    else
+        return gensym(to_string(a).c_str());
+}
+
 static AbstractData* newFromDict(const Dict& d)
 {
     auto dict = new DataTypeDict;
@@ -415,18 +423,23 @@ DataTypeDict DataTypeDict::fromList(const AtomList& l, size_t step)
 {
     DataTypeDict res;
 
-    if (step == 0)
+    if (step == 0) {
+        LIB_ERR << "invalid step: " << step;
         return res;
+    }
+
+    const size_t N = l.size();
+    const size_t T = (N / step) * step;
 
     if (step == 1) {
-        for (size_t i = 0; i < l.size(); i++)
-            res.insert(gensym(to_string(l[i]).c_str()), AtomList());
+        for (size_t i = 0; i < T; i++)
+            res.insert(atom_to_symbol(l[i]), AtomList());
     } else if (step == 2) {
-        for (size_t i = 0; i < l.size(); i += 2)
-            res.insert(gensym(to_string(l[i]).c_str()), l[i + 1]);
+        for (size_t i = 0; i < T; i += 2)
+            res.insert(atom_to_symbol(l[i]), l[i + 1]);
     } else {
-        for (size_t i = 0; i < l.size(); i += step)
-            res.insert(gensym(to_string(l[i]).c_str()), l.slice(i + 1, i + step));
+        for (size_t i = 0; i < T; i += step)
+            res.insert(atom_to_symbol(l[i]), l.slice(i + 1, i + step - 1));
     }
 
     return res;

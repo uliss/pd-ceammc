@@ -11,6 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "ceammc_fn_list.h"
 #include "ceammc_format.h"
 #include "dict_to_list.h"
 #include "test_data_base.h"
@@ -44,14 +45,14 @@ TEST_CASE("dict.to_list", "[externals]")
         REQUIRE(t.outputListAt(0) == LA("a", "b"));
 
         t.send(DictA("[a: b c d]"));
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.isOutputListAt(0));
-        REQUIRE(t.outputListAt(0) == LA("a", "b", "c", "d"));
+        REQUIRE(listAt(t).size() == 4);
+        REQUIRE(listAt(t).contains(LA("a", "b")));
+        REQUIRE(listAt(t).contains(LA("c", "d")));
 
         t.send(DictA("[a: b c d e: 123]"));
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.isOutputListAt(0));
-        REQUIRE(t.outputListAt(0) == LA("a", "b", "c", "d", "e", 123));
+        REQUIRE(listAt(t).size() == 6);
+        REQUIRE(listAt(t).contains(LA("a", "b", "c", "d")));
+        REQUIRE(listAt(t).contains(LA("e", 123)));
     }
 
     SECTION("alias")
