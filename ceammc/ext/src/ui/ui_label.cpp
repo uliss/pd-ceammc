@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_label.h"
+#include "ceammc_abstractdata.h"
 #include "ceammc_convert.h"
 #include "ceammc_format.h"
 #include "ceammc_ui.h"
@@ -112,9 +113,9 @@ void UILabel::onAny(t_symbol* s, const AtomList& lst)
     redrawBGLayer();
 }
 
-void UILabel::onData(const DataPtr& ptr)
+void UILabel::onData(const Atom& data)
 {
-    text_str_ = ptr->toString();
+    text_str_ = data.asData()->toString();
     redrawBGLayer();
 }
 

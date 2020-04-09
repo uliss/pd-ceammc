@@ -60,15 +60,15 @@ public:
             OBJ_ERR << "can't set envelope";
     }
 
-    void onDataT(const DataTPtr<DataTypeEnv>& dptr)
+    void onDataT(const EnvAtom& env)
     {
-        if (!dptr->isAR()) {
-            OBJ_ERR << "not an AR envelope: " << *dptr;
+        if (!env->isAR()) {
+            OBJ_ERR << "not an AR envelope: " << *env;
             return;
         }
 
-        float attack = dptr->pointAt(1).timeMs() - dptr->pointAt(0).timeMs();
-        float release = dptr->pointAt(2).timeMs() - dptr->pointAt(1).timeMs();
+        t_float attack = env->pointAt(1).timeMs() - env->pointAt(0).timeMs();
+        t_float release = env->pointAt(2).timeMs() - env->pointAt(1).timeMs();
 
         if (!set(attack, release))
             OBJ_ERR << "can't set envelope";
@@ -102,7 +102,7 @@ private:
         bangTo(1);
     }
 
-    bool checkValues(float a, float r)
+    bool checkValues(t_float a, t_float r)
     {
         return a >= 0 && r >= 0;
     }
@@ -113,7 +113,7 @@ private:
         auto_release_.unset();
     }
 
-    bool set(float a, float r)
+    bool set(t_float a, t_float r)
     {
         if (!checkValues(a, r)) {
             OBJ_ERR << "invalid values: " << a << ", " << r;
@@ -125,7 +125,7 @@ private:
         return true;
     }
 
-    float length() const
+    t_float length() const
     {
         return prop_attack_->value() + prop_release_->value();
     }

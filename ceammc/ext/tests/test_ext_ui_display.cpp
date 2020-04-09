@@ -11,8 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../ui/ui_display.h"
+#include "ceammc_data.h"
+#include "datatype_string.h"
 #include "test_ui.h"
+#include "ui_display.h"
 
 UI_COMPLETE_TEST_SETUP(Display)
 
@@ -34,14 +36,16 @@ TEST_CASE("ui.display", "[ui.display]")
 
     SECTION("external")
     {
+        using IntAtom = DataAtom<IntData>;
+
         TestExtDisplay t("ui.display");
         t.call("@send", LA("ABC", 2));
         REQUIRE(t->text() == "ABC 2");
         REQUIRE(t->type() == "@send");
 
-        t.send(20);
-        REQUIRE(t->text() == "20");
-        REQUIRE(t->type() == "float");
+        t.send(20.f);
+        CHECK(t->text() == "20");
+        CHECK(t->type() == "float");
 
         t.send(gensym("A"));
         REQUIRE(t->text() == "A");
@@ -60,11 +64,11 @@ TEST_CASE("ui.display", "[ui.display]")
         t.doubleClick(5, 5);
         REQUIRE(t.floatProperty("display_type") == 0);
 
-        t.send(StrData("test string"));
+        t.send(StringAtom("test string"));
         REQUIRE(t->text() == "test string");
         REQUIRE(t->type() == "data");
 
-        t.send(IntData(-200));
+        t.send(IntAtom(-200));
         REQUIRE(t->text() == "-200");
         REQUIRE(t->type() == "data");
     }

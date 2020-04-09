@@ -355,7 +355,7 @@ void UIObjectImpl::onKeyFilter(int k, long modifiers)
 {
 }
 
-void UIObjectImpl::onData(const DataPtr& ptr)
+void UIObjectImpl::onData(const AbstractData* ptr)
 {
 }
 
@@ -400,6 +400,14 @@ void UIObjectImpl::symbolTo(size_t n, t_symbol* s)
     outlet_symbol(outlets_[n], s);
 }
 
+void UIObjectImpl::atomTo(size_t n, const Atom& a)
+{
+    if (n >= outlets_.size())
+        return;
+
+    outlet_list(outlets_[n], &s_list, 1, const_cast<t_atom*>(&a.atom()));
+}
+
 void UIObjectImpl::listTo(size_t n, const AtomList& lst)
 {
     if (n >= outlets_.size())
@@ -428,17 +436,6 @@ void UIObjectImpl::anyTo(size_t n, const AtomList& msg)
         return;
 
     outlet_anything(outlets_[n], msg[0].asSymbol(), msg.size() - 1, msg.toPdData() + 1);
-}
-
-void UIObjectImpl::dataTo(size_t n, const DataPtr& ptr)
-{
-    if (n >= outlets_.size())
-        return;
-
-    if (ptr.isNull())
-        return;
-
-    outletAtom(outlets_[n], ptr.asAtom());
 }
 
 void UIObjectImpl::sendBang()
@@ -663,7 +660,7 @@ static AtomList sym_to_list(t_symbol* sym)
     return res;
 }
 
-static void set_constrains(PropertyInfo& info, t_eattr* a)
+static void set_constraints(PropertyInfo& info, t_eattr* a)
 {
     if (a->step)
         info.setStep(a->step);
@@ -725,7 +722,7 @@ static PropertyInfo attr_to_prop(t_eattr* a)
     if (a->type == SYM_FLOAT || a->type == SYM_DOUBLE) {
         if (a->size == 1) {
             res.setType(PropValueType::FLOAT);
-            set_constrains(res, a);
+            set_constraints(res, a);
 
             if (a->defvals)
                 res.setDefault((t_float)strtof(a->defvals->s_name, NULL));
@@ -752,7 +749,7 @@ static PropertyInfo attr_to_prop(t_eattr* a)
 
             } else {
                 res.setType(PropValueType::INTEGER);
-                set_constrains(res, a);
+                set_constraints(res, a);
 
                 if (a->defvals)
                     res.setDefault((int)strtol(a->defvals->s_name, NULL, 10));
@@ -767,7 +764,7 @@ static PropertyInfo attr_to_prop(t_eattr* a)
     } else if (a->type == SYM_SYMBOL) {
         if (a->size == 1) {
             res.setType(PropValueType::SYMBOL);
-            set_constrains(res, a);
+            set_constraints(res, a);
 
             if (a->defvals)
                 res.setDefault(a->defvals);
@@ -781,7 +778,7 @@ static PropertyInfo attr_to_prop(t_eattr* a)
     } else if (a->type == SYM_ATOM) {
         if (a->size == 1) {
             res.setType(PropValueType::ATOM);
-            set_constrains(res, a);
+            set_constraints(res, a);
 
             if (a->defvals)
                 res.setDefault(Atom(a->defvals));

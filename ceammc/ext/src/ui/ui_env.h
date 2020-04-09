@@ -62,7 +62,7 @@ public:
     UIEnv();
 
     void onBang();
-    void onData(const DataPtr& ptr);
+    void onData(const Atom& env);
 
     void paint();
     void okSize(t_rect* newrect);

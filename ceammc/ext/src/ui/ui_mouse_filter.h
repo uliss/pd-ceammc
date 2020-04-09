@@ -31,7 +31,7 @@ public:
     void onSymbol(t_symbol* s) final;
     void onList(const AtomList& l) final;
     void onAny(t_symbol* s, const AtomList& l) final;
-    void onData(const DataPtr& ptr);
+    void onData(const Atom& data) final;
 };
 
 void setup_ui_mouse_filter();

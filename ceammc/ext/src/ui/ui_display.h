@@ -41,7 +41,7 @@ public:
     UIDisplay();
 
     void paint();
-    void okSize(t_rect* newrect);
+    void okSize(::t_rect* newrect);
 
     void onBang();
     void onFloat(t_float f);

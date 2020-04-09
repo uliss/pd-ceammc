@@ -1,13 +1,16 @@
 #ifndef ENV_ENV_H
 #define ENV_ENV_H
 
+#include "ceammc_data.h"
 #include "ceammc_object.h"
-#include "datatype_env.h"
 
 using namespace ceammc;
 
+class DataTypeEnv;
+using EnvAtom = DataAtom<DataTypeEnv>;
+
 class Envelope : public BaseObject {
-    DataTypeEnv env_;
+    EnvAtom env_;
 
 public:
     Envelope(const PdArgs& args);
@@ -16,7 +19,7 @@ public:
     const DataTypeEnv& envelope() const;
 
     void onBang() override;
-    void onDataT(const EnvAtom& dptr);
+    void onDataT(const EnvAtom& env);
 
     void m_addPoint(t_symbol* s, const AtomList& lst);
     void m_removePoint(t_symbol* s, const AtomList& lst);

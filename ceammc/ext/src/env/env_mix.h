@@ -7,7 +7,7 @@
 using namespace ceammc;
 
 class EnvMix : public BaseObject {
-    DataTypeEnv env0_, env1_;
+    EnvAtom env0_, env1_;
 
 public:
     EnvMix(const PdArgs& args);

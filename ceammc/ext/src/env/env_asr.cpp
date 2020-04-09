@@ -58,19 +58,19 @@ public:
             OBJ_ERR << "can't set envelope";
     }
 
-    void onDataT(const DataTPtr<DataTypeEnv>& dptr)
+    void onDataT(const EnvAtom& env)
     {
-        if (!dptr->isAR()) {
-            OBJ_ERR << "not an AR envelope: " << *dptr;
+        if (!env->isAR()) {
+            OBJ_ERR << "not an AR envelope: " << *env;
             return;
         }
 
-        float attack = dptr->pointAt(1).timeMs() - dptr->pointAt(0).timeMs();
-        float sustain = dptr->pointAt(1).value * 100;
-        float release = dptr->pointAt(2).timeMs() - dptr->pointAt(1).timeMs();
+        float attack = env->pointAt(1).timeMs() - env->pointAt(0).timeMs();
+        float sustain = env->pointAt(1).value * 100;
+        float release = env->pointAt(2).timeMs() - env->pointAt(1).timeMs();
 
         if (!set(attack, sustain, release))
-            OBJ_ERR << "can't set envelope: " << *dptr;
+            OBJ_ERR << "can't set envelope: " << *env;
     }
 
     void m_reset(t_symbol*, const AtomList&)
@@ -97,12 +97,12 @@ private:
         release_done_.unset();
     }
 
-    bool checkValues(float a, float s, float r)
+    bool checkValues(t_float a, t_float s, t_float r)
     {
         return a >= 0 && r >= 0 && s >= 0 && s <= 100;
     }
 
-    bool set(float a, float s, float r)
+    bool set(t_float a, t_float s, t_float r)
     {
         if (!checkValues(a, s, r)) {
             OBJ_ERR << "invalid values: " << a << ", " << s << ", " << r;

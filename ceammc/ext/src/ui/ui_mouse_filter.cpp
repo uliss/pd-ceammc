@@ -81,10 +81,10 @@ void UIMouseFilter::onAny(t_symbol* s, const AtomList& l)
         anyTo(0, s, l);
 }
 
-void UIMouseFilter::onData(const DataPtr& ptr)
+void UIMouseFilter::onData(const Atom& data)
 {
     if (!closed_)
-        dataTo(0, ptr);
+        atomTo(0, data);
 }
 
 void setup_ui_mouse_filter()

@@ -1,5 +1,6 @@
 #include "env_env.h"
 #include "ceammc_factory.h"
+#include "datatype_env.h"
 
 #include <boost/range.hpp>
 #include <limits>
@@ -24,20 +25,20 @@ Envelope::Envelope(const PdArgs& args)
 
     t_symbol* method = positionalSymbolConstant(0, &s_);
 
-    if (env_.isNamedEnvelope(method))
-        env_.setNamedEnvelope(method, positionalArguments().slice(1));
+    if (env_->isNamedEnvelope(method))
+        env_->setNamedEnvelope(method, positionalArguments().slice(1));
     else if (method != 0)
         OBJ_ERR << "unknown arguments: " << positionalArguments();
 
     {
         Property* p = createCbIntProperty("@npoints",
-            [this]() -> int { return env_.numPoints(); });
+            [this]() -> int { return env_->numPoints(); });
         p->checkNonNegative();
     }
 
     {
         Property* p = createCbFloatProperty("@length",
-            [this]() -> t_float { return env_.totalLength() / t_float(1000); });
+            [this]() -> t_float { return env_->totalLength() / t_float(1000); });
         p->setUnitsMs();
         p->checkNonNegative();
     }
@@ -50,22 +51,22 @@ Envelope::Envelope(const PdArgs& args)
 void Envelope::dump() const
 {
     BaseObject::dump();
-    OBJ_DBG << env_.toString();
+    OBJ_DBG << env_->toString();
 }
 
 const DataTypeEnv& Envelope::envelope() const
 {
-    return env_;
+    return *env_;
 }
 
 void Envelope::onBang()
 {
-    dataTo(0, DataPtr(env_.clone()));
+    atomTo(0, env_);
 }
 
-void Envelope::onDataT(const EnvAtom &dptr)
+void Envelope::onDataT(const EnvAtom& env)
 {
-    env_ = *dptr;
+    env_ = *env;
     onBang();
 }
 
@@ -100,7 +101,8 @@ void Envelope::m_addPoint(t_symbol* s, const AtomList& lst)
 
     EnvelopePoint pt(point_time, point_value, stop_point, curve_type);
     pt.data = curve_data;
-    env_.insertPoint(pt);
+    env_.detachData();
+    env_->insertPoint(pt);
 }
 
 void Envelope::m_removePoint(t_symbol* s, const AtomList& lst)
@@ -109,12 +111,13 @@ void Envelope::m_removePoint(t_symbol* s, const AtomList& lst)
         return;
 
     size_t point_idx = lst[0].asSizeT();
-    if (point_idx >= env_.numPoints()) {
+    if (point_idx >= env_->numPoints()) {
         OBJ_ERR << "invalid point index: " << point_idx;
         return;
     }
 
-    if (!env_.removePoint(point_idx))
+    env_.detachData();
+    if (!env_->removePoint(point_idx))
         OBJ_ERR << "can't remove point at: " << point_idx;
 }
 
@@ -124,13 +127,14 @@ void Envelope::m_setPointTime(t_symbol* s, const AtomList& lst)
         return;
 
     size_t point_idx = lst[0].asSizeT();
-    if (point_idx >= env_.numPoints()) {
+    if (point_idx >= env_->numPoints()) {
         OBJ_ERR << "invalid point index: " << point_idx;
         return;
     }
 
-    env_.pointAt(point_idx).utime = lst[1].asFloat() * 1000;
-    env_.sort();
+    env_.detachData();
+    env_->pointAt(point_idx).utime = lst[1].asFloat() * 1000;
+    env_->sort();
 }
 
 void Envelope::m_setPointValue(t_symbol* s, const AtomList& lst)
@@ -139,12 +143,13 @@ void Envelope::m_setPointValue(t_symbol* s, const AtomList& lst)
         return;
 
     size_t point_idx = lst[0].asSizeT();
-    if (point_idx >= env_.numPoints()) {
+    if (point_idx >= env_->numPoints()) {
         OBJ_ERR << "invalid point index: " << point_idx;
         return;
     }
 
-    env_.pointAt(point_idx).value = lst[1].asFloat();
+    env_.detachData();
+    env_->pointAt(point_idx).value = lst[1].asFloat();
 }
 
 void Envelope::m_setPoint(t_symbol* s, const AtomList& lst)
@@ -157,7 +162,7 @@ void Envelope::m_setPoint(t_symbol* s, const AtomList& lst)
     t_float value = lst.floatAt(2, 0);
     int stop = lst.intAt(2, 0);
 
-    if (idx >= env_.numPoints()) {
+    if (idx >= env_->numPoints()) {
         OBJ_ERR << "invalid point index: " << idx;
         return;
     }
@@ -167,12 +172,13 @@ void Envelope::m_setPoint(t_symbol* s, const AtomList& lst)
         return;
     }
 
-    EnvelopePoint& p = env_.pointAt(idx);
+    EnvelopePoint& p = env_->pointAt(idx);
     p.utime = time_ms * 1000;
     p.value = value;
     p.stop = stop;
 
-    env_.sort();
+    env_.detachData();
+    env_->sort();
 }
 
 void Envelope::m_setStopPoint(t_symbol* s, const AtomList& lst)
@@ -181,12 +187,13 @@ void Envelope::m_setStopPoint(t_symbol* s, const AtomList& lst)
         return;
 
     size_t point_idx = lst[0].asSizeT();
-    if (point_idx >= env_.numPoints()) {
+    if (point_idx >= env_->numPoints()) {
         OBJ_ERR << "invalid point index: " << point_idx;
         return;
     }
 
-    env_.pointAt(point_idx).stop = lst[1].asInt();
+    env_.detachData();
+    env_->pointAt(point_idx).stop = lst[1].asInt();
 }
 
 void Envelope::m_appendSegment(t_symbol* s, const AtomList& lst)
@@ -213,7 +220,8 @@ void Envelope::m_appendSegment(t_symbol* s, const AtomList& lst)
         return;
     }
 
-    if (!env_.appendSegment(length_ms * 1000, value, ctype, curve_skew))
+    env_.detachData();
+    if (!env_->appendSegment(length_ms * 1000, value, ctype, curve_skew))
         OBJ_ERR << "can't append segment";
 }
 
@@ -222,12 +230,12 @@ void Envelope::m_setSegmentType(t_symbol* s, const AtomList& lst)
     if (!checkArgs(lst, ARG_NATURAL, ARG_SYMBOL, s))
         return;
 
-    if (env_.numPoints() == 0)
+    if (env_->numPoints() == 0)
         return;
 
     size_t seg_idx = lst[0].asSizeT();
 
-    if (seg_idx >= (env_.numPoints() - 1)) {
+    if (seg_idx >= (env_->numPoints() - 1)) {
         OBJ_ERR << "invalid segment index: " << seg_idx;
         return;
     }
@@ -239,7 +247,8 @@ void Envelope::m_setSegmentType(t_symbol* s, const AtomList& lst)
         return;
     }
 
-    env_.pointAt(seg_idx).type = seg_type;
+    env_.detachData();
+    env_->pointAt(seg_idx).type = seg_type;
 }
 
 void Envelope::m_plus(t_symbol* s, const AtomList& lst)
@@ -249,8 +258,9 @@ void Envelope::m_plus(t_symbol* s, const AtomList& lst)
 
     t_float v = lst[0].asFloat();
 
-    for (size_t i = 0; i < env_.numPoints(); i++)
-        env_.pointAt(i).value += v;
+    env_.detachData();
+    for (size_t i = 0; i < env_->numPoints(); i++)
+        env_->pointAt(i).value += v;
 }
 
 void Envelope::m_multiply(t_symbol* s, const AtomList& lst)
@@ -260,8 +270,9 @@ void Envelope::m_multiply(t_symbol* s, const AtomList& lst)
 
     t_float v = lst[0].asFloat();
 
-    for (size_t i = 0; i < env_.numPoints(); i++)
-        env_.pointAt(i).value *= v;
+    env_.detachData();
+    for (size_t i = 0; i < env_->numPoints(); i++)
+        env_->pointAt(i).value *= v;
 }
 
 void Envelope::m_shift(t_symbol* s, const AtomList& lst)
@@ -269,38 +280,45 @@ void Envelope::m_shift(t_symbol* s, const AtomList& lst)
     if (!checkArgs(lst, ARG_FLOAT, s))
         return;
 
+    env_.detachData();
     long v = lst[0].asFloat() * 1000;
-    env_.shiftTime(v);
+    env_->shiftTime(v);
 }
 
 void Envelope::m_AR(t_symbol* s, const AtomList& lst)
 {
-    env_.setAR(lst);
+    env_.detachData();
+    env_->setAR(lst);
 }
 
 void Envelope::m_ASR(t_symbol* s, const AtomList& lst)
 {
-    env_.setASR(lst);
+    env_.detachData();
+    env_->setASR(lst);
 }
 
 void Envelope::m_ADSR(t_symbol* s, const AtomList& lst)
 {
-    env_.setADSR(lst);
+    env_.detachData();
+    env_->setADSR(lst);
 }
 
 void Envelope::m_EADSR(t_symbol* s, const AtomList& lst)
 {
-    env_.setEADSR(lst);
+    env_.detachData();
+    env_->setEADSR(lst);
 }
 
 void Envelope::m_EASR(t_symbol* s, const AtomList& lst)
 {
-    env_.setEASR(lst);
+    env_.detachData();
+    env_->setEASR(lst);
 }
 
 void Envelope::m_EAR(t_symbol* s, const AtomList& lst)
 {
-    env_.setEAR(lst);
+    env_.detachData();
+    env_->setEAR(lst);
 }
 
 void Envelope::m_step(t_symbol* s, const AtomList& lst)
@@ -310,7 +328,8 @@ void Envelope::m_step(t_symbol* s, const AtomList& lst)
         return;
     }
 
-    if (!env_.setStep(lst))
+    env_.detachData();
+    if (!env_->setStep(lst))
         OBJ_ERR << "Can't set step envelope";
 }
 
@@ -321,45 +340,50 @@ void Envelope::m_line(t_symbol* s, const AtomList& lst)
         return;
     }
 
-    if (!env_.setLine(lst))
+    env_.detachData();
+    if (!env_->setLine(lst))
         OBJ_ERR << "Can't set line envelope";
 }
 
 void Envelope::m_sin2(t_symbol* s, const AtomList& lst)
 {
-    if (!env_.setSin2(lst))
+    env_.detachData();
+    if (!env_->setSin2(lst))
         OBJ_ERR << "Can't set sin2 envelope";
 }
 
 void Envelope::m_exp(t_symbol* s, const AtomList& lst)
 {
-    if (!env_.setExponential(lst))
+    env_.detachData();
+    if (!env_->setExponential(lst))
         OBJ_ERR << "Can't set exponential envelope";
 }
 
 void Envelope::m_sigmoid(t_symbol* s, const AtomList& lst)
 {
-    if (!env_.setSigmoid(lst))
+    env_.detachData();
+    if (!env_->setSigmoid(lst))
         OBJ_ERR << "Can't set sigmoid envelope";
 }
 
 void Envelope::m_clear(t_symbol*, const AtomList&)
 {
-    env_.clear();
+    env_.detachData();
+    env_->clear();
 }
 
 AtomList Envelope::p_length() const
 {
-    return AtomList(Atom(env_.totalLength() / 1000.f));
+    return AtomList(Atom(env_->totalLength() / 1000.f));
 }
 
 AtomList Envelope::p_values() const
 {
     AtomList res;
-    res.reserve(env_.numPoints());
+    res.reserve(env_->numPoints());
 
-    for (size_t i = 0; i < env_.numPoints(); i++)
-        res.append(env_.pointAt(i).value);
+    for (size_t i = 0; i < env_->numPoints(); i++)
+        res.append(env_->pointAt(i).value);
 
     return res;
 }
@@ -367,10 +391,10 @@ AtomList Envelope::p_values() const
 AtomList Envelope::p_points() const
 {
     AtomList res;
-    res.reserve(env_.numPoints());
+    res.reserve(env_->numPoints());
 
-    for (size_t i = 0; i < env_.numPoints(); i++)
-        res.append(env_.pointAt(i).timeMs());
+    for (size_t i = 0; i < env_->numPoints(); i++)
+        res.append(env_->pointAt(i).timeMs());
 
     return res;
 }
@@ -378,8 +402,8 @@ AtomList Envelope::p_points() const
 AtomList Envelope::p_stops() const
 {
     AtomList res;
-    for (size_t i = 0; i < env_.numPoints(); i++) {
-        if (env_.pointAt(i).stop)
+    for (size_t i = 0; i < env_->numPoints(); i++) {
+        if (env_->pointAt(i).stop)
             res.append(Atom(i));
     }
 

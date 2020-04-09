@@ -127,22 +127,17 @@ UIEnv::UIEnv()
 
 void UIEnv::onBang()
 {
-    dataTo(0, DataPtr(env_.clone()));
+    atomTo(0, EnvAtom(env_));
 }
 
-void UIEnv::onData(const DataPtr& ptr)
+void UIEnv::onData(const Atom& data)
 {
-    if (ptr->type() != data::DATA_ENVELOPE) {
-        UI_ERR << "not Envelope received: " << ptr->toString();
+    if (data.isA<DataTypeEnv>()) {
+        UI_ERR << "not Envelope received: " << data;
         return;
     }
 
-    if (ptr.isNull()) {
-        UI_ERR << "NULL pointer";
-        return;
-    }
-
-    const DataTypeEnv* env = ptr->as<DataTypeEnv>();
+    const DataTypeEnv* env = data.asD<DataTypeEnv>();
 
     if (env->numPoints() < 2) {
         UI_ERR << "invalid (for editor) envelope : " << *env;
@@ -519,7 +514,7 @@ bool UIEnv::hasSelectedEdge() const
 void UIEnv::outputEnvelope()
 {
     updateEnvelope();
-    dataTo(0, DataPtr(env_.clone()));
+    atomTo(0, EnvAtom(env_));
 }
 
 bool UIEnv::shouldOutput(long mod)

@@ -123,10 +123,10 @@ void UIMouseRoute::onAny(t_symbol* s, const AtomList& l)
         anyTo(index_, s, l);
 }
 
-void UIMouseRoute::onData(const DataPtr& ptr)
+void UIMouseRoute::onData(const Atom& data)
 {
     if (index_ >= 0)
-        dataTo(index_, ptr);
+        atomTo(index_, data);
 }
 
 void setup_ui_mouse_route()

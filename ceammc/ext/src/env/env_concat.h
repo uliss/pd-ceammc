@@ -7,7 +7,7 @@
 using namespace ceammc;
 
 class EnvConcat : public BaseObject {
-    DataTypeEnv res_env_;
+    EnvAtom res_env_;
     EnvAtom right_;
 
 public:
