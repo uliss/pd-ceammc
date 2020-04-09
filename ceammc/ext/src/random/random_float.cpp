@@ -1,12 +1,11 @@
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/uniform_real_distribution.hpp>
 #include <ctime>
+#include <random>
 
-#include "ceammc.h"
 #include "ceammc_factory.h"
+#include "fmt/format.h"
 #include "random_float.h"
 
-static boost::random::mt19937 random_gen(std::time(0));
+static std::mt19937 random_gen(std::time(0));
 
 RandomFloat::RandomFloat(const PdArgs& a)
     : BaseObject(a)
@@ -21,7 +20,7 @@ RandomFloat::RandomFloat(const PdArgs& a)
     addProperty(min_);
     addProperty(max_);
 
-    switch (positionalArguments().size()) {
+    switch (a.args.size()) {
     case 2:
         min_->setArgIndex(0);
         max_->setArgIndex(1);
@@ -36,6 +35,12 @@ RandomFloat::RandomFloat(const PdArgs& a)
 
 void RandomFloat::onBang()
 {
+    if (min_->value() > max_->value()) {
+        LIB_ERR << fmt::format("@min should be less then @max, got: {} > {}",
+            min_->value(), max_->value());
+        return;
+    }
+
     if (min_->value() == max_->value())
         return floatTo(0, min_->value());
 
@@ -46,11 +51,11 @@ void RandomFloat::onBang()
         max_->setValue(std::max(v0, v1));
     }
 
-    boost::random::uniform_real_distribution<t_float> dist(min_->value(), max_->value());
+    std::uniform_real_distribution<t_float> dist(min_->value(), max_->value());
     floatTo(0, dist(random_gen));
 }
 
-extern "C" void setup_random0x2efloat()
+void setup_random_float()
 {
     ObjectFactory<RandomFloat> obj("random.float");
     obj.addAlias("random.f");

@@ -10,10 +10,10 @@ extern "C" void setup_random0x2eint();
 
 void ceammc_random_setup()
 {
-    setup_random0x2efloat();
     setup_random0x2egauss();
     setup_random0x2eint();
     setup_random_discrete();
+    setup_random_float();
     setup_random_linear();
     setup_random_pw_const();
     setup_random_pw_lin();

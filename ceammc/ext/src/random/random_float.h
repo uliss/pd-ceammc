@@ -28,6 +28,6 @@ public:
     void onBang() override;
 };
 
-extern "C" void setup_random0x2efloat();
+void setup_random_float();
 
 #endif // RANDOM_FLOAT_H
