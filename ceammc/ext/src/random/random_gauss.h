@@ -27,6 +27,6 @@ public:
     void onBang() override;
 };
 
-extern "C" void setup_random0x2egauss();
+void setup_random_gauss();
 
 #endif // RANDOM_GAUSS_H
