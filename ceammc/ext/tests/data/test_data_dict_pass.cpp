@@ -71,4 +71,12 @@ TEST_CASE("dict.pass", "[externals]")
         t.send(DictA("[a: b c: d e: f]"));
         REQUIRE(dataAt(t) == DictA("[c: d e: f]"));
     }
+
+    SECTION("any")
+    {
+        TExt t("dict.pass", "a");
+
+        t <<= AtomList::parseString("[a: b c: d e: f]");
+        REQUIRE(dataAt(t) == DictA("[a: b]"));
+    }
 }

@@ -15,7 +15,7 @@
 #include "ceammc_factory.h"
 
 DictPass::DictPass(const PdArgs& args)
-    : BaseObject(args)
+    : DictBase(args)
     , keys_(nullptr)
 {
     keys_ = new ListProperty("@keys");
@@ -35,6 +35,7 @@ void DictPass::onDataT(const DictAtom& dict)
 {
     DictAtom res = dict;
     res.detachData();
+
     res->removeIf([this](const Atom& k) -> bool { return !keys_->value().contains(k); });
 
     atomTo(0, res);
