@@ -30,6 +30,7 @@ void AbstractData::dump() const
 
 std::string AbstractData::toString() const
 {
+    throw std::runtime_error("not implemented");
     return fmt::format("{[Data {} id: {}]}", typeid(*this).name(), type());
 }
 

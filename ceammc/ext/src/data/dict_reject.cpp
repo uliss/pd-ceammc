@@ -16,26 +16,27 @@
 
 DictReject::DictReject(const PdArgs& args)
     : BaseObject(args)
-    , keys_(args.args)
+    , keys_(nullptr)
 {
+    keys_ = new ListProperty("@keys");
+    keys_->setArgIndex(0);
+    addProperty(keys_);
+
     createInlet();
     createOutlet();
 }
 
-void DictReject::parseProperties()
-{
-}
-
 void DictReject::onInlet(size_t, const AtomList& lst)
 {
-    keys_ = lst;
+    keys_->set(lst);
 }
 
 void DictReject::onDataT(const DictAtom& dict)
 {
     DictAtom res = dict;
+
     res.detachData();
-    res->filterByKeys([this](const Atom& a) -> bool { return !keys_.contains(a); });
+    res->removeIf([this](const Atom& a) -> bool { return keys_->value().contains(a); });
 
     atomTo(0, res);
 }

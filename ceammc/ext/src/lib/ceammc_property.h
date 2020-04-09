@@ -418,6 +418,10 @@ public:
     bool checkPositive() override;
     bool checkNegative() override;
 
+    bool checkMinElementCount(size_t n);
+    bool checkMaxElementCount(size_t n);
+    bool checkRangeElementCount(size_t min, size_t max);
+
 public:
     using value_type = AtomList;
 };

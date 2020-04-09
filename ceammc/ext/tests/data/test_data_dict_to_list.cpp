@@ -38,7 +38,7 @@ TEST_CASE("dict.to_list", "[externals]")
         REQUIRE(t.isOutputListAt(0));
         REQUIRE(t.outputListAt(0) == L());
 
-        t.send(DictA("[a:b]"));
+        t.send(DictA("[a: b]"));
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputListAt(0));
         REQUIRE(t.outputListAt(0) == LA("a", "b"));
@@ -48,7 +48,7 @@ TEST_CASE("dict.to_list", "[externals]")
         REQUIRE(t.isOutputListAt(0));
         REQUIRE(t.outputListAt(0) == LA("a", "b", "c", "d"));
 
-        t.send(DictA("[a: b c d][e: 123]"));
+        t.send(DictA("[a: b c d e: 123]"));
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputListAt(0));
         REQUIRE(t.outputListAt(0) == LA("a", "b", "c", "d", "e", 123));

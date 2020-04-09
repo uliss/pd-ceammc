@@ -13,10 +13,12 @@
  *****************************************************************************/
 #include "dict_each.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 #include "datatype_dict.h"
 
 DictEach::DictEach(const PdArgs& args)
-    : BaseObject(args)
+    : DictBase(args)
+    , current_key_(&s_)
 {
     createInlet();
     createOutlet();
@@ -35,23 +37,16 @@ void DictEach::onInlet(size_t n, const AtomList& lst)
         return; // skip empty values
 }
 
-void DictEach::onDataT(const DictAtom& dptr)
+void DictEach::onDataT(const DictAtom& dict)
 {
-    dict_.detachData();
     dict_->clear();
 
-    const DataTypeDict::DictMap& dict = dptr->innerData();
-    for (auto& kv : dict) {
+    for (auto& kv : *dict) {
         current_key_ = kv.first;
-        auto val = kv.second;
-
-        if (val.type() == typeid(Atom))
-            atomTo(1, boost::get<Atom>(val));
-        else if (val.type() == typeid(AtomList))
-            listTo(1, boost::get<AtomList>(val));
+        listTo(1, kv.second);
     }
 
-    atomTo(0, DictAtom(dict_));
+    atomTo(0, dict_);
 }
 
 void setup_dict_each()

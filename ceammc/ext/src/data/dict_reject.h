@@ -21,14 +21,12 @@
 using namespace ceammc;
 
 class DictReject : public BaseObject {
-    AtomList keys_;
+    ListProperty* keys_;
 
 public:
     DictReject(const PdArgs& args);
 
-    void parseProperties() override;
     void onInlet(size_t, const AtomList& lst) override;
-
     void onDataT(const DictAtom& dict);
 };
 

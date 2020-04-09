@@ -24,6 +24,8 @@ using DSTR = DataTypeString;
 
 TEST_CASE("DataTypeString", "[core]")
 {
+    test::pdPrintToStdError();
+
     SECTION("create")
     {
         DSTR t("");
@@ -362,7 +364,14 @@ TEST_CASE("DataTypeString", "[core]")
 
     SECTION("to_string")
     {
-        REQUIRE(to_string(Atom(new DSTR("a string"))) == "a string");
+        REQUIRE(to_string(StringAtom("spaceless")) == "spaceless");
+        REQUIRE(to_string(StringAtom("")) == "\"\"");
+        REQUIRE(to_string(StringAtom(" ")) == "\" \"");
+        REQUIRE(to_string(StringAtom("with spaces")) == "\"with spaces\"");
+
+        REQUIRE(StringAtom("a b").asData()->toString() == "\"a b\"");
+        REQUIRE(Atom(new DataTypeString("a b c")).asData()->toString() == "\"a b c\"");
+        REQUIRE(to_string(Atom(new DataTypeString("a b c"))) == "\"a b c\"");
     }
 
     SECTION("create via factory")

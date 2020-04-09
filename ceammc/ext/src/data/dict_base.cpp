@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2018 Serge Poltavsky. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,38 +11,29 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef DICT_PARSER_IMPL_H
-#define DICT_PARSER_IMPL_H
+#include "dict_base.h"
+#include "ceammc_format.h"
+#include "datatype_dict.h"
 
-#include "m_pd.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-struct _dict;
-typedef struct _dict t_dict;
-
-t_dict* dict_new();
-void dict_free(t_dict* dict);
-
-void dict_dump(t_dict* dict);
-void dict_clear(t_dict* dict);
-
-void dict_push_to_list(t_dict* d, t_symbol* s);
-void dict_store(t_dict* d, int n);
-void dict_insert_pair_list(t_dict* d, t_symbol* key);
-void dict_insert_pair_dict(t_dict* d, t_symbol* key);
-
-#ifdef __cplusplus
+DictBase::DictBase(const PdArgs& args)
+    : BaseObject(args)
+{
 }
-#endif
 
-#ifdef __cplusplus
-namespace ceammc {
-class DataTypeDict;
-DataTypeDict& dict_get(t_dict* dict);
+void DictBase::onAny(t_symbol* s, const AtomList& lst)
+{
+    if (s->s_name[0] != '[')
+        return BaseObject::onAny(s, lst);
+
+    std::string str = s->s_name;
+    if (!lst.empty()) {
+        str.push_back(' ');
+        str += to_string(lst, " ");
+    }
+
+    DictAtom dict;
+    if (dict->fromString(str))
+        onDataT(dict);
+    else
+        LIB_ERR << "not a dict: " << str;
 }
-#endif
-
-#endif // DICT_PARSER_IMPL_H

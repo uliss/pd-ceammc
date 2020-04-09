@@ -105,6 +105,9 @@ enum class PropValueConstraints : uint8_t {
     CLOSED_OPEN_RANGE,
     NON_ZERO,
     ENUM,
+    MIN_ELEMENT_COUNT,
+    MAX_ELEMENT_COUNT,
+    RANGE_ELEMENT_COUNT,
     OTHER
 };
 
@@ -143,7 +146,7 @@ private:
     t_symbol* name_;
     // name
     PropertyValue default_;
-    // constrains
+    // constraints
     AtomListPtr enum_;
     NumericUnion min_, max_;
     t_float step_;
@@ -208,6 +211,10 @@ public:
     bool hasConstraintsMin() const;
     bool hasConstraintsMax() const;
     bool hasEnumLimit() const;
+    bool hasMinElementLimit() const;
+    bool hasMaxElementLimit() const;
+    bool hasFixedElementCount() const;
+    bool hasRangeElementCount() const;
 
     // float range
     t_float minFloat() const { return min_.f; }
@@ -251,6 +258,12 @@ public:
     bool addEnums(std::initializer_list<t_symbol*> s_list) CEAMMC_WARN_UNUSED;
     bool addEnums(std::initializer_list<const char*> c_list) CEAMMC_WARN_UNUSED;
     void clearEnum();
+
+    // element count
+    bool setMinElementCount(size_t n) CEAMMC_WARN_UNUSED;
+    bool setMaxElementCount(size_t n) CEAMMC_WARN_UNUSED;
+    bool setFixedElementCount(size_t n) CEAMMC_WARN_UNUSED;
+    bool setRangeElementCount(size_t min, size_t max) CEAMMC_WARN_UNUSED;
 
     void setDefault(bool v);
     void setDefault(int v);

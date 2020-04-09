@@ -16,22 +16,26 @@
 
 DictPass::DictPass(const PdArgs& args)
     : BaseObject(args)
-    , keys_(args.args)
+    , keys_(nullptr)
 {
+    keys_ = new ListProperty("@keys");
+    keys_->setArgIndex(0);
+    addProperty(keys_);
+
     createInlet();
     createOutlet();
 }
 
 void DictPass::onInlet(size_t, const AtomList& lst)
 {
-    keys_ = lst;
+    keys_->set(lst);
 }
 
 void DictPass::onDataT(const DictAtom& dict)
 {
     DictAtom res = dict;
     res.detachData();
-    res->filterByKeys([this](const Atom& a) -> bool { return keys_.contains(a); });
+    res->removeIf([this](const Atom& k) -> bool { return !keys_->value().contains(k); });
 
     atomTo(0, res);
 }
@@ -40,5 +44,4 @@ void setup_dict_pass()
 {
     ObjectFactory<DictPass> obj("dict.pass");
     obj.processData<DataTypeDict>();
-    obj.parseOnlyPositionalProps(true);
 }

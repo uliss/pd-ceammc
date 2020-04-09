@@ -32,19 +32,20 @@ DictFromList::DictFromList(const PdArgs& args)
 
 void DictFromList::onList(const AtomList& l)
 {
-    DataTypeDict dict;
+    DictAtom dict;
     size_t STEP = n_->value();
     size_t T = (l.size() / STEP) * STEP;
 
-    if (STEP == 2) {
-        for (size_t i = 0; i < T; i += STEP)
-            dict.insert(l[i], l[i + 1]);
-    } else {
-        for (size_t i = 0; i < T; i += STEP)
-            dict.insert(l[i], l.slice(i + 1, i + STEP - 1));
+    for (size_t i = 0; i < T; i += STEP) {
+        if (!l[i].isSymbol()) {
+            OBJ_ERR << "key value expected, got: " << l[i] << ", abort";
+            break;
+        }
+
+        dict->insert(l[i].asSymbol(), l.slice(i + 1, i + STEP - 1));
     }
 
-    atomTo(0, DictAtom(dict));
+    atomTo(0, dict);
 }
 
 void setup_dict_from_list()

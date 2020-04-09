@@ -23,20 +23,12 @@ DictValues::DictValues(const PdArgs& args)
 
 void DictValues::onDataT(const DictAtom& dptr)
 {
-    const auto& d = dptr->innerData();
+    AtomList res;
 
-    MListAtom res;
+    for (auto& kv : *dptr)
+        res.append(MListAtom(kv.second));
 
-    for (auto& kv : d) {
-        auto& v = kv.second;
-
-        if (v.type() == typeid(Atom))
-            res->append(boost::get<Atom>(v));
-        else if (v.type() == typeid(AtomList))
-            res->append(boost::get<AtomList>(v));
-    }
-
-    atomTo(0, res);
+    listTo(0, res);
 }
 
 void setup_dict_values()

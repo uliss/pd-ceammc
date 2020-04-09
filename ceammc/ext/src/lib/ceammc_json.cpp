@@ -41,16 +41,14 @@ namespace json {
     {
         auto obj = nlohmann::json::object();
 
-        for (auto& kv : dict.innerData()) {
-            auto key = to_string(kv.first);
+        for (auto& kv : dict) {
+            auto key = kv.first->s_name;
 
             auto& value = kv.second;
-            if (value.type() == typeid(Atom))
-                obj[key] = to_json_struct(boost::get<Atom>(kv.second));
-            else if (value.type() == typeid(AtomList))
-                obj[key] = to_json_struct(boost::get<AtomList>(kv.second));
+            if (value.isA<Atom>() )
+                obj[key] = to_json_struct(value.asT<Atom>());
             else
-                obj[key] = nlohmann::json();
+                obj[key] = to_json_struct(value);
         }
 
         return obj;

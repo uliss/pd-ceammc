@@ -115,6 +115,9 @@ t_symbol* to_symbol(PropValueConstraints v)
         gensym("[)"),
         gensym("!=0"),
         gensym("enum"),
+        gensym("min count"),
+        gensym("max count"),
+        gensym("range count"),
         gensym("...")
     };
 
@@ -484,6 +487,21 @@ bool PropertyInfo::hasEnumLimit() const
     return constraints_ == PropValueConstraints::ENUM;
 }
 
+bool PropertyInfo::hasMinElementLimit() const
+{
+    return constraints_ == PropValueConstraints::MIN_ELEMENT_COUNT;
+}
+
+bool PropertyInfo::hasMaxElementLimit() const
+{
+    return constraints_ == PropValueConstraints::MAX_ELEMENT_COUNT;
+}
+
+bool PropertyInfo::hasRangeElementCount() const
+{
+    return constraints_ == PropValueConstraints::RANGE_ELEMENT_COUNT;
+}
+
 void PropertyInfo::clearMinFloat()
 {
     min_.f = FLOAT_INF_MIN;
@@ -684,6 +702,55 @@ bool PropertyInfo::addEnums(std::initializer_list<const char*> c_list)
 void PropertyInfo::clearEnum()
 {
     enum_.reset();
+}
+
+bool PropertyInfo::setMinElementCount(size_t n)
+{
+    if (!hasMinElementLimit()) {
+        PROP_LOG() << "no min element count constraints";
+        return false;
+    }
+
+    if (!isList()) {
+        PROP_LOG() << "not a list property: setMinElementCount failed";
+        return false;
+    }
+
+    min_.i = n;
+    return true;
+}
+
+bool PropertyInfo::setMaxElementCount(size_t n)
+{
+    if (!hasMaxElementLimit()) {
+        PROP_LOG() << "no max element count constraints";
+        return false;
+    }
+
+    if (!isList()) {
+        PROP_LOG() << "not a list property: setMaxElementCount failed";
+        return false;
+    }
+
+    max_.i = n;
+    return true;
+}
+
+bool PropertyInfo::setRangeElementCount(size_t min, size_t max)
+{
+    if (!hasRangeElementCount()) {
+        PROP_LOG() << "no range element count constraints";
+        return false;
+    }
+
+    if (!isList()) {
+        PROP_LOG() << "not a list property: setRangeElementCount failed";
+        return false;
+    }
+
+    min_.i = min;
+    max_.i = max;
+    return true;
 }
 
 void PropertyInfo::setType(PropValueType t)

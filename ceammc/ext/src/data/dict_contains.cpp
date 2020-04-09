@@ -16,7 +16,7 @@
 #include "datatype_dict.h"
 
 DictContains::DictContains(const PdArgs& args)
-    : BaseObject(args)
+    : DictBase(args)
     , keys_(nullptr)
 {
     keys_ = new ListProperty("@keys");
@@ -40,7 +40,10 @@ void DictContains::onDataT(const DictAtom& dict)
     }
 
     listTo(0, keys_->value().map([&dict](const Atom& a) -> Atom {
-        return Atom(dict->contains(a) ? 1 : 0);
+        if (!a.isSymbol())
+            return Atom(0.0);
+
+        return Atom(dict->contains(a.asSymbol()) ? 1 : 0);
     }));
 }
 

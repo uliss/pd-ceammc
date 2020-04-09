@@ -24,7 +24,7 @@ TEST_CASE("dict.from_list", "[externals]")
     {
         SECTION("default")
         {
-            TestDictFromList t("dict.from_list");
+            TObj t("dict.from_list");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @step, 2);
@@ -32,7 +32,7 @@ TEST_CASE("dict.from_list", "[externals]")
 
         SECTION("args")
         {
-            TestDictFromList t("dict.from_list", LA(4));
+            TObj t("dict.from_list", LA(4));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @step, 4);
@@ -40,7 +40,7 @@ TEST_CASE("dict.from_list", "[externals]")
 
         SECTION("@prop")
         {
-            TestDictFromList t("dict.from_list", LA("@step", 3));
+            TObj t("dict.from_list", LA("@step", 3));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @step, 3);
@@ -48,7 +48,7 @@ TEST_CASE("dict.from_list", "[externals]")
 
         SECTION("invalid")
         {
-            TestDictFromList t("dict.from_list", LA(1));
+            TObj t("dict.from_list", LA(1));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @step, 2);
@@ -56,7 +56,7 @@ TEST_CASE("dict.from_list", "[externals]")
 
         SECTION("invalid")
         {
-            TestDictFromList t("dict.from_list", LA(-11));
+            TObj t("dict.from_list", LA(-11));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @step, 2);
@@ -65,7 +65,7 @@ TEST_CASE("dict.from_list", "[externals]")
 
     SECTION("do")
     {
-        TestExtDictFromList t("dict.from_list");
+        TExt t("dict.from_list");
         REQUIRE(t.object());
         REQUIRE_PROPERTY_FLOAT(t, @step, 2);
 
@@ -81,28 +81,28 @@ TEST_CASE("dict.from_list", "[externals]")
         t << LA("a", "b", "c", "d");
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DictA("[a:b][c:d]"));
+        REQUIRE(t.outputAtomAt(0) == DictA("[a: b c: d]"));
 
         t << LA("a", "b", "c");
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DictA("[a:b]"));
+        REQUIRE(t.outputAtomAt(0) == DictA("[a: b]"));
 
         t->setProperty("@step", LA(3));
         t << LA("a", "b", "c");
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DictA("[a:b c]"));
+        REQUIRE(t.outputAtomAt(0) == DictA("[a: b c]"));
 
         t << LA("a", "b", "c", "d");
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DictA("[a:b c]"));
+        REQUIRE(t.outputAtomAt(0) == DictA("[a: b c]"));
     }
 
     SECTION("alias")
     {
-        TestExtDictFromList t("list->dict");
+        TExt t("list->dict");
         REQUIRE(t.object());
     }
 }

@@ -25,14 +25,9 @@ void DictToList::onDataT(const DictAtom& dict)
     AtomList res;
     res.reserve(dict->size() * 2);
 
-    for (auto& kv : dict->innerData()) {
+    for (auto& kv : *dict) {
         res.append(kv.first);
-
-        auto& v = kv.second;
-        if (v.type() == typeid(Atom))
-            res.append(boost::get<Atom>(v));
-        else if (v.type() == typeid(AtomList))
-            res.append(boost::get<AtomList>(v));
+        res.append(kv.second);
     }
 
     listTo(0, res);

@@ -814,6 +814,70 @@ bool ListProperty::checkNegative()
     return setFloatCheck(PropValueConstraints::LESS_THEN, 0);
 }
 
+bool ListProperty::checkMinElementCount(size_t n)
+{
+    bool res = setListCheckFn([this, n](const AtomList& l) -> bool {
+        if (l.size() < n) {
+            PROP_ERR() << fmt::format("list is too short, min {} elements expected, got: {}", n, l.size());
+            return false;
+        } else
+            return true;
+    });
+
+    if (res) {
+        info().setConstraints(PropValueConstraints::MIN_ELEMENT_COUNT);
+        PROP_USED info().setMinElementCount(n);
+    }
+
+    return res;
+}
+
+bool ListProperty::checkMaxElementCount(size_t n)
+{
+    bool res = setListCheckFn([this, n](const AtomList& l) -> bool {
+        if (l.size() > n) {
+            PROP_ERR() << fmt::format("list is too long, max {} elements expected, got: {}", n, l.size());
+            return false;
+        } else
+            return true;
+    });
+
+    if (res) {
+        info().setConstraints(PropValueConstraints::MAX_ELEMENT_COUNT);
+        PROP_USED info().setMaxElementCount(n);
+    }
+
+    return res;
+}
+
+bool ListProperty::checkRangeElementCount(size_t min, size_t max)
+{
+    if (min > max) {
+        PROP_ERR() << "min > max";
+        return false;
+    }
+
+    bool res = setListCheckFn([this, min, max](const AtomList& l) -> bool {
+        if (l.size() < min || l.size() > max) {
+
+            if (min == max)
+                PROP_ERR() << fmt::format("expected list size {}, got: {}", min, l.size());
+            else
+                PROP_ERR() << fmt::format("expected list size in [{}-{}] range, got: {}", min, max, l.size());
+
+            return false;
+        } else
+            return true;
+    });
+
+    if (res) {
+        info().setConstraints(PropValueConstraints::RANGE_ELEMENT_COUNT);
+        PROP_USED info().setRangeElementCount(min, max);
+    }
+
+    return res;
+}
+
 AtomList ListProperty::get() const
 {
     return lst_;
@@ -1043,12 +1107,12 @@ SizeTProperty::SizeTProperty(const std::string& n, size_t init, PropValueAccess 
     , v_(init)
 {
     if (!info().setConstraints(PropValueConstraints::GREATER_EQUAL)) {
-        PROP_ERR() << "can't set constrains";
+        PROP_ERR() << "can't set constraints";
         return;
     }
 
     if (!info().setMinInt(0)) {
-        PROP_ERR() << "can't set min constrains";
+        PROP_ERR() << "can't set min constraints";
         return;
     }
 

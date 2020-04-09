@@ -23,13 +23,10 @@
 
 
         struct t_interval {
-            int start;
-            int end;
-            bool quoted;
-            bool quoted_property;
-
-            t_interval() : start(0), end(0), quoted(false), quoted_property(false)
-            {}
+            int start {0};
+            int end {0};
+            bool quoted {false};
+            bool quoted_property {false};
 
             int length() const { return end - start + 1; }
         };

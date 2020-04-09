@@ -25,20 +25,40 @@ TEST_CASE("dict.get", "[externals]")
         SECTION("default")
         {
             TestDictGet t("dict.get");
+            REQUIRE_PROPERTY(t, @keys);
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numOutlets() == 0);
+        }
+
+        SECTION("invalid keys")
+        {
+            TestDictGet t("dict.get", LA(1, 2, 3));
+            REQUIRE_PROPERTY(t, @keys);
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 0);
         }
 
         SECTION("keys")
         {
-            TestDictGet t("dict.get", LA(1, 2, 3));
+            TestDictGet t("dict.get", LA("A", "B", "\"@C\""));
+            REQUIRE_PROPERTY(t, @keys, LA("A", "B", "@C"));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 3);
         }
 
+        SECTION("too many keys")
+        {
+            AtomList args;
+            TestDictGet t("dict.get", L().filled(A("A"), 33));
+            REQUIRE_PROPERTY(t, @keys);
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numOutlets() == 0);
+        }
+
         SECTION("@props")
         {
-            TestDictGet t("dict.get", LA("@a", "@b"));
+            TestDictGet t("dict.get", LA("\"@a\"", "\"@b\""));
+            REQUIRE_PROPERTY(t, @keys, LA("@a", "@b"));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 2);
         }
@@ -46,7 +66,8 @@ TEST_CASE("dict.get", "[externals]")
 
     SECTION("do")
     {
-        TestExtDictGet t("dict.get", LA(1, "@a", "b"));
+        TestExtDictGet t("dict.get", "A", "\"@a\"", "b");
+        REQUIRE_PROPERTY(t, @keys, "A", "@a", "b");
 
         REQUIRE(t.object());
         REQUIRE(t.numInlets() == 1);
@@ -70,7 +91,7 @@ TEST_CASE("dict.get", "[externals]")
         REQUIRE(t.hasOutputAt(2));
         REQUIRE(t.outputListAt(2) == LX(1, 2, 3, 4));
 
-        t.send(DictA("[1: ABC]"));
+        t.send(DictA("[A: ABC]"));
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(!t.hasOutputAt(1));
         REQUIRE(!t.hasOutputAt(2));

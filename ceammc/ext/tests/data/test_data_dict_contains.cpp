@@ -91,5 +91,19 @@ TEST_CASE("dict.contains", "[externals]")
             REQUIRE(t.hasOutput());
             REQUIRE(t.outputFloatAt(0) == 1);
         }
+
+        SECTION("any")
+        {
+            TExt t("dict.contains", "\"@b\"");
+
+            t.sendMessage("[@a:", LA("1]"));
+            REQUIRE(floatAt(t) == 0);
+
+            t.sendMessage("[@b:", LA("2]"));
+            REQUIRE(floatAt(t) == 1);
+
+            t.sendMessage("[@b:", LA("2 k0: 2]"));
+            REQUIRE(floatAt(t) == 1);
+        }
     }
 }

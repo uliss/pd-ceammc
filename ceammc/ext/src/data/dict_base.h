@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2018 Serge Poltavsky. All rights reserved.
+ * Copyright 2020 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,25 +11,21 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef DICT_PASS_H
-#define DICT_PASS_H
+#ifndef DICT_BASE_H
+#define DICT_BASE_H
 
 #include "ceammc_data.h"
 #include "ceammc_object.h"
-#include "datatype_dict.h"
 
 using namespace ceammc;
 
-class DictPass : public BaseObject {
-    ListProperty* keys_;
-
+class DictBase : public BaseObject
+{
 public:
-    DictPass(const PdArgs& args);
+    DictBase(const PdArgs& args);
 
-    void onInlet(size_t, const AtomList&) override;
-    void onDataT(const DictAtom& dict);
+    void onAny(t_symbol *s, const AtomList &) override;
+    virtual void onDataT(const DictAtom& dict) = 0;
 };
 
-void setup_dict_pass();
-
-#endif // DICT_PASS_H
+#endif // DICT_BASE_H

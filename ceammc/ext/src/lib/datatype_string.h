@@ -78,7 +78,7 @@ public:
     /**
      * Polymorphic string representation
      */
-    std::string toString() const override;
+    std::string toString() const final;
 
     /**
      * Polymorphic JSON string representation (quoted escaped string)

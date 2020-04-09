@@ -38,10 +38,7 @@ TEST_CASE("dict.each", "[externals]")
         REQUIRE(t.connectTo(1, pred, 0));
         REQUIRE(t.connectFrom(0, pred, 1));
 
-        t.send(DictA("([a:21] [c:12] [d:123])"));
-
-        REQUIRE(t.hasOutputAt(0));
-        REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DictA("([a:1] [c:0] [d:1])"));
+        t.send(DictA("[a: 21 c: 12 d: 123]"));
+        REQUIRE(dataAt(t) == DictA("[a: 1 c: 0 d: 1]"));
     }
 }

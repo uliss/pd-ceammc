@@ -31,22 +31,13 @@ std::string to_string(const Atom& a)
 {
     if (a.isSymbol())
         return std::string(a.asSymbol()->s_name);
-
-    if (a.isData())
-        return a.asData()->toString();
-
-    std::ostringstream ss;
-    ss << a;
-    return ss.str();
-}
-
-std::string to_string_quoted(const Atom& a)
-{
-    if (a.isSymbol())
-        return to_string_quoted(a.asSymbol()->s_name);
     else if (a.isData())
-        return to_string(a);
-    return to_string(a);
+        return a.asData()->toString();
+    else {
+        std::ostringstream ss;
+        ss << a;
+        return ss.str();
+    }
 }
 
 std::string to_string(const AtomListView v, const std::string& separator)
@@ -93,6 +84,14 @@ std::string to_string(const Message& m, const std::string& separator)
         return to_string(m.atomValue()) + separator + to_string(m.listValue(), separator);
 
     return "";
+}
+
+std::string to_string_quoted(const Atom& a)
+{
+    if (a.isSymbol())
+        return to_string_quoted(a.asSymbol()->s_name);
+    else
+        return to_string(a);
 }
 
 std::string to_string_quoted(const std::string& str)

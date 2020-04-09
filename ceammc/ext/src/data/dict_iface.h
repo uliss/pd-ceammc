@@ -14,6 +14,7 @@
 #ifndef DICT_IFACE_H
 #define DICT_IFACE_H
 
+#include "ceammc_args.h"
 #include "ceammc_data.h"
 #include "ceammc_object.h"
 #include "data_protocol.h"
@@ -52,10 +53,7 @@ public:
         }
 
         dict_.detachData();
-        dict_->clear();
-
-        for (size_t i = 0; i < args.size(); i += 2)
-            dict_->insert(args[i], args[i + 1]);
+        *dict_ = DataTypeDict::fromList(args);
     }
 
     void onAny(t_symbol* s, const AtomList& args) override
@@ -80,42 +78,28 @@ public:
 
     void m_get_key(t_symbol* s, const AtomList& key)
     {
-        if (key.empty()) {
+        if (!key.isSymbol()) {
             METHOD_ERR(s) << "key expected";
             METHOD_ERR(s) << "usage: " << s << " KEY";
             return;
         }
 
-        auto v = dict_->value(key[0]);
-        if (DataTypeDict::isNull(v))
-            return;
+        auto k = key.asT<t_symbol*>();
 
-        if (v.type() == typeid(Atom))
-            this->atomTo(0, boost::get<Atom>(v));
-        else if (v.type() == typeid(AtomList))
-            this->listTo(0, boost::get<AtomList>(v));
-        else
-            METHOD_ERR(s) << "unknown value type";
+        if (dict_->contains(k))
+            this->listTo(0, dict_->at(k));
     }
 
     void m_set_key(t_symbol* s, const AtomList& lst)
     {
-        if (lst.empty()) {
+        if (lst.empty() || !lst[0].isSymbol()) {
             METHOD_ERR(s) << "key expected";
-            METHOD_ERR(s) << "usage: " << s << " KEY VALUES...";
+            METHOD_ERR(s) << "usage: " << s << " KEY [VALUES...]";
             return;
         }
 
-        if (lst.size() < 2) {
-            METHOD_ERR(s) << "value expected";
-            METHOD_ERR(s) << "usage: " << s << " KEY VALUES...";
-            return;
-        }
-
-        auto key = lst[0];
-
-        if (!dict_->contains(key)) {
-            METHOD_ERR(s) << "key not found: " << key;
+        if (!dict_->contains(lst[0].asSymbol())) {
+            METHOD_ERR(s) << "key not found: " << lst[0];
             return;
         }
 
@@ -124,17 +108,18 @@ public:
 
     void proto_add(const AtomList& lst) override
     {
-        if (lst.size() < 2) {
-            OBJ_ERR << "Usage: add KEY VALUES...";
+        if (lst.empty() || !lst[0].isSymbol()) {
+            OBJ_ERR << "Usage: add KEY [VALUES...]";
             return;
         }
 
         dict_.detachData();
+        auto key = lst[0].asSymbol();
 
-        if (lst.size() == 2) {
-            dict_->insert(lst[0], lst[1]);
-        } else
-            dict_->insert(lst[0], lst.slice(1));
+        if (lst.size() == 2)
+            dict_->insert(key, lst[1]);
+        else
+            dict_->insert(key, lst.slice(1));
     }
 
     void proto_clear() override
@@ -151,11 +136,16 @@ public:
 
     bool proto_remove(const AtomList& lst) override
     {
+        if (lst.empty() || !lst.anyOf(isSymbol)) {
+            OBJ_ERR << "key list expected, got: " << lst;
+            return false;
+        }
+
         bool res = true;
         dict_.detachData();
 
         for (auto& el : lst) {
-            if (!dict_->remove(el)) {
+            if (!dict_->remove(el.asSymbol())) {
                 res = false;
                 OBJ_ERR << "key not found: " << el;
             }

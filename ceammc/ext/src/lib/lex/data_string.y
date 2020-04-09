@@ -58,10 +58,15 @@
             return dict;
 
         for(auto& kv: v) {
-            if(kv.second.isAtom())
-                dict->insert(kv.first, kv.second.asT<Atom>());
+            auto key = gensym(kv.first.c_str());
+            auto& val = kv.second;
+
+            if(val.isA<void>())
+                dict->insert(key, AtomList());
+            else if(val.isA<Atom>())
+                dict->insert(key, val.asT<Atom>());
             else
-                dict->insert(kv.first, kv.second);
+                dict->insert(key, val);
         }
 
         return dict;

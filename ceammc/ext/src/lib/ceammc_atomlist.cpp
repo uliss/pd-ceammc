@@ -830,13 +830,7 @@ AtomList AtomList::operator/(t_float v) const
 
 bool AtomList::operator==(const AtomList& x) const noexcept
 {
-    if (this == &x)
-        return true;
-
-    if (size() != x.size())
-        return false;
-
-    return std::equal(atoms_.begin(), atoms_.end(), x.atoms_.begin());
+    return atoms_ == x.atoms_;
 }
 
 bool AtomList::operator==(const AtomListView& x) const noexcept

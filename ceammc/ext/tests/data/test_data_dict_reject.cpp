@@ -25,41 +25,47 @@ TEST_CASE("dict.reject", "[externals]")
         SECTION("default")
         {
             TestDictReject t("dict.reject");
+            REQUIRE_PROPERTY(t, @keys);
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
+        }
+
+        SECTION("args")
+        {
+            TExt t("dict.reject", "a", "\"b", "a\"", "\"@c\"");
+            REQUIRE_PROPERTY(t, @keys, "a", "b a", "@c");
+        }
+
+        SECTION("@keys")
+        {
+            TExt t("dict.reject", "@keys", "a", "\"a b\"", "\"@c\"");
+            REQUIRE_PROPERTY(t, @keys, "a", "a b", "@c");
         }
     }
 
     SECTION("pass all")
     {
-        TestExtDictReject t("dict.reject");
+        TExt t("dict.reject");
         REQUIRE(t.object());
 
         // pass all
-        t.send(DictA("[a:b][c:d][e:f]"));
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DictA("[a:b][c:d][e:f]"));
+        t.send(DictA("[a: b c: d e: f]"));
+        REQUIRE(dataAt(t) == DictA("[a: b c: d e: f]"));
     }
 
     SECTION("reject")
     {
-        TestExtDictReject t("dict.reject", LA("a"));
+        TExt t("dict.reject", LA("a"));
         REQUIRE(t.object());
 
-        // pass all
-        t.send(DictA("[a:b][c:d][e:f]"));
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DictA("[c:d][e:f]"));
+        // pass c e
+        t.send(DictA("[a: b c: d e: f]"));
+        REQUIRE(dataAt(t) == DictA("[c: d e: f]"));
 
-        pd::External l("list");
-        REQUIRE(l.connectTo(0, t, 1));
-        l.sendList(LA("c", "e"));
+        t.sendListTo(LA("c", "e"), 1);
+        REQUIRE_PROPERTY(t, @keys, "c", "e");
 
-        t.send(DictA("[a:b][c:d][e:f]"));
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DictA("[a:b]"));
+        t.send(DictA("[a: b c: d e: f]"));
+        REQUIRE(dataAt(t) == DictA("[a: b]"));
     }
 }

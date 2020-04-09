@@ -54,20 +54,17 @@
 
 
         struct t_interval {
-            int start;
-            int end;
-            bool quoted;
-            bool quoted_property;
-
-            t_interval() : start(0), end(0), quoted(false), quoted_property(false)
-            {}
+            int start {0};
+            int end {0};
+            bool quoted {false};
+            bool quoted_property {false};
 
             int length() const { return end - start + 1; }
         };
 
     }
 
-#line 71 "quoted_string.parser.hpp"
+#line 68 "quoted_string.parser.hpp"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -197,7 +194,7 @@
 
 #line 7 "quoted_string.y"
 namespace ceammc {
-#line 201 "quoted_string.parser.hpp"
+#line 198 "quoted_string.parser.hpp"
 
 
 
@@ -706,7 +703,7 @@ namespace ceammc {
 
 #line 7 "quoted_string.y"
 } // ceammc
-#line 710 "quoted_string.parser.hpp"
+#line 707 "quoted_string.parser.hpp"
 
 
 

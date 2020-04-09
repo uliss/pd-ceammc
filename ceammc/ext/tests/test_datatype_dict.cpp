@@ -14,15 +14,18 @@
 #include "ceammc_data.h"
 #include "datatype_dict.h"
 #include "datatype_mlist.h"
+#include "datatype_string.h"
 #include "test_common.h"
 
 #include <boost/optional/optional_io.hpp>
 
 using namespace ceammc;
+using Dict = DataTypeDict;
 
 TEST_CASE("DataTypeDict", "[core]")
 {
     obj_init();
+    test::pdPrintToStdError();
 
     SECTION("init")
     {
@@ -32,7 +35,7 @@ TEST_CASE("DataTypeDict", "[core]")
             REQUIRE(d.size() == 0);
             REQUIRE(d.innerData().empty());
             REQUIRE(d.keys().empty());
-            REQUIRE(d.toList().empty());
+            REQUIRE(d.flattenToList().empty());
             REQUIRE(d.toString() == "[]");
         }
 
@@ -42,7 +45,7 @@ TEST_CASE("DataTypeDict", "[core]")
             REQUIRE(d.size() == 0);
             REQUIRE(d.innerData().empty());
             REQUIRE(d.keys().empty());
-            REQUIRE(d.toList().empty());
+            REQUIRE(d.flattenToList().empty());
             REQUIRE(d.toString() == "[]");
         }
 
@@ -52,7 +55,7 @@ TEST_CASE("DataTypeDict", "[core]")
             REQUIRE(d.size() == 1);
             REQUIRE(d.innerData().size() == 1);
             REQUIRE(d.keys() == LA("a"));
-            REQUIRE(d.toList() == LA("a", "b"));
+            REQUIRE(d.flattenToList() == LA("a", "b"));
             REQUIRE(d.toString() == "[a: b]");
         }
 
@@ -62,7 +65,7 @@ TEST_CASE("DataTypeDict", "[core]")
             REQUIRE(d.size() == 1);
             REQUIRE(d.innerData().size() == 1);
             REQUIRE(d.keys() == LA("a"));
-            REQUIRE(d.toList() == LA("a", "b", "c"));
+            REQUIRE(d.flattenToList() == LA("a", "b", "c"));
             REQUIRE(d.toString() == "[a: b c]");
         }
 
@@ -72,168 +75,150 @@ TEST_CASE("DataTypeDict", "[core]")
             REQUIRE(d.size() == 1);
             REQUIRE(d.innerData().size() == 1);
             REQUIRE(d.keys() == LA("a"));
-            REQUIRE(d.toList() == LA("a", DictAtom("[b: c]")));
+            REQUIRE(d.flattenToList() == LA("a", DictAtom("[b: c]")));
             REQUIRE(d.toString() == "[a: [b: c]]");
         }
+    }
+
+    SECTION("kv")
+    {
+        using TD = DataTypeDict;
+        using DE = TD::DictEntry;
+        using DA = DictAtom;
+
+        REQUIRE(TD({ DE("a") }) == TD("[a: ]"));
+        REQUIRE(TD({ DE("a", "b") }) == TD("[a: b]"));
+        REQUIRE(TD({ DE("a", 1, 2) }) == TD("[a: 1 2]"));
+        REQUIRE(TD({ DE("a", 1), DE("b", 2) }) == TD("[a: 1 b: 2]"));
     }
 
     SECTION("copy")
     {
         DataTypeDict d0;
-        d0.insert("key0", "value0");
-        d0.insert("key1", "value1");
+        d0.insert("key0", A("value0"));
+        d0.insert("key1", A("value1"));
 
         REQUIRE(d0.size() == 2);
 
         DataTypeDict d1(d0);
 
         REQUIRE(d1.size() == 2);
-        REQUIRE(d1.contains(A("key0")));
-        REQUIRE(d1.contains(A("key1")));
-        REQUIRE(DataTypeDict::isAtom(d1.value(A("key0"))));
-        REQUIRE(DataTypeDict::isAtom(d1.value(A("key1"))));
+        REQUIRE(d1.contains("key0"));
+        REQUIRE(d1.contains("key1"));
 
         REQUIRE(d0.isEqual(&d1));
         REQUIRE(d1.isEqual(&d0));
     }
 
-    //    SECTION("clone")
-    //    {
-    //        DataTypeDict d0;
-    //        d0.insert("key0", "value0");
-    //        d0.insert("key1", "value1");
+    SECTION("clone")
+    {
+        DataTypeDict d0;
+        d0.insert("key0", A("value0"));
+        d0.insert("key1", A("value1"));
 
-    //        REQUIRE(d0.size() == 2);
-
-    //        DictAtom ptr(d0.clone());
-
-    //        REQUIRE(ptr->size() == 2);
-    //        REQUIRE(ptr->contains(A("key0")));
-    //        REQUIRE(ptr->contains(A("key1")));
-
-    //        REQUIRE(d0.isEqual(ptr.asData()));
-    //        REQUIRE(ptr->isEqual(&d0));
-
-    //        d0.clear();
-    //        REQUIRE(d0.size() == 0);
-    //        REQUIRE(ptr->size() == 2);
-
-    //        REQUIRE_FALSE(d0.isEqual(ptr.asData()));
-    //        REQUIRE_FALSE(ptr->isEqual(&d0));
-    //    }
+        DataTypeDict* d1 = d0.cloneT<DataTypeDict>();
+        REQUIRE(*d1 == d0);
+        REQUIRE(d1->size() == 2);
+        delete d1;
+    }
 
     SECTION("insert")
     {
         DataTypeDict d0;
-        d0.insert("string", "string");
-        d0.insert("float", 123);
-        d0.insert("float1", 10.f);
-        d0.insert("atom", Atom());
-        d0.insert(A("atom_float1"), 1000);
-        d0.insert(A("atom_float2"), 2000.f);
-        d0.insert(A("atom_atom"), A("ABC"));
-        d0.insert(A("atom_list"), LF(1, 2, 3, 4));
-        Atom data_int(new IntData(100));
-        Atom data_str(new StrData("string with spaces"));
-        d0.insert(A("atom_data1"), data_int);
-        d0.insert(A("atom data2"), data_str);
-        d0.insert(A(123), A("numeric"));
+        d0.insert("none", Atom());
+        d0.insert("s0", A("string"));
+        d0.insert("s1", A("a string"));
+        d0.insert("f0", -10);
+        d0.insert("f1", 1234.5);
+        d0.insert("int_data", Atom(new IntData(100)));
+        d0.insert("str_data", Atom(new DataTypeString("string with spaces")));
+        d0.insert("l0", L());
+        d0.insert("l1", LF(1));
+        d0.insert("l2", LA("a", "b"));
 
-        REQUIRE_FALSE(d0.isEqual(data_int.asData()));
+        CHECK(d0.contains("none"));
+        CHECK(d0.contains("s0"));
+        CHECK(d0.contains("s1"));
+        CHECK(d0.contains("f1"));
+        CHECK(d0.contains("f1"));
+        CHECK(d0.contains("l0"));
+        CHECK(d0.contains("l1"));
+        CHECK(d0.contains("l2"));
+        CHECK(d0.contains("int_data"));
+        CHECK(d0.contains("str_data"));
 
-        REQUIRE(d0.contains(A("string")));
-        REQUIRE(d0.contains(A("float")));
-        REQUIRE(d0.contains(A("float1")));
-        REQUIRE(d0.contains(A("atom")));
-        REQUIRE(d0.contains(A("atom_float1")));
-        REQUIRE(d0.contains(A("atom_float2")));
-        REQUIRE(d0.contains(A("atom_atom")));
-        REQUIRE(d0.contains(A("atom_list")));
-        REQUIRE(d0.contains(A("atom_data1")));
-        REQUIRE(d0.contains(A("atom data2")));
-        REQUIRE(d0.contains(A(123)));
-
-        REQUIRE(d0.value(A("string")).type() == typeid(Atom));
-        REQUIRE(d0.value(A("float")).type() == typeid(Atom));
-        REQUIRE(d0.value(A("float1")).type() == typeid(Atom));
-        REQUIRE(d0.value(A("atom")).type() == typeid(Atom));
-        REQUIRE(d0.value(A("atom_float1")).type() == typeid(Atom));
-        REQUIRE(d0.value(A("atom_float2")).type() == typeid(Atom));
-        REQUIRE(d0.value(A("atom_atom")).type() == typeid(Atom));
-        REQUIRE(d0.value(A("atom_list")).type() == typeid(AtomList));
-
-#ifdef __APPLE__
-        REQUIRE(d0.toString() == "[123: numeric "
-                                 "atom: NONE "
-                                 "\"atom data2\": \"string with spaces\" "
-                                 "atom_atom: ABC "
-                                 "atom_data1: 100 "
-                                 "atom_float1: 1000 "
-                                 "atom_float2: 2000 "
-                                 "atom_list: 1 2 3 4 "
-                                 "float: 123 "
-                                 "float1: 10 "
-                                 "string: string]");
-#endif
+        //#ifdef __APPLE__
+        //        REQUIRE(d0.toString() == "[l2: a b "
+        //                                 "none: NONE "
+        //                                 "s0: string "
+        //                                 "s1: \"a string\" "
+        //                                 "f0: -10 "
+        //                                 "f1: 1234.5 "
+        //                                 "int_data: 100 "
+        //                                 "str_data: \"string with spaces\" "
+        //                                 "l0: "
+        //                                 "l1: 1]");
+        //#endif
     }
 
     SECTION("remove")
     {
         DataTypeDict d0;
 
-        REQUIRE_FALSE(d0.remove(A("test")));
+        REQUIRE_FALSE(d0.remove("test"));
 
-        d0.insert("string", "string");
+        d0.insert("string", A("string"));
         d0.insert("float", 123);
 
-        REQUIRE(d0.contains(A("string")));
-        REQUIRE(d0.contains(A("float")));
+        REQUIRE(d0.contains("string"));
+        REQUIRE(d0.contains("float"));
 
-        REQUIRE(d0.remove(A("string")));
-        REQUIRE_FALSE(d0.contains(A("string")));
-        REQUIRE(d0.contains(A("float")));
+        REQUIRE(d0.remove("string"));
+        REQUIRE_FALSE(d0.contains("string"));
+        REQUIRE(d0.contains("float"));
 
-        REQUIRE(d0.remove(A("float")));
-        REQUIRE_FALSE(d0.contains(A("float")));
+        REQUIRE(d0.remove("float"));
+        REQUIRE_FALSE(d0.contains("float"));
 
-        REQUIRE_FALSE(d0.remove(A("float")));
+        REQUIRE_FALSE(d0.remove("float"));
     }
 
-    //    SECTION("toJSON")
-    //    {
-    //        DataTypeDict src;
-    //        REQUIRE(src.toJSON() == boost::none);
+    SECTION("toJSON")
+    {
+        using IntA = DataAtom<IntData>;
 
-    //        src.insert("a", "a b c");
-    //        REQUIRE(src.toJSON());
-    //        REQUIRE(*src.toJSON() == "{\"a\":\"a b c\"}");
+        DataTypeDict src;
+        REQUIRE(src.toJSON() == boost::none);
 
-    //        src.clear();
-    //        src.insert("b", 1000);
-    //        REQUIRE(src.toJSON());
-    //        REQUIRE(*src.toJSON() == "{\"b\":1000.0}");
+        src.insert("a", A("a b c"));
+        REQUIRE(src.toJSON());
+        REQUIRE(*src.toJSON() == "{\"a\":\"a b c\"}");
 
-    //        src.clear();
-    //        src.insert(A("c"), LF(1, 2, 3));
-    //        REQUIRE(src.toJSON());
-    //        REQUIRE(*src.toJSON() == "{\"c\":[1.0,2.0,3.0]}");
+        src.clear();
+        src.insert("b", 1000);
+        REQUIRE(src.toJSON());
+        REQUIRE(*src.toJSON() == "{\"b\":1000}");
 
-    //        src.clear();
-    //        src.insert(A("d"), LA(100, "ABC"));
-    //        REQUIRE(src.toJSON());
-    //        REQUIRE(*src.toJSON() == "{\"d\":[100.0,\"ABC\"]}");
+        src.clear();
+        src.insert("c", LF(1, 2, 3));
+        REQUIRE(src.toJSON());
+        REQUIRE(*src.toJSON() == "{\"c\":[1,2,3]}");
 
-    //        src.clear();
-    //        DataPtr int_data(new IntData(1000));
-    //        src.insert(A("e"), LA(int_data, "ABC"));
-    //        REQUIRE(src.toJSON());
-    //        REQUIRE(*src.toJSON() == "{\"e\":[\"1000\",\"ABC\"]}");
+        src.clear();
+        src.insert("d", LA(100.5, "ABC"));
+        REQUIRE(src.toJSON());
+        REQUIRE(*src.toJSON() == "{\"d\":[100.5,\"ABC\"]}");
 
-    //        src.clear();
-    //        src.insert(A("f"), DataAtom(int_data));
-    //        REQUIRE(src.toJSON());
-    //        REQUIRE(*src.toJSON() == "{\"f\":\"1000\"}");
-    //    }
+        src.clear();
+        src.insert("e", LA(IntA(-1), "ABC"));
+        REQUIRE(src.toJSON());
+        REQUIRE(*src.toJSON() == "{\"e\":[-1,\"ABC\"]}");
+
+        src.clear();
+        src.insert("f", LA(MListAtom(1, 2), "ABC"));
+        REQUIRE(src.toJSON());
+        REQUIRE(*src.toJSON() == "{\"f\":[[1,2],\"ABC\"]}");
+    }
 
     //    SECTION("fromJSON")
     //    {
@@ -336,4 +321,19 @@ TEST_CASE("DataTypeDict", "[core]")
     //        d.insert(A("d"), DataAtom(dict_data));
     //        REQUIRE(*d.toJSON() == "{\"d\":{\"a\":\"abc\"}}");
     //    }
+
+    SECTION("fromList")
+    {
+        REQUIRE(Atom() == Atom());
+        REQUIRE(Dict::fromList(LF(1, 2, 3, 4), 0) == Dict());
+        REQUIRE(Dict::fromList(LA("a", "b", "c"), 1) == Dict("[a: null b: null c: null]"));
+        REQUIRE(Dict::fromList(LA("a", "b", "c", "d"), 2) == Dict("[a: b c: d]"));
+    }
+
+    SECTION("removeIf")
+    {
+        Dict d("[a: 1 b: 2 c: 3]");
+        d.removeIf([](const Atom& k) { return k == A("a"); });
+        REQUIRE(d == Dict("[c: 3 b: 2]"));
+    }
 }

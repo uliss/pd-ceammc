@@ -31,16 +31,16 @@
         REQUIRE(obj.lastMessage(0).atomValue() == data); \
     }
 
-#define REQUIRE_CONTAINS_ATOM(obj, key, value)                                  \
-    {                                                                           \
-        REQUIRE(obj.dict()->contains(atomFrom(key)));                           \
-        REQUIRE(*(obj.dict()->valueT<Atom>(atomFrom(key))) == atomFrom(value)); \
+#define REQUIRE_CONTAINS_ATOM(obj, key, value)           \
+    {                                                    \
+        REQUIRE(obj.dict()->contains(key));              \
+        REQUIRE(obj.dict()->at(key) == atomFrom(value)); \
     }
 
-#define REQUIRE_CONTAINS_LIST(obj, key, lst)                         \
-    {                                                                \
-        REQUIRE(obj.dict()->contains(atomFrom(key)));                 \
-        REQUIRE(*(obj.dict()->valueT<AtomList>(atomFrom(key))) == lst); \
+#define REQUIRE_CONTAINS_LIST(obj, key, lst) \
+    {                                        \
+        REQUIRE(obj.dict()->contains(key));  \
+        REQUIRE(obj.dict()->at(key) == lst); \
     }
 
 PD_COMPLETE_TEST_SETUP(DataDict, data, dict)
@@ -85,7 +85,7 @@ TEST_CASE("data.dict", "[externals]")
         {
             DataTypeDict t("[a: ([b: c d][e: f])]");
             REQUIRE(t.size() == 1);
-            REQUIRE(t.contains(A("a")));
+            REQUIRE(t.contains("a"));
             REQUIRE(*t.toJSON(-1) == "{\"a\":[{\"b\":[\"c\",\"d\"]},{\"e\":\"f\"}]}");
         }
     }
@@ -190,7 +190,6 @@ TEST_CASE("data.dict", "[externals]")
         TObj t2("data.dict");
         WHEN_CALL_N(t2, read, TEST_BIN_DIR "/data_dict.json");
         REQUIRE_SIZE(t2, 4);
-        REQUIRE_CONTAINS_ATOM(t2, 1, 2000);
         REQUIRE_CONTAINS_ATOM(t2, "float", 1000);
         REQUIRE_CONTAINS_ATOM(t2, "symbol", "b");
         REQUIRE_CONTAINS_LIST(t2, "list", LF(1, 2, 3));
@@ -234,7 +233,6 @@ TEST_CASE("data.dict", "[externals]")
 
         WHEN_SEND_LIST_TO(0, t, LF(100, 200));
         REQUIRE_SIZE(t, 1);
-        REQUIRE_CONTAINS_ATOM(t, 100, 200);
 
         WHEN_SEND_LIST_TO(0, t, LA("a", "b", "c", "d"));
         REQUIRE_SIZE(t, 2);

@@ -41,7 +41,7 @@
 
 
 // Unqualified %code blocks.
-#line 40 "quoted_string.y"
+#line 37 "quoted_string.y"
 
     # undef yylex
     # define yylex lexer.lex
@@ -598,79 +598,79 @@ namespace ceammc {
           switch (yyn)
             {
   case 2:
-#line 62 "quoted_string.y"
+#line 59 "quoted_string.y"
                                    { yylhs.value.start = lexer.idx(); yylhs.value.end = lexer.idx(); }
 #line 604 "quoted_string.parser.cpp"
     break;
 
   case 3:
-#line 63 "quoted_string.y"
+#line 60 "quoted_string.y"
                                    { yylhs.value.start = yystack_[1].value.start; yylhs.value.end = lexer.idx(); }
 #line 610 "quoted_string.parser.cpp"
     break;
 
   case 4:
-#line 67 "quoted_string.y"
+#line 64 "quoted_string.y"
                          { yylhs.value.start = lexer.idx(); }
 #line 616 "quoted_string.parser.cpp"
     break;
 
   case 5:
-#line 68 "quoted_string.y"
+#line 65 "quoted_string.y"
                          { yylhs.value.start = lexer.idx(); yylhs.value.end = lexer.idx(); }
 #line 622 "quoted_string.parser.cpp"
     break;
 
   case 6:
-#line 72 "quoted_string.y"
+#line 69 "quoted_string.y"
                          { yylhs.value.end = lexer.idx(); }
 #line 628 "quoted_string.parser.cpp"
     break;
 
   case 7:
-#line 73 "quoted_string.y"
+#line 70 "quoted_string.y"
                          { yylhs.value.start = lexer.idx(); yylhs.value.end = lexer.idx(); }
 #line 634 "quoted_string.parser.cpp"
     break;
 
   case 8:
-#line 77 "quoted_string.y"
+#line 74 "quoted_string.y"
                                { yylhs.value.start = yystack_[1].value.start; yylhs.value.end = yystack_[0].value.end; }
 #line 640 "quoted_string.parser.cpp"
     break;
 
   case 9:
-#line 78 "quoted_string.y"
+#line 75 "quoted_string.y"
                                { yylhs.value.start = yystack_[2].value.start; yylhs.value.end = yystack_[0].value.end; }
 #line 646 "quoted_string.parser.cpp"
     break;
 
   case 10:
-#line 82 "quoted_string.y"
+#line 79 "quoted_string.y"
                            { yylhs.value.start = lexer.idx(); yylhs.value.end = lexer.idx(); yylhs.value.quoted = true; }
 #line 652 "quoted_string.parser.cpp"
     break;
 
   case 11:
-#line 83 "quoted_string.y"
+#line 80 "quoted_string.y"
                            { yylhs.value.start = lexer.idx(); yylhs.value.end = lexer.idx(); yylhs.value.quoted = true; yylhs.value.quoted_property = true; }
 #line 658 "quoted_string.parser.cpp"
     break;
 
   case 12:
-#line 84 "quoted_string.y"
+#line 81 "quoted_string.y"
                            { yylhs.value = yystack_[0].value; yylhs.value.quoted = 1; }
 #line 664 "quoted_string.parser.cpp"
     break;
 
   case 13:
-#line 85 "quoted_string.y"
+#line 82 "quoted_string.y"
                            { yylhs.value = yystack_[0].value; }
 #line 670 "quoted_string.parser.cpp"
     break;
 
   case 15:
-#line 90 "quoted_string.y"
+#line 87 "quoted_string.y"
                     { lexer.pushRange(yystack_[0].value); }
 #line 676 "quoted_string.parser.cpp"
     break;
@@ -1025,8 +1025,8 @@ namespace ceammc {
   const signed char
   QuotedAtomListParser::yyrline_[] =
   {
-       0,    62,    62,    63,    67,    68,    72,    73,    77,    78,
-      82,    83,    84,    85,    89,    90
+       0,    59,    59,    60,    64,    65,    69,    70,    74,    75,
+      79,    80,    81,    82,    86,    87
   };
 
   // Print the state stack on the debug stream.
@@ -1109,7 +1109,7 @@ namespace ceammc {
 } // ceammc
 #line 1111 "quoted_string.parser.cpp"
 
-#line 93 "quoted_string.y"
+#line 90 "quoted_string.y"
 
 
 void ceammc::QuotedAtomListParser::error(const std::string& err_message)

@@ -27,39 +27,48 @@ TEST_CASE("dict.pass", "[externals]")
             TestDictPass t("dict.pass");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
+            REQUIRE_PROPERTY(t, @keys);
+        }
+
+        SECTION("args")
+        {
+            TExt t("dict.pass", "a", "\"b", "a\"", "\"@c\"");
+            REQUIRE_PROPERTY(t, @keys, "a", "b a", "@c");
+        }
+
+        SECTION("@keys")
+        {
+            TExt t("dict.pass", "@keys", "a", "\"a b\"", "\"@c\"");
+            REQUIRE_PROPERTY(t, @keys, "a", "a b", "@c");
         }
     }
 
-    SECTION("reject all")
+    SECTION("pass all")
     {
-        TestExtDictPass t("dict.pass");
+        TExt t("dict.pass");
         REQUIRE(t.object());
+        REQUIRE_PROPERTY(t, @keys);
 
-        // pass all
-        t.send(DictA("[a:b][c:d][e:f]"));
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DictA());
+        // pass nothing
+        t.send(DictA("[a: 1 b: 2 c: 3]"));
+        REQUIRE(dataAt(t) == DictA());
     }
 
     SECTION("pass ")
     {
-        TestExtDictPass t("dict.pass", LA("a"));
+        using P = DataTypeDict::DictEntry;
+        TExt t("dict.pass", "a");
         REQUIRE(t.object());
 
-        // pass all
-        t.send(DictA("[a:b][c:d][e:f]"));
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DictA("[a:b]"));
+        // pass a
+        t.send(DictA("[a: b c: d e: f]"));
+        REQUIRE(dataAt(t) == DictA({ { P("a", "b") } }));
 
-        pd::External l("list");
-        REQUIRE(l.connectTo(0, t, 1));
-        l.sendList(LA("c", "e"));
+        // set new pass list
+        t.sendListTo(LA("c", "e", "@p"), 1);
+        REQUIRE_PROPERTY(t, @keys, "c", "e", "@p");
 
-        t.send(DictA("[a:b][c:d][e:f]"));
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == DictA("[c:d][e:f]"));
+        t.send(DictA("[a: b c: d e: f]"));
+        REQUIRE(dataAt(t) == DictA("[c: d e: f]"));
     }
 }

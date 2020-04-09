@@ -21,10 +21,12 @@
 using namespace ceammc;
 
 class DictGet : public BaseObject {
-    AtomListView keys_;
+    std::vector<t_symbol*> keys_;
 
 public:
     DictGet(const PdArgs& args);
+    void initDone() final;
+
     void onDataT(const DictAtom& dict);
 };
 
