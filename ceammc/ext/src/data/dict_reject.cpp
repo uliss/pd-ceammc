@@ -15,7 +15,7 @@
 #include "ceammc_factory.h"
 
 DictReject::DictReject(const PdArgs& args)
-    : BaseObject(args)
+    : DictBase(args)
     , keys_(nullptr)
 {
     keys_ = new ListProperty("@keys");

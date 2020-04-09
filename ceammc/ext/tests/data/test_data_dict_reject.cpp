@@ -68,4 +68,12 @@ TEST_CASE("dict.reject", "[externals]")
         t.send(DictA("[a: b c: d e: f]"));
         REQUIRE(dataAt(t) == DictA("[a: b]"));
     }
+
+    SECTION("any")
+    {
+        TExt t("dict.reject", "a", "e");
+
+        t <<= AtomList::parseString("[a: b c: d e: f]");
+        REQUIRE(dataAt(t) == DictA("[c: d]"));
+    }
 }
