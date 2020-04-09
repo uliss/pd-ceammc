@@ -100,6 +100,10 @@ TEST_CASE("dict.from_list", "[externals]")
         REQUIRE(t.outputAtomAt(0) == DictA("[a: b c]"));
     }
 
+    SECTION("mlist")
+    {
+    }
+
     SECTION("alias")
     {
         TExt t("list->dict");
