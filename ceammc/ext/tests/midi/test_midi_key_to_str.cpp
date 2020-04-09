@@ -11,31 +11,19 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../midi/midi_common.h"
-#include "../midi/midi_key2str.h"
-#include "datatype_string.h"
-#include "test_base.h"
-#include "catch.hpp"
+#include "midi_common.h"
+#include "midi_key2str.h"
+#include "test_midi_base.h"
 
-#define REQUIRE_STRING_OUTPUT(t, str_)                                  \
-    {                                                                   \
-        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                               \
-        const DataTypeString* s = t.typedLastDataAt<DataTypeString>(0); \
-        REQUIRE(s != 0);                                                \
-        REQUIRE(s->str() == str_);                                      \
-    }
-
-typedef TestExternal<MidiKey2Str> Key2StrTest;
+PD_COMPLETE_TEST_SETUP(MidiKey2Str, midi, key2str)
 
 TEST_CASE("midi.key->str", "[externals]")
 {
-    pd_init();
+    pd_test_init();
 
     SECTION("init")
     {
-        setup_midi_key2str();
-
-        Key2StrTest t("midi.key->str", LA("@symbol"));
+        TObj t("midi.key->str", LA("@symbol"));
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @symbol, 1);
@@ -68,8 +56,9 @@ TEST_CASE("midi.key->str", "[externals]")
 
     SECTION("str")
     {
-        Key2StrTest t("midi.key->str");
-        WHEN_SEND_FLOAT_TO(0, t, 0);
-        REQUIRE_STRING_OUTPUT(t, "C");
+        TExt t("midi.key->str");
+
+        t << 0.0;
+        REQUIRE(dataAt(t) == StringAtom("C"));
     }
 }

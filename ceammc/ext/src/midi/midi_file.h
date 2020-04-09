@@ -23,6 +23,9 @@ public:
     void m_write(t_symbol*, const AtomList& l);
 
     void onDataT(const MidiStreamAtom& data);
+
+private:
+    bool open(const char* path);
 };
 
 void setup_midi_file();

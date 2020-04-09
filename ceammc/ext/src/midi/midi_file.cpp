@@ -1,6 +1,7 @@
 #include "midi_file.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
+#include "datatype_dict.h"
 
 #include "MidiFile.h"
 
@@ -9,8 +10,12 @@ XMidiFile::XMidiFile(const PdArgs& a)
 {
     createOutlet();
 
-    createCbSymbolProperty("@filename",
-        [this]() -> t_symbol* { return midi_stream_->filename(); });
+    createCbSymbolProperty(
+        "@filename",
+        [this]() -> t_symbol* { return midi_stream_->filename(); },
+        [this](t_symbol* path) -> bool { return open(path->s_name); })
+        ->setArgIndex(0);
+
     createCbIntProperty("@tracks",
         [this]() -> int { return midi_stream_->trackCount(); });
     createCbIntProperty("@tempo",
@@ -20,8 +25,8 @@ XMidiFile::XMidiFile(const PdArgs& a)
         ->setUnits(PropValueUnits::SEC);
     createCbIntProperty("@length_tick",
         [this]() -> int { return midi_stream_->totalTimeInTicks(); });
-    createCbIntProperty("@length_beat",
-        [this]() -> int { return midi_stream_->totalTimeInQuarters(); });
+    createCbFloatProperty("@length_beat",
+        [this]() -> t_float { return midi_stream_->totalTimeInQuarters(); });
 }
 
 void XMidiFile::onBang()
@@ -32,6 +37,14 @@ void XMidiFile::onBang()
 void XMidiFile::m_clear(t_symbol*, const AtomList&)
 {
     midi_stream_ = MidiStreamAtom();
+}
+
+void XMidiFile::m_info(t_symbol*, const AtomList&)
+{
+    DictAtom info;
+    info->insert("filename", midi_stream_->filename());
+
+    atomTo(0, info);
 }
 
 void XMidiFile::m_read(t_symbol*, const AtomList& l)
@@ -72,6 +85,28 @@ void XMidiFile::m_write(t_symbol*, const AtomList& l)
     mf->write(filepath.c_str());
 
     OBJ_DBG << "file written to: \"" << filepath << "\"";
+}
+
+void XMidiFile::onDataT(const MidiStreamAtom& data)
+{
+    midi_stream_ = data;
+}
+
+bool XMidiFile::open(const char* path)
+{
+    std::string full_path = findInStdPaths(path);
+    if (full_path.empty()) {
+        OBJ_ERR << "file is not found in search paths: " << path;
+        return false;
+    }
+
+    midi_stream_ = MidiStreamAtom(full_path.c_str());
+    if (!midi_stream_->is_open()) {
+        OBJ_ERR << "can't read MIDI file: " << full_path;
+        return false;
+    }
+
+    return true;
 }
 
 void setup_midi_file()

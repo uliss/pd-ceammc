@@ -72,7 +72,7 @@ DataTypeMidiStream* DataTypeMidiStream::clone() const
 
 int DataTypeMidiStream::type() const noexcept
 {
-    return data::DATA_MIDI_STREAM;
+    return dataType;
 }
 
 double DataTypeMidiStream::totalTimeInQuarters() const

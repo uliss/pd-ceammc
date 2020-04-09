@@ -150,13 +150,6 @@ ceammc_external_test(conv list2props)
 
 ceammc_external_test(proto firmata)
 
-ceammc_external_test(midi file)
-ceammc_external_test(midi note)
-ceammc_external_test(midi track)
-ceammc_external_test(midi ctl_to_str)
-ceammc_external_test(midi key_to_str)
-ceammc_external_test(midi prg_to_str)
-
 ceammc_external_test(net host)
 target_include_directories(test_ext_net_host PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/extra)
 
@@ -338,5 +331,6 @@ add_subdirectory(array)
 add_subdirectory(data)
 add_subdirectory(list)
 add_subdirectory(math)
+add_subdirectory(midi)
 add_subdirectory(random)
 add_subdirectory(string)

@@ -12,8 +12,8 @@ DataTypeMidiTrack::DataTypeMidiTrack()
 }
 
 DataTypeMidiTrack::DataTypeMidiTrack(const DataTypeMidiTrack& mt)
-    : events_(new MidiEventList(*mt.events_))
 {
+    setEventList(*mt.events_);
 }
 
 // for std::unique_ptr
@@ -22,6 +22,12 @@ DataTypeMidiTrack::~DataTypeMidiTrack() = default;
 DataTypeMidiTrack::DataTypeMidiTrack(const MidiEventList& lst)
     : events_(new MidiEventList(lst))
 {
+    events_->linkNotePairs();
+}
+
+void DataTypeMidiTrack::setEventList(const MidiEventList& lst)
+{
+    events_.reset(new MidiEventList(lst));
     events_->linkNotePairs();
 }
 

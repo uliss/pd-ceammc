@@ -11,37 +11,26 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../midi/midi_common.h"
-#include "../midi/midi_prg2str.h"
-#include "datatype_string.h"
-#include "test_base.h"
-#include "catch.hpp"
+#include "midi_prg2str.h"
+#include "test_midi_base.h"
 
 #include <map>
 #include <set>
 
-#define REQUIRE_STRING_OUTPUT(t, str_)                                  \
-    {                                                                   \
-        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                               \
-        const DataTypeString* s = t.typedLastDataAt<DataTypeString>(0); \
-        REQUIRE(s != 0);                                                \
-        REQUIRE(s->str() == str_);                                      \
-    }
-
 typedef std::set<t_symbol*> NamesSet;
 typedef std::map<t_symbol*, int> NamesMap;
 
-typedef TestExternal<Prg2Str> Prg2StrTest;
+PD_COMPLETE_TEST_SETUP(Prg2Str, midi, prg2str)
+
+typedef TestExternal<Prg2Str> TObj;
 
 TEST_CASE("midi.prg->str", "[externals]")
 {
-    pd_init();
+    pd_test_init();
 
     SECTION("init")
     {
-        setup_midi_prg2str();
-
-        Prg2StrTest t("midi.prg->str", LA("@symbol"));
+        TObj t("midi.prg->str", LA("@symbol"));
 
         WHEN_SEND_FLOAT_TO(0, t, -2);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -75,7 +64,7 @@ TEST_CASE("midi.prg->str", "[externals]")
 
     SECTION("family")
     {
-        Prg2StrTest t("midi.prg->str", LA("@symbol", "@family"));
+        TObj t("midi.prg->str", LA("@symbol", "@family"));
 
         WHEN_SEND_FLOAT_TO(0, t, -2);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -114,13 +103,13 @@ TEST_CASE("midi.prg->str", "[externals]")
 
     SECTION("str")
     {
-        Prg2StrTest t("midi.prg->str");
-        WHEN_SEND_FLOAT_TO(0, t, 9);
-        REQUIRE_STRING_OUTPUT(t, "Celesta");
+        TExt t("midi.prg->str");
+        t << 9;
+        REQUIRE(dataAt(t) == StrA("Celesta"));
 
-        Prg2StrTest t2("midi.prg->str", LA("@family"));
-        WHEN_SEND_FLOAT_TO(0, t2, 8);
-        REQUIRE_STRING_OUTPUT(t2, "Piano");
+        TExt t2("midi.prg->str", LA("@family"));
+        t2 << 8;
+        REQUIRE(dataAt(t2) == StrA("Piano"));
     }
 
     SECTION("common")

@@ -11,31 +11,18 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../midi/midi_common.h"
-#include "../midi/midi_ctl2str.h"
-#include "datatype_string.h"
-#include "test_base.h"
-#include "catch.hpp"
+#include "midi_ctl2str.h"
+#include "test_midi_base.h"
 
-typedef TestExternal<MidiCtl2Str> Ctl2StrTest;
-
-#define REQUIRE_STRING_OUTPUT(t, str_)                                  \
-    {                                                                   \
-        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                               \
-        const DataTypeString* s = t.typedLastDataAt<DataTypeString>(0); \
-        REQUIRE(s != 0);                                                \
-        REQUIRE(s->str() == str_);                                      \
-    }
+PD_COMPLETE_TEST_SETUP(MidiCtl2Str, midi, ctl2str)
 
 TEST_CASE("midi.ctl->str", "[externals]")
 {
-    pd_init();
+    pd_test_init();
 
     SECTION("init")
     {
-        setup_midi_ctl2str();
-
-        Ctl2StrTest t("midi.ctl->str", LA("@symbol"));
+        TObj t("midi.ctl->str", LA("@symbol"));
 
         WHEN_SEND_FLOAT_TO(0, t, -1);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -76,8 +63,9 @@ TEST_CASE("midi.ctl->str", "[externals]")
 
     SECTION("str")
     {
-        Ctl2StrTest t("midi.ctl->str");
-        WHEN_SEND_FLOAT_TO(0, t, 64);
-        REQUIRE_STRING_OUTPUT(t, "Hold Pedal");
+        TExt t("midi.ctl->str");
+
+        t << 64;
+        REQUIRE(dataAt(t) == StringAtom("Hold Pedal"));
     }
 }

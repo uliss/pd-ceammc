@@ -61,7 +61,7 @@ void MidiTrack::onDataT(const MidiStreamAtom& stream)
         MidiFile mf = *stream->midifile();
         mf.joinTracks();
 
-        midi_track_ = DataTypeMidiTrack(mf[0]);
+        midi_track_.setEventList(mf.trackAt(0));
         tempo_->setValue(mf.getTicksPerQuarterNote());
 
     } else {
@@ -72,7 +72,7 @@ void MidiTrack::onDataT(const MidiStreamAtom& stream)
             return;
         }
 
-        midi_track_ = DataTypeMidiTrack(mf->trackAt(trackN));
+        midi_track_.setEventList(mf->trackAt(trackN));
         tempo_->setValue(mf->getTicksPerQuarterNote());
     }
 
@@ -305,8 +305,8 @@ double MidiTrack::outputCurrent()
     if (current_event_idx_ >= size())
         return 0;
 
-    MidiEventIterator cur_ev = begin() + current_event_idx_;
-    MidiEventIterator next_ev = findNextTick(cur_ev);
+    auto cur_ev = begin() + current_event_idx_;
+    auto next_ev = findNextTick(cur_ev);
 
     double tick_duration_ms = 0;
     if (next_ev != end())
@@ -314,8 +314,7 @@ double MidiTrack::outputCurrent()
 
     floatTo(1, tick_duration_ms);
 
-    EventOutput event_out(this);
-    std::for_each(cur_ev, next_ev, event_out);
+    std::for_each(cur_ev, next_ev, [this](MidiEvent* e) { outputEvent(e); });
 
     return tick_duration_ms;
 }

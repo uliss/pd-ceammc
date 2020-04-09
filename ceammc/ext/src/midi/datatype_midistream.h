@@ -16,24 +16,48 @@ class DataTypeMidiStream : public AbstractData {
     bool is_open_;
 
 public:
+    /**
+     * Creates empty midi stream
+     */
     DataTypeMidiStream();
     explicit DataTypeMidiStream(const MidiFile& midifile);
+
+    /**
+     * Creates midi stream from midifile
+     */
     explicit DataTypeMidiStream(const char* fname);
 
     DataTypeMidiStream(const DataTypeMidiStream& s);
     ~DataTypeMidiStream();
 
+    /**
+     * Number of tracks in midifile
+     */
     size_t trackCount() const;
     size_t tempo() const;
+
+    /**
+     * Filename (not full path)
+     */
     t_symbol* filename() const;
 
+    /**
+     * Polymorphic data copy
+     */
     DataTypeMidiStream* clone() const;
+
+    /**
+     * Polymorphics data type
+     */
     int type() const noexcept;
 
     double totalTimeInQuarters() const;
     int totalTimeInTicks() const;
     double totalTimeInSeconds() const;
 
+    /**
+     * Pointer to MidiFile struct
+     */
     MidiFile* midifile();
     const MidiFile* midifile() const;
 

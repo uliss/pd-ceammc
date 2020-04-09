@@ -39,6 +39,8 @@ public:
     MidiEvent* eventAt(size_t n);
     const MidiEvent* eventAt(size_t n) const;
 
+    void setEventList(const MidiEventList& lst);
+
 public:
     using iterator = std::vector<MidiEvent*>::iterator;
     using const_iterator = std::vector<MidiEvent*>::const_iterator;

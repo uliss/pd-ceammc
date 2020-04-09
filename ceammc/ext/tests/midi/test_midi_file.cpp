@@ -11,44 +11,53 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../midi/midi_file.h"
 #include "ceammc_platform.h"
-#include "test_base.h"
-#include "catch.hpp"
-#include "ceammc_datatypes.h"
+#include "midi_file.h"
+#include "test_midi_base.h"
 
 #include <fstream>
-#include <stdio.h>
 
-#ifndef TEST_DATA_DIR
-#define TEST_DATA_DIR "."
-#endif
-
-typedef TestExternal<XMidiFile> MidiFileTest;
+PD_COMPLETE_TEST_SETUP(XMidiFile, midi, file)
 
 TEST_CASE("midi.file", "[externals]")
 {
+    pd_test_init();
+
     SECTION("init")
     {
-        setup_midi_file();
+        SECTION("default")
+        {
+            TObj t("midi.file");
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numOutlets() == 1);
+            REQUIRE_PROPERTY(t, @filename, "");
+            REQUIRE_PROPERTY(t, @tracks, 1);
+            REQUIRE_PROPERTY(t, @tempo, 120);
+            REQUIRE_PROPERTY(t, @length_sec, 0.f);
+            REQUIRE_PROPERTY(t, @length_tick, 0.f);
+            REQUIRE_PROPERTY(t, @length_beat, 0.f);
+        }
 
-        MidiFileTest t("midi.file");
-        REQUIRE(t.numInlets() == 1);
-        REQUIRE(t.numOutlets() == 1);
-        REQUIRE_PROPERTY(t, @filename, "");
-        REQUIRE_PROPERTY(t, @tracks, 1);
-        REQUIRE_PROPERTY(t, @tempo, 120);
-        REQUIRE_PROPERTY(t, @length_sec, Atom(0.f));
-        REQUIRE_PROPERTY(t, @length_tick, Atom(0.f));
-        REQUIRE_PROPERTY(t, @length_beat, Atom(0.f));
+        SECTION("path")
+        {
+            TExt t("midi.file", TEST_SRC_DIR "/test_01.mid");
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numOutlets() == 1);
+            REQUIRE_PROPERTY(t, @filename, "test_01.mid");
+            REQUIRE_PROPERTY(t, @tracks, 1);
+            REQUIRE_PROPERTY(t, @tempo, 480);
+            REQUIRE_PROPERTY(t, @length_sec, 1.975);
+            REQUIRE_PROPERTY(t, @length_tick, 1896);
+            REQUIRE_PROPERTY(t, @length_beat, 3.95);
+        }
     }
 
     SECTION("read")
     {
-        MidiFileTest t("midi.file");
+        TObj t("midi.file");
 
         // not-exists
-        WHEN_CALL_N(t, read, TEST_DATA_DIR "/not-exists.mid");
+        WHEN_CALL_N(t, read, TEST_SRC_DIR "/not-exists.mid");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_PROPERTY(t, @filename, "");
         REQUIRE_PROPERTY(t, @tracks, 1);
@@ -78,7 +87,7 @@ TEST_CASE("midi.file", "[externals]")
         REQUIRE_PROPERTY(t, @tracks, 1);
         REQUIRE_PROPERTY(t, @tempo, 120);
 
-        WHEN_CALL_N(t, read, TEST_DATA_DIR "/test_01.mid");
+        WHEN_CALL_N(t, read, TEST_SRC_DIR "/test_01.mid");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_PROPERTY(t, @filename, "test_01.mid");
         REQUIRE_PROPERTY(t, @tracks, 1);
@@ -99,20 +108,19 @@ TEST_CASE("midi.file", "[externals]")
 
     SECTION("bang")
     {
-        MidiFileTest t("midi.file");
+        TObj t("midi.file");
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE(t.lastMessage(0).isData());
     }
 
     SECTION("onDataT")
     {
-        DataTypeMidiStream str(TEST_DATA_DIR "/test_01.mid");
+        DataTypeMidiStream str(TEST_SRC_DIR "/test_01.mid");
         REQUIRE(str.filename() == gensym("test_01.mid"));
         REQUIRE(str.tempo() == 480);
         REQUIRE(str.trackCount() == 1);
-        REQUIRE(str.type() == data::DATA_MIDI_STREAM);
 
-        MidiFileTest t("midi.file");
+        TObj t("midi.file");
         REQUIRE_PROPERTY(t, @filename, "");
         REQUIRE_PROPERTY(t, @tracks, 1);
         REQUIRE_PROPERTY(t, @tempo, 120);
@@ -126,7 +134,7 @@ TEST_CASE("midi.file", "[externals]")
 
     SECTION("write")
     {
-        MidiFileTest t("midi.file");
+        TObj t("midi.file");
 
         // wrong argument count
         WHEN_CALL(t, write);
@@ -142,33 +150,33 @@ TEST_CASE("midi.file", "[externals]")
         REQUIRE_PROPERTY(t, @tracks, 1);
         REQUIRE_PROPERTY(t, @tempo, 120);
 
-        WHEN_CALL_N(t, write, "./test_midi_output.mid");
+        WHEN_CALL_N(t, write, TEST_MIDI_DIR "/test_midi_output.mid");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_PROPERTY(t, @filename, "");
         REQUIRE_PROPERTY(t, @tracks, 1);
         REQUIRE_PROPERTY(t, @tempo, 120);
 
-        std::ifstream ifs("./test_midi_output.mid");
+        std::ifstream ifs(TEST_MIDI_DIR "/test_midi_output.mid");
         REQUIRE(ifs);
 
-        WHEN_CALL_N(t, write, "./test_midi_output.mid");
+        WHEN_CALL_N(t, write, TEST_MIDI_DIR "/test_midi_output.mid");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_PROPERTY(t, @filename, "");
         REQUIRE_PROPERTY(t, @tracks, 1);
         REQUIRE_PROPERTY(t, @tempo, 120);
 
         ifs.close();
-        REQUIRE(platform::path_exists("./test_midi_output.mid"));
-        REQUIRE(platform::remove("./test_midi_output.mid"));
+        REQUIRE(platform::path_exists(TEST_MIDI_DIR "/test_midi_output.mid"));
+        REQUIRE(platform::remove(TEST_MIDI_DIR "/test_midi_output.mid"));
     }
 
     SECTION("clear")
     {
-        MidiFileTest t("midi.file");
+        TObj t("midi.file");
         WHEN_CALL(t, clear);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
-        WHEN_CALL_N(t, read, TEST_DATA_DIR "/test_01.mid");
+        WHEN_CALL_N(t, read, TEST_SRC_DIR "/test_01.mid");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
         REQUIRE_PROPERTY(t, @filename, "test_01.mid");
         REQUIRE_PROPERTY(t, @tracks, 1);

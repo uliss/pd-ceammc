@@ -11,64 +11,30 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../midi/datatype_midistream.h"
-#include "../midi/midi_track.h"
-#include "test_base.h"
-#include "ceammc_datatypes.h"
-#include "ceammc_pd.h"
-
-#include "catch.hpp"
+#include "datatype_midistream.h"
+#include "midi_track.h"
+#include "test_midi_base.h"
 
 #include <fstream>
-#include <stdio.h>
 
-static const float Z = 0.f;
-
-typedef TestExternal<MidiTrack> MidiTrackTest;
-
-CanvasPtr p = PureData::instance().createTopCanvas("test");
-
-static bool approxCompare(const AtomList& l1, const AtomList& l2)
-{
-    if (l1.size() != l2.size()) {
-        std::cerr << "\t" << l1 << "\n\t != \n\t" << l2 << "\n";
-        return false;
-    }
-
-    for (size_t i = 0; i < l1.size(); i++) {
-        if (l1[i].isFloat() && l2[i].isFloat()) {
-            if (l1[i].asFloat() != Approx(l2[i].asFloat())) {
-                std::cerr << "\t" << l1 << "\n\t != \n\t" << l2 << "\n";
-                return false;
-            } else
-                continue;
-        }
-
-        if (l1[i] != l2[i]) {
-            std::cerr << "\t" << l1 << "\n\t != \n\t" << l2 << "\n";
-            return false;
-        }
-    }
-
-    return true;
-}
+PD_COMPLETE_TEST_SETUP(MidiTrack, midi, track)
 
 TEST_CASE("midi.track", "[externals]")
 {
+    pd_test_init();
+
     SECTION("init")
     {
-        setup_midi_track();
-
-        MidiTrackTest t("midi.track");
+        TObj t("midi.track");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 2);
 
-        REQUIRE_PROPERTY(t, @join, A(0.f));
-        REQUIRE_PROPERTY(t, @track, A(0.f));
-        REQUIRE_PROPERTY(t, @tempo, A(120));
-        REQUIRE_PROPERTY(t, @events, A(0.f));
-        REQUIRE_PROPERTY(t, @current, A(0.f));
-        REQUIRE_PROPERTY(t, @state, Z);
+        REQUIRE_PROPERTY(t, @join, 0.f);
+        REQUIRE_PROPERTY(t, @track, 0.f);
+        REQUIRE_PROPERTY(t, @tempo, 120);
+        REQUIRE_PROPERTY(t, @events, 0.f);
+        REQUIRE_PROPERTY(t, @current, 0.f);
+        REQUIRE_PROPERTY(t, @state, 0.f);
         REQUIRE_PROPERTY(t, @speed, 1);
 
         REQUIRE(t.begin() == t.end());
@@ -77,7 +43,7 @@ TEST_CASE("midi.track", "[externals]")
         REQUIRE_FALSE(t.seekAbs(1));
 
         t.setProperty("@speed", A(-2));
-        REQUIRE_PROPERTY(t, @speed, A(1));
+        REQUIRE_PROPERTY(t, @speed, 1);
 
         t.setProperty("@speed", A(0.1));
         REQUIRE_PROPERTY(t, @speed, A(0.1));
@@ -85,15 +51,15 @@ TEST_CASE("midi.track", "[externals]")
 
     SECTION("real")
     {
-        DataTypeMidiStream m(TEST_DATA_DIR "/test_01.mid");
+        DataTypeMidiStream m(TEST_SRC_DIR "/test_01.mid");
         REQUIRE(m.is_open());
 
-        MidiTrackTest t("midi.track");
+        TObj t("midi.track");
         WHEN_SEND_TDATA_TO(0, t, m);
-        REQUIRE_PROPERTY(t, @join, Z);
-        REQUIRE_PROPERTY(t, @track, Z);
-        REQUIRE_PROPERTY(t, @tempo, A(480));
-        REQUIRE_PROPERTY(t, @events, A(19));
+        REQUIRE_PROPERTY(t, @join, 0.);
+        REQUIRE_PROPERTY(t, @track, 0.);
+        REQUIRE_PROPERTY(t, @tempo, 480);
+        REQUIRE_PROPERTY(t, @events, 19);
         REQUIRE(t.begin() != t.end());
         REQUIRE(t.size() == 19);
 
@@ -109,106 +75,98 @@ TEST_CASE("midi.track", "[externals]")
         REQUIRE(t.findNextTickEventIndex(19) == 0);
 
         REQUIRE(t.seekAbs(0));
-        REQUIRE_PROPERTY(t, @current, A(0.f));
+        REQUIRE_PROPERTY(t, @current, 0.);
 
         REQUIRE(t.seekAbs(1));
-        REQUIRE_PROPERTY(t, @current, A(11));
+        REQUIRE_PROPERTY(t, @current, 11);
 
         REQUIRE(t.seekAbs(2));
-        REQUIRE_PROPERTY(t, @current, A(12));
+        REQUIRE_PROPERTY(t, @current, 12);
 
         REQUIRE(t.seekAbs(3));
-        REQUIRE_PROPERTY(t, @current, A(13));
+        REQUIRE_PROPERTY(t, @current, 13);
 
         REQUIRE(t.seekAbs(8));
-        REQUIRE_PROPERTY(t, @current, A(18));
+        REQUIRE_PROPERTY(t, @current, 18);
 
         REQUIRE_FALSE(t.seekAbs(9));
-        REQUIRE_PROPERTY(t, @current, A(18));
+        REQUIRE_PROPERTY(t, @current, 18);
 
         REQUIRE(t.seekAbs(0));
-        REQUIRE_PROPERTY(t, @current, A(Z));
+        REQUIRE_PROPERTY(t, @current, 0.);
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE(t.hasNewMessages(0));
-        REQUIRE(t.hasNewMessages(1));
-        REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(473.95834));
+        REQUIRE(floatAt(t, 1_out) == Approx(473.958));
         t.cleanAllMessages();
 
         REQUIRE(t.seekAbs(1));
-        REQUIRE_PROPERTY(t, @current, A(11));
+        REQUIRE_PROPERTY(t, @current, 11);
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.hasNewMessages(1));
 
         REQUIRE(t.messageCount(0) == 1);
-        REQUIRE(t.messageCount(1) == 1);
-        REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(26.04167));
-        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), LA("MidiEvent", 455, Z, Z, 144, 60, Z)));
+        REQUIRE(floatAt(t, 1_out) == Approx(26.04167));
+        REQUIRE(t.lastMessage(0).anyValue() == LA("MidiEvent", 455, 0., 0., 144, 60, 0.));
 
         t.m_next(0, L());
-        REQUIRE_PROPERTY(t, @current, A(12));
+        REQUIRE_PROPERTY(t, @current, 12);
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE(t.hasNewMessages(0));
-        REQUIRE(t.hasNewMessages(1));
-        REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(473.958));
-        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), LA("MidiEvent", 480, Z, 473.958, 144, 62, 80)));
+        REQUIRE(floatAt(t, 1_out) == Approx(473.958));
+        REQUIRE(t.lastMessage(0).anyValue() == LAX("MidiEvent", 480, 0., 473.958, 144, 62, 80));
 
         t.m_next(0, L());
-        REQUIRE_PROPERTY(t, @current, A(13));
+        REQUIRE_PROPERTY(t, @current, 13);
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE(t.hasNewMessages(0));
-        REQUIRE(t.hasNewMessages(1));
-        REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(26.04167));
-        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), LA("MidiEvent", 935, Z, Z, 144, 62, Z)));
+        REQUIRE(floatAt(t, 1_out) == Approx(26.04167));
+        REQUIRE(t.lastMessage(0).anyValue() == LA("MidiEvent", 935, 0., 0., 144, 62, 0.));
 
         t.m_next(0, L());
-        REQUIRE_PROPERTY(t, @current, A(14));
+        REQUIRE_PROPERTY(t, @current, 14);
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE(t.hasNewMessages(0));
-        REQUIRE(t.hasNewMessages(1));
-        REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(473.958));
-        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), LA("MidiEvent", 960, Z, 473.958, 144, 64, 80)));
+        REQUIRE(floatAt(t, 1_out) == Approx(473.958));
+        REQUIRE(t.lastMessage(0).anyValue() == LAX("MidiEvent", 960, 0., 473.958, 144, 64, 80));
 
         t.m_next(0, L());
-        REQUIRE_PROPERTY(t, @current, A(15));
+        REQUIRE_PROPERTY(t, @current, 15);
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE(t.hasNewMessages(0));
-        REQUIRE(t.hasNewMessages(1));
-        REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(26.04167));
-        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), LA("MidiEvent", 1415, Z, Z, 144, 64, Z)));
+        REQUIRE(floatAt(t, 1_out) == Approx(26.04167));
+        REQUIRE(t.lastMessage(0).anyValue() == LA("MidiEvent", 1415, 0., 0., 144, 64, 0.));
 
         t.m_next(0, L());
-        REQUIRE_PROPERTY(t, @current, A(16));
+        REQUIRE_PROPERTY(t, @current, 16);
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE(t.hasNewMessages(0));
-        REQUIRE(t.hasNewMessages(1));
-        REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(473.958));
-        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), LA("MidiEvent", 1440, Z, 473.958, 144, 65, 80)));
+        REQUIRE(floatAt(t, 1_out) == Approx(473.958));
+        REQUIRE(t.lastMessage(0).anyValue() == LAX("MidiEvent", 1440, 0., 473.958, 144, 65, 80));
 
         WHEN_CALL(t, reset);
-        REQUIRE_PROPERTY(t, @current, A(Z));
+        REQUIRE_PROPERTY(t, @current, A(0.));
 
         WHEN_CALL_N(t, seek, 1);
-        REQUIRE_PROPERTY(t, @current, A(11));
+        REQUIRE_PROPERTY(t, @current, 11);
 
-        WHEN_CALL_N(t, seek, Z);
-        REQUIRE_PROPERTY(t, @current, A(Z));
+        WHEN_CALL_N(t, seek, 0.);
+        REQUIRE_PROPERTY(t, @current, A(0.));
 
         WHEN_CALL_N(t, seek, 3);
-        REQUIRE_PROPERTY(t, @current, A(13));
+        REQUIRE_PROPERTY(t, @current, 13);
     }
 
     SECTION("play/stop")
     {
-        DataTypeMidiStream m(TEST_DATA_DIR "/test_01.mid");
+        DataTypeMidiStream m(TEST_SRC_DIR "/test_01.mid");
         REQUIRE(m.is_open());
 
-        MidiTrackTest t("midi.track");
+        TObj t("midi.track");
         WHEN_SEND_TDATA_TO(0, t, m);
 
         t.seekAbs(0);
-        REQUIRE_PROPERTY(t, @state, Z);
+        REQUIRE_PROPERTY(t, @state, 0.);
 
         WHEN_CALL(t, play);
         REQUIRE_PROPERTY(t, @state, 1);
@@ -233,48 +191,48 @@ TEST_CASE("midi.track", "[externals]")
         REQUIRE_PROPERTY(t, @current, 12);
 
         WHEN_CALL(t, stop);
-        REQUIRE_PROPERTY(t, @state, Z);
-        REQUIRE_PROPERTY(t, @current, Z);
+        REQUIRE_PROPERTY(t, @state, 0.);
+        REQUIRE_PROPERTY(t, @current, 0.);
 
         // twice stopped
         WHEN_CALL(t, stop);
-        REQUIRE_PROPERTY(t, @state, Z);
-        REQUIRE_PROPERTY(t, @current, Z);
+        REQUIRE_PROPERTY(t, @state, 0.);
+        REQUIRE_PROPERTY(t, @current, 0.);
 
         // pause stopped
         WHEN_CALL(t, pause);
-        REQUIRE_PROPERTY(t, @state, Z);
-        REQUIRE_PROPERTY(t, @current, Z);
+        REQUIRE_PROPERTY(t, @state, 0.);
+        REQUIRE_PROPERTY(t, @current, 0.);
     }
 
     SECTION("track count")
     {
-        DataTypeMidiStream m(TEST_DATA_DIR "/test_01.mid");
+        DataTypeMidiStream m(TEST_SRC_DIR "/test_01.mid");
         REQUIRE(m.is_open());
 
-        MidiTrackTest t("midi.track", LA("@track", 2));
+        TObj t("midi.track", LA("@track", 2));
         REQUIRE_PROPERTY(t, @track, 2);
 
         WHEN_SEND_TDATA_TO(0, t, m);
-        REQUIRE_PROPERTY(t, @join, Z);
+        REQUIRE_PROPERTY(t, @join, 0.);
         REQUIRE_PROPERTY(t, @track, 2);
         REQUIRE_PROPERTY(t, @tempo, 120);
-        REQUIRE_PROPERTY(t, @events, Z);
+        REQUIRE_PROPERTY(t, @events, 0.);
         REQUIRE(t.begin() == t.end());
         REQUIRE(t.size() == 0);
     }
 
     SECTION("speed")
     {
-        DataTypeMidiStream m(TEST_DATA_DIR "/test_01.mid");
+        DataTypeMidiStream m(TEST_SRC_DIR "/test_01.mid");
         REQUIRE(m.is_open());
 
-        MidiTrackTest t("midi.track", LA("@speed", 0.5));
+        TObj t("midi.track", LA("@speed", 0.5));
         WHEN_SEND_TDATA_TO(0, t, m);
         REQUIRE(t.size() == 19);
 
         REQUIRE(t.seekAbs(0));
-        REQUIRE_PROPERTY(t, @current, A(Z));
+        REQUIRE_PROPERTY(t, @current, A(0.));
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.hasNewMessages(1));
@@ -282,7 +240,7 @@ TEST_CASE("midi.track", "[externals]")
         t.cleanAllMessages();
 
         REQUIRE(t.seekAbs(1));
-        REQUIRE_PROPERTY(t, @current, A(11));
+        REQUIRE_PROPERTY(t, @current, 11);
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.hasNewMessages(1));
@@ -290,23 +248,23 @@ TEST_CASE("midi.track", "[externals]")
         REQUIRE(t.messageCount(0) == 1);
         REQUIRE(t.messageCount(1) == 1);
         REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(26.04167 * 2));
-        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), LA("MidiEvent", 455, Z, Z, 144, 60, Z)));
+        REQUIRE(t.lastMessage(0).anyValue() == LAX("MidiEvent", 455, 0., 0., 144, 60, 0.));
 
         t.m_next(0, L());
-        REQUIRE_PROPERTY(t, @current, A(12));
+        REQUIRE_PROPERTY(t, @current, 12);
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.hasNewMessages(1));
         REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(473.958 * 2));
-        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), LA("MidiEvent", 480, Z, 473.958 * 2, 144, 62, 80)));
+        REQUIRE(t.lastMessage(0).anyValue() == LAX("MidiEvent", 480, 0., 473.958 * 2, 144, 62, 80));
 
         t.m_next(0, L());
-        REQUIRE_PROPERTY(t, @current, A(13));
+        REQUIRE_PROPERTY(t, @current, 13);
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE(t.hasNewMessages(0));
         REQUIRE(t.hasNewMessages(1));
         REQUIRE(t.lastMessage(1).atomValue().asFloat() == Approx(26.04167 * 2));
-        REQUIRE(approxCompare(t.lastMessage(0).anyValue(), LA("MidiEvent", 935, Z, Z, 144, 62, Z)));
+        REQUIRE(t.lastMessage(0).anyValue() == LAX("MidiEvent", 935, 0., 0., 144, 62, 0.));
     }
 }
