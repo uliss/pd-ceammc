@@ -11,6 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "ceammc_fn_list.h"
 #include "datatype_mlist.h"
 #include "dict_keys.h"
 #include "test_data_base.h"
@@ -34,5 +35,9 @@ TEST_CASE("dict.keys", "[externals]")
 
         t << DictA();
         REQUIRE(listAt(t) == L());
+
+        t << DictA("[a: b 2: 300 @p: ABC]");
+        REQUIRE(listAt(t).size() == 3);
+        REQUIRE(list::containsAllOff(listAt(t), LA("a", "2", "@p")));
     }
 }
