@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../ui/mod_ui.h"
-#include "../ui/ui_slider2d.h"
+#include "mod_ui.h"
+#include "ui_slider2d.h"
 #include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(Slider2D)

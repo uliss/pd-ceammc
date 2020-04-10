@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../ui/ui_label.h"
+#include "ui_label.h"
 #include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(Label)

@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../ui/ui_icon.h"
+#include "ui_icon.h"
 #include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(Icon)

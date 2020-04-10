@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../ui/ui_bang.h"
+#include "ui_bang.h"
 #include "ceammc_format.h"
 #include "test_ui.h"
 
