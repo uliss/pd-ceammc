@@ -13,7 +13,7 @@ extern "C" {
 
 namespace ceammc {
 
-static const size_t MAX_PRESET_COUNT = 16;
+static const size_t MAX_PRESET_COUNT = 256;
 const char* Preset::SYM_PRESET_ALL = ".preset update all";
 const char* PresetStorage::SYM_PRESET_UPDATE_INDEX_ADDR = ".preset index update addr";
 const char* PresetStorage::SYM_PRESET_INDEX_ADD = ".preset index add";

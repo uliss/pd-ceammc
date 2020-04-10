@@ -90,7 +90,7 @@ TEST_CASE("ceammc_preset", "[PureData]")
         PresetStorage& s = PresetStorage::instance();
         REQUIRE(&s == &PresetStorage::instance());
 
-        REQUIRE(s.maxPresetCount() == 16);
+        REQUIRE(s.maxPresetCount() == 256);
         REQUIRE(s.keys() == L());
 
         REQUIRE_FALSE(s.hasPreset(gensym("a")));
