@@ -27,7 +27,6 @@ extern "C" void expand_env_setup();
 extern "C" void is_any_setup();
 extern "C" void is_bang_setup();
 extern "C" void is_even_setup();
-extern "C" void is_file_setup();
 extern "C" void is_float_setup();
 extern "C" void is_list_setup();
 extern "C" void is_odd_setup();
@@ -43,6 +42,7 @@ extern "C" void setup_test0x2edata();
 extern "C" void setup_test0x2eexpect();
 extern "C" void setup_prop0x2eget_tilde();
 
+void setup_is_file();
 void setup_base_canvas_dir();
 void setup_base_canvas_name();
 void setup_base_canvas_path();
@@ -58,7 +58,6 @@ void ceammc_base_setup()
     is_any_setup();
     is_bang_setup();
     is_even_setup();
-    is_file_setup();
     is_float_setup();
     is_list_setup();
     is_odd_setup();
@@ -72,6 +71,7 @@ void ceammc_base_setup()
     setup_base_canvas_path();
     setup_base_prop();
     setup_is_data();
+    setup_is_file();
     setup_load_msg();
     setup_metro_pattern();
     setup_metro_random();

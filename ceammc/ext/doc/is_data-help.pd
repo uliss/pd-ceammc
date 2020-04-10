@@ -19,18 +19,23 @@
 #X obj 50 277 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 20 314 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 319 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 110 320 1\.;
-#X text 150 320 *data*;
-#X text 245 320 outputs '1' to 1st outlet \, otherwise '0'.;
-#X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 355 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 319 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X text 110 356 1\.;
-#X text 245 356 0 or 1\.;
-#X text 110 376 2\.;
-#X text 245 376 passes *data* message.;
+#X msg 110 354 @in_list;
+#X text 245 354 output '1' is list contains at least one data atom.;
+#X obj 20 393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 398 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+0;
+#X text 110 399 1\.;
+#X text 150 399 *data*;
+#X text 245 399 outputs '1' to 1st outlet \, otherwise '0'.;
+#X obj 20 429 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 434 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 435 1\.;
+#X text 245 435 0 or 1\.;
+#X text 110 455 2\.;
+#X text 245 455 passes *data* message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

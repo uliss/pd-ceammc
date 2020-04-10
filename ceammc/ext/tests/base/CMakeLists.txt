@@ -29,6 +29,8 @@ endfunction()
 
 add_base_test(function)
 add_base_test(gain)
+add_base_test(is_data)
+add_base_test(is_file)
 add_base_test(matrix)
 add_base_test(mix)
 add_base_test(obj_props)

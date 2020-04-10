@@ -20,6 +20,7 @@
 - chaos.gbman0 chaotic generator added
 - chaos.gbman0~ chaotic generator added
 - list.contains @all_of, @any_of, @none_of, @sublist (default) properties added
+- is_data @in_list property added to search data inside list
 
 ## [0.8]
 ### Added:
