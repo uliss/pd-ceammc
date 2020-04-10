@@ -64,6 +64,13 @@ struct NotData : public ceammc::Exception {
     }
 };
 
+struct NotAny : public ceammc::Exception {
+    NotAny(const std::string& msg)
+        : ceammc::Exception("not a message: " + msg)
+    {
+    }
+};
+
 struct NotList : public ceammc::Exception {
     NotList(const std::string& msg)
         : ceammc::Exception("not a list: " + msg)
@@ -144,6 +151,21 @@ AtomList listAt(const T& t, OutletIdx idx = 0_out)
         throw NotList(to_string(msg));
 
     return msg.listValue();
+}
+
+/** any */
+template <typename T>
+AtomList anyAt(const T& t, OutletIdx idx = 0_out)
+{
+    if (!t.hasNewMessages(idx.n))
+        throw NoOutput(idx);
+
+    auto msg = t.lastMessage(idx.n);
+
+    if (!msg.isAny())
+        throw NotAny(to_string(msg));
+
+    return msg.anyValue();
 }
 
 template <typename T>

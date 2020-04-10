@@ -11,23 +11,22 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../base/msg.h"
+#include "datatype_string.h"
+#include "msg.h"
 #include "test_base.h"
-#include "catch.hpp"
+#include "test_catch2.hpp"
 
-#include <stdio.h>
-
-typedef TestExternal<Msg> MsgTest;
+PD_COMPLETE_TEST_SETUP(Msg, base, msg)
 
 TEST_CASE("msg", "[extension]")
 {
-    obj_init();
+    pd_test_init();
 
     SECTION("test create with:")
     {
         SECTION("empty arguments")
         {
-            MsgTest t("msg", L());
+            TObj t("msg", L());
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
@@ -136,7 +135,7 @@ TEST_CASE("msg", "[extension]")
 
         SECTION("symbol arg")
         {
-            MsgTest t("msg", LA("set"));
+            TObj t("msg", LA("set"));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
@@ -154,6 +153,86 @@ TEST_CASE("msg", "[extension]")
 
             WHEN_SEND_LIST_TO(0, t, LF(1, 2, 3));
             REQUIRE_ANY_AT_OUTLET(0, t, LA("set", 1, 2, 3));
+        }
+
+        SECTION("multiple args")
+        {
+            TObj t("msg", LA("a", "b", "c"));
+            REQUIRE(t.numInlets() == 2);
+            REQUIRE(t.numOutlets() == 1);
+
+            WHEN_SEND_BANG_TO(0, t);
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("a", "b", "c"));
+
+            WHEN_SEND_FLOAT_TO(0, t, 12);
+            REQUIRE_ANY_AT_OUTLET(0, t, LA("a", "b", "c", 12));
+        }
+
+        SECTION("@property")
+        {
+            TExt t("m", LA("@x"));
+            REQUIRE(t.numInlets() == 2);
+            REQUIRE(t.numOutlets() == 1);
+
+            t.bang();
+            REQUIRE(anyAt(t) == LA("@x"));
+
+            t << 12;
+            REQUIRE(anyAt(t) == LA("@x", 12));
+
+            t << "abc";
+            REQUIRE(anyAt(t) == LA("@x", "abc"));
+
+            t << LA("a", "b", 3);
+            REQUIRE(anyAt(t) == LA("@x", "a", "b", 3));
+
+            t << LF(1, 2, 3);
+            REQUIRE(anyAt(t) == LA("@x", 1, 2, 3));
+
+            t.call("@abc");
+            REQUIRE(anyAt(t) == LA("@x", "@abc"));
+
+            t.call("@abc?");
+            REQUIRE(anyAt(t) == LA("@x", "@abc?"));
+
+            t.call("@x");
+            REQUIRE(anyAt(t) == LA("@x", "@x"));
+
+            t.call("@x?");
+            REQUIRE(anyAt(t) == LA("@x", "@x?"));
+
+            t.call("\"a quoted string\"");
+            REQUIRE(anyAt(t) == LA("@x", "\"a quoted string\""));
+        }
+
+        SECTION("quoted string")
+        {
+            TExt t("m", "\"a quoted string\"");
+
+            t.bang();
+            REQUIRE(anyAt(t) == LA("\"a quoted string\""));
+
+            t << 12;
+            REQUIRE(anyAt(t) == LA("\"a quoted string\"", 12));
+        }
+
+        SECTION("float arg")
+        {
+            TExt t("msg", 1);
+
+            t.bang();
+            REQUIRE(floatAt(t) == 1);
+
+            t << 2;
+            REQUIRE(listAt(t) == LF(1, 2));
+        }
+
+        SECTION("data")
+        {
+            TExt t("msg", "Data:");
+
+            t << StringAtom("test");
+            REQUIRE(anyAt(t) == LA("Data:", StringAtom("test")));
         }
     }
 }

@@ -181,7 +181,6 @@ ceammc_external_test(tl timeline)
 ceammc_add_extension_test("snd_file" "../src/base/snd_file.cpp")
 ceammc_add_extension_test("ext_replace" "../src/base/replace.cpp")
 ceammc_add_extension_test("ext_expand_env" "../src/base/expand_env.cpp")
-ceammc_add_extension_test("ext_msg" "../src/base/msg.cpp")
 
 ceammc_add_extension_test("ext_symbol_equal" "../src/symbol/symbol_equal.cpp")
 ceammc_add_extension_test("ext_symbol_num_compare" "../src/symbol/symbol_num_compare.cpp")

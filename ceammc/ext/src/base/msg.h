@@ -40,4 +40,6 @@ private:
     void output();
 };
 
+void setup_base_msg();
+
 #endif // MSG_H

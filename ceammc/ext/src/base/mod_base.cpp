@@ -32,21 +32,21 @@ extern "C" void is_list_setup();
 extern "C" void is_odd_setup();
 extern "C" void is_pointer_setup();
 extern "C" void is_symbol_setup();
-extern "C" void msg_setup();
 extern "C" void replace_setup();
 extern "C" void setup_prop0x2eget();
+extern "C" void setup_prop0x2eget_tilde();
 extern "C" void setup_prop0x2eset();
 extern "C" void setup_reject0x2eif();
 extern "C" void setup_snd0x2efile();
 extern "C" void setup_test0x2edata();
 extern "C" void setup_test0x2eexpect();
-extern "C" void setup_prop0x2eget_tilde();
 
-void setup_is_file();
 void setup_base_canvas_dir();
 void setup_base_canvas_name();
 void setup_base_canvas_path();
+void setup_base_msg();
 void setup_is_data();
+void setup_is_file();
 void setup_load_msg();
 
 void ceammc_base_setup()
@@ -63,12 +63,12 @@ void ceammc_base_setup()
     is_odd_setup();
     is_pointer_setup();
     is_symbol_setup();
-    msg_setup();
     replace_setup();
 
     setup_base_canvas_dir();
     setup_base_canvas_name();
     setup_base_canvas_path();
+    setup_base_msg();
     setup_base_prop();
     setup_is_data();
     setup_is_file();
