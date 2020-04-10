@@ -42,7 +42,7 @@ void DataFifo::m_pop(t_symbol*, const AtomList&) { pop(); }
 
 void DataFifo::m_resize(t_symbol*, const AtomList& l)
 {
-    size_t sz = l.asSizeT(0);
+    size_t sz = l.toT<size_t>(0);
     if (sz < 1) {
         OBJ_ERR << "invalid size value: " << sz << ". Using default size: " << DEFAULT_SIZE;
         return;
