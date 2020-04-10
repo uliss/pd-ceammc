@@ -11,16 +11,16 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../base/mod_base.h"
-#include "../base/obj_props.h"
 #include "ceammc_pd.h"
 #include "datatype_dict.h"
-#include "test_external.h"
+#include "mod_base.h"
+#include "obj_props.h"
 #include "test_sound.h"
+
+#include "test_catch2.hpp"
 
 #include <algorithm>
 #include <cstdlib>
-#include <stdio.h>
 
 PD_COMPLETE_TEST_SETUP(ObjProps, obj, props)
 
@@ -48,14 +48,20 @@ TEST_CASE("obj.props", "[externals]")
 
         t.sendBang();
         REQUIRE(t.hasOutputAt(0));
-        REQUIRE(t.isOutputDataAt(0));
-        auto props = t.outputAtomAt(0);
-        const DataTypeDict* dict = props->as<DataTypeDict>();
-        REQUIRE(dict->size() == 5);
-        REQUIRE(dict->contains(A("@value")));
-        REQUIRE(dict->contains(A("@db")));
-        REQUIRE(dict->contains(A("@mute")));
-        REQUIRE(dict->contains(A("@solo")));
-        REQUIRE(dict->contains(A("@xfade_time")));
+        DictAtom out(dataAt(t));
+
+        REQUIRE(out->contains("name"));
+        REQUIRE(out->at("name") == A("mix~"));
+        REQUIRE(out->contains("properties"));
+        REQUIRE(out->at("properties").size() == 5);
+
+        for (auto& p : out->at("properties"))
+            std::cerr << " - " << p << "\n";
+
+        CHECK(out->at("properties").contains(DictAtom("[units: msec default: 20 name: @xfade_time type: float view: slider min: 1]")));
+        CHECK(out->at("properties").contains(DictAtom("[units: db default: -144 -144 name: @db type: list view: entry]")));
+        CHECK(out->at("properties").contains(DictAtom("[default: 0 0 name: @value type: list view: entry]")));
+        CHECK(out->at("properties").contains(DictAtom("[default: 0 0 name: @mute type: list view: entry]")));
+        CHECK(out->at("properties").contains(DictAtom("[default: 0 0 name: @solo type: list view: entry]")));
     }
 }

@@ -61,12 +61,15 @@ void ObjProps::onBang()
     if (lst.size() > 1)
         OBJ_DBG << "warning: several objects connected";
 
-    DataTypeDict* dict = new DataTypeDict;
-    DataPtr pdict(dict);
+    auto KEY_DEF = gensym("default");
+
+    AtomList obj_list;
 
     for (t_object* o : lst) {
+        t_symbol* obj_name = o->te_g.g_pd->c_name;
+
         if (!is_ceammc(o)) {
-            OBJ_DBG << "not a CEAMMC object: " << o->te_g.g_pd->c_name->s_name;
+            OBJ_DBG << "can't get properties, not a CEAMMC object: [" << obj_name->s_name << "]";
             continue;
         }
 
@@ -81,66 +84,74 @@ void ObjProps::onBang()
         if (is_ceammc_abstraction(o))
             props = ceammc_abstraction_properties(o);
 
+        DictAtom obj_info;
+        obj_info->insert("name", obj_name);
+        obj_info->insert("properties", AtomList());
+        auto& obj_props = obj_info->at("properties");
+
         for (PropertyInfo& p : props) {
+            DictAtom prop_info;
 
-            DataTypeDict* val = new DataTypeDict;
-            dict->insert(Atom(p.name()), DataAtom(DataPtr(val)));
+            obj_props.append(prop_info);
 
-            val->insert("name", p.name());
-            val->insert("type", typeToSymbol(p.type()));
-            val->insert("view", viewToSymbol(p.view()));
-
-            const Atom KEY_DEF(gensym("default"));
+            prop_info->insert("name", p.name());
+            prop_info->insert("type", typeToSymbol(p.type()));
+            prop_info->insert("view", viewToSymbol(p.view()));
 
             if (p.isBool()) {
                 bool b;
                 if (p.getDefault(b))
-                    val->insert(KEY_DEF, Atom(b ? 1 : 0));
+                    prop_info->insert(KEY_DEF, Atom(b ? 1 : 0));
             } else if (p.isFloat()) {
                 t_float f;
                 if (p.getDefault(f))
-                    val->insert(KEY_DEF, f);
+                    prop_info->insert(KEY_DEF, f);
             } else if (p.isInt()) {
                 int i;
                 if (p.getDefault(i))
-                    val->insert(KEY_DEF, Atom(i));
+                    prop_info->insert(KEY_DEF, Atom(i));
             } else if (p.isSymbol()) {
                 t_symbol* s;
                 if (p.getDefault(s))
-                    val->insert(KEY_DEF, Atom(s));
+                    prop_info->insert(KEY_DEF, Atom(s));
             } else if (p.isVariant()) {
                 Atom a;
                 if (p.getDefault(a))
-                    val->insert(KEY_DEF, a);
+                    prop_info->insert(KEY_DEF, a);
             } else if (p.isList()) {
                 AtomList l;
                 if (p.getDefault(l))
-                    val->insert(KEY_DEF, l);
+                    prop_info->insert(KEY_DEF, l);
             }
 
             if (p.hasConstraintsMin()) {
                 if (p.isFloat())
-                    val->insert("min", p.minFloat());
+                    prop_info->insert("min", p.minFloat());
                 else if (p.isInt())
-                    val->insert("min", p.minInt());
+                    prop_info->insert("min", p.minInt());
             }
 
             if (p.hasConstraintsMax()) {
                 if (p.isFloat())
-                    val->insert("max", p.maxFloat());
+                    prop_info->insert("max", p.maxFloat());
                 else if (p.isInt())
-                    val->insert("max", p.maxInt());
+                    prop_info->insert("max", p.maxInt());
             }
 
             if (p.hasStep())
-                val->insert("step", p.step());
+                prop_info->insert("step", p.step());
 
             if (p.hasEnumLimit())
-                val->insert("enum", p.enumValues());
+                prop_info->insert("enum", p.enumValues());
+
+            if (p.units() != PropValueUnits::NONE)
+                prop_info->insert("units", to_symbol(p.units()));
         }
+
+        obj_list.append(obj_info);
     }
 
-    dataTo(0, pdict);
+    listTo(0, obj_list);
 }
 
 void setup_obj_props()

@@ -111,7 +111,7 @@ class DataStringLexer : public reflex::AbstractLexer<reflex::Matcher> {
 
 ceammc::DataStringParser::symbol_type ceammc::DataStringLexer::lex()
 {
-  static const char *REGEX_INITIAL = "(?mx)((?:[\\x09\\x0a\\x20]+))|(null)|(true)|(false)|(S(?=(?:\"(?:(?:[\\x00-!]|[\\x23-_]|[a-\\x7f]|[\\xc2-\\xdf][\\x80-\\xbf]|\\xe0[\\xa0-\\xbf][\\x80-\\xbf]|[\\xe1-\\xec][\\x80-\\xbf][\\x80-\\xbf]|\\xed[\\x80-\\x9f][\\x80-\\xbf]|[\\xee\\xef][\\x80-\\xbf][\\x80-\\xbf]|\\xf0[\\x90-\\xbf][\\x80-\\xbf][\\x80-\\xbf]|[\\xf1-\\xf3][\\x80-\\xbf][\\x80-\\xbf][\\x80-\\xbf]|\\xf4[\\x80-\\x8f][\\x80-\\xbf][\\x80-\\xbf])|`\"|``|`\\.|`:|`\\(|`\\))*\")))|((?:[A-Z][A-Za-z]*)(?=(?:\\()))|((?:[A-Z][A-Za-z]*)(?=(?:\\[)))|((?:\\[))|((?:\\]))|((?:\\())|((?:\\)))|((?:(?:[\\x2b\\x2d]?(?:0|[1-9][0-9]*))(?:\\.[0-9]+)?))|((?:[\\x2b\\x2d]?0[Xx][0-9A-Fa-f]+))|((?:0b[01]+))|((?:(?:[\\x23\\x2e0-9@-Z_a-z])+:))|((?:(?:[\\x23\\x2e0-9@-Z_a-z])(?:[\\x23'*+\\x2d-:<-Z_a-z\\x7c])*))|((?:\"(?:(?:[\\x00-!]|[\\x23-_]|[a-\\x7f]|[\\xc2-\\xdf][\\x80-\\xbf]|\\xe0[\\xa0-\\xbf][\\x80-\\xbf]|[\\xe1-\\xec][\\x80-\\xbf][\\x80-\\xbf]|\\xed[\\x80-\\x9f][\\x80-\\xbf]|[\\xee\\xef][\\x80-\\xbf][\\x80-\\xbf]|\\xf0[\\x90-\\xbf][\\x80-\\xbf][\\x80-\\xbf]|[\\xf1-\\xf3][\\x80-\\xbf][\\x80-\\xbf][\\x80-\\xbf]|\\xf4[\\x80-\\x8f][\\x80-\\xbf][\\x80-\\xbf])|`\"|``|`\\.|`:|`\\(|`\\))*\"))|(.)";
+  static const char *REGEX_INITIAL = "(?mx)((?:[\\x09\\x0a\\x20]+))|(null)|(true)|(false)|(S(?=(?:\"(?:(?:[\\x00-!]|[\\x23-_]|[a-\\x7f]|[\\xc2-\\xdf][\\x80-\\xbf]|\\xe0[\\xa0-\\xbf][\\x80-\\xbf]|[\\xe1-\\xec][\\x80-\\xbf][\\x80-\\xbf]|\\xed[\\x80-\\x9f][\\x80-\\xbf]|[\\xee\\xef][\\x80-\\xbf][\\x80-\\xbf]|\\xf0[\\x90-\\xbf][\\x80-\\xbf][\\x80-\\xbf]|[\\xf1-\\xf3][\\x80-\\xbf][\\x80-\\xbf][\\x80-\\xbf]|\\xf4[\\x80-\\x8f][\\x80-\\xbf][\\x80-\\xbf])|`\"|``|`\\.|`:|`\\(|`\\))*\")))|((?:[A-Z][A-Za-z]*)(?=(?:\\()))|((?:[A-Z][A-Za-z]*)(?=(?:\\[)))|((?:\\[))|((?:\\]))|((?:\\())|((?:\\)))|((?:(?:[\\x2b\\x2d]?(?:0|[1-9][0-9]*))(?:\\.[0-9]+)?))|((?:[\\x2b\\x2d]?0[Xx][0-9A-Fa-f]+))|((?:0b[01]+))|((?:(?:[\\x23\\x2e0-9@-Z_a-z])+:))|((?:(?:[\\x23\\x2e0-9@-Z_a-z])(?:[\\x23'*+\\x2d-:<-Z_a-z\\x7c\\x7e])*))|((?:\"(?:(?:[\\x00-!]|[\\x23-_]|[a-\\x7f]|[\\xc2-\\xdf][\\x80-\\xbf]|\\xe0[\\xa0-\\xbf][\\x80-\\xbf]|[\\xe1-\\xec][\\x80-\\xbf][\\x80-\\xbf]|\\xed[\\x80-\\x9f][\\x80-\\xbf]|[\\xee\\xef][\\x80-\\xbf][\\x80-\\xbf]|\\xf0[\\x90-\\xbf][\\x80-\\xbf][\\x80-\\xbf]|[\\xf1-\\xf3][\\x80-\\xbf][\\x80-\\xbf][\\x80-\\xbf]|\\xf4[\\x80-\\x8f][\\x80-\\xbf][\\x80-\\xbf])|`\"|``|`\\.|`:|`\\(|`\\))*\"))|(.)";
   static const reflex::Pattern PATTERN_INITIAL(REGEX_INITIAL);
   if (!has_matcher())
   {
@@ -213,7 +213,7 @@ ceammc::DataStringParser::symbol_type ceammc::DataStringLexer::lex()
                           return DataStringParser::make_KEY(key);
                         }
             break;
-          case 16: // rule at line 92: (?:(?:[\x23\x2e0-9@-Z_a-z])(?:[\x23'*+\x2d-:<-Z_a-z\x7c])*)
+          case 16: // rule at line 92: (?:(?:[\x23\x2e0-9@-Z_a-z])(?:[\x23'*+\x2d-:<-Z_a-z\x7c\x7e])*)
 #line 92 "data_string.l"
 { return DataStringParser::make_SYMBOL(text()); }
             break;

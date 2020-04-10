@@ -147,15 +147,11 @@ AtomList Mix::propMute() const
     for (size_t i = 0; i < mute_.size(); i++)
         res.append(mute_[i].target());
 
-    OBJ_LOG << "get: " << res;
-
     return res;
 }
 
 void Mix::setPropMute(const AtomList& lst)
 {
-    OBJ_LOG << "set: " << lst;
-
     for (size_t i = 0; i < mute_.size(); i++) {
         int v = int(lst.floatAt(i, 0)) != 0 ? 1 : 0;
         mute_[i].setTargetValue(v);

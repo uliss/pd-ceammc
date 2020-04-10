@@ -44,7 +44,7 @@ open_dict  \[
 close_dict \]
 
 symbol0    [a-zA-Z_.@#0-9]
-symbol_    [a-zA-Z_.@#0-9\-+:\?'|/<>=*]
+symbol_    [a-zA-Z_.@#0-9\-+:\?'|/<>=*~]
 symbol     {symbol0} {symbol_}*
 
 key        {symbol0}+:

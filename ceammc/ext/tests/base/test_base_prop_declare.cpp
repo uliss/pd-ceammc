@@ -79,7 +79,7 @@ public:
     }
 };
 
-TEST_CASE("radio", "[externals]")
+TEST_CASE("prop.declare", "[externals]")
 {
     pd_test_init();
     setup_base_prop();
@@ -106,7 +106,7 @@ TEST_CASE("radio", "[externals]")
 
         {
             // invalid name
-            TestExtPropDeclare t("prop.declare", LX(1, 2, 3));
+            TestExtPropDeclare t("prop.declare", 1, 2, 3);
             REQUIRE(t.object());
             REQUIRE(t->name() == SYM("@default"));
         }

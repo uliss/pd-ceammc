@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../base/xfade2_tilde.h"
+#include "xfade2_tilde.h"
 #include "test_sound.h"
 #include "test_external.h"
 
@@ -19,11 +19,10 @@ typedef TestSoundExternal<XFade2Tilde> XFade2TildeTest;
 
 PD_COMPLETE_TEST_SETUP(XFade2Tilde, base, xfade2_tilde)
 
-TEST_CASE("xfade~", "[externals]")
+TEST_CASE("xfade2~", "[externals]")
 {
     setup_base_xfade_tilde();
     pd_test_mod_init_base_xfade2_tilde();
-    test::pdPrintToStdError();
 
     SECTION("construct")
     {
