@@ -34,4 +34,6 @@ public:
 };
 }
 
+void setup_base_replace();
+
 #endif // REPLACE_H

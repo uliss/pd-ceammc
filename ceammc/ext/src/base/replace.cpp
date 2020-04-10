@@ -9,11 +9,11 @@ Replace::Replace(const PdArgs& a)
     createInlet();
     createOutlet();
 
-    addProperty(new PointerProperty<Atom>("@from", &from_, PropValueAccess::READWRITE));
-    addProperty(new PointerProperty<Atom>("@to", &to_, PropValueAccess::READWRITE));
+    addProperty(new PointerProperty<Atom>("@from", &from_, PropValueAccess::READWRITE))
+        ->setArgIndex(0);
 
-    property("@from")->setArgIndex(0);
-    property("@to")->setArgIndex(1);
+    addProperty(new PointerProperty<Atom>("@to", &to_, PropValueAccess::READWRITE))
+        ->setArgIndex(1);
 }
 
 void Replace::onInlet(size_t n, const AtomList& l)
@@ -82,7 +82,7 @@ bool Replace::validateArgs() const
     return !from_.isNone() && from_ != to_;
 }
 
-extern "C" void replace_setup()
+void setup_base_replace()
 {
     ObjectFactory<Replace> obj("replace");
 }
