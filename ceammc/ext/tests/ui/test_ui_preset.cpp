@@ -36,6 +36,8 @@ TEST_CASE("ui.preset", "[ui.preset]")
 
     SECTION("external")
     {
+        PresetStorage::instance().clearAll();
+
         TestExtPreset t("ui.preset");
         REQUIRE(t->propCurrent() == LF(-1));
 
@@ -79,6 +81,7 @@ TEST_CASE("ui.preset", "[ui.preset]")
         REQUIRE(platform::path_exists(TEST_BIN_DIR "/abc.txt"));
 
         t.call("clear", LF(0, 1, 2));
+        REQUIRE(t->propCurrent() == LF(-1));
 
         REQUIRE(s0->value() == 0.2f);
         REQUIRE(s1->value() == 0.8f);
@@ -87,15 +90,19 @@ TEST_CASE("ui.preset", "[ui.preset]")
         t.call("load", LF(0));
         REQUIRE(s0->value() == 0.2f);
         REQUIRE(s1->value() == 0.8f);
+        REQUIRE(t->propCurrent() == LF(-1));
         t.call("load", LF(1));
         REQUIRE(s0->value() == 0.2f);
         REQUIRE(s1->value() == 0.8f);
         t.call("load", LF(2));
         REQUIRE(s0->value() == 0.2f);
         REQUIRE(s1->value() == 0.8f);
+        REQUIRE(t->propCurrent() == LF(-1));
 
         // read again
         t.call("read", LA(TEST_BIN_DIR "/abc.txt"));
+        REQUIRE(t->propCurrent() == LF(-1));
+
         t.call("load", LF(1));
         REQUIRE(s0->value() == 0.3f);
         REQUIRE(s1->value() == 0.7f);

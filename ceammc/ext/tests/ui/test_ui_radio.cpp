@@ -21,6 +21,7 @@ UI_COMPLETE_TEST_SETUP(Radio)
 TEST_CASE("ui.radio", "[ui.radio]")
 {
     ui_test_init();
+    PresetStorage::instance().clearAll();
 
     SECTION("construct")
     {

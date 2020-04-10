@@ -233,9 +233,6 @@ bool PresetStorage::write(const char* path) const
 
 bool PresetStorage::read(t_canvas* c, const std::string& path)
 {
-    static t_symbol* SYM_REBIND = gensym(".rebind");
-    static t_symbol* SYM_PRESET_ALL = gensym(Preset::SYM_PRESET_ALL);
-
     t_canvas* root_cnv = rootCanvas(c);
     std::string name = makePresetFilename(root_cnv, path);
     std::string full_path = makeFullPresetPath(root_cnv, name);
@@ -243,10 +240,8 @@ bool PresetStorage::read(t_canvas* c, const std::string& path)
     bool rc = read(full_path.c_str());
     if (!rc)
         LIB_ERR << "can't read presets from " << full_path;
-    else {
-        mess1(SYM_PRESET_ALL->s_thing, SYM_REBIND, c);
+    else
         LIB_DBG << "presets readed from " << full_path;
-    }
 
     return rc;
 }
@@ -392,6 +387,9 @@ void PresetStorage::unbindPreset(t_symbol* name)
 void PresetStorage::clearAll()
 {
     params_.clear();
+
+    for (auto& x : indexes_)
+        x.clear();
 }
 
 void PresetStorage::clearAll(size_t idx)
