@@ -11,14 +11,17 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../ui/ui_rslider.h"
-#include "test_ui.h"
+#include "ceammc_preset.h"
+#include "ui_rslider.h"
+
+#include "test_ui_base.h"
 
 UI_COMPLETE_TEST_SETUP(RSlider)
 
 TEST_CASE("ui.rslider", "[ui.rslider]")
 {
     ui_test_init();
+    PresetStorage::instance().clearAll();
 
     SECTION("construct")
     {
@@ -175,4 +178,6 @@ TEST_CASE("ui.rslider", "[ui.rslider]")
         REQUIRE_NO_OUTPUT(t);
         REQUIRE_UI_LIST_PROPERTY(t, "value", LX(0.8, 0.9));
     }
+
+    PresetStorage::instance().clearAll();
 }

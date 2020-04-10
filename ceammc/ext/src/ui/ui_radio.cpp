@@ -317,7 +317,7 @@ void UIRadio::m_plus(t_float f)
         return;
     }
 
-    int v = idx_ + int(f);
+    int v = idx_ + static_cast<int>(f);
     idx_ = (v >= 0) ? v % prop_nitems_ : prop_nitems_ - (abs(v) % prop_nitems_);
     output();
     redrawItems();

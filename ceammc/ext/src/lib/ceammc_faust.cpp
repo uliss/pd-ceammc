@@ -194,11 +194,11 @@ namespace faust {
 
         AtomList lst;
         lst.append(atomFrom(path_));
-        lst.append(value());
-        lst.append(init_);
-        lst.append(min_);
-        lst.append(max_);
-        lst.append(step_);
+        lst.append(Atom(value()));
+        lst.append(Atom(init_));
+        lst.append(Atom(min_));
+        lst.append(Atom(max_));
+        lst.append(Atom(step_));
 
         outletAny(out, sel, lst);
     }

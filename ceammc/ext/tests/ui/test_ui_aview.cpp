@@ -11,10 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../ui/ui_arrayview.h"
-#include "ceammc_pd.h"
-#include "test_base.h"
-#include "test_ui.h"
+#include "ui_arrayview.h"
+
+#include "test_ui_base.h"
 
 UI_COMPLETE_TEST_SETUP(ArrayView)
 
@@ -22,10 +21,7 @@ extern "C" void garray_init(void);
 
 TEST_CASE("ui.aview", "[ui.aview]")
 {
-    UIArrayView::setup();
-    LogExternalOutput::setup();
-    ListenerExternal::setup();
-    test::pdPrintToStdError();
+    ui_test_init();
     setTestSampleRate(10000);
 
     SECTION("construct")
@@ -58,7 +54,6 @@ TEST_CASE("ui.aview", "[ui.aview]")
 
     SECTION("@cursor...")
     {
-        test::pdPrintToStdError();
         REQUIRE(cnv);
         ArrayPtr aptr = cnv->createArray("array1", 101);
         Array a("array1");

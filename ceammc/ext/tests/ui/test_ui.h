@@ -16,6 +16,8 @@
 
 using namespace ceammc;
 
+void test_ui_main_init();
+
 // clang-format off
 #define UI_COMPLETE_TEST_SETUP(T)                                                   \
     using namespace ceammc;                                                         \
@@ -24,11 +26,8 @@ using namespace ceammc;
     static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");     \
     static void ui_test_init()                                                      \
     {                                                                               \
-        pd_init();                                                                  \
-        epd_init();                                                                 \
-        UI##T::setup();                                                             \
-        LogExternalOutput::setup();                                                 \
-        ListenerExternal::setup();                                                  \
+        test_ui_main_init();                                                        \
+        test::pdPrintToStdError();                                                  \
     }
 
 template <class T, class F = UIObjectFactory<T> >
@@ -187,7 +186,7 @@ public:
     {                                             \
         float p;                                  \
         REQUIRE(t->getProperty(gensym(name), p)); \
-        REQUIRE(p == Approx(f));                  \
+        REQUIRE(p == Approx(f).epsilon(0.0001));  \
     }
 
 #define REQUIRE_UI_LIST_PROPERTY(t, name, l)      \

@@ -632,6 +632,8 @@ Atom Atom::operator/(t_float v) const
 
 bool Atom::operator==(const Atom& x) const noexcept
 {
+    constexpr size_t DEFAULT_ULP = 2;
+
     if (this == &x)
         return true;
 
@@ -643,7 +645,7 @@ bool Atom::operator==(const Atom& x) const noexcept
     // same logical types here
     switch (t) {
     case FLOAT:
-        return math::float_compare<t_float, 2>(a_w.w_float, x.a_w.w_float);
+        return math::float_compare<t_float, DEFAULT_ULP>(a_w.w_float, x.a_w.w_float);
     case PROPERTY:
     case SYMBOL:
         return a_w.w_symbol == x.a_w.w_symbol;

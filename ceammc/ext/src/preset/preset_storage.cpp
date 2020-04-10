@@ -30,13 +30,13 @@ AtomList PresetExternal::p_keys() const
 
 void PresetExternal::m_load(t_symbol*, const AtomList& l)
 {
-    size_t idx = l.asSizeT(0);
+    size_t idx = l.toT<size_t>(0);
     PresetStorage::instance().loadAll(idx);
 }
 
 void PresetExternal::m_store(t_symbol*, const AtomList& l)
 {
-    size_t idx = l.asSizeT(0);
+    size_t idx = l.toT<size_t>(0);
     PresetStorage::instance().storeAll(idx);
 }
 
@@ -44,7 +44,7 @@ void PresetExternal::m_clear(t_symbol*, const AtomList& l)
 {
     t_symbol* SYM_PRESET_ALL = gensym(Preset::SYM_PRESET_ALL);
 
-    size_t idx = l.asSizeT(0);
+    size_t idx = l.toT<size_t>(0);
 
     if (!SYM_PRESET_ALL->s_thing)
         return;

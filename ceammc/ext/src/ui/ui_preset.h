@@ -61,9 +61,9 @@ private:
     void indexAdd(const AtomList& lst);
     void indexRemove(const AtomList& lst);
     void updateIndexes();
-    void loadIndex(size_t idx);
-    void storeIndex(size_t idx);
-    void clearIndex(size_t idx);
+    void loadIndex(int idx);
+    void storeIndex(int idx);
+    void clearIndex(int idx);
 };
 
 void setup_ui_preset();

@@ -1060,7 +1060,7 @@ AtomList EnvelopePoint::toList() const
     AtomList res;
     res.fill(Atom(), 7);
 
-    res[0] = gensym(SYM_ENVELOPE_POINT);
+    res[0].setSymbol(gensym(SYM_ENVELOPE_POINT));
     res[1] = Atom(utime);
     res[2] = Atom(value);
     res[3] = Atom(data);

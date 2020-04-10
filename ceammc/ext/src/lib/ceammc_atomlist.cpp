@@ -679,7 +679,7 @@ AtomList AtomList::add(const AtomList& a, const AtomList& b, NonEqualLengthBehai
         res.atoms_.reserve(N);
 
         for (size_t i = 0; i < N; i++)
-            res.append(a[i].asFloat() + b[i].asFloat());
+            res.append(Atom(a[i].asFloat() + b[i].asFloat()));
 
         return res;
     }
@@ -687,8 +687,8 @@ AtomList AtomList::add(const AtomList& a, const AtomList& b, NonEqualLengthBehai
         const size_t N = std::max(a.size(), b.size());
         AtomList l1(a);
         AtomList l2(b);
-        l1.resizePad(N, t_float(0));
-        l2.resizePad(N, t_float(0));
+        l1.resizePad(N, Atom(0.));
+        l2.resizePad(N, Atom(0.));
         return add(l1, l2, MINSIZE);
     }
     case CLIP:
@@ -707,7 +707,7 @@ AtomList AtomList::zeroes(size_t n)
 
 AtomList AtomList::ones(size_t n)
 {
-    return filled(t_float(1), n);
+    return filled(Atom(1), n);
 }
 
 AtomList AtomList::filled(const Atom& a, size_t n)
@@ -727,8 +727,10 @@ static AtomList listSubstract(const AtomList& a, const AtomList& b, ElementAcces
 
     const size_t sz = std::max(a.size(), b.size());
 
-    for (size_t i = 0; i < sz; i++)
-        res.append((a.*fn)(static_cast<int>(i))->asFloat() - (b.*fn)(static_cast<int>(i))->asFloat());
+    for (size_t i = 0; i < sz; i++) {
+        auto f = (a.*fn)(static_cast<int>(i))->asFloat() - (b.*fn)(static_cast<int>(i))->asFloat();
+        res.append(Atom(f));
+    }
 
     return res;
 }
@@ -742,7 +744,7 @@ AtomList AtomList::sub(const AtomList& a, const AtomList& b, AtomList::NonEqualL
         res.atoms_.reserve(N);
 
         for (size_t i = 0; i < N; i++)
-            res.append(a[i].asFloat() - b[i].asFloat());
+            res.append(Atom(a[i].asFloat() - b[i].asFloat()));
 
         return res;
     }
@@ -750,8 +752,8 @@ AtomList AtomList::sub(const AtomList& a, const AtomList& b, AtomList::NonEqualL
         const size_t N = std::max(a.size(), b.size());
         AtomList l1(a);
         AtomList l2(b);
-        l1.resizePad(N, t_float(0));
-        l2.resizePad(N, t_float(0));
+        l1.resizePad(N, Atom(0.));
+        l2.resizePad(N, Atom(0.));
         return sub(l1, l2, MINSIZE);
     }
     case CLIP:

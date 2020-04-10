@@ -66,7 +66,7 @@ void Envelope::onBang()
 
 void Envelope::onDataT(const EnvAtom& env)
 {
-    env_ = *env;
+    env_ = env;
     onBang();
 }
 
@@ -383,7 +383,7 @@ AtomList Envelope::p_values() const
     res.reserve(env_->numPoints());
 
     for (size_t i = 0; i < env_->numPoints(); i++)
-        res.append(env_->pointAt(i).value);
+        res.append(Atom(env_->pointAt(i).value));
 
     return res;
 }
@@ -394,7 +394,7 @@ AtomList Envelope::p_points() const
     res.reserve(env_->numPoints());
 
     for (size_t i = 0; i < env_->numPoints(); i++)
-        res.append(env_->pointAt(i).timeMs());
+        res.append(Atom(env_->pointAt(i).timeMs()));
 
     return res;
 }

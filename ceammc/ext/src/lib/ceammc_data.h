@@ -50,7 +50,7 @@ public:
     DataAtom(const DataAtom& x) = default;
 
     template <typename... Args>
-    DataAtom(Args... args)
+    explicit DataAtom(Args... args)
         : Atom(new T(args...))
     {
     }

@@ -34,7 +34,7 @@ void CanvasTop::onBang()
     dict->insert("width", p_width());
     dict->insert("height", p_height());
 
-    dataTo(0, DataPtr(dict));
+    atomTo(0, Atom(dict));
 }
 
 AtomList CanvasTop::p_name() const

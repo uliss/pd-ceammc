@@ -11,10 +11,12 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../ui/ui_preset.h"
-#include "../ui/ui_slider.h"
 #include "ceammc_platform.h"
-#include "test_ui.h"
+#include "ceammc_preset.h"
+#include "ui_preset.h"
+#include "ui_slider.h"
+
+#include "test_ui_base.h"
 
 typedef TestUIExternal<UISlider> TestExtSlider;
 
@@ -23,7 +25,7 @@ UI_COMPLETE_TEST_SETUP(Preset)
 TEST_CASE("ui.preset", "[ui.preset]")
 {
     ui_test_init();
-    setup_ui_slider();
+    PresetStorage::instance().clearAll();
 
     SECTION("construct")
     {
@@ -35,6 +37,7 @@ TEST_CASE("ui.preset", "[ui.preset]")
     SECTION("external")
     {
         TestExtPreset t("ui.preset");
+        REQUIRE(t->propCurrent() == LF(-1));
 
         TestExtSlider s0("ui.slider");
         TestExtSlider s1("ui.slider");
@@ -51,6 +54,7 @@ TEST_CASE("ui.preset", "[ui.preset]")
         s1->setValue(0.6);
         t.call("store", 2);
 
+        // load 0 by default
         t.call("load");
         REQUIRE(s0->value() == 0.2f);
         REQUIRE(s1->value() == 0.8f);
@@ -60,42 +64,54 @@ TEST_CASE("ui.preset", "[ui.preset]")
         REQUIRE(s0->value() == 0.3f);
         REQUIRE(s1->value() == 0.7f);
         REQUIRE(t->propCurrent() == LF(1));
-
-        t.call("load", LF(0.f));
-        REQUIRE(s0->value() == 0.2f);
-        REQUIRE(s1->value() == 0.8f);
-        REQUIRE(t->propCurrent() == LF(0));
 
         t.call("load", LF(2));
         REQUIRE(s0->value() == 0.4f);
         REQUIRE(s1->value() == 0.6f);
         REQUIRE(t->propCurrent() == LF(2));
 
-        t.call("write", LA(TEST_DATA_DIR "abc.txt"));
-        REQUIRE(platform::path_exists(TEST_DATA_DIR "abc.txt"));
-
-        t.call("clear", LF(0.f));
-        t.call("clear", LF(1));
-        t.call("clear", LF(2));
-
-        REQUIRE(s0->value() == 0.4f);
-        REQUIRE(s1->value() == 0.6f);
-        t.call("load", LF(1));
-        REQUIRE(s0->value() == 0.4f);
-        REQUIRE(s1->value() == 0.6f);
-
-        t.call("read", LA(TEST_DATA_DIR "abc.txt"));
-        t.call("load");
+        t.call("load", LF(0));
         REQUIRE(s0->value() == 0.2f);
         REQUIRE(s1->value() == 0.8f);
         REQUIRE(t->propCurrent() == LF(0));
 
+        t.call("write", LA(TEST_BIN_DIR "/abc.txt"));
+        REQUIRE(platform::path_exists(TEST_BIN_DIR "/abc.txt"));
+
+        t.call("clear", LF(0, 1, 2));
+
+        REQUIRE(s0->value() == 0.2f);
+        REQUIRE(s1->value() == 0.8f);
+
+        // no load after clean
+        t.call("load", LF(0));
+        REQUIRE(s0->value() == 0.2f);
+        REQUIRE(s1->value() == 0.8f);
+        t.call("load", LF(1));
+        REQUIRE(s0->value() == 0.2f);
+        REQUIRE(s1->value() == 0.8f);
+        t.call("load", LF(2));
+        REQUIRE(s0->value() == 0.2f);
+        REQUIRE(s1->value() == 0.8f);
+
+        // read again
+        t.call("read", LA(TEST_BIN_DIR "/abc.txt"));
         t.call("load", LF(1));
         REQUIRE(s0->value() == 0.3f);
         REQUIRE(s1->value() == 0.7f);
         REQUIRE(t->propCurrent() == LF(1));
 
-        platform::remove(TEST_DATA_DIR "abc.txt");
+        t.call("load", LF(2));
+        REQUIRE(s0->value() == 0.4f);
+        REQUIRE(s1->value() == 0.6f);
+        REQUIRE(t->propCurrent() == LF(2));
+
+        t.call("load");
+        REQUIRE(s0->value() == 0.2f);
+        REQUIRE(s1->value() == 0.8f);
+        REQUIRE(t->propCurrent() == LF(0));
+
+        platform::remove(TEST_BIN_DIR "/abc.txt");
     }
 
     SECTION("invalid")
@@ -109,4 +125,6 @@ TEST_CASE("ui.preset", "[ui.preset]")
         t <<= LA("store", 100000);
         t <<= LA("clear", 100000);
     }
+
+    PresetStorage::instance().clearAll();
 }

@@ -340,10 +340,10 @@ TEST_CASE("ui.knob", "[ui.knob]")
         REQUIRE(t->value() == Approx(0.50394f));
 
         t->onMidiCtrl(LF(23, 12, 2));
-        REQUIRE(t->value() == Approx(0.09449));
+        REQUIRE(t->value() == Approx(0.09449f).epsilon(0.0001));
 
         t->onMidiCtrl(LF(1, 22, 2));
-        REQUIRE(t->value() == Approx(0.09449));
+        REQUIRE(t->value() == Approx(0.09449f).epsilon(0.0001));
         t->onMidiCtrl(LF(23, 127, 2));
         REQUIRE(t->value() == Approx(1));
         t->onMidiCtrl(LF(23, 0.f, 2));

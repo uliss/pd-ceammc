@@ -11,8 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../ui/ui_radio.h"
-#include "test_ui.h"
+#include "ceammc_preset.h"
+#include "ui_radio.h"
+
+#include "test_ui_base.h"
 
 UI_COMPLETE_TEST_SETUP(Radio)
 
@@ -238,7 +240,7 @@ TEST_CASE("ui.radio", "[ui.radio]")
         t.bang();
         REQUIRE_OUTPUT_FLOAT(t, 0, 0);
 
-        t.send(3);
+        t.send(3.f);
         REQUIRE_OUTPUT_FLOAT(t, 0, 3);
         t.call("@value", LF(2));
         REQUIRE_NO_OUTPUT(t);
@@ -349,4 +351,6 @@ TEST_CASE("ui.radio", "[ui.radio]")
             REQUIRE_LIST_WAS_SEND(t, "r2", LX(0, 0, 0, 1, 0, 0, 0, 0));
         }
     }
+
+    PresetStorage::instance().clearAll();
 }

@@ -11,16 +11,12 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../ui/mod_ui.h"
-#include "../ui/ui_polar.h"
-#include "test_ui.h"
+#include "ceammc_preset.h"
+#include "ui_polar.h"
+
+#include "test_ui_base.h"
 
 #include <cmath>
-
-void test_print(const char* s)
-{
-    std::cerr << s << std::flush;
-}
 
 UI_COMPLETE_TEST_SETUP(Polar)
 
@@ -91,9 +87,9 @@ TEST_CASE("ui.polar", "[ui.polar]")
         {
             TestPolar t("ui.polar", LA("@radians", 1));
             REQUIRE_UI_FLOAT_PROPERTY(t, "radians", 1);
-            REQUIRE_UI_FLOAT_PROPERTY(t, "angle", 0);
-            REQUIRE_UI_FLOAT_PROPERTY(t, "radius", 0);
-            REQUIRE(t->realValue() == LX(0, 0));
+            REQUIRE_UI_FLOAT_PROPERTY(t, "angle", 0.f);
+            REQUIRE_UI_FLOAT_PROPERTY(t, "radius", 0.f);
+            REQUIRE(t->realValue() == LAX(0.f, 0.f));
             REQUIRE(t->realAngle() == Approx(0));
         }
     }
@@ -488,18 +484,18 @@ TEST_CASE("ui.polar", "[ui.polar]")
             SECTION("radian")
             {
                 TestPolar t("ui.polar", LA("@radians", 1));
-                REQUIRE(t->realValue() == LX(0, 0));
+                REQUIRE(t->realValue() == LAX(0., 0.));
 
                 t.call("rotate", 0);
-                REQUIRE(t->realValue() == LX(0, 0));
+                REQUIRE(t->realValue() == LAX(0., 0.));
                 t.call("rotate", 1);
-                REQUIRE(t->realValue() == LX(0, 1));
+                REQUIRE(t->realValue() == LAX(0., 1));
                 t.call("rotate", 1);
-                REQUIRE(t->realValue() == LX(0, 2));
+                REQUIRE(t->realValue() == LAX(0., 2));
                 t.call("rotate", 1);
-                REQUIRE(t->realValue() == LX(0, 3));
+                REQUIRE(t->realValue() == LAX(0., 3));
                 t.call("rotate", 1);
-                REQUIRE(t->realValue() == LX(0, -2.28319));
+                REQUIRE(t->realValue() == LAX(0., -2.28319));
             }
 
             SECTION("degree")
@@ -533,7 +529,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
         {
             TestExtPolar t("ui.polar", LA("@radians", 1));
             t.mouseDown(50, 0);
-            REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0));
+            REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0.));
             t.mouseDown(0, 50);
             REQUIRE_OUTPUT_LIST(t, 0, LX(1, -M_PI_2));
             t.mouseDown(50, 50);
@@ -957,7 +953,7 @@ TEST_CASE("ui.polar", "[ui.polar]")
             REQUIRE_NO_OUTPUT(t);
 
             t << LF(1, M_PI * 2);
-            REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0));
+            REQUIRE_OUTPUT_LIST(t, 0, LX(1, 0.));
         }
 
         SECTION("degree")
@@ -990,12 +986,14 @@ TEST_CASE("ui.polar", "[ui.polar]")
         t.addListener("r1");
 
         t << BANG;
-        REQUIRE_LIST_WAS_SEND(t, "r1", LX(0, 0));
+        REQUIRE_LIST_WAS_SEND(t, "r1", LAX(0., 0.));
 
         t << LA(0.4, -0.6);
-        REQUIRE_LIST_WAS_SEND(t, "r1", LX(0.4, -0.6));
+        REQUIRE_LIST_WAS_SEND(t, "r1", LAX(0.4, -0.6));
 
         t.mouseDown(30, 70);
-        REQUIRE_LIST_WAS_SEND(t, "r1", LX(0.565685, -2.35619));
+        REQUIRE_LIST_WAS_SEND(t, "r1", LAX(0.565685, -2.35619));
     }
+
+    PresetStorage::instance().clearAll();
 }

@@ -373,6 +373,7 @@ void UIObjectImpl::storePreset(size_t idx)
 
 void UIObjectImpl::clearPreset(size_t idx)
 {
+    std::cerr << "clear: " << idx << "\n";
     PresetStorage::instance().clearValueAt(presetId(), idx);
 }
 

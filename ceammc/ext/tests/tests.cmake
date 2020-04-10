@@ -146,13 +146,3 @@ if(${WITH_COVERAGE})
         endif()
     endif()
 endif()
-
-macro(ceammc_ui_test name)
-    string(REGEX REPLACE "[~]$" "" output ${name})
-    string(REGEX REPLACE "[.]" "_" output ${output})
-    ceammc_add_test_linked(TITLE "[${name}]"
-        NAME test_ext_${output}
-        INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../src/ui
-        LINK ceammc_ui ceammc_core puredata-core)
-endmacro()
-

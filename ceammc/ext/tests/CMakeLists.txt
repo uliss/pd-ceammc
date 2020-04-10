@@ -277,32 +277,6 @@ ceammc_add_test_linked(TITLE "ceammc::UIObjectFactory"
     INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../src/ui
     LINK ceammc_ui ceammc_core puredata-core)
 
-ceammc_ui_test("ui.aview")
-ceammc_ui_test("ui.bang")
-ceammc_ui_test("ui.colorpanel")
-ceammc_ui_test("ui.display")
-ceammc_ui_test("ui.dsp~")
-ceammc_ui_test("ui.gain~")
-ceammc_ui_test("ui.icon")
-ceammc_ui_test("ui.incdec")
-ceammc_ui_test("ui.knob")
-ceammc_ui_test("ui.keyboard")
-ceammc_ui_test("ui.label")
-ceammc_ui_test("ui.link")
-ceammc_ui_test("ui.matrix")
-ceammc_ui_test("ui.menu")
-ceammc_ui_test("ui.meter")
-ceammc_ui_test("ui.number")
-ceammc_ui_test("ui.number_tilde")
-ceammc_ui_test("ui.radio")
-ceammc_ui_test("ui.rslider")
-ceammc_ui_test("ui.polar")
-ceammc_ui_test("ui.preset")
-ceammc_ui_test("ui.slider2d")
-ceammc_ui_test("ui.sliders")
-ceammc_ui_test("ui.tab")
-ceammc_ui_test("ui.toggle")
-
 
 ceammc_add_test_linked(TITLE "[env->to_array]"
     NAME test_ext_env_to_array
@@ -334,3 +308,4 @@ add_subdirectory(math)
 add_subdirectory(midi)
 add_subdirectory(random)
 add_subdirectory(string)
+add_subdirectory(ui)

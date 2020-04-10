@@ -11,8 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../ui/ui_gain.h"
-#include "test_ui.h"
+#include "ui_gain.h"
+
+#include "test_ui_base.h"
 
 UI_COMPLETE_TEST_SETUP(Gain)
 
@@ -65,7 +66,7 @@ TEST_CASE("ui.gain~", "[ui.gain~]")
         t->setDbValue(-6.0206f);
         REQUIRE(t->ampValue() == Approx(0.5f));
         t->setDbValue(-12.041);
-        REQUIRE(t->ampValue() == Approx(0.25f));
+        REQUIRE(t->ampValue() == Approx(0.25001f).epsilon(0.01));
         t->setAmpValue(1);
         REQUIRE(t->dbValue() == Approx(0));
         t->setAmpValue(0.5f);

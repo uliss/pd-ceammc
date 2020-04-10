@@ -32,7 +32,7 @@ void CanvasCurrent::onBang()
         dict->insert(c, property(c)->get());
     }
 
-    dataTo(0, DataPtr(dict));
+    atomTo(0, Atom(dict));
 }
 
 AtomList CanvasCurrent::p_size() const

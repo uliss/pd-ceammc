@@ -215,9 +215,9 @@ namespace list {
             res.append(x.first);
 
             if (normalizeBySum)
-                res.append(x.second / N);
+                res.append(Atom(x.second / N));
             else
-                res.append(x.second);
+                res.append(Atom(x.second));
         }
 
         return res;
@@ -358,7 +358,7 @@ namespace list {
         AtomList res;
         res.reserve(hist.size());
         for (size_t i = 0; i < hist.size(); i++) {
-            res.append(hist[i] / float(total));
+            res.append(Atom(hist[i] / t_float(total)));
         }
 
         return res;
@@ -381,7 +381,7 @@ namespace list {
         dest.reserve(src.size());
 
         for (auto& a : src)
-            dest.append((a.asFloat() - min) / range);
+            dest.append(Atom((a.asFloat() - min) / range));
 
         return true;
     }
@@ -398,11 +398,11 @@ namespace list {
             const int idx = int(i) + from;
 
             if (mode == PREPEND) {
-                res.append(idx);
+                res.append(Atom(idx));
                 res.append(l[i]);
             } else if (mode == APPEND) {
                 res.append(l[i]);
-                res.append(idx);
+                res.append(Atom(idx));
             }
         }
 
@@ -483,7 +483,7 @@ namespace list {
             t_float mix = fidx - std::floor(fidx);
 
             // linear interpolation
-            res[i] = a * (1 - mix) + b * mix;
+            res[i] = Atom(a * (1 - mix) + b * mix);
         }
 
         return res;
@@ -509,7 +509,7 @@ namespace list {
             double mix = old_fidx - old_idx0;
 
             double value = l[old_idx0].asFloat() * (1 - mix) + l[old_idx1].asFloat() * mix;
-            res.append(value);
+            res.append(Atom(value));
         }
 
         return res;
@@ -568,7 +568,7 @@ namespace list {
         const t_float sum = *x;
 
         for (auto& x : src)
-            dest.append(x.asFloat() / sum);
+            dest.append(Atom(x.asFloat() / sum));
 
         return true;
     }

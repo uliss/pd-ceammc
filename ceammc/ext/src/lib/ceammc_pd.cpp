@@ -476,9 +476,9 @@ CanvasPtr PureData::createTopCanvas(const char* name, const AtomList& args)
         return it->second;
 
     AtomList l(0.f, 0.f); // x, y
-    l.append(600); // width
-    l.append(400); // height
-    l.append(10); // font size
+    l.append(Atom(600)); // width
+    l.append(Atom(400)); // height
+    l.append(Atom(10)); // font size
 
     if (canvas_getcurrent())
         canvas_unsetcurrent(canvas_getcurrent());

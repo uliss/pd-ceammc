@@ -233,6 +233,9 @@ bool PresetStorage::write(const char* path) const
 
 bool PresetStorage::read(t_canvas* c, const std::string& path)
 {
+    static t_symbol* SYM_REBIND = gensym(".rebind");
+    static t_symbol* SYM_PRESET_ALL = gensym(Preset::SYM_PRESET_ALL);
+
     t_canvas* root_cnv = rootCanvas(c);
     std::string name = makePresetFilename(root_cnv, path);
     std::string full_path = makeFullPresetPath(root_cnv, name);
@@ -240,8 +243,10 @@ bool PresetStorage::read(t_canvas* c, const std::string& path)
     bool rc = read(full_path.c_str());
     if (!rc)
         LIB_ERR << "can't read presets from " << full_path;
-    else
+    else {
+        mess1(SYM_PRESET_ALL->s_thing, SYM_REBIND, c);
         LIB_DBG << "presets readed from " << full_path;
+    }
 
     return rc;
 }
@@ -250,15 +255,22 @@ bool PresetStorage::read(const char* path)
 {
     t_symbol* SYM_WITH_SPACES = gensym("_symbol_s");
 
-    t_binbuf* content = binbuf_new();
-    int rc = binbuf_read(content, (char*)path, (char*)"", 0);
+    // RAII
+    std::unique_ptr<t_binbuf, void (*)(t_binbuf*)> content(binbuf_new(), binbuf_free);
+
+    int err = binbuf_read(content.get(), (char*)path, (char*)"", 0);
+
+    if (err)
+        return false;
 
     std::vector<AtomList> lines;
     lines.push_back(AtomList());
 
-    const int n = binbuf_getnatom(content);
-    t_atom* lst = binbuf_getvec(content);
-    for (int i = 0; i < n; i++) {
+    const int N = binbuf_getnatom(content.get());
+    lines.reserve(N);
+
+    t_atom* lst = binbuf_getvec(content.get());
+    for (int i = 0; i < N; i++) {
         lines.back().append(lst[i]);
 
         if (lst[i].a_type == A_SEMI) {
@@ -267,7 +279,7 @@ bool PresetStorage::read(const char* path)
         }
     }
 
-    binbuf_free(content);
+    content.reset();
 
     // remove last empty list
     if (!lines.empty() && lines.back().empty())
@@ -312,7 +324,7 @@ bool PresetStorage::read(const char* path)
         }
     }
 
-    return rc == 0;
+    return true;
 }
 
 AtomList PresetStorage::keys() const

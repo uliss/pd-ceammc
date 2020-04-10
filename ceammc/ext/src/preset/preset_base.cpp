@@ -64,7 +64,7 @@ void PresetBase::m_update(t_symbol*, const AtomList&)
 
 void PresetBase::m_clear(t_symbol*, const AtomList& index)
 {
-    size_t idx = index.asSizeT(0);
+    size_t idx = index.toT<size_t>(0);
 
     PresetStorage& storage = PresetStorage::instance();
 
@@ -119,7 +119,7 @@ t_symbol* PresetBase::makePath() const
 
 void PresetBase::m_store(t_symbol*, const AtomList& index)
 {
-    size_t idx = index.asSizeT(0);
+    size_t idx = index.toT<size_t>(0);
 
     PresetStorage& storage = PresetStorage::instance();
 
@@ -199,7 +199,7 @@ t_symbol* PresetBase::name()
 
 void PresetBase::m_load(t_symbol*, const AtomList& index)
 {
-    size_t idx = index.asSizeT(0);
+    size_t idx = index.toT<size_t>(0);
 
     PresetStorage& storage = PresetStorage::instance();
 

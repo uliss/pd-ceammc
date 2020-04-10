@@ -263,6 +263,12 @@ public:
         sendMessage(gensym(method), AtomList(Atom(f)));
     }
 
+    void send(int i)
+    {
+        clearAll();
+        sendFloat(i);
+    }
+
     void send(t_float f)
     {
         clearAll();
@@ -289,7 +295,13 @@ public:
     void send(const Atom& a)
     {
         clearAll();
-        sendList({ a });
+
+        if (a.isFloat())
+            sendFloat(a.asFloat());
+        else if (a.isSymbol())
+            sendSymbol(a.asSymbol());
+        else
+            sendList({ a });
     }
 
     template <typename... Args>

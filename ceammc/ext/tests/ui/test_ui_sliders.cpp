@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../ui/ui_sliders.h"
+#include "ui_sliders.h"
 #include "test_ui.h"
 
 UI_COMPLETE_TEST_SETUP(Sliders)
@@ -19,7 +19,6 @@ UI_COMPLETE_TEST_SETUP(Sliders)
 TEST_CASE("ui.sliders", "[ui.sliders]")
 {
     ui_test_init();
-    setup_ui_sliders();
 
     SECTION("construct")
     {
