@@ -75,17 +75,17 @@ namespace platform {
 #endif
     }
 
-    size_t ceammc_memory_size()
+    size_t memory_size()
     {
         return getMemorySize();
     }
 
-    size_t ceammc_memory_current_rss()
+    size_t memory_current_rss()
     {
         return getCurrentRSS();
     }
 
-    size_t ceammc_memory_peak_rss()
+    size_t memory_peak_rss()
     {
         return getPeakRSS();
     }

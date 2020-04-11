@@ -7,7 +7,7 @@ struct t_system_memsize {
 
 static void system_memsize_bang(t_system_memsize* x)
 {
-    outlet_float(x->x_obj.te_outlet, ceammc::platform::ceammc_memory_size());
+    outlet_float(x->x_obj.te_outlet, ceammc::platform::memory_size());
 }
 
 static void* system_memsize_new()

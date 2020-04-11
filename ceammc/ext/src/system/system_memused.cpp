@@ -8,8 +8,8 @@ struct t_system_memused {
 
 static void system_memused_bang(t_system_memused* x)
 {
-    outlet_float(x->x_peak, ceammc::platform::ceammc_memory_peak_rss());
-    outlet_float(x->x_obj.te_outlet, ceammc::platform::ceammc_memory_current_rss());
+    outlet_float(x->x_peak, ceammc::platform::memory_peak_rss());
+    outlet_float(x->x_obj.te_outlet, ceammc::platform::memory_current_rss());
 }
 
 static void* system_memused_new()

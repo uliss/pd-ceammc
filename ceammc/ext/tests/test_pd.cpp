@@ -63,14 +63,14 @@ TEST_CASE("PD", "[PureData]")
     SECTION("memrss")
     {
 #if !defined(__FreeBSD__)
-        REQUIRE(ceammc::platform::ceammc_memory_current_rss() != 0);
-        REQUIRE(ceammc::platform::ceammc_memory_peak_rss() != 0);
+        REQUIRE(ceammc::platform::memory_current_rss() != 0);
+        REQUIRE(ceammc::platform::memory_peak_rss() != 0);
 #endif
     }
 
     SECTION("memsize")
     {
-        REQUIRE(ceammc::platform::ceammc_memory_size() != 0);
+        REQUIRE(ceammc::platform::memory_size() != 0);
     }
 
     SECTION("test current object list")
