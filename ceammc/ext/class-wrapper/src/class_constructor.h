@@ -44,34 +44,43 @@ template <typename T>
 class ClassConstructorCustom : public ceammc::BaseObject {
 public:
     using TypeWrapped = AbstractDataWrapper<T>;
-    using TypedDataPtr = WrapperTPtr<T>;
+    using TypedDataAtom = DataAtom<TypeWrapped>;
 
 private:
-    TypedDataPtr data_;
+    TypedDataAtom data_;
+    ListProperty* args_;
 
 public:
     explicit ClassConstructorCustom(PdArgs& a)
         : BaseObject(a)
-        , data_(new TypeWrapped())
+        , args_(nullptr)
     {
-        static t_symbol* SYM_T = gensym(T::typeName());
-
-        if (!positionalArguments().empty()) {
-            T data;
-            auto st = data.setFromPd(positionalArguments(), SYM_T);
-            std::string err;
-            if (st.error(&err)) {
-                OBJ_ERR << err;
-            } else
-                data_ = TypedDataPtr(new TypeWrapped(data));
-        }
+        args_ = new ListProperty("@args");
+        args_->setInitOnly();
+        args_->setArgIndex(0);
+        addProperty(args_);
 
         createOutlet();
     }
 
+    void initDone() override
+    {
+        static t_symbol* SYM_T = gensym(T::typeName());
+
+        if (!args_->value().empty()) {
+            T data;
+            auto st = data.setFromPd(args_->value(), SYM_T);
+            std::string err;
+            if (st.error(&err)) {
+                OBJ_ERR << err;
+            } else
+                data_ = TypedDataAtom(data);
+        }
+    }
+
     void onBang() override
     {
-        dataTo(0, data_);
+        atomTo(0, data_);
     }
 
     void onFloat(t_float f) override
@@ -90,8 +99,8 @@ public:
         auto st = data.setFromPd(l);
         std::string err;
         if (!st.error(&err)) {
-            data_ = TypedDataPtr(new TypeWrapped(data));
-            dataTo(0, data_);
+            data_ = TypedDataAtom(data);
+            atomTo(0, data_);
         } else {
             OBJ_ERR << err;
         }
@@ -103,40 +112,39 @@ public:
         auto st = data.setFromAny(s, l);
         std::string err;
         if (!st.error(&err)) {
-            data_ = TypedDataPtr(new TypeWrapped(data));
-            dataTo(0, data_);
+            data_ = TypedDataAtom(data);
+            atomTo(0, data_);
         } else {
             OBJ_ERR << err;
         }
     }
 
-    void onDataT(const DataAtom<TypeWrapped>& dptr)
+    void onDataT(const TypedDataAtom& data)
     {
-        if (dptr->dataTypeId() != TypeWrapped::wrappedDataTypeId) {
-            OBJ_ERR << "unexpected data with id=" << dptr->dataTypeId()
+        if (data->dataTypeId() != TypeWrapped::wrappedDataTypeId) {
+            OBJ_ERR << "unexpected data with id=" << data->dataTypeId()
                     << ", expecting " << T::typeName()
                     << " with id=" << TypeWrapped::wrappedDataTypeId;
             return;
         }
 
-        data_ = TypedDataPtr(dptr->clone());
-        dataTo(0, data_);
+        data_ = data;
+        atomTo(0, data_);
     }
 
     void m_set(t_symbol* s, const AtomList& l)
     {
         if (l.isData()) {
-            TypedDataPtr ptr(l.at(0));
-            if (!ptr.isValid())
-                METHOD_ERR(s) << "invalid data pointer";
-
-            data_ = ptr;
+            if (l.isA<TypeWrapped>()) {
+                auto d = l.asD<TypeWrapped>();
+                data_ = TypedDataAtom(*d);
+            }
         } else {
             T data;
             auto st = data.setFromPd(l);
             std::string err;
             if (!st.error(&err))
-                data_ = TypedDataPtr(new TypeWrapped(data));
+                data_ = TypedDataAtom(data);
             else
                 METHOD_ERR(s) << err;
         }
@@ -148,7 +156,7 @@ public:
         OBJ_DBG << "value: " << data_->toString();
     }
 
-    const TypedDataPtr& data() const
+    const TypedDataAtom& data() const
     {
         return data_;
     }

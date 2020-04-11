@@ -29,6 +29,7 @@
 #include "ceammc_abstractdata.h"
 #include "ceammc_data.h"
 #include "ceammc_datastorage.h"
+#include "ceammc_log.h"
 
 #include <algorithm>
 #include <memory>
@@ -57,6 +58,11 @@ class AbstractDataId : public AbstractData {
 
 public:
     AbstractDataId(size_t id);
+    AbstractDataId(const AbstractDataId& id)
+        : data_type_id_(id.data_type_id_)
+    {
+    }
+
     size_t dataTypeId() const;
     bool hasEqualType(const AbstractData* d) const;
 };
@@ -74,6 +80,12 @@ public:
 
     AbstractDataWrapper()
         : AbstractDataId(wrappedDataTypeId)
+    {
+    }
+
+    AbstractDataWrapper(const AbstractDataWrapper& v)
+        : AbstractDataId(v)
+        , value_(v.value_)
     {
     }
 
@@ -109,47 +121,24 @@ public:
 
 template <typename T>
 const int AbstractDataWrapper<T>::dataType = ceammc::DataStorage::instance().registerNewType(
-    T::typeName(), T::initFromList);
+    T::typeName(),
+    [](const AtomList& lst) -> AbstractData* {
+        T data;
+        auto st = data.setFromPd(lst);
+        std::string err;
+        if (st.error(&err)) {
+            LIB_ERR << err;
+            return nullptr;
+        } else {
+            return new AbstractDataWrapper(data);
+        }
+    });
 
 template <typename T>
 const size_t AbstractDataWrapper<T>::wrappedDataTypeId = WrapperIDFactory::instance().generateNewId();
 
-template <class T>
-class WrapperTPtr : public DataAtom<AbstractDataWrapper<T>> {
-    using Type = AbstractDataWrapper<T>;
-
-public:
-    WrapperTPtr(AbstractDataWrapper<T>* d)
-        : DataAtom<Type>(d)
-    {
-    }
-
-    WrapperTPtr(const Atom& a)
-        : DataAtom<Type>(a)
-    {
-        if (!a.isDataType(Type::dataType)) {
-            this->invalidate();
-            return;
-        }
-
-        DataAtom<Type> dptr(a);
-        if (dptr.isNull()) {
-            this->invalidate();
-            return;
-        }
-
-        const AbstractDataId* id = dynamic_cast<const AbstractDataId*>(dptr.data());
-        if (!id) {
-            this->invalidate();
-            return;
-        }
-
-        if (id->dataTypeId() != Type::wrappedDataTypeId) {
-            this->invalidate();
-            return;
-        }
-    }
-};
+template <typename T>
+using WrapperTPtr = DataAtom<AbstractDataWrapper<T>>;
 
 }
 
