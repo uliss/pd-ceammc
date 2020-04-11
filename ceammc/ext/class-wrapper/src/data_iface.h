@@ -195,6 +195,11 @@ public:
      */
     Result setFromPd(const ceammc::AtomList& lst, t_symbol* prefix = &s_);
 
+    /**
+     * @brief toJsonString
+     */
+    virtual std::string toJsonString() const { return ""; }
+
 public:
     /**
      * helper ok function

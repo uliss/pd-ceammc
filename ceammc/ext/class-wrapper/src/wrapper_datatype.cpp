@@ -30,31 +30,6 @@
 
 #include <string>
 
-namespace wrapper {
-
-WrapperIDFactory::WrapperIDFactory()
-    : id_(1000)
-{
-}
-
-WrapperIDFactory& WrapperIDFactory::instance()
-{
-    static WrapperIDFactory f;
-    return f;
-}
-
-size_t WrapperIDFactory::generateNewId()
-{
-    return ++id_;
-}
-
-AbstractDataId::AbstractDataId(size_t id)
-    : data_type_id_(id)
-{
-}
-
-}
-
 Result::Result(const std::string& errMsg, int code)
     : boost::optional<std::string>(errMsg)
     , rc_(code)

@@ -40,80 +40,122 @@ using namespace ceammc;
 
 namespace wrapper {
 
-class WrapperIDFactory {
-    size_t id_;
-
-private:
-    WrapperIDFactory();
-    WrapperIDFactory(const WrapperIDFactory&) = delete;
-    void operator=(const WrapperIDFactory&) = delete;
-
-public:
-    static WrapperIDFactory& instance();
-    size_t generateNewId();
-};
-
-class AbstractDataId : public AbstractData {
-    size_t data_type_id_;
-
-public:
-    AbstractDataId(size_t id);
-    AbstractDataId(const AbstractDataId& id)
-        : data_type_id_(id.data_type_id_)
-    {
-    }
-};
-
 template <typename T>
-class AbstractDataWrapper : public AbstractDataId {
+class AbstractDataWrapper : public AbstractData {
     T value_;
 
 public:
-    explicit AbstractDataWrapper(const T& v)
-        : AbstractDataId(0)
-        , value_(v)
-    {
-    }
+    AbstractDataWrapper() = default;
+    explicit AbstractDataWrapper(const T& v);
 
-    AbstractDataWrapper()
-        : AbstractDataId(0)
-    {
-    }
+    /**
+     * Copy ctor
+     */
+    AbstractDataWrapper(const AbstractDataWrapper& v);
 
-    AbstractDataWrapper(const AbstractDataWrapper& v)
-        : AbstractDataId(v)
-        , value_(v.value_)
-    {
-    }
+    /**
+     * Move ctor
+     */
+    AbstractDataWrapper(AbstractDataWrapper&& v) noexcept;
 
-    AbstractDataWrapper& operator=(const AbstractDataWrapper& v)
-    {
-        value_ = v.value_;
-        return (*this);
-    }
+    /**
+     * Copy assign
+     */
+    AbstractDataWrapper& operator=(const AbstractDataWrapper& v);
 
-    AbstractDataWrapper* clone() const override
-    {
-        return new AbstractDataWrapper(value_);
-    }
+    /**
+     * Move assign
+     */
+    AbstractDataWrapper& operator=(AbstractDataWrapper&& v);
 
-    bool isEqual(const AbstractData* d) const noexcept override
-    {
-        if (d->type() != type())
-            return false;
+    /**
+     * Polymorphic clone function
+     */
+    AbstractDataWrapper* clone() const final;
 
-        auto* dw = static_cast<const AbstractDataWrapper*>(d);
-        return value_ == dw->value_;
-    }
+    /**
+     * Polymorphic equality check
+     */
+    bool isEqual(const AbstractData* d) const noexcept final;
 
+    /**
+     * Reference to wrapped value
+     */
     const T& value() const noexcept { return value_; }
     T& value() noexcept { return value_; }
-    int type() const noexcept override { return AbstractDataWrapper<T>::dataType; }
-    std::string toString() const override { return value_.toString(); }
+
+    /**
+     * Data type
+     */
+    int type() const noexcept final { return AbstractDataWrapper<T>::dataType; }
+
+    /**
+     * Polymorphic convertion to string
+     */
+    std::string toString() const final { return value_.toString(); }
+
+    /**
+     * Polymorphic convertsion to json string
+     */
+    std::string valueToJsonString() const final { return value_.toJsonString(); }
 
 public:
     static const int dataType;
 };
+
+template <typename T>
+AbstractDataWrapper<T>::AbstractDataWrapper(const T& v)
+    : value_(v)
+{
+}
+
+template <typename T>
+AbstractDataWrapper<T>::AbstractDataWrapper(const AbstractDataWrapper& v)
+    : value_(v.value_)
+{
+}
+
+template <typename T>
+bool AbstractDataWrapper<T>::isEqual(const AbstractData* d) const noexcept
+{
+    if (d->type() != type())
+        return false;
+
+    auto* dw = static_cast<const AbstractDataWrapper*>(d);
+    return value_ == dw->value_;
+}
+
+template <typename T>
+AbstractDataWrapper<T>* AbstractDataWrapper<T>::clone() const
+{
+    return new AbstractDataWrapper(value_);
+}
+
+template <typename T>
+AbstractDataWrapper<T>::AbstractDataWrapper(AbstractDataWrapper&& v) noexcept
+    : value_(std::move(v.value()))
+{
+}
+
+template <typename T>
+AbstractDataWrapper<T>& AbstractDataWrapper<T>::operator=(const AbstractDataWrapper& v)
+{
+    if (&v == this)
+        return *this;
+
+    value_ = v.value_;
+    return (*this);
+}
+
+template <typename T>
+AbstractDataWrapper<T>& AbstractDataWrapper<T>::operator=(AbstractDataWrapper&& v)
+{
+    if (&v == this)
+        return *this;
+
+    value_ = std::move(v.value_);
+    return (*this);
+}
 
 template <typename T>
 const int AbstractDataWrapper<T>::dataType = ceammc::DataStorage::instance().registerNewType(
@@ -129,9 +171,6 @@ const int AbstractDataWrapper<T>::dataType = ceammc::DataStorage::instance().reg
             return new AbstractDataWrapper(data);
         }
     });
-
-//template <typename T>
-//const size_t AbstractDataWrapper<T>::wrappedDataTypeId = WrapperIDFactory::instance().generateNewId();
 
 }
 
