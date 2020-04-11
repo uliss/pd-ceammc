@@ -21,7 +21,7 @@
 #include <limits>
 #include <sstream>
 
-const DataType DataTypeProperty::dataType = data::DATA_PROPERTY;
+const int DataTypeProperty::dataType = data::DATA_PROPERTY;
 
 DataTypeProperty::DataTypeProperty(t_symbol* name)
     : name_(name)
@@ -47,7 +47,7 @@ DataTypeProperty::DataTypeProperty(const DataTypeProperty& p)
 {
 }
 
-DataType DataTypeProperty::type() const
+int DataTypeProperty::type() const noexcept
 {
     return dataType;
 }

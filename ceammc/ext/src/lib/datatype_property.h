@@ -26,7 +26,7 @@ public:
     DataTypeProperty(t_symbol* name);
     DataTypeProperty(const DataTypeProperty& p);
 
-    DataType type() const override;
+    int type() const noexcept override;
     DataTypeProperty* clone() const override;
     std::string toString() const override;
 
@@ -77,7 +77,7 @@ public:
     PropertyInfo info() const;
 
 public:
-    static const DataType dataType;
+    static const int dataType;
 
 private:
     void updateAll();
