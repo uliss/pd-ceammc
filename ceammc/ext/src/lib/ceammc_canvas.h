@@ -102,6 +102,7 @@ class Canvas {
 
 public:
     Canvas(_glist* t);
+    ~Canvas();
 
     ArrayPtr createArray(const char* name, size_t n);
 

@@ -11,12 +11,16 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../base/metro_pattern.h"
+#include "metro_pattern.h"
+#include "test_base.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(MetroPattern, metro, pattern)
+extern "C" {
+#include "g_canvas.h"
+#include "m_imp.h"
+}
 
-typedef TestExternal<MetroPattern> MetroPatternTest;
+PD_COMPLETE_TEST_SETUP(MetroPattern, metro, pattern)
 
 #define BANG_AFTER_NTICKS(obj, n)  \
     {                              \
@@ -37,12 +41,13 @@ typedef TestExternal<MetroPattern> MetroPatternTest;
 TEST_CASE("metro.pattern", "[externals]")
 {
     pd_test_init();
+    canvas_suspend_dsp();
 
     SECTION("init")
     {
         SECTION("default")
         {
-            MetroPatternTest t("metro.pattern");
+            TObj t("metro.pattern");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 2);
             REQUIRE_PROPERTY_LIST(t, @pattern, L());
@@ -54,14 +59,14 @@ TEST_CASE("metro.pattern", "[externals]")
 
         SECTION("wrong init")
         {
-            MetroPatternTest t("metro.pattern", LA("A", "B", 200, 0.f, -100));
+            TObj t("metro.pattern", LA("A", "B", 200, 0.f, -100));
             REQUIRE_PROPERTY_LIST(t, @pattern, LF(200));
             REQUIRE_PROPERTY(t, @current, 0.f);
         }
 
         SECTION("ok init")
         {
-            MetroPatternTest t("metro.pattern", LA(10, 20, 30, 40, 10));
+            TObj t("metro.pattern", LA(10, 20, 30, 40, 10));
             REQUIRE_PROPERTY_LIST(t, @pattern, LA(10, 20, 30, 40, 10));
             REQUIRE_PROPERTY(t, @current, 0.f);
         }
@@ -69,7 +74,7 @@ TEST_CASE("metro.pattern", "[externals]")
 
     SECTION("pattern")
     {
-        MetroPatternTest t("metro.pattern");
+        TObj t("metro.pattern");
         REQUIRE_PROPERTY_LIST(t, @pattern, L());
         t.setProperty("@pattern", LA("A", "B"));
         REQUIRE_PROPERTY_LIST(t, @pattern, L());
@@ -91,7 +96,7 @@ TEST_CASE("metro.pattern", "[externals]")
 
     SECTION("currentDelay")
     {
-        MetroPatternTest t("metro.pattern");
+        TObj t("metro.pattern");
         REQUIRE(t.currentDelay() == 0.f);
 
         t.setProperty("@pattern", LF(10, 20, 30));
@@ -110,7 +115,7 @@ TEST_CASE("metro.pattern", "[externals]")
 
     SECTION("next")
     {
-        MetroPatternTest t("metro.pattern");
+        TObj t("metro.pattern");
         REQUIRE(t.currentDelay() == 0.f);
         REQUIRE_FALSE(t.next());
         REQUIRE_PROPERTY(t, @current, 0.f);
@@ -154,7 +159,7 @@ TEST_CASE("metro.pattern", "[externals]")
 
     SECTION("tick")
     {
-        MetroPatternTest t("metro.pattern", LF(100, 200, 300));
+        TObj t("metro.pattern", LF(100, 200, 300));
 
         REQUIRE(t.currentDelay() == 100);
         t.tick();
@@ -172,7 +177,7 @@ TEST_CASE("metro.pattern", "[externals]")
         t.tick();
         REQUIRE_BANG_AT_OUTLET(0, t);
 
-        MetroPatternTest t2("metro.pattern");
+        TObj t2("metro.pattern");
         t2.storeMessageCount(0);
         t2.tick();
         REQUIRE(t2.currentDelay() == 0);
@@ -181,7 +186,7 @@ TEST_CASE("metro.pattern", "[externals]")
 
     SECTION("onFloat")
     {
-        MetroPatternTest t("metro.pattern", LF(100, 200, 300));
+        TObj t("metro.pattern", LF(100, 200, 300));
 
         REQUIRE(t.currentDelay() == 100);
         WHEN_SEND_FLOAT_TO(0, t, 1);
@@ -202,7 +207,7 @@ TEST_CASE("metro.pattern", "[externals]")
         setTestSampleRate(44100);
         REQUIRE(1_tick != 0);
 
-        TestExtMetroPattern t("metro.pattern", LF(5_ticks, 10_ticks));
+        TExt t("metro.pattern", LF(5_ticks, 10_ticks));
         REQUIRE(clock_getlogicaltime() == 0_tick);
 
         t.clearAll();
@@ -246,7 +251,7 @@ TEST_CASE("metro.pattern", "[externals]")
     {
         setTestSampleRate(44100);
 
-        TestExtMetroPattern t("metro.pattern", LA(3_ticks, 2_ticks, "@sync", 1));
+        TExt t("metro.pattern", LA(3_ticks, 2_ticks, "@sync", 1));
         REQUIRE(t->property("@pattern")->get() == LX(3_ticks, 2_ticks));
 
         t.clearAll();

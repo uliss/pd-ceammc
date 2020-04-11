@@ -94,8 +94,6 @@ ceammc_add_core_test("pd::ceammc" test_pd_core)
 
 ceammc_external_test(analyze onset)
 
-ceammc_add_test("[metro.pattern]" test_ext_metro_pattern)
-ceammc_add_test("[metro.seq]" test_ext_metro_seq)
 
 ceammc_external_test(env env)
 ceammc_external_test(env to_vline)

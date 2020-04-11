@@ -178,6 +178,10 @@ Canvas::Canvas(t_canvas* c)
 {
 }
 
+Canvas::~Canvas()
+{
+}
+
 ArrayPtr Canvas::createArray(const char* name, size_t n)
 {
     ArrayPtr ptr;
