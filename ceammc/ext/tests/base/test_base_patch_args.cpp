@@ -23,7 +23,7 @@ TEST_CASE("patch.args", "[externals]")
 
     SECTION("init")
     {
-        TestPatchArgs t("patch.args");
+        TObj t("patch.args");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
 
@@ -45,10 +45,32 @@ TEST_CASE("patch.args", "[externals]")
     {
         CanvasPtr cnv = PureData::instance().createTopCanvas(TEST_DATA_DIR "/patch1", LX(1, 2, 3));
 
-        TestExtPatchArgs t("patch.args");
+        TExt t("patch.args");
         t.sendBang();
         REQUIRE(t.hasOutput());
         REQUIRE(t.isOutputListAt(0));
         REQUIRE(t.outputListAt(0) == LX(1, 2, 3));
+
+        // pd hardcore
+        cnv->createPdObject(10, 20, SYM("pd"), LA("some", "args"));
+        auto x0 = cnv->findObjectByClassName(gensym("canvas"));
+        Canvas subpatch((t_glist*)x0.front());
+        REQUIRE(subpatch.name()->s_name == std::string("some"));
+        REQUIRE(subpatch.owner() == cnv->pd_canvas());
+        REQUIRE(canvas_info_args(subpatch.pd_canvas()) == LA("some", "args"));
+
+        subpatch.createPdObject(10, 20, SYM("patch.args"));
+        subpatch.createPdObject(10, 20, SYM("log_output_multi"));
+        auto x1 = subpatch.findIf([](t_gobj* y) { return y->g_pd->c_name == gensym("patch.args"); });
+        REQUIRE(x1);
+        auto x2 = subpatch.findIf([](t_gobj* y) { return y->g_pd->c_name == gensym("log_output_multi"); });
+        REQUIRE(x2);
+        auto log = (t_log_output_multi*)(x2);
+        REQUIRE(log->msg_list->empty());
+
+        REQUIRE(subpatch.connect((t_object*)x1, 0, (t_object*)x2, 0));
+        pd_bang(&x1->g_pd);
+        REQUIRE(log->msg_list->size() == 1);
+        REQUIRE(log->msg_list->back().listValue() == LA("some", "args"));
     }
 }
