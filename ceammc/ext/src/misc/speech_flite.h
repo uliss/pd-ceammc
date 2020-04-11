@@ -16,6 +16,7 @@
 
 #include "ceammc_array.h"
 #include "ceammc_clock.h"
+#include "ceammc_data.h"
 #include "ceammc_object.h"
 #include "ceammc_property_enum.h"
 #include "datatype_string.h"

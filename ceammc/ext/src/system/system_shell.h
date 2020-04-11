@@ -14,6 +14,7 @@
 #ifndef SYSTEM_SHELL_H
 #define SYSTEM_SHELL_H
 
+#include "ceammc_data.h"
 #include "ceammc_thread.h"
 
 using namespace ceammc;

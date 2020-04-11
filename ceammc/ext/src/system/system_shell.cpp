@@ -70,7 +70,8 @@ public:
 
         kill_.store(METHOD_NONE);
 
-        Process p(cmd_, {},
+        Process p(
+            cmd_, {},
             [&](const char* bytes, size_t n) {
                 if (!pipe_stdout_)
                     return;
@@ -181,8 +182,7 @@ bool SystemShell::onThreadCommand(int code)
         while (pipe_stdout_->try_dequeue(ch))
             str += ch;
 
-        DataPtr dptr(new DataTypeString(str));
-        dataTo(0, dptr);
+        atomTo(0, StringAtom(str));
     } else {
         char ch;
 
@@ -192,12 +192,11 @@ bool SystemShell::onThreadCommand(int code)
             } else {
 
 #ifdef __WIN32
-                if(!line_buf_.empty() && line_buf_.back() == '\r')
+                if (!line_buf_.empty() && line_buf_.back() == '\r')
                     line_buf_.pop_back();
 #endif
 
-                DataPtr dptr(new DataTypeString(line_buf_));
-                dataTo(0, dptr);
+                atomTo(0, StringAtom(line_buf_));
                 line_buf_.clear();
             }
         }

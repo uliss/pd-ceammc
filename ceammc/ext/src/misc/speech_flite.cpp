@@ -14,6 +14,7 @@
 #include "speech_flite.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "datatype_string.h"
 #include "fliterender.h"
 
 extern "C" {
