@@ -58,6 +58,10 @@ public:
         args_ = new ListProperty("@args");
         args_->setInitOnly();
         args_->setArgIndex(0);
+        // self parse trick
+        args_->setSuccessFn([this](Property* p) {
+            args_->setValue(parseDataList(p->get()));
+        });
         addProperty(args_);
 
         createOutlet();
@@ -65,15 +69,23 @@ public:
 
     void initDone() override
     {
-        static t_symbol* SYM_T = gensym(T::typeName());
+        auto& args = args_->value();
+        if (args.empty())
+            return;
 
-        if (!args_->value().empty()) {
+        // data initializer
+        if (args.isData()) {
+            if (!args.isA<TypeWrapped>())
+                OBJ_ERR << "unsupported init data type: " << args[0].asData()->typeName();
+            else
+                data_ = TypedDataAtom(args[0]);
+        } else {
             T data;
-            auto st = data.setFromPd(args_->value(), SYM_T);
+            auto res = data.setFromPd(args);
             std::string err;
-            if (st.error(&err)) {
+            if (res.error(&err))
                 OBJ_ERR << err;
-            } else
+            else
                 data_ = TypedDataAtom(data);
         }
     }

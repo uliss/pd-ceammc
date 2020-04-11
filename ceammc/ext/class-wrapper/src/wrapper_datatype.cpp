@@ -101,37 +101,11 @@ std::string DataIFace::findFileName(const std::string& path)
         return ceammc::platform::pd_user_directory() + "/" + path2;
 }
 
-Result DataIFace::setFromPd(const ceammc::AtomList& lst, t_symbol* prefix)
+Result DataIFace::setFromPd(const ceammc::AtomList& lst)
 {
     if (lst.empty())
         return error("empty list");
 
-    // type prefix is specified
-    if (lst[0].isSymbol() && lst[0].asSymbol() == prefix) {
-        if (lst.size() == 1)
-            return error("no data after type constructor");
-
-        // NOTE: this is code duplication
-        // it's sake performance: do not do extra AtomList copy
-        if (lst[1].isFloat()) {
-            auto st = setFromFloat(lst[1].asFloat());
-            // ok or error
-            if (st.code() != NOT_SUPPORTED)
-                return st;
-        }
-
-        // try symbol second
-        if (lst[1].isSymbol()) {
-            auto st = setFromSymbol(lst[1].asSymbol());
-            // ok or error
-            if (st.code() != NOT_SUPPORTED)
-                return st;
-        }
-
-        return setFromList(lst.slice(1));
-    }
-
-    // NOTE: see note in upper code
     // try float first
     if (lst.isFloat()) {
         auto st = setFromFloat(lst[0].asFloat());

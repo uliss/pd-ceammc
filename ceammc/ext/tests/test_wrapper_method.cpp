@@ -448,7 +448,7 @@ TEST_CASE("wrapper method", "[class-wrapper]")
 
         SECTION("typed args")
         {
-            TestType t("int.*", LA("DataInt", 30));
+            TestType t("int.*", AtomList::parseString("DataInt(30)"));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
 
@@ -456,6 +456,13 @@ TEST_CASE("wrapper method", "[class-wrapper]")
             REQUIRE(t.hasOutputAt(0));
             REQUIRE(t.isOutputFloatAt(0));
             REQUIRE(t.outputFloatAt(0) == 3000);
+
+            t.sendListTo(parseDataString("DataInt(20)"), 1);
+
+            t << 100;
+            REQUIRE(t.hasOutputAt(0));
+            REQUIRE(t.isOutputFloatAt(0));
+            REQUIRE(t.outputFloatAt(0) == 2000);
         }
     }
 

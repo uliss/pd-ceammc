@@ -413,7 +413,7 @@ TEST_CASE("wrapper class", "[class-wrapper]")
 
         SECTION("type arg")
         {
-            TestType t("data2.new", LA("DataPair", 100, 200));
+            TestType t("data2.new", AtomList::parseString("DataPair(100 200)"));
             t << BANG;
 
             REQUIRE(t.isOutputDataAt(0));
@@ -428,7 +428,7 @@ TEST_CASE("wrapper class", "[class-wrapper]")
 
         SECTION("wrong type arg")
         {
-            TestType t("data2.new", LA("DataInt", 200));
+            TestType t("data2.new", AtomList::parseString("DataPair(100 XXX)"));
             t << BANG;
 
             REQUIRE(t.isOutputDataAt(0));

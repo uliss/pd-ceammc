@@ -193,7 +193,7 @@ public:
      * @param lst - input list
      * @return operation result
      */
-    Result setFromPd(const ceammc::AtomList& lst, t_symbol* prefix = &s_);
+    Result setFromPd(const ceammc::AtomList& lst);
 
     /**
      * @brief toJsonString

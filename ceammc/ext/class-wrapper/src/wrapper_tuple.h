@@ -594,20 +594,30 @@ struct Converter {
     template <typename T>
     static size_t fromAtomList(T& out, const AtomList& l, size_t idx)
     {
-        static t_symbol* SYM_T = gensym(T::typeName());
-
         if (l.size() <= idx)
             return 0;
 
-        Result r = out.setFromPd(l.slice(idx), SYM_T);
+        if (l[idx].isData()) {
+            using WrappedData = AbstractDataWrapper<T>;
 
-        std::string msg;
-        if (r.error(&msg)) {
-            LIB_ERR << msg;
-            return 0;
+            if (l[idx].isA<WrappedData>()) {
+                out = l[idx].asD<WrappedData>()->value();
+                return idx + 1;
+            } else {
+                LIB_ERR << "unsupported data type: " << l[idx].asData()->typeName();
+                return 0;
+            }
+        } else {
+            Result r = out.setFromPd(l.slice(idx));
+
+            std::string msg;
+            if (r.error(&msg)) {
+                LIB_ERR << msg;
+                return 0;
+            }
+
+            return l.size() - idx;
         }
-
-        return l.size() - idx;
     }
 };
 
@@ -979,10 +989,8 @@ struct ArgumentMatchAndSet {
     template <class T>
     bool setArgs(int idx, std::tuple<T>& t)
     {
-        static t_symbol* SYM_T = gensym(T::typeName());
-
         if (!l_.isData()) {
-            Result r = std::get<0>(t).setFromPd(l_, SYM_T);
+            Result r = std::get<0>(t).setFromPd(l_);
             return r.isOk();
         }
 
