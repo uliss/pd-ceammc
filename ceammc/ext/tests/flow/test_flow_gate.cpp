@@ -11,26 +11,20 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../flow/flow_gate.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
-#include "test_base.h"
+#include "flow_gate.h"
+#include "test_flow_base.h"
 
-#include <stdio.h>
-
-typedef TestExternal<FlowGate> FlowGateTest;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(FlowGate, flow, gate)
 
 TEST_CASE("flow.gate", "[externals]")
 {
-    test::pdPrintToStdError();
+    pd_test_init();
 
     SECTION("init")
     {
         SECTION("default")
         {
-            FlowGateTest t("flow.gate");
+            TObj t("flow.gate");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @state, 0.f);
@@ -38,38 +32,38 @@ TEST_CASE("flow.gate", "[externals]")
 
         SECTION("closed")
         {
-            FlowGateTest t("flow.gate", LF(0.f));
+            TObj t("flow.gate", LF(0.f));
             REQUIRE_PROPERTY(t, @state, 0.f);
         }
 
         SECTION("open")
         {
-            FlowGateTest t("flow.gate", LF(1));
+            TObj t("flow.gate", LF(1));
             REQUIRE_PROPERTY(t, @state, 1);
         }
 
         SECTION("open")
         {
-            FlowGateTest t("flow.gate", LA("true"));
+            TObj t("flow.gate", LA("true"));
             REQUIRE_PROPERTY(t, @state, 1);
         }
 
         SECTION("unknown")
         {
-            FlowGateTest t("flow.gate", LA("???"));
+            TObj t("flow.gate", LA("???"));
             REQUIRE_PROPERTY(t, @state, 0.f);
         }
 
         SECTION("float")
         {
-            FlowGateTest t("flow.gate", LA(-0.5));
+            TObj t("flow.gate", LA(-0.5));
             REQUIRE_PROPERTY(t, @state, 0.f);
         }
     }
 
     SECTION("process")
     {
-        FlowGateTest t("flow.gate");
+        TObj t("flow.gate");
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_NO_MSG(t);
@@ -83,8 +77,7 @@ TEST_CASE("flow.gate", "[externals]")
         REQUIRE_NO_MSG(t);
         WHEN_SEND_ANY_TO(t, "@test", LF(1, 2));
         REQUIRE_NO_MSG(t);
-        DataPtr dp(new IntData(123));
-        WHEN_SEND_DATA_TO(0, t, dp);
+        WHEN_SEND_DATA_TO(0, t, IntData(123));
         REQUIRE_NO_MSG(t);
 
         t.setProperty("@state", LF(1));
@@ -98,8 +91,7 @@ TEST_CASE("flow.gate", "[externals]")
         REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2, 3));
         WHEN_SEND_ANY_TO(t, "test", LF(1, 2));
         REQUIRE_ANY_AT_OUTLET(0, t, LA("test", 1, 2));
-        DataPtr dp2(new IntData(123));
-        WHEN_SEND_DATA_TO(0, t, dp2);
-        REQUIRE_DATA_AT_OUTLET(0, t, dp2);
+        WHEN_SEND_DATA_TO(0, t, IntData(123));
+        REQUIRE_DATA_AT_OUTLET(0, t, IntA(123));
     }
 }

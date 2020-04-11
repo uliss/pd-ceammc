@@ -63,12 +63,12 @@ void FlowDemultiplex::onAny(t_symbol* s, const AtomList& l)
     anyTo(index_->value(), s, l);
 }
 
-void FlowDemultiplex::onData(const DataPtr& d)
+void FlowDemultiplex::onData(const Atom& d)
 {
     if (!checkIndex())
         return;
 
-    dataTo(index_->value(), d);
+    atomTo(index_->value(), d);
 }
 
 void FlowDemultiplex::onInlet(size_t /*n*/, const AtomList& l)

@@ -12,11 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "flow_route.h"
-#include "../data/data_dict.h"
-#include "datatype_mlist.h"
-#include "../data/data_set.h"
 #include "ceammc_datatypes.h"
 #include "ceammc_factory.h"
+#include "datatype_dict.h"
+#include "datatype_mlist.h"
 
 FlowRoute::FlowRoute(const PdArgs& args)
     : BaseObject(args)
@@ -78,12 +77,10 @@ void FlowRoute::onAny(t_symbol* s, const AtomList& lst)
     anyTo(n_, s, lst);
 }
 
-void FlowRoute::onData(const DataPtr& ptr)
+void FlowRoute::onData(const Atom& data)
 {
-    auto type = ptr->type();
-    switch (type) {
-    case data::DATA_DICT: {
-        auto dict = ptr->as<DataTypeDict>();
+    if (data.isA<DataTypeDict>()) {
+        auto dict = data.asD<DataTypeDict>();
         if (!dict) {
             OBJ_ERR << "invalid data pointer to dict";
             return;
@@ -94,98 +91,49 @@ void FlowRoute::onData(const DataPtr& ptr)
 
         // iterate from end
         for (size_t i = n_; i > 0; i--) {
-            const size_t IDX = i - 1;
-            auto& key = slots[IDX];
-            auto value = dict->value(key);
+            const size_t OUT = i - 1;
+            auto key = slots[OUT].asSymbol();
 
-            if (DataTypeDict::isNull(value))
-                continue;
-            else if (DataTypeDict::isAtom(value))
-                atomTo(IDX, boost::get<Atom>(value));
-            else if (DataTypeDict::isAtomList(value))
-                listTo(IDX, boost::get<AtomList>(value));
-            else if (DataTypeDict::isDataAtom(value))
-                dataTo(IDX, boost::get<DataAtom>(value).data());
-            else {
-                OBJ_ERR << "unsupported value type";
-            }
-
-            matched = true;
-        }
-
-        // not matched
-        if (!matched)
-            dataTo(n_, ptr);
-    } break;
-    case data::DATA_SET: {
-        auto set = ptr->as<DataTypeSet>();
-
-        if (!set) {
-            OBJ_ERR << "invalid data pointer to set";
-            return;
-        }
-
-        auto& slots = args();
-
-        bool matched = false;
-        // iterate from end
-        for (size_t i = n_; i > 0; i--) {
-            const size_t IDX = i - 1;
-            auto& value = slots[IDX];
-            if (set->contains(value)) {
+            if (dict->contains(key)) {
+                listTo(OUT, dict->at(key));
                 matched = true;
-                bangTo(IDX);
             }
         }
 
-        // no match
+        // not matched: output to last outlet
         if (!matched)
-            dataTo(n_, ptr);
+            atomTo(n_, data);
 
-    } break;
-    case data::DATA_MLIST: {
-        auto mlist = ptr->as<DataTypeMList>();
+    } else if (data.isA<DataTypeMList>()) {
+        auto mlist = data.asD<DataTypeMList>();
 
         if (!mlist) {
             OBJ_ERR << "invalid data pointer to mlist";
             return;
         }
 
-        // mpety list check
+        // empty list check
         if (mlist->size() == 0)
             return;
 
-        // check first element is atom
         auto& first = mlist->at(0);
-        if (!first.isAtom())
-            return;
-
-        auto atom = first.asAtom();
         auto& slots = args();
 
         // iterate from end
         for (size_t i = n_; i > 0; i--) {
-            const size_t IDX = i - 1;
-            auto& value = slots[IDX];
-            if (atom == value) {
-                DataTypeMList* res = new DataTypeMList;
-                DataPtr ptr(res);
-
-                for (size_t i = 1; i < mlist->size(); i++)
-                    res->append(mlist->at(i));
-
-                dataTo(IDX, ptr);
+            const size_t OUT = i - 1;
+            auto& pattern = slots[OUT];
+            if (first == pattern) {
+                atomTo(OUT, MListAtom(mlist->slice(1)));
                 return;
             }
         }
 
         // no match
-        dataTo(n_, ptr);
-    } break;
-    default:
-        OBJ_ERR << "unsupported data type: " << type;
-        dataTo(n_, ptr);
-        return;
+        atomTo(n_, data);
+    } else {
+        OBJ_ERR << "unsupported data type: " << data;
+        atomTo(n_, data);
     }
 }
 

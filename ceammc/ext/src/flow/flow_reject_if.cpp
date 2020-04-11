@@ -73,10 +73,10 @@ void FlowRejectIf::onInlet(size_t n, const AtomList& l)
     if (n != 1 || l.empty())
         return;
 
-    reject_ = (l.asSizeT(0) == 0) ? 0 : 1;
+    reject_ = (l.toT<size_t>(0) == 0) ? 0 : 1;
 }
 
-extern "C" void setup_flow0x2ereject_if()
+void setup_flow_reject_if()
 {
     ObjectFactory<FlowRejectIf> obj("flow.reject_if");
     obj.addAlias("reject_if");

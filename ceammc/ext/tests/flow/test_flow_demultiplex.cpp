@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../flow/flow_demultiplex.h"
-#include "test_external.h"
+#include "flow_demultiplex.h"
+#include "test_flow_base.h"
 
 PD_COMPLETE_TEST_SETUP(FlowDemultiplex, flow, demultiplex)
 
@@ -87,9 +87,8 @@ TEST_CASE("flow.demultiplex", "[externals]")
         REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2, 3));
         WHEN_SEND_ANY_TO(t, "test", LF(1, 2));
         REQUIRE_ANY_AT_OUTLET(0, t, LA("test", 1, 2));
-        DataPtr dp(new IntData(123));
-        WHEN_SEND_DATA_TO(0, t, dp);
-        REQUIRE_DATA_AT_OUTLET(0, t, dp);
+        WHEN_SEND_DATA_TO(0, t, IntData(123));
+        REQUIRE_DATA_AT_OUTLET(0, t, IntA(123));
 
         t.setProperty("@index", LF(1));
         WHEN_SEND_BANG_TO(0, t);
@@ -102,8 +101,8 @@ TEST_CASE("flow.demultiplex", "[externals]")
         REQUIRE_LIST_AT_OUTLET(1, t, LF(1, 2, 3));
         WHEN_SEND_ANY_TO(t, "test", LF(1, 2));
         REQUIRE_ANY_AT_OUTLET(1, t, LA("test", 1, 2));
-        WHEN_SEND_DATA_TO(0, t, dp);
-        REQUIRE_DATA_AT_OUTLET(1, t, dp);
+        WHEN_SEND_DATA_TO(0, t, IntData(123));
+        REQUIRE_DATA_AT_OUTLET(1, t, IntA(123));
 
         t.setProperty("@index", LF(2));
         WHEN_SEND_BANG_TO(0, t);
@@ -116,8 +115,8 @@ TEST_CASE("flow.demultiplex", "[externals]")
         REQUIRE_LIST_AT_OUTLET(2, t, LF(1, 2, 3));
         WHEN_SEND_ANY_TO(t, "test", LF(1, 2));
         REQUIRE_ANY_AT_OUTLET(2, t, LA("test", 1, 2));
-        WHEN_SEND_DATA_TO(0, t, dp);
-        REQUIRE_DATA_AT_OUTLET(2, t, dp);
+        WHEN_SEND_DATA_TO(0, t, IntData(123));
+        REQUIRE_DATA_AT_OUTLET(2, t, IntA(123));
 
         t.setProperty("@index", LF(3));
         WHEN_SEND_BANG_TO(0, t);

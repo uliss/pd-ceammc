@@ -11,24 +11,20 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../flow/flow_count.h"
-#include "test_base.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
+#include "flow_count.h"
+#include "test_flow_base.h"
 
-#include <stdio.h>
-
-typedef TestExternal<FlowCount> FlowCountTest;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(FlowCount, flow, count)
 
 TEST_CASE("flow.count", "[externals]")
 {
+    pd_test_init();
+
     SECTION("init")
     {
         setup_flow_count();
 
-        FlowCountTest t("flow.count");
+        TObj t("flow.count");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @value, 0.f);
@@ -36,7 +32,7 @@ TEST_CASE("flow.count", "[externals]")
 
     SECTION("process")
     {
-        FlowCountTest t("flow.count");
+        TObj t("flow.count");
         REQUIRE_PROPERTY(t, @value, 0.f);
 
         // bang
@@ -66,7 +62,7 @@ TEST_CASE("flow.count", "[externals]")
         WHEN_SEND_ANY_TO(t, "test", LA("A"));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 8);
 
-        WHEN_SEND_DATA_TO(0, t, DataPtr(new IntData(123)));
+        WHEN_SEND_DATA_TO(0, t, IntData(123));
         REQUIRE_FLOAT_AT_OUTLET(0, t, 9);
         REQUIRE_PROPERTY(t, @value, 9);
 

@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../data/datatype_set.h"
-#include "../flow/flow_pack.h"
+#include "flow_pack.h"
 #include "datatype_dict.h"
 #include "datatype_mlist.h"
 #include "test_external.h"

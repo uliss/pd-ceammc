@@ -103,24 +103,6 @@ ceammc_external_test(env ar)
 ceammc_external_test(env adsr)
 ceammc_external_test(env asr)
 
-ceammc_external_test(flow count)
-ceammc_external_test(flow gate)
-ceammc_external_test(flow group)
-ceammc_external_test(flow less)
-ceammc_external_test(flow less_eq)
-ceammc_external_test(flow demultiplex)
-ceammc_external_test(flow demux_tilde)
-ceammc_external_test(flow demux2_tilde)
-ceammc_external_test(flow multiplex)
-ceammc_external_test(flow once)
-ceammc_external_test(flow pack)
-ceammc_external_test(flow pass)
-ceammc_external_test(flow pass_if)
-ceammc_external_test(flow reject)
-ceammc_external_test(flow route)
-ceammc_external_test(flow split)
-ceammc_external_test(flow speedlim)
-
 ceammc_external_test(flt median)
 
 ceammc_external_test(fx looper)
@@ -184,10 +166,10 @@ ceammc_add_test_linked(TITLE "tl::parser" NAME test_tl_parser LINK ceammc_tl)
 ceammc_add_test_linked(TITLE "ceammc::preset" NAME test_preset LINK ceammc_preset ceammc_core puredata-core ceammc_core)
 ceammc_add_test_linked(TITLE "ceammc::pd" NAME test_pd SRC "../src/base/debug_gensym.cpp" LINK ceammc_core puredata-core)
 
-ceammc_add_test_linked(TITLE "[flow.change]"
-    NAME test_ext_flow_change
-    SRC test_ext_flow_change.cpp
-    LINK ceammc_core puredata-core ceammc_base ceammc_flow ceammc_core)
+#ceammc_add_test_linked(TITLE "[flow.change]"
+#    NAME test_ext_flow_change
+#    SRC test_ext_flow_change.cpp
+#    LINK ceammc_core puredata-core ceammc_base ceammc_flow ceammc_core)
 
 ceammc_add_test_linked(TITLE "ceammc::DataTypeMidiStream"
     NAME test_datatype_midistream
@@ -286,6 +268,7 @@ add_custom_target(test_src SOURCES gen_test_wav.py)
 add_subdirectory(array)
 add_subdirectory(base)
 add_subdirectory(data)
+add_subdirectory(flow)
 add_subdirectory(list)
 add_subdirectory(math)
 add_subdirectory(midi)

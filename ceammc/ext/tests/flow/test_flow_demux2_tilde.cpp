@@ -11,43 +11,29 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../flow/flow_demultiplex2_tilde.h"
-#include "ceammc_pd.h"
+#include "flow_demultiplex2_tilde.h"
+#include "test_flow_base.h"
 #include "test_sound.h"
 
-#include <algorithm>
-#include <cstdlib>
-#include <stdio.h>
+PD_COMPLETE_SND_TEST_SETUP(Demultiplex2Tilde, flow, demultiplex_tilde)
 
-typedef TestSoundExternal<Demultiplex2Tilde> TestDemux;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+using TExt = TestExtDemultiplex2Tilde;
 
 template <size_t N = 4>
-class TestDemuxSignal : public TestSignal<2, N> {
-public:
-    TestDemuxSignal(t_sample in = 0, t_sample out = 0)
-        : TestSignal<2, N>(in, out)
-    {
-    }
-};
+using SigN = TestSignal<2, N>;
 
 template <size_t N = 4>
-class TestDemuxDSP : public DSP<TestDemuxSignal<N>, TestDemux> {
-public:
-    TestDemuxDSP(TestDemuxSignal<N>& signal, TestDemux& testObject)
-        : DSP<TestDemuxSignal<N>, TestDemux>(signal, testObject)
-    {
-    }
-};
+using DspN = DSP<SigN<N>, TExt>;
 
 TEST_CASE("flow.demux2~", "[externals]")
 {
+    pd_test_init();
+
     SECTION("construct")
     {
         SECTION("default")
         {
-            TestDemux t("demux2~", L(), true);
+            TExt t("demux2~", L(), true);
             REQUIRE(t.blockSize() == 64);
             REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numInputChannels() == 2);
@@ -58,7 +44,7 @@ TEST_CASE("flow.demux2~", "[externals]")
 
         SECTION("args")
         {
-            TestDemux t("demux2~", LF(4), true);
+            TExt t("demux2~", LF(4), true);
             REQUIRE(t.blockSize() == 64);
             REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numInputChannels() == 2);
@@ -69,25 +55,25 @@ TEST_CASE("flow.demux2~", "[externals]")
 
         SECTION("too many")
         {
-            TestDemux t("demux2~", LF(10), true);
+            TExt t("demux2~", LF(20), true);
             REQUIRE(t.blockSize() == 64);
             REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numInputChannels() == 2);
-            REQUIRE(t.numOutlets() == 16);
-            REQUIRE(t.numOutputChannels() == 16);
-            REQUIRE_PROPERTY_LIST(t, @value, LX(1, 0, 0, 0, 0, 0, 0, 0));
+            REQUIRE(t.numOutlets() == 32);
+            REQUIRE(t.numOutputChannels() == 32);
+            REQUIRE_PROPERTY_LIST(t, @value, LX(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
         }
     }
 
     SECTION("index")
     {
-        TestDemux t("demux2~", LF(3), true);
+        TExt t("demux2~", LF(3), true);
 
-        TestDemuxSignal<6> s0;
+        SigN<6> s0;
         s0.fillInputN(0, 10);
         s0.fillInputN(1, -4);
 
-        TestDemuxDSP<6> dsp(s0, t);
+        DspN<6> dsp(s0, t);
         dsp.processBlock(20);
 
         for (size_t i = 0; i < 64; i++) {
@@ -181,13 +167,13 @@ TEST_CASE("flow.demux2~", "[externals]")
 
     SECTION("list")
     {
-        TestDemux t("demux2~", LF(3), true);
+        TExt t("demux2~", LF(3), true);
 
-        TestDemuxSignal<6> s0;
+        SigN<6> s0;
         s0.fillInputN(0, 10);
         s0.fillInputN(1, -10);
 
-        TestDemuxDSP<6> dsp(s0, t);
+        DspN<6> dsp(s0, t);
 
         WHEN_SEND_LIST_TO(0, t, LA(1, 0.5, 0.2));
         REQUIRE_PROPERTY_LIST(t, @value, LA(1, 0.5, 0.2));

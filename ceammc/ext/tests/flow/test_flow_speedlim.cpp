@@ -11,45 +11,42 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../flow/flow_speedlim.h"
-#include "test_base.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
+#include "flow_speedlim.h"
+#include "test_flow_base.h"
 
-#include <stdio.h>
-
-typedef TestExternal<FlowSpeedLimit> FlowSpeedLimitTest;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(FlowSpeedLimit, flow, speedlim)
 
 TEST_CASE("flow.speedlim", "[externals]")
 {
+    pd_test_init();
+
     SECTION("init")
     {
-        FlowSpeedLimitTest t("flow.speedlim");
-        REQUIRE(t.numInlets() == 1);
-        REQUIRE(t.numOutlets() == 1);
-        REQUIRE_PROPERTY(t, @limit, 0.f);
-
-        setup_flow_speedlim();
+        SECTION("empty")
+        {
+            TObj t("flow.speedlim");
+            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numOutlets() == 1);
+            REQUIRE_PROPERTY(t, @limit, 0.f);
+        }
 
         {
-            FlowSpeedLimitTest t("flow.speedlim", LF(100));
+            TObj t("flow.speedlim", LF(100));
             REQUIRE_PROPERTY(t, @limit, 100);
         }
 
         {
-            FlowSpeedLimitTest t("flow.speedlim", LA("ABC"));
+            TObj t("flow.speedlim", LA("ABC"));
             REQUIRE_PROPERTY(t, @limit, 0.0f);
         }
 
         {
-            FlowSpeedLimitTest t("flow.speedlim", LF(-100));
+            TObj t("flow.speedlim", LF(-100));
             REQUIRE_PROPERTY(t, @limit, -100);
         }
 
         {
-            FlowSpeedLimitTest t("flow.speedlim", LA("@limit", 500));
+            TObj t("flow.speedlim", LA("@limit", 500));
             REQUIRE_PROPERTY(t, @limit, 500);
         }
     }
@@ -58,7 +55,7 @@ TEST_CASE("flow.speedlim", "[externals]")
     {
         SECTION("no limit")
         {
-            FlowSpeedLimitTest t("flow.speedlim");
+            TObj t("flow.speedlim");
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_BANG_AT_OUTLET(0, t);
             WHEN_SEND_FLOAT_TO(0, t, 200);
@@ -69,14 +66,13 @@ TEST_CASE("flow.speedlim", "[externals]")
             REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2, 3));
             WHEN_SEND_ANY_TO(t, "msg", LF(100, 200));
             REQUIRE_ANY_AT_OUTLET(0, t, LA("msg", 100, 200));
-            DataPtr dp(new IntData(123));
-            WHEN_SEND_DATA_TO(0, t, dp);
-            REQUIRE_DATA_AT_OUTLET(0, t, dp);
+            WHEN_SEND_DATA_TO(0, t, IntData(123));
+            REQUIRE_DATA_AT_OUTLET(0, t, IntA(123));
         }
 
         SECTION("limit")
         {
-            FlowSpeedLimitTest t("flow.speedlim", LF(20));
+            TObj t("flow.speedlim", LF(20));
             WHEN_SEND_BANG_TO(0, t);
             REQUIRE_BANG_AT_OUTLET(0, t);
             WHEN_SEND_BANG_TO(0, t);
@@ -114,13 +110,12 @@ TEST_CASE("flow.speedlim", "[externals]")
             WHEN_SEND_ANY_TO(t, "msg", LF(100, 200));
             REQUIRE_ANY_AT_OUTLET(0, t, LA("msg", 100, 200));
 
-            DataPtr dp(new IntData(123));
-            WHEN_SEND_DATA_TO(0, t, dp);
+            WHEN_SEND_DATA_TO(0, t, IntData(200));
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
             t.clock_handler();
-            WHEN_SEND_DATA_TO(0, t, dp);
-            REQUIRE_DATA_AT_OUTLET(0, t, dp);
+            WHEN_SEND_DATA_TO(0, t, IntData(300));
+            REQUIRE_DATA_AT_OUTLET(0, t, IntA(300));
         }
     }
 }

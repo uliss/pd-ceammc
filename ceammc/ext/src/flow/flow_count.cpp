@@ -51,7 +51,7 @@ void FlowCount::onAny(t_symbol* s, const AtomList& l)
     tick();
 }
 
-void FlowCount::onData(const DataPtr&)
+void FlowCount::onData(const Atom &)
 {
     tick();
 }

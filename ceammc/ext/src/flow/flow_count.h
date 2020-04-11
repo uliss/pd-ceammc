@@ -29,7 +29,7 @@ public:
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
     void onAny(t_symbol* s, const AtomList& l) override;
-    void onData(const DataPtr&) override;
+    void onData(const Atom&) override;
 
     void m_reset(t_symbol*, const AtomList&);
 

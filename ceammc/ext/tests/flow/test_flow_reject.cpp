@@ -11,24 +11,20 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../flow/flow_pass.h"
-#include "test_base.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
+#include "flow_reject.h"
+#include "test_flow_base.h"
 
-#include <stdio.h>
+PD_COMPLETE_TEST_SETUP(FlowReject, flow, reject)
 
-typedef TestExternal<FlowPass> FlowPassTest;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
-
-TEST_CASE("flow.pass", "[externals]")
+TEST_CASE("flow.reject", "[externals]")
 {
+    pd_test_init();
+
     SECTION("init")
     {
         SECTION("empty")
         {
-            FlowPassTest t("flow.pass");
+            TObj t("flow.reject");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
@@ -37,68 +33,68 @@ TEST_CASE("flow.pass", "[externals]")
 
         SECTION("args")
         {
-            FlowPassTest t("flow.pass", LA(1, 2, "b", "@c"));
+            TObj t("flow.reject", LA(1, 2, "b", "@c"));
             REQUIRE_PROPERTY_LIST(t, @values, LA(1, 2, "b", "@c"));
         }
 
         SECTION("properties")
         {
-            FlowPassTest t("flow.pass", LA(1, 2, "@values", "@c"));
+            TObj t("flow.reject", LA(1, 2, "@values", "@c"));
             REQUIRE_PROPERTY_LIST(t, @values, LA(1, 2, "@values", "@c"));
         }
     }
 
     SECTION("float")
     {
-        FlowPassTest t("flow.pass", LA(1, "a", "@c"));
+        TObj t("flow.reject", LA(1, "a", "@c"));
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_BANG_AT_OUTLET(0, t);
     }
 
     SECTION("float")
     {
-        FlowPassTest t("flow.pass", LF(1, 0.f, -1));
-
-        WHEN_SEND_FLOAT_TO(0, t, 1.1);
-        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
-
-        WHEN_SEND_FLOAT_TO(0, t, -1.1);
-        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
-
-        WHEN_SEND_FLOAT_TO(0, t, 0.1f);
-        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        TObj t("flow.reject", LF(1, 0.f, -1));
 
         WHEN_SEND_FLOAT_TO(0, t, 1);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         WHEN_SEND_FLOAT_TO(0, t, -1);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, -1);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         WHEN_SEND_FLOAT_TO(0, t, 0.f);
-        REQUIRE_FLOAT_AT_OUTLET(0, t, 0.f);
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+        WHEN_SEND_FLOAT_TO(0, t, 2);
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 2);
+
+        WHEN_SEND_FLOAT_TO(0, t, -2);
+        REQUIRE_FLOAT_AT_OUTLET(0, t, -2);
+
+        WHEN_SEND_FLOAT_TO(0, t, 0.1f);
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 0.1);
     }
 
     SECTION("symbol")
     {
-        FlowPassTest t("flow.pass", LA("a", "b"));
-
-        WHEN_SEND_SYMBOL_TO(0, t, "c");
-        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
-
-        WHEN_SEND_SYMBOL_TO(0, t, "d");
-        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        TObj t("flow.reject", LA("a", "b"));
 
         WHEN_SEND_SYMBOL_TO(0, t, "a");
-        REQUIRE_SYMBOL_AT_OUTLET(0, t, "a");
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
 
         WHEN_SEND_SYMBOL_TO(0, t, "b");
-        REQUIRE_SYMBOL_AT_OUTLET(0, t, "b");
+        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+
+        WHEN_SEND_SYMBOL_TO(0, t, "c");
+        REQUIRE_SYMBOL_AT_OUTLET(0, t, "c");
+
+        WHEN_SEND_SYMBOL_TO(0, t, "d");
+        REQUIRE_SYMBOL_AT_OUTLET(0, t, "d");
     }
 
     SECTION("list")
     {
         // all lists are passed
-        FlowPassTest t("flow.pass", LA("a", "b"));
+        TObj t("flow.reject", LA("a", "b"));
 
         WHEN_SEND_LIST_TO(0, t, LA("a", "b"));
         REQUIRE_LIST_AT_OUTLET(0, t, LA("a", "b"));
@@ -109,7 +105,7 @@ TEST_CASE("flow.pass", "[externals]")
 
     SECTION("any")
     {
-        FlowPassTest t("flow.pass", LA("c", "@d"));
+        TObj t("flow.reject", LA("a", "b"));
 
         WHEN_SEND_ANY_TO(t, "a", LF(1, 2));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -129,15 +125,12 @@ TEST_CASE("flow.pass", "[externals]")
         WHEN_SEND_ANY_TO(t, "c", L());
         REQUIRE_ANY_AT_OUTLET(0, t, LA("c"));
 
-        WHEN_SEND_ANY_TO(t, "@d", L());
-        REQUIRE_ANY_AT_OUTLET(0, t, LA("@d"));
+        WHEN_SEND_ANY_TO(t, "@c", L());
+        REQUIRE_ANY_AT_OUTLET(0, t, LA("@c"));
     }
 
     SECTION("real")
     {
-        setup_flow0x2epass();
-
-        pd::External flow_pass("flow.pass", LA(1, "c", "@prop"));
-        REQUIRE_FALSE(flow_pass.isNull());
+        TExt t("flow.reject");
     }
 }

@@ -80,7 +80,7 @@ bool FlowReject::processAnyProps(t_symbol* sel, const AtomList& lst)
     return false;
 }
 
-extern "C" void setup_flow0x2ereject()
+void setup_flow_reject()
 {
     ObjectFactory<FlowReject> obj("flow.reject");
     obj.addAlias("reject");

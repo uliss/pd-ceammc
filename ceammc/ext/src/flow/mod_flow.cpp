@@ -33,12 +33,8 @@ void setup_flow_match();
 void ceammc_flow_setup()
 {
     setup_flow0x2echange();
-    setup_flow0x2egroup();
     setup_flow0x2epass();
     setup_flow0x2epass_if();
-    setup_flow0x2ereject();
-    setup_flow0x2ereject_if();
-    setup_flow0x2esplit();
     setup_flow0x2esync();
     setup_flow0x2etee_tilde();
 
@@ -49,6 +45,7 @@ void ceammc_flow_setup()
     setup_flow_demultiplex_tilde();
     setup_flow_gate();
     setup_flow_greater();
+    setup_flow_group();
     setup_flow_interval();
     setup_flow_less();
     setup_flow_less_eq();
@@ -58,7 +55,10 @@ void ceammc_flow_setup()
     setup_flow_multiplex_tilde();
     setup_flow_once();
     setup_flow_pack();
+    setup_flow_reject();
+    setup_flow_reject_if();
     setup_flow_route();
     setup_flow_speedlim();
+    setup_flow_split();
     setup_flow_sync_pack();
 }

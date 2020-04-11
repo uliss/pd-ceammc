@@ -64,10 +64,10 @@ void FlowSplit::onInlet(size_t n, const AtomList& l)
     if (n != 1 || l.empty())
         return;
 
-    split_ = (l.asSizeT(0) == 1) ? 0 : 1;
+    split_ = (l.toT<size_t>(0) == 1) ? 0 : 1;
 }
 
-extern "C" void setup_flow0x2esplit()
+void setup_flow_split()
 {
     ObjectFactory<FlowSplit> obj("flow.split");
     obj.addAlias("split");

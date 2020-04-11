@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../flow/flow_once.h"
-#include "test_external.h"
+#include "flow_once.h"
+#include "test_flow_base.h"
 
 PD_COMPLETE_TEST_SETUP(FlowOnce, flow, once)
 
@@ -88,14 +88,11 @@ TEST_CASE("flow.once", "[externals]")
         t <<= LA("@prop", "ABC");
         REQUIRE(t.outputAnyAt(0) == LA("@prop", "ABC"));
 
-        DataPtr data(new IntData(-1000));
-        t.send(data);
+        t << IntA(-100);
         REQUIRE_FALSE(t.hasOutput());
 
         t.call("reset");
-        t.send(data);
-        REQUIRE(t.hasOutput());
-        REQUIRE(t.isOutputDataAt(0));
-        REQUIRE(t.outputAtomAt(0) == data);
+        t << IntA(200);
+        REQUIRE(dataAt(t) == IntA(200));
     }
 }

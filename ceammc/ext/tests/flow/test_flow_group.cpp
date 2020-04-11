@@ -11,11 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../flow/flow_group.h"
-#include "catch.hpp"
-#include "test_base.h"
-
-#include <stdio.h>
+#include "flow_group.h"
+#include "test_flow_base.h"
 
 #define REQUIRE_SIZE(obj, n) REQUIRE_PROPERTY(t, @size, float(n));
 
@@ -26,15 +23,17 @@
         REQUIRE_LIST_AT_OUTLET(0, obj, lst); \
     }
 
-typedef TestExternal<FlowGroup> FlowGroupTest;
+PD_COMPLETE_TEST_SETUP(FlowGroup, flow, group)
 
 TEST_CASE("flow.group", "[externals]")
 {
+    pd_test_init();
+
     SECTION("create")
     {
         SECTION("empty")
         {
-            FlowGroupTest t("flow.group");
+            TObj t("flow.group");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
@@ -44,20 +43,20 @@ TEST_CASE("flow.group", "[externals]")
 
         SECTION("raw args")
         {
-            FlowGroupTest t("flow.group", LF(4, 5));
+            TObj t("flow.group", LF(4, 5));
             REQUIRE_PROPERTY(t, @by, 4);
         }
 
         SECTION("props")
         {
-            FlowGroupTest t("flow.group", LA("@by", 5));
+            TObj t("flow.group", LA("@by", 5));
             REQUIRE_PROPERTY(t, @by, 5);
         }
     }
 
     SECTION("onFloat")
     {
-        FlowGroupTest t("flow.group", LF(2));
+        TObj t("flow.group", LF(2));
 
         WHEN_SEND_FLOAT_TO(0, t, 12);
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -79,7 +78,7 @@ TEST_CASE("flow.group", "[externals]")
 
     SECTION("onSymbol")
     {
-        FlowGroupTest t("flow.group", LF(1));
+        TObj t("flow.group", LF(1));
 
         WHEN_SEND_SYMBOL_TO(0, t, "A");
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -93,7 +92,7 @@ TEST_CASE("flow.group", "[externals]")
 
     SECTION("onList")
     {
-        FlowGroupTest t("flow.group", LF(3));
+        TObj t("flow.group", LF(3));
 
         WHEN_SEND_LIST_TO(0, t, LA("A"));
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -110,16 +109,15 @@ TEST_CASE("flow.group", "[externals]")
 
     SECTION("onData")
     {
-        DataPtr d0(new IntData(123));
-        DataPtr d1(new StrData("test"));
-        DataPtr d2(new StrData("test2"));
+        TExt t("flow.group", 2);
 
-        FlowGroupTest t("flow.group", LF(2));
+        t << IntA(1);
+        REQUIRE(!t.hasOutput());
 
-        WHEN_SEND_DATA_TO(0, t, d0);
-        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        t << IntA(2);
+        REQUIRE(!t.hasOutput());
 
-        WHEN_SEND_DATA_TO(0, t, d1);
-        REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+        t << IntA(3);
+        REQUIRE(listAt(t) == LA(IntA(1), IntA(2)));
     }
 }

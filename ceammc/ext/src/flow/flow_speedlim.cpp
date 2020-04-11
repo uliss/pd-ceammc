@@ -62,13 +62,13 @@ void FlowSpeedLimit::onAny(t_symbol* s, const AtomList& l)
     anyTo(0, s, l);
 }
 
-void FlowSpeedLimit::onData(const DataPtr& p)
+void FlowSpeedLimit::onData(const Atom& data)
 {
     if (is_closed_)
         return;
 
     accept();
-    dataTo(0, p);
+    atomTo(0, data);
 }
 
 void FlowSpeedLimit::accept()

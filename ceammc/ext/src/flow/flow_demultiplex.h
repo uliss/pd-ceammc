@@ -17,7 +17,7 @@ public:
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
     void onAny(t_symbol* s, const AtomList& l) override;
-    void onData(const DataPtr& d) override;
+    void onData(const Atom& d) override;
     void onInlet(size_t n, const AtomList& l) override;
 
     bool processAnyProps(t_symbol* sel, const AtomList& lst) override;

@@ -26,7 +26,7 @@ public:
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
 
-    void onDataT(const DataTypeString* dptr);
+    void onDataT(const StringAtom& str);
 };
 
 void setup_path_exists();

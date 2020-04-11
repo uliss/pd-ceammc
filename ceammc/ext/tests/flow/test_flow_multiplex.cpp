@@ -11,24 +11,18 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../flow/flow_multiplex.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
-#include "test_base.h"
+#include "flow_multiplex.h"
+#include "test_flow_base.h"
 
-#include <stdio.h>
-
-typedef TestExternal<FlowMultiplex> FlowMultiplexTest;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+PD_COMPLETE_TEST_SETUP(FlowMultiplex, flow, multiplex)
 
 TEST_CASE("flow.multiplex", "[externals]")
 {
-    test::pdPrintToStdError();
+    pd_test_init();
 
     SECTION("init")
     {
-        FlowMultiplexTest t("flow.multiplex");
+        TObj t("flow.multiplex");
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @index, 0.f);
@@ -36,7 +30,7 @@ TEST_CASE("flow.multiplex", "[externals]")
         // invalid
         SECTION("number")
         {
-            FlowMultiplexTest t("flow.multiplex", LF(0.f));
+            TObj t("flow.multiplex", LF(0.f));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @index, 0.f);
@@ -45,7 +39,7 @@ TEST_CASE("flow.multiplex", "[externals]")
         // invalid
         SECTION("number")
         {
-            FlowMultiplexTest t("flow.multiplex", LF(-1));
+            TObj t("flow.multiplex", LF(-1));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @index, 0.f);
@@ -54,7 +48,7 @@ TEST_CASE("flow.multiplex", "[externals]")
         // invalid
         SECTION("number")
         {
-            FlowMultiplexTest t("flow.demultiplex", LF(1000));
+            TObj t("flow.demultiplex", LF(1000));
             REQUIRE(t.numInlets() == 24);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @index, 0.f);
@@ -63,7 +57,7 @@ TEST_CASE("flow.multiplex", "[externals]")
         // invalid
         SECTION("number")
         {
-            FlowMultiplexTest t("flow.multiplex", LF(1));
+            TObj t("flow.multiplex", LF(1));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @index, 0.f);
@@ -72,7 +66,7 @@ TEST_CASE("flow.multiplex", "[externals]")
         // valid
         SECTION("number")
         {
-            FlowMultiplexTest t("flow.multiplex", LF(8));
+            TObj t("flow.multiplex", LF(8));
             REQUIRE(t.numInlets() == 8);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @index, 0.f);
@@ -81,7 +75,7 @@ TEST_CASE("flow.multiplex", "[externals]")
 
     SECTION("process")
     {
-        FlowMultiplexTest t("flow.multiplex", LF(3));
+        TObj t("flow.multiplex", LF(3));
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_BANG_AT_OUTLET(0, t);
@@ -93,9 +87,8 @@ TEST_CASE("flow.multiplex", "[externals]")
         REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2, 3));
         WHEN_SEND_ANY_TO(t, "test", LF(1, 2));
         REQUIRE_ANY_AT_OUTLET(0, t, LA("test", 1, 2));
-        DataPtr dp(new IntData(123));
-        WHEN_SEND_DATA_TO(0, t, dp);
-        REQUIRE_DATA_AT_OUTLET(0, t, dp);
+        WHEN_SEND_DATA_TO(0, t, IntData(123));
+        REQUIRE_DATA_AT_OUTLET(0, t, IntA(123));
 
         WHEN_SEND_BANG_TO(1, t);
         REQUIRE_NO_MSG(t);
@@ -114,8 +107,8 @@ TEST_CASE("flow.multiplex", "[externals]")
         REQUIRE_SYMBOL_AT_OUTLET(0, t, "A");
         WHEN_SEND_LIST_TO(1, t, LF(1, 2, 3));
         REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2, 3));
-        WHEN_SEND_DATA_TO(1, t, dp);
-        REQUIRE_DATA_AT_OUTLET(0, t, dp);
+        WHEN_SEND_DATA_TO(1, t, IntData(123));
+        REQUIRE_DATA_AT_OUTLET(0, t, IntA(123));
 
         t.setProperty("@index", LF(2));
         WHEN_SEND_BANG_TO(2, t);
@@ -126,8 +119,8 @@ TEST_CASE("flow.multiplex", "[externals]")
         REQUIRE_SYMBOL_AT_OUTLET(0, t, "A");
         WHEN_SEND_LIST_TO(2, t, LF(1, 2, 3));
         REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2, 3));
-        WHEN_SEND_DATA_TO(2, t, dp);
-        REQUIRE_DATA_AT_OUTLET(0, t, dp);
+        WHEN_SEND_DATA_TO(2, t, IntData(123));
+        REQUIRE_DATA_AT_OUTLET(0, t, IntA(123));
 
         t.setProperty("@index", LF(3));
         WHEN_SEND_BANG_TO(0, t);

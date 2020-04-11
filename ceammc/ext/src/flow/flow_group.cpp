@@ -49,7 +49,7 @@ void FlowGroup::onList(const AtomList& l)
     }
 }
 
-void FlowGroup::onData(const DataPtr& d)
+void FlowGroup::onData(const Atom& d)
 {
     checkFull();
     atoms_.append(d);
@@ -72,7 +72,7 @@ size_t FlowGroup::size() const
 
 void FlowGroup::flush()
 {
-    listTo(0, atoms_.toList());
+    listTo(0, atoms_);
     atoms_.clear();
 }
 
@@ -82,7 +82,7 @@ void FlowGroup::checkFull()
         flush();
 }
 
-extern "C" void setup_flow0x2egroup()
+void setup_flow_group()
 {
     ObjectFactory<FlowGroup> obj("flow.group");
     obj.processData();

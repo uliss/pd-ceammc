@@ -25,8 +25,6 @@
                 element to corresponding outlet</xinfo>
                 <xinfo on="any">match to message selector. On success outputs message arguments to
                 corresponding outlet</xinfo>
-                <xinfo on="data:set">match set elements. On success outputs bangs to corresponding
-                outlets</xinfo>
                 <xinfo on="data:mlist">same as list</xinfo>
                 <xinfo on="data:dict">match dict keys. On success outputs dict values to
                 corresponding outlets</xinfo>
@@ -41,9 +39,9 @@
         <example>
             <pdascii>
 <![CDATA[
-[a b c( [unmatched(       [B]                  [B]
-|       |                 |                    |
-|       | [1 2 3( [2 3 4( [data.set a b c #s0] [data.set d e f #s1]
+[a b c( [unmatched(
+|       |
+|       | [1 2 3( [2 3 4(
 |       | |       |
 |       | |       | [B]                        [B]
 |       | |       | |                          |

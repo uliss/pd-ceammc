@@ -12,12 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../base/function.h"
-#include "../flow/flow_change.h"
-#include "test_base.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
+#include "flow_change.h"
+#include "test_flow_base.h"
 
-#include <stdio.h>
 
 typedef TestExternal<Function> FunctionTest;
 typedef TestExternal<FlowChange> FlowChangeTest;

@@ -52,12 +52,12 @@ void FlowGate::onAny(t_symbol* s, const AtomList& l)
     anyTo(0, s, l);
 }
 
-void FlowGate::onData(const DataPtr& ptr)
+void FlowGate::onData(const Atom& data)
 {
     if (!state_->value())
         return;
 
-    dataTo(0, ptr);
+    atomTo(0, data);
 }
 
 void FlowGate::onInlet(size_t n, const AtomList& l)

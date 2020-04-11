@@ -16,6 +16,7 @@
 
 #include "catch.hpp"
 
+#include "ceammc.h"
 #include "ceammc_factory.h"
 #include "ceammc_message.h"
 #include "ceammc_object.h"
@@ -65,6 +66,30 @@ static t_object* make_owner(const char* name)
     return obj;
 }
 
+class InputArgList {
+public:
+    InputArgList(InletIdx idx, const AtomList& l)
+        : n(idx.n)
+        , lst(l)
+    {
+    }
+
+    const size_t n;
+    const AtomList lst;
+};
+
+class InputArgFloat {
+public:
+    InputArgFloat(InletIdx idx, t_float v)
+        : n(idx.n)
+        , f(v)
+    {
+    }
+
+    const size_t n;
+    t_float f;
+};
+
 template <class T>
 class TestExternal : public T {
     std::vector<MessageList> msg_;
@@ -113,6 +138,27 @@ public:
 public:
     using sendAtomCallback = std::function<void(TestExternal* obj, size_t outn, const Atom& a)>;
     void setSendAtomCallback(sendAtomCallback cb) { atom_cb_ = cb; }
+
+    TestExternal& operator<<(t_float f);
+    TestExternal& operator<<(int v);
+    TestExternal& operator<<(t_symbol* s);
+    TestExternal& operator<<(const char* s);
+    TestExternal& operator<<(const std::string& s);
+    TestExternal& operator<<(const AtomList& l);
+
+    TestExternal& operator<<=(const InputArgFloat& args)
+    {
+        storeAllMessageCount();
+        sendFloat(args.f, args.n);
+        return *this;
+    }
+
+    TestExternal& operator<<=(const InputArgList& args)
+    {
+        storeAllMessageCount();
+        sendList(args.lst, args.n);
+        return *this;
+    }
 
 private:
     sendAtomCallback atom_cb_;
@@ -539,6 +585,54 @@ void TestExternal<T>::cleanAllMessages()
 {
     for (size_t i = 0; i < msg_.size(); i++)
         cleanMessages(i);
+}
+
+template <class T>
+TestExternal<T>& TestExternal<T>::operator<<(t_float f)
+{
+    storeAllMessageCount();
+    sendFloat(f);
+    return *this;
+}
+
+template <class T>
+TestExternal<T>& TestExternal<T>::operator<<(int v)
+{
+    storeAllMessageCount();
+    sendFloat(v);
+    return *this;
+}
+
+template <class T>
+TestExternal<T>& TestExternal<T>::operator<<(t_symbol* s)
+{
+    storeAllMessageCount();
+    sendSymbol(s);
+    return *this;
+}
+
+template <class T>
+TestExternal<T>& TestExternal<T>::operator<<(const char* s)
+{
+    storeAllMessageCount();
+    sendSymbol(s);
+    return *this;
+}
+
+template <class T>
+TestExternal<T>& TestExternal<T>::operator<<(const std::string& s)
+{
+    storeAllMessageCount();
+    sendSymbol(s.c_str());
+    return *this;
+}
+
+template <class T>
+TestExternal<T>& TestExternal<T>::operator<<(const AtomList& l)
+{
+    storeAllMessageCount();
+    sendList(l);
+    return *this;
 }
 
 #endif // BASE_EXTENSION_TEST_H

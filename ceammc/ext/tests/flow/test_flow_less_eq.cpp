@@ -11,32 +11,27 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../flow/flow_less.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
-#include "test_base.h"
+#include "flow_less_eq.h"
+#include "test_flow_base.h"
 
-#include <stdio.h>
 
-typedef TestExternal<FlowLess> FlowLessTest;
+typedef TestExternal<FlowLessEq> FlowLessEqTest;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
 
-TEST_CASE("flow.less", "[externals]")
+TEST_CASE("flow.less_eq", "[externals]")
 {
     test::pdPrintToStdError();
 
     SECTION("init")
     {
-        setup_flow_less();
+        setup_flow_less_eq();
 
         SECTION("default")
         {
-            FlowLessTest t("flow.less");
+            FlowLessEqTest t("flow.less_eq");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE(t.outletAt(0) != 0);
-            REQUIRE(t.outletAt(1) == 0);
 
             WHEN_SEND_FLOAT_TO(0, t, 123);
             REQUIRE_NO_MSG(t);
@@ -44,14 +39,17 @@ TEST_CASE("flow.less", "[externals]")
 
         SECTION("single")
         {
-            FlowLessTest t("flow.less", LF(1));
+            FlowLessEqTest t("flow.less_eq", LF(1));
             REQUIRE(t.numOutlets() == 2);
 
             WHEN_SEND_FLOAT_TO(0, t, -100);
             REQUIRE_FLOAT_AT_OUTLET(0, t, -100);
 
             WHEN_SEND_FLOAT_TO(0, t, 1);
-            REQUIRE_FLOAT_AT_OUTLET(1, t, 1);
+            REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
+
+            WHEN_SEND_FLOAT_TO(0, t, 1.0001);
+            REQUIRE_FLOAT_AT_OUTLET(1, t, 1.0001);
 
             WHEN_SEND_FLOAT_TO(0, t, 100);
             REQUIRE_FLOAT_AT_OUTLET(1, t, 100);
@@ -59,26 +57,29 @@ TEST_CASE("flow.less", "[externals]")
 
         SECTION("multiple")
         {
-            FlowLessTest t("flow.less", LF(-10, 1, 10)); // [. -10 . 1 . 10 .]
+            FlowLessEqTest t("flow.less_eq", LF(-10, 1, 10)); // [. -10 . 1 . 10 .]
             REQUIRE(t.numOutlets() == 4);
 
             // 1st outlet
             WHEN_SEND_FLOAT_TO(0, t, -100);
             REQUIRE_FLOAT_AT_OUTLET(0, t, -100);
 
-            // 2nd
             WHEN_SEND_FLOAT_TO(0, t, -10);
-            REQUIRE_FLOAT_AT_OUTLET(1, t, -10);
+            REQUIRE_FLOAT_AT_OUTLET(0, t, -10);
 
+            // 2nd
             WHEN_SEND_FLOAT_TO(0, t, -9);
             REQUIRE_FLOAT_AT_OUTLET(1, t, -9);
 
             WHEN_SEND_FLOAT_TO(0, t, 0.f);
             REQUIRE_FLOAT_AT_OUTLET(1, t, 0.f);
 
-            // 3rd
             WHEN_SEND_FLOAT_TO(0, t, 1);
-            REQUIRE_FLOAT_AT_OUTLET(2, t, 1);
+            REQUIRE_FLOAT_AT_OUTLET(1, t, 1);
+
+            // 3rd
+            WHEN_SEND_FLOAT_TO(0, t, 1.1);
+            REQUIRE_FLOAT_AT_OUTLET(2, t, 1.1);
 
             WHEN_SEND_FLOAT_TO(0, t, 2);
             REQUIRE_FLOAT_AT_OUTLET(2, t, 2);
@@ -86,17 +87,17 @@ TEST_CASE("flow.less", "[externals]")
             WHEN_SEND_FLOAT_TO(0, t, 9);
             REQUIRE_FLOAT_AT_OUTLET(2, t, 9);
 
-            // 4th
             WHEN_SEND_FLOAT_TO(0, t, 10);
-            REQUIRE_FLOAT_AT_OUTLET(3, t, 10);
+            REQUIRE_FLOAT_AT_OUTLET(2, t, 10);
 
-            WHEN_SEND_FLOAT_TO(0, t, 11);
-            REQUIRE_FLOAT_AT_OUTLET(3, t, 11);
+            // 4th
+            WHEN_SEND_FLOAT_TO(0, t, 10.1);
+            REQUIRE_FLOAT_AT_OUTLET(3, t, 10.1);
         }
 
         SECTION("wrong args")
         {
-            FlowLessTest t("flow.less", LF(1, 10, 2)); // [. -10 . 1 . 10 .]
+            FlowLessEqTest t("flow.less_eq", LF(1, 10, 10)); // [. -10 . 1 . 10 .]
             REQUIRE(t.numOutlets() == 3);
         }
     }

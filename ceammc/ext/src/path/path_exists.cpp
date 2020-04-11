@@ -30,9 +30,9 @@ void PathExists::onList(const AtomList& l)
     listTo(0, l.map(exists));
 }
 
-void PathExists::onDataT(const StringAtom& dptr)
+void PathExists::onDataT(const StringAtom& str)
 {
-    boolTo(0, platform::path_exists(dptr->str().c_str()));
+    boolTo(0, platform::path_exists(str->str().c_str()));
 }
 
 void setup_path_exists()

@@ -57,12 +57,12 @@ void FlowMultiplex::onAny(t_symbol* sel, const AtomList& args)
     anyTo(0, sel, args);
 }
 
-void FlowMultiplex::onData(const DataPtr& ptr)
+void FlowMultiplex::onData(const Atom& data)
 {
     if (0 != index_->value())
         return;
 
-    dataTo(0, ptr);
+    atomTo(0, data);
 }
 
 void FlowMultiplex::onInlet(size_t idx, const AtomList& l)
@@ -77,7 +77,7 @@ void FlowMultiplex::onInlet(size_t idx, const AtomList& l)
     else if (l.isSymbol())
         symbolTo(0, l[0].asSymbol());
     else if (l[0].isData())
-        atomTo(0, Atom(l[0].getData()));
+        atomTo(0, l[0]);
     else
         listTo(0, l);
 }

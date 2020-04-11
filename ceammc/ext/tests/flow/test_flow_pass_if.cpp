@@ -11,13 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../flow/flow_pass_if.h"
-#include "test_base.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
+#include "flow_pass_if.h"
+#include "test_flow_base.h"
 #include "test_external.h"
 
-#include <stdio.h>
 
 typedef TestExternal<FlowPassIf> FlowPassIfTest;
 

@@ -14,6 +14,8 @@
 #include "flow_multiplex_tilde.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
+#include "fmt/format.h"
 
 constexpr size_t DEF_INLETS = 2;
 constexpr size_t MIN_NCHAN = 2;
@@ -76,7 +78,10 @@ void MultiplexTilde::onInlet(size_t n, const AtomList& lst)
     const t_float fidx = lst.floatAt(0, -1);
 
     if (idx < 0 || idx >= gain_.size()) {
-        OBJ_ERR << "invalid index: " << lst;
+        OBJ_ERR << fmt::format(
+            "expected input channel index in range [0-{}], got: {}",
+            gain_.size() - 1, to_string(lst));
+
         return;
     }
 
@@ -98,7 +103,7 @@ void MultiplexTilde::onInlet(size_t n, const AtomList& lst)
 void MultiplexTilde::onList(const AtomList& lst)
 {
     for (size_t i = 0; i < gain_.size(); i++)
-        gain_[i].setTargetValue(clip<t_float>(lst.floatAt(i, 0), 0, 1));
+        gain_[i].setTargetValue(clip<t_float>(lst[i].asFloat(), 0, 1));
 }
 
 AtomList MultiplexTilde::propValue() const

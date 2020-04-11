@@ -14,13 +14,12 @@
 #ifndef FLOW_GROUP_H
 #define FLOW_GROUP_H
 
-#include "ceammc_dataatomlist.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
 
 class FlowGroup : public BaseObject {
-    DataAtomList atoms_;
+    AtomList atoms_;
     IntProperty* group_size_;
 
 public:
@@ -28,7 +27,7 @@ public:
     void onFloat(t_float v) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& l) override;
-    void onData(const DataPtr& d) override;
+    void onData(const Atom& d) override;
 
     void m_flush(t_symbol*, const AtomList& l);
     void m_clear(t_symbol*, const AtomList& l);
@@ -39,6 +38,6 @@ private:
     void checkFull();
 };
 
-extern "C" void setup_flow0x2egroup();
+void setup_flow_group();
 
 #endif // FLOW_GROUP_H

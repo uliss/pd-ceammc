@@ -32,6 +32,6 @@ public:
     void onInlet(size_t n, const AtomList& l) override;
 };
 
-extern "C" void setup_flow0x2esplit();
+void setup_flow_split();
 
 #endif // FLOW_SPLIT_H
