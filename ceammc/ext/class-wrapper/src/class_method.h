@@ -116,6 +116,7 @@ private:
     MethodOverloadList overloads_;
     MethodOverloadedArgs overload_args_;
     int method_call_idx_;
+    ListProperty* pd_args_;
     static const int MAIN_METHOD_CALL = -1;
 
 public:
@@ -124,14 +125,46 @@ public:
         , main_method_(std::get<0>(methods))
         , overloads_(tuple_utils::get_tail(methods))
         , method_call_idx_(MAIN_METHOD_CALL)
+        , pd_args_(nullptr)
     {
         initXlets();
         initArguments();
     }
 
+    void initArguments()
+    {
+        pd_args_ = new ListProperty("@args");
+        pd_args_->setArgIndex(0);
+
+        pd_args_->setListCheckFn([this](const AtomList& args) -> bool {
+            // first try to find appropriate overloaded method
+            int idx = tuple_utils::find_first(overload_args_, ArgumentMatchAndSet(args));
+            if (idx >= 0) {
+                method_call_idx_ = idx;
+                return true;
+            }
+
+            // unexpected arguments warning
+            if (MethodTraits::nargs == 0 && args.size() > 0) {
+                OBJ_ERR << "no arguments expected: " << args;
+                return false;
+            }
+
+            try {
+                atomListToArguments<Method>(args, main_method_args_);
+                return true;
+            } catch (std::exception& e) {
+                OBJ_ERR << "initial arguments error: " << e.what();
+                return false;
+            }
+        });
+
+        addProperty(pd_args_);
+    }
+
     void onInlet(size_t n, const AtomList& lst) override
     {
-        int idx = tuple_utils::find_last(overload_args_, ArgumentMatchAndSet(lst));
+        int idx = tuple_utils::find_first(overload_args_, ArgumentMatchAndSet(lst));
         if (idx >= 0) {
             method_call_idx_ = idx;
             return;
@@ -145,16 +178,16 @@ public:
         method_call_idx_ = MAIN_METHOD_CALL;
     }
 
-    void onDataT(const DataAtom<DataType>& dptr)
+    void onDataT(const DataAtom<DataType>& data)
     {
-        if (dptr->dataTypeId() != DataType::wrappedDataTypeId) {
-            OBJ_ERR << "unexpected data with id=" << dptr->dataTypeId()
+        if (data->dataTypeId() != DataType::wrappedDataTypeId) {
+            OBJ_ERR << "unexpected data with id=" << data->dataTypeId()
                     << ", expecting " << T::typeName()
                     << " with id=" << DataType::wrappedDataTypeId;
             return;
         }
 
-        data_ = dptr->value();
+        data_ = data->value();
         dispatch();
     }
 
@@ -257,35 +290,13 @@ private:
             createOutlet();
     }
 
-    void initArguments()
-    {
-        // first try to find appropriate overloaded method
-        int idx = tuple_utils::find_first(overload_args_, ArgumentMatchAndSet(positionalArguments()));
-        if (idx >= 0) {
-            method_call_idx_ = idx;
-            return;
-        }
-
-        // unexpected arguments warning
-        if (MethodTraits::nargs == 0 && positionalArguments().size() > 0) {
-            OBJ_ERR << "no arguments expected: " << positionalArguments();
-            return;
-        }
-
-        try {
-            atomListToArguments<Method>(positionalArguments(), main_method_args_);
-        } catch (std::exception& e) {
-            OBJ_ERR << "initial arguments: " << e.what();
-        }
-    }
-
     void dispatch()
     {
         try {
             if (method_call_idx_ != MAIN_METHOD_CALL) {
                 using ThisT = typename std::remove_reference<decltype(*this)>::type;
 
-                OverloadDataCall<T, ThisT> call(method_call_idx_, positionalArguments(), &data_, this);
+                OverloadDataCall<T, ThisT> call(method_call_idx_, pd_args_->value(), &data_, this);
                 if (tuple_utils::find_first(overload_args_, overloads_, call) != -1)
                     return;
 
