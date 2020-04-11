@@ -40,7 +40,7 @@ public:
     void onFloat(t_float v) override;
     void onSymbol(t_symbol* s) override;
     void onList(const AtomList& lst) override;
-    void onDataT(const DataTPtr<DataTypeString>& str);
+    void onDataT(const StringAtom& str);
 
 private:
     bool synth(const char* str);
