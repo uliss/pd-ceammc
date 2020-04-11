@@ -33,7 +33,6 @@
 #include "wrapper_tuple.h"
 
 #include "ceammc_atomlist.h"
-#include "ceammc_dataatom.h"
 #include "ceammc_log.h"
 #include "ceammc_object.h"
 
@@ -105,7 +104,7 @@ public:
     using MethodArgs = typename MethodTraits::arguments;
     using MethodReturnType = typename MethodTraits::return_type;
     using DataType = AbstractDataWrapper<T>;
-    using TypedDataPtr = DataTPtr<DataType>;
+    using TypedDataPtr = DataAtom<DataType>;
     using InletArgSetter = InletArgFromAtomList<MethodTraits::nargs, MethodArgs>;
     using MethodCall = InvocationClassMethod<typename MethodTraits::return_type, T, Method, MethodArgs>;
     using MethodOverloadedArgs = typename MethodArgList<MethodOverloadList>::type;
@@ -146,7 +145,7 @@ public:
         method_call_idx_ = MAIN_METHOD_CALL;
     }
 
-    void onDataT(const DataTPtr<DataType>& dptr)
+    void onDataT(const DataAtom<DataType>& dptr)
     {
         if (dptr->dataTypeId() != DataType::wrappedDataTypeId) {
             OBJ_ERR << "unexpected data with id=" << dptr->dataTypeId()

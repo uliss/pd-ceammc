@@ -14,14 +14,12 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_canvas.h"
 #include "ceammc_data.h"
-#include "ceammc_dataatomlist.h"
 #include "ceammc_pd.h"
+#include "datatype_mlist.h"
+#include "list/mod_list.h"
 
 #include <nonius/nonius.h++>
 #include <random>
-
-#include "datatype_mlist.h"
-#include "list/mod_list.h"
 
 using namespace ceammc;
 using namespace ceammc::pd;
@@ -108,9 +106,9 @@ static AtomList randomIntList(size_t n, int from = 0, int to = 1000)
     return res;
 }
 
-static DataPtr randomFloatMList(size_t n, float from = 0, float to = 1000)
+static Atom randomFloatMList(size_t n, float from = 0, float to = 1000)
 {
-    DataTypeMList* res = new DataTypeMList;
+    MListAtom res;
     res->reserve(n);
 
     std::default_random_engine engine;
@@ -119,7 +117,7 @@ static DataPtr randomFloatMList(size_t n, float from = 0, float to = 1000)
     for (size_t i = 0; i < n; i++)
         res->append(gen(engine));
 
-    return DataPtr(res);
+    return res;
 }
 
 NONIUS_BENCHMARK("list.sum", [] {
@@ -157,9 +155,7 @@ NONIUS_BENCHMARK("list.sort", [] {
 
 NONIUS_BENCHMARK("list.sort mlist", [] {
     External t("list.sort");
-    DataPtr dlst(randomFloatMList(100));
-
-    t.sendList(dlst.asAtom());
+    t.sendList(randomFloatMList(100));
 })
 
 NONIUS_BENCHMARK("list.sort_with", [] {
@@ -188,8 +184,7 @@ NONIUS_BENCHMARK("list.each (mlist)", [] {
     t.connectTo(1, plus, 0);
     t.connectFrom(0, plus, 1);
 
-    DataPtr dlst(randomFloatMList(100));
-    t.sendList(dlst.asAtom());
+    t.sendList(randomFloatMList(100));
 })
 
 NONIUS_BENCHMARK("list.choice", [] {
@@ -273,9 +268,7 @@ NONIUS_BENCHMARK("list.min", [] {
 
 NONIUS_BENCHMARK("list.min mlist", [] {
     External t("list.min");
-
-    DataPtr dlst(randomFloatMList(100));
-    t.sendList(dlst.asAtom());
+    t.sendList(randomFloatMList(100));
 })
 
 NONIUS_BENCHMARK("list.max", [] {
@@ -285,9 +278,7 @@ NONIUS_BENCHMARK("list.max", [] {
 
 NONIUS_BENCHMARK("list.max mlist", [] {
     External t("list.max");
-
-    DataPtr dlst(randomFloatMList(100));
-    t.sendList(dlst.asAtom());
+    t.sendList(randomFloatMList(100));
 })
 
 NONIUS_BENCHMARK("list.range", [] {
@@ -297,9 +288,7 @@ NONIUS_BENCHMARK("list.range", [] {
 
 NONIUS_BENCHMARK("list.range mlist", [] {
     External t("list.range");
-
-    DataPtr dlst(randomFloatMList(100));
-    t.sendList(dlst.asAtom());
+    t.sendList(randomFloatMList(100));
 })
 
 NONIUS_BENCHMARK("list.distribution", [] {

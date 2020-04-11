@@ -110,7 +110,7 @@ public:
         }
     }
 
-    void onDataT(const DataTPtr<TypeWrapped>& dptr)
+    void onDataT(const DataAtom<TypeWrapped>& dptr)
     {
         if (dptr->dataTypeId() != TypeWrapped::wrappedDataTypeId) {
             OBJ_ERR << "unexpected data with id=" << dptr->dataTypeId()

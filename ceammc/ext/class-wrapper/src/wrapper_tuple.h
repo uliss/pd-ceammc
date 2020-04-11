@@ -35,7 +35,6 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_data.h"
-#include "ceammc_dataatom.h"
 #include "ceammc_log.h"
 
 #include <boost/variant.hpp>
@@ -821,18 +820,18 @@ public:
         }
 
         // data atom initializer
-        DataAtom datom(lst.at(0));
-        if (!datom.isValid())
+        Atom datom(lst.at(0));
+        if (!datom.isData())
             return ErrorMsg::err("invalid data pointer");
 
         // not a wrapper type
-        if (!datom.isDataType(data::DATA_WRAPPER)) {
+        if (!datom.isA<T>()) {
             std::ostringstream s;
-            s << "wrapper datatype expected: " << data::DATA_WRAPPER;
+            s << "datatype expected: " << T::dataType();
             return ErrorMsg::err(s.str());
         }
 
-        const auto* dptr = datom.as<AbstractDataWrapper<T>>();
+        const auto* dptr = datom.asD<AbstractDataWrapper<T>>();
 
         if (dptr->dataTypeId() != AbstractDataWrapper<T>::wrappedDataTypeId) {
             std::ostringstream s;
@@ -997,8 +996,8 @@ struct ArgumentMatchAndSet {
 
         using ArgumentWrapper = AbstractDataWrapper<T>;
 
-        DataTPtr<ArgumentWrapper> in_ptr(l_[0]);
-        if (!in_ptr.isValid())
+        DataAtom<ArgumentWrapper> in_ptr(l_[0]);
+        if (!in_ptr.isData())
             return false;
 
         if (in_ptr->dataTypeId() != ArgumentWrapper::wrappedDataTypeId)

@@ -90,6 +90,8 @@ ceammc_add_core_test("ceammc::window" test_window)
 ceammc_add_core_test("class_wrapper::fn_traits" test_wrapper_fn_traits)
 ceammc_add_core_test("class_wrapper::tuple" test_wrapper_tuple)
 
+ceammc_add_core_test("pd::ceammc" test_pd_core)
+
 ceammc_external_test(analyze onset)
 
 ceammc_add_test("[metro.pattern]" test_ext_metro_pattern)
@@ -253,9 +255,6 @@ endif()
 if(WITH_FLUIDSYNTH)
     ceammc_external_test(misc fluid)
 endif()
-
-add_executable(test_pd_core test_pd_core.cpp)
-target_link_libraries(test_pd_core puredata-core)
 
 ceammc_add_test_linked(TITLE "class_wrapper::class" NAME test_wrapper_class LINK wrapper_lib)
 ceammc_add_test_linked(TITLE "class_wrapper::method" NAME test_wrapper_method LINK wrapper_lib)

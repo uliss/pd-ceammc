@@ -15,6 +15,7 @@
 #include "catch.hpp"
 
 #include "../class-wrapper/src/wrapper_macros.h"
+#include "ceammc_format.h"
 #include "datatype_dict.h"
 #include "test_external.h"
 
@@ -52,6 +53,15 @@ public:
         return ok();
     }
 
+    Result setFromList(const ceammc::AtomList& l) override
+    {
+        if (l.isFloat()) {
+            v_ = static_cast<decltype(v_)>(l[0].asFloat());
+            return ok();
+        } else
+            return error(std::string("float expected, got: ") + to_string(l));
+    }
+
     static const char* typeName()
     {
         return "DataInt";
@@ -60,6 +70,15 @@ public:
     int get() const { return v_; }
 
 public:
+    static AbstractData* initFromList(const AtomList& l)
+    {
+        WrapperInt wint;
+        if (wint.setFromList(l))
+            return new AbstractDataWrapper<WrapperInt>(wint);
+        else
+            return nullptr;
+    }
+
     static WrapperInt parse(const std::string& str)
     {
         return WrapperInt(strtol(str.c_str(), nullptr, 0));
@@ -104,12 +123,15 @@ TEST_CASE("wrapper static method", "[class-wrapper]")
 
     SECTION("parse")
     {
+        using DataType = AbstractDataWrapper<WrapperInt>;
         using mtype = decltype(&WrapperInt::parse);
-        WRAP_STATIC_METHOD(WrapperInt, "int.parse", method_id, mtype, &WrapperInt::parse);
-
         using ExternalType = wrapper::ClassStaticMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
-        using DataType = AbstractDataWrapper<WrapperInt>;
+
+        SECTION("register")
+        {
+            WRAP_STATIC_METHOD(WrapperInt, "int.parse", method_id, mtype, &WrapperInt::parse);
+        }
 
         SECTION("empty args")
         {
@@ -123,28 +145,30 @@ TEST_CASE("wrapper static method", "[class-wrapper]")
             t << 123;
             REQUIRE(t.hasOutputAt(0));
             REQUIRE(t.isOutputDataAt(0));
-            REQUIRE(t.outputAtomAt(0)->as<DataType>()->value().get() == 123);
+            REQUIRE(t.outputAtomAt(0).asD<DataType>()->value().get() == 123);
 
             t << "0xFF";
             REQUIRE(t.hasOutputAt(0));
             REQUIRE(t.isOutputDataAt(0));
-            REQUIRE(t.outputAtomAt(0)->as<DataType>()->value().get() == 255);
+            REQUIRE(t.outputAtomAt(0).asD<DataType>()->value().get() == 255);
 
             t << LA("122");
             REQUIRE(t.hasOutputAt(0));
             REQUIRE(t.isOutputDataAt(0));
-            REQUIRE(t.outputAtomAt(0)->as<DataType>()->value().get() == 122);
+            REQUIRE(t.outputAtomAt(0).asD<DataType>()->value().get() == 122);
         }
     }
 
     SECTION("parse")
     {
         using mtype = decltype(&WrapperInt::intstr);
-        WRAP_STATIC_METHOD(WrapperInt, "int.intstr", method_id, mtype, &WrapperInt::intstr);
-
         using ExternalType = wrapper::ClassStaticMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
-        using DataType = AbstractDataWrapper<WrapperInt>;
+
+        SECTION("register")
+        {
+            WRAP_STATIC_METHOD(WrapperInt, "int.intstr", method_id, mtype, &WrapperInt::intstr);
+        }
 
         SECTION("empty args")
         {
@@ -164,11 +188,13 @@ TEST_CASE("wrapper static method", "[class-wrapper]")
     SECTION("str")
     {
         using mtype = decltype(&WrapperInt::str);
-        WRAP_STATIC_METHOD(WrapperInt, "int.str", method_id, mtype, &WrapperInt::str);
-
         using ExternalType = wrapper::ClassStaticMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
-        using DataType = AbstractDataWrapper<WrapperInt>;
+
+        SECTION("register")
+        {
+            WRAP_STATIC_METHOD(WrapperInt, "int.str", method_id, mtype, &WrapperInt::str);
+        }
 
         SECTION("empty args")
         {
@@ -188,11 +214,13 @@ TEST_CASE("wrapper static method", "[class-wrapper]")
     SECTION("dup2")
     {
         using mtype = decltype(&WrapperInt::dup2);
-        WRAP_STATIC_METHOD(WrapperInt, "int.dup2", method_id, mtype, &WrapperInt::dup2);
-
         using ExternalType = wrapper::ClassStaticMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
-        using DataType = AbstractDataWrapper<WrapperInt>;
+
+        SECTION("register")
+        {
+            WRAP_STATIC_METHOD(WrapperInt, "int.dup2", method_id, mtype, &WrapperInt::dup2);
+        }
 
         SECTION("empty args")
         {
@@ -210,15 +238,18 @@ TEST_CASE("wrapper static method", "[class-wrapper]")
     SECTION("toAtom")
     {
         using mtype = decltype(&WrapperInt::toAtom);
-        WRAP_STATIC_METHOD(WrapperInt, "int->atom", method_id, mtype, &WrapperInt::toAtom);
-
         using ExternalType = wrapper::ClassStaticMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
-        using DataType = AbstractDataWrapper<WrapperInt>;
+
+        SECTION("register")
+        {
+            WRAP_STATIC_METHOD(WrapperInt, "int->atom", method_id, mtype, &WrapperInt::toAtom);
+        }
 
         SECTION("empty args")
         {
             TestType t("int->atom");
+            REQUIRE_PROPERTY(t, @args);
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
 
@@ -233,6 +264,7 @@ TEST_CASE("wrapper static method", "[class-wrapper]")
             TestType t("int->atom", LF(125));
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
+            REQUIRE_PROPERTY(t, @args, 125);
 
             t << BANG;
             REQUIRE(t.hasOutputAt(0));
@@ -244,11 +276,13 @@ TEST_CASE("wrapper static method", "[class-wrapper]")
     SECTION("fromAtom")
     {
         using mtype = decltype(&WrapperInt::fromAtom);
-        WRAP_STATIC_METHOD(WrapperInt, "atom->int", method_id, mtype, &WrapperInt::fromAtom);
-
         using ExternalType = wrapper::ClassStaticMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
-        using DataType = AbstractDataWrapper<WrapperInt>;
+
+        SECTION("register")
+        {
+            WRAP_STATIC_METHOD(WrapperInt, "atom->int", method_id, mtype, &WrapperInt::fromAtom);
+        }
 
         SECTION("empty args")
         {
@@ -271,11 +305,13 @@ TEST_CASE("wrapper static method", "[class-wrapper]")
     SECTION("lsize")
     {
         using mtype = decltype(&WrapperInt::lsize);
-        WRAP_STATIC_METHOD(WrapperInt, "lsize", method_id, mtype, &WrapperInt::lsize);
-
         using ExternalType = wrapper::ClassStaticMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
-        using DataType = AbstractDataWrapper<WrapperInt>;
+
+        SECTION("register")
+        {
+            WRAP_STATIC_METHOD(WrapperInt, "lsize", method_id, mtype, &WrapperInt::lsize);
+        }
 
         SECTION("empty args")
         {
@@ -297,11 +333,13 @@ TEST_CASE("wrapper static method", "[class-wrapper]")
     SECTION("test_msg")
     {
         using mtype = decltype(&WrapperInt::test_msg);
-        WRAP_STATIC_METHOD(WrapperInt, "test_msg", method_id, mtype, &WrapperInt::test_msg);
-
         using ExternalType = wrapper::ClassStaticMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
-        using DataType = AbstractDataWrapper<WrapperInt>;
+
+        SECTION("register")
+        {
+            WRAP_STATIC_METHOD(WrapperInt, "test_msg", method_id, mtype, &WrapperInt::test_msg);
+        }
 
         SECTION("empty args")
         {
@@ -321,11 +359,13 @@ TEST_CASE("wrapper static method", "[class-wrapper]")
     SECTION("strlen")
     {
         using mtype = decltype(&WrapperInt::slen);
-        WRAP_STATIC_METHOD(WrapperInt, "strlen", method_id, mtype, &WrapperInt::slen);
-
         using ExternalType = wrapper::ClassStaticMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
-        using DataType = AbstractDataWrapper<WrapperInt>;
+
+        SECTION("register")
+        {
+            WRAP_STATIC_METHOD(WrapperInt, "strlen", method_id, mtype, &WrapperInt::slen);
+        }
 
         SECTION("empty args")
         {
@@ -348,5 +388,18 @@ TEST_CASE("wrapper static method", "[class-wrapper]")
             t << BANG;
             REQUIRE(t.outputFloatAt(0) == 3);
         }
+    }
+
+    SECTION("parse string")
+    {
+        using DataInt = AbstractDataWrapper<WrapperInt>;
+
+        auto lst = parseDataString("DataInt(255)");
+        REQUIRE(lst.isData());
+        REQUIRE(lst.asD<DataInt>()->value().get() == 255);
+
+        lst = parseDataString("DataInt(1 2)");
+        REQUIRE_FALSE(lst.isData());
+        REQUIRE(lst == Atom());
     }
 }

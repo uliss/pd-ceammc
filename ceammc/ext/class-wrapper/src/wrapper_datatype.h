@@ -28,7 +28,7 @@
 
 #include "ceammc_abstractdata.h"
 #include "ceammc_data.h"
-#include "ceammc_datatypes.h"
+#include "ceammc_datastorage.h"
 
 #include <algorithm>
 #include <memory>
@@ -88,7 +88,7 @@ public:
         return new AbstractDataWrapper(value_);
     }
 
-    bool isEqual(const AbstractData* d) const override
+    bool isEqual(const AbstractData* d) const noexcept override
     {
         if (!hasEqualType(d))
             return false;
@@ -97,41 +97,42 @@ public:
         return value_ == dw->value_;
     }
 
-    const T& value() const { return value_; }
-    T& value() { return value_; }
-    DataType type() const override { return AbstractDataWrapper<T>::dataType; }
+    const T& value() const noexcept { return value_; }
+    T& value() noexcept { return value_; }
+    int type() const noexcept override { return AbstractDataWrapper<T>::dataType; }
     std::string toString() const override { return value_.toString(); }
 
 public:
-    static const DataType dataType;
+    static const int dataType;
     static const size_t wrappedDataTypeId;
 };
 
 template <typename T>
-const DataType AbstractDataWrapper<T>::dataType = ceammc::data::DATA_WRAPPER;
+const int AbstractDataWrapper<T>::dataType = ceammc::DataStorage::instance().registerNewType(
+    T::typeName(), T::initFromList);
 
 template <typename T>
 const size_t AbstractDataWrapper<T>::wrappedDataTypeId = WrapperIDFactory::instance().generateNewId();
 
 template <class T>
-class WrapperTPtr : public DataTPtr<AbstractDataWrapper<T>> {
+class WrapperTPtr : public DataAtom<AbstractDataWrapper<T>> {
     using Type = AbstractDataWrapper<T>;
 
 public:
     WrapperTPtr(AbstractDataWrapper<T>* d)
-        : DataTPtr<Type>(d)
+        : DataAtom<Type>(d)
     {
     }
 
     WrapperTPtr(const Atom& a)
-        : DataTPtr<Type>(a)
+        : DataAtom<Type>(a)
     {
         if (!a.isDataType(Type::dataType)) {
             this->invalidate();
             return;
         }
 
-        DataPtr dptr(a);
+        DataAtom<Type> dptr(a);
         if (dptr.isNull()) {
             this->invalidate();
             return;
