@@ -237,13 +237,6 @@ ceammc_add_test_linked(TITLE "ArduinoThread"
     LINK tests_main_lib1 hw_arduino ceammc_core puredata-core)
 ceammc_add_test_linked(TITLE "Arduino" NAME test_arduino LINK tests_main_lib1 hw_arduino ceammc_core puredata-core)
 
-# UI
-ceammc_add_test_linked(TITLE "ceammc::UIObjectFactory"
-    NAME test_ui_factory
-    INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/../src/ui
-    LINK ceammc_ui ceammc_core puredata-core)
-
-
 ceammc_add_test_linked(TITLE "[env->to_array]"
     NAME test_ext_env_to_array
     LINK tests_main_lib1 ceammc_array ceammc_env ceammc_array ceammc_core puredata-core)

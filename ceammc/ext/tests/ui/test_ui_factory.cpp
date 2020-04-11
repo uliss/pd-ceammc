@@ -11,8 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../ui/ui_knob.h"
-#include "test_ui.h"
+#include "ui_knob.h"
+
+#include "test_ui_base.h"
 
 using namespace ceammc;
 
@@ -38,6 +39,8 @@ typedef UIObjectFactory<TestUI> TestFactory;
 
 TEST_CASE("UIObjectFactory", "[ceammc::UIObjectFactory]")
 {
+    pd_init();
+
     SECTION("base")
     {
         REQUIRE(UIObjectFactory<UIObject>::pd_class == 0);
@@ -47,7 +50,6 @@ TEST_CASE("UIObjectFactory", "[ceammc::UIObjectFactory]")
 
         UIObject* ui = UIObjectFactory<UIObject>::alloc(gensym("test"), 0, 0);
         REQUIRE(ui);
-        REQUIRE(ui->canvas() == 0);
 
         UIObjectFactory<UIObject>::free(ui);
     }

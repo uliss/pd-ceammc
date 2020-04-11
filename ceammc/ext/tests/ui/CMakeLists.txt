@@ -32,6 +32,7 @@ macro(ceammc_ui_test name)
 endmacro()
 
 
+ceammc_ui_test("factory")
 ceammc_ui_test("aview")
 ceammc_ui_test("bang")
 ceammc_ui_test("colorpanel")
