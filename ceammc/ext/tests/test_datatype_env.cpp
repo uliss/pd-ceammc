@@ -24,10 +24,13 @@ using namespace ceammc;
 
 TEST_CASE("DataTypeEnv", "[ceammc::DataTypeEnv]")
 {
+    pd_init();
+    test::pdPrintToStdError();
+
     SECTION("init")
     {
         DataTypeEnv env;
-        REQUIRE(env.type() == data::DATA_ENVELOPE);
+        REQUIRE(env.typeName() == "Env");
         REQUIRE(env.empty());
         REQUIRE_FALSE(env.hasPointAtTime(0));
         REQUIRE_FALSE(env.hasPointAtTime(10));
