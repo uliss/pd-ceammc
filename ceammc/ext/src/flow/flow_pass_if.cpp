@@ -73,7 +73,7 @@ void FlowPassIf::onInlet(size_t n, const AtomList& l)
     if (n != 1 || l.empty())
         return;
 
-    pass_ = (l.asSizeT(0) == 1) ? 1 : 0;
+    pass_ = (l.toT<size_t>(0) == 1) ? 1 : 0;
 }
 
 extern "C" void setup_flow0x2epass_if()
