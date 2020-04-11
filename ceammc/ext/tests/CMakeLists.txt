@@ -234,8 +234,8 @@ ceammc_add_test_linked(TITLE "firmata::Pin" NAME test_firmata_pin LINK proto_fir
 ceammc_add_test_linked(TITLE "ArduinoThread"
     NAME test_arduino_thread
     INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/ceammc/extra/serial/serial/include
-    LINK tests_main_lib lib_catch1_main hw_arduino ceammc_core puredata-core)
-ceammc_add_test_linked(TITLE "Arduino" NAME test_arduino LINK tests_main_lib lib_catch1_main hw_arduino ceammc_core puredata-core)
+    LINK tests_main_lib1 hw_arduino ceammc_core puredata-core)
+ceammc_add_test_linked(TITLE "Arduino" NAME test_arduino LINK tests_main_lib1 hw_arduino ceammc_core puredata-core)
 
 # UI
 ceammc_add_test_linked(TITLE "ceammc::UIObjectFactory"
@@ -246,7 +246,7 @@ ceammc_add_test_linked(TITLE "ceammc::UIObjectFactory"
 
 ceammc_add_test_linked(TITLE "[env->to_array]"
     NAME test_ext_env_to_array
-    LINK tests_main_lib lib_catch1_main ceammc_array ceammc_env ceammc_array ceammc_core puredata-core)
+    LINK tests_main_lib1 ceammc_array ceammc_env ceammc_array ceammc_core puredata-core)
 
 if(WITH_TTS_FLITE)
     ceammc_external_test(misc speech_flite)
