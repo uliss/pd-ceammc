@@ -14,11 +14,6 @@
 #include "expand_env.h"
 #include "ceammc_platform.h"
 
-extern "C" void expand_env_setup()
-{
-    ObjectFactory<ExpandEnv> obj("expand_env");
-}
-
 static t_symbol* expandEnv(t_symbol* s)
 {
     return gensym(platform::expandenv(s->s_name).c_str());
@@ -57,4 +52,9 @@ void ExpandEnv::onList(const AtomList& l)
 void ExpandEnv::onAny(t_symbol* sel, const AtomList& l)
 {
     anyTo(0, expand_any_->value() ? expandEnv(sel) : sel, l.mapSymbol(&expandEnv));
+}
+
+void setup_base_expand_env()
+{
+    ObjectFactory<ExpandEnv> obj("expand_env");
 }

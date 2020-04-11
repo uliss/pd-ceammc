@@ -23,7 +23,6 @@
 #include "xfade2_tilde.h"
 #include "xfade_tilde.h"
 
-extern "C" void expand_env_setup();
 extern "C" void is_any_setup();
 extern "C" void is_bang_setup();
 extern "C" void is_even_setup();
@@ -48,11 +47,11 @@ void setup_base_replace();
 void setup_is_data();
 void setup_is_file();
 void setup_load_msg();
+void setup_base_expand_env();
 
 void ceammc_base_setup()
 {
     click_tilde_setup();
-    expand_env_setup();
     function_call_setup();
     function_setup();
     is_any_setup();
@@ -64,6 +63,7 @@ void ceammc_base_setup()
     is_pointer_setup();
     is_symbol_setup();
 
+    setup_base_expand_env();
     setup_base_canvas_dir();
     setup_base_canvas_name();
     setup_base_canvas_path();

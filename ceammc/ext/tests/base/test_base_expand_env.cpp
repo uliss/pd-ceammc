@@ -11,23 +11,20 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../base/expand_env.h"
+#include "ceammc_platform.h"
+#include "expand_env.h"
 #include "test_base.h"
-#include "ceammc.hpp"
+#include "test_catch2.hpp"
 
-#include "catch.hpp"
-
-#include <stdio.h>
-
-typedef TestExternal<ExpandEnv> ExpandEnvTest;
+PD_COMPLETE_TEST_SETUP(ExpandEnv, base, expand_env)
 
 TEST_CASE("expand_env", "[extension]")
 {
-    obj_init();
+    pd_test_init();
 
     SECTION("expand simple")
     {
-        ExpandEnvTest obj("expand_env", L());
+        TObj obj("expand_env", L());
 
         WHEN_SEND_BANG_TO(0, obj);
         REQUIRE_BANG_AT_OUTLET(0, obj);
@@ -44,7 +41,7 @@ TEST_CASE("expand_env", "[extension]")
         WHEN_SEND_ANY_TO(obj, LA("ANY", "%DOLLARS%", "B"));
         REQUIRE_ANY_AT_OUTLET(0, obj, LA("ANY", "%DOLLARS%", "B"));
 
-        ceammc::set_env("DOLLARS", "$$$$");
+        platform::set_env("DOLLARS", "$$$$");
 
         WHEN_SEND_SYMBOL_TO(0, obj, "%DOLLARS");
         REQUIRE_SYMBOL_AT_OUTLET(0, obj, "%DOLLARS");
@@ -74,9 +71,9 @@ TEST_CASE("expand_env", "[extension]")
 
     SECTION("expand any")
     {
-        ExpandEnvTest obj("expand_env", LA("@any"));
+        TObj obj("expand_env", LA("@any"));
 
-        ceammc::set_env("DOLLARS", "$$$$");
+        platform::set_env("DOLLARS", "$$$$");
 
         WHEN_SEND_BANG_TO(0, obj);
         REQUIRE_BANG_AT_OUTLET(0, obj);

@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../base/patch_args.h"
+#include "patch_args.h"
 #include "test_base.h"
 #include "test_external.h"
 

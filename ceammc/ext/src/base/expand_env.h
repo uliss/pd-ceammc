@@ -31,4 +31,6 @@ public:
     void onAny(t_symbol* sel, const AtomList& l) final;
 };
 
+void setup_base_expand_env();
+
 #endif // EXPAND_ENV_H

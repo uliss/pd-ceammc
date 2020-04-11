@@ -92,9 +92,6 @@ ceammc_add_core_test("class_wrapper::tuple" test_wrapper_tuple)
 
 ceammc_external_test(analyze onset)
 
-ceammc_add_test("[patch.args]" test_ext_patch_args)
-ceammc_add_test("[canvas.current]" test_ext_canvas_current)
-ceammc_add_test("[canvas.top]" test_ext_canvas_top)
 ceammc_add_test("[metro.pattern]" test_ext_metro_pattern)
 ceammc_add_test("[metro.seq]" test_ext_metro_seq)
 
@@ -179,7 +176,6 @@ ceammc_add_test_linked(TITLE "tl.transport"
 ceammc_external_test(tl timeline)
 
 ceammc_add_extension_test("snd_file" "../src/base/snd_file.cpp")
-ceammc_add_extension_test("ext_expand_env" "../src/base/expand_env.cpp")
 
 ceammc_add_extension_test("ext_symbol_equal" "../src/symbol/symbol_equal.cpp")
 ceammc_add_extension_test("ext_symbol_num_compare" "../src/symbol/symbol_num_compare.cpp")
