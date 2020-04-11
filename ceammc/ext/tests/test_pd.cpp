@@ -14,7 +14,8 @@
 
 #include "../base/debug_gensym.h"
 #include "catch.hpp"
-#include "ceammc.hpp"
+#include "ceammc_pd.h"
+#include "ceammc_platform.h"
 #include "g_ceammc_draw.h"
 
 extern "C" void pd_init();
@@ -62,14 +63,14 @@ TEST_CASE("PD", "[PureData]")
     SECTION("memrss")
     {
 #if !defined(__FreeBSD__)
-        REQUIRE(ceammc_memory_current_rss() != 0);
-        REQUIRE(ceammc_memory_peak_rss() != 0);
+        REQUIRE(ceammc::platform::ceammc_memory_current_rss() != 0);
+        REQUIRE(ceammc::platform::ceammc_memory_peak_rss() != 0);
 #endif
     }
 
     SECTION("memsize")
     {
-        REQUIRE(ceammc_memory_size() != 0);
+        REQUIRE(ceammc::platform::ceammc_memory_size() != 0);
     }
 
     SECTION("test current object list")
@@ -79,7 +80,7 @@ TEST_CASE("PD", "[PureData]")
         using namespace ceammc;
         typedef std::vector<std::string> slist;
         typedef std::set<std::string> sset;
-        slist l = currentListOfExternals();
+        slist l = ceammc::pd::currentListOfExternals();
         REQUIRE(l.size() > 0);
 
         sset s(l.begin(), l.end());
@@ -92,9 +93,9 @@ TEST_CASE("PD", "[PureData]")
 
     SECTION("env")
     {
-        REQUIRE(ceammc::get_env("TEST") == "");
-        ceammc::set_env("TEST", "VALUE");
-        REQUIRE(ceammc::get_env("TEST") == "VALUE");
+        REQUIRE(ceammc::platform::get_env("TEST") == "");
+        ceammc::platform::set_env("TEST", "VALUE");
+        REQUIRE(ceammc::platform::get_env("TEST") == "VALUE");
     }
 
     SECTION("int2str")
