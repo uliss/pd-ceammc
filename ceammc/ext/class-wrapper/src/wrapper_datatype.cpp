@@ -53,23 +53,6 @@ AbstractDataId::AbstractDataId(size_t id)
 {
 }
 
-size_t AbstractDataId::dataTypeId() const
-{
-    return data_type_id_;
-}
-
-bool AbstractDataId::hasEqualType(const AbstractData* d) const
-{
-    if (type() != d->type())
-        return false;
-
-    auto* dw = static_cast<const AbstractDataId*>(d);
-    if (dataTypeId() != dw->dataTypeId())
-        return false;
-
-    return true;
-}
-
 }
 
 Result::Result(const std::string& errMsg, int code)

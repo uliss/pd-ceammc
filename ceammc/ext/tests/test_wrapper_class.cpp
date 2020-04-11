@@ -163,7 +163,6 @@ TEST_CASE("wrapper class", "[class-wrapper]")
 
             const DataType* p = r.asD<DataType>();
             REQUIRE(p);
-            REQUIRE(p->dataTypeId() == 1001);
 
             t.send(TestAtom());
             REQUIRE(t.isOutputDataAt(0));
@@ -193,7 +192,6 @@ TEST_CASE("wrapper class", "[class-wrapper]")
 
             const DataType* p = r.asD<DataType>();
             REQUIRE(p);
-            REQUIRE(p->dataTypeId() == 1002);
             REQUIRE(p->value().get() == 0);
         }
 
@@ -380,7 +378,6 @@ TEST_CASE("wrapper class", "[class-wrapper]")
 
             const DataType* p = r.asD<DataType>();
             REQUIRE(p);
-            REQUIRE(p->dataTypeId() == 1003);
             REQUIRE(p->value().get() == IntPair(0, 0));
         }
 
@@ -396,7 +393,6 @@ TEST_CASE("wrapper class", "[class-wrapper]")
 
             const DataType* p = r.asD<DataType>();
             REQUIRE(p);
-            REQUIRE(p->dataTypeId() == 1003);
             REQUIRE(p->value().get() == IntPair(0, 0));
         }
 
@@ -412,7 +408,6 @@ TEST_CASE("wrapper class", "[class-wrapper]")
 
             const DataType* p = r.asD<DataType>();
             REQUIRE(p);
-            REQUIRE(p->dataTypeId() == 1003);
             REQUIRE(p->value().get() == IntPair(100, 200));
         }
 
@@ -428,7 +423,6 @@ TEST_CASE("wrapper class", "[class-wrapper]")
 
             const DataType* p = r.asD<DataType>();
             REQUIRE(p);
-            REQUIRE(p->dataTypeId() == 1003);
             REQUIRE(p->value().get() == IntPair(100, 200));
         }
 

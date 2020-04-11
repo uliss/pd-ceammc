@@ -180,13 +180,6 @@ public:
 
     void onDataT(const DataAtom<DataType>& data)
     {
-        if (data->dataTypeId() != DataType::wrappedDataTypeId) {
-            OBJ_ERR << "unexpected data with id=" << data->dataTypeId()
-                    << ", expecting " << T::typeName()
-                    << " with id=" << DataType::wrappedDataTypeId;
-            return;
-        }
-
         data_ = data->value();
         dispatch();
     }
@@ -264,7 +257,6 @@ public:
         BaseObject::dump();
 
         OBJ_DBG << "name:    " << T::typeName();
-        OBJ_DBG << "type id: " << DataType::wrappedDataTypeId;
         OBJ_DBG << "value:   " << data_.toString();
 
         Debug dbg(this);

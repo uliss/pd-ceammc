@@ -121,13 +121,6 @@ public:
 
     void onDataT(const TypedDataAtom& data)
     {
-        if (data->dataTypeId() != TypeWrapped::wrappedDataTypeId) {
-            OBJ_ERR << "unexpected data with id=" << data->dataTypeId()
-                    << ", expecting " << T::typeName()
-                    << " with id=" << TypeWrapped::wrappedDataTypeId;
-            return;
-        }
-
         data_ = data;
         atomTo(0, data_);
     }

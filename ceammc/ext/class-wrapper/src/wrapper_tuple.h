@@ -832,14 +832,6 @@ public:
         }
 
         const auto* dptr = datom.asD<AbstractDataWrapper<T>>();
-
-        if (dptr->dataTypeId() != AbstractDataWrapper<T>::wrappedDataTypeId) {
-            std::ostringstream s;
-            s << "invalid wrapper datatype: " << dptr->dataTypeId()
-              << ", expected: " << AbstractDataWrapper<T>::wrappedDataTypeId;
-            return ErrorMsg::err(s.str());
-        }
-
         t = dptr->value();
         return ErrorMsg::ok();
     }
@@ -998,9 +990,6 @@ struct ArgumentMatchAndSet {
 
         DataAtom<ArgumentWrapper> in_ptr(l_[0]);
         if (!in_ptr.isData())
-            return false;
-
-        if (in_ptr->dataTypeId() != ArgumentWrapper::wrappedDataTypeId)
             return false;
 
         // set type value

@@ -62,9 +62,6 @@ public:
         : data_type_id_(id.data_type_id_)
     {
     }
-
-    size_t dataTypeId() const;
-    bool hasEqualType(const AbstractData* d) const;
 };
 
 template <typename T>
@@ -73,13 +70,13 @@ class AbstractDataWrapper : public AbstractDataId {
 
 public:
     explicit AbstractDataWrapper(const T& v)
-        : AbstractDataId(wrappedDataTypeId)
+        : AbstractDataId(0)
         , value_(v)
     {
     }
 
     AbstractDataWrapper()
-        : AbstractDataId(wrappedDataTypeId)
+        : AbstractDataId(0)
     {
     }
 
@@ -102,7 +99,7 @@ public:
 
     bool isEqual(const AbstractData* d) const noexcept override
     {
-        if (!hasEqualType(d))
+        if (d->type() != type())
             return false;
 
         auto* dw = static_cast<const AbstractDataWrapper*>(d);
@@ -116,7 +113,6 @@ public:
 
 public:
     static const int dataType;
-    static const size_t wrappedDataTypeId;
 };
 
 template <typename T>
@@ -134,11 +130,8 @@ const int AbstractDataWrapper<T>::dataType = ceammc::DataStorage::instance().reg
         }
     });
 
-template <typename T>
-const size_t AbstractDataWrapper<T>::wrappedDataTypeId = WrapperIDFactory::instance().generateNewId();
-
-template <typename T>
-using WrapperTPtr = DataAtom<AbstractDataWrapper<T>>;
+//template <typename T>
+//const size_t AbstractDataWrapper<T>::wrappedDataTypeId = WrapperIDFactory::instance().generateNewId();
 
 }
 
