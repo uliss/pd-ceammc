@@ -825,9 +825,9 @@ public:
             return ErrorMsg::err("invalid data pointer");
 
         // not a wrapper type
-        if (!datom.isA<T>()) {
+        if (!datom.isA<AbstractDataWrapper<T>>()) {
             std::ostringstream s;
-            s << "datatype expected: " << T::dataType();
+            s << "datatype expected: " << T::typeName();
             return ErrorMsg::err(s.str());
         }
 

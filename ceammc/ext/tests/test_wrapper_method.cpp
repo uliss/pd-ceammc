@@ -68,6 +68,15 @@ public:
     {
         return { v0_ + p.v0_, v1_ + p.v1_ };
     }
+
+    static AbstractData* initFromList(const AtomList& l)
+    {
+        WrapperIntPair p;
+        if (p.setFromList(l))
+            return new AbstractDataWrapper<WrapperIntPair>(p);
+        else
+            return nullptr;
+    }
 };
 
 class WrapperInt : public DataIFace {
@@ -162,6 +171,16 @@ public:
 
     int strtoi(const std::string& str) const { return strtol(str.c_str(), nullptr, 10); }
     std::string str() const { return std::to_string(v_); }
+
+public:
+    static AbstractData* initFromList(const AtomList& l)
+    {
+        WrapperInt wint;
+        if (wint.setFromList(l))
+            return new AbstractDataWrapper<WrapperInt>(wint);
+        else
+            return nullptr;
+    }
 };
 
 class WrapperInt2 : public WrapperInt {
@@ -180,13 +199,16 @@ TEST_CASE("wrapper method", "[class-wrapper]")
     SECTION("is_negative")
     {
         using mtype = std::tuple<bool (WrapperInt::*)() const>;
-        WRAP_METHOD(WrapperInt, "int.is_neg", method_id,
-            SINGLE_ARG(bool (WrapperInt::*)() const),
-            SINGLE_ARG(&WrapperInt::is_negative));
-
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
         using DataType = ExternalType::DataType;
+
+        SECTION("ctor")
+        {
+            WRAP_METHOD(WrapperInt, "int.is_neg", method_id,
+                SINGLE_ARG(bool (WrapperInt::*)() const),
+                SINGLE_ARG(&WrapperInt::is_negative));
+        }
 
         SECTION("construct")
         {
@@ -204,17 +226,17 @@ TEST_CASE("wrapper method", "[class-wrapper]")
                 REQUIRE(t.isOutputFloatAt(0));
                 REQUIRE(t.outputFloatAt(0) == 1);
 
-                t.send(DataPtr(new DataType(WrapperInt(4))));
+                t.send(Atom(new DataType(WrapperInt(4))));
                 REQUIRE(t.hasOutputAt(0));
                 REQUIRE(t.isOutputFloatAt(0));
                 REQUIRE(t.outputFloatAt(0) == 0);
 
                 // invalid data
-                t.send(DataPtr(new DataTypeDict()));
+                t.send(Atom(new DataTypeDict()));
                 REQUIRE_FALSE(t.hasOutputAt(0));
 
                 // invalid data wrapper with different id
-                t.send(DataPtr(new AbstractDataWrapper<WrapperInt2>(WrapperInt2())));
+                t.send(Atom(new AbstractDataWrapper<WrapperInt2>(WrapperInt2())));
                 REQUIRE_FALSE(t.hasOutputAt(0));
 
                 // symbol not ok
@@ -238,13 +260,15 @@ TEST_CASE("wrapper method", "[class-wrapper]")
     SECTION("dup2")
     {
         using mtype = std::tuple<std::tuple<int, int> (WrapperInt::*)() const>;
-        WRAP_METHOD(WrapperInt, "int.dup2", method_id,
-            SINGLE_ARG(std::tuple<int, int>(WrapperInt::*)() const),
-            SINGLE_ARG(&WrapperInt::dup2));
-
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
-        using DataType = ExternalType::DataType;
+
+        SECTION("ctor")
+        {
+            WRAP_METHOD(WrapperInt, "int.dup2", method_id,
+                SINGLE_ARG(std::tuple<int, int>(WrapperInt::*)() const),
+                SINGLE_ARG(&WrapperInt::dup2));
+        }
 
         SECTION("empty args")
         {
@@ -269,13 +293,16 @@ TEST_CASE("wrapper method", "[class-wrapper]")
     SECTION("id")
     {
         using mtype = std::tuple<WrapperInt (WrapperInt::*)() const>;
-        WRAP_METHOD(WrapperInt, "int.id", method_id,
-            SINGLE_ARG(WrapperInt(WrapperInt::*)() const),
-            SINGLE_ARG(&WrapperInt::id));
-
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
         using DataType = ExternalType::DataType;
+
+        SECTION("ctor")
+        {
+            WRAP_METHOD(WrapperInt, "int.id", method_id,
+                SINGLE_ARG(WrapperInt(WrapperInt::*)() const),
+                SINGLE_ARG(&WrapperInt::id));
+        }
 
         SECTION("empty args")
         {
@@ -286,20 +313,23 @@ TEST_CASE("wrapper method", "[class-wrapper]")
             t << 100;
             REQUIRE(t.hasOutputAt(0));
             REQUIRE(t.isOutputDataAt(0));
-            REQUIRE(t.outputAtomAt(0)->as<DataType>()->value().get() == 100);
+            REQUIRE(t.outputAtomAt(0).asD<DataType>()->value().get() == 100);
         }
     }
 
     SECTION("dup")
     {
         using mtype = std::tuple<std::vector<float> (WrapperInt::*)(int) const>;
-        WRAP_METHOD(WrapperInt, "int.dup", method_id,
-            SINGLE_ARG(std::vector<float>(WrapperInt::*)(int) const),
-            SINGLE_ARG(&WrapperInt::dup));
-
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
         using DataType = ExternalType::DataType;
+
+        SECTION("ctor")
+        {
+            WRAP_METHOD(WrapperInt, "int.dup", method_id,
+                SINGLE_ARG(std::vector<float>(WrapperInt::*)(int) const),
+                SINGLE_ARG(&WrapperInt::dup));
+        }
 
         SECTION("empty args")
         {
@@ -317,7 +347,7 @@ TEST_CASE("wrapper method", "[class-wrapper]")
         {
             TestType t("int.dup", LF(3));
 
-            t.send(DataPtr(new DataType(WrapperInt(100))));
+            t.send(Atom(new DataType(WrapperInt(100))));
             REQUIRE(t.hasOutputAt(0));
             REQUIRE(t.isOutputListAt(0));
             REQUIRE(t.outputListAt(0) == LF(100, 100, 100));
@@ -344,16 +374,18 @@ TEST_CASE("wrapper method", "[class-wrapper]")
     {
         using mtype = std::tuple<int (WrapperInt::*)(const WrapperInt&) const,
             int (WrapperInt::*)(int) const>;
-
-        WRAP_METHOD(WrapperInt, "int.muptiply", method_id,
-            SINGLE_ARG(int (WrapperInt::*)(const WrapperInt&) const, int (WrapperInt::*)(int) const),
-            SINGLE_ARG(&WrapperInt::multiply, &WrapperInt::multiply));
-
-        WRAP_METHOD_ALIAS(method_id, "int.*");
-
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
         using DataType = ExternalType::DataType;
+
+        SECTION("ctor")
+        {
+            WRAP_METHOD(WrapperInt, "int.multiply", method_id,
+                SINGLE_ARG(int (WrapperInt::*)(const WrapperInt&) const, int (WrapperInt::*)(int) const),
+                SINGLE_ARG(&WrapperInt::multiply, &WrapperInt::multiply));
+
+            WRAP_METHOD_ALIAS(method_id, "int.*");
+        }
 
         SECTION("empty args")
         {
@@ -366,7 +398,7 @@ TEST_CASE("wrapper method", "[class-wrapper]")
             REQUIRE(t.isOutputFloatAt(0));
             REQUIRE(t.outputFloatAt(0) == 0);
 
-            t.send(DataPtr(new DataType(WrapperInt(20))));
+            t.send(Atom(new DataType(WrapperInt(20))));
             REQUIRE(t.hasOutputAt(0));
             REQUIRE(t.isOutputFloatAt(0));
             REQUIRE(t.outputFloatAt(0) == 0);
@@ -381,7 +413,7 @@ TEST_CASE("wrapper method", "[class-wrapper]")
             REQUIRE(t.isOutputFloatAt(0));
             REQUIRE(t.outputFloatAt(0) == 20);
 
-            t.send(DataPtr(new DataType(WrapperInt(30))));
+            t.send(Atom(new DataType(WrapperInt(30))));
             REQUIRE(t.hasOutputAt(0));
             REQUIRE(t.isOutputFloatAt(0));
             REQUIRE(t.outputFloatAt(0) == 300);
@@ -389,20 +421,20 @@ TEST_CASE("wrapper method", "[class-wrapper]")
             // data type send via [trigger]
             pd::External tr("t", LA("a"));
             REQUIRE(tr.connectTo(0, t, 1));
-            DataPtr d0(new DataType(WrapperInt(14)));
-            tr.sendList(d0.asAtom());
+            Atom d0(new DataType(WrapperInt(14)));
+            tr.sendList(d0);
 
             t << 10;
             REQUIRE(t.outputFloatAt(0) == 140);
 
             // invalid datatype
-            DataPtr d1(new DataTypeDict());
-            tr.sendList(d1.asAtom());
+            Atom d1(new DataTypeDict());
+            tr.sendList(d1);
             t << 10;
             REQUIRE(t.outputFloatAt(0) == 140);
 
-            DataPtr d2(new AbstractDataWrapper<WrapperInt2>(WrapperInt2()));
-            tr.sendList(d2.asAtom());
+            Atom d2(new AbstractDataWrapper<WrapperInt2>(WrapperInt2()));
+            tr.sendList(d2);
             t << 10;
             REQUIRE(t.outputFloatAt(0) == 140);
 
@@ -431,13 +463,15 @@ TEST_CASE("wrapper method", "[class-wrapper]")
     {
         auto mptr = &WrapperInt::muladd;
         using mtype = decltype(mptr);
-
-        WRAP_METHOD(WrapperInt, "int.muladd", mtype,
-            SINGLE_ARG(mtype),
-            SINGLE_ARG(&WrapperInt::muladd));
-
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
+
+        SECTION("ctor")
+        {
+            WRAP_METHOD(WrapperInt, "int.muladd", mtype,
+                SINGLE_ARG(mtype),
+                SINGLE_ARG(&WrapperInt::muladd));
+        }
 
         SECTION("empty args")
         {
@@ -488,13 +522,15 @@ TEST_CASE("wrapper method", "[class-wrapper]")
     {
         auto mptr = &WrapperInt::add_float;
         using mtype = decltype(mptr);
-
-        WRAP_METHOD(WrapperInt, "int.add_float", method_id,
-            SINGLE_ARG(mtype),
-            SINGLE_ARG(&WrapperInt::add_float));
-
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
+
+        SECTION("ctor")
+        {
+            WRAP_METHOD(WrapperInt, "int.add_float", method_id,
+                SINGLE_ARG(mtype),
+                SINGLE_ARG(&WrapperInt::add_float));
+        }
 
         SECTION("empty args")
         {
@@ -523,13 +559,15 @@ TEST_CASE("wrapper method", "[class-wrapper]")
     {
         auto mptr = &WrapperInt::add_double;
         using mtype = decltype(mptr);
-
-        WRAP_METHOD(WrapperInt, "int.add_double", method_id,
-            SINGLE_ARG(mtype),
-            SINGLE_ARG(&WrapperInt::add_double));
-
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
+
+        SECTION("ctor")
+        {
+            WRAP_METHOD(WrapperInt, "int.add_double", method_id,
+                SINGLE_ARG(mtype),
+                SINGLE_ARG(&WrapperInt::add_double));
+        }
 
         SECTION("empty args")
         {
@@ -558,13 +596,15 @@ TEST_CASE("wrapper method", "[class-wrapper]")
     {
         auto mptr = &WrapperInt::add_long;
         using mtype = decltype(mptr);
-
-        WRAP_METHOD(WrapperInt, "int.add_long", method_id,
-            SINGLE_ARG(mtype),
-            SINGLE_ARG(&WrapperInt::add_long));
-
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
+
+        SECTION("ctor")
+        {
+            WRAP_METHOD(WrapperInt, "int.add_long", method_id,
+                SINGLE_ARG(mtype),
+                SINGLE_ARG(&WrapperInt::add_long));
+        }
 
         SECTION("empty args")
         {
@@ -593,13 +633,15 @@ TEST_CASE("wrapper method", "[class-wrapper]")
     {
         auto mptr = &WrapperInt::add_uint;
         using mtype = decltype(mptr);
-
-        WRAP_METHOD(WrapperInt, "int.add_uint", method_id,
-            SINGLE_ARG(mtype),
-            SINGLE_ARG(&WrapperInt::add_uint));
-
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
+
+        SECTION("ctor")
+        {
+            WRAP_METHOD(WrapperInt, "int.add_uint", method_id,
+                SINGLE_ARG(mtype),
+                SINGLE_ARG(&WrapperInt::add_uint));
+        }
 
         SECTION("empty args")
         {
@@ -628,13 +670,15 @@ TEST_CASE("wrapper method", "[class-wrapper]")
     {
         auto mptr = &WrapperInt::add_ulong;
         using mtype = decltype(mptr);
-
-        WRAP_METHOD(WrapperInt, "int.add_ulong", method_id,
-            SINGLE_ARG(mtype),
-            SINGLE_ARG(&WrapperInt::add_ulong));
-
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
+
+        SECTION("ctor")
+        {
+            WRAP_METHOD(WrapperInt, "int.add_ulong", method_id,
+                SINGLE_ARG(mtype),
+                SINGLE_ARG(&WrapperInt::add_ulong));
+        }
 
         SECTION("empty args")
         {
@@ -668,20 +712,23 @@ TEST_CASE("wrapper method", "[class-wrapper]")
             int (WrapperInt::*)(unsigned int) const,
             int (WrapperInt::*)(unsigned long) const>;
 
-        WRAP_METHOD(WrapperInt, "int.sub", mtype,
-            SINGLE_ARG(int (WrapperInt::*)(int) const,
-                int (WrapperInt::*)(float) const,
-                int (WrapperInt::*)(double) const,
-                int (WrapperInt::*)(unsigned int) const,
-                int (WrapperInt::*)(unsigned long) const),
-            SINGLE_ARG(&WrapperInt::sub,
-                &WrapperInt::sub,
-                &WrapperInt::sub,
-                &WrapperInt::sub,
-                &WrapperInt::sub));
-
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
+
+        SECTION("ctor")
+        {
+            WRAP_METHOD(WrapperInt, "int.sub", mtype,
+                SINGLE_ARG(int (WrapperInt::*)(int) const,
+                    int (WrapperInt::*)(float) const,
+                    int (WrapperInt::*)(double) const,
+                    int (WrapperInt::*)(unsigned int) const,
+                    int (WrapperInt::*)(unsigned long) const),
+                SINGLE_ARG(&WrapperInt::sub,
+                    &WrapperInt::sub,
+                    &WrapperInt::sub,
+                    &WrapperInt::sub,
+                    &WrapperInt::sub));
+        }
 
         SECTION("empty args")
         {
@@ -712,13 +759,15 @@ TEST_CASE("wrapper method", "[class-wrapper]")
     {
         auto mptr = &WrapperInt::on_bool;
         using mtype = decltype(mptr);
-
-        WRAP_METHOD(WrapperInt, "int.on_bool", method_id,
-            SINGLE_ARG(mtype),
-            SINGLE_ARG(&WrapperInt::on_bool));
-
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
+
+        SECTION("ctor")
+        {
+            WRAP_METHOD(WrapperInt, "int.on_bool", method_id,
+                SINGLE_ARG(mtype),
+                SINGLE_ARG(&WrapperInt::on_bool));
+        }
 
         SECTION("empty args")
         {
@@ -771,13 +820,15 @@ TEST_CASE("wrapper method", "[class-wrapper]")
     {
         auto mptr = &WrapperInt::list_mul;
         using mtype = decltype(mptr);
-
-        WRAP_METHOD(WrapperInt, "int.list_mul", method_id,
-            SINGLE_ARG(mtype),
-            SINGLE_ARG(&WrapperInt::list_mul));
-
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
+
+        SECTION("ctor")
+        {
+            WRAP_METHOD(WrapperInt, "int.list_mul", method_id,
+                SINGLE_ARG(mtype),
+                SINGLE_ARG(&WrapperInt::list_mul));
+        }
 
         SECTION("empty args")
         {
@@ -816,13 +867,15 @@ TEST_CASE("wrapper method", "[class-wrapper]")
     {
         auto mptr = &WrapperInt::list_mulf;
         using mtype = decltype(mptr);
-
-        WRAP_METHOD(WrapperInt, "int.list_mulf", method_id,
-            SINGLE_ARG(mtype),
-            SINGLE_ARG(&WrapperInt::list_mulf));
-
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
+
+        SECTION("ctor")
+        {
+            WRAP_METHOD(WrapperInt, "int.list_mulf", method_id,
+                SINGLE_ARG(mtype),
+                SINGLE_ARG(&WrapperInt::list_mulf));
+        }
 
         SECTION("empty args")
         {
@@ -858,13 +911,15 @@ TEST_CASE("wrapper method", "[class-wrapper]")
     {
         auto mptr = &WrapperIntPair::add;
         using mtype = decltype(mptr);
-
-        WRAP_METHOD(WrapperIntPair, "pair.+", method_id,
-            SINGLE_ARG(mtype),
-            SINGLE_ARG(&WrapperIntPair::add));
-
         using ExternalType = wrapper::ClassMethod<WrapperIntPair, mtype>;
         using TestType = TestPdExternal<ExternalType>;
+
+        SECTION("ctor")
+        {
+            WRAP_METHOD(WrapperIntPair, "pair.+", method_id,
+                SINGLE_ARG(mtype),
+                SINGLE_ARG(&WrapperIntPair::add));
+        }
 
         SECTION("empty args")
         {
@@ -909,13 +964,15 @@ TEST_CASE("wrapper method", "[class-wrapper]")
     {
         auto mptr = &WrapperInt::addP;
         using mtype = decltype(mptr);
-
-        WRAP_METHOD(WrapperInt, "int.addP", method_id,
-            SINGLE_ARG(mtype),
-            SINGLE_ARG(&WrapperInt::addP));
-
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
+
+        SECTION("ctor")
+        {
+            WRAP_METHOD(WrapperInt, "int.addP", method_id,
+                SINGLE_ARG(mtype),
+                SINGLE_ARG(&WrapperInt::addP));
+        }
 
         SECTION("empty args")
         {
@@ -959,13 +1016,15 @@ TEST_CASE("wrapper method", "[class-wrapper]")
     {
         auto mptr = &WrapperInt::strtoi;
         using mtype = decltype(mptr);
-
-        WRAP_METHOD(WrapperInt, "int.strtoi", method_id,
-            SINGLE_ARG(mtype),
-            SINGLE_ARG(&WrapperInt::strtoi));
-
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
+
+        SECTION("ctor")
+        {
+            WRAP_METHOD(WrapperInt, "int.strtoi", method_id,
+                SINGLE_ARG(mtype),
+                SINGLE_ARG(&WrapperInt::strtoi));
+        }
 
         SECTION("empty")
         {
@@ -1008,13 +1067,15 @@ TEST_CASE("wrapper method", "[class-wrapper]")
     {
         auto mptr = &WrapperInt::str;
         using mtype = decltype(mptr);
-
-        WRAP_METHOD(WrapperInt, "int.str", method_id,
-            SINGLE_ARG(mtype),
-            SINGLE_ARG(&WrapperInt::str));
-
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
+
+        SECTION("ctor")
+        {
+            WRAP_METHOD(WrapperInt, "int.str", method_id,
+                SINGLE_ARG(mtype),
+                SINGLE_ARG(&WrapperInt::str));
+        }
 
         SECTION("empty")
         {
