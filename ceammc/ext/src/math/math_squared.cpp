@@ -3,9 +3,9 @@
 
 using namespace ceammc;
 
-class MathReciprocal : public BaseObject {
+class MathSquared : public BaseObject {
 public:
-    MathReciprocal(const PdArgs& args)
+    MathSquared(const PdArgs& args)
         : BaseObject(args)
     {
         createOutlet();
@@ -22,8 +22,8 @@ public:
     }
 };
 
-void setup_math_reciprocal()
+void setup_math_squared()
 {
-    ObjectFactory<MathReciprocal> obj("math.squared");
+    ObjectFactory<MathSquared> obj("math.squared");
     obj.addAlias("^2");
 }

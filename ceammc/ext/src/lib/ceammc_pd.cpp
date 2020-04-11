@@ -58,7 +58,7 @@ static void print_list_replace(t_pd* pd, t_symbol* s, int argc, t_atom* argv)
         old_print_mlist(pd, s, argc, argv);
 }
 
-bool addPdPrintDataSupport()
+bool ceammc::pd::addPdPrintDataSupport()
 {
     pd::External p("print");
     if (!p.object())

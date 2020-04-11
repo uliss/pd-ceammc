@@ -13,12 +13,19 @@
  *****************************************************************************/
 
 #include "../mod_init.h"
+#include "ceammc_data.h"
+#include "ceammc_object_info.h"
 #include "ceammc_pd.h"
 #include "ceammc_platform.h"
-#include "datatype_tree_imp.h"
+#include "datatype_dict.h"
+#include "fmt/format.h"
 #include "m_pd.h"
 #include "stk/stk/include/Stk.h"
 #include "json/json.hpp"
+
+extern "C" {
+#include "m_imp.h"
+}
 
 using json = nlohmann::json;
 
@@ -89,6 +96,8 @@ int main(int argc, char* argv[])
     jobj["dir"] = pd::object_dir(ext.object())->s_name;
     jobj["inlets"] = ext.numInlets();
     jobj["outlets"] = ext.numOutlets();
+
+    // add methods
     for (auto m : ext.methods()) {
         const char* name = m->s_name;
         if (name[0] == '@' || name[0] == '.')
@@ -97,12 +106,38 @@ int main(int argc, char* argv[])
         jobj["methods"].push_back(name);
     }
 
-    for (PropertyInfo i : ext.properties()) {
-        DataTypeTree info = i.info();
-        jobj["properties"].push_back(info.internalPimpl()->internalJson());
+    // add properties
+    for (const PropertyInfo& i : ext.properties()) {
+        DataTypeDict info;
+        if (!i.getDict(info)) {
+            cerr << fmt::format("can't get property info: {}", i.name()->s_name) << endl;
+            continue;
+        }
+
+        jobj["properties"].push_back(json::parse(info.valueToJsonString()));
+    }
+
+    // add info
+    t_class* obj_class = pd::object_class(ext.object());
+    if (ObjectInfoStorage::instance().hasInfo(obj_class)) {
+        auto info = ObjectInfoStorage::instance().info(obj_class);
+        auto jinfo = json::object();
+
+        jinfo["deprecated"] = info.deprecated;
+        jinfo["keywords"] = info.keywords;
+        jinfo["authors"] = info.authors;
+        jinfo["aliases"] = info.aliases;
+        jinfo["api"] = info.api;
+        jinfo["since"] = info.since_version;
+
+        for (auto& kv : info.dict)
+            jinfo[kv.first] = kv.second;
+
+        jobj["info"] = jinfo;
     }
 
     j["object"] = jobj;
+
     cout << j.dump(2);
 
     return 0;
