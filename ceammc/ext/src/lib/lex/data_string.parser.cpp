@@ -41,7 +41,7 @@
 
 
 // Unqualified %code blocks.
-#line 33 "data_string.y"
+#line 35 "data_string.y"
 
     # include <memory>
     # include <string>
@@ -151,6 +151,25 @@
 # endif
 #endif
 
+#define YYRHSLOC(Rhs, K) ((Rhs)[K].location)
+/* YYLLOC_DEFAULT -- Set CURRENT to span from RHS[1] to RHS[N].
+   If N is 0, then set CURRENT to the empty location which ends
+   the previous symbol: RHS[0] (always defined).  */
+
+# ifndef YYLLOC_DEFAULT
+#  define YYLLOC_DEFAULT(Current, Rhs, N)                               \
+    do                                                                  \
+      if (N)                                                            \
+        {                                                               \
+          (Current).begin  = YYRHSLOC (Rhs, 1).begin;                   \
+          (Current).end    = YYRHSLOC (Rhs, N).end;                     \
+        }                                                               \
+      else                                                              \
+        {                                                               \
+          (Current).begin = (Current).end = YYRHSLOC (Rhs, 0).end;      \
+        }                                                               \
+    while (false)
+# endif
 
 
 // Enable debugging if requested.
@@ -200,7 +219,7 @@
 
 #line 8 "data_string.y"
 namespace ceammc {
-#line 204 "data_string.parser.cpp"
+#line 223 "data_string.parser.cpp"
 
 
   /* Return YYSTR after stripping away unnecessary quotes and
@@ -307,7 +326,7 @@ namespace ceammc {
   {}
 
   DataStringParser::stack_symbol_type::stack_symbol_type (YY_RVREF (stack_symbol_type) that)
-    : super_type (YY_MOVE (that.state))
+    : super_type (YY_MOVE (that.state), YY_MOVE (that.location))
   {
     switch (that.type_get ())
     {
@@ -354,7 +373,7 @@ namespace ceammc {
   }
 
   DataStringParser::stack_symbol_type::stack_symbol_type (state_type s, YY_MOVE_REF (symbol_type) that)
-    : super_type (s)
+    : super_type (s, YY_MOVE (that.location))
   {
     switch (that.type_get ())
     {
@@ -441,6 +460,7 @@ namespace ceammc {
         break;
     }
 
+    location = that.location;
     return *this;
   }
 
@@ -486,6 +506,7 @@ namespace ceammc {
         break;
     }
 
+    location = that.location;
     // that is emptied.
     that.state = empty_state;
     return *this;
@@ -516,7 +537,8 @@ namespace ceammc {
       std::abort ();
 #endif
     yyo << (yytype < yyntokens_ ? "token" : "nterm")
-        << ' ' << yytname_[yytype] << " (";
+        << ' ' << yytname_[yytype] << " ("
+        << yysym.location << ": ";
     YYUSE (yytype);
     yyo << ')';
   }
@@ -615,6 +637,9 @@ namespace ceammc {
 
     /// The lookahead symbol.
     symbol_type yyla;
+
+    /// The locations where the error started and ended.
+    stack_symbol_type yyerror_range[3];
 
     /// The return value of parse ().
     int yyresult;
@@ -764,6 +789,12 @@ namespace ceammc {
     }
 
 
+      // Default location.
+      {
+        stack_type::slice range (yystack_, yylen);
+        YYLLOC_DEFAULT (yylhs.location, range, yylen);
+        yyerror_range[1].location = yylhs.location;
+      }
 
       // Perform the reduction.
       YY_REDUCE_PRINT (yyn);
@@ -774,107 +805,107 @@ namespace ceammc {
           switch (yyn)
             {
   case 2:
-#line 147 "data_string.y"
+#line 149 "data_string.y"
                               { yylhs.value.as < ceammc::Atom > () = ceammc::Atom(); }
-#line 780 "data_string.parser.cpp"
+#line 811 "data_string.parser.cpp"
     break;
 
   case 3:
-#line 148 "data_string.y"
+#line 150 "data_string.y"
                               { yylhs.value.as < ceammc::Atom > () = ceammc::Atom(yystack_[0].value.as < double > ()); }
-#line 786 "data_string.parser.cpp"
+#line 817 "data_string.parser.cpp"
     break;
 
   case 4:
-#line 149 "data_string.y"
+#line 151 "data_string.y"
                               { yylhs.value.as < ceammc::Atom > () = ceammc::Atom(gensym(yystack_[0].value.as < const char* > ())); }
-#line 792 "data_string.parser.cpp"
+#line 823 "data_string.parser.cpp"
     break;
 
   case 5:
-#line 150 "data_string.y"
+#line 152 "data_string.y"
                               { yylhs.value.as < ceammc::Atom > () = createSimpleString(yystack_[0].value.as < std::string > ()); }
-#line 798 "data_string.parser.cpp"
+#line 829 "data_string.parser.cpp"
     break;
 
   case 6:
-#line 151 "data_string.y"
+#line 153 "data_string.y"
                               { yylhs.value.as < ceammc::Atom > () = createDataString(yystack_[0].value.as < std::string > ()); }
-#line 804 "data_string.parser.cpp"
+#line 835 "data_string.parser.cpp"
     break;
 
   case 7:
-#line 152 "data_string.y"
+#line 154 "data_string.y"
       { yylhs.value.as < ceammc::Atom > () = yystack_[0].value.as < ceammc::Atom > (); }
-#line 810 "data_string.parser.cpp"
+#line 841 "data_string.parser.cpp"
     break;
 
   case 8:
-#line 156 "data_string.y"
+#line 158 "data_string.y"
                        { yylhs.value.as < ceammc::AtomList > () = ceammc::AtomList(); }
-#line 816 "data_string.parser.cpp"
-    break;
-
-  case 9:
-#line 157 "data_string.y"
-                       { yylhs.value.as < ceammc::AtomList > ().append(yystack_[1].value.as < ceammc::AtomList > ()); yylhs.value.as < ceammc::AtomList > ().append(yystack_[0].value.as < ceammc::Atom > ()); }
-#line 822 "data_string.parser.cpp"
-    break;
-
-  case 10:
-#line 161 "data_string.y"
-                      { yylhs.value.as < ceammc::DictEntry > () = { yystack_[1].value.as < std::string > (), yystack_[0].value.as < ceammc::AtomList > () }; }
-#line 828 "data_string.parser.cpp"
-    break;
-
-  case 11:
-#line 165 "data_string.y"
-                     { yylhs.value.as < ceammc::Dict > () = Dict(); }
-#line 834 "data_string.parser.cpp"
-    break;
-
-  case 12:
-#line 166 "data_string.y"
-                     { yylhs.value.as < ceammc::Dict > ().insert(yylhs.value.as < ceammc::Dict > ().end(), yystack_[1].value.as < ceammc::Dict > ().begin(), yystack_[1].value.as < ceammc::Dict > ().end()); yylhs.value.as < ceammc::Dict > ().push_back(yystack_[0].value.as < ceammc::DictEntry > ()); }
-#line 840 "data_string.parser.cpp"
-    break;
-
-  case 13:
-#line 170 "data_string.y"
-                                                     {
-        yylhs.value.as < ceammc::Atom > () = createDataDict(yystack_[1].value.as < ceammc::Dict > ()); }
 #line 847 "data_string.parser.cpp"
     break;
 
-  case 14:
+  case 9:
+#line 159 "data_string.y"
+                       { yylhs.value.as < ceammc::AtomList > ().append(yystack_[1].value.as < ceammc::AtomList > ()); yylhs.value.as < ceammc::AtomList > ().append(yystack_[0].value.as < ceammc::Atom > ()); }
+#line 853 "data_string.parser.cpp"
+    break;
+
+  case 10:
+#line 163 "data_string.y"
+                      { yylhs.value.as < ceammc::DictEntry > () = { yystack_[1].value.as < std::string > (), yystack_[0].value.as < ceammc::AtomList > () }; }
+#line 859 "data_string.parser.cpp"
+    break;
+
+  case 11:
+#line 167 "data_string.y"
+                     { yylhs.value.as < ceammc::Dict > () = Dict(); }
+#line 865 "data_string.parser.cpp"
+    break;
+
+  case 12:
+#line 168 "data_string.y"
+                     { yylhs.value.as < ceammc::Dict > ().insert(yylhs.value.as < ceammc::Dict > ().end(), yystack_[1].value.as < ceammc::Dict > ().begin(), yystack_[1].value.as < ceammc::Dict > ().end()); yylhs.value.as < ceammc::Dict > ().push_back(yystack_[0].value.as < ceammc::DictEntry > ()); }
+#line 871 "data_string.parser.cpp"
+    break;
+
+  case 13:
 #line 172 "data_string.y"
+                                                     {
+        yylhs.value.as < ceammc::Atom > () = createDataDict(yystack_[1].value.as < ceammc::Dict > ()); }
+#line 878 "data_string.parser.cpp"
+    break;
+
+  case 14:
+#line 174 "data_string.y"
                                                                {
         yylhs.value.as < ceammc::Atom > () = createFromDict(yystack_[3].value.as < std::string > (), yystack_[1].value.as < ceammc::Dict > ()); }
-#line 854 "data_string.parser.cpp"
+#line 885 "data_string.parser.cpp"
     break;
 
   case 15:
-#line 174 "data_string.y"
+#line 176 "data_string.y"
                                                      {
         yylhs.value.as < ceammc::Atom > () = createDataList(yystack_[1].value.as < ceammc::AtomList > ()); }
-#line 861 "data_string.parser.cpp"
+#line 892 "data_string.parser.cpp"
     break;
 
   case 16:
-#line 176 "data_string.y"
+#line 178 "data_string.y"
                                                                {
         yylhs.value.as < ceammc::Atom > () = createFromList(yystack_[3].value.as < std::string > (), yystack_[1].value.as < ceammc::AtomList > ()); }
-#line 868 "data_string.parser.cpp"
+#line 899 "data_string.parser.cpp"
     break;
 
   case 17:
-#line 181 "data_string.y"
+#line 183 "data_string.y"
                 { result.append(yystack_[0].value.as < ceammc::AtomList > ()); }
-#line 874 "data_string.parser.cpp"
+#line 905 "data_string.parser.cpp"
     break;
 
 
-#line 878 "data_string.parser.cpp"
+#line 909 "data_string.parser.cpp"
 
             default:
               break;
@@ -907,10 +938,11 @@ namespace ceammc {
     if (!yyerrstatus_)
       {
         ++yynerrs_;
-        error (yysyntax_error_ (yystack_[0].state, yyla));
+        error (yyla.location, yysyntax_error_ (yystack_[0].state, yyla));
       }
 
 
+    yyerror_range[1].location = yyla.location;
     if (yyerrstatus_ == 3)
       {
         /* If just tried and failed to reuse lookahead token after an
@@ -971,11 +1003,14 @@ namespace ceammc {
           if (yystack_.size () == 1)
             YYABORT;
 
+          yyerror_range[1].location = yystack_[0].location;
           yy_destroy_ ("Error: popping", yystack_[0]);
           yypop_ ();
           YY_STACK_PRINT ();
         }
 
+      yyerror_range[2].location = yyla.location;
+      YYLLOC_DEFAULT (error_token.location, yyerror_range, 2);
 
       // Shift the error token.
       error_token.state = static_cast<state_type> (yyn);
@@ -1040,7 +1075,7 @@ namespace ceammc {
   void
   DataStringParser::error (const syntax_error& yyexc)
   {
-    error (yyexc.what ());
+    error (yyexc.location, yyexc.what ());
   }
 
   // Generate an error message.
@@ -1233,8 +1268,8 @@ namespace ceammc {
   const unsigned char
   DataStringParser::yyrline_[] =
   {
-       0,   147,   147,   148,   149,   150,   151,   152,   156,   157,
-     161,   165,   166,   170,   172,   174,   176,   181
+       0,   149,   149,   150,   151,   152,   153,   154,   158,   159,
+     163,   167,   168,   172,   174,   176,   178,   183
   };
 
   // Print the state stack on the debug stream.
@@ -1269,12 +1304,17 @@ namespace ceammc {
 
 #line 8 "data_string.y"
 } // ceammc
-#line 1273 "data_string.parser.cpp"
+#line 1308 "data_string.parser.cpp"
 
-#line 184 "data_string.y"
+#line 186 "data_string.y"
 
 
-void ceammc::DataStringParser::error(const std::string& err_message)
+void ceammc::DataStringParser::error(const location& loc, const std::string& err_message)
 {
-    std::cerr << err_message << std::endl;
+    lexer.out() << err_message << std::endl;
+    lexer.out() << lexer.indent()
+                << lexer.matcher().line() << std::endl;
+    lexer.out() << lexer.indent(loc.begin.column)
+                << std::string(loc.end.column - loc.begin.column + 1, '^') << std::endl;
+
 }

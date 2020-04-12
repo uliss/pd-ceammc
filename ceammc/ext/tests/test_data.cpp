@@ -11,8 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "catch.hpp"
 #include "ceammc_data.h"
+#include "datatype_string.h"
+#include "test_base.h"
 #include "test_datatypes.h"
 
 using namespace ceammc;
@@ -24,6 +25,8 @@ static Atom copyFirst(const AtomList& l) { return l.at(0); }
 
 TEST_CASE("DataAtom", "[core]")
 {
+    test::pdPrintToStdError();
+
     SECTION("direct instantiation")
     {
         AtomList l0(IntA(10), StrA("test string"));
@@ -50,5 +53,11 @@ TEST_CASE("DataAtom", "[core]")
         REQUIRE(x.refCount() == 3);
         REQUIRE(y.refCount() == 3);
         REQUIRE(z.refCount() == 3);
+    }
+
+    SECTION("parse")
+    {
+        REQUIRE(parseDataString("S\"a b c d\"") == StringAtom("a b c d"));
+        REQUIRE(parseDataString("(a b c: d)").empty());
     }
 }

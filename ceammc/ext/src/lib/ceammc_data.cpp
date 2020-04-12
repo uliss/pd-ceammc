@@ -48,14 +48,17 @@ AtomList parseDataString(const std::string& str)
         return AtomList();
 
     try {
+        LogPdObject logger(nullptr, LOG_ERROR);
+        logger.setLogEmpty(false);
+
         AtomList res;
         DataStringLexer lex(str);
+        lex.output_indent = logger.prefix().length() + 1;
+        lex.out(logger);
         DataStringParser p(lex, res);
 
-        if (p.parse() != 0) {
-            LIB_ERR << "parse error";
+        if (p.parse() != 0)
             return AtomList();
-        }
 
         return res;
 

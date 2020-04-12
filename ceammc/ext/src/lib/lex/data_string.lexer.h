@@ -16,6 +16,7 @@
 #define REFLEX_OPTION_bison_cc_namespace  ceammc
 #define REFLEX_OPTION_bison_cc_parser     DataStringParser
 #define REFLEX_OPTION_bison_complete      true
+#define REFLEX_OPTION_bison_locations     true
 #define REFLEX_OPTION_freespace           true
 #define REFLEX_OPTION_header_file         "data_string.lexer.h"
 #define REFLEX_OPTION_lex                 lex
@@ -24,7 +25,7 @@
 #define REFLEX_OPTION_noyywrap            true
 #define REFLEX_OPTION_outfile             "data_string.lexer.cpp"
 #define REFLEX_OPTION_reentrant           true
-#define REFLEX_OPTION_token_eof           ceammc::DataStringParser::symbol_type(0)
+#define REFLEX_OPTION_token_eof           ceammc::DataStringParser::symbol_type(0, location())
 #define REFLEX_OPTION_token_type          ceammc::DataStringParser::symbol_type
 #define REFLEX_OPTION_unicode             true
 
@@ -40,6 +41,7 @@
     # include <memory>
 
     # include "lex/data_string.parser.hpp"
+    # include "lex/data_string.location.hpp"
     # include "ceammc_log.h"
 
     using token = ceammc::DataStringParser::token;
@@ -70,6 +72,15 @@
 namespace ceammc {
 
 class DataStringLexer : public reflex::AbstractLexer<reflex::Matcher> {
+#line 12 "data_string.l"
+
+    public:
+        size_t output_indent = {0};
+
+        std::string indent(size_t n = 0) const {
+            return std::string(output_indent + n, ' ');
+        }
+
  public:
   typedef reflex::AbstractLexer<reflex::Matcher> AbstractBaseLexer;
   DataStringLexer(
@@ -80,6 +91,15 @@ class DataStringLexer : public reflex::AbstractLexer<reflex::Matcher> {
   {
   }
   static const int INITIAL = 0;
+  virtual ceammc::location location(void) const
+  {
+    ceammc::location yylloc;
+    yylloc.begin.line = static_cast<unsigned int>(matcher().lineno());
+    yylloc.begin.column = static_cast<unsigned int>(matcher().columno());
+    yylloc.end.line = static_cast<unsigned int>(matcher().lineno_end());
+    yylloc.end.column = static_cast<unsigned int>(matcher().columno_end());
+    return yylloc;
+  }
   virtual ceammc::DataStringParser::symbol_type lex(void);
 };
 

@@ -15,9 +15,12 @@
 #include "ceammc_log.h"
 #include "ceammc_object.h"
 
+#include <cstdio>
+
 namespace ceammc {
 
-#define PD_LOG_FMT "[%s] %s"
+#define PG_LOG_FMT_PREFIX "[%s]"
+#define PD_LOG_FMT PG_LOG_FMT_PREFIX " %s"
 constexpr size_t PD_MAXLOGSTRLENGTH = MAXPDSTRING - (sizeof(PD_LOG_FMT) + 16);
 // see s_print.c for details, 16 seems to be enough for all cases
 
@@ -109,9 +112,10 @@ Log::Log(const BaseObject* obj)
 {
 }
 
-LogPdObject::LogPdObject(const void* obj, LogLevel level)
+LogPdObject::LogPdObject(const void* obj, LogLevel level, bool log_empty)
     : obj_(obj)
     , level_(level)
+    , log_empty_(log_empty)
 {
 }
 
@@ -137,6 +141,9 @@ void LogPdObject::debug(const std::string& str) const
 
 void LogPdObject::flush()
 {
+    if (!log_empty_ && str().empty())
+        return;
+
     if (!pd_objectmaker) {
         std::cerr << str() << "\n";
         return;
@@ -156,6 +163,8 @@ void LogPdObject::flush()
     case LogLevel::LOG_POST:
         post(str());
         break;
+    case LogLevel::LOG_NONE:
+        break;
     }
 
     str("");
@@ -164,6 +173,23 @@ void LogPdObject::flush()
 void LogPdObject::endl()
 {
     flush();
+}
+
+std::string LogPdObject::prefix() const
+{
+    char buf[64];
+    snprintf(buf, sizeof(buf), PG_LOG_FMT_PREFIX, pd_object_name(obj_));
+    return buf;
+}
+
+void LogPdObject::setLogLevel(LogLevel level)
+{
+    level_ = level;
+}
+
+void LogPdObject::setLogEmpty(bool v)
+{
+    log_empty_ = v;
 }
 
 LogBaseObject::LogBaseObject(const BaseObject* obj, LogLevel level)

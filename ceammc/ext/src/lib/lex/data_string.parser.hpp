@@ -44,7 +44,7 @@
 #ifndef YY_YY_DATA_STRING_PARSER_HPP_INCLUDED
 # define YY_YY_DATA_STRING_PARSER_HPP_INCLUDED
 // "%code requires" blocks.
-#line 14 "data_string.y"
+#line 16 "data_string.y"
 
     # include <memory>
     # include <vector>
@@ -105,7 +105,7 @@
 #else
 # define YY_CONSTEXPR
 #endif
-
+# include "data_string.location.hpp"
 
 #ifndef YY_ASSERT
 # include <cassert>
@@ -419,19 +419,25 @@ namespace ceammc {
 #else
     typedef YYSTYPE semantic_type;
 #endif
+    /// Symbol locations.
+    typedef location location_type;
 
     /// Syntax errors thrown from user actions.
     struct syntax_error : std::runtime_error
     {
-      syntax_error (const std::string& m)
+      syntax_error (const location_type& l, const std::string& m)
         : std::runtime_error (m)
+        , location (l)
       {}
 
       syntax_error (const syntax_error& s)
         : std::runtime_error (s.what ())
+        , location (s.location)
       {}
 
       ~syntax_error () YY_NOEXCEPT YY_NOTHROW;
+
+      location_type location;
     };
 
     /// Tokens.
@@ -473,7 +479,7 @@ namespace ceammc {
     /// Expects its Base type to provide access to the symbol type
     /// via type_get ().
     ///
-    /// Provide access to semantic value.
+    /// Provide access to semantic value and location.
     template <typename Base>
     struct basic_symbol : Base
     {
@@ -483,6 +489,7 @@ namespace ceammc {
       /// Default constructor.
       basic_symbol ()
         : value ()
+        , location ()
       {}
 
 #if 201103L <= YY_CPLUSPLUS
@@ -495,89 +502,105 @@ namespace ceammc {
 
       /// Constructor for valueless symbols, and symbols from each type.
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t)
+      basic_symbol (typename Base::kind_type t, location_type&& l)
         : Base (t)
+        , location (std::move (l))
       {}
 #else
-      basic_symbol (typename Base::kind_type t)
+      basic_symbol (typename Base::kind_type t, const location_type& l)
         : Base (t)
+        , location (l)
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, ceammc::Atom&& v)
+      basic_symbol (typename Base::kind_type t, ceammc::Atom&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
+        , location (std::move (l))
       {}
 #else
-      basic_symbol (typename Base::kind_type t, const ceammc::Atom& v)
+      basic_symbol (typename Base::kind_type t, const ceammc::Atom& v, const location_type& l)
         : Base (t)
         , value (v)
+        , location (l)
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, ceammc::AtomList&& v)
+      basic_symbol (typename Base::kind_type t, ceammc::AtomList&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
+        , location (std::move (l))
       {}
 #else
-      basic_symbol (typename Base::kind_type t, const ceammc::AtomList& v)
+      basic_symbol (typename Base::kind_type t, const ceammc::AtomList& v, const location_type& l)
         : Base (t)
         , value (v)
+        , location (l)
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, ceammc::Dict&& v)
+      basic_symbol (typename Base::kind_type t, ceammc::Dict&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
+        , location (std::move (l))
       {}
 #else
-      basic_symbol (typename Base::kind_type t, const ceammc::Dict& v)
+      basic_symbol (typename Base::kind_type t, const ceammc::Dict& v, const location_type& l)
         : Base (t)
         , value (v)
+        , location (l)
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, ceammc::DictEntry&& v)
+      basic_symbol (typename Base::kind_type t, ceammc::DictEntry&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
+        , location (std::move (l))
       {}
 #else
-      basic_symbol (typename Base::kind_type t, const ceammc::DictEntry& v)
+      basic_symbol (typename Base::kind_type t, const ceammc::DictEntry& v, const location_type& l)
         : Base (t)
         , value (v)
+        , location (l)
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, const char*&& v)
+      basic_symbol (typename Base::kind_type t, const char*&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
+        , location (std::move (l))
       {}
 #else
-      basic_symbol (typename Base::kind_type t, const const char*& v)
+      basic_symbol (typename Base::kind_type t, const const char*& v, const location_type& l)
         : Base (t)
         , value (v)
+        , location (l)
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, double&& v)
+      basic_symbol (typename Base::kind_type t, double&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
+        , location (std::move (l))
       {}
 #else
-      basic_symbol (typename Base::kind_type t, const double& v)
+      basic_symbol (typename Base::kind_type t, const double& v, const location_type& l)
         : Base (t)
         , value (v)
+        , location (l)
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, std::string&& v)
+      basic_symbol (typename Base::kind_type t, std::string&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
+        , location (std::move (l))
       {}
 #else
-      basic_symbol (typename Base::kind_type t, const std::string& v)
+      basic_symbol (typename Base::kind_type t, const std::string& v, const location_type& l)
         : Base (t)
         , value (v)
+        , location (l)
       {}
 #endif
 
@@ -651,6 +674,9 @@ switch (yytype)
       /// The semantic value.
       semantic_type value;
 
+      /// The location.
+      location_type location;
+
     private:
 #if YY_CPLUSPLUS < 201103L
       /// Assignment operator.
@@ -705,53 +731,53 @@ switch (yytype)
 
       /// Constructor for valueless symbols, and symbols from each type.
 #if 201103L <= YY_CPLUSPLUS
-      symbol_type (int tok)
-        : super_type(token_type (tok))
+      symbol_type (int tok, location_type l)
+        : super_type(token_type (tok), std::move (l))
       {
         YY_ASSERT (tok == token::TOK_END || tok == token::TOK_NULL || tok == token::TOK_OPEN_DICT_BRACKET || tok == token::TOK_CLOSE_DICT_BRACKET || tok == token::TOK_OPEN_LIST_BRACKET || tok == token::TOK_CLOSE_LIST_BRACKET || tok == token::TOK_LEXER_ERROR || tok == token::TOK_DATA_TYPE_STRING || tok == token::TOK_DATA_TYPE_MLIST);
       }
 #else
-      symbol_type (int tok)
-        : super_type(token_type (tok))
+      symbol_type (int tok, const location_type& l)
+        : super_type(token_type (tok), l)
       {
         YY_ASSERT (tok == token::TOK_END || tok == token::TOK_NULL || tok == token::TOK_OPEN_DICT_BRACKET || tok == token::TOK_CLOSE_DICT_BRACKET || tok == token::TOK_OPEN_LIST_BRACKET || tok == token::TOK_CLOSE_LIST_BRACKET || tok == token::TOK_LEXER_ERROR || tok == token::TOK_DATA_TYPE_STRING || tok == token::TOK_DATA_TYPE_MLIST);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      symbol_type (int tok, const char* v)
-        : super_type(token_type (tok), std::move (v))
+      symbol_type (int tok, const char* v, location_type l)
+        : super_type(token_type (tok), std::move (v), std::move (l))
       {
         YY_ASSERT (tok == token::TOK_SYMBOL);
       }
 #else
-      symbol_type (int tok, const const char*& v)
-        : super_type(token_type (tok), v)
+      symbol_type (int tok, const const char*& v, const location_type& l)
+        : super_type(token_type (tok), v, l)
       {
         YY_ASSERT (tok == token::TOK_SYMBOL);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      symbol_type (int tok, double v)
-        : super_type(token_type (tok), std::move (v))
+      symbol_type (int tok, double v, location_type l)
+        : super_type(token_type (tok), std::move (v), std::move (l))
       {
         YY_ASSERT (tok == token::TOK_FLOAT);
       }
 #else
-      symbol_type (int tok, const double& v)
-        : super_type(token_type (tok), v)
+      symbol_type (int tok, const double& v, const location_type& l)
+        : super_type(token_type (tok), v, l)
       {
         YY_ASSERT (tok == token::TOK_FLOAT);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      symbol_type (int tok, std::string v)
-        : super_type(token_type (tok), std::move (v))
+      symbol_type (int tok, std::string v, location_type l)
+        : super_type(token_type (tok), std::move (v), std::move (l))
       {
         YY_ASSERT (tok == token::TOK_KEY || tok == token::TOK_DATA_TYPE || tok == token::TOK_STRING);
       }
 #else
-      symbol_type (int tok, const std::string& v)
-        : super_type(token_type (tok), v)
+      symbol_type (int tok, const std::string& v, const location_type& l)
+        : super_type(token_type (tok), v, l)
       {
         YY_ASSERT (tok == token::TOK_KEY || tok == token::TOK_DATA_TYPE || tok == token::TOK_STRING);
       }
@@ -785,8 +811,9 @@ switch (yytype)
 #endif
 
     /// Report a syntax error.
+    /// \param loc    where the syntax error is found.
     /// \param msg    a description of the syntax error.
-    virtual void error (const std::string& msg);
+    virtual void error (const location_type& loc, const std::string& msg);
 
     /// Report a syntax error.
     void error (const syntax_error& err);
@@ -795,211 +822,211 @@ switch (yytype)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_END ()
+      make_END (location_type l)
       {
-        return symbol_type (token::TOK_END);
+        return symbol_type (token::TOK_END, std::move (l));
       }
 #else
       static
       symbol_type
-      make_END ()
+      make_END (const location_type& l)
       {
-        return symbol_type (token::TOK_END);
+        return symbol_type (token::TOK_END, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_NULL ()
+      make_NULL (location_type l)
       {
-        return symbol_type (token::TOK_NULL);
+        return symbol_type (token::TOK_NULL, std::move (l));
       }
 #else
       static
       symbol_type
-      make_NULL ()
+      make_NULL (const location_type& l)
       {
-        return symbol_type (token::TOK_NULL);
+        return symbol_type (token::TOK_NULL, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_OPEN_DICT_BRACKET ()
+      make_OPEN_DICT_BRACKET (location_type l)
       {
-        return symbol_type (token::TOK_OPEN_DICT_BRACKET);
+        return symbol_type (token::TOK_OPEN_DICT_BRACKET, std::move (l));
       }
 #else
       static
       symbol_type
-      make_OPEN_DICT_BRACKET ()
+      make_OPEN_DICT_BRACKET (const location_type& l)
       {
-        return symbol_type (token::TOK_OPEN_DICT_BRACKET);
+        return symbol_type (token::TOK_OPEN_DICT_BRACKET, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_CLOSE_DICT_BRACKET ()
+      make_CLOSE_DICT_BRACKET (location_type l)
       {
-        return symbol_type (token::TOK_CLOSE_DICT_BRACKET);
+        return symbol_type (token::TOK_CLOSE_DICT_BRACKET, std::move (l));
       }
 #else
       static
       symbol_type
-      make_CLOSE_DICT_BRACKET ()
+      make_CLOSE_DICT_BRACKET (const location_type& l)
       {
-        return symbol_type (token::TOK_CLOSE_DICT_BRACKET);
+        return symbol_type (token::TOK_CLOSE_DICT_BRACKET, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_OPEN_LIST_BRACKET ()
+      make_OPEN_LIST_BRACKET (location_type l)
       {
-        return symbol_type (token::TOK_OPEN_LIST_BRACKET);
+        return symbol_type (token::TOK_OPEN_LIST_BRACKET, std::move (l));
       }
 #else
       static
       symbol_type
-      make_OPEN_LIST_BRACKET ()
+      make_OPEN_LIST_BRACKET (const location_type& l)
       {
-        return symbol_type (token::TOK_OPEN_LIST_BRACKET);
+        return symbol_type (token::TOK_OPEN_LIST_BRACKET, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_CLOSE_LIST_BRACKET ()
+      make_CLOSE_LIST_BRACKET (location_type l)
       {
-        return symbol_type (token::TOK_CLOSE_LIST_BRACKET);
+        return symbol_type (token::TOK_CLOSE_LIST_BRACKET, std::move (l));
       }
 #else
       static
       symbol_type
-      make_CLOSE_LIST_BRACKET ()
+      make_CLOSE_LIST_BRACKET (const location_type& l)
       {
-        return symbol_type (token::TOK_CLOSE_LIST_BRACKET);
+        return symbol_type (token::TOK_CLOSE_LIST_BRACKET, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_FLOAT (double v)
+      make_FLOAT (double v, location_type l)
       {
-        return symbol_type (token::TOK_FLOAT, std::move (v));
+        return symbol_type (token::TOK_FLOAT, std::move (v), std::move (l));
       }
 #else
       static
       symbol_type
-      make_FLOAT (const double& v)
+      make_FLOAT (const double& v, const location_type& l)
       {
-        return symbol_type (token::TOK_FLOAT, v);
+        return symbol_type (token::TOK_FLOAT, v, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_LEXER_ERROR ()
+      make_LEXER_ERROR (location_type l)
       {
-        return symbol_type (token::TOK_LEXER_ERROR);
+        return symbol_type (token::TOK_LEXER_ERROR, std::move (l));
       }
 #else
       static
       symbol_type
-      make_LEXER_ERROR ()
+      make_LEXER_ERROR (const location_type& l)
       {
-        return symbol_type (token::TOK_LEXER_ERROR);
+        return symbol_type (token::TOK_LEXER_ERROR, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_SYMBOL (const char* v)
+      make_SYMBOL (const char* v, location_type l)
       {
-        return symbol_type (token::TOK_SYMBOL, std::move (v));
+        return symbol_type (token::TOK_SYMBOL, std::move (v), std::move (l));
       }
 #else
       static
       symbol_type
-      make_SYMBOL (const const char*& v)
+      make_SYMBOL (const const char*& v, const location_type& l)
       {
-        return symbol_type (token::TOK_SYMBOL, v);
+        return symbol_type (token::TOK_SYMBOL, v, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_KEY (std::string v)
+      make_KEY (std::string v, location_type l)
       {
-        return symbol_type (token::TOK_KEY, std::move (v));
+        return symbol_type (token::TOK_KEY, std::move (v), std::move (l));
       }
 #else
       static
       symbol_type
-      make_KEY (const std::string& v)
+      make_KEY (const std::string& v, const location_type& l)
       {
-        return symbol_type (token::TOK_KEY, v);
+        return symbol_type (token::TOK_KEY, v, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_DATA_TYPE (std::string v)
+      make_DATA_TYPE (std::string v, location_type l)
       {
-        return symbol_type (token::TOK_DATA_TYPE, std::move (v));
+        return symbol_type (token::TOK_DATA_TYPE, std::move (v), std::move (l));
       }
 #else
       static
       symbol_type
-      make_DATA_TYPE (const std::string& v)
+      make_DATA_TYPE (const std::string& v, const location_type& l)
       {
-        return symbol_type (token::TOK_DATA_TYPE, v);
+        return symbol_type (token::TOK_DATA_TYPE, v, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_DATA_TYPE_STRING ()
+      make_DATA_TYPE_STRING (location_type l)
       {
-        return symbol_type (token::TOK_DATA_TYPE_STRING);
+        return symbol_type (token::TOK_DATA_TYPE_STRING, std::move (l));
       }
 #else
       static
       symbol_type
-      make_DATA_TYPE_STRING ()
+      make_DATA_TYPE_STRING (const location_type& l)
       {
-        return symbol_type (token::TOK_DATA_TYPE_STRING);
+        return symbol_type (token::TOK_DATA_TYPE_STRING, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_DATA_TYPE_MLIST ()
+      make_DATA_TYPE_MLIST (location_type l)
       {
-        return symbol_type (token::TOK_DATA_TYPE_MLIST);
+        return symbol_type (token::TOK_DATA_TYPE_MLIST, std::move (l));
       }
 #else
       static
       symbol_type
-      make_DATA_TYPE_MLIST ()
+      make_DATA_TYPE_MLIST (const location_type& l)
       {
-        return symbol_type (token::TOK_DATA_TYPE_MLIST);
+        return symbol_type (token::TOK_DATA_TYPE_MLIST, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_STRING (std::string v)
+      make_STRING (std::string v, location_type l)
       {
-        return symbol_type (token::TOK_STRING, std::move (v));
+        return symbol_type (token::TOK_STRING, std::move (v), std::move (l));
       }
 #else
       static
       symbol_type
-      make_STRING (const std::string& v)
+      make_STRING (const std::string& v, const location_type& l)
       {
-        return symbol_type (token::TOK_STRING, v);
+        return symbol_type (token::TOK_STRING, v, l);
       }
 #endif
 
@@ -1375,6 +1402,7 @@ switch (yytype)
   DataStringParser::basic_symbol<Base>::basic_symbol (basic_symbol&& that)
     : Base (std::move (that))
     , value ()
+    , location (std::move (that.location))
   {
     switch (this->type_get ())
     {
@@ -1421,6 +1449,7 @@ switch (yytype)
   DataStringParser::basic_symbol<Base>::basic_symbol (const basic_symbol& that)
     : Base (that)
     , value ()
+    , location (that.location)
   {
     switch (this->type_get ())
     {
@@ -1514,6 +1543,7 @@ switch (yytype)
         break;
     }
 
+    location = YY_MOVE (s.location);
   }
 
   // by_type.
@@ -1565,7 +1595,7 @@ switch (yytype)
 
 #line 8 "data_string.y"
 } // ceammc
-#line 1569 "data_string.parser.hpp"
+#line 1599 "data_string.parser.hpp"
 
 
 

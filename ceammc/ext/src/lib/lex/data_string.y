@@ -10,6 +10,8 @@
 %define api.value.type variant
 %define api.token.constructor
 %define parse.error verbose
+%locations
+%define api.location.file "data_string.location.hpp"
 
 %code requires{
     # include <memory>
@@ -183,7 +185,12 @@ EXPR
 
 %%
 
-void ceammc::DataStringParser::error(const std::string& err_message)
+void ceammc::DataStringParser::error(const location& loc, const std::string& err_message)
 {
-    std::cerr << err_message << std::endl;
+    lexer.out() << err_message << std::endl;
+    lexer.out() << lexer.indent()
+                << lexer.matcher().line() << std::endl;
+    lexer.out() << lexer.indent(loc.begin.column)
+                << std::string(loc.end.column - loc.begin.column + 1, '^') << std::endl;
+
 }

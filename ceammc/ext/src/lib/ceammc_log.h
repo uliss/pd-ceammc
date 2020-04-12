@@ -28,7 +28,8 @@ enum LogLevel {
     LOG_ERROR = 1, // errors
     LOG_POST = 2, // common messages
     LOG_DEBUG = 3, // debug
-    LOG_ALL = 4
+    LOG_ALL = 4,
+    LOG_NONE
 };
 
 void pdPost(const char* name, const std::string& s);
@@ -41,6 +42,7 @@ class BaseObject;
 class LogPdObject : public std::ostringstream {
     const void* obj_;
     LogLevel level_;
+    bool log_empty_;
 
     LogPdObject(const LogPdObject&) = delete;
     LogPdObject(LogPdObject&&) = delete;
@@ -48,7 +50,7 @@ class LogPdObject : public std::ostringstream {
     void operator=(LogPdObject&&) = delete;
 
 public:
-    LogPdObject(const void* obj, LogLevel level);
+    LogPdObject(const void* obj, LogLevel level, bool log_empty = false);
     ~LogPdObject();
 
     const void* object() const { return obj_; }
@@ -59,6 +61,10 @@ public:
     void debug(const std::string& str) const;
     void flush();
     void endl();
+
+    std::string prefix() const;
+    void setLogLevel(LogLevel level);
+    void setLogEmpty(bool v);
 };
 
 class LogBaseObject : public LogPdObject {
