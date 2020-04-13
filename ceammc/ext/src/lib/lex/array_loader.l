@@ -79,6 +79,7 @@ arr_pattern [^@ \[\]][^ \[\]]*
 %xstate PATTERN
 %xstate OPTIONS
 %xstate SMPTE
+%xstate RANGE
 
 %%
 
@@ -117,8 +118,7 @@ arr_pattern [^@ \[\]][^ \[\]]*
 <OPTIONS>{space}
 
 <OPTIONS>{smpte}        { start(SMPTE); matcher().less(0); /*push back smpte value and go to SMPTE*/ }
-<OPTIONS>{uint}/-{uint} { return ArrayLoaderParser::make_RANGE_BEGIN(std::stoi(text()), location()); }
-<OPTIONS>-{uint}        { return ArrayLoaderParser::make_RANGE_END(std::stoi(text()+1), location()); }
+<OPTIONS>{uint}/-{uint} { start(RANGE); return ArrayLoaderParser::make_RANGE_BEGIN(std::stoi(text()), location()); }
 <OPTIONS>{int}          { return ArrayLoaderParser::make_INT(std::stoi(text()), location()); }
 <OPTIONS>{float}        { return ArrayLoaderParser::make_FLOAT(std::stod(text()), location()); }
 <OPTIONS>(ms|msec)      { return ArrayLoaderParser::make_MSEC(location()); }
@@ -126,6 +126,8 @@ arr_pattern [^@ \[\]][^ \[\]]*
 <OPTIONS>(db)           { return ArrayLoaderParser::make_DB(location()); }
 <OPTIONS>(samp|samples) { return ArrayLoaderParser::make_SAMPLES(location()); }
 <OPTIONS>\/             { return ArrayLoaderParser::make_FRAC(location()); }
+
+<RANGE>-{uint}          { start(OPTIONS); return ArrayLoaderParser::make_RANGE_END(std::stoi(text()+1), location()); }
 
 <SMPTE>[0-9][0-9]       { return ArrayLoaderParser::make_UINT(std::stoi(text(), nullptr, 10), location()); }
 <SMPTE>:                { return ArrayLoaderParser::make_COLON(location()); }

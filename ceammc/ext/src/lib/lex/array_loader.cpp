@@ -16,6 +16,10 @@
 #include "array_loader.parser.hpp"
 #include "fmt/format.h"
 
+#include "m_pd.h"
+
+#include <algorithm>
+
 namespace ceammc {
 
 ArrayLoader::ArrayLoader()
@@ -39,6 +43,30 @@ bool ArrayLoader::parse(const std::string& str)
         return true;
     } else
         return false;
+}
+
+bool ArrayLoader::validateArrays() const
+{
+    bool res = true;
+
+    for (auto& name : arrays_) {
+        auto sym = gensym(name.c_str());
+        if (sym->s_thing != static_cast<void*>(garray_class)) {
+            err() << fmt::format("array '{}' is not found\n", name);
+            res = false;
+        }
+    }
+
+    return res;
+}
+
+void ArrayLoader::removeInvalidArrays()
+{
+    auto it = std::remove_if(arrays_.begin(), arrays_.end(), [](const std::string& s) {
+        return gensym(s.c_str())->s_thing != static_cast<void*>(garray_class);
+    });
+
+    arrays_.erase(it, arrays_.end());
 }
 
 size_t ArrayLoader::smpte2samples(uint8_t h, uint8_t min, uint8_t sec, uint8_t frame)
@@ -109,41 +137,65 @@ bool ceammc::ArrayLoader::setFlagOption(OptionType opt)
     }
 }
 
-bool ceammc::ArrayLoader::setTimeOption(OptionType opt, long samp_pos)
+bool ceammc::ArrayLoader::setSampleOption(OptionType opt, long samp_pos)
 {
     switch (opt) {
     case OPT_BEGIN: {
-        if (samp_pos >= src_sample_count_)
+        if (samp_pos >= long(src_sample_count_)) {
             err() << fmt::format(
-                "begin position should be < {}, got: {}, ignoring\n",
+                "begin position should be <{}, got: {}\n",
                 src_sample_count_, samp_pos);
-        else
+
+            return false;
+        } else if (samp_pos < 0) {
+            if (std::abs(samp_pos) >= src_sample_count_) {
+                err() << fmt::format(
+                    "negative begin offset should be |x|<{}, got: {}",
+                    src_sample_count_, samp_pos);
+
+                return false;
+            } else {
+                begin_ = long(src_sample_count_) + samp_pos;
+            }
+        } else
             begin_ = samp_pos;
 
         return true;
     }
     case OPT_END: {
-        if (samp_pos >= src_sample_count_ || samp_pos < begin_)
+        if (samp_pos >= long(src_sample_count_) || samp_pos < begin_) { // this case is common typo, so just show warning
             err() << fmt::format(
                 "end position should be >= {} and < {}, got: {}, ignoring\n",
                 begin_, src_sample_count_, samp_pos);
-        else
+
+            return true;
+        } else if (samp_pos < 0) { // only this case is error
+            err() << fmt::format(
+                "negative end offset is not supported: {}", samp_pos);
+
+            return false;
+        } else
             end_ = samp_pos;
 
         return true;
     }
     case OPT_LENGTH: {
-        if ((begin_ + samp_pos) >= src_sample_count_)
+        if (samp_pos < 0) {
+            err() << fmt::format(
+                "negative length is not supported: {}", samp_pos);
+
+            return false;
+        } else if ((begin_ + samp_pos) >= long(src_sample_count_)) { // tipical use case, no error, just warning
             err() << fmt::format(
                 "length should be < {}, got: {}, clipping to max length\n",
                 src_sample_count_ - begin_, samp_pos);
 
-        if (src_sample_count_ - begin_ > 0)
-            end_ = src_sample_count_ - begin_ - 1;
-        else
+            end_ = src_sample_count_;
+            return true;
+        } else {
             end_ = begin_ + samp_pos;
-
-        return true;
+            return true;
+        }
     }
     default:
         err() << fmt::format("unknown time option: '@{}'\n", optionToString(opt));

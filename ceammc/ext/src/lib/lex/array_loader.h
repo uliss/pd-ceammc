@@ -64,7 +64,20 @@ public:
 public:
     ArrayLoader();
 
+    /**
+     * parse input string: to arrays... OPTIONS...
+     */
     bool parse(const std::string& str);
+
+    /**
+     * Check arrays name for existance
+     */
+    bool validateArrays() const;
+
+    /**
+     * Removes invalid arrays from list
+     */
+    void removeInvalidArrays();
 
     /** if we should resize output arrays to fit file content */
     bool resize() const { return resize_; }
@@ -103,7 +116,7 @@ public:
     bool setFlagOption(OptionType opt);
 
     /** sets sample option */
-    bool setTimeOption(OptionType opt, long samp_pos);
+    bool setSampleOption(OptionType opt, long samp_pos);
 
     /** sets applied gain while loading */
     bool setGain(double amp);

@@ -865,19 +865,19 @@ namespace ceammc {
 
   case 18:
 #line 126 "array_loader.y"
-                       { if(!loader.setTimeOption(OPT::OPT_BEGIN, yystack_[0].value.as < std::size_t > ()))      error(yystack_[0].location, "invalid @begin value");}
+                       { if(!loader.setSampleOption(OPT::OPT_BEGIN, yystack_[0].value.as < std::size_t > ()))      error(yystack_[0].location, "invalid @begin value");}
 #line 870 "array_loader.parser.cpp"
     break;
 
   case 19:
 #line 127 "array_loader.y"
-                       { if(!loader.setTimeOption(OPT::OPT_END, yystack_[0].value.as < std::size_t > ()))        error(yystack_[0].location, "invalid @end value");}
+                       { if(!loader.setSampleOption(OPT::OPT_END, yystack_[0].value.as < std::size_t > ()))        error(yystack_[0].location, "invalid @end value");}
 #line 876 "array_loader.parser.cpp"
     break;
 
   case 20:
 #line 128 "array_loader.y"
-                       { if(!loader.setTimeOption(OPT::OPT_LENGTH, yystack_[0].value.as < std::size_t > ()))     error(yystack_[0].location, "invalid @length value");}
+                       { if(!loader.setSampleOption(OPT::OPT_LENGTH, yystack_[0].value.as < std::size_t > ()))     error(yystack_[0].location, "invalid @length value");}
 #line 882 "array_loader.parser.cpp"
     break;
 

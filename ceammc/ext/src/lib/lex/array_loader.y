@@ -123,9 +123,9 @@ opt
     : RESIZE           { loader.setFlagOption(OPT::OPT_RESIZE); }
     | NORMALIZE        { loader.setFlagOption(OPT::OPT_NORMALIZE); }
     | VERBOSE          { loader.setFlagOption(OPT::OPT_VERBOSE); }
-    | BEGIN  time      { if(!loader.setTimeOption(OPT::OPT_BEGIN, $2))      error(@2, "invalid @begin value");}
-    | END    time      { if(!loader.setTimeOption(OPT::OPT_END, $2))        error(@2, "invalid @end value");}
-    | LENGTH time      { if(!loader.setTimeOption(OPT::OPT_LENGTH, $2))     error(@2, "invalid @length value");}
+    | BEGIN  time      { if(!loader.setSampleOption(OPT::OPT_BEGIN, $2))      error(@2, "invalid @begin value");}
+    | END    time      { if(!loader.setSampleOption(OPT::OPT_END, $2))        error(@2, "invalid @end value");}
+    | LENGTH time      { if(!loader.setSampleOption(OPT::OPT_LENGTH, $2))     error(@2, "invalid @length value");}
     | GAIN number      { if(!loader.setGain($2))                            error(@2, "invalid @gain value");}
     | GAIN number DB   { if(!loader.setGain(ceammc::convert::dbfs2amp($2))) error(@2, "invalid @gain value");}
     | RESAMPLE                    { if(!loader.setResampleRatio(loader.destSamplerate(), loader.srcSampleRate()))

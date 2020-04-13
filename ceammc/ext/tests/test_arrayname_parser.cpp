@@ -21,7 +21,10 @@ bool parse_array_string(const std::string& str)
 {
     using namespace ceammc;
     ArrayLoader loader;
-    return loader.parse(str);
+    loader.setSampleCount(80000);
+    bool res = loader.parse(str);
+    loader.validateArrays();
+    return res;
 }
 
 TEST_CASE("arrayname_parser", "[arrayname_parser]")
@@ -265,5 +268,14 @@ TEST_CASE("arrayname_parser", "[arrayname_parser]")
         REQUIRE(parse_array_string("@to a1 @resample 2/1"));
         REQUIRE(parse_array_string("@to a1 @resample 48000/44100"));
         REQUIRE(parse_array_string("@to a1 @resample 24000"));
+        REQUIRE(parse_array_string("@to a1 @b 1000"));
+        REQUIRE(parse_array_string("@to a1 @b 1 sec"));
+        REQUIRE(parse_array_string("@to a1 @b 1sec"));
+        REQUIRE(parse_array_string("@to a1 @b 1s"));
+        REQUIRE(parse_array_string("@to a1 @b 1 ms"));
+        REQUIRE(parse_array_string("@to a1 @b 100ms"));
+        REQUIRE(parse_array_string("@to a1 @b 0.5s"));
+        REQUIRE(parse_array_string("@to a1 @b -0.5s"));
+        REQUIRE(parse_array_string("@to a1 @b -1000"));
     }
 }

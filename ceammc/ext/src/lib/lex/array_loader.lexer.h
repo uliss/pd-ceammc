@@ -111,6 +111,7 @@ class ArrayLoaderLexer : public reflex::AbstractLexer<reflex::Matcher> {
   static const int PATTERN = 2;
   static const int OPTIONS = 3;
   static const int SMPTE = 4;
+  static const int RANGE = 5;
   virtual ceammc::location location(void) const
   {
     ceammc::location yylloc;
