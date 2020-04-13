@@ -278,5 +278,9 @@ TEST_CASE("arrayname_parser", "[arrayname_parser]")
         REQUIRE(parse_array_string("@to a1 @b 0.5s"));
         REQUIRE(parse_array_string("@to a1 @b -0.5s"));
         REQUIRE(parse_array_string("@to a1 @b -1000"));
+        REQUIRE(parse_array_string("@to a1 @b 00:00:01.15"));
+        REQUIRE(parse_array_string("@to a1 @b 00:00:01"));
+        REQUIRE(parse_array_string("@to a1 @b 00:01"));
+        REQUIRE(parse_array_string("@to a1 @b 00:00.15"));
     }
 }

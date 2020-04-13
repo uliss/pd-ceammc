@@ -96,6 +96,7 @@
 
 smpte
     : UINT COLON UINT                     { $$ = loader.smpte2samples(0, $1, $3, 0); }
+    | UINT COLON UINT DOT UINT            { $$ = loader.smpte2samples(0, $1, $3, $5); }
     | UINT COLON UINT COLON UINT          { $$ = loader.smpte2samples($1, $3, $5, 0); }
     | UINT COLON UINT COLON UINT DOT UINT { $$ = loader.smpte2samples($1, $3, $5, $7); }
     ;

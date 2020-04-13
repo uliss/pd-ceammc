@@ -775,189 +775,195 @@ namespace ceammc {
 
   case 3:
 #line 99 "array_loader.y"
-                                          { yylhs.value.as < std::size_t > () = loader.smpte2samples(yystack_[4].value.as < uint > (), yystack_[2].value.as < uint > (), yystack_[0].value.as < uint > (), 0); }
+                                          { yylhs.value.as < std::size_t > () = loader.smpte2samples(0, yystack_[4].value.as < uint > (), yystack_[2].value.as < uint > (), yystack_[0].value.as < uint > ()); }
 #line 780 "array_loader.parser.cpp"
     break;
 
   case 4:
 #line 100 "array_loader.y"
-                                          { yylhs.value.as < std::size_t > () = loader.smpte2samples(yystack_[6].value.as < uint > (), yystack_[4].value.as < uint > (), yystack_[2].value.as < uint > (), yystack_[0].value.as < uint > ()); }
+                                          { yylhs.value.as < std::size_t > () = loader.smpte2samples(yystack_[4].value.as < uint > (), yystack_[2].value.as < uint > (), yystack_[0].value.as < uint > (), 0); }
 #line 786 "array_loader.parser.cpp"
     break;
 
   case 5:
-#line 104 "array_loader.y"
-      { yylhs.value.as < double > () = yystack_[0].value.as < double > (); }
+#line 101 "array_loader.y"
+                                          { yylhs.value.as < std::size_t > () = loader.smpte2samples(yystack_[6].value.as < uint > (), yystack_[4].value.as < uint > (), yystack_[2].value.as < uint > (), yystack_[0].value.as < uint > ()); }
 #line 792 "array_loader.parser.cpp"
     break;
 
   case 6:
 #line 105 "array_loader.y"
-           { yylhs.value.as < double > () = yystack_[0].value.as < int > (); }
+      { yylhs.value.as < double > () = yystack_[0].value.as < double > (); }
 #line 798 "array_loader.parser.cpp"
     break;
 
   case 7:
-#line 109 "array_loader.y"
-                      { yylhs.value.as < std::size_t > () = yystack_[0].value.as < double > (); }
+#line 106 "array_loader.y"
+           { yylhs.value.as < double > () = yystack_[0].value.as < int > (); }
 #line 804 "array_loader.parser.cpp"
     break;
 
   case 8:
 #line 110 "array_loader.y"
-                      { yylhs.value.as < std::size_t > () = loader.sec2samples(yystack_[1].value.as < double > ()); }
+                      { yylhs.value.as < std::size_t > () = yystack_[0].value.as < double > (); }
 #line 810 "array_loader.parser.cpp"
     break;
 
   case 9:
 #line 111 "array_loader.y"
-                      { yylhs.value.as < std::size_t > () = loader.ms2samples(yystack_[1].value.as < double > ()); }
+                      { yylhs.value.as < std::size_t > () = loader.sec2samples(yystack_[1].value.as < double > ()); }
 #line 816 "array_loader.parser.cpp"
     break;
 
   case 10:
 #line 112 "array_loader.y"
-                      { yylhs.value.as < std::size_t > () = yystack_[1].value.as < double > (); }
+                      { yylhs.value.as < std::size_t > () = loader.ms2samples(yystack_[1].value.as < double > ()); }
 #line 822 "array_loader.parser.cpp"
     break;
 
   case 11:
 #line 113 "array_loader.y"
-                      { yylhs.value.as < std::size_t > () = yystack_[0].value.as < std::size_t > (); }
+                      { yylhs.value.as < std::size_t > () = yystack_[1].value.as < double > (); }
 #line 828 "array_loader.parser.cpp"
     break;
 
   case 12:
-#line 117 "array_loader.y"
-                            { yylhs.value.as < ChannelList > () = {yystack_[0].value.as < int > ()}; }
+#line 114 "array_loader.y"
+                      { yylhs.value.as < std::size_t > () = yystack_[0].value.as < std::size_t > (); }
 #line 834 "array_loader.parser.cpp"
     break;
 
   case 13:
 #line 118 "array_loader.y"
-                            { yylhs.value.as < ChannelList > () = generateIntRange(yystack_[1].value.as < uint > (), yystack_[0].value.as < uint > ()); }
+                            { yylhs.value.as < ChannelList > () = {yystack_[0].value.as < int > ()}; }
 #line 840 "array_loader.parser.cpp"
     break;
 
   case 14:
 #line 119 "array_loader.y"
-                            { std::copy(yystack_[1].value.as < ChannelList > ().begin(), yystack_[1].value.as < ChannelList > ().end(), std::back_inserter(yylhs.value.as < ChannelList > ())); yylhs.value.as < ChannelList > ().push_back(yystack_[0].value.as < int > ()); }
+                            { yylhs.value.as < ChannelList > () = generateIntRange(yystack_[1].value.as < uint > (), yystack_[0].value.as < uint > ()); }
 #line 846 "array_loader.parser.cpp"
     break;
 
   case 15:
-#line 123 "array_loader.y"
-                       { loader.setFlagOption(OPT::OPT_RESIZE); }
+#line 120 "array_loader.y"
+                            { std::copy(yystack_[1].value.as < ChannelList > ().begin(), yystack_[1].value.as < ChannelList > ().end(), std::back_inserter(yylhs.value.as < ChannelList > ())); yylhs.value.as < ChannelList > ().push_back(yystack_[0].value.as < int > ()); }
 #line 852 "array_loader.parser.cpp"
     break;
 
   case 16:
 #line 124 "array_loader.y"
-                       { loader.setFlagOption(OPT::OPT_NORMALIZE); }
+                       { loader.setFlagOption(OPT::OPT_RESIZE); }
 #line 858 "array_loader.parser.cpp"
     break;
 
   case 17:
 #line 125 "array_loader.y"
-                       { loader.setFlagOption(OPT::OPT_VERBOSE); }
+                       { loader.setFlagOption(OPT::OPT_NORMALIZE); }
 #line 864 "array_loader.parser.cpp"
     break;
 
   case 18:
 #line 126 "array_loader.y"
-                       { if(!loader.setSampleOption(OPT::OPT_BEGIN, yystack_[0].value.as < std::size_t > ()))      error(yystack_[0].location, "invalid @begin value");}
+                       { loader.setFlagOption(OPT::OPT_VERBOSE); }
 #line 870 "array_loader.parser.cpp"
     break;
 
   case 19:
 #line 127 "array_loader.y"
-                       { if(!loader.setSampleOption(OPT::OPT_END, yystack_[0].value.as < std::size_t > ()))        error(yystack_[0].location, "invalid @end value");}
+                       { if(!loader.setSampleOption(OPT::OPT_BEGIN, yystack_[0].value.as < std::size_t > ()))      error(yystack_[0].location, "invalid @begin value");}
 #line 876 "array_loader.parser.cpp"
     break;
 
   case 20:
 #line 128 "array_loader.y"
-                       { if(!loader.setSampleOption(OPT::OPT_LENGTH, yystack_[0].value.as < std::size_t > ()))     error(yystack_[0].location, "invalid @length value");}
+                       { if(!loader.setSampleOption(OPT::OPT_END, yystack_[0].value.as < std::size_t > ()))        error(yystack_[0].location, "invalid @end value");}
 #line 882 "array_loader.parser.cpp"
     break;
 
   case 21:
 #line 129 "array_loader.y"
-                       { if(!loader.setGain(yystack_[0].value.as < double > ()))                            error(yystack_[0].location, "invalid @gain value");}
+                       { if(!loader.setSampleOption(OPT::OPT_LENGTH, yystack_[0].value.as < std::size_t > ()))     error(yystack_[0].location, "invalid @length value");}
 #line 888 "array_loader.parser.cpp"
     break;
 
   case 22:
 #line 130 "array_loader.y"
-                       { if(!loader.setGain(ceammc::convert::dbfs2amp(yystack_[1].value.as < double > ()))) error(yystack_[1].location, "invalid @gain value");}
+                       { if(!loader.setGain(yystack_[0].value.as < double > ()))                            error(yystack_[0].location, "invalid @gain value");}
 #line 894 "array_loader.parser.cpp"
     break;
 
   case 23:
 #line 131 "array_loader.y"
-                                  { if(!loader.setResampleRatio(loader.destSamplerate(), loader.srcSampleRate()))
-                                        error(yystack_[0].location, "invalid ratio"); }
-#line 901 "array_loader.parser.cpp"
+                       { if(!loader.setGain(ceammc::convert::dbfs2amp(yystack_[1].value.as < double > ()))) error(yystack_[1].location, "invalid @gain value");}
+#line 900 "array_loader.parser.cpp"
     break;
 
   case 24:
-#line 133 "array_loader.y"
-                                  { if(!loader.setResampleRatio(yystack_[0].value.as < double > (), loader.srcSampleRate()))
+#line 132 "array_loader.y"
+                                  { if(!loader.setResampleRatio(loader.destSamplerate(), loader.srcSampleRate()))
                                         error(yystack_[0].location, "invalid ratio"); }
-#line 908 "array_loader.parser.cpp"
+#line 907 "array_loader.parser.cpp"
     break;
 
   case 25:
-#line 135 "array_loader.y"
-                                  { if(!loader.setResampleRatio(yystack_[2].value.as < int > (), yystack_[0].value.as < int > ()))
-                                        error(yystack_[2].location, "invalid ratio"); }
-#line 915 "array_loader.parser.cpp"
+#line 134 "array_loader.y"
+                                  { if(!loader.setResampleRatio(yystack_[0].value.as < double > (), loader.srcSampleRate()))
+                                        error(yystack_[0].location, "invalid ratio"); }
+#line 914 "array_loader.parser.cpp"
     break;
 
   case 26:
-#line 137 "array_loader.y"
-                                  { for(auto& c: yystack_[0].value.as < ChannelList > ()) loader.addChannel(c); }
+#line 136 "array_loader.y"
+                                  { if(!loader.setResampleRatio(yystack_[2].value.as < int > (), yystack_[0].value.as < int > ()))
+                                        error(yystack_[2].location, "invalid ratio"); }
 #line 921 "array_loader.parser.cpp"
     break;
 
-  case 29:
-#line 146 "array_loader.y"
-      { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
+  case 27:
+#line 138 "array_loader.y"
+                                  { for(auto& c: yystack_[0].value.as < ChannelList > ()) loader.addChannel(c); }
 #line 927 "array_loader.parser.cpp"
     break;
 
   case 30:
 #line 147 "array_loader.y"
-             { yylhs.value.as < std::string > () = std::to_string(yystack_[0].value.as < uint > ()); }
+      { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
 #line 933 "array_loader.parser.cpp"
     break;
 
   case 31:
-#line 151 "array_loader.y"
-                              { yylhs.value.as < StringList > ().push_back(yystack_[2].value.as < std::string > ()); yylhs.value.as < StringList > ().push_back(yystack_[0].value.as < std::string > ()); }
+#line 148 "array_loader.y"
+             { yylhs.value.as < std::string > () = std::to_string(yystack_[0].value.as < uint > ()); }
 #line 939 "array_loader.parser.cpp"
     break;
 
   case 32:
 #line 152 "array_loader.y"
-                              { std::copy(yystack_[2].value.as < StringList > ().begin(), yystack_[2].value.as < StringList > ().end(), std::back_inserter(yylhs.value.as < StringList > ())); yylhs.value.as < StringList > ().push_back(yystack_[0].value.as < std::string > ()); }
+                              { yylhs.value.as < StringList > ().push_back(yystack_[2].value.as < std::string > ()); yylhs.value.as < StringList > ().push_back(yystack_[0].value.as < std::string > ()); }
 #line 945 "array_loader.parser.cpp"
     break;
 
   case 33:
-#line 156 "array_loader.y"
-                                                        { yylhs.value.as < StringList > () = generateStringRange(0, 9); }
+#line 153 "array_loader.y"
+                              { std::copy(yystack_[2].value.as < StringList > ().begin(), yystack_[2].value.as < StringList > ().end(), std::back_inserter(yylhs.value.as < StringList > ())); yylhs.value.as < StringList > ().push_back(yystack_[0].value.as < std::string > ()); }
 #line 951 "array_loader.parser.cpp"
     break;
 
   case 34:
 #line 157 "array_loader.y"
-                                                        { yylhs.value.as < StringList > () = yystack_[1].value.as < StringList > (); }
+                                                        { yylhs.value.as < StringList > () = generateStringRange(0, 9); }
 #line 957 "array_loader.parser.cpp"
     break;
 
   case 35:
 #line 158 "array_loader.y"
+                                                        { yylhs.value.as < StringList > () = yystack_[1].value.as < StringList > (); }
+#line 963 "array_loader.parser.cpp"
+    break;
+
+  case 36:
+#line 159 "array_loader.y"
                                                         {
 
         if(yystack_[3].value.as < uint > () > yystack_[1].value.as < uint > ())
@@ -965,44 +971,44 @@ namespace ceammc {
         else
             yylhs.value.as < StringList > () = generateStringRange(yystack_[3].value.as < uint > (), yystack_[1].value.as < uint > ());
                                                         }
-#line 969 "array_loader.parser.cpp"
-    break;
-
-  case 36:
-#line 168 "array_loader.y"
-                                    { loader.addArray(yystack_[0].value.as < std::string > ()); }
 #line 975 "array_loader.parser.cpp"
     break;
 
   case 37:
 #line 169 "array_loader.y"
+                                    { loader.addArray(yystack_[0].value.as < std::string > ()); }
+#line 981 "array_loader.parser.cpp"
+    break;
+
+  case 38:
+#line 170 "array_loader.y"
                                     {
         for(auto& s: yystack_[0].value.as < StringList > ())
             loader.addArray(yystack_[1].value.as < std::string > () + s);
                                     }
-#line 984 "array_loader.parser.cpp"
+#line 990 "array_loader.parser.cpp"
     break;
 
-  case 38:
-#line 173 "array_loader.y"
+  case 39:
+#line 174 "array_loader.y"
                              {
         for(auto& s: yystack_[1].value.as < StringList > ())
             loader.addArray(s + yystack_[0].value.as < std::string > ());
                                     }
-#line 993 "array_loader.parser.cpp"
+#line 999 "array_loader.parser.cpp"
     break;
 
-  case 39:
-#line 177 "array_loader.y"
+  case 40:
+#line 178 "array_loader.y"
                                     {
         for(auto& s: yystack_[1].value.as < StringList > ())
             loader.addArray(yystack_[2].value.as < std::string > () + s + yystack_[0].value.as < std::string > ());
                                     }
-#line 1002 "array_loader.parser.cpp"
+#line 1008 "array_loader.parser.cpp"
     break;
 
 
-#line 1006 "array_loader.parser.cpp"
+#line 1012 "array_loader.parser.cpp"
 
             default:
               break;
@@ -1280,32 +1286,32 @@ namespace ceammc {
   const signed char
   ArrayLoaderParser::yypact_[] =
   {
-      20,    23,    -3,    -1,   -12,    34,    39,    37,   -12,   -12,
-      35,    18,    33,   -12,    20,    -5,   -12,   -12,    22,   -12,
-      -2,    -2,   -12,    -6,   -12,    11,    13,    -6,    -6,   -12,
-     -12,     7,   -12,    38,   -12,   -12,   -12,   -12,   -12,    17,
-     -12,   -12,    -4,    19,    15,   -12,   -12,   -12,   -12,    25,
-      29,   -12,    30,   -12,   -12,   -12,   -12,    32,   -12,   -12,
-      26,   -12,    36,    28,    40,   -12
+      20,    34,    -3,    -1,   -12,    36,    41,    39,   -12,   -12,
+      37,    18,    35,   -12,    20,    -5,   -12,   -12,    24,   -12,
+      -2,    -2,   -12,    -6,   -12,    12,    14,    -6,    -6,   -12,
+     -12,     7,   -12,    40,   -12,   -12,   -12,   -12,   -12,    19,
+     -12,   -12,    -4,    21,    22,   -12,   -12,   -12,   -12,    26,
+      30,   -12,    31,   -12,   -12,   -12,   -12,    33,   -12,   -12,
+       0,   -12,    38,    42,    25,   -12,    43,   -12
   };
 
   const signed char
   ArrayLoaderParser::yydefact_[] =
   {
-       0,    36,     0,     0,    40,    27,     0,    37,    29,    33,
-      30,     0,     0,    38,     0,    42,     1,    39,     0,    34,
-       0,     0,    41,     0,    15,     0,    23,     0,     0,    17,
-      16,     0,    28,     0,    30,    32,    31,     5,     6,     0,
-      20,    11,     7,    21,     6,    24,    18,    19,    12,     0,
-      26,    35,     0,     8,     9,    10,    22,     0,    13,    14,
-       2,    25,     0,     3,     0,     4
+       0,    37,     0,     0,    41,    28,     0,    38,    30,    34,
+      31,     0,     0,    39,     0,    43,     1,    40,     0,    35,
+       0,     0,    42,     0,    16,     0,    24,     0,     0,    18,
+      17,     0,    29,     0,    31,    33,    32,     6,     7,     0,
+      21,    12,     8,    22,     7,    25,    19,    20,    13,     0,
+      27,    36,     0,     9,    10,    11,    23,     0,    14,    15,
+       2,    26,     0,     0,     4,     3,     0,     5
   };
 
   const signed char
   ArrayLoaderParser::yypgoto_[] =
   {
-     -12,   -11,   -12,     9,    49,   -12,    16,   -12,   -12,   -12,
-      41,   -12,   -12
+     -12,   -11,   -12,    10,    50,   -12,    17,   -12,   -12,   -12,
+      44,   -12,   -12
   };
 
   const signed char
@@ -1320,11 +1326,11 @@ namespace ceammc {
   {
        8,     8,    13,     9,    23,    24,    25,    26,    27,    28,
       29,    30,    31,    37,    38,    39,    46,    47,    10,    34,
-      53,    54,    55,     1,    19,     2,    20,    48,     2,    49,
-      37,    38,    37,    44,    43,    45,    35,    36,    14,    16,
-      17,    21,    18,    33,    51,    52,    56,    57,    58,    59,
-       7,    60,    61,     0,    62,    22,     0,    63,    64,     0,
-       0,    65
+      53,    54,    55,     1,    19,     2,    20,    48,    62,    49,
+      63,    37,    38,    37,    44,    43,    45,    35,    36,     2,
+      14,    16,    17,    21,    18,    33,    51,    52,    56,    58,
+      59,     7,    60,    61,    57,    66,     0,     0,    22,    64,
+       0,     0,     0,    65,    67
   };
 
   const signed char
@@ -1332,11 +1338,11 @@ namespace ceammc {
   {
        3,     3,     3,     6,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    19,    20,    21,    27,    28,    21,    21,
-      24,    25,    26,     3,     6,     5,     8,    20,     5,    22,
-      19,    20,    19,    20,    25,    26,    20,    21,     4,     0,
-       3,     8,     7,    21,     6,    28,    27,    32,    23,    20,
-       1,    21,    20,    -1,    28,    14,    -1,    21,    30,    -1,
-      -1,    21
+      24,    25,    26,     3,     6,     5,     8,    20,    28,    22,
+      30,    19,    20,    19,    20,    25,    26,    20,    21,     5,
+       4,     0,     3,     8,     7,    21,     6,    28,    27,    23,
+      20,     1,    21,    20,    32,    30,    -1,    -1,    14,    21,
+      -1,    -1,    -1,    21,    21
   };
 
   const signed char
@@ -1348,27 +1354,27 @@ namespace ceammc {
       16,    17,    43,    21,    21,    41,    41,    19,    20,    21,
       36,    37,    38,    38,    20,    38,    36,    36,    20,    22,
       42,     6,    28,    24,    25,    26,    27,    32,    23,    20,
-      21,    20,    28,    21,    30,    21
+      21,    20,    28,    30,    21,    21,    30,    21
   };
 
   const signed char
   ArrayLoaderParser::yyr1_[] =
   {
-       0,    35,    37,    37,    37,    38,    38,    36,    36,    36,
-      36,    36,    42,    42,    42,    43,    43,    43,    43,    43,
-      43,    43,    43,    43,    43,    43,    43,    44,    44,    41,
-      41,    40,    40,    39,    39,    39,    45,    45,    45,    45,
-      46,    46,    47
+       0,    35,    37,    37,    37,    37,    38,    38,    36,    36,
+      36,    36,    36,    42,    42,    42,    43,    43,    43,    43,
+      43,    43,    43,    43,    43,    43,    43,    43,    44,    44,
+      41,    41,    40,    40,    39,    39,    39,    45,    45,    45,
+      45,    46,    46,    47
   };
 
   const signed char
   ArrayLoaderParser::yyr2_[] =
   {
-       0,     2,     3,     5,     7,     1,     1,     1,     2,     2,
-       2,     1,     1,     2,     2,     1,     1,     1,     2,     2,
-       2,     2,     3,     1,     2,     4,     2,     0,     2,     1,
-       1,     3,     3,     2,     3,     5,     1,     2,     2,     3,
-       1,     3,     2
+       0,     2,     3,     5,     5,     7,     1,     1,     1,     2,
+       2,     2,     1,     1,     2,     2,     1,     1,     1,     2,
+       2,     2,     2,     3,     1,     2,     4,     2,     0,     2,
+       1,     1,     3,     3,     2,     3,     5,     1,     2,     2,
+       3,     1,     3,     2
   };
 
 
@@ -1392,11 +1398,11 @@ namespace ceammc {
   const unsigned char
   ArrayLoaderParser::yyrline_[] =
   {
-       0,    98,    98,    99,   100,   104,   105,   109,   110,   111,
-     112,   113,   117,   118,   119,   123,   124,   125,   126,   127,
-     128,   129,   130,   131,   133,   135,   137,   141,   142,   146,
-     147,   151,   152,   156,   157,   158,   168,   169,   173,   177,
-     184,   185,   189
+       0,    98,    98,    99,   100,   101,   105,   106,   110,   111,
+     112,   113,   114,   118,   119,   120,   124,   125,   126,   127,
+     128,   129,   130,   131,   132,   134,   136,   138,   142,   143,
+     147,   148,   152,   153,   157,   158,   159,   169,   170,   174,
+     178,   185,   186,   190
   };
 
   // Print the state stack on the debug stream.
@@ -1431,9 +1437,9 @@ namespace ceammc {
 
 #line 7 "array_loader.y"
 } // ceammc
-#line 1435 "array_loader.parser.cpp"
+#line 1441 "array_loader.parser.cpp"
 
-#line 192 "array_loader.y"
+#line 193 "array_loader.y"
 
 
 void ceammc::ArrayLoaderParser::error(const location& loc, const std::string& err_message)

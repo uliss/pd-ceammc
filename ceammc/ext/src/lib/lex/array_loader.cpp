@@ -33,7 +33,7 @@ bool ArrayLoader::parse(const std::string& str)
     str_ = str;
 
     ArrayLoaderLexer lexer(str_);
-    lexer.set_debug(false);
+    lexer.set_debug(true);
     ArrayLoaderParser parser(lexer, *this);
 
     auto err = parser.parse();
