@@ -41,13 +41,23 @@
     # include "ceammc_convert.h"
 
     using OPT = ceammc::ArrayLoader::OptionType;
+
+    static StringList generateRange(uint from, uint to) {
+        StringList res;
+        res.reserve(to - from + 1);
+        for(uint i = from; i <= to; i++)
+            res.emplace_back(std::to_string(i));
+
+        return res;
+    }
 }
 
 %token                  ACT_LOAD
 %token  <std::string>   QUOTED_STRING
 %token  <std::string>   SYMBOL
-%token  <StringList>    ARRAY_LIST
 %token                  ARRAY_DELIM
+%token                  PATTERN_BEGIN PATTERN_END
+%token                  RANGE_DELIM VAR_DELIM
 %token  <std::string>   OPTION
 %token                  LENGTH RESIZE GAIN RESAMPLE BEGIN END VERBOSE NORMALIZE
 %token  <std::string>   SMPTE
@@ -63,6 +73,8 @@
 
 %nterm  <std::size_t>   time smpte
 %nterm  <double>        number
+%nterm  <StringList>    array_pattern var_list
+%nterm  <std::string>   var
 
 %start EXPR
 
@@ -113,15 +125,42 @@ filename
     | SYMBOL
     ;
 
+var
+    : SYMBOL
+    | UINT   { $$ = std::to_string($1); }
+    ;
+
+var_list
+    : var VAR_DELIM var       { $$.push_back($1); $$.push_back($3); }
+    | var_list VAR_DELIM var  { std::copy($1.begin(), $1.end(), std::back_inserter($$)); $$.push_back($3); }
+    ;
+
 array_pattern
-    : '[' ']'
+    : PATTERN_BEGIN PATTERN_END                         { $$ = generateRange(0, 9); }
+    | PATTERN_BEGIN var_list PATTERN_END                { $$ = $2; }
+    | PATTERN_BEGIN UINT RANGE_DELIM UINT PATTERN_END   {
+
+        if($2 > $4)
+            error(@2, "invalid range values");
+        else
+            $$ = generateRange($2, $4);
+                                                        }
     ;
 
 array_name
-    : SYMBOL
-    | ARRAY_LIST
-    | SYMBOL array_pattern
-    | SYMBOL array_pattern SYMBOL
+    : SYMBOL                        { loader.addArray($1); }
+    | SYMBOL array_pattern          {
+        for(auto& s: $2)
+            loader.addArray($1 + s);
+                                    }
+    | array_pattern SYMBOL   {
+        for(auto& s: $1)
+            loader.addArray(s + $2);
+                                    }
+    | SYMBOL array_pattern SYMBOL   {
+        for(auto& s: $2)
+            loader.addArray($1 + s + $3);
+                                    }
     ;
 
 array_list

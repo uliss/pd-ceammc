@@ -40,6 +40,7 @@ class ArrayLoader {
     size_t end_ = { 0 };
     double gain_ = { 1 };
     double resample_ratio_ = { 0 };
+    std::vector<uint8_t> channels_;
 
     // output
     std::ostream* err_;

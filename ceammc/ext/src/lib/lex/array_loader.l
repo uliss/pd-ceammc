@@ -11,11 +11,6 @@
 
 %class {
     private:
-        std::size_t pat_count_ = {0};
-        std::string pat_prefix_;
-        std::string pat_suffix_;
-        std::vector<std::string> patterns_;
-        std::pair<uint, uint> pat_range_ = {0, 0};
         std::vector<uint8_t> channels_;
         bool finished_ = {false};
 
@@ -77,11 +72,11 @@ verbose     (v | verbose)
 resample    resample
 offset      offset
 
+arr_quoted "[^ \"]+"
+arr_pattern [^@ \[\]][^ \[\]]*
 
 %xstate ARRAY
 %xstate PATTERN
-%xstate RANGE
-%xstate VARIANT
 %xstate OPTIONS
 %xstate SMPTE
 
@@ -97,80 +92,20 @@ load/{space}            { return ArrayLoaderParser::make_ACT_LOAD(location()); }
                           return ArrayLoaderParser::make_QUOTED_STRING(str, location());
                         }
 
-{to}{space}             {
-                            start(ARRAY);
-                            pat_count_ = 0;
-                            patterns_.clear();
-                            pat_prefix_.clear();
-                            pat_suffix_.clear();
+{to}{space}             { start(ARRAY); }
 
-                            out() << "array start\n";
-                        }
+<ARRAY>[ ]+/[^@]        { return ArrayLoaderParser::make_ARRAY_DELIM(location()); }
+<ARRAY>[ ]+/[@]         { start(OPTIONS); }
+<ARRAY>{arr_quoted}     { return ArrayLoaderParser::make_SYMBOL(std::string(text()+1, size()-2), location()); }
+<ARRAY>{arr_pattern}    { return ArrayLoaderParser::make_SYMBOL(text(), location()); }
+<ARRAY>\[               { start(PATTERN); return ArrayLoaderParser::make_PATTERN_BEGIN(location()); }
 
-<ARRAY>[^\s\[\]]*       {   // before pattern
-                            if(pat_count_ == 0)
-                                pat_prefix_ += text();
-                            else
-                                pat_suffix_ += text();
-                        }
+<PATTERN>{uint}         { return ArrayLoaderParser::make_UINT(std::stoi(text()), location()); }
+<PATTERN>\-             { return ArrayLoaderParser::make_RANGE_DELIM(location()); }
+<PATTERN>\|             { return ArrayLoaderParser::make_VAR_DELIM(location()); }
+<PATTERN>[\w]+          { return ArrayLoaderParser::make_SYMBOL(text(), location()); }
+<PATTERN>\]             { start(ARRAY); return ArrayLoaderParser::make_PATTERN_END(location()); }
 
-<ARRAY>\[               {   // pattern found
-                            if(pat_count_++ > 0) {
-                                out() << "only one pattern allowed:\n";
-                                out() << matcher().line() << "\n";
-                                out() << std::string(location().begin.column, '_') << "^\n";
-                                return ArrayLoaderParser::make_LEXER_ERROR(location());
-                            } else {
-                                start(PATTERN);
-                                out() << "pattern start\n";
-                            }
-                        }
-
-<PATTERN>{
-
-\]                      {   // pattern end
-                            start(ARRAY);
-                            out() << "pattern end\n";
-
-                            if(patterns_.empty()) {
-                                for(char c = '0'; c <= '9'; c++)
-                                    patterns_.push_back(std::string(1, c));
-                            }
-
-                        }
-
-{udec}-                 { start(RANGE); pat_range_.first = std::stoi(text()); }
-[0-9a-zA-Z]+/\|         { patterns_.emplace_back(text()); }
-[0-9a-zA-Z]+/\]         { patterns_.emplace_back(text()); }
-\|
-}
-
-<RANGE>{udec}/\]        {
-                            start(PATTERN);
-                            pat_range_.second = std::stoi(text());
-
-                            if(pat_range_.first > pat_range_.second) {
-                                out() << "invalid range";
-                                return ArrayLoaderParser::make_LEXER_ERROR(location());
-                            }
-
-                            for(uint i = pat_range_.first; i <= pat_range_.second; i++) {
-                                patterns_.push_back(std::to_string(i));
-                            }
-                        }
-<ARRAY><<EOF>>          {
-                            if(!finished_) {
-                                finished_ = true;
-                                return ArrayLoaderParser::make_ARRAY_LIST({}, location());
-                            }
-                            else
-                                return ArrayLoaderParser::make_STRING_END(location());
-                        }
-<ARRAY>{space}          {
-                            start(OPTIONS);
-                            finished_ = true;
-                            return ArrayLoaderParser::make_ARRAY_LIST({}, location());
-                        }
 
 <OPTIONS>@{begin}       { return ArrayLoaderParser::make_BEGIN(location()); }
 <OPTIONS>@{offset}      {   out() << "@offset option is obsolete, use @begin\n";
@@ -187,7 +122,7 @@ load/{space}            { return ArrayLoaderParser::make_ACT_LOAD(location()); }
 
 <OPTIONS>{space}
 
-<OPTIONS>{smpte}        { start(SMPTE); matcher().less(0); }
+<OPTIONS>{smpte}        { start(SMPTE); matcher().less(0); /*push back smpte value and go to SMPTE*/ }
 <OPTIONS>{int}          { return ArrayLoaderParser::make_INT(std::stoi(text()), location()); }
 <OPTIONS>{float}        { return ArrayLoaderParser::make_FLOAT(std::stod(text()), location()); }
 <OPTIONS>(ms|msec)      { return ArrayLoaderParser::make_MSEC(location()); }
@@ -199,7 +134,7 @@ load/{space}            { return ArrayLoaderParser::make_ACT_LOAD(location()); }
 <SMPTE>[0-9][0-9]       { return ArrayLoaderParser::make_UINT(std::stoi(text(), nullptr, 10), location()); }
 <SMPTE>:                { return ArrayLoaderParser::make_COLON(location()); }
 <SMPTE>\.               { return ArrayLoaderParser::make_DOT(location()); }
-<SMPTE>@                { start(OPTIONS); matcher().less(0); /*push back '@' and go to OPTIONS*/  }
+<SMPTE>[ ]*@            { start(OPTIONS); matcher().less(0); /*next option, push back '@' and go to OPTIONS*/  }
 
 
 <<EOF>>                 { return ArrayLoaderParser::make_STRING_END(location()); }

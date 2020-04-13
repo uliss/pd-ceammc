@@ -241,18 +241,20 @@ TEST_CASE("arrayname_parser", "[arrayname_parser]")
 
     SECTION("lexer")
     {
-        REQUIRE(parse_array_string("load 1.wav to array_[] "));
-        REQUIRE(parse_array_string("load 1.wav to array_[12-17] "));
-        REQUIRE(parse_array_string("load 1.wav to array_[l|r] "));
-        REQUIRE(parse_array_string("load 1.wav to array_[left|center|right] "));
-        REQUIRE(parse_array_string("load 1.wav to array_[0|1|9|13]"));
+        REQUIRE(parse_array_string("load 1.wav to array_[]"));
+        REQUIRE(parse_array_string("load 1.wav to array_[12-17]"));
+        REQUIRE(parse_array_string("load 1.wav to array_[l|r]"));
+        REQUIRE(parse_array_string("load 1.wav to array_[left|center|right]"));
+        REQUIRE(parse_array_string("load 1.wav to array_[0|1|10]"));
         REQUIRE(parse_array_string("load 1.wav to array_[0|1|9|13] @r"));
         REQUIRE(parse_array_string("load 1.wav to array_[0|1|9|13] @resize @offset 1ms"));
         REQUIRE(parse_array_string("load 1.wav to array_[0|1|9|13] @resize @begin 2 sec"));
         REQUIRE(parse_array_string("load 1.wav to array_[0|1|9|13] @offset 01:30"));
         REQUIRE(parse_array_string("load 1.wav to array_[0|1|9|13] @offset 01:30:02.78"));
         REQUIRE(parse_array_string("load 1.wav to array_[0|1|9|13] @l 150 ms"));
-        REQUIRE(parse_array_string("load 1.wav to array_[0|1|9|13] @r @g 0.5"));
-        REQUIRE(parse_array_string("load 1.wav to array_[0|1|9|13] @r @g -0.5db @v @resample 48000"));
+        REQUIRE(parse_array_string("load 1.wav to []_pat @r @g 0.5"));
+        REQUIRE(parse_array_string("load 1.wav to array_[0-3]_gr @r @g -0.5db @v @resample 48000"));
+        REQUIRE(parse_array_string("load 1.wav to a1 a2 @n"));
+        REQUIRE(parse_array_string("load 1.wav to array_[0|1|9|13] @b 01:30 @l 30 sec"));
     }
 }

@@ -82,11 +82,6 @@ class ArrayLoaderLexer : public reflex::AbstractLexer<reflex::Matcher> {
 #line 12 "array_loader.l"
 
     private:
-        std::size_t pat_count_ = {0};
-        std::string pat_prefix_;
-        std::string pat_suffix_;
-        std::vector<std::string> patterns_;
-        std::pair<uint, uint> pat_range_ = {0, 0};
         std::vector<uint8_t> channels_;
         bool finished_ = {false};
 
@@ -114,10 +109,8 @@ class ArrayLoaderLexer : public reflex::AbstractLexer<reflex::Matcher> {
   static const int INITIAL = 0;
   static const int ARRAY = 1;
   static const int PATTERN = 2;
-  static const int RANGE = 3;
-  static const int VARIANT = 4;
-  static const int OPTIONS = 5;
-  static const int SMPTE = 6;
+  static const int OPTIONS = 3;
+  static const int SMPTE = 4;
   virtual ceammc::location location(void) const
   {
     ceammc::location yylloc;

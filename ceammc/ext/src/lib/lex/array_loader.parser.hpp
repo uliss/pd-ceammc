@@ -397,7 +397,8 @@ namespace ceammc {
     /// An auxiliary type to compute the largest semantic type.
     union union_type
     {
-      // ARRAY_LIST
+      // array_pattern
+      // var_list
       char dummy1[sizeof (StringList)];
 
       // FLOAT
@@ -415,6 +416,7 @@ namespace ceammc {
       // SYMBOL
       // OPTION
       // SMPTE
+      // var
       char dummy5[sizeof (std::string)];
 
       // UINT
@@ -470,29 +472,32 @@ namespace ceammc {
         TOK_ACT_LOAD = 258,
         TOK_QUOTED_STRING = 259,
         TOK_SYMBOL = 260,
-        TOK_ARRAY_LIST = 261,
-        TOK_ARRAY_DELIM = 262,
-        TOK_OPTION = 263,
-        TOK_LENGTH = 264,
-        TOK_RESIZE = 265,
-        TOK_GAIN = 266,
-        TOK_RESAMPLE = 267,
-        TOK_BEGIN = 268,
-        TOK_END = 269,
-        TOK_VERBOSE = 270,
-        TOK_NORMALIZE = 271,
-        TOK_SMPTE = 272,
-        TOK_FLOAT = 273,
-        TOK_INT = 274,
-        TOK_UINT = 275,
-        TOK_SEC = 276,
-        TOK_MSEC = 277,
-        TOK_SAMPLES = 278,
-        TOK_DB = 279,
-        TOK_COLON = 280,
-        TOK_DOT = 281,
-        TOK_FRAC = 282,
-        TOK_LEXER_ERROR = 283
+        TOK_ARRAY_DELIM = 261,
+        TOK_PATTERN_BEGIN = 262,
+        TOK_PATTERN_END = 263,
+        TOK_RANGE_DELIM = 264,
+        TOK_VAR_DELIM = 265,
+        TOK_OPTION = 266,
+        TOK_LENGTH = 267,
+        TOK_RESIZE = 268,
+        TOK_GAIN = 269,
+        TOK_RESAMPLE = 270,
+        TOK_BEGIN = 271,
+        TOK_END = 272,
+        TOK_VERBOSE = 273,
+        TOK_NORMALIZE = 274,
+        TOK_SMPTE = 275,
+        TOK_FLOAT = 276,
+        TOK_INT = 277,
+        TOK_UINT = 278,
+        TOK_SEC = 279,
+        TOK_MSEC = 280,
+        TOK_SAMPLES = 281,
+        TOK_DB = 282,
+        TOK_COLON = 283,
+        TOK_DOT = 284,
+        TOK_FRAC = 285,
+        TOK_LEXER_ERROR = 286
       };
     };
 
@@ -647,32 +652,34 @@ namespace ceammc {
         // Type destructor.
 switch (yytype)
     {
-      case 6: // ARRAY_LIST
+      case 39: // array_pattern
+      case 40: // var_list
         value.template destroy< StringList > ();
         break;
 
-      case 18: // FLOAT
-      case 37: // number
+      case 21: // FLOAT
+      case 38: // number
         value.template destroy< double > ();
         break;
 
-      case 19: // INT
+      case 22: // INT
         value.template destroy< int > ();
         break;
 
-      case 35: // time
-      case 36: // smpte
+      case 36: // time
+      case 37: // smpte
         value.template destroy< std::size_t > ();
         break;
 
       case 4: // QUOTED_STRING
       case 5: // SYMBOL
-      case 8: // OPTION
-      case 17: // SMPTE
+      case 11: // OPTION
+      case 20: // SMPTE
+      case 41: // var
         value.template destroy< std::string > ();
         break;
 
-      case 20: // UINT
+      case 23: // UINT
         value.template destroy< uint > ();
         break;
 
@@ -752,26 +759,13 @@ switch (yytype)
       symbol_type (int tok, location_type l)
         : super_type(token_type (tok), std::move (l))
       {
-        YY_ASSERT (tok == token::TOK_STRING_END || tok == token::TOK_ACT_LOAD || tok == token::TOK_ARRAY_DELIM || tok == token::TOK_LENGTH || tok == token::TOK_RESIZE || tok == token::TOK_GAIN || tok == token::TOK_RESAMPLE || tok == token::TOK_BEGIN || tok == token::TOK_END || tok == token::TOK_VERBOSE || tok == token::TOK_NORMALIZE || tok == token::TOK_SEC || tok == token::TOK_MSEC || tok == token::TOK_SAMPLES || tok == token::TOK_DB || tok == token::TOK_COLON || tok == 58 || tok == token::TOK_DOT || tok == 46 || tok == token::TOK_FRAC || tok == 47 || tok == token::TOK_LEXER_ERROR || tok == 91 || tok == 93);
+        YY_ASSERT (tok == token::TOK_STRING_END || tok == token::TOK_ACT_LOAD || tok == token::TOK_ARRAY_DELIM || tok == token::TOK_PATTERN_BEGIN || tok == token::TOK_PATTERN_END || tok == token::TOK_RANGE_DELIM || tok == token::TOK_VAR_DELIM || tok == token::TOK_LENGTH || tok == token::TOK_RESIZE || tok == token::TOK_GAIN || tok == token::TOK_RESAMPLE || tok == token::TOK_BEGIN || tok == token::TOK_END || tok == token::TOK_VERBOSE || tok == token::TOK_NORMALIZE || tok == token::TOK_SEC || tok == token::TOK_MSEC || tok == token::TOK_SAMPLES || tok == token::TOK_DB || tok == token::TOK_COLON || tok == 58 || tok == token::TOK_DOT || tok == 46 || tok == token::TOK_FRAC || tok == 47 || tok == token::TOK_LEXER_ERROR);
       }
 #else
       symbol_type (int tok, const location_type& l)
         : super_type(token_type (tok), l)
       {
-        YY_ASSERT (tok == token::TOK_STRING_END || tok == token::TOK_ACT_LOAD || tok == token::TOK_ARRAY_DELIM || tok == token::TOK_LENGTH || tok == token::TOK_RESIZE || tok == token::TOK_GAIN || tok == token::TOK_RESAMPLE || tok == token::TOK_BEGIN || tok == token::TOK_END || tok == token::TOK_VERBOSE || tok == token::TOK_NORMALIZE || tok == token::TOK_SEC || tok == token::TOK_MSEC || tok == token::TOK_SAMPLES || tok == token::TOK_DB || tok == token::TOK_COLON || tok == 58 || tok == token::TOK_DOT || tok == 46 || tok == token::TOK_FRAC || tok == 47 || tok == token::TOK_LEXER_ERROR || tok == 91 || tok == 93);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      symbol_type (int tok, StringList v, location_type l)
-        : super_type(token_type (tok), std::move (v), std::move (l))
-      {
-        YY_ASSERT (tok == token::TOK_ARRAY_LIST);
-      }
-#else
-      symbol_type (int tok, const StringList& v, const location_type& l)
-        : super_type(token_type (tok), v, l)
-      {
-        YY_ASSERT (tok == token::TOK_ARRAY_LIST);
+        YY_ASSERT (tok == token::TOK_STRING_END || tok == token::TOK_ACT_LOAD || tok == token::TOK_ARRAY_DELIM || tok == token::TOK_PATTERN_BEGIN || tok == token::TOK_PATTERN_END || tok == token::TOK_RANGE_DELIM || tok == token::TOK_VAR_DELIM || tok == token::TOK_LENGTH || tok == token::TOK_RESIZE || tok == token::TOK_GAIN || tok == token::TOK_RESAMPLE || tok == token::TOK_BEGIN || tok == token::TOK_END || tok == token::TOK_VERBOSE || tok == token::TOK_NORMALIZE || tok == token::TOK_SEC || tok == token::TOK_MSEC || tok == token::TOK_SAMPLES || tok == token::TOK_DB || tok == token::TOK_COLON || tok == 58 || tok == token::TOK_DOT || tok == 46 || tok == token::TOK_FRAC || tok == 47 || tok == token::TOK_LEXER_ERROR);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -926,21 +920,6 @@ switch (yytype)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_ARRAY_LIST (StringList v, location_type l)
-      {
-        return symbol_type (token::TOK_ARRAY_LIST, std::move (v), std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_ARRAY_LIST (const StringList& v, const location_type& l)
-      {
-        return symbol_type (token::TOK_ARRAY_LIST, v, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
       make_ARRAY_DELIM (location_type l)
       {
         return symbol_type (token::TOK_ARRAY_DELIM, std::move (l));
@@ -951,6 +930,66 @@ switch (yytype)
       make_ARRAY_DELIM (const location_type& l)
       {
         return symbol_type (token::TOK_ARRAY_DELIM, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_PATTERN_BEGIN (location_type l)
+      {
+        return symbol_type (token::TOK_PATTERN_BEGIN, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_PATTERN_BEGIN (const location_type& l)
+      {
+        return symbol_type (token::TOK_PATTERN_BEGIN, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_PATTERN_END (location_type l)
+      {
+        return symbol_type (token::TOK_PATTERN_END, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_PATTERN_END (const location_type& l)
+      {
+        return symbol_type (token::TOK_PATTERN_END, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_RANGE_DELIM (location_type l)
+      {
+        return symbol_type (token::TOK_RANGE_DELIM, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_RANGE_DELIM (const location_type& l)
+      {
+        return symbol_type (token::TOK_RANGE_DELIM, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_VAR_DELIM (location_type l)
+      {
+        return symbol_type (token::TOK_VAR_DELIM, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_VAR_DELIM (const location_type& l)
+      {
+        return symbol_type (token::TOK_VAR_DELIM, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1574,10 +1613,10 @@ switch (yytype)
     enum
     {
       yyeof_ = 0,
-      yylast_ = 41,     ///< Last index in yytable_.
-      yynnts_ = 12,  ///< Number of nonterminal symbols.
+      yylast_ = 55,     ///< Last index in yytable_.
+      yynnts_ = 14,  ///< Number of nonterminal symbols.
       yyfinal_ = 7, ///< Termination state number.
-      yyntokens_ = 34  ///< Number of tokens.
+      yyntokens_ = 35  ///< Number of tokens.
     };
 
 
@@ -1600,12 +1639,12 @@ switch (yytype)
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,    28,    30,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,    26,     2,
+       2,     2,     2,     2,     2,     2,    31,    33,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,    29,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,    32,     2,    33,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -1624,9 +1663,9 @@ switch (yytype)
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    27,    29,    31
+      25,    26,    27,    28,    30,    32,    34
     };
-    const int user_token_number_max_ = 283;
+    const int user_token_number_max_ = 286;
 
     if (t <= 0)
       return yyeof_;
@@ -1646,32 +1685,34 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 6: // ARRAY_LIST
+      case 39: // array_pattern
+      case 40: // var_list
         value.move< StringList > (std::move (that.value));
         break;
 
-      case 18: // FLOAT
-      case 37: // number
+      case 21: // FLOAT
+      case 38: // number
         value.move< double > (std::move (that.value));
         break;
 
-      case 19: // INT
+      case 22: // INT
         value.move< int > (std::move (that.value));
         break;
 
-      case 35: // time
-      case 36: // smpte
+      case 36: // time
+      case 37: // smpte
         value.move< std::size_t > (std::move (that.value));
         break;
 
       case 4: // QUOTED_STRING
       case 5: // SYMBOL
-      case 8: // OPTION
-      case 17: // SMPTE
+      case 11: // OPTION
+      case 20: // SMPTE
+      case 41: // var
         value.move< std::string > (std::move (that.value));
         break;
 
-      case 20: // UINT
+      case 23: // UINT
         value.move< uint > (std::move (that.value));
         break;
 
@@ -1690,32 +1731,34 @@ switch (yytype)
   {
     switch (this->type_get ())
     {
-      case 6: // ARRAY_LIST
+      case 39: // array_pattern
+      case 40: // var_list
         value.copy< StringList > (YY_MOVE (that.value));
         break;
 
-      case 18: // FLOAT
-      case 37: // number
+      case 21: // FLOAT
+      case 38: // number
         value.copy< double > (YY_MOVE (that.value));
         break;
 
-      case 19: // INT
+      case 22: // INT
         value.copy< int > (YY_MOVE (that.value));
         break;
 
-      case 35: // time
-      case 36: // smpte
+      case 36: // time
+      case 37: // smpte
         value.copy< std::size_t > (YY_MOVE (that.value));
         break;
 
       case 4: // QUOTED_STRING
       case 5: // SYMBOL
-      case 8: // OPTION
-      case 17: // SMPTE
+      case 11: // OPTION
+      case 20: // SMPTE
+      case 41: // var
         value.copy< std::string > (YY_MOVE (that.value));
         break;
 
-      case 20: // UINT
+      case 23: // UINT
         value.copy< uint > (YY_MOVE (that.value));
         break;
 
@@ -1741,32 +1784,34 @@ switch (yytype)
     super_type::move (s);
     switch (this->type_get ())
     {
-      case 6: // ARRAY_LIST
+      case 39: // array_pattern
+      case 40: // var_list
         value.move< StringList > (YY_MOVE (s.value));
         break;
 
-      case 18: // FLOAT
-      case 37: // number
+      case 21: // FLOAT
+      case 38: // number
         value.move< double > (YY_MOVE (s.value));
         break;
 
-      case 19: // INT
+      case 22: // INT
         value.move< int > (YY_MOVE (s.value));
         break;
 
-      case 35: // time
-      case 36: // smpte
+      case 36: // time
+      case 37: // smpte
         value.move< std::size_t > (YY_MOVE (s.value));
         break;
 
       case 4: // QUOTED_STRING
       case 5: // SYMBOL
-      case 8: // OPTION
-      case 17: // SMPTE
+      case 11: // OPTION
+      case 20: // SMPTE
+      case 41: // var
         value.move< std::string > (YY_MOVE (s.value));
         break;
 
-      case 20: // UINT
+      case 23: // UINT
         value.move< uint > (YY_MOVE (s.value));
         break;
 
@@ -1826,7 +1871,7 @@ switch (yytype)
 
 #line 7 "array_loader.y"
 } // ceammc
-#line 1830 "array_loader.parser.hpp"
+#line 1875 "array_loader.parser.hpp"
 
 
 
