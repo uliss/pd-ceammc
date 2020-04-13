@@ -492,10 +492,10 @@ ceammc::ArrayLoaderParser::symbol_type ceammc::ArrayLoaderLexer::lex()
 #line 136 "array_loader.l"
 { return ArrayLoaderParser::make_DOT(location()); }
             break;
-          case 4: // rule at line 137: [\x20@]
+          case 4: // rule at line 137: [\x20]
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 137\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 137 "array_loader.l"
-{ start(OPTIONS); matcher().less(0); /*next option, push back '@' and go to OPTIONS*/  }
+{ start(OPTIONS); /*go to next option*/  }
 
 
             break;
@@ -5447,39 +5447,38 @@ void reflex_code_SMPTE(reflex::Matcher& m)
 S0:
   m.FSM_FIND();
   c1 = m.FSM_CHAR();
-  if (c1 == '@') goto S15;
-  if (c1 == ':') goto S11;
-  if ('0' <= c1 && c1 <= '9') goto S8;
-  if (c1 == '.') goto S13;
-  if (c1 == ' ') goto S15;
-  if ('\v' <= c1) goto S17;
+  if (c1 == ':') goto S10;
+  if ('0' <= c1 && c1 <= '9') goto S7;
+  if (c1 == '.') goto S12;
+  if (c1 == ' ') goto S14;
+  if ('\v' <= c1) goto S16;
   if ('\n' <= c1) return m.FSM_HALT(c1);
-  if (0 <= c1 && c1 <= '\t') goto S17;
+  if (0 <= c1 && c1 <= '\t') goto S16;
   return m.FSM_HALT(c1);
 
-S8:
+S7:
   m.FSM_TAKE(5);
   c1 = m.FSM_CHAR();
-  if ('0' <= c1 && c1 <= '9') goto S19;
+  if ('0' <= c1 && c1 <= '9') goto S18;
   return m.FSM_HALT(c1);
 
-S11:
+S10:
   m.FSM_TAKE(2);
   return m.FSM_HALT();
 
-S13:
+S12:
   m.FSM_TAKE(3);
   return m.FSM_HALT();
 
-S15:
+S14:
   m.FSM_TAKE(4);
   return m.FSM_HALT();
 
-S17:
+S16:
   m.FSM_TAKE(5);
   return m.FSM_HALT();
 
-S19:
+S18:
   m.FSM_TAKE(1);
   return m.FSM_HALT();
 }
