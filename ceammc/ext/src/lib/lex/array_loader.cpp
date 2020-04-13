@@ -163,13 +163,14 @@ bool ceammc::ArrayLoader::setGain(double amp)
     }
 }
 
-bool ceammc::ArrayLoader::setResampleRatio(double r)
+bool ceammc::ArrayLoader::setResampleRatio(long dest, long src)
 {
-    if (r <= 0) {
-        err() << fmt::format("ratio should be >0, got: {}\n", r);
+    if (dest <= 0 || src <= 0) {
+        err() << fmt::format("all ratio parts should be >0, got: {}/{}\n", dest, src);
         return false;
     } else {
-        resample_ratio_ = r;
+        resample_ratio_ = double(dest) / src;
+        dest_samplerate_ = (src_samplerate_ * dest) / src;
         return true;
     }
 }
@@ -185,6 +186,7 @@ void ceammc::ArrayLoader::dump() const
         "output:\n"
         "  arrays:      {}\n"
         "  channels:    {}\n"
+        "  samplerate:  {}\n"
         "options:\n"
         "  @begin:      {}\n"
         "  @end:        {}\n"
@@ -194,7 +196,7 @@ void ceammc::ArrayLoader::dump() const
         "  @normalize:  {}\n"
         "  @verbose:    {}\n",
         str_, src_samplerate_, smpte_framerate_, src_sample_count_,
-        fmt::join(arrays_, ", "), fmt::join(channels_, ", "),
+        fmt::join(arrays_, ", "), fmt::join(channels_, ", "), dest_samplerate_,
         begin_, end_, gain_, resample_ratio_, resize_, normalize_, verbose_);
 }
 

@@ -32,6 +32,8 @@ class ArrayLoader {
     double src_samplerate_ = { 44100 };
     double smpte_framerate_ = { 30 };
 
+    double dest_samplerate_ = { 44100 };
+
     // load options
     bool resize_ = { false };
     bool verbose_ = { false };
@@ -74,10 +76,16 @@ public:
     bool normalize() const { return normalize_; }
 
     /** input file samplerate */
-    double sampleRate() const { return src_samplerate_; }
+    double srcSampleRate() const { return src_samplerate_; }
 
     /** set samplerate of input file */
-    void setSamplerate(double sr) { src_samplerate_ = sr; }
+    void setSrcSamplerate(double sr) { src_samplerate_ = sr; }
+
+    /** destination samplerate */
+    double destSamplerate() const { return dest_samplerate_; }
+
+    /** set destination samplerate */
+    void setDestSamplerate(double sr) { dest_samplerate_ = sr; }
 
     /** smpte framerate */
     double smpteFramerate() const { return smpte_framerate_; }
@@ -100,8 +108,8 @@ public:
     /** sets applied gain while loading */
     bool setGain(double amp);
 
-    /** sets resample ration */
-    bool setResampleRatio(double ratio);
+    /** sets resample ratio */
+    bool setResampleRatio(long dest, long src);
 
     /** convert time in seconds to input file samples */
     long sec2samples(double sec) const { return std::round(sec * src_samplerate_); }

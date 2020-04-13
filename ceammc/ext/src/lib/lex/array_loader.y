@@ -67,13 +67,10 @@
     }
 }
 
-%token                  ACT_LOAD
-%token  <std::string>   QUOTED_STRING
 %token  <std::string>   SYMBOL
 %token                  ARRAY_DELIM
 %token                  PATTERN_BEGIN PATTERN_END
 %token                  RANGE_DELIM VAR_DELIM
-%token  <std::string>   OPTION
 %token                  LENGTH RESIZE GAIN RESAMPLE BEGIN END VERBOSE NORMALIZE CHANNELS
 %token  <std::string>   SMPTE
 %token  <double>        FLOAT
@@ -93,7 +90,7 @@
 %nterm  <std::string>   var
 %nterm  <ChannelList>   channel_list
 
-%start EXPR
+%start expr
 
 %%
 
@@ -131,22 +128,18 @@ opt
     | LENGTH time      { if(!loader.setTimeOption(OPT::OPT_LENGTH, $2))     error(@2, "invalid @length value");}
     | GAIN number      { if(!loader.setGain($2))                            error(@2, "invalid @gain value");}
     | GAIN number DB   { if(!loader.setGain(ceammc::convert::dbfs2amp($2))) error(@2, "invalid @gain value");}
-    | RESAMPLE number  {
-            if(!loader.setResampleRatio($2/loader.sampleRate()))
-                error(@2, "invalid @resample value");
-        }
-    | RESAMPLE number FRAC number
-    | CHANNELS channel_list { for(auto& c: $2) loader.addChannel(c); }
+    | RESAMPLE                    { if(!loader.setResampleRatio(loader.destSamplerate(), loader.srcSampleRate()))
+                                        error(@1, "invalid ratio"); }
+    | RESAMPLE number             { if(!loader.setResampleRatio($2, loader.srcSampleRate()))
+                                        error(@2, "invalid ratio"); }
+    | RESAMPLE INT FRAC INT       { if(!loader.setResampleRatio($2, $4))
+                                        error(@2, "invalid ratio"); }
+    | CHANNELS channel_list       { for(auto& c: $2) loader.addChannel(c); }
     ;
 
 options
     : %empty
     | options opt
-    ;
-
-filename
-    : QUOTED_STRING
-    | SYMBOL
     ;
 
 var
@@ -192,21 +185,18 @@ array_list
     | array_list ARRAY_DELIM array_name
     ;
 
-load
-    : ACT_LOAD filename array_list options
-    ;
-
-EXPR
-    : load
+expr
+    : array_list options
     ;
 
 %%
 
 void ceammc::ArrayLoaderParser::error(const location& loc, const std::string& err_message)
 {
+    auto line = lexer.matcher().line();
     lexer.out() << err_message << std::endl;
     lexer.out() << lexer.indent()
-                << lexer.matcher().line() << std::endl;
+                << line << std::endl;
     lexer.out() << lexer.indent(loc.begin.column)
                 << std::string(loc.end.column - loc.begin.column + 1, '^') << std::endl;
 }

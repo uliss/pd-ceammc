@@ -83,14 +83,7 @@ arr_pattern [^@ \[\]][^ \[\]]*
 %%
 
 {space}
-load/{space}            { return ArrayLoaderParser::make_ACT_LOAD(location()); }
-
 {symbol}                { return ArrayLoaderParser::make_SYMBOL(text(), location()); }
-{string}                {
-                          std::string str(text() + 1);
-                          str.pop_back();
-                          return ArrayLoaderParser::make_QUOTED_STRING(str, location());
-                        }
 
 {to}{space}             { start(ARRAY); }
 
