@@ -21,7 +21,8 @@ bool parse_array_string(const std::string& str)
 {
     using namespace ceammc;
     ArrayLoader loader;
-    loader.setSampleCount(80000);
+    loader.setSrcSampleCount(80000);
+    loader.setSrcChannels(2);
     bool res = loader.parse(str);
     loader.validateArrays();
     return res;

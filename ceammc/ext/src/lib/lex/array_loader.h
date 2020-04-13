@@ -21,6 +21,8 @@
 #include <string>
 #include <vector>
 
+#include "ceammc_sound.h"
+
 namespace ceammc {
 
 class ArrayLoader {
@@ -29,6 +31,7 @@ class ArrayLoader {
 
     // fileinfo
     size_t src_sample_count_ = { 0 };
+    size_t src_num_channels_ = { 1 };
     double src_samplerate_ = { 44100 };
     double smpte_framerate_ = { 30 };
 
@@ -66,8 +69,16 @@ public:
 
     /**
      * parse input string: to arrays... OPTIONS...
+     * @note in real applications you should call it after openFile call,
+     * cause it prefills input file information needed for offset calculations etc.
      */
     bool parse(const std::string& str);
+
+    /**
+     * open soundfile by full path and fill input information
+     * @return pointer to opened file or empty pointer on error
+     */
+    sound::SoundFilePtr openFile(const std::string& path);
 
     /**
      * Check arrays name for existance
@@ -106,11 +117,19 @@ public:
     /** set SMPTE framerate for correct sample calcalcalation from SMPTE timecode */
     void setSmpteFramerate(double fr) { smpte_framerate_ = fr; }
 
-    /** number of sample in input file */
-    size_t sampleCount() const { return src_sample_count_; }
+    /** number of samples in input file */
+    size_t srcSampleCount() const { return src_sample_count_; }
 
     /** set number of samples in input file */
-    void setSampleCount(size_t n) { src_sample_count_ = n; }
+    void setSrcSampleCount(size_t n) { src_sample_count_ = n; }
+
+    /** number of channels in input file */
+    size_t srcChannels() const { return src_num_channels_; }
+
+    /** set number of channels in input file */
+    void setSrcChannels(size_t n) { src_num_channels_ = n; }
+
+    // options
 
     /** sets on flag option */
     bool setFlagOption(OptionType opt);

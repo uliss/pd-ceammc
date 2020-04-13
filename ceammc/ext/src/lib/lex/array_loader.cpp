@@ -69,6 +69,23 @@ void ArrayLoader::removeInvalidArrays()
     arrays_.erase(it, arrays_.end());
 }
 
+sound::SoundFilePtr ArrayLoader::openFile(const std::string& path)
+{
+    sound::SoundFilePtr f = sound::SoundFileLoader::open(path);
+
+    if (f) {
+        src_samplerate_ = f->sampleRate();
+        src_num_channels_ = f->channels();
+        src_sample_count_ = f->sampleCount();
+    } else {
+        src_samplerate_ = 0;
+        src_num_channels_ = 0;
+        src_sample_count_ = 0;
+    }
+
+    return f;
+}
+
 size_t ArrayLoader::smpte2samples(uint8_t h, uint8_t min, uint8_t sec, uint8_t frame)
 {
     size_t res = 0;
@@ -259,6 +276,14 @@ void ArrayLoader::addArray(const std::string& name)
 
 void ArrayLoader::addChannel(int ch)
 {
+    if (ch < 0 || ch >= long(src_num_channels_)) {
+        err() << fmt::format(
+            "expected channel index <{}, got: {}, ignoring...\n",
+            src_num_channels_, ch);
+
+        return;
+    }
+
     channels_.push_back(ch);
 }
 
