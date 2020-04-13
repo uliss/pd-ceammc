@@ -95,7 +95,7 @@ public:
     bool setFlagOption(OptionType opt);
 
     /** sets sample option */
-    bool setTimeOption(OptionType opt, size_t samp_pos);
+    bool setTimeOption(OptionType opt, long samp_pos);
 
     /** sets applied gain while loading */
     bool setGain(double amp);
@@ -104,9 +104,9 @@ public:
     bool setResampleRatio(double ratio);
 
     /** convert time in seconds to input file samples */
-    size_t sec2samples(double sec) const { return std::round(sec * src_samplerate_); }
+    long sec2samples(double sec) const { return std::round(sec * src_samplerate_); }
     /** convert time in millisecons to input file samples */
-    size_t ms2samples(double sec) const { return std::round(sec * (src_samplerate_ * 0.001)); }
+    long ms2samples(double sec) const { return std::round(sec * (src_samplerate_ * 0.001)); }
     /** convert stmpe to to input file samples */
     size_t smpte2samples(uint8_t h, uint8_t min, uint8_t sec, uint8_t frame);
 
@@ -120,6 +120,9 @@ public:
 
     /** add array */
     void addArray(const std::string& name);
+
+    /** add channel */
+    void addChannel(int ch);
 
 public:
     /** convert option type to string */

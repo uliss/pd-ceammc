@@ -256,5 +256,11 @@ TEST_CASE("arrayname_parser", "[arrayname_parser]")
         REQUIRE(parse_array_string("load 1.wav to array_[0-3]_gr @r @g -0.5db @v @resample 48000"));
         REQUIRE(parse_array_string("load 1.wav to a1 a2 @n"));
         REQUIRE(parse_array_string("load 1.wav to array_[0|1|9|13] @b 01:30 @l 30 sec"));
+        REQUIRE(parse_array_string("load 1.wav to a1 @ch 1"));
+        REQUIRE(parse_array_string("load 1.wav to a1 a2 @ch 1 2"));
+        REQUIRE(parse_array_string("load 1.wav to a[1-4] @ch 2-4 1"));
+        REQUIRE(parse_array_string("load 1.wav to \"array[1]\""));
+        REQUIRE(parse_array_string("load 1.wav to \"@array[1]\""));
+        REQUIRE(parse_array_string("load 1.wav to a1 a2 @ch 4-1"));
     }
 }

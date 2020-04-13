@@ -30,6 +30,7 @@
     }
 
     using StringList = std::vector<std::string>;
+    using ChannelList = std::vector<int>;
 }
 
 %code top {
@@ -42,11 +43,25 @@
 
     using OPT = ceammc::ArrayLoader::OptionType;
 
-    static StringList generateRange(uint from, uint to) {
+    static StringList generateStringRange(uint from, uint to) {
         StringList res;
         res.reserve(to - from + 1);
         for(uint i = from; i <= to; i++)
             res.emplace_back(std::to_string(i));
+
+        return res;
+    }
+
+    static ChannelList generateIntRange(int from, int to) {
+        ChannelList res;
+        res.reserve(std::abs(from - to) + 1);
+        if(from < to) {
+            for(int i = from; i <= to; i++)
+                res.push_back(i);
+        } else {
+            for(int i = from; i >= to; i--)
+                res.push_back(i);
+        }
 
         return res;
     }
@@ -59,11 +74,12 @@
 %token                  PATTERN_BEGIN PATTERN_END
 %token                  RANGE_DELIM VAR_DELIM
 %token  <std::string>   OPTION
-%token                  LENGTH RESIZE GAIN RESAMPLE BEGIN END VERBOSE NORMALIZE
+%token                  LENGTH RESIZE GAIN RESAMPLE BEGIN END VERBOSE NORMALIZE CHANNELS
 %token  <std::string>   SMPTE
 %token  <double>        FLOAT
 %token  <int>           INT
 %token  <uint>          UINT
+%token  <uint>          RANGE_BEGIN RANGE_END
 %token                  SEC MSEC SAMPLES DB
 %token                  COLON ':'  "colon"
 %token                  DOT   '.'  "dot"
@@ -75,6 +91,7 @@
 %nterm  <double>        number
 %nterm  <StringList>    array_pattern var_list
 %nterm  <std::string>   var
+%nterm  <ChannelList>   channel_list
 
 %start EXPR
 
@@ -99,6 +116,12 @@ time
     | smpte           { $$ = $1; }
     ;
 
+channel_list
+    : INT                   { $$ = {$1}; }
+    | RANGE_BEGIN RANGE_END { $$ = generateIntRange($1, $2); }
+    | channel_list INT      { std::copy($1.begin(), $1.end(), std::back_inserter($$)); $$.push_back($2); }
+    ;
+
 opt
     : RESIZE           { loader.setFlagOption(OPT::OPT_RESIZE); }
     | NORMALIZE        { loader.setFlagOption(OPT::OPT_NORMALIZE); }
@@ -113,6 +136,7 @@ opt
                 error(@2, "invalid @resample value");
         }
     | RESAMPLE number FRAC number
+    | CHANNELS channel_list { for(auto& c: $2) loader.addChannel(c); }
     ;
 
 options
@@ -136,14 +160,14 @@ var_list
     ;
 
 array_pattern
-    : PATTERN_BEGIN PATTERN_END                         { $$ = generateRange(0, 9); }
+    : PATTERN_BEGIN PATTERN_END                         { $$ = generateStringRange(0, 9); }
     | PATTERN_BEGIN var_list PATTERN_END                { $$ = $2; }
     | PATTERN_BEGIN UINT RANGE_DELIM UINT PATTERN_END   {
 
         if($2 > $4)
             error(@2, "invalid range values");
         else
-            $$ = generateRange($2, $4);
+            $$ = generateStringRange($2, $4);
                                                         }
     ;
 

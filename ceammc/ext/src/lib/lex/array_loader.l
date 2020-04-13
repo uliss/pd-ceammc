@@ -72,7 +72,7 @@ verbose     (v | verbose)
 resample    resample
 offset      offset
 
-arr_quoted "[^ \"]+"
+arr_quoted  \"[^ \"]*\"
 arr_pattern [^@ \[\]][^ \[\]]*
 
 %xstate ARRAY
@@ -111,6 +111,7 @@ load/{space}            { return ArrayLoaderParser::make_ACT_LOAD(location()); }
 <OPTIONS>@{offset}      {   out() << "@offset option is obsolete, use @begin\n";
                             return ArrayLoaderParser::make_BEGIN(location()); }
 <OPTIONS>@{end}         { return ArrayLoaderParser::make_END(location()); }
+<OPTIONS>@{channels}    { return ArrayLoaderParser::make_CHANNELS(location()); }
 <OPTIONS>@{gain}        { return ArrayLoaderParser::make_GAIN(location()); }
 <OPTIONS>@{length}      { return ArrayLoaderParser::make_LENGTH(location()); }
 <OPTIONS>@{norm}        { return ArrayLoaderParser::make_NORMALIZE(location()); }
@@ -123,6 +124,8 @@ load/{space}            { return ArrayLoaderParser::make_ACT_LOAD(location()); }
 <OPTIONS>{space}
 
 <OPTIONS>{smpte}        { start(SMPTE); matcher().less(0); /*push back smpte value and go to SMPTE*/ }
+<OPTIONS>{uint}/-{uint} { return ArrayLoaderParser::make_RANGE_BEGIN(std::stoi(text()), location()); }
+<OPTIONS>-{uint}        { return ArrayLoaderParser::make_RANGE_END(std::stoi(text()+1), location()); }
 <OPTIONS>{int}          { return ArrayLoaderParser::make_INT(std::stoi(text()), location()); }
 <OPTIONS>{float}        { return ArrayLoaderParser::make_FLOAT(std::stod(text()), location()); }
 <OPTIONS>(ms|msec)      { return ArrayLoaderParser::make_MSEC(location()); }

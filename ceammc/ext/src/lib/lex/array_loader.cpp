@@ -109,7 +109,7 @@ bool ceammc::ArrayLoader::setFlagOption(OptionType opt)
     }
 }
 
-bool ceammc::ArrayLoader::setTimeOption(OptionType opt, size_t samp_pos)
+bool ceammc::ArrayLoader::setTimeOption(OptionType opt, long samp_pos)
 {
     switch (opt) {
     case OPT_BEGIN: {
@@ -184,6 +184,7 @@ void ceammc::ArrayLoader::dump() const
         "  samplecount: {}\n"
         "output:\n"
         "  arrays:      {}\n"
+        "  channels:    {}\n"
         "options:\n"
         "  @begin:      {}\n"
         "  @end:        {}\n"
@@ -193,13 +194,18 @@ void ceammc::ArrayLoader::dump() const
         "  @normalize:  {}\n"
         "  @verbose:    {}\n",
         str_, src_samplerate_, smpte_framerate_, src_sample_count_,
-        fmt::join(arrays_, ", "),
+        fmt::join(arrays_, ", "), fmt::join(channels_, ", "),
         begin_, end_, gain_, resample_ratio_, resize_, normalize_, verbose_);
 }
 
 void ArrayLoader::addArray(const std::string& name)
 {
     arrays_.push_back(name);
+}
+
+void ArrayLoader::addChannel(int ch)
+{
+    channels_.push_back(ch);
 }
 
 }
