@@ -492,7 +492,7 @@ ceammc::ArrayLoaderParser::symbol_type ceammc::ArrayLoaderLexer::lex()
 #line 136 "array_loader.l"
 { return ArrayLoaderParser::make_DOT(location()); }
             break;
-          case 4: // rule at line 137: [\x20]*@
+          case 4: // rule at line 137: [\x20@]
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 137\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 137 "array_loader.l"
 { start(OPTIONS); matcher().less(0); /*next option, push back '@' and go to OPTIONS*/  }
@@ -5451,7 +5451,7 @@ S0:
   if (c1 == ':') goto S11;
   if ('0' <= c1 && c1 <= '9') goto S8;
   if (c1 == '.') goto S13;
-  if (c1 == ' ') goto S19;
+  if (c1 == ' ') goto S15;
   if ('\v' <= c1) goto S17;
   if ('\n' <= c1) return m.FSM_HALT(c1);
   if (0 <= c1 && c1 <= '\t') goto S17;
@@ -5460,7 +5460,7 @@ S0:
 S8:
   m.FSM_TAKE(5);
   c1 = m.FSM_CHAR();
-  if ('0' <= c1 && c1 <= '9') goto S23;
+  if ('0' <= c1 && c1 <= '9') goto S19;
   return m.FSM_HALT(c1);
 
 S11:
@@ -5480,21 +5480,8 @@ S17:
   return m.FSM_HALT();
 
 S19:
-  m.FSM_TAKE(5);
-  c1 = m.FSM_CHAR();
-  if (c1 == '@') goto S15;
-  if (c1 == ' ') goto S25;
-  return m.FSM_HALT(c1);
-
-S23:
   m.FSM_TAKE(1);
   return m.FSM_HALT();
-
-S25:
-  c1 = m.FSM_CHAR();
-  if (c1 == '@') goto S15;
-  if (c1 == ' ') goto S25;
-  return m.FSM_HALT(c1);
 }
 
 } // namespace ceammc

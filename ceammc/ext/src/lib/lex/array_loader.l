@@ -134,7 +134,7 @@ load/{space}            { return ArrayLoaderParser::make_ACT_LOAD(location()); }
 <SMPTE>[0-9][0-9]       { return ArrayLoaderParser::make_UINT(std::stoi(text(), nullptr, 10), location()); }
 <SMPTE>:                { return ArrayLoaderParser::make_COLON(location()); }
 <SMPTE>\.               { return ArrayLoaderParser::make_DOT(location()); }
-<SMPTE>[ ]*@            { start(OPTIONS); matcher().less(0); /*next option, push back '@' and go to OPTIONS*/  }
+<SMPTE>[ @]             { start(OPTIONS); matcher().less(0); /*next option, push back '@' and go to OPTIONS*/  }
 
 
 <<EOF>>                 { return ArrayLoaderParser::make_STRING_END(location()); }
