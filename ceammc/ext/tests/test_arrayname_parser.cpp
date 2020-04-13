@@ -13,8 +13,16 @@
  *****************************************************************************/
 #include "array_load_pattern.h"
 #include "catch.hpp"
+#include "lex/array_loader.h"
 
 #include <cstdio>
+
+bool parse_array_string(const std::string& str)
+{
+    using namespace ceammc;
+    ArrayLoader loader;
+    return loader.parse(str);
+}
 
 TEST_CASE("arrayname_parser", "[arrayname_parser]")
 {
@@ -229,5 +237,22 @@ TEST_CASE("arrayname_parser", "[arrayname_parser]")
         REQUIRE(res.size() == 2);
         REQUIRE(res[0] == "array1");
         REQUIRE(res[1] == "array0");
+    }
+
+    SECTION("lexer")
+    {
+        REQUIRE(parse_array_string("load 1.wav to array_[] "));
+        REQUIRE(parse_array_string("load 1.wav to array_[12-17] "));
+        REQUIRE(parse_array_string("load 1.wav to array_[l|r] "));
+        REQUIRE(parse_array_string("load 1.wav to array_[left|center|right] "));
+        REQUIRE(parse_array_string("load 1.wav to array_[0|1|9|13]"));
+        REQUIRE(parse_array_string("load 1.wav to array_[0|1|9|13] @r"));
+        REQUIRE(parse_array_string("load 1.wav to array_[0|1|9|13] @resize @offset 1ms"));
+        REQUIRE(parse_array_string("load 1.wav to array_[0|1|9|13] @resize @begin 2 sec"));
+        REQUIRE(parse_array_string("load 1.wav to array_[0|1|9|13] @offset 01:30"));
+        REQUIRE(parse_array_string("load 1.wav to array_[0|1|9|13] @offset 01:30:02.78"));
+        REQUIRE(parse_array_string("load 1.wav to array_[0|1|9|13] @l 150 ms"));
+        REQUIRE(parse_array_string("load 1.wav to array_[0|1|9|13] @r @g 0.5"));
+        REQUIRE(parse_array_string("load 1.wav to array_[0|1|9|13] @r @g -0.5db @v @resample 48000"));
     }
 }

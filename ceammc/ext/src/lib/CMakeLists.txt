@@ -136,6 +136,13 @@ if(BISON_FOUND AND FLEX_FOUND)
                 lex/data_string.y
                 lex/quoted_string.y
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
+
+    add_custom_target(ceammc_arrayloader_gen
+        COMMAND $<TARGET_FILE:reflex-bin> array_loader.l
+        COMMAND ${BISON_EXECUTABLE} array_loader.y
+        SOURCES lex/array_loader.l
+                lex/array_loader.y
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex)
 endif()
 
 # main shared library
@@ -166,39 +173,44 @@ endif()
 #
 # sound library
 #
+add_library(ceammc_sound SHARED)
+
 set(CEAMMC_LOAD_SRC
     ceammc_sound.h
     ceammc_sound.cpp
+    lex/array_loader.lexer.cpp
+    lex/array_loader.parser.cpp
+    lex/array_loader.cpp
     array_load_pattern.h
     array_load_pattern.cpp)
-set(CEAMMC_LOAD_LIBS "")
-set(CEAMMC_LOAD_DEFS "")
 
+target_sources(ceammc_sound PRIVATE ${CEAMMC_LOAD_SRC})
+target_compile_options(ceammc_sound PRIVATE ${LIBCEAMMC_COMPILE_FLAGS})
+target_link_libraries(ceammc_sound PRIVATE fmt::fmt-header-only)
+
+# libsndfile backend
 if(LIBSNDFILE_FOUND)
-    list(APPEND CEAMMC_LOAD_DEFS "-DWITH_LIBSOUNDFILE")
-    list(APPEND CEAMMC_LOAD_LIBS ${LIBSNDFILE_LIBRARIES})
-    list(APPEND CEAMMC_LOAD_SRC ceammc_loader_sndfile.cpp)
-
-    include_directories(${LIBSNDFILE_INCLUDE_DIRS})
+    target_compile_definitions(ceammc_sound PRIVATE "-DWITH_LIBSOUNDFILE")
+    target_sources(ceammc_sound PRIVATE ceammc_loader_sndfile.cpp)
+    target_include_directories(ceammc_sound PRIVATE ${LIBSNDFILE_INCLUDE_DIRS})
+    target_link_libraries(ceammc_sound PUBLIC ${LIBSNDFILE_LIBRARIES})
 endif()
 
 # coreaudio backend
 if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    list(APPEND CEAMMC_LOAD_SRC
+    target_sources(ceammc_sound PRIVATE
         ceammc_loader_coreaudio.cpp
         ceammc_loader_coreaudio_impl.m)
+
     find_library(FOUNDATION_LIBRARY Foundation)
     find_library(QUICKTIME_LIBRARY QuickTime)
     find_library(APP_SERVICES_LIBRARY ApplicationServices)
 
-    list(APPEND CEAMMC_LOAD_LIBS ${FOUNDATION_LIBRARY})
-endif()
+    target_link_libraries(ceammc_sound PUBLIC ${FOUNDATION_LIBRARY})
 
-add_library(ceammc_sound SHARED ${CEAMMC_LOAD_SRC})
-set_target_properties(ceammc_sound PROPERTIES
-    COMPILE_FLAGS "${LIBCEAMMC_COMPILE_FLAGS} ${CEAMMC_LOAD_DEFS}"
-    LINK_FLAGS    "${LIBCEAMMC_LINK_FLAGS}")
-target_link_libraries(ceammc_sound ${CEAMMC_LOAD_LIBS})
+    separate_arguments(__ceammc_sound_link_flags UNIX_COMMAND ${LIBCEAMMC_LINK_FLAGS})
+    target_link_options(ceammc_sound PRIVATE ${__ceammc_sound_link_flags})
+endif()
 
 # install
 if(WIN32)
