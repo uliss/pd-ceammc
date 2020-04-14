@@ -217,12 +217,20 @@ public:
      */
     bool set(std::initializer_list<t_sample> l);
 
+    /**
+     * Sets array bounds
+     */
     bool setYBounds(t_float yBottom, t_float yTop);
 
     /**
      * If true - save array contains in patch (convenient for small arrays)
      */
     bool setSaveInPatch(bool value);
+
+    /**
+     * Sends normalize message to array, redraws
+     */
+    bool normalize(t_float f = 1);
 
 public:
     struct Exception : public std::runtime_error {

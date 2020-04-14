@@ -199,7 +199,9 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
                 loaded_samples_.back(), begin_, file->filename(), channel, name, ARRAY_OFFSET);
         }
 
-        if (redraw)
+        if (normalize_)
+            arr.normalize(); // also do redrawing
+        else if (redraw)
             arr.redraw();
     }
 

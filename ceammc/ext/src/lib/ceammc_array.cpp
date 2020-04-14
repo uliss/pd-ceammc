@@ -240,6 +240,19 @@ bool Array::setSaveInPatch(bool value)
         return false;
 }
 
+bool Array::normalize(t_float f)
+{
+    static t_symbol* SYM_NORMALIZE = gensym("normalize");
+
+    if (!isValid() || !name_->s_thing)
+        return false;
+
+    t_atom arg;
+    SETFLOAT(&arg, f);
+    pd_typedmess(name_->s_thing, SYM_NORMALIZE, 1, &arg);
+    return true;
+}
+
 Array::Exception::Exception(const char* what)
     : std::runtime_error(what)
 {
