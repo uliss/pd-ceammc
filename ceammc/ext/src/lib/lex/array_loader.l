@@ -84,7 +84,7 @@ norm        (n | norm | normalize)
 resize      (r | resize)
 resample    resample
 offset      (off | offset)
-aoffset     (aoff | array_offset)
+aoffset     (aoff | aoffset | array_offset)
 
 arr_quoted  \"[^ \"]*\"
 arr_pattern [^@ \[\]][^ \[\]]*

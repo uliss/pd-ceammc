@@ -133,29 +133,62 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
 
         const auto ARRAY_SIZE = arr.size();
 
-        const auto NSAMPLES = resize()
-            ? SRC_LENGTH
-            : std::min<size_t>(ARRAY_SIZE, SRC_LENGTH);
+        size_t ARRAY_OFFSET = 0;
+
+        // valid negative offset
+        if (array_offset_ < 0 && std::abs(array_offset_) <= ARRAY_SIZE) {
+            ARRAY_OFFSET = ARRAY_SIZE + array_offset_;
+        } else if (array_offset_ >= 0) {
+            ARRAY_OFFSET = array_offset_;
+        } else {
+            err() << fmt::format("invalid array offset: {}\n", array_offset_);
+            return false;
+        }
 
         if (resize()) {
-            if (!arr.resize(NSAMPLES)) {
-                err() << fmt::format("can't resize array '{}' to {} samples\n", name, NSAMPLES);
+            const size_t NEW_ARRAY_SIZE = ARRAY_OFFSET + SRC_LENGTH;
+
+            if (!arr.resize(NEW_ARRAY_SIZE)) {
+                err() << fmt::format("can't resize array '{}' to {} samples\n", name, NEW_ARRAY_SIZE);
                 return false;
             }
 
             // if array size increased, for safety turn off save-in-patch flag
-            if (ARRAY_SIZE < NSAMPLES)
+            if (ARRAY_SIZE < NEW_ARRAY_SIZE)
                 arr.setSaveInPatch(false);
-        }
 
-        t_word* vecs = reinterpret_cast<t_word*>(&arr.at(0));
-        long read = file->read(vecs, NSAMPLES, channel, begin_);
-        if (read != NSAMPLES) {
-            err() << fmt::format("can't read {} samples to array '{}'\n", NSAMPLES, name);
-            return false;
-        }
+            // fill with zeroes gap between old array size and array offset, where new data begins
+            if (ARRAY_SIZE < ARRAY_OFFSET)
+                std::fill(arr.begin() + ARRAY_SIZE, arr.begin() + ARRAY_OFFSET, 0);
 
-        loaded_samples_.push_back(NSAMPLES);
+            // read data from file to array
+            t_word* vecs = reinterpret_cast<t_word*>(&arr.at(ARRAY_OFFSET));
+            long read = file->read(vecs, SRC_LENGTH, channel, begin_);
+
+            if (read != SRC_LENGTH) {
+                err() << fmt::format("can't read {} samples to array '{}'\n", SRC_LENGTH, name);
+                return false;
+            }
+
+            loaded_samples_.push_back(SRC_LENGTH);
+
+        } else {
+            if (ARRAY_SIZE <= ARRAY_OFFSET) { // write beyond file end
+                err() << fmt::format("offset value expected to be <{}, got: {}\n", ARRAY_SIZE, ARRAY_OFFSET);
+                return false;
+            }
+
+            const auto NSAMPLES = std::min<size_t>(ARRAY_SIZE - ARRAY_OFFSET, SRC_LENGTH);
+
+            t_word* vecs = reinterpret_cast<t_word*>(&arr.at(ARRAY_OFFSET));
+            long read = file->read(vecs, NSAMPLES, channel, begin_);
+            if (read != NSAMPLES) {
+                err() << fmt::format("can't read {} samples to array '{}'\n", NSAMPLES, name);
+                return false;
+            }
+
+            loaded_samples_.push_back(NSAMPLES);
+        }
 
         if (redraw)
             arr.redraw();
@@ -358,7 +391,7 @@ void ceammc::ArrayLoader::dump() const
         "  @resize:     {}\n"
         "  @normalize:  {}\n",
         str_, src_samplerate_, smpte_framerate_, src_sample_count_, src_num_channels_,
-        fmt::join(arrays_, ", "), fmt::join(channels_, ", "), dest_samplerate_, dest_offset_,
+        fmt::join(arrays_, ", "), fmt::join(channels_, ", "), dest_samplerate_, array_offset_,
         begin_, end_, gain_, resample_ratio_, resize_, normalize_);
 }
 
