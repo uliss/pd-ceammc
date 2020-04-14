@@ -193,6 +193,12 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
             loaded_samples_.push_back(NSAMPLES);
         }
 
+        if (debug_) {
+            log() << fmt::format(
+                "read {} samples [offset:{}] from file '{}' [ch:{}] to array '{}' [offset:{}]\n",
+                loaded_samples_.back(), begin_, file->filename(), channel, name, ARRAY_OFFSET);
+        }
+
         if (redraw)
             arr.redraw();
     }

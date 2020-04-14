@@ -690,5 +690,38 @@ TEST_CASE("snd.file", "[externals]")
                 REQUIRE(all_eq(arr2->begin(), arr2->end(), 0));
             }
         }
+
+        SECTION("patterns")
+        {
+            SECTION("range") {
+                t <<= AtomList::parseString("load " TEST_DATA_DIR
+                                            "/base/snd0_ch03_44.1k_441samp.wav "
+                                            "@to snd_file[0-8] "
+                                            "@resize "
+                                            "@ch 2-1"
+                                            "@len 90");
+                REQUIRE_PROPERTY(t, @samples, 90, 90);
+                REQUIRE(arr1->update());
+                REQUIRE(arr2->update());
+
+                REQUIRE(all_eq(arr1->begin(), arr1->end(), 1));
+                REQUIRE(all_eq(arr2->begin(), arr2->end(), 0));
+            }
+
+            SECTION("alternative") {
+                t <<= AtomList::parseString("load " TEST_DATA_DIR
+                                            "/base/snd0_ch03_44.1k_441samp.wav "
+                                            "@to snd_file[1|2|3] "
+                                            "@resize "
+                                            "@ch 2-1"
+                                            "@len 90");
+                REQUIRE_PROPERTY(t, @samples, 90, 90);
+                REQUIRE(arr1->update());
+                REQUIRE(arr2->update());
+
+                REQUIRE(all_eq(arr1->begin(), arr1->end(), 1));
+                REQUIRE(all_eq(arr2->begin(), arr2->end(), 0));
+            }
+        }
     }
 }
