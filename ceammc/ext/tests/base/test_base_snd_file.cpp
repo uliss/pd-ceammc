@@ -826,5 +826,17 @@ TEST_CASE("snd.file", "[externals]")
                 REQUIRE(all_eq(arr2->begin(), arr2->end(), 0));
             }
         }
+
+        SECTION("normalize")
+        {
+            SECTION("no normalize")
+            {
+                t <<= load_str("load " TEST_DATA_DIR
+                               "/base/snd0_ch07_48k_480samp.wav to snd_file1 "
+                               "@channel 2");
+                REQUIRE(arr1->update());
+                REQUIRE(all_eq(arr1->begin(), arr1->end(), -0.3333));
+            }
+        }
     }
 }

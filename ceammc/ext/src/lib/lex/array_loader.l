@@ -75,7 +75,7 @@ smpte       [0-9]{2}:[0-9]{2}(:[0-9]{2})?(\.[0-9]{2})?
 
 /* note: keep in sync with options() lexer method */
 to          [@]? to
-channels    (c | ch | chan | channels)
+channels    (c | ch | chan | channel | channels)
 begin       (b | begin)
 end         (e | end)
 gain        (g | gain)

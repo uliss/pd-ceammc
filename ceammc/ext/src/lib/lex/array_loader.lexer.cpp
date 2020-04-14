@@ -378,7 +378,7 @@ ceammc::ArrayLoaderParser::symbol_type ceammc::ArrayLoaderLexer::lex()
 #line 121 "array_loader.l"
 { return ArrayLoaderParser::make_ARRAY_OFFSET(location()); }
             break;
-          case 5: // rule at line 122: @(?:(?:c|ch|chan|channels))
+          case 5: // rule at line 122: @(?:(?:c|ch|chan|channel|channels))
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 122\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 122 "array_loader.l"
 { return ArrayLoaderParser::make_CHANNELS(location()); }
@@ -5436,7 +5436,7 @@ S369:
   return m.FSM_HALT(c1);
 
 S371:
-  m.FSM_TAKE(11);
+  m.FSM_TAKE(5);
   c1 = m.FSM_CHAR();
   if (c1 == 's') goto S390;
   if ('a' <= c1 && c1 <= 'z') goto S99;
