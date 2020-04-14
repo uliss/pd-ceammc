@@ -204,8 +204,8 @@ ceammc::ArrayLoaderParser::symbol_type ceammc::ArrayLoaderLexer::lex()
           case 0:
             if (matcher().at_end())
             {
-              if (debug()) std::cerr << "--\033[1;35mEOF rule at line 150\033[0m (start condition " << start() << ")\n";
-#line 150 "array_loader.l"
+              if (debug()) std::cerr << "--\033[1;35mEOF rule at line 151\033[0m (start condition " << start() << ")\n";
+#line 151 "array_loader.l"
 { return ArrayLoaderParser::make_STRING_END(location()); }
             }
             else
@@ -214,25 +214,25 @@ ceammc::ArrayLoaderParser::symbol_type ceammc::ArrayLoaderLexer::lex()
               out().put(matcher().input());
             }
             break;
-          case 1: // rule at line 99: (?:[\x09\x0a\x20]+)
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 99\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 99 "array_loader.l"
-            break;
-          case 2: // rule at line 100: (?:(?:[\x00-\x08]|[\x0b-\x1f]|[!-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf])+)
+          case 1: // rule at line 100: (?:[\x09\x0a\x20]+)
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 100\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 100 "array_loader.l"
+            break;
+          case 2: // rule at line 101: (?:(?:[\x00-\x08]|[\x0b-\x1f]|[!-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf])+)
+            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 101\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
+#line 101 "array_loader.l"
 { return ArrayLoaderParser::make_SYMBOL(text(), location()); }
 
             break;
-          case 3: // rule at line 102: (?:[@]?to)(?:[\x09\x0a\x20]+)
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 102\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 102 "array_loader.l"
+          case 3: // rule at line 103: (?:[@]?to)(?:[\x09\x0a\x20]+)
+            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 103\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
+#line 103 "array_loader.l"
 { start(ARRAY); }
 
             break;
-          case 4: // rule at line 151: .
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 151\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 151 "array_loader.l"
+          case 4: // rule at line 152: .
+            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 152\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
+#line 152 "array_loader.l"
 { return ArrayLoaderParser::make_LEXER_ERROR(location()); /* error */ }
 
             break;
@@ -245,8 +245,8 @@ ceammc::ArrayLoaderParser::symbol_type ceammc::ArrayLoaderLexer::lex()
           case 0:
             if (matcher().at_end())
             {
-              if (debug()) std::cerr << "--\033[1;35mEOF rule at line 150\033[0m (start condition " << start() << ")\n";
-#line 150 "array_loader.l"
+              if (debug()) std::cerr << "--\033[1;35mEOF rule at line 151\033[0m (start condition " << start() << ")\n";
+#line 151 "array_loader.l"
 { return ArrayLoaderParser::make_STRING_END(location()); }
             }
             else
@@ -255,35 +255,35 @@ ceammc::ArrayLoaderParser::symbol_type ceammc::ArrayLoaderLexer::lex()
               out().put(matcher().input());
             }
             break;
-          case 1: // rule at line 104: [\x20]+(?=(?:[\x00-?]|[A-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf]))
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 104\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 104 "array_loader.l"
-{ return ArrayLoaderParser::make_ARRAY_DELIM(location()); }
-            break;
-          case 2: // rule at line 105: [\x20]+(?=[@])
+          case 1: // rule at line 105: [\x20]+(?=(?:[\x00-?]|[A-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf]))
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 105\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 105 "array_loader.l"
-{ start(OPTIONS); }
+{ return ArrayLoaderParser::make_ARRAY_DELIM(location()); }
             break;
-          case 3: // rule at line 106: (?:"(?:[\x00-\x1f]|!|[\x23-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf])*")
+          case 2: // rule at line 106: [\x20]+(?=[@])
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 106\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 106 "array_loader.l"
-{ return ArrayLoaderParser::make_SYMBOL(std::string(text()+1, size()-2), location()); }
+{ start(OPTIONS); }
             break;
-          case 4: // rule at line 107: (?:(?:[\x00-\x1f]|[!-?]|[A-Z]|\x5c|[\x5e-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf])(?:[\x00-\x1f]|[!-Z]|\x5c|[\x5e-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf])*)
+          case 3: // rule at line 107: (?:"(?:[\x00-\x1f]|!|[\x23-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf])*")
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 107\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 107 "array_loader.l"
-{ return ArrayLoaderParser::make_SYMBOL(text(), location()); }
+{ return ArrayLoaderParser::make_SYMBOL(std::string(text()+1, size()-2), location()); }
             break;
-          case 5: // rule at line 108: \[
+          case 4: // rule at line 108: (?:(?:[\x00-\x1f]|[!-?]|[A-Z]|\x5c|[\x5e-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf])(?:[\x00-\x1f]|[!-Z]|\x5c|[\x5e-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xec][\x80-\xbf][\x80-\xbf]|\xed[\x80-\x9f][\x80-\xbf]|[\xee\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf3][\x80-\xbf][\x80-\xbf][\x80-\xbf]|\xf4[\x80-\x8f][\x80-\xbf][\x80-\xbf])*)
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 108\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 108 "array_loader.l"
+{ return ArrayLoaderParser::make_SYMBOL(text(), location()); }
+            break;
+          case 5: // rule at line 109: \[
+            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 109\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
+#line 109 "array_loader.l"
 { start(PATTERN); return ArrayLoaderParser::make_PATTERN_BEGIN(location()); }
 
             break;
-          case 6: // rule at line 151: .
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 151\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 151 "array_loader.l"
+          case 6: // rule at line 152: .
+            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 152\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
+#line 152 "array_loader.l"
 { return ArrayLoaderParser::make_LEXER_ERROR(location()); /* error */ }
 
             break;
@@ -296,8 +296,8 @@ ceammc::ArrayLoaderParser::symbol_type ceammc::ArrayLoaderLexer::lex()
           case 0:
             if (matcher().at_end())
             {
-              if (debug()) std::cerr << "--\033[1;35mEOF rule at line 150\033[0m (start condition " << start() << ")\n";
-#line 150 "array_loader.l"
+              if (debug()) std::cerr << "--\033[1;35mEOF rule at line 151\033[0m (start condition " << start() << ")\n";
+#line 151 "array_loader.l"
 { return ArrayLoaderParser::make_STRING_END(location()); }
             }
             else
@@ -306,36 +306,36 @@ ceammc::ArrayLoaderParser::symbol_type ceammc::ArrayLoaderLexer::lex()
               out().put(matcher().input());
             }
             break;
-          case 1: // rule at line 110: (?:(?:0|[1-9][0-9]*))
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 110\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 110 "array_loader.l"
-{ return ArrayLoaderParser::make_UINT(std::stoi(text()), location()); }
-            break;
-          case 2: // rule at line 111: -
+          case 1: // rule at line 111: (?:(?:0|[1-9][0-9]*))
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 111\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 111 "array_loader.l"
-{ return ArrayLoaderParser::make_RANGE_DELIM(location()); }
+{ return ArrayLoaderParser::make_UINT(std::stoi(text()), location()); }
             break;
-          case 3: // rule at line 112: \|
+          case 2: // rule at line 112: -
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 112\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 112 "array_loader.l"
-{ return ArrayLoaderParser::make_VAR_DELIM(location()); }
+{ return ArrayLoaderParser::make_RANGE_DELIM(location()); }
             break;
-          case 4: // rule at line 113: (?:[0-9]|[A-Z]|_|[a-z]|\xc2\xaa|\xc2\xb5|\xc2\xba|\xc3[\x80-\x96]|\xc3[\x98-\xb6]|\xc3[\xb8-\xbf]|[\xc4-\xca][\x80-\xbf]|\xcb[\x80\x81]|\xcb[\x86-\x91]|\xcb[\xa0-\xa4]|\xcb\xac|\xcb\xae|\xcd[\xb0-\xb4]|\xcd[\xb6\xb7]|\xcd[\xba-\xbd]|\xcd\xbf|\xce\x86|\xce[\x88-\x8a]|\xce\x8c|\xce[\x8e-\xa1]|\xce[\xa3-\xbf]|\xcf[\x80-\xb5]|\xcf[\xb7-\xbf]|[\xd0\xd1][\x80-\xbf]|\xd2[\x80\x81]|\xd2[\x8a-\xbf]|\xd3[\x80-\xbf]|\xd4[\x80-\xaf]|\xd4[\xb1-\xbf]|\xd5[\x80-\x96]|\xd5\x99|\xd5[\xa0-\xbf]|\xd6[\x80-\x88]|\xd7[\x90-\xaa]|\xd7[\xaf-\xb2]|\xd8[\xa0-\xbf]|\xd9[\x80-\x8a]|\xd9[\xa0-\xa9]|\xd9[\xae\xaf]|\xd9[\xb1-\xbf]|\xda[\x80-\xbf]|\xdb[\x80-\x93]|\xdb\x95|\xdb[\xa5\xa6]|\xdb[\xae-\xbc]|\xdb\xbf|\xdc\x90|\xdc[\x92-\xaf]|\xdd[\x8d-\xbf]|\xde[\x80-\xa5]|\xde\xb1|\xdf[\x80-\xaa]|\xdf[\xb4\xb5]|\xdf\xba|\xe0\xa0[\x80-\x95]|\xe0\xa0\x9a|\xe0\xa0\xa4|\xe0\xa0\xa8|\xe0\xa1[\x80-\x98]|\xe0\xa1[\xa0-\xaa]|\xe0\xa2[\xa0-\xb4]|\xe0(?:\xa2[\xb6-\xbf]|\xa3[\x80-\x87])|\xe0\xa4[\x84-\xb9]|\xe0\xa4\xbd|\xe0\xa5\x90|\xe0\xa5[\x98-\xa1]|\xe0\xa5[\xa6-\xaf]|\xe0(?:\xa5[\xb1-\xbf]|\xa6\x80)|\xe0\xa6[\x85-\x8c]|\xe0\xa6[\x8f\x90]|\xe0\xa6[\x93-\xa8]|\xe0\xa6[\xaa-\xb0]|\xe0\xa6\xb2|\xe0\xa6[\xb6-\xb9]|\xe0\xa6\xbd|\xe0\xa7\x8e|\xe0\xa7[\x9c\x9d]|\xe0\xa7[\x9f-\xa1]|\xe0\xa7[\xa6-\xb1]|\xe0\xa7\xbc|\xe0\xa8[\x85-\x8a]|\xe0\xa8[\x8f\x90]|\xe0\xa8[\x93-\xa8]|\xe0\xa8[\xaa-\xb0]|\xe0\xa8[\xb2\xb3]|\xe0\xa8[\xb5\xb6]|\xe0\xa8[\xb8\xb9]|\xe0\xa9[\x99-\x9c]|\xe0\xa9\x9e|\xe0\xa9[\xa6-\xaf]|\xe0\xa9[\xb2-\xb4]|\xe0\xaa[\x85-\x8d]|\xe0\xaa[\x8f-\x91]|\xe0\xaa[\x93-\xa8]|\xe0\xaa[\xaa-\xb0]|\xe0\xaa[\xb2\xb3]|\xe0\xaa[\xb5-\xb9]|\xe0\xaa\xbd|\xe0\xab\x90|\xe0\xab[\xa0\xa1]|\xe0\xab[\xa6-\xaf]|\xe0\xab\xb9|\xe0\xac[\x85-\x8c]|\xe0\xac[\x8f\x90]|\xe0\xac[\x93-\xa8]|\xe0\xac[\xaa-\xb0]|\xe0\xac[\xb2\xb3]|\xe0\xac[\xb5-\xb9]|\xe0\xac\xbd|\xe0\xad[\x9c\x9d]|\xe0\xad[\x9f-\xa1]|\xe0\xad[\xa6-\xaf]|\xe0\xad\xb1|\xe0\xae\x83|\xe0\xae[\x85-\x8a]|\xe0\xae[\x8e-\x90]|\xe0\xae[\x92-\x95]|\xe0\xae[\x99\x9a]|\xe0\xae\x9c|\xe0\xae[\x9e\x9f]|\xe0\xae[\xa3\xa4]|\xe0\xae[\xa8-\xaa]|\xe0\xae[\xae-\xb9]|\xe0\xaf\x90|\xe0\xaf[\xa6-\xaf]|\xe0\xb0[\x85-\x8c]|\xe0\xb0[\x8e-\x90]|\xe0\xb0[\x92-\xa8]|\xe0\xb0[\xaa-\xb9]|\xe0\xb0\xbd|\xe0\xb1[\x98-\x9a]|\xe0\xb1[\xa0\xa1]|\xe0\xb1[\xa6-\xaf]|\xe0\xb2\x80|\xe0\xb2[\x85-\x8c]|\xe0\xb2[\x8e-\x90]|\xe0\xb2[\x92-\xa8]|\xe0\xb2[\xaa-\xb3]|\xe0\xb2[\xb5-\xb9]|\xe0\xb2\xbd|\xe0\xb3\x9e|\xe0\xb3[\xa0\xa1]|\xe0\xb3[\xa6-\xaf]|\xe0\xb3[\xb1\xb2]|\xe0\xb4[\x84-\x8c]|\xe0\xb4[\x8e-\x90]|\xe0\xb4[\x92-\xba]|\xe0\xb4\xbd|\xe0\xb5\x8e|\xe0\xb5[\x94-\x96]|\xe0\xb5[\x9f-\xa1]|\xe0\xb5[\xa6-\xaf]|\xe0\xb5[\xba-\xbf]|\xe0\xb6[\x85-\x96]|\xe0\xb6[\x9a-\xb1]|\xe0\xb6[\xb3-\xbb]|\xe0\xb6\xbd|\xe0\xb7[\x80-\x86]|\xe0\xb7[\xa6-\xaf]|\xe0\xb8[\x81-\xb0]|\xe0\xb8[\xb2\xb3]|\xe0\xb9[\x80-\x86]|\xe0\xb9[\x90-\x99]|\xe0\xba[\x81\x82]|\xe0\xba\x84|\xe0\xba[\x86-\x8a]|\xe0\xba[\x8c-\xa3]|\xe0\xba\xa5|\xe0\xba[\xa7-\xb0]|\xe0\xba[\xb2\xb3]|\xe0\xba\xbd|\xe0\xbb[\x80-\x84]|\xe0\xbb\x86|\xe0\xbb[\x90-\x99]|\xe0\xbb[\x9c-\x9f]|\xe0\xbc\x80|\xe0\xbc[\xa0-\xa9]|\xe0\xbd[\x80-\x87]|\xe0\xbd[\x89-\xac]|\xe0\xbe[\x88-\x8c]|\xe1\x80[\x80-\xaa]|\xe1(?:\x80\xbf|\x81[\x80-\x89])|\xe1\x81[\x90-\x95]|\xe1\x81[\x9a-\x9d]|\xe1\x81\xa1|\xe1\x81[\xa5\xa6]|\xe1\x81[\xae-\xb0]|\xe1(?:\x81[\xb5-\xbf]|\x82[\x80\x81])|\xe1\x82\x8e|\xe1\x82[\x90-\x99]|\xe1(?:\x82[\xa0-\xbf]|\x83[\x80-\x85])|\xe1\x83\x87|\xe1\x83\x8d|\xe1\x83[\x90-\xba]|\xe1(?:\x83[\xbc-\xbf]|[\x84-\x88][\x80-\xbf]|\x89[\x80-\x88])|\xe1\x89[\x8a-\x8d]|\xe1\x89[\x90-\x96]|\xe1\x89\x98|\xe1\x89[\x9a-\x9d]|\xe1(?:\x89[\xa0-\xbf]|\x8a[\x80-\x88])|\xe1\x8a[\x8a-\x8d]|\xe1\x8a[\x90-\xb0]|\xe1\x8a[\xb2-\xb5]|\xe1\x8a[\xb8-\xbe]|\xe1\x8b\x80|\xe1\x8b[\x82-\x85]|\xe1\x8b[\x88-\x96]|\xe1(?:\x8b[\x98-\xbf]|\x8c[\x80-\x90])|\xe1\x8c[\x92-\x95]|\xe1(?:\x8c[\x98-\xbf]|\x8d[\x80-\x9a])|\xe1\x8e[\x80-\x8f]|\xe1(?:\x8e[\xa0-\xbf]|\x8f[\x80-\xb5])|\xe1\x8f[\xb8-\xbd]|\xe1(?:\x90[\x81-\xbf]|[\x91-\x98][\x80-\xbf]|\x99[\x80-\xac])|\xe1\x99[\xaf-\xbf]|\xe1\x9a[\x81-\x9a]|\xe1(?:\x9a[\xa0-\xbf]|\x9b[\x80-\xaa])|\xe1\x9b[\xb1-\xb8]|\xe1\x9c[\x80-\x8c]|\xe1\x9c[\x8e-\x91]|\xe1\x9c[\xa0-\xb1]|\xe1\x9d[\x80-\x91]|\xe1\x9d[\xa0-\xac]|\xe1\x9d[\xae-\xb0]|\xe1\x9e[\x80-\xb3]|\xe1\x9f\x97|\xe1\x9f\x9c|\xe1\x9f[\xa0-\xa9]|\xe1\xa0[\x90-\x99]|\xe1(?:\xa0[\xa0-\xbf]|\xa1[\x80-\xb8])|\xe1\xa2[\x80-\x84]|\xe1\xa2[\x87-\xa8]|\xe1\xa2\xaa|\xe1(?:\xa2[\xb0-\xbf]|\xa3[\x80-\xb5])|\xe1\xa4[\x80-\x9e]|\xe1\xa5[\x86-\xad]|\xe1\xa5[\xb0-\xb4]|\xe1\xa6[\x80-\xab]|\xe1(?:\xa6[\xb0-\xbf]|\xa7[\x80-\x89])|\xe1\xa7[\x90-\x99]|\xe1\xa8[\x80-\x96]|\xe1(?:\xa8[\xa0-\xbf]|\xa9[\x80-\x94])|\xe1\xaa[\x80-\x89]|\xe1\xaa[\x90-\x99]|\xe1\xaa\xa7|\xe1\xac[\x85-\xb3]|\xe1\xad[\x85-\x8b]|\xe1\xad[\x90-\x99]|\xe1\xae[\x83-\xa0]|\xe1(?:\xae[\xae-\xbf]|\xaf[\x80-\xa5])|\xe1\xb0[\x80-\xa3]|\xe1\xb1[\x80-\x89]|\xe1\xb1[\x8d-\xbd]|\xe1\xb2[\x80-\x88]|\xe1\xb2[\x90-\xba]|\xe1\xb2[\xbd-\xbf]|\xe1\xb3[\xa9-\xac]|\xe1\xb3[\xae-\xb3]|\xe1\xb3[\xb5\xb6]|\xe1\xb3\xba|\xe1(?:[\xb4-\xb6][\x80-\xbf])|\xe1(?:[\xb8-\xbb][\x80-\xbf]|\xbc[\x80-\x95])|\xe1\xbc[\x98-\x9d]|\xe1(?:\xbc[\xa0-\xbf]|\xbd[\x80-\x85])|\xe1\xbd[\x88-\x8d]|\xe1\xbd[\x90-\x97]|\xe1\xbd\x99|\xe1\xbd\x9b|\xe1\xbd\x9d|\xe1\xbd[\x9f-\xbd]|\xe1\xbe[\x80-\xb4]|\xe1\xbe[\xb6-\xbc]|\xe1\xbe\xbe|\xe1\xbf[\x82-\x84]|\xe1\xbf[\x86-\x8c]|\xe1\xbf[\x90-\x93]|\xe1\xbf[\x96-\x9b]|\xe1\xbf[\xa0-\xac]|\xe1\xbf[\xb2-\xb4]|\xe1\xbf[\xb6-\xbc]|\xe2(?:\x80\xbf|\x81\x80)|\xe2\x81\x94|\xe2\x81\xb1|\xe2\x81\xbf|\xe2\x82[\x90-\x9c]|\xe2\x84\x82|\xe2\x84\x87|\xe2\x84[\x8a-\x93]|\xe2\x84\x95|\xe2\x84[\x99-\x9d]|\xe2\x84\xa4|\xe2\x84\xa6|\xe2\x84\xa8|\xe2\x84[\xaa-\xad]|\xe2\x84[\xaf-\xb9]|\xe2\x84[\xbc-\xbf]|\xe2\x85[\x85-\x89]|\xe2\x85\x8e|\xe2\x86[\x83\x84]|\xe2\xb0[\x80-\xae]|\xe2(?:\xb0[\xb0-\xbf]|\xb1[\x80-\x9e])|\xe2(?:\xb1[\xa0-\xbf]|\xb2[\x80-\xbf]|\xb3[\x80-\xa4])|\xe2\xb3[\xab-\xae]|\xe2\xb3[\xb2\xb3]|\xe2\xb4[\x80-\xa5]|\xe2\xb4\xa7|\xe2\xb4\xad|\xe2(?:\xb4[\xb0-\xbf]|\xb5[\x80-\xa7])|\xe2\xb5\xaf|\xe2\xb6[\x80-\x96]|\xe2\xb6[\xa0-\xa6]|\xe2\xb6[\xa8-\xae]|\xe2\xb6[\xb0-\xb6]|\xe2\xb6[\xb8-\xbe]|\xe2\xb7[\x80-\x86]|\xe2\xb7[\x88-\x8e]|\xe2\xb7[\x90-\x96]|\xe2\xb7[\x98-\x9e]|\xe2\xb8\xaf|\xe3\x80[\x85\x86]|\xe3\x80[\xb1-\xb5]|\xe3\x80[\xbb\xbc]|\xe3(?:\x81[\x81-\xbf]|\x82[\x80-\x96])|\xe3\x82[\x9d-\x9f]|\xe3(?:\x82[\xa1-\xbf]|\x83[\x80-\xba])|\xe3\x83[\xbc-\xbf]|\xe3\x84[\x85-\xaf]|\xe3(?:\x84[\xb1-\xbf]|\x85[\x80-\xbf]|\x86[\x80-\x8e])|\xe3\x86[\xa0-\xbf]|\xe3\x87[\xb0-\xbf]|\xe3[\x90-\xbf][\x80-\xbf]|\xe4[\x80-\xb6][\x80-\xbf]|\xe4[\xb8-\xbf][\x80-\xbf]|[\xe5-\xe8][\x80-\xbf][\x80-\xbf]|\xe9(?:[\x80-\xbe][\x80-\xbf]|\xbf[\x80-\xbc])|\xea(?:[\x80-\x91][\x80-\xbf]|\x92[\x80-\x8c])|\xea\x93[\x90-\xbd]|\xea(?:[\x94-\x97][\x80-\xbf]|\x98[\x80-\x8c])|\xea\x98[\x90-\xab]|\xea\x99[\x80-\xae]|\xea(?:\x99\xbf|\x9a[\x80-\x9d])|\xea(?:\x9a[\xa0-\xbf]|\x9b[\x80-\xa5])|\xea\x9c[\x97-\x9f]|\xea(?:\x9c[\xa2-\xbf]|\x9d[\x80-\xbf]|\x9e[\x80-\x88])|\xea\x9e[\x8b-\xbf]|\xea\x9f[\x82-\x8a]|\xea(?:\x9f[\xb5-\xbf]|\xa0[\x80\x81])|\xea\xa0[\x83-\x85]|\xea\xa0[\x87-\x8a]|\xea\xa0[\x8c-\xa2]|\xea\xa1[\x80-\xb3]|\xea\xa2[\x82-\xb3]|\xea\xa3[\x90-\x99]|\xea\xa3[\xb2-\xb7]|\xea\xa3\xbb|\xea\xa3[\xbd\xbe]|\xea\xa4[\x80-\xa5]|\xea(?:\xa4[\xb0-\xbf]|\xa5[\x80-\x86])|\xea\xa5[\xa0-\xbc]|\xea\xa6[\x84-\xb2]|\xea\xa7[\x8f-\x99]|\xea\xa7[\xa0-\xa4]|\xea\xa7[\xa6-\xbe]|\xea\xa8[\x80-\xa8]|\xea\xa9[\x80-\x82]|\xea\xa9[\x84-\x8b]|\xea\xa9[\x90-\x99]|\xea\xa9[\xa0-\xb6]|\xea\xa9\xba|\xea(?:\xa9[\xbe\xbf]|\xaa[\x80-\xaf])|\xea\xaa\xb1|\xea\xaa[\xb5\xb6]|\xea\xaa[\xb9-\xbd]|\xea\xab\x80|\xea\xab\x82|\xea\xab[\x9b-\x9d]|\xea\xab[\xa0-\xaa]|\xea\xab[\xb2-\xb4]|\xea\xac[\x81-\x86]|\xea\xac[\x89-\x8e]|\xea\xac[\x91-\x96]|\xea\xac[\xa0-\xa6]|\xea\xac[\xa8-\xae]|\xea(?:\xac[\xb0-\xbf]|\xad[\x80-\x9a])|\xea\xad[\x9c-\xa9]|\xea(?:\xad[\xb0-\xbf]|\xae[\x80-\xbf]|\xaf[\x80-\xa2])|\xea\xaf[\xb0-\xb9]|\xea[\xb0-\xbf][\x80-\xbf]|[\xeb\xec][\x80-\xbf][\x80-\xbf]|\xed(?:[\x80-\x9d][\x80-\xbf]|\x9e[\x80-\xa3])|\xed(?:\x9e[\xb0-\xbf]|\x9f[\x80-\x86])|\xed\x9f[\x8b-\xbb]|\xef(?:[\xa4-\xa8][\x80-\xbf]|\xa9[\x80-\xad])|\xef(?:\xa9[\xb0-\xbf]|\xaa[\x80-\xbf]|\xab[\x80-\x99])|\xef\xac[\x80-\x86]|\xef\xac[\x93-\x97]|\xef\xac\x9d|\xef\xac[\x9f-\xa8]|\xef\xac[\xaa-\xb6]|\xef\xac[\xb8-\xbc]|\xef\xac\xbe|\xef\xad[\x80\x81]|\xef\xad[\x83\x84]|\xef(?:\xad[\x86-\xbf]|\xae[\x80-\xb1])|\xef(?:\xaf[\x93-\xbf]|[\xb0-\xb3][\x80-\xbf]|\xb4[\x80-\xbd])|\xef(?:\xb5[\x90-\xbf]|\xb6[\x80-\x8f])|\xef(?:\xb6[\x92-\xbf]|\xb7[\x80-\x87])|\xef\xb7[\xb0-\xbb]|\xef\xb8[\xb3\xb4]|\xef\xb9[\x8d-\x8f]|\xef\xb9[\xb0-\xb4]|\xef(?:\xb9[\xb6-\xbf]|\xba[\x80-\xbf]|\xbb[\x80-\xbc])|\xef\xbc[\x90-\x99]|\xef\xbc[\xa1-\xba]|\xef\xbc\xbf|\xef\xbd[\x81-\x9a]|\xef(?:\xbd[\xa6-\xbf]|\xbe[\x80-\xbe])|\xef\xbf[\x82-\x87]|\xef\xbf[\x8a-\x8f]|\xef\xbf[\x92-\x97]|\xef\xbf[\x9a-\x9c]|\xf0\x90\x80[\x80-\x8b]|\xf0\x90\x80[\x8d-\xa6]|\xf0\x90\x80[\xa8-\xba]|\xf0\x90\x80[\xbc\xbd]|\xf0\x90(?:\x80\xbf|\x81[\x80-\x8d])|\xf0\x90\x81[\x90-\x9d]|\xf0\x90(?:\x82[\x80-\xbf]|\x83[\x80-\xba])|\xf0\x90\x8a[\x80-\x9c]|\xf0\x90(?:\x8a[\xa0-\xbf]|\x8b[\x80-\x90])|\xf0\x90\x8c[\x80-\x9f]|\xf0\x90(?:\x8c[\xad-\xbf]|\x8d\x80)|\xf0\x90\x8d[\x82-\x89]|\xf0\x90\x8d[\x90-\xb5]|\xf0\x90\x8e[\x80-\x9d]|\xf0\x90(?:\x8e[\xa0-\xbf]|\x8f[\x80-\x83])|\xf0\x90\x8f[\x88-\x8f]|\xf0\x90(?:[\x90\x91][\x80-\xbf]|\x92[\x80-\x9d])|\xf0\x90\x92[\xa0-\xa9]|\xf0\x90(?:\x92[\xb0-\xbf]|\x93[\x80-\x93])|\xf0\x90\x93[\x98-\xbb]|\xf0\x90\x94[\x80-\xa7]|\xf0\x90(?:\x94[\xb0-\xbf]|\x95[\x80-\xa3])|\xf0\x90(?:[\x98-\x9b][\x80-\xbf]|\x9c[\x80-\xb6])|\xf0\x90\x9d[\x80-\x95]|\xf0\x90\x9d[\xa0-\xa7]|\xf0\x90\xa0[\x80-\x85]|\xf0\x90\xa0\x88|\xf0\x90\xa0[\x8a-\xb5]|\xf0\x90\xa0[\xb7\xb8]|\xf0\x90\xa0\xbc|\xf0\x90(?:\xa0\xbf|\xa1[\x80-\x95])|\xf0\x90\xa1[\xa0-\xb6]|\xf0\x90\xa2[\x80-\x9e]|\xf0\x90\xa3[\xa0-\xb2]|\xf0\x90\xa3[\xb4\xb5]|\xf0\x90\xa4[\x80-\x95]|\xf0\x90\xa4[\xa0-\xb9]|\xf0\x90\xa6[\x80-\xb7]|\xf0\x90\xa6[\xbe\xbf]|\xf0\x90\xa8\x80|\xf0\x90\xa8[\x90-\x93]|\xf0\x90\xa8[\x95-\x97]|\xf0\x90\xa8[\x99-\xb5]|\xf0\x90\xa9[\xa0-\xbc]|\xf0\x90\xaa[\x80-\x9c]|\xf0\x90\xab[\x80-\x87]|\xf0\x90\xab[\x89-\xa4]|\xf0\x90\xac[\x80-\xb5]|\xf0\x90\xad[\x80-\x95]|\xf0\x90\xad[\xa0-\xb2]|\xf0\x90\xae[\x80-\x91]|\xf0\x90(?:\xb0[\x80-\xbf]|\xb1[\x80-\x88])|\xf0\x90\xb2[\x80-\xb2]|\xf0\x90\xb3[\x80-\xb2]|\xf0\x90\xb4[\x80-\xa3]|\xf0\x90\xb4[\xb0-\xb9]|\xf0\x90\xba[\x80-\xa9]|\xf0\x90\xba[\xb0\xb1]|\xf0\x90\xbc[\x80-\x9c]|\xf0\x90\xbc\xa7|\xf0\x90(?:\xbc[\xb0-\xbf]|\xbd[\x80-\x85])|\xf0\x90(?:\xbe[\xb0-\xbf]|\xbf[\x80-\x84])|\xf0\x90\xbf[\xa0-\xb6]|\xf0\x91\x80[\x83-\xb7]|\xf0\x91\x81[\xa6-\xaf]|\xf0\x91\x82[\x83-\xaf]|\xf0\x91\x83[\x90-\xa8]|\xf0\x91\x83[\xb0-\xb9]|\xf0\x91\x84[\x83-\xa6]|\xf0\x91\x84[\xb6-\xbf]|\xf0\x91\x85\x84|\xf0\x91\x85\x87|\xf0\x91\x85[\x90-\xb2]|\xf0\x91\x85\xb6|\xf0\x91\x86[\x83-\xb2]|\xf0\x91\x87[\x81-\x84]|\xf0\x91\x87[\x90-\x9a]|\xf0\x91\x87\x9c|\xf0\x91\x88[\x80-\x91]|\xf0\x91\x88[\x93-\xab]|\xf0\x91\x8a[\x80-\x86]|\xf0\x91\x8a\x88|\xf0\x91\x8a[\x8a-\x8d]|\xf0\x91\x8a[\x8f-\x9d]|\xf0\x91\x8a[\x9f-\xa8]|\xf0\x91(?:\x8a[\xb0-\xbf]|\x8b[\x80-\x9e])|\xf0\x91\x8b[\xb0-\xb9]|\xf0\x91\x8c[\x85-\x8c]|\xf0\x91\x8c[\x8f\x90]|\xf0\x91\x8c[\x93-\xa8]|\xf0\x91\x8c[\xaa-\xb0]|\xf0\x91\x8c[\xb2\xb3]|\xf0\x91\x8c[\xb5-\xb9]|\xf0\x91\x8c\xbd|\xf0\x91\x8d\x90|\xf0\x91\x8d[\x9d-\xa1]|\xf0\x91\x90[\x80-\xb4]|\xf0\x91\x91[\x87-\x8a]|\xf0\x91\x91[\x90-\x99]|\xf0\x91\x91[\x9f-\xa1]|\xf0\x91\x92[\x80-\xaf]|\xf0\x91\x93[\x84\x85]|\xf0\x91\x93\x87|\xf0\x91\x93[\x90-\x99]|\xf0\x91\x96[\x80-\xae]|\xf0\x91\x97[\x98-\x9b]|\xf0\x91\x98[\x80-\xaf]|\xf0\x91\x99\x84|\xf0\x91\x99[\x90-\x99]|\xf0\x91\x9a[\x80-\xaa]|\xf0\x91\x9a\xb8|\xf0\x91\x9b[\x80-\x89]|\xf0\x91\x9c[\x80-\x9a]|\xf0\x91\x9c[\xb0-\xb9]|\xf0\x91\xa0[\x80-\xab]|\xf0\x91(?:\xa2[\xa0-\xbf]|\xa3[\x80-\xa9])|\xf0\x91(?:\xa3\xbf|\xa4[\x80-\x86])|\xf0\x91\xa4\x89|\xf0\x91\xa4[\x8c-\x93]|\xf0\x91\xa4[\x95\x96]|\xf0\x91\xa4[\x98-\xaf]|\xf0\x91\xa4\xbf|\xf0\x91\xa5\x81|\xf0\x91\xa5[\x90-\x99]|\xf0\x91\xa6[\xa0-\xa7]|\xf0\x91(?:\xa6[\xaa-\xbf]|\xa7[\x80-\x90])|\xf0\x91\xa7\xa1|\xf0\x91\xa7\xa3|\xf0\x91\xa8\x80|\xf0\x91\xa8[\x8b-\xb2]|\xf0\x91\xa8\xba|\xf0\x91\xa9\x90|\xf0\x91(?:\xa9[\x9c-\xbf]|\xaa[\x80-\x89])|\xf0\x91\xaa\x9d|\xf0\x91\xab[\x80-\xb8]|\xf0\x91\xb0[\x80-\x88]|\xf0\x91\xb0[\x8a-\xae]|\xf0\x91\xb1\x80|\xf0\x91\xb1[\x90-\x99]|\xf0\x91(?:\xb1[\xb2-\xbf]|\xb2[\x80-\x8f])|\xf0\x91\xb4[\x80-\x86]|\xf0\x91\xb4[\x88\x89]|\xf0\x91\xb4[\x8b-\xb0]|\xf0\x91\xb5\x86|\xf0\x91\xb5[\x90-\x99]|\xf0\x91\xb5[\xa0-\xa5]|\xf0\x91\xb5[\xa7\xa8]|\xf0\x91(?:\xb5[\xaa-\xbf]|\xb6[\x80-\x89])|\xf0\x91\xb6\x98|\xf0\x91\xb6[\xa0-\xa9]|\xf0\x91\xbb[\xa0-\xb2]|\xf0\x91\xbe\xb0|\xf0\x92(?:[\x80-\x8d][\x80-\xbf]|\x8e[\x80-\x99])|\xf0\x92(?:[\x92-\x94][\x80-\xbf]|\x95[\x80-\x83])|\xf0\x93(?:[\x80-\x8f][\x80-\xbf]|\x90[\x80-\xae])|\xf0\x94(?:[\x90-\x98][\x80-\xbf]|\x99[\x80-\x86])|\xf0\x96(?:[\xa0-\xa7][\x80-\xbf]|\xa8[\x80-\xb8])|\xf0\x96\xa9[\x80-\x9e]|\xf0\x96\xa9[\xa0-\xa9]|\xf0\x96\xab[\x90-\xad]|\xf0\x96\xac[\x80-\xaf]|\xf0\x96\xad[\x80-\x83]|\xf0\x96\xad[\x90-\x99]|\xf0\x96\xad[\xa3-\xb7]|\xf0\x96(?:\xad[\xbd-\xbf]|\xae[\x80-\x8f])|\xf0\x96\xb9[\x80-\xbf]|\xf0\x96(?:\xbc[\x80-\xbf]|\xbd[\x80-\x8a])|\xf0\x96\xbd\x90|\xf0\x96\xbe[\x93-\x9f]|\xf0\x96\xbf[\xa0\xa1]|\xf0\x96\xbf\xa3|\xf0(?:\x97[\x80-\xbf][\x80-\xbf]|\x98(?:[\x80-\x9e][\x80-\xbf]|\x9f[\x80-\xb7]))|\xf0\x98(?:[\xa0-\xb2][\x80-\xbf]|\xb3[\x80-\x95])|\xf0\x98\xb4[\x80-\x88]|\xf0\x9b(?:[\x80-\x83][\x80-\xbf]|\x84[\x80-\x9e])|\xf0\x9b\x85[\x90-\x92]|\xf0\x9b\x85[\xa4-\xa7]|\xf0\x9b(?:\x85[\xb0-\xbf]|[\x86-\x8a][\x80-\xbf]|\x8b[\x80-\xbb])|\xf0\x9b(?:\xb0[\x80-\xbf]|\xb1[\x80-\xaa])|\xf0\x9b\xb1[\xb0-\xbc]|\xf0\x9b\xb2[\x80-\x88]|\xf0\x9b\xb2[\x90-\x99]|\xf0\x9d(?:\x90[\x80-\xbf]|\x91[\x80-\x94])|\xf0\x9d(?:\x91[\x96-\xbf]|\x92[\x80-\x9c])|\xf0\x9d\x92[\x9e\x9f]|\xf0\x9d\x92\xa2|\xf0\x9d\x92[\xa5\xa6]|\xf0\x9d\x92[\xa9-\xac]|\xf0\x9d\x92[\xae-\xb9]|\xf0\x9d\x92\xbb|\xf0\x9d(?:\x92[\xbd-\xbf]|\x93[\x80-\x83])|\xf0\x9d(?:\x93[\x85-\xbf]|\x94[\x80-\x85])|\xf0\x9d\x94[\x87-\x8a]|\xf0\x9d\x94[\x8d-\x94]|\xf0\x9d\x94[\x96-\x9c]|\xf0\x9d\x94[\x9e-\xb9]|\xf0\x9d\x94[\xbb-\xbe]|\xf0\x9d\x95[\x80-\x84]|\xf0\x9d\x95\x86|\xf0\x9d\x95[\x8a-\x90]|\xf0\x9d(?:\x95[\x92-\xbf]|[\x96-\x99][\x80-\xbf]|\x9a[\x80-\xa5])|\xf0\x9d(?:\x9a[\xa8-\xbf]|\x9b\x80)|\xf0\x9d\x9b[\x82-\x9a]|\xf0\x9d\x9b[\x9c-\xba]|\xf0\x9d(?:\x9b[\xbc-\xbf]|\x9c[\x80-\x94])|\xf0\x9d\x9c[\x96-\xb4]|\xf0\x9d(?:\x9c[\xb6-\xbf]|\x9d[\x80-\x8e])|\xf0\x9d\x9d[\x90-\xae]|\xf0\x9d(?:\x9d[\xb0-\xbf]|\x9e[\x80-\x88])|\xf0\x9d\x9e[\x8a-\xa8]|\xf0\x9d(?:\x9e[\xaa-\xbf]|\x9f[\x80-\x82])|\xf0\x9d\x9f[\x84-\x8b]|\xf0\x9d\x9f[\x8e-\xbf]|\xf0\x9e\x84[\x80-\xac]|\xf0\x9e\x84[\xb7-\xbd]|\xf0\x9e\x85[\x80-\x89]|\xf0\x9e\x85\x8e|\xf0\x9e\x8b[\x80-\xab]|\xf0\x9e\x8b[\xb0-\xb9]|\xf0\x9e(?:[\xa0-\xa2][\x80-\xbf]|\xa3[\x80-\x84])|\xf0\x9e(?:\xa4[\x80-\xbf]|\xa5[\x80-\x83])|\xf0\x9e\xa5\x8b|\xf0\x9e\xa5[\x90-\x99]|\xf0\x9e\xb8[\x80-\x83]|\xf0\x9e\xb8[\x85-\x9f]|\xf0\x9e\xb8[\xa1\xa2]|\xf0\x9e\xb8\xa4|\xf0\x9e\xb8\xa7|\xf0\x9e\xb8[\xa9-\xb2]|\xf0\x9e\xb8[\xb4-\xb7]|\xf0\x9e\xb8\xb9|\xf0\x9e\xb8\xbb|\xf0\x9e\xb9\x82|\xf0\x9e\xb9\x87|\xf0\x9e\xb9\x89|\xf0\x9e\xb9\x8b|\xf0\x9e\xb9[\x8d-\x8f]|\xf0\x9e\xb9[\x91\x92]|\xf0\x9e\xb9\x94|\xf0\x9e\xb9\x97|\xf0\x9e\xb9\x99|\xf0\x9e\xb9\x9b|\xf0\x9e\xb9\x9d|\xf0\x9e\xb9\x9f|\xf0\x9e\xb9[\xa1\xa2]|\xf0\x9e\xb9\xa4|\xf0\x9e\xb9[\xa7-\xaa]|\xf0\x9e\xb9[\xac-\xb2]|\xf0\x9e\xb9[\xb4-\xb7]|\xf0\x9e\xb9[\xb9-\xbc]|\xf0\x9e\xb9\xbe|\xf0\x9e\xba[\x80-\x89]|\xf0\x9e\xba[\x8b-\x9b]|\xf0\x9e\xba[\xa1-\xa3]|\xf0\x9e\xba[\xa5-\xa9]|\xf0\x9e\xba[\xab-\xbb]|\xf0\x9f\xaf[\xb0-\xb9]|\xf0(?:[\xa0-\xa9][\x80-\xbf][\x80-\xbf]|\xaa(?:[\x80-\x9a][\x80-\xbf]|\x9b[\x80-\x9d]))|\xf0(?:\xaa[\x9c-\xbf][\x80-\xbf]|\xab(?:[\x80-\x9b][\x80-\xbf]|\x9c[\x80-\xb4]))|\xf0\xab(?:[\x9d-\x9f][\x80-\xbf]|\xa0[\x80-\x9d])|\xf0(?:\xab(?:[\xa1-\xbf][\x80-\xbf]|\xa0[\xa0-\xbf])|\xac(?:[\x80-\xb9][\x80-\xbf]|\xba[\x80-\xa1]))|\xf0(?:\xac(?:[\xbb-\xbf][\x80-\xbf]|\xba[\xb0-\xbf])|\xad[\x80-\xbf][\x80-\xbf]|\xae(?:[\x80-\xae][\x80-\xbf]|\xaf[\x80-\xa0]))|\xf0\xaf(?:[\xa0-\xa7][\x80-\xbf]|\xa8[\x80-\x9d])|\xf0(?:\xb0[\x80-\xbf][\x80-\xbf]|\xb1(?:[\x80-\x8c][\x80-\xbf]|\x8d[\x80-\x8a])))+
+          case 3: // rule at line 113: \|
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 113\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 113 "array_loader.l"
-{ return ArrayLoaderParser::make_SYMBOL(text(), location()); }
+{ return ArrayLoaderParser::make_VAR_DELIM(location()); }
             break;
-          case 5: // rule at line 114: \]
+          case 4: // rule at line 114: (?:[0-9]|[A-Z]|_|[a-z]|\xc2\xaa|\xc2\xb5|\xc2\xba|\xc3[\x80-\x96]|\xc3[\x98-\xb6]|\xc3[\xb8-\xbf]|[\xc4-\xca][\x80-\xbf]|\xcb[\x80\x81]|\xcb[\x86-\x91]|\xcb[\xa0-\xa4]|\xcb\xac|\xcb\xae|\xcd[\xb0-\xb4]|\xcd[\xb6\xb7]|\xcd[\xba-\xbd]|\xcd\xbf|\xce\x86|\xce[\x88-\x8a]|\xce\x8c|\xce[\x8e-\xa1]|\xce[\xa3-\xbf]|\xcf[\x80-\xb5]|\xcf[\xb7-\xbf]|[\xd0\xd1][\x80-\xbf]|\xd2[\x80\x81]|\xd2[\x8a-\xbf]|\xd3[\x80-\xbf]|\xd4[\x80-\xaf]|\xd4[\xb1-\xbf]|\xd5[\x80-\x96]|\xd5\x99|\xd5[\xa0-\xbf]|\xd6[\x80-\x88]|\xd7[\x90-\xaa]|\xd7[\xaf-\xb2]|\xd8[\xa0-\xbf]|\xd9[\x80-\x8a]|\xd9[\xa0-\xa9]|\xd9[\xae\xaf]|\xd9[\xb1-\xbf]|\xda[\x80-\xbf]|\xdb[\x80-\x93]|\xdb\x95|\xdb[\xa5\xa6]|\xdb[\xae-\xbc]|\xdb\xbf|\xdc\x90|\xdc[\x92-\xaf]|\xdd[\x8d-\xbf]|\xde[\x80-\xa5]|\xde\xb1|\xdf[\x80-\xaa]|\xdf[\xb4\xb5]|\xdf\xba|\xe0\xa0[\x80-\x95]|\xe0\xa0\x9a|\xe0\xa0\xa4|\xe0\xa0\xa8|\xe0\xa1[\x80-\x98]|\xe0\xa1[\xa0-\xaa]|\xe0\xa2[\xa0-\xb4]|\xe0(?:\xa2[\xb6-\xbf]|\xa3[\x80-\x87])|\xe0\xa4[\x84-\xb9]|\xe0\xa4\xbd|\xe0\xa5\x90|\xe0\xa5[\x98-\xa1]|\xe0\xa5[\xa6-\xaf]|\xe0(?:\xa5[\xb1-\xbf]|\xa6\x80)|\xe0\xa6[\x85-\x8c]|\xe0\xa6[\x8f\x90]|\xe0\xa6[\x93-\xa8]|\xe0\xa6[\xaa-\xb0]|\xe0\xa6\xb2|\xe0\xa6[\xb6-\xb9]|\xe0\xa6\xbd|\xe0\xa7\x8e|\xe0\xa7[\x9c\x9d]|\xe0\xa7[\x9f-\xa1]|\xe0\xa7[\xa6-\xb1]|\xe0\xa7\xbc|\xe0\xa8[\x85-\x8a]|\xe0\xa8[\x8f\x90]|\xe0\xa8[\x93-\xa8]|\xe0\xa8[\xaa-\xb0]|\xe0\xa8[\xb2\xb3]|\xe0\xa8[\xb5\xb6]|\xe0\xa8[\xb8\xb9]|\xe0\xa9[\x99-\x9c]|\xe0\xa9\x9e|\xe0\xa9[\xa6-\xaf]|\xe0\xa9[\xb2-\xb4]|\xe0\xaa[\x85-\x8d]|\xe0\xaa[\x8f-\x91]|\xe0\xaa[\x93-\xa8]|\xe0\xaa[\xaa-\xb0]|\xe0\xaa[\xb2\xb3]|\xe0\xaa[\xb5-\xb9]|\xe0\xaa\xbd|\xe0\xab\x90|\xe0\xab[\xa0\xa1]|\xe0\xab[\xa6-\xaf]|\xe0\xab\xb9|\xe0\xac[\x85-\x8c]|\xe0\xac[\x8f\x90]|\xe0\xac[\x93-\xa8]|\xe0\xac[\xaa-\xb0]|\xe0\xac[\xb2\xb3]|\xe0\xac[\xb5-\xb9]|\xe0\xac\xbd|\xe0\xad[\x9c\x9d]|\xe0\xad[\x9f-\xa1]|\xe0\xad[\xa6-\xaf]|\xe0\xad\xb1|\xe0\xae\x83|\xe0\xae[\x85-\x8a]|\xe0\xae[\x8e-\x90]|\xe0\xae[\x92-\x95]|\xe0\xae[\x99\x9a]|\xe0\xae\x9c|\xe0\xae[\x9e\x9f]|\xe0\xae[\xa3\xa4]|\xe0\xae[\xa8-\xaa]|\xe0\xae[\xae-\xb9]|\xe0\xaf\x90|\xe0\xaf[\xa6-\xaf]|\xe0\xb0[\x85-\x8c]|\xe0\xb0[\x8e-\x90]|\xe0\xb0[\x92-\xa8]|\xe0\xb0[\xaa-\xb9]|\xe0\xb0\xbd|\xe0\xb1[\x98-\x9a]|\xe0\xb1[\xa0\xa1]|\xe0\xb1[\xa6-\xaf]|\xe0\xb2\x80|\xe0\xb2[\x85-\x8c]|\xe0\xb2[\x8e-\x90]|\xe0\xb2[\x92-\xa8]|\xe0\xb2[\xaa-\xb3]|\xe0\xb2[\xb5-\xb9]|\xe0\xb2\xbd|\xe0\xb3\x9e|\xe0\xb3[\xa0\xa1]|\xe0\xb3[\xa6-\xaf]|\xe0\xb3[\xb1\xb2]|\xe0\xb4[\x84-\x8c]|\xe0\xb4[\x8e-\x90]|\xe0\xb4[\x92-\xba]|\xe0\xb4\xbd|\xe0\xb5\x8e|\xe0\xb5[\x94-\x96]|\xe0\xb5[\x9f-\xa1]|\xe0\xb5[\xa6-\xaf]|\xe0\xb5[\xba-\xbf]|\xe0\xb6[\x85-\x96]|\xe0\xb6[\x9a-\xb1]|\xe0\xb6[\xb3-\xbb]|\xe0\xb6\xbd|\xe0\xb7[\x80-\x86]|\xe0\xb7[\xa6-\xaf]|\xe0\xb8[\x81-\xb0]|\xe0\xb8[\xb2\xb3]|\xe0\xb9[\x80-\x86]|\xe0\xb9[\x90-\x99]|\xe0\xba[\x81\x82]|\xe0\xba\x84|\xe0\xba[\x86-\x8a]|\xe0\xba[\x8c-\xa3]|\xe0\xba\xa5|\xe0\xba[\xa7-\xb0]|\xe0\xba[\xb2\xb3]|\xe0\xba\xbd|\xe0\xbb[\x80-\x84]|\xe0\xbb\x86|\xe0\xbb[\x90-\x99]|\xe0\xbb[\x9c-\x9f]|\xe0\xbc\x80|\xe0\xbc[\xa0-\xa9]|\xe0\xbd[\x80-\x87]|\xe0\xbd[\x89-\xac]|\xe0\xbe[\x88-\x8c]|\xe1\x80[\x80-\xaa]|\xe1(?:\x80\xbf|\x81[\x80-\x89])|\xe1\x81[\x90-\x95]|\xe1\x81[\x9a-\x9d]|\xe1\x81\xa1|\xe1\x81[\xa5\xa6]|\xe1\x81[\xae-\xb0]|\xe1(?:\x81[\xb5-\xbf]|\x82[\x80\x81])|\xe1\x82\x8e|\xe1\x82[\x90-\x99]|\xe1(?:\x82[\xa0-\xbf]|\x83[\x80-\x85])|\xe1\x83\x87|\xe1\x83\x8d|\xe1\x83[\x90-\xba]|\xe1(?:\x83[\xbc-\xbf]|[\x84-\x88][\x80-\xbf]|\x89[\x80-\x88])|\xe1\x89[\x8a-\x8d]|\xe1\x89[\x90-\x96]|\xe1\x89\x98|\xe1\x89[\x9a-\x9d]|\xe1(?:\x89[\xa0-\xbf]|\x8a[\x80-\x88])|\xe1\x8a[\x8a-\x8d]|\xe1\x8a[\x90-\xb0]|\xe1\x8a[\xb2-\xb5]|\xe1\x8a[\xb8-\xbe]|\xe1\x8b\x80|\xe1\x8b[\x82-\x85]|\xe1\x8b[\x88-\x96]|\xe1(?:\x8b[\x98-\xbf]|\x8c[\x80-\x90])|\xe1\x8c[\x92-\x95]|\xe1(?:\x8c[\x98-\xbf]|\x8d[\x80-\x9a])|\xe1\x8e[\x80-\x8f]|\xe1(?:\x8e[\xa0-\xbf]|\x8f[\x80-\xb5])|\xe1\x8f[\xb8-\xbd]|\xe1(?:\x90[\x81-\xbf]|[\x91-\x98][\x80-\xbf]|\x99[\x80-\xac])|\xe1\x99[\xaf-\xbf]|\xe1\x9a[\x81-\x9a]|\xe1(?:\x9a[\xa0-\xbf]|\x9b[\x80-\xaa])|\xe1\x9b[\xb1-\xb8]|\xe1\x9c[\x80-\x8c]|\xe1\x9c[\x8e-\x91]|\xe1\x9c[\xa0-\xb1]|\xe1\x9d[\x80-\x91]|\xe1\x9d[\xa0-\xac]|\xe1\x9d[\xae-\xb0]|\xe1\x9e[\x80-\xb3]|\xe1\x9f\x97|\xe1\x9f\x9c|\xe1\x9f[\xa0-\xa9]|\xe1\xa0[\x90-\x99]|\xe1(?:\xa0[\xa0-\xbf]|\xa1[\x80-\xb8])|\xe1\xa2[\x80-\x84]|\xe1\xa2[\x87-\xa8]|\xe1\xa2\xaa|\xe1(?:\xa2[\xb0-\xbf]|\xa3[\x80-\xb5])|\xe1\xa4[\x80-\x9e]|\xe1\xa5[\x86-\xad]|\xe1\xa5[\xb0-\xb4]|\xe1\xa6[\x80-\xab]|\xe1(?:\xa6[\xb0-\xbf]|\xa7[\x80-\x89])|\xe1\xa7[\x90-\x99]|\xe1\xa8[\x80-\x96]|\xe1(?:\xa8[\xa0-\xbf]|\xa9[\x80-\x94])|\xe1\xaa[\x80-\x89]|\xe1\xaa[\x90-\x99]|\xe1\xaa\xa7|\xe1\xac[\x85-\xb3]|\xe1\xad[\x85-\x8b]|\xe1\xad[\x90-\x99]|\xe1\xae[\x83-\xa0]|\xe1(?:\xae[\xae-\xbf]|\xaf[\x80-\xa5])|\xe1\xb0[\x80-\xa3]|\xe1\xb1[\x80-\x89]|\xe1\xb1[\x8d-\xbd]|\xe1\xb2[\x80-\x88]|\xe1\xb2[\x90-\xba]|\xe1\xb2[\xbd-\xbf]|\xe1\xb3[\xa9-\xac]|\xe1\xb3[\xae-\xb3]|\xe1\xb3[\xb5\xb6]|\xe1\xb3\xba|\xe1(?:[\xb4-\xb6][\x80-\xbf])|\xe1(?:[\xb8-\xbb][\x80-\xbf]|\xbc[\x80-\x95])|\xe1\xbc[\x98-\x9d]|\xe1(?:\xbc[\xa0-\xbf]|\xbd[\x80-\x85])|\xe1\xbd[\x88-\x8d]|\xe1\xbd[\x90-\x97]|\xe1\xbd\x99|\xe1\xbd\x9b|\xe1\xbd\x9d|\xe1\xbd[\x9f-\xbd]|\xe1\xbe[\x80-\xb4]|\xe1\xbe[\xb6-\xbc]|\xe1\xbe\xbe|\xe1\xbf[\x82-\x84]|\xe1\xbf[\x86-\x8c]|\xe1\xbf[\x90-\x93]|\xe1\xbf[\x96-\x9b]|\xe1\xbf[\xa0-\xac]|\xe1\xbf[\xb2-\xb4]|\xe1\xbf[\xb6-\xbc]|\xe2(?:\x80\xbf|\x81\x80)|\xe2\x81\x94|\xe2\x81\xb1|\xe2\x81\xbf|\xe2\x82[\x90-\x9c]|\xe2\x84\x82|\xe2\x84\x87|\xe2\x84[\x8a-\x93]|\xe2\x84\x95|\xe2\x84[\x99-\x9d]|\xe2\x84\xa4|\xe2\x84\xa6|\xe2\x84\xa8|\xe2\x84[\xaa-\xad]|\xe2\x84[\xaf-\xb9]|\xe2\x84[\xbc-\xbf]|\xe2\x85[\x85-\x89]|\xe2\x85\x8e|\xe2\x86[\x83\x84]|\xe2\xb0[\x80-\xae]|\xe2(?:\xb0[\xb0-\xbf]|\xb1[\x80-\x9e])|\xe2(?:\xb1[\xa0-\xbf]|\xb2[\x80-\xbf]|\xb3[\x80-\xa4])|\xe2\xb3[\xab-\xae]|\xe2\xb3[\xb2\xb3]|\xe2\xb4[\x80-\xa5]|\xe2\xb4\xa7|\xe2\xb4\xad|\xe2(?:\xb4[\xb0-\xbf]|\xb5[\x80-\xa7])|\xe2\xb5\xaf|\xe2\xb6[\x80-\x96]|\xe2\xb6[\xa0-\xa6]|\xe2\xb6[\xa8-\xae]|\xe2\xb6[\xb0-\xb6]|\xe2\xb6[\xb8-\xbe]|\xe2\xb7[\x80-\x86]|\xe2\xb7[\x88-\x8e]|\xe2\xb7[\x90-\x96]|\xe2\xb7[\x98-\x9e]|\xe2\xb8\xaf|\xe3\x80[\x85\x86]|\xe3\x80[\xb1-\xb5]|\xe3\x80[\xbb\xbc]|\xe3(?:\x81[\x81-\xbf]|\x82[\x80-\x96])|\xe3\x82[\x9d-\x9f]|\xe3(?:\x82[\xa1-\xbf]|\x83[\x80-\xba])|\xe3\x83[\xbc-\xbf]|\xe3\x84[\x85-\xaf]|\xe3(?:\x84[\xb1-\xbf]|\x85[\x80-\xbf]|\x86[\x80-\x8e])|\xe3\x86[\xa0-\xbf]|\xe3\x87[\xb0-\xbf]|\xe3[\x90-\xbf][\x80-\xbf]|\xe4[\x80-\xb6][\x80-\xbf]|\xe4[\xb8-\xbf][\x80-\xbf]|[\xe5-\xe8][\x80-\xbf][\x80-\xbf]|\xe9(?:[\x80-\xbe][\x80-\xbf]|\xbf[\x80-\xbc])|\xea(?:[\x80-\x91][\x80-\xbf]|\x92[\x80-\x8c])|\xea\x93[\x90-\xbd]|\xea(?:[\x94-\x97][\x80-\xbf]|\x98[\x80-\x8c])|\xea\x98[\x90-\xab]|\xea\x99[\x80-\xae]|\xea(?:\x99\xbf|\x9a[\x80-\x9d])|\xea(?:\x9a[\xa0-\xbf]|\x9b[\x80-\xa5])|\xea\x9c[\x97-\x9f]|\xea(?:\x9c[\xa2-\xbf]|\x9d[\x80-\xbf]|\x9e[\x80-\x88])|\xea\x9e[\x8b-\xbf]|\xea\x9f[\x82-\x8a]|\xea(?:\x9f[\xb5-\xbf]|\xa0[\x80\x81])|\xea\xa0[\x83-\x85]|\xea\xa0[\x87-\x8a]|\xea\xa0[\x8c-\xa2]|\xea\xa1[\x80-\xb3]|\xea\xa2[\x82-\xb3]|\xea\xa3[\x90-\x99]|\xea\xa3[\xb2-\xb7]|\xea\xa3\xbb|\xea\xa3[\xbd\xbe]|\xea\xa4[\x80-\xa5]|\xea(?:\xa4[\xb0-\xbf]|\xa5[\x80-\x86])|\xea\xa5[\xa0-\xbc]|\xea\xa6[\x84-\xb2]|\xea\xa7[\x8f-\x99]|\xea\xa7[\xa0-\xa4]|\xea\xa7[\xa6-\xbe]|\xea\xa8[\x80-\xa8]|\xea\xa9[\x80-\x82]|\xea\xa9[\x84-\x8b]|\xea\xa9[\x90-\x99]|\xea\xa9[\xa0-\xb6]|\xea\xa9\xba|\xea(?:\xa9[\xbe\xbf]|\xaa[\x80-\xaf])|\xea\xaa\xb1|\xea\xaa[\xb5\xb6]|\xea\xaa[\xb9-\xbd]|\xea\xab\x80|\xea\xab\x82|\xea\xab[\x9b-\x9d]|\xea\xab[\xa0-\xaa]|\xea\xab[\xb2-\xb4]|\xea\xac[\x81-\x86]|\xea\xac[\x89-\x8e]|\xea\xac[\x91-\x96]|\xea\xac[\xa0-\xa6]|\xea\xac[\xa8-\xae]|\xea(?:\xac[\xb0-\xbf]|\xad[\x80-\x9a])|\xea\xad[\x9c-\xa9]|\xea(?:\xad[\xb0-\xbf]|\xae[\x80-\xbf]|\xaf[\x80-\xa2])|\xea\xaf[\xb0-\xb9]|\xea[\xb0-\xbf][\x80-\xbf]|[\xeb\xec][\x80-\xbf][\x80-\xbf]|\xed(?:[\x80-\x9d][\x80-\xbf]|\x9e[\x80-\xa3])|\xed(?:\x9e[\xb0-\xbf]|\x9f[\x80-\x86])|\xed\x9f[\x8b-\xbb]|\xef(?:[\xa4-\xa8][\x80-\xbf]|\xa9[\x80-\xad])|\xef(?:\xa9[\xb0-\xbf]|\xaa[\x80-\xbf]|\xab[\x80-\x99])|\xef\xac[\x80-\x86]|\xef\xac[\x93-\x97]|\xef\xac\x9d|\xef\xac[\x9f-\xa8]|\xef\xac[\xaa-\xb6]|\xef\xac[\xb8-\xbc]|\xef\xac\xbe|\xef\xad[\x80\x81]|\xef\xad[\x83\x84]|\xef(?:\xad[\x86-\xbf]|\xae[\x80-\xb1])|\xef(?:\xaf[\x93-\xbf]|[\xb0-\xb3][\x80-\xbf]|\xb4[\x80-\xbd])|\xef(?:\xb5[\x90-\xbf]|\xb6[\x80-\x8f])|\xef(?:\xb6[\x92-\xbf]|\xb7[\x80-\x87])|\xef\xb7[\xb0-\xbb]|\xef\xb8[\xb3\xb4]|\xef\xb9[\x8d-\x8f]|\xef\xb9[\xb0-\xb4]|\xef(?:\xb9[\xb6-\xbf]|\xba[\x80-\xbf]|\xbb[\x80-\xbc])|\xef\xbc[\x90-\x99]|\xef\xbc[\xa1-\xba]|\xef\xbc\xbf|\xef\xbd[\x81-\x9a]|\xef(?:\xbd[\xa6-\xbf]|\xbe[\x80-\xbe])|\xef\xbf[\x82-\x87]|\xef\xbf[\x8a-\x8f]|\xef\xbf[\x92-\x97]|\xef\xbf[\x9a-\x9c]|\xf0\x90\x80[\x80-\x8b]|\xf0\x90\x80[\x8d-\xa6]|\xf0\x90\x80[\xa8-\xba]|\xf0\x90\x80[\xbc\xbd]|\xf0\x90(?:\x80\xbf|\x81[\x80-\x8d])|\xf0\x90\x81[\x90-\x9d]|\xf0\x90(?:\x82[\x80-\xbf]|\x83[\x80-\xba])|\xf0\x90\x8a[\x80-\x9c]|\xf0\x90(?:\x8a[\xa0-\xbf]|\x8b[\x80-\x90])|\xf0\x90\x8c[\x80-\x9f]|\xf0\x90(?:\x8c[\xad-\xbf]|\x8d\x80)|\xf0\x90\x8d[\x82-\x89]|\xf0\x90\x8d[\x90-\xb5]|\xf0\x90\x8e[\x80-\x9d]|\xf0\x90(?:\x8e[\xa0-\xbf]|\x8f[\x80-\x83])|\xf0\x90\x8f[\x88-\x8f]|\xf0\x90(?:[\x90\x91][\x80-\xbf]|\x92[\x80-\x9d])|\xf0\x90\x92[\xa0-\xa9]|\xf0\x90(?:\x92[\xb0-\xbf]|\x93[\x80-\x93])|\xf0\x90\x93[\x98-\xbb]|\xf0\x90\x94[\x80-\xa7]|\xf0\x90(?:\x94[\xb0-\xbf]|\x95[\x80-\xa3])|\xf0\x90(?:[\x98-\x9b][\x80-\xbf]|\x9c[\x80-\xb6])|\xf0\x90\x9d[\x80-\x95]|\xf0\x90\x9d[\xa0-\xa7]|\xf0\x90\xa0[\x80-\x85]|\xf0\x90\xa0\x88|\xf0\x90\xa0[\x8a-\xb5]|\xf0\x90\xa0[\xb7\xb8]|\xf0\x90\xa0\xbc|\xf0\x90(?:\xa0\xbf|\xa1[\x80-\x95])|\xf0\x90\xa1[\xa0-\xb6]|\xf0\x90\xa2[\x80-\x9e]|\xf0\x90\xa3[\xa0-\xb2]|\xf0\x90\xa3[\xb4\xb5]|\xf0\x90\xa4[\x80-\x95]|\xf0\x90\xa4[\xa0-\xb9]|\xf0\x90\xa6[\x80-\xb7]|\xf0\x90\xa6[\xbe\xbf]|\xf0\x90\xa8\x80|\xf0\x90\xa8[\x90-\x93]|\xf0\x90\xa8[\x95-\x97]|\xf0\x90\xa8[\x99-\xb5]|\xf0\x90\xa9[\xa0-\xbc]|\xf0\x90\xaa[\x80-\x9c]|\xf0\x90\xab[\x80-\x87]|\xf0\x90\xab[\x89-\xa4]|\xf0\x90\xac[\x80-\xb5]|\xf0\x90\xad[\x80-\x95]|\xf0\x90\xad[\xa0-\xb2]|\xf0\x90\xae[\x80-\x91]|\xf0\x90(?:\xb0[\x80-\xbf]|\xb1[\x80-\x88])|\xf0\x90\xb2[\x80-\xb2]|\xf0\x90\xb3[\x80-\xb2]|\xf0\x90\xb4[\x80-\xa3]|\xf0\x90\xb4[\xb0-\xb9]|\xf0\x90\xba[\x80-\xa9]|\xf0\x90\xba[\xb0\xb1]|\xf0\x90\xbc[\x80-\x9c]|\xf0\x90\xbc\xa7|\xf0\x90(?:\xbc[\xb0-\xbf]|\xbd[\x80-\x85])|\xf0\x90(?:\xbe[\xb0-\xbf]|\xbf[\x80-\x84])|\xf0\x90\xbf[\xa0-\xb6]|\xf0\x91\x80[\x83-\xb7]|\xf0\x91\x81[\xa6-\xaf]|\xf0\x91\x82[\x83-\xaf]|\xf0\x91\x83[\x90-\xa8]|\xf0\x91\x83[\xb0-\xb9]|\xf0\x91\x84[\x83-\xa6]|\xf0\x91\x84[\xb6-\xbf]|\xf0\x91\x85\x84|\xf0\x91\x85\x87|\xf0\x91\x85[\x90-\xb2]|\xf0\x91\x85\xb6|\xf0\x91\x86[\x83-\xb2]|\xf0\x91\x87[\x81-\x84]|\xf0\x91\x87[\x90-\x9a]|\xf0\x91\x87\x9c|\xf0\x91\x88[\x80-\x91]|\xf0\x91\x88[\x93-\xab]|\xf0\x91\x8a[\x80-\x86]|\xf0\x91\x8a\x88|\xf0\x91\x8a[\x8a-\x8d]|\xf0\x91\x8a[\x8f-\x9d]|\xf0\x91\x8a[\x9f-\xa8]|\xf0\x91(?:\x8a[\xb0-\xbf]|\x8b[\x80-\x9e])|\xf0\x91\x8b[\xb0-\xb9]|\xf0\x91\x8c[\x85-\x8c]|\xf0\x91\x8c[\x8f\x90]|\xf0\x91\x8c[\x93-\xa8]|\xf0\x91\x8c[\xaa-\xb0]|\xf0\x91\x8c[\xb2\xb3]|\xf0\x91\x8c[\xb5-\xb9]|\xf0\x91\x8c\xbd|\xf0\x91\x8d\x90|\xf0\x91\x8d[\x9d-\xa1]|\xf0\x91\x90[\x80-\xb4]|\xf0\x91\x91[\x87-\x8a]|\xf0\x91\x91[\x90-\x99]|\xf0\x91\x91[\x9f-\xa1]|\xf0\x91\x92[\x80-\xaf]|\xf0\x91\x93[\x84\x85]|\xf0\x91\x93\x87|\xf0\x91\x93[\x90-\x99]|\xf0\x91\x96[\x80-\xae]|\xf0\x91\x97[\x98-\x9b]|\xf0\x91\x98[\x80-\xaf]|\xf0\x91\x99\x84|\xf0\x91\x99[\x90-\x99]|\xf0\x91\x9a[\x80-\xaa]|\xf0\x91\x9a\xb8|\xf0\x91\x9b[\x80-\x89]|\xf0\x91\x9c[\x80-\x9a]|\xf0\x91\x9c[\xb0-\xb9]|\xf0\x91\xa0[\x80-\xab]|\xf0\x91(?:\xa2[\xa0-\xbf]|\xa3[\x80-\xa9])|\xf0\x91(?:\xa3\xbf|\xa4[\x80-\x86])|\xf0\x91\xa4\x89|\xf0\x91\xa4[\x8c-\x93]|\xf0\x91\xa4[\x95\x96]|\xf0\x91\xa4[\x98-\xaf]|\xf0\x91\xa4\xbf|\xf0\x91\xa5\x81|\xf0\x91\xa5[\x90-\x99]|\xf0\x91\xa6[\xa0-\xa7]|\xf0\x91(?:\xa6[\xaa-\xbf]|\xa7[\x80-\x90])|\xf0\x91\xa7\xa1|\xf0\x91\xa7\xa3|\xf0\x91\xa8\x80|\xf0\x91\xa8[\x8b-\xb2]|\xf0\x91\xa8\xba|\xf0\x91\xa9\x90|\xf0\x91(?:\xa9[\x9c-\xbf]|\xaa[\x80-\x89])|\xf0\x91\xaa\x9d|\xf0\x91\xab[\x80-\xb8]|\xf0\x91\xb0[\x80-\x88]|\xf0\x91\xb0[\x8a-\xae]|\xf0\x91\xb1\x80|\xf0\x91\xb1[\x90-\x99]|\xf0\x91(?:\xb1[\xb2-\xbf]|\xb2[\x80-\x8f])|\xf0\x91\xb4[\x80-\x86]|\xf0\x91\xb4[\x88\x89]|\xf0\x91\xb4[\x8b-\xb0]|\xf0\x91\xb5\x86|\xf0\x91\xb5[\x90-\x99]|\xf0\x91\xb5[\xa0-\xa5]|\xf0\x91\xb5[\xa7\xa8]|\xf0\x91(?:\xb5[\xaa-\xbf]|\xb6[\x80-\x89])|\xf0\x91\xb6\x98|\xf0\x91\xb6[\xa0-\xa9]|\xf0\x91\xbb[\xa0-\xb2]|\xf0\x91\xbe\xb0|\xf0\x92(?:[\x80-\x8d][\x80-\xbf]|\x8e[\x80-\x99])|\xf0\x92(?:[\x92-\x94][\x80-\xbf]|\x95[\x80-\x83])|\xf0\x93(?:[\x80-\x8f][\x80-\xbf]|\x90[\x80-\xae])|\xf0\x94(?:[\x90-\x98][\x80-\xbf]|\x99[\x80-\x86])|\xf0\x96(?:[\xa0-\xa7][\x80-\xbf]|\xa8[\x80-\xb8])|\xf0\x96\xa9[\x80-\x9e]|\xf0\x96\xa9[\xa0-\xa9]|\xf0\x96\xab[\x90-\xad]|\xf0\x96\xac[\x80-\xaf]|\xf0\x96\xad[\x80-\x83]|\xf0\x96\xad[\x90-\x99]|\xf0\x96\xad[\xa3-\xb7]|\xf0\x96(?:\xad[\xbd-\xbf]|\xae[\x80-\x8f])|\xf0\x96\xb9[\x80-\xbf]|\xf0\x96(?:\xbc[\x80-\xbf]|\xbd[\x80-\x8a])|\xf0\x96\xbd\x90|\xf0\x96\xbe[\x93-\x9f]|\xf0\x96\xbf[\xa0\xa1]|\xf0\x96\xbf\xa3|\xf0(?:\x97[\x80-\xbf][\x80-\xbf]|\x98(?:[\x80-\x9e][\x80-\xbf]|\x9f[\x80-\xb7]))|\xf0\x98(?:[\xa0-\xb2][\x80-\xbf]|\xb3[\x80-\x95])|\xf0\x98\xb4[\x80-\x88]|\xf0\x9b(?:[\x80-\x83][\x80-\xbf]|\x84[\x80-\x9e])|\xf0\x9b\x85[\x90-\x92]|\xf0\x9b\x85[\xa4-\xa7]|\xf0\x9b(?:\x85[\xb0-\xbf]|[\x86-\x8a][\x80-\xbf]|\x8b[\x80-\xbb])|\xf0\x9b(?:\xb0[\x80-\xbf]|\xb1[\x80-\xaa])|\xf0\x9b\xb1[\xb0-\xbc]|\xf0\x9b\xb2[\x80-\x88]|\xf0\x9b\xb2[\x90-\x99]|\xf0\x9d(?:\x90[\x80-\xbf]|\x91[\x80-\x94])|\xf0\x9d(?:\x91[\x96-\xbf]|\x92[\x80-\x9c])|\xf0\x9d\x92[\x9e\x9f]|\xf0\x9d\x92\xa2|\xf0\x9d\x92[\xa5\xa6]|\xf0\x9d\x92[\xa9-\xac]|\xf0\x9d\x92[\xae-\xb9]|\xf0\x9d\x92\xbb|\xf0\x9d(?:\x92[\xbd-\xbf]|\x93[\x80-\x83])|\xf0\x9d(?:\x93[\x85-\xbf]|\x94[\x80-\x85])|\xf0\x9d\x94[\x87-\x8a]|\xf0\x9d\x94[\x8d-\x94]|\xf0\x9d\x94[\x96-\x9c]|\xf0\x9d\x94[\x9e-\xb9]|\xf0\x9d\x94[\xbb-\xbe]|\xf0\x9d\x95[\x80-\x84]|\xf0\x9d\x95\x86|\xf0\x9d\x95[\x8a-\x90]|\xf0\x9d(?:\x95[\x92-\xbf]|[\x96-\x99][\x80-\xbf]|\x9a[\x80-\xa5])|\xf0\x9d(?:\x9a[\xa8-\xbf]|\x9b\x80)|\xf0\x9d\x9b[\x82-\x9a]|\xf0\x9d\x9b[\x9c-\xba]|\xf0\x9d(?:\x9b[\xbc-\xbf]|\x9c[\x80-\x94])|\xf0\x9d\x9c[\x96-\xb4]|\xf0\x9d(?:\x9c[\xb6-\xbf]|\x9d[\x80-\x8e])|\xf0\x9d\x9d[\x90-\xae]|\xf0\x9d(?:\x9d[\xb0-\xbf]|\x9e[\x80-\x88])|\xf0\x9d\x9e[\x8a-\xa8]|\xf0\x9d(?:\x9e[\xaa-\xbf]|\x9f[\x80-\x82])|\xf0\x9d\x9f[\x84-\x8b]|\xf0\x9d\x9f[\x8e-\xbf]|\xf0\x9e\x84[\x80-\xac]|\xf0\x9e\x84[\xb7-\xbd]|\xf0\x9e\x85[\x80-\x89]|\xf0\x9e\x85\x8e|\xf0\x9e\x8b[\x80-\xab]|\xf0\x9e\x8b[\xb0-\xb9]|\xf0\x9e(?:[\xa0-\xa2][\x80-\xbf]|\xa3[\x80-\x84])|\xf0\x9e(?:\xa4[\x80-\xbf]|\xa5[\x80-\x83])|\xf0\x9e\xa5\x8b|\xf0\x9e\xa5[\x90-\x99]|\xf0\x9e\xb8[\x80-\x83]|\xf0\x9e\xb8[\x85-\x9f]|\xf0\x9e\xb8[\xa1\xa2]|\xf0\x9e\xb8\xa4|\xf0\x9e\xb8\xa7|\xf0\x9e\xb8[\xa9-\xb2]|\xf0\x9e\xb8[\xb4-\xb7]|\xf0\x9e\xb8\xb9|\xf0\x9e\xb8\xbb|\xf0\x9e\xb9\x82|\xf0\x9e\xb9\x87|\xf0\x9e\xb9\x89|\xf0\x9e\xb9\x8b|\xf0\x9e\xb9[\x8d-\x8f]|\xf0\x9e\xb9[\x91\x92]|\xf0\x9e\xb9\x94|\xf0\x9e\xb9\x97|\xf0\x9e\xb9\x99|\xf0\x9e\xb9\x9b|\xf0\x9e\xb9\x9d|\xf0\x9e\xb9\x9f|\xf0\x9e\xb9[\xa1\xa2]|\xf0\x9e\xb9\xa4|\xf0\x9e\xb9[\xa7-\xaa]|\xf0\x9e\xb9[\xac-\xb2]|\xf0\x9e\xb9[\xb4-\xb7]|\xf0\x9e\xb9[\xb9-\xbc]|\xf0\x9e\xb9\xbe|\xf0\x9e\xba[\x80-\x89]|\xf0\x9e\xba[\x8b-\x9b]|\xf0\x9e\xba[\xa1-\xa3]|\xf0\x9e\xba[\xa5-\xa9]|\xf0\x9e\xba[\xab-\xbb]|\xf0\x9f\xaf[\xb0-\xb9]|\xf0(?:[\xa0-\xa9][\x80-\xbf][\x80-\xbf]|\xaa(?:[\x80-\x9a][\x80-\xbf]|\x9b[\x80-\x9d]))|\xf0(?:\xaa[\x9c-\xbf][\x80-\xbf]|\xab(?:[\x80-\x9b][\x80-\xbf]|\x9c[\x80-\xb4]))|\xf0\xab(?:[\x9d-\x9f][\x80-\xbf]|\xa0[\x80-\x9d])|\xf0(?:\xab(?:[\xa1-\xbf][\x80-\xbf]|\xa0[\xa0-\xbf])|\xac(?:[\x80-\xb9][\x80-\xbf]|\xba[\x80-\xa1]))|\xf0(?:\xac(?:[\xbb-\xbf][\x80-\xbf]|\xba[\xb0-\xbf])|\xad[\x80-\xbf][\x80-\xbf]|\xae(?:[\x80-\xae][\x80-\xbf]|\xaf[\x80-\xa0]))|\xf0\xaf(?:[\xa0-\xa7][\x80-\xbf]|\xa8[\x80-\x9d])|\xf0(?:\xb0[\x80-\xbf][\x80-\xbf]|\xb1(?:[\x80-\x8c][\x80-\xbf]|\x8d[\x80-\x8a])))+
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 114\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 114 "array_loader.l"
+{ return ArrayLoaderParser::make_SYMBOL(text(), location()); }
+            break;
+          case 5: // rule at line 115: \]
+            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 115\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
+#line 115 "array_loader.l"
 { start(ARRAY); return ArrayLoaderParser::make_PATTERN_END(location()); }
 
 
             break;
-          case 6: // rule at line 151: .
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 151\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 151 "array_loader.l"
+          case 6: // rule at line 152: .
+            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 152\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
+#line 152 "array_loader.l"
 { return ArrayLoaderParser::make_LEXER_ERROR(location()); /* error */ }
 
             break;
@@ -348,8 +348,8 @@ ceammc::ArrayLoaderParser::symbol_type ceammc::ArrayLoaderLexer::lex()
           case 0:
             if (matcher().at_end())
             {
-              if (debug()) std::cerr << "--\033[1;35mEOF rule at line 150\033[0m (start condition " << start() << ")\n";
-#line 150 "array_loader.l"
+              if (debug()) std::cerr << "--\033[1;35mEOF rule at line 151\033[0m (start condition " << start() << ")\n";
+#line 151 "array_loader.l"
 { return ArrayLoaderParser::make_STRING_END(location()); }
             }
             else
@@ -358,114 +358,118 @@ ceammc::ArrayLoaderParser::symbol_type ceammc::ArrayLoaderLexer::lex()
               out().put(matcher().input());
             }
             break;
-          case 1: // rule at line 117: @(?:(?:b|begin))
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 117\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 117 "array_loader.l"
-{ return ArrayLoaderParser::make_BEGIN(location()); }
-            break;
-          case 2: // rule at line 118: @(?:offset)
+          case 1: // rule at line 118: @(?:(?:b|begin))
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 118\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 118 "array_loader.l"
-{   out() << "@offset option is obsolete, use @begin\n";
-                            return ArrayLoaderParser::make_BEGIN(location()); }
+{ return ArrayLoaderParser::make_BEGIN(location()); }
+            break;
+          case 2: // rule at line 119: @(?:(?:off|offset))
+            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 119\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
+#line 119 "array_loader.l"
+{ return ArrayLoaderParser::make_BEGIN(location()); }
             break;
           case 3: // rule at line 120: @(?:(?:e|end))
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 120\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 120 "array_loader.l"
 { return ArrayLoaderParser::make_END(location()); }
             break;
-          case 4: // rule at line 121: @(?:(?:c|ch|chan|channels))
+          case 4: // rule at line 121: @(?:(?:aoff|array_offset))
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 121\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 121 "array_loader.l"
-{ return ArrayLoaderParser::make_CHANNELS(location()); }
+{ return ArrayLoaderParser::make_ARRAY_OFFSET(location()); }
             break;
-          case 5: // rule at line 122: @(?:(?:g|gain))
+          case 5: // rule at line 122: @(?:(?:c|ch|chan|channels))
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 122\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 122 "array_loader.l"
-{ return ArrayLoaderParser::make_GAIN(location()); }
+{ return ArrayLoaderParser::make_CHANNELS(location()); }
             break;
-          case 6: // rule at line 123: @(?:(?:l|len|length))
+          case 6: // rule at line 123: @(?:(?:g|gain))
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 123\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 123 "array_loader.l"
-{ return ArrayLoaderParser::make_LENGTH(location()); }
+{ return ArrayLoaderParser::make_GAIN(location()); }
             break;
-          case 7: // rule at line 124: @(?:(?:n|norm|normalize))
+          case 7: // rule at line 124: @(?:(?:l|len|length))
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 124\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 124 "array_loader.l"
-{ return ArrayLoaderParser::make_NORMALIZE(location()); }
+{ return ArrayLoaderParser::make_LENGTH(location()); }
             break;
-          case 8: // rule at line 125: @(?:resample)
+          case 8: // rule at line 125: @(?:(?:n|norm|normalize))
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 125\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 125 "array_loader.l"
-{ return ArrayLoaderParser::make_RESAMPLE(location()); }
+{ return ArrayLoaderParser::make_NORMALIZE(location()); }
             break;
-          case 9: // rule at line 126: @(?:(?:r|resize))
+          case 9: // rule at line 126: @(?:resample)
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 126\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 126 "array_loader.l"
-{ return ArrayLoaderParser::make_RESIZE(location()); }
+{ return ArrayLoaderParser::make_RESAMPLE(location()); }
             break;
-          case 10: // rule at line 127: @[a-z]+
+          case 10: // rule at line 127: @(?:(?:r|resize))
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 127\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 127 "array_loader.l"
+{ return ArrayLoaderParser::make_RESIZE(location()); }
+            break;
+          case 11: // rule at line 128: @[a-z]+
+            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 128\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
+#line 128 "array_loader.l"
 {   out() << "unexpected option: " << text() << "\n";
                             return ArrayLoaderParser::make_LEXER_ERROR(location()); }
 
             break;
-          case 11: // rule at line 130: (?:[\x09\x0a\x20]+)
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 130\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 130 "array_loader.l"
+          case 12: // rule at line 131: (?:[\x09\x0a\x20]+)
+            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 131\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
+#line 131 "array_loader.l"
 
 
             break;
-          case 12: // rule at line 132: (?:[0-9]{2}:[0-9]{2}(?::[0-9]{2})?(?:\.[0-9]{2})?)
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 132\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 132 "array_loader.l"
-{ start(SMPTE); matcher().less(0); /*push back smpte value and go to SMPTE*/ }
-            break;
-          case 13: // rule at line 133: (?:(?:0|[1-9][0-9]*))(?=-(?:(?:0|[1-9][0-9]*)))
+          case 13: // rule at line 133: (?:[0-9]{2}:[0-9]{2}(?::[0-9]{2})?(?:\.[0-9]{2})?)
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 133\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 133 "array_loader.l"
-{ start(RANGE); return ArrayLoaderParser::make_RANGE_BEGIN(std::stoi(text()), location()); }
+{ start(SMPTE); matcher().less(0); /*push back smpte value and go to SMPTE*/ }
             break;
-          case 14: // rule at line 134: (?:[\x2b\x2d]?(?:0|[1-9][0-9]*))
+          case 14: // rule at line 134: (?:(?:0|[1-9][0-9]*))(?=-(?:(?:0|[1-9][0-9]*)))
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 134\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 134 "array_loader.l"
-{ return ArrayLoaderParser::make_INT(std::stoi(text()), location()); }
+{ start(RANGE); return ArrayLoaderParser::make_RANGE_BEGIN(std::stoi(text()), location()); }
             break;
-          case 15: // rule at line 135: (?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?)
+          case 15: // rule at line 135: (?:[\x2b\x2d]?(?:0|[1-9][0-9]*))
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 135\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 135 "array_loader.l"
-{ return ArrayLoaderParser::make_FLOAT(std::stod(text()), location()); }
+{ return ArrayLoaderParser::make_INT(std::stoi(text()), location()); }
             break;
-          case 16: // rule at line 136: (?:ms|msec)
+          case 16: // rule at line 136: (?:(?:[\x2b\x2d]?(?:0|[1-9][0-9]*))(?:\.[0-9]+)?)
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 136\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 136 "array_loader.l"
-{ return ArrayLoaderParser::make_MSEC(location()); }
+{ return ArrayLoaderParser::make_FLOAT(std::stod(text()), location()); }
             break;
-          case 17: // rule at line 137: (?:s|sec)
+          case 17: // rule at line 137: (?:ms|msec)
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 137\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 137 "array_loader.l"
-{ return ArrayLoaderParser::make_SEC(location()); }
+{ return ArrayLoaderParser::make_MSEC(location()); }
             break;
-          case 18: // rule at line 138: (?:db)
+          case 18: // rule at line 138: (?:s|sec)
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 138\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 138 "array_loader.l"
-{ return ArrayLoaderParser::make_DB(location()); }
+{ return ArrayLoaderParser::make_SEC(location()); }
             break;
-          case 19: // rule at line 139: (?:samp|samples)
+          case 19: // rule at line 139: (?:db)
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 139\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 139 "array_loader.l"
-{ return ArrayLoaderParser::make_SAMPLES(location()); }
+{ return ArrayLoaderParser::make_DB(location()); }
             break;
-          case 20: // rule at line 140: /
+          case 20: // rule at line 140: (?:samp|samples)
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 140\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 140 "array_loader.l"
+{ return ArrayLoaderParser::make_SAMPLES(location()); }
+            break;
+          case 21: // rule at line 141: /
+            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 141\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
+#line 141 "array_loader.l"
 { return ArrayLoaderParser::make_FRAC(location()); }
 
             break;
-          case 21: // rule at line 151: .
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 151\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 151 "array_loader.l"
+          case 22: // rule at line 152: .
+            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 152\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
+#line 152 "array_loader.l"
 { return ArrayLoaderParser::make_LEXER_ERROR(location()); /* error */ }
 
             break;
@@ -478,8 +482,8 @@ ceammc::ArrayLoaderParser::symbol_type ceammc::ArrayLoaderLexer::lex()
           case 0:
             if (matcher().at_end())
             {
-              if (debug()) std::cerr << "--\033[1;35mEOF rule at line 150\033[0m (start condition " << start() << ")\n";
-#line 150 "array_loader.l"
+              if (debug()) std::cerr << "--\033[1;35mEOF rule at line 151\033[0m (start condition " << start() << ")\n";
+#line 151 "array_loader.l"
 { return ArrayLoaderParser::make_STRING_END(location()); }
             }
             else
@@ -488,31 +492,31 @@ ceammc::ArrayLoaderParser::symbol_type ceammc::ArrayLoaderLexer::lex()
               out().put(matcher().input());
             }
             break;
-          case 1: // rule at line 144: [0-9][0-9]
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 144\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 144 "array_loader.l"
-{ return ArrayLoaderParser::make_UINT(std::stoi(text(), nullptr, 10), location()); }
-            break;
-          case 2: // rule at line 145: :
+          case 1: // rule at line 145: [0-9][0-9]
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 145\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 145 "array_loader.l"
-{ return ArrayLoaderParser::make_COLON(location()); }
+{ return ArrayLoaderParser::make_UINT(std::stoi(text(), nullptr, 10), location()); }
             break;
-          case 3: // rule at line 146: \.
+          case 2: // rule at line 146: :
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 146\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 146 "array_loader.l"
-{ return ArrayLoaderParser::make_DOT(location()); }
+{ return ArrayLoaderParser::make_COLON(location()); }
             break;
-          case 4: // rule at line 147: [\x20]
+          case 3: // rule at line 147: \.
             if (debug()) std::cerr << "--\033[1;35maccepting rule at line 147\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
 #line 147 "array_loader.l"
+{ return ArrayLoaderParser::make_DOT(location()); }
+            break;
+          case 4: // rule at line 148: [\x20]
+            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 148\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
+#line 148 "array_loader.l"
 { start(OPTIONS); /*go to next option*/  }
 
 
             break;
-          case 5: // rule at line 151: .
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 151\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 151 "array_loader.l"
+          case 5: // rule at line 152: .
+            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 152\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
+#line 152 "array_loader.l"
 { return ArrayLoaderParser::make_LEXER_ERROR(location()); /* error */ }
 
             break;
@@ -525,8 +529,8 @@ ceammc::ArrayLoaderParser::symbol_type ceammc::ArrayLoaderLexer::lex()
           case 0:
             if (matcher().at_end())
             {
-              if (debug()) std::cerr << "--\033[1;35mEOF rule at line 150\033[0m (start condition " << start() << ")\n";
-#line 150 "array_loader.l"
+              if (debug()) std::cerr << "--\033[1;35mEOF rule at line 151\033[0m (start condition " << start() << ")\n";
+#line 151 "array_loader.l"
 { return ArrayLoaderParser::make_STRING_END(location()); }
             }
             else
@@ -535,15 +539,15 @@ ceammc::ArrayLoaderParser::symbol_type ceammc::ArrayLoaderLexer::lex()
               out().put(matcher().input());
             }
             break;
-          case 1: // rule at line 142: -(?:(?:0|[1-9][0-9]*))
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 142\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 142 "array_loader.l"
+          case 1: // rule at line 143: -(?:(?:0|[1-9][0-9]*))
+            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 143\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
+#line 143 "array_loader.l"
 { start(OPTIONS); return ArrayLoaderParser::make_RANGE_END(std::stoi(text()+1), location()); }
 
             break;
-          case 2: // rule at line 151: .
-            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 151\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
-#line 151 "array_loader.l"
+          case 2: // rule at line 152: .
+            if (debug()) std::cerr << "--\033[1;35maccepting rule at line 152\033[0m (\"\033[1m" << matcher().text() << "\033[0m\")\n";
+#line 152 "array_loader.l"
 { return ArrayLoaderParser::make_LEXER_ERROR(location()); /* error */ }
 
             break;
@@ -4758,625 +4762,716 @@ void reflex_code_OPTIONS(reflex::Matcher& m)
 S0:
   m.FSM_FIND();
   c1 = m.FSM_CHAR();
-  if (c1 == 's') goto S38;
-  if (c1 == 'm') goto S35;
-  if (c1 == 'd') goto S42;
+  if (c1 == 's') goto S39;
+  if (c1 == 'm') goto S36;
+  if (c1 == 'd') goto S43;
   if (c1 == '@') goto S12;
-  if ('1' <= c1 && c1 <= '9') goto S23;
-  if (c1 == '0') goto S29;
-  if (c1 == '/') goto S45;
-  if (c1 == '-') goto S53;
-  if (c1 == '+') goto S53;
-  if (c1 == ' ') goto S49;
-  if ('\t' <= c1 && c1 <= '\n') goto S49;
-  if (0 <= c1) goto S47;
+  if ('1' <= c1 && c1 <= '9') goto S24;
+  if (c1 == '0') goto S30;
+  if (c1 == '/') goto S46;
+  if (c1 == '-') goto S54;
+  if (c1 == '+') goto S54;
+  if (c1 == ' ') goto S50;
+  if ('\t' <= c1 && c1 <= '\n') goto S50;
+  if (0 <= c1) goto S48;
   return m.FSM_HALT(c1);
 
 S12:
-  m.FSM_TAKE(21);
+  m.FSM_TAKE(22);
   c1 = m.FSM_CHAR();
-  if (c1 == 'r') goto S85;
-  if (c1 == 'o') goto S61;
-  if (c1 == 'n') goto S81;
-  if (c1 == 'l') goto S77;
-  if (c1 == 'g') goto S73;
-  if (c1 == 'e') goto S65;
-  if (c1 == 'c') goto S69;
-  if (c1 == 'b') goto S57;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if (c1 == 'r') goto S91;
+  if (c1 == 'o') goto S62;
+  if (c1 == 'n') goto S87;
+  if (c1 == 'l') goto S83;
+  if (c1 == 'g') goto S79;
+  if (c1 == 'e') goto S66;
+  if ('d' <= c1 && c1 <= 'z') goto S95;
+  if (c1 == 'c') goto S75;
+  if (c1 == 'b') goto S58;
+  if (c1 == 'a') goto S70;
   return m.FSM_HALT(c1);
 
-S23:
-  m.FSM_TAKE(14);
+S24:
+  m.FSM_TAKE(15);
   m.FSM_HEAD(0);
   c1 = m.FSM_CHAR();
-  if ('0' <= c1 && c1 <= '9') goto S95;
-  if (c1 == '.') goto S102;
-  if (c1 == '-') goto S92;
+  if ('0' <= c1 && c1 <= '9') goto S101;
+  if (c1 == '.') goto S108;
+  if (c1 == '-') goto S98;
   return m.FSM_HALT(c1);
 
-S29:
-  m.FSM_TAKE(14);
+S30:
+  m.FSM_TAKE(15);
   m.FSM_HEAD(0);
   c1 = m.FSM_CHAR();
-  if ('0' <= c1 && c1 <= '9') goto S104;
-  if (c1 == '.') goto S102;
-  if (c1 == '-') goto S92;
+  if ('0' <= c1 && c1 <= '9') goto S110;
+  if (c1 == '.') goto S108;
+  if (c1 == '-') goto S98;
   return m.FSM_HALT(c1);
 
-S35:
-  m.FSM_TAKE(21);
+S36:
+  m.FSM_TAKE(22);
   c1 = m.FSM_CHAR();
-  if (c1 == 's') goto S106;
+  if (c1 == 's') goto S112;
   return m.FSM_HALT(c1);
 
-S38:
-  m.FSM_TAKE(17);
+S39:
+  m.FSM_TAKE(18);
   c1 = m.FSM_CHAR();
-  if (c1 == 'e') goto S109;
-  if (c1 == 'a') goto S111;
+  if (c1 == 'e') goto S115;
+  if (c1 == 'a') goto S117;
   return m.FSM_HALT(c1);
 
-S42:
-  m.FSM_TAKE(21);
+S43:
+  m.FSM_TAKE(22);
   c1 = m.FSM_CHAR();
-  if (c1 == 'b') goto S113;
+  if (c1 == 'b') goto S119;
   return m.FSM_HALT(c1);
 
-S45:
-  m.FSM_TAKE(20);
-  return m.FSM_HALT();
-
-S47:
+S46:
   m.FSM_TAKE(21);
   return m.FSM_HALT();
 
-S49:
-  m.FSM_TAKE(11);
+S48:
+  m.FSM_TAKE(22);
+  return m.FSM_HALT();
+
+S50:
+  m.FSM_TAKE(12);
   c1 = m.FSM_CHAR();
-  if (c1 == ' ') goto S49;
-  if ('\t' <= c1 && c1 <= '\n') goto S49;
+  if (c1 == ' ') goto S50;
+  if ('\t' <= c1 && c1 <= '\n') goto S50;
   return m.FSM_HALT(c1);
 
-S53:
-  m.FSM_TAKE(21);
+S54:
+  m.FSM_TAKE(22);
   c1 = m.FSM_CHAR();
-  if ('1' <= c1 && c1 <= '9') goto S118;
-  if (c1 == '0') goto S115;
+  if ('1' <= c1 && c1 <= '9') goto S124;
+  if (c1 == '0') goto S121;
   return m.FSM_HALT(c1);
 
-S57:
+S58:
   m.FSM_TAKE(1);
   c1 = m.FSM_CHAR();
-  if (c1 == 'e') goto S122;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if (c1 == 'e') goto S128;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
-S61:
-  m.FSM_TAKE(10);
+S62:
+  m.FSM_TAKE(11);
   c1 = m.FSM_CHAR();
-  if (c1 == 'f') goto S126;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if (c1 == 'f') goto S132;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
-S65:
+S66:
   m.FSM_TAKE(3);
   c1 = m.FSM_CHAR();
-  if (c1 == 'n') goto S130;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if (c1 == 'n') goto S136;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
-S69:
-  m.FSM_TAKE(4);
+S70:
+  m.FSM_TAKE(11);
   c1 = m.FSM_CHAR();
-  if (c1 == 'h') goto S134;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if (c1 == 'r') goto S144;
+  if (c1 == 'o') goto S140;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
-S73:
+S75:
   m.FSM_TAKE(5);
   c1 = m.FSM_CHAR();
-  if ('b' <= c1 && c1 <= 'z') goto S89;
-  if (c1 == 'a') goto S138;
+  if (c1 == 'h') goto S148;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
-S77:
+S79:
   m.FSM_TAKE(6);
   c1 = m.FSM_CHAR();
-  if (c1 == 'e') goto S142;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if ('b' <= c1 && c1 <= 'z') goto S95;
+  if (c1 == 'a') goto S152;
   return m.FSM_HALT(c1);
 
-S81:
+S83:
   m.FSM_TAKE(7);
   c1 = m.FSM_CHAR();
-  if (c1 == 'o') goto S146;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if (c1 == 'e') goto S156;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
-S85:
-  m.FSM_TAKE(9);
+S87:
+  m.FSM_TAKE(8);
   c1 = m.FSM_CHAR();
-  if (c1 == 'e') goto S150;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if (c1 == 'o') goto S160;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
-S89:
+S91:
   m.FSM_TAKE(10);
   c1 = m.FSM_CHAR();
-  if ('a' <= c1 && c1 <= 'z') goto S89;
-  return m.FSM_HALT(c1);
-
-S92:
-  c1 = m.FSM_CHAR();
-  if ('1' <= c1 && c1 <= '9') goto S157;
-  if (c1 == '0') goto S154;
+  if (c1 == 'e') goto S164;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
 S95:
-  m.FSM_TAKE(14);
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S98:
+  c1 = m.FSM_CHAR();
+  if ('1' <= c1 && c1 <= '9') goto S171;
+  if (c1 == '0') goto S168;
+  return m.FSM_HALT(c1);
+
+S101:
+  m.FSM_TAKE(15);
   m.FSM_HEAD(0);
   c1 = m.FSM_CHAR();
-  if (c1 == ':') goto S161;
-  if ('0' <= c1 && c1 <= '9') goto S163;
-  if (c1 == '.') goto S102;
-  if (c1 == '-') goto S92;
+  if (c1 == ':') goto S175;
+  if ('0' <= c1 && c1 <= '9') goto S177;
+  if (c1 == '.') goto S108;
+  if (c1 == '-') goto S98;
   return m.FSM_HALT(c1);
 
-S102:
+S108:
   c1 = m.FSM_CHAR();
-  if ('0' <= c1 && c1 <= '9') goto S169;
+  if ('0' <= c1 && c1 <= '9') goto S183;
   return m.FSM_HALT(c1);
 
-S104:
+S110:
   c1 = m.FSM_CHAR();
-  if (c1 == ':') goto S161;
+  if (c1 == ':') goto S175;
   return m.FSM_HALT(c1);
 
-S106:
-  m.FSM_TAKE(16);
+S112:
+  m.FSM_TAKE(17);
   c1 = m.FSM_CHAR();
-  if (c1 == 'e') goto S172;
+  if (c1 == 'e') goto S186;
   return m.FSM_HALT(c1);
-
-S109:
-  c1 = m.FSM_CHAR();
-  if (c1 == 'c') goto S174;
-  return m.FSM_HALT(c1);
-
-S111:
-  c1 = m.FSM_CHAR();
-  if (c1 == 'm') goto S176;
-  return m.FSM_HALT(c1);
-
-S113:
-  m.FSM_TAKE(18);
-  return m.FSM_HALT();
 
 S115:
-  m.FSM_TAKE(14);
   c1 = m.FSM_CHAR();
-  if (c1 == '.') goto S102;
+  if (c1 == 'c') goto S188;
   return m.FSM_HALT(c1);
 
-S118:
-  m.FSM_TAKE(14);
+S117:
   c1 = m.FSM_CHAR();
-  if ('0' <= c1 && c1 <= '9') goto S118;
-  if (c1 == '.') goto S102;
+  if (c1 == 'm') goto S190;
   return m.FSM_HALT(c1);
 
-S122:
-  m.FSM_TAKE(10);
-  c1 = m.FSM_CHAR();
-  if (c1 == 'g') goto S178;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
-  return m.FSM_HALT(c1);
-
-S126:
-  m.FSM_TAKE(10);
-  c1 = m.FSM_CHAR();
-  if (c1 == 'f') goto S182;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
-  return m.FSM_HALT(c1);
-
-S130:
-  m.FSM_TAKE(10);
-  c1 = m.FSM_CHAR();
-  if (c1 == 'd') goto S186;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
-  return m.FSM_HALT(c1);
-
-S134:
-  m.FSM_TAKE(4);
-  c1 = m.FSM_CHAR();
-  if ('b' <= c1 && c1 <= 'z') goto S89;
-  if (c1 == 'a') goto S189;
-  return m.FSM_HALT(c1);
-
-S138:
-  m.FSM_TAKE(10);
-  c1 = m.FSM_CHAR();
-  if (c1 == 'i') goto S193;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
-  return m.FSM_HALT(c1);
-
-S142:
-  m.FSM_TAKE(10);
-  c1 = m.FSM_CHAR();
-  if (c1 == 'n') goto S197;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
-  return m.FSM_HALT(c1);
-
-S146:
-  m.FSM_TAKE(10);
-  c1 = m.FSM_CHAR();
-  if (c1 == 'r') goto S201;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
-  return m.FSM_HALT(c1);
-
-S150:
-  m.FSM_TAKE(10);
-  c1 = m.FSM_CHAR();
-  if (c1 == 's') goto S205;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
-  return m.FSM_HALT(c1);
-
-S154:
-  m.FSM_TAKE(13);
-  m.FSM_TAIL(0);
+S119:
+  m.FSM_TAKE(19);
   return m.FSM_HALT();
 
-S157:
-  m.FSM_TAKE(13);
-  m.FSM_TAIL(0);
-  c1 = m.FSM_CHAR();
-  if ('0' <= c1 && c1 <= '9') goto S157;
-  return m.FSM_HALT(c1);
-
-S161:
-  c1 = m.FSM_CHAR();
-  if ('0' <= c1 && c1 <= '9') goto S210;
-  return m.FSM_HALT(c1);
-
-S163:
-  m.FSM_TAKE(14);
-  m.FSM_HEAD(0);
-  c1 = m.FSM_CHAR();
-  if ('0' <= c1 && c1 <= '9') goto S163;
-  if (c1 == '.') goto S102;
-  if (c1 == '-') goto S92;
-  return m.FSM_HALT(c1);
-
-S169:
+S121:
   m.FSM_TAKE(15);
   c1 = m.FSM_CHAR();
-  if ('0' <= c1 && c1 <= '9') goto S169;
+  if (c1 == '.') goto S108;
   return m.FSM_HALT(c1);
 
-S172:
+S124:
+  m.FSM_TAKE(15);
   c1 = m.FSM_CHAR();
-  if (c1 == 'c') goto S212;
+  if ('0' <= c1 && c1 <= '9') goto S124;
+  if (c1 == '.') goto S108;
   return m.FSM_HALT(c1);
 
-S174:
-  m.FSM_TAKE(17);
+S128:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 'g') goto S192;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S132:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 'f') goto S196;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S136:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 'd') goto S200;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S140:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 'f') goto S203;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S144:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 'r') goto S207;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S148:
+  m.FSM_TAKE(5);
+  c1 = m.FSM_CHAR();
+  if ('b' <= c1 && c1 <= 'z') goto S95;
+  if (c1 == 'a') goto S211;
+  return m.FSM_HALT(c1);
+
+S152:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 'i') goto S215;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S156:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 'n') goto S219;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S160:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 'r') goto S223;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S164:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 's') goto S227;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S168:
+  m.FSM_TAKE(14);
+  m.FSM_TAIL(0);
   return m.FSM_HALT();
 
-S176:
+S171:
+  m.FSM_TAKE(14);
+  m.FSM_TAIL(0);
   c1 = m.FSM_CHAR();
-  if (c1 == 'p') goto S214;
+  if ('0' <= c1 && c1 <= '9') goto S171;
   return m.FSM_HALT(c1);
 
-S178:
-  m.FSM_TAKE(10);
+S175:
   c1 = m.FSM_CHAR();
-  if (c1 == 'i') goto S217;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if ('0' <= c1 && c1 <= '9') goto S232;
   return m.FSM_HALT(c1);
 
-S182:
-  m.FSM_TAKE(10);
+S177:
+  m.FSM_TAKE(15);
+  m.FSM_HEAD(0);
   c1 = m.FSM_CHAR();
-  if (c1 == 's') goto S221;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if ('0' <= c1 && c1 <= '9') goto S177;
+  if (c1 == '.') goto S108;
+  if (c1 == '-') goto S98;
+  return m.FSM_HALT(c1);
+
+S183:
+  m.FSM_TAKE(16);
+  c1 = m.FSM_CHAR();
+  if ('0' <= c1 && c1 <= '9') goto S183;
   return m.FSM_HALT(c1);
 
 S186:
-  m.FSM_TAKE(3);
   c1 = m.FSM_CHAR();
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if (c1 == 'c') goto S234;
   return m.FSM_HALT(c1);
 
-S189:
-  m.FSM_TAKE(10);
-  c1 = m.FSM_CHAR();
-  if (c1 == 'n') goto S225;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
-  return m.FSM_HALT(c1);
-
-S193:
-  m.FSM_TAKE(10);
-  c1 = m.FSM_CHAR();
-  if (c1 == 'n') goto S229;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
-  return m.FSM_HALT(c1);
-
-S197:
-  m.FSM_TAKE(6);
-  c1 = m.FSM_CHAR();
-  if (c1 == 'g') goto S232;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
-  return m.FSM_HALT(c1);
-
-S201:
-  m.FSM_TAKE(10);
-  c1 = m.FSM_CHAR();
-  if (c1 == 'm') goto S236;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
-  return m.FSM_HALT(c1);
-
-S205:
-  m.FSM_TAKE(10);
-  c1 = m.FSM_CHAR();
-  if (c1 == 'i') goto S244;
-  if ('b' <= c1 && c1 <= 'z') goto S89;
-  if (c1 == 'a') goto S240;
-  return m.FSM_HALT(c1);
-
-S210:
-  c1 = m.FSM_CHAR();
-  if ('0' <= c1 && c1 <= '9') goto S248;
-  return m.FSM_HALT(c1);
-
-S212:
-  m.FSM_TAKE(16);
+S188:
+  m.FSM_TAKE(18);
   return m.FSM_HALT();
 
-S214:
-  m.FSM_TAKE(19);
+S190:
   c1 = m.FSM_CHAR();
-  if (c1 == 'l') goto S252;
+  if (c1 == 'p') goto S236;
   return m.FSM_HALT(c1);
 
-S217:
-  m.FSM_TAKE(10);
+S192:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 'i') goto S239;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S196:
+  m.FSM_TAKE(2);
+  c1 = m.FSM_CHAR();
+  if (c1 == 's') goto S243;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S200:
+  m.FSM_TAKE(3);
+  c1 = m.FSM_CHAR();
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S203:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 'f') goto S247;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S207:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if ('b' <= c1 && c1 <= 'z') goto S95;
+  if (c1 == 'a') goto S250;
+  return m.FSM_HALT(c1);
+
+S211:
+  m.FSM_TAKE(11);
   c1 = m.FSM_CHAR();
   if (c1 == 'n') goto S254;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
-S221:
-  m.FSM_TAKE(10);
+S215:
+  m.FSM_TAKE(11);
   c1 = m.FSM_CHAR();
-  if (c1 == 'e') goto S257;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if (c1 == 'n') goto S258;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
-S225:
-  m.FSM_TAKE(4);
-  c1 = m.FSM_CHAR();
-  if (c1 == 'n') goto S261;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
-  return m.FSM_HALT(c1);
-
-S229:
-  m.FSM_TAKE(5);
-  c1 = m.FSM_CHAR();
-  if ('a' <= c1 && c1 <= 'z') goto S89;
-  return m.FSM_HALT(c1);
-
-S232:
-  m.FSM_TAKE(10);
-  c1 = m.FSM_CHAR();
-  if (c1 == 't') goto S265;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
-  return m.FSM_HALT(c1);
-
-S236:
+S219:
   m.FSM_TAKE(7);
   c1 = m.FSM_CHAR();
-  if ('b' <= c1 && c1 <= 'z') goto S89;
+  if (c1 == 'g') goto S261;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S223:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 'm') goto S265;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S227:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 'i') goto S273;
+  if ('b' <= c1 && c1 <= 'z') goto S95;
   if (c1 == 'a') goto S269;
   return m.FSM_HALT(c1);
 
-S240:
-  m.FSM_TAKE(10);
+S232:
   c1 = m.FSM_CHAR();
-  if (c1 == 'm') goto S273;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if ('0' <= c1 && c1 <= '9') goto S277;
   return m.FSM_HALT(c1);
 
-S244:
-  m.FSM_TAKE(10);
+S234:
+  m.FSM_TAKE(17);
+  return m.FSM_HALT();
+
+S236:
+  m.FSM_TAKE(20);
   c1 = m.FSM_CHAR();
-  if (c1 == 'z') goto S277;
-  if ('a' <= c1 && c1 <= 'y') goto S89;
+  if (c1 == 'l') goto S281;
   return m.FSM_HALT(c1);
 
-S248:
-  m.FSM_TAKE(12);
+S239:
+  m.FSM_TAKE(11);
   c1 = m.FSM_CHAR();
-  if (c1 == ':') goto S281;
-  if (c1 == '.') goto S283;
+  if (c1 == 'n') goto S283;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
-S252:
+S243:
+  m.FSM_TAKE(11);
   c1 = m.FSM_CHAR();
-  if (c1 == 'e') goto S285;
+  if (c1 == 'e') goto S286;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S247:
+  m.FSM_TAKE(4);
+  c1 = m.FSM_CHAR();
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S250:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 'y') goto S290;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
 S254:
-  m.FSM_TAKE(1);
+  m.FSM_TAKE(5);
   c1 = m.FSM_CHAR();
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if (c1 == 'n') goto S294;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
-S257:
-  m.FSM_TAKE(10);
+S258:
+  m.FSM_TAKE(6);
   c1 = m.FSM_CHAR();
-  if (c1 == 't') goto S287;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
 S261:
-  m.FSM_TAKE(10);
+  m.FSM_TAKE(11);
   c1 = m.FSM_CHAR();
-  if (c1 == 'e') goto S290;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if (c1 == 't') goto S298;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
 S265:
-  m.FSM_TAKE(10);
+  m.FSM_TAKE(8);
   c1 = m.FSM_CHAR();
-  if (c1 == 'h') goto S294;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if ('b' <= c1 && c1 <= 'z') goto S95;
+  if (c1 == 'a') goto S302;
   return m.FSM_HALT(c1);
 
 S269:
-  m.FSM_TAKE(10);
+  m.FSM_TAKE(11);
   c1 = m.FSM_CHAR();
-  if (c1 == 'l') goto S297;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if (c1 == 'm') goto S306;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
 S273:
-  m.FSM_TAKE(10);
+  m.FSM_TAKE(11);
   c1 = m.FSM_CHAR();
-  if (c1 == 'p') goto S301;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if (c1 == 'z') goto S310;
+  if ('a' <= c1 && c1 <= 'y') goto S95;
   return m.FSM_HALT(c1);
 
 S277:
-  m.FSM_TAKE(10);
+  m.FSM_TAKE(13);
   c1 = m.FSM_CHAR();
-  if (c1 == 'e') goto S305;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if (c1 == ':') goto S314;
+  if (c1 == '.') goto S316;
   return m.FSM_HALT(c1);
 
 S281:
   c1 = m.FSM_CHAR();
-  if ('0' <= c1 && c1 <= '9') goto S308;
+  if (c1 == 'e') goto S318;
   return m.FSM_HALT(c1);
 
 S283:
+  m.FSM_TAKE(1);
   c1 = m.FSM_CHAR();
-  if ('0' <= c1 && c1 <= '9') goto S310;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
-S285:
+S286:
+  m.FSM_TAKE(11);
   c1 = m.FSM_CHAR();
-  if (c1 == 's') goto S312;
-  return m.FSM_HALT(c1);
-
-S287:
-  m.FSM_TAKE(2);
-  c1 = m.FSM_CHAR();
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if (c1 == 't') goto S320;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
 S290:
-  m.FSM_TAKE(10);
+  m.FSM_TAKE(11);
   c1 = m.FSM_CHAR();
-  if (c1 == 'l') goto S314;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  if (c1 == '_') goto S323;
   return m.FSM_HALT(c1);
 
 S294:
-  m.FSM_TAKE(6);
+  m.FSM_TAKE(11);
   c1 = m.FSM_CHAR();
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if (c1 == 'e') goto S325;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
-S297:
-  m.FSM_TAKE(10);
+S298:
+  m.FSM_TAKE(11);
   c1 = m.FSM_CHAR();
-  if (c1 == 'i') goto S318;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if (c1 == 'h') goto S329;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
-S301:
-  m.FSM_TAKE(10);
+S302:
+  m.FSM_TAKE(11);
   c1 = m.FSM_CHAR();
-  if (c1 == 'l') goto S322;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if (c1 == 'l') goto S332;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
-S305:
-  m.FSM_TAKE(9);
+S306:
+  m.FSM_TAKE(11);
   c1 = m.FSM_CHAR();
-  if ('a' <= c1 && c1 <= 'z') goto S89;
-  return m.FSM_HALT(c1);
-
-S308:
-  c1 = m.FSM_CHAR();
-  if ('0' <= c1 && c1 <= '9') goto S326;
+  if (c1 == 'p') goto S336;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
 S310:
+  m.FSM_TAKE(11);
   c1 = m.FSM_CHAR();
-  if ('0' <= c1 && c1 <= '9') goto S329;
+  if (c1 == 'e') goto S340;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
-S312:
-  m.FSM_TAKE(19);
-  return m.FSM_HALT();
-
 S314:
-  m.FSM_TAKE(10);
   c1 = m.FSM_CHAR();
-  if (c1 == 's') goto S331;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if ('0' <= c1 && c1 <= '9') goto S343;
+  return m.FSM_HALT(c1);
+
+S316:
+  c1 = m.FSM_CHAR();
+  if ('0' <= c1 && c1 <= '9') goto S345;
   return m.FSM_HALT(c1);
 
 S318:
-  m.FSM_TAKE(10);
   c1 = m.FSM_CHAR();
-  if (c1 == 'z') goto S334;
-  if ('a' <= c1 && c1 <= 'y') goto S89;
+  if (c1 == 's') goto S347;
   return m.FSM_HALT(c1);
 
-S322:
-  m.FSM_TAKE(10);
+S320:
+  m.FSM_TAKE(2);
   c1 = m.FSM_CHAR();
-  if (c1 == 'e') goto S338;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
-S326:
-  m.FSM_TAKE(12);
+S323:
   c1 = m.FSM_CHAR();
-  if (c1 == '.') goto S283;
+  if (c1 == 'o') goto S349;
+  return m.FSM_HALT(c1);
+
+S325:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 'l') goto S351;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
 
 S329:
-  m.FSM_TAKE(12);
-  return m.FSM_HALT();
-
-S331:
-  m.FSM_TAKE(4);
-  c1 = m.FSM_CHAR();
-  if ('a' <= c1 && c1 <= 'z') goto S89;
-  return m.FSM_HALT(c1);
-
-S334:
-  m.FSM_TAKE(10);
-  c1 = m.FSM_CHAR();
-  if (c1 == 'e') goto S341;
-  if ('a' <= c1 && c1 <= 'z') goto S89;
-  return m.FSM_HALT(c1);
-
-S338:
-  m.FSM_TAKE(8);
-  c1 = m.FSM_CHAR();
-  if ('a' <= c1 && c1 <= 'z') goto S89;
-  return m.FSM_HALT(c1);
-
-S341:
   m.FSM_TAKE(7);
   c1 = m.FSM_CHAR();
-  if ('a' <= c1 && c1 <= 'z') goto S89;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
   return m.FSM_HALT(c1);
+
+S332:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 'i') goto S355;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S336:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 'l') goto S359;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S340:
+  m.FSM_TAKE(10);
+  c1 = m.FSM_CHAR();
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S343:
+  c1 = m.FSM_CHAR();
+  if ('0' <= c1 && c1 <= '9') goto S363;
+  return m.FSM_HALT(c1);
+
+S345:
+  c1 = m.FSM_CHAR();
+  if ('0' <= c1 && c1 <= '9') goto S366;
+  return m.FSM_HALT(c1);
+
+S347:
+  m.FSM_TAKE(20);
+  return m.FSM_HALT();
+
+S349:
+  c1 = m.FSM_CHAR();
+  if (c1 == 'f') goto S368;
+  return m.FSM_HALT(c1);
+
+S351:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 's') goto S370;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S355:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 'z') goto S373;
+  if ('a' <= c1 && c1 <= 'y') goto S95;
+  return m.FSM_HALT(c1);
+
+S359:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 'e') goto S377;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S363:
+  m.FSM_TAKE(13);
+  c1 = m.FSM_CHAR();
+  if (c1 == '.') goto S316;
+  return m.FSM_HALT(c1);
+
+S366:
+  m.FSM_TAKE(13);
+  return m.FSM_HALT();
+
+S368:
+  c1 = m.FSM_CHAR();
+  if (c1 == 'f') goto S380;
+  return m.FSM_HALT(c1);
+
+S370:
+  m.FSM_TAKE(5);
+  c1 = m.FSM_CHAR();
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S373:
+  m.FSM_TAKE(11);
+  c1 = m.FSM_CHAR();
+  if (c1 == 'e') goto S382;
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S377:
+  m.FSM_TAKE(9);
+  c1 = m.FSM_CHAR();
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S380:
+  c1 = m.FSM_CHAR();
+  if (c1 == 's') goto S385;
+  return m.FSM_HALT(c1);
+
+S382:
+  m.FSM_TAKE(8);
+  c1 = m.FSM_CHAR();
+  if ('a' <= c1 && c1 <= 'z') goto S95;
+  return m.FSM_HALT(c1);
+
+S385:
+  c1 = m.FSM_CHAR();
+  if (c1 == 'e') goto S387;
+  return m.FSM_HALT(c1);
+
+S387:
+  c1 = m.FSM_CHAR();
+  if (c1 == 't') goto S389;
+  return m.FSM_HALT(c1);
+
+S389:
+  m.FSM_TAKE(4);
+  return m.FSM_HALT();
 }
 
 } // namespace ceammc

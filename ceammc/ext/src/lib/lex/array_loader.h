@@ -36,6 +36,7 @@ class ArrayLoader {
     double smpte_framerate_ = { 30 };
 
     double dest_samplerate_ = { 44100 };
+    long array_offset_ = { 0 };
 
     // load options
     bool resize_ = { false };
@@ -52,6 +53,7 @@ class ArrayLoader {
     // output
     std::ostream* err_;
     std::ostream* log_;
+    bool debug_ = { false };
 
 public:
     enum OptionType { // if change the order - change also in optionToString()
@@ -100,23 +102,16 @@ public:
     /** if we should resize output arrays to fit file content */
     bool resize() const { return resize_; }
 
-    /** be verbose */
-    bool verbose() const { return verbose_; }
-
     /** perform array normalization after file loading */
     bool normalize() const { return normalize_; }
+
+    // source settings
 
     /** input file samplerate */
     double srcSampleRate() const { return src_samplerate_; }
 
     /** set samplerate of input file */
     void setSrcSamplerate(double sr) { src_samplerate_ = sr; }
-
-    /** destination samplerate */
-    double destSamplerate() const { return dest_samplerate_; }
-
-    /** set destination samplerate */
-    void setDestSamplerate(double sr) { dest_samplerate_ = sr; }
 
     /** smpte framerate */
     double smpteFramerate() const { return smpte_framerate_; }
@@ -135,6 +130,20 @@ public:
 
     /** set number of channels in input file */
     void setSrcChannels(size_t n) { src_num_channels_ = n; }
+
+    // dest settings
+
+    /** destination samplerate */
+    double destSamplerate() const { return dest_samplerate_; }
+
+    /** set destination samplerate */
+    void setDestSamplerate(double sr) { dest_samplerate_ = sr; }
+
+    /** array offset in samples, can be negative */
+    long arrayOffset() const { return array_offset_; }
+
+    /** set array offset */
+    void setArrayOffset(long n) { array_offset_ = n; }
 
     // options
 
@@ -168,6 +177,10 @@ public:
 
     /** dump parsed summary to log() stream */
     void dump() const;
+    /** when on debug lexer to std::cerr */
+    void setDebug(bool v) { debug_ = v; }
+    /** be verbose */
+    bool verbose() const { return verbose_; }
 
     /** array list to load */
     const std::vector<std::string>& arrays() const { return arrays_; }

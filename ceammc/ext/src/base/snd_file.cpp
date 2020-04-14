@@ -35,11 +35,15 @@ using namespace ceammc::sound;
 SndFile::SndFile(const PdArgs& a)
     : BaseObject(a)
     , verbose_(nullptr)
+    , debug_(nullptr)
 {
     createOutlet();
 
     verbose_ = new FlagProperty("@verbose");
     addProperty(verbose_);
+
+    debug_ = new FlagProperty("@.debug");
+    addProperty(debug_);
 
     createCbListProperty("@sr", [this]() -> AtomList { return samplerates_; });
     createCbListProperty("@filename", [this]() -> AtomList { return filenames_; });
@@ -80,6 +84,9 @@ void SndFile::m_load(t_symbol* s, const AtomList& lst)
     Log log(this);
 
     ArrayLoader loader;
+    if (debug_->value())
+        loader.setDebug(true);
+
     loader.setErr(&err.stream());
     loader.setLog(&log.stream());
 

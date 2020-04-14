@@ -34,7 +34,7 @@ bool ArrayLoader::parse(const std::string& str)
     str_ = str;
 
     ArrayLoaderLexer lexer(str_);
-    lexer.set_debug(true);
+    lexer.set_debug(debug_);
     ArrayLoaderParser parser(lexer, *this);
 
     return parser.parse() == 0;
@@ -349,6 +349,7 @@ void ceammc::ArrayLoader::dump() const
         "  arrays:      {}\n"
         "  channels:    {}\n"
         "  samplerate:  {}\n"
+        "  offset:      {}\n"
         "options:\n"
         "  @begin:      {}\n"
         "  @end:        {}\n"
@@ -357,7 +358,7 @@ void ceammc::ArrayLoader::dump() const
         "  @resize:     {}\n"
         "  @normalize:  {}\n",
         str_, src_samplerate_, smpte_framerate_, src_sample_count_, src_num_channels_,
-        fmt::join(arrays_, ", "), fmt::join(channels_, ", "), dest_samplerate_,
+        fmt::join(arrays_, ", "), fmt::join(channels_, ", "), dest_samplerate_, dest_offset_,
         begin_, end_, gain_, resample_ratio_, resize_, normalize_);
 }
 

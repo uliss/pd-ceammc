@@ -278,38 +278,38 @@ namespace ceammc {
   {
     switch (that.type_get ())
     {
-      case 41: // channel_list
+      case 42: // channel_list
         value.YY_MOVE_OR_COPY< ChannelList > (YY_MOVE (that.value));
         break;
 
-      case 38: // array_pattern
-      case 39: // var_list
+      case 39: // array_pattern
+      case 40: // var_list
         value.YY_MOVE_OR_COPY< StringList > (YY_MOVE (that.value));
         break;
 
-      case 18: // FLOAT
-      case 37: // number
+      case 19: // FLOAT
+      case 38: // number
         value.YY_MOVE_OR_COPY< double > (YY_MOVE (that.value));
         break;
 
-      case 19: // INT
+      case 20: // INT
         value.YY_MOVE_OR_COPY< int > (YY_MOVE (that.value));
         break;
 
-      case 35: // time
-      case 36: // smpte
+      case 36: // time
+      case 37: // smpte
         value.YY_MOVE_OR_COPY< std::size_t > (YY_MOVE (that.value));
         break;
 
       case 3: // SYMBOL
-      case 17: // SMPTE
-      case 40: // var
+      case 18: // SMPTE
+      case 41: // var
         value.YY_MOVE_OR_COPY< std::string > (YY_MOVE (that.value));
         break;
 
-      case 20: // UINT
-      case 21: // RANGE_BEGIN
-      case 22: // RANGE_END
+      case 21: // UINT
+      case 22: // RANGE_BEGIN
+      case 23: // RANGE_END
         value.YY_MOVE_OR_COPY< uint > (YY_MOVE (that.value));
         break;
 
@@ -328,38 +328,38 @@ namespace ceammc {
   {
     switch (that.type_get ())
     {
-      case 41: // channel_list
+      case 42: // channel_list
         value.move< ChannelList > (YY_MOVE (that.value));
         break;
 
-      case 38: // array_pattern
-      case 39: // var_list
+      case 39: // array_pattern
+      case 40: // var_list
         value.move< StringList > (YY_MOVE (that.value));
         break;
 
-      case 18: // FLOAT
-      case 37: // number
+      case 19: // FLOAT
+      case 38: // number
         value.move< double > (YY_MOVE (that.value));
         break;
 
-      case 19: // INT
+      case 20: // INT
         value.move< int > (YY_MOVE (that.value));
         break;
 
-      case 35: // time
-      case 36: // smpte
+      case 36: // time
+      case 37: // smpte
         value.move< std::size_t > (YY_MOVE (that.value));
         break;
 
       case 3: // SYMBOL
-      case 17: // SMPTE
-      case 40: // var
+      case 18: // SMPTE
+      case 41: // var
         value.move< std::string > (YY_MOVE (that.value));
         break;
 
-      case 20: // UINT
-      case 21: // RANGE_BEGIN
-      case 22: // RANGE_END
+      case 21: // UINT
+      case 22: // RANGE_BEGIN
+      case 23: // RANGE_END
         value.move< uint > (YY_MOVE (that.value));
         break;
 
@@ -378,38 +378,38 @@ namespace ceammc {
     state = that.state;
     switch (that.type_get ())
     {
-      case 41: // channel_list
+      case 42: // channel_list
         value.copy< ChannelList > (that.value);
         break;
 
-      case 38: // array_pattern
-      case 39: // var_list
+      case 39: // array_pattern
+      case 40: // var_list
         value.copy< StringList > (that.value);
         break;
 
-      case 18: // FLOAT
-      case 37: // number
+      case 19: // FLOAT
+      case 38: // number
         value.copy< double > (that.value);
         break;
 
-      case 19: // INT
+      case 20: // INT
         value.copy< int > (that.value);
         break;
 
-      case 35: // time
-      case 36: // smpte
+      case 36: // time
+      case 37: // smpte
         value.copy< std::size_t > (that.value);
         break;
 
       case 3: // SYMBOL
-      case 17: // SMPTE
-      case 40: // var
+      case 18: // SMPTE
+      case 41: // var
         value.copy< std::string > (that.value);
         break;
 
-      case 20: // UINT
-      case 21: // RANGE_BEGIN
-      case 22: // RANGE_END
+      case 21: // UINT
+      case 22: // RANGE_BEGIN
+      case 23: // RANGE_END
         value.copy< uint > (that.value);
         break;
 
@@ -427,38 +427,38 @@ namespace ceammc {
     state = that.state;
     switch (that.type_get ())
     {
-      case 41: // channel_list
+      case 42: // channel_list
         value.move< ChannelList > (that.value);
         break;
 
-      case 38: // array_pattern
-      case 39: // var_list
+      case 39: // array_pattern
+      case 40: // var_list
         value.move< StringList > (that.value);
         break;
 
-      case 18: // FLOAT
-      case 37: // number
+      case 19: // FLOAT
+      case 38: // number
         value.move< double > (that.value);
         break;
 
-      case 19: // INT
+      case 20: // INT
         value.move< int > (that.value);
         break;
 
-      case 35: // time
-      case 36: // smpte
+      case 36: // time
+      case 37: // smpte
         value.move< std::size_t > (that.value);
         break;
 
       case 3: // SYMBOL
-      case 17: // SMPTE
-      case 40: // var
+      case 18: // SMPTE
+      case 41: // var
         value.move< std::string > (that.value);
         break;
 
-      case 20: // UINT
-      case 21: // RANGE_BEGIN
-      case 22: // RANGE_END
+      case 21: // UINT
+      case 22: // RANGE_BEGIN
+      case 23: // RANGE_END
         value.move< uint > (that.value);
         break;
 
@@ -712,38 +712,38 @@ namespace ceammc {
          when using variants.  */
       switch (yyr1_[yyn])
     {
-      case 41: // channel_list
+      case 42: // channel_list
         yylhs.value.emplace< ChannelList > ();
         break;
 
-      case 38: // array_pattern
-      case 39: // var_list
+      case 39: // array_pattern
+      case 40: // var_list
         yylhs.value.emplace< StringList > ();
         break;
 
-      case 18: // FLOAT
-      case 37: // number
+      case 19: // FLOAT
+      case 38: // number
         yylhs.value.emplace< double > ();
         break;
 
-      case 19: // INT
+      case 20: // INT
         yylhs.value.emplace< int > ();
         break;
 
-      case 35: // time
-      case 36: // smpte
+      case 36: // time
+      case 37: // smpte
         yylhs.value.emplace< std::size_t > ();
         break;
 
       case 3: // SYMBOL
-      case 17: // SMPTE
-      case 40: // var
+      case 18: // SMPTE
+      case 41: // var
         yylhs.value.emplace< std::string > ();
         break;
 
-      case 20: // UINT
-      case 21: // RANGE_BEGIN
-      case 22: // RANGE_END
+      case 21: // UINT
+      case 22: // RANGE_BEGIN
+      case 23: // RANGE_END
         yylhs.value.emplace< uint > ();
         break;
 
@@ -920,44 +920,50 @@ namespace ceammc {
 #line 921 "array_loader.parser.cpp"
     break;
 
-  case 29:
-#line 146 "array_loader.y"
-      { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
+  case 27:
+#line 138 "array_loader.y"
+                                   { loader.setArrayOffset(yystack_[0].value.as < int > ()); }
 #line 927 "array_loader.parser.cpp"
     break;
 
   case 30:
 #line 147 "array_loader.y"
-             { yylhs.value.as < std::string > () = std::to_string(yystack_[0].value.as < uint > ()); }
+      { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
 #line 933 "array_loader.parser.cpp"
     break;
 
   case 31:
-#line 151 "array_loader.y"
-                              { yylhs.value.as < StringList > ().push_back(yystack_[2].value.as < std::string > ()); yylhs.value.as < StringList > ().push_back(yystack_[0].value.as < std::string > ()); }
+#line 148 "array_loader.y"
+             { yylhs.value.as < std::string > () = std::to_string(yystack_[0].value.as < uint > ()); }
 #line 939 "array_loader.parser.cpp"
     break;
 
   case 32:
 #line 152 "array_loader.y"
-                              { std::copy(yystack_[2].value.as < StringList > ().begin(), yystack_[2].value.as < StringList > ().end(), std::back_inserter(yylhs.value.as < StringList > ())); yylhs.value.as < StringList > ().push_back(yystack_[0].value.as < std::string > ()); }
+                              { yylhs.value.as < StringList > ().push_back(yystack_[2].value.as < std::string > ()); yylhs.value.as < StringList > ().push_back(yystack_[0].value.as < std::string > ()); }
 #line 945 "array_loader.parser.cpp"
     break;
 
   case 33:
-#line 156 "array_loader.y"
-                                                        { yylhs.value.as < StringList > () = generateStringRange(0, 9); }
+#line 153 "array_loader.y"
+                              { std::copy(yystack_[2].value.as < StringList > ().begin(), yystack_[2].value.as < StringList > ().end(), std::back_inserter(yylhs.value.as < StringList > ())); yylhs.value.as < StringList > ().push_back(yystack_[0].value.as < std::string > ()); }
 #line 951 "array_loader.parser.cpp"
     break;
 
   case 34:
 #line 157 "array_loader.y"
-                                                        { yylhs.value.as < StringList > () = yystack_[1].value.as < StringList > (); }
+                                                        { yylhs.value.as < StringList > () = generateStringRange(0, 9); }
 #line 957 "array_loader.parser.cpp"
     break;
 
   case 35:
 #line 158 "array_loader.y"
+                                                        { yylhs.value.as < StringList > () = yystack_[1].value.as < StringList > (); }
+#line 963 "array_loader.parser.cpp"
+    break;
+
+  case 36:
+#line 159 "array_loader.y"
                                                         {
 
         if(yystack_[3].value.as < uint > () > yystack_[1].value.as < uint > ())
@@ -965,44 +971,44 @@ namespace ceammc {
         else
             yylhs.value.as < StringList > () = generateStringRange(yystack_[3].value.as < uint > (), yystack_[1].value.as < uint > ());
                                                         }
-#line 969 "array_loader.parser.cpp"
-    break;
-
-  case 36:
-#line 168 "array_loader.y"
-                                    { loader.addArray(yystack_[0].value.as < std::string > ()); }
 #line 975 "array_loader.parser.cpp"
     break;
 
   case 37:
 #line 169 "array_loader.y"
+                                    { loader.addArray(yystack_[0].value.as < std::string > ()); }
+#line 981 "array_loader.parser.cpp"
+    break;
+
+  case 38:
+#line 170 "array_loader.y"
                                     {
         for(auto& s: yystack_[0].value.as < StringList > ())
             loader.addArray(yystack_[1].value.as < std::string > () + s);
                                     }
-#line 984 "array_loader.parser.cpp"
+#line 990 "array_loader.parser.cpp"
     break;
 
-  case 38:
-#line 173 "array_loader.y"
+  case 39:
+#line 174 "array_loader.y"
                              {
         for(auto& s: yystack_[1].value.as < StringList > ())
             loader.addArray(s + yystack_[0].value.as < std::string > ());
                                     }
-#line 993 "array_loader.parser.cpp"
+#line 999 "array_loader.parser.cpp"
     break;
 
-  case 39:
-#line 177 "array_loader.y"
+  case 40:
+#line 178 "array_loader.y"
                                     {
         for(auto& s: yystack_[1].value.as < StringList > ())
             loader.addArray(yystack_[2].value.as < std::string > () + s + yystack_[0].value.as < std::string > ());
                                     }
-#line 1002 "array_loader.parser.cpp"
+#line 1008 "array_loader.parser.cpp"
     break;
 
 
-#line 1006 "array_loader.parser.cpp"
+#line 1012 "array_loader.parser.cpp"
 
             default:
               break;
@@ -1273,45 +1279,45 @@ namespace ceammc {
   }
 
 
-  const signed char ArrayLoaderParser::yypact_ninf_ = -13;
+  const signed char ArrayLoaderParser::yypact_ninf_ = -12;
 
   const signed char ArrayLoaderParser::yytable_ninf_ = -1;
 
   const signed char
   ArrayLoaderParser::yypact_[] =
   {
-      19,    33,    -3,    -1,   -13,    35,    40,    38,   -13,   -13,
-      36,    17,    34,   -13,    19,    -5,   -13,   -13,    24,   -13,
-      -2,    -2,   -13,    -6,   -13,    12,    14,    -6,    -6,   -13,
-       7,   -13,    39,   -13,   -13,   -13,   -13,   -13,    20,   -13,
-     -13,    -4,    22,    15,   -13,   -13,   -13,   -13,    27,    31,
-     -13,    32,   -13,   -13,   -13,   -13,    37,   -13,   -13,     0,
-     -13,    41,    42,    25,   -13,    43,   -13
+      20,    34,    -3,    -1,   -12,    36,    41,    39,   -12,   -12,
+      37,    18,    35,   -12,    20,    -5,   -12,   -12,    24,   -12,
+      -2,    -2,   -12,    -6,   -12,    12,    14,    -6,    -6,   -12,
+       7,    26,   -12,    42,   -12,   -12,   -12,   -12,   -12,    19,
+     -12,   -12,    -4,    22,    21,   -12,   -12,   -12,   -12,    27,
+      31,   -12,   -12,    33,   -12,   -12,   -12,   -12,    32,   -12,
+     -12,     0,   -12,    38,    40,    25,   -12,    43,   -12
   };
 
   const signed char
   ArrayLoaderParser::yydefact_[] =
   {
-       0,    36,     0,     0,    40,    27,     0,    37,    29,    33,
-      30,     0,     0,    38,     0,    42,     1,    39,     0,    34,
-       0,     0,    41,     0,    16,     0,    23,     0,     0,    17,
-       0,    28,     0,    30,    32,    31,     6,     7,     0,    20,
-      12,     8,    21,     7,    24,    18,    19,    13,     0,    26,
-      35,     0,     9,    10,    11,    22,     0,    14,    15,     2,
-      25,     0,     0,     4,     3,     0,     5
+       0,    37,     0,     0,    41,    28,     0,    38,    30,    34,
+      31,     0,     0,    39,     0,    43,     1,    40,     0,    35,
+       0,     0,    42,     0,    16,     0,    23,     0,     0,    17,
+       0,     0,    29,     0,    31,    33,    32,     6,     7,     0,
+      20,    12,     8,    21,     7,    24,    18,    19,    13,     0,
+      26,    27,    36,     0,     9,    10,    11,    22,     0,    14,
+      15,     2,    25,     0,     0,     4,     3,     0,     5
   };
 
   const signed char
   ArrayLoaderParser::yypgoto_[] =
   {
-     -13,   -12,   -13,     9,    50,   -13,    16,   -13,   -13,   -13,
-      44,   -13,   -13
+     -12,   -11,   -12,    10,    55,   -12,    17,   -12,   -12,   -12,
+      44,   -12,   -12
   };
 
   const signed char
   ArrayLoaderParser::yydefgoto_[] =
   {
-      -1,    39,    40,    41,     3,    11,    12,    49,    31,    15,
+      -1,    40,    41,    42,     3,    11,    12,    50,    32,    15,
        4,     5,     6
   };
 
@@ -1319,46 +1325,46 @@ namespace ceammc {
   ArrayLoaderParser::yytable_[] =
   {
        8,     8,    13,     9,    23,    24,    25,    26,    27,    28,
-      29,    30,    36,    37,    38,    45,    46,    10,    33,    52,
-      53,    54,     1,    19,     2,    20,    47,    61,    48,    62,
-      36,    37,    36,    43,    42,    44,    34,    35,     2,    14,
-      16,    17,    21,    18,    32,    50,    56,    51,    55,    57,
-      58,     7,    59,     0,    65,     0,    60,     0,    22,     0,
-       0,    63,    64,    66
+      29,    30,    31,    37,    38,    39,    46,    47,    10,    34,
+      54,    55,    56,     1,    19,     2,    20,    48,    63,    49,
+      64,    37,    38,    37,    44,    43,    45,    35,    36,     2,
+      14,    16,    17,    21,    18,    33,    51,    53,    52,    57,
+      59,    60,    62,    58,    61,    67,     7,     0,    22,    65,
+       0,    66,     0,     0,    68
   };
 
   const signed char
   ArrayLoaderParser::yycheck_[] =
   {
        3,     3,     3,     6,     9,    10,    11,    12,    13,    14,
-      15,    16,    18,    19,    20,    27,    28,    20,    20,    23,
-      24,    25,     3,     6,     5,     8,    19,    27,    21,    29,
-      18,    19,    18,    19,    25,    26,    20,    21,     5,     4,
-       0,     3,     8,     7,    20,     6,    31,    27,    26,    22,
-      19,     1,    20,    -1,    29,    -1,    19,    -1,    14,    -1,
-      -1,    20,    20,    20
+      15,    16,    17,    19,    20,    21,    27,    28,    21,    21,
+      24,    25,    26,     3,     6,     5,     8,    20,    28,    22,
+      30,    19,    20,    19,    20,    25,    26,    20,    21,     5,
+       4,     0,     3,     8,     7,    21,    20,    28,     6,    27,
+      23,    20,    20,    32,    21,    30,     1,    -1,    14,    21,
+      -1,    21,    -1,    -1,    21
   };
 
   const signed char
   ArrayLoaderParser::yystos_[] =
   {
-       0,     3,     5,    38,    44,    45,    46,    38,     3,     6,
-      20,    39,    40,     3,     4,    43,     0,     3,     7,     6,
-       8,     8,    44,     9,    10,    11,    12,    13,    14,    15,
-      16,    42,    20,    20,    40,    40,    18,    19,    20,    35,
-      36,    37,    37,    19,    37,    35,    35,    19,    21,    41,
-       6,    27,    23,    24,    25,    26,    31,    22,    19,    20,
-      19,    27,    29,    20,    20,    29,    20
+       0,     3,     5,    39,    45,    46,    47,    39,     3,     6,
+      21,    40,    41,     3,     4,    44,     0,     3,     7,     6,
+       8,     8,    45,     9,    10,    11,    12,    13,    14,    15,
+      16,    17,    43,    21,    21,    41,    41,    19,    20,    21,
+      36,    37,    38,    38,    20,    38,    36,    36,    20,    22,
+      42,    20,     6,    28,    24,    25,    26,    27,    32,    23,
+      20,    21,    20,    28,    30,    21,    21,    30,    21
   };
 
   const signed char
   ArrayLoaderParser::yyr1_[] =
   {
-       0,    34,    36,    36,    36,    36,    37,    37,    35,    35,
-      35,    35,    35,    41,    41,    41,    42,    42,    42,    42,
-      42,    42,    42,    42,    42,    42,    42,    43,    43,    40,
-      40,    39,    39,    38,    38,    38,    44,    44,    44,    44,
-      45,    45,    46
+       0,    35,    37,    37,    37,    37,    38,    38,    36,    36,
+      36,    36,    36,    42,    42,    42,    43,    43,    43,    43,
+      43,    43,    43,    43,    43,    43,    43,    43,    44,    44,
+      41,    41,    40,    40,    39,    39,    39,    45,    45,    45,
+      45,    46,    46,    47
   };
 
   const signed char
@@ -1366,9 +1372,9 @@ namespace ceammc {
   {
        0,     2,     3,     5,     5,     7,     1,     1,     1,     2,
        2,     2,     1,     1,     2,     2,     1,     1,     2,     2,
-       2,     2,     3,     1,     2,     4,     2,     0,     2,     1,
-       1,     3,     3,     2,     3,     5,     1,     2,     2,     3,
-       1,     3,     2
+       2,     2,     3,     1,     2,     4,     2,     2,     0,     2,
+       1,     1,     3,     3,     2,     3,     5,     1,     2,     2,
+       3,     1,     3,     2
   };
 
 
@@ -1381,11 +1387,11 @@ namespace ceammc {
   "\"end of string\"", "error", "$undefined", "SYMBOL", "ARRAY_DELIM",
   "PATTERN_BEGIN", "PATTERN_END", "RANGE_DELIM", "VAR_DELIM", "LENGTH",
   "RESIZE", "GAIN", "RESAMPLE", "BEGIN", "END", "NORMALIZE", "CHANNELS",
-  "SMPTE", "FLOAT", "INT", "UINT", "RANGE_BEGIN", "RANGE_END", "SEC",
-  "MSEC", "SAMPLES", "DB", "COLON", "\"colon\"", "DOT", "\"dot\"", "FRAC",
-  "\"fraction\"", "LEXER_ERROR", "$accept", "time", "smpte", "number",
-  "array_pattern", "var_list", "var", "channel_list", "opt", "options",
-  "array_name", "array_list", "expr", YY_NULLPTR
+  "ARRAY_OFFSET", "SMPTE", "FLOAT", "INT", "UINT", "RANGE_BEGIN",
+  "RANGE_END", "SEC", "MSEC", "SAMPLES", "DB", "COLON", "\"colon\"", "DOT",
+  "\"dot\"", "FRAC", "\"fraction\"", "LEXER_ERROR", "$accept", "time",
+  "smpte", "number", "array_pattern", "var_list", "var", "channel_list",
+  "opt", "options", "array_name", "array_list", "expr", YY_NULLPTR
   };
 
 #if YYDEBUG
@@ -1394,9 +1400,9 @@ namespace ceammc {
   {
        0,    98,    98,    99,   100,   101,   105,   106,   110,   111,
      112,   113,   114,   118,   119,   120,   124,   125,   126,   127,
-     128,   129,   130,   131,   133,   135,   137,   141,   142,   146,
-     147,   151,   152,   156,   157,   158,   168,   169,   173,   177,
-     184,   185,   189
+     128,   129,   130,   131,   133,   135,   137,   138,   142,   143,
+     147,   148,   152,   153,   157,   158,   159,   169,   170,   174,
+     178,   185,   186,   190
   };
 
   // Print the state stack on the debug stream.
@@ -1431,9 +1437,9 @@ namespace ceammc {
 
 #line 7 "array_loader.y"
 } // ceammc
-#line 1435 "array_loader.parser.cpp"
+#line 1441 "array_loader.parser.cpp"
 
-#line 192 "array_loader.y"
+#line 193 "array_loader.y"
 
 
 void ceammc::ArrayLoaderParser::error(const location& loc, const std::string& err_message)

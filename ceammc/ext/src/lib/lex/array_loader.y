@@ -71,7 +71,7 @@
 %token                  ARRAY_DELIM
 %token                  PATTERN_BEGIN PATTERN_END
 %token                  RANGE_DELIM VAR_DELIM
-%token                  LENGTH RESIZE GAIN RESAMPLE BEGIN END NORMALIZE CHANNELS
+%token                  LENGTH RESIZE GAIN RESAMPLE BEGIN END NORMALIZE CHANNELS ARRAY_OFFSET
 %token  <std::string>   SMPTE
 %token  <double>        FLOAT
 %token  <int>           INT
@@ -135,6 +135,7 @@ opt
     | RESAMPLE INT FRAC INT       { if(!loader.setResampleRatio($2, $4))
                                         error(@2, "invalid ratio"); }
     | CHANNELS channel_list       { for(auto& c: $2) loader.addChannel(c); }
+    | ARRAY_OFFSET INT             { loader.setArrayOffset($2); }
     ;
 
 options

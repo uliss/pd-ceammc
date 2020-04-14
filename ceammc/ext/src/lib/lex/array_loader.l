@@ -83,7 +83,8 @@ length      (l | len | length)
 norm        (n | norm | normalize)
 resize      (r | resize)
 resample    resample
-offset      offset
+offset      (off | offset)
+aoffset     (aoff | array_offset)
 
 arr_quoted  \"[^ \"]*\"
 arr_pattern [^@ \[\]][^ \[\]]*
@@ -115,9 +116,9 @@ arr_pattern [^@ \[\]][^ \[\]]*
 
 
 <OPTIONS>@{begin}       { return ArrayLoaderParser::make_BEGIN(location()); }
-<OPTIONS>@{offset}      {   out() << "@offset option is obsolete, use @begin\n";
-                            return ArrayLoaderParser::make_BEGIN(location()); }
+<OPTIONS>@{offset}      { return ArrayLoaderParser::make_BEGIN(location()); }
 <OPTIONS>@{end}         { return ArrayLoaderParser::make_END(location()); }
+<OPTIONS>@{aoffset}     { return ArrayLoaderParser::make_ARRAY_OFFSET(location()); }
 <OPTIONS>@{channels}    { return ArrayLoaderParser::make_CHANNELS(location()); }
 <OPTIONS>@{gain}        { return ArrayLoaderParser::make_GAIN(location()); }
 <OPTIONS>@{length}      { return ArrayLoaderParser::make_LENGTH(location()); }
