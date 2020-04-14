@@ -47,7 +47,7 @@ TEST_CASE("snd.file", "[externals]")
 
     SECTION("test load")
     {
-        TExt t("snd.file", "@verbose");
+        TExt t("snd.file", "@verbose", "@.debug");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
 
@@ -195,7 +195,8 @@ TEST_CASE("snd.file", "[externals]")
             SECTION("@length 50 @array_offset 25")
             {
                 t <<= AtomList::parseString("load " TEST_DATA_DIR
-                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 @l 50 @aoff 25");
+                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 "
+                                            "@l 50 @aoff 25");
                 REQUIRE(floatAt(t) == 50);
                 REQUIRE(arr1->update());
                 REQUIRE(arr1->size() == 100);
@@ -211,7 +212,8 @@ TEST_CASE("snd.file", "[externals]")
             SECTION("@length 50 @array_offset 50")
             {
                 t <<= AtomList::parseString("load " TEST_DATA_DIR
-                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 @l 50 @aoff 50");
+                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 "
+                                            "@l 50 @aoff 50");
                 REQUIRE(floatAt(t) == 50);
                 REQUIRE(arr1->update());
                 REQUIRE(arr1->size() == 100);
@@ -226,7 +228,8 @@ TEST_CASE("snd.file", "[externals]")
             SECTION("@length 50 @array_offset 51")
             {
                 t <<= AtomList::parseString("load " TEST_DATA_DIR
-                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 @l 50 @aoff 51");
+                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 "
+                                            "@l 50 @aoff 51");
                 REQUIRE(floatAt(t) == 49);
                 REQUIRE(arr1->update());
                 REQUIRE(arr1->size() == 100);
@@ -241,7 +244,8 @@ TEST_CASE("snd.file", "[externals]")
             SECTION("@length 50 @array_offset 99")
             {
                 t <<= AtomList::parseString("load " TEST_DATA_DIR
-                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 @l 50 @aoff 99");
+                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 "
+                                            "@l 50 @aoff 99");
                 REQUIRE(floatAt(t) == 1);
                 REQUIRE(arr1->update());
                 REQUIRE(arr1->size() == 100);
@@ -256,14 +260,32 @@ TEST_CASE("snd.file", "[externals]")
             SECTION("@length 50 @array_offset 100")
             {
                 t <<= AtomList::parseString("load " TEST_DATA_DIR
-                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 @l 50 @aoff 100");
+                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 "
+                                            "@l 50 @aoff 100");
                 REQUIRE(!t.hasNewMessages(0));
             }
 
-            SECTION("@length 50 @array_offset -1")
+            SECTION("@length 50 @array_offset end")
             {
                 t <<= AtomList::parseString("load " TEST_DATA_DIR
-                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 @l 50 @aoff -1");
+                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 "
+                                            "@l 50 @aoff end");
+                REQUIRE(!t.hasNewMessages(0));
+            }
+
+            SECTION("@length 50 @array_offset end+1")
+            {
+                t <<= AtomList::parseString("load " TEST_DATA_DIR
+                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 "
+                                            "@l 50 @aoff end+1");
+                REQUIRE(!t.hasNewMessages(0));
+            }
+
+            SECTION("@length 50 @array_offset end-1")
+            {
+                t <<= AtomList::parseString("load " TEST_DATA_DIR
+                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 "
+                                            "@l 50 @aoff end-1");
                 REQUIRE(floatAt(t) == 1);
                 REQUIRE(arr1->update());
                 REQUIRE(arr1->size() == 100);
@@ -275,10 +297,11 @@ TEST_CASE("snd.file", "[externals]")
                 REQUIRE(all_eq(arr1->begin() + 99, arr1->end(), -1));
             }
 
-            SECTION("@length 50 @array_offset -50")
+            SECTION("@length 50 @array_offset end-50")
             {
                 t <<= AtomList::parseString("load " TEST_DATA_DIR
-                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 @l 50 @aoff -50");
+                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 "
+                                            "@l 50 @aoff end-50");
                 REQUIRE(floatAt(t) == 50);
                 REQUIRE(arr1->update());
                 REQUIRE(arr1->size() == 100);
@@ -290,10 +313,11 @@ TEST_CASE("snd.file", "[externals]")
                 REQUIRE(all_eq(arr1->begin() + 50, arr1->end(), -1));
             }
 
-            SECTION("@length 50 @array_offset -99")
+            SECTION("@length 50 @array_offset end-99")
             {
                 t <<= AtomList::parseString("load " TEST_DATA_DIR
-                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 @l 50 @aoff -99");
+                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 "
+                                            "@l 50 @aoff end-99");
                 REQUIRE(floatAt(t) == 50);
                 REQUIRE(arr1->update());
                 REQUIRE(arr1->size() == 100);
@@ -306,10 +330,11 @@ TEST_CASE("snd.file", "[externals]")
                 REQUIRE(all_eq(arr1->begin() + 51, arr1->end(), 0));
             }
 
-            SECTION("@length 50 @array_offset -100")
+            SECTION("@length 50 @array_offset end-100")
             {
                 t <<= AtomList::parseString("load " TEST_DATA_DIR
-                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 @l 50 @aoff -100");
+                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 @l 50 @aoff "
+                                            "end-100");
                 REQUIRE(floatAt(t) == 50);
                 REQUIRE(arr1->update());
                 REQUIRE(arr1->size() == 100);
@@ -321,7 +346,7 @@ TEST_CASE("snd.file", "[externals]")
                 REQUIRE(all_eq(arr1->begin() + 50, arr1->end(), 0));
             }
 
-            SECTION("@length 50 @array_offset -101")
+            SECTION("@length 50 @array_offset end-101")
             {
                 t <<= AtomList::parseString("load " TEST_DATA_DIR
                                             "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 @l 50 @aoff -101");
@@ -452,35 +477,76 @@ TEST_CASE("snd.file", "[externals]")
                 REQUIRE(all_eq(arr1->begin() + 100, arr1->begin() + 950, 0));
                 REQUIRE(all_eq(arr1->begin() + 950, arr1->end(), 1));
             }
+
+            SECTION("@length 50 @aoffset 950")
+            {
+                arr1->fillWith(0.5);
+
+                t <<= AtomList::parseString("load " TEST_DATA_DIR
+                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 @c 1 "
+                                            "@resize @length 50 @aoffset 950");
+                REQUIRE(floatAt(t) == 50);
+                REQUIRE(arr1->update());
+                REQUIRE(arr1->size() == 1000);
+                REQUIRE_PROPERTY(t, @filename, TEST_DATA_DIR "/base/snd0_ch02_44.1k_441samp.wav");
+                REQUIRE_PROPERTY(t, @sr, 44100);
+                REQUIRE_PROPERTY(t, @samples, 50);
+
+                REQUIRE(all_eq(arr1->begin(), arr1->begin() + 100, 0.5));
+                REQUIRE(all_eq(arr1->begin() + 100, arr1->begin() + 950, 0));
+                REQUIRE(all_eq(arr1->begin() + 950, arr1->end(), 1));
+            }
+
+            SECTION("@length 50 @aoffset end-10")
+            {
+                t <<= AtomList::parseString("load " TEST_DATA_DIR
+                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 @c 1 "
+                                            "@resize @length 50 @aoffset end-10");
+                REQUIRE(floatAt(t) == 50);
+                REQUIRE(arr1->update());
+                REQUIRE(arr1->size() == 140);
+                REQUIRE_PROPERTY(t, @filename, TEST_DATA_DIR "/base/snd0_ch02_44.1k_441samp.wav");
+                REQUIRE_PROPERTY(t, @sr, 44100);
+                REQUIRE_PROPERTY(t, @samples, 50);
+
+                REQUIRE(all_eq(arr1->begin(), arr1->begin() + 90, 0));
+                REQUIRE(all_eq(arr1->begin() + 90, arr1->end(), 1));
+            }
+
+            SECTION("@length 50 @aoffset end")
+            {
+                t <<= AtomList::parseString("load " TEST_DATA_DIR
+                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 @c 1 "
+                                            "@resize @length 50 @aoffset end");
+                REQUIRE(floatAt(t) == 50);
+                REQUIRE(arr1->update());
+                REQUIRE(arr1->size() == 150);
+                REQUIRE_PROPERTY(t, @filename, TEST_DATA_DIR "/base/snd0_ch02_44.1k_441samp.wav");
+                REQUIRE_PROPERTY(t, @sr, 44100);
+                REQUIRE_PROPERTY(t, @samples, 50);
+
+                REQUIRE(all_eq(arr1->begin(), arr1->begin() + 100, 0));
+                REQUIRE(all_eq(arr1->begin() + 100, arr1->end(), 1));
+            }
+
+            SECTION("@length 50 @aoffset end+10")
+            {
+                arr1->fillWith(0.5);
+                t <<= AtomList::parseString("load " TEST_DATA_DIR
+                                            "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 @c 1 "
+                                            "@resize @length 50 @aoffset end+10");
+                REQUIRE(floatAt(t) == 50);
+                REQUIRE(arr1->update());
+                REQUIRE(arr1->size() == 160);
+                REQUIRE_PROPERTY(t, @filename, TEST_DATA_DIR "/base/snd0_ch02_44.1k_441samp.wav");
+                REQUIRE_PROPERTY(t, @sr, 44100);
+                REQUIRE_PROPERTY(t, @samples, 50);
+
+                REQUIRE(all_eq(arr1->begin(), arr1->begin() + 100, 0.5));
+                REQUIRE(all_eq(arr1->begin() + 100, arr1->begin() + 110, 0));
+                REQUIRE(all_eq(arr1->begin() + 110, arr1->end(), 1));
+            }
         }
-
-        //        // channel 1 @offset 50 samples
-        //        t <<= AtomList::parseString("load " TEST_DATA_DIR
-        //                                    "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 @ch 1 @aoff 50");
-        //        REQUIRE(floatAt(t) == 50);
-        //        REQUIRE(arr1->update());
-        //        REQUIRE(arr1->size() == 100);
-        //        REQUIRE_PROPERTY(t, @filename, TEST_DATA_DIR "/base/snd0_ch02_44.1k_441samp.wav");
-        //        REQUIRE_PROPERTY(t, @sr, 44100);
-        //        REQUIRE_PROPERTY(t, @samples, 50);
-
-        //        for (int i = 0; i < 50; i++)
-        //            REQUIRE(arr1->at(i) == Approx(-1).epsilon(0.01));
-
-        //        for (int i = 50; i < 100; i++)
-        //            REQUIRE(arr1->at(i) == Approx(1).epsilon(0.01));
-
-        //        // array pattern
-        //        t <<= AtomList::parseString("load " TEST_DATA_DIR "/base/snd0_ch03_44.1k_441samp.wav to snd_file[0-4] @r @ch 1");
-        //        REQUIRE(floatAt(t) == 441);
-        //        REQUIRE(arr1->update());
-        //        REQUIRE(arr1->size() == 441);
-        //        REQUIRE_PROPERTY(t, @filename, TEST_DATA_DIR "/base/snd0_ch03_44.1k_441samp.wav");
-        //        REQUIRE_PROPERTY(t, @sr, 44100);
-        //        REQUIRE_PROPERTY(t, @samples, 441);
-
-        //        for (auto& a : *arr1)
-        //            REQUIRE(a == Approx(0));
     }
 
 #if !defined(__APPLE__) && defined(__clang__)

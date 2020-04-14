@@ -83,7 +83,7 @@ void ArrayLoader::fixArrayChannelPairs()
             "array/channels count mismatch: {} != {}, using only {} pairs\n",
             NARR, NCHAN, N);
 
-        if (verbose()) {
+        if (debug_) {
             if (N < NARR) {
                 err() << "following arrays are skipped:\n";
                 for (size_t i = N; i < NARR; i++)
@@ -135,11 +135,11 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
 
         size_t ARRAY_OFFSET = 0;
 
-        // valid negative offset
-        if (array_offset_ < 0 && std::abs(array_offset_) <= ARRAY_SIZE) {
-            ARRAY_OFFSET = ARRAY_SIZE + array_offset_;
-        } else if (array_offset_ >= 0) {
+        // relative end offset
+        if (array_offset_type_ == OFF_BEGIN && array_offset_ >= 0) {
             ARRAY_OFFSET = array_offset_;
+        } else if (array_offset_type_ == OFF_END && std::abs(array_offset_) <= ARRAY_SIZE) {
+            ARRAY_OFFSET = ARRAY_SIZE + array_offset_;
         } else {
             err() << fmt::format("invalid array offset: {}\n", array_offset_);
             return false;
@@ -152,6 +152,9 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
                 err() << fmt::format("can't resize array '{}' to {} samples\n", name, NEW_ARRAY_SIZE);
                 return false;
             }
+
+            if (debug_)
+                log() << fmt::format("array '{}' resized to {} samples\n", name, NEW_ARRAY_SIZE);
 
             // if array size increased, for safety turn off save-in-patch flag
             if (ARRAY_SIZE < NEW_ARRAY_SIZE)
@@ -194,6 +197,22 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
             arr.redraw();
     }
 
+    return true;
+}
+
+bool ArrayLoader::setArrayOffset(long n, ArrayLoader::ArrayOffsetType t)
+{
+    if (t == OFF_BEGIN && n < 0) {
+        err() << fmt::format(
+            "unexpected negative offset: {}, "
+            "use 'end(+-)N' syntax, if you want to specifiy relative end offset\n",
+            n);
+
+        return false;
+    }
+
+    array_offset_type_ = t;
+    array_offset_ = n;
     return true;
 }
 
@@ -382,7 +401,7 @@ void ceammc::ArrayLoader::dump() const
         "  arrays:      {}\n"
         "  channels:    {}\n"
         "  samplerate:  {}\n"
-        "  offset:      {}\n"
+        "  offset:      {}{:+}\n"
         "options:\n"
         "  @begin:      {}\n"
         "  @end:        {}\n"
@@ -391,7 +410,8 @@ void ceammc::ArrayLoader::dump() const
         "  @resize:     {}\n"
         "  @normalize:  {}\n",
         str_, src_samplerate_, smpte_framerate_, src_sample_count_, src_num_channels_,
-        fmt::join(arrays_, ", "), fmt::join(channels_, ", "), dest_samplerate_, array_offset_,
+        fmt::join(arrays_, ", "), fmt::join(channels_, ", "), dest_samplerate_,
+        ((array_offset_type_ == OFF_END) ? "end" : ""), array_offset_,
         begin_, end_, gain_, resample_ratio_, resize_, normalize_);
 }
 

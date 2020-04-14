@@ -139,6 +139,7 @@ arr_pattern [^@ \[\]][^ \[\]]*
 <OPTIONS>(db)           { return ArrayLoaderParser::make_DB(location()); }
 <OPTIONS>(samp|samples) { return ArrayLoaderParser::make_SAMPLES(location()); }
 <OPTIONS>\/             { return ArrayLoaderParser::make_FRAC(location()); }
+<OPTIONS>end            { return ArrayLoaderParser::make_OFFSET_END(location()); }
 
 <RANGE>-{uint}          { start(OPTIONS); return ArrayLoaderParser::make_RANGE_END(std::stoi(text()+1), location()); }
 

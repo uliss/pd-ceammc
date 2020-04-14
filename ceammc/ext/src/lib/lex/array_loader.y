@@ -42,6 +42,7 @@
     # include "ceammc_convert.h"
 
     using OPT = ceammc::ArrayLoader::OptionType;
+    using OFFSET = ceammc::ArrayLoader::ArrayOffsetType;
 
     static StringList generateStringRange(uint from, uint to) {
         StringList res;
@@ -72,6 +73,7 @@
 %token                  PATTERN_BEGIN PATTERN_END
 %token                  RANGE_DELIM VAR_DELIM
 %token                  LENGTH RESIZE GAIN RESAMPLE BEGIN END NORMALIZE CHANNELS ARRAY_OFFSET
+%token                  OFFSET_END
 %token  <std::string>   SMPTE
 %token  <double>        FLOAT
 %token  <int>           INT
@@ -123,10 +125,10 @@ channel_list
 opt
     : RESIZE           { loader.setFlagOption(OPT::OPT_RESIZE); }
     | NORMALIZE        { loader.setFlagOption(OPT::OPT_NORMALIZE); }
-    | BEGIN  time      { if(!loader.setSampleOption(OPT::OPT_BEGIN, $2))      error(@2, "invalid @begin value");}
-    | END    time      { if(!loader.setSampleOption(OPT::OPT_END, $2))        error(@2, "invalid @end value");}
-    | LENGTH time      { if(!loader.setSampleOption(OPT::OPT_LENGTH, $2))     error(@2, "invalid @length value");}
-    | GAIN number      { if(!loader.setGain($2))                            error(@2, "invalid @gain value");}
+    | BEGIN     time   { if(!loader.setSampleOption(OPT::OPT_BEGIN, $2))    error(@2, "invalid @begin value");}
+    | END       time   { if(!loader.setSampleOption(OPT::OPT_END, $2))      error(@2, "invalid @end value");}
+    | LENGTH    time   { if(!loader.setSampleOption(OPT::OPT_LENGTH, $2))   error(@2, "invalid @length value");}
+    | GAIN      number { if(!loader.setGain($2))                            error(@2, "invalid @gain value");}
     | GAIN number DB   { if(!loader.setGain(ceammc::convert::dbfs2amp($2))) error(@2, "invalid @gain value");}
     | RESAMPLE                    { if(!loader.setResampleRatio(loader.destSamplerate(), loader.srcSampleRate()))
                                         error(@1, "invalid ratio"); }
@@ -134,8 +136,12 @@ opt
                                         error(@2, "invalid ratio"); }
     | RESAMPLE INT FRAC INT       { if(!loader.setResampleRatio($2, $4))
                                         error(@2, "invalid ratio"); }
-    | CHANNELS channel_list       { for(auto& c: $2) loader.addChannel(c); }
-    | ARRAY_OFFSET INT             { loader.setArrayOffset($2); }
+    | CHANNELS channel_list       { for(auto& c: $2)
+                                        loader.addChannel(c); }
+    | ARRAY_OFFSET INT            { if(!loader.setArrayOffset($2, OFFSET::OFF_BEGIN))
+                                        { error(@2, "non-negative value expected"); return 1; }}
+    | ARRAY_OFFSET OFFSET_END     { loader.setArrayOffset(0, OFFSET::OFF_END); }
+    | ARRAY_OFFSET OFFSET_END INT { loader.setArrayOffset($3, OFFSET::OFF_END); }
     ;
 
 options
@@ -195,7 +201,7 @@ expr
 void ceammc::ArrayLoaderParser::error(const location& loc, const std::string& err_message)
 {
     auto line = lexer.matcher().line();
-    lexer.out() << err_message << std::endl;
+    lexer.out() << err_message << ':' << std::endl;
     lexer.out() << lexer.indent()
                 << line << std::endl;
     lexer.out() << lexer.indent(loc.begin.column)

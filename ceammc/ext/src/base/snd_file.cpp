@@ -84,8 +84,7 @@ void SndFile::m_load(t_symbol* s, const AtomList& lst)
     Log log(this);
 
     ArrayLoader loader;
-    if (debug_->value())
-        loader.setDebug(true);
+    loader.setDebug(debug_->value());
 
     loader.setErr(&err.stream());
     loader.setLog(&log.stream());

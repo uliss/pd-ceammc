@@ -26,35 +26,6 @@
 namespace ceammc {
 
 class ArrayLoader {
-    std::vector<std::string> arrays_;
-    std::string str_;
-
-    // fileinfo
-    size_t src_sample_count_ = { 0 };
-    size_t src_num_channels_ = { 1 };
-    double src_samplerate_ = { 44100 };
-    double smpte_framerate_ = { 30 };
-
-    double dest_samplerate_ = { 44100 };
-    long array_offset_ = { 0 };
-
-    // load options
-    bool resize_ = { false };
-    bool verbose_ = { false };
-    bool normalize_ { false };
-    size_t begin_ = { 0 };
-    size_t end_ = { 0 };
-    double gain_ = { 1 };
-    double resample_ratio_ = { 0 };
-    std::vector<uint8_t> channels_;
-
-    std::vector<size_t> loaded_samples_;
-
-    // output
-    std::ostream* err_;
-    std::ostream* log_;
-    bool debug_ = { false };
-
 public:
     enum OptionType { // if change the order - change also in optionToString()
         OPT_BEGIN = 0,
@@ -65,6 +36,11 @@ public:
         OPT_NORMALIZE,
         OPT_RESAMPLE,
         OPT_RESIZE
+    };
+
+    enum ArrayOffsetType {
+        OFF_BEGIN = 0,
+        OFF_END
     };
 
 public:
@@ -143,7 +119,7 @@ public:
     long arrayOffset() const { return array_offset_; }
 
     /** set array offset */
-    void setArrayOffset(long n) { array_offset_ = n; }
+    bool setArrayOffset(long n, ArrayOffsetType t);
 
     // options
 
@@ -179,8 +155,6 @@ public:
     void dump() const;
     /** when on debug lexer to std::cerr */
     void setDebug(bool v) { debug_ = v; }
-    /** be verbose */
-    bool verbose() const { return verbose_; }
 
     /** array list to load */
     const std::vector<std::string>& arrays() const { return arrays_; }
@@ -198,6 +172,36 @@ public:
 public:
     /** convert option type to string */
     static const char* optionToString(OptionType opt);
+
+private:
+    std::vector<std::string> arrays_;
+    std::string str_;
+
+    // fileinfo
+    size_t src_sample_count_ = { 0 };
+    size_t src_num_channels_ = { 1 };
+    double src_samplerate_ = { 44100 };
+    double smpte_framerate_ = { 30 };
+
+    double dest_samplerate_ = { 44100 };
+    long array_offset_ = { 0 };
+    ArrayOffsetType array_offset_type_ = { OFF_BEGIN };
+
+    // load options
+    bool resize_ = { false };
+    bool normalize_ { false };
+    size_t begin_ = { 0 };
+    size_t end_ = { 0 };
+    double gain_ = { 1 };
+    double resample_ratio_ = { 0 };
+    std::vector<uint8_t> channels_;
+
+    std::vector<size_t> loaded_samples_;
+
+    // output
+    std::ostream* err_;
+    std::ostream* log_;
+    bool debug_ = { false };
 };
 
 }
