@@ -11,200 +11,117 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../base/snd_file.h"
+#include "ceammc_array.h"
+#include "snd_file.h"
 #include "test_base.h"
-#include "catch.hpp"
-#include "ceammc_sound.h"
+#include "test_external.h"
 
-#include "g_canvas.h"
+PD_COMPLETE_TEST_SETUP(SndFile, snd, file)
 
-#include <stdio.h>
+//class TObj : public TestExternal<SndFile> {
+//public:
+//    TObj(const char* name, const AtomList& args)
+//        : TestExternal<SndFile>(name, args)
+//    {
+//    }
 
-#ifndef TEST_DATA_DIR
-#define TEST_DATA_DIR "."
-#endif
+//public:
+//    t_garray* findArray_(const Atom& name)
+//    {
+//        return this->findArray(name);
+//    }
 
-void array_zero(t_garray* a)
+//    bool checkArray_(const Atom& name)
+//    {
+//        return this->checkArray(name);
+//    }
+
+//    bool resizeArray_(const Atom& name, long newSize)
+//    {
+//        return this->resizeArray(name, newSize);
+//    }
+
+//    long loadArray_(sound::SoundFilePtr file, const Atom& name, size_t channel, long offset)
+//    {
+//        return this->loadArray(file, name, channel, offset);
+//    }
+
+//    bool arrayNameContainsPattern_(const std::string& name) const
+//    {
+//        return this->arrayNameContainsPattern(name);
+//    }
+
+//    AtomList findPatternArrays_(const std::string& pattern) const
+//    {
+//        return this->findPatternArrays(pattern);
+//    }
+//};
+
+TEST_CASE("snd.file", "[externals]")
 {
-    int sz = 0;
-    t_word* vec = 0;
-    if (!garray_getfloatwords(a, &sz, &vec))
-        return;
+    pd_test_init();
 
-    for (int i = 0; i < sz; i++)
-        vec[i].w_float = 0.f;
-}
-
-class SndFileTest : public TestExternal<SndFile> {
-public:
-    SndFileTest(const char* name, const AtomList& args)
-        : TestExternal<SndFile>(name, args)
-    {
-    }
-
-public:
-    t_garray* findArray_(const Atom& name)
-    {
-        return this->findArray(name);
-    }
-
-    bool checkArray_(const Atom& name)
-    {
-        return this->checkArray(name);
-    }
-
-    bool resizeArray_(const Atom& name, long newSize)
-    {
-        return this->resizeArray(name, newSize);
-    }
-
-    long loadArray_(sound::SoundFilePtr file, const Atom& name, size_t channel, long offset)
-    {
-        return this->loadArray(file, name, channel, offset);
-    }
-
-    bool arrayNameContainsPattern_(const std::string& name) const
-    {
-        return this->arrayNameContainsPattern(name);
-    }
-
-    AtomList findPatternArrays_(const std::string& pattern) const
-    {
-        return this->findPatternArrays(pattern);
-    }
-};
-
-#define SF(path) sound::SoundFileLoader::open(path)
-
-#define REQUIRE_ARRAY_SIZE(array, size)                       \
-    {                                                         \
-        int sz = 0;                                           \
-        t_word* vec = 0;                                      \
-        REQUIRE(garray_getfloatwords(array, &sz, &vec) == 1); \
-        REQUIRE(size == sz);                                  \
-        REQUIRE(vec != 0);                                    \
-    }
-
-#define REQUIRE_ARRAY_ZERO(array)                             \
-    {                                                         \
-        int sz = 0;                                           \
-        t_word* vec = 0;                                      \
-        REQUIRE(garray_getfloatwords(array, &sz, &vec) == 1); \
-        for (int i = 0; i < sz; i++) {                        \
-            REQUIRE(vec[i].w_float == 0.f);                   \
-        }                                                     \
-    }
-
-extern "C" void pd_init();
-
-t_canvas* make_canvas(int w = 300, int h = 200, int x = 0, int y = 0)
-{
-    t_atom cnv_args[6];
-    SETFLOAT(&cnv_args[0], x);
-    SETFLOAT(&cnv_args[1], y);
-    SETFLOAT(&cnv_args[2], w);
-    SETFLOAT(&cnv_args[3], h);
-    SETSYMBOL(&cnv_args[4], gensym("test"));
-    SETFLOAT(&cnv_args[5], 0);
-    return canvas_new(0, gensym("canvas"), 6, cnv_args);
-}
-
-class PdInit {
-public:
-    PdInit()
-    {
-        pd_init();
-    }
-};
-
-static PdInit pd_;
-
-TEST_CASE("snd.file", "[PureData]")
-{
     SECTION("test load")
     {
+        using SF = sound::SoundFileLoader;
+
         AtomList args;
-        SndFileTest sf("snd.file", args);
+        TObj sf("snd.file", args);
         REQUIRE(sf.numInlets() == 1);
         REQUIRE(sf.numOutlets() == 1);
-        REQUIRE(sf.findArray_(S("unknown")) == 0);
 
         sf.storeMessageCount();
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
-        t_canvas* cnv = make_canvas();
-        REQUIRE(cnv != 0);
-
-        t_garray* array1 = graph_array(canvas_getcurrent(), gensym("array1"), &s_float, 100, 0);
-        REQUIRE(array1 != 0);
-
-        REQUIRE(sf.findArray_(Atom(100)) == 0);
-        REQUIRE(sf.findArray_(S("unknown")) == 0);
-        REQUIRE(sf.findArray_(S("array1")) == array1);
-
-        REQUIRE_FALSE(sf.checkArray_(S("unknown")));
-        REQUIRE(sf.checkArray_(S("array1")));
-
-        REQUIRE_FALSE(sf.resizeArray_(S("unknown"), 100));
-        REQUIRE(sf.resizeArray_(S("array1"), 100));
-        REQUIRE_ARRAY_SIZE(array1, 100);
-
-        // negative array size
-        REQUIRE_FALSE(sf.resizeArray_(S("array1"), 0));
-        REQUIRE_FALSE(sf.resizeArray_(S("array1"), -100));
-        // check nothing changes
-        REQUIRE_ARRAY_SIZE(array1, 100);
-
-        REQUIRE(sf.resizeArray_(S("array1"), 111));
-        REQUIRE_ARRAY_SIZE(array1, 111);
+        auto arr = cnv->createArray("snd_file1", 10);
 
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
-        sound::SoundFilePtr file = SF(TEST_DATA_DIR "/test_data1.wav");
+        sound::SoundFilePtr file = SF::open(TEST_DATA_DIR "/test_data1.wav");
         REQUIRE(file);
         REQUIRE(file->isOpened());
 
-        REQUIRE(sf.loadArray_(SF("not-exists"), S("array1"), 0, 0) == -1);
-        REQUIRE(sf.loadArray_(file, S("unknown"), 0, 0) == -1);
-        REQUIRE(file->sampleCount() == 441);
-        // invalid offset
-        REQUIRE(sf.loadArray_(file, S("array1"), 0, -1) == -1);
-        REQUIRE(sf.loadArray_(file, S("array1"), 0, 1024) == -1);
-        // invalid channel
-        REQUIRE(sf.loadArray_(file, S("array1"), 10, 0) == -1);
+//        REQUIRE(sf.loadArray_(SF("not-exists"), S("array1"), 0, 0) == -1);
+//        REQUIRE(sf.loadArray_(file, S("unknown"), 0, 0) == -1);
+//        REQUIRE(file->sampleCount() == 441);
+//        // invalid offset
+//        REQUIRE(sf.loadArray_(file, S("array1"), 0, -1) == -1);
+//        REQUIRE(sf.loadArray_(file, S("array1"), 0, 1024) == -1);
+//        // invalid channel
+//        REQUIRE(sf.loadArray_(file, S("array1"), 10, 0) == -1);
 
-        REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
+//        REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
         // load left channel
-        REQUIRE(sf.loadArray_(file, S("array1"), 0, 0) == 111);
-        int sz = 0;
-        t_word* vec = 0;
-        garray_getfloatwords(array1, &sz, &vec);
-        for (int i = 0; i < sz; i++) {
-            REQUIRE(vec[i].w_float == Approx(i * 10 / 32768.f));
-        }
+//        REQUIRE(sf.loadArray_(file, S("array1"), 0, 0) == 111);
+//        int sz = 0;
+//        t_word* vec = 0;
+//        garray_getfloatwords(array1, &sz, &vec);
+//        for (int i = 0; i < sz; i++) {
+//            REQUIRE(vec[i].w_float == Approx(i * 10 / 32768.f));
+//        }
 
-        // load left channel with offset
-        const long offset = 11;
-        REQUIRE(sf.loadArray_(file, S("array1"), 0, offset) == 111);
-        garray_getfloatwords(array1, &sz, &vec);
-        for (int i = 0; i < sz; i++) {
-            REQUIRE(vec[i].w_float == Approx((i + offset) * 10 / 32768.f));
-        }
+//        // load left channel with offset
+//        const long offset = 11;
+//        REQUIRE(sf.loadArray_(file, S("array1"), 0, offset) == 111);
+//        garray_getfloatwords(array1, &sz, &vec);
+//        for (int i = 0; i < sz; i++) {
+//            REQUIRE(vec[i].w_float == Approx((i + offset) * 10 / 32768.f));
+//        }
 
-        // load right channel
-        REQUIRE(sf.loadArray_(file, S("array1"), 1, 0) == 111);
-        garray_getfloatwords(array1, &sz, &vec);
-        for (int i = 0; i < sz; i++) {
-            REQUIRE(vec[i].w_float == Approx(i * 10 / -32767.f));
-        }
+//        // load right channel
+//        REQUIRE(sf.loadArray_(file, S("array1"), 1, 0) == 111);
+//        garray_getfloatwords(array1, &sz, &vec);
+//        for (int i = 0; i < sz; i++) {
+//            REQUIRE(vec[i].w_float == Approx(i * 10 / -32767.f));
+//        }
 
-        // load right channel with offset
-        REQUIRE(sf.loadArray_(file, S("array1"), 1, offset) == 111);
-        garray_getfloatwords(array1, &sz, &vec);
-        for (int i = 0; i < sz; i++) {
-            REQUIRE(vec[i].w_float == Approx((i + offset) * 10 / -32767.f));
-        }
+//        // load right channel with offset
+//        REQUIRE(sf.loadArray_(file, S("array1"), 1, offset) == 111);
+//        garray_getfloatwords(array1, &sz, &vec);
+//        for (int i = 0; i < sz; i++) {
+//            REQUIRE(vec[i].w_float == Approx((i + offset) * 10 / -32767.f));
+//        }
 
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
 
@@ -469,7 +386,7 @@ TEST_CASE("snd.file", "[PureData]")
     SECTION("test info")
     {
         AtomList args;
-        SndFileTest sf("snd.file", args);
+        TObj sf("snd.file", args);
         REQUIRE(sf.numInlets() == 1);
         REQUIRE(sf.numOutlets() == 1);
 
@@ -490,89 +407,89 @@ TEST_CASE("snd.file", "[PureData]")
         AtomList info = sf.lastMessage().anyValue();
         AtomList prop;
         REQUIRE(info.property(SYM("@channels"), &prop));
-        REQUIRE(prop.asSizeT() == 2);
+        REQUIRE(prop.asT<size_t>() == 2);
         REQUIRE(info.property(SYM("@samplerate"), &prop));
-        REQUIRE(prop.asSizeT() == 44100);
+        REQUIRE(prop.asT<size_t>() == 44100);
         REQUIRE(info.property(SYM("@samples"), &prop));
-        REQUIRE(prop.asSizeT() == 441);
+        REQUIRE(prop.asT<size_t>() == 441);
 
         REQUIRE(info.property(SYM("@duration"), &prop));
         REQUIRE(prop.at(0).asFloat() == 0.01f);
     }
 
-    SECTION("test if pattern")
-    {
-        AtomList args;
-        SndFileTest sf("snd.file", args);
+//    SECTION("test if pattern")
+//    {
+//        AtomList args;
+//        TObj sf("snd.file", args);
 
-        REQUIRE_FALSE(sf.arrayNameContainsPattern_(std::string()));
-        REQUIRE_FALSE(sf.arrayNameContainsPattern_(""));
-        REQUIRE_FALSE(sf.arrayNameContainsPattern_("test"));
-        REQUIRE_FALSE(sf.arrayNameContainsPattern_("test_["));
-        REQUIRE_FALSE(sf.arrayNameContainsPattern_("test_]"));
-        REQUIRE_FALSE(sf.arrayNameContainsPattern_("test_]["));
-        REQUIRE_FALSE(sf.arrayNameContainsPattern_("]...["));
-        REQUIRE(sf.arrayNameContainsPattern_("test_[]_extra"));
-        REQUIRE(sf.arrayNameContainsPattern_("array_ch[1|2|4]_extra"));
-        REQUIRE(sf.arrayNameContainsPattern_("array_ch[2]_test"));
-        REQUIRE(sf.arrayNameContainsPattern_("array_ch[1-3]"));
-    }
+//        REQUIRE_FALSE(sf.arrayNameContainsPattern_(std::string()));
+//        REQUIRE_FALSE(sf.arrayNameContainsPattern_(""));
+//        REQUIRE_FALSE(sf.arrayNameContainsPattern_("test"));
+//        REQUIRE_FALSE(sf.arrayNameContainsPattern_("test_["));
+//        REQUIRE_FALSE(sf.arrayNameContainsPattern_("test_]"));
+//        REQUIRE_FALSE(sf.arrayNameContainsPattern_("test_]["));
+//        REQUIRE_FALSE(sf.arrayNameContainsPattern_("]...["));
+//        REQUIRE(sf.arrayNameContainsPattern_("test_[]_extra"));
+//        REQUIRE(sf.arrayNameContainsPattern_("array_ch[1|2|4]_extra"));
+//        REQUIRE(sf.arrayNameContainsPattern_("array_ch[2]_test"));
+//        REQUIRE(sf.arrayNameContainsPattern_("array_ch[1-3]"));
+//    }
 
-    SECTION("test pattern find")
-    {
-        AtomList args;
-        SndFileTest sf("snd.file", args);
+//    SECTION("test pattern find")
+//    {
+//        AtomList args;
+//        TObj sf("snd.file", args);
 
-        REQUIRE(sf.findPatternArrays_(std::string()).empty());
-        REQUIRE(sf.findPatternArrays_("").empty());
-        REQUIRE(sf.findPatternArrays_("no_pattern").empty());
-        REQUIRE(sf.findPatternArrays_("invalid_pattern[").empty());
-        REQUIRE(sf.findPatternArrays_("invalid_pattern]").empty());
-        REQUIRE(sf.findPatternArrays_("invalid_][pattern").empty());
-        REQUIRE(sf.findPatternArrays_("[]").empty());
-        REQUIRE(sf.findPatternArrays_("[?]").empty());
-        REQUIRE(sf.findPatternArrays_("[12.|123]").empty());
+//        REQUIRE(sf.findPatternArrays_(std::string()).empty());
+//        REQUIRE(sf.findPatternArrays_("").empty());
+//        REQUIRE(sf.findPatternArrays_("no_pattern").empty());
+//        REQUIRE(sf.findPatternArrays_("invalid_pattern[").empty());
+//        REQUIRE(sf.findPatternArrays_("invalid_pattern]").empty());
+//        REQUIRE(sf.findPatternArrays_("invalid_][pattern").empty());
+//        REQUIRE(sf.findPatternArrays_("[]").empty());
+//        REQUIRE(sf.findPatternArrays_("[?]").empty());
+//        REQUIRE(sf.findPatternArrays_("[12.|123]").empty());
 
-        t_canvas* cnv = make_canvas();
-        REQUIRE(cnv != 0);
+//        t_canvas* cnv = make_canvas();
+//        REQUIRE(cnv != 0);
 
-        t_garray* array1 = graph_array(canvas_getcurrent(), gensym("array1"), &s_float, 100, 0);
-        REQUIRE(array1 != 0);
+//        t_garray* array1 = graph_array(canvas_getcurrent(), gensym("array1"), &s_float, 100, 0);
+//        REQUIRE(array1 != 0);
 
-        REQUIRE(sf.findPatternArrays_("array[]") == LA("array1"));
-        REQUIRE(sf.findPatternArrays_("array[1]") == LA("array1"));
-        REQUIRE(sf.findPatternArrays_("array[|1]") == L());
-        REQUIRE(sf.findPatternArrays_("array[1|]") == L());
-        REQUIRE(sf.findPatternArrays_("array[|1|]") == L());
-        REQUIRE(sf.findPatternArrays_("array[2]") == L()); // not exists yet
-        REQUIRE(sf.findPatternArrays_("array[1|2]") == LA("array1")); // not exists yet
+//        REQUIRE(sf.findPatternArrays_("array[]") == LA("array1"));
+//        REQUIRE(sf.findPatternArrays_("array[1]") == LA("array1"));
+//        REQUIRE(sf.findPatternArrays_("array[|1]") == L());
+//        REQUIRE(sf.findPatternArrays_("array[1|]") == L());
+//        REQUIRE(sf.findPatternArrays_("array[|1|]") == L());
+//        REQUIRE(sf.findPatternArrays_("array[2]") == L()); // not exists yet
+//        REQUIRE(sf.findPatternArrays_("array[1|2]") == LA("array1")); // not exists yet
 
-        t_garray* array2 = graph_array(canvas_getcurrent(), gensym("array2"), &s_float, 100, 0);
-        REQUIRE(array2 != 0);
+//        t_garray* array2 = graph_array(canvas_getcurrent(), gensym("array2"), &s_float, 100, 0);
+//        REQUIRE(array2 != 0);
 
-        REQUIRE(sf.findPatternArrays_("array[]") == LA("array1", "array2"));
-        REQUIRE(sf.findPatternArrays_("array[1]") == LA("array1"));
-        REQUIRE(sf.findPatternArrays_("array[2]") == LA("array2"));
-        REQUIRE(sf.findPatternArrays_("array[1|2]") == LA("array1", "array2"));
-        REQUIRE(sf.findPatternArrays_("array[0-10]") == LA("array1", "array2"));
-        REQUIRE(sf.findPatternArrays_("array[10-0]") == LA("array2", "array1"));
-        REQUIRE(sf.findPatternArrays_("array[|1|2]") == L());
-        REQUIRE(sf.findPatternArrays_("array[1|2|]") == L());
-        REQUIRE(sf.findPatternArrays_("array[||||1|2|]") == L());
-        REQUIRE(sf.findPatternArrays_("array[2|1]") == LA("array2", "array1"));
+//        REQUIRE(sf.findPatternArrays_("array[]") == LA("array1", "array2"));
+//        REQUIRE(sf.findPatternArrays_("array[1]") == LA("array1"));
+//        REQUIRE(sf.findPatternArrays_("array[2]") == LA("array2"));
+//        REQUIRE(sf.findPatternArrays_("array[1|2]") == LA("array1", "array2"));
+//        REQUIRE(sf.findPatternArrays_("array[0-10]") == LA("array1", "array2"));
+//        REQUIRE(sf.findPatternArrays_("array[10-0]") == LA("array2", "array1"));
+//        REQUIRE(sf.findPatternArrays_("array[|1|2]") == L());
+//        REQUIRE(sf.findPatternArrays_("array[1|2|]") == L());
+//        REQUIRE(sf.findPatternArrays_("array[||||1|2|]") == L());
+//        REQUIRE(sf.findPatternArrays_("array[2|1]") == LA("array2", "array1"));
 
-        t_garray* array3 = graph_array(canvas_getcurrent(), gensym("array3"), &s_float, 100, 0);
-        REQUIRE(array3 != 0);
+//        t_garray* array3 = graph_array(canvas_getcurrent(), gensym("array3"), &s_float, 100, 0);
+//        REQUIRE(array3 != 0);
 
-        REQUIRE(sf.findPatternArrays_("array[1-3]") == LA("array1", "array2", "array3"));
-        REQUIRE(sf.findPatternArrays_("array[1-5]") == LA("array1", "array2", "array3"));
-    }
+//        REQUIRE(sf.findPatternArrays_("array[1-3]") == LA("array1", "array2", "array3"));
+//        REQUIRE(sf.findPatternArrays_("array[1-5]") == LA("array1", "array2", "array3"));
+//    }
 
 #if defined(__APPLE__) && defined(__clang__)
     SECTION("coreaudio tests")
     {
         AtomList args;
-        SndFileTest sf("snd.file", args);
+        TObj sf("snd.file", args);
 
         sf.storeMessageCount();
         REQUIRE_NO_MESSAGES_AT_OUTLET(0, sf);
@@ -592,11 +509,11 @@ TEST_CASE("snd.file", "[PureData]")
         AtomList info = sf.lastMessage().anyValue();
         AtomList prop;
         REQUIRE(info.property(SYM("@channels"), &prop));
-        REQUIRE(prop.asSizeT() == 1);
+        REQUIRE(prop.asT<size_t>() == 1);
         REQUIRE(info.property(SYM("@samplerate"), &prop));
-        REQUIRE(prop.asSizeT() == 44100);
+        REQUIRE(prop.asT<size_t>() == 44100);
         REQUIRE(info.property(SYM("@samples"), &prop));
-        REQUIRE(prop.asSizeT() == 441);
+        REQUIRE(prop.asT<size_t>() == 441);
 
         REQUIRE(info.property(SYM("@duration"), &prop));
         REQUIRE(prop.at(0).asFloat() == 0.01f);
@@ -609,11 +526,11 @@ TEST_CASE("snd.file", "[PureData]")
         info = sf.lastMessage().anyValue();
         prop.clear();
         REQUIRE(info.property(SYM("@channels"), &prop));
-        REQUIRE(prop.asSizeT() == 1);
+        REQUIRE(prop.asT<size_t>() == 1);
         REQUIRE(info.property(SYM("@samplerate"), &prop));
-        REQUIRE(prop.asSizeT() == 44100);
+        REQUIRE(prop.asT<size_t>() == 44100);
         REQUIRE(info.property(SYM("@samples"), &prop));
-        REQUIRE(prop.asSizeT() == 441);
+        REQUIRE(prop.asT<size_t>() == 441);
     }
 #endif
 }

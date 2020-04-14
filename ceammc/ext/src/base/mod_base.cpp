@@ -35,19 +35,19 @@ extern "C" void setup_prop0x2eget();
 extern "C" void setup_prop0x2eget_tilde();
 extern "C" void setup_prop0x2eset();
 extern "C" void setup_reject0x2eif();
-extern "C" void setup_snd0x2efile();
 extern "C" void setup_test0x2edata();
 extern "C" void setup_test0x2eexpect();
 
 void setup_base_canvas_dir();
 void setup_base_canvas_name();
 void setup_base_canvas_path();
+void setup_base_expand_env();
 void setup_base_msg();
 void setup_base_replace();
 void setup_is_data();
 void setup_is_file();
 void setup_load_msg();
-void setup_base_expand_env();
+void setup_snd_file();
 
 void ceammc_base_setup()
 {
@@ -86,7 +86,7 @@ void ceammc_base_setup()
     setup_prop0x2eset();
 
 #ifdef WITH_SND_FILE
-    setup_snd0x2efile();
+    setup_snd_file();
 #endif
 
     setup_test0x2edata();

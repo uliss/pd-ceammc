@@ -231,6 +231,15 @@ bool Array::setYBounds(t_float yBottom, t_float yTop)
     return true;
 }
 
+bool Array::setSaveInPatch(bool value)
+{
+    if (array_) {
+        garray_setsaveit(array_, value ? 1 : 0);
+        return true;
+    } else
+        return false;
+}
+
 Array::Exception::Exception(const char* what)
     : std::runtime_error(what)
 {

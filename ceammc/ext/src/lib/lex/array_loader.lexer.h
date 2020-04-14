@@ -96,6 +96,21 @@ class ArrayLoaderLexer : public reflex::AbstractLexer<reflex::Matcher> {
         /** set debug output indent */
         inline void setOutputIndent(size_t n) { output_indent_ = n; }
 
+        static const std::vector<std::string>& options() {
+            static const std::vector<std::string> opts = {
+                "[@ch | @chan | @channel <value>...]",
+                "[@b | @begin <value>]",
+                "([@e | @end <value>] | [@l | @length <value>])",
+                "[@r | @resize]",
+                "[@g | @gain <value>]",
+                "[@n | @norm | @normalize]",
+                "[@resample <value>]",
+                "[@v | @verbose]"
+            };
+
+            return opts;
+        }
+
  public:
   typedef reflex::AbstractLexer<reflex::Matcher> AbstractBaseLexer;
   ArrayLoaderLexer(

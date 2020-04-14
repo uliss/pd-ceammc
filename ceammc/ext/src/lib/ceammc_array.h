@@ -219,6 +219,11 @@ public:
 
     bool setYBounds(t_float yBottom, t_float yTop);
 
+    /**
+     * If true - save array contains in patch (convenient for small arrays)
+     */
+    bool setSaveInPatch(bool value);
+
 public:
     struct Exception : public std::runtime_error {
         Exception(const char* what);

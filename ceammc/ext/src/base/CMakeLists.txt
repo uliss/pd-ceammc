@@ -55,14 +55,15 @@ list(APPEND BASE_SOURCES
     xfade_tilde.cpp
     xfade2_tilde.cpp)
 
-if(TARGET ceammc_sound)
-    add_definitions(-DWITH_SND_FILE)
-    list(APPEND BASE_SOURCES snd_file.cpp)
-endif()
-
 add_library(ceammc_base STATIC mod_base.cpp ${BASE_SOURCES})
+target_link_libraries(ceammc_base PRIVATE fmt::fmt-header-only)
 if(UNIX)
     set_target_properties(ceammc_base PROPERTIES COMPILE_FLAGS "-fPIC")
+endif()
+
+if(TARGET ceammc_sound)
+    target_compile_definitions(ceammc_base PUBLIC -DWITH_SND_FILE)
+    target_sources(ceammc_base PRIVATE snd_file.cpp)
 endif()
 
 # separate extension:

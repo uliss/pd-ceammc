@@ -24,6 +24,21 @@
 
         /** set debug output indent */
         inline void setOutputIndent(size_t n) { output_indent_ = n; }
+
+        static const std::vector<std::string>& options() {
+            static const std::vector<std::string> opts = {
+                "[@ch | @chan | @channel <value>...]",
+                "[@b | @begin <value>]",
+                "([@e | @end <value>] | [@l | @length <value>])",
+                "[@r | @resize]",
+                "[@g | @gain <value>]",
+                "[@n | @norm | @normalize]",
+                "[@resample <value>]",
+                "[@v | @verbose]"
+            };
+
+            return opts;
+        }
 %}
 
 %option freespace unicode
@@ -59,7 +74,7 @@ symbol      [^ \t\n]+
 
 smpte       [0-9]{2}:[0-9]{2}(:[0-9]{2})?(\.[0-9]{2})?
 
-
+/* note: keep in sync with options() lexer method */
 to          [@]? to
 channels    (c | ch | chan | channels)
 begin       (b | begin)
@@ -139,3 +154,4 @@ arr_pattern [^@ \[\]][^ \[\]]*
 <*> .                   { return ArrayLoaderParser::make_LEXER_ERROR(location()); /* error */ }
 
 %%
+

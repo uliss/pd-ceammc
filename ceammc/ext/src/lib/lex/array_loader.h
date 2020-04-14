@@ -47,6 +47,8 @@ class ArrayLoader {
     double resample_ratio_ = { 0 };
     std::vector<uint8_t> channels_;
 
+    std::vector<size_t> loaded_samples_;
+
     // output
     std::ostream* err_;
     std::ostream* log_;
@@ -66,13 +68,8 @@ public:
 
 public:
     ArrayLoader();
-
-    /**
-     * parse input string: to arrays... OPTIONS...
-     * @note in real applications you should call it after openFile call,
-     * cause it prefills input file information needed for offset calculations etc.
-     */
-    bool parse(const std::string& str);
+    ArrayLoader(const ArrayLoader&) = delete;
+    ArrayLoader& operator=(const ArrayLoader&) = delete;
 
     /**
      * open soundfile by full path and fill input information
@@ -81,14 +78,25 @@ public:
     sound::SoundFilePtr openFile(const std::string& path);
 
     /**
-     * Check arrays name for existance
+     * parse input string: to arrays... OPTIONS...
+     * @note in real applications you should call it after openFile call,
+     * cause it prefills input file information needed for offset calculations etc.
      */
+    bool parse(const std::string& str);
+
+    /** Check arrays name for existance */
     bool validateArrays() const;
 
     /**
      * Removes invalid arrays from list
      */
     void removeInvalidArrays();
+
+    /** fix array-channel mismatch */
+    void fixArrayChannelPairs();
+
+    /** try to load arrays with all parsed info */
+    bool loadArrays(const sound::SoundFilePtr& file, bool redraw = true);
 
     /** if we should resize output arrays to fit file content */
     bool resize() const { return resize_; }
@@ -154,15 +162,26 @@ public:
     std::ostream& err() const { return *err_; }
     /** log output stream */
     std::ostream& log() const { return *log_; }
+    /** set error output stream */
+    void setErr(std::ostream* os) { err_ = os; }
+    /** set log output stream */
+    void setLog(std::ostream* os) { log_ = os; }
 
     /** dump parsed summary to log() stream */
     void dump() const;
+
+    /** array list to load */
+    const std::vector<std::string>& arrays() const { return arrays_; }
+    /** count of samples loaded to each array */
+    const std::vector<size_t> loadedSamples() const { return loaded_samples_; }
 
     /** add array */
     void addArray(const std::string& name);
 
     /** add channel */
     void addChannel(int ch);
+
+    static const std::vector<std::string>& optionsList();
 
 public:
     /** convert option type to string */

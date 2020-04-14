@@ -14,6 +14,7 @@
 #include "array_loader.h"
 #include "array_loader.lexer.h"
 #include "array_loader.parser.hpp"
+#include "ceammc_array.h"
 #include "fmt/format.h"
 
 #include "m_pd.h"
@@ -36,13 +37,7 @@ bool ArrayLoader::parse(const std::string& str)
     lexer.set_debug(true);
     ArrayLoaderParser parser(lexer, *this);
 
-    auto err = parser.parse();
-
-    if (!err) {
-        dump();
-        return true;
-    } else
-        return false;
+    return parser.parse() == 0;
 }
 
 bool ArrayLoader::validateArrays() const
@@ -51,7 +46,8 @@ bool ArrayLoader::validateArrays() const
 
     for (auto& name : arrays_) {
         auto sym = gensym(name.c_str());
-        if (sym->s_thing != static_cast<void*>(garray_class)) {
+
+        if (!pd_findbyclass(sym, garray_class)) {
             err() << fmt::format("array '{}' is not found\n", name);
             res = false;
         }
@@ -63,10 +59,109 @@ bool ArrayLoader::validateArrays() const
 void ArrayLoader::removeInvalidArrays()
 {
     auto it = std::remove_if(arrays_.begin(), arrays_.end(), [](const std::string& s) {
-        return gensym(s.c_str())->s_thing != static_cast<void*>(garray_class);
+        return !pd_findbyclass(gensym(s.c_str()), garray_class);
     });
 
     arrays_.erase(it, arrays_.end());
+}
+
+void ArrayLoader::fixArrayChannelPairs()
+{
+    // fill empty channels
+    if (channels_.empty()) {
+        for (size_t i = 0; i < arrays_.size(); i++)
+            channels_.push_back(i);
+    }
+
+    const size_t NCHAN = channels_.size();
+    const size_t NARR = arrays_.size();
+
+    if (NCHAN != NARR) {
+        auto N = std::min(NARR, NCHAN);
+
+        err() << fmt::format(
+            "array/channels count mismatch: {} != {}, using only {} pairs\n",
+            NARR, NCHAN, N);
+
+        if (verbose()) {
+            if (N < NARR) {
+                err() << "following arrays are skipped:\n";
+                for (size_t i = N; i < NARR; i++)
+                    err() << fmt::format(" - {}\n", arrays_[i]);
+            }
+
+            if (N < NCHAN) {
+                err() << "following channels are skipped:\n";
+                for (size_t i = N; i < NCHAN; i++)
+                    err() << fmt::format(" - {}\n", channels_[i]);
+            }
+        }
+
+        arrays_.resize(N);
+        channels_.resize(N);
+    }
+}
+
+bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
+{
+    // clear loaded samples info
+    loaded_samples_.clear();
+
+    if (!file || !file->isOpened()) {
+        err() << fmt::format("can't open file: {}\n", file->filename());
+        return false;
+    }
+
+    if (begin_ >= end_) {
+        err() << fmt::format("invalid load range, expecting begin < end, got: {} > {}\n", begin_, end_);
+        return false;
+    }
+
+    const auto SRC_LENGTH = end_ - begin_;
+    const auto NITEMS = std::min(arrays_.size(), channels_.size());
+
+    for (size_t i = 0; i < NITEMS; i++) {
+        const auto& name = arrays_[i];
+        const auto channel = channels_[i];
+
+        Array arr(name.c_str());
+
+        if (!arr.isValid()) {
+            err() << fmt::format("can't open array: '{}'\n", name);
+            return false;
+        }
+
+        const auto ARRAY_SIZE = arr.size();
+
+        const auto NSAMPLES = resize()
+            ? SRC_LENGTH
+            : std::min<size_t>(ARRAY_SIZE, SRC_LENGTH);
+
+        if (resize()) {
+            if (!arr.resize(NSAMPLES)) {
+                err() << fmt::format("can't resize array '{}' to {} samples\n", name, NSAMPLES);
+                return false;
+            }
+
+            // if array size increased, for safety turn off save-in-patch flag
+            if (ARRAY_SIZE < NSAMPLES)
+                arr.setSaveInPatch(false);
+        }
+
+        t_word* vecs = reinterpret_cast<t_word*>(&arr.at(0));
+        long read = file->read(vecs, NSAMPLES, channel, begin_);
+        if (read != NSAMPLES) {
+            err() << fmt::format("can't read {} samples to array '{}'\n", NSAMPLES, name);
+            return false;
+        }
+
+        loaded_samples_.push_back(NSAMPLES);
+
+        if (redraw)
+            arr.redraw();
+    }
+
+    return true;
 }
 
 sound::SoundFilePtr ArrayLoader::openFile(const std::string& path)
@@ -77,6 +172,8 @@ sound::SoundFilePtr ArrayLoader::openFile(const std::string& path)
         src_samplerate_ = f->sampleRate();
         src_num_channels_ = f->channels();
         src_sample_count_ = f->sampleCount();
+        begin_ = 0;
+        end_ = src_sample_count_;
     } else {
         src_samplerate_ = 0;
         src_num_channels_ = 0;
@@ -167,7 +264,7 @@ bool ceammc::ArrayLoader::setSampleOption(OptionType opt, long samp_pos)
         } else if (samp_pos < 0) {
             if (std::abs(samp_pos) >= src_sample_count_) {
                 err() << fmt::format(
-                    "negative begin offset should be |x|<{}, got: {}",
+                    "negative begin offset should be |x|<{}, got: {}\n",
                     src_sample_count_, samp_pos);
 
                 return false;
@@ -188,7 +285,7 @@ bool ceammc::ArrayLoader::setSampleOption(OptionType opt, long samp_pos)
             return true;
         } else if (samp_pos < 0) { // only this case is error
             err() << fmt::format(
-                "negative end offset is not supported: {}", samp_pos);
+                "negative end offset is not supported: {}\n", samp_pos);
 
             return false;
         } else
@@ -199,7 +296,7 @@ bool ceammc::ArrayLoader::setSampleOption(OptionType opt, long samp_pos)
     case OPT_LENGTH: {
         if (samp_pos < 0) {
             err() << fmt::format(
-                "negative length is not supported: {}", samp_pos);
+                "negative length is not supported: {}\n", samp_pos);
 
             return false;
         } else if ((begin_ + samp_pos) >= long(src_sample_count_)) { // tipical use case, no error, just warning
@@ -252,6 +349,7 @@ void ceammc::ArrayLoader::dump() const
         "  samplerate:  {}\n"
         "  framerate:   {}\n"
         "  samplecount: {}\n"
+        "  channels:    {}\n"
         "output:\n"
         "  arrays:      {}\n"
         "  channels:    {}\n"
@@ -264,7 +362,7 @@ void ceammc::ArrayLoader::dump() const
         "  @resize:     {}\n"
         "  @normalize:  {}\n"
         "  @verbose:    {}\n",
-        str_, src_samplerate_, smpte_framerate_, src_sample_count_,
+        str_, src_samplerate_, smpte_framerate_, src_sample_count_, src_num_channels_,
         fmt::join(arrays_, ", "), fmt::join(channels_, ", "), dest_samplerate_,
         begin_, end_, gain_, resample_ratio_, resize_, normalize_, verbose_);
 }
@@ -285,6 +383,11 @@ void ArrayLoader::addChannel(int ch)
     }
 
     channels_.push_back(ch);
+}
+
+const std::vector<std::string>& ArrayLoader::optionsList()
+{
+    return ArrayLoaderLexer::options();
 }
 
 }
