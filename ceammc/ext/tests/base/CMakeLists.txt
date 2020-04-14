@@ -48,3 +48,7 @@ add_base_test(radio)
 add_base_test(replace)
 add_base_test(xfade)
 add_base_test(xfade2)
+
+if(TARGET ceammc_sound)
+    add_base_test(snd_file)
+endif()
