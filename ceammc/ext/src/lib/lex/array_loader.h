@@ -62,8 +62,7 @@ public:
         OPT_LENGTH,
         OPT_NORMALIZE,
         OPT_RESAMPLE,
-        OPT_RESIZE,
-        OPT_VERBOSE
+        OPT_RESIZE
     };
 
 public:

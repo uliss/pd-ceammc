@@ -71,7 +71,7 @@
 %token                  ARRAY_DELIM
 %token                  PATTERN_BEGIN PATTERN_END
 %token                  RANGE_DELIM VAR_DELIM
-%token                  LENGTH RESIZE GAIN RESAMPLE BEGIN END VERBOSE NORMALIZE CHANNELS
+%token                  LENGTH RESIZE GAIN RESAMPLE BEGIN END NORMALIZE CHANNELS
 %token  <std::string>   SMPTE
 %token  <double>        FLOAT
 %token  <int>           INT
@@ -123,7 +123,6 @@ channel_list
 opt
     : RESIZE           { loader.setFlagOption(OPT::OPT_RESIZE); }
     | NORMALIZE        { loader.setFlagOption(OPT::OPT_NORMALIZE); }
-    | VERBOSE          { loader.setFlagOption(OPT::OPT_VERBOSE); }
     | BEGIN  time      { if(!loader.setSampleOption(OPT::OPT_BEGIN, $2))      error(@2, "invalid @begin value");}
     | END    time      { if(!loader.setSampleOption(OPT::OPT_END, $2))        error(@2, "invalid @end value");}
     | LENGTH time      { if(!loader.setSampleOption(OPT::OPT_LENGTH, $2))     error(@2, "invalid @length value");}

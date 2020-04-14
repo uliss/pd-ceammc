@@ -257,7 +257,7 @@ TEST_CASE("arrayname_parser", "[arrayname_parser]")
         REQUIRE(parse_array_string("to array_[0|1|9|13] @offset 01:30:02.78"));
         REQUIRE(parse_array_string("to array_[0|1|9|13] @l 150 ms"));
         REQUIRE(parse_array_string("to []_pat @r @g 0.5"));
-        REQUIRE(parse_array_string("to array_[0-3]_gr @r @g -0.5db @v @resample 48000"));
+        REQUIRE(parse_array_string("to array_[0-3]_gr @r @g -0.5db @resample 48000"));
         REQUIRE(parse_array_string("to a1 a2 @n"));
         REQUIRE(parse_array_string("to array_[0|1|9|13] @b 01:30 @l 30 sec"));
         REQUIRE(parse_array_string("to a1 @ch 1"));

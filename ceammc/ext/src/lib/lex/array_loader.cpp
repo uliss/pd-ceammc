@@ -225,8 +225,7 @@ const char* ArrayLoader::optionToString(ArrayLoader::OptionType opt)
         "length",
         "normalize",
         "resample",
-        "resize",
-        "verbose"
+        "resize"
     };
 
     return names[opt];
@@ -240,10 +239,6 @@ bool ceammc::ArrayLoader::setFlagOption(OptionType opt)
         return true;
     case OPT_NORMALIZE:
         normalize_ = true;
-        return true;
-    case OPT_VERBOSE:
-        verbose_ = true;
-        log() << "setting verbose output\n";
         return true;
     default:
         err() << fmt::format("unknown flag option: '@{}'\n", optionToString(opt));
@@ -360,11 +355,10 @@ void ceammc::ArrayLoader::dump() const
         "  @gain:       {}\n"
         "  @resample:   {}\n"
         "  @resize:     {}\n"
-        "  @normalize:  {}\n"
-        "  @verbose:    {}\n",
+        "  @normalize:  {}\n",
         str_, src_samplerate_, smpte_framerate_, src_sample_count_, src_num_channels_,
         fmt::join(arrays_, ", "), fmt::join(channels_, ", "), dest_samplerate_,
-        begin_, end_, gain_, resample_ratio_, resize_, normalize_, verbose_);
+        begin_, end_, gain_, resample_ratio_, resize_, normalize_);
 }
 
 void ArrayLoader::addArray(const std::string& name)

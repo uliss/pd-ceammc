@@ -104,8 +104,7 @@ class ArrayLoaderLexer : public reflex::AbstractLexer<reflex::Matcher> {
                 "[@r | @resize]",
                 "[@g | @gain <value>]",
                 "[@n | @norm | @normalize]",
-                "[@resample <value>]",
-                "[@v | @verbose]"
+                "[@resample <value>]"
             };
 
             return opts;

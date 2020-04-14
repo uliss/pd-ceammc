@@ -33,8 +33,7 @@
                 "[@r | @resize]",
                 "[@g | @gain <value>]",
                 "[@n | @norm | @normalize]",
-                "[@resample <value>]",
-                "[@v | @verbose]"
+                "[@resample <value>]"
             };
 
             return opts;
@@ -83,7 +82,6 @@ gain        (g | gain)
 length      (l | len | length)
 norm        (n | norm | normalize)
 resize      (r | resize)
-verbose     (v | verbose)
 resample    resample
 offset      offset
 
@@ -126,7 +124,6 @@ arr_pattern [^@ \[\]][^ \[\]]*
 <OPTIONS>@{norm}        { return ArrayLoaderParser::make_NORMALIZE(location()); }
 <OPTIONS>@{resample}    { return ArrayLoaderParser::make_RESAMPLE(location()); }
 <OPTIONS>@{resize}      { return ArrayLoaderParser::make_RESIZE(location()); }
-<OPTIONS>@{verbose}     { return ArrayLoaderParser::make_VERBOSE(location()); }
 <OPTIONS>@[a-z]+        {   out() << "unexpected option: " << text() << "\n";
                             return ArrayLoaderParser::make_LEXER_ERROR(location()); }
 
