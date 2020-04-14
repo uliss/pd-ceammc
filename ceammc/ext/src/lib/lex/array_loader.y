@@ -123,19 +123,24 @@ channel_list
     ;
 
 opt
-    : RESIZE           { loader.setFlagOption(OPT::OPT_RESIZE); }
-    | NORMALIZE        { loader.setFlagOption(OPT::OPT_NORMALIZE); }
-    | BEGIN     time   { if(!loader.setSampleOption(OPT::OPT_BEGIN, $2))    error(@2, "invalid @begin value");}
-    | END       time   { if(!loader.setSampleOption(OPT::OPT_END, $2))      error(@2, "invalid @end value");}
-    | LENGTH    time   { if(!loader.setSampleOption(OPT::OPT_LENGTH, $2))   error(@2, "invalid @length value");}
-    | GAIN      number { if(!loader.setGain($2))                            error(@2, "invalid @gain value");}
-    | GAIN number DB   { if(!loader.setGain(ceammc::convert::dbfs2amp($2))) error(@2, "invalid @gain value");}
+    : RESIZE                      { loader.setFlagOption(OPT::OPT_RESIZE); }
+    | NORMALIZE                   { loader.setFlagOption(OPT::OPT_NORMALIZE); }
+    | BEGIN     time              { if(!loader.setSampleOption(OPT::OPT_BEGIN, $2))
+                                        { error(@2, "invalid @begin value"); return 1; }}
+    | END       time              { if(!loader.setSampleOption(OPT::OPT_END, $2))
+                                        { error(@2, "invalid @end value"); return 1; }}
+    | LENGTH    time              { if(!loader.setSampleOption(OPT::OPT_LENGTH, $2))
+                                        { error(@2, "invalid @length value"); return 1; }}
+    | GAIN      number            { if(!loader.setGain($2))
+                                        { error(@2, "invalid @gain value"); return 1; }}
+    | GAIN number DB              { if(!loader.setGain(ceammc::convert::dbfs2amp($2)))
+                                        { error(@2, "invalid @gain value"); return 1; }}
     | RESAMPLE                    { if(!loader.setResampleRatio(loader.destSamplerate(), loader.srcSampleRate()))
-                                        error(@1, "invalid ratio"); }
+                                        { error(@1, "invalid ratio"); return 1; }}
     | RESAMPLE number             { if(!loader.setResampleRatio($2, loader.srcSampleRate()))
-                                        error(@2, "invalid ratio"); }
+                                        { error(@2, "invalid ratio"); return 1; }}
     | RESAMPLE INT FRAC INT       { if(!loader.setResampleRatio($2, $4))
-                                        error(@2, "invalid ratio"); }
+                                        { error(@2, "invalid ratio"); return 1; }}
     | CHANNELS channel_list       { for(auto& c: $2)
                                         loader.addChannel(c); }
     | ARRAY_OFFSET INT            { if(!loader.setArrayOffset($2, OFFSET::OFF_BEGIN))

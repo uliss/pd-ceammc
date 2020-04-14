@@ -330,12 +330,17 @@ bool ceammc::ArrayLoader::setSampleOption(OptionType opt, long samp_pos)
         return true;
     }
     case OPT_END: {
-        if (samp_pos >= long(src_sample_count_) || samp_pos < begin_) { // this case is common typo, so just show warning
+        if (samp_pos >= long(src_sample_count_)) { // this case is common typo, so just show warning
             err() << fmt::format(
                 "end position should be >= {} and < {}, got: {}, ignoring\n",
                 begin_, src_sample_count_, samp_pos);
 
             return true;
+        } else if (samp_pos <= begin_) {
+            err() << fmt::format(
+                "end position should be > {}, got: {}\n", begin_, samp_pos);
+
+            return false;
         } else if (samp_pos < 0) { // only this case is error
             err() << fmt::format(
                 "negative end offset is not supported: {}\n", samp_pos);
