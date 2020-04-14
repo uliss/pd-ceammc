@@ -624,6 +624,94 @@ TEST_CASE("snd.file", "[externals]")
             }
         }
 
+        SECTION("length smpte")
+        {
+            SECTION("44.1k: 00:01.00")
+            {
+                t <<= load_str("load " TEST_DATA_DIR
+                               "/base/snd0_ch02_44.1k_441samp.wav to snd_file1 @c 1 "
+                               "@resize @length 00:01.00");
+                REQUIRE(floatAt(t) == 441);
+                REQUIRE(arr1->update());
+                REQUIRE(arr1->size() == 441);
+                REQUIRE_PROPERTY(t, @filename, TEST_DATA_DIR "/base/snd0_ch02_44.1k_441samp.wav");
+                REQUIRE_PROPERTY(t, @sr, 44100);
+                REQUIRE_PROPERTY(t, @samples, 441);
+
+                REQUIRE(all_eq(arr1->begin(), arr1->end(), 1));
+            }
+        }
+
+        SECTION("begin")
+        {
+            SECTION("48k: begin 5ms")
+            {
+                t <<= load_str("load " TEST_DATA_DIR
+                               "/base/snd0_ch02_48k_480samp.wav to snd_file1 "
+                               "@begin 5ms @resize");
+                REQUIRE(arr1->update());
+                REQUIRE(arr1->size() == 240);
+                REQUIRE_PROPERTY(t, @samples, 240);
+
+                REQUIRE(all_eq(arr1->begin(), arr1->end(), -1));
+            }
+
+            SECTION("48k: begin -2.5ms")
+            {
+                t <<= load_str("load " TEST_DATA_DIR
+                               "/base/snd0_ch02_48k_480samp.wav to snd_file1 "
+                               "@begin -2.5ms @resize");
+                REQUIRE(arr1->update());
+                REQUIRE(arr1->size() == 120);
+                REQUIRE_PROPERTY(t, @samples, 120);
+
+                REQUIRE(all_eq(arr1->begin(), arr1->end(), -1));
+            }
+
+            SECTION("48k: begin -20ms")
+            {
+                t <<= load_str("load " TEST_DATA_DIR
+                               "/base/snd0_ch02_48k_480samp.wav to snd_file1 "
+                               "@begin -20ms @resize");
+                REQUIRE(!t.hasNewMessages(0));
+            }
+        }
+
+        SECTION("end")
+        {
+            SECTION("48k: end -20ms")
+            {
+                t <<= load_str("load " TEST_DATA_DIR
+                               "/base/snd0_ch02_48k_480samp.wav to snd_file1 "
+                               "@end -20ms @resize");
+                REQUIRE(!t.hasNewMessages(0));
+            }
+
+            SECTION("48k: end 2000ms")
+            {
+                t <<= load_str("load " TEST_DATA_DIR
+                               "/base/snd0_ch02_48k_480samp.wav to snd_file1 "
+                               "@end 2000ms @resize");
+                REQUIRE(arr1->update());
+                REQUIRE(arr1->size() == 480);
+                REQUIRE_PROPERTY(t, @samples, 480);
+
+                REQUIRE(all_eq(arr1->begin(), arr1->end(), -1));
+            }
+
+            SECTION("48k: end 5ms")
+            {
+                t <<= load_str("load " TEST_DATA_DIR
+                               "/base/snd0_ch02_48k_480samp.wav to snd_file1 "
+                               "@end 5ms @resize");
+                REQUIRE(arr1->update());
+                REQUIRE(arr1->size() == 240);
+                REQUIRE_PROPERTY(t, @samples, 240);
+
+                REQUIRE(all_eq(arr1->begin(), arr1->end(), -1));
+            }
+        }
+
         SECTION("channels")
         {
             SECTION("channel list")
