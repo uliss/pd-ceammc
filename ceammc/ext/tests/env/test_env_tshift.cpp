@@ -11,35 +11,27 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../env/env_tshift.h"
-#include "test_base.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
+#include "env_tshift.h"
+#include "test_env_base.h"
 
-#include <stdio.h>
+PD_COMPLETE_TEST_SETUP(EnvTimeShift, env, tshift)
 
-typedef TestExternal<EnvTimeShift> EnvTimeShiftTest;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
-
-#define REQUIRE_ENV_OUTPUT(t, env)                                   \
-    {                                                                \
-        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                            \
-        const DataTypeEnv* env0 = t.typedLastDataAt<DataTypeEnv>(0); \
-        REQUIRE(env0 != 0);                                          \
-        REQUIRE(*env0 == env);                                       \
-        t.cleanAllMessages();                                        \
+#define REQUIRE_ENV_OUTPUT(t, env)        \
+    {                                     \
+        REQUIRE_NEW_DATA_AT_OUTLET(0, t); \
+        REQUIRE(dataAt(t) == EnvA(env));  \
+        t.cleanAllMessages();             \
     }
 
 TEST_CASE("env.tshift", "[externals]")
 {
+    pd_test_init();
+
     SECTION("init")
     {
-        setup_env_tshift();
-
         SECTION("empty")
         {
-            EnvTimeShiftTest t("env.tshift");
+            TObj t("env.tshift");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @shift, 0.f);
@@ -47,26 +39,26 @@ TEST_CASE("env.tshift", "[externals]")
 
         SECTION("float")
         {
-            EnvTimeShiftTest t("env.tshift", LF(2));
+            TObj t("env.tshift", LF(2));
             REQUIRE_PROPERTY(t, @shift, 2);
         }
 
         SECTION("@prop")
         {
-            EnvTimeShiftTest t("env.tshift", LA("@shift", 3));
+            TObj t("env.tshift", LA("@shift", 3));
             REQUIRE_PROPERTY(t, @shift, 3);
         }
 
         SECTION("invalid")
         {
-            EnvTimeShiftTest t("env.tshift", LA("@shift", -3));
+            TObj t("env.tshift", LA("@shift", -3));
             REQUIRE_PROPERTY(t, @shift, -3);
         }
     }
 
     SECTION("on data")
     {
-        EnvTimeShiftTest t("env", LA("@shift", 250));
+        TObj t("env", LA("@shift", 250));
         WHEN_SEND_TDATA_TO(0, t, DataTypeEnv());
         REQUIRE_ENV_OUTPUT(t, DataTypeEnv());
 

@@ -29,6 +29,6 @@ void ceammc_env_setup()
     setup_env_tscale();
     setup_env_tshift();
     setup_env_vscale();
-    setup_envelope();
+    setup_envelope_env();
     setup_vline_to_env();
 }

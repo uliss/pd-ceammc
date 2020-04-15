@@ -11,9 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../env/datatype_env.h"
-#include "test_base.h"
-#include "test_external.h"
+#include "datatype_env.h"
+#include "test_env_base.h"
 #include "test_sound.h"
 
 class EnvAsr;
@@ -29,10 +28,10 @@ PD_COMPLETE_TEST_SETUP(EnvAsr, env, asr_tilde)
         REQUIRE(obj.outputAnyAt(0) == LAX(n, __VA_ARGS__)); \
     }
 
-#define SEND_ENV(t, env)           \
-    {                              \
-        DataPtr penv(env.clone()); \
-        t.sendList(LA(penv));      \
+#define SEND_ENV(t, env)      \
+    {                         \
+        EnvAtom penv(env);    \
+        t.sendList(LA(penv)); \
     }
 
 TEST_CASE("env.asr~", "[externals]")
@@ -42,7 +41,6 @@ TEST_CASE("env.asr~", "[externals]")
     SECTION("init")
     {
         setTestSampleRate(44100);
-        test::pdPrintToStdError();
 
         TestExtEnvAsr t("env.asr~", LA(4, 90, 5));
         REQUIRE(t.object());
@@ -110,16 +108,16 @@ TEST_CASE("env.asr~", "[externals]")
         t.sendList(LA("abc"));
         PROPERTY_REQUEST(t, "@asr", 11, 100, 16);
 
-        t.sendList(LX(0, 0, 0));
+        t.sendList(LF(0, 0, 0));
         PROPERTY_REQUEST(t, "@asr", 0.f, 0.f, 0.f);
-        t.sendList(LX(1, 15, 2));
+        t.sendList(LF(1, 15, 2));
         PROPERTY_REQUEST(t, "@asr", 1, 15, 2);
-        t.sendList(LX(1, 10, -1));
+        t.sendList(LF(1, 10, -1));
         PROPERTY_REQUEST(t, "@asr", 1, 15, 2);
-        t.sendList(LX(100, -8, 1));
+        t.sendList(LF(100, -8, 1));
         PROPERTY_REQUEST(t, "@asr", 1, 15, 2);
 
-        t.sendList(LX(100000, 100, 100000));
+        t.sendList(LF(100000, 100, 100000));
         PROPERTY_REQUEST(t, "@asr", 100000, 100, 100000);
     }
 
@@ -155,7 +153,7 @@ TEST_CASE("env.asr~", "[externals]")
     SECTION("play")
     {
         TestExtEnvAsr t("env.asr~", LA(10, 100, 20));
-        t.sendMessage(SYM("play"), LX(100));
+        t.sendMessage(SYM("play"), LF(100));
         t.schedTicks(5);
         REQUIRE(!t.hasOutputAt(1));
         t.schedTicks(10);

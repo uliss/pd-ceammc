@@ -410,7 +410,7 @@ AtomList Envelope::p_stops() const
     return res;
 }
 
-void setup_envelope()
+void setup_envelope_env()
 {
     SYM_CURVE_STEP = gensym("step");
     SYM_CURVE_LINE = gensym("line");

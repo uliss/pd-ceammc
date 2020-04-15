@@ -11,35 +11,29 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../env/env_tscale.h"
-#include "test_base.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
+#include "env_tscale.h"
+#include "test_env_base.h"
 
-#include <stdio.h>
+PD_COMPLETE_TEST_SETUP(EnvTimeScale, env, tscale)
 
-typedef TestExternal<EnvTimeScale> EnvTimeScaleTest;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
-
-#define REQUIRE_ENV_OUTPUT(t, env)                                   \
-    {                                                                \
-        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                            \
-        const DataTypeEnv* env0 = t.typedLastDataAt<DataTypeEnv>(0); \
-        REQUIRE(env0 != 0);                                          \
-        REQUIRE(*env0 == env);                                       \
-        t.cleanAllMessages();                                        \
+#define REQUIRE_ENV_OUTPUT(t, env)        \
+    {                                     \
+        REQUIRE_NEW_DATA_AT_OUTLET(0, t); \
+        REQUIRE(dataAt(t) == EnvA(env));  \
+        t.cleanAllMessages();             \
     }
 
 TEST_CASE("env.tscale", "[externals]")
 {
+    pd_test_init();
+
     SECTION("init")
     {
         setup_env_tscale();
 
         SECTION("empty")
         {
-            EnvTimeScaleTest t("env.tscale");
+            TObj t("env.tscale");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @scale, 1.f);
@@ -47,26 +41,26 @@ TEST_CASE("env.tscale", "[externals]")
 
         SECTION("float")
         {
-            EnvTimeScaleTest t("env.tscale", LF(2));
+            TObj t("env.tscale", LF(2));
             REQUIRE_PROPERTY(t, @scale, 2.f);
         }
 
         SECTION("@prop")
         {
-            EnvTimeScaleTest t("env.tscale", LA("@scale", 3));
+            TObj t("env.tscale", LA("@scale", 3));
             REQUIRE_PROPERTY(t, @scale, 3.f);
         }
 
         SECTION("invalid")
         {
-            EnvTimeScaleTest t("env.tscale", LA("@scale", -3));
+            TObj t("env.tscale", LA("@scale", -3));
             REQUIRE_PROPERTY(t, @scale, 1.f);
         }
     }
 
     SECTION("on data")
     {
-        EnvTimeScaleTest t("env", LA("@scale", 2));
+        TObj t("env", LA("@scale", 2));
         WHEN_SEND_TDATA_TO(0, t, DataTypeEnv());
         REQUIRE_ENV_OUTPUT(t, DataTypeEnv());
 

@@ -94,15 +94,6 @@ ceammc_add_core_test("pd::ceammc" test_pd_core)
 
 ceammc_external_test(analyze onset)
 
-
-ceammc_external_test(env env)
-ceammc_external_test(env to_vline)
-ceammc_external_test(env tscale)
-ceammc_external_test(env tshift)
-ceammc_external_test(env ar)
-ceammc_external_test(env adsr)
-ceammc_external_test(env asr)
-
 ceammc_external_test(flt median)
 
 ceammc_external_test(fx looper)
@@ -233,10 +224,6 @@ ceammc_add_test_linked(TITLE "ArduinoThread"
     LINK tests_main_lib1 hw_arduino ceammc_core puredata-core)
 ceammc_add_test_linked(TITLE "Arduino" NAME test_arduino LINK tests_main_lib1 hw_arduino ceammc_core puredata-core)
 
-ceammc_add_test_linked(TITLE "[env->to_array]"
-    NAME test_ext_env_to_array
-    LINK tests_main_lib1 ceammc_array ceammc_env ceammc_array ceammc_core puredata-core)
-
 if(WITH_TTS_FLITE)
     ceammc_external_test(misc speech_flite)
 endif()
@@ -256,6 +243,7 @@ add_custom_target(test_src SOURCES gen_test_wav.py)
 add_subdirectory(array)
 add_subdirectory(base)
 add_subdirectory(data)
+add_subdirectory(env)
 add_subdirectory(flow)
 add_subdirectory(list)
 add_subdirectory(math)

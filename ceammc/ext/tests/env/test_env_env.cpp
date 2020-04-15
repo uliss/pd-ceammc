@@ -11,35 +11,29 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../env/env_env.h"
-#include "catch.hpp"
-#include "ceammc_pd.h"
-#include "test_base.h"
+#include "env_env.h"
+#include "test_env_base.h"
 
-#include <stdio.h>
+PD_COMPLETE_TEST_SETUP(Envelope, envelope, env)
 
-typedef TestExternal<Envelope> EnvelopeTest;
-
-static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
-
-#define REQUIRE_ENV_OUTPUT(t, env)                                   \
-    {                                                                \
-        REQUIRE_NEW_DATA_AT_OUTLET(0, t);                            \
-        const DataTypeEnv* env0 = t.typedLastDataAt<DataTypeEnv>(0); \
-        REQUIRE(env0 != 0);                                          \
-        REQUIRE(*env0 == env);                                       \
-        t.cleanAllMessages();                                        \
+#define REQUIRE_ENV_OUTPUT(t, env)        \
+    {                                     \
+        REQUIRE_NEW_DATA_AT_OUTLET(0, t); \
+        REQUIRE(dataAt(t) == EnvA(env));  \
+        t.cleanAllMessages();             \
     }
+
+using EnvAtom = DataAtom<DataTypeEnv>;
 
 TEST_CASE("env.env", "[externals]")
 {
+    pd_test_init();
+
     SECTION("init")
     {
-        setup_envelope();
-
         SECTION("empty")
         {
-            EnvelopeTest t("env");
+            TObj t("env");
             REQUIRE(t.numInlets() == 1);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @npoints, 0.f);
@@ -50,7 +44,7 @@ TEST_CASE("env.env", "[externals]")
 
         SECTION("adsr")
         {
-            EnvelopeTest t("env", LA("adsr", 10, 20, 90, 10));
+            TObj t("env", LA("adsr", 10, 20, 90, 10));
             REQUIRE_PROPERTY_FLOAT(t, @npoints, 4);
             REQUIRE_PROPERTY_FLOAT(t, @length, 40);
             REQUIRE_PROPERTY_LIST(t, @values, LA(0.f, 1, 0.9, 0.f));
@@ -59,7 +53,7 @@ TEST_CASE("env.env", "[externals]")
 
         SECTION("asr")
         {
-            EnvelopeTest t("env", LA("asr", 10, 20));
+            TObj t("env", LA("asr", 10, 20));
             REQUIRE_PROPERTY_FLOAT(t, @npoints, 3);
             REQUIRE_PROPERTY_FLOAT(t, @length, 30.f);
             REQUIRE_PROPERTY_LIST(t, @values, LF(0.f, 1, 0.f));
@@ -68,7 +62,7 @@ TEST_CASE("env.env", "[externals]")
 
         SECTION("ar")
         {
-            EnvelopeTest t("env", LA("ar", 10, 20));
+            TObj t("env", LA("ar", 10, 20));
             REQUIRE_PROPERTY_FLOAT(t, @npoints, 3);
             REQUIRE_PROPERTY_FLOAT(t, @length, 30);
             REQUIRE_PROPERTY_LIST(t, @values, LF(0.f, 1, 0.f));
@@ -80,7 +74,7 @@ TEST_CASE("env.env", "[externals]")
 
 #define INVALID_INIT(lst)                   \
     {                                       \
-        EnvelopeTest t("env", lst);         \
+        TObj t("env", lst);                 \
         REQUIRE_PROPERTY(t, @npoints, 0.f); \
     }
 
@@ -116,7 +110,7 @@ TEST_CASE("env.env", "[externals]")
 
     SECTION("on bang")
     {
-        EnvelopeTest t("env");
+        TObj t("env");
 
         WHEN_SEND_BANG_TO(0, t);
         REQUIRE_ENV_OUTPUT(t, DataTypeEnv());
@@ -126,22 +120,22 @@ TEST_CASE("env.env", "[externals]")
 
         t.m_ADSR(gensym("adsr"), LF(10, 20, 90, 100));
         WHEN_SEND_BANG_TO(0, t);
-        REQUIRE_ENV_OUTPUT(t, EnvelopeTest("env", LA("adsr", 10, 20, 90, 100)).envelope());
+        REQUIRE_ENV_OUTPUT(t, TObj("env", LA("adsr", 10, 20, 90, 100)).envelope());
     }
 
     SECTION("on data")
     {
-        EnvelopeTest t("env");
+        TObj t("env");
         WHEN_SEND_TDATA_TO(0, t, DataTypeEnv());
         REQUIRE_ENV_OUTPUT(t, DataTypeEnv());
 
-        WHEN_SEND_TDATA_TO(0, t, EnvelopeTest("env", LA("adsr", 10, 20, 90, 100)).envelope());
-        REQUIRE_ENV_OUTPUT(t, EnvelopeTest("env", LA("adsr", 10, 20, 90, 100)).envelope());
+        WHEN_SEND_TDATA_TO(0, t, TObj("env", LA("adsr", 10, 20, 90, 100)).envelope());
+        REQUIRE_ENV_OUTPUT(t, TObj("env", LA("adsr", 10, 20, 90, 100)).envelope());
     }
 
     SECTION("clear")
     {
-        EnvelopeTest t("env");
+        TObj t("env");
         t.m_ADSR(gensym("adsr"), LF(10, 20, 70, 200));
         REQUIRE_PROPERTY(t, @npoints, 4);
 
@@ -153,7 +147,7 @@ TEST_CASE("env.env", "[externals]")
 
     SECTION("asr")
     {
-        EnvelopeTest t("env");
+        TObj t("env");
 
         WHEN_CALL_N(t, ASR, 10, 20);
         REQUIRE_NO_MSG(t);
@@ -177,7 +171,7 @@ TEST_CASE("env.env", "[externals]")
 
     SECTION("AR")
     {
-        EnvelopeTest t("env");
+        TObj t("env");
 
         WHEN_CALL_N(t, AR, 10, 20);
         REQUIRE_NO_MSG(t);
@@ -201,7 +195,7 @@ TEST_CASE("env.env", "[externals]")
 
     SECTION("ADSR")
     {
-        EnvelopeTest t("env");
+        TObj t("env");
 
         WHEN_CALL_N(t, ADSR, 10, 20, 90, 100);
         REQUIRE_NO_MSG(t);
@@ -225,7 +219,7 @@ TEST_CASE("env.env", "[externals]")
 
     SECTION("add point")
     {
-        EnvelopeTest t("env");
+        TObj t("env");
 
         t.m_addPoint(0, LF(100));
         REQUIRE_PROPERTY(t, @npoints, 0.f);
@@ -282,7 +276,7 @@ TEST_CASE("env.env", "[externals]")
 
     SECTION("remove point")
     {
-        EnvelopeTest t("env");
+        TObj t("env");
 
         t.m_removePoint(gensym("remove_point"), L());
         t.m_removePoint(gensym("remove_point"), LA("A"));
@@ -308,7 +302,7 @@ TEST_CASE("env.env", "[externals]")
 
     SECTION("set_point_value")
     {
-        EnvelopeTest t("env");
+        TObj t("env");
         t.m_setPointValue(gensym("set_point_value"), L());
         t.m_setPointValue(gensym("set_point_value"), LF(1));
         t.m_setPointValue(gensym("set_point_value"), LF(1, 2));
@@ -333,7 +327,7 @@ TEST_CASE("env.env", "[externals]")
 
     SECTION("set_point_time")
     {
-        EnvelopeTest t("env");
+        TObj t("env");
         t.m_setPointTime(gensym("set_point_time"), L());
         t.m_setPointTime(gensym("set_point_time"), LF(1));
         t.m_setPointTime(gensym("set_point_time"), LF(1, 2));
@@ -361,7 +355,7 @@ TEST_CASE("env.env", "[externals]")
 
     SECTION("set_stop_point")
     {
-        EnvelopeTest t("env");
+        TObj t("env");
         t.m_setStopPoint(gensym("set_stop_point"), L());
         t.m_setStopPoint(gensym("set_stop_point"), LF(1));
         t.m_setStopPoint(gensym("set_stop_point"), LF(1, 2));
@@ -394,7 +388,7 @@ TEST_CASE("env.env", "[externals]")
 
     SECTION("set_segment_type")
     {
-        EnvelopeTest t("env");
+        TObj t("env");
         t.m_setSegmentType(gensym("set_segment_type"), L());
         t.m_setSegmentType(gensym("set_segment_type"), LF(1));
         t.m_setSegmentType(gensym("set_segment_type"), LA(1, "exp"));

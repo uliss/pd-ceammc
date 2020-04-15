@@ -11,9 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../env/datatype_env.h"
-#include "test_base.h"
-#include "test_external.h"
+#include "datatype_env.h"
+#include "test_env_base.h"
 #include "test_sound.h"
 
 class EnvAr;
@@ -30,11 +29,13 @@ PD_COMPLETE_TEST_SETUP(EnvAr, env, ar_tilde)
         obj.clearAll();                                     \
     }
 
-#define SEND_ENV(t, env)           \
-    {                              \
-        DataPtr penv(env.clone()); \
-        t.sendList(LA(penv));      \
+#define SEND_ENV(t, env)      \
+    {                         \
+        EnvAtom enva(env);    \
+        t.sendList(LA(enva)); \
     }
+
+using EnvAtom = DataAtom<DataTypeEnv>;
 
 TEST_CASE("env.ar~", "[externals]")
 {
@@ -43,9 +44,8 @@ TEST_CASE("env.ar~", "[externals]")
     SECTION("init")
     {
         setTestSampleRate(44100);
-        test::pdPrintToStdError();
 
-        TestExtEnvAr t("env.ar~", LA(4, 5));
+        TExt t("env.ar~", LA(4, 5));
         REQUIRE(t.object());
         PROPERTY_REQUEST(t, "@ar", 4, 5);
         t.clearAll();
@@ -100,27 +100,27 @@ TEST_CASE("env.ar~", "[externals]")
         t.sendList(LA("abc"));
         PROPERTY_REQUEST(t, "@ar", 11, 16);
 
-        t.sendList(LX(0, 0));
+        t.sendList(LF(0, 0));
         PROPERTY_REQUEST(t, "@ar", 0.f, 0.f);
-        t.sendList(LX(1, 2));
+        t.sendList(LF(1, 2));
         PROPERTY_REQUEST(t, "@ar", 1, 2);
-        t.sendList(LX(1, -1));
+        t.sendList(LF(1, -1));
         PROPERTY_REQUEST(t, "@ar", 1, 2);
-        t.sendList(LX(-100, -1));
+        t.sendList(LF(-100, -1));
         PROPERTY_REQUEST(t, "@ar", 1, 2);
 
-        t.sendList(LX(100000, 100000));
+        t.sendList(LF(100000, 100000));
         PROPERTY_REQUEST(t, "@ar", 100000, 100000);
     }
 
     SECTION("@gate")
     {
-        TestExtEnvAr t("env.ar~", LA(10, 20));
+        TExt t("env.ar~", LA(10, 20));
 
         t.sendMessage(SYM("@gate"), LA(1));
         t.schedTicks(10);
         REQUIRE(!t.hasOutputAt(1));
-        t.sendMessage(SYM("@gate"), LX(0));
+        t.sendMessage(SYM("@gate"), LF(0));
         t.schedTicks(40);
         REQUIRE(t.hasOutputAt(1));
         REQUIRE(t.isOutputBangAt(1));
@@ -128,7 +128,7 @@ TEST_CASE("env.ar~", "[externals]")
 
     SECTION("reset")
     {
-        TestExtEnvAr t("env.ar~");
+        TExt t("env.ar~");
         PROPERTY_REQUEST(t, "@ar", 10, 300);
 
         t.sendMessage(SYM("@gate"), LA(1));
@@ -142,8 +142,8 @@ TEST_CASE("env.ar~", "[externals]")
 
     SECTION("play")
     {
-        TestExtEnvAr t("env.ar~", LA(10, 20));
-        t.sendMessage(SYM("play"), LX(500));
+        TExt t("env.ar~", LA(10, 20));
+        t.sendMessage(SYM("play"), LF(500));
         t.schedTicks(40);
         REQUIRE(t.hasOutputAt(1));
         REQUIRE(t.isOutputBangAt(1));

@@ -12,15 +12,17 @@
  * this file belongs to.
  *****************************************************************************/
 #include "../env/env_to_vline.h"
-#include "test_base.h"
 #include "catch.hpp"
 #include "ceammc_pd.h"
+#include "test_base.h"
 
 #include <stdio.h>
 
 typedef TestExternal<Env2VLine> Env2VLineTest;
 
 static CanvasPtr cnv = PureData::instance().createTopCanvas("test_canvas");
+
+using EnvAtom = DataAtom<DataTypeEnv>;
 
 #define REQUIRE_OUTPUT(obj, n, data)                      \
     {                                                     \
@@ -44,8 +46,8 @@ TEST_CASE("env->vline", "[externals]")
     SECTION("AR")
     {
         // AR
-        DataTypeEnv env;
-        env.setAR(LF(10, 20));
+        EnvAtom env;
+        env->setAR(LF(10, 20));
 
         Env2VLineTest t("env->vline");
         t.onDataT(env);
@@ -61,8 +63,8 @@ TEST_CASE("env->vline", "[externals]")
     SECTION("ASR")
     {
         // ASR
-        DataTypeEnv env;
-        env.setASR(LF(20, 30));
+        EnvAtom env;
+        env->setASR(LF(20, 30));
 
         Env2VLineTest t("evn->vline");
 
@@ -142,8 +144,8 @@ TEST_CASE("env->vline", "[externals]")
         REQUIRE_NO_MSG(t);
 
         // set ADSR
-        DataTypeEnv env;
-        env.setADSR(LF(10, 20, 17, 80));
+        EnvAtom env;
+        env->setADSR(LF(10, 20, 17, 80));
         t.onDataT(env);
         t.cleanAllMessages();
 
@@ -179,8 +181,8 @@ TEST_CASE("env->vline", "[externals]")
 
     SECTION("line")
     {
-        DataTypeEnv env;
-        env.setLine(LA(0.5, 10, 1, 20, 0.1));
+        EnvAtom env;
+        env->setLine(LA(0.5, 10, 1, 20, 0.1));
 
         Env2VLineTest t("env->vline");
         t.onDataT(env);
@@ -190,8 +192,8 @@ TEST_CASE("env->vline", "[externals]")
         REQUIRE_OUTPUT(t, 1, LF(1, 10, 0.f));
         REQUIRE_OUTPUT(t, 2, LA(0.1, 20, 10));
 
-        env.setLine(LF(0.1, 10, 0.2, 20, 0.3, 30, 0.4, 40, 0.5, 50, 0.6, 60, 0.1));
-        env.pointAt(2).stop = true;
+        env->setLine(LF(0.1, 10, 0.2, 20, 0.3, 30, 0.4, 40, 0.5, 50, 0.6, 60, 0.1));
+        env->pointAt(2).stop = true;
         t.onDataT(env);
         t.cleanAllMessages();
 
@@ -222,9 +224,9 @@ TEST_CASE("env->vline", "[externals]")
         REQUIRE_OUTPUT(t, 3, LA(0.1, 60, 120));
 
         t.cleanAllMessages();
-        env.pointAt(2).stop = true;
-        env.pointAt(3).stop = true;
-        env.pointAt(5).stop = true;
+        env->pointAt(2).stop = true;
+        env->pointAt(3).stop = true;
+        env->pointAt(5).stop = true;
 
         t.onDataT(env);
         t.cleanAllMessages();
@@ -260,8 +262,8 @@ TEST_CASE("env->vline", "[externals]")
 
     SECTION("STEP")
     {
-        DataTypeEnv env;
-        env.setStep(LA(0.5, 10, 1, 20, 0.1));
+        EnvAtom env;
+        env->setStep(LA(0.5, 10, 1, 20, 0.1));
 
         Env2VLineTest t("env->vline");
         t.onDataT(env);
@@ -271,8 +273,8 @@ TEST_CASE("env->vline", "[externals]")
         REQUIRE_OUTPUT(t, 1, LF(1, 0.f, 10));
         REQUIRE_OUTPUT(t, 2, LA(0.1, 0.f, 30));
 
-        env.setStep(LF(0.1, 10, 0.2, 20, 0.3, 30, 0.4, 40, 0.5, 50, 0.6, 60, 0.1));
-        env.pointAt(2).stop = true;
+        env->setStep(LF(0.1, 10, 0.2, 20, 0.3, 30, 0.4, 40, 0.5, 50, 0.6, 60, 0.1));
+        env->pointAt(2).stop = true;
         t.onDataT(env);
         t.cleanAllMessages();
 
@@ -304,14 +306,14 @@ TEST_CASE("env->vline", "[externals]")
         REQUIRE_OUTPUT(t, 2, LA(0.6, 0.f, 120));
         REQUIRE_OUTPUT(t, 3, LA(0.1, 0.f, 180));
 
-        env.pointAt(2).stop = true;
+        env->pointAt(2).stop = true;
         t.onDataT(env);
         t.cleanAllMessages();
 
         // multi segment
-        env.pointAt(2).stop = true;
-        env.pointAt(3).stop = true;
-        env.pointAt(6).stop = true;
+        env->pointAt(2).stop = true;
+        env->pointAt(3).stop = true;
+        env->pointAt(6).stop = true;
         t.onDataT(env);
 
         t.cleanAllMessages();
@@ -342,11 +344,11 @@ TEST_CASE("env->vline", "[externals]")
 
     SECTION("Exponential")
     {
-        DataTypeEnv env;
-        REQUIRE_FALSE(env.setExponential(L()));
-        REQUIRE_FALSE(env.setExponential(LA(0.1, 16, -3) + LA(0.7, 16, -3)));
-        REQUIRE(env.setExponential(LA(0.1, 16, -2) + LA(0.7, 20, -2) + LA(0.2, 60, -3, 0.f)));
-        REQUIRE(env.numPoints() == 4);
+        EnvAtom env;
+        REQUIRE_FALSE(env->setExponential(L()));
+        REQUIRE_FALSE(env->setExponential(LA(0.1, 16, -3) + LA(0.7, 16, -3)));
+        REQUIRE(env->setExponential(LA(0.1, 16, -2) + LA(0.7, 20, -2) + LA(0.2, 60, -3, 0.f)));
+        REQUIRE(env->numPoints() == 4);
 
         Env2VLineTest t("env->vline");
         t.onDataT(env);
@@ -370,7 +372,7 @@ TEST_CASE("env->vline", "[externals]")
         REQUIRE_OUTPUT(t, 10, LX(0, 10, 86));
 
         // attack/release
-        env.pointAt(1).stop = true;
+        env->pointAt(1).stop = true;
         t.onDataT(env);
         t.cleanAllMessages();
 
@@ -395,7 +397,7 @@ TEST_CASE("env->vline", "[externals]")
         REQUIRE_OUTPUT(t, 7, LX(0, 10, 70));
 
         // multi segment
-        env.pointAt(2).stop = true;
+        env->pointAt(2).stop = true;
         t.onDataT(env);
         t.cleanAllMessages();
 
@@ -425,11 +427,11 @@ TEST_CASE("env->vline", "[externals]")
 
     SECTION("Sin2")
     {
-        DataTypeEnv env;
-        REQUIRE_FALSE(env.setSin2(L()));
-        REQUIRE_FALSE(env.setSin2(LA(0.1, 2)));
-        REQUIRE(env.setSin2(LA(0.1, 20, 1, 40, 0.f)));
-        REQUIRE(env.numPoints() == 3);
+        EnvAtom env;
+        REQUIRE_FALSE(env->setSin2(L()));
+        REQUIRE_FALSE(env->setSin2(LA(0.1, 2)));
+        REQUIRE(env->setSin2(LA(0.1, 20, 1, 40, 0.f)));
+        REQUIRE(env->numPoints() == 3);
 
         Env2VLineTest t("env->vline");
         t.onDataT(env);
@@ -449,7 +451,7 @@ TEST_CASE("env->vline", "[externals]")
         REQUIRE_OUTPUT(t, 6, LX(0, 10, 50));
 
         // attack/release
-        env.pointAt(1).stop = true;
+        env->pointAt(1).stop = true;
         t.onDataT(env);
         t.cleanAllMessages();
 
@@ -470,7 +472,7 @@ TEST_CASE("env->vline", "[externals]")
         REQUIRE_OUTPUT(t, 3, LX(0, 10, 30));
 
         // multi segment
-        env.pointAt(1).stop = true;
+        env->pointAt(1).stop = true;
         t.onDataT(env);
         t.cleanAllMessages();
 
@@ -492,11 +494,11 @@ TEST_CASE("env->vline", "[externals]")
 
     SECTION("Sigmoid")
     {
-        DataTypeEnv env;
-        REQUIRE_FALSE(env.setSigmoid(L()));
-        REQUIRE_FALSE(env.setSigmoid(LA(0.1, 2)));
-        REQUIRE(env.setSigmoid(LA(0.1, 20, 0.f) + LF(1, 25, 1) + LA(0.2, 40, 1) + LA(0.1, 6, -1, 0.f)));
-        REQUIRE(env.numPoints() == 5);
+        EnvAtom env;
+        REQUIRE_FALSE(env->setSigmoid(L()));
+        REQUIRE_FALSE(env->setSigmoid(LA(0.1, 2)));
+        REQUIRE(env->setSigmoid(LA(0.1, 20, 0.f) + LF(1, 25, 1) + LA(0.2, 40, 1) + LA(0.1, 6, -1, 0.f)));
+        REQUIRE(env->numPoints() == 5);
 
         Env2VLineTest t("env->vline");
         t.onDataT(env);
@@ -520,7 +522,7 @@ TEST_CASE("env->vline", "[externals]")
         REQUIRE_OUTPUT(t, 10, LX(0, 6, 85));
 
         // attack/release
-        env.pointAt(1).stop = true;
+        env->pointAt(1).stop = true;
         t.onDataT(env);
         t.cleanAllMessages();
 
@@ -545,8 +547,8 @@ TEST_CASE("env->vline", "[externals]")
         REQUIRE_OUTPUT(t, 7, LX(0, 6, 65));
 
         // multi segment
-        env.pointAt(1).stop = true;
-        env.pointAt(2).stop = true;
+        env->pointAt(1).stop = true;
+        env->pointAt(2).stop = true;
         t.onDataT(env);
         t.cleanAllMessages();
 
@@ -576,8 +578,8 @@ TEST_CASE("env->vline", "[externals]")
 
     SECTION("Data @sync")
     {
-        DataTypeEnv env;
-        env.setAR(100, 200);
+        EnvAtom env;
+        env->setAR(100, 200);
 
         Env2VLineTest t("env->vline");
         REQUIRE_PROPERTY(t, @sync, 0.f);

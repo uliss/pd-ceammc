@@ -55,6 +55,6 @@ public:
     AtomList p_stops() const;
 };
 
-void setup_envelope();
+void setup_envelope_env();
 
 #endif // ENV_ENV_H

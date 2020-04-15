@@ -11,9 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../env/datatype_env.h"
-#include "test_base.h"
-#include "test_external.h"
+#include "datatype_env.h"
+#include "test_env_base.h"
 #include "test_sound.h"
 
 class EnvAdsr;
@@ -30,17 +29,10 @@ PD_COMPLETE_TEST_SETUP(EnvAdsr, env, adsr_tilde)
         obj.clearAll();                                     \
     }
 
-#define SEND_ENV(t, env)           \
-    {                              \
-        DataPtr penv(env.clone()); \
-        t.sendList(LA(penv));      \
-    }
-
 TEST_CASE("env.adsr~", "[externals]")
 {
     pd_test_init();
     setTestSampleRate(44100);
-    test::pdPrintToStdError();
 
     SECTION("create")
     {
@@ -101,31 +93,31 @@ TEST_CASE("env.adsr~", "[externals]")
         DataTypeEnv env;
         env.setADSR(10 * 1000, 45 * 1000, 0.5, 30 * 1000);
         REQUIRE(env.isADSR());
-        SEND_ENV(t, env);
+        t.send(EnvA(env));
 
         PROPERTY_REQUEST(t, "@adsr", 10, 45, 50, 30);
 
         // exponential envelopes ignored
         env.setEADSR(12 * 1000, 0, 17 * 1000, 0, 40, 10, 0);
         REQUIRE_FALSE(env.isADSR());
-        SEND_ENV(t, env);
+        t.send(EnvA(env));
         PROPERTY_REQUEST(t, "@adsr", 10, 45, 50, 30);
 
         t.sendList(LA("abc"));
         PROPERTY_REQUEST(t, "@adsr", 10, 45, 50, 30);
 
-        t.sendList(LX(0, 0, 0, 0));
+        t.sendList(LF(0, 0, 0, 0));
         PROPERTY_REQUEST(t, "@adsr", 10, 45, 50, 30);
-        t.sendList(LX(0, 0, 0, 10));
+        t.sendList(LF(0, 0, 0, 10));
         PROPERTY_REQUEST(t, "@adsr", 0.f, 0.f, 0.f, 10);
-        t.sendList(LX(1, 15, 2, 3));
+        t.sendList(LF(1, 15, 2, 3));
         PROPERTY_REQUEST(t, "@adsr", 1, 15, 2, 3);
-        t.sendList(LX(1, 10, -1, 3, 4));
+        t.sendList(LF(1, 10, -1, 3, 4));
         PROPERTY_REQUEST(t, "@adsr", 1, 15, 2, 3);
-        t.sendList(LX(100, -8, 1, -3, 1));
+        t.sendList(LF(100, -8, 1, -3, 1));
         PROPERTY_REQUEST(t, "@adsr", 1, 15, 2, 3);
 
-        t.sendList(LX(100000, 100000, 100, 100000));
+        t.sendList(LF(100000, 100000, 100, 100000));
         PROPERTY_REQUEST(t, "@adsr", 100000, 100000, 100, 100000);
     }
 
@@ -159,7 +151,7 @@ TEST_CASE("env.adsr~", "[externals]")
     SECTION("play")
     {
         TestExtEnvAdsr t("env.adsr~", LA(10, 15, 100, 20));
-        t.sendMessage(SYM("play"), LX(100));
+        t.sendMessage(SYM("play"), LF(100));
         t.schedTicks(5);
         REQUIRE(!t.hasOutputAt(1));
         t.schedTicks(20);
