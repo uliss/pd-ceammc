@@ -25,7 +25,6 @@ add_benchmark(array)
 add_benchmark(atomlist)
 add_benchmark(control_externals)
 add_benchmark(core)
-add_benchmark(data_tree)
 add_benchmark(dataptr)
 
 
