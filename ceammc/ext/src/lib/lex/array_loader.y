@@ -87,7 +87,7 @@
 %token                  STRING_END 0 "end of string"
 %token                  LEXER_ERROR
 
-%nterm  <std::size_t>   time smpte
+%nterm  <uint32_t>      time smpte
 %nterm  <double>        number
 %nterm  <StringList>    array_pattern var_list
 %nterm  <std::string>   var

@@ -413,19 +413,17 @@ namespace ceammc {
       // INT
       char dummy4[sizeof (int32_t)];
 
-      // time
-      // smpte
-      char dummy5[sizeof (std::size_t)];
-
       // SYMBOL
       // SMPTE
       // var
-      char dummy6[sizeof (std::string)];
+      char dummy5[sizeof (std::string)];
 
       // UINT
       // RANGE_BEGIN
       // RANGE_END
-      char dummy7[sizeof (uint32_t)];
+      // time
+      // smpte
+      char dummy6[sizeof (uint32_t)];
     };
 
     /// The size of the largest semantic type.
@@ -610,19 +608,6 @@ namespace ceammc {
       {}
 #endif
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, std::size_t&& v, location_type&& l)
-        : Base (t)
-        , value (std::move (v))
-        , location (std::move (l))
-      {}
-#else
-      basic_symbol (typename Base::kind_type t, const std::size_t& v, const location_type& l)
-        : Base (t)
-        , value (v)
-        , location (l)
-      {}
-#endif
-#if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, std::string&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
@@ -689,11 +674,6 @@ switch (yytype)
         value.template destroy< int32_t > ();
         break;
 
-      case 37: // time
-      case 38: // smpte
-        value.template destroy< std::size_t > ();
-        break;
-
       case 3: // SYMBOL
       case 19: // SMPTE
       case 42: // var
@@ -703,6 +683,8 @@ switch (yytype)
       case 22: // UINT
       case 23: // RANGE_BEGIN
       case 24: // RANGE_END
+      case 37: // time
+      case 38: // smpte
         value.template destroy< uint32_t > ();
         break;
 
@@ -1741,11 +1723,6 @@ switch (yytype)
         value.move< int32_t > (std::move (that.value));
         break;
 
-      case 37: // time
-      case 38: // smpte
-        value.move< std::size_t > (std::move (that.value));
-        break;
-
       case 3: // SYMBOL
       case 19: // SMPTE
       case 42: // var
@@ -1755,6 +1732,8 @@ switch (yytype)
       case 22: // UINT
       case 23: // RANGE_BEGIN
       case 24: // RANGE_END
+      case 37: // time
+      case 38: // smpte
         value.move< uint32_t > (std::move (that.value));
         break;
 
@@ -1791,11 +1770,6 @@ switch (yytype)
         value.copy< int32_t > (YY_MOVE (that.value));
         break;
 
-      case 37: // time
-      case 38: // smpte
-        value.copy< std::size_t > (YY_MOVE (that.value));
-        break;
-
       case 3: // SYMBOL
       case 19: // SMPTE
       case 42: // var
@@ -1805,6 +1779,8 @@ switch (yytype)
       case 22: // UINT
       case 23: // RANGE_BEGIN
       case 24: // RANGE_END
+      case 37: // time
+      case 38: // smpte
         value.copy< uint32_t > (YY_MOVE (that.value));
         break;
 
@@ -1848,11 +1824,6 @@ switch (yytype)
         value.move< int32_t > (YY_MOVE (s.value));
         break;
 
-      case 37: // time
-      case 38: // smpte
-        value.move< std::size_t > (YY_MOVE (s.value));
-        break;
-
       case 3: // SYMBOL
       case 19: // SMPTE
       case 42: // var
@@ -1862,6 +1833,8 @@ switch (yytype)
       case 22: // UINT
       case 23: // RANGE_BEGIN
       case 24: // RANGE_END
+      case 37: // time
+      case 38: // smpte
         value.move< uint32_t > (YY_MOVE (s.value));
         break;
 
@@ -1921,7 +1894,7 @@ switch (yytype)
 
 #line 7 "array_loader.y"
 } // ceammc
-#line 1925 "array_loader.parser.hpp"
+#line 1898 "array_loader.parser.hpp"
 
 
 
