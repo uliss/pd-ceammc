@@ -21,6 +21,7 @@ namespace ceammc {
 ArgIsFloat::ArgIsFloat()
     : ArgCheckerSingle()
     , a_(0)
+    , type_(FLOAT_ANY)
 {
     setName("f");
 }
