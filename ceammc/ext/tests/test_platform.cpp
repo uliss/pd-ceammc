@@ -15,7 +15,7 @@
 #include "catch.hpp"
 #include "m_pd.h"
 
-#include "ceammc.hpp"
+#include "ceammc.h"
 #include "ceammc_pd.h"
 #include "ceammc_platform.h"
 #include "config.h"
